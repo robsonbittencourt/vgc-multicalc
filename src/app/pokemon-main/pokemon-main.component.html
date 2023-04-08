@@ -1,0 +1,130 @@
+<div class="container">
+  <div class="child">
+    <div>
+      <li class="form-row">
+        <label>Pokémon</label>
+        <select #mainPokemonNames (change)="changeMainPokemon(mainPokemonNames.value)">
+          <option value="">Choose Pokémon</option>
+          <option *ngFor="let pokemonName of allPokemonNames" [ngValue]="mainPokemonName">
+            {{ pokemonName }}
+          </option>
+        </select>
+      </li>
+      <li class="form-row">
+        <label>Nature</label>
+        <select #mainNatures (change)="changeMainNature(mainNatures.value)">
+          <option value="">Choose Nature</option>
+          <option *ngFor="let nature of allNatureNames" [ngValue]="mainNature">
+            {{ nature }}
+          </option>
+        </select>
+      </li>
+      <li class="form-row">
+        <label>hp</label>
+        <input [(ngModel)]="mainHp" type="text">
+      </li>
+      <li class="form-row">
+        <label>atk</label>
+        <input [(ngModel)]="mainAtk" type="text">
+      </li>
+      <li class="form-row">
+        <label>def</label>
+        <input [(ngModel)]="mainDef" type="text">
+      </li>
+      <li class="form-row">
+        <label>spa</label>
+        <input [(ngModel)]="mainSpa" type="text">
+      </li>
+      <li class="form-row">
+        <label>spd</label>
+        <input [(ngModel)]="mainSpd" type="text">
+      </li>
+      <li class="form-row">
+        <label>spe</label>
+        <input [(ngModel)]="mainSpe" type="text">
+      </li>
+      <li class="form-row">
+        <label>Move</label>
+        <select #teams (change)="changeMove(teams.value)">
+          <option value="">Choose Move</option>
+          <option *ngFor="let move of allMoveNames" [ngValue]="mainMove">
+            {{ move }}
+          </option>
+        </select>
+      </li>
+    </div>
+    <button (click)="choosePokemon()">Choose</button>
+    <div class="container-main-pokemon">
+      <div class="main-pokemon">
+        <div>{{ mainPokemon.name }}</div>
+        <div>{{ mainPokemon.nature }}</div>
+        <div>hp: {{ mainPokemon.evs.hp }} atk: {{ mainPokemon.evs.atk }} def: {{ mainPokemon.evs.def }} spa: {{ mainPokemon.evs.spa }}
+          spd: {{ mainPokemon.evs.spd }} spe: {{ mainPokemon.evs.spe }}</div>
+        <div>Move: {{ move.name }}</div>
+      </div>
+    </div>
+  </div>
+  <div class="child">
+    <div>
+      <li class="form-row">
+        <label>Pokémon</label>
+        <select #pokemonNames (change)="changePokemon(pokemonNames.value)">
+          <option value="">Choose Pokémon</option>
+          <option *ngFor="let pokemonName of allPokemonNames" [ngValue]="pokemonName">
+            {{ pokemonName }}
+          </option>
+        </select>
+      </li>
+      <li class="form-row">
+        <label>Nature</label>
+        <select #natures (change)="changeNature(natures.value)">
+          <option value="">Choose Nature</option>
+          <option *ngFor="let nature of allNatureNames" [ngValue]="nature">
+            {{ nature }}
+          </option>
+        </select>
+      </li>
+      <li class="form-row">
+        <label>hp</label>
+        <input [(ngModel)]="hp" type="text">
+      </li>
+      <li class="form-row">
+        <label>atk</label>
+        <input [(ngModel)]="atk" type="text">
+      </li>
+      <li class="form-row">
+        <label>def</label>
+        <input [(ngModel)]="def" type="text">
+      </li>
+      <li class="form-row">
+        <label>spa</label>
+        <input [(ngModel)]="spa" type="text">
+      </li>
+      <li class="form-row">
+        <label>spd</label>
+        <input [(ngModel)]="spd" type="text">
+      </li>
+      <li class="form-row">
+        <label>spe</label>
+        <input [(ngModel)]="spe" type="text">
+      </li>
+    </div>
+    <button (click)="addPokemon()">Add</button>
+
+    <div class="container-target-pokemon" *ngFor="let target of targets; let myIndex=index;">
+      <div (click)="removePokemon(myIndex)" class="target-pokemon-remove-button">
+        X
+      </div>
+      <div class="target-pokemon">
+        <div>{{ target.pokemon.name }}</div>
+        <div>{{ target.pokemon.nature }}</div>
+        <div>{{ target.evsDescription }}</div>
+        <div>{{ target.result }}</div>
+      </div>
+    </div>
+
+    <div>
+      <button (click)="calcDamageToAll()">Calculate</button>
+    </div>
+  </div>
+</div>

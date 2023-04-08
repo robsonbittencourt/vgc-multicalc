@@ -1,0 +1,63 @@
+.container {
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.child {
+  width: 40%;
+  height: 1200px;
+  background-color: rgb(209, 204, 204);
+  border: 1px solid black;
+}
+
+.container-main-pokemon {
+  display: flex;
+  padding: .5em;
+}
+
+.main-pokemon {
+  width: 100%;
+  flex-direction: column;
+  background-color: rgb(197, 197, 235);
+  border: 1px solid black;
+  padding: .5em 0.5em .5em 1em;
+}
+
+.container-target-pokemon {
+  display: flex;
+  padding: .5em;
+}
+
+.target-pokemon {
+  width: 95%;
+  flex-direction: column;
+  background-color: rgb(197, 197, 235);
+  border: 1px solid black;
+  padding: .5em 0.5em .5em 1em;
+}
+
+.target-pokemon-remove-button {
+  width: 5%;
+  border: 1px solid black;
+  background-color: rgb(240, 139, 121);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-row {
+  display: flex;
+  justify-content: flex-end;
+  padding: .5em;
+}
+
+.form-row > label {
+  padding: .5em 0.5em .5em 0;
+  flex: 1;
+}
+
+.form-row > input {
+  flex: 2;
+}
