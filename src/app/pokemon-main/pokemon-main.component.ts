@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { DoCheck, KeyValueDiffers, KeyValueDiffer } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
 import { calculate, Generations, Field, Pokemon, Move, MOVES, NATURES, SPECIES } from '@ajhyndman/smogon-calc';
 import { TargetPokemon } from './target-pokemon';
 
@@ -7,7 +11,61 @@ import { TargetPokemon } from './target-pokemon';
   templateUrl: './pokemon-main.component.html',
   styleUrls: ['./pokemon-main.component.css']
 })
-export class PokemonMainComponent {
+export class PokemonMainComponent implements OnInit {
+
+  controlPokemonName = new FormControl('Flutter Mane');
+  controlNature = new FormControl('Timid');
+  controlMove = new FormControl('Moon Blast');
+
+  allMoveNames = Object.keys(MOVES[9])
+  allNatureNames = Object.keys(NATURES)
+  allPokemonNames = Object.keys(SPECIES[9])
+
+  filteredPokemonNames: Observable<string[]>;
+  filteredNatures: Observable<string[]>;
+  filteredMoves: Observable<string[]>;
+
+  differ: KeyValueDiffer<string, any>;
+  constructor(private differs: KeyValueDiffers) {
+    this.differ = this.differs.find({}).create();
+  }
+  
+  ngDoCheck() {
+    const change = this.differ.diff(this);
+    if (change) {
+      change.forEachChangedItem(item => {
+        this.calcDamageToAll()
+      });
+    }
+  }
+
+  ngOnInit() {
+    this.filteredPokemonNames = this.controlPokemonName.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value || '', this.allPokemonNames)),
+    );
+
+    this.filteredNatures = this.controlNature.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value || '', this.allNatureNames)),
+    );
+
+    this.filteredMoves = this.controlMove.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value || '', this.allMoveNames)),
+    );
+
+    this.calcDamageToAll();
+  }
+
+  private _filter(value: string, values: string[]): string[] {
+    const filterValue = this._normalizeValue(value);
+    return values.filter(name => this._normalizeValue(name).includes(filterValue));
+  }
+
+  private _normalizeValue(value: string): string {
+    return value.toLowerCase().replace(/\s/g, '');
+  }
 
   gen = Generations.get(9);
   field = new Field({ gameType: 'Doubles' });
@@ -56,66 +114,26 @@ export class PokemonMainComponent {
     new TargetPokemon(this.gholdengo)
   ]
 
-  public pokemonName = ""
-  public nature = ""
+  public pokemonName = "Flutter Mane"
+  public nature = "Timid"
   public hp = 0
   public atk = 0
   public def = 0
-  public spa = 0
+  public spa = 252
   public spd = 0
-  public spe = 0
+  public spe = 252
+  public moveName = 'Moon Blast'
 
-  public mainPokemonName = ""
-  public mainNature = ""
-  public mainHp = 0
-  public mainAtk = 0
-  public mainDef = 0
-  public mainSpa = 0
-  public mainSpd = 0
-  public mainSpe = 0
-  public mainMove = ""
-
-  move = new Move(this.gen, 'Moonblast')
-  
-  mainPokemon = new Pokemon(this.gen, 'Flutter Mane', {
-    item: 'Focus Sash',
-    nature: 'Timid',
-    evs: { hp: 4, spa: 252, spd: 252 },
-    level: 50
-  })
-
-  allMoveNames = Object.keys(MOVES[9])
-  allNatureNames = Object.keys(NATURES)
-  allPokemonNames = Object.keys(SPECIES[9])
-
-  changeMove(value: string) {
-    this.mainMove = value
+  onPokemonSelected(selectedPokemon: string) {
+    this.pokemonName = selectedPokemon
   }
 
-  changeMainNature(value: string) {
-    this.mainNature = value
+  onNatureSelected(selectedNature: string) {
+    this.nature = selectedNature
   }
 
-  changeMainPokemon(value: string) {
-    this.mainPokemonName = value
-  }
-
-  changeNature(value: string) {
-    this.nature = value
-  }
-
-  changePokemon(value: string) {
-    this.pokemonName = value
-  }
-
-  choosePokemon() {
-    this.mainPokemon = new Pokemon(this.gen, this.mainPokemonName, {
-      nature: this.mainNature,
-      evs: { hp: this.mainHp, atk: this.mainAtk, def: this.mainDef, spa: this.mainSpa, spd: this.mainSpd, spe: this.mainSpe }, 
-      level: 50
-    })
-
-    this.move = new Move(this.gen, this.mainMove)
+  onMoveSelected(selectedMove: string) {
+    this.moveName = selectedMove
   }
 
   addPokemon() {
@@ -124,8 +142,9 @@ export class PokemonMainComponent {
         nature: this.nature,
         evs: { hp: this.hp, atk: this.atk, def: this.def, spa: this.spa, spd: this.spd, spe: this.spe },
         level: 50
-      })
-    ))
+      }))
+    )
+    this.calcDamageToAll()  
   }
 
   removePokemon(index: number) {
@@ -159,8 +178,17 @@ export class PokemonMainComponent {
   }
 
   calcDamageToAll() {
+    const move = new Move(this.gen, this.moveName)
+
+    const pokemon = new Pokemon(this.gen, this.pokemonName, {
+      item: 'Focus Sash', //TODO
+      nature: this.nature,
+      evs: { hp: this.hp, atk: this.atk, def: this.def, spa: this.spa, spd: this.spd, spe: this.spe },
+      level: 50
+    })
+
     this.targets.forEach((target) => {
-      this.calcDamage(this.mainPokemon, target, this.move)
+      this.calcDamage(pokemon, target, move)
     })
 
     this.targets

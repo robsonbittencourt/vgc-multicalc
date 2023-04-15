@@ -5,9 +5,11 @@ export class TargetPokemon {
   evsDescription: String = ""
   damage: number = 0
   result: String = ""
+  name: String = ""
 
   constructor(pokemon: Pokemon) {
     this.pokemon = pokemon
+    this.name = pokemon.name.toLocaleLowerCase().replace(" ", "-")
     if (pokemon.evs.hp != 0) this.evsDescription += `hp: ${pokemon.evs.hp} `
     if (pokemon.evs.atk != 0) this.evsDescription += `atk: ${pokemon.evs.atk} `
     if (pokemon.evs.def != 0) this.evsDescription += `def: ${pokemon.evs.def} `

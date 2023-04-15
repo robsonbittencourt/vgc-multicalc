@@ -8,7 +8,7 @@
 .child {
   width: 40%;
   height: 1200px;
-  background-color: rgb(209, 204, 204);
+  background-color: rgb(248, 244, 244);
   border: 1px solid black;
 }
 
@@ -23,6 +23,16 @@
   background-color: rgb(197, 197, 235);
   border: 1px solid black;
   padding: .5em 0.5em .5em 1em;
+}
+
+.container-evs {
+  display: flex;
+  padding: 1em;
+  margin: 0 -5px;
+}
+
+.container-evs mat-form-field {
+  padding: 0 5px;
 }
 
 .container-target-pokemon {
@@ -60,4 +70,13 @@
 
 .form-row > input {
   flex: 2;
+}
+
+.example-card {
+  width: 95%;
+}
+
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
 }

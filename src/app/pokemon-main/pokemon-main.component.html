@@ -1,130 +1,84 @@
 <div class="container">
   <div class="child">
     <div>
-      <li class="form-row">
-        <label>Pokémon</label>
-        <select #mainPokemonNames (change)="changeMainPokemon(mainPokemonNames.value)">
-          <option value="">Choose Pokémon</option>
-          <option *ngFor="let pokemonName of allPokemonNames" [ngValue]="mainPokemonName">
-            {{ pokemonName }}
-          </option>
-        </select>
-      </li>
-      <li class="form-row">
-        <label>Nature</label>
-        <select #mainNatures (change)="changeMainNature(mainNatures.value)">
-          <option value="">Choose Nature</option>
-          <option *ngFor="let nature of allNatureNames" [ngValue]="mainNature">
-            {{ nature }}
-          </option>
-        </select>
-      </li>
-      <li class="form-row">
-        <label>hp</label>
-        <input [(ngModel)]="mainHp" type="text">
-      </li>
-      <li class="form-row">
-        <label>atk</label>
-        <input [(ngModel)]="mainAtk" type="text">
-      </li>
-      <li class="form-row">
-        <label>def</label>
-        <input [(ngModel)]="mainDef" type="text">
-      </li>
-      <li class="form-row">
-        <label>spa</label>
-        <input [(ngModel)]="mainSpa" type="text">
-      </li>
-      <li class="form-row">
-        <label>spd</label>
-        <input [(ngModel)]="mainSpd" type="text">
-      </li>
-      <li class="form-row">
-        <label>spe</label>
-        <input [(ngModel)]="mainSpe" type="text">
-      </li>
-      <li class="form-row">
-        <label>Move</label>
-        <select #teams (change)="changeMove(teams.value)">
-          <option value="">Choose Move</option>
-          <option *ngFor="let move of allMoveNames" [ngValue]="mainMove">
-            {{ move }}
-          </option>
-        </select>
-      </li>
-    </div>
-    <button (click)="choosePokemon()">Choose</button>
-    <div class="container-main-pokemon">
-      <div class="main-pokemon">
-        <div>{{ mainPokemon.name }}</div>
-        <div>{{ mainPokemon.nature }}</div>
-        <div>hp: {{ mainPokemon.evs.hp }} atk: {{ mainPokemon.evs.atk }} def: {{ mainPokemon.evs.def }} spa: {{ mainPokemon.evs.spa }}
-          spd: {{ mainPokemon.evs.spd }} spe: {{ mainPokemon.evs.spe }}</div>
-        <div>Move: {{ move.name }}</div>
+      <div>
+        <li class="form-row">
+          <label>Pokémon</label>
+          <input type="text" placeholder="Choose Pokémon" matInput [formControl]="controlPokemonName"
+            [matAutocomplete]="autoPokemon" class="example-input">
+          <mat-autocomplete #autoPokemon="matAutocomplete" (optionSelected)="onPokemonSelected($event.option.value)">
+            <mat-option *ngFor="let pokemonName of filteredPokemonNames | async" [value]="pokemonName">
+              {{pokemonName}}
+            </mat-option>
+          </mat-autocomplete>
+        </li>
+        <li class="form-row">
+          <label>Nature</label>
+          <input type="text" placeholder="Choose Nature" [formControl]="controlNature" [matAutocomplete]="autoNature"
+            class="example-input">
+          <mat-autocomplete #autoNature="matAutocomplete" (optionSelected)="onNatureSelected($event.option.value)">
+            <mat-option *ngFor="let nature of filteredNatures | async" [value]="nature">
+              {{nature}}
+            </mat-option>
+          </mat-autocomplete>
+        </li>
+        <li class="form-row">
+          <label>Move</label>
+          <input type="text" placeholder="Choose Move" [formControl]="controlMove" [matAutocomplete]="autoMove"
+            class="example-input">
+          <mat-autocomplete #autoMove="matAutocomplete" (optionSelected)="onMoveSelected($event.option.value)">
+            <mat-option *ngFor="let move of filteredMoves | async" [value]="move">
+              {{move}}
+            </mat-option>
+          </mat-autocomplete>
+        </li>
+      </div>
+      <div class="container-evs">
+        <mat-form-field appearance="outline">
+          <mat-label>HP</mat-label>
+          <input type="text" matInput [(ngModel)]="hp">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>ATK</mat-label>
+          <input type="text" matInput [(ngModel)]="atk">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>DEF</mat-label>
+          <input type="text" matInput [(ngModel)]="def">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>SPA</mat-label>
+          <input type="text" matInput [(ngModel)]="spa">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>SPD</mat-label>
+          <input type="text" matInput [(ngModel)]="spd">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>SPE</mat-label>
+          <input type="text" matInput [(ngModel)]="spe">
+        </mat-form-field>
       </div>
     </div>
+    <button (click)="addPokemon()">Add as defender</button>
   </div>
   <div class="child">
-    <div>
-      <li class="form-row">
-        <label>Pokémon</label>
-        <select #pokemonNames (change)="changePokemon(pokemonNames.value)">
-          <option value="">Choose Pokémon</option>
-          <option *ngFor="let pokemonName of allPokemonNames" [ngValue]="pokemonName">
-            {{ pokemonName }}
-          </option>
-        </select>
-      </li>
-      <li class="form-row">
-        <label>Nature</label>
-        <select #natures (change)="changeNature(natures.value)">
-          <option value="">Choose Nature</option>
-          <option *ngFor="let nature of allNatureNames" [ngValue]="nature">
-            {{ nature }}
-          </option>
-        </select>
-      </li>
-      <li class="form-row">
-        <label>hp</label>
-        <input [(ngModel)]="hp" type="text">
-      </li>
-      <li class="form-row">
-        <label>atk</label>
-        <input [(ngModel)]="atk" type="text">
-      </li>
-      <li class="form-row">
-        <label>def</label>
-        <input [(ngModel)]="def" type="text">
-      </li>
-      <li class="form-row">
-        <label>spa</label>
-        <input [(ngModel)]="spa" type="text">
-      </li>
-      <li class="form-row">
-        <label>spd</label>
-        <input [(ngModel)]="spd" type="text">
-      </li>
-      <li class="form-row">
-        <label>spe</label>
-        <input [(ngModel)]="spe" type="text">
-      </li>
-    </div>
-    <button (click)="addPokemon()">Add</button>
-
     <div class="container-target-pokemon" *ngFor="let target of targets; let myIndex=index;">
-      <div (click)="removePokemon(myIndex)" class="target-pokemon-remove-button">
-        X
-      </div>
-      <div class="target-pokemon">
-        <div>{{ target.pokemon.name }}</div>
-        <div>{{ target.pokemon.nature }}</div>
-        <div>{{ target.evsDescription }}</div>
-        <div>{{ target.result }}</div>
-      </div>
-    </div>
-
-    <div>
-      <button (click)="calcDamageToAll()">Calculate</button>
+      <mat-card class="example-card">
+        <mat-card-title-group>
+          <mat-card-title>{{ target.pokemon.name }}</mat-card-title>
+          <mat-card-subtitle>{{ target.pokemon.nature }} {{ target.evsDescription }}</mat-card-subtitle>
+          <img mat-card-sm-image src='https://img.pokemondb.net/artwork/large/{{target.name}}.jpg'>
+        </mat-card-title-group>
+        <mat-card-content>
+          <p>
+            {{ target.result }}
+          </p>
+        </mat-card-content>
+        <mat-card-actions align="end">
+          <button mat-button (click)="removePokemon(myIndex)">Remove</button>
+        </mat-card-actions>
+      </mat-card>
     </div>
   </div>
 </div>
