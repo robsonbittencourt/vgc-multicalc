@@ -167,6 +167,8 @@ export class PokemonMainComponent implements OnInit {
     this.targets.push(
       new TargetPokemon(new Pokemon(this.gen, this.pokemonName, {
         nature: this.nature,
+        item: this.item,
+        teraType: this.teraTypeActive ? this.teraType as any : null,
         evs: { hp: this.hp, atk: this.atk, def: this.def, spa: this.spa, spd: this.spd, spe: this.spe },
         level: 50
       }))
