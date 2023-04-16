@@ -33,6 +33,17 @@
           </mat-autocomplete>
         </li>
         <li class="form-row">
+          <label>Tera Type</label>
+          <mat-checkbox class="example-margin" [(ngModel)]="teraTypeActive"></mat-checkbox>
+          <input type="text" placeholder="Choose Tera Type" [formControl]="controlTeraType" [matAutocomplete]="autoTeraType"
+            class="example-input">
+          <mat-autocomplete #autoTeraType="matAutocomplete" (optionSelected)="onTeraTypeSelected($event.option.value)">
+            <mat-option *ngFor="let teraType of filteredTeraTypes | async" [value]="teraType">
+              {{teraType}}
+            </mat-option>
+          </mat-autocomplete>
+        </li>
+        <li class="form-row">
           <label>Move</label>
           <input type="text" placeholder="Choose Move" [formControl]="controlMove" [matAutocomplete]="autoMove"
             class="example-input">

@@ -3,7 +3,7 @@ import { DoCheck, KeyValueDiffers, KeyValueDiffer } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
-import { calculate, Generations, Field, Pokemon, Move, MOVES, ITEMS, NATURES, SPECIES } from '@ajhyndman/smogon-calc';
+import { calculate, Generations, Field, Pokemon, Move, MOVES, ITEMS, NATURES, TYPE_CHART, SPECIES } from '@ajhyndman/smogon-calc';
 import { TargetPokemon } from './target-pokemon';
 
 @Component({
@@ -16,16 +16,19 @@ export class PokemonMainComponent implements OnInit {
   controlPokemonName = new FormControl('Flutter Mane');
   controlNature = new FormControl('Timid');
   controlItem = new FormControl('Focus Sash');
+  controlTeraType = new FormControl('Fairy');
   controlMove = new FormControl('Moon Blast');
 
   allMoveNames = Object.keys(MOVES[9])
   allNatureNames = Object.keys(NATURES)
   allItemsNames = Object.values(ITEMS[9]).sort()
+  allTeraTypes = Object.keys(TYPE_CHART[9]).splice(1)
   allPokemonNames = Object.keys(SPECIES[9])
 
   filteredPokemonNames: Observable<string[]>;
   filteredItems: Observable<string[]>;
   filteredNatures: Observable<string[]>;
+  filteredTeraTypes: Observable<string[]>;
   filteredMoves: Observable<string[]>;
 
   differ: KeyValueDiffer<string, any>;
@@ -56,6 +59,11 @@ export class PokemonMainComponent implements OnInit {
     this.filteredItems = this.controlItem.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value || '', this.allItemsNames)),
+    );
+
+    this.filteredTeraTypes = this.controlTeraType.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value || '', this.allTeraTypes)),
     );
 
     this.filteredMoves = this.controlMove.valueChanges.pipe(
@@ -125,6 +133,7 @@ export class PokemonMainComponent implements OnInit {
   public pokemonName = "Flutter Mane"
   public nature = "Timid"
   public item = "Focus Sash"
+  public teraType = "Fairy"
   public hp = 0
   public atk = 0
   public def = 0
@@ -132,6 +141,7 @@ export class PokemonMainComponent implements OnInit {
   public spd = 0
   public spe = 252
   public moveName = 'Moon Blast'
+  public teraTypeActive = true
 
   onPokemonSelected(selectedPokemon: string) {
     this.pokemonName = selectedPokemon
@@ -139,6 +149,10 @@ export class PokemonMainComponent implements OnInit {
 
   onNatureSelected(selectedNature: string) {
     this.nature = selectedNature
+  }
+
+  onTeraTypeSelected(selectedTeraType: string) {
+    this.item = selectedTeraType
   }
 
   onItemSelected(selectedItem: string) {
@@ -197,6 +211,7 @@ export class PokemonMainComponent implements OnInit {
       item: this.item,
       nature: this.nature,
       evs: { hp: this.hp, atk: this.atk, def: this.def, spa: this.spa, spd: this.spd, spe: this.spe },
+      teraType:  this.teraTypeActive ? this.teraType as any : null,
       level: 50
     })
 
