@@ -201,7 +201,8 @@ export class PokemonMainComponent implements OnInit {
       koChance = "Does not cause any damage"
     }
 
-    target.result = "Damage: " + result.moveDesc() + " - " + koChance
+    target.result = result.moveDesc()
+    target.koChance = this.capitalizeFirstLetter(koChance)
   }
 
   calcDamageToAll() {
@@ -221,5 +222,9 @@ export class PokemonMainComponent implements OnInit {
 
     this.targets
       .sort((a, b) => b.damage - a.damage)
+  }
+
+  capitalizeFirstLetter(string: String) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
   }
 }

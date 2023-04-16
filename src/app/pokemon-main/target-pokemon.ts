@@ -5,6 +5,7 @@ export class TargetPokemon {
   evsDescription: String = ""
   damage: number = 0
   result: String = ""
+  koChance: String = ""
   name: String = ""
 
   constructor(pokemon: Pokemon) {
