@@ -6,7 +6,7 @@
 
 .left-pokemon {
   width: 30%;
-  height: 20vh;
+  height: 40vh;
   padding: 1em;
   margin-top: 5%;
   background-color: rgb(248, 244, 244);
@@ -15,7 +15,7 @@
 
 .child {
   width: 40%;
-  height: 100vh;
+  height: 90vh;
   margin-top: 5%;
   background-color: rgb(248, 244, 244);
   border: 1px solid black;
@@ -35,13 +35,30 @@
 }
 
 .container-evs {
-  display: flex;
-  padding: 1em;
-  margin: 0 -5px;
+  margin-top: 2em;
 }
 
-.container-evs mat-form-field {
-  padding: 0 5px;
+.ev-attribute {
+  display: flex;
+  margin: 0 0 0.5em 0.2em;
+}
+
+.ev-value {
+  width: 15%;
+}
+
+.ev-slider {
+  width: 75%;
+  padding-left: 5%;
+  padding-top: 0.3em;
+}
+
+.mat-ev-field {
+  width: 100%;
+}
+
+.mat-ev-slider {
+  width: 100%;
 }
 
 .container-target-pokemon {
@@ -74,3 +91,4 @@
   background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
   background-size: cover;
 }
+

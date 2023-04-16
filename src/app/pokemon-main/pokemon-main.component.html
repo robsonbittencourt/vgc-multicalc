@@ -35,8 +35,8 @@
         <li class="form-row">
           <label>Tera Type</label>
           <mat-checkbox class="example-margin" [(ngModel)]="teraTypeActive"></mat-checkbox>
-          <input type="text" placeholder="Choose Tera Type" [formControl]="controlTeraType" [matAutocomplete]="autoTeraType"
-            class="example-input">
+          <input type="text" placeholder="Choose Tera Type" [formControl]="controlTeraType"
+            [matAutocomplete]="autoTeraType" class="example-input">
           <mat-autocomplete #autoTeraType="matAutocomplete" (optionSelected)="onTeraTypeSelected($event.option.value)">
             <mat-option *ngFor="let teraType of filteredTeraTypes | async" [value]="teraType">
               {{teraType}}
@@ -55,30 +55,89 @@
         </li>
       </div>
       <div class="container-evs">
-        <mat-form-field appearance="outline">
-          <mat-label>HP</mat-label>
-          <input type="text" matInput [(ngModel)]="hp">
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>ATK</mat-label>
-          <input type="text" matInput [(ngModel)]="atk">
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>DEF</mat-label>
-          <input type="text" matInput [(ngModel)]="def">
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>SPA</mat-label>
-          <input type="text" matInput [(ngModel)]="spa">
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>SPD</mat-label>
-          <input type="text" matInput [(ngModel)]="spd">
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>SPE</mat-label>
-          <input type="text" matInput [(ngModel)]="spe">
-        </mat-form-field>
+        <div class="ev-attribute">
+          <div class="ev-value">
+            <mat-form-field appearance="outline" class="mat-ev-field">
+              <mat-label>HP</mat-label>
+              <input type="text" matInput [(ngModel)]="hp">
+            </mat-form-field>
+          </div>
+          <div class="ev-slider">
+            <mat-slider class="mat-ev-slider" [min]="0" [max]="252" [step]="4">
+              <input matSliderThumb [(ngModel)]="hp">
+            </mat-slider>
+          </div>
+        </div>
+
+        <div class="ev-attribute">
+          <div class="ev-value">
+            <mat-form-field appearance="outline" class="mat-ev-field">
+              <mat-label>ATK</mat-label>
+              <input type="text" matInput [(ngModel)]="atk">
+            </mat-form-field>
+          </div>
+          <div class="ev-slider">
+            <mat-slider class="mat-ev-slider" [min]="0" [max]="252" [step]="4">
+              <input matSliderThumb [(ngModel)]="atk">
+            </mat-slider>
+          </div>
+        </div>
+
+        <div class="ev-attribute">
+          <div class="ev-value">
+            <mat-form-field appearance="outline" class="mat-ev-field">
+              <mat-label>DEF</mat-label>
+              <input type="text" matInput [(ngModel)]="def">
+            </mat-form-field>
+          </div>
+          <div class="ev-slider">
+            <mat-slider class="mat-ev-slider" [min]="0" [max]="252" [step]="4">
+              <input matSliderThumb [(ngModel)]="def">
+            </mat-slider>
+          </div>
+        </div>
+
+        <div class="ev-attribute">
+          <div class="ev-value">
+            <mat-form-field appearance="outline" class="mat-ev-field">
+              <mat-label>SPA</mat-label>
+              <input type="text" matInput [(ngModel)]="spa">
+            </mat-form-field>
+          </div>
+          <div class="ev-slider">
+            <mat-slider class="mat-ev-slider" [min]="0" [max]="252" [step]="4">
+              <input matSliderThumb [(ngModel)]="spa">
+            </mat-slider>
+          </div>
+        </div>
+
+        <div class="ev-attribute">
+          <div class="ev-value">
+            <mat-form-field appearance="outline" class="mat-ev-field">
+              <mat-label>SPD</mat-label>
+              <input type="text" matInput [(ngModel)]="spd">
+            </mat-form-field>
+          </div>
+          <div class="ev-slider">
+            <mat-slider class="mat-ev-slider" [min]="0" [max]="252" [step]="4">
+              <input matSliderThumb [(ngModel)]="spd">
+            </mat-slider>
+          </div>
+        </div>
+
+        <div class="ev-attribute">
+          <div class="ev-value">
+            <mat-form-field appearance="outline" class="mat-ev-field">
+              <mat-label>SPE</mat-label>
+              <input type="text" matInput [(ngModel)]="spe">
+            </mat-form-field>
+          </div>
+          <div class="ev-slider">
+            <mat-slider class="mat-ev-slider" [min]="0" [max]="252" [step]="4">
+              <input matSliderThumb [(ngModel)]="spe">
+            </mat-slider>
+          </div>
+        </div>    
       </div>
     </div>
     <button (click)="addPokemon()">Add as defender</button>
