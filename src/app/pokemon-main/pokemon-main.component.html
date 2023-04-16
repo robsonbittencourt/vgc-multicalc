@@ -23,6 +23,16 @@
           </mat-autocomplete>
         </li>
         <li class="form-row">
+          <label>Item</label>
+          <input type="text" placeholder="Choose Nature" [formControl]="controlItem" [matAutocomplete]="autoItem"
+            class="example-input">
+          <mat-autocomplete #autoItem="matAutocomplete" (optionSelected)="onItemSelected($event.option.value)">
+            <mat-option *ngFor="let item of filteredItems | async" [value]="item">
+              {{item}}
+            </mat-option>
+          </mat-autocomplete>
+        </li>
+        <li class="form-row">
           <label>Move</label>
           <input type="text" placeholder="Choose Move" [formControl]="controlMove" [matAutocomplete]="autoMove"
             class="example-input">

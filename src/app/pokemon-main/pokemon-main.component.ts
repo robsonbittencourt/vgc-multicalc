@@ -3,7 +3,7 @@ import { DoCheck, KeyValueDiffers, KeyValueDiffer } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
-import { calculate, Generations, Field, Pokemon, Move, MOVES, NATURES, SPECIES } from '@ajhyndman/smogon-calc';
+import { calculate, Generations, Field, Pokemon, Move, MOVES, ITEMS, NATURES, SPECIES } from '@ajhyndman/smogon-calc';
 import { TargetPokemon } from './target-pokemon';
 
 @Component({
@@ -15,13 +15,16 @@ export class PokemonMainComponent implements OnInit {
 
   controlPokemonName = new FormControl('Flutter Mane');
   controlNature = new FormControl('Timid');
+  controlItem = new FormControl('Focus Sash');
   controlMove = new FormControl('Moon Blast');
 
   allMoveNames = Object.keys(MOVES[9])
   allNatureNames = Object.keys(NATURES)
+  allItemsNames = Object.values(ITEMS[9]).sort()
   allPokemonNames = Object.keys(SPECIES[9])
 
   filteredPokemonNames: Observable<string[]>;
+  filteredItems: Observable<string[]>;
   filteredNatures: Observable<string[]>;
   filteredMoves: Observable<string[]>;
 
@@ -48,6 +51,11 @@ export class PokemonMainComponent implements OnInit {
     this.filteredNatures = this.controlNature.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value || '', this.allNatureNames)),
+    );
+
+    this.filteredItems = this.controlItem.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value || '', this.allItemsNames)),
     );
 
     this.filteredMoves = this.controlMove.valueChanges.pipe(
@@ -116,6 +124,7 @@ export class PokemonMainComponent implements OnInit {
 
   public pokemonName = "Flutter Mane"
   public nature = "Timid"
+  public item = "Focus Sash"
   public hp = 0
   public atk = 0
   public def = 0
@@ -130,6 +139,10 @@ export class PokemonMainComponent implements OnInit {
 
   onNatureSelected(selectedNature: string) {
     this.nature = selectedNature
+  }
+
+  onItemSelected(selectedItem: string) {
+    this.item = selectedItem
   }
 
   onMoveSelected(selectedMove: string) {
@@ -181,7 +194,7 @@ export class PokemonMainComponent implements OnInit {
     const move = new Move(this.gen, this.moveName)
 
     const pokemon = new Pokemon(this.gen, this.pokemonName, {
-      item: 'Focus Sash', //TODO
+      item: this.item,
       nature: this.nature,
       evs: { hp: this.hp, atk: this.atk, def: this.def, spa: this.spa, spd: this.spd, spe: this.spe },
       level: 50
