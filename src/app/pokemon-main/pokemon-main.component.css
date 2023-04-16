@@ -13,6 +13,14 @@
   border: 1px solid black;
 }
 
+.field {
+  width: 15%;
+  height: 20vh;
+  margin-top: 5%;
+  background-color: rgb(248, 244, 244);
+  border: 1px solid black;
+}
+
 .child {
   width: 40%;
   height: 90vh;
