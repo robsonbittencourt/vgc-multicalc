@@ -137,7 +137,7 @@
               <input matSliderThumb [(ngModel)]="spe">
             </mat-slider>
           </div>
-        </div>    
+        </div>
       </div>
     </div>
     <button (click)="addPokemon()">Add as defender</button>
@@ -147,20 +147,26 @@
       <mat-card class="example-card">
         <mat-card-title-group>
           <mat-card-title>{{ target.pokemon.name }}</mat-card-title>
-          <mat-card-subtitle>{{ target.pokemon.nature }} {{ target.evsDescription }}</mat-card-subtitle>
+          <mat-card-subtitle>Item: {{ target.pokemon.item }}</mat-card-subtitle>
+          <mat-card-subtitle>Nature: {{ target.pokemon.nature }}</mat-card-subtitle>
+          <mat-card-subtitle *ngIf="target.pokemon.teraType">Terastalyzed as {{ target.pokemon.teraType }} type
+          </mat-card-subtitle>
+          <mat-card-subtitle>{{ target.evsDescription }}</mat-card-subtitle>
           <img mat-card-sm-image src='https://img.pokemondb.net/artwork/large/{{target.name}}.jpg'>
         </mat-card-title-group>
-        <mat-card-content>
-          <p>
-            Damage: {{ target.result }}
-          </p>
-          <p>
-            {{ target.koChance }}
-          </p>
-        </mat-card-content>
-        <mat-card-actions align="end">
-          <button mat-button (click)="removePokemon(myIndex)">Remove</button>
-        </mat-card-actions>
+        <div class="card-container">
+          <div class="card-content">
+            <p>
+              Damage: {{ target.result }}
+            </p>
+            <p>
+              {{ target.koChance }}
+            </p>
+          </div>
+          <div class="card-button">
+            <button mat-button (click)="removePokemon(myIndex)">Remove</button>
+          </div>
+        </div>
       </mat-card>
     </div>
   </div>

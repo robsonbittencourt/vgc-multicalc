@@ -87,6 +87,20 @@
   margin: 0.5em 1em 0 1em;
 }
 
+.card-container {
+  display: flex;
+  margin-top: 3%;
+}
+
+.card-content {
+  width: 85%;
+}
+
+.card-button {
+  width: 15%;
+  text-align: right;
+}
+
 .example-header-image {
   background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
   background-size: cover;
