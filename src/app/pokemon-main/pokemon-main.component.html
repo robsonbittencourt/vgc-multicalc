@@ -152,8 +152,8 @@
   </div>  
 
   <div class="child">
-    <div class="container-target-pokemon" *ngFor="let target of targets; let myIndex=index;">
-      <mat-card class="example-card">
+    <div class="container-target-pokemon" *ngFor="let target of targets; let myIndex=index;" >
+      <mat-card class="example-card" [ngStyle]="{'background-color': cardColor(target.koChance)}">
         <mat-card-title-group>
           <mat-card-title>{{ target.pokemon.name }}</mat-card-title>
           <mat-card-subtitle>Item: {{ target.pokemon.item }}</mat-card-subtitle>

@@ -273,4 +273,20 @@ export class PokemonMainComponent implements OnInit {
   capitalizeFirstLetter(string: String) {
       return string.charAt(0).toUpperCase() + string.slice(1);
   }
+
+  cardColor(koChance: String) {
+    if (koChance == "Guaranteed OHKO") {
+      return "#dbd8e3" //gray
+    }
+
+    if (koChance.includes("chance to OHKO")) {
+      return "#f33d42" //red
+    }
+
+    if (koChance.includes("2HKO")) {
+      return "#fe9901" //yellow
+    }
+
+    return "#30ca2e" //green
+  }
 }
