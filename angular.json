@@ -5,6 +5,11 @@
     "packageManager": "npm"
   },
   "newProjectRoot": "projects",
+  "schematics": {
+    "@schematics/angular:component": {
+      "style": "scss"
+    }
+  },
   "projects": {
     "poke-multi-calc": {
       "projectType": "application",
@@ -29,7 +34,7 @@
             ],
             "styles": [
               "@angular/material/prebuilt-themes/deeppurple-amber.css",
-              "src/styles.css"
+              "src/styles.scss"
             ],
             "scripts": []
           },
@@ -92,7 +97,7 @@
             ],
             "styles": [
               "@angular/material/prebuilt-themes/deeppurple-amber.css",
-              "src/styles.css"
+              "src/styles.scss"
             ],
             "scripts": []
           }

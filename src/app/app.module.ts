@@ -12,6 +12,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { MatSliderModule } from '@angular/material/slider';
     MatInputModule,
     MatCardModule,
     MatCheckboxModule,
-    MatSliderModule
+    MatSliderModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

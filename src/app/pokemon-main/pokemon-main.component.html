@@ -1,179 +1,190 @@
 <div class="container">
+  <div class="header">
+    <span class="title">Pokémon Multi Calc</span>
+  </div>
+
   <div class="left-pokemon">
+    <div class="header-left-pokemon">
+      <span class="title-left-pokemon">Attacking pokemon</span>
+    </div>
     <div>
-      <div>
-        <li class="form-row">
-          <label>Pokémon</label>
-          <input type="text" placeholder="Choose Pokémon" matInput [formControl]="controlPokemonName"
-            [matAutocomplete]="autoPokemon" class="example-input">
-          <mat-autocomplete #autoPokemon="matAutocomplete" (optionSelected)="onPokemonSelected($event.option.value)">
-            <mat-option *ngFor="let pokemonName of filteredPokemonNames | async" [value]="pokemonName">
-              {{pokemonName}}
-            </mat-option>
-          </mat-autocomplete>
-        </li>
-        <li class="form-row">
-          <label>Nature</label>
-          <input type="text" placeholder="Choose Nature" [formControl]="controlNature" [matAutocomplete]="autoNature"
-            class="example-input">
-          <mat-autocomplete #autoNature="matAutocomplete" (optionSelected)="onNatureSelected($event.option.value)">
-            <mat-option *ngFor="let nature of filteredNatures | async" [value]="nature">
-              {{nature}}
-            </mat-option>
-          </mat-autocomplete>
-        </li>
-        <li class="form-row">
-          <label>Item</label>
-          <input type="text" placeholder="Choose Nature" [formControl]="controlItem" [matAutocomplete]="autoItem"
-            class="example-input">
-          <mat-autocomplete #autoItem="matAutocomplete" (optionSelected)="onItemSelected($event.option.value)">
-            <mat-option *ngFor="let item of filteredItems | async" [value]="item">
-              {{item}}
-            </mat-option>
-          </mat-autocomplete>
-        </li>
-        <li class="form-row">
-          <label>Tera Type</label>
-          <mat-checkbox [(ngModel)]="teraTypeActive"></mat-checkbox>
-          <input type="text" placeholder="Choose Tera Type" [formControl]="controlTeraType"
-            [matAutocomplete]="autoTeraType" class="example-input">
-          <mat-autocomplete #autoTeraType="matAutocomplete" (optionSelected)="onTeraTypeSelected($event.option.value)">
-            <mat-option *ngFor="let teraType of filteredTeraTypes | async" [value]="teraType">
-              {{teraType}}
-            </mat-option>
-          </mat-autocomplete>
-        </li>
-        <li class="form-row">
-          <label>Move</label>
-          <input type="text" placeholder="Choose Move" [formControl]="controlMove" [matAutocomplete]="autoMove"
-            class="example-input">
-          <mat-autocomplete #autoMove="matAutocomplete" (optionSelected)="onMoveSelected($event.option.value)">
-            <mat-option *ngFor="let move of filteredMoves | async" [value]="move">
-              {{move}}
-            </mat-option>
-          </mat-autocomplete>
-        </li>
+      <li class="form-row">
+        <label>Pokémon</label>
+        <input type="text" placeholder="Choose Pokémon" matInput [formControl]="controlPokemonName"
+          [matAutocomplete]="autoPokemon" class="example-input">
+        <mat-autocomplete #autoPokemon="matAutocomplete" (optionSelected)="onPokemonSelected($event.option.value)">
+          <mat-option *ngFor="let pokemonName of filteredPokemonNames | async" [value]="pokemonName">
+            {{pokemonName}}
+          </mat-option>
+        </mat-autocomplete>
+      </li>
+      <li class="form-row">
+        <label>Nature</label>
+        <input type="text" placeholder="Choose Nature" [formControl]="controlNature" [matAutocomplete]="autoNature"
+          class="example-input">
+        <mat-autocomplete #autoNature="matAutocomplete" (optionSelected)="onNatureSelected($event.option.value)">
+          <mat-option *ngFor="let nature of filteredNatures | async" [value]="nature">
+            {{nature}}
+          </mat-option>
+        </mat-autocomplete>
+      </li>
+      <li class="form-row">
+        <label>Item</label>
+        <input type="text" placeholder="Choose Nature" [formControl]="controlItem" [matAutocomplete]="autoItem"
+          class="example-input">
+        <mat-autocomplete #autoItem="matAutocomplete" (optionSelected)="onItemSelected($event.option.value)">
+          <mat-option *ngFor="let item of filteredItems | async" [value]="item">
+            {{item}}
+          </mat-option>
+        </mat-autocomplete>
+      </li>
+      <li class="form-row">
+        <label>Tera Type</label>
+        <mat-checkbox [(ngModel)]="teraTypeActive"></mat-checkbox>
+        <input type="text" placeholder="Choose Tera Type" [formControl]="controlTeraType"
+          [matAutocomplete]="autoTeraType" class="example-input">
+        <mat-autocomplete #autoTeraType="matAutocomplete" (optionSelected)="onTeraTypeSelected($event.option.value)">
+          <mat-option *ngFor="let teraType of filteredTeraTypes | async" [value]="teraType">
+            {{teraType}}
+          </mat-option>
+        </mat-autocomplete>
+      </li>
+      <li class="form-row">
+        <label>Move</label>
+        <input type="text" placeholder="Choose Move" [formControl]="controlMove" [matAutocomplete]="autoMove"
+          class="example-input">
+        <mat-autocomplete #autoMove="matAutocomplete" (optionSelected)="onMoveSelected($event.option.value)">
+          <mat-option *ngFor="let move of filteredMoves | async" [value]="move">
+            {{move}}
+          </mat-option>
+        </mat-autocomplete>
+      </li>
+    </div>
+    <div class="left-pokemon-evs">
+      <div class="ev-value dense-2">
+        <mat-form-field appearance="outline" class="mat-ev-field">
+          <mat-label>HP</mat-label>
+          <input type="text" matInput [(ngModel)]="hp">
+        </mat-form-field>
       </div>
-      <div class="container-evs">
-        <div class="ev-attribute">
-          <div class="ev-value">
-            <mat-form-field appearance="outline" class="mat-ev-field">
-              <mat-label>HP</mat-label>
-              <input type="text" matInput [(ngModel)]="hp">
-            </mat-form-field>
-          </div>
-          <div class="ev-slider">
-            <mat-slider class="mat-ev-slider" [min]="0" [max]="252" [step]="4">
-              <input matSliderThumb [(ngModel)]="hp">
-            </mat-slider>
-          </div>
-        </div>
+      <div class="ev-slider">
+        <mat-slider class="mat-ev-slider" [min]="0" [max]="252" [step]="4">
+          <input matSliderThumb [(ngModel)]="hp">
+        </mat-slider>
+      </div>
 
-        <div class="ev-attribute">
-          <div class="ev-value">
-            <mat-form-field appearance="outline" class="mat-ev-field">
-              <mat-label>ATK</mat-label>
-              <input type="text" matInput [(ngModel)]="atk">
-            </mat-form-field>
-          </div>
-          <div class="ev-slider">
-            <mat-slider class="mat-ev-slider" [min]="0" [max]="252" [step]="4">
-              <input matSliderThumb [(ngModel)]="atk">
-            </mat-slider>
-          </div>
-        </div>
+      <div class="ev-value dense-2">
+        <mat-form-field appearance="outline" class="mat-ev-field">
+          <mat-label>ATK</mat-label>
+          <input type="text" matInput [(ngModel)]="atk">
+        </mat-form-field>
+      </div>
+      <div class="ev-slider">
+        <mat-slider class="mat-ev-slider" [min]="0" [max]="252" [step]="4">
+          <input matSliderThumb [(ngModel)]="atk">
+        </mat-slider>
+      </div>
 
-        <div class="ev-attribute">
-          <div class="ev-value">
-            <mat-form-field appearance="outline" class="mat-ev-field">
-              <mat-label>DEF</mat-label>
-              <input type="text" matInput [(ngModel)]="def">
-            </mat-form-field>
-          </div>
-          <div class="ev-slider">
-            <mat-slider class="mat-ev-slider" [min]="0" [max]="252" [step]="4">
-              <input matSliderThumb [(ngModel)]="def">
-            </mat-slider>
-          </div>
-        </div>
+      <div class="ev-value dense-2">
+        <mat-form-field appearance="outline" class="mat-ev-field">
+          <mat-label>DEF</mat-label>
+          <input type="text" matInput [(ngModel)]="def">
+        </mat-form-field>
+      </div>
+      <div class="ev-slider">
+        <mat-slider class="mat-ev-slider" [min]="0" [max]="252" [step]="4">
+          <input matSliderThumb [(ngModel)]="def">
+        </mat-slider>
+      </div>
 
-        <div class="ev-attribute">
-          <div class="ev-value">
-            <mat-form-field appearance="outline" class="mat-ev-field">
-              <mat-label>SPA</mat-label>
-              <input type="text" matInput [(ngModel)]="spa">
-            </mat-form-field>
-          </div>
-          <div class="ev-slider">
-            <mat-slider class="mat-ev-slider" [min]="0" [max]="252" [step]="4">
-              <input matSliderThumb [(ngModel)]="spa">
-            </mat-slider>
-          </div>
-        </div>
+      <div class="ev-value dense-2">
+        <mat-form-field appearance="outline" class="mat-ev-field">
+          <mat-label>SPA</mat-label>
+          <input type="text" matInput [(ngModel)]="spa">
+        </mat-form-field>
+      </div>
+      <div class="ev-slider">
+        <mat-slider class="mat-ev-slider" [min]="0" [max]="252" [step]="4">
+          <input matSliderThumb [(ngModel)]="spa">
+        </mat-slider>
+      </div>
 
-        <div class="ev-attribute">
-          <div class="ev-value">
-            <mat-form-field appearance="outline" class="mat-ev-field">
-              <mat-label>SPD</mat-label>
-              <input type="text" matInput [(ngModel)]="spd">
-            </mat-form-field>
-          </div>
-          <div class="ev-slider">
-            <mat-slider class="mat-ev-slider" [min]="0" [max]="252" [step]="4">
-              <input matSliderThumb [(ngModel)]="spd">
-            </mat-slider>
-          </div>
-        </div>
+      <div class="ev-value dense-2">
+        <mat-form-field appearance="outline" class="mat-ev-field">
+          <mat-label>SPD</mat-label>
+          <input type="text" matInput [(ngModel)]="spd">
+        </mat-form-field>
+      </div>
+      <div class="ev-slider">
+        <mat-slider class="mat-ev-slider" [min]="0" [max]="252" [step]="4">
+          <input matSliderThumb [(ngModel)]="spd">
+        </mat-slider>
+      </div>
 
-        <div class="ev-attribute">
-          <div class="ev-value">
-            <mat-form-field appearance="outline" class="mat-ev-field">
-              <mat-label>SPE</mat-label>
-              <input type="text" matInput [(ngModel)]="spe">
-            </mat-form-field>
-          </div>
-          <div class="ev-slider">
-            <mat-slider class="mat-ev-slider" [min]="0" [max]="252" [step]="4">
-              <input matSliderThumb [(ngModel)]="spe">
-            </mat-slider>
-          </div>
-        </div>
+      <div class="ev-value dense-2">
+        <mat-form-field appearance="outline" class="mat-ev-field">
+          <mat-label>SPE</mat-label>
+          <input type="text" matInput [(ngModel)]="spe">
+        </mat-form-field>
+      </div>
+      <div class="ev-slider">
+        <mat-slider class="mat-ev-slider" [min]="0" [max]="252" [step]="4">
+          <input matSliderThumb [(ngModel)]="spe">
+        </mat-slider>
       </div>
     </div>
-    <button (click)="addPokemon()">Add as defender</button>
+    <div class="add-as-defender-button">
+      <button (click)="addPokemon()">
+        Add as defender
+      </button>
+    </div>
   </div>
 
   <div class="field">
-    <div>Field</div>
-    <div><mat-checkbox [(ngModel)]="tabletsOfRuinActive"></mat-checkbox>Tablets Of Ruin (-atk)</div>
-    <div><mat-checkbox [(ngModel)]="swordOfRuinActive"></mat-checkbox>Sword Of Ruin Active (-def)</div>
-    <div><mat-checkbox [(ngModel)]="vesselOfRuinActive"></mat-checkbox>Vessel Of Ruin (-spa)</div>    
-    <div><mat-checkbox [(ngModel)]="beadsOfRuinActive"></mat-checkbox>Beads Of Ruin (-spd)</div>
-  </div>  
+    <div class="header-left-pokemon">
+      <span class="title-left-pokemon">Field</span>
+    </div>
+    <div>
+      <mat-checkbox [(ngModel)]="tabletsOfRuinActive"></mat-checkbox>Tablets Of Ruin (-atk)
+    </div>
+    <div>
+      <mat-checkbox [(ngModel)]="swordOfRuinActive"></mat-checkbox>Sword Of Ruin Active (-def)
+    </div>
+    <div>
+      <mat-checkbox [(ngModel)]="vesselOfRuinActive"></mat-checkbox>Vessel Of Ruin (-spa)
+    </div>
+    <div>
+      <mat-checkbox [(ngModel)]="beadsOfRuinActive"></mat-checkbox>Beads Of Ruin (-spd)
+    </div>
+  </div>
 
-  <div class="child">
-    <div class="container-target-pokemon" *ngFor="let target of targets; let myIndex=index;" >
-      <mat-card class="example-card" [ngStyle]="{'background-color': cardColor(target.koChance)}">
-        <mat-card-title-group>
-          <mat-card-title>{{ target.pokemon.name }}</mat-card-title>
-          <mat-card-subtitle>Item: {{ target.pokemon.item }}</mat-card-subtitle>
-          <mat-card-subtitle>Nature: {{ target.pokemon.nature }}</mat-card-subtitle>
-          <mat-card-subtitle *ngIf="target.pokemon.teraType">Terastalyzed as {{ target.pokemon.teraType }} type
-          </mat-card-subtitle>
-          <mat-card-subtitle>{{ target.evsDescription }}</mat-card-subtitle>
-          <img mat-card-sm-image src='https://img.pokemondb.net/artwork/large/{{target.name}}.jpg'>
-        </mat-card-title-group>
+  <div class="header-damage-result">
+    <label class="title-left-pokemon">Result</label>
+    <label class="subtitle">Use Add as defender button to add more Pokémon</label>
+  </div>
+  <div class="target-pokemon">
+    <div *ngFor="let target of targets; let myIndex=index;">
+      <mat-card class="card" [ngStyle]="{'background-color': cardColor(target.koChance)}">
+        <div class="card-info">
+          <mat-card-title-group>
+            <mat-card-title>{{ target.pokemon.name }}</mat-card-title>
+            <mat-card-subtitle>Item: {{ target.pokemon.item }}</mat-card-subtitle>
+            <mat-card-subtitle>Nature: {{ target.pokemon.nature }}</mat-card-subtitle>
+            <mat-card-subtitle *ngIf="target.pokemon.teraType">Terastalyzed as {{ target.pokemon.teraType }} type
+            </mat-card-subtitle>
+            <mat-card-subtitle>{{ target.evsDescription }}</mat-card-subtitle>
+            <img mat-card-sm-image src='https://img.pokemondb.net/artwork/large/{{target.name}}.jpg'>
+          </mat-card-title-group>
+        </div>
         <div class="card-container">
           <div class="card-content">
-            <p>
-              Damage: {{ target.result }}
-            </p>
-            <p>
-              {{ target.koChance }}
-            </p>
+            <br>Damage: {{ target.result }}
+            <br>{{ target.koChance }}
           </div>
           <div class="card-button">
-            <button mat-button (click)="removePokemon(myIndex)">Remove</button>
+            <a (click)="removePokemon(myIndex)">
+              <mat-icon fontIcon="delete"></mat-icon>
+            </a>
           </div>
         </div>
       </mat-card>

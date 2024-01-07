@@ -9,7 +9,7 @@ import { TargetPokemon } from './target-pokemon';
 @Component({
   selector: 'app-pokemon-main',
   templateUrl: './pokemon-main.component.html',
-  styleUrls: ['./pokemon-main.component.css']
+  styleUrls: ['./pokemon-main.component.scss']
 })
 export class PokemonMainComponent implements OnInit {
 

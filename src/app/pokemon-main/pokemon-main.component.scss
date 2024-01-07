@@ -1,0 +1,152 @@
+.container {
+  display: grid;
+  height: 100vh;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 0.09fr 1fr 0.08fr 2fr;
+  grid-column-gap: 1em;
+  background-color: rgb(252, 248, 248);
+}
+
+.header {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  background-color: rgb(40, 41, 41);
+  font-size: large;
+  display: flex;
+  align-items: center;
+}
+
+.title {
+  color: white;
+  margin-left: 1em;
+}
+
+.left-pokemon {
+  margin-top: 1em;
+  margin-left: 1em;
+  background-color: rgb(240, 236, 236);
+  border-radius: 1%;
+}
+
+.field {
+  background-color: rgb(240, 236, 236);
+  border-radius: 1%;
+  margin-top: 1em;
+  margin-right: 1em;
+}
+
+.target-pokemon {
+  background-color: rgb(240, 236, 236);
+  border-radius: 0 0 1% 1%;
+  margin: 0 1em 1em 1em;
+  padding: 1em;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 210px;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-column-gap: 1em;
+  grid-row-gap: 1em;
+}
+
+.header-left-pokemon {
+  background-color: rgb(40, 41, 41);
+  font-size: large;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+.title-left-pokemon {
+  color: white;
+  margin-left: 0.8em;
+}
+
+.subtitle {
+  color: white;
+  font-size: small;
+}
+
+.form-row {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.5em 1em 0 1em;
+}
+
+.form-row > label {
+  padding: .5em 0.5em .5em 0;
+  flex: 1;
+}
+
+.form-row > input {
+  flex: 4;
+}
+
+.left-pokemon-evs {
+  margin-top: 1em;
+  padding: 1em;
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  grid-auto-rows: 50px;
+  grid-column-gap: 2em;
+  grid-row-gap: 1em;
+}
+
+.ev-value {
+  width: 100%;
+}
+
+.ev-slider {
+  width: 95%;
+}
+
+.mat-ev-field {
+  width: 100%;
+}
+
+.mat-ev-slider {
+  width: 100%;
+}
+
+.add-as-defender-button {
+  padding: 1em;
+}
+
+.header-damage-result {
+  margin-left: 0.8em;
+  margin-right: 0.8em;
+  margin-top: 1em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  background-color: rgb(40, 41, 41);
+  font-size: large;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column
+}
+
+.card {
+  width: 100%;
+  height: 100%;
+  padding: 1em;
+}
+
+.card-info {
+  height: 120px;
+}
+
+.card-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.card-content {
+  flex: 1;
+}
+
+.card-button {
+  align-self: flex-end;
+  justify-content: flex-end;
+}
