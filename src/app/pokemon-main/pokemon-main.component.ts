@@ -3,7 +3,7 @@ import { DoCheck, KeyValueDiffers, KeyValueDiffer } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
-import { calculate, Generations, Field, Pokemon, Move, MOVES, ITEMS, NATURES, TYPE_CHART, SPECIES } from '@ajhyndman/smogon-calc';
+import { calculate, Generations, Field, Pokemon, Move, MOVES, ITEMS, NATURES, TYPE_CHART, SPECIES } from '@smogon/calc';
 import { TargetPokemon } from './target-pokemon';
 
 @Component({

@@ -1,4 +1,4 @@
-import { Pokemon } from "@ajhyndman/smogon-calc";
+import { Pokemon } from "@smogon/calc";
 
 export class TargetPokemon {
   pokemon: Pokemon;

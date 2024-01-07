@@ -10,7 +10,6 @@
   },
   "private": true,
   "dependencies": {
-    "@ajhyndman/smogon-calc": "^0.8.0",
     "@angular/animations": "^15.2.0",
     "@angular/cdk": "^15.2.6",
     "@angular/common": "^15.2.0",
@@ -21,6 +20,7 @@
     "@angular/platform-browser": "^15.2.0",
     "@angular/platform-browser-dynamic": "^15.2.0",
     "@angular/router": "^15.2.0",
+    "@smogon/calc": "file:../damage-calc/calc",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"
