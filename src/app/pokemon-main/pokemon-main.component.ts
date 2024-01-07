@@ -15,7 +15,7 @@ export class PokemonMainComponent implements OnInit {
 
   controlPokemonName = new FormControl('Flutter Mane');
   controlNature = new FormControl('Timid');
-  controlItem = new FormControl('Focus Sash');
+  controlItem = new FormControl('Choice Specs');
   controlTeraType = new FormControl('Fairy');
   controlMove = new FormControl('Moon Blast');
 
@@ -91,53 +91,77 @@ export class PokemonMainComponent implements OnInit {
   gen = Generations.get(9);
   field = new Field({ gameType: 'Doubles' });
 
-  ironBundle = new Pokemon(this.gen, 'Iron Bundle', {
+  ragingBolt = new Pokemon(this.gen, 'Raging Bolt', {
     item: 'Booster Energy',
+    nature: 'Modest',
+    evs: { hp: 244, spa: 252, spd: 12 },
+    level: 50
+  })
+
+  walkingWake = new Pokemon(this.gen, 'Walking Wake', {
+    item: 'Life Orb',
     nature: 'Timid',
-    evs: { hp: 4, spa: 252, spe: 252 },
+    evs: { hp: 4, def: 4, spa: 244, spd: 4, spe: 252 },
     level: 50
   })
 
-  ironHands = new Pokemon(this.gen, 'Iron Hands', {
-    item: 'Leftovers',
+  gougingFire = new Pokemon(this.gen, 'Gouging Fire', {
+    item: 'Clear Amulet',
     nature: 'Adamant',
-    evs: { hp: 84, atk: 236, spd: 188, spe: 0 },
-    level: 50
-  })
-
-  greatTusk = new Pokemon(this.gen, 'Great Tusk', {
-    item: 'Focus Sash',
-    nature: 'Jolly',
     evs: { hp: 4, atk: 252, spe: 252 },
     level: 50
   })
 
-  palafin = new Pokemon(this.gen, 'Palafin-Hero', {
-    item: 'Mystic Water',
+  entei = new Pokemon(this.gen, 'Entei', {
+    item: 'Sitrus Berry',
     nature: 'Adamant',
-    evs: { hp: 204, atk: 252, def: 4, spd: 4, spe: 44 },
+    evs: { atk: 252, def: 4, spd: 252 },
+    level: 50
+  })
+
+  incineroar = new Pokemon(this.gen, 'Incineroar', {
+    item: 'Assault Vest',
+    nature: 'Careful',
+    evs: { hp: 252, atk: 4, spd: 252 },
+    level: 50
+  })
+
+  urshifu = new Pokemon(this.gen, 'Urshifu', {
+    item: 'Choice Scarf',
+    nature: 'Jolly',
+    evs: { atk: 252, spd: 4, spe: 252 },
     level: 50,
     teraType: 'Water'
   })
 
-  gholdengo = new Pokemon(this.gen, 'Gholdengo', {
-    item: 'Choice Specs',
-    nature: 'Modest',
-    evs: { hp: 244, def: 4, spa: 252, spd: 4, spe: 4 },
+  landorus = new Pokemon(this.gen, 'Landorus', {
+    item: 'Life Orb',
+    nature: 'Timid',
+    evs: { spa: 252, spd: 4, spe: 252 },
+    level: 50
+  })
+
+  ogerponWellspring = new Pokemon(this.gen, 'Ogerpon-Wellspring', {
+    item: 'Wellspring Mask',
+    nature: 'Adamant',
+    evs: { hp: 252, atk: 76, def: 148, spd: 28, spe: 4 },
     level: 50
   })
 
   targets: TargetPokemon[] = [
-    new TargetPokemon(this.ironBundle),
-    new TargetPokemon(this.ironHands),
-    new TargetPokemon(this.greatTusk),
-    new TargetPokemon(this.palafin),
-    new TargetPokemon(this.gholdengo)
+    new TargetPokemon(this.ragingBolt),
+    new TargetPokemon(this.walkingWake),
+    new TargetPokemon(this.gougingFire),
+    new TargetPokemon(this.entei),
+    new TargetPokemon(this.incineroar),
+    new TargetPokemon(this.urshifu),
+    new TargetPokemon(this.landorus),
+    new TargetPokemon(this.ogerponWellspring)
   ]
 
   public pokemonName = "Flutter Mane"
   public nature = "Timid"
-  public item = "Focus Sash"
+  public item = "Choice Specs"
   public teraType = "Fairy"
   public hp = 0
   public atk = 0
