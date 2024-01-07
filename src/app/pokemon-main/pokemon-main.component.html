@@ -165,17 +165,15 @@
   <div class="target-pokemon">
     <div *ngFor="let target of targets; let myIndex=index;">
       <mat-card class="card" [ngStyle]="{'background-color': cardColor(target.koChance)}">
-        <div class="card-info">
-          <mat-card-title-group>
-            <mat-card-title>{{ target.pokemon.name }}</mat-card-title>
-            <mat-card-subtitle>Item: {{ target.pokemon.item }}</mat-card-subtitle>
-            <mat-card-subtitle>Nature: {{ target.pokemon.nature }}</mat-card-subtitle>
-            <mat-card-subtitle *ngIf="target.pokemon.teraType">Terastalyzed as {{ target.pokemon.teraType }} type
-            </mat-card-subtitle>
-            <mat-card-subtitle>{{ target.evsDescription }}</mat-card-subtitle>
-            <img mat-card-sm-image src='https://img.pokemondb.net/artwork/large/{{target.name}}.jpg'>
-          </mat-card-title-group>
-        </div>
+        <mat-card-title-group>
+          <mat-card-title>{{ target.pokemon.name }}</mat-card-title>
+          <mat-card-subtitle>Item: {{ target.pokemon.item }}</mat-card-subtitle>
+          <mat-card-subtitle>Nature: {{ target.pokemon.nature }}</mat-card-subtitle>
+          <mat-card-subtitle *ngIf="target.pokemon.teraType">Terastalyzed as {{ target.pokemon.teraType }} type
+          </mat-card-subtitle>
+          <mat-card-subtitle>{{ target.evsDescription }}</mat-card-subtitle>
+          <img mat-card-md-image src='https://img.pokemondb.net/sprites/scarlet-violet/normal/{{target.name}}.png'>
+        </mat-card-title-group>
         <div class="card-container">
           <div class="card-content">
             <br>Damage: {{ target.result }}
