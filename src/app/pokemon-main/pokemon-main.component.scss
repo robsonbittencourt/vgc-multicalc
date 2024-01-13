@@ -107,8 +107,19 @@
   width: 100%;
 }
 
-.add-as-defender-button {
+.left-pokemon-buttons {
   padding: 1em;
+  display: flex;
+  justify-content: center;
+  column-gap: 1em;
+}
+
+.mat-flat-button {
+  width: 100%;
+}
+
+.pokepaste-input {
+  margin-bottom: 1em;
 }
 
 .header-damage-result {

@@ -11,7 +11,7 @@
       <li class="form-row">
         <label>Pokémon</label>
         <input type="text" placeholder="Choose Pokémon" matInput [formControl]="controlPokemonName"
-          [matAutocomplete]="autoPokemon" class="example-input">
+          [matAutocomplete]="autoPokemon">
         <mat-autocomplete #autoPokemon="matAutocomplete" (optionSelected)="onPokemonSelected($event.option.value)">
           <mat-option *ngFor="let pokemonName of filteredPokemonNames | async" [value]="pokemonName">
             {{pokemonName}}
@@ -20,8 +20,7 @@
       </li>
       <li class="form-row">
         <label>Nature</label>
-        <input type="text" placeholder="Choose Nature" [formControl]="controlNature" [matAutocomplete]="autoNature"
-          class="example-input">
+        <input type="text" placeholder="Choose Nature" [formControl]="controlNature" [matAutocomplete]="autoNature">
         <mat-autocomplete #autoNature="matAutocomplete" (optionSelected)="onNatureSelected($event.option.value)">
           <mat-option *ngFor="let nature of filteredNatures | async" [value]="nature">
             {{nature}}
@@ -30,8 +29,7 @@
       </li>
       <li class="form-row">
         <label>Item</label>
-        <input type="text" placeholder="Choose Nature" [formControl]="controlItem" [matAutocomplete]="autoItem"
-          class="example-input">
+        <input type="text" placeholder="Choose Nature" [formControl]="controlItem" [matAutocomplete]="autoItem">
         <mat-autocomplete #autoItem="matAutocomplete" (optionSelected)="onItemSelected($event.option.value)">
           <mat-option *ngFor="let item of filteredItems | async" [value]="item">
             {{item}}
@@ -39,10 +37,10 @@
         </mat-autocomplete>
       </li>
       <li class="form-row">
-        <label>Tera Type</label>
+        <label>TeraType</label>
         <mat-checkbox [(ngModel)]="teraTypeActive"></mat-checkbox>
         <input type="text" placeholder="Choose Tera Type" [formControl]="controlTeraType"
-          [matAutocomplete]="autoTeraType" class="example-input">
+          [matAutocomplete]="autoTeraType">
         <mat-autocomplete #autoTeraType="matAutocomplete" (optionSelected)="onTeraTypeSelected($event.option.value)">
           <mat-option *ngFor="let teraType of filteredTeraTypes | async" [value]="teraType">
             {{teraType}}
@@ -51,8 +49,7 @@
       </li>
       <li class="form-row">
         <label>Move</label>
-        <input type="text" placeholder="Choose Move" [formControl]="controlMove" [matAutocomplete]="autoMove"
-          class="example-input">
+        <input type="text" placeholder="Choose Move" [formControl]="controlMove" [matAutocomplete]="autoMove">
         <mat-autocomplete #autoMove="matAutocomplete" (optionSelected)="onMoveSelected($event.option.value)">
           <mat-option *ngFor="let move of filteredMoves | async" [value]="move">
             {{move}}
@@ -133,10 +130,15 @@
         </mat-slider>
       </div>
     </div>
-    <div class="add-as-defender-button">
-      <button (click)="addPokemon()">
-        Add as defender
-      </button>
+    <div class="left-pokemon-buttons">
+      <button mat-flat-button color="primary" (click)="addPokemon()" class="mat-flat-button">Add as defender</button>
+      <button mat-flat-button color="primary" (click)="addFromPokePaste()" class="mat-flat-button">Add from Paste </button>
+    </div>
+    <div class="pokepaste-input">
+      <li class="form-row">
+        <label>PokePaste</label>
+        <input type="text" matInput [(ngModel)]="pokePaste">
+      </li>
     </div>
   </div>
 

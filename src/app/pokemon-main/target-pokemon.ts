@@ -11,11 +11,11 @@ export class TargetPokemon {
   constructor(pokemon: Pokemon) {
     this.pokemon = pokemon
     this.name = pokemon.name.toLocaleLowerCase().replace(" ", "-")
-    if (pokemon.evs.hp != 0) this.evsDescription += `hp: ${pokemon.evs.hp} `
-    if (pokemon.evs.atk != 0) this.evsDescription += `atk: ${pokemon.evs.atk} `
-    if (pokemon.evs.def != 0) this.evsDescription += `def: ${pokemon.evs.def} `
-    if (pokemon.evs.spa != 0) this.evsDescription += `spa: ${pokemon.evs.spa} `
-    if (pokemon.evs.spd != 0) this.evsDescription += `spd: ${pokemon.evs.spd} `
-    if (pokemon.evs.spe != 0) this.evsDescription += `spe: ${pokemon.evs.spe}`
+    if (pokemon.evs.hp && pokemon.evs.hp != 0) this.evsDescription += `hp: ${pokemon.evs.hp} `
+    if (pokemon.evs.atk && pokemon.evs.atk != 0) this.evsDescription += `atk: ${pokemon.evs.atk} `
+    if (pokemon.evs.def && pokemon.evs.def != 0) this.evsDescription += `def: ${pokemon.evs.def} `
+    if (pokemon.evs.spa && pokemon.evs.spa != 0) this.evsDescription += `spa: ${pokemon.evs.spa} `
+    if (pokemon.evs.spd && pokemon.evs.spd != 0) this.evsDescription += `spd: ${pokemon.evs.spd} `
+    if (pokemon.evs.spe && pokemon.evs.spe != 0) this.evsDescription += `spe: ${pokemon.evs.spe}`
   }
 }

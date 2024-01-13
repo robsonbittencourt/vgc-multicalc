@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { DoCheck, KeyValueDiffers, KeyValueDiffer } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
+import axios from 'axios';
 import { startWith, map } from 'rxjs/operators';
 import { calculate, Generations, Field, Pokemon, Move, MOVES, ITEMS, NATURES, TYPE_CHART, SPECIES } from '@smogon/calc';
+import { Koffing } from 'koffing'
 import { TargetPokemon } from './target-pokemon';
 
 @Component({
@@ -40,7 +42,7 @@ export class PokemonMainComponent implements OnInit {
   constructor(private differs: KeyValueDiffers) {
     this.differ = this.differs.find({}).create();
   }
-  
+
   ngDoCheck() {
     const change = this.differ.diff(this);
     if (change) {
@@ -171,6 +173,7 @@ export class PokemonMainComponent implements OnInit {
   public spe = 252
   public moveName = 'Moon Blast'
   public teraTypeActive = true
+  public pokePaste = ""
 
   onPokemonSelected(selectedPokemon: string) {
     this.pokemonName = selectedPokemon
@@ -202,7 +205,30 @@ export class PokemonMainComponent implements OnInit {
         level: 50
       }))
     )
-    this.calcDamageToAll()  
+    this.calcDamageToAll()
+  }
+
+  addFromPokePaste() {
+    axios.get(`${this.pokePaste}/raw`)
+      .then(res => {
+        const parsedTeam = Koffing.parse(res.data)
+        JSON.parse(parsedTeam.toJson()).teams[0].pokemon.forEach((poke: any) => {
+          this.targets.push(
+            new TargetPokemon(new Pokemon(this.gen, poke.name, {
+              nature: poke.nature,
+              item: poke.item,
+              evs: { hp: poke.evs.hp, atk: poke.evs.atk, def: poke.evs.def, spa: poke.evs.spa, spd: poke.evs.spd, spe: poke.evs.spe },
+              level: 50
+            }))
+          )
+        })
+        this.calcDamageToAll()
+      })
+      .catch(err => {
+        console.log('Error: ', err.message);
+      });
+
+    this.pokePaste = ""
   }
 
   removePokemon(index: number) {
@@ -237,7 +263,7 @@ export class PokemonMainComponent implements OnInit {
       (result.damage as Array<number>)[13] = Math.ceil((result.damage as Array<number>)[13] * 0.75);
       (result.damage as Array<number>)[14] = Math.ceil((result.damage as Array<number>)[14] * 0.75);
       (result.damage as Array<number>)[15] = Math.ceil((result.damage as Array<number>)[15] * 0.75);
-    }    
+    }
 
     if ((result.move.category == 'Special' && this.beadsOfRuinActive && !this.vesselOfRuinActive) || (result.move.category == 'Physical' && this.swordOfRuinActive && !this.tabletsOfRuinActive)) {
       (result.damage as Array<number>)[0] = Math.ceil((result.damage as Array<number>)[0] * 1.33);
@@ -257,7 +283,7 @@ export class PokemonMainComponent implements OnInit {
       (result.damage as Array<number>)[14] = Math.ceil((result.damage as Array<number>)[14] * 1.33);
       (result.damage as Array<number>)[15] = Math.ceil((result.damage as Array<number>)[15] * 1.33);
     }
-    
+
     const damage = (result.damage as Array<number>)[15]
     const finalDamage = damage ? damage : 0
     const finalDamagePercentage = +((finalDamage / result.defender.stats.hp) * 100).toFixed(1)
@@ -282,7 +308,7 @@ export class PokemonMainComponent implements OnInit {
       item: this.item,
       nature: this.nature,
       evs: { hp: this.hp, atk: this.atk, def: this.def, spa: this.spa, spd: this.spd, spe: this.spe },
-      teraType:  this.teraTypeActive ? this.teraType as any : null,
+      teraType: this.teraTypeActive ? this.teraType as any : null,
       level: 50
     })
 
@@ -294,8 +320,29 @@ export class PokemonMainComponent implements OnInit {
       .sort((a, b) => b.damage - a.damage)
   }
 
+  insertFromPokepast(pokepastUrl: string) {
+    axios.get(`${pokepastUrl}/raw`)
+      .then(res => {
+        const parsedTeam = Koffing.parse(res.data)
+        JSON.parse(parsedTeam.toJson()).teams[0].pokemon.forEach((poke: any) => {
+          this.targets.push(
+            new TargetPokemon(new Pokemon(this.gen, poke.name, {
+              nature: poke.nature,
+              item: poke.item,
+              evs: { hp: poke.evs.hp, atk: poke.evs.atk, def: poke.evs.def, spa: poke.evs.spa, spd: poke.evs.spd, spe: poke.evs.spe },
+              level: 50
+            }))
+          )
+        })
+        this.calcDamageToAll()
+      })
+      .catch(err => {
+        console.log('Error: ', err.message);
+      });
+  }
+
   capitalizeFirstLetter(string: String) {
-      return string.charAt(0).toUpperCase() + string.slice(1);
+    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
   cardColor(koChance: String) {
