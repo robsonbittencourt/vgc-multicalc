@@ -72,12 +72,12 @@
   padding: 0.5em 1em 0 1em;
 }
 
-.form-row > label {
+.form-row>label {
   padding: .5em 0.5em .5em 0;
   flex: 1;
 }
 
-.form-row > input {
+.form-row>input {
   flex: 4;
 }
 
@@ -171,7 +171,7 @@
   .target-pokemon {
     grid-column-start: 0;
     grid-column-end: 1;
-  }  
+  }
 
   .left-pokemon {
     margin-left: 0em;
