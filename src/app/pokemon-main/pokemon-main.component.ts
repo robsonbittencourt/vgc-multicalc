@@ -97,35 +97,40 @@ export class PokemonMainComponent implements OnInit {
     item: 'Booster Energy',
     nature: 'Modest',
     evs: { hp: 244, spa: 252, spd: 12 },
-    level: 50
+    level: 50,
+    teraType: 'Fairy'
   })
 
   walkingWake = new Pokemon(this.gen, 'Walking Wake', {
     item: 'Life Orb',
     nature: 'Timid',
     evs: { hp: 4, def: 4, spa: 244, spd: 4, spe: 252 },
-    level: 50
+    level: 50,
+    teraType: 'Poison'
   })
 
   gougingFire = new Pokemon(this.gen, 'Gouging Fire', {
     item: 'Clear Amulet',
     nature: 'Adamant',
     evs: { hp: 4, atk: 252, spe: 252 },
-    level: 50
+    level: 50,
+    teraType: 'Water'
   })
 
   entei = new Pokemon(this.gen, 'Entei', {
     item: 'Sitrus Berry',
     nature: 'Adamant',
     evs: { atk: 252, def: 4, spd: 252 },
-    level: 50
+    level: 50,
+    teraType: 'Grass'
   })
 
   incineroar = new Pokemon(this.gen, 'Incineroar', {
     item: 'Assault Vest',
     nature: 'Careful',
     evs: { hp: 252, atk: 4, spd: 252 },
-    level: 50
+    level: 50,
+    teraType: 'Water'
   })
 
   urshifu = new Pokemon(this.gen, 'Urshifu', {
@@ -140,23 +145,25 @@ export class PokemonMainComponent implements OnInit {
     item: 'Life Orb',
     nature: 'Timid',
     evs: { spa: 252, spd: 4, spe: 252 },
-    level: 50
+    level: 50,
+    teraType: 'Flying'
   })
 
   ogerponWellspring = new Pokemon(this.gen, 'Ogerpon-Wellspring', {
     item: 'Wellspring Mask',
     nature: 'Adamant',
     evs: { hp: 252, atk: 76, def: 148, spd: 28, spe: 4 },
-    level: 50
+    level: 50,
+    teraType: 'Water'
   })
 
   targets: TargetPokemon[] = [
-    new TargetPokemon(this.ragingBolt),
-    new TargetPokemon(this.walkingWake),
+    new TargetPokemon(this.ragingBolt, true),
+    new TargetPokemon(this.walkingWake, true),
     new TargetPokemon(this.gougingFire),
     new TargetPokemon(this.entei),
     new TargetPokemon(this.incineroar),
-    new TargetPokemon(this.urshifu),
+    new TargetPokemon(this.urshifu, true),
     new TargetPokemon(this.landorus),
     new TargetPokemon(this.ogerponWellspring)
   ]
@@ -203,13 +210,9 @@ export class PokemonMainComponent implements OnInit {
         teraType: this.teraTypeActive ? this.teraType as any : null,
         evs: { hp: this.hp, atk: this.atk, def: this.def, spa: this.spa, spd: this.spd, spe: this.spe },
         level: 50
-      }))
+      }), this.teraTypeActive)
     )
     this.calcDamageToAll()
-  }
-
-  removeAll() {
-    this.targets = []
   }
 
   addFromPokePaste() {
@@ -222,6 +225,7 @@ export class PokemonMainComponent implements OnInit {
               nature: poke.nature,
               item: poke.item,
               evs: { hp: poke.evs.hp, atk: poke.evs.atk, def: poke.evs.def, spa: poke.evs.spa, spd: poke.evs.spd, spe: poke.evs.spe },
+              teraType: poke.teraType,
               level: 50
             }))
           )
@@ -237,6 +241,15 @@ export class PokemonMainComponent implements OnInit {
 
   removePokemon(index: number) {
     this.targets.splice(index, 1);
+  }
+
+  removeAll() {
+    this.targets = []
+  }
+
+  terastalyzePokemon(index: number) {
+    this.targets[index].changeTeraStatus()
+    this.calcDamageToAll()
   }
 
   calcDamage(attackerPoke: Pokemon, target: TargetPokemon, move: Move) {
@@ -322,27 +335,6 @@ export class PokemonMainComponent implements OnInit {
 
     this.targets
       .sort((a, b) => b.damage - a.damage)
-  }
-
-  insertFromPokepast(pokepastUrl: string) {
-    axios.get(`${pokepastUrl}/raw`)
-      .then(res => {
-        const parsedTeam = Koffing.parse(res.data)
-        JSON.parse(parsedTeam.toJson()).teams[0].pokemon.forEach((poke: any) => {
-          this.targets.push(
-            new TargetPokemon(new Pokemon(this.gen, poke.name, {
-              nature: poke.nature,
-              item: poke.item,
-              evs: { hp: poke.evs.hp, atk: poke.evs.atk, def: poke.evs.def, spa: poke.evs.spa, spd: poke.evs.spd, spe: poke.evs.spe },
-              level: 50
-            }))
-          )
-        })
-        this.calcDamageToAll()
-      })
-      .catch(err => {
-        console.log('Error: ', err.message);
-      });
   }
 
   capitalizeFirstLetter(string: String) {

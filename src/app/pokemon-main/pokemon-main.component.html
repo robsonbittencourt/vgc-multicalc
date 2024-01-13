@@ -132,7 +132,8 @@
     </div>
     <div class="left-pokemon-buttons">
       <button mat-flat-button color="primary" (click)="addPokemon()" class="mat-flat-button">Add as defender</button>
-      <button mat-flat-button color="primary" (click)="addFromPokePaste()" class="mat-flat-button">Add from Paste </button>
+      <button mat-flat-button color="primary" (click)="addFromPokePaste()" class="mat-flat-button">Add from Paste
+      </button>
     </div>
     <div class="pokepaste-input">
       <li class="form-row">
@@ -171,9 +172,9 @@
           <mat-card-title>{{ target.pokemon.name }}</mat-card-title>
           <mat-card-subtitle>Item: {{ target.pokemon.item }}</mat-card-subtitle>
           <mat-card-subtitle>Nature: {{ target.pokemon.nature }}</mat-card-subtitle>
-          <mat-card-subtitle *ngIf="target.pokemon.teraType">Terastalyzed as {{ target.pokemon.teraType }} type
-          </mat-card-subtitle>
           <mat-card-subtitle>{{ target.evsDescription }}</mat-card-subtitle>
+          <mat-card-subtitle *ngIf="target.isTeraActived">Terastalyzed as {{ target.pokemon.teraType }} type
+          </mat-card-subtitle>
           <img mat-card-md-image src='https://img.pokemondb.net/sprites/home/normal/{{target.name}}.png'>
         </mat-card-title-group>
         <div class="card-container">
@@ -182,6 +183,10 @@
             <br>{{ target.koChance }}
           </div>
           <div class="card-button">
+            <button class="icon-button" (click)="terastalyzePokemon(myIndex)" *ngIf="target.teraTypeStorage">
+              <img class="icon" src="assets/icons/tera-icon.png" *ngIf="target.isTeraActived"/>
+              <img class="icon" src="assets/icons/tera-icon-gray.png" *ngIf="!target.isTeraActived" />
+            </button>
             <a (click)="removePokemon(myIndex)">
               <mat-icon fontIcon="delete"></mat-icon>
             </a>
@@ -193,5 +198,5 @@
   <div class="remove-all-section">
     <button mat-flat-button color="primary" (click)="removeAll()" class="mat-flat-button">Remove all</button>
   </div>
-  
+
 </div>
