@@ -208,6 +208,10 @@ export class PokemonMainComponent implements OnInit {
     this.calcDamageToAll()
   }
 
+  removeAll() {
+    this.targets = []
+  }
+
   addFromPokePaste() {
     axios.get(`${this.pokePaste}/raw`)
       .then(res => {

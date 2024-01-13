@@ -162,6 +162,15 @@
   justify-content: flex-end;
 }
 
+.remove-all-section {
+  display: grid;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  margin-left: 1em;
+  margin-right: 1em;
+  margin-bottom: 2em;
+}
+
 @media only screen and (max-width: 768px) {
   .container {
     grid-template-columns: 1fr;
@@ -195,5 +204,14 @@
 
   .target-pokemon {
     margin: 0 0 0 0;
+  }
+
+  .remove-all-section {
+    display: grid;
+    grid-column-start: 0;
+    grid-column-end: 1;
+    margin-left: 1em;
+    margin-right: 1em;
+    margin-bottom: 2em;
   }
 }
