@@ -37,6 +37,15 @@
         </mat-autocomplete>
       </li>
       <li class="form-row">
+        <label>Ability</label>
+        <input type="text" placeholder="Choose Ability" [formControl]="controlAbility" [matAutocomplete]="autoAbility">
+        <mat-autocomplete #autoAbility="matAutocomplete" (optionSelected)="onAbilitySelected($event.option.value)">
+          <mat-option *ngFor="let ability of filteredAbilities | async" [value]="ability">
+            {{ability}}
+          </mat-option>
+        </mat-autocomplete>
+      </li>
+      <li class="form-row">
         <label>TeraType</label>
         <mat-checkbox [(ngModel)]="teraTypeActive"></mat-checkbox>
         <input type="text" placeholder="Choose Tera Type" [formControl]="controlTeraType"
@@ -137,7 +146,7 @@
     </div>
     <div class="pokepaste-input">
       <li class="form-row">
-        <label>PokePaste</label>
+        <label>Paste Link</label>
         <input type="text" matInput [(ngModel)]="pokePaste">
       </li>
     </div>
@@ -172,6 +181,7 @@
           <mat-card-title>{{ target.pokemon.name }}</mat-card-title>
           <mat-card-subtitle>Item: {{ target.pokemon.item }}</mat-card-subtitle>
           <mat-card-subtitle>Nature: {{ target.pokemon.nature }}</mat-card-subtitle>
+          <mat-card-subtitle>Ability: {{ target.pokemon.ability }}</mat-card-subtitle>
           <mat-card-subtitle>{{ target.evsDescription }}</mat-card-subtitle>
           <mat-card-subtitle *ngIf="target.isTeraActived">Terastalyzed as {{ target.pokemon.teraType }} type
           </mat-card-subtitle>

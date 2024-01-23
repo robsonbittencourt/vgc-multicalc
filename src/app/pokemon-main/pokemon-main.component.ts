@@ -4,7 +4,7 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import axios from 'axios';
 import { startWith, map } from 'rxjs/operators';
-import { calculate, Generations, Field, Pokemon, Move, MOVES, ITEMS, NATURES, TYPE_CHART, SPECIES } from '@smogon/calc';
+import { calculate, Generations, Field, Pokemon, Move, MOVES, ITEMS, NATURES, TYPE_CHART, SPECIES, ABILITIES } from '@smogon/calc';
 import { Koffing } from 'koffing'
 import { TargetPokemon } from './target-pokemon';
 
@@ -18,17 +18,20 @@ export class PokemonMainComponent implements OnInit {
   controlPokemonName = new FormControl('Flutter Mane');
   controlNature = new FormControl('Timid');
   controlItem = new FormControl('Choice Specs');
+  controlAbility = new FormControl('Protosynthesis');
   controlTeraType = new FormControl('Fairy');
   controlMove = new FormControl('Moon Blast');
 
   allMoveNames = Object.keys(MOVES[9])
   allNatureNames = Object.keys(NATURES)
   allItemsNames = Object.values(ITEMS[9]).sort()
+  allAbilitiesNames = Object.values(ABILITIES[9]).sort()
   allTeraTypes = Object.keys(TYPE_CHART[9]).splice(1)
   allPokemonNames = Object.keys(SPECIES[9])
 
   filteredPokemonNames: Observable<string[]>;
   filteredItems: Observable<string[]>;
+  filteredAbilities: Observable<string[]>;
   filteredNatures: Observable<string[]>;
   filteredTeraTypes: Observable<string[]>;
   filteredMoves: Observable<string[]>;
@@ -68,6 +71,11 @@ export class PokemonMainComponent implements OnInit {
       map(value => this._filter(value || '', this.allItemsNames)),
     );
 
+    this.filteredAbilities = this.controlAbility.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value || '', this.allAbilitiesNames)),
+    );
+
     this.filteredTeraTypes = this.controlTeraType.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value || '', this.allTeraTypes)),
@@ -104,7 +112,7 @@ export class PokemonMainComponent implements OnInit {
   walkingWake = new Pokemon(this.gen, 'Walking Wake', {
     item: 'Life Orb',
     nature: 'Timid',
-    evs: { hp: 4, def: 4, spa: 244, spd: 4, spe: 252 },
+    evs: { hp: 4, spa: 252, spe: 252 },
     level: 50,
     teraType: 'Poison'
   })
@@ -171,6 +179,7 @@ export class PokemonMainComponent implements OnInit {
   public pokemonName = "Flutter Mane"
   public nature = "Timid"
   public item = "Choice Specs"
+  public ability: any = "Protosynthesis"
   public teraType = "Fairy"
   public hp = 0
   public atk = 0
@@ -184,6 +193,7 @@ export class PokemonMainComponent implements OnInit {
 
   onPokemonSelected(selectedPokemon: string) {
     this.pokemonName = selectedPokemon
+
   }
 
   onNatureSelected(selectedNature: string) {
@@ -198,6 +208,10 @@ export class PokemonMainComponent implements OnInit {
     this.item = selectedItem
   }
 
+  onAbilitySelected(selectedAbility: string) {
+    this.ability = selectedAbility
+  }
+
   onMoveSelected(selectedMove: string) {
     this.moveName = selectedMove
   }
@@ -207,6 +221,7 @@ export class PokemonMainComponent implements OnInit {
       new TargetPokemon(new Pokemon(this.gen, this.pokemonName, {
         nature: this.nature,
         item: this.item,
+        ability: this.ability,
         teraType: this.teraTypeActive ? this.teraType as any : null,
         evs: { hp: this.hp, atk: this.atk, def: this.def, spa: this.spa, spd: this.spd, spe: this.spe },
         level: 50
@@ -224,6 +239,7 @@ export class PokemonMainComponent implements OnInit {
             new TargetPokemon(new Pokemon(this.gen, poke.name, {
               nature: poke.nature,
               item: poke.item,
+              ability: poke.ability,
               evs: { hp: poke.evs.hp, atk: poke.evs.atk, def: poke.evs.def, spa: poke.evs.spa, spd: poke.evs.spd, spe: poke.evs.spe },
               teraType: poke.teraType,
               level: 50
@@ -324,6 +340,7 @@ export class PokemonMainComponent implements OnInit {
     const pokemon = new Pokemon(this.gen, this.pokemonName, {
       item: this.item,
       nature: this.nature,
+      ability: this.ability,
       evs: { hp: this.hp, atk: this.atk, def: this.def, spa: this.spa, spd: this.spd, spe: this.spe },
       teraType: this.teraTypeActive ? this.teraType as any : null,
       level: 50
