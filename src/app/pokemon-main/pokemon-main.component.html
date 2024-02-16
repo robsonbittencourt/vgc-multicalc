@@ -75,7 +75,7 @@
       </div>
       <div class="ev-slider">
         <mat-slider class="mat-ev-slider" [min]="calculateMin(current.pokemon.evs.hp)" [max]="252" [step]="calculateEvStep(current.pokemon.evs.hp)">
-          <input matSliderThumb (input)="onChangeEvValue()" [(ngModel)]="current.pokemon.evs.hp">
+          <input matSliderThumb (change)="onChangeEvValue()" [(ngModel)]="current.pokemon.evs.hp" (input)="beforeChangeEvValue()">
         </mat-slider>
       </div>
       <div class="stat-value">
@@ -90,7 +90,7 @@
       </div>
       <div class="ev-slider">
         <mat-slider class="mat-ev-slider" [min]="calculateMin(current.pokemon.evs.atk)" [max]="252" [step]="calculateEvStep(current.pokemon.evs.atk)">
-          <input matSliderThumb (input)="onChangeEvValue()" [(ngModel)]="current.pokemon.evs.atk">
+          <input matSliderThumb (change)="onChangeEvValue()" [(ngModel)]="current.pokemon.evs.atk" (input)="beforeChangeEvValue()">
         </mat-slider>
       </div>
       <div class="stat-value">
@@ -105,7 +105,7 @@
       </div>
       <div class="ev-slider">
         <mat-slider class="mat-ev-slider" [min]="calculateMin(current.pokemon.evs.def)" [max]="252" [step]="calculateEvStep(current.pokemon.evs.def)">
-          <input matSliderThumb (input)="onChangeEvValue()" [(ngModel)]="current.pokemon.evs.def">
+          <input matSliderThumb (change)="onChangeEvValue()" [(ngModel)]="current.pokemon.evs.def" (input)="beforeChangeEvValue()">
         </mat-slider>
       </div>
       <div class="stat-value">
@@ -120,7 +120,7 @@
       </div>
       <div class="ev-slider">
         <mat-slider class="mat-ev-slider" [min]="calculateMin(current.pokemon.evs.spa)" [max]="252" [step]="calculateEvStep(current.pokemon.evs.spa)">
-          <input matSliderThumb (input)="onChangeEvValue()" [(ngModel)]="current.pokemon.evs.spa">
+          <input matSliderThumb (change)="onChangeEvValue()" [(ngModel)]="current.pokemon.evs.spa" (input)="beforeChangeEvValue()">
         </mat-slider>
       </div>
       <div class="stat-value">
@@ -135,7 +135,7 @@
       </div>
       <div class="ev-slider">
         <mat-slider class="mat-ev-slider" [min]="calculateMin(current.pokemon.evs.spd)" [max]="252" [step]="calculateEvStep(current.pokemon.evs.spd)">
-          <input matSliderThumb (input)="onChangeEvValue()" [(ngModel)]="current.pokemon.evs.spd">
+          <input matSliderThumb (change)="onChangeEvValue()" [(ngModel)]="current.pokemon.evs.spd" (input)="beforeChangeEvValue()">
         </mat-slider>
       </div>
       <div class="stat-value">
@@ -150,7 +150,7 @@
       </div>
       <div class="ev-slider">
         <mat-slider class="mat-ev-slider" [min]="calculateMin(current.pokemon.evs.spe)" [max]="252" [step]="calculateEvStep(current.pokemon.evs.spe)">
-          <input matSliderThumb (input)="onChangeEvValue()" [(ngModel)]="current.pokemon.evs.spe">
+          <input matSliderThumb (change)="onChangeEvValue()" [(ngModel)]="current.pokemon.evs.spe" (input)="beforeChangeEvValue()">
         </mat-slider>
       </div>
       <div class="stat-value">

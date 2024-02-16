@@ -45,4 +45,8 @@ export class TargetPokemon {
       this.pokemon.teraType = this.teraTypeStorage
     }
   }
+
+  totalEvs(): number {
+    return this.pokemon.evs.hp + this.pokemon.evs.atk + this.pokemon.evs.def + this.pokemon.evs.spa + this.pokemon.evs.spd + this.pokemon.evs.spe
+  }
 }

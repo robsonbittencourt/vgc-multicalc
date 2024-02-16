@@ -43,7 +43,8 @@ export class PokemonMainComponent implements OnInit {
 
   EV_ZERO = 0
   FIRST_EV = 4
-  
+  MAX_EVS = 508
+
   differ: KeyValueDiffer<string, any>;
   constructor(private differs: KeyValueDiffers) {
     this.differ = this.differs.find({}).create();
@@ -197,6 +198,8 @@ export class PokemonMainComponent implements OnInit {
     level: 50
   }), this.teraTypeActive)
 
+  public previous = new TargetPokemon(this.current.pokemon.clone())
+
   onPokemonSelected(selectedPokemon: string) {
     this.pokemonName = selectedPokemon
   }
@@ -222,7 +225,19 @@ export class PokemonMainComponent implements OnInit {
   }
 
   onChangeEvValue() {
-    this.current = new TargetPokemon(this.current.pokemon.clone())
+    if (this.current.totalEvs() <= this.MAX_EVS) {
+      this.previous = new TargetPokemon(this.current.pokemon.clone())
+      this.current = new TargetPokemon(this.current.pokemon.clone())
+    } else {
+      this.current = new TargetPokemon(this.previous.pokemon.clone())
+    }    
+  }
+
+  beforeChangeEvValue() {
+    if (this.current.totalEvs() <= this.MAX_EVS) {
+      this.previous = new TargetPokemon(this.current.pokemon.clone())
+      this.current = new TargetPokemon(this.current.pokemon.clone())
+    }
   }
 
   addPokemon() {
