@@ -41,6 +41,9 @@ export class PokemonMainComponent implements OnInit {
   swordOfRuinActive = false;
   beadsOfRuinActive = false;
 
+  EV_ZERO = 0
+  FIRST_EV = 4
+  
   differ: KeyValueDiffer<string, any>;
   constructor(private differs: KeyValueDiffers) {
     this.differ = this.differs.find({}).create();
@@ -85,7 +88,7 @@ export class PokemonMainComponent implements OnInit {
       startWith(''),
       map(value => this._filter(value || '', this.allMoveNames)),
     );
-
+    
     this.calcDamageToAll();
   }
 
@@ -272,6 +275,19 @@ export class PokemonMainComponent implements OnInit {
   terastalyzePokemon(index: number) {
     this.targets[index].changeTeraStatus()
     this.calcDamageToAll()
+  }
+
+  calculateMin(evValue: number) {
+    if (evValue == this.EV_ZERO || evValue == this.FIRST_EV) return 0
+    
+    return 4
+  }
+
+  calculateEvStep(evValue: number) {
+    if (evValue == this.EV_ZERO) return 4
+    if (evValue == this.FIRST_EV) return 6
+    
+    return 8
   }
 
   calcDamage(attackerPoke: Pokemon, target: TargetPokemon, move: Move) {
