@@ -85,7 +85,7 @@
   margin-top: 1em;
   padding: 1em;
   display: grid;
-  grid-template-columns: 100px 1fr;
+  grid-template-columns: 80px 1fr 40px;
   grid-auto-rows: 50px;
   grid-column-gap: 2em;
   grid-row-gap: 1em;
@@ -105,6 +105,12 @@
 
 .mat-ev-slider {
   width: 100%;
+}
+
+.stat-value {
+  font-weight: 500;
+  display: flex;
+  align-items: center;
 }
 
 .left-pokemon-buttons {

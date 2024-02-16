@@ -181,19 +181,21 @@ export class PokemonMainComponent implements OnInit {
   public item = "Choice Specs"
   public ability: any = "Protosynthesis"
   public teraType = "Fairy"
-  public hp = 0
-  public atk = 0
-  public def = 0
-  public spa = 252
-  public spd = 0
-  public spe = 252
   public moveName = 'Moon Blast'
   public teraTypeActive = true
   public pokePaste = ""
 
+  public current = new TargetPokemon(new Pokemon(this.gen, this.pokemonName, {
+    nature: this.nature,
+    item: this.item,
+    ability: this.ability,
+    teraType: this.teraTypeActive ? this.teraType as any : null,
+    evs: { hp: 0, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 },
+    level: 50
+  }), this.teraTypeActive)
+
   onPokemonSelected(selectedPokemon: string) {
     this.pokemonName = selectedPokemon
-
   }
 
   onNatureSelected(selectedNature: string) {
@@ -216,6 +218,10 @@ export class PokemonMainComponent implements OnInit {
     this.moveName = selectedMove
   }
 
+  onChangeEvValue() {
+    this.current = new TargetPokemon(this.current.pokemon.clone())
+  }
+
   addPokemon() {
     this.targets.push(
       new TargetPokemon(new Pokemon(this.gen, this.pokemonName, {
@@ -223,7 +229,7 @@ export class PokemonMainComponent implements OnInit {
         item: this.item,
         ability: this.ability,
         teraType: this.teraTypeActive ? this.teraType as any : null,
-        evs: { hp: this.hp, atk: this.atk, def: this.def, spa: this.spa, spd: this.spd, spe: this.spe },
+        evs: this.current.pokemon.evs,
         level: 50
       }), this.teraTypeActive)
     )
@@ -341,7 +347,7 @@ export class PokemonMainComponent implements OnInit {
       item: this.item,
       nature: this.nature,
       ability: this.ability,
-      evs: { hp: this.hp, atk: this.atk, def: this.def, spa: this.spa, spd: this.spd, spe: this.spe },
+      evs: this.current.pokemon.evs,
       teraType: this.teraTypeActive ? this.teraType as any : null,
       level: 50
     })

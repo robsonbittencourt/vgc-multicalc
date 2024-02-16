@@ -70,73 +70,91 @@
       <div class="ev-value dense-2">
         <mat-form-field appearance="outline" class="mat-ev-field">
           <mat-label>HP</mat-label>
-          <input type="text" matInput [(ngModel)]="hp">
+          <input type="text" matInput [(ngModel)]="current.pokemon.evs.hp">
         </mat-form-field>
       </div>
       <div class="ev-slider">
         <mat-slider class="mat-ev-slider" [min]="0" [max]="252" [step]="4">
-          <input matSliderThumb [(ngModel)]="hp">
+          <input matSliderThumb (input)="onChangeEvValue()" [(ngModel)]="current.pokemon.evs.hp">
         </mat-slider>
+      </div>
+      <div class="stat-value">
+        <label>{{ current.pokemon.stats.hp }}</label>
       </div>
 
       <div class="ev-value dense-2">
         <mat-form-field appearance="outline" class="mat-ev-field">
           <mat-label>ATK</mat-label>
-          <input type="text" matInput [(ngModel)]="atk">
+          <input type="text" matInput [(ngModel)]="current.pokemon.evs.atk">
         </mat-form-field>
       </div>
       <div class="ev-slider">
         <mat-slider class="mat-ev-slider" [min]="0" [max]="252" [step]="4">
-          <input matSliderThumb [(ngModel)]="atk">
+          <input matSliderThumb (input)="onChangeEvValue()" [(ngModel)]="current.pokemon.evs.atk">
         </mat-slider>
+      </div>
+      <div class="stat-value">
+        <label>{{ current.pokemon.stats.atk }}</label>
       </div>
 
       <div class="ev-value dense-2">
         <mat-form-field appearance="outline" class="mat-ev-field">
           <mat-label>DEF</mat-label>
-          <input type="text" matInput [(ngModel)]="def">
+          <input type="text" matInput [(ngModel)]="current.pokemon.evs.def">
         </mat-form-field>
       </div>
       <div class="ev-slider">
         <mat-slider class="mat-ev-slider" [min]="0" [max]="252" [step]="4">
-          <input matSliderThumb [(ngModel)]="def">
+          <input matSliderThumb (input)="onChangeEvValue()" [(ngModel)]="current.pokemon.evs.def">
         </mat-slider>
+      </div>
+      <div class="stat-value">
+        <label>{{ current.pokemon.stats.def }}</label>
       </div>
 
       <div class="ev-value dense-2">
         <mat-form-field appearance="outline" class="mat-ev-field">
           <mat-label>SPA</mat-label>
-          <input type="text" matInput [(ngModel)]="spa">
+          <input type="text" matInput [(ngModel)]="current.pokemon.evs.spa">
         </mat-form-field>
       </div>
       <div class="ev-slider">
         <mat-slider class="mat-ev-slider" [min]="0" [max]="252" [step]="4">
-          <input matSliderThumb [(ngModel)]="spa">
+          <input matSliderThumb (input)="onChangeEvValue()" [(ngModel)]="current.pokemon.evs.spa">
         </mat-slider>
+      </div>
+      <div class="stat-value">
+        <label>{{ current.pokemon.stats.spa }}</label>
       </div>
 
       <div class="ev-value dense-2">
         <mat-form-field appearance="outline" class="mat-ev-field">
           <mat-label>SPD</mat-label>
-          <input type="text" matInput [(ngModel)]="spd">
+          <input type="text" matInput [(ngModel)]="current.pokemon.evs.spd">
         </mat-form-field>
       </div>
       <div class="ev-slider">
         <mat-slider class="mat-ev-slider" [min]="0" [max]="252" [step]="4">
-          <input matSliderThumb [(ngModel)]="spd">
+          <input matSliderThumb (input)="onChangeEvValue()" [(ngModel)]="current.pokemon.evs.spd">
         </mat-slider>
+      </div>
+      <div class="stat-value">
+        <label>{{ current.pokemon.stats.spd }}</label>
       </div>
 
       <div class="ev-value dense-2">
         <mat-form-field appearance="outline" class="mat-ev-field">
           <mat-label>SPE</mat-label>
-          <input type="text" matInput [(ngModel)]="spe">
+          <input type="text" matInput [(ngModel)]="current.pokemon.evs.spe">
         </mat-form-field>
       </div>
       <div class="ev-slider">
         <mat-slider class="mat-ev-slider" [min]="0" [max]="252" [step]="4">
-          <input matSliderThumb [(ngModel)]="spe">
+          <input matSliderThumb (input)="onChangeEvValue()" [(ngModel)]="current.pokemon.evs.spe">
         </mat-slider>
+      </div>
+      <div class="stat-value">
+        <label>{{ current.pokemon.stats.spe }}</label>
       </div>
     </div>
     <div class="left-pokemon-buttons">
