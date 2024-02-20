@@ -157,10 +157,12 @@
         <label>{{ current.pokemon.stats.spe }}</label>
       </div>
     </div>
+    <div class="remaining-evs">
+      <label>Remaining: {{ MAX_EVS - current.totalEvs() }}</label>
+    </div>
     <div class="left-pokemon-buttons">
       <button mat-flat-button color="primary" (click)="addPokemon()" class="mat-flat-button">Add as defender</button>
-      <button mat-flat-button color="primary" (click)="addFromPokePaste()" class="mat-flat-button">Add from Paste
-      </button>
+      <button mat-flat-button color="primary" (click)="addFromPokePaste()" class="mat-flat-button">Add from Paste</button>
     </div>
     <div class="pokepaste-input">
       <li class="form-row">
