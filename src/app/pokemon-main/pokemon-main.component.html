@@ -47,7 +47,7 @@
       </li>
       <li class="form-row">
         <label>TeraType</label>
-        <mat-checkbox [(ngModel)]="teraTypeActive"></mat-checkbox>
+        <mat-checkbox [ngModel]="pokemon.teraTypeActive" (change)="pokemon.changeTeraStatus($event.checked)"></mat-checkbox>
         <input type="text" placeholder="Choose Tera Type" [formControl]="controlTeraType"
           [matAutocomplete]="autoTeraType">
         <mat-autocomplete #autoTeraType="matAutocomplete" (optionSelected)="onTeraTypeSelected($event.option.value)">
@@ -70,95 +70,95 @@
       <div class="ev-value dense-2">
         <mat-form-field appearance="outline" class="mat-ev-field">
           <mat-label>HP</mat-label>
-          <input type="number" min="0" max="252" matInput [(ngModel)]="current.pokemon.evs.hp">
+          <input type="number" min="0" max="252" matInput [(ngModel)]="pokemon.evs.hp">
         </mat-form-field>
       </div>
       <div class="ev-slider">
-        <mat-slider class="mat-ev-slider" [min]="calculateMin(current.pokemon.evs.hp)" [max]="252" [step]="calculateEvStep(current.pokemon.evs.hp)">
-          <input matSliderThumb (change)="onChangeEvValue()" [(ngModel)]="current.pokemon.evs.hp" (input)="beforeChangeEvValue()">
+        <mat-slider class="mat-ev-slider" [min]="calculateMin(pokemon.evs.hp)" [max]="252" [step]="calculateEvStep(pokemon.evs.hp)">
+          <input matSliderThumb (change)="onChangeEvValue()" [(ngModel)]="pokemon.evs.hp" (input)="beforeChangeEvValue()">
         </mat-slider>
       </div>
       <div class="stat-value">
-        <label>{{ current.pokemon.stats.hp }}</label>
+        <label>{{ pokemon.hp }}</label>
       </div>
 
       <div class="ev-value dense-2">
         <mat-form-field appearance="outline" class="mat-ev-field">
           <mat-label>ATK</mat-label>
-          <input type="number" min="0" max="252" matInput [(ngModel)]="current.pokemon.evs.atk">
+          <input type="number" min="0" max="252" matInput [(ngModel)]="pokemon.evs.atk">
         </mat-form-field>
       </div>
       <div class="ev-slider">
-        <mat-slider class="mat-ev-slider" [min]="calculateMin(current.pokemon.evs.atk)" [max]="252" [step]="calculateEvStep(current.pokemon.evs.atk)">
-          <input matSliderThumb (change)="onChangeEvValue()" [(ngModel)]="current.pokemon.evs.atk" (input)="beforeChangeEvValue()">
+        <mat-slider class="mat-ev-slider" [min]="calculateMin(pokemon.evs.atk)" [max]="252" [step]="calculateEvStep(pokemon.evs.atk)">
+          <input matSliderThumb (change)="onChangeEvValue()" [(ngModel)]="pokemon.evs.atk" (input)="beforeChangeEvValue()">
         </mat-slider>
       </div>
       <div class="stat-value">
-        <label>{{ current.pokemon.stats.atk }}</label>
+        <label>{{ pokemon.atk }}</label>
       </div>
 
       <div class="ev-value dense-2">
         <mat-form-field appearance="outline" class="mat-ev-field">
           <mat-label>DEF</mat-label>
-          <input type="number" min="0" max="252" matInput [(ngModel)]="current.pokemon.evs.def">
+          <input type="number" min="0" max="252" matInput [(ngModel)]="pokemon.evs.def">
         </mat-form-field>
       </div>
       <div class="ev-slider">
-        <mat-slider class="mat-ev-slider" [min]="calculateMin(current.pokemon.evs.def)" [max]="252" [step]="calculateEvStep(current.pokemon.evs.def)">
-          <input matSliderThumb (change)="onChangeEvValue()" [(ngModel)]="current.pokemon.evs.def" (input)="beforeChangeEvValue()">
+        <mat-slider class="mat-ev-slider" [min]="calculateMin(pokemon.evs.def)" [max]="252" [step]="calculateEvStep(pokemon.evs.def)">
+          <input matSliderThumb (change)="onChangeEvValue()" [(ngModel)]="pokemon.evs.def" (input)="beforeChangeEvValue()">
         </mat-slider>
       </div>
       <div class="stat-value">
-        <label>{{ current.pokemon.stats.def }}</label>
+        <label>{{ pokemon.def }}</label>
       </div>
 
       <div class="ev-value dense-2">
         <mat-form-field appearance="outline" class="mat-ev-field">
           <mat-label>SPA</mat-label>
-          <input type="number" min="0" max="252" matInput [(ngModel)]="current.pokemon.evs.spa">
+          <input type="number" min="0" max="252" matInput [(ngModel)]="pokemon.evs.spa">
         </mat-form-field>
       </div>
       <div class="ev-slider">
-        <mat-slider class="mat-ev-slider" [min]="calculateMin(current.pokemon.evs.spa)" [max]="252" [step]="calculateEvStep(current.pokemon.evs.spa)">
-          <input matSliderThumb (change)="onChangeEvValue()" [(ngModel)]="current.pokemon.evs.spa" (input)="beforeChangeEvValue()">
+        <mat-slider class="mat-ev-slider" [min]="calculateMin(pokemon.evs.spa)" [max]="252" [step]="calculateEvStep(pokemon.evs.spa)">
+          <input matSliderThumb (change)="onChangeEvValue()" [(ngModel)]="pokemon.evs.spa" (input)="beforeChangeEvValue()">
         </mat-slider>
       </div>
       <div class="stat-value">
-        <label>{{ current.pokemon.stats.spa }}</label>
+        <label>{{ pokemon.spa }}</label>
       </div>
 
       <div class="ev-value dense-2">
         <mat-form-field appearance="outline" class="mat-ev-field">
           <mat-label>SPD</mat-label>
-          <input type="number" min="0" max="252" matInput [(ngModel)]="current.pokemon.evs.spd">
+          <input type="number" min="0" max="252" matInput [(ngModel)]="pokemon.evs.spd">
         </mat-form-field>
       </div>
       <div class="ev-slider">
-        <mat-slider class="mat-ev-slider" [min]="calculateMin(current.pokemon.evs.spd)" [max]="252" [step]="calculateEvStep(current.pokemon.evs.spd)">
-          <input matSliderThumb (change)="onChangeEvValue()" [(ngModel)]="current.pokemon.evs.spd" (input)="beforeChangeEvValue()">
+        <mat-slider class="mat-ev-slider" [min]="calculateMin(pokemon.evs.spd)" [max]="252" [step]="calculateEvStep(pokemon.evs.spd)">
+          <input matSliderThumb (change)="onChangeEvValue()" [(ngModel)]="pokemon.evs.spd" (input)="beforeChangeEvValue()">
         </mat-slider>
       </div>
       <div class="stat-value">
-        <label>{{ current.pokemon.stats.spd }}</label>
+        <label>{{ pokemon.spd }}</label>
       </div>
 
       <div class="ev-value dense-2">
         <mat-form-field appearance="outline" class="mat-ev-field">
           <mat-label>SPE</mat-label>
-          <input type="number" min="0" max="252" matInput [(ngModel)]="current.pokemon.evs.spe">
+          <input type="number" min="0" max="252" matInput [(ngModel)]="pokemon.evs.spe">
         </mat-form-field>
       </div>
       <div class="ev-slider">
-        <mat-slider class="mat-ev-slider" [min]="calculateMin(current.pokemon.evs.spe)" [max]="252" [step]="calculateEvStep(current.pokemon.evs.spe)">
-          <input matSliderThumb (change)="onChangeEvValue()" [(ngModel)]="current.pokemon.evs.spe" (input)="beforeChangeEvValue()">
+        <mat-slider class="mat-ev-slider" [min]="calculateMin(pokemon.evs.spe)" [max]="252" [step]="calculateEvStep(pokemon.evs.spe)">
+          <input matSliderThumb (change)="onChangeEvValue()" [(ngModel)]="pokemon.evs.spe" (input)="beforeChangeEvValue()">
         </mat-slider>
       </div>
       <div class="stat-value">
-        <label>{{ current.pokemon.stats.spe }}</label>
+        <label>{{ pokemon.spe }}</label>
       </div>
     </div>
     <div class="remaining-evs">
-      <label>Remaining: {{ MAX_EVS - current.totalEvs() }}</label>
+      <label>Remaining: {{ MAX_EVS - pokemon.totalEvs() }}</label>
     </div>
     <div class="left-pokemon-buttons">
       <button mat-flat-button color="primary" (click)="addPokemon()" class="mat-flat-button">Add as defender</button>
@@ -177,16 +177,16 @@
       <span class="title-left-pokemon">Field</span>
     </div>
     <div>
-      <mat-checkbox [(ngModel)]="tabletsOfRuinActive"></mat-checkbox>Tablets Of Ruin (-atk)
+      <mat-checkbox [(ngModel)]="field.tabletsOfRuinActive"></mat-checkbox>Tablets Of Ruin (-atk)
     </div>
     <div>
-      <mat-checkbox [(ngModel)]="swordOfRuinActive"></mat-checkbox>Sword Of Ruin Active (-def)
+      <mat-checkbox [(ngModel)]="field.swordOfRuinActive"></mat-checkbox>Sword Of Ruin Active (-def)
     </div>
     <div>
-      <mat-checkbox [(ngModel)]="vesselOfRuinActive"></mat-checkbox>Vessel Of Ruin (-spa)
+      <mat-checkbox [(ngModel)]="field.vesselOfRuinActive"></mat-checkbox>Vessel Of Ruin (-spa)
     </div>
     <div>
-      <mat-checkbox [(ngModel)]="beadsOfRuinActive"></mat-checkbox>Beads Of Ruin (-spd)
+      <mat-checkbox [(ngModel)]="field.beadsOfRuinActive"></mat-checkbox>Beads Of Ruin (-spd)
     </div>
   </div>
 
@@ -198,14 +198,14 @@
     <div *ngFor="let target of targets; let myIndex=index;">
       <mat-card class="card" [ngStyle]="{'background-color': cardColor(target.koChance)}">
         <mat-card-title-group>
-          <mat-card-title>{{ target.pokemon.name }}</mat-card-title>
-          <mat-card-subtitle>Item: {{ target.pokemon.item }}</mat-card-subtitle>
-          <mat-card-subtitle>Nature: {{ target.pokemon.nature }}</mat-card-subtitle>
-          <mat-card-subtitle>Ability: {{ target.pokemon.ability }}</mat-card-subtitle>
-          <mat-card-subtitle>{{ target.evsDescription }}</mat-card-subtitle>
-          <mat-card-subtitle *ngIf="target.isTeraActived">Terastalyzed as {{ target.pokemon.teraType }} type
+          <mat-card-title>{{ target.name }}</mat-card-title>
+          <mat-card-subtitle>Item: {{ target.item }}</mat-card-subtitle>
+          <mat-card-subtitle>Nature: {{ target.nature }}</mat-card-subtitle>
+          <mat-card-subtitle>Ability: {{ target.ability }}</mat-card-subtitle>
+          <mat-card-subtitle>{{ target.evsDescription() }}</mat-card-subtitle>
+          <mat-card-subtitle *ngIf="target.teraTypeActive()">Terastalyzed as {{ target.teraType }} type
           </mat-card-subtitle>
-          <img mat-card-md-image src='https://img.pokemondb.net/sprites/home/normal/{{target.name}}.png'>
+          <img mat-card-md-image src='https://img.pokemondb.net/sprites/home/normal/{{target.lowerCaseName}}.png'>
         </mat-card-title-group>
         <div class="card-container">
           <div class="card-content">
@@ -214,8 +214,8 @@
           </div>
           <div class="card-button">
             <button class="icon-button" (click)="terastalyzePokemon(myIndex)" *ngIf="target.teraTypeStorage">
-              <img class="icon" src="assets/icons/tera-icon.png" *ngIf="target.isTeraActived"/>
-              <img class="icon" src="assets/icons/tera-icon-gray.png" *ngIf="!target.isTeraActived" />
+              <img class="icon" src="assets/icons/tera-icon.png" *ngIf="target.teraTypeActive()"/>
+              <img class="icon" src="assets/icons/tera-icon-gray.png" *ngIf="!target.teraTypeActive()" />
             </button>
             <a (click)="removePokemon(myIndex)">
               <mat-icon fontIcon="delete"></mat-icon>
