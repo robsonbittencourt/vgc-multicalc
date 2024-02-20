@@ -70,7 +70,7 @@
       <div class="ev-value dense-2">
         <mat-form-field appearance="outline" class="mat-ev-field">
           <mat-label>HP</mat-label>
-          <input type="text" matInput [(ngModel)]="current.pokemon.evs.hp">
+          <input type="number" min="0" max="252" matInput [(ngModel)]="current.pokemon.evs.hp">
         </mat-form-field>
       </div>
       <div class="ev-slider">
@@ -85,7 +85,7 @@
       <div class="ev-value dense-2">
         <mat-form-field appearance="outline" class="mat-ev-field">
           <mat-label>ATK</mat-label>
-          <input type="text" matInput [(ngModel)]="current.pokemon.evs.atk">
+          <input type="number" min="0" max="252" matInput [(ngModel)]="current.pokemon.evs.atk">
         </mat-form-field>
       </div>
       <div class="ev-slider">
@@ -100,7 +100,7 @@
       <div class="ev-value dense-2">
         <mat-form-field appearance="outline" class="mat-ev-field">
           <mat-label>DEF</mat-label>
-          <input type="text" matInput [(ngModel)]="current.pokemon.evs.def">
+          <input type="number" min="0" max="252" matInput [(ngModel)]="current.pokemon.evs.def">
         </mat-form-field>
       </div>
       <div class="ev-slider">
@@ -115,7 +115,7 @@
       <div class="ev-value dense-2">
         <mat-form-field appearance="outline" class="mat-ev-field">
           <mat-label>SPA</mat-label>
-          <input type="text" matInput [(ngModel)]="current.pokemon.evs.spa">
+          <input type="number" min="0" max="252" matInput [(ngModel)]="current.pokemon.evs.spa">
         </mat-form-field>
       </div>
       <div class="ev-slider">
@@ -130,7 +130,7 @@
       <div class="ev-value dense-2">
         <mat-form-field appearance="outline" class="mat-ev-field">
           <mat-label>SPD</mat-label>
-          <input type="text" matInput [(ngModel)]="current.pokemon.evs.spd">
+          <input type="number" min="0" max="252" matInput [(ngModel)]="current.pokemon.evs.spd">
         </mat-form-field>
       </div>
       <div class="ev-slider">
@@ -145,7 +145,7 @@
       <div class="ev-value dense-2">
         <mat-form-field appearance="outline" class="mat-ev-field">
           <mat-label>SPE</mat-label>
-          <input type="text" matInput [(ngModel)]="current.pokemon.evs.spe">
+          <input type="number" min="0" max="252" matInput [(ngModel)]="current.pokemon.evs.spe">
         </mat-form-field>
       </div>
       <div class="ev-slider">
