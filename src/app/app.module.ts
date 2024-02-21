@@ -1,10 +1,8 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-
-import { AppComponent } from './app.component';
-import { PokemonMainComponent } from './pokemon-main/pokemon-main.component';
+import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
@@ -15,19 +13,30 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
+import { AppComponent } from './app.component';
+import { MainPokemonComponent } from './main-pokemon/main-pokemon.component';
+import { TargetPokemonComponent } from './target-pokemon/target-pokemon.component';
+import { TargetPokemonCardComponent } from './target-pokemon-card/target-pokemon-card.component';
+import { FieldComponent } from './field/field.component';
+import { EvSliderComponent } from './ev-slider/ev-slider.component';
+
 @NgModule({
   declarations: [
     AppComponent,
-    PokemonMainComponent
+    MainPokemonComponent,
+    TargetPokemonComponent,
+    TargetPokemonCardComponent,
+    FieldComponent,
+    EvSliderComponent
   ],
   imports: [
-    BrowserModule,
-    FormsModule,
     ReactiveFormsModule,
+    FormsModule,
+    BrowserModule,
     BrowserAnimationsModule,
     MatAutocompleteModule,
-    MatFormFieldModule,
     MatInputModule,
+    MatFormFieldModule,
     MatCardModule,
     MatCheckboxModule,
     MatSliderModule,

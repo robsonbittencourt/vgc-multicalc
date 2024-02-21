@@ -1,0 +1,26 @@
+.field {
+  background-color: rgb(240, 236, 236);
+  border-radius: 1%;
+  margin-top: 1em;
+  margin-right: 1em;
+  height: 100%;
+}
+
+.header-left-pokemon {
+  background-color: rgb(40, 41, 41);
+  font-size: large;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+.title-left-pokemon {
+  color: white;
+  margin-left: 0.8em;
+}
+
+@media only screen and (max-width: 768px) {
+  .field {
+    margin-top: 0em;
+    margin-right: 0em;
+  }
+}

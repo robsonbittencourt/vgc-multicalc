@@ -1,0 +1,28 @@
+.ev-slider-container {
+  display: grid;
+  grid-template-columns: 80px 1fr 40px;
+  grid-auto-rows: 50px;
+  grid-column-gap: 2em;
+}
+  
+.ev-value {
+  width: 100%;
+}
+
+.ev-slider {
+  width: 95%;
+}
+
+.mat-ev-field {
+  width: 100%;
+}
+
+.mat-ev-slider {
+  width: 100%;
+}
+
+.stat-value {
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+}

@@ -1,0 +1,27 @@
+<mat-card class="card" [ngStyle]="{'background-color': cardColor(target.koChance)}">
+  <mat-card-title-group>
+    <mat-card-title>{{ target.name }}</mat-card-title>
+    <mat-card-subtitle>Item: {{ target.item }}</mat-card-subtitle>
+    <mat-card-subtitle>Nature: {{ target.nature }}</mat-card-subtitle>
+    <mat-card-subtitle>Ability: {{ target.ability }}</mat-card-subtitle>
+    <mat-card-subtitle>{{ target.evsDescription() }}</mat-card-subtitle>
+    <mat-card-subtitle *ngIf="target.teraTypeActive()">Terastalyzed as {{ target.teraType }} type
+    </mat-card-subtitle>
+    <img mat-card-md-image src='https://img.pokemondb.net/sprites/home/normal/{{target.lowerCaseName}}.png'>
+  </mat-card-title-group>
+  <div class="card-container">
+    <div class="card-content">
+      <br>Damage: {{ target.result }}
+      <br>{{ target.koChance }}
+    </div>
+    <div class="card-button">
+      <button class="icon-button" (click)="terastalyzePokemon()" *ngIf="target.teraTypeStorage">
+        <img class="icon" src="assets/icons/tera-icon.png" *ngIf="target.teraTypeActive()"/>
+        <img class="icon" src="assets/icons/tera-icon-gray.png" *ngIf="!target.teraTypeActive()" />
+      </button>
+      <a (click)="removePokemon()">
+        <mat-icon fontIcon="delete"></mat-icon>
+      </a>
+    </div>
+  </div>
+</mat-card>

@@ -1,0 +1,47 @@
+.container {
+  display: grid;
+  height: 100vh;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 0.2fr 1fr 0.08fr 2fr;
+  grid-column-gap: 1em;
+  background-color: rgb(252, 248, 248);
+}
+
+.header {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  background-color: rgb(40, 41, 41);
+  font-size: large;
+  display: flex;
+  align-items: center;
+}
+
+.title {
+  color: white;
+  margin-left: 1em;
+}
+
+.main-pokemon {
+  margin-bottom: 1em;
+}
+
+.field {
+  margin-bottom: 1em;
+}
+
+.target-pokemon {
+  display: grid;
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+@media only screen and (max-width: 768px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+
+  .header {
+    grid-column-start: 0;
+    grid-column-end: 1;
+  }
+}

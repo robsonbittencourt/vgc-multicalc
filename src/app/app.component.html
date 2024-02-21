@@ -3,6 +3,22 @@
     
   </header>
   <section>
-    <app-pokemon-main></app-pokemon-main>
+    <div class="container">
+      <div class="header">
+        <span class="title">Pokémon Multi Calc</span>
+      </div>
+      
+      <div class="main-pokemon">
+        <app-main-pokemon (pokemonChangedEvent)="pokemonChanged($event)" (pokemonAddedEvent)="pokemonAdded($event)"/>
+      </div>
+      
+      <div class="field">
+        <app-field (fieldChangedEvent)="fieldChanged($event)"/>
+      </div>
+      
+      <div class="target-pokemon">
+        <app-target-pokemon [targets]="targets" (targetChangedEvent)="targetChanged($event)"/>
+      </div>
+    </div>
   </section>
 </main>

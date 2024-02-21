@@ -125,7 +125,17 @@ export class Pokemon {
   }
 
   public clone(): Pokemon {
-    return new Pokemon(this.name, this.nature, this.item, this.ability, this.teraType, this.teraTypeActive(), this.evs, this.move)
+    return new Pokemon(this.name, this.nature, this.item, this.ability, this.teraTypeStorage, this.teraTypeActive(), this.evs, this.move)
+  }
+
+  public equals(toCompare: Pokemon): boolean {
+    return this.pokemonSmogon.name === toCompare.pokemonSmogon.name && 
+      this.pokemonSmogon.nature === toCompare.pokemonSmogon.nature &&
+      this.pokemonSmogon.item === toCompare.pokemonSmogon.item &&
+      this.pokemonSmogon.ability === toCompare.pokemonSmogon.ability &&
+      this.teraTypeStorage === toCompare.teraTypeStorage &&
+      this.teraTypeActive() === toCompare.teraTypeActive() &&
+      this.pokemonSmogon.evs === toCompare.pokemonSmogon.evs
   }
 
   public totalEvs(): number {
