@@ -29,25 +29,25 @@ export class AppComponent {
 
   pokemonChanged(pokemon: Pokemon) {
     this.pokemon = pokemon
-    this.calcDamageToAll()
+    this.calculateDamageForAll()
   }
 
   pokemonAdded(pokemon: Pokemon) {
     this.targets.push(new Target(pokemon))
-    this.calcDamageToAll()
+    this.calculateDamageForAll()
   }
 
   targetChanged(targets: Target[]) {
     this.targets = targets
-    this.calcDamageToAll()
+    this.calculateDamageForAll()
   }
 
   fieldChanged(field: any) { //TODO
     this.field = field
-    this.calcDamageToAll()
+    this.calculateDamageForAll()
   }
 
-  calcDamageToAll() {
+  calculateDamageForAll() {
     if (this.pokemon) {
       this.targets.forEach((target) => {
         const damageResult = this.damageCalculator.calcDamage(this.pokemon, target.pokemon, this.pokemon.move, this.field)
