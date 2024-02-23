@@ -51,37 +51,37 @@ export class MainPokemonComponent {
   ngOnInit() {
     this.filteredPokemonNames = this.controlPokemonName.valueChanges.pipe(
       startWith(''),
-      map(value => this._filter(value || '', this.allPokemonNames)),
-    );
+      map(value => this._filter(value || '', this.allPokemonNames))
+    )
 
     this.filteredNatures = this.controlNature.valueChanges.pipe(
       startWith(''),
-      map(value => this._filter(value || '', this.allNatureNames)),
-    );
+      map(value => this._filter(value || '', this.allNatureNames))
+    )
 
     this.filteredItems = this.controlItem.valueChanges.pipe(
       startWith(''),
-      map(value => this._filter(value || '', this.allItemsNames)),
-    );
+      map(value => this._filter(value || '', this.allItemsNames))
+    )
 
     this.filteredAbilities = this.controlAbility.valueChanges.pipe(
       startWith(''),
-      map(value => this._filter(value || '', this.allAbilitiesNames)),
-    );
+      map(value => this._filter(value || '', this.allAbilitiesNames))
+    )
 
     this.filteredTeraTypes = this.controlTeraType.valueChanges.pipe(
       startWith(''),
-      map(value => this._filter(value || '', this.allTeraTypes)),
-    );
+      map(value => this._filter(value || '', this.allTeraTypes))
+    )
 
     this.filteredMoves = this.controlMove.valueChanges.pipe(
       startWith(''),
-      map(value => this._filter(value || '', this.allMoveNames)),
-    );
+      map(value => this._filter(value || '', this.allMoveNames))
+    )
   }
 
   ngDoCheck() {
-    const change = this.differ.diff(this.pokemon);
+    const change = this.differ.diff(this.pokemon)
     
     if (change) {
       this.pokemonChangedEvent.emit(this.pokemon)
@@ -90,11 +90,11 @@ export class MainPokemonComponent {
 
   private _filter(value: string, values: string[]): string[] {
     const filterValue = this._normalizeValue(value);
-    return values.filter(name => this._normalizeValue(name).includes(filterValue));
+    return values.filter(name => this._normalizeValue(name).includes(filterValue))
   }
 
   private _normalizeValue(value: string): string {
-    return value.toLowerCase().replace(/\s/g, '');
+    return value.toLowerCase().replace(/\s/g, '')
   }
 
   onPokemonSelected(selectedPokemon: string) {
