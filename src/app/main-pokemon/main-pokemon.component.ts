@@ -134,4 +134,8 @@ export class MainPokemonComponent {
       this.pokemon.evs = this.pokemon.evs
     }
   }
+
+  onChangeStatModifier() {
+    this.pokemonChangedEvent.emit(this.pokemon)
+  }
 }

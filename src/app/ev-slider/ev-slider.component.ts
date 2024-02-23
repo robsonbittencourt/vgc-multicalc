@@ -7,19 +7,40 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class EvSliderComponent {
 
-  evValue: number | undefined = 0 
+  evValue: number | undefined = 0
+  statsModifierValue: number
+  statsModifiers = [+6, +5, +4, +3, +2, +1, 0, -1, -2, -3, -4, -5, -6]
 
   @Input()
   get ev(): number | undefined {
     return this.evValue
   }
-  
+
   @Output()
   evChange = new EventEmitter<number | undefined>()
+
+  @Output()
+  evChangedEvent = new EventEmitter<number>()
+
+  @Output()
+  beforeEvChangedEvent = new EventEmitter<number>()
 
   set ev(ev: number | undefined) {
     this.evValue = ev
     this.evChange.emit(this.evValue);
+  }
+
+  @Input()
+  get statsModifier(): number {
+    return this.statsModifierValue
+  }
+
+  @Output()
+  statsModifierChange = new EventEmitter<number>()
+
+  set statsModifier(statsModifier: number) {
+    this.statsModifierValue = statsModifier
+    this.statsModifierChange.emit(this.statsModifier);
   }
 
   @Input()
@@ -28,11 +49,6 @@ export class EvSliderComponent {
   @Input()
   statValue: number
 
-  @Output()
-  evChangedEvent = new EventEmitter<number>()
-
-  @Output()
-  beforeEvChangedEvent = new EventEmitter<number>()
 
   EV_ZERO = 0
   FIRST_EV = 4
@@ -56,6 +72,10 @@ export class EvSliderComponent {
     if (evValue == this.FIRST_EV) return 6
     
     return 8
+  }
+
+  showStatsModifier(): boolean {
+    return this.statName != "HP"
   }
 
 }

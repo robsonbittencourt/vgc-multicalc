@@ -7,13 +7,14 @@ export class Pokemon {
   public evsStorage: Partial<StatsTable> & { spc?: number; }
   private moveStorage: string
 
-  constructor(name: string, nature: string, item: string, ability: string, teraType: string, teraTypeActive: boolean = false, evs: Partial<StatsTable> & { spc?: number; }, move: string = "") {
+  constructor(name: string, nature: string, item: string, ability: string, teraType: string, teraTypeActive: boolean = false, evs: Partial<StatsTable> & { spc?: number; }, move: string = "", boosts: StatsTable | undefined = undefined) {
     this.pokemonSmogon = new PokemonSmogon(Generations.get(9), name, {
       nature: nature,
       item: item,
       ability: ability,
       teraType: teraTypeActive ? teraType as TypeName : undefined,
       evs: evs,
+      boosts: boosts,
       level: 50
     })
 
@@ -65,6 +66,14 @@ export class Pokemon {
   public set evs(evs: Partial<StatsTable> & { spc?: number; }) {
     this.evsStorage = evs
     this.pokemonSmogon = this.buildPokemonSmogon({ evs: evs })      
+  }
+
+  public get boosts(): StatsTable {
+    return this.pokemonSmogon.boosts
+  }
+
+  public set boosts(boosts: StatsTable) {
+    this.pokemonSmogon = this.buildPokemonSmogon({ boosts: boosts })
   }
 
   public get teraType(): string {
@@ -151,13 +160,14 @@ export class Pokemon {
     return evsDescription
   }
 
-  private buildPokemonSmogon({ name, nature, item, ability, teraType, teraTypeActive, evs }: { name?: string; nature?: string; item?: string; ability?: string; teraType?: string; teraTypeActive?: boolean; evs?: Partial<StatsTable> & { spc?: number; }} = {}): PokemonSmogon {
+  private buildPokemonSmogon({ name, nature, item, ability, teraType, teraTypeActive, evs, boosts }: { name?: string; nature?: string; item?: string; ability?: string; teraType?: string; teraTypeActive?: boolean; evs?: Partial<StatsTable> & { spc?: number; }, boosts?: StatsTable} = {}): PokemonSmogon {
     return new PokemonSmogon(Generations.get(9), name ? name : this.pokemonSmogon.name, {
       nature: nature ? nature : this.pokemonSmogon.nature,
       item: item ? item : this.pokemonSmogon.item,
       ability: ability ? ability : this.pokemonSmogon.ability,
       teraType: this.buildTeraType(teraType, teraTypeActive) as TypeName,
       evs: evs ? evs : this.pokemonSmogon.evs,
+      boosts: boosts ? boosts : this.pokemonSmogon.boosts,
       level: 50
     })
   }
