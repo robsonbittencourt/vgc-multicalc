@@ -7,10 +7,6 @@ export class Pokemon {
   public evsStorage: Partial<StatsTable> & { spc?: number; }
   private moveStorage: string
 
-  public damage: number = 0
-  public result: String = ""
-  public koChance: String = ""
-
   constructor(name: string, nature: string, item: string, ability: string, teraType: string, teraTypeActive: boolean = false, evs: Partial<StatsTable> & { spc?: number; }, move: string = "") {
     this.pokemonSmogon = new PokemonSmogon(Generations.get(9), name, {
       nature: nature,

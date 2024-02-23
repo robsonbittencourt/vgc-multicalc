@@ -2,10 +2,8 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { KeyValueDiffers, KeyValueDiffer } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
-import axios from 'axios';
 import { startWith, map } from 'rxjs/operators';
-import { calculate, Generations, Field, Move, MOVES, ITEMS, NATURES, TYPE_CHART, SPECIES, ABILITIES } from '@smogon/calc';
-import { Koffing } from 'koffing'
+import { MOVES, ITEMS, NATURES, TYPE_CHART, SPECIES, ABILITIES } from '@smogon/calc';
 import { Pokemon } from '../../lib/pokemon';
 
 @Component({
@@ -40,13 +38,9 @@ export class MainPokemonComponent {
 
   private differ: KeyValueDiffer<string, any>;
   public pokemon: Pokemon
-  public pokePaste = ""
 
   @Output() 
   pokemonChangedEvent = new EventEmitter<Pokemon>();
-
-  @Output() 
-  pokemonAddedEvent = new EventEmitter<Pokemon>();
 
   constructor(private differs: KeyValueDiffers) {
     this.pokemon = new Pokemon("Flutter Mane", "Timid", "Choice Specs", "Protosynthesis", "Fairy", true, { spa: 252 }, "Moon Blast")
@@ -103,8 +97,6 @@ export class MainPokemonComponent {
     return value.toLowerCase().replace(/\s/g, '');
   }
 
-  gen = Generations.get(9);
-
   onPokemonSelected(selectedPokemon: string) {
     this.pokemon.name = selectedPokemon
   }
@@ -141,25 +133,5 @@ export class MainPokemonComponent {
     if (this.pokemon.totalEvs() <= this.MAX_EVS) {
       this.pokemon.evs = this.pokemon.evs
     }
-  }
-
-  addPokemon() {
-    this.pokemonAddedEvent.emit(this.pokemon.clone())
-  }
-
-  addFromPokePaste() {
-    axios.get(`${this.pokePaste}/raw`)
-      .then(res => {
-        const parsedTeam = Koffing.parse(res.data)
-        JSON.parse(parsedTeam.toJson()).teams[0].pokemon.forEach((poke: any) => {
-          const evs = { hp: poke.evs.hp, atk: poke.evs.atk, def: poke.evs.def, spa: poke.evs.spa, spd: poke.evs.spd, spe: poke.evs.spe }
-          this.pokemonAddedEvent.emit(new Pokemon(poke.name, poke.nature, poke.item, poke.ability, poke.teraType, false, evs))
-        })
-      })
-      .catch(err => {
-        console.log('Error: ', err.message);
-      });
-
-    this.pokePaste = ""
   }
 }

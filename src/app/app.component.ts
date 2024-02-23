@@ -12,7 +12,6 @@ import { Target } from 'src/lib/target';
 export class AppComponent {
   constructor(private damageCalculator: DamageCalculatorService) { }
 
-  title = 'poke-multi-calc';
   pokemon: Pokemon
   field: Field
   
@@ -32,11 +31,18 @@ export class AppComponent {
     this.calculateDamageForAll()
   }
 
-  pokemonAdded(pokemon: Pokemon) {
-    const target = new Target(pokemon)
+  pokemonAdded() {
+    const target = new Target(this.pokemon.clone())
     this.targets.push(target)
 
     this.calculateDamage(target)
+    this.order()
+  }
+
+  targetsAdded(targets: Target[]) {
+    this.targets = this.targets.concat(targets)
+    targets.forEach(target => this.calculateDamage(target))
+    this.order()
   }
 
   targetChanged(target: Target) {
@@ -50,27 +56,22 @@ export class AppComponent {
   fieldChanged(field: Field) {
     this.field = field
     this.calculateDamageForAll()
+    this.order()
   }
 
-  calculateDamage(target: Target, shouldOrder: boolean = true) {
+  calculateDamage(target: Target) {
     const damageResult = this.damageCalculator.calcDamage(this.pokemon, target.pokemon, this.pokemon.move, this.field)
     target.setDamageResult(damageResult)
-
-    if (shouldOrder) {
-      this.order()
-    }
   }
   
   calculateDamageForAll() {
     if (this.pokemon) {
-      this.targets.forEach(target => this.calculateDamage(target, false))
+      this.targets.forEach(target => this.calculateDamage(target))
     }
-
-    this.order()
   }
 
   order() {
-    this.targets.sort((a, b) => b.damageResult.damage - a.damageResult.damage)
+    this.targets.sort((a, b) => b.damageResult?.damage - a.damageResult?.damage)
   }
   
 }

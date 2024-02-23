@@ -1,12 +1,16 @@
 <div class="header-damage-result">
-  <label class="title-left-pokemon">Result</label>
-  <label class="subtitle">Use Add as defender button to add more Pokémon</label>
+  <label class="title-left-pokemon">Defenders</label>
+</div>
+<div class="target-inputs">
+  <li class="form-row">
+    <button mat-flat-button color="primary" (click)="addFromPokePaste()" class="mat-flat-button">Add from Paste</button>
+    <input placeholder="Paste Link" type="text" matInput [(ngModel)]="pokePaste">
+    <button mat-flat-button color="primary" (click)="addPokemon()" class="mat-flat-button">Add Attacker</button>
+    <button mat-flat-button color="warn" (click)="removeAll()" class="mat-flat-button">Remove all</button>
+  </li>
 </div>
 <div class="target-pokemon">
-  <div *ngFor="let target of targets; let myIndex=index;">
+  <div *ngFor="let target of targets">
     <app-target-pokemon-card [target]="target" (targetChangedEvent)="targetChanged($event)" (targetRemovedEvent)="targetRemoved($event)"/>
   </div>
-</div>
-<div class="remove-all-section">
-  <button mat-flat-button color="primary" (click)="removeAll()" class="mat-flat-button">Remove all</button>
 </div>

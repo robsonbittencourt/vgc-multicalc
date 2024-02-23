@@ -1,6 +1,6 @@
 <div class="left-pokemon">
   <div class="header-left-pokemon">
-    <span class="title-left-pokemon">Attacking pokemon</span>
+    <span class="title-left-pokemon">Attacker</span>
   </div>
   <div>
     <li class="form-row">
@@ -71,15 +71,5 @@
   </div>
   <div class="remaining-evs">
     <label>Remaining: {{ MAX_EVS - pokemon.totalEvs() }}</label>
-  </div>
-  <div class="left-pokemon-buttons">
-    <button mat-flat-button color="primary" (click)="addPokemon()" class="mat-flat-button">Add as defender</button>
-    <button mat-flat-button color="primary" (click)="addFromPokePaste()" class="mat-flat-button">Add from Paste</button>
-  </div>
-  <div>
-    <li class="form-row">
-      <label>Paste Link</label>
-      <input type="text" matInput [(ngModel)]="pokePaste">
-    </li>
   </div>
 </div>
