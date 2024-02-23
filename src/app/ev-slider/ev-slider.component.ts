@@ -9,7 +9,13 @@ export class EvSliderComponent {
 
   evValue: number | undefined = 0
   statsModifierValue: number
-  statsModifiers = [+6, +5, +4, +3, +2, +1, 0, -1, -2, -3, -4, -5, -6]
+  statsModifiers = [
+    { value: 6, viewValue: "+6"}, { value: 5, viewValue: "+5"}, { value: 4, viewValue: "+4"},
+    { value: 3, viewValue: "+3"}, { value: 2, viewValue: "+2"}, { value: 1, viewValue: "+1"},
+    { value: 0, viewValue: "--"},
+    { value: -1, viewValue: "-1"}, { value: -2, viewValue: "-2"}, { value: -3, viewValue: "-3"},
+    { value: -4, viewValue: "-4"}, { value: -5, viewValue: "-5"}, { value: -6, viewValue: "-6"},
+  ]
 
   @Input()
   get ev(): number | undefined {
