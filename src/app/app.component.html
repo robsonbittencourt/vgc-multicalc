@@ -17,7 +17,7 @@
       </div>
       
       <div class="target-pokemon">
-        <app-target-pokemon [targets]="targets" (targetChangedEvent)="targetChanged($event)"/>
+        <app-target-pokemon [targets]="targets" (targetChangedEvent)="targetChanged($event)" (allTargetsRemoved)="removeAllTargets()"/>
       </div>
     </div>
   </section>

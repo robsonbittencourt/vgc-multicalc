@@ -130,7 +130,6 @@ export class MainPokemonComponent {
   }
 
   onChangeEvValue() {
-    console.log(this.pokemon.evs)
     if (this.pokemon.totalEvs() <= this.MAX_EVS) {
       this.pokemon.evs = this.pokemon.evs
     } else {

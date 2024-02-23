@@ -12,10 +12,13 @@ export class TargetPokemonComponent {
   targets: Target[]
 
   @Output() 
-  targetChangedEvent = new EventEmitter<Target[]>()
+  targetChangedEvent = new EventEmitter<Target>()
 
-  targetChanged() {
-    this.targetChangedEvent.emit(this.targets)
+  @Output() 
+  allTargetsRemoved = new EventEmitter<any>()
+
+  targetChanged(target: Target) {
+    this.targetChangedEvent.emit(target)
   }
 
   targetRemoved(target: Target) {
@@ -24,8 +27,7 @@ export class TargetPokemonComponent {
   }
 
   removeAll() {
-    this.targets = []
-    this.targetChangedEvent.emit(this.targets)
+    this.allTargetsRemoved.emit()
   }
 
 }

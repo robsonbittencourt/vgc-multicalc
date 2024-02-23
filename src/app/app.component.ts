@@ -33,13 +33,18 @@ export class AppComponent {
   }
 
   pokemonAdded(pokemon: Pokemon) {
-    this.targets.push(new Target(pokemon))
-    this.calculateDamageForAll()
+    const target = new Target(pokemon)
+    this.targets.push(target)
+
+    this.calculateDamage(target)
   }
 
-  targetChanged(targets: Target[]) {
-    this.targets = targets
-    this.calculateDamageForAll()
+  targetChanged(target: Target) {
+    this.calculateDamage(target)
+  }
+
+  removeAllTargets() {
+    this.targets = []
   }
 
   fieldChanged(field: Field) {
@@ -47,14 +52,25 @@ export class AppComponent {
     this.calculateDamageForAll()
   }
 
-  calculateDamageForAll() {
-    if (this.pokemon) {
-      this.targets.forEach((target) => {
-        const damageResult = this.damageCalculator.calcDamage(this.pokemon, target.pokemon, this.pokemon.move, this.field)
-        target.setDamageResult(damageResult)
-      })
+  calculateDamage(target: Target, shouldOrder: boolean = true) {
+    const damageResult = this.damageCalculator.calcDamage(this.pokemon, target.pokemon, this.pokemon.move, this.field)
+    target.setDamageResult(damageResult)
 
-      this.targets.sort((a, b) => b.damageResult.damage - a.damageResult.damage)
+    if (shouldOrder) {
+      this.order()
     }
   }
+  
+  calculateDamageForAll() {
+    if (this.pokemon) {
+      this.targets.forEach(target => this.calculateDamage(target, false))
+    }
+
+    this.order()
+  }
+
+  order() {
+    this.targets.sort((a, b) => b.damageResult.damage - a.damageResult.damage)
+  }
+  
 }
