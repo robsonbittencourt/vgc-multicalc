@@ -33,16 +33,18 @@
 
 .target-inputs {
   background-color: rgb(240, 236, 236);
+  margin-left: 1em;
+  margin-right: 1em;
   display: flex;
   align-items: left;
-  padding: 1em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
 }
 
 .left-pokemon-buttons {
   padding: 1em;
   display: flex;
   justify-content: center;
-  
 }
 
 .form-row {
