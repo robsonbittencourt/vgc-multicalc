@@ -29,6 +29,7 @@ export class AppComponent {
   pokemonChanged(pokemon: Pokemon) {
     this.pokemon = pokemon
     this.calculateDamageForAll()
+    this.order()
   }
 
   pokemonAdded() {
