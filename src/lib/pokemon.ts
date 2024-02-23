@@ -77,7 +77,11 @@ export class Pokemon {
   }
 
   public get teraType(): string {
-    return this.pokemonSmogon.teraType as string
+    if (this.pokemonSmogon.teraType) {
+      return this.pokemonSmogon.teraType as string
+    }
+
+    return this.teraTypeStorage
   }
 
   public set teraType(teraType: string) {

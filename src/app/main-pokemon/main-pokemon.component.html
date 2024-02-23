@@ -2,64 +2,48 @@
   <div class="header-left-pokemon">
     <span class="title-left-pokemon">Attacker</span>
   </div>
-  <div>
-    <li class="form-row">
+  <div class="info-container">
+    <div class="info-label">
       <label>Pokémon</label>
-      <input type="text" placeholder="Choose Pokémon" matInput [formControl]="controlPokemonName"
-        [matAutocomplete]="autoPokemon">
-      <mat-autocomplete #autoPokemon="matAutocomplete" (optionSelected)="onPokemonSelected($event.option.value)">
-        <mat-option *ngFor="let pokemonName of filteredPokemonNames | async" [value]="pokemonName">
-          {{pokemonName}}
-        </mat-option>
-      </mat-autocomplete>
-    </li>
-    <li class="form-row">
+    </div>
+    <div>
+      <app-input-autocomplete [(value)]="pokemon.name" [allValues]="allPokemonNames"/>
+    </div>
+    <div class="info-label">
       <label>Nature</label>
-      <input type="text" placeholder="Choose Nature" [formControl]="controlNature" [matAutocomplete]="autoNature">
-      <mat-autocomplete #autoNature="matAutocomplete" (optionSelected)="onNatureSelected($event.option.value)">
-        <mat-option *ngFor="let nature of filteredNatures | async" [value]="nature">
-          {{nature}}
-        </mat-option>
-      </mat-autocomplete>
-    </li>
-    <li class="form-row">
+    </div>
+    <div>
+      <app-input-autocomplete [(value)]="pokemon.nature" [allValues]="allNatureNames"/>
+    </div>
+    <div class="info-label">
       <label>Item</label>
-      <input type="text" placeholder="Choose Nature" [formControl]="controlItem" [matAutocomplete]="autoItem">
-      <mat-autocomplete #autoItem="matAutocomplete" (optionSelected)="onItemSelected($event.option.value)">
-        <mat-option *ngFor="let item of filteredItems | async" [value]="item">
-          {{item}}
-        </mat-option>
-      </mat-autocomplete>
-    </li>
-    <li class="form-row">
+    </div>
+    <div>
+      <app-input-autocomplete [(value)]="pokemon.item" [allValues]="allItemsNames"/>
+    </div>
+    <div class="info-label">
       <label>Ability</label>
-      <input type="text" placeholder="Choose Ability" [formControl]="controlAbility" [matAutocomplete]="autoAbility">
-      <mat-autocomplete #autoAbility="matAutocomplete" (optionSelected)="onAbilitySelected($event.option.value)">
-        <mat-option *ngFor="let ability of filteredAbilities | async" [value]="ability">
-          {{ability}}
-        </mat-option>
-      </mat-autocomplete>
-    </li>
-    <li class="form-row">
-      <label>TeraType</label>
-      <mat-checkbox [ngModel]="pokemon.teraTypeActive" (change)="pokemon.changeTeraStatus($event.checked)"></mat-checkbox>
-      <input type="text" placeholder="Choose Tera Type" [formControl]="controlTeraType"
-        [matAutocomplete]="autoTeraType">
-      <mat-autocomplete #autoTeraType="matAutocomplete" (optionSelected)="onTeraTypeSelected($event.option.value)">
-        <mat-option *ngFor="let teraType of filteredTeraTypes | async" [value]="teraType">
-          {{teraType}}
-        </mat-option>
-      </mat-autocomplete>
-    </li>
-    <li class="form-row">
+    </div>
+    <div>
+      <app-input-autocomplete [(value)]="pokemon.ability" [allValues]="allAbilitiesNames"/>
+    </div>
+    <div class="info-label">
+      <label>TeraType</label>      
+    </div>
+    <div class="tera-type-section">
+      <div class="tera-type-checkbox">
+        <mat-checkbox [ngModel]="pokemon.teraTypeActive" (change)="pokemon.changeTeraStatus($event.checked)"></mat-checkbox>
+      </div>
+      <div class="tera-type-input">
+        <app-input-autocomplete [(value)]="pokemon.teraType" [allValues]="allTeraTypes"/>
+      </div>
+    </div>
+    <div class="info-label">
       <label>Move</label>
-      <input type="text" placeholder="Choose Move" [formControl]="controlMove" [matAutocomplete]="autoMove">
-      <mat-autocomplete #autoMove="matAutocomplete" (optionSelected)="onMoveSelected($event.option.value)">
-        <mat-option *ngFor="let move of filteredMoves | async" [value]="move">
-          {{move}}
-        </mat-option>
-      </mat-autocomplete>
-    </li>
+    </div>
+    <div>
+      <app-input-autocomplete [(value)]="pokemon.move" [allValues]="allMoveNames"/>
+    </div>
   </div>
   <div class="left-pokemon-evs">
     <app-ev-slider statName="HP" [statValue]="pokemon.hp" [(ev)]="pokemon.evs.hp" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"/>

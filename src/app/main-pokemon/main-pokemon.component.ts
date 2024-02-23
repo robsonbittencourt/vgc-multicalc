@@ -13,7 +13,6 @@ import { Pokemon } from '../../lib/pokemon';
 })
 export class MainPokemonComponent {
 
-  controlPokemonName = new FormControl('Flutter Mane');
   controlNature = new FormControl('Timid');
   controlItem = new FormControl('Choice Specs');
   controlAbility = new FormControl('Protosynthesis');
@@ -49,11 +48,6 @@ export class MainPokemonComponent {
   }
 
   ngOnInit() {
-    this.filteredPokemonNames = this.controlPokemonName.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value || '', this.allPokemonNames))
-    )
-
     this.filteredNatures = this.controlNature.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value || '', this.allNatureNames))
@@ -97,10 +91,6 @@ export class MainPokemonComponent {
     return value.toLowerCase().replace(/\s/g, '')
   }
 
-  onPokemonSelected(selectedPokemon: string) {
-    this.pokemon.name = selectedPokemon
-  }
-
   onNatureSelected(selectedNature: string) {
     this.pokemon.nature = selectedNature
   }
@@ -138,4 +128,5 @@ export class MainPokemonComponent {
   onChangeStatModifier() {
     this.pokemonChangedEvent.emit(this.pokemon)
   }
+
 }
