@@ -9,7 +9,7 @@ import { Field } from '@smogon/calc';
 export class FieldComponent {
 
   @Output() 
-  fieldChangedEvent = new EventEmitter<any>();
+  fieldChangedEvent = new EventEmitter<Field>();
 
   field = new Field({
     gameType: 'Doubles'

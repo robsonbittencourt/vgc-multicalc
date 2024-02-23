@@ -42,7 +42,7 @@ export class AppComponent {
     this.calculateDamageForAll()
   }
 
-  fieldChanged(field: any) { //TODO
+  fieldChanged(field: Field) {
     this.field = field
     this.calculateDamageForAll()
   }
