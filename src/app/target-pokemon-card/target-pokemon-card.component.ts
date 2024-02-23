@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Pokemon } from 'src/lib/pokemon';
+import { Target } from 'src/lib/target';
 
 @Component({
   selector: 'app-target-pokemon-card',
@@ -9,17 +9,17 @@ import { Pokemon } from 'src/lib/pokemon';
 export class TargetPokemonCardComponent {
 
   @Input() 
-  target: Pokemon
+  target: Target
 
   @Output() 
-  targetChangedEvent = new EventEmitter<Pokemon>()
+  targetChangedEvent = new EventEmitter<Target>()
 
   @Output() 
-  targetRemovedEvent = new EventEmitter<Pokemon>()
+  targetRemovedEvent = new EventEmitter<Target>()
 
   terastalyzePokemon() {
-    const teraActived = this.target.teraTypeActive()
-    this.target.changeTeraStatus(!teraActived)
+    const teraActived = this.target.pokemon.teraTypeActive()
+    this.target.pokemon.changeTeraStatus(!teraActived)
     this.targetChangedEvent.emit(this.target)
   }
 
@@ -28,7 +28,7 @@ export class TargetPokemonCardComponent {
   }
 
   cardColor(koChance: String) {
-    if (koChance == "Guaranteed OHKO") {
+    if (koChance == "guaranteed OHKO") {
       return "#dbd8e3" //gray
     }
 

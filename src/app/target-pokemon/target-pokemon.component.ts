@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Pokemon } from 'src/lib/pokemon';
+import { Target } from 'src/lib/target';
 
 @Component({
   selector: 'app-target-pokemon',
@@ -9,17 +9,17 @@ import { Pokemon } from 'src/lib/pokemon';
 export class TargetPokemonComponent {
   
   @Input() 
-  targets: Pokemon[]
+  targets: Target[]
 
   @Output() 
-  targetChangedEvent = new EventEmitter<Pokemon[]>()
+  targetChangedEvent = new EventEmitter<Target[]>()
 
   targetChanged() {
     this.targetChangedEvent.emit(this.targets)
   }
 
-  targetRemoved(pokemon: Pokemon) {
-    const index = this.targets.findIndex(target => target.equals(pokemon))
+  targetRemoved(target: Target) {
+    const index = this.targets.findIndex(t => t.pokemon.equals(target.pokemon))
     this.targets.splice(index, 1);
   }
 

@@ -1,23 +1,23 @@
-<mat-card class="card" [ngStyle]="{'background-color': cardColor(target.koChance)}">
+<mat-card class="card" [ngStyle]="{'background-color': cardColor(target.damageResult.koChance)}">
   <mat-card-title-group>
-    <mat-card-title>{{ target.name }}</mat-card-title>
-    <mat-card-subtitle>Item: {{ target.item }}</mat-card-subtitle>
-    <mat-card-subtitle>Nature: {{ target.nature }}</mat-card-subtitle>
-    <mat-card-subtitle>Ability: {{ target.ability }}</mat-card-subtitle>
-    <mat-card-subtitle>{{ target.evsDescription() }}</mat-card-subtitle>
-    <mat-card-subtitle *ngIf="target.teraTypeActive()">Terastalyzed as {{ target.teraType }} type
+    <mat-card-title>{{ target.pokemon.name }}</mat-card-title>
+    <mat-card-subtitle>Item: {{ target.pokemon.item }}</mat-card-subtitle>
+    <mat-card-subtitle>Nature: {{ target.pokemon.nature }}</mat-card-subtitle>
+    <mat-card-subtitle>Ability: {{ target.pokemon.ability }}</mat-card-subtitle>
+    <mat-card-subtitle>{{ target.pokemon.evsDescription() }}</mat-card-subtitle>
+    <mat-card-subtitle *ngIf="target.pokemon.teraTypeActive()">Terastalyzed as {{ target.pokemon.teraType }} type
     </mat-card-subtitle>
-    <img mat-card-md-image src='https://img.pokemondb.net/sprites/home/normal/{{target.lowerCaseName}}.png'>
+    <img mat-card-md-image src='https://img.pokemondb.net/sprites/home/normal/{{target.pokemon.lowerCaseName}}.png'>
   </mat-card-title-group>
   <div class="card-container">
     <div class="card-content">
-      <br>Damage: {{ target.result }}
-      <br><label class="ko-chance">{{ target.koChance }}</label>
+      <br>Damage: {{ target.damageResult.result }}
+      <br><label class="ko-chance">{{ target.damageResult.koChance }}</label>
     </div>
     <div class="card-button">
-      <button class="icon-button" (click)="terastalyzePokemon()" *ngIf="target.teraTypeStorage">
-        <img class="icon" src="assets/icons/tera-icon.png" *ngIf="target.teraTypeActive()"/>
-        <img class="icon" src="assets/icons/tera-icon-gray.png" *ngIf="!target.teraTypeActive()" />
+      <button class="icon-button" (click)="terastalyzePokemon()" *ngIf="target.pokemon.teraTypeStorage">
+        <img class="icon" src="assets/icons/tera-icon.png" *ngIf="target.pokemon.teraTypeActive()"/>
+        <img class="icon" src="assets/icons/tera-icon-gray.png" *ngIf="!target.pokemon.teraTypeActive()" />
       </button>
       <a (click)="removePokemon()">
         <mat-icon fontIcon="delete"></mat-icon>
