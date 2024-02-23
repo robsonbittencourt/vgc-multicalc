@@ -12,7 +12,7 @@
   <div class="card-container">
     <div class="card-content">
       <br>Damage: {{ target.result }}
-      <br>{{ target.koChance }}
+      <br><label class="ko-chance">{{ target.koChance }}</label>
     </div>
     <div class="card-button">
       <button class="icon-button" (click)="terastalyzePokemon()" *ngIf="target.teraTypeStorage">

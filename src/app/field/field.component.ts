@@ -1,4 +1,5 @@
 import { Component, EventEmitter, KeyValueDiffer, KeyValueDiffers, Output } from '@angular/core';
+import { Field } from '@smogon/calc';
 
 @Component({
   selector: 'app-field',
@@ -7,15 +8,12 @@ import { Component, EventEmitter, KeyValueDiffer, KeyValueDiffers, Output } from
 })
 export class FieldComponent {
 
-  field = {
-    tabletsOfRuinActive: false,
-    vesselOfRuinActive: false,
-    swordOfRuinActive: false,
-    beadsOfRuinActive: false
-  }
-
   @Output() 
   fieldChangedEvent = new EventEmitter<any>();
+
+  field = new Field({
+    gameType: 'Doubles'
+  })
 
   private differField: KeyValueDiffer<string, any>;
   

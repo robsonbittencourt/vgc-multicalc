@@ -30,3 +30,11 @@
 .icon-button .icon {
   width: 30px;
 }
+
+.ko-chance {
+  display: inline-block;
+}
+
+.ko-chance::first-letter {
+  text-transform: uppercase;
+}
