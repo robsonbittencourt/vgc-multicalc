@@ -130,7 +130,7 @@ export class Pokemon {
   }
 
   public clone(): Pokemon {
-    return new Pokemon(this.name, this.nature, this.item, this.ability, this.teraTypeStorage, this.teraTypeActive(), this.evs, this.move)
+    return new Pokemon(this.name, this.nature, this.item, this.ability, this.teraTypeStorage, this.teraTypeActive(), this.evs, this.move, this.boosts)
   }
 
   public equals(toCompare: Pokemon): boolean {
