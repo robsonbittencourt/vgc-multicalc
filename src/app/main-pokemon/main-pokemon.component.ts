@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { MOVES, ITEMS, NATURES, TYPE_CHART, SPECIES, ABILITIES } from '@smogon/calc';
 import { Pokemon } from '../../lib/pokemon';
+import { AllPokemon } from 'src/data/all-pokemon';
 
 @Component({
   selector: 'app-main-pokemon',
@@ -24,7 +25,7 @@ export class MainPokemonComponent {
   allItemsNames = Object.values(ITEMS[9]).sort()
   allAbilitiesNames = Object.values(ABILITIES[9]).sort()
   allTeraTypes = Object.keys(TYPE_CHART[9]).splice(1)
-  allPokemonNames = Object.keys(SPECIES[9])
+  allPokemonNames = new AllPokemon().allPokemonNames()
 
   filteredPokemonNames: Observable<string[]>;
   filteredItems: Observable<string[]>;
