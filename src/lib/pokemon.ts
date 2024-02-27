@@ -181,13 +181,18 @@ export class Pokemon {
   }
 
   public equals(toCompare: Pokemon): boolean {
-    return this.pokemonSmogon.name === toCompare.pokemonSmogon.name && 
+    return this.pokemonSmogon.name === toCompare.pokemonSmogon.name &&
       this.pokemonSmogon.nature === toCompare.pokemonSmogon.nature &&
       this.pokemonSmogon.item === toCompare.pokemonSmogon.item &&
       this.pokemonSmogon.ability === toCompare.pokemonSmogon.ability &&
       this.teraTypeStorage === toCompare.teraTypeStorage &&
       this.teraTypeActive() === toCompare.teraTypeActive() &&
-      this.pokemonSmogon.evs === toCompare.pokemonSmogon.evs
+      this.pokemonSmogon.evs.hp === toCompare.pokemonSmogon.evs.hp &&
+      this.pokemonSmogon.evs.atk === toCompare.pokemonSmogon.evs.atk &&
+      this.pokemonSmogon.evs.def === toCompare.pokemonSmogon.evs.def &&
+      this.pokemonSmogon.evs.spa === toCompare.pokemonSmogon.evs.spa &&
+      this.pokemonSmogon.evs.spd === toCompare.pokemonSmogon.evs.spd &&
+      this.pokemonSmogon.evs.spe === toCompare.pokemonSmogon.evs.spe
   }
 
   public totalEvs(): number {

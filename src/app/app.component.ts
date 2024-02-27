@@ -33,15 +33,21 @@ export class AppComponent {
   }
 
   pokemonAdded() {
-    const target = new Target(this.pokemon.clone())
-    this.targets.push(target)
+    if (!this.alreadyExists(this.pokemon)) {
+      const target = new Target(this.pokemon.clone())
+      this.targets.push(target)
 
-    this.calculateDamage(target)
-    this.order()
+      this.calculateDamage(target)
+      this.order()
+    }
   }
 
   targetsAdded(targets: Target[]) {
-    this.targets = this.targets.concat(targets)
+    const newTargets = targets.filter(target => {
+      return !this.alreadyExists(target.pokemon)
+    })
+
+    this.targets = this.targets.concat(newTargets)
     targets.forEach(target => this.calculateDamage(target))
     this.order()
   }
@@ -60,18 +66,24 @@ export class AppComponent {
     this.order()
   }
 
-  calculateDamage(target: Target) {
+  private alreadyExists(pokemon: Pokemon): boolean {
+    return this.targets.some(target => {
+      return target.pokemon.equals(pokemon)
+    })
+  }
+
+  private calculateDamage(target: Target) {
     const damageResult = this.damageCalculator.calcDamage(this.pokemon, target.pokemon, this.pokemon.move, this.field)
     target.setDamageResult(damageResult)
   }
   
-  calculateDamageForAll() {
+  private calculateDamageForAll() {
     if (this.pokemon) {
       this.targets.forEach(target => this.calculateDamage(target))
     }
   }
 
-  order() {
+  private order() {
     this.targets.sort((a, b) => b.damageResult?.damage - a.damageResult?.damage)
   }
   
