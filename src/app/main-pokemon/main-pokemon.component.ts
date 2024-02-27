@@ -15,7 +15,7 @@ export class MainPokemonComponent {
   allNatureNames = Object.keys(NATURES)
   allItemsNames = Object.values(ITEMS[9]).sort()
   allAbilitiesNames = Object.values(ABILITIES[9]).sort()
-  allTeraTypes = Object.keys(TYPE_CHART[9]).splice(1)
+  allTeraTypes = Object.keys(TYPE_CHART[9]).splice(1).sort()
   allPokemonNames = new AllPokemon().allPokemonNames()
 
   MAX_EVS = 508
