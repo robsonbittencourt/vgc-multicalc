@@ -17,7 +17,7 @@ export class AllPokemon {
   }
 
   allPokemonNames(): string[] {
-    return this.allPokemon.map(pokemon => pokemon.name)
+    return this.allPokemon.map(pokemon => pokemon.name).sort()
   }
 
 }
