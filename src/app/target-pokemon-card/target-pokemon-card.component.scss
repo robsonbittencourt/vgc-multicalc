@@ -15,20 +15,24 @@
   flex: 1;
 }
 
-.card-button {
+.card-buttons {
   align-self: flex-end;
   justify-content: flex-end;
 }
 
-.icon-button{
+.icon-button {
   background: none;
-  padding: 1;
   border: 0;
   cursor: pointer;
 }
 
-.icon-button .icon {
-  width: 30px;
+.icon-button .icon-tera {
+  width: 20px;
+}
+
+.icon-button .icon-trash {
+  width: 20px;
+  height: 22px;
 }
 
 .ko-chance {

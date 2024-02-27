@@ -16,12 +16,12 @@
     </div>
     <div class="card-button">
       <button class="icon-button" (click)="terastalyzePokemon()" *ngIf="target.pokemon.teraTypeStorage">
-        <img class="icon" src="assets/icons/tera-icon.png" *ngIf="target.pokemon.teraTypeActive()"/>
-        <img class="icon" src="assets/icons/tera-icon-gray.png" *ngIf="!target.pokemon.teraTypeActive()" />
+        <img class="icon-tera" src="assets/icons/tera-icon.png" *ngIf="target.pokemon.teraTypeActive()" />
+        <img class="icon-tera" src="assets/icons/tera-icon-gray.png" *ngIf="!target.pokemon.teraTypeActive()" />
       </button>
-      <a (click)="removePokemon()">
-        <mat-icon fontIcon="delete"></mat-icon>
-      </a>
+      <button class="icon-button" (click)="removePokemon()">
+        <img class="icon-trash" src="assets/icons/trash.png"/>
+      </button>
     </div>
   </div>
 </mat-card>
