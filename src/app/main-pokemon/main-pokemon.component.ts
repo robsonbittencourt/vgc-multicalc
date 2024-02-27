@@ -11,7 +11,7 @@ import { AllPokemon } from 'src/data/all-pokemon';
 })
 export class MainPokemonComponent {
 
-  allMoveNames = Object.keys(MOVES[9])
+  allMoveNames = Object.keys(MOVES[9]).splice(1).sort()
   allNatureNames = Object.keys(NATURES)
   allItemsNames = Object.values(ITEMS[9]).sort()
   allAbilitiesNames = Object.values(ABILITIES[9]).sort()
