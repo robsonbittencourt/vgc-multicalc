@@ -53,7 +53,6 @@ export class InputAutocompleteComponent {
 
   onValueSelected(selectedValue: string) {
     this.value = selectedValue
-    this.valueStorage = selectedValue
     this.formControl.setValue(selectedValue)
   }
 

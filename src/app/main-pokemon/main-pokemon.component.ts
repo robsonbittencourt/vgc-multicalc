@@ -33,12 +33,18 @@ export class MainPokemonComponent {
   }
 
   ngDoCheck() {
-    const change = this.differ.diff(this.pokemon)
+    const changed = this.differ.diff(this.pokemon)
     
-    if (change) {
+    if (changed) {
       this.pokemonChangedEvent.emit(this.pokemon)
     }
   }
+
+  onItemChange(item: string) {
+    if (item == "Booster Energy" && this.isParadoxAbility()) {
+      this.pokemon.paradoxAbilityActivated = true
+    }
+   }
 
   onChangeEvValue() {
     if (this.pokemon.totalEvs() <= this.MAX_EVS) {
@@ -56,6 +62,10 @@ export class MainPokemonComponent {
 
   onChangeStatModifier() {
     this.pokemonChangedEvent.emit(this.pokemon)
+  }
+
+  isParadoxAbility() {
+    return this.pokemon.ability == "Protosynthesis" || this.pokemon.ability == "Quark Drive"
   }
 
 }

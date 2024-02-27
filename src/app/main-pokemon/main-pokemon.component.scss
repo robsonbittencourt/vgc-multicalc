@@ -44,6 +44,11 @@
   margin-left: -0.5em;
 }
 
+.tera-type-input-without-checkbox {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
 .left-pokemon-evs {
   margin-top: 0.3em;
   padding: 1em;

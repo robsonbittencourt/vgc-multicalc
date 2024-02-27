@@ -1,12 +1,13 @@
 import { Pokemon as PokemonSmogon, Generations } from "@smogon/calc";
-import { StatsTable, TypeName } from "@smogon/calc/dist/data/interface";
+import { StatIDExceptHP, StatsTable, TypeName } from "@smogon/calc/dist/data/interface";
 
 export class Pokemon {
   public pokemonSmogon: PokemonSmogon
   public teraTypeStorage: string
   public evsStorage: Partial<StatsTable> & { spc?: number; }
   private moveStorage: string
-
+  private paradoxAbilityActivatedStorage: boolean
+  
   constructor(name: string, nature: string, item: string, ability: string, teraType: string, teraTypeActive: boolean = false, evs: Partial<StatsTable> & { spc?: number; }, move: string = "", boosts: StatsTable | undefined = undefined) {
     this.pokemonSmogon = new PokemonSmogon(Generations.get(9), name, {
       nature: nature,
@@ -131,6 +132,48 @@ export class Pokemon {
 
   public get spe(): number {
     return this.pokemonSmogon.stats.spe
+  }
+
+  public get paradoxAbilityActivated(): boolean {
+    return this.paradoxAbilityActivatedStorage
+  }
+
+  public set paradoxAbilityActivated(paradoxAbilityActivated: boolean) {
+    this.paradoxAbilityActivatedStorage = paradoxAbilityActivated
+
+    if (paradoxAbilityActivated) {
+      this.pokemonSmogon = this.buildPokemonSmogon()
+      this.pokemonSmogon.boostedStat = this.higherStat()
+    } else {
+      this.pokemonSmogon = this.buildPokemonSmogon()
+    }
+  }
+
+  public higherStat(): StatIDExceptHP {
+    let bestStat = this.atk
+    let bestStatDescription: StatIDExceptHP = "atk"
+    
+    if (this.def > bestStat) {
+      bestStat = this.def
+      bestStatDescription = "def"
+    }
+
+    if (this.spa > bestStat) {
+      bestStat = this.spa
+      bestStatDescription = "spa"
+    }
+
+    if (this.spd > bestStat) {
+      bestStat = this.spd
+      bestStatDescription = "spd"
+    }
+
+    if (this.spe > bestStat) {
+      bestStat = this.spe
+      bestStatDescription = "spe"
+    }
+
+    return bestStatDescription
   }
 
   public clone(): Pokemon {

@@ -19,13 +19,18 @@
       <label>Item</label>
     </div>
     <div>
-      <app-input-autocomplete [(value)]="pokemon.item" [allValues]="allItemsNames"/>
+      <app-input-autocomplete [(value)]="pokemon.item" [allValues]="allItemsNames" (valueChange)="onItemChange($event)"/>
     </div>
     <div class="info-label">
       <label>Ability</label>
     </div>
-    <div>
-      <app-input-autocomplete [(value)]="pokemon.ability" [allValues]="allAbilitiesNames"/>
+    <div class="tera-type-section">
+      <div *ngIf="isParadoxAbility()" class="tera-type-checkbox">
+        <mat-checkbox [(ngModel)]="pokemon.paradoxAbilityActivated"></mat-checkbox>
+      </div>
+      <div class="tera-type-input" [ngClass]="!isParadoxAbility() ? 'tera-type-input-without-checkbox' : ''">
+        <app-input-autocomplete [(value)]="pokemon.ability" [allValues]="allAbilitiesNames"/>
+      </div>
     </div>
     <div class="info-label">
       <label>TeraType</label>      
