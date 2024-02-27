@@ -13,9 +13,38 @@
   padding-bottom: 0.5em;
 }
 
+.field-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 3em;
+  grid-template-rows: 1fr 1fr;
+  margin: 1em;
+}
+
 .title-left-pokemon {
   color: white;
   margin-left: 0.8em;
+}
+
+.button-group {
+  display: flex;
+}
+
+.max-width {
+  width: 100%;
+}
+
+.button-group mat-button-toggle {
+  width: 100%;
+}
+
+.botton-space {
+  margin-bottom: 1em;
+}
+
+.field-subtitle {
+  margin-top: 1em;
+  margin-bottom: 1em;
 }
 
 @media only screen and (max-width: 768px) {

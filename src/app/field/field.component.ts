@@ -15,15 +15,22 @@ export class FieldComponent {
     gameType: 'Doubles'
   })
 
-  private differField: KeyValueDiffer<string, any>;
+  private differField: KeyValueDiffer<string, any>
+  private differFieldAttacker: KeyValueDiffer<string, any>
+  private differFieldDefender: KeyValueDiffer<string, any>
   
-  constructor(private differs: KeyValueDiffers) {
-    this.differField = this.differs.find(this.field).create();
+  constructor(private differs: KeyValueDiffers,  private differsFieldAttacker: KeyValueDiffers, private differsFieldDefender: KeyValueDiffers) {
+    this.differField = this.differs.find(this.field).create()
+    this.differFieldAttacker = this.differsFieldAttacker.find(this.field.attackerSide).create()
+    this.differFieldDefender = this.differsFieldDefender.find(this.field.defenderSide).create()
   }
 
   ngDoCheck() {
-    const change = this.differField.diff(this.field);
-    if (change) {
+    const changed = this.differField.diff(this.field) ||
+      this.differFieldAttacker.diff(this.field.attackerSide) ||
+      this.differFieldDefender.diff(this.field.defenderSide)
+    
+    if (changed) {
       this.fieldChangedEvent.emit(this.field)
     }
   }
