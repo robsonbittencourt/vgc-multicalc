@@ -27,6 +27,7 @@ export class TargetPokemonComponent {
   allTargetsRemoved = new EventEmitter<any>()
 
   pokePaste = ""
+  errorMessagePokePaste: string = ""
 
   targetChanged(target: Target) {
     this.targetChangedEvent.emit(target)
@@ -42,11 +43,16 @@ export class TargetPokemonComponent {
   }
 
   async addFromPokePaste() {
-    const pokemonList = await this.pokePasteService.parseFromPokePaste(this.pokePaste)
-    const targets = pokemonList.map(pokemon => new Target(pokemon))
-    this.targetsAdded.emit(targets)
-
-    this.pokePaste = ""
+    try {
+      this.errorMessagePokePaste = ""
+      const pokemonList = await this.pokePasteService.parseFromPokePaste(this.pokePaste)
+      const targets = pokemonList.map(pokemon => new Target(pokemon))
+      this.targetsAdded.emit(targets)
+    } catch(ex) {
+      this.errorMessagePokePaste = "Invalid Poke paste. Check if it is the version with EVs"
+    } finally {
+      this.pokePaste = ""
+    }
   }
 
   addPokemon() {
