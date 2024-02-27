@@ -1,4 +1,4 @@
-.left-pokemon {
+.attacker-pokemon {
   margin-top: 1em;
   margin-left: 1em;
   background-color: rgb(240, 236, 236);
@@ -6,14 +6,14 @@
   height: 100%;
 }
 
-.header-left-pokemon {
+.header-attacker-pokemon {
   background-color: rgb(40, 41, 41);
   font-size: large;
   padding-top: 0.5em;
   padding-bottom: 0.5em;
 }
 
-.title-left-pokemon {
+.title-attacker-pokemon {
   color: white;
   margin-left: 0.8em;
 }
@@ -29,27 +29,27 @@
   padding: .5em 0.5em .5em 0;
 }
 
-.tera-type-section {
+.check-input-section {
   display: grid;
   grid-template-columns: 0fr 1fr;
   margin-left: 0.4em;
 }
 
-.tera-type-checkbox {
+.check-input-section-checkbox {
   margin-top: -0.1em;
 }
 
-.tera-type-input {
+.check-input-section-input {
   margin-top: 0.2em;
   margin-left: -0.5em;
 }
 
-.tera-type-input-without-checkbox {
+.check-input-section-without-checkbox {
   grid-column-start: 1;
   grid-column-end: 3;
 }
 
-.left-pokemon-evs {
+.attacker-pokemon-evs {
   margin-top: 0.3em;
   padding: 1em;
   display: grid;
@@ -67,7 +67,7 @@
 }
 
 @media only screen and (max-width: 768px) {
-  .left-pokemon {
+  .attacker-pokemon {
     margin-left: 0em;
   }
 }

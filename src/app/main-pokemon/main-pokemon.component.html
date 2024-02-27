@@ -1,6 +1,6 @@
-<div class="left-pokemon">
-  <div class="header-left-pokemon">
-    <span class="title-left-pokemon">Attacker</span>
+<div class="attacker-pokemon">
+  <div class="header-attacker-pokemon">
+    <span class="title-attacker-pokemon">Attacker</span>
   </div>
   <div class="info-container">
     <div class="info-label">
@@ -24,22 +24,22 @@
     <div class="info-label">
       <label>Ability</label>
     </div>
-    <div class="tera-type-section">
-      <div *ngIf="isParadoxAbility()" class="tera-type-checkbox">
+    <div class="check-input-section">
+      <div *ngIf="isParadoxAbility()" class="check-input-section-checkbox">
         <mat-checkbox [(ngModel)]="pokemon.paradoxAbilityActivated"></mat-checkbox>
       </div>
-      <div class="tera-type-input" [ngClass]="!isParadoxAbility() ? 'tera-type-input-without-checkbox' : ''">
+      <div class="check-input-section-input" [ngClass]="!isParadoxAbility() ? 'check-input-section-without-checkbox' : ''">
         <app-input-autocomplete [(value)]="pokemon.ability" [allValues]="allAbilitiesNames"/>
       </div>
     </div>
     <div class="info-label">
       <label>TeraType</label>      
     </div>
-    <div class="tera-type-section">
-      <div class="tera-type-checkbox">
+    <div class="check-input-section">
+      <div class="check-input-section-checkbox">
         <mat-checkbox [ngModel]="pokemon.teraTypeActive" (change)="pokemon.changeTeraStatus($event.checked)"></mat-checkbox>
       </div>
-      <div class="tera-type-input">
+      <div class="check-input-section-input">
         <app-input-autocomplete [(value)]="pokemon.teraType" [allValues]="allTeraTypes"/>
       </div>
     </div>
@@ -50,7 +50,7 @@
       <app-input-autocomplete [(value)]="pokemon.move" [allValues]="allMoveNames"/>
     </div>
   </div>
-  <div class="left-pokemon-evs">
+  <div class="attacker-pokemon-evs">
     <app-ev-slider statName="HP" [statValue]="pokemon.hp" [(ev)]="pokemon.evs.hp" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"/>
     
     <app-ev-slider statName="ATK" [statValue]="pokemon.atk" [(ev)]="pokemon.evs.atk" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()" 
