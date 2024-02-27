@@ -242,41 +242,6 @@ const FormatsData: {[k: string]: SpeciesFormatsData} = {
     isNonstandard: "Past",
     tier: "Illegal",
   },
-  pikachuoriginal: {
-    tier: "ZU",
-    doublesTier: "(DUU)",
-    natDexTier: "RU",
-  },
-  pikachuhoenn: {
-    tier: "ZU",
-    doublesTier: "(DUU)",
-    natDexTier: "RU",
-  },
-  pikachusinnoh: {
-    tier: "ZU",
-    doublesTier: "(DUU)",
-    natDexTier: "RU",
-  },
-  pikachuunova: {
-    tier: "ZU",
-    doublesTier: "(DUU)",
-    natDexTier: "RU",
-  },
-  pikachukalos: {
-    tier: "ZU",
-    doublesTier: "(DUU)",
-    natDexTier: "RU",
-  },
-  pikachualola: {
-    tier: "ZU",
-    doublesTier: "(DUU)",
-    natDexTier: "RU",
-  },
-  pikachupartner: {
-    tier: "ZU",
-    doublesTier: "(DUU)",
-    natDexTier: "RU",
-  },
   pikachustarter: {
     isNonstandard: "LGPE",
     tier: "Illegal",
@@ -284,11 +249,6 @@ const FormatsData: {[k: string]: SpeciesFormatsData} = {
   pikachugmax: {
     isNonstandard: "Past",
     tier: "Illegal",
-  },
-  pikachuworld: {
-    tier: "ZU",
-    doublesTier: "(DUU)",
-    natDexTier: "RU",
   },
   raichu: {
     tier: "ZU",

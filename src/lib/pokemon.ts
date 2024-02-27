@@ -32,8 +32,20 @@ export class Pokemon {
     this.pokemonSmogon = this.buildPokemonSmogon({ name: name })
   }
 
-  public get lowerCaseName(): string {
-    return this.pokemonSmogon.name.toLocaleLowerCase().replace(" ", "-")
+  public get spriteName(): string {
+    let adjustedPokemonName: string = this.pokemonSmogon.name
+    
+    adjustedPokemonName = adjustedPokemonName.replace("-Alola", "-alolan")
+    adjustedPokemonName = adjustedPokemonName.replace("-Galar", "-galarian")
+    adjustedPokemonName = adjustedPokemonName.replace("-Hisui", "-hisuian")
+    adjustedPokemonName = adjustedPokemonName.replace("-Paldea-Aqua", "-paldean-aqua")
+    adjustedPokemonName = adjustedPokemonName.replace("-Paldea-Blaze", "-paldean-blaze")
+    adjustedPokemonName = adjustedPokemonName.replace("-Paldea-Combat", "-paldean-combat")
+    adjustedPokemonName = adjustedPokemonName.replace("-F", "-female")
+    adjustedPokemonName = adjustedPokemonName.replace("Calyrex-Shadow", "calyrex-shadow-rider")
+    adjustedPokemonName = adjustedPokemonName.replace("Calyrex-Ice", "calyrex-ice-rider")
+    
+    return adjustedPokemonName.toLocaleLowerCase().replace(" ", "-")
   }
 
   public get nature(): string {
