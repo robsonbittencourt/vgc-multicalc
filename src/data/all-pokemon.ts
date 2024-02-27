@@ -10,7 +10,7 @@ export class AllPokemon {
   constructor() {
     this.allPokemon = Object.entries(FormatsData)
     .filter(([key, value]) => 
-      value.tier != "Illegal" && value.isNonstandard != "CAP"
+      value.tier != "Illegal" && value.isNonstandard != "CAP" && value.isNonstandard != "Past"
     ).map(([key, value]) => {
       return Pokedex[key]
     })
