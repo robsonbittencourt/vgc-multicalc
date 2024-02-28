@@ -7,8 +7,8 @@
   </div>
   <div class="dense-2">
     <mat-form-field appearance="outline" class="mat-ev-stat-modifier" *ngIf="showStatsModifier()">
-      <mat-select [(value)]="statsModifier">
-        <mat-option *ngFor="let statsModifier of statsModifiers" [value]="statsModifier.value">{{ statsModifier.viewValue }}</mat-option>
+      <mat-select class="mat-small" [(value)]="statsModifier">
+        <mat-option class="mat-small" *ngFor="let statsModifier of statsModifiers" [value]="statsModifier.value">{{ statsModifier.viewValue }}</mat-option>
       </mat-select>
     </mat-form-field>
   </div>

@@ -3,10 +3,12 @@
 </div>
 <div class="target-inputs">
   <li class="form-row">
-    <input placeholder="Paste Link" type="text" matInput [(ngModel)]="pokePaste">
-    <button mat-flat-button color="primary" (click)="addFromPokePaste()" class="mat-flat-button">Add from Paste</button>
-    <button mat-flat-button color="primary" (click)="addPokemon()" class="mat-flat-button">Add from Attacker</button>
-    <button mat-flat-button color="warn" (click)="removeAll()" class="mat-flat-button">Remove all</button>
+    <div>
+      <input class="poke-paste-input" placeholder="Paste Link" type="text" matInput [(ngModel)]="pokePaste">
+    </div>
+    <button mat-flat-button color="primary" (click)="addFromPokePaste()">Add from Paste</button>
+    <button mat-flat-button color="primary" (click)="addPokemon()">Add from Attacker</button>
+    <button mat-flat-button color="warn" (click)="removeAll()">Remove all</button>
   </li>
 </div>
 <div class="error-message-poke-paste">

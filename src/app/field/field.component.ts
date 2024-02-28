@@ -15,6 +15,8 @@ export class FieldComponent {
     gameType: 'Doubles'
   })
 
+  panelOpenState = false
+
   private differField: KeyValueDiffer<string, any>
   private differFieldAttacker: KeyValueDiffer<string, any>
   private differFieldDefender: KeyValueDiffer<string, any>

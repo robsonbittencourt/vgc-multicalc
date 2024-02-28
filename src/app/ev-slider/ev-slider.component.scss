@@ -38,3 +38,27 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
+@media only screen and (max-width: 768px) {
+  .ev-slider-container {
+    grid-column-gap: 0em;
+  }
+
+  .ev-value {
+    width: 87%;
+  }
+
+  .mat-ev-field {
+    font-size: 12px;
+  }
+
+  .mat-ev-stat-modifier {
+    width: 90%;
+  }
+
+  .ev-slider {
+    width: 82%;
+    margin-left: 0.5em;
+  }
+
+}

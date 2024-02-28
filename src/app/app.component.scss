@@ -38,10 +38,22 @@
 @media only screen and (max-width: 768px) {
   .container {
     grid-template-columns: 1fr;
+    grid-template-rows: 0.08fr 1fr 1fr 2fr;
   }
 
   .header {
-    grid-column-start: 0;
-    grid-column-end: 1;
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+
+  .main-pokemon {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+
+  .field {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    margin-bottom: 0.7em;
   }
 }
