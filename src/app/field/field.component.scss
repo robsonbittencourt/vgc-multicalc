@@ -19,7 +19,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   column-gap: 3em;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 0.7fr 1fr;
   margin: 1em;
 }
 
@@ -46,6 +46,10 @@
   margin-bottom: 1em;
 }
 
+.rooms-section {
+  margin-top: 1em;
+}
+
 .field-subtitle {
   margin-top: 1em;
   margin-bottom: 1em;
@@ -53,6 +57,18 @@
 
 .collapse-button {
   display: none;
+}
+
+.status-tailwind {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 1em;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  margin-top: 0.2em;
 }
 
 @media only screen and (max-width: 768px) {
@@ -64,11 +80,11 @@
   .field-container {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
-    row-gap: 0.5em;
+    row-gap: 0em;
   }
 
   .field-subtitle {
-    margin-top: 0em;
+    margin-top: 1em;
     margin-bottom: 0em;
   }
 

@@ -66,6 +66,21 @@ export class AppComponent {
     this.order()
   }
 
+  attackerStatusChanged(status: string) {
+    this.pokemon.status = status
+    this.calculateDamageForAll()
+    this.order()
+  }
+
+  defenderStatusChanged(status: string) {
+    this.targets.forEach(target => {
+      target.pokemon.status = status
+    })
+
+    this.calculateDamageForAll()
+    this.order()
+  }
+
   private alreadyExists(pokemon: Pokemon): boolean {
     return this.targets.some(target => {
       return target.pokemon.equals(pokemon)

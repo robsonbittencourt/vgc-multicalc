@@ -1,5 +1,5 @@
 import { Pokemon as PokemonSmogon, Generations } from "@smogon/calc";
-import { StatIDExceptHP, StatsTable, TypeName } from "@smogon/calc/dist/data/interface";
+import { StatIDExceptHP, StatsTable, StatusName, TypeName } from "@smogon/calc/dist/data/interface";
 
 export class Pokemon {
   public pokemonSmogon: PokemonSmogon
@@ -8,7 +8,7 @@ export class Pokemon {
   private moveStorage: string
   private paradoxAbilityActivatedStorage: boolean
   
-  constructor(name: string, nature: string, item: string, ability: string, teraType: string, teraTypeActive: boolean = false, evs: Partial<StatsTable> & { spc?: number; }, move: string = "", boosts: StatsTable | undefined = undefined) {
+  constructor(name: string, nature: string, item: string, ability: string, teraType: string, teraTypeActive: boolean = false, evs: Partial<StatsTable> & { spc?: number; }, move: string = "", boosts: StatsTable | undefined = undefined, status: StatusName | undefined = undefined) {
     this.pokemonSmogon = new PokemonSmogon(Generations.get(9), name, {
       nature: nature,
       item: item,
@@ -16,6 +16,7 @@ export class Pokemon {
       teraType: teraTypeActive ? teraType as TypeName : undefined,
       evs: evs,
       boosts: boosts,
+      status: status,
       level: 50
     })
 
@@ -104,6 +105,14 @@ export class Pokemon {
 
   public set boosts(boosts: StatsTable) {
     this.pokemonSmogon = this.buildPokemonSmogon({ boosts: boosts })
+  }
+
+  public get status(): string {
+    return this.pokemonSmogon.status as string
+  }
+
+  public set status(status: string) {
+    this.pokemonSmogon.status = status as StatusName
   }
 
   public get teraType(): string {

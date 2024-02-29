@@ -11,9 +11,21 @@ export class FieldComponent {
   @Output() 
   fieldChangedEvent = new EventEmitter<Field>();
 
+  @Output() 
+  attackerStatusChangedEvent = new EventEmitter<string>();
+
+  @Output() 
+  defenderStatusChangedEvent = new EventEmitter<string>();
+
   field = new Field({
     gameType: 'Doubles'
   })
+
+  attackerStatusCondition = ""
+  defenderStatusCondition = ""
+  statusConditions = [
+    "Sleep", "Poison", "Burn", "Freeze", "Paralysis"
+  ]  
 
   panelOpenState = false
   mobile = false
@@ -42,6 +54,28 @@ export class FieldComponent {
     if (changed) {
       this.fieldChangedEvent.emit(this.field)
     }
+  }
+
+  onAttackerStatusChange(status: string) {
+    const statusCode = this.statusConditionCode(status)
+    this.attackerStatusChangedEvent.emit(statusCode)
+  }
+
+  onDefenderStatusChange(status: string) {
+    const statusCode = this.statusConditionCode(status)
+    this.defenderStatusChangedEvent.emit(statusCode)
+  }
+
+  private statusConditionCode(status: string): string | undefined {
+    const statusConditions = [
+      { code: "slp", status: "Sleep"},
+      { code: "psn", status: "Poison"},
+      { code: "brn", status: "Burn"},
+      { code: "frz", status: "Freeze"},
+      { code: "par", status: "Paralysis"}
+    ]
+
+    return statusConditions.find(s => s.status === status)?.code
   }
 
 }

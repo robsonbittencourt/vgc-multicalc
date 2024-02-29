@@ -13,7 +13,8 @@
       </div>
       
       <div class="field">
-        <app-field (fieldChangedEvent)="fieldChanged($event)"/>
+        <app-field (fieldChangedEvent)="fieldChanged($event)" (attackerStatusChangedEvent)="attackerStatusChanged($event)" 
+          (defenderStatusChangedEvent)="defenderStatusChanged($event)"/>
       </div>
       
       <div class="target-pokemon">
