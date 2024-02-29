@@ -8,9 +8,11 @@ import { Pokemon } from './pokemon';
 })
 export class DamageCalculatorService {
 
-  calcDamage(attacker: Pokemon, target: Pokemon, move: string, field: Field): DamageResult {
+  calcDamage(attacker: Pokemon, target: Pokemon, move: string, field: Field, criticalHit: boolean = false): DamageResult {
     const gen = Generations.get(9)
     const moveSmogon = new Move(gen, move)
+    moveSmogon.isCrit = criticalHit
+    
     const result = calculate(gen, attacker.pokemonSmogon, target.pokemonSmogon, moveSmogon, field)
 
     return new DamageResult(result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result))

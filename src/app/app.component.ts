@@ -66,6 +66,11 @@ export class AppComponent {
     this.order()
   }
 
+  criticalHitChanged(criticalHit: boolean) {
+    this.calculateDamageForAll(criticalHit)
+    this.order()
+  }
+
   attackerStatusChanged(status: string) {
     this.pokemon.status = status
     this.calculateDamageForAll()
@@ -87,14 +92,14 @@ export class AppComponent {
     })
   }
 
-  private calculateDamage(target: Target) {
-    const damageResult = this.damageCalculator.calcDamage(this.pokemon, target.pokemon, this.pokemon.move, this.field)
+  private calculateDamage(target: Target, criticalHit: boolean = false) {
+    const damageResult = this.damageCalculator.calcDamage(this.pokemon, target.pokemon, this.pokemon.move, this.field, criticalHit)
     target.setDamageResult(damageResult)
   }
   
-  private calculateDamageForAll() {
+  private calculateDamageForAll(criticalHit: boolean = false) {
     if (this.pokemon) {
-      this.targets.forEach(target => this.calculateDamage(target))
+      this.targets.forEach(target => this.calculateDamage(target, criticalHit))
     }
   }
 

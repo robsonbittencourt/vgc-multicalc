@@ -46,6 +46,7 @@
         <mat-button-toggle [checked]="field.attackerSide.isHelpingHand" (change)="field.attackerSide.isHelpingHand = $event.source.checked">Helping Hand</mat-button-toggle>
         <mat-button-toggle [checked]="field.attackerSide.isBattery" (change)="field.attackerSide.isBattery = $event.source.checked">Battery</mat-button-toggle>
         <mat-button-toggle [checked]="field.attackerSide.isPowerSpot" (change)="field.attackerSide.isPowerSpot = $event.source.checked">Power Spot</mat-button-toggle>
+        <mat-button-toggle [checked]="criticalHit" (change)="onCriticalHitChance($event.source.checked)">Critical Hit</mat-button-toggle>
       </mat-button-toggle-group>
 
       <div class="status-tailwind">

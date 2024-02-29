@@ -12,6 +12,9 @@ export class FieldComponent {
   fieldChangedEvent = new EventEmitter<Field>();
 
   @Output() 
+  criticalHitChangedEvent = new EventEmitter<boolean>();
+
+  @Output() 
   attackerStatusChangedEvent = new EventEmitter<string>();
 
   @Output() 
@@ -20,6 +23,8 @@ export class FieldComponent {
   field = new Field({
     gameType: 'Doubles'
   })
+
+  criticalHit = false
 
   attackerStatusCondition = ""
   defenderStatusCondition = ""
@@ -54,6 +59,11 @@ export class FieldComponent {
     if (changed) {
       this.fieldChangedEvent.emit(this.field)
     }
+  }
+
+  onCriticalHitChance(criticalHit: boolean) {
+    this.criticalHit = criticalHit
+    this.criticalHitChangedEvent.emit(criticalHit)
   }
 
   onAttackerStatusChange(status: string) {
