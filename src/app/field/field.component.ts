@@ -29,7 +29,7 @@ export class FieldComponent {
   }
 
   ngOnInit() {
-    if (window.screen.width === 360) {
+    if (window.matchMedia("(max-width: 767px)").matches) {
       this.mobile = true;
     }
   }
