@@ -18,8 +18,9 @@ export class TargetPokemonCardComponent {
   targetRemovedEvent = new EventEmitter<Target>()
 
   terastalyzePokemon() {
-    const teraActived = this.target.pokemon.teraTypeActive()
-    this.target.pokemon.changeTeraStatus(!teraActived)
+    const teraActived = !this.target.pokemon.teraTypeActive()
+    this.target.pokemon.changeTeraStatus(teraActived)
+
     this.targetChangedEvent.emit(this.target)
   }
 

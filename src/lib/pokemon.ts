@@ -82,6 +82,13 @@ export class Pokemon {
     this.pokemonSmogon = this.buildPokemonSmogon({ ability: ability })
   }
 
+  public get displayAbility(): string {
+    if (this.pokemonSmogon.ability?.includes("Embody Aspect")) {
+      return "Embody Aspect"
+    }
+    return this.pokemonSmogon.ability as string
+  }
+
   public get evs(): Partial<StatsTable> & { spc?: number; } {
     return this.pokemonSmogon.evs
   }
@@ -117,6 +124,8 @@ export class Pokemon {
   }
 
   public changeTeraStatus(teraTypeActive: boolean) {
+    this.checkOgerponTeraAbility(teraTypeActive)
+    
     if (teraTypeActive) {
       this.pokemonSmogon = this.buildPokemonSmogon({ teraType: this.teraTypeStorage, teraTypeActive: true })
     } else {
@@ -260,5 +269,39 @@ export class Pokemon {
     }
 
     return teraType
+  }
+
+  private checkOgerponTeraAbility(teraActived: boolean) {
+    if (this.name == "Ogerpon") {
+      if(teraActived) {
+        this.ability = "Embody Aspect (Teal)"
+      } else {
+        this.ability = "Defiant"
+      }      
+    }
+
+    if (this.name == "Ogerpon-Wellspring") {
+      if(teraActived) {
+        this.ability = "Embody Aspect (Wellspring)"
+      } else {
+        this.ability = "Water Absorb"
+      }      
+    }
+
+    if (this.name == "Ogerpon-Hearthflame") {
+      if(teraActived) {
+        this.ability = "Embody Aspect (Hearthflame)"
+      } else {
+        this.ability = "Mold Breaker"
+      }      
+    }
+
+    if (this.name == "Ogerpon-Cornerstone") {
+      if(teraActived) {
+        this.ability = "Embody Aspect (Cornerstone)"
+      } else {
+        this.ability = "Sturdy"
+      }      
+    }
   }
 }

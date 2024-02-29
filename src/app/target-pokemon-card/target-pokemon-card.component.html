@@ -3,7 +3,7 @@
     <mat-card-title>{{ target.pokemon.displayName }}</mat-card-title>
     <mat-card-subtitle>Item: {{ target.pokemon.item }}</mat-card-subtitle>
     <mat-card-subtitle>Nature: {{ target.pokemon.nature }}</mat-card-subtitle>
-    <mat-card-subtitle>Ability: {{ target.pokemon.ability }}</mat-card-subtitle>
+    <mat-card-subtitle>Ability: {{ target.pokemon.displayAbility }}</mat-card-subtitle>
     <mat-card-subtitle>{{ target.pokemon.evsDescription() }}</mat-card-subtitle>
     <mat-card-subtitle *ngIf="target.pokemon.teraTypeActive()">Terastalyzed as {{ target.pokemon.teraType }} type
     </mat-card-subtitle>
