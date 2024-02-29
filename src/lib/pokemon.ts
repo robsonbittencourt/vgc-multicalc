@@ -32,6 +32,16 @@ export class Pokemon {
     this.pokemonSmogon = this.buildPokemonSmogon({ name: name })
   }
 
+  public get displayName(): string {
+    const namesWithHiphen = ["Porygon-Z", "Ho-Oh", "Jangmo-o", "Hakamo-o", "Kommo-o", "Ting-Lu", "Chien-Pao", "Wo-Chien", "Chi-Yu"]
+
+    if (namesWithHiphen.includes(this.pokemonSmogon.name)) {
+      return this.pokemonSmogon.name
+    }
+
+    return this.pokemonSmogon.name.replaceAll("-", " ")
+  }
+
   public get spriteName(): string {
     let adjustedPokemonName: string = this.pokemonSmogon.name
     

@@ -11,7 +11,7 @@ export class AllPokemon {
     this.allPokemon = Object.entries(FormatsData)
     .filter(([key, value]) => 
       value.tier != "Illegal" && value.isNonstandard != "CAP" && value.isNonstandard != "Past"
-    ).map(([key, value]) => {
+    ).map(([key]) => {
       return Pokedex[key]
     })
   }
@@ -19,7 +19,6 @@ export class AllPokemon {
   allPokemonNames(): string[] {
     return this.allPokemon.map(pokemon => pokemon.name).sort()
   }
-
 }
 
 namespace TierTypes {
