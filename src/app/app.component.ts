@@ -13,6 +13,7 @@ export class AppComponent {
   constructor(private damageCalculator: DamageCalculatorService) { }
 
   pokemon: Pokemon
+  team: Pokemon[]
   field: Field
   
   targets: Target[] = [
@@ -25,6 +26,17 @@ export class AppComponent {
     new Target(new Pokemon('Landorus', "Timid", "Life Orb", "Sheer Force", "Flying", false, { spa: 252, spd: 4, spe: 252 })),
     new Target(new Pokemon('Ogerpon-Wellspring', "Adamant", "Wellspring Mask", "Water Absorb", "Water", false, { hp: 252, atk: 76, def: 148, spd: 28, spe: 4 }))
   ]
+
+  ngOnInit() {
+    this.team = [
+      new Pokemon("Flutter Mane", "Timid", "Choice Specs", "Protosynthesis", "Fairy", true, { spa: 252 }, "Moon Blast", undefined, undefined, true),
+      new Pokemon("Tyranitar", "Timid", "Choice Specs", "Protosynthesis", "Fairy", true, { spa: 252 }, "Moon Blast")
+    ]
+  }
+
+  activePokemon(): Pokemon {
+    return this.team.find(t => t.active)!
+  }
 
   pokemonChanged(pokemon: Pokemon) {
     this.pokemon = pokemon

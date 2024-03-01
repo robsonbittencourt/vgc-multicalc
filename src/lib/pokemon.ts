@@ -1,3 +1,4 @@
+import { provideProtractorTestingSupport } from "@angular/platform-browser";
 import { Pokemon as PokemonSmogon, Generations } from "@smogon/calc";
 import { StatIDExceptHP, StatsTable, StatusName, TypeName } from "@smogon/calc/dist/data/interface";
 
@@ -7,8 +8,9 @@ export class Pokemon {
   public evsStorage: Partial<StatsTable> & { spc?: number; }
   private moveStorage: string
   private paradoxAbilityActivatedStorage: boolean
+  private activeStorage: boolean
   
-  constructor(name: string, nature: string, item: string, ability: string, teraType: string, teraTypeActive: boolean = false, evs: Partial<StatsTable> & { spc?: number; }, move: string = "", boosts: StatsTable | undefined = undefined, status: StatusName | undefined = undefined) {
+  constructor(name: string, nature: string, item: string, ability: string, teraType: string, teraTypeActive: boolean = false, evs: Partial<StatsTable> & { spc?: number; }, move: string = "", boosts: StatsTable | undefined = undefined, status: StatusName | undefined = undefined, active: boolean = false) {
     this.pokemonSmogon = new PokemonSmogon(Generations.get(9), name, {
       nature: nature,
       item: item,
@@ -23,6 +25,7 @@ export class Pokemon {
     this.teraTypeStorage = teraType
     this.evsStorage = evs
     this.moveStorage = move
+    this.activeStorage = active
   }
 
   public get name(): string {
@@ -187,6 +190,14 @@ export class Pokemon {
     } else {
       this.pokemonSmogon = this.buildPokemonSmogon()
     }
+  }
+
+  public get active(): boolean {
+    return this.activeStorage
+  }
+
+  public set active(active: boolean) {
+    this.activeStorage = active
   }
 
   public higherStat(): StatIDExceptHP {

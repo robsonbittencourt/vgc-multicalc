@@ -1,4 +1,4 @@
-<mat-card class="card" [ngStyle]="{'background-color': '#e7def6' }">
+  <mat-card (click)="activate()" class="card" [ngStyle]="pokemon.active && { 'border': '3px', 'border-style': 'solid', 'border-color': '#8544ee' } || null">
   <mat-card-title-group>
     <mat-card-title>{{ pokemon.displayName }}</mat-card-title>
     <mat-card-subtitle>Item: {{ pokemon.item }}</mat-card-subtitle>

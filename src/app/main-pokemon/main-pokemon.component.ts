@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { KeyValueDiffers, KeyValueDiffer } from '@angular/core';
 import { MOVES, ITEMS, NATURES, TYPE_CHART, ABILITIES } from '@smogon/calc';
 import { Pokemon } from '../../lib/pokemon';
@@ -21,13 +21,16 @@ export class MainPokemonComponent {
   MAX_EVS = 508
 
   private differ: KeyValueDiffer<string, any>;
-  public pokemon: Pokemon
+  
+  @Input()
+  pokemon: Pokemon
 
   @Output() 
   pokemonChangedEvent = new EventEmitter<Pokemon>();
 
-  constructor(private differs: KeyValueDiffers) {
-    this.pokemon = new Pokemon("Flutter Mane", "Timid", "Choice Specs", "Protosynthesis", "Fairy", true, { spa: 252 }, "Moon Blast")
+  constructor(private differs: KeyValueDiffers) { }
+
+  ngOnInit() {
     this.pokemonChangedEvent.emit(this.pokemon)
     this.differ = this.differs.find(this.pokemon).create();
   }

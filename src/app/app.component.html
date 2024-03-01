@@ -9,11 +9,11 @@
       </div>
       
       <div class="main-pokemon">
-        <app-main-pokemon (pokemonChangedEvent)="pokemonChanged($event)"/>
+        <app-main-pokemon [pokemon]="activePokemon()" (pokemonChangedEvent)="pokemonChanged($event)"/>
       </div>
 
       <div class="main-pokemon">
-        <app-your-team [pokemon]="pokemon"/>
+        <app-team [team]="team"/>
       </div>
       
       <div class="field">
