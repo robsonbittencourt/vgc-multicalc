@@ -11,6 +11,10 @@
       <div class="main-pokemon">
         <app-main-pokemon (pokemonChangedEvent)="pokemonChanged($event)"/>
       </div>
+
+      <div class="main-pokemon">
+        <app-your-team [pokemon]="pokemon"/>
+      </div>
       
       <div class="field">
         <app-field (fieldChangedEvent)="fieldChanged($event)" (criticalHitChangedEvent)="criticalHitChanged($event)"

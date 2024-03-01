@@ -1,0 +1,27 @@
+.container {
+  margin-top: 1em;
+  margin-right: 1em;
+  background-color: rgb(240, 236, 236);
+  border-radius: 1%;
+  height: 100%;
+}
+
+.header {
+  background-color: rgb(40, 41, 41);
+  font-size: large;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+.title {
+  color: white;
+  margin-left: 0.8em;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 1em;
+  grid-row-gap: 1em;
+  margin: 1em;
+}

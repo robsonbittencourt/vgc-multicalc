@@ -1,0 +1,12 @@
+<mat-card class="card" [ngStyle]="{'background-color': '#e7def6' }">
+  <mat-card-title-group>
+    <mat-card-title>{{ pokemon.displayName }}</mat-card-title>
+    <mat-card-subtitle>Item: {{ pokemon.item }}</mat-card-subtitle>
+    <mat-card-subtitle>Nature: {{ pokemon.nature }}</mat-card-subtitle>
+    <mat-card-subtitle>Ability: {{ pokemon.displayAbility }}</mat-card-subtitle>
+    <mat-card-subtitle>{{ pokemon.evsDescription() }}</mat-card-subtitle>
+    <mat-card-subtitle *ngIf="pokemon.teraTypeActive()">Terastalyzed as {{ pokemon.teraType }} type
+    </mat-card-subtitle>
+    <img mat-card-md-image src='https://img.pokemondb.net/sprites/home/normal/{{ pokemon.spriteName }}.png'>
+  </mat-card-title-group>
+</mat-card>

@@ -33,8 +33,7 @@ export class FieldComponent {
   ]  
 
   panelOpenState = false
-  mobile = false
-
+  
   private differField: KeyValueDiffer<string, any>
   private differFieldAttacker: KeyValueDiffer<string, any>
   private differFieldDefender: KeyValueDiffer<string, any>
@@ -43,12 +42,6 @@ export class FieldComponent {
     this.differField = this.differs.find(this.field).create()
     this.differFieldAttacker = this.differsFieldAttacker.find(this.field.attackerSide).create()
     this.differFieldDefender = this.differsFieldDefender.find(this.field.defenderSide).create()
-  }
-
-  ngOnInit() {
-    if (window.matchMedia("(max-width: 767px)").matches) {
-      this.mobile = true;
-    }
   }
 
   ngDoCheck() {

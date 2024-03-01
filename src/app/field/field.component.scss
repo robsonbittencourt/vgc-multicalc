@@ -1,7 +1,7 @@
 .field {
   background-color: rgb(240, 236, 236);
   border-radius: 1%;
-  margin-top: 1em;
+  margin: 1em;
   margin-right: 1em;
   height: 100%;
 }
@@ -17,9 +17,8 @@
 
 .field-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   column-gap: 3em;
-  grid-template-rows: 0.7fr 1fr;
   margin: 1em;
 }
 
@@ -56,7 +55,11 @@
 }
 
 .collapse-button {
-  display: none;
+  display: block;
+  color: white;
+  font-size: xx-large;
+  margin-right: 0.5em;
+  margin-top: -0.2em;
 }
 
 .status-tailwind {

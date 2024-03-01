@@ -22,6 +22,8 @@ import { TargetPokemonCardComponent } from './target-pokemon-card/target-pokemon
 import { FieldComponent } from './field/field.component';
 import { EvSliderComponent } from './ev-slider/ev-slider.component';
 import { InputAutocompleteComponent } from './input-autocomplete/input-autocomplete.component';
+import { YourTeamComponent } from './your-pokemon/your-team.component';
+import { PokemonCardComponent } from './pokemon-card/pokemon-card.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { InputAutocompleteComponent } from './input-autocomplete/input-autocompl
     TargetPokemonCardComponent,
     FieldComponent,
     EvSliderComponent,
-    InputAutocompleteComponent
+    InputAutocompleteComponent,
+    YourTeamComponent,
+    PokemonCardComponent
   ],
   imports: [
     ReactiveFormsModule,
