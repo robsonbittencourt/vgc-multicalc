@@ -5,13 +5,17 @@
     <mat-card-subtitle>Nature: {{ teamMember.pokemon.nature }}</mat-card-subtitle>
     <mat-card-subtitle>Ability: {{ teamMember.pokemon.displayAbility }}</mat-card-subtitle>
     <mat-card-subtitle>{{ teamMember.pokemon.evsDescription() }}</mat-card-subtitle>
-    <mat-card-subtitle *ngIf="teamMember.pokemon.teraTypeActive">Terastalyzed as {{ teamMember.pokemon.teraType }} type
-    </mat-card-subtitle>
-    <img mat-card-md-image src='https://img.pokemondb.net/sprites/home/normal/{{ teamMember.pokemon.spriteName }}.png'>
+    <mat-card-subtitle *ngIf="teamMember.pokemon.teraTypeActive">Terastalyzed as {{ teamMember.pokemon.teraType }} type</mat-card-subtitle>
+    <mat-card-subtitle>Move: {{ teamMember.pokemon.move }}</mat-card-subtitle>
+    <div class="card-container">
+      <div>
+        <img mat-card-md-image src='https://img.pokemondb.net/sprites/home/normal/{{ teamMember.pokemon.spriteName }}.png'>
+      </div>
+      <div class="delete-button-container">
+        <button *ngIf="showDeleteButton" class="icon-button" (click)="removePokemon()">
+          <img class="icon-trash" src="assets/icons/trash.png"/>
+        </button>
+      </div>
+    </div>
   </mat-card-title-group>
-  <div *ngIf="showDeleteButton" class="card-container">
-    <button class="icon-button" (click)="removePokemon()">
-      <img class="icon-trash" src="assets/icons/trash.png"/>
-    </button>    
-  </div>
 </mat-card>

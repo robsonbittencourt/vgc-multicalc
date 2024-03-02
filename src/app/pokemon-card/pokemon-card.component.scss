@@ -7,16 +7,23 @@
 
 .card-container {
   display: flex;
-  flex-direction: row;
-  height: 100%;
-  align-items: flex-end;
-  justify-content: flex-end;
+  flex-direction: column;
+  justify-content: flex-start;
+  row-gap: 1.5em;
 }
 
 .icon-button {
   background: none;
   border: 0;
   cursor: pointer;
+}
+
+.delete-button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  height: 100%;
+  width: 100%;
 }
 
 .icon-button .icon-trash {
