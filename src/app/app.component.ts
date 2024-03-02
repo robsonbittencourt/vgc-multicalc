@@ -3,6 +3,7 @@ import { Field } from '@smogon/calc';
 import { DamageCalculatorService } from 'src/lib/damage-calculator.service';
 import { Pokemon } from 'src/lib/pokemon';
 import { Target } from 'src/lib/target';
+import { TeamMember } from 'src/lib/team-member';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,7 @@ export class AppComponent {
   constructor(private damageCalculator: DamageCalculatorService) { }
 
   pokemon: Pokemon
-  team: Pokemon[]
+  team: TeamMember[]
   field: Field
   
   targets: Target[] = [
@@ -29,20 +30,25 @@ export class AppComponent {
 
   ngOnInit() {
     this.team = [
-      new Pokemon("Flutter Mane", "Timid", "Choice Specs", "Protosynthesis", "Fairy", true, { spa: 252 }, "Moon Blast", undefined, undefined, true),
-      new Pokemon("Tyranitar", "Timid", "Choice Specs", "Protosynthesis", "Fairy", true, { spa: 252 }, "Moon Blast")
+      new TeamMember(new Pokemon("Flutter Mane", "Timid", "Choice Specs", "Protosynthesis", "Fairy", true, { spa: 252 }, "Moon Blast", undefined, undefined), 0, true),
+      new TeamMember(new Pokemon("Tyranitar", "Timid", "Choice Specs", "Protosynthesis", "Fairy", true, { spa: 252 }, "Moon Blast"), 1)
     ]
   }
 
   activePokemon(): Pokemon {
-    return this.team.find(t => t.active)!
+    return this.team.find(t => t.active)!.pokemon
   }
 
-  allTeamChanged(team: Pokemon[]) {
+  allTeamChanged(team: TeamMember[]) {
     this.team = team
-    console.log(team)
     this.calculateDamageForAll()
     this.order()
+  }
+
+  pokemonAddedToTeam() {
+    const clonedLastPokemon = this.team[this.team.length -1].pokemon.clone()
+    const teamMember = new TeamMember(clonedLastPokemon, this.team.length)
+    this.team.push(teamMember)
   }
 
   pokemonChanged(pokemon: Pokemon) {

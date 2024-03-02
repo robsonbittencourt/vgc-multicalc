@@ -24,6 +24,7 @@ import { EvSliderComponent } from './ev-slider/ev-slider.component';
 import { InputAutocompleteComponent } from './input-autocomplete/input-autocomplete.component';
 import { TeamComponent } from './team/team.component';
 import { PokemonCardComponent } from './pokemon-card/pokemon-card.component';
+import { AddPokemonCardComponent } from './add-pokemon-card/add-pokemon-card.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { PokemonCardComponent } from './pokemon-card/pokemon-card.component';
     EvSliderComponent,
     InputAutocompleteComponent,
     TeamComponent,
-    PokemonCardComponent
+    PokemonCardComponent,
+    AddPokemonCardComponent
   ],
   imports: [
     ReactiveFormsModule,

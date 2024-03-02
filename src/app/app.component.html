@@ -13,7 +13,7 @@
       </div>
 
       <div class="main-pokemon">
-        <app-team [team]="team" (allTeamChanged)=allTeamChanged($event)/>
+        <app-team [team]="team" (allTeamChanged)=allTeamChanged($event) (pokemonAddedToTeamEvent)=pokemonAddedToTeam()/>
       </div>
       
       <div class="field">

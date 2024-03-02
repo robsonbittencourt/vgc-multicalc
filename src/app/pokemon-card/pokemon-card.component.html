@@ -1,12 +1,12 @@
-  <mat-card (click)="activate()" class="card" [ngStyle]="pokemon.active && { 'border': '3px', 'border-style': 'solid', 'border-color': '#8544ee' } || null">
+<mat-card (click)="activate()" class="card" [ngStyle]="teamMember.active && { 'border': '3px', 'border-style': 'solid', 'border-color': '#8544ee' } || null">
   <mat-card-title-group>
-    <mat-card-title>{{ pokemon.displayName }}</mat-card-title>
-    <mat-card-subtitle>Item: {{ pokemon.item }}</mat-card-subtitle>
-    <mat-card-subtitle>Nature: {{ pokemon.nature }}</mat-card-subtitle>
-    <mat-card-subtitle>Ability: {{ pokemon.displayAbility }}</mat-card-subtitle>
-    <mat-card-subtitle>{{ pokemon.evsDescription() }}</mat-card-subtitle>
-    <mat-card-subtitle *ngIf="pokemon.teraTypeActive">Terastalyzed as {{ pokemon.teraType }} type
+    <mat-card-title>{{ teamMember.pokemon.displayName }}</mat-card-title>
+    <mat-card-subtitle>Item: {{ teamMember.pokemon.item }}</mat-card-subtitle>
+    <mat-card-subtitle>Nature: {{ teamMember.pokemon.nature }}</mat-card-subtitle>
+    <mat-card-subtitle>Ability: {{ teamMember.pokemon.displayAbility }}</mat-card-subtitle>
+    <mat-card-subtitle>{{ teamMember.pokemon.evsDescription() }}</mat-card-subtitle>
+    <mat-card-subtitle *ngIf="teamMember.pokemon.teraTypeActive">Terastalyzed as {{ teamMember.pokemon.teraType }} type
     </mat-card-subtitle>
-    <img mat-card-md-image src='https://img.pokemondb.net/sprites/home/normal/{{ pokemon.spriteName }}.png'>
+    <img mat-card-md-image src='https://img.pokemondb.net/sprites/home/normal/{{ teamMember.pokemon.spriteName }}.png'>
   </mat-card-title-group>
 </mat-card>

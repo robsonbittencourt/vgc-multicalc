@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PokePasteParserService } from 'src/lib/poke-paste-parser.service';
-import { Pokemon } from 'src/lib/pokemon';
+import { TeamMember } from 'src/lib/team-member';
 
 @Component({
   selector: 'app-team',
@@ -12,18 +12,21 @@ export class TeamComponent {
   constructor(private pokePasteService: PokePasteParserService) {}
 
   @Input() 
-  team: Pokemon[]
+  team: TeamMember[]
 
   @Output() 
-  allTeamChanged = new EventEmitter<Pokemon[]>()
+  allTeamChanged = new EventEmitter<TeamMember[]>()
+
+  @Output()
+  pokemonAddedToTeamEvent = new EventEmitter<any>()
 
   pokePaste = ""
   errorMessagePokePaste: string = ""
 
-  pokemonActivated(pokemon: Pokemon) {
-    this.team.forEach(p => {
-      if (!p.equals(pokemon)) {
-        p.active = false
+  pokemonActivated(position: number) {
+    this.team.forEach(teamMember => {
+      if (teamMember.position != position) {
+        teamMember.active = false
       }
     })
   }
@@ -31,7 +34,14 @@ export class TeamComponent {
   async addFromPokePaste() {
     try {
       this.errorMessagePokePaste = ""
-      this.team = await this.pokePasteService.parseFromPokePaste(this.pokePaste)
+      const pokemonList = await this.pokePasteService.parseFromPokePaste(this.pokePaste)
+      this.team = []
+
+      for (let index = 0; index < pokemonList.length; index++) {
+        const pokemon = pokemonList[index]
+        this.team.push(new TeamMember(pokemon, index))        
+      }
+
       this.team[0].active = true
       this.allTeamChanged.emit(this.team)
     } catch(ex) {
@@ -41,12 +51,12 @@ export class TeamComponent {
     }
   }
 
-  addPokemon() {
-
-  }
-
   removeAll() {
     // this.team = []
+  }
+
+  pokemonAddedToTeam() {
+    this.pokemonAddedToTeamEvent.emit()
   }
 
 }

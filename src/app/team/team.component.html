@@ -15,8 +15,9 @@
     <label>{{ errorMessagePokePaste }}</label>
   </div>
   <div class="cards">
-    <div *ngFor="let pokemon of team">
-      <app-pokemon-card [pokemon]="pokemon" (pokemonActivated)="pokemonActivated($event)" />
+    <div *ngFor="let teamMember of team">
+      <app-pokemon-card [teamMember]="teamMember" (pokemonActivated)="pokemonActivated($event)" />
     </div>
+    <app-add-pokemon-card *ngIf="team.length < 6" (pokemonAddedToTeam)=pokemonAddedToTeam()/>
   </div>
 </div>
