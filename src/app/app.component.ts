@@ -38,7 +38,7 @@ export class AppComponent {
     return this.team.find(t => t.active)!.pokemon
   }
 
-  allTeamChanged(team: TeamMember[]) {
+  teamChanged(team: TeamMember[]) {
     this.team = team
     this.calculateDamageForAll()
     this.order()
