@@ -36,6 +36,12 @@
   height: 82%;
 }
 
+.error-message-poke-paste {
+  background-color: rgb(240, 236, 236);
+  padding-left: 1em;
+  color: #f44336;
+}
+
 .cards {
   display: grid;
   grid-template-columns: 1fr 1fr;

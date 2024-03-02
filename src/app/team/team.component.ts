@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { PokePasteParserService } from 'src/lib/poke-paste-parser.service';
 import { Pokemon } from 'src/lib/pokemon';
 
 @Component({
@@ -8,10 +9,16 @@ import { Pokemon } from 'src/lib/pokemon';
 })
 export class TeamComponent {
 
+  constructor(private pokePasteService: PokePasteParserService) {}
+
   @Input() 
   team: Pokemon[]
 
+  @Output() 
+  allTeamChanged = new EventEmitter<Pokemon[]>()
+
   pokePaste = ""
+  errorMessagePokePaste: string = ""
 
   pokemonActivated(pokemon: Pokemon) {
     this.team.forEach(p => {
@@ -21,8 +28,17 @@ export class TeamComponent {
     })
   }
 
-  addFromPokePaste() {
-
+  async addFromPokePaste() {
+    try {
+      this.errorMessagePokePaste = ""
+      this.team = await this.pokePasteService.parseFromPokePaste(this.pokePaste)
+      this.team[0].active = true
+      this.allTeamChanged.emit(this.team)
+    } catch(ex) {
+      this.errorMessagePokePaste = "Invalid Poke paste. Check if it is the version with EVs"
+    } finally {
+      this.pokePaste = ""
+    }
   }
 
   addPokemon() {
