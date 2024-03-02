@@ -18,7 +18,7 @@
   margin-left: 0.8em;
 }
 
-.target-inputs {
+.inputs {
   background-color: rgb(240, 236, 236);
   display: flex;
   padding-top: 0.5em;
@@ -49,4 +49,32 @@
   grid-column-gap: 1em;
   grid-row-gap: 1em;
   margin: 1em 1em 0 1em;
+}
+
+@media only screen and (max-width: 768px) {
+  .container {
+    margin-top: 0em;
+    margin-right: 0em;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  .form-row {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    row-gap: 1em;
+  }
+
+  .form-row > * {
+    flex-basis: 47.5%;
+    font-size: smaller;
+  }  
+
+  .poke-paste-input {
+    width: 95%;
+    height: 82%;
+    font-size: smaller;
+  }
 }

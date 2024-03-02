@@ -36,7 +36,7 @@
   grid-row-gap: 1em;
 }
 
-.target-inputs {
+.inputs {
   background-color: rgb(240, 236, 236);
   margin-left: 1em;
   margin-right: 1em;
@@ -66,7 +66,7 @@
     align-items: flex-start;
   }
 
-  .target-inputs {
+  .inputs {
     background-color: rgb(240, 236, 236);
     margin-left: 0em;
     margin-right: 0em;
@@ -75,7 +75,6 @@
   }
 
   .form-row {
-    display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
     row-gap: 1em;
