@@ -11,12 +11,26 @@ export class TeamComponent {
   @Input() 
   team: Pokemon[]
 
+  pokePaste = ""
+
   pokemonActivated(pokemon: Pokemon) {
     this.team.forEach(p => {
       if (!p.equals(pokemon)) {
         p.active = false
       }
     })
+  }
+
+  addFromPokePaste() {
+
+  }
+
+  addPokemon() {
+
+  }
+
+  removeAll() {
+    // this.team = []
   }
 
 }

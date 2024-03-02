@@ -18,6 +18,24 @@
   margin-left: 0.8em;
 }
 
+.target-inputs {
+  background-color: rgb(240, 236, 236);
+  display: flex;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+.form-row {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.5em 1em 0 1em;
+  column-gap: 1em;
+}
+
+.poke-paste-input {
+  height: 82%;
+}
+
 .cards {
   display: grid;
   grid-template-columns: 1fr 1fr;

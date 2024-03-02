@@ -2,6 +2,16 @@
   <div class="header">
     <span class="title">Your Team</span>
   </div>
+  <div class="target-inputs">
+    <li class="form-row">
+      <div>
+        <input class="poke-paste-input" placeholder="Paste Link" type="text" matInput [(ngModel)]="pokePaste">
+      </div>
+      <button mat-flat-button color="primary" (click)="addFromPokePaste()">Add from Paste</button>
+      <button mat-flat-button color="primary" (click)="addPokemon()">Add from Attacker</button>
+      <button mat-flat-button color="warn" (click)="removeAll()">Remove all</button>
+    </li>
+  </div>
   <div class="cards">
     <div *ngFor="let pokemon of team">
       <app-pokemon-card [pokemon]="pokemon" (pokemonActivated)="pokemonActivated($event)" />
