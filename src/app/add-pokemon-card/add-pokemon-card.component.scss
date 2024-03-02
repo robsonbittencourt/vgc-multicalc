@@ -4,3 +4,15 @@
   padding: 1em;
   background-color: #e7def6;
 }
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.plus-button {
+  color: #673ab7;
+  transform: scale(3);
+}

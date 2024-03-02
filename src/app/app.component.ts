@@ -30,8 +30,7 @@ export class AppComponent {
 
   ngOnInit() {
     this.team = [
-      new TeamMember(new Pokemon("Flutter Mane", "Timid", "Choice Specs", "Protosynthesis", "Fairy", true, { spa: 252 }, "Moon Blast", undefined, undefined), 0, true),
-      new TeamMember(new Pokemon("Tyranitar", "Timid", "Choice Specs", "Protosynthesis", "Fairy", true, { spa: 252 }, "Moon Blast"), 1)
+      new TeamMember(new Pokemon("Flutter Mane", "Timid", "Choice Specs", "Protosynthesis", "Fairy", true, { spa: 252 }, "Moon Blast", undefined, undefined), 0, true)
     ]
   }
 
