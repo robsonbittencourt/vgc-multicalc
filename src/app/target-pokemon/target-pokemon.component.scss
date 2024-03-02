@@ -1,7 +1,6 @@
-.header-damage-result {
+.header {
   margin-left: 0.8em;
   margin-right: 0.8em;
-  margin-top: 1em;
   padding-top: 0.5em;
   padding-bottom: 0.5em;
   grid-column-start: 1;
@@ -10,10 +9,10 @@
   font-size: large;
   display: flex;
   align-items: center;
-  flex-direction: column;
+  justify-content: center;
 }
 
-.title-left-pokemon {
+.title {
   color: white;
   margin-left: 0.8em;
 }
@@ -58,7 +57,7 @@
 }
 
 @media only screen and (max-width: 768px) {
-  .header-damage-result {
+  .header {
     margin-top: 0;
     margin-left: 0;
     margin-right: 0;

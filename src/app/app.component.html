@@ -12,7 +12,7 @@
         <app-main-pokemon [pokemon]="activePokemon()" (pokemonChangedEvent)="pokemonChanged($event)"/>
       </div>
 
-      <div class="main-pokemon">
+      <div class="team">
         <app-team [team]="team" (teamChanged)=allTeamChanged($event) (pokemonAddedToTeamEvent)=pokemonAddedToTeam()/>
       </div>
       
