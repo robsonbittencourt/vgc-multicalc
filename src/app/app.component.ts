@@ -46,8 +46,14 @@ export class AppComponent {
   }
 
   pokemonAddedToTeam() {
+    const activePokemon = this.team.find(t => t.active)!
+
     const clonedLastPokemon = this.team[this.team.length -1].pokemon.clone()
     const teamMember = new TeamMember(clonedLastPokemon, this.team.length)
+    
+    teamMember.active = true //refactor create team class
+    activePokemon.active = false
+
     this.team.push(teamMember)
   }
 
