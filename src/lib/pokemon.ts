@@ -128,10 +128,10 @@ export class Pokemon {
 
   public set teraType(teraType: string) {
     this.teraTypeStorage = teraType
-    this.pokemonSmogon = this.buildPokemonSmogon({ teraType: teraType, teraTypeActive: this.teraTypeActive() })
+    this.pokemonSmogon = this.buildPokemonSmogon({ teraType: teraType, teraTypeActive: this.teraTypeActive })
   }
 
-  public teraTypeActive(): boolean {
+  public get teraTypeActive(): boolean {
     return this.pokemonSmogon.teraType != undefined
   }
 
@@ -228,7 +228,7 @@ export class Pokemon {
   }
 
   public clone(): Pokemon {
-    return new Pokemon(this.name, this.nature, this.item, this.ability, this.teraTypeStorage, this.teraTypeActive(), this.evs, this.move, this.boosts)
+    return new Pokemon(this.name, this.nature, this.item, this.ability, this.teraTypeStorage, this.teraTypeActive, this.evs, this.move, this.boosts)
   }
 
   public equals(toCompare: Pokemon): boolean {
@@ -237,7 +237,7 @@ export class Pokemon {
       this.pokemonSmogon.item === toCompare.pokemonSmogon.item &&
       this.pokemonSmogon.ability === toCompare.pokemonSmogon.ability &&
       this.teraTypeStorage === toCompare.teraTypeStorage &&
-      this.teraTypeActive() === toCompare.teraTypeActive() &&
+      this.teraTypeActive === toCompare.teraTypeActive &&
       this.pokemonSmogon.evs.hp === toCompare.pokemonSmogon.evs.hp &&
       this.pokemonSmogon.evs.atk === toCompare.pokemonSmogon.evs.atk &&
       this.pokemonSmogon.evs.def === toCompare.pokemonSmogon.evs.def &&
@@ -280,11 +280,11 @@ export class Pokemon {
       return undefined
     }
 
-    if (teraTypeActive == undefined && !this.teraTypeActive()) {
+    if (teraTypeActive == undefined && !this.teraTypeActive) {
       return undefined
     }
 
-    if (teraTypeActive == undefined && this.teraTypeActive()) {
+    if (teraTypeActive == undefined && this.teraTypeActive) {
       return this.pokemonSmogon.teraType
     }
 
