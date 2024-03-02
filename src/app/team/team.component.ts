@@ -34,7 +34,6 @@ export class TeamComponent {
   pokemonRemoved(position: number) {
     const removedTeamMember = this.team.find(teamMember => teamMember.position == position)!
 
-
     if (removedTeamMember.active) {
       this.team[0].active = true
     }    
@@ -64,7 +63,11 @@ export class TeamComponent {
   }
 
   removeAll() {
-    // this.team = []
+    const remainingTeamMember = this.team[0]
+    remainingTeamMember.active = true
+    
+    this.team = [remainingTeamMember]
+    this.teamChanged.emit(this.team)
   }
 
   pokemonAddedToTeam() {
