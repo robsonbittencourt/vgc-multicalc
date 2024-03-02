@@ -12,14 +12,24 @@ export class PokemonCardComponent {
   @Input() 
   teamMember: TeamMember
 
+  @Input() 
+  showDeleteButton: boolean
+
   @Output() 
   pokemonActivated = new EventEmitter<number>()
+
+  @Output() 
+  pokemonRemoved = new EventEmitter<number>()
 
   activate() {
     if (!this.teamMember.active) {
       this.teamMember.active = true
       this.pokemonActivated.emit(this.teamMember.position)
     }    
+  }
+
+  removePokemon() {
+    this.pokemonRemoved.emit(this.teamMember.position)
   }
 
 }

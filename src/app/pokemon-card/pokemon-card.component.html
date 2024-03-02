@@ -9,4 +9,9 @@
     </mat-card-subtitle>
     <img mat-card-md-image src='https://img.pokemondb.net/sprites/home/normal/{{ teamMember.pokemon.spriteName }}.png'>
   </mat-card-title-group>
+  <div *ngIf="showDeleteButton" class="card-container">
+    <button class="icon-button" (click)="removePokemon()">
+      <img class="icon-trash" src="assets/icons/trash.png"/>
+    </button>    
+  </div>
 </mat-card>

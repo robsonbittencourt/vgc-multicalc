@@ -15,7 +15,7 @@ export class TeamComponent {
   team: TeamMember[]
 
   @Output() 
-  allTeamChanged = new EventEmitter<TeamMember[]>()
+  teamChanged = new EventEmitter<TeamMember[]>()
 
   @Output()
   pokemonAddedToTeamEvent = new EventEmitter<any>()
@@ -31,6 +31,18 @@ export class TeamComponent {
     })
   }
 
+  pokemonRemoved(position: number) {
+    const removedTeamMember = this.team.find(teamMember => teamMember.position == position)!
+
+
+    if (removedTeamMember.active) {
+      this.team[0].active = true
+    }    
+
+    this.team = this.team.filter(teamMember => teamMember.position != position)    
+    this.teamChanged.emit(this.team)
+  }
+
   async addFromPokePaste() {
     try {
       this.errorMessagePokePaste = ""
@@ -43,7 +55,7 @@ export class TeamComponent {
       }
 
       this.team[0].active = true
-      this.allTeamChanged.emit(this.team)
+      this.teamChanged.emit(this.team)
     } catch(ex) {
       this.errorMessagePokePaste = "Invalid Poke paste. Check if it is the version with EVs"
     } finally {
