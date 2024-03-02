@@ -24,6 +24,7 @@ export class InputAutocompleteComponent {
 
   set value(value: string) {
     this.valueStorage = value
+    this.formControl?.setValue(value)
     this.valueChange.emit(this.valueStorage);
   }
 
@@ -31,7 +32,7 @@ export class InputAutocompleteComponent {
   allValues: string[]
 
   ngOnInit() {
-    this.formControl = new FormControl(this.value)
+    this.formControl = new FormControl(this.valueStorage)
     this.filteredValues = this.formControl.valueChanges.pipe(
       startWith(''),
       map(value => this.filter(value || '', this.allValues))
