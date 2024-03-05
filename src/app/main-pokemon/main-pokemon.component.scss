@@ -18,11 +18,24 @@
   margin-left: 0.8em;
 }
 
-.info-container {
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 1em;
+  grid-row-gap: 0.5em;
+  padding: 0.5em 1em 0 1em;
+}
+
+.left-container {
   display: grid;
   grid-template-columns: 0.2fr 1fr;
   grid-row-gap: 0.5em;
-  padding: 0.5em 1em 0 1em;
+}
+
+.right-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-row-gap: 1.1em;
 }
 
 .info-label {

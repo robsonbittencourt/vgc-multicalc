@@ -1,14 +1,15 @@
 import { Pokemon as PokemonSmogon, Generations } from "@smogon/calc";
 import { StatIDExceptHP, StatsTable, StatusName, TypeName } from "@smogon/calc/dist/data/interface";
+import { MoveSet } from "./moveset";
 
 export class Pokemon {
   public pokemonSmogon: PokemonSmogon
   public teraTypeStorage: string
   public evsStorage: Partial<StatsTable> & { spc?: number; }
-  private moveStorage: string
+  private moveSetStorage: MoveSet
   private paradoxAbilityActivatedStorage: boolean
   
-  constructor(name: string, nature: string, item: string, ability: string, teraType: string, teraTypeActive: boolean = false, evs: Partial<StatsTable> & { spc?: number; }, move: string = "", boosts: StatsTable | undefined = undefined, status: StatusName | undefined = undefined) {
+  constructor(name: string, nature: string, item: string, ability: string, teraType: string, teraTypeActive: boolean = false, evs: Partial<StatsTable> & { spc?: number; }, moveSet: MoveSet | undefined = undefined, boosts: StatsTable | undefined = undefined, status: StatusName | undefined = undefined) {
     this.pokemonSmogon = new PokemonSmogon(Generations.get(9), name, {
       nature: nature,
       item: item,
@@ -22,7 +23,7 @@ export class Pokemon {
 
     this.teraTypeStorage = teraType
     this.evsStorage = evs
-    this.moveStorage = move
+    this.moveSetStorage = moveSet ?? new MoveSet("Moon Blast")
   }
 
   public get name(): string {
@@ -142,12 +143,12 @@ export class Pokemon {
     }
   }
 
-  public get move(): string {
-    return this.moveStorage
+  public get moveSet(): MoveSet {
+    return this.moveSetStorage
   }
 
-  public set move(move: string) {
-    this.moveStorage = move
+  public get move(): string {
+    return this.moveSetStorage.activeMove
   }
 
   public get hp(): number {
@@ -217,7 +218,7 @@ export class Pokemon {
   }
 
   public clone(): Pokemon {
-    return new Pokemon(this.name, this.nature, this.item, this.ability, this.teraTypeStorage, this.teraTypeActive, this.evs, this.move, this.boosts)
+    return new Pokemon(this.name, this.nature, this.item, this.ability, this.teraTypeStorage, this.teraTypeActive, this.evs, this.moveSetStorage, this.boosts)
   }
 
   public equals(toCompare: Pokemon): boolean {

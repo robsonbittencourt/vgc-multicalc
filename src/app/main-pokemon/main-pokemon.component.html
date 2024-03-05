@@ -2,52 +2,85 @@
   <div class="header-attacker-pokemon">
     <span class="title-attacker-pokemon">Attacker</span>
   </div>
-  <div class="info-container">
-    <div class="info-label">
-      <label>Pokémon</label>
-    </div>
-    <div>
-      <app-input-autocomplete [(value)]="pokemon.name" [allValues]="allPokemonNames"/>
-    </div>
-    <div class="info-label">
-      <label>Nature</label>
-    </div>
-    <div>
-      <app-input-autocomplete [(value)]="pokemon.nature" [allValues]="allNatureNames"/>
-    </div>
-    <div class="info-label">
-      <label>Item</label>
-    </div>
-    <div>
-      <app-input-autocomplete [(value)]="pokemon.item" [allValues]="allItemsNames" (valueChange)="onItemChange($event)"/>
-    </div>
-    <div class="info-label">
-      <label>Ability</label>
-    </div>
-    <div class="check-input-section">
-      <div *ngIf="isParadoxAbility()" class="check-input-section-checkbox">
-        <mat-checkbox [(ngModel)]="pokemon.paradoxAbilityActivated"></mat-checkbox>
+  <div class="container">
+    <div class="left-container">
+      <div class="info-label">
+        <label>Pokémon</label>
       </div>
-      <div class="check-input-section-input" [ngClass]="!isParadoxAbility() ? 'check-input-section-without-checkbox' : ''">
-        <app-input-autocomplete [(value)]="pokemon.ability" [allValues]="allAbilitiesNames"/>
+      <div>
+        <app-input-autocomplete [(value)]="pokemon.name" [allValues]="allPokemonNames"/>
+      </div>
+      <div class="info-label">
+        <label>Nature</label>
+      </div>
+      <div>
+        <app-input-autocomplete [(value)]="pokemon.nature" [allValues]="allNatureNames"/>
+      </div>
+      <div class="info-label">
+        <label>Item</label>
+      </div>
+      <div>
+        <app-input-autocomplete [(value)]="pokemon.item" [allValues]="allItemsNames" (valueChange)="onItemChange($event)"/>
+      </div>
+      <div class="info-label">
+        <label>Ability</label>
+      </div>
+      <div class="check-input-section">
+        <div *ngIf="isParadoxAbility()" class="check-input-section-checkbox">
+          <mat-checkbox [(ngModel)]="pokemon.paradoxAbilityActivated"></mat-checkbox>
+        </div>
+        <div class="check-input-section-input" [ngClass]="!isParadoxAbility() ? 'check-input-section-without-checkbox' : ''">
+          <app-input-autocomplete [(value)]="pokemon.ability" [allValues]="allAbilitiesNames"/>
+        </div>
+      </div>
+      <div class="info-label">
+        <label>TeraType</label>
+      </div>
+      <div class="check-input-section">
+        <div class="check-input-section-checkbox">
+          <mat-checkbox [ngModel]="pokemon.teraTypeActive" (change)="pokemon.changeTeraStatus($event.checked)"></mat-checkbox>
+        </div>
+        <div class="check-input-section-input">
+          <app-input-autocomplete [(value)]="pokemon.teraType" [allValues]="allTeraTypes"/>
+        </div>
       </div>
     </div>
-    <div class="info-label">
-      <label>TeraType</label>      
-    </div>
-    <div class="check-input-section">
-      <div class="check-input-section-checkbox">
-        <mat-checkbox [ngModel]="pokemon.teraTypeActive" (change)="pokemon.changeTeraStatus($event.checked)"></mat-checkbox>
+    <div class="right-container">
+      <div class="check-input-section">
+        <div class="check-input-section-checkbox">
+          <mat-checkbox [ngModel]="pokemon.moveSet.move1 == pokemon.move" (change)="activateMove(pokemon.moveSet.move1)"></mat-checkbox>
+        </div>
+        <div class="check-input-section-input">
+          <app-input-autocomplete [(value)]="pokemon.moveSet.move1" [allValues]="allMoveNames"/>
+        </div>
       </div>
-      <div class="check-input-section-input">
-        <app-input-autocomplete [(value)]="pokemon.teraType" [allValues]="allTeraTypes"/>
+      
+      <div class="check-input-section">
+        <div class="check-input-section-checkbox">
+          <mat-checkbox [ngModel]="pokemon.moveSet.move2 == pokemon.move" (change)="activateMove(pokemon.moveSet.move2)"></mat-checkbox>
+        </div>
+        <div class="check-input-section-input">
+          <app-input-autocomplete [(value)]="pokemon.moveSet.move2" [allValues]="allMoveNames"/>
+        </div>
       </div>
-    </div>
-    <div class="info-label">
-      <label>Move</label>
-    </div>
-    <div>
-      <app-input-autocomplete [(value)]="pokemon.move" [allValues]="allMoveNames"/>
+      
+      <div class="check-input-section">
+        <div class="check-input-section-checkbox">
+          <mat-checkbox [ngModel]="pokemon.moveSet.move3 == pokemon.move" (change)="activateMove(pokemon.moveSet.move3)"></mat-checkbox>
+        </div>
+        <div class="check-input-section-input">
+          <app-input-autocomplete [(value)]="pokemon.moveSet.move3" [allValues]="allMoveNames"/>
+        </div>
+      </div>
+      
+      <div class="check-input-section">
+        <div class="check-input-section-checkbox">
+          <mat-checkbox [ngModel]="pokemon.moveSet.move4 == pokemon.move" (change)="activateMove(pokemon.moveSet.move4)"></mat-checkbox>
+        </div>
+        <div class="check-input-section-input">
+          <app-input-autocomplete [(value)]="pokemon.moveSet.move4" [allValues]="allMoveNames"/>
+        </div>
+      </div>
     </div>
   </div>
   <div class="attacker-pokemon-evs">

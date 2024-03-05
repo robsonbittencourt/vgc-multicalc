@@ -71,4 +71,9 @@ export class MainPokemonComponent {
     return this.pokemon.ability == "Protosynthesis" || this.pokemon.ability == "Quark Drive"
   }
 
+  activateMove(move: string) {
+    this.pokemon.moveSet.activeMove = move
+    this.pokemonChangedEvent.emit(this.pokemon)
+  }
+
 }

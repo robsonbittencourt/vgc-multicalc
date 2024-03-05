@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Field } from '@smogon/calc';
 import { DamageCalculatorService } from 'src/lib/damage-calculator.service';
+import { MoveSet } from 'src/lib/moveset';
 import { Pokemon } from 'src/lib/pokemon';
 import { Target } from 'src/lib/target';
 import { TeamMember } from 'src/lib/team-member';
@@ -29,8 +30,10 @@ export class AppComponent {
   ]
 
   ngOnInit() {
+    const moveSet = new MoveSet("Moon Blast", "Dazzling Gleam", "Shadow Ball", "Thunderbolt")
+
     this.team = [
-      new TeamMember(new Pokemon("Flutter Mane", "Timid", "Choice Specs", "Protosynthesis", "Fairy", true, { spa: 252 }, "Moon Blast", undefined, undefined), 0, true)
+      new TeamMember(new Pokemon("Flutter Mane", "Timid", "Choice Specs", "Protosynthesis", "Fairy", true, { spa: 252 }, moveSet, undefined, undefined), 0, true)
     ]
   }
 
@@ -50,7 +53,7 @@ export class AppComponent {
     const clonedLastPokemon = this.team[this.team.length -1].pokemon.clone()
     const teamMember = new TeamMember(clonedLastPokemon, this.team.length)
     
-    teamMember.active = true //refactor create team class
+    teamMember.active = true
     activePokemon.active = false
 
     this.team.push(teamMember)
