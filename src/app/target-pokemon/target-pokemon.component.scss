@@ -57,6 +57,13 @@
 
 
 @media only screen and (max-width: 768px) {
+  .container {
+    border-radius: 0%;
+    margin: 0;
+    padding: 1em 1em 0em 1em;
+    height: 100%;
+  }
+
   .header {
     margin-top: 0;
     margin-left: 0;
@@ -91,7 +98,7 @@
   .target-pokemon {
     grid-column-start: 0;
     grid-column-end: 1;
-    margin: 0 0 0 0;
+    margin: 1em 0 0 0;
   }
 
 }

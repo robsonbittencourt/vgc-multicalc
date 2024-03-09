@@ -83,12 +83,18 @@
 @media only screen and (max-width: 768px) {
   .attacker-pokemon {
     margin-left: 0em;
+    padding: 1em 0em 0em 1em;
+    height: 100%;
+    border-radius: 0%;
+  }
+
+  .container {
+    grid-template-columns: 1fr;
   }
 
   .evs {
-    padding-top: 1em;
-    padding-right: 0em;
-    padding-bottom: 1em;
-    padding-left: 0.5em;
+    padding: 0em;
+    grid-row-gap: 0.5em;
   }
+
 }

@@ -81,6 +81,7 @@
 @media only screen and (max-width: 768px) {
   .field {
     margin: 0em;
+    border-radius: 0px;
   }
 
   .field-container {
@@ -98,13 +99,5 @@
     display: flex;
     flex-wrap: wrap;
     gap: 0.2em;  
-  }
-
-  .collapse-button {
-    display: block;
-    color: white;
-    font-size: xx-large;
-    margin-right: 0.5em;
-    margin-top: -0.2em;
   }
 }
