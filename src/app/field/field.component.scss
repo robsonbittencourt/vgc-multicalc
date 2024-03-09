@@ -1,16 +1,18 @@
 .field {
-  background-color: rgb(240, 236, 236);
-  border-radius: 1%;
-  margin: 1em 1em 0 1em;
+  background-color: white;
+  border-radius: 7px;
+  margin: 1em 2em 0 2em;
+  border-color: rgb(229, 231, 235);
+  border-width: 1px;
+  border-style: solid;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
-  background-color: rgb(40, 41, 41);
   font-size: large;
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
+  padding-top: 1em;
+  padding-bottom: 1em;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -21,12 +23,13 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   column-gap: 3em;
-  margin: 1em;
+  padding: 0em 2em 2em 2em;
 }
 
 .title {
-  color: white;
-  margin-left: 0.8em;
+  color: black;
+  font-weight: 500;
+  margin-left: 2em;
 }
 
 .button-group {
@@ -51,20 +54,16 @@
   margin-top: 1em;
 }
 
-.defenders {
-  margin-bottom: 1em;
-}
-
 .field-subtitle {
   margin-bottom: 1em;
 }
 
 .collapse-button {
   display: block;
-  color: white;
+  color: black;
   font-size: xx-large;
   margin-right: 0.5em;
-  margin-top: -0.2em;
+  margin-top: -0.25em;
 }
 
 .status-tailwind {

@@ -2,7 +2,7 @@
   display: grid;
   height: 100vh;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 45px 768px 0.08fr 2fr;
+  grid-template-rows: 45px 800px 0.08fr 2fr;
   grid-column-gap: 1em;
   background-color: rgb(252, 248, 248);
 }
@@ -10,14 +10,14 @@
 .header {
   grid-column-start: 1;
   grid-column-end: 3;
-  background-color: rgb(40, 41, 41);
+  background-color: rgb(255, 255, 255);
   font-size: large;
   display: flex;
   align-items: center;
 }
 
 .title {
-  color: white;
+  color: black;
   margin-left: 1em;
 }
 

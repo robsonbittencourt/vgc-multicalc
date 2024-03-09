@@ -1,34 +1,33 @@
 .container {
   margin-top: 1em;
-  margin-right: 1em;
-  background-color: rgb(240, 236, 236);
+  margin-right: 2em;
+  padding: 2em;
+  background-color: white;
   border-radius: 1%;
-  height: 100%;
+  border-color: rgb(229, 231, 235);
+  border-width: 1px;
+  border-style: solid;
+  height: 92%;
 }
 
 .header {
-  background-color: rgb(40, 41, 41);
   font-size: large;
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
 }
 
 .title {
-  color: white;
-  margin-left: 0.8em;
+  color: black;
+  font-weight: 500;
 }
 
 .inputs {
-  background-color: rgb(240, 236, 236);
+  background-color: white;
+  margin-top: 2em;
   display: flex;
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
 }
 
 .form-row {
   display: flex;
   justify-content: flex-end;
-  padding: 0.5em 1em 0 1em;
   column-gap: 1em;
 }
 
@@ -37,8 +36,7 @@
 }
 
 .error-message-poke-paste {
-  background-color: rgb(240, 236, 236);
-  padding-left: 1em;
+  background-color: white;
   color: #f44336;
 }
 
@@ -48,7 +46,7 @@
   grid-auto-rows: minmax(200px, 1fr);
   grid-column-gap: 1em;
   grid-row-gap: 1em;
-  margin: 1em 1em 0 1em;
+  margin: 1em 0em 0 0em;
 }
 
 @media only screen and (max-width: 768px) {

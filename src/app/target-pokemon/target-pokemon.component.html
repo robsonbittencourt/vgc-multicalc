@@ -1,21 +1,23 @@
-<div class="header">
-  <label class="title">Defenders</label>
-</div>
-<div class="inputs">
-  <li class="form-row">
-    <div>
-      <input class="poke-paste-input" placeholder="Paste Link" type="text" matInput [(ngModel)]="pokePaste">
+<div class="container">
+  <div class="header">
+    <label class="title">Defenders</label>
+  </div>
+  <div class="inputs">
+    <li class="form-row">
+      <div>
+        <input class="poke-paste-input" placeholder="Paste Link" type="text" matInput [(ngModel)]="pokePaste">
+      </div>
+      <button mat-flat-button color="primary" (click)="addFromPokePaste()">Add from Paste</button>
+      <button mat-flat-button color="primary" (click)="addPokemon()">Add from Attacker</button>
+      <button mat-flat-button color="warn" (click)="removeAll()">Remove all</button>
+    </li>
+  </div>
+  <div class="error-message-poke-paste">
+    <label>{{ errorMessagePokePaste }}</label>
+  </div>
+  <div class="target-pokemon">
+    <div *ngFor="let target of targets">
+      <app-target-pokemon-card [target]="target" (targetChangedEvent)="targetChanged($event)" (targetRemovedEvent)="targetRemoved($event)"/>
     </div>
-    <button mat-flat-button color="primary" (click)="addFromPokePaste()">Add from Paste</button>
-    <button mat-flat-button color="primary" (click)="addPokemon()">Add from Attacker</button>
-    <button mat-flat-button color="warn" (click)="removeAll()">Remove all</button>
-  </li>
-</div>
-<div class="error-message-poke-paste">
-  <label>{{ errorMessagePokePaste }}</label>
-</div>
-<div class="target-pokemon">
-  <div *ngFor="let target of targets">
-    <app-target-pokemon-card [target]="target" (targetChangedEvent)="targetChanged($event)" (targetRemovedEvent)="targetRemoved($event)"/>
   </div>
 </div>

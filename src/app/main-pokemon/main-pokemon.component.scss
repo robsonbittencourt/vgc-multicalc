@@ -1,21 +1,22 @@
 .attacker-pokemon {
   margin-top: 1em;
-  margin-left: 1em;
-  background-color: rgb(240, 236, 236);
+  margin-left: 2em;
+  padding: 2em;
+  background-color: white;
   border-radius: 1%;
-  height: 100%;
+  border-color: rgb(229, 231, 235);
+  border-width: 1px;
+  border-style: solid;
+  height: 92%;
 }
 
-.header-attacker-pokemon {
-  background-color: rgb(40, 41, 41);
+.header {
   font-size: large;
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
 }
 
-.title-attacker-pokemon {
-  color: white;
-  margin-left: 0.8em;
+.title {
+  color: black;
+  font-weight: 500;
 }
 
 .container {
@@ -23,7 +24,7 @@
   grid-template-columns: 1fr 1fr;
   column-gap: 1em;
   grid-row-gap: 0.5em;
-  padding: 0.5em 1em 0 1em;
+  margin-top: 2em;
 }
 
 .left-container {
@@ -62,17 +63,16 @@
   grid-column-end: 3;
 }
 
-.attacker-pokemon-evs {
-  margin-top: 0.3em;
-  padding: 1em;
+.evs {
+  margin-top: 2em;
   display: grid;
   grid-row-gap: 0.5em;
 }
 
 .remaining-evs {
-  padding-left: 1em;
   display: flex;
   justify-content: left;
+  margin-top: 0.5em;
 }
 
 .mat-flat-button {
@@ -84,7 +84,7 @@
     margin-left: 0em;
   }
 
-  .attacker-pokemon-evs {
+  .evs {
     padding-top: 1em;
     padding-right: 0em;
     padding-bottom: 1em;

@@ -1,6 +1,6 @@
 <div class="attacker-pokemon">
-  <div class="header-attacker-pokemon">
-    <span class="title-attacker-pokemon">Attacker</span>
+  <div class="header">
+    <span class="title">Attacker</span>
   </div>
   <div class="container">
     <div class="left-container">
@@ -83,7 +83,7 @@
       </div>
     </div>
   </div>
-  <div class="attacker-pokemon-evs">
+  <div class="evs">
     <app-ev-slider statName="HP" [statValue]="pokemon.hp" [(ev)]="pokemon.evs.hp" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"/>
     
     <app-ev-slider statName="ATK" [statValue]="pokemon.atk" [(ev)]="pokemon.evs.atk" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()" 

@@ -1,6 +1,6 @@
 <div class="field">
   <div class="header">
-    <span class="title">Field</span>
+    <span class="title" (click)="panelOpenState = !panelOpenState">Field</span>
     <mat-icon class="collapse-button" (click)="panelOpenState = !panelOpenState">arrow_drop_down</mat-icon>
   </div>
   <div *ngIf="panelOpenState" class="field-container">
@@ -61,7 +61,7 @@
         </div>
       </div>
     </div>  
-    <div class="defenders">
+    <div>
       <div class="field-subtitle">
         <label>Defenders</label>
       </div>
