@@ -33,10 +33,20 @@
   grid-row-gap: 0.5em;
 }
 
-.right-container {
+.edit-attacks {
   display: grid;
   grid-template-columns: 1fr;
-  grid-row-gap: 1.1em;
+  grid-row-gap: 0.5em;
+}
+
+.edit-attacks-button {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.4em;
+  margin-right: 0.5em;
+  margin-left: 0.5em;
+  margin-bottom: 0.5em;
+  color: rgb(88, 88, 90);
 }
 
 .info-label {
@@ -47,6 +57,10 @@
 .check-input-section {
   display: grid;
   grid-template-columns: 0fr 1fr;
+  margin-left: 0.4em;
+}
+
+.check-input-section-moves {
   margin-left: 0.4em;
 }
 
@@ -90,6 +104,15 @@
 
   .container {
     grid-template-columns: 1fr;
+  }
+
+  .right-container {
+    margin-left: -0.1em;
+    margin-right: 1em;
+  }
+
+  .edit-attacks-button {
+    margin-left: 0.2em;
   }
 
   .evs {

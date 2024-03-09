@@ -54,4 +54,12 @@ export class MoveSet {
     this.move4Storage = move4
   }
 
+  acivatedMovePosition(): number {
+    if (this.move1Storage == this.activeMoveStorage) return 1
+    if (this.move2Storage == this.activeMoveStorage) return 2
+    if (this.move3Storage == this.activeMoveStorage) return 3
+    if (this.move4Storage == this.activeMoveStorage) return 4
+    return 0
+  }
+
 }

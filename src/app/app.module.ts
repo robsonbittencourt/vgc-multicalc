@@ -14,6 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatChipsModule } from '@angular/material/chips';
 
 import { AppComponent } from './app.component';
 import { MainPokemonComponent } from './main-pokemon/main-pokemon.component';
@@ -53,7 +54,8 @@ import { AddPokemonCardComponent } from './add-pokemon-card/add-pokemon-card.com
     MatIconModule,
     MatButtonModule,
     MatSelectModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatChipsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

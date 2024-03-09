@@ -17,6 +17,8 @@ export class MainPokemonComponent {
   allAbilitiesNames = Object.values(ABILITIES[9]).sort()
   allTeraTypes = Object.keys(TYPE_CHART[9]).splice(1).sort()
   allPokemonNames = new AllPokemon().allPokemonNames()
+  editAttacks = false
+  acivatedMovePosition = 1
 
   MAX_EVS = 508
 
@@ -74,6 +76,34 @@ export class MainPokemonComponent {
   activateMove(move: string) {
     this.pokemon.moveSet.activeMove = move
     this.pokemonChangedEvent.emit(this.pokemon)
+  }
+
+  editMoves() {
+    this.editAttacks = !this.editAttacks
+    this.acivatedMovePosition = this.pokemon.moveSet.acivatedMovePosition()
+  }
+
+  saveMoves() {
+    this.editAttacks = !this.editAttacks
+
+    switch(this.acivatedMovePosition) { 
+      case 1: { 
+        this.activateMove(this.pokemon.moveSet.move1)
+        break; 
+      } 
+      case 2: { 
+        this.activateMove(this.pokemon.moveSet.move2)
+        break; 
+      }
+      case 3: { 
+        this.activateMove(this.pokemon.moveSet.move3)
+        break; 
+      }
+      default: { 
+        this.activateMove(this.pokemon.moveSet.move4)
+        break; 
+      } 
+    } 
   }
 
 }

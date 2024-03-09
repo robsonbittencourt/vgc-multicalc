@@ -46,40 +46,43 @@
       </div>
     </div>
     <div class="right-container">
-      <div class="check-input-section">
-        <div class="check-input-section-checkbox">
-          <mat-checkbox [ngModel]="pokemon.moveSet.move1 == pokemon.move" (change)="activateMove(pokemon.moveSet.move1)"></mat-checkbox>
-        </div>
-        <div class="check-input-section-input">
-          <app-input-autocomplete [(value)]="pokemon.moveSet.move1" [allValues]="allMoveNames"/>
-        </div>
+      <div class="edit-attacks-button">
+        <label>Moves</label>
+        <mat-icon *ngIf="!editAttacks" (click)="editMoves()">edit</mat-icon>
+        <mat-icon *ngIf="editAttacks" (click)="saveMoves()">save</mat-icon>
       </div>
-      
-      <div class="check-input-section">
-        <div class="check-input-section-checkbox">
-          <mat-checkbox [ngModel]="pokemon.moveSet.move2 == pokemon.move" (change)="activateMove(pokemon.moveSet.move2)"></mat-checkbox>
-        </div>
-        <div class="check-input-section-input">
-          <app-input-autocomplete [(value)]="pokemon.moveSet.move2" [allValues]="allMoveNames"/>
-        </div>
+      <div *ngIf="!editAttacks">
+        <mat-chip-listbox class="mat-mdc-chip-set-stacked">
+          <mat-chip-option [selected]="pokemon.moveSet.move1 == pokemon.move" (click)="activateMove(pokemon.moveSet.move1)">{{ pokemon.moveSet.move1 }}</mat-chip-option>
+          <mat-chip-option [selected]="pokemon.moveSet.move2 == pokemon.move" (click)="activateMove(pokemon.moveSet.move2)">{{ pokemon.moveSet.move2 }}</mat-chip-option>
+          <mat-chip-option [selected]="pokemon.moveSet.move3 == pokemon.move" (click)="activateMove(pokemon.moveSet.move3)">{{ pokemon.moveSet.move3 }}</mat-chip-option>
+          <mat-chip-option [selected]="pokemon.moveSet.move4 == pokemon.move" (click)="activateMove(pokemon.moveSet.move4)" >{{ pokemon.moveSet.move4 }}</mat-chip-option>
+        </mat-chip-listbox>
       </div>
-      
-      <div class="check-input-section">
-        <div class="check-input-section-checkbox">
-          <mat-checkbox [ngModel]="pokemon.moveSet.move3 == pokemon.move" (change)="activateMove(pokemon.moveSet.move3)"></mat-checkbox>
+      <div class="edit-attacks" *ngIf="editAttacks">
+        <div class="check-input-section-movess">
+          <div class="check-input-section-input">
+            <app-input-autocomplete [(value)]="pokemon.moveSet.move1" [allValues]="allMoveNames"/>
+          </div>
         </div>
-        <div class="check-input-section-input">
-          <app-input-autocomplete [(value)]="pokemon.moveSet.move3" [allValues]="allMoveNames"/>
+        
+        <div class="check-input-section-movess">
+          <div class="check-input-section-input">
+            <app-input-autocomplete [(value)]="pokemon.moveSet.move2" [allValues]="allMoveNames"/>
+          </div>
         </div>
-      </div>
-      
-      <div class="check-input-section">
-        <div class="check-input-section-checkbox">
-          <mat-checkbox [ngModel]="pokemon.moveSet.move4 == pokemon.move" (change)="activateMove(pokemon.moveSet.move4)"></mat-checkbox>
+        
+        <div class="check-input-section-movess">
+          <div class="check-input-section-input">
+            <app-input-autocomplete [(value)]="pokemon.moveSet.move3" [allValues]="allMoveNames"/>
+          </div>
         </div>
-        <div class="check-input-section-input">
-          <app-input-autocomplete [(value)]="pokemon.moveSet.move4" [allValues]="allMoveNames"/>
-        </div>
+        
+        <div class="check-input-section-movess">
+          <div class="check-input-section-input">
+            <app-input-autocomplete [(value)]="pokemon.moveSet.move4" [allValues]="allMoveNames"/>
+          </div>
+        </div>        
       </div>
     </div>
   </div>
