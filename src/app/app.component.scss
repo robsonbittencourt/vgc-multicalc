@@ -2,7 +2,7 @@
   display: grid;
   height: 100vh;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 45px 800px 0.08fr 2fr;
+  grid-template-rows: 65px 800px 0.08fr 2fr;
   grid-column-gap: 1em;
   background-color: rgb(252, 248, 248);
 }
@@ -14,11 +14,51 @@
   font-size: large;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px;
+  border-color: rgb(229, 231, 235);
+  border-width: 1px;
+  border-style: solid;
+  padding-left: 2.5em;
+  padding-right: 2.5em;
+}
+
+.left-header {
+  display: flex;
+  align-items: center;
+}
+
+.right-header {
+  display: flex;
+  align-items: center;
+  column-gap: 1em;
+}
+
+.slowking-icon {
+  width: 50px;
+  height: 50px;
+}
+
+.icon {
+  width: 30px;
+  height: 30px;
 }
 
 .title {
   color: black;
+  font-weight: 500;
   margin-left: 1em;
+}
+
+.menu {
+  font-size: medium;
+  color: rgb(133, 129, 129);
+  margin-left: 2em;
+  padding: 1em;
+}
+
+.menu:hover {
+  background-color: #e7def6;
 }
 
 .main-pokemon {
