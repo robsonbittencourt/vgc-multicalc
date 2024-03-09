@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Field } from '@smogon/calc';
 import { DamageCalculatorService } from 'src/lib/damage-calculator.service';
+import { DeviceDetectorService } from 'src/lib/device-detector.service';
 import { MoveSet } from 'src/lib/moveset';
 import { Pokemon } from 'src/lib/pokemon';
 import { Target } from 'src/lib/target';
@@ -12,7 +13,7 @@ import { TeamMember } from 'src/lib/team-member';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(private damageCalculator: DamageCalculatorService) { }
+  constructor(private damageCalculator: DamageCalculatorService, private deviceDetectorService: DeviceDetectorService) { }
 
   pokemon: Pokemon
   team: TeamMember[]
@@ -117,6 +118,10 @@ export class AppComponent {
 
     this.calculateDamageForAll()
     this.order()
+  }
+
+  isDesktopDevice(): boolean {
+    return this.deviceDetectorService.isDesktopDevice()
   }
 
   private alreadyExists(pokemon: Pokemon): boolean {
