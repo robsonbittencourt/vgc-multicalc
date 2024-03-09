@@ -39,6 +39,10 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
+.ev-value-input {
+  color: rgb(88, 88, 90) !important;
+}
+
 @media only screen and (max-width: 768px) {
   .ev-slider-container {
     grid-column-gap: 0em;
