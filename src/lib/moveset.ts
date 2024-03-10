@@ -62,4 +62,8 @@ export class MoveSet {
     return 0
   }
 
+  clone(): MoveSet {
+    return new MoveSet(this.move1Storage, this.move2Storage, this.move3Storage, this.move4Storage)
+  }
+
 }
