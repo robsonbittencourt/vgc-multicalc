@@ -11,7 +11,7 @@
     }
   },
   "projects": {
-    "poke-multi-calc": {
+    "vgc-multicalc": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -21,7 +21,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/poke-multi-calc",
+            "outputPath": "dist/vgc-multicalc",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -69,10 +69,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "poke-multi-calc:build:production"
+              "browserTarget": "vgc-multicalc:build:production"
             },
             "development": {
-              "browserTarget": "poke-multi-calc:build:development"
+              "browserTarget": "vgc-multicalc:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -80,7 +80,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "poke-multi-calc:build"
+            "browserTarget": "vgc-multicalc:build"
           }
         },
         "test": {

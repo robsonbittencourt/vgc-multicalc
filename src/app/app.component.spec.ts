@@ -16,16 +16,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'poke-multi-calc'`, () => {
+  it(`should have as title 'vgc-multicalc'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('poke-multi-calc');
+    expect(app.title).toEqual('vgc-multicalc');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('poke-multi-calc app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('vgc-multicalc app is running!');
   });
 });
