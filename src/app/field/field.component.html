@@ -69,6 +69,10 @@
         <mat-button-toggle [checked]="field.defenderSide.isReflect" (change)="field.defenderSide.isReflect = $event.source.checked">Reflect</mat-button-toggle>
         <mat-button-toggle [checked]="field.defenderSide.isLightScreen" (change)="field.defenderSide.isLightScreen = $event.source.checked">Light Screen</mat-button-toggle>
         <mat-button-toggle [checked]="field.defenderSide.isAuroraVeil" (change)="field.defenderSide.isAuroraVeil = $event.source.checked">Aurora Veil</mat-button-toggle>
+      </mat-button-toggle-group>
+
+      <mat-button-toggle-group multiple class="button-group botton-space">
+        <mat-button-toggle [checked]="field.gameType == 'Singles'" (change)="oSingleTargetChance($event.source.checked)">Single Target</mat-button-toggle>
         <mat-button-toggle [checked]="field.defenderSide.isFriendGuard" (change)="field.defenderSide.isFriendGuard = $event.source.checked">Friend Guard</mat-button-toggle>
       </mat-button-toggle-group>
 

@@ -59,6 +59,10 @@ export class FieldComponent {
     this.criticalHitChangedEvent.emit(criticalHit)
   }
 
+  oSingleTargetChance(singleTarget: boolean) {
+    this.field.gameType = singleTarget ? 'Singles' : 'Doubles'
+  }
+
   onAttackerStatusChange(status: string) {
     const statusCode = this.statusConditionCode(status)
     this.attackerStatusChangedEvent.emit(statusCode)
