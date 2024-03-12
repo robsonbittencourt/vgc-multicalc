@@ -21,9 +21,9 @@
 
 .field-container {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
   column-gap: 3em;
-  padding: 0em 2em 2em 2em;
+  padding: 0em 2em 1em 2em;
 }
 
 .title {
@@ -69,7 +69,12 @@
 .status-tailwind {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  margin-top: 1em;
+}
+
+.status-tailwind-defenders {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 2.5em;
 }
 
 .status {

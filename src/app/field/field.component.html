@@ -5,26 +5,20 @@
   </div>
   <div *ngIf="panelOpenState" class="field-container">
     <div>
+      <div class="field-subtitle">
+        <label>Both</label>
+      </div>
       <mat-button-toggle-group multiple class="button-group">
         <mat-button-toggle [checked]="field.isTabletsOfRuin" (change)="field.isTabletsOfRuin = $event.source.checked">Tablets Of Ruin (-atk)</mat-button-toggle>
         <mat-button-toggle [checked]="field.isSwordOfRuin" (change)="field.isSwordOfRuin = $event.source.checked">Sword Of Ruin (-def)</mat-button-toggle>
       </mat-button-toggle-group>
 
-      <mat-button-toggle-group multiple class="button-group">
+      <mat-button-toggle-group multiple class="button-group botton-space">
         <mat-button-toggle [checked]="field.isVesselOfRuin" (change)="field.isVesselOfRuin = $event.source.checked">Vessel Of Ruin (-spa)</mat-button-toggle>
         <mat-button-toggle [checked]="field.isBeadsOfRuin" (change)="field.isBeadsOfRuin = $event.source.checked">Beads Of Ruin (-spd)</mat-button-toggle>
       </mat-button-toggle-group>
 
-      <div class="rooms-section">
-        <mat-button-toggle-group multiple class="button-group botton-space">
-          <mat-button-toggle [checked]="field.isMagicRoom" (change)="field.isMagicRoom = $event.source.checked">Magic Room</mat-button-toggle>
-          <mat-button-toggle [checked]="field.isWonderRoom" (change)="field.isWonderRoom = $event.source.checked">Wonder Room</mat-button-toggle>
-          <mat-button-toggle [checked]="field.isGravity" (change)="field.isGravity = $event.source.checked">Gravity</mat-button-toggle>
-        </mat-button-toggle-group>
-      </div>
-    </div>
-    <div>
-      <mat-button-toggle-group [(ngModel)]="field.weather" class="button-group botton-space">
+      <mat-button-toggle-group [(ngModel)]="field.weather" class="button-group">
         <mat-button-toggle value="Sun">Sun</mat-button-toggle>
         <mat-button-toggle value="Rain">Rain</mat-button-toggle>
         <mat-button-toggle value="Sand">Sand</mat-button-toggle>
@@ -37,15 +31,26 @@
         <mat-button-toggle value="Psychic">Psychic Terrain</mat-button-toggle>
         <mat-button-toggle value="Misty">Misty Terrain</mat-button-toggle>
       </mat-button-toggle-group>
+
+      <div class="rooms-section">
+        <mat-button-toggle-group multiple class="button-group">
+          <mat-button-toggle [checked]="field.isMagicRoom" (change)="field.isMagicRoom = $event.source.checked">Magic Room</mat-button-toggle>
+          <mat-button-toggle [checked]="field.isWonderRoom" (change)="field.isWonderRoom = $event.source.checked">Wonder Room</mat-button-toggle>
+          <mat-button-toggle [checked]="field.isGravity" (change)="field.isGravity = $event.source.checked">Gravity</mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
     </div>
     <div>
       <div class="field-subtitle">
         <label>Attacker</label>
       </div>
-      <mat-button-toggle-group multiple class="button-group botton-space">
+      <mat-button-toggle-group multiple class="button-group">
         <mat-button-toggle [checked]="field.attackerSide.isHelpingHand" (change)="field.attackerSide.isHelpingHand = $event.source.checked">Helping Hand</mat-button-toggle>
         <mat-button-toggle [checked]="field.attackerSide.isBattery" (change)="field.attackerSide.isBattery = $event.source.checked">Battery</mat-button-toggle>
         <mat-button-toggle [checked]="field.attackerSide.isPowerSpot" (change)="field.attackerSide.isPowerSpot = $event.source.checked">Power Spot</mat-button-toggle>
+      </mat-button-toggle-group>
+
+      <mat-button-toggle-group multiple class="button-group botton-space">
         <mat-button-toggle [checked]="criticalHit" (change)="onCriticalHitChance($event.source.checked)">Critical Hit</mat-button-toggle>
       </mat-button-toggle-group>
 
@@ -93,8 +98,9 @@
           </mat-button-toggle-group>
         </div>
       </div>
-
-      <div class="status-tailwind">
+    </div>
+    <div>
+      <div class="status-tailwind-defenders">
         <div class="status">
           <label>Status</label>
           <app-input-autocomplete [(value)]="defenderStatusCondition" [allValues]="statusConditions" (valueChange)="onDefenderStatusChange($event)"/>
