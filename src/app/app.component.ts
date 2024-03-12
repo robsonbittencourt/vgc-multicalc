@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Field } from '@smogon/calc';
+import { Field, StatsTable } from '@smogon/calc';
 import { DamageCalculatorService } from 'src/lib/damage-calculator.service';
 import { DeviceDetectorService } from 'src/lib/device-detector.service';
 import { MoveSet } from 'src/lib/moveset';
@@ -114,6 +114,15 @@ export class AppComponent {
   defenderStatusChanged(status: string) {
     this.targets.forEach(target => {
       target.pokemon.status = status
+    })
+
+    this.calculateDamageForAll()
+    this.order()
+  }
+
+  statsModifiersChanged(statsModifiers: StatsTable) {
+    this.targets.forEach(target => {
+      target.pokemon.pokemonSmogon.boosts = statsModifiers
     })
 
     this.calculateDamageForAll()

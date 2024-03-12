@@ -3,7 +3,7 @@
     <span class="title" (click)="panelOpenState = !panelOpenState">Field</span>
     <mat-icon class="collapse-button" (click)="panelOpenState = !panelOpenState">arrow_drop_down</mat-icon>
   </div>
-  <div *ngIf="panelOpenState" class="field-container">
+  <div *ngIf="panelOpenState" class="field-container text-color">
     <div>
       <div class="field-subtitle">
         <label>Both</label>
@@ -109,6 +109,49 @@
           <mat-button-toggle-group multiple class="button-group">
             <mat-button-toggle [checked]="field.defenderSide.isTailwind" (change)="field.defenderSide.isTailwind = $event.source.checked">Tailwind</mat-button-toggle>
           </mat-button-toggle-group>
+        </div>
+      </div>
+
+      <div class="stats-modifiers">
+        <div class="dense-2">
+          <label>ATK</label>
+          <mat-form-field appearance="outline" class="mat-ev-stat-modifier">
+            <mat-select class="mat-small" [(value)]="boosts.atk" (selectionChange)="statsModifiersChanges()">
+              <mat-option class="mat-small" *ngFor="let statsModifier of statsModifiers" [value]="statsModifier.value">{{ statsModifier.viewValue }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="dense-2">
+          <label>DEF</label>
+          <mat-form-field appearance="outline" class="mat-ev-stat-modifier">
+            <mat-select class="mat-small" [(value)]="boosts.def" (selectionChange)="statsModifiersChanges()">
+              <mat-option class="mat-small" *ngFor="let statsModifier of statsModifiers" [value]="statsModifier.value">{{ statsModifier.viewValue }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="dense-2">
+          <label>SPA</label>
+          <mat-form-field appearance="outline" class="mat-ev-stat-modifier">
+            <mat-select class="mat-small" [(value)]="boosts.spa" (selectionChange)="statsModifiersChanges()">
+              <mat-option class="mat-small" *ngFor="let statsModifier of statsModifiers" [value]="statsModifier.value">{{ statsModifier.viewValue }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="dense-2">
+          <label>SPD</label>
+          <mat-form-field appearance="outline" class="mat-ev-stat-modifier">
+            <mat-select class="mat-small" [(value)]="boosts.spd" (selectionChange)="statsModifiersChanges()">
+              <mat-option class="mat-small" *ngFor="let statsModifier of statsModifiers" [value]="statsModifier.value">{{ statsModifier.viewValue }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="dense-2">
+          <label>SPE</label>
+          <mat-form-field appearance="outline" class="mat-ev-stat-modifier">
+            <mat-select class="mat-small" [(value)]="boosts.spe" (selectionChange)="statsModifiersChanges()">
+              <mat-option class="mat-small" *ngFor="let statsModifier of statsModifiers" [value]="statsModifier.value">{{ statsModifier.viewValue }}</mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
       </div>
     </div>

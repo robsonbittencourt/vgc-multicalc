@@ -21,9 +21,13 @@
 
 .field-container {
   display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  grid-template-columns: 1.3fr 1fr 1fr 1fr;
   column-gap: 3em;
   padding: 0em 2em 1em 2em;
+}
+
+.text-color * {
+  color: rgb(88, 88, 90);
 }
 
 .title {
@@ -81,6 +85,17 @@
   display: flex;
   align-items: center;
   margin-top: 0.2em;
+}
+
+.stats-modifiers {
+  display: grid;
+  grid-template-columns: 70px 70px 70px 70px 70px;
+  column-gap: 1em;
+  margin-top: 1em;
+}
+
+.mat-ev-stat-modifier {
+  width: 100%;
 }
 
 @media only screen and (max-width: 768px) {

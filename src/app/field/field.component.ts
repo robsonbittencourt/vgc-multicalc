@@ -1,5 +1,5 @@
-import { Component, EventEmitter, KeyValueDiffer, KeyValueDiffers, Output } from '@angular/core';
-import { Field } from '@smogon/calc';
+import { Component, EventEmitter, Input, KeyValueDiffer, KeyValueDiffers, Output } from '@angular/core';
+import { Field, StatsTable } from '@smogon/calc';
 
 @Component({
   selector: 'app-field',
@@ -20,6 +20,9 @@ export class FieldComponent {
   @Output() 
   defenderStatusChangedEvent = new EventEmitter<string>();
 
+  @Output() 
+  statsModifiersChangedEvent = new EventEmitter<StatsTable>();
+
   field = new Field({
     gameType: 'Doubles'
   })
@@ -30,7 +33,19 @@ export class FieldComponent {
   defenderStatusCondition = ""
   statusConditions = [
     "Sleep", "Poison", "Burn", "Freeze", "Paralysis"
-  ]  
+  ]
+
+  boosts: StatsTable = {
+    hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0
+  }
+
+  statsModifiers = [
+    { value: 6, viewValue: "+6"}, { value: 5, viewValue: "+5"}, { value: 4, viewValue: "+4"},
+    { value: 3, viewValue: "+3"}, { value: 2, viewValue: "+2"}, { value: 1, viewValue: "+1"},
+    { value: 0, viewValue: "--"},
+    { value: -1, viewValue: "-1"}, { value: -2, viewValue: "-2"}, { value: -3, viewValue: "-3"},
+    { value: -4, viewValue: "-4"}, { value: -5, viewValue: "-5"}, { value: -6, viewValue: "-6"},
+  ]
 
   panelOpenState = false
   
@@ -83,6 +98,10 @@ export class FieldComponent {
     ]
 
     return statusConditions.find(s => s.status === status)?.code
+  }
+
+  statsModifiersChanges() {
+    this.statsModifiersChangedEvent.emit(this.boosts)
   }
 
 }
