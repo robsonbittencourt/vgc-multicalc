@@ -17,6 +17,14 @@ export class TargetPokemonCardComponent {
   @Output() 
   targetRemovedEvent = new EventEmitter<Target>()
 
+  commanderActivated = false
+
+  toogleCommanderAbility() {
+    this.target.pokemon.commanderActivated = !this.commanderActivated
+    this.commanderActivated = !this.commanderActivated
+    this.targetChangedEvent.emit(this.target)
+  }
+
   terastalyzePokemon() {
     const teraActived = !this.target.pokemon.teraTypeActive
     this.target.pokemon.changeTeraStatus(teraActived)

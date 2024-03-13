@@ -15,6 +15,10 @@
       <br><label class="ko-chance">{{ target.damageResult.koChance }}</label>
     </div>
     <div class="card-button">
+      <button class="icon-button" (click)="toogleCommanderAbility()" *ngIf="target.pokemon.name == 'Dondozo'">
+        <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly.png" *ngIf="commanderActivated" />
+        <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly-gray.png" *ngIf="!commanderActivated" />
+      </button>
       <button class="icon-button" (click)="terastalyzePokemon()" *ngIf="target.pokemon.teraTypeStorage">
         <img class="icon-tera" src="assets/icons/tera-icon.png" *ngIf="target.pokemon.teraTypeActive" />
         <img class="icon-tera" src="assets/icons/tera-icon-gray.png" *ngIf="!target.pokemon.teraTypeActive" />

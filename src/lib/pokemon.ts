@@ -8,6 +8,7 @@ export class Pokemon {
   public evsStorage: Partial<StatsTable> & { spc?: number; }
   private moveSetStorage: MoveSet
   private paradoxAbilityActivatedStorage: boolean
+  private commanderActivatedStorage: boolean
   
   constructor(name: string, nature: string, item: string, ability: string, teraType: string, teraTypeActive: boolean = false, evs: Partial<StatsTable> & { spc?: number; }, moveSet: MoveSet | undefined = undefined, boosts: StatsTable | undefined = undefined, status: StatusName | undefined = undefined) {
     this.pokemonSmogon = new PokemonSmogon(Generations.get(9), name, {
@@ -190,6 +191,14 @@ export class Pokemon {
     }
   }
 
+  public get commanderActivated(): boolean {
+    return this.commanderActivatedStorage
+  }
+
+  public set commanderActivated(commanderActivated: boolean) {
+    this.commanderActivatedStorage = commanderActivated
+  }
+
   public higherStat(): StatIDExceptHP {
     let bestStat = this.atk
     let bestStatDescription: StatIDExceptHP = "atk"
@@ -312,6 +321,19 @@ export class Pokemon {
       } else {
         this.ability = "Sturdy"
       }      
+    }
+  }
+
+  incrementBoostsPlusTwo() {
+    const maxStatModifier = 6
+
+    this.pokemonSmogon.boosts = { 
+      hp: 0,
+      atk: this.pokemonSmogon.boosts.atk <= 4 ? this.pokemonSmogon.boosts.atk + 2 : maxStatModifier,
+      def: this.pokemonSmogon.boosts.def <= 4 ? this.pokemonSmogon.boosts.def + 2 : maxStatModifier,
+      spa: this.pokemonSmogon.boosts.spa <= 4 ? this.pokemonSmogon.boosts.spa + 2 : maxStatModifier,
+      spd: this.pokemonSmogon.boosts.spd <= 4 ? this.pokemonSmogon.boosts.spd + 2 : maxStatModifier,
+      spe: this.pokemonSmogon.boosts.spe <= 4 ? this.pokemonSmogon.boosts.spe + 2 : maxStatModifier
     }
   }
 }

@@ -12,8 +12,9 @@ export class DamageCalculatorService {
     const gen = Generations.get(9)
     const moveSmogon = new Move(gen, move)
     moveSmogon.isCrit = criticalHit
-    
-    const result = calculate(gen, attacker.pokemonSmogon, target.pokemonSmogon, moveSmogon, field)
+    const adjustedTarget = this.adjustedTarget(target)
+
+    const result = calculate(gen, attacker.pokemonSmogon, adjustedTarget.pokemonSmogon, moveSmogon, field)
 
     return new DamageResult(result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result))
   }
@@ -28,5 +29,16 @@ export class DamageCalculatorService {
 
   private maxPercentageDamage(result: Result): number {
     return +result.moveDesc().substring(result.moveDesc().indexOf("- ") + 1, result.moveDesc().lastIndexOf("%"))
-  }  
+  }
+
+  private adjustedTarget(target: Pokemon): Pokemon {
+    let adjustedTarget = target
+    
+    if(target.commanderActivated) {
+      adjustedTarget = target.clone()
+      adjustedTarget.incrementBoostsPlusTwo()
+    }
+
+    return adjustedTarget
+  }
 }
