@@ -108,16 +108,28 @@
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
     row-gap: 0em;
+    padding: 0em 1em 0em 1em;
   }
 
   .field-subtitle {
-    margin-top: 1em;
-    margin-bottom: 0em;
+    margin-top: 2em;
+    margin-bottom: 0.5em;
   }
 
   .button-group {
     display: flex;
     flex-wrap: wrap;
     gap: 0.2em;  
+  }
+
+  .stats-modifiers {
+    display: grid;
+    grid-template-columns: 55px 55px 55px 55px 55px;
+    column-gap: 1em;
+    margin-top: 1em;
+  }
+
+  .status-tailwind-defenders {
+    margin-top: 1em;
   }
 }
