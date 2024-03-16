@@ -21,11 +21,19 @@ export class PokemonCardComponent {
   @Output() 
   pokemonRemoved = new EventEmitter<number>()
 
+  commanderActivated = false
+
   activate() {
     if (!this.teamMember.active) {
       this.teamMember.active = true
       this.pokemonActivated.emit(this.teamMember.position)
     }    
+  }
+
+  toogleCommanderAbility() {
+    this.teamMember.pokemon.commanderActivated = !this.commanderActivated
+    this.commanderActivated = !this.commanderActivated
+    this.pokemonActivated.emit(this.teamMember.position)
   }
 
   removePokemon() {
