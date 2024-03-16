@@ -1,0 +1,21 @@
+.container {
+  margin: 1em;  
+  padding: 2em;
+  background-color: white;
+  border-radius: 1%;
+  border-color: rgb(229, 231, 235);
+  border-width: 1px;
+  border-style: solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+}
+
+@media only screen and (max-width: 768px) {
+  .container {
+    flex-wrap: wrap;
+    height: 80vh;
+  }
+  
+}

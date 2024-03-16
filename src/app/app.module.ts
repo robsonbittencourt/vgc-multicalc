@@ -26,6 +26,10 @@ import { InputAutocompleteComponent } from './input-autocomplete/input-autocompl
 import { TeamComponent } from './team/team.component';
 import { PokemonCardComponent } from './pokemon-card/pokemon-card.component';
 import { AddPokemonCardComponent } from './add-pokemon-card/add-pokemon-card.component';
+import { RouterOutlet } from '@angular/router';
+import { AppRoutingModule } from './app-routing.module';
+import { CalculatorComponent } from './calculator/calculator.component';
+import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
 
 @NgModule({
   declarations: [
@@ -38,12 +42,15 @@ import { AddPokemonCardComponent } from './add-pokemon-card/add-pokemon-card.com
     InputAutocompleteComponent,
     TeamComponent,
     PokemonCardComponent,
-    AddPokemonCardComponent
+    AddPokemonCardComponent,
+    CalculatorComponent,
+    NotFoundPageComponent
   ],
   imports: [
     ReactiveFormsModule,
     FormsModule,
     BrowserModule,
+    RouterOutlet,
     BrowserAnimationsModule,
     MatAutocompleteModule,
     MatInputModule,
@@ -55,7 +62,8 @@ import { AddPokemonCardComponent } from './add-pokemon-card/add-pokemon-card.com
     MatButtonModule,
     MatSelectModule,
     MatButtonToggleModule,
-    MatChipsModule
+    MatChipsModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
