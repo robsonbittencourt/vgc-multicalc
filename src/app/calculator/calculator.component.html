@@ -1,4 +1,10 @@
 <div class="container">
+
+  <div class="top-commands">
+    <button mat-flat-button color="primary" (click)="uploadData()">Upload your data</button>
+    <a target="_blank" [href]="userDataLink">{{ userDataLink }}</a>
+  </div>
+
   <div class="main-pokemon">
     <app-main-pokemon [pokemon]="activePokemon()" (pokemonChangedEvent)="pokemonChanged($event)"/>
   </div>

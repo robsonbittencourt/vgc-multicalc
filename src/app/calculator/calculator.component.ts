@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Field, StatsTable } from '@smogon/calc';
+import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 import { DamageCalculatorService } from 'src/lib/damage-calculator.service';
 import { MoveSet } from 'src/lib/moveset';
 import { Pokemon } from 'src/lib/pokemon';
@@ -22,10 +24,19 @@ export class CalculatorComponent {
   
   targets: Target[] = []
 
+  userDataLink: string
+
   ngOnInit() {
     this.activatedRoute.data.subscribe(({ userData }) => {
       this.buildInitialData(userData)      
     })
+  }
+
+  uploadData() {
+    const id = uuidv4()
+    const userData = this.buildUserDataToUpload()
+    axios.put(`https://l7enx1vgm7.execute-api.us-east-1.amazonaws.com/v1/vgc-multi-calc/${id}`, userData)
+    this.userDataLink = `http://localhost:4200/data/${id}`
   }
 
   activePokemon(): Pokemon {
@@ -184,6 +195,45 @@ export class CalculatorComponent {
       const pokemon = target.pokemon
       return new Target(new Pokemon(pokemon.name, pokemon.nature, pokemon.item, pokemon.ability, pokemon.teraType, pokemon.teraTypeActive, pokemon.evs))
     })
+  }
+
+  private buildUserDataToUpload(): any {
+    return {
+      team: this.team.map(t => {
+        const pokemon = this.buildPokemonToUserData(t.pokemon)
+        
+        return {
+          "pokemon": pokemon,
+          "position": t.position,
+          "active": t.active,
+        }
+      }),
+      targets: this.targets.map(t => {
+        const pokemon = this.buildPokemonToUserData(t.pokemon)
+
+        return {
+          "pokemon": pokemon
+        }
+      })
+    }
+  }
+
+  private buildPokemonToUserData(pokemon: Pokemon): any {
+    return {
+      "name": pokemon.name,
+      "nature": pokemon.nature,
+      "item": pokemon.item,
+      "ability": pokemon.ability,
+      "teraType": pokemon.teraType,
+      "teraTypeActive": pokemon.teraTypeActive,
+      "evs": pokemon.evs,
+      "moveSet": [
+        pokemon.moveSet.move1,
+        pokemon.moveSet.move2,
+        pokemon.moveSet.move3,
+        pokemon.moveSet.move4
+      ]      
+    }
   }
 
 }

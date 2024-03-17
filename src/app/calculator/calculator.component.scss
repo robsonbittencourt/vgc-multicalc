@@ -1,10 +1,27 @@
 .container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 800px 0.08fr 2fr;
+  grid-template-rows: 0.08fr 800px 0.08fr 2fr;
   grid-column-gap: 1em;
   background-color: rgb(252, 248, 248);
   height: 95vh;
+}
+
+.top-commands {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  background-color: white;
+  margin-top: 1em;
+  margin-left: 2em;
+  margin-right: 2em;
+  padding: 2em;
+  border-radius: 1%;
+  border-color: rgb(229, 231, 235);
+  border-width: 1px;
+  border-style: solid;
+  display: flex;
+  align-items: center;
+  column-gap: 1em;
 }
 
 .main-pokemon {

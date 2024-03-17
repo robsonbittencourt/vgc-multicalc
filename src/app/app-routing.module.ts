@@ -6,8 +6,8 @@ import { NotFoundPageComponent } from './not-found-page/not-found-page.component
 
 const appRoutes: Routes = [
   { path: '', component: CalculatorComponent },
-  { path: '**', component: NotFoundPageComponent },
-  { path: 'data/:userDataId', component: CalculatorComponent, resolve: { userData: UserDataResolver } }
+  { path: 'data/:userDataId', component: CalculatorComponent, resolve: { userData: UserDataResolver } },
+  { path: '**', component: NotFoundPageComponent }
 ]
 
 @NgModule({
