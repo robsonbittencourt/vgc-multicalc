@@ -7,7 +7,7 @@
     <mat-card-subtitle>{{ target.pokemon.evsDescription() }}</mat-card-subtitle>
     <mat-card-subtitle *ngIf="target.pokemon.teraTypeActive">Terastalyzed as {{ target.pokemon.teraType }} type
     </mat-card-subtitle>
-    <img mat-card-md-image src='https://img.pokemondb.net/sprites/home/normal/{{target.pokemon.spriteName}}.png'>
+    <img class="pokemon-image" mat-card-md-image src='https://img.pokemondb.net/sprites/home/normal/{{target.pokemon.spriteName}}.png'>
   </mat-card-title-group>
   <div class="card-container">
     <div class="card-content">

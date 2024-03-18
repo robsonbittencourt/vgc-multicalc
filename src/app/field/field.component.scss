@@ -1,7 +1,7 @@
 .field {
   background-color: white;
-  border-radius: 7px;
-  margin: 1em 2em 0 2em;
+  border-radius: 12px;
+  padding: 1em 1.5em 1.0em 1.5em;
   border-color: rgb(229, 231, 235);
   border-width: 1px;
   border-style: solid;
@@ -9,13 +9,9 @@
 
 .header {
   display: flex;
-  justify-content: space-between;
   font-size: large;
-  padding-top: 1em;
-  padding-bottom: 1em;
   display: flex;
   align-items: center;
-  justify-content: center;
   flex-direction: row;
 }
 
@@ -23,7 +19,7 @@
   display: grid;
   grid-template-columns: 1.3fr 1fr 1fr 1fr;
   column-gap: 3em;
-  padding: 0em 2em 1em 2em;
+  margin-top: 1em;
 }
 
 .text-color * {
@@ -33,7 +29,6 @@
 .title {
   color: black;
   font-weight: 500;
-  margin-left: 2em;
 }
 
 .button-group {
@@ -60,14 +55,8 @@
 
 .field-subtitle {
   margin-bottom: 1em;
-}
-
-.collapse-button {
-  display: block;
-  color: black;
-  font-size: xx-large;
-  margin-right: 0.5em;
-  margin-top: -0.25em;
+  font-weight: 500;
+  font-size: medium;
 }
 
 .status-tailwind {
@@ -100,7 +89,6 @@
 
 @media only screen and (max-width: 768px) {
   .field {
-    margin: 0em;
     border-radius: 0px;
   }
 
@@ -108,7 +96,7 @@
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
     row-gap: 0em;
-    padding: 0em 1em 0em 1em;
+    margin-top: 0em;
   }
 
   .field-subtitle {

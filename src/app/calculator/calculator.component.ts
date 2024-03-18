@@ -25,6 +25,7 @@ export class CalculatorComponent {
   targets: Target[] = []
 
   userDataLink: string
+  showAdvancedOptions = false
 
   ngOnInit() {
     this.activatedRoute.data.subscribe(({ userData }) => {
@@ -128,6 +129,10 @@ export class CalculatorComponent {
 
     this.calculateDamageForAll()
     this.order()
+  }
+
+  manageAdvancedOptions(showAdvancedOptions: boolean) {
+    this.showAdvancedOptions = showAdvancedOptions
   }
 
   private alreadyExists(pokemon: Pokemon): boolean {

@@ -44,15 +44,13 @@
           <app-input-autocomplete [(value)]="pokemon.teraType" [allValues]="allTeraTypes"/>
         </div>
       </div>
-    </div>
-    <div class="right-container">
       <div class="edit-attacks-button">
         <label>Moves</label>
-        <mat-icon *ngIf="!editAttacks" (click)="editMoves()">edit</mat-icon>
-        <mat-icon *ngIf="editAttacks" (click)="saveMoves()">save</mat-icon>
+        <mat-icon class="edit-icon" *ngIf="!editAttacks" (click)="editMoves()">edit</mat-icon>
+        <mat-icon class="edit-icon" *ngIf="editAttacks" (click)="saveMoves()">save</mat-icon>
       </div>
-      <div *ngIf="!editAttacks">
-        <mat-chip-listbox class="mat-mdc-chip-set-stacked">
+      <div class="no-edit-attacks" *ngIf="!editAttacks">
+        <mat-chip-listbox>
           <mat-chip-option [selected]="pokemon.moveSet.move1 == pokemon.move" (click)="activateMove(pokemon.moveSet.move1)">{{ pokemon.moveSet.move1 }}</mat-chip-option>
           <mat-chip-option [selected]="pokemon.moveSet.move2 == pokemon.move" (click)="activateMove(pokemon.moveSet.move2)">{{ pokemon.moveSet.move2 }}</mat-chip-option>
           <mat-chip-option [selected]="pokemon.moveSet.move3 == pokemon.move" (click)="activateMove(pokemon.moveSet.move3)">{{ pokemon.moveSet.move3 }}</mat-chip-option>
@@ -85,27 +83,30 @@
         </div>        
       </div>
     </div>
+    <div class="right-container">
+      <div class="evs">
+        <app-ev-slider statName="HP" [statValue]="pokemon.hp" [(ev)]="pokemon.evs.hp" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"/>
+        
+        <app-ev-slider statName="ATK" [statValue]="pokemon.atk" [(ev)]="pokemon.evs.atk" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()" 
+          [(statsModifier)]="pokemon.boosts.atk" (statsModifierChange)="onChangeStatModifier()" [nature]="pokemon.nature"/>
+    
+        <app-ev-slider statName="DEF" [statValue]="pokemon.def" [(ev)]="pokemon.evs.def" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"
+          [(statsModifier)]="pokemon.boosts.def" (statsModifierChange)="onChangeStatModifier()" [nature]="pokemon.nature"/>
+        
+        <app-ev-slider statName="SPA" [statValue]="pokemon.spa" [(ev)]="pokemon.evs.spa" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"
+          [(statsModifier)]="pokemon.boosts.spa" (statsModifierChange)="onChangeStatModifier()" [nature]="pokemon.nature"/>
+        
+        <app-ev-slider statName="SPD" [statValue]="pokemon.spd" [(ev)]="pokemon.evs.spd" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"
+          [(statsModifier)]="pokemon.boosts.spd" (statsModifierChange)="onChangeStatModifier()" [nature]="pokemon.nature"/>
+        
+        <app-ev-slider statName="SPE" [statValue]="pokemon.spe" [(ev)]="pokemon.evs.spe" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"
+          [(statsModifier)]="pokemon.boosts.spe" (statsModifierChange)="onChangeStatModifier()" [nature]="pokemon.nature"/>
+      </div>
+      <div class="remaining-evs">
+        <label>Remaining: {{ MAX_EVS - pokemon.totalEvs() }}</label>
+      </div>
+    </div>
   </div>
-  <div class="evs">
-    <app-ev-slider statName="HP" [statValue]="pokemon.hp" [(ev)]="pokemon.evs.hp" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"/>
-    
-    <app-ev-slider statName="ATK" [statValue]="pokemon.atk" [(ev)]="pokemon.evs.atk" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()" 
-      [(statsModifier)]="pokemon.boosts.atk" (statsModifierChange)="onChangeStatModifier()" [nature]="pokemon.nature"/>
-
-    <app-ev-slider statName="DEF" [statValue]="pokemon.def" [(ev)]="pokemon.evs.def" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"
-      [(statsModifier)]="pokemon.boosts.def" (statsModifierChange)="onChangeStatModifier()" [nature]="pokemon.nature"/>
-    
-    <app-ev-slider statName="SPA" [statValue]="pokemon.spa" [(ev)]="pokemon.evs.spa" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"
-      [(statsModifier)]="pokemon.boosts.spa" (statsModifierChange)="onChangeStatModifier()" [nature]="pokemon.nature"/>
-    
-    <app-ev-slider statName="SPD" [statValue]="pokemon.spd" [(ev)]="pokemon.evs.spd" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"
-      [(statsModifier)]="pokemon.boosts.spd" (statsModifierChange)="onChangeStatModifier()" [nature]="pokemon.nature"/>
-    
-    <app-ev-slider statName="SPE" [statValue]="pokemon.spe" [(ev)]="pokemon.evs.spe" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"
-      [(statsModifier)]="pokemon.boosts.spe" (statsModifierChange)="onChangeStatModifier()" [nature]="pokemon.nature"/>
-  </div>
-  <div class="remaining-evs">
-    <label>Remaining: {{ MAX_EVS - pokemon.totalEvs() }}</label>
-  </div>
+  
 </div>
 <router-outlet></router-outlet>

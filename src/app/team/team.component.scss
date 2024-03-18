@@ -1,9 +1,7 @@
 .container {
-  margin-top: 1em;
-  margin-right: 2em;
-  padding: 2em;
+  padding: 1em 1.5em 1.0em 1.5em;
   background-color: white;
-  border-radius: 1%;
+  border-radius: 12px;
   border-color: rgb(229, 231, 235);
   border-width: 1px;
   border-style: solid;
@@ -12,17 +10,13 @@
 
 .header {
   font-size: large;
+  display: flex;
+  justify-content: space-between;
 }
 
 .title {
   color: black;
   font-weight: 500;
-}
-
-.inputs {
-  background-color: white;
-  margin-top: 2em;
-  display: flex;
 }
 
 .form-row {
@@ -46,8 +40,8 @@
 
 .cards {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-auto-rows: minmax(200px, 1fr);
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-auto-rows: minmax(170px, 1fr);
   grid-column-gap: 1em;
   grid-row-gap: 1em;
   margin: 1em 0em 0 0em;
@@ -55,11 +49,15 @@
 
 @media only screen and (max-width: 768px) {
   .container {
-    margin-top: 0em;
-    margin-right: 0em;
     padding: 1em 1em 0em 1em;
     height: 100%;
     border-radius: 0%;
+  }
+
+  .header {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.5fr 1fr;    
   }
 
   .cards {

@@ -1,9 +1,9 @@
 <div class="container">
 
-  <div class="top-commands">
+  <!-- <div class="top-commands">
     <button mat-flat-button color="primary" (click)="uploadData()">Upload your data</button>
     <a target="_blank" [href]="userDataLink">{{ userDataLink }}</a>
-  </div>
+  </div> -->
 
   <div class="main-pokemon">
     <app-main-pokemon [pokemon]="activePokemon()" (pokemonChangedEvent)="pokemonChanged($event)"/>
@@ -13,14 +13,14 @@
     <app-team [team]="team" (teamChanged)=teamChanged($event) (pokemonAddedToTeamEvent)=pokemonAddedToTeam()/>
   </div>
 
-  <div class="field">
+  <div class="field" *ngIf="showAdvancedOptions">
     <app-field (fieldChangedEvent)="fieldChanged($event)" (criticalHitChangedEvent)="criticalHitChanged($event)"
       (attackerStatusChangedEvent)="attackerStatusChanged($event)" (defenderStatusChangedEvent)="defenderStatusChanged($event)"
       (statsModifiersChangedEvent)="statsModifiersChanged($event)" />
-  </div>
+  </div> 
 
   <div class="target-pokemon">
     <app-target-pokemon [targets]="targets" (targetChangedEvent)="targetChanged($event)" (allTargetsRemoved)="removeAllTargets()"
-    (targetsAdded)="targetsAdded($event)" (pokemonAdded)="pokemonAdded()"/>
+    (targetsAdded)="targetsAdded($event)" (pokemonAdded)="pokemonAdded()" (advanceOptionsToggled)="manageAdvancedOptions($event)" />
   </div>
 </div>

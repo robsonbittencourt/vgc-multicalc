@@ -26,8 +26,12 @@ export class TargetPokemonComponent {
   @Output() 
   allTargetsRemoved = new EventEmitter<any>()
 
+  @Output() 
+  advanceOptionsToggled = new EventEmitter<boolean>()
+
   pokePaste = ""
   errorMessagePokePaste: string = ""
+  _showAdvancedOptions = false
 
   targetChanged(target: Target) {
     this.targetChangedEvent.emit(target)
@@ -57,6 +61,15 @@ export class TargetPokemonComponent {
 
   addPokemon() {
     this.pokemonAdded.emit()
+  }
+
+  get showAdvancedOptions(): boolean {
+    return this._showAdvancedOptions
+  }
+
+  set showAdvancedOptions(active: boolean) {
+    this._showAdvancedOptions = active
+    this.advanceOptionsToggled.emit(this._showAdvancedOptions)
   }
 
 }

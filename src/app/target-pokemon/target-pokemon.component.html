@@ -1,9 +1,8 @@
 <div class="container">
   <div class="header">
     <label class="title">Defenders</label>
-  </div>
-  <div class="inputs">
     <li class="form-row">
+      <mat-slide-toggle class="show-advanced-options" color="primary" [(ngModel)]="showAdvancedOptions">Show Advanced Options</mat-slide-toggle>
       <div>
         <input class="poke-paste-input" placeholder="Paste Link" type="text" matInput [(ngModel)]="pokePaste">
       </div>

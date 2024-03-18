@@ -1,6 +1,6 @@
 .ev-slider-container {
   display: grid;
-  grid-template-columns: 64px 64px 1fr 40px;
+  grid-template-columns: 64px 1fr 40px;
   grid-auto-rows: 50px;
   grid-column-gap: 2em;
 }
@@ -15,6 +15,7 @@
 
 .mat-ev-field {
   width: 100%;
+  font-size: 14px;
 }
 
 .mat-ev-stat-modifier {
@@ -24,7 +25,7 @@
 .mat-ev-slider {
   width: 100%;
 }
-
+  
 .stat-value {
   font-weight: 500;
   display: flex;
@@ -53,7 +54,7 @@ input::-webkit-inner-spin-button {
   }
 
   .mat-ev-field {
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .mat-ev-stat-modifier {
