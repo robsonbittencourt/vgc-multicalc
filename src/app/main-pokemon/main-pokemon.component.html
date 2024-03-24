@@ -8,7 +8,7 @@
         <label>Pokémon</label>
       </div>
       <div>
-        <app-input-autocomplete [(value)]="pokemon.name" [allValues]="allPokemonNames"/>
+        <app-input-autocomplete [(value)]="pokemon.name" [allValues]="allPokemonNames" (valueChange)="onPokemonChange($event)"/>
       </div>
       <div class="info-label">
         <label>Nature</label>
@@ -30,7 +30,7 @@
           <mat-checkbox [(ngModel)]="pokemon.paradoxAbilityActivated"></mat-checkbox>
         </div>
         <div class="check-input-section-input" [ngClass]="!isParadoxAbility() ? 'check-input-section-without-checkbox' : ''">
-          <app-input-autocomplete [(value)]="pokemon.ability" [allValues]="allAbilitiesNames"/>
+          <app-input-autocomplete [(value)]="pokemon.ability" [allValues]="availableAbilities"/>
         </div>
       </div>
       <div class="info-label">

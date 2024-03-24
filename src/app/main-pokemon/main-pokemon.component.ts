@@ -11,12 +11,14 @@ import { AllPokemon } from 'src/data/all-pokemon';
 })
 export class MainPokemonComponent {
 
+  allPokemon = new AllPokemon()
+
   allMoveNames = Object.keys(MOVES[9]).splice(1).sort()
   allNatureNames = Object.keys(NATURES)
   allItemsNames = Object.values(ITEMS[9]).sort()
-  allAbilitiesNames = Object.values(ABILITIES[9]).sort()
   allTeraTypes = Object.keys(TYPE_CHART[9]).splice(1).sort()
-  allPokemonNames = new AllPokemon().allPokemonNames()
+  allPokemonNames = this.allPokemon.allPokemonNames()
+  availableAbilities: string[]
   editAttacks = false
   acivatedMovePosition = 1
 
@@ -34,7 +36,7 @@ export class MainPokemonComponent {
 
   ngOnInit() {
     this.pokemonChangedEvent.emit(this.pokemon)
-    this.differ = this.differs.find(this.pokemon).create();
+    this.differ = this.differs.find(this.pokemon).create()
   }
 
   ngDoCheck() {
@@ -43,6 +45,11 @@ export class MainPokemonComponent {
     if (changed) {
       this.pokemonChangedEvent.emit(this.pokemon)
     }
+  }
+
+  onPokemonChange(pokemonName: string) {
+    this.availableAbilities = this.allPokemon.abilitiesByName(pokemonName)
+    this.pokemon.ability = this.availableAbilities[0]
   }
 
   onItemChange(item: string) {

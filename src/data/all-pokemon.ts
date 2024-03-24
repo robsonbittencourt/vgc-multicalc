@@ -19,6 +19,11 @@ export class AllPokemon {
   allPokemonNames(): string[] {
     return this.allPokemon.map(pokemon => pokemon.name).sort()
   }
+
+  abilitiesByName(name: string): string[] {
+    const pokemon = this.allPokemon.find(p => p.name == name)
+    return Object.values(pokemon?.abilities)
+  }
 }
 
 namespace TierTypes {
