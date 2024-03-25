@@ -56,30 +56,68 @@ export class DamageCalculatorService {
   }
 
   private higherStat(pokemon: Pokemon): StatIDExceptHP {
-    let bestStat = pokemon.atk
+    let bestStat = this.getModifiedStat(pokemon, "atk")
     let bestStatDescription: StatIDExceptHP = "atk"
-    
-    if (pokemon.def > bestStat) {
-      bestStat = pokemon.def
+
+    const def = this.getModifiedStat(pokemon, "def")    
+    if (def > bestStat) {
+      bestStat = def
       bestStatDescription = "def"
     }
 
-    if (pokemon.spa > bestStat) {
-      bestStat = pokemon.spa
+    const spa = this.getModifiedStat(pokemon, "spa")    
+    if (spa > bestStat) {
+      bestStat = spa
       bestStatDescription = "spa"
     }
 
-    if (pokemon.spd > bestStat) {
-      bestStat = pokemon.spd
+    const spd = this.getModifiedStat(pokemon, "spd")    
+    if (spd > bestStat) {
+      bestStat = spd
       bestStatDescription = "spd"
     }
 
-    if (pokemon.spe > bestStat) {
-      bestStat = pokemon.spe
+    const spe = this.getModifiedStat(pokemon, "spe")    
+    if (spe > bestStat) {
+      bestStat = spe
       bestStatDescription = "spe"
     }
 
     return bestStatDescription
+  }
+
+
+  private getModifiedStat(pokemon: Pokemon, stat: StatIDExceptHP): number {
+    return this.getModifiedStatFromBoosters(pokemon.pokemonSmogon.rawStats[stat], pokemon.pokemonSmogon.boosts[stat])
+  }
+
+  //smogon/damage-calc/calc/src/mechanics/util.ts
+  private getModifiedStatFromBoosters(stat: number, mod: number): number {
+    const numerator = 0
+    const denominator = 1
+    const modernGenBoostTable = [
+      [2, 8],
+      [2, 7],
+      [2, 6],
+      [2, 5],
+      [2, 4],
+      [2, 3],
+      [2, 2],
+      [3, 2],
+      [4, 2],
+      [5, 2],
+      [6, 2],
+      [7, 2],
+      [8, 2],
+    ];
+    stat = this.OF16(stat * modernGenBoostTable[6 + mod][numerator])
+    stat = Math.floor(stat / modernGenBoostTable[6 + mod][denominator])
+
+    return stat;
+  }
+
+  private OF16(n: number) {
+    return n > 65535 ? n % 65536 : n;
   }
 
 }
