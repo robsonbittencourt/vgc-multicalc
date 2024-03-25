@@ -1,5 +1,5 @@
 import { Pokemon as PokemonSmogon, Generations } from "@smogon/calc";
-import { StatIDExceptHP, StatsTable, StatusName, TypeName } from "@smogon/calc/dist/data/interface";
+import { StatsTable, StatusName, TypeName } from "@smogon/calc/dist/data/interface";
 import { MoveSet } from "./moveset";
 
 export class Pokemon {
@@ -182,13 +182,6 @@ export class Pokemon {
 
   public set paradoxAbilityActivated(paradoxAbilityActivated: boolean) {
     this.paradoxAbilityActivatedStorage = paradoxAbilityActivated
-
-    if (paradoxAbilityActivated) {
-      this.pokemonSmogon = this.buildPokemonSmogon()
-      this.pokemonSmogon.boostedStat = this.higherStat()
-    } else {
-      this.pokemonSmogon = this.buildPokemonSmogon()
-    }
   }
 
   public get commanderActivated(): boolean {
@@ -197,33 +190,6 @@ export class Pokemon {
 
   public set commanderActivated(commanderActivated: boolean) {
     this.commanderActivatedStorage = commanderActivated
-  }
-
-  public higherStat(): StatIDExceptHP {
-    let bestStat = this.atk
-    let bestStatDescription: StatIDExceptHP = "atk"
-    
-    if (this.def > bestStat) {
-      bestStat = this.def
-      bestStatDescription = "def"
-    }
-
-    if (this.spa > bestStat) {
-      bestStat = this.spa
-      bestStatDescription = "spa"
-    }
-
-    if (this.spd > bestStat) {
-      bestStat = this.spd
-      bestStatDescription = "spd"
-    }
-
-    if (this.spe > bestStat) {
-      bestStat = this.spe
-      bestStatDescription = "spe"
-    }
-
-    return bestStatDescription
   }
 
   public clone(): Pokemon {
