@@ -3,6 +3,7 @@ import { KeyValueDiffers, KeyValueDiffer } from '@angular/core';
 import { MOVES, ITEMS, NATURES, TYPE_CHART, ABILITIES } from '@smogon/calc';
 import { Pokemon } from '../../lib/pokemon';
 import { AllPokemon } from 'src/data/all-pokemon';
+import { SETDEX_SV } from 'src/data/movesets';
 
 @Component({
   selector: 'app-main-pokemon',
@@ -20,7 +21,7 @@ export class MainPokemonComponent {
   allPokemonNames = this.allPokemon.allPokemonNames()
   availableAbilities: string[]
   editAttacks = false
-  acivatedMovePosition = 1
+  activatedMovePosition = 1
 
   MAX_EVS = 508
 
@@ -50,6 +51,22 @@ export class MainPokemonComponent {
   onPokemonChange(pokemonName: string) {
     this.availableAbilities = this.allPokemon.abilitiesByName(pokemonName)
     this.pokemon.ability = this.availableAbilities[0]
+
+    const poke = SETDEX_SV[pokemonName]
+
+    if(poke) {
+      this.pokemon.nature = poke.nature
+      this.pokemon.item = poke.item
+      this.pokemon.ability = poke.ability
+      this.pokemon.teraType = poke.teraType
+      this.pokemon.evs = poke.evs
+      this.pokemon.moveSet.move1 = poke.moves[0]
+      this.pokemon.moveSet.move2 = poke.moves[1]
+      this.pokemon.moveSet.move3 = poke.moves[2]
+      this.pokemon.moveSet.move4 = poke.moves[3]
+      this.pokemon.moveSet.activeMove = poke.moves[0]
+      this.pokemon.changeTeraStatus(false)
+    }    
   }
 
   onItemChange(item: string) {
@@ -87,13 +104,13 @@ export class MainPokemonComponent {
 
   editMoves() {
     this.editAttacks = !this.editAttacks
-    this.acivatedMovePosition = this.pokemon.moveSet.acivatedMovePosition()
+    this.activatedMovePosition = this.pokemon.moveSet.activatedMovePosition()
   }
 
   saveMoves() {
     this.editAttacks = !this.editAttacks
 
-    switch(this.acivatedMovePosition) { 
+    switch(this.activatedMovePosition) { 
       case 1: { 
         this.activateMove(this.pokemon.moveSet.move1)
         break; 
