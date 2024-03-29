@@ -4,10 +4,9 @@
     <li class="form-row">
       <mat-slide-toggle class="show-advanced-options" color="primary" [(ngModel)]="showAdvancedOptions">Show Advanced Options</mat-slide-toggle>
       <div>
-        <input class="poke-paste-input" placeholder="Paste Link" type="text" matInput [(ngModel)]="pokePaste">
+        <input class="poke-paste-input" placeholder="PokePaste Link" type="text" matInput [(ngModel)]="pokePaste">
       </div>
       <button mat-flat-button color="primary" (click)="addFromPokePaste()">Add from Paste</button>
-      <button mat-flat-button color="primary" (click)="addPokemon()">Add from Attacker</button>
       <button mat-flat-button color="warn" (click)="removeAll()">Remove all</button>
     </li>
   </div>
@@ -16,7 +15,9 @@
   </div>
   <div class="target-pokemon">
     <div *ngFor="let target of targets">
-      <app-target-pokemon-card [target]="target" (targetChangedEvent)="targetChanged($event)" (targetRemovedEvent)="targetRemoved($event)"/>
+      <app-target-pokemon-card [target]="target" [canShowAsActivated]=canShowAsActivated (targetChangedEvent)="targetChanged($event)" (targetRemovedEvent)="targetRemoved($event)"
+        (targetActivatedEvent)=targetActivated($event) />
     </div>
+    <app-add-pokemon-card (pokemonAddedToTeam)=addPokemonToTargets()/>
   </div>
 </div>

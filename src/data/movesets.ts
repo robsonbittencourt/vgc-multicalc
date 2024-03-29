@@ -6051,15 +6051,15 @@ export const SETDEX_SV: {[k: string]: any} = {
     "evs": {
       "hp": 236,
       "atk": 76,
-      "def": 4,
-      "spd": 4,
-      "spe": 188
+      "def": 100,
+      "spd": 12,
+      "spe": 68
     },
     "moves": [
-      "Swords Dance",
       "Ivy Cudgel",
-      "Power Whip",
-      "Encore"
+      "Horn Leech",
+      "Follow Me",
+      "Spiky Shield"
     ]
   },
   "Okidogi": {

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, KeyValueDiffer, KeyValueDiffers, Output } from '@angular/core';
 import { Target } from 'src/lib/target';
 
 @Component({
@@ -8,8 +8,15 @@ import { Target } from 'src/lib/target';
 })
 export class TargetPokemonCardComponent {
 
+  private differ: KeyValueDiffer<string, any>
+
+  commanderActivated = false
+
   @Input() 
   target: Target
+
+  @Input()
+  canShowAsActivated: boolean
 
   @Output() 
   targetChangedEvent = new EventEmitter<Target>()
@@ -17,7 +24,27 @@ export class TargetPokemonCardComponent {
   @Output() 
   targetRemovedEvent = new EventEmitter<Target>()
 
-  commanderActivated = false
+  @Output() 
+  targetActivatedEvent = new EventEmitter<Target>()
+
+  constructor(private differs: KeyValueDiffers) {}
+
+  ngOnInit() {
+    this.differ = this.differs.find(this.target.pokemon).create()
+  }
+
+  ngDoCheck() {
+    const changed = this.differ.diff(this.target.pokemon)
+    
+    if (changed) {
+      this.targetChangedEvent.emit(this.target)
+    }
+  }
+
+  activate() {
+    this.target.active = true
+    this.targetActivatedEvent.emit(this.target)
+  }
 
   toogleCommanderAbility() {
     this.target.pokemon.commanderActivated = !this.commanderActivated
@@ -34,6 +61,17 @@ export class TargetPokemonCardComponent {
 
   removePokemon() {
     this.targetRemovedEvent.emit(this.target)
+  }
+
+  cardStyle(): any {
+    const cardStyle = { 'background-color': this.cardColor(this.target.damageResult.koChance) }
+    const cardWithBorder = { 'border': '4px', 'border-style': 'solid', 'border-color': '#8544ee' }
+    
+    if (this.target.active && this.canShowAsActivated) {
+      return {...cardStyle, ...cardWithBorder}
+    }
+
+    return cardStyle
   }
 
   cardColor(koChance: String) {

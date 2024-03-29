@@ -33,7 +33,7 @@ export class DamageCalculatorService {
   }
 
   private maxPercentageDamage(result: Result): number {
-    return +result.moveDesc().substring(result.moveDesc().indexOf("- ") + 1, result.moveDesc().lastIndexOf("%"))
+    return +result.moveDesc().substring(result.moveDesc().indexOf("- ") + 1, result.moveDesc().indexOf("%"))
   }
 
   private adjustCommander(pokemon: Pokemon): Pokemon {

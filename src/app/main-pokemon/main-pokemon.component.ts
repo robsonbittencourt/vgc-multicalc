@@ -25,7 +25,7 @@ export class MainPokemonComponent {
 
   MAX_EVS = 508
 
-  private differ: KeyValueDiffer<string, any>;
+  private differ: KeyValueDiffer<string, any>
   
   @Input()
   pokemon: Pokemon
@@ -48,7 +48,7 @@ export class MainPokemonComponent {
     }
   }
 
-  onPokemonChange(pokemonName: string) {
+  onValueManuallySelected(pokemonName: string) {
     this.availableAbilities = this.allPokemon.abilitiesByName(pokemonName)
   }
 

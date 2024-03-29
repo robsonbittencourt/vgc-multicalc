@@ -1,4 +1,4 @@
-<mat-card class="card" [ngStyle]="{'background-color': cardColor(target.damageResult.koChance)}">
+<mat-card (click)="activate()" class="card" [ngStyle]="cardStyle()">
   <mat-card-title-group>
     <mat-card-title>{{ target.pokemon.displayName }}</mat-card-title>
     <mat-card-subtitle>Item: {{ target.pokemon.item }}</mat-card-subtitle>

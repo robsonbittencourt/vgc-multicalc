@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { PokePasteParserService } from 'src/lib/poke-paste-parser.service';
+import { Pokemon } from 'src/lib/pokemon';
 import { Target } from 'src/lib/target';
 
 @Component({
@@ -14,8 +15,11 @@ export class TargetPokemonComponent {
   @Input() 
   targets: Target[]
 
+  @Input()
+  canShowAsActivated: boolean
+
   @Output() 
-  pokemonAdded = new EventEmitter<any>()
+  targetAdded = new EventEmitter<any>()
   
   @Output() 
   targetsAdded = new EventEmitter<Target[]>()
@@ -29,12 +33,21 @@ export class TargetPokemonComponent {
   @Output() 
   advanceOptionsToggled = new EventEmitter<boolean>()
 
+  @Output()
+  targetActivatedEvent = new EventEmitter<Pokemon>()
+
   pokePaste = ""
   errorMessagePokePaste: string = ""
   _showAdvancedOptions = false
 
   targetChanged(target: Target) {
     this.targetChangedEvent.emit(target)
+  }
+
+  targetActivated(target: Target) {
+    this.targets.forEach(t => t.active = false)
+    target.active = true
+    this.targetActivatedEvent.emit(target.pokemon)
   }
 
   targetRemoved(target: Target) {
@@ -59,8 +72,8 @@ export class TargetPokemonComponent {
     }
   }
 
-  addPokemon() {
-    this.pokemonAdded.emit()
+  addPokemonToTargets() {
+    this.targetAdded.emit()
   }
 
   get showAdvancedOptions(): boolean {

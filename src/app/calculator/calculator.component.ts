@@ -18,9 +18,12 @@ export class CalculatorComponent {
 
   constructor(private activatedRoute: ActivatedRoute, private damageCalculator: DamageCalculatorService) {}
 
-  pokemon: Pokemon
   team: TeamMember[]
   field: Field
+  activeOnEditPokemon: Pokemon
+  activeAttackerPokemon: Pokemon
+  canShowAttackerAsActivated: boolean
+  canShowTargetAsActivated: boolean
   
   targets: Target[] = []
 
@@ -31,6 +34,11 @@ export class CalculatorComponent {
     this.activatedRoute.data.subscribe(({ userData }) => {
       this.buildInitialData(userData)      
     })
+
+    this.activeOnEditPokemon = this.team.find(t => t.active)!.pokemon
+    this.activeAttackerPokemon = this.activeOnEditPokemon
+    this.canShowAttackerAsActivated = true
+    this.canShowTargetAsActivated = false
   }
 
   uploadData() {
@@ -40,8 +48,20 @@ export class CalculatorComponent {
     this.userDataLink = `http://localhost:4200/data/${id}`
   }
 
-  activePokemon(): Pokemon {
-    return this.team.find(t => t.active)!.pokemon
+  teamMemberActivated(pokemon: Pokemon) {
+    this.activeOnEditPokemon = pokemon
+    this.activeAttackerPokemon = this.activeOnEditPokemon
+    this.calculateDamageForAll()
+    this.order()
+    
+    this.canShowAttackerAsActivated = true
+    this.canShowTargetAsActivated = false
+  }
+
+  targetActivated(pokemon: Pokemon) {
+    this.activeOnEditPokemon = pokemon
+    this.canShowAttackerAsActivated = false
+    this.canShowTargetAsActivated = true
   }
 
   teamChanged(team: TeamMember[]) {
@@ -53,27 +73,39 @@ export class CalculatorComponent {
   pokemonAddedToTeam() {
     const activePokemon = this.team.find(t => t.active)!
 
-    const clonedLastPokemon = this.team[this.team.length -1].pokemon.clone()
-    const teamMember = new TeamMember(clonedLastPokemon, this.team.length)
+    const clonedPokemon = this.activeOnEditPokemon.clone()
+    const teamMember = new TeamMember(clonedPokemon, this.team.length)
     
     teamMember.active = true
     activePokemon.active = false
 
     this.team.push(teamMember)
+
+    this.activeOnEditPokemon = clonedPokemon
+    this.activeAttackerPokemon = clonedPokemon
+  }
+
+  pokemonAddedToTargets() {
+    if (!this.alreadyExists(this.activeOnEditPokemon)) {
+      const target = new Target(this.activeOnEditPokemon.clone())
+      this.targets.push(target)
+
+      this.calculateDamage(target)
+      this.order()
+    }
   }
 
   pokemonChanged(pokemon: Pokemon) {
-    this.pokemon = pokemon
+    this.activeOnEditPokemon = pokemon
+    this.activeAttackerPokemon = pokemon
     this.calculateDamageForAll()
     this.order()
   }
 
-  pokemonAdded() {
-    if (!this.alreadyExists(this.pokemon)) {
-      const target = new Target(this.pokemon.clone())
-      this.targets.push(target)
-
-      this.calculateDamage(target)
+  pokemonOnEditChanged() {
+    this.calculateDamageForAll()
+      
+    if (this.activeOnEditPokemon == this.activeAttackerPokemon) {
       this.order()
     }
   }
@@ -89,6 +121,10 @@ export class CalculatorComponent {
   }
 
   targetChanged(target: Target) {
+    if (target.active) {
+      this.activeOnEditPokemon = target.pokemon
+    }
+    
     this.calculateDamage(target)
   }
 
@@ -108,7 +144,7 @@ export class CalculatorComponent {
   }
 
   attackerStatusChanged(status: string) {
-    this.pokemon.status = status
+    this.activeAttackerPokemon.status = status
     this.calculateDamageForAll()
     this.order()
   }
@@ -142,12 +178,12 @@ export class CalculatorComponent {
   }
 
   private calculateDamage(target: Target, criticalHit: boolean = false) {
-    const damageResult = this.damageCalculator.calcDamage(this.pokemon, target.pokemon, this.pokemon.move, this.field, criticalHit)
+    const damageResult = this.damageCalculator.calcDamage(this.activeAttackerPokemon, target.pokemon, this.activeAttackerPokemon.move, this.field, criticalHit)
     target.setDamageResult(damageResult)
   }
   
   private calculateDamageForAll(criticalHit: boolean = false) {
-    if (this.pokemon) {
+    if (this.activeAttackerPokemon) {
       this.targets.forEach(target => this.calculateDamage(target, criticalHit))
     }
   }

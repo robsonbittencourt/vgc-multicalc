@@ -6,11 +6,12 @@
   </div> -->
 
   <div class="main-pokemon">
-    <app-main-pokemon [pokemon]="activePokemon()" (pokemonChangedEvent)="pokemonChanged($event)"/>
+    <app-main-pokemon [pokemon]="activeOnEditPokemon" (pokemonChangedEvent)="pokemonOnEditChanged()" />
   </div>
 
   <div class="team">
-    <app-team [team]="team" (teamChanged)=teamChanged($event) (pokemonAddedToTeamEvent)=pokemonAddedToTeam()/>
+    <app-team [team]="team" [canShowAsActivated]="canShowAttackerAsActivated" (teamMemberActivatedEvent)="teamMemberActivated($event)"
+     (pokemonChangedEvent)="pokemonChanged($event)" (teamChanged)=teamChanged($event) (pokemonAddedToTeamEvent)=pokemonAddedToTeam()/>
   </div>
 
   <div class="field" *ngIf="showAdvancedOptions">
@@ -20,7 +21,8 @@
   </div> 
 
   <div class="target-pokemon">
-    <app-target-pokemon [targets]="targets" (targetChangedEvent)="targetChanged($event)" (allTargetsRemoved)="removeAllTargets()"
-    (targetsAdded)="targetsAdded($event)" (pokemonAdded)="pokemonAdded()" (advanceOptionsToggled)="manageAdvancedOptions($event)" />
+    <app-target-pokemon [targets]="targets" [canShowAsActivated]="canShowTargetAsActivated" (targetChangedEvent)="targetChanged($event)"
+      (allTargetsRemoved)="removeAllTargets()" (targetAdded)="pokemonAddedToTargets()" (targetsAdded)="targetsAdded($event)"
+      (advanceOptionsToggled)="manageAdvancedOptions($event)" (targetActivatedEvent)=targetActivated($event) />
   </div>
 </div>

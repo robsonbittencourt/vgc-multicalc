@@ -23,7 +23,7 @@ export class InputAutocompleteComponent {
   valueChange = new EventEmitter<string>()
 
   @Output()
-  valueSelected = new EventEmitter<string>()
+  valueManuallySelected = new EventEmitter<string>()
 
   set value(value: string) {
     this.valueStorage = value
@@ -51,19 +51,18 @@ export class InputAutocompleteComponent {
     const eventValue = ((event as FocusEvent).relatedTarget as any)?.textContent
     
     if (!eventValue) {
-      this.formControl.setValue(this.valueStorage)    
+      this.formControl.setValue(this.valueStorage)
     }    
   }
 
   onValueSelected(selectedValue: string) {
     this.value = selectedValue
     this.formControl.setValue(selectedValue)
-    this.valueSelected.emit(selectedValue)
+    this.valueManuallySelected.emit(this.valueStorage)
   }
 
   private filter(value: string, values: string[]): string[] {
     if (!values) return []
-    
     const filterValue = this.normalizeValue(value)
     return values.filter(name => this.normalizeValue(name).startsWith(filterValue))
   }

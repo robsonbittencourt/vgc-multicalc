@@ -15,8 +15,11 @@ export class PokemonCardComponent {
   @Input() 
   showDeleteButton: boolean
 
+  @Input() 
+  canShowAsActivated: boolean
+
   @Output() 
-  pokemonActivated = new EventEmitter<number>()
+  teamMemberActivated = new EventEmitter<number>()
 
   @Output() 
   pokemonRemoved = new EventEmitter<number>()
@@ -24,20 +27,28 @@ export class PokemonCardComponent {
   commanderActivated = false
 
   activate() {
-    if (!this.teamMember.active) {
-      this.teamMember.active = true
-      this.pokemonActivated.emit(this.teamMember.position)
-    }    
+    this.teamMember.active = true
+    this.teamMemberActivated.emit(this.teamMember.position)
   }
 
   toogleCommanderAbility() {
     this.teamMember.pokemon.commanderActivated = !this.commanderActivated
     this.commanderActivated = !this.commanderActivated
-    this.pokemonActivated.emit(this.teamMember.position)
+    this.teamMemberActivated.emit(this.teamMember.position)
   }
 
   removePokemon() {
     this.pokemonRemoved.emit(this.teamMember.position)
+  }
+
+  cardStyle(): any {
+    const cardStyle = { 'border': '3px', 'border-style': 'solid', 'border-color': '#8544ee' }
+    
+    if (this.teamMember.active && this.canShowAsActivated) {
+      return cardStyle
+    }
+
+    return null
   }
 
 }

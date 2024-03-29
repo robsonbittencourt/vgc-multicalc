@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, KeyValueDiffer, KeyValueDiffers, Output } from '@angular/core';
 import { PokePasteParserService } from 'src/lib/poke-paste-parser.service';
+import { Pokemon } from 'src/lib/pokemon';
 import { TeamMember } from 'src/lib/team-member';
 
 @Component({
@@ -9,10 +10,22 @@ import { TeamMember } from 'src/lib/team-member';
 })
 export class TeamComponent {
 
-  constructor(private pokePasteService: PokePasteParserService) {}
+  private differ: KeyValueDiffer<string, any>
+  private activePokemon: Pokemon
+  pokePaste = ""
+  errorMessagePokePaste: string = ""
 
   @Input() 
   team: TeamMember[]
+
+  @Input() 
+  canShowAsActivated: boolean
+
+  @Output()
+  teamMemberActivatedEvent = new EventEmitter<Pokemon>()
+
+  @Output()
+  pokemonChangedEvent = new EventEmitter<Pokemon>()
 
   @Output() 
   teamChanged = new EventEmitter<TeamMember[]>()
@@ -20,15 +33,29 @@ export class TeamComponent {
   @Output()
   pokemonAddedToTeamEvent = new EventEmitter<any>()
 
-  pokePaste = ""
-  errorMessagePokePaste: string = ""
+  constructor(private pokePasteService: PokePasteParserService, private differs: KeyValueDiffers) {}
 
-  pokemonActivated(position: number) {
+  ngOnInit() {
+    this.activePokemon = this.team.find(t => t.active)!.pokemon
+    this.differ = this.differs.find(this.activePokemon).create()
+  }
+
+  ngDoCheck() {
+    const changed = this.differ.diff(this.activePokemon)
+    
+    if (changed) {
+      this.pokemonChangedEvent.emit(this.activePokemon)
+    }
+  }
+  
+  teamMemberActivated(position: number) {
     this.team.forEach(teamMember => {
       if (teamMember.position != position) {
         teamMember.active = false
       }
     })
+
+    this.teamMemberActivatedEvent.emit(this.team[position].pokemon)
   }
 
   pokemonRemoved(position: number) {
@@ -74,6 +101,7 @@ export class TeamComponent {
   pokemonAddedToTeam() {
     this.updatePositions()
     this.pokemonAddedToTeamEvent.emit()
+    this.teamMemberActivatedEvent.emit(this.team[this.team.length - 1].pokemon)
   }
 
   private updatePositions() {
