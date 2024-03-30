@@ -56,12 +56,17 @@ export class CalculatorComponent {
     
     this.canShowAttackerAsActivated = true
     this.canShowTargetAsActivated = false
+    this.targets.forEach(t => t.active = false)
   }
 
-  targetActivated(pokemon: Pokemon) {
-    this.activeOnEditPokemon = pokemon
+  targetActivated(target: Target) {
+    this.targets.forEach(t => t.active = false)
+    target.active = true
+
+    this.activeOnEditPokemon = target.pokemon
     this.canShowAttackerAsActivated = false
     this.canShowTargetAsActivated = true
+    this.team.forEach(t => t.active = false)
   }
 
   teamChanged(team: TeamMember[]) {
@@ -71,13 +76,16 @@ export class CalculatorComponent {
   }
 
   pokemonAddedToTeam() {
-    const activePokemon = this.team.find(t => t.active)!
+    const activePokemon = this.team.find(t => t.active)
 
     const pokemon = new Pokemon("Ditto", "Relaxed", "Leftovers", "Imposter", "Normal", false, {}, new MoveSet("Transform"))
     const teamMember = new TeamMember(pokemon, this.team.length)
     
     teamMember.active = true
-    activePokemon.active = false
+
+    if (activePokemon) {
+      activePokemon.active = false
+    }    
 
     this.team.push(teamMember)
 
@@ -97,6 +105,7 @@ export class CalculatorComponent {
     const pokemon = new Pokemon("Ditto", "Relaxed", "Leftovers", "Imposter", "Normal", false, {}, new MoveSet("Transform"))
     const target = new Target(pokemon)
     this.targets.push(target)
+    this.targetActivated(target)
 
     this.calculateDamage(target)
   }

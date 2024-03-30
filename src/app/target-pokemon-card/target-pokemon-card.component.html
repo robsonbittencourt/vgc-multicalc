@@ -23,7 +23,10 @@
         <img class="icon-tera" src="assets/icons/tera-icon.png" *ngIf="target.pokemon.teraTypeActive" />
         <img class="icon-tera" src="assets/icons/tera-icon-gray.png" *ngIf="!target.pokemon.teraTypeActive" />
       </button>
-      <button class="icon-button" (click)="removePokemon()">
+      <button *ngIf="target.active" class="icon-button disabled">
+        <img class="icon-trash" src="assets/icons/trash.png"/>
+      </button>
+      <button *ngIf="!target.active" class="icon-button" (click)="removePokemon()">
         <img class="icon-trash" src="assets/icons/trash.png"/>
       </button>
     </div>

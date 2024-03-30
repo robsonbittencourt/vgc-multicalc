@@ -37,7 +37,7 @@ export class TargetPokemonComponent {
   advanceOptionsToggled = new EventEmitter<boolean>()
 
   @Output()
-  targetActivatedEvent = new EventEmitter<Pokemon>()
+  targetActivatedEvent = new EventEmitter<Target>()
 
   pokePaste = ""
   errorMessagePokePaste: string = ""
@@ -48,14 +48,17 @@ export class TargetPokemonComponent {
   }
 
   targetActivated(target: Target) {
-    this.targets.forEach(t => t.active = false)
-    target.active = true
-    this.targetActivatedEvent.emit(target.pokemon)
+    this.targetActivatedEvent.emit(target)
   }
 
   targetRemoved(target: Target) {
     const index = this.targets.findIndex(t => t.pokemon.equals(target.pokemon))
-    this.targets.splice(index, 1);
+        
+    if (target.active && this.targets.length > 1) {
+      this.targetActivated(this.targets[index + 1])
+    }
+
+    this.targets.splice(index, 1)
   }
 
   removeAll() {
