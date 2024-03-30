@@ -73,26 +73,32 @@ export class CalculatorComponent {
   pokemonAddedToTeam() {
     const activePokemon = this.team.find(t => t.active)!
 
-    const clonedPokemon = this.activeOnEditPokemon.clone()
-    const teamMember = new TeamMember(clonedPokemon, this.team.length)
+    const pokemon = new Pokemon("Ditto", "Relaxed", "Leftovers", "Imposter", "Normal", false, {}, new MoveSet("Transform"))
+    const teamMember = new TeamMember(pokemon, this.team.length)
     
     teamMember.active = true
     activePokemon.active = false
 
     this.team.push(teamMember)
 
-    this.activeOnEditPokemon = clonedPokemon
-    this.activeAttackerPokemon = clonedPokemon
+    this.activeOnEditPokemon = pokemon
+    this.activeAttackerPokemon = pokemon
+  }
+
+  addTargetFromBuild() {
+    const target = new Target(this.activeOnEditPokemon.clone())
+    this.targets.push(target)
+
+    this.calculateDamage(target)
+    this.order()
   }
 
   pokemonAddedToTargets() {
-    if (!this.alreadyExists(this.activeOnEditPokemon)) {
-      const target = new Target(this.activeOnEditPokemon.clone())
-      this.targets.push(target)
+    const pokemon = new Pokemon("Ditto", "Relaxed", "Leftovers", "Imposter", "Normal", false, {}, new MoveSet("Transform"))
+    const target = new Target(pokemon)
+    this.targets.push(target)
 
-      this.calculateDamage(target)
-      this.order()
-    }
+    this.calculateDamage(target)
   }
 
   pokemonChanged(pokemon: Pokemon) {

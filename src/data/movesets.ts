@@ -6404,7 +6404,7 @@ export const SETDEX_SV: {[k: string]: any} = {
     ]
   },
   "Pikachu": {
-    "ability": "Imposter",
+    "ability": "Lightning Rod",
     "item": "Light Ball",
     "nature": "Modest",
     "teraType": "Electric",

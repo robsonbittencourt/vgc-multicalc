@@ -22,7 +22,7 @@
 
   <div class="target-pokemon">
     <app-target-pokemon [targets]="targets" [canShowAsActivated]="canShowTargetAsActivated" (targetChangedEvent)="targetChanged($event)"
-      (allTargetsRemoved)="removeAllTargets()" (targetAdded)="pokemonAddedToTargets()" (targetsAdded)="targetsAdded($event)"
+      (allTargetsRemoved)="removeAllTargets()" (targetAddedFromBuild)="addTargetFromBuild()" (targetAdded)="pokemonAddedToTargets()" (targetsAdded)="targetsAdded($event)"
       (advanceOptionsToggled)="manageAdvancedOptions($event)" (targetActivatedEvent)=targetActivated($event) />
   </div>
 </div>

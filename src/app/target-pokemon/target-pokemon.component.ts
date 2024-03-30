@@ -19,6 +19,9 @@ export class TargetPokemonComponent {
   canShowAsActivated: boolean
 
   @Output() 
+  targetAddedFromBuild = new EventEmitter<any>()
+
+  @Output() 
   targetAdded = new EventEmitter<any>()
   
   @Output() 
@@ -70,6 +73,10 @@ export class TargetPokemonComponent {
     } finally {
       this.pokePaste = ""
     }
+  }
+
+  addPokemonFromBuild() {
+    this.targetAddedFromBuild.emit()
   }
 
   addPokemonToTargets() {
