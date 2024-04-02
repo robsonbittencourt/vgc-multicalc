@@ -175,7 +175,7 @@ export class CalculatorComponent {
   }
 
   private defaultTeam(): TeamMember[] {
-    const moveSet = new MoveSet("Moon Blast", "Dazzling Gleam", "Shadow Ball", "Thunderbolt")
+    const moveSet = new MoveSet("Moonblast", "Dazzling Gleam", "Shadow Ball", "Thunderbolt")
 
     return [
       new TeamMember(new Pokemon("Flutter Mane", "Timid", "Choice Specs", "Protosynthesis", "Fairy", true, { spa: 252 }, moveSet, undefined, undefined), 0, true)

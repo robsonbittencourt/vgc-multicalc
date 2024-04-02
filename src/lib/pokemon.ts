@@ -24,7 +24,7 @@ export class Pokemon {
 
     this.teraTypeStorage = teraType
     this.evsStorage = evs
-    this.moveSetStorage = moveSet ?? new MoveSet("Moon Blast")
+    this.moveSetStorage = moveSet ?? new MoveSet("Moonblast")
   }
 
   public get name(): string {
