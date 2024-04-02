@@ -50,6 +50,10 @@ export class MainPokemonComponent {
 
   onPokemonChange(pokemonName: string) {
     this.availableAbilities = this.allPokemon.abilitiesByName(pokemonName)
+  }
+
+  onPokemonSelected(pokemonName: string) {
+    this.availableAbilities = this.allPokemon.abilitiesByName(pokemonName)
     this.pokemon.ability = this.availableAbilities[0]
 
     const poke = SETDEX_SV[pokemonName]

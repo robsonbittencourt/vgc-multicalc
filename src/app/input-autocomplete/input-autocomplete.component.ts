@@ -22,10 +22,13 @@ export class InputAutocompleteComponent {
   @Output()
   valueChange = new EventEmitter<string>()
 
+  @Output()
+  valueSelected = new EventEmitter<string>()
+
   set value(value: string) {
     this.valueStorage = value
     this.formControl?.setValue(value)
-    this.valueChange.emit(this.valueStorage);
+    this.valueChange.emit(this.valueStorage)
   }
 
   @Input()
@@ -55,6 +58,7 @@ export class InputAutocompleteComponent {
   onValueSelected(selectedValue: string) {
     this.value = selectedValue
     this.formControl.setValue(selectedValue)
+    this.valueSelected.emit(selectedValue)
   }
 
   private filter(value: string, values: string[]): string[] {
