@@ -58,6 +58,8 @@ export class InputAutocompleteComponent {
   }
 
   private filter(value: string, values: string[]): string[] {
+    if (!values) return []
+    
     const filterValue = this.normalizeValue(value)
     return values.filter(name => this.normalizeValue(name).startsWith(filterValue))
   }
