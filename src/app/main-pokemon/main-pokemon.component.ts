@@ -48,11 +48,11 @@ export class MainPokemonComponent {
     }
   }
 
-  onValueManuallySelected(pokemonName: string) {
+  onPokemonSelected(pokemonName: string) {
     this.availableAbilities = this.allPokemon.abilitiesByName(pokemonName)
   }
 
-  onPokemonSelected(pokemonName: string) {
+  onValueManuallySelected(pokemonName: string) {
     this.availableAbilities = this.allPokemon.abilitiesByName(pokemonName)
     this.pokemon.ability = this.availableAbilities[0]
 

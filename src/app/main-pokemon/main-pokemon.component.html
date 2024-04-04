@@ -8,7 +8,7 @@
         <label>Pokémon</label>
       </div>
       <div>
-        <app-input-autocomplete [(value)]="pokemon.name" [allValues]="allPokemonNames" (valueChange)="onPokemonChange($event)" (valueManuallySelected)="onValueManuallySelected($event)"/>
+        <app-input-autocomplete [(value)]="pokemon.name" [allValues]="allPokemonNames" (valueChange)="onPokemonSelected($event)" (valueManuallySelected)="onValueManuallySelected($event)"/>
       </div>
       <div class="info-label">
         <label>Nature</label>
