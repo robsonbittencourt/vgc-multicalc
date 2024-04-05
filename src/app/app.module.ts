@@ -3,7 +3,6 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -16,7 +15,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AppComponent } from './app.component';
 import { MainPokemonComponent } from './main-pokemon/main-pokemon.component';
@@ -67,7 +67,8 @@ import { NotFoundPageComponent } from './not-found-page/not-found-page.component
     MatChipsModule,
     MatSlideToggleModule,
     MatTooltipModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

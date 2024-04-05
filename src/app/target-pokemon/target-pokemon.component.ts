@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MoveSet } from 'src/lib/moveset';
 import { PokePasteParserService } from 'src/lib/poke-paste-parser.service';
 import { Pokemon } from 'src/lib/pokemon';
@@ -11,7 +12,7 @@ import { Target } from 'src/lib/target';
 })
 export class TargetPokemonComponent {
 
-  constructor(private pokePasteService: PokePasteParserService) {}
+  constructor(private pokePasteService: PokePasteParserService, private _snackBar: MatSnackBar) {}
   
   @Input() 
   targets: Target[]
@@ -71,6 +72,8 @@ export class TargetPokemonComponent {
       const pokemonList = await this.pokePasteService.parseFromPokePaste(this.pokePaste)
       const targets = pokemonList.map(pokemon => new Target(pokemon))
       this.targetsAdded.emit(targets)
+
+      this._snackBar.open("Pokémon from PokePaste added!", "", { duration: 4000 });
     } catch(ex) {
       this.errorMessagePokePaste = "Invalid Poke paste. Check if it is the version with EVs"
     } finally {

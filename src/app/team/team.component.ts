@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, KeyValueDiffer, KeyValueDiffers, Output } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MoveSet } from 'src/lib/moveset';
 import { PokePasteParserService } from 'src/lib/poke-paste-parser.service';
 import { Pokemon } from 'src/lib/pokemon';
@@ -31,7 +32,7 @@ export class TeamComponent {
   @Output()
   pokemonAddedToTeamEvent = new EventEmitter<any>()
 
-  constructor(private pokePasteService: PokePasteParserService, private differs: KeyValueDiffers) {}
+  constructor(private pokePasteService: PokePasteParserService, private differs: KeyValueDiffers, private _snackBar: MatSnackBar) {}
 
   ngOnInit() {
     this.activePokemon = this.team.find(t => t.active)!.pokemon
@@ -90,6 +91,8 @@ export class TeamComponent {
       this.team[0].active = true
       this.teamChanged.emit(this.team)
       this.teamMemberActivatedEvent.emit(this.team[0].pokemon)
+
+      this._snackBar.open("Pokémon from PokePaste added!", "", { duration: 4000 });
     } catch(ex) {
       this.errorMessagePokePaste = "Invalid Poke paste. Check if it is the version with EVs"
     } finally {
