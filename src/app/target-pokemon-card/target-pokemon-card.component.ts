@@ -71,6 +71,10 @@ export class TargetPokemonCardComponent {
     if (this.target.active && this.target.pokemon.isDefault()) {
       return {...cardStyleSelectPokemon, ...cardWithBorder} 
     }
+
+    if (this.target.pokemon.isDefault()) {
+      return cardStyleSelectPokemon 
+    }
     
     if (this.target.active && this.canShowAsActivated) {
       return {...cardStyle, ...cardWithBorder}
