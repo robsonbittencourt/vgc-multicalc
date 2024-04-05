@@ -1,12 +1,74 @@
 .container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: minmax(440px, 1fr);
+  grid-template-rows: 67px minmax(440px, 1fr);
   grid-column-gap: 1em;
   row-gap: 1em;
   background-color: rgb(252, 248, 248);
   color: rgb(88, 88, 90);
-  margin: 1em;
+  margin: 0 1em 1em 1em;
+}
+
+.header {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  background-color: rgb(255, 255, 255);
+  font-size: large;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px;
+  border-color: rgb(229, 231, 235);
+  border-width: 1px;
+  border-style: solid;
+  padding-left: 2.5em;
+  padding-right: 2.5em;
+  margin: 0em -1em 0em -1em;
+}
+
+.left-header {
+  display: flex;
+  align-items: center;
+}
+
+.right-header {
+  display: flex;
+  align-items: center;
+  column-gap: 1em;
+}
+
+.copy-icon {
+  cursor: pointer;
+}
+
+.calc-link {
+  font-size: medium;
+}
+
+.slowking-icon {
+  width: 50px;
+  height: 50px;
+}
+
+.icon {
+  width: 30px;
+  height: 30px;
+}
+
+.title {
+  color: black;
+  font-weight: 500;
+  margin-left: 1em;
+}
+
+.menu {
+  font-size: medium;
+  color: rgb(133, 129, 129);
+  margin-left: 2em;
+  padding: 1em;
+}
+
+.menu:hover {
+  background-color: #e7def6;
 }
 
 .top-commands {
@@ -38,6 +100,19 @@
 }
 
 @media only screen and (max-width: 768px) {
+  .header {
+    padding-left: 0em;
+    padding-right: 0em;
+  }
+
+  .right-header {
+    column-gap: 0.5em;
+  }
+
+  .title {
+    margin-left: 1em;
+  }
+
   .container {
     grid-template-columns: 1fr;
     margin: 0em;

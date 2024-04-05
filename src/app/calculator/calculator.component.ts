@@ -8,6 +8,8 @@ import { MoveSet } from 'src/lib/moveset';
 import { Pokemon } from 'src/lib/pokemon';
 import { Target } from 'src/lib/target';
 import { TeamMember } from 'src/lib/team-member';
+import { DeviceDetectorService } from 'src/lib/device-detector.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-calculator',
@@ -16,7 +18,10 @@ import { TeamMember } from 'src/lib/team-member';
 })
 export class CalculatorComponent {
 
-  constructor(private activatedRoute: ActivatedRoute, private damageCalculator: DamageCalculatorService) {}
+  constructor(
+    private activatedRoute: ActivatedRoute, private damageCalculator: DamageCalculatorService,
+    private deviceDetectorService: DeviceDetectorService, private _snackBar: MatSnackBar
+  ) {}
 
   team: TeamMember[]
   field: Field
@@ -39,11 +44,20 @@ export class CalculatorComponent {
     this.canShowTargetAsActivated = false
   }
 
+  isDesktopDevice(): boolean {
+    return this.deviceDetectorService.isDesktopDevice()
+  }
+
   uploadData() {
     const id = uuidv4()
     const userData = this.buildUserDataToUpload()
     axios.put(`https://l7enx1vgm7.execute-api.us-east-1.amazonaws.com/v1/vgc-multi-calc/${id}`, userData)
     this.userDataLink = `http://localhost:4200/data/${id}`
+    this._snackBar.open("Your calc link has been created!", "", { duration: 4000 });
+  }
+
+  copyUserDataLink() {
+    navigator.clipboard.writeText(this.userDataLink)
   }
 
   teamMemberActivated(pokemon: Pokemon) {

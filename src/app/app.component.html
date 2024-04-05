@@ -4,24 +4,7 @@
   </header>
   <section>
     <div class="container">
-      <div class="header">
-        <div class="left-header">
-          <img class="slowking-icon" src="assets/icons/slowking.png" />
-          <img class="icon" src="assets/icons/calc.png" />
-          <span class="title">VGC Multi Calc</span>
-          <div *ngIf="isDesktopDevice()" class="menu">
-            <span>One vs Many</span>
-          </div>
-        </div>
-        <div *ngIf="isDesktopDevice()" class="right-header">
-          <a target="_blank" href="https://twitter.com/rluizv"><img class="icon" src="assets/icons/twitter.png"/></a>
-          <a target="_blank" href="https://github.com/robsonbittencourt/vgc-multicalc"><img class="icon" src="assets/icons/github.png"/></a>
-          <a href='https://ko-fi.com/B0B2VFTC3' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi2.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
-        </div>
-      </div>
-      
       <router-outlet></router-outlet>
-      
     </div>
   </section>
 </main>
