@@ -11,9 +11,6 @@ export class PokemonCardComponent {
   @Input() 
   teamMember: TeamMember
 
-  @Input() 
-  canShowAsActivated: boolean
-
   @Output() 
   teamMemberActivated = new EventEmitter<number>()
 
@@ -40,7 +37,7 @@ export class PokemonCardComponent {
   cardStyle(): any {
     const cardStyle = { 'border': '3px', 'border-style': 'solid', 'border-color': '#8544ee' }
     
-    if (this.teamMember.active && this.canShowAsActivated) {
+    if (this.teamMember.active) {
       return cardStyle
     }
 

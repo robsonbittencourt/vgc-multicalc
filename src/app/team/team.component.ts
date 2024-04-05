@@ -19,9 +19,6 @@ export class TeamComponent {
   @Input() 
   team: TeamMember[]
 
-  @Input() 
-  canShowAsActivated: boolean
-
   @Output()
   teamMemberActivatedEvent = new EventEmitter<Pokemon>()
 

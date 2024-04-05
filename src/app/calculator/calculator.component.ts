@@ -22,7 +22,6 @@ export class CalculatorComponent {
   field: Field
   activeOnEditPokemon: Pokemon
   activeAttackerPokemon: Pokemon
-  canShowAttackerAsActivated: boolean
   canShowTargetAsActivated: boolean
   
   targets: Target[] = []
@@ -37,7 +36,6 @@ export class CalculatorComponent {
 
     this.activeOnEditPokemon = this.team.find(t => t.active)!.pokemon
     this.activeAttackerPokemon = this.activeOnEditPokemon
-    this.canShowAttackerAsActivated = true
     this.canShowTargetAsActivated = false
   }
 
@@ -54,7 +52,6 @@ export class CalculatorComponent {
     this.calculateDamageForAll()
     this.order()
     
-    this.canShowAttackerAsActivated = true
     this.canShowTargetAsActivated = false
     this.targets.forEach(t => t.active = false)
   }
@@ -64,9 +61,7 @@ export class CalculatorComponent {
     target.active = true
 
     this.activeOnEditPokemon = target.pokemon
-    this.canShowAttackerAsActivated = false
     this.canShowTargetAsActivated = true
-    this.team.forEach(t => t.active = false)
   }
 
   teamChanged(team: TeamMember[]) {

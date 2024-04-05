@@ -10,7 +10,7 @@
   </div>
 
   <div class="team">
-    <app-team [team]="team" [canShowAsActivated]="canShowAttackerAsActivated" (teamMemberActivatedEvent)="teamMemberActivated($event)"
+    <app-team [team]="team" (teamMemberActivatedEvent)="teamMemberActivated($event)"
      (pokemonChangedEvent)="pokemonChanged($event)" (teamChanged)=teamChanged($event) (pokemonAddedToTeamEvent)=pokemonAddedToTeam()/>
   </div>
 
