@@ -89,6 +89,7 @@ export class TeamComponent {
 
       this.team[0].active = true
       this.teamChanged.emit(this.team)
+      this.teamMemberActivatedEvent.emit(this.team[0].pokemon)
     } catch(ex) {
       this.errorMessagePokePaste = "Invalid Poke paste. Check if it is the version with EVs"
     } finally {
