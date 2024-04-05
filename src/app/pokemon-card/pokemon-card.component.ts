@@ -12,9 +12,6 @@ export class PokemonCardComponent {
   teamMember: TeamMember
 
   @Input() 
-  showDeleteButton: boolean
-
-  @Input() 
   canShowAsActivated: boolean
 
   @Output() 

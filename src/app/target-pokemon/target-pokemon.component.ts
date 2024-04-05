@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { MoveSet } from 'src/lib/moveset';
 import { PokePasteParserService } from 'src/lib/poke-paste-parser.service';
 import { Pokemon } from 'src/lib/pokemon';
 import { Target } from 'src/lib/target';
@@ -59,6 +60,8 @@ export class TargetPokemonComponent {
   }
 
   removeAll() {
+    const pokemon = new Pokemon("Togepi", "Relaxed", "Leftovers", "Hustle", "Normal", false, {}, new MoveSet(""))
+    this.targets = [new Target(pokemon)]
     this.allTargetsRemoved.emit()
   }
 

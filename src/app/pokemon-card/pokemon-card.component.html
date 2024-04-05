@@ -17,10 +17,7 @@
           <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly.png" *ngIf="commanderActivated" />
           <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly-gray.png" *ngIf="!commanderActivated" />
         </button>
-        <button *ngIf="teamMember.active || !showDeleteButton" class="icon-button disabled" #tooltip="matTooltip" matTooltip="Pokémon can't be removed">
-          <img class="icon-trash" src="assets/icons/trash.png"/>
-        </button>
-        <button *ngIf="!teamMember.active && showDeleteButton" class="icon-button" (click)="removePokemon()">
+        <button class="icon-button" (click)="removePokemon()">
           <img class="icon-trash" src="assets/icons/trash.png"/>
         </button>
       </div>

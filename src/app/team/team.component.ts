@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, KeyValueDiffer, KeyValueDiffers, Output } from '@angular/core';
+import { MoveSet } from 'src/lib/moveset';
 import { PokePasteParserService } from 'src/lib/poke-paste-parser.service';
 import { Pokemon } from 'src/lib/pokemon';
 import { TeamMember } from 'src/lib/team-member';
@@ -62,7 +63,7 @@ export class TeamComponent {
     const removedTeamMember = this.team.find(teamMember => teamMember.position == position)!
     this.team = this.team.filter(teamMember => teamMember.position != position)    
     
-    if (removedTeamMember.active) {
+    if (this.team.length > 0 && removedTeamMember.active) {
       this.team[0].active = true
     }
     
@@ -91,11 +92,10 @@ export class TeamComponent {
   }
 
   removeAll() {
-    const remainingTeamMember = this.team[0]
-    remainingTeamMember.active = true
-    
-    this.team = [remainingTeamMember]
+    const pokemon = new Pokemon("Togepi", "Relaxed", "Leftovers", "Hustle", "Normal", false, {}, new MoveSet(""))
+    this.team = [new TeamMember(pokemon, 0)]
     this.teamChanged.emit(this.team)
+    this.teamMemberActivatedEvent.emit(pokemon)
   }
 
   pokemonAddedToTeam() {
