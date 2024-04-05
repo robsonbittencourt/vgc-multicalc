@@ -60,8 +60,16 @@ export class TeamComponent {
     const removedTeamMember = this.team.find(teamMember => teamMember.position == position)!
     this.team = this.team.filter(teamMember => teamMember.position != position)    
     
-    if (this.team.length > 0 && removedTeamMember.active) {
-      this.team[0].active = true
+    if (removedTeamMember.active) {
+      if (this.team.length > 0) {
+        this.team[0].active = true
+        this.teamMemberActivatedEvent.emit(this.team[0].pokemon)
+      } else {
+        const pokemon = new Pokemon("Togepi", "Relaxed", "Leftovers", "Hustle", "Normal", false, {}, new MoveSet(""))
+        this.team = [new TeamMember(pokemon, 0)]
+        this.team[0].active = true
+        this.teamMemberActivatedEvent.emit(pokemon)
+      }
     }
     
     this.updatePositions()
