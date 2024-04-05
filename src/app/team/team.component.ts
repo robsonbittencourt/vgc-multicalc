@@ -110,4 +110,8 @@ export class TeamComponent {
     }
   }
 
+  selectPokemonActive(): boolean {
+    return this.team.find(t => t.pokemon.isDefault()) != null
+  }
+
 }

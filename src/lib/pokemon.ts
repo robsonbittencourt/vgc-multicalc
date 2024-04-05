@@ -9,6 +9,7 @@ export class Pokemon {
   private moveSetStorage: MoveSet
   private paradoxAbilityActivatedStorage: boolean
   private commanderActivatedStorage: boolean
+  private selectPokemonLabel: string = "Select a Pokémon"
   
   constructor(name: string, nature: string, item: string, ability: string, teraType: string, teraTypeActive: boolean = false, evs: Partial<StatsTable> & { spc?: number; }, moveSet: MoveSet | undefined = undefined, boosts: StatsTable | undefined = undefined, status: StatusName | undefined = undefined) {
     this.pokemonSmogon = new PokemonSmogon(Generations.get(9), name, {
@@ -28,14 +29,20 @@ export class Pokemon {
   }
 
   public get name(): string {
+    if (this.isDefault()) return this.selectPokemonLabel
+
     return this.pokemonSmogon.name
   }
 
   public set name(name: string) {
-    this.pokemonSmogon = this.buildPokemonSmogon({ name: name })
+    if (name != this.selectPokemonLabel) {
+      this.pokemonSmogon = this.buildPokemonSmogon({ name: name })
+    }    
   }
 
   public get displayName(): string {
+    if (this.isDefault()) return this.selectPokemonLabel
+    
     const namesWithHiphen = ["Porygon-Z", "Ho-Oh", "Jangmo-o", "Hakamo-o", "Kommo-o", "Ting-Lu", "Chien-Pao", "Wo-Chien", "Chi-Yu"]
 
     if (namesWithHiphen.includes(this.pokemonSmogon.name)) {
@@ -301,5 +308,9 @@ export class Pokemon {
       spd: this.pokemonSmogon.boosts.spd <= 4 ? this.pokemonSmogon.boosts.spd + 2 : maxStatModifier,
       spe: this.pokemonSmogon.boosts.spe <= 4 ? this.pokemonSmogon.boosts.spe + 2 : maxStatModifier
     }
+  }
+
+  isDefault() {
+    return this.pokemonSmogon.name == "Togepi"
   }
 }

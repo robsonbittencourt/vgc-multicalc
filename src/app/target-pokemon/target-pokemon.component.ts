@@ -19,9 +19,6 @@ export class TargetPokemonComponent {
   canShowAsActivated: boolean
 
   @Output() 
-  targetAddedFromBuild = new EventEmitter<any>()
-
-  @Output() 
   targetAdded = new EventEmitter<any>()
   
   @Output() 
@@ -41,7 +38,7 @@ export class TargetPokemonComponent {
 
   pokePaste = ""
   errorMessagePokePaste: string = ""
-  _showAdvancedOptions = false
+  _showAdvancedOptions = false  
 
   targetChanged(target: Target) {
     this.targetChangedEvent.emit(target)
@@ -78,12 +75,12 @@ export class TargetPokemonComponent {
     }
   }
 
-  addPokemonFromBuild() {
-    this.targetAddedFromBuild.emit()
-  }
-
   addPokemonToTargets() {
     this.targetAdded.emit()
+  }
+
+  selectPokemonActive(): boolean {
+    return this.targets.find(t => t.pokemon.isDefault()) != null
   }
 
   get showAdvancedOptions(): boolean {

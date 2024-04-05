@@ -9,6 +9,7 @@
   flex-direction: row;
   height: 100%;
   align-items: flex-end;
+  justify-content: flex-end;
 }
 
 .card-content {
@@ -18,11 +19,6 @@
 .pokemon-image {
   width: 80px;
   height: 80px;
-}
-
-.card-buttons {
-  align-self: flex-end;
-  justify-content: flex-end;
 }
 
 .icon-button {

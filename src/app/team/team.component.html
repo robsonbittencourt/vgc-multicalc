@@ -17,6 +17,6 @@
       <app-pokemon-card [teamMember]="teamMember" [canShowAsActivated]=canShowAsActivated (teamMemberActivated)="teamMemberActivated($event)"
         (pokemonRemoved)="pokemonRemoved($event)" [showDeleteButton]="team.length > 1" />
     </div>
-    <app-add-pokemon-card *ngIf="team.length < 6" (pokemonAddedToTeam)=pokemonAddedToTeam()/>
+    <app-add-pokemon-card *ngIf="!selectPokemonActive() && team.length < 6" (pokemonAddedToTeam)=pokemonAddedToTeam()/>
   </div>
 </div>

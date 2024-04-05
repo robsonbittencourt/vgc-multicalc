@@ -64,8 +64,13 @@ export class TargetPokemonCardComponent {
   }
 
   cardStyle(): any {
+    const cardStyleSelectPokemon = { 'background-color': '#e7def6' }
     const cardStyle = { 'background-color': this.cardColor(this.target.damageResult.koChance) }
     const cardWithBorder = { 'border': '4px', 'border-style': 'solid', 'border-color': '#8544ee' }
+
+    if (this.target.active && this.target.pokemon.isDefault()) {
+      return {...cardStyleSelectPokemon, ...cardWithBorder} 
+    }
     
     if (this.target.active && this.canShowAsActivated) {
       return {...cardStyle, ...cardWithBorder}

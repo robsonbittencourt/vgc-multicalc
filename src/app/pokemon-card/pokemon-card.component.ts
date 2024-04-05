@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Pokemon } from 'src/lib/pokemon';
 import { TeamMember } from 'src/lib/team-member';
 
 @Component({

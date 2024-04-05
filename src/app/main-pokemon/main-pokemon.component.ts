@@ -49,7 +49,9 @@ export class MainPokemonComponent {
   }
 
   onPokemonSelected(pokemonName: string) {
-    this.availableAbilities = this.allPokemon.abilitiesByName(pokemonName)
+    if(!this.pokemon.isDefault()) {
+      this.availableAbilities = this.allPokemon.abilitiesByName(pokemonName)
+    }    
   }
 
   onValueManuallySelected(pokemonName: string) {

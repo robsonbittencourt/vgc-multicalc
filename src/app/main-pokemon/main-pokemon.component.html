@@ -3,7 +3,15 @@
     <span class="title">Build</span>
   </div>
   <div class="container">
-    <div class="left-container">
+    <div *ngIf="pokemon.isDefault()" class="left-container">
+      <div class="info-label">
+        <label>Pokémon</label>
+      </div>
+      <div>
+        <app-input-autocomplete [(value)]="pokemon.name" [allValues]="allPokemonNames" (valueChange)="onPokemonSelected($event)" (valueManuallySelected)="onValueManuallySelected($event)"/>
+      </div>
+    </div>
+    <div *ngIf="!pokemon.isDefault()" class="left-container">
       <div class="info-label">
         <label>Pokémon</label>
       </div>
@@ -83,7 +91,7 @@
         </div>        
       </div>
     </div>
-    <div class="right-container">
+    <div *ngIf="!pokemon.isDefault()" class="right-container">
       <div class="evs">
         <app-ev-slider statName="HP" [statValue]="pokemon.hp" [(ev)]="pokemon.evs.hp" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"/>
         

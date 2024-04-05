@@ -78,7 +78,7 @@ export class CalculatorComponent {
   pokemonAddedToTeam() {
     const activePokemon = this.team.find(t => t.active)
 
-    const pokemon = new Pokemon("Ditto", "Relaxed", "Leftovers", "Imposter", "Normal", false, {}, new MoveSet("Transform"))
+    const pokemon = new Pokemon("Togepi", "Relaxed", "Leftovers", "Hustle", "Normal", false, {}, new MoveSet(""))
     const teamMember = new TeamMember(pokemon, this.team.length)
     
     teamMember.active = true
@@ -93,16 +93,8 @@ export class CalculatorComponent {
     this.activeAttackerPokemon = pokemon
   }
 
-  addTargetFromBuild() {
-    const target = new Target(this.activeOnEditPokemon.clone())
-    this.targets.push(target)
-
-    this.calculateDamage(target)
-    this.order()
-  }
-
   pokemonAddedToTargets() {
-    const pokemon = new Pokemon("Ditto", "Relaxed", "Leftovers", "Imposter", "Normal", false, {}, new MoveSet("Transform"))
+    const pokemon = new Pokemon("Togepi", "Relaxed", "Leftovers", "Hustle", "Normal", false, {}, new MoveSet(""))
     const target = new Target(pokemon)
     this.targets.push(target)
     this.targetActivated(target)
@@ -204,7 +196,11 @@ export class CalculatorComponent {
   }
 
   private order() {
-    this.targets.sort((a, b) => b.damageResult?.damage - a.damageResult?.damage)
+    this.targets.sort((a, b) => {
+      if (a.pokemon.isDefault()) return 1
+      
+      return b.damageResult?.damage - a.damageResult?.damage
+    })
   }
 
   private buildInitialData(userData: any) {
