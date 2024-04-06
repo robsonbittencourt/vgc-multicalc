@@ -183,6 +183,10 @@ export class Pokemon {
     return this.pokemonSmogon.stats.spe
   }
 
+  public isParadoxAbility() {
+    return this.ability == "Protosynthesis" || this.ability == "Quark Drive"
+  }
+
   public get paradoxAbilityActivated(): boolean {
     return this.paradoxAbilityActivatedStorage
   }

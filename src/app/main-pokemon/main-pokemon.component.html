@@ -28,16 +28,16 @@
         <label>Item</label>
       </div>
       <div>
-        <app-input-autocomplete [(value)]="pokemon.item" [allValues]="allItemsNames" (valueChange)="onItemChange($event)"/>
+        <app-input-autocomplete [(value)]="pokemon.item" [allValues]="allItemsNames"/>
       </div>
       <div class="info-label">
         <label>Ability</label>
       </div>
       <div class="check-input-section">
-        <div *ngIf="isParadoxAbility()" class="check-input-section-checkbox">
+        <div *ngIf="pokemon.isParadoxAbility()" class="check-input-section-checkbox">
           <mat-checkbox [(ngModel)]="pokemon.paradoxAbilityActivated"></mat-checkbox>
         </div>
-        <div class="check-input-section-input" [ngClass]="!isParadoxAbility() ? 'check-input-section-without-checkbox' : ''">
+        <div class="check-input-section-input" [ngClass]="!pokemon.isParadoxAbility() ? 'check-input-section-without-checkbox' : ''">
           <app-input-autocomplete [(value)]="pokemon.ability" [allValues]="availableAbilities"/>
         </div>
       </div>

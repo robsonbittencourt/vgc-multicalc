@@ -77,12 +77,6 @@ export class MainPokemonComponent {
     }    
   }
 
-  onItemChange(item: string) {
-    if (item == "Booster Energy" && this.isParadoxAbility()) {
-      this.pokemon.paradoxAbilityActivated = true
-    }
-   }
-
   onChangeEvValue() {
     if (this.pokemon.totalEvs() <= this.MAX_EVS) {
       this.pokemon.evs = this.pokemon.evs
@@ -95,10 +89,6 @@ export class MainPokemonComponent {
     if (this.pokemon.totalEvs() <= this.MAX_EVS) {
       this.pokemon.evs = this.pokemon.evs
     }
-  }
-
-  isParadoxAbility() {
-    return this.pokemon.ability == "Protosynthesis" || this.pokemon.ability == "Quark Drive"
   }
 
   activateMove(move: string) {
