@@ -26,6 +26,7 @@ export class MainPokemonComponent {
   MAX_EVS = 508
 
   private differ: KeyValueDiffer<string, any>
+  private differStatusModifiers: KeyValueDiffer<string, any>
   
   @Input()
   pokemon: Pokemon
@@ -33,17 +34,18 @@ export class MainPokemonComponent {
   @Output() 
   pokemonChangedEvent = new EventEmitter<Pokemon>();
 
-  constructor(private differs: KeyValueDiffers) { }
+  constructor(private differs: KeyValueDiffers, private differsStatusModifiers: KeyValueDiffers) { }
 
   ngOnInit() {
-    this.pokemonChangedEvent.emit(this.pokemon)
     this.differ = this.differs.find(this.pokemon).create()
+    this.differStatusModifiers = this.differsStatusModifiers.find(this.pokemon.boosts).create()
   }
 
   ngDoCheck() {
-    const changed = this.differ.diff(this.pokemon)
-    
-    if (changed) {
+    const pokemonChanged = this.differ.diff(this.pokemon)
+    const boostsChanged = this.differStatusModifiers.diff(this.pokemon.boosts) 
+
+    if (pokemonChanged || boostsChanged) {
       this.pokemonChangedEvent.emit(this.pokemon)
     }
   }
@@ -93,10 +95,6 @@ export class MainPokemonComponent {
     if (this.pokemon.totalEvs() <= this.MAX_EVS) {
       this.pokemon.evs = this.pokemon.evs
     }
-  }
-
-  onChangeStatModifier() {
-    this.pokemonChangedEvent.emit(this.pokemon)
   }
 
   isParadoxAbility() {
