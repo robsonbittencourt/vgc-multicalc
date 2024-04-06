@@ -15,7 +15,8 @@
   </div>
 
   <div class="damage-description">
-    {{ damageDescription() }} <mat-icon class="copy-icon" *ngIf="damageDescription()" (click)="copyDamageResult()">content_copy</mat-icon>
+    <div>{{ damageDescription() }}</div>
+    <div><mat-icon class="copy-icon" *ngIf="damageDescription()" (click)="copyDamageResult()">content_copy</mat-icon></div>
   </div>
     
   <div class="target-pokemon">
