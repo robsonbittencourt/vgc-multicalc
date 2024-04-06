@@ -89,6 +89,22 @@ export class TargetPokemonComponent {
     return this.targets.find(t => t.pokemon.isDefault()) != null
   }
 
+  damageDescription(): string {
+    if(this.canShowAsActivated) {
+      return this.damageDescriptionFromActiveTarget()
+    }
+
+    return ""
+  }
+
+  copyDamageResult() {
+    navigator.clipboard.writeText(this.damageDescriptionFromActiveTarget())
+  }
+
+  damageDescriptionFromActiveTarget() {
+    return this.targets.find(t => t.active)?.damageResult.description ?? ""
+  }
+
   get showAdvancedOptions(): boolean {
     return this._showAdvancedOptions
   }

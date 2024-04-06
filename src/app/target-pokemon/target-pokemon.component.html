@@ -13,6 +13,11 @@
   <div class="error-message-poke-paste">
     <label>{{ errorMessagePokePaste }}</label>
   </div>
+
+  <div class="damage-description">
+    {{ damageDescription() }} <mat-icon class="copy-icon" *ngIf="damageDescription()" (click)="copyDamageResult()">content_copy</mat-icon>
+  </div>
+    
   <div class="target-pokemon">
     <div *ngFor="let target of targets">
       <app-target-pokemon-card [target]="target" [canShowAsActivated]=canShowAsActivated (targetChangedEvent)="targetChanged($event)" (targetRemovedEvent)="targetRemoved($event)"

@@ -54,6 +54,12 @@
   grid-row-gap: 1em;
 }
 
+.damage-description {
+  display: flex;
+  align-items: center;
+  column-gap: 0.5em;
+}
+
 @media only screen and (max-width: 768px) {
   .container {
     border-radius: 0%;

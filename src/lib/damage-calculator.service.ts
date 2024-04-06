@@ -21,7 +21,7 @@ export class DamageCalculatorService {
 
     const result = calculate(gen, attacker.pokemonSmogon, target.pokemonSmogon, moveSmogon, field)
 
-    return new DamageResult(result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result))
+    return new DamageResult(result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), result.desc())
   }
 
   private koChance(result: Result): string {
