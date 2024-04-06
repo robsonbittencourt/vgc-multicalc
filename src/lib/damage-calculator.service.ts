@@ -18,6 +18,7 @@ export class DamageCalculatorService {
     target = this.adjustCommander(target)
 
     this.adjustParadoxAbility(attacker)
+    this.adjustParadoxAbility(target)
 
     const result = calculate(gen, attacker.pokemonSmogon, target.pokemonSmogon, moveSmogon, field)
 
