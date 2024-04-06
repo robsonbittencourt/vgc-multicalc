@@ -21,7 +21,7 @@ export class DamageCalculatorService {
 
     const result = calculate(gen, attacker.pokemonSmogon, target.pokemonSmogon, moveSmogon, field)
 
-    return new DamageResult(result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), result.desc())
+    return new DamageResult(result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescription(result))
   }
 
   private koChance(result: Result): string {
@@ -34,6 +34,15 @@ export class DamageCalculatorService {
 
   private maxPercentageDamage(result: Result): number {
     return +result.moveDesc().substring(result.moveDesc().indexOf("- ") + 1, result.moveDesc().indexOf("%"))
+  }
+
+  private damageDescription(result: Result): string {
+    try {
+      return result.desc()  
+    } catch (error) {
+      
+      return `${result.attacker.name} ${result.move.name} vs. ${result.defender.name}: 0-0 (0 - 0%) -- possibly the worst move ever`
+    }    
   }
 
   private adjustCommander(pokemon: Pokemon): Pokemon {
