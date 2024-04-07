@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, KeyValueDiffer, KeyValueDiffers, Output } from '@angular/core';
+import { MatButtonToggleChange } from '@angular/material/button-toggle';
 import { Field, StatsTable } from '@smogon/calc';
 
 @Component({
@@ -100,6 +101,24 @@ export class FieldComponent {
 
   statsModifiersChanges() {
     this.statsModifiersChangedEvent.emit(this.boosts)
+  }
+
+  toggleChangeWeather(change: MatButtonToggleChange) {
+    const toggle = change.source
+    if(change.value.some((item: any) => item == toggle.value)) {
+      toggle.buttonToggleGroup.value = [change.source.value]
+    }
+    
+    this.field.weather = toggle.buttonToggleGroup.value[0]
+  }
+
+  toggleChangeTerrain(change: MatButtonToggleChange) {
+    const toggle = change.source
+    if(change.value.some((item: any) => item == toggle.value)) {
+      toggle.buttonToggleGroup.value = [change.source.value]
+    }
+    
+    this.field.terrain = toggle.buttonToggleGroup.value[0]
   }
 
 }
