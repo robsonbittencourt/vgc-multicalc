@@ -20,6 +20,9 @@ export class TargetPokemonComponent {
   @Input()
   canShowAsActivated: boolean
 
+  @Input()
+  isAttacker: boolean
+
   @Output() 
   targetAdded = new EventEmitter<any>()
   

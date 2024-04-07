@@ -1,6 +1,7 @@
 <div class="container">
   <div class="header">
-    <span class="title">Attackers</span>
+    <span class="title" *ngIf="isAttacker">Attackers</span>
+    <span class="title" *ngIf="!isAttacker">Defenders</span>
     <li class="form-row">
       <div>
         <input class="poke-paste-input" placeholder="PokePaste Link" type="text" matInput [(ngModel)]="pokePaste">

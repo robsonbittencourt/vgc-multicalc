@@ -5,7 +5,12 @@
       <img class="icon" src="assets/icons/calc.png" />
       <span class="title">VGC Multi Calc</span>
       <div *ngIf="isDesktopDevice()" class="menu">
-        <span>One vs Many</span>
+        <div class="menu-option" [ngStyle]="oneVsManyActivated && { 'background-color': '#e7def6' } || null" (click)="enableOneVsMany()">
+          <span>One vs Many</span>
+        </div>
+        <div class="menu-option" [ngStyle]="manyVsOneActivated && { 'background-color': '#e7def6' } || null" (click)="enableManyVsOne()">
+          <span>Many vs One</span>
+        </div>
       </div>
     </div>
     <div *ngIf="isDesktopDevice()" class="right-header">
@@ -23,7 +28,7 @@
   </div>
 
   <div class="team">
-    <app-team [team]="team" (teamMemberActivatedEvent)="teamMemberActivated($event)"
+    <app-team [team]="team" (teamMemberActivatedEvent)="teamMemberActivated($event)" [isAttacker]="oneVsManyActivated"
      (pokemonChangedEvent)="pokemonChanged($event)" (teamChanged)=teamChanged($event) (pokemonAddedToTeamEvent)=pokemonAddedToTeam()/>
   </div>
 
@@ -34,8 +39,8 @@
   </div> 
 
   <div class="target-pokemon">
-    <app-target-pokemon [targets]="targets" [canShowAsActivated]="canShowTargetAsActivated" (targetChangedEvent)="targetChanged($event)"
-      (allTargetsRemoved)="removeAllTargets()" (targetAdded)="pokemonAddedToTargets()" (targetsAdded)="targetsAdded($event)"
-      (advanceOptionsToggled)="manageAdvancedOptions($event)" (targetActivatedEvent)=targetActivated($event) />
+    <app-target-pokemon [targets]="targets" [canShowAsActivated]="canShowTargetAsActivated" [isAttacker]="manyVsOneActivated" 
+      (targetChangedEvent)="targetChanged($event)" (allTargetsRemoved)="removeAllTargets()" (targetAdded)="pokemonAddedToTargets()"
+      (targetsAdded)="targetsAdded($event)" (advanceOptionsToggled)="manageAdvancedOptions($event)" (targetActivatedEvent)=targetActivated($event) />
   </div>
 </div>

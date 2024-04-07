@@ -1,6 +1,7 @@
 <div class="container">
   <div class="header">
-    <label class="title">Defenders</label>
+    <label class="title" *ngIf="!isAttacker">Defenders</label>
+    <label class="title" *ngIf="isAttacker">Attackers</label>
     <li class="form-row">
       <mat-slide-toggle class="show-advanced-options" color="primary" [(ngModel)]="showAdvancedOptions">Show Advanced Options</mat-slide-toggle>
       <div>

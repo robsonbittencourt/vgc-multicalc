@@ -61,14 +61,26 @@
 }
 
 .menu {
+  display: flex;
+  align-items: center;
+  column-gap: 2em;
   font-size: medium;
   color: rgb(133, 129, 129);
   margin-left: 2em;
   padding: 1em;
+  height: 75%;
 }
 
-.menu:hover {
-  background-color: #e7def6;
+.menu-option:hover {
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.menu-option {
+  display: flex;
+  padding: 0.5em;
+  align-items: center;
+  height: 75%;
 }
 
 .top-commands {

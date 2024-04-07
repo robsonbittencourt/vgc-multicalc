@@ -28,6 +28,8 @@ export class CalculatorComponent {
   activeOnEditPokemon: Pokemon
   activeAttackerPokemon: Pokemon
   canShowTargetAsActivated: boolean
+  oneVsManyActivated: boolean = true
+  manyVsOneActivated: boolean = false
   
   targets: Target[] = []
 
@@ -187,6 +189,20 @@ export class CalculatorComponent {
     this.showAdvancedOptions = showAdvancedOptions
   }
 
+  enableOneVsMany() {
+    this.oneVsManyActivated = true
+    this.manyVsOneActivated = false
+    this.calculateDamageForAll()
+    this.order()
+  }
+
+  enableManyVsOne() {
+    this.manyVsOneActivated = true
+    this.oneVsManyActivated = false
+    this.calculateDamageForAll()
+    this.order()
+  }
+
   private alreadyExists(pokemon: Pokemon): boolean {
     return this.targets.some(target => {
       return target.pokemon.equals(pokemon)
@@ -194,8 +210,13 @@ export class CalculatorComponent {
   }
 
   private calculateDamage(target: Target, criticalHit: boolean = false) {
-    const damageResult = this.damageCalculator.calcDamage(this.activeAttackerPokemon, target.pokemon, this.activeAttackerPokemon.move, this.field, criticalHit)
-    target.setDamageResult(damageResult)
+    if(this.oneVsManyActivated) {
+      const damageResult = this.damageCalculator.calcDamage(this.activeAttackerPokemon, target.pokemon, this.activeAttackerPokemon.move, this.field, criticalHit)
+      target.setDamageResult(damageResult)
+    } else {
+      const damageResult = this.damageCalculator.calcDamage(target.pokemon, this.activeAttackerPokemon, target.pokemon.move, this.field, criticalHit)
+      target.setDamageResult(damageResult)    
+    }
   }
   
   private calculateDamageForAll(criticalHit: boolean = false) {

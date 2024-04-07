@@ -20,6 +20,9 @@ export class TeamComponent {
   @Input() 
   team: TeamMember[]
 
+  @Input()
+  isAttacker: boolean
+
   @Output()
   teamMemberActivatedEvent = new EventEmitter<Pokemon>()
 
