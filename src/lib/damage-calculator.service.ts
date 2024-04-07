@@ -13,6 +13,7 @@ export class DamageCalculatorService {
     const gen = Generations.get(9)
     const moveSmogon = new Move(gen, move)
     moveSmogon.isCrit = criticalHit
+    moveSmogon.isStellarFirstUse = true
 
     attacker = this.adjustCommander(attacker)
     target = this.adjustCommander(target)
