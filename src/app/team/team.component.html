@@ -4,7 +4,7 @@
     <span class="title" *ngIf="!isAttacker">Defenders</span>
     <li class="form-row">
       <div>
-        <input class="poke-paste-input" placeholder="PokePaste Link" type="text" matInput [(ngModel)]="pokePaste">
+        <input class="poke-paste-input" placeholder="PokePaste Link" type="text" matInput (keyup.enter)="addFromPokePaste()" [(ngModel)]="pokePaste">
       </div>
       <button mat-flat-button color="primary" (click)="addFromPokePaste()">Replace with Paste</button>
       <button mat-flat-button color="warn" (click)="removeAll()">Remove all</button>
