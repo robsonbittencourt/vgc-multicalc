@@ -17,18 +17,18 @@
         <mat-button-toggle [checked]="field.isBeadsOfRuin" (change)="field.isBeadsOfRuin = $event.source.checked">Beads Of Ruin (-spd)</mat-button-toggle>
       </mat-button-toggle-group>
 
-      <mat-button-toggle-group multiple (change)="toggleChangeWeather($event)" [(ngModel)]="field.weather" class="button-group">
-        <mat-button-toggle value="Sun">Sun</mat-button-toggle>
-        <mat-button-toggle value="Rain">Rain</mat-button-toggle>
-        <mat-button-toggle value="Sand">Sand</mat-button-toggle>
-        <mat-button-toggle value="Snow">Snow</mat-button-toggle>
+      <mat-button-toggle-group multiple (change)="toggleChangeWeather($event)" class="button-group">
+        <mat-button-toggle [checked]="field.weather == 'Sun'" value="Sun">Sun</mat-button-toggle>
+        <mat-button-toggle [checked]="field.weather == 'Rain'" value="Rain">Rain</mat-button-toggle>
+        <mat-button-toggle [checked]="field.weather == 'Sand'" value="Sand">Sand</mat-button-toggle>
+        <mat-button-toggle [checked]="field.weather == 'Snow'" value="Snow">Snow</mat-button-toggle>
       </mat-button-toggle-group>
 
-      <mat-button-toggle-group multiple (change)="toggleChangeTerrain($event)" [(ngModel)]="field.terrain" class="button-group botton-space">
-        <mat-button-toggle value="Electric">Electric Terrain</mat-button-toggle>
-        <mat-button-toggle value="Grassy">Grassy Terrain</mat-button-toggle>
-        <mat-button-toggle value="Psychic">Psychic Terrain</mat-button-toggle>
-        <mat-button-toggle value="Misty">Misty Terrain</mat-button-toggle>
+      <mat-button-toggle-group multiple (change)="toggleChangeTerrain($event)" class="button-group botton-space">
+        <mat-button-toggle [checked]="field.terrain == 'Electric'" value="Electric">Electric Terrain</mat-button-toggle>
+        <mat-button-toggle [checked]="field.terrain == 'Grassy'" value="Grassy">Grassy Terrain</mat-button-toggle>
+        <mat-button-toggle [checked]="field.terrain == 'Psychic'" value="Psychic">Psychic Terrain</mat-button-toggle>
+        <mat-button-toggle [checked]="field.terrain == 'Misty'" value="Misty">Misty Terrain</mat-button-toggle>
       </mat-button-toggle-group>
 
       <div class="rooms-section">

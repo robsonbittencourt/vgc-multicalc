@@ -105,6 +105,7 @@ export class FieldComponent {
 
   toggleChangeWeather(change: MatButtonToggleChange) {
     const toggle = change.source
+    
     if(change.value.some((item: any) => item == toggle.value)) {
       toggle.buttonToggleGroup.value = [change.source.value]
     }
@@ -114,6 +115,7 @@ export class FieldComponent {
 
   toggleChangeTerrain(change: MatButtonToggleChange) {
     const toggle = change.source
+    
     if(change.value.some((item: any) => item == toggle.value)) {
       toggle.buttonToggleGroup.value = [change.source.value]
     }
