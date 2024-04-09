@@ -211,10 +211,10 @@ export class CalculatorComponent {
 
   private calculateDamage(target: Target, criticalHit: boolean = false) {
     if(this.oneVsManyActivated) {
-      const damageResult = this.damageCalculator.calcDamage(this.activeAttackerPokemon, target.pokemon, this.activeAttackerPokemon.move, this.field, criticalHit)
+      const damageResult = this.damageCalculator.calcDamageForTwoAttackers(this.activeAttackerPokemon, this.team[1].pokemon, target.pokemon, this.field, criticalHit)
       target.setDamageResult(damageResult)
     } else {
-      const damageResult = this.damageCalculator.calcDamage(target.pokemon, this.activeAttackerPokemon, target.pokemon.move, this.field, criticalHit)
+      const damageResult = this.damageCalculator.calcDamage(target.pokemon, this.activeAttackerPokemon, this.field, criticalHit)
       target.setDamageResult(damageResult)    
     }
   }
@@ -253,9 +253,11 @@ export class CalculatorComponent {
 
   private defaultTeam(): TeamMember[] {
     const moveSet = new MoveSet("Moonblast", "Dazzling Gleam", "Shadow Ball", "Thunderbolt")
+    const moveSet2 = new MoveSet("Hydro Steam", "Dazzling Gleam", "Shadow Ball", "Thunderbolt")
 
     return [
-      new TeamMember(new Pokemon("Flutter Mane", "Timid", "Choice Specs", "Protosynthesis", "Fairy", true, { spa: 252 }, moveSet, undefined, undefined), 0, true)
+      new TeamMember(new Pokemon("Flutter Mane", "Timid", "Choice Specs", "Protosynthesis", "Fairy", true, { spa: 252 }, moveSet, undefined, undefined), 0, true),
+      new TeamMember(new Pokemon("Walking Wake", "Timid", "Choice Specs", "Protosynthesis", "Fairy", true, { spa: 252 }, moveSet2, undefined, undefined), 1, false)
     ]
   }
 
