@@ -54,7 +54,7 @@ export class CalculatorComponent {
     const id = uuidv4()
     const userData = this.buildUserDataToUpload()
     axios.put(`https://l7enx1vgm7.execute-api.us-east-1.amazonaws.com/v1/vgc-multi-calc/${id}`, userData)
-    this.userDataLink = `http://localhost:4200/data/${id}`
+    this.userDataLink = `https://vgcmulticalc.com/data/${id}`
     this._snackBar.open("Your calc link has been created!", "", { duration: 4000 });
   }
 
