@@ -44,4 +44,9 @@ export class PokemonCardComponent {
     return null
   }
 
+  addSecondAttacker() {
+    this.teamMember.active = true
+    this.teamMemberActivated.emit(this.teamMember.position)
+  }
+
 }

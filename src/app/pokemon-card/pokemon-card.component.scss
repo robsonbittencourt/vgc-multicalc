@@ -45,3 +45,14 @@
   width: 80px;
   height: 80px;
 }
+
+.pokemon-image-container {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  margin-bottom: -1.0em;
+}
+
+.plus-icon {
+  color: rgba(0, 0, 0, .54);
+}

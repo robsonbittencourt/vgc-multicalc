@@ -211,8 +211,15 @@ export class CalculatorComponent {
 
   private calculateDamage(target: Target, criticalHit: boolean = false) {
     if(this.oneVsManyActivated) {
-      const damageResult = this.damageCalculator.calcDamageForTwoAttackers(this.activeAttackerPokemon, this.team[1].pokemon, target.pokemon, this.field, criticalHit)
-      target.setDamageResult(damageResult)
+      const activeMembers = this.team.filter(t => t.active)
+
+      if(activeMembers.length > 1) {
+        const damageResult = this.damageCalculator.calcDamageForTwoAttackers(activeMembers[0].pokemon, activeMembers[1].pokemon, target.pokemon, this.field, criticalHit)
+        target.setDamageResult(damageResult)  
+      } else {
+        const damageResult = this.damageCalculator.calcDamage(activeMembers[0].pokemon, target.pokemon, this.field, criticalHit)
+        target.setDamageResult(damageResult)
+      }
     } else {
       const damageResult = this.damageCalculator.calcDamage(target.pokemon, this.activeAttackerPokemon, this.field, criticalHit)
       target.setDamageResult(damageResult)    

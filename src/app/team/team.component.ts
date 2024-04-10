@@ -53,7 +53,7 @@ export class TeamComponent {
   teamMemberActivated(position: number) {
     this.team.forEach(teamMember => {
       if (teamMember.position != position) {
-        teamMember.active = false
+        // teamMember.active = false
       }
     })
 
