@@ -15,7 +15,8 @@
   </div>
   <div class="cards">
     <div *ngFor="let teamMember of team">
-      <app-pokemon-card [teamMember]="teamMember" (teamMemberActivated)="teamMemberActivated($event)"
+      <app-pokemon-card [teamMember]="teamMember" [canSelectSecondPokemon]="canSelectSecondPokemon()"
+        (teamMemberActivated)="teamMemberActivated($event)" (secondTeamMemberActivated)="secondTeamMemberActivated($event)"
         (pokemonRemoved)="pokemonRemoved($event)" />
     </div>
     <app-add-pokemon-card *ngIf="!selectPokemonActive() && team.length < 6" (pokemonAddedToTeam)=pokemonAddedToTeam()/>

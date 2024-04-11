@@ -9,9 +9,24 @@ import { Pokemon } from './pokemon';
 })
 export class DamageCalculatorService {
 
-  calcDamage(attacker: Pokemon, target: Pokemon, move: string, field: Field, criticalHit: boolean = false): DamageResult {
+  ZERO_RESULT_DAMAGE = Array(16).fill(0)
+
+  calcDamage(attacker: Pokemon, target: Pokemon, field: Field, criticalHit: boolean = false): DamageResult {
+    const result = this.calculateResult(attacker, target, field, criticalHit)
+    return new DamageResult(result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescription(result))
+  }
+
+  calcDamageForTwoAttackers(attacker: Pokemon, secondAttacker: Pokemon, target: Pokemon, field: Field, criticalHit: boolean = false): DamageResult {
+    const result = this.calculateResult(attacker, target, field, criticalHit)
+    const secondResult = this.calculateResult(secondAttacker, target, field, criticalHit)
+    result.damage = this.sumDamageResult(result, secondResult)
+
+    return new DamageResult(result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescription(result))
+  }
+
+  private calculateResult(attacker: Pokemon, target: Pokemon, field: Field, criticalHit: boolean) {
     const gen = Generations.get(9)
-    const moveSmogon = new Move(gen, move)
+    const moveSmogon = new Move(gen, attacker.move)
     moveSmogon.isCrit = criticalHit
     moveSmogon.isStellarFirstUse = true
 
@@ -23,7 +38,19 @@ export class DamageCalculatorService {
 
     const result = calculate(gen, attacker.pokemonSmogon, target.pokemonSmogon, moveSmogon, field)
 
-    return new DamageResult(result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescription(result))
+    if(!result.damage) {
+      result.damage = this.ZERO_RESULT_DAMAGE
+      return result
+    }
+
+    return calculate(gen, attacker.pokemonSmogon, target.pokemonSmogon, moveSmogon, field)
+  }
+
+  private sumDamageResult(result: Result, secondResult: Result): number[] {
+    const firstDamage = result.damage as number[]
+    const secondDamage = secondResult.damage as number[]
+
+    return firstDamage.map((num, idx) => num + secondDamage[idx])
   }
 
   private koChance(result: Result): string {

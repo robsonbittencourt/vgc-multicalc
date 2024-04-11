@@ -27,6 +27,9 @@ export class TeamComponent {
   teamMemberActivatedEvent = new EventEmitter<Pokemon>()
 
   @Output()
+  secondTeamMemberDeactivatedEvent = new EventEmitter<any>()
+
+  @Output()
   pokemonChangedEvent = new EventEmitter<Pokemon>()
 
   @Output() 
@@ -51,6 +54,10 @@ export class TeamComponent {
   }
   
   teamMemberActivated(position: number) {
+    if(this.team[position].active) return
+
+    this.team[position].active = true
+
     this.team.forEach(teamMember => {
       if (teamMember.position != position) {
         teamMember.active = false
@@ -58,6 +65,23 @@ export class TeamComponent {
     })
 
     this.teamMemberActivatedEvent.emit(this.team[position].pokemon)
+  }
+
+  secondTeamMemberActivated(position: number) {
+    const teamMember = this.team[position]
+    if(teamMember.active && this.canSelectSecondPokemon()) return
+
+    if(teamMember.active) {
+      teamMember.active = false
+      this.secondTeamMemberDeactivatedEvent.emit()
+    } else {
+      teamMember.active = true
+      this.teamMemberActivatedEvent.emit(teamMember.pokemon)
+    }    
+  }
+
+  canSelectSecondPokemon(): boolean {
+    return this.team.filter(t => t.active).length == 1
   }
 
   pokemonRemoved(position: number) {

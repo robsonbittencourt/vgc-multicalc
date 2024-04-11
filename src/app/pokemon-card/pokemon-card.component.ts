@@ -11,8 +11,14 @@ export class PokemonCardComponent {
   @Input() 
   teamMember: TeamMember
 
+  @Input()
+  canSelectSecondPokemon: boolean
+
   @Output() 
   teamMemberActivated = new EventEmitter<number>()
+
+  @Output() 
+  secondTeamMemberActivated = new EventEmitter<number>()
 
   @Output() 
   pokemonRemoved = new EventEmitter<number>()
@@ -20,7 +26,6 @@ export class PokemonCardComponent {
   commanderActivated = false
 
   activate() {
-    this.teamMember.active = true
     this.teamMemberActivated.emit(this.teamMember.position)
   }
 
@@ -42,6 +47,11 @@ export class PokemonCardComponent {
     }
 
     return null
+  }
+
+  addSecondAttacker(event: Event) {
+    event.stopPropagation()
+    this.secondTeamMemberActivated.emit(this.teamMember.position)
   }
 
 }

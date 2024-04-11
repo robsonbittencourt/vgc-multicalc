@@ -6,10 +6,10 @@
       <span class="title">VGC Multi Calc</span>
       <div *ngIf="isDesktopDevice()" class="menu">
         <div class="menu-option" [ngStyle]="oneVsManyActivated && { 'background-color': '#e7def6' } || null" (click)="enableOneVsMany()">
-          <span>One vs Many</span>
+          <span>Team vs Many</span>
         </div>
         <div class="menu-option" [ngStyle]="manyVsOneActivated && { 'background-color': '#e7def6' } || null" (click)="enableManyVsOne()">
-          <span>Many vs One</span>
+          <span>Many vs Team</span>
         </div>
       </div>
     </div>
@@ -28,7 +28,7 @@
   </div>
 
   <div class="team">
-    <app-team [team]="team" (teamMemberActivatedEvent)="teamMemberActivated($event)" [isAttacker]="oneVsManyActivated"
+    <app-team [team]="team" [isAttacker]="oneVsManyActivated" (teamMemberActivatedEvent)="teamMemberActivated($event)" (secondTeamMemberDeactivatedEvent)="secondTeamMemberDeactivated()" 
      (pokemonChangedEvent)="pokemonChanged($event)" (teamChanged)=teamChanged($event) (pokemonAddedToTeamEvent)=pokemonAddedToTeam()/>
   </div>
 
@@ -39,7 +39,7 @@
   </div> 
 
   <div class="target-pokemon">
-    <app-target-pokemon [targets]="targets" [canShowAsActivated]="canShowTargetAsActivated" [isAttacker]="manyVsOneActivated" 
+    <app-target-pokemon [targets]="targets" [canShowAsActivated]="canShowTargetAsActivated" [canShowDamageDescription]="canShowDamageDescription()" [isAttacker]="manyVsOneActivated" 
       (targetChangedEvent)="targetChanged($event)" (allTargetsRemoved)="removeAllTargets()" (targetAdded)="pokemonAddedToTargets()"
       (targetsAdded)="targetsAdded($event)" (advanceOptionsToggled)="manageAdvancedOptions($event)" (targetActivatedEvent)=targetActivated($event) />
   </div>

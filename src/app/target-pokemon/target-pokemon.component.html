@@ -15,7 +15,7 @@
     <label>{{ errorMessagePokePaste }}</label>
   </div>
 
-  <div class="damage-description">
+  <div *ngIf="canShowDamageDescription" class="damage-description">
     <div>{{ damageDescription() }}</div>
     <div><mat-icon class="copy-icon" *ngIf="damageDescription()" (click)="copyDamageResult()">content_copy</mat-icon></div>
   </div>
