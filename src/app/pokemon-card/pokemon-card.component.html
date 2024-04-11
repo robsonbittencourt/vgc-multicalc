@@ -9,8 +9,8 @@
     <mat-card-subtitle class="mat-small" *ngIf="!teamMember.pokemon.isDefault()">Move: {{ teamMember.pokemon.move }}</mat-card-subtitle>
     <div class="card-container">
       <div class="pokemon-image-container">
-        <mat-icon *ngIf="!teamMember.active && canSelectSecondPokemon" class="plus-icon" (click)="addSecondAttacker($event)">check_circle_outline</mat-icon>
-        <mat-icon *ngIf="teamMember.active" class="plus-icon" (click)="addSecondAttacker($event)">check_circle</mat-icon>
+        <mat-icon *ngIf="!teamMember.pokemon.isDefault() && !teamMember.active && canSelectSecondPokemon" class="plus-icon" (click)="addSecondAttacker($event)">check_circle_outline</mat-icon>
+        <mat-icon *ngIf="!teamMember.pokemon.isDefault() && teamMember.active" class="plus-icon" (click)="addSecondAttacker($event)">check_circle</mat-icon>
         <img *ngIf="teamMember.pokemon.isDefault()" class="pokemon-image" mat-card-md-image src='assets/icons/question.png'>
         <img *ngIf="!teamMember.pokemon.isDefault()" class="pokemon-image" mat-card-md-image src='https://img.pokemondb.net/sprites/home/normal/{{ teamMember.pokemon.spriteName }}.png'>
       </div>
