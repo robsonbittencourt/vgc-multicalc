@@ -24,7 +24,9 @@ export class CalculatorComponent {
   ) {}
 
   team: TeamMember[]
-  field: Field
+  field: Field = new Field({
+    gameType: 'Doubles'
+  })
   activeOnEditPokemon: Pokemon
   activeAttackerPokemon: Pokemon
   oneVsManyActivated: boolean = true

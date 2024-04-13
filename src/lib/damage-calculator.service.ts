@@ -17,8 +17,10 @@ export class DamageCalculatorService {
   }
 
   calcDamageForTwoAttackers(attacker: Pokemon, secondAttacker: Pokemon, target: Pokemon, field: Field, criticalHit: boolean = false): DamageResult {
-    const result = this.calculateResult(attacker, target, field, criticalHit)
-    const secondResult = this.calculateResult(secondAttacker, target, field, criticalHit)
+    const adjustedField = this.adjustFieldToRuins(field, attacker, secondAttacker)
+    
+    const result = this.calculateResult(attacker, target, adjustedField, criticalHit)
+    const secondResult = this.calculateResult(secondAttacker, target, adjustedField, criticalHit)
     result.damage = this.sumDamageResult(result, secondResult)
 
     return new DamageResult(result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescription(result))
@@ -91,6 +93,28 @@ export class DamageCalculatorService {
     } else {
       pokemon.pokemonSmogon.boostedStat = undefined
     }
+  }
+
+  private adjustFieldToRuins(field: Field, attacker: Pokemon, secondAttacker: Pokemon): Field {
+    const adjustedField = field.clone()
+    
+    if(attacker.ability == "Tablets Of Ruin" || attacker.ability == "Tablets Of Ruin") {
+      adjustedField.isTabletsOfRuin = true
+    }
+
+    if(attacker.ability == "Sword Of Ruin" || attacker.ability == "Sword Of Ruin") {
+      adjustedField.isSwordOfRuin = true
+    }
+
+    if(attacker.ability == "Vessel Of Ruin" || attacker.ability == "Vessel Of Ruin") {
+      adjustedField.isVesselOfRuin = true
+    }
+
+    if(attacker.ability == "Beads of Ruin" || attacker.ability == "Beads of Ruin") {
+      adjustedField.isBeadsOfRuin = true
+    }
+
+    return adjustedField
   }
 
   private higherStat(pokemon: Pokemon): StatIDExceptHP {
