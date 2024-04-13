@@ -29,7 +29,7 @@
 
   <div class="team">
     <app-team [team]="team" [isAttacker]="oneVsManyActivated" (teamMemberActivatedEvent)="teamMemberActivated($event)" (secondTeamMemberDeactivatedEvent)="secondTeamMemberDeactivated()" 
-     (pokemonChangedEvent)="pokemonChanged($event)" (teamChanged)=teamChanged($event) (pokemonAddedToTeamEvent)=pokemonAddedToTeam()/>
+     (teamChanged)=teamChanged($event) (pokemonAddedToTeamEvent)=pokemonAddedToTeam()/>
   </div>
 
   <div class="field" *ngIf="showAdvancedOptions">

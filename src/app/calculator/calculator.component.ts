@@ -120,13 +120,6 @@ export class CalculatorComponent {
     this.calculateDamage(target)
   }
 
-  pokemonChanged(pokemon: Pokemon) {
-    this.activeOnEditPokemon = pokemon
-    this.activeAttackerPokemon = pokemon
-    this.calculateDamageForAll()
-    this.order()
-  }
-
   pokemonOnEditChanged() {
     this.calculateDamageForAll()
       

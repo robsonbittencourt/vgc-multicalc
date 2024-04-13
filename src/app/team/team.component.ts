@@ -12,8 +12,6 @@ import { TeamMember } from 'src/lib/team-member';
 })
 export class TeamComponent {
 
-  private differ: KeyValueDiffer<string, any>
-  private activePokemon: Pokemon
   pokePaste = ""
   errorMessagePokePaste: string = ""
 
@@ -29,30 +27,14 @@ export class TeamComponent {
   @Output()
   secondTeamMemberDeactivatedEvent = new EventEmitter<any>()
 
-  @Output()
-  pokemonChangedEvent = new EventEmitter<Pokemon>()
-
   @Output() 
   teamChanged = new EventEmitter<TeamMember[]>()
 
   @Output()
   pokemonAddedToTeamEvent = new EventEmitter<any>()
 
-  constructor(private pokePasteService: PokePasteParserService, private differs: KeyValueDiffers, private _snackBar: MatSnackBar) {}
+  constructor(private pokePasteService: PokePasteParserService, private _snackBar: MatSnackBar) {}
 
-  ngOnInit() {
-    this.activePokemon = this.team.find(t => t.active)!.pokemon
-    this.differ = this.differs.find(this.activePokemon).create()
-  }
-
-  ngDoCheck() {
-    const changed = this.differ.diff(this.activePokemon)
-    
-    if (changed) {
-      this.pokemonChangedEvent.emit(this.activePokemon)
-    }
-  }
-  
   teamMemberActivated(position: number) {
     this.team[position].active = true
 
