@@ -33,7 +33,7 @@
   </div>
 
   <div class="field" *ngIf="showAdvancedOptions">
-    <app-field (fieldChangedEvent)="fieldChanged($event)" [criticalHit]="criticalHit" (criticalHitChangedEvent)="criticalHitChanged($event)"/>
+    <app-field (fieldChangedEvent)="fieldChanged($event)" [field]="field" [criticalHit]="criticalHit" (criticalHitChangedEvent)="criticalHitChanged($event)"/>
   </div> 
 
   <div class="target-pokemon">

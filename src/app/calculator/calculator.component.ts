@@ -280,14 +280,14 @@ export class CalculatorComponent {
   }
 
   private buildFieldFromUserData(userData: any): Field {
-    //TODO
-    return new Field()
+    return new Field({ ...userData.data.field })
   }
 
   private buildTeamFromUserData(userData: any): TeamMember[] {
     return userData.data.team.map((teamMember: any) => {
       const pokemon = teamMember.pokemon as Pokemon
       const moveSet = new MoveSet(teamMember.pokemon.moveSet[0], teamMember.pokemon.moveSet[1], teamMember.pokemon.moveSet[2], teamMember.pokemon.moveSet[3])
+      moveSet.activeMoveStorage = teamMember.pokemon.activeMove
       return new TeamMember(new Pokemon(pokemon.name, pokemon.nature, pokemon.item, pokemon.ability, pokemon.teraType, pokemon.teraTypeActive, pokemon.evs, moveSet, pokemon.boosts, pokemon.status), teamMember.position, teamMember.active)
     })
   }
@@ -297,6 +297,7 @@ export class CalculatorComponent {
     return userData.data.targets.map((target: any) => {
       const pokemon = target.pokemon as Pokemon
       const moveSet = new MoveSet(target.pokemon.moveSet[0], target.pokemon.moveSet[1], target.pokemon.moveSet[2], target.pokemon.moveSet[3])
+      moveSet.activeMoveStorage = target.pokemon.activeMove
       const newTarget = new Target(new Pokemon(pokemon.name, pokemon.nature, pokemon.item, pokemon.ability, pokemon.teraType, pokemon.teraTypeActive, pokemon.evs, moveSet, pokemon.boosts, pokemon.status), position)
       position++
       
@@ -338,6 +339,7 @@ export class CalculatorComponent {
       "evs": pokemon.evs,
       "status": pokemon.status,
       "boosts": pokemon.boosts,
+      "activeMove": pokemon.moveSet.activeMove,
       "moveSet": [
         pokemon.moveSet.move1,
         pokemon.moveSet.move2,

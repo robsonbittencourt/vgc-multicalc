@@ -10,6 +10,9 @@ import { Field } from '@smogon/calc';
 export class FieldComponent {
 
   @Input()
+  field: Field
+
+  @Input()
   criticalHit: boolean
 
   @Output() 
@@ -18,15 +21,13 @@ export class FieldComponent {
   @Output() 
   criticalHitChangedEvent = new EventEmitter<boolean>();
 
-  field = new Field({
-    gameType: 'Doubles'
-  })
-
   private differField: KeyValueDiffer<string, any>
   private differFieldAttacker: KeyValueDiffer<string, any>
   private differFieldDefender: KeyValueDiffer<string, any>
   
-  constructor(private differs: KeyValueDiffers,  private differsFieldAttacker: KeyValueDiffers, private differsFieldDefender: KeyValueDiffers) {
+  constructor(private differs: KeyValueDiffers,  private differsFieldAttacker: KeyValueDiffers, private differsFieldDefender: KeyValueDiffers) {}
+
+  ngOnInit() {
     this.differField = this.differs.find(this.field).create()
     this.differFieldAttacker = this.differsFieldAttacker.find(this.field.attackerSide).create()
     this.differFieldDefender = this.differsFieldDefender.find(this.field.defenderSide).create()
