@@ -1,7 +1,7 @@
 .container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 67px minmax(440px, 1fr);
+  grid-template-rows: 67px minmax(475px, 1fr);
   grid-column-gap: 1em;
   row-gap: 1em;
   background-color: rgb(252, 248, 248);

@@ -41,7 +41,7 @@
 .cards {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-auto-rows: minmax(170px, 1fr);
+  grid-auto-rows: minmax(185px, 1fr);
   grid-column-gap: 1em;
   grid-row-gap: 1em;
   margin: 1em 0em 0 0em;
