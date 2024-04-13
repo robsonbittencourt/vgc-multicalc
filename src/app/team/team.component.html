@@ -1,7 +1,7 @@
 <div class="container">
   <div class="header">
-    <span class="title" *ngIf="isAttacker">Attackers</span>
-    <span class="title" *ngIf="!isAttacker">Defenders</span>
+    <span class="title" *ngIf="isAttacker">Attackers - Your Team</span>
+    <span class="title" *ngIf="!isAttacker">Defenders - Your Team</span>
     <li class="form-row">
       <div>
         <input class="poke-paste-input" placeholder="PokePaste Link" type="text" matInput (keyup.enter)="addFromPokePaste()" [(ngModel)]="pokePaste">
