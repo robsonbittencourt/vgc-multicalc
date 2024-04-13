@@ -21,7 +21,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AppComponent } from './app.component';
 import { MainPokemonComponent } from './main-pokemon/main-pokemon.component';
 import { TargetPokemonComponent } from './target-pokemon/target-pokemon.component';
-import { TargetPokemonCardComponent } from './target-pokemon-card/target-pokemon-card.component';
 import { FieldComponent } from './field/field.component';
 import { EvSliderComponent } from './ev-slider/ev-slider.component';
 import { InputAutocompleteComponent } from './input-autocomplete/input-autocomplete.component';
@@ -38,7 +37,6 @@ import { NotFoundPageComponent } from './not-found-page/not-found-page.component
     AppComponent,
     MainPokemonComponent,
     TargetPokemonComponent,
-    TargetPokemonCardComponent,
     FieldComponent,
     EvSliderComponent,
     InputAutocompleteComponent,
