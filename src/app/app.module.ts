@@ -16,6 +16,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { AppComponent } from './app.component';
 import { MainPokemonComponent } from './main-pokemon/main-pokemon.component';
@@ -64,7 +65,8 @@ import { NotFoundPageComponent } from './not-found-page/not-found-page.component
     MatChipsModule,
     MatSlideToggleModule,
     AppRoutingModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]
