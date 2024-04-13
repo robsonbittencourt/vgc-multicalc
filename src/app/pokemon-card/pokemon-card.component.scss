@@ -8,9 +8,25 @@
 
 .card-container {
   display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.card-left-side {
+  display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  row-gap: 1.5em;
+  justify-content: space-between;
+  height: 100%;  
+}
+
+.card-right-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 100%;  
 }
 
 .icon-button {
@@ -23,16 +39,12 @@
   cursor: not-allowed;
 }
 
-.delete-button-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  height: 100%;
-  width: 100%;
-  margin-top: 1em;
+.icon-button .icon-tatsugiri {
+  height: 22px;
 }
 
-.icon-button .icon-tatsugiri {
+.icon-button .icon-tera {
+  width: 20px;
   height: 22px;
 }
 
@@ -56,9 +68,19 @@
 .plus-icon {
   z-index: 1;
   color: #8544ee;
+  display: block;
+  height: 20px;
 }
 
 .plus-icon:hover {
   cursor: pointer;
   font-weight: 600;
+}
+
+.ko-chance {
+  display: inline-block;
+}
+
+.ko-chance::first-letter {
+  text-transform: uppercase;
 }

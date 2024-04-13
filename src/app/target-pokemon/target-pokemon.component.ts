@@ -18,9 +18,6 @@ export class TargetPokemonComponent {
   targets: Target[]
 
   @Input()
-  canShowAsActivated: boolean
-
-  @Input()
   isAttacker: boolean
 
   @Input()
@@ -44,6 +41,9 @@ export class TargetPokemonComponent {
   @Output()
   targetActivatedEvent = new EventEmitter<Target>()
 
+  @Output()
+  secondTargetDeactivatedEvent = new EventEmitter<any>()
+
   pokePaste = ""
   errorMessagePokePaste: string = ""
   _showAdvancedOptions = false  
@@ -52,23 +52,32 @@ export class TargetPokemonComponent {
     this.targetChangedEvent.emit(target)
   }
 
-  targetActivated(target: Target) {
+  targetActivated(position: number) {
+    const target = this.targets.find(t => t.position == position)!
+    
+    if(!target.active) {
+      target.active = true
+
+      this.targets.forEach(t => {
+        if (t.position != position) {
+          t.active = false
+        }
+      })
+    }        
+    
     this.targetActivatedEvent.emit(target)
   }
 
-  targetRemoved(target: Target) {
+  targetRemoved(position: number) {
+    const target = this.targets.find(t => t.position == position)!
     const index = this.targets.findIndex(t => t.pokemon.equals(target.pokemon))
-        
-    if (target.active && this.targets.length > 1) {
-      this.targetActivated(this.targets[index + 1])
-    }
-
+    
     this.targets.splice(index, 1)
   }
 
   removeAll() {
     const pokemon = new Pokemon("Togepi", "Relaxed", "Leftovers", "Hustle", "Normal", false, {}, new MoveSet(""))
-    this.targets = [new Target(pokemon)]
+    this.targets = [new Target(pokemon, 0)]
     this.allTargetsRemoved.emit()
   }
 
@@ -76,9 +85,15 @@ export class TargetPokemonComponent {
     try {
       this.errorMessagePokePaste = ""
       const pokemonList = await this.pokePasteService.parseFromPokePaste(this.pokePaste)
-      const targets = pokemonList.map(pokemon => new Target(pokemon))
-      this.targetsAdded.emit(targets)
+      const targets = []
+      
+      for (let index = 0; index < pokemonList.length; index++) {
+        const pokemon = pokemonList[index]
+        const position = this.targets.length + index + 1
+        targets.push(new Target(pokemon, position))        
+      }
 
+      this.targetsAdded.emit(targets)
       this._snackBar.open("Pokémon from PokePaste added!", "", { duration: 4000 });
     } catch(ex) {
       this.errorMessagePokePaste = "Invalid Poke paste. Check if it is the version with EVs"
@@ -94,21 +109,32 @@ export class TargetPokemonComponent {
   selectPokemonActive(): boolean {
     return this.targets.find(t => t.pokemon.isDefault()) != null
   }
-
-  damageDescription(): string {
-    if(this.canShowAsActivated) {
-      return this.damageDescriptionFromActiveTarget()
-    }
-
-    return ""
+  
+  damageDescription() {
+    return this.targets.find(t => t.active)?.damageResult.description ?? ""
   }
 
   copyDamageResult() {
-    navigator.clipboard.writeText(this.damageDescriptionFromActiveTarget())
+    navigator.clipboard.writeText(this.damageDescription())
+  }
+  
+  canSelectSecondPokemon(): boolean {
+    const onlyOneActive = this.targets.filter(t => t.active).length == 1
+    return this.isAttacker && onlyOneActive
   }
 
-  damageDescriptionFromActiveTarget() {
-    return this.targets.find(t => t.active)?.damageResult.description ?? ""
+  secondTargetActivated(position: number) {
+    const target = this.targets.find(t => t.position == position)!
+
+    if(target.active && this.canSelectSecondPokemon()) return
+
+    if(target.active) {
+      target.active = false
+      this.secondTargetDeactivatedEvent.emit()
+    } else {
+      target.active = true
+      this.targetActivatedEvent.emit(target)
+    }    
   }
 
   get showAdvancedOptions(): boolean {

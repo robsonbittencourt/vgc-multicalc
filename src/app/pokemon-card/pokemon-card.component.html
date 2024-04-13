@@ -1,28 +1,42 @@
 <mat-card (click)="activate()" class="card" [ngStyle]="cardStyle()">
-  <mat-card-title-group>
-    <mat-card-title>{{ teamMember.pokemon.displayName }}</mat-card-title>
-    <mat-card-subtitle class="mat-small" *ngIf="!teamMember.pokemon.isDefault()">Item: {{ teamMember.pokemon.item }}</mat-card-subtitle>
-    <mat-card-subtitle class="mat-small" *ngIf="!teamMember.pokemon.isDefault()">Nature: {{ teamMember.pokemon.nature }}</mat-card-subtitle>
-    <mat-card-subtitle class="mat-small" *ngIf="!teamMember.pokemon.isDefault()">Ability: {{ teamMember.pokemon.displayAbility }}</mat-card-subtitle>
-    <mat-card-subtitle class="mat-small" *ngIf="!teamMember.pokemon.isDefault()">{{ teamMember.pokemon.evsDescription() }}</mat-card-subtitle>
-    <mat-card-subtitle class="mat-small" *ngIf="!teamMember.pokemon.isDefault() && teamMember.pokemon.teraTypeActive">Terastalyzed as {{ teamMember.pokemon.teraType }} type</mat-card-subtitle>
-    <mat-card-subtitle class="mat-small" *ngIf="!teamMember.pokemon.isDefault()">Move: {{ teamMember.pokemon.move }}</mat-card-subtitle>
-    <div class="card-container">
+  <div class="card-container">
+    <div class="card-left-side">
+      <mat-card-title-group>
+        <mat-card-title>{{ teamMember.pokemon.displayName }}</mat-card-title>
+        <mat-card-subtitle *ngIf="!teamMember.pokemon.isDefault()">Item: {{ teamMember.pokemon.item }}</mat-card-subtitle>
+        <mat-card-subtitle *ngIf="!teamMember.pokemon.isDefault()">Nature: {{ teamMember.pokemon.nature }}</mat-card-subtitle>
+        <mat-card-subtitle *ngIf="!teamMember.pokemon.isDefault()">Ability: {{ teamMember.pokemon.displayAbility }}</mat-card-subtitle>
+        <mat-card-subtitle *ngIf="!teamMember.pokemon.isDefault()">{{ teamMember.pokemon.evsDescription() }}</mat-card-subtitle>
+        <mat-card-subtitle *ngIf="!teamMember.pokemon.isDefault() && teamMember.pokemon.teraTypeActive">Terastalyzed as {{ teamMember.pokemon.teraType }} type</mat-card-subtitle>
+        <mat-card-subtitle *ngIf="!teamMember.pokemon.isDefault()">Move: {{ teamMember.pokemon.move }}</mat-card-subtitle>
+      </mat-card-title-group>
+      <div *ngIf="teamMember.damageResult && !teamMember.pokemon.isDefault()">
+        <br>Damage: {{ teamMember.damageResult.result }}
+        <br><label class="ko-chance">{{ teamMember.damageResult.koChance }}</label>
+      </div>
+    </div>
+    <div class="card-right-side">
       <div class="pokemon-image-container">
-        <mat-icon *ngIf="!teamMember.pokemon.isDefault() && !teamMember.active && canSelectSecondPokemon" class="plus-icon" (click)="addSecondAttacker($event)">check_circle_outline</mat-icon>
-        <mat-icon *ngIf="!teamMember.pokemon.isDefault() && teamMember.active" class="plus-icon" (click)="addSecondAttacker($event)">check_circle</mat-icon>
+        <div class="plus-icon">
+          <mat-icon *ngIf="!teamMember.pokemon.isDefault() && !teamMember.active && canSelectSecondPokemon" (click)="addSecondAttacker($event)">check_circle_outline</mat-icon>
+          <mat-icon *ngIf="!teamMember.pokemon.isDefault() && teamMember.active" (click)="addSecondAttacker($event)">check_circle</mat-icon>
+        </div>
         <img *ngIf="teamMember.pokemon.isDefault()" class="pokemon-image" mat-card-md-image src='assets/icons/question.png'>
         <img *ngIf="!teamMember.pokemon.isDefault()" class="pokemon-image" mat-card-md-image src='https://img.pokemondb.net/sprites/home/normal/{{ teamMember.pokemon.spriteName }}.png'>
       </div>
-      <div class="delete-button-container">
+      <div>
         <button class="icon-button" [ngStyle]="!teamMember.active && { 'pointer-events': 'none' } || null" (click)="toogleCommanderAbility()" *ngIf="teamMember.pokemon.name == 'Dondozo'">
           <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly.png" *ngIf="commanderActivated" />
           <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly-gray.png" *ngIf="!commanderActivated" />
+        </button>
+        <button class="icon-button" (click)="terastalyzePokemon()" *ngIf="teamMember.pokemon.teraTypeStorage && !teamMember.pokemon.isDefault()">
+          <img class="icon-tera" src="assets/icons/tera-icon.png" *ngIf="teamMember.pokemon.teraTypeActive" />
+          <img class="icon-tera" src="assets/icons/tera-icon-gray.png" *ngIf="!teamMember.pokemon.teraTypeActive" />
         </button>
         <button class="icon-button" (click)="removePokemon()">
           <img class="icon-trash" src="assets/icons/trash.png"/>
         </button>
       </div>
     </div>
-  </mat-card-title-group>
+  </div>
 </mat-card>

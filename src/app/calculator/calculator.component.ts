@@ -27,7 +27,6 @@ export class CalculatorComponent {
   field: Field
   activeOnEditPokemon: Pokemon
   activeAttackerPokemon: Pokemon
-  canShowTargetAsActivated: boolean
   oneVsManyActivated: boolean = true
   manyVsOneActivated: boolean = false
   
@@ -43,7 +42,6 @@ export class CalculatorComponent {
 
     this.activeOnEditPokemon = this.team.find(t => t.active)!.pokemon
     this.activeAttackerPokemon = this.activeOnEditPokemon
-    this.canShowTargetAsActivated = false
   }
 
   isDesktopDevice(): boolean {
@@ -65,9 +63,6 @@ export class CalculatorComponent {
   teamMemberActivated(pokemon: Pokemon) {
     this.activeOnEditPokemon = pokemon
     this.activeAttackerPokemon = this.activeOnEditPokemon
-    
-    this.canShowTargetAsActivated = false
-    this.targets.forEach(t => t.active = false)
   }
 
   secondTeamMemberDeactivated() {
@@ -78,11 +73,14 @@ export class CalculatorComponent {
   }
 
   targetActivated(target: Target) {
-    this.targets.forEach(t => t.active = false)
-    target.active = true
-
     this.activeOnEditPokemon = target.pokemon
-    this.canShowTargetAsActivated = true
+  }
+
+  secondTargetDeactivated() {
+    this.activeOnEditPokemon = this.targets.find(t => t.active)?.pokemon!
+    this.activeAttackerPokemon = this.activeOnEditPokemon
+    this.calculateDamageForAll()
+    this.order()
   }
 
   teamChanged(team: TeamMember[]) {
@@ -111,7 +109,8 @@ export class CalculatorComponent {
 
   pokemonAddedToTargets() {
     const pokemon = new Pokemon("Togepi", "Relaxed", "Leftovers", "Hustle", "Normal", false, {}, new MoveSet(""))
-    const target = new Target(pokemon)
+    const position = this.targets.length
+    const target = new Target(pokemon, position)
     this.targets.push(target)
     this.targetActivated(target)
 
@@ -209,7 +208,9 @@ export class CalculatorComponent {
   }
 
   canShowDamageDescription(): boolean {
-    return this.team.filter(t => t.active).length == 1
+    const hasOneTeamMemberActive = this.team.filter(t => t.active && !t.pokemon.isDefault()).length == 1
+    const notHaveTwoTargetsActive = this.targets.filter(t => t.active).length < 2
+    return hasOneTeamMemberActive && notHaveTwoTargetsActive
   }
 
   private alreadyExists(pokemon: Pokemon): boolean {
@@ -220,17 +221,34 @@ export class CalculatorComponent {
 
   private calculateDamage(target: Target, criticalHit: boolean = false) {
     if(this.oneVsManyActivated) {
-      const activeMembers = this.team.filter(t => t.active)
-
-      if(activeMembers.length > 1) {
-        const damageResult = this.damageCalculator.calcDamageForTwoAttackers(activeMembers[0].pokemon, activeMembers[1].pokemon, target.pokemon, this.field, criticalHit)
-        target.setDamageResult(damageResult)  
-      } else {
-        const damageResult = this.damageCalculator.calcDamage(activeMembers[0].pokemon, target.pokemon, this.field, criticalHit)
-        target.setDamageResult(damageResult)
-      }
+      this.calculateDamageOneVsMany(target, criticalHit)
     } else {
-      const damageResult = this.damageCalculator.calcDamage(target.pokemon, this.activeAttackerPokemon, this.field, criticalHit)
+      this.calculateDamageManyVsOne(target, criticalHit)      
+    }
+  }
+
+  private calculateDamageOneVsMany(target: Target, criticalHit: boolean) {
+    const activeMembers = this.team.filter(t => t.active)
+
+    if(activeMembers.length > 1) {
+      const damageResult = this.damageCalculator.calcDamageForTwoAttackers(activeMembers[0].pokemon, activeMembers[1].pokemon, target.pokemon, this.field, criticalHit)
+      target.setDamageResult(damageResult)  
+    } else {
+      const damageResult = this.damageCalculator.calcDamage(activeMembers[0].pokemon, target.pokemon, this.field, criticalHit)
+      target.setDamageResult(damageResult)
+    }
+  }
+
+  private calculateDamageManyVsOne(target: Target, criticalHit: boolean) {
+    const activeTargets = this.targets.filter(t => t.active)
+    const activeTeamMember = this.team.filter(t => t.active)[0].pokemon
+
+    if(activeTargets.length > 1 && target.active) {
+      const damageResult = this.damageCalculator.calcDamageForTwoAttackers(activeTargets[0].pokemon, activeTargets[1].pokemon, activeTeamMember, this.field, criticalHit)
+      activeTargets[0].setDamageResult(damageResult)
+      activeTargets[1].setDamageResult(damageResult)  
+    } else {
+      const damageResult = this.damageCalculator.calcDamage(target.pokemon, activeTeamMember, this.field, criticalHit)
       target.setDamageResult(damageResult)    
     }
   }
@@ -277,21 +295,25 @@ export class CalculatorComponent {
 
   private defaultTargets(): Target[] {
     return [
-      new Target(new Pokemon('Raging Bolt', "Modest", "Booster Energy", "Protosynthesis", "Fairy", true, { hp: 244, spa: 252, spd: 12 }, new MoveSet("Thunderclap", "Dragon Pulse", "Calm Mind", "Protect"))),
-      new Target(new Pokemon('Walking Wake', "Timid", "Life Orb", "Protosynthesis", "Poison", true, { hp: 4, spa: 252, spe: 252 }, new MoveSet("Hydro Steam", "Draco Meteor", "Flamethrower", "Dragon Pulse"))),
-      new Target(new Pokemon('Gouging Fire', "Adamant", "Clear Amulet", "Protosynthesis", "Water", false, { hp: 4, atk: 252, spe: 252 }, new MoveSet("Breaking Swipe", "Heat Crash", "Howl", "Burning Bulwark"))),
-      new Target(new Pokemon('Entei', "Adamant", "Sitrus Berry", "Inner Focus", "Grass", false, { atk: 252, def: 4, spd: 252 }, new MoveSet("Sacred Fire", "Extreme Speed", "Stomping Tantrum", "Snarl"))),
-      new Target(new Pokemon('Incineroar', "Careful", "Assault Vest", "Intimidate", "Water", false, { hp: 252, atk: 4, spd: 252 }, new MoveSet("Fake Out", "Flare Blitz", "Parting Shot", "Knock Off"))),
-      new Target(new Pokemon('Urshifu-Rapid-Strike', "Jolly", "Choice Scarf", "Unseen Fist", "Water", true, { atk: 252, spd: 4, spe: 252 }, new MoveSet("Surging Strikes", "Close Combat", "Ice Spinner", "U-turn"))),
-      new Target(new Pokemon('Landorus', "Timid", "Life Orb", "Sheer Force", "Flying", false, { spa: 252, spd: 4, spe: 252 }, new MoveSet("Earth Power", "Sludge Bomb", "Substitute", "Protect"))),
-      new Target(new Pokemon('Ogerpon-Wellspring', "Adamant", "Wellspring Mask", "Water Absorb", "Water", false, { hp: 252, atk: 76, def: 148, spd: 28, spe: 4 }, new MoveSet("Ivy Cudgel", "Horn Leech", "Spiky Shield", "Follow Me")))
+      new Target(new Pokemon('Raging Bolt', "Modest", "Booster Energy", "Protosynthesis", "Fairy", true, { hp: 244, spa: 252, spd: 12 }, new MoveSet("Thunderclap", "Dragon Pulse", "Calm Mind", "Protect")), 0),
+      new Target(new Pokemon('Walking Wake', "Timid", "Life Orb", "Protosynthesis", "Poison", true, { hp: 4, spa: 252, spe: 252 }, new MoveSet("Hydro Steam", "Draco Meteor", "Flamethrower", "Dragon Pulse")), 1),
+      new Target(new Pokemon('Gouging Fire', "Adamant", "Clear Amulet", "Protosynthesis", "Water", false, { hp: 4, atk: 252, spe: 252 }, new MoveSet("Breaking Swipe", "Heat Crash", "Howl", "Burning Bulwark")), 2),
+      new Target(new Pokemon('Entei', "Adamant", "Sitrus Berry", "Inner Focus", "Grass", false, { atk: 252, def: 4, spd: 252 }, new MoveSet("Sacred Fire", "Extreme Speed", "Stomping Tantrum", "Snarl")), 3),
+      new Target(new Pokemon('Incineroar', "Careful", "Assault Vest", "Intimidate", "Water", false, { hp: 252, atk: 4, spd: 252 }, new MoveSet("Fake Out", "Flare Blitz", "Parting Shot", "Knock Off")), 4),
+      new Target(new Pokemon('Urshifu-Rapid-Strike', "Jolly", "Choice Scarf", "Unseen Fist", "Water", true, { atk: 252, spd: 4, spe: 252 }, new MoveSet("Surging Strikes", "Close Combat", "Ice Spinner", "U-turn")), 5),
+      new Target(new Pokemon('Landorus', "Timid", "Life Orb", "Sheer Force", "Flying", false, { spa: 252, spd: 4, spe: 252 }, new MoveSet("Earth Power", "Sludge Bomb", "Substitute", "Protect")), 6),
+      new Target(new Pokemon('Ogerpon-Wellspring', "Adamant", "Wellspring Mask", "Water Absorb", "Water", false, { hp: 252, atk: 76, def: 148, spd: 28, spe: 4 }, new MoveSet("Ivy Cudgel", "Horn Leech", "Spiky Shield", "Follow Me")), 7)
     ]
   }
 
   private buildTargetsFromUserData(userData: any): Target[] {
-    return userData.data.targets.map((target: Target) => {
-      const pokemon = target.pokemon
-      return new Target(new Pokemon(pokemon.name, pokemon.nature, pokemon.item, pokemon.ability, pokemon.teraType, pokemon.teraTypeActive, pokemon.evs))
+    let position = 0
+    return userData.data.targets.map((t: Target) => {
+      const pokemon = t.pokemon
+      const target = new Target(new Pokemon(pokemon.name, pokemon.nature, pokemon.item, pokemon.ability, pokemon.teraType, pokemon.teraTypeActive, pokemon.evs), position)
+      position++
+      
+      return target
     })
   }
 

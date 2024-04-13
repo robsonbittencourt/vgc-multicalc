@@ -54,8 +54,6 @@ export class TeamComponent {
   }
   
   teamMemberActivated(position: number) {
-    if(this.team[position].active) return
-
     this.team[position].active = true
 
     this.team.forEach(teamMember => {
@@ -69,6 +67,7 @@ export class TeamComponent {
 
   secondTeamMemberActivated(position: number) {
     const teamMember = this.team[position]
+    
     if(teamMember.active && this.canSelectSecondPokemon()) return
 
     if(teamMember.active) {
@@ -81,7 +80,8 @@ export class TeamComponent {
   }
 
   canSelectSecondPokemon(): boolean {
-    return this.team.filter(t => t.active).length == 1
+    const onlyOneActive = this.team.filter(t => t.active).length == 1
+    return this.isAttacker && onlyOneActive
   }
 
   pokemonRemoved(position: number) {

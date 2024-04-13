@@ -15,9 +15,6 @@ export class TargetPokemonCardComponent {
   @Input() 
   target: Target
 
-  @Input()
-  canShowAsActivated: boolean
-
   @Output() 
   targetChangedEvent = new EventEmitter<Target>()
 
@@ -76,7 +73,7 @@ export class TargetPokemonCardComponent {
       return cardStyleSelectPokemon 
     }
     
-    if (this.target.active && this.canShowAsActivated) {
+    if (this.target.active) {
       return {...cardStyle, ...cardWithBorder}
     }
 
