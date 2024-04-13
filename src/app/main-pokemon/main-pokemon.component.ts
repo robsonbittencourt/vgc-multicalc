@@ -23,6 +23,10 @@ export class MainPokemonComponent {
   editAttacks = false
   activatedMovePosition = 1
 
+  statusConditions = [
+    "Healthy", "Sleep", "Poison", "Burn", "Freeze", "Paralysis"
+  ]
+
   MAX_EVS = 508
 
   private differ: KeyValueDiffer<string, any>

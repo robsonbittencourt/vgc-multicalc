@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, KeyValueDiffer, KeyValueDiffers, Output } from '@angular/core';
 import { MatButtonToggleChange } from '@angular/material/button-toggle';
-import { Field, StatsTable } from '@smogon/calc';
+import { Field } from '@smogon/calc';
 
 @Component({
   selector: 'app-field',
@@ -9,45 +9,19 @@ import { Field, StatsTable } from '@smogon/calc';
 })
 export class FieldComponent {
 
+  @Input()
+  criticalHit: boolean
+
   @Output() 
   fieldChangedEvent = new EventEmitter<Field>();
 
   @Output() 
   criticalHitChangedEvent = new EventEmitter<boolean>();
 
-  @Output() 
-  attackerStatusChangedEvent = new EventEmitter<string>();
-
-  @Output() 
-  defenderStatusChangedEvent = new EventEmitter<string>();
-
-  @Output() 
-  statsModifiersChangedEvent = new EventEmitter<StatsTable>();
-
   field = new Field({
     gameType: 'Doubles'
   })
 
-  criticalHit = false
-
-  attackerStatusCondition = ""
-  defenderStatusCondition = ""
-  statusConditions = [
-    "Sleep", "Poison", "Burn", "Freeze", "Paralysis"
-  ]
-
-  boosts: StatsTable = {
-    hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0
-  }
-
-  statsModifiers = [
-    { value: 6, viewValue: "+6"}, { value: 5, viewValue: "+5"}, { value: 4, viewValue: "+4"},
-    { value: 3, viewValue: "+3"}, { value: 2, viewValue: "+2"}, { value: 1, viewValue: "+1"},
-    { value: 0, viewValue: "--"},
-    { value: -1, viewValue: "-1"}, { value: -2, viewValue: "-2"}, { value: -3, viewValue: "-3"},
-    { value: -4, viewValue: "-4"}, { value: -5, viewValue: "-5"}, { value: -6, viewValue: "-6"},
-  ]
-  
   private differField: KeyValueDiffer<string, any>
   private differFieldAttacker: KeyValueDiffer<string, any>
   private differFieldDefender: KeyValueDiffer<string, any>
@@ -69,38 +43,11 @@ export class FieldComponent {
   }
 
   onCriticalHitChance(criticalHit: boolean) {
-    this.criticalHit = criticalHit
     this.criticalHitChangedEvent.emit(criticalHit)
   }
 
   oSingleTargetChance(singleTarget: boolean) {
     this.field.gameType = singleTarget ? 'Singles' : 'Doubles'
-  }
-
-  onAttackerStatusChange(status: string) {
-    const statusCode = this.statusConditionCode(status)
-    this.attackerStatusChangedEvent.emit(statusCode)
-  }
-
-  onDefenderStatusChange(status: string) {
-    const statusCode = this.statusConditionCode(status)
-    this.defenderStatusChangedEvent.emit(statusCode)
-  }
-
-  private statusConditionCode(status: string): string | undefined {
-    const statusConditions = [
-      { code: "slp", status: "Sleep"},
-      { code: "psn", status: "Poison"},
-      { code: "brn", status: "Burn"},
-      { code: "frz", status: "Freeze"},
-      { code: "par", status: "Paralysis"}
-    ]
-
-    return statusConditions.find(s => s.status === status)?.code
-  }
-
-  statsModifiersChanges() {
-    this.statsModifiersChangedEvent.emit(this.boosts)
   }
 
   toggleChangeWeather(change: MatButtonToggleChange) {

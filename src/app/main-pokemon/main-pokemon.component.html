@@ -52,6 +52,12 @@
           <app-input-autocomplete [(value)]="pokemon.teraType" [allValues]="allTeraTypes"/>
         </div>
       </div>
+      <div class="info-label">
+        <label>Status</label>
+      </div>
+      <div>
+        <app-input-autocomplete [(value)]="pokemon.status" [allValues]="statusConditions"/>
+      </div>
       <div class="edit-attacks-button">
         <label>Moves</label>
         <mat-icon class="edit-icon" *ngIf="!editAttacks" (click)="editMoves()">edit</mat-icon>

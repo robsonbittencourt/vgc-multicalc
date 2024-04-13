@@ -17,7 +17,7 @@
 
 .field-container {
   display: grid;
-  grid-template-columns: 1.3fr 1fr 1fr 1fr;
+  grid-template-columns: 1.3fr 1fr 1fr;
   column-gap: 3em;
   margin-top: 1em;
 }
@@ -57,17 +57,6 @@
   margin-bottom: 1em;
   font-weight: 500;
   font-size: medium;
-}
-
-.status-tailwind {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-
-.status-tailwind-defenders {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  margin-top: 2.5em;
 }
 
 .status {
@@ -114,10 +103,6 @@
     display: grid;
     grid-template-columns: 55px 55px 55px 55px 55px;
     column-gap: 1em;
-    margin-top: 1em;
-  }
-
-  .status-tailwind-defenders {
     margin-top: 1em;
   }
 }

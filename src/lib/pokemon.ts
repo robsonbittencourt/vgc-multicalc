@@ -7,11 +7,12 @@ export class Pokemon {
   public teraTypeStorage: string
   public evsStorage: Partial<StatsTable> & { spc?: number; }
   private moveSetStorage: MoveSet
+  private statusStorage?: string
   private paradoxAbilityActivatedStorage: boolean
   private commanderActivatedStorage: boolean
   private selectPokemonLabel: string = "Select a Pokémon"
   
-  constructor(name: string, nature: string, item: string, ability: string, teraType: string, teraTypeActive: boolean = false, evs: Partial<StatsTable> & { spc?: number; }, moveSet: MoveSet | undefined = undefined, boosts: StatsTable | undefined = undefined, status: StatusName | undefined = undefined) {
+  constructor(name: string, nature: string, item: string, ability: string, teraType: string, teraTypeActive: boolean = false, evs: Partial<StatsTable> & { spc?: number; }, moveSet: MoveSet | undefined = undefined, boosts: StatsTable | undefined = undefined, status: string | undefined = undefined) {
     this.pokemonSmogon = new PokemonSmogon(Generations.get(9), name, {
       nature: nature,
       item: item,
@@ -19,10 +20,11 @@ export class Pokemon {
       teraType: teraTypeActive ? teraType as TypeName : undefined,
       evs: evs,
       boosts: boosts,
-      status: status,
+      status: status as StatusName,
       level: 50
     })
 
+    this.statusStorage = status ?? 'Healthy'
     this.teraTypeStorage = teraType
     this.evsStorage = evs
     this.moveSetStorage = moveSet ?? new MoveSet("Moonblast")
@@ -117,11 +119,25 @@ export class Pokemon {
   }
 
   public get status(): string {
-    return this.pokemonSmogon.status as string
+    return this.statusStorage ?? ''
   }
 
   public set status(status: string) {
-    this.pokemonSmogon.status = status as StatusName
+    this.statusStorage = status
+    this.pokemonSmogon.status = this.statusConditionCode(status)
+  }
+
+  statusConditionCode(status: string): StatusName {
+    const statusConditions = [
+      { code: '', status: "Healthy"},
+      { code: "slp", status: "Sleep"},
+      { code: "psn", status: "Poison"},
+      { code: "brn", status: "Burn"},
+      { code: "frz", status: "Freeze"},
+      { code: "par", status: "Paralysis"}
+    ]
+
+    return statusConditions.find(s => s.status === status)?.code! as StatusName
   }
 
   public get teraType(): string {

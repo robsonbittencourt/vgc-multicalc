@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Field, StatsTable } from '@smogon/calc';
+import { Field } from '@smogon/calc';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import { DamageCalculatorService } from 'src/lib/damage-calculator.service';
@@ -27,6 +27,7 @@ export class CalculatorComponent {
   field: Field = new Field({
     gameType: 'Doubles'
   })
+  criticalHit: boolean = false
   activeOnEditPokemon: Pokemon
   activeAttackerPokemon: Pokemon
   oneVsManyActivated: boolean = true
@@ -163,30 +164,7 @@ export class CalculatorComponent {
   }
 
   criticalHitChanged(criticalHit: boolean) {
-    this.calculateDamageForAll(criticalHit)
-    this.order()
-  }
-
-  attackerStatusChanged(status: string) {
-    this.activeAttackerPokemon.status = status
-    this.calculateDamageForAll()
-    this.order()
-  }
-
-  defenderStatusChanged(status: string) {
-    this.targets.forEach(target => {
-      target.pokemon.status = status
-    })
-
-    this.calculateDamageForAll()
-    this.order()
-  }
-
-  statsModifiersChanged(statsModifiers: StatsTable) {
-    this.targets.forEach(target => {
-      target.pokemon.pokemonSmogon.boosts = statsModifiers
-    })
-
+    this.criticalHit = criticalHit
     this.calculateDamageForAll()
     this.order()
   }
@@ -221,11 +199,11 @@ export class CalculatorComponent {
     })
   }
 
-  private calculateDamage(target: Target, criticalHit: boolean = false) {
+  private calculateDamage(target: Target) {
     if(this.oneVsManyActivated) {
-      this.calculateDamageOneVsMany(target, criticalHit)
+      this.calculateDamageOneVsMany(target, this.criticalHit)
     } else {
-      this.calculateDamageManyVsOne(target, criticalHit)      
+      this.calculateDamageManyVsOne(target, this.criticalHit)      
     }
   }
 
@@ -255,9 +233,9 @@ export class CalculatorComponent {
     }
   }
   
-  private calculateDamageForAll(criticalHit: boolean = false) {
+  private calculateDamageForAll() {
     if (this.activeAttackerPokemon) {
-      this.targets.forEach(target => this.calculateDamage(target, criticalHit))
+      this.targets.forEach(target => this.calculateDamage(target))
     }
   }
 
@@ -271,6 +249,7 @@ export class CalculatorComponent {
 
   private buildInitialData(userData: any) {
     if (userData) {
+      this.field = userData.data.field
       this.team = this.buildTeamFromUserData(userData)
       this.targets = this.buildTargetsFromUserData(userData)
     } else {
