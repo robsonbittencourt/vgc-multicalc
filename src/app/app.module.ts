@@ -14,7 +14,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
@@ -64,7 +63,6 @@ import { NotFoundPageComponent } from './not-found-page/not-found-page.component
     MatButtonToggleModule,
     MatChipsModule,
     MatSlideToggleModule,
-    MatTooltipModule,
     AppRoutingModule,
     MatSnackBarModule
   ],

@@ -17,7 +17,10 @@
 
   <div *ngIf="canShowDamageDescription" class="damage-description">
     <div>{{ damageDescription() }}</div>
-    <div><mat-icon class="copy-icon" *ngIf="damageDescription()" (click)="copyDamageResult()">content_copy</mat-icon></div>
+    <div class="copy-button">
+      <mat-icon class="copy-icon" *ngIf="damageDescription()" (click)="copyDamageResult()">content_copy</mat-icon>
+      <label *ngIf="copyMessageEnabled">Copied!</label> 
+    </div>
   </div>
     
   <div class="target-pokemon">

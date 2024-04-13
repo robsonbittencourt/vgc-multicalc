@@ -60,6 +60,12 @@
   column-gap: 0.5em;
 }
 
+.copy-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
 @media only screen and (max-width: 768px) {
   .container {
     border-radius: 0%;

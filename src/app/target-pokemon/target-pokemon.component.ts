@@ -46,7 +46,8 @@ export class TargetPokemonComponent {
 
   pokePaste = ""
   errorMessagePokePaste: string = ""
-  _showAdvancedOptions = false  
+  _showAdvancedOptions = false
+  copyMessageEnabled = false  
 
   targetChanged(target: Target) {
     this.targetChangedEvent.emit(target)
@@ -115,7 +116,12 @@ export class TargetPokemonComponent {
   }
 
   copyDamageResult() {
+    this.copyMessageEnabled = true
     navigator.clipboard.writeText(this.damageDescription())
+
+    setTimeout(() => {
+      this.copyMessageEnabled = false
+    }, 2000)
   }
   
   canSelectSecondPokemon(): boolean {
