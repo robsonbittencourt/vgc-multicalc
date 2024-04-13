@@ -247,25 +247,6 @@ export class CalculatorComponent {
     })
   }
 
-  private buildInitialData(userData: any) {
-    if (userData) {
-      this.field = userData.data.field
-      this.team = this.buildTeamFromUserData(userData)
-      this.targets = this.buildTargetsFromUserData(userData)
-    } else {
-      this.team = this.defaultTeam()
-      this.targets = this.defaultTargets()
-    }   
-  }
-
-  private buildTeamFromUserData(userData: any): TeamMember[] {
-    return userData.data.team.map((teamMember: any) => {
-      const pokemon = teamMember.pokemon as Pokemon
-      const moveSet = new MoveSet(teamMember.pokemon.moveSet[0], teamMember.pokemon.moveSet[1], teamMember.pokemon.moveSet[2], teamMember.pokemon.moveSet[3])
-      return new TeamMember(new Pokemon(pokemon.name, pokemon.nature, pokemon.item, pokemon.ability, pokemon.teraType, pokemon.teraTypeActive, pokemon.evs, moveSet), teamMember.position, teamMember.active)
-    })
-  }
-
   private defaultTeam(): TeamMember[] {
     return [
       new TeamMember(new Pokemon("Flutter Mane", "Timid", "Choice Specs", "Protosynthesis", "Fairy", false, { spa: 252 }, new MoveSet("Moonblast", "Dazzling Gleam", "Shadow Ball", "Thunderbolt"), undefined, undefined), 0, true),
@@ -286,26 +267,54 @@ export class CalculatorComponent {
     ]
   }
 
+  private buildInitialData(userData: any) {
+    if (userData) {
+      this.criticalHit = userData.data.criticalHit
+      this.field = this.buildFieldFromUserData(userData)
+      this.team = this.buildTeamFromUserData(userData)
+      this.targets = this.buildTargetsFromUserData(userData)
+    } else {
+      this.team = this.defaultTeam()
+      this.targets = this.defaultTargets()
+    }   
+  }
+
+  private buildFieldFromUserData(userData: any): Field {
+    //TODO
+    return new Field()
+  }
+
+  private buildTeamFromUserData(userData: any): TeamMember[] {
+    return userData.data.team.map((teamMember: any) => {
+      const pokemon = teamMember.pokemon as Pokemon
+      const moveSet = new MoveSet(teamMember.pokemon.moveSet[0], teamMember.pokemon.moveSet[1], teamMember.pokemon.moveSet[2], teamMember.pokemon.moveSet[3])
+      return new TeamMember(new Pokemon(pokemon.name, pokemon.nature, pokemon.item, pokemon.ability, pokemon.teraType, pokemon.teraTypeActive, pokemon.evs, moveSet, pokemon.boosts, pokemon.status), teamMember.position, teamMember.active)
+    })
+  }
+
   private buildTargetsFromUserData(userData: any): Target[] {
     let position = 0
-    return userData.data.targets.map((t: Target) => {
-      const pokemon = t.pokemon
-      const target = new Target(new Pokemon(pokemon.name, pokemon.nature, pokemon.item, pokemon.ability, pokemon.teraType, pokemon.teraTypeActive, pokemon.evs), position)
+    return userData.data.targets.map((target: any) => {
+      const pokemon = target.pokemon as Pokemon
+      const moveSet = new MoveSet(target.pokemon.moveSet[0], target.pokemon.moveSet[1], target.pokemon.moveSet[2], target.pokemon.moveSet[3])
+      const newTarget = new Target(new Pokemon(pokemon.name, pokemon.nature, pokemon.item, pokemon.ability, pokemon.teraType, pokemon.teraTypeActive, pokemon.evs, moveSet, pokemon.boosts, pokemon.status), position)
       position++
       
-      return target
+      return newTarget
     })
   }
 
   private buildUserDataToUpload(): any {
     return {
+      field: this.field,
+      criticalHit: this.criticalHit,
       team: this.team.map(t => {
         const pokemon = this.buildPokemonToUserData(t.pokemon)
         
         return {
           "pokemon": pokemon,
           "position": t.position,
-          "active": t.active,
+          "active": t.active
         }
       }),
       targets: this.targets.map(t => {
@@ -327,6 +336,8 @@ export class CalculatorComponent {
       "teraType": pokemon.teraType,
       "teraTypeActive": pokemon.teraTypeActive,
       "evs": pokemon.evs,
+      "status": pokemon.status,
+      "boosts": pokemon.boosts,
       "moveSet": [
         pokemon.moveSet.move1,
         pokemon.moveSet.move2,
