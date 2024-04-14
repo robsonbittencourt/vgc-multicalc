@@ -120,6 +120,7 @@ export class CalculatorComponent {
     const pokemon = new Pokemon("Togepi", "Relaxed", "Leftovers", "Hustle", "Normal", false, {}, new MoveSet(""))
     const position = this.targets.length + 1
     const target = new Target(pokemon, position)
+    target.active = true
     this.targets.push(target)
     this.targetActivated(target)
 
