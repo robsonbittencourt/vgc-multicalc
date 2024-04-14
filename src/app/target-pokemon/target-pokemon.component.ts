@@ -77,6 +77,7 @@ export class TargetPokemonComponent {
     const index = this.targets.findIndex(t => t.pokemon.equals(target.pokemon))
     
     this.targets.splice(index, 1)
+    this.updatePositions()
   }
 
   removeAll() {
@@ -107,7 +108,14 @@ export class TargetPokemonComponent {
   }
 
   addPokemonToTargets() {
+    this.updatePositions()
     this.targetAdded.emit()
+  }
+
+  private updatePositions() {
+    for (let index = 0; index < this.targets.length; index++) {
+      this.targets[index].position = index      
+    }
   }
 
   selectPokemonActive(): boolean {
