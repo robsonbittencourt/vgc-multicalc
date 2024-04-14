@@ -176,6 +176,7 @@ export class CalculatorComponent {
   enableOneVsMany() {
     this.oneVsManyActivated = true
     this.manyVsOneActivated = false
+    this.activateOnlyFirstTeamMember()
     this.deactivateTargets()
     this.calculateDamageForAll()
     this.order()
@@ -184,7 +185,8 @@ export class CalculatorComponent {
   enableManyVsOne() {
     this.manyVsOneActivated = true
     this.oneVsManyActivated = false
-    this.deactivateTargets()
+    this.activateOnlyFirstTeamMember()
+    this.deactivateTargets()    
     this.calculateDamageForAll()
     this.order()
   }
@@ -267,6 +269,15 @@ export class CalculatorComponent {
       new Target(new Pokemon('Landorus', "Timid", "Life Orb", "Sheer Force", "Poison", false, { spa: 252, spd: 4, spe: 252 }, new MoveSet("Earth Power", "Sludge Bomb", "Substitute", "Protect")), 6),
       new Target(new Pokemon('Ogerpon-Wellspring', "Adamant", "Wellspring Mask", "Water Absorb", "Water", false, { hp: 252, atk: 76, def: 148, spd: 28, spe: 4 }, new MoveSet("Ivy Cudgel", "Horn Leech", "Spiky Shield", "Follow Me")), 7)
     ]
+  }
+
+  private activateOnlyFirstTeamMember() {
+    this.team.forEach(t => t.active = false)
+    const firstTeamMember = this.team[0]
+    
+    firstTeamMember.active =true
+    this.activeOnEditPokemon = firstTeamMember.pokemon
+    this.activeAttackerPokemon = firstTeamMember.pokemon
   }
 
   private deactivateTargets() {
