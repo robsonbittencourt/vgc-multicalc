@@ -24,7 +24,7 @@ export class PokemonCardComponent {
   pokemonRemoved = new EventEmitter<number>()
 
   @Output() 
-  pokemonTerastalyzed = new EventEmitter<any>()
+  pokemonChanged = new EventEmitter<any>()
 
   commanderActivated = false
 
@@ -32,10 +32,11 @@ export class PokemonCardComponent {
     this.teamMemberActivated.emit(this.teamMember.position)
   }
 
-  toogleCommanderAbility() {
+  toogleCommanderAbility(event: Event) {
+    event.stopPropagation()
     this.teamMember.pokemon.commanderActivated = !this.commanderActivated
     this.commanderActivated = !this.commanderActivated
-    this.teamMemberActivated.emit(this.teamMember.position)
+    this.pokemonChanged.emit()
   }
 
   removePokemon() {
@@ -106,6 +107,6 @@ export class PokemonCardComponent {
     const teraActived = !this.teamMember.pokemon.teraTypeActive
     this.teamMember.pokemon.changeTeraStatus(teraActived)
 
-    this.pokemonTerastalyzed.emit()
+    this.pokemonChanged.emit()
   }
 }

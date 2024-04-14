@@ -163,7 +163,7 @@ export class TargetPokemonComponent {
     this.advanceOptionsToggled.emit(this._showAdvancedOptions)
   }
 
-  pokemonTerastalyzed() {
+  pokemonChanged() {
     this.targetsChangedEvent.emit(this.targets)
   }
 
