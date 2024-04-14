@@ -92,6 +92,12 @@ export class CalculatorComponent {
     this.order()
   }
 
+  targetsChanged(targets: Target[]) {
+    this.targets = targets
+    this.calculateDamageForAll()
+    this.order()
+  }
+
   pokemonAddedToTeam() {
     const activePokemon = this.team.find(t => t.active)
 
@@ -255,7 +261,7 @@ export class CalculatorComponent {
       new Target(new Pokemon('Kyogre', "Modest", "Mystic Water", "Drizzle", "Grass", false, { hp: 132, def: 84, spa: 156, spd: 4, spe: 132 }, new MoveSet("Water Spout", "Origin Pulse", "Ice Beam", "Protect")), 3),
       new Target(new Pokemon('Incineroar', "Careful", "Assault Vest", "Intimidate", "Water", false, { hp: 252, atk: 4, spd: 252 }, new MoveSet("Fake Out", "Flare Blitz", "Parting Shot", "Knock Off")), 4),
       new Target(new Pokemon('Urshifu-Rapid-Strike', "Jolly", "Choice Scarf", "Unseen Fist", "Water", true, { atk: 252, spd: 4, spe: 252 }, new MoveSet("Surging Strikes", "Close Combat", "Ice Spinner", "U-turn")), 5),
-      new Target(new Pokemon('Landorus', "Timid", "Life Orb", "Sheer Force", "Flying", false, { spa: 252, spd: 4, spe: 252 }, new MoveSet("Earth Power", "Sludge Bomb", "Substitute", "Protect")), 6),
+      new Target(new Pokemon('Landorus', "Timid", "Life Orb", "Sheer Force", "Poison", false, { spa: 252, spd: 4, spe: 252 }, new MoveSet("Earth Power", "Sludge Bomb", "Substitute", "Protect")), 6),
       new Target(new Pokemon('Ogerpon-Wellspring', "Adamant", "Wellspring Mask", "Water Absorb", "Water", false, { hp: 252, atk: 76, def: 148, spd: 28, spe: 4 }, new MoveSet("Ivy Cudgel", "Horn Leech", "Spiky Shield", "Follow Me")), 7)
     ]
   }

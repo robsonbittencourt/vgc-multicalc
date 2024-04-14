@@ -132,4 +132,8 @@ export class TeamComponent {
     return this.team.find(t => t.pokemon.isDefault()) != null
   }
 
+  pokemonTerastalyzed() {
+    this.teamChanged.emit(this.team)
+  }
+
 }

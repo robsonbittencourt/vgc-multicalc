@@ -23,6 +23,9 @@ export class PokemonCardComponent {
   @Output() 
   pokemonRemoved = new EventEmitter<number>()
 
+  @Output() 
+  pokemonTerastalyzed = new EventEmitter<any>()
+
   commanderActivated = false
 
   activate() {
@@ -98,11 +101,11 @@ export class PokemonCardComponent {
     this.secondTeamMemberActivated.emit(this.teamMember.position)
   }
 
-
-  terastalyzePokemon() {
+  terastalyzePokemon(event: Event) {
+    event.stopPropagation()
     const teraActived = !this.teamMember.pokemon.teraTypeActive
     this.teamMember.pokemon.changeTeraStatus(teraActived)
 
-    this.teamMemberActivated.emit(this.teamMember.position)
+    this.pokemonTerastalyzed.emit()
   }
 }

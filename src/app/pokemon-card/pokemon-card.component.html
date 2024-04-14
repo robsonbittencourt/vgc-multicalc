@@ -28,7 +28,7 @@
           <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly.png" *ngIf="commanderActivated" />
           <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly-gray.png" *ngIf="!commanderActivated" />
         </button>
-        <button class="icon-button" (click)="terastalyzePokemon()" *ngIf="teamMember.pokemon.teraTypeStorage && !teamMember.pokemon.isDefault()" matTooltip="Terastal" [matTooltipShowDelay]="1000">
+        <button class="icon-button" (click)="terastalyzePokemon($event)" *ngIf="teamMember.pokemon.teraTypeStorage && !teamMember.pokemon.isDefault()" matTooltip="Terastal" [matTooltipShowDelay]="1000">
           <img class="icon-tera" src="assets/icons/tera-icon.png" *ngIf="teamMember.pokemon.teraTypeActive" />
           <img class="icon-tera" src="assets/icons/tera-icon-gray.png" *ngIf="!teamMember.pokemon.teraTypeActive" />
         </button>

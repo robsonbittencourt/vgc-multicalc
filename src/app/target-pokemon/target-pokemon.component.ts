@@ -33,6 +33,9 @@ export class TargetPokemonComponent {
   targetChangedEvent = new EventEmitter<Target>()
 
   @Output() 
+  targetsChangedEvent = new EventEmitter<Target[]>()
+
+  @Output() 
   allTargetsRemoved = new EventEmitter<any>()
 
   @Output() 
@@ -150,6 +153,10 @@ export class TargetPokemonComponent {
   set showAdvancedOptions(active: boolean) {
     this._showAdvancedOptions = active
     this.advanceOptionsToggled.emit(this._showAdvancedOptions)
+  }
+
+  pokemonTerastalyzed() {
+    this.targetsChangedEvent.emit(this.targets)
   }
 
 }
