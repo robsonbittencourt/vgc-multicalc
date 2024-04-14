@@ -6412,17 +6412,15 @@ export const SETDEX_SV: {[k: string]: any} = {
       "atk": 0
     },
     "evs": {
-      "hp": 252,
-      "def": 252,
+      "hp": 4,
       "spa": 252,
-      "spd": 252,
       "spe": 252
     },
     "moves": [
       "Volt Switch",
-      "Jungle Healing",
-      "Glare",
-      "Healing Wish"
+      "Thunderbolt",
+      "Light Screen",
+      "Quick Attack"
     ]
   },
   "Piloswine": {
