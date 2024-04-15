@@ -117,6 +117,7 @@ export class CalculatorComponent {
   }
 
   pokemonAddedToTargets() {
+    this.deactivateTargets()
     const pokemon = new Pokemon("Togepi", "Relaxed", "Leftovers", "Hustle", "Normal", false, {}, new MoveSet(""))
     const position = this.targets.length + 1
     const target = new Target(pokemon, position)
