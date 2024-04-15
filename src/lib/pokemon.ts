@@ -220,7 +220,7 @@ export class Pokemon {
   }
 
   public clone(): Pokemon {
-    return new Pokemon(this.name, this.nature, this.item, this.ability, this.teraTypeStorage, this.teraTypeActive, this.evs, this.moveSetStorage.clone(), this.boosts)
+    return new Pokemon(this.name, this.nature, this.item, this.ability, this.teraTypeStorage, this.teraTypeActive, this.evs, this.moveSetStorage.clone(), this.boosts, this.statusConditionCode(this.status))
   }
 
   public equals(toCompare: Pokemon): boolean {
@@ -255,7 +255,7 @@ export class Pokemon {
     return evsDescription
   }
 
-  private buildPokemonSmogon({ name, nature, item, ability, teraType, teraTypeActive, evs, boosts }: { name?: string; nature?: string; item?: string; ability?: string; teraType?: string; teraTypeActive?: boolean; evs?: Partial<StatsTable> & { spc?: number; }, boosts?: StatsTable} = {}): PokemonSmogon {
+  private buildPokemonSmogon({ name, nature, item, ability, teraType, teraTypeActive, evs, boosts }: { name?: string; nature?: string; item?: string; ability?: string; teraType?: string; teraTypeActive?: boolean; evs?: Partial<StatsTable> & { spc?: number; }, boosts?: StatsTable} = {}, status?: StatusName): PokemonSmogon {
     return new PokemonSmogon(Generations.get(9), name ? name : this.pokemonSmogon.name, {
       nature: nature ? nature : this.pokemonSmogon.nature,
       item: item ? item : this.pokemonSmogon.item,
@@ -263,6 +263,7 @@ export class Pokemon {
       teraType: this.buildTeraType(teraType, teraTypeActive) as TypeName,
       evs: evs ? evs : this.pokemonSmogon.evs,
       boosts: boosts ? boosts : this.pokemonSmogon.boosts,
+      status: status ? status : this.pokemonSmogon.status,
       level: 50
     })
   }
