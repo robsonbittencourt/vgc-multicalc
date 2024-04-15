@@ -327,22 +327,28 @@ export class CalculatorComponent {
     return {
       field: this.field,
       criticalHit: this.criticalHit,
-      team: this.team.map(t => {
-        const pokemon = this.buildPokemonToUserData(t.pokemon)
-        
-        return {
-          "pokemon": pokemon,
-          "position": t.position,
-          "active": t.active
+      team: this.team
+        .filter(t => !t.pokemon.isDefault())
+        .map(t => {
+          const pokemon = this.buildPokemonToUserData(t.pokemon)
+          
+          return {
+            "pokemon": pokemon,
+            "position": t.position,
+            "active": t.active
+          }
         }
-      }),
-      targets: this.targets.map(t => {
-        const pokemon = this.buildPokemonToUserData(t.pokemon)
+      ),
+      targets: this.targets
+        .filter(t => !t.pokemon.isDefault())  
+        .map(t => {
+          const pokemon = this.buildPokemonToUserData(t.pokemon)
 
-        return {
-          "pokemon": pokemon
+          return {
+            "pokemon": pokemon
+          }
         }
-      })
+      )
     }
   }
 
