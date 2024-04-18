@@ -5675,6 +5675,14 @@ const FormatsData: {[k: string]: SpeciesFormatsData} = {
     doublesTier: "DUber",
     natDexTier: "Uber",
   },
+  terapagosterastal: {
+		isNonstandard: "Future",
+		tier: "Uber",
+	},
+	terapagosstellar: {
+		isNonstandard: "Future",
+		tier: "Uber",
+	},
   pecharunt: {
     tier: "UU",
     doublesTier: "DUU",

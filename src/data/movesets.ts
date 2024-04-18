@@ -8529,19 +8529,53 @@ export const SETDEX_SV: {[k: string]: any} = {
   },
   "Terapagos": {
     "ability": "Tera Shift",
-    "item": "Heavy-Duty Boots",
+    "item": "Leftovers",
     "nature": "Modest",
     "teraType": "Stellar",
     "evs": {
-      "spa": 252,
-      "spd": 4,
-      "spe": 252
+      "hp": 252,
+      "def": 180,
+      "spa": 76
     },
     "moves": [
-      "Calm Mind",
       "Tera Starstorm",
-      "Rapid Spin",
-      "Flamethrower"
+      "Earth Power",
+      "Calm Mind",
+      "Protect"
+    ]
+  },
+  "Terapagos-Stellar": {
+    "ability": "Teraform Zero",
+    "item": "Leftovers",
+    "nature": "Modest",
+    "teraType": "Stellar",
+    "evs": {
+      "hp": 252,
+      "def": 180,
+      "spa": 76
+    },
+    "moves": [
+      "Tera Starstorm",
+      "Earth Power",
+      "Calm Mind",
+      "Protect"
+    ]
+  },
+  "Terapagos-Terastal": {
+    "ability": "Tera Shell",
+    "item": "Leftovers",
+    "nature": "Modest",
+    "teraType": "Stellar",
+    "evs": {
+      "hp": 252,
+      "def": 180,
+      "spa": 76
+    },
+    "moves": [
+      "Tera Starstorm",
+      "Earth Power",
+      "Calm Mind",
+      "Protect"
     ]
   },
   "Terrakion": {
