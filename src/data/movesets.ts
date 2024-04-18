@@ -3609,19 +3609,21 @@ export const SETDEX_SV: {[k: string]: any} = {
   },
   "Groudon": {
     "ability": "Drought",
-    "item": "Leftovers",
+    "item": "Clear Amulet",
     "nature": "Impish",
-    "teraType": "Fairy",
+    "teraType": "Fire",
     "evs": {
-      "hp": 240,
-      "def": 252,
-      "spe": 16
+      "hp": 252,
+      "atk": 76,
+      "def": 4,
+      "spd": 148,
+      "spe": 28
     },
     "moves": [
       "Precipice Blades",
-      "Protect",
-      "Will-O-Wisp",
-      "Spikes"
+      "Heat Crash",
+      "Swords Dance",
+      "Protect"
     ]
   },
   "Growlithe-Hisui": {
@@ -5622,19 +5624,21 @@ export const SETDEX_SV: {[k: string]: any} = {
   },
   "Miraidon": {
     "ability": "Hadron Engine",
-    "item": "Heavy-Duty Boots",
-    "nature": "Timid",
-    "teraType": "Dragon",
+    "item": "Life Orb",
+    "nature": "Modest",
+    "teraType": "Grass",
     "evs": {
+      "hp": 108,
       "def": 4,
-      "spa": 252,
-      "spe": 252
+      "spa": 196,
+      "spd": 4,
+      "spe": 196
     },
     "moves": [
       "Draco Meteor",
       "Electro Drift",
-      "U-turn",
-      "Taunt"
+      "Volt Switch",
+      "Protect"
     ]
   },
   "Misdreavus": {
