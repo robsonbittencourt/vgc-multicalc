@@ -199,6 +199,26 @@ export class Pokemon {
     return this.pokemonSmogon.stats.spe
   }
 
+  modifiedAtk() {
+    return this.getModifiedStat(this.pokemonSmogon.rawStats['atk'], this.pokemonSmogon.boosts['atk'])  
+  }
+
+  modifiedDef() {
+    return this.getModifiedStat(this.pokemonSmogon.rawStats['def'], this.pokemonSmogon.boosts['def'])  
+  }
+
+  modifiedSpa() {
+    return this.getModifiedStat(this.pokemonSmogon.rawStats['spa'], this.pokemonSmogon.boosts['spa'])  
+  }
+
+  modifiedSpd() {
+    return this.getModifiedStat(this.pokemonSmogon.rawStats['spd'], this.pokemonSmogon.boosts['spd'])  
+  }
+
+  modifiedSpe() {
+    return this.getModifiedStat(this.pokemonSmogon.rawStats['spe'], this.pokemonSmogon.boosts['spe'])  
+  }
+
   public isParadoxAbility() {
     return this.ability == "Protosynthesis" || this.ability == "Quark Drive"
   }
@@ -333,5 +353,33 @@ export class Pokemon {
 
   isDefault() {
     return this.pokemonSmogon.name == "Togepi"
+  }
+
+  private getModifiedStat(stat: number, mod: number) {
+    const numerator = 0;
+    const denominator = 1;
+    const modernGenBoostTable = [
+      [2, 8],
+      [2, 7],
+      [2, 6],
+      [2, 5],
+      [2, 4],
+      [2, 3],
+      [2, 2],
+      [3, 2],
+      [4, 2],
+      [5, 2],
+      [6, 2],
+      [7, 2],
+      [8, 2],
+    ];
+    stat = this.OF16(stat * modernGenBoostTable[6 + mod][numerator]);
+    stat = Math.floor(stat / modernGenBoostTable[6 + mod][denominator]);
+  
+    return stat;
+  }
+
+  private OF16(n: number) {
+    return n > 65535 ? n % 65536 : n;
   }
 }
