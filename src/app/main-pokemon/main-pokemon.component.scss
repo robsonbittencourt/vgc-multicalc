@@ -43,10 +43,9 @@
 
 .edit-attacks-button {
   display: flex;
+  align-items: center;
   justify-content: left;
   gap: 1em;
-  margin-top: 0.4em;
-  margin-right: 1em;
   margin-bottom: 0.5em;
   grid-column-start: 1;
   grid-column-end: 3;
@@ -68,10 +67,6 @@
 .check-input-section {
   display: grid;
   grid-template-columns: 0fr 1fr;
-  margin-left: 0.4em;
-}
-
-.check-input-section-moves {
   margin-left: 0.4em;
 }
 
@@ -107,6 +102,11 @@
 
 .right-container {
   font-size: 14px;
+}
+
+.multihit {
+  display: flex;
+  align-items: center;
 }
 
 @media only screen and (max-width: 768px) {

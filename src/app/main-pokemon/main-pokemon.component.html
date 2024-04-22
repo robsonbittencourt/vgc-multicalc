@@ -62,37 +62,41 @@
         <label>Moves</label>
         <mat-icon class="edit-icon" *ngIf="!editAttacks" (click)="editMoves()">edit</mat-icon>
         <mat-icon class="edit-icon" *ngIf="editAttacks" (click)="saveMoves()">save</mat-icon>
+        <div *ngIf="pokemon.moveSet.activeMove.possibleHits.length > 0 && !editAttacks" class="multihit">
+          <label>Hits</label>
+          <app-input-autocomplete [(value)]="pokemon.moveSet.activeMove.hits" [allValues]="pokemon.moveSet.activeMove.possibleHits" (valueChange)="onHitsSelected()"/>
+        </div>
       </div>
       <div class="no-edit-attacks" *ngIf="!editAttacks">
         <mat-chip-listbox>
-          <mat-chip-option *ngIf="pokemon.moveSet.move1" [selected]="pokemon.moveSet.move1 == pokemon.move" (click)="activateMove(pokemon.moveSet.move1)">{{ pokemon.moveSet.move1 }}</mat-chip-option>
-          <mat-chip-option *ngIf="pokemon.moveSet.move2" [selected]="pokemon.moveSet.move2 == pokemon.move" (click)="activateMove(pokemon.moveSet.move2)">{{ pokemon.moveSet.move2 }}</mat-chip-option>
-          <mat-chip-option *ngIf="pokemon.moveSet.move3" [selected]="pokemon.moveSet.move3 == pokemon.move" (click)="activateMove(pokemon.moveSet.move3)">{{ pokemon.moveSet.move3 }}</mat-chip-option>
-          <mat-chip-option *ngIf="pokemon.moveSet.move4" [selected]="pokemon.moveSet.move4 == pokemon.move" (click)="activateMove(pokemon.moveSet.move4)" >{{ pokemon.moveSet.move4 }}</mat-chip-option>
+          <mat-chip-option [selected]="pokemon.move1Name == pokemon.activeMoveName" (click)="activateMove(pokemon.moveSet.move1)">{{ pokemon.move1Name }}</mat-chip-option>
+          <mat-chip-option [selected]="pokemon.move2Name == pokemon.activeMoveName" (click)="activateMove(pokemon.moveSet.move2)">{{ pokemon.move2Name }}</mat-chip-option>
+          <mat-chip-option [selected]="pokemon.move3Name == pokemon.activeMoveName" (click)="activateMove(pokemon.moveSet.move3)">{{ pokemon.move3Name }}</mat-chip-option>
+          <mat-chip-option [selected]="pokemon.move4Name == pokemon.activeMoveName" (click)="activateMove(pokemon.moveSet.move4)" >{{ pokemon.move4Name }}</mat-chip-option>
         </mat-chip-listbox>
       </div>
       <div class="edit-attacks" *ngIf="editAttacks">
-        <div class="check-input-section-movess">
+        <div>
           <div class="check-input-section-input">
-            <app-input-autocomplete [(value)]="pokemon.moveSet.move1" [allValues]="allMoveNames"/>
+            <app-input-autocomplete [(value)]="pokemon.moveSet.move1.name" [allValues]="allMoveNames"/>
           </div>
         </div>
         
-        <div class="check-input-section-movess">
+        <div>
           <div class="check-input-section-input">
-            <app-input-autocomplete [(value)]="pokemon.moveSet.move2" [allValues]="allMoveNames"/>
+            <app-input-autocomplete [(value)]="pokemon.moveSet.move2.name" [allValues]="allMoveNames"/>
           </div>
         </div>
         
-        <div class="check-input-section-movess">
+        <div>
           <div class="check-input-section-input">
-            <app-input-autocomplete [(value)]="pokemon.moveSet.move3" [allValues]="allMoveNames"/>
+            <app-input-autocomplete [(value)]="pokemon.moveSet.move3.name" [allValues]="allMoveNames"/>
           </div>
         </div>
         
-        <div class="check-input-section-movess">
+        <div>
           <div class="check-input-section-input">
-            <app-input-autocomplete [(value)]="pokemon.moveSet.move4" [allValues]="allMoveNames"/>
+            <app-input-autocomplete [(value)]="pokemon.moveSet.move4.name" [allValues]="allMoveNames"/>
           </div>
         </div>        
       </div>

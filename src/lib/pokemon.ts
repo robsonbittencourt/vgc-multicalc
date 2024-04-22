@@ -1,6 +1,7 @@
 import { Pokemon as PokemonSmogon, Generations } from "@smogon/calc";
 import { StatsTable, StatusName, TypeName } from "@smogon/calc/dist/data/interface";
 import { MoveSet } from "./moveset";
+import { Move } from "./move";
 
 export class Pokemon {
   public pokemonSmogon: PokemonSmogon
@@ -12,7 +13,7 @@ export class Pokemon {
   private commanderActivatedStorage: boolean
   private selectPokemonLabel: string = "Select a Pokémon"
   
-  constructor(name: string, nature: string, item: string, ability: string, teraType: string, teraTypeActive: boolean = false, evs: Partial<StatsTable> & { spc?: number; }, moveSet: MoveSet | undefined = undefined, boosts: StatsTable | undefined = undefined, status: string | undefined = undefined) {
+  constructor(name: string, nature: string, item: string, ability: string, teraType: string, teraTypeActive: boolean = false, evs: Partial<StatsTable> & { spc?: number; }, moveSet: MoveSet, boosts: StatsTable | undefined = undefined, status: string | undefined = undefined) {
     this.pokemonSmogon = new PokemonSmogon(Generations.get(9), name, {
       nature: nature,
       item: item,
@@ -27,7 +28,7 @@ export class Pokemon {
     this.statusStorage = status ?? 'Healthy'
     this.teraTypeStorage = teraType
     this.evsStorage = evs
-    this.moveSetStorage = moveSet ?? new MoveSet("Moonblast")
+    this.moveSetStorage = moveSet
   }
 
   public get name(): string {
@@ -171,8 +172,28 @@ export class Pokemon {
     return this.moveSetStorage
   }
 
-  public get move(): string {
+  public get move(): Move {
     return this.moveSetStorage.activeMove
+  }
+
+  public get activeMoveName(): string {
+    return this.moveSetStorage.activeMove.name
+  }
+
+  public get move1Name(): string {
+    return this.moveSet.move1.name
+  }
+
+  public get move2Name(): string {
+    return this.moveSet.move2.name
+  }
+
+  public get move3Name(): string {
+    return this.moveSet.move3.name
+  }
+
+  public get move4Name(): string {
+    return this.moveSet.move4.name
   }
 
   public get hp(): number {
@@ -199,23 +220,23 @@ export class Pokemon {
     return this.pokemonSmogon.stats.spe
   }
 
-  modifiedAtk() {
+  modifiedAtk(): number {
     return this.getModifiedStat(this.pokemonSmogon.rawStats['atk'], this.pokemonSmogon.boosts['atk'])  
   }
 
-  modifiedDef() {
+  modifiedDef(): number {
     return this.getModifiedStat(this.pokemonSmogon.rawStats['def'], this.pokemonSmogon.boosts['def'])  
   }
 
-  modifiedSpa() {
+  modifiedSpa(): number {
     return this.getModifiedStat(this.pokemonSmogon.rawStats['spa'], this.pokemonSmogon.boosts['spa'])  
   }
 
-  modifiedSpd() {
+  modifiedSpd(): number {
     return this.getModifiedStat(this.pokemonSmogon.rawStats['spd'], this.pokemonSmogon.boosts['spd'])  
   }
 
-  modifiedSpe() {
+  modifiedSpe(): number {
     return this.getModifiedStat(this.pokemonSmogon.rawStats['spe'], this.pokemonSmogon.boosts['spe'])  
   }
 
@@ -355,9 +376,9 @@ export class Pokemon {
     return this.pokemonSmogon.name == "Togepi"
   }
 
-  private getModifiedStat(stat: number, mod: number) {
-    const numerator = 0;
-    const denominator = 1;
+  private getModifiedStat(stat: number, mod: number): number {
+    const numerator = 0
+    const denominator = 1
     const modernGenBoostTable = [
       [2, 8],
       [2, 7],
@@ -372,14 +393,14 @@ export class Pokemon {
       [6, 2],
       [7, 2],
       [8, 2],
-    ];
-    stat = this.OF16(stat * modernGenBoostTable[6 + mod][numerator]);
-    stat = Math.floor(stat / modernGenBoostTable[6 + mod][denominator]);
-  
-    return stat;
+    ]
+    stat = this.OF16(stat * modernGenBoostTable[6 + mod][numerator])
+    stat = Math.floor(stat / modernGenBoostTable[6 + mod][denominator])
+
+    return stat
   }
 
-  private OF16(n: number) {
-    return n > 65535 ? n % 65536 : n;
+  private OF16(n: number): number {
+    return n > 65535 ? n % 65536 : n
   }
 }

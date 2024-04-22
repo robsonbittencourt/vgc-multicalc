@@ -28,9 +28,10 @@ export class DamageCalculatorService {
 
   private calculateResult(attacker: Pokemon, target: Pokemon, field: Field, criticalHit: boolean) {
     const gen = Generations.get(9)
-    const moveSmogon = new Move(gen, attacker.move)
+    const moveSmogon = new Move(gen, attacker.move.name)
     moveSmogon.isCrit = criticalHit
     moveSmogon.isStellarFirstUse = true
+    moveSmogon.hits = +attacker.move.hits
 
     attacker = this.adjustCommander(attacker)
     target = this.adjustCommander(target)

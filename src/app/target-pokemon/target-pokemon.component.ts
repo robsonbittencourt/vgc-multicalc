@@ -1,8 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MoveSet } from 'src/lib/moveset';
+import { defaultPokemon } from 'src/lib/default-pokemon';
 import { PokePasteParserService } from 'src/lib/poke-paste-parser.service';
-import { Pokemon } from 'src/lib/pokemon';
 import { Target } from 'src/lib/target';
 
 @Component({
@@ -81,7 +80,7 @@ export class TargetPokemonComponent {
   }
 
   removeAll() {
-    const pokemon = new Pokemon("Togepi", "Relaxed", "Leftovers", "Hustle", "Normal", false, {}, new MoveSet(""))
+    const pokemon = defaultPokemon()
     this.targets = [new Target(pokemon, 0)]
     this.allTargetsRemoved.emit()
   }

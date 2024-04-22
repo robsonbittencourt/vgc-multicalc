@@ -7,7 +7,7 @@
         <mat-card-subtitle *ngIf="!teamMember.pokemon.isDefault()">Nature: {{ teamMember.pokemon.nature }}</mat-card-subtitle>
         <mat-card-subtitle *ngIf="!teamMember.pokemon.isDefault()">Ability: {{ teamMember.pokemon.displayAbility }}</mat-card-subtitle>
         <mat-card-subtitle *ngIf="!teamMember.pokemon.isDefault()">{{ teamMember.pokemon.evsDescription() }}</mat-card-subtitle>
-        <mat-card-subtitle *ngIf="!teamMember.pokemon.isDefault()">Move: {{ teamMember.pokemon.move }}</mat-card-subtitle>
+        <mat-card-subtitle *ngIf="!teamMember.pokemon.isDefault()">Move: {{ teamMember.pokemon.activeMoveName }}</mat-card-subtitle>
       </mat-card-title-group>
       <div *ngIf="teamMember.damageResult && !teamMember.pokemon.isDefault()">
         <br>Damage: {{ teamMember.damageResult.result }}

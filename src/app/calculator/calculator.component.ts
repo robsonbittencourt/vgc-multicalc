@@ -10,6 +10,8 @@ import { Target } from 'src/lib/target';
 import { TeamMember } from 'src/lib/team-member';
 import { DeviceDetectorService } from 'src/lib/device-detector.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { defaultPokemon } from 'src/lib/default-pokemon';
+import { Move } from 'src/lib/move';
 
 @Component({
   selector: 'app-calculator',
@@ -101,7 +103,7 @@ export class CalculatorComponent {
   pokemonAddedToTeam() {
     const activePokemon = this.team.find(t => t.active)
 
-    const pokemon = new Pokemon("Togepi", "Relaxed", "Leftovers", "Hustle", "Normal", false, {}, new MoveSet(""))
+    const pokemon = defaultPokemon()
     const teamMember = new TeamMember(pokemon, this.team.length)
     
     teamMember.active = true
@@ -118,7 +120,7 @@ export class CalculatorComponent {
 
   pokemonAddedToTargets() {
     this.deactivateTargets()
-    const pokemon = new Pokemon("Togepi", "Relaxed", "Leftovers", "Hustle", "Normal", false, {}, new MoveSet(""))
+    const pokemon = defaultPokemon()
     const position = this.targets.length + 1
     const target = new Target(pokemon, position)
     target.active = true
@@ -305,7 +307,7 @@ export class CalculatorComponent {
     return userData.data.team.map((teamMember: any) => {
       const pokemon = teamMember.pokemon as Pokemon
       const moveSet = new MoveSet(teamMember.pokemon.moveSet[0], teamMember.pokemon.moveSet[1], teamMember.pokemon.moveSet[2], teamMember.pokemon.moveSet[3])
-      moveSet.activeMoveStorage = teamMember.pokemon.activeMove
+      moveSet.activeMoveStorage = new Move(teamMember.pokemon.activeMove)
       return new TeamMember(new Pokemon(pokemon.name, pokemon.nature, pokemon.item, pokemon.ability, pokemon.teraType, pokemon.teraTypeActive, pokemon.evs, moveSet, pokemon.boosts, pokemon.status), teamMember.position, teamMember.active)
     })
   }
@@ -315,7 +317,7 @@ export class CalculatorComponent {
     return userData.data.targets.map((target: any) => {
       const pokemon = target.pokemon as Pokemon
       const moveSet = new MoveSet(target.pokemon.moveSet[0], target.pokemon.moveSet[1], target.pokemon.moveSet[2], target.pokemon.moveSet[3])
-      moveSet.activeMoveStorage = target.pokemon.activeMove
+      moveSet.activeMoveStorage = new Move(target.pokemon.activeMove)
       const newTarget = new Target(new Pokemon(pokemon.name, pokemon.nature, pokemon.item, pokemon.ability, pokemon.teraType, pokemon.teraTypeActive, pokemon.evs, moveSet, pokemon.boosts, pokemon.status), position)
       position++
       
@@ -363,12 +365,12 @@ export class CalculatorComponent {
       "evs": pokemon.evs,
       "status": pokemon.status,
       "boosts": pokemon.boosts,
-      "activeMove": pokemon.moveSet.activeMove,
+      "activeMove": pokemon.moveSet.activeMove.name,
       "moveSet": [
-        pokemon.moveSet.move1,
-        pokemon.moveSet.move2,
-        pokemon.moveSet.move3,
-        pokemon.moveSet.move4
+        pokemon.moveSet.move1.name,
+        pokemon.moveSet.move2.name,
+        pokemon.moveSet.move3.name,
+        pokemon.moveSet.move4.name
       ]      
     }
   }

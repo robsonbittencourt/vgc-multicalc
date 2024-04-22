@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, KeyValueDiffer, KeyValueDiffers, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MoveSet } from 'src/lib/moveset';
+import { defaultPokemon } from 'src/lib/default-pokemon';
 import { PokePasteParserService } from 'src/lib/poke-paste-parser.service';
 import { Pokemon } from 'src/lib/pokemon';
 import { TeamMember } from 'src/lib/team-member';
@@ -75,7 +75,7 @@ export class TeamComponent {
         this.team[0].active = true
         this.teamMemberActivatedEvent.emit(this.team[0].pokemon)
       } else {
-        const pokemon = new Pokemon("Togepi", "Relaxed", "Leftovers", "Hustle", "Normal", false, {}, new MoveSet(""))
+        const pokemon = defaultPokemon()
         this.team = [new TeamMember(pokemon, 0)]
         this.team[0].active = true
         this.teamMemberActivatedEvent.emit(pokemon)
@@ -110,7 +110,7 @@ export class TeamComponent {
   }
 
   removeAll() {
-    const pokemon = new Pokemon("Togepi", "Relaxed", "Leftovers", "Hustle", "Normal", false, {}, new MoveSet(""))
+    const pokemon = defaultPokemon()
     this.team = [new TeamMember(pokemon, 0)]
     this.teamChanged.emit(this.team)
     this.teamMemberActivatedEvent.emit(pokemon)

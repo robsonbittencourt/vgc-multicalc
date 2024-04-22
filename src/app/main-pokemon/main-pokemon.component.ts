@@ -1,9 +1,10 @@
 import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { KeyValueDiffers, KeyValueDiffer } from '@angular/core';
-import { MOVES, ITEMS, NATURES, TYPE_CHART, ABILITIES } from '@smogon/calc';
+import { MOVES, ITEMS, NATURES, TYPE_CHART } from '@smogon/calc';
 import { Pokemon } from '../../lib/pokemon';
 import { AllPokemon } from 'src/data/all-pokemon';
 import { SETDEX_SV } from 'src/data/movesets';
+import { Move } from 'src/lib/move';
 
 @Component({
   selector: 'app-main-pokemon',
@@ -13,7 +14,6 @@ import { SETDEX_SV } from 'src/data/movesets';
 export class MainPokemonComponent {
 
   allPokemon = new AllPokemon()
-
   allMoveNames = Object.keys(MOVES[9]).splice(1).sort()
   allNatureNames = Object.keys(NATURES)
   allItemsNames = Object.values(ITEMS[9]).sort()
@@ -72,11 +72,11 @@ export class MainPokemonComponent {
       this.pokemon.ability = poke.ability
       this.pokemon.teraType = poke.teraType
       this.pokemon.evs = poke.evs
-      this.pokemon.moveSet.move1 = poke.moves[0]
-      this.pokemon.moveSet.move2 = poke.moves[1]
-      this.pokemon.moveSet.move3 = poke.moves[2]
-      this.pokemon.moveSet.move4 = poke.moves[3]
-      this.pokemon.moveSet.activeMove = poke.moves[0]
+      this.pokemon.moveSet.move1 = new Move(poke.moves[0])
+      this.pokemon.moveSet.move2 = new Move(poke.moves[1])
+      this.pokemon.moveSet.move3 = new Move(poke.moves[2])
+      this.pokemon.moveSet.move4 = new Move(poke.moves[3])
+      this.pokemon.moveSet.activeMove = new Move(poke.moves[0])
       this.pokemon.changeTeraStatus(false)
     }    
   }
@@ -95,7 +95,7 @@ export class MainPokemonComponent {
     }
   }
 
-  activateMove(move: string) {
+  activateMove(move: Move) {
     this.pokemon.moveSet.activeMove = move
     this.pokemonChangedEvent.emit(this.pokemon)
   }
@@ -126,6 +126,10 @@ export class MainPokemonComponent {
         break; 
       } 
     } 
+  }
+
+  onHitsSelected() {
+    this.pokemonChangedEvent.emit(this.pokemon)
   }
 
 }
