@@ -40,6 +40,10 @@ export class Move {
     if (move === "Population Bomb") {
       return ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
     }
+
+    if (move === "Rage Fist") {
+      return ["6", "5", "4", "3", "2", "1", "0"]
+    }
     
     const multihit = MOVES[9][move].multihit
     if(!multihit) return []

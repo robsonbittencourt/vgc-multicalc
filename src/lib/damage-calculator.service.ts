@@ -32,7 +32,12 @@ export class DamageCalculatorService {
     moveSmogon.isCrit = criticalHit
     moveSmogon.isStellarFirstUse = true
     moveSmogon.hits = +attacker.move.hits
-
+    
+    if (attacker.move.name == "Rage Fist") {
+      const adjustedBasePower = 50 + (50 * +attacker.move.hits)
+      moveSmogon.overrides = { basePower: adjustedBasePower}
+    }
+    
     attacker = this.adjustCommander(attacker)
     target = this.adjustCommander(target)
 

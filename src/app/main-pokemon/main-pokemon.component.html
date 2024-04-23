@@ -63,7 +63,8 @@
         <mat-icon class="edit-icon" *ngIf="!editAttacks" (click)="editMoves()">edit</mat-icon>
         <mat-icon class="edit-icon" *ngIf="editAttacks" (click)="saveMoves()">save</mat-icon>
         <div *ngIf="pokemon.moveSet.activeMove.possibleHits.length > 0 && !editAttacks" class="multihit">
-          <label>Hits</label>
+          <label *ngIf="pokemon.activeMoveName != 'Rage Fist'" class="hits-label">Hits</label>
+          <label *ngIf="pokemon.activeMoveName == 'Rage Fist'" class="hits-label">Hits Taken</label>
           <app-input-autocomplete [(value)]="pokemon.moveSet.activeMove.hits" [allValues]="pokemon.moveSet.activeMove.possibleHits" (valueChange)="onHitsSelected()"/>
         </div>
       </div>
