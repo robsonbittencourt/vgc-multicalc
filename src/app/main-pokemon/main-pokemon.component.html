@@ -70,10 +70,10 @@
       </div>
       <div class="no-edit-attacks" *ngIf="!editAttacks">
         <mat-chip-listbox>
-          <mat-chip-option [selected]="pokemon.move1Name == pokemon.activeMoveName" (click)="activateMove(pokemon.moveSet.move1)">{{ pokemon.move1Name }}</mat-chip-option>
-          <mat-chip-option [selected]="pokemon.move2Name == pokemon.activeMoveName" (click)="activateMove(pokemon.moveSet.move2)">{{ pokemon.move2Name }}</mat-chip-option>
-          <mat-chip-option [selected]="pokemon.move3Name == pokemon.activeMoveName" (click)="activateMove(pokemon.moveSet.move3)">{{ pokemon.move3Name }}</mat-chip-option>
-          <mat-chip-option [selected]="pokemon.move4Name == pokemon.activeMoveName" (click)="activateMove(pokemon.moveSet.move4)" >{{ pokemon.move4Name }}</mat-chip-option>
+          <mat-chip-option data-cy="attack1" [selected]="pokemon.move1Name == pokemon.activeMoveName" (click)="activateMove(pokemon.moveSet.move1)">{{ pokemon.move1Name }}</mat-chip-option>
+          <mat-chip-option data-cy="attack2" [selected]="pokemon.move2Name == pokemon.activeMoveName" (click)="activateMove(pokemon.moveSet.move2)">{{ pokemon.move2Name }}</mat-chip-option>
+          <mat-chip-option data-cy="attack3" [selected]="pokemon.move3Name == pokemon.activeMoveName" (click)="activateMove(pokemon.moveSet.move3)">{{ pokemon.move3Name }}</mat-chip-option>
+          <mat-chip-option data-cy="attack4" [selected]="pokemon.move4Name == pokemon.activeMoveName" (click)="activateMove(pokemon.moveSet.move4)" >{{ pokemon.move4Name }}</mat-chip-option>
         </mat-chip-listbox>
       </div>
       <div class="edit-attacks" *ngIf="editAttacks">
@@ -106,13 +106,13 @@
       <div class="evs">
         <app-ev-slider statName="HP" [statValue]="pokemon.hp" [(ev)]="pokemon.evs.hp" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"/>
         
-        <app-ev-slider statName="ATK" [statValue]="pokemon.modifiedAtk()" [(ev)]="pokemon.evs.atk" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()" 
+        <app-ev-slider data-cy="stat-atk" statName="ATK" [statValue]="pokemon.modifiedAtk()" [(ev)]="pokemon.evs.atk" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()" 
           [(statsModifier)]="pokemon.boosts.atk" [nature]="pokemon.nature"/>
     
         <app-ev-slider statName="DEF" [statValue]="pokemon.modifiedDef()" [(ev)]="pokemon.evs.def" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"
           [(statsModifier)]="pokemon.boosts.def" [nature]="pokemon.nature"/>
         
-        <app-ev-slider statName="SPA" [statValue]="pokemon.modifiedSpa()" [(ev)]="pokemon.evs.spa" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"
+        <app-ev-slider data-cy="stat-spa" statName="SPA" [statValue]="pokemon.modifiedSpa()" [(ev)]="pokemon.evs.spa" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"
           [(statsModifier)]="pokemon.boosts.spa" [nature]="pokemon.nature"/>
         
         <app-ev-slider statName="SPD" [statValue]="pokemon.modifiedSpd()" [(ev)]="pokemon.evs.spd" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"
