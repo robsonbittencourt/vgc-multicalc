@@ -1,9 +1,9 @@
 <div class="ev-slider-container">
-  <div class="ev-value dense-2">
-    <mat-form-field appearance="outline" class="mat-ev-field">
-      <mat-label>{{ statName }}</mat-label>
-      <input class="ev-value-input" type="number" min="0" max="252" matInput [(ngModel)]="ev">
-    </mat-form-field>
+  <div class="stat-name">
+    <label>{{ statName }}</label>
+  </div>
+  <div class="base-stat">
+    <label>{{ baseStatValue }}</label>
   </div>
   <div class="dense-2">
     <mat-form-field appearance="outline" class="mat-ev-stat-modifier" *ngIf="showStatsModifier()">
@@ -12,10 +12,20 @@
       </mat-select>
     </mat-form-field>
   </div>
+  <div class="ev-value dense-2">
+    <mat-form-field appearance="outline" class="mat-ev-field">
+      <input class="ev-value-input" type="number" min="0" max="252" matInput [(ngModel)]="ev">
+    </mat-form-field>
+  </div>
   <div class="ev-slider">
     <mat-slider class="mat-ev-slider" [min]="calculateMin(ev)" [max]="252" [step]="calculateEvStep(ev)">
       <input matSliderThumb (change)="evChanged()" [(ngModel)]="ev" (input)="beforeEvChanged()">
     </mat-slider>
+  </div>
+  <div class="ev-value dense-2">
+    <mat-form-field appearance="outline" class="mat-ev-field">
+      <input class="ev-value-input" type="number" min="0" max="31" matInput [(ngModel)]="iv">
+    </mat-form-field>
   </div>
   <div class="stat-value">
     <label>{{ natureModifier() }}{{ statValue }}</label>

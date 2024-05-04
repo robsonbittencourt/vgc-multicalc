@@ -1,0 +1,23 @@
+.tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 100px;
+  min-height: 65px;
+}
+
+.tab:hover {
+  cursor: pointer;
+  background-color: #f9f7fc;
+}
+
+.tab-label:hover {
+  cursor: pointer;
+}
+
+.pokemon-image-small {
+  width: 50px;
+  height: 50px;
+  margin-bottom: -0.1em;  
+}

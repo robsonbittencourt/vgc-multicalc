@@ -32,14 +32,14 @@ export class CalculatorComponent {
   criticalHit: boolean = false
   activeOnEditPokemon: Pokemon
   activeAttackerPokemon: Pokemon
+  activeSecondAttacker?: Pokemon
   oneVsManyActivated: boolean = true
   manyVsOneActivated: boolean = false
   
   targets: Target[] = []
 
   userDataLink: string
-  showAdvancedOptions = false
-
+  
   ngOnInit() {
     this.activatedRoute.data.subscribe(({ userData }) => {
       this.buildInitialData(userData)      
@@ -130,12 +130,18 @@ export class CalculatorComponent {
     this.calculateDamage(target)
   }
 
-  pokemonOnEditChanged() {
+  pokemonOnEditChanged(pokemon: Pokemon) {
+    this.activeOnEditPokemon = pokemon
+    
+    const attackerChanged = this.activeAttackerPokemon != pokemon
+    const activeTarget = this.targets.find(t => t.active)?.pokemon
+
+    this.activeAttackerPokemon = pokemon
     this.calculateDamageForAll()
-      
-    if (this.activeOnEditPokemon == this.activeAttackerPokemon) {
+
+    if (attackerChanged && pokemon != activeTarget) {
       this.order()
-    }
+    }        
   }
 
   targetsAdded(targets: Target[]) {
@@ -172,10 +178,6 @@ export class CalculatorComponent {
     this.order()
   }
 
-  manageAdvancedOptions(showAdvancedOptions: boolean) {
-    this.showAdvancedOptions = showAdvancedOptions
-  }
-
   enableOneVsMany() {
     this.oneVsManyActivated = true
     this.manyVsOneActivated = false
@@ -188,6 +190,7 @@ export class CalculatorComponent {
   enableManyVsOne() {
     this.manyVsOneActivated = true
     this.oneVsManyActivated = false
+    this.activeSecondAttacker = undefined
     this.activateOnlyFirstTeamMember()
     this.deactivateTargets()    
     this.calculateDamageForAll()
@@ -215,13 +218,11 @@ export class CalculatorComponent {
   }
 
   private calculateDamageOneVsMany(target: Target, criticalHit: boolean) {
-    const activeMembers = this.team.filter(t => t.active)
-
-    if(activeMembers.length > 1) {
-      const damageResult = this.damageCalculator.calcDamageForTwoAttackers(activeMembers[0].pokemon, activeMembers[1].pokemon, target.pokemon, this.field, criticalHit)
+    if(this.activeSecondAttacker && this.activeAttackerPokemon != this.activeSecondAttacker) {
+      const damageResult = this.damageCalculator.calcDamageForTwoAttackers(this.activeAttackerPokemon, this.activeSecondAttacker, target.pokemon, this.field, criticalHit)
       target.setDamageResult(damageResult)  
     } else {
-      const damageResult = this.damageCalculator.calcDamage(activeMembers[0].pokemon, target.pokemon, this.field, criticalHit)
+      const damageResult = this.damageCalculator.calcDamage(this.activeAttackerPokemon, target.pokemon, this.field, criticalHit)
       target.setDamageResult(damageResult)
     }
   }
@@ -257,7 +258,8 @@ export class CalculatorComponent {
   private defaultTeam(): TeamMember[] {
     return [
       new TeamMember(new Pokemon("Flutter Mane", "Timid", "Choice Specs", "Protosynthesis", "Fairy", false, { spa: 252 }, new MoveSet("Moonblast", "Dazzling Gleam", "Shadow Ball", "Thunderbolt"), undefined, undefined), 0, true),
-      new TeamMember(new Pokemon("Groudon", "Adamant", "Assault Vest", "Drought", "Ground", false, { hp: 132, atk: 252, spd: 124 }, new MoveSet("Precipice Blades", "Heat Crash", "Heavy Slam", "Shadow Claw"), undefined, undefined), 1, false)
+      new TeamMember(new Pokemon("Groudon", "Adamant", "Assault Vest", "Drought", "Ground", false, { hp: 132, atk: 252, spd: 124 }, new MoveSet("Precipice Blades", "Heat Crash", "Heavy Slam", "Shadow Claw"), undefined, undefined), 1, false),
+      new TeamMember(defaultPokemon(), 2, false)
     ]
   }
 
@@ -374,5 +376,17 @@ export class CalculatorComponent {
       ]      
     }
   }
+
+  secondAttackerSelected(pokemon: Pokemon) {
+    if (this.activeSecondAttacker == pokemon) {
+      this.activeSecondAttacker = undefined
+      console.log("undefined")
+    } else {
+      this.activeSecondAttacker = pokemon
+    }
+    
+    
+  }
+
 
 }

@@ -3,7 +3,6 @@
     <label class="title" *ngIf="!isAttacker">Defenders</label>
     <label class="title" *ngIf="isAttacker">Attackers</label>
     <li class="form-row">
-      <mat-slide-toggle class="show-advanced-options" color="primary" [(ngModel)]="showAdvancedOptions">Show Advanced Options</mat-slide-toggle>
       <div>
         <input class="poke-paste-input" placeholder="PokePaste Link" type="text" matInput (keyup.enter)="addFromPokePaste()" [(ngModel)]="pokePaste">
       </div>

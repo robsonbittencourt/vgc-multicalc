@@ -7,19 +7,21 @@ export class Pokemon {
   public pokemonSmogon: PokemonSmogon
   public teraTypeStorage: string
   public evsStorage: Partial<StatsTable> & { spc?: number; }
+  public ivsStorage: Partial<StatsTable> & { spc?: number; }
   private moveSetStorage: MoveSet
   private statusStorage?: string
   private paradoxAbilityActivatedStorage: boolean
   private commanderActivatedStorage: boolean
   private selectPokemonLabel: string = "Select a Pokémon"
   
-  constructor(name: string, nature: string, item: string, ability: string, teraType: string, teraTypeActive: boolean = false, evs: Partial<StatsTable> & { spc?: number; }, moveSet: MoveSet, boosts: StatsTable | undefined = undefined, status: string | undefined = undefined) {
+  constructor(name: string, nature: string, item: string, ability: string, teraType: string, teraTypeActive: boolean = false, evs: Partial<StatsTable> & { spc?: number; }, moveSet: MoveSet, boosts: StatsTable | undefined = undefined, status: string | undefined = undefined, ivs: Partial<StatsTable> & { spc?: number; } | undefined = undefined) {
     this.pokemonSmogon = new PokemonSmogon(Generations.get(9), name, {
       nature: nature,
       item: item,
       ability: ability,
       teraType: teraTypeActive ? teraType as TypeName : undefined,
       evs: evs,
+      ivs: ivs,
       boosts: boosts,
       status: status as StatusName,
       level: 50
@@ -28,6 +30,7 @@ export class Pokemon {
     this.statusStorage = status ?? 'Healthy'
     this.teraTypeStorage = teraType
     this.evsStorage = evs
+    this.ivsStorage = ivs ?? { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31}
     this.moveSetStorage = moveSet
   }
 
@@ -109,6 +112,15 @@ export class Pokemon {
   public set evs(evs: Partial<StatsTable> & { spc?: number; }) {
     this.evsStorage = evs
     this.pokemonSmogon = this.buildPokemonSmogon({ evs: evs })      
+  }
+
+  public get ivs(): Partial<StatsTable> & { spc?: number; } {
+    return this.pokemonSmogon.ivs
+  }
+
+  public set ivs(ivs: Partial<StatsTable> & { spc?: number; }) {
+    this.ivsStorage = ivs
+    this.pokemonSmogon = this.buildPokemonSmogon({ ivs: ivs })      
   }
 
   public get boosts(): StatsTable {
@@ -200,24 +212,48 @@ export class Pokemon {
     return this.pokemonSmogon.stats.hp
   }
 
+  public get baseHp(): number {
+    return this.pokemonSmogon.species.baseStats.hp
+  }
+
   public get atk(): number {
     return this.pokemonSmogon.stats.atk
+  }
+
+  public get baseAtk(): number {
+    return this.pokemonSmogon.species.baseStats.atk
   }
 
   public get def(): number {
     return this.pokemonSmogon.stats.def
   }
 
+  public get baseDef(): number {
+    return this.pokemonSmogon.species.baseStats.def
+  }
+
   public get spa(): number {
     return this.pokemonSmogon.stats.spa
+  }
+
+  public get baseSpa(): number {
+    return this.pokemonSmogon.species.baseStats.spa
   }
 
   public get spd(): number {
     return this.pokemonSmogon.stats.spd
   }
 
+  public get baseSpd(): number {
+    return this.pokemonSmogon.species.baseStats.spd
+  }
+
   public get spe(): number {
     return this.pokemonSmogon.stats.spe
+  }
+
+  public get baseSpe(): number {
+    return this.pokemonSmogon.species.baseStats.spe
   }
 
   modifiedAtk(): number {
@@ -296,13 +332,14 @@ export class Pokemon {
     return evsDescription
   }
 
-  private buildPokemonSmogon({ name, nature, item, ability, teraType, teraTypeActive, evs, boosts }: { name?: string; nature?: string; item?: string; ability?: string; teraType?: string; teraTypeActive?: boolean; evs?: Partial<StatsTable> & { spc?: number; }, boosts?: StatsTable} = {}, status?: StatusName): PokemonSmogon {
+  private buildPokemonSmogon({ name, nature, item, ability, teraType, teraTypeActive, evs, ivs, boosts }: { name?: string; nature?: string; item?: string; ability?: string; teraType?: string; teraTypeActive?: boolean; evs?: Partial<StatsTable> & { spc?: number; }, ivs?: Partial<StatsTable> & { spc?: number; }, boosts?: StatsTable} = {}, status?: StatusName): PokemonSmogon {
     return new PokemonSmogon(Generations.get(9), name ? name : this.pokemonSmogon.name, {
       nature: nature ? nature : this.pokemonSmogon.nature,
       item: item ? item : this.pokemonSmogon.item,
       ability: ability ? ability : this.pokemonSmogon.ability,
       teraType: this.buildTeraType(teraType, teraTypeActive) as TypeName,
       evs: evs ? evs : this.pokemonSmogon.evs,
+      ivs: ivs ? ivs : this.pokemonSmogon.ivs,
       boosts: boosts ? boosts : this.pokemonSmogon.boosts,
       status: status ? status : this.pokemonSmogon.status,
       level: 50

@@ -23,22 +23,19 @@
     </div>
   </div>
 
-  <div class="main-pokemon">
-    <app-main-pokemon [pokemon]="activeOnEditPokemon" (pokemonChangedEvent)="pokemonOnEditChanged()" />
+  <div>
+    <app-main-pokemon [team]="team" [pokemon]="activeOnEditPokemon" [isAttacker]="oneVsManyActivated" (pokemonChangedEvent)="pokemonOnEditChanged($event)"
+      (pokemonAddedToTeamEvent)=pokemonAddedToTeam() (teamChanged)="teamChanged($event)" (secondAttackerSelected)="secondAttackerSelected($event)"
+      [secondSelection]="activeSecondAttacker"/>
   </div>
 
-  <div class="team">
-    <app-team [team]="team" [isAttacker]="oneVsManyActivated" (teamMemberActivatedEvent)="teamMemberActivated($event)" (secondTeamMemberDeactivatedEvent)="secondTeamMemberDeactivated()" 
-     (teamChanged)=teamChanged($event) (pokemonAddedToTeamEvent)=pokemonAddedToTeam()/>
-  </div>
-
-  <div class="field" *ngIf="showAdvancedOptions">
+  <div>
     <app-field (fieldChangedEvent)="fieldChanged($event)" [field]="field" [criticalHit]="criticalHit" (criticalHitChangedEvent)="criticalHitChanged($event)"/>
   </div> 
 
   <div class="target-pokemon">
     <app-target-pokemon [targets]="targets" [canShowDamageDescription]="canShowDamageDescription()" [isAttacker]="manyVsOneActivated" 
       (targetChangedEvent)="targetChanged($event)" (allTargetsRemoved)="removeAllTargets()" (targetAdded)="pokemonAddedToTargets()" (targetsChangedEvent)="targetsChanged($event)"
-      (targetsAdded)="targetsAdded($event)" (advanceOptionsToggled)="manageAdvancedOptions($event)" (targetActivatedEvent)=targetActivated($event) (secondTargetDeactivatedEvent)=secondTargetDeactivated() />
+      (targetsAdded)="targetsAdded($event)" (targetActivatedEvent)=targetActivated($event) (secondTargetDeactivatedEvent)=secondTargetDeactivated() />
   </div>
 </div>
