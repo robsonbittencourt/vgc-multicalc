@@ -100,6 +100,11 @@
   column-gap: 1em;
 }
 
+.main-pokemon {
+  grid-column-start: 1;
+  grid-column-end: 2;
+}
+
 .field {
   grid-column-start: 1;
   grid-column-end: 3;

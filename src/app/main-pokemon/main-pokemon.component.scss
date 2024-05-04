@@ -9,6 +9,8 @@
 }
 
 .header {
+  display: flex;
+  justify-content: space-between;
   font-size: large;
 }
 
@@ -19,14 +21,15 @@
 
 .container {
   display: grid;
-  grid-template-columns: 0.8fr 1fr;
+  grid-template-columns: 0.3fr 1fr 0.5fr;
   column-gap: 1em;
   margin-top: 1em;
 }
 
-.left-container {
-  display: grid;
-  grid-template-columns: 0.2fr 1fr;
+.pokemon {
+  display: flex;
+  align-items: start;
+  flex-direction: column;
 }
 
 .center-container {
@@ -35,10 +38,10 @@
 }
 
 .edit-attacks {
-  display: grid;
-  grid-column-start: 1;
-  grid-column-end: 3;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  row-gap: 0.5em;
 }
 
 .edit-attacks-button {
@@ -56,32 +59,8 @@
   grid-column-end: 3;
 }
 
-.edit-icon {
-  font-size: 18px;
-}
-
-.info-label {
-  padding: .5em 0.5em .5em 0;
-}
-
 .check-input-section {
-  display: grid;
-  grid-template-columns: 0fr 1fr;
-  margin-left: 0.4em;
-}
-
-.check-input-section-checkbox {
-  margin-top: -0.1em;
-}
-
-.check-input-section-input {
-  margin-top: 0.2em;
-  margin-left: -0.5em;
-}
-
-.check-input-section-without-checkbox {
-  grid-column-start: 1;
-  grid-column-end: 3;
+  display: flex;  
 }
 
 .evs {
@@ -102,6 +81,9 @@
 
 .right-container {
   font-size: 14px;
+  margin-top: 1em;
+  grid-column-start: 1;
+  grid-column-end: 4;
 }
 
 .multihit {
@@ -111,6 +93,38 @@
 
 .hits-label {
   width: 30%;
+}
+
+.details {
+  display: flex;
+  column-gap: 1em;
+}
+
+.pokemon-image {
+  width: 140px;
+  height: 140px;
+}
+
+.pokemon-image-small {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 1em;
+  margin-right: 0.3em;
+}
+
+.item-ability {
+  display: flex;
+  column-gap: 1em;
+}
+
+.center-infos {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.move {
+  display: flex;
 }
 
 @media only screen and (max-width: 768px) {

@@ -130,12 +130,14 @@ export class CalculatorComponent {
     this.calculateDamage(target)
   }
 
-  pokemonOnEditChanged() {
+  pokemonOnEditChanged(pokemon: Pokemon) {
+    this.activeAttackerPokemon = pokemon
+
     this.calculateDamageForAll()
       
-    if (this.activeOnEditPokemon == this.activeAttackerPokemon) {
+    // if (this.activeOnEditPokemon == this.activeAttackerPokemon) {
       this.order()
-    }
+    // }
   }
 
   targetsAdded(targets: Target[]) {
@@ -221,7 +223,7 @@ export class CalculatorComponent {
       const damageResult = this.damageCalculator.calcDamageForTwoAttackers(activeMembers[0].pokemon, activeMembers[1].pokemon, target.pokemon, this.field, criticalHit)
       target.setDamageResult(damageResult)  
     } else {
-      const damageResult = this.damageCalculator.calcDamage(activeMembers[0].pokemon, target.pokemon, this.field, criticalHit)
+      const damageResult = this.damageCalculator.calcDamage(this.activeAttackerPokemon, target.pokemon, this.field, criticalHit)
       target.setDamageResult(damageResult)
     }
   }

@@ -5,6 +5,8 @@ import { Pokemon } from '../../lib/pokemon';
 import { AllPokemon } from 'src/data/all-pokemon';
 import { SETDEX_SV } from 'src/data/movesets';
 import { Move } from 'src/lib/move';
+import { TeamMember } from 'src/lib/team-member';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-main-pokemon',
@@ -20,7 +22,6 @@ export class MainPokemonComponent {
   allTeraTypes = Object.keys(TYPE_CHART[9]).splice(1).sort()
   allPokemonNames = this.allPokemon.allPokemonNames()
   availableAbilities: string[]
-  editAttacks = false
   activatedMovePosition = 1
 
   statusConditions = [
@@ -36,7 +37,10 @@ export class MainPokemonComponent {
   pokemon: Pokemon
 
   @Output() 
-  pokemonChangedEvent = new EventEmitter<Pokemon>();
+  pokemonChangedEvent = new EventEmitter<Pokemon>()
+
+  @Input() 
+  team: TeamMember[]
 
   constructor(private differs: KeyValueDiffers, private differsStatusModifiers: KeyValueDiffers) { }
 
@@ -95,37 +99,15 @@ export class MainPokemonComponent {
     }
   }
 
-  activateMove(move: Move) {
-    this.pokemon.moveSet.activeMove = move
+  activatePokemon(index: number) {
+    this.pokemon = this.team[index].pokemon
     this.pokemonChangedEvent.emit(this.pokemon)
   }
 
-  editMoves() {
-    this.editAttacks = !this.editAttacks
-    this.activatedMovePosition = this.pokemon.moveSet.activatedMovePosition()
-  }
-
-  saveMoves() {
-    this.editAttacks = !this.editAttacks
-
-    switch(this.activatedMovePosition) { 
-      case 1: { 
-        this.activateMove(this.pokemon.moveSet.move1)
-        break; 
-      } 
-      case 2: { 
-        this.activateMove(this.pokemon.moveSet.move2)
-        break; 
-      }
-      case 3: { 
-        this.activateMove(this.pokemon.moveSet.move3)
-        break; 
-      }
-      default: { 
-        this.activateMove(this.pokemon.moveSet.move4)
-        break; 
-      } 
-    } 
+  activateMove(move: Move) {
+    console.log(move)
+    this.pokemon.moveSet.activeMove = move
+    this.pokemonChangedEvent.emit(this.pokemon)
   }
 
   onHitsSelected() {

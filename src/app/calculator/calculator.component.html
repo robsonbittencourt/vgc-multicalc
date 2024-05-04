@@ -24,12 +24,7 @@
   </div>
 
   <div class="main-pokemon">
-    <app-main-pokemon [pokemon]="activeOnEditPokemon" (pokemonChangedEvent)="pokemonOnEditChanged()" />
-  </div>
-
-  <div class="team">
-    <app-team [team]="team" [isAttacker]="oneVsManyActivated" (teamMemberActivatedEvent)="teamMemberActivated($event)" (secondTeamMemberDeactivatedEvent)="secondTeamMemberDeactivated()" 
-     (teamChanged)=teamChanged($event) (pokemonAddedToTeamEvent)=pokemonAddedToTeam()/>
+    <app-main-pokemon [team]="team" [pokemon]="activeOnEditPokemon" (pokemonChangedEvent)="pokemonOnEditChanged($event)" />
   </div>
 
   <div class="field" *ngIf="showAdvancedOptions">
