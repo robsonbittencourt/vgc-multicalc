@@ -105,7 +105,6 @@ export class MainPokemonComponent {
   }
 
   activateMove(move: Move) {
-    console.log(move)
     this.pokemon.moveSet.activeMove = move
     this.pokemonChangedEvent.emit(this.pokemon)
   }
