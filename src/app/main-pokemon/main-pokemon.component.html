@@ -51,7 +51,11 @@
         </div>
       </div>
       <div>
-        Teste
+        <div *ngIf="pokemon.moveSet.activeMove.possibleHits.length > 0" class="multihit">
+          <label *ngIf="pokemon.activeMoveName != 'Rage Fist'" class="hits-label">Hits</label>
+          <label *ngIf="pokemon.activeMoveName == 'Rage Fist'" class="hits-label">Hits Taken</label>
+          <app-input-autocomplete [(value)]="pokemon.moveSet.activeMove.hits" [allValues]="pokemon.moveSet.activeMove.possibleHits" (valueChange)="onHitsSelected()"/>
+        </div>
       </div>
       <div class="item-ability">
         <div>
@@ -79,11 +83,6 @@
     <div>
       <div class="edit-attacks-button">
         <label>Moves</label>
-        <div *ngIf="pokemon.moveSet.activeMove.possibleHits.length > 0" class="multihit">
-          <label *ngIf="pokemon.activeMoveName != 'Rage Fist'" class="hits-label">Hits</label>
-          <label *ngIf="pokemon.activeMoveName == 'Rage Fist'" class="hits-label">Hits Taken</label>
-          <app-input-autocomplete [(value)]="pokemon.moveSet.activeMove.hits" [allValues]="pokemon.moveSet.activeMove.possibleHits" (valueChange)="onHitsSelected()"/>
-        </div>
       </div>
       <div>
         <div class="move">
