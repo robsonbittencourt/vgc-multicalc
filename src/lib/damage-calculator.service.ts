@@ -37,6 +37,10 @@ export class DamageCalculatorService {
       const adjustedBasePower = 50 + (50 * +attacker.move.hits)
       moveSmogon.overrides = { basePower: adjustedBasePower}
     }
+
+    if ((attacker.move.name == "Tera Starstorm" || attacker.move.name == "Tera Blast") && attacker.teraType == "Stellar" && attacker.teraTypeActive) {
+      moveSmogon.overrides = { type: "Stellar" }
+    }
     
     attacker = this.adjustCommander(attacker)
     target = this.adjustCommander(target)
