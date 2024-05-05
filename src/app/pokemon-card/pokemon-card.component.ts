@@ -104,6 +104,8 @@ export class PokemonCardComponent {
 
   terastalyzePokemon(event: Event) {
     event.stopPropagation()
+    if (this.teamMember.pokemon.isTerapagosStellar()) return 
+
     const teraActived = !this.teamMember.pokemon.teraTypeActive
     this.teamMember.pokemon.changeTeraStatus(teraActived)
 

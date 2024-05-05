@@ -25,6 +25,9 @@ export class InputAutocompleteComponent {
   @Output()
   valueManuallySelected = new EventEmitter<string>()
 
+  @Input()
+  disabled: boolean
+
   set value(value: string) {
     this.valueStorage = value
     this.formControl?.setValue(value)
@@ -40,6 +43,14 @@ export class InputAutocompleteComponent {
       startWith(''),
       map(value => this.filter(value || '', this.allValues))
     )    
+  }
+
+  ngOnChanges() {
+    if(this.disabled) {
+      this.formControl.disable()
+    } else {
+      this.formControl?.enable()
+    }
   }
   
   onClick() {

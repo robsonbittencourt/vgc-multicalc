@@ -155,7 +155,7 @@ export class Pokemon {
   }
 
   public get teraTypeActive(): boolean {
-    return this.pokemonSmogon.teraType != undefined
+    return this.isTerapagosStellar() || this.pokemonSmogon.teraType != undefined
   }
 
   public changeTeraStatus(teraTypeActive: boolean) {
@@ -374,6 +374,10 @@ export class Pokemon {
 
   isDefault() {
     return this.pokemonSmogon.name == "Togepi"
+  }
+
+  isTerapagosStellar(): boolean {
+    return this.name == "Terapagos-Stellar"
   }
 
   private getModifiedStat(stat: number, mod: number): number {

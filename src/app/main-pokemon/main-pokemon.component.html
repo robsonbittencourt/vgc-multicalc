@@ -46,10 +46,10 @@
       </div>
       <div class="check-input-section">
         <div class="check-input-section-checkbox">
-          <mat-checkbox [ngModel]="pokemon.teraTypeActive" (change)="pokemon.changeTeraStatus($event.checked)"></mat-checkbox>
+          <mat-checkbox [ngModel]="pokemon.teraTypeActive" (change)="pokemon.changeTeraStatus($event.checked)" [disabled]="pokemon.isTerapagosStellar()"></mat-checkbox>
         </div>
         <div class="check-input-section-input">
-          <app-input-autocomplete [(value)]="pokemon.teraType" [allValues]="allTeraTypes"/>
+          <app-input-autocomplete [(value)]="pokemon.teraType" [allValues]="allTeraTypes" [disabled]="pokemon.isTerapagosStellar()"/>
         </div>
       </div>
       <div class="info-label">
