@@ -3,14 +3,12 @@
     <span class="title">Team</span>
     <mat-tab-group animationDuration="0ms" (selectedTabChange)="activatePokemon($event)">
       <mat-tab *ngFor="let teamMember of team">
-        <ng-template mat-tab-label>
+        <ng-template mat-tab-label *ngIf="teamMember.pokemon.isDefault() && team.length < 7">
+          <mat-icon>add</mat-icon>
+        </ng-template>
+        <ng-template mat-tab-label *ngIf="!teamMember.pokemon.isDefault()">
           <img class="pokemon-image-small" src='https://img.pokemondb.net/sprites/scarlet-violet/normal/{{ teamMember.pokemon.spriteName }}.png'>
           {{teamMember.pokemon.name}}
-        </ng-template>
-      </mat-tab>
-      <mat-tab>
-        <ng-template mat-tab-label>
-          <mat-icon>add</mat-icon>
         </ng-template>
       </mat-tab>
     </mat-tab-group>

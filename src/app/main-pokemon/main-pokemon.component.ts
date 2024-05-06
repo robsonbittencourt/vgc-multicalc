@@ -7,6 +7,7 @@ import { SETDEX_SV } from 'src/data/movesets';
 import { Move } from 'src/lib/move';
 import { TeamMember } from 'src/lib/team-member';
 import { MatTabChangeEvent } from '@angular/material/tabs';
+import { defaultPokemon } from 'src/lib/default-pokemon';
 
 @Component({
   selector: 'app-main-pokemon',
@@ -42,9 +43,6 @@ export class MainPokemonComponent {
   @Input() 
   team: TeamMember[]
 
-  @Output()
-  pokemonAddedToTeamEvent = new EventEmitter<any>()
-
   constructor(private differs: KeyValueDiffers, private differsStatusModifiers: KeyValueDiffers) { }
 
   ngOnInit() {
@@ -68,6 +66,7 @@ export class MainPokemonComponent {
   }
 
   onValueManuallySelected(pokemonName: string) {
+    console.log(this.pokemon)
     this.availableAbilities = this.allPokemon.abilitiesByName(pokemonName)
     this.pokemon.ability = this.availableAbilities[0]
 
@@ -85,6 +84,10 @@ export class MainPokemonComponent {
       this.pokemon.moveSet.move4 = new Move(poke.moves[3])
       this.pokemon.moveSet.activeMove = new Move(poke.moves[0])
       this.pokemon.changeTeraStatus(false)
+
+      if(this.team.length < 6) {
+        this.team.push(new TeamMember(defaultPokemon(), this.team.length - 1, false))
+      }      
     }    
   }
 
@@ -103,11 +106,6 @@ export class MainPokemonComponent {
   }
 
   activatePokemon(event: MatTabChangeEvent) {
-    if (event.index == event.tab._closestTabGroup._allTabs.length -1) {
-      this.pokemonAddedToTeamEvent.emit()
-      return
-    }
-
     this.pokemon = this.team[event.index].pokemon
     this.pokemonChangedEvent.emit(this.pokemon)
   }
