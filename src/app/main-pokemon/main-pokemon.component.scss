@@ -1,4 +1,4 @@
-.n-container {
+.container {
   display: grid;
   row-gap: 1em;
   background-color: white;
@@ -10,41 +10,41 @@
   padding: 1em 1.5em 1em 1.5em;
 }
 
-.n-header {
+.header {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.n-data {
+.data {
   display: flex;
   gap: 0.5em;
 }
 
-.n-pokemon-image {
+.pokemon-image-container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.n-pokemon-status {
+.pokemon-status {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.n-pokemon-tera {
+.pokemon-tera {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.n-moves {
+.moves {
   display: flex;
   flex-direction: column;
 }
 
-.n-evs {
+.evs {
   display: grid;
   grid-row-gap: 0.7em;
   margin-top: 1em;

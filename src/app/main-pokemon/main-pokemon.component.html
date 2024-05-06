@@ -1,25 +1,30 @@
-<div class="n-container">
-  <div class="n-header">
+<div class="container">
+  <div class="header">
     <span class="title">Team</span>
-    <mat-tab-group animationDuration="0ms" (selectedIndexChange)="activatePokemon($event)">
+    <mat-tab-group animationDuration="0ms" (selectedTabChange)="activatePokemon($event)">
       <mat-tab *ngFor="let teamMember of team">
         <ng-template mat-tab-label>
           <img class="pokemon-image-small" src='https://img.pokemondb.net/sprites/scarlet-violet/normal/{{ teamMember.pokemon.spriteName }}.png'>
           {{teamMember.pokemon.name}}
         </ng-template>
       </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>add</mat-icon>
+        </ng-template>
+      </mat-tab>
     </mat-tab-group>
   </div>
 
-  <div class="n-data">
-    <div class="n-pokemon-image">
+  <div class="data">
+    <div class="pokemon-image-container">
       <img class="pokemon-image" src='https://img.pokemondb.net/sprites/home/normal/{{ pokemon.spriteName }}.png'>
 
       <label>Pokémon</label>
       <app-input-autocomplete [(value)]="pokemon.name" [allValues]="allPokemonNames" (valueChange)="onPokemonSelected($event)" (valueManuallySelected)="onValueManuallySelected($event)"/>
     </div>
 
-    <div class="n-pokemon-status">
+    <div class="pokemon-status">
       <div>
         <label>Status</label>
         <app-input-autocomplete [(value)]="pokemon.status" [allValues]="statusConditions"/>
@@ -31,7 +36,7 @@
       </div>
     </div>
 
-    <div class="n-pokemon-tera">
+    <div class="pokemon-tera">
       <div>
         <div class="info-label">
           <label >Tera Type</label>
@@ -61,7 +66,7 @@
       <div class="info-label">
         <label>Moves</label>
       </div>
-      <div class="n-moves">
+      <div class="moves">
         <div class="move">
           <app-input-autocomplete [(value)]="pokemon.moveSet.move1.name" [allValues]="allMoveNames"/>
           <mat-checkbox [ngModel]="pokemon.move1Name == pokemon.activeMoveName" (change)="activateMove(pokemon.moveSet.move1)"/>
@@ -86,7 +91,7 @@
   </div>
 
   <div>
-    <div class="n-evs">
+    <div class="evs">
       <app-ev-slider statName="HP" [statValue]="pokemon.hp" [(ev)]="pokemon.evs.hp" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"/>
           
       <app-ev-slider data-cy="stat-atk" statName="ATK" [statValue]="pokemon.modifiedAtk()" [(ev)]="pokemon.evs.atk" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()" 

@@ -42,6 +42,9 @@ export class MainPokemonComponent {
   @Input() 
   team: TeamMember[]
 
+  @Output()
+  pokemonAddedToTeamEvent = new EventEmitter<any>()
+
   constructor(private differs: KeyValueDiffers, private differsStatusModifiers: KeyValueDiffers) { }
 
   ngOnInit() {
@@ -99,8 +102,13 @@ export class MainPokemonComponent {
     }
   }
 
-  activatePokemon(index: number) {
-    this.pokemon = this.team[index].pokemon
+  activatePokemon(event: MatTabChangeEvent) {
+    if (event.index == event.tab._closestTabGroup._allTabs.length -1) {
+      this.pokemonAddedToTeamEvent.emit()
+      return
+    }
+
+    this.pokemon = this.team[event.index].pokemon
     this.pokemonChangedEvent.emit(this.pokemon)
   }
 
