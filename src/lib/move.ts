@@ -45,7 +45,7 @@ export class Move {
       return ["6", "5", "4", "3", "2", "1", "0"]
     }
     
-    const multihit = MOVES[9][move].multihit
+    const multihit = MOVES[9][move]?.multihit
     if(!multihit) return []
 
     if (Array.isArray(multihit)) {

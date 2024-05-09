@@ -16,7 +16,7 @@
 
   <div *ngIf="pokemon.isDefault()" class="data">
     <div class="pokemon-image-container">
-      <img class="pokemon-image" src='https://img.pokemondb.net/sprites/home/normal/{{ pokemon.spriteName }}.png'>
+      <img class="pokemon-image" src='assets/icons/question.png'>
 
       <label>Pokémon</label>
       <app-input-autocomplete [(value)]="pokemon.name" [allValues]="allPokemonNames" (valueChange)="onPokemonSelected($event)" (valueManuallySelected)="onValueManuallySelected($event)"/>
