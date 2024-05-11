@@ -124,6 +124,10 @@
         [(statsModifier)]="pokemon.boosts.spe" [nature]="pokemon.nature"/>
     </div>
     <div class="remaining-evs">
+      <div class="nature">
+        <label>Nature</label>
+        <app-input-autocomplete [(value)]="pokemon.nature" [allValues]="allNatureNames"/>
+      </div>      
       <label class="remaining-evs-label">Remaining:</label>
       <label class="remaining-evs-value">{{ MAX_EVS - pokemon.totalEvs() }}</label>
     </div>
