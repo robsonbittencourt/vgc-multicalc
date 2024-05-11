@@ -97,27 +97,35 @@
     </div>
   </div>
 
+  <div class="evs-titles">
+    <label class="base-title">Base</label>
+    <label class="modifier-title">Mod.</label>
+    <label class="evs-title">EVs</label>
+    <label class="ivs-title">IVs</label>
+  </div>
+
   <div>
     <div class="evs">
-      <app-ev-slider statName="HP" [statValue]="pokemon.hp" [(ev)]="pokemon.evs.hp" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"/>
+      <app-ev-slider statName="HP" [baseStatValue]="pokemon.baseHp" [statValue]="pokemon.hp" [(ev)]="pokemon.evs.hp" [(iv)]="pokemon.ivs.hp" (evChangedEvent)="onChangeEvValue()" (ivChange)="onChangeIvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"/>
           
-      <app-ev-slider data-cy="stat-atk" statName="ATK" [statValue]="pokemon.modifiedAtk()" [(ev)]="pokemon.evs.atk" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()" 
+      <app-ev-slider data-cy="stat-atk" [baseStatValue]="pokemon.baseAtk" statName="Attack" [statValue]="pokemon.modifiedAtk()" [(ev)]="pokemon.evs.atk" [(iv)]="pokemon.ivs.atk" (evChangedEvent)="onChangeEvValue()" (ivChange)="onChangeIvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()" 
         [(statsModifier)]="pokemon.boosts.atk" [nature]="pokemon.nature"/>
 
-      <app-ev-slider statName="DEF" [statValue]="pokemon.modifiedDef()" [(ev)]="pokemon.evs.def" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"
+      <app-ev-slider statName="Defense" [baseStatValue]="pokemon.baseDef" [statValue]="pokemon.modifiedDef()" [(ev)]="pokemon.evs.def" [(iv)]="pokemon.ivs.def" (evChangedEvent)="onChangeEvValue()" (ivChange)="onChangeIvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"
         [(statsModifier)]="pokemon.boosts.def" [nature]="pokemon.nature"/>
       
-      <app-ev-slider data-cy="stat-spa" statName="SPA" [statValue]="pokemon.modifiedSpa()" [(ev)]="pokemon.evs.spa" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"
+      <app-ev-slider data-cy="stat-spa" [baseStatValue]="pokemon.baseSpa" statName="Sp. Atk." [statValue]="pokemon.modifiedSpa()" [(ev)]="pokemon.evs.spa" [(iv)]="pokemon.ivs.spa" (evChangedEvent)="onChangeEvValue()" (ivChange)="onChangeIvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"
         [(statsModifier)]="pokemon.boosts.spa" [nature]="pokemon.nature"/>
       
-      <app-ev-slider statName="SPD" [statValue]="pokemon.modifiedSpd()" [(ev)]="pokemon.evs.spd" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"
+      <app-ev-slider statName="Sp. Def." [baseStatValue]="pokemon.baseSpd" [statValue]="pokemon.modifiedSpd()" [(ev)]="pokemon.evs.spd" [(iv)]="pokemon.ivs.spd" (evChangedEvent)="onChangeEvValue()" (ivChange)="onChangeIvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"
         [(statsModifier)]="pokemon.boosts.spd" [nature]="pokemon.nature"/>
       
-      <app-ev-slider statName="SPE" [statValue]="pokemon.modifiedSpe()" [(ev)]="pokemon.evs.spe" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"
+      <app-ev-slider statName="Speed" [baseStatValue]="pokemon.baseSpe" [statValue]="pokemon.modifiedSpe()" [(ev)]="pokemon.evs.spe" [(iv)]="pokemon.ivs.spe" (evChangedEvent)="onChangeEvValue()" (ivChange)="onChangeIvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"
         [(statsModifier)]="pokemon.boosts.spe" [nature]="pokemon.nature"/>
     </div>
     <div class="remaining-evs">
-      <label>Remaining: {{ MAX_EVS - pokemon.totalEvs() }}</label>
+      <label class="remaining-evs-label">Remaining:</label>
+      <label class="remaining-evs-value">{{ MAX_EVS - pokemon.totalEvs() }}</label>
     </div>
   </div>
 </div>

@@ -8,6 +8,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class EvSliderComponent {
 
   evValue: number | undefined = 0
+  ivValue: number | undefined = 0
   statsModifierValue: number
   statsModifiers = [
     { value: 6, viewValue: "+6"}, { value: 5, viewValue: "+5"}, { value: 4, viewValue: "+4"},
@@ -29,12 +30,28 @@ export class EvSliderComponent {
   evChangedEvent = new EventEmitter<number>()
 
   @Output()
+  ivChangedEvent = new EventEmitter<number>()
+
+  @Output()
   beforeEvChangedEvent = new EventEmitter<number>()
 
   set ev(ev: number | undefined) {
     this.evValue = ev
-    this.evChange.emit(this.evValue);
+    this.evChange.emit(this.evValue)
   }
+
+  @Input()
+  get iv(): number | undefined {
+    return this.ivValue
+  }
+
+  set iv(iv: number | undefined) {
+    this.ivValue = iv
+    this.ivChange.emit(this.ivValue)
+  }
+
+  @Output()
+  ivChange = new EventEmitter<number | undefined>()
 
   @Input()
   get statsModifier(): number {
@@ -46,7 +63,7 @@ export class EvSliderComponent {
 
   set statsModifier(statsModifier: number) {
     this.statsModifierValue = statsModifier
-    this.statsModifierChange.emit(this.statsModifier);
+    this.statsModifierChange.emit(this.statsModifier)
   }
 
   @Input()
@@ -57,6 +74,9 @@ export class EvSliderComponent {
 
   @Input()
   nature: string
+
+  @Input()
+  baseStatValue: number
 
   EV_ZERO = 0
   FIRST_EV = 4

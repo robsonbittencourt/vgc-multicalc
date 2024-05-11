@@ -92,7 +92,6 @@ export class MainPokemonComponent {
       this.pokemon.moveSet.move3 = new Move("")
       this.pokemon.moveSet.move4 = new Move("")
       this.pokemon.moveSet.activeMove = new Move("Tackle")
-      console.log("else")
     }   
 
     if(this.team.length < 6) {
@@ -106,6 +105,10 @@ export class MainPokemonComponent {
     } else {
       this.pokemon.evs = this.pokemon.evsStorage
     }    
+  }
+
+  onChangeIvValue() {
+    this.pokemon.ivs = this.pokemon.ivs
   }
 
   beforeChangeEvValue() {
