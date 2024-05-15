@@ -6,7 +6,6 @@ import { AllPokemon } from 'src/data/all-pokemon';
 import { SETDEX_SV } from 'src/data/movesets';
 import { Move } from 'src/lib/move';
 import { TeamMember } from 'src/lib/team-member';
-import { MatTabChangeEvent } from '@angular/material/tabs';
 import { defaultPokemon } from 'src/lib/default-pokemon';
 import { PokePasteParserService } from 'src/lib/poke-paste-parser.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -26,6 +25,7 @@ export class MainPokemonComponent {
   allPokemonNames = this.allPokemon.allPokemonNames()
   availableAbilities: string[]
   activatedMovePosition = 1
+  commanderActivated = false
 
   pokePaste = ""
   errorMessagePokePaste: string = ""
@@ -229,6 +229,12 @@ export class MainPokemonComponent {
 
   canShowCombineButton() {
     return this.isAttacker && !this.pokemon.isDefault() && (!this.secondSelection || this.pokemon == this.secondSelection)
+  }
+
+  toogleCommanderAbility() {
+    this.pokemon.commanderActivated = !this.commanderActivated
+    this.commanderActivated = !this.commanderActivated
+    this.pokemonChangedEvent.emit(this.pokemon)
   }
   
 }
