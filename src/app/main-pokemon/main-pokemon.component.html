@@ -57,6 +57,11 @@
           <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly.png" *ngIf="commanderActivated" />
           <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly-gray.png" *ngIf="!commanderActivated" />
         </button>
+
+        <button class="icon-button" (click)="toogleParadoxAbility()" *ngIf="pokemon.isParadoxAbility()">
+          <img class="icon-tatsugiri" src="assets/icons/booster-energy.png" *ngIf="pokemon.paradoxAbilityActivated" />
+          <img class="icon-tatsugiri" src="assets/icons/booster-energy-gray.png" *ngIf="!pokemon.paradoxAbilityActivated" />
+        </button>
       </div>
 
       <div>
@@ -79,18 +84,10 @@
         </div>
       </div>
 
-      <div [ngClass]="pokemon.isParadoxAbility() ? 'ability' : ''">
-        <div [ngClass]="pokemon.isParadoxAbility() ? 'info-label' : ''">
-          <label>Ability</label>
-        </div>
-        <div class="check-input-section">
-          <div>
-            <app-input-autocomplete [(value)]="pokemon.ability" [allValues]="availableAbilities"/>
-          </div>
-          <div *ngIf="pokemon.isParadoxAbility()" class="ability-checkbox">
-            <mat-checkbox [(ngModel)]="pokemon.paradoxAbilityActivated"></mat-checkbox>
-          </div>
-        </div>
+      <div>
+        <label>Ability</label>
+        <app-input-autocomplete [(value)]="pokemon.ability" [allValues]="availableAbilities"/>
+        
       </div>
     </div>
 

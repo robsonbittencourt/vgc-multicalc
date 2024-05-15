@@ -71,6 +71,7 @@
 .moves {
   display: flex;
   flex-direction: column;
+  margin-top: 0.1em;
 }
 
 .evs {
@@ -81,14 +82,6 @@
 
 .info-label {
   margin-bottom: -0.35em;
-}
-
-.ability {
-  margin-bottom: -0.25em;
-}
-
-.ability-checkbox {
-  margin-right: -1em;
 }
 
 .title {
