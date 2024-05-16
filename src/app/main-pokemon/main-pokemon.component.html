@@ -19,8 +19,8 @@
       <mat-icon *ngIf="secondSelectionActive()">add_circle</mat-icon>
       <label>Combine Damage</label>
     </div>
-    <div *ngIf="canShowDeleteButton()" class="delete-pokemon">
-      <mat-icon (click)="removePokemon()">delete</mat-icon>
+    <div *ngIf="canShowDeleteButton()" class="delete-pokemon" (click)="removePokemon()">
+      <mat-icon>delete</mat-icon>
       <label>Delete</label>
     </div>
   </div>
