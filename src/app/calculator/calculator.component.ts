@@ -132,16 +132,15 @@ export class CalculatorComponent {
 
   pokemonOnEditChanged(pokemon: Pokemon) {
     this.activeOnEditPokemon = pokemon
-    
-    const attackerChanged = this.activeAttackerPokemon != pokemon
     const activeTarget = this.targets.find(t => t.active)?.pokemon
-
-    this.activeAttackerPokemon = pokemon
-    this.calculateDamageForAll()
-
-    if (attackerChanged && pokemon != activeTarget) {
+    
+    if (pokemon != activeTarget) {
+      this.activeAttackerPokemon = pokemon
+      this.calculateDamageForAll()
       this.order()
-    }        
+    } else {
+      this.calculateDamageForAll()
+    }
   }
 
   targetsAdded(targets: Target[]) {
