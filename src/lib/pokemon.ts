@@ -444,4 +444,12 @@ export class Pokemon {
   private OF16(n: number): number {
     return n > 65535 ? n % 65536 : n
   }
+
+  type1(): TypeName {
+    return this.pokemonSmogon.types[0]
+  }
+
+  type2(): TypeName | undefined {
+    return this.pokemonSmogon.types[1]
+  }
 }

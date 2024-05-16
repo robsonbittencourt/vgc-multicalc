@@ -234,6 +234,24 @@
   border: 1px solid rgb(133, 129, 129);
 }
 
+.pokemon-types {
+  display: flex;
+  justify-content: right;
+  margin-top: 3em;
+  gap: 0.2em;
+}
+
+.pokemon-type {
+  display: flex;
+  justify-content: center;
+  border: 1px solid;
+  width: 30%;
+  font-size: small;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: white;
+}
+
 @media only screen and (max-width: 768px) {
   .container {
     grid-template-columns: 1fr;

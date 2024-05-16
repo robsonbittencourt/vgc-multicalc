@@ -84,10 +84,14 @@
         </div>
       </div>
 
+      <div class="pokemon-types">
+        <div [ngStyle]="typeStyle(pokemon.type1())" class="pokemon-type">{{ pokemon.type1() }}</div>
+        <div *ngIf="pokemon.type2()" [ngStyle]="typeStyle(pokemon.type2())" class="pokemon-type">{{ pokemon.type2() }}</div>
+      </div>
+
       <div>
         <label>Ability</label>
-        <app-input-autocomplete [(value)]="pokemon.ability" [allValues]="availableAbilities"/>
-        
+        <app-input-autocomplete [(value)]="pokemon.ability" [allValues]="availableAbilities"/>        
       </div>
     </div>
 
