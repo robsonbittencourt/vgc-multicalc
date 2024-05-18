@@ -85,7 +85,6 @@ export class CalculatorComponent {
     this.activeOnEditPokemon = this.targets.find(t => t.active)?.pokemon!
     this.activeAttackerPokemon = this.activeOnEditPokemon
     this.calculateDamageForAll()
-    this.order()
   }
 
   teamChanged(team: TeamMember[]) {
@@ -132,9 +131,9 @@ export class CalculatorComponent {
 
   pokemonOnEditChanged(pokemon: Pokemon) {
     this.activeOnEditPokemon = pokemon
-    const activeTarget = this.targets.find(t => t.active)?.pokemon
+    const activeTargets = this.targets.filter(t => t.active)
     
-    if (pokemon != activeTarget) {
+    if (pokemon != activeTargets[0]?.pokemon && pokemon != activeTargets[1]?.pokemon) {
       this.activeAttackerPokemon = pokemon
       this.calculateDamageForAll()
       this.order()
@@ -379,13 +378,8 @@ export class CalculatorComponent {
   secondAttackerSelected(pokemon: Pokemon) {
     if (this.activeSecondAttacker == pokemon) {
       this.activeSecondAttacker = undefined
-      console.log("undefined")
     } else {
       this.activeSecondAttacker = pokemon
     }
-    
-    
   }
-
-
 }
