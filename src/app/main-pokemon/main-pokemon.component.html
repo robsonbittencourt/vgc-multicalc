@@ -80,7 +80,7 @@
             <img class="icon-tera" src="assets/icons/tera-icon.png" *ngIf="pokemon.teraTypeActive" />
             <img class="icon-tera" src="assets/icons/tera-icon-gray.png" *ngIf="!pokemon.teraTypeActive" />
           </button>
-          <app-input-autocomplete [(value)]="pokemon.teraType" [allValues]="allTeraTypes" [disabled]="pokemon.isTerapagosStellar()"/>          
+          <app-input-autocomplete [(value)]="pokemon.teraType" [allValues]="allTeraTypes" [disabled]="pokemon.isTerapagos()"/>          
         </div>
       </div>
 

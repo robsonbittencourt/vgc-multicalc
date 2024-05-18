@@ -162,7 +162,7 @@ export class MainPokemonComponent {
 
   terastalyzePokemon(event: Event) {
     event.stopPropagation()
-    if (this.pokemon.isTerapagosStellar()) return 
+    if (this.pokemon.isTerapagos()) return 
 
     const teraActived = !this.pokemon.teraTypeActive
     this.pokemon.changeTeraStatus(teraActived)

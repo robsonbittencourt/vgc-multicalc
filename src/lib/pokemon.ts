@@ -413,6 +413,10 @@ export class Pokemon {
     return this.pokemonSmogon.name == "Togepi"
   }
 
+  isTerapagos(): boolean {
+    return this.name.startsWith("Terapagos")
+  }
+
   isTerapagosStellar(): boolean {
     return this.name == "Terapagos-Stellar"
   }
