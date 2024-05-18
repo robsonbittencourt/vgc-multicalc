@@ -1,7 +1,7 @@
 .container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 67px minmax(475px, 1fr);
+  grid-template-rows: minmax(475px, 1fr);
   grid-column-gap: 1em;
   row-gap: 1em;
   background-color: rgb(252, 248, 248);
@@ -22,7 +22,7 @@
   border-style: solid;
   padding-left: 2.5em;
   padding-right: 2.5em;
-  margin: 0em -1em 0em -1em;
+  margin-bottom: 1em;
 }
 
 .left-header {

@@ -1,9 +1,11 @@
 @use '@angular/material' as mat;
 
 html, body {
-  overflow-x: hidden;
+  zoom: 85%;
 }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { 
+  margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 .dense-2 {
   @include mat.all-component-densities(-3);
