@@ -59,23 +59,6 @@
   font-size: medium;
 }
 
-.status {
-  display: flex;
-  align-items: center;
-  margin-top: 0.2em;
-}
-
-.stats-modifiers {
-  display: grid;
-  grid-template-columns: 70px 70px 70px 70px 70px;
-  column-gap: 1em;
-  margin-top: 1em;
-}
-
-.mat-ev-stat-modifier {
-  width: 100%;
-}
-
 @media only screen and (max-width: 768px) {
   .field {
     border-radius: 0px;
@@ -97,12 +80,5 @@
     display: flex;
     flex-wrap: wrap;
     gap: 0.2em;  
-  }
-
-  .stats-modifiers {
-    display: grid;
-    grid-template-columns: 55px 55px 55px 55px 55px;
-    column-gap: 1em;
-    margin-top: 1em;
   }
 }
