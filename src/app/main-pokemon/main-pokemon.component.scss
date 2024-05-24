@@ -18,19 +18,11 @@
 
 .team-header {
   display: grid;
-  flex: 0 0 14em;
 }
 
 .title {
   grid-row: 1;
-  margin-bottom: 0.5em;
-}
-
-.poke-paste-container {
-  display: flex;
-  gap: 0.5em;
-  grid-column: 1 / 2;
-  grid-row: 2;
+  margin-bottom: 2.5em;
 }
 
 .data {
@@ -222,15 +214,6 @@
 .delete-pokemon:hover > * {
   cursor: pointer;
   font-weight: 500;
-}
-
-.poke-paste-input {
-  height: 90%;
-  width: 75%;
-  padding-left: 0.5em;
-  color: rgb(88, 88, 90);
-  border-radius: 3px;
-  border: 1px solid rgb(133, 129, 129);
 }
 
 .pokemon-types {

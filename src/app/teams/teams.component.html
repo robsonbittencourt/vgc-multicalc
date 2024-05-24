@@ -1,0 +1,59 @@
+<div class="teams">
+  <div class="header">
+    <span class="title">Teams</span>
+  </div>
+  <div class="teams-container">
+    <div class="teams-left-side">
+      <div class="team-name">
+        <label>Team Name</label>
+        <input class="poke-paste-input" type="text" matInput (keyup.enter)="addFromPokePaste()" [(ngModel)]="pokePaste">
+      </div>
+      <label class="label-import">Import</label>
+      <div class="poke-paste-container">
+        <input class="poke-paste-input" placeholder="PokePaste Link" type="text" matInput
+          (keyup.enter)="addFromPokePaste()">
+        <mat-icon (click)="addFromPokePaste()">download</mat-icon>
+      </div>
+      <div class="poke-paste-container">
+        <textarea class="team-text-input" placeholder="Team in text format" (keyup.enter)="addFromPokePaste()"></textarea>
+        <mat-icon (click)="addFromPokePaste()">download</mat-icon>
+      </div>
+      <div class=team-buttons>
+        <button mat-flat-button color="primary" (click)="addFromPokePaste()">Export</button>
+        <button mat-flat-button color="primary" (click)="addFromPokePaste()">Add to Opponent</button>
+        <button mat-flat-button color="warn" (click)="addFromPokePaste()">Delete</button>
+      </div>
+    </div>
+    <div class="teams-boxes">
+      <div class="team active">
+        <label class="team-name-label">Clover's CalyShadow Balance</label>
+        <div class="team-pokemon-icons">
+          <div class="pokemon-image">
+            <img src='https://img.pokemondb.net/sprites/scarlet-violet/normal/calyrex-shadow-rider.png'>
+          </div>
+          <div class="pokemon-image">
+            <img src='https://img.pokemondb.net/sprites/scarlet-violet/normal/incineroar.png'>
+          </div>
+          <div class="pokemon-image">
+            <img src='https://img.pokemondb.net/sprites/scarlet-violet/normal/rillaboom.png'>
+          </div>
+          <div class="pokemon-image">
+            <img src='https://img.pokemondb.net/sprites/scarlet-violet/normal/amoonguss.png'>
+          </div>
+          <div class="pokemon-image">
+            <img src='https://img.pokemondb.net/sprites/scarlet-violet/normal/urshifu.png'>
+          </div>
+          <div class="pokemon-image">
+            <img src='https://img.pokemondb.net/sprites/scarlet-violet/normal/raging-bolt.png'>
+          </div>
+        </div>
+      </div>
+      <div class="team">
+        <label>Team 2</label>
+      </div>
+      <div class="team">
+        <label>Team 3</label>
+      </div>
+    </div>
+  </div>
+</div>

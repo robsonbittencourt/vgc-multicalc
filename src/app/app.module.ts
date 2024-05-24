@@ -33,6 +33,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { CalculatorComponent } from './calculator/calculator.component';
 import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
 import { PokemonTabComponent } from './pokemon-tab/pokemon-tab.component';
+import { TeamsComponent } from './teams/teams.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { PokemonTabComponent } from './pokemon-tab/pokemon-tab.component';
     AddPokemonCardComponent,
     CalculatorComponent,
     NotFoundPageComponent,
-    PokemonTabComponent
+    PokemonTabComponent,
+    TeamsComponent
   ],
   imports: [
     ReactiveFormsModule,

@@ -28,9 +28,6 @@ export class MainPokemonComponent {
   activatedMovePosition = 1
   commanderActivated = false
 
-  pokePaste = ""
-  errorMessagePokePaste: string = ""
-
   statusConditions = [
     "Healthy", "Sleep", "Poison", "Burn", "Freeze", "Paralysis"
   ]
@@ -190,30 +187,6 @@ export class MainPokemonComponent {
 
     this.pokemonChangedEvent.emit(this.pokemon)
     this.teamChanged.emit(this.team)
-  }
-
-  async addFromPokePaste() {
-    try {
-      this.errorMessagePokePaste = ""
-      const pokemonList = await this.pokePasteService.parseFromPokePaste(this.pokePaste)
-      this.team = []
-
-      for (let index = 0; index < pokemonList.length; index++) {
-        const pokemon = pokemonList[index]
-        this.team.push(new TeamMember(pokemon, index))        
-      }
-
-      this.team[0].active = true
-      this.teamChanged.emit(this.team)
-      
-      this.pokemon = this.team[0].pokemon
-      this.pokemonChangedEvent.emit(this.pokemon)
-      this._snackBar.open("Pokémon from PokePaste added!", "", { duration: 4000 });
-    } catch(ex) {
-      this.errorMessagePokePaste = "Invalid Poke paste. Check if it is the version with EVs"
-    } finally {
-      this.pokePaste = ""
-    }
   }
 
   selectSecondAttacker() {
