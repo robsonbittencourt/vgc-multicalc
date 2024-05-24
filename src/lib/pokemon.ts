@@ -74,6 +74,14 @@ export class Pokemon {
     return adjustedPokemonName.toLocaleLowerCase().replace(" ", "-")
   }
 
+  public get spriteNameScarletViolet(): string {
+    if (this.name.startsWith("Urshifu")) {
+      return "urshifu"
+    }
+
+    return this.spriteName
+  }
+
   public get nature(): string {
     return this.pokemonSmogon.nature as string
   }
