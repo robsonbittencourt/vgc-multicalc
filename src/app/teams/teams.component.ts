@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { defaultPokemon } from 'src/lib/default-pokemon';
 import { PokePasteParserService } from 'src/lib/poke-paste-parser.service';
 import { Team } from 'src/lib/team';
 import { TeamMember } from 'src/lib/team-member';
@@ -58,6 +59,12 @@ export class TeamsComponent {
     team.active = true
     this.team = team
 
+    this.teamChanged.emit(this.team)
+  }
+
+  deleteTeam() {
+    this.team.deleteAll()
+    this.team.addTeamMember(new TeamMember(defaultPokemon(), 0, true))
     this.teamChanged.emit(this.team)
   }
 
