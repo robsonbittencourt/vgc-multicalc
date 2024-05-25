@@ -2,6 +2,7 @@ import { Pokemon as PokemonSmogon, Generations } from "@smogon/calc";
 import { StatsTable, StatusName, TypeName } from "@smogon/calc/dist/data/interface";
 import { MoveSet } from "./moveset";
 import { Move } from "./move";
+import dedent from "dedent";
 
 export class Pokemon {
   public pokemonSmogon: PokemonSmogon
@@ -328,7 +329,7 @@ export class Pokemon {
   }
 
   public evsDescription(): string {
-    var evsDescription = ""
+    let evsDescription = ""
 
     if (this.evs.hp && this.evs.hp != 0) evsDescription += `hp: ${this.evs.hp} `
     if (this.evs.atk && this.evs.atk != 0) evsDescription += `atk: ${this.evs.atk} `
@@ -338,6 +339,36 @@ export class Pokemon {
     if (this.evs.spe && this.evs.spe != 0) evsDescription += `spe: ${this.evs.spe}`
 
     return evsDescription
+  }
+
+  public evsDescriptionShowdown(): string {
+    let evsDescription = ""
+
+    if (this.evs.hp && this.evs.hp != 0) evsDescription += `${this.evs.hp} HP / `
+    if (this.evs.atk && this.evs.atk != 0) evsDescription += `${this.evs.atk} Atk / `
+    if (this.evs.def && this.evs.def != 0) evsDescription += `${this.evs.def} Def / `
+    if (this.evs.spa && this.evs.spa != 0) evsDescription += `${this.evs.spa} SpA / `
+    if (this.evs.spd && this.evs.spd != 0) evsDescription += `${this.evs.spd} SpD / `
+    if (this.evs.spe && this.evs.spe != 0) evsDescription += `${this.evs.spe} Spe / `
+
+    evsDescription = evsDescription.slice(0, -3)
+
+    return evsDescription
+  }
+
+  public ivsDescriptionShowdown(): string {
+    let ivsDescription = ""
+    
+    if (this.ivs.hp != 31) ivsDescription += `${this.ivs.hp} HP / `
+    if (this.ivs.atk != 31) ivsDescription += `${this.ivs.atk} Atk / `
+    if (this.ivs.def != 31) ivsDescription += `${this.ivs.def} Def / `
+    if (this.ivs.spa != 31) ivsDescription += `${this.ivs.spa} SpA / `
+    if (this.ivs.spd != 31) ivsDescription += `${this.ivs.spd} SpD / `
+    if (this.ivs.spe != 31) ivsDescription += `${this.ivs.spe} Spe / `
+
+    ivsDescription = ivsDescription.slice(0, -3)
+    
+    return ivsDescription
   }
 
   private buildPokemonSmogon({ name, nature, item, ability, teraType, teraTypeActive, evs, ivs, boosts }: { name?: string; nature?: string; item?: string; ability?: string; teraType?: string; teraTypeActive?: boolean; evs?: Partial<StatsTable> & { spc?: number; }, ivs?: Partial<StatsTable> & { spc?: number; }, boosts?: StatsTable} = {}, status?: StatusName): PokemonSmogon {
@@ -463,5 +494,29 @@ export class Pokemon {
 
   type2(): TypeName | undefined {
     return this.pokemonSmogon.types[1]
+  }
+
+  showdownTextFormat(): string {
+    let text = dedent`
+      ${this.name} @ ${this.item}
+      Ability: ${this.ability}
+      Level: ${this.pokemonSmogon.level}
+      Tera Type: ${this.teraType}
+      EVs: ${this.evsDescriptionShowdown()}
+      ${this.nature} Nature \n
+    `
+    const ivsDescription = this.ivsDescriptionShowdown()
+    if (ivsDescription.length > 0) {
+      text += `IVs: ${ivsDescription} \n`
+    }
+
+    text += dedent`
+      - ${this.move1Name}
+      - ${this.move2Name}
+      - ${this.move3Name}
+      - ${this.move4Name} \n
+    `
+
+    return text
   }
 }

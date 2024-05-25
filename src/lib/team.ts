@@ -82,4 +82,16 @@ export class Team {
   isEmpty(): boolean {
     return this.size() == 0
   }
+
+  exportToShowdownFormat() {
+    let result = ""
+
+    this._teamMembers.forEach(t => {
+      if (!t.pokemon.isDefault()) {
+        result += t.pokemon.showdownTextFormat() + "\n"
+      }      
+    })
+
+    console.log(result)
+  }
 }

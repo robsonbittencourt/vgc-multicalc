@@ -6,8 +6,6 @@ import { Target } from 'src/lib/target';
 import { Team } from 'src/lib/team';
 import { TeamMember } from 'src/lib/team-member';
 import { SnackbarService } from '../snackbar.service';
-import { Koffing } from 'koffing';
-import { Pokemon } from 'src/lib/pokemon';
 
 @Component({
   selector: 'app-teams',
@@ -68,6 +66,10 @@ export class TeamsComponent {
     this.team = team
 
     this.teamChanged.emit(this.team)
+  }
+
+  export() {
+    this.team.exportToShowdownFormat()
   }
 
   addToTargets() {
