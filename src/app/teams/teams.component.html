@@ -6,7 +6,7 @@
     <div class="teams-left-side">
       <div class="team-name">
         <label>Team Name</label>
-        <input class="poke-paste-input" type="text" matInput (keyup.enter)="addFromPokePaste()" [(ngModel)]="pokePaste">
+        <input class="poke-paste-input" type="text" matInput (keyup.enter)="addFromPokePaste()" [(ngModel)]="team.name">
       </div>
       <label class="label-import">Import</label>
       <div class="poke-paste-container">
@@ -26,25 +26,10 @@
     </div>
     <div class="teams-boxes">
       <div class="team active">
-        <label class="team-name-label">Clover's CalyShadow Balance</label>
+        <label class="team-name-label">{{ team.name }}</label>
         <div class="team-pokemon-icons">
-          <div class="pokemon-image">
-            <img src='https://img.pokemondb.net/sprites/scarlet-violet/normal/calyrex-shadow-rider.png'>
-          </div>
-          <div class="pokemon-image">
-            <img src='https://img.pokemondb.net/sprites/scarlet-violet/normal/incineroar.png'>
-          </div>
-          <div class="pokemon-image">
-            <img src='https://img.pokemondb.net/sprites/scarlet-violet/normal/rillaboom.png'>
-          </div>
-          <div class="pokemon-image">
-            <img src='https://img.pokemondb.net/sprites/scarlet-violet/normal/amoonguss.png'>
-          </div>
-          <div class="pokemon-image">
-            <img src='https://img.pokemondb.net/sprites/scarlet-violet/normal/urshifu.png'>
-          </div>
-          <div class="pokemon-image">
-            <img src='https://img.pokemondb.net/sprites/scarlet-violet/normal/raging-bolt.png'>
+          <div *ngFor="let teamMember of team.teamMembers()" class="pokemon-image">
+            <img *ngIf="!teamMember.pokemon.isDefault()" src='https://img.pokemondb.net/sprites/scarlet-violet/normal/{{ teamMember.pokemon.spriteNameScarletViolet }}.png'>
           </div>
         </div>
       </div>

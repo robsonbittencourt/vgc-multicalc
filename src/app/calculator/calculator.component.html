@@ -29,7 +29,7 @@
   </div>
 
   <div>
-    <app-teams/>
+    <app-teams [teams]="teams"/>
     <app-field (fieldChangedEvent)="fieldChanged($event)" [field]="field" [criticalHit]="criticalHit" (criticalHitChangedEvent)="criticalHitChanged($event)"/>
   </div> 
 

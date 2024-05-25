@@ -5,7 +5,7 @@
     </div>
     
     <div class="tabs">
-      <app-pokemon-tab *ngFor="let teamMember of team" [teamMember]="teamMember" (tabActivated)="activatePokemon($event)" [isSecondSelection]="isSecondSelection(teamMember)"/>  
+      <app-pokemon-tab *ngFor="let teamMember of team.teamMembers()" [teamMember]="teamMember" (tabActivated)="activatePokemon($event)" [isSecondSelection]="isSecondSelection(teamMember)"/>  
     </div>
   </div>
 

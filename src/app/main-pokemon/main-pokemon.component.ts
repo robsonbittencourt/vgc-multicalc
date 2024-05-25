@@ -7,9 +7,8 @@ import { SETDEX_SV } from 'src/data/movesets';
 import { Move } from 'src/lib/move';
 import { TeamMember } from 'src/lib/team-member';
 import { defaultPokemon } from 'src/lib/default-pokemon';
-import { PokePasteParserService } from 'src/lib/poke-paste-parser.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { TypeName } from '@smogon/calc/dist/data/interface';
+import { Team } from 'src/lib/team';
 
 @Component({
   selector: 'app-main-pokemon',
@@ -44,10 +43,10 @@ export class MainPokemonComponent {
   pokemonChangedEvent = new EventEmitter<Pokemon>()
 
   @Input() 
-  team: TeamMember[]
+  team: Team
 
   @Output() 
-  teamChanged = new EventEmitter<TeamMember[]>()
+  teamChanged = new EventEmitter<Team>()
   
   @Output() 
   secondAttackerSelected = new EventEmitter<Pokemon>()
@@ -58,7 +57,7 @@ export class MainPokemonComponent {
   @Input()
   isAttacker: boolean
 
-  constructor(private differs: KeyValueDiffers, private differsStatusModifiers: KeyValueDiffers, private pokePasteService: PokePasteParserService, private _snackBar: MatSnackBar) { }
+  constructor(private differs: KeyValueDiffers, private differsStatusModifiers: KeyValueDiffers) { }
   
   ngOnInit() {
     this.differ = this.differs.find(this.pokemon).create()
@@ -109,13 +108,9 @@ export class MainPokemonComponent {
       this.pokemon.moveSet.activeMove = new Move("Tackle")
     }   
 
-    if(!this.teamHaveDefaultPokemon() && this.team.length < 6) {
-      this.team.push(new TeamMember(defaultPokemon(), this.team.length - 1, false))
+    if(!this.team.haveDefaultPokemon() && !this.team.isFull()) {
+      this.team.addTeamMember(new TeamMember(defaultPokemon(), this.team.size() - 1, false))
     }
-  }
-
-  teamHaveDefaultPokemon(): boolean {
-    return this.team.find(t => t.pokemon.isDefault()) != null
   }
 
   canShowDeleteButton(): boolean {
@@ -141,7 +136,7 @@ export class MainPokemonComponent {
   }
 
   activatePokemon(teamMember: TeamMember) {
-    this.team.forEach(t => t.active = false)
+    this.team.deactivateAll()
     teamMember.active = true
 
     this.pokemon = teamMember.pokemon
@@ -168,17 +163,14 @@ export class MainPokemonComponent {
   }
 
   removePokemon() {
-    const removedTeamMember = this.team.find(teamMember => teamMember.active)!
-    this.team = this.team.filter(teamMember => !teamMember.active)
+    const removedTeamMember = this.team.removeActiveTeamMember()
 
-    if (this.team.length > 0) {
-      this.team[0].active = true
-      this.pokemon = this.team[0].pokemon
-    } else {
+    if (this.team.isEmpty()) {
       this.pokemon = defaultPokemon()
-      this.team = [new TeamMember(this.pokemon, 0)]
-      this.team[0].active = true
-      
+      this.team.addTeamMember(new TeamMember(this.pokemon, 0, true))
+    } else {
+      this.team.activateFirstTeamMember()
+      this.pokemon = this.team.activePokemon()
     }
 
     if (removedTeamMember.pokemon == this.secondSelection) {
