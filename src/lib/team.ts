@@ -12,8 +12,12 @@ export class Team {
     this._teamMembers = teamMembers
   }
 
-  active(): boolean {
+  get active(): boolean {
     return this._active
+  }
+
+  set active(active: boolean) {
+    this._active = active
   }
 
   public get name(): string {

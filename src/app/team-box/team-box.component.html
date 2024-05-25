@@ -1,0 +1,8 @@
+<div class="team" [ngStyle]="boxStyle()" (click)="activate()">
+  <label class="team-name-label">{{ team.name }}</label>
+  <div class="team-pokemon-icons">
+    <div *ngFor="let teamMember of team.teamMembers()" class="pokemon-image">
+      <img *ngIf="!teamMember.pokemon.isDefault()" src='https://img.pokemondb.net/sprites/scarlet-violet/normal/{{ teamMember.pokemon.spriteNameScarletViolet }}.png'>
+    </div>
+  </div>
+</div>

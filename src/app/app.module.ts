@@ -33,6 +33,7 @@ import { CalculatorComponent } from './calculator/calculator.component';
 import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
 import { PokemonTabComponent } from './pokemon-tab/pokemon-tab.component';
 import { TeamsComponent } from './teams/teams.component';
+import { TeamBoxComponent } from './team-box/team-box.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { TeamsComponent } from './teams/teams.component';
     CalculatorComponent,
     NotFoundPageComponent,
     PokemonTabComponent,
-    TeamsComponent
+    TeamsComponent,
+    TeamBoxComponent
   ],
   imports: [
     ReactiveFormsModule,

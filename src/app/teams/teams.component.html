@@ -25,20 +25,7 @@
       </div>
     </div>
     <div class="teams-boxes">
-      <div class="team active">
-        <label class="team-name-label">{{ team.name }}</label>
-        <div class="team-pokemon-icons">
-          <div *ngFor="let teamMember of team.teamMembers()" class="pokemon-image">
-            <img *ngIf="!teamMember.pokemon.isDefault()" src='https://img.pokemondb.net/sprites/scarlet-violet/normal/{{ teamMember.pokemon.spriteNameScarletViolet }}.png'>
-          </div>
-        </div>
-      </div>
-      <div class="team">
-        <label>Team 2</label>
-      </div>
-      <div class="team">
-        <label>Team 3</label>
-      </div>
+      <app-team-box *ngFor="let team of teams" [team]="team" (teamActivated)="activateTeam($event)"/>
     </div>
   </div>
 </div>

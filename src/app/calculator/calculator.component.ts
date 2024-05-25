@@ -91,6 +91,7 @@ export class CalculatorComponent {
 
   teamChanged(team: Team) {
     this.team = team
+    this.activeOnEditPokemon = team.activePokemon()
     this.calculateDamageForAll()
     this.order()
   }
@@ -300,7 +301,7 @@ export class CalculatorComponent {
       this.targets = this.buildTargetsFromUserData(userData)
     } else {
       this.team = this.defaultTeam()
-      this.teams = [this.team]
+      this.teams = [this.team, new Team(false, "Team 2", [new TeamMember(defaultPokemon(), 0, true)]), new Team(false, "Team 3", [new TeamMember(defaultPokemon(), 0, true)])]
       this.targets = this.defaultTargets()
     }   
   }

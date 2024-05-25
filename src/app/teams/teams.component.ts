@@ -28,7 +28,7 @@ export class TeamsComponent {
   }
 
   activeTeam(): Team {
-    return this.teams.find(t => t.active())!
+    return this.teams.find(t => t.active)!
   }
 
   async addFromPokePaste() {
@@ -53,6 +53,14 @@ export class TeamsComponent {
     } finally {
       this.pokePaste = ""
     }
+  }
+
+  activateTeam(team: Team) {
+    this.teams.forEach(t => t.active = false)
+    team.active = true
+    this.team = team
+
+    this.teamChanged.emit(this.team)
   }
 
 }
