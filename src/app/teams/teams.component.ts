@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { defaultPokemon } from 'src/lib/default-pokemon';
 import { PokePasteParserService } from 'src/lib/poke-paste-parser.service';
+import { Target } from 'src/lib/target';
 import { Team } from 'src/lib/team';
 import { TeamMember } from 'src/lib/team-member';
 
@@ -21,6 +22,9 @@ export class TeamsComponent {
 
   @Output() 
   teamChanged = new EventEmitter<Team>()
+
+  @Output() 
+  targetsAdded = new EventEmitter<Target[]>()
 
   constructor(private pokePasteService: PokePasteParserService, private _snackBar: MatSnackBar) { }
 
@@ -60,6 +64,11 @@ export class TeamsComponent {
     this.team = team
 
     this.teamChanged.emit(this.team)
+  }
+
+  addToTargets() {
+    const targets = this.team.teamMembers().map(t => new Target(t.pokemon, t.position))
+    this.targetsAdded.emit(targets)
   }
 
   deleteTeam() {
