@@ -6,12 +6,11 @@
     <div class="teams-left-side">
       <div class="team-name">
         <label>Team Name</label>
-        <input class="poke-paste-input" type="text" matInput (keyup.enter)="addFromPokePaste()" [(ngModel)]="team.name">
+        <input class="poke-paste-input" type="text" matInput [(ngModel)]="team.name">
       </div>
       <label class="label-import">Import</label>
       <div class="poke-paste-container">
-        <input class="poke-paste-input" placeholder="PokePaste Link" type="text" matInput
-          (keyup.enter)="addFromPokePaste()">
+        <input class="poke-paste-input" placeholder="PokePaste Link" type="text" matInput [(ngModel)]="pokePaste" (keyup.enter)="addFromPokePaste()">
         <mat-icon (click)="addFromPokePaste()">download</mat-icon>
       </div>
       <div class="poke-paste-container">

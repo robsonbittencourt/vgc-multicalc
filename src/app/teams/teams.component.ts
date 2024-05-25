@@ -45,11 +45,9 @@ export class TeamsComponent {
       this.team.activateFirstTeamMember()
       this.teamChanged.emit(this.team)
       
-      // this.pokemon = this.team[0].pokemon
-      // this.pokemonChangedEvent.emit(this.pokemon)
-      this._snackBar.open("Pokémon from PokePaste added!", "", { duration: 4000 });
+      this._snackBar.open("Team imported from PokePaste!", "", { duration: 4000, verticalPosition: "top" });
     } catch(ex) {
-      this.errorMessagePokePaste = "Invalid Poke paste. Check if it is the version with EVs"
+      this.errorMessagePokePaste = "Invalid PokePaste. Check if it is the version with EVs"
     } finally {
       this.pokePaste = ""
     }
