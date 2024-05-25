@@ -85,7 +85,7 @@ export class TargetPokemonComponent {
   async addFromPokePaste() {
     try {
       this.errorMessagePokePaste = ""
-      const pokemonList = await this.pokePasteService.parseFromPokePaste(this.pokePaste)
+      const pokemonList = await this.pokePasteService.parse(this.pokePaste)
       const targets = []
       
       for (let index = 0; index < pokemonList.length; index++) {

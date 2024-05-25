@@ -6,6 +6,8 @@ import { Target } from 'src/lib/target';
 import { Team } from 'src/lib/team';
 import { TeamMember } from 'src/lib/team-member';
 import { SnackbarService } from '../snackbar.service';
+import { Koffing } from 'koffing';
+import { Pokemon } from 'src/lib/pokemon';
 
 @Component({
   selector: 'app-teams',
@@ -15,7 +17,7 @@ import { SnackbarService } from '../snackbar.service';
 export class TeamsComponent {
 
   team: Team
-  pokePaste = ""
+  teamText = ""
   errorMessagePokePaste: string = ""
 
   @Input() 
@@ -40,7 +42,8 @@ export class TeamsComponent {
   async addFromPokePaste() {
     try {
       this.errorMessagePokePaste = ""
-      const pokemonList = await this.pokePasteService.parseFromPokePaste(this.pokePaste)
+
+      const pokemonList = await this.pokePasteService.parse(this.teamText)
       this.team.deleteAll()
 
       for (let index = 0; index < pokemonList.length; index++) {
@@ -55,7 +58,7 @@ export class TeamsComponent {
     } catch(ex) {
       this.errorMessagePokePaste = "Invalid PokePaste. Check if it is the version with EVs"
     } finally {
-      this.pokePaste = ""
+      this.teamText = ""
     }
   }
 

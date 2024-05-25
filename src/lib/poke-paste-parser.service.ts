@@ -9,9 +9,21 @@ import { Pokemon } from './pokemon';
 })
 export class PokePasteParserService {
 
-  async parseFromPokePaste(pokePasteLink: string): Promise<Pokemon[]> {
+  async parse(input: string): Promise<Pokemon[]> {
+    if (input.startsWith("http")) {
+      return await this.parseFromPokePaste(input)
+    } else {
+      return this.parseFromText(input)
+    }
+  } 
+
+  private async parseFromPokePaste(pokePasteLink: string): Promise<Pokemon[]> {
     const res = await axios.get(`${pokePasteLink}/raw`)
-    const parsedTeam = Koffing.parse(res.data)
+    return this.parseFromText(res.data)
+  }
+
+  private parseFromText(teamInTextFormat: string): Pokemon[] {
+    const parsedTeam = Koffing.parse(teamInTextFormat)
     const pokemonList = JSON.parse(parsedTeam.toJson()).teams[0].pokemon
 
     return pokemonList.map((poke: any) => {
@@ -20,6 +32,5 @@ export class PokePasteParserService {
       
       return new Pokemon(poke.name, poke.nature, poke.item, poke.ability, poke.teraType, false, evs, moveSet)
     })
-  }
-        
+  }     
 }

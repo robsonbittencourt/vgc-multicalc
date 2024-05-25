@@ -10,12 +10,8 @@
       </div>
       <label class="label-import">Import</label>
       <div class="poke-paste-container">
-        <input class="poke-paste-input" placeholder="PokePaste Link" type="text" matInput [(ngModel)]="pokePaste" (keyup.enter)="addFromPokePaste()">
-        <mat-icon (click)="addFromPokePaste()">download</mat-icon>
-      </div>
-      <div class="poke-paste-container">
-        <textarea class="team-text-input" placeholder="Team in text format" (keyup.enter)="addFromPokePaste()"></textarea>
-        <mat-icon (click)="addFromPokePaste()">download</mat-icon>
+        <textarea class="team-text-input" placeholder="PokePaste link or team in text format" [(ngModel)]="teamText"></textarea>
+        <mat-icon (click)="addFromPokePaste()" matTooltip="Import team">download</mat-icon>
       </div>
       <div class=team-buttons>
         <button mat-flat-button color="primary" (click)="addFromPokePaste()">Export</button>
