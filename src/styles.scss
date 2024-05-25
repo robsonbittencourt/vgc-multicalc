@@ -10,3 +10,7 @@ body {
 .dense-2 {
   @include mat.all-component-densities(-3);
 }
+
+.center {
+  text-align: center;
+}

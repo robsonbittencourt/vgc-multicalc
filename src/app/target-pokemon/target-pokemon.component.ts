@@ -3,6 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { defaultPokemon } from 'src/lib/default-pokemon';
 import { PokePasteParserService } from 'src/lib/poke-paste-parser.service';
 import { Target } from 'src/lib/target';
+import { SnackbarService } from '../snackbar.service';
 
 @Component({
   selector: 'app-target-pokemon',
@@ -11,7 +12,7 @@ import { Target } from 'src/lib/target';
 })
 export class TargetPokemonComponent {
 
-  constructor(private pokePasteService: PokePasteParserService, private _snackBar: MatSnackBar) {}
+  constructor(private pokePasteService: PokePasteParserService, private _snackBar: SnackbarService) {}
   
   @Input() 
   targets: Target[]
@@ -94,7 +95,7 @@ export class TargetPokemonComponent {
       }
 
       this.targetsAdded.emit(targets)
-      this._snackBar.open("Pokémon from PokePaste added!", "", { duration: 4000, verticalPosition: "top" });
+      this._snackBar.open("Pokémon from PokePaste added");
     } catch(ex) {
       this.errorMessagePokePaste = "Invalid Poke paste. Check if it is the version with EVs"
     } finally {

@@ -5,6 +5,7 @@ import { PokePasteParserService } from 'src/lib/poke-paste-parser.service';
 import { Target } from 'src/lib/target';
 import { Team } from 'src/lib/team';
 import { TeamMember } from 'src/lib/team-member';
+import { SnackbarService } from '../snackbar.service';
 
 @Component({
   selector: 'app-teams',
@@ -26,7 +27,7 @@ export class TeamsComponent {
   @Output() 
   targetsAdded = new EventEmitter<Target[]>()
 
-  constructor(private pokePasteService: PokePasteParserService, private _snackBar: MatSnackBar) { }
+  constructor(private pokePasteService: PokePasteParserService, private _snackBar: SnackbarService) { }
 
   ngOnInit() {
     this.team = this.activeTeam()
@@ -50,7 +51,7 @@ export class TeamsComponent {
       this.team.activateFirstTeamMember()
       this.teamChanged.emit(this.team)
       
-      this._snackBar.open("Team imported from PokePaste!", "", { duration: 4000, verticalPosition: "top" });
+      this._snackBar.open("Team imported from PokePaste");
     } catch(ex) {
       this.errorMessagePokePaste = "Invalid PokePaste. Check if it is the version with EVs"
     } finally {
@@ -69,12 +70,14 @@ export class TeamsComponent {
   addToTargets() {
     const targets = this.team.teamMembers().map(t => new Target(t.pokemon, t.position))
     this.targetsAdded.emit(targets)
+    this._snackBar.open("Team added to Opponent side");
   }
 
   deleteTeam() {
     this.team.deleteAll()
     this.team.addTeamMember(new TeamMember(defaultPokemon(), 0, true))
     this.teamChanged.emit(this.team)
+    this._snackBar.open("Team deleted");
   }
 
 }
