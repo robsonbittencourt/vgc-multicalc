@@ -25,7 +25,6 @@ import { TargetPokemonComponent } from './target-pokemon/target-pokemon.componen
 import { FieldComponent } from './field/field.component';
 import { EvSliderComponent } from './ev-slider/ev-slider.component';
 import { InputAutocompleteComponent } from './input-autocomplete/input-autocomplete.component';
-import { TeamComponent } from './team/team.component';
 import { PokemonCardComponent } from './pokemon-card/pokemon-card.component';
 import { AddPokemonCardComponent } from './add-pokemon-card/add-pokemon-card.component';
 import { RouterOutlet } from '@angular/router';
@@ -43,7 +42,6 @@ import { TeamsComponent } from './teams/teams.component';
     FieldComponent,
     EvSliderComponent,
     InputAutocompleteComponent,
-    TeamComponent,
     PokemonCardComponent,
     AddPokemonCardComponent,
     CalculatorComponent,
