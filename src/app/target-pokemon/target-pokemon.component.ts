@@ -97,7 +97,7 @@ export class TargetPokemonComponent {
       this.targetsAdded.emit(targets)
       this._snackBar.open("Pokémon from PokePaste added");
     } catch(ex) {
-      this.errorMessagePokePaste = "Invalid Poke paste. Check if it is the version with EVs"
+      this.errorMessagePokePaste = "Invalid PokePaste."
     } finally {
       this.pokePaste = ""
     }

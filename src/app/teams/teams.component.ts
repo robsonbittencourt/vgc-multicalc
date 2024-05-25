@@ -15,7 +15,7 @@ import { SnackbarService } from '../snackbar.service';
 export class TeamsComponent {
 
   team: Team
-  teamText = ""
+  pokePaste = ""
   errorMessagePokePaste: string = ""
 
   @Input() 
@@ -41,7 +41,7 @@ export class TeamsComponent {
     try {
       this.errorMessagePokePaste = ""
 
-      const pokemonList = await this.pokePasteService.parse(this.teamText)
+      const pokemonList = await this.pokePasteService.parse(this.pokePaste)
       this.team.deleteAll()
 
       for (let index = 0; index < pokemonList.length; index++) {
@@ -54,9 +54,9 @@ export class TeamsComponent {
       
       this._snackBar.open("Team imported from PokePaste");
     } catch(ex) {
-      this.errorMessagePokePaste = "Invalid PokePaste. Check if it is the version with EVs"
+      this.errorMessagePokePaste = "Invalid PokePaste."
     } finally {
-      this.teamText = ""
+      this.pokePaste = ""
     }
   }
 

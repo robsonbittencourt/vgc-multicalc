@@ -501,20 +501,26 @@ export class Pokemon {
       ${this.name} @ ${this.item}
       Ability: ${this.ability}
       Level: ${this.pokemonSmogon.level}
-      Tera Type: ${this.teraType}
-      EVs: ${this.evsDescriptionShowdown()}
-      ${this.nature} Nature \n
+      Tera Type: ${this.teraType}\n      
     `
+
+    const evsDescription = this.evsDescriptionShowdown()
+    if (evsDescription.length > 0) {
+      text += `EVs: ${evsDescription}\n`
+    }
+
+    text += `${this.nature} Nature \n`
+
     const ivsDescription = this.ivsDescriptionShowdown()
     if (ivsDescription.length > 0) {
-      text += `IVs: ${ivsDescription} \n`
+      text += `IVs: ${ivsDescription}\n`
     }
 
     text += dedent`
       - ${this.move1Name}
       - ${this.move2Name}
       - ${this.move3Name}
-      - ${this.move4Name} \n
+      - ${this.move4Name}\n
     `
 
     return text
