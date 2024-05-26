@@ -301,7 +301,12 @@ export class CalculatorComponent {
       this.targets = this.buildTargetsFromUserData(userData)
     } else {
       this.team = this.defaultTeam()
-      this.teams = [this.team, new Team(false, "Team 2", [new TeamMember(defaultPokemon(), 0, true)]), new Team(false, "Team 3", [new TeamMember(defaultPokemon(), 0, true)])]
+      this.teams = [
+        this.team,
+        new Team(false, "Team 2", [new TeamMember(defaultPokemon(), 0, true)]),
+        new Team(false, "Team 3", [new TeamMember(defaultPokemon(), 0, true)]),
+        new Team(false, "Team 4", [new TeamMember(defaultPokemon(), 0, true)])
+      ]
       this.targets = this.defaultTargets()
     }   
   }

@@ -23,29 +23,30 @@
 }
 
 .teams-container {
-  display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  column-gap: 3em;
+  display: flex;
+  flex-direction: column;;
   margin-top: 1em;
 }
 
 .teams-boxes {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr;
   grid-auto-rows: 1fr;
-  column-gap: 1em;
-  row-gap: 1em;
+  column-gap: 1.5em;
+  row-gap: 1.5em;
+  margin-top: 1.2em;
 }
 
 .teams-left-side {
   display: flex;
-  flex-direction: column;
-  row-gap: 1em;
+  flex-direction: row;
+  justify-content: left;
+  align-items: end;
 }
 
-.poke-paste-input {
-  height: 2.35em;  
-  width: 80%;
+.team-name-input {
+  height: 2.35em; 
+  margin-right: 1em; 
   padding-left: 0.5em;
   color: rgb(88, 88, 90);
   border-radius: 3px;
@@ -61,7 +62,6 @@
   display: flex;
   align-items: center;
   gap: 1em;
-  margin-top: 0.5em;
 }
 
 .card {

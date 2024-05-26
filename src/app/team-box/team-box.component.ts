@@ -16,7 +16,7 @@ export class TeamBoxComponent {
 
   boxStyle(): any {
     if (this.team.active) {
-      return { 'border': '4px', 'border-style': 'solid', 'border-color': '#8544ee' }
+      return { 'box-shadow': 'inset 0px 0px 0px 3px #8544ee' }
     }
   }
 
