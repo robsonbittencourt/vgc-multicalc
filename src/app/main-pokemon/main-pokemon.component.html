@@ -10,6 +10,14 @@
   </div>
 
   <div class="pokemon-actions">
+    <div class="delete-pokemon" *ngIf="canImportPokemon()" (click)="importPokemon()">
+      <mat-icon>download</mat-icon>
+      <label>Import</label>
+    </div>
+    <div class="delete-pokemon" *ngIf="canExportPokemon()" (click)="exportPokemon()">
+      <mat-icon>upload</mat-icon>
+      <label>Export</label>
+    </div>
     <div *ngIf="canShowCombineButton()" class="delete-pokemon" (click)="selectSecondAttacker()">
       <mat-icon *ngIf="!secondSelectionActive()">add_circle_outline</mat-icon>
       <mat-icon *ngIf="secondSelectionActive()">add_circle</mat-icon>

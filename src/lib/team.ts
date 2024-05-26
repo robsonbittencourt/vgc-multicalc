@@ -45,7 +45,11 @@ export class Team {
   }
 
   addTeamMember(teamMember: TeamMember) {
-    this._teamMembers.push(teamMember)
+    if (this.haveDefaultPokemon()) {
+      this._teamMembers.splice(this.size() - 1, 0, teamMember)
+    } else {
+      this._teamMembers.push(teamMember)
+    }    
   }
 
   first() {
@@ -57,7 +61,7 @@ export class Team {
   }
 
   isFull(): boolean {
-    return this.size() == 6
+    return this._teamMembers.filter(t => !t.pokemon.isDefault()).length == 6
   }
 
   deleteAll() {

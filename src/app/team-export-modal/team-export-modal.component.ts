@@ -8,10 +8,10 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogContent, MatDialogTitle } from '@a
 })
 export class TeamExportModalComponent {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: { team: string, teamName: string }) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: { title: string, content: string }) { }
 
   copy() {
-    navigator.clipboard.writeText(this.data.team)
+    navigator.clipboard.writeText(this.data.content)
   }
 
 }

@@ -36,6 +36,7 @@ import { PokemonTabComponent } from './pokemon-tab/pokemon-tab.component';
 import { TeamsComponent } from './teams/teams.component';
 import { TeamBoxComponent } from './team-box/team-box.component';
 import { TeamExportModalComponent } from './team-export-modal/team-export-modal.component';
+import { TeamImportModalComponent } from './team-import-modal/team-import-modal.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { TeamExportModalComponent } from './team-export-modal/team-export-modal.
     PokemonTabComponent,
     TeamsComponent,
     TeamBoxComponent,
-    TeamExportModalComponent
+    TeamExportModalComponent,
+    TeamImportModalComponent
   ],
   imports: [
     ReactiveFormsModule,

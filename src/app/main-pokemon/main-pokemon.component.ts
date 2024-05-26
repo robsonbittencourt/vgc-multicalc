@@ -9,6 +9,10 @@ import { TeamMember } from 'src/lib/team-member';
 import { defaultPokemon } from 'src/lib/default-pokemon';
 import { TypeName } from '@smogon/calc/dist/data/interface';
 import { Team } from 'src/lib/team';
+import { MatDialog } from '@angular/material/dialog';
+import { TeamExportModalComponent } from '../team-export-modal/team-export-modal.component';
+import { TeamImportModalComponent } from '../team-import-modal/team-import-modal.component';
+import { PokePasteParserService } from 'src/lib/poke-paste-parser.service';
 
 @Component({
   selector: 'app-main-pokemon',
@@ -57,7 +61,12 @@ export class MainPokemonComponent {
   @Input()
   isAttacker: boolean
 
-  constructor(private differs: KeyValueDiffers, private differsStatusModifiers: KeyValueDiffers) { }
+  constructor(
+    private differs: KeyValueDiffers,
+    private differsStatusModifiers: KeyValueDiffers,
+    private dialog: MatDialog,
+    private pokePasteService: PokePasteParserService
+  ) { }
   
   ngOnInit() {
     this.differ = this.differs.find(this.pokemon).create()
@@ -231,8 +240,45 @@ export class MainPokemonComponent {
       default: { 
          break; 
       } 
-   } 
-    
+    }
+  }
+
+  importPokemon() {
+    const dialogRef = this.dialog.open(TeamImportModalComponent, { 
+      position: { top: "2em" }
+    })
+
+    dialogRef.afterClosed().subscribe(async result => {
+      if(!result) return
+      
+      const pokemonList = await this.pokePasteService.parse(result)
+      const active = this.team.onlyHasDefaultPokemon()
+      const teamMember = new TeamMember(pokemonList[0], this.team.size() - 1, active)
+      
+      this.team.addTeamMember(teamMember)
+
+      if (active) {
+        this.activatePokemon(teamMember)
+      }      
+    })
+  }
+
+  exportPokemon() {
+    this.dialog.open(TeamExportModalComponent, { 
+      data: { 
+        title: this.pokemon.name,
+        content: this.pokemon.showdownTextFormat()
+      },
+      position: { top: "2em" }
+    })
+  }
+
+  canImportPokemon() {
+    return !this.team.isFull()
+  }
+
+  canExportPokemon() {
+    return !this.pokemon.isDefault()
   }
 
 }

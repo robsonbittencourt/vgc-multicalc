@@ -73,8 +73,8 @@ export class TeamsComponent {
   export() {
     this.dialog.open(TeamExportModalComponent, { 
       data: { 
-        teamName: this.team.name,
-        team: this.team.exportToShowdownFormat()
+        title: this.team.name,
+        content: this.team.exportToShowdownFormat()
       },
       position: { top: "2em" }
     })
