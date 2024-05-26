@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { defaultPokemon } from 'src/lib/default-pokemon';
 import { PokePasteParserService } from 'src/lib/poke-paste-parser.service';
 import { Target } from 'src/lib/target';
@@ -9,6 +8,7 @@ import { SnackbarService } from '../snackbar.service';
 import { MatDialog } from '@angular/material/dialog';
 import { TeamExportModalComponent } from '../team-export-modal/team-export-modal.component';
 import { NoopScrollStrategy, ScrollStrategyOptions } from '@angular/cdk/overlay';
+import { TeamImportModalComponent } from '../team-import-modal/team-import-modal.component';
 
 @Component({
   selector: 'app-teams',
@@ -18,9 +18,7 @@ import { NoopScrollStrategy, ScrollStrategyOptions } from '@angular/cdk/overlay'
 export class TeamsComponent {
 
   team: Team
-  pokePaste = ""
-  errorMessagePokePaste: string = ""
-
+  
   @Input() 
   teams: Team[]
 
@@ -41,10 +39,15 @@ export class TeamsComponent {
   }
 
   async addFromPokePaste() {
-    try {
-      this.errorMessagePokePaste = ""
+    const dialogRef = this.dialog.open(TeamImportModalComponent, { 
+      position: { top: "2em" },
+      scrollStrategy: new NoopScrollStrategy()
+    })
 
-      const pokemonList = await this.pokePasteService.parse(this.pokePaste)
+    dialogRef.afterClosed().subscribe(async result => {
+      if(!result) return
+
+      const pokemonList = await this.pokePasteService.parse(result)
       this.team.deleteAll()
 
       for (let index = 0; index < pokemonList.length; index++) {
@@ -56,11 +59,7 @@ export class TeamsComponent {
       this.teamChanged.emit(this.team)
       
       this._snackBar.open("Team imported from PokePaste");
-    } catch(ex) {
-      this.errorMessagePokePaste = "Invalid PokePaste."
-    } finally {
-      this.pokePaste = ""
-    }
+    })
   }
 
   activateTeam(team: Team) {
