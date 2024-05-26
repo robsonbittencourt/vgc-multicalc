@@ -1,10 +1,10 @@
 <div>
   <h2 mat-dialog-title>Import</h2>
   <mat-dialog-content class="mat-typography">
-    <textarea class="import-textarea" placeholder="PokePaste link or team in text format" [(ngModel)]="content"></textarea>
+    <textarea cdkFocusInitial class="import-textarea" placeholder="PokePaste link or team in text format" [(ngModel)]="content"></textarea>
   </mat-dialog-content>
   <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-button [mat-dialog-close]="content" cdkFocusInitial [disabled]="!content">Import</button>
+    <button mat-button [mat-dialog-close]="content" [disabled]="!content">Import</button>
   </mat-dialog-actions>
 </div>
