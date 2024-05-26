@@ -112,6 +112,7 @@ export class TargetPokemonComponent {
         title: "Opponent Pokémon",
         content: this.exportToShowdownFormat()
       },
+      width: "40em",
       position: { top: "2em" },
       scrollStrategy: new NoopScrollStrategy()
     })

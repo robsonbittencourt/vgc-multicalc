@@ -268,6 +268,7 @@ export class MainPokemonComponent {
         title: this.pokemon.name,
         content: this.pokemon.showdownTextFormat()
       },
+      width: "40em",
       position: { top: "2em" },
       scrollStrategy: new NoopScrollStrategy()
     })

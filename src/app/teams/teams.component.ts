@@ -77,6 +77,7 @@ export class TeamsComponent {
         title: this.team.name,
         content: this.team.exportToShowdownFormat()
       },
+      width: "40em",
       position: { top: "2em" },
       scrollStrategy: new NoopScrollStrategy()
     })
