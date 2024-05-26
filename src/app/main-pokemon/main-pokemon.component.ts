@@ -253,14 +253,10 @@ export class MainPokemonComponent {
       if(!result) return
 
       const pokemonList = await this.pokePasteService.parse(result)
-      const active = this.team.onlyHasDefaultPokemon()
-      const teamMember = new TeamMember(pokemonList[0], this.team.size() - 1, active)
+      const teamMember = new TeamMember(pokemonList[0], this.team.size() - 1, true)
       
       this.team.addTeamMember(teamMember)
-
-      if (active) {
-        this.activatePokemon(teamMember)
-      }      
+      this.activatePokemon(teamMember)
     })
   }
 
