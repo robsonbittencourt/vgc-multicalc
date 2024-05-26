@@ -29,7 +29,6 @@ export class MainPokemonComponent {
   allTeraTypes = Object.keys(TYPE_CHART[9]).splice(1).sort()
   allPokemonNames = this.allPokemon.allPokemonNames()
   availableAbilities: string[]
-  activatedMovePosition = 1
   commanderActivated = false
 
   statusConditions = [
