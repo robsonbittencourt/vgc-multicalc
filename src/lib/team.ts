@@ -83,6 +83,10 @@ export class Team {
     return this.size() == 0
   }
 
+  onlyHasDefaultPokemon() {
+    return this.size() == 1 && this.activePokemon().isDefault()
+  }
+
   exportToShowdownFormat() {
     let result = ""
 

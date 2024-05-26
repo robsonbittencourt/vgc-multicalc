@@ -14,8 +14,8 @@
       </div>
       <div class=team-buttons>
         <button mat-flat-button color="primary" (click)="addFromPokePaste()">Import</button>
-        <button mat-flat-button color="primary" (click)="export()">Export</button>
-        <button mat-flat-button color="warn" (click)="deleteTeam()">Delete</button>
+        <button mat-flat-button color="primary" (click)="export()" [disabled]="team.onlyHasDefaultPokemon()">Export</button>
+        <button mat-flat-button color="warn" (click)="deleteTeam()" [disabled]="team.onlyHasDefaultPokemon()">Delete</button>
       </div>
     </div>
     <div class="teams-boxes">
