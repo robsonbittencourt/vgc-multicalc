@@ -8,6 +8,7 @@ import { TeamMember } from 'src/lib/team-member';
 import { SnackbarService } from '../snackbar.service';
 import { MatDialog } from '@angular/material/dialog';
 import { TeamExportModalComponent } from '../team-export-modal/team-export-modal.component';
+import { NoopScrollStrategy, ScrollStrategyOptions } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-teams',
@@ -76,7 +77,8 @@ export class TeamsComponent {
         title: this.team.name,
         content: this.team.exportToShowdownFormat()
       },
-      position: { top: "2em" }
+      position: { top: "2em" },
+      scrollStrategy: new NoopScrollStrategy()
     })
   }
 

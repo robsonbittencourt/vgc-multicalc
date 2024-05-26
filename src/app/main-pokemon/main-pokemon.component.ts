@@ -13,6 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { TeamExportModalComponent } from '../team-export-modal/team-export-modal.component';
 import { TeamImportModalComponent } from '../team-import-modal/team-import-modal.component';
 import { PokePasteParserService } from 'src/lib/poke-paste-parser.service';
+import { NoopScrollStrategy } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-main-pokemon',
@@ -246,7 +247,8 @@ export class MainPokemonComponent {
 
   importPokemon() {
     const dialogRef = this.dialog.open(TeamImportModalComponent, { 
-      position: { top: "2em" }
+      position: { top: "2em" },
+      scrollStrategy: new NoopScrollStrategy()
     })
 
     dialogRef.afterClosed().subscribe(async result => {
@@ -266,7 +268,8 @@ export class MainPokemonComponent {
         title: this.pokemon.name,
         content: this.pokemon.showdownTextFormat()
       },
-      position: { top: "2em" }
+      position: { top: "2em" },
+      scrollStrategy: new NoopScrollStrategy()
     })
   }
 
