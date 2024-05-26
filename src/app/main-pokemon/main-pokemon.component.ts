@@ -174,9 +174,10 @@ export class MainPokemonComponent {
   removePokemon() {
     const removedTeamMember = this.team.removeActiveTeamMember()
 
-    if (this.team.isEmpty()) {
+    if (this.team.isEmpty() || !this.team.haveDefaultPokemon()) {
       this.pokemon = defaultPokemon()
-      this.team.addTeamMember(new TeamMember(this.pokemon, 0, true))
+      this.team.addTeamMember(new TeamMember(this.pokemon, 0, false))
+      this.team.activateFirstTeamMember()  
     } else {
       this.team.activateFirstTeamMember()
       this.pokemon = this.team.activePokemon()
@@ -250,7 +251,7 @@ export class MainPokemonComponent {
 
     dialogRef.afterClosed().subscribe(async result => {
       if(!result) return
-      
+
       const pokemonList = await this.pokePasteService.parse(result)
       const active = this.team.onlyHasDefaultPokemon()
       const teamMember = new TeamMember(pokemonList[0], this.team.size() - 1, active)
