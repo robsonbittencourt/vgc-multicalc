@@ -8,10 +8,17 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogContent, MatDialogTitle } from '@a
 })
 export class TeamExportModalComponent {
 
+  copyText: string = "Copy"
+
   constructor(@Inject(MAT_DIALOG_DATA) public data: { title: string, content: string }) { }
 
   copy() {
     navigator.clipboard.writeText(this.data.content)
+    this.copyText = "Copied"
+
+    setTimeout(() => {
+      this.copyText = "Copy"
+    }, 2000)
   }
 
 }
