@@ -3,17 +3,11 @@
     <label class="title" *ngIf="!isAttacker">Opponent Defenders</label>
     <label class="title" *ngIf="isAttacker">Opponent Attackers</label>
     <li class="form-row">
-      <div>
-        <textarea class="team-text-input" placeholder="PokePaste link or team in text format" [(ngModel)]="pokePaste"></textarea>
-      </div>
-      <button mat-flat-button color="primary" (click)="addFromPokePaste()">Import</button>
+      <button mat-flat-button color="primary" (click)="importPokemon()">Import</button>
       <button mat-flat-button color="warn" (click)="removeAll()">Remove all</button>
     </li>
   </div>
-  <div class="error-message-poke-paste">
-    <label>{{ errorMessagePokePaste }}</label>
-  </div>
-
+  
   <div *ngIf="canShowDamageDescription" class="damage-description">
     <div>{{ damageDescription() }}</div>
     <div class="copy-button">

@@ -1,9 +1,11 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { defaultPokemon } from 'src/lib/default-pokemon';
 import { PokePasteParserService } from 'src/lib/poke-paste-parser.service';
 import { Target } from 'src/lib/target';
 import { SnackbarService } from '../snackbar.service';
+import { MatDialog } from '@angular/material/dialog';
+import { TeamImportModalComponent } from '../team-import-modal/team-import-modal.component';
+import { NoopScrollStrategy } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-target-pokemon',
@@ -12,8 +14,6 @@ import { SnackbarService } from '../snackbar.service';
 })
 export class TargetPokemonComponent {
 
-  constructor(private pokePasteService: PokePasteParserService, private _snackBar: SnackbarService) {}
-  
   @Input() 
   targets: Target[]
 
@@ -44,10 +44,10 @@ export class TargetPokemonComponent {
   @Output()
   secondTargetDeactivatedEvent = new EventEmitter<any>()
 
-  pokePaste = ""
-  errorMessagePokePaste: string = ""
-  copyMessageEnabled = false  
+  copyMessageEnabled = false
 
+  constructor(private pokePasteService: PokePasteParserService,  private dialog: MatDialog, private _snackBar: SnackbarService) {}
+  
   targetChanged(target: Target) {
     this.targetChangedEvent.emit(target)
   }
@@ -82,12 +82,18 @@ export class TargetPokemonComponent {
     this.allTargetsRemoved.emit()
   }
 
-  async addFromPokePaste() {
-    try {
-      this.errorMessagePokePaste = ""
-      const pokemonList = await this.pokePasteService.parse(this.pokePaste)
+  async importPokemon() {
+    const dialogRef = this.dialog.open(TeamImportModalComponent, { 
+      position: { top: "2em" },
+      scrollStrategy: new NoopScrollStrategy()
+    })
+
+    dialogRef.afterClosed().subscribe(async result => {
+      if(!result) return
+
+      const pokemonList = await this.pokePasteService.parse(result)
       const targets = []
-      
+
       for (let index = 0; index < pokemonList.length; index++) {
         const pokemon = pokemonList[index]
         const position = this.targets.length + index + 1
@@ -95,12 +101,8 @@ export class TargetPokemonComponent {
       }
 
       this.targetsAdded.emit(targets)
-      this._snackBar.open("Pokémon from PokePaste added");
-    } catch(ex) {
-      this.errorMessagePokePaste = "Invalid PokePaste."
-    } finally {
-      this.pokePaste = ""
-    }
+      this._snackBar.open("Pokémon from PokePaste added")
+    })
   }
 
   addPokemonToTargets() {
