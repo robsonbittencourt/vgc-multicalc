@@ -6,6 +6,7 @@ import { SnackbarService } from '../snackbar.service';
 import { MatDialog } from '@angular/material/dialog';
 import { TeamImportModalComponent } from '../team-import-modal/team-import-modal.component';
 import { NoopScrollStrategy } from '@angular/cdk/overlay';
+import { TeamExportModalComponent } from '../team-export-modal/team-export-modal.component';
 
 @Component({
   selector: 'app-target-pokemon',
@@ -103,6 +104,29 @@ export class TargetPokemonComponent {
       this.targetsAdded.emit(targets)
       this._snackBar.open("Pokémon from PokePaste added")
     })
+  }
+
+  exportPokemon() {
+    this.dialog.open(TeamExportModalComponent, { 
+      data: { 
+        title: "Opponent Pokémon",
+        content: this.exportToShowdownFormat()
+      },
+      position: { top: "2em" },
+      scrollStrategy: new NoopScrollStrategy()
+    })
+  }
+
+  private exportToShowdownFormat() {
+    let result = ""
+
+    this.targets.forEach(t => {
+      if (!t.pokemon.isDefault()) {
+        result += t.pokemon.showdownTextFormat() + "\n"
+      }      
+    })
+
+    return result
   }
 
   addPokemonToTargets() {
