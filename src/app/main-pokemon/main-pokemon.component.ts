@@ -153,6 +153,10 @@ export class MainPokemonComponent {
     this.pokemonChangedEvent.emit(teamMember.pokemon)
   }
 
+  moveSelected(move: string) {
+    this.activateMove(new Move(move))
+  }
+
   activateMove(move: Move) {
     this.pokemon.moveSet.activeMove = move
     this.pokemonChangedEvent.emit(this.pokemon)

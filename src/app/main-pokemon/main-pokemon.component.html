@@ -105,22 +105,22 @@
       </div>
       <div class="moves">
         <div class="move">
-          <app-input-autocomplete [(value)]="pokemon.moveSet.move1.name" [allValues]="allMoveNames"/>
+          <app-input-autocomplete [(value)]="pokemon.moveSet.move1.name" [allValues]="allMoveNames" (valueManuallySelected)="moveSelected($event)"/>
           <mat-checkbox [ngModel]="pokemon.move1Name == pokemon.activeMoveName" (change)="activateMove(pokemon.moveSet.move1)"/>
         </div>
 
         <div class="move">
-          <app-input-autocomplete [(value)]="pokemon.moveSet.move2.name" [allValues]="allMoveNames"/>
+          <app-input-autocomplete [(value)]="pokemon.moveSet.move2.name" [allValues]="allMoveNames" (valueManuallySelected)="moveSelected($event)"/>
           <mat-checkbox [ngModel]="pokemon.move2Name == pokemon.activeMoveName" (change)="activateMove(pokemon.moveSet.move2)"/>
         </div>
 
         <div class="move">
-          <app-input-autocomplete [(value)]="pokemon.moveSet.move3.name" [allValues]="allMoveNames"/>
+          <app-input-autocomplete [(value)]="pokemon.moveSet.move3.name" [allValues]="allMoveNames" (valueManuallySelected)="moveSelected($event)"/>
           <mat-checkbox [ngModel]="pokemon.move3Name == pokemon.activeMoveName" (change)="activateMove(pokemon.moveSet.move3)"/>
         </div>
 
         <div class="move">
-          <app-input-autocomplete [(value)]="pokemon.moveSet.move4.name" [allValues]="allMoveNames"/>
+          <app-input-autocomplete [(value)]="pokemon.moveSet.move4.name" [allValues]="allMoveNames" (valueManuallySelected)="moveSelected($event)"/>
           <mat-checkbox [ngModel]="pokemon.move4Name == pokemon.activeMoveName" (change)="activateMove(pokemon.moveSet.move4)"/>
         </div>
       </div>

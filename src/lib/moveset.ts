@@ -1,4 +1,3 @@
-import { MOVES } from "@smogon/calc"
 import { Move } from "./move"
 
 export class MoveSet {
