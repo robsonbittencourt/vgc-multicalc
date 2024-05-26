@@ -92,6 +92,6 @@ export class Team {
       }      
     })
 
-    console.log(result)
+    return result
   }
 }

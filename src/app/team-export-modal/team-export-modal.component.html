@@ -1,0 +1,10 @@
+<div>
+  <h2 mat-dialog-title>{{ data.teamName }}</h2>
+  <mat-dialog-content class="mat-typography">
+      <pre>{{ data.team }}</pre>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button (click)="copy()">Copy</button>
+  </mat-dialog-actions>
+</div>

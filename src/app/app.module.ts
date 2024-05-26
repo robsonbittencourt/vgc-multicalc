@@ -18,6 +18,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { AppComponent } from './app.component';
 import { MainPokemonComponent } from './main-pokemon/main-pokemon.component';
@@ -34,6 +35,7 @@ import { NotFoundPageComponent } from './not-found-page/not-found-page.component
 import { PokemonTabComponent } from './pokemon-tab/pokemon-tab.component';
 import { TeamsComponent } from './teams/teams.component';
 import { TeamBoxComponent } from './team-box/team-box.component';
+import { TeamExportModalComponent } from './team-export-modal/team-export-modal.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,8 @@ import { TeamBoxComponent } from './team-box/team-box.component';
     NotFoundPageComponent,
     PokemonTabComponent,
     TeamsComponent,
-    TeamBoxComponent
+    TeamBoxComponent,
+    TeamExportModalComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -72,7 +75,8 @@ import { TeamBoxComponent } from './team-box/team-box.component';
     AppRoutingModule,
     MatSnackBarModule,
     MatTooltipModule,
-    MatTabsModule
+    MatTabsModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

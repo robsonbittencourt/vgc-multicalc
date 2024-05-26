@@ -6,6 +6,8 @@ import { Target } from 'src/lib/target';
 import { Team } from 'src/lib/team';
 import { TeamMember } from 'src/lib/team-member';
 import { SnackbarService } from '../snackbar.service';
+import { MatDialog } from '@angular/material/dialog';
+import { TeamExportModalComponent } from '../team-export-modal/team-export-modal.component';
 
 @Component({
   selector: 'app-teams',
@@ -27,7 +29,7 @@ export class TeamsComponent {
   @Output() 
   targetsAdded = new EventEmitter<Target[]>()
 
-  constructor(private pokePasteService: PokePasteParserService, private _snackBar: SnackbarService) { }
+  constructor(private pokePasteService: PokePasteParserService, private _snackBar: SnackbarService, private dialog: MatDialog) { }
 
   ngOnInit() {
     this.team = this.activeTeam()
@@ -69,7 +71,13 @@ export class TeamsComponent {
   }
 
   export() {
-    this.team.exportToShowdownFormat()
+    this.dialog.open(TeamExportModalComponent, { 
+      data: { 
+        teamName: this.team.name,
+        team: this.team.exportToShowdownFormat()
+      },
+      position: { top: "2em" }
+    })
   }
 
   addToTargets() {
