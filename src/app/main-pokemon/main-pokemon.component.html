@@ -56,16 +56,10 @@
         <app-input-autocomplete [(value)]="pokemon.status" [allValues]="statusConditions"/>
       </div>
 
-      <div class="shortcut-icons">
-        <button class="icon-button" (click)="toogleCommanderAbility()" *ngIf="pokemon.name == 'Dondozo'">
-          <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly.png" *ngIf="commanderActivated" />
-          <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly-gray.png" *ngIf="!commanderActivated" />
-        </button>
-
-        <button class="icon-button" (click)="toogleParadoxAbility()" *ngIf="pokemon.isParadoxAbility()">
-          <img class="icon-tatsugiri" src="assets/icons/booster-energy.png" *ngIf="pokemon.paradoxAbilityActivated" />
-          <img class="icon-tatsugiri" src="assets/icons/booster-energy-gray.png" *ngIf="!pokemon.paradoxAbilityActivated" />
-        </button>
+      <div *ngIf="pokemon.moveSet.activeMove.possibleHits.length > 0" class="multihit">
+        <label *ngIf="pokemon.activeMoveName != 'Rage Fist'">Hits</label>
+        <label *ngIf="pokemon.activeMoveName == 'Rage Fist'">Hits Taken</label>
+        <app-input-autocomplete [(value)]="pokemon.moveSet.activeMove.hits" [allValues]="pokemon.moveSet.activeMove.possibleHits" (valueChange)="onHitsSelected()"/>
       </div>
 
       <div>
@@ -89,6 +83,15 @@
       </div>
 
       <div class="pokemon-types">
+        <button class="icon-button" (click)="toogleCommanderAbility()" *ngIf="pokemon.name == 'Dondozo'" matTooltip="Commander">
+          <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly.png" *ngIf="commanderActivated" />
+          <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly-gray.png" *ngIf="!commanderActivated" />
+        </button>
+
+        <button class="icon-button" (click)="toogleParadoxAbility()" *ngIf="pokemon.isParadoxAbility()" matTooltip="Booster Energy">
+          <img class="icon-tatsugiri" src="assets/icons/booster-energy.png" *ngIf="pokemon.paradoxAbilityActivated" />
+          <img class="icon-tatsugiri" src="assets/icons/booster-energy-gray.png" *ngIf="!pokemon.paradoxAbilityActivated" />
+        </button>
         <div [ngStyle]="typeStyle(pokemon.type1())" class="pokemon-type">{{ pokemon.type1() }}</div>
         <div *ngIf="pokemon.type2()" [ngStyle]="typeStyle(pokemon.type2())" class="pokemon-type">{{ pokemon.type2() }}</div>
       </div>

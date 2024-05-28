@@ -191,10 +191,6 @@
   height: 30px;
 }
 
-.shortcut-icons {
-  margin-top: -1em;
-}
-
 .pokemon-actions {
   display: flex;
   align-items: center;
@@ -219,7 +215,8 @@
 .pokemon-types {
   display: flex;
   justify-content: right;
-  margin-top: 3em;
+  align-items: center;
+  margin-top: 2em;
   gap: 0.2em;
 }
 
