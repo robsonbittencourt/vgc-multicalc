@@ -106,7 +106,7 @@ export class CalculatorComponent {
     const activePokemon = this.team.activeTeamMember()
 
     const pokemon = defaultPokemon()
-    const teamMember = new TeamMember(pokemon, this.team.size())
+    const teamMember = new TeamMember(pokemon)
     
     teamMember.active = true
 
@@ -258,9 +258,9 @@ export class CalculatorComponent {
 
   private defaultTeam(): Team {
     const teamMembers = [
-      new TeamMember(new Pokemon("Flutter Mane", "Timid", "Choice Specs", "Protosynthesis", "Fairy", false, { spa: 252 }, new MoveSet("Moonblast", "Dazzling Gleam", "Shadow Ball", "Thunderbolt"), undefined, undefined), 0, true),
-      new TeamMember(new Pokemon("Groudon", "Adamant", "Assault Vest", "Drought", "Ground", false, { hp: 132, atk: 252, spd: 124 }, new MoveSet("Precipice Blades", "Heat Crash", "Heavy Slam", "Shadow Claw"), undefined, undefined), 1, false),
-      new TeamMember(defaultPokemon(), 2, false)
+      new TeamMember(new Pokemon("Flutter Mane", "Timid", "Choice Specs", "Protosynthesis", "Fairy", false, { spa: 252 }, new MoveSet("Moonblast", "Dazzling Gleam", "Shadow Ball", "Thunderbolt"), undefined, undefined), true),
+      new TeamMember(new Pokemon("Groudon", "Adamant", "Assault Vest", "Drought", "Ground", false, { hp: 132, atk: 252, spd: 124 }, new MoveSet("Precipice Blades", "Heat Crash", "Heavy Slam", "Shadow Claw"), undefined, undefined), false),
+      new TeamMember(defaultPokemon(), false)
     ]
 
     return new Team(true, "Team 1", teamMembers)
@@ -303,9 +303,9 @@ export class CalculatorComponent {
       this.team = this.defaultTeam()
       this.teams = [
         this.team,
-        new Team(false, "Team 2", [new TeamMember(defaultPokemon(), 0, true)]),
-        new Team(false, "Team 3", [new TeamMember(defaultPokemon(), 0, true)]),
-        new Team(false, "Team 4", [new TeamMember(defaultPokemon(), 0, true)])
+        new Team(false, "Team 2", [new TeamMember(defaultPokemon(), true)]),
+        new Team(false, "Team 3", [new TeamMember(defaultPokemon(), true)]),
+        new Team(false, "Team 4", [new TeamMember(defaultPokemon(), true)])
       ]
       this.targets = this.defaultTargets()
     }   
@@ -320,7 +320,7 @@ export class CalculatorComponent {
       const pokemon = teamMember.pokemon as Pokemon
       const moveSet = new MoveSet(teamMember.pokemon.moveSet[0], teamMember.pokemon.moveSet[1], teamMember.pokemon.moveSet[2], teamMember.pokemon.moveSet[3])
       moveSet.activeMoveStorage = new Move(teamMember.pokemon.activeMove)
-      return new TeamMember(new Pokemon(pokemon.name, pokemon.nature, pokemon.item, pokemon.ability, pokemon.teraType, pokemon.teraTypeActive, pokemon.evs, moveSet, pokemon.boosts, pokemon.status), teamMember.position, teamMember.active)
+      return new TeamMember(new Pokemon(pokemon.name, pokemon.nature, pokemon.item, pokemon.ability, pokemon.teraType, pokemon.teraTypeActive, pokemon.evs, moveSet, pokemon.boosts, pokemon.status), teamMember.active)
     })
 
     return new Team(true, "Change Me", teamMembers)
@@ -350,7 +350,6 @@ export class CalculatorComponent {
           
           return {
             "pokemon": pokemon,
-            "position": t.position,
             "active": t.active
           }
         }

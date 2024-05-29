@@ -118,7 +118,7 @@ export class MainPokemonComponent {
     }   
 
     if(!this.team.haveDefaultPokemon() && !this.team.isFull()) {
-      this.team.addTeamMember(new TeamMember(defaultPokemon(), this.team.size() - 1, false))
+      this.team.addTeamMember(new TeamMember(defaultPokemon(), false))
     }
   }
 
@@ -180,7 +180,7 @@ export class MainPokemonComponent {
 
     if (this.team.isEmpty() || !this.team.haveDefaultPokemon()) {
       this.pokemon = defaultPokemon()
-      this.team.addTeamMember(new TeamMember(this.pokemon, 0, false))
+      this.team.addTeamMember(new TeamMember(this.pokemon, false))
       this.team.activateFirstTeamMember()  
     } else {
       this.team.activateFirstTeamMember()
@@ -258,7 +258,7 @@ export class MainPokemonComponent {
       if(!result) return
 
       const pokemonList = await this.pokePasteService.parse(result)
-      const teamMember = new TeamMember(pokemonList[0], this.team.size() - 1, true)
+      const teamMember = new TeamMember(pokemonList[0], true)
       
       this.team.addTeamMember(teamMember)
       this.activatePokemon(teamMember)

@@ -25,9 +25,6 @@ export class TeamsComponent {
   @Output() 
   teamChanged = new EventEmitter<Team>()
 
-  @Output() 
-  targetsAdded = new EventEmitter<Target[]>()
-
   constructor(private pokePasteService: PokePasteParserService, private _snackBar: SnackbarService, private dialog: MatDialog) { }
 
   ngOnInit() {
@@ -52,7 +49,7 @@ export class TeamsComponent {
 
       for (let index = 0; index < pokemonList.length; index++) {
         const pokemon = pokemonList[index]
-        this.team.addTeamMember(new TeamMember(pokemon, index))        
+        this.team.addTeamMember(new TeamMember(pokemon))        
       }
 
       this.team.activateFirstTeamMember()
@@ -82,15 +79,9 @@ export class TeamsComponent {
     })
   }
 
-  addToTargets() {
-    const targets = this.team.teamMembers().map(t => new Target(t.pokemon, t.position))
-    this.targetsAdded.emit(targets)
-    this._snackBar.open("Team added to Opponent side");
-  }
-
   deleteTeam() {
     this.team.deleteAll()
-    this.team.addTeamMember(new TeamMember(defaultPokemon(), 0, true))
+    this.team.addTeamMember(new TeamMember(defaultPokemon(), true))
     this.teamChanged.emit(this.team)
     this._snackBar.open("Team deleted");
   }

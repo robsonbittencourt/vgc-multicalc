@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Target } from 'src/lib/target';
 import { TeamMember } from 'src/lib/team-member';
 
 @Component({
@@ -9,16 +10,16 @@ import { TeamMember } from 'src/lib/team-member';
 export class PokemonCardComponent {
 
   @Input() 
-  teamMember: TeamMember
+  target: Target
 
   @Input()
   canSelectSecondPokemon: boolean
 
   @Output() 
-  teamMemberActivated = new EventEmitter<number>()
+  targetActivated = new EventEmitter<number>()
 
   @Output() 
-  secondTeamMemberActivated = new EventEmitter<number>()
+  secondTargetActivated = new EventEmitter<number>()
 
   @Output() 
   pokemonRemoved = new EventEmitter<number>()
@@ -29,22 +30,22 @@ export class PokemonCardComponent {
   commanderActivated = false
 
   activate() {
-    this.teamMemberActivated.emit(this.teamMember.position)
+    this.targetActivated.emit(this.target.position)
   }
 
   toogleCommanderAbility(event: Event) {
     event.stopPropagation()
-    this.teamMember.pokemon.commanderActivated = !this.commanderActivated
+    this.target.pokemon.commanderActivated = !this.commanderActivated
     this.commanderActivated = !this.commanderActivated
     this.pokemonChanged.emit()
   }
 
   removePokemon() {
-    this.pokemonRemoved.emit(this.teamMember.position)
+    this.pokemonRemoved.emit(this.target.position)
   }
 
   cardStyle(): any {
-    if(this.teamMember.damageResult) {
+    if(this.target.damageResult) {
       return this.styleWithDamage()
     } else {
       return this.styleWithoutDamage()
@@ -53,18 +54,18 @@ export class PokemonCardComponent {
 
   private styleWithDamage(): any {
     const cardStyleSelectPokemon = { 'background-color': '#e7def6' }
-    const cardStyle = { 'background-color': this.cardColor(this.teamMember.damageResult.koChance) }
+    const cardStyle = { 'background-color': this.cardColor(this.target.damageResult.koChance) }
     const cardWithBorder = { 'border': '4px', 'border-style': 'solid', 'border-color': '#8544ee' }
 
-    if (this.teamMember.active && this.teamMember.pokemon.isDefault()) {
+    if (this.target.active && this.target.pokemon.isDefault()) {
       return {...cardStyleSelectPokemon, ...cardWithBorder} 
     }
 
-    if (this.teamMember.pokemon.isDefault()) {
+    if (this.target.pokemon.isDefault()) {
       return cardStyleSelectPokemon 
     }
     
-    if (this.teamMember.active) {
+    if (this.target.active) {
       return {...cardStyle, ...cardWithBorder}
     }
 
@@ -74,7 +75,7 @@ export class PokemonCardComponent {
   private styleWithoutDamage() {
     const cardStyle = { 'border': '3px', 'border-style': 'solid', 'border-color': '#8544ee' }
     
-    if (this.teamMember.active) {
+    if (this.target.active) {
       return cardStyle
     }
 
@@ -99,15 +100,15 @@ export class PokemonCardComponent {
 
   addSecondAttacker(event: Event) {
     event.stopPropagation()
-    this.secondTeamMemberActivated.emit(this.teamMember.position)
+    this.secondTargetActivated.emit(this.target.position)
   }
 
   terastalyzePokemon(event: Event) {
     event.stopPropagation()
-    if (this.teamMember.pokemon.isTerapagos()) return 
+    if (this.target.pokemon.isTerapagos()) return 
 
-    const teraActived = !this.teamMember.pokemon.teraTypeActive
-    this.teamMember.pokemon.changeTeraStatus(teraActived)
+    const teraActived = !this.target.pokemon.teraTypeActive
+    this.target.pokemon.changeTeraStatus(teraActived)
 
     this.pokemonChanged.emit()
   }
