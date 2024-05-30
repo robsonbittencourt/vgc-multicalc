@@ -23,7 +23,7 @@
 </div>
 <div class="container">
   <div>
-    <app-main-pokemon [team]="team" [pokemon]="activeOnEditPokemon" [isAttacker]="oneVsManyActivated" (pokemonChangedEvent)="pokemonOnEditChanged($event)"
+    <app-main-pokemon [team]="activeTeam()" [pokemon]="activeOnEditPokemon" [isAttacker]="oneVsManyActivated" (pokemonChangedEvent)="pokemonOnEditChanged($event)"
       (pokemonAddedToTeamEvent)=pokemonAddedToTeam() (teamChanged)="teamChanged($event)" (secondAttackerSelected)="secondAttackerSelected($event)"
       [secondSelection]="activeSecondAttacker"/>
   </div>

@@ -26,7 +26,6 @@ export class CalculatorComponent {
     private deviceDetectorService: DeviceDetectorService, private _snackBar: MatSnackBar
   ) {}
 
-  team: Team
   teams: Team[]
   field: Field = new Field({
     gameType: 'Doubles'
@@ -47,7 +46,7 @@ export class CalculatorComponent {
       this.buildInitialData(userData)      
     })
 
-    this.activeOnEditPokemon = this.team.activePokemon()
+    this.activeOnEditPokemon = this.activePokemon()
     this.activeAttackerPokemon = this.activeOnEditPokemon
   }
 
@@ -73,7 +72,7 @@ export class CalculatorComponent {
   }
 
   secondTeamMemberDeactivated() {
-    this.activeOnEditPokemon = this.team.activePokemon()
+    this.activeOnEditPokemon = this.activePokemon()
     this.activeAttackerPokemon = this.activeOnEditPokemon
     this.calculateDamageForAll()
     this.order()
@@ -89,8 +88,15 @@ export class CalculatorComponent {
     this.calculateDamageForAll()
   }
 
+  activePokemon(): Pokemon {
+    return this.activeTeam().activePokemon()
+  }
+
+  activeTeam(): Team {
+    return this.teams.find(t => t.active)!
+  }
+
   teamChanged(team: Team) {
-    this.team = team
     this.activeOnEditPokemon = team.activePokemon()
     this.calculateDamageForAll()
     this.order()
@@ -103,7 +109,7 @@ export class CalculatorComponent {
   }
 
   pokemonAddedToTeam() {
-    const activePokemon = this.team.activeTeamMember()
+    const activePokemon = this.activeTeam().activeTeamMember()
 
     const pokemon = defaultPokemon()
     const teamMember = new TeamMember(pokemon)
@@ -114,7 +120,7 @@ export class CalculatorComponent {
       activePokemon.active = false
     }    
 
-    this.team.addTeamMember(teamMember)
+    this.activeTeam().addTeamMember(teamMember)
 
     this.activeOnEditPokemon = pokemon
     this.activeAttackerPokemon = pokemon
@@ -199,7 +205,7 @@ export class CalculatorComponent {
   }
 
   canShowDamageDescription(): boolean {
-    const hasOneTeamMemberActive = this.team.teamMembers().filter(t => t.active && !t.pokemon.isDefault()).length == 1
+    const hasOneTeamMemberActive = this.activeTeam().teamMembers().filter(t => t.active && !t.pokemon.isDefault()).length == 1
     const notHaveTwoTargetsActive = this.targets.filter(t => t.active).length < 2
     return hasOneTeamMemberActive && notHaveTwoTargetsActive
   }
@@ -230,7 +236,7 @@ export class CalculatorComponent {
 
   private calculateDamageManyVsOne(target: Target, criticalHit: boolean) {
     const activeTargets = this.targets.filter(t => t.active)
-    const activeTeamMember = this.team.activePokemon()
+    const activeTeamMember = this.activePokemon()
 
     if(activeTargets.length > 1 && target.active) {
       const damageResult = this.damageCalculator.calcDamageForTwoAttackers(activeTargets[0].pokemon, activeTargets[1].pokemon, activeTeamMember, this.field, criticalHit)
@@ -280,8 +286,8 @@ export class CalculatorComponent {
   }
 
   private activateOnlyFirstTeamMember() {
-    this.team.deactivateAll()
-    const firstTeamMember = this.team.first()
+    this.activeTeam().deactivateAll()
+    const firstTeamMember = this.activeTeam().first()
     
     firstTeamMember.active =true
     this.activeOnEditPokemon = firstTeamMember.pokemon
@@ -296,13 +302,11 @@ export class CalculatorComponent {
     if (userData) {
       this.criticalHit = userData.data.criticalHit
       this.field = this.buildFieldFromUserData(userData)
-      this.team = this.buildTeamFromUserData(userData)
-      this.teams = [this.team]
+      this.teams = this.buildTeamsFromUserData(userData)
       this.targets = this.buildTargetsFromUserData(userData)
     } else {
-      this.team = this.defaultTeam()
       this.teams = [
-        this.team,
+        this.defaultTeam(),
         new Team(false, "Team 2", [new TeamMember(defaultPokemon(), true)]),
         new Team(false, "Team 3", [new TeamMember(defaultPokemon(), true)]),
         new Team(false, "Team 4", [new TeamMember(defaultPokemon(), true)])
@@ -315,15 +319,17 @@ export class CalculatorComponent {
     return new Field({ ...userData.data.field })
   }
 
-  private buildTeamFromUserData(userData: any): Team {
-    const teamMembers = userData.data.team.map((teamMember: any) => {
-      const pokemon = teamMember.pokemon as Pokemon
-      const moveSet = new MoveSet(teamMember.pokemon.moveSet[0], teamMember.pokemon.moveSet[1], teamMember.pokemon.moveSet[2], teamMember.pokemon.moveSet[3])
-      moveSet.activeMoveStorage = new Move(teamMember.pokemon.activeMove)
-      return new TeamMember(new Pokemon(pokemon.name, pokemon.nature, pokemon.item, pokemon.ability, pokemon.teraType, pokemon.teraTypeActive, pokemon.evs, moveSet, pokemon.boosts, pokemon.status), teamMember.active)
-    })
-
-    return new Team(true, "Change Me", teamMembers)
+  private buildTeamsFromUserData(userData: any): Team[] {
+    return userData.data.teams.map((team: any) => {
+      const teamMembers = team.teamMembers.map((teamMember: any) => {
+        const pokemon = teamMember.pokemon as Pokemon
+        const moveSet = new MoveSet(teamMember.pokemon.moveSet[0], teamMember.pokemon.moveSet[1], teamMember.pokemon.moveSet[2], teamMember.pokemon.moveSet[3])
+        moveSet.activeMoveStorage = new Move(teamMember.pokemon.activeMove)
+        return new TeamMember(new Pokemon(pokemon.name, pokemon.nature, pokemon.item, pokemon.ability, pokemon.teraType, pokemon.teraTypeActive, pokemon.evs, moveSet, pokemon.boosts, pokemon.status), teamMember.active)
+      })
+  
+      return new Team(team.active, team.name, teamMembers)      
+    })    
   }
 
   private buildTargetsFromUserData(userData: any): Target[] {
@@ -343,17 +349,22 @@ export class CalculatorComponent {
     return {
       field: this.field,
       criticalHit: this.criticalHit,
-      team: this.team.teamMembers()
-        .filter(t => !t.pokemon.isDefault())
-        .map(t => {
-          const pokemon = this.buildPokemonToUserData(t.pokemon)
-          
-          return {
-            "pokemon": pokemon,
-            "active": t.active
-          }
-        }
-      ),
+      teams: this.teams.map(team => {
+        return {
+          "active": team.active,
+          "name": team.name,
+          "teamMembers": team.teamMembers()
+            .filter(t => !t.pokemon.isDefault())
+            .map(t => {
+              const pokemon = this.buildPokemonToUserData(t.pokemon)
+              
+              return {
+                "pokemon": pokemon,
+                "active": t.active
+              }
+            })          
+        }    
+      }),
       targets: this.targets
         .filter(t => !t.pokemon.isDefault())  
         .map(t => {
