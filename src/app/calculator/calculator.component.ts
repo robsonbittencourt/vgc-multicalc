@@ -244,7 +244,7 @@ export class CalculatorComponent {
       activeTargets[1].setDamageResult(damageResult)  
     } else {
       const damageResult = this.damageCalculator.calcDamage(target.pokemon, activeTeamMember, this.field, criticalHit)
-      target.setDamageResult(damageResult)    
+      target.setDamageResult(damageResult)
     }
   }
   
@@ -262,17 +262,46 @@ export class CalculatorComponent {
     })
   }
 
-  private defaultTeam(): Team {
+  private defaultTeams(): Team[] {
+    if(this.isDesktopDevice()) {
+      return this.defaultTeamsDesktop()
+    } else {
+      return this.defaultTeamsMobile()
+    }
+  }
+
+  private defaultTeamsDesktop(): Team[] {
     const teamMembers = [
       new TeamMember(new Pokemon("Flutter Mane", "Timid", "Choice Specs", "Protosynthesis", "Fairy", false, { spa: 252 }, new MoveSet("Moonblast", "Dazzling Gleam", "Shadow Ball", "Thunderbolt"), undefined, undefined), true),
       new TeamMember(new Pokemon("Groudon", "Adamant", "Assault Vest", "Drought", "Ground", false, { hp: 132, atk: 252, spd: 124 }, new MoveSet("Precipice Blades", "Heat Crash", "Heavy Slam", "Shadow Claw"), undefined, undefined), false),
       new TeamMember(defaultPokemon(), false)
     ]
+    const team1 = new Team(true, "Team 1", teamMembers)
 
-    return new Team(true, "Team 1", teamMembers)
+    return [
+      team1,
+      new Team(false, "Team 2", [new TeamMember(defaultPokemon(), true)]),
+      new Team(false, "Team 3", [new TeamMember(defaultPokemon(), true)]),
+      new Team(false, "Team 4", [new TeamMember(defaultPokemon(), true)])
+    ]
+  }
+
+  private defaultTeamsMobile(): Team[] {
+    const teamMembers = [
+      new TeamMember(new Pokemon("Flutter Mane", "Timid", "Choice Specs", "Protosynthesis", "Fairy", false, { spa: 252 }, new MoveSet("Moonblast", "Dazzling Gleam", "Shadow Ball", "Thunderbolt"), undefined, undefined), true)
+    ]
+    return [new Team(true, "Team 1", teamMembers)]
   }
 
   private defaultTargets(): Target[] {
+    if(this.isDesktopDevice()) {
+      return this.defaultTargetsDesktop()
+    } else {
+      return this.defaultTargetsMobile()
+    }
+  }
+
+  private defaultTargetsDesktop(): Target[] {
     return [
       new Target(new Pokemon('Raging Bolt', "Modest", "Booster Energy", "Protosynthesis", "Fairy", true, { hp: 244, spa: 252, spd: 12 }, new MoveSet("Thunderclap", "Dragon Pulse", "Calm Mind", "Protect")), 0),
       new Target(new Pokemon('Calyrex-Shadow', "Timid", "Focus Sash", "As One (Spectrier)", "Fighting", false, { spa: 252, spd: 4, spe: 252 }, new MoveSet("Astral Barrage", "Expanding Force", "Tera Blast", "Protect")), 1),
@@ -282,6 +311,12 @@ export class CalculatorComponent {
       new Target(new Pokemon('Urshifu-Rapid-Strike', "Jolly", "Choice Scarf", "Unseen Fist", "Water", true, { atk: 252, spd: 4, spe: 252 }, new MoveSet("Surging Strikes", "Close Combat", "Ice Spinner", "U-turn")), 5),
       new Target(new Pokemon('Landorus', "Timid", "Life Orb", "Sheer Force", "Poison", false, { spa: 252, spd: 4, spe: 252 }, new MoveSet("Earth Power", "Sludge Bomb", "Substitute", "Protect")), 6),
       new Target(new Pokemon('Ogerpon-Wellspring', "Adamant", "Wellspring Mask", "Water Absorb", "Water", false, { hp: 252, atk: 76, def: 148, spd: 28, spe: 4 }, new MoveSet("Ivy Cudgel", "Horn Leech", "Spiky Shield", "Follow Me")), 7)
+    ]
+  }
+
+  private defaultTargetsMobile(): Target[] {
+    return [
+      new Target(new Pokemon('Kyogre', "Modest", "Mystic Water", "Drizzle", "Grass", false, { hp: 132, def: 84, spa: 156, spd: 4, spe: 132 }, new MoveSet("Water Spout", "Origin Pulse", "Ice Beam", "Thunder")), 0)
     ]
   }
 
@@ -305,12 +340,7 @@ export class CalculatorComponent {
       this.teams = this.buildTeamsFromUserData(userData)
       this.targets = this.buildTargetsFromUserData(userData)
     } else {
-      this.teams = [
-        this.defaultTeam(),
-        new Team(false, "Team 2", [new TeamMember(defaultPokemon(), true)]),
-        new Team(false, "Team 3", [new TeamMember(defaultPokemon(), true)]),
-        new Team(false, "Team 4", [new TeamMember(defaultPokemon(), true)])
-      ]
+      this.teams = this.defaultTeams()
       this.targets = this.defaultTargets()
     }   
   }
@@ -406,4 +436,15 @@ export class CalculatorComponent {
       this.activeSecondAttacker = pokemon
     }
   }
+
+  mobileAttackerChanged(isLeftAttacker: boolean) {
+    if (isLeftAttacker) {
+      this.oneVsManyActivated = true
+      this.manyVsOneActivated = false
+    } else {
+      this.oneVsManyActivated = false
+      this.manyVsOneActivated = true
+    }
+  }
+
 }

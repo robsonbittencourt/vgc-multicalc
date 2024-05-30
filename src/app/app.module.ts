@@ -37,6 +37,7 @@ import { TeamsComponent } from './teams/teams.component';
 import { TeamBoxComponent } from './team-box/team-box.component';
 import { TeamExportModalComponent } from './team-export-modal/team-export-modal.component';
 import { TeamImportModalComponent } from './team-import-modal/team-import-modal.component';
+import { PokemonEditMobileComponent } from './pokemon-edit-mobile/pokemon-edit-mobile.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { TeamImportModalComponent } from './team-import-modal/team-import-modal.
     TeamsComponent,
     TeamBoxComponent,
     TeamExportModalComponent,
-    TeamImportModalComponent
+    TeamImportModalComponent,
+    PokemonEditMobileComponent
   ],
   imports: [
     ReactiveFormsModule,

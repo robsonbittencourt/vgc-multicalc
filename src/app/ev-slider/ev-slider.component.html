@@ -1,8 +1,8 @@
 <div class="ev-slider-container">
-  <div class="stat-name">
+  <div class="stat-name" *ngIf="statName">
     <label>{{ statName }}</label>
   </div>
-  <div class="base-stat">
+  <div class="base-stat" *ngIf="baseStatValue">
     <label>{{ baseStatValue }}</label>
   </div>
   <div class="dense-2">
@@ -14,6 +14,7 @@
   </div>
   <div class="ev-value dense-2">
     <mat-form-field appearance="outline" class="mat-ev-field">
+      <mat-label *ngIf="statNameAcronym">{{ statNameAcronym }}</mat-label>
       <input class="ev-value-input" type="number" min="0" max="252" matInput [(ngModel)]="ev">
     </mat-form-field>
   </div>
@@ -22,7 +23,7 @@
       <input matSliderThumb (change)="evChanged()" [(ngModel)]="ev" (input)="beforeEvChanged()">
     </mat-slider>
   </div>
-  <div class="ev-value dense-2">
+  <div class="ev-value dense-2" *ngIf="iv">
     <mat-form-field appearance="outline" class="mat-ev-field">
       <input class="ev-value-input" type="number" min="0" max="31" matInput [(ngModel)]="iv">
     </mat-form-field>

@@ -11,6 +11,9 @@ export class PokemonTabComponent {
   @Input() 
   teamMember: TeamMember
 
+  @Input() 
+  activeTab: Boolean
+
   @Output() 
   tabActivated = new EventEmitter<TeamMember>()
 
@@ -26,10 +29,18 @@ export class PokemonTabComponent {
   }
 
   tabStyle(): any {
-    const activeTab = { 'border-bottom': 'solid 2px', 'border-color': '#673ab7', 'background-color': '#f9f7fc' }
+    const activeTabStyle = { 'border-bottom': 'solid 2px', 'border-color': '#673ab7', 'background-color': '#f9f7fc' }
+
+    if (this.activeTab == false) {
+      return null
+    }
+
+    if (this.activeTab == true) {
+      return activeTabStyle
+    }
 
     if (this.teamMember.active || this.isSecondSelection) {
-      return activeTab
+      return activeTabStyle
     }
 
     return null

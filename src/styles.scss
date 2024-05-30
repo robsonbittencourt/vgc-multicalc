@@ -14,3 +14,9 @@ body {
 .center {
   text-align: center;
 }
+
+@media only screen and (max-width: 768px) {
+  html, body {
+    zoom: 100%;
+  }
+}

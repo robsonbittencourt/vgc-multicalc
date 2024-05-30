@@ -1,0 +1,142 @@
+.container {
+  background-color: white;
+}
+
+.pokes {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.pokemon-name {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 35%;
+  margin-right: 2em;
+}
+
+.damage-result {
+  display: flex;
+  justify-content: space-between;
+
+  align-items: center;
+  gap: 1em;
+  margin: 1.5em 0.75em 0em 0.75em;
+  font-weight: 500;
+}
+
+.damage-result-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.moves {
+  margin: 1em 0.75em 0em 0.75em;
+}
+
+.edit-moves {
+  display: grid;
+  column-gap: 1em;
+  row-gap: 0.8em;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin-left: 1em;
+  margin-right: 0.5em;
+}
+
+.no-edit-moves {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+.edit-button-section {
+  display: flex;
+  margin-left: 1.5em;
+  flex-basis: 0;
+  flex-grow: 1;
+}
+
+.edit-button {
+  display: flex;
+  align-items: center;
+}
+
+.save-button {
+  display: flex;
+  align-items: center;
+}
+
+.edit-icon {
+  font-size: 18px;
+}
+
+.multihit {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  gap: 0.75em;
+  margin-left: 0.75em;
+}
+
+.hits-input {
+  width: 30%;
+}
+
+.check-input-section-input {
+  margin-top: 0.2em;
+  margin-left: -0.5em;
+}
+
+.evs {
+  display: grid;
+  grid-row-gap: 0.2em;
+  margin: 1.5em 0.75em 0 0.75em;
+}
+
+.icon-button {
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.icon-button .icon-tera {
+  width: 20px;
+  height: 22px;
+}
+
+.icon-button .icon-tatsugiri {
+  width: 25px;
+  height: 25px;
+  margin-left: 0.75em;
+}
+
+.combo-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+  row-gap: 0.75em;
+  margin-top: 1em;
+  padding: 0.75em;
+  background-color: #ded2f0;
+}
+
+.combo-option {
+  flex: 1 0 7em;
+}
+
+.tera-checkbox {
+  display: flex;
+  gap: 0.5em;
+}
+
+.ability-checkbox {
+  display: flex;
+}
+
+.copy-button {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}

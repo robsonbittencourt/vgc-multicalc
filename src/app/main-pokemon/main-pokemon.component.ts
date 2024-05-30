@@ -214,7 +214,6 @@ export class MainPokemonComponent {
   toogleCommanderAbility() {
     this.pokemon.commanderActivated = !this.commanderActivated
     this.commanderActivated = !this.commanderActivated
-    this.pokemonChangedEvent.emit(this.pokemon)
   }
 
   toogleParadoxAbility() {

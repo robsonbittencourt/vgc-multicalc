@@ -21,7 +21,8 @@
     <a href='https://ko-fi.com/B0B2VFTC3' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi2.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
   </div>
 </div>
-<div class="container">
+
+<div class="container" *ngIf="isDesktopDevice()">
   <div>
     <app-main-pokemon [team]="activeTeam()" [pokemon]="activeOnEditPokemon" [isAttacker]="oneVsManyActivated" (pokemonChangedEvent)="pokemonOnEditChanged($event)"
       (pokemonAddedToTeamEvent)=pokemonAddedToTeam() (teamChanged)="teamChanged($event)" (secondAttackerSelected)="secondAttackerSelected($event)"
@@ -38,4 +39,9 @@
       (targetChangedEvent)="targetChanged($event)" (allTargetsRemoved)="removeAllTargets()" (targetAdded)="pokemonAddedToTargets()" (targetsChangedEvent)="targetsChanged($event)"
       (targetsAdded)="targetsAdded($event)" (targetActivatedEvent)=targetActivated($event) (secondTargetDeactivatedEvent)=secondTargetDeactivated() />
   </div>
+</div>
+
+<div class="container" *ngIf="!isDesktopDevice()">
+  <app-pokemon-edit-mobile [leftTeamMember]="activeTeam().teamMembers()[0]" [rightTeamMember]="targets[0]" (pokemonChangedEvent)="pokemonOnEditChanged($event)" (attackerChangedEvent)="mobileAttackerChanged($event)"/>
+  <app-field (fieldChangedEvent)="fieldChanged($event)" [field]="field" [criticalHit]="criticalHit" (criticalHitChangedEvent)="criticalHitChanged($event)"/>
 </div>

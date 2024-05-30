@@ -70,6 +70,9 @@ export class EvSliderComponent {
   statName: string
 
   @Input()
+  statNameAcronym: string
+
+  @Input()
   statValue: number
 
   @Input()
@@ -103,7 +106,7 @@ export class EvSliderComponent {
   }
 
   showStatsModifier(): boolean {
-    return this.statName != "HP"
+    return this.statName != "HP" && this.statNameAcronym != "HP"
   }
 
   natureModifier(): string {
