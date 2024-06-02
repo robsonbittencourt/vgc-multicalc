@@ -1,20 +1,26 @@
 <div class="container">
   <div class="header">
-    <label class="title" *ngIf="!isAttacker">Opponent Defenders</label>
-    <label class="title" *ngIf="isAttacker">Opponent Attackers</label>
+    <div class="title-damage-description">
+      <label class="title" *ngIf="!isAttacker">Opponent Defenders</label>
+      <label class="title" *ngIf="isAttacker">Opponent Attackers</label>
+
+      <div *ngIf="canShowDamageDescription && damageDescription()" class="damage-description">
+        <div>
+          <p>{{ damageDescription() }}</p>
+          <p *ngIf="rolls()">Rolls: {{ rolls() }}</p>
+        </div>
+        <div class="copy-button">
+          <mat-icon class="copy-icon" (click)="copyDamageResult()">content_copy</mat-icon>
+          <label *ngIf="copyMessageEnabled">Copied!</label> 
+        </div>
+      </div>
+    </div>
+
     <li class="form-row">
       <button mat-flat-button color="primary" (click)="importPokemon()">Import</button>
       <button mat-flat-button color="primary" (click)="exportPokemon()">Export</button>
       <button mat-flat-button color="warn" (click)="removeAll()">Remove all</button>
     </li>
-  </div>
-  
-  <div *ngIf="canShowDamageDescription" class="damage-description">
-    <div>{{ damageDescription() }}</div>
-    <div class="copy-button">
-      <mat-icon class="copy-icon" *ngIf="damageDescription()" (click)="copyDamageResult()">content_copy</mat-icon>
-      <label *ngIf="copyMessageEnabled">Copied!</label> 
-    </div>
   </div>
     
   <div class="target-pokemon">

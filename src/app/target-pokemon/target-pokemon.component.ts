@@ -142,6 +142,10 @@ export class TargetPokemonComponent {
     return this.targets.find(t => t.active)?.damageResult.description ?? ""
   }
 
+  rolls() {
+    return this.targets.find(t => t.active)?.damageResult.rolls?? ""
+  }
+
   copyDamageResult() {
     this.copyMessageEnabled = true
     navigator.clipboard.writeText(this.damageDescription())

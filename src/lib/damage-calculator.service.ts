@@ -13,7 +13,7 @@ export class DamageCalculatorService {
 
   calcDamage(attacker: Pokemon, target: Pokemon, field: Field, criticalHit: boolean = false): DamageResult {
     const result = this.calculateResult(attacker, target, field, criticalHit)
-    return new DamageResult(result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescription(result))
+    return new DamageResult(result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescription(result), result.damage as number[]) 
   }
 
   calcDamageForTwoAttackers(attacker: Pokemon, secondAttacker: Pokemon, target: Pokemon, field: Field, criticalHit: boolean = false): DamageResult {

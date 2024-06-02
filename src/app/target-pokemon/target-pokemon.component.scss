@@ -21,14 +21,14 @@
   font-weight: 500;
 }
 
+.title-damage-description {
+  display: flex;
+}
+
 .form-row {
   display: flex;
   justify-content: flex-end;
   column-gap: 1em;
-}
-
-.show-advanced-options {
-  margin-top: 0.3em;
 }
 
 .poke-paste-input {
@@ -56,8 +56,11 @@
 
 .damage-description {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   column-gap: 0.5em;
+  font-size: 14px;
+  margin-left: 1em;
+  margin-bottom: -1.25em;
 }
 
 .copy-button {
