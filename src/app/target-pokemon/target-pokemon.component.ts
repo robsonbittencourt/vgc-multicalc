@@ -34,9 +34,6 @@ export class TargetPokemonComponent {
   targetChangedEvent = new EventEmitter<Target>()
 
   @Output() 
-  targetsChangedEvent = new EventEmitter<Target[]>()
-
-  @Output() 
   allTargetsRemoved = new EventEmitter<any>()
 
   @Output()
@@ -49,10 +46,6 @@ export class TargetPokemonComponent {
 
   constructor(private pokePasteService: PokePasteParserService,  private dialog: MatDialog, private _snackBar: SnackbarService) {}
   
-  targetChanged(target: Target) {
-    this.targetChangedEvent.emit(target)
-  }
-
   targetActivated(position: number) {
     const target = this.targets.find(t => t.position == position)!
     
@@ -177,8 +170,8 @@ export class TargetPokemonComponent {
     }    
   }
 
-  pokemonChanged() {
-    this.targetsChangedEvent.emit(this.targets)
+  targetChanged(target: Target) {
+    this.targetChangedEvent.emit(target)
   }
 
 }

@@ -21,7 +21,7 @@
     <div *ngFor="let target of targets">
       <app-pokemon-card [target]="target" [canSelectSecondPokemon]="canSelectSecondPokemon()"
         (targetActivated)="targetActivated($event)" (secondTargetActivated)="secondTargetActivated($event)"
-        (pokemonRemoved)="targetRemoved($event)" (pokemonChanged)="pokemonChanged()" />  
+        (pokemonRemoved)="targetRemoved($event)" (targetChanged)="targetChanged($event)" />  
     </div>
     <app-add-pokemon-card *ngIf="!selectPokemonActive()" (pokemonAddedToTeam)=addPokemonToTargets()/>
   </div>

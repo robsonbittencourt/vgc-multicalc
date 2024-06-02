@@ -25,7 +25,7 @@ export class PokemonCardComponent {
   pokemonRemoved = new EventEmitter<number>()
 
   @Output() 
-  pokemonChanged = new EventEmitter<any>()
+  targetChanged = new EventEmitter<Target>()
 
   commanderActivated = false
 
@@ -37,7 +37,7 @@ export class PokemonCardComponent {
     event.stopPropagation()
     this.target.pokemon.commanderActivated = !this.commanderActivated
     this.commanderActivated = !this.commanderActivated
-    this.pokemonChanged.emit()
+    this.targetChanged.emit()
   }
 
   removePokemon() {
@@ -110,6 +110,6 @@ export class PokemonCardComponent {
     const teraActived = !this.target.pokemon.teraTypeActive
     this.target.pokemon.changeTeraStatus(teraActived)
 
-    this.pokemonChanged.emit()
+    this.targetChanged.emit(this.target)
   }
 }
