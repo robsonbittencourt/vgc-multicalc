@@ -23,7 +23,7 @@ export class DamageCalculatorService {
     const secondResult = this.calculateResult(secondAttacker, target, adjustedField, criticalHit)
     result.damage = this.sumDamageResult(result, secondResult)
 
-    return new DamageResult(result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescription(result))
+    return new DamageResult(result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescriptionWithTwo(result, secondResult))
   }
 
   private calculateResult(attacker: Pokemon, target: Pokemon, field: Field, criticalHit: boolean) {
@@ -80,9 +80,24 @@ export class DamageCalculatorService {
   private damageDescription(result: Result): string {
     try {
       return result.desc()  
+    } catch (error) {      
+      return `${result.attacker.name} ${result.move.name} vs. ${result.defender.name}: 0-0 (0 - 0%) -- possibly the worst move ever`
+    }    
+  }
+
+  private damageDescriptionWithTwo(resultOne: Result, resultTwo: Result): string {
+    try {
+      const descriptionOne = resultOne.desc()
+      const descriptionTwo = resultTwo.desc()
+      const descriptionAttackerTwo = descriptionOne.substring(0, descriptionOne.indexOf(" vs."))
+
+      const finalDescription = descriptionTwo.substring(0, descriptionTwo.indexOf(" vs.")) 
+        + " AND " + descriptionAttackerTwo + descriptionOne.substring(descriptionOne.indexOf(" vs."))
+
+      return finalDescription
     } catch (error) {
       
-      return `${result.attacker.name} ${result.move.name} vs. ${result.defender.name}: 0-0 (0 - 0%) -- possibly the worst move ever`
+      return `${resultOne.attacker.name} ${resultOne.move.name} vs. ${resultOne.defender.name}: 0-0 (0 - 0%) -- possibly the worst move ever`
     }    
   }
 

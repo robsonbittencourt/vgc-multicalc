@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Target } from 'src/lib/target';
-import { TeamMember } from 'src/lib/team-member';
 
 @Component({
   selector: 'app-pokemon-card',

@@ -35,9 +35,9 @@
   </div> 
 
   <div class="target-pokemon">
-    <app-target-pokemon [targets]="targets" [canShowDamageDescription]="canShowDamageDescription()" [isAttacker]="manyVsOneActivated" 
-      (targetChangedEvent)="targetChanged($event)" (allTargetsRemoved)="removeAllTargets()" (targetAdded)="pokemonAddedToTargets()"
-      (targetsAdded)="targetsAdded($event)" (targetActivatedEvent)=targetActivated($event) (secondTargetDeactivatedEvent)=secondTargetDeactivated() />
+    <app-target-pokemon [targets]="targets" [isAttacker]="manyVsOneActivated" (targetChangedEvent)="targetChanged($event)"
+     (allTargetsRemoved)="removeAllTargets()" (targetAdded)="pokemonAddedToTargets()" (targetsAdded)="targetsAdded($event)"
+     (targetActivatedEvent)=targetActivated($event) (secondTargetDeactivatedEvent)=secondTargetDeactivated() />
   </div>
 </div>
 

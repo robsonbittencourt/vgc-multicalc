@@ -204,12 +204,6 @@ export class CalculatorComponent {
     this.order()
   }
 
-  canShowDamageDescription(): boolean {
-    const hasOneTeamMemberActive = this.activeTeam().teamMembers().filter(t => t.active && !t.pokemon.isDefault()).length == 1
-    const notHaveTwoTargetsActive = this.targets.filter(t => t.active).length < 2
-    return hasOneTeamMemberActive && notHaveTwoTargetsActive
-  }
-
   private alreadyExists(pokemon: Pokemon): boolean {
     return this.targets.some(target => {
       return target.pokemon.equals(pokemon)

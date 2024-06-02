@@ -4,7 +4,7 @@
       <label class="title" *ngIf="!isAttacker">Opponent Defenders</label>
       <label class="title" *ngIf="isAttacker">Opponent Attackers</label>
 
-      <div *ngIf="canShowDamageDescription && damageDescription()" class="damage-description">
+      <div *ngIf="damageDescription()" class="damage-description">
         <div>
           <p>{{ damageDescription() }}</p>
           <p *ngIf="rolls()">Rolls: {{ rolls() }}</p>
