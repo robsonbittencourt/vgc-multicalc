@@ -328,15 +328,20 @@ export class Pokemon {
     return this.pokemonSmogon.evs.hp + this.pokemonSmogon.evs.atk + this.pokemonSmogon.evs.def + this.pokemonSmogon.evs.spa + this.pokemonSmogon.evs.spd + this.pokemonSmogon.evs.spe
   }
 
-  public evsDescription(): string {
+  public evsDescription(isAttacker: boolean): string {
     let evsDescription = ""
 
-    if (this.evs.hp && this.evs.hp != 0) evsDescription += `hp: ${this.evs.hp} `
-    if (this.evs.atk && this.evs.atk != 0) evsDescription += `atk: ${this.evs.atk} `
-    if (this.evs.def && this.evs.def != 0) evsDescription += `def: ${this.evs.def} `
-    if (this.evs.spa && this.evs.spa != 0) evsDescription += `spa: ${this.evs.spa} `
-    if (this.evs.spd && this.evs.spd != 0) evsDescription += `spd: ${this.evs.spd} `
-    if (this.evs.spe && this.evs.spe != 0) evsDescription += `spe: ${this.evs.spe}`
+    if (isAttacker) {
+      evsDescription = "Offensive: "
+      if (this.evs.atk && this.evs.atk != 0) evsDescription += `atk: ${this.evs.atk} `
+      if (this.evs.spa && this.evs.spa != 0) evsDescription += `spa: ${this.evs.spa} `
+
+    } else {
+      evsDescription = "Bulky: "
+      if (this.evs.hp && this.evs.hp != 0) evsDescription += `hp: ${this.evs.hp} `
+      if (this.evs.def && this.evs.def != 0) evsDescription += `def: ${this.evs.def} `
+      if (this.evs.spd && this.evs.spd != 0) evsDescription += `spd: ${this.evs.spd} `
+    }
 
     return evsDescription
   }

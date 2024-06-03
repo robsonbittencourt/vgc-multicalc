@@ -12,6 +12,9 @@ export class PokemonCardComponent {
   target: Target
 
   @Input()
+  isAttacker: boolean
+
+  @Input()
   canSelectSecondPokemon: boolean
 
   @Output() 

@@ -6,7 +6,7 @@
         <mat-card-subtitle *ngIf="!target.pokemon.isDefault()">Item: {{ target.pokemon.item }}</mat-card-subtitle>
         <mat-card-subtitle *ngIf="!target.pokemon.isDefault()">Nature: {{ target.pokemon.nature }}</mat-card-subtitle>
         <mat-card-subtitle *ngIf="!target.pokemon.isDefault()">Ability: {{ target.pokemon.displayAbility }}</mat-card-subtitle>
-        <mat-card-subtitle *ngIf="!target.pokemon.isDefault()">{{ target.pokemon.evsDescription() }}</mat-card-subtitle>
+        <mat-card-subtitle *ngIf="!target.pokemon.isDefault()">{{ target.pokemon.evsDescription(isAttacker) }}</mat-card-subtitle>
         <mat-card-subtitle *ngIf="!target.pokemon.isDefault()">Move: {{ target.pokemon.activeMoveName }}</mat-card-subtitle>
       </mat-card-title-group>
       <div *ngIf="target.damageResult && !target.pokemon.isDefault()">
