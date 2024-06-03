@@ -3,6 +3,7 @@ import { calculate, Field, Generations, Move, Result } from '@smogon/calc';
 import { StatIDExceptHP } from '@smogon/calc/dist/data/interface';
 import { DamageResult } from './damage-result';
 import { Pokemon } from './pokemon';
+import { calculateBasePower } from '@smogon/calc/dist/calc';
 
 @Injectable({
   providedIn: 'root'
@@ -48,7 +49,11 @@ export class DamageCalculatorService {
     this.adjustParadoxAbility(attacker)
     this.adjustParadoxAbility(target)
 
+    const basePower = calculateBasePower(gen, attacker.pokemonSmogon, target.pokemonSmogon, moveSmogon, field, false)
+    console.log(basePower)
+    
     const result = calculate(gen, attacker.pokemonSmogon, target.pokemonSmogon, moveSmogon, field)
+    
 
     if(!result.damage) {
       result.damage = this.ZERO_RESULT_DAMAGE
