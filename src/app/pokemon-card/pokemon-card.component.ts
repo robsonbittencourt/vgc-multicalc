@@ -15,6 +15,9 @@ export class PokemonCardComponent {
   isAttacker: boolean
 
   @Input()
+  showDamageDescription: boolean
+
+  @Input()
   canSelectSecondPokemon: boolean
 
   @Output() 

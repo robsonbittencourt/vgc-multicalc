@@ -10,7 +10,7 @@
         <mat-card-subtitle *ngIf="!target.pokemon.isDefault() && isAttacker">Move: {{ target.pokemon.activeMoveName }}</mat-card-subtitle>
         <mat-card-subtitle *ngIf="!target.pokemon.isDefault()">Tera Type: {{ target.pokemon.teraType }}</mat-card-subtitle>
       </mat-card-title-group>
-      <div *ngIf="target.damageResult && !target.pokemon.isDefault()">
+      <div *ngIf="target.damageResult && !target.pokemon.isDefault() && showDamageDescription">
         <br>Damage: {{ target.damageResult.result }}
         <br><label class="ko-chance">{{ target.damageResult.koChance }}</label>
       </div>

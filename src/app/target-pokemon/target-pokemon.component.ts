@@ -21,6 +21,9 @@ export class TargetPokemonComponent {
   @Input()
   isAttacker: boolean
 
+  @Input()
+  showDamageDescription: boolean
+
   @Output() 
   targetAdded = new EventEmitter<any>()
   
