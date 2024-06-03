@@ -45,15 +45,16 @@ export class TeamsComponent {
       if(!result) return
 
       const pokemonList = await this.pokePasteService.parse(result)
-      this.team.deleteAll()
+      const teamToImport = this.teams.find(t => t.onlyHasDefaultPokemon()) ?? this.teams[this.teams.length - 1]
+      teamToImport.deleteAll()
 
       for (let index = 0; index < pokemonList.length; index++) {
         const pokemon = pokemonList[index]
-        this.team.addTeamMember(new TeamMember(pokemon))        
+        teamToImport.addTeamMember(new TeamMember(pokemon))        
       }
 
-      this.team.activateFirstTeamMember()
-      this.teamChanged.emit(this.team)
+      teamToImport.activateFirstTeamMember()
+      this.teamChanged.emit(teamToImport)
       
       this._snackBar.open("Team imported from PokePaste");
     })
