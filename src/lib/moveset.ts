@@ -21,8 +21,23 @@ export class MoveSet {
     return this.activeMoveStorage
   }
 
-  set activeMove(move: Move) {
+  activeMoveByPosition(position: number, move: Move) {
     this.activeMoveStorage = move
+
+    switch(position) {
+      case 1: 
+        this.move1Storage = move 
+        break
+      case 2: 
+        this.move2Storage = move 
+        break
+      case 3: 
+        this.move3Storage = move 
+        break
+      case 4: 
+        this.move4Storage = move 
+        break
+    }
   }
   
   get move1(): Move {

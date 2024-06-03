@@ -68,8 +68,8 @@ export class PokemonEditMobileComponent {
     }
   }
 
-  activateMove(move: Move) {
-    this.attacker.moveSet.activeMove = move
+  activateMove(position: number, move: Move) {
+    this.attacker.moveSet.activeMoveByPosition(position, move)
     this.pokemonChangedEvent.emit(this.attacker)
   }
 
@@ -145,7 +145,7 @@ export class PokemonEditMobileComponent {
       this.attacker.moveSet.move2 = new Move(poke.moves[1])
       this.attacker.moveSet.move3 = new Move(poke.moves[2])
       this.attacker.moveSet.move4 = new Move(poke.moves[3])
-      this.attacker.moveSet.activeMove = new Move(poke.moves[0])
+      this.attacker.moveSet.activeMoveByPosition(1, new Move(poke.moves[0]))
       this.attacker.changeTeraStatus(false)      
     } else {
       this.attacker.nature = "Docile"
@@ -155,7 +155,7 @@ export class PokemonEditMobileComponent {
       this.attacker.moveSet.move2 = new Move("")
       this.attacker.moveSet.move3 = new Move("")
       this.attacker.moveSet.move4 = new Move("")
-      this.attacker.moveSet.activeMove = new Move("Tackle")
+      this.attacker.moveSet.activeMoveByPosition(1, new Move("Tackle"))
     }
   }
 

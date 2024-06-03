@@ -60,6 +60,10 @@
   margin-left: 2.3em;
 }
 
+.moves-section {
+  margin-left: 1em;
+}
+
 .moves {
   display: flex;
   flex-direction: column;
@@ -74,6 +78,14 @@
 
 .info-label {
   margin-bottom: -0.35em;
+}
+
+.moves-labels {
+  margin-left: 2.9em;
+}
+
+.bp-label {
+  margin-left: 11.4em;
 }
 
 .title {
@@ -107,6 +119,10 @@
 .move {
   display: flex;
   align-items: center;
+}
+
+.move-bp {
+  margin-left: 1em;
 }
 
 .evs-titles {

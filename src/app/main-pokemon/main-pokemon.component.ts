@@ -104,7 +104,7 @@ export class MainPokemonComponent {
       this.pokemon.moveSet.move2 = new Move(poke.moves[1])
       this.pokemon.moveSet.move3 = new Move(poke.moves[2])
       this.pokemon.moveSet.move4 = new Move(poke.moves[3])
-      this.pokemon.moveSet.activeMove = new Move(poke.moves[0])
+      this.pokemon.moveSet.activeMoveByPosition(1, new Move(poke.moves[0]))
       this.pokemon.changeTeraStatus(false)      
     } else {
       this.pokemon.nature = "Docile"
@@ -114,7 +114,7 @@ export class MainPokemonComponent {
       this.pokemon.moveSet.move2 = new Move("")
       this.pokemon.moveSet.move3 = new Move("")
       this.pokemon.moveSet.move4 = new Move("")
-      this.pokemon.moveSet.activeMove = new Move("Tackle")
+      this.pokemon.moveSet.activeMoveByPosition(1, new Move("Tackle"))
     }   
 
     if(!this.team.haveDefaultPokemon() && !this.team.isFull()) {
@@ -152,12 +152,12 @@ export class MainPokemonComponent {
     this.pokemonChangedEvent.emit(teamMember.pokemon)
   }
 
-  moveSelected(move: string) {
-    this.activateMove(new Move(move))
+  moveSelected(position: number, move: string) {
+    this.activateMove(position, new Move(move))
   }
 
-  activateMove(move: Move) {
-    this.pokemon.moveSet.activeMove = move
+  activateMove(position: number, move: Move) {
+    this.pokemon.moveSet.activeMoveByPosition(position, move)
     this.pokemonChangedEvent.emit(this.pokemon)
   }
 

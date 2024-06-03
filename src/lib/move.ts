@@ -1,15 +1,17 @@
-import { MOVES } from "@smogon/calc"
+import { Generations, MOVES, Move as MoveSmogon } from "@smogon/calc"
 
 export class Move {
 
   nameStorage: string
   possibleHitsStorage: string[]
   hitsStorage: string
+  bpStorage: number
 
   constructor(name: string) {
     this.nameStorage = name
     this.possibleHitsStorage = this.moveHits(name)
     this.hitsStorage = this.possibleHitsStorage[this.possibleHitsStorage.length - 1]
+    this.bpStorage = new MoveSmogon(Generations.get(9), name).bp
   }
 
   get name(): string {
@@ -34,6 +36,10 @@ export class Move {
 
   set hits(hits: string) {
     this.hitsStorage = hits
+  }
+
+  bp(): number {
+    return this.bpStorage
   }
 
   moveHits(move: string): string[] {

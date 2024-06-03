@@ -24,10 +24,10 @@
   <div class="moves">
     <div class="no-edit-moves" *ngIf="!editAttacks">
       <mat-chip-listbox>
-        <mat-chip-option [selected]="attacker.move1Name == attacker.activeMoveName" (click)="activateMove(attacker.moveSet.move1)">{{ attacker.move1Name }}</mat-chip-option>
-        <mat-chip-option [selected]="attacker.move2Name == attacker.activeMoveName" (click)="activateMove(attacker.moveSet.move2)">{{ attacker.move2Name }}</mat-chip-option>
-        <mat-chip-option [selected]="attacker.move3Name == attacker.activeMoveName" (click)="activateMove(attacker.moveSet.move3)">{{ attacker.move3Name }}</mat-chip-option>
-        <mat-chip-option [selected]="attacker.move4Name == attacker.activeMoveName" (click)="activateMove(attacker.moveSet.move4)" >{{ attacker.move4Name }}</mat-chip-option>
+        <mat-chip-option [selected]="attacker.move1Name == attacker.activeMoveName" (click)="activateMove(1, attacker.moveSet.move1)">{{ attacker.move1Name }}</mat-chip-option>
+        <mat-chip-option [selected]="attacker.move2Name == attacker.activeMoveName" (click)="activateMove(2, attacker.moveSet.move2)">{{ attacker.move2Name }}</mat-chip-option>
+        <mat-chip-option [selected]="attacker.move3Name == attacker.activeMoveName" (click)="activateMove(3, attacker.moveSet.move3)">{{ attacker.move3Name }}</mat-chip-option>
+        <mat-chip-option [selected]="attacker.move4Name == attacker.activeMoveName" (click)="activateMove(4, attacker.moveSet.move4)" >{{ attacker.move4Name }}</mat-chip-option>
         
         <div class="edit-button-section">
           <div *ngIf="!editAttacks" (click)="editMoves()" class="edit-button">
