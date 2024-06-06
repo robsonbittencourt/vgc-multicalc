@@ -423,11 +423,11 @@ export class CalculatorComponent {
     }
   }
 
-  secondAttackerSelected(pokemon: Pokemon) {
-    if (this.activeSecondAttacker == pokemon) {
+  secondAttackerSelected() {
+    if (this.activeSecondAttacker == this.activeTeam().activePokemon()) {
       this.activeSecondAttacker = undefined
     } else {
-      this.activeSecondAttacker = pokemon
+      this.activeSecondAttacker = this.activeTeam().activePokemon()
     }
   }
 

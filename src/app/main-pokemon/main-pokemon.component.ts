@@ -208,7 +208,7 @@ export class MainPokemonComponent {
   }
 
   canShowCombineButton() {
-    return this.isAttacker && !this.pokemon.isDefault() && (!this.secondSelection || this.pokemon == this.secondSelection)
+    return this.isAttacker && !this.pokemon.isDefault() && (!this.secondSelection || this.team.activePokemon() == this.secondSelection)
   }
 
   toogleCommanderAbility() {
