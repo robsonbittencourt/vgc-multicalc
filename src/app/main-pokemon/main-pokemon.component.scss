@@ -122,7 +122,10 @@
 }
 
 .move-bp {
-  margin-left: 1em;
+  display: flex;
+  width: 1em;
+  justify-content: end;
+  margin-left: 1.2em;
 }
 
 .evs-titles {

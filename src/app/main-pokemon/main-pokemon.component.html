@@ -111,25 +111,33 @@
         <div class="move">
           <mat-checkbox [ngModel]="pokemon.move1Name == pokemon.activeMoveName" (change)="activateMove(1, pokemon.moveSet.move1)" [disabled]="!pokemon.move1Name"/>
           <app-input-autocomplete [(value)]="pokemon.moveSet.move1.name" [allValues]="allMoveNames" (valueManuallySelected)="moveSelected(1, $event)"/>
-          <label class="move-bp">{{ pokemon.moveSet.move1.bp() }}</label>
+          <div class="move-bp">
+            <label>{{ pokemon.moveSet.move1.bp() }}</label>
+          </div>
         </div>
 
         <div class="move">
           <mat-checkbox [ngModel]="pokemon.move2Name == pokemon.activeMoveName" (change)="activateMove(2, pokemon.moveSet.move2)" [disabled]="!pokemon.move2Name"/>
           <app-input-autocomplete [(value)]="pokemon.moveSet.move2.name" [allValues]="allMoveNames" (valueManuallySelected)="moveSelected(2, $event)"/>
-          <label class="move-bp">{{ pokemon.moveSet.move2.bp() }}</label>
+          <div class="move-bp">
+            <label>{{ pokemon.moveSet.move2.bp() }}</label>
+          </div>
         </div>
 
         <div class="move">
           <mat-checkbox [ngModel]="pokemon.move3Name == pokemon.activeMoveName" (change)="activateMove(3, pokemon.moveSet.move3)" [disabled]="!pokemon.move3Name"/>
           <app-input-autocomplete [(value)]="pokemon.moveSet.move3.name" [allValues]="allMoveNames" (valueManuallySelected)="moveSelected(3, $event)"/>
-          <label class="move-bp">{{ pokemon.moveSet.move3.bp() }}</label>
+          <div class="move-bp">
+            <label>{{ pokemon.moveSet.move3.bp() }}</label>
+          </div>
         </div>
 
         <div class="move">
           <mat-checkbox [ngModel]="pokemon.move4Name == pokemon.activeMoveName" (change)="activateMove(4, pokemon.moveSet.move4)" [disabled]="!pokemon.move4Name"/>
           <app-input-autocomplete [(value)]="pokemon.moveSet.move4.name" [allValues]="allMoveNames" (valueManuallySelected)="moveSelected(4, $event)"/>
-          <label class="move-bp">{{ pokemon.moveSet.move4.bp() }}</label>
+          <div class="move-bp">
+            <label>{{ pokemon.moveSet.move4.bp() }}</label>
+          </div>
         </div>
       </div>
     </div>
