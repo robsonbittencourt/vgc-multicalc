@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 
@@ -8,11 +9,15 @@ import { startWith, map } from 'rxjs/operators';
   templateUrl: './input-autocomplete.component.html',
   styleUrls: ['./input-autocomplete.component.scss']
 })
-export class InputAutocompleteComponent {
+export class InputAutocompleteComponent implements AfterViewInit {
 
   valueStorage: string
   formControl: FormControl
   filteredValues: Observable<string[]>
+  actualFilteredValues: string[]
+  
+  @ViewChild('typehead', { read: MatAutocompleteTrigger })
+  autoTrigger: MatAutocompleteTrigger
 
   @Input()
   get value(): string {
@@ -42,7 +47,21 @@ export class InputAutocompleteComponent {
     this.filteredValues = this.formControl.valueChanges.pipe(
       startWith(''),
       map(value => this.filter(value || '', this.allValues))
-    )    
+    )
+
+    this.filteredValues.subscribe(x => {
+      this.actualFilteredValues = x
+    })
+  }
+
+  ngAfterViewInit() {
+    this.autoTrigger.panelClosingActions.subscribe(() =>{
+      if (this.autoTrigger.activeOption) {
+        this.onValueSelected(this.autoTrigger.activeOption.value)
+      } else {
+        this.onValueSelected(this.actualFilteredValues[0])
+      }
+    })
   }
 
   ngOnChanges() {
