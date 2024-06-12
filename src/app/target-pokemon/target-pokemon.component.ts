@@ -34,6 +34,9 @@ export class TargetPokemonComponent {
   targetChangedEvent = new EventEmitter<Target>()
 
   @Output() 
+  targetRemovedEvent = new EventEmitter<any>()
+
+  @Output() 
   allTargetsRemoved = new EventEmitter<any>()
 
   @Output()
@@ -68,6 +71,7 @@ export class TargetPokemonComponent {
     
     this.targets.splice(index, 1)
     this.updatePositions()
+    this.targetRemovedEvent.emit()
   }
 
   removeAll() {

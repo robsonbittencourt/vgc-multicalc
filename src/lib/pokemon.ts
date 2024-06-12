@@ -15,7 +15,7 @@ export class Pokemon {
   private commanderActivatedStorage: boolean
   private selectPokemonLabel: string = "Select a Pokémon"
   
-  constructor(name: string, nature: string, item: string, ability: string, teraType: string, teraTypeActive: boolean = false, evs: Partial<StatsTable> & { spc?: number; }, moveSet: MoveSet, boosts: StatsTable | undefined = undefined, status: string | undefined = undefined, ivs: Partial<StatsTable> & { spc?: number; } | undefined = undefined) {
+  constructor(name: string, nature: string, item: string, ability: string, teraType: string, teraTypeActive: boolean = false, evs: Partial<StatsTable> & { spc?: number; }, moveSet: MoveSet, boosts: StatsTable | undefined = undefined, status: string | undefined = undefined, ivs: Partial<StatsTable> & { spc?: number; } | undefined = undefined, paradoxAbilityActivated: boolean = false) {
     this.pokemonSmogon = new PokemonSmogon(Generations.get(9), name, {
       nature: nature,
       item: item,
@@ -32,7 +32,8 @@ export class Pokemon {
     this.teraTypeStorage = teraType
     this.evsStorage = evs
     this.ivsStorage = ivs ?? { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31}
-    this.moveSetStorage = moveSet
+    this.moveSetStorage = moveSet,
+    this.paradoxAbilityActivatedStorage = paradoxAbilityActivated
   }
 
   public get name(): string {

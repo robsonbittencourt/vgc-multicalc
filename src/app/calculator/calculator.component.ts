@@ -40,11 +40,19 @@ export class CalculatorComponent {
   targets: Target[] = []
 
   userDataLink: string
+  useUserData: boolean = false
   
   ngOnInit() {
     this.activatedRoute.data.subscribe(({ userData }) => {
-      this.buildInitialData(userData)      
-    })
+      this.useUserData = this.activatedRoute.routeConfig?.path == "data/:userDataId"
+
+      if (this.useUserData) {
+        this.buildInitialData(userData?.data)      
+      } else {
+        const userData = JSON.parse(localStorage.getItem('userData')!)
+        this.buildInitialData(userData)
+      }      
+    })    
 
     this.activeOnEditPokemon = this.activePokemon()
     this.activeAttackerPokemon = this.activeOnEditPokemon
@@ -97,13 +105,9 @@ export class CalculatorComponent {
   }
 
   teamChanged(team: Team) {
+    this.teams.forEach(t => t.active = false)
+    team.active = true
     this.activeOnEditPokemon = team.activePokemon()
-    this.calculateDamageForAll()
-    this.order()
-  }
-
-  targetsChanged(targets: Target[]) {
-    this.targets = targets
     this.calculateDamageForAll()
     this.order()
   }
@@ -149,6 +153,8 @@ export class CalculatorComponent {
     } else {
       this.calculateDamageForAll()
     }
+
+    this.updateLocalStorage()
   }
 
   targetsAdded(targets: Target[]) {
@@ -159,6 +165,7 @@ export class CalculatorComponent {
     this.targets = this.targets.concat(newTargets)
     targets.forEach(target => this.calculateDamage(target))
     this.order()
+    this.updateLocalStorage()
   }
 
   targetChanged(target: Target) {
@@ -167,22 +174,30 @@ export class CalculatorComponent {
     }
     
     this.calculateDamage(target)
+    this.updateLocalStorage()
+  }
+
+  targetRemoved() {
+    this.updateLocalStorage()
   }
 
   removeAllTargets() {
     this.targets = []
+    this.updateLocalStorage()
   }
 
   fieldChanged(field: Field) {
     this.field = field
     this.calculateDamageForAll()
     this.order()
+    this.updateLocalStorage()
   }
 
   criticalHitChanged(criticalHit: boolean) {
     this.criticalHit = criticalHit
     this.calculateDamageForAll()
     this.order()
+    this.updateLocalStorage()
   }
 
   enableOneVsMany() {
@@ -329,40 +344,44 @@ export class CalculatorComponent {
 
   private buildInitialData(userData: any) {
     if (userData) {
-      this.criticalHit = userData.data.criticalHit
+      this.criticalHit = userData.criticalHit
       this.field = this.buildFieldFromUserData(userData)
       this.teams = this.buildTeamsFromUserData(userData)
       this.targets = this.buildTargetsFromUserData(userData)
     } else {
       this.teams = this.defaultTeams()
       this.targets = this.defaultTargets()
-    }   
+    }    
   }
 
   private buildFieldFromUserData(userData: any): Field {
-    return new Field({ ...userData.data.field })
+    return new Field({ ...userData.field })
   }
 
   private buildTeamsFromUserData(userData: any): Team[] {
-    return userData.data.teams.map((team: any) => {
-      const teamMembers = team.teamMembers.map((teamMember: any) => {
+    const importedTeams = userData.teams.map((team: any, index: Number) => {
+      const teamMembers = team.teamMembers.map((teamMember: any, index: Number) => {
         const pokemon = teamMember.pokemon as Pokemon
         const moveSet = new MoveSet(teamMember.pokemon.moveSet[0], teamMember.pokemon.moveSet[1], teamMember.pokemon.moveSet[2], teamMember.pokemon.moveSet[3])
-        moveSet.activeMoveStorage = new Move(teamMember.pokemon.activeMove)
-        return new TeamMember(new Pokemon(pokemon.name, pokemon.nature, pokemon.item, pokemon.ability, pokemon.teraType, pokemon.teraTypeActive, pokemon.evs, moveSet, pokemon.boosts, pokemon.status), teamMember.active)
+        moveSet.activeMoveStorage = new Move(teamMember.pokemon.moveSet[0])
+        return new TeamMember(new Pokemon(pokemon.name, pokemon.nature, pokemon.item, pokemon.ability, pokemon.teraType, pokemon.teraTypeActive, pokemon.evs, moveSet, pokemon.boosts, pokemon.status, pokemon.ivs, pokemon.paradoxAbilityActivated), index == 0)
       })
+
+      if (teamMembers.length == 0) teamMembers.push(new TeamMember(defaultPokemon(), true))
   
-      return new Team(team.active, team.name, teamMembers)      
-    })    
+      return new Team(index == 0, team.name, teamMembers)      
+    })
+
+    return importedTeams
   }
 
   private buildTargetsFromUserData(userData: any): Target[] {
     let position = 0
-    return userData.data.targets.map((target: any) => {
+    return userData.targets.map((target: any) => {
       const pokemon = target.pokemon as Pokemon
       const moveSet = new MoveSet(target.pokemon.moveSet[0], target.pokemon.moveSet[1], target.pokemon.moveSet[2], target.pokemon.moveSet[3])
       moveSet.activeMoveStorage = new Move(target.pokemon.activeMove)
-      const newTarget = new Target(new Pokemon(pokemon.name, pokemon.nature, pokemon.item, pokemon.ability, pokemon.teraType, pokemon.teraTypeActive, pokemon.evs, moveSet, pokemon.boosts, pokemon.status), position)
+      const newTarget = new Target(new Pokemon(pokemon.name, pokemon.nature, pokemon.item, pokemon.ability, pokemon.teraType, pokemon.teraTypeActive, pokemon.evs, moveSet, pokemon.boosts, pokemon.status, pokemon.ivs), position)
       position++
       
       return newTarget
@@ -414,6 +433,8 @@ export class CalculatorComponent {
       "status": pokemon.status,
       "boosts": pokemon.boosts,
       "activeMove": pokemon.moveSet.activeMove.name,
+      "paradoxAbilityActivated": pokemon.paradoxAbilityActivated,
+      "ivs": pokemon.ivs,
       "moveSet": [
         pokemon.moveSet.move1.name,
         pokemon.moveSet.move2.name,
@@ -439,6 +460,12 @@ export class CalculatorComponent {
       this.oneVsManyActivated = false
       this.manyVsOneActivated = true
     }
+  }
+
+  updateLocalStorage() {
+    if(!this.useUserData) {
+      localStorage.setItem('userData', JSON.stringify(this.buildUserDataToUpload()))
+    }    
   }
 
 }
