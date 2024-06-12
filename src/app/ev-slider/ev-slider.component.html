@@ -23,7 +23,7 @@
       <input matSliderThumb (change)="evChanged()" [(ngModel)]="ev" (input)="beforeEvChanged()">
     </mat-slider>
   </div>
-  <div class="ev-value dense-2" *ngIf="iv">
+  <div class="ev-value dense-2">
     <mat-form-field appearance="outline" class="mat-ev-field">
       <input class="ev-value-input" type="number" min="0" max="31" matInput [(ngModel)]="iv">
     </mat-form-field>
