@@ -81,6 +81,9 @@ export class EvSliderComponent {
   @Input()
   baseStatValue: number
 
+  @Input()
+  showIv: boolean = true
+
   EV_ZERO = 0
   FIRST_EV = 4
 

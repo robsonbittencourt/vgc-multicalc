@@ -68,9 +68,8 @@
         </div>
       </div>
 
-      <div class="save-button">
-        <mat-icon class="edit-icon" *ngIf="editAttacks" (click)="saveMoves()">save</mat-icon>
-        <span>Save</span>
+      <div class="save-button" (click)="saveMoves()">
+        <mat-icon class="edit-icon" *ngIf="editAttacks">save</mat-icon>Save
       </div>
     </div>
   </div>
@@ -123,21 +122,21 @@
   </div>
 
   <div class="evs">
-    <app-ev-slider statNameAcronym="HP" [statValue]="attacker.hp" [(ev)]="attacker.evs.hp" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"/>
+    <app-ev-slider statNameAcronym="HP" [statValue]="attacker.hp" [showIv]="false" [(ev)]="attacker.evs.hp" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"/>
         
-    <app-ev-slider statNameAcronym="ATK" [statValue]="attacker.modifiedAtk()" [(ev)]="attacker.evs.atk" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()" 
+    <app-ev-slider statNameAcronym="ATK" [statValue]="attacker.modifiedAtk()" [showIv]="false" [(ev)]="attacker.evs.atk" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()" 
       [(statsModifier)]="attacker.boosts.atk" [nature]="attacker.nature"/>
 
-    <app-ev-slider statNameAcronym="DEF" [statValue]="attacker.modifiedDef()" [(ev)]="attacker.evs.def" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"
+    <app-ev-slider statNameAcronym="DEF" [statValue]="attacker.modifiedDef()" [showIv]="false" [(ev)]="attacker.evs.def" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"
       [(statsModifier)]="attacker.boosts.def" [nature]="attacker.nature"/>
     
-    <app-ev-slider statNameAcronym="SPA" [statValue]="attacker.modifiedSpa()" [(ev)]="attacker.evs.spa" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"
+    <app-ev-slider statNameAcronym="SPA" [statValue]="attacker.modifiedSpa()" [showIv]="false" [(ev)]="attacker.evs.spa" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"
       [(statsModifier)]="attacker.boosts.spa" [nature]="attacker.nature"/>
     
-    <app-ev-slider statNameAcronym="SPD" [statValue]="attacker.modifiedSpd()" [(ev)]="attacker.evs.spd" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"
+    <app-ev-slider statNameAcronym="SPD" [statValue]="attacker.modifiedSpd()" [showIv]="false" [(ev)]="attacker.evs.spd" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"
       [(statsModifier)]="attacker.boosts.spd" [nature]="attacker.nature"/>
     
-    <app-ev-slider statNameAcronym="SPE" [statValue]="attacker.modifiedSpe()" [(ev)]="attacker.evs.spe" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"
+    <app-ev-slider statNameAcronym="SPE" [statValue]="attacker.modifiedSpe()" [showIv]="false" [(ev)]="attacker.evs.spe" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"
       [(statsModifier)]="attacker.boosts.spe" [nature]="attacker.nature"/>
   </div>
 </div>
