@@ -281,8 +281,8 @@ export class CalculatorComponent {
 
   private defaultTeamsDesktop(): Team[] {
     const teamMembers = [
-      new TeamMember(new Pokemon("Flutter Mane", "Timid", "Choice Specs", "Protosynthesis", "Fairy", false, { spa: 252 }, new MoveSet("Moonblast", "Dazzling Gleam", "Shadow Ball", "Thunderbolt"), undefined, undefined), true),
-      new TeamMember(new Pokemon("Groudon", "Adamant", "Assault Vest", "Drought", "Ground", false, { hp: 132, atk: 252, spd: 124 }, new MoveSet("Precipice Blades", "Heat Crash", "Heavy Slam", "Shadow Claw"), undefined, undefined), false),
+      new TeamMember(new Pokemon("Miraidon", "Timid", "Choice Specs", "Hadron Engine", "Electric", false, { hp: 4, spa: 252, spe: 252 }, new MoveSet("Electro Drift", "Parabolic Charge", "Volt Switch", "Draco Meteor"), undefined, undefined), true),
+      new TeamMember(new Pokemon('Koraidon', "Adamant", "Clear Amulet", "Orichalcum Pulse", "Fire", false, { hp: 36, atk: 220, spe: 252 }, new MoveSet("Flame Charge", "Collision Course", "Flare Blitz", "Protect")), false),
       new TeamMember(defaultPokemon(), false)
     ]
     const team1 = new Team(true, "Team 1", teamMembers)
@@ -297,7 +297,7 @@ export class CalculatorComponent {
 
   private defaultTeamsMobile(): Team[] {
     const teamMembers = [
-      new TeamMember(new Pokemon("Flutter Mane", "Timid", "Choice Specs", "Protosynthesis", "Fairy", false, { spa: 252 }, new MoveSet("Moonblast", "Dazzling Gleam", "Shadow Ball", "Thunderbolt"), undefined, undefined), true)
+      new TeamMember(new Pokemon("Miraidon", "Timid", "Choice Specs", "Hadron Engine", "Electric", false, { hp: 4, spa: 252, spe: 252 }, new MoveSet("Electro Drift", "Parabolic Charge", "Volt Switch", "Draco Meteor"), undefined, undefined), true)
     ]
     return [new Team(true, "Team 1", teamMembers)]
   }
@@ -312,20 +312,22 @@ export class CalculatorComponent {
 
   private defaultTargetsDesktop(): Target[] {
     return [
-      new Target(new Pokemon('Raging Bolt', "Modest", "Booster Energy", "Protosynthesis", "Fairy", true, { hp: 244, spa: 252, spd: 12 }, new MoveSet("Thunderclap", "Dragon Pulse", "Calm Mind", "Protect")), 0),
-      new Target(new Pokemon('Calyrex-Shadow', "Timid", "Focus Sash", "As One (Spectrier)", "Fighting", false, { spa: 252, spd: 4, spe: 252 }, new MoveSet("Astral Barrage", "Expanding Force", "Tera Blast", "Protect")), 1),
-      new Target(new Pokemon('Gouging Fire', "Adamant", "Clear Amulet", "Protosynthesis", "Water", false, { hp: 4, atk: 252, spe: 252 }, new MoveSet("Breaking Swipe", "Heat Crash", "Howl", "Burning Bulwark")), 2),
-      new Target(new Pokemon('Kyogre', "Modest", "Mystic Water", "Drizzle", "Grass", false, { hp: 132, def: 84, spa: 156, spd: 4, spe: 132 }, new MoveSet("Water Spout", "Origin Pulse", "Ice Beam", "Protect")), 3),
-      new Target(new Pokemon('Incineroar', "Careful", "Assault Vest", "Intimidate", "Water", false, { hp: 252, atk: 4, spd: 252 }, new MoveSet("Fake Out", "Flare Blitz", "Parting Shot", "Knock Off")), 4),
-      new Target(new Pokemon('Urshifu-Rapid-Strike', "Jolly", "Choice Scarf", "Unseen Fist", "Water", true, { atk: 252, spd: 4, spe: 252 }, new MoveSet("Surging Strikes", "Close Combat", "Ice Spinner", "U-turn")), 5),
-      new Target(new Pokemon('Landorus', "Timid", "Life Orb", "Sheer Force", "Poison", false, { spa: 252, spd: 4, spe: 252 }, new MoveSet("Earth Power", "Sludge Bomb", "Substitute", "Protect")), 6),
-      new Target(new Pokemon('Ogerpon-Wellspring', "Adamant", "Wellspring Mask", "Water Absorb", "Water", false, { hp: 252, atk: 76, def: 148, spd: 28, spe: 4 }, new MoveSet("Ivy Cudgel", "Horn Leech", "Spiky Shield", "Follow Me")), 7)
+      new Target(new Pokemon("Calyrex-Shadow", "Timid", "Focus Sash", "As One (Spectrier)", "Fighting", false, { hp: 0, atk: 0, def: 0, spa: 252, spd: 4, spe: 252 }, new MoveSet("Astral Barrage", "Expanding Force", "Tera Blast", "Protect")), 0),
+      new Target(new Pokemon("Urshifu-Rapid-Strike", "Jolly", "Choice Scarf", "Unseen Fist", "Water", true, { hp: 0, atk: 252, def: 0, spa: 0, spd: 4, spe: 252 }, new MoveSet("Surging Strikes", "Close Combat", "Ice Spinner", "U-turn")), 0),
+      new Target(new Pokemon("Calyrex-Ice", "Brave", "Clear Amulet", "As One (Glastrier)", "Fire", false, { hp: 252, atk: 252, def: 0, spa: 0, spd: 4, spe: 0 }, new MoveSet("Glacial Lance", "Protect", "High Horsepower", "Trick Room")), 0),
+      new Target(new Pokemon("Ogerpon-Wellspring", "Adamant", "Wellspring Mask", "Water Absorb", "Water", false, { hp: 252, atk: 76, def: 148, spa: 0, spd: 28, spe: 4 }, new MoveSet("Ivy Cudgel", "Horn Leech", "Spiky Shield", "Follow Me")), 0),
+      new Target(new Pokemon("Amoonguss", "Relaxed", "Rocky Helmet", "Regenerator", "Water", false, { hp: 236, atk: 0, def: 236, spa: 0, spd: 36, spe: 0 }, new MoveSet("Pollen Puff", "Spore", "Rage Powder", "Protect")), 0),
+      new Target(new Pokemon("Raging Bolt", "Modest", "Booster Energy", "Protosynthesis", "Fairy", true, { hp: 244, atk: 0, def: 0, spa: 252, spd: 12, spe: 0 }, new MoveSet("Thunderclap", "Dragon Pulse", "Calm Mind", "Protect")), 0),
+      new Target(new Pokemon("Rillaboom", "Adamant", "Assault Vest", "Grassy Surge", "Water", false, { hp: 172, atk: 252, def: 4, spa: 0, spd: 4, spe: 76 }, new MoveSet("Grassy Glide", "Wood Hammer", "U-turn", "Fake Out")), 0),
+      new Target(new Pokemon("Zamazenta-Crowned", "Impish", "Rusted Shield", "Dauntless Shield", "Water", false, { hp: 196, atk: 0, def: 156, spa: 0, spd: 0, spe: 156 }, new MoveSet("Body Press", "Heavy Slam", "Substitute", "Protect")), 0),
+      new Target(new Pokemon("Incineroar", "Impish", "Sitrus Berry", "Intimidate", "Grass", false, { hp: 244, atk: 12, def: 76, spa: 0, spd: 100, spe: 76 }, new MoveSet("Knock Off", "Fake Out", "Parting Shot", "Will-O-Wisp")), 0),
+      new Target(new Pokemon("Terapagos-Terastal", "Modest", "Leftovers", "Tera Shell", "Stellar", false, { hp: 252, atk: 0, def: 180, spa: 76, spd: 0, spe: 0 }, new MoveSet("Tera Starstorm", "Earth Power", "Calm Mind", "Protect")), 0)
     ]
   }
 
   private defaultTargetsMobile(): Target[] {
     return [
-      new Target(new Pokemon('Kyogre', "Modest", "Mystic Water", "Drizzle", "Grass", false, { hp: 132, def: 84, spa: 156, spd: 4, spe: 132 }, new MoveSet("Water Spout", "Origin Pulse", "Ice Beam", "Thunder")), 0)
+      new Target(new Pokemon('Koraidon', "Adamant", "Clear Amulet", "Orichalcum Pulse", "Fire", false, { hp: 36, atk: 220, spe: 252 }, new MoveSet("Flame Charge", "Collision Course", "Flare Blitz", "Protect")), 0)
     ]
   }
 
