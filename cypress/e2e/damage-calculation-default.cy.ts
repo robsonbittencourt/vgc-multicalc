@@ -1,0 +1,53 @@
+import { MainPage } from "cypress/page-object/main-page"
+
+describe('Test calcs with first team member Pokémon', () => {
+  it('Validate the damage Miraidon', () => {
+    const mainPage = new MainPage()
+    
+    mainPage.getOpponent("Urshifu Rapid Strike").damageIs(296, 349.7).causeOHKO()
+    mainPage.getOpponent("Calyrex Shadow").damageIs(74.2, 88).cause2HKO()
+    mainPage.getOpponent("Ogerpon Wellspring").damageIs(70.5, 83.4).cause2HKO()
+    mainPage.getOpponent("Incineroar").damageIs(64.1, 76.1).cause2HKO()
+    mainPage.getOpponent("Raging Bolt").damageIs(61.4, 72.7).cause2HKO()
+    mainPage.getOpponent("Zamazenta Crowned").damageIs(52, 61.4).cause2HKO()
+    mainPage.getOpponent("Calyrex Ice").damageIs(50.7, 59.9).cause2HKO()
+    mainPage.getOpponent("Amoonguss").damageIs(34.2, 40.6).cause3HKO()
+    mainPage.getOpponent("Terapagos Terastal").damageIs(29.7, 35.6).cause4HKO().afterLeftoversRecovery()
+    mainPage.getOpponent("Rillaboom").damageIs(29.4, 35).haveChanceOfToCause3HKO(11.8)
+  })
+})
+
+describe('Test calcs with second team member Pokémon', () => {
+  it('Validate the damage with Koraidon using Flame Charge', () => {
+    const mainPage = new MainPage()
+    mainPage.selectTeamMember("Koraidon")
+
+    mainPage.getOpponent("Urshifu Rapid Strike").damageIs(9.1, 10.8)
+    mainPage.getOpponent("Calyrex Shadow").damageIs(22.2, 26.2).haveChanceOfToCause4HKO(8.9)
+    mainPage.getOpponent("Ogerpon Wellspring").damageIs(16.5, 19.7).possible6HKO()
+    mainPage.getOpponent("Incineroar").damageIs(6.9, 8.4)
+    mainPage.getOpponent("Raging Bolt").damageIs(14.7, 17.7).possible6HKO()
+    mainPage.getOpponent("Zamazenta Crowned").damageIs(13.5, 16.6).possible6HKO()
+    mainPage.getOpponent("Calyrex Ice").damageIs(22.2, 27).haveChanceOfToCause4HKO(26.5)
+    mainPage.getOpponent("Amoonguss").damageIs(26.4, 31.9).cause4HKO()
+    mainPage.getOpponent("Terapagos Terastal").damageIs(5.9, 7.4)
+    mainPage.getOpponent("Rillaboom").damageIs(34.5, 41.6).cause3HKO()
+  })
+
+  it('Validate the damage with Koraidon using Collision Course', () => {
+    const mainPage = new MainPage()
+    mainPage.selectTeamMember("Koraidon").selectAttackTwo()
+    
+    mainPage.getOpponent("Urshifu Rapid Strike").damageIs(53.7, 64).cause2HKO()
+    mainPage.getOpponent("Calyrex Shadow").doesNotCauseAnyDamage()
+    mainPage.getOpponent("Ogerpon Wellspring").damageIs(49.7, 58.2).haveChanceOfToCause2HKO(98.4)
+    mainPage.getOpponent("Incineroar").damageIs(114.4, 135.3).causeOHKO()
+    mainPage.getOpponent("Raging Bolt").damageIs(22, 25.9).haveChanceOfToCause4HKO(7.2)
+    mainPage.getOpponent("Zamazenta Crowned").damageIs(53.1, 63.5).cause2HKO()
+    mainPage.getOpponent("Calyrex Ice").damageIs(32.3, 39.1).haveChanceOfToCause3HKO(99)
+    mainPage.getOpponent("Amoonguss").damageIs(19.6, 23.2).possible5HKO()
+    mainPage.getOpponent("Terapagos Terastal").damageIs(24.2, 28.7).possible5HKO().afterLeftoversRecovery()
+    mainPage.getOpponent("Rillaboom").damageIs(51.7, 61.4).cause2HKO()
+  })
+})
+

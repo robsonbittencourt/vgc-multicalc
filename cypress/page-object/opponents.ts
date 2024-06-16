@@ -1,10 +1,10 @@
-import { PokemonCard } from "./pokemon-card"
+import { OpponentPokemon } from "./opponent-pokemon"
 
 export class Opponents {
 
-  getOpponent(pokemonName: string): PokemonCard {
-    const card = cy.get('.target-pokemon').get('.mat-mdc-card-title').filter(`:contains(${pokemonName})`)
-    return new PokemonCard(card)
+  getOpponent(pokemonName: string): OpponentPokemon {
+    const card = cy.get(`[data-cy="pokemon-card-${pokemonName}"]`).filter(`:contains(${pokemonName})`)
+    return new OpponentPokemon(pokemonName, card)
   }
 
 }

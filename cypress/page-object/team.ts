@@ -1,17 +1,12 @@
-import { PokemonCard } from "./pokemon-card"
+import { TeamMember } from "./team-member"
 
 export class Team {
   
-  getTeamMember(pokemonName: string): PokemonCard {
-    const card = cy.get('.team').get('.mat-mdc-card-title').filter(`:contains(${pokemonName})`)
-    return new PokemonCard(card)
-  }
+  selectTeamMember(pokemonName: string): TeamMember {
+    const teamMember = new TeamMember(pokemonName)
+    teamMember.select()
 
-  selectTeamMember(pokemonName: string): PokemonCard {
-    const pokemon = this.getTeamMember(pokemonName)
-    pokemon.select()
-
-    return pokemon
+    return teamMember
   }
 
 }

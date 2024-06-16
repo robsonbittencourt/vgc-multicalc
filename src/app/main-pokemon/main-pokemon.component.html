@@ -74,7 +74,7 @@
           <label >Tera Type</label>
         </div>
         <div class="check-input-section tera-checkbox">
-          <button class="icon-button" (click)="terastalyzePokemon($event)" *ngIf="pokemon.teraTypeStorage && !pokemon.isDefault()" matTooltip="Terastal" [matTooltipShowDelay]="1000">
+          <button class="icon-button" (click)="terastalyzePokemon($event)" *ngIf="pokemon.teraTypeStorage && !pokemon.isDefault()" matTooltip="Terastal" [matTooltipShowDelay]="1000" data-cy="terastal-button">
             <img class="icon-tera" src="assets/icons/tera-icon.png" *ngIf="pokemon.teraTypeActive" />
             <img class="icon-tera" src="assets/icons/tera-icon-gray.png" *ngIf="!pokemon.teraTypeActive" />
           </button>
@@ -109,7 +109,7 @@
       </div>
       <div class="moves">
         <div class="move">
-          <mat-checkbox [ngModel]="pokemon.move1Name == pokemon.activeMoveName" (change)="activateMove(1, pokemon.moveSet.move1)" [disabled]="!pokemon.move1Name"/>
+          <mat-checkbox [ngModel]="pokemon.move1Name == pokemon.activeMoveName" (change)="activateMove(1, pokemon.moveSet.move1)" [disabled]="!pokemon.move1Name" data-cy="attack1"/>
           <app-input-autocomplete [(value)]="pokemon.moveSet.move1.name" [allValues]="allMoveNames" (valueManuallySelected)="moveSelected(1, $event)"/>
           <div class="move-bp">
             <label>{{ pokemon.moveSet.move1.bp() }}</label>
@@ -117,7 +117,7 @@
         </div>
 
         <div class="move">
-          <mat-checkbox [ngModel]="pokemon.move2Name == pokemon.activeMoveName" (change)="activateMove(2, pokemon.moveSet.move2)" [disabled]="!pokemon.move2Name"/>
+          <mat-checkbox [ngModel]="pokemon.move2Name == pokemon.activeMoveName" (change)="activateMove(2, pokemon.moveSet.move2)" [disabled]="!pokemon.move2Name" data-cy="attack2"/>
           <app-input-autocomplete [(value)]="pokemon.moveSet.move2.name" [allValues]="allMoveNames" (valueManuallySelected)="moveSelected(2, $event)"/>
           <div class="move-bp">
             <label>{{ pokemon.moveSet.move2.bp() }}</label>
@@ -125,7 +125,7 @@
         </div>
 
         <div class="move">
-          <mat-checkbox [ngModel]="pokemon.move3Name == pokemon.activeMoveName" (change)="activateMove(3, pokemon.moveSet.move3)" [disabled]="!pokemon.move3Name"/>
+          <mat-checkbox [ngModel]="pokemon.move3Name == pokemon.activeMoveName" (change)="activateMove(3, pokemon.moveSet.move3)" [disabled]="!pokemon.move3Name" data-cy="attack3"/>
           <app-input-autocomplete [(value)]="pokemon.moveSet.move3.name" [allValues]="allMoveNames" (valueManuallySelected)="moveSelected(3, $event)"/>
           <div class="move-bp">
             <label>{{ pokemon.moveSet.move3.bp() }}</label>
@@ -133,7 +133,7 @@
         </div>
 
         <div class="move">
-          <mat-checkbox [ngModel]="pokemon.move4Name == pokemon.activeMoveName" (change)="activateMove(4, pokemon.moveSet.move4)" [disabled]="!pokemon.move4Name"/>
+          <mat-checkbox [ngModel]="pokemon.move4Name == pokemon.activeMoveName" (change)="activateMove(4, pokemon.moveSet.move4)" [disabled]="!pokemon.move4Name" data-cy="attack4"/>
           <app-input-autocomplete [(value)]="pokemon.moveSet.move4.name" [allValues]="allMoveNames" (valueManuallySelected)="moveSelected(4, $event)"/>
           <div class="move-bp">
             <label>{{ pokemon.moveSet.move4.bp() }}</label>
@@ -157,16 +157,16 @@
       <app-ev-slider data-cy="stat-atk" [baseStatValue]="pokemon.baseAtk" statName="Attack" [statValue]="pokemon.modifiedAtk()" [(ev)]="pokemon.evs.atk" [(iv)]="pokemon.ivs.atk" (evChangedEvent)="onChangeEvValue()" (ivChange)="onChangeIvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()" 
         [(statsModifier)]="pokemon.boosts.atk" [nature]="pokemon.nature"/>
 
-      <app-ev-slider statName="Defense" [baseStatValue]="pokemon.baseDef" [statValue]="pokemon.modifiedDef()" [(ev)]="pokemon.evs.def" [(iv)]="pokemon.ivs.def" (evChangedEvent)="onChangeEvValue()" (ivChange)="onChangeIvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"
+      <app-ev-slider data-cy="stat-def" [baseStatValue]="pokemon.baseDef" statName="Defense" [statValue]="pokemon.modifiedDef()" [(ev)]="pokemon.evs.def" [(iv)]="pokemon.ivs.def" (evChangedEvent)="onChangeEvValue()" (ivChange)="onChangeIvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"
         [(statsModifier)]="pokemon.boosts.def" [nature]="pokemon.nature"/>
       
       <app-ev-slider data-cy="stat-spa" [baseStatValue]="pokemon.baseSpa" statName="Sp. Atk." [statValue]="pokemon.modifiedSpa()" [(ev)]="pokemon.evs.spa" [(iv)]="pokemon.ivs.spa" (evChangedEvent)="onChangeEvValue()" (ivChange)="onChangeIvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"
         [(statsModifier)]="pokemon.boosts.spa" [nature]="pokemon.nature"/>
       
-      <app-ev-slider statName="Sp. Def." [baseStatValue]="pokemon.baseSpd" [statValue]="pokemon.modifiedSpd()" [(ev)]="pokemon.evs.spd" [(iv)]="pokemon.ivs.spd" (evChangedEvent)="onChangeEvValue()" (ivChange)="onChangeIvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"
+      <app-ev-slider data-cy="stat-spd" [baseStatValue]="pokemon.baseSpd" statName="Sp. Def." [statValue]="pokemon.modifiedSpd()" [(ev)]="pokemon.evs.spd" [(iv)]="pokemon.ivs.spd" (evChangedEvent)="onChangeEvValue()" (ivChange)="onChangeIvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"
         [(statsModifier)]="pokemon.boosts.spd" [nature]="pokemon.nature"/>
       
-      <app-ev-slider statName="Speed" [baseStatValue]="pokemon.baseSpe" [statValue]="pokemon.modifiedSpe()" [(ev)]="pokemon.evs.spe" [(iv)]="pokemon.ivs.spe" (evChangedEvent)="onChangeEvValue()" (ivChange)="onChangeIvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"
+      <app-ev-slider data-cy="stat-spe" [baseStatValue]="pokemon.baseSpe" statName="Speed" [statValue]="pokemon.modifiedSpe()" [(ev)]="pokemon.evs.spe" [(iv)]="pokemon.ivs.spe" (evChangedEvent)="onChangeEvValue()" (ivChange)="onChangeIvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"
         [(statsModifier)]="pokemon.boosts.spe" [nature]="pokemon.nature"/>
     </div>
     <div class="remaining-evs">

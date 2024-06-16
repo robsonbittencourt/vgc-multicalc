@@ -1,27 +1,23 @@
 import { Team } from "./team";
-import { PokemonCard } from "./pokemon-card";
+import { OpponentPokemon } from "./opponent-pokemon";
 import { Opponents } from "./opponents";
+import { TeamMember } from "./team-member";
 
 export class MainPage {
+
+  _team: Team = new Team()
+  _opponents: Opponents = new Opponents()
 
   constructor() {
     cy.visit('http://localhost:4200/')
   }
 
-  team(): Team {
-    return new Team()
-  }
-
-  opponents(): Opponents {
-    return new Opponents()
-  }
-
-  selectTeamMember(pokemonName: string): PokemonCard {
-    return this.team().selectTeamMember(pokemonName)  
+  selectTeamMember(pokemonName: string): TeamMember {
+    return this._team.selectTeamMember(pokemonName)  
   }
   
-  getOpponent(pokemonName: string): PokemonCard {
-    return this.opponents().getOpponent(pokemonName)
+  getOpponent(pokemonName: string): OpponentPokemon {
+    return this._opponents.getOpponent(pokemonName)
   }
 
 }
