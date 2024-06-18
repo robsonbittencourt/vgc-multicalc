@@ -23,7 +23,7 @@
       <mat-icon *ngIf="secondSelectionActive()">add_circle</mat-icon>
       <label>Combine Damage</label>
     </div>
-    <div *ngIf="canShowDeleteButton()" class="delete-pokemon" (click)="removePokemon()">
+    <div *ngIf="canShowDeleteButton()" class="delete-pokemon" (click)="removePokemon()" data-cy="delete-from-team-button">
       <mat-icon>delete</mat-icon>
       <label>Delete</label>
     </div>
@@ -36,7 +36,7 @@
       </div>
 
       <label>Pokémon</label>
-      <app-input-autocomplete [(value)]="pokemon.name" [allValues]="allPokemonNames" (valueChange)="onPokemonSelected($event)" (valueManuallySelected)="onValueManuallySelected($event)"/>
+      <app-input-autocomplete [(value)]="pokemon.name" [allValues]="allPokemonNames" (valueChange)="onPokemonSelected($event)" (valueManuallySelected)="onValueManuallySelected($event)" data-cy="pokemon-select"/>
     </div>
   </div>
 
@@ -47,7 +47,7 @@
       </div>
 
       <label>Pokémon</label>
-      <app-input-autocomplete [(value)]="pokemon.name" [allValues]="allPokemonNames" (valueChange)="onPokemonSelected($event)" (valueManuallySelected)="onValueManuallySelected($event)"/>
+      <app-input-autocomplete [(value)]="pokemon.name" [allValues]="allPokemonNames" (valueChange)="onPokemonSelected($event)" (valueManuallySelected)="onValueManuallySelected($event)" data-cy="pokemon-select"/>
     </div>
 
     <div class="pokemon-status">

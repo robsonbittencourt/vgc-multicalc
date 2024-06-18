@@ -20,4 +20,28 @@ export class MainPage {
     return this._opponents.getOpponent(pokemonName)
   }
 
+  addNewTeamMember(pokemonName: string) {
+    return this._team.addNewTeamMember(pokemonName)
+  }
+
+  selectTeam(teamName: string) {
+    cy.get('[data-cy="team-box"]').filter(`:contains(${teamName})`).click({force: true})
+  }
+
+  deleteTeam(teamName: string) {
+    this.selectTeam(teamName)
+    cy.get('[data-cy="delete-team-button"]').click({force: true})
+  }
+
+  teamIs(pokemonNames: string[]) {
+    pokemonNames.forEach((pokemon) => {
+      this._team.verifyIfExists(pokemon)  
+    })   
+  }
+
+  teamIsEmpty(teamName: string) {
+    this.selectTeam(teamName)
+    this._team.isEmpty()
+  }
+
 }

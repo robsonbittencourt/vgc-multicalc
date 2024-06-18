@@ -1,4 +1,4 @@
-<div class="team" [ngStyle]="boxStyle()" (click)="activate()">
+<div class="team" [ngStyle]="boxStyle()" (click)="activate()" data-cy="team-box">
   <label class="team-name-label">{{ team.name }}</label>
   <div class="team-pokemon-icons">
     <div *ngFor="let teamMember of team.teamMembers()" class="pokemon-image">

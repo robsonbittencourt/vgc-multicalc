@@ -35,4 +35,8 @@ export class TeamMember {
     return this
   }
 
+  delete() {
+    cy.get('[data-cy="delete-from-team-button"]').click({force: true})
+  }
+
 }
