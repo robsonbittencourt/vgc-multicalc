@@ -369,7 +369,11 @@ export class CalculatorComponent {
         return new TeamMember(new Pokemon(pokemon.name, pokemon.nature, pokemon.item, pokemon.ability, pokemon.teraType, pokemon.teraTypeActive, pokemon.evs, moveSet, pokemon.boosts, pokemon.status, pokemon.ivs, pokemon.paradoxAbilityActivated), index == 0)
       })
 
-      if (teamMembers.length == 0) teamMembers.push(new TeamMember(defaultPokemon(), true))
+      if (teamMembers.length == 0) {
+        teamMembers.push(new TeamMember(defaultPokemon(), true))
+      } else if (teamMembers.length < 6) { 
+        teamMembers.push(new TeamMember(defaultPokemon(), false))
+      }
   
       return new Team(index == 0, team.name, teamMembers)      
     })
