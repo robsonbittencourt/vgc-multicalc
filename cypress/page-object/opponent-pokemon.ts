@@ -1,3 +1,5 @@
+import { Pokemon } from "./pokemon"
+
 export class OpponentPokemon {
 
   private _name: string
@@ -86,6 +88,16 @@ export class OpponentPokemon {
   possible8HKO(): OpponentPokemon {
     this.contains("possible 8HKO")
     return this
+  }
+
+  possible9HKO(): OpponentPokemon {
+    this.contains("possible 9HKO")
+    return this
+  }
+
+  edit(): Pokemon {
+    this._element.click({force: true})
+    return new Pokemon
   }
   
   private contains(text: string) {

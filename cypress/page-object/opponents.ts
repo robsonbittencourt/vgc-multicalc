@@ -7,4 +7,8 @@ export class Opponents {
     return new OpponentPokemon(pokemonName, card)
   }
 
+  selectOpponent(pokemonName: string) {
+    return this.getOpponent(pokemonName).edit()
+  }
+
 }

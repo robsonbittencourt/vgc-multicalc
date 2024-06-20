@@ -2,6 +2,7 @@ import { Team } from "./team";
 import { OpponentPokemon } from "./opponent-pokemon";
 import { Opponents } from "./opponents";
 import { TeamMember } from "./team-member";
+import { Pokemon } from "./pokemon";
 
 export class MainPage {
 
@@ -15,12 +16,16 @@ export class MainPage {
   selectTeamMember(pokemonName: string): TeamMember {
     return this._team.selectTeamMember(pokemonName)  
   }
+
+  selectPokemonFromTeam(pokemonName: string): Pokemon {
+    return this._team.selectTeamMember(pokemonName).pokemon()
+  }
   
   getOpponent(pokemonName: string): OpponentPokemon {
     return this._opponents.getOpponent(pokemonName)
   }
 
-  addNewTeamMember(pokemonName: string) {
+  addNewTeamMember(pokemonName: string): Pokemon {
     return this._team.addNewTeamMember(pokemonName)
   }
 

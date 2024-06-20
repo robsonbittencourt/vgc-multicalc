@@ -20,7 +20,7 @@ describe('Test calcs with first team member Pokémon', () => {
 describe('Test calcs with second team member Pokémon', () => {
   it('Validate the damage with Koraidon using Flame Charge', () => {
     const mainPage = new MainPage()
-    mainPage.selectTeamMember("Koraidon")
+    mainPage.selectPokemonFromTeam("Koraidon")
 
     mainPage.getOpponent("Urshifu Rapid Strike").damageIs(9.1, 10.8)
     mainPage.getOpponent("Calyrex Shadow").damageIs(22.2, 26.2).haveChanceOfToCause4HKO(8.9)
@@ -36,7 +36,7 @@ describe('Test calcs with second team member Pokémon', () => {
 
   it('Validate the damage with Koraidon using Collision Course', () => {
     const mainPage = new MainPage()
-    mainPage.selectTeamMember("Koraidon").selectAttackTwo()
+    mainPage.selectPokemonFromTeam("Koraidon").selectAttackTwo()
     
     mainPage.getOpponent("Urshifu Rapid Strike").damageIs(53.7, 64).cause2HKO()
     mainPage.getOpponent("Calyrex Shadow").doesNotCauseAnyDamage()

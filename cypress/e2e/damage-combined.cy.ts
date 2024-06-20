@@ -25,7 +25,8 @@ describe('Test calcs with combined damage', () => {
 
   it('Create new Pokémon and use it with combined damage', () => {
     const mainPage = new MainPage()
-    mainPage.addNewTeamMember("Tornadus").combineDamage()
+    mainPage.addNewTeamMember("Tornadus")
+    mainPage.selectTeamMember("Tornadus").combineDamage()
     mainPage.selectTeamMember("Miraidon")
 
     mainPage.getOpponent("Urshifu Rapid Strike").damageIs(349.1, 412).causeOHKO()

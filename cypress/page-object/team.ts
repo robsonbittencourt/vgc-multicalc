@@ -1,5 +1,5 @@
-import { isEmpty } from "cypress/types/lodash"
 import { TeamMember } from "./team-member"
+import { Pokemon } from "./pokemon"
 
 export class Team {
   
@@ -10,10 +10,10 @@ export class Team {
     return teamMember
   }
 
-  addNewTeamMember(pokemonName: string): TeamMember {
+  addNewTeamMember(pokemonName: string): Pokemon {
     cy.get('[data-cy="add-team-member-tab"]').click({force: true})
     cy.get('[data-cy="pokemon-select"] input').type(pokemonName, {force: true}).type("{downArrow}").type("{enter}")
-    return new TeamMember(pokemonName)
+    return new Pokemon()
   }
 
   verifyIfExists(pokemonName: string) {

@@ -3,7 +3,7 @@ import { MainPage } from "cypress/page-object/main-page"
 describe('Test calcs with Terastal', () => {
   it('Validate the damage with Koraidon Terastallized using Flame Charge', () => {
     const mainPage = new MainPage()
-    mainPage.selectTeamMember("Koraidon").terastalyze()
+    mainPage.selectPokemonFromTeam("Koraidon").terastalyze()
 
     mainPage.getOpponent("Urshifu Rapid Strike").damageIs(16.5, 19.4).possible6HKO()
     mainPage.getOpponent("Calyrex Shadow").damageIs(39.4, 46.8).cause3HKO()
@@ -19,7 +19,7 @@ describe('Test calcs with Terastal', () => {
 
   it('Validate the damage with Miraidon using Electro Drift in Terastallyzed Ogerpon', () => {
     const mainPage = new MainPage()
-    mainPage.selectTeamMember("Miraidon")
+    mainPage.selectPokemonFromTeam("Miraidon")
 
     mainPage.getOpponent("Ogerpon Wellspring").terastalyze()
     
