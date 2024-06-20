@@ -53,7 +53,7 @@
     <div class="pokemon-status">
       <div>
         <label>Status</label>
-        <app-input-autocomplete [(value)]="pokemon.status" [allValues]="statusConditions"/>
+        <app-input-autocomplete [(value)]="pokemon.status" [allValues]="statusConditions" data-cy="pokemon-status"/>
       </div>
 
       <div *ngIf="pokemon.moveSet.activeMove.possibleHits.length > 0" class="multihit">
@@ -110,7 +110,7 @@
       <div class="moves">
         <div class="move">
           <mat-checkbox [ngModel]="pokemon.move1Name == pokemon.activeMoveName" (change)="activateMove(1, pokemon.moveSet.move1)" [disabled]="!pokemon.move1Name" data-cy="attack1"/>
-          <app-input-autocomplete [(value)]="pokemon.moveSet.move1.name" [allValues]="allMoveNames" (valueManuallySelected)="moveSelected(1, $event)"/>
+          <app-input-autocomplete [(value)]="pokemon.moveSet.move1.name" [allValues]="allMoveNames" (valueManuallySelected)="moveSelected(1, $event)" data-cy="pokemon-attack-1"/>
           <div class="move-bp">
             <label>{{ pokemon.moveSet.move1.bp() }}</label>
           </div>

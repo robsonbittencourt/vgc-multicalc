@@ -39,4 +39,8 @@ export class Pokemon {
     cy.get('[data-cy="pokemon-status"] input').type("Paralysis", {force: true}).type("{downArrow}").type("{enter}")
   }
 
+  poisoned() {
+    cy.get('[data-cy="pokemon-status"] input').type("Poison", {force: true}).type("{downArrow}").type("{enter}")
+  }
+
 }
