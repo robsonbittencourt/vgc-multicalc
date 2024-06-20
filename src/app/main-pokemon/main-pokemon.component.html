@@ -19,8 +19,8 @@
       <label>Export</label>
     </div>
     <div *ngIf="canShowCombineButton()" class="delete-pokemon" (click)="selectSecondAttacker()">
-      <mat-icon *ngIf="!secondSelectionActive()">add_circle_outline</mat-icon>
-      <mat-icon *ngIf="secondSelectionActive()">add_circle</mat-icon>
+      <mat-icon *ngIf="!secondSelectionActive()" data-cy="damage-combined-button">add_circle_outline</mat-icon>
+      <mat-icon *ngIf="secondSelectionActive()" data-cy="disable-damage-combined-button">add_circle</mat-icon>
       <label>Combine Damage</label>
     </div>
     <div *ngIf="canShowDeleteButton()" class="delete-pokemon" (click)="removePokemon()" data-cy="delete-from-team-button">

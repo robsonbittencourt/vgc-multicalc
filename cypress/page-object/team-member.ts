@@ -39,4 +39,12 @@ export class TeamMember {
     cy.get('[data-cy="delete-from-team-button"]').click({force: true})
   }
 
+  combineDamage() {
+    cy.get('[data-cy="damage-combined-button"]').click({force: true})
+  }
+
+  disableCombineDamage() {
+    cy.get('[data-cy="disable-damage-combined-button"]').click({force: true})
+  }
+
 }
