@@ -284,4 +284,8 @@ export class MainPokemonComponent {
     return !this.pokemon.isDefault()
   }
 
+  teamMemberOnEdit(): boolean {
+    return this.team.activePokemon() == this.pokemon
+  }
+
 }

@@ -10,20 +10,20 @@
   </div>
 
   <div class="pokemon-actions">
-    <div class="delete-pokemon" *ngIf="canImportPokemon()" (click)="importPokemon()">
+    <div class="delete-pokemon" *ngIf="canImportPokemon()" [hidden]="!teamMemberOnEdit()" (click)="importPokemon()">
       <mat-icon>download</mat-icon>
       <label>Import</label>
     </div>
-    <div class="delete-pokemon" *ngIf="canExportPokemon()" (click)="exportPokemon()">
+    <div class="delete-pokemon" *ngIf="canExportPokemon()" [hidden]="!teamMemberOnEdit()" (click)="exportPokemon()">
       <mat-icon>upload</mat-icon>
       <label>Export</label>
     </div>
-    <div *ngIf="canShowCombineButton()" class="delete-pokemon" (click)="selectSecondAttacker()">
+    <div *ngIf="canShowCombineButton()" [hidden]="!teamMemberOnEdit()" class="delete-pokemon" (click)="selectSecondAttacker()">
       <mat-icon *ngIf="!secondSelectionActive()" data-cy="damage-combined-button">add_circle_outline</mat-icon>
       <mat-icon *ngIf="secondSelectionActive()" data-cy="disable-damage-combined-button">add_circle</mat-icon>
       <label>Combine Damage</label>
     </div>
-    <div *ngIf="canShowDeleteButton()" class="delete-pokemon" (click)="removePokemon()" data-cy="delete-from-team-button">
+    <div *ngIf="canShowDeleteButton()" [hidden]="!teamMemberOnEdit()" class="delete-pokemon" (click)="removePokemon()" data-cy="delete-from-team-button">
       <mat-icon>delete</mat-icon>
       <label>Delete</label>
     </div>

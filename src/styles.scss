@@ -15,6 +15,10 @@ body {
   text-align: center;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 @media only screen and (max-width: 768px) {
   html, body {
     zoom: 100%;
