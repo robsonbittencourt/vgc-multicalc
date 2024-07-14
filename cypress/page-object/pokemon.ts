@@ -1,6 +1,5 @@
 export class Pokemon {
 
-
   selectAttackOne(): Pokemon {
     cy.get('[data-cy="attack1"] input').click({force: true})
     return this

@@ -99,6 +99,10 @@ export class OpponentPokemon {
     this._element.click({force: true})
     return new Pokemon
   }
+
+  delete() {
+    this._element.find(`[data-cy="delete-opponent-pokemon"]`).click({force: true})
+  }
   
   private contains(text: string) {
     this._element.parent().parent().parent().contains(text)

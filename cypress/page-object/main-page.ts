@@ -21,12 +21,12 @@ export class MainPage {
     return this._team.selectTeamMember(pokemonName).pokemon()
   }
   
-  getOpponent(pokemonName: string): OpponentPokemon {
-    return this._opponents.getOpponent(pokemonName)
-  }
-
   addNewTeamMember(pokemonName: string): Pokemon {
     return this._team.addNewTeamMember(pokemonName)
+  }
+
+  pokemonOnEditIs(pokemonName: string) {
+    cy.get('[data-cy="pokemon-select"] input').should('have.value', pokemonName)
   }
 
   selectTeam(teamName: string) {
@@ -47,6 +47,30 @@ export class MainPage {
   teamIsEmpty(teamName: string) {
     this.selectTeam(teamName)
     this._team.isEmpty()
+  }
+
+  getOpponent(pokemonName: string): OpponentPokemon {
+    return this._opponents.getOpponent(pokemonName)
+  }
+
+  addNewPokemonToOpponent(pokemonName: string): Pokemon {
+    return this._opponents.addNewPokemon(pokemonName)
+  }
+
+  opponentExists(pokemonName: string) {
+    this._opponents.exists(pokemonName)
+  }
+
+  opponentDoesNotExists(pokemonName: string) {
+    this._opponents.doesNotExists(pokemonName)
+  }
+
+  deleteAllPokemonFromOpponent() {
+    cy.get('[data-cy="delete-opponent-pokemon-button"]').click({force: true})
+  }
+
+  opponentSideIsEmpty() {
+    this._opponents.empty()
   }
 
 }
