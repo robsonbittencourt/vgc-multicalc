@@ -178,6 +178,7 @@ export class CalculatorComponent {
   }
 
   targetRemoved() {
+    this.activeOnEditPokemon = this.activePokemon()
     this.updateLocalStorage()
   }
 
