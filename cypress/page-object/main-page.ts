@@ -3,11 +3,13 @@ import { OpponentPokemon } from "./opponent-pokemon";
 import { Opponents } from "./opponents";
 import { TeamMember } from "./team-member";
 import { Pokemon } from "./pokemon";
+import { Field } from "./field";
 
 export class MainPage {
 
   _team: Team = new Team()
   _opponents: Opponents = new Opponents()
+  field: Field = new Field()
 
   constructor() {
     cy.visit('http://localhost:4200/')

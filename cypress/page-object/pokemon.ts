@@ -15,6 +15,11 @@ export class Pokemon {
     return this
   }
 
+  selectAttackFour(): Pokemon {
+    cy.get('[data-cy="attack4"] input').click({force: true})
+    return this
+  }
+
   changeAttackOne(attackName: string): Pokemon {
     cy.get('[data-cy="pokemon-attack-1"] input').type(attackName, {force: true}).type("{downArrow}").type("{enter}")
     return this
