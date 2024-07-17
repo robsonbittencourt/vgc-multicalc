@@ -1,21 +1,17 @@
 import { OpponentPokemon } from "./opponent-pokemon"
-import { Pokemon } from "./pokemon"
+import { ActivePokemon } from "./active-pokemon"
 
-export class Opponents {
+export class Opponent {
 
-  getOpponent(pokemonName: string): OpponentPokemon {
+  get(pokemonName: string): OpponentPokemon {
     const card = cy.get(`[data-cy="pokemon-card-${pokemonName}"]`).filter(`:contains(${pokemonName})`)
-    return new OpponentPokemon(pokemonName, card)
+    return new OpponentPokemon(card)
   }
 
-  selectOpponent(pokemonName: string) {
-    return this.getOpponent(pokemonName).edit()
-  }
-
-  addNewPokemon(pokemonName: string): Pokemon {
+  add(pokemonName: string): ActivePokemon {
     cy.get('[data-cy="add-opponent-pokemon"]').click({force: true})
     cy.get('[data-cy="pokemon-select"] input').type(pokemonName, {force: true}).type("{downArrow}").type("{enter}")
-    return new Pokemon()
+    return new ActivePokemon()
   }
 
   exists(pokemonName: string) {
@@ -28,6 +24,10 @@ export class Opponents {
 
   empty() {
     cy.get(`[data-cy^="pokemon-card"]`).should('not.exist')
+  }
+
+  deleteAll() {
+    cy.get('[data-cy="delete-opponent-pokemon-button"]').click({force: true})
   }
 
 }

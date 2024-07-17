@@ -1,42 +1,42 @@
-import { MainPage } from "cypress/page-object/main-page"
+import { Opponent } from "cypress/page-object/opponent"
+import { Team } from "cypress/page-object/team"
+
+const team = new Team()
+const opponents = new Opponent()
 
 describe('Test calcs with combined damage', () => {
   it('Calculate damage with two Pokémon', () => {
-    const mainPage = new MainPage()
-    mainPage.selectTeamMember("Koraidon").combineDamage()
-    mainPage.selectTeamMember("Miraidon")
+    team.selectTeamMember("Koraidon").combineDamage()
+    team.selectTeamMember("Miraidon")
 
-    mainPage.getOpponent("Urshifu Rapid Strike").damageIs(305.1, 360.5).causeOHKO()
+    opponents.get("Urshifu Rapid Strike").damageIs(305.1, 360.5).causeOHKO()
   })
 
   it('Change second Pokémon in combined damage', () => {
-    const mainPage = new MainPage()
-    mainPage.addNewTeamMember("Tornadus")
+    team.add("Tornadus")
 
-    mainPage.selectTeamMember("Koraidon").combineDamage()
-    mainPage.selectTeamMember("Miraidon")
-    mainPage.getOpponent("Urshifu Rapid Strike").damageIs(305.1, 360.5).causeOHKO()
+    team.selectTeamMember("Koraidon").combineDamage()
+    team.selectTeamMember("Miraidon")
+    opponents.get("Urshifu Rapid Strike").damageIs(305.1, 360.5).causeOHKO()
 
-    mainPage.selectTeamMember("Koraidon").disableCombineDamage()
-    mainPage.selectTeamMember("Tornadus").combineDamage()
-    mainPage.selectTeamMember("Miraidon")
-    mainPage.getOpponent("Urshifu Rapid Strike").damageIs(349.1, 412).causeOHKO()
+    team.selectTeamMember("Koraidon").disableCombineDamage()
+    team.selectTeamMember("Tornadus").combineDamage()
+    team.selectTeamMember("Miraidon")
+    opponents.get("Urshifu Rapid Strike").damageIs(349.1, 412).causeOHKO()
   })
 
   it('Create new Pokémon and use it with combined damage', () => {
-    const mainPage = new MainPage()
-    mainPage.addNewTeamMember("Tornadus")
-    mainPage.selectTeamMember("Tornadus").combineDamage()
-    mainPage.selectTeamMember("Miraidon")
+    team.add("Tornadus")
+    team.selectTeamMember("Tornadus").combineDamage()
+    team.selectTeamMember("Miraidon")
 
-    mainPage.getOpponent("Urshifu Rapid Strike").damageIs(349.1, 412).causeOHKO()
+    opponents.get("Urshifu Rapid Strike").damageIs(349.1, 412).causeOHKO()
   })
 
   it('Remove second Pokémon from calculation when it is deleted', () => {
-    const mainPage = new MainPage()
-    mainPage.selectTeamMember("Koraidon").combineDamage()
-    mainPage.selectTeamMember("Miraidon").delete()
+    team.selectTeamMember("Koraidon").combineDamage()
+    team.selectTeamMember("Miraidon").delete()
 
-    mainPage.getOpponent("Urshifu Rapid Strike").damageIs(9.1, 10.8)
+    opponents.get("Urshifu Rapid Strike").damageIs(9.1, 10.8)
   })
 })

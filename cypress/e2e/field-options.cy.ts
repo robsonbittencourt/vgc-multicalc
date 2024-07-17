@@ -1,273 +1,248 @@
-import { MainPage } from "cypress/page-object/main-page"
+import { Field } from "cypress/page-object/field"
+import { Opponent } from "cypress/page-object/opponent"
+import { Team } from "cypress/page-object/team"
+
+const team = new Team()
+const field = new Field()
+const opponents = new Opponent()
 
 describe('Test the Field options', () => {
   it('With Tablets of Ruin active', () => {
-    const mainPage = new MainPage()
-    mainPage.selectPokemonFromTeam("Koraidon")
+    team.selectPokemon("Koraidon")
 
-    mainPage.field.tabletsOfRuin()
+    field.tabletsOfRuin()
     
-    mainPage.getOpponent("Urshifu Rapid Strike").damageIs(6.8, 8)
+    opponents.get("Urshifu Rapid Strike").damageIs(6.8, 8)
   })
 
   it('With Sword of Ruin active', () => {
-    const mainPage = new MainPage()
-    mainPage.selectPokemonFromTeam("Koraidon")
+    team.selectPokemon("Koraidon")
 
-    mainPage.field.swordOfRuin()
+    field.swordOfRuin()
     
-    mainPage.getOpponent("Urshifu Rapid Strike").damageIs(12, 14.2)
+    opponents.get("Urshifu Rapid Strike").damageIs(12, 14.2)
   })
 
   it('With Vessel of Ruin active', () => {
-    const mainPage = new MainPage()
-    mainPage.selectPokemonFromTeam("Miraidon")
+    team.selectPokemon("Miraidon")
 
-    mainPage.field.vesselOfRuin()
+    field.vesselOfRuin()
     
-    mainPage.getOpponent("Urshifu Rapid Strike").damageIs(222.8, 261.7)
+    opponents.get("Urshifu Rapid Strike").damageIs(222.8, 261.7)
   })
 
   it('With Beads of Ruin active', () => {
-    const mainPage = new MainPage()
-    mainPage.selectPokemonFromTeam("Miraidon")
+    team.selectPokemon("Miraidon")
 
-    mainPage.field.beadsOfRuin()
+    field.beadsOfRuin()
     
-    mainPage.getOpponent("Urshifu Rapid Strike").damageIs(392, 462.8)
+    opponents.get("Urshifu Rapid Strike").damageIs(392, 462.8)
   })
 
   it('With Sun active', () => {
-    const mainPage = new MainPage()
-    mainPage.selectPokemonFromTeam("Koraidon")
+    team.selectPokemon("Koraidon")
 
-    mainPage.field.sun()
+    field.sun()
     
-    mainPage.getOpponent("Urshifu Rapid Strike").damageIs(18.2, 21.7)
+    opponents.get("Urshifu Rapid Strike").damageIs(18.2, 21.7)
   })
 
   it('With Rain active', () => {
-    const mainPage = new MainPage()
-    mainPage.addNewTeamMember("Vaporeon")
+    team.add("Vaporeon")
 
-    mainPage.field.rain()
+    field.rain()
     
-    mainPage.getOpponent("Urshifu Rapid Strike").damageIs(30.8, 37.1)
+    opponents.get("Urshifu Rapid Strike").damageIs(30.8, 37.1)
   })
 
   it('With Sand active', () => {
-    const mainPage = new MainPage()
-    mainPage.addNewPokemonToOpponent("Tyranitar")
-    mainPage.selectPokemonFromTeam("Miraidon")
+    opponents.add("Tyranitar")
+    team.selectPokemon("Miraidon")
 
-    mainPage.field.sand()
+    field.sand()
     
-    mainPage.getOpponent("Tyranitar").damageIs(47.3, 56.4)
+    opponents.get("Tyranitar").damageIs(47.3, 56.4)
   })
 
   it('With Snow active', () => {
-    const mainPage = new MainPage()
-    mainPage.addNewPokemonToOpponent("Baxcalibur")
-    mainPage.selectPokemonFromTeam("Koraidon")
+    opponents.add("Baxcalibur")
+    team.selectPokemon("Koraidon")
 
-    mainPage.field.snow()
+    field.snow()
     
-    mainPage.getOpponent("Baxcalibur").damageIs(12.1, 14.7)
+    opponents.get("Baxcalibur").damageIs(12.1, 14.7)
   })
 
   it('With Eletric Terrain active', () => {
-    const mainPage = new MainPage()
-    mainPage.selectPokemonFromTeam("Miraidon")
+    team.selectPokemon("Miraidon")
 
-    mainPage.field.eletricTerrain()
+    field.eletricTerrain()
     
-    mainPage.getOpponent("Urshifu Rapid Strike").damageIs(514.2, 604.5)
+    opponents.get("Urshifu Rapid Strike").damageIs(514.2, 604.5)
   })
 
   it('With Grassy Terrain active', () => {
-    const mainPage = new MainPage()
-    mainPage.addNewTeamMember("Rillaboom")
+    team.add("Rillaboom")
 
-    mainPage.field.grassyTerrain()
+    field.grassyTerrain()
     
-    mainPage.getOpponent("Urshifu Rapid Strike").damageIs(68.5, 82.2)
+    opponents.get("Urshifu Rapid Strike").damageIs(68.5, 82.2)
   })
 
   it('With Psychic Terrain active', () => {
-    const mainPage = new MainPage()
-    mainPage.addNewTeamMember("Hatterene").changeAttackOne("Psyshock")
+    team.add("Hatterene").changeAttackOne("Psyshock")
 
-    mainPage.field.psychicTerrain()
+    field.psychicTerrain()
     
-    mainPage.getOpponent("Urshifu Rapid Strike").damageIs(43.4, 52)
+    opponents.get("Urshifu Rapid Strike").damageIs(43.4, 52)
   })
 
   it('With Misty Terrain active', () => {
-    const mainPage = new MainPage()
-    mainPage.addNewTeamMember("Miraidon")
+    team.add("Miraidon")
 
-    mainPage.field.mistyTerrain()
+    field.mistyTerrain()
     
-    mainPage.getOpponent("Urshifu Rapid Strike").damageIs(66.8, 78.8)
+    opponents.get("Urshifu Rapid Strike").damageIs(66.8, 78.8)
   })
 
   it('With Magic Room active', () => {
-    const mainPage = new MainPage()
-
-    mainPage.field.magicRoom()
     
-    mainPage.getOpponent("Urshifu Rapid Strike").damageIs(198.8, 234.2)
+    field.magicRoom()
+    
+    opponents.get("Urshifu Rapid Strike").damageIs(198.8, 234.2)
   })
 
   it('With Wonder Room active', () => {
-    const mainPage = new MainPage()
-
-    mainPage.field.wonderRoom()
     
-    mainPage.getOpponent("Urshifu Rapid Strike").damageIs(200, 236.5)
+    field.wonderRoom()
+    
+    opponents.get("Urshifu Rapid Strike").damageIs(200, 236.5)
   })
 
   it('With Gravity active', () => {
-    const mainPage = new MainPage()
-    mainPage.addNewTeamMember("Tyranitar").changeAttackOne("Earthquake")
+    team.add("Tyranitar").changeAttackOne("Earthquake")
 
-    mainPage.addNewPokemonToOpponent("Talonflame")
+    opponents.add("Talonflame")
 
-    mainPage.field.gravity()
+    field.gravity()
     
-    mainPage.getOpponent("Talonflame").damageIs(73.5, 86.4)
+    opponents.get("Talonflame").damageIs(73.5, 86.4)
   })
 
   it('With Helping Hand active', () => {
-    const mainPage = new MainPage()
     
-    mainPage.field.helpingHand()
+    field.helpingHand()
     
-    mainPage.getOpponent("Incineroar").damageIs(96, 113.4)
+    opponents.get("Incineroar").damageIs(96, 113.4)
   })
 
   it('With Critical Hit active', () => {
-    const mainPage = new MainPage()
     
-    mainPage.field.criticalHit()
+    field.criticalHit()
     
-    mainPage.getOpponent("Incineroar").damageIs(97, 113.9)
+    opponents.get("Incineroar").damageIs(97, 113.9)
   })
 
   it('With Battery active', () => {
-    const mainPage = new MainPage()
     
-    mainPage.field.battery()
+    field.battery()
     
-    mainPage.getOpponent("Incineroar").damageIs(83.5, 98.5)
+    opponents.get("Incineroar").damageIs(83.5, 98.5)
   })
 
   it('With Power Spot active', () => {
-    const mainPage = new MainPage()
     
-    mainPage.field.powerSpot()
+    field.powerSpot()
     
-    mainPage.getOpponent("Incineroar").damageIs(83.5, 98.5)
+    opponents.get("Incineroar").damageIs(83.5, 98.5)
   })
 
   it('With Tailwind in attacker side active', () => {
-    const mainPage = new MainPage()
-    mainPage.addNewTeamMember("Bronzong").changeAttackOne("Gyro Ball")
+    team.add("Bronzong").changeAttackOne("Gyro Ball")
     
-    mainPage.field.tailwindAttacker()
+    field.tailwindAttacker()
     
-    mainPage.getOpponent("Incineroar").damageIs(2.4, 2.9)
+    opponents.get("Incineroar").damageIs(2.4, 2.9)
   })
 
   it('With Reflect active', () => {
-    const mainPage = new MainPage()
-    mainPage.selectPokemonFromTeam("Koraidon")
+    team.selectPokemon("Koraidon")
     
-    mainPage.field.reflect()
+    field.reflect()
     
-    mainPage.getOpponent("Incineroar").damageIs(4.4, 5.4)
+    opponents.get("Incineroar").damageIs(4.4, 5.4)
   })
 
   it('With Light Screen active', () => {
-    const mainPage = new MainPage()
     
-    mainPage.field.lightScreen()
+    field.lightScreen()
     
-    mainPage.getOpponent("Incineroar").damageIs(42.7, 50.7)
+    opponents.get("Incineroar").damageIs(42.7, 50.7)
   })
 
   it('With Aurora Veil active', () => {
-    const mainPage = new MainPage()
     
-    mainPage.field.auroraVeil()
+    field.auroraVeil()
     
-    mainPage.getOpponent("Incineroar").damageIs(42.7, 50.7)
+    opponents.get("Incineroar").damageIs(42.7, 50.7)
   })
 
   it('With Single Target active', () => {
-    const mainPage = new MainPage()
-    mainPage.selectPokemonFromTeam("Miraidon").changeAttackOne("Discharge")
+    team.selectPokemon("Miraidon").changeAttackOne("Discharge")
     
-    mainPage.field.singleTarget()
+    field.singleTarget()
     
-    mainPage.getOpponent("Incineroar").damageIs(51.2, 61.1)
+    opponents.get("Incineroar").damageIs(51.2, 61.1)
   })
 
   it('With Friend Guard active', () => {
-    const mainPage = new MainPage()
     
-    mainPage.field.friendGuard()
+    field.friendGuard()
     
-    mainPage.getOpponent("Incineroar").damageIs(48.2, 57.2)
+    opponents.get("Incineroar").damageIs(48.2, 57.2)
   })
 
   it('With Tailwind in defender side active', () => {
-    const mainPage = new MainPage()
-    mainPage.addNewTeamMember("Bronzong").changeAttackOne("Gyro Ball")
+    team.add("Bronzong").changeAttackOne("Gyro Ball")
     
-    mainPage.field.tailwindDefender()
+    field.tailwindDefender()
     
-    mainPage.getOpponent("Incineroar").damageIs(9.9, 11.9)
+    opponents.get("Incineroar").damageIs(9.9, 11.9)
   })
 
   it('With Three Spikes active', () => {
-    const mainPage = new MainPage()
     
-    mainPage.field.threeSpikes()
+    field.threeSpikes()
     
-    mainPage.getOpponent("Incineroar").haveChanceOfToCauseOHKO(6.3)
+    opponents.get("Incineroar").haveChanceOfToCauseOHKO(6.3)
   })
 
   it('With Two Spikes active', () => {
-    const mainPage = new MainPage()
     
-    mainPage.field.twoSpikes()
+    field.twoSpikes()
     
-    mainPage.getOpponent("Rillaboom").cause3HKO()
+    opponents.get("Rillaboom").cause3HKO()
   })
 
   it('With One Spikes active', () => {
-    const mainPage = new MainPage()
     
-    mainPage.field.oneSpikes()
+    field.oneSpikes()
     
-    mainPage.getOpponent("Rillaboom").cause3HKO()
+    opponents.get("Rillaboom").cause3HKO()
   })
 
   it('With Stealth Rock active', () => {
-    const mainPage = new MainPage()
     
-    mainPage.field.stealthRock()
+    field.stealthRock()
     
-    mainPage.getOpponent("Incineroar").haveChanceOfToCauseOHKO(6.3)
+    opponents.get("Incineroar").haveChanceOfToCauseOHKO(6.3)
   })
 
   it('With Leech Seed active', () => {
-    const mainPage = new MainPage()
     
-    mainPage.field.leechSeed()
+    field.leechSeed()
     
-    mainPage.getOpponent("Rillaboom").cause3HKO()
+    opponents.get("Rillaboom").cause3HKO()
   })
 
 })

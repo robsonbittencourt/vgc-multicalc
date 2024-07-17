@@ -1,4 +1,4 @@
-import { Pokemon } from "./pokemon"
+import { ActivePokemon } from "./active-pokemon"
 
 export class TeamMember {
 
@@ -12,8 +12,8 @@ export class TeamMember {
     this._element.click({force: true})
   }
 
-  pokemon(): Pokemon {
-    return new Pokemon()
+  pokemon(): ActivePokemon {
+    return new ActivePokemon()
   }
 
   delete() {

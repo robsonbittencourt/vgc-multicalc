@@ -1,41 +1,39 @@
-import { MainPage } from "cypress/page-object/main-page"
+import { Opponent } from "cypress/page-object/opponent"
+import { Team } from "cypress/page-object/team"
+
+const team = new Team()
+const opponents = new Opponent()
 
 describe('Add Pokémon to the Opponent side', () => {
   it('Add three Pokémon to the opponent side', () => {
-    const mainPage = new MainPage()
-    
-    mainPage.addNewPokemonToOpponent("Pikachu")
-    mainPage.addNewPokemonToOpponent("Tyranitar")
-    mainPage.addNewPokemonToOpponent("Lugia")
+    opponents.add("Pikachu")
+    opponents.add("Tyranitar")
+    opponents.add("Lugia")
 
-    mainPage.opponentExists("Pikachu")
-    mainPage.opponentExists("Tyranitar")
-    mainPage.opponentExists("Lugia")
+    opponents.exists("Pikachu")
+    opponents.exists("Tyranitar")
+    opponents.exists("Lugia")
   })
   
   it('Delete Pokémon from the opponent side', () => {
-    const mainPage = new MainPage()
-    
-    mainPage.addNewPokemonToOpponent("Pikachu")    
-    mainPage.getOpponent("Pikachu").delete()
+    opponents.add("Pikachu")
 
-    mainPage.opponentDoesNotExists("Pikachu")
+    opponents.get("Pikachu").delete()
+
+    opponents.doesNotExists("Pikachu")
   })
 
   it('When delete Pokémon from the opponent side select first Pokémon from the team to edit', () => {
-    const mainPage = new MainPage()
+    opponents.add("Pikachu")
     
-    mainPage.addNewPokemonToOpponent("Pikachu")    
-    mainPage.getOpponent("Pikachu").delete()
+    opponents.get("Pikachu").delete()
     
-    mainPage.pokemonOnEditIs("Miraidon")
+    team.pokemonOnEditIs("Miraidon")
   })
 
   it('Delete all Pokémon from opponent side', () => {
-    const mainPage = new MainPage()
+    opponents.deleteAll()
     
-    mainPage.deleteAllPokemonFromOpponent()
-    
-    mainPage.opponentSideIsEmpty()
+    opponents.empty()
   })
 })

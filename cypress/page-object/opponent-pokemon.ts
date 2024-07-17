@@ -1,12 +1,10 @@
-import { Pokemon } from "./pokemon"
+import { ActivePokemon } from "./active-pokemon"
 
 export class OpponentPokemon {
 
-  private _name: string
   private _element: any
   
-  constructor(pokemonName: string, element: any) {
-    this._name = pokemonName
+  constructor(element: any) {
     this._element = element
   }
 
@@ -95,9 +93,9 @@ export class OpponentPokemon {
     return this
   }
 
-  edit(): Pokemon {
+  edit(): ActivePokemon {
     this._element.click({force: true})
-    return new Pokemon
+    return new ActivePokemon
   }
 
   delete() {
