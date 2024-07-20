@@ -15,7 +15,7 @@
   <div class="ev-value dense-2">
     <mat-form-field appearance="outline" class="mat-ev-field">
       <mat-label *ngIf="statNameAcronym">{{ statNameAcronym }}</mat-label>
-      <input class="ev-value-input" type="number" min="0" max="252" matInput [(ngModel)]="ev">
+      <input class="ev-value-input" type="number" min="0" max="252" matInput [(ngModel)]="ev" data-cy="ev-value">
     </mat-form-field>
   </div>
   <div class="ev-slider">
@@ -25,7 +25,7 @@
   </div>
   <div class="ev-value dense-2" *ngIf="showIv">
     <mat-form-field appearance="outline" class="mat-ev-field">
-      <input class="ev-value-input" type="number" min="0" max="31" matInput [(ngModel)]="iv">
+      <input class="ev-value-input" type="number" min="0" max="31" matInput [(ngModel)]="iv" data-cy="iv-value">
     </mat-form-field>
   </div>
   <div class="stat-value">

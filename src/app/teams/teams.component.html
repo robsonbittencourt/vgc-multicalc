@@ -9,7 +9,7 @@
         <input class="team-name-input" type="text" matInput [(ngModel)]="team.name">
       </div>
       <div class=team-buttons>
-        <button mat-flat-button color="primary" (click)="addFromPokePaste()">Import</button>
+        <button mat-flat-button color="primary" (click)="addFromPokePaste()" data-cy="import-pokepaste-to-team">Import</button>
         <button mat-flat-button color="primary" (click)="export()" [disabled]="team.onlyHasDefaultPokemon()">Export</button>
         <button mat-flat-button color="warn" (click)="deleteTeam()" [disabled]="team.onlyHasDefaultPokemon()" data-cy="delete-team-button">Delete</button>
       </div>

@@ -10,7 +10,7 @@
   </div>
 
   <div class="pokemon-actions">
-    <div class="delete-pokemon" *ngIf="canImportPokemon()" [hidden]="!teamMemberOnEdit()" (click)="importPokemon()">
+    <div class="delete-pokemon" *ngIf="canImportPokemon()" [hidden]="!teamMemberOnEdit()" (click)="importPokemon()" data-cy="import-pokemon-to-team">
       <mat-icon>download</mat-icon>
       <label>Import</label>
     </div>
@@ -64,7 +64,7 @@
 
       <div>
         <label>Item</label>
-        <app-input-autocomplete [(value)]="pokemon.item" [allValues]="allItemsNames"/>
+        <app-input-autocomplete [(value)]="pokemon.item" [allValues]="allItemsNames" data-cy="item"/>
       </div>
     </div>
 
@@ -78,7 +78,7 @@
             <img class="icon-tera" src="assets/icons/tera-icon.png" *ngIf="pokemon.teraTypeActive" />
             <img class="icon-tera" src="assets/icons/tera-icon-gray.png" *ngIf="!pokemon.teraTypeActive" />
           </button>
-          <app-input-autocomplete [(value)]="pokemon.teraType" [allValues]="allTeraTypes" [disabled]="pokemon.isTerapagos()"/>          
+          <app-input-autocomplete [(value)]="pokemon.teraType" [allValues]="allTeraTypes" [disabled]="pokemon.isTerapagos()" data-cy="tera-type"/>          
         </div>
       </div>
 
@@ -98,7 +98,7 @@
 
       <div>
         <label>Ability</label>
-        <app-input-autocomplete [(value)]="pokemon.ability" [allValues]="availableAbilities"/>        
+        <app-input-autocomplete [(value)]="pokemon.ability" [allValues]="availableAbilities" data-cy="ability"/>        
       </div>
     </div>
 
@@ -118,7 +118,7 @@
 
         <div class="move">
           <mat-checkbox [ngModel]="pokemon.move2Name == pokemon.activeMoveName" (change)="activateMove(2, pokemon.moveSet.move2)" [disabled]="!pokemon.move2Name" data-cy="attack2"/>
-          <app-input-autocomplete [(value)]="pokemon.moveSet.move2.name" [allValues]="allMoveNames" (valueManuallySelected)="moveSelected(2, $event)"/>
+          <app-input-autocomplete [(value)]="pokemon.moveSet.move2.name" [allValues]="allMoveNames" (valueManuallySelected)="moveSelected(2, $event)" data-cy="pokemon-attack-2"/>
           <div class="move-bp">
             <label>{{ pokemon.moveSet.move2.bp() }}</label>
           </div>
@@ -126,7 +126,7 @@
 
         <div class="move">
           <mat-checkbox [ngModel]="pokemon.move3Name == pokemon.activeMoveName" (change)="activateMove(3, pokemon.moveSet.move3)" [disabled]="!pokemon.move3Name" data-cy="attack3"/>
-          <app-input-autocomplete [(value)]="pokemon.moveSet.move3.name" [allValues]="allMoveNames" (valueManuallySelected)="moveSelected(3, $event)"/>
+          <app-input-autocomplete [(value)]="pokemon.moveSet.move3.name" [allValues]="allMoveNames" (valueManuallySelected)="moveSelected(3, $event)" data-cy="pokemon-attack-3"/>
           <div class="move-bp">
             <label>{{ pokemon.moveSet.move3.bp() }}</label>
           </div>
@@ -134,7 +134,7 @@
 
         <div class="move">
           <mat-checkbox [ngModel]="pokemon.move4Name == pokemon.activeMoveName" (change)="activateMove(4, pokemon.moveSet.move4)" [disabled]="!pokemon.move4Name" data-cy="attack4"/>
-          <app-input-autocomplete [(value)]="pokemon.moveSet.move4.name" [allValues]="allMoveNames" (valueManuallySelected)="moveSelected(4, $event)"/>
+          <app-input-autocomplete [(value)]="pokemon.moveSet.move4.name" [allValues]="allMoveNames" (valueManuallySelected)="moveSelected(4, $event)" data-cy="pokemon-attack-4"/>
           <div class="move-bp">
             <label>{{ pokemon.moveSet.move4.bp() }}</label>
           </div>
@@ -152,7 +152,7 @@
 
   <div>
     <div class="evs">
-      <app-ev-slider statName="HP" [baseStatValue]="pokemon.baseHp" [statValue]="pokemon.hp" [(ev)]="pokemon.evs.hp" [(iv)]="pokemon.ivs.hp" (evChangedEvent)="onChangeEvValue()" (ivChange)="onChangeIvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"/>
+      <app-ev-slider data-cy="stat-hp" [baseStatValue]="pokemon.baseHp" statName="HP" [statValue]="pokemon.hp" [(ev)]="pokemon.evs.hp" [(iv)]="pokemon.ivs.hp" (evChangedEvent)="onChangeEvValue()" (ivChange)="onChangeIvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"/>
           
       <app-ev-slider data-cy="stat-atk" [baseStatValue]="pokemon.baseAtk" statName="Attack" [statValue]="pokemon.modifiedAtk()" [(ev)]="pokemon.evs.atk" [(iv)]="pokemon.ivs.atk" (evChangedEvent)="onChangeEvValue()" (ivChange)="onChangeIvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()" 
         [(statsModifier)]="pokemon.boosts.atk" [nature]="pokemon.nature"/>
@@ -172,7 +172,7 @@
     <div class="remaining-evs">
       <div class="nature">
         <label>Nature</label>
-        <app-input-autocomplete [(value)]="pokemon.nature" [allValues]="allNatureNames"/>
+        <app-input-autocomplete [(value)]="pokemon.nature" [allValues]="allNatureNames" data-cy="nature"/>
       </div>      
       <label class="remaining-evs-label">Remaining:</label>
       <label class="remaining-evs-value">{{ MAX_EVS - pokemon.totalEvs() }}</label>
