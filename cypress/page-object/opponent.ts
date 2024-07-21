@@ -1,6 +1,7 @@
 import { OpponentPokemon } from "./opponent-pokemon"
 import { ActivePokemon } from "./active-pokemon"
 import { ImportModal } from "./import-modal"
+import { ExportModal } from "./export-modal"
 
 export class Opponent {
 
@@ -44,6 +45,11 @@ export class Opponent {
   importPokepaste(pokepaste: string) {
     cy.get('[data-cy="import-pokepaste-to-team"]').click({force: true})
     new ImportModal().import(pokepaste)
+  }
+
+  export(): ExportModal {
+    cy.get('[data-cy="export-opponent-pokemon-button"]').click({force: true})
+    return new ExportModal()
   }
 
 }

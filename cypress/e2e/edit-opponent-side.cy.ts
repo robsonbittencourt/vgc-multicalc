@@ -28,7 +28,7 @@ describe('Add Pokémon to the Opponent side', () => {
     
     opponents.get("Pikachu").delete()
     
-    team.pokemonOnEditIs("Miraidon")
+    team.pokemonOnEditNameIs("Miraidon")
   })
 
   it('Delete all Pokémon from opponent side', () => {

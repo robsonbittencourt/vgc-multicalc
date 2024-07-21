@@ -1,6 +1,7 @@
 import { TeamMember } from "./team-member"
 import { ActivePokemon } from "./active-pokemon"
 import { ImportModal } from "./import-modal"
+import { ExportModal } from "./export-modal"
 
 export class Team {
   
@@ -45,30 +46,18 @@ export class Team {
     cy.get('[data-cy="delete-team-button"]').click({force: true})
   }
 
-  pokemonOnEditIs(pokemonName: string, ability: string, teraType: string, item: string, nature: string) {
+  pokemonOnEditNameIs(pokemonName: string) {
     cy.get('[data-cy="pokemon-select"] input').should('have.value', pokemonName)
+  }
+
+  pokemonOnEditIs(pokemonName: string, ability: string, teraType: string, item: string, nature: string) {
+    this.pokemonOnEditNameIs(pokemonName)
     cy.get('[data-cy="ability"] input').should('have.value', ability)
     cy.get('[data-cy="tera-type"] input').should('have.value', teraType)
     cy.get('[data-cy="item"] input').should('have.value', item)
     cy.get('[data-cy="nature"] input').should('have.value', nature)
   }
   
-  pokemonOnEditAbilityIs(ability: string) {
-    cy.get('[data-cy="ability"] input').should('have.value', ability)
-  }
-
-  pokemonOnEditTeraTypeIs(teraType: string) {
-    cy.get('[data-cy="tera-type"] input').should('have.value', teraType)
-  }
-
-  pokemonOnEditItemIs(item: string) {
-    cy.get('[data-cy="item"] input').should('have.value', item)
-  }
-
-  pokemonOnEditNatureIs(nature: string) {
-    cy.get('[data-cy="nature"] input').should('have.value', nature)
-  }
-
   pokemonOnEditAttacksIs(attackOne: string, attackTwo: string, attackThree: string, attackFour: string) {
     cy.get('[data-cy="pokemon-attack-1"] input').should('have.value', attackOne)
     cy.get('[data-cy="pokemon-attack-2"] input').should('have.value', attackTwo)
@@ -102,6 +91,18 @@ export class Team {
   importPokepaste(pokepaste: string) {
     cy.get('[data-cy="import-pokepaste-to-team"]').click({force: true})
     new ImportModal().import(pokepaste)
+  }
+
+  exportPokemon(pokemon: string): ExportModal {
+    this.selectPokemon(pokemon)
+    cy.get('[data-cy="export-pokemon-from-team"]').click({force: true})
+    return new ExportModal()
+  }
+
+  export(team: string): ExportModal {
+    this.selectTeam("Team 2")    
+    cy.get('[data-cy="export-team-button"]').click({force: true})
+    return new ExportModal()
   }
 
 }

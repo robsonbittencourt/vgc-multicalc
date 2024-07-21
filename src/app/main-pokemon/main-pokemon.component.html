@@ -14,7 +14,7 @@
       <mat-icon>download</mat-icon>
       <label>Import</label>
     </div>
-    <div class="delete-pokemon" *ngIf="canExportPokemon()" [hidden]="!teamMemberOnEdit()" (click)="exportPokemon()">
+    <div class="delete-pokemon" *ngIf="canExportPokemon()" [hidden]="!teamMemberOnEdit()" (click)="exportPokemon()" data-cy="export-pokemon-from-team">
       <mat-icon>upload</mat-icon>
       <label>Export</label>
     </div>
