@@ -7,7 +7,7 @@
       <div class="menu-option" [ngStyle]="oneVsManyActivated && { 'background-color': '#e7def6' } || null" (click)="enableOneVsMany()">
         <span>Team vs Many</span>
       </div>
-      <div class="menu-option" [ngStyle]="manyVsOneActivated && { 'background-color': '#e7def6' } || null" (click)="enableManyVsOne()">
+      <div class="menu-option" [ngStyle]="manyVsOneActivated && { 'background-color': '#e7def6' } || null" (click)="enableManyVsOne()" data-cy="many-vs-team">
         <span>Many vs Team</span>
       </div>
     </div>

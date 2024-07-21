@@ -93,6 +93,11 @@ export class OpponentPokemon {
     return this
   }
 
+  approximately3HKO(): OpponentPokemon {
+    this.contains(`approx. 3HKO`)
+    return this
+  }
+
   edit(): ActivePokemon {
     this._element.click({force: true})
     return new ActivePokemon
