@@ -21,6 +21,14 @@ export class Opponent {
     return new ActivePokemon()
   }
 
+  clickOnAdd() {
+    cy.get('[data-cy="add-opponent-pokemon"]').click({force: true})
+  }
+
+  addIsVisible() {
+    cy.get('[data-cy="add-opponent-pokemon"]').should('exist')
+  }
+
   exists(pokemonName: string) {
     cy.get(`[data-cy="pokemon-card-${pokemonName}"]`).should('exist')
   }

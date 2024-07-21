@@ -120,4 +120,15 @@ describe('Import Pokepaste', () => {
     team.pokemonOnEditEvsIs(252, 0, 180, 0, 76, 0)
     team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
   })
+
+  it('when have a new Pokémon on edit', () => {
+    const team = new Team()
+    const opponent = new Opponent()
+
+    opponent.clickOnAdd()
+    opponent.importPokemon(pokepasteData)
+
+    team.pokemonOnEditNameIs("Miraidon")
+    opponent.addIsVisible()
+  })
 })

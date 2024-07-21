@@ -165,7 +165,16 @@ export class CalculatorComponent {
     this.targets = this.targets.concat(newTargets)
     targets.forEach(target => this.calculateDamage(target))
     this.order()
+    this.adjustDefaultPokemonOnTargets()
     this.updateLocalStorage()
+  }
+
+  private adjustDefaultPokemonOnTargets() {
+    if (this.activeOnEditPokemon.isDefault()) {
+      this.activeOnEditPokemon = this.activeTeam().first().pokemon
+      this.deactivateTargets()
+      this.targets = this.targets.filter(t => !t.pokemon.isDefault())
+    }
   }
 
   targetChanged(target: Target) {
