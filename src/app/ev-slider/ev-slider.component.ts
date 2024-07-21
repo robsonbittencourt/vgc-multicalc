@@ -113,20 +113,20 @@ export class EvSliderComponent {
   }
 
   natureModifier(): string {
-    if (this.statName == "ATK" && ["Lonely", "Adamant", "Naughty", "Brave"].includes(this.nature)) return "+"
-    if (this.statName == "ATK" && ["Bold", "Modest", "Calm", "Timid"].includes(this.nature)) return "-"
+    if (this.statName == "Attack" && ["Lonely", "Adamant", "Naughty", "Brave"].includes(this.nature)) return "+"
+    if (this.statName == "Attack" && ["Bold", "Modest", "Calm", "Timid"].includes(this.nature)) return "-"
 
-    if (this.statName == "DEF" && ["Bold", "Impish", "Lax", "Relaxed"].includes(this.nature)) return "+"
-    if (this.statName == "DEF" && ["Lonely", "Mild", "Gentle", "Hasty"].includes(this.nature)) return "-"
+    if (this.statName == "Defense" && ["Bold", "Impish", "Lax", "Relaxed"].includes(this.nature)) return "+"
+    if (this.statName == "Defense" && ["Lonely", "Mild", "Gentle", "Hasty"].includes(this.nature)) return "-"
 
-    if (this.statName == "SPA" && ["Modest", "Mild", "Rash", "Quiet"].includes(this.nature)) return "+"
-    if (this.statName == "SPA" && ["Adamant", "Impish", "Careful", "Jolly"].includes(this.nature)) return "-"
+    if (this.statName == "Sp. Atk." && ["Modest", "Mild", "Rash", "Quiet"].includes(this.nature)) return "+"
+    if (this.statName == "Sp. Atk." && ["Adamant", "Impish", "Careful", "Jolly"].includes(this.nature)) return "-"
 
-    if (this.statName == "SPD" && ["Calm", "Gentle", "Careful", "Sassy"].includes(this.nature)) return "+"
-    if (this.statName == "SPD" && ["Naughty", "Lax", "Rash", "Naive"].includes(this.nature)) return "-"
+    if (this.statName == "Sp. Def." && ["Calm", "Gentle", "Careful", "Sassy"].includes(this.nature)) return "+"
+    if (this.statName == "Sp. Def." && ["Naughty", "Lax", "Rash", "Naive"].includes(this.nature)) return "-"
 
-    if (this.statName == "SPE" && ["Timid", "Hasty", "Jolly", "Naive"].includes(this.nature)) return "+"
-    if (this.statName == "SPE" && ["Brave", "Relaxed", "Quiet", "Sassy"].includes(this.nature)) return "-"
+    if (this.statName == "Speed" && ["Timid", "Hasty", "Jolly", "Naive"].includes(this.nature)) return "+"
+    if (this.statName == "Speed" && ["Brave", "Relaxed", "Quiet", "Sassy"].includes(this.nature)) return "-"
     
     return ""
   }
