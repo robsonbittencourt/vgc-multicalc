@@ -14,6 +14,8 @@ import { TeamExportModalComponent } from '../team-export-modal/team-export-modal
 import { TeamImportModalComponent } from '../team-import-modal/team-import-modal.component';
 import { PokePasteParserService } from 'src/lib/poke-paste-parser.service';
 import { NoopScrollStrategy } from '@angular/cdk/overlay';
+import { PokemonSpeedService } from 'src/lib/pokemon-speed-service';
+import { MoveSet } from 'src/lib/moveset';
 
 @Component({
   selector: 'app-main-pokemon',
@@ -70,6 +72,9 @@ export class MainPokemonComponent {
   ngOnInit() {
     this.differ = this.differs.find(this.pokemon).create()
     this.differStatusModifiers = this.differsStatusModifiers.find(this.pokemon.boosts).create()
+
+    const koraidon = new Pokemon('Raging Bolt', "Modestant", "Clear Amulet", "Protosynthesis", "Fairy", false, { hp: 36, atk: 220, spe: 100 }, new MoveSet("Flame Charge", "Collision Course", "Flare Blitz", "Protect"))
+    new PokemonSpeedService().print(koraidon)
   }
 
   ngDoCheck() {
