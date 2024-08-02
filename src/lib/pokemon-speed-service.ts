@@ -44,7 +44,9 @@ export class PokemonSpeedService {
     return this.metaPokes.filter(poke => poke.maxSpeed() < pokemonSpeed.minSpeed())
   }
 
-  orderedPokemon(pokemon: Pokemon) {
+  orderedPokemon(pokemon: Pokemon): PokemonSpeedDTO[] {
+    const pokemonSpeed = new PokemonSpeed(pokemon.name, pokemon.evs.spe!, pokemon.ivs.spe, pokemon.nature, pokemon.item)
+
     const slowerPokemon = this.findGarantedSlowestPokemon(pokemon)
     const fasterPokemon = this.findFasterPokemon(pokemon)
 
@@ -52,22 +54,18 @@ export class PokemonSpeedService {
       .filter(p => slowerPokemon.every(poke => poke.getName() != p.getName()))
       .filter(p => fasterPokemon.every(poke => poke.getName() != p.getName()))
     
-    const pokeSpeedsMap: any[] = []
-    withoutSlowersAndFasters.forEach(p => pokeSpeedsMap.push( { "name": p.getName(), "speed": p.minSpeed(), "description": "min" }))
-    withoutSlowersAndFasters.forEach(p => pokeSpeedsMap.push( { "name": p.getName(), "speed": p.maxSpeed(), "description": "max" }))
-    withoutSlowersAndFasters.forEach(p => pokeSpeedsMap.push( { "name": p.getName(), "speed": p.maxMeta(), "description": "meta" }))
+    const pokeSpeedsMap: PokemonSpeedDTO[] = []
+    withoutSlowersAndFasters.forEach(p => pokeSpeedsMap.push(new PokemonSpeedDTO(p, p.minSpeed())))
+    withoutSlowersAndFasters.forEach(p => pokeSpeedsMap.push(new PokemonSpeedDTO(p, p.maxSpeed())))
+    withoutSlowersAndFasters.forEach(p => pokeSpeedsMap.push(new PokemonSpeedDTO(p, p.maxMeta())))
 
-    pokeSpeedsMap.push( { "name": pokemon.name, "speed": pokemon.modifiedSpe(), "description": "actual" })
+    pokeSpeedsMap.push(new PokemonSpeedDTO(pokemonSpeed, pokemon.modifiedSpe()))
 
-    const ordered = pokeSpeedsMap.sort((a, b) => a["speed"] - b["speed"])
-    
-    ordered.forEach((p) => {
-      if (p["description"] == "actual") {
-        console.log(`===> Your Pokémon: ${p["name"]} speed: ${p["speed"]} <===`)  
-      } else {
-        console.log(`${p["name"]} ${p["description"]} speed: ${p["speed"]}`)
-      }      
-    }) 
+    const ordered = pokeSpeedsMap.sort((a, b) => a.speed - b.speed)
+
+    ordered.forEach(p => p.pokemonSpeed.print())
+
+    return ordered
   }
 
   findFasterPokemon(pokemon: Pokemon): PokemonSpeed[] {
@@ -76,4 +74,14 @@ export class PokemonSpeedService {
     return this.metaPokes.filter(poke => poke.minSpeed() > pokemonSpeed.maxSpeed())
   }
 
+}
+
+export class PokemonSpeedDTO {
+  pokemonSpeed: PokemonSpeed
+  speed: number
+
+  constructor(pokemonSpeed: PokemonSpeed, speed: number) {
+    this.pokemonSpeed = pokemonSpeed
+    this.speed = speed
+  }
 }
