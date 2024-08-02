@@ -274,11 +274,13 @@ export class CalculatorComponent {
   }
 
   private order() {
-    this.targets.sort((a, b) => {
-      if (a.pokemon.isDefault()) return 1
-      
-      return b.damageResult?.damage - a.damageResult?.damage
-    })
+    if (this.isDesktopDevice()) {
+      this.targets.sort((a, b) => {
+        if (a.pokemon.isDefault()) return 1
+        
+        return b.damageResult?.damage - a.damageResult?.damage
+      })
+    }    
   }
 
   private defaultTeams(): Team[] {
