@@ -293,8 +293,8 @@ export class CalculatorComponent {
 
   private defaultTeamsDesktop(): Team[] {
     const teamMembers = [
-      new TeamMember(new Pokemon("Miraidon", "Timid", "Choice Specs", "Hadron Engine", "Electric", false, { hp: 4, spa: 252, spe: 252 }, new MoveSet("Electro Drift", "Parabolic Charge", "Volt Switch", "Draco Meteor"), undefined, undefined), true),
-      new TeamMember(new Pokemon('Koraidon', "Adamant", "Clear Amulet", "Orichalcum Pulse", "Fire", false, { hp: 36, atk: 220, spe: 252 }, new MoveSet("Flame Charge", "Collision Course", "Flare Blitz", "Protect")), false),
+      new TeamMember(new Pokemon("Miraidon", { nature: "Timid", item: "Choice Specs", teraType: "Electric", evs: { hp: 4, spa: 252, spe: 252 }, moveSet: new MoveSet("Electro Drift", "Parabolic Charge", "Volt Switch", "Draco Meteor") }), true),
+      new TeamMember(new Pokemon('Koraidon', { nature: "Adamant", item: "Clear Amulet", teraType: "Fire", evs: { hp: 36, atk: 220, spe: 252 }, moveSet: new MoveSet("Flame Charge", "Collision Course", "Flare Blitz", "Protect") }), false),
       new TeamMember(defaultPokemon(), false)
     ]
     const team1 = new Team(true, "Team 1", teamMembers)
@@ -309,7 +309,7 @@ export class CalculatorComponent {
 
   private defaultTeamsMobile(): Team[] {
     const teamMembers = [
-      new TeamMember(new Pokemon("Miraidon", "Timid", "Choice Specs", "Hadron Engine", "Electric", false, { hp: 4, spa: 252, spe: 252 }, new MoveSet("Electro Drift", "Parabolic Charge", "Volt Switch", "Draco Meteor"), undefined, undefined), true)
+      new TeamMember(new Pokemon("Miraidon", { nature: "Timid", item: "Choice Specs", teraType: "Electric", evs: { hp: 4, spa: 252, spe: 252 }, moveSet: new MoveSet("Electro Drift", "Parabolic Charge", "Volt Switch", "Draco Meteor") }), true)
     ]
     return [new Team(true, "Team 1", teamMembers)]
   }
@@ -324,22 +324,22 @@ export class CalculatorComponent {
 
   private defaultTargetsDesktop(): Target[] {
     return [
-      new Target(new Pokemon("Calyrex-Shadow", "Timid", "Focus Sash", "As One (Spectrier)", "Fighting", false, { hp: 0, atk: 0, def: 0, spa: 252, spd: 4, spe: 252 }, new MoveSet("Astral Barrage", "Expanding Force", "Tera Blast", "Protect")), 0),
-      new Target(new Pokemon("Urshifu-Rapid-Strike", "Jolly", "Choice Scarf", "Unseen Fist", "Water", true, { hp: 0, atk: 252, def: 0, spa: 0, spd: 4, spe: 252 }, new MoveSet("Surging Strikes", "Close Combat", "Ice Spinner", "U-turn")), 0),
-      new Target(new Pokemon("Calyrex-Ice", "Brave", "Clear Amulet", "As One (Glastrier)", "Fire", false, { hp: 252, atk: 252, def: 0, spa: 0, spd: 4, spe: 0 }, new MoveSet("Glacial Lance", "Protect", "High Horsepower", "Trick Room")), 0),
-      new Target(new Pokemon("Ogerpon-Wellspring", "Adamant", "Wellspring Mask", "Water Absorb", "Water", false, { hp: 252, atk: 76, def: 148, spa: 0, spd: 28, spe: 4 }, new MoveSet("Ivy Cudgel", "Horn Leech", "Spiky Shield", "Follow Me")), 0),
-      new Target(new Pokemon("Amoonguss", "Relaxed", "Rocky Helmet", "Regenerator", "Water", false, { hp: 236, atk: 0, def: 236, spa: 0, spd: 36, spe: 0 }, new MoveSet("Pollen Puff", "Spore", "Rage Powder", "Protect")), 0),
-      new Target(new Pokemon("Raging Bolt", "Modest", "Booster Energy", "Protosynthesis", "Fairy", true, { hp: 244, atk: 0, def: 0, spa: 252, spd: 12, spe: 0 }, new MoveSet("Thunderclap", "Dragon Pulse", "Calm Mind", "Protect")), 0),
-      new Target(new Pokemon("Rillaboom", "Adamant", "Assault Vest", "Grassy Surge", "Water", false, { hp: 172, atk: 252, def: 4, spa: 0, spd: 4, spe: 76 }, new MoveSet("Grassy Glide", "Wood Hammer", "U-turn", "Fake Out")), 0),
-      new Target(new Pokemon("Zamazenta-Crowned", "Impish", "Rusted Shield", "Dauntless Shield", "Water", false, { hp: 196, atk: 0, def: 156, spa: 0, spd: 0, spe: 156 }, new MoveSet("Body Press", "Heavy Slam", "Substitute", "Protect")), 0),
-      new Target(new Pokemon("Incineroar", "Impish", "Sitrus Berry", "Intimidate", "Grass", false, { hp: 244, atk: 12, def: 76, spa: 0, spd: 100, spe: 76 }, new MoveSet("Knock Off", "Fake Out", "Parting Shot", "Will-O-Wisp")), 0),
-      new Target(new Pokemon("Terapagos-Terastal", "Modest", "Leftovers", "Tera Shell", "Stellar", false, { hp: 252, atk: 0, def: 180, spa: 76, spd: 0, spe: 0 }, new MoveSet("Tera Starstorm", "Earth Power", "Calm Mind", "Protect")), 0)
+      new Target(new Pokemon("Calyrex-Shadow", { nature: "Timid", item: "Focus Sash", teraType: "Fighting", evs: { spa: 252, spd: 4, spe: 252 }, moveSet: new MoveSet("Astral Barrage", "Expanding Force", "Tera Blast", "Protect") }), 0),
+      new Target(new Pokemon("Urshifu-Rapid-Strike", { nature: "Jolly", item: "Choice Scarf", teraType: "Water", teraTypeActive: true, evs: { atk: 252, spd: 4, spe: 252 }, moveSet: new MoveSet("Surging Strikes", "Close Combat", "Ice Spinner", "U-turn") }), 0),
+      new Target(new Pokemon("Calyrex-Ice", { nature: "Brave", item: "Clear Amulet", teraType: "Fire", evs: { hp: 252, atk: 252, spd: 4 }, moveSet: new MoveSet("Glacial Lance", "Protect", "High Horsepower", "Trick Room") }), 0),
+      new Target(new Pokemon("Ogerpon-Wellspring", { nature: "Adamant", item: "Wellspring Mask", teraType: "Water", evs: { hp: 252, atk: 76, def: 148, spd: 28, spe: 4 }, moveSet: new MoveSet("Ivy Cudgel", "Horn Leech", "Spiky Shield", "Follow Me") }), 0),
+      new Target(new Pokemon("Amoonguss", { ability: "Regenerator", nature: "Relaxed", item: "Rocky Helmet", teraType: "Water", evs: { hp: 236, def: 236, spd: 36 }, moveSet: new MoveSet("Pollen Puff", "Spore", "Rage Powder", "Protect") }), 0),
+      new Target(new Pokemon("Raging Bolt", { nature: "Modest", item: "Booster Energy", teraType: "Fairy", teraTypeActive: true, evs: { hp: 244, spa: 252, spd: 12 }, moveSet: new MoveSet("Thunderclap", "Dragon Pulse", "Calm Mind", "Protect") }), 0),
+      new Target(new Pokemon("Rillaboom", { ability: "Grassy Surge", nature: "Adamant", item: "Assault Vest", teraType: "Water", evs: { hp: 172, atk: 252, def: 4, spd: 4, spe: 76 }, moveSet: new MoveSet("Grassy Glide", "Wood Hammer", "U-turn", "Fake Out") }), 0),
+      new Target(new Pokemon("Zamazenta-Crowned", { nature: "Impish", item: "Rusted Shield", teraType: "Water", evs: { hp: 196, def: 156, spe: 156 }, moveSet: new MoveSet("Body Press", "Heavy Slam", "Substitute", "Protect") }), 0),
+      new Target(new Pokemon("Incineroar", { ability: "Intimidate", nature: "Impish", item: "Sitrus Berry", teraType: "Grass", evs: { hp: 244, atk: 12, def: 76, spd: 100, spe: 76 }, moveSet: new MoveSet("Knock Off", "Fake Out", "Parting Shot", "Will-O-Wisp") }), 0),
+      new Target(new Pokemon("Terapagos-Terastal", { nature: "Modest", item: "Leftovers", teraType: "Stellar", evs: { hp: 252, def: 180, spa: 76 }, moveSet: new MoveSet("Tera Starstorm", "Earth Power", "Calm Mind", "Protect") }), 0)
     ]
   }
 
   private defaultTargetsMobile(): Target[] {
     return [
-      new Target(new Pokemon('Koraidon', "Adamant", "Clear Amulet", "Orichalcum Pulse", "Fire", false, { hp: 36, atk: 220, spe: 252 }, new MoveSet("Flame Charge", "Collision Course", "Flare Blitz", "Protect")), 0)
+      new Target(new Pokemon('Koraidon', { nature: "Adamant", item: "Clear Amulet", teraType: "Fire", evs: { hp: 36, atk: 220, spe: 252 }, moveSet: new MoveSet("Flame Charge", "Collision Course", "Flare Blitz", "Protect") }), 0)
     ]
   }
 
@@ -378,7 +378,7 @@ export class CalculatorComponent {
         const pokemon = teamMember.pokemon as Pokemon
         const moveSet = new MoveSet(teamMember.pokemon.moveSet[0], teamMember.pokemon.moveSet[1], teamMember.pokemon.moveSet[2], teamMember.pokemon.moveSet[3])
         moveSet.activeMoveStorage = new Move(teamMember.pokemon.moveSet[0])
-        return new TeamMember(new Pokemon(pokemon.name, pokemon.nature, pokemon.item, pokemon.ability, pokemon.teraType, pokemon.teraTypeActive, pokemon.evs, moveSet, pokemon.boosts, pokemon.status, pokemon.ivs, pokemon.paradoxAbilityActivated), index == 0)
+        return new TeamMember(new Pokemon(pokemon.name, { ability: pokemon.ability, nature: pokemon.nature, item: pokemon.item, teraType: pokemon.teraType, teraTypeActive: pokemon.teraTypeActive, evs: pokemon.evs, moveSet: moveSet, boosts: pokemon.boosts, status: pokemon.status, ivs: pokemon.ivs, paradoxAbilityActivated: pokemon.paradoxAbilityActivated }), index == 0)
       })
 
       if (teamMembers.length == 0) {
@@ -399,7 +399,7 @@ export class CalculatorComponent {
       const pokemon = target.pokemon as Pokemon
       const moveSet = new MoveSet(target.pokemon.moveSet[0], target.pokemon.moveSet[1], target.pokemon.moveSet[2], target.pokemon.moveSet[3])
       moveSet.activeMoveStorage = new Move(target.pokemon.activeMove)
-      const newTarget = new Target(new Pokemon(pokemon.name, pokemon.nature, pokemon.item, pokemon.ability, pokemon.teraType, pokemon.teraTypeActive, pokemon.evs, moveSet, pokemon.boosts, pokemon.status, pokemon.ivs), position)
+      const newTarget = new Target(new Pokemon(pokemon.name, { ability: pokemon.ability, nature: pokemon.nature, item: pokemon.item, teraType: pokemon.teraType, teraTypeActive: pokemon.teraTypeActive, evs: pokemon.evs, moveSet: moveSet, boosts: pokemon.boosts, status: pokemon.status, ivs: pokemon.ivs }), position)
       position++
       
       return newTarget

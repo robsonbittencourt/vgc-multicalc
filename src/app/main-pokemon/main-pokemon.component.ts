@@ -22,12 +22,11 @@ import { NoopScrollStrategy } from '@angular/cdk/overlay';
 })
 export class MainPokemonComponent {
 
-  allPokemon = new AllPokemon()
   allMoveNames = Object.keys(MOVES[9]).splice(1).sort()
   allNatureNames = Object.keys(NATURES)
   allItemsNames = Object.values(ITEMS[9]).sort()
   allTeraTypes = Object.keys(TYPE_CHART[9]).splice(1).sort()
-  allPokemonNames = this.allPokemon.allPokemonNames()
+  allPokemonNames = AllPokemon.instance.allPokemonNames
   availableAbilities: string[]
   commanderActivated = false
 
@@ -84,12 +83,12 @@ export class MainPokemonComponent {
 
   onPokemonSelected(pokemonName: string) {
     if(!this.pokemon.isDefault()) {
-      this.availableAbilities = this.allPokemon.abilitiesByName(pokemonName)
+      this.availableAbilities = AllPokemon.instance.abilitiesByName(pokemonName)
     }    
   }
 
   onValueManuallySelected(pokemonName: string) {
-    this.availableAbilities = this.allPokemon.abilitiesByName(pokemonName)
+    this.availableAbilities = AllPokemon.instance.abilitiesByName(pokemonName)
     this.pokemon.ability = this.availableAbilities[0]
 
     const poke = SETDEX_SV[pokemonName]

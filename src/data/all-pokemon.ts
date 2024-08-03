@@ -1,26 +1,38 @@
 //from https://github.dev/smogon/pokemon-showdown
 
-import { StatsTable } from "@smogon/calc";
+import { StatID, StatsTable } from "@smogon/calc";
 import { Species } from "@smogon/calc/dist/data/species";
+import { defaultPokemon } from "src/lib/default-pokemon";
 
 export class AllPokemon {
 
-  allPokemon: SpeciesData[]
+  private static _instance: AllPokemon
 
-  constructor() {
+  allPokemon: SpeciesData[]
+  allPokemonNames: string[]
+
+  private constructor() {
     this.allPokemon = Object.entries(FormatsData)
-    .filter(([key, value]) => 
-      value.tier != "Illegal" && value.isNonstandard != "CAP" && value.isNonstandard != "Past"
-    ).map(([key]) => {
-      return Pokedex[key]
-    })
+      .filter(([key, value]) => 
+        value.tier != "Illegal" && value.isNonstandard != "CAP" && value.isNonstandard != "Past"
+      ).map(([key]) => {
+        return Pokedex[key]
+      })
+    
+    this.allPokemonNames = this.allPokemon.map(pokemon => pokemon.name).sort()
   }
 
-  allPokemonNames(): string[] {
-    return this.allPokemon.map(pokemon => pokemon.name).sort()
+  static get instance(): AllPokemon {
+    if (!AllPokemon._instance) {
+      AllPokemon._instance = new AllPokemon()
+    }
+
+    return AllPokemon._instance;
   }
 
   abilitiesByName(name: string): string[] {
+    if ("Togepi" == name) return ["Hustle"]
+
     const pokemon = this.allPokemon.find(p => p.name == name)
     return Object.values(pokemon?.abilities)
   }

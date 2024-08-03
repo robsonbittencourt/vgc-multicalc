@@ -16,8 +16,7 @@ export class PokemonEditMobileComponent {
 
   attacker: Pokemon
 
-  allPokemon = new AllPokemon()
-  allPokemonNames = this.allPokemon.allPokemonNames()
+  allPokemonNames = AllPokemon.instance.allPokemonNames
   allItemsNames = Object.values(ITEMS[9]).sort()
   allMoveNames = Object.keys(MOVES[9]).splice(1).sort()
   allNatureNames = Object.keys(NATURES)
@@ -126,11 +125,11 @@ export class PokemonEditMobileComponent {
   }
 
   onPokemonSelected(pokemonName: string) {
-    this.availableAbilities = this.allPokemon.abilitiesByName(pokemonName)        
+    this.availableAbilities = AllPokemon.instance.abilitiesByName(pokemonName)        
   }
 
   onValueManuallySelected(pokemonName: string) {
-    this.availableAbilities = this.allPokemon.abilitiesByName(pokemonName)
+    this.availableAbilities = AllPokemon.instance.abilitiesByName(pokemonName)
     this.attacker.ability = this.availableAbilities[0]
 
     const poke = SETDEX_SV[pokemonName]

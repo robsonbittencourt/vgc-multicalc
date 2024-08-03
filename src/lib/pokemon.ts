@@ -3,6 +3,7 @@ import { StatsTable, StatusName, TypeName } from "@smogon/calc/dist/data/interfa
 import { MoveSet } from "./moveset";
 import { Move } from "./move";
 import dedent from "dedent";
+import { AllPokemon } from "src/data/all-pokemon";
 
 export class Pokemon {
   public pokemonSmogon: PokemonSmogon
@@ -15,25 +16,39 @@ export class Pokemon {
   private commanderActivatedStorage: boolean
   private selectPokemonLabel: string = "Select a Pokémon"
   
-  constructor(name: string, nature: string, item: string, ability: string, teraType: string, teraTypeActive: boolean = false, evs: Partial<StatsTable> & { spc?: number; }, moveSet: MoveSet, boosts: StatsTable | undefined = undefined, status: string | undefined = undefined, ivs: Partial<StatsTable> & { spc?: number; } | undefined = undefined, paradoxAbilityActivated: boolean = false) {
+  constructor(name: string, options: {
+      ability?: string,
+      nature?: string,
+      item?: string,
+      teraType?: string,
+      teraTypeActive?: boolean,
+      evs?: Partial<StatsTable> & { spc?: number; }, 
+      moveSet?: MoveSet,
+      boosts?: StatsTable | undefined,
+      status?: string | undefined,
+      ivs?: Partial<StatsTable> & { spc?: number; } | undefined
+      paradoxAbilityActivated?: boolean
+  } = {}) {
+    const defaulTeraType = "Water"
+
     this.pokemonSmogon = new PokemonSmogon(Generations.get(9), name, {
-      nature: nature,
-      item: item,
-      ability: ability,
-      teraType: teraTypeActive ? teraType as TypeName : undefined,
-      evs: evs,
-      ivs: ivs,
-      boosts: boosts,
-      status: status as StatusName,
+      nature: options.nature ?? "Hardy",
+      item: options.item ?? "Fire Stone",
+      ability: options.ability ?? AllPokemon.instance.abilitiesByName(name)[0],
+      teraType: options.teraTypeActive ? (options.teraType as TypeName ?? defaulTeraType) : undefined,
+      evs: options.evs,
+      ivs: options.ivs,
+      boosts: options.boosts,
+      status: options.status as StatusName,
       level: 50
     })
 
-    this.statusStorage = status ?? 'Healthy'
-    this.teraTypeStorage = teraType
-    this.evsStorage = evs
-    this.ivsStorage = ivs ?? { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31}
-    this.moveSetStorage = moveSet,
-    this.paradoxAbilityActivatedStorage = paradoxAbilityActivated
+    this.statusStorage = options.status ?? 'Healthy'
+    this.teraTypeStorage = options.teraType ?? defaulTeraType
+    this.evsStorage = options.evs ?? { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0}
+    this.ivsStorage = options.ivs ?? { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31}
+    this.moveSetStorage = options.moveSet ?? new MoveSet("Struggle", "Struggle", "Struggle", "Struggle"),
+    this.paradoxAbilityActivatedStorage = options.paradoxAbilityActivated ?? false
   }
 
   public get name(): string {
@@ -307,7 +322,7 @@ export class Pokemon {
   }
 
   public clone(): Pokemon {
-    return new Pokemon(this.name, this.nature, this.item, this.ability, this.teraTypeStorage, this.teraTypeActive, this.evs, this.moveSetStorage.clone(), this.boosts, this.statusConditionCode(this.status))
+    return new Pokemon(this.name, { ability: this.ability, nature: this.nature, item: this.item, teraType: this.teraTypeStorage, teraTypeActive: this.teraTypeActive, evs: this.evs, moveSet: this.moveSetStorage.clone(), boosts: this.boosts, status: this.statusConditionCode(this.status) })
   }
 
   public equals(toCompare: Pokemon): boolean {
