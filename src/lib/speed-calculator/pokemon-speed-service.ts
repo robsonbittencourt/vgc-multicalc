@@ -1,3 +1,4 @@
+import { MoveSet } from "../moveset"
 import { Pokemon } from "../pokemon"
 import { PokemonSpeed, SpeedDefinition } from "./pokemon-speed"
 
@@ -11,6 +12,10 @@ export class PokemonSpeedService {
     new PokemonSpeed("Flutter Mane", 252, 31, "Timid", "Booster Energy", 1, "Protosynthesis", true),
     new PokemonSpeed("Calyrex-Shadow", 252, 31, "Timid"),
     new PokemonSpeed("Ursaluna-Bloodmoon", 0, 0, "Quiet")
+  ]
+
+  metaPokes2 = [
+    new Pokemon("Urshifu-Rapid-Strike", "Adamant", "Choice Scarf", "Hadron Engine", "Electric", false, { spe: 252 }, new MoveSet("Electro Drift", "Parabolic Charge", "Volt Switch", "Draco Meteor"), undefined, undefined)
   ]
 
   printAllSpeed() {

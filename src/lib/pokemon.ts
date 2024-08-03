@@ -4,6 +4,7 @@ import { MoveSet } from "./moveset";
 import { Move } from "./move";
 import dedent from "dedent";
 import { AllPokemon } from "src/data/all-pokemon";
+import { SpeedDefinition } from "./speed-calculator/pokemon-speed";
 
 export class Pokemon {
   public pokemonSmogon: PokemonSmogon
@@ -545,5 +546,50 @@ export class Pokemon {
     `
 
     return text
+  }
+
+  minSpeed(): SpeedDefinition {
+    const MAX_BASE_SPEED_FOR_TR = 52
+    const isTrickRoomPokemon = new PokemonSmogon(Generations.get(9), this.name).species.baseStats.spe <= MAX_BASE_SPEED_FOR_TR
+
+    const pokemonSmogon = new PokemonSmogon(Generations.get(9), this.name, {
+      level: 50,
+      nature: isTrickRoomPokemon ? "Brave" : "Bashful",
+      ivs: isTrickRoomPokemon ? { spe: 0 } : { spe: 31 }
+    })
+
+    return new SpeedDefinition(this.name, pokemonSmogon.rawStats['spe'], "Min. Speed")
+  }
+
+  maxSpeed(): SpeedDefinition {
+    const pokemonSmogon = new PokemonSmogon(Generations.get(9), this.name, {
+      nature: "Timid",
+      evs: { spe: 252 },
+      ivs: { spe: 31 },
+      level: 50
+    })
+
+    return new SpeedDefinition(this.name, pokemonSmogon.rawStats['spe'], "Max. Speed")
+  }
+
+  maxMeta(): SpeedDefinition {
+    const pokemonSmogon = new PokemonSmogon(Generations.get(9), this.name, {
+      nature: this.nature,
+      evs: { spe: this.evs.spe },
+      ivs: { spe: this.ivs.spe },
+      level: 50
+    })
+
+    let itemModifier = 1
+    if (this.item == "Choice Scarf") {
+      itemModifier = 1.5
+    }
+
+    let abilityModifier = 1
+    // if (this.isParadoxAbility() && this.paradoxAbilityActivatedInSpeed) {
+    //   abilityModifier = 1.5
+    // }
+
+    return new SpeedDefinition(this.name, Math.floor(pokemonSmogon.rawStats['spe'] * itemModifier * abilityModifier * this.boosts.spe), "Meta Speed")
   }
 }
