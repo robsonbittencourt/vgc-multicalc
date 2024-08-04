@@ -1,5 +1,5 @@
 import { Pokemon as PokemonSmogon, Generations } from "@smogon/calc";
-import { StatsTable, StatusName, TypeName } from "@smogon/calc/dist/data/interface";
+import { StatIDExceptHP, StatsTable, StatusName, TypeName } from "@smogon/calc/dist/data/interface";
 import { MoveSet } from "./moveset";
 import { Move } from "./move";
 import dedent from "dedent";
@@ -302,6 +302,37 @@ export class Pokemon {
     return this.getModifiedStat(this.pokemonSmogon.rawStats['spe'], this.pokemonSmogon.boosts['spe'])  
   }
 
+  higherStat(): StatIDExceptHP {
+    let bestStat = this.modifiedAtk()
+    let bestStatDescription: StatIDExceptHP = "atk"
+
+    const def = this.modifiedDef()
+    if (def > bestStat) {
+      bestStat = def
+      bestStatDescription = "def"
+    }
+
+    const spa = this.modifiedSpa()
+    if (spa > bestStat) {
+      bestStat = spa
+      bestStatDescription = "spa"
+    }
+
+    const spd = this.modifiedSpd()
+    if (spd > bestStat) {
+      bestStat = spd
+      bestStatDescription = "spd"
+    }
+
+    const spe = this.modifiedSpe()
+    if (spe > bestStat) {
+      bestStat = spe
+      bestStatDescription = "spe"
+    }
+
+    return bestStatDescription
+  }
+
   public isParadoxAbility() {
     return this.ability == "Protosynthesis" || this.ability == "Quark Drive"
   }
@@ -552,49 +583,40 @@ export class Pokemon {
     const MAX_BASE_SPEED_FOR_TR = 52
     const isTrickRoomPokemon = new PokemonSmogon(Generations.get(9), this.name).species.baseStats.spe <= MAX_BASE_SPEED_FOR_TR
 
-    const pokemonSmogon = new PokemonSmogon(Generations.get(9), this.name, {
-      level: 50,
-      nature: isTrickRoomPokemon ? "Brave" : "Bashful",
-      ivs: isTrickRoomPokemon ? { spe: 0 } : { spe: 31 }
-    })
+    const pokemon = this.clone()
+    pokemon.nature = isTrickRoomPokemon ? "Brave" : "Bashful"
+    pokemon.evs = { spe: 0 }
+    pokemon.ivs = isTrickRoomPokemon ? { spe: 0 } : { spe: 31 }
 
-    return new SpeedDefinition(this.name, pokemonSmogon.rawStats['spe'], "Min. Speed")
+    return new SpeedDefinition(this.name, pokemon.pokemonSmogon.rawStats['spe'], "Min. Speed")
   }
 
   maxSpeed(): SpeedDefinition {
-    const pokemonSmogon = new PokemonSmogon(Generations.get(9), this.name, {
-      nature: "Timid",
-      evs: { spe: 252 },
-      ivs: { spe: 31 },
-      level: 50
-    })
+    const pokemon = this.clone()
+    pokemon.nature = "Timid"
+    pokemon.evs = { spe: 252 }
+    pokemon.ivs = { spe: 31 }
 
-    return new SpeedDefinition(this.name, pokemonSmogon.rawStats['spe'], "Max. Speed")
+    return new SpeedDefinition(this.name, pokemon.pokemonSmogon.rawStats['spe'], "Max. Speed")
   }
 
   maxMeta(): SpeedDefinition {
-    const pokemonSmogon = new PokemonSmogon(Generations.get(9), this.name, {
-      nature: this.nature,
-      evs: { spe: this.evs.spe },
-      ivs: { spe: this.ivs.spe },
-      level: 50
-    })
-
     let itemModifier = 1
     if (this.item == "Choice Scarf") {
       itemModifier = 1.5
     }
 
     let abilityModifier = 1
-    // if (this.isParadoxAbility() && this.paradoxAbilityActivatedInSpeed) {
-    //   abilityModifier = 1.5
-    // }
+    if (this.isParadoxAbility() && this.higherStat() == "spe") {
+      abilityModifier = 1.5
+    }
 
-    let speedWithModifiers = Math.floor(pokemonSmogon.rawStats['spe'] * itemModifier * abilityModifier)
+    let speedWithModifiers = Math.floor(this.pokemonSmogon.rawStats['spe'] * itemModifier * abilityModifier)
     if (this.boosts.spe != 0) {
       speedWithModifiers *= this.boosts.spe
     }  
 
     return new SpeedDefinition(this.name,  speedWithModifiers, "Meta Speed")
   }
+ 
 }
