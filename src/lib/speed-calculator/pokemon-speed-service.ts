@@ -1,47 +1,17 @@
-import { MoveSet } from "../moveset"
 import { Pokemon } from "../pokemon"
-import { PokemonSpeed, SpeedDefinition } from "./pokemon-speed"
+import { SpeedDefinition } from "./speed-definition"
 
 export class PokemonSpeedService {
 
   metaPokes = [
-    new PokemonSpeed("Urshifu-Rapid-Strike", 252, 31, "Adamant", "Choice Scarf"),    
-    new PokemonSpeed("Incineroar", 252, 31, "Jolly"),
-    new PokemonSpeed("Rillaboom", 28, 31, "Adamant"),
-    new PokemonSpeed("Amoonguss", 0, 31, "Bold"),
-    new PokemonSpeed("Flutter Mane", 252, 31, "Timid", "Booster Energy", 1, "Protosynthesis", true),
-    new PokemonSpeed("Calyrex-Shadow", 252, 31, "Timid"),
-    new PokemonSpeed("Ursaluna-Bloodmoon", 0, 0, "Quiet")
+    new Pokemon("Urshifu-Rapid-Strike", { item: "Choice Scarf", evs: { spe: 252 } }),
+    new Pokemon("Incineroar", { nature: "Jolly", evs: { spe: 252 } }),
+    new Pokemon("Rillaboom", { evs: { spe: 28 } }),
+    new Pokemon("Amoonguss"),
+    new Pokemon("Flutter Mane", { nature: "Timid", evs: { spe: 252 } }),
+    new Pokemon("Calyrex-Shadow", { nature: "Timid", evs: { spe: 252 } }),
+    new Pokemon("Ursaluna-Bloodmoon", { nature: "Quiet", ivs: { spe: 0 } }),
   ]
-
-  metaPokes2 = [
-    new Pokemon("Urshifu-Rapid-Strike", "Adamant", "Choice Scarf", "Hadron Engine", "Electric", false, { spe: 252 }, new MoveSet("Electro Drift", "Parabolic Charge", "Volt Switch", "Draco Meteor"), undefined, undefined)
-  ]
-
-  printAllSpeed() {
-    this.metaPokes.forEach(poke => {
-      poke.print()
-    })
-  }
-
-  print(pokemon: Pokemon) {
-    const pokemonSpeed = new PokemonSpeed(pokemon.name, pokemon.evs.spe!, pokemon.ivs.spe, pokemon.nature, pokemon.item)
-    console.log(`Target: ${pokemon.name} - Min Speed ${pokemonSpeed.minSpeed()} - Actual Speed: ${pokemon.modifiedSpe()} - EVs Speed: ${pokemon.evs.spe}`)
-    console.log("===========================================================")
-
-    console.log("Guaranteed slower")
-    this.garantedSlowestPokemon(pokemon).forEach(p => console.log(p.pokemonName + " - " + p.value + " - " + p.description))
-
-    console.log("===========================================================")
-
-    console.log("Ordered")
-    this.orderedPokemon(pokemon).forEach(p => console.log(p.pokemonName + " - " + p.value + " - " + p.description))
-
-    console.log("===========================================================")
-
-    console.log("Guaranteed faster")
-    this.garantedFasterPokemon(pokemon).forEach(p => console.log(p.pokemonName + " - " + p.value + " - " + p.description))
-  }
 
   orderedPokemon(pokemon: Pokemon): SpeedDefinition[] {
     const speedDefinitions: SpeedDefinition[] = []
@@ -61,30 +31,23 @@ export class PokemonSpeedService {
 
   garantedSlowestPokemon(pokemon: Pokemon): SpeedDefinition[] {
     return this.metaPokes
-      .filter(p => p.maxSpeed().value < this.minSpeed(pokemon))
+      .filter(p => p.maxSpeed().value < pokemon.minSpeed().value)
       .map(p => p.maxSpeed())
   }  
 
   garantedFasterPokemon(pokemon: Pokemon): SpeedDefinition[] {
     return this.metaPokes
-      .filter(p => p.minSpeed().value > this.maxSpeed(pokemon))
+      .filter(p => p.minSpeed().value > pokemon.maxSpeed().value)
       .map(p => p.minSpeed())
   }
 
-  private withoutSlowersAndFasters(pokemon: Pokemon): PokemonSpeed[] {
+  private withoutSlowersAndFasters(pokemon: Pokemon): Pokemon[] {
     const slowerPokemon = this.garantedSlowestPokemon(pokemon)
     const fasterPokemon = this.garantedFasterPokemon(pokemon)
 
     return this.metaPokes
-      .filter(p => slowerPokemon.every(poke => poke.pokemonName != p.getName()))
-      .filter(p => fasterPokemon.every(poke => poke.pokemonName != p.getName()))
+      .filter(p => slowerPokemon.every(poke => poke.pokemonName != p.name))
+      .filter(p => fasterPokemon.every(poke => poke.pokemonName != p.name))
   }
 
-  private minSpeed(pokemon: Pokemon): number {
-    return new PokemonSpeed(pokemon.name, pokemon.evs.spe!, pokemon.ivs.spe, pokemon.nature, pokemon.item).minSpeed().value
-  }
-
-  private maxSpeed(pokemon: Pokemon): number {
-    return new PokemonSpeed(pokemon.name, pokemon.evs.spe!, pokemon.ivs.spe, pokemon.nature, pokemon.item).maxSpeed().value
-  }
 }

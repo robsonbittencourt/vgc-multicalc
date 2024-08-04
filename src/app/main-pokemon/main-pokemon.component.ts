@@ -73,7 +73,7 @@ export class MainPokemonComponent {
     this.differ = this.differs.find(this.pokemon).create()
     this.differStatusModifiers = this.differsStatusModifiers.find(this.pokemon.boosts).create()
 
-    const koraidon = new Pokemon('Raging Bolt', "Modestant", "Clear Amulet", "Protosynthesis", "Fairy", false, { hp: 36, atk: 220, spe: 100 }, new MoveSet("Flame Charge", "Collision Course", "Flare Blitz", "Protect"))
+    const koraidon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
     new PokemonSpeedService().print(koraidon)
   }
 

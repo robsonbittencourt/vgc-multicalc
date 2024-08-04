@@ -1,4 +1,3 @@
-import { MoveSet } from '../moveset'
 import { Pokemon } from '../pokemon'
 import { PokemonSpeedService } from './pokemon-speed-service'
 
@@ -10,7 +9,7 @@ describe('PokemonSpeedService', () => {
   })
 
   it('should return a ordered list with garanteed slower Pokémon', () => {
-    const pokemon = new Pokemon('Raging Bolt', "Modest", "Clear Amulet", "Protosynthesis", "Fairy", false, { hp: 36, atk: 220, spe: 100 }, new MoveSet("Flame Charge", "Collision Course", "Flare Blitz", "Protect"))
+    const pokemon = new Pokemon('Raging Bolt', { evs: { spe: 100 } })
     
     const slowerPokemon = service.garantedSlowestPokemon(pokemon)
 
@@ -22,7 +21,7 @@ describe('PokemonSpeedService', () => {
   })
 
   it('should return a ordered list with garanteed faster Pokémon', () => {
-    const pokemon = new Pokemon('Raging Bolt', "Modest", "Clear Amulet", "Protosynthesis", "Fairy", false, { hp: 36, atk: 220, spe: 100 }, new MoveSet("Flame Charge", "Collision Course", "Flare Blitz", "Protect"))
+    const pokemon = new Pokemon('Raging Bolt', { evs: { spe: 100 } })
     
     const fasterPokemon = service.garantedFasterPokemon(pokemon)
 
@@ -38,7 +37,7 @@ describe('PokemonSpeedService', () => {
   })
 
   it('should return only Pokémon in speed range ordered', () => {
-    const pokemon = new Pokemon('Raging Bolt', "Modest", "Clear Amulet", "Protosynthesis", "Fairy", false, { hp: 36, atk: 220, spe: 100 }, new MoveSet("Flame Charge", "Collision Course", "Flare Blitz", "Protect"))
+    const pokemon = new Pokemon('Raging Bolt', { evs: { spe: 100 } })
 
     const inRange = service.orderedPokemon(pokemon)
 

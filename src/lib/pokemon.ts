@@ -4,7 +4,7 @@ import { MoveSet } from "./moveset";
 import { Move } from "./move";
 import dedent from "dedent";
 import { AllPokemon } from "src/data/all-pokemon";
-import { SpeedDefinition } from "./speed-calculator/pokemon-speed";
+import { SpeedDefinition } from "./speed-calculator/speed-definition";
 
 export class Pokemon {
   public pokemonSmogon: PokemonSmogon
@@ -590,6 +590,11 @@ export class Pokemon {
     //   abilityModifier = 1.5
     // }
 
-    return new SpeedDefinition(this.name, Math.floor(pokemonSmogon.rawStats['spe'] * itemModifier * abilityModifier * this.boosts.spe), "Meta Speed")
+    let speedWithModifiers = Math.floor(pokemonSmogon.rawStats['spe'] * itemModifier * abilityModifier)
+    if (this.boosts.spe != 0) {
+      speedWithModifiers *= this.boosts.spe
+    }  
+
+    return new SpeedDefinition(this.name,  speedWithModifiers, "Meta Speed")
   }
 }
