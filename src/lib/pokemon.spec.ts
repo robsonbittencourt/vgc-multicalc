@@ -35,7 +35,6 @@ describe('Pokemon', () => {
     expect(speedDefinition.value).toEqual(22)
   })
 
-
   it('should return max speed description and Pokémon name', () => {
     const pokemon = new Pokemon("Flutter Mane")
 
@@ -67,6 +66,47 @@ describe('Pokemon', () => {
     const speedDefinition = pokemon.maxSpeed()
 
     expect(speedDefinition.value).toEqual(79)
+  })
+
+  it('should return meta speed description and Pokémon name', () => {
+    const pokemon = new Pokemon("Flutter Mane")
+
+    const speedDefinition = pokemon.maxMeta()
+
+    expect(speedDefinition.pokemonName).toEqual("Flutter Mane")
+    expect(speedDefinition.description).toEqual("Meta Speed")
+  })
+
+  it('should return meta speed of Rillaboom', () => {
+    const pokemon = new Pokemon("Rillaboom", { evs: { spe: 28 } })
+
+    const speedDefinition = pokemon.maxMeta()
+
+    expect(speedDefinition.value).toEqual(109)
+  })
+
+  it('should return meta speed of scarf Urshifu', () => {
+    const pokemon = new Pokemon("Urshifu-Rapid-Strike", { item: "Choice Scarf", evs: { spe: 252 } })
+
+    const speedDefinition = pokemon.maxMeta()
+
+    expect(speedDefinition.value).toEqual(223)
+  })
+
+  it('should return meta speed of booster Flutter Mane', () => {
+    const pokemon = new Pokemon("Flutter Mane", { nature: "Timid", evs: { spe: 124 } })
+
+    const speedDefinition = pokemon.maxMeta()
+
+    expect(speedDefinition.value).toEqual(282)
+  })
+
+  it('should return meta speed of scarf Flutter Mane with Protosynthesis activated', () => {
+    const pokemon = new Pokemon("Flutter Mane", { item: "Choice Scarf", nature: "Timid", evs: { spe: 124 } })
+
+    const speedDefinition = pokemon.maxMeta()
+
+    expect(speedDefinition.value).toEqual(423)
   })
 
 })

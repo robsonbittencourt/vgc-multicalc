@@ -612,6 +612,7 @@ export class Pokemon {
     }
 
     let speedWithModifiers = Math.floor(this.pokemonSmogon.rawStats['spe'] * itemModifier * abilityModifier)
+    //esta errado a ordem
     if (this.boosts.spe != 0) {
       speedWithModifiers *= this.boosts.spe
     }  
