@@ -25,7 +25,7 @@ export class Pokemon {
       teraTypeActive?: boolean,
       evs?: Partial<StatsTable> & { spc?: number; }, 
       moveSet?: MoveSet,
-      boosts?: StatsTable | undefined,
+      boosts?: Partial<StatsTable> | undefined,
       status?: string | undefined,
       ivs?: Partial<StatsTable> & { spc?: number; } | undefined
       paradoxAbilityActivated?: boolean

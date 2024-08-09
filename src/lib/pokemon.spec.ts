@@ -38,7 +38,7 @@ describe('Pokemon', () => {
     })
 
     it('should return min speed of Chien-Pao with -1 in speed', () => {
-      const pokemon = new Pokemon("Chien-Pao", { boosts: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: -1 }})
+      const pokemon = new Pokemon("Chien-Pao", { boosts: { spe: -1 }})
 
       const speedDefinition = pokemon.minSpeed()
 
@@ -46,7 +46,7 @@ describe('Pokemon', () => {
     })
 
     it('should return min speed of Chien-Pao with -6 in speed', () => {
-      const pokemon = new Pokemon("Chien-Pao", { boosts: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: -6 }})
+      const pokemon = new Pokemon("Chien-Pao", { boosts: { spe: -6 }})
 
       const speedDefinition = pokemon.minSpeed()
 
@@ -54,7 +54,7 @@ describe('Pokemon', () => {
     })
 
     it('should return min speed of Chien-Pao with +1 in speed', () => {
-      const pokemon = new Pokemon("Chien-Pao", { boosts: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 1 }})
+      const pokemon = new Pokemon("Chien-Pao", { boosts: { spe: 1 }})
 
       const speedDefinition = pokemon.minSpeed()
 
@@ -62,7 +62,7 @@ describe('Pokemon', () => {
     })
 
     it('should return min speed of Chien-Pao with +6 in speed', () => {
-      const pokemon = new Pokemon("Chien-Pao", { boosts: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 6 }})
+      const pokemon = new Pokemon("Chien-Pao", { boosts: { spe: 6 }})
 
       const speedDefinition = pokemon.minSpeed()
 
@@ -106,7 +106,7 @@ describe('Pokemon', () => {
     })
     
     it('should return max speed of Chien-Pao with -1 in speed', () => {
-      const pokemon = new Pokemon("Chien-Pao", { boosts: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: -1 }})
+      const pokemon = new Pokemon("Chien-Pao", { boosts: { spe: -1 }})
 
       const speedDefinition = pokemon.maxSpeed()
 
@@ -114,7 +114,7 @@ describe('Pokemon', () => {
     })
 
     it('should return max speed of Chien-Pao with -6 in speed', () => {
-      const pokemon = new Pokemon("Chien-Pao", { boosts: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: -6 }})
+      const pokemon = new Pokemon("Chien-Pao", { boosts: { spe: -6 }})
 
       const speedDefinition = pokemon.maxSpeed()
 
@@ -122,7 +122,7 @@ describe('Pokemon', () => {
     })
 
     it('should return max speed of Chien-Pao with +1 in speed', () => {
-      const pokemon = new Pokemon("Chien-Pao", { boosts: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 1 }})
+      const pokemon = new Pokemon("Chien-Pao", { boosts: { spe: 1 }})
 
       const speedDefinition = pokemon.maxSpeed()
 
@@ -130,7 +130,7 @@ describe('Pokemon', () => {
     })
 
     it('should return max speed of Chien-Pao with +6 in speed', () => {
-      const pokemon = new Pokemon("Chien-Pao", { boosts: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 6 }})
+      const pokemon = new Pokemon("Chien-Pao", { boosts: { spe: 6 }})
 
       const speedDefinition = pokemon.maxSpeed()
 
