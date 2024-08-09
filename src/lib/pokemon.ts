@@ -588,7 +588,7 @@ export class Pokemon {
     pokemon.evs = { spe: 0 }
     pokemon.ivs = isTrickRoomPokemon ? { spe: 0 } : { spe: 31 }
 
-    return new SpeedDefinition(this.name, pokemon.pokemonSmogon.rawStats['spe'], "Min. Speed")
+    return new SpeedDefinition(pokemon.name, pokemon.modifiedSpe(), "Min. Speed")
   }
 
   maxSpeed(): SpeedDefinition {
@@ -597,7 +597,7 @@ export class Pokemon {
     pokemon.evs = { spe: 252 }
     pokemon.ivs = { spe: 31 }
 
-    return new SpeedDefinition(this.name, pokemon.pokemonSmogon.rawStats['spe'], "Max. Speed")
+    return new SpeedDefinition(pokemon.name, pokemon.modifiedSpe(), "Max. Speed")
   }
 
   maxMeta(): SpeedDefinition {

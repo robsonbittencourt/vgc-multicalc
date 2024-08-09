@@ -1,11 +1,11 @@
 import { Pokemon } from '../pokemon'
-import { PokemonSpeedService } from './pokemon-speed-service'
+import { SpeedCalculatorService } from './speed-calculator-service'
 
-describe('PokemonSpeedService', () => {
-  let service: PokemonSpeedService
+describe('SpeedCalculatorService', () => {
+  let service: SpeedCalculatorService
 
   beforeEach(() => {
-    service = new PokemonSpeedService()
+    service = new SpeedCalculatorService()
   })
 
   it('should return a ordered list with garanteed slower Pokémon', () => {

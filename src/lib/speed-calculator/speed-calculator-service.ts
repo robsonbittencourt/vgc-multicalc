@@ -1,7 +1,7 @@
 import { Pokemon } from "../pokemon"
 import { SpeedDefinition } from "./speed-definition"
 
-export class PokemonSpeedService {
+export class SpeedCalculatorService {
 
   metaPokes = [
     new Pokemon("Urshifu-Rapid-Strike", { item: "Choice Scarf", evs: { spe: 252 } }),

@@ -2,111 +2,184 @@ import { Pokemon } from "./pokemon"
 
 describe('Pokemon', () => {
 
-  it('should return min speed description and Pokémon name', () => {
-    const pokemon = new Pokemon("Flutter Mane")
+  describe('min speed', () => {
 
-    const speedDefinition = pokemon.minSpeed()
+    it('should return min speed description and Pokémon name', () => {
+      const pokemon = new Pokemon("Flutter Mane")
 
-    expect(speedDefinition.pokemonName).toEqual("Flutter Mane")
-    expect(speedDefinition.description).toEqual("Min. Speed")
-  })
- 
-  it('should return min speed of Raging Bolt', () => {
-    const pokemon = new Pokemon("Raging Bolt")
+      const speedDefinition = pokemon.minSpeed()
 
-    const speedDefinition = pokemon.minSpeed()
+      expect(speedDefinition.pokemonName).toEqual("Flutter Mane")
+      expect(speedDefinition.description).toEqual("Min. Speed")
+    })
+  
+    it('should return min speed of Raging Bolt', () => {
+      const pokemon = new Pokemon("Raging Bolt")
 
-    expect(speedDefinition.value).toEqual(95)
-  })
+      const speedDefinition = pokemon.minSpeed()
 
-  it('should return min speed of Chien-Pao', () => {
-    const pokemon = new Pokemon("Chien-Pao")
+      expect(speedDefinition.value).toEqual(95)
+    })
 
-    const speedDefinition = pokemon.minSpeed()
+    it('should return min speed of Chien-Pao', () => {
+      const pokemon = new Pokemon("Chien-Pao")
 
-    expect(speedDefinition.value).toEqual(155)
-  })
+      const speedDefinition = pokemon.minSpeed()
 
-  it('should return min speed of a Trick Room Pokémon', () => {
-    const pokemon = new Pokemon("Torkoal")
+      expect(speedDefinition.value).toEqual(155)
+    })
 
-    const speedDefinition = pokemon.minSpeed()
+    it('should return min speed of a Trick Room Pokémon', () => {
+      const pokemon = new Pokemon("Torkoal")
 
-    expect(speedDefinition.value).toEqual(22)
-  })
+      const speedDefinition = pokemon.minSpeed()
 
-  it('should return max speed description and Pokémon name', () => {
-    const pokemon = new Pokemon("Flutter Mane")
+      expect(speedDefinition.value).toEqual(22)
+    })
 
-    const speedDefinition = pokemon.maxSpeed()
+    it('should return min speed of Chien-Pao with -1 in speed', () => {
+      const pokemon = new Pokemon("Chien-Pao", { boosts: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: -1 }})
 
-    expect(speedDefinition.pokemonName).toEqual("Flutter Mane")
-    expect(speedDefinition.description).toEqual("Max. Speed")
-  })
- 
-  it('should return max speed of Raging Bolt', () => {
-    const pokemon = new Pokemon("Raging Bolt")
+      const speedDefinition = pokemon.minSpeed()
 
-    const speedDefinition = pokemon.maxSpeed()
+      expect(speedDefinition.value).toEqual(103)
+    })
 
-    expect(speedDefinition.value).toEqual(139)
-  })
+    it('should return min speed of Chien-Pao with -6 in speed', () => {
+      const pokemon = new Pokemon("Chien-Pao", { boosts: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: -6 }})
 
-  it('should return max speed of Chien-Pao', () => {
-    const pokemon = new Pokemon("Chien-Pao")
+      const speedDefinition = pokemon.minSpeed()
 
-    const speedDefinition = pokemon.maxSpeed()
+      expect(speedDefinition.value).toEqual(38)
+    })
 
-    expect(speedDefinition.value).toEqual(205)
-  })
+    it('should return min speed of Chien-Pao with +1 in speed', () => {
+      const pokemon = new Pokemon("Chien-Pao", { boosts: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 1 }})
 
-  it('should return max speed of a Trick Room Pokémon', () => {
-    const pokemon = new Pokemon("Torkoal")
+      const speedDefinition = pokemon.minSpeed()
 
-    const speedDefinition = pokemon.maxSpeed()
+      expect(speedDefinition.value).toEqual(232)
+    })
 
-    expect(speedDefinition.value).toEqual(79)
-  })
+    it('should return min speed of Chien-Pao with +6 in speed', () => {
+      const pokemon = new Pokemon("Chien-Pao", { boosts: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 6 }})
 
-  it('should return meta speed description and Pokémon name', () => {
-    const pokemon = new Pokemon("Flutter Mane")
+      const speedDefinition = pokemon.minSpeed()
 
-    const speedDefinition = pokemon.maxMeta()
-
-    expect(speedDefinition.pokemonName).toEqual("Flutter Mane")
-    expect(speedDefinition.description).toEqual("Meta Speed")
+      expect(speedDefinition.value).toEqual(620)
+    })
   })
 
-  it('should return meta speed of Rillaboom', () => {
-    const pokemon = new Pokemon("Rillaboom", { evs: { spe: 28 } })
+  describe('max speed', () => {
 
-    const speedDefinition = pokemon.maxMeta()
+    it('should return max speed description and Pokémon name', () => {
+      const pokemon = new Pokemon("Flutter Mane")
 
-    expect(speedDefinition.value).toEqual(109)
+      const speedDefinition = pokemon.maxSpeed()
+
+      expect(speedDefinition.pokemonName).toEqual("Flutter Mane")
+      expect(speedDefinition.description).toEqual("Max. Speed")
+    })
+  
+    it('should return max speed of Raging Bolt', () => {
+      const pokemon = new Pokemon("Raging Bolt")
+
+      const speedDefinition = pokemon.maxSpeed()
+
+      expect(speedDefinition.value).toEqual(139)
+    })
+
+    it('should return max speed of Chien-Pao', () => {
+      const pokemon = new Pokemon("Chien-Pao")
+
+      const speedDefinition = pokemon.maxSpeed()
+
+      expect(speedDefinition.value).toEqual(205)
+    })
+
+    it('should return max speed of a Trick Room Pokémon', () => {
+      const pokemon = new Pokemon("Torkoal")
+
+      const speedDefinition = pokemon.maxSpeed()
+
+      expect(speedDefinition.value).toEqual(79)
+    })
+    
+    it('should return max speed of Chien-Pao with -1 in speed', () => {
+      const pokemon = new Pokemon("Chien-Pao", { boosts: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: -1 }})
+
+      const speedDefinition = pokemon.maxSpeed()
+
+      expect(speedDefinition.value).toEqual(136)
+    })
+
+    it('should return max speed of Chien-Pao with -6 in speed', () => {
+      const pokemon = new Pokemon("Chien-Pao", { boosts: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: -6 }})
+
+      const speedDefinition = pokemon.maxSpeed()
+
+      expect(speedDefinition.value).toEqual(51)
+    })
+
+    it('should return max speed of Chien-Pao with +1 in speed', () => {
+      const pokemon = new Pokemon("Chien-Pao", { boosts: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 1 }})
+
+      const speedDefinition = pokemon.maxSpeed()
+
+      expect(speedDefinition.value).toEqual(307)
+    })
+
+    it('should return max speed of Chien-Pao with +6 in speed', () => {
+      const pokemon = new Pokemon("Chien-Pao", { boosts: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 6 }})
+
+      const speedDefinition = pokemon.maxSpeed()
+
+      expect(speedDefinition.value).toEqual(820)
+    })
   })
 
-  it('should return meta speed of scarf Urshifu', () => {
-    const pokemon = new Pokemon("Urshifu-Rapid-Strike", { item: "Choice Scarf", evs: { spe: 252 } })
+  describe('meta speed', () => {
 
-    const speedDefinition = pokemon.maxMeta()
+    it('should return meta speed description and Pokémon name', () => {
+      const pokemon = new Pokemon("Flutter Mane")
 
-    expect(speedDefinition.value).toEqual(223)
-  })
+      const speedDefinition = pokemon.maxMeta()
 
-  it('should return meta speed of booster Flutter Mane', () => {
-    const pokemon = new Pokemon("Flutter Mane", { nature: "Timid", evs: { spe: 124 } })
+      expect(speedDefinition.pokemonName).toEqual("Flutter Mane")
+      expect(speedDefinition.description).toEqual("Meta Speed")
+    })
 
-    const speedDefinition = pokemon.maxMeta()
+    it('should return meta speed of Rillaboom', () => {
+      const pokemon = new Pokemon("Rillaboom", { evs: { spe: 28 } })
 
-    expect(speedDefinition.value).toEqual(282)
-  })
+      const speedDefinition = pokemon.maxMeta()
 
-  it('should return meta speed of scarf Flutter Mane with Protosynthesis activated', () => {
-    const pokemon = new Pokemon("Flutter Mane", { item: "Choice Scarf", nature: "Timid", evs: { spe: 124 } })
+      expect(speedDefinition.value).toEqual(109)
+    })
 
-    const speedDefinition = pokemon.maxMeta()
+    it('should return meta speed of scarf Urshifu', () => {
+      const pokemon = new Pokemon("Urshifu-Rapid-Strike", { item: "Choice Scarf", evs: { spe: 252 } })
 
-    expect(speedDefinition.value).toEqual(423)
+      const speedDefinition = pokemon.maxMeta()
+
+      expect(speedDefinition.value).toEqual(223)
+    })
+
+    it('should return meta speed of booster Flutter Mane', () => {
+      const pokemon = new Pokemon("Flutter Mane", { nature: "Timid", evs: { spe: 124 } })
+
+      const speedDefinition = pokemon.maxMeta()
+
+      expect(speedDefinition.value).toEqual(282)
+    })
+
+    it('should return meta speed of scarf Flutter Mane with Protosynthesis activated', () => {
+      const pokemon = new Pokemon("Flutter Mane", { item: "Choice Scarf", nature: "Timid", evs: { spe: 124 } })
+
+      const speedDefinition = pokemon.maxMeta()
+
+      expect(speedDefinition.value).toEqual(423)
+    })
   })
 
 })
