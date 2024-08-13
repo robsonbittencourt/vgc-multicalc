@@ -1,21 +1,21 @@
-import { Pokemon as PokemonSmogon, Generations } from "@smogon/calc";
-import { StatsTable, StatusName, TypeName } from "@smogon/calc/dist/data/interface";
-import { MoveSet } from "./moveset";
-import { Move } from "./move";
-import dedent from "dedent";
-import { AllPokemon } from "src/data/all-pokemon";
+import { Pokemon as PokemonSmogon, Generations } from "@smogon/calc"
+import { StatsTable, StatusName, TypeName } from "@smogon/calc/dist/data/interface"
+import { MoveSet } from "./moveset"
+import { Move } from "./move"
+import dedent from "dedent"
+import { AllPokemon } from "src/data/all-pokemon"
 
 export class Pokemon {
   public pokemonSmogon: PokemonSmogon
   public teraTypeStorage: string
-  public evsStorage: Partial<StatsTable> & { spc?: number; }
-  public ivsStorage: Partial<StatsTable> & { spc?: number; }
+  public evsStorage: Partial<StatsTable> & { spc?: number }
+  public ivsStorage: Partial<StatsTable> & { spc?: number }
   private moveSetStorage: MoveSet
   private statusStorage?: string
   private paradoxAbilityActivatedStorage: boolean
   private commanderActivatedStorage: boolean
   private selectPokemonLabel: string = "Select a Pokémon"
-  
+
   constructor(name: string, options: {
       ability?: string,
       nature?: string,
@@ -24,8 +24,8 @@ export class Pokemon {
       teraTypeActive?: boolean,
       evs?: Partial<StatsTable> & { spc?: number; }, 
       moveSet?: MoveSet,
-      boosts?: StatsTable | undefined,
-      status?: string | undefined,
+      boosts?: Partial<StatsTable> | undefined,
+      status?: string,
       ivs?: Partial<StatsTable> & { spc?: number; } | undefined
       paradoxAbilityActivated?: boolean
   } = {}) {
