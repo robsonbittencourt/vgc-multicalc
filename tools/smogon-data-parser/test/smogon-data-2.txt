@@ -1,0 +1,101 @@
+ +----------------------------------------+ 
+ | Urshifu-Rapid-Strike                   | 
+ +----------------------------------------+ 
+ | Raw count: 233132                      | 
+ | Avg. weight: 0.0526795871657           | 
+ | Viability Ceiling: 89                  | 
+ +----------------------------------------+ 
+ | Abilities                              | 
+ | Unseen Fist 100.000%                   | 
+ +----------------------------------------+ 
+ | Items                                  | 
+ | Focus Sash 35.943%                     | 
+ | Choice Scarf 33.403%                   | 
+ | Mystic Water 15.303%                   | 
+ | Choice Band  6.699%                    | 
+ | Safety Goggles  4.062%                 | 
+ | Other  4.591%                          | 
+ +----------------------------------------+ 
+ | Spreads                                | 
+ | Adamant:4/252/0/0/0/252 29.769%        | 
+ | Adamant:0/252/0/0/4/252 10.531%        | 
+ | Adamant:12/236/4/0/4/252  4.125%       | 
+ | Adamant:0/252/4/0/0/252  4.057%        | 
+ | Jolly:4/252/0/0/0/252  3.798%          | 
+ | Adamant:4/236/4/0/12/252  3.665%       | 
+ | Other 44.056%                          | 
+ +----------------------------------------+ 
+ | Moves                                  | 
+ | Surging Strikes 99.999%                | 
+ | Close Combat 95.817%                   | 
+ | Aqua Jet 72.755%                       | 
+ | U-turn 40.146%                         | 
+ | Detect 33.450%                         | 
+ | Protect 26.255%                        | 
+ | Coaching 12.444%                       | 
+ | Other 19.134%                          | 
+ +----------------------------------------+ 
+ | Teammates                              | 
+ | Rillaboom 55.895%                      | 
+ | Incineroar 43.327%                     | 
+ | Raging Bolt 41.868%                    | 
+ | Calyrex-Shadow 35.462%                 | 
+ | Amoonguss 24.194%                      | 
+ | Calyrex-Ice 23.986%                    | 
+ | Farigiraf 21.242%                      | 
+ | Ogerpon-Hearthflame 17.499%            | 
+ | Chien-Pao 14.882%                      | 
+ | Tornadus 13.131%                       | 
+ | Iron Hands 12.375%                     | 
+ +----------------------------------------+ 
+ | Checks and Counters                    | 
+ +----------------------------------------+ 
+ +----------------------------------------+ 
+ | Rillaboom                              | 
+ +----------------------------------------+ 
+ | Raw count: 220794                      | 
+ | Avg. weight: 0.0453372908615           | 
+ | Viability Ceiling: 89                  | 
+ +----------------------------------------+ 
+ | Abilities                              | 
+ | Grassy Surge 99.906%                   | 
+ | Overgrow  0.094%                       | 
+ +----------------------------------------+ 
+ | Items                                  | 
+ | Assault Vest 89.360%                   | 
+ | Miracle Seed  6.582%                   | 
+ | Other  4.059%                          | 
+ +----------------------------------------+ 
+ | Spreads                                | 
+ | Adamant:236/116/4/0/76/76  4.198%      | 
+ | Adamant:252/116/4/0/76/60  3.587%      | 
+ | Adamant:204/116/4/0/76/108  3.320%     | 
+ | Adamant:236/36/4/0/148/84  3.108%      | 
+ | Adamant:236/36/4/0/172/60  2.474%      | 
+ | Adamant:236/148/4/0/44/76  2.278%      | 
+ | Other 81.034%                          | 
+ +----------------------------------------+ 
+ | Moves                                  | 
+ | Grassy Glide 99.982%                   | 
+ | Wood Hammer 98.499%                    | 
+ | Fake Out 97.315%                       | 
+ | U-turn 92.501%                         | 
+ | Other 11.703%                          | 
+ +----------------------------------------+ 
+ | Teammates                              | 
+ | Urshifu-Rapid-Strike 68.572%           | 
+ | Incineroar 47.284%                     | 
+ | Raging Bolt 46.468%                    | 
+ | Calyrex-Shadow 42.864%                 | 
+ | Amoonguss 19.213%                      | 
+ | Flutter Mane 18.584%                   | 
+ | Calyrex-Ice 17.555%                    | 
+ | Clefairy 16.328%                       | 
+ | Farigiraf 15.250%                      | 
+ | Chien-Pao 14.107%                      | 
+ | Ogerpon-Hearthflame 14.061%            | 
+ +----------------------------------------+ 
+ | Checks and Counters                    | 
+ | Tatsugiri 54.690 (78.73±6.01)          |
+ |	 (28.0% KOed / 50.7% switched out)    | 
+ +----------------------------------------+ 

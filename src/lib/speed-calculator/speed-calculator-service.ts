@@ -3,6 +3,7 @@ import { Pokemon } from "../pokemon"
 import { SpeedDefinition } from "./speed-definition"
 import { Field, Generations, Pokemon as PokemonSmogon } from "@smogon/calc";
 import { SmogonFunctions } from "../smogon-functions/smogon-functions";
+import { speedMeta } from "./speed-meta";
 
 @Injectable({
   providedIn: 'root'
@@ -10,16 +11,6 @@ import { SmogonFunctions } from "../smogon-functions/smogon-functions";
 export class SpeedCalculatorService {
 
   constructor(private smogonService: SmogonFunctions) { }
-
-  metaPokes = [
-    new Pokemon("Urshifu-Rapid-Strike", { item: "Choice Scarf", evs: { spe: 252 } }),
-    new Pokemon("Incineroar", { nature: "Jolly", evs: { spe: 252 } }),
-    new Pokemon("Rillaboom", { evs: { spe: 28 } }),
-    new Pokemon("Amoonguss"),
-    new Pokemon("Flutter Mane", { nature: "Timid", evs: { spe: 252 } }),
-    new Pokemon("Calyrex-Shadow", { nature: "Timid", evs: { spe: 252 } }),
-    new Pokemon("Ursaluna-Bloodmoon", { nature: "Quiet", ivs: { spe: 0 } }),
-  ]
 
   orderedPokemon(pokemon: Pokemon): SpeedDefinition[] {
     const speedDefinitions: SpeedDefinition[] = []
@@ -32,21 +23,23 @@ export class SpeedCalculatorService {
 
     speedDefinitions.push(new SpeedDefinition(pokemon.name, pokemon.modifiedSpe(), "Actual Speed"))
 
-    const ordered = speedDefinitions.sort((a, b) => a.value - b.value)
+    const ordered = speedDefinitions.sort((a, b) => b.value - a.value)
 
     return ordered
   }
 
   garantedSlowestPokemon(pokemon: Pokemon): SpeedDefinition[] {
-    return this.metaPokes
+    return speedMeta()
       .filter(p => this.maxSpeed(p).value < this.minSpeed(pokemon).value)
       .map(p => this.maxSpeed(p))
+      .sort((a, b) => b.value - a.value)
   }  
 
   garantedFasterPokemon(pokemon: Pokemon): SpeedDefinition[] {
-    return this.metaPokes
+    return speedMeta()
       .filter(p => this.minSpeed(p).value > this.maxSpeed(pokemon).value)
       .map(p => this.minSpeed(p))
+      .sort((a, b) => b.value - a.value)
   }
 
   minSpeed(pokemon: Pokemon, field: Field = new Field()): SpeedDefinition {
@@ -86,7 +79,7 @@ export class SpeedCalculatorService {
     const slowerPokemon = this.garantedSlowestPokemon(pokemon)
     const fasterPokemon = this.garantedFasterPokemon(pokemon)
 
-    return this.metaPokes
+    return speedMeta()
       .filter(p => slowerPokemon.every(poke => poke.pokemonName != p.name))
       .filter(p => fasterPokemon.every(poke => poke.pokemonName != p.name))
   }
