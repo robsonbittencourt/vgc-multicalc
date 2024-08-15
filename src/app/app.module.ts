@@ -38,6 +38,7 @@ import { TeamBoxComponent } from './team-box/team-box.component';
 import { TeamExportModalComponent } from './team-export-modal/team-export-modal.component';
 import { TeamImportModalComponent } from './team-import-modal/team-import-modal.component';
 import { PokemonEditMobileComponent } from './pokemon-edit-mobile/pokemon-edit-mobile.component';
+import { SmogonFunctions } from 'src/lib/smogon-functions/smogon-functions';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,7 @@ import { PokemonEditMobileComponent } from './pokemon-edit-mobile/pokemon-edit-m
     MatTabsModule,
     MatDialogModule
   ],
-  providers: [],
+  providers: [SmogonFunctions],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

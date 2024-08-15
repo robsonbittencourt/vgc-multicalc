@@ -1,0 +1,52 @@
+ +----------------------------------------+ 
+ | Urshifu-Rapid-Strike                   | 
+ +----------------------------------------+ 
+ | Raw count: 233132                      | 
+ | Avg. weight: 0.0526795871657           | 
+ | Viability Ceiling: 89                  | 
+ +----------------------------------------+ 
+ | Abilities                              | 
+ | Unseen Fist 100.000%                   | 
+ +----------------------------------------+ 
+ | Items                                  | 
+ | Focus Sash 35.943%                     | 
+ | Choice Scarf 33.403%                   | 
+ | Mystic Water 15.303%                   | 
+ | Choice Band  6.699%                    | 
+ | Safety Goggles  4.062%                 | 
+ | Other  4.591%                          | 
+ +----------------------------------------+ 
+ | Spreads                                | 
+ | Adamant:4/252/0/0/0/252 29.769%        | 
+ | Adamant:0/252/0/0/4/252 10.531%        | 
+ | Adamant:12/236/4/0/4/252  4.125%       | 
+ | Adamant:0/252/4/0/0/252  4.057%        | 
+ | Jolly:4/252/0/0/0/252  3.798%          | 
+ | Adamant:4/236/4/0/12/252  3.665%       | 
+ | Other 44.056%                          | 
+ +----------------------------------------+ 
+ | Moves                                  | 
+ | Surging Strikes 99.999%                | 
+ | Close Combat 95.817%                   | 
+ | Aqua Jet 72.755%                       | 
+ | U-turn 40.146%                         | 
+ | Detect 33.450%                         | 
+ | Protect 26.255%                        | 
+ | Coaching 12.444%                       | 
+ | Other 19.134%                          | 
+ +----------------------------------------+ 
+ | Teammates                              | 
+ | Rillaboom 55.895%                      | 
+ | Incineroar 43.327%                     | 
+ | Raging Bolt 41.868%                    | 
+ | Calyrex-Shadow 35.462%                 | 
+ | Amoonguss 24.194%                      | 
+ | Calyrex-Ice 23.986%                    | 
+ | Farigiraf 21.242%                      | 
+ | Ogerpon-Hearthflame 17.499%            | 
+ | Chien-Pao 14.882%                      | 
+ | Tornadus 13.131%                       | 
+ | Iron Hands 12.375%                     | 
+ +----------------------------------------+ 
+ | Checks and Counters                    | 
+ +----------------------------------------+ 
