@@ -14,7 +14,6 @@ import { TeamExportModalComponent } from '../team-export-modal/team-export-modal
 import { TeamImportModalComponent } from '../team-import-modal/team-import-modal.component';
 import { PokePasteParserService } from 'src/lib/poke-paste-parser.service';
 import { NoopScrollStrategy } from '@angular/cdk/overlay';
-import { SpeedCalculatorService } from 'src/lib/speed-calculator/speed-calculator-service';
 
 @Component({
   selector: 'app-main-pokemon',

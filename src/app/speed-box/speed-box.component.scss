@@ -1,0 +1,24 @@
+.speed-box-up {
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  border-bottom: 2px solid;
+}
+
+.speed-box-down {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pokemon-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.pokemon-image img {
+  width: 80px;
+  height: 80px;
+}

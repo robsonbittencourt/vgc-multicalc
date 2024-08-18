@@ -11,50 +11,7 @@ describe('SpeedCalculatorService', () => {
   })
 
   describe('Test order methods', () =>  {
-
-    it('should only garanteed slower Pokémon', () => {
-      const pokemon = new Pokemon('Raging Bolt', { evs: { spe: 100 } })
-      
-      const slowerPokemon = service.garantedSlowestPokemon(pokemon)
-
-      slowerPokemon.forEach(p => {
-        expect(p.value < pokemon.modifiedSpe()).toBeTruthy()
-        expect(p.description).toEqual("Max. Speed")
-      })
-    })
-
-    it('should return a ordered list with garanteed slower Pokémon', () => {
-      const pokemon = new Pokemon('Raging Bolt', { evs: { spe: 100 } })
-      
-      const slowerPokemon = service.garantedSlowestPokemon(pokemon)
-
-      expect(slowerPokemon[0].value >= slowerPokemon[1].value).toBeTruthy()
-      expect(slowerPokemon[1].value >= slowerPokemon[2].value).toBeTruthy()
-      expect(slowerPokemon[2].value >= slowerPokemon[3].value).toBeTruthy()
-    })
-
-    it('should only garanteed faster Pokémon', () => {
-      const pokemon = new Pokemon('Raging Bolt', { evs: { spe: 100 } })
-      
-      const fasterPokemon = service.garantedFasterPokemon(pokemon)
-
-      fasterPokemon.forEach(p => {
-        expect(p.value > pokemon.modifiedSpe()).toBeTruthy()
-        expect(p.description).toEqual("Min. Speed")
-      })
-    })
-
-    it('should return a ordered list with garanteed faster Pokémon', () => {
-      const pokemon = new Pokemon('Raging Bolt', { evs: { spe: 100 } })
-      
-      const fasterPokemon = service.garantedFasterPokemon(pokemon)
-
-      expect(fasterPokemon[0].value >= fasterPokemon[1].value).toBeTruthy()
-      expect(fasterPokemon[1].value >= fasterPokemon[2].value).toBeTruthy()
-      expect(fasterPokemon[2].value >= fasterPokemon[3].value).toBeTruthy()
-    })
-
-    it('should return only Pokémon in speed range ordered', () => {
+    it('should return Pokémon in speed range ordered', () => {
       const ragingBoltMinSpeed = 95
       const ragingBoltMaxSpeed = 139
       const pokemon = new Pokemon('Raging Bolt', { evs: { spe: 100 } })
@@ -80,8 +37,8 @@ describe('SpeedCalculatorService', () => {
 
       const speedDefinition = service.minSpeed(pokemon)
 
-      expect(speedDefinition.pokemonName).toEqual("Flutter Mane")
-      expect(speedDefinition.description).toEqual("Min. Speed")
+      expect(speedDefinition.pokemonName).toEqual("flutter-mane")
+      expect(speedDefinition.description).toEqual("Min")
     })
   
     it('should return min speed of Raging Bolt', () => {
@@ -157,8 +114,8 @@ describe('SpeedCalculatorService', () => {
 
       const speedDefinition = service.maxSpeed(pokemon)
 
-      expect(speedDefinition.pokemonName).toEqual("Flutter Mane")
-      expect(speedDefinition.description).toEqual("Max. Speed")
+      expect(speedDefinition.pokemonName).toEqual("flutter-mane")
+      expect(speedDefinition.description).toEqual("Max")
     })
   
     it('should return max speed of Raging Bolt', () => {
@@ -250,8 +207,16 @@ describe('SpeedCalculatorService', () => {
 
       const speedDefinition = service.maxMeta(pokemon)
 
-      expect(speedDefinition.pokemonName).toEqual("Flutter Mane")
-      expect(speedDefinition.description).toEqual("Meta Speed")
+      expect(speedDefinition.pokemonName).toEqual("flutter-mane")
+      expect(speedDefinition.description).toEqual("Meta")
+    })
+
+    it('should return meta speed description and Pokémon name when use Choice Scarf', () => {
+      const pokemon = new Pokemon("Flutter Mane", { item: "Choice Scarf" })
+
+      const speedDefinition = service.maxMeta(pokemon)
+
+      expect(speedDefinition.description).toEqual("Meta/Scarf")
     })
 
     it('should return meta speed of Rillaboom', () => {

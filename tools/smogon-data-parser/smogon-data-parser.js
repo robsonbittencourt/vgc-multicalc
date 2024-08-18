@@ -25,8 +25,7 @@ export function createSpeedMetaFile(data) {
 
 export function speedMeta(): Pokemon[] {
   return [
-${printNewPokemon(pokemon)}
-  ]  
+${printNewPokemon(pokemon)} ]  
 }`
 
   return classContent
@@ -43,6 +42,7 @@ export function parseSmogonData(data) {
         return LINE_SEPARATOR + it
       }
     })
+    .slice(0, 100)
 
   return pokemon.map(p => parsePokemonData(p))
 }

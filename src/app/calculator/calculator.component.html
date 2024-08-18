@@ -10,6 +10,9 @@
       <div class="menu-option" [ngStyle]="manyVsOneActivated && { 'background-color': '#e7def6' } || null" (click)="enableManyVsOne()" data-cy="many-vs-team">
         <span>Many vs Team</span>
       </div>
+      <div class="menu-option" [ngStyle]="speedCalculatorActivated && { 'background-color': '#e7def6' } || null" (click)="enableSpeedCalculator()" data-cy="speed-calculator">
+        <span>Speed Calculator</span>
+      </div>
     </div>
   </div>
   <div *ngIf="isDesktopDevice()" class="right-header">
@@ -31,13 +34,17 @@
 
   <div>
     <app-teams [teams]="teams" (teamChanged)="teamChanged($event)"/>
-    <app-field (fieldChangedEvent)="fieldChanged($event)" [field]="field" [criticalHit]="criticalHit" (criticalHitChangedEvent)="criticalHitChanged($event)"/>
+    <app-field (fieldChangedEvent)="fieldChanged($event)" [field]="field" [criticalHit]="criticalHit" (criticalHitChangedEvent)="criticalHitChanged($event)" [isTrickRoom]="isTrickRoom" (trickRoomChangedEvent)="trickRoomChanged($event)"/>
   </div> 
 
-  <div class="target-pokemon">
+  <div class="target-pokemon" *ngIf="manyVsOneActivated || oneVsManyActivated">
     <app-target-pokemon [targets]="targets" [isAttacker]="manyVsOneActivated" (targetChangedEvent)="targetChanged($event)"
      (allTargetsRemoved)="removeAllTargets()" (targetAdded)="pokemonAddedToTargets()" (targetsAdded)="targetsAdded($event)" (targetRemovedEvent)="targetRemoved()"
      (targetActivatedEvent)=targetActivated($event) (secondTargetDeactivatedEvent)=secondTargetDeactivated() [showDamageDescription]="!activeOnEditPokemon.isDefault()"/>
+  </div>
+
+  <div class="target-pokemon" *ngIf="speedCalculatorActivated">
+    <app-speed-calculator [pokemon]="activeOnEditPokemon" [field]="field" [isTrickRoom]="isTrickRoom"/>
   </div>
 </div>
 

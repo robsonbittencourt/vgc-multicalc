@@ -1,0 +1,15 @@
+<div *ngIf="speedDefinition.description == ''" class="speed-box-down"></div>
+<div *ngIf="speedDefinition.description != ''" class="speed-box-up" [ngStyle]="isActual(speedDefinition) && { 'font-weight': '600' } || null">
+  {{ speedDefinition.value }}
+</div>
+<div *ngIf="speedDefinition.description != ''" class="speed-box-down" [ngStyle]="isActual(speedDefinition) && { 'background-color': '#e7def6' } || null">
+  <div [@openClose]="{
+    value: 1,
+    params: {
+      leaveEnd: getAnimation()
+    }
+  }" class="pokemon-image">
+    <img src='https://img.pokemondb.net/sprites/scarlet-violet/normal/{{ speedDefinition.pokemonName }}.png'>
+    <label [ngStyle]="isActual(speedDefinition) && { 'font-weight': '600' } || null">{{ speedDefinition.description }}</label>
+  </div>
+</div>
