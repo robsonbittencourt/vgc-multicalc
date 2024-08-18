@@ -15,11 +15,17 @@ export class FieldComponent {
   @Input()
   criticalHit: boolean
 
+  @Input()
+  isTrickRoom: boolean
+
   @Output() 
   fieldChangedEvent = new EventEmitter<Field>();
 
   @Output() 
-  criticalHitChangedEvent = new EventEmitter<boolean>();
+  criticalHitChangedEvent = new EventEmitter<boolean>()
+
+  @Output() 
+  trickRoomChangedEvent = new EventEmitter<boolean>()
 
   private differField: KeyValueDiffer<string, any>
   private differFieldAttacker: KeyValueDiffer<string, any>
@@ -49,6 +55,10 @@ export class FieldComponent {
 
   oSingleTargetChance(singleTarget: boolean) {
     this.field.gameType = singleTarget ? 'Singles' : 'Doubles'
+  }
+
+  onTrickRoomChanged(trickRoom: boolean) {
+    this.trickRoomChangedEvent.emit(trickRoom)
   }
 
   toggleChangeWeather(change: MatButtonToggleChange) {

@@ -31,11 +31,13 @@ export class CalculatorComponent {
     gameType: 'Doubles'
   })
   criticalHit: boolean = false
+  isTrickRoom: boolean = false
   activeOnEditPokemon: Pokemon
   activeAttackerPokemon: Pokemon
   activeSecondAttacker?: Pokemon
-  oneVsManyActivated: boolean = true
+  oneVsManyActivated: boolean = false
   manyVsOneActivated: boolean = false
+  speedCalculatorActivated: boolean = true
   
   targets: Target[] = []
 
@@ -210,9 +212,14 @@ export class CalculatorComponent {
     this.updateLocalStorage()
   }
 
+  trickRoomChanged(isTrickRoom: boolean) {
+    this.isTrickRoom = isTrickRoom
+  }
+
   enableOneVsMany() {
     this.oneVsManyActivated = true
     this.manyVsOneActivated = false
+    this.speedCalculatorActivated = false
     this.activateOnlyFirstTeamMember()
     this.deactivateTargets()
     this.calculateDamageForAll()
@@ -222,11 +229,18 @@ export class CalculatorComponent {
   enableManyVsOne() {
     this.manyVsOneActivated = true
     this.oneVsManyActivated = false
+    this.speedCalculatorActivated = false
     this.activeSecondAttacker = undefined
     this.activateOnlyFirstTeamMember()
     this.deactivateTargets()    
     this.calculateDamageForAll()
     this.order()
+  }
+
+  enableSpeedCalculator() {
+    this.oneVsManyActivated = false
+    this.manyVsOneActivated = false
+    this.speedCalculatorActivated = true
   }
 
   private alreadyExists(pokemon: Pokemon): boolean {

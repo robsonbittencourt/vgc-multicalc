@@ -39,6 +39,8 @@ import { TeamExportModalComponent } from './team-export-modal/team-export-modal.
 import { TeamImportModalComponent } from './team-import-modal/team-import-modal.component';
 import { PokemonEditMobileComponent } from './pokemon-edit-mobile/pokemon-edit-mobile.component';
 import { SmogonFunctions } from 'src/lib/smogon-functions/smogon-functions';
+import { SpeedCalculatorComponent } from './speed-calculator/speed-calculator.component';
+import { SpeedBoxComponent } from './speed-box/speed-box.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +59,9 @@ import { SmogonFunctions } from 'src/lib/smogon-functions/smogon-functions';
     TeamBoxComponent,
     TeamExportModalComponent,
     TeamImportModalComponent,
-    PokemonEditMobileComponent
+    PokemonEditMobileComponent,
+    SpeedCalculatorComponent,
+    SpeedBoxComponent
   ],
   imports: [
     ReactiveFormsModule,

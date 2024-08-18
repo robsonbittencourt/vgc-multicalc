@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="header">
+    <div>
+      <span class="title">Speed List</span>  
+    </div>
+    <div class="header-buttons-section">
+      <div class="header-buttons-text">
+        <span class="header-buttons-title">Options to opponent side</span>
+        <span>Use Your Team and Field section for more options</span>
+      </div>
+      <div class="header-buttons text-color">
+        <mat-button-toggle-group multiple class="button-group">
+          <mat-button-toggle [checked]="options.speedDropMoveActive" (change)="toggleSpeedDropMoveActive($event.source.checked)">1x Ice Wind/Electroweb</mat-button-toggle>
+          <mat-button-toggle [checked]="options.paralyzedActive" (change)="toggleParalyzedActive($event.source.checked)">Paralyzed</mat-button-toggle>
+          <mat-button-toggle [checked]="options.choiceScarfActive" (change)="toggleChoiceScarfActive($event.source.checked)">Choice Scarf</mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+    </div>
+  </div>
+  <div class="center-section text-color">
+    <div class="speed-box" *ngFor="let speedDefinition of inSpeedRange">
+      <app-speed-box [speedDefinition]="speedDefinition" [speedChanged]="speedOrderChanged" [speedIncreasing]="speedOrderIncrease" />
+    </div>
+  </div>
+</div>

@@ -35,9 +35,10 @@
 
       <div class="rooms-section">
         <mat-button-toggle-group multiple class="button-group">
-          <mat-button-toggle [checked]="field.isMagicRoom" (change)="field.isMagicRoom = $event.source.checked" data-cy="magic-room">Magic Room</mat-button-toggle>
-          <mat-button-toggle [checked]="field.isWonderRoom" (change)="field.isWonderRoom = $event.source.checked" data-cy="wonder-room">Wonder Room</mat-button-toggle>
           <mat-button-toggle [checked]="field.isGravity" (change)="field.isGravity = $event.source.checked" data-cy="gravity">Gravity</mat-button-toggle>
+          <mat-button-toggle [checked]="field.isMagicRoom" (change)="field.isMagicRoom = $event.source.checked" data-cy="magic-room">M. Room</mat-button-toggle>
+          <mat-button-toggle [checked]="field.isWonderRoom" (change)="field.isWonderRoom = $event.source.checked" data-cy="wonder-room">W. Room</mat-button-toggle>
+          <mat-button-toggle [checked]="isTrickRoom" (change)="onTrickRoomChanged($event.source.checked)">TrickRoom</mat-button-toggle>
         </mat-button-toggle-group>
       </div>
     </div>
