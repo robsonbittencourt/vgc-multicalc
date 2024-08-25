@@ -9,8 +9,16 @@
         <span>Use Your Team and Field section for more options</span>
       </div>
       <div class="header-buttons text-color">
+        <label>Speed Modifier</label>
+        <div class="dense-2">
+          <mat-form-field appearance="outline" class="mat-ev-stat-modifier">
+            <mat-select class="mat-small" [(value)]="statsModifier">
+              <mat-option class="mat-small" *ngFor="let statsModifier of statsModifiers" [value]="statsModifier.value">{{ statsModifier.viewValue }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
         <mat-button-toggle-group multiple class="button-group">
-          <mat-button-toggle [checked]="options.speedDropMoveActive" (change)="toggleSpeedDropMoveActive($event.source.checked)">1x Ice Wind/Electroweb</mat-button-toggle>
+          <mat-button-toggle [checked]="speedDropMoveActive" (change)="toggleSpeedDropMoveActive($event.source.checked)">1x Ice Wind/Electroweb</mat-button-toggle>
           <mat-button-toggle [checked]="options.paralyzedActive" (change)="toggleParalyzedActive($event.source.checked)">Paralyzed</mat-button-toggle>
           <mat-button-toggle [checked]="options.choiceScarfActive" (change)="toggleChoiceScarfActive($event.source.checked)">Choice Scarf</mat-button-toggle>
         </mat-button-toggle-group>

@@ -12,6 +12,16 @@ import { SpeedDefinition } from 'src/lib/speed-calculator/speed-definition';
 })
 export class SpeedCalculatorComponent {
 
+  statsModifierValue: number = 0
+  statsModifiers = [
+    { value: 6, viewValue: "+6"}, { value: 5, viewValue: "+5"}, { value: 4, viewValue: "+4"},
+    { value: 3, viewValue: "+3"}, { value: 2, viewValue: "+2"}, { value: 1, viewValue: "+1"},
+    { value: 0, viewValue: "--"},
+    { value: -1, viewValue: "-1"}, { value: -2, viewValue: "-2"}, { value: -3, viewValue: "-3"},
+    { value: -4, viewValue: "-4"}, { value: -5, viewValue: "-5"}, { value: -6, viewValue: "-6"},
+  ]
+  speedDropMoveActive: boolean = false
+
   @Input()
   pokemon: Pokemon
 
@@ -20,6 +30,22 @@ export class SpeedCalculatorComponent {
 
   @Input()
   isTrickRoom: boolean
+
+  @Input()
+  get statsModifier(): number {
+    return this.statsModifierValue
+  }
+
+  set statsModifier(statsModifier: number) {
+    this.statsModifierValue = statsModifier
+    this.options.speedModifier = statsModifier
+
+    if(statsModifier != 1) {
+      this.speedDropMoveActive = false
+    }
+
+    this.calculateSpeedRange()
+  }
   
   inSpeedRange: SpeedDefinition[]
   options: SpeedCalculatorOptions = new SpeedCalculatorOptions()
@@ -122,8 +148,11 @@ export class SpeedCalculatorComponent {
   }
 
   toggleSpeedDropMoveActive(speedDropActive: boolean) {
-    this.options.speedDropMoveActive = speedDropActive
-    this.calculateSpeedRange()
+    if(speedDropActive) {
+      this.statsModifier = -1
+    } else {
+      this.statsModifier = 0
+    }
   }
 
   toggleParalyzedActive(paralyzedActive: boolean) {
