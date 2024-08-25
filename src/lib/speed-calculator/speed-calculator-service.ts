@@ -51,12 +51,10 @@ export class SpeedCalculatorService {
   }
 
   adjustPokemonByOptions(pokemon: Pokemon, options: SpeedCalculatorOptions) {
+    pokemon.boosts.spe = options.speedModifier
+    
     if (options.paralyzedActive) {
       pokemon.status = "Paralysis"
-    }
-
-    if (options.speedDropMoveActive) {
-      pokemon.boosts.spe = -1
     }
 
     if (options.choiceScarfActive) {

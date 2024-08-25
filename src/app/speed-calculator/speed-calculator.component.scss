@@ -54,10 +54,16 @@
 .header-buttons {
   display: flex;
   gap: 1em;
+  align-items: center;
 }
 
 .speed-box {
   display: grid;
   grid-template-rows: 1fr 1fr;
   height: 150px;
+}
+
+.mat-ev-stat-modifier {
+  width: 4em;
+  margin-bottom: -1.3em;
 }

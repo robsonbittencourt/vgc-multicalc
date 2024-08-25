@@ -1,15 +1,15 @@
 export class SpeedCalculatorOptions {
 
-  public speedDropMoveActive: boolean
+  public speedModifier: number
   public paralyzedActive: boolean
   public choiceScarfActive: boolean
 
-  constructor(options: { 
-    speedDropMoveActive?: boolean
+  constructor(options: {
+    speedModifier?: number 
     paralyzedActive?: boolean
     choiceScarfActive?: boolean
   } = {}) {
-    this.speedDropMoveActive = options.speedDropMoveActive ?? false
+    this.speedModifier = options.speedModifier ?? 0
     this.paralyzedActive = options.paralyzedActive ?? false
     this.choiceScarfActive = options.choiceScarfActive ?? false
   }
