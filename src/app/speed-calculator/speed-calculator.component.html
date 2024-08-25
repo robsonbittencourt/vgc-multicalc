@@ -1,7 +1,11 @@
 <div class="container">
   <div class="header">
-    <div>
+    <div class="title-box">
       <span class="title">Speed List</span>  
+      <div class="regulation">
+        <label>Regulation</label>
+        <app-input-autocomplete [(value)]="regulation" [allValues]="regulationsList" (valueChange)="onRegulationSelected($event)"/>
+      </div>
     </div>
     <div class="header-buttons-section">
       <div class="header-buttons-text">
@@ -17,6 +21,7 @@
             </mat-select>
           </mat-form-field>
         </div>
+
         <mat-button-toggle-group multiple [hideMultipleSelectionIndicator]="true" class="button-group">
           <mat-button-toggle [checked]="speedDropMoveActive" (change)="toggleSpeedDropMoveActive($event.source.checked)">1x Ice Wind/Electroweb</mat-button-toggle>
           <mat-button-toggle [checked]="options.paralyzedActive" (change)="toggleParalyzedActive($event.source.checked)">Paralyzed</mat-button-toggle>

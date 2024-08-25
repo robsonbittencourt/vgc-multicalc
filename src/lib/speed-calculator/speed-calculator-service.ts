@@ -18,7 +18,7 @@ export class SpeedCalculatorService {
     const speed = this.smogonService.getFinalSpeed(pokemon, field, field.attackerSide)
     speedDefinitions.push(new SpeedDefinition(pokemon.spriteNameScarletViolet, speed, "Actual"))
     
-    speedMeta().forEach(p => {
+    speedMeta(options.regulation).forEach(p => {
       this.adjustPokemonByOptions(p, options)
       speedDefinitions.push(this.minSpeed(p, field))
       speedDefinitions.push(this.maxSpeed(p, field))
