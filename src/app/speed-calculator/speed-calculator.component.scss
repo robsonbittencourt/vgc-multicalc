@@ -18,6 +18,11 @@
   justify-content: space-between;
 }
 
+.title-box {
+  display: flex;
+  gap: 3em
+}
+
 .text-color * {
   color: rgb(88, 88, 90);
 }
@@ -66,4 +71,9 @@
 .mat-ev-stat-modifier {
   width: 4em;
   margin-bottom: -1.3em;
+}
+
+.regulation {
+  display: flex;
+  flex-direction: column;
 }

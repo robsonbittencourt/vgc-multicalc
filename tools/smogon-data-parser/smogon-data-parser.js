@@ -2,6 +2,7 @@ import fs from 'fs'
 import https from 'https'
 
 const LINE_SEPARATOR = "+----------------------------------------+"
+const POKEMON_QUANTITY = 250
 
 https.get(`https://www.smogon.com/stats/${getCurrentYearMonth()}/moveset/gen9vgc2024reggbo3-1760.txt`, (response) => {
   let content
@@ -42,7 +43,7 @@ export function parseSmogonData(data) {
         return LINE_SEPARATOR + it
       }
     })
-    .slice(0, 100)
+    .slice(0, POKEMON_QUANTITY)
 
   return pokemon.map(p => parsePokemonData(p))
 }

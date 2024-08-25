@@ -60,6 +60,9 @@ export class SpeedCalculatorComponent {
   status: string
   nature: string
 
+  regulation: string = "Reg G"
+  regulationsList: string[] = ["Reg G", "Reg H"]
+
   private differStatusModifiers: KeyValueDiffer<string, any>
   private differField: KeyValueDiffer<string, any>
   private differFieldAttacker: KeyValueDiffer<string, any>
@@ -162,6 +165,11 @@ export class SpeedCalculatorComponent {
 
   toggleChoiceScarfActive(choiceScarfActive: boolean) {
     this.options.choiceScarfActive = choiceScarfActive
+    this.calculateSpeedRange()
+  }
+
+  onRegulationSelected(regulation: string) {
+    this.options.regulation = regulation
     this.calculateSpeedRange()
   }
 
