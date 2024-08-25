@@ -78,10 +78,6 @@
         <mat-button-toggle [checked]="field.defenderSide.isFriendGuard" (change)="field.defenderSide.isFriendGuard = $event.source.checked" data-cy="friend-guard">Friend Guard</mat-button-toggle>
       </mat-button-toggle-group>
 
-      <mat-button-toggle-group multiple [hideMultipleSelectionIndicator]="true" class="button-group botton-space">
-        <mat-button-toggle [checked]="field.defenderSide.isTailwind" (change)="field.defenderSide.isTailwind = $event.source.checked" data-cy="tailwind-defender">Tailwind</mat-button-toggle>
-      </mat-button-toggle-group>
-
       <div class="button-group">
         <div class="max-width">
           <mat-button-toggle-group [hideSingleSelectionIndicator]="true" class="button-group">
@@ -93,12 +89,16 @@
         </div>
 
         <div class="max-width">
-          <mat-button-toggle-group multiple [hideMultipleSelectionIndicator]="true" class="button-group">
+          <mat-button-toggle-group multiple [hideMultipleSelectionIndicator]="true" class="button-group botton-space">
             <mat-button-toggle class="max-width" [checked]="field.defenderSide.isSR" (change)="field.defenderSide.isSR = $event.source.checked" data-cy="stealth-rock">Stealth Rock</mat-button-toggle>
             <mat-button-toggle class="max-width" [checked]="field.defenderSide.isSeeded" (change)="field.defenderSide.isSeeded = $event.source.checked" data-cy="leech-seed">Leech Seed</mat-button-toggle>
           </mat-button-toggle-group>
         </div>
       </div>
+
+      <mat-button-toggle-group multiple [hideMultipleSelectionIndicator]="true" class="button-group">
+        <mat-button-toggle [checked]="field.defenderSide.isTailwind" (change)="field.defenderSide.isTailwind = $event.source.checked" data-cy="tailwind-defender">Tailwind</mat-button-toggle>
+      </mat-button-toggle-group>
     </div>
   </div>  
 </div>
