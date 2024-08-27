@@ -7,34 +7,34 @@
       <div class="field-subtitle">
         <label>Both</label>
       </div>
-      <mat-button-toggle-group multiple [hideMultipleSelectionIndicator]="true" class="button-group">
+      <mat-button-toggle-group multiple class="button-group">
         <mat-button-toggle [checked]="field.isTabletsOfRuin" (change)="field.isTabletsOfRuin = $event.source.checked" data-cy="tablets-of-ruin">Tablets of Ruin (-atk)</mat-button-toggle>
         <mat-button-toggle [checked]="field.isSwordOfRuin" (change)="field.isSwordOfRuin = $event.source.checked" data-cy="sword-of-ruin">Sword of Ruin (-def)</mat-button-toggle>
       </mat-button-toggle-group>
 
-      <mat-button-toggle-group multiple [hideMultipleSelectionIndicator]="true" class="button-group botton-space">
+      <mat-button-toggle-group multiple class="button-group botton-space">
         <mat-button-toggle [checked]="field.isVesselOfRuin" (change)="field.isVesselOfRuin = $event.source.checked" data-cy="vessel-of-ruin">Vessel of Ruin (-spa)</mat-button-toggle>
         <mat-button-toggle [checked]="field.isBeadsOfRuin" (change)="field.isBeadsOfRuin = $event.source.checked" data-cy="beads-of-ruin">Beads of Ruin (-spd)</mat-button-toggle>
       </mat-button-toggle-group>
 
-      <mat-button-toggle-group multiple [hideMultipleSelectionIndicator]="true" (change)="toggleChangeWeather($event)" class="button-group botton-space">
+      <mat-button-toggle-group multiple (change)="toggleChangeWeather($event)" class="button-group botton-space">
         <mat-button-toggle [checked]="field.weather == 'Sun'" value="Sun" data-cy="sun">Sun</mat-button-toggle>
         <mat-button-toggle [checked]="field.weather == 'Rain'" value="Rain" data-cy="rain">Rain</mat-button-toggle>
         <mat-button-toggle [checked]="field.weather == 'Sand'" value="Sand" data-cy="sand">Sand</mat-button-toggle>
         <mat-button-toggle [checked]="field.weather == 'Snow'" value="Snow" data-cy="snow">Snow</mat-button-toggle>
       </mat-button-toggle-group>
 
-      <mat-button-toggle-group multiple [hideMultipleSelectionIndicator]="true" (change)="toggleChangeTerrain($event)" class="button-group">
+      <mat-button-toggle-group multiple (change)="toggleChangeTerrain($event)" class="button-group">
         <mat-button-toggle [checked]="field.terrain == 'Electric'" value="Electric" data-cy="eletric-terrain">Electric Terrain</mat-button-toggle>
         <mat-button-toggle [checked]="field.terrain == 'Grassy'" value="Grassy" data-cy="grassy-terrain">Grassy Terrain</mat-button-toggle>
       </mat-button-toggle-group>
-      <mat-button-toggle-group multiple [hideMultipleSelectionIndicator]="true" (change)="toggleChangeTerrain($event)" class="button-group botton-space">
+      <mat-button-toggle-group multiple (change)="toggleChangeTerrain($event)" class="button-group botton-space">
         <mat-button-toggle [checked]="field.terrain == 'Psychic'" value="Psychic" data-cy="psychic-terrain">Psychic Terrain</mat-button-toggle>
         <mat-button-toggle [checked]="field.terrain == 'Misty'" value="Misty" data-cy="misty-terrain">Misty Terrain</mat-button-toggle>
       </mat-button-toggle-group>
 
       <div class="rooms-section">
-        <mat-button-toggle-group multiple [hideMultipleSelectionIndicator]="true" class="button-group">
+        <mat-button-toggle-group multiple class="button-group">
           <mat-button-toggle [checked]="field.isGravity" (change)="field.isGravity = $event.source.checked" data-cy="gravity">Gravity</mat-button-toggle>
           <mat-button-toggle [checked]="field.isMagicRoom" (change)="field.isMagicRoom = $event.source.checked" data-cy="magic-room">M. Room</mat-button-toggle>
           <mat-button-toggle [checked]="field.isWonderRoom" (change)="field.isWonderRoom = $event.source.checked" data-cy="wonder-room">W. Room</mat-button-toggle>
@@ -46,20 +46,20 @@
       <div class="field-subtitle">
         <label>Attacker</label>
       </div>
-      <mat-button-toggle-group multiple [hideMultipleSelectionIndicator]="true" class="button-group botton-space">
+      <mat-button-toggle-group multiple class="button-group botton-space">
         <mat-button-toggle [checked]="field.attackerSide.isHelpingHand" (change)="field.attackerSide.isHelpingHand = $event.source.checked" data-cy="helping-hand">Helping Hand</mat-button-toggle>
       </mat-button-toggle-group>
 
-      <mat-button-toggle-group multiple [hideMultipleSelectionIndicator]="true" class="button-group botton-space">
+      <mat-button-toggle-group multiple class="button-group botton-space">
         <mat-button-toggle [checked]="criticalHit" (change)="onCriticalHitChance($event.source.checked)" data-cy="critical-hit">Critical Hit</mat-button-toggle>
       </mat-button-toggle-group>
 
-      <mat-button-toggle-group multiple [hideMultipleSelectionIndicator]="true" class="button-group botton-space">
+      <mat-button-toggle-group multiple class="button-group botton-space">
         <mat-button-toggle [checked]="field.attackerSide.isBattery" (change)="field.attackerSide.isBattery = $event.source.checked" data-cy="battery">Battery</mat-button-toggle>
         <mat-button-toggle [checked]="field.attackerSide.isPowerSpot" (change)="field.attackerSide.isPowerSpot = $event.source.checked" data-cy="power-spot">Power Spot</mat-button-toggle>
       </mat-button-toggle-group>
 
-      <mat-button-toggle-group multiple [hideMultipleSelectionIndicator]="true" class="button-group">
+      <mat-button-toggle-group multiple class="button-group">
         <mat-button-toggle [checked]="field.attackerSide.isTailwind" (change)="field.attackerSide.isTailwind = $event.source.checked" data-cy="tailwind-attacker">Tailwind</mat-button-toggle>
       </mat-button-toggle-group>
     </div>  
@@ -67,20 +67,20 @@
       <div class="field-subtitle">
         <label>Defenders</label>
       </div>
-      <mat-button-toggle-group multiple [hideMultipleSelectionIndicator]="true" class="button-group botton-space">
+      <mat-button-toggle-group multiple class="button-group botton-space">
         <mat-button-toggle [checked]="field.defenderSide.isReflect" (change)="field.defenderSide.isReflect = $event.source.checked" data-cy="reflect">Reflect</mat-button-toggle>
         <mat-button-toggle [checked]="field.defenderSide.isLightScreen" (change)="field.defenderSide.isLightScreen = $event.source.checked" data-cy="light-screen">Light Screen</mat-button-toggle>
         <mat-button-toggle [checked]="field.defenderSide.isAuroraVeil" (change)="field.defenderSide.isAuroraVeil = $event.source.checked" data-cy="aurora-veil">Aurora Veil</mat-button-toggle>
       </mat-button-toggle-group>
 
-      <mat-button-toggle-group multiple [hideMultipleSelectionIndicator]="true" class="button-group botton-space">
+      <mat-button-toggle-group multiple class="button-group botton-space">
         <mat-button-toggle [checked]="field.gameType == 'Singles'" (change)="oSingleTargetChance($event.source.checked)" data-cy="single-target">Single Target</mat-button-toggle>
         <mat-button-toggle [checked]="field.defenderSide.isFriendGuard" (change)="field.defenderSide.isFriendGuard = $event.source.checked" data-cy="friend-guard">Friend Guard</mat-button-toggle>
       </mat-button-toggle-group>
 
       <div class="button-group">
         <div class="max-width">
-          <mat-button-toggle-group [hideSingleSelectionIndicator]="true" class="button-group">
+          <mat-button-toggle-group class="button-group">
             <mat-button-toggle class="max-width" [checked]="field.defenderSide.spikes == 3" (change)="field.defenderSide.spikes = 3" data-cy="three-spikes">3 spikes</mat-button-toggle>
             <mat-button-toggle class="max-width" [checked]="field.defenderSide.spikes == 2" (change)="field.defenderSide.spikes = 2" data-cy="two-spikes">2</mat-button-toggle>
             <mat-button-toggle class="max-width" [checked]="field.defenderSide.spikes == 1" (change)="field.defenderSide.spikes = 1" data-cy="one-spikes">1</mat-button-toggle>
@@ -89,14 +89,14 @@
         </div>
 
         <div class="max-width">
-          <mat-button-toggle-group multiple [hideMultipleSelectionIndicator]="true" class="button-group botton-space">
+          <mat-button-toggle-group multiple class="button-group botton-space">
             <mat-button-toggle class="max-width" [checked]="field.defenderSide.isSR" (change)="field.defenderSide.isSR = $event.source.checked" data-cy="stealth-rock">Stealth Rock</mat-button-toggle>
             <mat-button-toggle class="max-width" [checked]="field.defenderSide.isSeeded" (change)="field.defenderSide.isSeeded = $event.source.checked" data-cy="leech-seed">Leech Seed</mat-button-toggle>
           </mat-button-toggle-group>
         </div>
       </div>
 
-      <mat-button-toggle-group multiple [hideMultipleSelectionIndicator]="true" class="button-group">
+      <mat-button-toggle-group multiple class="button-group">
         <mat-button-toggle [checked]="field.defenderSide.isTailwind" (change)="field.defenderSide.isTailwind = $event.source.checked" data-cy="tailwind-defender">Tailwind</mat-button-toggle>
       </mat-button-toggle-group>
     </div>
