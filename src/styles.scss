@@ -1,8 +1,5 @@
 @use '@angular/material' as mat;
 
-html, body {
-  zoom: 85%;
-}
 body { 
   margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
 }
@@ -17,10 +14,4 @@ body {
 
 [hidden] {
   display: none !important;
-}
-
-@media only screen and (max-width: 768px) {
-  html, body {
-    zoom: 100%;
-  }
 }
