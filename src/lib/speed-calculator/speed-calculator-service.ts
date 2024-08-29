@@ -27,19 +27,25 @@ export class SpeedCalculatorService {
 
     const ordered = speedDefinitions.sort((a, b) => isTrickRoom ? b.value - a.value : a.value - b.value)
 
+    return this.mergeByDescription(ordered)
+  }
+  
+  private mergeByDescription(speedDefinitions: SpeedDefinition[]): SpeedDefinition[] {
     const speedDefinitionsMerged = []
 
     let actualSpeedDefinition
-    for (let index = 0; index < ordered.length; index++) {
-      const actual = ordered[index]
+    for (let index = 0; index < speedDefinitions.length; index++) {
+      const actual = speedDefinitions[index]
 
       if (index == 0) {
         actualSpeedDefinition = actual
         speedDefinitionsMerged.push(actual)
         continue
-      }   
-
-      if (actualSpeedDefinition?.pokemonName == actual.pokemonName && actualSpeedDefinition?.value == actual.value) {
+      }
+      
+      if(actualSpeedDefinition?.pokemonName == actual.pokemonName && actualSpeedDefinition?.description == actual.description) {
+        continue
+      } else if (actualSpeedDefinition?.pokemonName == actual.pokemonName && actualSpeedDefinition?.value == actual.value) {
         speedDefinitionsMerged[speedDefinitionsMerged.length - 1].description += "/" + actual.description
       } else {
         speedDefinitionsMerged.push(actual)
@@ -50,7 +56,7 @@ export class SpeedCalculatorService {
     return speedDefinitionsMerged
   }
 
-  adjustPokemonByOptions(pokemon: Pokemon, options: SpeedCalculatorOptions) {
+  private adjustPokemonByOptions(pokemon: Pokemon, options: SpeedCalculatorOptions) {
     pokemon.boosts.spe = options.speedModifier
     
     if (options.paralyzedActive) {
@@ -62,7 +68,7 @@ export class SpeedCalculatorService {
     }
   }
 
-  minSpeed(pokemon: Pokemon, field: Field): SpeedDefinition {
+  private minSpeed(pokemon: Pokemon, field: Field): SpeedDefinition {
     const MAX_BASE_SPEED_FOR_TR = 52
     const isTrickRoomPokemon = new PokemonSmogon(Generations.get(9), pokemon.name).species.baseStats.spe <= MAX_BASE_SPEED_FOR_TR
 
@@ -77,7 +83,7 @@ export class SpeedCalculatorService {
     return new SpeedDefinition(clonedPokemon.spriteNameScarletViolet, speed, "Min")
   }
 
-  maxSpeed(pokemon: Pokemon, field: Field): SpeedDefinition {
+  private maxSpeed(pokemon: Pokemon, field: Field): SpeedDefinition {
     const clonedPokemon = pokemon.clone()
     clonedPokemon.nature = "Timid"
     clonedPokemon.item = "Leftovers"
@@ -89,7 +95,7 @@ export class SpeedCalculatorService {
     return new SpeedDefinition(clonedPokemon.spriteNameScarletViolet, speed, "Max")
   }
 
-  maxMeta(pokemon: Pokemon, field: Field): SpeedDefinition {
+  private maxMeta(pokemon: Pokemon, field: Field): SpeedDefinition {
     const speed = this.smogonService.getFinalSpeed(pokemon, field, field.defenderSide)
     const description = pokemon.item == "Choice Scarf" ? "Meta/Scarf" : "Meta"
 
