@@ -62,6 +62,7 @@ export class SpeedCalculatorComponent {
 
   regulation: string = "Reg G"
   regulationsList: string[] = ["Reg G", "Reg H"]
+  timeoutId: any
 
   private differStatusModifiers: KeyValueDiffer<string, any>
   private differField: KeyValueDiffer<string, any>
@@ -111,23 +112,27 @@ export class SpeedCalculatorComponent {
   }
 
   calculateSpeedRange() {
-    const pokemonBySideActual = 31
-    const orderedPokemon = this.speedCalculatorService.orderedPokemon(this.pokemon, this.field, this.isTrickRoom, this.options)
-    const actualIndex = orderedPokemon.findIndex(this.isActual)
-    const initIndex = actualIndex - pokemonBySideActual >= 0 ? actualIndex - pokemonBySideActual : 0
-    const lastIndex = actualIndex + pokemonBySideActual + 1
-    const inSpeedRange = orderedPokemon.slice(initIndex, lastIndex)
-    
-    const updatedActualIndex = inSpeedRange.findIndex(this.isActual)
-    if (updatedActualIndex < 31) {
-      const diff = pokemonBySideActual - updatedActualIndex
-      for (let i = 0; i < diff; i++) {
-        inSpeedRange.unshift(new SpeedDefinition("", 0, ""))        
+    clearTimeout(this.timeoutId)
+
+    this.timeoutId = setTimeout(() => {
+      const pokemonBySideActual = 31
+      const orderedPokemon = this.speedCalculatorService.orderedPokemon(this.pokemon, this.field, this.isTrickRoom, this.options)
+      const actualIndex = orderedPokemon.findIndex(this.isActual)
+      const initIndex = actualIndex - pokemonBySideActual >= 0 ? actualIndex - pokemonBySideActual : 0
+      const lastIndex = actualIndex + pokemonBySideActual + 1
+      const inSpeedRange = orderedPokemon.slice(initIndex, lastIndex)
+      
+      const updatedActualIndex = inSpeedRange.findIndex(this.isActual)
+      if (updatedActualIndex < 31) {
+        const diff = pokemonBySideActual - updatedActualIndex
+        for (let i = 0; i < diff; i++) {
+          inSpeedRange.unshift(new SpeedDefinition("", 0, ""))        
+        }
       }
-    }
-    
-    this.inSpeedRange = inSpeedRange
-    this.verifyChanges(this.inSpeedRange)
+      
+      this.inSpeedRange = inSpeedRange
+      this.verifyChanges(this.inSpeedRange)
+    }, 200)    
   }
 
   verifyChanges(actualSpeedRange: SpeedDefinition[]) {
