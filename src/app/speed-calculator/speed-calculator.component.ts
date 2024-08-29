@@ -113,13 +113,13 @@ export class SpeedCalculatorComponent {
   calculateSpeedRange() {
     const orderedPokemon = this.speedCalculatorService.orderedPokemon(this.pokemon, this.field, this.isTrickRoom, this.options)
     const actualIndex = orderedPokemon.findIndex(this.isActual)
-    const initIndex = actualIndex - 37 >= 0 ? actualIndex - 37 : 0
-    const lastIndex = actualIndex + 38
+    const initIndex = actualIndex - 31 >= 0 ? actualIndex - 31 : 0
+    const lastIndex = actualIndex + 32
     const inSpeedRange = orderedPokemon.slice(initIndex, lastIndex)
     
     const updatedActualIndex = inSpeedRange.findIndex(this.isActual)
-    if (updatedActualIndex < 37) {
-      const diff = 37 - updatedActualIndex
+    if (updatedActualIndex < 31) {
+      const diff = 31 - updatedActualIndex
       for (let i = 0; i < diff; i++) {
         inSpeedRange.unshift(new SpeedDefinition("", 0, ""))        
       }
