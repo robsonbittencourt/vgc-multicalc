@@ -111,15 +111,16 @@ export class SpeedCalculatorComponent {
   }
 
   calculateSpeedRange() {
+    const pokemonBySideActual = 31
     const orderedPokemon = this.speedCalculatorService.orderedPokemon(this.pokemon, this.field, this.isTrickRoom, this.options)
     const actualIndex = orderedPokemon.findIndex(this.isActual)
-    const initIndex = actualIndex - 31 >= 0 ? actualIndex - 31 : 0
-    const lastIndex = actualIndex + 32
+    const initIndex = actualIndex - pokemonBySideActual >= 0 ? actualIndex - pokemonBySideActual : 0
+    const lastIndex = actualIndex + pokemonBySideActual + 1
     const inSpeedRange = orderedPokemon.slice(initIndex, lastIndex)
     
     const updatedActualIndex = inSpeedRange.findIndex(this.isActual)
     if (updatedActualIndex < 31) {
-      const diff = 31 - updatedActualIndex
+      const diff = pokemonBySideActual - updatedActualIndex
       for (let i = 0; i < diff; i++) {
         inSpeedRange.unshift(new SpeedDefinition("", 0, ""))        
       }
@@ -130,7 +131,14 @@ export class SpeedCalculatorComponent {
   }
 
   verifyChanges(actualSpeedRange: SpeedDefinition[]) {
-    if (this.previousSpeedDefinition[0]?.pokemonName != actualSpeedRange[0].pokemonName) {
+    const firstPokemonChange = !this.previousSpeedDefinition[0]?.equals(actualSpeedRange[0])
+    const lastPokemonChange = !this.previousSpeedDefinition[this.previousSpeedDefinition.length - 1]?.equals(actualSpeedRange[actualSpeedRange.length - 1])
+    
+    const previousYoursDescription = this.previousSpeedDefinition.filter(s => this.isActual(s))[0]?.description
+    const actualYoursDescription = actualSpeedRange.filter(s => this.isActual(s))[0]?.description
+    const yoursDescriptionChange = previousYoursDescription != actualYoursDescription
+
+    if (firstPokemonChange || lastPokemonChange || yoursDescriptionChange) {
       this.speedOrderChanged = true
     } else {
       this.speedOrderChanged = false
@@ -146,7 +154,7 @@ export class SpeedCalculatorComponent {
     this.previousActualPokemonSpeed = this.pokemon.modifiedSpe()
   }
 
-  isActual(speedDefinition: SpeedDefinition) {
+  isActual(speedDefinition: SpeedDefinition): boolean {
     return speedDefinition.description.includes("Actual")
   }
 

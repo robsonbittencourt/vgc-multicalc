@@ -8,4 +8,13 @@ export class SpeedDefinition {
     this.value = speed
     this.description = description
   }
+
+  equals(speedDefinition: SpeedDefinition): boolean {
+    if (speedDefinition.pokemonName != this.pokemonName) return false
+    if (speedDefinition.value != this.value) return false
+    if (speedDefinition.description != this.description) return false
+
+    return true
+  }
+
 }
