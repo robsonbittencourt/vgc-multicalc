@@ -102,8 +102,7 @@ export class SmogonFunctions {
     
     for (const stat of ['def', 'spa', 'spd', 'spe'] as StatID[]) {
       if (
-        this.getModifiedStat(pokemonSmogon.rawStats[stat], pokemonSmogon.boosts[stat]) >
-        this.getModifiedStat(pokemonSmogon.rawStats[bestStat], pokemonSmogon.boosts[bestStat])
+        pokemonSmogon.rawStats[stat] > pokemonSmogon.rawStats[bestStat]
       ) {
         bestStat = stat
       }
