@@ -77,7 +77,7 @@ export class Pokemon {
 
   public get spriteName(): string {
     let adjustedPokemonName: string = this.pokemonSmogon.name
-    
+
     adjustedPokemonName = adjustedPokemonName.replace("-Alola", "-alolan")
     adjustedPokemonName = adjustedPokemonName.replace("-Galar", "-galarian")
     adjustedPokemonName = adjustedPokemonName.replace("-Hisui", "-hisuian")
@@ -87,6 +87,7 @@ export class Pokemon {
     adjustedPokemonName = adjustedPokemonName.replace("-F", "-female")
     adjustedPokemonName = adjustedPokemonName.replace("Calyrex-Shadow", "calyrex-shadow-rider")
     adjustedPokemonName = adjustedPokemonName.replace("Calyrex-Ice", "calyrex-ice-rider")
+    adjustedPokemonName = adjustedPokemonName.replace("Flabébé", "flabebe")
     
     return adjustedPokemonName.toLocaleLowerCase().replace(" ", "-")
   }
