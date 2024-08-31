@@ -3,10 +3,12 @@ import { Team } from "cypress/page-object/team"
 
 let chiyuData: string
 let pokepasteData: string
+let pokepasteDataVivillon: string
 
 before(() => {
   cy.fixture("chi-yu-data").then((data) => { chiyuData = data })
   cy.fixture("pokepaste-data").then((data) => { pokepasteData = data })
+  cy.fixture("pokepaste-data-vivillon").then((data) => { pokepasteDataVivillon = data })
 })
 
 describe('Import Pokémon', () => {
@@ -76,6 +78,43 @@ describe('Import Pokepaste', () => {
     team.pokemonOnEditAttacksIs("Beat Up", "Tailwind", "Fake Tears", "Moonblast")
     team.pokemonOnEditEvsIs(252, 0, 180, 0, 76, 0)
     team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
+  })
+
+  it('with Vivillon', () => {
+    const team = new Team()
+
+    team.importPokepaste(pokepasteDataVivillon)
+    team.selectTeam("Team 2")
+
+    team.pokemonOnEditIs("Vivillon", "Compound Eyes", "Ghost", "Focus Sash", "Timid")
+    team.pokemonOnEditAttacksIs("Sleep Powder", "Hurricane", "Rage Powder", "Tailwind")
+    team.pokemonOnEditEvsIs(0, 0, 0, 252, 4, 252)
+    team.pokemonOnEditIvsIs(31, 0, 31, 31, 31, 31)
+    
+    team.pokemonOnEditIs("Vivillon", "Compound Eyes", "Ghost", "Focus Sash", "Timid")
+    team.pokemonOnEditAttacksIs("Sleep Powder", "Hurricane", "Rage Powder", "Tailwind")
+    team.pokemonOnEditEvsIs(0, 0, 0, 252, 4, 252)
+    team.pokemonOnEditIvsIs(31, 0, 31, 31, 31, 31)
+
+    team.pokemonOnEditIs("Vivillon", "Compound Eyes", "Ghost", "Focus Sash", "Timid")
+    team.pokemonOnEditAttacksIs("Sleep Powder", "Hurricane", "Rage Powder", "Tailwind")
+    team.pokemonOnEditEvsIs(0, 0, 0, 252, 4, 252)
+    team.pokemonOnEditIvsIs(31, 0, 31, 31, 31, 31)
+
+    team.pokemonOnEditIs("Vivillon", "Compound Eyes", "Ghost", "Focus Sash", "Timid")
+    team.pokemonOnEditAttacksIs("Sleep Powder", "Hurricane", "Rage Powder", "Tailwind")
+    team.pokemonOnEditEvsIs(0, 0, 0, 252, 4, 252)
+    team.pokemonOnEditIvsIs(31, 0, 31, 31, 31, 31)
+
+    team.pokemonOnEditIs("Vivillon", "Compound Eyes", "Ghost", "Focus Sash", "Timid")
+    team.pokemonOnEditAttacksIs("Sleep Powder", "Hurricane", "Rage Powder", "Tailwind")
+    team.pokemonOnEditEvsIs(0, 0, 0, 252, 4, 252)
+    team.pokemonOnEditIvsIs(31, 0, 31, 31, 31, 31)
+
+    team.pokemonOnEditIs("Vivillon", "Compound Eyes", "Ghost", "Focus Sash", "Timid")
+    team.pokemonOnEditAttacksIs("Sleep Powder", "Hurricane", "Rage Powder", "Tailwind")
+    team.pokemonOnEditEvsIs(0, 0, 0, 252, 4, 252)
+    team.pokemonOnEditIvsIs(31, 0, 31, 31, 31, 31)    
   })
 
   it('to opponent', () => {

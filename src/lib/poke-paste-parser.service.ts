@@ -27,11 +27,20 @@ export class PokePasteParserService {
     const pokemonList = JSON.parse(parsedTeam.toJson()).teams[0].pokemon
 
     return pokemonList.map((poke: any) => {
+      const name = this.adjustName(poke.name)
       const ivs = { hp: poke.ivs?.hp ?? 31, atk: poke.ivs?.atk ?? 31, def: poke.ivs?.def ?? 31, spa: poke.ivs?.spa ?? 31, spd: poke.ivs?.spd ?? 31, spe: poke.ivs?.spe ?? 31 }  
       const evs = { hp: poke.evs?.hp ?? 0, atk: poke.evs?.atk ?? 0, def: poke.evs?.def ?? 0, spa: poke.evs?.spa ?? 0, spd: poke.evs?.spd ?? 0, spe: poke.evs?.spe ?? 0 }
       const moveSet = new MoveSet(poke.moves[0], poke.moves[1], poke.moves[2], poke.moves[3])
 
-      return new Pokemon(poke.name, { ability: poke.ability, nature: poke.nature, item: poke.item, teraType: poke.teraType, evs, moveSet, ivs })
+      return new Pokemon(name, { ability: poke.ability, nature: poke.nature, item: poke.item, teraType: poke.teraType, evs, moveSet, ivs })
     })
-  }     
+  }
+  
+  adjustName(pokemonName: string): string {
+    if (pokemonName.includes("Vivillon")) {
+      return pokemonName.substring(0, pokemonName.indexOf("-"))
+    }
+
+    return pokemonName
+  }
 }
