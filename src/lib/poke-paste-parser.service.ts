@@ -37,10 +37,29 @@ export class PokePasteParserService {
   }
   
   adjustName(pokemonName: string): string {
-    if (pokemonName.includes("Vivillon")) {
-      return pokemonName.substring(0, pokemonName.indexOf("-"))
+    if (pokemonName.includes("-")) {
+      const onlyName = pokemonName.substring(0, pokemonName.indexOf("-"))
+      
+      if(this.pokemonWithAlternativeForm().includes(onlyName)) {
+        return onlyName
+      }
     }
 
     return pokemonName
+  }
+
+  pokemonWithAlternativeForm(): string[] {
+    return [
+      "Vivillon",
+      "Alcremie",
+      "Dudunsparce",
+      "Pikachu",
+      "Flabébé",
+      "Floette",
+      "Florges",
+      "Squawkabilly",
+      "Maushold",
+      "Tatsugiri"
+    ]
   }
 }
