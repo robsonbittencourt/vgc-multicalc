@@ -23,6 +23,10 @@ export class SpeedCalculatorService {
       speedDefinitions.push(this.minSpeed(p, field))
       speedDefinitions.push(this.maxSpeed(p, field))
       speedDefinitions.push(this.maxMeta(p, field))
+
+      if(p.item == 'Choice Scarf') {
+        speedDefinitions.push(this.maxScarf(p, field))
+      }
     })
 
     const ordered = speedDefinitions.sort((a, b) => isTrickRoom ? b.value - a.value : a.value - b.value)
@@ -68,7 +72,7 @@ export class SpeedCalculatorService {
     }
   }
 
-  private minSpeed(pokemon: Pokemon, field: Field): SpeedDefinition {
+  minSpeed(pokemon: Pokemon, field: Field): SpeedDefinition {
     const MAX_BASE_SPEED_FOR_TR = 52
     const isTrickRoomPokemon = new PokemonSmogon(Generations.get(9), pokemon.name).species.baseStats.spe <= MAX_BASE_SPEED_FOR_TR
 
@@ -83,7 +87,7 @@ export class SpeedCalculatorService {
     return new SpeedDefinition(clonedPokemon.spriteNameScarletViolet, speed, "Min")
   }
 
-  private maxSpeed(pokemon: Pokemon, field: Field): SpeedDefinition {
+  maxSpeed(pokemon: Pokemon, field: Field): SpeedDefinition {
     const clonedPokemon = pokemon.clone()
     clonedPokemon.nature = "Timid"
     clonedPokemon.item = "Leftovers"
@@ -95,9 +99,19 @@ export class SpeedCalculatorService {
     return new SpeedDefinition(clonedPokemon.spriteNameScarletViolet, speed, "Max")
   }
 
-  private maxMeta(pokemon: Pokemon, field: Field): SpeedDefinition {
+  maxScarf(pokemon: Pokemon, field: Field): SpeedDefinition {
     const speed = this.smogonService.getFinalSpeed(pokemon, field, field.defenderSide)
-    const description = pokemon.item == "Choice Scarf" ? "Meta/Scarf" : "Meta"
+    const description = "Scarf"
+
+    return new SpeedDefinition(pokemon.spriteNameScarletViolet, speed, description)
+  }
+
+  maxMeta(pokemon: Pokemon, field: Field): SpeedDefinition {
+    const clonedPokemon = pokemon.clone()
+    clonedPokemon.item = "Leftovers"
+
+    const speed = this.smogonService.getFinalSpeed(clonedPokemon, field, field.defenderSide)
+    const description = "Meta"
 
     return new SpeedDefinition(pokemon.spriteNameScarletViolet, speed, description)
   }
