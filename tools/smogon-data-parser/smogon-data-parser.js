@@ -1,35 +1,37 @@
 import fs from 'fs'
-import https from 'https'
+import axios from 'axios'
 
 const LINE_SEPARATOR = "+----------------------------------------+"
 const POKEMON_QUANTITY = 250
 
-https.get(`https://www.smogon.com/stats/${getCurrentYearMonth()}/moveset/gen9vgc2024reggbo3-1760.txt`, (response) => {
-  let content
+createSpeedMetaFile()
 
-  response.on('data', function (chunk) {
-    content += chunk;
-  })
-
-  response.on('end', function () {
-    const adjustedContent = content.replace("undefined", "")
-    const classContent = createSpeedMetaFile(adjustedContent)
-    fs.writeFileSync('../../src/lib/speed-calculator/speed-meta.ts', classContent)
-  })
-})
-
-export function createSpeedMetaFile(data) {
-  const pokemon = parseSmogonData(data)
-
+export async function createSpeedMetaFile() {
+  const regGData = await getSmogonData('g')
+  const regHData = await getSmogonData('h')
+  
   let classContent = 
 `import { Pokemon } from "../pokemon"
 
-export function speedMeta(): Pokemon[] {
+export function speedMeta(regulation: string): Pokemon[] {
+  if(regulation == "Reg G") {
+    return regG()
+  } else {
+    return regH()
+  }
+}
+
+export function regG(): Pokemon[] {
   return [
-${printNewPokemon(pokemon)} ]  
+${printNewPokemon(regGData)} ]  
+}
+
+export function regH(): Pokemon[] {
+  return [
+${printNewPokemon(regHData)} ]  
 }`
 
-  return classContent
+  fs.writeFileSync('src/lib/speed-calculator/speed-meta.ts', classContent)
 }
 
 export function parseSmogonData(data) {
@@ -111,4 +113,14 @@ function getCurrentYearMonth() {
   const year = new Date().getFullYear()
 
   return `${year}-${month}`
+}
+
+async function getSmogonData(reg) {
+  try {
+    const response = await axios.get(`https://www.smogon.com/stats/${getCurrentYearMonth()}/moveset/gen9vgc2024reg${reg}bo3-1760.txt`)
+    const parsedSmogonData = parseSmogonData(response.data)
+    return parsedSmogonData
+  } catch (error) {
+    console.error(error)
+  }
 }
