@@ -60,7 +60,7 @@ export class SpeedCalculatorComponent {
   status: string
   nature: string
 
-  regulation: string = "Reg G"
+  regulation: string = "Reg H"
   regulationsList: string[] = ["Reg G", "Reg H"]
   timeoutId: any
 
