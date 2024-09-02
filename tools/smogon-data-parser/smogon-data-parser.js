@@ -53,12 +53,13 @@ export function parseSmogonData(data) {
 export function parsePokemonData(data) {
   const sections = extractSections(data)
 
+  const ability = extractAbility(sections)
   const item = extractItem(sections)
   const spreads = extractSpreads(sections)
   const nature = extractNature(spreads)
   const evs = extractEvs(spreads)
 
-  return `new Pokemon("${sections[0]}", { nature: "${nature}", item: "${item}", evs: { hp: ${evs.hp}, atk: ${evs.atk}, def: ${evs.def}, spa: ${evs.spa}, spd: ${evs.spd}, spe: ${evs.spe} }}),`
+  return `new Pokemon("${sections[0]}", { ability: "${ability}", nature: "${nature}", item: "${item}", evs: { hp: ${evs.hp}, atk: ${evs.atk}, def: ${evs.def}, spa: ${evs.spa}, spd: ${evs.spd}, spe: ${evs.spe} }}),`
 }
 
 function extractSections(data) {
@@ -66,6 +67,16 @@ function extractSections(data) {
     .filter(it => (it != "" && it != " "))
     .map(it => it.replaceAll("| ", ""))
     .map(it => it.trim())
+}
+
+function extractAbility(sections) {
+  const abilities = sections[2]
+    .split("\n")
+    .map(it => it.replaceAll(/[0-9]+/g, "")
+    .replace(".%", "").trim())
+    .filter(it => it != "Abilities")
+
+  return abilities[0]
 }
 
 function extractItem(sections) {
