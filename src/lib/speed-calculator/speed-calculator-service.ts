@@ -27,6 +27,10 @@ export class SpeedCalculatorService {
       if(p.item == 'Choice Scarf') {
         speedDefinitions.push(this.maxScarf(p, field))
       }
+
+      if(p.item == 'Booster Energy') {
+        speedDefinitions.push(this.maxBooster(p, field))
+      }
     })
 
     const ordered = speedDefinitions.sort((a, b) => isTrickRoom ? b.value - a.value : a.value - b.value)
@@ -102,6 +106,13 @@ export class SpeedCalculatorService {
   maxScarf(pokemon: Pokemon, field: Field): SpeedDefinition {
     const speed = this.smogonService.getFinalSpeed(pokemon, field, field.defenderSide)
     const description = "Scarf"
+
+    return new SpeedDefinition(pokemon.spriteNameScarletViolet, speed, description)
+  }
+
+  maxBooster(pokemon: Pokemon, field: Field): SpeedDefinition {
+    const speed = this.smogonService.getFinalSpeed(pokemon, field, field.defenderSide)
+    const description = "Booster"
 
     return new SpeedDefinition(pokemon.spriteNameScarletViolet, speed, description)
   }
