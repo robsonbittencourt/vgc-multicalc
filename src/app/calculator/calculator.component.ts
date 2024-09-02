@@ -35,9 +35,9 @@ export class CalculatorComponent {
   activeOnEditPokemon: Pokemon
   activeAttackerPokemon: Pokemon
   activeSecondAttacker?: Pokemon
-  oneVsManyActivated: boolean = false
+  oneVsManyActivated: boolean = true
   manyVsOneActivated: boolean = false
-  speedCalculatorActivated: boolean = true
+  speedCalculatorActivated: boolean = false
   
   targets: Target[] = []
 
