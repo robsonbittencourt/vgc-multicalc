@@ -1,7 +1,7 @@
+import { Injectable } from "@angular/core"
 import { Field, Side } from "@smogon/calc"
 import { StatID } from "@smogon/calc/dist/data/interface"
 import { Pokemon } from "../pokemon"
-import { Injectable } from "@angular/core"
 
 @Injectable()
 export class SmogonFunctions {
@@ -90,8 +90,8 @@ export class SmogonFunctions {
     const terrain = field.terrain
   
     return (
-      (pokemonSmogon.hasAbility('Protosynthesis') && (weather.includes('Sun') || pokemonSmogon.hasItem('Booster Energy'))) ||
-      (pokemonSmogon.hasAbility('Quark Drive') && (terrain === 'Electric' || pokemonSmogon.hasItem('Booster Energy')))
+      (pokemonSmogon.hasAbility('Protosynthesis') && (weather.includes('Sun') || pokemonSmogon.hasItem('Booster Energy') || pokemonSmogon.abilityOn)) ||
+      (pokemonSmogon.hasAbility('Quark Drive') && (terrain === 'Electric' || pokemonSmogon.hasItem('Booster Energy') || pokemonSmogon.abilityOn))
     )
   }
 

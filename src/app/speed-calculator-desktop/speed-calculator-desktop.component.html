@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="header">
+    <div class="title-box">
+      <span class="title">Speed List</span>  
+      <div class="regulation">
+        <label>Regulation</label>
+        <app-input-autocomplete [(value)]="options.regulation" [allValues]="regulationsList" (valueChange)="options.regulation = $event"/>
+      </div>
+    </div>
+    <div class="header-buttons-section">
+      <div class="header-buttons-text">
+        <span class="header-buttons-title">Options to opponent side</span>
+        <span>Use Your Team and Field section for more options</span> 
+      </div>
+      <div class="header-buttons text-color">
+        <label>Speed Modifier</label>
+        <div class="dense-2">
+          <mat-form-field appearance="outline" class="mat-ev-stat-modifier">
+            <mat-select class="mat-small" [(value)]="options.speedModifier">
+              <mat-option class="mat-small" *ngFor="let statsModifier of statsModifiers" [value]="statsModifier.value">{{ statsModifier.viewValue }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <mat-button-toggle-group multiple class="button-group">
+          <mat-button-toggle [checked]="options.speedDropActive" (change)="options.speedDropActive = $event.source.checked">Ice Wind</mat-button-toggle>
+          <mat-button-toggle [checked]="options.paralyzedActive" (change)="options.paralyzedActive = $event.source.checked">Paralyzed</mat-button-toggle>
+          <mat-button-toggle [checked]="options.choiceScarfActive" (change)="options.choiceScarfActive = $event.source.checked">Choice Scarf</mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+    </div>
+  </div>
+
+  <app-speed-calculator [pokemon]="pokemon" [field]="field" [options]="options" [pokemonEachSide]=31 />
+</div>

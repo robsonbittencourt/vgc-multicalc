@@ -15,6 +15,19 @@
       </div>
     </div>
   </div>
+  <div *ngIf="!isDesktopDevice()" class="right-header">
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="enableOneVsMany()">
+        <span>Damage Calculator</span>
+      </button>
+      <button mat-menu-item (click)="enableSpeedCalculator()">
+        <span>Speed Calculator</span>
+      </button>
+    </mat-menu>
+  </div>
   <div *ngIf="isDesktopDevice()" class="right-header">
     <mat-icon class="copy-icon" *ngIf="userDataLink" (click)="copyUserDataLink()">content_copy</mat-icon>
     <a class="calc-link" *ngIf="userDataLink" target="_blank" [href]="userDataLink">Link</a>
@@ -44,11 +57,15 @@
   </div>
 
   <div class="target-pokemon" *ngIf="speedCalculatorActivated">
-    <app-speed-calculator [pokemon]="activeOnEditPokemon" [field]="field" [isTrickRoom]="isTrickRoom"/>
+    <app-speed-calculator-desktop [pokemon]="activeOnEditPokemon" [field]="field"/>
   </div>
 </div>
 
-<div class="container" *ngIf="!isDesktopDevice()">
+<div class="container" *ngIf="!isDesktopDevice() && (oneVsManyActivated || manyVsOneActivated)">
   <app-pokemon-edit-mobile [leftTeamMember]="activeTeam().teamMembers()[0]" [rightTeamMember]="targets[0]" (pokemonChangedEvent)="pokemonOnEditChanged($event)" (attackerChangedEvent)="mobileAttackerChanged($event)"/>
   <app-field (fieldChangedEvent)="fieldChanged($event)" [field]="field" [criticalHit]="criticalHit" (criticalHitChangedEvent)="criticalHitChanged($event)"/>
+</div>
+
+<div class="container" *ngIf="!isDesktopDevice() && speedCalculatorActivated">
+  <app-speed-calculator-mobile [pokemon]="activeTeam().teamMembers()[0].pokemon" [field]="field" (pokemonChangedEvent)="pokemonOnEditChanged($event)"/>
 </div>

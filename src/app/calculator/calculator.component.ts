@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { Field } from '@smogon/calc';
 import axios from 'axios';
-import { v4 as uuidv4 } from 'uuid';
 import { DamageCalculatorService } from 'src/lib/damage-calculator.service';
+import { defaultPokemon } from 'src/lib/default-pokemon';
+import { DeviceDetectorService } from 'src/lib/device-detector.service';
+import { Move } from 'src/lib/move';
 import { MoveSet } from 'src/lib/moveset';
 import { Pokemon } from 'src/lib/pokemon';
 import { Target } from 'src/lib/target';
-import { TeamMember } from 'src/lib/team-member';
-import { DeviceDetectorService } from 'src/lib/device-detector.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { defaultPokemon } from 'src/lib/default-pokemon';
-import { Move } from 'src/lib/move';
 import { Team } from 'src/lib/team';
+import { TeamMember } from 'src/lib/team-member';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-calculator',
@@ -392,7 +392,7 @@ export class CalculatorComponent {
         const pokemon = teamMember.pokemon as Pokemon
         const moveSet = new MoveSet(teamMember.pokemon.moveSet[0], teamMember.pokemon.moveSet[1], teamMember.pokemon.moveSet[2], teamMember.pokemon.moveSet[3])
         moveSet.activeMoveStorage = new Move(teamMember.pokemon.moveSet[0])
-        return new TeamMember(new Pokemon(pokemon.name, { ability: pokemon.ability, nature: pokemon.nature, item: pokemon.item, teraType: pokemon.teraType, teraTypeActive: pokemon.teraTypeActive, evs: pokemon.evs, moveSet: moveSet, boosts: pokemon.boosts, status: pokemon.status, ivs: pokemon.ivs, paradoxAbilityActivated: pokemon.paradoxAbilityActivated }), index == 0)
+        return new TeamMember(new Pokemon(pokemon.name, { ability: pokemon.ability, nature: pokemon.nature, item: pokemon.item, teraType: pokemon.teraType, teraTypeActive: pokemon.teraTypeActive, evs: pokemon.evs, moveSet: moveSet, boosts: pokemon.boosts, status: pokemon.status, ivs: pokemon.ivs, abilityOn: pokemon.abilityOn }), index == 0)
       })
 
       if (teamMembers.length == 0) {
@@ -465,7 +465,7 @@ export class CalculatorComponent {
       "status": pokemon.status,
       "boosts": pokemon.boosts,
       "activeMove": pokemon.moveSet.activeMove.name,
-      "paradoxAbilityActivated": pokemon.paradoxAbilityActivated,
+      "abilityOn": pokemon.abilityOn,
       "ivs": pokemon.ivs,
       "moveSet": [
         pokemon.moveSet.move1.name,

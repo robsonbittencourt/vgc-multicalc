@@ -29,9 +29,11 @@ export class SpeedCalculatorComponent {
   field: Field
 
   @Input()
-  isTrickRoom: boolean
+  options: SpeedCalculatorOptions = new SpeedCalculatorOptions()
 
   @Input()
+  pokemonEachSide: number
+
   get statsModifier(): number {
     return this.statsModifierValue
   }
@@ -43,12 +45,9 @@ export class SpeedCalculatorComponent {
     if(statsModifier != 1) {
       this.speedDropMoveActive = false
     }
-
-    this.calculateSpeedRange()
   }
   
   inSpeedRange: SpeedDefinition[]
-  options: SpeedCalculatorOptions = new SpeedCalculatorOptions()
 
   previousSpeedDefinition: SpeedDefinition[] = []
   previousActualPokemonSpeed: number
@@ -56,26 +55,27 @@ export class SpeedCalculatorComponent {
   speedOrderIncrease: boolean
 
   evsSpeed: number
+  ivsSpeed: number
   item: string
   status: string
   nature: string
+  ability: string
+  abilityOn: boolean
 
-  regulation: string = "Reg H"
-  regulationsList: string[] = ["Reg G", "Reg H"]
   timeoutId: any
 
   private differStatusModifiers: KeyValueDiffer<string, any>
   private differField: KeyValueDiffer<string, any>
   private differFieldAttacker: KeyValueDiffer<string, any>
   private differFieldDefender: KeyValueDiffer<string, any>
-
-  private actualTrickRoomState: boolean
+  private differOptions: KeyValueDiffer<string, any>
   
   constructor(
     private differsStatusModifiers: KeyValueDiffers,
     private differsField: KeyValueDiffers,
     private differsFieldAttacker: KeyValueDiffers,
     private differsFieldDefender: KeyValueDiffers,
+    private differsOptions: KeyValueDiffers,
     private speedCalculatorService: SpeedCalculatorService
   ) {}
 
@@ -84,46 +84,49 @@ export class SpeedCalculatorComponent {
     this.differField = this.differsField.find(this.field).create()
     this.differFieldAttacker = this.differsFieldAttacker.find(this.field.attackerSide).create()
     this.differFieldDefender = this.differsFieldDefender.find(this.field.defenderSide).create()
+    this.differOptions = this.differsOptions.find(this.options).create()
 
     this.previousActualPokemonSpeed = this.pokemon.modifiedSpe()
-    this.actualTrickRoomState = this.isTrickRoom
     this.evsSpeed = this.pokemon.evs.spe!
+    this.ivsSpeed = this.pokemon.ivs.spe!
     this.item = this.pokemon.item
     this.status = this.pokemon.status
   }
 
   ngDoCheck() {
-    const pokemonChanged = this.evsSpeed != this.pokemon.evs.spe || this.item != this.pokemon.item || this.status != this.pokemon.status || this.nature != this.pokemon.nature
+    const pokemonChanged = this.evsSpeed != this.pokemon.evs.spe || this.ivsSpeed != this.pokemon.ivs.spe || this.item != this.pokemon.item || this.status != this.pokemon.status || this.nature != this.pokemon.nature || this.ability != this.pokemon.ability || this.abilityOn != this.pokemon.abilityOn
     const boostsChanged = this.differStatusModifiers.diff(this.pokemon.boosts)
+    const optionsChanged = this.differOptions.diff(this.options)
     const fieldChanged = this.differField.diff(this.field) ||
       this.differFieldAttacker.diff(this.field.attackerSide) ||
       this.differFieldDefender.diff(this.field.defenderSide)
-    const isTrickRoomChanged = this.isTrickRoom != this.actualTrickRoomState
-
-    if (pokemonChanged || boostsChanged || fieldChanged || isTrickRoomChanged) {
-      this.actualTrickRoomState = this.isTrickRoom
+    
+    if (pokemonChanged || boostsChanged || optionsChanged || fieldChanged) {
       this.calculateSpeedRange()
     }
 
     this.evsSpeed = this.pokemon.evs.spe!
+    this.ivsSpeed = this.pokemon.ivs.spe!
     this.item = this.pokemon.item
     this.status = this.pokemon.status
     this.nature = this.pokemon.nature
+    this.ability = this.pokemon.ability
+    this.abilityOn = this.pokemon.abilityOn
   }
 
   calculateSpeedRange() {
     clearTimeout(this.timeoutId)
 
     this.timeoutId = setTimeout(() => {
-      const pokemonBySideActual = 31
-      const orderedPokemon = this.speedCalculatorService.orderedPokemon(this.pokemon, this.field, this.isTrickRoom, this.options)
+      const pokemonBySideActual = this.pokemonEachSide
+      const orderedPokemon = this.speedCalculatorService.orderedPokemon(this.pokemon, this.field, this.options.trickRoomActive, this.options)
       const actualIndex = orderedPokemon.findIndex(this.isActual)
       const initIndex = actualIndex - pokemonBySideActual >= 0 ? actualIndex - pokemonBySideActual : 0
       const lastIndex = actualIndex + pokemonBySideActual + 1
       const inSpeedRange = orderedPokemon.slice(initIndex, lastIndex)
       
       const updatedActualIndex = inSpeedRange.findIndex(this.isActual)
-      if (updatedActualIndex < 31) {
+      if (updatedActualIndex < this.pokemonEachSide) {
         const diff = pokemonBySideActual - updatedActualIndex
         for (let i = 0; i < diff; i++) {
           inSpeedRange.unshift(new SpeedDefinition("", 0, ""))        
@@ -161,29 +164,6 @@ export class SpeedCalculatorComponent {
 
   isActual(speedDefinition: SpeedDefinition): boolean {
     return speedDefinition.description.includes("Actual")
-  }
-
-  toggleSpeedDropMoveActive(speedDropActive: boolean) {
-    if(speedDropActive) {
-      this.statsModifier = -1
-    } else {
-      this.statsModifier = 0
-    }
-  }
-
-  toggleParalyzedActive(paralyzedActive: boolean) {
-    this.options.paralyzedActive = paralyzedActive
-    this.calculateSpeedRange()
-  }
-
-  toggleChoiceScarfActive(choiceScarfActive: boolean) {
-    this.options.choiceScarfActive = choiceScarfActive
-    this.calculateSpeedRange()
-  }
-
-  onRegulationSelected(regulation: string) {
-    this.options.regulation = regulation
-    this.calculateSpeedRange()
   }
 
 }

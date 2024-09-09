@@ -59,7 +59,7 @@ input::-webkit-inner-spin-button {
 @media only screen and (max-width: 768px) {
   .ev-slider-container {
     grid-column-gap: 0em;
-    grid-template-columns: 64px 64px 1fr 40px;
+    grid-template-columns: 64px 64px 1fr 64px 25px;
   }
 
   .ev-value {
@@ -76,7 +76,6 @@ input::-webkit-inner-spin-button {
 
   .ev-slider {
     width: 82%;
-    margin-left: 0.5em;
   }
 
 }

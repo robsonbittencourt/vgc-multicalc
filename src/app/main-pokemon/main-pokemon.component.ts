@@ -1,19 +1,18 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core';
-import { KeyValueDiffers, KeyValueDiffer } from '@angular/core';
-import { MOVES, ITEMS, NATURES, TYPE_CHART } from '@smogon/calc';
-import { Pokemon } from '../../lib/pokemon';
+import { NoopScrollStrategy } from '@angular/cdk/overlay';
+import { Component, EventEmitter, Input, KeyValueDiffer, KeyValueDiffers, Output } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ITEMS, MOVES, NATURES, TYPE_CHART } from '@smogon/calc';
+import { TypeName } from '@smogon/calc/dist/data/interface';
 import { AllPokemon } from 'src/data/all-pokemon';
 import { SETDEX_SV } from 'src/data/movesets';
-import { Move } from 'src/lib/move';
-import { TeamMember } from 'src/lib/team-member';
 import { defaultPokemon } from 'src/lib/default-pokemon';
-import { TypeName } from '@smogon/calc/dist/data/interface';
+import { Move } from 'src/lib/move';
+import { PokePasteParserService } from 'src/lib/poke-paste-parser.service';
 import { Team } from 'src/lib/team';
-import { MatDialog } from '@angular/material/dialog';
+import { TeamMember } from 'src/lib/team-member';
+import { Pokemon } from '../../lib/pokemon';
 import { TeamExportModalComponent } from '../team-export-modal/team-export-modal.component';
 import { TeamImportModalComponent } from '../team-import-modal/team-import-modal.component';
-import { PokePasteParserService } from 'src/lib/poke-paste-parser.service';
-import { NoopScrollStrategy } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-main-pokemon',
@@ -216,7 +215,7 @@ export class MainPokemonComponent {
   }
 
   toogleParadoxAbility() {
-    this.pokemon.paradoxAbilityActivated = !this.pokemon.paradoxAbilityActivated
+    this.pokemon.abilityOn = !this.pokemon.abilityOn
   }
   
   typeStyle(type?: TypeName): any {

@@ -89,8 +89,8 @@
         </button>
 
         <button class="icon-button" (click)="toogleParadoxAbility()" *ngIf="pokemon.isParadoxAbility()" matTooltip="Booster Energy">
-          <img class="icon-tatsugiri" src="assets/icons/booster-energy.png" *ngIf="pokemon.paradoxAbilityActivated" />
-          <img class="icon-tatsugiri" src="assets/icons/booster-energy-gray.png" *ngIf="!pokemon.paradoxAbilityActivated" />
+          <img class="icon-tatsugiri" src="assets/icons/booster-energy.png" *ngIf="pokemon.abilityOn" />
+          <img class="icon-tatsugiri" src="assets/icons/booster-energy-gray.png" *ngIf="!pokemon.abilityOn" />
         </button>
         <div [ngStyle]="typeStyle(pokemon.type1())" class="pokemon-type">{{ pokemon.type1() }}</div>
         <div *ngIf="pokemon.type2()" [ngStyle]="typeStyle(pokemon.type2())" class="pokemon-type">{{ pokemon.type2() }}</div>

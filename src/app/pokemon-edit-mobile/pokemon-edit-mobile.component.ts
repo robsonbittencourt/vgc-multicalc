@@ -164,7 +164,7 @@ export class PokemonEditMobileComponent {
   }
 
   toogleParadoxAbility() {
-    this.attacker.paradoxAbilityActivated = !this.attacker.paradoxAbilityActivated
+    this.attacker.abilityOn = !this.attacker.abilityOn
   }
 
   copyDamageResult(damageResult: DamageResult) {

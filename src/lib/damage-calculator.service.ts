@@ -113,7 +113,7 @@ export class DamageCalculatorService {
   }
 
   private adjustParadoxAbility(pokemon: Pokemon) {
-    if (pokemon.paradoxAbilityActivated) {
+    if (pokemon.abilityOn) {
       pokemon.pokemonSmogon.boostedStat = this.higherStat(pokemon)
     } else {
       pokemon.pokemonSmogon.boostedStat = undefined

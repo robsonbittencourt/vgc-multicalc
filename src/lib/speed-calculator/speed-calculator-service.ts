@@ -1,10 +1,10 @@
-import { Injectable } from "@angular/core"
-import { Pokemon } from "../pokemon"
-import { SpeedDefinition } from "./speed-definition"
+import { Injectable } from "@angular/core";
 import { Field, Generations, Pokemon as PokemonSmogon } from "@smogon/calc";
+import { Pokemon } from "../pokemon";
 import { SmogonFunctions } from "../smogon-functions/smogon-functions";
-import { speedMeta } from "./speed-meta";
 import { SpeedCalculatorOptions } from "./speed-calculator-options";
+import { SpeedDefinition } from "./speed-definition";
+import { speedMeta } from "./speed-meta";
 
 @Injectable({
   providedIn: 'root'
@@ -54,7 +54,11 @@ export class SpeedCalculatorService {
       if(actualSpeedDefinition?.pokemonName == actual.pokemonName && actualSpeedDefinition?.description == actual.description) {
         continue
       } else if (actualSpeedDefinition?.pokemonName == actual.pokemonName && actualSpeedDefinition?.value == actual.value) {
-        speedDefinitionsMerged[speedDefinitionsMerged.length - 1].description += "/" + actual.description
+        if (actualSpeedDefinition.description == "Actual" || actual.description == "Actual") {
+          speedDefinitionsMerged[speedDefinitionsMerged.length - 1].description = "Actual"
+        } else {
+          speedDefinitionsMerged[speedDefinitionsMerged.length - 1].description = "Meta"
+        }        
       } else {
         speedDefinitionsMerged.push(actual)
         actualSpeedDefinition = actual
@@ -104,7 +108,11 @@ export class SpeedCalculatorService {
   }
 
   maxScarf(pokemon: Pokemon, field: Field): SpeedDefinition {
-    const speed = this.smogonService.getFinalSpeed(pokemon, field, field.defenderSide)
+    const clonedPokemon = pokemon.clone()
+    clonedPokemon.nature = "Timid"
+    clonedPokemon.evs = { spe: 252 }
+
+    const speed = this.smogonService.getFinalSpeed(clonedPokemon, field, field.defenderSide)
     const description = "Scarf"
 
     return new SpeedDefinition(pokemon.spriteNameScarletViolet, speed, description)
