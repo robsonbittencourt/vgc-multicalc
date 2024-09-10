@@ -224,6 +224,7 @@ export class CalculatorComponent {
     this.deactivateTargets()
     this.calculateDamageForAll()
     this.order()
+    this.updateLocalStorage()
   }
 
   enableManyVsOne() {
@@ -235,12 +236,14 @@ export class CalculatorComponent {
     this.deactivateTargets()    
     this.calculateDamageForAll()
     this.order()
+    this.updateLocalStorage()
   }
 
   enableSpeedCalculator() {
     this.oneVsManyActivated = false
     this.manyVsOneActivated = false
     this.speedCalculatorActivated = true
+    this.updateLocalStorage()
   }
 
   private alreadyExists(pokemon: Pokemon): boolean {
@@ -376,6 +379,9 @@ export class CalculatorComponent {
       this.field = this.buildFieldFromUserData(userData)
       this.teams = this.buildTeamsFromUserData(userData)
       this.targets = this.buildTargetsFromUserData(userData)
+      this.oneVsManyActivated = userData.oneVsManyActivated ?? true,
+      this.manyVsOneActivated = userData.manyVsOneActivated,
+      this.speedCalculatorActivated = userData.speedCalculatorActivated
     } else {
       this.teams = this.defaultTeams()
       this.targets = this.defaultTargets()
@@ -422,6 +428,9 @@ export class CalculatorComponent {
 
   private buildUserDataToUpload(): any {
     return {
+      oneVsManyActivated: this.oneVsManyActivated,
+      manyVsOneActivated: this.manyVsOneActivated,
+      speedCalculatorActivated: this.speedCalculatorActivated,
       field: this.field,
       criticalHit: this.criticalHit,
       teams: this.teams.map(team => {
