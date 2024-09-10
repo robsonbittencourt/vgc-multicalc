@@ -35,6 +35,14 @@
  | Coaching 12.444%                       | 
  | Other 19.134%                          | 
  +----------------------------------------+ 
+ | Tera Types                             | 
+ | Stellar 44.026%                        | 
+ | Water 30.578%                          | 
+ | Grass 13.732%                          | 
+ | Poison  5.391%                         | 
+ | Ghost  4.678%                          | 
+ | Other  1.595%                          | 
+ +----------------------------------------+ 
  | Teammates                              | 
  | Rillaboom 55.895%                      | 
  | Incineroar 43.327%                     | 
@@ -82,6 +90,13 @@
  | U-turn 92.501%                         | 
  | Other 11.703%                          | 
  +----------------------------------------+ 
+ | Tera Types                             | 
+ | Fire 57.050%                           | 
+ | Grass 23.233%                          | 
+ | Water 11.247%                          | 
+ | Poison  4.301%                         | 
+ | Other  4.169%                          | 
+ +----------------------------------------+ 
  | Teammates                              | 
  | Urshifu-Rapid-Strike 68.572%           | 
  | Incineroar 47.284%                     | 
@@ -100,52 +115,61 @@
  |	 (28.0% KOed / 50.7% switched out)    | 
  +----------------------------------------+ 
  +----------------------------------------+ 
- | Lycanroc                               | 
+ | Incineroar                             | 
  +----------------------------------------+ 
- | Raw count: 5236                        | 
- | Avg. weight: 0.0193768857168           | 
- | Viability Ceiling: 82                  | 
+ | Raw count: 65979                       | 
+ | Avg. weight: 0.0507402455738           | 
+ | Viability Ceiling: 88                  | 
  +----------------------------------------+ 
  | Abilities                              | 
- | Sand Rush 99.897%                      | 
- | Keen Eye  0.103%                       | 
- | Steadfast  0.000%                      | 
+ | Intimidate 100.000%                    | 
+ | Blaze  0.000%                          | 
  +----------------------------------------+ 
  | Items                                  | 
- | Focus Sash 99.978%                     | 
- | Other  0.022%                          | 
+ | Safety Goggles 55.121%                 | 
+ | Rocky Helmet 33.704%                   | 
+ | Assault Vest  4.786%                   | 
+ | Covert Cloak  3.165%                   | 
+ | Other  3.224%                          | 
  +----------------------------------------+ 
  | Spreads                                | 
- | Jolly:4/252/0/0/0/252 60.060%          | 
- | Adamant:0/252/0/0/4/252 29.500%        | 
- | Adamant:4/252/0/0/0/252  6.431%        | 
- | Other  4.010%                          | 
+ | Impish:252/4/188/0/60/4  7.873%        | 
+ | Impish:252/0/116/0/140/0  6.835%       | 
+ | Careful:244/4/140/0/76/44  5.003%      | 
+ | Careful:244/4/100/0/76/84  4.751%      | 
+ | Impish:244/4/164/0/76/20  3.662%       | 
+ | Impish:244/0/188/0/76/0  3.290%        | 
+ | Other 68.586%                          | 
  +----------------------------------------+ 
  | Moves                                  | 
- | Rock Slide 99.988%                     | 
- | Endeavor 98.331%                       | 
- | Close Combat 97.389%                   | 
- | Endure 60.504%                         | 
- | Protect 38.425%                        | 
- | Other  5.363%                          | 
+ | Fake Out 99.997%                       | 
+ | Knock Off 97.417%                      | 
+ | Parting Shot 91.985%                   | 
+ | Will-O-Wisp 51.975%                    | 
+ | Flare Blitz 23.750%                    | 
+ | Taunt 19.853%                          | 
+ | Other 15.023%                          | 
  +----------------------------------------+ 
  | Tera Types                             | 
- | Ghost 72.958%                          | 
- | Fighting 22.526%                       | 
- | Other  4.516%                          | 
+ | Ghost 61.082%                          | 
+ | Water 17.122%                          | 
+ | Grass 11.667%                          | 
+ | Dragon  4.880%                         | 
+ | Fairy  2.785%                          | 
+ | Other  2.464%                          | 
  +----------------------------------------+ 
  | Teammates                              | 
- | Tyranitar 94.002%                      | 
- | Gholdengo 82.689%                      | 
- | Murkrow 79.452%                        | 
- | Maushold 60.037%                       | 
- | Annihilape 58.456%                     | 
- | Indeedee-F 27.584%                     | 
- | Garchomp 25.727%                       | 
- | Armarouge  5.795%                      | 
- | Dondozo  4.986%                        | 
- | Tatsugiri  4.961%                      | 
- | Corviknight  3.798%                    | 
+ | Urshifu-Rapid-Strike 76.274%           | 
+ | Rillaboom 59.112%                      | 
+ | Raging Bolt 40.095%                    | 
+ | Calyrex-Shadow 32.309%                 | 
+ | Amoonguss 29.146%                      | 
+ | Terapagos 27.611%                      | 
+ | Flutter Mane 21.332%                   | 
+ | Calyrex-Ice 17.335%                    | 
+ | Ogerpon-Hearthflame 17.002%            | 
+ | Clefairy 16.845%                       | 
+ | Iron Hands 13.728%                     | 
  +----------------------------------------+ 
  | Checks and Counters                    | 
  +----------------------------------------+  

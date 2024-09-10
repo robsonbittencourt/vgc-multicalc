@@ -4,69 +4,37 @@ import fs from 'fs'
 const LINE_SEPARATOR = "+----------------------------------------+"
 const POKEMON_QUANTITY = 250
 
-const a = await createSpeedMetaFile("g")
+// createSpeedMetaFile()
 
 export async function createSpeedMetaFile() {
   const regGData = await getSmogonData('g')
   const regHData = await getSmogonData('h')
-
-  console.log("antes")
-  console.log(regHData.length)
-
-  regGData.forEach(pokemonG => {
-    if(regHData.find(pokemonH => pokemonH.name == pokemonG.name) == undefined) {
-      regHData.push(pokemonG)
-    }
-  })
-
-  console.log("depois")
-  console.log(regHData.length)
   
   let classContent = 
-`export const SETDEX_SV: {[k: string]: any} = {
-${printNewPokemon(regHData)}
-};`
+`import { Pokemon } from "../pokemon"
 
-  fs.writeFileSync('src/data/movesets.ts', classContent)
-}
-
-function printNewPokemon(pokemon) {
-  return pokemon.map(p => {
-    return `
-  "${p.name}": {
-    "ability": "${p.ability}",
-    "item": "${p.item}",
-    "nature": "${p.nature}",
-    "teraType": "${p.teraType}",
-    "evs": {
-      "hp": ${p.evs.hp},
-      "atk": ${p.evs.atk},
-      "def": ${p.evs.def},
-      "spa": ${p.evs.spa},
-      "spd": ${p.evs.spd},
-      "spe": ${p.evs.spe}
-    },
-    "moves": [
-      "${p.moves[0]}",
-      "${p.moves[1]}",
-      "${p.moves[2]}",
-      "${p.moves[3]}"
-    ]
-  }`
-  })
-}
-
-async function getSmogonData(reg) {
-  try {
-    const response = await axios.get(`https://www.smogon.com/stats/${getCurrentYearMonth()}/moveset/gen9vgc2024reg${reg}bo3-1760.txt`)
-    const parsedSmogonData = parseSmogonData(response.data)
-    return parsedSmogonData
-  } catch (error) {
-    console.error(error)
+export function speedMeta(regulation: string): Pokemon[] {
+  if(regulation == "Reg G") {
+    return regG()
+  } else {
+    return regH()
   }
 }
 
-function parseSmogonData(data) {
+export function regG(): Pokemon[] {
+  return [
+${printNewPokemon(regGData)} ]  
+}
+
+export function regH(): Pokemon[] {
+  return [
+${printNewPokemon(regHData)} ]  
+}`
+
+  fs.writeFileSync('src/lib/speed-calculator/speed-meta.ts', classContent)
+}
+
+export function parseSmogonData(data) {
   const pokemon = data
     .split(` ${LINE_SEPARATOR} \n ${LINE_SEPARATOR} `)
     .map(it => {
@@ -85,7 +53,6 @@ function parseSmogonData(data) {
 function parsePokemonData(data) {
   const sections = extractSections(data)
 
-  const name = sections[0]
   const ability = extractAbility(sections)
   const item = extractItem(sections)
   const spreads = extractSpreads(sections)
@@ -94,7 +61,7 @@ function parsePokemonData(data) {
   const moves = extractMoves(sections)
   const teraType = extractTeraType(sections)
 
-  return { name, teraType, ability, item, nature, evs, moves }
+  return `new Pokemon("${sections[0]}", { teraType: "${teraType}", ability: "${ability}", nature: "${nature}", item: "${item}", evs: { hp: ${evs.hp}, atk: ${evs.atk}, def: ${evs.def}, spa: ${evs.spa}, spd: ${evs.spd}, spe: ${evs.spe} }, moves: ["${moves[0]}", "${moves[1]}", "${moves[2]}", "${moves[3]}"]}),`
 }
 
 function extractSections(data) {
@@ -165,6 +132,12 @@ function extractTeraType(sections) {
   return teraType[0]
 }
 
+function printNewPokemon(pokemon) {
+  return pokemon.map(p => {
+    return "    " + p + "\n"
+  }).join('')
+}
+
 function getCurrentYearMonth() {
   const previouslyMonthDate = new Date(new Date().setMonth(new Date().getMonth() - 1))
   const adjustedMonth = previouslyMonthDate.getMonth() + 1
@@ -173,4 +146,14 @@ function getCurrentYearMonth() {
   const year = new Date().getFullYear()
 
   return `${year}-${month}`
+}
+
+async function getSmogonData(reg) {
+  try {
+    const response = await axios.get(`https://www.smogon.com/stats/${getCurrentYearMonth()}/moveset/gen9vgc2024reg${reg}bo3-1760.txt`)
+    const parsedSmogonData = parseSmogonData(response.data)
+    return parsedSmogonData
+  } catch (error) {
+    console.error(error)
+  }
 }
