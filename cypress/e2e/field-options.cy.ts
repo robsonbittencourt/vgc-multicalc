@@ -6,6 +6,24 @@ const team = new Team()
 const field = new Field()
 const opponents = new Opponent()
 
+let vaporeonData: string
+let tyranitarData: string
+let baxcaliburData: string
+let rillaboomData: string
+let hattereneData: string
+let talonflameData: string
+let bronzongData: string
+
+before(() => {
+  cy.fixture("vaporeon-data").then((data) => { vaporeonData = data })
+  cy.fixture("tyranitar-data").then((data) => { tyranitarData = data })
+  cy.fixture("baxcalibur-data").then((data) => { baxcaliburData = data })
+  cy.fixture("rillaboom-data").then((data) => { rillaboomData = data })
+  cy.fixture("hatterene-data").then((data) => { hattereneData = data })
+  cy.fixture("talonflame-data").then((data) => { talonflameData = data })
+  cy.fixture("bronzong-data").then((data) => { bronzongData = data }) 
+})
+
 describe('Test the Field options', () => {
   it('With Tablets of Ruin active', () => {
     team.selectPokemon("Koraidon")
@@ -48,7 +66,7 @@ describe('Test the Field options', () => {
   })
 
   it('With Rain active', () => {
-    team.add("Vaporeon")
+    team.importPokemon(vaporeonData)
 
     field.rain()
     
@@ -56,7 +74,7 @@ describe('Test the Field options', () => {
   })
 
   it('With Sand active', () => {
-    opponents.add("Tyranitar")
+    opponents.importPokemon(tyranitarData)
     team.selectPokemon("Miraidon")
 
     field.sand()
@@ -65,7 +83,7 @@ describe('Test the Field options', () => {
   })
 
   it('With Snow active', () => {
-    opponents.add("Baxcalibur")
+    opponents.importPokemon(baxcaliburData)
     team.selectPokemon("Koraidon")
 
     field.snow()
@@ -82,7 +100,7 @@ describe('Test the Field options', () => {
   })
 
   it('With Grassy Terrain active', () => {
-    team.add("Rillaboom")
+    team.importPokemon(rillaboomData)
 
     field.grassyTerrain()
     
@@ -90,39 +108,36 @@ describe('Test the Field options', () => {
   })
 
   it('With Psychic Terrain active', () => {
-    team.add("Hatterene").changeAttackOne("Psyshock")
-
+    team.importPokemon(hattereneData)
+    
     field.psychicTerrain()
     
     opponents.get("Urshifu Rapid Strike").damageIs(43.4, 52)
   })
 
   it('With Misty Terrain active', () => {
-    team.add("Miraidon")
+    team.selectPokemon("Miraidon").selectAttackFour()
 
     field.mistyTerrain()
     
-    opponents.get("Urshifu Rapid Strike").damageIs(66.8, 78.8)
+    opponents.get("Urshifu Rapid Strike").damageIs(72.5, 85.7)
   })
 
   it('With Magic Room active', () => {
-    
     field.magicRoom()
     
     opponents.get("Urshifu Rapid Strike").damageIs(198.8, 234.2)
   })
 
   it('With Wonder Room active', () => {
-    
     field.wonderRoom()
     
     opponents.get("Urshifu Rapid Strike").damageIs(200, 236.5)
   })
 
   it('With Gravity active', () => {
-    team.add("Tyranitar").changeAttackOne("Earthquake")
-
-    opponents.add("Talonflame")
+    team.importPokemon(tyranitarData).selectAttackFour()
+    opponents.importPokemon(talonflameData)
 
     field.gravity()
     
@@ -130,35 +145,31 @@ describe('Test the Field options', () => {
   })
 
   it('With Helping Hand active', () => {
-    
     field.helpingHand()
     
     opponents.get("Incineroar").damageIs(96, 113.4)
   })
 
   it('With Critical Hit active', () => {
-    
     field.criticalHit()
     
     opponents.get("Incineroar").damageIs(97, 113.9)
   })
 
   it('With Battery active', () => {
-    
     field.battery()
     
     opponents.get("Incineroar").damageIs(83.5, 98.5)
   })
 
   it('With Power Spot active', () => {
-    
     field.powerSpot()
     
     opponents.get("Incineroar").damageIs(83.5, 98.5)
   })
 
   it('With Tailwind in attacker side active', () => {
-    team.add("Bronzong").changeAttackOne("Gyro Ball")
+    team.importPokemon(bronzongData)
     
     field.tailwindAttacker()
     
@@ -174,14 +185,12 @@ describe('Test the Field options', () => {
   })
 
   it('With Light Screen active', () => {
-    
     field.lightScreen()
     
     opponents.get("Incineroar").damageIs(42.7, 50.7)
   })
 
   it('With Aurora Veil active', () => {
-    
     field.auroraVeil()
     
     opponents.get("Incineroar").damageIs(42.7, 50.7)
@@ -196,14 +205,13 @@ describe('Test the Field options', () => {
   })
 
   it('With Friend Guard active', () => {
-    
     field.friendGuard()
     
     opponents.get("Incineroar").damageIs(48.2, 57.2)
   })
 
   it('With Tailwind in defender side active', () => {
-    team.add("Bronzong").changeAttackOne("Gyro Ball")
+    team.importPokemon(bronzongData)
     
     field.tailwindDefender()
     
@@ -211,35 +219,30 @@ describe('Test the Field options', () => {
   })
 
   it('With Three Spikes active', () => {
-    
     field.threeSpikes()
     
     opponents.get("Incineroar").haveChanceOfToCauseOHKO(6.3)
   })
 
   it('With Two Spikes active', () => {
-    
     field.twoSpikes()
     
     opponents.get("Rillaboom").cause3HKO()
   })
 
   it('With One Spikes active', () => {
-    
     field.oneSpikes()
     
     opponents.get("Rillaboom").cause3HKO()
   })
 
   it('With Stealth Rock active', () => {
-    
     field.stealthRock()
     
     opponents.get("Incineroar").haveChanceOfToCauseOHKO(6.3)
   })
 
   it('With Leech Seed active', () => {
-    
     field.leechSeed()
     
     opponents.get("Rillaboom").cause3HKO()

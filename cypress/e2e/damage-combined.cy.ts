@@ -4,6 +4,12 @@ import { Team } from "cypress/page-object/team"
 const team = new Team()
 const opponents = new Opponent()
 
+let tornadusData: string
+
+before(() => {
+  cy.fixture("tornadus-data").then((data) => { tornadusData = data })
+})
+
 describe('Test calcs with combined damage', () => {
   it('Calculate damage with two Pokémon', () => {
     team.selectTeamMember("Koraidon").combineDamage()
@@ -13,7 +19,7 @@ describe('Test calcs with combined damage', () => {
   })
 
   it('Change second Pokémon in combined damage', () => {
-    team.add("Tornadus")
+    team.importPokemon(tornadusData)
 
     team.selectTeamMember("Koraidon").combineDamage()
     team.selectTeamMember("Miraidon")
@@ -26,7 +32,7 @@ describe('Test calcs with combined damage', () => {
   })
 
   it('Create new Pokémon and use it with combined damage', () => {
-    team.add("Tornadus")
+    team.importPokemon(tornadusData)
     team.selectTeamMember("Tornadus").combineDamage()
     team.selectTeamMember("Miraidon")
 

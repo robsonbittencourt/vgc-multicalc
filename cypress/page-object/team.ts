@@ -1,7 +1,7 @@
-import { TeamMember } from "./team-member"
 import { ActivePokemon } from "./active-pokemon"
-import { ImportModal } from "./import-modal"
 import { ExportModal } from "./export-modal"
+import { ImportModal } from "./import-modal"
+import { TeamMember } from "./team-member"
 
 export class Team {
   
@@ -83,9 +83,10 @@ export class Team {
     cy.get(`[data-cy="stat-spe"]`).find('[data-cy="iv-value"]').should('have.value', spe)
   }
 
-  importPokemon(pokemonData: string) {
+  importPokemon(pokemonData: string): ActivePokemon {
     cy.get('[data-cy="import-pokemon-to-team"]').click({force: true})
     new ImportModal().import(pokemonData)
+    return new ActivePokemon()
   }
 
   importPokepaste(pokepaste: string) {
