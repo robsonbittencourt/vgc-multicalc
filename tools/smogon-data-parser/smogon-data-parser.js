@@ -10,18 +10,12 @@ export async function createSpeedMetaFile() {
   const regGData = await getSmogonData('g')
   const regHData = await getSmogonData('h')
 
-  console.log("antes")
-  console.log(regHData.length)
-
   regGData.forEach(pokemonG => {
     if(regHData.find(pokemonH => pokemonH.name == pokemonG.name) == undefined) {
       regHData.push(pokemonG)
     }
   })
 
-  console.log("depois")
-  console.log(regHData.length)
-  
   let classContent = 
 `export const SETDEX_SV: {[k: string]: any} = {
 ${printNewPokemon(regHData)}
