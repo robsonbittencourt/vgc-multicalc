@@ -17,5 +17,5 @@ export class DeviceDetectorService {
     return regex.test(this.userAgent.toLowerCase())
   }
 
-  isDesktopDevice = (): boolean => !this.isMobileDevice() && !this.isTabletDevice()
+  isDesktop = (): boolean => !this.isMobileDevice() && !this.isTabletDevice()
 }
