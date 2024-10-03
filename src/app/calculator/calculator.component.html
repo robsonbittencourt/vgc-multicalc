@@ -4,13 +4,13 @@
     <img class="icon" src="assets/icons/calc-72x72.png" />
     <span class="title">VGC Multi Calc</span>
     <div *ngIf="isDesktopDevice()" class="menu">
-      <div class="menu-option" [ngStyle]="oneVsManyActivated && { 'background-color': '#e7def6' } || null" (click)="enableOneVsMany()">
+      <div class="menu-option" [ngStyle]="data.oneVsManyActivated && { 'background-color': '#e7def6' } || null" (click)="enableOneVsMany()">
         <span>Team vs Many</span>
       </div>
-      <div class="menu-option" [ngStyle]="manyVsOneActivated && { 'background-color': '#e7def6' } || null" (click)="enableManyVsOne()" data-cy="many-vs-team">
+      <div class="menu-option" [ngStyle]="data.manyVsOneActivated && { 'background-color': '#e7def6' } || null" (click)="enableManyVsOne()" data-cy="many-vs-team">
         <span>Many vs Team</span>
       </div>
-      <div class="menu-option" [ngStyle]="speedCalculatorActivated && { 'background-color': '#e7def6' } || null" (click)="enableSpeedCalculator()" data-cy="speed-calculator">
+      <div class="menu-option" [ngStyle]="data.speedCalculatorActivated && { 'background-color': '#e7def6' } || null" (click)="enableSpeedCalculator()" data-cy="speed-calculator">
         <span>Speed Calculator</span>
       </div>
     </div>
@@ -40,32 +40,32 @@
 
 <div class="container" *ngIf="isDesktopDevice()">
   <div>
-    <app-main-pokemon [team]="activeTeam()" [pokemon]="activeOnEditPokemon" [isAttacker]="this.activeTeam().activePokemon() == activeOnEditPokemon" (pokemonChangedEvent)="pokemonOnEditChanged($event)"
+    <app-main-pokemon [team]="data.activeTeam()" [pokemon]="activeOnEditPokemon" [isAttacker]="data.activeTeam().activePokemon() == activeOnEditPokemon" (pokemonChangedEvent)="pokemonOnEditChanged($event)"
       (pokemonAddedToTeamEvent)=pokemonAddedToTeam() (teamChanged)="teamChanged($event)" (secondAttackerSelected)="secondAttackerSelected()"
       [secondSelection]="activeSecondAttacker"/>
   </div>
 
   <div>
-    <app-teams [teams]="teams" (teamChanged)="teamChanged($event)"/>
-    <app-field (fieldChangedEvent)="fieldChanged($event)" [field]="field" [criticalHit]="criticalHit" (criticalHitChangedEvent)="criticalHitChanged($event)" [isTrickRoom]="isTrickRoom" (trickRoomChangedEvent)="trickRoomChanged($event)"/>
+    <app-teams [teams]="data.teams" (teamChanged)="teamChanged($event)"/>
+    <app-field (fieldChangedEvent)="fieldChanged($event)" [field]="data.field" [criticalHit]="data.criticalHit" (criticalHitChangedEvent)="criticalHitChanged($event)" [isTrickRoom]="data.isTrickRoom" (trickRoomChangedEvent)="trickRoomChanged($event)"/>
   </div> 
 
-  <div class="target-pokemon" *ngIf="manyVsOneActivated || oneVsManyActivated">
-    <app-target-pokemon [targets]="targets" [isAttacker]="manyVsOneActivated" (targetChangedEvent)="targetChanged($event)"
+  <div class="target-pokemon" *ngIf="data.manyVsOneActivated || data.oneVsManyActivated">
+    <app-target-pokemon [targets]="data.targets" [isAttacker]="data.manyVsOneActivated" (targetChangedEvent)="targetChanged($event)"
      (allTargetsRemoved)="removeAllTargets()" (targetAdded)="pokemonAddedToTargets()" (targetsAdded)="targetsAdded($event)" (targetRemovedEvent)="targetRemoved()"
      (targetActivatedEvent)=targetActivated($event) (secondTargetDeactivatedEvent)=secondTargetDeactivated() [showDamageDescription]="!activeOnEditPokemon.isDefault()"/>
   </div>
 
-  <div class="target-pokemon" *ngIf="speedCalculatorActivated">
-    <app-speed-calculator-desktop [pokemon]="activeOnEditPokemon" [field]="field"/>
+  <div class="target-pokemon" *ngIf="data.speedCalculatorActivated">
+    <app-speed-calculator-desktop [pokemon]="activeOnEditPokemon" [field]="data.field"/>
   </div>
 </div>
 
-<div class="container" *ngIf="!isDesktopDevice() && (oneVsManyActivated || manyVsOneActivated)">
-  <app-pokemon-edit-mobile [leftTeamMember]="activeTeam().teamMembers()[0]" [rightTeamMember]="targets[0]" (pokemonChangedEvent)="pokemonOnEditChanged($event)" (attackerChangedEvent)="mobileAttackerChanged($event)"/>
-  <app-field (fieldChangedEvent)="fieldChanged($event)" [field]="field" [criticalHit]="criticalHit" (criticalHitChangedEvent)="criticalHitChanged($event)"/>
+<div class="container" *ngIf="!isDesktopDevice() && (data.oneVsManyActivated || data.manyVsOneActivated)">
+  <app-pokemon-edit-mobile [leftTeamMember]="data.activeTeam().teamMembers()[0]" [rightTeamMember]="data.targets[0]" (pokemonChangedEvent)="pokemonOnEditChanged($event)" (attackerChangedEvent)="mobileAttackerChanged($event)"/>
+  <app-field (fieldChangedEvent)="fieldChanged($event)" [field]="data.field" [criticalHit]="data.criticalHit" (criticalHitChangedEvent)="criticalHitChanged($event)"/>
 </div>
 
-<div class="container" *ngIf="!isDesktopDevice() && speedCalculatorActivated">
-  <app-speed-calculator-mobile [pokemon]="activeTeam().teamMembers()[0].pokemon" [field]="field" (pokemonChangedEvent)="pokemonOnEditChanged($event)"/>
+<div class="container" *ngIf="!isDesktopDevice() && data.speedCalculatorActivated">
+  <app-speed-calculator-mobile [pokemon]="data.activeTeam().teamMembers()[0].pokemon" [field]="data.field" (pokemonChangedEvent)="pokemonOnEditChanged($event)"/>
 </div>
