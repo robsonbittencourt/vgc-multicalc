@@ -105,6 +105,24 @@
   grid-column-end: 3;
 }
 
+.container-pokemon-edit {
+  display: grid;
+  row-gap: 1em;
+  background-color: white;
+  border-radius: 12px;
+  border-color: rgb(229, 231, 235);
+  border-width: 1px;
+  border-style: solid;
+  height: 94%;
+  padding: 1em 1.5em 1em 1.5em;
+}
+
+.field-one-one {
+  display: grid;
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
 @media only screen and (max-width: 768px) {
   .header {
     margin-left: -2.5em;

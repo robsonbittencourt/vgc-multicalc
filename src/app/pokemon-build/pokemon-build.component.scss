@@ -1,0 +1,193 @@
+.data {
+  display: flex;
+  gap: 0.5em;
+  border: solid 1px #f9f7fc;
+  border-radius: 12px;
+  background-color: #ded2f0;
+  padding: 1em;
+}
+
+.pokemon-image-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.pokemon-image {
+  display: flex;
+  justify-content: center;
+}
+
+.pokemon-image img {
+  width: 120px;
+  height: 120px;
+}
+
+.pokemon-image-small {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 1em;
+  margin-right: 0.3em;
+}
+
+.pokemon-status {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.pokemon-tera {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.tera-checkbox {
+  margin-top: 0.4em;
+}
+
+.tera-label {
+  margin-left: 2.3em;
+}
+
+.moves-section {
+  margin-left: 1em;
+}
+
+.moves {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.1em;
+}
+
+.move {
+  display: flex;
+  align-items: center;
+}
+
+.move-bp {
+  display: flex;
+  width: 1em;
+  justify-content: end;
+  margin-left: 1.2em;
+}
+
+.pokemon-types {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  margin-top: 2em;
+  gap: 0.2em;
+}
+
+.pokemon-type {
+  display: flex;
+  justify-content: center;
+  border: 1px solid;
+  width: 30%;
+  font-size: small;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: white;
+}
+
+.modifier-title {
+  grid-column: 3 / 4;
+  display: flex;
+  justify-content: center;
+}
+
+.evs {
+  display: grid;
+  grid-row-gap: 0.7em;
+  margin-top: 1em;
+}
+
+.evs-title {
+  grid-column: 4 / 5;
+  display: flex;
+  justify-content: center;
+}
+
+.ivs-title {
+  grid-column: 6 / 7;
+  display: flex;
+  justify-content: center;
+}
+
+.remaining-evs {
+  display: grid;
+  grid-template-columns: 64px 64px 64px 64px;
+  grid-column-gap: 1.5em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.nature {
+  grid-column: 1 / 3;
+  display: flex;
+  align-items: center;
+  column-gap: 0.5em;
+}
+
+.remaining-evs-label {
+  grid-column: 3 ;
+  display: flex;
+  align-items: center;
+  margin-left: 1.5em;
+}
+
+.remaining-evs-value {
+  grid-column: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.check-input-section {
+  display: flex;  
+  align-items: center;
+}
+
+.evs-titles {
+  display: grid;
+  grid-template-columns: 64px 64px 64px 64px 1fr 64px 40px;
+  grid-column-gap: 1.5em;
+  margin-top: 1em;
+  margin-bottom: -0.4em;
+}
+
+.base-title {
+  grid-column: 2 / 3;
+  display: flex;
+  justify-content: center;
+}
+
+.moves-labels {
+  margin-left: 2.9em;
+}
+
+.bp-label {
+  margin-left: 11.4em;
+}
+
+.info-label {
+  margin-bottom: -0.35em;
+}
+
+.icon-button {
+  background: none;
+  border: 0;
+  cursor: pointer;
+  margin-top: 0.3em;
+}
+
+.icon-button .icon-tera {
+  width: 20px;
+  height: 22px;
+}
+
+.icon-button .icon-tatsugiri {
+  width: 30px;
+  height: 30px;
+}
