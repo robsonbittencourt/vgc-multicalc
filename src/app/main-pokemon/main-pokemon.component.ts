@@ -41,23 +41,23 @@ export class MainPokemonComponent {
   @Input()
   pokemon: Pokemon
 
-  @Output() 
-  pokemonChangedEvent = new EventEmitter<Pokemon>()
-
   @Input() 
   team: Team
-
-  @Output() 
-  teamChanged = new EventEmitter<Team>()
-  
-  @Output() 
-  secondAttackerSelected = new EventEmitter<Pokemon>()
 
   @Input()
   secondSelection?: Pokemon
 
   @Input()
   isAttacker: boolean
+
+  @Output() 
+  pokemonChangedEvent = new EventEmitter<Pokemon>()
+
+  @Output() 
+  teamChanged = new EventEmitter<Team>()
+  
+  @Output() 
+  secondAttackerSelected = new EventEmitter<Pokemon>()
 
   constructor(
     private differs: KeyValueDiffers,
@@ -177,13 +177,11 @@ export class MainPokemonComponent {
     const removedTeamMember = this.team.removeActiveTeamMember()
 
     if (this.team.isEmpty() || !this.team.haveDefaultPokemon()) {
-      this.pokemon = defaultPokemon()
-      this.team.addTeamMember(new TeamMember(this.pokemon, false))
-      this.team.activateFirstTeamMember()  
-    } else {
-      this.team.activateFirstTeamMember()
-      this.pokemon = this.team.activePokemon()
-    }
+      this.team.addTeamMember(new TeamMember(defaultPokemon(), false))
+    } 
+
+    this.team.activateFirstTeamMember()
+    this.pokemon = this.team.activePokemon()
 
     if (removedTeamMember.pokemon == this.secondSelection) {
       this.secondAttackerSelected.emit(removedTeamMember.pokemon)

@@ -1,0 +1,43 @@
+.header {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  background-color: rgb(255, 255, 255);
+  font-size: large;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px;
+  border-color: rgb(229, 231, 235);
+  border-width: 1px;
+  border-style: solid;
+  padding-left: 2.5em;
+  padding-right: 0em;
+  margin-bottom: 0em;
+  margin-left: -2.5em;
+}
+
+.left-header {
+  display: flex;
+  align-items: center;
+}
+
+.right-header {
+  display: flex;
+  align-items: center;
+  column-gap: 1em;
+}
+
+.slowking-icon {
+  width: 50px;
+  height: 50px;
+}
+
+.icon {
+  width: 30px;
+  height: 30px;
+}
+
+.title {
+  color: black;
+  font-weight: 500;
+  margin-left: 1em;
+}

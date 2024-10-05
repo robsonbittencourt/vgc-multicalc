@@ -17,9 +17,9 @@ export class DamageCalculatorService {
 
   calculateDamage(attacker: Pokemon, target: Target, secondAttacker?: Pokemon) {
     if(this.data.oneVsManyActivated) {
-      this.calculateDamageOneVsMany(attacker, target, this.data.criticalHit, secondAttacker)
+      this.calculateDamageOneVsMany(attacker, target, this.data.extraFieldOptions.criticalHit, secondAttacker)
     } else {
-      this.calculateDamageManyVsOne(target, this.data.criticalHit)      
+      this.calculateDamageManyVsOne(target, this.data.extraFieldOptions.criticalHit)      
     }
   }
 

@@ -22,8 +22,11 @@ export class DataStore {
     gameType: 'Doubles'
   })
 
-  isTrickRoom: boolean = false
-  criticalHit: boolean = false
+  extraFieldOptions = {
+    trickRoom: false,
+    criticalHit: false
+  }  
+  
   teams: Team[]
   targets: Target[] = []
 
@@ -47,13 +50,11 @@ export class DataStore {
 
   buildInitialData(userData: any) {
     if (userData) {
-      this.criticalHit = userData.criticalHit
+      this.extraFieldOptions.criticalHit = userData.criticalHit
+      this.extraFieldOptions.trickRoom = userData.trickRoom
       this.field = this.buildFieldFromUserData(userData)
       this.teams = this.buildTeamsFromUserData(userData)
       this.targets = this.buildTargetsFromUserData(userData)
-      this.oneVsManyActivated = userData.oneVsManyActivated ?? true,
-      this.manyVsOneActivated = userData.manyVsOneActivated,
-      this.speedCalculatorActivated = userData.speedCalculatorActivated
     } else {
       this.teams = this.defaultTeams()
       this.targets = this.defaultTargets()
@@ -104,7 +105,8 @@ export class DataStore {
       manyVsOneActivated: this.manyVsOneActivated,
       speedCalculatorActivated: this.speedCalculatorActivated,
       field: this.field,
-      criticalHit: this.criticalHit,
+      criticalHit: this.extraFieldOptions.criticalHit,
+      trickRoom: this.extraFieldOptions.trickRoom,
       teams: this.teams.map(team => {
         return {
           "active": team.active,

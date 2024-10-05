@@ -1,0 +1,20 @@
+<div class="header">
+  <div class="left-header">
+    <img class="slowking-icon" src="assets/icons/slowking.png" />
+    <img class="icon" src="assets/icons/calc-72x72.png" />
+    <span class="title">VGC Multi Calc</span>
+  </div>
+  <div class="right-header">
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="enableOneVsMany()">
+        <span>Damage Calculator</span>
+      </button>
+      <button mat-menu-item (click)="enableSpeedCalculator()">
+        <span>Speed Calculator</span>
+      </button>
+    </mat-menu>
+  </div>
+</div>

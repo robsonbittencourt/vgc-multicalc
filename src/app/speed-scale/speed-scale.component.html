@@ -1,0 +1,5 @@
+<div class="center-section text-color">
+  <div class="speed-box" *ngFor="let speedDefinition of inSpeedRange">
+    <app-speed-box [speedDefinition]="speedDefinition" [speedChanged]="speedOrderChanged" [speedIncreasing]="speedOrderIncrease" />
+  </div>
+</div>

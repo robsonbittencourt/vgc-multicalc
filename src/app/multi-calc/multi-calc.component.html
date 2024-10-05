@@ -1,0 +1,15 @@
+<div class="container">
+  <app-main-pokemon [team]="data.activeTeam()" [pokemon]="activeOnEditPokemon" [isAttacker]="data.activePokemon() == activeOnEditPokemon" (pokemonChangedEvent)="pokemonOnEditChanged($event)"
+    (pokemonAddedToTeamEvent)=pokemonAddedToTeam() (teamChanged)="teamChanged($event)" (secondAttackerSelected)="secondAttackerSelected()" [secondSelection]="activeSecondAttacker"/>
+  
+  <div>
+    <app-teams [teams]="data.teams" (teamChanged)="teamChanged($event)"/>
+    <app-field (fieldChangedEvent)="fieldChanged()"/>
+  </div> 
+
+  <div class="target-pokemon">
+    <app-target-pokemon [targets]="data.targets" [isAttacker]="data.manyVsOneActivated" (targetChangedEvent)="targetChanged($event)"
+     (allTargetsRemoved)="removeAllTargets()" (targetAdded)="pokemonAddedToTargets()" (targetsAdded)="targetsAdded($event)" (targetRemovedEvent)="targetRemoved()"
+     (targetActivatedEvent)=targetActivated($event) (secondTargetDeactivatedEvent)=secondTargetDeactivated() [showDamageDescription]="!activeOnEditPokemon.isDefault()"/>
+  </div>
+</div>

@@ -28,6 +28,13 @@
   color: rgb(88, 88, 90);
 }
 
+.center-section {
+  display: grid;
+  grid-template-columns: repeat(21, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  overflow: hidden;
+}
+
 .title {
   color: black;
   font-weight: 500;
@@ -57,6 +64,12 @@
   align-items: center;
 }
 
+.speed-box {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  height: 150px;
+}
+
 .mat-ev-stat-modifier {
   width: 4em;
   margin-bottom: -1.3em;
@@ -67,12 +80,23 @@
   flex-direction: column;
 }
 
-.pokemon-combo {
-  display: flex;
-  align-items: center;
-  gap: 0.3em;  
-}
+@media only screen and (max-width: 768px) {
+  .container {
+    border-width: 0px;
+    border-radius: 0px;
+    padding: 0em 0em 0em 0em;
+  }
 
-.clear-button {
-  cursor: pointer;
+  .center-section {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    overflow: hidden;
+  }
+
+  .speed-box {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    height: 110px;
+  }
 }
