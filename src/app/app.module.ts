@@ -26,19 +26,23 @@ import { SmogonFunctions } from 'src/lib/smogon-functions/smogon-functions';
 import { AddPokemonCardComponent } from './add-pokemon-card/add-pokemon-card.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CalculatorComponent } from './calculator/calculator.component';
 import { EvSliderComponent } from './ev-slider/ev-slider.component';
 import { FieldComponent } from './field/field.component';
+import { HeaderMobileComponent } from './header-mobile/header-mobile.component';
+import { HeaderComponent } from './header/header.component';
 import { InputAutocompleteComponent } from './input-autocomplete/input-autocomplete.component';
 import { MainPokemonComponent } from './main-pokemon/main-pokemon.component';
+import { MainComponent } from './main/main.component';
+import { MultiCalcComponent } from './multi-calc/multi-calc.component';
 import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
 import { PokemonCardComponent } from './pokemon-card/pokemon-card.component';
 import { PokemonEditMobileComponent } from './pokemon-edit-mobile/pokemon-edit-mobile.component';
 import { PokemonTabComponent } from './pokemon-tab/pokemon-tab.component';
+import { SimpleCalcMobileComponent } from './simple-calc-mobile/simple-calc-mobile.component';
 import { SpeedBoxComponent } from './speed-box/speed-box.component';
-import { SpeedCalculatorDesktopComponent } from './speed-calculator-desktop/speed-calculator-desktop.component';
 import { SpeedCalculatorMobileComponent } from './speed-calculator-mobile/speed-calculator-mobile.component';
 import { SpeedCalculatorComponent } from './speed-calculator/speed-calculator.component';
+import { SpeedScaleComponent } from './speed-scale/speed-scale.component';
 import { TargetPokemonComponent } from './target-pokemon/target-pokemon.component';
 import { TeamBoxComponent } from './team-box/team-box.component';
 import { TeamExportModalComponent } from './team-export-modal/team-export-modal.component';
@@ -55,7 +59,6 @@ import { TeamsComponent } from './teams/teams.component';
     InputAutocompleteComponent,
     PokemonCardComponent,
     AddPokemonCardComponent,
-    CalculatorComponent,
     NotFoundPageComponent,
     PokemonTabComponent,
     TeamsComponent,
@@ -63,10 +66,15 @@ import { TeamsComponent } from './teams/teams.component';
     TeamExportModalComponent,
     TeamImportModalComponent,
     PokemonEditMobileComponent,
-    SpeedCalculatorComponent,
+    SpeedScaleComponent,
     SpeedCalculatorMobileComponent,
     SpeedBoxComponent,
-    SpeedCalculatorDesktopComponent
+    SpeedCalculatorComponent,
+    MainComponent,
+    MultiCalcComponent,
+    SimpleCalcMobileComponent,
+    HeaderComponent,
+    HeaderMobileComponent
   ],
   imports: [
     ReactiveFormsModule,

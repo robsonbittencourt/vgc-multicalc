@@ -1,0 +1,73 @@
+.header {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  background-color: rgb(255, 255, 255);
+  font-size: large;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px;
+  border-color: rgb(229, 231, 235);
+  border-width: 1px;
+  border-style: solid;
+  padding-left: 2.5em;
+  padding-right: 2.5em;
+  margin-bottom: 0.5em;
+}
+
+.left-header {
+  display: flex;
+  align-items: center;
+}
+
+.right-header {
+  display: flex;
+  align-items: center;
+  column-gap: 1em;
+}
+
+.copy-icon {
+  cursor: pointer;
+}
+
+.calc-link {
+  font-size: medium;
+}
+
+.slowking-icon {
+  width: 50px;
+  height: 50px;
+}
+
+.icon {
+  width: 30px;
+  height: 30px;
+}
+
+.title {
+  color: black;
+  font-weight: 500;
+  margin-left: 1em;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  column-gap: 2em;
+  font-size: medium;
+  color: rgb(133, 129, 129);
+  margin-left: 2em;
+  padding: 1em;
+  height: 75%;
+}
+
+.menu-option {
+  display: flex;
+  padding: 0.5em;
+  align-items: center;
+  height: 75%;
+}
+
+.menu-option:hover {
+  cursor: pointer;
+  font-weight: 500;
+}

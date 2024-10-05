@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, KeyValueDiffer, KeyValueDiffers, Output } from '@angular/core';
+import { Component, EventEmitter, KeyValueDiffer, KeyValueDiffers, Output } from '@angular/core';
 import { MatButtonToggleChange } from '@angular/material/button-toggle';
-import { Field } from '@smogon/calc';
+import { DataStore } from '../data-store.service';
 
 @Component({
   selector: 'app-field',
@@ -9,56 +9,38 @@ import { Field } from '@smogon/calc';
 })
 export class FieldComponent {
 
-  @Input()
-  field: Field
-
-  @Input()
-  criticalHit: boolean
-
-  @Input()
-  isTrickRoom: boolean
-
   @Output() 
-  fieldChangedEvent = new EventEmitter<Field>();
-
-  @Output() 
-  criticalHitChangedEvent = new EventEmitter<boolean>()
-
-  @Output() 
-  trickRoomChangedEvent = new EventEmitter<boolean>()
+  fieldChangedEvent = new EventEmitter<any>();
 
   private differField: KeyValueDiffer<string, any>
   private differFieldAttacker: KeyValueDiffer<string, any>
   private differFieldDefender: KeyValueDiffer<string, any>
+  private differExtraFieldOptions: KeyValueDiffer<string, any>
   
-  constructor(private differs: KeyValueDiffers,  private differsFieldAttacker: KeyValueDiffers, private differsFieldDefender: KeyValueDiffers) {}
+  constructor(public data: DataStore, private differs: KeyValueDiffers,  private differsFieldAttacker: KeyValueDiffers, private differsFieldDefender: KeyValueDiffers,
+    private differsFieldCritical: KeyValueDiffers
+  ) {}
 
   ngOnInit() {
-    this.differField = this.differs.find(this.field).create()
-    this.differFieldAttacker = this.differsFieldAttacker.find(this.field.attackerSide).create()
-    this.differFieldDefender = this.differsFieldDefender.find(this.field.defenderSide).create()
+    this.differField = this.differs.find(this.data.field).create()
+    this.differFieldAttacker = this.differsFieldAttacker.find(this.data.field.attackerSide).create()
+    this.differFieldDefender = this.differsFieldDefender.find(this.data.field.defenderSide).create()
+    this.differExtraFieldOptions = this.differsFieldCritical.find(this.data.extraFieldOptions).create()
   }
 
   ngDoCheck() {
-    const changed = this.differField.diff(this.field) ||
-      this.differFieldAttacker.diff(this.field.attackerSide) ||
-      this.differFieldDefender.diff(this.field.defenderSide)
+    const changed = this.differField.diff(this.data.field) ||
+      this.differFieldAttacker.diff(this.data.field.attackerSide) ||
+      this.differFieldDefender.diff(this.data.field.defenderSide) ||
+      this.differExtraFieldOptions.diff(this.data.extraFieldOptions)
     
     if (changed) {
-      this.fieldChangedEvent.emit(this.field)
+      this.fieldChangedEvent.emit()
     }
   }
 
-  onCriticalHitChance(criticalHit: boolean) {
-    this.criticalHitChangedEvent.emit(criticalHit)
-  }
-
   oSingleTargetChance(singleTarget: boolean) {
-    this.field.gameType = singleTarget ? 'Singles' : 'Doubles'
-  }
-
-  onTrickRoomChanged(trickRoom: boolean) {
-    this.trickRoomChangedEvent.emit(trickRoom)
+    this.data.field.gameType = singleTarget ? 'Singles' : 'Doubles'
   }
 
   toggleChangeWeather(change: MatButtonToggleChange) {
@@ -68,7 +50,7 @@ export class FieldComponent {
       toggle.buttonToggleGroup.value = [change.source.value]
     }
     
-    this.field.weather = toggle.buttonToggleGroup.value[0]
+    this.data.field.weather = toggle.buttonToggleGroup.value[0]
   }
 
   toggleChangeTerrain(change: MatButtonToggleChange) {
@@ -78,7 +60,7 @@ export class FieldComponent {
       toggle.buttonToggleGroup.value = [change.source.value]
     }
     
-    this.field.terrain = toggle.buttonToggleGroup.value[0]
+    this.data.field.terrain = toggle.buttonToggleGroup.value[0]
   }
 
 }

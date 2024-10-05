@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, KeyValueDiffer, KeyValueDiffers, Output } from '@angular/core';
+import { Component, EventEmitter, KeyValueDiffer, KeyValueDiffers, Output } from '@angular/core';
 import { MatButtonToggleChange } from '@angular/material/button-toggle';
-import { Field, ITEMS, MOVES, NATURES } from '@smogon/calc';
+import { ITEMS, MOVES, NATURES } from '@smogon/calc';
 import { AllPokemon } from 'src/data/all-pokemon';
 import { SETDEX_SV } from 'src/data/movesets';
 import { Pokemon } from 'src/lib/pokemon';
 import { SpeedCalculatorOptions } from 'src/lib/speed-calculator/speed-calculator-options';
+import { DataStore } from '../data-store.service';
 
 @Component({
   selector: 'app-speed-calculator-mobile',
@@ -13,15 +14,10 @@ import { SpeedCalculatorOptions } from 'src/lib/speed-calculator/speed-calculato
 })
 export class SpeedCalculatorMobileComponent {
 
-  @Input()
-  field: Field
-
-  @Input()
-  pokemon: Pokemon
-
   @Output() 
-  pokemonChangedEvent = new EventEmitter<Pokemon>()
+  dataChangedEvent = new EventEmitter<any>()
 
+  pokemon: Pokemon
   options: SpeedCalculatorOptions = new SpeedCalculatorOptions()
 
   allPokemonNames = AllPokemon.instance.allPokemonNames
@@ -47,12 +43,10 @@ export class SpeedCalculatorMobileComponent {
   private differ: KeyValueDiffer<string, any>
   private differStatusModifiers: KeyValueDiffer<string, any>
 
-  constructor(
-    private differs: KeyValueDiffers,
-    private differsStatusModifiers: KeyValueDiffers
-  ) { }
+  constructor(public data: DataStore, private differs: KeyValueDiffers, private differsStatusModifiers: KeyValueDiffers) { }
 
   ngOnInit() {
+    this.pokemon = this.data.activePokemon()
     this.differ = this.differs.find(this.pokemon).create()
     this.differStatusModifiers = this.differsStatusModifiers.find(this.pokemon.boosts).create()
   }
@@ -62,7 +56,7 @@ export class SpeedCalculatorMobileComponent {
     const boostsChanged = this.differStatusModifiers.diff(this.pokemon.boosts) 
     
     if (pokemonChanged || boostsChanged) {
-      this.pokemonChangedEvent.emit(this.pokemon)
+      this.dataChangedEvent.emit(this.pokemon)
     }
   }
  
@@ -126,14 +120,14 @@ export class SpeedCalculatorMobileComponent {
       toggle.buttonToggleGroup.value = [change.source.value]
     }
     
-    this.field.weather = toggle.buttonToggleGroup.value[0]
+    this.data.field.weather = toggle.buttonToggleGroup.value[0]
   }
 
   toggleChangeTerrain(change: MatButtonToggleChange) {
     if(change.source.checked) {
-      this.field.terrain = "Electric"  
+      this.data.field.terrain = "Electric"  
     } else {
-      this.field.terrain = undefined
+      this.data.field.terrain = undefined
     }
   }
 

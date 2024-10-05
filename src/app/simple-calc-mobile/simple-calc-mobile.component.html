@@ -1,0 +1,4 @@
+<div class="container">
+  <app-pokemon-edit-mobile [leftTeamMember]="data.activeTeam().teamMembers()[0]" [rightTeamMember]="data.targets[0]" (pokemonChangedEvent)="pokemonOnEditChanged($event)" (attackerChangedEvent)="mobileAttackerChanged($event)"/>
+  <app-field (fieldChangedEvent)="fieldChanged()"/>
+</div>

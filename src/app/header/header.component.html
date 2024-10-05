@@ -1,0 +1,26 @@
+<div class="header">
+  <div class="left-header">
+    <img class="slowking-icon" src="assets/icons/slowking.png" />
+    <img class="icon" src="assets/icons/calc-72x72.png" />
+    <span class="title">VGC Multi Calc</span>
+    <div class="menu">
+      <div class="menu-option" [ngStyle]="data.oneVsManyActivated && { 'background-color': '#e7def6' } || null" (click)="enableOneVsMany()">
+        <span>Team vs Many</span>
+      </div>
+      <div class="menu-option" [ngStyle]="data.manyVsOneActivated && { 'background-color': '#e7def6' } || null" (click)="enableManyVsOne()" data-cy="many-vs-team">
+        <span>Many vs Team</span>
+      </div>
+      <div class="menu-option" [ngStyle]="data.speedCalculatorActivated && { 'background-color': '#e7def6' } || null" (click)="enableSpeedCalculator()" data-cy="speed-calculator">
+        <span>Speed Calculator</span>
+      </div>
+    </div>
+  </div>
+  <div class="right-header">
+    <mat-icon class="copy-icon" *ngIf="userDataLink" (click)="copyUserDataLink()">content_copy</mat-icon>
+    <a class="calc-link" *ngIf="userDataLink" target="_blank" [href]="userDataLink">Link</a>
+    <button mat-flat-button color="link" (click)="uploadData()">Share your calcs</button>
+    <a target="_blank" href="https://twitter.com/rluizv"><img class="icon" src="assets/icons/twitter.png"/></a>
+    <a target="_blank" href="https://github.com/robsonbittencourt/vgc-multicalc"><img class="icon" src="assets/icons/github.png"/></a>
+    <a href='https://ko-fi.com/B0B2VFTC3' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi2.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
+  </div>
+</div>
