@@ -35,6 +35,7 @@ import { MainPokemonComponent } from './main-pokemon/main-pokemon.component';
 import { MainComponent } from './main/main.component';
 import { MultiCalcComponent } from './multi-calc/multi-calc.component';
 import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
+import { PokemonBuildComponent } from './pokemon-build/pokemon-build.component';
 import { PokemonCardComponent } from './pokemon-card/pokemon-card.component';
 import { PokemonEditMobileComponent } from './pokemon-edit-mobile/pokemon-edit-mobile.component';
 import { PokemonTabComponent } from './pokemon-tab/pokemon-tab.component';
@@ -74,7 +75,8 @@ import { TeamsComponent } from './teams/teams.component';
     MultiCalcComponent,
     SimpleCalcMobileComponent,
     HeaderComponent,
-    HeaderMobileComponent
+    HeaderMobileComponent,
+    PokemonBuildComponent
   ],
   imports: [
     ReactiveFormsModule,
