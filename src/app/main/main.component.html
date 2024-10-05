@@ -1,5 +1,7 @@
 <app-header *ngIf="isDesktopDevice()"/>
 
+<app-simple-calc *ngIf="isDesktopDevice() && data.oneVsOneActivated" (dataChangedEvent)="updateLocalStorage()"/>
+
 <app-multi-calc *ngIf="isDesktopDevice() && data.oneVsManyActivated" (dataChangedEvent)="updateLocalStorage()"/>
 
 <app-multi-calc *ngIf="isDesktopDevice() && data.manyVsOneActivated" (dataChangedEvent)="updateLocalStorage()"/>

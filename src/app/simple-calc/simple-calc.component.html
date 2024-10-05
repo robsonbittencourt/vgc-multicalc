@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="pokemon-edit">
+    <app-pokemon-build [pokemon]="leftPokemon"/>
+  </div>
+
+  <div class="pokemon-edit">
+    <app-pokemon-build [pokemon]="rightPokemon"/>
+  </div>
+
+  <div class="field">
+    <app-field (fieldChangedEvent)="fieldChanged()"/>
+  </div>
+</div>

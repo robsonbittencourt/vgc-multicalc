@@ -49,6 +49,7 @@ import { TeamBoxComponent } from './team-box/team-box.component';
 import { TeamExportModalComponent } from './team-export-modal/team-export-modal.component';
 import { TeamImportModalComponent } from './team-import-modal/team-import-modal.component';
 import { TeamsComponent } from './teams/teams.component';
+import { SimpleCalcComponent } from './simple-calc/simple-calc.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { TeamsComponent } from './teams/teams.component';
     SimpleCalcMobileComponent,
     HeaderComponent,
     HeaderMobileComponent,
-    PokemonBuildComponent
+    PokemonBuildComponent,
+    SimpleCalcComponent
   ],
   imports: [
     ReactiveFormsModule,

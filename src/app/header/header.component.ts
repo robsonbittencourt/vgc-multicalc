@@ -15,22 +15,32 @@ export class HeaderComponent {
 
   constructor(public data: DataStore, private _snackBar: MatSnackBar) {}
 
+  enableOneVsOne() {
+    this.data.oneVsOneActivated = true
+    this.data.oneVsManyActivated = false
+    this.data.manyVsOneActivated = false
+    this.data.speedCalculatorActivated = false
+  }
+
   enableOneVsMany() {
     this.data.oneVsManyActivated = true
+    this.data.oneVsOneActivated = false
     this.data.manyVsOneActivated = false
     this.data.speedCalculatorActivated = false
   }
 
   enableManyVsOne() {
     this.data.manyVsOneActivated = true
+    this.data.oneVsOneActivated = false
     this.data.oneVsManyActivated = false
     this.data.speedCalculatorActivated = false
   }
 
   enableSpeedCalculator() {
-    this.data.oneVsManyActivated = false
-    this.data.manyVsOneActivated = false
     this.data.speedCalculatorActivated = true
+    this.data.oneVsOneActivated = false
+    this.data.oneVsManyActivated = false
+    this.data.manyVsOneActivated = false    
   }
 
   uploadData() {

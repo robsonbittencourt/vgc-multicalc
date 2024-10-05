@@ -4,6 +4,9 @@
     <img class="icon" src="assets/icons/calc-72x72.png" />
     <span class="title">VGC Multi Calc</span>
     <div class="menu">
+      <div class="menu-option" [ngStyle]="data.oneVsOneActivated && { 'background-color': '#e7def6' } || null" (click)="enableOneVsOne()">
+        <span>One vs One</span>
+      </div>
       <div class="menu-option" [ngStyle]="data.oneVsManyActivated && { 'background-color': '#e7def6' } || null" (click)="enableOneVsMany()">
         <span>Team vs Many</span>
       </div>
