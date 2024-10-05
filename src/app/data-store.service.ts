@@ -14,7 +14,8 @@ export class DataStore {
 
   constructor(private deviceDetector: DeviceDetectorService) {}
 
-  oneVsManyActivated: boolean = true
+  oneVsOneActivated: boolean = true
+  oneVsManyActivated: boolean = false
   manyVsOneActivated: boolean = false
   speedCalculatorActivated: boolean = false
 
