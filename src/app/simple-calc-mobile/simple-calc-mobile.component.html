@@ -19,6 +19,6 @@
       <mat-icon class="copy-icon" (click)="copyDamageResult(damageResult)">content_copy</mat-icon>
     </div>
   </div>
-  <app-pokemon-edit-mobile [pokemon]="attacker" (pokemonChangedEvent)="pokemonOnEditChanged($event)"/>
+  <app-pokemon-build-mobile [pokemon]="attacker" (pokemonChangedEvent)="pokemonOnEditChanged($event)"/>
   <app-field (fieldChangedEvent)="fieldChanged()"/>
 </div>

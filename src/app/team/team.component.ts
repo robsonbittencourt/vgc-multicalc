@@ -10,11 +10,11 @@ import { TeamExportModalComponent } from '../team-export-modal/team-export-modal
 import { TeamImportModalComponent } from '../team-import-modal/team-import-modal.component';
 
 @Component({
-  selector: 'app-main-pokemon',
-  templateUrl: './main-pokemon.component.html',
-  styleUrls: ['./main-pokemon.component.scss']
+  selector: 'app-team',
+  templateUrl: './team.component.html',
+  styleUrls: ['./team.component.scss']
 })
-export class MainPokemonComponent {
+export class TeamComponent {
 
   @Input()
   pokemon: Pokemon
