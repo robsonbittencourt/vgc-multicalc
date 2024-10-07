@@ -2,35 +2,6 @@
   background-color: white;
 }
 
-.pokes {
-  display: flex;
-  justify-content: space-evenly;
-  width: 100%;
-}
-
-.pokemon-name {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  max-width: 35%;
-  margin-right: 2em;
-}
-
-.damage-result {
-  display: flex;
-  justify-content: space-between;
-
-  align-items: center;
-  gap: 1em;
-  margin: 1.5em 0.75em 0em 0.75em;
-  font-weight: 500;
-}
-
-.damage-result-text {
-  display: flex;
-  flex-direction: column;
-}
-
 .moves {
   margin: 1em 0.75em 0em 0.75em;
 }
@@ -134,10 +105,4 @@
 
 .ability-checkbox {
   display: flex;
-}
-
-.copy-button {
-  display: flex;
-  align-items: center;
-  gap: 1em;
 }

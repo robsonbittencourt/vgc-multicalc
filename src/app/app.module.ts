@@ -50,6 +50,8 @@ import { TeamExportModalComponent } from './team-export-modal/team-export-modal.
 import { TeamImportModalComponent } from './team-import-modal/team-import-modal.component';
 import { TeamsComponent } from './teams/teams.component';
 import { SimpleCalcComponent } from './simple-calc/simple-calc.component';
+import { PokemonComboBoxComponent } from './pokemon-combo-box/pokemon-combo-box.component';
+import { AbilityComboBoxComponent } from './ability-combo-box/ability-combo-box.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +80,9 @@ import { SimpleCalcComponent } from './simple-calc/simple-calc.component';
     HeaderComponent,
     HeaderMobileComponent,
     PokemonBuildComponent,
-    SimpleCalcComponent
+    SimpleCalcComponent,
+    PokemonComboBoxComponent,
+    AbilityComboBoxComponent
   ],
   imports: [
     ReactiveFormsModule,

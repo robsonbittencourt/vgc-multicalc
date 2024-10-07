@@ -2,4 +2,40 @@
   display: grid;
   grid-template-columns: 1fr;
   color: rgb(88, 88, 90);
+  background-color: white;
+}
+
+.pokes {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.pokemon-name {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 35%;
+  margin-right: 2em;
+}
+
+.damage-result {
+  display: flex;
+  justify-content: space-between;
+
+  align-items: center;
+  gap: 1em;
+  margin: 1.5em 0.75em 0em 0.75em;
+  font-weight: 500;
+}
+
+.damage-result-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.copy-button {
+  display: flex;
+  align-items: center;
+  gap: 1em;
 }

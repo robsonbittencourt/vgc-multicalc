@@ -1,4 +1,24 @@
 <div class="container">
-  <app-pokemon-edit-mobile [leftTeamMember]="data.activeTeam().teamMembers()[0]" [rightTeamMember]="data.targets[0]" (pokemonChangedEvent)="pokemonOnEditChanged($event)" (attackerChangedEvent)="mobileAttackerChanged($event)"/>
+  <div class="pokes">
+    <div class="pokemon-name">
+      <label>Pokémon</label>
+      <app-pokemon-combo-box [pokemon]="attacker"/>
+    </div>
+    <app-pokemon-tab [activeTab]="leftIsAttacker()" [teamMember]="leftTeamMember" (tabActivated)="activatePokemon($event)"/>
+    <app-pokemon-tab [activeTab]="rightIsAttacker()" [teamMember]="rightTeamMember" (tabActivated)="activatePokemon($event)"/>
+  </div>
+
+  <div class="damage-result">
+    <div class="damage-result-text">
+      <span *ngIf="leftIsAttacker()">{{ attacker.name }} {{ attacker.activeMoveName }} vs {{ rightTeamMember.pokemon.name }}</span>
+      <span *ngIf="rightIsAttacker()">{{ attacker.name }} {{ attacker.activeMoveName }} vs {{ leftTeamMember.pokemon.name }}</span>
+      <span>{{ damageResult.result }} - {{ damageResult.koChance }}</span>
+    </div>
+    <div class="copy-button">
+      <label *ngIf="copyMessageEnabled">Copied!</label> 
+      <mat-icon class="copy-icon" (click)="copyDamageResult(damageResult)">content_copy</mat-icon>
+    </div>
+  </div>
+  <app-pokemon-edit-mobile [pokemon]="attacker" (pokemonChangedEvent)="pokemonOnEditChanged($event)"/>
   <app-field (fieldChangedEvent)="fieldChanged()"/>
 </div>

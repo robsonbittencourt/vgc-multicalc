@@ -10,6 +10,6 @@
 
 <app-header-mobile *ngIf="!isDesktopDevice()"/>
 
-<app-simple-calc-mobile *ngIf="!isDesktopDevice() && (data.oneVsManyActivated || data.manyVsOneActivated)" (dataChangedEvent)="updateLocalStorage()"/>
+<app-simple-calc-mobile *ngIf="!isDesktopDevice() && !data.speedCalculatorActivated" (dataChangedEvent)="updateLocalStorage()"/>
 
 <app-speed-calculator-mobile *ngIf="!isDesktopDevice() && data.speedCalculatorActivated" (dataChangedEvent)="updateLocalStorage()"/>
