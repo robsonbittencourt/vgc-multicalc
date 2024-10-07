@@ -860,6 +860,26 @@ export const SETDEX_SV: {[k: string]: any} = {
       "Haze"
     ]
   },
+  "Palafin-Hero": {
+    "ability": "Zero to Hero",
+    "item": "Mystic Water",
+    "nature": "Adamant",
+    "teraType": "Water",
+    "evs": {
+      "hp": 252,
+      "atk": 252,
+      "def": 0,
+      "spa": 0,
+      "spd": 4,
+      "spe": 0
+    },
+    "moves": [
+      "Jet Punch",
+      "Wave Crash",
+      "Protect",
+      "Haze"
+    ]
+  },
   "Gallade": {
     "ability": "Sharpness",
     "item": "Clear Amulet",
