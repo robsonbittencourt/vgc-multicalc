@@ -1,5 +1,5 @@
 <div class="container">
-  <app-main-pokemon [pokemon]="pokemon" [team]="data.activeTeam()" [isAttacker]="false" (pokemonChangedEvent)="dataChanged()" (pokemonChangedEvent)="pokemonChanged($event)"/>
+  <app-team [pokemon]="pokemon" [team]="data.activeTeam()" [isAttacker]="false" (pokemonChangedEvent)="dataChanged()" (pokemonChangedEvent)="pokemonChanged($event)"/>
     
   <div>
     <app-teams [teams]="data.teams" (teamChanged)="teamChanged($event)"/>

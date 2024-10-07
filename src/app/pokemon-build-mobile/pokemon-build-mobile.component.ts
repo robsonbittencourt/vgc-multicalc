@@ -4,11 +4,11 @@ import { Move } from 'src/lib/move';
 import { Pokemon } from 'src/lib/pokemon';
 
 @Component({
-  selector: 'app-pokemon-edit-mobile',
-  templateUrl: './pokemon-edit-mobile.component.html',
-  styleUrls: ['./pokemon-edit-mobile.component.scss']
+  selector: 'app-pokemon-build-mobile',
+  templateUrl: './pokemon-build-mobile.component.html',
+  styleUrls: ['./pokemon-build-mobile.component.scss']
 })
-export class PokemonEditMobileComponent {
+export class PokemonBuildMobileComponent {
 
   allItemsNames = Object.values(ITEMS[9]).sort()
   allMoveNames = Object.keys(MOVES[9]).splice(1).sort()
