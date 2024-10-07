@@ -6,6 +6,6 @@ describe('Add Pokémon', () => {
   it('Palafin-Hero', () => {
     team.add("Palafin-Hero")
 
-    team.pokemonOnEditIs("Palafin-Hero", "Zero to Hero", "Normal", "Leftovers", "Docile")
+    team.pokemonOnEditIs("Palafin-Hero", "Zero to Hero", "Water", "Mystic Water", "Adamant")
   })
 })
