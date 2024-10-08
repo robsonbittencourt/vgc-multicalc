@@ -24,18 +24,18 @@ export class SimpleCalcComponent {
   constructor(public data: DataStore, private damageCalculator: DamageCalculatorService) {}
 
   leftPokemonChanged() {
-    this.leftDamageResult = this.damageCalculator.calcDamage(this.leftPokemon, this.rightPokemon, this.data.field, this.data.extraFieldOptions.criticalHit)
+    this.leftDamageResult = this.damageCalculator.calcDamage(this.leftPokemon, this.rightPokemon)
     this.dataChangedEvent.emit()
   }
 
   rightPokemonChanged() {
-    this.rightDamageResult = this.damageCalculator.calcDamage(this.rightPokemon, this.leftPokemon, this.data.field, this.data.extraFieldOptions.criticalHit)
+    this.rightDamageResult = this.damageCalculator.calcDamage(this.rightPokemon, this.leftPokemon)
     this.dataChangedEvent.emit()
   }
 
   fieldChanged() {
-    this.leftDamageResult = this.damageCalculator.calcDamage(this.leftPokemon, this.rightPokemon, this.data.field, this.data.extraFieldOptions.criticalHit)
-    this.rightDamageResult = this.damageCalculator.calcDamage(this.rightPokemon, this.leftPokemon, this.data.field, this.data.extraFieldOptions.criticalHit)
+    this.leftDamageResult = this.damageCalculator.calcDamage(this.leftPokemon, this.rightPokemon)
+    this.rightDamageResult = this.damageCalculator.calcDamage(this.rightPokemon, this.leftPokemon)
     this.dataChangedEvent.emit()
   }
 
