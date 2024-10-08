@@ -5,6 +5,10 @@ const team = new Team()
 const opponents = new Opponent()
 
 describe('Test calcs with stats modifiers in attacker', () => {
+  beforeEach(() => {
+    cy.get('[data-cy="team-vs-many"]').click({force: true})
+  })
+  
   it('Validate the damage Miraidon +1 spa', () => {
     team.selectPokemon("Miraidon").selectStatsModifier('spa', '+1')
     
@@ -80,6 +84,7 @@ describe('Test calcs with stats modifiers in attacker', () => {
     opponents.get("Rillaboom").damageIs(289.3, 341.1).causeOHKO()
     opponents.get("Raging Bolt").damageIs(123.3, 145.4).causeOHKO()
   })
+
   it('Validate the damage Koraidon +6 atk', () => {
     team.selectPokemon("Koraidon").selectAttackThree().selectStatsModifier('atk', '+6')
     

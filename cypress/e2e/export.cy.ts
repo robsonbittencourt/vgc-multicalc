@@ -10,6 +10,10 @@ before(() => {
 })
 
 describe('Export', () => {
+  beforeEach(() => {
+    cy.get('[data-cy="team-vs-many"]').click({force: true})
+  })
+  
   it('Pokémon from team', () => {
     const team = new Team()
     team.importPokemon(chiyuData)

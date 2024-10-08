@@ -25,6 +25,10 @@ before(() => {
 })
 
 describe('Test the Field options', () => {
+  beforeEach(() => {
+    cy.get('[data-cy="team-vs-many"]').click({force: true})
+  })
+  
   it('With Tablets of Ruin active', () => {
     team.selectPokemon("Koraidon")
 

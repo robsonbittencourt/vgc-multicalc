@@ -3,6 +3,10 @@ import { Team } from "cypress/page-object/team"
 const team = new Team()
 
 describe('Add Pokémon to the Team', () => {
+  beforeEach(() => {
+    cy.get('[data-cy="team-vs-many"]').click({force: true})
+  })
+
   it('Add Pokémon to the team until have 6', () => {
     team.add("Pikachu")
     team.add("Tyranitar")

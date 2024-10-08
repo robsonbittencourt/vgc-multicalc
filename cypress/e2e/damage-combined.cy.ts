@@ -11,6 +11,10 @@ before(() => {
 })
 
 describe('Test calcs with combined damage', () => {
+  beforeEach(() => {
+    cy.get('[data-cy="team-vs-many"]').click({force: true})
+  })
+  
   it('Calculate damage with two Pokémon', () => {
     team.selectTeamMember("Koraidon").combineDamage()
     team.selectTeamMember("Miraidon")
