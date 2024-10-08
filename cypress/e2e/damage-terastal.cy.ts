@@ -5,6 +5,10 @@ const team = new Team()
 const opponents = new Opponent()
 
 describe('Test calcs with Terastal', () => {
+  beforeEach(() => {
+    cy.get('[data-cy="team-vs-many"]').click({force: true})
+  })
+  
   it('Validate the damage with Koraidon Terastallized using Flame Charge', () => {
     team.selectPokemon("Koraidon").terastalyze()
 

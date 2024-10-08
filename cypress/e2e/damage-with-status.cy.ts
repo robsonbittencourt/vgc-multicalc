@@ -17,6 +17,10 @@ before(() => {
 })
 
 describe('Test calcs with status', () => {
+  beforeEach(() => {
+    cy.get('[data-cy="team-vs-many"]').click({force: true})
+  })
+  
   it('Validate the damage with Koraidon burned', () => {
     team.selectPokemon("Koraidon").selectAttackThree()
     opponents.get("Rillaboom").damageIs(83.2, 98.4).cause2HKO()

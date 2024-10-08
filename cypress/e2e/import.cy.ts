@@ -18,6 +18,10 @@ before(() => {
 })
 
 describe('Import Pokémon', () => {
+  beforeEach(() => {
+    cy.get('[data-cy="team-vs-many"]').click({force: true})
+  })
+
   it('to team', () => {
     const team = new Team()
 
@@ -44,6 +48,10 @@ describe('Import Pokémon', () => {
 })
 
 describe('Import Pokepaste', () => {
+  beforeEach(() => {
+    cy.get('[data-cy="team-vs-many"]').click({force: true})
+  })
+  
   it('to team', () => {
     const team = new Team()
 

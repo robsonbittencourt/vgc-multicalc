@@ -5,9 +5,11 @@ const team = new Team()
 const opponents = new Opponent()
 
 describe('Test calcs with Many vs Team activated', () => {
-  it('against first team member Pokémon', () => {
+  beforeEach(() => {
     cy.get('[data-cy="many-vs-team"]').click({force: true})
-
+  })
+  
+  it('against first team member Pokémon', () => {
     opponents.get("Calyrex Ice").damageIs(113.6, 134).causeOHKO()
     opponents.get("Zamazenta Crowned").damageIs(63.6, 75.5).cause2HKO()
     opponents.get("Calyrex Shadow").damageIs(46, 54.5).haveChanceOfToCause2HKO(50)
@@ -21,8 +23,6 @@ describe('Test calcs with Many vs Team activated', () => {
   })
 
   it('against second team member Pokémon', () => {
-    cy.get('[data-cy="many-vs-team"]').click({force: true})
-
     team.selectPokemon("Koraidon")
 
     opponents.get("Calyrex Ice").damageIs(100, 117.7).causeOHKO()

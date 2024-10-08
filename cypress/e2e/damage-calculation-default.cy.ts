@@ -5,6 +5,10 @@ const team = new Team()
 const opponents = new Opponent()
 
 describe('Test calcs with first team member Pokémon', () => {
+  beforeEach(() => {
+    cy.get('[data-cy="team-vs-many"]').click({force: true})
+  })
+
   it('Validate the damage Miraidon', () => {
     opponents.get("Urshifu Rapid Strike").damageIs(296, 349.7).causeOHKO()
     opponents.get("Calyrex Shadow").damageIs(74.2, 88).cause2HKO()
@@ -20,6 +24,10 @@ describe('Test calcs with first team member Pokémon', () => {
 })
 
 describe('Test calcs with second team member Pokémon', () => {
+  beforeEach(() => {
+    cy.get('[data-cy="team-vs-many"]').click({force: true})
+  })
+  
   it('Validate the damage with Koraidon using Flame Charge', () => {
     team.selectPokemon("Koraidon")
 
