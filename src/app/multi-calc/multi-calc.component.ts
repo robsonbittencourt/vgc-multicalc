@@ -156,9 +156,9 @@ export class MultiCalcComponent {
 
   private calculateDamage(target: Target) {
     if(this.data.oneVsManyActivated) {
-      this.calculateDamageOneVsMany(this.activeAttackerPokemon, target, this.data.extraFieldOptions.criticalHit, this.activeSecondAttacker)
+      this.calculateDamageOneVsMany(this.activeAttackerPokemon, target, this.activeSecondAttacker)
     } else {
-      this.calculateDamageManyVsOne(target, this.data.extraFieldOptions.criticalHit)      
+      this.calculateDamageManyVsOne(target)      
     }
   }
 
@@ -172,26 +172,26 @@ export class MultiCalcComponent {
     }
   }
 
-  private calculateDamageOneVsMany(attacker: Pokemon, target: Target, criticalHit: boolean, secondAttacker?: Pokemon) {
+  private calculateDamageOneVsMany(attacker: Pokemon, target: Target, secondAttacker?: Pokemon) {
     if(secondAttacker && attacker != secondAttacker) {
-      const damageResult = this.damageCalculator.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, this.data.field, criticalHit)
+      const damageResult = this.damageCalculator.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon)
       target.setDamageResult(damageResult)  
     } else {
-      const damageResult = this.damageCalculator.calcDamage(attacker, target.pokemon, this.data.field, criticalHit) //REMOVER CRITICAL HIT
+      const damageResult = this.damageCalculator.calcDamage(attacker, target.pokemon)
       target.setDamageResult(damageResult)
     }
   }
 
-  private calculateDamageManyVsOne(target: Target, criticalHit: boolean) {
+  private calculateDamageManyVsOne(target: Target) {
     const activeTargets = this.data.targets.filter(t => t.active)
     const activeTeamMember = this.data.activePokemon()
 
     if(activeTargets.length > 1 && target.active) {
-      const damageResult = this.damageCalculator.calcDamageForTwoAttackers(activeTargets[0].pokemon, activeTargets[1].pokemon, activeTeamMember, this.data.field, criticalHit)
+      const damageResult = this.damageCalculator.calcDamageForTwoAttackers(activeTargets[0].pokemon, activeTargets[1].pokemon, activeTeamMember)
       activeTargets[0].setDamageResult(damageResult)
       activeTargets[1].setDamageResult(damageResult)  
     } else {
-      const damageResult = this.damageCalculator.calcDamage(target.pokemon, activeTeamMember, this.data.field, criticalHit)
+      const damageResult = this.damageCalculator.calcDamage(target.pokemon, activeTeamMember)
       target.setDamageResult(damageResult)
     }
   }

@@ -47,9 +47,9 @@ export class SimpleCalcMobileComponent {
 
   private calculateDamage(pokemon: Pokemon) {
     if(this.leftIsAttacker()) {
-      this.damageResult = this.damageCalculator.calcDamage(pokemon, this.data.targets[0].pokemon, this.data.field, this.data.extraFieldOptions.criticalHit)
+      this.damageResult = this.damageCalculator.calcDamage(pokemon, this.data.targets[0].pokemon)
     } else {
-      this.damageResult = this.damageCalculator.calcDamage(this.data.targets[0].pokemon, pokemon, this.data.field, this.data.extraFieldOptions.criticalHit)
+      this.damageResult = this.damageCalculator.calcDamage(this.data.targets[0].pokemon, pokemon)
     }
   }
 

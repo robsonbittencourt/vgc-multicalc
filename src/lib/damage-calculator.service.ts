@@ -14,16 +14,16 @@ export class DamageCalculatorService {
 
   constructor(public data: DataStore) {}
 
-  calcDamage(attacker: Pokemon, target: Pokemon, field: Field, criticalHit: boolean = false): DamageResult {
-    const result = this.calculateResult(attacker, target, field, criticalHit)
+  calcDamage(attacker: Pokemon, target: Pokemon): DamageResult {
+    const result = this.calculateResult(attacker, target, this.data.field, this.data.extraFieldOptions.criticalHit)
     return new DamageResult(result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescription(result), result.damage as number[]) 
   }
 
-  calcDamageForTwoAttackers(attacker: Pokemon, secondAttacker: Pokemon, target: Pokemon, field: Field, criticalHit: boolean = false): DamageResult {
-    const adjustedField = this.adjustFieldToRuins(field, attacker, secondAttacker)
+  calcDamageForTwoAttackers(attacker: Pokemon, secondAttacker: Pokemon, target: Pokemon): DamageResult {
+    const adjustedField = this.adjustFieldToRuins(this.data.field, attacker, secondAttacker)
     
-    const result = this.calculateResult(attacker, target, adjustedField, criticalHit)
-    const secondResult = this.calculateResult(secondAttacker, target, adjustedField, criticalHit)
+    const result = this.calculateResult(attacker, target, adjustedField, this.data.extraFieldOptions.criticalHit)
+    const secondResult = this.calculateResult(secondAttacker, target, adjustedField, this.data.extraFieldOptions.criticalHit)
     result.damage = this.sumDamageResult(result, secondResult)
 
     return new DamageResult(result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescriptionWithTwo(result, secondResult))
