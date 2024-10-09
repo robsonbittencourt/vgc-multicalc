@@ -15,13 +15,8 @@ export class SimpleCalcComponent {
   leftPokemon: Pokemon = new Pokemon("Miraidon", { nature: "Timid", item: "Choice Specs", teraType: "Electric", evs: { hp: 4, spa: 252, spe: 252 }, moveSet: new MoveSet("Electro Drift", "Thunder", "Volt Switch", "Draco Meteor") })
   rightPokemon: Pokemon = new Pokemon('Koraidon', { nature: "Adamant", item: "Clear Amulet", teraType: "Fire", evs: { hp: 36, atk: 220, spe: 252 }, moveSet: new MoveSet("Flame Charge", "Collision Course", "Flare Blitz", "Protect") })
 
-  leftDamageResult: DamageResult
   leftDamageResults: DamageResult[]
-
-  rightDamageResult: DamageResult
   rightDamageResults: DamageResult[]
-
-  copyMessageEnabled = false
 
   @Output() 
   dataChangedEvent = new EventEmitter<any>()
@@ -49,32 +44,12 @@ export class SimpleCalcComponent {
     this.dataChangedEvent.emit()
   }
 
-  leftMoveWasActivated(moveName: string) {
-    this.leftPokemon.moveSet.activeMoveByName(moveName)
-    this.leftDamageResult = this.leftDamageResults.find(result => result.move == moveName)!
-  }
-
-  copy(text: string) {
-    this.copyMessageEnabled = true
-    navigator.clipboard.writeText(text)
-
-    setTimeout(() => {
-      this.copyMessageEnabled = false
-    }, 2000)
-  }
-
   private calculateDamageLeftPokemon() {
     this.leftDamageResults = this.damageCalculator.calcDamageAllAttacks(this.leftPokemon, this.rightPokemon)
-    this.leftDamageResult = this.activeDamageResult(this.leftPokemon, this.leftDamageResults)
   }
 
   private calculateDamageRightPokemon() {
     this.rightDamageResults = this.damageCalculator.calcDamageAllAttacks(this.rightPokemon, this.leftPokemon)
-    this.rightDamageResult = this.activeDamageResult(this.rightPokemon, this.rightDamageResults)
-  }
-
-  private activeDamageResult(pokemon: Pokemon, damageResults: DamageResult[]): DamageResult {
-    return damageResults.find(result => result.move == pokemon.move.name)!
   }
 
 }

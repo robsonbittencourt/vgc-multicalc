@@ -1,0 +1,19 @@
+<div class="damage-result">
+  <div>
+    HP BAR HERE
+  </div>
+  <div class="moves-result">
+    <div class="move" *ngFor="let damageResult of damageResults">
+      <mat-chip-option [selected]="pokemon.activeMoveName == damageResult.move" (click)="moveWasActivated(damageResult.move)">{{ damageResult.move }}</mat-chip-option>
+      <span>{{ damageResult.result }}</span>
+    </div>        
+  </div>
+  <div class="description-container">
+    <div class="description-with-button">
+      <p class="description-text">{{ activeDamageResult.description }}</p>
+      <mat-icon class="copy-icon" (click)="copy(activeDamageResult.description)">content_copy</mat-icon>
+      <label *ngIf="copyMessageEnabled">Copied!</label> 
+    </div>        
+    <p>Rolls: {{ activeDamageResult.rolls }}</p>
+  </div>      
+</div>
