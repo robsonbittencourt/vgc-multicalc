@@ -39,6 +39,10 @@ export class MoveSet {
         break
     }
   }
+
+  activeMoveByName(moveName: string) {
+    this.activeMoveStorage = this.moves().find(move => move.name == moveName)!
+  }
   
   get move1(): Move {
     return this.move1Storage

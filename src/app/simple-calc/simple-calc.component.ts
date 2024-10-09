@@ -49,6 +49,11 @@ export class SimpleCalcComponent {
     this.dataChangedEvent.emit()
   }
 
+  leftMoveWasActivated(moveName: string) {
+    this.leftPokemon.moveSet.activeMoveByName(moveName)
+    this.leftDamageResult = this.leftDamageResults.find(result => result.move == moveName)!
+  }
+
   copy(text: string) {
     this.copyMessageEnabled = true
     navigator.clipboard.writeText(text)

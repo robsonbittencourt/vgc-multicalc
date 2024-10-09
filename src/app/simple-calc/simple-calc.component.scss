@@ -25,9 +25,12 @@
   display: grid;
   gap: 1em;
   grid-template-columns: 1fr 1fr;
-  width: 100%;
-  margin: 0em 1.5em 0em 0em;
-  border: solid 1px;
+  background-color: white;
+  border-radius: 12px;
+  border-color: rgb(229, 231, 235);
+  border-width: 1px;
+  border-style: solid;
+  padding: 1em 1.5em 1em 1.5em;
 }
 
 .moves-result {
