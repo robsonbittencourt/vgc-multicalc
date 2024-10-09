@@ -11,11 +11,23 @@ export class DamageResultComponent {
 
   activeDamageResult: DamageResult
   _damageResults: DamageResult[]
+  _damageTaken: number
+  hpPercentage: number
 
   copyMessageEnabled = false
 
   @Input()
   pokemon: Pokemon
+
+  @Input()
+  get damageTaken(): number {
+    return this._damageTaken
+  }
+
+  public set damageTaken(damageTaken: number) {
+    this._damageTaken = damageTaken
+    this.hpPercentage = 100 - ((damageTaken / this.pokemon.hp) * 100)
+  }
 
   @Input()
   get damageResults(): DamageResult[] {

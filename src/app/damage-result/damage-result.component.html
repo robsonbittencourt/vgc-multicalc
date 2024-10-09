@@ -1,6 +1,20 @@
 <div class="damage-result">
   <div>
-    HP BAR HERE
+    <div class="pokemon-hp">
+      <div class="hp">
+        <p class="pokemon-name">{{ pokemon.name }}</p>
+        <div class="hp-bar">
+          <div class="progress" [ngStyle]="{ 'width.%': hpPercentage }"></div>
+          <span class="hp-value">{{ pokemon.hp - damageTaken }}/{{ pokemon.hp }}</span>
+        </div>
+      </div>      
+      <div class="pokemon-image">
+        <img src='https://img.pokemondb.net/sprites/scarlet-violet/normal/{{ pokemon.spriteName }}.png'>
+      </div>
+      <div class="level">
+        <span>Lv. 50</span>
+      </div>
+    </div>
   </div>
   <div class="moves-result">
     <div class="move" *ngFor="let damageResult of damageResults">

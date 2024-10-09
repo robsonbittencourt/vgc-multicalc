@@ -18,6 +18,9 @@ export class SimpleCalcComponent {
   leftDamageResults: DamageResult[]
   rightDamageResults: DamageResult[]
 
+  leftDamageTaken: number
+  rightDamageTaken: number
+
   @Output() 
   dataChangedEvent = new EventEmitter<any>()
 
@@ -46,10 +49,17 @@ export class SimpleCalcComponent {
 
   private calculateDamageLeftPokemon() {
     this.leftDamageResults = this.damageCalculator.calcDamageAllAttacks(this.leftPokemon, this.rightPokemon)
+    this.rightDamageTaken = this.calculateDamageTaken(this.leftPokemon, this.rightPokemon, this.leftDamageResults)
   }
 
   private calculateDamageRightPokemon() {
     this.rightDamageResults = this.damageCalculator.calcDamageAllAttacks(this.rightPokemon, this.leftPokemon)
+    this.leftDamageTaken = this.calculateDamageTaken(this.rightPokemon, this.leftPokemon, this.rightDamageResults)
   }
+
+  private calculateDamageTaken(attackerPokemon: Pokemon, defenderPokemon: Pokemon, damageResults: DamageResult[]) {
+    const damageResult = damageResults.find(result => result.move == attackerPokemon.move.name)!
+    return damageResult.rolls![15]
+  } 
 
 }
