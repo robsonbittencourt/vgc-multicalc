@@ -72,6 +72,10 @@ export class MoveSet {
     this.move4Storage = move4
   }
 
+  moves(): Move[] {
+    return [this.move1, this.move2, this.move3, this.move4]
+  }
+
   clone(): MoveSet {
     return new MoveSet(this.move1Storage.name, this.move2Storage.name, this.move3Storage.name, this.move4Storage.name)
   }

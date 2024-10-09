@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { calculate, Field, Generations, Move, Result } from '@smogon/calc';
+import { calculate, Field, Generations, Move as MoveSmogon, Result } from '@smogon/calc';
 import { StatIDExceptHP } from '@smogon/calc/dist/data/interface';
 import { DataStore } from 'src/app/data-store.service';
 import { DamageResult } from './damage-result';
+import { Move } from './move';
 import { Pokemon } from './pokemon';
 
 @Injectable({
@@ -15,33 +16,40 @@ export class DamageCalculatorService {
   constructor(public data: DataStore) {}
 
   calcDamage(attacker: Pokemon, target: Pokemon): DamageResult {
-    const result = this.calculateResult(attacker, target, this.data.field, this.data.extraFieldOptions.criticalHit)
-    return new DamageResult(result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescription(result), result.damage as number[]) 
+    const result = this.calculateResult(attacker, target, attacker.move, this.data.field, this.data.extraFieldOptions.criticalHit)
+    return new DamageResult(attacker.move.name, result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescription(result), result.damage as number[]) 
+  }
+
+  calcDamageAllAttacks(attacker: Pokemon, target: Pokemon): DamageResult[] {
+    return attacker.moveSet.moves().map(move => {
+      const result = this.calculateResult(attacker, target, move, this.data.field, this.data.extraFieldOptions.criticalHit)
+      return new DamageResult(move.name, result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescription(result), result.damage as number[]) 
+    })
   }
 
   calcDamageForTwoAttackers(attacker: Pokemon, secondAttacker: Pokemon, target: Pokemon): DamageResult {
     const adjustedField = this.adjustFieldToRuins(this.data.field, attacker, secondAttacker)
     
-    const result = this.calculateResult(attacker, target, adjustedField, this.data.extraFieldOptions.criticalHit)
-    const secondResult = this.calculateResult(secondAttacker, target, adjustedField, this.data.extraFieldOptions.criticalHit)
+    const result = this.calculateResult(attacker, target, attacker.move, adjustedField, this.data.extraFieldOptions.criticalHit)
+    const secondResult = this.calculateResult(secondAttacker, target, secondAttacker.move, adjustedField, this.data.extraFieldOptions.criticalHit)
     result.damage = this.sumDamageResult(result, secondResult)
 
-    return new DamageResult(result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescriptionWithTwo(result, secondResult))
+    return new DamageResult(attacker.move.name, result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescriptionWithTwo(result, secondResult))
   }
 
-  private calculateResult(attacker: Pokemon, target: Pokemon, field: Field, criticalHit: boolean) {
+  private calculateResult(attacker: Pokemon, target: Pokemon, move: Move, field: Field, criticalHit: boolean): Result {
     const gen = Generations.get(9)
-    const moveSmogon = new Move(gen, attacker.move.name)
+    const moveSmogon = new MoveSmogon(gen, move.name)
     moveSmogon.isCrit = criticalHit
     moveSmogon.isStellarFirstUse = true
-    moveSmogon.hits = +attacker.move.hits
+    moveSmogon.hits = +move.hits
     
-    if (attacker.move.name == "Rage Fist") {
-      const adjustedBasePower = 50 + (50 * +attacker.move.hits)
+    if (move.name == "Rage Fist") {
+      const adjustedBasePower = 50 + (50 * +move.hits)
       moveSmogon.overrides = { basePower: adjustedBasePower}
     }
 
-    if ((attacker.move.name == "Tera Starstorm" || attacker.move.name == "Tera Blast") && attacker.teraType == "Stellar" && attacker.teraTypeActive) {
+    if ((move.name == "Tera Starstorm" || move.name == "Tera Blast") && attacker.teraType == "Stellar" && attacker.teraTypeActive) {
       moveSmogon.overrides = { type: "Stellar" }
     }
     

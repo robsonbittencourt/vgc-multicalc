@@ -1,19 +1,53 @@
 <div class="container">
+  <div class="damage-results">
+    <div class="damage-result">
+      <div>
+        HP BAR HERE
+      </div>
+      <div class="moves-result">
+        <div class="move" *ngFor="let damageResult of leftDamageResults">
+          <mat-chip-option [selected]="leftPokemon.activeMoveName == damageResult.move">{{ damageResult.move }}</mat-chip-option>
+          <span>{{ damageResult.result }}</span>
+        </div>        
+      </div>
+      <div class="description-container">
+        <div class="description-with-button">
+          <p class="description-text">{{ leftDamageResult.description }}</p>
+          <mat-icon class="copy-icon" (click)="copy(leftDamageResult.description)">content_copy</mat-icon>
+          <label *ngIf="copyMessageEnabled">Copied!</label> 
+        </div>        
+        <p>Rolls: {{ leftDamageResult.rolls }}</p>
+      </div>      
+    </div>
+
+    <div class="damage-result">
+      <div class="moves-result">
+        <div class="move" *ngFor="let damageResult of rightDamageResults">
+          <mat-chip-option [selected]="rightPokemon.activeMoveName == damageResult.move">{{ damageResult.move }}</mat-chip-option>
+          <span>{{ damageResult.result }}</span>
+        </div>        
+      </div>
+      <div>
+        HP BAR HERE
+      </div>
+      <div class="description-container">
+        <div class="description-with-button">
+          <p class="description-text">{{ rightDamageResult.description }}</p>
+          <mat-icon class="copy-icon" (click)="copy(rightDamageResult.description)">content_copy</mat-icon>
+          <label *ngIf="copyMessageEnabled">Copied!</label> 
+        </div>        
+        <p>Rolls: {{ rightDamageResult.rolls }}</p>
+      </div>      
+    </div>
+  </div>
+
   <div class="pokemon-edit">
     <app-pokemon-build [pokemon]="leftPokemon" (pokemonChangedEvent)="leftPokemonChanged()"/>
   </div>
 
   <div class="pokemon-edit">
     <app-pokemon-build [pokemon]="rightPokemon" (pokemonChangedEvent)="rightPokemonChanged()"/>
-  </div>
-
-  <div>
-    <span>{{ leftDamageResult.result }} - {{ leftDamageResult.koChance }}</span>
-  </div>
-
-  <div>
-    <span>{{ rightDamageResult.result }} - {{ rightDamageResult.koChance }}</span>
-  </div>  
+  </div> 
 
   <div class="field">
     <app-field (fieldChangedEvent)="fieldChanged()"/>
