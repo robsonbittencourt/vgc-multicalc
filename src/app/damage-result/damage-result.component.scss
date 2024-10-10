@@ -11,7 +11,6 @@
 }
 
 .moves-result {
-  border: solid 1px;
   display: flex;
   flex-direction: column;
   align-items: end;
@@ -22,28 +21,31 @@
   align-items: center;
   justify-content: space-between;
   gap: 0.5em;
-  width: 65%;
+  width: 60%;
   margin-top: 0.5em;
-  border: solid 1px;
 }
 
 .description-container {
   grid-column-start: 1;
   grid-column-end: 3;
-  border: solid 1px;
+  order: 3;
 }
 
 .description-with-button {
   display: flex;
   gap: 0.5em;
+  height: 3em;
+  margin-bottom: 0.7em;
 }
 
 .description-text {
   color: black;
   font-weight: 500;
+  margin-top: 0.2em;
 }
 
 .copy-icon {
+  width: 4%;
   cursor: pointer;
 }
 

@@ -26,6 +26,9 @@ export class DamageResultComponent {
     return this._damageTaken
   }
 
+  @Input()
+  reverse: boolean
+
   @Output() 
   moveActivatedEvent = new EventEmitter<any>()
 

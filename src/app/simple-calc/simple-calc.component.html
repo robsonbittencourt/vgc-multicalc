@@ -1,6 +1,6 @@
 <div class="container">
   <app-damage-result [pokemon]="leftPokemon" [damageTaken]="leftDamageTaken" [damageResults]="leftDamageResults" (moveActivatedEvent)="leftMoveActivated()"/>
-  <app-damage-result [pokemon]="rightPokemon" [damageTaken]="rightDamageTaken" [damageResults]="rightDamageResults" (moveActivatedEvent)="rightMoveActivated()"/>
+  <app-damage-result [pokemon]="rightPokemon" [damageTaken]="rightDamageTaken" [damageResults]="rightDamageResults" (moveActivatedEvent)="rightMoveActivated()" [reverse]="true"/>
 
   <div class="pokemon-edit">
     <app-pokemon-build [pokemon]="leftPokemon" (pokemonChangedEvent)="leftPokemonChanged()"/>

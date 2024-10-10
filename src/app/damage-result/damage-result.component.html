@@ -1,33 +1,31 @@
 <div class="damage-result">
-  <div>
-    <div class="pokemon-hp">
-      <div class="hp">
-        <p class="pokemon-name">{{ pokemon.name }}</p>
-        <div class="hp-bar">
-          <div class="progress" [ngStyle]="{ 'width.%': hpPercentage, 'background-color': hpBarColor }"></div>
-          <span class="hp-value">{{ actualHp }}/{{ pokemon.hp }}</span>
-        </div>
-      </div>      
-      <div class="pokemon-image" [ngStyle]="actualHp == 0 && { 'filter': 'brightness(70%)' } || null">
-        <img src='https://img.pokemondb.net/sprites/scarlet-violet/normal/{{ pokemon.spriteName }}.png'>
+  <div class="pokemon-hp" [ngStyle]="reverse && { 'order': 2, 'justify-self': 'end' } || null">
+    <div class="hp">
+      <p class="pokemon-name">{{ pokemon.name }}</p>
+      <div class="hp-bar">
+        <div class="progress" [ngStyle]="{ 'width.%': hpPercentage, 'background-color': hpBarColor }"></div>
+        <span class="hp-value">{{ actualHp }}/{{ pokemon.hp }}</span>
       </div>
-      <div class="level">
-        <span>Lv. 50</span>
-      </div>
+    </div>      
+    <div class="pokemon-image" [ngStyle]="actualHp == 0 && { 'filter': 'brightness(70%)' } || null">
+      <img src='https://img.pokemondb.net/sprites/scarlet-violet/normal/{{ pokemon.spriteName }}.png'>
+    </div>
+    <div class="level">
+      <span>Lv. 50</span>
     </div>
   </div>
-  <div class="moves-result">
-    <div class="move" *ngFor="let damageResult of damageResults">
+  <div class="moves-result" [ngStyle]="reverse && { 'order': 1, 'align-items': 'start' } || null">
+    <div class="move" *ngFor="let damageResult of damageResults" [ngStyle]="reverse && { 'flex-flow': 'row-reverse' } || null">
       <mat-chip-option [selected]="pokemon.activeMoveName == damageResult.move" (click)="moveActivated(damageResult.move)">{{ damageResult.move }}</mat-chip-option>
       <span>{{ damageResult.result }}</span>
     </div>        
   </div>
   <div class="description-container">
     <div class="description-with-button">
-      <p class="description-text">{{ activeDamageResult.description }}</p>
       <mat-icon class="copy-icon" (click)="copy(activeDamageResult.description)">content_copy</mat-icon>
       <label *ngIf="copyMessageEnabled">Copied!</label> 
+      <span class="description-text">{{ activeDamageResult.description }}</span>      
     </div>        
-    <p>Rolls: {{ activeDamageResult.rolls }}</p>
+    <span>Rolls: {{ activeDamageResult.rolls }}</span>
   </div>      
 </div>
