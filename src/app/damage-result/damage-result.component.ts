@@ -12,7 +12,9 @@ export class DamageResultComponent {
   activeDamageResult: DamageResult
   _damageResults: DamageResult[]
   _damageTaken: number
+  actualHp: number
   hpPercentage: number
+  hpBarColor: string
 
   copyMessageEnabled = false
 
@@ -26,7 +28,9 @@ export class DamageResultComponent {
 
   public set damageTaken(damageTaken: number) {
     this._damageTaken = damageTaken
-    this.hpPercentage = 100 - ((damageTaken / this.pokemon.hp) * 100)
+    this.setActualHp()
+    this.setHpPercentage()
+    this.setHpBarColor()
   }
 
   @Input()
@@ -42,6 +46,26 @@ export class DamageResultComponent {
   moveWasActivated(moveName: string) {
     this.pokemon.moveSet.activeMoveByName(moveName)
     this.activeDamageResult = this.damageResults.find(result => result.move == moveName)!
+  }
+
+  private setActualHp() {
+    const hp = this.pokemon.hp - this._damageTaken
+    this.actualHp = Math.max(hp, 0)
+  }
+
+  private setHpPercentage() {
+    const percentage = 100 - ((this._damageTaken / this.pokemon.hp) * 100)
+    this.hpPercentage = Math.max(percentage, 0)
+  }
+
+  private setHpBarColor() {
+    if (this.hpPercentage < 20) {
+      this.hpBarColor = "#f33d42" //red
+    } else if (this.hpPercentage <= 50) {
+      this.hpBarColor = "#fe9901" //yellow
+    } else {
+      this.hpBarColor = "#30ca2e" //green
+    }    
   }
 
   copy(text: string) {

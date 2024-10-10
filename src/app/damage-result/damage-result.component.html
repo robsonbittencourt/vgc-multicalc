@@ -4,8 +4,8 @@
       <div class="hp">
         <p class="pokemon-name">{{ pokemon.name }}</p>
         <div class="hp-bar">
-          <div class="progress" [ngStyle]="{ 'width.%': hpPercentage }"></div>
-          <span class="hp-value">{{ pokemon.hp - damageTaken }}/{{ pokemon.hp }}</span>
+          <div class="progress" [ngStyle]="{ 'width.%': hpPercentage, 'background-color': hpBarColor }"></div>
+          <span class="hp-value">{{ actualHp }}/{{ pokemon.hp }}</span>
         </div>
       </div>      
       <div class="pokemon-image">
