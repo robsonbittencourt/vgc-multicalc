@@ -8,7 +8,7 @@
           <span class="hp-value">{{ actualHp }}/{{ pokemon.hp }}</span>
         </div>
       </div>      
-      <div class="pokemon-image">
+      <div class="pokemon-image" [ngStyle]="actualHp == 0 && { 'filter': 'brightness(70%)' } || null">
         <img src='https://img.pokemondb.net/sprites/scarlet-violet/normal/{{ pokemon.spriteName }}.png'>
       </div>
       <div class="level">
@@ -18,7 +18,7 @@
   </div>
   <div class="moves-result">
     <div class="move" *ngFor="let damageResult of damageResults">
-      <mat-chip-option [selected]="pokemon.activeMoveName == damageResult.move" (click)="moveWasActivated(damageResult.move)">{{ damageResult.move }}</mat-chip-option>
+      <mat-chip-option [selected]="pokemon.activeMoveName == damageResult.move" (click)="moveActivated(damageResult.move)">{{ damageResult.move }}</mat-chip-option>
       <span>{{ damageResult.result }}</span>
     </div>        
   </div>

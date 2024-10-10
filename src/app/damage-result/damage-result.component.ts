@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DamageResult } from 'src/lib/damage-result';
 import { Pokemon } from 'src/lib/pokemon';
 
@@ -26,6 +26,9 @@ export class DamageResultComponent {
     return this._damageTaken
   }
 
+  @Output() 
+  moveActivatedEvent = new EventEmitter<any>()
+
   public set damageTaken(damageTaken: number) {
     this._damageTaken = damageTaken
     this.setActualHp()
@@ -43,9 +46,10 @@ export class DamageResultComponent {
     this.activeDamageResult = damageResults.find(result => result.move == this.pokemon.move.name)!
   }
 
-  moveWasActivated(moveName: string) {
+  moveActivated(moveName: string) {
     this.pokemon.moveSet.activeMoveByName(moveName)
     this.activeDamageResult = this.damageResults.find(result => result.move == moveName)!
+    this.moveActivatedEvent.emit()
   }
 
   private setActualHp() {

@@ -36,9 +36,17 @@ export class SimpleCalcComponent {
     this.dataChangedEvent.emit()
   }
 
+  leftMoveActivated() {
+    this.rightDamageTaken = this.calculateDamageTaken(this.leftPokemon, this.leftDamageResults)
+  }
+
   rightPokemonChanged() {
     this.calculateDamageRightPokemon()
     this.dataChangedEvent.emit()
+  }
+
+   rightMoveActivated() {
+    this.leftDamageTaken = this.calculateDamageTaken(this.rightPokemon, this.rightDamageResults)
   }
 
   fieldChanged() {
@@ -49,15 +57,15 @@ export class SimpleCalcComponent {
 
   private calculateDamageLeftPokemon() {
     this.leftDamageResults = this.damageCalculator.calcDamageAllAttacks(this.leftPokemon, this.rightPokemon)
-    this.rightDamageTaken = this.calculateDamageTaken(this.leftPokemon, this.rightPokemon, this.leftDamageResults)
+    this.rightDamageTaken = this.calculateDamageTaken(this.leftPokemon, this.leftDamageResults)
   }
 
   private calculateDamageRightPokemon() {
     this.rightDamageResults = this.damageCalculator.calcDamageAllAttacks(this.rightPokemon, this.leftPokemon)
-    this.leftDamageTaken = this.calculateDamageTaken(this.rightPokemon, this.leftPokemon, this.rightDamageResults)
+    this.leftDamageTaken = this.calculateDamageTaken(this.rightPokemon, this.rightDamageResults)
   }
 
-  private calculateDamageTaken(attackerPokemon: Pokemon, defenderPokemon: Pokemon, damageResults: DamageResult[]) {
+  private calculateDamageTaken(attackerPokemon: Pokemon, damageResults: DamageResult[]) {
     const damageResult = damageResults.find(result => result.move == attackerPokemon.move.name)!
     return damageResult.rolls![15]
   } 
