@@ -84,10 +84,12 @@
 }
 
 .hp-value {
-  font-size: 1.3em;
+  font-size: 1.5em;
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%) translateX(90%);
+  display: block;
+  top: 8%;
+  right: 4%;
+  left: inherit;
 }
 
 .pokemon-image img {
