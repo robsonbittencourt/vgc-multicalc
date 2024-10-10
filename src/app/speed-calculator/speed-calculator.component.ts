@@ -120,20 +120,27 @@ export class SpeedCalculatorComponent {
     this.timeoutId = setTimeout(() => {
       const pokemonBySideActual = this.pokemonEachSide
       const orderedPokemon = this.speedCalculatorService.orderedPokemon(this.pokemon, this.field, this.options.trickRoomActive, this.options)
-      const actualIndex = orderedPokemon.findIndex(this.isActual)
-      const initIndex = actualIndex - pokemonBySideActual >= 0 ? actualIndex - pokemonBySideActual : 0
-      const lastIndex = actualIndex + pokemonBySideActual + 1
-      const inSpeedRange = orderedPokemon.slice(initIndex, lastIndex)
-      
-      const updatedActualIndex = inSpeedRange.findIndex(this.isActual)
-      if (updatedActualIndex < this.pokemonEachSide) {
-        const diff = pokemonBySideActual - updatedActualIndex
-        for (let i = 0; i < diff; i++) {
-          inSpeedRange.unshift(new SpeedDefinition("", 0, ""))        
+
+      if (this.options.targetName == "") {
+        const actualIndex = orderedPokemon.findIndex(this.isActual)
+        const initIndex = actualIndex - pokemonBySideActual >= 0 ? actualIndex - pokemonBySideActual : 0
+        const lastIndex = actualIndex + pokemonBySideActual + 1
+        const inSpeedRange = orderedPokemon.slice(initIndex, lastIndex)
+        
+        const updatedActualIndex = inSpeedRange.findIndex(this.isActual)
+        if (updatedActualIndex < this.pokemonEachSide) {
+          const diff = pokemonBySideActual - updatedActualIndex
+          for (let i = 0; i < diff; i++) {
+            inSpeedRange.unshift(new SpeedDefinition("", 0, ""))        
+          }
         }
+
+        this.inSpeedRange = inSpeedRange
+      } else {
+        const pokemon = new Pokemon(this.options.targetName)
+        this.inSpeedRange = orderedPokemon.filter(s => s.pokemonName == pokemon.spriteNameScarletViolet || this.isActual(s))
       }
-      
-      this.inSpeedRange = inSpeedRange
+
       this.verifyChanges(this.inSpeedRange)
     }, 200)    
   }

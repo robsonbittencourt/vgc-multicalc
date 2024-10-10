@@ -94,8 +94,16 @@
   </div>
   <div class="options">
     <mat-button-toggle-group class="button-group botton-space">
-      <mat-button-toggle [checked]="options.regulation == 'Reg G'" value="Reg G" (change)="options.regulation = $event.source.value">Regulation G</mat-button-toggle>
-      <mat-button-toggle [checked]="options.regulation == 'Reg H'" value="Reg H" (change)="options.regulation = $event.source.value">Regulation H</mat-button-toggle>
+      <mat-button-toggle [checked]="options.regulation == 'Reg G'" value="Reg G" (change)="regulationChanged($event.source.value)">Regulation G</mat-button-toggle>
+      <mat-button-toggle [checked]="options.regulation == 'Reg H'" value="Reg H" (change)="regulationChanged($event.source.value)">Regulation H</mat-button-toggle>
     </mat-button-toggle-group>
+  </div>
+
+  <div>
+    <label class="title">Pokémon</label>
+  </div>
+  <div class="options">
+    <app-input-autocomplete [(value)]="options.targetName" [allValues]="pokemonNamesByReg"/>
+    <mat-icon class="clear-button" (click)="clearPokemon()">clear</mat-icon>
   </div>
 </div>

@@ -21,7 +21,7 @@
 
 .title-box {
   display: flex;
-  gap: 3em
+  gap: 2em
 }
 
 .text-color * {
@@ -65,4 +65,14 @@
 .regulation {
   display: flex;
   flex-direction: column;
+}
+
+.pokemon-combo {
+  display: flex;
+  align-items: center;
+  gap: 0.3em;  
+}
+
+.clear-button {
+  cursor: pointer;
 }

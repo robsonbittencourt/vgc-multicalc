@@ -1,6 +1,7 @@
 export class SpeedCalculatorOptions {
 
   public regulation: string
+  public targetName: string
   public paralyzedActive: boolean
   public choiceScarfActive: boolean
   public trickRoomActive: boolean
@@ -11,6 +12,7 @@ export class SpeedCalculatorOptions {
 
   constructor(options: {
     regulation?: string
+    targetName?: string
     speedDropActive?: boolean
     speedModifier?: number 
     paralyzedActive?: boolean
@@ -18,6 +20,7 @@ export class SpeedCalculatorOptions {
     trickRoomActive?: boolean
   } = {}) {
     this.regulation = options.regulation ?? "Reg H"
+    this.targetName = options.targetName ?? ""
     this._speedDropActive = options.speedDropActive ?? false
     this._speedModifier = options.speedModifier ?? 0
     this.paralyzedActive = options.paralyzedActive ?? false

@@ -4,7 +4,14 @@
       <span class="title">Speed List</span>  
       <div class="regulation">
         <label>Regulation</label>
-        <app-input-autocomplete [(value)]="options.regulation" [allValues]="regulationsList" (valueChange)="options.regulation = $event"/>
+        <app-input-autocomplete [(value)]="options.regulation" [allValues]="regulationsList" (valueChange)="regulationChanged($event)"/>
+      </div>
+      <div>
+        <label>Pokémon</label>
+        <div class="pokemon-combo">
+          <app-input-autocomplete [(value)]="options.targetName" [allValues]="allPokemonNames"/>
+          <mat-icon class="clear-button" (click)="clearPokemon()">clear</mat-icon>
+        </div>        
       </div>
     </div>
     <div class="header-buttons-section">

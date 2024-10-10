@@ -5,6 +5,7 @@ import { AllPokemon } from 'src/data/all-pokemon';
 import { SETDEX_SV } from 'src/data/movesets';
 import { Pokemon } from 'src/lib/pokemon';
 import { SpeedCalculatorOptions } from 'src/lib/speed-calculator/speed-calculator-options';
+import { speedMeta } from 'src/lib/speed-calculator/speed-meta';
 
 @Component({
   selector: 'app-speed-calculator-mobile',
@@ -29,6 +30,8 @@ export class SpeedCalculatorMobileComponent {
   allMoveNames = Object.keys(MOVES[9]).splice(1).sort()
   allNatureNames = Object.keys(NATURES)
   availableAbilities: string[]
+
+  pokemonNamesByReg: string[]
   
   MAX_EVS = 508
   
@@ -55,6 +58,7 @@ export class SpeedCalculatorMobileComponent {
   ngOnInit() {
     this.differ = this.differs.find(this.pokemon).create()
     this.differStatusModifiers = this.differsStatusModifiers.find(this.pokemon.boosts).create()
+    this.pokemonNamesByReg = speedMeta(this.options.regulation).map(s => s.name).sort()
   }
 
   ngDoCheck() {
@@ -135,6 +139,16 @@ export class SpeedCalculatorMobileComponent {
     } else {
       this.field.terrain = undefined
     }
+  }
+
+  regulationChanged(regulation: string) {
+    this.options.regulation = regulation
+    this.clearPokemon()
+    this.pokemonNamesByReg = speedMeta(this.options.regulation).map(s => s.name).sort()
+  }
+
+  clearPokemon() {
+    this.options.targetName = ""
   }
 
 }
