@@ -1,0 +1,64 @@
+.damage-result {
+  display: grid;
+  gap: 1em;
+  grid-template-columns: 1fr 0.4fr;
+  background-color: white;
+  border-radius: 12px;
+  border-color: rgb(229, 231, 235);
+  border-width: 1px;
+  border-style: solid;
+  padding: 1em 1.5em 1em 1.5em;
+}
+
+.moves-result {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+
+.move {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 0.2em;
+}
+
+.chip-move {
+  width: 60%;
+}
+
+.label {
+  font-weight: 500;
+}
+
+.description-container {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  order: 3;
+}
+
+.description-with-button {
+  display: flex;
+  align-items: end;
+  gap: 0.5em;
+  height: 3em;
+  margin-bottom: 0.7em;
+}
+
+.description-text {
+  color: black;
+  font-weight: 500;
+}
+
+.copy-icon {
+  cursor: pointer;
+}
+
+.roll-level {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  gap: 1em;
+  margin-top: 1em;
+}

@@ -39,6 +39,10 @@ export class MoveSet {
         break
     }
   }
+
+  activeMoveByName(moveName: string) {
+    this.activeMoveStorage = this.moves().find(move => move.name == moveName)!
+  }
   
   get move1(): Move {
     return this.move1Storage
@@ -70,6 +74,10 @@ export class MoveSet {
 
   set move4(move4: Move) {
     this.move4Storage = move4
+  }
+
+  moves(): Move[] {
+    return [this.move1, this.move2, this.move3, this.move4]
   }
 
   clone(): MoveSet {

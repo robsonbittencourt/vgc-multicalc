@@ -12,8 +12,11 @@ import { DataStore } from '../data-store.service';
 })
 export class SimpleCalcComponent {
 
-  leftPokemon: Pokemon = new Pokemon("Miraidon", { nature: "Timid", item: "Choice Specs", teraType: "Electric", evs: { hp: 4, spa: 252, spe: 252 }, moveSet: new MoveSet("Electro Drift", "Parabolic Charge", "Volt Switch", "Draco Meteor") })
+  leftPokemon: Pokemon = new Pokemon("Miraidon", { nature: "Timid", item: "Choice Specs", teraType: "Electric", evs: { hp: 4, spa: 252, spe: 252 }, moveSet: new MoveSet("Electro Drift", "Thunder", "Volt Switch", "Draco Meteor") })
   rightPokemon: Pokemon = new Pokemon('Koraidon', { nature: "Adamant", item: "Clear Amulet", teraType: "Fire", evs: { hp: 36, atk: 220, spe: 252 }, moveSet: new MoveSet("Flame Charge", "Collision Course", "Flare Blitz", "Protect") })
+
+  leftDamageResults: DamageResult[]
+  rightDamageResults: DamageResult[]
 
   leftDamageResult: DamageResult
   rightDamageResult: DamageResult
@@ -23,20 +26,43 @@ export class SimpleCalcComponent {
 
   constructor(public data: DataStore, private damageCalculator: DamageCalculatorService) {}
 
+  ngOnInit() {
+    this.calculateDamageLeftPokemon()
+    this.calculateDamageRightPokemon()
+  }
+
   leftPokemonChanged() {
-    this.leftDamageResult = this.damageCalculator.calcDamage(this.leftPokemon, this.rightPokemon)
+    this.calculateDamageLeftPokemon()
     this.dataChangedEvent.emit()
+  }
+
+  leftMoveActivated() {
+    this.leftDamageResult = this.leftDamageResults?.find(result => result.move == this.leftPokemon.move.name)!
   }
 
   rightPokemonChanged() {
-    this.rightDamageResult = this.damageCalculator.calcDamage(this.rightPokemon, this.leftPokemon)
+    this.calculateDamageRightPokemon()
     this.dataChangedEvent.emit()
   }
 
+   rightMoveActivated() {
+    this.rightDamageResult = this.rightDamageResults?.find(result => result.move == this.rightPokemon.move.name)!
+  }
+
   fieldChanged() {
-    this.leftDamageResult = this.damageCalculator.calcDamage(this.leftPokemon, this.rightPokemon)
-    this.rightDamageResult = this.damageCalculator.calcDamage(this.rightPokemon, this.leftPokemon)
+    this.calculateDamageLeftPokemon()
+    this.calculateDamageRightPokemon()
     this.dataChangedEvent.emit()
+  }
+
+  private calculateDamageLeftPokemon() {
+    this.leftDamageResults = this.damageCalculator.calcDamageAllAttacks(this.leftPokemon, this.rightPokemon)
+    this.leftDamageResult = this.leftDamageResults?.find(result => result.move == this.leftPokemon.move.name)!
+  }
+
+  private calculateDamageRightPokemon() {
+    this.rightDamageResults = this.damageCalculator.calcDamageAllAttacks(this.rightPokemon, this.leftPokemon)
+    this.rightDamageResult = this.rightDamageResults?.find(result => result.move == this.rightPokemon.move.name)!
   }
 
 }
