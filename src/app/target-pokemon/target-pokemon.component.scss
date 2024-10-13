@@ -69,6 +69,10 @@
   gap: 0.5em;
 }
 
+.copy-icon {
+  cursor: pointer;
+}
+
 @media only screen and (max-width: 768px) {
   .container {
     border-radius: 0%;
