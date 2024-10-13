@@ -1,0 +1,15 @@
+<div class="pokemon-hp">
+  <div class="hp">
+    <p class="pokemon-name">{{ name }}</p>
+    <div class="hp-bar">
+      <div class="progress" [ngStyle]="{ 'width.%': hpPercentage, 'background-color': hpBarColor }"></div>
+      <span class="hp-value">{{ actualHp }}/{{ hp }}</span>
+    </div>
+  </div>      
+  <div class="pokemon-image" [ngStyle]="actualHp == 0 && { 'filter': 'brightness(70%)' } || null">
+    <img #pokemonImage src='assets/sprites/sv/{{ spriteName }}.png' (load)="onImageLoad()" [ngStyle]="{ 'transform': 'scale(' + imageScale + ')' }">
+  </div>
+  <div class="level">
+    <span>Lv. 50</span>
+  </div>
+</div>

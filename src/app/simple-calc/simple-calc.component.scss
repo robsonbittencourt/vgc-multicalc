@@ -1,11 +1,24 @@
 .container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: minmax(475px, 1fr);
-  grid-column-gap: 1em;
+  gap: 1em;
   background-color: rgb(252, 248, 248);
   color: rgb(88, 88, 90);
   margin: 0 1em 0em 1em;
+}
+
+.damage-results {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-column-gap: 1em;
+  display: flex;
+  flex: 1;
+  background-color: white;
+  border-radius: 12px;
+  border-color: rgb(229, 231, 235);
+  border-width: 1px;
+  border-style: solid;
+  padding: 1em 1.5em 1em 1.5em;
 }
 
 .pokemon-edit {
@@ -14,7 +27,6 @@
   border-color: rgb(229, 231, 235);
   border-width: 1px;
   border-style: solid;
-  height: 94%;
   padding: 1em 1.5em 1em 1.5em;
 }
 

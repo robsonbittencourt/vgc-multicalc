@@ -1,19 +1,14 @@
 <div class="container">
+  <app-damage-result [pokemon]="leftPokemon" [damageResults]="leftDamageResults" [opponentDamageResult]="rightDamageResult" (moveActivatedEvent)="leftMoveActivated()"/>
+  <app-damage-result [pokemon]="rightPokemon" [damageResults]="rightDamageResults" [opponentDamageResult]="leftDamageResult" (moveActivatedEvent)="rightMoveActivated()" [reverse]="true"/>
+
   <div class="pokemon-edit">
     <app-pokemon-build [pokemon]="leftPokemon" (pokemonChangedEvent)="leftPokemonChanged()"/>
   </div>
 
   <div class="pokemon-edit">
     <app-pokemon-build [pokemon]="rightPokemon" (pokemonChangedEvent)="rightPokemonChanged()"/>
-  </div>
-
-  <div>
-    <span>{{ leftDamageResult.result }} - {{ leftDamageResult.koChance }}</span>
-  </div>
-
-  <div>
-    <span>{{ rightDamageResult.result }} - {{ rightDamageResult.koChance }}</span>
-  </div>  
+  </div> 
 
   <div class="field">
     <app-field (fieldChangedEvent)="fieldChanged()"/>

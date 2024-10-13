@@ -52,6 +52,8 @@ import { TeamExportModalComponent } from './team-export-modal/team-export-modal.
 import { TeamImportModalComponent } from './team-import-modal/team-import-modal.component';
 import { TeamComponent } from './team/team.component';
 import { TeamsComponent } from './teams/teams.component';
+import { DamageResultComponent } from './damage-result/damage-result.component';
+import { PokemonHpBadgeComponent } from './pokemon-hp-badge/pokemon-hp-badge.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +84,9 @@ import { TeamsComponent } from './teams/teams.component';
     PokemonBuildComponent,
     SimpleCalcComponent,
     PokemonComboBoxComponent,
-    AbilityComboBoxComponent
+    AbilityComboBoxComponent,
+    DamageResultComponent,
+    PokemonHpBadgeComponent
   ],
   imports: [
     ReactiveFormsModule,
