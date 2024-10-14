@@ -36,6 +36,12 @@ export class SimpleCalcComponent {
     this.dataChangedEvent.emit()
   }
 
+  leftPokemonNameChanged() {
+    this.calculateDamageLeftPokemon()
+    this.calculateDamageRightPokemon()
+    this.dataChangedEvent.emit()
+  }
+
   leftMoveActivated() {
     this.leftDamageResult = this.leftDamageResults?.find(result => result.move == this.leftPokemon.move.name)!
   }
@@ -45,7 +51,13 @@ export class SimpleCalcComponent {
     this.dataChangedEvent.emit()
   }
 
-   rightMoveActivated() {
+  rightPokemonNameChanged() {
+    this.calculateDamageLeftPokemon()
+    this.calculateDamageRightPokemon()
+    this.dataChangedEvent.emit()
+  }
+
+  rightMoveActivated() {
     this.rightDamageResult = this.rightDamageResults?.find(result => result.move == this.rightPokemon.move.name)!
   }
 
