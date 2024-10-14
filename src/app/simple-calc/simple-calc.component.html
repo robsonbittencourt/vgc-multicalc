@@ -3,11 +3,11 @@
   <app-damage-result [pokemon]="rightPokemon" [damageResults]="rightDamageResults" [opponentDamageResult]="leftDamageResult" (moveActivatedEvent)="rightMoveActivated()" [reverse]="true"/>
 
   <div class="pokemon-edit">
-    <app-pokemon-build [pokemon]="leftPokemon" (pokemonChangedEvent)="leftPokemonChanged()"/>
+    <app-pokemon-build [pokemon]="leftPokemon" (pokemonChangedEvent)="leftPokemonChanged()" (pokemonNameChangedEvent)="leftPokemonNameChanged()"/>
   </div>
 
   <div class="pokemon-edit">
-    <app-pokemon-build [pokemon]="rightPokemon" (pokemonChangedEvent)="rightPokemonChanged()" [reverse]="true"/>
+    <app-pokemon-build [pokemon]="rightPokemon" (pokemonChangedEvent)="rightPokemonChanged()" (pokemonNameChangedEvent)="rightPokemonNameChanged()" [reverse]="true"/>
   </div> 
 
   <div class="field">

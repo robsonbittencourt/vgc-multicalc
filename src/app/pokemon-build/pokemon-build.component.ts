@@ -38,6 +38,9 @@ export class PokemonBuildComponent {
   @Output() 
   pokemonChangedEvent = new EventEmitter<Pokemon>()
 
+  @Output() 
+  pokemonNameChangedEvent = new EventEmitter<string>()
+
   constructor(
     private differs: KeyValueDiffers,
     private differsStatusModifiers: KeyValueDiffers
@@ -54,6 +57,14 @@ export class PokemonBuildComponent {
 
     if (pokemonChanged || boostsChanged) {
       this.pokemonChangedEvent.emit(this.pokemon)
+
+      pokemonChanged?.forEachChangedItem(i => {
+        const previousName = i.previousValue?.name
+
+        if(previousName != null && previousName != this.pokemon.name) {
+          this.pokemonNameChangedEvent.emit(previousName)
+        }        
+      })
     }
   }
 
