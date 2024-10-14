@@ -43,12 +43,12 @@ export class DamageResultComponent {
   }
 
   public set damageResults(damageResults: DamageResult[]) {
-    clearTimeout(this.timeoutId)
-
-    this.timeoutId = setTimeout(() => {
-      this._damageResults = damageResults
-      this.activeDamageResult = damageResults.find(result => result.move == this.pokemon.move.name)!
-    }, 80)   
+    if (this._damageResults) {
+      clearTimeout(this.timeoutId)
+      this.timeoutId = setTimeout(() => this.setResults(damageResults), 80)   
+    } else {
+      this.setResults(damageResults)
+    }
   }
 
   @Input()
@@ -59,6 +59,11 @@ export class DamageResultComponent {
   public set opponentDamageResult(opponentDamageResult: DamageResult) {
     this._opponentDamageResult = opponentDamageResult
     this.damageTaken = this.damageTakenByRoll(opponentDamageResult)
+  }
+
+  private setResults(damageResults: DamageResult[]) {
+    this._damageResults = damageResults
+    this.activeDamageResult = damageResults.find(result => result.move == this.pokemon.move.name)!
   }
 
   moveActivated(moveName: string) {
