@@ -26,6 +26,8 @@ export class DamageResultComponent {
   copyMessageEnabled = false
   imageScale: number = 1.2
 
+  timeoutId: any
+
   @Input()
   pokemon: Pokemon
 
@@ -41,8 +43,12 @@ export class DamageResultComponent {
   }
 
   public set damageResults(damageResults: DamageResult[]) {
-    this._damageResults = damageResults
-    this.activeDamageResult = damageResults.find(result => result.move == this.pokemon.move.name)!
+    clearTimeout(this.timeoutId)
+
+    this.timeoutId = setTimeout(() => {
+      this._damageResults = damageResults
+      this.activeDamageResult = damageResults.find(result => result.move == this.pokemon.move.name)!
+    }, 80)   
   }
 
   @Input()
