@@ -32,6 +32,9 @@ export class PokemonBuildComponent {
   @Input()
   pokemon: Pokemon
 
+  @Input()
+  reverse: boolean
+
   @Output() 
   pokemonChangedEvent = new EventEmitter<Pokemon>()
 

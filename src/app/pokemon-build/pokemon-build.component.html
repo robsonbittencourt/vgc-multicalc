@@ -11,7 +11,7 @@
   </div>
 
   <div *ngIf="!pokemon.isDefault()" class="data">
-    <div class="pokemon-image-container">
+    <div class="pokemon-image-container" [ngStyle]="reverse && { 'order': 4 } || null">
       <div class="pokemon-image">
         <img src='https://img.pokemondb.net/sprites/home/normal/{{ pokemon.spriteName }}.png'>
       </div>
@@ -20,7 +20,7 @@
       <app-pokemon-combo-box [pokemon]="pokemon" data-cy="pokemon-select"/>
     </div>
 
-    <div class="pokemon-status">
+    <div class="pokemon-status" [ngStyle]="reverse && { 'order': 3 } || null">
       <div>
         <label>Status</label>
         <app-input-autocomplete [(value)]="pokemon.status" [allValues]="statusConditions" data-cy="pokemon-status"/>
@@ -38,7 +38,7 @@
       </div>
     </div>
 
-    <div class="pokemon-tera">
+    <div class="pokemon-tera" [ngStyle]="reverse && { 'order': 2 } || null">
       <div>
         <div class="info-label tera-label">
           <label >Tera Type</label>
@@ -72,7 +72,7 @@
       </div>
     </div>
 
-    <div class="moves-section">
+    <div class="moves-section" [ngStyle]="reverse && { 'order': 1, 'margin': '0em 1em 0em 0em' } || null">
       <div class="info-label moves-labels">
         <label>Moves</label>
         <label class="bp-label">BP</label>
