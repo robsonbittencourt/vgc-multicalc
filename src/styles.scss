@@ -15,3 +15,10 @@ body {
 [hidden] {
   display: none !important;
 }
+
+@font-face {
+  font-family: 'Proba Pro';
+  src: url('assets/fonts/ProbaPro-Regular.otf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
