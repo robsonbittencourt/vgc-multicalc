@@ -1,13 +1,14 @@
-import { AfterViewInit, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { Observable } from 'rxjs';
-import { startWith, map } from 'rxjs/operators';
+import { map, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-input-autocomplete',
   templateUrl: './input-autocomplete.component.html',
-  styleUrls: ['./input-autocomplete.component.scss']
+  styleUrls: ['./input-autocomplete.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InputAutocompleteComponent implements AfterViewInit {
 

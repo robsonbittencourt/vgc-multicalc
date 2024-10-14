@@ -21,12 +21,14 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { RouterOutlet } from '@angular/router';
 import { SmogonFunctions } from 'src/lib/smogon-functions/smogon-functions';
 import { AbilityComboBoxComponent } from './ability-combo-box/ability-combo-box.component';
 import { AddPokemonCardComponent } from './add-pokemon-card/add-pokemon-card.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { DamageResultComponent } from './damage-result/damage-result.component';
 import { EvSliderComponent } from './ev-slider/ev-slider.component';
 import { FieldComponent } from './field/field.component';
 import { HeaderMobileComponent } from './header-mobile/header-mobile.component';
@@ -39,6 +41,7 @@ import { PokemonBuildMobileComponent } from './pokemon-build-mobile/pokemon-buil
 import { PokemonBuildComponent } from './pokemon-build/pokemon-build.component';
 import { PokemonCardComponent } from './pokemon-card/pokemon-card.component';
 import { PokemonComboBoxComponent } from './pokemon-combo-box/pokemon-combo-box.component';
+import { PokemonHpBadgeComponent } from './pokemon-hp-badge/pokemon-hp-badge.component';
 import { PokemonTabComponent } from './pokemon-tab/pokemon-tab.component';
 import { SimpleCalcMobileComponent } from './simple-calc-mobile/simple-calc-mobile.component';
 import { SimpleCalcComponent } from './simple-calc/simple-calc.component';
@@ -52,8 +55,6 @@ import { TeamExportModalComponent } from './team-export-modal/team-export-modal.
 import { TeamImportModalComponent } from './team-import-modal/team-import-modal.component';
 import { TeamComponent } from './team/team.component';
 import { TeamsComponent } from './teams/teams.component';
-import { DamageResultComponent } from './damage-result/damage-result.component';
-import { PokemonHpBadgeComponent } from './pokemon-hp-badge/pokemon-hp-badge.component';
 
 @NgModule({
   declarations: [
@@ -111,7 +112,8 @@ import { PokemonHpBadgeComponent } from './pokemon-hp-badge/pokemon-hp-badge.com
     MatTooltipModule,
     MatTabsModule,
     MatDialogModule,
-    MatMenuModule
+    MatMenuModule,
+    ScrollingModule
   ],
   providers: [SmogonFunctions],
   bootstrap: [AppComponent]
