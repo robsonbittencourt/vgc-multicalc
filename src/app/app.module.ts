@@ -21,7 +21,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
-import { ScrollingModule } from '@angular/cdk/scrolling';
 import { RouterOutlet } from '@angular/router';
 import { SmogonFunctions } from 'src/lib/smogon-functions/smogon-functions';
 import { AbilityComboBoxComponent } from './ability-combo-box/ability-combo-box.component';
@@ -112,8 +111,7 @@ import { TeamsComponent } from './teams/teams.component';
     MatTooltipModule,
     MatTabsModule,
     MatDialogModule,
-    MatMenuModule,
-    ScrollingModule
+    MatMenuModule
   ],
   providers: [SmogonFunctions],
   bootstrap: [AppComponent]
