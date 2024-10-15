@@ -6,8 +6,19 @@
       <span class="hp-value">{{ actualHp }}/{{ hp }}</span>
     </div>
   </div>      
-  <div class="pokemon-image" [ngStyle]="actualHp == 0 && { 'filter': 'brightness(70%)' } || null">
-    <img #pokemonImage src='assets/sprites/sv/{{ spriteName }}.png' (load)="onImageLoad()" [ngStyle]="{ 'transform': 'scale(' + imageScale + ')' }">
+  <div class="pokemon-image">
+    <img #pokemonImage src='assets/sprites/sv/{{ spriteName }}.png' (load)="onImageLoad()" [ngStyle]="actualHp == 0 && { 'transform': 'scale(' + imageScale + ')', 'filter': 'brightness(70%)' } || { 'transform': 'scale(' + imageScale + ')' }">
+    <div class="fainted-icon" *ngIf="actualHp == 0">
+      <div class="pokeball-icon">
+        <div class="line-left"></div>
+        <div class="line-right"></div>
+        <div class="pokeball-detail"></div>
+        <div class="pokeball-detail-right"></div>
+        <div class="pokeball-detail-bottom"></div>
+        <div class="pokeball-detail-bottom-right"></div>
+      </div>
+      <div class="fainted-text">Fainted</div>
+    </div>
   </div>
   <div class="level">
     <span>Lv. 50</span>

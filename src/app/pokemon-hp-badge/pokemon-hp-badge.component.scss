@@ -52,11 +52,112 @@
 
 .pokemon-image {
   display: flex;
-  margin-left: -2em;
+  position: relative;
+  width: 8em;
+}
+
+.pokemon-image img {
+  margin-left: 1em;
 }
 
 .level {
   font-size: large;
   margin-top: 0.4em;
   margin-right: 1em;
+}
+
+.fainted-icon {
+  display: inline-flex;
+  position: absolute;
+  top: 3.4em;
+  left: -0.5em;
+  height: 1.2em;
+  align-items: center;
+  background: linear-gradient(to bottom, rgba(62, 62, 62, 0.7), rgba(46, 46, 46, 0.7));
+  border-radius: 20px;
+  padding: 5px 15px;
+  font-family: Arial, sans-serif;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  box-shadow: inset 0px -2px 2px rgba(0, 0, 0, 0.3);
+}
+
+.pokeball-icon {
+  width: 18px;
+  height: 18px;
+  background-color: white;
+  border-radius: 50%;
+  position: relative;
+  margin-right: 8px;
+  box-shadow: inset 0 0 0 2px #3e3e3e;
+}
+
+.pokeball-icon::before {
+  content: "";
+  width: 4px;
+  height: 4px;
+  border: 1px solid #3e3e3e;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+}
+
+.line-left, .line-right {
+  width: 7px;
+  height: 2px;
+  background-color: #3e3e3e;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.line-left {
+  left: 0;
+}
+
+.line-right {
+  right: 0;
+}
+
+.fainted-text {
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+.pokeball-detail,
+.pokeball-detail-right,
+.pokeball-detail-bottom,
+.pokeball-detail-bottom-right {
+  width: 2px;
+  height: 5px;
+  background-color: white;
+  position: absolute;
+}
+
+.pokeball-detail {
+  top: 1px;
+  left: calc(50% - 10px);
+  transform: translateX(-50%) rotate(-140deg);
+}
+
+.pokeball-detail-right {
+  top: 1px;
+  left: calc(50% + 10px);
+  transform: translateX(-50%) rotate(140deg);
+}
+
+.pokeball-detail-bottom {
+  bottom: 1px;
+  left: calc(50% - 10px);
+  transform: translateX(-50%) rotate(140deg);
+}
+
+.pokeball-detail-bottom-right {
+  bottom: 1px;
+  left: calc(50% + 10px);
+  transform: translateX(-50%) rotate(-140deg);
 }
