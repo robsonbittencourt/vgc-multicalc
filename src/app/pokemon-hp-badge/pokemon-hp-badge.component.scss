@@ -1,5 +1,6 @@
 .pokemon-hp {
   display: flex;
+  position: relative;
   justify-content: space-between;
   height: 6em;
   width: 26em;
@@ -60,10 +61,29 @@
   margin-left: 1em;
 }
 
-.level {
+.level-item {
+  display: flex;
+  flex-direction: column;
   font-size: large;
   margin-top: 0.4em;
-  margin-right: 1em;
+  margin-right: 0.2em;
+}
+
+.icon-image {
+  width: 50px;
+  height: 50px;
+  margin-top: 0.5em;
+  z-index: 1;
+}
+
+.triangle {
+  width: 0;
+  height: 0;
+  border-left: 50px solid transparent;
+  border-bottom: 50px solid #28cdfe;
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
 
 .fainted-icon {
