@@ -63,15 +63,37 @@ export class Pokemon {
   }
 
   public get displayName(): string {
-    if (this.isDefault()) return this.selectPokemonLabel
+    if (this.isDefault()) {
+      return this.selectPokemonLabel
+    }
     
-    const namesWithHiphen = ["Porygon-Z", "Ho-Oh", "Jangmo-o", "Hakamo-o", "Kommo-o", "Ting-Lu", "Chien-Pao", "Wo-Chien", "Chi-Yu"]
-
-    if (namesWithHiphen.includes(this.pokemonSmogon.name)) {
+    if (this.isNameWithHiphen()) {
       return this.pokemonSmogon.name
     }
 
     return this.pokemonSmogon.name.replaceAll("-", " ")
+  }
+
+  public get displayNameWithoutSuffix(): string {
+    if (this.isDefault()) {
+      return this.selectPokemonLabel
+    }
+    
+    if (this.isNameWithHiphen()) {
+      return this.pokemonSmogon.name
+    }
+
+    if (this.pokemonSmogon.name.includes("-")) {
+      return this.pokemonSmogon.name.substring(0, this.pokemonSmogon.name.indexOf("-"))
+    }
+
+    return this.pokemonSmogon.name
+  }
+
+  private isNameWithHiphen(): boolean {
+    const namesWithHiphen = ["Porygon-Z", "Ho-Oh", "Jangmo-o", "Hakamo-o", "Kommo-o", "Ting-Lu", "Chien-Pao", "Wo-Chien", "Chi-Yu"]
+
+    return namesWithHiphen.includes(this.pokemonSmogon.name)
   }
 
   public get spriteName(): string {
