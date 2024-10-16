@@ -11,10 +11,11 @@ export class PokemonHpBadgeComponent implements AfterViewInit {
   hpPercentage: number
   hpBarColor: string
   imageScale: number = 1.2
-
+  
   _spriteName: string
   _actualSpriteName: string
   _damageTaken: number
+  _item: string  
 
   @Input()
   name: string
@@ -33,6 +34,15 @@ export class PokemonHpBadgeComponent implements AfterViewInit {
 
   @Input()
   reverse: boolean
+
+  @Input()
+  get item(): string {
+    return this._item
+  }
+
+  public set item(item: string) {
+    this._item = item.toLowerCase().replaceAll(" ", "-")
+  }
 
   @Input()
   get damageTaken(): number {
