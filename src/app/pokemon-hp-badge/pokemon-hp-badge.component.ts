@@ -12,6 +12,7 @@ export class PokemonHpBadgeComponent implements AfterViewInit {
   hpBarColor: string
   imageScale: number = 1.2
   
+  _hp: number
   _spriteName: string
   _actualSpriteName: string
   _damageTaken: number
@@ -21,7 +22,14 @@ export class PokemonHpBadgeComponent implements AfterViewInit {
   name: string
 
   @Input()
-  hp: number
+  get hp(): number {
+    return this._hp
+  }
+
+  public set hp(hp: number) {
+    this._hp = hp
+    this.updateHpValues()
+  }
 
   @Input()
   get spriteName(): string {
@@ -51,9 +59,7 @@ export class PokemonHpBadgeComponent implements AfterViewInit {
 
   public set damageTaken(damageTaken: number) {
     this._damageTaken = damageTaken
-    this.setActualHp()
-    this.setHpPercentage()
-    this.setHpBarColor()
+    this.updateHpValues()
   }
 
   @ViewChild('pokemonImage', { static: false })
@@ -69,6 +75,12 @@ export class PokemonHpBadgeComponent implements AfterViewInit {
       this._actualSpriteName = this.spriteName
       this.removeTransparentSpace()      
     }    
+  }
+
+  private updateHpValues() {
+    this.setActualHp()
+    this.setHpPercentage()
+    this.setHpBarColor()
   }
 
   private setActualHp() {
