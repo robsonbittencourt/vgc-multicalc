@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, KeyValueDiffer, KeyValueDiffers, Output } from '@angular/core';
-import { ITEMS, MOVES, NATURES, TYPE_CHART } from '@smogon/calc';
+import { MOVES, NATURES, TYPE_CHART } from '@smogon/calc';
+import { Items } from 'src/data/items';
 import { Move } from 'src/lib/move';
 import { Pokemon } from 'src/lib/pokemon';
 
@@ -10,7 +11,7 @@ import { Pokemon } from 'src/lib/pokemon';
 })
 export class PokemonBuildMobileComponent {
 
-  allItemsNames = Object.values(ITEMS[9]).sort()
+  allItemsNames = Items.instance.allItems()
   allMoveNames = Object.keys(MOVES[9]).splice(1).sort()
   allNatureNames = Object.keys(NATURES)
   allTeraTypes = Object.keys(TYPE_CHART[9]).splice(1).sort()

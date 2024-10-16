@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, KeyValueDiffer, KeyValueDiffers, Output } from '@angular/core'
-import { ITEMS, MOVES, NATURES, TYPE_CHART } from '@smogon/calc'
+import { MOVES, NATURES, TYPE_CHART } from '@smogon/calc'
 import { TypeName } from '@smogon/calc/dist/data/interface'
 import { AllPokemon } from 'src/data/all-pokemon'
+import { Items } from 'src/data/items'
 import { Move } from 'src/lib/move'
 import { Pokemon } from 'src/lib/pokemon'
 
@@ -16,7 +17,7 @@ export class PokemonBuildComponent {
 
   allMoveNames = Object.keys(MOVES[9]).splice(1).sort()
   allNatureNames = Object.keys(NATURES)
-  allItemsNames = Object.values(ITEMS[9]).sort()
+  allItemsNames = Items.instance.allItems()
   allTeraTypes = Object.keys(TYPE_CHART[9]).splice(1).sort()
   allPokemonNames = AllPokemon.instance.allPokemonNames
   availableAbilities: string[]

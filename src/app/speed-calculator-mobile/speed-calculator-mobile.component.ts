@@ -1,7 +1,8 @@
 import { Component, EventEmitter, KeyValueDiffer, KeyValueDiffers, Output } from '@angular/core';
 import { MatButtonToggleChange } from '@angular/material/button-toggle';
-import { ITEMS, MOVES, NATURES } from '@smogon/calc';
+import { MOVES, NATURES } from '@smogon/calc';
 import { AllPokemon } from 'src/data/all-pokemon';
+import { Items } from 'src/data/items';
 import { SETDEX_SV } from 'src/data/movesets';
 import { Pokemon } from 'src/lib/pokemon';
 import { SpeedCalculatorOptions } from 'src/lib/speed-calculator/speed-calculator-options';
@@ -22,7 +23,7 @@ export class SpeedCalculatorMobileComponent {
   options: SpeedCalculatorOptions = new SpeedCalculatorOptions()
 
   allPokemonNames = AllPokemon.instance.allPokemonNames
-  allItemsNames = Object.values(ITEMS[9]).sort()
+  allItemsNames = Items.instance.allItems()
   allMoveNames = Object.keys(MOVES[9]).splice(1).sort()
   allNatureNames = Object.keys(NATURES)
   availableAbilities: string[]
