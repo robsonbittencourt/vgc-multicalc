@@ -28,6 +28,8 @@ export class DataStore {
     criticalHit: false
   }  
   
+  leftPokemon: Pokemon
+  rightPokemon: Pokemon
   teams: Team[]
   targets: Target[] = []
 
@@ -49,14 +51,18 @@ export class DataStore {
     }    
   }
 
-  buildInitialData(userData: any) {
+  buildInitialData(userData: any) { 
     if (userData) {
       this.extraFieldOptions.criticalHit = userData.criticalHit
       this.extraFieldOptions.trickRoom = userData.trickRoom
       this.field = this.buildFieldFromUserData(userData)
+      this.leftPokemon = this.buildLeftPokemonFromUserData(userData)
+      this.rightPokemon = this.buildRightPokemonFromUserData(userData)
       this.teams = this.buildTeamsFromUserData(userData)
       this.targets = this.buildTargetsFromUserData(userData)
     } else {
+      this.leftPokemon = this.defaultLeftPokemon()
+      this.rightPokemon = this.defaultRightPokemon()
       this.teams = this.defaultTeams()
       this.targets = this.defaultTargets()
     }    
@@ -66,13 +72,27 @@ export class DataStore {
     return new Field({ ...userData.field })
   }
 
+  private buildLeftPokemonFromUserData(userData: any): Pokemon {
+    if (userData.leftPokemon) {
+      return this.buildPokemonFromUserData(userData.leftPokemon)
+    } else {
+      return this.defaultLeftPokemon()
+    }    
+  }
+
+  private buildRightPokemonFromUserData(userData: any): Pokemon {
+    if (userData.rightPokemon) {
+      return this.buildPokemonFromUserData(userData.rightPokemon)
+    } else {
+      return this.defaultRightPokemon()
+    }    
+  }
+
   private buildTeamsFromUserData(userData: any): Team[] {
     const importedTeams = userData.teams.map((team: any, index: Number) => {
       const teamMembers = team.teamMembers.map((teamMember: any, index: Number) => {
-        const pokemon = teamMember.pokemon as Pokemon
-        const moveSet = new MoveSet(teamMember.pokemon.moveSet[0], teamMember.pokemon.moveSet[1], teamMember.pokemon.moveSet[2], teamMember.pokemon.moveSet[3])
-        moveSet.activeMoveStorage = new Move(teamMember.pokemon.moveSet[0])
-        return new TeamMember(new Pokemon(pokemon.name, { ability: pokemon.ability, nature: pokemon.nature, item: pokemon.item, teraType: pokemon.teraType, teraTypeActive: pokemon.teraTypeActive, evs: pokemon.evs, moveSet: moveSet, boosts: pokemon.boosts, status: pokemon.status, ivs: pokemon.ivs, abilityOn: pokemon.abilityOn }), index == 0)
+        const pokemon = this.buildPokemonFromUserData(teamMember.pokemon)
+        return new TeamMember(pokemon , index == 0)
       })
 
       if (teamMembers.length == 0) {
@@ -90,14 +110,18 @@ export class DataStore {
   private buildTargetsFromUserData(userData: any): Target[] {
     let position = 0
     return userData.targets.map((target: any) => {
-      const pokemon = target.pokemon as Pokemon
-      const moveSet = new MoveSet(target.pokemon.moveSet[0], target.pokemon.moveSet[1], target.pokemon.moveSet[2], target.pokemon.moveSet[3])
-      moveSet.activeMoveStorage = new Move(target.pokemon.activeMove)
-      const newTarget = new Target(new Pokemon(pokemon.name, { ability: pokemon.ability, nature: pokemon.nature, item: pokemon.item, teraType: pokemon.teraType, teraTypeActive: pokemon.teraTypeActive, evs: pokemon.evs, moveSet: moveSet, boosts: pokemon.boosts, status: pokemon.status, ivs: pokemon.ivs }), position)
+      const pokemon = this.buildPokemonFromUserData(target.pokemon)
+      const newTarget = new Target(pokemon, position)
       position++
       
       return newTarget
     })
+  }
+
+  buildPokemonFromUserData(pokemon: any) {
+    const moveSet = new MoveSet(pokemon.moveSet[0], pokemon.moveSet[1], pokemon.moveSet[2], pokemon.moveSet[3])
+    moveSet.activeMoveStorage = new Move(pokemon.activeMove)
+    return new Pokemon(pokemon.name, { ability: pokemon.ability, nature: pokemon.nature, item: pokemon.item, teraType: pokemon.teraType, teraTypeActive: pokemon.teraTypeActive, evs: pokemon.evs, moveSet: moveSet, boosts: pokemon.boosts, status: pokemon.status, ivs: pokemon.ivs })
   }
 
   buildUserData(): any {
@@ -108,6 +132,8 @@ export class DataStore {
       field: this.field,
       criticalHit: this.extraFieldOptions.criticalHit,
       trickRoom: this.extraFieldOptions.trickRoom,
+      leftPokemon: this.buildPokemonToUserData(this.leftPokemon),
+      rightPokemon: this.buildPokemonToUserData(this.rightPokemon),
       teams: this.teams.map(team => {
         return {
           "active": team.active,
@@ -158,6 +184,14 @@ export class DataStore {
         pokemon.moveSet.move4.name
       ]      
     }
+  }
+
+  private defaultLeftPokemon(): Pokemon {
+    return new Pokemon('Koraidon', { nature: "Adamant", item: "Clear Amulet", teraType: "Fire", evs: { hp: 36, atk: 220, spe: 252 }, moveSet: new MoveSet("Flame Charge", "Collision Course", "Flare Blitz", "Protect") })
+  }
+
+  private defaultRightPokemon(): Pokemon {
+    return new Pokemon("Miraidon", { nature: "Timid", item: "Choice Specs", teraType: "Electric", evs: { hp: 4, spa: 252, spe: 252 }, moveSet: new MoveSet("Electro Drift", "Thunder", "Volt Switch", "Draco Meteor") })
   }
 
   private defaultTeams(): Team[] {
