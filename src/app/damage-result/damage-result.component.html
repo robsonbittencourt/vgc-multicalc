@@ -1,6 +1,6 @@
 <div class="damage-result" [ngStyle]="reverse && { 'grid-template-columns': '0.4fr 1fr' } || null">
   <div [ngStyle]="reverse && { 'justify-self': 'end' } || null">
-    <app-pokemon-hp-badge [name]="pokemon.displayNameWithoutSuffix" [hp]="pokemon.hp" [spriteName]="pokemon.spriteName" [item]="pokemon.item" [damageTaken]="damageTaken" [reverse]="reverse"/>
+    <app-pokemon-hp-badge [name]="pokemon.displayNameWithoutSuffix" [hp]="pokemon.hp" [spriteName]="pokemon.name" [item]="pokemon.item" [damageTaken]="damageTaken" [reverse]="reverse"/>
 
     <div class="roll-level">
       <label class="label">Roll level</label>

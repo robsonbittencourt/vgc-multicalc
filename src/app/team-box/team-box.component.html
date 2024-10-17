@@ -2,7 +2,7 @@
   <label class="team-name-label">{{ team.name }}</label>
   <div class="team-pokemon-icons">
     <div *ngFor="let teamMember of team.teamMembers()" class="pokemon-image">
-      <img *ngIf="!teamMember.pokemon.isDefault()" src='assets/sprites/pokemon-sv/{{ teamMember.pokemon.spriteName }}.png'>
+      <img *ngIf="!teamMember.pokemon.isDefault()" src='assets/sprites/pokemon-sv/{{ teamMember.pokemon.name }}.png'>
     </div>
   </div>
 </div>
