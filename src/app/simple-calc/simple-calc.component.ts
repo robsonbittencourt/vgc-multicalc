@@ -2,7 +2,6 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { DamageCalculatorService } from 'src/lib/damage-calculator.service';
 import { DamageResult } from 'src/lib/damage-result';
 import { Move } from 'src/lib/move';
-import { MoveSet } from 'src/lib/moveset';
 import { Pokemon } from 'src/lib/pokemon';
 import { DataStore } from '../data-store.service';
 
@@ -13,8 +12,8 @@ import { DataStore } from '../data-store.service';
 })
 export class SimpleCalcComponent {
 
-  leftPokemon: Pokemon = new Pokemon('Koraidon', { nature: "Adamant", item: "Clear Amulet", teraType: "Fire", evs: { hp: 36, atk: 220, spe: 252 }, moveSet: new MoveSet("Flame Charge", "Collision Course", "Flare Blitz", "Protect") })
-  rightPokemon: Pokemon = new Pokemon("Miraidon", { nature: "Timid", item: "Choice Specs", teraType: "Electric", evs: { hp: 4, spa: 252, spe: 252 }, moveSet: new MoveSet("Electro Drift", "Thunder", "Volt Switch", "Draco Meteor") })
+  leftPokemon: Pokemon = this.data.leftPokemon
+  rightPokemon: Pokemon = this.data.rightPokemon
 
   leftDamageResults: DamageResult[]
   rightDamageResults: DamageResult[]
@@ -38,6 +37,7 @@ export class SimpleCalcComponent {
 
   leftMoveActivated() {
     this.leftDamageResult = this.findResultByMove(this.leftDamageResults, this.leftPokemon.move)
+    this.dataChangedEvent.emit()
   }
 
   rightPokemonChanged() {
@@ -47,6 +47,7 @@ export class SimpleCalcComponent {
 
   rightMoveActivated() {
     this.rightDamageResult = this.findResultByMove(this.rightDamageResults, this.rightPokemon.move)
+    this.dataChangedEvent.emit()
   }
 
   fieldChanged() {
