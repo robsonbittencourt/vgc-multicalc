@@ -10,11 +10,14 @@ export class MoveSet {
   move4Storage: Move
   
   constructor(move1: string, move2: string, move3: string, move4: string) {
-    this.activeMoveStorage = new Move(move1)
-    this.move1Storage = new Move(move1)
-    this.move2Storage = new Move(move2)
-    this.move3Storage = new Move(move3)
-    this.move4Storage = new Move(move4)
+    const orderedByBp = [new Move(move1), new Move(move2), new Move(move3), new Move(move4)].sort((a, b) => b.bp() - a.bp())
+
+    this.activeMoveStorage = orderedByBp[0]
+    
+    this.move1Storage = orderedByBp[0]
+    this.move2Storage = orderedByBp[1]
+    this.move3Storage = orderedByBp[2]
+    this.move4Storage = orderedByBp[3]
   }
 
   get activeMove(): Move {
