@@ -1,6 +1,6 @@
 <div class="container">
-  <app-damage-result [pokemon]="leftPokemon" [damageResults]="leftDamageResults" [opponentDamageResult]="rightDamageResult" (moveActivatedEvent)="leftMoveActivated()"/>
-  <app-damage-result [pokemon]="rightPokemon" [damageResults]="rightDamageResults" [opponentDamageResult]="leftDamageResult" (moveActivatedEvent)="rightMoveActivated()" [reverse]="true"/>
+  <app-damage-result [pokemon]="leftPokemon" [damageResults]="leftDamageResults" [rollLevelConfig]="data.leftRollLevelConfig" [opponentDamageResult]="rightDamageResult" (moveActivatedEvent)="leftMoveActivated()" (rollLevelChangedEvent)="rollLevelChanged()"/>
+  <app-damage-result [pokemon]="rightPokemon" [damageResults]="rightDamageResults" [rollLevelConfig]="data.rightRollLevelConfig" [opponentDamageResult]="leftDamageResult" (moveActivatedEvent)="rightMoveActivated()" (rollLevelChangedEvent)="rollLevelChanged()" [reverse]="true"/>
 
   <div class="pokemon-edit">
     <app-pokemon-build [pokemon]="leftPokemon" (pokemonChangedEvent)="leftPokemonChanged()"/>

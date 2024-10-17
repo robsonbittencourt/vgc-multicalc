@@ -5,9 +5,9 @@
     <div class="roll-level">
       <label class="label">Roll level</label>
       <mat-button-toggle-group class="button-group">
-        <mat-button-toggle [checked]="highRoll" (change)="activeHighRoll()">High</mat-button-toggle>
-        <mat-button-toggle [checked]="mediumRoll" (change)="activeMediumRoll()">Medium</mat-button-toggle>
-        <mat-button-toggle [checked]="lowRoll" (change)="activeLowRoll()">Low</mat-button-toggle>
+        <mat-button-toggle [checked]="rollLevelConfig.high" (change)="activeHighRoll()">High</mat-button-toggle>
+        <mat-button-toggle [checked]="rollLevelConfig.medium" (change)="activeMediumRoll()">Medium</mat-button-toggle>
+        <mat-button-toggle [checked]="rollLevelConfig.low" (change)="activeLowRoll()">Low</mat-button-toggle>
       </mat-button-toggle-group>
     </div>    
   </div>
