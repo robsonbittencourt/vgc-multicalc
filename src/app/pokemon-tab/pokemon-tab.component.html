@@ -1,5 +1,5 @@
 <div [ngStyle]="tabStyle()" class="tab" (click)="activateTab()" data-cy="team-member-tab">
   <mat-icon *ngIf="teamMember.pokemon.isDefault()" data-cy="add-team-member-tab">add</mat-icon>
-  <img *ngIf="!teamMember.pokemon.isDefault()" class="pokemon-image-small" src='assets/sprites/pokemon-sv/{{ teamMember.pokemon.spriteNameScarletViolet }}.png'>
+  <img *ngIf="!teamMember.pokemon.isDefault()" class="pokemon-image-small" src='assets/sprites/pokemon-sv/{{ teamMember.pokemon.spriteName }}.png'>
   <label [ngStyle]="active() && { 'color': '#673ab7', 'font-weight': 500 } || null" class="tab-label" *ngIf="!teamMember.pokemon.isDefault()">{{ teamMember.pokemon.name }}</label>
 </div>
