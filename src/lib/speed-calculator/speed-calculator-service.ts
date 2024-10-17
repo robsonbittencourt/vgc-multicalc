@@ -16,7 +16,7 @@ export class SpeedCalculatorService {
   orderedPokemon(pokemon: Pokemon, field: Field, isTrickRoom: boolean = false, options: SpeedCalculatorOptions = new SpeedCalculatorOptions()): SpeedDefinition[] {
     const speedDefinitions: SpeedDefinition[] = []
     const speed = this.smogonService.getFinalSpeed(pokemon, field, field.attackerSide)
-    speedDefinitions.push(new SpeedDefinition(pokemon.spriteName, speed, "Actual"))
+    speedDefinitions.push(new SpeedDefinition(pokemon.name, speed, "Actual"))
     
     speedMeta(options.regulation).forEach(p => {
       this.adjustPokemonByOptions(p, options)
@@ -92,7 +92,7 @@ export class SpeedCalculatorService {
 
     const speed = this.smogonService.getFinalSpeed(clonedPokemon, field, field.defenderSide)
 
-    return new SpeedDefinition(clonedPokemon.spriteName, speed, "Min")
+    return new SpeedDefinition(clonedPokemon.name, speed, "Min")
   }
 
   maxSpeed(pokemon: Pokemon, field: Field): SpeedDefinition {
@@ -104,7 +104,7 @@ export class SpeedCalculatorService {
 
     const speed = this.smogonService.getFinalSpeed(clonedPokemon, field, field.defenderSide)
 
-    return new SpeedDefinition(clonedPokemon.spriteName, speed, "Max")
+    return new SpeedDefinition(clonedPokemon.name, speed, "Max")
   }
 
   maxScarf(pokemon: Pokemon, field: Field): SpeedDefinition {
@@ -115,14 +115,14 @@ export class SpeedCalculatorService {
     const speed = this.smogonService.getFinalSpeed(clonedPokemon, field, field.defenderSide)
     const description = "Scarf"
 
-    return new SpeedDefinition(pokemon.spriteName, speed, description)
+    return new SpeedDefinition(pokemon.name, speed, description)
   }
 
   maxBooster(pokemon: Pokemon, field: Field): SpeedDefinition {
     const speed = this.smogonService.getFinalSpeed(pokemon, field, field.defenderSide)
     const description = "Booster"
 
-    return new SpeedDefinition(pokemon.spriteName, speed, description)
+    return new SpeedDefinition(pokemon.name, speed, description)
   }
 
   maxMeta(pokemon: Pokemon, field: Field): SpeedDefinition {
@@ -132,7 +132,7 @@ export class SpeedCalculatorService {
     const speed = this.smogonService.getFinalSpeed(clonedPokemon, field, field.defenderSide)
     const description = "Meta"
 
-    return new SpeedDefinition(pokemon.spriteName, speed, description)
+    return new SpeedDefinition(pokemon.name, speed, description)
   }
 
 }
