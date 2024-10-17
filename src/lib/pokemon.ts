@@ -214,6 +214,10 @@ export class Pokemon {
     return this.moveSetStorage
   }
 
+  public set moveSet(moveSet: MoveSet) {
+    this.moveSetStorage = moveSet
+  }
+
   public get move(): Move {
     return this.moveSetStorage.activeMove
   }

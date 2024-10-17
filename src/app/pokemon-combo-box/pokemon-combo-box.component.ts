@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { AllPokemon } from 'src/data/all-pokemon';
 import { SETDEX_SV } from 'src/data/movesets';
-import { Move } from 'src/lib/move';
+import { MoveSet } from 'src/lib/moveset';
 import { Pokemon } from 'src/lib/pokemon';
 
 @Component({
@@ -25,21 +25,13 @@ export class PokemonComboBoxComponent {
       this.pokemon.ability = poke.ability
       this.pokemon.teraType = poke.teraType
       this.pokemon.evs = poke.evs
-      this.pokemon.moveSet.move1 = new Move(poke.moves[0])
-      this.pokemon.moveSet.move2 = new Move(poke.moves[1])
-      this.pokemon.moveSet.move3 = new Move(poke.moves[2])
-      this.pokemon.moveSet.move4 = new Move(poke.moves[3])
-      this.pokemon.moveSet.activeMoveByPosition(1, new Move(poke.moves[0]))
+      this.pokemon.moveSet = new MoveSet(poke.moves[0], poke.moves[1], poke.moves[2], poke.moves[3])
       this.pokemon.changeTeraStatus(false)      
     } else {
       this.pokemon.nature = "Docile"
       this.pokemon.item = "Leftovers"
       this.pokemon.teraType = "Normal"
-      this.pokemon.moveSet.move1 = new Move("Tackle")
-      this.pokemon.moveSet.move2 = new Move("")
-      this.pokemon.moveSet.move3 = new Move("")
-      this.pokemon.moveSet.move4 = new Move("")
-      this.pokemon.moveSet.activeMoveByPosition(1, new Move("Tackle"))
+      this.pokemon.moveSet = new MoveSet("Tackle", "", "", "")
     }
   }
 
