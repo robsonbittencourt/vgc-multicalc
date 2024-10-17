@@ -55,6 +55,10 @@ export class SimpleCalcComponent {
     this.dataChangedEvent.emit()
   }
 
+  rollLevelChanged() {
+    this.dataChangedEvent.emit()
+  }
+
   private calculateDamage() {
     this.leftDamageResults = this.damageCalculator.calcDamageAllAttacks(this.leftPokemon, this.rightPokemon)
     this.leftDamageResult = this.findResultByMove(this.leftDamageResults, this.leftPokemon.move)

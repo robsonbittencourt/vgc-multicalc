@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DamageResult } from 'src/lib/damage-result';
 import { Pokemon } from 'src/lib/pokemon';
+import { RollLevelConfig } from 'src/lib/roll-level-config';
 
 @Component({
   selector: 'app-damage-result',
@@ -19,10 +20,6 @@ export class DamageResultComponent {
   hpPercentage: number
   hpBarColor: string
 
-  highRoll: boolean = true
-  mediumRoll: boolean = false
-  lowRoll: boolean = false
-
   copyMessageEnabled = false
   imageScale: number = 1.2
 
@@ -34,8 +31,8 @@ export class DamageResultComponent {
   @Input()
   reverse: boolean
 
-  @Output() 
-  moveActivatedEvent = new EventEmitter<any>()
+  @Input()
+  rollLevelConfig: RollLevelConfig
 
   @Input()
   get damageResults(): DamageResult[] {
@@ -61,6 +58,12 @@ export class DamageResultComponent {
     this.damageTaken = this.damageTakenByRoll(opponentDamageResult)
   }
 
+  @Output() 
+  moveActivatedEvent = new EventEmitter<any>()
+
+  @Output() 
+  rollLevelChangedEvent = new EventEmitter<any>()
+
   private setResults(damageResults: DamageResult[]) {
     this._damageResults = damageResults
     this.activeDamageResult = damageResults.find(result => result.move == this.pokemon.move.name)!
@@ -82,32 +85,38 @@ export class DamageResultComponent {
   }
 
   activeHighRoll() {
-    this.highRoll = true
-    this.mediumRoll = false
-    this.lowRoll = false
+    this.rollLevelConfig.high = true
+    this.rollLevelConfig.medium = false
+    this.rollLevelConfig.low = false
     this.damageTaken = this.damageTakenByRoll(this._opponentDamageResult)
+    
+    this.rollLevelChangedEvent.emit()
   }
 
   activeMediumRoll() {
-    this.highRoll = false
-    this.mediumRoll = true
-    this.lowRoll = false
+    this.rollLevelConfig.high = false
+    this.rollLevelConfig.medium = true
+    this.rollLevelConfig.low = false
     this.damageTaken = this.damageTakenByRoll(this._opponentDamageResult)
+
+    this.rollLevelChangedEvent.emit()
   }
 
   activeLowRoll() {
-    this.highRoll = false
-    this.mediumRoll = false
-    this.lowRoll = true
+    this.rollLevelConfig.high = false
+    this.rollLevelConfig.medium = false
+    this.rollLevelConfig.low = true
     this.damageTaken = this.damageTakenByRoll(this._opponentDamageResult)
+
+    this.rollLevelChangedEvent.emit()
   }
 
   private damageTakenByRoll(damageResult: DamageResult): number {
-    if(this.highRoll) {
+    if(this.rollLevelConfig.high) {
       return damageResult.rolls![15]
     }
 
-    if(this.mediumRoll) {
+    if(this.rollLevelConfig.medium) {
       return damageResult.rolls![7]
     }
 

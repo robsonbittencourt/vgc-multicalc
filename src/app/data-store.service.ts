@@ -5,6 +5,7 @@ import { DeviceDetectorService } from 'src/lib/device-detector.service';
 import { Move } from 'src/lib/move';
 import { MoveSet } from 'src/lib/moveset';
 import { Pokemon } from 'src/lib/pokemon';
+import { RollLevelConfig } from 'src/lib/roll-level-config';
 import { Target } from 'src/lib/target';
 import { Team } from 'src/lib/team';
 import { TeamMember } from 'src/lib/team-member';
@@ -26,7 +27,10 @@ export class DataStore {
   extraFieldOptions = {
     trickRoom: false,
     criticalHit: false
-  }  
+  }
+
+  leftRollLevelConfig: RollLevelConfig
+  rightRollLevelConfig: RollLevelConfig
   
   leftPokemon: Pokemon
   rightPokemon: Pokemon
@@ -56,11 +60,15 @@ export class DataStore {
       this.extraFieldOptions.criticalHit = userData.criticalHit
       this.extraFieldOptions.trickRoom = userData.trickRoom
       this.field = this.buildFieldFromUserData(userData)
+      this.leftRollLevelConfig = this.buildRollLevelConfigFromUserData(userData.leftRollLevelConfig)
+      this.rightRollLevelConfig = this.buildRollLevelConfigFromUserData(userData.rightRollLevelConfig)
       this.leftPokemon = this.buildLeftPokemonFromUserData(userData)
       this.rightPokemon = this.buildRightPokemonFromUserData(userData)
       this.teams = this.buildTeamsFromUserData(userData)
       this.targets = this.buildTargetsFromUserData(userData)
     } else {
+      this.leftRollLevelConfig = RollLevelConfig.high()
+      this.rightRollLevelConfig = RollLevelConfig.high()
       this.leftPokemon = this.defaultLeftPokemon()
       this.rightPokemon = this.defaultRightPokemon()
       this.teams = this.defaultTeams()
@@ -70,6 +78,26 @@ export class DataStore {
 
   private buildFieldFromUserData(userData: any): Field {
     return new Field({ ...userData.field })
+  }
+
+  private buildRollLevelConfigFromUserData(rollLevelConfig: any): RollLevelConfig {
+    if (!rollLevelConfig) {
+      return RollLevelConfig.high()
+    }
+
+    if (rollLevelConfig.high) {
+      return RollLevelConfig.high()
+    }
+
+    if (rollLevelConfig.medium) {
+      return RollLevelConfig.medium()
+    }
+
+    if (rollLevelConfig.low) {
+      return RollLevelConfig.low()
+    }
+
+    return RollLevelConfig.high()
   }
 
   private buildLeftPokemonFromUserData(userData: any): Pokemon {
@@ -132,6 +160,8 @@ export class DataStore {
       field: this.field,
       criticalHit: this.extraFieldOptions.criticalHit,
       trickRoom: this.extraFieldOptions.trickRoom,
+      leftRollLevelConfig: this.leftRollLevelConfig,
+      rightRollLevelConfig: this.rightRollLevelConfig,
       leftPokemon: this.buildPokemonToUserData(this.leftPokemon),
       rightPokemon: this.buildPokemonToUserData(this.rightPokemon),
       teams: this.teams.map(team => {
