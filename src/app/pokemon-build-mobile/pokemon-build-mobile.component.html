@@ -2,10 +2,10 @@
   <div class="moves">
     <div class="no-edit-moves" *ngIf="!editAttacks">
       <mat-chip-listbox>
-        <mat-chip-option [selected]="pokemon.move1Name == pokemon.activeMoveName" (click)="activateMove(1, pokemon.moveSet.move1)">{{ pokemon.move1Name }}</mat-chip-option>
-        <mat-chip-option [selected]="pokemon.move2Name == pokemon.activeMoveName" (click)="activateMove(2, pokemon.moveSet.move2)">{{ pokemon.move2Name }}</mat-chip-option>
-        <mat-chip-option [selected]="pokemon.move3Name == pokemon.activeMoveName" (click)="activateMove(3, pokemon.moveSet.move3)">{{ pokemon.move3Name }}</mat-chip-option>
-        <mat-chip-option [selected]="pokemon.move4Name == pokemon.activeMoveName" (click)="activateMove(4, pokemon.moveSet.move4)" >{{ pokemon.move4Name }}</mat-chip-option>
+        <mat-chip-option *ngIf="pokemon.move1Name" [selected]="pokemon.move1Name == pokemon.activeMoveName" (click)="activateMove(1, pokemon.moveSet.move1)">{{ pokemon.move1Name }}</mat-chip-option>
+        <mat-chip-option *ngIf="pokemon.move2Name" [selected]="pokemon.move2Name == pokemon.activeMoveName" (click)="activateMove(2, pokemon.moveSet.move2)">{{ pokemon.move2Name }}</mat-chip-option>
+        <mat-chip-option *ngIf="pokemon.move3Name" [selected]="pokemon.move3Name == pokemon.activeMoveName" (click)="activateMove(3, pokemon.moveSet.move3)">{{ pokemon.move3Name }}</mat-chip-option>
+        <mat-chip-option *ngIf="pokemon.move4Name" [selected]="pokemon.move4Name == pokemon.activeMoveName" (click)="activateMove(4, pokemon.moveSet.move4)" >{{ pokemon.move4Name }}</mat-chip-option>
         
         <div class="edit-button-section">
           <div *ngIf="!editAttacks" (click)="editMoves()" class="edit-button">

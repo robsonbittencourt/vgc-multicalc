@@ -25,7 +25,8 @@
 }
 
 .chip-move {
-  width: 60%;
+  width: 50%;
+  margin-left: 1em;
 }
 
 .label {
@@ -61,4 +62,12 @@
   justify-content: left;
   gap: 1em;
   margin-top: 1em;
+}
+
+::ng-deep .mat-mdc-standard-chip .mdc-evolution-chip__graphic {
+  display: none !important;
+}
+
+::ng-deep .mat-mdc-standard-chip .mdc-evolution-chip__text-label:not(:only-child) {
+  padding-left: 12px;
 }
