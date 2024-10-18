@@ -10,6 +10,8 @@ describe('Test calcs with first team member Pokémon', () => {
   })
 
   it('Validate the damage Miraidon', () => {
+    team.selectPokemon("Miraidon").selectAttackTwo()
+
     opponents.get("Urshifu Rapid Strike").damageIs(296, 349.7).causeOHKO()
     opponents.get("Calyrex Shadow").damageIs(74.2, 88).cause2HKO()
     opponents.get("Ogerpon Wellspring").damageIs(70.5, 83.4).cause2HKO()
@@ -29,7 +31,7 @@ describe('Test calcs with second team member Pokémon', () => {
   })
   
   it('Validate the damage with Koraidon using Flame Charge', () => {
-    team.selectPokemon("Koraidon")
+    team.selectPokemon("Koraidon").selectAttackThree()
 
     opponents.get("Urshifu Rapid Strike").damageIs(9.1, 10.8)
     opponents.get("Calyrex Shadow").damageIs(22.2, 26.2).haveChanceOfToCause4HKO(8.9)
