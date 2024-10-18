@@ -106,3 +106,11 @@
 .ability-checkbox {
   display: flex;
 }
+
+::ng-deep .mat-mdc-standard-chip .mdc-evolution-chip__graphic {
+  display: none !important;
+}
+
+::ng-deep .mat-mdc-standard-chip .mdc-evolution-chip__text-label:not(:only-child) {
+  padding-left: 12px;
+}
