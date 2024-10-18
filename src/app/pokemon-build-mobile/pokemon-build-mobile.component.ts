@@ -24,6 +24,8 @@ export class PokemonBuildMobileComponent {
     "Healthy", "Sleep", "Poison", "Burn", "Freeze", "Paralysis"
   ]
 
+  selectedMove: string
+
   private differ: KeyValueDiffer<string, any>
   private differStatusModifiers: KeyValueDiffer<string, any>
 
@@ -41,6 +43,7 @@ export class PokemonBuildMobileComponent {
   ngOnInit() {
     this.differ = this.differs.find(this.pokemon).create()
     this.differStatusModifiers = this.differsStatusModifiers.find(this.pokemon.boosts).create()
+    this.selectedMove = this.pokemon.activeMoveName
   }
 
   ngDoCheck() {
@@ -50,6 +53,14 @@ export class PokemonBuildMobileComponent {
     if (pokemonChanged || boostsChanged) {
       this.pokemonChangedEvent.emit(this.pokemon)
     }
+  }
+
+  moveChanged() {
+    setTimeout(() => {
+      if (!this.selectedMove) {
+        this.selectedMove = this.pokemon.activeMoveName
+      }
+    }, 0)
   }
 
   activateMove(position: number, move: Move) {
