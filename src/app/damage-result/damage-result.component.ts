@@ -10,6 +10,8 @@ import { RollLevelConfig } from 'src/lib/roll-level-config';
 })
 export class DamageResultComponent {
 
+  selectedMove: string
+
   activeDamageResult: DamageResult
   _opponentDamageResult: DamageResult
 
@@ -73,6 +75,14 @@ export class DamageResultComponent {
     this.pokemon.moveSet.activeMoveByName(moveName)
     this.activeDamageResult = this.damageResults.find(result => result.move == moveName)!
     this.moveActivatedEvent.emit()
+  }
+
+  moveChanged() {
+    setTimeout(() => {
+      if (!this.selectedMove) {
+        this.selectedMove = this.activeDamageResult.move
+      }
+    }, 0)
   }
 
   copy(text: string) {

@@ -1,7 +1,7 @@
 <div class="container">
   <div class="moves">
     <div class="no-edit-moves" *ngIf="!editAttacks">
-      <mat-chip-listbox>
+      <mat-chip-listbox [(ngModel)]="selectedMove" (change)="moveChanged()">
         <mat-chip-option *ngIf="pokemon.move1Name" [selected]="pokemon.move1Name == pokemon.activeMoveName" (click)="activateMove(1, pokemon.moveSet.move1)">{{ pokemon.move1Name }}</mat-chip-option>
         <mat-chip-option *ngIf="pokemon.move2Name" [selected]="pokemon.move2Name == pokemon.activeMoveName" (click)="activateMove(2, pokemon.moveSet.move2)">{{ pokemon.move2Name }}</mat-chip-option>
         <mat-chip-option *ngIf="pokemon.move3Name" [selected]="pokemon.move3Name == pokemon.activeMoveName" (click)="activateMove(3, pokemon.moveSet.move3)">{{ pokemon.move3Name }}</mat-chip-option>
