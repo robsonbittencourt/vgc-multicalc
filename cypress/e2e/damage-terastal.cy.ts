@@ -10,7 +10,7 @@ describe('Test calcs with Terastal', () => {
   })
   
   it('Validate the damage with Koraidon Terastallized using Flame Charge', () => {
-    team.selectPokemon("Koraidon").terastalyze()
+    team.selectPokemon("Koraidon").selectAttackThree().terastalyze()
 
     opponents.get("Urshifu Rapid Strike").damageIs(16.5, 19.4).possible6HKO()
     opponents.get("Calyrex Shadow").damageIs(39.4, 46.8).cause3HKO()
@@ -25,7 +25,7 @@ describe('Test calcs with Terastal', () => {
   })
 
   it('Validate the damage with Miraidon using Electro Drift in Terastallyzed Ogerpon', () => {
-    team.selectPokemon("Miraidon")
+    team.selectPokemon("Miraidon").selectAttackTwo()
 
     opponents.get("Ogerpon Wellspring").terastalyze()
     

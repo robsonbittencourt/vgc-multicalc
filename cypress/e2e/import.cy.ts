@@ -28,7 +28,7 @@ describe('Import Pokémon', () => {
     team.importPokemon(chiyuData)
     
     team.pokemonOnEditIs("Chi-Yu", "Beads of Ruin", "Water", "Choice Specs", "Timid")
-    team.pokemonOnEditAttacksIs("Overheat", "Dark Pulse", "Snarl", "Heat Wave")
+    team.pokemonOnEditAttacksIs("Overheat", "Heat Wave", "Dark Pulse", "Snarl")
     team.pokemonOnEditEvsIs(44, 252, 12, 32, 124, 40)
     team.pokemonOnEditIvsIs(31, 30, 29, 28, 27, 0)
   })
@@ -41,7 +41,7 @@ describe('Import Pokémon', () => {
     
     opponent.selectPokemon("Chi-Yu")
     team.pokemonOnEditIs("Chi-Yu", "Beads of Ruin", "Water", "Choice Specs", "Timid")
-    team.pokemonOnEditAttacksIs("Overheat", "Dark Pulse", "Snarl", "Heat Wave")
+    team.pokemonOnEditAttacksIs("Overheat", "Heat Wave", "Dark Pulse", "Snarl")
     team.pokemonOnEditEvsIs(44, 252, 12, 32, 124, 40)
     team.pokemonOnEditIvsIs(31, 30, 29, 28, 27, 0)
   })
@@ -59,20 +59,32 @@ describe('Import Pokepaste', () => {
     team.selectTeam("Team 2")
 
     team.pokemonOnEditIs("Tatsugiri", "Commander", "Grass", "Toxic Orb", "Modest")
-    team.pokemonOnEditAttacksIs("Endure", "Muddy Water", "Taunt", "Draco Meteor")
+    team.pokemonOnEditAttacksIs("Draco Meteor", "Muddy Water", "Endure", "Taunt"  )
     team.pokemonOnEditEvsIs(0, 0, 0, 252, 4, 252)
     team.pokemonOnEditIvsIs(31, 0, 31, 31, 31, 31)
 
     team.selectPokemon("Dondozo")
     team.pokemonOnEditIs("Dondozo", "Unaware", "Grass", "Sitrus Berry", "Adamant")
-    team.pokemonOnEditAttacksIs("Protect", "Substitute", "Wave Crash", "Order Up")
+    team.pokemonOnEditAttacksIs("Wave Crash", "Order Up", "Protect", "Substitute")
     team.pokemonOnEditEvsIs(12, 156, 60, 0, 116, 164)
     team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
 
     team.selectPokemon("Smeargle")
     team.pokemonOnEditIs("Smeargle", "Moody", "Ghost", "Focus Sash", "Jolly")
-    team.pokemonOnEditAttacksIs("Wide Guard", "Follow Me", "Spore", "Fake Out")
+    team.pokemonOnEditAttacksIs("Fake Out", "Wide Guard", "Follow Me", "Spore")
     team.pokemonOnEditEvsIs(252, 0, 4, 0, 0, 252)
+    team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
+
+    team.selectPokemon("Chi-Yu")
+    team.pokemonOnEditIs("Chi-Yu", "Beads of Ruin", "Water", "Choice Specs", "Timid")
+    team.pokemonOnEditAttacksIs("Overheat", "Heat Wave", "Dark Pulse", "Snarl")
+    team.pokemonOnEditEvsIs(132, 0, 252, 0, 0, 124)
+    team.pokemonOnEditIvsIs(31, 0, 31, 31, 31, 31)
+
+    team.selectPokemon("Whimsicott")
+    team.pokemonOnEditIs("Whimsicott", "Prankster", "Steel", "Covert Cloak", "Bold")
+    team.pokemonOnEditAttacksIs("Moonblast", "Beat Up", "Tailwind", "Fake Tears")
+    team.pokemonOnEditEvsIs(252, 0, 180, 0, 76, 0)
     team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
 
     team.selectPokemon("Flutter Mane")
@@ -80,18 +92,6 @@ describe('Import Pokepaste', () => {
     team.pokemonOnEditAttacksIs("Moonblast", "Dazzling Gleam", "Icy Wind", "Protect")
     team.pokemonOnEditEvsIs(116, 0, 116, 68, 4, 204)
     team.pokemonOnEditIvsIs(31, 0, 31, 31, 31, 31)
-
-    team.selectPokemon("Chi-Yu")
-    team.pokemonOnEditIs("Chi-Yu", "Beads of Ruin", "Water", "Choice Specs", "Timid")
-    team.pokemonOnEditAttacksIs("Overheat", "Dark Pulse", "Snarl", "Heat Wave")
-    team.pokemonOnEditEvsIs(132, 0, 252, 0, 0, 124)
-    team.pokemonOnEditIvsIs(31, 0, 31, 31, 31, 31)
-
-    team.selectPokemon("Whimsicott")
-    team.pokemonOnEditIs("Whimsicott", "Prankster", "Steel", "Covert Cloak", "Bold")
-    team.pokemonOnEditAttacksIs("Beat Up", "Tailwind", "Fake Tears", "Moonblast")
-    team.pokemonOnEditEvsIs(252, 0, 180, 0, 76, 0)
-    team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
   })
 
   it('with Vivillon, Alcremie, Squawkabilly, Dudunsparce, Maushold and Pikachu in normal form', () => {
@@ -101,19 +101,19 @@ describe('Import Pokepaste', () => {
     team.selectTeam("Team 2")
 
     team.pokemonOnEditIs("Vivillon", "Compound Eyes", "Ghost", "Focus Sash", "Timid")
-    team.pokemonOnEditAttacksIs("Sleep Powder", "Hurricane", "Rage Powder", "Tailwind")
+    team.pokemonOnEditAttacksIs("Hurricane", "Sleep Powder","Rage Powder", "Tailwind")
     team.pokemonOnEditEvsIs(0, 0, 0, 252, 4, 252)
     team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
 
     team.selectPokemon("Alcremie")   
     team.pokemonOnEditIs("Alcremie", "Aroma Veil", "Fairy", "Leftovers", "Modest")
-    team.pokemonOnEditAttacksIs("Alluring Voice", "Calm Mind", "Draining Kiss", "Encore")
+    team.pokemonOnEditAttacksIs("Alluring Voice", "Draining Kiss", "Calm Mind", "Encore")
     team.pokemonOnEditEvsIs(252, 0, 4, 252, 0, 0)
     team.pokemonOnEditIvsIs(31, 0, 31, 31, 31, 31)
 
     team.selectPokemon("Squawkabilly")
     team.pokemonOnEditIs("Squawkabilly", "Intimidate", "Normal", "Leftovers", "Adamant")
-    team.pokemonOnEditAttacksIs("Air Slash", "Brave Bird", "Double-Edge", "Dual Wingbeat")
+    team.pokemonOnEditAttacksIs("Brave Bird", "Double-Edge", "Air Slash", "Dual Wingbeat")
     team.pokemonOnEditEvsIs(4, 252, 0, 0, 0, 252)
     team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
 
@@ -125,13 +125,13 @@ describe('Import Pokepaste', () => {
 
     team.selectPokemon("Maushold")
     team.pokemonOnEditIs("Maushold", "Friend Guard", "Normal", "Wide Lens", "Adamant")
-    team.pokemonOnEditAttacksIs("Agility", "Baton Pass", "Chilling Water", "Crunch")
+    team.pokemonOnEditAttacksIs("Crunch", "Chilling Water", "Agility", "Baton Pass")
     team.pokemonOnEditEvsIs(0, 252, 0, 0, 0, 252)
     team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
 
     team.selectPokemon("Pikachu")
     team.pokemonOnEditIs("Pikachu", "Static", "Electric", "Light Ball", "Modest")
-    team.pokemonOnEditAttacksIs("Volt Switch", "Agility", "Thunder Wave", "Thunderbolt")
+    team.pokemonOnEditAttacksIs("Thunderbolt", "Volt Switch", "Agility", "Thunder Wave")
     team.pokemonOnEditEvsIs(0, 0, 4, 252, 0, 252)
     team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
   })
@@ -143,19 +143,19 @@ describe('Import Pokepaste', () => {
     team.selectTeam("Team 2")
 
     team.pokemonOnEditIs("Vivillon", "Compound Eyes", "Ghost", "Focus Sash", "Timid")
-    team.pokemonOnEditAttacksIs("Sleep Powder", "Hurricane", "Rage Powder", "Tailwind")
+    team.pokemonOnEditAttacksIs("Hurricane", "Sleep Powder", "Rage Powder", "Tailwind")
     team.pokemonOnEditEvsIs(0, 0, 0, 252, 4, 252)
     team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
 
     team.selectPokemon("Alcremie")   
     team.pokemonOnEditIs("Alcremie", "Aroma Veil", "Fairy", "Leftovers", "Modest")
-    team.pokemonOnEditAttacksIs("Alluring Voice", "Calm Mind", "Draining Kiss", "Encore")
+    team.pokemonOnEditAttacksIs("Alluring Voice", "Draining Kiss", "Calm Mind", "Encore")
     team.pokemonOnEditEvsIs(252, 0, 4, 252, 0, 0)
     team.pokemonOnEditIvsIs(31, 0, 31, 31, 31, 31)
 
     team.selectPokemon("Squawkabilly")
     team.pokemonOnEditIs("Squawkabilly", "Intimidate", "Normal", "Leftovers", "Adamant")
-    team.pokemonOnEditAttacksIs("Air Slash", "Brave Bird", "Double-Edge", "Dual Wingbeat")
+    team.pokemonOnEditAttacksIs("Brave Bird", "Double-Edge", "Air Slash", "Dual Wingbeat")
     team.pokemonOnEditEvsIs(4, 252, 0, 0, 0, 252)
     team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
 
@@ -167,13 +167,13 @@ describe('Import Pokepaste', () => {
 
     team.selectPokemon("Maushold")
     team.pokemonOnEditIs("Maushold", "Friend Guard", "Normal", "Wide Lens", "Adamant")
-    team.pokemonOnEditAttacksIs("Agility", "Baton Pass", "Chilling Water", "Crunch")
+    team.pokemonOnEditAttacksIs("Crunch", "Chilling Water", "Agility", "Baton Pass")
     team.pokemonOnEditEvsIs(0, 252, 0, 0, 0, 252)
     team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
 
     team.selectPokemon("Pikachu")
     team.pokemonOnEditIs("Pikachu", "Static", "Electric", "Light Ball", "Modest")
-    team.pokemonOnEditAttacksIs("Volt Switch", "Agility", "Thunder Wave", "Thunderbolt")
+    team.pokemonOnEditAttacksIs("Thunderbolt", "Volt Switch", "Agility", "Thunder Wave")
     team.pokemonOnEditEvsIs(0, 0, 4, 252, 0, 252)
     team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
   })
@@ -185,25 +185,25 @@ describe('Import Pokepaste', () => {
     team.selectTeam("Team 2")
 
     team.pokemonOnEditIs("Flabébé", "Flower Veil", "Fairy", "Leftovers", "Modest")
-    team.pokemonOnEditAttacksIs("Alluring Voice", "Baton Pass", "Calm Mind", "Chilling Water")
+    team.pokemonOnEditAttacksIs("Alluring Voice", "Chilling Water", "Baton Pass", "Calm Mind")
     team.pokemonOnEditEvsIs(252, 0, 0, 252, 0, 0)
     team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
     
     team.selectPokemon("Floette")
     team.pokemonOnEditIs("Floette", "Flower Veil", "Fairy", "Leftovers", "Modest")
-    team.pokemonOnEditAttacksIs("Alluring Voice", "Baton Pass", "Calm Mind", "Chilling Water")
+    team.pokemonOnEditAttacksIs("Alluring Voice", "Chilling Water", "Baton Pass", "Calm Mind")
     team.pokemonOnEditEvsIs(252, 0, 0, 252, 0, 0)
     team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
 
     team.selectPokemon("Florges")
     team.pokemonOnEditIs("Florges", "Flower Veil", "Fairy", "Leftovers", "Modest")
-    team.pokemonOnEditAttacksIs("Alluring Voice", "Baton Pass", "Calm Mind", "Chilling Water")
+    team.pokemonOnEditAttacksIs("Alluring Voice", "Chilling Water", "Baton Pass", "Calm Mind")
     team.pokemonOnEditEvsIs(252, 4, 0, 252, 0, 0)
     team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
 
     team.selectPokemon("Tatsugiri")
     team.pokemonOnEditIs("Tatsugiri", "Commander", "Dragon", "Choice Scarf", "Modest")
-    team.pokemonOnEditAttacksIs("Baton Pass", "Chilling Water", "Counter", "Draco Meteor")
+    team.pokemonOnEditAttacksIs("Draco Meteor", "Chilling Water", "Baton Pass", "Counter")
     team.pokemonOnEditEvsIs(0, 0, 0, 252, 0, 252)
     team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
   })
@@ -215,25 +215,25 @@ describe('Import Pokepaste', () => {
     team.selectTeam("Team 2")
 
     team.pokemonOnEditIs("Flabébé", "Flower Veil", "Fairy", "Leftovers", "Modest")
-    team.pokemonOnEditAttacksIs("Alluring Voice", "Baton Pass", "Calm Mind", "Chilling Water")
+    team.pokemonOnEditAttacksIs("Alluring Voice", "Chilling Water", "Baton Pass", "Calm Mind")
     team.pokemonOnEditEvsIs(252, 0, 0, 252, 0, 0)
     team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
     
     team.selectPokemon("Floette")
     team.pokemonOnEditIs("Floette", "Flower Veil", "Fairy", "Leftovers", "Modest")
-    team.pokemonOnEditAttacksIs("Alluring Voice", "Baton Pass", "Calm Mind", "Chilling Water")
+    team.pokemonOnEditAttacksIs("Alluring Voice", "Chilling Water", "Baton Pass", "Calm Mind")
     team.pokemonOnEditEvsIs(252, 0, 0, 252, 0, 0)
     team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
 
     team.selectPokemon("Florges")
     team.pokemonOnEditIs("Florges", "Flower Veil", "Fairy", "Leftovers", "Modest")
-    team.pokemonOnEditAttacksIs("Alluring Voice", "Baton Pass", "Calm Mind", "Chilling Water")
+    team.pokemonOnEditAttacksIs("Alluring Voice", "Chilling Water", "Baton Pass", "Calm Mind")
     team.pokemonOnEditEvsIs(252, 4, 0, 252, 0, 0)
     team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
 
     team.selectPokemon("Tatsugiri")
     team.pokemonOnEditIs("Tatsugiri", "Commander", "Dragon", "Choice Scarf", "Modest")
-    team.pokemonOnEditAttacksIs("Baton Pass", "Chilling Water", "Counter", "Draco Meteor")
+    team.pokemonOnEditAttacksIs("Draco Meteor", "Chilling Water", "Baton Pass", "Counter")
     team.pokemonOnEditEvsIs(0, 0, 0, 252, 0, 252)
     team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
   })
@@ -246,19 +246,19 @@ describe('Import Pokepaste', () => {
 
     opponent.selectPokemon("Tatsugiri")
     team.pokemonOnEditIs("Tatsugiri", "Commander", "Grass", "Toxic Orb", "Modest")
-    team.pokemonOnEditAttacksIs("Endure", "Muddy Water", "Taunt", "Draco Meteor")
+    team.pokemonOnEditAttacksIs("Draco Meteor", "Muddy Water", "Endure", "Taunt")
     team.pokemonOnEditEvsIs(0, 0, 0, 252, 4, 252)
     team.pokemonOnEditIvsIs(31, 0, 31, 31, 31, 31)
 
     opponent.selectPokemon("Dondozo")
     team.pokemonOnEditIs("Dondozo", "Unaware", "Grass", "Sitrus Berry", "Adamant")
-    team.pokemonOnEditAttacksIs("Protect", "Substitute", "Wave Crash", "Order Up")
+    team.pokemonOnEditAttacksIs("Wave Crash", "Order Up", "Protect", "Substitute")
     team.pokemonOnEditEvsIs(12, 156, 60, 0, 116, 164)
     team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
 
     opponent.selectPokemon("Smeargle")
     team.pokemonOnEditIs("Smeargle", "Moody", "Ghost", "Focus Sash", "Jolly")
-    team.pokemonOnEditAttacksIs("Wide Guard", "Follow Me", "Spore", "Fake Out")
+    team.pokemonOnEditAttacksIs("Fake Out", "Wide Guard", "Follow Me", "Spore")
     team.pokemonOnEditEvsIs(252, 0, 4, 0, 0, 252)
     team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
 
@@ -270,13 +270,13 @@ describe('Import Pokepaste', () => {
 
     opponent.selectPokemon("Chi-Yu")
     team.pokemonOnEditIs("Chi-Yu", "Beads of Ruin", "Water", "Choice Specs", "Timid")
-    team.pokemonOnEditAttacksIs("Overheat", "Dark Pulse", "Snarl", "Heat Wave")
+    team.pokemonOnEditAttacksIs("Overheat", "Heat Wave", "Dark Pulse", "Snarl")
     team.pokemonOnEditEvsIs(132, 0, 252, 0, 0, 124)
     team.pokemonOnEditIvsIs(31, 0, 31, 31, 31, 31)
 
     opponent.selectPokemon("Whimsicott")
     team.pokemonOnEditIs("Whimsicott", "Prankster", "Steel", "Covert Cloak", "Bold")
-    team.pokemonOnEditAttacksIs("Beat Up", "Tailwind", "Fake Tears", "Moonblast")
+    team.pokemonOnEditAttacksIs("Moonblast", "Beat Up", "Tailwind", "Fake Tears")
     team.pokemonOnEditEvsIs(252, 0, 180, 0, 76, 0)
     team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
   })

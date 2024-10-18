@@ -49,9 +49,9 @@ EVs: 44 HP / 252 Atk / 12 Def / 32 SpA / 124 SpD / 40 Spe
 Timid Nature 
 IVs: 30 Atk / 29 Def / 28 SpA / 27 SpD / 0 Spe
 - Overheat
+- Heat Wave
 - Dark Pulse
-- Snarl
-- Heat Wave`
+- Snarl`
 
 const exportedTeam = `Tatsugiri @ Toxic Orb
 Ability: Commander
@@ -60,10 +60,10 @@ Tera Type: Grass
 EVs: 252 SpA / 4 SpD / 252 Spe
 Modest Nature 
 IVs: 0 Atk
-- Endure
-- Muddy Water
-- Taunt
 - Draco Meteor
+- Muddy Water
+- Endure
+- Taunt
 
 Dondozo @ Sitrus Berry
 Ability: Unaware
@@ -71,10 +71,10 @@ Level: 50
 Tera Type: Grass
 EVs: 12 HP / 156 Atk / 60 Def / 116 SpD / 164 Spe
 Adamant Nature 
-- Protect
-- Substitute
 - Wave Crash
 - Order Up
+- Protect
+- Substitute
 
 Smeargle @ Focus Sash
 Ability: Moody
@@ -82,10 +82,10 @@ Level: 50
 Tera Type: Ghost
 EVs: 252 HP / 4 Def / 252 Spe
 Jolly Nature 
+- Fake Out
 - Wide Guard
 - Follow Me
 - Spore
-- Fake Out
 
 Chi-Yu @ Choice Specs
 Ability: Beads of Ruin
@@ -95,9 +95,9 @@ EVs: 132 HP / 252 Def / 124 Spe
 Timid Nature 
 IVs: 0 Atk
 - Overheat
+- Heat Wave
 - Dark Pulse
 - Snarl
-- Heat Wave
 
 Whimsicott @ Covert Cloak
 Ability: Prankster
@@ -105,10 +105,10 @@ Level: 50
 Tera Type: Steel
 EVs: 252 HP / 180 Def / 76 SpD
 Bold Nature 
+- Moonblast
 - Beat Up
 - Tailwind
 - Fake Tears
-- Moonblast
 
 Flutter Mane @ Booster Energy
 Ability: Protosynthesis
@@ -128,10 +128,10 @@ Level: 50
 Tera Type: Water
 EVs: 252 Atk / 4 SpD / 252 Spe
 Jolly Nature 
-- Surging Strikes
 - Close Combat
 - Ice Spinner
 - U-turn
+- Surging Strikes
 
 Calyrex-Shadow @ Focus Sash
 Ability: As One (Spectrier)
@@ -155,6 +155,17 @@ Adamant Nature
 - Spiky Shield
 - Follow Me
 
+Amoonguss @ Rocky Helmet
+Ability: Regenerator
+Level: 50
+Tera Type: Water
+EVs: 236 HP / 236 Def / 36 SpD
+Relaxed Nature 
+- Pollen Puff
+- Spore
+- Rage Powder
+- Protect
+
 Incineroar @ Sitrus Berry
 Ability: Intimidate
 Level: 50
@@ -166,14 +177,36 @@ Impish Nature
 - Parting Shot
 - Will-O-Wisp
 
-Raging Bolt @ Booster Energy
-Ability: Protosynthesis
+Rillaboom @ Assault Vest
+Ability: Grassy Surge
 Level: 50
-Tera Type: Fairy
-EVs: 244 HP / 252 SpA / 12 SpD
+Tera Type: Water
+EVs: 172 HP / 252 Atk / 4 Def / 4 SpD / 76 Spe
+Adamant Nature 
+- Wood Hammer
+- U-turn
+- Grassy Glide
+- Fake Out
+
+Calyrex-Ice @ Clear Amulet
+Ability: As One (Glastrier)
+Level: 50
+Tera Type: Fire
+EVs: 252 HP / 252 Atk / 4 SpD
+Brave Nature 
+- Glacial Lance
+- High Horsepower
+- Protect
+- Trick Room
+
+Terapagos-Terastal @ Leftovers
+Ability: Tera Shell
+Level: 50
+Tera Type: Stellar
+EVs: 252 HP / 180 Def / 76 SpA
 Modest Nature 
-- Thunderclap
-- Dragon Pulse
+- Tera Starstorm
+- Earth Power
 - Calm Mind
 - Protect
 
@@ -188,46 +221,13 @@ Impish Nature
 - Substitute
 - Protect
 
-Calyrex-Ice @ Clear Amulet
-Ability: As One (Glastrier)
+Raging Bolt @ Booster Energy
+Ability: Protosynthesis
 Level: 50
-Tera Type: Fire
-EVs: 252 HP / 252 Atk / 4 SpD
-Brave Nature 
-- Glacial Lance
-- Protect
-- High Horsepower
-- Trick Room
-
-Amoonguss @ Rocky Helmet
-Ability: Regenerator
-Level: 50
-Tera Type: Water
-EVs: 236 HP / 236 Def / 36 SpD
-Relaxed Nature 
-- Pollen Puff
-- Spore
-- Rage Powder
-- Protect
-
-Terapagos-Terastal @ Leftovers
-Ability: Tera Shell
-Level: 50
-Tera Type: Stellar
-EVs: 252 HP / 180 Def / 76 SpA
+Tera Type: Fairy
+EVs: 244 HP / 252 SpA / 12 SpD
 Modest Nature 
-- Tera Starstorm
-- Earth Power
+- Dragon Pulse
+- Thunderclap
 - Calm Mind
-- Protect
-
-Rillaboom @ Assault Vest
-Ability: Grassy Surge
-Level: 50
-Tera Type: Water
-EVs: 172 HP / 252 Atk / 4 Def / 4 SpD / 76 Spe
-Adamant Nature 
-- Grassy Glide
-- Wood Hammer
-- U-turn
-- Fake Out`
+- Protect`

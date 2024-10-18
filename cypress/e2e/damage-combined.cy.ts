@@ -16,17 +16,24 @@ describe('Test calcs with combined damage', () => {
   })
   
   it('Calculate damage with two Pokémon', () => {
+    team.selectPokemon("Koraidon").selectAttackThree()
     team.selectTeamMember("Koraidon").combineDamage()
+
     team.selectTeamMember("Miraidon")
+    team.selectPokemon("Miraidon").selectAttackTwo()
 
     opponents.get("Urshifu Rapid Strike").damageIs(305.1, 360.5).causeOHKO()
   })
 
   it('Change second Pokémon in combined damage', () => {
+    team.selectPokemon("Koraidon").selectAttackThree()
+    team.selectTeamMember("Koraidon").combineDamage()
+
     team.importPokemon(tornadusData)
 
-    team.selectTeamMember("Koraidon").combineDamage()
     team.selectTeamMember("Miraidon")
+    team.selectPokemon("Miraidon").selectAttackTwo()
+    
     opponents.get("Urshifu Rapid Strike").damageIs(305.1, 360.5).causeOHKO()
 
     team.selectTeamMember("Koraidon").disableCombineDamage()
@@ -39,11 +46,13 @@ describe('Test calcs with combined damage', () => {
     team.importPokemon(tornadusData)
     team.selectTeamMember("Tornadus").combineDamage()
     team.selectTeamMember("Miraidon")
+    team.selectPokemon("Miraidon").selectAttackTwo()
 
     opponents.get("Urshifu Rapid Strike").damageIs(349.1, 412).causeOHKO()
   })
 
   it('Remove second Pokémon from calculation when it is deleted', () => {
+    team.selectPokemon("Koraidon").selectAttackThree()
     team.selectTeamMember("Koraidon").combineDamage()
     team.selectTeamMember("Miraidon").delete()
 
