@@ -80,6 +80,10 @@ export class PokemonBuildComponent {
     this.activateMove(position, new Move(move))
   }
 
+  moveSelectorDisabled(move: string): boolean {
+    return !move || move == this.pokemon.activeMoveName
+  }
+
   activateMove(position: number, move: Move) {
     this.pokemon.moveSet.activeMoveByPosition(position, move)
     this.pokemonChangedEvent.emit(this.pokemon)

@@ -79,7 +79,7 @@
       </div>
       <div class="moves">
         <div class="move">
-          <mat-checkbox [ngModel]="pokemon.move1Name == pokemon.activeMoveName" (change)="activateMove(1, pokemon.moveSet.move1)" [disabled]="!pokemon.move1Name" data-cy="attack1"/>
+          <mat-checkbox [ngModel]="pokemon.move1Name == pokemon.activeMoveName" (change)="activateMove(1, pokemon.moveSet.move1)" [disabled]="moveSelectorDisabled(pokemon.move1Name)" data-cy="attack1"/>
           <app-input-autocomplete [(value)]="pokemon.moveSet.move1.name" [allValues]="allMoveNames" (valueManuallySelected)="moveSelected(1, $event)" data-cy="pokemon-attack-1"/>
           <div class="move-bp">
             <label>{{ pokemon.moveSet.move1.bp() }}</label>
@@ -87,7 +87,7 @@
         </div>
 
         <div class="move">
-          <mat-checkbox [ngModel]="pokemon.move2Name == pokemon.activeMoveName" (change)="activateMove(2, pokemon.moveSet.move2)" [disabled]="!pokemon.move2Name" data-cy="attack2"/>
+          <mat-checkbox [ngModel]="pokemon.move2Name == pokemon.activeMoveName" (change)="activateMove(2, pokemon.moveSet.move2)" [disabled]="moveSelectorDisabled(pokemon.move2Name)" data-cy="attack2"/>
           <app-input-autocomplete [(value)]="pokemon.moveSet.move2.name" [allValues]="allMoveNames" (valueManuallySelected)="moveSelected(2, $event)" data-cy="pokemon-attack-2"/>
           <div class="move-bp">
             <label>{{ pokemon.moveSet.move2.bp() }}</label>
@@ -95,7 +95,7 @@
         </div>
 
         <div class="move">
-          <mat-checkbox [ngModel]="pokemon.move3Name == pokemon.activeMoveName" (change)="activateMove(3, pokemon.moveSet.move3)" [disabled]="!pokemon.move3Name" data-cy="attack3"/>
+          <mat-checkbox [ngModel]="pokemon.move3Name == pokemon.activeMoveName" (change)="activateMove(3, pokemon.moveSet.move3)" [disabled]="moveSelectorDisabled(pokemon.move3Name)" data-cy="attack3"/>
           <app-input-autocomplete [(value)]="pokemon.moveSet.move3.name" [allValues]="allMoveNames" (valueManuallySelected)="moveSelected(3, $event)" data-cy="pokemon-attack-3"/>
           <div class="move-bp">
             <label>{{ pokemon.moveSet.move3.bp() }}</label>
@@ -103,7 +103,7 @@
         </div>
 
         <div class="move">
-          <mat-checkbox [ngModel]="pokemon.move4Name == pokemon.activeMoveName" (change)="activateMove(4, pokemon.moveSet.move4)" [disabled]="!pokemon.move4Name" data-cy="attack4"/>
+          <mat-checkbox [ngModel]="pokemon.move4Name == pokemon.activeMoveName" (change)="activateMove(4, pokemon.moveSet.move4)" [disabled]="moveSelectorDisabled(pokemon.move4Name)" data-cy="attack4"/>
           <app-input-autocomplete [(value)]="pokemon.moveSet.move4.name" [allValues]="allMoveNames" (valueManuallySelected)="moveSelected(4, $event)" data-cy="pokemon-attack-4"/>
           <div class="move-bp">
             <label>{{ pokemon.moveSet.move4.bp() }}</label>
