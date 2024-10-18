@@ -50,7 +50,7 @@ describe('Add Pokémon to the Team', () => {
     team.add("Chi-Yu")
     team.add("Urshifu-Rapid-Strike")
     team.add("Rillaboom")
-    team.teamIs(["Tornadus", "Calyrex-Shadow", "Clefairy", "Chi-Yu", "Urshifu-Rapid-Strike", "Rillaboom"])
+    team.teamIs(["Tornadus", "Calyrex", "Clefairy", "Chi-Yu", "Urshifu", "Rillaboom"])
 
     team.selectTeam("Team 2")
     team.add("Calyrex-Ice")
@@ -59,7 +59,7 @@ describe('Add Pokémon to the Team', () => {
     team.add("Urshifu-Rapid-Strike")
     team.add("Pelipper")
     team.add("Ting-Lu")
-    team.teamIs(["Calyrex-Ice", "Incineroar", "Amoonguss", "Urshifu-Rapid-Strike", "Pelipper", "Ting-Lu"])
+    team.teamIs(["Calyrex", "Incineroar", "Amoonguss", "Urshifu", "Pelipper", "Ting-Lu"])
 
     team.selectTeam("Team 3")
     team.add("Miraidon")
@@ -68,7 +68,7 @@ describe('Add Pokémon to the Team', () => {
     team.add("Farigiraf")
     team.add("Chi-Yu")
     team.add("Ursaluna-Bloodmoon")
-    team.teamIs(["Miraidon", "Whimsicott", "Iron Hands", "Farigiraf", "Chi-Yu", "Ursaluna-Bloodmoon"])
+    team.teamIs(["Miraidon", "Whimsicott", "Iron Hands", "Farigiraf", "Chi-Yu", "Ursaluna"])
 
     team.selectTeam("Team 4")
     team.add("Kyogre")

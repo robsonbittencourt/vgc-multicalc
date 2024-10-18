@@ -22,7 +22,7 @@ describe('Test calcs with status', () => {
   })
   
   it('Validate the damage with Koraidon burned', () => {
-    team.selectPokemon("Koraidon").selectAttackThree()
+    team.selectPokemon("Koraidon").selectAttackOne()
     opponents.get("Rillaboom").damageIs(83.2, 98.4).cause2HKO()
 
     team.selectPokemon("Koraidon").burned()
@@ -32,6 +32,7 @@ describe('Test calcs with status', () => {
 
   it('Validate the damage using Gyro Ball against paralyzed Pokémon', () => {
     team.importPokemon(bronzongData)
+    team.selectPokemon("Bronzong").selectAttackThree()
 
     opponents.get("Calyrex Shadow").damageIs(37.7, 44.5).cause3HKO()
 
@@ -42,6 +43,7 @@ describe('Test calcs with status', () => {
 
   it('Validate the damage using burned Guts Ursaluna with Facade', () => {
     const ursaluna = team.importPokemon(ursalunaData)
+    team.selectPokemon("Ursaluna").selectAttackThree()
 
     opponents.get("Urshifu Rapid Strike").damageIs(40, 48).cause3HKO() 
 
@@ -69,7 +71,8 @@ describe('Test calcs with status', () => {
   })
 
   it('Validate the damage using poisoned Toxic Boost Zangoose with Quick Attack', () => {
-    const zangoose = team.importPokemon(zangooseData).selectAttackTwo()
+    const zangoose = team.importPokemon(zangooseData).selectAttackThree()
+    team.selectPokemon("Zangoose").selectAttackThree()
     opponents.get("Urshifu Rapid Strike").damageIs(18.8, 22.2).possible5HKO()
 
     zangoose.poisoned()
@@ -79,6 +82,7 @@ describe('Test calcs with status', () => {
 
   it('Validate the damage using Hex against poisoned Pokémon', () => {
     team.importPokemon(flutterManeData)
+    team.selectPokemon("Flutter Mane").selectAttackFour()
     opponents.get("Calyrex Shadow").damageIs(178.2, 212.5).causeOHKO()
 
     opponents.get("Calyrex Shadow").edit().poisoned()

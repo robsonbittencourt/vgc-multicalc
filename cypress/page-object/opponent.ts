@@ -1,17 +1,17 @@
-import { OpponentPokemon } from "./opponent-pokemon"
 import { ActivePokemon } from "./active-pokemon"
-import { ImportModal } from "./import-modal"
 import { ExportModal } from "./export-modal"
+import { ImportModal } from "./import-modal"
+import { OpponentPokemon } from "./opponent-pokemon"
 
 export class Opponent {
 
   get(pokemonName: string): OpponentPokemon {
-    const card = cy.get(`[data-cy="pokemon-card-${pokemonName}"]`).filter(`:contains(${pokemonName})`)
+    const card = cy.get(`[data-cy="pokemon-card-${pokemonName}"]`)
     return new OpponentPokemon(card)
   }
 
   selectPokemon(pokemonName: string): ActivePokemon {
-    const card = cy.get(`[data-cy="pokemon-card-${pokemonName}"]`).filter(`:contains(${pokemonName})`).click({force: true})
+    const card = cy.get(`[data-cy="pokemon-card-${pokemonName}"]`).click({force: true})
     return new ActivePokemon()
   }
 

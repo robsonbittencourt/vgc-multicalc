@@ -36,7 +36,7 @@ describe('SpeedCalculatorService', () => {
 
       const speedDefinition = service.minSpeed(pokemon, field)
 
-      expect(speedDefinition.pokemonName).toEqual("flutter-mane")
+      expect(speedDefinition.pokemonName).toEqual("Flutter Mane")
       expect(speedDefinition.description).toEqual("Min")
     })
   
@@ -121,7 +121,7 @@ describe('SpeedCalculatorService', () => {
 
       const speedDefinition = service.maxSpeed(pokemon, field)
 
-      expect(speedDefinition.pokemonName).toEqual("flutter-mane")
+      expect(speedDefinition.pokemonName).toEqual("Flutter Mane")
       expect(speedDefinition.description).toEqual("Max")
     })
   
@@ -224,7 +224,7 @@ describe('SpeedCalculatorService', () => {
 
       const speedDefinition = service.maxMeta(pokemon, field)
 
-      expect(speedDefinition.pokemonName).toEqual("flutter-mane")
+      expect(speedDefinition.pokemonName).toEqual("Flutter Mane")
       expect(speedDefinition.description).toEqual("Meta")
     })
 
