@@ -2,7 +2,7 @@
   <div class="card-container">
     <div class="card-left-side">
       <mat-card-title-group>
-        <mat-card-title>{{ target.pokemon.displayName }}</mat-card-title>
+        <mat-card-title>{{ target.pokemon.displayNameWithoutSuffix }}</mat-card-title>
         <mat-card-subtitle *ngIf="!target.pokemon.isDefault()">Item: {{ target.pokemon.item }}</mat-card-subtitle>
         <mat-card-subtitle *ngIf="!target.pokemon.isDefault()">Nature: {{ target.pokemon.nature }}</mat-card-subtitle>
         <mat-card-subtitle *ngIf="!target.pokemon.isDefault()">Ability: {{ target.pokemon.displayAbility }}</mat-card-subtitle>
