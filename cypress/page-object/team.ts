@@ -84,7 +84,7 @@ export class Team {
   }
 
   importPokemon(pokemonData: string): ActivePokemon {
-    cy.get('[data-cy="import-pokemon-to-team"]').click({force: true})
+    cy.get('[data-cy="import-pokemon-to-team"]').contains("Import").click({force: true})
     new ImportModal().import(pokemonData)
     return new ActivePokemon()
   }
@@ -96,7 +96,7 @@ export class Team {
 
   exportPokemon(pokemon: string): ExportModal {
     this.selectPokemon(pokemon)
-    cy.get('[data-cy="export-pokemon-from-team"]').click({force: true})
+    cy.get('[data-cy="export-pokemon-from-team"]').contains("Export").click({force: true})
     return new ExportModal()
   }
 

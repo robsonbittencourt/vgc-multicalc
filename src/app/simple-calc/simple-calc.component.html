@@ -1,13 +1,21 @@
 <div class="container">
-  <app-damage-result [pokemon]="leftPokemon" [damageResults]="leftDamageResults" [rollLevelConfig]="data.leftRollLevelConfig" [opponentDamageResult]="rightDamageResult" (moveActivatedEvent)="leftMoveActivated()" (rollLevelChangedEvent)="rollLevelChanged()"/>
-  <app-damage-result [pokemon]="rightPokemon" [damageResults]="rightDamageResults" [rollLevelConfig]="data.rightRollLevelConfig" [opponentDamageResult]="leftDamageResult" (moveActivatedEvent)="rightMoveActivated()" (rollLevelChangedEvent)="rollLevelChanged()" [reverse]="true"/>
+  <app-damage-result [pokemon]="this.data.leftPokemon" [damageResults]="leftDamageResults" [rollLevelConfig]="data.leftRollLevelConfig" [opponentDamageResult]="rightDamageResult" (moveActivatedEvent)="leftMoveActivated()" (rollLevelChangedEvent)="rollLevelChanged()"/>
+  <app-damage-result [pokemon]="this.data.rightPokemon" [damageResults]="rightDamageResults" [rollLevelConfig]="data.rightRollLevelConfig" [opponentDamageResult]="leftDamageResult" (moveActivatedEvent)="rightMoveActivated()" (rollLevelChangedEvent)="rollLevelChanged()" [reverse]="true"/>
 
   <div class="pokemon-edit">
-    <app-pokemon-build [pokemon]="leftPokemon" (pokemonChangedEvent)="leftPokemonChanged()"/>
+    <div class="pokemon-actions pokemon-actions-left">
+      <app-import-pokemon-button (pokemonImportedEvent)="leftPokemonImported($event)"/>
+      <app-export-pokemon-button [pokemon]="this.data.leftPokemon"/>
+    </div>
+    <app-pokemon-build [pokemon]="this.data.leftPokemon" (pokemonChangedEvent)="leftPokemonChanged()"/>
   </div>
 
   <div class="pokemon-edit">
-    <app-pokemon-build [pokemon]="rightPokemon" (pokemonChangedEvent)="rightPokemonChanged()" [reverse]="true"/>
+    <div class="pokemon-actions pokemon-actions-right">
+      <app-import-pokemon-button (pokemonImportedEvent)="rightPokemonImported($event)"/>
+      <app-export-pokemon-button [pokemon]="this.data.rightPokemon"/>
+    </div>
+    <app-pokemon-build [pokemon]="this.data.rightPokemon" (pokemonChangedEvent)="rightPokemonChanged()" [reverse]="true"/>
   </div> 
 
   <div class="field">

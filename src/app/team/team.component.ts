@@ -1,13 +1,8 @@
-import { NoopScrollStrategy } from '@angular/cdk/overlay';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { defaultPokemon } from 'src/lib/default-pokemon';
-import { PokePasteParserService } from 'src/lib/poke-paste-parser.service';
 import { Team } from 'src/lib/team';
 import { TeamMember } from 'src/lib/team-member';
 import { Pokemon } from '../../lib/pokemon';
-import { TeamExportModalComponent } from '../team-export-modal/team-export-modal.component';
-import { TeamImportModalComponent } from '../team-import-modal/team-import-modal.component';
 
 @Component({
   selector: 'app-team',
@@ -36,11 +31,6 @@ export class TeamComponent {
   
   @Output() 
   secondAttackerSelected = new EventEmitter<Pokemon>()
-
-  constructor(
-    private dialog: MatDialog,
-    private pokePasteService: PokePasteParserService
-  ) { }
 
   canShowDeleteButton(): boolean {
     return !this.pokemon.isDefault()
@@ -88,33 +78,11 @@ export class TeamComponent {
     return this.isAttacker && !this.pokemon.isDefault() && (!this.secondSelection || this.team.activePokemon() == this.secondSelection)
   }
 
-  importPokemon() {
-    const dialogRef = this.dialog.open(TeamImportModalComponent, { 
-      position: { top: "2em" },
-      scrollStrategy: new NoopScrollStrategy()
-    })
-
-    dialogRef.afterClosed().subscribe(async result => {
-      if(!result) return
-
-      const pokemonList = await this.pokePasteService.parse(result)
-      const teamMember = new TeamMember(pokemonList[0], true)
+  pokemonImported(pokemon: Pokemon) {
+    const teamMember = new TeamMember(pokemon, true)
       
-      this.team.addTeamMember(teamMember)
-      this.activatePokemon(teamMember)
-    })
-  }
-
-  exportPokemon() {
-    this.dialog.open(TeamExportModalComponent, { 
-      data: { 
-        title: this.pokemon.name,
-        content: this.pokemon.showdownTextFormat()
-      },
-      width: "40em",
-      position: { top: "2em" },
-      scrollStrategy: new NoopScrollStrategy()
-    })
+    this.team.addTeamMember(teamMember)
+    this.activatePokemon(teamMember)
   }
 
   canImportPokemon() {
