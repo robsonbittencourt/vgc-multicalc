@@ -11,7 +11,7 @@ export class PokemonHpBadgeComponent implements AfterViewInit {
   hpPercentage: number
   hpBarColor: string
   imageScale: number = 1.2
-  
+
   _hp: number
   _spriteName: string
   _actualSpriteName: string
@@ -141,6 +141,7 @@ export class PokemonHpBadgeComponent implements AfterViewInit {
           const visibleWidth = right - left -  + 1
           
           const croppedData = ctx.getImageData(left, top, visibleWidth, visibleHeight)
+          
           canvas.height = visibleHeight
           canvas.width = visibleWidth
 
@@ -167,7 +168,7 @@ export class PokemonHpBadgeComponent implements AfterViewInit {
       return 1.1
     }
 
-    if (imageHeight > 135) {
+    if (imageHeight > 130) {
       return 1
     }
 

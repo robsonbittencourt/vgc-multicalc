@@ -3,7 +3,7 @@
   position: relative;
   justify-content: space-between;
   height: 6em;
-  width: 26em;
+  width: 28em;
   background-color: rgba(33,69,70,0.80);
   border-radius: 6px;
   color: #efffff;
@@ -26,7 +26,7 @@
 }
 
 .hp-bar {
-  width: 10em;
+  width: 13.3em;
   height: 1.8em;
   margin-bottom: 0.5em;
   border: solid #82b4b3 2px;
@@ -46,19 +46,16 @@
   font-size: 1.5em;
   position: absolute;
   display: block;
-  top: 8%;
+  top: 12%;
   right: 4%;
   left: inherit;
 }
 
 .pokemon-image {
   display: flex;
+  justify-content: center;
   position: relative;
   width: 8em;
-}
-
-.pokemon-image img {
-  margin-left: 1em;
 }
 
 .level-item {
@@ -90,7 +87,6 @@
   display: inline-flex;
   position: absolute;
   top: 3.4em;
-  left: -0.5em;
   height: 1.2em;
   align-items: center;
   background: linear-gradient(to bottom, rgba(62, 62, 62, 0.7), rgba(46, 46, 46, 0.7));
@@ -145,7 +141,7 @@
 
 .fainted-text {
   text-transform: uppercase;
-  font-size: 14px;
+  font-size: 0.8rem;
 }
 
 .pokeball-detail,
