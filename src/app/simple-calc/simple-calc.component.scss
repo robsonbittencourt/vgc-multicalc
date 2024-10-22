@@ -34,3 +34,21 @@
   grid-column-start: 1;
   grid-column-end: 3;
 }
+
+.pokemon-actions {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  margin-top: -0.4em;
+  margin-bottom: 0.2em;
+  margin-right: 0.5em;
+  min-height: 2em;
+}
+
+.pokemon-actions-left {
+  justify-content: left;
+}
+
+.pokemon-actions-right {
+  justify-content: right;
+}

@@ -12,9 +12,6 @@ import { DataStore } from '../data-store.service';
 })
 export class SimpleCalcComponent {
 
-  leftPokemon: Pokemon = this.data.leftPokemon
-  rightPokemon: Pokemon = this.data.rightPokemon
-
   leftDamageResults: DamageResult[]
   rightDamageResults: DamageResult[]
 
@@ -30,13 +27,23 @@ export class SimpleCalcComponent {
     this.calculateDamage()
   }
 
+  leftPokemonImported(pokemon: Pokemon) {
+    this.data.leftPokemon = pokemon
+    this.dataChangedEvent.emit()
+  }
+
   leftPokemonChanged() {
     this.calculateDamage()
     this.dataChangedEvent.emit()
   }
 
   leftMoveActivated() {
-    this.leftDamageResult = this.findResultByMove(this.leftDamageResults, this.leftPokemon.move)
+    this.leftDamageResult = this.findResultByMove(this.leftDamageResults, this.data.leftPokemon.move)
+    this.dataChangedEvent.emit()
+  }
+
+  rightPokemonImported(pokemon: Pokemon) {
+    this.data.rightPokemon = pokemon
     this.dataChangedEvent.emit()
   }
 
@@ -46,7 +53,7 @@ export class SimpleCalcComponent {
   }
 
   rightMoveActivated() {
-    this.rightDamageResult = this.findResultByMove(this.rightDamageResults, this.rightPokemon.move)
+    this.rightDamageResult = this.findResultByMove(this.rightDamageResults, this.data.rightPokemon.move)
     this.dataChangedEvent.emit()
   }
 
@@ -60,11 +67,11 @@ export class SimpleCalcComponent {
   }
 
   private calculateDamage() {
-    this.leftDamageResults = this.damageCalculator.calcDamageAllAttacks(this.leftPokemon, this.rightPokemon)
-    this.leftDamageResult = this.findResultByMove(this.leftDamageResults, this.leftPokemon.move)
+    this.leftDamageResults = this.damageCalculator.calcDamageAllAttacks(this.data.leftPokemon, this.data.rightPokemon)
+    this.leftDamageResult = this.findResultByMove(this.leftDamageResults, this.data.leftPokemon.move)
     
-    this.rightDamageResults = this.damageCalculator.calcDamageAllAttacks(this.rightPokemon, this.leftPokemon)
-    this.rightDamageResult = this.findResultByMove(this.rightDamageResults, this.rightPokemon.move)
+    this.rightDamageResults = this.damageCalculator.calcDamageAllAttacks(this.data.rightPokemon, this.data.leftPokemon)
+    this.rightDamageResult = this.findResultByMove(this.rightDamageResults, this.data.rightPokemon.move)
   }
 
   private findResultByMove(damageResults: DamageResult[], move: Move): DamageResult {

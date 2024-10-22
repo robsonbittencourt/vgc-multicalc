@@ -29,9 +29,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DamageResultComponent } from './damage-result/damage-result.component';
 import { EvSliderComponent } from './ev-slider/ev-slider.component';
+import { ExportPokemonButtonComponent } from './export-pokemon-button/export-pokemon-button.component';
 import { FieldComponent } from './field/field.component';
 import { HeaderMobileComponent } from './header-mobile/header-mobile.component';
 import { HeaderComponent } from './header/header.component';
+import { ImportPokemonButtonComponent } from './import-pokemon-button/import-pokemon-button.component';
 import { InputAutocompleteComponent } from './input-autocomplete/input-autocomplete.component';
 import { MainComponent } from './main/main.component';
 import { MultiCalcComponent } from './multi-calc/multi-calc.component';
@@ -86,7 +88,9 @@ import { TeamsComponent } from './teams/teams.component';
     PokemonComboBoxComponent,
     AbilityComboBoxComponent,
     DamageResultComponent,
-    PokemonHpBadgeComponent
+    PokemonHpBadgeComponent,
+    ExportPokemonButtonComponent,
+    ImportPokemonButtonComponent
   ],
   imports: [
     ReactiveFormsModule,
