@@ -1,9 +1,11 @@
 .data {
   display: flex;
   gap: 0.5em;
-  border: solid 1px #f9f7fc;
+  border: solid 1px #ded2f0;
   border-radius: 12px;
   background-color: #ded2f0;
+  box-shadow: 0px 0px 8px 0px rgba(#8238f1,0.8);
+  margin-top: 0.5em;
   padding: 1em;
 }
 
