@@ -1,6 +1,6 @@
-import { ActivePokemon } from "./active-pokemon"
 import { ExportModal } from "./export-modal"
 import { ImportModal } from "./import-modal"
+import { PokemonBuild } from "./pokemon-build"
 import { TeamMember } from "./team-member"
 
 export class Team {
@@ -12,14 +12,14 @@ export class Team {
     return teamMember
   }
 
-  selectPokemon(pokemonName: string): ActivePokemon {
+  selectPokemon(pokemonName: string): PokemonBuild {
     return this.selectTeamMember(pokemonName).pokemon()
   }
 
-  add(pokemonName: string): ActivePokemon {
+  add(pokemonName: string): PokemonBuild {
     cy.get('[data-cy="add-team-member-tab"]').click({force: true})
     cy.get('[data-cy="pokemon-select"] input').type(pokemonName, {force: true}).type("{downArrow}").type("{enter}")
-    return new ActivePokemon()
+    return new PokemonBuild("your-team")
   }
 
   teamIs(pokemonNames: string[]) {
@@ -83,10 +83,10 @@ export class Team {
     cy.get(`[data-cy="stat-spe"]`).find('[data-cy="iv-value"]').should('have.value', spe)
   }
 
-  importPokemon(pokemonData: string): ActivePokemon {
+  importPokemon(pokemonData: string): PokemonBuild {
     cy.get('[data-cy="import-pokemon-to-team"]').contains("Import").click({force: true})
     new ImportModal().import(pokemonData)
-    return new ActivePokemon()
+    return new PokemonBuild("your-team")
   }
 
   importPokepaste(pokepaste: string) {

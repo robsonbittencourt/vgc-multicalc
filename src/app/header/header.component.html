@@ -4,7 +4,7 @@
     <img class="icon" src="assets/icons/calc-72x72.png" />
     <span class="title">VGC Multi Calc</span>
     <div class="menu">
-      <div class="menu-option" [ngStyle]="data.oneVsOneActivated && { 'background-color': '#e7def6' } || null" (click)="enableOneVsOne()">
+      <div class="menu-option" [ngStyle]="data.oneVsOneActivated && { 'background-color': '#e7def6' } || null" (click)="enableOneVsOne()" data-cy="one-vs-one">
         <span>One vs One</span>
       </div>
       <div class="menu-option" [ngStyle]="data.oneVsManyActivated && { 'background-color': '#e7def6' } || null" (click)="enableOneVsMany()" data-cy="team-vs-many">

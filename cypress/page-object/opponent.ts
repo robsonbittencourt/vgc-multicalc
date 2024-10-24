@@ -1,7 +1,7 @@
-import { ActivePokemon } from "./active-pokemon"
 import { ExportModal } from "./export-modal"
 import { ImportModal } from "./import-modal"
 import { OpponentPokemon } from "./opponent-pokemon"
+import { PokemonBuild } from "./pokemon-build"
 
 export class Opponent {
 
@@ -10,15 +10,15 @@ export class Opponent {
     return new OpponentPokemon(card)
   }
 
-  selectPokemon(pokemonName: string): ActivePokemon {
+  selectPokemon(pokemonName: string): PokemonBuild {
     const card = cy.get(`[data-cy="pokemon-card-${pokemonName}"]`).click({force: true})
-    return new ActivePokemon()
+    return new PokemonBuild("your-team")
   }
 
-  add(pokemonName: string): ActivePokemon {
+  add(pokemonName: string): PokemonBuild {
     cy.get('[data-cy="add-opponent-pokemon"]').click({force: true})
     cy.get('[data-cy="pokemon-select"] input').type(pokemonName, {force: true}).type("{downArrow}").type("{enter}")
-    return new ActivePokemon()
+    return new PokemonBuild("your-team")
   }
 
   clickOnAdd() {
