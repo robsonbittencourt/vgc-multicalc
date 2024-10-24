@@ -1,5 +1,5 @@
-import fs from 'fs'
 import axios from 'axios'
+import fs from 'fs'
 
 const LINE_SEPARATOR = "+----------------------------------------+"
 const POKEMON_QUANTITY = 250
