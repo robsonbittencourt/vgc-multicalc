@@ -3,12 +3,12 @@
     <p class="pokemon-name">{{ name }}</p>
     <div class="hp-bar">
       <div class="progress" [ngStyle]="{ 'width.%': hpPercentage, 'background-color': hpBarColor }"></div>
-      <span class="hp-value">{{ actualHp }}/{{ hp }}</span>
+      <span class="hp-value" data-cy="hp-value">{{ actualHp }}/{{ hp }}</span>
     </div>
   </div>      
   <div class="pokemon-image">
     <img #pokemonImage src='assets/sprites/pokemon-sv/{{ spriteName }}.png' (load)="onImageLoad()" [ngStyle]="actualHp == 0 && { 'transform': 'scale(' + imageScale + ')', 'filter': 'brightness(70%)' } || { 'transform': 'scale(' + imageScale + ')' }">
-    <div class="fainted-icon" *ngIf="actualHp == 0">
+    <div class="fainted-icon" *ngIf="actualHp == 0" data-cy="fainted-badge">
       <div class="pokeball-icon">
         <div class="line-left"></div>
         <div class="line-right"></div>

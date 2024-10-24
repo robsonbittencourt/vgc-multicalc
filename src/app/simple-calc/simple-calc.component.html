@@ -1,8 +1,8 @@
 <div class="container">
-  <app-damage-result [pokemon]="this.data.leftPokemon" [damageResults]="leftDamageResults" [rollLevelConfig]="data.leftRollLevelConfig" [opponentDamageResult]="rightDamageResult" (moveActivatedEvent)="leftMoveActivated()" (rollLevelChangedEvent)="rollLevelChanged()"/>
-  <app-damage-result [pokemon]="this.data.rightPokemon" [damageResults]="rightDamageResults" [rollLevelConfig]="data.rightRollLevelConfig" [opponentDamageResult]="leftDamageResult" (moveActivatedEvent)="rightMoveActivated()" (rollLevelChangedEvent)="rollLevelChanged()" [reverse]="true"/>
+  <app-damage-result [pokemon]="this.data.leftPokemon" [damageResults]="leftDamageResults" [rollLevelConfig]="data.leftRollLevelConfig" [opponentDamageResult]="rightDamageResult" (moveActivatedEvent)="leftMoveActivated()" (rollLevelChangedEvent)="rollLevelChanged()" data-cy="left-damage-result"/>
+  <app-damage-result [pokemon]="this.data.rightPokemon" [damageResults]="rightDamageResults" [rollLevelConfig]="data.rightRollLevelConfig" [opponentDamageResult]="leftDamageResult" (moveActivatedEvent)="rightMoveActivated()" (rollLevelChangedEvent)="rollLevelChanged()" [reverse]="true" data-cy="right-damage-result"/>
 
-  <div class="pokemon-edit">
+  <div class="pokemon-edit" data-cy="left-pokemon">
     <div class="pokemon-actions pokemon-actions-left">
       <app-import-pokemon-button (pokemonImportedEvent)="leftPokemonImported($event)"/>
       <app-export-pokemon-button [pokemon]="this.data.leftPokemon"/>
@@ -10,7 +10,7 @@
     <app-pokemon-build [pokemon]="this.data.leftPokemon" (pokemonChangedEvent)="leftPokemonChanged()"/>
   </div>
 
-  <div class="pokemon-edit">
+  <div class="pokemon-edit" data-cy="right-pokemon">
     <div class="pokemon-actions pokemon-actions-right">
       <app-import-pokemon-button (pokemonImportedEvent)="rightPokemonImported($event)"/>
       <app-export-pokemon-button [pokemon]="this.data.rightPokemon"/>

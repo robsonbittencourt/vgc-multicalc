@@ -1,4 +1,4 @@
-import { ActivePokemon } from "./active-pokemon"
+import { PokemonBuild } from "./pokemon-build"
 
 export class OpponentPokemon {
 
@@ -98,9 +98,9 @@ export class OpponentPokemon {
     return this
   }
 
-  edit(): ActivePokemon {
+  edit(): PokemonBuild {
     this._element.click({force: true})
-    return new ActivePokemon
+    return new PokemonBuild("your-team")
   }
 
   delete() {
