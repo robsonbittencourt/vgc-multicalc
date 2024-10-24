@@ -1,12 +1,26 @@
 import { Opponent } from "cypress/page-object/opponent"
 import { Team } from "cypress/page-object/team"
 
+const team = new Team()
+const opponents = new Opponent()
+
 let chiyuData: string
 let pokepasteData: string
+let defaultTeamData: string
+let defaultOpponentsData: string
 
 before(() => {
   cy.fixture("chi-yu-data").then((data) => { chiyuData = data })
   cy.fixture("pokepaste-data").then((data) => { pokepasteData = data })
+  cy.fixture("default-team-data").then((data) => { defaultTeamData = data })
+  cy.fixture("default-opponents-data").then((data) => { defaultOpponentsData = data })
+})
+
+beforeEach(() => {
+  cy.get('[data-cy="team-vs-many"]').click({force: true})
+  
+  opponents.deleteAll()
+  opponents.importPokemon(defaultOpponentsData)
 })
 
 describe('Export', () => {
@@ -15,7 +29,6 @@ describe('Export', () => {
   })
   
   it('Pokémon from team', () => {
-    const team = new Team()
     team.importPokemon(chiyuData)
     
     const exportModal = team.exportPokemon("Chi-Yu")
@@ -24,7 +37,6 @@ describe('Export', () => {
   })
 
   it('team', () => {
-    const team = new Team()
     team.importPokepaste(pokepasteData)
     
     const exportModal = team.export("Team 2")
@@ -33,9 +45,10 @@ describe('Export', () => {
   })
 
   it('opponent Pokémon', () => {
-    const opponent = new Opponent()
+    team.delete("Team 1")
+    team.importPokepaste(defaultTeamData)
     
-    const exportModal = opponent.export()
+    const exportModal = opponents.export()
 
     exportModal.contentIs(exportedOpponentPokemon)
   })
@@ -122,7 +135,18 @@ IVs: 0 Atk
 - Icy Wind
 - Protect`
 
-const exportedOpponentPokemon = `Urshifu-Rapid-Strike @ Choice Scarf
+const exportedOpponentPokemon = `Raging Bolt @ Booster Energy
+Ability: Protosynthesis
+Level: 50
+Tera Type: Fairy
+EVs: 244 HP / 252 SpA / 12 SpD
+Modest Nature 
+- Dragon Pulse
+- Thunderclap
+- Calm Mind
+- Protect
+
+Urshifu-Rapid-Strike @ Choice Scarf
 Ability: Unseen Fist
 Level: 50
 Tera Type: Water
@@ -219,15 +243,4 @@ Impish Nature
 - Body Press
 - Heavy Slam
 - Substitute
-- Protect
-
-Raging Bolt @ Booster Energy
-Ability: Protosynthesis
-Level: 50
-Tera Type: Fairy
-EVs: 244 HP / 252 SpA / 12 SpD
-Modest Nature 
-- Dragon Pulse
-- Thunderclap
-- Calm Mind
 - Protect`

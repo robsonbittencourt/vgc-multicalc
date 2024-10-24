@@ -1,13 +1,25 @@
+import { Opponent } from "cypress/page-object/opponent"
 import { Team } from "cypress/page-object/team"
 
 const team = new Team()
+const opponents = new Opponent()
+
+let defaultTeamData: string
+
+before(() => {
+  cy.fixture("default-team-data").then((data) => { defaultTeamData = data })
+})
+
+beforeEach(() => {
+  cy.get('[data-cy="team-vs-many"]').click({force: true})
+
+  team.delete("Team 1")
+})
 
 describe('Add Pokémon to the Team', () => {
-  beforeEach(() => {
-    cy.get('[data-cy="team-vs-many"]').click({force: true})
-  })
-
   it('Add Pokémon to the team until have 6', () => {
+    team.add("Squirtle")
+    team.add("Bulbasaur")
     team.add("Pikachu")
     team.add("Tyranitar")
     team.add("Lugia")
@@ -17,6 +29,9 @@ describe('Add Pokémon to the Team', () => {
   })
 
   it('Do not allow delete Pokémon when no Pokémon exist', () => {
+    team.delete("Team 1")
+    team.importPokepaste(defaultTeamData)
+
     team.selectTeamMember("Miraidon").delete()
     team.selectTeamMember("Koraidon").delete()
 
@@ -25,6 +40,9 @@ describe('Add Pokémon to the Team', () => {
   })
 
   it('Add 4 Pokémon to the team, delete 2, and add new 2', () => {
+    team.delete("Team 1")
+    team.importPokepaste(defaultTeamData)
+
     team.add("Pikachu")
     team.add("Tyranitar")
     team.add("Lugia")
@@ -41,6 +59,9 @@ describe('Add Pokémon to the Team', () => {
   })
 
   it('Fill all 4 teams', () => {
+    team.delete("Team 1")
+    team.importPokepaste(defaultTeamData)
+
     team.selectTeamMember("Miraidon").delete()
     team.selectTeamMember("Koraidon").delete()
     

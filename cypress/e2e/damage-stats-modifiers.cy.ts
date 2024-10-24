@@ -4,11 +4,25 @@ import { Team } from "cypress/page-object/team"
 const team = new Team()
 const opponents = new Opponent()
 
-describe('Test calcs with stats modifiers in attacker', () => {
-  beforeEach(() => {
-    cy.get('[data-cy="team-vs-many"]').click({force: true})
-  })
+let defaultTeamData: string
+let defaultOpponentsData: string
+
+before(() => {
+  cy.fixture("default-team-data").then((data) => { defaultTeamData = data })
+  cy.fixture("default-opponents-data").then((data) => { defaultOpponentsData = data })
+})
+
+beforeEach(() => {
+  cy.get('[data-cy="team-vs-many"]').click({force: true})
+
+  team.delete("Team 1")
+  team.importPokepaste(defaultTeamData)
   
+  opponents.deleteAll()
+  opponents.importPokemon(defaultOpponentsData)
+})
+
+describe('Test calcs with stats modifiers in attacker', () => {
   it('Validate the damage Miraidon +1 spa', () => {
     team.selectPokemon("Miraidon").selectAttackTwo().selectStatsModifier('spa', '+1')
     
@@ -54,41 +68,41 @@ describe('Test calcs with stats modifiers in attacker', () => {
     team.selectPokemon("Koraidon").selectAttackOne().selectStatsModifier('atk', '+1')
     
     opponents.get("Rillaboom").damageIs(124.8, 147.2).causeOHKO()
-    opponents.get("Raging Bolt").damageIs(53.2, 62.7).cause2HKO()
+    opponents.get("Raging Bolt").damageIs(26.4, 31.1).cause4HKO()
   })
 
   it('Validate the damage Koraidon +2 atk', () => {
     team.selectPokemon("Koraidon").selectAttackOne().selectStatsModifier('atk', '+2')
     
     opponents.get("Rillaboom").damageIs(166.4, 195.9).causeOHKO()
-    opponents.get("Raging Bolt").damageIs(70.9, 83.5).cause2HKO()
+    opponents.get("Raging Bolt").damageIs(35.4, 41.5).cause3HKO()
   })
 
   it('Validate the damage Koraidon +3 atk', () => {
     team.selectPokemon("Koraidon").selectAttackOne().selectStatsModifier('atk', '+3')
     
     opponents.get("Rillaboom").damageIs(207.1, 243.6).causeOHKO()
-    opponents.get("Raging Bolt").damageIs(88.3, 103.8).haveChanceOfToCauseOHKO(25)
+    opponents.get("Raging Bolt").damageIs(44.1, 51.9).haveChanceOfToCause2HKO(13.3)
   })
 
   it('Validate the damage Koraidon +4 atk', () => {
     team.selectPokemon("Koraidon").selectAttackOne().selectStatsModifier('atk', '+4')
     
     opponents.get("Rillaboom").damageIs(247.7, 292.3).causeOHKO()
-    opponents.get("Raging Bolt").damageIs(105.6, 124.6).causeOHKO()
+    opponents.get("Raging Bolt").damageIs(52.8, 62.3).cause2HKO()
   })
 
   it('Validate the damage Koraidon +5 atk', () => {
     team.selectPokemon("Koraidon").selectAttackOne().selectStatsModifier('atk', '+5')
     
     opponents.get("Rillaboom").damageIs(289.3, 341.1).causeOHKO()
-    opponents.get("Raging Bolt").damageIs(123.3, 145.4).causeOHKO()
+    opponents.get("Raging Bolt").damageIs(61.4, 72.7).cause2HKO()
   })
 
   it('Validate the damage Koraidon +6 atk', () => {
     team.selectPokemon("Koraidon").selectAttackOne().selectStatsModifier('atk', '+6')
     
     opponents.get("Rillaboom").damageIs(330.9, 389.8).causeOHKO()
-    opponents.get("Raging Bolt").damageIs(141.1, 166.2).causeOHKO()
+    opponents.get("Raging Bolt").damageIs(70.5, 83.1).cause2HKO()
   })
 })
