@@ -1,8 +1,12 @@
 import { Opponent } from "cypress/page-object/opponent"
 import { Team } from "cypress/page-object/team"
 
+const team = new Team()
+const opponent = new Opponent()
+
 let chiyuData: string
 let pokepasteData: string
+let defaultTeamData: string
 let pokepasteDataForms1: string
 let pokepasteDataForms2: string
 let pokepasteDataForms3: string
@@ -11,20 +15,19 @@ let pokepasteDataForms4: string
 before(() => {
   cy.fixture("chi-yu-data").then((data) => { chiyuData = data })
   cy.fixture("pokepaste-data").then((data) => { pokepasteData = data })
+  cy.fixture("default-team-data").then((data) => { defaultTeamData = data })
   cy.fixture("pokepaste-data-forms-1").then((data) => { pokepasteDataForms1 = data })
   cy.fixture("pokepaste-data-forms-2").then((data) => { pokepasteDataForms2 = data })
   cy.fixture("pokepaste-data-forms-3").then((data) => { pokepasteDataForms3 = data })
   cy.fixture("pokepaste-data-forms-4").then((data) => { pokepasteDataForms4 = data })
 })
 
+beforeEach(() => {
+  cy.get('[data-cy="team-vs-many"]').click({force: true})
+})
+
 describe('Import Pokémon', () => {
-  beforeEach(() => {
-    cy.get('[data-cy="team-vs-many"]').click({force: true})
-  })
-
   it('to team', () => {
-    const team = new Team()
-
     team.importPokemon(chiyuData)
     
     team.pokemonOnEditIs("Chi-Yu", "Beads of Ruin", "Water", "Choice Specs", "Timid")
@@ -34,9 +37,6 @@ describe('Import Pokémon', () => {
   })
 
   it('to opponent', () => {
-    const team = new Team()
-    const opponent = new Opponent()
-
     opponent.importPokemon(chiyuData)
     
     opponent.selectPokemon("Chi-Yu")
@@ -48,10 +48,6 @@ describe('Import Pokémon', () => {
 })
 
 describe('Import Pokepaste', () => {
-  beforeEach(() => {
-    cy.get('[data-cy="team-vs-many"]').click({force: true})
-  })
-  
   it('to team', () => {
     const team = new Team()
 
@@ -95,8 +91,6 @@ describe('Import Pokepaste', () => {
   })
 
   it('with Vivillon, Alcremie, Squawkabilly, Dudunsparce, Maushold and Pikachu in normal form', () => {
-    const team = new Team()
-
     team.importPokepaste(pokepasteDataForms1)
     team.selectTeam("Team 2")
 
@@ -137,8 +131,6 @@ describe('Import Pokepaste', () => {
   })
 
   it('with Vivillon, Alcremie, Squawkabilly, Dudunsparce, Maushold and Pikachu in alternative form', () => {
-    const team = new Team()
-
     team.importPokepaste(pokepasteDataForms2)
     team.selectTeam("Team 2")
 
@@ -179,8 +171,6 @@ describe('Import Pokepaste', () => {
   })
 
   it('with Flabébé, Floette, Florges and Tatsugiri in normal form', () => {
-    const team = new Team()
-
     team.importPokepaste(pokepasteDataForms3)
     team.selectTeam("Team 2")
 
@@ -209,8 +199,6 @@ describe('Import Pokepaste', () => {
   })
 
   it('with Flabébé, Floette, Florges and Tatsugiri in alternative form', () => {
-    const team = new Team()
-
     team.importPokepaste(pokepasteDataForms4)
     team.selectTeam("Team 2")
 
@@ -239,9 +227,7 @@ describe('Import Pokepaste', () => {
   })
 
   it('to opponent', () => {
-    const team = new Team()
-    const opponent = new Opponent()
-
+    opponent.deleteAll()
     opponent.importPokemon(pokepasteData)
 
     opponent.selectPokemon("Tatsugiri")
@@ -282,8 +268,8 @@ describe('Import Pokepaste', () => {
   })
 
   it('when have a new Pokémon on edit', () => {
-    const team = new Team()
-    const opponent = new Opponent()
+    team.delete("Team 1")
+    team.importPokepaste(defaultTeamData)
 
     opponent.clickOnAdd()
     opponent.importPokemon(pokepasteData)

@@ -13,6 +13,8 @@ let rillaboomData: string
 let hattereneData: string
 let talonflameData: string
 let bronzongData: string
+let defaultTeamData: string
+let defaultOpponentsData: string
 
 before(() => {
   cy.fixture("vaporeon-data").then((data) => { vaporeonData = data })
@@ -21,14 +23,22 @@ before(() => {
   cy.fixture("rillaboom-data").then((data) => { rillaboomData = data })
   cy.fixture("hatterene-data").then((data) => { hattereneData = data })
   cy.fixture("talonflame-data").then((data) => { talonflameData = data })
-  cy.fixture("bronzong-data").then((data) => { bronzongData = data }) 
+  cy.fixture("bronzong-data").then((data) => { bronzongData = data })
+  cy.fixture("default-team-data").then((data) => { defaultTeamData = data })
+  cy.fixture("default-opponents-data").then((data) => { defaultOpponentsData = data })
+})
+
+beforeEach(() => {
+  cy.get('[data-cy="team-vs-many"]').click({force: true})
+
+  team.delete("Team 1")
+  team.importPokepaste(defaultTeamData)
+  
+  opponents.deleteAll()
+  opponents.importPokemon(defaultOpponentsData)
 })
 
 describe('Test the Field options', () => {
-  beforeEach(() => {
-    cy.get('[data-cy="team-vs-many"]').click({force: true})
-  })
-  
   it('With Tablets of Ruin active', () => {
     team.selectPokemon("Koraidon").selectAttackThree()
 
@@ -117,7 +127,7 @@ describe('Test the Field options', () => {
     
     field.psychicTerrain()
     
-    opponents.get("Urshifu Rapid Strike").damageIs(43.4, 52)
+    opponents.get("Urshifu Rapid Strike").damageIs(86.8, 104)
   })
 
   it('With Misty Terrain active', () => {

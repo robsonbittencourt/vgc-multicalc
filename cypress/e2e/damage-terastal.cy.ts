@@ -4,11 +4,25 @@ import { Team } from "cypress/page-object/team"
 const team = new Team()
 const opponents = new Opponent()
 
-describe('Test calcs with Terastal', () => {
-  beforeEach(() => {
-    cy.get('[data-cy="team-vs-many"]').click({force: true})
-  })
+let defaultTeamData: string
+let defaultOpponentsData: string
+
+before(() => {
+  cy.fixture("default-team-data").then((data) => { defaultTeamData = data })
+  cy.fixture("default-opponents-data").then((data) => { defaultOpponentsData = data })
+})
+
+beforeEach(() => {
+  cy.get('[data-cy="team-vs-many"]').click({force: true})
+
+  team.delete("Team 1")
+  team.importPokepaste(defaultTeamData)
   
+  opponents.deleteAll()
+  opponents.importPokemon(defaultOpponentsData)
+})
+
+describe('Test calcs with Terastal', () => {
   it('Validate the damage with Koraidon Terastallized using Flame Charge', () => {
     team.selectPokemon("Koraidon").selectAttackThree().terastalyze()
 
@@ -16,7 +30,7 @@ describe('Test calcs with Terastal', () => {
     opponents.get("Calyrex Shadow").damageIs(39.4, 46.8).cause3HKO()
     opponents.get("Ogerpon Wellspring").damageIs(30.4, 35.8).haveChanceOfToCause3HKO(38.1)
     opponents.get("Incineroar").possible7HKO()
-    opponents.get("Raging Bolt").damageIs(26.4, 31.6).cause4HKO()
+    opponents.get("Raging Bolt").damageIs(12.9, 15.5).possible7HKO()
     opponents.get("Zamazenta Crowned").damageIs(25, 29.1).cause4HKO()
     opponents.get("Calyrex Ice").damageIs(40.5, 47.3).cause3HKO()
     opponents.get("Amoonguss").damageIs(47.4, 57.5).haveChanceOfToCause2HKO(85.9)

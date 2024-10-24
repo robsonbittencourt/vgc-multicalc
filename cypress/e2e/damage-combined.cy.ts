@@ -5,16 +5,26 @@ const team = new Team()
 const opponents = new Opponent()
 
 let tornadusData: string
+let defaultTeamData: string
+let defaultOpponentsData: string
 
 before(() => {
   cy.fixture("tornadus-data").then((data) => { tornadusData = data })
+  cy.fixture("default-team-data").then((data) => { defaultTeamData = data })
+  cy.fixture("default-opponents-data").then((data) => { defaultOpponentsData = data })
+})
+
+beforeEach(() => {
+  cy.get('[data-cy="team-vs-many"]').click({force: true})
+
+  team.delete("Team 1")
+  team.importPokepaste(defaultTeamData)
+  
+  opponents.deleteAll()
+  opponents.importPokemon(defaultOpponentsData)
 })
 
 describe('Test calcs with combined damage', () => {
-  beforeEach(() => {
-    cy.get('[data-cy="team-vs-many"]').click({force: true})
-  })
-  
   it('Calculate damage with two Pokémon', () => {
     team.selectPokemon("Koraidon").selectAttackThree()
     team.selectTeamMember("Koraidon").combineDamage()
@@ -39,7 +49,7 @@ describe('Test calcs with combined damage', () => {
     team.selectTeamMember("Koraidon").disableCombineDamage()
     team.selectTeamMember("Tornadus").combineDamage()
     team.selectTeamMember("Miraidon")
-    opponents.get("Urshifu Rapid Strike").damageIs(349.1, 412).causeOHKO()
+    opponents.get("Urshifu Rapid Strike").damageIs(402.2, 474.2).causeOHKO()
   })
 
   it('Create new Pokémon and use it with combined damage', () => {
@@ -48,7 +58,7 @@ describe('Test calcs with combined damage', () => {
     team.selectTeamMember("Miraidon")
     team.selectPokemon("Miraidon").selectAttackTwo()
 
-    opponents.get("Urshifu Rapid Strike").damageIs(349.1, 412).causeOHKO()
+    opponents.get("Urshifu Rapid Strike").damageIs(402.2, 474.2).causeOHKO()
   })
 
   it('Remove second Pokémon from calculation when it is deleted', () => {
