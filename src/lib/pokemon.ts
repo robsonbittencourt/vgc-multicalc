@@ -2,6 +2,7 @@ import { Generations, Pokemon as PokemonSmogon } from "@smogon/calc"
 import { StatsTable, StatusName, TypeName } from "@smogon/calc/dist/data/interface"
 import dedent from "dedent"
 import { AllPokemon } from "src/data/all-pokemon"
+import { Items } from "src/data/items"
 import { Move } from "./move"
 import { MoveSet } from "./moveset"
 
@@ -32,7 +33,7 @@ export class Pokemon {
 
     this.pokemonSmogon = new PokemonSmogon(Generations.get(9), name, {
       nature: options.nature ?? "Hardy",
-      item: options.item ?? "Fire Stone",
+      item: options.item != Items.instance.withoutItem() ? options.item : undefined,
       ability: options.ability ?? AllPokemon.instance.abilitiesByName(name)[0],
       abilityOn: options.abilityOn ?? false,
       teraType: options.teraTypeActive ? (options.teraType as TypeName ?? defaulTeraType) : undefined,
@@ -105,6 +106,10 @@ export class Pokemon {
   }
 
   public get item(): string {
+    if (!this.pokemonSmogon.item) {
+      return Items.instance.withoutItem()
+    }
+    
     return this.pokemonSmogon.item as string
   }
 
@@ -396,7 +401,7 @@ export class Pokemon {
   private buildPokemonSmogon({ name, nature, item, ability, abilityOn, teraType, teraTypeActive, evs, ivs, boosts }: { name?: string; nature?: string; item?: string; ability?: string; abilityOn?: boolean, teraType?: string; teraTypeActive?: boolean; evs?: Partial<StatsTable> & { spc?: number; }, ivs?: Partial<StatsTable> & { spc?: number; }, boosts?: StatsTable} = {}, status?: StatusName): PokemonSmogon {
     const pokemonSmogon = new PokemonSmogon(Generations.get(9), name ? name : this.pokemonSmogon.name, {
       nature: nature ? nature : this.pokemonSmogon.nature,
-      item: item ? item : this.pokemonSmogon.item,
+      item: this.buildItem(item),
       ability: ability ? ability : this.pokemonSmogon.ability,
       abilityOn: abilityOn ? abilityOn : this.pokemonSmogon.abilityOn,
       teraType: this.buildTeraType(teraType, teraTypeActive) as TypeName,
@@ -414,6 +419,18 @@ export class Pokemon {
     }
 
     return pokemonSmogon
+  }
+
+  private buildItem(item?: string): string | undefined {
+    if(!item) {
+      return this.pokemonSmogon.item
+    }
+    
+    if (item == Items.instance.withoutItem()) {
+      return undefined  
+    }
+
+    return item
   }
 
   private buildTeraType(teraType?: string, teraTypeActive?: boolean) {

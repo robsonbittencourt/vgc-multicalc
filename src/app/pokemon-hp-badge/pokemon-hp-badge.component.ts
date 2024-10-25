@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Items } from 'src/data/items';
 
 @Component({
   selector: 'app-pokemon-hp-badge',
@@ -75,6 +76,10 @@ export class PokemonHpBadgeComponent implements AfterViewInit {
       this._actualSpriteName = this.spriteName
       this.removeTransparentSpace()      
     }    
+  }
+
+  canShowItemImage(): boolean {
+    return this.item != Items.instance.withoutItem()
   }
 
   private updateHpValues() {

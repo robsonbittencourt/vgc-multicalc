@@ -22,7 +22,7 @@
   </div>
   <div class="level-item">
     <span class="level">Lv. 50</span>
-    <img src='assets/sprites/items/{{ item }}.png' class="icon-image">
+    <img src='assets/sprites/items/{{ item }}.png' class="icon-image" *ngIf="canShowItemImage()">
   </div>
   <div class="triangle"></div>
 </div>

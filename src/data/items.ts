@@ -16,8 +16,13 @@ export class Items {
     return Items._instance
   }
 
+  withoutItem(): string {
+    return "(none)"
+  }
+
   allItems(): string[] {
     return [
+      this.withoutItem(),
       "Assault Vest",
       "Choice Band",
       "Choice Scarf",
