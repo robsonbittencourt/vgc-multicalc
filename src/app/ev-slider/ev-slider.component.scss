@@ -1,6 +1,6 @@
 .ev-slider-container {
   display: grid;
-  grid-template-columns: 64px 64px 64px 64px 1fr 64px 40px;
+  grid-template-columns: 64px 64px 67px 64px 1fr 64px 40px;
   grid-auto-rows: 50px;
   grid-column-gap: 1.5em;
 }
@@ -15,6 +15,10 @@
 
 .mat-ev-field {
   width: 100%;
+  font-size: 14px;
+}
+
+.hp-percentage {
   font-size: 14px;
 }
 
@@ -53,6 +57,7 @@ input::-webkit-inner-spin-button {
 }
 
 .ev-value-input {
+  text-align: center;
   color: rgb(88, 88, 90) !important;
 }
 

@@ -8,12 +8,13 @@ import { Items } from 'src/data/items';
 })
 export class PokemonHpBadgeComponent implements AfterViewInit {
 
-  actualHp: number
+  remainingHp: number
   hpPercentage: number
   hpBarColor: string
   imageScale: number = 1.2
 
-  _hp: number
+  _hpBase: number
+  _actualHp: number
   _spriteName: string
   _actualSpriteName: string
   _damageTaken: number
@@ -23,12 +24,22 @@ export class PokemonHpBadgeComponent implements AfterViewInit {
   name: string
 
   @Input()
-  get hp(): number {
-    return this._hp
+  get hpBase(): number {
+    return this._hpBase
   }
 
-  public set hp(hp: number) {
-    this._hp = hp
+  public set hpBase(hpBase: number) {
+    this._hpBase = hpBase
+    this.updateHpValues()
+  }
+
+  @Input()
+  get actualHp(): number {
+    return this._actualHp
+  }
+
+  public set actualHp(actualHp: number) {
+    this._actualHp = actualHp
     this.updateHpValues()
   }
 
@@ -83,18 +94,21 @@ export class PokemonHpBadgeComponent implements AfterViewInit {
   }
 
   private updateHpValues() {
-    this.setActualHp()
+    this.setRemainingHp()
     this.setHpPercentage()
     this.setHpBarColor()
   }
 
-  private setActualHp() {
-    const hp = this.hp - this._damageTaken
-    this.actualHp = Math.max(hp, 0)
+  private setRemainingHp() {
+    const hp = this.actualHp - this._damageTaken
+    this.remainingHp = Math.max(hp, 0)
   }
 
   private setHpPercentage() {
-    const percentage = 100 - ((this._damageTaken / this.hp) * 100)
+    const previouslyDamage = this.hpBase - this.actualHp
+    const totalDamage = previouslyDamage + this._damageTaken
+
+    const percentage = 100 - ((totalDamage / this.hpBase) * 100)
     this.hpPercentage = Math.max(percentage, 0)
   }
 

@@ -128,7 +128,7 @@
 
 <div>
   <div class="evs">
-    <app-ev-slider data-cy="stat-hp" [baseStatValue]="pokemon.baseHp" statName="HP" [statValue]="pokemon.hp" [(ev)]="pokemon.evs.hp" [(iv)]="pokemon.ivs.hp" (evChangedEvent)="onChangeEvValue()" (ivChange)="onChangeIvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"/>
+    <app-ev-slider data-cy="stat-hp" [baseStatValue]="pokemon.baseHp" statName="HP" [statValue]="pokemon.hp" [(hpPercentage)]="pokemon.hpPercentage" [(ev)]="pokemon.evs.hp" [(iv)]="pokemon.ivs.hp" (evChangedEvent)="onChangeEvValue()" (ivChange)="onChangeIvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"/>
         
     <app-ev-slider data-cy="stat-atk" [baseStatValue]="pokemon.baseAtk" statName="Attack" [statValue]="pokemon.modifiedAtk()" [(ev)]="pokemon.evs.atk" [(iv)]="pokemon.ivs.atk" (evChangedEvent)="onChangeEvValue()" (ivChange)="onChangeIvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()" 
       [(statsModifier)]="pokemon.boosts.atk" [nature]="pokemon.nature"/>

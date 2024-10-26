@@ -6,6 +6,10 @@
     <label>{{ baseStatValue }}</label>
   </div>
   <div class="dense-2">
+    <mat-form-field appearance="outline" class="mat-ev-stat-modifier hp-percentage" *ngIf="!showStatsModifier()">
+      <span matTextSuffix>%</span>
+      <input class="ev-value-input" type="number" min="0" max="100" matInput (change)="hpPercentageChanged()" [(ngModel)]="hpPercentage" data-cy="hp-percentage-value">
+    </mat-form-field>
     <mat-form-field appearance="outline" class="mat-ev-stat-modifier" *ngIf="showStatsModifier()">
       <mat-select data-cy="stat-modifier" class="mat-small" [(value)]="statsModifier">
         <mat-option class="mat-small" *ngFor="let statsModifier of statsModifiers" [value]="statsModifier.value">{{ statsModifier.viewValue }}</mat-option>
@@ -15,7 +19,7 @@
   <div class="ev-value dense-2">
     <mat-form-field appearance="outline" class="mat-ev-field">
       <mat-label *ngIf="statNameAcronym">{{ statNameAcronym }}</mat-label>
-      <input class="ev-value-input" type="number" min="0" max="252" matInput [(ngModel)]="ev" data-cy="ev-value">
+      <input class="ev-value-input" type="number" min="0" max="252" matInput (change)="evChanged()" (input)="beforeEvChanged()" [(ngModel)]="ev" data-cy="ev-value">
     </mat-form-field>
   </div>
   <div class="ev-slider">

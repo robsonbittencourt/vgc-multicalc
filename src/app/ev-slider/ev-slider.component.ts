@@ -7,6 +7,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class EvSliderComponent {
 
+  hpPercentageValue: number = 100
   evValue: number | undefined = 0
   ivValue: number | undefined = 0
   statsModifierValue: number
@@ -17,6 +18,19 @@ export class EvSliderComponent {
     { value: -1, viewValue: "-1"}, { value: -2, viewValue: "-2"}, { value: -3, viewValue: "-3"},
     { value: -4, viewValue: "-4"}, { value: -5, viewValue: "-5"}, { value: -6, viewValue: "-6"},
   ]
+
+  @Input()
+  get hpPercentage(): number {
+    return this.hpPercentageValue
+  }
+
+  @Output()
+  hpPercentageChange = new EventEmitter<number>()
+
+  set hpPercentage(hpPercentage: number) {
+    this.hpPercentageValue = hpPercentage
+    this.hpPercentageChange.emit(this.hpPercentageValue)
+  }
 
   @Input()
   get ev(): number | undefined {
@@ -86,6 +100,10 @@ export class EvSliderComponent {
 
   EV_ZERO = 0
   FIRST_EV = 4
+
+  hpPercentageChanged() {
+    this.hpPercentageChange.emit(this.hpPercentage)
+  }
 
   evChanged() {
     this.evChangedEvent.emit(this.ev)

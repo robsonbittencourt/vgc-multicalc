@@ -13,6 +13,8 @@ export class Pokemon {
   public ivsStorage: Partial<StatsTable> & { spc?: number }
   private moveSetStorage: MoveSet
   private statusStorage?: string
+  private hpPercentageStorage: number
+  private actualHpStorage: number
   private commanderActivatedStorage: boolean
   private selectPokemonLabel: string = "Select a Pokémon"
 
@@ -44,6 +46,8 @@ export class Pokemon {
       level: 50
     })
 
+    this.hpPercentageStorage = 100
+    this.actualHpStorage = this.pokemonSmogon.stats.hp
     this.statusStorage = options.status ?? 'Healthy'
     this.teraTypeStorage = options.teraType ?? defaulTeraType
     this.evsStorage = options.evs ?? { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0}
@@ -140,6 +144,16 @@ export class Pokemon {
     return this.pokemonSmogon.ability as string
   }
 
+  public get hpPercentage(): number {
+    return this.hpPercentageStorage
+  }
+
+  public set hpPercentage(hpPercentage: number) {
+    this.hpPercentageStorage = hpPercentage
+    this.actualHpStorage = Math.round((this.pokemonSmogon.maxHP() * hpPercentage) / 100)
+    this.pokemonSmogon = this.buildPokemonSmogon({ hpValue: this.actualHpStorage })
+  }
+
   public get evs(): Partial<StatsTable> & { spc?: number; } {
     return this.pokemonSmogon.evs
   }
@@ -147,6 +161,7 @@ export class Pokemon {
   public set evs(evs: Partial<StatsTable> & { spc?: number; }) {
     this.evsStorage = evs
     this.pokemonSmogon = this.buildPokemonSmogon({ evs: evs })      
+    this.hpPercentage = this.hpPercentageStorage
   }
 
   public get ivs(): Partial<StatsTable> & { spc?: number; } {
@@ -155,7 +170,8 @@ export class Pokemon {
 
   public set ivs(ivs: Partial<StatsTable> & { spc?: number; }) {
     this.ivsStorage = ivs
-    this.pokemonSmogon = this.buildPokemonSmogon({ ivs: ivs })      
+    this.pokemonSmogon = this.buildPokemonSmogon({ ivs: ivs })
+    this.hpPercentage = this.hpPercentageStorage
   }
 
   public get boosts(): StatsTable {
@@ -249,6 +265,10 @@ export class Pokemon {
 
   public get hp(): number {
     return this.pokemonSmogon.stats.hp
+  }
+
+  public get actualHp(): number {
+    return this.pokemonSmogon.curHP()
   }
 
   public get baseHp(): number {
@@ -398,7 +418,7 @@ export class Pokemon {
     return ivsDescription
   }
 
-  private buildPokemonSmogon({ name, nature, item, ability, abilityOn, teraType, teraTypeActive, evs, ivs, boosts }: { name?: string; nature?: string; item?: string; ability?: string; abilityOn?: boolean, teraType?: string; teraTypeActive?: boolean; evs?: Partial<StatsTable> & { spc?: number; }, ivs?: Partial<StatsTable> & { spc?: number; }, boosts?: StatsTable} = {}, status?: StatusName): PokemonSmogon {
+  private buildPokemonSmogon({ name, nature, item, ability, abilityOn, teraType, teraTypeActive, evs, ivs, boosts, hpValue }: { name?: string; nature?: string; item?: string; ability?: string; abilityOn?: boolean, teraType?: string; teraTypeActive?: boolean; evs?: Partial<StatsTable> & { spc?: number; }, ivs?: Partial<StatsTable> & { spc?: number; }, boosts?: StatsTable, hpValue?: number} = {}, status?: StatusName): PokemonSmogon {
     const pokemonSmogon = new PokemonSmogon(Generations.get(9), name ? name : this.pokemonSmogon.name, {
       nature: nature ? nature : this.pokemonSmogon.nature,
       item: this.buildItem(item),
@@ -409,6 +429,7 @@ export class Pokemon {
       ivs: ivs ? ivs : this.pokemonSmogon.ivs,
       boosts: boosts ? boosts : this.pokemonSmogon.boosts,
       status: status ? status : this.pokemonSmogon.status,
+      originalCurHP: hpValue ? hpValue : this.pokemonSmogon.originalCurHP,
       level: 50
     })
 
@@ -417,6 +438,10 @@ export class Pokemon {
     } else {
       pokemonSmogon.abilityOn = this.pokemonSmogon.abilityOn
     }
+
+    if (hpValue == 0) {
+      pokemonSmogon.originalCurHP = 0
+    }    
 
     return pokemonSmogon
   }
