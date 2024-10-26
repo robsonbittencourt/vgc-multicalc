@@ -52,22 +52,29 @@
     </div>
 
     <div class="pokemon-types">
-      <button class="icon-button" (click)="toogleCommanderAbility()" *ngIf="pokemon.name == 'Dondozo'" matTooltip="Commander">
-        <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly.png" *ngIf="commanderActivated" />
-        <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly-gray.png" *ngIf="!commanderActivated" />
-      </button>
-
-      <button class="icon-button" (click)="toogleParadoxAbility()" *ngIf="pokemon.isParadoxAbility()" matTooltip="Booster Energy">
-        <img class="icon-tatsugiri" src="assets/icons/booster-energy.png" *ngIf="pokemon.abilityOn" />
-        <img class="icon-tatsugiri" src="assets/icons/booster-energy-gray.png" *ngIf="!pokemon.abilityOn" />
-      </button>
       <div [ngStyle]="typeStyle(pokemon.type1())" class="pokemon-type">{{ pokemon.type1() }}</div>
       <div *ngIf="pokemon.type2()" [ngStyle]="typeStyle(pokemon.type2())" class="pokemon-type">{{ pokemon.type2() }}</div>
     </div>
 
-    <div>
-      <label>Ability</label>
-      <app-ability-combo-box [pokemon]="pokemon" data-cy="ability"/>
+    <div class="pokemon-ability">
+      <div class="check-input-section ability-checkbox">
+        <mat-checkbox [(ngModel)]="pokemon.abilityOn" *ngIf="pokemon.ability == 'Analytic' || pokemon.ability == 'Unburden'" data-cy="activate-ability"/>
+  
+        <button class="icon-button" (click)="toogleCommanderAbility()" *ngIf="pokemon.name == 'Dondozo'" matTooltip="Commander">
+          <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly.png" *ngIf="commanderActivated" />
+          <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly-gray.png" *ngIf="!commanderActivated" />
+        </button>
+  
+        <button class="icon-button" (click)="toogleParadoxAbility()" *ngIf="pokemon.isParadoxAbility()" matTooltip="Booster Energy">
+          <img class="icon-tatsugiri" src="assets/icons/booster-energy.png" *ngIf="pokemon.abilityOn" />
+          <img class="icon-tatsugiri" src="assets/icons/booster-energy-gray.png" *ngIf="!pokemon.abilityOn" />
+        </button>
+      </div>
+
+      <div class="ability-combo-box">
+        <label>Ability</label>
+        <app-ability-combo-box [pokemon]="pokemon" data-cy="ability"/>
+      </div>      
     </div>
   </div>
 

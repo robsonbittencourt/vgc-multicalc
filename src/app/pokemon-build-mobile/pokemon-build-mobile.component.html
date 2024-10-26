@@ -67,34 +67,37 @@
       <label>Status</label>
       <app-input-autocomplete [(value)]="pokemon.status" [allValues]="statusConditions"/>
     </div>
-    
-    <div class="combo-option">
+
+    <div class="combo-option tera-type">
+      <button class="icon-button" (click)="terastalyzePokemon($event)" *ngIf="pokemon.teraTypeStorage" matTooltip="Terastal" [matTooltipShowDelay]="1000">
+        <img class="icon-tera" src="assets/icons/tera-icon.png" *ngIf="pokemon.teraTypeActive" />
+        <img class="icon-tera" src="assets/icons/tera-icon-gray.png" *ngIf="!pokemon.teraTypeActive" />
+      </button>
+      
       <div>
         <label >Tera Type</label>
-      </div>
-      <div class="check-input-section tera-checkbox">
         <app-input-autocomplete [(value)]="pokemon.teraType" [allValues]="allTeraTypes" [disabled]="pokemon.isTerapagos()"/>          
-        <button class="icon-button" (click)="terastalyzePokemon($event)" *ngIf="pokemon.teraTypeStorage" matTooltip="Terastal" [matTooltipShowDelay]="1000">
-          <img class="icon-tera" src="assets/icons/tera-icon.png" *ngIf="pokemon.teraTypeActive" />
-          <img class="icon-tera" src="assets/icons/tera-icon-gray.png" *ngIf="!pokemon.teraTypeActive" />
-        </button>
       </div>
     </div>
 
-    <div class="combo-option">
-      <label>Ability</label>
-      <div class="ability-checkbox">
+    <div class="combo-option ability">
+      <div class="ability-checkbox" *ngIf="pokemon.ability == 'Analytic' || pokemon.ability == 'Unburden'">
+        <mat-checkbox [(ngModel)]="pokemon.abilityOn"/>
+      </div>     
+
+      <button class="icon-button" (click)="toogleCommanderAbility()" *ngIf="pokemon.name == 'Dondozo'" matTooltip="Commander">
+        <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly.png" *ngIf="commanderActivated" />
+        <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly-gray.png" *ngIf="!commanderActivated" />
+      </button>
+
+      <button class="icon-button" (click)="toogleParadoxAbility()" *ngIf="pokemon.isParadoxAbility()" matTooltip="Booster Energy">
+        <img class="icon-tatsugiri" src="assets/icons/booster-energy.png" *ngIf="pokemon.abilityOn" />
+        <img class="icon-tatsugiri" src="assets/icons/booster-energy-gray.png" *ngIf="!pokemon.abilityOn" />
+      </button>
+
+      <div>
+        <label>Ability</label>
         <app-ability-combo-box [pokemon]="pokemon"/>
-
-        <button class="icon-button" (click)="toogleCommanderAbility()" *ngIf="pokemon.name == 'Dondozo'" matTooltip="Commander">
-          <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly.png" *ngIf="commanderActivated" />
-          <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly-gray.png" *ngIf="!commanderActivated" />
-        </button>
-
-        <button class="icon-button" (click)="toogleParadoxAbility()" *ngIf="pokemon.isParadoxAbility()" matTooltip="Booster Energy">
-          <img class="icon-tatsugiri" src="assets/icons/booster-energy.png" *ngIf="pokemon.abilityOn" />
-          <img class="icon-tatsugiri" src="assets/icons/booster-energy-gray.png" *ngIf="!pokemon.abilityOn" />
-        </button>
       </div>
     </div>
   </div>

@@ -56,6 +56,14 @@ export class PokemonBuild {
     cy.get('[data-cy="pokemon-status"] input').type("Poison", {force: true}).type("{downArrow}").type("{enter}")
   }
 
+  activateAbility() {
+    this.container().find('[data-cy="activate-ability"] input').click({force: true})
+  }
+
+  hpPercentage(hpPercentage: number) {
+    this.container().find(`[data-cy="stat-hp"]`).find('[data-cy="hp-percentage-value"]').clear().type(hpPercentage.toString(), {force: true})
+  }
+
   importPokemon(pokemonData: string): PokemonBuild {
     this.container().find('[data-cy="import-pokemon"]').click({force: true})
     new ImportModal().import(pokemonData)

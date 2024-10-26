@@ -24,21 +24,25 @@
       <app-input-autocomplete [(value)]="pokemon.nature" [allValues]="allNatureNames"/>
     </div>
 
+    <div class="ability-enable">
+      <div class="ability-checkbox" *ngIf="pokemon.ability == 'Unburden'">
+        <mat-checkbox [(ngModel)]="pokemon.abilityOn"/>
+      </div>
+
+      <button class="icon-button" (click)="toogleCommanderAbility()" *ngIf="pokemon.name == 'Dondozo'" matTooltip="Commander">
+        <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly.png" *ngIf="this.pokemon.commanderActivated" />
+        <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly-gray.png" *ngIf="!this.pokemon.commanderActivated" />
+      </button>
+
+      <button class="icon-button" (click)="toogleParadoxAbility()" *ngIf="pokemon.isParadoxAbility()" matTooltip="Booster Energy">
+        <img class="icon-tatsugiri" src="assets/icons/booster-energy.png" *ngIf="this.pokemon.abilityOn" />
+        <img class="icon-tatsugiri" src="assets/icons/booster-energy-gray.png" *ngIf="!this.pokemon.abilityOn" />
+      </button>
+    </div>
+
     <div class="combo-option">
       <label>Ability</label>
-      <div class="ability-checkbox">
-        <app-input-autocomplete [(value)]="pokemon.ability" [allValues]="availableAbilities"/>
-
-        <button class="icon-button" (click)="toogleCommanderAbility()" *ngIf="pokemon.name == 'Dondozo'" matTooltip="Commander">
-          <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly.png" *ngIf="this.pokemon.commanderActivated" />
-          <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly-gray.png" *ngIf="!this.pokemon.commanderActivated" />
-        </button>
-
-        <button class="icon-button" (click)="toogleParadoxAbility()" *ngIf="pokemon.isParadoxAbility()" matTooltip="Booster Energy">
-          <img class="icon-tatsugiri" src="assets/icons/booster-energy.png" *ngIf="this.pokemon.abilityOn" />
-          <img class="icon-tatsugiri" src="assets/icons/booster-energy-gray.png" *ngIf="!this.pokemon.abilityOn" />
-        </button>
-      </div>
+      <app-input-autocomplete [(value)]="pokemon.ability" [allValues]="availableAbilities"/>
     </div>    
   </div>
 

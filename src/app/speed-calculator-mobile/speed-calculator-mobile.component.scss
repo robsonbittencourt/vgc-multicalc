@@ -24,7 +24,6 @@
 .icon-button .icon-tatsugiri {
   width: 25px;
   height: 25px;
-  margin-left: 0.75em;
 }
 
 .combo-options {
@@ -41,11 +40,17 @@
 }
 
 .combo-option-medium {
-  flex: 1 0 3em;
+  flex: 1 0 5em;
+}
+
+.ability-enable {
+  margin-top: 1.6em;
+  margin-right: -0.5em;
 }
 
 .ability-checkbox {
-  display: flex;
+  margin-right: -0.5em;
+  margin-top: -0.4em;
 }
 
 .tab {
