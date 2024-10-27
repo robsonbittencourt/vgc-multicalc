@@ -4,6 +4,11 @@ import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
+export interface KeyValuePair {
+  key: string
+  value: string
+}
+
 @Component({
   selector: 'app-input-autocomplete',
   templateUrl: './input-autocomplete.component.html',
@@ -12,10 +17,13 @@ import { map, startWith } from 'rxjs/operators';
 })
 export class InputAutocompleteComponent implements AfterViewInit {
 
+  adjustedValues: KeyValuePair[] = []
+
   valueStorage: string
   formControl: FormControl
-  filteredValues: Observable<string[]>
-  actualFilteredValues: string[]
+  filteredValues: Observable<KeyValuePair[]>
+  
+  actualFilteredValues: KeyValuePair[]
   
   @ViewChild('typehead', { read: MatAutocompleteTrigger })
   autoTrigger: MatAutocompleteTrigger
@@ -41,13 +49,24 @@ export class InputAutocompleteComponent implements AfterViewInit {
   }
 
   @Input()
-  allValues: string[]
+  get allValues(): string[] | KeyValuePair[] {
+    return this.adjustedValues
+  }
+
+  set allValues(allValues: string[] | KeyValuePair[]) {
+    if (typeof allValues[0] === "string") {
+      this.adjustedValues = allValues.map(x => ({ key: x, value: x } as KeyValuePair))
+    } else {
+      this.adjustedValues = allValues as KeyValuePair[]
+    }
+  }
 
   ngOnInit() {
     this.formControl = new FormControl(this.valueStorage)
+
     this.filteredValues = this.formControl.valueChanges.pipe(
       startWith(''),
-      map(value => this.filter(value || '', this.allValues))
+      map(value => this.filter(value || '', this.adjustedValues))
     )
 
     this.filteredValues.subscribe(x => {
@@ -60,7 +79,7 @@ export class InputAutocompleteComponent implements AfterViewInit {
       if (this.autoTrigger.activeOption) {
         this.onValueSelected(this.autoTrigger.activeOption.value)
       } else {
-        this.onValueSelected(this.actualFilteredValues[0])
+        this.onValueSelected(this.actualFilteredValues[0].value)
       }
     })
   }
@@ -92,14 +111,14 @@ export class InputAutocompleteComponent implements AfterViewInit {
     this.valueManuallySelected.emit(this.valueStorage)
   }
 
-  private filter(value: string, values: string[]): string[] {
+  private filter(value: string, values: KeyValuePair[]): KeyValuePair[] {
     if (!values) return []
     const filterValue = this.normalizeValue(value)
-    return values.filter(name => this.normalizeValue(name).startsWith(filterValue))
+    return values.filter(v => this.normalizeValue(v.key).startsWith(filterValue))
   }
 
   private normalizeValue(value: string): string {
-    return value.toLowerCase().replace(/\s/g, '')
+    return value.toLowerCase().replace(/\s/g, '')        
   } 
 
 }

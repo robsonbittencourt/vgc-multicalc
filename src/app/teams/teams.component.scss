@@ -6,7 +6,7 @@
   border-width: 1px;
   border-style: solid;
   margin-bottom: 1em;
-  height: 38%; //TODO
+  height: 42.3%;
 }
 
 .header {
@@ -25,7 +25,7 @@
 .teams-container {
   display: flex;
   flex-direction: column;;
-  margin-top: 1em;
+  margin-top: 1.5em;
 }
 
 .teams-boxes {
@@ -33,8 +33,8 @@
   grid-template-columns: 1fr 1fr;
   grid-auto-rows: minmax(5.6em, 1fr);
   column-gap: 1.5em;
-  row-gap: 1.5em;
-  margin-top: 1.2em;
+  row-gap: 2.5em;
+  margin-top: 2em;
 }
 
 .teams-top-box {
