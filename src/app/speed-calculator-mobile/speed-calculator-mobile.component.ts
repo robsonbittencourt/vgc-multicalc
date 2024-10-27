@@ -50,7 +50,7 @@ export class SpeedCalculatorMobileComponent {
   constructor(public data: DataStore, private differs: KeyValueDiffers, private differsStatusModifiers: KeyValueDiffers) { }
 
   ngOnInit() {
-    this.pokemon = this.data.activePokemon()
+    this.pokemon = this.data.defaultLeftPokemon()
     this.differ = this.differs.find(this.pokemon).create()
     this.differStatusModifiers = this.differsStatusModifiers.find(this.pokemon.boosts).create()
     this.pokemonNamesByReg = speedMeta(this.options.regulation).map(s => s.name).sort()

@@ -216,11 +216,11 @@ export class DataStore {
     }
   }
 
-  private defaultLeftPokemon(): Pokemon {
+  defaultLeftPokemon(): Pokemon {
     return new Pokemon("Gholdengo", { ability: "Good as Gold", item: "Choice Specs", nature: "Timid", teraType: "Steel", evs: { hp: 4, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 }, moveSet: new MoveSet("Make It Rain", "Shadow Ball", "Protect", "Nasty Plot") })
   }
 
-  private defaultRightPokemon(): Pokemon {
+  defaultRightPokemon(): Pokemon {
     return new Pokemon("Rillaboom", { ability: "Grassy Surge", nature: "Adamant", item: "Assault Vest", teraType: "Fire", evs: { hp: 252, atk: 116, def: 4, spd: 60, spe: 76 }, moveSet: new MoveSet("Grassy Glide", "Wood Hammer", "U-turn", "Fake Out") })
   }
 
