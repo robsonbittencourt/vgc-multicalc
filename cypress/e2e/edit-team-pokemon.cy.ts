@@ -1,8 +1,6 @@
-import { Opponent } from "cypress/page-object/opponent"
 import { Team } from "cypress/page-object/team"
 
 const team = new Team()
-const opponents = new Opponent()
 
 let defaultTeamData: string
 

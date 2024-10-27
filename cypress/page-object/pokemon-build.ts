@@ -56,6 +56,10 @@ export class PokemonBuild {
     cy.get('[data-cy="pokemon-status"] input').type("Poison", {force: true}).type("{downArrow}").type("{enter}")
   }
 
+  selectAbility(name: string) {
+    this.container().find('[data-cy="ability"]').click().get('mat-option').contains(name).click()    
+  }
+
   activateAbility() {
     this.container().find('[data-cy="activate-ability"] input').click({force: true})
   }
