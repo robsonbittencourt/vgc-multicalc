@@ -1,13 +1,12 @@
+import { NoopScrollStrategy } from '@angular/cdk/overlay';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { defaultPokemon } from 'src/lib/default-pokemon';
 import { PokePasteParserService } from 'src/lib/poke-paste-parser.service';
-import { Target } from 'src/lib/target';
 import { Team } from 'src/lib/team';
 import { TeamMember } from 'src/lib/team-member';
-import { SnackbarService } from '../snackbar.service';
-import { MatDialog } from '@angular/material/dialog';
+import { SnackbarService } from '../../lib/snackbar.service';
 import { TeamExportModalComponent } from '../team-export-modal/team-export-modal.component';
-import { NoopScrollStrategy, ScrollStrategyOptions } from '@angular/cdk/overlay';
 import { TeamImportModalComponent } from '../team-import-modal/team-import-modal.component';
 
 @Component({

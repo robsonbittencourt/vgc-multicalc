@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
-import { DataStore } from '../data-store.service';
+import { DataStore } from '../../lib/data-store.service';
 
 @Component({
   selector: 'app-header',

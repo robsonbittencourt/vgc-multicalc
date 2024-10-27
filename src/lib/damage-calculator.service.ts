@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { calculate, Field, Generations, Move as MoveSmogon, Result } from '@smogon/calc';
 import { StatIDExceptHP } from '@smogon/calc/dist/data/interface';
-import { DataStore } from 'src/app/data-store.service';
+import { DataStore } from 'src/lib/data-store.service';
 import { DamageResult } from './damage-result';
 import { Move } from './move';
 import { Pokemon } from './pokemon';

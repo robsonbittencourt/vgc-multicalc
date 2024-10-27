@@ -3,7 +3,7 @@ import { Pokemon } from 'src/lib/pokemon';
 import { SpeedCalculatorOptions as SpeedScaleOptions } from 'src/lib/speed-calculator/speed-calculator-options';
 import { SpeedCalculatorService } from 'src/lib/speed-calculator/speed-calculator-service';
 import { SpeedDefinition } from 'src/lib/speed-calculator/speed-definition';
-import { DataStore } from '../data-store.service';
+import { DataStore } from '../../lib/data-store.service';
 
 @Component({
   selector: 'app-speed-scale',

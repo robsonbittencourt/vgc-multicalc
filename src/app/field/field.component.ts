@@ -1,6 +1,6 @@
 import { Component, EventEmitter, KeyValueDiffer, KeyValueDiffers, Output } from '@angular/core';
 import { MatButtonToggleChange } from '@angular/material/button-toggle';
-import { DataStore } from '../data-store.service';
+import { DataStore } from '../../lib/data-store.service';
 
 @Component({
   selector: 'app-field',

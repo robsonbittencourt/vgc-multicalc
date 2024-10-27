@@ -2,7 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { Pokemon } from 'src/lib/pokemon';
 import { SpeedCalculatorOptions } from 'src/lib/speed-calculator/speed-calculator-options';
 import { Team } from 'src/lib/team';
-import { DataStore } from '../data-store.service';
+import { DataStore } from '../../lib/data-store.service';
 
 @Component({
   selector: 'app-speed-calculator',

@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { DeviceDetectorService } from 'src/lib/device-detector.service';
-import { DataStore } from '../data-store.service';
+import { DataStore } from '../../lib/data-store.service';
 
 @Component({
   selector: 'app-main',
@@ -15,7 +14,7 @@ export class MainComponent {
   useUserData: boolean = false
 
   constructor(
-    public data: DataStore, private activatedRoute: ActivatedRoute, private _snackBar: MatSnackBar, private deviceDetectorService: DeviceDetectorService
+    public data: DataStore, private activatedRoute: ActivatedRoute, private deviceDetectorService: DeviceDetectorService
   ) {}
 
   ngOnInit() {

@@ -3,7 +3,7 @@ import { DamageCalculatorService } from 'src/lib/damage-calculator.service';
 import { DamageResult } from 'src/lib/damage-result';
 import { Move } from 'src/lib/move';
 import { Pokemon } from 'src/lib/pokemon';
-import { DataStore } from '../data-store.service';
+import { DataStore } from '../../lib/data-store.service';
 
 @Component({
   selector: 'app-simple-calc',

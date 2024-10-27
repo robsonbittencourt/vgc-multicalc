@@ -4,10 +4,10 @@ import { MOVES, NATURES } from '@smogon/calc';
 import { AllPokemon } from 'src/data/all-pokemon';
 import { Items } from 'src/data/items';
 import { SETDEX_SV } from 'src/data/movesets';
+import { DataStore } from 'src/lib/data-store.service';
 import { Pokemon } from 'src/lib/pokemon';
 import { SpeedCalculatorOptions } from 'src/lib/speed-calculator/speed-calculator-options';
 import { speedMeta } from 'src/lib/speed-calculator/speed-meta';
-import { DataStore } from '../data-store.service';
 
 @Component({
   selector: 'app-speed-calculator-mobile',

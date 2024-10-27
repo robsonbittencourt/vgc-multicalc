@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DataStore } from '../data-store.service';
+import { DataStore } from '../../lib/data-store.service';
 
 @Component({
   selector: 'app-header-mobile',

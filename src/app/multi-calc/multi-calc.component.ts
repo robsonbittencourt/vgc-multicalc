@@ -5,7 +5,7 @@ import { Pokemon } from 'src/lib/pokemon';
 import { Target } from 'src/lib/target';
 import { Team } from 'src/lib/team';
 import { TeamMember } from 'src/lib/team-member';
-import { DataStore } from '../data-store.service';
+import { DataStore } from '../../lib/data-store.service';
 
 @Component({
   selector: 'app-multi-calc',
