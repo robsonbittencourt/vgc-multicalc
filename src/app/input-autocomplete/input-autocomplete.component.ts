@@ -1,6 +1,5 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
@@ -15,7 +14,7 @@ export interface KeyValuePair {
   styleUrls: ['./input-autocomplete.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InputAutocompleteComponent implements AfterViewInit {
+export class InputAutocompleteComponent {
 
   adjustedValues: KeyValuePair[] = []
 
@@ -25,9 +24,6 @@ export class InputAutocompleteComponent implements AfterViewInit {
   
   actualFilteredValues: KeyValuePair[]
   
-  @ViewChild('typehead', { read: MatAutocompleteTrigger })
-  autoTrigger: MatAutocompleteTrigger
-
   @Input()
   get value(): string {
     return this.valueStorage
@@ -74,16 +70,6 @@ export class InputAutocompleteComponent implements AfterViewInit {
     })
   }
 
-  ngAfterViewInit() {
-    this.autoTrigger.panelClosingActions.subscribe(() =>{
-      if (this.autoTrigger.activeOption) {
-        this.onValueSelected(this.autoTrigger.activeOption.value)
-      } else {
-        this.onValueSelected(this.actualFilteredValues[0].value)
-      }
-    })
-  }
-
   ngOnChanges() {
     if(this.disabled) {
       this.formControl.disable()
@@ -97,12 +83,12 @@ export class InputAutocompleteComponent implements AfterViewInit {
     this.formControl.setValue('')
   }
 
-  onBlur(event: Event) {
-    const eventValue = ((event as FocusEvent).relatedTarget as any)?.textContent
-    
-    if (!eventValue) {
+  onBlur() {
+    if (!this.formControl.value) {
       this.formControl.setValue(this.valueStorage)
-    }    
+    } else {
+      this.onValueSelected(this.actualFilteredValues[0].value)
+    }
   }
 
   onValueSelected(selectedValue: string) {
