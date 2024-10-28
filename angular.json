@@ -72,10 +72,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "vgc-multicalc:build:production"
+              "buildTarget": "vgc-multicalc:build:production"
             },
             "development": {
-              "browserTarget": "vgc-multicalc:build:development"
+              "buildTarget": "vgc-multicalc:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -83,7 +83,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "vgc-multicalc:build"
+            "buildTarget": "vgc-multicalc:build"
           }
         },
         "test": {
