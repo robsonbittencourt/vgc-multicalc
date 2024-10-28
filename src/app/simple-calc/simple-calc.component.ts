@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Output } from '@angular/core';
 import { DamageCalculatorService } from 'src/lib/damage-calculator.service';
 import { DamageResult } from 'src/lib/damage-result';
 import { Move } from 'src/lib/move';
@@ -21,7 +21,7 @@ export class SimpleCalcComponent {
   @Output() 
   dataChangedEvent = new EventEmitter<any>()
 
-  constructor(public data: DataStore, private damageCalculator: DamageCalculatorService) {}
+  constructor(public data: DataStore, private damageCalculator: DamageCalculatorService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.calculateDamage()
@@ -72,6 +72,8 @@ export class SimpleCalcComponent {
     
     this.rightDamageResults = this.damageCalculator.calcDamageAllAttacks(this.data.rightPokemon, this.data.leftPokemon)
     this.rightDamageResult = this.findResultByMove(this.rightDamageResults, this.data.rightPokemon.move)
+
+    this.cdr.detectChanges()
   }
 
   private findResultByMove(damageResults: DamageResult[], move: Move): DamageResult {
