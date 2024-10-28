@@ -37,12 +37,13 @@
   gap: 0.1em;
 }
 
-.max-width {
-  width: 100%;
+.button-group mat-button-toggle {
+  font-size: 0.9rem;
+  flex: 1 1 0px;
 }
 
-.button-group mat-button-toggle {
-  flex: 1 1 0px;
+.max-width {
+  width: 100%;
 }
 
 .botton-space {
