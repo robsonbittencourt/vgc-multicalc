@@ -1,11 +1,11 @@
 import { Injectable } from "@angular/core";
-import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from "@angular/router";
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from "@angular/router";
 
 import axios, { AxiosResponse } from 'axios';
 import { UserData } from "./user-data";
 
 @Injectable({ providedIn: 'root' })
-export class UserDataResolver implements Resolve<void | AxiosResponse<UserData>> {
+export class UserDataResolver  {
 
   constructor(private router: Router) { }
   
