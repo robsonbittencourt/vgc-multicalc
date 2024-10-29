@@ -1,5 +1,5 @@
 import { NoopScrollStrategy } from '@angular/cdk/overlay';
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Pokemon } from 'src/lib/pokemon';
 import { TeamExportModalComponent } from '../team-export-modal/team-export-modal.component';
@@ -14,19 +14,17 @@ import { MatIcon } from '@angular/material/icon';
     imports: [MatIcon]
 })
 export class ExportPokemonButtonComponent {
-
+  
   @Input()
   pokemon: Pokemon
-
-  constructor(
-    private dialog: MatDialog
-  ) { }
 
   @Input()
   show: boolean = true
 
   @Input()
   hidden: boolean = false
+
+  private dialog = inject(MatDialog)
 
   exportPokemon() {
     this.dialog.open(TeamExportModalComponent, { 

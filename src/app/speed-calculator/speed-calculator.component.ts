@@ -1,18 +1,18 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, inject } from '@angular/core';
+import { MatFormField } from '@angular/material/form-field';
+import { MatSelect } from '@angular/material/select';
 import { Pokemon } from 'src/lib/pokemon';
 import { SpeedCalculatorOptions } from 'src/lib/speed-calculator/speed-calculator-options';
 import { speedMeta } from 'src/lib/speed-calculator/speed-meta';
 import { Team } from 'src/lib/team';
 import { DataStore } from '../../lib/data-store.service';
-import { TeamComponent } from '../team/team.component';
-import { TeamsComponent } from '../teams/teams.component';
 import { FieldComponent } from '../field/field.component';
 import { InputAutocompleteComponent } from '../input-autocomplete/input-autocomplete.component';
-import { MatFormField } from '@angular/material/form-field';
-import { MatSelect } from '@angular/material/select';
+import { TeamComponent } from '../team/team.component';
+import { TeamsComponent } from '../teams/teams.component';
 
+import { MatButtonToggle, MatButtonToggleGroup } from '@angular/material/button-toggle';
 import { MatOption } from '@angular/material/core';
-import { MatButtonToggleGroup, MatButtonToggle } from '@angular/material/button-toggle';
 import { SpeedScaleComponent } from '../speed-scale/speed-scale.component';
 
 @Component({
@@ -23,6 +23,7 @@ import { SpeedScaleComponent } from '../speed-scale/speed-scale.component';
     imports: [TeamComponent, TeamsComponent, FieldComponent, InputAutocompleteComponent, MatFormField, MatSelect, MatOption, MatButtonToggleGroup, MatButtonToggle, SpeedScaleComponent]
 })
 export class SpeedCalculatorComponent {
+  data = inject(DataStore);
 
   pokemon: Pokemon
 
@@ -42,8 +43,6 @@ export class SpeedCalculatorComponent {
     { value: -1, viewValue: "-1"}, { value: -2, viewValue: "-2"}, { value: -3, viewValue: "-3"},
     { value: -4, viewValue: "-4"}, { value: -5, viewValue: "-5"}, { value: -6, viewValue: "-6"},
   ]
-
-  constructor(public data: DataStore) {}
 
   ngOnInit() {
     this.pokemon = this.data.activePokemon()

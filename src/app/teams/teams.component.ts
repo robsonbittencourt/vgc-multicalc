@@ -1,6 +1,9 @@
 import { NoopScrollStrategy } from '@angular/cdk/overlay';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
+import { MatInput } from '@angular/material/input';
 import { defaultPokemon } from 'src/lib/default-pokemon';
 import { PokePasteParserService } from 'src/lib/poke-paste-parser.service';
 import { Team } from 'src/lib/team';
@@ -8,9 +11,6 @@ import { TeamMember } from 'src/lib/team-member';
 import { SnackbarService } from '../../lib/snackbar.service';
 import { TeamExportModalComponent } from '../team-export-modal/team-export-modal.component';
 import { TeamImportModalComponent } from '../team-import-modal/team-import-modal.component';
-import { MatInput } from '@angular/material/input';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { MatButton } from '@angular/material/button';
 
 import { TeamBoxComponent } from '../team-box/team-box.component';
 
@@ -22,16 +22,17 @@ import { TeamBoxComponent } from '../team-box/team-box.component';
     imports: [MatInput, ReactiveFormsModule, FormsModule, MatButton, TeamBoxComponent]
 })
 export class TeamsComponent {
-
-  team: Team
-  
   @Input() 
   teams: Team[]
 
   @Output() 
   teamChanged = new EventEmitter<Team>()
 
-  constructor(private pokePasteService: PokePasteParserService, private _snackBar: SnackbarService, private dialog: MatDialog) { }
+  private pokePasteService = inject(PokePasteParserService)
+  private snackBar = inject(SnackbarService)
+  private dialog = inject(MatDialog)
+
+  team: Team
 
   ngOnInit() {
     this.team = this.activeTeam()
@@ -62,7 +63,7 @@ export class TeamsComponent {
       teamToImport.activateFirstTeamMember()
       this.teamChanged.emit(teamToImport)
       
-      this._snackBar.open("Team imported from PokePaste");
+      this.snackBar.open("Team imported from PokePaste");
     })
   }
 
@@ -90,7 +91,7 @@ export class TeamsComponent {
     this.team.deleteAll()
     this.team.addTeamMember(new TeamMember(defaultPokemon(), true))
     this.teamChanged.emit(this.team)
-    this._snackBar.open("Team deleted");
+    this.snackBar.open("Team deleted");
   }
 
 }

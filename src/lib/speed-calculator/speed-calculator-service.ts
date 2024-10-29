@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, inject } from "@angular/core";
 import { Field, Generations, Pokemon as PokemonSmogon } from "@smogon/calc";
 import { Pokemon } from "../pokemon";
 import { SmogonFunctions } from "../smogon-functions/smogon-functions";
@@ -10,8 +10,7 @@ import { speedMeta } from "./speed-meta";
   providedIn: 'root'
 })
 export class SpeedCalculatorService {
-
-  constructor(private smogonService: SmogonFunctions) { }
+  private smogonService = inject(SmogonFunctions)
 
   orderedPokemon(pokemon: Pokemon, field: Field, isTrickRoom: boolean = false, options: SpeedCalculatorOptions = new SpeedCalculatorOptions()): SpeedDefinition[] {
     const speedDefinitions: SpeedDefinition[] = []

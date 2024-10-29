@@ -1,15 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DeviceDetectorService } from 'src/lib/device-detector.service';
 import { DataStore } from '../../lib/data-store.service';
 
-import { HeaderComponent } from '../header/header.component';
-import { SimpleCalcComponent } from '../simple-calc/simple-calc.component';
-import { MultiCalcComponent } from '../multi-calc/multi-calc.component';
-import { SpeedCalculatorComponent } from '../speed-calculator/speed-calculator.component';
 import { HeaderMobileComponent } from '../header-mobile/header-mobile.component';
+import { HeaderComponent } from '../header/header.component';
+import { MultiCalcComponent } from '../multi-calc/multi-calc.component';
 import { SimpleCalcMobileComponent } from '../simple-calc-mobile/simple-calc-mobile.component';
+import { SimpleCalcComponent } from '../simple-calc/simple-calc.component';
 import { SpeedCalculatorMobileComponent } from '../speed-calculator-mobile/speed-calculator-mobile.component';
+import { SpeedCalculatorComponent } from '../speed-calculator/speed-calculator.component';
 
 @Component({
     selector: 'app-main',
@@ -19,13 +19,12 @@ import { SpeedCalculatorMobileComponent } from '../speed-calculator-mobile/speed
     imports: [HeaderComponent, SimpleCalcComponent, MultiCalcComponent, SpeedCalculatorComponent, HeaderMobileComponent, SimpleCalcMobileComponent, SpeedCalculatorMobileComponent]
 })
 export class MainComponent {
+  data = inject(DataStore);
+  private activatedRoute = inject(ActivatedRoute);
+  private deviceDetectorService = inject(DeviceDetectorService);
 
   userDataLink: string
   useUserData: boolean = false
-
-  constructor(
-    public data: DataStore, private activatedRoute: ActivatedRoute, private deviceDetectorService: DeviceDetectorService
-  ) {}
 
   ngOnInit() {
     this.activatedRoute.data.subscribe(({ userData }) => {

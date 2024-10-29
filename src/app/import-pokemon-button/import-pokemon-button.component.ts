@@ -1,5 +1,5 @@
 import { NoopScrollStrategy } from '@angular/cdk/overlay';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { PokePasteParserService } from 'src/lib/poke-paste-parser.service';
 import { Pokemon } from 'src/lib/pokemon';
@@ -15,20 +15,17 @@ import { MatIcon } from '@angular/material/icon';
     imports: [MatIcon]
 })
 export class ImportPokemonButtonComponent {
-
   @Output() 
   pokemonImportedEvent = new EventEmitter<Pokemon>()
-
-  constructor(
-    private dialog: MatDialog,
-    private pokePasteService: PokePasteParserService
-  ) { }
 
   @Input()
   show: boolean = true
 
   @Input()
   hidden: boolean = false
+
+  private dialog = inject(MatDialog)
+  private pokePasteService = inject(PokePasteParserService)
 
   importPokemon() {
     const dialogRef = this.dialog.open(TeamImportModalComponent, { 

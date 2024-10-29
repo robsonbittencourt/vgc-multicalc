@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Field } from '@smogon/calc';
 import { defaultPokemon } from 'src/lib/default-pokemon';
 import { DeviceDetectorService } from 'src/lib/device-detector.service';
@@ -12,8 +12,7 @@ import { TeamMember } from 'src/lib/team-member';
 
 @Injectable({ providedIn: 'root' })
 export class DataStore {
-
-  constructor(private deviceDetector: DeviceDetectorService) {}
+  private deviceDetector = inject(DeviceDetectorService)
 
   oneVsOneActivated: boolean = true
   oneVsManyActivated: boolean = false

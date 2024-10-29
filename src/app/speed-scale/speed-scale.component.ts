@@ -1,4 +1,4 @@
-import { Component, Input, KeyValueDiffer, KeyValueDiffers } from '@angular/core';
+import { Component, Input, KeyValueDiffer, KeyValueDiffers, inject } from '@angular/core';
 import { Pokemon } from 'src/lib/pokemon';
 import { SpeedCalculatorOptions as SpeedScaleOptions } from 'src/lib/speed-calculator/speed-calculator-options';
 import { SpeedCalculatorService } from 'src/lib/speed-calculator/speed-calculator-service';
@@ -15,6 +15,28 @@ import { SpeedBoxComponent } from '../speed-box/speed-box.component';
     imports: [SpeedBoxComponent]
 })
 export class SpeedScaleComponent {
+  @Input()
+  pokemon: Pokemon
+
+  @Input()
+  options: SpeedScaleOptions = new SpeedScaleOptions()
+
+  @Input()
+  pokemonEachSide: number
+
+  data = inject(DataStore)
+  private differsStatusModifiers = inject(KeyValueDiffers)
+  private differsField = inject(KeyValueDiffers)
+  private differsFieldAttacker = inject(KeyValueDiffers)
+  private differsFieldDefender = inject(KeyValueDiffers)
+  private differsOptions = inject(KeyValueDiffers)
+  private speedCalculatorService = inject(SpeedCalculatorService)
+
+  private differStatusModifiers: KeyValueDiffer<string, any>
+  private differField: KeyValueDiffer<string, any>
+  private differFieldAttacker: KeyValueDiffer<string, any>
+  private differFieldDefender: KeyValueDiffer<string, any>
+  private differOptions: KeyValueDiffer<string, any>
 
   statsModifierValue: number = 0
   statsModifiers = [
@@ -25,15 +47,6 @@ export class SpeedScaleComponent {
     { value: -4, viewValue: "-4"}, { value: -5, viewValue: "-5"}, { value: -6, viewValue: "-6"},
   ]
   speedDropMoveActive: boolean = false
-
-  @Input()
-  pokemon: Pokemon
-
-  @Input()
-  options: SpeedScaleOptions = new SpeedScaleOptions()
-
-  @Input()
-  pokemonEachSide: number
 
   get statsModifier(): number {
     return this.statsModifierValue
@@ -64,22 +77,6 @@ export class SpeedScaleComponent {
   abilityOn: boolean
 
   timeoutId: any
-
-  private differStatusModifiers: KeyValueDiffer<string, any>
-  private differField: KeyValueDiffer<string, any>
-  private differFieldAttacker: KeyValueDiffer<string, any>
-  private differFieldDefender: KeyValueDiffer<string, any>
-  private differOptions: KeyValueDiffer<string, any>
-  
-  constructor(
-    public data: DataStore,
-    private differsStatusModifiers: KeyValueDiffers,
-    private differsField: KeyValueDiffers,
-    private differsFieldAttacker: KeyValueDiffers,
-    private differsFieldDefender: KeyValueDiffers,
-    private differsOptions: KeyValueDiffers,
-    private speedCalculatorService: SpeedCalculatorService
-  ) {}
 
   ngOnInit() {
     this.differStatusModifiers = this.differsStatusModifiers.find(this.pokemon.boosts).create()

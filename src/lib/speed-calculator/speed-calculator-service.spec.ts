@@ -1,3 +1,4 @@
+import { TestBed } from '@angular/core/testing'
 import { Field } from '@smogon/calc'
 import { Pokemon } from '../pokemon'
 import { SmogonFunctions } from '../smogon-functions/smogon-functions'
@@ -7,7 +8,11 @@ describe('SpeedCalculatorService', () => {
   let service: SpeedCalculatorService
 
   beforeEach(() => {
-    service = new SpeedCalculatorService(new SmogonFunctions())
+    TestBed.configureTestingModule({
+      providers: [SpeedCalculatorService, SmogonFunctions]
+    })
+
+    service = TestBed.inject(SpeedCalculatorService)
   })
 
   describe('Test order methods', () =>  {

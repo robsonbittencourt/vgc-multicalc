@@ -1,5 +1,5 @@
-import { Component, EventEmitter, KeyValueDiffer, KeyValueDiffers, Output } from '@angular/core';
-import { MatButtonToggleChange, MatButtonToggleGroup, MatButtonToggle } from '@angular/material/button-toggle';
+import { Component, EventEmitter, KeyValueDiffer, KeyValueDiffers, Output, inject } from '@angular/core';
+import { MatButtonToggle, MatButtonToggleChange, MatButtonToggleGroup } from '@angular/material/button-toggle';
 import { DataStore } from '../../lib/data-store.service';
 
 @Component({
@@ -10,18 +10,20 @@ import { DataStore } from '../../lib/data-store.service';
     imports: [MatButtonToggleGroup, MatButtonToggle]
 })
 export class FieldComponent {
-
+  
   @Output() 
-  fieldChangedEvent = new EventEmitter<any>();
+  fieldChangedEvent = new EventEmitter<any>()
+
+  data = inject(DataStore)
+  private differs = inject(KeyValueDiffers)
+  private differsFieldAttacker = inject(KeyValueDiffers)
+  private differsFieldDefender = inject(KeyValueDiffers)
+  private differsFieldCritical = inject(KeyValueDiffers)
 
   private differField: KeyValueDiffer<string, any>
   private differFieldAttacker: KeyValueDiffer<string, any>
   private differFieldDefender: KeyValueDiffer<string, any>
   private differExtraFieldOptions: KeyValueDiffer<string, any>
-  
-  constructor(public data: DataStore, private differs: KeyValueDiffers,  private differsFieldAttacker: KeyValueDiffers, private differsFieldDefender: KeyValueDiffers,
-    private differsFieldCritical: KeyValueDiffers
-  ) {}
 
   ngOnInit() {
     this.differField = this.differs.find(this.data.field).create()

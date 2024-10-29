@@ -1,17 +1,17 @@
-import { Component, EventEmitter, Input, KeyValueDiffer, KeyValueDiffers, Output } from '@angular/core';
+import { Component, EventEmitter, Input, KeyValueDiffer, KeyValueDiffers, Output, inject } from '@angular/core';
 import { MOVES, NATURES, TYPE_CHART } from '@smogon/calc';
 import { Items } from 'src/data/items';
 import { Move } from 'src/lib/move';
 import { Pokemon } from 'src/lib/pokemon';
 
-import { MatChipListbox, MatChipOption } from '@angular/material/chips';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { MatIcon } from '@angular/material/icon';
-import { InputAutocompleteComponent } from '../input-autocomplete/input-autocomplete.component';
-import { MatTooltip } from '@angular/material/tooltip';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckbox } from '@angular/material/checkbox';
+import { MatChipListbox, MatChipOption } from '@angular/material/chips';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
 import { AbilityComboBoxComponent } from '../ability-combo-box/ability-combo-box.component';
 import { EvSliderComponent } from '../ev-slider/ev-slider.component';
+import { InputAutocompleteComponent } from '../input-autocomplete/input-autocomplete.component';
 
 @Component({
     selector: 'app-pokemon-build-mobile',
@@ -21,6 +21,19 @@ import { EvSliderComponent } from '../ev-slider/ev-slider.component';
     imports: [MatChipListbox, ReactiveFormsModule, FormsModule, MatChipOption, MatIcon, InputAutocompleteComponent, MatTooltip, MatCheckbox, AbilityComboBoxComponent, EvSliderComponent]
 })
 export class PokemonBuildMobileComponent {
+  @Input()
+  pokemon: Pokemon
+
+  @Output() 
+  pokemonChangedEvent = new EventEmitter<Pokemon>()
+  
+  MAX_EVS = 508
+
+  private differs = inject(KeyValueDiffers)
+  private differsStatusModifiers = inject(KeyValueDiffers)
+
+  private differ: KeyValueDiffer<string, any>
+  private differStatusModifiers: KeyValueDiffer<string, any>
 
   allItemsNames = Items.instance.allItems()
   allMoveNames = Object.keys(MOVES[9]).splice(1).sort()
@@ -29,28 +42,12 @@ export class PokemonBuildMobileComponent {
   commanderActivated = false
   alliesFainted = ["0", "1", "2", "3", "4", "5", "6", "7"]
   
-  MAX_EVS = 508
+  selectedMove: string
   editAttacks: boolean = false
 
   statusConditions = [
     "Healthy", "Sleep", "Poison", "Burn", "Freeze", "Paralysis"
   ]
-
-  selectedMove: string
-
-  private differ: KeyValueDiffer<string, any>
-  private differStatusModifiers: KeyValueDiffer<string, any>
-
-  @Input()
-  pokemon: Pokemon
-
-  @Output() 
-  pokemonChangedEvent = new EventEmitter<Pokemon>()
-
-  constructor(
-    private differs: KeyValueDiffers,
-    private differsStatusModifiers: KeyValueDiffers
-  ) { }
 
   ngOnInit() {
     this.differ = this.differs.find(this.pokemon).create()

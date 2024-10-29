@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
-import { DataStore } from '../../lib/data-store.service';
+import { Component, inject } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
-import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
 import { MatIcon } from '@angular/material/icon';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
+import { DataStore } from '../../lib/data-store.service';
 
 @Component({
     selector: 'app-header-mobile',
@@ -12,8 +12,7 @@ import { MatIcon } from '@angular/material/icon';
     imports: [MatIconButton, MatMenuTrigger, MatIcon, MatMenu, MatMenuItem]
 })
 export class HeaderMobileComponent {
-
-  constructor(public data: DataStore) {}
+  data = inject(DataStore)
 
   enableOneVsMany() {
     this.data.oneVsManyActivated = true

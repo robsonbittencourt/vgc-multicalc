@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { NgStyle } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import { DataStore } from '../../lib/data-store.service';
-import { NgStyle } from '@angular/common';
-import { MatIcon } from '@angular/material/icon';
-import { MatButton } from '@angular/material/button';
 
 @Component({
     selector: 'app-header',
@@ -15,11 +15,11 @@ import { MatButton } from '@angular/material/button';
     imports: [NgStyle, MatIcon, MatButton]
 })
 export class HeaderComponent {
+  data = inject(DataStore)
+  private snackBar = inject(MatSnackBar)
 
   userDataLink: string
-
-  constructor(public data: DataStore, private _snackBar: MatSnackBar) {}
-
+  
   enableOneVsOne() {
     this.data.oneVsOneActivated = true
     this.data.oneVsManyActivated = false
@@ -53,7 +53,7 @@ export class HeaderComponent {
     const userData = this.data.buildUserData()
     axios.put(`https://l7enx1vgm7.execute-api.us-east-1.amazonaws.com/v1/vgc-multi-calc/${id}`, userData)
     this.userDataLink = `https://vgcmulticalc.com/data/${id}`
-    this._snackBar.open("Your calc link has been created!", "", { duration: 4000 });
+    this.snackBar.open("Your calc link has been created!", "", { duration: 4000 });
   }
 
   copyUserDataLink() {

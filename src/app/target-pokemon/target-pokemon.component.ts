@@ -1,5 +1,5 @@
 import { NoopScrollStrategy } from '@angular/cdk/overlay';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { defaultPokemon } from 'src/lib/default-pokemon';
 import { PokePasteParserService } from 'src/lib/poke-paste-parser.service';
@@ -8,10 +8,10 @@ import { SnackbarService } from '../../lib/snackbar.service';
 import { TeamExportModalComponent } from '../team-export-modal/team-export-modal.component';
 import { TeamImportModalComponent } from '../team-import-modal/team-import-modal.component';
 
-import { MatIcon } from '@angular/material/icon';
 import { MatButton } from '@angular/material/button';
-import { PokemonCardComponent } from '../pokemon-card/pokemon-card.component';
+import { MatIcon } from '@angular/material/icon';
 import { AddPokemonCardComponent } from '../add-pokemon-card/add-pokemon-card.component';
+import { PokemonCardComponent } from '../pokemon-card/pokemon-card.component';
 
 @Component({
     selector: 'app-target-pokemon',
@@ -21,7 +21,6 @@ import { AddPokemonCardComponent } from '../add-pokemon-card/add-pokemon-card.co
     imports: [MatIcon, MatButton, PokemonCardComponent, AddPokemonCardComponent]
 })
 export class TargetPokemonComponent {
-
   @Input() 
   targets: Target[]
 
@@ -52,9 +51,11 @@ export class TargetPokemonComponent {
   @Output()
   secondTargetDeactivatedEvent = new EventEmitter<any>()
 
-  copyMessageEnabled = false
+  private pokePasteService = inject(PokePasteParserService)
+  private dialog = inject(MatDialog)
+  private snackBar = inject(SnackbarService)
 
-  constructor(private pokePasteService: PokePasteParserService,  private dialog: MatDialog, private _snackBar: SnackbarService) {}
+  copyMessageEnabled = false
   
   targetActivated(position: number) {
     const target = this.targets.find(t => t.position == position)!
@@ -106,7 +107,7 @@ export class TargetPokemonComponent {
       }
 
       this.targetsAdded.emit(targets)
-      this._snackBar.open("Pokémon from PokePaste added")
+      this.snackBar.open("Pokémon from PokePaste added")
     })
   }
 

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { calculate, Field, Generations, Move as MoveSmogon, Result } from '@smogon/calc';
 import { StatIDExceptHP } from '@smogon/calc/dist/data/interface';
 import { DataStore } from 'src/lib/data-store.service';
@@ -10,10 +10,9 @@ import { Pokemon } from './pokemon';
   providedIn: 'root'
 })
 export class DamageCalculatorService {
+  data = inject(DataStore)
 
   ZERO_RESULT_DAMAGE = Array(16).fill(0)
-
-  constructor(public data: DataStore) {}
 
   calcDamage(attacker: Pokemon, target: Pokemon): DamageResult {
     const result = this.calculateResult(attacker, target, attacker.move, this.data.field, this.data.extraFieldOptions.criticalHit)

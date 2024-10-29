@@ -1,5 +1,5 @@
-import { Component, EventEmitter, KeyValueDiffer, KeyValueDiffers, Output } from '@angular/core';
-import { MatButtonToggleChange, MatButtonToggleGroup, MatButtonToggle } from '@angular/material/button-toggle';
+import { Component, EventEmitter, KeyValueDiffer, KeyValueDiffers, Output, inject } from '@angular/core';
+import { MatButtonToggle, MatButtonToggleChange, MatButtonToggleGroup } from '@angular/material/button-toggle';
 import { MOVES, NATURES } from '@smogon/calc';
 import { AllPokemon } from 'src/data/all-pokemon';
 import { Items } from 'src/data/items';
@@ -10,15 +10,15 @@ import { SpeedCalculatorOptions } from 'src/lib/speed-calculator/speed-calculato
 import { speedMeta } from 'src/lib/speed-calculator/speed-meta';
 import { InputAutocompleteComponent } from '../input-autocomplete/input-autocomplete.component';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckbox } from '@angular/material/checkbox';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatOption } from '@angular/material/core';
+import { MatFormField } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
+import { MatSelect } from '@angular/material/select';
 import { MatTooltip } from '@angular/material/tooltip';
 import { EvSliderComponent } from '../ev-slider/ev-slider.component';
 import { SpeedScaleComponent } from '../speed-scale/speed-scale.component';
-import { MatFormField } from '@angular/material/form-field';
-import { MatSelect } from '@angular/material/select';
-import { MatOption } from '@angular/material/core';
-import { MatIcon } from '@angular/material/icon';
 
 @Component({
     selector: 'app-speed-calculator-mobile',
@@ -28,9 +28,15 @@ import { MatIcon } from '@angular/material/icon';
     imports: [InputAutocompleteComponent, MatCheckbox, ReactiveFormsModule, FormsModule, MatTooltip, EvSliderComponent, SpeedScaleComponent, MatFormField, MatSelect, MatOption, MatButtonToggleGroup, MatButtonToggle, MatIcon]
 })
 export class SpeedCalculatorMobileComponent {
-
   @Output() 
   dataChangedEvent = new EventEmitter<any>()
+  
+  data = inject(DataStore)
+  private differs = inject(KeyValueDiffers)
+  private differsStatusModifiers = inject(KeyValueDiffers)
+
+  private differ: KeyValueDiffer<string, any>
+  private differStatusModifiers: KeyValueDiffer<string, any>
 
   pokemon: Pokemon
   options: SpeedCalculatorOptions = new SpeedCalculatorOptions()
@@ -56,11 +62,6 @@ export class SpeedCalculatorMobileComponent {
     { value: -1, viewValue: "-1"}, { value: -2, viewValue: "-2"}, { value: -3, viewValue: "-3"},
     { value: -4, viewValue: "-4"}, { value: -5, viewValue: "-5"}, { value: -6, viewValue: "-6"},
   ]
-
-  private differ: KeyValueDiffer<string, any>
-  private differStatusModifiers: KeyValueDiffer<string, any>
-
-  constructor(public data: DataStore, private differs: KeyValueDiffers, private differsStatusModifiers: KeyValueDiffers) { }
 
   ngOnInit() {
     this.pokemon = this.data.defaultLeftPokemon()

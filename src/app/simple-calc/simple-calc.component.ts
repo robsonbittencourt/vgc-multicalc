@@ -1,14 +1,14 @@
-import { ChangeDetectorRef, Component, EventEmitter, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Output, inject } from '@angular/core';
 import { DamageCalculatorService } from 'src/lib/damage-calculator.service';
 import { DamageResult } from 'src/lib/damage-result';
 import { Move } from 'src/lib/move';
 import { Pokemon } from 'src/lib/pokemon';
 import { DataStore } from '../../lib/data-store.service';
 import { DamageResultComponent } from '../damage-result/damage-result.component';
-import { ImportPokemonButtonComponent } from '../import-pokemon-button/import-pokemon-button.component';
 import { ExportPokemonButtonComponent } from '../export-pokemon-button/export-pokemon-button.component';
-import { PokemonBuildComponent } from '../pokemon-build/pokemon-build.component';
 import { FieldComponent } from '../field/field.component';
+import { ImportPokemonButtonComponent } from '../import-pokemon-button/import-pokemon-button.component';
+import { PokemonBuildComponent } from '../pokemon-build/pokemon-build.component';
 
 @Component({
     selector: 'app-simple-calc',
@@ -18,17 +18,18 @@ import { FieldComponent } from '../field/field.component';
     imports: [DamageResultComponent, ImportPokemonButtonComponent, ExportPokemonButtonComponent, PokemonBuildComponent, FieldComponent]
 })
 export class SimpleCalcComponent {
+  @Output() 
+  dataChangedEvent = new EventEmitter<any>()
+  
+  data = inject(DataStore)
+  private damageCalculator = inject(DamageCalculatorService)
+  private cdr = inject(ChangeDetectorRef)
 
   leftDamageResults: DamageResult[]
   rightDamageResults: DamageResult[]
 
   leftDamageResult: DamageResult
   rightDamageResult: DamageResult
-
-  @Output() 
-  dataChangedEvent = new EventEmitter<any>()
-
-  constructor(public data: DataStore, private damageCalculator: DamageCalculatorService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.calculateDamage()

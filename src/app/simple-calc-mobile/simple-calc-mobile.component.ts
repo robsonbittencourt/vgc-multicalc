@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { DamageCalculatorService } from 'src/lib/damage-calculator.service';
 import { DamageResult } from 'src/lib/damage-result';
 import { Pokemon } from 'src/lib/pokemon';
@@ -8,8 +8,8 @@ import { PokemonComboBoxComponent } from '../pokemon-combo-box/pokemon-combo-box
 import { PokemonTabComponent } from '../pokemon-tab/pokemon-tab.component';
 
 import { MatIcon } from '@angular/material/icon';
-import { PokemonBuildMobileComponent } from '../pokemon-build-mobile/pokemon-build-mobile.component';
 import { FieldComponent } from '../field/field.component';
+import { PokemonBuildMobileComponent } from '../pokemon-build-mobile/pokemon-build-mobile.component';
 
 @Component({
     selector: 'app-simple-calc-mobile',
@@ -19,6 +19,11 @@ import { FieldComponent } from '../field/field.component';
     imports: [PokemonComboBoxComponent, PokemonTabComponent, MatIcon, PokemonBuildMobileComponent, FieldComponent]
 })
 export class SimpleCalcMobileComponent {
+  @Output() 
+  dataChangedEvent = new EventEmitter<any>()
+
+  data = inject(DataStore)
+  private damageCalculator = inject(DamageCalculatorService)
 
   activeOnEditPokemon: Pokemon
   activeAttackerPokemon: Pokemon
@@ -31,11 +36,6 @@ export class SimpleCalcMobileComponent {
 
   copyMessageEnabled = false
   
-  constructor(public data: DataStore, private damageCalculator: DamageCalculatorService) {}
-  
-  @Output() 
-  dataChangedEvent = new EventEmitter<any>()
-
   ngOnInit() {
     this.leftTeamMember = this.data.activeTeam().teamMembers()[0]
     this.rightTeamMember = this.data.targets[0]

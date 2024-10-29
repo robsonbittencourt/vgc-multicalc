@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { DamageCalculatorService } from 'src/lib/damage-calculator.service';
 import { defaultPokemon } from 'src/lib/default-pokemon';
 import { Pokemon } from 'src/lib/pokemon';
@@ -6,10 +6,10 @@ import { Target } from 'src/lib/target';
 import { Team } from 'src/lib/team';
 import { TeamMember } from 'src/lib/team-member';
 import { DataStore } from '../../lib/data-store.service';
-import { TeamComponent } from '../team/team.component';
-import { TeamsComponent } from '../teams/teams.component';
 import { FieldComponent } from '../field/field.component';
 import { TargetPokemonComponent } from '../target-pokemon/target-pokemon.component';
+import { TeamComponent } from '../team/team.component';
+import { TeamsComponent } from '../teams/teams.component';
 
 @Component({
     selector: 'app-multi-calc',
@@ -19,17 +19,15 @@ import { TargetPokemonComponent } from '../target-pokemon/target-pokemon.compone
     imports: [TeamComponent, TeamsComponent, FieldComponent, TargetPokemonComponent]
 })
 export class MultiCalcComponent {
+  @Output() 
+  dataChangedEvent = new EventEmitter<any>()
 
-  constructor(
-    public data: DataStore, private damageCalculator: DamageCalculatorService
-  ) {}
+  data = inject(DataStore);
+  private damageCalculator = inject(DamageCalculatorService);
 
   activeOnEditPokemon: Pokemon
   activeAttackerPokemon: Pokemon
   activeSecondAttacker?: Pokemon
-  
-  @Output() 
-  dataChangedEvent = new EventEmitter<any>()
   
   ngOnInit() {
     this.activeOnEditPokemon = this.data.activePokemon()
