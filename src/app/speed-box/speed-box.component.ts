@@ -1,7 +1,7 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, Input } from '@angular/core';
 import { SpeedDefinition } from 'src/lib/speed-calculator/speed-definition';
-import { NgIf, NgStyle } from '@angular/common';
+import { NgStyle } from '@angular/common';
 
 const visible = { transform: 'translateX(0)' };
 const timing = '500ms ease-in';
@@ -23,7 +23,7 @@ const timing = '500ms ease-in';
         ])
     ],
     standalone: true,
-    imports: [NgIf, NgStyle]
+    imports: [NgStyle]
 })
 export class SpeedBoxComponent {
 

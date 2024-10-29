@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { NgIf, NgFor } from '@angular/common';
+
 import { MatFormField, MatSuffix, MatLabel } from '@angular/material/form-field';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatInput } from '@angular/material/input';
@@ -12,7 +12,7 @@ import { MatSlider, MatSliderThumb } from '@angular/material/slider';
     templateUrl: './ev-slider.component.html',
     styleUrls: ['./ev-slider.component.scss'],
     standalone: true,
-    imports: [NgIf, MatFormField, MatSuffix, ReactiveFormsModule, MatInput, FormsModule, MatSelect, NgFor, MatOption, MatLabel, MatSlider, MatSliderThumb]
+    imports: [MatFormField, MatSuffix, ReactiveFormsModule, MatInput, FormsModule, MatSelect, MatOption, MatLabel, MatSlider, MatSliderThumb]
 })
 export class EvSliderComponent {
 

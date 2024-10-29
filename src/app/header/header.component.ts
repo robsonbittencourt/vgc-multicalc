@@ -3,7 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import { DataStore } from '../../lib/data-store.service';
-import { NgStyle, NgIf } from '@angular/common';
+import { NgStyle } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { MatButton } from '@angular/material/button';
 
@@ -12,7 +12,7 @@ import { MatButton } from '@angular/material/button';
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss'],
     standalone: true,
-    imports: [NgStyle, NgIf, MatIcon, MatButton]
+    imports: [NgStyle, MatIcon, MatButton]
 })
 export class HeaderComponent {
 

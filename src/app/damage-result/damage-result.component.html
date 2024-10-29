@@ -9,29 +9,33 @@
         <mat-button-toggle [checked]="rollLevelConfig.medium" (change)="activeMediumRoll()" data-cy="medium-roll">Medium</mat-button-toggle>
         <mat-button-toggle [checked]="rollLevelConfig.low" (change)="activeLowRoll()" data-cy="low-roll">Low</mat-button-toggle>
       </mat-button-toggle-group>
-    </div>    
+    </div>
   </div>
 
   <div class="moves-result" [ngStyle]="reverse && { 'order': -1 } || null" data-cy="moves">
     <mat-chip-listbox class="mat-mdc-chip-set-stacked" [(ngModel)]="selectedMove" (change)="moveChanged()">
-      <div class="move" *ngFor="let damageResult of damageResults" [ngStyle]="reverse && { 'flex-flow': 'row-reverse', 'margin-right': '0.8em' } || null">
-        <div class="chip-move" [ngStyle]="reverse && { 'margin-left': '0em', 'margin-right': '1em' } || null">
-          <mat-chip-option [selected]="pokemon.activeMoveName == damageResult.move" [disabled]="!damageResult.move" (click)="moveActivated(damageResult.move)">{{ damageResult.move }}</mat-chip-option>
+      @for (damageResult of damageResults; track damageResult) {
+        <div class="move" [ngStyle]="reverse && { 'flex-flow': 'row-reverse', 'margin-right': '0.8em' } || null">
+          <div class="chip-move" [ngStyle]="reverse && { 'margin-left': '0em', 'margin-right': '1em' } || null">
+            <mat-chip-option [selected]="pokemon.activeMoveName == damageResult.move" [disabled]="!damageResult.move" (click)="moveActivated(damageResult.move)">{{ damageResult.move }}</mat-chip-option>
+          </div>
+          <span data-cy="move-damage">{{ damageResult.result }}</span>
         </div>
-        <span data-cy="move-damage">{{ damageResult.result }}</span>
-      </div>
-    </mat-chip-listbox>        
+      }
+    </mat-chip-listbox>
   </div>
-  
+
   <div class="description-container">
     <div class="description-with-button">
       <span class="description-text" data-cy="move-damage-description">{{ activeDamageResult.description }}</span>
       <mat-icon class="copy-icon" (click)="copy(activeDamageResult.description)" matTooltip="Copy">content_copy</mat-icon>
-      <label *ngIf="copyMessageEnabled">Copied!</label>      
+      @if (copyMessageEnabled) {
+        <label>Copied!</label>
+      }
     </div>
     <div>
       <label class="label">Rolls: </label>
       <span data-cy="damage-rolls">{{ activeDamageResult.rolls }}</span>
-    </div>    
-  </div>      
+    </div>
+  </div>
 </div>

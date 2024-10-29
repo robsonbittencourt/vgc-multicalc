@@ -1,4 +1,6 @@
-<div class="delete-pokemon" *ngIf="show" [hidden]="hidden" (click)="importPokemon()" data-cy="import-pokemon">
-  <mat-icon>download</mat-icon>
-  <label>Import</label>
-</div>
+@if (show) {
+  <div class="delete-pokemon" [hidden]="hidden" (click)="importPokemon()" data-cy="import-pokemon">
+    <mat-icon>download</mat-icon>
+    <label>Import</label>
+  </div>
+}

@@ -11,7 +11,7 @@ import { TeamImportModalComponent } from '../team-import-modal/team-import-modal
 import { MatInput } from '@angular/material/input';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
-import { NgFor } from '@angular/common';
+
 import { TeamBoxComponent } from '../team-box/team-box.component';
 
 @Component({
@@ -19,7 +19,7 @@ import { TeamBoxComponent } from '../team-box/team-box.component';
     templateUrl: './teams.component.html',
     styleUrls: ['./teams.component.scss'],
     standalone: true,
-    imports: [MatInput, ReactiveFormsModule, FormsModule, MatButton, NgFor, TeamBoxComponent]
+    imports: [MatInput, ReactiveFormsModule, FormsModule, MatButton, TeamBoxComponent]
 })
 export class TeamsComponent {
 

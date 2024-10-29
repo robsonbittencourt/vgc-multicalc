@@ -9,7 +9,7 @@ import { Pokemon } from 'src/lib/pokemon';
 import { SpeedCalculatorOptions } from 'src/lib/speed-calculator/speed-calculator-options';
 import { speedMeta } from 'src/lib/speed-calculator/speed-meta';
 import { InputAutocompleteComponent } from '../input-autocomplete/input-autocomplete.component';
-import { NgIf, NgFor } from '@angular/common';
+
 import { MatCheckbox } from '@angular/material/checkbox';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -25,7 +25,7 @@ import { MatIcon } from '@angular/material/icon';
     templateUrl: './speed-calculator-mobile.component.html',
     styleUrls: ['./speed-calculator-mobile.component.scss'],
     standalone: true,
-    imports: [InputAutocompleteComponent, NgIf, MatCheckbox, ReactiveFormsModule, FormsModule, MatTooltip, EvSliderComponent, SpeedScaleComponent, MatFormField, MatSelect, NgFor, MatOption, MatButtonToggleGroup, MatButtonToggle, MatIcon]
+    imports: [InputAutocompleteComponent, MatCheckbox, ReactiveFormsModule, FormsModule, MatTooltip, EvSliderComponent, SpeedScaleComponent, MatFormField, MatSelect, MatOption, MatButtonToggleGroup, MatButtonToggle, MatIcon]
 })
 export class SpeedCalculatorMobileComponent {
 

@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Pokemon } from 'src/lib/pokemon';
 import { TeamExportModalComponent } from '../team-export-modal/team-export-modal.component';
-import { NgIf } from '@angular/common';
+
 import { MatIcon } from '@angular/material/icon';
 
 @Component({
@@ -11,7 +11,7 @@ import { MatIcon } from '@angular/material/icon';
     templateUrl: './export-pokemon-button.component.html',
     styleUrls: ['./export-pokemon-button.component.scss'],
     standalone: true,
-    imports: [NgIf, MatIcon]
+    imports: [MatIcon]
 })
 export class ExportPokemonButtonComponent {
 

@@ -3,27 +3,36 @@
     <div class="team-header">
       <span class="title">Your Team</span>
     </div>
-    
+
     <div class="tabs">
-      <app-pokemon-tab *ngFor="let teamMember of team.teamMembers()" [teamMember]="teamMember" (tabActivated)="activatePokemon($event)" [isSecondSelection]="isSecondSelection(teamMember)"/>  
+      @for (teamMember of team.teamMembers(); track teamMember) {
+        <app-pokemon-tab [teamMember]="teamMember" (tabActivated)="activatePokemon($event)" [isSecondSelection]="isSecondSelection(teamMember)"/>
+      }
     </div>
   </div>
 
   <div class="pokemon-actions">
     <app-import-pokemon-button [show]="canImportPokemon()" [hidden]="!teamMemberOnEdit()" (pokemonImportedEvent)="pokemonImported($event)" data-cy="import-pokemon-to-team"/>
-    
     <app-export-pokemon-button [show]="canImportPokemon()" [hidden]="!teamMemberOnEdit()" [pokemon]="pokemon" data-cy="export-pokemon-from-team"/>
 
-    <div *ngIf="canShowCombineButton()" [hidden]="!teamMemberOnEdit()" class="delete-pokemon" (click)="selectSecondAttacker()">
-      <mat-icon *ngIf="!secondSelectionActive()" data-cy="damage-combined-button">add_circle_outline</mat-icon>
-      <mat-icon *ngIf="secondSelectionActive()" data-cy="disable-damage-combined-button">add_circle</mat-icon>
-      <label>Combine Damage</label>
-    </div>
-    
-    <div *ngIf="canShowDeleteButton()" [hidden]="!teamMemberOnEdit()" class="delete-pokemon" (click)="removePokemon()" data-cy="delete-from-team-button">
-      <mat-icon>delete</mat-icon>
-      <label>Delete</label>
-    </div>
+    @if (canShowCombineButton()) {
+      <div [hidden]="!teamMemberOnEdit()" class="delete-pokemon" (click)="selectSecondAttacker()">
+        @if (secondSelectionActive()) {
+          <mat-icon data-cy="disable-damage-combined-button">add_circle</mat-icon>
+        }
+        @else {
+          <mat-icon data-cy="damage-combined-button">add_circle_outline</mat-icon>
+        }
+        <label>Combine Damage</label>
+      </div>
+    }
+
+    @if (canShowDeleteButton()) {
+      <div [hidden]="!teamMemberOnEdit()" class="delete-pokemon" (click)="removePokemon()" data-cy="delete-from-team-button">
+        <mat-icon>delete</mat-icon>
+        <label>Delete</label>
+      </div>
+    }
   </div>
 
   <app-pokemon-build [pokemon]="pokemon" (pokemonChangedEvent)="pokemonOnEditChanged($event)"/>

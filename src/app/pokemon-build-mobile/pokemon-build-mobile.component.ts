@@ -3,7 +3,7 @@ import { MOVES, NATURES, TYPE_CHART } from '@smogon/calc';
 import { Items } from 'src/data/items';
 import { Move } from 'src/lib/move';
 import { Pokemon } from 'src/lib/pokemon';
-import { NgIf } from '@angular/common';
+
 import { MatChipListbox, MatChipOption } from '@angular/material/chips';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
@@ -18,7 +18,7 @@ import { EvSliderComponent } from '../ev-slider/ev-slider.component';
     templateUrl: './pokemon-build-mobile.component.html',
     styleUrls: ['./pokemon-build-mobile.component.scss'],
     standalone: true,
-    imports: [NgIf, MatChipListbox, ReactiveFormsModule, FormsModule, MatChipOption, MatIcon, InputAutocompleteComponent, MatTooltip, MatCheckbox, AbilityComboBoxComponent, EvSliderComponent]
+    imports: [MatChipListbox, ReactiveFormsModule, FormsModule, MatChipOption, MatIcon, InputAutocompleteComponent, MatTooltip, MatCheckbox, AbilityComboBoxComponent, EvSliderComponent]
 })
 export class PokemonBuildMobileComponent {
 

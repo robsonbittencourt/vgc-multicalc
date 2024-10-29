@@ -15,7 +15,9 @@
       </div>
     </div>
     <div class="teams-boxes">
-      <app-team-box *ngFor="let team of teams" [team]="team" (teamActivated)="activateTeam($event)"/>
+      @for (team of teams; track team) {
+        <app-team-box [team]="team" (teamActivated)="activateTeam($event)"/>
+      }
     </div>
   </div>
 </div>

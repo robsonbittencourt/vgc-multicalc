@@ -1,13 +1,13 @@
 import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { Items } from 'src/data/items';
-import { NgStyle, NgIf } from '@angular/common';
+import { NgStyle } from '@angular/common';
 
 @Component({
     selector: 'app-pokemon-hp-badge',
     templateUrl: './pokemon-hp-badge.component.html',
     styleUrls: ['./pokemon-hp-badge.component.scss'],
     standalone: true,
-    imports: [NgStyle, NgIf]
+    imports: [NgStyle]
 })
 export class PokemonHpBadgeComponent implements AfterViewInit {
 

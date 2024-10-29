@@ -4,7 +4,7 @@ import { SpeedCalculatorOptions as SpeedScaleOptions } from 'src/lib/speed-calcu
 import { SpeedCalculatorService } from 'src/lib/speed-calculator/speed-calculator-service';
 import { SpeedDefinition } from 'src/lib/speed-calculator/speed-definition';
 import { DataStore } from '../../lib/data-store.service';
-import { NgFor } from '@angular/common';
+
 import { SpeedBoxComponent } from '../speed-box/speed-box.component';
 
 @Component({
@@ -12,7 +12,7 @@ import { SpeedBoxComponent } from '../speed-box/speed-box.component';
     templateUrl: './speed-scale.component.html',
     styleUrls: ['./speed-scale.component.scss'],
     standalone: true,
-    imports: [NgFor, SpeedBoxComponent]
+    imports: [SpeedBoxComponent]
 })
 export class SpeedScaleComponent {
 

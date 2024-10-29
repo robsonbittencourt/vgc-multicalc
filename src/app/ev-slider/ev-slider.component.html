@@ -1,24 +1,41 @@
 <div class="ev-slider-container">
-  <div class="stat-name" *ngIf="statName">
-    <label>{{ statName }}</label>
-  </div>
-  <div class="base-stat" *ngIf="baseStatValue">
-    <label>{{ baseStatValue }}</label>
-  </div>
+  @if (statName) {
+    <div class="stat-name">
+      <label>{{ statName }}</label>
+    </div>
+  }
+
+  @if (baseStatValue) {
+    <div class="base-stat">
+      <label>{{ baseStatValue }}</label>
+    </div>
+  }
   <div class="dense-2">
-    <mat-form-field appearance="outline" class="mat-ev-stat-modifier hp-percentage" *ngIf="!showStatsModifier()">
-      <span matTextSuffix *ngIf="baseStatValue">%</span>
-      <input class="ev-value-input" type="number" min="0" max="100" matInput (change)="hpPercentageChanged()" [(ngModel)]="hpPercentage" data-cy="hp-percentage-value">
-    </mat-form-field>
-    <mat-form-field appearance="outline" class="mat-ev-stat-modifier" *ngIf="showStatsModifier()">
-      <mat-select data-cy="stat-modifier" class="mat-small" [(value)]="statsModifier">
-        <mat-option class="mat-small" *ngFor="let statsModifier of statsModifiers" [value]="statsModifier.value">{{ statsModifier.viewValue }}</mat-option>
-      </mat-select>
-    </mat-form-field>
+    @if (!showStatsModifier()) {
+      <mat-form-field appearance="outline" class="mat-ev-stat-modifier hp-percentage">
+        @if (baseStatValue) {
+          <span matTextSuffix>%</span>
+        }
+        
+        <input class="ev-value-input" type="number" min="0" max="100" matInput (change)="hpPercentageChanged()" [(ngModel)]="hpPercentage" data-cy="hp-percentage-value">
+      </mat-form-field>
+    }
+    
+    @if (showStatsModifier()) {
+      <mat-form-field appearance="outline" class="mat-ev-stat-modifier">
+        <mat-select data-cy="stat-modifier" class="mat-small" [(value)]="statsModifier">
+          @for (statsModifier of statsModifiers; track statsModifier) {
+            <mat-option class="mat-small" [value]="statsModifier.value">{{ statsModifier.viewValue }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    }
   </div>
   <div class="ev-value dense-2">
     <mat-form-field appearance="outline" class="mat-ev-field">
-      <mat-label *ngIf="statNameAcronym">{{ statNameAcronym }}</mat-label>
+      @if (statNameAcronym) {
+        <mat-label>{{ statNameAcronym }}</mat-label>
+      }
       <input class="ev-value-input" type="number" min="0" max="252" matInput (change)="evChanged()" (input)="beforeEvChanged()" [(ngModel)]="ev" data-cy="ev-value">
     </mat-form-field>
   </div>
@@ -27,11 +44,13 @@
       <input matSliderThumb (change)="evChanged()" [(ngModel)]="ev" (input)="beforeEvChanged()">
     </mat-slider>
   </div>
-  <div class="ev-value dense-2" *ngIf="showIv">
-    <mat-form-field appearance="outline" class="mat-ev-field">
-      <input class="ev-value-input" type="number" min="0" max="31" matInput [(ngModel)]="iv" data-cy="iv-value">
-    </mat-form-field>
-  </div>
+  @if (showIv) {
+    <div class="ev-value dense-2">
+      <mat-form-field appearance="outline" class="mat-ev-field">
+        <input class="ev-value-input" type="number" min="0" max="31" matInput [(ngModel)]="iv" data-cy="iv-value">
+      </mat-form-field>
+    </div>
+  }
   <div class="stat-value">
     <label>{{ natureModifier() }}{{ statValue }}</label>
   </div>

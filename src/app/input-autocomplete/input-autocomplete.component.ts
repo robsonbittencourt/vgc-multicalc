@@ -3,7 +3,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { MatAutocompleteTrigger, MatAutocomplete } from '@angular/material/autocomplete';
-import { NgFor, AsyncPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { MatOption } from '@angular/material/core';
 
 export interface KeyValuePair {
@@ -18,13 +18,12 @@ export interface KeyValuePair {
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
     imports: [
-        ReactiveFormsModule,
-        MatAutocompleteTrigger,
-        MatAutocomplete,
-        NgFor,
-        MatOption,
-        AsyncPipe,
-    ],
+    ReactiveFormsModule,
+    MatAutocompleteTrigger,
+    MatAutocomplete,
+    MatOption,
+    AsyncPipe
+],
 })
 export class InputAutocompleteComponent {
 

@@ -19,8 +19,10 @@
     </div>
   </div>
   <div class="right-header">
-    <mat-icon class="copy-icon" *ngIf="userDataLink" (click)="copyUserDataLink()">content_copy</mat-icon>
-    <a class="calc-link" *ngIf="userDataLink" target="_blank" [href]="userDataLink">Link</a>
+    @if (userDataLink) {
+      <mat-icon class="copy-icon" (click)="copyUserDataLink()">content_copy</mat-icon>
+      <a class="calc-link" target="_blank" [href]="userDataLink">Link</a>
+    }
     <button mat-flat-button color="link" (click)="uploadData()">Share your calcs</button>
     <a target="_blank" href="https://twitter.com/rluizv"><img class="icon" src="assets/icons/twitter.png"/></a>
     <a target="_blank" href="https://github.com/robsonbittencourt/vgc-multicalc"><img class="icon" src="assets/icons/github.png"/></a>

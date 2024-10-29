@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DeviceDetectorService } from 'src/lib/device-detector.service';
 import { DataStore } from '../../lib/data-store.service';
-import { NgIf } from '@angular/common';
+
 import { HeaderComponent } from '../header/header.component';
 import { SimpleCalcComponent } from '../simple-calc/simple-calc.component';
 import { MultiCalcComponent } from '../multi-calc/multi-calc.component';
@@ -16,7 +16,7 @@ import { SpeedCalculatorMobileComponent } from '../speed-calculator-mobile/speed
     templateUrl: './main.component.html',
     styleUrls: ['./main.component.scss'],
     standalone: true,
-    imports: [NgIf, HeaderComponent, SimpleCalcComponent, MultiCalcComponent, SpeedCalculatorComponent, HeaderMobileComponent, SimpleCalcMobileComponent, SpeedCalculatorMobileComponent]
+    imports: [HeaderComponent, SimpleCalcComponent, MultiCalcComponent, SpeedCalculatorComponent, HeaderMobileComponent, SimpleCalcMobileComponent, SpeedCalculatorMobileComponent]
 })
 export class MainComponent {
 

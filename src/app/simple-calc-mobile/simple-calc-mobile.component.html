@@ -10,12 +10,18 @@
 
   <div class="damage-result">
     <div class="damage-result-text">
-      <span *ngIf="leftIsAttacker()">{{ attacker.name }} {{ attacker.activeMoveName }} vs {{ rightTeamMember.pokemon.name }}</span>
-      <span *ngIf="rightIsAttacker()">{{ attacker.name }} {{ attacker.activeMoveName }} vs {{ leftTeamMember.pokemon.name }}</span>
+      @if (leftIsAttacker()) {
+        <span>{{ attacker.name }} {{ attacker.activeMoveName }} vs {{ rightTeamMember.pokemon.name }}</span>
+      }
+      @if (rightIsAttacker()) {
+        <span>{{ attacker.name }} {{ attacker.activeMoveName }} vs {{ leftTeamMember.pokemon.name }}</span>
+      }
       <span>{{ damageResult.result }} - {{ damageResult.koChance }}</span>
     </div>
     <div class="copy-button">
-      <label *ngIf="copyMessageEnabled">Copied!</label> 
+      @if (copyMessageEnabled) {
+        <label>Copied!</label>
+      }
       <mat-icon class="copy-icon" (click)="copyDamageResult(damageResult)">content_copy</mat-icon>
     </div>
   </div>

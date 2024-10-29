@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TeamMember } from 'src/lib/team-member';
-import { NgStyle, NgIf } from '@angular/common';
+import { NgStyle } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 
 @Component({
@@ -8,7 +8,7 @@ import { MatIcon } from '@angular/material/icon';
     templateUrl: './pokemon-tab.component.html',
     styleUrls: ['./pokemon-tab.component.scss'],
     standalone: true,
-    imports: [NgStyle, NgIf, MatIcon]
+    imports: [NgStyle, MatIcon]
 })
 export class PokemonTabComponent {
 

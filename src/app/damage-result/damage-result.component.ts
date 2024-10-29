@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DamageResult } from 'src/lib/damage-result';
 import { Pokemon } from 'src/lib/pokemon';
 import { RollLevelConfig } from 'src/lib/roll-level-config';
-import { NgStyle, NgFor, NgIf } from '@angular/common';
+import { NgStyle } from '@angular/common';
 import { PokemonHpBadgeComponent } from '../pokemon-hp-badge/pokemon-hp-badge.component';
 import { MatButtonToggleGroup, MatButtonToggle } from '@angular/material/button-toggle';
 import { MatChipListbox, MatChipOption } from '@angular/material/chips';
@@ -15,7 +15,7 @@ import { MatTooltip } from '@angular/material/tooltip';
     templateUrl: './damage-result.component.html',
     styleUrls: ['./damage-result.component.scss'],
     standalone: true,
-    imports: [NgStyle, PokemonHpBadgeComponent, MatButtonToggleGroup, MatButtonToggle, MatChipListbox, ReactiveFormsModule, FormsModule, NgFor, MatChipOption, MatIcon, MatTooltip, NgIf]
+    imports: [NgStyle, PokemonHpBadgeComponent, MatButtonToggleGroup, MatButtonToggle, MatChipListbox, ReactiveFormsModule, FormsModule, MatChipOption, MatIcon, MatTooltip]
 })
 export class DamageResultComponent {
 

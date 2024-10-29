@@ -5,24 +5,28 @@
       <div class="progress" [ngStyle]="{ 'width.%': hpPercentage, 'background-color': hpBarColor }"></div>
       <span class="hp-value" data-cy="hp-value">{{ remainingHp }}/{{ hpBase }}</span>
     </div>
-  </div>      
+  </div>
   <div class="pokemon-image">
     <img #pokemonImage src='assets/sprites/pokemon-sv/{{ spriteName }}.png' (load)="onImageLoad()" [ngStyle]="remainingHp == 0 && { 'transform': 'scale(' + imageScale + ')', 'filter': 'brightness(70%)' } || { 'transform': 'scale(' + imageScale + ')' }">
-    <div class="fainted-icon" *ngIf="remainingHp == 0" data-cy="fainted-badge">
-      <div class="pokeball-icon">
-        <div class="line-left"></div>
-        <div class="line-right"></div>
-        <div class="pokeball-detail"></div>
-        <div class="pokeball-detail-right"></div>
-        <div class="pokeball-detail-bottom"></div>
-        <div class="pokeball-detail-bottom-right"></div>
+    @if (remainingHp == 0) {
+      <div class="fainted-icon" data-cy="fainted-badge">
+        <div class="pokeball-icon">
+          <div class="line-left"></div>
+          <div class="line-right"></div>
+          <div class="pokeball-detail"></div>
+          <div class="pokeball-detail-right"></div>
+          <div class="pokeball-detail-bottom"></div>
+          <div class="pokeball-detail-bottom-right"></div>
+        </div>
+        <div class="fainted-text">Fainted</div>
       </div>
-      <div class="fainted-text">Fainted</div>
-    </div>
+    }
   </div>
   <div class="level-item">
     <span class="level">Lv. 50</span>
-    <img src='assets/sprites/items/{{ item }}.png' class="icon-image" *ngIf="canShowItemImage()">
+    @if (canShowItemImage()) {
+      <img src='assets/sprites/items/{{ item }}.png' class="icon-image">
+    }
   </div>
   <div class="triangle"></div>
 </div>

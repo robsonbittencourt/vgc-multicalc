@@ -1,8 +1,10 @@
 <div class="form-row">
   <input type="text" [formControl]="formControl" [matAutocomplete]="autoPokemon" (click)="onClick()" (blur)="onBlur()">
   <mat-autocomplete #autoPokemon="matAutocomplete" hideSingleSelectionIndicator="true" (optionSelected)="onValueSelected($event.option.value)">
-    <mat-option *ngFor="let value of filteredValues | async" [value]="value.value" (mousedown)=$event.preventDefault()>
-      {{ value.key }}
-    </mat-option>
+    @for (value of filteredValues | async; track value.key) {
+      <mat-option [value]="value.value" (mousedown)=$event.preventDefault()>
+        {{ value.key }}
+      </mat-option>
+    }
   </mat-autocomplete>
 </div>

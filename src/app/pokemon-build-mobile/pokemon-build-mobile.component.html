@@ -1,61 +1,81 @@
 <div class="container">
   <div class="moves">
-    <div class="no-edit-moves" *ngIf="!editAttacks">
-      <mat-chip-listbox [(ngModel)]="selectedMove" (change)="moveChanged()">
-        <mat-chip-option *ngIf="pokemon.move1Name" [selected]="pokemon.move1Name == pokemon.activeMoveName" (click)="activateMove(1, pokemon.moveSet.move1)">{{ pokemon.move1Name }}</mat-chip-option>
-        <mat-chip-option *ngIf="pokemon.move2Name" [selected]="pokemon.move2Name == pokemon.activeMoveName" (click)="activateMove(2, pokemon.moveSet.move2)">{{ pokemon.move2Name }}</mat-chip-option>
-        <mat-chip-option *ngIf="pokemon.move3Name" [selected]="pokemon.move3Name == pokemon.activeMoveName" (click)="activateMove(3, pokemon.moveSet.move3)">{{ pokemon.move3Name }}</mat-chip-option>
-        <mat-chip-option *ngIf="pokemon.move4Name" [selected]="pokemon.move4Name == pokemon.activeMoveName" (click)="activateMove(4, pokemon.moveSet.move4)" >{{ pokemon.move4Name }}</mat-chip-option>
-        
-        <div class="edit-button-section">
-          <div *ngIf="!editAttacks" (click)="editMoves()" class="edit-button">
-            <mat-icon class="edit-icon">edit</mat-icon>Edit
+    @if (editAttacks) {
+      <div class="edit-moves">
+        <div>
+          <div class="check-input-section-input">
+            <app-input-autocomplete [(value)]="pokemon.moveSet.move1.name" [allValues]="allMoveNames"/>
           </div>
+        </div>
+        <div>
+          <div class="check-input-section-input">
+            <app-input-autocomplete [(value)]="pokemon.moveSet.move2.name" [allValues]="allMoveNames"/>
+          </div>
+        </div>
+        <div>
+          <div class="check-input-section-input">
+            <app-input-autocomplete [(value)]="pokemon.moveSet.move3.name" [allValues]="allMoveNames"/>
+          </div>
+        </div>
+        <div>
+          <div class="check-input-section-input">
+            <app-input-autocomplete [(value)]="pokemon.moveSet.move4.name" [allValues]="allMoveNames"/>
+          </div>
+        </div>
+        <div class="save-button" (click)="saveMoves()">
+          <mat-icon class="edit-icon">save</mat-icon>Save
+        </div>
+      </div>
+    }
+    @else {
+      <div class="no-edit-moves">
+        <mat-chip-listbox [(ngModel)]="selectedMove" (change)="moveChanged()">
+          @if (pokemon.move1Name) {
+            <mat-chip-option [selected]="pokemon.move1Name == pokemon.activeMoveName" (click)="activateMove(1, pokemon.moveSet.move1)">{{ pokemon.move1Name }}</mat-chip-option>
+          }
 
-          <div *ngIf="pokemon.moveSet.activeMove.name == 'Last Respects'" class="multihit">
-            <label>Fainted</label>
-            <app-input-autocomplete [(value)]="pokemon.moveSet.activeMove.alliesFainted" [allValues]="alliesFainted" (valueChange)="pokemonChanged()"/>
-          </div>
-          
-          <div *ngIf="pokemon.moveSet.activeMove.possibleHits.length > 0 && !editAttacks" class="multihit">
-            <label *ngIf="pokemon.activeMoveName != 'Rage Fist'">Hits</label>
-            <label *ngIf="pokemon.activeMoveName == 'Rage Fist'">Hits Taken</label>
-            <div class="hits-input">
-              <app-input-autocomplete [(value)]="pokemon.moveSet.activeMove.hits" [allValues]="pokemon.moveSet.activeMove.possibleHits" (valueChange)="pokemonChanged()"/>
+          @if (pokemon.move2Name) {
+            <mat-chip-option [selected]="pokemon.move2Name == pokemon.activeMoveName" (click)="activateMove(2, pokemon.moveSet.move2)">{{ pokemon.move2Name }}</mat-chip-option>
+          }
+
+          @if (pokemon.move3Name) {
+            <mat-chip-option [selected]="pokemon.move3Name == pokemon.activeMoveName" (click)="activateMove(3, pokemon.moveSet.move3)">{{ pokemon.move3Name }}</mat-chip-option>
+          }
+
+          @if (pokemon.move4Name) {
+            <mat-chip-option [selected]="pokemon.move4Name == pokemon.activeMoveName" (click)="activateMove(4, pokemon.moveSet.move4)" >{{ pokemon.move4Name }}</mat-chip-option>
+          }
+
+          <div class="edit-button-section">
+            <div (click)="editMoves()" class="edit-button">
+              <mat-icon class="edit-icon">edit</mat-icon>Edit
             </div>
-          </div>
-        </div>
-      </mat-chip-listbox>
-    </div>
-    <div class="edit-moves" *ngIf="editAttacks">
-      <div>
-        <div class="check-input-section-input">
-          <app-input-autocomplete [(value)]="pokemon.moveSet.move1.name" [allValues]="allMoveNames"/>
-        </div>
-      </div>
-      
-      <div>
-        <div class="check-input-section-input">
-          <app-input-autocomplete [(value)]="pokemon.moveSet.move2.name" [allValues]="allMoveNames"/>
-        </div>
-      </div>
-      
-      <div>
-        <div class="check-input-section-input">
-          <app-input-autocomplete [(value)]="pokemon.moveSet.move3.name" [allValues]="allMoveNames"/>
-        </div>
-      </div>
-      
-      <div>
-        <div class="check-input-section-input">
-          <app-input-autocomplete [(value)]="pokemon.moveSet.move4.name" [allValues]="allMoveNames"/>
-        </div>
-      </div>
 
-      <div class="save-button" (click)="saveMoves()">
-        <mat-icon class="edit-icon" *ngIf="editAttacks">save</mat-icon>Save
+            @if (pokemon.moveSet.activeMove.name == 'Last Respects') {
+              <div class="multihit">
+                <label>Fainted</label>
+                <app-input-autocomplete [(value)]="pokemon.moveSet.activeMove.alliesFainted" [allValues]="alliesFainted" (valueChange)="pokemonChanged()"/>
+              </div>
+            }            
+            
+            @if (pokemon.moveSet.activeMove.possibleHits.length > 0) {
+              <div class="multihit">
+                @if (pokemon.activeMoveName == 'Rage Fist') {
+                  <label>Hits Taken</label>
+                }
+                @else {
+                  <label>Hits</label>
+                }           
+                    
+                <div class="hits-input">
+                  <app-input-autocomplete [(value)]="pokemon.moveSet.activeMove.hits" [allValues]="pokemon.moveSet.activeMove.possibleHits" (valueChange)="pokemonChanged()"/>
+                </div>
+              </div>
+            }
+          </div>
+        </mat-chip-listbox>
       </div>
-    </div>
+    }
   </div>
 
   <div class="combo-options">
@@ -75,31 +95,51 @@
     </div>
 
     <div class="combo-option tera-type">
-      <button class="icon-button" (click)="terastalyzePokemon($event)" *ngIf="pokemon.teraTypeStorage" matTooltip="Terastal" [matTooltipShowDelay]="1000">
-        <img class="icon-tera" src="assets/icons/tera-icon.png" *ngIf="pokemon.teraTypeActive" />
-        <img class="icon-tera" src="assets/icons/tera-icon-gray.png" *ngIf="!pokemon.teraTypeActive" />
-      </button>
-      
+      @if (pokemon.teraTypeStorage) {
+        <button class="icon-button" (click)="terastalyzePokemon($event)" matTooltip="Terastal" [matTooltipShowDelay]="1000">
+          @if (pokemon.teraTypeActive) {
+            <img class="icon-tera" src="assets/icons/tera-icon.png" />
+          }
+          @else {
+            <img class="icon-tera" src="assets/icons/tera-icon-gray.png" />
+          }
+        </button>
+      }
+
       <div>
         <label >Tera Type</label>
-        <app-input-autocomplete [(value)]="pokemon.teraType" [allValues]="allTeraTypes" [disabled]="pokemon.isTerapagos()"/>          
+        <app-input-autocomplete [(value)]="pokemon.teraType" [allValues]="allTeraTypes" [disabled]="pokemon.isTerapagos()"/>
       </div>
     </div>
 
     <div class="combo-option ability">
-      <div class="ability-checkbox" *ngIf="pokemon.ability == 'Analytic' || pokemon.ability == 'Unburden'">
-        <mat-checkbox [(ngModel)]="pokemon.abilityOn"/>
-      </div>     
+      @if (pokemon.ability == 'Analytic' || pokemon.ability == 'Unburden') {
+        <div class="ability-checkbox">
+          <mat-checkbox [(ngModel)]="pokemon.abilityOn"/>
+        </div>
+      }
 
-      <button class="icon-button" (click)="toogleCommanderAbility()" *ngIf="pokemon.name == 'Dondozo'" matTooltip="Commander">
-        <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly.png" *ngIf="commanderActivated" />
-        <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly-gray.png" *ngIf="!commanderActivated" />
-      </button>
+      @if (pokemon.name == 'Dondozo') {
+        <button class="icon-button" (click)="toogleCommanderAbility()" matTooltip="Commander">
+          @if (commanderActivated) {
+            <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly.png" />
+          }
+          @else {
+            <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly-gray.png" />
+          }
+        </button>
+      }
 
-      <button class="icon-button" (click)="toogleParadoxAbility()" *ngIf="pokemon.isParadoxAbility()" matTooltip="Booster Energy">
-        <img class="icon-tatsugiri" src="assets/icons/booster-energy.png" *ngIf="pokemon.abilityOn" />
-        <img class="icon-tatsugiri" src="assets/icons/booster-energy-gray.png" *ngIf="!pokemon.abilityOn" />
-      </button>
+      @if (pokemon.isParadoxAbility()) {
+        <button class="icon-button" (click)="toogleParadoxAbility()" matTooltip="Booster Energy">
+          @if (pokemon.abilityOn) {
+            <img class="icon-tatsugiri" src="assets/icons/booster-energy.png" />
+          }
+          @else {
+            <img class="icon-tatsugiri" src="assets/icons/booster-energy-gray.png" />
+          }
+        </button>
+      }
 
       <div>
         <label>Ability</label>
@@ -111,19 +151,19 @@
   <div class="evs">
     <app-ev-slider statNameAcronym="HP" [statValue]="pokemon.hp" [showIv]="true" [(hpPercentage)]="pokemon.hpPercentage" [(ev)]="pokemon.evs.hp" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"
       [(iv)]="pokemon.ivs.hp" (ivChange)="onChangeIvValue()"/>
-        
-    <app-ev-slider statNameAcronym="ATK" [statValue]="pokemon.modifiedAtk()" [showIv]="true" [(ev)]="pokemon.evs.atk" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()" 
+
+    <app-ev-slider statNameAcronym="ATK" [statValue]="pokemon.modifiedAtk()" [showIv]="true" [(ev)]="pokemon.evs.atk" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"
       [(iv)]="pokemon.ivs.atk" (ivChange)="onChangeIvValue()" [(statsModifier)]="pokemon.boosts.atk" [nature]="pokemon.nature"/>
 
     <app-ev-slider statNameAcronym="DEF" [statValue]="pokemon.modifiedDef()" [showIv]="true" [(ev)]="pokemon.evs.def" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"
       [(iv)]="pokemon.ivs.def" (ivChange)="onChangeIvValue()" [(statsModifier)]="pokemon.boosts.def" [nature]="pokemon.nature"/>
-    
+
     <app-ev-slider statNameAcronym="SPA" [statValue]="pokemon.modifiedSpa()" [showIv]="true" [(ev)]="pokemon.evs.spa" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"
       [(iv)]="pokemon.ivs.spa" (ivChange)="onChangeIvValue()" [(statsModifier)]="pokemon.boosts.spa" [nature]="pokemon.nature"/>
-    
+
     <app-ev-slider statNameAcronym="SPD" [statValue]="pokemon.modifiedSpd()" [showIv]="true" [(ev)]="pokemon.evs.spd" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"
       [(iv)]="pokemon.ivs.spd" (ivChange)="onChangeIvValue()" [(statsModifier)]="pokemon.boosts.spd" [nature]="pokemon.nature"/>
-    
+
     <app-ev-slider statNameAcronym="SPE" [statValue]="pokemon.modifiedSpe()" [showIv]="true" [(ev)]="pokemon.evs.spe" (evChangedEvent)="onChangeEvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"
       [(iv)]="pokemon.ivs.spe" (ivChange)="onChangeIvValue()" [(statsModifier)]="pokemon.boosts.spe" [nature]="pokemon.nature"/>
   </div>

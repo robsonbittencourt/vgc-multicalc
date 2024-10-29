@@ -1,19 +1,29 @@
 <div class="container">
   <div class="header">
     <div class="title-damage-description">
-      <label class="title" *ngIf="!isAttacker">Opponent Defenders</label>
-      <label class="title" *ngIf="isAttacker">Opponent Attackers</label>
+      @if (isAttacker) {
+        <label class="title">Opponent Attackers</label>
+      }
+      @else {
+        <label class="title">Opponent Defenders</label>
+      }      
 
-      <div *ngIf="damageDescription()" class="damage-description">
-        <div>
-          <p>{{ damageDescription() }}</p>
-          <p *ngIf="rolls()">Rolls: {{ rolls() }}</p>
+      @if (damageDescription()) {
+        <div class="damage-description">
+          <div>
+            <p>{{ damageDescription() }}</p>
+            @if (rolls()) {
+              <p>Rolls: {{ rolls() }}</p>
+            }
+          </div>
+          <div class="copy-button">
+            <mat-icon class="copy-icon" (click)="copyDamageResult()">content_copy</mat-icon>
+            @if (copyMessageEnabled) {
+              <label>Copied!</label>
+            }
+          </div>
         </div>
-        <div class="copy-button">
-          <mat-icon class="copy-icon" (click)="copyDamageResult()">content_copy</mat-icon>
-          <label *ngIf="copyMessageEnabled">Copied!</label> 
-        </div>
-      </div>
+      }
     </div>
 
     <li class="form-row">
@@ -22,13 +32,15 @@
       <button mat-flat-button color="warn" (click)="removeAll()" data-cy="delete-opponent-pokemon-button">Remove all</button>
     </li>
   </div>
-    
+
   <div class="target-pokemon">
-    <div *ngFor="let target of targets">
-      <app-pokemon-card [target]="target" [canSelectSecondPokemon]="canSelectSecondPokemon()"
-        (targetActivated)="targetActivated($event)" (secondTargetActivated)="secondTargetActivated($event)"
-        (pokemonRemoved)="targetRemoved($event)" (targetChanged)="targetChanged($event)" [isAttacker]="isAttacker" [showDamageDescription]="showDamageDescription"/>  
+    @for (target of targets; track target) {
+      <app-pokemon-card [target]="target" [canSelectSecondPokemon]="canSelectSecondPokemon()" (targetActivated)="targetActivated($event)" (secondTargetActivated)="secondTargetActivated($event)"
+        (pokemonRemoved)="targetRemoved($event)" (targetChanged)="targetChanged($event)" [isAttacker]="isAttacker" [showDamageDescription]="showDamageDescription"/>
+    }
+
+    @if (!selectPokemonActive()) {
+      <app-add-pokemon-card (pokemonAddedToTeam)=addPokemonToTargets()/>
+    }
     </div>
-    <app-add-pokemon-card *ngIf="!selectPokemonActive()" (pokemonAddedToTeam)=addPokemonToTargets()/>
   </div>
-</div>
