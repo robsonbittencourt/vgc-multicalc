@@ -255,8 +255,8 @@ describe('SpeedCalculatorService', () => {
       expect(speedDefinition.value).toEqual(282)
     })
 
-    it('should return meta speed of booster Flutter Mane', () => {
-      const pokemon = new Pokemon("Flutter Mane", { nature: "Timid", evs: { spe: 124 }, item: "Booster Energy" })
+    it('should return meta speed of Protosynthesis Flutter Mane with ability activated', () => {
+      const pokemon = new Pokemon("Flutter Mane", { nature: "Timid", evs: { spe: 124 } })
       const field = new Field()
 
       const speedDefinition = service.maxBooster(pokemon, field)

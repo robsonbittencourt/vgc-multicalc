@@ -90,8 +90,8 @@ export class SmogonFunctions {
     const terrain = field.terrain
   
     return (
-      (pokemonSmogon.hasAbility('Protosynthesis') && (weather.includes('Sun') || pokemonSmogon.hasItem('Booster Energy') || pokemonSmogon.abilityOn)) ||
-      (pokemonSmogon.hasAbility('Quark Drive') && (terrain === 'Electric' || pokemonSmogon.hasItem('Booster Energy') || pokemonSmogon.abilityOn))
+      (pokemonSmogon.hasAbility('Protosynthesis') && (weather.includes('Sun') || pokemonSmogon.abilityOn)) ||
+      (pokemonSmogon.hasAbility('Quark Drive') && (terrain === 'Electric' || pokemonSmogon.abilityOn))
     )
   }
 

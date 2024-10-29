@@ -28,7 +28,7 @@ export class SpeedCalculatorService {
         speedDefinitions.push(this.maxScarf(p, field))
       }
 
-      if(p.item == 'Booster Energy') {
+      if(p.isParadoxAbility()) {
         speedDefinitions.push(this.maxBooster(p, field))
       }
     })
@@ -119,6 +119,7 @@ export class SpeedCalculatorService {
   }
 
   maxBooster(pokemon: Pokemon, field: Field): SpeedDefinition {
+    pokemon.abilityOn = true
     const speed = this.smogonService.getFinalSpeed(pokemon, field, field.defenderSide)
     const description = "Booster"
 
