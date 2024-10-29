@@ -1,10 +1,14 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TeamMember } from 'src/lib/team-member';
+import { NgStyle, NgIf } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-pokemon-tab',
-  templateUrl: './pokemon-tab.component.html',
-  styleUrls: ['./pokemon-tab.component.scss']
+    selector: 'app-pokemon-tab',
+    templateUrl: './pokemon-tab.component.html',
+    styleUrls: ['./pokemon-tab.component.scss'],
+    standalone: true,
+    imports: [NgStyle, NgIf, MatIcon]
 })
 export class PokemonTabComponent {
 

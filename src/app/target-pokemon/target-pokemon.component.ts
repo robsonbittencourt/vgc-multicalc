@@ -7,11 +7,18 @@ import { Target } from 'src/lib/target';
 import { SnackbarService } from '../../lib/snackbar.service';
 import { TeamExportModalComponent } from '../team-export-modal/team-export-modal.component';
 import { TeamImportModalComponent } from '../team-import-modal/team-import-modal.component';
+import { NgIf, NgFor } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
+import { MatButton } from '@angular/material/button';
+import { PokemonCardComponent } from '../pokemon-card/pokemon-card.component';
+import { AddPokemonCardComponent } from '../add-pokemon-card/add-pokemon-card.component';
 
 @Component({
-  selector: 'app-target-pokemon',
-  templateUrl: './target-pokemon.component.html',
-  styleUrls: ['./target-pokemon.component.scss']
+    selector: 'app-target-pokemon',
+    templateUrl: './target-pokemon.component.html',
+    styleUrls: ['./target-pokemon.component.scss'],
+    standalone: true,
+    imports: [NgIf, MatIcon, MatButton, NgFor, PokemonCardComponent, AddPokemonCardComponent]
 })
 export class TargetPokemonComponent {
 

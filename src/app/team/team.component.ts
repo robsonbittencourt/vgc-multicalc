@@ -3,11 +3,20 @@ import { defaultPokemon } from 'src/lib/default-pokemon';
 import { Team } from 'src/lib/team';
 import { TeamMember } from 'src/lib/team-member';
 import { Pokemon } from '../../lib/pokemon';
+import { NgFor, NgIf } from '@angular/common';
+import { PokemonTabComponent } from '../pokemon-tab/pokemon-tab.component';
+import { ImportPokemonButtonComponent } from '../import-pokemon-button/import-pokemon-button.component';
+import { ExportPokemonButtonComponent } from '../export-pokemon-button/export-pokemon-button.component';
+import { MatIcon } from '@angular/material/icon';
+import { PokemonBuildComponent } from '../pokemon-build/pokemon-build.component';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-team',
-  templateUrl: './team.component.html',
-  styleUrls: ['./team.component.scss']
+    selector: 'app-team',
+    templateUrl: './team.component.html',
+    styleUrls: ['./team.component.scss'],
+    standalone: true,
+    imports: [NgFor, PokemonTabComponent, ImportPokemonButtonComponent, ExportPokemonButtonComponent, NgIf, MatIcon, PokemonBuildComponent, RouterOutlet]
 })
 export class TeamComponent {
 

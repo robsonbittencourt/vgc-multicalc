@@ -6,11 +6,22 @@ import { Items } from 'src/data/items'
 import { Natures } from 'src/data/natures'
 import { Move } from 'src/lib/move'
 import { Pokemon } from 'src/lib/pokemon'
+import { NgIf, NgStyle } from '@angular/common';
+import { PokemonComboBoxComponent } from '../pokemon-combo-box/pokemon-combo-box.component';
+import { InputAutocompleteComponent } from '../input-autocomplete/input-autocomplete.component';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { AbilityComboBoxComponent } from '../ability-combo-box/ability-combo-box.component';
+import { EvSliderComponent } from '../ev-slider/ev-slider.component';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-pokemon-build',
-  templateUrl: './pokemon-build.component.html',
-  styleUrls: ['./pokemon-build.component.scss']
+    selector: 'app-pokemon-build',
+    templateUrl: './pokemon-build.component.html',
+    styleUrls: ['./pokemon-build.component.scss'],
+    standalone: true,
+    imports: [NgIf, PokemonComboBoxComponent, NgStyle, InputAutocompleteComponent, MatTooltip, MatCheckbox, ReactiveFormsModule, FormsModule, AbilityComboBoxComponent, EvSliderComponent, RouterOutlet]
 })
 export class PokemonBuildComponent {
 

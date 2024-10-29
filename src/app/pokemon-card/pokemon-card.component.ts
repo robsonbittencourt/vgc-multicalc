@@ -1,10 +1,16 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Target } from 'src/lib/target';
+import { MatCard, MatCardTitleGroup, MatCardTitle, MatCardSubtitle, MatCardMdImage } from '@angular/material/card';
+import { NgStyle, NgIf } from '@angular/common';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-pokemon-card',
-  templateUrl: './pokemon-card.component.html',
-  styleUrls: ['./pokemon-card.component.scss']
+    selector: 'app-pokemon-card',
+    templateUrl: './pokemon-card.component.html',
+    styleUrls: ['./pokemon-card.component.scss'],
+    standalone: true,
+    imports: [MatCard, NgStyle, MatCardTitleGroup, MatCardTitle, NgIf, MatCardSubtitle, MatTooltip, MatIcon, MatCardMdImage]
 })
 export class PokemonCardComponent {
 

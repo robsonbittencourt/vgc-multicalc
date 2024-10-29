@@ -1,5 +1,5 @@
 import { Component, EventEmitter, KeyValueDiffer, KeyValueDiffers, Output } from '@angular/core';
-import { MatButtonToggleChange } from '@angular/material/button-toggle';
+import { MatButtonToggleChange, MatButtonToggleGroup, MatButtonToggle } from '@angular/material/button-toggle';
 import { MOVES, NATURES } from '@smogon/calc';
 import { AllPokemon } from 'src/data/all-pokemon';
 import { Items } from 'src/data/items';
@@ -8,11 +8,24 @@ import { DataStore } from 'src/lib/data-store.service';
 import { Pokemon } from 'src/lib/pokemon';
 import { SpeedCalculatorOptions } from 'src/lib/speed-calculator/speed-calculator-options';
 import { speedMeta } from 'src/lib/speed-calculator/speed-meta';
+import { InputAutocompleteComponent } from '../input-autocomplete/input-autocomplete.component';
+import { NgIf, NgFor } from '@angular/common';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatTooltip } from '@angular/material/tooltip';
+import { EvSliderComponent } from '../ev-slider/ev-slider.component';
+import { SpeedScaleComponent } from '../speed-scale/speed-scale.component';
+import { MatFormField } from '@angular/material/form-field';
+import { MatSelect } from '@angular/material/select';
+import { MatOption } from '@angular/material/core';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-speed-calculator-mobile',
-  templateUrl: './speed-calculator-mobile.component.html',
-  styleUrls: ['./speed-calculator-mobile.component.scss']
+    selector: 'app-speed-calculator-mobile',
+    templateUrl: './speed-calculator-mobile.component.html',
+    styleUrls: ['./speed-calculator-mobile.component.scss'],
+    standalone: true,
+    imports: [InputAutocompleteComponent, NgIf, MatCheckbox, ReactiveFormsModule, FormsModule, MatTooltip, EvSliderComponent, SpeedScaleComponent, MatFormField, MatSelect, NgFor, MatOption, MatButtonToggleGroup, MatButtonToggle, MatIcon]
 })
 export class SpeedCalculatorMobileComponent {
 

@@ -1,27 +1,29 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, Input } from '@angular/core';
 import { SpeedDefinition } from 'src/lib/speed-calculator/speed-definition';
+import { NgIf, NgStyle } from '@angular/common';
 
 const visible = { transform: 'translateX(0)' };
 const timing = '500ms ease-in';
 
 @Component({
-  selector: 'app-speed-box',
-  templateUrl: './speed-box.component.html',
-  styleUrls: ['./speed-box.component.scss'],
-  animations: [
-    trigger('openClose',[
-      transition(':enter', [
-        style({ transform: 'translateX({{ leaveEnd }})' }),
-        animate(timing, style(visible))
-      ],
-      { 
-        params: {
-          leaveEnd: ''
-        }
-      })
-    ])
-  ]
+    selector: 'app-speed-box',
+    templateUrl: './speed-box.component.html',
+    styleUrls: ['./speed-box.component.scss'],
+    animations: [
+        trigger('openClose', [
+            transition(':enter', [
+                style({ transform: 'translateX({{ leaveEnd }})' }),
+                animate(timing, style(visible))
+            ], {
+                params: {
+                    leaveEnd: ''
+                }
+            })
+        ])
+    ],
+    standalone: true,
+    imports: [NgIf, NgStyle]
 })
 export class SpeedBoxComponent {
 

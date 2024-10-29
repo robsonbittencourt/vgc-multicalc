@@ -1,11 +1,13 @@
 import { Component, EventEmitter, KeyValueDiffer, KeyValueDiffers, Output } from '@angular/core';
-import { MatButtonToggleChange } from '@angular/material/button-toggle';
+import { MatButtonToggleChange, MatButtonToggleGroup, MatButtonToggle } from '@angular/material/button-toggle';
 import { DataStore } from '../../lib/data-store.service';
 
 @Component({
-  selector: 'app-field',
-  templateUrl: './field.component.html',
-  styleUrls: ['./field.component.scss']
+    selector: 'app-field',
+    templateUrl: './field.component.html',
+    styleUrls: ['./field.component.scss'],
+    standalone: true,
+    imports: [MatButtonToggleGroup, MatButtonToggle]
 })
 export class FieldComponent {
 

@@ -4,11 +4,18 @@ import { DamageResult } from 'src/lib/damage-result';
 import { Move } from 'src/lib/move';
 import { Pokemon } from 'src/lib/pokemon';
 import { DataStore } from '../../lib/data-store.service';
+import { DamageResultComponent } from '../damage-result/damage-result.component';
+import { ImportPokemonButtonComponent } from '../import-pokemon-button/import-pokemon-button.component';
+import { ExportPokemonButtonComponent } from '../export-pokemon-button/export-pokemon-button.component';
+import { PokemonBuildComponent } from '../pokemon-build/pokemon-build.component';
+import { FieldComponent } from '../field/field.component';
 
 @Component({
-  selector: 'app-simple-calc',
-  templateUrl: './simple-calc.component.html',
-  styleUrls: ['./simple-calc.component.scss']
+    selector: 'app-simple-calc',
+    templateUrl: './simple-calc.component.html',
+    styleUrls: ['./simple-calc.component.scss'],
+    standalone: true,
+    imports: [DamageResultComponent, ImportPokemonButtonComponent, ExportPokemonButtonComponent, PokemonBuildComponent, FieldComponent]
 })
 export class SimpleCalcComponent {
 

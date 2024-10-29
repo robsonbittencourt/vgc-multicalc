@@ -4,11 +4,23 @@ import { SpeedCalculatorOptions } from 'src/lib/speed-calculator/speed-calculato
 import { speedMeta } from 'src/lib/speed-calculator/speed-meta';
 import { Team } from 'src/lib/team';
 import { DataStore } from '../../lib/data-store.service';
+import { TeamComponent } from '../team/team.component';
+import { TeamsComponent } from '../teams/teams.component';
+import { FieldComponent } from '../field/field.component';
+import { InputAutocompleteComponent } from '../input-autocomplete/input-autocomplete.component';
+import { MatFormField } from '@angular/material/form-field';
+import { MatSelect } from '@angular/material/select';
+import { NgFor } from '@angular/common';
+import { MatOption } from '@angular/material/core';
+import { MatButtonToggleGroup, MatButtonToggle } from '@angular/material/button-toggle';
+import { SpeedScaleComponent } from '../speed-scale/speed-scale.component';
 
 @Component({
-  selector: 'app-speed-calculator',
-  templateUrl: './speed-calculator.component.html',
-  styleUrls: ['./speed-calculator.component.scss']
+    selector: 'app-speed-calculator',
+    templateUrl: './speed-calculator.component.html',
+    styleUrls: ['./speed-calculator.component.scss'],
+    standalone: true,
+    imports: [TeamComponent, TeamsComponent, FieldComponent, InputAutocompleteComponent, MatFormField, MatSelect, NgFor, MatOption, MatButtonToggleGroup, MatButtonToggle, SpeedScaleComponent]
 })
 export class SpeedCalculatorComponent {
 

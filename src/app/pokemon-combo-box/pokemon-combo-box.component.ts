@@ -3,11 +3,14 @@ import { AllPokemon } from 'src/data/all-pokemon';
 import { SETDEX_SV } from 'src/data/movesets';
 import { MoveSet } from 'src/lib/moveset';
 import { Pokemon } from 'src/lib/pokemon';
+import { InputAutocompleteComponent } from '../input-autocomplete/input-autocomplete.component';
 
 @Component({
-  selector: 'app-pokemon-combo-box',
-  templateUrl: './pokemon-combo-box.component.html',
-  styleUrls: ['./pokemon-combo-box.component.scss']
+    selector: 'app-pokemon-combo-box',
+    templateUrl: './pokemon-combo-box.component.html',
+    styleUrls: ['./pokemon-combo-box.component.scss'],
+    standalone: true,
+    imports: [InputAutocompleteComponent]
 })
 export class PokemonComboBoxComponent {
 

@@ -8,11 +8,18 @@ import { TeamMember } from 'src/lib/team-member';
 import { SnackbarService } from '../../lib/snackbar.service';
 import { TeamExportModalComponent } from '../team-export-modal/team-export-modal.component';
 import { TeamImportModalComponent } from '../team-import-modal/team-import-modal.component';
+import { MatInput } from '@angular/material/input';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
+import { NgFor } from '@angular/common';
+import { TeamBoxComponent } from '../team-box/team-box.component';
 
 @Component({
-  selector: 'app-teams',
-  templateUrl: './teams.component.html',
-  styleUrls: ['./teams.component.scss']
+    selector: 'app-teams',
+    templateUrl: './teams.component.html',
+    styleUrls: ['./teams.component.scss'],
+    standalone: true,
+    imports: [MatInput, ReactiveFormsModule, FormsModule, MatButton, NgFor, TeamBoxComponent]
 })
 export class TeamsComponent {
 

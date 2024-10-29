@@ -4,11 +4,15 @@ import { MatDialog } from '@angular/material/dialog';
 import { PokePasteParserService } from 'src/lib/poke-paste-parser.service';
 import { Pokemon } from 'src/lib/pokemon';
 import { TeamImportModalComponent } from '../team-import-modal/team-import-modal.component';
+import { NgIf } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-import-pokemon-button',
-  templateUrl: './import-pokemon-button.component.html',
-  styleUrls: ['./import-pokemon-button.component.scss']
+    selector: 'app-import-pokemon-button',
+    templateUrl: './import-pokemon-button.component.html',
+    styleUrls: ['./import-pokemon-button.component.scss'],
+    standalone: true,
+    imports: [NgIf, MatIcon]
 })
 export class ImportPokemonButtonComponent {
 

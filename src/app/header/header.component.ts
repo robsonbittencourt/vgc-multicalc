@@ -3,11 +3,16 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import { DataStore } from '../../lib/data-store.service';
+import { NgStyle, NgIf } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
+import { MatButton } from '@angular/material/button';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.scss'],
+    standalone: true,
+    imports: [NgStyle, NgIf, MatIcon, MatButton]
 })
 export class HeaderComponent {
 

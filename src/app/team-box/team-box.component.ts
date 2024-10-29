@@ -1,10 +1,13 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Team } from 'src/lib/team';
+import { NgStyle, NgFor, NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-team-box',
-  templateUrl: './team-box.component.html',
-  styleUrls: ['./team-box.component.scss']
+    selector: 'app-team-box',
+    templateUrl: './team-box.component.html',
+    styleUrls: ['./team-box.component.scss'],
+    standalone: true,
+    imports: [NgStyle, NgFor, NgIf]
 })
 export class TeamBoxComponent {
 

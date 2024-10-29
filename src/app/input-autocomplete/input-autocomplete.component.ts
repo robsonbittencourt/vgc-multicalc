@@ -1,7 +1,10 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { MatAutocompleteTrigger, MatAutocomplete } from '@angular/material/autocomplete';
+import { NgFor, AsyncPipe } from '@angular/common';
+import { MatOption } from '@angular/material/core';
 
 export interface KeyValuePair {
   key: string
@@ -9,10 +12,19 @@ export interface KeyValuePair {
 }
 
 @Component({
-  selector: 'app-input-autocomplete',
-  templateUrl: './input-autocomplete.component.html',
-  styleUrls: ['./input-autocomplete.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-input-autocomplete',
+    templateUrl: './input-autocomplete.component.html',
+    styleUrls: ['./input-autocomplete.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [
+        ReactiveFormsModule,
+        MatAutocompleteTrigger,
+        MatAutocomplete,
+        NgFor,
+        MatOption,
+        AsyncPipe,
+    ],
 })
 export class InputAutocompleteComponent {
 

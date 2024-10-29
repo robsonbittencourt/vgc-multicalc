@@ -4,11 +4,19 @@ import { DamageResult } from 'src/lib/damage-result';
 import { Pokemon } from 'src/lib/pokemon';
 import { TeamMember } from 'src/lib/team-member';
 import { DataStore } from '../../lib/data-store.service';
+import { PokemonComboBoxComponent } from '../pokemon-combo-box/pokemon-combo-box.component';
+import { PokemonTabComponent } from '../pokemon-tab/pokemon-tab.component';
+import { NgIf } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
+import { PokemonBuildMobileComponent } from '../pokemon-build-mobile/pokemon-build-mobile.component';
+import { FieldComponent } from '../field/field.component';
 
 @Component({
-  selector: 'app-simple-calc-mobile',
-  templateUrl: './simple-calc-mobile.component.html',
-  styleUrls: ['./simple-calc-mobile.component.scss']
+    selector: 'app-simple-calc-mobile',
+    templateUrl: './simple-calc-mobile.component.html',
+    styleUrls: ['./simple-calc-mobile.component.scss'],
+    standalone: true,
+    imports: [PokemonComboBoxComponent, PokemonTabComponent, NgIf, MatIcon, PokemonBuildMobileComponent, FieldComponent]
 })
 export class SimpleCalcMobileComponent {
 

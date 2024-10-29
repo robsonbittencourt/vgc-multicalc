@@ -6,11 +6,17 @@ import { Target } from 'src/lib/target';
 import { Team } from 'src/lib/team';
 import { TeamMember } from 'src/lib/team-member';
 import { DataStore } from '../../lib/data-store.service';
+import { TeamComponent } from '../team/team.component';
+import { TeamsComponent } from '../teams/teams.component';
+import { FieldComponent } from '../field/field.component';
+import { TargetPokemonComponent } from '../target-pokemon/target-pokemon.component';
 
 @Component({
-  selector: 'app-multi-calc',
-  templateUrl: './multi-calc.component.html',
-  styleUrls: ['./multi-calc.component.scss']
+    selector: 'app-multi-calc',
+    templateUrl: './multi-calc.component.html',
+    styleUrls: ['./multi-calc.component.scss'],
+    standalone: true,
+    imports: [TeamComponent, TeamsComponent, FieldComponent, TargetPokemonComponent]
 })
 export class MultiCalcComponent {
 

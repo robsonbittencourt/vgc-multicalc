@@ -2,11 +2,21 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DeviceDetectorService } from 'src/lib/device-detector.service';
 import { DataStore } from '../../lib/data-store.service';
+import { NgIf } from '@angular/common';
+import { HeaderComponent } from '../header/header.component';
+import { SimpleCalcComponent } from '../simple-calc/simple-calc.component';
+import { MultiCalcComponent } from '../multi-calc/multi-calc.component';
+import { SpeedCalculatorComponent } from '../speed-calculator/speed-calculator.component';
+import { HeaderMobileComponent } from '../header-mobile/header-mobile.component';
+import { SimpleCalcMobileComponent } from '../simple-calc-mobile/simple-calc-mobile.component';
+import { SpeedCalculatorMobileComponent } from '../speed-calculator-mobile/speed-calculator-mobile.component';
 
 @Component({
-  selector: 'app-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss']
+    selector: 'app-main',
+    templateUrl: './main.component.html',
+    styleUrls: ['./main.component.scss'],
+    standalone: true,
+    imports: [NgIf, HeaderComponent, SimpleCalcComponent, MultiCalcComponent, SpeedCalculatorComponent, HeaderMobileComponent, SimpleCalcMobileComponent, SpeedCalculatorMobileComponent]
 })
 export class MainComponent {
 
