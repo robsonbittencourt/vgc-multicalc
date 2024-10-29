@@ -95,7 +95,6 @@ export class PokemonBuildComponent {
   }
 
   terastalyzePokemon(event: Event) {
-    event.stopPropagation()
     if (this.pokemon.isTerapagos()) return 
 
     const teraActived = !this.pokemon.teraTypeActive
