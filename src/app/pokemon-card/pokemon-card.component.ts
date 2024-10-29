@@ -42,7 +42,7 @@ export class PokemonCardComponent {
     event.stopPropagation()
     this.target.pokemon.commanderActivated = !this.commanderActivated
     this.commanderActivated = !this.commanderActivated
-    this.targetChanged.emit()
+    this.targetChanged.emit(this.target)
   }
 
   removePokemon() {
