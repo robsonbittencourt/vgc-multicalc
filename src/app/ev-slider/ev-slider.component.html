@@ -7,7 +7,7 @@
   </div>
   <div class="dense-2">
     <mat-form-field appearance="outline" class="mat-ev-stat-modifier hp-percentage" *ngIf="!showStatsModifier()">
-      <span matTextSuffix>%</span>
+      <span matTextSuffix *ngIf="baseStatValue">%</span>
       <input class="ev-value-input" type="number" min="0" max="100" matInput (change)="hpPercentageChanged()" [(ngModel)]="hpPercentage" data-cy="hp-percentage-value">
     </mat-form-field>
     <mat-form-field appearance="outline" class="mat-ev-stat-modifier" *ngIf="showStatsModifier()">
