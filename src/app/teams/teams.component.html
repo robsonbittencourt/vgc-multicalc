@@ -15,7 +15,7 @@
       </div>
     </div>
     <div class="teams-boxes">
-      @for (team of teams; track team) {
+      @for (team of teams(); track team) {
         <app-team-box [team]="team" (teamActivated)="activateTeam($event)"/>
       }
     </div>

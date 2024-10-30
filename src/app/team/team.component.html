@@ -5,7 +5,7 @@
     </div>
 
     <div class="tabs">
-      @for (teamMember of team.teamMembers(); track teamMember) {
+      @for (teamMember of team().teamMembers(); track teamMember) {
         <app-pokemon-tab [teamMember]="teamMember" (tabActivated)="activatePokemon($event)" [isSecondSelection]="isSecondSelection(teamMember)"/>
       }
     </div>

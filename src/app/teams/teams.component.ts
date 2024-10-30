@@ -1,5 +1,5 @@
 import { NoopScrollStrategy } from '@angular/cdk/overlay';
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
@@ -15,18 +15,17 @@ import { TeamImportModalComponent } from '../team-import-modal/team-import-modal
 import { TeamBoxComponent } from '../team-box/team-box.component';
 
 @Component({
-    selector: 'app-teams',
-    templateUrl: './teams.component.html',
-    styleUrls: ['./teams.component.scss'],
-    standalone: true,
-    imports: [MatInput, ReactiveFormsModule, FormsModule, MatButton, TeamBoxComponent]
+  selector: 'app-teams',
+  templateUrl: './teams.component.html',
+  styleUrls: ['./teams.component.scss'],
+  standalone: true,
+  imports: [MatInput, ReactiveFormsModule, FormsModule, MatButton, TeamBoxComponent]
 })
 export class TeamsComponent {
-  @Input() 
-  teams: Team[]
+  
+  teams = input.required<Team[]>()
 
-  @Output() 
-  teamChanged = new EventEmitter<Team>()
+  teamChanged = output<Team>()
 
   private pokePasteService = inject(PokePasteParserService)
   private snackBar = inject(SnackbarService)
@@ -39,7 +38,7 @@ export class TeamsComponent {
   }
 
   activeTeam(): Team {
-    return this.teams.find(t => t.active)!
+    return this.teams().find(t => t.active)!
   }
 
   async addFromPokePaste() {
@@ -52,7 +51,7 @@ export class TeamsComponent {
       if(!result) return
 
       const pokemonList = await this.pokePasteService.parse(result)
-      const teamToImport = this.teams.find(t => t.onlyHasDefaultPokemon()) ?? this.teams[this.teams.length - 1]
+      const teamToImport = this.teams().find(t => t.onlyHasDefaultPokemon()) ?? this.teams()[this.teams.length - 1]
       teamToImport.deleteAll()
 
       for (let index = 0; index < pokemonList.length; index++) {
@@ -68,7 +67,7 @@ export class TeamsComponent {
   }
 
   activateTeam(team: Team) {
-    this.teams.forEach(t => t.active = false)
+    this.teams().forEach(t => t.active = false)
     team.active = true
     this.team = team
 
