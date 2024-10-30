@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, inject } from '@angular/core';
+import { Component, inject, output } from '@angular/core';
 import { DamageCalculatorService } from 'src/lib/damage-calculator.service';
 import { defaultPokemon } from 'src/lib/default-pokemon';
 import { Pokemon } from 'src/lib/pokemon';
@@ -12,15 +12,15 @@ import { TeamComponent } from '../team/team.component';
 import { TeamsComponent } from '../teams/teams.component';
 
 @Component({
-    selector: 'app-multi-calc',
-    templateUrl: './multi-calc.component.html',
-    styleUrls: ['./multi-calc.component.scss'],
-    standalone: true,
-    imports: [TeamComponent, TeamsComponent, FieldComponent, TargetPokemonComponent]
+  selector: 'app-multi-calc',
+  templateUrl: './multi-calc.component.html',
+  styleUrls: ['./multi-calc.component.scss'],
+  standalone: true,
+  imports: [TeamComponent, TeamsComponent, FieldComponent, TargetPokemonComponent]
 })
 export class MultiCalcComponent {
-  @Output() 
-  dataChangedEvent = new EventEmitter<any>()
+  
+  dataChangedEvent = output()
 
   data = inject(DataStore);
   private damageCalculator = inject(DamageCalculatorService);

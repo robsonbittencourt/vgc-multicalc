@@ -1,5 +1,5 @@
-@if (show) {
-  <div class="delete-pokemon" [hidden]="hidden" (click)="exportPokemon()">
+@if (show()) {
+  <div class="delete-pokemon" [hidden]="hidden()" (click)="exportPokemon()">
     <mat-icon>upload</mat-icon>
     <label>Export</label>
   </div>

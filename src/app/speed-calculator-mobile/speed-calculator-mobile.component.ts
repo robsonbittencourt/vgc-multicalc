@@ -1,4 +1,4 @@
-import { Component, EventEmitter, KeyValueDiffer, KeyValueDiffers, Output, inject } from '@angular/core';
+import { Component, KeyValueDiffer, KeyValueDiffers, inject, output } from '@angular/core';
 import { MatButtonToggle, MatButtonToggleChange, MatButtonToggleGroup } from '@angular/material/button-toggle';
 import { MOVES, NATURES } from '@smogon/calc';
 import { AllPokemon } from 'src/data/all-pokemon';
@@ -21,15 +21,15 @@ import { EvSliderComponent } from '../ev-slider/ev-slider.component';
 import { SpeedScaleComponent } from '../speed-scale/speed-scale.component';
 
 @Component({
-    selector: 'app-speed-calculator-mobile',
-    templateUrl: './speed-calculator-mobile.component.html',
-    styleUrls: ['./speed-calculator-mobile.component.scss'],
-    standalone: true,
-    imports: [InputAutocompleteComponent, MatCheckbox, ReactiveFormsModule, FormsModule, MatTooltip, EvSliderComponent, SpeedScaleComponent, MatFormField, MatSelect, MatOption, MatButtonToggleGroup, MatButtonToggle, MatIcon]
+  selector: 'app-speed-calculator-mobile',
+  templateUrl: './speed-calculator-mobile.component.html',
+  styleUrls: ['./speed-calculator-mobile.component.scss'],
+  standalone: true,
+  imports: [InputAutocompleteComponent, MatCheckbox, ReactiveFormsModule, FormsModule, MatTooltip, EvSliderComponent, SpeedScaleComponent, MatFormField, MatSelect, MatOption, MatButtonToggleGroup, MatButtonToggle, MatIcon]
 })
 export class SpeedCalculatorMobileComponent {
-  @Output() 
-  dataChangedEvent = new EventEmitter<any>()
+  
+  dataChangedEvent = output()
   
   data = inject(DataStore)
   private differs = inject(KeyValueDiffers)
@@ -76,7 +76,7 @@ export class SpeedCalculatorMobileComponent {
     const boostsChanged = this.differStatusModifiers.diff(this.pokemon.boosts) 
     
     if (pokemonChanged || boostsChanged) {
-      this.dataChangedEvent.emit(this.pokemon)
+      this.dataChangedEvent.emit()
     }
   }
  

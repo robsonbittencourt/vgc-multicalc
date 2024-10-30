@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, inject } from '@angular/core';
+import { Component, inject, output } from '@angular/core';
 import { DamageCalculatorService } from 'src/lib/damage-calculator.service';
 import { DamageResult } from 'src/lib/damage-result';
 import { Pokemon } from 'src/lib/pokemon';
@@ -12,15 +12,15 @@ import { FieldComponent } from '../field/field.component';
 import { PokemonBuildMobileComponent } from '../pokemon-build-mobile/pokemon-build-mobile.component';
 
 @Component({
-    selector: 'app-simple-calc-mobile',
-    templateUrl: './simple-calc-mobile.component.html',
-    styleUrls: ['./simple-calc-mobile.component.scss'],
-    standalone: true,
-    imports: [PokemonComboBoxComponent, PokemonTabComponent, MatIcon, PokemonBuildMobileComponent, FieldComponent]
+  selector: 'app-simple-calc-mobile',
+  templateUrl: './simple-calc-mobile.component.html',
+  styleUrls: ['./simple-calc-mobile.component.scss'],
+  standalone: true,
+  imports: [PokemonComboBoxComponent, PokemonTabComponent, MatIcon, PokemonBuildMobileComponent, FieldComponent]
 })
 export class SimpleCalcMobileComponent {
-  @Output() 
-  dataChangedEvent = new EventEmitter<any>()
+  
+  dataChangedEvent = output()
 
   data = inject(DataStore)
   private damageCalculator = inject(DamageCalculatorService)

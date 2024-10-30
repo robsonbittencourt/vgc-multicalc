@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Output, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, output } from '@angular/core';
 import { DamageCalculatorService } from 'src/lib/damage-calculator.service';
 import { DamageResult } from 'src/lib/damage-result';
 import { Move } from 'src/lib/move';
@@ -11,15 +11,15 @@ import { ImportPokemonButtonComponent } from '../import-pokemon-button/import-po
 import { PokemonBuildComponent } from '../pokemon-build/pokemon-build.component';
 
 @Component({
-    selector: 'app-simple-calc',
-    templateUrl: './simple-calc.component.html',
-    styleUrls: ['./simple-calc.component.scss'],
-    standalone: true,
-    imports: [DamageResultComponent, ImportPokemonButtonComponent, ExportPokemonButtonComponent, PokemonBuildComponent, FieldComponent]
+  selector: 'app-simple-calc',
+  templateUrl: './simple-calc.component.html',
+  styleUrls: ['./simple-calc.component.scss'],
+  standalone: true,
+  imports: [DamageResultComponent, ImportPokemonButtonComponent, ExportPokemonButtonComponent, PokemonBuildComponent, FieldComponent]
 })
 export class SimpleCalcComponent {
-  @Output() 
-  dataChangedEvent = new EventEmitter<any>()
+  
+  dataChangedEvent = output()
   
   data = inject(DataStore)
   private damageCalculator = inject(DamageCalculatorService)

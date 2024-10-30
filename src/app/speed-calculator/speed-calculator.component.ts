@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, inject } from '@angular/core';
+import { Component, inject, output } from '@angular/core';
 import { MatFormField } from '@angular/material/form-field';
 import { MatSelect } from '@angular/material/select';
 import { Pokemon } from 'src/lib/pokemon';
@@ -16,20 +16,19 @@ import { MatOption } from '@angular/material/core';
 import { SpeedScaleComponent } from '../speed-scale/speed-scale.component';
 
 @Component({
-    selector: 'app-speed-calculator',
-    templateUrl: './speed-calculator.component.html',
-    styleUrls: ['./speed-calculator.component.scss'],
-    standalone: true,
-    imports: [TeamComponent, TeamsComponent, FieldComponent, InputAutocompleteComponent, MatFormField, MatSelect, MatOption, MatButtonToggleGroup, MatButtonToggle, SpeedScaleComponent]
+  selector: 'app-speed-calculator',
+  templateUrl: './speed-calculator.component.html',
+  styleUrls: ['./speed-calculator.component.scss'],
+  standalone: true,
+  imports: [TeamComponent, TeamsComponent, FieldComponent, InputAutocompleteComponent, MatFormField, MatSelect, MatOption, MatButtonToggleGroup, MatButtonToggle, SpeedScaleComponent]
 })
 export class SpeedCalculatorComponent {
+  
+  dataChangedEvent = output()
+
   data = inject(DataStore);
 
   pokemon: Pokemon
-
-  @Output() 
-  dataChangedEvent = new EventEmitter<any>()
-
   options: SpeedCalculatorOptions = new SpeedCalculatorOptions()
 
   regulationsList: string[] = ["Reg G", "Reg H"]

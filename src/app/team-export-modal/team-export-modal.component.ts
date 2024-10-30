@@ -4,11 +4,11 @@ import { MatButton } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle } from '@angular/material/dialog';
 
 @Component({
-    selector: 'app-team-export-modal',
-    templateUrl: './team-export-modal.component.html',
-    styleUrls: ['./team-export-modal.component.scss'],
-    standalone: true,
-    imports: [MatDialogTitle, CdkScrollable, MatDialogContent, MatDialogActions, MatButton, MatDialogClose]
+  selector: 'app-team-export-modal',
+  templateUrl: './team-export-modal.component.html',
+  styleUrls: ['./team-export-modal.component.scss'],
+  standalone: true,
+  imports: [MatDialogTitle, CdkScrollable, MatDialogContent, MatDialogActions, MatButton, MatDialogClose]
 })
 export class TeamExportModalComponent {
   data = inject(MAT_DIALOG_DATA)
