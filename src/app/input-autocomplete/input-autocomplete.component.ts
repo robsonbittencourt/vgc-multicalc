@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { AsyncPipe } from '@angular/common';
+import { Component, effect, input, model } from '@angular/core';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatAutocomplete, MatAutocompleteTrigger } from '@angular/material/autocomplete';
+import { MatOption } from '@angular/material/core';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { MatAutocompleteTrigger, MatAutocomplete } from '@angular/material/autocomplete';
-import { AsyncPipe } from '@angular/common';
-import { MatOption } from '@angular/material/core';
 
 export interface KeyValuePair {
   key: string
@@ -12,110 +12,86 @@ export interface KeyValuePair {
 }
 
 @Component({
-    selector: 'app-input-autocomplete',
-    templateUrl: './input-autocomplete.component.html',
-    styleUrls: ['./input-autocomplete.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
-    imports: [
+  selector: 'app-input-autocomplete',
+  templateUrl: './input-autocomplete.component.html',
+  styleUrls: ['./input-autocomplete.component.scss'],
+  standalone: true,
+  imports: [
+    FormsModule,
     ReactiveFormsModule,
     MatAutocompleteTrigger,
     MatAutocomplete,
     MatOption,
     AsyncPipe
-],
+  ]
 })
 export class InputAutocompleteComponent {
 
-  adjustedValues: KeyValuePair[] = []
+  value = model.required<string>()
 
-  valueStorage: string
+  allValues = input.required({
+    transform: this.adjustAllValuesInput
+  })
+
+  disabled = input(false)
+
   formControl: FormControl
   filteredValues: Observable<KeyValuePair[]>
+  actualFilteredValues: KeyValuePair[]  
   
-  actualFilteredValues: KeyValuePair[]
-  
-  @Input()
-  get value(): string {
-    return this.valueStorage
-  }
-
-  @Output()
-  valueChange = new EventEmitter<string>()
-
-  @Output()
-  valueManuallySelected = new EventEmitter<string>()
-
-  @Input()
-  disabled: boolean
-
-  set value(value: string) {
-    this.valueStorage = value
-    this.formControl?.setValue(value)
-    this.valueChange.emit(this.valueStorage)
-  }
-
-  @Input()
-  get allValues(): string[] | KeyValuePair[] {
-    return this.adjustedValues
-  }
-
-  set allValues(allValues: string[] | KeyValuePair[]) {
-    if (typeof allValues[0] === "string") {
-      this.adjustedValues = allValues.map(x => ({ key: x, value: x } as KeyValuePair))
-    } else {
-      this.adjustedValues = allValues as KeyValuePair[]
-    }
+  constructor() {
+    effect(() => this.formControl.setValue(this.value()))
+    
+    effect(() => this.disabled() ? this.formControl.disable() : this.formControl?.enable())
   }
 
   ngOnInit() {
-    this.formControl = new FormControl(this.valueStorage)
+    this.formControl = new FormControl(this.value())
 
     this.filteredValues = this.formControl.valueChanges.pipe(
       startWith(''),
-      map(value => this.filter(value || '', this.adjustedValues))
+      map(value => this.filter(value || '', this.allValues()))
     )
 
     this.filteredValues.subscribe(x => {
       this.actualFilteredValues = x
     })
   }
-
-  ngOnChanges() {
-    if(this.disabled) {
-      this.formControl.disable()
-    } else {
-      this.formControl?.enable()
-    }
-  }
   
   onClick() {
-    this.valueStorage = this.formControl.value ? this.formControl.value : ''
     this.formControl.setValue('')
   }
 
   onBlur() {
     if (!this.formControl.value) {
-      this.formControl.setValue(this.valueStorage)
+      this.formControl.setValue(this.value())
     } else {
       this.onValueSelected(this.actualFilteredValues[0].value)
     }
   }
 
   onValueSelected(selectedValue: string) {
-    this.value = selectedValue
+    this.value.set(selectedValue)
     this.formControl.setValue(selectedValue)
-    this.valueManuallySelected.emit(this.valueStorage)
+  }
+
+  private adjustAllValuesInput(value: string[] | KeyValuePair[]): KeyValuePair[] {
+    if (typeof value[0] === "string") {
+      return value.map(x => ({ key: x, value: x } as KeyValuePair))
+    } else {
+      return value as KeyValuePair[]
+    }
   }
 
   private filter(value: string, values: KeyValuePair[]): KeyValuePair[] {
     if (!values) return []
+    
     const filterValue = this.normalizeValue(value)
     return values.filter(v => this.normalizeValue(v.key).startsWith(filterValue))
   }
 
   private normalizeValue(value: string): string {
     return value.toLowerCase().replace(/\s/g, '')        
-  } 
+  }
 
 }

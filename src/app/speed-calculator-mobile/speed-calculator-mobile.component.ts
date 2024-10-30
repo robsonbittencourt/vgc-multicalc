@@ -65,6 +65,7 @@ export class SpeedCalculatorMobileComponent {
 
   ngOnInit() {
     this.pokemon = this.data.defaultLeftPokemon()
+    this.availableAbilities = AllPokemon.instance.abilitiesByName(this.pokemon.name)
     this.differ = this.differs.find(this.pokemon).create()
     this.differStatusModifiers = this.differsStatusModifiers.find(this.pokemon.boosts).create()
     this.pokemonNamesByReg = speedMeta(this.options.regulation).map(s => s.name).sort()
