@@ -32,24 +32,24 @@ export class SimpleCalcMobileComponent {
     this.leftTeamMember = this.data.activeTeam().teamMembers()[0]
     this.rightTeamMember = this.data.targets[0]
     this.attacker = this.leftTeamMember.pokemon
-    this.calculateDamage(this.attacker)
+    this.calculateDamage()
   }
 
   pokemonOnEditChanged(pokemon: Pokemon) {
-    this.calculateDamage(pokemon)    
+    this.calculateDamage()    
     this.dataChangedEvent.emit()
   }
 
   fieldChanged() {
-    this.calculateDamage(this.attacker)
+    this.calculateDamage()
     this.dataChangedEvent.emit()
   }
 
-  private calculateDamage(pokemon: Pokemon) {
+  private calculateDamage() {
     if(this.leftIsAttacker()) {
-      this.damageResult = this.damageCalculator.calcDamage(pokemon, this.data.targets[0].pokemon)
+      this.damageResult = this.damageCalculator.calcDamage(this.leftTeamMember.pokemon, this.rightTeamMember.pokemon)
     } else {
-      this.damageResult = this.damageCalculator.calcDamage(this.data.targets[0].pokemon, pokemon)
+      this.damageResult = this.damageCalculator.calcDamage(this.rightTeamMember.pokemon, this.leftTeamMember.pokemon)
     }
   }
 
