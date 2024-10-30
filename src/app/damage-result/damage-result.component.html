@@ -14,7 +14,7 @@
 
   <div class="moves-result" [ngStyle]="reverse && { 'order': -1 } || null" data-cy="moves">
     <mat-chip-listbox class="mat-mdc-chip-set-stacked" [(ngModel)]="selectedMove" (change)="moveChanged()">
-      @for (damageResult of damageResults; track damageResult) {
+      @for (damageResult of damageResults; let i = $index; track i) {
         <div class="move" [ngStyle]="reverse && { 'flex-flow': 'row-reverse', 'margin-right': '0.8em' } || null">
           <div class="chip-move" [ngStyle]="reverse && { 'margin-left': '0em', 'margin-right': '1em' } || null">
             <mat-chip-option [selected]="pokemon.activeMoveName == damageResult.move" [disabled]="!damageResult.move" (click)="moveActivated(damageResult.move)">{{ damageResult.move }}</mat-chip-option>
