@@ -141,7 +141,7 @@ export class SpeedScaleComponent {
       }
 
       this.verifyChanges(this.inSpeedRange)
-    }, 200)    
+    }, 100)    
   }
 
   verifyChanges(actualSpeedRange: SpeedDefinition[]) {
