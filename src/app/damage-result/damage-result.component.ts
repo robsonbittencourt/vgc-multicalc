@@ -1,97 +1,64 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { NgStyle } from '@angular/common';
+import { Component, computed, input, output } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonToggle, MatButtonToggleGroup } from '@angular/material/button-toggle';
+import { MatChipListbox, MatChipOption } from '@angular/material/chips';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
 import { DamageResult } from 'src/lib/damage-result';
 import { Pokemon } from 'src/lib/pokemon';
 import { RollLevelConfig } from 'src/lib/roll-level-config';
-import { NgStyle } from '@angular/common';
 import { PokemonHpBadgeComponent } from '../pokemon-hp-badge/pokemon-hp-badge.component';
-import { MatButtonToggleGroup, MatButtonToggle } from '@angular/material/button-toggle';
-import { MatChipListbox, MatChipOption } from '@angular/material/chips';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { MatIcon } from '@angular/material/icon';
-import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
-    selector: 'app-damage-result',
-    templateUrl: './damage-result.component.html',
-    styleUrls: ['./damage-result.component.scss'],
-    standalone: true,
-    imports: [NgStyle, PokemonHpBadgeComponent, MatButtonToggleGroup, MatButtonToggle, MatChipListbox, ReactiveFormsModule, FormsModule, MatChipOption, MatIcon, MatTooltip]
+  selector: 'app-damage-result',
+  templateUrl: './damage-result.component.html',
+  styleUrls: ['./damage-result.component.scss'],
+  standalone: true,
+  imports: [NgStyle, PokemonHpBadgeComponent, MatButtonToggleGroup, MatButtonToggle, MatChipListbox, ReactiveFormsModule, FormsModule, MatChipOption, MatIcon, MatTooltip]
 })
 export class DamageResultComponent {
 
-  selectedMove: string
+  pokemon = input.required<Pokemon>()
+  damageResults = input.required<DamageResult[]>()
+  opponentDamageResult = input.required<DamageResult>()
+  rollLevelConfig = input.required<RollLevelConfig>()
 
-  activeDamageResult: DamageResult
-  _opponentDamageResult: DamageResult
+  reverse = input(false)
 
-  _damageResults: DamageResult[]
-  damageTaken: number
-    
-  actualHp: number
-  hpPercentage: number
-  hpBarColor: string
+  moveSetChange = output<string>()
+  rollLevelChange = output<RollLevelConfig>()
 
+  activeDamageResult = computed(() => {
+    const active = this.damageResults().find(result => result.move == this.pokemon().activeMoveName)
+    return active ? active : this.damageResults()[0]
+  })
+
+  damageTaken = computed(() => this.damageTakenByRoll(this.opponentDamageResult(), this.rollLevelConfig()))
+
+  selectedMove = ""
   copyMessageEnabled = false
-  imageScale: number = 1.2
-
-  timeoutId: any
-
-  @Input()
-  pokemon: Pokemon
-
-  @Input()
-  reverse: boolean
-
-  @Input()
-  rollLevelConfig: RollLevelConfig
-
-  @Input()
-  get damageResults(): DamageResult[] {
-    return this._damageResults
+  
+  ngOnInit() {
+    this.selectedMove = this.pokemon().activeMoveName
   }
 
-  public set damageResults(damageResults: DamageResult[]) {
-    if (this._damageResults) {
-      clearTimeout(this.timeoutId)
-      this.timeoutId = setTimeout(() => this.setResults(damageResults), 80)   
-    } else {
-      this.setResults(damageResults)
-    }
+  moveSelected(move: string) {
+    if (move) {
+      this.moveSetChange.emit(move)
+    } 
+  }
+  
+  activateHighRoll() {
+    this.rollLevelChange.emit(RollLevelConfig.high())
   }
 
-  @Input()
-  get opponentDamageResult(): DamageResult {
-    return this._opponentDamageResult
+  activateMediumRoll() {
+    this.rollLevelChange.emit(RollLevelConfig.medium())
   }
 
-  public set opponentDamageResult(opponentDamageResult: DamageResult) {
-    this._opponentDamageResult = opponentDamageResult
-    this.damageTaken = this.damageTakenByRoll(opponentDamageResult)
-  }
-
-  @Output() 
-  moveActivatedEvent = new EventEmitter<any>()
-
-  @Output() 
-  rollLevelChangedEvent = new EventEmitter<any>()
-
-  private setResults(damageResults: DamageResult[]) {
-    this._damageResults = damageResults
-    this.activeDamageResult = damageResults.find(result => result.move == this.pokemon.move.name)!
-  }
-
-  moveActivated(moveName: string) {
-    this.pokemon.moveSet.activeMoveByName(moveName)
-    this.activeDamageResult = this.damageResults.find(result => result.move == moveName)!
-    this.moveActivatedEvent.emit()
-  }
-
-  moveChanged() {
-    setTimeout(() => {
-      if (!this.selectedMove) {
-        this.selectedMove = this.activeDamageResult.move
-      }
-    }, 0)
+  activateLowRoll() {
+    this.rollLevelChange.emit(RollLevelConfig.low())
   }
 
   copy(text: string) {
@@ -103,39 +70,12 @@ export class DamageResultComponent {
     }, 2000)
   }
 
-  activeHighRoll() {
-    this.rollLevelConfig.high = true
-    this.rollLevelConfig.medium = false
-    this.rollLevelConfig.low = false
-    this.damageTaken = this.damageTakenByRoll(this._opponentDamageResult)
-    
-    this.rollLevelChangedEvent.emit()
-  }
-
-  activeMediumRoll() {
-    this.rollLevelConfig.high = false
-    this.rollLevelConfig.medium = true
-    this.rollLevelConfig.low = false
-    this.damageTaken = this.damageTakenByRoll(this._opponentDamageResult)
-
-    this.rollLevelChangedEvent.emit()
-  }
-
-  activeLowRoll() {
-    this.rollLevelConfig.high = false
-    this.rollLevelConfig.medium = false
-    this.rollLevelConfig.low = true
-    this.damageTaken = this.damageTakenByRoll(this._opponentDamageResult)
-
-    this.rollLevelChangedEvent.emit()
-  }
-
-  private damageTakenByRoll(damageResult: DamageResult): number {
-    if(this.rollLevelConfig.high) {
+  private damageTakenByRoll(damageResult: DamageResult, rollLevelConfig: RollLevelConfig): number {
+    if(rollLevelConfig.high) {
       return damageResult.rolls![15]
     }
 
-    if(this.rollLevelConfig.medium) {
+    if(rollLevelConfig.medium) {
       return damageResult.rolls![7]
     }
 

@@ -42,7 +42,7 @@ export class Pokemon {
       evs: options.evs,
       ivs: options.ivs,
       boosts: options.boosts,
-      status: options.status as StatusName,
+      status: this.statusConditionCode(options.status ?? 'Healthy'),
       level: 50
     })
 
@@ -188,7 +188,7 @@ export class Pokemon {
 
   public set status(status: string) {
     this.statusStorage = status
-    this.pokemonSmogon.status = this.statusConditionCode(status)
+    this.pokemonSmogon = this.buildPokemonSmogon({}, status = this.statusConditionCode(status))
   }
 
   statusConditionCode(status: string): StatusName {
@@ -229,6 +229,13 @@ export class Pokemon {
     } else {
       this.pokemonSmogon = this.buildPokemonSmogon({ teraType: undefined, teraTypeActive: false })
     }
+  }
+
+  public activateMove(move: string): Pokemon {
+    const newPokemon = this.clone()
+    newPokemon.moveSet.activeMoveByName(move)
+
+    return newPokemon
   }
 
   public get moveSet(): MoveSet {
@@ -348,7 +355,7 @@ export class Pokemon {
   }
 
   public clone(): Pokemon {
-    return new Pokemon(this.name, { ability: this.ability, abilityOn: this.abilityOn, nature: this.nature, item: this.item, teraType: this.teraTypeStorage, teraTypeActive: this.teraTypeActive, evs: this.evs, moveSet: this.moveSetStorage.clone(), boosts: this.boosts, status: this.statusConditionCode(this.status) })
+    return new Pokemon(this.name, { ability: this.ability, abilityOn: this.abilityOn, nature: this.nature, item: this.item, teraType: this.teraTypeStorage, teraTypeActive: this.teraTypeActive, evs: this.evs, moveSet: this.moveSetStorage.clone(), boosts: this.boosts, status: this.status })
   }
 
   public equals(toCompare: Pokemon): boolean {
@@ -428,7 +435,7 @@ export class Pokemon {
       evs: evs ? evs : this.pokemonSmogon.evs,
       ivs: ivs ? ivs : this.pokemonSmogon.ivs,
       boosts: boosts ? boosts : this.pokemonSmogon.boosts,
-      status: status ? status : this.pokemonSmogon.status,
+      status: status != undefined ? status : this.pokemonSmogon.status,
       originalCurHP: hpValue ? hpValue : this.pokemonSmogon.originalCurHP,
       level: 50
     })

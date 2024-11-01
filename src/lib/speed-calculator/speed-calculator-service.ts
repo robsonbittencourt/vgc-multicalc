@@ -88,7 +88,7 @@ export class SpeedCalculatorService {
     clonedPokemon.item = "Leftovers"
     clonedPokemon.evs = { spe: 0 }
     clonedPokemon.ivs = isTrickRoomPokemon ? { spe: 0 } : { spe: 31 }
-
+    
     const speed = this.smogonService.getFinalSpeed(clonedPokemon, field, field.defenderSide)
 
     return new SpeedDefinition(clonedPokemon.name, speed, "Min")

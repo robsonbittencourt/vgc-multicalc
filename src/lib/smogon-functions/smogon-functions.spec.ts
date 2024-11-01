@@ -60,7 +60,7 @@ describe('SmogonFunctions', () => {
   })
 
   it('should return the Pokémon speed when paralyzed', () => {
-    const pokemon = new Pokemon('Raging Bolt', { evs: { spe: 100 }, status: 'par' })
+    const pokemon = new Pokemon('Raging Bolt', { evs: { spe: 100 }, status: 'Paralysis' })
     
     const finalSpeed = service.getFinalSpeed(pokemon)
 

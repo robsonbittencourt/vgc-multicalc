@@ -1,8 +1,9 @@
-import { ChangeDetectorRef, Component, inject, output } from '@angular/core';
+import { Component, inject, output, signal } from '@angular/core';
 import { DamageCalculatorService } from 'src/lib/damage-calculator.service';
 import { DamageResult } from 'src/lib/damage-result';
 import { Move } from 'src/lib/move';
 import { Pokemon } from 'src/lib/pokemon';
+import { RollLevelConfig } from 'src/lib/roll-level-config';
 import { DataStore } from '../../lib/data-store.service';
 import { DamageResultComponent } from '../damage-result/damage-result.component';
 import { ExportPokemonButtonComponent } from '../export-pokemon-button/export-pokemon-button.component';
@@ -23,10 +24,9 @@ export class SimpleCalcComponent {
   
   data = inject(DataStore)
   private damageCalculator = inject(DamageCalculatorService)
-  private cdr = inject(ChangeDetectorRef)
-
-  leftDamageResults: DamageResult[]
-  rightDamageResults: DamageResult[]
+  
+  leftDamageResults = signal<DamageResult[]>([])
+  rightDamageResults = signal<DamageResult[]>([])
 
   leftDamageResult: DamageResult
   rightDamageResult: DamageResult
@@ -45,8 +45,14 @@ export class SimpleCalcComponent {
     this.dataChangedEvent.emit()
   }
 
-  leftMoveActivated() {
-    this.leftDamageResult = this.findResultByMove(this.leftDamageResults, this.data.leftPokemon.move)
+  leftMoveActivated(move: string) {
+    this.leftDamageResult = this.findResultByMove(this.leftDamageResults(), this.data.leftPokemon.move)
+    this.data.leftPokemon = this.data.leftPokemon.activateMove(move)
+    this.dataChangedEvent.emit()
+  }
+
+  leftRollLevelChanged(config: RollLevelConfig) {
+    this.data.leftRollLevelConfig = config
     this.dataChangedEvent.emit()
   }
 
@@ -60,8 +66,14 @@ export class SimpleCalcComponent {
     this.dataChangedEvent.emit()
   }
 
-  rightMoveActivated() {
-    this.rightDamageResult = this.findResultByMove(this.rightDamageResults, this.data.rightPokemon.move)
+  rightMoveActivated(move: string) {
+    this.rightDamageResult = this.findResultByMove(this.rightDamageResults(), this.data.rightPokemon.move)
+    this.data.rightPokemon = this.data.rightPokemon.activateMove(move)
+    this.dataChangedEvent.emit()
+  }
+
+  rightRollLevelChanged(config: RollLevelConfig) {
+    this.data.rightRollLevelConfig = config
     this.dataChangedEvent.emit()
   }
 
@@ -70,18 +82,12 @@ export class SimpleCalcComponent {
     this.dataChangedEvent.emit()
   }
 
-  rollLevelChanged() {
-    this.dataChangedEvent.emit()
-  }
-
   private calculateDamage() {
-    this.leftDamageResults = this.damageCalculator.calcDamageAllAttacks(this.data.leftPokemon, this.data.rightPokemon)
-    this.leftDamageResult = this.findResultByMove(this.leftDamageResults, this.data.leftPokemon.move)
+    this.leftDamageResults.set(this.damageCalculator.calcDamageAllAttacks(this.data.leftPokemon, this.data.rightPokemon))
+    this.leftDamageResult = this.findResultByMove(this.leftDamageResults(), this.data.leftPokemon.move)
     
-    this.rightDamageResults = this.damageCalculator.calcDamageAllAttacks(this.data.rightPokemon, this.data.leftPokemon)
-    this.rightDamageResult = this.findResultByMove(this.rightDamageResults, this.data.rightPokemon.move)
-
-    this.cdr.detectChanges()
+    this.rightDamageResults.set(this.damageCalculator.calcDamageAllAttacks(this.data.rightPokemon, this.data.leftPokemon))
+    this.rightDamageResult = this.findResultByMove(this.rightDamageResults(), this.data.rightPokemon.move)
   }
 
   private findResultByMove(damageResults: DamageResult[], move: Move): DamageResult {
