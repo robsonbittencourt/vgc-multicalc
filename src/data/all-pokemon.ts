@@ -4988,6 +4988,11 @@ const FormatsData: {[k: string]: SpeciesFormatsData} = {
     doublesTier: "(DUU)",
     natDexTier: "RU",
   },
+  eiscuenoice: {
+    tier: "ZU",
+    doublesTier: "(DUU)",
+    natDexTier: "RU",
+  },
   indeedee: {
     tier: "NU",
     doublesTier: "DUU",
