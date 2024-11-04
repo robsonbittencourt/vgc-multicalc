@@ -7,7 +7,6 @@ const POKEMON_QUANTITY = 250
 createSpeedMetaFile()
 
 export async function createSpeedMetaFile() {
-  const regGData = await getSmogonData('g')
   const regHData = await getSmogonData('h')
   
   let classContent = 
@@ -19,11 +18,6 @@ export function speedMeta(regulation: string): Pokemon[] {
   } else {
     return regH()
   }
-}
-
-export function regG(): Pokemon[] {
-  return [
-${printNewPokemon(regGData)} ]  
 }
 
 export function regH(): Pokemon[] {
