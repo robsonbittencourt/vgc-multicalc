@@ -115,7 +115,7 @@ function extractItem(sections) {
     .replace(".%", "").trim())
     .filter(it => it != "Items" && it != "Other")
 
-  const item = items.find(it => it == "Choice Scarf") ? "Choice Scarf" : items[0]
+  const item = items[0]
   
   return item
 }

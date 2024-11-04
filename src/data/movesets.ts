@@ -22,7 +22,7 @@ export const SETDEX_SV: {[k: string]: any} = {
   },
   "Gholdengo": {
     "ability": "Good as Gold",
-    "item": "Choice Scarf",
+    "item": "Metal Coat",
     "nature": "Timid",
     "teraType": "Steel",
     "evs": {
@@ -142,7 +142,7 @@ export const SETDEX_SV: {[k: string]: any} = {
   },
   "Garchomp": {
     "ability": "Rough Skin",
-    "item": "Choice Scarf",
+    "item": "Life Orb",
     "nature": "Jolly",
     "teraType": "Steel",
     "evs": {
@@ -202,7 +202,7 @@ export const SETDEX_SV: {[k: string]: any} = {
   },
   "Annihilape": {
     "ability": "Defiant",
-    "item": "Choice Scarf",
+    "item": "Safety Goggles",
     "nature": "Jolly",
     "teraType": "Water",
     "evs": {
@@ -462,7 +462,7 @@ export const SETDEX_SV: {[k: string]: any} = {
   },
   "Indeedee": {
     "ability": "Psychic Surge",
-    "item": "Choice Scarf",
+    "item": "Focus Sash",
     "nature": "Timid",
     "teraType": "Fighting",
     "evs": {
@@ -642,7 +642,7 @@ export const SETDEX_SV: {[k: string]: any} = {
   },
   "Tyranitar": {
     "ability": "Sand Stream",
-    "item": "Choice Scarf",
+    "item": "Assault Vest",
     "nature": "Adamant",
     "teraType": "Flying",
     "evs": {
@@ -782,7 +782,7 @@ export const SETDEX_SV: {[k: string]: any} = {
   },
   "Typhlosion-Hisui": {
     "ability": "Blaze",
-    "item": "Choice Scarf",
+    "item": "Choice Specs",
     "nature": "Timid",
     "teraType": "Fire",
     "evs": {
@@ -962,7 +962,7 @@ export const SETDEX_SV: {[k: string]: any} = {
   },
   "Salamence": {
     "ability": "Intimidate",
-    "item": "Choice Scarf",
+    "item": "Choice Specs",
     "nature": "Timid",
     "teraType": "Fire",
     "evs": {
@@ -1042,7 +1042,7 @@ export const SETDEX_SV: {[k: string]: any} = {
   },
   "Samurott-Hisui": {
     "ability": "Sharpness",
-    "item": "Choice Scarf",
+    "item": "Assault Vest",
     "nature": "Adamant",
     "teraType": "Ghost",
     "evs": {
@@ -1562,7 +1562,7 @@ export const SETDEX_SV: {[k: string]: any} = {
   },
   "Charizard": {
     "ability": "Solar Power",
-    "item": "Choice Scarf",
+    "item": "Choice Specs",
     "nature": "Modest",
     "teraType": "Fire",
     "evs": {
@@ -1582,7 +1582,7 @@ export const SETDEX_SV: {[k: string]: any} = {
   },
   "Chandelure": {
     "ability": "Flash Fire",
-    "item": "Choice Scarf",
+    "item": "Focus Sash",
     "nature": "Modest",
     "teraType": "Grass",
     "evs": {
@@ -1962,7 +1962,7 @@ export const SETDEX_SV: {[k: string]: any} = {
   },
   "Blastoise": {
     "ability": "Rain Dish",
-    "item": "Choice Scarf",
+    "item": "Splash Plate",
     "nature": "Modest",
     "teraType": "Water",
     "evs": {
@@ -2002,7 +2002,7 @@ export const SETDEX_SV: {[k: string]: any} = {
   },
   "Smeargle": {
     "ability": "Moody",
-    "item": "Choice Scarf",
+    "item": "Focus Sash",
     "nature": "Timid",
     "teraType": "Ghost",
     "evs": {
@@ -2262,7 +2262,7 @@ export const SETDEX_SV: {[k: string]: any} = {
   },
   "Quaquaval": {
     "ability": "Moxie",
-    "item": "Choice Scarf",
+    "item": "Focus Sash",
     "nature": "Adamant",
     "teraType": "Water",
     "evs": {
@@ -2302,7 +2302,7 @@ export const SETDEX_SV: {[k: string]: any} = {
   },
   "Mienshao": {
     "ability": "Inner Focus",
-    "item": "Choice Scarf",
+    "item": "Focus Sash",
     "nature": "Jolly",
     "teraType": "Fighting",
     "evs": {
@@ -2382,7 +2382,7 @@ export const SETDEX_SV: {[k: string]: any} = {
   },
   "Braviary": {
     "ability": "Defiant",
-    "item": "Choice Scarf",
+    "item": "Sitrus Berry",
     "nature": "Adamant",
     "teraType": "Steel",
     "evs": {
@@ -2442,7 +2442,7 @@ export const SETDEX_SV: {[k: string]: any} = {
   },
   "Kleavor": {
     "ability": "Sharpness",
-    "item": "Choice Scarf",
+    "item": "Focus Sash",
     "nature": "Jolly",
     "teraType": "Steel",
     "evs": {
@@ -2642,7 +2642,7 @@ export const SETDEX_SV: {[k: string]: any} = {
   },
   "Rotom-Wash": {
     "ability": "Levitate",
-    "item": "Choice Scarf",
+    "item": "Sitrus Berry",
     "nature": "Modest",
     "teraType": "Ghost",
     "evs": {
@@ -2662,7 +2662,7 @@ export const SETDEX_SV: {[k: string]: any} = {
   },
   "Porygon-Z": {
     "ability": "Download",
-    "item": "Choice Scarf",
+    "item": "Life Orb",
     "nature": "Timid",
     "teraType": "Ground",
     "evs": {
@@ -2762,7 +2762,7 @@ export const SETDEX_SV: {[k: string]: any} = {
   },
   "Golurk": {
     "ability": "No Guard",
-    "item": "Choice Scarf",
+    "item": "Light Clay",
     "nature": "Adamant",
     "teraType": "Fighting",
     "evs": {
@@ -3182,7 +3182,7 @@ export const SETDEX_SV: {[k: string]: any} = {
   },
   "Rotom-Frost": {
     "ability": "Levitate",
-    "item": "Choice Scarf",
+    "item": "Choice Specs",
     "nature": "Timid",
     "teraType": "Ghost",
     "evs": {
