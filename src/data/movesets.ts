@@ -1,125 +1,5 @@
 export const SETDEX_SV: {[k: string]: any} = {
 
-  "Kingambit": {
-    "ability": "Defiant",
-    "item": "Black Glasses",
-    "nature": "Adamant",
-    "teraType": "Dark",
-    "evs": {
-      "hp": 252,
-      "atk": 252,
-      "def": 0,
-      "spa": 0,
-      "spd": 4,
-      "spe": 0
-    },
-    "moves": [
-      "Sucker Punch",
-      "Kowtow Cleave",
-      "Protect",
-      "Swords Dance"
-    ]
-  },
-  "Gholdengo": {
-    "ability": "Good as Gold",
-    "item": "Choice Specs",
-    "nature": "Timid",
-    "teraType": "Steel",
-    "evs": {
-      "hp": 4,
-      "atk": 0,
-      "def": 0,
-      "spa": 252,
-      "spd": 0,
-      "spe": 252
-    },
-    "moves": [
-      "Make It Rain",
-      "Shadow Ball",
-      "Protect",
-      "Nasty Plot"
-    ]
-  },
-  "Rillaboom": {
-    "ability": "Grassy Surge",
-    "item": "Assault Vest",
-    "nature": "Adamant",
-    "teraType": "Fire",
-    "evs": {
-      "hp": 252,
-      "atk": 116,
-      "def": 4,
-      "spa": 0,
-      "spd": 60,
-      "spe": 76
-    },
-    "moves": [
-      "Fake Out",
-      "Grassy Glide",
-      "Wood Hammer",
-      "U-turn"
-    ]
-  },
-  "Incineroar": {
-    "ability": "Intimidate",
-    "item": "Safety Goggles",
-    "nature": "Adamant",
-    "teraType": "Ghost",
-    "evs": {
-      "hp": 228,
-      "atk": 36,
-      "def": 4,
-      "spa": 0,
-      "spd": 36,
-      "spe": 204
-    },
-    "moves": [
-      "Fake Out",
-      "Knock Off",
-      "Flare Blitz",
-      "Parting Shot"
-    ]
-  },
-  "Primarina": {
-    "ability": "Liquid Voice",
-    "item": "Throat Spray",
-    "nature": "Modest",
-    "teraType": "Poison",
-    "evs": {
-      "hp": 172,
-      "atk": 0,
-      "def": 252,
-      "spa": 20,
-      "spd": 4,
-      "spe": 60
-    },
-    "moves": [
-      "Moonblast",
-      "Hyper Voice",
-      "Haze",
-      "Protect"
-    ]
-  },
-  "Amoonguss": {
-    "ability": "Regenerator",
-    "item": "Sitrus Berry",
-    "nature": "Calm",
-    "teraType": "Water",
-    "evs": {
-      "hp": 236,
-      "atk": 0,
-      "def": 36,
-      "spa": 0,
-      "spd": 236,
-      "spe": 0
-    },
-    "moves": [
-      "Spore",
-      "Rage Powder",
-      "Pollen Puff",
-      "Protect"
-    ]
-  },
   "Sneasler": {
     "ability": "Poison Touch",
     "item": "Focus Sash",
@@ -140,9 +20,89 @@ export const SETDEX_SV: {[k: string]: any} = {
       "Fake Out"
     ]
   },
+  "Gholdengo": {
+    "ability": "Good as Gold",
+    "item": "Choice Scarf",
+    "nature": "Timid",
+    "teraType": "Steel",
+    "evs": {
+      "hp": 4,
+      "atk": 0,
+      "def": 0,
+      "spa": 252,
+      "spd": 0,
+      "spe": 252
+    },
+    "moves": [
+      "Make It Rain",
+      "Shadow Ball",
+      "Nasty Plot",
+      "Protect"
+    ]
+  },
+  "Incineroar": {
+    "ability": "Intimidate",
+    "item": "Safety Goggles",
+    "nature": "Adamant",
+    "teraType": "Ghost",
+    "evs": {
+      "hp": 180,
+      "atk": 36,
+      "def": 4,
+      "spa": 0,
+      "spd": 84,
+      "spe": 204
+    },
+    "moves": [
+      "Fake Out",
+      "Knock Off",
+      "Flare Blitz",
+      "Parting Shot"
+    ]
+  },
+  "Kingambit": {
+    "ability": "Defiant",
+    "item": "Black Glasses",
+    "nature": "Adamant",
+    "teraType": "Dark",
+    "evs": {
+      "hp": 252,
+      "atk": 252,
+      "def": 0,
+      "spa": 0,
+      "spd": 0,
+      "spe": 4
+    },
+    "moves": [
+      "Sucker Punch",
+      "Kowtow Cleave",
+      "Protect",
+      "Swords Dance"
+    ]
+  },
+  "Rillaboom": {
+    "ability": "Grassy Surge",
+    "item": "Assault Vest",
+    "nature": "Adamant",
+    "teraType": "Fire",
+    "evs": {
+      "hp": 236,
+      "atk": 196,
+      "def": 4,
+      "spa": 0,
+      "spd": 12,
+      "spe": 60
+    },
+    "moves": [
+      "Grassy Glide",
+      "Fake Out",
+      "Wood Hammer",
+      "High Horsepower"
+    ]
+  },
   "Dragonite": {
-    "ability": "Inner Focus",
-    "item": "Choice Band",
+    "ability": "Multiscale",
+    "item": "Loaded Dice",
     "nature": "Adamant",
     "teraType": "Flying",
     "evs": {
@@ -155,29 +115,49 @@ export const SETDEX_SV: {[k: string]: any} = {
     },
     "moves": [
       "Extreme Speed",
-      "Tera Blast",
-      "Stomping Tantrum",
-      "Ice Spinner"
+      "Protect",
+      "Scale Shot",
+      "Tera Blast"
+    ]
+  },
+  "Amoonguss": {
+    "ability": "Regenerator",
+    "item": "Sitrus Berry",
+    "nature": "Bold",
+    "teraType": "Water",
+    "evs": {
+      "hp": 244,
+      "atk": 0,
+      "def": 156,
+      "spa": 0,
+      "spd": 108,
+      "spe": 0
+    },
+    "moves": [
+      "Spore",
+      "Rage Powder",
+      "Pollen Puff",
+      "Protect"
     ]
   },
   "Garchomp": {
     "ability": "Rough Skin",
-    "item": "Life Orb",
+    "item": "Choice Scarf",
     "nature": "Jolly",
     "teraType": "Steel",
     "evs": {
-      "hp": 4,
+      "hp": 0,
       "atk": 252,
       "def": 0,
       "spa": 0,
-      "spd": 0,
+      "spd": 4,
       "spe": 252
     },
     "moves": [
-      "Protect",
+      "Stomping Tantrum",
       "Dragon Claw",
       "Earthquake",
-      "Stomping Tantrum"
+      "Protect"
     ]
   },
   "Archaludon": {
@@ -186,18 +166,78 @@ export const SETDEX_SV: {[k: string]: any} = {
     "nature": "Timid",
     "teraType": "Grass",
     "evs": {
-      "hp": 0,
+      "hp": 4,
       "atk": 0,
       "def": 0,
       "spa": 252,
-      "spd": 4,
+      "spd": 0,
       "spe": 252
     },
     "moves": [
       "Electro Shot",
       "Flash Cannon",
-      "Draco Meteor",
-      "Body Press"
+      "Body Press",
+      "Dragon Pulse"
+    ]
+  },
+  "Primarina": {
+    "ability": "Liquid Voice",
+    "item": "Sitrus Berry",
+    "nature": "Modest",
+    "teraType": "Poison",
+    "evs": {
+      "hp": 228,
+      "atk": 0,
+      "def": 188,
+      "spa": 28,
+      "spd": 4,
+      "spe": 60
+    },
+    "moves": [
+      "Hyper Voice",
+      "Moonblast",
+      "Protect",
+      "Haze"
+    ]
+  },
+  "Annihilape": {
+    "ability": "Defiant",
+    "item": "Choice Scarf",
+    "nature": "Jolly",
+    "teraType": "Water",
+    "evs": {
+      "hp": 252,
+      "atk": 4,
+      "def": 0,
+      "spa": 0,
+      "spd": 0,
+      "spe": 252
+    },
+    "moves": [
+      "Rage Fist",
+      "Drain Punch",
+      "Protect",
+      "Bulk Up"
+    ]
+  },
+  "Ninetales-Alola": {
+    "ability": "Snow Warning",
+    "item": "Choice Specs",
+    "nature": "Timid",
+    "teraType": "Ice",
+    "evs": {
+      "hp": 4,
+      "atk": 0,
+      "def": 0,
+      "spa": 252,
+      "spd": 0,
+      "spe": 252
+    },
+    "moves": [
+      "Blizzard",
+      "Freeze-Dry",
+      "Aurora Veil",
+      "Moonblast"
     ]
   },
   "Porygon2": {
@@ -220,31 +260,31 @@ export const SETDEX_SV: {[k: string]: any} = {
       "Tera Blast"
     ]
   },
-  "Electabuzz": {
-    "ability": "Vital Spirit",
-    "item": "Eviolite",
-    "nature": "Bold",
-    "teraType": "Ghost",
+  "Ursaluna-Bloodmoon": {
+    "ability": "Mind's Eye",
+    "item": "Assault Vest",
+    "nature": "Modest",
+    "teraType": "Normal",
     "evs": {
-      "hp": 228,
+      "hp": 4,
       "atk": 0,
-      "def": 244,
-      "spa": 4,
-      "spd": 4,
-      "spe": 28
+      "def": 0,
+      "spa": 252,
+      "spd": 0,
+      "spe": 252
     },
     "moves": [
-      "Follow Me",
-      "Protect",
-      "Electroweb",
-      "Taunt"
+      "Earth Power",
+      "Blood Moon",
+      "Hyper Voice",
+      "Vacuum Wave"
     ]
   },
   "Volcarona": {
     "ability": "Flame Body",
-    "item": "Leftovers",
+    "item": "Covert Cloak",
     "nature": "Timid",
-    "teraType": "Grass",
+    "teraType": "Fairy",
     "evs": {
       "hp": 188,
       "atk": 0,
@@ -254,50 +294,30 @@ export const SETDEX_SV: {[k: string]: any} = {
       "spe": 252
     },
     "moves": [
-      "Protect",
+      "Heat Wave",
       "Quiver Dance",
-      "Giga Drain",
-      "Heat Wave"
+      "Protect",
+      "Tera Blast"
     ]
   },
-  "Dondozo": {
-    "ability": "Unaware",
-    "item": "Leftovers",
-    "nature": "Jolly",
-    "teraType": "Grass",
+  "Dragapult": {
+    "ability": "Clear Body",
+    "item": "Choice Band",
+    "nature": "Adamant",
+    "teraType": "Dragon",
     "evs": {
       "hp": 4,
-      "atk": 252,
-      "def": 4,
-      "spa": 0,
-      "spd": 36,
-      "spe": 212
-    },
-    "moves": [
-      "Protect",
-      "Wave Crash",
-      "Order Up",
-      "Earthquake"
-    ]
-  },
-  "Basculegion": {
-    "ability": "Swift Swim",
-    "item": "Choice Scarf",
-    "nature": "Adamant",
-    "teraType": "Water",
-    "evs": {
-      "hp": 148,
-      "atk": 252,
+      "atk": 244,
       "def": 4,
       "spa": 0,
       "spd": 4,
-      "spe": 100
+      "spe": 252
     },
     "moves": [
-      "Last Respects",
-      "Wave Crash",
-      "Aqua Jet",
-      "Flip Turn"
+      "Dragon Darts",
+      "U-turn",
+      "Phantom Force",
+      "Outrage"
     ]
   },
   "Pelipper": {
@@ -320,11 +340,11 @@ export const SETDEX_SV: {[k: string]: any} = {
       "Tailwind"
     ]
   },
-  "Dragapult": {
-    "ability": "Clear Body",
-    "item": "Choice Band",
-    "nature": "Adamant",
-    "teraType": "Dragon",
+  "Dondozo": {
+    "ability": "Unaware",
+    "item": "Leftovers",
+    "nature": "Jolly",
+    "teraType": "Steel",
     "evs": {
       "hp": 4,
       "atk": 252,
@@ -334,10 +354,30 @@ export const SETDEX_SV: {[k: string]: any} = {
       "spe": 252
     },
     "moves": [
-      "U-turn",
-      "Dragon Darts",
-      "Phantom Force",
-      "Outrage"
+      "Protect",
+      "Wave Crash",
+      "Yawn",
+      "Fissure"
+    ]
+  },
+  "Basculegion": {
+    "ability": "Swift Swim",
+    "item": "Choice Scarf",
+    "nature": "Adamant",
+    "teraType": "Water",
+    "evs": {
+      "hp": 4,
+      "atk": 252,
+      "def": 0,
+      "spa": 0,
+      "spd": 0,
+      "spe": 252
+    },
+    "moves": [
+      "Last Respects",
+      "Wave Crash",
+      "Aqua Jet",
+      "Flip Turn"
     ]
   },
   "Ursaluna": {
@@ -355,129 +395,29 @@ export const SETDEX_SV: {[k: string]: any} = {
     },
     "moves": [
       "Facade",
-      "Headlong Rush",
       "Protect",
+      "Headlong Rush",
       "Earthquake"
     ]
   },
-  "Tyranitar": {
-    "ability": "Sand Stream",
-    "item": "Assault Vest",
-    "nature": "Jolly",
-    "teraType": "Flying",
-    "evs": {
-      "hp": 4,
-      "atk": 252,
-      "def": 0,
-      "spa": 0,
-      "spd": 0,
-      "spe": 252
-    },
-    "moves": [
-      "Rock Slide",
-      "Knock Off",
-      "Low Kick",
-      "Tera Blast"
-    ]
-  },
-  "Talonflame": {
-    "ability": "Gale Wings",
-    "item": "Covert Cloak",
-    "nature": "Jolly",
+  "Magmar": {
+    "ability": "Vital Spirit",
+    "item": "Eviolite",
+    "nature": "Modest",
     "teraType": "Ghost",
     "evs": {
-      "hp": 4,
-      "atk": 252,
-      "def": 0,
-      "spa": 0,
-      "spd": 0,
-      "spe": 252
-    },
-    "moves": [
-      "Tailwind",
-      "Brave Bird",
-      "Will-O-Wisp",
-      "Taunt"
-    ]
-  },
-  "Glimmora": {
-    "ability": "Toxic Debris",
-    "item": "Power Herb",
-    "nature": "Timid",
-    "teraType": "Grass",
-    "evs": {
-      "hp": 4,
-      "atk": 0,
-      "def": 0,
-      "spa": 252,
-      "spd": 0,
-      "spe": 252
-    },
-    "moves": [
-      "Earth Power",
-      "Sludge Bomb",
-      "Spiky Shield",
-      "Meteor Beam"
-    ]
-  },
-  "Tatsugiri": {
-    "ability": "Commander",
-    "item": "Choice Scarf",
-    "nature": "Timid",
-    "teraType": "Steel",
-    "evs": {
-      "hp": 0,
-      "atk": 0,
-      "def": 0,
-      "spa": 252,
-      "spd": 4,
-      "spe": 252
-    },
-    "moves": [
-      "Draco Meteor",
-      "Muddy Water",
-      "Icy Wind",
-      "Dragon Pulse"
-    ]
-  },
-  "Annihilape": {
-    "ability": "Defiant",
-    "item": "Choice Scarf",
-    "nature": "Jolly",
-    "teraType": "Fire",
-    "evs": {
       "hp": 252,
-      "atk": 4,
-      "def": 0,
-      "spa": 0,
-      "spd": 0,
-      "spe": 252
-    },
-    "moves": [
-      "Rage Fist",
-      "Drain Punch",
-      "Protect",
-      "Bulk Up"
-    ]
-  },
-  "Ursaluna-Bloodmoon": {
-    "ability": "Mind's Eye",
-    "item": "Life Orb",
-    "nature": "Modest",
-    "teraType": "Normal",
-    "evs": {
-      "hp": 4,
       "atk": 0,
-      "def": 0,
-      "spa": 252,
-      "spd": 0,
-      "spe": 252
+      "def": 196,
+      "spa": 12,
+      "spd": 4,
+      "spe": 44
     },
     "moves": [
-      "Blood Moon",
-      "Earth Power",
-      "Hyper Voice",
-      "Protect"
+      "Follow Me",
+      "Protect",
+      "Will-O-Wisp",
+      "Overheat"
     ]
   },
   "Maushold": {
@@ -500,11 +440,51 @@ export const SETDEX_SV: {[k: string]: any} = {
       "Population Bomb"
     ]
   },
-  "Clefable": {
-    "ability": "Unaware",
-    "item": "Safety Goggles",
+  "Electabuzz": {
+    "ability": "Vital Spirit",
+    "item": "Eviolite",
     "nature": "Bold",
-    "teraType": "Steel",
+    "teraType": "Ghost",
+    "evs": {
+      "hp": 252,
+      "atk": 0,
+      "def": 212,
+      "spa": 4,
+      "spd": 4,
+      "spe": 36
+    },
+    "moves": [
+      "Follow Me",
+      "Protect",
+      "Taunt",
+      "Electroweb"
+    ]
+  },
+  "Indeedee": {
+    "ability": "Psychic Surge",
+    "item": "Choice Scarf",
+    "nature": "Timid",
+    "teraType": "Fighting",
+    "evs": {
+      "hp": 4,
+      "atk": 0,
+      "def": 0,
+      "spa": 252,
+      "spd": 0,
+      "spe": 252
+    },
+    "moves": [
+      "Expanding Force",
+      "Trick Room",
+      "Imprison",
+      "Tera Blast"
+    ]
+  },
+  "Indeedee-F": {
+    "ability": "Psychic Surge",
+    "item": "Rocky Helmet",
+    "nature": "Relaxed",
+    "teraType": "Fairy",
     "evs": {
       "hp": 252,
       "atk": 0,
@@ -515,9 +495,9 @@ export const SETDEX_SV: {[k: string]: any} = {
     },
     "moves": [
       "Follow Me",
-      "Protect",
-      "Moonblast",
-      "Skill Swap"
+      "Helping Hand",
+      "Psychic",
+      "Trick Room"
     ]
   },
   "Whimsicott": {
@@ -536,8 +516,168 @@ export const SETDEX_SV: {[k: string]: any} = {
     "moves": [
       "Tailwind",
       "Moonblast",
-      "Encore",
-      "Sunny Day"
+      "Sunny Day",
+      "Encore"
+    ]
+  },
+  "Talonflame": {
+    "ability": "Gale Wings",
+    "item": "Covert Cloak",
+    "nature": "Jolly",
+    "teraType": "Ghost",
+    "evs": {
+      "hp": 204,
+      "atk": 28,
+      "def": 4,
+      "spa": 0,
+      "spd": 20,
+      "spe": 252
+    },
+    "moves": [
+      "Tailwind",
+      "Will-O-Wisp",
+      "Taunt",
+      "Brave Bird"
+    ]
+  },
+  "Tatsugiri": {
+    "ability": "Commander",
+    "item": "Choice Scarf",
+    "nature": "Timid",
+    "teraType": "Ghost",
+    "evs": {
+      "hp": 0,
+      "atk": 0,
+      "def": 0,
+      "spa": 252,
+      "spd": 4,
+      "spe": 252
+    },
+    "moves": [
+      "Muddy Water",
+      "Draco Meteor",
+      "Protect",
+      "Dragon Pulse"
+    ]
+  },
+  "Torkoal": {
+    "ability": "Drought",
+    "item": "Charcoal",
+    "nature": "Quiet",
+    "teraType": "Fire",
+    "evs": {
+      "hp": 252,
+      "atk": 0,
+      "def": 0,
+      "spa": 252,
+      "spd": 4,
+      "spe": 0
+    },
+    "moves": [
+      "Eruption",
+      "Weather Ball",
+      "Protect",
+      "Heat Wave"
+    ]
+  },
+  "Delphox": {
+    "ability": "Blaze",
+    "item": "Life Orb",
+    "nature": "Timid",
+    "teraType": "Psychic",
+    "evs": {
+      "hp": 4,
+      "atk": 0,
+      "def": 0,
+      "spa": 252,
+      "spd": 0,
+      "spe": 252
+    },
+    "moves": [
+      "Expanding Force",
+      "Heat Wave",
+      "Protect",
+      "Tera Blast"
+    ]
+  },
+  "Clefable": {
+    "ability": "Unaware",
+    "item": "Sitrus Berry",
+    "nature": "Bold",
+    "teraType": "Water",
+    "evs": {
+      "hp": 252,
+      "atk": 0,
+      "def": 252,
+      "spa": 0,
+      "spd": 4,
+      "spe": 0
+    },
+    "moves": [
+      "Follow Me",
+      "Moonblast",
+      "Protect",
+      "Misty Terrain"
+    ]
+  },
+  "Grimmsnarl": {
+    "ability": "Prankster",
+    "item": "Light Clay",
+    "nature": "Careful",
+    "teraType": "Ghost",
+    "evs": {
+      "hp": 244,
+      "atk": 4,
+      "def": 100,
+      "spa": 0,
+      "spd": 124,
+      "spe": 36
+    },
+    "moves": [
+      "Light Screen",
+      "Reflect",
+      "Spirit Break",
+      "Thunder Wave"
+    ]
+  },
+  "Tyranitar": {
+    "ability": "Sand Stream",
+    "item": "Choice Scarf",
+    "nature": "Adamant",
+    "teraType": "Flying",
+    "evs": {
+      "hp": 196,
+      "atk": 140,
+      "def": 12,
+      "spa": 0,
+      "spd": 28,
+      "spe": 132
+    },
+    "moves": [
+      "Rock Slide",
+      "Knock Off",
+      "Low Kick",
+      "Tera Blast"
+    ]
+  },
+  "Kommo-o": {
+    "ability": "Overcoat",
+    "item": "Throat Spray",
+    "nature": "Modest",
+    "teraType": "Fire",
+    "evs": {
+      "hp": 12,
+      "atk": 0,
+      "def": 4,
+      "spa": 236,
+      "spd": 4,
+      "spe": 252
+    },
+    "moves": [
+      "Protect",
+      "Clanging Scales",
+      "Clangorous Soul",
+      "Flamethrower"
     ]
   },
   "Vivillon": {
@@ -554,137 +694,37 @@ export const SETDEX_SV: {[k: string]: any} = {
       "spe": 252
     },
     "moves": [
+      "Protect",
       "Sleep Powder",
       "Hurricane",
-      "Protect",
-      "Rage Powder"
+      "Tailwind"
     ]
   },
-  "Indeedee-F": {
-    "ability": "Psychic Surge",
-    "item": "Psychic Seed",
-    "nature": "Relaxed",
-    "teraType": "Fairy",
+  "Sinistcha": {
+    "ability": "Hospitality",
+    "item": "Sitrus Berry",
+    "nature": "Bold",
+    "teraType": "Water",
     "evs": {
       "hp": 252,
       "atk": 0,
-      "def": 252,
-      "spa": 0,
-      "spd": 4,
-      "spe": 0
-    },
-    "moves": [
-      "Follow Me",
-      "Helping Hand",
-      "Trick Room",
-      "Psychic"
-    ]
-  },
-  "Salamence": {
-    "ability": "Intimidate",
-    "item": "Choice Specs",
-    "nature": "Timid",
-    "teraType": "Fire",
-    "evs": {
-      "hp": 4,
-      "atk": 0,
-      "def": 0,
-      "spa": 252,
-      "spd": 0,
-      "spe": 252
-    },
-    "moves": [
-      "Draco Meteor",
-      "Air Slash",
-      "Heat Wave",
-      "Dragon Pulse"
-    ]
-  },
-  "Ninetales-Alola": {
-    "ability": "Snow Warning",
-    "item": "Focus Sash",
-    "nature": "Timid",
-    "teraType": "Ice",
-    "evs": {
-      "hp": 4,
-      "atk": 0,
-      "def": 0,
-      "spa": 252,
-      "spd": 0,
-      "spe": 252
-    },
-    "moves": [
-      "Blizzard",
-      "Protect",
-      "Freeze-Dry",
-      "Encore"
-    ]
-  },
-  "Pawmot": {
-    "ability": "Natural Cure",
-    "item": "Focus Sash",
-    "nature": "Jolly",
-    "teraType": "Electric",
-    "evs": {
-      "hp": 4,
-      "atk": 252,
-      "def": 0,
-      "spa": 0,
-      "spd": 0,
-      "spe": 252
-    },
-    "moves": [
-      "Double Shock",
-      "Close Combat",
-      "Fake Out",
-      "Revival Blessing"
-    ]
-  },
-  "Murkrow": {
-    "ability": "Prankster",
-    "item": "Eviolite",
-    "nature": "Calm",
-    "teraType": "Ghost",
-    "evs": {
-      "hp": 252,
-      "atk": 0,
-      "def": 116,
-      "spa": 0,
+      "def": 108,
+      "spa": 4,
       "spd": 140,
-      "spe": 0
+      "spe": 4
     },
     "moves": [
-      "Tailwind",
-      "Haze",
-      "Foul Play",
-      "Quash"
-    ]
-  },
-  "Tauros-Paldea-Blaze": {
-    "ability": "Intimidate",
-    "item": "Mirror Herb",
-    "nature": "Jolly",
-    "teraType": "Grass",
-    "evs": {
-      "hp": 4,
-      "atk": 252,
-      "def": 0,
-      "spa": 0,
-      "spd": 0,
-      "spe": 252
-    },
-    "moves": [
-      "Close Combat",
-      "Protect",
-      "Flare Blitz",
-      "Will-O-Wisp"
+      "Matcha Gotcha",
+      "Rage Powder",
+      "Trick Room",
+      "Life Dew"
     ]
   },
   "Hydreigon": {
     "ability": "Levitate",
-    "item": "Safety Goggles",
+    "item": "Choice Specs",
     "nature": "Timid",
-    "teraType": "Steel",
+    "teraType": "Fire",
     "evs": {
       "hp": 36,
       "atk": 0,
@@ -697,27 +737,47 @@ export const SETDEX_SV: {[k: string]: any} = {
       "Draco Meteor",
       "Snarl",
       "Dark Pulse",
+      "Heat Wave"
+    ]
+  },
+  "Hatterene": {
+    "ability": "Magic Bounce",
+    "item": "Life Orb",
+    "nature": "Quiet",
+    "teraType": "Water",
+    "evs": {
+      "hp": 212,
+      "atk": 0,
+      "def": 0,
+      "spa": 252,
+      "spd": 44,
+      "spe": 0
+    },
+    "moves": [
+      "Trick Room",
+      "Dazzling Gleam",
+      "Expanding Force",
       "Protect"
     ]
   },
-  "Tauros-Paldea-Aqua": {
-    "ability": "Intimidate",
-    "item": "Choice Scarf",
-    "nature": "Adamant",
-    "teraType": "Grass",
+  "Corviknight": {
+    "ability": "Mirror Armor",
+    "item": "Sitrus Berry",
+    "nature": "Impish",
+    "teraType": "Fire",
     "evs": {
-      "hp": 4,
-      "atk": 252,
-      "def": 0,
+      "hp": 252,
+      "atk": 52,
+      "def": 116,
       "spa": 0,
-      "spd": 0,
-      "spe": 252
+      "spd": 84,
+      "spe": 4
     },
     "moves": [
-      "Close Combat",
-      "Protect",
-      "Aqua Jet",
-      "Wave Crash"
+      "Brave Bird",
+      "Roost",
+      "Bulk Up",
+      "Body Press"
     ]
   },
   "Typhlosion-Hisui": {
@@ -740,50 +800,10 @@ export const SETDEX_SV: {[k: string]: any} = {
       "Overheat"
     ]
   },
-  "Farigiraf": {
-    "ability": "Armor Tail",
-    "item": "Throat Spray",
-    "nature": "Modest",
-    "teraType": "Fire",
-    "evs": {
-      "hp": 180,
-      "atk": 0,
-      "def": 4,
-      "spa": 236,
-      "spd": 4,
-      "spe": 84
-    },
-    "moves": [
-      "Trick Room",
-      "Hyper Voice",
-      "Psychic",
-      "Protect"
-    ]
-  },
-  "Torkoal": {
-    "ability": "Drought",
-    "item": "Charcoal",
-    "nature": "Quiet",
-    "teraType": "Fire",
-    "evs": {
-      "hp": 252,
-      "atk": 0,
-      "def": 0,
-      "spa": 252,
-      "spd": 4,
-      "spe": 0
-    },
-    "moves": [
-      "Eruption",
-      "Weather Ball",
-      "Earth Power",
-      "Heat Wave"
-    ]
-  },
-  "Flamigo": {
-    "ability": "Scrappy",
-    "item": "Choice Scarf",
-    "nature": "Jolly",
+  "Baxcalibur": {
+    "ability": "Thermal Exchange",
+    "item": "Loaded Dice",
+    "nature": "Adamant",
     "teraType": "Ghost",
     "evs": {
       "hp": 4,
@@ -794,50 +814,30 @@ export const SETDEX_SV: {[k: string]: any} = {
       "spe": 252
     },
     "moves": [
-      "Close Combat",
-      "Brave Bird",
-      "Wide Guard",
-      "Protect"
+      "Protect",
+      "Ice Shard",
+      "Icicle Spear",
+      "Scale Shot"
     ]
   },
-  "Armarouge": {
-    "ability": "Flash Fire",
-    "item": "Life Orb",
-    "nature": "Quiet",
+  "Glimmora": {
+    "ability": "Toxic Debris",
+    "item": "Power Herb",
+    "nature": "Timid",
     "teraType": "Grass",
     "evs": {
-      "hp": 228,
+      "hp": 4,
       "atk": 0,
       "def": 0,
       "spa": 252,
-      "spd": 28,
-      "spe": 0
+      "spd": 0,
+      "spe": 252
     },
     "moves": [
-      "Expanding Force",
-      "Armor Cannon",
-      "Protect",
-      "Trick Room"
-    ]
-  },
-  "Corviknight": {
-    "ability": "Mirror Armor",
-    "item": "Sitrus Berry",
-    "nature": "Impish",
-    "teraType": "Dragon",
-    "evs": {
-      "hp": 244,
-      "atk": 4,
-      "def": 4,
-      "spa": 0,
-      "spd": 116,
-      "spe": 140
-    },
-    "moves": [
-      "Brave Bird",
-      "Roost",
-      "Tailwind",
-      "Body Press"
+      "Earth Power",
+      "Sludge Bomb",
+      "Spiky Shield",
+      "Meteor Beam"
     ]
   },
   "Palafin": {
@@ -860,111 +860,111 @@ export const SETDEX_SV: {[k: string]: any} = {
       "Haze"
     ]
   },
-  "Gallade": {
-    "ability": "Sharpness",
-    "item": "Clear Amulet",
-    "nature": "Brave",
-    "teraType": "Grass",
-    "evs": {
-      "hp": 252,
-      "atk": 252,
-      "def": 4,
-      "spa": 0,
-      "spd": 0,
-      "spe": 0
-    },
-    "moves": [
-      "Sacred Sword",
-      "Psycho Cut",
-      "Trick Room",
-      "Wide Guard"
-    ]
-  },
-  "Magmar": {
-    "ability": "Vital Spirit",
-    "item": "Eviolite",
-    "nature": "Bold",
-    "teraType": "Ghost",
-    "evs": {
-      "hp": 252,
-      "atk": 0,
-      "def": 244,
-      "spa": 4,
-      "spd": 4,
-      "spe": 4
-    },
-    "moves": [
-      "Follow Me",
-      "Protect",
-      "Will-O-Wisp",
-      "Overheat"
-    ]
-  },
-  "Gengar": {
-    "ability": "Cursed Body",
+  "Meowscarada": {
+    "ability": "Overgrow",
     "item": "Focus Sash",
-    "nature": "Timid",
+    "nature": "Jolly",
     "teraType": "Stellar",
     "evs": {
       "hp": 0,
-      "atk": 0,
+      "atk": 252,
       "def": 0,
-      "spa": 252,
+      "spa": 0,
       "spd": 4,
       "spe": 252
     },
     "moves": [
-      "Shadow Ball",
-      "Protect",
-      "Sludge Bomb",
-      "Haze"
+      "Flower Trick",
+      "Knock Off",
+      "Sucker Punch",
+      "Protect"
     ]
   },
-  "Kommo-o": {
-    "ability": "Overcoat",
-    "item": "Throat Spray",
-    "nature": "Timid",
-    "teraType": "Steel",
+  "Lilligant-Hisui": {
+    "ability": "Chlorophyll",
+    "item": "Focus Sash",
+    "nature": "Jolly",
+    "teraType": "Ghost",
     "evs": {
-      "hp": 52,
-      "atk": 0,
+      "hp": 4,
+      "atk": 244,
       "def": 4,
-      "spa": 252,
+      "spa": 0,
       "spd": 4,
-      "spe": 196
+      "spe": 252
     },
     "moves": [
-      "Protect",
-      "Clangorous Soul",
-      "Clanging Scales",
-      "Flamethrower"
+      "After You",
+      "Close Combat",
+      "Sleep Powder",
+      "Solar Blade"
     ]
   },
-  "Grimmsnarl": {
-    "ability": "Prankster",
-    "item": "Light Clay",
-    "nature": "Careful",
-    "teraType": "Steel",
+  "Gastrodon": {
+    "ability": "Storm Drain",
+    "item": "Sitrus Berry",
+    "nature": "Modest",
+    "teraType": "Poison",
     "evs": {
       "hp": 252,
-      "atk": 4,
-      "def": 180,
-      "spa": 0,
-      "spd": 36,
-      "spe": 36
+      "atk": 0,
+      "def": 116,
+      "spa": 60,
+      "spd": 76,
+      "spe": 4
     },
     "moves": [
-      "Light Screen",
-      "Reflect",
-      "Spirit Break",
-      "Taunt"
+      "Earth Power",
+      "Protect",
+      "Clear Smog",
+      "Ice Beam"
     ]
   },
-  "Indeedee": {
-    "ability": "Psychic Surge",
+  "Sylveon": {
+    "ability": "Pixilate",
+    "item": "Choice Specs",
+    "nature": "Modest",
+    "teraType": "Fire",
+    "evs": {
+      "hp": 172,
+      "atk": 0,
+      "def": 156,
+      "spa": 156,
+      "spd": 4,
+      "spe": 20
+    },
+    "moves": [
+      "Hyper Voice",
+      "Tera Blast",
+      "Protect",
+      "Hyper Beam"
+    ]
+  },
+  "Murkrow": {
+    "ability": "Prankster",
+    "item": "Eviolite",
+    "nature": "Calm",
+    "teraType": "Ghost",
+    "evs": {
+      "hp": 252,
+      "atk": 0,
+      "def": 116,
+      "spa": 0,
+      "spd": 140,
+      "spe": 0
+    },
+    "moves": [
+      "Tailwind",
+      "Haze",
+      "Foul Play",
+      "Sunny Day"
+    ]
+  },
+  "Salamence": {
+    "ability": "Intimidate",
     "item": "Choice Scarf",
     "nature": "Timid",
-    "teraType": "Fighting",
+    "teraType": "Fire",
     "evs": {
       "hp": 4,
       "atk": 0,
@@ -974,70 +974,410 @@ export const SETDEX_SV: {[k: string]: any} = {
       "spe": 252
     },
     "moves": [
-      "Expanding Force",
-      "Trick Room",
-      "Tera Blast",
-      "Imprison"
+      "Draco Meteor",
+      "Air Slash",
+      "Heat Wave",
+      "Dragon Pulse"
     ]
   },
-  "Sinistcha": {
-    "ability": "Hospitality",
-    "item": "Sitrus Berry",
-    "nature": "Bold",
-    "teraType": "Water",
+  "Flamigo": {
+    "ability": "Scrappy",
+    "item": "Focus Sash",
+    "nature": "Jolly",
+    "teraType": "Ghost",
     "evs": {
-      "hp": 252,
-      "atk": 0,
-      "def": 188,
+      "hp": 4,
+      "atk": 252,
+      "def": 0,
       "spa": 0,
-      "spd": 68,
-      "spe": 0
+      "spd": 0,
+      "spe": 252
     },
     "moves": [
-      "Matcha Gotcha",
-      "Rage Powder",
-      "Trick Room",
-      "Life Dew"
+      "Close Combat",
+      "Wide Guard",
+      "Protect",
+      "Dual Wingbeat"
     ]
   },
-  "Hatterene": {
-    "ability": "Magic Bounce",
-    "item": "Life Orb",
-    "nature": "Quiet",
-    "teraType": "Psychic",
+  "Kilowattrel": {
+    "ability": "Competitive",
+    "item": "Focus Sash",
+    "nature": "Timid",
+    "teraType": "Ghost",
     "evs": {
-      "hp": 212,
+      "hp": 0,
       "atk": 0,
-      "def": 44,
+      "def": 0,
       "spa": 252,
-      "spd": 0,
+      "spd": 4,
+      "spe": 252
+    },
+    "moves": [
+      "Air Slash",
+      "Protect",
+      "Tailwind",
+      "Discharge"
+    ]
+  },
+  "Gallade": {
+    "ability": "Sharpness",
+    "item": "Clear Amulet",
+    "nature": "Brave",
+    "teraType": "Grass",
+    "evs": {
+      "hp": 220,
+      "atk": 252,
+      "def": 0,
+      "spa": 0,
+      "spd": 36,
+      "spe": 0
+    },
+    "moves": [
+      "Sacred Sword",
+      "Psycho Cut",
+      "Trick Room",
+      "Wide Guard"
+    ]
+  },
+  "Samurott-Hisui": {
+    "ability": "Sharpness",
+    "item": "Choice Scarf",
+    "nature": "Adamant",
+    "teraType": "Ghost",
+    "evs": {
+      "hp": 236,
+      "atk": 172,
+      "def": 12,
+      "spa": 0,
+      "spd": 4,
+      "spe": 84
+    },
+    "moves": [
+      "Sacred Sword",
+      "Aqua Cutter",
+      "Sucker Punch",
+      "Knock Off"
+    ]
+  },
+  "Farigiraf": {
+    "ability": "Armor Tail",
+    "item": "Throat Spray",
+    "nature": "Quiet",
+    "teraType": "Dragon",
+    "evs": {
+      "hp": 132,
+      "atk": 0,
+      "def": 28,
+      "spa": 156,
+      "spd": 188,
       "spe": 0
     },
     "moves": [
       "Trick Room",
-      "Dazzling Gleam",
-      "Expanding Force",
+      "Hyper Voice",
+      "Helping Hand",
       "Protect"
     ]
   },
-  "Gastrodon": {
-    "ability": "Storm Drain",
-    "item": "Sitrus Berry",
-    "nature": "Calm",
-    "teraType": "Fairy",
+  "Yanmega": {
+    "ability": "Speed Boost",
+    "item": "Focus Sash",
+    "nature": "Modest",
+    "teraType": "Ghost",
+    "evs": {
+      "hp": 0,
+      "atk": 0,
+      "def": 28,
+      "spa": 252,
+      "spd": 0,
+      "spe": 228
+    },
+    "moves": [
+      "Air Slash",
+      "Tailwind",
+      "Bug Buzz",
+      "Detect"
+    ]
+  },
+  "Tauros-Paldea-Aqua": {
+    "ability": "Intimidate",
+    "item": "Mirror Herb",
+    "nature": "Jolly",
+    "teraType": "Grass",
+    "evs": {
+      "hp": 4,
+      "atk": 244,
+      "def": 4,
+      "spa": 0,
+      "spd": 4,
+      "spe": 252
+    },
+    "moves": [
+      "Close Combat",
+      "Protect",
+      "Aqua Jet",
+      "Wave Crash"
+    ]
+  },
+  "Mimikyu": {
+    "ability": "Disguise",
+    "item": "Life Orb",
+    "nature": "Jolly",
+    "teraType": "Ghost",
+    "evs": {
+      "hp": 4,
+      "atk": 252,
+      "def": 0,
+      "spa": 0,
+      "spd": 0,
+      "spe": 252
+    },
+    "moves": [
+      "Play Rough",
+      "Shadow Sneak",
+      "Shadow Claw",
+      "Trick Room"
+    ]
+  },
+  "Arcanine-Hisui": {
+    "ability": "Intimidate",
+    "item": "Assault Vest",
+    "nature": "Jolly",
+    "teraType": "Grass",
+    "evs": {
+      "hp": 4,
+      "atk": 252,
+      "def": 0,
+      "spa": 0,
+      "spd": 0,
+      "spe": 252
+    },
+    "moves": [
+      "Flare Blitz",
+      "Rock Slide",
+      "Extreme Speed",
+      "Close Combat"
+    ]
+  },
+  "Dusclops": {
+    "ability": "Pressure",
+    "item": "Eviolite",
+    "nature": "Sassy",
+    "teraType": "Dark",
     "evs": {
       "hp": 252,
       "atk": 0,
-      "def": 52,
+      "def": 156,
       "spa": 0,
-      "spd": 204,
+      "spd": 100,
       "spe": 0
     },
     "moves": [
-      "Earth Power",
+      "Trick Room",
+      "Night Shade",
+      "Haze",
+      "Pain Split"
+    ]
+  },
+  "Armarouge": {
+    "ability": "Flash Fire",
+    "item": "Power Herb",
+    "nature": "Quiet",
+    "teraType": "Grass",
+    "evs": {
+      "hp": 228,
+      "atk": 0,
+      "def": 0,
+      "spa": 252,
+      "spd": 28,
+      "spe": 0
+    },
+    "moves": [
+      "Expanding Force",
+      "Armor Cannon",
+      "Trick Room",
+      "Meteor Beam"
+    ]
+  },
+  "Excadrill": {
+    "ability": "Sand Rush",
+    "item": "Focus Sash",
+    "nature": "Jolly",
+    "teraType": "Ground",
+    "evs": {
+      "hp": 0,
+      "atk": 252,
+      "def": 0,
+      "spa": 0,
+      "spd": 4,
+      "spe": 252
+    },
+    "moves": [
       "Protect",
-      "Yawn",
-      "Clear Smog"
+      "Iron Head",
+      "Earthquake",
+      "Swords Dance"
+    ]
+  },
+  "Milotic": {
+    "ability": "Competitive",
+    "item": "Leftovers",
+    "nature": "Modest",
+    "teraType": "Grass",
+    "evs": {
+      "hp": 252,
+      "atk": 0,
+      "def": 60,
+      "spa": 28,
+      "spd": 60,
+      "spe": 108
+    },
+    "moves": [
+      "Scald",
+      "Protect",
+      "Icy Wind",
+      "Haze"
+    ]
+  },
+  "Pawmot": {
+    "ability": "Natural Cure",
+    "item": "Focus Sash",
+    "nature": "Jolly",
+    "teraType": "Electric",
+    "evs": {
+      "hp": 4,
+      "atk": 252,
+      "def": 0,
+      "spa": 0,
+      "spd": 0,
+      "spe": 252
+    },
+    "moves": [
+      "Close Combat",
+      "Double Shock",
+      "Fake Out",
+      "Revival Blessing"
+    ]
+  },
+  "Weezing-Galar": {
+    "ability": "Neutralizing Gas",
+    "item": "Choice Specs",
+    "nature": "Modest",
+    "teraType": "Water",
+    "evs": {
+      "hp": 212,
+      "atk": 0,
+      "def": 4,
+      "spa": 116,
+      "spd": 60,
+      "spe": 116
+    },
+    "moves": [
+      "Sludge Bomb",
+      "Dazzling Gleam",
+      "Strange Steam",
+      "Protect"
+    ]
+  },
+  "Ceruledge": {
+    "ability": "Flash Fire",
+    "item": "Leftovers",
+    "nature": "Adamant",
+    "teraType": "Grass",
+    "evs": {
+      "hp": 252,
+      "atk": 116,
+      "def": 52,
+      "spa": 0,
+      "spd": 76,
+      "spe": 12
+    },
+    "moves": [
+      "Bitter Blade",
+      "Protect",
+      "Shadow Sneak",
+      "Bulk Up"
+    ]
+  },
+  "Jumpluff": {
+    "ability": "Chlorophyll",
+    "item": "Covert Cloak",
+    "nature": "Timid",
+    "teraType": "Water",
+    "evs": {
+      "hp": 244,
+      "atk": 0,
+      "def": 4,
+      "spa": 4,
+      "spd": 4,
+      "spe": 252
+    },
+    "moves": [
+      "Sleep Powder",
+      "Tailwind",
+      "Leaf Storm",
+      "Encore"
+    ]
+  },
+  "Klefki": {
+    "ability": "Prankster",
+    "item": "Light Clay",
+    "nature": "Calm",
+    "teraType": "Ghost",
+    "evs": {
+      "hp": 252,
+      "atk": 0,
+      "def": 76,
+      "spa": 0,
+      "spd": 180,
+      "spe": 0
+    },
+    "moves": [
+      "Light Screen",
+      "Reflect",
+      "Dazzling Gleam",
+      "Misty Terrain"
+    ]
+  },
+  "Politoed": {
+    "ability": "Drizzle",
+    "item": "Choice Specs",
+    "nature": "Modest",
+    "teraType": "Grass",
+    "evs": {
+      "hp": 180,
+      "atk": 0,
+      "def": 4,
+      "spa": 244,
+      "spd": 4,
+      "spe": 76
+    },
+    "moves": [
+      "Weather Ball",
+      "Ice Beam",
+      "Muddy Water",
+      "Earth Power"
+    ]
+  },
+  "Hawlucha": {
+    "ability": "Unburden",
+    "item": "Psychic Seed",
+    "nature": "Adamant",
+    "teraType": "Steel",
+    "evs": {
+      "hp": 20,
+      "atk": 236,
+      "def": 140,
+      "spa": 0,
+      "spd": 12,
+      "spe": 100
+    },
+    "moves": [
+      "Close Combat",
+      "Acrobatics",
+      "Detect",
+      "Encore"
     ]
   },
   "Zoroark-Hisui": {
@@ -1056,175 +1396,55 @@ export const SETDEX_SV: {[k: string]: any} = {
     "moves": [
       "Hyper Voice",
       "Shadow Ball",
-      "Hyper Beam",
-      "Flamethrower"
-    ]
-  },
-  "Weezing-Galar": {
-    "ability": "Neutralizing Gas",
-    "item": "Choice Specs",
-    "nature": "Calm",
-    "teraType": "Fire",
-    "evs": {
-      "hp": 252,
-      "atk": 0,
-      "def": 52,
-      "spa": 4,
-      "spd": 196,
-      "spe": 4
-    },
-    "moves": [
-      "Strange Steam",
-      "Sludge Bomb",
-      "Dazzling Gleam",
-      "Protect"
-    ]
-  },
-  "Garganacl": {
-    "ability": "Purifying Salt",
-    "item": "Leftovers",
-    "nature": "Sassy",
-    "teraType": "Ghost",
-    "evs": {
-      "hp": 252,
-      "atk": 0,
-      "def": 20,
-      "spa": 0,
-      "spd": 236,
-      "spe": 0
-    },
-    "moves": [
-      "Salt Cure",
-      "Recover",
-      "Protect",
-      "Wide Guard"
-    ]
-  },
-  "Lilligant-Hisui": {
-    "ability": "Chlorophyll",
-    "item": "Focus Sash",
-    "nature": "Jolly",
-    "teraType": "Ghost",
-    "evs": {
-      "hp": 4,
-      "atk": 252,
-      "def": 0,
-      "spa": 0,
-      "spd": 0,
-      "spe": 252
-    },
-    "moves": [
-      "Close Combat",
-      "After You",
-      "Sleep Powder",
-      "Solar Blade"
-    ]
-  },
-  "Meowscarada": {
-    "ability": "Overgrow",
-    "item": "Focus Sash",
-    "nature": "Jolly",
-    "teraType": "Ghost",
-    "evs": {
-      "hp": 4,
-      "atk": 252,
-      "def": 0,
-      "spa": 0,
-      "spd": 0,
-      "spe": 252
-    },
-    "moves": [
-      "Flower Trick",
-      "Knock Off",
-      "Protect",
-      "Sucker Punch"
-    ]
-  },
-  "Chandelure": {
-    "ability": "Flash Fire",
-    "item": "Choice Scarf",
-    "nature": "Modest",
-    "teraType": "Grass",
-    "evs": {
-      "hp": 0,
-      "atk": 0,
-      "def": 0,
-      "spa": 252,
-      "spd": 4,
-      "spe": 252
-    },
-    "moves": [
-      "Shadow Ball",
-      "Heat Wave",
-      "Protect",
-      "Trick Room"
-    ]
-  },
-  "Arcanine-Hisui": {
-    "ability": "Intimidate",
-    "item": "Choice Band",
-    "nature": "Jolly",
-    "teraType": "Grass",
-    "evs": {
-      "hp": 4,
-      "atk": 252,
-      "def": 0,
-      "spa": 0,
-      "spd": 0,
-      "spe": 252
-    },
-    "moves": [
-      "Flare Blitz",
-      "Rock Slide",
-      "Extreme Speed",
-      "Protect"
-    ]
-  },
-  "Sylveon": {
-    "ability": "Pixilate",
-    "item": "Choice Specs",
-    "nature": "Modest",
-    "teraType": "Fire",
-    "evs": {
-      "hp": 172,
-      "atk": 0,
-      "def": 156,
-      "spa": 156,
-      "spd": 4,
-      "spe": 20
-    },
-    "moves": [
-      "Hyper Voice",
-      "Protect",
-      "Tera Blast",
+      "Flamethrower",
       "Hyper Beam"
     ]
   },
-  "Decidueye-Hisui": {
-    "ability": "Scrappy",
-    "item": "Choice Scarf",
-    "nature": "Adamant",
-    "teraType": "Steel",
+  "Espathra": {
+    "ability": "Speed Boost",
+    "item": "Leftovers",
+    "nature": "Modest",
+    "teraType": "Fairy",
     "evs": {
-      "hp": 172,
+      "hp": 188,
+      "atk": 0,
+      "def": 124,
+      "spa": 76,
+      "spd": 108,
+      "spe": 12
+    },
+    "moves": [
+      "Protect",
+      "Calm Mind",
+      "Stored Power",
+      "Dazzling Gleam"
+    ]
+  },
+  "Metagross": {
+    "ability": "Clear Body",
+    "item": "Assault Vest",
+    "nature": "Adamant",
+    "teraType": "Flying",
+    "evs": {
+      "hp": 252,
       "atk": 252,
       "def": 0,
       "spa": 0,
-      "spd": 0,
-      "spe": 84
+      "spd": 4,
+      "spe": 0
     },
     "moves": [
-      "Leaf Blade",
-      "Triple Arrows",
-      "Protect",
-      "Haze"
+      "Heavy Slam",
+      "Psychic Fangs",
+      "Bullet Punch",
+      "Stomping Tantrum"
     ]
   },
-  "Delphox": {
-    "ability": "Blaze",
-    "item": "Life Orb",
-    "nature": "Timid",
-    "teraType": "Fighting",
+  "Exeggutor": {
+    "ability": "Chlorophyll",
+    "item": "Focus Sash",
+    "nature": "Modest",
+    "teraType": "Psychic",
     "evs": {
       "hp": 4,
       "atk": 0,
@@ -1235,49 +1455,9 @@ export const SETDEX_SV: {[k: string]: any} = {
     },
     "moves": [
       "Expanding Force",
-      "Heat Wave",
-      "Protect",
-      "Tera Blast"
-    ]
-  },
-  "Toedscruel": {
-    "ability": "Mycelium Might",
-    "item": "Covert Cloak",
-    "nature": "Timid",
-    "teraType": "Water",
-    "evs": {
-      "hp": 196,
-      "atk": 0,
-      "def": 60,
-      "spa": 0,
-      "spd": 0,
-      "spe": 252
-    },
-    "moves": [
-      "Earth Power",
-      "Spore",
-      "Rage Powder",
-      "Acid Spray"
-    ]
-  },
-  "Ceruledge": {
-    "ability": "Flash Fire",
-    "item": "Grassy Seed",
-    "nature": "Adamant",
-    "teraType": "Grass",
-    "evs": {
-      "hp": 252,
-      "atk": 116,
-      "def": 28,
-      "spa": 0,
-      "spd": 4,
-      "spe": 108
-    },
-    "moves": [
-      "Bitter Blade",
-      "Protect",
-      "Poltergeist",
-      "Bulk Up"
+      "Sleep Powder",
+      "Trick Room",
+      "Energy Ball"
     ]
   },
   "Ribombee": {
@@ -1288,56 +1468,256 @@ export const SETDEX_SV: {[k: string]: any} = {
     "evs": {
       "hp": 0,
       "atk": 0,
+      "def": 4,
+      "spa": 252,
+      "spd": 0,
+      "spe": 252
+    },
+    "moves": [
+      "Tailwind",
+      "Moonblast",
+      "Pollen Puff",
+      "Protect"
+    ]
+  },
+  "Drifblim": {
+    "ability": "Unburden",
+    "item": "Psychic Seed",
+    "nature": "Jolly",
+    "teraType": "Grass",
+    "evs": {
+      "hp": 4,
+      "atk": 36,
+      "def": 204,
+      "spa": 0,
+      "spd": 108,
+      "spe": 156
+    },
+    "moves": [
+      "Tailwind",
+      "Will-O-Wisp",
+      "Acrobatics",
+      "Strength Sap"
+    ]
+  },
+  "Toedscruel": {
+    "ability": "Mycelium Might",
+    "item": "Covert Cloak",
+    "nature": "Timid",
+    "teraType": "Water",
+    "evs": {
+      "hp": 164,
+      "atk": 0,
+      "def": 76,
+      "spa": 12,
+      "spd": 4,
+      "spe": 252
+    },
+    "moves": [
+      "Spore",
+      "Earth Power",
+      "Rage Powder",
+      "Acid Spray"
+    ]
+  },
+  "Arcanine": {
+    "ability": "Intimidate",
+    "item": "Mirror Herb",
+    "nature": "Jolly",
+    "teraType": "Normal",
+    "evs": {
+      "hp": 4,
+      "atk": 236,
+      "def": 4,
+      "spa": 0,
+      "spd": 44,
+      "spe": 220
+    },
+    "moves": [
+      "Flare Blitz",
+      "Protect",
+      "Extreme Speed",
+      "Will-O-Wisp"
+    ]
+  },
+  "Orthworm": {
+    "ability": "Earth Eater",
+    "item": "Sitrus Berry",
+    "nature": "Careful",
+    "teraType": "Fire",
+    "evs": {
+      "hp": 244,
+      "atk": 4,
+      "def": 4,
+      "spa": 0,
+      "spd": 244,
+      "spe": 12
+    },
+    "moves": [
+      "Body Press",
+      "Shed Tail",
+      "Iron Defense",
+      "Heavy Slam"
+    ]
+  },
+  "Charizard": {
+    "ability": "Solar Power",
+    "item": "Choice Scarf",
+    "nature": "Modest",
+    "teraType": "Fire",
+    "evs": {
+      "hp": 4,
+      "atk": 0,
+      "def": 0,
+      "spa": 252,
+      "spd": 0,
+      "spe": 252
+    },
+    "moves": [
+      "Heat Wave",
+      "Overheat",
+      "Dragon Pulse",
+      "Air Slash"
+    ]
+  },
+  "Chandelure": {
+    "ability": "Flash Fire",
+    "item": "Choice Scarf",
+    "nature": "Modest",
+    "teraType": "Grass",
+    "evs": {
+      "hp": 4,
+      "atk": 0,
+      "def": 0,
+      "spa": 252,
+      "spd": 0,
+      "spe": 252
+    },
+    "moves": [
+      "Shadow Ball",
+      "Heat Wave",
+      "Trick Room",
+      "Protect"
+    ]
+  },
+  "Decidueye-Hisui": {
+    "ability": "Scrappy",
+    "item": "Scope Lens",
+    "nature": "Adamant",
+    "teraType": "Fire",
+    "evs": {
+      "hp": 4,
+      "atk": 252,
+      "def": 0,
+      "spa": 0,
+      "spd": 0,
+      "spe": 252
+    },
+    "moves": [
+      "Leaf Blade",
+      "Triple Arrows",
+      "Protect",
+      "Haze"
+    ]
+  },
+  "Garganacl": {
+    "ability": "Purifying Salt",
+    "item": "Leftovers",
+    "nature": "Careful",
+    "teraType": "Flying",
+    "evs": {
+      "hp": 252,
+      "atk": 0,
+      "def": 20,
+      "spa": 0,
+      "spd": 236,
+      "spe": 0
+    },
+    "moves": [
+      "Salt Cure",
+      "Protect",
+      "Recover",
+      "Wide Guard"
+    ]
+  },
+  "Tauros-Paldea-Blaze": {
+    "ability": "Intimidate",
+    "item": "Clear Amulet",
+    "nature": "Jolly",
+    "teraType": "Grass",
+    "evs": {
+      "hp": 0,
+      "atk": 252,
+      "def": 0,
+      "spa": 0,
+      "spd": 4,
+      "spe": 252
+    },
+    "moves": [
+      "Protect",
+      "Close Combat",
+      "Will-O-Wisp",
+      "Raging Bull"
+    ]
+  },
+  "Toxtricity": {
+    "ability": "Punk Rock",
+    "item": "Choice Specs",
+    "nature": "Modest",
+    "teraType": "Normal",
+    "evs": {
+      "hp": 4,
+      "atk": 0,
+      "def": 0,
+      "spa": 252,
+      "spd": 0,
+      "spe": 252
+    },
+    "moves": [
+      "Overdrive",
+      "Boomburst",
+      "Sludge Bomb",
+      "Volt Switch"
+    ]
+  },
+  "Gothitelle": {
+    "ability": "Shadow Tag",
+    "item": "Sitrus Berry",
+    "nature": "Calm",
+    "teraType": "Water",
+    "evs": {
+      "hp": 252,
+      "atk": 0,
+      "def": 100,
+      "spa": 0,
+      "spd": 156,
+      "spe": 0
+    },
+    "moves": [
+      "Fake Out",
+      "Protect",
+      "Psychic",
+      "Trick Room"
+    ]
+  },
+  "Blaziken": {
+    "ability": "Speed Boost",
+    "item": "Focus Sash",
+    "nature": "Modest",
+    "teraType": "Ghost",
+    "evs": {
+      "hp": 0,
+      "atk": 0,
       "def": 0,
       "spa": 252,
       "spd": 4,
       "spe": 252
     },
     "moves": [
-      "Moonblast",
-      "Tailwind",
-      "Pollen Puff",
-      "Protect"
-    ]
-  },
-  "Milotic": {
-    "ability": "Competitive",
-    "item": "Leftovers",
-    "nature": "Modest",
-    "teraType": "Grass",
-    "evs": {
-      "hp": 188,
-      "atk": 0,
-      "def": 140,
-      "spa": 76,
-      "spd": 4,
-      "spe": 100
-    },
-    "moves": [
-      "Scald",
-      "Haze",
       "Protect",
-      "Icy Wind"
-    ]
-  },
-  "Gyarados": {
-    "ability": "Intimidate",
-    "item": "Sitrus Berry",
-    "nature": "Impish",
-    "teraType": "Ghost",
-    "evs": {
-      "hp": 236,
-      "atk": 4,
-      "def": 172,
-      "spa": 0,
-      "spd": 76,
-      "spe": 20
-    },
-    "moves": [
-      "Waterfall",
-      "Protect",
-      "Thunder Wave",
-      "Taunt"
+      "Coaching",
+      "Close Combat",
+      "Flare Blitz"
     ]
   },
   "Weezing": {
@@ -1354,350 +1734,30 @@ export const SETDEX_SV: {[k: string]: any} = {
       "spe": 28
     },
     "moves": [
-      "Protect",
-      "Sludge Bomb",
       "Taunt",
+      "Sludge Bomb",
+      "Protect",
       "Will-O-Wisp"
     ]
   },
-  "Excadrill": {
-    "ability": "Sand Rush",
-    "item": "Focus Sash",
-    "nature": "Jolly",
-    "teraType": "Ground",
-    "evs": {
-      "hp": 4,
-      "atk": 252,
-      "def": 0,
-      "spa": 0,
-      "spd": 0,
-      "spe": 252
-    },
-    "moves": [
-      "Iron Head",
-      "Protect",
-      "High Horsepower",
-      "Earthquake"
-    ]
-  },
-  "Lycanroc": {
-    "ability": "Sand Rush",
-    "item": "Focus Sash",
-    "nature": "Adamant",
-    "teraType": "Fighting",
-    "evs": {
-      "hp": 0,
-      "atk": 252,
-      "def": 0,
-      "spa": 0,
-      "spd": 4,
-      "spe": 252
-    },
-    "moves": [
-      "Rock Slide",
-      "Close Combat",
-      "Protect",
-      "Endeavor"
-    ]
-  },
-  "Quaquaval": {
-    "ability": "Moxie",
+  "Bruxish": {
+    "ability": "Dazzling",
     "item": "Choice Scarf",
     "nature": "Jolly",
     "teraType": "Water",
     "evs": {
-      "hp": 4,
-      "atk": 252,
-      "def": 0,
-      "spa": 0,
-      "spd": 0,
-      "spe": 252
-    },
-    "moves": [
-      "Close Combat",
-      "Aqua Step",
-      "Brave Bird",
-      "U-turn"
-    ]
-  },
-  "Baxcalibur": {
-    "ability": "Thermal Exchange",
-    "item": "Loaded Dice",
-    "nature": "Adamant",
-    "teraType": "Water",
-    "evs": {
-      "hp": 140,
-      "atk": 204,
-      "def": 4,
-      "spa": 0,
-      "spd": 76,
-      "spe": 84
-    },
-    "moves": [
-      "Protect",
-      "Ice Shard",
-      "Glaive Rush",
-      "Swords Dance"
-    ]
-  },
-  "Gothitelle": {
-    "ability": "Shadow Tag",
-    "item": "Sitrus Berry",
-    "nature": "Relaxed",
-    "teraType": "Water",
-    "evs": {
-      "hp": 252,
-      "atk": 0,
-      "def": 156,
-      "spa": 0,
-      "spd": 100,
-      "spe": 0
-    },
-    "moves": [
-      "Fake Out",
-      "Psychic",
-      "Protect",
-      "Trick Room"
-    ]
-  },
-  "Dusclops": {
-    "ability": "Pressure",
-    "item": "Eviolite",
-    "nature": "Sassy",
-    "teraType": "Fairy",
-    "evs": {
-      "hp": 252,
-      "atk": 0,
-      "def": 156,
-      "spa": 0,
-      "spd": 100,
-      "spe": 0
-    },
-    "moves": [
-      "Trick Room",
-      "Night Shade",
-      "Haze",
-      "Pain Split"
-    ]
-  },
-  "Clefairy": {
-    "ability": "Friend Guard",
-    "item": "Eviolite",
-    "nature": "Calm",
-    "teraType": "Steel",
-    "evs": {
-      "hp": 252,
-      "atk": 0,
-      "def": 108,
-      "spa": 0,
-      "spd": 148,
-      "spe": 0
-    },
-    "moves": [
-      "Follow Me",
-      "Protect",
-      "Helping Hand",
-      "After You"
-    ]
-  },
-  "Breloom": {
-    "ability": "Technician",
-    "item": "Focus Sash",
-    "nature": "Adamant",
-    "teraType": "Ghost",
-    "evs": {
-      "hp": 4,
-      "atk": 252,
-      "def": 0,
-      "spa": 0,
-      "spd": 0,
-      "spe": 252
-    },
-    "moves": [
-      "Spore",
-      "Protect",
-      "Bullet Seed",
-      "Mach Punch"
-    ]
-  },
-  "Politoed": {
-    "ability": "Drizzle",
-    "item": "Choice Scarf",
-    "nature": "Sassy",
-    "teraType": "Grass",
-    "evs": {
-      "hp": 252,
-      "atk": 0,
-      "def": 36,
-      "spa": 0,
-      "spd": 220,
-      "spe": 0
-    },
-    "moves": [
-      "Protect",
-      "Weather Ball",
-      "Perish Song",
-      "Encore"
-    ]
-  },
-  "Blaziken": {
-    "ability": "Speed Boost",
-    "item": "Focus Sash",
-    "nature": "Naughty",
-    "teraType": "Ghost",
-    "evs": {
       "hp": 0,
       "atk": 252,
-      "def": 0,
-      "spa": 4,
-      "spd": 0,
-      "spe": 252
-    },
-    "moves": [
-      "Close Combat",
-      "Protect",
-      "Coaching",
-      "Flare Blitz"
-    ]
-  },
-  "Samurott-Hisui": {
-    "ability": "Sharpness",
-    "item": "Focus Sash",
-    "nature": "Jolly",
-    "teraType": "Grass",
-    "evs": {
-      "hp": 0,
-      "atk": 252,
-      "def": 0,
-      "spa": 0,
-      "spd": 4,
-      "spe": 252
-    },
-    "moves": [
-      "Sacred Sword",
-      "Aqua Cutter",
-      "Protect",
-      "Night Slash"
-    ]
-  },
-  "Smeargle": {
-    "ability": "Moody",
-    "item": "Focus Sash",
-    "nature": "Timid",
-    "teraType": "Ghost",
-    "evs": {
-      "hp": 252,
-      "atk": 0,
       "def": 4,
       "spa": 0,
       "spd": 0,
       "spe": 252
     },
     "moves": [
-      "Spore",
-      "Follow Me",
-      "Wide Guard",
-      "Spiky Shield"
-    ]
-  },
-  "Brambleghast": {
-    "ability": "Wind Rider",
-    "item": "Focus Sash",
-    "nature": "Adamant",
-    "teraType": "Ghost",
-    "evs": {
-      "hp": 0,
-      "atk": 252,
-      "def": 0,
-      "spa": 0,
-      "spd": 4,
-      "spe": 252
-    },
-    "moves": [
-      "Poltergeist",
-      "Shadow Sneak",
-      "Power Whip",
-      "Strength Sap"
-    ]
-  },
-  "Tsareena": {
-    "ability": "Queenly Majesty",
-    "item": "Wide Lens",
-    "nature": "Adamant",
-    "teraType": "Fire",
-    "evs": {
-      "hp": 4,
-      "atk": 252,
-      "def": 0,
-      "spa": 0,
-      "spd": 0,
-      "spe": 252
-    },
-    "moves": [
-      "Power Whip",
-      "Triple Axel",
-      "Protect",
-      "Taunt"
-    ]
-  },
-  "Gardevoir": {
-    "ability": "Telepathy",
-    "item": "Choice Scarf",
-    "nature": "Timid",
-    "teraType": "Fairy",
-    "evs": {
-      "hp": 4,
-      "atk": 0,
-      "def": 0,
-      "spa": 252,
-      "spd": 0,
-      "spe": 252
-    },
-    "moves": [
-      "Moonblast",
-      "Dazzling Gleam",
-      "Psychic",
-      "Expanding Force"
-    ]
-  },
-  "Stonjourner": {
-    "ability": "Power Spot",
-    "item": "Focus Sash",
-    "nature": "Adamant",
-    "teraType": "Ghost",
-    "evs": {
-      "hp": 4,
-      "atk": 252,
-      "def": 0,
-      "spa": 0,
-      "spd": 0,
-      "spe": 252
-    },
-    "moves": [
-      "Wide Guard",
-      "Rock Slide",
-      "Protect",
-      "Low Kick"
-    ]
-  },
-  "Skeledirge": {
-    "ability": "Unaware",
-    "item": "Leftovers",
-    "nature": "Modest",
-    "teraType": "Fairy",
-    "evs": {
-      "hp": 252,
-      "atk": 0,
-      "def": 108,
-      "spa": 4,
-      "spd": 116,
-      "spe": 28
-    },
-    "moves": [
-      "Torch Song",
-      "Protect",
-      "Shadow Ball",
-      "Slack Off"
+      "Psychic Fangs",
+      "Wave Crash",
+      "Super Fang",
+      "Icy Wind"
     ]
   },
   "Weavile": {
@@ -1715,94 +1775,154 @@ export const SETDEX_SV: {[k: string]: any} = {
     },
     "moves": [
       "Knock Off",
-      "Fake Out",
       "Triple Axel",
+      "Fake Out",
       "Protect"
     ]
   },
-  "Kilowattrel": {
-    "ability": "Competitive",
-    "item": "Focus Sash",
-    "nature": "Timid",
+  "Gyarados": {
+    "ability": "Intimidate",
+    "item": "Safety Goggles",
+    "nature": "Careful",
+    "teraType": "Steel",
+    "evs": {
+      "hp": 252,
+      "atk": 36,
+      "def": 116,
+      "spa": 0,
+      "spd": 76,
+      "spe": 28
+    },
+    "moves": [
+      "Waterfall",
+      "Taunt",
+      "Protect",
+      "Thunder Wave"
+    ]
+  },
+  "Gardevoir": {
+    "ability": "Telepathy",
+    "item": "Choice Scarf",
+    "nature": "Modest",
     "teraType": "Ghost",
     "evs": {
-      "hp": 0,
+      "hp": 180,
       "atk": 0,
-      "def": 0,
-      "spa": 252,
+      "def": 212,
+      "spa": 44,
       "spd": 4,
-      "spe": 252
+      "spe": 68
     },
     "moves": [
-      "Protect",
-      "Air Slash",
-      "Tailwind",
-      "Discharge"
+      "Dazzling Gleam",
+      "Moonblast",
+      "Expanding Force",
+      "Icy Wind"
     ]
   },
-  "Kleavor": {
-    "ability": "Sharpness",
-    "item": "Clear Amulet",
-    "nature": "Adamant",
-    "teraType": "Fire",
-    "evs": {
-      "hp": 0,
-      "atk": 252,
-      "def": 0,
-      "spa": 0,
-      "spd": 4,
-      "spe": 252
-    },
-    "moves": [
-      "Stone Axe",
-      "Protect",
-      "X-Scissor",
-      "Close Combat"
-    ]
-  },
-  "Mienshao": {
-    "ability": "Inner Focus",
-    "item": "Focus Sash",
-    "nature": "Jolly",
-    "teraType": "Fighting",
-    "evs": {
-      "hp": 4,
-      "atk": 252,
-      "def": 0,
-      "spa": 0,
-      "spd": 0,
-      "spe": 252
-    },
-    "moves": [
-      "Close Combat",
-      "Fake Out",
-      "Knock Off",
-      "Coaching"
-    ]
-  },
-  "Klefki": {
-    "ability": "Prankster",
-    "item": "Light Clay",
-    "nature": "Bold",
-    "teraType": "Ghost",
+  "Bronzong": {
+    "ability": "Levitate",
+    "item": "Mental Herb",
+    "nature": "Relaxed",
+    "teraType": "Water",
     "evs": {
       "hp": 252,
       "atk": 0,
-      "def": 116,
+      "def": 108,
       "spa": 0,
-      "spd": 140,
+      "spd": 148,
       "spe": 0
     },
     "moves": [
-      "Light Screen",
-      "Thunder Wave",
-      "Reflect",
-      "Dazzling Gleam"
+      "Trick Room",
+      "Body Press",
+      "Protect",
+      "Gyro Ball"
+    ]
+  },
+  "Gliscor": {
+    "ability": "Poison Heal",
+    "item": "Toxic Orb",
+    "nature": "Jolly",
+    "teraType": "Water",
+    "evs": {
+      "hp": 0,
+      "atk": 252,
+      "def": 0,
+      "spa": 0,
+      "spd": 4,
+      "spe": 252
+    },
+    "moves": [
+      "Protect",
+      "High Horsepower",
+      "Swords Dance",
+      "Dual Wingbeat"
+    ]
+  },
+  "Abomasnow": {
+    "ability": "Snow Warning",
+    "item": "Assault Vest",
+    "nature": "Modest",
+    "teraType": "Fire",
+    "evs": {
+      "hp": 52,
+      "atk": 0,
+      "def": 132,
+      "spa": 220,
+      "spd": 4,
+      "spe": 100
+    },
+    "moves": [
+      "Blizzard",
+      "Earth Power",
+      "Weather Ball",
+      "Leaf Storm"
+    ]
+  },
+  "Basculegion-F": {
+    "ability": "Adaptability",
+    "item": "Life Orb",
+    "nature": "Modest",
+    "teraType": "Water",
+    "evs": {
+      "hp": 100,
+      "atk": 0,
+      "def": 52,
+      "spa": 252,
+      "spd": 4,
+      "spe": 100
+    },
+    "moves": [
+      "Shadow Ball",
+      "Muddy Water",
+      "Hydro Pump",
+      "Protect"
+    ]
+  },
+  "Skeledirge": {
+    "ability": "Unaware",
+    "item": "Leftovers",
+    "nature": "Modest",
+    "teraType": "Fairy",
+    "evs": {
+      "hp": 252,
+      "atk": 0,
+      "def": 28,
+      "spa": 140,
+      "spd": 52,
+      "spe": 36
+    },
+    "moves": [
+      "Torch Song",
+      "Protect",
+      "Will-O-Wisp",
+      "Shadow Ball"
     ]
   },
   "Mamoswine": {
     "ability": "Oblivious",
-    "item": "Choice Scarf",
+    "item": "Focus Sash",
     "nature": "Jolly",
     "teraType": "Ground",
     "evs": {
@@ -1816,135 +1936,55 @@ export const SETDEX_SV: {[k: string]: any} = {
     "moves": [
       "Icicle Crash",
       "Protect",
-      "Earthquake",
-      "High Horsepower"
-    ]
-  },
-  "Krookodile": {
-    "ability": "Intimidate",
-    "item": "Choice Scarf",
-    "nature": "Jolly",
-    "teraType": "Ground",
-    "evs": {
-      "hp": 20,
-      "atk": 228,
-      "def": 4,
-      "spa": 0,
-      "spd": 4,
-      "spe": 252
-    },
-    "moves": [
       "High Horsepower",
-      "Protect",
-      "Knock Off",
-      "Earthquake"
+      "Ice Shard"
     ]
   },
-  "Slaking": {
-    "ability": "Truant",
-    "item": "Life Orb",
+  "Tsareena": {
+    "ability": "Queenly Majesty",
+    "item": "Wide Lens",
     "nature": "Adamant",
-    "teraType": "Ghost",
+    "teraType": "Fire",
     "evs": {
-      "hp": 0,
-      "atk": 252,
-      "def": 4,
+      "hp": 244,
+      "atk": 76,
+      "def": 28,
       "spa": 0,
-      "spd": 0,
-      "spe": 252
+      "spd": 28,
+      "spe": 132
     },
     "moves": [
+      "Power Whip",
+      "Triple Axel",
       "Protect",
-      "High Horsepower",
-      "Double-Edge",
-      "Play Rough"
-    ]
-  },
-  "Mimikyu": {
-    "ability": "Disguise",
-    "item": "Life Orb",
-    "nature": "Jolly",
-    "teraType": "Stellar",
-    "evs": {
-      "hp": 4,
-      "atk": 252,
-      "def": 0,
-      "spa": 0,
-      "spd": 0,
-      "spe": 252
-    },
-    "moves": [
-      "Play Rough",
-      "Shadow Claw",
-      "Trick Room",
       "Taunt"
     ]
   },
-  "Braviary": {
-    "ability": "Defiant",
-    "item": "Safety Goggles",
-    "nature": "Jolly",
-    "teraType": "Ghost",
-    "evs": {
-      "hp": 0,
-      "atk": 252,
-      "def": 0,
-      "spa": 0,
-      "spd": 4,
-      "spe": 252
-    },
-    "moves": [
-      "Close Combat",
-      "Brave Bird",
-      "Protect",
-      "Tailwind"
-    ]
-  },
-  "Alcremie": {
-    "ability": "Sweet Veil",
+  "Blastoise": {
+    "ability": "Rain Dish",
     "item": "Choice Scarf",
-    "nature": "Quiet",
-    "teraType": "Electric",
+    "nature": "Modest",
+    "teraType": "Water",
     "evs": {
-      "hp": 252,
+      "hp": 4,
       "atk": 0,
-      "def": 116,
-      "spa": 140,
-      "spd": 0,
-      "spe": 0
-    },
-    "moves": [
-      "Decorate",
-      "Encore",
-      "Alluring Voice",
-      "Tera Blast"
-    ]
-  },
-  "Toxicroak": {
-    "ability": "Dry Skin",
-    "item": "Clear Amulet",
-    "nature": "Adamant",
-    "teraType": "Dark",
-    "evs": {
-      "hp": 20,
-      "atk": 236,
       "def": 0,
-      "spa": 0,
+      "spa": 252,
       "spd": 0,
       "spe": 252
     },
     "moves": [
-      "Fake Out",
-      "Close Combat",
-      "Gunk Shot",
-      "Sucker Punch"
+      "Water Spout",
+      "Shell Smash",
+      "Protect",
+      "Water Pledge"
     ]
   },
-  "Espathra": {
-    "ability": "Speed Boost",
+  "Gengar": {
+    "ability": "Cursed Body",
     "item": "Focus Sash",
-    "nature": "Modest",
-    "teraType": "Psychic",
+    "nature": "Timid",
+    "teraType": "Stellar",
     "evs": {
       "hp": 0,
       "atk": 0,
@@ -1954,115 +1994,35 @@ export const SETDEX_SV: {[k: string]: any} = {
       "spe": 252
     },
     "moves": [
+      "Shadow Ball",
+      "Sludge Bomb",
       "Protect",
-      "Dazzling Gleam",
-      "Lumina Crash",
-      "Expanding Force"
+      "Haze"
     ]
   },
-  "Arcanine": {
-    "ability": "Intimidate",
-    "item": "Safety Goggles",
-    "nature": "Jolly",
-    "teraType": "Grass",
+  "Smeargle": {
+    "ability": "Moody",
+    "item": "Choice Scarf",
+    "nature": "Timid",
+    "teraType": "Ghost",
     "evs": {
       "hp": 252,
-      "atk": 28,
-      "def": 4,
-      "spa": 0,
-      "spd": 4,
-      "spe": 220
-    },
-    "moves": [
-      "Flare Blitz",
-      "Extreme Speed",
-      "Howl",
-      "Will-O-Wisp"
-    ]
-  },
-  "Cinderace": {
-    "ability": "Libero",
-    "item": "Choice Band",
-    "nature": "Jolly",
-    "teraType": "Fire",
-    "evs": {
-      "hp": 4,
-      "atk": 252,
-      "def": 0,
-      "spa": 0,
-      "spd": 0,
-      "spe": 252
-    },
-    "moves": [
-      "U-turn",
-      "Pyro Ball",
-      "Flare Blitz",
-      "Protect"
-    ]
-  },
-  "Ninetales": {
-    "ability": "Drought",
-    "item": "Eject Pack",
-    "nature": "Timid",
-    "teraType": "Ground",
-    "evs": {
-      "hp": 92,
       "atk": 0,
-      "def": 68,
-      "spa": 92,
-      "spd": 4,
-      "spe": 252
-    },
-    "moves": [
-      "Overheat",
-      "Protect",
-      "Scorching Sands",
-      "Disable"
-    ]
-  },
-  "Empoleon": {
-    "ability": "Competitive",
-    "item": "Leftovers",
-    "nature": "Modest",
-    "teraType": "Grass",
-    "evs": {
-      "hp": 236,
-      "atk": 0,
-      "def": 4,
-      "spa": 148,
-      "spd": 84,
-      "spe": 36
-    },
-    "moves": [
-      "Protect",
-      "Water Pledge",
-      "Ice Beam",
-      "Yawn"
-    ]
-  },
-  "Drifblim": {
-    "ability": "Unburden",
-    "item": "Psychic Seed",
-    "nature": "Jolly",
-    "teraType": "Flying",
-    "evs": {
-      "hp": 0,
-      "atk": 252,
       "def": 4,
       "spa": 0,
       "spd": 0,
       "spe": 252
     },
     "moves": [
-      "Tailwind",
-      "Acrobatics",
-      "Helping Hand",
-      "Hypnosis"
+      "Spore",
+      "Follow Me",
+      "Fake Out",
+      "Decorate"
     ]
   },
   "Araquanid": {
     "ability": "Water Bubble",
-    "item": "Clear Amulet",
+    "item": "Safety Goggles",
     "nature": "Brave",
     "teraType": "Water",
     "evs": {
@@ -2076,148 +2036,908 @@ export const SETDEX_SV: {[k: string]: any} = {
     "moves": [
       "Liquidation",
       "Protect",
-      "Wide Guard",
-      "Leech Life"
+      "Leech Life",
+      "Wide Guard"
     ]
   },
-  "Goodra-Hisui": {
-    "ability": "Sap Sipper",
-    "item": "Leftovers",
+  "Cryogonal": {
+    "ability": "Levitate",
+    "item": "Focus Sash",
+    "nature": "Timid",
+    "teraType": "Ghost",
+    "evs": {
+      "hp": 4,
+      "atk": 0,
+      "def": 0,
+      "spa": 252,
+      "spd": 0,
+      "spe": 252
+    },
+    "moves": [
+      "Freeze-Dry",
+      "Haze",
+      "Icy Wind",
+      "Protect"
+    ]
+  },
+  "Oranguru": {
+    "ability": "Telepathy",
+    "item": "Sitrus Berry",
+    "nature": "Sassy",
+    "teraType": "Water",
+    "evs": {
+      "hp": 252,
+      "atk": 0,
+      "def": 4,
+      "spa": 0,
+      "spd": 252,
+      "spe": 0
+    },
+    "moves": [
+      "Instruct",
+      "Trick Room",
+      "Protect",
+      "Bulldoze"
+    ]
+  },
+  "Malamar": {
+    "ability": "Contrary",
+    "item": "Sitrus Berry",
+    "nature": "Impish",
+    "teraType": "Water",
+    "evs": {
+      "hp": 252,
+      "atk": 4,
+      "def": 148,
+      "spa": 0,
+      "spd": 60,
+      "spe": 44
+    },
+    "moves": [
+      "Superpower",
+      "Trick Room",
+      "Topsy-Turvy",
+      "Knock Off"
+    ]
+  },
+  "Clefairy": {
+    "ability": "Friend Guard",
+    "item": "Eviolite",
+    "nature": "Bold",
+    "teraType": "Water",
+    "evs": {
+      "hp": 244,
+      "atk": 0,
+      "def": 252,
+      "spa": 0,
+      "spd": 12,
+      "spe": 0
+    },
+    "moves": [
+      "Follow Me",
+      "Protect",
+      "Helping Hand",
+      "Sing"
+    ]
+  },
+  "Bellibolt": {
+    "ability": "Electromorphosis",
+    "item": "Weakness Policy",
+    "nature": "Modest",
+    "teraType": "Electric",
+    "evs": {
+      "hp": 252,
+      "atk": 0,
+      "def": 0,
+      "spa": 228,
+      "spd": 28,
+      "spe": 0
+    },
+    "moves": [
+      "Thunderbolt",
+      "Parabolic Charge",
+      "Weather Ball",
+      "Protect"
+    ]
+  },
+  "Hariyama": {
+    "ability": "Guts",
+    "item": "Flame Orb",
+    "nature": "Brave",
+    "teraType": "Steel",
+    "evs": {
+      "hp": 4,
+      "atk": 252,
+      "def": 0,
+      "spa": 0,
+      "spd": 252,
+      "spe": 0
+    },
+    "moves": [
+      "Fake Out",
+      "Knock Off",
+      "Close Combat",
+      "Facade"
+    ]
+  },
+  "Breloom": {
+    "ability": "Technician",
+    "item": "Focus Sash",
+    "nature": "Jolly",
+    "teraType": "Ghost",
+    "evs": {
+      "hp": 4,
+      "atk": 252,
+      "def": 0,
+      "spa": 0,
+      "spd": 0,
+      "spe": 252
+    },
+    "moves": [
+      "Spore",
+      "Protect",
+      "Bullet Seed",
+      "Mach Punch"
+    ]
+  },
+  "Sableye": {
+    "ability": "Prankster",
+    "item": "Ability Shield",
+    "nature": "Calm",
+    "teraType": "Dark",
+    "evs": {
+      "hp": 252,
+      "atk": 0,
+      "def": 60,
+      "spa": 0,
+      "spd": 196,
+      "spe": 0
+    },
+    "moves": [
+      "Will-O-Wisp",
+      "Rain Dance",
+      "Light Screen",
+      "Encore"
+    ]
+  },
+  "Lycanroc": {
+    "ability": "Sand Rush",
+    "item": "Focus Sash",
+    "nature": "Adamant",
+    "teraType": "Fighting",
+    "evs": {
+      "hp": 0,
+      "atk": 252,
+      "def": 0,
+      "spa": 0,
+      "spd": 4,
+      "spe": 252
+    },
+    "moves": [
+      "Rock Slide",
+      "Protect",
+      "Close Combat",
+      "Endeavor"
+    ]
+  },
+  "Oricorio-Sensu": {
+    "ability": "Dancer",
+    "item": "Focus Sash",
+    "nature": "Modest",
+    "teraType": "Fighting",
+    "evs": {
+      "hp": 0,
+      "atk": 0,
+      "def": 0,
+      "spa": 252,
+      "spd": 4,
+      "spe": 252
+    },
+    "moves": [
+      "Revelation Dance",
+      "Air Slash",
+      "Protect",
+      "Taunt"
+    ]
+  },
+  "Slaking": {
+    "ability": "Truant",
+    "item": "Life Orb",
+    "nature": "Adamant",
+    "teraType": "Fairy",
+    "evs": {
+      "hp": 0,
+      "atk": 252,
+      "def": 0,
+      "spa": 0,
+      "spd": 4,
+      "spe": 252
+    },
+    "moves": [
+      "Double-Edge",
+      "High Horsepower",
+      "Protect",
+      "Play Rough"
+    ]
+  },
+  "Quaquaval": {
+    "ability": "Moxie",
+    "item": "Choice Scarf",
+    "nature": "Adamant",
+    "teraType": "Water",
+    "evs": {
+      "hp": 4,
+      "atk": 252,
+      "def": 0,
+      "spa": 0,
+      "spd": 0,
+      "spe": 252
+    },
+    "moves": [
+      "Close Combat",
+      "Aqua Step",
+      "Protect",
+      "Aqua Jet"
+    ]
+  },
+  "Rotom-Heat": {
+    "ability": "Levitate",
+    "item": "Safety Goggles",
+    "nature": "Modest",
+    "teraType": "Steel",
+    "evs": {
+      "hp": 252,
+      "atk": 0,
+      "def": 92,
+      "spa": 116,
+      "spd": 4,
+      "spe": 44
+    },
+    "moves": [
+      "Overheat",
+      "Protect",
+      "Thunderbolt",
+      "Will-O-Wisp"
+    ]
+  },
+  "Mienshao": {
+    "ability": "Inner Focus",
+    "item": "Choice Scarf",
+    "nature": "Jolly",
+    "teraType": "Fighting",
+    "evs": {
+      "hp": 4,
+      "atk": 252,
+      "def": 0,
+      "spa": 0,
+      "spd": 0,
+      "spe": 252
+    },
+    "moves": [
+      "Close Combat",
+      "Fake Out",
+      "Taunt",
+      "Knock Off"
+    ]
+  },
+  "Glaceon": {
+    "ability": "Snow Cloak",
+    "item": "Choice Specs",
     "nature": "Modest",
     "teraType": "Water",
     "evs": {
       "hp": 252,
       "atk": 0,
-      "def": 76,
-      "spa": 76,
-      "spd": 12,
-      "spe": 92
-    },
-    "moves": [
-      "Body Press",
-      "Protect",
-      "Acid Armor",
-      "Flamethrower"
-    ]
-  },
-  "Toxtricity": {
-    "ability": "Punk Rock",
-    "item": "Choice Scarf",
-    "nature": "Timid",
-    "teraType": "Normal",
-    "evs": {
-      "hp": 60,
-      "atk": 0,
       "def": 0,
       "spa": 252,
       "spd": 0,
-      "spe": 196
+      "spe": 4
     },
     "moves": [
-      "Overdrive",
-      "Sludge Bomb",
-      "Boomburst",
-      "Snarl"
+      "Blizzard",
+      "Freeze-Dry",
+      "Tera Blast",
+      "Weather Ball"
     ]
   },
-  "Alomomola": {
-    "ability": "Regenerator",
-    "item": "Iapapa Berry",
-    "nature": "Relaxed",
-    "teraType": "Steel",
+  "Greninja": {
+    "ability": "Protean",
+    "item": "Choice Scarf",
+    "nature": "Modest",
+    "teraType": "Water",
     "evs": {
-      "hp": 4,
+      "hp": 204,
       "atk": 0,
-      "def": 156,
-      "spa": 92,
-      "spd": 252,
+      "def": 4,
+      "spa": 252,
+      "spd": 0,
+      "spe": 44
+    },
+    "moves": [
+      "Hydro Pump",
+      "U-turn",
+      "Dark Pulse",
+      "Ice Beam"
+    ]
+  },
+  "Mandibuzz": {
+    "ability": "Overcoat",
+    "item": "Rocky Helmet",
+    "nature": "Calm",
+    "teraType": "Poison",
+    "evs": {
+      "hp": 252,
+      "atk": 0,
+      "def": 60,
+      "spa": 0,
+      "spd": 196,
       "spe": 0
     },
     "moves": [
-      "Wide Guard",
-      "Scald",
-      "Baton Pass",
-      "Calm Mind"
+      "Tailwind",
+      "Foul Play",
+      "Snarl",
+      "Protect"
+    ]
+  },
+  "Braviary": {
+    "ability": "Defiant",
+    "item": "Choice Scarf",
+    "nature": "Adamant",
+    "teraType": "Steel",
+    "evs": {
+      "hp": 28,
+      "atk": 212,
+      "def": 4,
+      "spa": 0,
+      "spd": 12,
+      "spe": 252
+    },
+    "moves": [
+      "Tailwind",
+      "Protect",
+      "Close Combat",
+      "Brave Bird"
+    ]
+  },
+  "Venusaur": {
+    "ability": "Chlorophyll",
+    "item": "Life Orb",
+    "nature": "Modest",
+    "teraType": "Fire",
+    "evs": {
+      "hp": 188,
+      "atk": 0,
+      "def": 0,
+      "spa": 236,
+      "spd": 0,
+      "spe": 84
+    },
+    "moves": [
+      "Sludge Bomb",
+      "Earth Power",
+      "Weather Ball",
+      "Protect"
+    ]
+  },
+  "Krookodile": {
+    "ability": "Intimidate",
+    "item": "Life Orb",
+    "nature": "Jolly",
+    "teraType": "Poison",
+    "evs": {
+      "hp": 4,
+      "atk": 244,
+      "def": 4,
+      "spa": 0,
+      "spd": 4,
+      "spe": 252
+    },
+    "moves": [
+      "Knock Off",
+      "High Horsepower",
+      "Protect",
+      "Gunk Shot"
+    ]
+  },
+  "Kleavor": {
+    "ability": "Sharpness",
+    "item": "Choice Scarf",
+    "nature": "Jolly",
+    "teraType": "Steel",
+    "evs": {
+      "hp": 0,
+      "atk": 252,
+      "def": 0,
+      "spa": 0,
+      "spd": 4,
+      "spe": 252
+    },
+    "moves": [
+      "Stone Axe",
+      "Protect",
+      "X-Scissor",
+      "Night Slash"
+    ]
+  },
+  "Poliwrath": {
+    "ability": "Swift Swim",
+    "item": "Choice Band",
+    "nature": "Adamant",
+    "teraType": "Water",
+    "evs": {
+      "hp": 124,
+      "atk": 252,
+      "def": 0,
+      "spa": 0,
+      "spd": 0,
+      "spe": 132
+    },
+    "moves": [
+      "Liquidation",
+      "Close Combat",
+      "Haze",
+      "Ice Punch"
     ]
   },
   "Kingdra": {
     "ability": "Swift Swim",
-    "item": "Choice Specs",
+    "item": "Life Orb",
     "nature": "Modest",
     "teraType": "Water",
     "evs": {
-      "hp": 4,
+      "hp": 68,
       "atk": 0,
-      "def": 0,
-      "spa": 252,
-      "spd": 0,
-      "spe": 252
+      "def": 4,
+      "spa": 212,
+      "spd": 20,
+      "spe": 204
     },
     "moves": [
       "Draco Meteor",
       "Muddy Water",
-      "Clear Smog",
-      "Weather Ball"
+      "Protect",
+      "Hydro Pump"
+    ]
+  },
+  "Slowbro": {
+    "ability": "Regenerator",
+    "item": "Life Orb",
+    "nature": "Quiet",
+    "teraType": "Fire",
+    "evs": {
+      "hp": 228,
+      "atk": 0,
+      "def": 0,
+      "spa": 236,
+      "spd": 44,
+      "spe": 0
+    },
+    "moves": [
+      "Trick Room",
+      "Expanding Force",
+      "Surf",
+      "Protect"
+    ]
+  },
+  "Goodra-Hisui": {
+    "ability": "Sap Sipper",
+    "item": "Leftovers",
+    "nature": "Impish",
+    "teraType": "Water",
+    "evs": {
+      "hp": 252,
+      "atk": 0,
+      "def": 252,
+      "spa": 0,
+      "spd": 4,
+      "spe": 0
+    },
+    "moves": [
+      "Body Press",
+      "Protect",
+      "Heavy Slam",
+      "Acid Armor"
+    ]
+  },
+  "Vikavolt": {
+    "ability": "Levitate",
+    "item": "Assault Vest",
+    "nature": "Modest",
+    "teraType": "Ghost",
+    "evs": {
+      "hp": 252,
+      "atk": 0,
+      "def": 4,
+      "spa": 196,
+      "spd": 52,
+      "spe": 4
+    },
+    "moves": [
+      "Bug Buzz",
+      "Discharge",
+      "Thunderbolt",
+      "Guillotine"
+    ]
+  },
+  "Overqwil": {
+    "ability": "Swift Swim",
+    "item": "Covert Cloak",
+    "nature": "Jolly",
+    "teraType": "Fighting",
+    "evs": {
+      "hp": 4,
+      "atk": 252,
+      "def": 0,
+      "spa": 0,
+      "spd": 0,
+      "spe": 252
+    },
+    "moves": [
+      "Gunk Shot",
+      "Haze",
+      "Tera Blast",
+      "Lash Out"
+    ]
+  },
+  "Ninetales": {
+    "ability": "Drought",
+    "item": "Eject Pack",
+    "nature": "Timid",
+    "teraType": "Grass",
+    "evs": {
+      "hp": 108,
+      "atk": 0,
+      "def": 44,
+      "spa": 100,
+      "spd": 4,
+      "spe": 252
+    },
+    "moves": [
+      "Overheat",
+      "Disable",
+      "Protect",
+      "Scorching Sands"
     ]
   },
   "Serperior": {
     "ability": "Contrary",
-    "item": "Light Clay",
+    "item": "Wide Lens",
     "nature": "Timid",
     "teraType": "Water",
     "evs": {
-      "hp": 244,
+      "hp": 116,
       "atk": 0,
       "def": 4,
-      "spa": 4,
+      "spa": 132,
       "spd": 4,
       "spe": 252
     },
     "moves": [
       "Leaf Storm",
-      "Glare",
-      "Reflect",
-      "Light Screen"
+      "Protect",
+      "Light Screen",
+      "Glare"
     ]
   },
-  "Orthworm": {
-    "ability": "Earth Eater",
+  "Azumarill": {
+    "ability": "Huge Power",
     "item": "Sitrus Berry",
-    "nature": "Impish",
-    "teraType": "Fire",
+    "nature": "Adamant",
+    "teraType": "Water",
     "evs": {
-      "hp": 212,
-      "atk": 4,
-      "def": 36,
+      "hp": 244,
+      "atk": 252,
+      "def": 0,
       "spa": 0,
-      "spd": 252,
-      "spe": 4
+      "spd": 12,
+      "spe": 0
     },
     "moves": [
-      "Body Press",
-      "Shed Tail",
-      "Heavy Slam",
-      "Iron Defense"
+      "Play Rough",
+      "Protect",
+      "Aqua Jet",
+      "Belly Drum"
     ]
   },
   "Rotom-Wash": {
     "ability": "Levitate",
     "item": "Choice Scarf",
     "nature": "Modest",
-    "teraType": "Electric",
+    "teraType": "Ghost",
     "evs": {
       "hp": 252,
       "atk": 0,
-      "def": 28,
-      "spa": 36,
-      "spd": 12,
-      "spe": 180
+      "def": 0,
+      "spa": 252,
+      "spd": 0,
+      "spe": 4
     },
     "moves": [
       "Hydro Pump",
       "Thunderbolt",
-      "Protect",
+      "Volt Switch",
       "Will-O-Wisp"
+    ]
+  },
+  "Porygon-Z": {
+    "ability": "Download",
+    "item": "Choice Scarf",
+    "nature": "Timid",
+    "teraType": "Ground",
+    "evs": {
+      "hp": 4,
+      "atk": 0,
+      "def": 0,
+      "spa": 252,
+      "spd": 0,
+      "spe": 252
+    },
+    "moves": [
+      "Tera Blast",
+      "Ice Beam",
+      "Protect",
+      "Shadow Ball"
+    ]
+  },
+  "Electrode-Hisui": {
+    "ability": "Aftermath",
+    "item": "Loaded Dice",
+    "nature": "Timid",
+    "teraType": "Ghost",
+    "evs": {
+      "hp": 252,
+      "atk": 0,
+      "def": 0,
+      "spa": 0,
+      "spd": 4,
+      "spe": 252
+    },
+    "moves": [
+      "Electroweb",
+      "Bullet Seed",
+      "Taunt",
+      "Chloroblast"
+    ]
+  },
+  "Lapras": {
+    "ability": "Water Absorb",
+    "item": "Leftovers",
+    "nature": "Sassy",
+    "teraType": "Ghost",
+    "evs": {
+      "hp": 252,
+      "atk": 0,
+      "def": 60,
+      "spa": 0,
+      "spd": 196,
+      "spe": 0
+    },
+    "moves": [
+      "Perish Song",
+      "Protect",
+      "Sheer Cold",
+      "Substitute"
+    ]
+  },
+  "Bastiodon": {
+    "ability": "Sturdy",
+    "item": "Sitrus Berry",
+    "nature": "Impish",
+    "teraType": "Dragon",
+    "evs": {
+      "hp": 244,
+      "atk": 4,
+      "def": 20,
+      "spa": 0,
+      "spd": 228,
+      "spe": 12
+    },
+    "moves": [
+      "Body Press",
+      "Wide Guard",
+      "Sand Tomb",
+      "Protect"
+    ]
+  },
+  "Braviary-Hisui": {
+    "ability": "Tinted Lens",
+    "item": "Life Orb",
+    "nature": "Modest",
+    "teraType": "Psychic",
+    "evs": {
+      "hp": 44,
+      "atk": 0,
+      "def": 84,
+      "spa": 68,
+      "spd": 84,
+      "spe": 228
+    },
+    "moves": [
+      "Protect",
+      "Expanding Force",
+      "Esper Wing",
+      "Hurricane"
+    ]
+  },
+  "Golurk": {
+    "ability": "No Guard",
+    "item": "Choice Scarf",
+    "nature": "Adamant",
+    "teraType": "Fighting",
+    "evs": {
+      "hp": 252,
+      "atk": 44,
+      "def": 20,
+      "spa": 0,
+      "spd": 188,
+      "spe": 0
+    },
+    "moves": [
+      "Dynamic Punch",
+      "Protect",
+      "Reflect",
+      "Curse"
+    ]
+  },
+  "Empoleon": {
+    "ability": "Competitive",
+    "item": "Choice Specs",
+    "nature": "Modest",
+    "teraType": "Grass",
+    "evs": {
+      "hp": 252,
+      "atk": 0,
+      "def": 0,
+      "spa": 252,
+      "spd": 4,
+      "spe": 0
+    },
+    "moves": [
+      "Water Pledge",
+      "Flash Cannon",
+      "Ice Beam",
+      "Protect"
+    ]
+  },
+  "Yanma": {
+    "ability": "Compound Eyes",
+    "item": "Focus Sash",
+    "nature": "Timid",
+    "teraType": "Ghost",
+    "evs": {
+      "hp": 4,
+      "atk": 0,
+      "def": 0,
+      "spa": 0,
+      "spd": 252,
+      "spe": 252
+    },
+    "moves": [
+      "Hypnosis",
+      "Tailwind",
+      "Protect",
+      "Screech"
+    ]
+  },
+  "Scrafty": {
+    "ability": "Intimidate",
+    "item": "Assault Vest",
+    "nature": "Adamant",
+    "teraType": "Poison",
+    "evs": {
+      "hp": 252,
+      "atk": 252,
+      "def": 0,
+      "spa": 0,
+      "spd": 4,
+      "spe": 0
+    },
+    "moves": [
+      "Knock Off",
+      "Fake Out",
+      "Close Combat",
+      "Poison Jab"
+    ]
+  },
+  "Hydrapple": {
+    "ability": "Regenerator",
+    "item": "Assault Vest",
+    "nature": "Quiet",
+    "teraType": "Fairy",
+    "evs": {
+      "hp": 252,
+      "atk": 0,
+      "def": 4,
+      "spa": 252,
+      "spd": 0,
+      "spe": 0
+    },
+    "moves": [
+      "Earth Power",
+      "Fickle Beam",
+      "Leaf Storm",
+      "Pollen Puff"
+    ]
+  },
+  "Dudunsparce": {
+    "ability": "Rattled",
+    "item": "Weakness Policy",
+    "nature": "Modest",
+    "teraType": "Psychic",
+    "evs": {
+      "hp": 92,
+      "atk": 0,
+      "def": 4,
+      "spa": 196,
+      "spd": 132,
+      "spe": 84
+    },
+    "moves": [
+      "Protect",
+      "Stored Power",
+      "Boomburst",
+      "Calm Mind"
+    ]
+  },
+  "Houndstone": {
+    "ability": "Sand Rush",
+    "item": "Focus Sash",
+    "nature": "Adamant",
+    "teraType": "Ghost",
+    "evs": {
+      "hp": 4,
+      "atk": 252,
+      "def": 0,
+      "spa": 0,
+      "spd": 0,
+      "spe": 252
+    },
+    "moves": [
+      "Last Respects",
+      "Protect",
+      "Will-O-Wisp",
+      "Play Rough"
+    ]
+  },
+  "Inteleon": {
+    "ability": "Sniper",
+    "item": "Scope Lens",
+    "nature": "Timid",
+    "teraType": "Dragon",
+    "evs": {
+      "hp": 4,
+      "atk": 0,
+      "def": 0,
+      "spa": 252,
+      "spd": 0,
+      "spe": 252
+    },
+    "moves": [
+      "Protect",
+      "Snipe Shot",
+      "Ice Beam",
+      "Haze"
+    ]
+  },
+  "Conkeldurr": {
+    "ability": "Guts",
+    "item": "Flame Orb",
+    "nature": "Brave",
+    "teraType": "Dark",
+    "evs": {
+      "hp": 236,
+      "atk": 156,
+      "def": 92,
+      "spa": 0,
+      "spd": 24,
+      "spe": 0
+    },
+    "moves": [
+      "Knock Off",
+      "Drain Punch",
+      "Mach Punch",
+      "Wide Guard"
     ]
   },
   "Perrserker": {
@@ -2240,690 +2960,90 @@ export const SETDEX_SV: {[k: string]: any} = {
       "Knock Off"
     ]
   },
-  "Sableye": {
-    "ability": "Prankster",
-    "item": "Light Clay",
-    "nature": "Calm",
-    "teraType": "Grass",
-    "evs": {
-      "hp": 252,
-      "atk": 0,
-      "def": 52,
-      "spa": 4,
-      "spd": 196,
-      "spe": 4
-    },
-    "moves": [
-      "Light Screen",
-      "Reflect",
-      "Encore",
-      "Foul Play"
-    ]
-  },
-  "Overqwil": {
-    "ability": "Swift Swim",
-    "item": "Life Orb",
-    "nature": "Adamant",
-    "teraType": "Grass",
-    "evs": {
-      "hp": 4,
-      "atk": 196,
-      "def": 4,
-      "spa": 0,
-      "spd": 44,
-      "spe": 252
-    },
-    "moves": [
-      "Protect",
-      "Gunk Shot",
-      "Throat Chop",
-      "Taunt"
-    ]
-  },
-  "Frosmoth": {
-    "ability": "Ice Scales",
-    "item": "Leftovers",
-    "nature": "Modest",
-    "teraType": "Water",
-    "evs": {
-      "hp": 244,
-      "atk": 0,
-      "def": 156,
-      "spa": 44,
-      "spd": 12,
-      "spe": 52
-    },
-    "moves": [
-      "Ice Beam",
-      "Quiver Dance",
-      "Protect",
-      "Tera Blast"
-    ]
-  },
-  "Charizard": {
-    "ability": "Solar Power",
-    "item": "Choice Scarf",
-    "nature": "Timid",
-    "teraType": "Fire",
-    "evs": {
-      "hp": 0,
-      "atk": 0,
-      "def": 0,
-      "spa": 252,
-      "spd": 4,
-      "spe": 252
-    },
-    "moves": [
-      "Heat Wave",
-      "Overheat",
-      "Air Slash",
-      "Protect"
-    ]
-  },
-  "Greninja": {
-    "ability": "Torrent",
-    "item": "Loaded Dice",
-    "nature": "Naive",
-    "teraType": "Ghost",
-    "evs": {
-      "hp": 0,
-      "atk": 4,
-      "def": 0,
-      "spa": 252,
-      "spd": 0,
-      "spe": 252
-    },
-    "moves": [
-      "Water Shuriken",
-      "Protect",
-      "Haze",
-      "Ice Beam"
-    ]
-  },
-  "Muk-Alola": {
-    "ability": "Gluttony",
-    "item": "Figy Berry",
-    "nature": "Adamant",
-    "teraType": "Flying",
-    "evs": {
-      "hp": 252,
-      "atk": 204,
-      "def": 52,
-      "spa": 0,
-      "spd": 0,
-      "spe": 0
-    },
-    "moves": [
-      "Knock Off",
-      "Gunk Shot",
-      "Drain Punch",
-      "Shadow Sneak"
-    ]
-  },
-  "Hariyama": {
-    "ability": "Guts",
-    "item": "Flame Orb",
-    "nature": "Brave",
-    "teraType": "Steel",
-    "evs": {
-      "hp": 28,
-      "atk": 156,
-      "def": 84,
-      "spa": 0,
-      "spd": 236,
-      "spe": 4
-    },
-    "moves": [
-      "Fake Out",
-      "Close Combat",
-      "Knock Off",
-      "Wide Guard"
-    ]
-  },
-  "Jigglypuff": {
-    "ability": "Friend Guard",
-    "item": "Eviolite",
-    "nature": "Sassy",
-    "teraType": "Ghost",
-    "evs": {
-      "hp": 20,
-      "atk": 0,
-      "def": 236,
-      "spa": 0,
-      "spd": 252,
-      "spe": 0
-    },
-    "moves": [
-      "Perish Song",
-      "Protect",
-      "Heal Pulse",
-      "Disable"
-    ]
-  },
-  "Basculegion-F": {
-    "ability": "Adaptability",
-    "item": "Choice Scarf",
-    "nature": "Modest",
-    "teraType": "Ice",
-    "evs": {
-      "hp": 0,
-      "atk": 0,
-      "def": 4,
-      "spa": 252,
-      "spd": 0,
-      "spe": 252
-    },
-    "moves": [
-      "Muddy Water",
-      "Shadow Ball",
-      "Hydro Pump",
-      "Blizzard"
-    ]
-  },
-  "Braviary-Hisui": {
-    "ability": "Tinted Lens",
-    "item": "Life Orb",
-    "nature": "Modest",
-    "teraType": "Psychic",
-    "evs": {
-      "hp": 28,
-      "atk": 0,
-      "def": 4,
-      "spa": 228,
-      "spd": 4,
-      "spe": 244
-    },
-    "moves": [
-      "Protect",
-      "Expanding Force",
-      "Hurricane",
-      "Esper Wing"
-    ]
-  },
-  "Oranguru": {
-    "ability": "Symbiosis",
-    "item": "Covert Cloak",
-    "nature": "Relaxed",
-    "teraType": "Steel",
-    "evs": {
-      "hp": 252,
-      "atk": 0,
-      "def": 252,
-      "spa": 0,
-      "spd": 4,
-      "spe": 0
-    },
-    "moves": [
-      "Instruct",
-      "Trick Room",
-      "Protect",
-      "Encore"
-    ]
-  },
-  "Metagross": {
-    "ability": "Clear Body",
-    "item": "Assault Vest",
-    "nature": "Adamant",
-    "teraType": "Flying",
-    "evs": {
-      "hp": 252,
-      "atk": 252,
-      "def": 0,
-      "spa": 0,
-      "spd": 0,
-      "spe": 4
-    },
-    "moves": [
-      "Psychic Fangs",
-      "Heavy Slam",
-      "Bullet Punch",
-      "Stomping Tantrum"
-    ]
-  },
-  "Barraskewda": {
-    "ability": "Swift Swim",
-    "item": "Choice Band",
-    "nature": "Adamant",
-    "teraType": "Grass",
-    "evs": {
-      "hp": 4,
-      "atk": 252,
-      "def": 0,
-      "spa": 0,
-      "spd": 0,
-      "spe": 252
-    },
-    "moves": [
-      "Liquidation",
-      "Close Combat",
-      "Flip Turn",
-      "Poison Jab"
-    ]
-  },
-  "Rotom-Heat": {
-    "ability": "Levitate",
-    "item": "Choice Scarf",
-    "nature": "Modest",
-    "teraType": "Electric",
-    "evs": {
-      "hp": 252,
-      "atk": 0,
-      "def": 0,
-      "spa": 60,
-      "spd": 0,
-      "spe": 196
-    },
-    "moves": [
-      "Overheat",
-      "Protect",
-      "Will-O-Wisp",
-      "Thunderbolt"
-    ]
-  },
-  "Porygon-Z": {
-    "ability": "Download",
-    "item": "Life Orb",
-    "nature": "Timid",
-    "teraType": "Ground",
-    "evs": {
-      "hp": 0,
-      "atk": 0,
-      "def": 4,
-      "spa": 252,
-      "spd": 0,
-      "spe": 252
-    },
-    "moves": [
-      "Tera Blast",
-      "Ice Beam",
-      "Protect",
-      "Thunderbolt"
-    ]
-  },
-  "Exeggutor": {
-    "ability": "Chlorophyll",
-    "item": "Mirror Herb",
-    "nature": "Modest",
-    "teraType": "Fire",
-    "evs": {
-      "hp": 204,
-      "atk": 0,
-      "def": 0,
-      "spa": 252,
-      "spd": 0,
-      "spe": 52
-    },
-    "moves": [
-      "Expanding Force",
-      "Solar Beam",
-      "Sleep Powder",
-      "Skill Swap"
-    ]
-  },
-  "Abomasnow": {
-    "ability": "Snow Warning",
-    "item": "Focus Sash",
-    "nature": "Modest",
-    "teraType": "Water",
-    "evs": {
-      "hp": 0,
-      "atk": 0,
-      "def": 4,
-      "spa": 252,
-      "spd": 0,
-      "spe": 252
-    },
-    "moves": [
-      "Blizzard",
-      "Protect",
-      "Aurora Veil",
-      "Leaf Storm"
-    ]
-  },
-  "Glaceon": {
-    "ability": "Snow Cloak",
-    "item": "Choice Specs",
-    "nature": "Modest",
-    "teraType": "Water",
-    "evs": {
-      "hp": 244,
-      "atk": 0,
-      "def": 4,
-      "spa": 252,
-      "spd": 4,
-      "spe": 4
-    },
-    "moves": [
-      "Blizzard",
-      "Freeze-Dry",
-      "Haze",
-      "Weather Ball"
-    ]
-  },
-  "Chesnaught": {
-    "ability": "Bulletproof",
+  "Tinkaton": {
+    "ability": "Mold Breaker",
     "item": "Sitrus Berry",
-    "nature": "Adamant",
-    "teraType": "Fire",
-    "evs": {
-      "hp": 100,
-      "atk": 180,
-      "def": 0,
-      "spa": 0,
-      "spd": 228,
-      "spe": 0
-    },
-    "moves": [
-      "Spiky Shield",
-      "Drain Punch",
-      "Grassy Glide",
-      "Belly Drum"
-    ]
-  },
-  "Bronzong": {
-    "ability": "Levitate",
-    "item": "Leftovers",
-    "nature": "Relaxed",
+    "nature": "Jolly",
     "teraType": "Water",
     "evs": {
       "hp": 252,
-      "atk": 0,
-      "def": 252,
+      "atk": 20,
+      "def": 4,
       "spa": 0,
       "spd": 4,
-      "spe": 0
+      "spe": 228
     },
     "moves": [
-      "Body Press",
-      "Iron Defense",
-      "Trick Room",
-      "Protect"
+      "Gigaton Hammer",
+      "Fake Out",
+      "Protect",
+      "Play Rough"
     ]
   },
-  "Conkeldurr": {
-    "ability": "Iron Fist",
-    "item": "Flame Orb",
-    "nature": "Brave",
-    "teraType": "Steel",
-    "evs": {
-      "hp": 228,
-      "atk": 252,
-      "def": 0,
-      "spa": 0,
-      "spd": 28,
-      "spe": 0
-    },
-    "moves": [
-      "Mach Punch",
-      "Drain Punch",
-      "Knock Off",
-      "Protect"
-    ]
-  },
-  "Jumpluff": {
-    "ability": "Chlorophyll",
+  "Cyclizar": {
+    "ability": "Regenerator",
     "item": "Covert Cloak",
     "nature": "Timid",
-    "teraType": "Dark",
-    "evs": {
-      "hp": 196,
-      "atk": 0,
-      "def": 108,
-      "spa": 4,
-      "spd": 4,
-      "spe": 196
-    },
-    "moves": [
-      "Sleep Powder",
-      "Tailwind",
-      "Leaf Storm",
-      "Encore"
-    ]
-  },
-  "Houndstone": {
-    "ability": "Sand Rush",
-    "item": "Focus Sash",
-    "nature": "Adamant",
-    "teraType": "Ghost",
-    "evs": {
-      "hp": 4,
-      "atk": 252,
-      "def": 0,
-      "spa": 0,
-      "spd": 0,
-      "spe": 252
-    },
-    "moves": [
-      "Last Respects",
-      "Protect",
-      "Will-O-Wisp",
-      "Shadow Sneak"
-    ]
-  },
-  "Cryogonal": {
-    "ability": "Levitate",
-    "item": "Focus Sash",
-    "nature": "Timid",
-    "teraType": "Ghost",
-    "evs": {
-      "hp": 4,
-      "atk": 0,
-      "def": 0,
-      "spa": 252,
-      "spd": 0,
-      "spe": 252
-    },
-    "moves": [
-      "Freeze-Dry",
-      "Haze",
-      "Protect",
-      "Icy Wind"
-    ]
-  },
-  "Blastoise": {
-    "ability": "Torrent",
-    "item": "Splash Plate",
-    "nature": "Modest",
-    "teraType": "Water",
-    "evs": {
-      "hp": 4,
-      "atk": 0,
-      "def": 0,
-      "spa": 252,
-      "spd": 0,
-      "spe": 252
-    },
-    "moves": [
-      "Water Spout",
-      "Protect",
-      "Shell Smash",
-      "Water Pledge"
-    ]
-  },
-  "Inteleon": {
-    "ability": "Sniper",
-    "item": "Razor Claw",
-    "nature": "Timid",
-    "teraType": "Water",
-    "evs": {
-      "hp": 84,
-      "atk": 0,
-      "def": 0,
-      "spa": 172,
-      "spd": 0,
-      "spe": 252
-    },
-    "moves": [
-      "Snipe Shot",
-      "Protect",
-      "Haze",
-      "Icy Wind"
-    ]
-  },
-  "Malamar": {
-    "ability": "Contrary",
-    "item": "Sitrus Berry",
-    "nature": "Adamant",
-    "teraType": "Poison",
-    "evs": {
-      "hp": 244,
-      "atk": 252,
-      "def": 12,
-      "spa": 0,
-      "spd": 0,
-      "spe": 0
-    },
-    "moves": [
-      "Superpower",
-      "Knock Off",
-      "Trick Room",
-      "Protect"
-    ]
-  },
-  "Azumarill": {
-    "ability": "Huge Power",
-    "item": "Sitrus Berry",
-    "nature": "Brave",
-    "teraType": "Water",
-    "evs": {
-      "hp": 204,
-      "atk": 252,
-      "def": 52,
-      "spa": 0,
-      "spd": 0,
-      "spe": 0
-    },
-    "moves": [
-      "Play Rough",
-      "Aqua Jet",
-      "Protect",
-      "Liquidation"
-    ]
-  },
-  "Scrafty": {
-    "ability": "Intimidate",
-    "item": "Assault Vest",
-    "nature": "Brave",
-    "teraType": "Poison",
-    "evs": {
-      "hp": 252,
-      "atk": 252,
-      "def": 0,
-      "spa": 0,
-      "spd": 4,
-      "spe": 0
-    },
-    "moves": [
-      "Fake Out",
-      "Knock Off",
-      "Close Combat",
-      "Acid Spray"
-    ]
-  },
-  "Poliwrath": {
-    "ability": "Swift Swim",
-    "item": "Life Orb",
-    "nature": "Adamant",
-    "teraType": "Stellar",
+    "teraType": "Dragon",
     "evs": {
       "hp": 108,
-      "atk": 252,
-      "def": 4,
+      "atk": 0,
+      "def": 0,
       "spa": 0,
-      "spd": 92,
-      "spe": 52
+      "spd": 148,
+      "spe": 252
     },
     "moves": [
-      "Liquidation",
-      "Close Combat",
-      "Haze",
-      "Protect"
-    ]
-  },
-  "Hawlucha": {
-    "ability": "Unburden",
-    "item": "Grassy Seed",
-    "nature": "Adamant",
-    "teraType": "Steel",
-    "evs": {
-      "hp": 148,
-      "atk": 252,
-      "def": 36,
-      "spa": 0,
-      "spd": 68,
-      "spe": 4
-    },
-    "moves": [
-      "Close Combat",
-      "Acrobatics",
+      "Shed Tail",
+      "Draco Meteor",
       "Protect",
-      "Encore"
+      "Endeavor"
     ]
   },
   "Comfey": {
     "ability": "Triage",
-    "item": "Leftovers",
+    "item": "Sitrus Berry",
     "nature": "Bold",
-    "teraType": "Steel",
+    "teraType": "Water",
     "evs": {
       "hp": 252,
       "atk": 0,
-      "def": 156,
-      "spa": 100,
-      "spd": 0,
+      "def": 244,
+      "spa": 0,
+      "spd": 12,
       "spe": 0
     },
     "moves": [
       "Floral Healing",
       "Draining Kiss",
-      "Protect",
-      "Trick Room"
+      "Trick Room",
+      "Taunt"
     ]
   },
-  "Salazzle": {
-    "ability": "Corrosion",
-    "item": "Focus Sash",
-    "nature": "Timid",
-    "teraType": "Ghost",
+  "Muk-Alola": {
+    "ability": "Power of Alchemy",
+    "item": "Leftovers",
+    "nature": "Adamant",
+    "teraType": "Grass",
     "evs": {
-      "hp": 4,
-      "atk": 0,
+      "hp": 188,
+      "atk": 252,
       "def": 0,
-      "spa": 252,
+      "spa": 0,
       "spd": 0,
-      "spe": 252
+      "spe": 68
     },
     "moves": [
-      "Fake Out",
-      "Sludge Bomb",
-      "Overheat",
-      "Poison Gas"
-    ]
-  },
-  "Espeon": {
-    "ability": "Magic Bounce",
-    "item": "Life Orb",
-    "nature": "Timid",
-    "teraType": "Dark",
-    "evs": {
-      "hp": 0,
-      "atk": 0,
-      "def": 0,
-      "spa": 252,
-      "spd": 4,
-      "spe": 252
-    },
-    "moves": [
-      "Expanding Force",
+      "Knock Off",
       "Protect",
-      "Calm Mind",
-      "Shadow Ball"
+      "Poison Jab",
+      "Minimize"
     ]
   },
   "Shiftry": {
     "ability": "Chlorophyll",
     "item": "Focus Sash",
-    "nature": "Naughty",
+    "nature": "Naive",
     "teraType": "Ghost",
     "evs": {
       "hp": 0,
@@ -2936,308 +3056,128 @@ export const SETDEX_SV: {[k: string]: any} = {
     "moves": [
       "Leaf Blade",
       "Knock Off",
-      "Icy Wind",
-      "Taunt"
-    ]
-  },
-  "Staraptor": {
-    "ability": "Intimidate",
-    "item": "Choice Scarf",
-    "nature": "Jolly",
-    "teraType": "Ghost",
-    "evs": {
-      "hp": 4,
-      "atk": 252,
-      "def": 0,
-      "spa": 0,
-      "spd": 0,
-      "spe": 252
-    },
-    "moves": [
-      "Brave Bird",
-      "Close Combat",
-      "Protect",
-      "Tailwind"
-    ]
-  },
-  "Rotom-Mow": {
-    "ability": "Levitate",
-    "item": "Choice Scarf",
-    "nature": "Timid",
-    "teraType": "Electric",
-    "evs": {
-      "hp": 0,
-      "atk": 0,
-      "def": 0,
-      "spa": 252,
-      "spd": 4,
-      "spe": 252
-    },
-    "moves": [
-      "Leaf Storm",
-      "Volt Switch",
-      "Trick",
-      "Thunderbolt"
-    ]
-  },
-  "Venusaur": {
-    "ability": "Chlorophyll",
-    "item": "Focus Sash",
-    "nature": "Modest",
-    "teraType": "Stellar",
-    "evs": {
-      "hp": 0,
-      "atk": 0,
-      "def": 0,
-      "spa": 252,
-      "spd": 4,
-      "spe": 252
-    },
-    "moves": [
-      "Sludge Bomb",
-      "Sleep Powder",
-      "Protect",
-      "Earth Power"
-    ]
-  },
-  "Golem-Alola": {
-    "ability": "Sturdy",
-    "item": "Salac Berry",
-    "nature": "Adamant",
-    "teraType": "Electric",
-    "evs": {
-      "hp": 0,
-      "atk": 252,
-      "def": 0,
-      "spa": 0,
-      "spd": 4,
-      "spe": 252
-    },
-    "moves": [
-      "Rock Slide",
-      "Protect",
-      "Wide Guard",
-      "Thunder Punch"
-    ]
-  },
-  "Snorlax": {
-    "ability": "Thick Fat",
-    "item": "Sitrus Berry",
-    "nature": "Brave",
-    "teraType": "Ghost",
-    "evs": {
-      "hp": 244,
-      "atk": 188,
-      "def": 76,
-      "spa": 0,
-      "spd": 0,
-      "spe": 0
-    },
-    "moves": [
-      "High Horsepower",
-      "Belly Drum",
-      "Protect",
-      "Body Slam"
-    ]
-  },
-  "Altaria": {
-    "ability": "Cloud Nine",
-    "item": "Mental Herb",
-    "nature": "Calm",
-    "teraType": "Steel",
-    "evs": {
-      "hp": 252,
-      "atk": 0,
-      "def": 108,
-      "spa": 4,
-      "spd": 140,
-      "spe": 4
-    },
-    "moves": [
       "Tailwind",
-      "Protect",
-      "Sing",
-      "Draco Meteor"
+      "Icy Wind"
     ]
   },
-  "Electivire": {
-    "ability": "Motor Drive",
-    "item": "Magnet",
-    "nature": "Adamant",
-    "teraType": "Ghost",
-    "evs": {
-      "hp": 252,
-      "atk": 52,
-      "def": 20,
-      "spa": 0,
-      "spd": 4,
-      "spe": 180
-    },
-    "moves": [
-      "Follow Me",
-      "Electroweb",
-      "Protect",
-      "Wild Charge"
-    ]
-  },
-  "Flygon": {
-    "ability": "Levitate",
-    "item": "Choice Specs",
-    "nature": "Modest",
-    "teraType": "Poison",
-    "evs": {
-      "hp": 4,
-      "atk": 0,
-      "def": 0,
-      "spa": 252,
-      "spd": 0,
-      "spe": 252
-    },
-    "moves": [
-      "Draco Meteor",
-      "Earth Power",
-      "Tera Blast",
-      "Struggle Bug"
-    ]
-  },
-  "Hippowdon": {
-    "ability": "Sand Stream",
-    "item": "Sitrus Berry",
-    "nature": "Impish",
+  "Rabsca": {
+    "ability": "Telepathy",
+    "item": "Throat Spray",
+    "nature": "Sassy",
     "teraType": "Water",
     "evs": {
       "hp": 252,
       "atk": 0,
-      "def": 12,
+      "def": 228,
       "spa": 0,
-      "spd": 244,
-      "spe": 0
-    },
-    "moves": [
-      "Protect",
-      "Sand Tomb",
-      "Yawn",
-      "Slack Off"
-    ]
-  },
-  "Oricorio-Sensu": {
-    "ability": "Dancer",
-    "item": "Focus Sash",
-    "nature": "Timid",
-    "teraType": "Ground",
-    "evs": {
-      "hp": 4,
-      "atk": 0,
-      "def": 0,
-      "spa": 252,
-      "spd": 0,
-      "spe": 252
-    },
-    "moves": [
-      "Revelation Dance",
-      "Protect",
-      "Air Slash",
-      "Taunt"
-    ]
-  },
-  "Bruxish": {
-    "ability": "Dazzling",
-    "item": "Choice Scarf",
-    "nature": "Jolly",
-    "teraType": "Water",
-    "evs": {
-      "hp": 4,
-      "atk": 252,
-      "def": 0,
-      "spa": 0,
-      "spd": 0,
-      "spe": 252
-    },
-    "moves": [
-      "Psychic Fangs",
-      "Wave Crash",
-      "Icy Wind",
-      "Aqua Jet"
-    ]
-  },
-  "Electrode-Hisui": {
-    "ability": "Soundproof",
-    "item": "Choice Specs",
-    "nature": "Timid",
-    "teraType": "Electric",
-    "evs": {
-      "hp": 0,
-      "atk": 0,
-      "def": 0,
-      "spa": 252,
-      "spd": 4,
-      "spe": 252
-    },
-    "moves": [
-      "Chloroblast",
-      "Volt Switch",
-      "Electroweb",
-      "Thunder"
-    ]
-  },
-  "Yanma": {
-    "ability": "Compound Eyes",
-    "item": "Focus Sash",
-    "nature": "Timid",
-    "teraType": "Ghost",
-    "evs": {
-      "hp": 0,
-      "atk": 0,
-      "def": 0,
-      "spa": 252,
-      "spd": 4,
-      "spe": 252
-    },
-    "moves": [
-      "Detect",
-      "Hypnosis",
-      "Tailwind",
-      "Air Slash"
-    ]
-  },
-  "Hypno": {
-    "ability": "Insomnia",
-    "item": "Aguav Berry",
-    "nature": "Bold",
-    "teraType": "Fairy",
-    "evs": {
-      "hp": 252,
-      "atk": 0,
-      "def": 252,
-      "spa": 0,
-      "spd": 4,
+      "spd": 28,
       "spe": 0
     },
     "moves": [
       "Trick Room",
-      "Haze",
       "Expanding Force",
-      "Imprison"
+      "Bug Buzz",
+      "Safeguard"
     ]
   },
-  "Tinkaton": {
-    "ability": "Mold Breaker",
-    "item": "Assault Vest",
-    "nature": "Brave",
-    "teraType": "Water",
+  "Espeon": {
+    "ability": "Magic Bounce",
+    "item": "Life Orb",
+    "nature": "Timid",
+    "teraType": "Fighting",
     "evs": {
-      "hp": 244,
-      "atk": 252,
-      "def": 12,
-      "spa": 0,
+      "hp": 4,
+      "atk": 0,
+      "def": 0,
+      "spa": 252,
       "spd": 0,
+      "spe": 252
+    },
+    "moves": [
+      "Expanding Force",
+      "Tera Blast",
+      "Protect",
+      "Weather Ball"
+    ]
+  },
+  "Dachsbun": {
+    "ability": "Well-Baked Body",
+    "item": "Leftovers",
+    "nature": "Bold",
+    "teraType": "Steel",
+    "evs": {
+      "hp": 220,
+      "atk": 0,
+      "def": 36,
+      "spa": 0,
+      "spd": 252,
       "spe": 0
     },
     "moves": [
-      "Fake Out",
-      "Gigaton Hammer",
-      "Play Rough",
-      "Feint"
+      "Body Press",
+      "Protect",
+      "Helping Hand",
+      "Misty Terrain"
+    ]
+  },
+  "Cinderace": {
+    "ability": "Libero",
+    "item": "Choice Band",
+    "nature": "Jolly",
+    "teraType": "Fire",
+    "evs": {
+      "hp": 44,
+      "atk": 252,
+      "def": 12,
+      "spa": 0,
+      "spd": 4,
+      "spe": 196
+    },
+    "moves": [
+      "High Jump Kick",
+      "Pyro Ball",
+      "Sucker Punch",
+      "U-turn"
+    ]
+  },
+  "Frosmoth": {
+    "ability": "Ice Scales",
+    "item": "Weakness Policy",
+    "nature": "Bold",
+    "teraType": "Water",
+    "evs": {
+      "hp": 228,
+      "atk": 0,
+      "def": 156,
+      "spa": 92,
+      "spd": 28,
+      "spe": 4
+    },
+    "moves": [
+      "Blizzard",
+      "Quiver Dance",
+      "Protect",
+      "Tera Blast"
+    ]
+  },
+  "Illumise": {
+    "ability": "Prankster",
+    "item": "Covert Cloak",
+    "nature": "Timid",
+    "teraType": "Water",
+    "evs": {
+      "hp": 236,
+      "atk": 0,
+      "def": 116,
+      "spa": 12,
+      "spd": 36,
+      "spe": 108
+    },
+    "moves": [
+      "Tailwind",
+      "Encore",
+      "Struggle Bug",
+      "Sunny Day"
     ]
   },
   "Rotom-Frost": {
@@ -3246,365 +3186,45 @@ export const SETDEX_SV: {[k: string]: any} = {
     "nature": "Timid",
     "teraType": "Ghost",
     "evs": {
-      "hp": 0,
+      "hp": 4,
       "atk": 0,
       "def": 0,
       "spa": 252,
-      "spd": 4,
+      "spd": 0,
       "spe": 252
     },
     "moves": [
       "Blizzard",
       "Volt Switch",
       "Trick",
-      "Discharge"
+      "Thunderbolt"
     ]
   },
-  "Hydrapple": {
-    "ability": "Regenerator",
-    "item": "Assault Vest",
-    "nature": "Quiet",
-    "teraType": "Steel",
+  "Alcremie": {
+    "ability": "Sweet Veil",
+    "item": "Choice Scarf",
+    "nature": "Timid",
+    "teraType": "Ghost",
     "evs": {
-      "hp": 252,
+      "hp": 4,
       "atk": 0,
       "def": 0,
       "spa": 252,
-      "spd": 4,
-      "spe": 0
+      "spd": 0,
+      "spe": 252
     },
     "moves": [
-      "Fickle Beam",
-      "Protect",
-      "Earth Power",
-      "Pollen Puff"
+      "Decorate",
+      "Dazzling Gleam",
+      "Alluring Voice",
+      "Protect"
     ]
   },
   "Raichu": {
     "ability": "Lightning Rod",
     "item": "Focus Sash",
-    "nature": "Jolly",
+    "nature": "Hasty",
     "teraType": "Ghost",
-    "evs": {
-      "hp": 0,
-      "atk": 252,
-      "def": 0,
-      "spa": 0,
-      "spd": 4,
-      "spe": 252
-    },
-    "moves": [
-      "Fake Out",
-      "Nuzzle",
-      "Volt Switch",
-      "Eerie Impulse"
-    ]
-  },
-  "Persian-Alola": {
-    "ability": "Fur Coat",
-    "item": "Covert Cloak",
-    "nature": "Timid",
-    "teraType": "Ghost",
-    "evs": {
-      "hp": 252,
-      "atk": 0,
-      "def": 0,
-      "spa": 4,
-      "spd": 0,
-      "spe": 252
-    },
-    "moves": [
-      "Fake Out",
-      "Foul Play",
-      "Parting Shot",
-      "Icy Wind"
-    ]
-  },
-  "Slowking-Galar": {
-    "ability": "Curious Medicine",
-    "item": "Mental Herb",
-    "nature": "Bold",
-    "teraType": "Fire",
-    "evs": {
-      "hp": 252,
-      "atk": 0,
-      "def": 252,
-      "spa": 0,
-      "spd": 4,
-      "spe": 0
-    },
-    "moves": [
-      "Protect",
-      "Trick Room",
-      "Eerie Spell",
-      "Ice Beam"
-    ]
-  },
-  "Torterra": {
-    "ability": "Shell Armor",
-    "item": "Sitrus Berry",
-    "nature": "Bold",
-    "teraType": "Dark",
-    "evs": {
-      "hp": 252,
-      "atk": 0,
-      "def": 116,
-      "spa": 0,
-      "spd": 140,
-      "spe": 0
-    },
-    "moves": [
-      "Body Press",
-      "Iron Defense",
-      "Synthesis",
-      "Amnesia"
-    ]
-  },
-  "Typhlosion": {
-    "ability": "Flash Fire",
-    "item": "Choice Scarf",
-    "nature": "Timid",
-    "teraType": "Dark",
-    "evs": {
-      "hp": 0,
-      "atk": 0,
-      "def": 4,
-      "spa": 252,
-      "spd": 0,
-      "spe": 252
-    },
-    "moves": [
-      "Eruption",
-      "Tera Blast",
-      "Protect",
-      "Flamethrower"
-    ]
-  },
-  "Dachsbun": {
-    "ability": "Well-Baked Body",
-    "item": "Leftovers",
-    "nature": "Calm",
-    "teraType": "Steel",
-    "evs": {
-      "hp": 252,
-      "atk": 0,
-      "def": 4,
-      "spa": 0,
-      "spd": 252,
-      "spe": 0
-    },
-    "moves": [
-      "Body Press",
-      "Protect",
-      "Snarl",
-      "Substitute"
-    ]
-  },
-  "Illumise": {
-    "ability": "Prankster",
-    "item": "Covert Cloak",
-    "nature": "Bold",
-    "teraType": "Dark",
-    "evs": {
-      "hp": 252,
-      "atk": 0,
-      "def": 196,
-      "spa": 4,
-      "spd": 36,
-      "spe": 20
-    },
-    "moves": [
-      "Tailwind",
-      "Rain Dance",
-      "Encore",
-      "Infestation"
-    ]
-  },
-  "Scizor": {
-    "ability": "Technician",
-    "item": "Choice Band",
-    "nature": "Adamant",
-    "teraType": "Bug",
-    "evs": {
-      "hp": 252,
-      "atk": 252,
-      "def": 0,
-      "spa": 0,
-      "spd": 4,
-      "spe": 0
-    },
-    "moves": [
-      "Bullet Punch",
-      "Swords Dance",
-      "Bug Bite",
-      "Protect"
-    ]
-  },
-  "Torracat": {
-    "ability": "Intimidate",
-    "item": "Eviolite",
-    "nature": "Timid",
-    "teraType": "Grass",
-    "evs": {
-      "hp": 244,
-      "atk": 0,
-      "def": 4,
-      "spa": 20,
-      "spd": 12,
-      "spe": 228
-    },
-    "moves": [
-      "Parting Shot",
-      "Fake Out",
-      "Taunt",
-      "Overheat"
-    ]
-  },
-  "Mandibuzz": {
-    "ability": "Overcoat",
-    "item": "Covert Cloak",
-    "nature": "Timid",
-    "teraType": "Steel",
-    "evs": {
-      "hp": 252,
-      "atk": 0,
-      "def": 92,
-      "spa": 4,
-      "spd": 4,
-      "spe": 156
-    },
-    "moves": [
-      "Tailwind",
-      "Foul Play",
-      "Snarl",
-      "Roost"
-    ]
-  },
-  "Hitmontop": {
-    "ability": "Intimidate",
-    "item": "Safety Goggles",
-    "nature": "Adamant",
-    "teraType": "Ghost",
-    "evs": {
-      "hp": 244,
-      "atk": 196,
-      "def": 4,
-      "spa": 0,
-      "spd": 44,
-      "spe": 20
-    },
-    "moves": [
-      "Fake Out",
-      "Close Combat",
-      "Wide Guard",
-      "Helping Hand"
-    ]
-  },
-  "Stantler": {
-    "ability": "Intimidate",
-    "item": "Eviolite",
-    "nature": "Timid",
-    "teraType": "Ghost",
-    "evs": {
-      "hp": 244,
-      "atk": 0,
-      "def": 4,
-      "spa": 4,
-      "spd": 4,
-      "spe": 252
-    },
-    "moves": [
-      "Skill Swap",
-      "Tera Blast",
-      "Gravity",
-      "Hypnosis"
-    ]
-  },
-  "Heracross": {
-    "ability": "Guts",
-    "item": "Flame Orb",
-    "nature": "Adamant",
-    "teraType": "Normal",
-    "evs": {
-      "hp": 4,
-      "atk": 252,
-      "def": 0,
-      "spa": 0,
-      "spd": 0,
-      "spe": 252
-    },
-    "moves": [
-      "Close Combat",
-      "Knock Off",
-      "Protect",
-      "Facade"
-    ]
-  },
-  "Noivern": {
-    "ability": "Telepathy",
-    "item": "Focus Sash",
-    "nature": "Timid",
-    "teraType": "Ghost",
-    "evs": {
-      "hp": 4,
-      "atk": 0,
-      "def": 0,
-      "spa": 252,
-      "spd": 0,
-      "spe": 252
-    },
-    "moves": [
-      "Tailwind",
-      "Draco Meteor",
-      "Super Fang",
-      "Protect"
-    ]
-  },
-  "Golduck": {
-    "ability": "Cloud Nine",
-    "item": "Focus Sash",
-    "nature": "Timid",
-    "teraType": "Ghost",
-    "evs": {
-      "hp": 4,
-      "atk": 0,
-      "def": 0,
-      "spa": 252,
-      "spd": 0,
-      "spe": 252
-    },
-    "moves": [
-      "Encore",
-      "Icy Wind",
-      "Haze",
-      "Hydro Pump"
-    ]
-  },
-  "Scyther": {
-    "ability": "Technician",
-    "item": "Eviolite",
-    "nature": "Adamant",
-    "teraType": "Dragon",
-    "evs": {
-      "hp": 228,
-      "atk": 236,
-      "def": 0,
-      "spa": 0,
-      "spd": 0,
-      "spe": 44
-    },
-    "moves": [
-      "Dual Wingbeat",
-      "Close Combat",
-      "Thief",
-      "Protect"
-    ]
-  },
-  "Ludicolo": {
-    "ability": "Swift Swim",
-    "item": "Life Orb",
-    "nature": "Mild",
-    "teraType": "Water",
     "evs": {
       "hp": 0,
       "atk": 4,
@@ -3614,10 +3234,10 @@ export const SETDEX_SV: {[k: string]: any} = {
       "spe": 252
     },
     "moves": [
-      "Ice Beam",
-      "Weather Ball",
       "Fake Out",
-      "Protect"
+      "Nuzzle",
+      "Thunderbolt",
+      "Endeavor"
     ]
   },
   "Volbeat": {
@@ -3635,56 +3255,16 @@ export const SETDEX_SV: {[k: string]: any} = {
     },
     "moves": [
       "Tailwind",
-      "Encore",
       "Rain Dance",
+      "Encore",
       "Sunny Day"
     ]
   },
-  "Vikavolt": {
-    "ability": "Levitate",
-    "item": "Magnet",
-    "nature": "Quiet",
-    "teraType": "Electric",
-    "evs": {
-      "hp": 252,
-      "atk": 0,
-      "def": 0,
-      "spa": 252,
-      "spd": 4,
-      "spe": 0
-    },
-    "moves": [
-      "Bug Buzz",
-      "Thunderbolt",
-      "Discharge",
-      "Protect"
-    ]
-  },
-  "Arboliva": {
-    "ability": "Seed Sower",
-    "item": "Life Orb",
-    "nature": "Quiet",
-    "teraType": "Fairy",
-    "evs": {
-      "hp": 204,
-      "atk": 0,
-      "def": 108,
-      "spa": 196,
-      "spd": 0,
-      "spe": 0
-    },
-    "moves": [
-      "Protect",
-      "Earth Power",
-      "Giga Drain",
-      "Dazzling Gleam"
-    ]
-  },
-  "Flapple": {
-    "ability": "Hustle",
-    "item": "Choice Scarf",
-    "nature": "Adamant",
-    "teraType": "Fire",
+  "Brambleghast": {
+    "ability": "Wind Rider",
+    "item": "Focus Sash",
+    "nature": "Jolly",
+    "teraType": "Ghost",
     "evs": {
       "hp": 4,
       "atk": 252,
@@ -3694,50 +3274,150 @@ export const SETDEX_SV: {[k: string]: any} = {
       "spe": 252
     },
     "moves": [
-      "Grav Apple",
-      "Dragon Rush",
-      "U-turn",
-      "Tera Blast"
+      "Poltergeist",
+      "Shadow Sneak",
+      "Power Whip",
+      "Protect"
     ]
   },
-  "Slowking": {
-    "ability": "Regenerator",
-    "item": "Safety Goggles",
-    "nature": "Sassy",
-    "teraType": "Dragon",
+  "Chansey": {
+    "ability": "Natural Cure",
+    "item": "Eviolite",
+    "nature": "Bold",
+    "teraType": "Ghost",
     "evs": {
-      "hp": 228,
+      "hp": 4,
       "atk": 0,
-      "def": 92,
+      "def": 252,
       "spa": 0,
-      "spd": 188,
+      "spd": 252,
       "spe": 0
     },
     "moves": [
-      "Trick Room",
-      "Psychic",
-      "Protect",
-      "Scald"
+      "Soft-Boiled",
+      "Seismic Toss",
+      "Heal Pulse",
+      "Stealth Rock"
     ]
   },
-  "Magnezone": {
-    "ability": "Analytic",
-    "item": "Choice Specs",
-    "nature": "Quiet",
-    "teraType": "Flying",
+  "Swampert": {
+    "ability": "Torrent",
+    "item": "Assault Vest",
+    "nature": "Adamant",
+    "teraType": "Fire",
+    "evs": {
+      "hp": 252,
+      "atk": 156,
+      "def": 4,
+      "spa": 0,
+      "spd": 92,
+      "spe": 4
+    },
+    "moves": [
+      "Liquidation",
+      "High Horsepower",
+      "Avalanche",
+      "Icy Wind"
+    ]
+  },
+  "Magmortar": {
+    "ability": "Vital Spirit",
+    "item": "Rocky Helmet",
+    "nature": "Modest",
+    "teraType": "Grass",
     "evs": {
       "hp": 252,
       "atk": 0,
+      "def": 52,
+      "spa": 76,
+      "spd": 4,
+      "spe": 124
+    },
+    "moves": [
+      "Follow Me",
+      "Protect",
+      "Heat Wave",
+      "Will-O-Wisp"
+    ]
+  },
+  "Salazzle": {
+    "ability": "Oblivious",
+    "item": "Focus Sash",
+    "nature": "Timid",
+    "teraType": "Ghost",
+    "evs": {
+      "hp": 4,
+      "atk": 0,
       "def": 0,
-      "spa": 172,
-      "spd": 84,
+      "spa": 252,
+      "spd": 0,
+      "spe": 252
+    },
+    "moves": [
+      "Protect",
+      "Flamethrower",
+      "Encore",
+      "Disable"
+    ]
+  },
+  "Infernape": {
+    "ability": "Blaze",
+    "item": "Life Orb",
+    "nature": "Timid",
+    "teraType": "Fire",
+    "evs": {
+      "hp": 60,
+      "atk": 0,
+      "def": 0,
+      "spa": 196,
+      "spd": 0,
+      "spe": 252
+    },
+    "moves": [
+      "Fake Out",
+      "Overheat",
+      "Heat Wave",
+      "Aura Sphere"
+    ]
+  },
+  "Toxicroak": {
+    "ability": "Dry Skin",
+    "item": "Assault Vest",
+    "nature": "Adamant",
+    "teraType": "Fire",
+    "evs": {
+      "hp": 204,
+      "atk": 188,
+      "def": 44,
+      "spa": 0,
+      "spd": 4,
+      "spe": 68
+    },
+    "moves": [
+      "Fake Out",
+      "Close Combat",
+      "Sucker Punch",
+      "Poison Jab"
+    ]
+  },
+  "Electivire": {
+    "ability": "Vital Spirit",
+    "item": "Sitrus Berry",
+    "nature": "Impish",
+    "teraType": "Fairy",
+    "evs": {
+      "hp": 252,
+      "atk": 0,
+      "def": 252,
+      "spa": 0,
+      "spd": 4,
       "spe": 0
     },
     "moves": [
-      "Flash Cannon",
-      "Volt Switch",
-      "Thunderbolt",
-      "Tera Blast"
+      "Follow Me",
+      "Protect",
+      "Ice Punch",
+      "Wild Charge"
     ]
   },
   "Urshifu-Rapid-Strike": {

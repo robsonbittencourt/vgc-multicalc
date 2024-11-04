@@ -7,8 +7,8 @@ const POKEMON_QUANTITY = 250
 const a = await createSpeedMetaFile("g")
 
 export async function createSpeedMetaFile() {
-  const regGData = await getSmogonData('g')
-  const regHData = await getSmogonData('h')
+  const regGData = await getSmogonData('2024-09', 'g')
+  const regHData = await getSmogonData('2024-10', 'h')
 
   regGData.forEach(pokemonG => {
     if(regHData.find(pokemonH => pokemonH.name == pokemonG.name) == undefined) {
@@ -50,9 +50,9 @@ function printNewPokemon(pokemon) {
   })
 }
 
-async function getSmogonData(reg) {
+async function getSmogonData(date, reg) {
   try {
-    const response = await axios.get(`https://www.smogon.com/stats/${getCurrentYearMonth()}/moveset/gen9vgc2024reg${reg}bo3-1760.txt`)
+    const response = await axios.get(`https://www.smogon.com/stats/${date}/moveset/gen9vgc2024reg${reg}bo3-1760.txt`)
     const parsedSmogonData = parseSmogonData(response.data)
     return parsedSmogonData
   } catch (error) {
