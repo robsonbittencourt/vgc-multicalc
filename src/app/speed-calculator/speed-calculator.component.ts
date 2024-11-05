@@ -13,6 +13,7 @@ import { TeamsComponent } from '../teams/teams.component';
 
 import { MatButtonToggle, MatButtonToggleGroup } from '@angular/material/button-toggle';
 import { MatOption } from '@angular/material/core';
+import { MatIcon } from '@angular/material/icon';
 import { SpeedScaleComponent } from '../speed-scale/speed-scale.component';
 
 @Component({
@@ -20,7 +21,7 @@ import { SpeedScaleComponent } from '../speed-scale/speed-scale.component';
   templateUrl: './speed-calculator.component.html',
   styleUrls: ['./speed-calculator.component.scss'],
   standalone: true,
-  imports: [TeamComponent, TeamsComponent, FieldComponent, InputAutocompleteComponent, MatFormField, MatSelect, MatOption, MatButtonToggleGroup, MatButtonToggle, SpeedScaleComponent]
+  imports: [TeamComponent, TeamsComponent, FieldComponent, InputAutocompleteComponent, MatFormField, MatSelect, MatOption, MatButtonToggleGroup, MatButtonToggle, MatIcon, SpeedScaleComponent]
 })
 export class SpeedCalculatorComponent {
   

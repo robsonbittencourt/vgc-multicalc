@@ -83,7 +83,7 @@
       </mat-form-field>
     </div>
 
-    <mat-button-toggle-group multiple class="button-group">
+    <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">
       <mat-button-toggle [checked]="options.speedDropActive" (change)="options.speedDropActive = $event.source.checked">Ice Wind</mat-button-toggle>
       <mat-button-toggle [checked]="options.paralyzedActive" (change)="options.paralyzedActive = $event.source.checked">Paralyzed</mat-button-toggle>
       <mat-button-toggle [checked]="options.choiceScarfActive" (change)="options.choiceScarfActive = $event.source.checked">Choice Scarf</mat-button-toggle>
@@ -94,7 +94,7 @@
     <label class="title">Field</label>
   </div>
   <div class="options">
-    <mat-button-toggle-group multiple (change)="toggleChangeWeather($event)" class="button-group botton-space">
+    <mat-button-toggle-group multiple (change)="toggleChangeWeather($event)" class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
       <mat-button-toggle [checked]="data.field.weather == 'Sun'" value="Sun">Sun</mat-button-toggle>
       <mat-button-toggle [checked]="data.field.weather == 'Rain'" value="Rain">Rain</mat-button-toggle>
       <mat-button-toggle [checked]="data.field.weather == 'Sand'" value="Sand">Sand</mat-button-toggle>
@@ -102,7 +102,7 @@
     </mat-button-toggle-group>
     <mat-button-toggle [checked]="data.field.terrain == 'Electric'" value="Electric" (change)="toggleChangeTerrain($event)">Electric Terrain</mat-button-toggle>
 
-    <mat-button-toggle-group multiple class="button-group">
+    <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">
       <mat-button-toggle [checked]="data.field.attackerSide.isTailwind" (change)="data.field.attackerSide.isTailwind = $event.source.checked">Your Tailwind</mat-button-toggle>
       <mat-button-toggle [checked]="data.field.defenderSide.isTailwind" (change)="data.field.defenderSide.isTailwind = $event.source.checked">Opponent Tailwind</mat-button-toggle>
       <mat-button-toggle [checked]="options.trickRoomActive" (change)="options.trickRoomActive = $event.source.checked">Trick Room</mat-button-toggle>
@@ -113,7 +113,7 @@
     <label class="title">Regulation</label>
   </div>
   <div class="options">
-    <mat-button-toggle-group class="button-group botton-space">
+    <mat-button-toggle-group class="button-group botton-space" [hideSingleSelectionIndicator]="true">
       <mat-button-toggle [checked]="options.regulation == 'Reg G'" value="Reg G" (change)="regulationChanged($event.source.value)">Regulation G</mat-button-toggle>
       <mat-button-toggle [checked]="options.regulation == 'Reg H'" value="Reg H" (change)="regulationChanged($event.source.value)">Regulation H</mat-button-toggle>
     </mat-button-toggle-group>

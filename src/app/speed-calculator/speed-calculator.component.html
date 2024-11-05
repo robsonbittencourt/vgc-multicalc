@@ -40,7 +40,7 @@
             </mat-form-field>
           </div>
 
-          <mat-button-toggle-group multiple class="button-group">
+          <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">
             <mat-button-toggle [checked]="options.speedDropActive" (change)="options.speedDropActive = $event.source.checked">Ice Wind</mat-button-toggle>
             <mat-button-toggle [checked]="options.paralyzedActive" (change)="options.paralyzedActive = $event.source.checked">Paralyzed</mat-button-toggle>
             <mat-button-toggle [checked]="options.choiceScarfActive" (change)="options.choiceScarfActive = $event.source.checked">Choice Scarf</mat-button-toggle>
