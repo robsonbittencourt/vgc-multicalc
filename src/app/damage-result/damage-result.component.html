@@ -13,7 +13,7 @@
   </div>
 
   <div class="moves-result" [ngStyle]="reverse() && { 'order': -1 } || null" data-cy="moves">
-    <mat-chip-listbox class="mat-mdc-chip-set-stacked" [ngModel]="selectedMove" (change)="moveSelected($event.value)">
+    <mat-chip-listbox class="mat-mdc-chip-set-stacked" [value]="selectedMove" (change)="moveSelected($event)">
       @for (damageResult of damageResults(); let i = $index; track i) {
         <div class="move" [ngStyle]="reverse() && { 'flex-flow': 'row-reverse', 'margin-right': '0.8em' } || null">
           <div class="chip-move" [ngStyle]="reverse() && { 'margin-left': '0em', 'margin-right': '1em' } || null">

@@ -2,7 +2,7 @@ import { NgStyle } from '@angular/common';
 import { Component, computed, input, output } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonToggle, MatButtonToggleGroup } from '@angular/material/button-toggle';
-import { MatChipListbox, MatChipOption } from '@angular/material/chips';
+import { MatChipListbox, MatChipListboxChange, MatChipOption } from '@angular/material/chips';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { DamageResult } from 'src/lib/damage-result';
@@ -43,10 +43,13 @@ export class DamageResultComponent {
     this.selectedMove = this.pokemon().activeMoveName
   }
 
-  moveSelected(move: string) {
-    if (move) {
-      this.moveSetChange.emit(move)
-    } 
+  moveSelected(event: MatChipListboxChange) {
+    if (!event.value || event.value == this.selectedMove) {
+      event.source.value = this.selectedMove
+    } else {
+      this.selectedMove = event.value
+      this.moveSetChange.emit(this.selectedMove)
+    }
   }
   
   activateHighRoll() {

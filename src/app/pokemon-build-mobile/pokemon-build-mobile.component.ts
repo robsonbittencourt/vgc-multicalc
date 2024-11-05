@@ -6,7 +6,7 @@ import { Pokemon } from 'src/lib/pokemon';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckbox } from '@angular/material/checkbox';
-import { MatChipListbox, MatChipOption } from '@angular/material/chips';
+import { MatChipListbox, MatChipListboxChange, MatChipOption } from '@angular/material/chips';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { AbilityComboBoxComponent } from '../ability-combo-box/ability-combo-box.component';
@@ -64,12 +64,12 @@ export class PokemonBuildMobileComponent {
     }
   }
 
-  moveChanged() {
-    setTimeout(() => {
-      if (!this.selectedMove) {
-        this.selectedMove = this.pokemon.activeMoveName
-      }
-    }, 0)
+  moveSelected(event: MatChipListboxChange) {
+    if (!event.value || event.value == this.selectedMove) {
+      event.source.value = this.selectedMove
+    } else {
+      this.selectedMove = event.value
+    }
   }
 
   activateMove(position: number, move: Move) {

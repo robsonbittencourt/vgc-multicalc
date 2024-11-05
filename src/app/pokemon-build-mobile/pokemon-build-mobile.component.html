@@ -29,7 +29,7 @@
     }
     @else {
       <div class="no-edit-moves">
-        <mat-chip-listbox [(ngModel)]="selectedMove" (change)="moveChanged()">
+        <mat-chip-listbox [value]="selectedMove" (change)="moveSelected($event)">
           @if (pokemon.move1Name) {
             <mat-chip-option [selected]="pokemon.move1Name == pokemon.activeMoveName" (click)="activateMove(1, pokemon.moveSet.move1)">{{ pokemon.move1Name }}</mat-chip-option>
           }
