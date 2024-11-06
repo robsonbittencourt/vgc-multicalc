@@ -1,4 +1,4 @@
-import { Component, inject, output, signal } from '@angular/core';
+import { Component, computed, inject, output, signal } from '@angular/core';
 import { DamageCalculatorService } from 'src/lib/damage-calculator.service';
 import { DamageResult } from 'src/lib/damage-result';
 import { Move } from 'src/lib/move';
@@ -28,8 +28,8 @@ export class SimpleCalcComponent {
   leftDamageResults = signal<DamageResult[]>([])
   rightDamageResults = signal<DamageResult[]>([])
 
-  leftDamageResult: DamageResult
-  rightDamageResult: DamageResult
+  leftDamageResult = computed(() => this.findResultByMove(this.leftDamageResults(), this.data.leftPokemon.move))
+  rightDamageResult = computed(() => this.findResultByMove(this.rightDamageResults(), this.data.rightPokemon.move))
 
   ngOnInit() {
     this.calculateDamage()
@@ -46,7 +46,6 @@ export class SimpleCalcComponent {
   }
 
   leftMoveActivated(move: string) {
-    this.leftDamageResult = this.findResultByMove(this.leftDamageResults(), this.data.leftPokemon.move)
     this.data.leftPokemon = this.data.leftPokemon.activateMove(move)
     this.dataChangedEvent.emit()
   }
@@ -67,7 +66,6 @@ export class SimpleCalcComponent {
   }
 
   rightMoveActivated(move: string) {
-    this.rightDamageResult = this.findResultByMove(this.rightDamageResults(), this.data.rightPokemon.move)
     this.data.rightPokemon = this.data.rightPokemon.activateMove(move)
     this.dataChangedEvent.emit()
   }
@@ -84,14 +82,11 @@ export class SimpleCalcComponent {
 
   private calculateDamage() {
     this.leftDamageResults.set(this.damageCalculator.calcDamageAllAttacks(this.data.leftPokemon, this.data.rightPokemon))
-    this.leftDamageResult = this.findResultByMove(this.leftDamageResults(), this.data.leftPokemon.move)
-    
     this.rightDamageResults.set(this.damageCalculator.calcDamageAllAttacks(this.data.rightPokemon, this.data.leftPokemon))
-    this.rightDamageResult = this.findResultByMove(this.rightDamageResults(), this.data.rightPokemon.move)
   }
 
   private findResultByMove(damageResults: DamageResult[], move: Move): DamageResult {
-    return damageResults?.find(result => result.move == move.name)!
+    return damageResults.find(result => result.move == move.name)!
   }
 
 }

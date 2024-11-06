@@ -1,6 +1,6 @@
 <div class="container">
-  <app-damage-result [pokemon]="this.data.leftPokemon" [damageResults]="leftDamageResults()" [rollLevelConfig]="data.leftRollLevelConfig" [opponentDamageResult]="rightDamageResult" (moveSetChange)="leftMoveActivated($event)" (rollLevelChange)="leftRollLevelChanged($event)" data-cy="left-damage-result"/>
-  <app-damage-result [pokemon]="this.data.rightPokemon" [damageResults]="rightDamageResults()" [rollLevelConfig]="data.rightRollLevelConfig" [opponentDamageResult]="leftDamageResult" (moveSetChange)="rightMoveActivated($event)" (rollLevelChange)="rightRollLevelChanged($event)" [reverse]="true" data-cy="right-damage-result"/>
+  <app-damage-result [pokemon]="this.data.leftPokemon" [damageResults]="leftDamageResults()" [rollLevelConfig]="data.leftRollLevelConfig" [opponentDamageResult]="rightDamageResult()" (moveSetChange)="leftMoveActivated($event)" (rollLevelChange)="leftRollLevelChanged($event)" data-cy="left-damage-result"/>
+  <app-damage-result [pokemon]="this.data.rightPokemon" [damageResults]="rightDamageResults()" [rollLevelConfig]="data.rightRollLevelConfig" [opponentDamageResult]="leftDamageResult()" (moveSetChange)="rightMoveActivated($event)" (rollLevelChange)="rightRollLevelChanged($event)" [reverse]="true" data-cy="right-damage-result"/>
 
   <div class="pokemon-edit" data-cy="left-pokemon">
     <div class="pokemon-actions pokemon-actions-left">
