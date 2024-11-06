@@ -1,4 +1,4 @@
-import { Component, inject, output } from '@angular/core';
+import { Component, inject, output, signal } from '@angular/core';
 import { DamageCalculatorService } from 'src/lib/damage-calculator.service';
 import { DamageResult } from 'src/lib/damage-result';
 import { Pokemon } from 'src/lib/pokemon';
@@ -32,7 +32,7 @@ export class SimpleCalcMobileComponent {
   leftTeamMember: TeamMember
   rightTeamMember: TeamMember
 
-  damageResult: DamageResult
+  damageResult = signal(new DamageResult("", "", "", 0, "", []))
 
   copyMessageEnabled = false
   
@@ -43,7 +43,7 @@ export class SimpleCalcMobileComponent {
     this.calculateDamage()
   }
 
-  pokemonOnEditChanged(pokemon: Pokemon) {
+  pokemonOnEditChanged() {
     this.calculateDamage()    
     this.dataChangedEvent.emit()
   }
@@ -55,9 +55,9 @@ export class SimpleCalcMobileComponent {
 
   private calculateDamage() {
     if(this.leftIsAttacker()) {
-      this.damageResult = this.damageCalculator.calcDamage(this.leftTeamMember.pokemon, this.rightTeamMember.pokemon)
+      this.damageResult.set(this.damageCalculator.calcDamage(this.leftTeamMember.pokemon, this.rightTeamMember.pokemon))
     } else {
-      this.damageResult = this.damageCalculator.calcDamage(this.rightTeamMember.pokemon, this.leftTeamMember.pokemon)
+      this.damageResult.set(this.damageCalculator.calcDamage(this.rightTeamMember.pokemon, this.leftTeamMember.pokemon))
     }
   }
 
@@ -82,7 +82,7 @@ export class SimpleCalcMobileComponent {
     teamMember.active = true
     this.attacker = teamMember.pokemon
 
-    this.pokemonOnEditChanged(teamMember.pokemon)    
+    this.pokemonOnEditChanged()    
     teamMember.active = true
   }
 
