@@ -17,11 +17,11 @@ import { InputAutocompleteComponent } from '../input-autocomplete/input-autocomp
 import { PokemonComboBoxComponent } from '../pokemon-combo-box/pokemon-combo-box.component'
 
 @Component({
-    selector: 'app-pokemon-build',
-    templateUrl: './pokemon-build.component.html',
-    styleUrls: ['./pokemon-build.component.scss'],
-    standalone: true,
-    imports: [PokemonComboBoxComponent, NgStyle, InputAutocompleteComponent, MatTooltip, MatCheckbox, ReactiveFormsModule, FormsModule, AbilityComboBoxComponent, EvSliderComponent, RouterOutlet]
+  selector: 'app-pokemon-build',
+  templateUrl: './pokemon-build.component.html',
+  styleUrls: ['./pokemon-build.component.scss'],
+  standalone: true,
+  imports: [PokemonComboBoxComponent, NgStyle, InputAutocompleteComponent, MatTooltip, MatCheckbox, ReactiveFormsModule, FormsModule, AbilityComboBoxComponent, EvSliderComponent, RouterOutlet]
 })
 export class PokemonBuildComponent {
   @Input()
@@ -86,16 +86,44 @@ export class PokemonBuildComponent {
     }
   }
 
-  moveSelected(position: number, move: string) {
-    this.activateMove(position, new Move(move))
-  }
-
   moveSelectorDisabled(move: string): boolean {
     return !move || move == this.pokemon.activeMoveName
   }
 
-  activateMove(position: number, move: Move) {
-    this.pokemon.moveSet.activeMoveByPosition(position, move)
+  move1Selected(move: string) {
+    this.pokemon.moveSet.move1 = new Move(move)
+  }
+
+  move2Selected(move: string) {
+    this.pokemon.moveSet.move2 = new Move(move)
+  }
+
+  move3Selected(move: string) {
+    this.pokemon.moveSet.move3 = new Move(move)
+  }
+
+  move4Selected(move: string) {
+    this.pokemon.moveSet.move4 = new Move(move)
+  }
+
+  activateMove1() {
+    this.activateMove(1)
+  }
+
+  activateMove2() {
+    this.activateMove(2)
+  }
+
+  activateMove3() {
+    this.activateMove(3)
+  }
+
+  activateMove4() {
+    this.activateMove(4)
+  }
+
+  private activateMove(position: number) {
+    this.pokemon.moveSet.activeMoveByPosition(position)
     this.pokemonChangedEvent.emit(this.pokemon)
   }
 

@@ -2,13 +2,15 @@ import { Generations, MOVES, Move as MoveSmogon } from "@smogon/calc"
 
 export class Move {
 
+  active: boolean
   nameStorage: string
   possibleHitsStorage: string[]
   hitsStorage: string
   alliesFainted: string
   bpStorage: number
 
-  constructor(name: string) {
+  constructor(name: string, active: boolean = false) {
+    this.active = active
     this.nameStorage = name
     this.possibleHitsStorage = this.moveHits(name)
     this.hitsStorage = this.possibleHitsStorage[this.possibleHitsStorage.length - 1]
@@ -50,7 +52,7 @@ export class Move {
     }
 
     if (move === "Rage Fist") {
-      return ["6", "5", "4", "3", "2", "1", "0"]
+      return ["0", "1", "2", "3", "4", "5", "6"]
     }
     
     const multihit = MOVES[9][move]?.multihit

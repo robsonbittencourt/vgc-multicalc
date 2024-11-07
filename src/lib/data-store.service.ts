@@ -2,7 +2,6 @@ import { Injectable, inject } from '@angular/core';
 import { Field } from '@smogon/calc';
 import { defaultPokemon } from 'src/lib/default-pokemon';
 import { DeviceDetectorService } from 'src/lib/device-detector.service';
-import { Move } from 'src/lib/move';
 import { MoveSet } from 'src/lib/moveset';
 import { Pokemon } from 'src/lib/pokemon';
 import { RollLevelConfig } from 'src/lib/roll-level-config';
@@ -54,7 +53,7 @@ export class DataStore {
     }    
   }
 
-  buildInitialData(userData: any) { 
+  buildInitialData(userData: any) {
     if (userData) {
       this.extraFieldOptions.criticalHit = userData.criticalHit
       this.extraFieldOptions.trickRoom = userData.trickRoom
@@ -147,7 +146,7 @@ export class DataStore {
 
   buildPokemonFromUserData(pokemon: any) {
     const moveSet = new MoveSet(pokemon.moveSet[0], pokemon.moveSet[1], pokemon.moveSet[2], pokemon.moveSet[3])
-    moveSet.activeMoveStorage = new Move(pokemon.activeMove)
+    moveSet.activeMoveByName(pokemon.activeMove)
     return new Pokemon(pokemon.name, { ability: pokemon.ability, nature: pokemon.nature, item: pokemon.item, teraType: pokemon.teraType, teraTypeActive: pokemon.teraTypeActive, evs: pokemon.evs, moveSet: moveSet, boosts: pokemon.boosts, status: pokemon.status, ivs: pokemon.ivs })
   }
 

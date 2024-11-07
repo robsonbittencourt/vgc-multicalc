@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, KeyValueDiffer, KeyValueDiffers, Output, inject } from '@angular/core';
 import { MOVES, NATURES, TYPE_CHART } from '@smogon/calc';
 import { Items } from 'src/data/items';
-import { Move } from 'src/lib/move';
 import { Pokemon } from 'src/lib/pokemon';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -14,11 +13,11 @@ import { EvSliderComponent } from '../ev-slider/ev-slider.component';
 import { InputAutocompleteComponent } from '../input-autocomplete/input-autocomplete.component';
 
 @Component({
-    selector: 'app-pokemon-build-mobile',
-    templateUrl: './pokemon-build-mobile.component.html',
-    styleUrls: ['./pokemon-build-mobile.component.scss'],
-    standalone: true,
-    imports: [MatChipListbox, ReactiveFormsModule, FormsModule, MatChipOption, MatIcon, InputAutocompleteComponent, MatTooltip, MatCheckbox, AbilityComboBoxComponent, EvSliderComponent]
+  selector: 'app-pokemon-build-mobile',
+  templateUrl: './pokemon-build-mobile.component.html',
+  styleUrls: ['./pokemon-build-mobile.component.scss'],
+  standalone: true,
+  imports: [MatChipListbox, ReactiveFormsModule, FormsModule, MatChipOption, MatIcon, InputAutocompleteComponent, MatTooltip, MatCheckbox, AbilityComboBoxComponent, EvSliderComponent]
 })
 export class PokemonBuildMobileComponent {
   @Input()
@@ -72,8 +71,24 @@ export class PokemonBuildMobileComponent {
     }
   }
 
-  activateMove(position: number, move: Move) {
-    this.pokemon.moveSet.activeMoveByPosition(position, move)
+  activateMove1() {
+    this.activateMove(1)
+  }
+
+  activateMove2() {
+    this.activateMove(2)
+  }
+
+  activateMove3() {
+    this.activateMove(3)
+  }
+
+  activateMove4() {
+    this.activateMove(4)
+  }
+
+  private activateMove(position: number) {
+    this.pokemon.moveSet.activeMoveByPosition(position)
     this.pokemonChangedEvent.emit(this.pokemon)
   }
 
