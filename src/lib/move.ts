@@ -5,12 +5,14 @@ export class Move {
   nameStorage: string
   possibleHitsStorage: string[]
   hitsStorage: string
+  alliesFainted: string
   bpStorage: number
 
   constructor(name: string) {
     this.nameStorage = name
     this.possibleHitsStorage = this.moveHits(name)
     this.hitsStorage = this.possibleHitsStorage[this.possibleHitsStorage.length - 1]
+    this.alliesFainted = "0"
     this.bpStorage = new MoveSmogon(Generations.get(9), name).bp
   }
 

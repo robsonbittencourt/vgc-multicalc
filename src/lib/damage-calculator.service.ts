@@ -43,6 +43,11 @@ export class DamageCalculatorService {
     moveSmogon.isCrit = criticalHit
     moveSmogon.isStellarFirstUse = true
     moveSmogon.hits = +move.hits
+
+    if (move.name == "Last Respects") {
+      const adjustedBasePower = 50 + (50 * +move.alliesFainted)
+      moveSmogon.overrides = { basePower: adjustedBasePower}
+    }
     
     if (move.name == "Rage Fist") {
       const adjustedBasePower = 50 + (50 * +move.hits)

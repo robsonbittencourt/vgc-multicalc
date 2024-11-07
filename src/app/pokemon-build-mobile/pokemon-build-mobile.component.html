@@ -11,11 +11,17 @@
           <div *ngIf="!editAttacks" (click)="editMoves()" class="edit-button">
             <mat-icon class="edit-icon">edit</mat-icon>Edit
           </div>
+
+          <div *ngIf="pokemon.moveSet.activeMove.name == 'Last Respects'" class="multihit">
+            <label>Fainted</label>
+            <app-input-autocomplete [(value)]="pokemon.moveSet.activeMove.alliesFainted" [allValues]="alliesFainted" (valueChange)="pokemonChanged()"/>
+          </div>
+          
           <div *ngIf="pokemon.moveSet.activeMove.possibleHits.length > 0 && !editAttacks" class="multihit">
             <label *ngIf="pokemon.activeMoveName != 'Rage Fist'">Hits</label>
             <label *ngIf="pokemon.activeMoveName == 'Rage Fist'">Hits Taken</label>
             <div class="hits-input">
-              <app-input-autocomplete [(value)]="pokemon.moveSet.activeMove.hits" [allValues]="pokemon.moveSet.activeMove.possibleHits" (valueChange)="onHitsSelected()"/>
+              <app-input-autocomplete [(value)]="pokemon.moveSet.activeMove.hits" [allValues]="pokemon.moveSet.activeMove.possibleHits" (valueChange)="pokemonChanged()"/>
             </div>
           </div>
         </div>

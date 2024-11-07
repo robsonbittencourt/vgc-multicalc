@@ -23,6 +23,7 @@ export class PokemonBuildComponent {
   allPokemonNames = AllPokemon.instance.allPokemonNames
   availableAbilities: string[]
   commanderActivated = false
+  alliesFainted = ["0", "1", "2", "3", "4", "5", "6", "7"]
 
   statusConditions = [
     "Healthy", "Sleep", "Poison", "Burn", "Freeze", "Paralysis"
@@ -90,7 +91,7 @@ export class PokemonBuildComponent {
     this.pokemonChangedEvent.emit(this.pokemon)
   }
 
-  onHitsSelected() {
+  pokemonChanged() {
     this.pokemonChangedEvent.emit(this.pokemon)
   }
 

@@ -25,10 +25,15 @@
       <app-input-autocomplete [(value)]="pokemon.status" [allValues]="statusConditions" data-cy="pokemon-status"/>
     </div>
 
+    <div *ngIf="pokemon.moveSet.activeMove.name == 'Last Respects'" class="multihit">
+      <label>Allies Fainted</label>
+      <app-input-autocomplete [(value)]="pokemon.moveSet.activeMove.alliesFainted" [allValues]="alliesFainted" (valueChange)="pokemonChanged()"/>
+    </div>
+
     <div *ngIf="pokemon.moveSet.activeMove.possibleHits.length > 0" class="multihit">
       <label *ngIf="pokemon.activeMoveName != 'Rage Fist'">Hits</label>
       <label *ngIf="pokemon.activeMoveName == 'Rage Fist'">Hits Taken</label>
-      <app-input-autocomplete [(value)]="pokemon.moveSet.activeMove.hits" [allValues]="pokemon.moveSet.activeMove.possibleHits" (valueChange)="onHitsSelected()"/>
+      <app-input-autocomplete [(value)]="pokemon.moveSet.activeMove.hits" [allValues]="pokemon.moveSet.activeMove.possibleHits" (valueChange)="pokemonChanged()"/>
     </div>
 
     <div>

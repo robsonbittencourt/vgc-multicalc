@@ -16,6 +16,7 @@ export class PokemonBuildMobileComponent {
   allNatureNames = Object.keys(NATURES)
   allTeraTypes = Object.keys(TYPE_CHART[9]).splice(1).sort()
   commanderActivated = false
+  alliesFainted = ["0", "1", "2", "3", "4", "5", "6", "7"]
   
   MAX_EVS = 508
   editAttacks: boolean = false
@@ -94,7 +95,7 @@ export class PokemonBuildMobileComponent {
     this.editAttacks = false
   }
 
-  onHitsSelected() {
+  pokemonChanged() {
     this.pokemonChangedEvent.emit(this.pokemon)
   }
 
