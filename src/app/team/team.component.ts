@@ -1,4 +1,4 @@
-import { Component, input, Input, output } from '@angular/core';
+import { Component, input, model, output } from '@angular/core';
 import { defaultPokemon } from 'src/lib/default-pokemon';
 import { Team } from 'src/lib/team';
 import { TeamMember } from 'src/lib/team-member';
@@ -20,8 +20,7 @@ import { PokemonTabComponent } from '../pokemon-tab/pokemon-tab.component';
 })
 export class TeamComponent {
 
-  @Input()
-  pokemon: Pokemon
+  pokemon = model.required<Pokemon>()
 
   team = input.required<Team>()
   secondSelection = input<Pokemon>()
@@ -32,14 +31,14 @@ export class TeamComponent {
   secondAttackerSelected = output<Pokemon>()
 
   canShowDeleteButton(): boolean {
-    return !this.pokemon.isDefault()
+    return !this.pokemon().isDefault()
   }
 
   activatePokemon(teamMember: TeamMember) {
     this.team().deactivateAll()
     teamMember.active = true
 
-    this.pokemon = teamMember.pokemon
+    this.pokemon.set(teamMember.pokemon)
     this.pokemonChangedEvent.emit(teamMember.pokemon)
   }
 
@@ -51,18 +50,18 @@ export class TeamComponent {
     } 
 
     this.team().activateFirstTeamMember()
-    this.pokemon = this.team().activePokemon()
+    this.pokemon.set(this.team().activePokemon())
 
     if (removedTeamMember.pokemon == this.secondSelection()) {
       this.secondAttackerSelected.emit(removedTeamMember.pokemon)
     }
 
-    this.pokemonChangedEvent.emit(this.pokemon)
+    this.pokemonChangedEvent.emit(this.pokemon())
     this.teamChanged.emit(this.team())
   }
 
   selectSecondAttacker() {
-    this.secondAttackerSelected.emit(this.pokemon)
+    this.secondAttackerSelected.emit(this.pokemon())
   }
 
   isSecondSelection(teamMember: TeamMember) {
@@ -70,11 +69,11 @@ export class TeamComponent {
   }
 
   secondSelectionActive() {
-    return this.pokemon == this.secondSelection()
+    return this.pokemon() == this.secondSelection()
   }
 
   canShowCombineButton() {
-    return this.isAttacker() && !this.pokemon.isDefault() && (!this.secondSelection() || this.team().activePokemon() == this.secondSelection())
+    return this.isAttacker() && !this.pokemon().isDefault() && (!this.secondSelection() || this.team().activePokemon() == this.secondSelection())
   }
 
   pokemonImported(pokemon: Pokemon) {
@@ -89,11 +88,11 @@ export class TeamComponent {
   }
 
   canExportPokemon() {
-    return !this.pokemon.isDefault()
+    return !this.pokemon().isDefault()
   }
 
   teamMemberOnEdit(): boolean {
-    return this.team().activePokemon() == this.pokemon
+    return this.team().activePokemon().equals(this.pokemon())
   }
 
   pokemonOnEditChanged(pokemon: Pokemon) {

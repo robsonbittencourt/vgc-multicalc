@@ -4,18 +4,18 @@
 
   <div class="pokemon-edit" data-cy="left-pokemon">
     <div class="pokemon-actions pokemon-actions-left">
-      <app-import-pokemon-button (pokemonImportedEvent)="leftPokemonImported($event)"/>
+      <app-import-pokemon-button (pokemonImportedEvent)="leftPokemonChanged($event)"/>
       <app-export-pokemon-button [pokemon]="this.data.leftPokemon"/>
     </div>
-    <app-pokemon-build [pokemon]="this.data.leftPokemon" (pokemonChangedEvent)="leftPokemonChanged()"/>
+    <app-pokemon-build [pokemon]="this.data.leftPokemon" (pokemonChange)="leftPokemonChanged($event)"/>
   </div>
 
   <div class="pokemon-edit" data-cy="right-pokemon">
     <div class="pokemon-actions pokemon-actions-right">
-      <app-import-pokemon-button (pokemonImportedEvent)="rightPokemonImported($event)"/>
+      <app-import-pokemon-button (pokemonImportedEvent)="rightPokemonChanged($event)"/>
       <app-export-pokemon-button [pokemon]="this.data.rightPokemon"/>
     </div>
-    <app-pokemon-build [pokemon]="this.data.rightPokemon" (pokemonChangedEvent)="rightPokemonChanged()" [reverse]="true"/>
+    <app-pokemon-build [pokemon]="this.data.rightPokemon" (pokemonChange)="rightPokemonChanged($event)" [reverse]="true"/>
   </div> 
 
   <div class="field">

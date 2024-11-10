@@ -5,7 +5,7 @@
     </div>
 
     <div class="tabs">
-      @for (teamMember of team().teamMembers(); track teamMember) {
+      @for (teamMember of team().teamMembers(); track teamMember.id) {
         <app-pokemon-tab [teamMember]="teamMember" (tabActivated)="activatePokemon($event)" [isSecondSelection]="isSecondSelection(teamMember)"/>
       }
     </div>
@@ -13,7 +13,7 @@
 
   <div class="pokemon-actions">
     <app-import-pokemon-button [show]="canImportPokemon()" [hidden]="!teamMemberOnEdit()" (pokemonImportedEvent)="pokemonImported($event)" data-cy="import-pokemon-to-team"/>
-    <app-export-pokemon-button [show]="canImportPokemon()" [hidden]="!teamMemberOnEdit()" [pokemon]="pokemon" data-cy="export-pokemon-from-team"/>
+    <app-export-pokemon-button [show]="canImportPokemon()" [hidden]="!teamMemberOnEdit()" [pokemon]="pokemon()" data-cy="export-pokemon-from-team"/>
 
     @if (canShowCombineButton()) {
       <div [hidden]="!teamMemberOnEdit()" class="delete-pokemon" (click)="selectSecondAttacker()">
@@ -35,6 +35,6 @@
     }
   </div>
 
-  <app-pokemon-build [pokemon]="pokemon" (pokemonChangedEvent)="pokemonOnEditChanged($event)"/>
+  <app-pokemon-build [pokemon]="pokemon()" (pokemonChange)="pokemonOnEditChanged($event)"/>
 </div>
 <router-outlet></router-outlet>

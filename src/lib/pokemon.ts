@@ -355,11 +355,15 @@ export class Pokemon {
   }
 
   public clone(): Pokemon {
-    return new Pokemon(this.name, { ability: this.ability, abilityOn: this.abilityOn, nature: this.nature, item: this.item, teraType: this.teraTypeStorage, teraTypeActive: this.teraTypeActive, evs: this.evs, moveSet: this.moveSetStorage.clone(), boosts: this.boosts, status: this.status })
+    const newPokemon = new Pokemon(this.name, { ability: this.ability, abilityOn: this.abilityOn, nature: this.nature, item: this.item, teraType: this.teraTypeStorage, teraTypeActive: this.teraTypeActive, evs: this.evs, moveSet: this.moveSetStorage.clone(), boosts: this.boosts, status: this.status })
+    newPokemon.hpPercentage = this.hpPercentage
+
+    return newPokemon
   }
 
   public equals(toCompare: Pokemon): boolean {
-    return this.pokemonSmogon.name === toCompare.pokemonSmogon.name &&
+    return toCompare &&
+      this.pokemonSmogon.name === toCompare.pokemonSmogon.name &&
       this.pokemonSmogon.nature === toCompare.pokemonSmogon.nature &&
       this.pokemonSmogon.item === toCompare.pokemonSmogon.item &&
       this.pokemonSmogon.ability === toCompare.pokemonSmogon.ability &&

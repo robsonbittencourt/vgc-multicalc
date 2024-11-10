@@ -1,4 +1,4 @@
-import { Component, inject, output } from '@angular/core';
+import { Component, computed, inject, output, signal } from '@angular/core';
 import { DamageCalculatorService } from 'src/lib/damage-calculator.service';
 import { defaultPokemon } from 'src/lib/default-pokemon';
 import { Pokemon } from 'src/lib/pokemon';
@@ -23,31 +23,34 @@ export class MultiCalcComponent {
   dataChangedEvent = output()
 
   data = inject(DataStore);
-  private damageCalculator = inject(DamageCalculatorService);
+  private damageCalculator = inject(DamageCalculatorService)
 
-  activeOnEditPokemon: Pokemon
+  activeOnEditPokemon = signal(this.data.activePokemon())
+
+  isAttacker = computed(() => this.data.activePokemon().equals(this.activeOnEditPokemon()))
+
   activeAttackerPokemon: Pokemon
   activeSecondAttacker?: Pokemon
   
   ngOnInit() {
-    this.activeOnEditPokemon = this.data.activePokemon()
-    this.activeAttackerPokemon = this.activeOnEditPokemon
+    this.activeAttackerPokemon = this.activeOnEditPokemon()
   }
 
   targetActivated(target: Target) {
-    this.activeOnEditPokemon = target.pokemon
+    this.activeOnEditPokemon.set(target.pokemon)
   }
 
-  secondTargetDeactivated() {
-    this.activeOnEditPokemon = this.data.targets.find(t => t.active)?.pokemon!
-    this.activeAttackerPokemon = this.activeOnEditPokemon
+  secondTargetDeactivated() { 
+    this.activeOnEditPokemon.set(this.data.targets.find(t => t.active)?.pokemon!)
+    this.activeAttackerPokemon = this.activeOnEditPokemon()
     this.calculateDamageForAll(false)
   }
 
   teamChanged(team: Team) {
     this.data.teams.forEach(t => t.active = false)
     team.active = true
-    this.activeOnEditPokemon = team.activePokemon()
+    this.activeOnEditPokemon.set(team.activePokemon())
+    this.activeAttackerPokemon = this.activeOnEditPokemon()
     this.calculateDamageForAll()
   }
 
@@ -65,7 +68,7 @@ export class MultiCalcComponent {
 
     this.data.activeTeam().addTeamMember(teamMember)
 
-    this.activeOnEditPokemon = pokemon
+    this.activeOnEditPokemon.set(pokemon)
     this.activeAttackerPokemon = pokemon
   }
 
@@ -82,10 +85,10 @@ export class MultiCalcComponent {
   }
 
   pokemonOnEditChanged(pokemon: Pokemon) {
-    this.activeOnEditPokemon = pokemon
+    this.activeOnEditPokemon.set(pokemon)
     const activeTargets = this.data.targets.filter(t => t.active)
     
-    if (pokemon != activeTargets[0]?.pokemon && pokemon != activeTargets[1]?.pokemon) {
+    if (!pokemon.equals(activeTargets[0]?.pokemon) && !pokemon.equals(activeTargets[1]?.pokemon)) {
       this.activeAttackerPokemon = pokemon
       this.calculateDamageForAll()
     } else {
@@ -108,8 +111,8 @@ export class MultiCalcComponent {
   }
 
   private adjustDefaultPokemonOnTargets() {
-    if (this.activeOnEditPokemon.isDefault()) {
-      this.activeOnEditPokemon = this.data.activeTeam().first().pokemon
+    if (this.activeOnEditPokemon().isDefault()) {
+      this.activeOnEditPokemon.set(this.data.activeTeam().first().pokemon)
       this.deactivateTargets()
       this.data.targets = this.data.targets.filter(t => !t.pokemon.isDefault())
     }
@@ -117,7 +120,7 @@ export class MultiCalcComponent {
 
   targetChanged(target: Target) {
     if (target.active) {
-      this.activeOnEditPokemon = target.pokemon
+      this.activeOnEditPokemon.set(target.pokemon)
     }
     
     this.calculateDamage(target)
@@ -126,7 +129,7 @@ export class MultiCalcComponent {
   }
 
   targetRemoved() {
-    this.activeOnEditPokemon = this.data.activePokemon()
+    this.activeOnEditPokemon.set(this.data.activePokemon())
     this.dataChangedEvent.emit()
   }
 

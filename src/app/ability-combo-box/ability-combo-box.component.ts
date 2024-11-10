@@ -1,37 +1,26 @@
-import { Component, Input } from '@angular/core';
+import { Component, computed, input, output } from '@angular/core';
 import { AllPokemon } from 'src/data/all-pokemon';
 import { Pokemon } from 'src/lib/pokemon';
 import { InputAutocompleteComponent } from '../input-autocomplete/input-autocomplete.component';
 
 @Component({
-    selector: 'app-ability-combo-box',
-    templateUrl: './ability-combo-box.component.html',
-    styleUrls: ['./ability-combo-box.component.scss'],
-    standalone: true,
-    imports: [InputAutocompleteComponent]
+  selector: 'app-ability-combo-box',
+  templateUrl: './ability-combo-box.component.html',
+  styleUrls: ['./ability-combo-box.component.scss'],
+  standalone: true,
+  imports: [InputAutocompleteComponent]
 })
 export class AbilityComboBoxComponent {
 
-  actualPokemonName: String
-  availableAbilities: string[]
+  pokemon = input.required<Pokemon>()
 
-  @Input()
-  pokemon: Pokemon
+  abilityChange = output()
 
-  ngOnInit() {
-    this.actualPokemonName = this.pokemon.name
-    this.availableAbilities = AllPokemon.instance.abilitiesByName(this.pokemon.name)
-  }
+  actualPokemonName = computed(() => this.pokemon().name)
+  availableAbilities = computed(() => AllPokemon.instance.abilitiesByName(this.actualPokemonName()))
 
-  ngDoCheck() {
-    if (this.actualPokemonName != this.pokemon.name) {
-      this.actualPokemonName = this.pokemon.name
-      this.availableAbilities = AllPokemon.instance.abilitiesByName(this.pokemon.name)
-      
-      if (!this.availableAbilities.find(ability => this.pokemon.ability == ability)) {
-        this.pokemon.ability = this.availableAbilities[0]
-      }
-    }
+  valueChange() {
+    this.abilityChange.emit()
   }
 
 }

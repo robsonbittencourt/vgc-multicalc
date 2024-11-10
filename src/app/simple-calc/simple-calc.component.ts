@@ -35,12 +35,8 @@ export class SimpleCalcComponent {
     this.calculateDamage()
   }
 
-  leftPokemonImported(pokemon: Pokemon) {
+  leftPokemonChanged(pokemon: Pokemon) {
     this.data.leftPokemon = pokemon
-    this.dataChangedEvent.emit()
-  }
-
-  leftPokemonChanged() {
     this.calculateDamage()
     this.dataChangedEvent.emit()
   }
@@ -55,12 +51,8 @@ export class SimpleCalcComponent {
     this.dataChangedEvent.emit()
   }
 
-  rightPokemonImported(pokemon: Pokemon) {
+  rightPokemonChanged(pokemon: Pokemon) {
     this.data.rightPokemon = pokemon
-    this.dataChangedEvent.emit()
-  }
-
-  rightPokemonChanged() {
     this.calculateDamage()
     this.dataChangedEvent.emit()
   }

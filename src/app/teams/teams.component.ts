@@ -59,10 +59,12 @@ export class TeamsComponent {
         teamToImport.addTeamMember(new TeamMember(pokemon))        
       }
 
+      teamToImport.addTeamMember(new TeamMember(defaultPokemon()))
+
       teamToImport.activateFirstTeamMember()
       this.teamChanged.emit(teamToImport)
       
-      this.snackBar.open("Team imported from PokePaste");
+      this.snackBar.open("Team imported from PokePaste")
     })
   }
 

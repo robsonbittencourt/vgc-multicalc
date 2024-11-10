@@ -16,14 +16,7 @@ export interface KeyValuePair {
   templateUrl: './input-autocomplete.component.html',
   styleUrls: ['./input-autocomplete.component.scss'],
   standalone: true,
-  imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    MatAutocompleteTrigger,
-    MatAutocomplete,
-    MatOption,
-    AsyncPipe
-  ]
+  imports: [FormsModule, ReactiveFormsModule, MatAutocompleteTrigger, MatAutocomplete, MatOption, AsyncPipe]
 })
 export class InputAutocompleteComponent {
 

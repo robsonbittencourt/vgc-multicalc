@@ -1,5 +1,5 @@
 import { NgStyle } from '@angular/common'
-import { Component, EventEmitter, Input, KeyValueDiffer, KeyValueDiffers, Output, inject } from '@angular/core'
+import { Component, input, model, output } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { MatCheckbox } from '@angular/material/checkbox'
 import { MatTooltip } from '@angular/material/tooltip'
@@ -24,17 +24,12 @@ import { PokemonComboBoxComponent } from '../pokemon-combo-box/pokemon-combo-box
   imports: [PokemonComboBoxComponent, NgStyle, InputAutocompleteComponent, MatTooltip, MatCheckbox, ReactiveFormsModule, FormsModule, AbilityComboBoxComponent, EvSliderComponent, RouterOutlet]
 })
 export class PokemonBuildComponent {
-  @Input()
-  pokemon: Pokemon
+  
+  pokemon = model.required<Pokemon>()
 
-  @Input()
-  reverse: boolean
+  reverse = input<boolean>(false)
 
-  @Output() 
-  pokemonChangedEvent = new EventEmitter<Pokemon>()
-
-  private differs = inject(KeyValueDiffers)
-  private differsStatusModifiers = inject(KeyValueDiffers)
+  pokemonChange = output<Pokemon>()
 
   MAX_EVS = 508
 
@@ -51,59 +46,47 @@ export class PokemonBuildComponent {
     "Healthy", "Sleep", "Poison", "Burn", "Freeze", "Paralysis"
   ]
 
-  private differ: KeyValueDiffer<string, any>
-  private differStatusModifiers: KeyValueDiffer<string, any>
-
-  ngOnInit() {
-    this.differ = this.differs.find(this.pokemon).create()
-    this.differStatusModifiers = this.differsStatusModifiers.find(this.pokemon.boosts).create()
-  }
-
-  ngDoCheck() {
-    const pokemonChanged = this.differ.diff(this.pokemon)
-    const boostsChanged = this.differStatusModifiers.diff(this.pokemon.boosts) 
-
-    if (pokemonChanged || boostsChanged) {
-      this.pokemonChangedEvent.emit(this.pokemon)
+  beforeChangeEvValue() {
+    if (this.pokemon().totalEvs() <= this.MAX_EVS) {
+      this.pokemon().evs = this.pokemon().evs
     }
+
+    this.pokemonChange.emit(this.pokemon())
   }
 
   onChangeEvValue() {
-    if (this.pokemon.totalEvs() <= this.MAX_EVS) {
-      this.pokemon.evs = this.pokemon.evs
+    if (this.pokemon().totalEvs() <= this.MAX_EVS) {
+      this.pokemon().evs = this.pokemon().evs
     } else {
-      this.pokemon.evs = this.pokemon.evsStorage
-    }    
+      this.pokemon().evs = this.pokemon().evsStorage
+    }
+    
+    this.pokemonChange.emit(this.pokemon())
   }
 
   onChangeIvValue() {
-    this.pokemon.ivs = this.pokemon.ivs
-  }
-
-  beforeChangeEvValue() {
-    if (this.pokemon.totalEvs() <= this.MAX_EVS) {
-      this.pokemon.evs = this.pokemon.evs
-    }
+    this.pokemon().ivs = this.pokemon().ivs
+    this.pokemonChange.emit(this.pokemon())
   }
 
   moveSelectorDisabled(move: string): boolean {
-    return !move || move == this.pokemon.activeMoveName
+    return !move || move == this.pokemon().activeMoveName
   }
 
   move1Selected(move: string) {
-    this.pokemon.moveSet.move1 = new Move(move)
+    this.pokemon().moveSet.move1 = new Move(move)
   }
 
   move2Selected(move: string) {
-    this.pokemon.moveSet.move2 = new Move(move)
+    this.pokemon().moveSet.move2 = new Move(move)
   }
 
   move3Selected(move: string) {
-    this.pokemon.moveSet.move3 = new Move(move)
+    this.pokemon().moveSet.move3 = new Move(move)
   }
 
   move4Selected(move: string) {
-    this.pokemon.moveSet.move4 = new Move(move)
+    this.pokemon().moveSet.move4 = new Move(move)
   }
 
   activateMove1() {
@@ -123,28 +106,33 @@ export class PokemonBuildComponent {
   }
 
   private activateMove(position: number) {
-    this.pokemon.moveSet.activeMoveByPosition(position)
-    this.pokemonChangedEvent.emit(this.pokemon)
+    this.pokemon().moveSet.activeMoveByPosition(position)
+    this.pokemonChanged()
   }
 
   pokemonChanged() {
-    this.pokemonChangedEvent.emit(this.pokemon)
+    this.pokemon.set(this.pokemon().clone())
+    this.pokemonChange.emit(this.pokemon())
   }
 
-  terastalyzePokemon(event: Event) {
-    if (this.pokemon.isTerapagos()) return 
+  terastalyzePokemon() {
+    if (this.pokemon().isTerapagos()) return 
 
-    const teraActived = !this.pokemon.teraTypeActive
-    this.pokemon.changeTeraStatus(teraActived)
+    const teraActived = !this.pokemon().teraTypeActive
+    this.pokemon().changeTeraStatus(teraActived)
+
+    this.pokemonChanged()
   }
 
   toogleCommanderAbility() {
-    this.pokemon.commanderActivated = !this.commanderActivated
+    this.pokemon().commanderActivated = !this.commanderActivated
     this.commanderActivated = !this.commanderActivated
+    this.pokemonChange.emit(this.pokemon())
   }
 
   toogleParadoxAbility() {
-    this.pokemon.abilityOn = !this.pokemon.abilityOn
+    this.pokemon().abilityOn = !this.pokemon().abilityOn
+    this.pokemonChange.emit(this.pokemon())
   }
 
   typeStyle(type?: TypeName): any {

@@ -60,7 +60,10 @@ export class MoveSet {
   }
 
   clone(): MoveSet {
-    return new MoveSet(this.move1.name, this.move2.name, this.move3.name, this.move4.name)
+    const newMoveSet = new MoveSet(this.move1.name, this.move2.name, this.move3.name, this.move4.name)
+    newMoveSet.activeMoveByName(this.activeMove.name)
+
+    return newMoveSet
   }
 
   private setMoveByPosition(position: 1 | 2 | 3 | 4, move: Move) {
