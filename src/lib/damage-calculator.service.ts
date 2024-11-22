@@ -143,25 +143,23 @@ export class DamageCalculatorService {
   }
 
   private adjustFieldToRuins(field: SmogonField, attacker: Pokemon, secondAttacker: Pokemon): SmogonField {
-    const adjustedField = field.clone()
-    
-    if(attacker.ability == "Tablets Of Ruin" || attacker.ability == "Tablets Of Ruin") {
-      adjustedField.isTabletsOfRuin = true
+    if(attacker.ability == "Tablets of Ruin" || secondAttacker.ability == "Tablets of Ruin") {
+      field.isTabletsOfRuin = true
     }
 
-    if(attacker.ability == "Sword Of Ruin" || attacker.ability == "Sword Of Ruin") {
-      adjustedField.isSwordOfRuin = true
+    if(attacker.ability == "Sword of Ruin" || secondAttacker.ability == "Sword of Ruin") {
+      field.isSwordOfRuin = true
     }
 
-    if(attacker.ability == "Vessel Of Ruin" || attacker.ability == "Vessel Of Ruin") {
-      adjustedField.isVesselOfRuin = true
+    if(attacker.ability == "Vessel of Ruin" || secondAttacker.ability == "Vessel of Ruin") {
+      field.isVesselOfRuin = true
     }
 
-    if(attacker.ability == "Beads of Ruin" || attacker.ability == "Beads of Ruin") {
-      adjustedField.isBeadsOfRuin = true
+    if(attacker.ability == "Beads of Ruin" || secondAttacker.ability == "Beads of Ruin") {
+      field.isBeadsOfRuin = true
     }
 
-    return adjustedField
+    return field
   }
 
   private higherStat(pokemon: Pokemon): StatIDExceptHP {
