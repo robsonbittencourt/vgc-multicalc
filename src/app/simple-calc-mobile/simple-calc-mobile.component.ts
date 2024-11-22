@@ -1,4 +1,4 @@
-import { Component, inject, output, signal } from '@angular/core';
+import { Component, effect, inject, output, signal } from '@angular/core';
 import { DamageCalculatorService } from 'src/lib/damage-calculator.service';
 import { DamageResult } from 'src/lib/damage-result';
 import { Pokemon } from 'src/lib/pokemon';
@@ -8,6 +8,8 @@ import { PokemonComboBoxComponent } from '../pokemon-combo-box/pokemon-combo-box
 import { PokemonTabComponent } from '../pokemon-tab/pokemon-tab.component';
 
 import { MatIcon } from '@angular/material/icon';
+import { FieldStore } from 'src/data/field-store';
+import { Field } from 'src/lib/field';
 import { FieldComponent } from '../field/field.component';
 import { PokemonBuildMobileComponent } from '../pokemon-build-mobile/pokemon-build-mobile.component';
 
@@ -23,6 +25,7 @@ export class SimpleCalcMobileComponent {
   dataChangedEvent = output()
 
   data = inject(DataStore)
+  fieldStore = inject(FieldStore)
   private damageCalculator = inject(DamageCalculatorService)
 
   activeOnEditPokemon: Pokemon
@@ -35,29 +38,33 @@ export class SimpleCalcMobileComponent {
   damageResult = signal(new DamageResult("", "", "", 0, "", []))
 
   copyMessageEnabled = false
+
+  constructor() {
+    effect(() => {
+      this.calculateDamage(this.fieldStore.field())
+    },
+    {
+      allowSignalWrites: true //temporary during refactory
+    })
+  }
   
   ngOnInit() {
     this.leftTeamMember = this.data.activeTeam().teamMembers()[0]
     this.rightTeamMember = this.data.targets[0]
     this.attacker = this.leftTeamMember.pokemon
-    this.calculateDamage()
+    this.calculateDamage(this.fieldStore.field())
   }
 
   pokemonOnEditChanged() {
-    this.calculateDamage()    
+    this.calculateDamage(this.fieldStore.field())    
     this.dataChangedEvent.emit()
   }
 
-  fieldChanged() {
-    this.calculateDamage()
-    this.dataChangedEvent.emit()
-  }
-
-  private calculateDamage() {
+  private calculateDamage(field: Field) {
     if(this.leftIsAttacker()) {
-      this.damageResult.set(this.damageCalculator.calcDamage(this.leftTeamMember.pokemon, this.rightTeamMember.pokemon))
+      this.damageResult.set(this.damageCalculator.calcDamage(this.leftTeamMember.pokemon, this.rightTeamMember.pokemon, field))
     } else {
-      this.damageResult.set(this.damageCalculator.calcDamage(this.rightTeamMember.pokemon, this.leftTeamMember.pokemon))
+      this.damageResult.set(this.damageCalculator.calcDamage(this.rightTeamMember.pokemon, this.leftTeamMember.pokemon, field))
     }
   }
 

@@ -1,15 +1,16 @@
-import { Component, computed, inject, output, signal } from '@angular/core';
-import { DamageCalculatorService } from 'src/lib/damage-calculator.service';
-import { DamageResult } from 'src/lib/damage-result';
-import { Move } from 'src/lib/move';
-import { Pokemon } from 'src/lib/pokemon';
-import { RollLevelConfig } from 'src/lib/roll-level-config';
-import { DataStore } from '../../lib/data-store.service';
-import { DamageResultComponent } from '../damage-result/damage-result.component';
-import { ExportPokemonButtonComponent } from '../export-pokemon-button/export-pokemon-button.component';
-import { FieldComponent } from '../field/field.component';
-import { ImportPokemonButtonComponent } from '../import-pokemon-button/import-pokemon-button.component';
-import { PokemonBuildComponent } from '../pokemon-build/pokemon-build.component';
+import { Component, computed, effect, inject, output, signal } from '@angular/core'
+import { FieldStore } from 'src/data/field-store'
+import { DamageCalculatorService } from 'src/lib/damage-calculator.service'
+import { DamageResult } from 'src/lib/damage-result'
+import { Move } from 'src/lib/move'
+import { Pokemon } from 'src/lib/pokemon'
+import { RollLevelConfig } from 'src/lib/roll-level-config'
+import { DataStore } from '../../lib/data-store.service'
+import { DamageResultComponent } from '../damage-result/damage-result.component'
+import { ExportPokemonButtonComponent } from '../export-pokemon-button/export-pokemon-button.component'
+import { FieldComponent } from '../field/field.component'
+import { ImportPokemonButtonComponent } from '../import-pokemon-button/import-pokemon-button.component'
+import { PokemonBuildComponent } from '../pokemon-build/pokemon-build.component'
 
 @Component({
   selector: 'app-simple-calc',
@@ -23,6 +24,7 @@ export class SimpleCalcComponent {
   dataChangedEvent = output()
   
   data = inject(DataStore)
+  fieldStore = inject(FieldStore)
   private damageCalculator = inject(DamageCalculatorService)
   
   leftDamageResults = signal<DamageResult[]>([])
@@ -30,6 +32,16 @@ export class SimpleCalcComponent {
 
   leftDamageResult = computed(() => this.findResultByMove(this.leftDamageResults(), this.data.leftPokemon.move))
   rightDamageResult = computed(() => this.findResultByMove(this.rightDamageResults(), this.data.rightPokemon.move))
+
+  constructor() {
+    effect(() => {
+      this.leftDamageResults.set(this.damageCalculator.calcDamageAllAttacks(this.data.leftPokemon, this.data.rightPokemon, this.fieldStore.field()))
+      this.rightDamageResults.set(this.damageCalculator.calcDamageAllAttacks(this.data.rightPokemon, this.data.leftPokemon, this.fieldStore.field()))
+    },
+    {
+      allowSignalWrites: true //temporary during refactory
+    })
+  }
 
   ngOnInit() {
     this.calculateDamage()
@@ -67,14 +79,9 @@ export class SimpleCalcComponent {
     this.dataChangedEvent.emit()
   }
 
-  fieldChanged() {
-    this.calculateDamage()
-    this.dataChangedEvent.emit()
-  }
-
   private calculateDamage() {
-    this.leftDamageResults.set(this.damageCalculator.calcDamageAllAttacks(this.data.leftPokemon, this.data.rightPokemon))
-    this.rightDamageResults.set(this.damageCalculator.calcDamageAllAttacks(this.data.rightPokemon, this.data.leftPokemon))
+    this.leftDamageResults.set(this.damageCalculator.calcDamageAllAttacks(this.data.leftPokemon, this.data.rightPokemon, this.fieldStore.field()))
+    this.rightDamageResults.set(this.damageCalculator.calcDamageAllAttacks(this.data.rightPokemon, this.data.leftPokemon, this.fieldStore.field()))
   }
 
   private findResultByMove(damageResults: DamageResult[], move: Move): DamageResult {

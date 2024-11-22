@@ -1,5 +1,4 @@
 import { Injectable, inject } from '@angular/core';
-import { Field } from '@smogon/calc';
 import { defaultPokemon } from 'src/lib/default-pokemon';
 import { DeviceDetectorService } from 'src/lib/device-detector.service';
 import { MoveSet } from 'src/lib/moveset';
@@ -17,16 +16,7 @@ export class DataStore {
   oneVsManyActivated: boolean = false
   manyVsOneActivated: boolean = false
   speedCalculatorActivated: boolean = false
-
-  field: Field = new Field({
-    gameType: 'Doubles'
-  })
-
-  extraFieldOptions = {
-    trickRoom: false,
-    criticalHit: false
-  }
-
+  
   leftRollLevelConfig: RollLevelConfig
   rightRollLevelConfig: RollLevelConfig
   

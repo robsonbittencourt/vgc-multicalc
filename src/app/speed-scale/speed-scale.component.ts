@@ -1,10 +1,12 @@
-import { Component, Input, KeyValueDiffer, KeyValueDiffers, inject } from '@angular/core';
+import { Component, Input, KeyValueDiffer, KeyValueDiffers, effect, inject } from '@angular/core';
 import { Pokemon } from 'src/lib/pokemon';
 import { SpeedCalculatorOptions as SpeedScaleOptions } from 'src/lib/speed-calculator/speed-calculator-options';
 import { SpeedCalculatorService } from 'src/lib/speed-calculator/speed-calculator-service';
 import { SpeedDefinition } from 'src/lib/speed-calculator/speed-definition';
 import { DataStore } from '../../lib/data-store.service';
 
+import { FieldStore } from 'src/data/field-store';
+import { Field } from 'src/lib/field';
 import { SpeedBoxComponent } from '../speed-box/speed-box.component';
 
 @Component({
@@ -25,17 +27,12 @@ export class SpeedScaleComponent {
   pokemonEachSide: number
 
   data = inject(DataStore)
+  fieldStore = inject(FieldStore)
   private differsStatusModifiers = inject(KeyValueDiffers)
-  private differsField = inject(KeyValueDiffers)
-  private differsFieldAttacker = inject(KeyValueDiffers)
-  private differsFieldDefender = inject(KeyValueDiffers)
   private differsOptions = inject(KeyValueDiffers)
   private speedCalculatorService = inject(SpeedCalculatorService)
 
   private differStatusModifiers: KeyValueDiffer<string, any>
-  private differField: KeyValueDiffer<string, any>
-  private differFieldAttacker: KeyValueDiffer<string, any>
-  private differFieldDefender: KeyValueDiffer<string, any>
   private differOptions: KeyValueDiffer<string, any>
 
   statsModifierValue: number = 0
@@ -78,11 +75,14 @@ export class SpeedScaleComponent {
 
   timeoutId: any
 
+  constructor() {
+    effect(() => {
+      this.calculateSpeedRange(this.fieldStore.field())
+    })
+  }
+
   ngOnInit() {
     this.differStatusModifiers = this.differsStatusModifiers.find(this.pokemon.boosts).create()
-    this.differField = this.differsField.find(this.data.field).create()
-    this.differFieldAttacker = this.differsFieldAttacker.find(this.data.field.attackerSide).create()
-    this.differFieldDefender = this.differsFieldDefender.find(this.data.field.defenderSide).create()
     this.differOptions = this.differsOptions.find(this.options).create()
 
     this.previousActualPokemonSpeed = this.pokemon.modifiedSpe()
@@ -96,12 +96,9 @@ export class SpeedScaleComponent {
     const pokemonChanged = this.evsSpeed != this.pokemon.evs.spe || this.ivsSpeed != this.pokemon.ivs.spe || this.item != this.pokemon.item || this.status != this.pokemon.status || this.nature != this.pokemon.nature || this.ability != this.pokemon.ability || this.abilityOn != this.pokemon.abilityOn
     const boostsChanged = this.differStatusModifiers.diff(this.pokemon.boosts)
     const optionsChanged = this.differOptions.diff(this.options)
-    const fieldChanged = this.differField.diff(this.data.field) ||
-      this.differFieldAttacker.diff(this.data.field.attackerSide) ||
-      this.differFieldDefender.diff(this.data.field.defenderSide)
     
-    if (pokemonChanged || boostsChanged || optionsChanged || fieldChanged) {
-      this.calculateSpeedRange()
+    if (pokemonChanged || boostsChanged || optionsChanged) {
+      this.calculateSpeedRange(this.fieldStore.field())
     }
 
     this.evsSpeed = this.pokemon.evs.spe!
@@ -113,12 +110,12 @@ export class SpeedScaleComponent {
     this.abilityOn = this.pokemon.abilityOn
   }
 
-  calculateSpeedRange() {
+  calculateSpeedRange(field: Field) {
     clearTimeout(this.timeoutId)
 
     this.timeoutId = setTimeout(() => {
       const pokemonBySideActual = this.pokemonEachSide
-      const orderedPokemon = this.speedCalculatorService.orderedPokemon(this.pokemon, this.data.field, this.options.trickRoomActive, this.options)
+      const orderedPokemon = this.speedCalculatorService.orderedPokemon(this.pokemon, field, this.options)
       
       if (this.options.targetName == "") {
         const actualIndex = orderedPokemon.findIndex(this.isActual)

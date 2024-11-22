@@ -94,18 +94,18 @@
     <label class="title">Field</label>
   </div>
   <div class="options">
-    <mat-button-toggle-group multiple (change)="toggleChangeWeather($event)" class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
-      <mat-button-toggle [checked]="data.field.weather == 'Sun'" value="Sun">Sun</mat-button-toggle>
-      <mat-button-toggle [checked]="data.field.weather == 'Rain'" value="Rain">Rain</mat-button-toggle>
-      <mat-button-toggle [checked]="data.field.weather == 'Sand'" value="Sand">Sand</mat-button-toggle>
-      <mat-button-toggle [checked]="data.field.weather == 'Snow'" value="Snow">Snow</mat-button-toggle>
+    <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
+      <mat-button-toggle [checked]="fieldStore.isWeatherSun()" (change)="fieldStore.toggleSunWeather()" data-cy="sun">Sun</mat-button-toggle>
+      <mat-button-toggle [checked]="fieldStore.isWeatherRain()" (change)="fieldStore.toggleRainWeather()" data-cy="rain">Rain</mat-button-toggle>
+      <mat-button-toggle [checked]="fieldStore.isWeatherSand()" (change)="fieldStore.toggleSandWeather()" data-cy="sand">Sand</mat-button-toggle>
+      <mat-button-toggle [checked]="fieldStore.isWeatherSnow()" (change)="fieldStore.toggleSnowWeather()" data-cy="snow">Snow</mat-button-toggle>
     </mat-button-toggle-group>
-    <mat-button-toggle [checked]="data.field.terrain == 'Electric'" value="Electric" (change)="toggleChangeTerrain($event)">Electric Terrain</mat-button-toggle>
+    <mat-button-toggle [checked]="fieldStore.isTerrainElectric()" (change)="fieldStore.toggleEletricTerrain()" data-cy="eletric-terrain">Electric Terrain</mat-button-toggle>
 
     <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">
-      <mat-button-toggle [checked]="data.field.attackerSide.isTailwind" (change)="data.field.attackerSide.isTailwind = $event.source.checked">Your Tailwind</mat-button-toggle>
-      <mat-button-toggle [checked]="data.field.defenderSide.isTailwind" (change)="data.field.defenderSide.isTailwind = $event.source.checked">Opponent Tailwind</mat-button-toggle>
-      <mat-button-toggle [checked]="options.trickRoomActive" (change)="options.trickRoomActive = $event.source.checked">Trick Room</mat-button-toggle>
+      <mat-button-toggle [checked]="fieldStore.attackerSide().isTailwind" (change)="fieldStore.toggleAttackerTailwind()" data-cy="tailwind-attacker">Your Tailwind</mat-button-toggle>
+      <mat-button-toggle [checked]="fieldStore.defenderSide().isTailwind" (change)="fieldStore.toggleDefenderTailwind()" data-cy="tailwind-defender">Opponent Tailwind</mat-button-toggle>
+      <mat-button-toggle [checked]="fieldStore.isTrickRoom()" (change)="fieldStore.toggleTrickRoom()">Trick Room</mat-button-toggle>
     </mat-button-toggle-group>
   </div>
 

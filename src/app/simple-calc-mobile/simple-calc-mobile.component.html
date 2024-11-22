@@ -25,6 +25,7 @@
       <mat-icon class="copy-icon" (click)="copyDamageResult(damageResult())">content_copy</mat-icon>
     </div>
   </div>
+  
   <app-pokemon-build-mobile [pokemon]="attacker" (pokemonChangedEvent)="pokemonOnEditChanged()"/>
-  <app-field (fieldChangedEvent)="fieldChanged()"/>
+  <app-field />
 </div>

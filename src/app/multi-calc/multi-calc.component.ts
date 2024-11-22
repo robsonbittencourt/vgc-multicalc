@@ -1,15 +1,17 @@
-import { Component, computed, inject, output, signal } from '@angular/core';
-import { DamageCalculatorService } from 'src/lib/damage-calculator.service';
-import { defaultPokemon } from 'src/lib/default-pokemon';
-import { Pokemon } from 'src/lib/pokemon';
-import { Target } from 'src/lib/target';
-import { Team } from 'src/lib/team';
-import { TeamMember } from 'src/lib/team-member';
-import { DataStore } from '../../lib/data-store.service';
-import { FieldComponent } from '../field/field.component';
-import { TargetPokemonComponent } from '../target-pokemon/target-pokemon.component';
-import { TeamComponent } from '../team/team.component';
-import { TeamsComponent } from '../teams/teams.component';
+import { Component, computed, effect, inject, output, signal } from '@angular/core'
+import { FieldStore } from 'src/data/field-store'
+import { DamageCalculatorService } from 'src/lib/damage-calculator.service'
+import { defaultPokemon } from 'src/lib/default-pokemon'
+import { Field } from 'src/lib/field'
+import { Pokemon } from 'src/lib/pokemon'
+import { Target } from 'src/lib/target'
+import { Team } from 'src/lib/team'
+import { TeamMember } from 'src/lib/team-member'
+import { DataStore } from '../../lib/data-store.service'
+import { FieldComponent } from '../field/field.component'
+import { TargetPokemonComponent } from '../target-pokemon/target-pokemon.component'
+import { TeamComponent } from '../team/team.component'
+import { TeamsComponent } from '../teams/teams.component'
 
 @Component({
   selector: 'app-multi-calc',
@@ -22,7 +24,8 @@ export class MultiCalcComponent {
   
   dataChangedEvent = output()
 
-  data = inject(DataStore);
+  data = inject(DataStore)
+  fieldStore = inject(FieldStore)
   private damageCalculator = inject(DamageCalculatorService)
 
   activeOnEditPokemon = signal(this.data.activePokemon())
@@ -31,6 +34,12 @@ export class MultiCalcComponent {
 
   activeAttackerPokemon: Pokemon
   activeSecondAttacker?: Pokemon
+
+  constructor() {
+    effect(() => {
+      this.calculateDamageForAll(true, this.fieldStore.field())
+    })
+  }
   
   ngOnInit() {
     this.activeAttackerPokemon = this.activeOnEditPokemon()
@@ -43,7 +52,7 @@ export class MultiCalcComponent {
   secondTargetDeactivated() { 
     this.activeOnEditPokemon.set(this.data.targets.find(t => t.active)?.pokemon!)
     this.activeAttackerPokemon = this.activeOnEditPokemon()
-    this.calculateDamageForAll(false)
+    this.calculateDamageForAll(false, this.fieldStore.field())
   }
 
   teamChanged(team: Team) {
@@ -51,7 +60,7 @@ export class MultiCalcComponent {
     team.active = true
     this.activeOnEditPokemon.set(team.activePokemon())
     this.activeAttackerPokemon = this.activeOnEditPokemon()
-    this.calculateDamageForAll()
+    this.calculateDamageForAll(true, this.fieldStore.field())
   }
 
   pokemonAddedToTeam() {
@@ -81,7 +90,7 @@ export class MultiCalcComponent {
     this.data.targets.push(target)
     this.targetActivated(target)
 
-    this.calculateDamage(target)
+    this.calculateDamage(target, this.fieldStore.field())
   }
 
   pokemonOnEditChanged(pokemon: Pokemon) {
@@ -90,9 +99,9 @@ export class MultiCalcComponent {
     
     if (!pokemon.equals(activeTargets[0]?.pokemon) && !pokemon.equals(activeTargets[1]?.pokemon)) {
       this.activeAttackerPokemon = pokemon
-      this.calculateDamageForAll()
+      this.calculateDamageForAll(true, this.fieldStore.field())
     } else {
-      this.calculateDamageForAll(false)
+      this.calculateDamageForAll(false, this.fieldStore.field())
     }
     
     this.dataChangedEvent.emit()
@@ -104,7 +113,7 @@ export class MultiCalcComponent {
     })
 
     this.data.targets = this.data.targets.concat(newTargets)
-    this.calculateDamageForAll()
+    this.calculateDamageForAll(true, this.fieldStore.field())
     this.adjustDefaultPokemonOnTargets()
     
     this.dataChangedEvent.emit()
@@ -123,7 +132,7 @@ export class MultiCalcComponent {
       this.activeOnEditPokemon.set(target.pokemon)
     }
     
-    this.calculateDamage(target)
+    this.calculateDamage(target, this.fieldStore.field())
     
     this.dataChangedEvent.emit()
   }
@@ -135,11 +144,6 @@ export class MultiCalcComponent {
 
   removeAllTargets() {
     this.data.targets = []
-    this.dataChangedEvent.emit()
-  }
-
-  fieldChanged() {
-    this.calculateDamageForAll()
     this.dataChangedEvent.emit()
   }
 
@@ -161,17 +165,17 @@ export class MultiCalcComponent {
     }
   }
 
-  private calculateDamage(target: Target) {
+  private calculateDamage(target: Target, field: Field) {
     if(this.data.oneVsManyActivated) {
-      this.calculateDamageOneVsMany(this.activeAttackerPokemon, target, this.activeSecondAttacker)
+      this.calculateDamageOneVsMany(this.activeAttackerPokemon, target, field, this.activeSecondAttacker)
     } else {
-      this.calculateDamageManyVsOne(target)      
+      this.calculateDamageManyVsOne(target, field)      
     }
   }
 
-  private calculateDamageForAll(order: boolean = true) {
+  private calculateDamageForAll(order: boolean, field: Field) {
     if (this.activeAttackerPokemon) {
-      this.data.targets.forEach(target => this.calculateDamage(target))
+      this.data.targets.forEach(target => this.calculateDamage(target, field))
 
       if (order) {
         this.data.order()
@@ -179,26 +183,26 @@ export class MultiCalcComponent {
     }
   }
 
-  private calculateDamageOneVsMany(attacker: Pokemon, target: Target, secondAttacker?: Pokemon) {
+  private calculateDamageOneVsMany(attacker: Pokemon, target: Target, field: Field, secondAttacker?: Pokemon) {
     if(secondAttacker && attacker != secondAttacker) {
-      const damageResult = this.damageCalculator.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon)
-      target.setDamageResult(damageResult)  
+      const damageResult = this.damageCalculator.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
+      target.setDamageResult(damageResult)
     } else {
-      const damageResult = this.damageCalculator.calcDamage(attacker, target.pokemon)
+      const damageResult = this.damageCalculator.calcDamage(attacker, target.pokemon, field)
       target.setDamageResult(damageResult)
     }
   }
 
-  private calculateDamageManyVsOne(target: Target) {
+  private calculateDamageManyVsOne(target: Target, field: Field) {
     const activeTargets = this.data.targets.filter(t => t.active)
     const activeTeamMember = this.data.activePokemon()
 
     if(activeTargets.length > 1 && target.active) {
-      const damageResult = this.damageCalculator.calcDamageForTwoAttackers(activeTargets[0].pokemon, activeTargets[1].pokemon, activeTeamMember)
+      const damageResult = this.damageCalculator.calcDamageForTwoAttackers(activeTargets[0].pokemon, activeTargets[1].pokemon, activeTeamMember, field)
       activeTargets[0].setDamageResult(damageResult)
-      activeTargets[1].setDamageResult(damageResult)  
+      activeTargets[1].setDamageResult(damageResult)
     } else {
-      const damageResult = this.damageCalculator.calcDamage(target.pokemon, activeTeamMember)
+      const damageResult = this.damageCalculator.calcDamage(target.pokemon, activeTeamMember, field)
       target.setDamageResult(damageResult)
     }
   }

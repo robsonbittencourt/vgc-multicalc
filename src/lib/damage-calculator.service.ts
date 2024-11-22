@@ -1,10 +1,13 @@
-import { inject, Injectable } from '@angular/core';
-import { calculate, Field, Generations, Move as MoveSmogon, Result } from '@smogon/calc';
-import { StatIDExceptHP } from '@smogon/calc/dist/data/interface';
-import { DataStore } from 'src/lib/data-store.service';
-import { DamageResult } from './damage-result';
-import { Move } from './move';
-import { Pokemon } from './pokemon';
+import { inject, Injectable } from '@angular/core'
+import { calculate, Generations, Move as MoveSmogon, Result, Field as SmogonField } from '@smogon/calc'
+import { StatIDExceptHP } from '@smogon/calc/dist/data/interface'
+import { DataStore } from 'src/lib/data-store.service'
+import { DamageResult } from './damage-result'
+import { Field } from './field'
+import { FieldMapper } from './field-mapper'
+import { Move } from './move'
+import { Pokemon } from './pokemon'
+
 
 @Injectable({
   providedIn: 'root'
@@ -14,29 +17,33 @@ export class DamageCalculatorService {
 
   ZERO_RESULT_DAMAGE = Array(16).fill(0)
 
-  calcDamage(attacker: Pokemon, target: Pokemon): DamageResult {
-    const result = this.calculateResult(attacker, target, attacker.move, this.data.field, this.data.extraFieldOptions.criticalHit)
+  calcDamage(attacker: Pokemon, target: Pokemon, field: Field): DamageResult {
+    const smogonField = new FieldMapper().toSmogon(field)
+    const result = this.calculateResult(attacker, target, attacker.move, smogonField, field.isCriticalHit)
     return new DamageResult(attacker.move.name, result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescription(result), result.damage as number[]) 
   }
 
-  calcDamageAllAttacks(attacker: Pokemon, target: Pokemon): DamageResult[] {
+  calcDamageAllAttacks(attacker: Pokemon, target: Pokemon, field: Field): DamageResult[] {
+    const smogonField = new FieldMapper().toSmogon(field)
+    
     return attacker.moveSet.moves().map(move => {
-      const result = this.calculateResult(attacker, target, move, this.data.field, this.data.extraFieldOptions.criticalHit)
+      const result = this.calculateResult(attacker, target, move, smogonField, field.isCriticalHit)
       return new DamageResult(move.name, result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescription(result), result.damage as number[]) 
     })
   }
 
-  calcDamageForTwoAttackers(attacker: Pokemon, secondAttacker: Pokemon, target: Pokemon): DamageResult {
-    const adjustedField = this.adjustFieldToRuins(this.data.field, attacker, secondAttacker)
+  calcDamageForTwoAttackers(attacker: Pokemon, secondAttacker: Pokemon, target: Pokemon, field: Field): DamageResult {
+    const smogonField = new FieldMapper().toSmogon(field)
+    const adjustedField = this.adjustFieldToRuins(smogonField, attacker, secondAttacker)
     
-    const result = this.calculateResult(attacker, target, attacker.move, adjustedField, this.data.extraFieldOptions.criticalHit)
-    const secondResult = this.calculateResult(secondAttacker, target, secondAttacker.move, adjustedField, this.data.extraFieldOptions.criticalHit)
+    const result = this.calculateResult(attacker, target, attacker.move, adjustedField, field.isCriticalHit)
+    const secondResult = this.calculateResult(secondAttacker, target, secondAttacker.move, adjustedField, field.isCriticalHit)
     result.damage = this.sumDamageResult(result, secondResult)
 
     return new DamageResult(attacker.move.name, result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescriptionWithTwo(result, secondResult))
   }
 
-  private calculateResult(attacker: Pokemon, target: Pokemon, move: Move, field: Field, criticalHit: boolean): Result {
+  private calculateResult(attacker: Pokemon, target: Pokemon, move: Move, field: SmogonField, criticalHit: boolean): Result {
     const gen = Generations.get(9)
     const moveSmogon = new MoveSmogon(gen, move.name)
     moveSmogon.isCrit = criticalHit
@@ -135,7 +142,7 @@ export class DamageCalculatorService {
     }
   }
 
-  private adjustFieldToRuins(field: Field, attacker: Pokemon, secondAttacker: Pokemon): Field {
+  private adjustFieldToRuins(field: SmogonField, attacker: Pokemon, secondAttacker: Pokemon): SmogonField {
     const adjustedField = field.clone()
     
     if(attacker.ability == "Tablets Of Ruin" || attacker.ability == "Tablets Of Ruin") {

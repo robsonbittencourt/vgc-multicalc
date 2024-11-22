@@ -1,5 +1,5 @@
 import { Component, KeyValueDiffer, KeyValueDiffers, inject, output } from '@angular/core';
-import { MatButtonToggle, MatButtonToggleChange, MatButtonToggleGroup } from '@angular/material/button-toggle';
+import { MatButtonToggle, MatButtonToggleGroup } from '@angular/material/button-toggle';
 import { MOVES, NATURES } from '@smogon/calc';
 import { AllPokemon } from 'src/data/all-pokemon';
 import { Items } from 'src/data/items';
@@ -17,6 +17,7 @@ import { MatFormField } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatSelect } from '@angular/material/select';
 import { MatTooltip } from '@angular/material/tooltip';
+import { FieldStore } from 'src/data/field-store';
 import { EvSliderComponent } from '../ev-slider/ev-slider.component';
 import { SpeedScaleComponent } from '../speed-scale/speed-scale.component';
 
@@ -32,6 +33,7 @@ export class SpeedCalculatorMobileComponent {
   dataChangedEvent = output()
   
   data = inject(DataStore)
+  fieldStore = inject(FieldStore)
   private differs = inject(KeyValueDiffers)
   private differsStatusModifiers = inject(KeyValueDiffers)
 
@@ -131,24 +133,6 @@ export class SpeedCalculatorMobileComponent {
 
   toogleParadoxAbility() {
     this.pokemon.abilityOn = !this.pokemon.abilityOn
-  }
-
-  toggleChangeWeather(change: MatButtonToggleChange) {
-    const toggle = change.source
-    
-    if(change.value.some((item: any) => item == toggle.value)) {
-      toggle.buttonToggleGroup.value = [change.source.value]
-    }
-    
-    this.data.field.weather = toggle.buttonToggleGroup.value[0]
-  }
-
-  toggleChangeTerrain(change: MatButtonToggleChange) {
-    if(change.source.checked) {
-      this.data.field.terrain = "Electric"  
-    } else {
-      this.data.field.terrain = undefined
-    }
   }
 
   regulationChanged(regulation: string) {

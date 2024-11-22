@@ -1,5 +1,7 @@
 import { Injectable, inject } from "@angular/core";
-import { Field, Generations, Pokemon as PokemonSmogon } from "@smogon/calc";
+import { Generations, Pokemon as PokemonSmogon } from "@smogon/calc";
+import { Field } from "../field";
+import { FieldMapper } from "../field-mapper";
 import { Pokemon } from "../pokemon";
 import { SmogonFunctions } from "../smogon-functions/smogon-functions";
 import { SpeedCalculatorOptions } from "./speed-calculator-options";
@@ -12,9 +14,11 @@ import { speedMeta } from "./speed-meta";
 export class SpeedCalculatorService {
   private smogonService = inject(SmogonFunctions)
 
-  orderedPokemon(pokemon: Pokemon, field: Field, isTrickRoom: boolean = false, options: SpeedCalculatorOptions = new SpeedCalculatorOptions()): SpeedDefinition[] {
+  orderedPokemon(pokemon: Pokemon, field: Field, options: SpeedCalculatorOptions = new SpeedCalculatorOptions()): SpeedDefinition[] {
     const speedDefinitions: SpeedDefinition[] = []
-    const speed = this.smogonService.getFinalSpeed(pokemon, field, field.attackerSide)
+
+    const smogonField = new FieldMapper().toSmogon(field)
+    const speed = this.smogonService.getFinalSpeed(pokemon, smogonField, smogonField.attackerSide)
     speedDefinitions.push(new SpeedDefinition(pokemon.name, speed, "Actual"))
     
     speedMeta(options.regulation).forEach(p => {
@@ -32,7 +36,7 @@ export class SpeedCalculatorService {
       }
     })
 
-    const ordered = speedDefinitions.sort((a, b) => isTrickRoom ? b.value - a.value : a.value - b.value)
+    const ordered = speedDefinitions.sort((a, b) => field.isTrickRoom ? b.value - a.value : a.value - b.value)
 
     return this.mergeByDescription(ordered)
   }
@@ -89,7 +93,8 @@ export class SpeedCalculatorService {
     clonedPokemon.evs = { spe: 0 }
     clonedPokemon.ivs = isTrickRoomPokemon ? { spe: 0 } : { spe: 31 }
     
-    const speed = this.smogonService.getFinalSpeed(clonedPokemon, field, field.defenderSide)
+    const smogonField = new FieldMapper().toSmogon(field)
+    const speed = this.smogonService.getFinalSpeed(clonedPokemon, smogonField, smogonField.defenderSide)
 
     return new SpeedDefinition(clonedPokemon.name, speed, "Min")
   }
@@ -101,7 +106,8 @@ export class SpeedCalculatorService {
     clonedPokemon.evs = { spe: 252 }
     clonedPokemon.ivs = { spe: 31 }
 
-    const speed = this.smogonService.getFinalSpeed(clonedPokemon, field, field.defenderSide)
+    const smogonField = new FieldMapper().toSmogon(field)
+    const speed = this.smogonService.getFinalSpeed(clonedPokemon, smogonField, smogonField.defenderSide)
 
     return new SpeedDefinition(clonedPokemon.name, speed, "Max")
   }
@@ -111,7 +117,8 @@ export class SpeedCalculatorService {
     clonedPokemon.nature = "Timid"
     clonedPokemon.evs = { spe: 252 }
 
-    const speed = this.smogonService.getFinalSpeed(clonedPokemon, field, field.defenderSide)
+    const smogonField = new FieldMapper().toSmogon(field)
+    const speed = this.smogonService.getFinalSpeed(clonedPokemon, smogonField, smogonField.defenderSide)
     const description = "Scarf"
 
     return new SpeedDefinition(pokemon.name, speed, description)
@@ -119,7 +126,9 @@ export class SpeedCalculatorService {
 
   maxBooster(pokemon: Pokemon, field: Field): SpeedDefinition {
     pokemon.abilityOn = true
-    const speed = this.smogonService.getFinalSpeed(pokemon, field, field.defenderSide)
+    
+    const smogonField = new FieldMapper().toSmogon(field)
+    const speed = this.smogonService.getFinalSpeed(pokemon, smogonField, smogonField.defenderSide)
     const description = "Booster"
 
     return new SpeedDefinition(pokemon.name, speed, description)
@@ -129,7 +138,8 @@ export class SpeedCalculatorService {
     const clonedPokemon = pokemon.clone()
     clonedPokemon.item = "Leftovers"
 
-    const speed = this.smogonService.getFinalSpeed(clonedPokemon, field, field.defenderSide)
+    const smogonField = new FieldMapper().toSmogon(field)
+    const speed = this.smogonService.getFinalSpeed(clonedPokemon, smogonField, smogonField.defenderSide)
     const description = "Meta"
 
     return new SpeedDefinition(pokemon.name, speed, description)

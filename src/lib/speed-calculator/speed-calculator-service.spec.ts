@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing'
-import { Field } from '@smogon/calc'
+import { Field } from '../field'
 import { Pokemon } from '../pokemon'
 import { SmogonFunctions } from '../smogon-functions/smogon-functions'
 import { SpeedCalculatorService } from './speed-calculator-service'

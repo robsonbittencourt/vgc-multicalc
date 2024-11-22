@@ -50,7 +50,6 @@ export class SpeedCalculatorComponent {
   }
 
   dataChanged() {
-    this.options.trickRoomActive = this.data.extraFieldOptions.trickRoom
     this.dataChangedEvent.emit()
   }
 

@@ -4,8 +4,7 @@ export class SpeedCalculatorOptions {
   public targetName: string
   public paralyzedActive: boolean
   public choiceScarfActive: boolean
-  public trickRoomActive: boolean
-
+  
   private _speedDropActive: boolean
   private _speedModifier: number
 
@@ -17,7 +16,6 @@ export class SpeedCalculatorOptions {
     speedModifier?: number 
     paralyzedActive?: boolean
     choiceScarfActive?: boolean
-    trickRoomActive?: boolean
   } = {}) {
     this.regulation = options.regulation ?? "Reg H"
     this.targetName = options.targetName ?? ""
@@ -25,7 +23,6 @@ export class SpeedCalculatorOptions {
     this._speedModifier = options.speedModifier ?? 0
     this.paralyzedActive = options.paralyzedActive ?? false
     this.choiceScarfActive = options.choiceScarfActive ?? false
-    this.trickRoomActive = options.trickRoomActive ?? false
   }
 
   get speedDropActive(): boolean {

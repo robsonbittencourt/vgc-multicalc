@@ -69,5 +69,4 @@ export class MainComponent {
       localStorage.setItem('userData', JSON.stringify(this.data.buildUserData()))
     }    
   }
-
 }
