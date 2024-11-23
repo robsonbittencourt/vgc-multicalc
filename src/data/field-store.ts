@@ -54,6 +54,8 @@ export const FieldStore = signalStore(
     isTerrainMisty: computed(() => terrain() == "Misty"),
   })),
   withMethods((store) => ({
+    setField(field: Field) { patchState(store, { ...field }) },
+
     toggleGameType() { patchState(store, (state) => ({ gameType: state.gameType == "Doubles" ? "Singles" : "Doubles" as GameType }))},
     toggleSunWeather() { patchState(store, (state) => ({ weather: state.weather != "Sun" ? "Sun" : null as Weather }))},
     toggleRainWeather() { patchState(store, (state) => ({ weather: state.weather != "Rain" ? "Rain" : null as Weather }))},

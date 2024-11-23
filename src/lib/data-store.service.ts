@@ -44,10 +44,7 @@ export class DataStore {
   }
 
   buildInitialData(userData: any) {
-    if (userData) {
-      this.extraFieldOptions.criticalHit = userData.criticalHit
-      this.extraFieldOptions.trickRoom = userData.trickRoom
-      this.field = this.buildFieldFromUserData(userData)
+    if (userData.leftPokemon) {
       this.leftRollLevelConfig = this.buildRollLevelConfigFromUserData(userData.leftRollLevelConfig)
       this.rightRollLevelConfig = this.buildRollLevelConfigFromUserData(userData.rightRollLevelConfig)
       this.leftPokemon = this.buildLeftPokemonFromUserData(userData)
@@ -62,10 +59,6 @@ export class DataStore {
       this.teams = this.defaultTeams()
       this.targets = this.defaultTargets()
     }    
-  }
-
-  private buildFieldFromUserData(userData: any): Field {
-    return new Field({ ...userData.field })
   }
 
   private buildRollLevelConfigFromUserData(rollLevelConfig: any): RollLevelConfig {
@@ -145,9 +138,6 @@ export class DataStore {
       oneVsManyActivated: this.oneVsManyActivated,
       manyVsOneActivated: this.manyVsOneActivated,
       speedCalculatorActivated: this.speedCalculatorActivated,
-      field: this.field,
-      criticalHit: this.extraFieldOptions.criticalHit,
-      trickRoom: this.extraFieldOptions.trickRoom,
       leftRollLevelConfig: this.leftRollLevelConfig,
       rightRollLevelConfig: this.rightRollLevelConfig,
       leftPokemon: this.buildPokemonToUserData(this.leftPokemon),
