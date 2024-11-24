@@ -2,7 +2,7 @@
   <div class="pokes">
     <div class="pokemon-name">
       <label>Pokémon</label>
-      <app-pokemon-combo-box [pokemon]="attacker"/>
+      <app-pokemon-combo-box [pokemon]="attacker" (pokemonChange)="pokemonOnEditChanged()"/>
     </div>
     <app-pokemon-tab [activeTab]="leftIsAttacker()" [teamMember]="leftTeamMember" (tabActivated)="activatePokemon($event)"/>
     <app-pokemon-tab [activeTab]="rightIsAttacker()" [teamMember]="rightTeamMember" (tabActivated)="activatePokemon($event)"/>

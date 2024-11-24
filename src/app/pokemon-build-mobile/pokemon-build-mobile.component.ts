@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, KeyValueDiffer, KeyValueDiffers, Output, inject } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { MOVES, NATURES, TYPE_CHART } from '@smogon/calc';
 import { Items } from 'src/data/items';
 import { Pokemon } from 'src/lib/pokemon';
@@ -20,19 +20,12 @@ import { InputAutocompleteComponent } from '../input-autocomplete/input-autocomp
   imports: [MatChipListbox, ReactiveFormsModule, FormsModule, MatChipOption, MatIcon, InputAutocompleteComponent, MatTooltip, MatCheckbox, AbilityComboBoxComponent, EvSliderComponent]
 })
 export class PokemonBuildMobileComponent {
-  @Input()
-  pokemon: Pokemon
+  
+  pokemon = input.required<Pokemon>()
 
-  @Output() 
-  pokemonChangedEvent = new EventEmitter<Pokemon>()
+  pokemonChangedEvent = output<Pokemon>()
   
   MAX_EVS = 508
-
-  private differs = inject(KeyValueDiffers)
-  private differsStatusModifiers = inject(KeyValueDiffers)
-
-  private differ: KeyValueDiffer<string, any>
-  private differStatusModifiers: KeyValueDiffer<string, any>
 
   allItemsNames = Items.instance.allItems()
   allMoveNames = Object.keys(MOVES[9]).splice(1).sort()
@@ -49,18 +42,7 @@ export class PokemonBuildMobileComponent {
   ]
 
   ngOnInit() {
-    this.differ = this.differs.find(this.pokemon).create()
-    this.differStatusModifiers = this.differsStatusModifiers.find(this.pokemon.boosts).create()
-    this.selectedMove = this.pokemon.activeMoveName
-  }
-
-  ngDoCheck() {
-    const pokemonChanged = this.differ.diff(this.pokemon)
-    const boostsChanged = this.differStatusModifiers.diff(this.pokemon.boosts) 
-    
-    if (pokemonChanged || boostsChanged) {
-      this.pokemonChangedEvent.emit(this.pokemon)
-    }
+    this.selectedMove = this.pokemon().activeMoveName
   }
 
   moveSelected(event: MatChipListboxChange) {
@@ -88,26 +70,24 @@ export class PokemonBuildMobileComponent {
   }
 
   private activateMove(position: number) {
-    this.pokemon.moveSet.activeMoveByPosition(position)
-    this.pokemonChangedEvent.emit(this.pokemon)
+    this.pokemon().moveSet.activeMoveByPosition(position)
+    this.pokemonChanged()
   }
 
   beforeChangeEvValue() {
-    if (this.pokemon.totalEvs() <= this.MAX_EVS) {
-      this.pokemon.evs = this.pokemon.evs
+    if (this.pokemon().totalEvs() <= this.MAX_EVS) {
+      this.pokemon().evs = this.pokemon().evs
     }
   }
 
   onChangeEvValue() {
-    if (this.pokemon.totalEvs() <= this.MAX_EVS) {
-      this.pokemon.evs = this.pokemon.evs
+    if (this.pokemon().totalEvs() <= this.MAX_EVS) {
+      this.pokemon().evs = this.pokemon().evs
     } else {
-      this.pokemon.evs = this.pokemon.evsStorage
-    }    
-  }
+      this.pokemon().evs = this.pokemon().evsStorage
+    }
 
-  onChangeIvValue() {
-    this.pokemon.ivs = this.pokemon.ivs
+    this.pokemonChanged()
   }
 
   editMoves() {
@@ -116,28 +96,35 @@ export class PokemonBuildMobileComponent {
 
   saveMoves() {
     this.editAttacks = false
+    this.activateMove1()
+    this.selectedMove = this.pokemon().move1Name
+
+    this.pokemonChanged()
   }
 
-  pokemonChanged() {
-    this.pokemonChangedEvent.emit(this.pokemon)
-  }
+  terastalyzePokemon() {
+    if (this.pokemon().isTerapagos()) return 
 
-  terastalyzePokemon(event: Event) {
-    if (this.pokemon.isTerapagos()) return 
+    const teraActived = !this.pokemon().teraTypeActive
+    this.pokemon().changeTeraStatus(teraActived)
 
-    const teraActived = !this.pokemon.teraTypeActive
-    this.pokemon.changeTeraStatus(teraActived)
-
-    this.pokemonChangedEvent.emit(this.pokemon)
+    this.pokemonChanged()
   }
 
   toogleCommanderAbility() {
-    this.pokemon.commanderActivated = !this.commanderActivated
+    this.pokemon().commanderActivated = !this.commanderActivated
     this.commanderActivated = !this.commanderActivated
+
+    this.pokemonChanged()
   }
 
   toogleParadoxAbility() {
-    this.pokemon.abilityOn = !this.pokemon.abilityOn
+    this.pokemon().abilityOn = !this.pokemon().abilityOn
+    this.pokemonChanged()
+  }
+
+  pokemonChanged() {
+    this.pokemonChangedEvent.emit(this.pokemon())
   }
 
 }
