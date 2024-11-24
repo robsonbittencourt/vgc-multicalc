@@ -1,4 +1,4 @@
-import { Component, KeyValueDiffer, KeyValueDiffers, inject, output } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatButtonToggle, MatButtonToggleGroup } from '@angular/material/button-toggle';
 import { MOVES, NATURES } from '@smogon/calc';
 import { AllPokemon } from 'src/data/all-pokemon';
@@ -30,16 +30,9 @@ import { SpeedScaleComponent } from '../speed-scale/speed-scale.component';
 })
 export class SpeedCalculatorMobileComponent {
   
-  dataChangedEvent = output()
-  
   data = inject(DataStore)
   fieldStore = inject(FieldStore)
-  private differs = inject(KeyValueDiffers)
-  private differsStatusModifiers = inject(KeyValueDiffers)
-
-  private differ: KeyValueDiffer<string, any>
-  private differStatusModifiers: KeyValueDiffer<string, any>
-
+  
   pokemon: Pokemon
   options: SpeedCalculatorOptions = new SpeedCalculatorOptions()
 
@@ -68,32 +61,13 @@ export class SpeedCalculatorMobileComponent {
   ngOnInit() {
     this.pokemon = this.data.defaultLeftPokemon()
     this.availableAbilities = AllPokemon.instance.abilitiesByName(this.pokemon.name)
-    this.differ = this.differs.find(this.pokemon).create()
-    this.differStatusModifiers = this.differsStatusModifiers.find(this.pokemon.boosts).create()
     this.pokemonNamesByReg = speedMeta(this.options.regulation).map(s => s.name).sort()
   }
 
-  ngDoCheck() {
-    const pokemonChanged = this.differ.diff(this.pokemon)
-    const boostsChanged = this.differStatusModifiers.diff(this.pokemon.boosts) 
-    
-    if (pokemonChanged || boostsChanged) {
-      this.dataChangedEvent.emit()
-    }
-  }
- 
   beforeChangeEvValue() {
     if (this.pokemon.totalEvs() <= this.MAX_EVS) {
       this.pokemon.evs = this.pokemon.evs
     }
-  }
-
-  onChangeEvValue() {
-    if (this.pokemon.totalEvs() <= this.MAX_EVS) {
-      this.pokemon.evs = this.pokemon.evs
-    } else {
-      this.pokemon.evs = this.pokemon.evsStorage
-    }    
   }
 
   onChangeIvValue() {

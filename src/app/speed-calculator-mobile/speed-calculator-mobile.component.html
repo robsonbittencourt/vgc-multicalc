@@ -61,8 +61,8 @@
   </div>
 
   <div class="evs">
-    <app-ev-slider statNameAcronym="SPE" [statValue]="pokemon.modifiedSpe()" [showIv]="true" [(ev)]="pokemon.evs.spe" (evChangedEvent)="onChangeEvValue()"
-      [(iv)]="pokemon.ivs.spe" (ivChange)="onChangeIvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()" [(statsModifier)]="pokemon.boosts.spe" [nature]="pokemon.nature"/>
+    <app-ev-slider statNameAcronym="SPE" [statValue]="pokemon.modifiedSpe()" [showIv]="true" [(ev)]="pokemon.evs.spe" [(iv)]="pokemon.ivs.spe" 
+      (ivChange)="onChangeIvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()" [(statsModifier)]="pokemon.boosts.spe" [nature]="pokemon.nature"/>
   </div>
 
   <div class="speed-calculator-container">
