@@ -1,4 +1,4 @@
-import { Component, Input, KeyValueDiffer, KeyValueDiffers, effect, inject } from '@angular/core';
+import { Component, KeyValueDiffer, KeyValueDiffers, effect, inject, input } from '@angular/core';
 import { Pokemon } from 'src/lib/pokemon';
 import { SpeedCalculatorOptions as SpeedScaleOptions } from 'src/lib/speed-calculator/speed-calculator-options';
 import { SpeedCalculatorService } from 'src/lib/speed-calculator/speed-calculator-service';
@@ -10,22 +10,18 @@ import { Field } from 'src/lib/field';
 import { SpeedBoxComponent } from '../speed-box/speed-box.component';
 
 @Component({
-    selector: 'app-speed-scale',
-    templateUrl: './speed-scale.component.html',
-    styleUrls: ['./speed-scale.component.scss'],
-    standalone: true,
-    imports: [SpeedBoxComponent]
+  selector: 'app-speed-scale',
+  templateUrl: './speed-scale.component.html',
+  styleUrls: ['./speed-scale.component.scss'],
+  standalone: true,
+  imports: [SpeedBoxComponent]
 })
 export class SpeedScaleComponent {
-  @Input()
-  pokemon: Pokemon
-
-  @Input()
-  options: SpeedScaleOptions = new SpeedScaleOptions()
-
-  @Input()
-  pokemonEachSide: number
-
+  
+  pokemon = input.required<Pokemon>()
+  pokemonEachSide = input.required<number>()
+  options = input.required<SpeedScaleOptions>()
+  
   data = inject(DataStore)
   fieldStore = inject(FieldStore)
   private differsStatusModifiers = inject(KeyValueDiffers)
@@ -51,7 +47,7 @@ export class SpeedScaleComponent {
 
   set statsModifier(statsModifier: number) {
     this.statsModifierValue = statsModifier
-    this.options.speedModifier = statsModifier
+    this.options().speedModifier = statsModifier
 
     if(statsModifier != 1) {
       this.speedDropMoveActive = false
@@ -82,49 +78,49 @@ export class SpeedScaleComponent {
   }
 
   ngOnInit() {
-    this.differStatusModifiers = this.differsStatusModifiers.find(this.pokemon.boosts).create()
+    this.differStatusModifiers = this.differsStatusModifiers.find(this.pokemon().boosts).create()
     this.differOptions = this.differsOptions.find(this.options).create()
 
-    this.previousActualPokemonSpeed = this.pokemon.modifiedSpe()
-    this.evsSpeed = this.pokemon.evs.spe!
-    this.ivsSpeed = this.pokemon.ivs.spe!
-    this.item = this.pokemon.item
-    this.status = this.pokemon.status
+    this.previousActualPokemonSpeed = this.pokemon().modifiedSpe()
+    this.evsSpeed = this.pokemon().evs.spe!
+    this.ivsSpeed = this.pokemon().ivs.spe!
+    this.item = this.pokemon().item
+    this.status = this.pokemon().status
   }
 
   ngDoCheck() {
-    const pokemonChanged = this.evsSpeed != this.pokemon.evs.spe || this.ivsSpeed != this.pokemon.ivs.spe || this.item != this.pokemon.item || this.status != this.pokemon.status || this.nature != this.pokemon.nature || this.ability != this.pokemon.ability || this.abilityOn != this.pokemon.abilityOn
-    const boostsChanged = this.differStatusModifiers.diff(this.pokemon.boosts)
-    const optionsChanged = this.differOptions.diff(this.options)
+    const pokemonChanged = this.evsSpeed != this.pokemon().evs.spe || this.ivsSpeed != this.pokemon().ivs.spe || this.item != this.pokemon().item || this.status != this.pokemon().status || this.nature != this.pokemon().nature || this.ability != this.pokemon().ability || this.abilityOn != this.pokemon().abilityOn
+    const boostsChanged = this.differStatusModifiers.diff(this.pokemon().boosts)
+    const optionsChanged = this.differOptions.diff(this.options())
     
     if (pokemonChanged || boostsChanged || optionsChanged) {
       this.calculateSpeedRange(this.fieldStore.field())
     }
 
-    this.evsSpeed = this.pokemon.evs.spe!
-    this.ivsSpeed = this.pokemon.ivs.spe!
-    this.item = this.pokemon.item
-    this.status = this.pokemon.status
-    this.nature = this.pokemon.nature
-    this.ability = this.pokemon.ability
-    this.abilityOn = this.pokemon.abilityOn
+    this.evsSpeed = this.pokemon().evs.spe!
+    this.ivsSpeed = this.pokemon().ivs.spe!
+    this.item = this.pokemon().item
+    this.status = this.pokemon().status
+    this.nature = this.pokemon().nature
+    this.ability = this.pokemon().ability
+    this.abilityOn = this.pokemon().abilityOn
   }
 
   calculateSpeedRange(field: Field) {
     clearTimeout(this.timeoutId)
 
     this.timeoutId = setTimeout(() => {
-      const pokemonBySideActual = this.pokemonEachSide
-      const orderedPokemon = this.speedCalculatorService.orderedPokemon(this.pokemon, field, this.options)
+      const pokemonBySideActual = this.pokemonEachSide()
+      const orderedPokemon = this.speedCalculatorService.orderedPokemon(this.pokemon(), field, this.options())
       
-      if (this.options.targetName == "") {
+      if (this.options().targetName == "") {
         const actualIndex = orderedPokemon.findIndex(this.isActual)
         const initIndex = actualIndex - pokemonBySideActual >= 0 ? actualIndex - pokemonBySideActual : 0
         const lastIndex = actualIndex + pokemonBySideActual + 1
         const inSpeedRange = orderedPokemon.slice(initIndex, lastIndex)
         
         const updatedActualIndex = inSpeedRange.findIndex(this.isActual)
-        if (updatedActualIndex < this.pokemonEachSide) {
+        if (updatedActualIndex < this.pokemonEachSide()) {
           const diff = pokemonBySideActual - updatedActualIndex
           for (let i = 0; i < diff; i++) {
             inSpeedRange.unshift(new SpeedDefinition("", 0, ""))        
@@ -133,7 +129,7 @@ export class SpeedScaleComponent {
         
         this.inSpeedRange = inSpeedRange
       } else {
-        const pokemon = new Pokemon(this.options.targetName)
+        const pokemon = new Pokemon(this.options().targetName)
         this.inSpeedRange = orderedPokemon.filter(s => s.pokemonName == pokemon.name || this.isActual(s))
       }
 
@@ -155,14 +151,14 @@ export class SpeedScaleComponent {
       this.speedOrderChanged = false
     }
 
-    if (this.previousActualPokemonSpeed < this.pokemon.modifiedSpe()) {
+    if (this.previousActualPokemonSpeed < this.pokemon().modifiedSpe()) {
       this.speedOrderIncrease = true
     } else {
       this.speedOrderIncrease = false
     }
 
     this.previousSpeedDefinition = actualSpeedRange
-    this.previousActualPokemonSpeed = this.pokemon.modifiedSpe()
+    this.previousActualPokemonSpeed = this.pokemon().modifiedSpe()
   }
 
   isActual(speedDefinition: SpeedDefinition): boolean {
