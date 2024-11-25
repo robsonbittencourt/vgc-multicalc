@@ -6,6 +6,7 @@ import { SpeedDefinition } from 'src/lib/speed-calculator/speed-definition';
 import { DataStore } from '../../lib/data-store.service';
 
 import { FieldStore } from 'src/data/field-store';
+import { SpeedCalcOptionsStore } from 'src/data/speed-calc-options-store';
 import { Field } from 'src/lib/field';
 import { SpeedBoxComponent } from '../speed-box/speed-box.component';
 
@@ -20,10 +21,11 @@ export class SpeedScaleComponent {
   
   pokemon = input.required<Pokemon>()
   pokemonEachSide = input.required<number>()
-  options = input.required<SpeedScaleOptions>()
   
   data = inject(DataStore)
   fieldStore = inject(FieldStore)
+  optionsStore = inject(SpeedCalcOptionsStore)
+
   private differsStatusModifiers = inject(KeyValueDiffers)
   private speedCalculatorService = inject(SpeedCalculatorService)
 
@@ -48,7 +50,7 @@ export class SpeedScaleComponent {
 
   constructor() {
     effect(() => {
-      this.calculateSpeedRange(this.options(), this.fieldStore.field())
+      this.calculateSpeedRange(this.optionsStore.options(), this.fieldStore.field())
     })
   }
 
@@ -67,7 +69,7 @@ export class SpeedScaleComponent {
     const boostsChanged = this.differStatusModifiers.diff(this.pokemon().boosts)
     
     if (pokemonChanged || boostsChanged) {
-      this.calculateSpeedRange(this.options(), this.fieldStore.field())
+      this.calculateSpeedRange(this.optionsStore.options(), this.fieldStore.field())
     }
 
     this.evsSpeed = this.pokemon().evs.spe!

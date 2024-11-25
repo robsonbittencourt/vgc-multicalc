@@ -1,9 +1,7 @@
-import { Component, computed, inject, model, output } from '@angular/core';
+import { Component, inject, output } from '@angular/core';
 import { MatFormField } from '@angular/material/form-field';
 import { MatSelect } from '@angular/material/select';
 import { Pokemon } from 'src/lib/pokemon';
-import { SpeedCalculatorOptions } from 'src/lib/speed-calculator/speed-calculator-options';
-import { speedMeta } from 'src/lib/speed-calculator/speed-meta';
 import { Team } from 'src/lib/team';
 import { DataStore } from '../../lib/data-store.service';
 import { FieldComponent } from '../field/field.component';
@@ -14,6 +12,7 @@ import { TeamsComponent } from '../teams/teams.component';
 import { MatButtonToggle, MatButtonToggleGroup } from '@angular/material/button-toggle';
 import { MatOption } from '@angular/material/core';
 import { MatIcon } from '@angular/material/icon';
+import { SpeedCalcOptionsStore } from 'src/data/speed-calc-options-store';
 import { SpeedScaleComponent } from '../speed-scale/speed-scale.component';
 
 @Component({
@@ -28,22 +27,10 @@ export class SpeedCalculatorComponent {
   dataChangedEvent = output()
 
   data = inject(DataStore)
+  optionsStore = inject(SpeedCalcOptionsStore)
 
   pokemon: Pokemon
-  regulation = model("Reg H")
-  targetName = model("")
-  speedModifier = model(0)
-  speedDropActive = model(false)
-  paralyzedActive = model(false)
-  choiceScarfActive = model(false)
   
-  options = computed(() => new SpeedCalculatorOptions({
-    regulation: this.regulation(), targetName: this.targetName(), speedModifier: this.speedModifier(), speedDropActive: this.speedDropActive(), 
-    paralyzedActive: this.paralyzedActive(), choiceScarfActive: this.choiceScarfActive()
-  }))
-
-  pokemonNamesByReg = computed(() => speedMeta(this.regulation()).map(s => s.name).sort())
-
   regulationsList: string[] = ["Reg G", "Reg H"]
   
   statsModifiers = [
@@ -68,25 +55,6 @@ export class SpeedCalculatorComponent {
 
   teamChanged(team: Team) {
     this.pokemon = team.activePokemon()
-  }
-
-  toogleIceWind(enabled: boolean) {
-    if (enabled) {
-      this.speedModifier.set(-1)
-    } else {
-      this.speedModifier.set(0)
-    }
-
-    this.speedDropActive.set(enabled)
-  }
-
-  regulationChanged(regulation: string) {
-    this.regulation.set(regulation)
-    this.clearPokemon()
-  }
-
-  clearPokemon() {
-    this.targetName.set("")
   }
 
 }

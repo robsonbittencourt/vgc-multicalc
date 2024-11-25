@@ -1,4 +1,4 @@
-import { Component, computed, inject, model } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatButtonToggle, MatButtonToggleGroup } from '@angular/material/button-toggle';
 import { MOVES, NATURES } from '@smogon/calc';
 import { AllPokemon } from 'src/data/all-pokemon';
@@ -6,8 +6,6 @@ import { Items } from 'src/data/items';
 import { SETDEX_SV } from 'src/data/movesets';
 import { DataStore } from 'src/lib/data-store.service';
 import { Pokemon } from 'src/lib/pokemon';
-import { SpeedCalculatorOptions } from 'src/lib/speed-calculator/speed-calculator-options';
-import { speedMeta } from 'src/lib/speed-calculator/speed-meta';
 import { InputAutocompleteComponent } from '../input-autocomplete/input-autocomplete.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -18,6 +16,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatSelect } from '@angular/material/select';
 import { MatTooltip } from '@angular/material/tooltip';
 import { FieldStore } from 'src/data/field-store';
+import { SpeedCalcOptionsStore } from 'src/data/speed-calc-options-store';
 import { EvSliderComponent } from '../ev-slider/ev-slider.component';
 import { SpeedScaleComponent } from '../speed-scale/speed-scale.component';
 
@@ -32,23 +31,9 @@ export class SpeedCalculatorMobileComponent {
   
   data = inject(DataStore)
   fieldStore = inject(FieldStore)
-  
+  optionsStore = inject(SpeedCalcOptionsStore)
+
   pokemon: Pokemon
-
-  regulation = model("Reg H")
-  targetName = model("")
-  speedModifier = model(0)
-  speedDropActive = model(false)
-  paralyzedActive = model(false)
-  choiceScarfActive = model(false)
-  
-  options = computed(() => new SpeedCalculatorOptions({
-    regulation: this.regulation(), targetName: this.targetName(), speedModifier: this.speedModifier(), speedDropActive: this.speedDropActive(), 
-    paralyzedActive: this.paralyzedActive(), choiceScarfActive: this.choiceScarfActive()
-  }))
-
-  pokemonNamesByReg = computed(() => speedMeta(this.regulation()).map(s => s.name).sort())
-
   allPokemonNames = AllPokemon.instance.allPokemonNames
   allItemsNames = Items.instance.allItems()
   allMoveNames = Object.keys(MOVES[9]).splice(1).sort()
@@ -117,25 +102,6 @@ export class SpeedCalculatorMobileComponent {
 
   toogleParadoxAbility() {
     this.pokemon.abilityOn = !this.pokemon.abilityOn
-  }
-
-  toogleIceWind(enabled: boolean) {
-    if (enabled) {
-      this.speedModifier.set(-1)
-    } else {
-      this.speedModifier.set(0)
-    }
-
-    this.speedDropActive.set(enabled)
-  }
-
-  regulationChanged(regulation: string) {
-    this.regulation.set(regulation)
-    this.clearPokemon()
-  }
-
-  clearPokemon() {
-    this.targetName.set("")
   }
 
 }
