@@ -25,11 +25,9 @@ export class SpeedScaleComponent {
   data = inject(DataStore)
   fieldStore = inject(FieldStore)
   private differsStatusModifiers = inject(KeyValueDiffers)
-  private differsOptions = inject(KeyValueDiffers)
   private speedCalculatorService = inject(SpeedCalculatorService)
 
   private differStatusModifiers: KeyValueDiffer<string, any>
-  private differOptions: KeyValueDiffer<string, any>
 
   inSpeedRange: SpeedDefinition[]
 
@@ -50,13 +48,12 @@ export class SpeedScaleComponent {
 
   constructor() {
     effect(() => {
-      this.calculateSpeedRange(this.fieldStore.field())
+      this.calculateSpeedRange(this.options(), this.fieldStore.field())
     })
   }
 
   ngOnInit() {
     this.differStatusModifiers = this.differsStatusModifiers.find(this.pokemon().boosts).create()
-    this.differOptions = this.differsOptions.find(this.options).create()
 
     this.previousActualPokemonSpeed = this.pokemon().modifiedSpe()
     this.evsSpeed = this.pokemon().evs.spe!
@@ -68,10 +65,9 @@ export class SpeedScaleComponent {
   ngDoCheck() {
     const pokemonChanged = this.evsSpeed != this.pokemon().evs.spe || this.ivsSpeed != this.pokemon().ivs.spe || this.item != this.pokemon().item || this.status != this.pokemon().status || this.nature != this.pokemon().nature || this.ability != this.pokemon().ability || this.abilityOn != this.pokemon().abilityOn
     const boostsChanged = this.differStatusModifiers.diff(this.pokemon().boosts)
-    const optionsChanged = this.differOptions.diff(this.options())
     
-    if (pokemonChanged || boostsChanged || optionsChanged) {
-      this.calculateSpeedRange(this.fieldStore.field())
+    if (pokemonChanged || boostsChanged) {
+      this.calculateSpeedRange(this.options(), this.fieldStore.field())
     }
 
     this.evsSpeed = this.pokemon().evs.spe!
@@ -83,14 +79,14 @@ export class SpeedScaleComponent {
     this.abilityOn = this.pokemon().abilityOn
   }
 
-  calculateSpeedRange(field: Field) {
+  calculateSpeedRange(options: SpeedScaleOptions, field: Field) {
     clearTimeout(this.timeoutId)
 
     this.timeoutId = setTimeout(() => {
       const pokemonBySideActual = this.pokemonEachSide()
-      const orderedPokemon = this.speedCalculatorService.orderedPokemon(this.pokemon(), field, this.options())
+      const orderedPokemon = this.speedCalculatorService.orderedPokemon(this.pokemon(), field, options)
       
-      if (this.options().targetName == "") {
+      if (options.targetName == "") {
         const actualIndex = orderedPokemon.findIndex(this.isActual)
         const initIndex = actualIndex - pokemonBySideActual >= 0 ? actualIndex - pokemonBySideActual : 0
         const lastIndex = actualIndex + pokemonBySideActual + 1
@@ -106,7 +102,7 @@ export class SpeedScaleComponent {
         
         this.inSpeedRange = inSpeedRange
       } else {
-        const pokemon = new Pokemon(this.options().targetName)
+        const pokemon = new Pokemon(options.targetName)
         this.inSpeedRange = orderedPokemon.filter(s => s.pokemonName == pokemon.name || this.isActual(s))
       }
 

@@ -1,4 +1,4 @@
-import { Component, inject, output } from '@angular/core';
+import { Component, computed, inject, model, output } from '@angular/core';
 import { MatFormField } from '@angular/material/form-field';
 import { MatSelect } from '@angular/material/select';
 import { Pokemon } from 'src/lib/pokemon';
@@ -27,15 +27,25 @@ export class SpeedCalculatorComponent {
   
   dataChangedEvent = output()
 
-  data = inject(DataStore);
+  data = inject(DataStore)
 
   pokemon: Pokemon
-  options: SpeedCalculatorOptions = new SpeedCalculatorOptions()
+  regulation = model("Reg H")
+  targetName = model("")
+  speedModifier = model(0)
+  speedDropActive = model(false)
+  paralyzedActive = model(false)
+  choiceScarfActive = model(false)
+  
+  options = computed(() => new SpeedCalculatorOptions({
+    regulation: this.regulation(), targetName: this.targetName(), speedModifier: this.speedModifier(), speedDropActive: this.speedDropActive(), 
+    paralyzedActive: this.paralyzedActive(), choiceScarfActive: this.choiceScarfActive()
+  }))
+
+  pokemonNamesByReg = computed(() => speedMeta(this.regulation()).map(s => s.name).sort())
 
   regulationsList: string[] = ["Reg G", "Reg H"]
-  allPokemonNames: string[]
-  targetName: string
-
+  
   statsModifiers = [
     { value: 6, viewValue: "+6"}, { value: 5, viewValue: "+5"}, { value: 4, viewValue: "+4"},
     { value: 3, viewValue: "+3"}, { value: 2, viewValue: "+2"}, { value: 1, viewValue: "+1"},
@@ -46,7 +56,6 @@ export class SpeedCalculatorComponent {
 
   ngOnInit() {
     this.pokemon = this.data.activePokemon()
-    this.allPokemonNames = speedMeta(this.options.regulation).map(s => s.name).sort()
   }
 
   dataChanged() {
@@ -61,14 +70,23 @@ export class SpeedCalculatorComponent {
     this.pokemon = team.activePokemon()
   }
 
+  toogleIceWind(enabled: boolean) {
+    if (enabled) {
+      this.speedModifier.set(-1)
+    } else {
+      this.speedModifier.set(0)
+    }
+
+    this.speedDropActive.set(enabled)
+  }
+
   regulationChanged(regulation: string) {
-    this.options.regulation = regulation
+    this.regulation.set(regulation)
     this.clearPokemon()
-    this.allPokemonNames = speedMeta(this.options.regulation).map(s => s.name).sort()
   }
 
   clearPokemon() {
-    this.options.targetName = ""
+    this.targetName.set("")
   }
 
 }

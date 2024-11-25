@@ -12,13 +12,13 @@
         <span class="title">Speed List</span>
         <div class="regulation">
           <label>Regulation</label>
-          <app-input-autocomplete [(value)]="options.regulation" [allValues]="regulationsList" (valueChange)="regulationChanged($event)"/>
+          <app-input-autocomplete [allValues]="regulationsList" [value]="regulation()" (valueChange)="regulationChanged($event)"/>
         </div>
         <div>
         
         <label>Pokémon</label>
         <div class="pokemon-combo">
-          <app-input-autocomplete [(value)]="options.targetName" [allValues]="allPokemonNames"/>
+          <app-input-autocomplete [allValues]="pokemonNamesByReg()" [value]="targetName()" (valueChange)="targetName.set($event)"/>
           <mat-icon class="clear-button" (click)="clearPokemon()">clear</mat-icon>
         </div>        
       </div>
@@ -32,7 +32,7 @@
           <label>Speed Modifier</label>
           <div class="dense-2">
             <mat-form-field appearance="outline" class="mat-ev-stat-modifier">
-              <mat-select class="mat-small" [(value)]="options.speedModifier">
+              <mat-select class="mat-small" [value]="speedModifier()" (valueChange)="speedModifier.set($event)">
                 @for (statsModifier of statsModifiers; track statsModifier) {
                   <mat-option class="mat-small" [value]="statsModifier.value">{{ statsModifier.viewValue }}</mat-option>
                 }
@@ -41,14 +41,14 @@
           </div>
 
           <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">
-            <mat-button-toggle [checked]="options.speedDropActive" (change)="options.speedDropActive = $event.source.checked">Ice Wind</mat-button-toggle>
-            <mat-button-toggle [checked]="options.paralyzedActive" (change)="options.paralyzedActive = $event.source.checked">Paralyzed</mat-button-toggle>
-            <mat-button-toggle [checked]="options.choiceScarfActive" (change)="options.choiceScarfActive = $event.source.checked">Choice Scarf</mat-button-toggle>
+            <mat-button-toggle [checked]="speedDropActive()" (change)="toogleIceWind($event.source.checked)">Ice Wind</mat-button-toggle>
+            <mat-button-toggle [checked]="paralyzedActive()" (change)="paralyzedActive.set($event.source.checked)">Paralyzed</mat-button-toggle>
+            <mat-button-toggle [checked]="choiceScarfActive()" (change)="choiceScarfActive.set($event.source.checked)">Choice Scarf</mat-button-toggle>
           </mat-button-toggle-group>
         </div>
       </div>
     </div>
 
-    <app-speed-scale [pokemon]="pokemon" [options]="options" [pokemonEachSide]=31 />
+    <app-speed-scale [pokemon]="pokemon" [options]="options()" [pokemonEachSide]=31 />
   </div>
 </div>
