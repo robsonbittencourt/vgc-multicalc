@@ -66,7 +66,7 @@ describe('Test calcs with second team member Pokémon', () => {
     opponents.get("Zamazenta Crowned").damageIs(53.1, 63.5).cause2HKO()
     opponents.get("Calyrex Ice").damageIs(32.3, 39.1).haveChanceOfToCause3HKO(99)
     opponents.get("Amoonguss").damageIs(19.6, 23.2).possible5HKO()
-    opponents.get("Terapagos Terastal").damageIs(24.2, 28.7).possible5HKO().afterLeftoversRecovery()
+    opponents.get("Terapagos Terastal").damageIs(24.2, 28.7).possible5HKO()
     opponents.get("Rillaboom").damageIs(51.7, 61.4).cause2HKO()
   })
 })
