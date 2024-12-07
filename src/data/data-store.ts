@@ -59,26 +59,26 @@ export type TargetState = {
 }
 
 type DataState = {
-  menuState: MenuState,
-  leftPokemonState: PokemonState,
-  rightPokemonState: PokemonState,
+  _menuState: MenuState,
+  _leftPokemonState: PokemonState,
+  _rightPokemonState: PokemonState,
   attackerId: string,
   secondAttackerId: string,
-  teamsState: TeamState[],
-  targetsState: TargetState[]
+  _teamsState: TeamState[],
+  _targetsState: TargetState[]
 }
 
 const initialId = "0dc51a43-1de8-4213-9686-fb07f2507b06"
 
 const initialState: DataState = {
-  menuState: {
+  _menuState: {
     oneVsOneActivated: true,
     oneVsManyActivated: false,
     manyVsOneActivated: false,
     speedCalculatorActivated: false
   },
 
-  leftPokemonState: { id: uuidv4(), name: "Gholdengo", nature: "Timid", item: "Choice Specs", status: "Healthy", ability: "Good as Gold", abilityOn: false, commanderActive: false, teraType: "Steel", teraTypeActive: false, activeMove: "Make It Rain",
+  _leftPokemonState: { id: uuidv4(), name: "Gholdengo", nature: "Timid", item: "Choice Specs", status: "Healthy", ability: "Good as Gold", abilityOn: false, commanderActive: false, teraType: "Steel", teraTypeActive: false, activeMove: "Make It Rain",
     moveSet: [{ name: "Make It Rain" }, { name: "Shadow Ball" }, { name: "Protect" }, { name: "Nasty Plot" }],
     boosts: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
     evs: { hp: 4, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 },
@@ -86,7 +86,7 @@ const initialState: DataState = {
     hpPercentage: 100
   },
 
-  rightPokemonState: { id: uuidv4(), name: "Rillaboom", nature: "Adamant", item: "Assault Vest", status: "Healthy", ability: "Grassy Surge", abilityOn: false, commanderActive: false, teraType: "Fire", teraTypeActive: false, activeMove: "Wood Hammer",
+  _rightPokemonState: { id: uuidv4(), name: "Rillaboom", nature: "Adamant", item: "Assault Vest", status: "Healthy", ability: "Grassy Surge", abilityOn: false, commanderActive: false, teraType: "Fire", teraTypeActive: false, activeMove: "Wood Hammer",
     moveSet: [{ name: "Wood Hammer" }, { name: "Grassy Glide" }, { name: "U-turn" }, { name: "Fake Out" }],
     boosts: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
     evs: { hp: 252, atk: 116, def: 4, spa: 0, spd: 60, spe: 76 },
@@ -97,7 +97,7 @@ const initialState: DataState = {
   attackerId: initialId,
   secondAttackerId: "",
   
-  teamsState: [
+  _teamsState: [
     {
       active: true,
       name: "Team 1",
@@ -161,7 +161,7 @@ const initialState: DataState = {
     }
   ],
 
-  targetsState: [
+  _targetsState: [
     {
       active: false,
       pokemon: { id: uuidv4(), name: "Primarina", nature: "Modest", item: "Throat Spray", status: "Healthy", ability: "Liquid Voice", abilityOn: false, commanderActive: false, teraType: "Poison", teraTypeActive: false, activeMove: "Moonblast",
@@ -210,7 +210,7 @@ export const DataStore = signalStore(
   { providedIn: 'root' },
   withState(initialState),
   
-  withComputed(({ teamsState: teams }) => ({ activeTeam: computed(() => teams().find(t => t.active)!) })),
+  withComputed(({ _teamsState: teams }) => ({ activeTeam: computed(() => teams().find(t => t.active)!) })),
   withComputed((store) => ({ activeTeamMember: computed(() => store.activeTeam().teamMembers.find(t => t.active)!) })),
   withComputed((store) => ({ activePokemon: computed(() => store.activeTeamMember().pokemon) })),
   withComputed((store) => ({ activeMovePosition: computed(() => (store.activePokemon().moveSet.findIndex(move => move.name == store.activePokemon().activeMove) + 1) as MovePosition) })),
@@ -243,18 +243,18 @@ export const DataStore = signalStore(
     }
 
     const findPokemonById = (pokemonId: string) => {
-      if (store.leftPokemonState().id == pokemonId) return stateToPokemon(store.leftPokemonState())
+      if (store._leftPokemonState().id == pokemonId) return stateToPokemon(store._leftPokemonState())
 
-      if (store.rightPokemonState().id == pokemonId) return stateToPokemon(store.rightPokemonState())
+      if (store._rightPokemonState().id == pokemonId) return stateToPokemon(store._rightPokemonState())
 
-      const pokemonFromTeam = store.teamsState()
+      const pokemonFromTeam = store._teamsState()
           .find(team => team.teamMembers.some(member => member.pokemon.id === pokemonId))
           ?.teamMembers.find(member => member.pokemon.id === pokemonId)
           ?.pokemon
         
       if (pokemonFromTeam) return stateToPokemon(pokemonFromTeam)
 
-      const pokemonFromTargets = store.targetsState().find(target => target.pokemon.id == pokemonId)
+      const pokemonFromTargets = store._targetsState().find(target => target.pokemon.id == pokemonId)
 
       if (pokemonFromTargets) return stateToPokemon(pokemonFromTargets.pokemon)
       
@@ -262,17 +262,17 @@ export const DataStore = signalStore(
     }
 
     return {
-      oneVsOneActivated: computed(() => store.menuState.oneVsOneActivated()),
-      oneVsManyActivated: computed(() => store.menuState.oneVsManyActivated()),
-      manyVsOneActivated: computed(() => store.menuState.manyVsOneActivated()),
-      speedCalculatorActivated: computed(() => store.menuState.speedCalculatorActivated()),
+      oneVsOneActivated: computed(() => store._menuState.oneVsOneActivated()),
+      oneVsManyActivated: computed(() => store._menuState.oneVsManyActivated()),
+      manyVsOneActivated: computed(() => store._menuState.manyVsOneActivated()),
+      speedCalculatorActivated: computed(() => store._menuState.speedCalculatorActivated()),
 
       leftPokemon: computed(() => {
-        return stateToPokemon(store.leftPokemonState())
+        return stateToPokemon(store._leftPokemonState())
       }),
 
       rightPokemon: computed(() => {
-        return stateToPokemon(store.rightPokemonState())
+        return stateToPokemon(store._rightPokemonState())
       }),
 
       team: computed(() => {
@@ -281,7 +281,7 @@ export const DataStore = signalStore(
       }),
 
       teams: computed(() => {
-        return store.teamsState().map(team => {
+        return store._teamsState().map(team => {
           const teamMembers = team.teamMembers.map(member => new TeamMember(stateToPokemon(member.pokemon), member.active))
           return new Team(team.active, team.name, teamMembers)
         })
@@ -291,21 +291,21 @@ export const DataStore = signalStore(
 
       activeSecondAttacker: computed(() => findPokemonById(store.secondAttackerId())),
 
-      targets: computed(() => store.targetsState().map(target => {
+      targets: computed(() => store._targetsState().map(target => {
         return new Target(stateToPokemon(target.pokemon), target.active)
       }))
     }
   }),
 
   withMethods((store) => {
-    const getActiveTeamIndex = () => store.teamsState().findIndex(team => team.active)
+    const getActiveTeamIndex = () => store._teamsState().findIndex(team => team.active)
 
     const teamWithPokemonOnEditIndex = (pokemonId: string) => {
-      return store.teamsState().findIndex(team => team.teamMembers.some(member => member.pokemon.id == pokemonId))
+      return store._teamsState().findIndex(team => team.teamMembers.some(member => member.pokemon.id == pokemonId))
     }
   
     const teamMemberWithPokemonOnEditIndex = (pokemonId: string, index: number) => {
-      const activeTeam = store.teamsState()[index]
+      const activeTeam = store._teamsState()[index]
       return activeTeam.teamMembers.findIndex(member => member.pokemon.id == pokemonId)
     }
 
@@ -314,19 +314,19 @@ export const DataStore = signalStore(
     }
 
     const updateActivePokemon = (pokemonId: string, updateFn: (pokemon: PokemonState) => Partial<PokemonState>) => {
-      if (store.leftPokemonState().id == pokemonId) {
+      if (store._leftPokemonState().id == pokemonId) {
         patchState(store, (state) => {
-          const updatedPokemon = { ...state.leftPokemonState, ...updateFn(state.leftPokemonState) }
-          return { leftPokemonState: updatedPokemon }
+          const updatedPokemon = { ...state._leftPokemonState, ...updateFn(state._leftPokemonState) }
+          return { _leftPokemonState: updatedPokemon }
         })
 
         return
       }
 
-      if (store.rightPokemonState().id == pokemonId) {
+      if (store._rightPokemonState().id == pokemonId) {
         patchState(store, (state) => {
-          const updatedPokemon = { ...state.rightPokemonState, ...updateFn(state.rightPokemonState) }
-          return { rightPokemonState: updatedPokemon }
+          const updatedPokemon = { ...state._rightPokemonState, ...updateFn(state._rightPokemonState) }
+          return { _rightPokemonState: updatedPokemon }
         })
 
         return
@@ -337,7 +337,7 @@ export const DataStore = signalStore(
       if(activeTeamIndex != -1) {
         patchState(store, (state) => {
           const activeTeamMemberIndex = teamMemberWithPokemonOnEditIndex(pokemonId, activeTeamIndex)
-          const updatedTeams = [...state.teamsState]
+          const updatedTeams = [...state._teamsState]
 
           const updatedTeamMembers = [...updatedTeams[activeTeamIndex].teamMembers]
           const currentPokemon = updatedTeamMembers[activeTeamMemberIndex].pokemon
@@ -348,35 +348,35 @@ export const DataStore = signalStore(
     
           updatedTeams[activeTeamIndex] = { ...updatedTeams[activeTeamIndex], teamMembers: updatedTeamMembers }
 
-          return { teamsState: updatedTeams }
+          return { _teamsState: updatedTeams }
         })
       } else {
         patchState(store, (state) => {
           const activeTargetIndex = getActiveTargetIndex(pokemonId)
-          const updatedTargets = [...state.targetsState]
+          const updatedTargets = [...state._targetsState]
           const currentPokemon = store.targets()[activeTargetIndex].pokemon.toState()
           const updatedPokemon = { ...currentPokemon, ...updateFn(currentPokemon) }
 
           updatedTargets[activeTargetIndex] = { ...updatedTargets[activeTargetIndex], pokemon: updatedPokemon }
 
-          return { targetsState: updatedTargets }
+          return { _targetsState: updatedTargets }
         })        
       }
     }
 
     const updatePokemonOnTarget = (target: Target, updateFn: (pokemon: PokemonState) => Partial<PokemonState>) => {
-      const targetIndex = store.targetsState().findIndex(t => t.pokemon.id === target.pokemon.id)
-      const targetToUpdate = store.targetsState()[targetIndex]
+      const targetIndex = store._targetsState().findIndex(t => t.pokemon.id === target.pokemon.id)
+      const targetToUpdate = store._targetsState()[targetIndex]
 
       patchState(store, () => {
         return {
-          targetsState: [
-            ...store.targetsState().slice(0, targetIndex),
+          _targetsState: [
+            ...store._targetsState().slice(0, targetIndex),
             {
               ...targetToUpdate,
               pokemon: { ...targetToUpdate.pokemon, ...updateFn(targetToUpdate.pokemon) },
             },
-            ...store.targetsState().slice(targetIndex + 1),
+            ...store._targetsState().slice(targetIndex + 1),
           ]
         }
       })
@@ -490,14 +490,14 @@ export const DataStore = signalStore(
         const activeStates = [active1, active2, active3, active4, active5, active6]
   
         patchState(store, (state) => {
-          const updatedTeams = [...state.teamsState]
+          const updatedTeams = [...state._teamsState]
           const updatedTeamMembers = updatedTeams[activeTeamIndex].teamMembers.map((member, index) => ({
             ...member, active: activeStates[index] ?? member.active,
           }));
   
           updatedTeams[activeTeamIndex] = { ...updatedTeams[activeTeamIndex], teamMembers: updatedTeamMembers }
   
-          return { teamsState: updatedTeams }
+          return { _teamsState: updatedTeams }
         })
       },
 
@@ -505,16 +505,16 @@ export const DataStore = signalStore(
         const activeTeamIndex = getActiveTeamIndex()
     
         patchState(store, (state) => {
-          const updatedTeams = [...state.teamsState]
+          const updatedTeams = [...state._teamsState]
           updatedTeams[activeTeamIndex] = newTeam
     
-          return { teamsState: updatedTeams }
+          return { _teamsState: updatedTeams }
         })
       },
 
       updateTeams(teams: Team[]) {
         const teamsState = teams.map(t => t.toState())
-        patchState(store, () => ({ teamsState }) )
+        patchState(store, () => ({ _teamsState: teamsState }) )
       },
 
       updateSecondAttacker(pokemonId: string) {
@@ -522,12 +522,12 @@ export const DataStore = signalStore(
       },
 
       removeAllTargets() {
-        patchState(store, () => ({ targetsState: [] }))
+        patchState(store, () => ({ _targetsState: [] }))
       },
 
       updateTargets(targets: Target[]) {
         const targetsState = targets.map(t => t.toState())
-        patchState(store, () => ({ targetsState }))
+        patchState(store, () => ({ _targetsState: targetsState }))
       },
 
       toogleActiveTargetCommander(target: Target) {
@@ -544,8 +544,8 @@ export const DataStore = signalStore(
 
       deactivateTargets() {
         patchState(store, () => {
-          const deactivatedTargets = store.targetsState().map(target => ({ ...target, active: false }))
-          return { targetsState: deactivatedTargets }
+          const deactivatedTargets = store._targetsState().map(target => ({ ...target, active: false }))
+          return { _targetsState: deactivatedTargets }
         })
       },
 
@@ -554,33 +554,33 @@ export const DataStore = signalStore(
       },
 
       findPokemonById(pokemonId: string): Pokemon {
-        if (store.leftPokemonState().id == pokemonId) return stateToPokemon(store.leftPokemonState())
+        if (store._leftPokemonState().id == pokemonId) return stateToPokemon(store._leftPokemonState())
 
-        if (store.rightPokemonState().id == pokemonId) return stateToPokemon(store.rightPokemonState())
+        if (store._rightPokemonState().id == pokemonId) return stateToPokemon(store._rightPokemonState())
 
-        const pokemonFromTeam = store.teamsState()
+        const pokemonFromTeam = store._teamsState()
             .find(team => team.teamMembers.some(member => member.pokemon.id === pokemonId))
             ?.teamMembers.find(member => member.pokemon.id === pokemonId)
             ?.pokemon
           
         if (pokemonFromTeam) return stateToPokemon(pokemonFromTeam)
   
-        const pokemonFromTargets = store.targetsState().find(target => target.pokemon.id == pokemonId)!
+        const pokemonFromTargets = store._targetsState().find(target => target.pokemon.id == pokemonId)!
   
         return stateToPokemon(pokemonFromTargets.pokemon)
       },
 
       updateLeftPokemon(pokemon: Pokemon) {
-        patchState(store, () => ({ leftPokemonState: pokemon.toState() }))
+        patchState(store, () => ({ _leftPokemonState: pokemon.toState() }))
       },
 
       updateRightPokemon(pokemon: Pokemon) {
-        patchState(store, () => ({ rightPokemonState: pokemon.toState() }))
+        patchState(store, () => ({ _rightPokemonState: pokemon.toState() }))
       },
 
       enableOneVsOne() {
         patchState(store, () => ({ 
-          menuState: {
+          _menuState: {
             oneVsOneActivated: true,
             oneVsManyActivated: false,
             manyVsOneActivated: false,
@@ -591,7 +591,7 @@ export const DataStore = signalStore(
 
       enableOneVsMany() {
         patchState(store, () => ({ 
-          menuState: {
+          _menuState: {
             oneVsOneActivated: false,
             oneVsManyActivated: true,
             manyVsOneActivated: false,
@@ -602,7 +602,7 @@ export const DataStore = signalStore(
 
       enableManyVsOne() {
         patchState(store, () => ({ 
-          menuState: {
+          _menuState: {
             oneVsOneActivated: false,
             oneVsManyActivated: false,
             manyVsOneActivated: true,
@@ -613,7 +613,7 @@ export const DataStore = signalStore(
 
       enableSpeedCalculator() {
         patchState(store, () => ({ 
-          menuState: {
+          _menuState: {
             oneVsOneActivated: false,
             oneVsManyActivated: false,
             manyVsOneActivated: false,
