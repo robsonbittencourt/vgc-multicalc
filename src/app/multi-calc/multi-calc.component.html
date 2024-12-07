@@ -1,6 +1,6 @@
 <div class="container">
   <app-team [pokemonId]="pokemonId()" [isAttacker]="isAttacker()" (teamMemberSelected)="pokemonId.set($event)" 
-    (teamMemberRemoved)="pokemonId.set(newData.team().activePokemon().id)"/>
+    (teamMemberRemoved)="pokemonId.set(data.team().activePokemon().id)"/>
   
   <div>
     <app-teams (teamChanged)="pokemonId.set($event.activePokemon().id)"/>
@@ -8,8 +8,8 @@
   </div> 
 
   <div class="target-pokemon">
-    <app-target-pokemon [isAttacker]="data.manyVsOneActivated" [showDamageDescription]="!newData.activeAttacker().isDefault()" 
-      (targetActivated)="pokemonId.set($event)" (targetRemoved)="pokemonId.set(newData.team().activePokemon().id)"
+    <app-target-pokemon [isAttacker]="data.manyVsOneActivated()" [showDamageDescription]="!data.activeAttacker().isDefault()" 
+      (targetActivated)="pokemonId.set($event)" (targetRemoved)="pokemonId.set(data.team().activePokemon().id)"
       (targetsImported)="targetsImported()"/>
   </div>
 </div>

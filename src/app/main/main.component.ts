@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
+import { DataStore as NewDataStore } from 'src/data/data-store'
+import { FieldStore } from 'src/data/field-store'
 import { DeviceDetectorService } from 'src/lib/device-detector.service'
 import { DataStore } from '../../lib/data-store.service'
-
-import { FieldStore } from 'src/data/field-store'
 import { HeaderMobileComponent } from '../header-mobile/header-mobile.component'
 import { HeaderComponent } from '../header/header.component'
 import { MultiCalcComponent } from '../multi-calc/multi-calc.component'
@@ -21,6 +21,7 @@ import { SpeedCalculatorComponent } from '../speed-calculator/speed-calculator.c
 })
 export class MainComponent {
   data = inject(DataStore)
+  newData = inject(NewDataStore)
   fieldStore = inject(FieldStore)
   private activatedRoute = inject(ActivatedRoute)
   private deviceDetectorService = inject(DeviceDetectorService)
@@ -40,27 +41,6 @@ export class MainComponent {
         this.data.buildInitialData(userData)
       }
     })
-  }
-
-  enableOneVsMany() {
-    this.data.oneVsManyActivated = true
-    this.data.manyVsOneActivated = false
-    this.data.speedCalculatorActivated = false
-    this.updateLocalStorage()
-  }
-
-  enableManyVsOne() {
-    this.data.manyVsOneActivated = true
-    this.data.oneVsManyActivated = false
-    this.data.speedCalculatorActivated = false
-    this.updateLocalStorage()
-  }
-
-  enableSpeedCalculator() {
-    this.data.oneVsManyActivated = false
-    this.data.manyVsOneActivated = false
-    this.data.speedCalculatorActivated = true
-    this.updateLocalStorage()
   }
 
   isDesktopDevice(): boolean {

@@ -2,19 +2,19 @@
   <app-header/>
 }
 
-@if (isDesktopDevice() && data.oneVsOneActivated) {
+@if (isDesktopDevice() && newData.oneVsOneActivated()) {
   <app-simple-calc (dataChangedEvent)="updateLocalStorage()"/>
 }
 
-@if (isDesktopDevice() && data.oneVsManyActivated) {
+@if (isDesktopDevice() && newData.oneVsManyActivated()) {
   <app-multi-calc (dataChangedEvent)="updateLocalStorage()"/>
 }
 
-@if (isDesktopDevice() && data.manyVsOneActivated) {
+@if (isDesktopDevice() && newData.manyVsOneActivated()) {
   <app-multi-calc (dataChangedEvent)="updateLocalStorage()"/>
 }
 
-@if (isDesktopDevice() && data.speedCalculatorActivated) {
+@if (isDesktopDevice() && newData.speedCalculatorActivated()) {
   <app-speed-calculator (dataChangedEvent)="updateLocalStorage()"/>
 }
 
@@ -22,10 +22,10 @@
   <app-header-mobile/>
 }
 
-@if (!isDesktopDevice() && !data.speedCalculatorActivated) {
+@if (!isDesktopDevice() && !newData.speedCalculatorActivated()) {
   <app-simple-calc-mobile (dataChangedEvent)="updateLocalStorage()"/>
 }
 
-@if (!isDesktopDevice() && data.speedCalculatorActivated) {
+@if (!isDesktopDevice() && newData.speedCalculatorActivated()) {
   <app-speed-calculator-mobile />
 }

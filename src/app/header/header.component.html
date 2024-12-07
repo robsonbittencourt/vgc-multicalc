@@ -4,16 +4,16 @@
     <img class="icon" src="assets/icons/calc-72x72.png" />
     <span class="title">VGC Multi Calc</span>
     <div class="menu">
-      <div class="menu-option" [ngStyle]="data.oneVsOneActivated && { 'background-color': '#e7def6' } || null" (click)="enableOneVsOne()" data-cy="one-vs-one">
+      <div class="menu-option" [ngStyle]="data.oneVsOneActivated() && { 'background-color': '#e7def6' } || null" (click)="data.enableOneVsOne()" data-cy="one-vs-one">
         <span>One vs One</span>
       </div>
-      <div class="menu-option" [ngStyle]="data.oneVsManyActivated && { 'background-color': '#e7def6' } || null" (click)="enableOneVsMany()" data-cy="team-vs-many">
+      <div class="menu-option" [ngStyle]="data.oneVsManyActivated() && { 'background-color': '#e7def6' } || null" (click)="data.enableOneVsMany()" data-cy="team-vs-many">
         <span>Team vs Many</span>
       </div>
-      <div class="menu-option" [ngStyle]="data.manyVsOneActivated && { 'background-color': '#e7def6' } || null" (click)="enableManyVsOne()" data-cy="many-vs-team">
+      <div class="menu-option" [ngStyle]="data.manyVsOneActivated() && { 'background-color': '#e7def6' } || null" (click)="data.enableManyVsOne()" data-cy="many-vs-team">
         <span>Many vs Team</span>
       </div>
-      <div class="menu-option" [ngStyle]="data.speedCalculatorActivated && { 'background-color': '#e7def6' } || null" (click)="enableSpeedCalculator()" data-cy="speed-calculator">
+      <div class="menu-option" [ngStyle]="data.speedCalculatorActivated() && { 'background-color': '#e7def6' } || null" (click)="data.enableSpeedCalculator()" data-cy="speed-calculator">
         <span>Speed Calculator</span>
       </div>
     </div>

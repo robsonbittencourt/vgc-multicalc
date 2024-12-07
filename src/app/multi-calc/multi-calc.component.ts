@@ -1,8 +1,7 @@
 import { Component, computed, effect, inject, signal } from '@angular/core'
-import { DataStore as NewDataStore } from 'src/data/data-store'
+import { DataStore } from 'src/data/data-store'
 import { FieldStore } from 'src/data/field-store'
 import { DamageCalculatorService } from 'src/lib/damage-calculator.service'
-import { DataStore } from 'src/lib/data-store.service'
 import { Field } from 'src/lib/field'
 import { Pokemon } from 'src/lib/pokemon'
 import { Target } from 'src/lib/target'
@@ -21,33 +20,32 @@ import { TeamsComponent } from '../teams/teams.component'
 export class MultiCalcComponent {
   
   data = inject(DataStore)
-  newData = inject(NewDataStore)
   fieldStore = inject(FieldStore)
   private damageCalculator = inject(DamageCalculatorService)
 
-  pokemonId = signal<string>(this.newData.team().activePokemon().id)
+  pokemonId = signal<string>(this.data.team().activePokemon().id)
 
-  isAttacker = computed(() => this.newData.activeAttacker().equals(this.newData.findPokemonById(this.pokemonId())))
+  isAttacker = computed(() => this.data.activeAttacker().equals(this.data.findPokemonById(this.pokemonId())))
 
   constructor() {
     effect(() => {
-      if(this.newData.activeSecondAttacker().isDefault()) {
-        this.calculateDamageForAll(this.newData.activeAttacker(), this.newData.targets(), this.fieldStore.field())
+      if(this.data.activeSecondAttacker().isDefault()) {
+        this.calculateDamageForAll(this.data.activeAttacker(), this.data.targets(), this.fieldStore.field())
       } else {
-        this.calculateDamageForAll(this.newData.activeAttacker(), this.newData.targets(), this.fieldStore.field(), this.newData.activeSecondAttacker())
+        this.calculateDamageForAll(this.data.activeAttacker(), this.data.targets(), this.fieldStore.field(), this.data.activeSecondAttacker())
       }      
     })
   }
 
   targetsImported() {
-    if (this.newData.findPokemonById(this.pokemonId()).isDefault()) {
-      this.pokemonId.set(this.newData.team().activePokemon().id)
+    if (this.data.findPokemonById(this.pokemonId()).isDefault()) {
+      this.pokemonId.set(this.data.team().activePokemon().id)
     }
   }
  
   calculateDamageForAll(attacker: Pokemon, targets: Target[], field: Field, secondAttacker?: Pokemon) {
     targets.forEach(target => {
-      if(this.data.oneVsManyActivated) {
+      if(this.data.oneVsManyActivated()) {
         this.calculateDamageOneVsMany(attacker, target, field, secondAttacker)
       } else {
         this.calculateDamageManyVsOne(attacker, target, targets, field)      
@@ -81,7 +79,7 @@ export class MultiCalcComponent {
   }
 
   private order() {
-    this.newData.targets().sort((a, b) => {
+    this.data.targets().sort((a, b) => {
       if (a.pokemon.isDefault()) return 1
       
       return b.damageResult?.damage - a.damageResult?.damage

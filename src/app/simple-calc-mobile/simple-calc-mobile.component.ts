@@ -1,5 +1,5 @@
 import { Component, computed, inject, signal } from '@angular/core'
-import { DataStore as NewDataStore } from 'src/data/data-store'
+import { DataStore } from 'src/data/data-store'
 import { DamageCalculatorService } from 'src/lib/damage-calculator.service'
 import { DamageResult } from 'src/lib/damage-result'
 import { PokemonComboBoxComponent } from '../pokemon-combo-box/pokemon-combo-box.component'
@@ -19,7 +19,7 @@ import { PokemonBuildMobileComponent } from '../pokemon-build-mobile/pokemon-bui
 })
 export class SimpleCalcMobileComponent {
   
-  data = inject(NewDataStore)
+  data = inject(DataStore)
   fieldStore = inject(FieldStore)
   private damageCalculator = inject(DamageCalculatorService)
 
