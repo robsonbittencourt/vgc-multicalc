@@ -1,55 +1,48 @@
-import { animate, style, transition, trigger } from '@angular/animations';
-import { Component, Input } from '@angular/core';
-import { SpeedDefinition } from 'src/lib/speed-calculator/speed-definition';
-import { NgStyle } from '@angular/common';
+import { animate, style, transition, trigger } from '@angular/animations'
+import { NgStyle } from '@angular/common'
+import { Component, computed, input } from '@angular/core'
+import { SpeedDefinition } from 'src/lib/speed-calculator/speed-definition'
 
-const visible = { transform: 'translateX(0)' };
+const visible = { transform: 'translateX(0)' }
 const timing = '500ms ease-in';
 
 @Component({
-    selector: 'app-speed-box',
-    templateUrl: './speed-box.component.html',
-    styleUrls: ['./speed-box.component.scss'],
-    animations: [
-        trigger('openClose', [
-            transition(':enter', [
-                style({ transform: 'translateX({{ leaveEnd }})' }),
-                animate(timing, style(visible))
-            ], {
-                params: {
-                    leaveEnd: ''
-                }
-            })
-        ])
-    ],
-    standalone: true,
-    imports: [NgStyle]
+  selector: 'app-speed-box',
+  templateUrl: './speed-box.component.html',
+  styleUrls: ['./speed-box.component.scss'],
+  animations: [
+    trigger('openClose', [
+      transition(':enter', [
+        style({ transform: 'translateX({{ leaveEnd }})' }),
+        animate(timing, style(visible))
+      ], {
+        params: {
+            leaveEnd: ''
+        }
+      })
+    ])
+  ],
+  standalone: true,
+  imports: [NgStyle]
 })
 export class SpeedBoxComponent {
 
-  @Input()
-  speedDefinition: SpeedDefinition
+  speedDefinition = input.required<SpeedDefinition>()
+  speedChanged = input.required<boolean>()
+  speedIncreasing = input.required<boolean>()
 
-  @Input()
-  speedChanged: boolean
+  isActual = computed(() => this.speedDefinition().description.includes("Actual"))
 
-  @Input()
-  speedIncreasing: boolean
-
-  isActual(speedDefinition: SpeedDefinition) {
-    return speedDefinition.description.includes("Actual")
-  }
-
-  getAnimation(): string {
-    if(!this.speedChanged) {
+  animation = computed(() => {
+    if(!this.speedChanged()) {
       return '0'
     } 
 
-    if (this.speedIncreasing) {
+    if (this.speedIncreasing()) {
       return '100%'
     } else {
       return '-100%'
-    }    
-  }
+    }
+  })
 
 }

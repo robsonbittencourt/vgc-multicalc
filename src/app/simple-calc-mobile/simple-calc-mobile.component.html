@@ -2,19 +2,19 @@
   <div class="pokes">
     <div class="pokemon-name">
       <label>Pokémon</label>
-      <app-pokemon-combo-box [pokemon]="attacker" (pokemonChange)="pokemonOnEditChanged()"/>
+      <app-pokemon-combo-box [pokemonId]="attacker().id" (pokemonChanged)="pokemonChanged()"/>
     </div>
-    <app-pokemon-tab [activeTab]="leftIsAttacker()" [teamMember]="leftTeamMember" (tabActivated)="activatePokemon($event)"/>
-    <app-pokemon-tab [activeTab]="rightIsAttacker()" [teamMember]="rightTeamMember" (tabActivated)="activatePokemon($event)"/>
+    <app-pokemon-tab [active]="leftIsAttacker()" [pokemonId]="data.leftPokemon().id" (tabActivated)="activatePokemon()"/>
+    <app-pokemon-tab [active]="rightIsAttacker()" [pokemonId]="data.rightPokemon().id" (tabActivated)="activatePokemon()"/>
   </div>
 
   <div class="damage-result">
     <div class="damage-result-text">
       @if (leftIsAttacker()) {
-        <span>{{ attacker.name }} {{ attacker.activeMoveName }} vs {{ rightTeamMember.pokemon.name }}</span>
+        <span>{{ attacker().name }} {{ attacker().activeMoveName }} vs {{ data.rightPokemon().name }}</span>
       }
       @if (rightIsAttacker()) {
-        <span>{{ attacker.name }} {{ attacker.activeMoveName }} vs {{ leftTeamMember.pokemon.name }}</span>
+        <span>{{ attacker().name }} {{ attacker().activeMoveName }} vs {{ data.leftPokemon().name }}</span>
       }
       <span>{{ damageResult().result }} - {{ damageResult().koChance }}</span>
     </div>
@@ -26,6 +26,6 @@
     </div>
   </div>
   
-  <app-pokemon-build-mobile [pokemon]="attacker" (pokemonChangedEvent)="pokemonOnEditChanged()"/>
+  <app-pokemon-build-mobile [pokemonId]="attacker().id" />
   <app-field />
 </div>

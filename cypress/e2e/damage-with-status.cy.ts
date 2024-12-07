@@ -64,6 +64,8 @@ describe('Test calcs with status', () => {
 
   it('Validate the damage using burned Guts Ursaluna with Headlong Rush', () => {
     const ursaluna = team.importPokemon(ursalunaData)
+    team.selectPokemon("Ursaluna")
+
     opponents.get("Urshifu Rapid Strike").damageIs(67.4, 80.5).cause2HKO() 
 
     ursaluna.burned()
@@ -73,6 +75,8 @@ describe('Test calcs with status', () => {
 
   it('Validate the damage using poisoned Toxic Boost Zangoose with Facade', () => {
     const zangoose = team.importPokemon(zangooseData)
+    team.selectPokemon("Zangoose")
+    
     opponents.get("Urshifu Rapid Strike").damageIs(31.4, 37.7).haveChanceOfToCause3HKO(85.4)
 
     zangoose.poisoned()

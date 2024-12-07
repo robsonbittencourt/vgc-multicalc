@@ -1,9 +1,9 @@
-<mat-card (click)="activate()" class="card" [ngStyle]="cardStyle()" [attr.data-cy]='"pokemon-card-" + target.pokemon.displayName'>
+<mat-card (click)="activate()" class="card" [ngStyle]="cardStyle()" [attr.data-cy]='"pokemon-card-" + target().pokemon.displayName'>
   <div class="card-container">
-    @if (target.pokemon.isDefault()) {
+    @if (target().pokemon.isDefault()) {
       <div class="card-left-side">
         <mat-card-title-group>
-          <mat-card-title>{{ target.pokemon.displayNameWithoutSuffix }}</mat-card-title>
+          <mat-card-title>{{ target().pokemon.displayNameWithoutSuffix }}</mat-card-title>
         </mat-card-title-group>
       </div>
 
@@ -21,19 +21,19 @@
     @else {
       <div class="card-left-side">
         <mat-card-title-group>
-          <mat-card-title>{{ target.pokemon.displayNameWithoutSuffix }}</mat-card-title>
-          <mat-card-subtitle>Item: {{ target.pokemon.item }}</mat-card-subtitle>
-          <mat-card-subtitle>Nature: {{ target.pokemon.nature }}</mat-card-subtitle>
-          <mat-card-subtitle>Ability: {{ target.pokemon.displayAbility }}</mat-card-subtitle>
-          <mat-card-subtitle>{{ target.pokemon.evsDescription(isAttacker) }}</mat-card-subtitle>
-          <mat-card-subtitle>Move: {{ target.pokemon.activeMoveName }}</mat-card-subtitle>
-          <mat-card-subtitle>Tera Type: {{ target.pokemon.teraType }}</mat-card-subtitle>
+          <mat-card-title>{{ target().pokemon.displayNameWithoutSuffix }}</mat-card-title>
+          <mat-card-subtitle>Item: {{ target().pokemon.item }}</mat-card-subtitle>
+          <mat-card-subtitle>Nature: {{ target().pokemon.nature }}</mat-card-subtitle>
+          <mat-card-subtitle>Ability: {{ target().pokemon.displayAbility }}</mat-card-subtitle>
+          <mat-card-subtitle>{{ target().pokemon.evsDescription(isAttacker()) }}</mat-card-subtitle>
+          <mat-card-subtitle>Move: {{ target().pokemon.activeMoveName }}</mat-card-subtitle>
+          <mat-card-subtitle>Tera Type: {{ target().pokemon.teraType }}</mat-card-subtitle>
         </mat-card-title-group>
 
-        @if (target.damageResult && showDamageDescription) {
+        @if (target().damageResult && showDamageDescription()) {
           <div>
-            <br>Damage: {{ target.damageResult.result }}
-            <br><label class="ko-chance">{{ target.damageResult.koChance }}</label>
+            <br>Damage: {{ target().damageResult.result }}
+            <br><label class="ko-chance">{{ target().damageResult.koChance }}</label>
           </div>
         }
       </div>
@@ -41,21 +41,21 @@
       <div class="card-right-side">
         <div class="pokemon-image-container">
           <div class="plus-icon" matTooltip="Combine damage" [matTooltipShowDelay]="500">
-            @if (!target.active && canSelectSecondPokemon) {
+            @if (!target().active && canSelectSecondPokemon()) {
               <mat-icon (click)="addSecondAttacker($event)">check_circle_outline</mat-icon>
             }
 
-            @if (target.active) {
+            @if (target().active) {
               <mat-icon (click)="addSecondAttacker($event)">check_circle</mat-icon>
             }
           </div>
-          <img class="pokemon-image" mat-card-md-image src='assets/sprites/pokemon-home/{{ target.pokemon.name }}.png'>
+          <img class="pokemon-image" mat-card-md-image src='assets/sprites/pokemon-home/{{ target().pokemon.name }}.png'>
         </div>
 
         <div class="card-buttons">
-          @if (target.pokemon.name == 'Dondozo') {
+          @if (target().pokemon.name == 'Dondozo') {
             <button class="icon-button" (click)="toogleCommanderAbility($event)">
-              @if (commanderActivated) {
+              @if (target().pokemon.commanderActivated) {
                 <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly.png" />
               }
               @else {
@@ -64,9 +64,9 @@
             </button>
           }
 
-          @if (target.pokemon.teraTypeStorage) {
+          @if (target().pokemon.teraTypeStorage) {
             <button class="icon-button" (click)="terastalyzePokemon($event)" matTooltip="Terastal" [matTooltipShowDelay]="500" data-cy="terastal-button-opponent">
-              @if (target.pokemon.teraTypeActive) {
+              @if (target().pokemon.teraTypeActive) {
                 <img class="icon-tera" src="assets/icons/tera-icon.png" />
               }
               @else {

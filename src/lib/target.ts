@@ -1,22 +1,25 @@
-import { v4 as uuidv4 } from 'uuid'
+import { TargetState } from 'src/data/data-store'
 import { DamageResult } from "./damage-result"
 import { Pokemon } from "./pokemon"
 export class Target {
   
-  id: string
   active: boolean
   pokemon: Pokemon
-  position: number
   damageResult: DamageResult
 
-  constructor(pokemon: Pokemon, position: number) {
-    this.id = uuidv4()
-    this.active = false
+  constructor(pokemon: Pokemon, active: boolean = false) {
+    this.active = active
     this.pokemon = pokemon
-    this.position = position
   }
 
   setDamageResult(damageResult: DamageResult) {
     this.damageResult = damageResult
+  }
+
+  toState(): TargetState {
+    return {
+      active: this.active,
+      pokemon: this.pokemon.toState()
+    }
   }
 }

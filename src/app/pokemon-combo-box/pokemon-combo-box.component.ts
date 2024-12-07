@@ -1,8 +1,7 @@
-import { Component, input, output } from '@angular/core';
+import { Component, computed, inject, input, output } from '@angular/core';
 import { AllPokemon } from 'src/data/all-pokemon';
+import { DataStore } from 'src/data/data-store';
 import { SETDEX_SV } from 'src/data/movesets';
-import { MoveSet } from 'src/lib/moveset';
-import { Pokemon } from 'src/lib/pokemon';
 import { InputAutocompleteComponent } from '../input-autocomplete/input-autocomplete.component';
 
 @Component({
@@ -14,31 +13,39 @@ import { InputAutocompleteComponent } from '../input-autocomplete/input-autocomp
 })
 export class PokemonComboBoxComponent {
 
+  data = inject(DataStore)
+  
+  pokemonId = input.required<string>()
+
+  pokemonChanged = output()
+
+  name = computed(() => this.data.findPokemonById(this.pokemonId()).name)
+
   allPokemonNames = AllPokemon.instance.allPokemonNames
-
-  pokemon = input.required<Pokemon>()
-
-  pokemonChange = output<Pokemon>()
 
   onValueManuallySelected(pokemonName: string) {
     const poke = SETDEX_SV[pokemonName]
 
     if(poke) {
-      this.pokemon().nature = poke.nature
-      this.pokemon().item = poke.item
-      this.pokemon().ability = poke.ability
-      this.pokemon().teraType = poke.teraType
-      this.pokemon().evs = poke.evs
-      this.pokemon().moveSet = new MoveSet(poke.moves[0], poke.moves[1], poke.moves[2], poke.moves[3])
-      this.pokemon().changeTeraStatus(false)      
+      this.data.name(this.pokemonId(), pokemonName)
+      this.data.nature(this.pokemonId(), poke.nature)
+      this.data.item(this.pokemonId(), poke.item)
+      this.data.ability(this.pokemonId(), poke.ability)
+      this.data.teraType(this.pokemonId(), poke.teraType)
+      this.data.teraTypeActive(this.pokemonId(), false)
+      this.data.evs(this.pokemonId(), poke.evs)
+      this.data.moveSet(this.pokemonId(), [poke.moves[0], poke.moves[1], poke.moves[2], poke.moves[3]], poke.moves[0])
     } else {
-      this.pokemon().nature = "Docile"
-      this.pokemon().item = "Leftovers"
-      this.pokemon().teraType = "Normal"
-      this.pokemon().moveSet = new MoveSet("Tackle", "", "", "")
+      this.data.name(this.pokemonId(), pokemonName)
+      this.data.nature(this.pokemonId(), "Docile")
+      this.data.item(this.pokemonId(), "Leftovers")
+      this.data.ability(this.pokemonId(), AllPokemon.instance.abilitiesByName(pokemonName)[0])
+      this.data.teraType(this.pokemonId(), "Normal")
+      this.data.moveSet(this.pokemonId(), ["Tackle", "", "", ""], "Tackle")
+      this.data.evs(this.pokemonId(), { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
     }
 
-    this.pokemonChange.emit(this.pokemon())
+    this.pokemonChanged.emit()
   }
 
 }

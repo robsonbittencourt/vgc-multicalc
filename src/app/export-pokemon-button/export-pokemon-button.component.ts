@@ -24,7 +24,7 @@ export class ExportPokemonButtonComponent {
   exportPokemon() {
     this.dialog.open(TeamExportModalComponent, { 
       data: { 
-        title: this.pokemon.name,
+        title: this.pokemon().name,
         content: this.pokemon().showdownTextFormat()
       },
       width: "40em",

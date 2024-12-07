@@ -1,7 +1,7 @@
 <div class="container">
   <div class="header">
     <div class="title-damage-description">
-      @if (isAttacker) {
+      @if (isAttacker()) {
         <label class="title">Opponent Attackers</label>
       }
       @else {
@@ -34,9 +34,9 @@
   </div>
 
   <div class="target-pokemon">
-    @for (target of targets; track target) {
-      <app-pokemon-card [target]="target" [canSelectSecondPokemon]="canSelectSecondPokemon()" (targetActivated)="targetActivated($event)" (secondTargetActivated)="secondTargetActivated($event)"
-        (pokemonRemoved)="targetRemoved($event)" (targetChanged)="targetChanged($event)" [isAttacker]="isAttacker" [showDamageDescription]="showDamageDescription"/>
+    @for (target of targets(); track target.pokemon.id) {
+      <app-pokemon-card [target]="target" [canSelectSecondPokemon]="canSelectSecondPokemon()" (secondTargetActivated)="secondTargetActivated($event)"
+        [isAttacker]="isAttacker()" [showDamageDescription]="showDamageDescription()" (targetActivated)="targetActivated.emit($event)" (targetRemoved)="targetRemoved.emit()"/>
     }
 
     @if (!selectPokemonActive()) {

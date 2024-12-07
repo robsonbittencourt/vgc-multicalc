@@ -1,7 +1,6 @@
-import { inject, Injectable } from '@angular/core'
+import { Injectable } from '@angular/core'
 import { calculate, Generations, Move as MoveSmogon, Result, Field as SmogonField } from '@smogon/calc'
 import { StatIDExceptHP } from '@smogon/calc/dist/data/interface'
-import { DataStore } from 'src/lib/data-store.service'
 import { DamageResult } from './damage-result'
 import { Field } from './field'
 import { FieldMapper } from './field-mapper'
@@ -13,8 +12,6 @@ import { Pokemon } from './pokemon'
   providedIn: 'root'
 })
 export class DamageCalculatorService {
-  data = inject(DataStore)
-
   ZERO_RESULT_DAMAGE = Array(16).fill(0)
 
   calcDamage(attacker: Pokemon, target: Pokemon, field: Field): DamageResult {
@@ -111,10 +108,10 @@ export class DamageCalculatorService {
     try {
       const descriptionOne = resultOne.desc()
       const descriptionTwo = resultTwo.desc()
-      const descriptionAttackerTwo = descriptionOne.substring(0, descriptionOne.indexOf(" vs."))
+      const descriptionAttackerTwo = descriptionTwo.substring(0, descriptionTwo.indexOf(" vs."))
 
-      const finalDescription = descriptionTwo.substring(0, descriptionTwo.indexOf(" vs.")) 
-        + " AND " + descriptionAttackerTwo + descriptionOne.substring(descriptionOne.indexOf(" vs."))
+      const finalDescription = descriptionOne.substring(0, descriptionOne.indexOf(" vs.")) 
+        + " AND " + descriptionAttackerTwo + descriptionTwo.substring(descriptionTwo.indexOf(" vs."))
 
       return finalDescription
     } catch (error) {

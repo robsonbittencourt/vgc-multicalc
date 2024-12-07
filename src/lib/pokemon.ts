@@ -2,41 +2,49 @@ import { Generations, Pokemon as PokemonSmogon } from "@smogon/calc"
 import { StatsTable, StatusName, TypeName } from "@smogon/calc/dist/data/interface"
 import dedent from "dedent"
 import { AllPokemon } from "src/data/all-pokemon"
+import { PokemonState } from "src/data/data-store"
 import { Items } from "src/data/items"
+import { v4 as uuidv4 } from 'uuid'
 import { Move } from "./move"
 import { MoveSet } from "./moveset"
+import { Stats } from "./types"
 
 export class Pokemon {
+  private _id: string
   public pokemonSmogon: PokemonSmogon
   public teraTypeStorage: string
-  public evsStorage: Partial<StatsTable> & { spc?: number }
-  public ivsStorage: Partial<StatsTable> & { spc?: number }
+  public evsStorage: Partial<Stats>
+  public ivsStorage: Partial<Stats>
   private moveSetStorage: MoveSet
   private statusStorage?: string
   private hpPercentageStorage: number
   private actualHpStorage: number
   private commanderActivatedStorage: boolean
   private selectPokemonLabel: string = "Select a Pokémon"
-
+  
   constructor(name: string, options: {
-      ability?: string,
-      abilityOn?: boolean,
-      nature?: string,
-      item?: string,
-      teraType?: string,
-      teraTypeActive?: boolean,
-      evs?: Partial<StatsTable> & { spc?: number; }, 
-      moveSet?: MoveSet,
-      boosts?: Partial<StatsTable> | undefined,
-      status?: string,
-      ivs?: Partial<StatsTable> & { spc?: number; } | undefined
+    id?: string, 
+    ability?: string,
+    abilityOn?: boolean,
+    nature?: string,
+    item?: string,
+    teraType?: string,
+    teraTypeActive?: boolean,
+    evs?: Partial<Stats>, 
+    moveSet?: MoveSet,
+    boosts?: Partial<Stats>,
+    status?: string,
+    ivs?: Partial<Stats>,
+    hpPercentage?: number,
+    commanderActive?: boolean
   } = {}) {
     const defaulTeraType = "Water"
+    const adjustedName = name == this.selectPokemonLabel ? "Togepi" : name
 
-    this.pokemonSmogon = new PokemonSmogon(Generations.get(9), name, {
+    this.pokemonSmogon = new PokemonSmogon(Generations.get(9), adjustedName, {
       nature: options.nature ?? "Hardy",
       item: options.item != Items.instance.withoutItem() ? options.item : undefined,
-      ability: options.ability ?? AllPokemon.instance.abilitiesByName(name)[0],
+      ability: options.ability ?? AllPokemon.instance.abilitiesByName(adjustedName)[0],
       abilityOn: options.abilityOn ?? false,
       teraType: options.teraTypeActive ? (options.teraType as TypeName ?? defaulTeraType) : undefined,
       evs: options.evs,
@@ -46,13 +54,21 @@ export class Pokemon {
       level: 50
     })
 
-    this.hpPercentageStorage = 100
+    this.hpPercentageStorage = options.hpPercentage ?? 100
+    this.pokemonSmogon.originalCurHP = Math.round((this.pokemonSmogon.maxHP() * this.hpPercentageStorage) / 100)
+
+    this._id = options.id ?? uuidv4()
+    this.commanderActivated = options.commanderActive ?? false
     this.actualHpStorage = this.pokemonSmogon.stats.hp
     this.statusStorage = options.status ?? 'Healthy'
     this.teraTypeStorage = options.teraType ?? defaulTeraType
     this.evsStorage = options.evs ?? { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0}
     this.ivsStorage = options.ivs ?? { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31}
-    this.moveSetStorage = options.moveSet ?? new MoveSet("Struggle", "Struggle", "Struggle", "Struggle")
+    this.moveSetStorage = options.moveSet ?? new MoveSet(new Move("Struggle"), new Move("Struggle"), new Move("Struggle"), new Move("Struggle"))
+  }
+
+  public get id(): string {
+    return this._id
   }
 
   public get name(): string {
@@ -154,21 +170,21 @@ export class Pokemon {
     this.pokemonSmogon = this.buildPokemonSmogon({ hpValue: this.actualHpStorage })
   }
 
-  public get evs(): Partial<StatsTable> & { spc?: number; } {
+  public get evs(): Partial<Stats> {
     return this.pokemonSmogon.evs
   }
 
-  public set evs(evs: Partial<StatsTable> & { spc?: number; }) {
+  public set evs(evs: Partial<Stats>) {
     this.evsStorage = evs
     this.pokemonSmogon = this.buildPokemonSmogon({ evs: evs })      
     this.hpPercentage = this.hpPercentageStorage
   }
 
-  public get ivs(): Partial<StatsTable> & { spc?: number; } {
+  public get ivs(): Partial<Stats> {
     return this.pokemonSmogon.ivs
   }
 
-  public set ivs(ivs: Partial<StatsTable> & { spc?: number; }) {
+  public set ivs(ivs: Partial<Stats>) {
     this.ivsStorage = ivs
     this.pokemonSmogon = this.buildPokemonSmogon({ ivs: ivs })
     this.hpPercentage = this.hpPercentageStorage
@@ -233,8 +249,7 @@ export class Pokemon {
 
   public activateMove(move: string): Pokemon {
     const newPokemon = this.clone()
-    newPokemon.moveSet.activeMoveByName(move)
-
+    
     return newPokemon
   }
 
@@ -536,6 +551,10 @@ export class Pokemon {
     return this.pokemonSmogon.name == "Togepi"
   }
 
+  isOgerpon(): boolean {
+    return this.name.startsWith("Ogerpon")
+  }
+
   isTerapagos(): boolean {
     return this.name.startsWith("Terapagos")
   }
@@ -608,5 +627,31 @@ export class Pokemon {
     `
 
     return text
+  }
+
+  toState(): PokemonState {
+    return {
+      id: this.id,
+      name: this.name,
+      nature: this.nature,
+      item: this.item,
+      status: this.status,
+      ability: this.ability,
+      abilityOn: this.abilityOn,
+      commanderActive: this.commanderActivated,
+      teraType: this.teraType,
+      teraTypeActive: this.teraTypeActive,
+      activeMove: this.activeMoveName,
+      moveSet: [
+        { name: this.move1Name, alliesFainted: this.moveSet.move1.alliesFainted, hits: this.moveSet.move1.hits },
+        { name: this.move2Name, alliesFainted: this.moveSet.move2.alliesFainted, hits: this.moveSet.move2.hits },
+        { name: this.move3Name, alliesFainted: this.moveSet.move3.alliesFainted, hits: this.moveSet.move3.hits },
+        { name: this.move4Name, alliesFainted: this.moveSet.move4.alliesFainted, hits: this.moveSet.move4.hits }
+      ],
+      boosts: this.boosts,
+      evs: { hp: this.evs.hp!, atk: this.evs.atk!, def: this.evs.def!, spa: this.evs.spa!, spd: this.evs.spd!, spe: this.evs.spe! },
+      ivs: { hp: this.ivs.hp!, atk: this.ivs.atk!, def: this.ivs.def!, spa: this.ivs.spa!, spd: this.ivs.spd!, spe: this.ivs.spe! },
+      hpPercentage: this.hpPercentage
+    }
   }
 }

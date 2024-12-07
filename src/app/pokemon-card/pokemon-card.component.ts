@@ -1,62 +1,48 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Target } from 'src/lib/target';
-import { MatCard, MatCardTitleGroup, MatCardTitle, MatCardSubtitle, MatCardMdImage } from '@angular/material/card';
-import { NgStyle } from '@angular/common';
-import { MatTooltip } from '@angular/material/tooltip';
-import { MatIcon } from '@angular/material/icon';
+import { NgStyle } from '@angular/common'
+import { Component, inject, input, output } from '@angular/core'
+import { MatCard, MatCardMdImage, MatCardSubtitle, MatCardTitle, MatCardTitleGroup } from '@angular/material/card'
+import { MatIcon } from '@angular/material/icon'
+import { MatTooltip } from '@angular/material/tooltip'
+import { DataStore } from 'src/data/data-store'
+import { Target } from 'src/lib/target'
 
 @Component({
-    selector: 'app-pokemon-card',
-    templateUrl: './pokemon-card.component.html',
-    styleUrls: ['./pokemon-card.component.scss'],
-    standalone: true,
-    imports: [MatCard, NgStyle, MatCardTitleGroup, MatCardTitle, MatCardSubtitle, MatTooltip, MatIcon, MatCardMdImage]
+  selector: 'app-pokemon-card',
+  templateUrl: './pokemon-card.component.html',
+  styleUrls: ['./pokemon-card.component.scss'],
+  standalone: true,
+  imports: [MatCard, NgStyle, MatCardTitleGroup, MatCardTitle, MatCardSubtitle, MatTooltip, MatIcon, MatCardMdImage]
 })
 export class PokemonCardComponent {
 
-  @Input() 
-  target: Target
+  target = input.required<Target>()
+  isAttacker = input.required<boolean>()
+  showDamageDescription = input.required<boolean>()
+  canSelectSecondPokemon = input.required<boolean>()
 
-  @Input()
-  isAttacker: boolean
+  targetActivated = output<string>()
+  secondTargetActivated = output<string>()
+  targetRemoved = output()
 
-  @Input()
-  showDamageDescription: boolean
-
-  @Input()
-  canSelectSecondPokemon: boolean
-
-  @Output() 
-  targetActivated = new EventEmitter<number>()
-
-  @Output() 
-  secondTargetActivated = new EventEmitter<number>()
-
-  @Output() 
-  pokemonRemoved = new EventEmitter<number>()
-
-  @Output() 
-  targetChanged = new EventEmitter<Target>()
-
-  commanderActivated = false
+  data = inject(DataStore)
 
   activate() {
-    this.targetActivated.emit(this.target.position)
-  }
+    const updatedTargets = this.data.targets().map(target => new Target(target.pokemon, target.pokemon.id === this.target().pokemon.id))
+    const activeTarget = updatedTargets.find(target => target.active)!
 
-  toogleCommanderAbility(event: Event) {
-    event.stopPropagation()
-    this.target.pokemon.commanderActivated = !this.commanderActivated
-    this.commanderActivated = !this.commanderActivated
-    this.targetChanged.emit(this.target)
+    this.data.updateTargets(updatedTargets)
+    this.targetActivated.emit(activeTarget.pokemon.id)
   }
 
   removePokemon() {
-    this.pokemonRemoved.emit(this.target.position)
+    const updatedTargets = this.data.targets().filter(target => target.pokemon.id != this.target().pokemon.id)
+
+    this.data.updateTargets(updatedTargets)
+    this.targetRemoved.emit()
   }
 
   cardStyle(): any {
-    if(this.target.damageResult) {
+    if(this.target().damageResult) {
       return this.styleWithDamage()
     } else {
       return this.styleWithoutDamage()
@@ -65,18 +51,18 @@ export class PokemonCardComponent {
 
   private styleWithDamage(): any {
     const cardStyleSelectPokemon = { 'background-color': '#e7def6' }
-    const cardStyle = { 'background-color': this.cardColor(this.target.damageResult.koChance) }
+    const cardStyle = { 'background-color': this.cardColor(this.target().damageResult.koChance) }
     const cardWithBorder = { 'border': '4px', 'border-style': 'solid', 'border-color': '#8544ee' }
 
-    if (this.target.active && this.target.pokemon.isDefault()) {
+    if (this.target().active && this.target().pokemon.isDefault()) {
       return {...cardStyleSelectPokemon, ...cardWithBorder} 
     }
 
-    if (this.target.pokemon.isDefault()) {
+    if (this.target().pokemon.isDefault()) {
       return cardStyleSelectPokemon 
     }
     
-    if (this.target.active) {
+    if (this.target().active) {
       return {...cardStyle, ...cardWithBorder}
     }
 
@@ -86,7 +72,7 @@ export class PokemonCardComponent {
   private styleWithoutDamage() {
     const cardStyle = { 'border': '3px', 'border-style': 'solid', 'border-color': '#8544ee' }
     
-    if (this.target.active) {
+    if (this.target().active) {
       return cardStyle
     }
 
@@ -111,16 +97,23 @@ export class PokemonCardComponent {
 
   addSecondAttacker(event: Event) {
     event.stopPropagation()
-    this.secondTargetActivated.emit(this.target.position)
+    this.secondTargetActivated.emit(this.target().pokemon.id)
+  }
+
+  toogleCommanderAbility(event: Event) {
+    event.stopPropagation()
+    this.data.toogleActiveTargetCommander(this.target())
   }
 
   terastalyzePokemon(event: Event) {
     event.stopPropagation()
-    if (this.target.pokemon.isTerapagos()) return 
+    if (!this.target().pokemon.isTerapagos()) {
+      this.data.toogleActiveTargetTerastal(this.target())
 
-    const teraActived = !this.target.pokemon.teraTypeActive
-    this.target.pokemon.changeTeraStatus(teraActived)
-
-    this.targetChanged.emit(this.target)
+      if (this.target().pokemon.isOgerpon()) {
+        this.target().pokemon.changeTeraStatus(!this.target().pokemon.teraTypeActive)
+        this.data.updateTargetAbility(this.target())
+      }
+    }    
   }
 }

@@ -5,19 +5,19 @@
     </div>
 
     <div class="tabs">
-      @for (teamMember of team().teamMembers(); track teamMember.id) {
-        <app-pokemon-tab [teamMember]="teamMember" (tabActivated)="activatePokemon($event)" [isSecondSelection]="isSecondSelection(teamMember)"/>
+      @for (teamMember of data.team().teamMembers(); track teamMember.pokemon.id) {
+        <app-pokemon-tab [pokemonId]="teamMember.pokemon.id" [active]="teamMember.active || isSecondSelection(teamMember)" (tabActivated)="activatePokemon($event)" />
       }
     </div>
   </div>
 
   <div class="pokemon-actions">
     <app-import-pokemon-button [show]="canImportPokemon()" [hidden]="!teamMemberOnEdit()" (pokemonImportedEvent)="pokemonImported($event)" data-cy="import-pokemon-to-team"/>
-    <app-export-pokemon-button [show]="canImportPokemon()" [hidden]="!teamMemberOnEdit()" [pokemon]="pokemon()" data-cy="export-pokemon-from-team"/>
+    <app-export-pokemon-button [show]="canImportPokemon()" [hidden]="!teamMemberOnEdit()" [pokemon]="pokemonOnEdit() " data-cy="export-pokemon-from-team"/>
 
     @if (canShowCombineButton()) {
       <div [hidden]="!teamMemberOnEdit()" class="delete-pokemon" (click)="selectSecondAttacker()">
-        @if (secondSelectionActive()) {
+        @if (combineDamageActive()) {
           <mat-icon data-cy="disable-damage-combined-button">add_circle</mat-icon>
         }
         @else {
@@ -35,6 +35,6 @@
     }
   </div>
 
-  <app-pokemon-build [pokemon]="pokemon()" (pokemonChange)="pokemonOnEditChanged($event)"/>
+  <app-pokemon-build [pokemonId]="pokemonId()" />
 </div>
 <router-outlet></router-outlet>

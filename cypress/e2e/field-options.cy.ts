@@ -81,6 +81,7 @@ describe('Test the Field options', () => {
 
   it('With Rain active', () => {
     team.importPokemon(vaporeonData)
+    team.selectPokemon("Vaporeon")
 
     field.rain()
     
@@ -124,6 +125,7 @@ describe('Test the Field options', () => {
 
   it('With Psychic Terrain active', () => {
     team.importPokemon(hattereneData)
+    team.selectPokemon("Hatterene")    
     
     field.psychicTerrain()
     

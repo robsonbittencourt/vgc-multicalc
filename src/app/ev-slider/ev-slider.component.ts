@@ -1,25 +1,95 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatOption } from '@angular/material/core';
-import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
-import { MatInput } from '@angular/material/input';
-import { MatSelect } from '@angular/material/select';
-import { MatSlider, MatSliderThumb } from '@angular/material/slider';
+import { Component, computed, inject, input, model } from '@angular/core'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { MatOption } from '@angular/material/core'
+import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field'
+import { MatInput } from '@angular/material/input'
+import { MatSelect } from '@angular/material/select'
+import { MatSlider, MatSliderThumb } from '@angular/material/slider'
+import { DataStore } from 'src/data/data-store'
+import { Stats } from 'src/lib/types'
 
 @Component({
-    selector: 'app-ev-slider',
-    templateUrl: './ev-slider.component.html',
-    styleUrls: ['./ev-slider.component.scss'],
-    standalone: true,
-    imports: [MatFormField, MatSuffix, ReactiveFormsModule, MatInput, FormsModule, MatSelect, MatOption, MatLabel, MatSlider, MatSliderThumb]
+  selector: 'app-ev-slider',
+  templateUrl: './ev-slider.component.html',
+  styleUrls: ['./ev-slider.component.scss'],
+  standalone: true,
+  imports: [MatFormField, MatSuffix, ReactiveFormsModule, MatInput, FormsModule, MatSelect, MatOption, MatLabel, MatSlider, MatSliderThumb]
 })
 export class EvSliderComponent {
 
-  hpPercentageValue: number = 100
-  evValue: number | undefined = 0
-  ivValue: number | undefined = 0
-  statsModifierValue: number
+  pokemonId = input.required<string>()
+  ev = model.required<number>()
+  stat = input.required<keyof Stats>()
+  reduced = input(false)
+
+  data = inject(DataStore)
+
+  pokemon = computed(() => this.data.findPokemonById(this.pokemonId()))
+  nature = computed(() => this.pokemon().nature)
+  iv = computed(() => this.pokemon().ivs[this.stat()])
+  hpPercentage = computed(() => this.pokemon().hpPercentage)
+  statModifier = computed(() => this.pokemon().boosts[this.stat()])
+
+  baseStat = computed(() => { 
+    if (this.stat() == "hp") return this.pokemon().baseHp
+    if (this.stat() == "atk") return this.pokemon().baseAtk
+    if (this.stat() == "def") return this.pokemon().baseDef
+    if (this.stat() == "spa") return this.pokemon().baseSpa
+    if (this.stat() == "spd") return this.pokemon().baseSpd
+    return this.pokemon().baseSpe
+  })
+
+  statValue = computed(() => {
+    if (this.stat() == "hp") return this.pokemon().hp
+    if (this.stat() == "atk") return this.pokemon().modifiedAtk()
+    if (this.stat() == "def") return this.pokemon().modifiedDef()
+    if (this.stat() == "spa") return this.pokemon().modifiedSpa()
+    if (this.stat() == "spd") return this.pokemon().modifiedSpd()
+    return this.pokemon().modifiedSpe()
+  })
+
+  statName = computed(() => {
+    if (this.stat() == "hp") return "HP"
+    if (this.stat() == "atk") return "Attack"
+    if (this.stat() == "def") return "Defense"
+    if (this.stat() == "spa") return "Sp. Atk."
+    if (this.stat() == "spd") return "Sp. Def."
+    return "Speed"
+  })
+
+  statNameAcronym = computed(() => {
+    if (this.stat() == "hp") return "HP"
+    if (this.stat() == "atk") return "ATK"
+    if (this.stat() == "def") return "DEF"
+    if (this.stat() == "spa") return "SPA"
+    if (this.stat() == "spd") return "SPD"
+    return "SPE"
+  })
+
+  natureModifier = computed(() => {
+    if (this.stat() == "atk" && ["Lonely", "Adamant", "Naughty", "Brave"].includes(this.nature())) return "+"
+    if (this.stat() == "atk" && ["Bold", "Modest", "Calm", "Timid"].includes(this.nature())) return "-"
+
+    if (this.stat() == "def" && ["Bold", "Impish", "Lax", "Relaxed"].includes(this.nature())) return "+"
+    if (this.stat() == "def" && ["Lonely", "Mild", "Gentle", "Hasty"].includes(this.nature())) return "-"
+
+    if (this.stat() == "spa" && ["Modest", "Mild", "Rash", "Quiet"].includes(this.nature())) return "+"
+    if (this.stat() == "spa" && ["Adamant", "Impish", "Careful", "Jolly"].includes(this.nature())) return "-"
+
+    if (this.stat() == "spd" && ["Calm", "Gentle", "Careful", "Sassy"].includes(this.nature())) return "+"
+    if (this.stat() == "spd" && ["Naughty", "Lax", "Rash", "Naive"].includes(this.nature())) return "-"
+
+    if (this.stat() == "spe" && ["Timid", "Hasty", "Jolly", "Naive"].includes(this.nature())) return "+"
+    if (this.stat() == "spe" && ["Brave", "Relaxed", "Quiet", "Sassy"].includes(this.nature())) return "-"
+    
+    return ""
+  })
+
+  MAX_EVS = 508
+  EV_ZERO = 0
+  FIRST_EV = 4
+  EV_STEP = 8
+
   statsModifiers = [
     { value: 6, viewValue: "+6"}, { value: 5, viewValue: "+5"}, { value: 4, viewValue: "+4"},
     { value: 3, viewValue: "+3"}, { value: 2, viewValue: "+2"}, { value: 1, viewValue: "+1"},
@@ -28,134 +98,74 @@ export class EvSliderComponent {
     { value: -4, viewValue: "-4"}, { value: -5, viewValue: "-5"}, { value: -6, viewValue: "-6"},
   ]
 
-  @Input()
-  get hpPercentage(): number {
-    return this.hpPercentageValue
+  hpPercentageChanged(event: Event) {
+    this.data.hpPercentage(this.pokemonId(), +(event.target as HTMLInputElement).value)
   }
 
-  @Output()
-  hpPercentageChange = new EventEmitter<number>()
+  evChanged(event: Event) {
+    const newEv = +(event.target as HTMLInputElement).value
+    const adjustedEv = this.adjustEv(newEv)
+    
+    this.updateEv(adjustedEv)
+  }
+  
+  private adjustEv(newEv: number): number {
+    if (this.actualEvsQuantity() + newEv <= this.MAX_EVS) {
+      return newEv
+    }
+    
+    const maxAvailableEv = this.MAX_EVS - this.actualEvsQuantity()
 
-  set hpPercentage(hpPercentage: number) {
-    this.hpPercentageValue = hpPercentage
-    this.hpPercentageChange.emit(this.hpPercentageValue)
+    if (maxAvailableEv == 0) {
+      return 0
+    } 
+
+    const leftoverEvs = (maxAvailableEv - this.FIRST_EV) % this.EV_STEP
+    
+    return maxAvailableEv - leftoverEvs
+  }
+  
+  private updateEv(ev: number): void {
+    this.ev.set(ev)
+  
+    const updatedEvs = { ...this.pokemon().evs }
+    updatedEvs[this.stat()] = ev
+    this.data.evs(this.pokemonId(), updatedEvs)
   }
 
-  @Input()
-  get ev(): number | undefined {
-    return this.evValue
+  actualEvsQuantity() {
+    const STATS_KEYS: (keyof Stats)[] = ['hp', 'atk', 'def', 'spa', 'spd', 'spe']
+
+    return STATS_KEYS
+      .filter(stat => stat !== this.stat())
+      .reduce((total, stat) => total + (this.pokemon().evs[stat] ?? 0), 0)
   }
 
-  @Output()
-  evChange = new EventEmitter<number | undefined>()
+  ivChanged(event: Event) {
+    const newIvs = { ...this.pokemon().ivs }
+    newIvs[this.stat()] = +(event.target as HTMLInputElement).value
 
-  @Output()
-  evChangedEvent = new EventEmitter<number>()
-
-  @Output()
-  ivChangedEvent = new EventEmitter<number>()
-
-  @Output()
-  beforeEvChangedEvent = new EventEmitter<number>()
-
-  set ev(ev: number | undefined) {
-    this.evValue = ev
-    this.evChange.emit(this.evValue)
+    this.data.ivs(this.pokemonId(), newIvs)
   }
 
-  @Input()
-  get iv(): number | undefined {
-    return this.ivValue
+  statModifierChanged(statModifier: number) {
+    const newBoosts = { ...this.pokemon().boosts }
+    newBoosts[this.stat()] = statModifier
+
+    this.data.boosts(this.pokemonId(), newBoosts)
   }
 
-  set iv(iv: number | undefined) {
-    this.ivValue = iv
-    this.ivChange.emit(this.ivValue)
-  }
-
-  @Output()
-  ivChange = new EventEmitter<number | undefined>()
-
-  @Input()
-  get statsModifier(): number {
-    return this.statsModifierValue
-  }
-
-  @Output()
-  statsModifierChange = new EventEmitter<number>()
-
-  set statsModifier(statsModifier: number) {
-    this.statsModifierValue = statsModifier
-    this.statsModifierChange.emit(this.statsModifier)
-  }
-
-  @Input()
-  statName: string
-
-  @Input()
-  statNameAcronym: string
-
-  @Input()
-  statValue: number
-
-  @Input()
-  nature: string
-
-  @Input()
-  baseStatValue: number
-
-  @Input()
-  showIv: boolean = true
-
-  EV_ZERO = 0
-  FIRST_EV = 4
-
-  hpPercentageChanged() {
-    this.hpPercentageChange.emit(this.hpPercentage)
-  }
-
-  evChanged() {
-    this.evChangedEvent.emit(this.ev)
-  }
-
-  beforeEvChanged() {
-    this.beforeEvChangedEvent.emit(this.ev)
-  }
-
-  calculateMin(evValue: number | undefined) {
-    if (evValue == this.EV_ZERO || evValue == this.FIRST_EV) return 0
+  calculateMin() {
+    if (this.ev() == this.EV_ZERO || this.ev() == this.FIRST_EV) return 0
     
     return 4
   }
 
-  calculateEvStep(evValue: number | undefined) {
-    if (evValue == this.EV_ZERO) return 4
-    if (evValue == this.FIRST_EV) return 6
+  calculateEvStep() {
+    if (this.ev() == this.EV_ZERO) return this.FIRST_EV
+    if (this.ev() == this.FIRST_EV) return 6
     
-    return 8
-  }
-
-  showStatsModifier(): boolean {
-    return this.statName != "HP" && this.statNameAcronym != "HP"
-  }
-
-  natureModifier(): string {
-    if (this.statName == "Attack" && ["Lonely", "Adamant", "Naughty", "Brave"].includes(this.nature)) return "+"
-    if (this.statName == "Attack" && ["Bold", "Modest", "Calm", "Timid"].includes(this.nature)) return "-"
-
-    if (this.statName == "Defense" && ["Bold", "Impish", "Lax", "Relaxed"].includes(this.nature)) return "+"
-    if (this.statName == "Defense" && ["Lonely", "Mild", "Gentle", "Hasty"].includes(this.nature)) return "-"
-
-    if (this.statName == "Sp. Atk." && ["Modest", "Mild", "Rash", "Quiet"].includes(this.nature)) return "+"
-    if (this.statName == "Sp. Atk." && ["Adamant", "Impish", "Careful", "Jolly"].includes(this.nature)) return "-"
-
-    if (this.statName == "Sp. Def." && ["Calm", "Gentle", "Careful", "Sassy"].includes(this.nature)) return "+"
-    if (this.statName == "Sp. Def." && ["Naughty", "Lax", "Rash", "Naive"].includes(this.nature)) return "-"
-
-    if (this.statName == "Speed" && ["Timid", "Hasty", "Jolly", "Naive"].includes(this.nature)) return "+"
-    if (this.statName == "Speed" && ["Brave", "Relaxed", "Quiet", "Sassy"].includes(this.nature)) return "-"
-    
-    return ""
+    return this.EV_STEP
   }
 
 }

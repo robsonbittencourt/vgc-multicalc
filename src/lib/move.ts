@@ -2,19 +2,20 @@ import { Generations, MOVES, Move as MoveSmogon } from "@smogon/calc"
 
 export class Move {
 
-  active: boolean
   nameStorage: string
   possibleHitsStorage: string[]
   hitsStorage: string
   alliesFainted: string
   bpStorage: number
 
-  constructor(name: string, active: boolean = false) {
-    this.active = active
+  constructor(name: string, options: {
+    alliesFainted?: string
+    hits?: string
+  } = {}) {
     this.nameStorage = name
     this.possibleHitsStorage = this.moveHits(name)
-    this.hitsStorage = this.possibleHitsStorage[this.possibleHitsStorage.length - 1]
-    this.alliesFainted = "0"
+    this.hitsStorage = options.hits ?? this.possibleHitsStorage[this.possibleHitsStorage.length - 1]
+    this.alliesFainted = options.alliesFainted ?? "0"
     this.bpStorage = new MoveSmogon(Generations.get(9), name).bp
   }
 
@@ -68,6 +69,10 @@ export class Move {
     }
 
     return []
+  }
+
+  equals(move: Move): boolean {
+    return this.name == move.name
   }
 
 }

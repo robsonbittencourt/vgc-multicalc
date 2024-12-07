@@ -1,5 +1,5 @@
 import { NgStyle } from '@angular/common'
-import { Component, input, model, output } from '@angular/core'
+import { Component, computed, inject, input } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { MatCheckbox } from '@angular/material/checkbox'
 import { MatTooltip } from '@angular/material/tooltip'
@@ -7,10 +7,9 @@ import { RouterOutlet } from '@angular/router'
 import { MOVES, TYPE_CHART } from '@smogon/calc'
 import { TypeName } from '@smogon/calc/dist/data/interface'
 import { AllPokemon } from 'src/data/all-pokemon'
+import { DataStore } from 'src/data/data-store'
 import { Items } from 'src/data/items'
 import { Natures } from 'src/data/natures'
-import { Move } from 'src/lib/move'
-import { Pokemon } from 'src/lib/pokemon'
 import { AbilityComboBoxComponent } from '../ability-combo-box/ability-combo-box.component'
 import { EvSliderComponent } from '../ev-slider/ev-slider.component'
 import { InputAutocompleteComponent } from '../input-autocomplete/input-autocomplete.component'
@@ -25,11 +24,12 @@ import { PokemonComboBoxComponent } from '../pokemon-combo-box/pokemon-combo-box
 })
 export class PokemonBuildComponent {
   
-  pokemon = model.required<Pokemon>()
-
+  pokemonId = input.required<string>()
   reverse = input<boolean>(false)
 
-  pokemonChange = output<Pokemon>()
+  data = inject(DataStore)
+
+  pokemon = computed(() => this.data.findPokemonById(this.pokemonId()))
 
   MAX_EVS = 508
 
@@ -39,100 +39,39 @@ export class PokemonBuildComponent {
   allTeraTypes = Object.keys(TYPE_CHART[9]).splice(1).sort()
   allPokemonNames = AllPokemon.instance.allPokemonNames
   availableAbilities: string[]
-  commanderActivated = false
   alliesFainted = ["0", "1", "2", "3", "4", "5", "6", "7"]
 
   statusConditions = [
     "Healthy", "Sleep", "Poison", "Burn", "Freeze", "Paralysis"
   ]
 
-  beforeChangeEvValue() {
-    if (this.pokemon().totalEvs() <= this.MAX_EVS) {
-      this.pokemon().evs = this.pokemon().evs
-    }
-
-    this.pokemonChange.emit(this.pokemon())
-  }
-
-  onChangeEvValue() {
-    if (this.pokemon().totalEvs() <= this.MAX_EVS) {
-      this.pokemon().evs = this.pokemon().evs
-    } else {
-      this.pokemon().evs = this.pokemon().evsStorage
-    }
-    
-    this.pokemonChange.emit(this.pokemon())
-  }
-
-  onChangeIvValue() {
-    this.pokemon().ivs = this.pokemon().ivs
-    this.pokemonChange.emit(this.pokemon())
-  }
-
   moveSelectorDisabled(move: string): boolean {
     return !move || move == this.pokemon().activeMoveName
   }
 
-  move1Selected(move: string) {
-    this.pokemon().moveSet.move1 = new Move(move)
+  activateMove(position: number) {
+    this.data.activeMoveByPosition(this.pokemonId(), position)
   }
 
-  move2Selected(move: string) {
-    this.pokemon().moveSet.move2 = new Move(move)
+  alliesFaintedChanged(event: string) {
+    const activeMovePosition = this.pokemon().moveSet.activeMovePosition
+    this.data.alliesFainted(this.pokemonId(), event, activeMovePosition)
   }
 
-  move3Selected(move: string) {
-    this.pokemon().moveSet.move3 = new Move(move)
-  }
-
-  move4Selected(move: string) {
-    this.pokemon().moveSet.move4 = new Move(move)
-  }
-
-  activateMove1() {
-    this.activateMove(1)
-  }
-
-  activateMove2() {
-    this.activateMove(2)
-  }
-
-  activateMove3() {
-    this.activateMove(3)
-  }
-
-  activateMove4() {
-    this.activateMove(4)
-  }
-
-  private activateMove(position: number) {
-    this.pokemon().moveSet.activeMoveByPosition(position)
-    this.pokemonChanged()
-  }
-
-  pokemonChanged() {
-    this.pokemon.set(this.pokemon().clone())
-    this.pokemonChange.emit(this.pokemon())
+  hitsChanged(event: string) {
+    const activeMovePosition = this.pokemon().moveSet.activeMovePosition
+    this.data.hits(this.pokemonId(), event, activeMovePosition)
   }
 
   terastalyzePokemon() {
-    if (this.pokemon().isTerapagos()) return 
+    if (!this.pokemon().isTerapagos()) {
+      this.data.teraTypeActive(this.pokemonId(), !this.pokemon().teraTypeActive)
 
-    const teraActived = !this.pokemon().teraTypeActive
-    this.pokemon().changeTeraStatus(teraActived)
-
-    this.pokemonChanged()
-  }
-
-  toogleCommanderAbility() {
-    this.pokemon().commanderActivated = !this.commanderActivated
-    this.commanderActivated = !this.commanderActivated
-    this.pokemonChange.emit(this.pokemon())
-  }
-
-  toogleParadoxAbility() {
-    this.pokemon().abilityOn = !this.pokemon().abilityOn
-    this.pokemonChange.emit(this.pokemon())
+      if (this.pokemon().isOgerpon()) {
+        this.pokemon().changeTeraStatus(this.pokemon().teraTypeActive)
+        this.data.ability(this.pokemonId(), this.pokemon().ability)
+      }
+    }
   }
 
   typeStyle(type?: TypeName): any {

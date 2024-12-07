@@ -1,21 +1,21 @@
 <div class="container">
-  <app-damage-result [pokemon]="this.data.leftPokemon" [damageResults]="leftDamageResults()" [rollLevelConfig]="data.leftRollLevelConfig" [opponentDamageResult]="rightDamageResult()" (moveSetChange)="leftMoveActivated($event)" (rollLevelChange)="leftRollLevelChanged($event)" data-cy="left-damage-result"/>
-  <app-damage-result [pokemon]="this.data.rightPokemon" [damageResults]="rightDamageResults()" [rollLevelConfig]="data.rightRollLevelConfig" [opponentDamageResult]="leftDamageResult()" (moveSetChange)="rightMoveActivated($event)" (rollLevelChange)="rightRollLevelChanged($event)" [reverse]="true" data-cy="right-damage-result"/>
+  <app-damage-result [pokemon]="data.leftPokemon()" [damageResults]="leftDamageResults()" [opponentDamageResult]="rightDamageResult()" (moveSetChange)="leftMoveActivated($event)" data-cy="left-damage-result"/>
+  <app-damage-result [pokemon]="data.rightPokemon()" [damageResults]="rightDamageResults()" [opponentDamageResult]="leftDamageResult()" (moveSetChange)="rightMoveActivated($event)" [reverse]="true" data-cy="right-damage-result"/>
 
   <div class="pokemon-edit" data-cy="left-pokemon">
     <div class="pokemon-actions pokemon-actions-left">
-      <app-import-pokemon-button (pokemonImportedEvent)="leftPokemonChanged($event)"/>
-      <app-export-pokemon-button [pokemon]="this.data.leftPokemon"/>
+      <app-import-pokemon-button (pokemonImportedEvent)="data.updateLeftPokemon($event)"/>
+      <app-export-pokemon-button [pokemon]="data.leftPokemon()"/>
     </div>
-    <app-pokemon-build [pokemon]="this.data.leftPokemon" (pokemonChange)="leftPokemonChanged($event)"/>
+    <app-pokemon-build [pokemonId]="this.data.leftPokemon().id" />
   </div>
 
   <div class="pokemon-edit" data-cy="right-pokemon">
     <div class="pokemon-actions pokemon-actions-right">
-      <app-import-pokemon-button (pokemonImportedEvent)="rightPokemonChanged($event)"/>
-      <app-export-pokemon-button [pokemon]="this.data.rightPokemon"/>
+      <app-import-pokemon-button (pokemonImportedEvent)="data.updateRightPokemon($event)"/>
+      <app-export-pokemon-button [pokemon]="data.rightPokemon()"/>
     </div>
-    <app-pokemon-build [pokemon]="this.data.rightPokemon" (pokemonChange)="rightPokemonChanged($event)" [reverse]="true"/>
+    <app-pokemon-build [pokemonId]="this.data.rightPokemon().id" [reverse]="true"/>
   </div> 
 
   <div class="field">

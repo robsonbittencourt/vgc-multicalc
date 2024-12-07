@@ -1,14 +1,14 @@
-import { NgStyle } from '@angular/common';
-import { Component, computed, input, output } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatButtonToggle, MatButtonToggleGroup } from '@angular/material/button-toggle';
-import { MatChipListbox, MatChipListboxChange, MatChipOption } from '@angular/material/chips';
-import { MatIcon } from '@angular/material/icon';
-import { MatTooltip } from '@angular/material/tooltip';
-import { DamageResult } from 'src/lib/damage-result';
-import { Pokemon } from 'src/lib/pokemon';
-import { RollLevelConfig } from 'src/lib/roll-level-config';
-import { PokemonHpBadgeComponent } from '../pokemon-hp-badge/pokemon-hp-badge.component';
+import { NgStyle } from '@angular/common'
+import { Component, computed, input, output, signal } from '@angular/core'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { MatButtonToggle, MatButtonToggleGroup } from '@angular/material/button-toggle'
+import { MatChipListbox, MatChipListboxChange, MatChipOption } from '@angular/material/chips'
+import { MatIcon } from '@angular/material/icon'
+import { MatTooltip } from '@angular/material/tooltip'
+import { DamageResult } from 'src/lib/damage-result'
+import { Pokemon } from 'src/lib/pokemon'
+import { RollLevelConfig } from 'src/lib/roll-level-config'
+import { PokemonHpBadgeComponent } from '../pokemon-hp-badge/pokemon-hp-badge.component'
 
 @Component({
   selector: 'app-damage-result',
@@ -22,12 +22,13 @@ export class DamageResultComponent {
   pokemon = input.required<Pokemon>()
   damageResults = input.required<DamageResult[]>()
   opponentDamageResult = input.required<DamageResult>()
-  rollLevelConfig = input.required<RollLevelConfig>()
-
   reverse = input(false)
 
   moveSetChange = output<string>()
-  rollLevelChange = output<RollLevelConfig>()
+  
+  rollLevelConfig = signal(RollLevelConfig.high())
+
+  activeMoveName = computed(() => this.pokemon().activeMoveName)
 
   activeDamageResult = computed(() => {
     const active = this.damageResults().find(result => result.move == this.pokemon().activeMoveName)
@@ -36,32 +37,26 @@ export class DamageResultComponent {
 
   damageTaken = computed(() => this.damageTakenByRoll(this.opponentDamageResult(), this.rollLevelConfig()))
 
-  selectedMove = ""
   copyMessageEnabled = false
-  
-  ngOnInit() {
-    this.selectedMove = this.pokemon().activeMoveName
-  }
 
   moveSelected(event: MatChipListboxChange) {
-    if (!event.value || event.value == this.selectedMove) {
-      event.source.value = this.selectedMove
+    if (!event.value || event.value == this.pokemon().activeMoveName) {
+      event.source.value = this.pokemon().activeMoveName
     } else {
-      this.selectedMove = event.value
-      this.moveSetChange.emit(this.selectedMove)
+      this.moveSetChange.emit(event.value)
     }
   }
   
   activateHighRoll() {
-    this.rollLevelChange.emit(RollLevelConfig.high())
+    this.rollLevelConfig.set(RollLevelConfig.high())
   }
 
   activateMediumRoll() {
-    this.rollLevelChange.emit(RollLevelConfig.medium())
+    this.rollLevelConfig.set(RollLevelConfig.medium())
   }
 
   activateLowRoll() {
-    this.rollLevelChange.emit(RollLevelConfig.low())
+    this.rollLevelConfig.set(RollLevelConfig.low())
   }
 
   copy(text: string) {

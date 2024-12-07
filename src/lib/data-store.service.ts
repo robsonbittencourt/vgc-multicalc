@@ -7,6 +7,8 @@ import { RollLevelConfig } from 'src/lib/roll-level-config';
 import { Target } from 'src/lib/target';
 import { Team } from 'src/lib/team';
 import { TeamMember } from 'src/lib/team-member';
+import { Move } from './move';
+import { MovePosition } from './types';
 
 @Injectable({ providedIn: 'root' })
 export class DataStore {
@@ -117,19 +119,18 @@ export class DataStore {
   }
 
   private buildTargetsFromUserData(userData: any): Target[] {
-    let position = 0
     return userData.targets.map((target: any) => {
       const pokemon = this.buildPokemonFromUserData(target.pokemon)
-      const newTarget = new Target(pokemon, position)
-      position++
+      const newTarget = new Target(pokemon)
       
       return newTarget
     })
   }
 
   buildPokemonFromUserData(pokemon: any) {
-    const moveSet = new MoveSet(pokemon.moveSet[0], pokemon.moveSet[1], pokemon.moveSet[2], pokemon.moveSet[3])
-    moveSet.activeMoveByName(pokemon.activeMove)
+    const activeMovePosition = (pokemon.moveSet.findIndex((moveName: string) => moveName == pokemon.activeMove) + 1) as MovePosition
+    const moveSet = new MoveSet(new Move(pokemon.moveSet[0]), new Move(pokemon.moveSet[1]), new Move(pokemon.moveSet[2]), new Move(pokemon.moveSet[3]), activeMovePosition)
+
     return new Pokemon(pokemon.name, { ability: pokemon.ability, nature: pokemon.nature, item: pokemon.item, teraType: pokemon.teraType, teraTypeActive: pokemon.teraTypeActive, evs: pokemon.evs, moveSet: moveSet, boosts: pokemon.boosts, status: pokemon.status, ivs: pokemon.ivs })
   }
 
@@ -195,11 +196,11 @@ export class DataStore {
   }
 
   defaultLeftPokemon(): Pokemon {
-    return new Pokemon("Gholdengo", { ability: "Good as Gold", item: "Choice Specs", nature: "Timid", teraType: "Steel", evs: { hp: 4, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 }, moveSet: new MoveSet("Make It Rain", "Shadow Ball", "Protect", "Nasty Plot") })
+    return new Pokemon("Gholdengo", { ability: "Good as Gold", item: "Choice Specs", nature: "Timid", teraType: "Steel", evs: { hp: 4, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 }, moveSet: new MoveSet(new Move("Make It Rain"), new Move("Shadow Ball"), new Move("Protect"), new Move("Nasty Plot")) })
   }
 
   defaultRightPokemon(): Pokemon {
-    return new Pokemon("Rillaboom", { ability: "Grassy Surge", nature: "Adamant", item: "Assault Vest", teraType: "Fire", evs: { hp: 252, atk: 116, def: 4, spd: 60, spe: 76 }, moveSet: new MoveSet("Grassy Glide", "Wood Hammer", "U-turn", "Fake Out") })
+    return new Pokemon("Rillaboom", { ability: "Grassy Surge", nature: "Adamant", item: "Assault Vest", teraType: "Fire", evs: { hp: 252, atk: 116, def: 4, spd: 60, spe: 76 }, moveSet: new MoveSet(new Move("Grassy Glide"), new Move("Wood Hammer"), new Move("U-turn"), new Move("Fake Out")) })
   }
 
   private defaultTeams(): Team[] {
@@ -212,10 +213,10 @@ export class DataStore {
 
   private defaultTeamsDesktop(): Team[] {
     const teamMembers = [
-      new TeamMember(new Pokemon("Gholdengo", { ability: "Good as Gold", nature: "Timid", item: "Choice Specs", teraType: "Steel", evs: { hp: 4, spa: 252, spe: 252 }, moveSet: new MoveSet("Make It Rain", "Shadow Ball", "Protect", "Nasty Plot") }), true),
-      new TeamMember(new Pokemon("Rillaboom", { ability: "Grassy Surge", nature: "Adamant", item: "Assault Vest", teraType: "Fire", evs: { hp: 252, atk: 116, def: 4, spd: 60, spe: 76 }, moveSet: new MoveSet("Fake Out", "Grassy Glide", "Wood Hammer", "U-turn") }), false),
-      new TeamMember(new Pokemon("Kingambit", { ability: "Defiant", nature: "Adamant", item: "Black Glasses", teraType: "Dark", evs: { hp: 252, atk: 252, spd: 4 }, moveSet: new MoveSet("Sucker Punch", "Kowtow Cleave", "Protect", "Swords Dance") }), false),
-      new TeamMember(new Pokemon("Sneasler", { ability: "Poison Touch", nature: "Jolly", item: "Focus Sash", teraType: "Stellar", evs: { hp: 4, atk: 252, spe: 252 }, moveSet: new MoveSet("Close Combat", "Dire Claw", "Protect", "Fake Out") }), false),
+      new TeamMember(new Pokemon("Gholdengo", { ability: "Good as Gold", nature: "Timid", item: "Choice Specs", teraType: "Steel", evs: { hp: 4, spa: 252, spe: 252 }, moveSet: new MoveSet(new Move("Make It Rain"), new Move("Shadow Ball"), new Move("Protect"), new Move("Nasty Plot")) }), true),
+      new TeamMember(new Pokemon("Rillaboom", { ability: "Grassy Surge", nature: "Adamant", item: "Assault Vest", teraType: "Fire", evs: { hp: 252, atk: 116, def: 4, spd: 60, spe: 76 }, moveSet: new MoveSet(new Move("Fake Out"), new Move("Grassy Glide"), new Move("Wood Hammer"), new Move("U-turn")) }), false),
+      new TeamMember(new Pokemon("Kingambit", { ability: "Defiant", nature: "Adamant", item: "Black Glasses", teraType: "Dark", evs: { hp: 252, atk: 252, spd: 4 }, moveSet: new MoveSet(new Move("Sucker Punch"), new Move("Kowtow Cleave"), new Move("Protect"), new Move("Swords Dance")) }), false),
+      new TeamMember(new Pokemon("Sneasler", { ability: "Poison Touch", nature: "Jolly", item: "Focus Sash", teraType: "Stellar", evs: { hp: 4, atk: 252, spe: 252 }, moveSet: new MoveSet(new Move("Close Combat"), new Move("Dire Claw"), new Move("Protect"), new Move("Fake Out")) }), false),
       new TeamMember(defaultPokemon(), false)
     ]
     const team1 = new Team(true, "Team 1", teamMembers)
@@ -230,7 +231,7 @@ export class DataStore {
 
   private defaultTeamsMobile(): Team[] {
     const teamMembers = [
-      new TeamMember(new Pokemon("Gholdengo", { ability: "Good as Gold", nature: "Timid", item: "Choice Specs", teraType: "Steel", evs: { hp: 4, spa: 252, spe: 252 }, moveSet: new MoveSet("Make It Rain", "Shadow Ball", "Protect", "Nasty Plot") }), true)
+      new TeamMember(new Pokemon("Gholdengo", { ability: "Good as Gold", nature: "Timid", item: "Choice Specs", teraType: "Steel", evs: { hp: 4, spa: 252, spe: 252 }, moveSet: new MoveSet(new Move("Make It Rain"), new Move("Shadow Ball"), new Move("Protect"), new Move("Nasty Plot")) }), true)
     ]
     return [new Team(true, "Team 1", teamMembers)]
   }
@@ -245,36 +246,36 @@ export class DataStore {
 
   private defaultTargetsDesktop(): Target[] {
     return [
-      new Target(new Pokemon("Kingambit", { ability: "Defiant", nature: "Adamant", item: "Black Glasses", teraType: "Dark", evs: { hp: 252, atk: 252, spd: 4 }, moveSet: new MoveSet("Sucker Punch", "Kowtow Cleave", "Protect", "Swords Dance") }), 0),
-      new Target(new Pokemon("Gholdengo", { ability: "Good as Gold", nature: "Timid", item: "Choice Specs", teraType: "Steel", evs: { hp: 4, spa: 252, spe: 252 }, moveSet: new MoveSet("Make It Rain", "Shadow Ball", "Protect", "Nasty Plot") }), 0),
-      new Target(new Pokemon("Rillaboom", { ability: "Grassy Surge", nature: "Adamant", item: "Assault Vest", teraType: "Fire", evs: { hp: 252, atk: 116, def: 4, spd: 60, spe: 76 }, moveSet: new MoveSet("Fake Out", "Grassy Glide", "Wood Hammer", "U-turn") }), 0),
-      new Target(new Pokemon("Incineroar", { ability: "Intimidate", nature: "Adamant", item: "Safety Goggles", teraType: "Ghost", evs: { hp: 228, atk: 36, def: 4, spd: 36, spe: 204 }, moveSet: new MoveSet("Fake Out", "Knock Off", "Flare Blitz", "Parting Shot") }), 0),
-      new Target(new Pokemon("Primarina", { ability: "Liquid Voice", nature: "Modest", item: "Throat Spray", teraType: "Poison", evs: { hp: 172, def: 252, spa: 20, spd: 4, spe: 60 }, moveSet: new MoveSet("Moonblast", "Hyper Voice", "Haze", "Protect") }), 0),
-      new Target(new Pokemon("Amoonguss", { ability: "Regenerator", nature: "Calm", item: "Sitrus Berry", teraType: "Water", evs: { hp: 236, def: 36, spd: 236 }, moveSet: new MoveSet("Spore", "Rage Powder", "Pollen Puff", "Protect") }), 0),
-      new Target(new Pokemon("Sneasler", { ability: "Poison Touch", nature: "Jolly", item: "Focus Sash", teraType: "Stellar", evs: { hp: 4, atk: 252, spe: 252 }, moveSet: new MoveSet("Close Combat", "Dire Claw", "Protect", "Fake Out") }), 0),
-      new Target(new Pokemon("Dragonite", { ability: "Inner Focus", nature: "Adamant", item: "Choice Band", teraType: "Flying", evs: { hp: 4, atk: 252, spe: 252 }, moveSet: new MoveSet("Extreme Speed", "Tera Blast", "Stomping Tantrum", "Ice Spinner") }), 0),
-      new Target(new Pokemon("Garchomp", { ability: "Rough Skin", nature: "Jolly", item: "Life Orb", teraType: "Steel", evs: { hp: 4, atk: 252, spe: 252 }, moveSet: new MoveSet("Protect", "Dragon Claw", "Earthquake", "Stomping Tantrum") }), 0),
-      new Target(new Pokemon("Archaludon", { ability: "Stamina", nature: "Timid", item: "Assault Vest", teraType: "Grass", evs: { spa: 252, spd: 4, spe: 252 }, moveSet: new MoveSet("Electro Shot", "Flash Cannon", "Draco Meteor", "Body Press") }), 0),
-      new Target(new Pokemon("Porygon2", { ability: "Download", nature: "Quiet", item: "Eviolite", teraType: "Fighting", evs: { hp: 252, atk: 4, def: 124, spa: 92, spd: 36 }, moveSet: new MoveSet("Trick Room", "Recover", "Ice Beam", "Tera Blast") }), 0),
-      new Target(new Pokemon("Electabuzz", { ability: "Vital Spirit", nature: "Bold", item: "Eviolite", teraType: "Ghost", evs: { hp: 228, def: 244, spa: 4, spd: 4, spe: 28 }, moveSet: new MoveSet("Follow Me", "Protect", "Electroweb", "Taunt") }), 0),
-      new Target(new Pokemon("Volcarona", { ability: "Flame Body", nature: "Timid", item: "Leftovers", teraType: "Grass", evs: { hp: 188, def: 52, spa: 12, spd: 4, spe: 252 }, moveSet: new MoveSet("Protect", "Quiver Dance", "Giga Drain", "Heat Wave") }), 0),
-      new Target(new Pokemon("Dondozo", { ability: "Unaware", nature: "Jolly", item: "Leftovers", teraType: "Grass", evs: { hp: 4, atk: 252, def: 4, spd: 36, spe: 212 }, moveSet: new MoveSet("Protect", "Wave Crash", "Order Up", "Earthquake") }), 0),
-      new Target(new Pokemon("Basculegion", { ability: "Swift Swim", nature: "Adamant", item: "Choice Scarf", teraType: "Water", evs: { hp: 148, atk: 252, def: 4, spd: 4, spe: 100 }, moveSet: new MoveSet("Last Respects", "Wave Crash", "Aqua Jet", "Flip Turn") }), 0),
-      new Target(new Pokemon("Pelipper", { ability: "Drizzle", nature: "Modest", item: "Focus Sash", teraType: "Stellar", evs: { hp: 4, spa: 252, spe: 252 }, moveSet: new MoveSet("Hurricane", "Weather Ball", "Protect", "Tailwind") }), 0),
-      new Target(new Pokemon("Dragapult", { ability: "Clear Body", nature: "Adamant", item: "Choice Band", teraType: "Dragon", evs: { hp: 4, atk: 252, spe: 252 }, moveSet: new MoveSet("U-turn", "Dragon Darts", "Phantom Force", "Outrage") }), 0),
-      new Target(new Pokemon("Ursaluna", { ability: "Guts", nature: "Brave", item: "Flame Orb", teraType: "Ghost", evs: { hp: 252, atk: 252, spd: 4 }, moveSet: new MoveSet("Facade", "Headlong Rush", "Protect", "Earthquake") }), 0),
-      new Target(new Pokemon("Tyranitar", { ability: "Sand Stream", nature: "Jolly", item: "Assault Vest", teraType: "Flying", evs: { hp: 4, atk: 252, spe: 252 }, moveSet: new MoveSet("Rock Slide", "Knock Off", "Low Kick", "Tera Blast") }), 0),
-      new Target(new Pokemon("Talonflame", { ability: "Gale Wings", nature: "Jolly", item: "Covert Cloak", teraType: "Ghost", evs: { hp: 4, atk: 252, spe: 252 }, moveSet: new MoveSet("Tailwind", "Brave Bird", "Will-O-Wisp", "Taunt") }), 0),
-      new Target(new Pokemon("Glimmora", { ability: "Toxic Debris", nature: "Timid", item: "Power Herb", teraType: "Grass", evs: { hp: 4, spa: 252, spe: 252 }, moveSet: new MoveSet("Earth Power", "Sludge Bomb", "Spiky Shield", "Meteor Beam") }), 0),
-      new Target(new Pokemon("Tatsugiri", { ability: "Commander", nature: "Timid", item: "Choice Scarf", teraType: "Steel", evs: { spa: 252, spd: 4, spe: 252 }, moveSet: new MoveSet("Draco Meteor", "Muddy Water", "Icy Wind", "Dragon Pulse") }), 0),
-      new Target(new Pokemon("Annihilape", { ability: "Defiant", nature: "Jolly", item: "Choice Scarf", teraType: "Fire", evs: { hp: 252, atk: 4, spe: 252 }, moveSet: new MoveSet("Rage Fist", "Drain Punch", "Protect", "Bulk Up") }), 0),
-      new Target(new Pokemon("Ursaluna-Bloodmoon", { ability: "Mind's Eye", nature: "Modest", item: "Life Orb", teraType: "Normal", evs: { hp: 4, spa: 252, spe: 252 }, moveSet: new MoveSet("Blood Moon", "Earth Power", "Hyper Voice", "Protect") }), 0)
+      new Target(new Pokemon("Kingambit", { ability: "Defiant", nature: "Adamant", item: "Black Glasses", teraType: "Dark", evs: { hp: 252, atk: 252, spd: 4 }, moveSet: new MoveSet(new Move("Sucker Punch"), new Move("Kowtow Cleave"), new Move("Protect"), new Move("Swords Dance")) })),
+      new Target(new Pokemon("Gholdengo", { ability: "Good as Gold", nature: "Timid", item: "Choice Specs", teraType: "Steel", evs: { hp: 4, spa: 252, spe: 252 }, moveSet: new MoveSet(new Move("Make It Rain"), new Move("Shadow Ball"), new Move("Protect"), new Move("Nasty Plot")) })),
+      new Target(new Pokemon("Rillaboom", { ability: "Grassy Surge", nature: "Adamant", item: "Assault Vest", teraType: "Fire", evs: { hp: 252, atk: 116, def: 4, spd: 60, spe: 76 }, moveSet: new MoveSet(new Move("Fake Out"), new Move("Grassy Glide"), new Move("Wood Hammer"), new Move("U-turn")) })),
+      new Target(new Pokemon("Incineroar", { ability: "Intimidate", nature: "Adamant", item: "Safety Goggles", teraType: "Ghost", evs: { hp: 228, atk: 36, def: 4, spd: 36, spe: 204 }, moveSet: new MoveSet(new Move("Fake Out"), new Move("Knock Off"), new Move("Flare Blitz"), new Move("Parting Shot")) })),
+      new Target(new Pokemon("Primarina", { ability: "Liquid Voice", nature: "Modest", item: "Throat Spray", teraType: "Poison", evs: { hp: 172, def: 252, spa: 20, spd: 4, spe: 60 }, moveSet: new MoveSet(new Move("Moonblast"), new Move("Hyper Voice"), new Move("Haze"), new Move("Protect")) })),
+      new Target(new Pokemon("Amoonguss", { ability: "Regenerator", nature: "Calm", item: "Sitrus Berry", teraType: "Water", evs: { hp: 236, def: 36, spd: 236 }, moveSet: new MoveSet(new Move("Spore"), new Move("Rage Powder"), new Move("Pollen Puff"), new Move("Protect")) })),
+      new Target(new Pokemon("Sneasler", { ability: "Poison Touch", nature: "Jolly", item: "Focus Sash", teraType: "Stellar", evs: { hp: 4, atk: 252, spe: 252 }, moveSet: new MoveSet(new Move("Close Combat"), new Move("Dire Claw"), new Move("Protect"), new Move("Fake Out")) })),
+      new Target(new Pokemon("Dragonite", { ability: "Inner Focus", nature: "Adamant", item: "Choice Band", teraType: "Flying", evs: { hp: 4, atk: 252, spe: 252 }, moveSet: new MoveSet(new Move("Extreme Speed"), new Move("Tera Blast"), new Move("Stomping Tantrum"), new Move("Ice Spinner")) })),
+      new Target(new Pokemon("Garchomp", { ability: "Rough Skin", nature: "Jolly", item: "Life Orb", teraType: "Steel", evs: { hp: 4, atk: 252, spe: 252 }, moveSet: new MoveSet(new Move("Protect"), new Move("Dragon Claw"), new Move("Earthquake"), new Move("Stomping Tantrum")) })),
+      new Target(new Pokemon("Archaludon", { ability: "Stamina", nature: "Timid", item: "Assault Vest", teraType: "Grass", evs: { spa: 252, spd: 4, spe: 252 }, moveSet: new MoveSet(new Move("Electro Shot"), new Move("Flash Cannon"), new Move("Draco Meteor"), new Move("Body Press")) })),
+      new Target(new Pokemon("Porygon2", { ability: "Download", nature: "Quiet", item: "Eviolite", teraType: "Fighting", evs: { hp: 252, atk: 4, def: 124, spa: 92, spd: 36 }, moveSet: new MoveSet(new Move("Trick Room"), new Move("Recover"), new Move("Ice Beam"), new Move("Tera Blast")) })),
+      new Target(new Pokemon("Electabuzz", { ability: "Vital Spirit", nature: "Bold", item: "Eviolite", teraType: "Ghost", evs: { hp: 228, def: 244, spa: 4, spd: 4, spe: 28 }, moveSet: new MoveSet(new Move("Follow Me"), new Move("Protect"), new Move("Electroweb"), new Move("Taunt")) })),
+      new Target(new Pokemon("Volcarona", { ability: "Flame Body", nature: "Timid", item: "Leftovers", teraType: "Grass", evs: { hp: 188, def: 52, spa: 12, spd: 4, spe: 252 }, moveSet: new MoveSet(new Move("Protect"), new Move("Quiver Dance"), new Move("Giga Drain"), new Move("Heat Wave")) })),
+      new Target(new Pokemon("Dondozo", { ability: "Unaware", nature: "Jolly", item: "Leftovers", teraType: "Grass", evs: { hp: 4, atk: 252, def: 4, spd: 36, spe: 212 }, moveSet: new MoveSet(new Move("Protect"), new Move("Wave Crash"), new Move("Order Up"), new Move("Earthquake")) })),
+      new Target(new Pokemon("Basculegion", { ability: "Swift Swim", nature: "Adamant", item: "Choice Scarf", teraType: "Water", evs: { hp: 148, atk: 252, def: 4, spd: 4, spe: 100 }, moveSet: new MoveSet(new Move("Last Respects"), new Move("Wave Crash"), new Move("Aqua Jet"), new Move("Flip Turn")) })),
+      new Target(new Pokemon("Pelipper", { ability: "Drizzle", nature: "Modest", item: "Focus Sash", teraType: "Stellar", evs: { hp: 4, spa: 252, spe: 252 }, moveSet: new MoveSet(new Move("Hurricane"), new Move("Weather Ball"), new Move("Protect"), new Move("Tailwind")) })),
+      new Target(new Pokemon("Dragapult", { ability: "Clear Body", nature: "Adamant", item: "Choice Band", teraType: "Dragon", evs: { hp: 4, atk: 252, spe: 252 }, moveSet: new MoveSet(new Move("U-turn"), new Move("Dragon Darts"), new Move("Phantom Force"), new Move("Outrage")) })),
+      new Target(new Pokemon("Ursaluna", { ability: "Guts", nature: "Brave", item: "Flame Orb", teraType: "Ghost", evs: { hp: 252, atk: 252, spd: 4 }, moveSet: new MoveSet(new Move("Facade"), new Move("Headlong Rush"), new Move("Protect"), new Move("Earthquake")) })),
+      new Target(new Pokemon("Tyranitar", { ability: "Sand Stream", nature: "Jolly", item: "Assault Vest", teraType: "Flying", evs: { hp: 4, atk: 252, spe: 252 }, moveSet: new MoveSet(new Move("Rock Slide"), new Move("Knock Off"), new Move("Low Kick"), new Move("Tera Blast")) })),
+      new Target(new Pokemon("Talonflame", { ability: "Gale Wings", nature: "Jolly", item: "Covert Cloak", teraType: "Ghost", evs: { hp: 4, atk: 252, spe: 252 }, moveSet: new MoveSet(new Move("Tailwind"), new Move("Brave Bird"), new Move("Will-O-Wisp"), new Move("Taunt")) })),
+      new Target(new Pokemon("Glimmora", { ability: "Toxic Debris", nature: "Timid", item: "Power Herb", teraType: "Grass", evs: { hp: 4, spa: 252, spe: 252 }, moveSet: new MoveSet(new Move("Earth Power"), new Move("Sludge Bomb"), new Move("Spiky Shield"), new Move("Meteor Beam")) })),
+      new Target(new Pokemon("Tatsugiri", { ability: "Commander", nature: "Timid", item: "Choice Scarf", teraType: "Steel", evs: { spa: 252, spd: 4, spe: 252 }, moveSet: new MoveSet(new Move("Draco Meteor"), new Move("Muddy Water"), new Move("Icy Wind"), new Move("Dragon Pulse")) })),
+      new Target(new Pokemon("Annihilape", { ability: "Defiant", nature: "Jolly", item: "Choice Scarf", teraType: "Fire", evs: { hp: 252, atk: 4, spe: 252 }, moveSet: new MoveSet(new Move("Rage Fist"), new Move("Drain Punch"), new Move("Protect"), new Move("Bulk Up")) })),
+      new Target(new Pokemon("Ursaluna-Bloodmoon", { ability: "Mind's Eye", nature: "Modest", item: "Life Orb", teraType: "Normal", evs: { hp: 4, spa: 252, spe: 252 }, moveSet: new MoveSet(new Move("Blood Moon"), new Move("Earth Power"), new Move("Hyper Voice"), new Move("Protect")) }))
     ]
   }
 
   private defaultTargetsMobile(): Target[] {
     return [
-      new Target(new Pokemon("Rillaboom", { ability: "Grassy Surge", nature: "Adamant", item: "Assault Vest", teraType: "Fire", evs: { hp: 252, atk: 116, def: 4, spd: 60, spe: 76 }, moveSet: new MoveSet("Fake Out", "Grassy Glide", "Wood Hammer", "U-turn") }), 0)
+      new Target(new Pokemon("Rillaboom", { ability: "Grassy Surge", nature: "Adamant", item: "Assault Vest", teraType: "Fire", evs: { hp: 252, atk: 116, def: 4, spd: 60, spe: 76 }, moveSet: new MoveSet(new Move("Fake Out"), new Move("Grassy Glide"), new Move("Wood Hammer"), new Move("U-turn")) }))
     ]
   } 
 

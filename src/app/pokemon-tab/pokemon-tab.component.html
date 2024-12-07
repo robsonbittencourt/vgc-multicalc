@@ -1,9 +1,9 @@
 <div [ngStyle]="tabStyle()" class="tab" (click)="activateTab()" data-cy="team-member-tab">
-  @if (teamMember.pokemon.isDefault()) {
+  @if (pokemon().isDefault()) {
     <mat-icon data-cy="add-team-member-tab">add</mat-icon>
   }
   @else {
-    <img class="pokemon-image-small" src='assets/sprites/pokemon-sv/{{ teamMember.pokemon.name }}.png'>
-    <label [ngStyle]="active() && { 'color': '#673ab7', 'font-weight': 500 } || null" class="tab-label">{{ teamMember.pokemon.displayNameWithoutSuffix }}</label>
+    <img class="pokemon-image-small" src='assets/sprites/pokemon-sv/{{ pokemon().name }}.png'>
+    <label [ngStyle]="active() && { 'color': '#673ab7', 'font-weight': 500 } || null" class="tab-label">{{ pokemon().displayNameWithoutSuffix }}</label>
   }
 </div>

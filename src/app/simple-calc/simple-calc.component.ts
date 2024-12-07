@@ -1,11 +1,9 @@
-import { Component, computed, effect, inject, output, signal } from '@angular/core'
+import { Component, computed, inject } from '@angular/core'
+import { DataStore } from 'src/data/data-store'
 import { FieldStore } from 'src/data/field-store'
 import { DamageCalculatorService } from 'src/lib/damage-calculator.service'
 import { DamageResult } from 'src/lib/damage-result'
 import { Move } from 'src/lib/move'
-import { Pokemon } from 'src/lib/pokemon'
-import { RollLevelConfig } from 'src/lib/roll-level-config'
-import { DataStore } from '../../lib/data-store.service'
 import { DamageResultComponent } from '../damage-result/damage-result.component'
 import { ExportPokemonButtonComponent } from '../export-pokemon-button/export-pokemon-button.component'
 import { FieldComponent } from '../field/field.component'
@@ -21,71 +19,28 @@ import { PokemonBuildComponent } from '../pokemon-build/pokemon-build.component'
 })
 export class SimpleCalcComponent {
   
-  dataChangedEvent = output()
-  
   data = inject(DataStore)
   fieldStore = inject(FieldStore)
   private damageCalculator = inject(DamageCalculatorService)
   
-  leftDamageResults = signal<DamageResult[]>([])
-  rightDamageResults = signal<DamageResult[]>([])
+  leftDamageResults = computed(() => this.damageCalculator.calcDamageAllAttacks(this.data.leftPokemon(), this.data.rightPokemon(), this.fieldStore.field()))
+  rightDamageResults = computed(() => this.damageCalculator.calcDamageAllAttacks(this.data.rightPokemon(), this.data.leftPokemon(), this.fieldStore.field()))
 
-  leftDamageResult = computed(() => this.findResultByMove(this.leftDamageResults(), this.data.leftPokemon.move))
-  rightDamageResult = computed(() => this.findResultByMove(this.rightDamageResults(), this.data.rightPokemon.move))
-
-  constructor() {
-    effect(() => {
-      this.leftDamageResults.set(this.damageCalculator.calcDamageAllAttacks(this.data.leftPokemon, this.data.rightPokemon, this.fieldStore.field()))
-      this.rightDamageResults.set(this.damageCalculator.calcDamageAllAttacks(this.data.rightPokemon, this.data.leftPokemon, this.fieldStore.field()))
-    },
-    {
-      allowSignalWrites: true //temporary during refactory
-    })
-  }
-
-  ngOnInit() {
-    this.calculateDamage()
-  }
-
-  leftPokemonChanged(pokemon: Pokemon) {
-    this.data.leftPokemon = pokemon
-    this.calculateDamage()
-    this.dataChangedEvent.emit()
-  }
+  leftDamageResult = computed(() => this.findResultByMove(this.leftDamageResults(), this.data.leftPokemon().activeMoveName))
+  rightDamageResult = computed(() => this.findResultByMove(this.rightDamageResults(), this.data.rightPokemon().activeMoveName))
 
   leftMoveActivated(move: string) {
-    this.data.leftPokemon = this.data.leftPokemon.activateMove(move)
-    this.dataChangedEvent.emit()
-  }
-
-  leftRollLevelChanged(config: RollLevelConfig) {
-    this.data.leftRollLevelConfig = config
-    this.dataChangedEvent.emit()
-  }
-
-  rightPokemonChanged(pokemon: Pokemon) {
-    this.data.rightPokemon = pokemon
-    this.calculateDamage()
-    this.dataChangedEvent.emit()
+    const activatedMove = new Move(move)
+    this.data.activateMove(this.data.leftPokemon().id, activatedMove)
   }
 
   rightMoveActivated(move: string) {
-    this.data.rightPokemon = this.data.rightPokemon.activateMove(move)
-    this.dataChangedEvent.emit()
+    const activatedMove = new Move(move)
+    this.data.activateMove(this.data.rightPokemon().id, activatedMove)
   }
 
-  rightRollLevelChanged(config: RollLevelConfig) {
-    this.data.rightRollLevelConfig = config
-    this.dataChangedEvent.emit()
-  }
-
-  private calculateDamage() {
-    this.leftDamageResults.set(this.damageCalculator.calcDamageAllAttacks(this.data.leftPokemon, this.data.rightPokemon, this.fieldStore.field()))
-    this.rightDamageResults.set(this.damageCalculator.calcDamageAllAttacks(this.data.rightPokemon, this.data.leftPokemon, this.fieldStore.field()))
-  }
-
-  private findResultByMove(damageResults: DamageResult[], move: Move): DamageResult {
-    return damageResults.find(result => result.move == move.name)!
+  private findResultByMove(damageResults: DamageResult[], moveName: string): DamageResult {
+    return damageResults.find(result => result.move == moveName)!
   }
 
 }

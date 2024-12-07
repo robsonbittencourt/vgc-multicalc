@@ -1,53 +1,38 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { TeamMember } from 'src/lib/team-member';
 import { NgStyle } from '@angular/common';
+import { Component, computed, inject, input, output } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
+import { DataStore } from 'src/data/data-store';
 
 @Component({
-    selector: 'app-pokemon-tab',
-    templateUrl: './pokemon-tab.component.html',
-    styleUrls: ['./pokemon-tab.component.scss'],
-    standalone: true,
-    imports: [NgStyle, MatIcon]
+  selector: 'app-pokemon-tab',
+  templateUrl: './pokemon-tab.component.html',
+  styleUrls: ['./pokemon-tab.component.scss'],
+  standalone: true,
+  imports: [NgStyle, MatIcon]
 })
 export class PokemonTabComponent {
 
-  @Input() 
-  teamMember: TeamMember
+  pokemonId = input.required<string>()
+  active = input.required<boolean>()
+  
+  tabActivated = output<string>()
 
-  @Input() 
-  activeTab: Boolean
+  data = inject(DataStore)
 
-  @Output() 
-  tabActivated = new EventEmitter<TeamMember>()
-
-  @Input()
-  isSecondSelection: boolean
+  pokemon = computed(() => this.data.findPokemonById(this.pokemonId()))
 
   activateTab() {
-    this.tabActivated.emit(this.teamMember)
-  }
-
-  active(): boolean {
-    return this.teamMember.active || this.isSecondSelection
+    this.tabActivated.emit(this.pokemonId())
   }
 
   tabStyle(): any {
     const activeTabStyle = { 'border-bottom': 'solid 2px', 'border-color': '#673ab7', 'background-color': '#f9f7fc' }
 
-    if (this.activeTab == false) {
+    if (this.active() == true) {
+      return activeTabStyle
+    } else {
       return null
     }
-
-    if (this.activeTab == true) {
-      return activeTabStyle
-    }
-
-    if (this.teamMember.active || this.isSecondSelection) {
-      return activeTabStyle
-    }
-
-    return null
   }
 
 }

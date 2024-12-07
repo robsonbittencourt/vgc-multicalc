@@ -1,15 +1,15 @@
-import { Component, input, model, output } from '@angular/core';
-import { defaultPokemon } from 'src/lib/default-pokemon';
-import { Team } from 'src/lib/team';
-import { TeamMember } from 'src/lib/team-member';
-import { Pokemon } from '../../lib/pokemon';
-
-import { MatIcon } from '@angular/material/icon';
-import { RouterOutlet } from '@angular/router';
-import { ExportPokemonButtonComponent } from '../export-pokemon-button/export-pokemon-button.component';
-import { ImportPokemonButtonComponent } from '../import-pokemon-button/import-pokemon-button.component';
-import { PokemonBuildComponent } from '../pokemon-build/pokemon-build.component';
-import { PokemonTabComponent } from '../pokemon-tab/pokemon-tab.component';
+import { Component, computed, effect, inject, input, output, signal } from '@angular/core'
+import { MatIcon } from '@angular/material/icon'
+import { RouterOutlet } from '@angular/router'
+import { DataStore } from 'src/data/data-store'
+import { defaultPokemon } from 'src/lib/default-pokemon'
+import { Team } from 'src/lib/team'
+import { TeamMember } from 'src/lib/team-member'
+import { Pokemon } from '../../lib/pokemon'
+import { ExportPokemonButtonComponent } from '../export-pokemon-button/export-pokemon-button.component'
+import { ImportPokemonButtonComponent } from '../import-pokemon-button/import-pokemon-button.component'
+import { PokemonBuildComponent } from '../pokemon-build/pokemon-build.component'
+import { PokemonTabComponent } from '../pokemon-tab/pokemon-tab.component'
 
 @Component({
   selector: 'app-team',
@@ -20,87 +20,121 @@ import { PokemonTabComponent } from '../pokemon-tab/pokemon-tab.component';
 })
 export class TeamComponent {
 
-  pokemon = model.required<Pokemon>()
+  data = inject(DataStore)
 
-  team = input.required<Team>()
-  secondSelection = input<Pokemon>()
+  pokemonId = input<string>(this.data.team().activePokemon().id)
   isAttacker = input(false)
+  
+  teamMemberSelected = output<string>()
+  teamMemberRemoved = output()
 
-  pokemonChangedEvent = output<Pokemon>()
-  teamChanged = output<Team>()
-  secondAttackerSelected = output<Pokemon>()
+  pokemonOnEdit = computed(() => this.data.findPokemonById(this.pokemonId()))
+  
+  combineDamageActive = signal(false)
 
-  canShowDeleteButton(): boolean {
-    return !this.pokemon().isDefault()
+  constructor() {
+    effect(() => {
+      if(!this.data.team().haveDefaultPokemon() && !this.data.team().isFull()) {
+        const teamMembers = [ ...this.data.team().teamMembers(), new TeamMember(defaultPokemon(), false) ]
+        const team = new Team(this.data.team().active, this.data.team().name, teamMembers)
+
+        this.data.replaceActiveTeam(team.toState())
+      }
+    },
+    {
+      allowSignalWrites: true
+    }) 
   }
 
-  activatePokemon(teamMember: TeamMember) {
-    this.team().deactivateAll()
-    teamMember.active = true
+  activatePokemon(pokemonId: string) {
+    const members = this.data.team().teamMembers()
 
-    this.pokemon.set(teamMember.pokemon)
-    this.pokemonChangedEvent.emit(teamMember.pokemon)
+    this.teamMemberSelected.emit(pokemonId)
+
+    if (this.combineDamageActive()) {
+      const active1 = members[0].pokemon.id == this.data.activeAttacker().id || members[0].pokemon.id == pokemonId
+      const active2 = members[1]?.pokemon.id == this.data.activeAttacker().id || members[1]?.pokemon.id == pokemonId
+      const active3 = members[2]?.pokemon.id == this.data.activeAttacker().id || members[2]?.pokemon.id == pokemonId
+      const active4 = members[3]?.pokemon.id == this.data.activeAttacker().id || members[3]?.pokemon.id == pokemonId
+      const active5 = members[4]?.pokemon.id == this.data.activeAttacker().id || members[4]?.pokemon.id == pokemonId
+      const active6 = members[5]?.pokemon.id == this.data.activeAttacker().id || members[5]?.pokemon.id == pokemonId
+
+      this.data.updateTeamMembersActive(active1, active2, active3, active4, active5, active6)
+      this.data.updateSecondAttacker(pokemonId)  
+    } else {
+      const active1 = members[0].pokemon.id == pokemonId
+      const active2 = members[1]?.pokemon.id == pokemonId
+      const active3 = members[2]?.pokemon.id == pokemonId
+      const active4 = members[3]?.pokemon.id == pokemonId
+      const active5 = members[4]?.pokemon.id == pokemonId
+      const active6 = members[5]?.pokemon.id == pokemonId
+
+      this.data.updateTeamMembersActive(active1, active2, active3, active4, active5, active6)
+      this.data.updateAttacker(pokemonId)
+    }    
+  }
+
+  canShowDeleteButton(): boolean {
+    return !this.pokemonOnEdit().isDefault()
   }
 
   removePokemon() {
-    const removedTeamMember = this.team().removeActiveTeamMember()
+    const activeMember = this.data.team().teamMembers().find(teamMember => teamMember.pokemon.id === this.pokemonOnEdit().id)!
+    const inactiveMembers = this.data.team().teamMembers().filter(teamMember => teamMember.pokemon.id !== activeMember.pokemon.id)
+    const emptyTeam = inactiveMembers.length == 0
+    const haveDefaultPokemon = inactiveMembers.find(teamMember => teamMember.pokemon.isDefault())
 
-    if (this.team().isEmpty() || !this.team().haveDefaultPokemon()) {
-      this.team().addTeamMember(new TeamMember(defaultPokemon(), false))
-    } 
-
-    this.team().activateFirstTeamMember()
-    this.pokemon.set(this.team().activePokemon())
-
-    if (removedTeamMember.pokemon == this.secondSelection()) {
-      this.secondAttackerSelected.emit(removedTeamMember.pokemon)
+    if (emptyTeam || !haveDefaultPokemon) {
+      inactiveMembers.push(new TeamMember(defaultPokemon(), false))
     }
 
-    this.pokemonChangedEvent.emit(this.pokemon())
-    this.teamChanged.emit(this.team())
+    const teamMembers = [ new TeamMember(inactiveMembers[0].pokemon, true), ...inactiveMembers.slice(1) ]
+    const team = new Team(this.data.team().active, this.data.team().name, teamMembers)
+
+    this.data.replaceActiveTeam(team.toState())
+
+    if (this.isSecondSelection(activeMember)) {
+      this.data.updateSecondAttacker("")
+    }
+
+    this.teamMemberRemoved.emit()
+    this.data.updateAttacker(team.activePokemon().id)
   }
 
   selectSecondAttacker() {
-    this.secondAttackerSelected.emit(this.pokemon())
+    if (this.combineDamageActive()) {
+      this.data.updateSecondAttacker("")
+    }
+
+    this.combineDamageActive.set(!this.combineDamageActive())    
   }
 
   isSecondSelection(teamMember: TeamMember) {
-    return teamMember.pokemon == this.secondSelection()
-  }
-
-  secondSelectionActive() {
-    return this.pokemon() == this.secondSelection()
+    return !teamMember.pokemon.isDefault() && teamMember.pokemon.equals(this.data.activeSecondAttacker())
   }
 
   canShowCombineButton() {
-    return this.isAttacker() && !this.pokemon().isDefault() && (!this.secondSelection() || this.team().activePokemon() == this.secondSelection())
+    return this.isAttacker() && !this.pokemonOnEdit().isDefault() && this.pokemonOnEdit().equals(this.data.activeAttacker())
   }
 
   pokemonImported(pokemon: Pokemon) {
-    const teamMember = new TeamMember(pokemon, true)
+    const teamMember = new TeamMember(pokemon, false)
+
+    this.data.team().addTeamMember(teamMember)
       
-    this.team().addTeamMember(teamMember)
-    this.activatePokemon(teamMember)
+    this.data.replaceActiveTeam(this.data.team().toState())
   }
 
   canImportPokemon() {
-    return !this.team().isFull()
+    return !this.data.team().isFull()
   }
 
   canExportPokemon() {
-    return !this.pokemon().isDefault()
+    return !this.pokemonOnEdit().isDefault()
   }
 
   teamMemberOnEdit(): boolean {
-    return this.team().activePokemon().equals(this.pokemon())
-  }
-
-  pokemonOnEditChanged(pokemon: Pokemon) {
-    if(!this.team().haveDefaultPokemon() && !this.team().isFull()) {
-      this.team().addTeamMember(new TeamMember(defaultPokemon(), false))
-    }
-    
-    this.pokemonChangedEvent.emit(pokemon)
+    return this.pokemonOnEdit().equals(this.data.team().activePokemon()) || this.pokemonOnEdit().equals(this.data.activeSecondAttacker())
   }
 
 }

@@ -1,15 +1,15 @@
 <div class="container">
-  <app-team [team]="data.activeTeam()" [pokemon]="activeOnEditPokemon()" [isAttacker]="isAttacker()" (pokemonChangedEvent)="pokemonOnEditChanged($event)"
-    (pokemonAddedToTeamEvent)=pokemonAddedToTeam() (teamChanged)="teamChanged($event)" (secondAttackerSelected)="secondAttackerSelected()" [secondSelection]="activeSecondAttacker"/>
+  <app-team [pokemonId]="pokemonId()" [isAttacker]="isAttacker()" (teamMemberSelected)="pokemonId.set($event)" 
+    (teamMemberRemoved)="pokemonId.set(newData.team().activePokemon().id)"/>
   
   <div>
-    <app-teams [teams]="data.teams" (teamChanged)="teamChanged($event)"/>
+    <app-teams (teamChanged)="pokemonId.set($event.activePokemon().id)"/>
     <app-field />
   </div> 
 
   <div class="target-pokemon">
-    <app-target-pokemon [targets]="data.targets" [isAttacker]="data.manyVsOneActivated" (targetChangedEvent)="targetChanged($event)"
-     (allTargetsRemoved)="removeAllTargets()" (targetAdded)="pokemonAddedToTargets()" (targetsAdded)="targetsAdded($event)" (targetRemovedEvent)="targetRemoved()"
-     (targetActivatedEvent)=targetActivated($event) (secondTargetDeactivatedEvent)=secondTargetDeactivated() [showDamageDescription]="!activeOnEditPokemon().isDefault()"/>
+    <app-target-pokemon [isAttacker]="data.manyVsOneActivated" [showDamageDescription]="!newData.activeAttacker().isDefault()" 
+      (targetActivated)="pokemonId.set($event)" (targetRemoved)="pokemonId.set(newData.team().activePokemon().id)"
+      (targetsImported)="targetsImported()"/>
   </div>
 </div>

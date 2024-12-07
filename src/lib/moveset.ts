@@ -1,58 +1,40 @@
 import { Move } from "./move"
+import { MovePosition } from "./types"
 
 export class MoveSet {
   
   private _moves: Move[]
+  private _activeMove: Move
+  private _activeMovePosition: MovePosition
   
-  constructor(move1: string, move2: string, move3: string, move4: string) {
-    this._moves = [new Move(move1), new Move(move2), new Move(move3), new Move(move4)].sort((a, b) => b.bp() - a.bp())
-    this.move1.active = true
+  constructor(move1: Move, move2: Move, move3: Move, move4: Move, activeMovePosition: MovePosition = 1) {
+    this._moves = [move1, move2, move3, move4]
+    this._activeMove = this._moves[activeMovePosition - 1]
+    this._activeMovePosition = activeMovePosition
   }
 
   get activeMove(): Move {
-    return this._moves.find(m => m.active)!
+    return this._activeMove
   }
 
-  activeMoveByPosition(position: number) {
-    this.deactivateAll()
-    this._moves[position - 1].active = true
+  get activeMovePosition(): MovePosition {
+    return this._activeMovePosition
   }
 
-  activeMoveByName(moveName: string) {
-    this.deactivateAll()
-    this._moves.find(move => move.name == moveName)!.active = true
-  }
-  
   get move1(): Move {
     return this._moves[0]
-  }
-
-  set move1(move1: Move) {
-    this.setMoveByPosition(1, move1)
   }
 
   get move2(): Move {
     return this._moves[1]
   }
 
-  set move2(move2: Move) {
-    this.setMoveByPosition(2, move2)
-  }
-
   get move3(): Move {
     return this._moves[2]
   }
 
-  set move3(move3: Move) {
-    this.setMoveByPosition(3, move3)
-  }
-
   get move4(): Move {
     return this._moves[3]
-  }
-
-  set move4(move4: Move) {
-    this.setMoveByPosition(4, move4)
   }
 
   moves(): Move[] {
@@ -60,20 +42,8 @@ export class MoveSet {
   }
 
   clone(): MoveSet {
-    const newMoveSet = new MoveSet(this.move1.name, this.move2.name, this.move3.name, this.move4.name)
-    newMoveSet.activeMoveByName(this.activeMove.name)
-
-    return newMoveSet
+    return new MoveSet(new Move(this.move1.name), new Move(this.move2.name), new Move(this.move3.name), new Move(this.move4.name), this._activeMovePosition)
   }
 
-  private setMoveByPosition(position: 1 | 2 | 3 | 4, move: Move) {
-    this.deactivateAll()
-    move.active = true
-    this._moves[position - 1] = move
-  }
-
-  private deactivateAll() {
-    this._moves.forEach(m => m.active = false)
-  }
 
 }

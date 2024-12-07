@@ -1,15 +1,23 @@
+import { TeamState } from "src/data/data-store"
+import { v4 as uuidv4 } from 'uuid'
 import { Pokemon } from "./pokemon"
 import { TeamMember } from "./team-member"
 
 export class Team {
+  private _id: string
   private _active: boolean
   private _name: string
   private _teamMembers: TeamMember[]
 
   constructor(active: boolean, name: string, teamMembers: TeamMember[]) {
+    this._id = uuidv4()
     this._active = active
     this._name = name
     this._teamMembers = teamMembers
+  }
+
+  get id(): string {
+    return this._id
   }
 
   get active(): boolean {
@@ -101,5 +109,13 @@ export class Team {
     })
 
     return result
+  }
+
+  toState(): TeamState {
+    return {
+      active: this.active,
+      name: this.name,
+      teamMembers: this.teamMembers().map(t => ({ active: t.active, pokemon: t.pokemon.toState() }))
+    }
   }
 }

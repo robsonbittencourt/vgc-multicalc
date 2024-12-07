@@ -1,91 +1,47 @@
-import { NoopScrollStrategy } from '@angular/cdk/overlay';
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { defaultPokemon } from 'src/lib/default-pokemon';
-import { PokePasteParserService } from 'src/lib/poke-paste-parser.service';
-import { Target } from 'src/lib/target';
-import { SnackbarService } from '../../lib/snackbar.service';
-import { TeamExportModalComponent } from '../team-export-modal/team-export-modal.component';
-import { TeamImportModalComponent } from '../team-import-modal/team-import-modal.component';
+import { NoopScrollStrategy } from '@angular/cdk/overlay'
+import { Component, computed, inject, input, output } from '@angular/core'
+import { MatDialog } from '@angular/material/dialog'
+import { PokePasteParserService } from 'src/lib/poke-paste-parser.service'
+import { Target } from 'src/lib/target'
+import { SnackbarService } from '../../lib/snackbar.service'
+import { TeamExportModalComponent } from '../team-export-modal/team-export-modal.component'
+import { TeamImportModalComponent } from '../team-import-modal/team-import-modal.component'
 
-import { MatButton } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
-import { AddPokemonCardComponent } from '../add-pokemon-card/add-pokemon-card.component';
-import { PokemonCardComponent } from '../pokemon-card/pokemon-card.component';
+import { MatButton } from '@angular/material/button'
+import { MatIcon } from '@angular/material/icon'
+import { DataStore } from 'src/data/data-store'
+import { defaultPokemon } from 'src/lib/default-pokemon'
+import { Pokemon } from 'src/lib/pokemon'
+import { AddPokemonCardComponent } from '../add-pokemon-card/add-pokemon-card.component'
+import { PokemonCardComponent } from '../pokemon-card/pokemon-card.component'
 
 @Component({
-    selector: 'app-target-pokemon',
-    templateUrl: './target-pokemon.component.html',
-    styleUrls: ['./target-pokemon.component.scss'],
-    standalone: true,
-    imports: [MatIcon, MatButton, PokemonCardComponent, AddPokemonCardComponent]
+  selector: 'app-target-pokemon',
+  templateUrl: './target-pokemon.component.html',
+  styleUrls: ['./target-pokemon.component.scss'],
+  standalone: true,
+  imports: [MatIcon, MatButton, PokemonCardComponent, AddPokemonCardComponent]
 })
 export class TargetPokemonComponent {
-  @Input() 
-  targets: Target[]
-
-  @Input()
-  isAttacker: boolean
-
-  @Input()
-  showDamageDescription: boolean
-
-  @Output() 
-  targetAdded = new EventEmitter<any>()
   
-  @Output() 
-  targetsAdded = new EventEmitter<Target[]>()
+  isAttacker = input.required<boolean>()
+  showDamageDescription = input(true)
 
-  @Output() 
-  targetChangedEvent = new EventEmitter<Target>()
-
-  @Output() 
-  targetRemovedEvent = new EventEmitter<any>()
-
-  @Output() 
-  allTargetsRemoved = new EventEmitter<any>()
-
-  @Output()
-  targetActivatedEvent = new EventEmitter<Target>()
-
-  @Output()
-  secondTargetDeactivatedEvent = new EventEmitter<any>()
-
+  targetActivated = output<string>()
+  targetRemoved = output()
+  targetsImported = output()
+  
+  data = inject(DataStore)
   private pokePasteService = inject(PokePasteParserService)
   private dialog = inject(MatDialog)
   private snackBar = inject(SnackbarService)
 
+  targets = computed(() => this.data.targets())
+
   copyMessageEnabled = false
   
-  targetActivated(position: number) {
-    const target = this.targets.find(t => t.position == position)!
-    
-    if(!target.active) {
-      target.active = true
-
-      this.targets.forEach(t => {
-        if (t.position != position) {
-          t.active = false
-        }
-      })
-    }        
-    
-    this.targetActivatedEvent.emit(target)
-  }
-
-  targetRemoved(position: number) {
-    const target = this.targets.find(t => t.position == position)!
-    const index = this.targets.findIndex(t => t.pokemon.equals(target.pokemon))
-    
-    this.targets.splice(index, 1)
-    this.updatePositions()
-    this.targetRemovedEvent.emit()
-  }
-
   removeAll() {
-    const pokemon = defaultPokemon()
-    this.targets = [new Target(pokemon, 0)]
-    this.allTargetsRemoved.emit()
+    this.data.removeAllTargets()
   }
 
   async importPokemon() {
@@ -98,16 +54,29 @@ export class TargetPokemonComponent {
       if(!result) return
 
       const pokemonList = await this.pokePasteService.parse(result)
-      const targets = []
+      const newTargets = []
 
       for (let index = 0; index < pokemonList.length; index++) {
         const pokemon = pokemonList[index]
-        const position = this.targets.length + index + 1
-        targets.push(new Target(pokemon, position))        
+        const position = this.targets().length + index + 1
+
+        if (!this.alreadyExists(pokemon)) {
+          newTargets.push(new Target(pokemon))        
+        }        
       }
 
-      this.targetsAdded.emit(targets)
+      this.targetsImported.emit()
+
+      const allTargets = this.targets().filter(t => !t.pokemon.isDefault()).concat(newTargets)
+      this.data.updateTargets(allTargets)
+
       this.snackBar.open("Pokémon from PokePaste added")
+    })
+  }
+
+  private alreadyExists(pokemon: Pokemon): boolean {
+    return this.targets().some(target => {
+      return target.pokemon.equals(pokemon)
     })
   }
 
@@ -126,7 +95,7 @@ export class TargetPokemonComponent {
   private exportToShowdownFormat() {
     let result = ""
 
-    this.targets.forEach(t => {
+    this.targets().forEach(t => {
       if (!t.pokemon.isDefault()) {
         result += t.pokemon.showdownTextFormat() + "\n"
       }      
@@ -136,26 +105,25 @@ export class TargetPokemonComponent {
   }
 
   addPokemonToTargets() {
-    this.updatePositions()
-    this.targetAdded.emit()
-  }
+    const pokemon = defaultPokemon()
+    const target = new Target(pokemon, true)
+    const deactivatedTargets = this.targets().map(t => new Target(t.pokemon, false))
+    const targetsWithDefaultPokemon = deactivatedTargets.concat(target)
 
-  private updatePositions() {
-    for (let index = 0; index < this.targets.length; index++) {
-      this.targets[index].position = index      
-    }
+    this.data.updateTargets(targetsWithDefaultPokemon)
+    this.targetActivated.emit(pokemon.id)
   }
 
   selectPokemonActive(): boolean {
-    return this.targets.find(t => t.pokemon.isDefault()) != null
+    return this.targets().find(t => t.pokemon.isDefault()) != null
   }
   
   damageDescription() {
-    return this.targets.find(t => t.active)?.damageResult.description ?? ""
+    return this.targets().find(t => t.active)?.damageResult.description ?? ""
   }
 
   rolls() {
-    return this.targets.find(t => t.active)?.damageResult.rolls?? ""
+    return this.targets().find(t => t.active)?.damageResult.rolls?? ""
   }
 
   copyDamageResult() {
@@ -168,26 +136,33 @@ export class TargetPokemonComponent {
   }
   
   canSelectSecondPokemon(): boolean {
-    const onlyOneActive = this.targets.filter(t => t.active).length == 1
-    return this.isAttacker && onlyOneActive
+    const onlyOneActive = this.targets().filter(t => t.active).length == 1
+    return this.isAttacker() && onlyOneActive
   }
 
-  secondTargetActivated(position: number) {
-    const target = this.targets.find(t => t.position == position)!
+  secondTargetActivated(pokemonId: string) {
+    const target = this.targets().find(t => t.pokemon.id == pokemonId)!
+    const index = this.targets().findIndex(t => t.pokemon.id == pokemonId)
 
     if(target.active && this.canSelectSecondPokemon()) return
 
     if(target.active) {
-      target.active = false
-      this.secondTargetDeactivatedEvent.emit()
-    } else {
-      target.active = true
-      this.targetActivatedEvent.emit(target)
-    }    
-  }
+      const newTargets = [
+        ...this.targets().slice(0, index),
+        new Target(target.pokemon, false),
+        ...this.targets().slice(index + 1)
+      ]
 
-  targetChanged(target: Target) {
-    this.targetChangedEvent.emit(target)
+      this.data.updateTargets(newTargets)
+    } else {
+      const newTargets = [
+        ...this.targets().slice(0, index),
+        new Target(target.pokemon, true),
+        ...this.targets().slice(index + 1)
+      ]
+
+      this.data.updateTargets(newTargets)
+    }    
   }
 
 }

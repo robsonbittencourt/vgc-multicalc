@@ -1,29 +1,27 @@
 <div class="ev-slider-container">
-  @if (statName) {
+  @if (!reduced()) {
     <div class="stat-name">
-      <label>{{ statName }}</label>
+      <label>{{ statName() }}</label>
+    </div>
+
+    <div class="base-stat">
+      <label>{{ baseStat() }}</label>
     </div>
   }
 
-  @if (baseStatValue) {
-    <div class="base-stat">
-      <label>{{ baseStatValue }}</label>
-    </div>
-  }
   <div class="dense-2">
-    @if (!showStatsModifier()) {
+    @if (stat() == "hp") {
       <mat-form-field appearance="outline" class="mat-ev-stat-modifier hp-percentage">
-        @if (baseStatValue) {
+        @if (!reduced()) {
           <span matTextSuffix>%</span>
         }
         
-        <input class="ev-value-input" type="number" min="0" max="100" matInput (change)="hpPercentageChanged()" [(ngModel)]="hpPercentage" data-cy="hp-percentage-value">
+        <input class="ev-value-input" type="number" min="0" max="100" matInput (input)="hpPercentageChanged($event)" [ngModel]="hpPercentage()" data-cy="hp-percentage-value">
       </mat-form-field>
-    }
-    
-    @if (showStatsModifier()) {
+    }   
+    @else {
       <mat-form-field appearance="outline" class="mat-ev-stat-modifier">
-        <mat-select data-cy="stat-modifier" class="mat-small" [(value)]="statsModifier">
+        <mat-select data-cy="stat-modifier" class="mat-small" [value]="statModifier()" (valueChange)="statModifierChanged($event)">
           @for (statsModifier of statsModifiers; track statsModifier) {
             <mat-option class="mat-small" [value]="statsModifier.value">{{ statsModifier.viewValue }}</mat-option>
           }
@@ -31,27 +29,34 @@
       </mat-form-field>
     }
   </div>
+  
   <div class="ev-value dense-2">
     <mat-form-field appearance="outline" class="mat-ev-field">
-      @if (statNameAcronym) {
-        <mat-label>{{ statNameAcronym }}</mat-label>
+      @if (reduced()) {
+        <mat-label>{{ statNameAcronym() }}</mat-label>
       }
-      <input class="ev-value-input" type="number" min="0" max="252" matInput (change)="evChanged()" (input)="beforeEvChanged()" [(ngModel)]="ev" data-cy="ev-value">
+      <input class="ev-value-input" type="number" min="0" max="252" matInput [(ngModel)]="ev" (change)="evChanged($event)" data-cy="ev-value">
     </mat-form-field>
   </div>
+  
   <div class="ev-slider">
-    <mat-slider class="mat-ev-slider" [min]="calculateMin(ev)" [max]="252" [step]="calculateEvStep(ev)">
-      <input matSliderThumb (change)="evChanged()" [(ngModel)]="ev" (input)="beforeEvChanged()">
+    <mat-slider class="mat-ev-slider" [min]="calculateMin()" [max]="252" [step]="calculateEvStep()">
+      <input matSliderThumb [(ngModel)]="ev" (change)="evChanged($event)" >
     </mat-slider>
   </div>
-  @if (showIv) {
-    <div class="ev-value dense-2">
-      <mat-form-field appearance="outline" class="mat-ev-field">
-        <input class="ev-value-input" type="number" min="0" max="31" matInput [(ngModel)]="iv" data-cy="iv-value">
-      </mat-form-field>
-    </div>
-  }
+  
+  <div class="ev-value dense-2">
+    <mat-form-field appearance="outline" class="mat-ev-field">
+      <input class="ev-value-input" type="number" min="0" max="31" matInput [ngModel]="iv()" (input)="ivChanged($event)" data-cy="iv-value">
+    </mat-form-field>
+  </div>
+  
   <div class="stat-value">
-    <label>{{ natureModifier() }}{{ statValue }}</label>
+    @if (reduced()) {
+      <label>{{ statValue() }}</label>
+    }
+    @else {
+      <label>{{ natureModifier() }}{{ statValue() }}</label>
+    }
   </div>
 </div>

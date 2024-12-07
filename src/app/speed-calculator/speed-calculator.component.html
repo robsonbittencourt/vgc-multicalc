@@ -1,8 +1,8 @@
 <div class="container">
-  <app-team [pokemon]="pokemon" [team]="data.activeTeam()" (pokemonChangedEvent)="dataChanged()" (pokemonChangedEvent)="pokemonChanged($event)"/>
+  <app-team />
 
   <div>
-    <app-teams [teams]="data.teams" (teamChanged)="teamChanged($event)"/>
+    <app-teams />
     <app-field />
   </div>
 
@@ -49,6 +49,6 @@
       </div>
     </div>
 
-    <app-speed-scale [pokemon]="pokemon" [pokemonEachSide]=31 />
+    <app-speed-scale [pokemonId]="pokemonId()" [pokemonEachSide]=31 />
   </div>
 </div>

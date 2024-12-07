@@ -18,7 +18,7 @@ beforeEach(() => {
 })
 
 describe('Add Pokémon to the Opponent side', () => {  
-  it.only('Add three Pokémon to the opponent side', () => {
+  it('Add three Pokémon to the opponent side', () => {
     opponents.add("Pikachu")
     opponents.add("Tyranitar")
     opponents.add("Lugia")

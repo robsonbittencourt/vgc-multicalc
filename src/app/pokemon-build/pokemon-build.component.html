@@ -5,7 +5,7 @@
         <img src='assets/icons/question.png'>
       </div>
       <label>Pokémon</label>
-      <app-pokemon-combo-box [pokemon]="pokemon()" (pokemonChange)="pokemonChanged()" data-cy="pokemon-select"/>
+      <app-pokemon-combo-box [pokemonId]="pokemonId()" data-cy="pokemon-select"/>
     </div>
   </div>
 }
@@ -16,19 +16,19 @@
         <img src='assets/sprites/pokemon-home/{{ pokemon().name }}.png'>
       </div>
       <label>Pokémon</label>
-      <app-pokemon-combo-box [pokemon]="pokemon()" (pokemonChange)="pokemonChanged()" data-cy="pokemon-select"/>
+      <app-pokemon-combo-box [pokemonId]="pokemonId()" data-cy="pokemon-select"/>
     </div>
 
     <div class="pokemon-status" [ngStyle]="reverse() && { 'order': 3 } || null">
       <div>
         <label>Status</label>
-        <app-input-autocomplete [(value)]="pokemon().status" [allValues]="statusConditions" (valueChange)="pokemonChanged()" data-cy="pokemon-status"/>
+        <app-input-autocomplete [value]="pokemon().status" [allValues]="statusConditions" (valueChange)="data.status(pokemonId(), $event)" data-cy="pokemon-status"/>
       </div>
 
-      @if (pokemon().moveSet.activeMove.name == 'Last Respects') {
+      @if (pokemon().activeMoveName == 'Last Respects') {
         <div class="multihit">
           <label>Allies Fainted</label>
-          <app-input-autocomplete [(value)]="pokemon().moveSet.activeMove.alliesFainted" [allValues]="alliesFainted" (valueChange)="pokemonChanged()"/>
+          <app-input-autocomplete [value]="pokemon().moveSet.activeMove.alliesFainted" [allValues]="alliesFainted" (valueChange)="alliesFaintedChanged($event)"/>
         </div>
       }
 
@@ -41,13 +41,13 @@
           @if (pokemon().activeMoveName == 'Rage Fist') {
             <label>Hits Taken</label>
           }
-          <app-input-autocomplete [(value)]="pokemon().moveSet.activeMove.hits" [allValues]="pokemon().moveSet.activeMove.possibleHits" (valueChange)="pokemonChanged()"/>
+          <app-input-autocomplete [value]="pokemon().moveSet.activeMove.hits" [allValues]="pokemon().moveSet.activeMove.possibleHits" (valueChange)="hitsChanged($event)"/>
         </div>
       }
 
       <div>
         <label>Item</label>
-        <app-input-autocomplete [(value)]="pokemon().item" [allValues]="allItemsNames" (valueChange)="pokemonChanged()" data-cy="item"/>
+        <app-input-autocomplete [value]="pokemon().item" [allValues]="allItemsNames" (valueChange)="data.item(pokemonId(), $event)" data-cy="item"/>
       </div>
     </div>
 
@@ -67,9 +67,10 @@
               }
             </button>
           }
-          <app-input-autocomplete [(value)]="pokemon().teraType" [allValues]="allTeraTypes" [disabled]="pokemon().isTerapagos()" (valueChange)="pokemonChanged()" data-cy="tera-type"/>
+          <app-input-autocomplete [value]="pokemon().teraType" [allValues]="allTeraTypes" [disabled]="pokemon().isTerapagos()" (valueChange)="data.teraType(pokemonId(), $event)" data-cy="tera-type"/>
         </div>
       </div>
+
       <div class="pokemon-types" [ngStyle]="reverse() && { 'justify-content': 'left' } || null">
         <div [ngStyle]="typeStyle(pokemon().type1())" class="pokemon-type">{{ pokemon().type1() }}</div>
 
@@ -77,15 +78,16 @@
           <div [ngStyle]="typeStyle(pokemon().type2())" class="pokemon-type">{{ pokemon().type2() }}</div>
         }
       </div>
+      
       <div class="pokemon-ability">
         <div class="check-input-section ability-checkbox">
           @if (pokemon().ability == 'Analytic' || pokemon().ability == 'Unburden') {
-            <mat-checkbox [(ngModel)]="pokemon().abilityOn" (change)="pokemonChanged()" data-cy="activate-ability"/>
+            <mat-checkbox [ngModel]="pokemon().abilityOn" (change)="data.abilityOn(pokemonId(), $event.checked)" data-cy="activate-ability"/>
           }
 
           @if (pokemon().name == 'Dondozo') {
-            <button class="icon-button" (click)="toogleCommanderAbility()" matTooltip="Commander">
-              @if (commanderActivated) {
+            <button class="icon-button" (click)="data.commanderActive(pokemonId(), !pokemon().commanderActivated)" [matTooltipShowDelay]="1000" matTooltip="Commander">
+              @if (pokemon().commanderActivated) {
                 <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly.png" />
               }
               @else {
@@ -95,7 +97,7 @@
           }
 
           @if (pokemon().isParadoxAbility()) {
-            <button class="icon-button" (click)="toogleParadoxAbility()" matTooltip="Booster Energy">
+            <button class="icon-button" (click)="data.abilityOn(pokemonId(), !pokemon().abilityOn)" matTooltip="Booster Energy">
               @if (pokemon().abilityOn) {
                 <img class="icon-tatsugiri" src="assets/icons/booster-energy.png" />
               }
@@ -107,7 +109,7 @@
         </div>
         <div class="ability-combo-box">
           <label>Ability</label>
-          <app-ability-combo-box [pokemon]="pokemon()" (abilityChange)="pokemonChanged()" data-cy="ability"/>
+          <app-ability-combo-box [pokemonId]="pokemonId()" data-cy="ability"/>
         </div>
       </div>
     </div>
@@ -119,29 +121,29 @@
       </div>
       <div class="moves">
         <div class="move">
-          <mat-checkbox [ngModel]="pokemon().move1Name == pokemon().activeMoveName" (change)="activateMove1()" [disabled]="moveSelectorDisabled(pokemon().move1Name)" data-cy="attack1"/>
-          <app-input-autocomplete [(value)]="pokemon().moveSet.move1.name" [allValues]="allMoveNames" (valueChange)="move1Selected($event)" data-cy="pokemon-attack-1"/>
+          <mat-checkbox [ngModel]="pokemon().move1Name == pokemon().activeMoveName" (change)="activateMove(1)" [disabled]="moveSelectorDisabled(pokemon().move1Name)" data-cy="attack1"/>
+          <app-input-autocomplete [value]="pokemon().moveSet.move1.name" [allValues]="allMoveNames" (valueChange)="data.moveOne(pokemonId(), $event)" data-cy="pokemon-attack-1"/>
           <div class="move-bp">
             <label>{{ pokemon().moveSet.move1.bp() }}</label>
           </div>
         </div>
         <div class="move">
-          <mat-checkbox [ngModel]="pokemon().move2Name == pokemon().activeMoveName" (change)="activateMove2()" [disabled]="moveSelectorDisabled(pokemon().move2Name)" data-cy="attack2"/>
-          <app-input-autocomplete [(value)]="pokemon().moveSet.move2.name" [allValues]="allMoveNames" (valueChange)="move2Selected($event)" data-cy="pokemon-attack-2"/>
+          <mat-checkbox [ngModel]="pokemon().move2Name == pokemon().activeMoveName" (change)="activateMove(2)" [disabled]="moveSelectorDisabled(pokemon().move2Name)" data-cy="attack2"/>
+          <app-input-autocomplete [value]="pokemon().moveSet.move2.name" [allValues]="allMoveNames" (valueChange)="data.moveTwo(pokemonId(), $event)" data-cy="pokemon-attack-2"/>
           <div class="move-bp">
             <label>{{ pokemon().moveSet.move2.bp() }}</label>
           </div>
         </div>
         <div class="move">
-          <mat-checkbox [ngModel]="pokemon().move3Name == pokemon().activeMoveName" (change)="activateMove3()" [disabled]="moveSelectorDisabled(pokemon().move3Name)" data-cy="attack3"/>
-          <app-input-autocomplete [(value)]="pokemon().moveSet.move3.name" [allValues]="allMoveNames" (valueChange)="move3Selected($event)" data-cy="pokemon-attack-3"/>
+          <mat-checkbox [ngModel]="pokemon().move3Name == pokemon().activeMoveName" (change)="activateMove(3)" [disabled]="moveSelectorDisabled(pokemon().move3Name)" data-cy="attack3"/>
+          <app-input-autocomplete [value]="pokemon().moveSet.move3.name" [allValues]="allMoveNames" (valueChange)="data.moveThree(pokemonId(), $event)" data-cy="pokemon-attack-3"/>
           <div class="move-bp">
             <label>{{ pokemon().moveSet.move3.bp() }}</label>
           </div>
         </div>
         <div class="move">
-          <mat-checkbox [ngModel]="pokemon().move4Name == pokemon().activeMoveName" (change)="activateMove4()" [disabled]="moveSelectorDisabled(pokemon().move4Name)" data-cy="attack4"/>
-          <app-input-autocomplete [(value)]="pokemon().moveSet.move4.name" [allValues]="allMoveNames" (valueChange)="move4Selected($event)" data-cy="pokemon-attack-4"/>
+          <mat-checkbox [ngModel]="pokemon().move4Name == pokemon().activeMoveName" (change)="activateMove(4)" [disabled]="moveSelectorDisabled(pokemon().move4Name)" data-cy="attack4"/>
+          <app-input-autocomplete [value]="pokemon().moveSet.move4.name" [allValues]="allMoveNames" (valueChange)="data.moveFour(pokemonId(), $event)" data-cy="pokemon-attack-4"/>
           <div class="move-bp">
             <label>{{ pokemon().moveSet.move4.bp() }}</label>
           </div>
@@ -160,22 +162,12 @@
 </div>
 
 <div class="evs">
-  <app-ev-slider data-cy="stat-hp" [baseStatValue]="pokemon().baseHp" statName="HP" [statValue]="pokemon().hp" [(hpPercentage)]="pokemon().hpPercentage" [(ev)]="pokemon().evs.hp" [(iv)]="pokemon().ivs.hp" (evChangedEvent)="onChangeEvValue()" (ivChange)="onChangeIvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()" (hpPercentageChange)="pokemonChanged()"/>
-
-  <app-ev-slider data-cy="stat-atk" [baseStatValue]="pokemon().baseAtk" statName="Attack" [statValue]="pokemon().modifiedAtk()" [(ev)]="pokemon().evs.atk" [(iv)]="pokemon().ivs.atk" (evChangedEvent)="onChangeEvValue()" (ivChange)="onChangeIvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"
-    [(statsModifier)]="pokemon().boosts.atk" [nature]="pokemon().nature" (statsModifierChange)="pokemonChanged()"/>
-
-  <app-ev-slider data-cy="stat-def" [baseStatValue]="pokemon().baseDef" statName="Defense" [statValue]="pokemon().modifiedDef()" [(ev)]="pokemon().evs.def" [(iv)]="pokemon().ivs.def" (evChangedEvent)="onChangeEvValue()" (ivChange)="onChangeIvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"
-    [(statsModifier)]="pokemon().boosts.def" [nature]="pokemon().nature" (statsModifierChange)="pokemonChanged()"/>
-
-  <app-ev-slider data-cy="stat-spa" [baseStatValue]="pokemon().baseSpa" statName="Sp. Atk." [statValue]="pokemon().modifiedSpa()" [(ev)]="pokemon().evs.spa" [(iv)]="pokemon().ivs.spa" (evChangedEvent)="onChangeEvValue()" (ivChange)="onChangeIvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"
-    [(statsModifier)]="pokemon().boosts.spa" [nature]="pokemon().nature" (statsModifierChange)="pokemonChanged()"/>
-
-  <app-ev-slider data-cy="stat-spd" [baseStatValue]="pokemon().baseSpd" statName="Sp. Def." [statValue]="pokemon().modifiedSpd()" [(ev)]="pokemon().evs.spd" [(iv)]="pokemon().ivs.spd" (evChangedEvent)="onChangeEvValue()" (ivChange)="onChangeIvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"
-    [(statsModifier)]="pokemon().boosts.spd" [nature]="pokemon().nature" (statsModifierChange)="pokemonChanged()"/>
-
-  <app-ev-slider data-cy="stat-spe" [baseStatValue]="pokemon().baseSpe" statName="Speed" [statValue]="pokemon().modifiedSpe()" [(ev)]="pokemon().evs.spe" [(iv)]="pokemon().ivs.spe" (evChangedEvent)="onChangeEvValue()" (ivChange)="onChangeIvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()"
-    [(statsModifier)]="pokemon().boosts.spe" [nature]="pokemon().nature" (statsModifierChange)="pokemonChanged()"/>
+  <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.hp ?? 0" data-cy="stat-hp" stat="hp" />
+  <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.atk ?? 0" data-cy="stat-atk" stat="atk" />
+  <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.def ?? 0" data-cy="stat-def" stat="def" />
+  <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.spa ?? 0" data-cy="stat-spa" stat="spa" />
+  <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.spd ?? 0" data-cy="stat-spd" stat="spd" />
+  <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.spe ?? 0" data-cy="stat-spe" stat="spe" />
 
   <div class="remaining-evs">
     <label>Remaining:</label>
@@ -188,7 +180,7 @@
 <div class="nature">
   <label>Nature</label>
   <div class="nature-combobox">
-    <app-input-autocomplete [(value)]="pokemon().nature" [allValues]="allNatureNames" (valueChange)="pokemonChanged()" data-cy="nature"/>
+    <app-input-autocomplete [value]="pokemon().nature" [allValues]="allNatureNames" (valueChange)="data.nature(pokemonId(), $event)" data-cy="nature"/>
   </div>
 </div>
 

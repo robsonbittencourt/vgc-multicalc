@@ -10,7 +10,7 @@ before(() => {
   cy.fixture("baxcalibur-data").then((data) => { baxcaliburData = data })
 })
 
-describe.only('Edit Pokémon', () => {
+describe('Edit Pokémon', () => {
   it('Show only selected Pokémon abilities when change Pokémon', () => {
     leftPokemonBuild.importPokemon(ursalunaData)
 

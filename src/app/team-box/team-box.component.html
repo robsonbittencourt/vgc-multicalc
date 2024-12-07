@@ -1,7 +1,7 @@
 <div class="team" [ngStyle]="boxStyle()" (click)="activate()" data-cy="team-box">
   <label class="team-name-label">{{ team().name }}</label>
   <div class="team-pokemon-icons">
-    @for (teamMember of team().teamMembers(); track teamMember.id) {
+    @for (teamMember of team().teamMembers(); track teamMember.pokemon.id) {
       <div class="pokemon-image">
         @if (!teamMember.pokemon.isDefault()) {
           <img src='assets/sprites/pokemon-sv/{{ teamMember.pokemon.name }}.png'>

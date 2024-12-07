@@ -2,38 +2,38 @@
   <div class="combo-options">
     <div class="pokemon-name">
       <label>Pokémon</label>
-      <app-input-autocomplete [(value)]="pokemon.name" [allValues]="allPokemonNames" (valueChange)="onValueManuallySelected($event)"/>
+      <app-pokemon-combo-box [pokemonId]="pokemonId()" data-cy="pokemon-select"/>
     </div>
 
     <div class="combo-option">
       <label>Item</label>
-      <app-input-autocomplete [(value)]="pokemon.item" [allValues]="allItemsNames"/>
+      <app-input-autocomplete [value]="pokemon().item" [allValues]="allItemsNames" (valueChange)="data.item(pokemonId(), $event)" />
     </div>
 
     <div class="tab">
-      <img class="pokemon-image-small" src='assets/sprites/pokemon-sv/{{ pokemon.name }}.png'>
+      <img class="pokemon-image-small" src='assets/sprites/pokemon-sv/{{ pokemon().name }}.png'>
     </div>
 
     <div class="combo-option-medium">
       <label>Status</label>
-      <app-input-autocomplete [(value)]="pokemon.status" [allValues]="statusConditions"/>
+      <app-input-autocomplete [value]="pokemon().status" [allValues]="statusConditions" (valueChange)="data.status(pokemonId(), $event)" />
     </div>
 
     <div class="combo-option-medium">
       <label>Nature</label>
-      <app-input-autocomplete [(value)]="pokemon.nature" [allValues]="allNatureNames"/>
+      <app-input-autocomplete [value]="pokemon().nature" [allValues]="allNatureNames" (valueChange)="data.nature(pokemonId(), $event)" />
     </div>
 
     <div class="ability-enable">
-      @if (pokemon.ability == 'Unburden') {
+      @if (pokemon().ability == 'Analytic' || pokemon().ability == 'Unburden') {
         <div class="ability-checkbox">
-          <mat-checkbox [(ngModel)]="pokemon.abilityOn"/>
+          <mat-checkbox [ngModel]="pokemon().abilityOn" (change)="data.abilityOn(pokemonId(), $event.checked)" />
         </div>
       }
 
-      @if (pokemon.name == 'Dondozo') {
-        <button class="icon-button" (click)="toogleCommanderAbility()" matTooltip="Commander">
-          @if (this.pokemon.commanderActivated) {
+      @if (pokemon().name == 'Dondozo') {
+        <button class="icon-button" (click)="data.commanderActive(pokemonId(), !pokemon().commanderActivated)" matTooltip="Commander">
+          @if (this.pokemon().commanderActivated) {
             <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly.png" />
           }
           @else {
@@ -42,9 +42,9 @@
         </button>
       }
 
-      @if (pokemon.isParadoxAbility()) {
-        <button class="icon-button" (click)="toogleParadoxAbility()" matTooltip="Booster Energy">
-          @if (this.pokemon.abilityOn) {
+      @if (pokemon().isParadoxAbility()) {
+        <button class="icon-button" (click)="data.abilityOn(pokemonId(), !pokemon().abilityOn)" matTooltip="Booster Energy">
+          @if (this.pokemon().abilityOn) {
             <img class="icon-tatsugiri" src="assets/icons/booster-energy.png" />
           }
           @else {
@@ -56,17 +56,16 @@
 
     <div class="combo-option">
       <label>Ability</label>
-      <app-input-autocomplete [(value)]="pokemon.ability" [allValues]="availableAbilities"/>
+      <app-ability-combo-box [pokemonId]="pokemonId()" data-cy="ability"/>
     </div>
   </div>
 
   <div class="evs">
-    <app-ev-slider statNameAcronym="SPE" [statValue]="pokemon.modifiedSpe()" [showIv]="true" [(ev)]="pokemon.evs.spe" [(iv)]="pokemon.ivs.spe" 
-      (ivChange)="onChangeIvValue()" (beforeEvChangedEvent)="beforeChangeEvValue()" [(statsModifier)]="pokemon.boosts.spe" [nature]="pokemon.nature"/>
+    <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.spe ?? 0" stat="spe" [reduced]="true" />
   </div>
 
   <div class="speed-calculator-container">
-    <app-speed-scale [pokemon]="pokemon" [pokemonEachSide]=17 />
+    <app-speed-scale [pokemonId]="pokemon().id" [pokemonEachSide]=17 />
   </div>
 
   <div>

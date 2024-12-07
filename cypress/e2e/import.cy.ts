@@ -30,6 +30,7 @@ describe('Import Pokémon', () => {
   it('to team', () => {
     team.importPokemon(chiyuData)
     
+    team.selectPokemon("Chi-Yu")
     team.pokemonOnEditIs("Chi-Yu", "Beads of Ruin", "Water", "Choice Specs", "Timid")
     team.pokemonOnEditAttacksIs("Overheat", "Heat Wave", "Dark Pulse", "Snarl")
     team.pokemonOnEditEvsIs(44, 252, 12, 32, 124, 40)
