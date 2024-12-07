@@ -38,7 +38,7 @@ export class TeamComponent {
         const teamMembers = [ ...this.data.team().teamMembers(), new TeamMember(defaultPokemon(), false) ]
         const team = new Team(this.data.team().active, this.data.team().name, teamMembers)
 
-        this.data.replaceActiveTeam(team.toState())
+        this.data.replaceActiveTeam(team)
       }
     },
     {
@@ -52,12 +52,12 @@ export class TeamComponent {
     this.teamMemberSelected.emit(pokemonId)
 
     if (this.combineDamageActive()) {
-      const active1 = members[0].pokemon.id == this.data.activeAttacker().id || members[0].pokemon.id == pokemonId
-      const active2 = members[1]?.pokemon.id == this.data.activeAttacker().id || members[1]?.pokemon.id == pokemonId
-      const active3 = members[2]?.pokemon.id == this.data.activeAttacker().id || members[2]?.pokemon.id == pokemonId
-      const active4 = members[3]?.pokemon.id == this.data.activeAttacker().id || members[3]?.pokemon.id == pokemonId
-      const active5 = members[4]?.pokemon.id == this.data.activeAttacker().id || members[4]?.pokemon.id == pokemonId
-      const active6 = members[5]?.pokemon.id == this.data.activeAttacker().id || members[5]?.pokemon.id == pokemonId
+      const active1 = members[0].pokemon.id == this.data.attackerId() || members[0].pokemon.id == pokemonId
+      const active2 = members[1]?.pokemon.id == this.data.attackerId() || members[1]?.pokemon.id == pokemonId
+      const active3 = members[2]?.pokemon.id == this.data.attackerId() || members[2]?.pokemon.id == pokemonId
+      const active4 = members[3]?.pokemon.id == this.data.attackerId() || members[3]?.pokemon.id == pokemonId
+      const active5 = members[4]?.pokemon.id == this.data.attackerId() || members[4]?.pokemon.id == pokemonId
+      const active6 = members[5]?.pokemon.id == this.data.attackerId() || members[5]?.pokemon.id == pokemonId
 
       this.data.updateTeamMembersActive(active1, active2, active3, active4, active5, active6)
       this.data.updateSecondAttacker(pokemonId)  
@@ -91,7 +91,7 @@ export class TeamComponent {
     const teamMembers = [ new TeamMember(inactiveMembers[0].pokemon, true), ...inactiveMembers.slice(1) ]
     const team = new Team(this.data.team().active, this.data.team().name, teamMembers)
 
-    this.data.replaceActiveTeam(team.toState())
+    this.data.replaceActiveTeam(team)
 
     if (this.isSecondSelection(activeMember)) {
       this.data.updateSecondAttacker("")
@@ -110,11 +110,11 @@ export class TeamComponent {
   }
 
   isSecondSelection(teamMember: TeamMember) {
-    return !teamMember.pokemon.isDefault() && teamMember.pokemon.equals(this.data.activeSecondAttacker())
+    return !teamMember.pokemon.isDefault() && teamMember.pokemon.id === (this.data.secondAttackerId())
   }
 
   canShowCombineButton() {
-    return this.isAttacker() && !this.pokemonOnEdit().isDefault() && this.pokemonOnEdit().equals(this.data.activeAttacker())
+    return this.isAttacker() && !this.pokemonOnEdit().isDefault() && this.pokemonOnEdit().id === this.data.attackerId()
   }
 
   pokemonImported(pokemon: Pokemon) {
@@ -122,7 +122,7 @@ export class TeamComponent {
 
     this.data.team().addTeamMember(teamMember)
       
-    this.data.replaceActiveTeam(this.data.team().toState())
+    this.data.replaceActiveTeam(this.data.team())
   }
 
   canImportPokemon() {
@@ -134,7 +134,7 @@ export class TeamComponent {
   }
 
   teamMemberOnEdit(): boolean {
-    return this.pokemonOnEdit().equals(this.data.team().activePokemon()) || this.pokemonOnEdit().equals(this.data.activeSecondAttacker())
+    return this.pokemonOnEdit().equals(this.data.team().activePokemon()) || this.pokemonOnEdit().id === this.data.secondAttackerId()
   }
 
 }

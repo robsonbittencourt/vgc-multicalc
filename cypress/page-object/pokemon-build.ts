@@ -65,7 +65,7 @@ export class PokemonBuild {
   }
 
   hpPercentage(hpPercentage: number) {
-    this.container().find(`[data-cy="stat-hp"]`).find('[data-cy="hp-percentage-value"]').clear().type(hpPercentage.toString(), {force: true})
+    this.container().find(`[data-cy="stat-hp"]`).find('[data-cy="hp-percentage-value"]').clear().clear().type(hpPercentage.toString(), {force: true})
   }
 
   importPokemon(pokemonData: string): PokemonBuild {

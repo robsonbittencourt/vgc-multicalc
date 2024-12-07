@@ -60,7 +60,7 @@ export class PokemonBuildMobileComponent {
   }
 
   private activateMove(position: number) {
-    this.data.activeMoveByPosition(this.pokemonId(), position)
+    this.data.activateMoveByPosition(this.pokemonId(), position)
   }
 
   editMoves() {

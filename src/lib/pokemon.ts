@@ -2,7 +2,6 @@ import { Generations, Pokemon as PokemonSmogon } from "@smogon/calc"
 import { StatsTable, StatusName, TypeName } from "@smogon/calc/dist/data/interface"
 import dedent from "dedent"
 import { AllPokemon } from "src/data/all-pokemon"
-import { PokemonState } from "src/data/data-store"
 import { Items } from "src/data/items"
 import { v4 as uuidv4 } from 'uuid'
 import { Move } from "./move"
@@ -629,29 +628,4 @@ export class Pokemon {
     return text
   }
 
-  toState(): PokemonState {
-    return {
-      id: this.id,
-      name: this.name,
-      nature: this.nature,
-      item: this.item,
-      status: this.status,
-      ability: this.ability,
-      abilityOn: this.abilityOn,
-      commanderActive: this.commanderActivated,
-      teraType: this.teraType,
-      teraTypeActive: this.teraTypeActive,
-      activeMove: this.activeMoveName,
-      moveSet: [
-        { name: this.move1Name, alliesFainted: this.moveSet.move1.alliesFainted, hits: this.moveSet.move1.hits },
-        { name: this.move2Name, alliesFainted: this.moveSet.move2.alliesFainted, hits: this.moveSet.move2.hits },
-        { name: this.move3Name, alliesFainted: this.moveSet.move3.alliesFainted, hits: this.moveSet.move3.hits },
-        { name: this.move4Name, alliesFainted: this.moveSet.move4.alliesFainted, hits: this.moveSet.move4.hits }
-      ],
-      boosts: this.boosts,
-      evs: { hp: this.evs.hp!, atk: this.evs.atk!, def: this.evs.def!, spa: this.evs.spa!, spd: this.evs.spd!, spe: this.evs.spe! },
-      ivs: { hp: this.ivs.hp!, atk: this.ivs.atk!, def: this.ivs.def!, spa: this.ivs.spa!, spd: this.ivs.spd!, spe: this.ivs.spe! },
-      hpPercentage: this.hpPercentage
-    }
-  }
 }

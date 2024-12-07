@@ -1,4 +1,3 @@
-import { TeamState } from "src/data/data-store"
 import { v4 as uuidv4 } from 'uuid'
 import { Pokemon } from "./pokemon"
 import { TeamMember } from "./team-member"
@@ -109,13 +108,5 @@ export class Team {
     })
 
     return result
-  }
-
-  toState(): TeamState {
-    return {
-      active: this.active,
-      name: this.name,
-      teamMembers: this.teamMembers().map(t => ({ active: t.active, pokemon: t.pokemon.toState() }))
-    }
   }
 }

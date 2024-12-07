@@ -102,13 +102,13 @@ export class PokemonCardComponent {
 
   toogleCommanderAbility(event: Event) {
     event.stopPropagation()
-    this.data.toogleActiveTargetCommander(this.target())
+    this.data.toogleTargetCommander(this.target())
   }
 
   terastalyzePokemon(event: Event) {
     event.stopPropagation()
     if (!this.target().pokemon.isTerapagos()) {
-      this.data.toogleActiveTargetTerastal(this.target())
+      this.data.toogleTargetTerastal(this.target())
 
       if (this.target().pokemon.isOgerpon()) {
         this.target().pokemon.changeTeraStatus(!this.target().pokemon.teraTypeActive)

@@ -27,14 +27,16 @@ export class MultiCalcComponent {
 
   pokemonId = signal<string>(this.data.team().activePokemon().id)
 
-  isAttacker = computed(() => this.data.activeAttacker().equals(this.data.findPokemonById(this.pokemonId())))
+  isAttacker = computed(() => this.data.attackerId() === this.pokemonId())
+  activeAttacker = computed(() => this.data.findPokemonById(this.data.attackerId()))
+  activeSecondAttacker = computed(() => this.data.findPokemonById(this.data.secondAttackerId()))
 
   constructor() {
     effect(() => {
-      if(this.data.activeSecondAttacker().isDefault()) {
-        this.calculateDamageForAll(this.data.activeAttacker(), this.data.targets(), this.fieldStore.field())
+      if(this.activeSecondAttacker().isDefault()) {
+        this.calculateDamageForAll(this.activeAttacker(), this.data.targets(), this.fieldStore.field())
       } else {
-        this.calculateDamageForAll(this.data.activeAttacker(), this.data.targets(), this.fieldStore.field(), this.data.activeSecondAttacker())
+        this.calculateDamageForAll(this.activeAttacker(), this.data.targets(), this.fieldStore.field(), this.activeSecondAttacker())
       }      
     })
   }

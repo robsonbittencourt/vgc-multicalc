@@ -1,4 +1,3 @@
-import { TargetState } from 'src/data/data-store'
 import { DamageResult } from "./damage-result"
 import { Pokemon } from "./pokemon"
 export class Target {
@@ -16,10 +15,4 @@ export class Target {
     this.damageResult = damageResult
   }
 
-  toState(): TargetState {
-    return {
-      active: this.active,
-      pokemon: this.pokemon.toState()
-    }
-  }
 }
