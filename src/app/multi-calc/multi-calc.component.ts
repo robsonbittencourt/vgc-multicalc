@@ -1,6 +1,7 @@
 import { Component, computed, effect, inject, signal } from '@angular/core'
 import { DataStore } from 'src/data/data-store'
 import { FieldStore } from 'src/data/field-store'
+import { MenuStore } from 'src/data/store/menu-store'
 import { DamageCalculatorService } from 'src/lib/damage-calculator.service'
 import { Field } from 'src/lib/field'
 import { Pokemon } from 'src/lib/pokemon'
@@ -20,6 +21,7 @@ import { TeamsComponent } from '../teams/teams.component'
 export class MultiCalcComponent {
   
   data = inject(DataStore)
+  menuStore = inject(MenuStore)
   fieldStore = inject(FieldStore)
   private damageCalculator = inject(DamageCalculatorService)
 
@@ -45,7 +47,7 @@ export class MultiCalcComponent {
  
   calculateDamageForAll(attacker: Pokemon, targets: Target[], field: Field, secondAttacker?: Pokemon) {
     targets.forEach(target => {
-      if(this.data.oneVsManyActivated()) {
+      if(this.menuStore.oneVsManyActivated()) {
         this.calculateDamageOneVsMany(attacker, target, field, secondAttacker)
       } else {
         this.calculateDamageManyVsOne(attacker, target, targets, field)      

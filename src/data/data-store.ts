@@ -10,13 +10,6 @@ import { TeamMember } from "src/lib/team-member"
 import { MovePosition, Stats } from "src/lib/types"
 import { v4 as uuidv4 } from 'uuid'
 
-export type MenuState = {
-  oneVsOneActivated: boolean
-  oneVsManyActivated: boolean
-  manyVsOneActivated: boolean
-  speedCalculatorActivated: boolean
-}
-
 export type MoveState = {
   name: string,
   alliesFainted?: string
@@ -59,7 +52,6 @@ export type TargetState = {
 }
 
 type DataState = {
-  _menuState: MenuState,
   _leftPokemonState: PokemonState,
   _rightPokemonState: PokemonState,
   attackerId: string,
@@ -71,13 +63,6 @@ type DataState = {
 const initialId = "0dc51a43-1de8-4213-9686-fb07f2507b06"
 
 const initialState: DataState = {
-  _menuState: {
-    oneVsOneActivated: true,
-    oneVsManyActivated: false,
-    manyVsOneActivated: false,
-    speedCalculatorActivated: false
-  },
-
   _leftPokemonState: { id: uuidv4(), name: "Gholdengo", nature: "Timid", item: "Choice Specs", status: "Healthy", ability: "Good as Gold", abilityOn: false, commanderActive: false, teraType: "Steel", teraTypeActive: false, activeMove: "Make It Rain",
     moveSet: [{ name: "Make It Rain" }, { name: "Shadow Ball" }, { name: "Protect" }, { name: "Nasty Plot" }],
     boosts: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
@@ -262,11 +247,6 @@ export const DataStore = signalStore(
     }
 
     return {
-      oneVsOneActivated: computed(() => store._menuState.oneVsOneActivated()),
-      oneVsManyActivated: computed(() => store._menuState.oneVsManyActivated()),
-      manyVsOneActivated: computed(() => store._menuState.manyVsOneActivated()),
-      speedCalculatorActivated: computed(() => store._menuState.speedCalculatorActivated()),
-
       leftPokemon: computed(() => {
         return stateToPokemon(store._leftPokemonState())
       }),
@@ -576,52 +556,7 @@ export const DataStore = signalStore(
 
       updateRightPokemon(pokemon: Pokemon) {
         patchState(store, () => ({ _rightPokemonState: pokemon.toState() }))
-      },
-
-      enableOneVsOne() {
-        patchState(store, () => ({ 
-          _menuState: {
-            oneVsOneActivated: true,
-            oneVsManyActivated: false,
-            manyVsOneActivated: false,
-            speedCalculatorActivated: false
-          }
-        }))
-      },
-
-      enableOneVsMany() {
-        patchState(store, () => ({ 
-          _menuState: {
-            oneVsOneActivated: false,
-            oneVsManyActivated: true,
-            manyVsOneActivated: false,
-            speedCalculatorActivated: false
-          }
-        }))
-      },
-
-      enableManyVsOne() {
-        patchState(store, () => ({ 
-          _menuState: {
-            oneVsOneActivated: false,
-            oneVsManyActivated: false,
-            manyVsOneActivated: true,
-            speedCalculatorActivated: false
-          }
-        }))
-      },
-
-      enableSpeedCalculator() {
-        patchState(store, () => ({ 
-          _menuState: {
-            oneVsOneActivated: false,
-            oneVsManyActivated: false,
-            manyVsOneActivated: false,
-            speedCalculatorActivated: true
-          }
-        }))
-      },
-      
+      }      
     }
   }),
 

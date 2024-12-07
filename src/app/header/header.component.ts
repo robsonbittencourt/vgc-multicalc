@@ -4,7 +4,7 @@ import { MatButton } from '@angular/material/button'
 import { MatIcon } from '@angular/material/icon'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import axios from 'axios'
-import { DataStore } from 'src/data/data-store'
+import { MenuStore } from 'src/data/store/menu-store'
 import { v4 as uuidv4 } from 'uuid'
 import { DataStore as OldDataStore } from '../../lib/data-store.service'
 
@@ -16,8 +16,8 @@ import { DataStore as OldDataStore } from '../../lib/data-store.service'
   imports: [NgStyle, MatIcon, MatButton]
 })
 export class HeaderComponent {
-  data = inject(DataStore)
   oldData = inject(OldDataStore)
+  menuStore = inject(MenuStore)
   private snackBar = inject(MatSnackBar)
 
   userDataLink: string

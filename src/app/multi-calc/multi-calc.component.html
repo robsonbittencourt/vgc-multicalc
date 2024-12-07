@@ -8,7 +8,7 @@
   </div> 
 
   <div class="target-pokemon">
-    <app-target-pokemon [isAttacker]="data.manyVsOneActivated()" [showDamageDescription]="!data.activeAttacker().isDefault()" 
+    <app-target-pokemon [isAttacker]="menuStore.manyVsOneActivated()" [showDamageDescription]="!data.activeAttacker().isDefault()" 
       (targetActivated)="pokemonId.set($event)" (targetRemoved)="pokemonId.set(data.team().activePokemon().id)"
       (targetsImported)="targetsImported()"/>
   </div>

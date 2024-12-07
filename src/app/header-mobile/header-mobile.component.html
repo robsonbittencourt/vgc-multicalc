@@ -9,10 +9,10 @@
       <mat-icon>menu</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="data.enableOneVsMany()">
+      <button mat-menu-item (click)="menuStore.enableOneVsMany()">
         <span>Damage Calculator</span>
       </button>
-      <button mat-menu-item (click)="data.enableSpeedCalculator()">
+      <button mat-menu-item (click)="menuStore.enableSpeedCalculator()">
         <span>Speed Calculator</span>
       </button>
     </mat-menu>
