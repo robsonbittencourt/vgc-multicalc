@@ -6,7 +6,7 @@ import { PokemonComboBoxComponent } from '../pokemon-combo-box/pokemon-combo-box
 import { PokemonTabComponent } from '../pokemon-tab/pokemon-tab.component'
 
 import { MatIcon } from '@angular/material/icon'
-import { FieldStore } from 'src/data/field-store'
+import { FieldStore } from 'src/data/store/field-store'
 import { FieldComponent } from '../field/field.component'
 import { PokemonBuildMobileComponent } from '../pokemon-build-mobile/pokemon-build-mobile.component'
 

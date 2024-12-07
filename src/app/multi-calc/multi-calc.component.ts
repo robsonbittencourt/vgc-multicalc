@@ -1,6 +1,6 @@
 import { Component, computed, effect, inject, signal } from '@angular/core'
 import { DataStore } from 'src/data/data-store'
-import { FieldStore } from 'src/data/field-store'
+import { FieldStore } from 'src/data/store/field-store'
 import { MenuStore } from 'src/data/store/menu-store'
 import { DamageCalculatorService } from 'src/lib/damage-calculator.service'
 import { Field } from 'src/lib/field'

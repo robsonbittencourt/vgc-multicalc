@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { MatButtonToggle, MatButtonToggleGroup } from '@angular/material/button-toggle';
-import { FieldStore } from 'src/data/field-store';
+import { FieldStore } from 'src/data/store/field-store';
 
 @Component({
   selector: 'app-field',

@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { DataStore as NewDataStore } from 'src/data/data-store'
-import { FieldStore } from 'src/data/field-store'
+import { FieldStore } from 'src/data/store/field-store'
 import { MenuStore } from 'src/data/store/menu-store'
 import { DeviceDetectorService } from 'src/lib/device-detector.service'
 import { DataStore } from '../../lib/data-store.service'
