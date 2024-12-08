@@ -1,6 +1,5 @@
 import { computed, effect } from "@angular/core"
 import { patchState, signalStore, withComputed, withHooks, withMethods, withState } from "@ngrx/signals"
-import { defaultPokemon } from "src/lib/default-pokemon"
 import { Move } from "src/lib/move"
 import { Pokemon } from "src/lib/pokemon"
 import { Target } from "src/lib/target"
@@ -199,6 +198,10 @@ export const CalculatorStore = signalStore(
     },
 
     findPokemonById(pokemonId: string): Pokemon {
+      return this.findNullablePokemonById(pokemonId)!
+    },
+
+    findNullablePokemonById(pokemonId: string): Pokemon | undefined {
       if (store._leftPokemonState().id == pokemonId) return stateToPokemon(store._leftPokemonState())
 
       if (store._rightPokemonState().id == pokemonId) return stateToPokemon(store._rightPokemonState())
@@ -210,10 +213,9 @@ export const CalculatorStore = signalStore(
         
       if (pokemonFromTeam) return stateToPokemon(pokemonFromTeam)
 
-      const pokemonFromTargets = store._targetsState().find(target => target.pokemon.id == pokemonId)!
-      if (pokemonFromTargets) return stateToPokemon(pokemonFromTargets.pokemon)
+      const pokemonFromTargets = store._targetsState().find(target => target.pokemon.id == pokemonId)
 
-      return defaultPokemon()
+      return pokemonFromTargets ? stateToPokemon(pokemonFromTargets.pokemon) : undefined
     },
 
     _updateMove(pokemonId: string, move: string, index: number) {
