@@ -44,7 +44,7 @@ export function buildState(userData: any): CalculatorState {
     _rightPokemonState: buildPokemonState(userData.rightPokemon),
     attackerId: attackerId,
     secondAttackerId: "",
-    _teamsState: buildTeamState(userData.teams),
+    _teamsState: teams,
     _targetsState: buildTargetsState(userData.targets)
   }
 }
