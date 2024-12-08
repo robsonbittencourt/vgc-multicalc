@@ -57,7 +57,7 @@ export class Pokemon {
     this.pokemonSmogon.originalCurHP = Math.round((this.pokemonSmogon.maxHP() * this.hpPercentageStorage) / 100)
 
     this._id = options.id ?? uuidv4()
-    this.commanderActivated = options.commanderActive ?? false
+    this.commanderActivatedStorage = options.commanderActive ?? false
     this.actualHpStorage = this.pokemonSmogon.stats.hp
     this.statusStorage = options.status ?? 'Healthy'
     this.teraTypeStorage = options.teraType ?? defaulTeraType
@@ -74,12 +74,6 @@ export class Pokemon {
     if (this.isDefault()) return this.selectPokemonLabel
 
     return this.pokemonSmogon.name
-  }
-
-  public set name(name: string) {
-    if (name != this.selectPokemonLabel) {
-      this.pokemonSmogon = this.buildPokemonSmogon({ name: name })
-    }    
   }
 
   public get displayName(): string {
@@ -193,10 +187,6 @@ export class Pokemon {
     return this.pokemonSmogon.boosts
   }
 
-  public set boosts(boosts: StatsTable) {
-    this.pokemonSmogon = this.buildPokemonSmogon({ boosts: boosts })
-  }
-
   public get status(): string {
     return this.statusStorage ?? ''
   }
@@ -227,11 +217,6 @@ export class Pokemon {
     return this.teraTypeStorage
   }
 
-  public set teraType(teraType: string) {
-    this.teraTypeStorage = teraType
-    this.pokemonSmogon = this.buildPokemonSmogon({ teraType: teraType, teraTypeActive: this.teraTypeActive })
-  }
-
   public get teraTypeActive(): boolean {
     return this.isTerapagosStellar() || this.pokemonSmogon.teraType != undefined
   }
@@ -246,18 +231,8 @@ export class Pokemon {
     }
   }
 
-  public activateMove(move: string): Pokemon {
-    const newPokemon = this.clone()
-    
-    return newPokemon
-  }
-
   public get moveSet(): MoveSet {
     return this.moveSetStorage
-  }
-
-  public set moveSet(moveSet: MoveSet) {
-    this.moveSetStorage = moveSet
   }
 
   public get move(): Move {
@@ -362,10 +337,6 @@ export class Pokemon {
 
   public get commanderActivated(): boolean {
     return this.commanderActivatedStorage
-  }
-
-  public set commanderActivated(commanderActivated: boolean) {
-    this.commanderActivatedStorage = commanderActivated
   }
 
   public clone(): Pokemon {
