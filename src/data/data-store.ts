@@ -1,5 +1,5 @@
-import { computed } from "@angular/core"
-import { patchState, signalStore, watchState, withComputed, withHooks, withMethods, withState } from "@ngrx/signals"
+import { computed, effect } from "@angular/core"
+import { patchState, signalStore, withComputed, withHooks, withMethods, withState } from "@ngrx/signals"
 import { defaultPokemon } from "src/lib/default-pokemon"
 import { Move } from "src/lib/move"
 import { Pokemon } from "src/lib/pokemon"
@@ -8,6 +8,7 @@ import { Team } from "src/lib/team"
 import { MovePosition, Stats } from "src/lib/types"
 import { initialState } from "./store/utils/initial-state"
 import { pokemonToState, stateToPokemon, stateToTargets, stateToTeam, stateToTeams, targetToState, teamToState } from "./store/utils/state-mapper"
+import { buildUserData } from "./store/utils/user-data-mapper"
 
 export type MoveState = {
   name: string,
@@ -300,9 +301,10 @@ export const DataStore = signalStore(
 
   withHooks({
     onInit(store) {
-      watchState(store, (state) => {
-        console.log('[watchState]', state)
-      });
+      effect(() => {
+        const userData = buildUserData(store._leftPokemonState(), store._rightPokemonState(), store._teamsState(), store._targetsState())
+        localStorage.setItem('userData', JSON.stringify(userData))
+      })
     }
   })
 )

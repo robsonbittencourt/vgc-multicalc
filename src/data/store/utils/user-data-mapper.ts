@@ -1,0 +1,122 @@
+import { DataState, PokemonState, TargetState, TeamMemberState, TeamState } from "src/data/data-store"
+import { v4 as uuidv4 } from 'uuid'
+import { stateToPokemon } from "./state-mapper"
+
+export function buildUserData(leftPokemon: PokemonState, rightPokemon: PokemonState, teams: TeamState[], targets: TargetState[]) {
+  return {
+    leftPokemon: buildPokemonToUserData(leftPokemon),
+    rightPokemon: buildPokemonToUserData(rightPokemon),
+    teams: teams.map(team => {
+      return {
+        "active": team.active,
+        "name": team.name,
+        "teamMembers": team.teamMembers
+          .filter(t => !stateToPokemon(t.pokemon).isDefault())
+          .map(t => {
+            const pokemon = buildPokemonToUserData(t.pokemon)
+            
+            return {
+              "pokemon": pokemon,
+              "active": t.active
+            }
+          })          
+      }    
+    }),
+    targets: targets
+      .filter(t => !stateToPokemon(t.pokemon).isDefault())  
+      .map(t => {
+        const pokemon = buildPokemonToUserData(t.pokemon)
+
+        return {
+          "pokemon": pokemon
+        }
+      }
+    )
+  }
+}
+
+export function buildState(userData: any): DataState {
+  const teams = buildTeamState(userData.teams)
+  const attackerId = teams[0].teamMembers[0].pokemon.id
+
+  return {
+    _leftPokemonState: buildPokemonState(userData.leftPokemon),
+    _rightPokemonState: buildPokemonState(userData.rightPokemon),
+    attackerId: attackerId,
+    secondAttackerId: "",
+    _teamsState: buildTeamState(userData.teams),
+    _targetsState: buildTargetsState(userData.targets)
+  }
+}
+
+function buildPokemonToUserData(pokemon: PokemonState) {
+  return {
+    "name": pokemon.name,
+    "nature": pokemon.nature,
+    "item": pokemon.item,
+    "ability": pokemon.ability,
+    "teraType": pokemon.teraType,
+    "teraTypeActive": pokemon.teraTypeActive,
+    "evs": pokemon.evs,
+    "status": pokemon.status,
+    "boosts": pokemon.boosts,
+    "activeMove": pokemon.activeMove,
+    "abilityOn": pokemon.abilityOn,
+    "ivs": pokemon.ivs,
+    "moveSet": [
+      pokemon.moveSet[0].name,
+      pokemon.moveSet[1].name,
+      pokemon.moveSet[2].name,
+      pokemon.moveSet[3].name
+    ]      
+  }
+}
+
+function buildPokemonState(pokemon: any): PokemonState {
+  return {
+    id: uuidv4(),
+    name: pokemon.name,
+    nature: pokemon.nature,
+    item: pokemon.item,
+    status: pokemon.status,
+    ability: pokemon.ability,
+    abilityOn: pokemon.abilityOn,
+    commanderActive: pokemon.commanderActive,
+    teraType: pokemon.teraType,
+    teraTypeActive: pokemon.teraTypeActive,
+    activeMove: pokemon.activeMove,
+    moveSet: [{ name: pokemon.moveSet[0] }, { name: pokemon.moveSet[1] }, { name: pokemon.moveSet[2] }, { name: pokemon.moveSet[3] }],
+    boosts: pokemon.boosts,
+    evs: pokemon.evs,
+    ivs: pokemon.ivs,
+    hpPercentage: pokemon.hpPercentage
+  }
+}
+
+function buildTeamState(teams: any): TeamState[] {
+  return teams.map((team: any, index: Number) => {
+    return {
+      active: index == 0,
+      name: team.name,
+      teamMembers: buildTeamMemberState(team.teamMembers)
+    }
+  })
+}
+
+function buildTeamMemberState(teamMembers: any): TeamMemberState[] {
+  return teamMembers.map((member: any) => {
+    return {
+      active: member.active,
+      pokemon: buildPokemonState(member.pokemon)
+    }
+  })
+}
+
+function buildTargetsState(targets: any): TargetState[] {
+  return targets.map((target: any) => {
+    return {
+      active: false,
+      pokemon: buildPokemonState(target.pokemon)
+    }
+  })
+}
