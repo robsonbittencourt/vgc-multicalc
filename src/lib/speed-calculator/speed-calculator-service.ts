@@ -87,11 +87,9 @@ export class SpeedCalculatorService {
     const MAX_BASE_SPEED_FOR_TR = 52
     const isTrickRoomPokemon = new PokemonSmogon(Generations.get(9), pokemon.name).species.baseStats.spe <= MAX_BASE_SPEED_FOR_TR
 
-    const clonedPokemon = pokemon.clone()
-    clonedPokemon.nature = isTrickRoomPokemon ? "Brave" : "Bashful"
-    clonedPokemon.item = "Leftovers"
-    clonedPokemon.evs = { spe: 0 }
-    clonedPokemon.ivs = isTrickRoomPokemon ? { spe: 0 } : { spe: 31 }
+    const nature = isTrickRoomPokemon ? "Brave" : "Bashful"
+    const ivs = isTrickRoomPokemon ? { spe: 0 } : { spe: 31 }
+    const clonedPokemon = pokemon.clone({ nature, item: "Leftovers", evs: { spe: 0 }, ivs })
     
     const smogonField = new FieldMapper().toSmogon(field)
     const speed = this.smogonService.getFinalSpeed(clonedPokemon, smogonField, smogonField.defenderSide)
@@ -100,11 +98,7 @@ export class SpeedCalculatorService {
   }
 
   maxSpeed(pokemon: Pokemon, field: Field): SpeedDefinition {
-    const clonedPokemon = pokemon.clone()
-    clonedPokemon.nature = "Timid"
-    clonedPokemon.item = "Leftovers"
-    clonedPokemon.evs = { spe: 252 }
-    clonedPokemon.ivs = { spe: 31 }
+    const clonedPokemon = pokemon.clone({ nature: "Timid", item: "Leftovers", evs: { spe: 252 }, ivs: { spe: 31 } })
 
     const smogonField = new FieldMapper().toSmogon(field)
     const speed = this.smogonService.getFinalSpeed(clonedPokemon, smogonField, smogonField.defenderSide)
@@ -113,9 +107,7 @@ export class SpeedCalculatorService {
   }
 
   maxScarf(pokemon: Pokemon, field: Field): SpeedDefinition {
-    const clonedPokemon = pokemon.clone()
-    clonedPokemon.nature = "Timid"
-    clonedPokemon.evs = { spe: 252 }
+    const clonedPokemon = pokemon.clone({ nature: "Timid", evs: { spe: 252 } })
 
     const smogonField = new FieldMapper().toSmogon(field)
     const speed = this.smogonService.getFinalSpeed(clonedPokemon, smogonField, smogonField.defenderSide)
@@ -125,19 +117,18 @@ export class SpeedCalculatorService {
   }
 
   maxBooster(pokemon: Pokemon, field: Field): SpeedDefinition {
-    pokemon.abilityOn = true
+    const clonedPokemon = pokemon.clone({ abilityOn: true })
     
     const smogonField = new FieldMapper().toSmogon(field)
-    const speed = this.smogonService.getFinalSpeed(pokemon, smogonField, smogonField.defenderSide)
+    const speed = this.smogonService.getFinalSpeed(clonedPokemon, smogonField, smogonField.defenderSide)
     const description = "Booster"
 
-    return new SpeedDefinition(pokemon.name, speed, description)
+    return new SpeedDefinition(clonedPokemon.name, speed, description)
   }
 
   maxMeta(pokemon: Pokemon, field: Field): SpeedDefinition {
-    const clonedPokemon = pokemon.clone()
-    clonedPokemon.item = "Leftovers"
-
+    const clonedPokemon = pokemon.clone({ item: "Leftovers" })
+    
     const smogonField = new FieldMapper().toSmogon(field)
     const speed = this.smogonService.getFinalSpeed(clonedPokemon, smogonField, smogonField.defenderSide)
     const description = "Meta"

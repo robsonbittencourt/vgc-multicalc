@@ -8,6 +8,23 @@ import { Move } from "./move"
 import { MoveSet } from "./moveset"
 import { Stats } from "./types"
 
+type PokemonParameters = {
+  id?: string, 
+  ability?: string,
+  abilityOn?: boolean,
+  nature?: string,
+  item?: string,
+  teraType?: string,
+  teraTypeActive?: boolean,
+  evs?: Partial<Stats>, 
+  moveSet?: MoveSet,
+  boosts?: Partial<Stats>,
+  status?: string,
+  ivs?: Partial<Stats>,
+  hpPercentage?: number,
+  commanderActive?: boolean
+}
+
 export class Pokemon {
   private _id: string
   public pokemonSmogon: PokemonSmogon
@@ -17,26 +34,10 @@ export class Pokemon {
   private moveSetStorage: MoveSet
   private statusStorage?: string
   private hpPercentageStorage: number
-  private actualHpStorage: number
   private commanderActivatedStorage: boolean
   private selectPokemonLabel: string = "Select a Pokémon"
   
-  constructor(name: string, options: {
-    id?: string, 
-    ability?: string,
-    abilityOn?: boolean,
-    nature?: string,
-    item?: string,
-    teraType?: string,
-    teraTypeActive?: boolean,
-    evs?: Partial<Stats>, 
-    moveSet?: MoveSet,
-    boosts?: Partial<Stats>,
-    status?: string,
-    ivs?: Partial<Stats>,
-    hpPercentage?: number,
-    commanderActive?: boolean
-  } = {}) {
+  constructor(name: string, options: PokemonParameters = {}) {
     const defaulTeraType = "Water"
     const adjustedName = name == this.selectPokemonLabel ? "Togepi" : name
 
@@ -58,7 +59,6 @@ export class Pokemon {
 
     this._id = options.id ?? uuidv4()
     this.commanderActivatedStorage = options.commanderActive ?? false
-    this.actualHpStorage = this.pokemonSmogon.stats.hp
     this.statusStorage = options.status ?? 'Healthy'
     this.teraTypeStorage = options.teraType ?? defaulTeraType
     this.evsStorage = options.evs ?? { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0}
@@ -114,10 +114,6 @@ export class Pokemon {
     return this.pokemonSmogon.nature as string
   }
 
-  public set nature(nature: string) {
-    this.pokemonSmogon = this.buildPokemonSmogon({ nature: nature })
-  }
-
   public get item(): string {
     if (!this.pokemonSmogon.item) {
       return Items.instance.withoutItem()
@@ -142,10 +138,6 @@ export class Pokemon {
     return this.pokemonSmogon.abilityOn!
   }
 
-  public set abilityOn(abilityOn: boolean) {
-    this.pokemonSmogon = this.buildPokemonSmogon({ abilityOn: abilityOn })
-  }
-
   public get displayAbility(): string {
     if (this.pokemonSmogon.ability?.includes("Embody Aspect")) {
       return "Embody Aspect"
@@ -157,30 +149,12 @@ export class Pokemon {
     return this.hpPercentageStorage
   }
 
-  public set hpPercentage(hpPercentage: number) {
-    this.hpPercentageStorage = hpPercentage
-    this.actualHpStorage = Math.round((this.pokemonSmogon.maxHP() * hpPercentage) / 100)
-    this.pokemonSmogon = this.buildPokemonSmogon({ hpValue: this.actualHpStorage })
-  }
-
   public get evs(): Partial<Stats> {
     return this.pokemonSmogon.evs
   }
-
-  public set evs(evs: Partial<Stats>) {
-    this.evsStorage = evs
-    this.pokemonSmogon = this.buildPokemonSmogon({ evs: evs })      
-    this.hpPercentage = this.hpPercentageStorage
-  }
-
+  
   public get ivs(): Partial<Stats> {
     return this.pokemonSmogon.ivs
-  }
-
-  public set ivs(ivs: Partial<Stats>) {
-    this.ivsStorage = ivs
-    this.pokemonSmogon = this.buildPokemonSmogon({ ivs: ivs })
-    this.hpPercentage = this.hpPercentageStorage
   }
 
   public get boosts(): StatsTable {
@@ -339,11 +313,21 @@ export class Pokemon {
     return this.commanderActivatedStorage
   }
 
-  public clone(): Pokemon {
-    const newPokemon = new Pokemon(this.name, { ability: this.ability, abilityOn: this.abilityOn, nature: this.nature, item: this.item, teraType: this.teraTypeStorage, teraTypeActive: this.teraTypeActive, evs: this.evs, moveSet: this.moveSetStorage.clone(), boosts: this.boosts, status: this.status })
-    newPokemon.hpPercentage = this.hpPercentage
-
-    return newPokemon
+  public clone(options: PokemonParameters = {}): Pokemon {
+    return new Pokemon(this.name, { 
+      ability: options.ability ?? this.ability,
+      abilityOn: options.abilityOn ?? this.abilityOn,
+      nature: options.nature ?? this.nature,
+      item: options.item ?? this.item,
+      teraType: options.teraType?? this.teraTypeStorage,
+      teraTypeActive: options.teraTypeActive ?? this.teraTypeActive,
+      evs: options.evs ?? this.evs,
+      ivs: options.ivs ?? this.ivs,
+      moveSet: options.moveSet ?? this.moveSetStorage.clone(),
+      boosts: options.boosts ?? this.boosts,
+      status: options.status ?? this.status,
+      hpPercentage: options.hpPercentage ?? this.hpPercentageStorage
+    })
   }
 
   public equals(toCompare: Pokemon): boolean {
