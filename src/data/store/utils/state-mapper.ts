@@ -1,4 +1,4 @@
-import { PokemonState, TargetState, TeamState } from "src/data/data-store"
+import { PokemonState, TargetState, TeamState } from "src/data/store/calculator-store"
 import { Move } from "src/lib/move"
 import { MoveSet } from "src/lib/moveset"
 import { Pokemon } from "src/lib/pokemon"

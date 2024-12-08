@@ -9,7 +9,7 @@ import { TeamImportModalComponent } from '../team-import-modal/team-import-modal
 
 import { MatButton } from '@angular/material/button'
 import { MatIcon } from '@angular/material/icon'
-import { DataStore } from 'src/data/data-store'
+import { CalculatorStore } from 'src/data/store/calculator-store'
 import { defaultPokemon } from 'src/lib/default-pokemon'
 import { Pokemon } from 'src/lib/pokemon'
 import { AddPokemonCardComponent } from '../add-pokemon-card/add-pokemon-card.component'
@@ -31,17 +31,17 @@ export class TargetPokemonComponent {
   targetRemoved = output()
   targetsImported = output()
   
-  data = inject(DataStore)
+  store = inject(CalculatorStore)
   private pokePasteService = inject(PokePasteParserService)
   private dialog = inject(MatDialog)
   private snackBar = inject(SnackbarService)
 
-  targets = computed(() => this.data.targets())
+  targets = computed(() => this.store.targets())
 
   copyMessageEnabled = false
   
   removeAll() {
-    this.data.removeAllTargets()
+    this.store.removeAllTargets()
   }
 
   async importPokemon() {
@@ -68,7 +68,7 @@ export class TargetPokemonComponent {
       this.targetsImported.emit()
 
       const allTargets = this.targets().filter(t => !t.pokemon.isDefault()).concat(newTargets)
-      this.data.updateTargets(allTargets)
+      this.store.updateTargets(allTargets)
 
       this.snackBar.open("Pokémon from PokePaste added")
     })
@@ -110,7 +110,7 @@ export class TargetPokemonComponent {
     const deactivatedTargets = this.targets().map(t => new Target(t.pokemon, false))
     const targetsWithDefaultPokemon = deactivatedTargets.concat(target)
 
-    this.data.updateTargets(targetsWithDefaultPokemon)
+    this.store.updateTargets(targetsWithDefaultPokemon)
     this.targetActivated.emit(pokemon.id)
   }
 
@@ -153,7 +153,7 @@ export class TargetPokemonComponent {
         ...this.targets().slice(index + 1)
       ]
 
-      this.data.updateTargets(newTargets)
+      this.store.updateTargets(newTargets)
     } else {
       const newTargets = [
         ...this.targets().slice(0, index),
@@ -161,7 +161,7 @@ export class TargetPokemonComponent {
         ...this.targets().slice(index + 1)
       ]
 
-      this.data.updateTargets(newTargets)
+      this.store.updateTargets(newTargets)
     }    
   }
 

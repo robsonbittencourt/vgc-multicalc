@@ -4,7 +4,7 @@ import { MatOption } from '@angular/material/core'
 import { MatFormField } from '@angular/material/form-field'
 import { MatIcon } from '@angular/material/icon'
 import { MatSelect } from '@angular/material/select'
-import { DataStore } from 'src/data/data-store'
+import { CalculatorStore } from 'src/data/store/calculator-store'
 import { SpeedCalcOptionsStore } from 'src/data/store/speed-calc-options-store'
 import { FieldComponent } from '../field/field.component'
 import { InputAutocompleteComponent } from '../input-autocomplete/input-autocomplete.component'
@@ -21,9 +21,9 @@ import { TeamsComponent } from '../teams/teams.component'
 })
 export class SpeedCalculatorComponent {
   
-  data = inject(DataStore)
+  store = inject(CalculatorStore)
 
-  pokemonId = computed(() => this.data.team().activePokemon().id)
+  pokemonId = computed(() => this.store.team().activePokemon().id)
 
   optionsStore = inject(SpeedCalcOptionsStore)
 

@@ -1,5 +1,5 @@
 import { Component, computed, inject } from '@angular/core'
-import { DataStore } from 'src/data/data-store'
+import { CalculatorStore } from 'src/data/store/calculator-store'
 import { FieldStore } from 'src/data/store/field-store'
 import { DamageCalculatorService } from 'src/lib/damage-calculator.service'
 import { DamageResult } from 'src/lib/damage-result'
@@ -19,24 +19,24 @@ import { PokemonBuildComponent } from '../pokemon-build/pokemon-build.component'
 })
 export class SimpleCalcComponent {
   
-  data = inject(DataStore)
+  store = inject(CalculatorStore)
   fieldStore = inject(FieldStore)
   private damageCalculator = inject(DamageCalculatorService)
   
-  leftDamageResults = computed(() => this.damageCalculator.calcDamageAllAttacks(this.data.leftPokemon(), this.data.rightPokemon(), this.fieldStore.field()))
-  rightDamageResults = computed(() => this.damageCalculator.calcDamageAllAttacks(this.data.rightPokemon(), this.data.leftPokemon(), this.fieldStore.field()))
+  leftDamageResults = computed(() => this.damageCalculator.calcDamageAllAttacks(this.store.leftPokemon(), this.store.rightPokemon(), this.fieldStore.field()))
+  rightDamageResults = computed(() => this.damageCalculator.calcDamageAllAttacks(this.store.rightPokemon(), this.store.leftPokemon(), this.fieldStore.field()))
 
-  leftDamageResult = computed(() => this.findResultByMove(this.leftDamageResults(), this.data.leftPokemon().activeMoveName))
-  rightDamageResult = computed(() => this.findResultByMove(this.rightDamageResults(), this.data.rightPokemon().activeMoveName))
+  leftDamageResult = computed(() => this.findResultByMove(this.leftDamageResults(), this.store.leftPokemon().activeMoveName))
+  rightDamageResult = computed(() => this.findResultByMove(this.rightDamageResults(), this.store.rightPokemon().activeMoveName))
 
   leftMoveActivated(move: string) {
     const activatedMove = new Move(move)
-    this.data.activateMove(this.data.leftPokemon().id, activatedMove)
+    this.store.activateMove(this.store.leftPokemon().id, activatedMove)
   }
 
   rightMoveActivated(move: string) {
     const activatedMove = new Move(move)
-    this.data.activateMove(this.data.rightPokemon().id, activatedMove)
+    this.store.activateMove(this.store.rightPokemon().id, activatedMove)
   }
 
   private findResultByMove(damageResults: DamageResult[], moveName: string): DamageResult {

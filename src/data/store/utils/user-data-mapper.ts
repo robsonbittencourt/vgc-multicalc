@@ -1,4 +1,4 @@
-import { DataState, PokemonState, TargetState, TeamMemberState, TeamState } from "src/data/data-store"
+import { CalculatorState, PokemonState, TargetState, TeamMemberState, TeamState } from "src/data/store/calculator-store"
 import { v4 as uuidv4 } from 'uuid'
 import { stateToPokemon } from "./state-mapper"
 
@@ -35,7 +35,7 @@ export function buildUserData(leftPokemon: PokemonState, rightPokemon: PokemonSt
   }
 }
 
-export function buildState(userData: any): DataState {
+export function buildState(userData: any): CalculatorState {
   const teams = buildTeamState(userData.teams)
   const attackerId = teams[0].teamMembers[0].pokemon.id
 

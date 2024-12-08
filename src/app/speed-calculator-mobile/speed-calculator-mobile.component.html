@@ -7,7 +7,7 @@
 
     <div class="combo-option">
       <label>Item</label>
-      <app-input-autocomplete [value]="pokemon().item" [allValues]="allItemsNames" (valueChange)="data.item(pokemonId(), $event)" />
+      <app-input-autocomplete [value]="pokemon().item" [allValues]="allItemsNames" (valueChange)="store.item(pokemonId(), $event)" />
     </div>
 
     <div class="tab">
@@ -16,23 +16,23 @@
 
     <div class="combo-option-medium">
       <label>Status</label>
-      <app-input-autocomplete [value]="pokemon().status" [allValues]="statusConditions" (valueChange)="data.status(pokemonId(), $event)" />
+      <app-input-autocomplete [value]="pokemon().status" [allValues]="statusConditions" (valueChange)="store.status(pokemonId(), $event)" />
     </div>
 
     <div class="combo-option-medium">
       <label>Nature</label>
-      <app-input-autocomplete [value]="pokemon().nature" [allValues]="allNatureNames" (valueChange)="data.nature(pokemonId(), $event)" />
+      <app-input-autocomplete [value]="pokemon().nature" [allValues]="allNatureNames" (valueChange)="store.nature(pokemonId(), $event)" />
     </div>
 
     <div class="ability-enable">
       @if (pokemon().ability == 'Analytic' || pokemon().ability == 'Unburden') {
         <div class="ability-checkbox">
-          <mat-checkbox [ngModel]="pokemon().abilityOn" (change)="data.abilityOn(pokemonId(), $event.checked)" />
+          <mat-checkbox [ngModel]="pokemon().abilityOn" (change)="store.abilityOn(pokemonId(), $event.checked)" />
         </div>
       }
 
       @if (pokemon().name == 'Dondozo') {
-        <button class="icon-button" (click)="data.commanderActive(pokemonId(), !pokemon().commanderActivated)" matTooltip="Commander">
+        <button class="icon-button" (click)="store.commanderActive(pokemonId(), !pokemon().commanderActivated)" matTooltip="Commander">
           @if (this.pokemon().commanderActivated) {
             <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly.png" />
           }
@@ -43,7 +43,7 @@
       }
 
       @if (pokemon().isParadoxAbility()) {
-        <button class="icon-button" (click)="data.abilityOn(pokemonId(), !pokemon().abilityOn)" matTooltip="Booster Energy">
+        <button class="icon-button" (click)="store.abilityOn(pokemonId(), !pokemon().abilityOn)" matTooltip="Booster Energy">
           @if (this.pokemon().abilityOn) {
             <img class="icon-tatsugiri" src="assets/icons/booster-energy.png" />
           }

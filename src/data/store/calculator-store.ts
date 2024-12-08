@@ -6,9 +6,9 @@ import { Pokemon } from "src/lib/pokemon"
 import { Target } from "src/lib/target"
 import { Team } from "src/lib/team"
 import { MovePosition, Stats } from "src/lib/types"
-import { initialState } from "./store/utils/initial-state"
-import { pokemonToState, stateToPokemon, stateToTargets, stateToTeam, stateToTeams, targetToState, teamToState } from "./store/utils/state-mapper"
-import { buildUserData } from "./store/utils/user-data-mapper"
+import { initialState } from "./utils/initial-state"
+import { pokemonToState, stateToPokemon, stateToTargets, stateToTeam, stateToTeams, targetToState, teamToState } from "./utils/state-mapper"
+import { buildUserData } from "./utils/user-data-mapper"
 
 export type MoveState = {
   name: string,
@@ -51,7 +51,7 @@ export type TargetState = {
   pokemon: PokemonState
 }
 
-export type DataState = {
+export type CalculatorState = {
   _leftPokemonState: PokemonState,
   _rightPokemonState: PokemonState,
   attackerId: string,
@@ -60,7 +60,7 @@ export type DataState = {
   _targetsState: TargetState[]
 }
 
-export const DataStore = signalStore(
+export const CalculatorStore = signalStore(
   { providedIn: 'root' },
   withState(initialState()),
   

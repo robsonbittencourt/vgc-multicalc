@@ -1,5 +1,5 @@
 import { Component, computed, effect, inject, signal } from '@angular/core'
-import { DataStore } from 'src/data/data-store'
+import { CalculatorStore } from 'src/data/store/calculator-store'
 import { FieldStore } from 'src/data/store/field-store'
 import { MenuStore } from 'src/data/store/menu-store'
 import { DamageCalculatorService } from 'src/lib/damage-calculator.service'
@@ -20,30 +20,30 @@ import { TeamsComponent } from '../teams/teams.component'
 })
 export class MultiCalcComponent {
   
-  data = inject(DataStore)
+  store = inject(CalculatorStore)
   menuStore = inject(MenuStore)
   fieldStore = inject(FieldStore)
   private damageCalculator = inject(DamageCalculatorService)
 
-  pokemonId = signal<string>(this.data.team().activePokemon().id)
+  pokemonId = signal<string>(this.store.team().activePokemon().id)
 
-  isAttacker = computed(() => this.data.attackerId() === this.pokemonId())
-  activeAttacker = computed(() => this.data.findPokemonById(this.data.attackerId()))
-  activeSecondAttacker = computed(() => this.data.findPokemonById(this.data.secondAttackerId()))
+  isAttacker = computed(() => this.store.attackerId() === this.pokemonId())
+  activeAttacker = computed(() => this.store.findPokemonById(this.store.attackerId()))
+  activeSecondAttacker = computed(() => this.store.findPokemonById(this.store.secondAttackerId()))
 
   constructor() {
     effect(() => {
       if(this.activeSecondAttacker().isDefault()) {
-        this.calculateDamageForAll(this.activeAttacker(), this.data.targets(), this.fieldStore.field())
+        this.calculateDamageForAll(this.activeAttacker(), this.store.targets(), this.fieldStore.field())
       } else {
-        this.calculateDamageForAll(this.activeAttacker(), this.data.targets(), this.fieldStore.field(), this.activeSecondAttacker())
+        this.calculateDamageForAll(this.activeAttacker(), this.store.targets(), this.fieldStore.field(), this.activeSecondAttacker())
       }      
     })
   }
 
   targetsImported() {
-    if (this.data.findPokemonById(this.pokemonId()).isDefault()) {
-      this.pokemonId.set(this.data.team().activePokemon().id)
+    if (this.store.findPokemonById(this.pokemonId()).isDefault()) {
+      this.pokemonId.set(this.store.team().activePokemon().id)
     }
   }
  
@@ -83,7 +83,7 @@ export class MultiCalcComponent {
   }
 
   private order() {
-    this.data.targets().sort((a, b) => {
+    this.store.targets().sort((a, b) => {
       if (a.pokemon.isDefault()) return 1
       
       return b.damageResult?.damage - a.damageResult?.damage

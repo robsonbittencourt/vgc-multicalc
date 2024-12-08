@@ -22,7 +22,7 @@
     <div class="pokemon-status" [ngStyle]="reverse() && { 'order': 3 } || null">
       <div>
         <label>Status</label>
-        <app-input-autocomplete [value]="pokemon().status" [allValues]="statusConditions" (valueChange)="data.status(pokemonId(), $event)" data-cy="pokemon-status"/>
+        <app-input-autocomplete [value]="pokemon().status" [allValues]="statusConditions" (valueChange)="store.status(pokemonId(), $event)" data-cy="pokemon-status"/>
       </div>
 
       @if (pokemon().activeMoveName == 'Last Respects') {
@@ -47,7 +47,7 @@
 
       <div>
         <label>Item</label>
-        <app-input-autocomplete [value]="pokemon().item" [allValues]="allItemsNames" (valueChange)="data.item(pokemonId(), $event)" data-cy="item"/>
+        <app-input-autocomplete [value]="pokemon().item" [allValues]="allItemsNames" (valueChange)="store.item(pokemonId(), $event)" data-cy="item"/>
       </div>
     </div>
 
@@ -67,7 +67,7 @@
               }
             </button>
           }
-          <app-input-autocomplete [value]="pokemon().teraType" [allValues]="allTeraTypes" [disabled]="pokemon().isTerapagos()" (valueChange)="data.teraType(pokemonId(), $event)" data-cy="tera-type"/>
+          <app-input-autocomplete [value]="pokemon().teraType" [allValues]="allTeraTypes" [disabled]="pokemon().isTerapagos()" (valueChange)="store.teraType(pokemonId(), $event)" data-cy="tera-type"/>
         </div>
       </div>
 
@@ -82,11 +82,11 @@
       <div class="pokemon-ability">
         <div class="check-input-section ability-checkbox">
           @if (pokemon().ability == 'Analytic' || pokemon().ability == 'Unburden') {
-            <mat-checkbox [ngModel]="pokemon().abilityOn" (change)="data.abilityOn(pokemonId(), $event.checked)" data-cy="activate-ability"/>
+            <mat-checkbox [ngModel]="pokemon().abilityOn" (change)="store.abilityOn(pokemonId(), $event.checked)" data-cy="activate-ability"/>
           }
 
           @if (pokemon().name == 'Dondozo') {
-            <button class="icon-button" (click)="data.commanderActive(pokemonId(), !pokemon().commanderActivated)" [matTooltipShowDelay]="1000" matTooltip="Commander">
+            <button class="icon-button" (click)="store.commanderActive(pokemonId(), !pokemon().commanderActivated)" [matTooltipShowDelay]="1000" matTooltip="Commander">
               @if (pokemon().commanderActivated) {
                 <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly.png" />
               }
@@ -97,7 +97,7 @@
           }
 
           @if (pokemon().isParadoxAbility()) {
-            <button class="icon-button" (click)="data.abilityOn(pokemonId(), !pokemon().abilityOn)" matTooltip="Booster Energy">
+            <button class="icon-button" (click)="store.abilityOn(pokemonId(), !pokemon().abilityOn)" matTooltip="Booster Energy">
               @if (pokemon().abilityOn) {
                 <img class="icon-tatsugiri" src="assets/icons/booster-energy.png" />
               }
@@ -122,28 +122,28 @@
       <div class="moves">
         <div class="move">
           <mat-checkbox [ngModel]="pokemon().move1Name == pokemon().activeMoveName" (change)="activateMove(1)" [disabled]="moveSelectorDisabled(pokemon().move1Name)" data-cy="attack1"/>
-          <app-input-autocomplete [value]="pokemon().moveSet.move1.name" [allValues]="allMoveNames" (valueChange)="data.moveOne(pokemonId(), $event)" data-cy="pokemon-attack-1"/>
+          <app-input-autocomplete [value]="pokemon().moveSet.move1.name" [allValues]="allMoveNames" (valueChange)="store.moveOne(pokemonId(), $event)" data-cy="pokemon-attack-1"/>
           <div class="move-bp">
             <label>{{ pokemon().moveSet.move1.bp() }}</label>
           </div>
         </div>
         <div class="move">
           <mat-checkbox [ngModel]="pokemon().move2Name == pokemon().activeMoveName" (change)="activateMove(2)" [disabled]="moveSelectorDisabled(pokemon().move2Name)" data-cy="attack2"/>
-          <app-input-autocomplete [value]="pokemon().moveSet.move2.name" [allValues]="allMoveNames" (valueChange)="data.moveTwo(pokemonId(), $event)" data-cy="pokemon-attack-2"/>
+          <app-input-autocomplete [value]="pokemon().moveSet.move2.name" [allValues]="allMoveNames" (valueChange)="store.moveTwo(pokemonId(), $event)" data-cy="pokemon-attack-2"/>
           <div class="move-bp">
             <label>{{ pokemon().moveSet.move2.bp() }}</label>
           </div>
         </div>
         <div class="move">
           <mat-checkbox [ngModel]="pokemon().move3Name == pokemon().activeMoveName" (change)="activateMove(3)" [disabled]="moveSelectorDisabled(pokemon().move3Name)" data-cy="attack3"/>
-          <app-input-autocomplete [value]="pokemon().moveSet.move3.name" [allValues]="allMoveNames" (valueChange)="data.moveThree(pokemonId(), $event)" data-cy="pokemon-attack-3"/>
+          <app-input-autocomplete [value]="pokemon().moveSet.move3.name" [allValues]="allMoveNames" (valueChange)="store.moveThree(pokemonId(), $event)" data-cy="pokemon-attack-3"/>
           <div class="move-bp">
             <label>{{ pokemon().moveSet.move3.bp() }}</label>
           </div>
         </div>
         <div class="move">
           <mat-checkbox [ngModel]="pokemon().move4Name == pokemon().activeMoveName" (change)="activateMove(4)" [disabled]="moveSelectorDisabled(pokemon().move4Name)" data-cy="attack4"/>
-          <app-input-autocomplete [value]="pokemon().moveSet.move4.name" [allValues]="allMoveNames" (valueChange)="data.moveFour(pokemonId(), $event)" data-cy="pokemon-attack-4"/>
+          <app-input-autocomplete [value]="pokemon().moveSet.move4.name" [allValues]="allMoveNames" (valueChange)="store.moveFour(pokemonId(), $event)" data-cy="pokemon-attack-4"/>
           <div class="move-bp">
             <label>{{ pokemon().moveSet.move4.bp() }}</label>
           </div>
@@ -180,7 +180,7 @@
 <div class="nature">
   <label>Nature</label>
   <div class="nature-combobox">
-    <app-input-autocomplete [value]="pokemon().nature" [allValues]="allNatureNames" (valueChange)="data.nature(pokemonId(), $event)" data-cy="nature"/>
+    <app-input-autocomplete [value]="pokemon().nature" [allValues]="allNatureNames" (valueChange)="store.nature(pokemonId(), $event)" data-cy="nature"/>
   </div>
 </div>
 

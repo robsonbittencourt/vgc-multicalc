@@ -5,8 +5,8 @@ import { MatChipListbox, MatChipOption } from '@angular/material/chips'
 import { MatIcon } from '@angular/material/icon'
 import { MatTooltip } from '@angular/material/tooltip'
 import { MOVES, NATURES, TYPE_CHART } from '@smogon/calc'
-import { DataStore } from 'src/data/data-store'
 import { Items } from 'src/data/items'
+import { CalculatorStore } from 'src/data/store/calculator-store'
 import { Pokemon } from 'src/lib/pokemon'
 import { AbilityComboBoxComponent } from '../ability-combo-box/ability-combo-box.component'
 import { EvSliderComponent } from '../ev-slider/ev-slider.component'
@@ -25,9 +25,9 @@ export class PokemonBuildMobileComponent {
   
   pokemonChangedEvent = output<Pokemon>()
 
-  data = inject(DataStore)
+  store = inject(CalculatorStore)
   
-  pokemon = computed(() => this.data.findPokemonById(this.pokemonId()))
+  pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
 
   MAX_EVS = 508
 
@@ -60,7 +60,7 @@ export class PokemonBuildMobileComponent {
   }
 
   private activateMove(position: number) {
-    this.data.activateMoveByPosition(this.pokemonId(), position)
+    this.store.activateMoveByPosition(this.pokemonId(), position)
   }
 
   editMoves() {
@@ -73,23 +73,23 @@ export class PokemonBuildMobileComponent {
 
   terastalyzePokemon() {
     if (!this.pokemon().isTerapagos()) {
-      this.data.teraTypeActive(this.pokemonId(), !this.pokemon().teraTypeActive)
+      this.store.teraTypeActive(this.pokemonId(), !this.pokemon().teraTypeActive)
 
       if (this.pokemon().isOgerpon()) {
         this.pokemon().changeTeraStatus(this.pokemon().teraTypeActive)
-        this.data.ability(this.pokemonId(), this.pokemon().ability)
+        this.store.ability(this.pokemonId(), this.pokemon().ability)
       }
     }
   }
 
   alliesFaintedChanged(event: string) {
     const activeMovePosition = this.pokemon().moveSet.activeMovePosition
-    this.data.alliesFainted(this.pokemonId(), event, activeMovePosition)
+    this.store.alliesFainted(this.pokemonId(), event, activeMovePosition)
   }
 
   hitsChanged(event: string) {
     const activeMovePosition = this.pokemon().moveSet.activeMovePosition
-    this.data.hits(this.pokemonId(), event, activeMovePosition)
+    this.store.hits(this.pokemonId(), event, activeMovePosition)
   }
 
 }

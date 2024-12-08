@@ -1,12 +1,12 @@
 import { defaultPokemon } from 'src/lib/default-pokemon'
 import { v4 as uuidv4 } from 'uuid'
-import { DataState } from "../../data-store"
+import { CalculatorState } from "../calculator-store"
 import { pokemonToState } from './state-mapper'
 import { buildState } from './user-data-mapper'
 
 const initialId = "0dc51a43-1de8-4213-9686-fb07f2507b06"
 
-export function initialState(): DataState {
+export function initialState(): CalculatorState {
   const userData = JSON.parse(localStorage.getItem('userData')!)
   return userData ? { ...defaultState(), ...buildState(userData) } : defaultState()
 }

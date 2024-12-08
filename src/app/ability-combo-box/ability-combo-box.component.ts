@@ -1,6 +1,6 @@
 import { Component, computed, inject, input } from '@angular/core';
 import { AllPokemon } from 'src/data/all-pokemon';
-import { DataStore } from 'src/data/data-store';
+import { CalculatorStore } from 'src/data/store/calculator-store';
 import { InputAutocompleteComponent } from '../input-autocomplete/input-autocomplete.component';
 
 @Component({
@@ -12,11 +12,11 @@ import { InputAutocompleteComponent } from '../input-autocomplete/input-autocomp
 })
 export class AbilityComboBoxComponent {
 
-  data = inject(DataStore)
+  store = inject(CalculatorStore)
 
   pokemonId = input.required<string>()
 
-  pokemon = computed(() => this.data.findPokemonById(this.pokemonId()))
+  pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
 
   availableAbilities = computed(() => AllPokemon.instance.abilitiesByName(this.pokemon().name))
 

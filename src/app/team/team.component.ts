@@ -1,7 +1,7 @@
 import { Component, computed, effect, inject, input, output, signal } from '@angular/core'
 import { MatIcon } from '@angular/material/icon'
 import { RouterOutlet } from '@angular/router'
-import { DataStore } from 'src/data/data-store'
+import { CalculatorStore } from 'src/data/store/calculator-store'
 import { defaultPokemon } from 'src/lib/default-pokemon'
 import { Team } from 'src/lib/team'
 import { TeamMember } from 'src/lib/team-member'
@@ -20,25 +20,25 @@ import { PokemonTabComponent } from '../pokemon-tab/pokemon-tab.component'
 })
 export class TeamComponent {
 
-  data = inject(DataStore)
+  store = inject(CalculatorStore)
 
-  pokemonId = input<string>(this.data.team().activePokemon().id)
+  pokemonId = input<string>(this.store.team().activePokemon().id)
   isAttacker = input(false)
   
   teamMemberSelected = output<string>()
   teamMemberRemoved = output()
 
-  pokemonOnEdit = computed(() => this.data.findPokemonById(this.pokemonId()))
+  pokemonOnEdit = computed(() => this.store.findPokemonById(this.pokemonId()))
   
   combineDamageActive = signal(false)
 
   constructor() {
     effect(() => {
-      if(!this.data.team().haveDefaultPokemon() && !this.data.team().isFull()) {
-        const teamMembers = [ ...this.data.team().teamMembers(), new TeamMember(defaultPokemon(), false) ]
-        const team = new Team(this.data.team().active, this.data.team().name, teamMembers)
+      if(!this.store.team().haveDefaultPokemon() && !this.store.team().isFull()) {
+        const teamMembers = [ ...this.store.team().teamMembers(), new TeamMember(defaultPokemon(), false) ]
+        const team = new Team(this.store.team().active, this.store.team().name, teamMembers)
 
-        this.data.replaceActiveTeam(team)
+        this.store.replaceActiveTeam(team)
       }
     },
     {
@@ -47,20 +47,20 @@ export class TeamComponent {
   }
 
   activatePokemon(pokemonId: string) {
-    const members = this.data.team().teamMembers()
+    const members = this.store.team().teamMembers()
 
     this.teamMemberSelected.emit(pokemonId)
 
     if (this.combineDamageActive()) {
-      const active1 = members[0].pokemon.id == this.data.attackerId() || members[0].pokemon.id == pokemonId
-      const active2 = members[1]?.pokemon.id == this.data.attackerId() || members[1]?.pokemon.id == pokemonId
-      const active3 = members[2]?.pokemon.id == this.data.attackerId() || members[2]?.pokemon.id == pokemonId
-      const active4 = members[3]?.pokemon.id == this.data.attackerId() || members[3]?.pokemon.id == pokemonId
-      const active5 = members[4]?.pokemon.id == this.data.attackerId() || members[4]?.pokemon.id == pokemonId
-      const active6 = members[5]?.pokemon.id == this.data.attackerId() || members[5]?.pokemon.id == pokemonId
+      const active1 = members[0].pokemon.id == this.store.attackerId() || members[0].pokemon.id == pokemonId
+      const active2 = members[1]?.pokemon.id == this.store.attackerId() || members[1]?.pokemon.id == pokemonId
+      const active3 = members[2]?.pokemon.id == this.store.attackerId() || members[2]?.pokemon.id == pokemonId
+      const active4 = members[3]?.pokemon.id == this.store.attackerId() || members[3]?.pokemon.id == pokemonId
+      const active5 = members[4]?.pokemon.id == this.store.attackerId() || members[4]?.pokemon.id == pokemonId
+      const active6 = members[5]?.pokemon.id == this.store.attackerId() || members[5]?.pokemon.id == pokemonId
 
-      this.data.updateTeamMembersActive(active1, active2, active3, active4, active5, active6)
-      this.data.updateSecondAttacker(pokemonId)  
+      this.store.updateTeamMembersActive(active1, active2, active3, active4, active5, active6)
+      this.store.updateSecondAttacker(pokemonId)  
     } else {
       const active1 = members[0].pokemon.id == pokemonId
       const active2 = members[1]?.pokemon.id == pokemonId
@@ -69,8 +69,8 @@ export class TeamComponent {
       const active5 = members[4]?.pokemon.id == pokemonId
       const active6 = members[5]?.pokemon.id == pokemonId
 
-      this.data.updateTeamMembersActive(active1, active2, active3, active4, active5, active6)
-      this.data.updateAttacker(pokemonId)
+      this.store.updateTeamMembersActive(active1, active2, active3, active4, active5, active6)
+      this.store.updateAttacker(pokemonId)
     }    
   }
 
@@ -79,8 +79,8 @@ export class TeamComponent {
   }
 
   removePokemon() {
-    const activeMember = this.data.team().teamMembers().find(teamMember => teamMember.pokemon.id === this.pokemonOnEdit().id)!
-    const inactiveMembers = this.data.team().teamMembers().filter(teamMember => teamMember.pokemon.id !== activeMember.pokemon.id)
+    const activeMember = this.store.team().teamMembers().find(teamMember => teamMember.pokemon.id === this.pokemonOnEdit().id)!
+    const inactiveMembers = this.store.team().teamMembers().filter(teamMember => teamMember.pokemon.id !== activeMember.pokemon.id)
     const emptyTeam = inactiveMembers.length == 0
     const haveDefaultPokemon = inactiveMembers.find(teamMember => teamMember.pokemon.isDefault())
 
@@ -89,44 +89,44 @@ export class TeamComponent {
     }
 
     const teamMembers = [ new TeamMember(inactiveMembers[0].pokemon, true), ...inactiveMembers.slice(1) ]
-    const team = new Team(this.data.team().active, this.data.team().name, teamMembers)
+    const team = new Team(this.store.team().active, this.store.team().name, teamMembers)
 
-    this.data.replaceActiveTeam(team)
+    this.store.replaceActiveTeam(team)
 
     if (this.isSecondSelection(activeMember)) {
-      this.data.updateSecondAttacker("")
+      this.store.updateSecondAttacker("")
     }
 
     this.teamMemberRemoved.emit()
-    this.data.updateAttacker(team.activePokemon().id)
+    this.store.updateAttacker(team.activePokemon().id)
   }
 
   selectSecondAttacker() {
     if (this.combineDamageActive()) {
-      this.data.updateSecondAttacker("")
+      this.store.updateSecondAttacker("")
     }
 
     this.combineDamageActive.set(!this.combineDamageActive())    
   }
 
   isSecondSelection(teamMember: TeamMember) {
-    return !teamMember.pokemon.isDefault() && teamMember.pokemon.id === (this.data.secondAttackerId())
+    return !teamMember.pokemon.isDefault() && teamMember.pokemon.id === (this.store.secondAttackerId())
   }
 
   canShowCombineButton() {
-    return this.isAttacker() && !this.pokemonOnEdit().isDefault() && this.pokemonOnEdit().id === this.data.attackerId()
+    return this.isAttacker() && !this.pokemonOnEdit().isDefault() && this.pokemonOnEdit().id === this.store.attackerId()
   }
 
   pokemonImported(pokemon: Pokemon) {
     const teamMember = new TeamMember(pokemon, false)
 
-    this.data.team().addTeamMember(teamMember)
+    this.store.team().addTeamMember(teamMember)
       
-    this.data.replaceActiveTeam(this.data.team())
+    this.store.replaceActiveTeam(this.store.team())
   }
 
   canImportPokemon() {
-    return !this.data.team().isFull()
+    return !this.store.team().isFull()
   }
 
   canExportPokemon() {
@@ -134,7 +134,7 @@ export class TeamComponent {
   }
 
   teamMemberOnEdit(): boolean {
-    return this.pokemonOnEdit().equals(this.data.team().activePokemon()) || this.pokemonOnEdit().id === this.data.secondAttackerId()
+    return this.pokemonOnEdit().equals(this.store.team().activePokemon()) || this.pokemonOnEdit().id === this.store.secondAttackerId()
   }
 
 }

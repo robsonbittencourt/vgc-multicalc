@@ -1,7 +1,7 @@
 import { NgStyle } from '@angular/common';
 import { Component, computed, inject, input, output } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
-import { DataStore } from 'src/data/data-store';
+import { CalculatorStore } from 'src/data/store/calculator-store';
 
 @Component({
   selector: 'app-pokemon-tab',
@@ -17,9 +17,9 @@ export class PokemonTabComponent {
   
   tabActivated = output<string>()
 
-  data = inject(DataStore)
+  store = inject(CalculatorStore)
 
-  pokemon = computed(() => this.data.findPokemonById(this.pokemonId()))
+  pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
 
   activateTab() {
     this.tabActivated.emit(this.pokemonId())

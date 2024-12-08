@@ -1,5 +1,5 @@
 import { Component, computed, inject, signal } from '@angular/core'
-import { DataStore } from 'src/data/data-store'
+import { CalculatorStore } from 'src/data/store/calculator-store'
 import { DamageCalculatorService } from 'src/lib/damage-calculator.service'
 import { DamageResult } from 'src/lib/damage-result'
 import { PokemonComboBoxComponent } from '../pokemon-combo-box/pokemon-combo-box.component'
@@ -19,20 +19,20 @@ import { PokemonBuildMobileComponent } from '../pokemon-build-mobile/pokemon-bui
 })
 export class SimpleCalcMobileComponent {
   
-  data = inject(DataStore)
+  store = inject(CalculatorStore)
   fieldStore = inject(FieldStore)
   private damageCalculator = inject(DamageCalculatorService)
 
-  attacker = signal(this.data.leftPokemon())
+  attacker = signal(this.store.leftPokemon())
  
-  leftIsAttacker = computed(() => this.attacker().id === this.data.leftPokemon().id)
-  rightIsAttacker = computed(() => this.attacker().id === this.data.rightPokemon().id)
+  leftIsAttacker = computed(() => this.attacker().id === this.store.leftPokemon().id)
+  rightIsAttacker = computed(() => this.attacker().id === this.store.rightPokemon().id)
 
   damageResult = computed(() => {
     if(this.leftIsAttacker()) {
-      return this.damageCalculator.calcDamage(this.data.leftPokemon(), this.data.rightPokemon(), this.fieldStore.field())
+      return this.damageCalculator.calcDamage(this.store.leftPokemon(), this.store.rightPokemon(), this.fieldStore.field())
     } else {
-      return this.damageCalculator.calcDamage(this.data.rightPokemon(), this.data.leftPokemon(), this.fieldStore.field())
+      return this.damageCalculator.calcDamage(this.store.rightPokemon(), this.store.leftPokemon(), this.fieldStore.field())
     }
   })
 
@@ -49,17 +49,17 @@ export class SimpleCalcMobileComponent {
 
   activatePokemon() {
     if (this.leftIsAttacker()) {
-      this.attacker.set(this.data.rightPokemon())
+      this.attacker.set(this.store.rightPokemon())
     } else {
-      this.attacker.set(this.data.leftPokemon())
+      this.attacker.set(this.store.leftPokemon())
     }    
   }
 
   pokemonChanged() {
     if (this.leftIsAttacker()) {
-      this.attacker.set(this.data.leftPokemon())
+      this.attacker.set(this.store.leftPokemon())
     } else {
-      this.attacker.set(this.data.rightPokemon())
+      this.attacker.set(this.store.rightPokemon())
     }
   }
 

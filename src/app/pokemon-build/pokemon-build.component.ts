@@ -7,9 +7,9 @@ import { RouterOutlet } from '@angular/router'
 import { MOVES, TYPE_CHART } from '@smogon/calc'
 import { TypeName } from '@smogon/calc/dist/data/interface'
 import { AllPokemon } from 'src/data/all-pokemon'
-import { DataStore } from 'src/data/data-store'
 import { Items } from 'src/data/items'
 import { Natures } from 'src/data/natures'
+import { CalculatorStore } from 'src/data/store/calculator-store'
 import { AbilityComboBoxComponent } from '../ability-combo-box/ability-combo-box.component'
 import { EvSliderComponent } from '../ev-slider/ev-slider.component'
 import { InputAutocompleteComponent } from '../input-autocomplete/input-autocomplete.component'
@@ -27,9 +27,9 @@ export class PokemonBuildComponent {
   pokemonId = input.required<string>()
   reverse = input<boolean>(false)
 
-  data = inject(DataStore)
+  store = inject(CalculatorStore)
 
-  pokemon = computed(() => this.data.findPokemonById(this.pokemonId()))
+  pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
 
   MAX_EVS = 508
 
@@ -50,26 +50,26 @@ export class PokemonBuildComponent {
   }
 
   activateMove(position: number) {
-    this.data.activateMoveByPosition(this.pokemonId(), position)
+    this.store.activateMoveByPosition(this.pokemonId(), position)
   }
 
   alliesFaintedChanged(event: string) {
     const activeMovePosition = this.pokemon().moveSet.activeMovePosition
-    this.data.alliesFainted(this.pokemonId(), event, activeMovePosition)
+    this.store.alliesFainted(this.pokemonId(), event, activeMovePosition)
   }
 
   hitsChanged(event: string) {
     const activeMovePosition = this.pokemon().moveSet.activeMovePosition
-    this.data.hits(this.pokemonId(), event, activeMovePosition)
+    this.store.hits(this.pokemonId(), event, activeMovePosition)
   }
 
   terastalyzePokemon() {
     if (!this.pokemon().isTerapagos()) {
-      this.data.teraTypeActive(this.pokemonId(), !this.pokemon().teraTypeActive)
+      this.store.teraTypeActive(this.pokemonId(), !this.pokemon().teraTypeActive)
 
       if (this.pokemon().isOgerpon()) {
         this.pokemon().changeTeraStatus(this.pokemon().teraTypeActive)
-        this.data.ability(this.pokemonId(), this.pokemon().ability)
+        this.store.ability(this.pokemonId(), this.pokemon().ability)
       }
     }
   }

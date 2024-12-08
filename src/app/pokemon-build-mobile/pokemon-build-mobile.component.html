@@ -4,22 +4,22 @@
       <div class="edit-moves">
         <div>
           <div class="check-input-section-input">
-            <app-input-autocomplete [value]="pokemon().moveSet.move1.name" [allValues]="allMoveNames" (valueChange)="data.moveOne(pokemonId(), $event)" />
+            <app-input-autocomplete [value]="pokemon().moveSet.move1.name" [allValues]="allMoveNames" (valueChange)="store.moveOne(pokemonId(), $event)" />
           </div>
         </div>
         <div>
           <div class="check-input-section-input">
-            <app-input-autocomplete [value]="pokemon().moveSet.move2.name" [allValues]="allMoveNames" (valueChange)="data.moveTwo(pokemonId(), $event)" />
+            <app-input-autocomplete [value]="pokemon().moveSet.move2.name" [allValues]="allMoveNames" (valueChange)="store.moveTwo(pokemonId(), $event)" />
           </div>
         </div>
         <div>
           <div class="check-input-section-input">
-            <app-input-autocomplete [value]="pokemon().moveSet.move3.name" [allValues]="allMoveNames" (valueChange)="data.moveThree(pokemonId(), $event)" />
+            <app-input-autocomplete [value]="pokemon().moveSet.move3.name" [allValues]="allMoveNames" (valueChange)="store.moveThree(pokemonId(), $event)" />
           </div>
         </div>
         <div>
           <div class="check-input-section-input">
-            <app-input-autocomplete [value]="pokemon().moveSet.move4.name" [allValues]="allMoveNames" (valueChange)="data.moveFour(pokemonId(), $event)" />
+            <app-input-autocomplete [value]="pokemon().moveSet.move4.name" [allValues]="allMoveNames" (valueChange)="store.moveFour(pokemonId(), $event)" />
           </div>
         </div>
         <div class="save-button" (click)="saveMoves()">
@@ -81,17 +81,17 @@
   <div class="combo-options">
     <div class="combo-option">
       <label>Item</label>
-      <app-input-autocomplete [value]="pokemon().item" [allValues]="allItemsNames" (valueChange)="data.item(pokemonId(), $event)"/>
+      <app-input-autocomplete [value]="pokemon().item" [allValues]="allItemsNames" (valueChange)="store.item(pokemonId(), $event)"/>
     </div>
 
     <div class="combo-option">
       <label>Nature</label>
-      <app-input-autocomplete [value]="pokemon().nature" [allValues]="allNatureNames" (valueChange)="data.nature(pokemonId(), $event)"/>
+      <app-input-autocomplete [value]="pokemon().nature" [allValues]="allNatureNames" (valueChange)="store.nature(pokemonId(), $event)"/>
     </div>
 
     <div class="combo-option">
       <label>Status</label>
-      <app-input-autocomplete [value]="pokemon().status" [allValues]="statusConditions" (valueChange)="data.status(pokemonId(), $event)"/>
+      <app-input-autocomplete [value]="pokemon().status" [allValues]="statusConditions" (valueChange)="store.status(pokemonId(), $event)"/>
     </div>
 
     <div class="combo-option tera-type">
@@ -115,12 +115,12 @@
     <div class="combo-option ability">
       @if (pokemon().ability == 'Analytic' || pokemon().ability == 'Unburden') {
         <div class="ability-checkbox">
-          <mat-checkbox [ngModel]="pokemon().abilityOn" (change)="data.abilityOn(pokemonId(), $event.checked)" />
+          <mat-checkbox [ngModel]="pokemon().abilityOn" (change)="store.abilityOn(pokemonId(), $event.checked)" />
         </div>
       }
 
       @if (pokemon().name == 'Dondozo') {
-        <button class="icon-button" (click)="data.commanderActive(pokemonId(), !pokemon().commanderActivated)" matTooltip="Commander">
+        <button class="icon-button" (click)="store.commanderActive(pokemonId(), !pokemon().commanderActivated)" matTooltip="Commander">
           @if (pokemon().commanderActivated) {
             <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly.png" />
           }
@@ -131,7 +131,7 @@
       }
 
       @if (pokemon().isParadoxAbility()) {
-        <button class="icon-button" (click)="data.abilityOn(pokemonId(), !pokemon().abilityOn)" matTooltip="Booster Energy">
+        <button class="icon-button" (click)="store.abilityOn(pokemonId(), !pokemon().abilityOn)" matTooltip="Booster Energy">
           @if (pokemon().abilityOn) {
             <img class="icon-tatsugiri" src="assets/icons/booster-energy.png" />
           }

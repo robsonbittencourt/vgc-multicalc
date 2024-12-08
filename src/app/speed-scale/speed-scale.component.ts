@@ -1,5 +1,5 @@
 import { Component, computed, effect, inject, input } from '@angular/core'
-import { DataStore } from 'src/data/data-store'
+import { CalculatorStore } from 'src/data/store/calculator-store'
 import { FieldStore } from 'src/data/store/field-store'
 import { SpeedCalcOptionsStore } from 'src/data/store/speed-calc-options-store'
 import { Field } from 'src/lib/field'
@@ -21,9 +21,9 @@ export class SpeedScaleComponent {
   pokemonId = input.required<string>() 
   pokemonEachSide = input.required<number>()
 
-  pokemon = computed(() => this.dataStore.findPokemonById(this.pokemonId()))
+  pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
   
-  dataStore = inject(DataStore)
+  store = inject(CalculatorStore)
   fieldStore = inject(FieldStore)
   optionsStore = inject(SpeedCalcOptionsStore)
 

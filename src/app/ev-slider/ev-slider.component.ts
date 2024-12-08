@@ -5,7 +5,7 @@ import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field'
 import { MatInput } from '@angular/material/input'
 import { MatSelect } from '@angular/material/select'
 import { MatSlider, MatSliderThumb } from '@angular/material/slider'
-import { DataStore } from 'src/data/data-store'
+import { CalculatorStore } from 'src/data/store/calculator-store'
 import { Stats } from 'src/lib/types'
 
 @Component({
@@ -22,9 +22,9 @@ export class EvSliderComponent {
   stat = input.required<keyof Stats>()
   reduced = input(false)
 
-  data = inject(DataStore)
+  store = inject(CalculatorStore)
 
-  pokemon = computed(() => this.data.findPokemonById(this.pokemonId()))
+  pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
   nature = computed(() => this.pokemon().nature)
   iv = computed(() => this.pokemon().ivs[this.stat()])
   hpPercentage = computed(() => this.pokemon().hpPercentage)
@@ -99,7 +99,7 @@ export class EvSliderComponent {
   ]
 
   hpPercentageChanged(event: Event) {
-    this.data.hpPercentage(this.pokemonId(), +(event.target as HTMLInputElement).value)
+    this.store.hpPercentage(this.pokemonId(), +(event.target as HTMLInputElement).value)
   }
 
   evChanged(event: Event) {
@@ -137,7 +137,7 @@ export class EvSliderComponent {
   
     const updatedEvs = { ...this.pokemon().evs }
     updatedEvs[this.stat()] = ev
-    this.data.evs(this.pokemonId(), updatedEvs)
+    this.store.evs(this.pokemonId(), updatedEvs)
   }
 
   actualEvsQuantity() {
@@ -152,14 +152,14 @@ export class EvSliderComponent {
     const newIvs = { ...this.pokemon().ivs }
     newIvs[this.stat()] = +(event.target as HTMLInputElement).value
 
-    this.data.ivs(this.pokemonId(), newIvs)
+    this.store.ivs(this.pokemonId(), newIvs)
   }
 
   statModifierChanged(statModifier: number) {
     const newBoosts = { ...this.pokemon().boosts }
     newBoosts[this.stat()] = statModifier
 
-    this.data.boosts(this.pokemonId(), newBoosts)
+    this.store.boosts(this.pokemonId(), newBoosts)
   }
 
   calculateMin() {

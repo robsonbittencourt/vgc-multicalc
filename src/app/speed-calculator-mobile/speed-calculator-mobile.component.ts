@@ -8,8 +8,8 @@ import { MatIcon } from '@angular/material/icon'
 import { MatSelect } from '@angular/material/select'
 import { MatTooltip } from '@angular/material/tooltip'
 import { NATURES } from '@smogon/calc'
-import { DataStore } from 'src/data/data-store'
 import { Items } from 'src/data/items'
+import { CalculatorStore } from 'src/data/store/calculator-store'
 import { FieldStore } from 'src/data/store/field-store'
 import { SpeedCalcOptionsStore } from 'src/data/store/speed-calc-options-store'
 import { AbilityComboBoxComponent } from '../ability-combo-box/ability-combo-box.component'
@@ -27,12 +27,12 @@ import { SpeedScaleComponent } from '../speed-scale/speed-scale.component'
 })
 export class SpeedCalculatorMobileComponent {
   
-  data = inject(DataStore)
+  store = inject(CalculatorStore)
   fieldStore = inject(FieldStore)
   optionsStore = inject(SpeedCalcOptionsStore)
 
-  pokemonId = computed(() => this.data.leftPokemon().id)
-  pokemon = computed(() => this.data.findPokemonById(this.pokemonId()))
+  pokemonId = computed(() => this.store.leftPokemon().id)
+  pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
   
   allItemsNames = Items.instance.allItems()
   allNatureNames = Object.keys(NATURES)

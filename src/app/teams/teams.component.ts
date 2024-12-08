@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { MatButton } from '@angular/material/button'
 import { MatDialog } from '@angular/material/dialog'
 import { MatInput } from '@angular/material/input'
-import { DataStore } from 'src/data/data-store'
+import { CalculatorStore } from 'src/data/store/calculator-store'
 import { defaultPokemon } from 'src/lib/default-pokemon'
 import { PokePasteParserService } from 'src/lib/poke-paste-parser.service'
 import { Team } from 'src/lib/team'
@@ -25,7 +25,7 @@ export class TeamsComponent {
 
   teamChanged = output<Team>()
   
-  data = inject(DataStore)
+  store = inject(CalculatorStore)
   private pokePasteService = inject(PokePasteParserService)
   private snackBar = inject(SnackbarService)
   private dialog = inject(MatDialog)
@@ -40,7 +40,7 @@ export class TeamsComponent {
       if(!result) return
 
       const pokemonList = await this.pokePasteService.parse(result)
-      const teamToImport = this.data.teams().find(t => t.onlyHasDefaultPokemon()) ?? this.data.teams()[this.data.teams().length - 1]
+      const teamToImport = this.store.teams().find(t => t.onlyHasDefaultPokemon()) ?? this.store.teams()[this.store.teams().length - 1]
       teamToImport.deleteAll()
 
       for (let index = 0; index < pokemonList.length; index++) {
@@ -52,8 +52,8 @@ export class TeamsComponent {
 
       teamToImport.activateFirstTeamMember()
 
-      this.data.updateTeams(this.data.teams())
-      this.data.updateAttacker(teamToImport.activePokemon().id)
+      this.store.updateTeams(this.store.teams())
+      this.store.updateAttacker(teamToImport.activePokemon().id)
       
       this.teamChanged.emit(teamToImport)
       
@@ -62,9 +62,9 @@ export class TeamsComponent {
   }
 
   activateTeam(team: Team) {
-    this.data.teams().forEach(t => t.id == team.id ? t.active = true : t.active = false)
-    this.data.updateTeams(this.data.teams())
-    this.data.updateAttacker(team.activePokemon().id)
+    this.store.teams().forEach(t => t.id == team.id ? t.active = true : t.active = false)
+    this.store.updateTeams(this.store.teams())
+    this.store.updateAttacker(team.activePokemon().id)
 
     this.teamChanged.emit(team)
   }
@@ -72,8 +72,8 @@ export class TeamsComponent {
   export() {
     this.dialog.open(TeamExportModalComponent, { 
       data: { 
-        title: this.data.team().name,
-        content: this.data.team().exportToShowdownFormat()
+        title: this.store.team().name,
+        content: this.store.team().exportToShowdownFormat()
       },
       width: "40em",
       position: { top: "2em" },
@@ -83,13 +83,13 @@ export class TeamsComponent {
 
   deleteTeam() {
     const pokemon = defaultPokemon()
-    const activeIndex = this.data.teams().findIndex(t => t.active)
-    const inactiveTeams = this.data.teams().filter(t => !t.active)
+    const activeIndex = this.store.teams().findIndex(t => t.active)
+    const inactiveTeams = this.store.teams().filter(t => !t.active)
     const newTeam = new Team(true, `Team ${activeIndex + 1}`, [ new TeamMember(pokemon, true) ])
     inactiveTeams.splice(activeIndex, 0, newTeam)
     
-    this.data.updateTeams(inactiveTeams)
-    this.data.updateAttacker(pokemon.id)
+    this.store.updateTeams(inactiveTeams)
+    this.store.updateAttacker(pokemon.id)
 
     this.teamChanged.emit(newTeam)
 

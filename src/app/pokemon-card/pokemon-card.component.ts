@@ -3,7 +3,7 @@ import { Component, inject, input, output } from '@angular/core'
 import { MatCard, MatCardMdImage, MatCardSubtitle, MatCardTitle, MatCardTitleGroup } from '@angular/material/card'
 import { MatIcon } from '@angular/material/icon'
 import { MatTooltip } from '@angular/material/tooltip'
-import { DataStore } from 'src/data/data-store'
+import { CalculatorStore } from 'src/data/store/calculator-store'
 import { Target } from 'src/lib/target'
 
 @Component({
@@ -24,20 +24,20 @@ export class PokemonCardComponent {
   secondTargetActivated = output<string>()
   targetRemoved = output()
 
-  data = inject(DataStore)
+  store = inject(CalculatorStore)
 
   activate() {
-    const updatedTargets = this.data.targets().map(target => new Target(target.pokemon, target.pokemon.id === this.target().pokemon.id))
+    const updatedTargets = this.store.targets().map(target => new Target(target.pokemon, target.pokemon.id === this.target().pokemon.id))
     const activeTarget = updatedTargets.find(target => target.active)!
 
-    this.data.updateTargets(updatedTargets)
+    this.store.updateTargets(updatedTargets)
     this.targetActivated.emit(activeTarget.pokemon.id)
   }
 
   removePokemon() {
-    const updatedTargets = this.data.targets().filter(target => target.pokemon.id != this.target().pokemon.id)
+    const updatedTargets = this.store.targets().filter(target => target.pokemon.id != this.target().pokemon.id)
 
-    this.data.updateTargets(updatedTargets)
+    this.store.updateTargets(updatedTargets)
     this.targetRemoved.emit()
   }
 
@@ -102,17 +102,17 @@ export class PokemonCardComponent {
 
   toogleCommanderAbility(event: Event) {
     event.stopPropagation()
-    this.data.toogleTargetCommander(this.target())
+    this.store.toogleTargetCommander(this.target())
   }
 
   terastalyzePokemon(event: Event) {
     event.stopPropagation()
     if (!this.target().pokemon.isTerapagos()) {
-      this.data.toogleTargetTerastal(this.target())
+      this.store.toogleTargetTerastal(this.target())
 
       if (this.target().pokemon.isOgerpon()) {
         this.target().pokemon.changeTeraStatus(!this.target().pokemon.teraTypeActive)
-        this.data.updateTargetAbility(this.target())
+        this.store.updateTargetAbility(this.target())
       }
     }    
   }
