@@ -108,6 +108,13 @@ export class EvSliderComponent {
     
     this.updateEv(adjustedEv)
   }
+
+  beforeChangeEvValue() {
+    if (this.actualEvsQuantity() + this.ev() <= this.MAX_EVS) {
+      const adjustedEv = this.adjustEv(this.ev())
+      this.updateEv(adjustedEv)
+    }
+  }
   
   private adjustEv(newEv: number): number {
     if (this.actualEvsQuantity() + newEv <= this.MAX_EVS) {

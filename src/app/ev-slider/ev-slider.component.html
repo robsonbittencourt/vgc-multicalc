@@ -41,7 +41,7 @@
   
   <div class="ev-slider">
     <mat-slider class="mat-ev-slider" [min]="calculateMin()" [max]="252" [step]="calculateEvStep()">
-      <input matSliderThumb [(ngModel)]="ev" (change)="evChanged($event)" >
+      <input matSliderThumb [(ngModel)]="ev" (input)="beforeChangeEvValue()" (change)="evChanged($event)" >
     </mat-slider>
   </div>
   
