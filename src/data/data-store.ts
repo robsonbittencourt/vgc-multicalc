@@ -303,7 +303,10 @@ export const DataStore = signalStore(
     onInit(store) {
       effect(() => {
         const userData = buildUserData(store._leftPokemonState(), store._rightPokemonState(), store._teamsState(), store._targetsState())
-        localStorage.setItem('userData', JSON.stringify(userData))
+        const actualStorage = JSON.parse(localStorage.getItem('userData')!)
+        
+        const mergedUserData = { ...actualStorage, ...userData }
+        localStorage.setItem('userData', JSON.stringify(mergedUserData))
       })
     }
   })

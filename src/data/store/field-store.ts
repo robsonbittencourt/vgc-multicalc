@@ -1,8 +1,9 @@
-import { computed } from "@angular/core"
-import { patchState, signalStore, watchState, withComputed, withHooks, withMethods, withState } from "@ngrx/signals"
+import { computed, effect } from "@angular/core"
+import { patchState, signalStore, withComputed, withHooks, withMethods, withState } from "@ngrx/signals"
 import { Field, FieldAttackerSide, FieldDefenderSide, GameType, Terrain, Weather } from "src/lib/field"
+import { initialFieldState } from "./utils/field-initial-state"
 
-type FieldState = {
+export type FieldState = {
   gameType: GameType
   weather: Weather
   terrain: Terrain
@@ -19,26 +20,9 @@ type FieldState = {
   defenderSide: FieldDefenderSide
 }
 
-const initialState: FieldState = {
-  gameType: "Doubles",
-  weather: null,
-  terrain: null,
-  isBeadsOfRuin: false,
-  isSwordOfRuin: false,
-  isTabletsOfRuin: false,
-  isVesselOfRuin: false,
-  isMagicRoom: false,
-  isWonderRoom: false,
-  isGravity: false,
-  isTrickRoom: false,
-  isCriticalHit: false,
-  attackerSide: new FieldAttackerSide({ isHelpingHand: false, isBattery: false, isPowerSpot: false, isTailwind: false }),
-  defenderSide: new FieldDefenderSide({ isTailwind: false, isReflect: false, isLightScreen: false, isAuroraVeil: false, isFriendGuard: false, spikes: 0, isSR: false, isSeeded: false })
-}
-
 export const FieldStore = signalStore(
   { providedIn: 'root' },
-  withState(initialState),
+  withState(initialFieldState()),
   withComputed(({ gameType, weather, terrain, isBeadsOfRuin, isSwordOfRuin, isTabletsOfRuin, isVesselOfRuin, isMagicRoom, isWonderRoom, isGravity, isTrickRoom, isCriticalHit, attackerSide, defenderSide }) => ({
     field: computed(() => new Field({ 
       gameType: gameType(), weather: weather(), terrain: terrain(), isBeadsOfRuin: isBeadsOfRuin(), isSwordOfRuin: isSwordOfRuin(), isTabletsOfRuin: isTabletsOfRuin(), isVesselOfRuin: isVesselOfRuin(),
@@ -98,12 +82,7 @@ export const FieldStore = signalStore(
   })),
   withHooks({
     onInit(store) {
-      const field = JSON.parse(localStorage.getItem('userData')!)?.field
-      if (field) {
-        patchState(store, { ...field })
-      }
-      
-      watchState(store, () => {
+      effect(() => {
         const userData = JSON.parse(localStorage.getItem('userData')!)
         localStorage.setItem('userData', JSON.stringify({ ...userData, field: store.field() }))
       })
