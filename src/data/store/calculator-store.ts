@@ -6,7 +6,7 @@ import { Pokemon } from "src/lib/pokemon"
 import { Target } from "src/lib/target"
 import { Team } from "src/lib/team"
 import { MovePosition, Stats } from "src/lib/types"
-import { initialState } from "./utils/initial-state"
+import { initialCalculatorState } from "./utils/initial-calculator-state"
 import { pokemonToState, stateToPokemon, stateToTargets, stateToTeam, stateToTeams, targetToState, teamToState } from "./utils/state-mapper"
 import { buildUserData } from "./utils/user-data-mapper"
 
@@ -62,7 +62,7 @@ export type CalculatorState = {
 
 export const CalculatorStore = signalStore(
   { providedIn: 'root' },
-  withState(initialState()),
+  withState(initialCalculatorState),
   
   withComputed((state) => ({
     leftPokemon: computed(() => stateToPokemon(state._leftPokemonState())),

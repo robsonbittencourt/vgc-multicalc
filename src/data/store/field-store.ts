@@ -1,7 +1,7 @@
 import { computed, effect } from "@angular/core"
 import { patchState, signalStore, withComputed, withHooks, withMethods, withState } from "@ngrx/signals"
 import { Field, FieldAttackerSide, FieldDefenderSide, GameType, Terrain, Weather } from "src/lib/field"
-import { initialFieldState } from "./utils/field-initial-state"
+import { initialFieldState } from "./utils/initial-field-state"
 
 export type FieldState = {
   gameType: GameType
@@ -22,7 +22,8 @@ export type FieldState = {
 
 export const FieldStore = signalStore(
   { providedIn: 'root' },
-  withState(initialFieldState()),
+  withState(initialFieldState),
+
   withComputed(({ gameType, weather, terrain, isBeadsOfRuin, isSwordOfRuin, isTabletsOfRuin, isVesselOfRuin, isMagicRoom, isWonderRoom, isGravity, isTrickRoom, isCriticalHit, attackerSide, defenderSide }) => ({
     field: computed(() => new Field({ 
       gameType: gameType(), weather: weather(), terrain: terrain(), isBeadsOfRuin: isBeadsOfRuin(), isSwordOfRuin: isSwordOfRuin(), isTabletsOfRuin: isTabletsOfRuin(), isVesselOfRuin: isVesselOfRuin(),
@@ -37,6 +38,7 @@ export const FieldStore = signalStore(
     isTerrainPsychic: computed(() => terrain() == "Psychic"),
     isTerrainMisty: computed(() => terrain() == "Misty"),
   })),
+
   withMethods((store) => ({
     setField(field: Field) { patchState(store, { ...field }) },
 
@@ -80,6 +82,7 @@ export const FieldStore = signalStore(
     toggleDefenderSeeded() { patchState(store, (state) => ({ defenderSide: { ...state.defenderSide, isSeeded: !state.defenderSide.isSeeded }}))},
     toggleDefenderStealthRock() { patchState(store, (state) => ({ defenderSide: { ...state.defenderSide, isSR: !state.defenderSide.isSR }}))},
   })),
+
   withHooks({
     onInit(store) {
       effect(() => {

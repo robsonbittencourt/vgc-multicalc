@@ -6,9 +6,9 @@ import { buildState } from './user-data-mapper'
 
 const initialId = "0dc51a43-1de8-4213-9686-fb07f2507b06"
 
-export function initialState(): CalculatorState {
+export function initialCalculatorState(): CalculatorState {
   const userData = JSON.parse(localStorage.getItem('userData')!)
-  return userData ? { ...defaultState(), ...buildState(userData) } : defaultState()
+  return userData.leftPokemon ? { ...defaultState(), ...buildState(userData) } : defaultState()
 }
 
 function defaultState() {
