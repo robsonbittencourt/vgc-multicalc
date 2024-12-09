@@ -17,7 +17,7 @@ export class DamageCalculatorService {
   calcDamage(attacker: Pokemon, target: Pokemon, field: Field): DamageResult {
     const smogonField = new FieldMapper().toSmogon(field)
     const result = this.calculateResult(attacker, target, attacker.move, smogonField, field.isCriticalHit)
-    return new DamageResult(attacker.move.name, result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescription(result), result.damage as number[]) 
+    return new DamageResult(attacker, target, attacker.move.name, result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescription(result), result.damage as number[]) 
   }
 
   calcDamageAllAttacks(attacker: Pokemon, target: Pokemon, field: Field): DamageResult[] {
@@ -25,11 +25,11 @@ export class DamageCalculatorService {
     
     return attacker.moveSet.moves().map(move => {
       const result = this.calculateResult(attacker, target, move, smogonField, field.isCriticalHit)
-      return new DamageResult(move.name, result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescription(result), result.damage as number[]) 
+      return new DamageResult(attacker, target, move.name, result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescription(result), result.damage as number[]) 
     })
   }
 
-  calcDamageForTwoAttackers(attacker: Pokemon, secondAttacker: Pokemon, target: Pokemon, field: Field): DamageResult {
+  calcDamageForTwoAttackers(attacker: Pokemon, secondAttacker: Pokemon, target: Pokemon, field: Field): [DamageResult, DamageResult] {
     const smogonField = new FieldMapper().toSmogon(field)
     const adjustedField = this.adjustFieldToRuins(smogonField, attacker, secondAttacker)
     
@@ -37,7 +37,10 @@ export class DamageCalculatorService {
     const secondResult = this.calculateResult(secondAttacker, target, secondAttacker.move, adjustedField, field.isCriticalHit)
     result.damage = this.sumDamageResult(result, secondResult)
 
-    return new DamageResult(attacker.move.name, result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescriptionWithTwo(result, secondResult))
+    return [
+      new DamageResult(attacker, target, attacker.move.name, result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescriptionWithTwo(result, secondResult), undefined, secondAttacker),
+      new DamageResult(secondAttacker, target, attacker.move.name, result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescriptionWithTwo(result, secondResult), undefined, attacker)
+    ]
   }
 
   private calculateResult(attacker: Pokemon, target: Pokemon, move: Move, field: SmogonField, criticalHit: boolean): Result {

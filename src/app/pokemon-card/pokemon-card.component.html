@@ -30,10 +30,10 @@
           <mat-card-subtitle>Tera Type: {{ target().pokemon.teraType }}</mat-card-subtitle>
         </mat-card-title-group>
 
-        @if (target().damageResult && showDamageDescription()) {
+        @if (damageResult() && showDamageDescription()) {
           <div>
-            <br>Damage: {{ target().damageResult.result }}
-            <br><label class="ko-chance">{{ target().damageResult.koChance }}</label>
+            <br>Damage: {{ damageResult().result }}
+            <br><label class="ko-chance">{{ damageResult().koChance }}</label>
           </div>
         }
       </div>

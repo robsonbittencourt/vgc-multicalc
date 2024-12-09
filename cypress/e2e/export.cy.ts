@@ -135,18 +135,7 @@ IVs: 0 Atk
 - Icy Wind
 - Protect`
 
-const exportedOpponentPokemon = `Raging Bolt @ Booster Energy
-Ability: Protosynthesis
-Level: 50
-Tera Type: Fairy
-EVs: 244 HP / 252 SpA / 12 SpD
-Modest Nature 
-- Dragon Pulse
-- Thunderclap
-- Calm Mind
-- Protect
-
-Urshifu-Rapid-Strike @ Choice Scarf
+const exportedOpponentPokemon = `Urshifu-Rapid-Strike @ Choice Scarf
 Ability: Unseen Fist
 Level: 50
 Tera Type: Water
@@ -243,4 +232,15 @@ Impish Nature
 - Body Press
 - Heavy Slam
 - Substitute
+- Protect
+
+Raging Bolt @ Booster Energy
+Ability: Protosynthesis
+Level: 50
+Tera Type: Fairy
+EVs: 244 HP / 252 SpA / 12 SpD
+Modest Nature 
+- Dragon Pulse
+- Thunderclap
+- Calm Mind
 - Protect`

@@ -1,9 +1,11 @@
 import { NgStyle } from '@angular/common'
-import { Component, inject, input, output } from '@angular/core'
+import { Component, computed, inject, input, output } from '@angular/core'
 import { MatCard, MatCardMdImage, MatCardSubtitle, MatCardTitle, MatCardTitleGroup } from '@angular/material/card'
 import { MatIcon } from '@angular/material/icon'
 import { MatTooltip } from '@angular/material/tooltip'
 import { CalculatorStore } from 'src/data/store/calculator-store'
+import { MenuStore } from 'src/data/store/menu-store'
+import { DamageResult } from 'src/lib/damage-result'
 import { Target } from 'src/lib/target'
 
 @Component({
@@ -15,7 +17,10 @@ import { Target } from 'src/lib/target'
 })
 export class PokemonCardComponent {
 
-  target = input.required<Target>()
+  store = inject(CalculatorStore)
+  menuStore = inject(MenuStore)
+
+  damageResult = input.required<DamageResult>()
   isAttacker = input.required<boolean>()
   showDamageDescription = input.required<boolean>()
   canSelectSecondPokemon = input.required<boolean>()
@@ -24,7 +29,15 @@ export class PokemonCardComponent {
   secondTargetActivated = output<string>()
   targetRemoved = output()
 
-  store = inject(CalculatorStore)
+  target = computed(() => {
+    if (this.menuStore.oneVsManyActivated()) {
+      const pokemonId = this.damageResult().defender.id
+      return this.store.targets().find(target => target.pokemon.id === pokemonId)!
+    } else {
+      const pokemonId = this.damageResult().attacker.id
+      return this.store.targets().find(target => target.pokemon.id === pokemonId)!
+    }
+  })
 
   activate() {
     const updatedTargets = this.store.targets().map(target => new Target(target.pokemon, target.pokemon.id === this.target().pokemon.id))
@@ -42,7 +55,7 @@ export class PokemonCardComponent {
   }
 
   cardStyle(): any {
-    if(this.target().damageResult) {
+    if(this.damageResult()) {
       return this.styleWithDamage()
     } else {
       return this.styleWithoutDamage()
@@ -51,7 +64,7 @@ export class PokemonCardComponent {
 
   private styleWithDamage(): any {
     const cardStyleSelectPokemon = { 'background-color': '#e7def6' }
-    const cardStyle = { 'background-color': this.cardColor(this.target().damageResult.koChance) }
+    const cardStyle = { 'background-color': this.cardColor(this.damageResult().koChance) }
     const cardWithBorder = { 'border': '4px', 'border-style': 'solid', 'border-color': '#8544ee' }
 
     if (this.target().active && this.target().pokemon.isDefault()) {

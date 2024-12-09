@@ -12,7 +12,7 @@
         <div class="damage-description">
           <div>
             <p>{{ damageDescription() }}</p>
-            @if (rolls()) {
+            @if (rolls().length > 0) {
               <p>Rolls: {{ rolls() }}</p>
             }
           </div>
@@ -34,8 +34,8 @@
   </div>
 
   <div class="target-pokemon">
-    @for (target of targets(); track target.pokemon.id) {
-      <app-pokemon-card [target]="target" [canSelectSecondPokemon]="canSelectSecondPokemon()" (secondTargetActivated)="secondTargetActivated($event)"
+    @for (damageResult of damageResults(); track damageResult.id) {
+      <app-pokemon-card [damageResult]="damageResult" [canSelectSecondPokemon]="canSelectSecondPokemon()" (secondTargetActivated)="secondTargetActivated($event)"
         [isAttacker]="isAttacker()" [showDamageDescription]="showDamageDescription()" (targetActivated)="targetActivated.emit($event)" (targetRemoved)="targetRemoved.emit()"/>
     }
 

@@ -10,6 +10,8 @@ import { TeamImportModalComponent } from '../team-import-modal/team-import-modal
 import { MatButton } from '@angular/material/button'
 import { MatIcon } from '@angular/material/icon'
 import { CalculatorStore } from 'src/data/store/calculator-store'
+import { MenuStore } from 'src/data/store/menu-store'
+import { DamageResult } from 'src/lib/damage-result'
 import { defaultPokemon } from 'src/lib/default-pokemon'
 import { Pokemon } from 'src/lib/pokemon'
 import { AddPokemonCardComponent } from '../add-pokemon-card/add-pokemon-card.component'
@@ -24,6 +26,7 @@ import { PokemonCardComponent } from '../pokemon-card/pokemon-card.component'
 })
 export class TargetPokemonComponent {
   
+  damageResults = input.required<DamageResult[]>()
   isAttacker = input.required<boolean>()
   showDamageDescription = input(true)
 
@@ -32,11 +35,22 @@ export class TargetPokemonComponent {
   targetsImported = output()
   
   store = inject(CalculatorStore)
+  menuStore = inject(MenuStore)
   private pokePasteService = inject(PokePasteParserService)
   private dialog = inject(MatDialog)
   private snackBar = inject(SnackbarService)
 
   targets = computed(() => this.store.targets())
+
+  activeDamageResult = computed(() => {
+    const activeTarget = this.targets().find(t => t.active)
+
+    if (this.menuStore.oneVsManyActivated()) {
+      return this.damageResults().find(result => result.defender.id == activeTarget?.pokemon.id)
+    } else {
+      return this.damageResults().find(result => result.attacker.id == activeTarget?.pokemon.id)
+    }    
+  })
 
   copyMessageEnabled = false
   
@@ -118,12 +132,12 @@ export class TargetPokemonComponent {
     return this.targets().find(t => t.pokemon.isDefault()) != null
   }
   
-  damageDescription() {
-    return this.targets().find(t => t.active)?.damageResult.description ?? ""
+  damageDescription(): string {
+    return this.activeDamageResult()?.description ?? ""
   }
 
-  rolls() {
-    return this.targets().find(t => t.active)?.damageResult.rolls?? ""
+  rolls(): number[] {
+    return this.activeDamageResult()?.rolls ?? []
   }
 
   copyDamageResult() {
@@ -163,6 +177,10 @@ export class TargetPokemonComponent {
 
       this.store.updateTargets(newTargets)
     }    
+  }
+
+  findTarget(pokemonId: string): Target {
+    return this.targets().find(target => target.pokemon.id === pokemonId)!
   }
 
 }
