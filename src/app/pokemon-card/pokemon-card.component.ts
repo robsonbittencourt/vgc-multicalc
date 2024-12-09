@@ -122,10 +122,10 @@ export class PokemonCardComponent {
     event.stopPropagation()
     if (!this.target().pokemon.isTerapagos()) {
       this.store.toogleTargetTerastal(this.target())
-
+      
       if (this.target().pokemon.isOgerpon()) {
-        this.target().pokemon.changeTeraStatus(!this.target().pokemon.teraTypeActive)
-        this.store.updateTargetAbility(this.target())
+        const ability = this.target().pokemon.checkOgerponTeraAbility(this.target().pokemon.teraTypeActive)
+        this.store.ability(this.target().pokemon.id, ability)
       }
     }    
   }

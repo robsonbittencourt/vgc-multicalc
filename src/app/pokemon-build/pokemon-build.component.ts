@@ -68,8 +68,8 @@ export class PokemonBuildComponent {
       this.store.teraTypeActive(this.pokemonId(), !this.pokemon().teraTypeActive)
 
       if (this.pokemon().isOgerpon()) {
-        this.pokemon().changeTeraStatus(this.pokemon().teraTypeActive)
-        this.store.ability(this.pokemonId(), this.pokemon().ability)
+        const ability = this.pokemon().checkOgerponTeraAbility(this.pokemon().teraTypeActive)
+        this.store.ability(this.pokemonId(), ability)
       }
     }
   }

@@ -195,16 +195,6 @@ export class Pokemon {
     return this.isTerapagosStellar() || this.pokemonSmogon.teraType != undefined
   }
 
-  public changeTeraStatus(teraTypeActive: boolean) {
-    this.checkOgerponTeraAbility(teraTypeActive)
-    
-    if (teraTypeActive) {
-      this.pokemonSmogon = this.buildPokemonSmogon({ teraType: this.teraTypeStorage, teraTypeActive: true })
-    } else {
-      this.pokemonSmogon = this.buildPokemonSmogon({ teraType: undefined, teraTypeActive: false })
-    }
-  }
-
   public get moveSet(): MoveSet {
     return this.moveSetStorage
   }
@@ -454,38 +444,20 @@ export class Pokemon {
     return teraType
   }
 
-  private checkOgerponTeraAbility(teraActived: boolean) {
-    if (this.name == "Ogerpon") {
-      if(teraActived) {
-        this.ability = "Embody Aspect (Teal)"
-      } else {
-        this.ability = "Defiant"
-      }      
-    }
-
+  checkOgerponTeraAbility(teraActived: boolean): string {
     if (this.name == "Ogerpon-Wellspring") {
-      if(teraActived) {
-        this.ability = "Embody Aspect (Wellspring)"
-      } else {
-        this.ability = "Water Absorb"
-      }      
+      return teraActived ? "Embody Aspect (Wellspring)" : "Water Absorb"      
     }
 
     if (this.name == "Ogerpon-Hearthflame") {
-      if(teraActived) {
-        this.ability = "Embody Aspect (Hearthflame)"
-      } else {
-        this.ability = "Mold Breaker"
-      }      
+      return teraActived ? "Embody Aspect (Hearthflame)" : "Mold Breaker"
     }
 
     if (this.name == "Ogerpon-Cornerstone") {
-      if(teraActived) {
-        this.ability = "Embody Aspect (Cornerstone)"
-      } else {
-        this.ability = "Sturdy"
-      }      
+      return teraActived ? "Embody Aspect (Cornerstone)" : "Sturdy"      
     }
+
+    return teraActived ? "Embody Aspect (Teal)" : "Defiant"    
   }
 
   incrementBoostsPlusTwo() {
