@@ -33,6 +33,10 @@ export class MultiCalcComponent {
   activeSecondAttacker = computed(() => this.store.findNullablePokemonById(this.store.secondAttackerId()))
   damageResults = computed(() => this.calculateDamageForAll(this.activeAttacker(), this.store.targets(), this.fieldStore.field(), this.activeSecondAttacker()))
 
+  targetWithSpecificCalc = this.targetsWithSpecificCalc()
+  targetsActive = this.activeTargetsIds()
+  actualOrder: string[] = []
+
   targetsImported() {
     if (this.store.findPokemonById(this.pokemonId()).isDefault()) {
       this.pokemonId.set(this.store.team().activePokemon().id)
@@ -49,10 +53,8 @@ export class MultiCalcComponent {
     })
 
     const withoutDuplicates = this.removeDuplicatedResults(results)
-
-    this.order(withoutDuplicates)
-    
-    return withoutDuplicates
+      
+    return this.order(withoutDuplicates)
   }
 
   private calculateDamageOneVsMany(attacker: Pokemon, target: Target, field: Field, secondAttacker?: Pokemon): DamageResult[] {
@@ -85,13 +87,59 @@ export class MultiCalcComponent {
     }
   }
 
-  private order(results: DamageResult[]) {
+  private targetsWithSpecificCalc(): number {
+    const withTera = this.store.targets().filter(t => t.pokemon.teraTypeActive).length
+    const withCommander = this.store.targets().filter(t => t.pokemon.commanderActivated).length
+
+    return withTera + withCommander
+  }
+
+  private activeTargetsIds(): string[] {
+    return this.store.targets().filter(target => target.active).map(target => target.pokemon.id)
+  }
+
+  private order(results: DamageResult[]): DamageResult[] {
+    const actualTargetsActive = this.activeTargetsIds()
+    const actualTargetWithSpecificCalc = this.targetsWithSpecificCalc()
+
+    if (this.changeHappenedInTargets(actualTargetsActive, actualTargetWithSpecificCalc)) {
+      this.applyActualOrder(results)
+      this.targetsActive = actualTargetsActive
+      this.targetWithSpecificCalc = actualTargetWithSpecificCalc
+    } else {
+      this.applyOrderByDamage(results)
+    }    
+
+    this.actualOrder = results.map(result => this.pokemonIdToOrder(result))
+
+    return results
+  }
+
+  private changeHappenedInTargets(activeTargetsIds: string[], targetIdsWithSpecificCalc: number) {
+    return activeTargetsIds[0] != this.targetsActive[0] ||
+      activeTargetsIds[1] != this.targetsActive[1] ||
+      targetIdsWithSpecificCalc != this.targetWithSpecificCalc
+  }
+
+  private applyActualOrder(results: DamageResult[]) {
+    results.sort((a, b) => {
+      const indexA = this.actualOrder.indexOf(this.pokemonIdToOrder(a))
+      const indexB = this.actualOrder.indexOf(this.pokemonIdToOrder(b))
+      return indexA - indexB
+    })
+  }
+
+  private applyOrderByDamage(results: DamageResult[]) {
     results.sort((a, b) => {
       if(this.menuStore.oneVsManyActivated() && a.defender.isDefault()) return 1
       if(this.menuStore.manyVsOneActivated() && a.attacker.isDefault()) return 1
       
       return b.damage - a.damage
     })
+  }
+
+  private pokemonIdToOrder(result: DamageResult): string {
+    return this.menuStore.oneVsManyActivated() ? result.defender.id : result.attacker.id
   }
 
 }

@@ -40,11 +40,13 @@ export class PokemonCardComponent {
   })
 
   activate() {
-    const updatedTargets = this.store.targets().map(target => new Target(target.pokemon, target.pokemon.id === this.target().pokemon.id))
-    const activeTarget = updatedTargets.find(target => target.active)!
+    if (!this.target().active) {
+      const updatedTargets = this.store.targets().map(target => new Target(target.pokemon, target.pokemon.id === this.target().pokemon.id))
+      const activeTarget = updatedTargets.find(target => target.active)!
 
-    this.store.updateTargets(updatedTargets)
-    this.targetActivated.emit(activeTarget.pokemon.id)
+      this.store.updateTargets(updatedTargets)
+      this.targetActivated.emit(activeTarget.pokemon.id)
+    }    
   }
 
   removePokemon() {
