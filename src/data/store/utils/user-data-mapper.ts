@@ -104,9 +104,9 @@ function buildTeamState(teams: any): TeamState[] {
 }
 
 function buildTeamMemberState(teamMembers: any): TeamMemberState[] {
-  return teamMembers.map((member: any) => {
+  return teamMembers.map((member: any, index: number) => {
     return {
-      active: member.active,
+      active: index == 0,
       pokemon: buildPokemonState(member.pokemon)
     }
   })
