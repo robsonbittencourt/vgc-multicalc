@@ -1,9 +1,10 @@
 import { Component, inject } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
+import { CalculatorStore } from 'src/data/store/calculator-store'
 import { FieldStore } from 'src/data/store/field-store'
 import { MenuStore } from 'src/data/store/menu-store'
+import { buildState } from 'src/data/store/utils/user-data-mapper'
 import { DeviceDetectorService } from 'src/lib/device-detector.service'
-import { DataStore } from '../../lib/data-store.service'
 import { HeaderMobileComponent } from '../header-mobile/header-mobile.component'
 import { HeaderComponent } from '../header/header.component'
 import { MultiCalcComponent } from '../multi-calc/multi-calc.component'
@@ -36,6 +37,7 @@ export class MainComponent {
       if (this.useUserData) {
         const state = buildState(userData?.data)
         this.store.updateState(state)
+        this.fieldStore.updateState(userData?.data.field)
       }
     })
   }

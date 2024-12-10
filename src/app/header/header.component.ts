@@ -4,6 +4,7 @@ import { MatButton } from '@angular/material/button'
 import { MatIcon } from '@angular/material/icon'
 import axios from 'axios'
 import { CalculatorStore } from 'src/data/store/calculator-store'
+import { FieldStore } from 'src/data/store/field-store'
 import { MenuStore } from 'src/data/store/menu-store'
 import { SnackbarService } from 'src/lib/snackbar.service'
 import { v4 as uuidv4 } from 'uuid'
@@ -17,6 +18,7 @@ import { v4 as uuidv4 } from 'uuid'
 })
 export class HeaderComponent {
   store = inject(CalculatorStore)
+  fieldStore = inject(FieldStore)
   menuStore = inject(MenuStore)
   private snackBar = inject(SnackbarService)
 
@@ -24,7 +26,7 @@ export class HeaderComponent {
   
   uploadData() {
     const id = uuidv4()
-    const userData = this.store.buildUserData()
+    const userData = { ...this.store.buildUserData(), field: { ...this.fieldStore.field() }}
     axios.put(`https://l7enx1vgm7.execute-api.us-east-1.amazonaws.com/v1/vgc-multi-calc/${id}`, userData)
     this.userDataLink = `https://vgcmulticalc.com/data/${id}`
     this.snackBar.open("Your calc link has been created!")

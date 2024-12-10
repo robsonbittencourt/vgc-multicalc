@@ -40,7 +40,7 @@ export const FieldStore = signalStore(
   })),
 
   withMethods((store) => ({
-    setField(field: Field) { patchState(store, { ...field }) },
+    updateState(field: Field) { patchState(store, { ...field }) },
 
     toggleGameType() { patchState(store, (state) => ({ gameType: state.gameType == "Doubles" ? "Singles" : "Doubles" as GameType }))},
     toggleSunWeather() { patchState(store, (state) => ({ weather: state.weather != "Sun" ? "Sun" : null as Weather }))},
