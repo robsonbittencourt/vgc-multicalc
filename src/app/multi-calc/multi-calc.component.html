@@ -1,5 +1,5 @@
 <div class="container">
-  <app-team [pokemonId]="pokemonId()" [isAttacker]="isAttacker()" (teamMemberSelected)="pokemonId.set($event)" 
+  <app-team [pokemonId]="pokemonId()" [isAttacker]="menuStore.oneVsManyActivated()" (teamMemberSelected)="pokemonId.set($event)" 
     (teamMemberRemoved)="pokemonId.set(store.team().activePokemon().id)"/>
   
   <div>

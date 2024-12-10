@@ -28,7 +28,6 @@ export class MultiCalcComponent {
 
   pokemonId = signal<string>(this.store.team().activePokemon().id)
 
-  isAttacker = computed(() => this.store.attackerId() === this.pokemonId())
   activeAttacker = computed(() => this.store.findPokemonById(this.store.attackerId()))
   activeSecondAttacker = computed(() => this.store.findNullablePokemonById(this.store.secondAttackerId()))
   damageResults = computed(() => this.calculateDamageForAll(this.activeAttacker(), this.store.targets(), this.fieldStore.field(), this.activeSecondAttacker()))
