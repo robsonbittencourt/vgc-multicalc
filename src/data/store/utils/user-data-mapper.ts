@@ -1,4 +1,5 @@
 import { CalculatorState, PokemonState, TargetState, TeamMemberState, TeamState } from "src/data/store/calculator-store"
+import { defaultPokemon } from "src/lib/default-pokemon"
 import { v4 as uuidv4 } from 'uuid'
 import { stateToPokemon } from "./state-mapper"
 
@@ -105,6 +106,13 @@ function buildTeamState(teams: any): TeamState[] {
 }
 
 function buildTeamMemberState(teamMembers: any): TeamMemberState[] {
+  if (teamMembers.length == 0) {
+    return [{
+      active: true,
+      pokemon: buildPokemonState(defaultPokemon())
+    }]
+  }
+
   return teamMembers.map((member: any, index: number) => {
     return {
       active: index == 0,
