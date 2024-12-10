@@ -22,7 +22,7 @@ export class TeamComponent {
 
   store = inject(CalculatorStore)
 
-  pokemonId = input<string>(this.store.team().activePokemon().id)
+  pokemonId = input.required<string>()
   isAttacker = input(false)
   
   teamMemberSelected = output<string>()
