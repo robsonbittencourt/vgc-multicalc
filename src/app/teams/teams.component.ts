@@ -93,7 +93,7 @@ export class TeamsComponent {
 
     this.teamChanged.emit(newTeam)
 
-    this.snackBar.open("Team deleted");
+    this.snackBar.open("Team deleted")
   }
 
 }
