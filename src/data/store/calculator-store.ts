@@ -72,6 +72,8 @@ export const CalculatorStore = signalStore(
   })),
 
   withMethods((store) => ({
+    updateState(state: CalculatorState) { patchState(store, () => ({ ...state })) },
+
     name(pokemonId: string, name: string) { this._updatePokemonById(pokemonId, () => ({ name })) },
     status(pokemonId: string, status: string) { this._updatePokemonById(pokemonId, () => ({ status })) },
     item(pokemonId: string, item: string) { this._updatePokemonById(pokemonId, () => ({ item })) },

@@ -20,7 +20,7 @@ import { SpeedCalculatorComponent } from '../speed-calculator/speed-calculator.c
   imports: [HeaderComponent, SimpleCalcComponent, MultiCalcComponent, SpeedCalculatorComponent, HeaderMobileComponent, SimpleCalcMobileComponent, SpeedCalculatorMobileComponent]
 })
 export class MainComponent {
-  data = inject(DataStore)
+  store = inject(CalculatorStore)
   menuStore = inject(MenuStore)
   fieldStore = inject(FieldStore)
   private activatedRoute = inject(ActivatedRoute)
@@ -34,8 +34,8 @@ export class MainComponent {
       this.useUserData = this.activatedRoute.routeConfig?.path == "data/:userDataId"
 
       if (this.useUserData) {
-        this.data.buildInitialData(userData?.data)
-        this.fieldStore.setField(userData?.data.field)
+        const state = buildState(userData?.data)
+        this.store.updateState(state)
       }
     })
   }
