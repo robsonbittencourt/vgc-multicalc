@@ -36,9 +36,6 @@ export class MainComponent {
       if (this.useUserData) {
         this.data.buildInitialData(userData?.data)
         this.fieldStore.setField(userData?.data.field)
-      } else {
-        const userData = JSON.parse(localStorage.getItem('userData')!)
-        this.data.buildInitialData(userData)
       }
     })
   }
@@ -47,9 +44,4 @@ export class MainComponent {
     return this.deviceDetectorService.isDesktop()
   }
 
-  updateLocalStorage() {
-    if(!this.useUserData) {
-      localStorage.setItem('userData', JSON.stringify(this.data.buildUserData()))
-    }    
-  }
 }

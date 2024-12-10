@@ -3,19 +3,19 @@
 }
 
 @if (isDesktopDevice() && menuStore.oneVsOneActivated()) {
-  <app-simple-calc (dataChangedEvent)="updateLocalStorage()"/>
+  <app-simple-calc />
 }
 
 @if (isDesktopDevice() && menuStore.oneVsManyActivated()) {
-  <app-multi-calc (dataChangedEvent)="updateLocalStorage()"/>
+  <app-multi-calc />
 }
 
 @if (isDesktopDevice() && menuStore.manyVsOneActivated()) {
-  <app-multi-calc (dataChangedEvent)="updateLocalStorage()"/>
+  <app-multi-calc />
 }
 
 @if (isDesktopDevice() && menuStore.speedCalculatorActivated()) {
-  <app-speed-calculator (dataChangedEvent)="updateLocalStorage()"/>
+  <app-speed-calculator />
 }
 
 @if (!isDesktopDevice()) {
@@ -23,7 +23,7 @@
 }
 
 @if (!isDesktopDevice() && !menuStore.speedCalculatorActivated()) {
-  <app-simple-calc-mobile (dataChangedEvent)="updateLocalStorage()"/>
+  <app-simple-calc-mobile />
 }
 
 @if (!isDesktopDevice() && menuStore.speedCalculatorActivated()) {
