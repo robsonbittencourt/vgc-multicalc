@@ -86,7 +86,7 @@ function buildPokemonState(pokemon: any): PokemonState {
     commanderActive: pokemon.commanderActive,
     teraType: pokemon.teraType,
     teraTypeActive: pokemon.teraTypeActive,
-    activeMove: pokemon.activeMove,
+    activeMove: pokemon.moveSet[0],
     moveSet: [{ name: pokemon.moveSet[0] }, { name: pokemon.moveSet[1] }, { name: pokemon.moveSet[2] }, { name: pokemon.moveSet[3] }],
     boosts: pokemon.boosts,
     evs: pokemon.evs,
