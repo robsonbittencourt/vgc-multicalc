@@ -218,6 +218,10 @@ export const CalculatorStore = signalStore(
       return pokemonFromTargets ? stateToPokemon(pokemonFromTargets.pokemon) : undefined
     },
 
+    buildUserData() {
+      return buildUserData(store._leftPokemonState(), store._rightPokemonState(), store._teamsState(), store._targetsState())
+    },
+
     _updateMove(pokemonId: string, move: string, index: number) {
       this._updatePokemonById(pokemonId, (state) => {
         const moveSet = [...state.moveSet]
@@ -304,7 +308,7 @@ export const CalculatorStore = signalStore(
   withHooks({
     onInit(store) {
       effect(() => {
-        const userData = buildUserData(store._leftPokemonState(), store._rightPokemonState(), store._teamsState(), store._targetsState())
+        const userData = store.buildUserData()
         const actualStorage = JSON.parse(localStorage.getItem('userData')!)
         
         const mergedUserData = { ...actualStorage, ...userData }
