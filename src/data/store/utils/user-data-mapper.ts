@@ -40,6 +40,7 @@ export function buildState(userData: any): CalculatorState {
   const attackerId = teams[0].teamMembers[0].pokemon.id
 
   return {
+    _updateLocalStorage: true,
     _leftPokemonState: buildPokemonState(userData.leftPokemon),
     _rightPokemonState: buildPokemonState(userData.rightPokemon),
     attackerId: attackerId,

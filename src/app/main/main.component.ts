@@ -36,8 +36,8 @@ export class MainComponent {
 
       if (this.useUserData) {
         const state = buildState(userData?.data)
-        this.store.updateState(state)
-        this.fieldStore.updateState(userData?.data.field)
+        this.store.updateStateLockingLocalStorage(state)
+        this.fieldStore.updateStateLockingLocalStorage(userData?.data.field)
       }
     })
   }

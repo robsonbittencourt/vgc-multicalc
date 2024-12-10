@@ -51,6 +51,7 @@ export type TargetState = {
 }
 
 export type CalculatorState = {
+  _updateLocalStorage: boolean
   _leftPokemonState: PokemonState,
   _rightPokemonState: PokemonState,
   attackerId: string,
@@ -72,7 +73,7 @@ export const CalculatorStore = signalStore(
   })),
 
   withMethods((store) => ({
-    updateState(state: CalculatorState) { patchState(store, () => ({ ...state })) },
+    updateStateLockingLocalStorage(state: CalculatorState) { patchState(store, () => ({ ...state, _updateLocalStorage: false })) },
 
     name(pokemonId: string, name: string) { this._updatePokemonById(pokemonId, () => ({ name })) },
     status(pokemonId: string, status: string) { this._updatePokemonById(pokemonId, () => ({ status })) },
@@ -310,11 +311,13 @@ export const CalculatorStore = signalStore(
   withHooks({
     onInit(store) {
       effect(() => {
-        const userData = store.buildUserData()
-        const actualStorage = JSON.parse(localStorage.getItem('userData')!)
-        
-        const mergedUserData = { ...actualStorage, ...userData }
-        localStorage.setItem('userData', JSON.stringify(mergedUserData))
+        if (store._updateLocalStorage()) {
+          const userData = store.buildUserData()
+          const actualStorage = JSON.parse(localStorage.getItem('userData')!)
+          
+          const mergedUserData = { ...actualStorage, ...userData }
+          localStorage.setItem('userData', JSON.stringify(mergedUserData))
+        }
       })
     }
   })

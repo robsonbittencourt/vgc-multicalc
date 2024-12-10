@@ -13,6 +13,8 @@ export function initialCalculatorState(): CalculatorState {
 
 function defaultState() {
   return {
+    _updateLocalStorage: true,
+
     _leftPokemonState: { id: uuidv4(), name: "Gholdengo", nature: "Timid", item: "Choice Specs", status: "Healthy", ability: "Good as Gold", abilityOn: false, commanderActive: false, teraType: "Steel", teraTypeActive: false, activeMove: "Make It Rain",
       moveSet: [{ name: "Make It Rain" }, { name: "Shadow Ball" }, { name: "Protect" }, { name: "Nasty Plot" }],
       boosts: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },

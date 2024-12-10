@@ -4,6 +4,7 @@ import { Field, FieldAttackerSide, FieldDefenderSide, GameType, Terrain, Weather
 import { initialFieldState } from "./utils/initial-field-state"
 
 export type FieldState = {
+  _updateLocalStorage: boolean
   gameType: GameType
   weather: Weather
   terrain: Terrain
@@ -40,7 +41,7 @@ export const FieldStore = signalStore(
   })),
 
   withMethods((store) => ({
-    updateState(field: Field) { patchState(store, { ...field }) },
+    updateStateLockingLocalStorage(field: Field) { patchState(store, { ...field, _updateLocalStorage: false }) },
 
     toggleGameType() { patchState(store, (state) => ({ gameType: state.gameType == "Doubles" ? "Singles" : "Doubles" as GameType }))},
     toggleSunWeather() { patchState(store, (state) => ({ weather: state.weather != "Sun" ? "Sun" : null as Weather }))},
@@ -86,8 +87,11 @@ export const FieldStore = signalStore(
   withHooks({
     onInit(store) {
       effect(() => {
-        const userData = JSON.parse(localStorage.getItem('userData')!)
-        localStorage.setItem('userData', JSON.stringify({ ...userData, field: store.field() }))
+        if (store._updateLocalStorage()) {
+          const userData = JSON.parse(localStorage.getItem('userData')!)
+          localStorage.setItem('userData', JSON.stringify({ ...userData, field: store.field() }))
+        }
+        
       })
     }
   })
