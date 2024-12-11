@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, input } from '@angular/core'
+import { Component, computed, effect, inject, input, signal } from '@angular/core'
 import { CalculatorStore } from 'src/data/store/calculator-store'
 import { FieldStore } from 'src/data/store/field-store'
 import { SpeedCalcOptionsStore } from 'src/data/store/speed-calc-options-store'
@@ -29,7 +29,7 @@ export class SpeedScaleComponent {
 
   private speedCalculatorService = inject(SpeedCalculatorService)
 
-  inSpeedRange: SpeedDefinition[]
+  inSpeedRange = signal<SpeedDefinition[]>([])
 
   previousSpeedDefinition: SpeedDefinition[] = []
   previousActualPokemonSpeed: number
@@ -69,13 +69,13 @@ export class SpeedScaleComponent {
           }
         }
         
-        this.inSpeedRange = inSpeedRange
+        this.inSpeedRange.set(inSpeedRange)
       } else {
         const pokemon = new Pokemon(options.targetName)
-        this.inSpeedRange = orderedPokemon.filter(s => s.pokemonName == pokemon.name || this.isActual(s))
+        this.inSpeedRange.set(orderedPokemon.filter(s => s.pokemonName == pokemon.name || this.isActual(s)))
       }
 
-      this.verifyChanges(this.inSpeedRange)
+      this.verifyChanges(this.inSpeedRange())
     }, 200)    
   }
 
