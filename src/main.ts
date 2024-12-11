@@ -1,4 +1,4 @@
-import { importProvidersFrom } from '@angular/core';
+import { importProvidersFrom, provideExperimentalZonelessChangeDetection } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
@@ -25,9 +25,10 @@ import { AppRoutingModule } from './app/app-routing.module';
 import { AppComponent } from './app/app.component';
 
 bootstrapApplication(AppComponent, {
-    providers: [
-        importProvidersFrom(ReactiveFormsModule, FormsModule, BrowserModule, RouterOutlet, MatAutocompleteModule, MatInputModule, MatFormFieldModule, MatCardModule, MatCheckboxModule, MatSliderModule, MatIconModule, MatButtonModule, MatSelectModule, MatButtonToggleModule, MatChipsModule, MatSlideToggleModule, AppRoutingModule, MatSnackBarModule, MatTooltipModule, MatTabsModule, MatDialogModule, MatMenuModule),
-        SmogonFunctions,
-        provideAnimations()
-    ]
-}).catch(err => console.error(err));
+  providers: [
+    importProvidersFrom(ReactiveFormsModule, FormsModule, BrowserModule, RouterOutlet, MatAutocompleteModule, MatInputModule, MatFormFieldModule, MatCardModule, MatCheckboxModule, MatSliderModule, MatIconModule, MatButtonModule, MatSelectModule, MatButtonToggleModule, MatChipsModule, MatSlideToggleModule, AppRoutingModule, MatSnackBarModule, MatTooltipModule, MatTabsModule, MatDialogModule, MatMenuModule),
+    SmogonFunctions,
+    provideAnimations(),
+    provideExperimentalZonelessChangeDetection()
+  ]
+}).catch(err => console.error(err))
