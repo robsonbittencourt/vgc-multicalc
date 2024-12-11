@@ -12,11 +12,10 @@ import { PokemonBuildComponent } from '../pokemon-build/pokemon-build.component'
 import { PokemonTabComponent } from '../pokemon-tab/pokemon-tab.component'
 
 @Component({
-  selector: 'app-team',
-  templateUrl: './team.component.html',
-  styleUrls: ['./team.component.scss'],
-  standalone: true,
-  imports: [PokemonTabComponent, ImportPokemonButtonComponent, ExportPokemonButtonComponent, MatIcon, PokemonBuildComponent, RouterOutlet]
+    selector: 'app-team',
+    templateUrl: './team.component.html',
+    styleUrls: ['./team.component.scss'],
+    imports: [PokemonTabComponent, ImportPokemonButtonComponent, ExportPokemonButtonComponent, MatIcon, PokemonBuildComponent, RouterOutlet]
 })
 export class TeamComponent {
 

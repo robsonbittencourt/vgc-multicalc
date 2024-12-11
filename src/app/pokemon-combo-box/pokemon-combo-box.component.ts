@@ -5,11 +5,10 @@ import { CalculatorStore } from 'src/data/store/calculator-store';
 import { InputAutocompleteComponent } from '../input-autocomplete/input-autocomplete.component';
 
 @Component({
-  selector: 'app-pokemon-combo-box',
-  templateUrl: './pokemon-combo-box.component.html',
-  styleUrls: ['./pokemon-combo-box.component.scss'],
-  standalone: true,
-  imports: [InputAutocompleteComponent]
+    selector: 'app-pokemon-combo-box',
+    templateUrl: './pokemon-combo-box.component.html',
+    styleUrls: ['./pokemon-combo-box.component.scss'],
+    imports: [InputAutocompleteComponent]
 })
 export class PokemonComboBoxComponent {
 

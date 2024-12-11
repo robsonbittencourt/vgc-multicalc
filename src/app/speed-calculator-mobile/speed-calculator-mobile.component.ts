@@ -19,11 +19,10 @@ import { PokemonComboBoxComponent } from '../pokemon-combo-box/pokemon-combo-box
 import { SpeedScaleComponent } from '../speed-scale/speed-scale.component'
 
 @Component({
-  selector: 'app-speed-calculator-mobile',
-  templateUrl: './speed-calculator-mobile.component.html',
-  styleUrls: ['./speed-calculator-mobile.component.scss'],
-  standalone: true,
-  imports: [InputAutocompleteComponent, PokemonComboBoxComponent, AbilityComboBoxComponent, MatCheckbox, ReactiveFormsModule, FormsModule, MatTooltip, EvSliderComponent, SpeedScaleComponent, MatFormField, MatSelect, MatOption, MatButtonToggleGroup, MatButtonToggle, MatIcon]
+    selector: 'app-speed-calculator-mobile',
+    templateUrl: './speed-calculator-mobile.component.html',
+    styleUrls: ['./speed-calculator-mobile.component.scss'],
+    imports: [InputAutocompleteComponent, PokemonComboBoxComponent, AbilityComboBoxComponent, MatCheckbox, ReactiveFormsModule, FormsModule, MatTooltip, EvSliderComponent, SpeedScaleComponent, MatFormField, MatSelect, MatOption, MatButtonToggleGroup, MatButtonToggle, MatIcon]
 })
 export class SpeedCalculatorMobileComponent {
   

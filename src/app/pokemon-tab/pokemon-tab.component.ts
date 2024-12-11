@@ -4,11 +4,10 @@ import { MatIcon } from '@angular/material/icon';
 import { CalculatorStore } from 'src/data/store/calculator-store';
 
 @Component({
-  selector: 'app-pokemon-tab',
-  templateUrl: './pokemon-tab.component.html',
-  styleUrls: ['./pokemon-tab.component.scss'],
-  standalone: true,
-  imports: [NgStyle, MatIcon]
+    selector: 'app-pokemon-tab',
+    templateUrl: './pokemon-tab.component.html',
+    styleUrls: ['./pokemon-tab.component.scss'],
+    imports: [NgStyle, MatIcon]
 })
 export class PokemonTabComponent {
 

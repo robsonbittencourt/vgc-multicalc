@@ -10,11 +10,10 @@ import { SpeedDefinition } from 'src/lib/speed-calculator/speed-definition'
 import { SpeedBoxComponent } from '../speed-box/speed-box.component'
 
 @Component({
-  selector: 'app-speed-scale',
-  templateUrl: './speed-scale.component.html',
-  styleUrls: ['./speed-scale.component.scss'],
-  standalone: true,
-  imports: [SpeedBoxComponent]
+    selector: 'app-speed-scale',
+    templateUrl: './speed-scale.component.html',
+    styleUrls: ['./speed-scale.component.scss'],
+    imports: [SpeedBoxComponent]
 })
 export class SpeedScaleComponent {
   

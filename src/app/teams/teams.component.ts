@@ -15,11 +15,10 @@ import { TeamExportModalComponent } from '../team-export-modal/team-export-modal
 import { TeamImportModalComponent } from '../team-import-modal/team-import-modal.component'
 
 @Component({
-  selector: 'app-teams',
-  templateUrl: './teams.component.html',
-  styleUrls: ['./teams.component.scss'],
-  standalone: true,
-  imports: [MatInput, ReactiveFormsModule, FormsModule, MatButton, TeamBoxComponent]
+    selector: 'app-teams',
+    templateUrl: './teams.component.html',
+    styleUrls: ['./teams.component.scss'],
+    imports: [MatInput, ReactiveFormsModule, FormsModule, MatButton, TeamBoxComponent]
 })
 export class TeamsComponent {
 

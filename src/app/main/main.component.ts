@@ -14,11 +14,10 @@ import { SpeedCalculatorMobileComponent } from '../speed-calculator-mobile/speed
 import { SpeedCalculatorComponent } from '../speed-calculator/speed-calculator.component'
 
 @Component({
-  selector: 'app-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss'],
-  standalone: true,
-  imports: [HeaderComponent, SimpleCalcComponent, MultiCalcComponent, SpeedCalculatorComponent, HeaderMobileComponent, SimpleCalcMobileComponent, SpeedCalculatorMobileComponent]
+    selector: 'app-main',
+    templateUrl: './main.component.html',
+    styleUrls: ['./main.component.scss'],
+    imports: [HeaderComponent, SimpleCalcComponent, MultiCalcComponent, SpeedCalculatorComponent, HeaderMobileComponent, SimpleCalcMobileComponent, SpeedCalculatorMobileComponent]
 })
 export class MainComponent {
   store = inject(CalculatorStore)

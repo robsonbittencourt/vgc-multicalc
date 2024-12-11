@@ -4,11 +4,10 @@ import { CalculatorStore } from 'src/data/store/calculator-store';
 import { InputAutocompleteComponent } from '../input-autocomplete/input-autocomplete.component';
 
 @Component({
-  selector: 'app-ability-combo-box',
-  templateUrl: './ability-combo-box.component.html',
-  styleUrls: ['./ability-combo-box.component.scss'],
-  standalone: true,
-  imports: [InputAutocompleteComponent]
+    selector: 'app-ability-combo-box',
+    templateUrl: './ability-combo-box.component.html',
+    styleUrls: ['./ability-combo-box.component.scss'],
+    imports: [InputAutocompleteComponent]
 })
 export class AbilityComboBoxComponent {
 

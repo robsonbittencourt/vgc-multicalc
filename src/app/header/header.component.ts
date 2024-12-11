@@ -10,11 +10,10 @@ import { SnackbarService } from 'src/lib/snackbar.service'
 import { v4 as uuidv4 } from 'uuid'
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
-  standalone: true,
-  imports: [NgStyle, MatIcon, MatButton]
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.scss'],
+    imports: [NgStyle, MatIcon, MatButton]
 })
 export class HeaderComponent {
   store = inject(CalculatorStore)
