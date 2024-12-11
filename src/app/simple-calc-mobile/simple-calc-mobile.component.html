@@ -11,10 +11,10 @@
   <div class="damage-result">
     <div class="damage-result-text">
       @if (leftIsAttacker()) {
-        <span>{{ attacker().name }} {{ attacker().activeMoveName }} vs {{ store.rightPokemon().name }}</span>
+        <span>{{ attacker().name }} {{ activeMoveName() }} vs {{ store.rightPokemon().name }}</span>
       }
       @if (rightIsAttacker()) {
-        <span>{{ attacker().name }} {{ attacker().activeMoveName }} vs {{ store.leftPokemon().name }}</span>
+        <span>{{ attacker().name }} {{ activeMoveName() }} vs {{ store.leftPokemon().name }}</span>
       }
       <span>{{ damageResult().result }} - {{ damageResult().koChance }}</span>
     </div>
