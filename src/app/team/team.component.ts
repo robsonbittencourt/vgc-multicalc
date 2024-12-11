@@ -110,7 +110,14 @@ export class TeamComponent {
   }
 
   isSecondSelection(teamMember: TeamMember) {
-    return !teamMember.pokemon.isDefault() && teamMember.pokemon.id === (this.store.secondAttackerId())
+    return !teamMember.pokemon.isDefault() && teamMember.pokemon.id === this.store.secondAttackerId()
+  }
+
+  showTeamMemberActive(teamMember: TeamMember) {
+    const isFirstActive = teamMember.active && !this.isSecondSelection(teamMember)
+    const isSecondActive = this.isSecondSelection(teamMember) && this.isAttacker()
+
+    return isFirstActive || isSecondActive
   }
 
   canShowCombineButton() {

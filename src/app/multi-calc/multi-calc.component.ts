@@ -36,6 +36,14 @@ export class MultiCalcComponent {
   targetsActive = this.activeTargetsIds()
   actualOrder: string[] = []
 
+  ngOnInit() {
+    this.pokemonId.set(this.store.team().first().pokemon.id)
+    this.store.updateAttacker(this.pokemonId())
+    this.store.updateSecondAttacker("")
+    this.store.updateTeamMembersActive(true, false, false, false, false, false)
+    this.store.deactivateTargets()
+  }
+
   targetsImported() {
     if (this.store.findPokemonById(this.pokemonId()).isDefault()) {
       this.pokemonId.set(this.store.team().activePokemon().id)
