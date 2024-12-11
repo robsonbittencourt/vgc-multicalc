@@ -108,7 +108,7 @@
 
       <div>
         <label >Tera Type</label>
-        <app-input-autocomplete [value]="pokemon().teraType" [allValues]="allTeraTypes" [disabled]="pokemon().isTerapagos()"/>
+        <app-input-autocomplete [value]="pokemon().teraType" [allValues]="allTeraTypes" [disabled]="pokemon().isTerapagos()" (valueChange)="store.teraType(pokemonId(), $event)"/>
       </div>
     </div>
 
