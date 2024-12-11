@@ -15,6 +15,14 @@ function defaultState() {
   return {
     _updateLocalStorage: true,
 
+    _speedCalcPokemonState: { id: uuidv4(), name: "Sneasler", nature: "Jolly", item: "Focus Sash", status: "Healthy", ability: "Poison Touch", abilityOn: false, commanderActive: false, teraType: "Stellar", teraTypeActive: false, activeMove: "Close Combat",
+      moveSet: [{ name: "Close Combat" }, { name: "Dire Claw" }, { name: "Fake Out" }, { name: "Protect" }],
+      boosts: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+      evs: { hp: 4, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 },
+      ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
+      hpPercentage: 100
+    },
+
     _leftPokemonState: { id: uuidv4(), name: "Gholdengo", nature: "Timid", item: "Choice Specs", status: "Healthy", ability: "Good as Gold", abilityOn: false, commanderActive: false, teraType: "Steel", teraTypeActive: false, activeMove: "Make It Rain",
       moveSet: [{ name: "Make It Rain" }, { name: "Shadow Ball" }, { name: "Protect" }, { name: "Nasty Plot" }],
       boosts: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },

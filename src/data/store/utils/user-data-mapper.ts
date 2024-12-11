@@ -3,8 +3,9 @@ import { defaultPokemon } from "src/lib/default-pokemon"
 import { v4 as uuidv4 } from 'uuid'
 import { stateToPokemon } from "./state-mapper"
 
-export function buildUserData(leftPokemon: PokemonState, rightPokemon: PokemonState, teams: TeamState[], targets: TargetState[]) {
+export function buildUserData(speedCalcPokemon: PokemonState, leftPokemon: PokemonState, rightPokemon: PokemonState, teams: TeamState[], targets: TargetState[]) {
   return {
+    speedCalcPokemon: buildPokemonToUserData(speedCalcPokemon),
     leftPokemon: buildPokemonToUserData(leftPokemon),
     rightPokemon: buildPokemonToUserData(rightPokemon),
     teams: teams.map(team => {
@@ -42,6 +43,7 @@ export function buildState(userData: any): CalculatorState {
 
   return {
     _updateLocalStorage: true,
+    _speedCalcPokemonState: userData.speedCalcPokemonState ? buildPokemonState(userData.speedCalcPokemon) : buildPokemonState(userData.leftPokemon),
     _leftPokemonState: buildPokemonState(userData.leftPokemon),
     _rightPokemonState: buildPokemonState(userData.rightPokemon),
     attackerId: attackerId,

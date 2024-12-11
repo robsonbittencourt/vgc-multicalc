@@ -51,7 +51,8 @@ export type TargetState = {
 }
 
 export type CalculatorState = {
-  _updateLocalStorage: boolean
+  _updateLocalStorage: boolean,
+  _speedCalcPokemonState: PokemonState,
   _leftPokemonState: PokemonState,
   _rightPokemonState: PokemonState,
   attackerId: string,
@@ -65,6 +66,7 @@ export const CalculatorStore = signalStore(
   withState(initialCalculatorState),
   
   withComputed((state) => ({
+    speedCalcPokemon: computed(() => stateToPokemon(state._speedCalcPokemonState())),
     leftPokemon: computed(() => stateToPokemon(state._leftPokemonState())),
     rightPokemon: computed(() => stateToPokemon(state._rightPokemonState())),
     team: computed(() => stateToTeam(state._teamsState().find(t => t.active)!)),
@@ -205,6 +207,8 @@ export const CalculatorStore = signalStore(
     },
 
     findNullablePokemonById(pokemonId: string): Pokemon | undefined {
+      if (store._speedCalcPokemonState().id == pokemonId) return stateToPokemon(store._speedCalcPokemonState())
+
       if (store._leftPokemonState().id == pokemonId) return stateToPokemon(store._leftPokemonState())
 
       if (store._rightPokemonState().id == pokemonId) return stateToPokemon(store._rightPokemonState())
@@ -222,7 +226,7 @@ export const CalculatorStore = signalStore(
     },
 
     buildUserData() {
-      return buildUserData(store._leftPokemonState(), store._rightPokemonState(), store._teamsState(), store._targetsState())
+      return buildUserData(store._speedCalcPokemonState(), store._leftPokemonState(), store._rightPokemonState(), store._teamsState(), store._targetsState())
     },
 
     _updateMove(pokemonId: string, move: string, index: number) {
@@ -253,7 +257,9 @@ export const CalculatorStore = signalStore(
     _updatePokemonById(pokemonId: string, updateFn: (pokemon: PokemonState) => Partial<PokemonState>) {
       const activeTeamIndex = this._teamIndexWithPokemon(pokemonId)
       
-      if (store._leftPokemonState().id == pokemonId) {
+      if (store._speedCalcPokemonState().id == pokemonId) {
+        this._updateSpeedCalcPokemon(updateFn)   
+      } else if (store._leftPokemonState().id == pokemonId) {
         this._updateLeftPokemon(updateFn)   
       } else if (store._rightPokemonState().id == pokemonId) {
         this._updateRightPokemon(updateFn)    
@@ -262,6 +268,13 @@ export const CalculatorStore = signalStore(
       } else {
         this._updateTarget(pokemonId, updateFn)
       }
+    },
+
+    _updateSpeedCalcPokemon(updateFn: (pokemon: PokemonState) => Partial<PokemonState>) {
+      patchState(store, (state) => {
+        const updatedPokemon = { ...state._speedCalcPokemonState, ...updateFn(state._speedCalcPokemonState) }
+        return { _speedCalcPokemonState: updatedPokemon }
+      })    
     },
 
     _updateLeftPokemon(updateFn: (pokemon: PokemonState) => Partial<PokemonState>) {

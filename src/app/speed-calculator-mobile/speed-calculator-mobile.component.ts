@@ -31,14 +31,12 @@ export class SpeedCalculatorMobileComponent {
   fieldStore = inject(FieldStore)
   optionsStore = inject(SpeedCalcOptionsStore)
 
-  pokemonId = computed(() => this.store.leftPokemon().id)
+  pokemonId = computed(() => this.store.speedCalcPokemon().id)
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
   
   allItemsNames = Items.instance.allItems()
   allNatureNames = Object.keys(NATURES)
-  
-  MAX_EVS = 508
-  
+    
   statusConditions = [
     "Healthy", "Paralysis"
   ]
