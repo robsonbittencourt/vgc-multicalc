@@ -57,14 +57,6 @@ export class PokemonCardComponent {
   }
 
   cardStyle(): any {
-    if(this.damageResult()) {
-      return this.styleWithDamage()
-    } else {
-      return this.styleWithoutDamage()
-    }
-  }
-
-  private styleWithDamage(): any {
     const cardStyleSelectPokemon = { 'background-color': '#e7def6' }
     const cardStyle = { 'background-color': this.cardColor(this.damageResult().koChance) }
     const cardWithBorder = { 'border': '4px', 'border-style': 'solid', 'border-color': '#8544ee' }
@@ -82,16 +74,6 @@ export class PokemonCardComponent {
     }
 
     return cardStyle
-  }
-
-  private styleWithoutDamage() {
-    const cardStyle = { 'border': '3px', 'border-style': 'solid', 'border-color': '#8544ee' }
-    
-    if (this.target().active) {
-      return cardStyle
-    }
-
-    return null
   }
 
   private cardColor(koChance: String) {
