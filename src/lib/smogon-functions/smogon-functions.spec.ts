@@ -1,4 +1,4 @@
-import { Field, Side } from "@smogon/calc"
+import { Field, Side } from "@robsonbittencourt/calc"
 import { Pokemon } from "../pokemon"
 import { SmogonFunctions } from "./smogon-functions"
 

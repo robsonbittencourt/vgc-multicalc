@@ -1,5 +1,5 @@
-import { Generations, Pokemon as PokemonSmogon } from "@smogon/calc"
-import { StatsTable, StatusName, TypeName } from "@smogon/calc/dist/data/interface"
+import { Generations, Pokemon as PokemonSmogon } from "@robsonbittencourt/calc"
+import { StatsTable, StatusName, TypeName } from "@robsonbittencourt/calc/dist/data/interface"
 import dedent from "dedent"
 import { AllPokemon } from "src/data/all-pokemon"
 import { Items } from "src/data/items"

@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core"
-import { Field, Side } from "@smogon/calc"
-import { StatID } from "@smogon/calc/dist/data/interface"
+import { Field, Side } from "@robsonbittencourt/calc"
+import { StatID } from "@robsonbittencourt/calc/dist/data/interface"
 import { Pokemon } from "../pokemon"
 
 @Injectable()

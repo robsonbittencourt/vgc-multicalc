@@ -1,7 +1,7 @@
 //from https://github.dev/smogon/pokemon-showdown
 
-import { StatsTable } from "@smogon/calc";
-import { Species } from "@smogon/calc/dist/data/species";
+import { StatsTable } from "@robsonbittencourt/calc";
+import { Species } from "@robsonbittencourt/calc/dist/data/species";
 
 export class AllPokemon {
 

@@ -21,7 +21,7 @@
     "@angular/platform-browser-dynamic": "18.2.9",
     "@angular/router": "18.2.9",
     "@ngrx/signals": "^18.1.1",
-    "@smogon/calc": "file:../damage-calc/calc",
+    "@robsonbittencourt/calc": "0.10.0",
     "axios": "1.7.7",
     "dedent": "1.5.3",
     "koffing": "1.0.0",

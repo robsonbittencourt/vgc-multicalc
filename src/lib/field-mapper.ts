@@ -1,5 +1,5 @@
-import { Side, Field as SmogonField } from '@smogon/calc'
-import { Terrain as SmogonTerrain, Weather as SmogonWeather } from '@smogon/calc/src/data/interface'
+import { Side, Field as SmogonField } from '@robsonbittencourt/calc'
+import { Terrain as SmogonTerrain, Weather as SmogonWeather } from '@robsonbittencourt/calc/src/data/interface'
 import { Field, FieldAttackerSide, FieldDefenderSide } from "./field"
 
 export class FieldMapper {

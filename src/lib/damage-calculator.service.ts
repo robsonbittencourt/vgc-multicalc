@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
-import { calculate, Generations, Move as MoveSmogon, Result, Field as SmogonField } from '@smogon/calc'
-import { StatIDExceptHP } from '@smogon/calc/dist/data/interface'
+import { calculate, Generations, Move as MoveSmogon, Result, Field as SmogonField } from '@robsonbittencourt/calc'
+import { StatIDExceptHP } from '@robsonbittencourt/calc/dist/data/interface'
 import { DamageResult } from './damage-result'
 import { Field } from './field'
 import { FieldMapper } from './field-mapper'

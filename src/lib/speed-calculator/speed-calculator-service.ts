@@ -1,5 +1,5 @@
 import { Injectable, inject } from "@angular/core";
-import { Generations, Pokemon as PokemonSmogon } from "@smogon/calc";
+import { Generations, Pokemon as PokemonSmogon } from "@robsonbittencourt/calc";
 import { Field } from "../field";
 import { FieldMapper } from "../field-mapper";
 import { Pokemon } from "../pokemon";

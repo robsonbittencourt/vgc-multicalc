@@ -1,4 +1,4 @@
-import { Generations, MOVES, Move as MoveSmogon } from "@smogon/calc"
+import { Generations, MOVES, Move as MoveSmogon } from "@robsonbittencourt/calc"
 
 export class Move {
 

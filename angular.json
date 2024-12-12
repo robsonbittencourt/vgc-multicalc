@@ -36,7 +36,7 @@
             ],
             "scripts": [],
             "allowedCommonJsDependencies": [
-              "@smogon/calc"
+              "@robsonbittencourt/calc"
             ]
           },
           "configurations": {
