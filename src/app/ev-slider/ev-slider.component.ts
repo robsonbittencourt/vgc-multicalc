@@ -9,11 +9,10 @@ import { CalculatorStore } from 'src/data/store/calculator-store'
 import { Stats } from 'src/lib/types'
 
 @Component({
-  selector: 'app-ev-slider',
-  templateUrl: './ev-slider.component.html',
-  styleUrls: ['./ev-slider.component.scss'],
-  standalone: true,
-  imports: [MatFormField, MatSuffix, ReactiveFormsModule, MatInput, FormsModule, MatSelect, MatOption, MatLabel, MatSlider, MatSliderThumb]
+    selector: 'app-ev-slider',
+    templateUrl: './ev-slider.component.html',
+    styleUrls: ['./ev-slider.component.scss'],
+    imports: [MatFormField, MatSuffix, ReactiveFormsModule, MatInput, FormsModule, MatSelect, MatOption, MatLabel, MatSlider, MatSliderThumb]
 })
 export class EvSliderComponent {
 

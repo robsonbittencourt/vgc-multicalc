@@ -18,11 +18,10 @@ import { AddPokemonCardComponent } from '../add-pokemon-card/add-pokemon-card.co
 import { PokemonCardComponent } from '../pokemon-card/pokemon-card.component'
 
 @Component({
-  selector: 'app-target-pokemon',
-  templateUrl: './target-pokemon.component.html',
-  styleUrls: ['./target-pokemon.component.scss'],
-  standalone: true,
-  imports: [MatIcon, MatButton, PokemonCardComponent, AddPokemonCardComponent]
+    selector: 'app-target-pokemon',
+    templateUrl: './target-pokemon.component.html',
+    styleUrls: ['./target-pokemon.component.scss'],
+    imports: [MatIcon, MatButton, PokemonCardComponent, AddPokemonCardComponent]
 })
 export class TargetPokemonComponent {
   

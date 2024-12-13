@@ -13,11 +13,10 @@ import { TeamComponent } from '../team/team.component'
 import { TeamsComponent } from '../teams/teams.component'
 
 @Component({
-  selector: 'app-speed-calculator',
-  templateUrl: './speed-calculator.component.html',
-  styleUrls: ['./speed-calculator.component.scss'],
-  standalone: true,
-  imports: [TeamComponent, TeamsComponent, FieldComponent, InputAutocompleteComponent, MatFormField, MatSelect, MatOption, MatButtonToggleGroup, MatButtonToggle, MatIcon, SpeedScaleComponent]
+    selector: 'app-speed-calculator',
+    templateUrl: './speed-calculator.component.html',
+    styleUrls: ['./speed-calculator.component.scss'],
+    imports: [TeamComponent, TeamsComponent, FieldComponent, InputAutocompleteComponent, MatFormField, MatSelect, MatOption, MatButtonToggleGroup, MatButtonToggle, MatIcon, SpeedScaleComponent]
 })
 export class SpeedCalculatorComponent {
   

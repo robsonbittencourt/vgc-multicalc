@@ -13,11 +13,10 @@ import { EvSliderComponent } from '../ev-slider/ev-slider.component'
 import { InputAutocompleteComponent } from '../input-autocomplete/input-autocomplete.component'
 
 @Component({
-  selector: 'app-pokemon-build-mobile',
-  templateUrl: './pokemon-build-mobile.component.html',
-  styleUrls: ['./pokemon-build-mobile.component.scss'],
-  standalone: true,
-  imports: [MatChipListbox, ReactiveFormsModule, FormsModule, MatChipOption, MatIcon, InputAutocompleteComponent, MatTooltip, MatCheckbox, AbilityComboBoxComponent, EvSliderComponent]
+    selector: 'app-pokemon-build-mobile',
+    templateUrl: './pokemon-build-mobile.component.html',
+    styleUrls: ['./pokemon-build-mobile.component.scss'],
+    imports: [MatChipListbox, ReactiveFormsModule, FormsModule, MatChipOption, MatIcon, InputAutocompleteComponent, MatTooltip, MatCheckbox, AbilityComboBoxComponent, EvSliderComponent]
 })
 export class PokemonBuildMobileComponent {
   

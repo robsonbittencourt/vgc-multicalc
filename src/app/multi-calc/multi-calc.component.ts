@@ -10,12 +10,11 @@ import { TeamComponent } from '../team/team.component'
 import { TeamsComponent } from '../teams/teams.component'
 
 @Component({
-  selector: 'app-multi-calc',
-  templateUrl: './multi-calc.component.html',
-  styleUrls: ['./multi-calc.component.scss'],
-  providers: [DamageMultiCalcService, DamageResultOrderService],
-  standalone: true,
-  imports: [TeamComponent, TeamsComponent, FieldComponent, TargetPokemonComponent]
+    selector: 'app-multi-calc',
+    templateUrl: './multi-calc.component.html',
+    styleUrls: ['./multi-calc.component.scss'],
+    providers: [DamageMultiCalcService, DamageResultOrderService],
+    imports: [TeamComponent, TeamsComponent, FieldComponent, TargetPokemonComponent]
 })
 export class MultiCalcComponent {
   

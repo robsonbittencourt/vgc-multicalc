@@ -6,7 +6,6 @@ import { NgStyle } from '@angular/common';
     selector: 'app-pokemon-hp-badge',
     templateUrl: './pokemon-hp-badge.component.html',
     styleUrls: ['./pokemon-hp-badge.component.scss'],
-    standalone: true,
     imports: [NgStyle]
 })
 export class PokemonHpBadgeComponent implements AfterViewInit {

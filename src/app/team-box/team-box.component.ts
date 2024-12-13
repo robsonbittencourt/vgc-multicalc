@@ -3,11 +3,10 @@ import { Component, input, output } from '@angular/core';
 import { Team } from 'src/lib/team';
 
 @Component({
-  selector: 'app-team-box',
-  templateUrl: './team-box.component.html',
-  styleUrls: ['./team-box.component.scss'],
-  standalone: true,
-  imports: [NgStyle]
+    selector: 'app-team-box',
+    templateUrl: './team-box.component.html',
+    styleUrls: ['./team-box.component.scss'],
+    imports: [NgStyle]
 })
 export class TeamBoxComponent {
 

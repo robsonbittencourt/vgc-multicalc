@@ -3,11 +3,10 @@ import { MatButtonToggle, MatButtonToggleGroup } from '@angular/material/button-
 import { FieldStore } from 'src/data/store/field-store';
 
 @Component({
-  selector: 'app-field',
-  templateUrl: './field.component.html',
-  styleUrls: ['./field.component.scss'],
-  standalone: true,
-  imports: [MatButtonToggleGroup, MatButtonToggle]
+    selector: 'app-field',
+    templateUrl: './field.component.html',
+    styleUrls: ['./field.component.scss'],
+    imports: [MatButtonToggleGroup, MatButtonToggle]
 })
 export class FieldComponent {
   

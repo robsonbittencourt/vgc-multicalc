@@ -11,7 +11,6 @@ import { MatIcon } from '@angular/material/icon';
     selector: 'app-import-pokemon-button',
     templateUrl: './import-pokemon-button.component.html',
     styleUrls: ['./import-pokemon-button.component.scss'],
-    standalone: true,
     imports: [MatIcon]
 })
 export class ImportPokemonButtonComponent {

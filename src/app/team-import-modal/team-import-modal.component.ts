@@ -5,11 +5,10 @@ import { MatButton } from '@angular/material/button';
 import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-team-import-modal',
-  templateUrl: './team-import-modal.component.html',
-  styleUrls: ['./team-import-modal.component.scss'],
-  standalone: true,
-  imports: [MatDialogTitle, CdkScrollable, MatDialogContent, ReactiveFormsModule, FormsModule, MatDialogActions, MatButton, MatDialogClose]
+    selector: 'app-team-import-modal',
+    templateUrl: './team-import-modal.component.html',
+    styleUrls: ['./team-import-modal.component.scss'],
+    imports: [MatDialogTitle, CdkScrollable, MatDialogContent, ReactiveFormsModule, FormsModule, MatDialogActions, MatButton, MatDialogClose]
 })
 export class TeamImportModalComponent {
 

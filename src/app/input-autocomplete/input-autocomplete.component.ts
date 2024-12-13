@@ -12,11 +12,10 @@ export interface KeyValuePair {
 }
 
 @Component({
-  selector: 'app-input-autocomplete',
-  templateUrl: './input-autocomplete.component.html',
-  styleUrls: ['./input-autocomplete.component.scss'],
-  standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, MatAutocompleteTrigger, MatAutocomplete, MatOption, AsyncPipe]
+    selector: 'app-input-autocomplete',
+    templateUrl: './input-autocomplete.component.html',
+    styleUrls: ['./input-autocomplete.component.scss'],
+    imports: [FormsModule, ReactiveFormsModule, MatAutocompleteTrigger, MatAutocomplete, MatOption, AsyncPipe]
 })
 export class InputAutocompleteComponent {
 

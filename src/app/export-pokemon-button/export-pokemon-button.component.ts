@@ -7,11 +7,10 @@ import { TeamExportModalComponent } from '../team-export-modal/team-export-modal
 import { MatIcon } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-export-pokemon-button',
-  templateUrl: './export-pokemon-button.component.html',
-  styleUrls: ['./export-pokemon-button.component.scss'],
-  standalone: true,
-  imports: [MatIcon]
+    selector: 'app-export-pokemon-button',
+    templateUrl: './export-pokemon-button.component.html',
+    styleUrls: ['./export-pokemon-button.component.scss'],
+    imports: [MatIcon]
 })
 export class ExportPokemonButtonComponent {
   

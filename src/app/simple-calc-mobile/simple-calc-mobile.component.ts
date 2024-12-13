@@ -11,11 +11,10 @@ import { FieldComponent } from '../field/field.component'
 import { PokemonBuildMobileComponent } from '../pokemon-build-mobile/pokemon-build-mobile.component'
 
 @Component({
-  selector: 'app-simple-calc-mobile',
-  templateUrl: './simple-calc-mobile.component.html',
-  styleUrls: ['./simple-calc-mobile.component.scss'],
-  standalone: true,
-  imports: [PokemonComboBoxComponent, PokemonTabComponent, MatIcon, PokemonBuildMobileComponent, FieldComponent]
+    selector: 'app-simple-calc-mobile',
+    templateUrl: './simple-calc-mobile.component.html',
+    styleUrls: ['./simple-calc-mobile.component.scss'],
+    imports: [PokemonComboBoxComponent, PokemonTabComponent, MatIcon, PokemonBuildMobileComponent, FieldComponent]
 })
 export class SimpleCalcMobileComponent {
   

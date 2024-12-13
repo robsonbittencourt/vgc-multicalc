@@ -11,11 +11,10 @@ import { RollLevelConfig } from 'src/lib/roll-level-config'
 import { PokemonHpBadgeComponent } from '../pokemon-hp-badge/pokemon-hp-badge.component'
 
 @Component({
-  selector: 'app-damage-result',
-  templateUrl: './damage-result.component.html',
-  styleUrls: ['./damage-result.component.scss'],
-  standalone: true,
-  imports: [NgStyle, PokemonHpBadgeComponent, MatButtonToggleGroup, MatButtonToggle, MatChipListbox, ReactiveFormsModule, FormsModule, MatChipOption, MatIcon, MatTooltip]
+    selector: 'app-damage-result',
+    templateUrl: './damage-result.component.html',
+    styleUrls: ['./damage-result.component.scss'],
+    imports: [NgStyle, PokemonHpBadgeComponent, MatButtonToggleGroup, MatButtonToggle, MatChipListbox, ReactiveFormsModule, FormsModule, MatChipOption, MatIcon, MatTooltip]
 })
 export class DamageResultComponent {
 
