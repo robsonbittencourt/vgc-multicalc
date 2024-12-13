@@ -39,9 +39,6 @@ export class TeamComponent {
 
         this.store.replaceActiveTeam(team)
       }
-    },
-    {
-      allowSignalWrites: true
     }) 
   }
 
