@@ -102,7 +102,7 @@
         "deploy": {
           "builder": "angular-cli-ghpages:deploy",
           "options": {
-            "dir": "dist"
+            "dir": "dist/browser"
           }
         }
       }
