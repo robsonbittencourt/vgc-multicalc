@@ -1,4 +1,4 @@
-import { DamageResult } from "./damage-result"
+import { DamageResult } from "./damage-calculator/damage-result"
 import { Pokemon } from "./pokemon"
 
 

@@ -5,7 +5,7 @@ import { MatButtonToggle, MatButtonToggleGroup } from '@angular/material/button-
 import { MatChipListbox, MatChipListboxChange, MatChipOption } from '@angular/material/chips'
 import { MatIcon } from '@angular/material/icon'
 import { MatTooltip } from '@angular/material/tooltip'
-import { DamageResult } from 'src/lib/damage-result'
+import { DamageResult } from 'src/lib/damage-calculator/damage-result'
 import { Pokemon } from 'src/lib/pokemon'
 import { RollLevelConfig } from 'src/lib/roll-level-config'
 import { PokemonHpBadgeComponent } from '../pokemon-hp-badge/pokemon-hp-badge.component'

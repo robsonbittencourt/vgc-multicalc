@@ -1,7 +1,7 @@
 import { Component, computed, inject, signal } from '@angular/core'
 import { CalculatorStore } from 'src/data/store/calculator-store'
-import { DamageCalculatorService } from 'src/lib/damage-calculator.service'
-import { DamageResult } from 'src/lib/damage-result'
+import { DamageCalculatorService } from 'src/lib/damage-calculator/damage-calculator.service'
+import { DamageResult } from 'src/lib/damage-calculator/damage-result'
 import { PokemonComboBoxComponent } from '../pokemon-combo-box/pokemon-combo-box.component'
 import { PokemonTabComponent } from '../pokemon-tab/pokemon-tab.component'
 

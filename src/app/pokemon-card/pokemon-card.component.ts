@@ -5,7 +5,7 @@ import { MatIcon } from '@angular/material/icon'
 import { MatTooltip } from '@angular/material/tooltip'
 import { CalculatorStore } from 'src/data/store/calculator-store'
 import { MenuStore } from 'src/data/store/menu-store'
-import { DamageResult } from 'src/lib/damage-result'
+import { DamageResult } from 'src/lib/damage-calculator/damage-result'
 import { Target } from 'src/lib/target'
 
 @Component({
