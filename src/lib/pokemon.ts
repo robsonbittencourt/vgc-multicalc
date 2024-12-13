@@ -46,7 +46,7 @@ export class Pokemon {
       item: options.item != Items.instance.withoutItem() ? options.item : undefined,
       ability: options.ability ?? AllPokemon.instance.abilitiesByName(adjustedName)[0],
       abilityOn: options.abilityOn ?? false,
-      teraType: options.teraTypeActive ? (options.teraType as TypeName ?? defaulTeraType) : undefined,
+      teraType: adjustedName == "Terapagos-Stellar" || options.teraTypeActive ? (options.teraType as TypeName ?? defaulTeraType) : undefined,
       evs: options.evs,
       ivs: options.ivs,
       boosts: options.boosts,
@@ -440,7 +440,7 @@ export class Pokemon {
     if (teraTypeActive == undefined && this.teraTypeActive) {
       return this.pokemonSmogon.teraType
     }
-
+    
     return teraType
   }
 

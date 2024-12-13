@@ -40,7 +40,7 @@ export class PokemonBuild {
   }
 
   terastalyze(): PokemonBuild {
-    cy.get('[data-cy="terastal-button"]').click({force: true})
+    this.container().find('[data-cy="terastal-button"]').click({force: true})
     return this
   }
 
