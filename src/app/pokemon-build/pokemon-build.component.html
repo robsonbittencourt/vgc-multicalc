@@ -28,7 +28,7 @@
       @if (pokemon().activeMoveName == 'Last Respects') {
         <div class="multihit">
           <label>Allies Fainted</label>
-          <app-input-autocomplete [value]="pokemon().moveSet.activeMove.alliesFainted" [allValues]="alliesFainted" (valueChange)="alliesFaintedChanged($event)"/>
+          <app-input-autocomplete [value]="pokemon().moveSet.activeMove.alliesFainted" [allValues]="alliesFainted" (valueChange)="alliesFaintedChanged($event)" data-cy="allies-fainted"/>
         </div>
       }
 
@@ -41,7 +41,7 @@
           @if (pokemon().activeMoveName == 'Rage Fist') {
             <label>Hits Taken</label>
           }
-          <app-input-autocomplete [value]="pokemon().moveSet.activeMove.hits" [allValues]="pokemon().moveSet.activeMove.possibleHits" (valueChange)="hitsChanged($event)"/>
+          <app-input-autocomplete [value]="pokemon().moveSet.activeMove.hits" [allValues]="pokemon().moveSet.activeMove.possibleHits" (valueChange)="hitsChanged($event)" data-cy="hits-taken"/>
         </div>
       }
 
@@ -86,7 +86,7 @@
           }
 
           @if (pokemon().name == 'Dondozo') {
-            <button class="icon-button" (click)="store.commanderActive(pokemonId(), !pokemon().commanderActivated)" [matTooltipShowDelay]="1000" matTooltip="Commander">
+            <button class="icon-button" (click)="store.commanderActive(pokemonId(), !pokemon().commanderActivated)" [matTooltipShowDelay]="1000" matTooltip="Commander" data-cy="commander">
               @if (pokemon().commanderActivated) {
                 <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly.png" />
               }
@@ -97,7 +97,7 @@
           }
 
           @if (pokemon().isParadoxAbility()) {
-            <button class="icon-button" (click)="store.abilityOn(pokemonId(), !pokemon().abilityOn)" matTooltip="Booster Energy">
+            <button class="icon-button" (click)="store.abilityOn(pokemonId(), !pokemon().abilityOn)" matTooltip="Booster Energy" data-cy="booster-energy">
               @if (pokemon().abilityOn) {
                 <img class="icon-tatsugiri" src="assets/icons/booster-energy.png" />
               }

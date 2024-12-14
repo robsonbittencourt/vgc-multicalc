@@ -64,8 +64,24 @@ export class PokemonBuild {
     this.container().find('[data-cy="activate-ability"] input').click({force: true})
   }
 
+  activateBoosterEnergy() {
+    this.container().find('[data-cy="booster-energy"]').click({force: true})
+  }
+
+  activateCommander() {
+    this.container().find('[data-cy="commander"]').click({force: true})
+  }
+
   hpPercentage(hpPercentage: number) {
     this.container().find(`[data-cy="stat-hp"]`).find('[data-cy="hp-percentage-value"]').clear().clear().type(hpPercentage.toString(), {force: true})
+  }
+
+  allieFainted(alliesFainted: number) {
+    this.container().find(`[data-cy="allies-fainted"]`).click().get('mat-option').contains(alliesFainted.toString()).click()
+  }
+
+  hitsTaken(hitsTaken: number) {
+    this.container().find(`[data-cy="hits-taken"]`).click().get('mat-option').contains(hitsTaken.toString()).click()
   }
 
   importPokemon(pokemonData: string): PokemonBuild {

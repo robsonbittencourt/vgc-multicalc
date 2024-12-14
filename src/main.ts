@@ -23,12 +23,23 @@ import { RouterOutlet } from '@angular/router';
 import { SmogonFunctions } from 'src/lib/smogon-functions/smogon-functions';
 import { AppRoutingModule } from './app/app-routing.module';
 import { AppComponent } from './app/app.component';
+import { CALC_ADJUSTERS } from './lib/damage-calculator/calc-adjuster/calc-adjuster';
+import { CommanderAdjuster } from './lib/damage-calculator/calc-adjuster/commander-adjuster';
+import { LastRespectsAdjuster } from './lib/damage-calculator/calc-adjuster/last-respects-adjuster';
+import { ParadoxAbilityAdjuster } from './lib/damage-calculator/calc-adjuster/paradox-ability-adjuster';
+import { RageFistAdjuster } from './lib/damage-calculator/calc-adjuster/rage-fist-adjuster';
+import { RuinsAbilityAdjuster } from './lib/damage-calculator/calc-adjuster/ruins-ability-adjuster';
 
 bootstrapApplication(AppComponent, {
   providers: [
     importProvidersFrom(ReactiveFormsModule, FormsModule, BrowserModule, RouterOutlet, MatAutocompleteModule, MatInputModule, MatFormFieldModule, MatCardModule, MatCheckboxModule, MatSliderModule, MatIconModule, MatButtonModule, MatSelectModule, MatButtonToggleModule, MatChipsModule, MatSlideToggleModule, AppRoutingModule, MatSnackBarModule, MatTooltipModule, MatTabsModule, MatDialogModule, MatMenuModule),
     SmogonFunctions,
     provideAnimations(),
-    provideExperimentalZonelessChangeDetection()
+    provideExperimentalZonelessChangeDetection(),
+    { provide: CALC_ADJUSTERS, useClass: RuinsAbilityAdjuster, multi: true },
+    { provide: CALC_ADJUSTERS, useClass: ParadoxAbilityAdjuster, multi: true },
+    { provide: CALC_ADJUSTERS, useClass: LastRespectsAdjuster, multi: true },
+    { provide: CALC_ADJUSTERS, useClass: RageFistAdjuster, multi: true },
+    { provide: CALC_ADJUSTERS, useClass: CommanderAdjuster, multi: true }
   ]
 }).catch(err => console.error(err))

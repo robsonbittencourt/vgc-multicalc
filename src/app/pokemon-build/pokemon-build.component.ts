@@ -16,10 +16,10 @@ import { InputAutocompleteComponent } from '../input-autocomplete/input-autocomp
 import { PokemonComboBoxComponent } from '../pokemon-combo-box/pokemon-combo-box.component'
 
 @Component({
-    selector: 'app-pokemon-build',
-    templateUrl: './pokemon-build.component.html',
-    styleUrls: ['./pokemon-build.component.scss'],
-    imports: [PokemonComboBoxComponent, NgStyle, InputAutocompleteComponent, MatTooltip, MatCheckbox, ReactiveFormsModule, FormsModule, AbilityComboBoxComponent, EvSliderComponent, RouterOutlet]
+  selector: 'app-pokemon-build',
+  templateUrl: './pokemon-build.component.html',
+  styleUrls: ['./pokemon-build.component.scss'],
+  imports: [PokemonComboBoxComponent, NgStyle, InputAutocompleteComponent, MatTooltip, MatCheckbox, ReactiveFormsModule, FormsModule, AbilityComboBoxComponent, EvSliderComponent, RouterOutlet]
 })
 export class PokemonBuildComponent {
   

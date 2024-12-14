@@ -1,12 +1,11 @@
-import { Injectable } from '@angular/core'
-import { calculate, Generations, Move as MoveSmogon, Result, Field as SmogonField } from '@robsonbittencourt/calc'
-import { StatIDExceptHP } from '@robsonbittencourt/calc/dist/data/interface'
+import { inject, Injectable } from '@angular/core'
+import { calculate, Generations, Move as MoveSmogon, Result } from '@robsonbittencourt/calc'
 import { Field } from '../field'
 import { FieldMapper } from '../field-mapper'
 import { Move } from '../move'
 import { Pokemon } from '../pokemon'
+import { CALC_ADJUSTERS } from './calc-adjuster/calc-adjuster'
 import { DamageResult } from './damage-result'
-
 
 @Injectable({
   providedIn: 'root'
@@ -14,66 +13,50 @@ import { DamageResult } from './damage-result'
 export class DamageCalculatorService {
   ZERO_RESULT_DAMAGE = Array(16).fill(0)
 
+  adjusters = inject(CALC_ADJUSTERS)
+
   calcDamage(attacker: Pokemon, target: Pokemon, field: Field): DamageResult {
-    const smogonField = new FieldMapper().toSmogon(field)
-    const result = this.calculateResult(attacker, target, attacker.move, smogonField, field.isCriticalHit)
+    const result = this.calculateResult(attacker, target, attacker.move, field, field.isCriticalHit)
     return new DamageResult(attacker, target, attacker.move.name, result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescription(result), result.damage as number[]) 
   }
 
   calcDamageAllAttacks(attacker: Pokemon, target: Pokemon, field: Field): DamageResult[] {
-    const smogonField = new FieldMapper().toSmogon(field)
-    
     return attacker.moveSet.moves().map(move => {
-      const result = this.calculateResult(attacker, target, move, smogonField, field.isCriticalHit)
+      const result = this.calculateResult(attacker, target, move, field, field.isCriticalHit)
       return new DamageResult(attacker, target, move.name, result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescription(result), result.damage as number[]) 
     })
   }
 
   calcDamageForTwoAttackers(attacker: Pokemon, secondAttacker: Pokemon, target: Pokemon, field: Field): [DamageResult, DamageResult] {
-    const smogonField = new FieldMapper().toSmogon(field)
-    const adjustedField = this.adjustFieldToRuins(smogonField, attacker, secondAttacker)
-    
-    const result = this.calculateResult(attacker, target, attacker.move, adjustedField, field.isCriticalHit)
-    const secondResult = this.calculateResult(secondAttacker, target, secondAttacker.move, adjustedField, field.isCriticalHit)
+    const result = this.calculateResult(attacker, target, attacker.move, field, field.isCriticalHit, secondAttacker)
+    const secondResult = this.calculateResult(secondAttacker, target, secondAttacker.move, field, field.isCriticalHit, attacker)
     result.damage = this.sumDamageResult(result, secondResult)
 
     return [
       new DamageResult(attacker, target, attacker.move.name, result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescriptionWithTwo(result, secondResult), undefined, secondAttacker),
-      new DamageResult(secondAttacker, target, attacker.move.name, result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescriptionWithTwo(result, secondResult), undefined, attacker)
+      new DamageResult(secondAttacker, target, secondAttacker.move.name, result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescriptionWithTwo(result, secondResult), undefined, attacker)
     ]
   }
 
-  private calculateResult(attacker: Pokemon, target: Pokemon, move: Move, field: SmogonField, criticalHit: boolean): Result {
+  private calculateResult(attacker: Pokemon, target: Pokemon, move: Move, field: Field, criticalHit: boolean, secondAttacker?: Pokemon): Result {
     const gen = Generations.get(9)
+    const smogonField = new FieldMapper().toSmogon(field)
+
     const moveSmogon = new MoveSmogon(gen, move.name)
     moveSmogon.isCrit = criticalHit
     moveSmogon.isStellarFirstUse = true
     moveSmogon.hits = +move.hits
-
-    if (move.name == "Last Respects") {
-      const adjustedBasePower = 50 + (50 * +move.alliesFainted)
-      moveSmogon.overrides = { basePower: adjustedBasePower}
-    }
     
-    if (move.name == "Rage Fist") {
-      const adjustedBasePower = 50 + (50 * +move.hits)
-      moveSmogon.overrides = { basePower: adjustedBasePower}
-    }
-    
-    attacker = this.adjustCommander(attacker)
-    target = this.adjustCommander(target)
+    this.adjusters.forEach(a => a.adjust(attacker, target, move, moveSmogon, smogonField, secondAttacker))
 
-    this.adjustParadoxAbility(attacker)
-    this.adjustParadoxAbility(target)
-
-    const result = calculate(gen, attacker.pokemonSmogon, target.pokemonSmogon, moveSmogon, field)
+    const result = calculate(gen, attacker.pokemonSmogon, target.pokemonSmogon, moveSmogon, smogonField)
 
     if(!result.damage) {
       result.damage = this.ZERO_RESULT_DAMAGE
       return result
     }
 
-    return calculate(gen, attacker.pokemonSmogon, target.pokemonSmogon, moveSmogon, field)
+    return calculate(gen, attacker.pokemonSmogon, target.pokemonSmogon, moveSmogon, smogonField)
   }
 
   private sumDamageResult(result: Result, secondResult: Result): number[] {
@@ -114,113 +97,8 @@ export class DamageCalculatorService {
 
       return finalDescription
     } catch (error) {
-      
-      return `${resultOne.attacker.name} ${resultOne.move.name} vs. ${resultOne.defender.name}: 0-0 (0 - 0%) -- possibly the worst move ever`
+      return `${resultOne.attacker.name} ${resultOne.move.name} AND ${resultTwo.attacker.name} ${resultTwo.move.name} vs. ${resultOne.defender.name}: 0-0 (0 - 0%) -- possibly the worst move ever`
     }    
-  }
-
-  private adjustCommander(pokemon: Pokemon): Pokemon {
-    let adjustedPokemon = pokemon
-    
-    if(pokemon.commanderActivated) {
-      adjustedPokemon = pokemon.clone()
-      adjustedPokemon.incrementBoostsPlusTwo()
-    }
-
-    return adjustedPokemon
-  }
-
-  private adjustParadoxAbility(pokemon: Pokemon) {
-    if (pokemon.abilityOn) {
-      pokemon.pokemonSmogon.boostedStat = this.higherStat(pokemon)
-    } else {
-      pokemon.pokemonSmogon.boostedStat = undefined
-    }
-  }
-
-  private adjustFieldToRuins(field: SmogonField, attacker: Pokemon, secondAttacker: Pokemon): SmogonField {
-    if(attacker.ability == "Tablets of Ruin" || secondAttacker.ability == "Tablets of Ruin") {
-      field.isTabletsOfRuin = true
-    }
-
-    if(attacker.ability == "Sword of Ruin" || secondAttacker.ability == "Sword of Ruin") {
-      field.isSwordOfRuin = true
-    }
-
-    if(attacker.ability == "Vessel of Ruin" || secondAttacker.ability == "Vessel of Ruin") {
-      field.isVesselOfRuin = true
-    }
-
-    if(attacker.ability == "Beads of Ruin" || secondAttacker.ability == "Beads of Ruin") {
-      field.isBeadsOfRuin = true
-    }
-
-    return field
-  }
-
-  private higherStat(pokemon: Pokemon): StatIDExceptHP {
-    let bestStat = this.getModifiedStat(pokemon, "atk")
-    let bestStatDescription: StatIDExceptHP = "atk"
-
-    const def = this.getModifiedStat(pokemon, "def")    
-    if (def > bestStat) {
-      bestStat = def
-      bestStatDescription = "def"
-    }
-
-    const spa = this.getModifiedStat(pokemon, "spa")    
-    if (spa > bestStat) {
-      bestStat = spa
-      bestStatDescription = "spa"
-    }
-
-    const spd = this.getModifiedStat(pokemon, "spd")    
-    if (spd > bestStat) {
-      bestStat = spd
-      bestStatDescription = "spd"
-    }
-
-    const spe = this.getModifiedStat(pokemon, "spe")    
-    if (spe > bestStat) {
-      bestStat = spe
-      bestStatDescription = "spe"
-    }
-
-    return bestStatDescription
-  }
-
-
-  private getModifiedStat(pokemon: Pokemon, stat: StatIDExceptHP): number {
-    return this.getModifiedStatFromBoosters(pokemon.pokemonSmogon.rawStats[stat], pokemon.pokemonSmogon.boosts[stat])
-  }
-
-  //smogon/damage-calc/calc/src/mechanics/util.ts
-  private getModifiedStatFromBoosters(stat: number, mod: number): number {
-    const numerator = 0
-    const denominator = 1
-    const modernGenBoostTable = [
-      [2, 8],
-      [2, 7],
-      [2, 6],
-      [2, 5],
-      [2, 4],
-      [2, 3],
-      [2, 2],
-      [3, 2],
-      [4, 2],
-      [5, 2],
-      [6, 2],
-      [7, 2],
-      [8, 2],
-    ];
-    stat = this.OF16(stat * modernGenBoostTable[6 + mod][numerator])
-    stat = Math.floor(stat / modernGenBoostTable[6 + mod][denominator])
-
-    return stat;
-  }
-
-  private OF16(n: number) {
-    return n > 65535 ? n % 65536 : n;
   }
 
 }

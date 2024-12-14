@@ -1,0 +1,161 @@
+import { provideExperimentalZonelessChangeDetection } from '@angular/core'
+import { TestBed } from '@angular/core/testing'
+import { Field as FieldSmogon, Move as MoveSmogon } from '@robsonbittencourt/calc'
+import { Field } from '../field'
+import { Move } from '../move'
+import { MoveSet } from '../moveset'
+import { Pokemon } from '../pokemon'
+import { Target } from '../target'
+import { CALC_ADJUSTERS, CalcAdjuster } from './calc-adjuster/calc-adjuster'
+import { DamageCalculatorService } from './damage-calculator.service'
+
+describe("Damage Calculator Service", () => {
+  let service: DamageCalculatorService
+  let adjusterOneSpy: jasmine.SpyObj<CalcAdjuster>
+  let adjusterTwoSpy: jasmine.SpyObj<CalcAdjuster>
+
+  beforeEach(() => {
+    adjusterOneSpy = jasmine.createSpyObj('AdjusterOne', ['adjust'])
+    adjusterTwoSpy = jasmine.createSpyObj('AdjusterTwo', ['adjust'])
+
+    TestBed.configureTestingModule({
+      providers: [
+        DamageCalculatorService,
+        { provide: CALC_ADJUSTERS, useValue: adjusterOneSpy, multi: true },
+        { provide: CALC_ADJUSTERS, useValue: adjusterTwoSpy, multi: true },
+        provideExperimentalZonelessChangeDetection()
+      ],
+    })
+
+    service = TestBed.inject(DamageCalculatorService)
+  })
+
+  it("should calculate damage", () => {
+    const attacker = new Pokemon('Raging Bolt', { moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Thunderclap"), new Move("Draco Meteor"), new Move("Protect"))})
+    const target = new Target(new Pokemon("Flutter Mane"))
+    const field = new Field()
+
+    const damageResult = service.calcDamage(attacker, target.pokemon, field)
+
+    expect(damageResult.attacker.id).toEqual(attacker.id)
+    expect(damageResult.defender.id).toEqual(target.pokemon.id)
+    expect(damageResult.move).toEqual("Thunderbolt")
+    expect(damageResult.result).toEqual("40 - 48.4%")
+    expect(damageResult.koChance).toEqual("guaranteed 3HKO")
+    expect(damageResult.damage).toEqual(48.4)
+    expect(damageResult.description).toEqual("0 SpA Raging Bolt Thunderbolt vs. 0 HP / 0 SpD Flutter Mane: 52-63 (40 - 48.4%) -- guaranteed 3HKO")
+    expect(damageResult.rolls).toEqual([52, 54, 54, 54, 55, 55, 57, 57, 58, 58, 58, 60, 60, 61, 61, 63])
+  })
+
+  it("should calculate damage to all attacks", () => {
+    const attacker = new Pokemon('Raging Bolt', { moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Thunderclap"), new Move("Draco Meteor"), new Move("Protect"))})
+    const target = new Target(new Pokemon("Flutter Mane"))
+    const field = new Field()
+
+    const damageResults = service.calcDamageAllAttacks(attacker, target.pokemon, field)
+
+    expect(damageResults.length).toEqual(4)
+
+    expect(damageResults[0].attacker.id).toEqual(attacker.id)
+    expect(damageResults[0].defender.id).toEqual(target.pokemon.id)
+    expect(damageResults[0].move).toEqual("Thunderbolt")
+    expect(damageResults[0].result).toEqual("40 - 48.4%")
+    expect(damageResults[0].koChance).toEqual("guaranteed 3HKO")
+    expect(damageResults[0].damage).toEqual(48.4)
+    expect(damageResults[0].description).toEqual("0 SpA Raging Bolt Thunderbolt vs. 0 HP / 0 SpD Flutter Mane: 52-63 (40 - 48.4%) -- guaranteed 3HKO")
+    expect(damageResults[0].rolls).toEqual([52, 54, 54, 54, 55, 55, 57, 57, 58, 58, 58, 60, 60, 61, 61, 63])
+
+    expect(damageResults[1].attacker.id).toEqual(attacker.id)
+    expect(damageResults[1].defender.id).toEqual(target.pokemon.id)
+    expect(damageResults[1].move).toEqual("Thunderclap")
+    expect(damageResults[1].result).toEqual("32.3 - 37.6%")
+    expect(damageResults[1].koChance).toEqual("92.7% chance to 3HKO")
+    expect(damageResults[1].damage).toEqual(37.6)
+    expect(damageResults[1].description).toEqual("0 SpA Raging Bolt Thunderclap vs. 0 HP / 0 SpD Flutter Mane: 42-49 (32.3 - 37.6%) -- 92.7% chance to 3HKO")
+    expect(damageResults[1].rolls).toEqual([42, 42, 42, 43, 43, 43, 45, 45, 45, 46, 46, 46, 48, 48, 48, 49])
+
+    expect(damageResults[2].attacker.id).toEqual(attacker.id)
+    expect(damageResults[2].defender.id).toEqual(target.pokemon.id)
+    expect(damageResults[2].move).toEqual("Draco Meteor")
+    expect(damageResults[2].result).toEqual("0 - 0%")
+    expect(damageResults[2].koChance).toEqual("Does not cause any damage")
+    expect(damageResults[2].damage).toEqual(0)
+    expect(damageResults[2].description).toEqual("Raging Bolt Draco Meteor vs. Flutter Mane: 0-0 (0 - 0%) -- possibly the worst move ever")
+    expect(damageResults[2].rolls).toEqual([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+
+    expect(damageResults[3].attacker.id).toEqual(attacker.id)
+    expect(damageResults[3].defender.id).toEqual(target.pokemon.id)
+    expect(damageResults[3].move).toEqual("Protect")
+    expect(damageResults[2].result).toEqual("0 - 0%")
+    expect(damageResults[2].koChance).toEqual("Does not cause any damage")
+    expect(damageResults[2].damage).toEqual(0)
+    expect(damageResults[3].description).toEqual("Raging Bolt Protect vs. Flutter Mane: 0-0 (0 - 0%)")
+    expect(damageResults[2].rolls).toEqual([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+  })
+
+  it("should calculate damage to two attackers", () => {
+    const attacker = new Pokemon('Raging Bolt', { moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Thunderclap"), new Move("Draco Meteor"), new Move("Protect"))})
+    const secondAttacker = new Pokemon('Rillaboom', { moveSet: new MoveSet(new Move("Grassy Glide"), new Move("Fake Out"), new Move("Wood Hammer"), new Move("High Horsepower"))})
+    const target = new Target(new Pokemon("Flutter Mane"))
+    const field = new Field()
+
+    const damageResults = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
+
+    expect(damageResults[0].attacker.id).toEqual(attacker.id)
+    expect(damageResults[0].defender.id).toEqual(target.pokemon.id)
+    expect(damageResults[0].move).toEqual("Thunderbolt")
+    expect(damageResults[0].result).toEqual("86.1 - 103.8%")
+    expect(damageResults[0].koChance).toEqual("18.8% chance to OHKO")
+    expect(damageResults[0].damage).toEqual(103.8)
+    expect(damageResults[0].description).toEqual("0 SpA Raging Bolt Thunderbolt AND 0 Atk Rillaboom Grassy Glide vs. 0 HP / 0 Def Flutter Mane: 60-72 (46.1 - 55.3%) -- 66.8% chance to 2HKO")
+    expect(damageResults[0].rolls).toEqual(undefined)
+
+    expect(damageResults[1].attacker.id).toEqual(secondAttacker.id)
+    expect(damageResults[1].defender.id).toEqual(target.pokemon.id)
+    expect(damageResults[1].move).toEqual("Grassy Glide")
+    expect(damageResults[1].result).toEqual("86.1 - 103.8%")
+    expect(damageResults[1].koChance).toEqual("18.8% chance to OHKO")
+    expect(damageResults[1].damage).toEqual(103.8)
+    expect(damageResults[1].description).toEqual("0 SpA Raging Bolt Thunderbolt AND 0 Atk Rillaboom Grassy Glide vs. 0 HP / 0 Def Flutter Mane: 60-72 (46.1 - 55.3%) -- 66.8% chance to 2HKO")
+    expect(damageResults[1].rolls).toEqual(undefined)
+  })
+
+  it("should calculate damage to two attackers without damage", () => {
+    const attacker = new Pokemon('Jolteon', { moveSet: new MoveSet(new Move("Thunder"), new Move("Thunderbolt"), new Move("Quick Attack"), new Move("Protect"))})
+    const secondAttacker = new Pokemon('Zapdos', { moveSet: new MoveSet(new Move("Thunder"), new Move("Thunderbolt"), new Move("Air Slash"), new Move("Protect"))})
+    const target = new Target(new Pokemon("Ting-Lu"))
+    const field = new Field()
+
+    const damageResults = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
+
+    expect(damageResults[0].description).toEqual("Jolteon Thunder AND Zapdos Thunder vs. Ting-Lu: 0-0 (0 - 0%) -- possibly the worst move ever")
+    expect(damageResults[1].description).toEqual("Jolteon Thunder AND Zapdos Thunder vs. Ting-Lu: 0-0 (0 - 0%) -- possibly the worst move ever")
+  })
+
+  it("should adjust inputs before calculation", () => {
+    const activeMove = new Move("Thunderbolt")
+    const attacker = new Pokemon('Raging Bolt', { moveSet: new MoveSet(activeMove, new Move("Thunderclap"), new Move("Draco Meteor"), new Move("Protect"))})
+    const targetPokemon = new Pokemon("Flutter Mane")
+    const target = new Target(targetPokemon)
+    const field = new Field()
+
+    service.calcDamage(attacker, target.pokemon, field)
+
+    expect(adjusterOneSpy.adjust).toHaveBeenCalledWith(attacker, targetPokemon, activeMove, jasmine.any(MoveSmogon), jasmine.any(FieldSmogon), undefined)
+    expect(adjusterTwoSpy.adjust).toHaveBeenCalledWith(attacker, targetPokemon, activeMove, jasmine.any(MoveSmogon), jasmine.any(FieldSmogon), undefined)
+  })
+
+  it("should adjust inputs before calculation when have second attacker", () => {
+    const activeMove = new Move("Thunderbolt")
+    const attacker = new Pokemon('Raging Bolt', { moveSet: new MoveSet(activeMove, new Move("Thunderclap"), new Move("Draco Meteor"), new Move("Protect"))})
+    const secondAttacker = new Pokemon('Rillaboom', { moveSet: new MoveSet(new Move("Grassy Glide"), new Move("Fake Out"), new Move("Wood Hammer"), new Move("High Horsepower"))})
+    const targetPokemon = new Pokemon("Flutter Mane")
+    const target = new Target(targetPokemon)
+    const field = new Field()
+
+    service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
+
+    expect(adjusterOneSpy.adjust).toHaveBeenCalledWith(attacker, targetPokemon, activeMove, jasmine.any(MoveSmogon), jasmine.any(FieldSmogon), secondAttacker)
+    expect(adjusterTwoSpy.adjust).toHaveBeenCalledWith(attacker, targetPokemon, activeMove, jasmine.any(MoveSmogon), jasmine.any(FieldSmogon), secondAttacker)
+  })
+})

@@ -14,7 +14,7 @@ export class Move {
   } = {}) {
     this.nameStorage = name
     this.possibleHitsStorage = this.moveHits(name)
-    this.hitsStorage = options.hits ?? this.possibleHitsStorage[this.possibleHitsStorage.length - 1]
+    this.hitsStorage = options.hits ?? this.possibleHitsStorage[0]
     this.alliesFainted = options.alliesFainted ?? "0"
     this.bpStorage = new MoveSmogon(Generations.get(9), name).bp
   }
@@ -27,7 +27,7 @@ export class Move {
     if(name != this.nameStorage) {
       this.nameStorage = name
       this.possibleHitsStorage = this.moveHits(name)
-      this.hitsStorage = this.possibleHitsStorage[this.possibleHitsStorage.length - 1]
+      this.hitsStorage = this.possibleHitsStorage[0]
     }    
   }
 

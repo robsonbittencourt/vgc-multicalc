@@ -460,19 +460,6 @@ export class Pokemon {
     return teraActived ? "Embody Aspect (Teal)" : "Defiant"    
   }
 
-  incrementBoostsPlusTwo() {
-    const maxStatModifier = 6
-
-    this.pokemonSmogon.boosts = { 
-      hp: 0,
-      atk: this.pokemonSmogon.boosts.atk <= 4 ? this.pokemonSmogon.boosts.atk + 2 : maxStatModifier,
-      def: this.pokemonSmogon.boosts.def <= 4 ? this.pokemonSmogon.boosts.def + 2 : maxStatModifier,
-      spa: this.pokemonSmogon.boosts.spa <= 4 ? this.pokemonSmogon.boosts.spa + 2 : maxStatModifier,
-      spd: this.pokemonSmogon.boosts.spd <= 4 ? this.pokemonSmogon.boosts.spd + 2 : maxStatModifier,
-      spe: this.pokemonSmogon.boosts.spe <= 4 ? this.pokemonSmogon.boosts.spe + 2 : maxStatModifier
-    }
-  }
-
   isDefault() {
     return this.pokemonSmogon.name == "Togepi"
   }
