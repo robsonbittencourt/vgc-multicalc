@@ -81,7 +81,7 @@
       
       <div class="pokemon-ability">
         <div class="check-input-section ability-checkbox">
-          @if (pokemon().ability == 'Analytic' || pokemon().ability == 'Unburden') {
+          @if (pokemon().ability == 'Unburden') {
             <mat-checkbox [ngModel]="pokemon().abilityOn" (change)="store.abilityOn(pokemonId(), $event.checked)" data-cy="activate-ability"/>
           }
 

@@ -16,6 +16,8 @@ let bronzongData: string
 let porygon2Data: string
 let basculegionData: string
 let annihilapeData: string
+let tingLuData: string
+let tingLuSpeedData: string
 
 before(() => {
   cy.fixture("tyranitar-data").then((data) => { tyranitarData = data })
@@ -27,6 +29,8 @@ before(() => {
   cy.fixture("porygon2-data").then((data) => { porygon2Data = data })
   cy.fixture("basculegion-data").then((data) => { basculegionData = data })
   cy.fixture("annihilape-data").then((data) => { annihilapeData = data })
+  cy.fixture("ting-lu-data").then((data) => { tingLuData = data })
+  cy.fixture("ting-lu-speed-data").then((data) => { tingLuSpeedData = data })
 })
 
 describe('Test calcs from moves with some mechanic', () => {
@@ -74,22 +78,21 @@ describe('Test calcs from moves with some mechanic', () => {
     })
   })
 
-  describe  ('Analytic', () => {
-    beforeEach(() => {
+  describe('Analytic', () => {
+    it('when Pokémon is faster Analytic was not activated', () => {
       leftPokemonBuild.importPokemon(porygon2Data)
-      rightPokemonBuild.importPokemon(sneaslerData)
+      rightPokemonBuild.importPokemon(tingLuData)
+
+      leftDamageResult.damageIs(0, 24.4, 29.5, 58, 70)
+      rightDamageResult.surviveWithThisHpAmmount(167)
     })
 
-    it('without Analytic actived', () => {
-      leftDamageResult.damageIs(0, 42.9, 50.6, 67, 79)
-      rightDamageResult.surviveWithThisHpAmmount(77)
-    })
+    it('when Pokémon is slower Analytic was activated', () => {
+      leftPokemonBuild.importPokemon(porygon2Data)
+      rightPokemonBuild.importPokemon(tingLuSpeedData)
 
-    it('with Analytic actived', () => {
-      leftPokemonBuild.activateAbility()
-
-      leftDamageResult.damageIs(0, 55.1, 65.3, 86, 102)
-      rightDamageResult.surviveWithThisHpAmmount(54)
+      leftDamageResult.damageIs(0, 32, 37.9, 76, 90)
+      rightDamageResult.surviveWithThisHpAmmount(147)
     })
   })
 
