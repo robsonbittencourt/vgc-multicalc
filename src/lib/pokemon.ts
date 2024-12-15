@@ -138,6 +138,11 @@ export class Pokemon {
     return this.pokemonSmogon.abilityOn!
   }
 
+  public actionableAbility(): boolean {
+    const actionableAbilities = ["Slow Start", "Unburden"]
+    return actionableAbilities.includes(this.ability)
+  }
+
   public get displayAbility(): string {
     if (this.pokemonSmogon.ability?.includes("Embody Aspect")) {
       return "Embody Aspect"

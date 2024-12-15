@@ -113,7 +113,7 @@
     </div>
 
     <div class="combo-option ability">
-      @if (pokemon().ability == 'Unburden') {
+      @if (pokemon().actionableAbility()) {
         <div class="ability-checkbox">
           <mat-checkbox [ngModel]="pokemon().abilityOn" (change)="store.abilityOn(pokemonId(), $event.checked)" />
         </div>
