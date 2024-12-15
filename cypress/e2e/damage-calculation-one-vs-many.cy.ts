@@ -40,21 +40,6 @@ describe('Test calcs with first team member Pokémon', () => {
 })
 
 describe('Test calcs with second team member Pokémon', () => {
-  it('Validate the damage with Koraidon using Flame Charge', () => {
-    team.selectPokemon("Koraidon").selectAttackThree()
-
-    opponents.get("Urshifu Rapid Strike").damageIs(9.1, 10.8)
-    opponents.get("Calyrex Shadow").damageIs(22.2, 26.2).haveChanceOfToCause4HKO(8.9)
-    opponents.get("Ogerpon Wellspring").damageIs(16.5, 19.7).possible6HKO()
-    opponents.get("Incineroar").damageIs(6.9, 8.4)
-    opponents.get("Raging Bolt").damageIs(7.3, 8.6)
-    opponents.get("Zamazenta Crowned").damageIs(13.5, 16.6).possible6HKO()
-    opponents.get("Calyrex Ice").damageIs(22.2, 27).haveChanceOfToCause4HKO(26.5)
-    opponents.get("Amoonguss").damageIs(26.4, 31.9).cause4HKO()
-    opponents.get("Terapagos Terastal").damageIs(5.9, 7.4)
-    opponents.get("Rillaboom").damageIs(34.5, 41.6).cause3HKO()
-  })
-
   it('Validate the damage with Koraidon using Collision Course', () => {
     team.selectPokemon("Koraidon").selectAttackTwo()
     
@@ -68,6 +53,21 @@ describe('Test calcs with second team member Pokémon', () => {
     opponents.get("Amoonguss").damageIs(19.6, 23.2).possible5HKO()
     opponents.get("Terapagos Terastal").damageIs(24.2, 28.7).possible5HKO()
     opponents.get("Rillaboom").damageIs(51.7, 61.4).cause2HKO()
+  })
+  
+  it('Validate the damage with Koraidon using Flame Charge', () => {
+    team.selectPokemon("Koraidon").selectAttackThree()
+
+    opponents.get("Urshifu Rapid Strike").damageIs(9.1, 10.8)
+    opponents.get("Calyrex Shadow").damageIs(22.2, 26.2).haveChanceOfToCause4HKO(8.9)
+    opponents.get("Ogerpon Wellspring").damageIs(16.5, 19.7).possible6HKO()
+    opponents.get("Incineroar").damageIs(6.9, 8.4)
+    opponents.get("Raging Bolt").damageIs(7.3, 8.6)
+    opponents.get("Zamazenta Crowned").damageIs(13.5, 16.6).possible6HKO()
+    opponents.get("Calyrex Ice").damageIs(22.2, 27).haveChanceOfToCause4HKO(26.5)
+    opponents.get("Amoonguss").damageIs(26.4, 31.9).cause4HKO()
+    opponents.get("Terapagos Terastal").damageIs(5.9, 7.4)
+    opponents.get("Rillaboom").damageIs(34.5, 41.6).cause3HKO()
   })
 })
 
