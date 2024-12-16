@@ -2,6 +2,7 @@ import { Component, computed, effect, inject, input, signal } from '@angular/cor
 import { CalculatorStore } from 'src/data/store/calculator-store'
 import { FieldStore } from 'src/data/store/field-store'
 import { SpeedCalcOptionsStore } from 'src/data/store/speed-calc-options-store'
+import { ACTUAL } from 'src/lib/constants'
 import { Field } from 'src/lib/field'
 import { Pokemon } from 'src/lib/pokemon'
 import { SpeedCalculatorOptions as SpeedScaleOptions } from 'src/lib/speed-calculator/speed-calculator-options'
@@ -10,10 +11,10 @@ import { SpeedDefinition } from 'src/lib/speed-calculator/speed-definition'
 import { SpeedBoxComponent } from '../speed-box/speed-box.component'
 
 @Component({
-    selector: 'app-speed-scale',
-    templateUrl: './speed-scale.component.html',
-    styleUrls: ['./speed-scale.component.scss'],
-    imports: [SpeedBoxComponent]
+  selector: 'app-speed-scale',
+  templateUrl: './speed-scale.component.html',
+  styleUrls: ['./speed-scale.component.scss'],
+  imports: [SpeedBoxComponent]
 })
 export class SpeedScaleComponent {
   
@@ -103,7 +104,7 @@ export class SpeedScaleComponent {
   }
 
   isActual(speedDefinition: SpeedDefinition): boolean {
-    return speedDefinition.description.includes("Actual")
+    return speedDefinition.description.includes(ACTUAL)
   }
 
 }
