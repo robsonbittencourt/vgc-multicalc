@@ -43,7 +43,7 @@ export function buildState(userData: any): CalculatorState {
 
   return {
     _updateLocalStorage: true,
-    _speedCalcPokemonState: userData.speedCalcPokemonState ? buildPokemonState(userData.speedCalcPokemon) : buildPokemonState(userData.leftPokemon),
+    _speedCalcPokemonState: userData.speedCalcPokemon ? buildPokemonState(userData.speedCalcPokemon) : buildPokemonState(userData.leftPokemon),
     _leftPokemonState: buildPokemonState(userData.leftPokemon),
     _rightPokemonState: buildPokemonState(userData.rightPokemon),
     attackerId: attackerId,
