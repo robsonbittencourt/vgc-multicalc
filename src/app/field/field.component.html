@@ -25,7 +25,7 @@
       </mat-button-toggle-group>
 
       <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">
-        <mat-button-toggle [checked]="fieldStore.isTerrainElectric()" (change)="fieldStore.toggleEletricTerrain()" data-cy="eletric-terrain">Electric Terrain</mat-button-toggle>
+        <mat-button-toggle [checked]="fieldStore.isTerrainElectric()" (change)="fieldStore.toggleElectricTerrain()" data-cy="eletric-terrain">Electric Terrain</mat-button-toggle>
         <mat-button-toggle [checked]="fieldStore.isTerrainGrassy()" (change)="fieldStore.toggleGrassyTerrain()" data-cy="grassy-terrain">Grassy Terrain</mat-button-toggle>
       </mat-button-toggle-group>
       <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">

@@ -49,7 +49,7 @@ export const FieldStore = signalStore(
     toggleSandWeather() { patchState(store, (state) => ({ weather: state.weather != "Sand" ? "Sand" : null as Weather }))},
     toggleSnowWeather() { patchState(store, (state) => ({ weather: state.weather != "Snow" ? "Snow" : null as Weather }))},
 
-    toggleEletricTerrain() { patchState(store, (state) => ({ terrain: state.terrain != "Electric" ? "Electric" : null as Terrain }))},
+    toggleElectricTerrain() { patchState(store, (state) => ({ terrain: state.terrain != "Electric" ? "Electric" : null as Terrain }))},
     toggleGrassyTerrain() { patchState(store, (state) => ({ terrain: state.terrain != "Grassy" ? "Grassy" : null as Terrain }))},
     togglePsychicTerrain() { patchState(store, (state) => ({ terrain: state.terrain != "Psychic" ? "Psychic" : null as Terrain }))},
     toggleMistyTerrain() { patchState(store, (state) => ({ terrain: state.terrain != "Misty" ? "Misty" : null as Terrain }))},

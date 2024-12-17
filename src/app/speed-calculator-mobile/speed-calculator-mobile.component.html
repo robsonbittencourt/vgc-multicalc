@@ -99,7 +99,7 @@
       <mat-button-toggle [checked]="fieldStore.isWeatherSand()" (change)="fieldStore.toggleSandWeather()" data-cy="sand">Sand</mat-button-toggle>
       <mat-button-toggle [checked]="fieldStore.isWeatherSnow()" (change)="fieldStore.toggleSnowWeather()" data-cy="snow">Snow</mat-button-toggle>
     </mat-button-toggle-group>
-    <mat-button-toggle [checked]="fieldStore.isTerrainElectric()" (change)="fieldStore.toggleEletricTerrain()" data-cy="eletric-terrain">Electric Terrain</mat-button-toggle>
+    <mat-button-toggle [checked]="fieldStore.isTerrainElectric()" (change)="fieldStore.toggleElectricTerrain()" data-cy="eletric-terrain">Electric Terrain</mat-button-toggle>
 
     <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">
       <mat-button-toggle [checked]="fieldStore.attackerSide().isTailwind" (change)="fieldStore.toggleAttackerTailwind()" data-cy="tailwind-attacker">Your Tailwind</mat-button-toggle>
