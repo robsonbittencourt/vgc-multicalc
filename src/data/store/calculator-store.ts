@@ -133,7 +133,7 @@ export const CalculatorStore = signalStore(
       patchState(store, (state) => {
         const updatedTeams = [...state._teamsState]
         const updatedTeamMembers = updatedTeams[activeTeamIndex].teamMembers.map((member, index) => ({
-          ...member, active: activeStates[index] ?? member.active,
+          ...member, active: activeStates[index],
         }));
 
         updatedTeams[activeTeamIndex] = { ...updatedTeams[activeTeamIndex], teamMembers: updatedTeamMembers }
