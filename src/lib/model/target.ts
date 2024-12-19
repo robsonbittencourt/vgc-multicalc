@@ -5,7 +5,7 @@ export class Target {
   pokemon: Pokemon
   damageResult: DamageResult
 
-  constructor(pokemon: Pokemon, active: boolean = false) {
+  constructor(pokemon: Pokemon, active = false) {
     this.active = active
     this.pokemon = pokemon
   }

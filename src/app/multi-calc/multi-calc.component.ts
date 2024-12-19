@@ -1,4 +1,4 @@
-import { Component, computed, inject, linkedSignal } from "@angular/core"
+import { Component, computed, inject, linkedSignal, OnInit } from "@angular/core"
 import { FieldComponent } from "@app/field/field.component"
 import { TargetPokemonComponent } from "@app/target-pokemon/target-pokemon.component"
 import { TeamComponent } from "@app/team/team.component"
@@ -16,7 +16,7 @@ import { DamageResultOrderService } from "@lib/damage-calculator/damage-result-o
   providers: [DamageMultiCalcService, DamageResultOrderService],
   imports: [TeamComponent, TeamsComponent, FieldComponent, TargetPokemonComponent]
 })
-export class MultiCalcComponent {
+export class MultiCalcComponent implements OnInit {
   store = inject(CalculatorStore)
   menuStore = inject(MenuStore)
   private fieldStore = inject(FieldStore)

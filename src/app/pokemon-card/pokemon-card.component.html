@@ -51,7 +51,7 @@
         </div>
 
         <div class="card-buttons">
-          @if (target().pokemon.name == "Dondozo") {
+          @if (target().pokemon.name === "Dondozo") {
             <button class="icon-button" (click)="toogleCommanderAbility($event)">
               @if (target().pokemon.commanderActivated) {
                 <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly.png" />

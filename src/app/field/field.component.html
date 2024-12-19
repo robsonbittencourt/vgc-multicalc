@@ -74,7 +74,7 @@
       </mat-button-toggle-group>
 
       <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
-        <mat-button-toggle [checked]="fieldStore.gameType() == 'Singles'" (change)="fieldStore.toggleGameType()" data-cy="single-target">Single Target</mat-button-toggle>
+        <mat-button-toggle [checked]="fieldStore.gameType() === 'Singles'" (change)="fieldStore.toggleGameType()" data-cy="single-target">Single Target</mat-button-toggle>
         <mat-button-toggle [checked]="fieldStore.defenderSide().isFriendGuard" (change)="fieldStore.toggleDefenderFriendGuard()" data-cy="friend-guard">Friend Guard</mat-button-toggle>
       </mat-button-toggle-group>
 

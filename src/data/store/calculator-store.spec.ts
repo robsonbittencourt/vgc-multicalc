@@ -473,7 +473,7 @@ describe("Calculator Store", () => {
 
     describe("User data", () => {
       beforeEach(() => {
-        var store: { [key: string]: string | null } = {}
+        const store: Record<string, string | null> = {}
 
         spyOn(localStorage, "getItem").and.callFake((key: string): string | null => {
           return store[key] || null

@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, input, signal } from "@angular/core"
+import { Component, computed, effect, inject, input, signal, OnInit } from "@angular/core"
 import { SpeedBoxComponent } from "@app/speed-box/speed-box.component"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { FieldStore } from "@data/store/field-store"
@@ -16,7 +16,7 @@ import { SpeedDefinition } from "@lib/speed-calculator/speed-definition"
   styleUrls: ["./speed-scale.component.scss"],
   imports: [SpeedBoxComponent]
 })
-export class SpeedScaleComponent {
+export class SpeedScaleComponent implements OnInit {
   pokemonId = input.required<string>()
   pokemonEachSide = input.required<number>()
 

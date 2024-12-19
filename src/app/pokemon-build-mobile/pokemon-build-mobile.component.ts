@@ -35,7 +35,7 @@ export class PokemonBuildMobileComponent {
   allTeraTypes = Object.keys(TYPE_CHART[9]).splice(1).sort()
   alliesFainted = ["0", "1", "2", "3", "4", "5", "6", "7"]
 
-  editAttacks: boolean = false
+  editAttacks = false
 
   statusConditions = ["Healthy", "Sleep", "Poison", "Burn", "Freeze", "Paralysis"]
 

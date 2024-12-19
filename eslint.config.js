@@ -30,14 +30,15 @@ module.exports = tseslint.config(
         {
           caughtErrors: "none"
         }
-      ]
+      ],
+      "@typescript-eslint/consistent-type-definitions": "off"
     }
   },
   {
     files: ["**/*.html"],
     extends: [...angular.configs.templateRecommended, ...angular.configs.templateAccessibility],
     rules: {
-      "@angular-eslint/template/label-has-associated-control": ["off"]
+      "@angular-eslint/template/label-has-associated-control": "off"
     }
   }
 )

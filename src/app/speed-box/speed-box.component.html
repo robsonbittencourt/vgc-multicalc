@@ -1,4 +1,4 @@
-@if (speedDefinition().description == "") {
+@if (speedDefinition().description === "") {
   <div class="speed-box-down"></div>
 } @else {
   <div class="speed-box-up" [ngStyle]="(isActual() && { 'font-weight': '600' }) || null">

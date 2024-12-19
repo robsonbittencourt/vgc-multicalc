@@ -12,7 +12,7 @@ export class PokemonHpBadgeComponent implements AfterViewInit {
   remainingHp: number
   hpPercentage: number
   hpBarColor: string
-  imageScale: number = 1.2
+  imageScale = 1.2
 
   _hpBase: number
   _actualHp: number
@@ -179,10 +179,6 @@ export class PokemonHpBadgeComponent implements AfterViewInit {
   }
 
   calculateImageScale(imageHeight: number): number {
-    const minScale = 1.2
-    const maxScale = 1.3
-    const highImageHeight = 256
-
     if (imageHeight > 200) {
       return 1.2
     }

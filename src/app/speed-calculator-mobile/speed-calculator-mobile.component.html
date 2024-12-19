@@ -31,7 +31,7 @@
         </div>
       }
 
-      @if (pokemon().name == "Dondozo") {
+      @if (pokemon().name === "Dondozo") {
         <button class="icon-button" (click)="store.commanderActive(pokemonId(), !pokemon().commanderActivated)" matTooltip="Commander">
           @if (this.pokemon().commanderActivated) {
             <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly.png" />
@@ -111,8 +111,8 @@
   </div>
   <div class="options">
     <mat-button-toggle-group class="button-group botton-space" [hideSingleSelectionIndicator]="true">
-      <mat-button-toggle [checked]="optionsStore.regulation() == 'Reg G'" value="Reg G" (change)="optionsStore.updateRegulation($event.source.value)">Regulation G</mat-button-toggle>
-      <mat-button-toggle [checked]="optionsStore.regulation() == 'Reg H'" value="Reg H" (change)="optionsStore.updateRegulation($event.source.value)">Regulation H</mat-button-toggle>
+      <mat-button-toggle [checked]="optionsStore.regulation() === 'Reg G'" value="Reg G" (change)="optionsStore.updateRegulation($event.source.value)">Regulation G</mat-button-toggle>
+      <mat-button-toggle [checked]="optionsStore.regulation() === 'Reg H'" value="Reg H" (change)="optionsStore.updateRegulation($event.source.value)">Regulation H</mat-button-toggle>
     </mat-button-toggle-group>
   </div>
 

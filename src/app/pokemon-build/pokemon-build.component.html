@@ -24,7 +24,7 @@
         <app-input-autocomplete [value]="pokemon().status" [allValues]="statusConditions" (valueChange)="store.status(pokemonId(), $event)" data-cy="pokemon-status" />
       </div>
 
-      @if (pokemon().activeMoveName == "Last Respects") {
+      @if (pokemon().activeMoveName === "Last Respects") {
         <div class="multihit">
           <label>Allies Fainted</label>
           <app-input-autocomplete [value]="pokemon().moveSet.activeMove.alliesFainted" [allValues]="alliesFainted" (valueChange)="alliesFaintedChanged($event)" data-cy="allies-fainted" />
@@ -33,11 +33,11 @@
 
       @if (pokemon().moveSet.activeMove.possibleHits.length > 0) {
         <div class="multihit">
-          @if (pokemon().activeMoveName != "Rage Fist") {
+          @if (pokemon().activeMoveName !== "Rage Fist") {
             <label>Hits</label>
           }
 
-          @if (pokemon().activeMoveName == "Rage Fist") {
+          @if (pokemon().activeMoveName === "Rage Fist") {
             <label>Hits Taken</label>
           }
           <app-input-autocomplete [value]="pokemon().moveSet.activeMove.hits" [allValues]="pokemon().moveSet.activeMove.possibleHits" (valueChange)="hitsChanged($event)" data-cy="hits-taken" />
@@ -83,7 +83,7 @@
             <mat-checkbox [ngModel]="pokemon().abilityOn" (change)="store.abilityOn(pokemonId(), $event.checked)" data-cy="activate-ability" />
           }
 
-          @if (pokemon().name == "Dondozo") {
+          @if (pokemon().name === "Dondozo") {
             <button class="icon-button" (click)="store.commanderActive(pokemonId(), !pokemon().commanderActivated)" [matTooltipShowDelay]="1000" matTooltip="Commander" data-cy="commander">
               @if (pokemon().commanderActivated) {
                 <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly.png" />

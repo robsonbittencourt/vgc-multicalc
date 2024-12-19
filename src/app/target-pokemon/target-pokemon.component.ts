@@ -67,10 +67,7 @@ export class TargetPokemonComponent {
       const pokemonList = await this.pokePasteService.parse(result)
       const newTargets = []
 
-      for (let index = 0; index < pokemonList.length; index++) {
-        const pokemon = pokemonList[index]
-        const position = this.targets().length + index + 1
-
+      for (const pokemon of pokemonList) {
         if (!this.alreadyExists(pokemon)) {
           newTargets.push(new Target(pokemon))
         }

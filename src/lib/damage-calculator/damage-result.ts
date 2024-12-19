@@ -13,7 +13,7 @@ export class DamageResult {
   readonly description: string
   readonly rolls: number[] | undefined
 
-  private RESIDUAL_RESULT_IDENTIFIER: string = "("
+  private RESIDUAL_RESULT_IDENTIFIER = "("
 
   constructor(attacker: Pokemon, defender: Pokemon, move: string, result: string, koChance: string, damage: number, description: string, rolls: number[] | undefined = undefined, secondAttacker?: Pokemon) {
     this.id = uuidv4()

@@ -12,7 +12,7 @@ import { MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent, Ma
 export class TeamExportModalComponent {
   data = inject(MAT_DIALOG_DATA)
 
-  copyText: string = "Copy"
+  copyText = "Copy"
 
   copy() {
     navigator.clipboard.writeText(this.data.content)

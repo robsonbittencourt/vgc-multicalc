@@ -46,7 +46,7 @@
           <div class="edit-button-section">
             <div (click)="editMoves()" class="edit-button"><mat-icon class="edit-icon">edit</mat-icon>Edit</div>
 
-            @if (pokemon().moveSet.activeMove.name == "Last Respects") {
+            @if (pokemon().moveSet.activeMove.name === "Last Respects") {
               <div class="multihit">
                 <label>Fainted</label>
                 <app-input-autocomplete [(value)]="pokemon().moveSet.activeMove.alliesFainted" [allValues]="alliesFainted" (valueChange)="alliesFaintedChanged($event)" />
@@ -55,7 +55,7 @@
 
             @if (pokemon().moveSet.activeMove.possibleHits.length > 0) {
               <div class="multihit">
-                @if (pokemon().activeMoveName == "Rage Fist") {
+                @if (pokemon().activeMoveName === "Rage Fist") {
                   <label>Hits Taken</label>
                 } @else {
                   <label>Hits</label>
@@ -112,7 +112,7 @@
         </div>
       }
 
-      @if (pokemon().name == "Dondozo") {
+      @if (pokemon().name === "Dondozo") {
         <button class="icon-button" (click)="store.commanderActive(pokemonId(), !pokemon().commanderActivated)" matTooltip="Commander">
           @if (pokemon().commanderActivated) {
             <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly.png" />

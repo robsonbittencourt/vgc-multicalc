@@ -35,7 +35,7 @@ export class Pokemon {
   private statusStorage?: string
   private hpPercentageStorage: number
   private commanderActivatedStorage: boolean
-  private selectPokemonLabel: string = "Select a Pokémon"
+  private selectPokemonLabel = "Select a Pokémon"
 
   constructor(name: string, options: PokemonParameters = {}) {
     const defaulTeraType = "Water"
@@ -185,7 +185,7 @@ export class Pokemon {
       { code: "par", status: "Paralysis" }
     ]
 
-    return statusConditions.find(s => s.status === status)?.code! as StatusName
+    return statusConditions.find(s => s.status === status)?.code as StatusName
   }
 
   public get teraType(): string {

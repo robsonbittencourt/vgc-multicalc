@@ -88,7 +88,7 @@ function buildPokemonState(pokemon: any): PokemonState {
 }
 
 function buildTeamState(teams: any): TeamState[] {
-  return teams.map((team: any, index: Number) => {
+  return teams.map((team: any, index: number) => {
     return {
       id: uuidv4(),
       active: index == 0,

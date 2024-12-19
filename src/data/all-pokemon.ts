@@ -1,3 +1,4 @@
+/* eslint-disable */
 //from https://github.dev/smogon/pokemon-showdown
 
 import { StatsTable } from "@robsonbittencourt/calc"

@@ -74,7 +74,7 @@ export class PokemonCardComponent {
     return cardStyle
   }
 
-  private cardColor(koChance: String) {
+  private cardColor(koChance: string) {
     if (koChance == "guaranteed OHKO") {
       return "#dbd8e3" //gray
     }

@@ -1,4 +1,4 @@
-import { Component, inject } from "@angular/core"
+import { Component, inject, OnInit } from "@angular/core"
 import { ActivatedRoute } from "@angular/router"
 import { HeaderMobileComponent } from "@app/header-mobile/header-mobile.component"
 import { HeaderComponent } from "@app/header/header.component"
@@ -19,7 +19,7 @@ import { DeviceDetectorService } from "@lib/device-detector.service"
   styleUrls: ["./main.component.scss"],
   imports: [HeaderComponent, SimpleCalcComponent, MultiCalcComponent, SpeedCalculatorComponent, HeaderMobileComponent, SimpleCalcMobileComponent, SpeedCalculatorMobileComponent]
 })
-export class MainComponent {
+export class MainComponent implements OnInit {
   store = inject(CalculatorStore)
   menuStore = inject(MenuStore)
   fieldStore = inject(FieldStore)
@@ -27,7 +27,7 @@ export class MainComponent {
   private deviceDetectorService = inject(DeviceDetectorService)
 
   userDataLink: string
-  useUserData: boolean = false
+  useUserData = false
 
   ngOnInit() {
     this.activatedRoute.data.subscribe(({ userData }) => {

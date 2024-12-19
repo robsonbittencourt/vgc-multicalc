@@ -1,5 +1,5 @@
 import { AsyncPipe } from "@angular/common"
-import { Component, effect, input, model } from "@angular/core"
+import { Component, effect, input, model, OnInit } from "@angular/core"
 import { FormControl, FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { MatAutocomplete, MatAutocompleteTrigger } from "@angular/material/autocomplete"
 import { MatOption } from "@angular/material/core"
@@ -17,7 +17,7 @@ export interface KeyValuePair {
   styleUrls: ["./input-autocomplete.component.scss"],
   imports: [FormsModule, ReactiveFormsModule, MatAutocompleteTrigger, MatAutocomplete, MatOption, AsyncPipe]
 })
-export class InputAutocompleteComponent {
+export class InputAutocompleteComponent implements OnInit {
   value = model.required<string>()
 
   allValues = input.required({

@@ -1,4 +1,4 @@
-export const SETDEX_SV: { [k: string]: any } = {
+export const SETDEX_SV: Record<string, any> = {
   Sneasler: {
     ability: "Unburden",
     item: "Focus Sash",

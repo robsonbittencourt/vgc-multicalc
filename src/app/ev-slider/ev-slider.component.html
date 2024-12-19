@@ -10,7 +10,7 @@
   }
 
   <div class="dense-2">
-    @if (stat() == "hp") {
+    @if (stat() === "hp") {
       <mat-form-field appearance="outline" class="mat-ev-stat-modifier hp-percentage">
         @if (!reduced()) {
           <span matTextSuffix>%</span>
