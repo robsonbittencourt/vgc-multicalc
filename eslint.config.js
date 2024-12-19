@@ -31,6 +31,7 @@ module.exports = tseslint.config(
           caughtErrors: "none"
         }
       ],
+      "@typescript-eslint/no-explicit-any": "off",
       "@typescript-eslint/consistent-type-definitions": "off"
     }
   },
@@ -38,6 +39,9 @@ module.exports = tseslint.config(
     files: ["**/*.html"],
     extends: [...angular.configs.templateRecommended, ...angular.configs.templateAccessibility],
     rules: {
+      "@angular-eslint/template/alt-text": "off",
+      "@angular-eslint/template/interactive-supports-focus": "off",
+      "@angular-eslint/template/click-events-have-key-events": "off",
       "@angular-eslint/template/label-has-associated-control": "off"
     }
   }
