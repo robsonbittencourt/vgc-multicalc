@@ -4,17 +4,18 @@ import { FieldStore } from 'src/data/store/field-store'
 import { MenuStore } from 'src/data/store/menu-store'
 import { DamageMultiCalcService } from 'src/lib/damage-calculator/damage-multi-calc.service'
 import { DamageResultOrderService } from 'src/lib/damage-calculator/damage-result-order.service'
+import { Team } from 'src/lib/team'
 import { FieldComponent } from '../field/field.component'
 import { TargetPokemonComponent } from '../target-pokemon/target-pokemon.component'
 import { TeamComponent } from '../team/team.component'
 import { TeamsComponent } from '../teams/teams.component'
 
 @Component({
-    selector: 'app-multi-calc',
-    templateUrl: './multi-calc.component.html',
-    styleUrls: ['./multi-calc.component.scss'],
-    providers: [DamageMultiCalcService, DamageResultOrderService],
-    imports: [TeamComponent, TeamsComponent, FieldComponent, TargetPokemonComponent]
+  selector: 'app-multi-calc',
+  templateUrl: './multi-calc.component.html',
+  styleUrls: ['./multi-calc.component.scss'],
+  providers: [DamageMultiCalcService, DamageResultOrderService],
+  imports: [TeamComponent, TeamsComponent, FieldComponent, TargetPokemonComponent]
 })
 export class MultiCalcComponent {
   
@@ -35,6 +36,14 @@ export class MultiCalcComponent {
     this.store.updateSecondAttacker("")
     this.store.updateTeamMembersActive(true, false, false, false, false, false)
     this.store.deactivateTargets()
+  }
+
+  teamChanged(team: Team) {
+    if (team.active) {
+      const pokemonId = team.activePokemon().id
+      this.store.updateAttacker(pokemonId)
+      this.pokemonId.set(pokemonId)
+    }    
   }
 
   targetsImported() {

@@ -44,6 +44,7 @@ function defaultState() {
     
     _teamsState: [
       {
+        id: uuidv4(),
         active: true,
         name: "Team 1",
         teamMembers: [
@@ -90,16 +91,19 @@ function defaultState() {
         ]
       },
       {
+        id: uuidv4(),
         active: false,
         name: "Team 2",
         teamMembers: [{ active: true, pokemon: pokemonToState(defaultPokemon()) }]
       },
       {
+        id: uuidv4(),
         active: false,
         name: "Team 3",
         teamMembers: [{ active: true, pokemon: pokemonToState(defaultPokemon()) }]
       },
       {
+        id: uuidv4(),
         active: false,
         name: "Team 4",
         teamMembers: [{ active: true, pokemon: pokemonToState(defaultPokemon()) }]

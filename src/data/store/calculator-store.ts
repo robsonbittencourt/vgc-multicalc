@@ -40,6 +40,7 @@ export type TeamMemberState = {
 }
 
 export type TeamState = {
+  id: string
   active: boolean,
   name: string,
   teamMembers: TeamMemberState[]
@@ -142,6 +143,17 @@ export const CalculatorStore = signalStore(
       })
     },
 
+    replaceTeam(newTeam: Team, teamId: string) {
+      const teamIndex = this._teamIndexWithId(teamId)
+  
+      patchState(store, (state) => {
+        const updatedTeams = [...state._teamsState]
+        updatedTeams[teamIndex] = teamToState(newTeam)
+  
+        return { _teamsState: updatedTeams }
+      })
+    },
+
     replaceActiveTeam(newTeam: Team) {
       const activeTeamIndex = this._activeTeamIndex()
   
@@ -156,6 +168,13 @@ export const CalculatorStore = signalStore(
     updateTeams(teams: Team[]) {
       const teamsState = teams.map(team => teamToState(team))
       patchState(store, () => ({ _teamsState: teamsState }) )
+    },
+
+    activateTeam(teamId: string) {
+      patchState(store, (state) => {
+        const updatedTeams = state._teamsState.map(t => ({ id: t.id, active: t.id == teamId, name: t.name, teamMembers: t.teamMembers }))
+        return { _teamsState: updatedTeams }
+      })
     },
 
     updateAttacker(pokemonId: string) {
@@ -239,6 +258,10 @@ export const CalculatorStore = signalStore(
 
     _activeTeamIndex(): number {
       return store._teamsState().findIndex(team => team.active)  
+    },
+
+    _teamIndexWithId(teamId: string): number {
+      return store._teamsState().findIndex(team => team.id == teamId)
     },
 
     _teamIndexWithPokemon(pokemonId: string): number {

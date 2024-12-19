@@ -11,10 +11,10 @@ import { ImportPokemonButtonComponent } from '../import-pokemon-button/import-po
 import { PokemonBuildComponent } from '../pokemon-build/pokemon-build.component'
 
 @Component({
-    selector: 'app-simple-calc',
-    templateUrl: './simple-calc.component.html',
-    styleUrls: ['./simple-calc.component.scss'],
-    imports: [DamageResultComponent, ImportPokemonButtonComponent, ExportPokemonButtonComponent, PokemonBuildComponent, FieldComponent]
+  selector: 'app-simple-calc',
+  templateUrl: './simple-calc.component.html',
+  styleUrls: ['./simple-calc.component.scss'],
+  imports: [DamageResultComponent, ImportPokemonButtonComponent, ExportPokemonButtonComponent, PokemonBuildComponent, FieldComponent]
 })
 export class SimpleCalcComponent {
   

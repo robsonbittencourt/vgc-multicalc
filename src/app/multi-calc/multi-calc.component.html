@@ -3,7 +3,7 @@
     (teamMemberRemoved)="pokemonId.set(store.team().activePokemon().id)"/>
   
   <div>
-    <app-teams (teamChanged)="pokemonId.set($event.activePokemon().id)"/>
+    <app-teams (teamChanged)="teamChanged($event)"/>
     <app-field />
   </div> 
 

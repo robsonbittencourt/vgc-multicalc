@@ -36,30 +36,30 @@ describe("Calculator Store", () => {
 
     it("should load Team 1 as default", () => {
       expect(store.team().name).toBe("Team 1")
-      expect(store.team().teamMembers().length).toBe(4)
-      expect(store.team().teamMembers()[0].pokemon.name).toBe("Gholdengo")
-      expect(store.team().teamMembers()[1].pokemon.name).toBe("Rillaboom")
-      expect(store.team().teamMembers()[2].pokemon.name).toBe("Kingambit")
-      expect(store.team().teamMembers()[3].pokemon.name).toBe("Sneasler")
+      expect(store.team().teamMembers.length).toBe(4)
+      expect(store.team().teamMembers[0].pokemon.name).toBe("Gholdengo")
+      expect(store.team().teamMembers[1].pokemon.name).toBe("Rillaboom")
+      expect(store.team().teamMembers[2].pokemon.name).toBe("Kingambit")
+      expect(store.team().teamMembers[3].pokemon.name).toBe("Sneasler")
     })
 
     it("should load Team 1 and another 3 Teams with only default Pokémon", () => {
       expect(store.teams().length).toBe(4)
 
       expect(store.teams()[0].name).toBe("Team 1")
-      expect(store.teams()[0].teamMembers().length).toBe(4)
+      expect(store.teams()[0].teamMembers.length).toBe(4)
 
       expect(store.teams()[1].name).toBe("Team 2")
-      expect(store.teams()[1].teamMembers().length).toBe(1)
-      expect(store.teams()[1].teamMembers()[0].pokemon.isDefault()).toBeTrue()
+      expect(store.teams()[1].teamMembers.length).toBe(1)
+      expect(store.teams()[1].teamMembers[0].pokemon.isDefault()).toBeTrue()
 
       expect(store.teams()[2].name).toBe("Team 3")
-      expect(store.teams()[2].teamMembers().length).toBe(1)
-      expect(store.teams()[2].teamMembers()[0].pokemon.isDefault()).toBeTrue()
+      expect(store.teams()[2].teamMembers.length).toBe(1)
+      expect(store.teams()[2].teamMembers[0].pokemon.isDefault()).toBeTrue()
 
       expect(store.teams()[3].name).toBe("Team 4")
-      expect(store.teams()[3].teamMembers().length).toBe(1)
-      expect(store.teams()[3].teamMembers()[0].pokemon.isDefault()).toBeTrue()
+      expect(store.teams()[3].teamMembers.length).toBe(1)
+      expect(store.teams()[3].teamMembers[0].pokemon.isDefault()).toBeTrue()
     })
 
     it("should load some Targets as default", () => {
@@ -222,14 +222,33 @@ describe("Calculator Store", () => {
       it("should update active Team Members", () => {
         store.updateTeamMembersActive(true, false, true, false, true, false)
 
-        expect(store.team().teamMembers()[0].active).toBeTrue()
-        expect(store.team().teamMembers()[1].active).toBeFalse()
-        expect(store.team().teamMembers()[2].active).toBeTrue()
-        expect(store.team().teamMembers()[3].active).toBeFalse()
+        expect(store.team().teamMembers[0].active).toBeTrue()
+        expect(store.team().teamMembers[1].active).toBeFalse()
+        expect(store.team().teamMembers[2].active).toBeTrue()
+        expect(store.team().teamMembers[3].active).toBeFalse()
+      })
+
+      it("should replace Team", () => {
+        const teamX = new Team("123", true, "Team X", [
+          new TeamMember(new Pokemon("Pikachu")),
+          new TeamMember(new Pokemon("Raichu"))
+        ])
+
+        const teamY = new Team("456", true, "Team Y", [
+          new TeamMember(new Pokemon("Clefairy")),
+          new TeamMember(new Pokemon("Clefable"))
+        ])
+
+        store.updateTeams([teamX])
+
+        store.replaceTeam(teamY, "123")
+
+        expect(store.teams().length).toBe(1)
+        expect(store.team().id).toBe("456")
       })
 
       it("should replace active Team", () => {
-        const newTeam = new Team(true, "Team X", [
+        const newTeam = new Team("123", true, "Team X", [
           new TeamMember(new Pokemon("Pikachu")),
           new TeamMember(new Pokemon("Raichu"))
         ])
@@ -237,17 +256,17 @@ describe("Calculator Store", () => {
         store.replaceActiveTeam(newTeam)
 
         expect(store.team().name).toBe("Team X")
-        expect(store.team().teamMembers()[0].pokemon.name).toBe("Pikachu")
-        expect(store.team().teamMembers()[1].pokemon.name).toBe("Raichu")
+        expect(store.team().teamMembers[0].pokemon.name).toBe("Pikachu")
+        expect(store.team().teamMembers[1].pokemon.name).toBe("Raichu")
       })
 
       it("should update Teams", () => {
-        const teamX = new Team(true, "Team X", [
+        const teamX = new Team("123", true, "Team X", [
           new TeamMember(new Pokemon("Pikachu")),
           new TeamMember(new Pokemon("Raichu"))
         ])
 
-        const teamY = new Team(false, "Team Y", [
+        const teamY = new Team("456", false, "Team Y", [
           new TeamMember(new Pokemon("Clefairy")),
           new TeamMember(new Pokemon("Clefable"))
         ])
@@ -255,12 +274,31 @@ describe("Calculator Store", () => {
         store.updateTeams([teamX, teamY])
 
         expect(store.teams()[0].name).toBe("Team X")
-        expect(store.teams()[0].teamMembers()[0].pokemon.name).toBe("Pikachu")
-        expect(store.teams()[0].teamMembers()[1].pokemon.name).toBe("Raichu")
+        expect(store.teams()[0].teamMembers[0].pokemon.name).toBe("Pikachu")
+        expect(store.teams()[0].teamMembers[1].pokemon.name).toBe("Raichu")
 
         expect(store.teams()[1].name).toBe("Team Y")
-        expect(store.teams()[1].teamMembers()[0].pokemon.name).toBe("Clefairy")
-        expect(store.teams()[1].teamMembers()[1].pokemon.name).toBe("Clefable")
+        expect(store.teams()[1].teamMembers[0].pokemon.name).toBe("Clefairy")
+        expect(store.teams()[1].teamMembers[1].pokemon.name).toBe("Clefable")
+      })
+
+      it("should activate Team with informed id and deactivate anothers", () => {
+        const teamX = new Team("123", true, "Team X", [
+          new TeamMember(new Pokemon("Pikachu")),
+          new TeamMember(new Pokemon("Raichu"))
+        ])
+
+        const teamY = new Team("456", false, "Team Y", [
+          new TeamMember(new Pokemon("Clefairy")),
+          new TeamMember(new Pokemon("Clefable"))
+        ])
+
+        store.updateTeams([teamX, teamY])
+
+        store.activateTeam("456")
+
+        expect(store.teams()[0].active).toBeFalse()
+        expect(store.teams()[1].active).toBeTrue()
       })
     })
 
@@ -427,12 +465,12 @@ describe("Calculator Store", () => {
       })
 
       it("should find Pokémon by id when searched Pokémon is in Team 1", () => {
-        const teamX = new Team(true, "Team X", [
+        const teamX = new Team("123", true, "Team X", [
           new TeamMember(new Pokemon("Pikachu", { id: "123" })),
           new TeamMember(new Pokemon("Raichu", { id: "456" }))
         ])
 
-        const teamY = new Team(false, "Team Y", [
+        const teamY = new Team("456", false, "Team Y", [
           new TeamMember(new Pokemon("Clefairy", { id: "789" })),
           new TeamMember(new Pokemon("Clefable", { id: "012" }))
         ])
@@ -445,12 +483,12 @@ describe("Calculator Store", () => {
       })
 
       it("should find Pokémon by id when searched Pokémon is in Team 2", () => {
-        const teamX = new Team(true, "Team X", [
+        const teamX = new Team("123", true, "Team X", [
           new TeamMember(new Pokemon("Pikachu", { id: "123" })),
           new TeamMember(new Pokemon("Raichu", { id: "456" }))
         ])
 
-        const teamY = new Team(false, "Team Y", [
+        const teamY = new Team("456", false, "Team Y", [
           new TeamMember(new Pokemon("Clefairy", { id: "789" })),
           new TeamMember(new Pokemon("Clefable", { id: "012" }))
         ])
@@ -489,7 +527,7 @@ describe("Calculator Store", () => {
         spyOn(localStorage, 'getItem').and.callFake((key: string): string | null => {
           return store[key] || null
         })
-      
+
         spyOn(localStorage, 'setItem').and.callFake((key: string, value: string): void => {
           store[key] = value
         })

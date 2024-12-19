@@ -9,16 +9,17 @@ import { defaultPokemon } from 'src/lib/default-pokemon'
 import { PokePasteParserService } from 'src/lib/poke-paste-parser.service'
 import { Team } from 'src/lib/team'
 import { TeamMember } from 'src/lib/team-member'
+import { v4 as uuidv4 } from 'uuid'
 import { SnackbarService } from '../../lib/snackbar.service'
 import { TeamBoxComponent } from '../team-box/team-box.component'
 import { TeamExportModalComponent } from '../team-export-modal/team-export-modal.component'
 import { TeamImportModalComponent } from '../team-import-modal/team-import-modal.component'
 
 @Component({
-    selector: 'app-teams',
-    templateUrl: './teams.component.html',
-    styleUrls: ['./teams.component.scss'],
-    imports: [MatInput, ReactiveFormsModule, FormsModule, MatButton, TeamBoxComponent]
+  selector: 'app-teams',
+  templateUrl: './teams.component.html',
+  styleUrls: ['./teams.component.scss'],
+  imports: [MatInput, ReactiveFormsModule, FormsModule, MatButton, TeamBoxComponent]
 })
 export class TeamsComponent {
 
@@ -39,33 +40,33 @@ export class TeamsComponent {
       if(!result) return
 
       const pokemonList = await this.pokePasteService.parse(result)
-      const teamToImport = this.store.teams().find(t => t.onlyHasDefaultPokemon()) ?? this.store.teams()[this.store.teams().length - 1]
-      teamToImport.deleteAll()
+      const teamSlotToImport = this.store.teams().find(t => t.onlyHasDefaultPokemon()) ?? this.store.teams()[this.store.teams().length - 1]
+      
+      const teamMembers: TeamMember[] = []
 
       for (let index = 0; index < pokemonList.length; index++) {
         const pokemon = pokemonList[index]
-        teamToImport.addTeamMember(new TeamMember(pokemon))        
+        const active = index == 0
+        teamMembers.push(new TeamMember(pokemon, active))
       }
 
-      teamToImport.addTeamMember(new TeamMember(defaultPokemon()))
+      teamMembers.push(new TeamMember(defaultPokemon()))
 
-      teamToImport.activateFirstTeamMember()
-
-      this.store.updateTeams(this.store.teams())
-      this.store.updateAttacker(teamToImport.activePokemon().id)
+      const teamToImport = new Team(uuidv4(), teamSlotToImport.active, teamSlotToImport.name, teamMembers)
       
-      this.teamChanged.emit(teamToImport)
+      this.store.replaceTeam(teamToImport, teamSlotToImport.id)
+
+      this.teamChanged.emit(teamToImport)      
       
       this.snackBar.open("Team imported from PokePaste")
     })
   }
 
   activateTeam(team: Team) {
-    this.store.teams().forEach(t => t.id == team.id ? t.active = true : t.active = false)
-    this.store.updateTeams(this.store.teams())
+    this.store.activateTeam(team.id)
     this.store.updateAttacker(team.activePokemon().id)
 
-    this.teamChanged.emit(team)
+    this.teamChanged.emit(this.store.team())
   }
 
   export() {
@@ -84,7 +85,7 @@ export class TeamsComponent {
     const pokemon = defaultPokemon()
     const activeIndex = this.store.teams().findIndex(t => t.active)
     const inactiveTeams = this.store.teams().filter(t => !t.active)
-    const newTeam = new Team(true, `Team ${activeIndex + 1}`, [ new TeamMember(pokemon, true) ])
+    const newTeam = new Team(uuidv4(), true, `Team ${activeIndex + 1}`, [ new TeamMember(pokemon, true) ])
     inactiveTeams.splice(activeIndex, 0, newTeam)
     
     this.store.updateTeams(inactiveTeams)

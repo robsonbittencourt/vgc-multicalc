@@ -60,7 +60,7 @@ export function pokemonToState(pokemon: Pokemon): PokemonState {
 
 export function stateToTeam(state: TeamState): Team {
   const teamMembers = state.teamMembers.map(t => new TeamMember(stateToPokemon(t.pokemon), t.active))
-  return new Team(state.active, state.name, teamMembers)
+  return new Team(state.id, state.active, state.name, teamMembers)
 }
 
 export function stateToTeams(state: TeamState[]): Team[] {
@@ -69,9 +69,10 @@ export function stateToTeams(state: TeamState[]): Team[] {
 
 export function teamToState(team: Team): TeamState {
   return {
+    id: team.id,
     active: team.active,
     name: team.name,
-    teamMembers: team.teamMembers().map(member => ({ active: member.active, pokemon: pokemonToState(member.pokemon) }))
+    teamMembers: team.teamMembers.map(member => ({ active: member.active, pokemon: pokemonToState(member.pokemon) }))
   }
 }
 

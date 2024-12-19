@@ -5,6 +5,7 @@ import { CalculatorStore } from 'src/data/store/calculator-store'
 import { defaultPokemon } from 'src/lib/default-pokemon'
 import { Team } from 'src/lib/team'
 import { TeamMember } from 'src/lib/team-member'
+import { v4 as uuidv4 } from 'uuid'
 import { Pokemon } from '../../lib/pokemon'
 import { ExportPokemonButtonComponent } from '../export-pokemon-button/export-pokemon-button.component'
 import { ImportPokemonButtonComponent } from '../import-pokemon-button/import-pokemon-button.component'
@@ -12,10 +13,10 @@ import { PokemonBuildComponent } from '../pokemon-build/pokemon-build.component'
 import { PokemonTabComponent } from '../pokemon-tab/pokemon-tab.component'
 
 @Component({
-    selector: 'app-team',
-    templateUrl: './team.component.html',
-    styleUrls: ['./team.component.scss'],
-    imports: [PokemonTabComponent, ImportPokemonButtonComponent, ExportPokemonButtonComponent, MatIcon, PokemonBuildComponent, RouterOutlet]
+  selector: 'app-team',
+  templateUrl: './team.component.html',
+  styleUrls: ['./team.component.scss'],
+  imports: [PokemonTabComponent, ImportPokemonButtonComponent, ExportPokemonButtonComponent, MatIcon, PokemonBuildComponent, RouterOutlet]
 })
 export class TeamComponent {
 
@@ -34,8 +35,8 @@ export class TeamComponent {
   constructor() {
     effect(() => {
       if(!this.store.team().haveDefaultPokemon() && !this.store.team().isFull()) {
-        const teamMembers = [ ...this.store.team().teamMembers(), new TeamMember(defaultPokemon(), false) ]
-        const team = new Team(this.store.team().active, this.store.team().name, teamMembers)
+        const teamMembers = [ ...this.store.team().teamMembers, new TeamMember(defaultPokemon(), false) ]
+        const team = new Team(uuidv4(), this.store.team().active, this.store.team().name, teamMembers)
 
         this.store.replaceActiveTeam(team)
       }
@@ -43,7 +44,7 @@ export class TeamComponent {
   }
 
   activatePokemon(pokemonId: string) {
-    const members = this.store.team().teamMembers()
+    const members = this.store.team().teamMembers
 
     this.teamMemberSelected.emit(pokemonId)
 
@@ -75,8 +76,8 @@ export class TeamComponent {
   }
 
   removePokemon() {
-    const activeMember = this.store.team().teamMembers().find(teamMember => teamMember.pokemon.id === this.pokemonOnEdit().id)!
-    const inactiveMembers = this.store.team().teamMembers().filter(teamMember => teamMember.pokemon.id !== activeMember.pokemon.id)
+    const activeMember = this.store.team().teamMembers.find(teamMember => teamMember.pokemon.id === this.pokemonOnEdit().id)!
+    const inactiveMembers = this.store.team().teamMembers.filter(teamMember => teamMember.pokemon.id !== activeMember.pokemon.id)
     const emptyTeam = inactiveMembers.length == 0
     const haveDefaultPokemon = inactiveMembers.find(teamMember => teamMember.pokemon.isDefault())
 
@@ -85,7 +86,7 @@ export class TeamComponent {
     }
 
     const teamMembers = [ new TeamMember(inactiveMembers[0].pokemon, true), ...inactiveMembers.slice(1) ]
-    const team = new Team(this.store.team().active, this.store.team().name, teamMembers)
+    const team = new Team(uuidv4(), this.store.team().active, this.store.team().name, teamMembers)
 
     this.store.replaceActiveTeam(team)
 
@@ -121,11 +122,21 @@ export class TeamComponent {
   }
 
   pokemonImported(pokemon: Pokemon) {
-    const teamMember = new TeamMember(pokemon, false)
+    const newTeamMember = new TeamMember(pokemon, false)
 
-    this.store.team().addTeamMember(teamMember)
+    const actualTeam = this.store.team()
+    const newTeamMembers = [ ...actualTeam.teamMembers ]
+    
+    if (actualTeam.haveDefaultPokemon()) {
+      const indexToInsert = newTeamMembers.length - 1
+      newTeamMembers.splice(indexToInsert, 0, newTeamMember)
+    } else {
+      newTeamMembers.push(newTeamMember)
+    }
+
+    const newTeam = new Team(actualTeam.id, actualTeam.active, actualTeam.name, newTeamMembers)
       
-    this.store.replaceActiveTeam(this.store.team())
+    this.store.replaceActiveTeam(newTeam)
   }
 
   canImportPokemon() {

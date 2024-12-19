@@ -8,6 +8,7 @@ describe("User Data Mapper", () => {
       const speedCalcPokemon = pikachuState
 
       const teams: TeamState[] = [{
+        id: "123",
         active: true,
         name: "Team 1",
         teamMembers: [{ active: true, pokemon: speedCalcPokemon }]
@@ -39,6 +40,7 @@ describe("User Data Mapper", () => {
       const leftPokemon = pikachuState
 
       const teams: TeamState[] = [{
+        id: "123",
         active: true,
         name: "Team 1",
         teamMembers: [{ active: true, pokemon: leftPokemon }]
@@ -70,6 +72,7 @@ describe("User Data Mapper", () => {
       const rightPokemon = pikachuState
 
       const teams: TeamState[] = [{
+        id: "123",
         active: true,
         name: "Team 1",
         teamMembers: [{ active: true, pokemon: rightPokemon }]
@@ -103,6 +106,7 @@ describe("User Data Mapper", () => {
 
       const teams: TeamState[] = [
         {
+          id: "123",
           active: true,
           name: "Team 1",
           teamMembers: [
@@ -111,6 +115,7 @@ describe("User Data Mapper", () => {
           ]
         },
         {
+          id: "123",
           active: false,
           name: "Team 2",
           teamMembers: [
@@ -143,6 +148,7 @@ describe("User Data Mapper", () => {
       const targetTwo = bulbasaurState
 
       const teams: TeamState[] = [{
+        id: "123",
         active: true,
         name: "Team 1",
         teamMembers: [{ active: true, pokemon: targetOne }]

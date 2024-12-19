@@ -100,6 +100,7 @@ function buildPokemonState(pokemon: any): PokemonState {
 function buildTeamState(teams: any): TeamState[] {
   return teams.map((team: any, index: Number) => {
     return {
+      id: uuidv4(),
       active: index == 0,
       name: team.name,
       teamMembers: buildTeamMemberState(team.teamMembers)
