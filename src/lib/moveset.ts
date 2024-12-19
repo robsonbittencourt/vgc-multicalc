@@ -2,48 +2,35 @@ import { Move } from "./move"
 import { MovePosition } from "./types"
 
 export class MoveSet {
-  
-  private _moves: Move[]
-  private _activeMove: Move
-  private _activeMovePosition: MovePosition
-  
+
+  readonly moves: Move[]
+  readonly activeMove: Move
+  readonly activeMovePosition: MovePosition
+
   constructor(move1: Move, move2: Move, move3: Move, move4: Move, activeMovePosition: MovePosition = 1) {
-    this._moves = [move1, move2, move3, move4]
-    this._activeMove = this._moves[activeMovePosition - 1]
-    this._activeMovePosition = activeMovePosition
-  }
-
-  get activeMove(): Move {
-    return this._activeMove
-  }
-
-  get activeMovePosition(): MovePosition {
-    return this._activeMovePosition
+    this.moves = [move1, move2, move3, move4]
+    this.activeMove = this.moves[activeMovePosition - 1]
+    this.activeMovePosition = activeMovePosition
   }
 
   get move1(): Move {
-    return this._moves[0]
+    return this.moves[0]
   }
 
   get move2(): Move {
-    return this._moves[1]
+    return this.moves[1]
   }
 
   get move3(): Move {
-    return this._moves[2]
+    return this.moves[2]
   }
 
   get move4(): Move {
-    return this._moves[3]
-  }
-
-  moves(): Move[] {
-    return this._moves
+    return this.moves[3]
   }
 
   clone(): MoveSet {
-    return new MoveSet(new Move(this.move1.name), new Move(this.move2.name), new Move(this.move3.name), new Move(this.move4.name), this._activeMovePosition)
+    return new MoveSet(new Move(this.move1.name), new Move(this.move2.name), new Move(this.move3.name), new Move(this.move4.name), this.activeMovePosition)
   }
-
 
 }

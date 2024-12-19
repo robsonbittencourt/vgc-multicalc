@@ -17,13 +17,13 @@ export class DamageCalculatorService {
 
   calcDamage(attacker: Pokemon, target: Pokemon, field: Field): DamageResult {
     const result = this.calculateResult(attacker, target, attacker.move, field, field.isCriticalHit)
-    return new DamageResult(attacker, target, attacker.move.name, result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescription(result), result.damage as number[]) 
+    return new DamageResult(attacker, target, attacker.move.name, result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescription(result), result.damage as number[])
   }
 
   calcDamageAllAttacks(attacker: Pokemon, target: Pokemon, field: Field): DamageResult[] {
-    return attacker.moveSet.moves().map(move => {
+    return attacker.moveSet.moves.map(move => {
       const result = this.calculateResult(attacker, target, move, field, field.isCriticalHit)
-      return new DamageResult(attacker, target, move.name, result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescription(result), result.damage as number[]) 
+      return new DamageResult(attacker, target, move.name, result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescription(result), result.damage as number[])
     })
   }
 
@@ -46,12 +46,12 @@ export class DamageCalculatorService {
     moveSmogon.isCrit = criticalHit
     moveSmogon.isStellarFirstUse = true
     moveSmogon.hits = +move.hits
-    
+
     this.adjusters.forEach(a => a.adjust(attacker, target, move, moveSmogon, smogonField, secondAttacker))
 
     const result = calculate(gen, attacker.pokemonSmogon, target.pokemonSmogon, moveSmogon, smogonField)
 
-    if(!result.damage) {
+    if (!result.damage) {
       result.damage = this.ZERO_RESULT_DAMAGE
       return result
     }
@@ -80,10 +80,10 @@ export class DamageCalculatorService {
 
   private damageDescription(result: Result): string {
     try {
-      return result.desc()  
-    } catch (error) {      
+      return result.desc()
+    } catch (error) {
       return `${result.attacker.name} ${result.move.name} vs. ${result.defender.name}: 0-0 (0 - 0%) -- possibly the worst move ever`
-    }    
+    }
   }
 
   private damageDescriptionWithTwo(resultOne: Result, resultTwo: Result): string {
@@ -92,13 +92,13 @@ export class DamageCalculatorService {
       const descriptionTwo = resultTwo.desc()
       const descriptionAttackerTwo = descriptionTwo.substring(0, descriptionTwo.indexOf(" vs."))
 
-      const finalDescription = descriptionOne.substring(0, descriptionOne.indexOf(" vs.")) 
+      const finalDescription = descriptionOne.substring(0, descriptionOne.indexOf(" vs."))
         + " AND " + descriptionAttackerTwo + descriptionTwo.substring(descriptionTwo.indexOf(" vs."))
 
       return finalDescription
     } catch (error) {
       return `${resultOne.attacker.name} ${resultOne.move.name} AND ${resultTwo.attacker.name} ${resultTwo.move.name} vs. ${resultOne.defender.name}: 0-0 (0 - 0%) -- possibly the worst move ever`
-    }    
+    }
   }
 
 }
