@@ -7,7 +7,9 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test --code-coverage",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "formatter": "npx prettier . --check",
+    "check": "npm run lint && npm run formatter"
   },
   "private": true,
   "dependencies": {
