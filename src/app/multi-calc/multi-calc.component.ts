@@ -17,7 +17,7 @@ import { TeamsComponent } from '../teams/teams.component'
   imports: [TeamComponent, TeamsComponent, FieldComponent, TargetPokemonComponent]
 })
 export class MultiCalcComponent {
-  
+
   store = inject(CalculatorStore)
   menuStore = inject(MenuStore)
   private fieldStore = inject(FieldStore)
@@ -30,7 +30,6 @@ export class MultiCalcComponent {
   damageResults = computed(() => this.damageCalculator.calculateDamageForAll(this.activeAttacker(), this.store.targets(), this.fieldStore.field(), this.activeSecondAttacker()))
 
   ngOnInit() {
-    this.pokemonId.set(this.store.team().first().pokemon.id)
     this.store.updateSecondAttacker("")
     this.store.updateTeamMembersActive(true, false, false, false, false, false)
     this.store.deactivateTargets()

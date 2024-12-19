@@ -18,19 +18,11 @@ export class Team {
     return this.teamMembers.find(t => t.active)!.pokemon
   }
 
-  first() {
-    return this.teamMembers[0]
-  }
-
-  size(): number {
-    return this.teamMembers.length
-  }
-
   isFull(): boolean {
     return this.teamMembers.filter(t => !t.pokemon.isDefault()).length == 6
   }
 
-  haveDefaultPokemon(): boolean {
+  hasDefaultPokemon(): boolean {
     return this.teamMembers.find(t => t.pokemon.isDefault()) != null
   }
 
@@ -44,9 +36,13 @@ export class Team {
     this.teamMembers.forEach(t => {
       if (!t.pokemon.isDefault()) {
         result += t.pokemon.showdownTextFormat() + "\n"
-      }      
+      }
     })
 
     return result
+  }
+
+  private size(): number {
+    return this.teamMembers.length
   }
 }

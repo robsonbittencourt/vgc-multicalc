@@ -24,20 +24,20 @@ export class TeamComponent {
 
   pokemonId = input.required<string>()
   isAttacker = input(false)
-  
+
   pokemonOnEdit = computed(() => this.store.findPokemonById(this.pokemonId()))
-  
+
   combineDamageActive = signal(false)
 
   constructor() {
     effect(() => {
-      if(!this.store.team().haveDefaultPokemon() && !this.store.team().isFull()) {
-        const teamMembers = [ ...this.store.team().teamMembers, new TeamMember(defaultPokemon(), false) ]
+      if (!this.store.team().hasDefaultPokemon() && !this.store.team().isFull()) {
+        const teamMembers = [...this.store.team().teamMembers, new TeamMember(defaultPokemon(), false)]
         const team = new Team(uuidv4(), this.store.team().active, this.store.team().name, teamMembers)
 
         this.store.replaceActiveTeam(team)
       }
-    }) 
+    })
   }
 
   activatePokemon(pokemonId: string) {
@@ -52,7 +52,7 @@ export class TeamComponent {
       const active6 = members[5]?.pokemon.id == this.store.attackerId() || members[5]?.pokemon.id == pokemonId
 
       this.store.updateTeamMembersActive(active1, active2, active3, active4, active5, active6)
-      this.store.updateSecondAttacker(pokemonId)  
+      this.store.updateSecondAttacker(pokemonId)
     } else {
       const active1 = members[0].pokemon.id == pokemonId
       const active2 = members[1]?.pokemon.id == pokemonId
@@ -62,7 +62,7 @@ export class TeamComponent {
       const active6 = members[5]?.pokemon.id == pokemonId
 
       this.store.updateTeamMembersActive(active1, active2, active3, active4, active5, active6)
-    }    
+    }
   }
 
   canShowDeleteButton(): boolean {
@@ -79,7 +79,7 @@ export class TeamComponent {
       inactiveMembers.push(new TeamMember(defaultPokemon(), false))
     }
 
-    const teamMembers = [ new TeamMember(inactiveMembers[0].pokemon, true), ...inactiveMembers.slice(1) ]
+    const teamMembers = [new TeamMember(inactiveMembers[0].pokemon, true), ...inactiveMembers.slice(1)]
     const team = new Team(uuidv4(), this.store.team().active, this.store.team().name, teamMembers)
 
     this.store.replaceActiveTeam(team)
@@ -94,7 +94,7 @@ export class TeamComponent {
       this.store.updateSecondAttacker("")
     }
 
-    this.combineDamageActive.set(!this.combineDamageActive())    
+    this.combineDamageActive.set(!this.combineDamageActive())
   }
 
   isSecondSelection(teamMember: TeamMember) {
@@ -116,9 +116,9 @@ export class TeamComponent {
     const newTeamMember = new TeamMember(pokemon, false)
 
     const actualTeam = this.store.team()
-    const newTeamMembers = [ ...actualTeam.teamMembers ]
-    
-    if (actualTeam.haveDefaultPokemon()) {
+    const newTeamMembers = [...actualTeam.teamMembers]
+
+    if (actualTeam.hasDefaultPokemon()) {
       const indexToInsert = newTeamMembers.length - 1
       newTeamMembers.splice(indexToInsert, 0, newTeamMember)
     } else {
@@ -126,7 +126,7 @@ export class TeamComponent {
     }
 
     const newTeam = new Team(actualTeam.id, actualTeam.active, actualTeam.name, newTeamMembers)
-      
+
     this.store.replaceActiveTeam(newTeam)
   }
 
