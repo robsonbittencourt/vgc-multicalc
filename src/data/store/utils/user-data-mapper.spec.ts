@@ -295,7 +295,7 @@ describe("User Data Mapper", () => {
       expect(result._rightPokemonState.ivs).toEqual({ hp: 0, atk: 1, def: 2, spa: 3, spd: 4, spe: 5 })
     })
 
-    it("should build a attackerId and secondAttackerId in CalculatorState from user data", () => {
+    it("should build secondAttackerId in CalculatorState from user data", () => {
       const userData = {
         leftPokemon: pikachuUserData,
         rightPokemon: charmanderUserData,
@@ -309,7 +309,6 @@ describe("User Data Mapper", () => {
 
       const result: CalculatorState = buildState(userData)
 
-      expect(result.attackerId).toBe(result._teamsState[0].teamMembers[0].pokemon.id)
       expect(result.secondAttackerId).toBe("")
     })
 

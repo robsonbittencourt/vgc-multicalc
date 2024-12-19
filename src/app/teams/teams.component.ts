@@ -64,8 +64,6 @@ export class TeamsComponent {
 
   activateTeam(team: Team) {
     this.store.activateTeam(team.id)
-    this.store.updateAttacker(team.activePokemon().id)
-
     this.teamChanged.emit(this.store.team())
   }
 
@@ -89,8 +87,6 @@ export class TeamsComponent {
     inactiveTeams.splice(activeIndex, 0, newTeam)
     
     this.store.updateTeams(inactiveTeams)
-    this.store.updateAttacker(pokemon.id)
-
     this.teamChanged.emit(newTeam)
 
     this.snackBar.open("Team deleted")

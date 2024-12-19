@@ -39,7 +39,6 @@ function defaultState() {
       hpPercentage: 100
     },
 
-    attackerId: initialId,
     secondAttackerId: "",
     
     _teamsState: [

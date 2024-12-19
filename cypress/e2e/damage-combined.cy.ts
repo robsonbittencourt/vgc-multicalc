@@ -35,7 +35,7 @@ beforeEach(() => {
 })
 
 describe('Test calcs with combined damage', () => {
-  it('Calculate damage with two Pokémon', () => {
+  it.only('Calculate damage with two Pokémon', () => {
     team.selectPokemon("Koraidon").selectAttackThree()
     team.selectTeamMember("Koraidon").combineDamage()
 

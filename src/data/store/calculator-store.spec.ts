@@ -69,6 +69,22 @@ describe("Calculator Store", () => {
       expect(store.targets()[2].pokemon.name).toBe("Dragonite")
       expect(store.targets()[3].pokemon.name).toBe("Garchomp")
     })
+
+    it("should load active Pokémon from active Team as attacker", () => {
+      expect(store.attackerId()).toBe(store.team().activePokemon().id)
+    })
+
+    it("should load active Pokémon that is not second attacker from active Team as attacker", () => {
+      const teamX = new Team("123", true, "Team X", [
+        new TeamMember(new Pokemon("Pikachu", { id: "123" }), true),
+        new TeamMember(new Pokemon("Raichu", { id: "456" }), true)
+      ])
+
+      store.updateTeams([teamX])
+      store.updateSecondAttacker("123")
+
+      expect(store.attackerId()).toBe("456")
+    })
   })
 
   describe("methods", () => {
@@ -379,14 +395,6 @@ describe("Calculator Store", () => {
     })
 
     describe("Update another Pokémon", () => {
-      it("should update Attacker", () => {
-        const pokemonId = "123"
-
-        store.updateAttacker(pokemonId)
-
-        expect(store.attackerId()).toBe(pokemonId)
-      })
-
       it("should update second Attacker", () => {
         const pokemonId = "123"
 
@@ -534,11 +542,11 @@ describe("Calculator Store", () => {
       })
 
       it("should update state locking local storage", () => {
-        const state = { attackerId: "123" }
+        const state = { secondAttackerId: "123" }
 
         store.updateStateLockingLocalStorage(state)
 
-        expect(store.attackerId()).toBe("123")
+        expect(store.secondAttackerId()).toBe("123")
       })
 
       it("should build user data using state", () => {

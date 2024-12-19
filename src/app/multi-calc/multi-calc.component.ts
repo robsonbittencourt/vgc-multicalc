@@ -32,7 +32,6 @@ export class MultiCalcComponent {
 
   ngOnInit() {
     this.pokemonId.set(this.store.team().first().pokemon.id)
-    this.store.updateAttacker(this.pokemonId())
     this.store.updateSecondAttacker("")
     this.store.updateTeamMembersActive(true, false, false, false, false, false)
     this.store.deactivateTargets()
@@ -41,7 +40,6 @@ export class MultiCalcComponent {
   teamChanged(team: Team) {
     if (team.active) {
       const pokemonId = team.activePokemon().id
-      this.store.updateAttacker(pokemonId)
       this.pokemonId.set(pokemonId)
     }    
   }

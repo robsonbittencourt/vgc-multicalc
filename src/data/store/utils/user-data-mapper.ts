@@ -38,17 +38,13 @@ export function buildUserData(speedCalcPokemon: PokemonState, leftPokemon: Pokem
 }
 
 export function buildState(userData: any): CalculatorState {
-  const teams = buildTeamState(userData.teams)
-  const attackerId = teams[0].teamMembers[0].pokemon.id
-
   return {
     _updateLocalStorage: true,
     _speedCalcPokemonState: userData.speedCalcPokemon ? buildPokemonState(userData.speedCalcPokemon) : buildPokemonState(userData.leftPokemon),
     _leftPokemonState: buildPokemonState(userData.leftPokemon),
     _rightPokemonState: buildPokemonState(userData.rightPokemon),
-    attackerId: attackerId,
     secondAttackerId: "",
-    _teamsState: teams,
+    _teamsState: buildTeamState(userData.teams),
     _targetsState: buildTargetsState(userData.targets)
   }
 }

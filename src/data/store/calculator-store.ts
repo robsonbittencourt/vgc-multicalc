@@ -56,7 +56,6 @@ export type CalculatorState = {
   _speedCalcPokemonState: PokemonState,
   _leftPokemonState: PokemonState,
   _rightPokemonState: PokemonState,
-  attackerId: string,
   secondAttackerId: string,
   _teamsState: TeamState[],
   _targetsState: TargetState[]
@@ -73,6 +72,12 @@ export const CalculatorStore = signalStore(
     team: computed(() => stateToTeam(state._teamsState().find(t => t.active)!)),
     teams: computed(() => stateToTeams(state._teamsState())),
     targets: computed(() => stateToTargets(state._targetsState()))
+  })),
+
+  withComputed((state) => ({
+    attackerId: computed(() => 
+      state.team().teamMembers.find(t => t.active && t.pokemon.id != state.secondAttackerId())!.pokemon.id
+    )
   })),
 
   withMethods((store) => ({
@@ -175,10 +180,6 @@ export const CalculatorStore = signalStore(
         const updatedTeams = state._teamsState.map(t => ({ id: t.id, active: t.id == teamId, name: t.name, teamMembers: t.teamMembers }))
         return { _teamsState: updatedTeams }
       })
-    },
-
-    updateAttacker(pokemonId: string) {
-      patchState(store, () => ({ attackerId: pokemonId }))
     },
 
     updateSecondAttacker(pokemonId: string) {

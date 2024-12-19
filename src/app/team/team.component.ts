@@ -67,7 +67,6 @@ export class TeamComponent {
       const active6 = members[5]?.pokemon.id == pokemonId
 
       this.store.updateTeamMembersActive(active1, active2, active3, active4, active5, active6)
-      this.store.updateAttacker(pokemonId)
     }    
   }
 
@@ -95,7 +94,6 @@ export class TeamComponent {
     }
 
     this.teamMemberRemoved.emit()
-    this.store.updateAttacker(team.activePokemon().id)
   }
 
   selectSecondAttacker() {
