@@ -81,10 +81,10 @@
       <div class="button-group">
         <div class="max-width">
           <mat-button-toggle-group class="button-group" [hideSingleSelectionIndicator]="true">
-            <mat-button-toggle class="max-width" [checked]="fieldStore.defenderSide().spikes == 3" (change)="fieldStore.toggleDefenderSpikes3()" data-cy="three-spikes">3 spikes</mat-button-toggle>
-            <mat-button-toggle class="max-width" [checked]="fieldStore.defenderSide().spikes == 2" (change)="fieldStore.toggleDefenderSpikes2()" data-cy="two-spikes">2</mat-button-toggle>
-            <mat-button-toggle class="max-width" [checked]="fieldStore.defenderSide().spikes == 1" (change)="fieldStore.toggleDefenderSpikes1()" data-cy="one-spikes">1</mat-button-toggle>
-            <mat-button-toggle class="max-width" [checked]="fieldStore.defenderSide().spikes == 0" (change)="fieldStore.toggleDefenderSpikes0()">0</mat-button-toggle>
+            <mat-button-toggle class="max-width" [checked]="fieldStore.defenderSide().spikes === 3" (change)="fieldStore.toggleDefenderSpikes3()" data-cy="three-spikes">3 spikes</mat-button-toggle>
+            <mat-button-toggle class="max-width" [checked]="fieldStore.defenderSide().spikes === 2" (change)="fieldStore.toggleDefenderSpikes2()" data-cy="two-spikes">2</mat-button-toggle>
+            <mat-button-toggle class="max-width" [checked]="fieldStore.defenderSide().spikes === 1" (change)="fieldStore.toggleDefenderSpikes1()" data-cy="one-spikes">1</mat-button-toggle>
+            <mat-button-toggle class="max-width" [checked]="fieldStore.defenderSide().spikes === 0" (change)="fieldStore.toggleDefenderSpikes0()">0</mat-button-toggle>
           </mat-button-toggle-group>
         </div>
 

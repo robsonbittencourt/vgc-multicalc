@@ -17,7 +17,7 @@
       @for (damageResult of damageResults(); let i = $index; track i) {
         <div class="move" [ngStyle]="(reverse() && { 'flex-flow': 'row-reverse', 'margin-right': '0.8em' }) || null">
           <div class="chip-move" [ngStyle]="(reverse() && { 'margin-left': '0em', 'margin-right': '1em' }) || null">
-            <mat-chip-option [selected]="damageResult.move == activeMoveName()" [disabled]="!damageResult.move">{{ damageResult.move }}</mat-chip-option>
+            <mat-chip-option [selected]="damageResult.move === activeMoveName()" [disabled]="!damageResult.move">{{ damageResult.move }}</mat-chip-option>
           </div>
           <span data-cy="move-damage">{{ damageResult.result }}</span>
         </div>

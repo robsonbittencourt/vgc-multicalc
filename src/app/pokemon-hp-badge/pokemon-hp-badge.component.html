@@ -11,8 +11,8 @@
       #pokemonImage
       src="assets/sprites/pokemon-sv/{{ spriteName }}.png"
       (load)="onImageLoad()"
-      [ngStyle]="(remainingHp == 0 && { transform: 'scale(' + imageScale + ')', filter: 'brightness(70%)' }) || { transform: 'scale(' + imageScale + ')' }" />
-    @if (remainingHp == 0) {
+      [ngStyle]="(remainingHp === 0 && { transform: 'scale(' + imageScale + ')', filter: 'brightness(70%)' }) || { transform: 'scale(' + imageScale + ')' }" />
+    @if (remainingHp === 0) {
       <div class="fainted-icon" data-cy="fainted-badge">
         <div class="pokeball-icon">
           <div class="line-left"></div>
