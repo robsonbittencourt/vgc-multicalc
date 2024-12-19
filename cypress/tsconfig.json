@@ -1,5 +1,12 @@
 {
   "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "@page-object/*": [
+        "../cypress/page-object/*"
+      ]
+    },
+  },
   "include": [
     "**/*.ts"
   ],

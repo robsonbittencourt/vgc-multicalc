@@ -1,7 +1,7 @@
 import { computed } from "@angular/core"
+import { SpeedCalculatorOptions } from "@lib/speed-calculator/speed-calculator-options"
+import { speedMeta } from "@lib/speed-calculator/speed-meta"
 import { patchState, signalStore, withComputed, withMethods, withState } from "@ngrx/signals"
-import { SpeedCalculatorOptions } from "src/lib/speed-calculator/speed-calculator-options"
-import { speedMeta } from "src/lib/speed-calculator/speed-meta"
 
 type SpeedCalcOptionsState = {
   regulation: string
@@ -26,7 +26,7 @@ export const SpeedCalcOptionsStore = signalStore(
   withState(initialState),
   withComputed(({ regulation, targetName, speedModifier, speedDropActive, paralyzedActive, choiceScarfActive }) => ({
     options: computed(() => new SpeedCalculatorOptions({
-      regulation: regulation(), targetName: targetName(), speedModifier: speedModifier(), speedDropActive: speedDropActive(), 
+      regulation: regulation(), targetName: targetName(), speedModifier: speedModifier(), speedDropActive: speedDropActive(),
       paralyzedActive: paralyzedActive(), choiceScarfActive: choiceScarfActive()
     })),
 
@@ -50,7 +50,7 @@ export const SpeedCalcOptionsStore = signalStore(
     updateSpeedModifier(speedModifier: number) {
       patchState(store, () => ({ speedModifier }))
     },
-    
+
     updateRegulation(regulation: string) {
       patchState(store, () => ({ regulation }))
       this.clearTargetName()
@@ -59,7 +59,7 @@ export const SpeedCalcOptionsStore = signalStore(
     updateTargetName(targetName: string) {
       patchState(store, () => ({ targetName }))
     },
-  
+
     clearTargetName() {
       this.updateTargetName("")
     }

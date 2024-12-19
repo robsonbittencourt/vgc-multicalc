@@ -1,7 +1,7 @@
 import { inject } from "@angular/core"
-import { CalculatorStore } from "src/data/store/calculator-store"
-import { MenuStore } from "src/data/store/menu-store"
-import { DamageResult } from "./damage-result"
+import { CalculatorStore } from "@data/store/calculator-store"
+import { MenuStore } from "@data/store/menu-store"
+import { DamageResult } from "@lib/damage-calculator/damage-result"
 
 export class DamageResultOrderService {
 
@@ -9,7 +9,7 @@ export class DamageResultOrderService {
   private menuStore = inject(MenuStore)
 
   targetsWithSpecificCalc: number
-  targetsIdsActive: string []
+  targetsIdsActive: string[]
   actualOrder: string[]
 
   constructor() {
@@ -28,7 +28,7 @@ export class DamageResultOrderService {
       this.targetsWithSpecificCalc = actualTargetWithSpecificCalc
     } else {
       this.applyOrderByDamage(results)
-    }    
+    }
 
     this.actualOrder = results.map(result => this.pokemonIdToOrder(result))
 
@@ -62,9 +62,9 @@ export class DamageResultOrderService {
 
   private applyOrderByDamage(results: DamageResult[]) {
     results.sort((a, b) => {
-      if(this.menuStore.oneVsManyActivated() && (!a.defender.isDefault() && b.defender.isDefault())) return -1
-      if(this.menuStore.manyVsOneActivated() && (!a.attacker.isDefault() && b.attacker.isDefault())) return -1
-      
+      if (this.menuStore.oneVsManyActivated() && (!a.defender.isDefault() && b.defender.isDefault())) return -1
+      if (this.menuStore.manyVsOneActivated() && (!a.attacker.isDefault() && b.attacker.isDefault())) return -1
+
       return b.damage - a.damage
     })
   }
@@ -72,5 +72,5 @@ export class DamageResultOrderService {
   private pokemonIdToOrder(result: DamageResult): string {
     return this.menuStore.oneVsManyActivated() ? result.defender.id : result.attacker.id
   }
-  
+
 }

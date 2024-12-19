@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core'
-import axios from 'axios'
-import { Koffing } from 'koffing'
-import { Move } from './model/move'
-import { MoveSet } from './model/moveset'
-import { Pokemon } from './model/pokemon'
+import { Injectable } from "@angular/core"
+import { Move } from "@lib/model/move"
+import { MoveSet } from "@lib/model/moveset"
+import { Pokemon } from "@lib/model/pokemon"
+import axios from "axios"
+import { Koffing } from "koffing"
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class PokePasteParserService {
 

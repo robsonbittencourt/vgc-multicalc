@@ -1,23 +1,23 @@
-import { Component, inject } from '@angular/core'
-import { ActivatedRoute } from '@angular/router'
-import { CalculatorStore } from 'src/data/store/calculator-store'
-import { FieldStore } from 'src/data/store/field-store'
-import { MenuStore } from 'src/data/store/menu-store'
-import { buildState } from 'src/data/store/utils/user-data-mapper'
-import { DeviceDetectorService } from 'src/lib/device-detector.service'
-import { HeaderMobileComponent } from '../header-mobile/header-mobile.component'
-import { HeaderComponent } from '../header/header.component'
-import { MultiCalcComponent } from '../multi-calc/multi-calc.component'
-import { SimpleCalcMobileComponent } from '../simple-calc-mobile/simple-calc-mobile.component'
-import { SimpleCalcComponent } from '../simple-calc/simple-calc.component'
-import { SpeedCalculatorMobileComponent } from '../speed-calculator-mobile/speed-calculator-mobile.component'
-import { SpeedCalculatorComponent } from '../speed-calculator/speed-calculator.component'
+import { Component, inject } from "@angular/core"
+import { ActivatedRoute } from "@angular/router"
+import { HeaderMobileComponent } from "@app/header-mobile/header-mobile.component"
+import { HeaderComponent } from "@app/header/header.component"
+import { MultiCalcComponent } from "@app/multi-calc/multi-calc.component"
+import { SimpleCalcMobileComponent } from "@app/simple-calc-mobile/simple-calc-mobile.component"
+import { SimpleCalcComponent } from "@app/simple-calc/simple-calc.component"
+import { SpeedCalculatorMobileComponent } from "@app/speed-calculator-mobile/speed-calculator-mobile.component"
+import { SpeedCalculatorComponent } from "@app/speed-calculator/speed-calculator.component"
+import { CalculatorStore } from "@data/store/calculator-store"
+import { FieldStore } from "@data/store/field-store"
+import { MenuStore } from "@data/store/menu-store"
+import { buildState } from "@data/store/utils/user-data-mapper"
+import { DeviceDetectorService } from "@lib/device-detector.service"
 
 @Component({
-    selector: 'app-main',
-    templateUrl: './main.component.html',
-    styleUrls: ['./main.component.scss'],
-    imports: [HeaderComponent, SimpleCalcComponent, MultiCalcComponent, SpeedCalculatorComponent, HeaderMobileComponent, SimpleCalcMobileComponent, SpeedCalculatorMobileComponent]
+  selector: "app-main",
+  templateUrl: "./main.component.html",
+  styleUrls: ["./main.component.scss"],
+  imports: [HeaderComponent, SimpleCalcComponent, MultiCalcComponent, SpeedCalculatorComponent, HeaderMobileComponent, SimpleCalcMobileComponent, SpeedCalculatorMobileComponent]
 })
 export class MainComponent {
   store = inject(CalculatorStore)

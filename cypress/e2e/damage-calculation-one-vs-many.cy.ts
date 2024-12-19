@@ -1,5 +1,5 @@
-import { Opponent } from "cypress/page-object/opponent"
-import { Team } from "cypress/page-object/team"
+import { Opponent } from "@page-object/opponent"
+import { Team } from "@page-object/team"
 
 const team = new Team()
 const opponents = new Opponent()
@@ -13,11 +13,11 @@ before(() => {
 })
 
 beforeEach(() => {
-  cy.get('[data-cy="team-vs-many"]').click({force: true})
+  cy.get('[data-cy="team-vs-many"]').click({ force: true })
 
   team.delete("Team 1")
   team.importPokepaste(defaultTeamData)
-  
+
   opponents.deleteAll()
   opponents.importPokemon(defaultOpponentsData)
 })
@@ -42,7 +42,7 @@ describe('Test calcs with first team member Pokémon', () => {
 describe('Test calcs with second team member Pokémon', () => {
   it('Validate the damage with Koraidon using Collision Course', () => {
     team.selectPokemon("Koraidon").selectAttackTwo()
-    
+
     opponents.get("Urshifu Rapid Strike").damageIs(53.7, 64).cause2HKO()
     opponents.get("Calyrex Shadow").doesNotCauseAnyDamage()
     opponents.get("Ogerpon Wellspring").damageIs(49.7, 58.2).haveChanceOfToCause2HKO(98.4)
@@ -54,7 +54,7 @@ describe('Test calcs with second team member Pokémon', () => {
     opponents.get("Terapagos Terastal").damageIs(24.2, 28.7).possible5HKO()
     opponents.get("Rillaboom").damageIs(51.7, 61.4).cause2HKO()
   })
-  
+
   it('Validate the damage with Koraidon using Flame Charge', () => {
     team.selectPokemon("Koraidon").selectAttackThree()
 

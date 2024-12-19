@@ -1,6 +1,6 @@
-import { Side, Field as SmogonField } from '@robsonbittencourt/calc'
-import { Terrain as SmogonTerrain, Weather as SmogonWeather } from '@robsonbittencourt/calc/src/data/interface'
-import { Field, FieldAttackerSide, FieldDefenderSide } from "./model/field"
+import { Field, FieldAttackerSide, FieldDefenderSide } from "@lib/model/field"
+import { Side, Field as SmogonField } from "@robsonbittencourt/calc"
+import { Terrain as SmogonTerrain, Weather as SmogonWeather } from "@robsonbittencourt/calc/src/data/interface"
 
 export class FieldMapper {
 

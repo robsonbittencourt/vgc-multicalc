@@ -1,5 +1,5 @@
-import { Target } from "../model/target";
-import { TeamMember } from "../model/team-member";
+import { Target } from "@lib/model/target"
+import { TeamMember } from "@lib/model/team-member"
 
 export class UserData {
   team: TeamMember[]

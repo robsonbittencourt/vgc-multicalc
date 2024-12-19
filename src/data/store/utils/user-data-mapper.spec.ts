@@ -1,5 +1,5 @@
-import { CalculatorState, PokemonState, TargetState, TeamState } from "../calculator-store"
-import { buildState, buildUserData } from "./user-data-mapper"
+import { CalculatorState, PokemonState, TargetState, TeamState } from "@data/store/calculator-store"
+import { buildState, buildUserData } from "@data/store/utils/user-data-mapper"
 
 describe("User Data Mapper", () => {
 
@@ -381,7 +381,7 @@ describe("User Data Mapper", () => {
             teamMembers: [{ active: true, pokemon: charmanderUserData }]
           }
         ],
-        targets: [{ pokemon: bulbasaurUserData}, { pokemon: charmanderUserData }]
+        targets: [{ pokemon: bulbasaurUserData }, { pokemon: charmanderUserData }]
       }
 
       const result: CalculatorState = buildState(userData)
@@ -393,7 +393,7 @@ describe("User Data Mapper", () => {
   })
 })
 
-const pikachuState: PokemonState = { 
+const pikachuState: PokemonState = {
   id: "123",
   name: "Pikachu",
   nature: "Timid",

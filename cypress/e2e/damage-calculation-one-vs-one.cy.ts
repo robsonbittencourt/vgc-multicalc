@@ -1,6 +1,6 @@
-import { DamageResult } from "cypress/page-object/damage-result"
-import { Field } from "cypress/page-object/field"
-import { PokemonBuild } from "cypress/page-object/pokemon-build"
+import { DamageResult } from "@page-object/damage-result"
+import { Field } from "@page-object/field"
+import { PokemonBuild } from "@page-object/pokemon-build"
 
 const leftDamageResult = new DamageResult("left-damage-result")
 const rightDamageResult = new DamageResult("right-damage-result")
@@ -24,7 +24,7 @@ before(() => {
 
 describe('Test calcs with One vs One activated', () => {
   beforeEach(() => {
-    cy.get('[data-cy="one-vs-one"]').click({force: true})
+    cy.get('[data-cy="one-vs-one"]').click({ force: true })
     leftPokemonBuild.importPokemon(ursalunaData)
     rightPokemonBuild.importPokemon(tyranitarData)
   })
@@ -33,7 +33,7 @@ describe('Test calcs with One vs One activated', () => {
     it('First attack', () => {
       leftDamageResult.damageIs(0, 117.2, 139.7, 218, 260)
       rightDamageResult.isFainted()
-  
+
       rightDamageResult.damageIs(0, 31.3, 36.8, 69, 81)
       leftDamageResult.surviveWithThisHpAmmount(139)
     })
@@ -116,14 +116,14 @@ describe('Test calcs with One vs One activated', () => {
 
       leftDamageResult.damageIs(1, 18.2, 22, 34, 41)
       rightDamageResult.surviveWithThisHpAmmount(145)
-  
+
       rightDamageResult.damageIs(1, 47.2, 55.9, 104, 123)
       leftDamageResult.surviveWithThisHpAmmount(97)
-    })    
+    })
   })
 
   describe('Hp bar appearance', () => {
-    it ('Item icon should appear', () => {
+    it('Item icon should appear', () => {
       leftDamageResult.withPokemonIcon('flame-orb')
       rightDamageResult.withPokemonIcon('choice-band')
 
@@ -134,7 +134,7 @@ describe('Test calcs with One vs One activated', () => {
       rightDamageResult.withPokemonIcon('flame-orb')
     })
 
-    it ('Hp value should be ok by each Pokémon', () => {
+    it('Hp value should be ok by each Pokémon', () => {
       leftDamageResult.withMaxHpValue(220)
       rightDamageResult.withMaxHpValue(186)
 

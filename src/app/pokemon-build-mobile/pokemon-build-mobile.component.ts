@@ -1,21 +1,21 @@
-import { Component, computed, inject, input, output } from '@angular/core'
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { MatCheckbox } from '@angular/material/checkbox'
-import { MatChipListbox, MatChipOption } from '@angular/material/chips'
-import { MatIcon } from '@angular/material/icon'
-import { MatTooltip } from '@angular/material/tooltip'
-import { MOVES, NATURES, TYPE_CHART } from '@robsonbittencourt/calc'
-import { Items } from 'src/data/items'
-import { CalculatorStore } from 'src/data/store/calculator-store'
-import { Pokemon } from 'src/lib/model/pokemon'
-import { AbilityComboBoxComponent } from '../ability-combo-box/ability-combo-box.component'
-import { EvSliderComponent } from '../ev-slider/ev-slider.component'
-import { InputAutocompleteComponent } from '../input-autocomplete/input-autocomplete.component'
+import { Component, computed, inject, input, output } from "@angular/core"
+import { FormsModule, ReactiveFormsModule } from "@angular/forms"
+import { MatCheckbox } from "@angular/material/checkbox"
+import { MatChipListbox, MatChipOption } from "@angular/material/chips"
+import { MatIcon } from "@angular/material/icon"
+import { MatTooltip } from "@angular/material/tooltip"
+import { AbilityComboBoxComponent } from "@app/ability-combo-box/ability-combo-box.component"
+import { EvSliderComponent } from "@app/ev-slider/ev-slider.component"
+import { InputAutocompleteComponent } from "@app/input-autocomplete/input-autocomplete.component"
+import { Items } from "@data/items"
+import { CalculatorStore } from "@data/store/calculator-store"
+import { Pokemon } from "@lib/model/pokemon"
+import { MOVES, NATURES, TYPE_CHART } from "@robsonbittencourt/calc"
 
 @Component({
-  selector: 'app-pokemon-build-mobile',
-  templateUrl: './pokemon-build-mobile.component.html',
-  styleUrls: ['./pokemon-build-mobile.component.scss'],
+  selector: "app-pokemon-build-mobile",
+  templateUrl: "./pokemon-build-mobile.component.html",
+  styleUrls: ["./pokemon-build-mobile.component.scss"],
   imports: [MatChipListbox, ReactiveFormsModule, FormsModule, MatChipOption, MatIcon, InputAutocompleteComponent, MatTooltip, MatCheckbox, AbilityComboBoxComponent, EvSliderComponent]
 })
 export class PokemonBuildMobileComponent {

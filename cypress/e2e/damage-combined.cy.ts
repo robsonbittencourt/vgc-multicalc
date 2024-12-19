@@ -1,5 +1,5 @@
-import { Opponent } from "cypress/page-object/opponent"
-import { Team } from "cypress/page-object/team"
+import { Opponent } from "@page-object/opponent"
+import { Team } from "@page-object/team"
 
 const team = new Team()
 const opponents = new Opponent()
@@ -25,11 +25,11 @@ before(() => {
 })
 
 beforeEach(() => {
-  cy.get('[data-cy="team-vs-many"]').click({force: true})
+  cy.get('[data-cy="team-vs-many"]').click({ force: true })
 
   team.delete("Team 1")
   team.importPokepaste(defaultTeamData)
-  
+
   opponents.deleteAll()
   opponents.importPokemon(defaultOpponentsData)
 })
@@ -53,7 +53,7 @@ describe('Test calcs with combined damage', () => {
 
     team.selectTeamMember("Miraidon")
     team.selectPokemon("Miraidon").selectAttackTwo()
-    
+
     opponents.get("Urshifu Rapid Strike").damageIs(305.1, 360.5).causeOHKO()
 
     team.selectTeamMember("Koraidon").disableCombineDamage()

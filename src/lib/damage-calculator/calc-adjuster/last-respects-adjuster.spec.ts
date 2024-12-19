@@ -1,9 +1,9 @@
+import { LastRespectsAdjuster } from '@lib/damage-calculator/calc-adjuster/last-respects-adjuster'
+import { Move } from '@lib/model/move'
+import { MoveSet } from '@lib/model/moveset'
+import { Pokemon } from '@lib/model/pokemon'
+import { Target } from '@lib/model/target'
 import { Generations, Move as MoveSmogon } from "@robsonbittencourt/calc"
-import { Move } from '../../model/move'
-import { MoveSet } from '../../model/moveset'
-import { Pokemon } from '../../model/pokemon'
-import { Target } from '../../model/target'
-import { LastRespectsAdjuster } from './last-respects-adjuster'
 
 describe("Last Respects Adjuster", () => {
   it("Last Respects BP should be 50 when no ally fainted", () => {

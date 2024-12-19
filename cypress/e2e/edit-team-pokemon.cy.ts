@@ -1,4 +1,4 @@
-import { Team } from "cypress/page-object/team"
+import { Team } from "@page-object/team"
 
 const team = new Team()
 
@@ -9,7 +9,7 @@ before(() => {
 })
 
 beforeEach(() => {
-  cy.get('[data-cy="team-vs-many"]').click({force: true})
+  cy.get('[data-cy="team-vs-many"]').click({ force: true })
 
   team.delete("Team 1")
 })
@@ -62,7 +62,7 @@ describe('Add Pokémon to the Team', () => {
 
     team.selectTeamMember("Miraidon").delete()
     team.selectTeamMember("Koraidon").delete()
-    
+
     team.add("Tornadus")
     team.add("Calyrex-Shadow")
     team.add("Clefairy")
@@ -107,7 +107,7 @@ describe('Add Pokémon to the Team', () => {
     team.add("Farigiraf")
     team.add("Chi-Yu")
     team.add("Ursaluna-Bloodmoon")
-    
+
     team.delete("Team 3")
 
     team.selectTeam("Team 3").isEmpty()

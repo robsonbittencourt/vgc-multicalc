@@ -1,6 +1,6 @@
-import { Pokemon } from "./pokemon"
-import { Team } from "./team"
-import { TeamMember } from "./team-member"
+import { Pokemon } from "@lib/model/pokemon"
+import { Team } from "@lib/model/team"
+import { TeamMember } from "@lib/model/team-member"
 
 describe("Team", () => {
   it("should return active Pokémon", () => {

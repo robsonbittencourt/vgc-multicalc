@@ -1,8 +1,8 @@
 import { computed, effect } from "@angular/core"
+import { initialFieldState } from "@data/store/utils/initial-field-state"
+import { Field, FieldAttackerSide, FieldDefenderSide } from "@lib/model/field"
+import { GameType, Terrain, Weather } from "@lib/types"
 import { patchState, signalStore, withComputed, withHooks, withMethods, withState } from "@ngrx/signals"
-import { Field, FieldAttackerSide, FieldDefenderSide } from "src/lib/model/field"
-import { GameType, Terrain, Weather } from "src/lib/types"
-import { initialFieldState } from "./utils/initial-field-state"
 
 export type FieldState = {
   _updateLocalStorage: boolean

@@ -1,5 +1,5 @@
-import { Opponent } from "cypress/page-object/opponent"
-import { Team } from "cypress/page-object/team"
+import { Opponent } from "@page-object/opponent"
+import { Team } from "@page-object/team"
 
 const team = new Team()
 const opponents = new Opponent()
@@ -17,20 +17,20 @@ before(() => {
 })
 
 beforeEach(() => {
-  cy.get('[data-cy="team-vs-many"]').click({force: true})
-  
+  cy.get('[data-cy="team-vs-many"]').click({ force: true })
+
   opponents.deleteAll()
   opponents.importPokemon(defaultOpponentsData)
 })
 
 describe('Export', () => {
   beforeEach(() => {
-    cy.get('[data-cy="team-vs-many"]').click({force: true})
+    cy.get('[data-cy="team-vs-many"]').click({ force: true })
   })
-  
+
   it('Pokémon from team', () => {
     team.importPokemon(chiyuData)
-    
+
     const exportModal = team.exportPokemon("Chi-Yu")
 
     exportModal.contentIs(exportedPokemon)
@@ -38,7 +38,7 @@ describe('Export', () => {
 
   it('team', () => {
     team.importPokepaste(pokepasteData)
-    
+
     const exportModal = team.export("Team 2")
 
     exportModal.contentIs(exportedTeam)
@@ -47,7 +47,7 @@ describe('Export', () => {
   it('opponent Pokémon', () => {
     team.delete("Team 1")
     team.importPokepaste(defaultTeamData)
-    
+
     const exportModal = opponents.export()
 
     exportModal.contentIs(exportedOpponentPokemon)

@@ -1,6 +1,6 @@
-import { Field } from "cypress/page-object/field"
-import { Opponent } from "cypress/page-object/opponent"
-import { Team } from "cypress/page-object/team"
+import { Field } from "@page-object/field"
+import { Opponent } from "@page-object/opponent"
+import { Team } from "@page-object/team"
 
 const team = new Team()
 const field = new Field()
@@ -29,11 +29,11 @@ before(() => {
 })
 
 beforeEach(() => {
-  cy.get('[data-cy="team-vs-many"]').click({force: true})
+  cy.get('[data-cy="team-vs-many"]').click({ force: true })
 
   team.delete("Team 1")
   team.importPokepaste(defaultTeamData)
-  
+
   opponents.deleteAll()
   opponents.importPokemon(defaultOpponentsData)
 })
@@ -43,7 +43,7 @@ describe('Test the Field options', () => {
     team.selectPokemon("Koraidon").selectAttackThree()
 
     field.tabletsOfRuin()
-    
+
     opponents.get("Urshifu Rapid Strike").damageIs(6.8, 8)
   })
 
@@ -51,7 +51,7 @@ describe('Test the Field options', () => {
     team.selectPokemon("Koraidon").selectAttackThree()
 
     field.swordOfRuin()
-    
+
     opponents.get("Urshifu Rapid Strike").damageIs(12, 14.2)
   })
 
@@ -59,7 +59,7 @@ describe('Test the Field options', () => {
     team.selectPokemon("Miraidon").selectAttackTwo()
 
     field.vesselOfRuin()
-    
+
     opponents.get("Urshifu Rapid Strike").damageIs(222.8, 261.7)
   })
 
@@ -67,7 +67,7 @@ describe('Test the Field options', () => {
     team.selectPokemon("Miraidon").selectAttackTwo()
 
     field.beadsOfRuin()
-    
+
     opponents.get("Urshifu Rapid Strike").damageIs(392, 462.8)
   })
 
@@ -75,7 +75,7 @@ describe('Test the Field options', () => {
     team.selectPokemon("Koraidon").selectAttackThree()
 
     field.sun()
-    
+
     opponents.get("Urshifu Rapid Strike").damageIs(18.2, 21.7)
   })
 
@@ -84,7 +84,7 @@ describe('Test the Field options', () => {
     team.selectPokemon("Vaporeon")
 
     field.rain()
-    
+
     opponents.get("Urshifu Rapid Strike").damageIs(30.8, 37.1)
   })
 
@@ -93,7 +93,7 @@ describe('Test the Field options', () => {
     team.selectPokemon("Miraidon").selectAttackTwo()
 
     field.sand()
-    
+
     opponents.get("Tyranitar").damageIs(47.3, 56.4)
   })
 
@@ -102,7 +102,7 @@ describe('Test the Field options', () => {
     team.selectPokemon("Koraidon").selectAttackThree()
 
     field.snow()
-    
+
     opponents.get("Baxcalibur").damageIs(12.1, 14.7)
   })
 
@@ -110,7 +110,7 @@ describe('Test the Field options', () => {
     team.selectPokemon("Miraidon").selectAttackTwo()
 
     field.eletricTerrain()
-    
+
     opponents.get("Urshifu Rapid Strike").damageIs(514.2, 604.5)
   })
 
@@ -119,16 +119,16 @@ describe('Test the Field options', () => {
     team.selectPokemon("Rillaboom").selectAttackThree()
 
     field.grassyTerrain()
-    
+
     opponents.get("Urshifu Rapid Strike").damageIs(68.5, 82.2)
   })
 
   it('With Psychic Terrain active', () => {
     team.importPokemon(hattereneData)
-    team.selectPokemon("Hatterene")    
-    
+    team.selectPokemon("Hatterene")
+
     field.psychicTerrain()
-    
+
     opponents.get("Urshifu Rapid Strike").damageIs(86.8, 104)
   })
 
@@ -136,7 +136,7 @@ describe('Test the Field options', () => {
     team.selectPokemon("Miraidon")
 
     field.mistyTerrain()
-    
+
     opponents.get("Urshifu Rapid Strike").damageIs(72.5, 85.7)
   })
 
@@ -144,7 +144,7 @@ describe('Test the Field options', () => {
     team.selectPokemon("Miraidon").selectAttackTwo()
 
     field.magicRoom()
-    
+
     opponents.get("Urshifu Rapid Strike").damageIs(198.8, 234.2)
   })
 
@@ -152,7 +152,7 @@ describe('Test the Field options', () => {
     team.selectPokemon("Miraidon").selectAttackTwo()
 
     field.wonderRoom()
-    
+
     opponents.get("Urshifu Rapid Strike").damageIs(200, 236.5)
   })
 
@@ -163,7 +163,7 @@ describe('Test the Field options', () => {
     opponents.importPokemon(talonflameData)
 
     field.gravity()
-    
+
     opponents.get("Talonflame").damageIs(73.5, 86.4)
   })
 
@@ -171,7 +171,7 @@ describe('Test the Field options', () => {
     team.selectPokemon("Miraidon").selectAttackTwo()
 
     field.helpingHand()
-    
+
     opponents.get("Incineroar").damageIs(96, 113.4)
   })
 
@@ -179,7 +179,7 @@ describe('Test the Field options', () => {
     team.selectPokemon("Miraidon").selectAttackTwo()
 
     field.criticalHit()
-    
+
     opponents.get("Incineroar").damageIs(97, 113.9)
   })
 
@@ -187,32 +187,32 @@ describe('Test the Field options', () => {
     team.selectPokemon("Miraidon").selectAttackTwo()
 
     field.battery()
-    
+
     opponents.get("Incineroar").damageIs(83.5, 98.5)
   })
 
   it('With Power Spot active', () => {
     team.selectPokemon("Miraidon").selectAttackTwo()
-    
+
     field.powerSpot()
-    
+
     opponents.get("Incineroar").damageIs(83.5, 98.5)
   })
 
   it('With Tailwind in attacker side active', () => {
     team.importPokemon(bronzongData)
     team.selectPokemon("Bronzong").selectAttackThree()
-    
+
     field.tailwindAttacker()
-    
+
     opponents.get("Incineroar").damageIs(2.4, 2.9)
   })
 
   it('With Reflect active', () => {
     team.selectPokemon("Koraidon").selectAttackThree()
-    
+
     field.reflect()
-    
+
     opponents.get("Incineroar").damageIs(4.4, 5.4)
   })
 
@@ -220,7 +220,7 @@ describe('Test the Field options', () => {
     team.selectPokemon("Miraidon").selectAttackTwo()
 
     field.lightScreen()
-    
+
     opponents.get("Incineroar").damageIs(42.7, 50.7)
   })
 
@@ -228,15 +228,15 @@ describe('Test the Field options', () => {
     team.selectPokemon("Miraidon").selectAttackTwo()
 
     field.auroraVeil()
-    
+
     opponents.get("Incineroar").damageIs(42.7, 50.7)
   })
 
   it('With Single Target active', () => {
     team.selectPokemon("Miraidon").changeAttackOne("Discharge")
-    
+
     field.singleTarget()
-    
+
     opponents.get("Incineroar").damageIs(51.2, 61.1)
   })
 
@@ -244,16 +244,16 @@ describe('Test the Field options', () => {
     team.selectPokemon("Miraidon").selectAttackTwo()
 
     field.friendGuard()
-    
+
     opponents.get("Incineroar").damageIs(48.2, 57.2)
   })
 
   it('With Tailwind in defender side active', () => {
     team.importPokemon(bronzongData)
     team.selectPokemon("Bronzong").selectAttackThree()
-    
+
     field.tailwindDefender()
-    
+
     opponents.get("Incineroar").damageIs(9.9, 11.9)
   })
 
@@ -261,7 +261,7 @@ describe('Test the Field options', () => {
     team.selectPokemon("Miraidon").selectAttackTwo()
 
     field.threeSpikes()
-    
+
     opponents.get("Incineroar").haveChanceOfToCauseOHKO(6.3)
   })
 
@@ -269,7 +269,7 @@ describe('Test the Field options', () => {
     team.selectPokemon("Miraidon").selectAttackTwo()
 
     field.twoSpikes()
-    
+
     opponents.get("Rillaboom").cause3HKO()
   })
 
@@ -277,23 +277,23 @@ describe('Test the Field options', () => {
     team.selectPokemon("Miraidon").selectAttackTwo()
 
     field.oneSpikes()
-    
+
     opponents.get("Rillaboom").cause3HKO()
   })
 
   it('With Stealth Rock active', () => {
     team.selectPokemon("Miraidon").selectAttackTwo()
-    
+
     field.stealthRock()
-    
+
     opponents.get("Incineroar").haveChanceOfToCauseOHKO(6.3)
   })
 
   it('With Leech Seed active', () => {
     team.selectPokemon("Miraidon").selectAttackTwo()
-    
+
     field.leechSeed()
-    
+
     opponents.get("Rillaboom").cause3HKO()
   })
 

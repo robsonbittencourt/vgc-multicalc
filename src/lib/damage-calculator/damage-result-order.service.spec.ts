@@ -1,21 +1,21 @@
 import { provideExperimentalZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
-import { CalculatorStore } from "../../data/store/calculator-store"
-import { MenuStore } from "../../data/store/menu-store"
-import { Pokemon } from "../model/pokemon"
-import { Target } from "../model/target"
-import { DamageResult } from "./damage-result"
-import { DamageResultOrderService } from "./damage-result-order.service"
+import { CalculatorStore } from "@data/store/calculator-store"
+import { MenuStore } from "@data/store/menu-store"
+import { DamageResult } from "@lib/damage-calculator/damage-result"
+import { DamageResultOrderService } from "@lib/damage-calculator/damage-result-order.service"
+import { Pokemon } from "@lib/model/pokemon"
+import { Target } from "@lib/model/target"
 
-describe('DamageResultOrderService', () => {
+describe("DamageResultOrderService", () => {
   let service: DamageResultOrderService
 
   let storeSpy: any
   let menuStoreSpy: any
 
   beforeEach(() => {
-    storeSpy = jasmine.createSpyObj('CalculatorStore', ['targets'])
-    menuStoreSpy = jasmine.createSpyObj('MenuStore', ['oneVsManyActivated', 'manyVsOneActivated'])
+    storeSpy = jasmine.createSpyObj("CalculatorStore", ["targets"])
+    menuStoreSpy = jasmine.createSpyObj("MenuStore", ["oneVsManyActivated", "manyVsOneActivated"])
 
     TestBed.configureTestingModule({
       providers: [
@@ -27,9 +27,9 @@ describe('DamageResultOrderService', () => {
     })
   })
 
-  describe('order by damage', () => {
-    it('should order damage results by damage value', () => {
-      const attacker = new Pokemon('Raging Bolt')
+  describe("order by damage", () => {
+    it("should order damage results by damage value", () => {
+      const attacker = new Pokemon("Raging Bolt")
 
       const target1 = new Target(new Pokemon("Flutter Mane"))
       const target2 = new Target(new Pokemon("Iron Bundle"))
@@ -53,9 +53,9 @@ describe('DamageResultOrderService', () => {
     })
   })
 
-  describe('default Pokémon', () => {
-    it('should put defender default Pokémon at end of order when one vs many was activated', () => {
-      const attacker = new Pokemon('Raging Bolt')
+  describe("default Pokémon", () => {
+    it("should put defender default Pokémon at end of order when one vs many was activated", () => {
+      const attacker = new Pokemon("Raging Bolt")
 
       const target1 = new Target(new Pokemon("Togepi"))
       const target2 = new Target(new Pokemon("Iron Bundle"))
@@ -77,8 +77,8 @@ describe('DamageResultOrderService', () => {
       expect(results[2].id).toEqual(damageResult1.id)
     })
 
-    it('should put attacker default Pokémon at end of order when one vs many was activated', () => {
-      const attacker = new Pokemon('Raging Bolt')
+    it("should put attacker default Pokémon at end of order when one vs many was activated", () => {
+      const attacker = new Pokemon("Raging Bolt")
 
       const target1 = new Target(new Pokemon("Togepi"))
       const target2 = new Target(new Pokemon("Iron Bundle"))
@@ -102,9 +102,9 @@ describe('DamageResultOrderService', () => {
     })
   })
 
-  describe('scenarios mantaining order', () => {
-    it('should not change order when have a change in Target active in the first call', () => {
-      const attacker = new Pokemon('Raging Bolt')
+  describe("scenarios mantaining order", () => {
+    it("should not change order when have a change in Target active in the first call", () => {
+      const attacker = new Pokemon("Raging Bolt")
 
       const target1 = new Target(new Pokemon("Flutter Mane"), false)
       const target2 = new Target(new Pokemon("Iron Bundle"), false)
@@ -126,8 +126,8 @@ describe('DamageResultOrderService', () => {
       expect(results[2].id).toEqual(damageResult3.id)
     })
 
-    it('should not change the order when have a change in Target active in the consecutive call', () => {
-      const attacker = new Pokemon('Raging Bolt')
+    it("should not change the order when have a change in Target active in the consecutive call", () => {
+      const attacker = new Pokemon("Raging Bolt")
 
       const target1 = new Target(new Pokemon("Flutter Mane"), false)
       const target2 = new Target(new Pokemon("Iron Bundle"), false)
@@ -166,8 +166,8 @@ describe('DamageResultOrderService', () => {
       expect(results2[2].id).toEqual(damageResult2.id)
     })
 
-    it('should not change order when have a change in Target with Tera quantity', () => {
-      const attacker = new Pokemon('Raging Bolt')
+    it("should not change order when have a change in Target with Tera quantity", () => {
+      const attacker = new Pokemon("Raging Bolt")
 
       const target1 = new Target(new Pokemon("Flutter Mane"))
       const target2 = new Target(new Pokemon("Iron Bundle"))
@@ -196,8 +196,8 @@ describe('DamageResultOrderService', () => {
       expect(results[2].id).toEqual(damageResult3.id)
     })
 
-    it('should not change order when have a change in Target with Commander quantity', () => {
-      const attacker = new Pokemon('Raging Bolt')
+    it("should not change order when have a change in Target with Commander quantity", () => {
+      const attacker = new Pokemon("Raging Bolt")
 
       const target1 = new Target(new Pokemon("Flutter Mane"))
       const target2 = new Target(new Pokemon("Iron Bundle"))

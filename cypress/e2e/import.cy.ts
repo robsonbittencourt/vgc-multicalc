@@ -1,5 +1,5 @@
-import { Opponent } from "cypress/page-object/opponent"
-import { Team } from "cypress/page-object/team"
+import { Opponent } from "@page-object/opponent"
+import { Team } from "@page-object/team"
 
 const team = new Team()
 const opponent = new Opponent()
@@ -23,13 +23,13 @@ before(() => {
 })
 
 beforeEach(() => {
-  cy.get('[data-cy="team-vs-many"]').click({force: true})
+  cy.get('[data-cy="team-vs-many"]').click({ force: true })
 })
 
 describe('Import Pokémon', () => {
   it('to team', () => {
     team.importPokemon(chiyuData)
-    
+
     team.selectPokemon("Chi-Yu")
     team.pokemonOnEditIs("Chi-Yu", "Beads of Ruin", "Water", "Choice Specs", "Timid")
     team.pokemonOnEditAttacksIs("Overheat", "Heat Wave", "Dark Pulse", "Snarl")
@@ -39,7 +39,7 @@ describe('Import Pokémon', () => {
 
   it('to opponent', () => {
     opponent.importPokemon(chiyuData)
-    
+
     opponent.selectPokemon("Chi-Yu")
     team.pokemonOnEditIs("Chi-Yu", "Beads of Ruin", "Water", "Choice Specs", "Timid")
     team.pokemonOnEditAttacksIs("Overheat", "Heat Wave", "Dark Pulse", "Snarl")
@@ -56,7 +56,7 @@ describe('Import Pokepaste', () => {
     team.selectTeam("Team 2")
 
     team.pokemonOnEditIs("Tatsugiri", "Commander", "Grass", "Toxic Orb", "Modest")
-    team.pokemonOnEditAttacksIs("Draco Meteor", "Muddy Water", "Endure", "Taunt"  )
+    team.pokemonOnEditAttacksIs("Draco Meteor", "Muddy Water", "Endure", "Taunt")
     team.pokemonOnEditEvsIs(0, 0, 0, 252, 4, 252)
     team.pokemonOnEditIvsIs(31, 0, 31, 31, 31, 31)
 
@@ -96,11 +96,11 @@ describe('Import Pokepaste', () => {
     team.selectTeam("Team 2")
 
     team.pokemonOnEditIs("Vivillon", "Compound Eyes", "Ghost", "Focus Sash", "Timid")
-    team.pokemonOnEditAttacksIs("Hurricane", "Sleep Powder","Rage Powder", "Tailwind")
+    team.pokemonOnEditAttacksIs("Hurricane", "Sleep Powder", "Rage Powder", "Tailwind")
     team.pokemonOnEditEvsIs(0, 0, 0, 252, 4, 252)
     team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
 
-    team.selectPokemon("Alcremie")   
+    team.selectPokemon("Alcremie")
     team.pokemonOnEditIs("Alcremie", "Aroma Veil", "Fairy", "Leftovers", "Modest")
     team.pokemonOnEditAttacksIs("Alluring Voice", "Draining Kiss", "Calm Mind", "Encore")
     team.pokemonOnEditEvsIs(252, 0, 4, 252, 0, 0)
@@ -140,7 +140,7 @@ describe('Import Pokepaste', () => {
     team.pokemonOnEditEvsIs(0, 0, 0, 252, 4, 252)
     team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
 
-    team.selectPokemon("Alcremie")   
+    team.selectPokemon("Alcremie")
     team.pokemonOnEditIs("Alcremie", "Aroma Veil", "Fairy", "Leftovers", "Modest")
     team.pokemonOnEditAttacksIs("Alluring Voice", "Draining Kiss", "Calm Mind", "Encore")
     team.pokemonOnEditEvsIs(252, 0, 4, 252, 0, 0)
@@ -179,7 +179,7 @@ describe('Import Pokepaste', () => {
     team.pokemonOnEditAttacksIs("Alluring Voice", "Chilling Water", "Baton Pass", "Calm Mind")
     team.pokemonOnEditEvsIs(252, 0, 0, 252, 0, 0)
     team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
-    
+
     team.selectPokemon("Floette")
     team.pokemonOnEditIs("Floette", "Flower Veil", "Fairy", "Leftovers", "Modest")
     team.pokemonOnEditAttacksIs("Alluring Voice", "Chilling Water", "Baton Pass", "Calm Mind")
@@ -207,7 +207,7 @@ describe('Import Pokepaste', () => {
     team.pokemonOnEditAttacksIs("Alluring Voice", "Chilling Water", "Baton Pass", "Calm Mind")
     team.pokemonOnEditEvsIs(252, 0, 0, 252, 0, 0)
     team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
-    
+
     team.selectPokemon("Floette")
     team.pokemonOnEditIs("Floette", "Flower Veil", "Fairy", "Leftovers", "Modest")
     team.pokemonOnEditAttacksIs("Alluring Voice", "Chilling Water", "Baton Pass", "Calm Mind")

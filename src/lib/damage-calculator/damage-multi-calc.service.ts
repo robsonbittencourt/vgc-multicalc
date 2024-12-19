@@ -1,11 +1,11 @@
-import { inject } from "@angular/core";
-import { MenuStore } from "src/data/store/menu-store";
-import { Field } from "../model/field";
-import { Pokemon } from "../model/pokemon";
-import { Target } from "../model/target";
-import { DamageCalculatorService } from "./damage-calculator.service";
-import { DamageResult } from "./damage-result";
-import { DamageResultOrderService } from "./damage-result-order.service";
+import { inject } from "@angular/core"
+import { MenuStore } from "@data/store/menu-store"
+import { DamageCalculatorService } from "@lib/damage-calculator/damage-calculator.service"
+import { DamageResult } from "@lib/damage-calculator/damage-result"
+import { DamageResultOrderService } from "@lib/damage-calculator/damage-result-order.service"
+import { Field } from "@lib/model/field"
+import { Pokemon } from "@lib/model/pokemon"
+import { Target } from "@lib/model/target"
 
 export class DamageMultiCalcService {
 

@@ -1,5 +1,5 @@
-import { Move } from "./move"
-import { MoveSet } from "./moveset"
+import { Move } from "@lib/model/move"
+import { MoveSet } from "@lib/model/moveset"
 
 describe("MoveSet", () => {
   it("should set the correct active move", () => {

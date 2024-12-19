@@ -1,13 +1,13 @@
-import { provideExperimentalZonelessChangeDetection } from '@angular/core'
-import { TestBed } from '@angular/core/testing'
-import { Field as FieldSmogon, Move as MoveSmogon } from '@robsonbittencourt/calc'
-import { Field } from '../model/field'
-import { Move } from '../model/move'
-import { MoveSet } from '../model/moveset'
-import { Pokemon } from '../model/pokemon'
-import { Target } from '../model/target'
-import { CALC_ADJUSTERS, CalcAdjuster } from './calc-adjuster/calc-adjuster'
-import { DamageCalculatorService } from './damage-calculator.service'
+import { provideExperimentalZonelessChangeDetection } from "@angular/core"
+import { TestBed } from "@angular/core/testing"
+import { CALC_ADJUSTERS, CalcAdjuster } from "@lib/damage-calculator/calc-adjuster/calc-adjuster"
+import { DamageCalculatorService } from "@lib/damage-calculator/damage-calculator.service"
+import { Field } from "@lib/model/field"
+import { Move } from "@lib/model/move"
+import { MoveSet } from "@lib/model/moveset"
+import { Pokemon } from "@lib/model/pokemon"
+import { Target } from "@lib/model/target"
+import { Field as FieldSmogon, Move as MoveSmogon } from "@robsonbittencourt/calc"
 
 describe("Damage Calculator Service", () => {
   let service: DamageCalculatorService
@@ -15,8 +15,8 @@ describe("Damage Calculator Service", () => {
   let adjusterTwoSpy: jasmine.SpyObj<CalcAdjuster>
 
   beforeEach(() => {
-    adjusterOneSpy = jasmine.createSpyObj('AdjusterOne', ['adjust'])
-    adjusterTwoSpy = jasmine.createSpyObj('AdjusterTwo', ['adjust'])
+    adjusterOneSpy = jasmine.createSpyObj("AdjusterOne", ["adjust"])
+    adjusterTwoSpy = jasmine.createSpyObj("AdjusterTwo", ["adjust"])
 
     TestBed.configureTestingModule({
       providers: [
@@ -31,7 +31,7 @@ describe("Damage Calculator Service", () => {
   })
 
   it("should calculate damage", () => {
-    const attacker = new Pokemon('Raging Bolt', { moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Thunderclap"), new Move("Draco Meteor"), new Move("Protect")) })
+    const attacker = new Pokemon("Raging Bolt", { moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Thunderclap"), new Move("Draco Meteor"), new Move("Protect")) })
     const target = new Target(new Pokemon("Flutter Mane"))
     const field = new Field()
 
@@ -48,7 +48,7 @@ describe("Damage Calculator Service", () => {
   })
 
   it("should calculate damage to all attacks", () => {
-    const attacker = new Pokemon('Raging Bolt', { moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Thunderclap"), new Move("Draco Meteor"), new Move("Protect")) })
+    const attacker = new Pokemon("Raging Bolt", { moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Thunderclap"), new Move("Draco Meteor"), new Move("Protect")) })
     const target = new Target(new Pokemon("Flutter Mane"))
     const field = new Field()
 
@@ -94,8 +94,8 @@ describe("Damage Calculator Service", () => {
   })
 
   it("should calculate damage to two attackers", () => {
-    const attacker = new Pokemon('Raging Bolt', { moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Thunderclap"), new Move("Draco Meteor"), new Move("Protect")) })
-    const secondAttacker = new Pokemon('Rillaboom', { moveSet: new MoveSet(new Move("Grassy Glide"), new Move("Fake Out"), new Move("Wood Hammer"), new Move("High Horsepower")) })
+    const attacker = new Pokemon("Raging Bolt", { moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Thunderclap"), new Move("Draco Meteor"), new Move("Protect")) })
+    const secondAttacker = new Pokemon("Rillaboom", { moveSet: new MoveSet(new Move("Grassy Glide"), new Move("Fake Out"), new Move("Wood Hammer"), new Move("High Horsepower")) })
     const target = new Target(new Pokemon("Flutter Mane"))
     const field = new Field()
 
@@ -121,8 +121,8 @@ describe("Damage Calculator Service", () => {
   })
 
   it("should calculate damage to two attackers without damage", () => {
-    const attacker = new Pokemon('Jolteon', { moveSet: new MoveSet(new Move("Thunder"), new Move("Thunderbolt"), new Move("Quick Attack"), new Move("Protect")) })
-    const secondAttacker = new Pokemon('Zapdos', { moveSet: new MoveSet(new Move("Thunder"), new Move("Thunderbolt"), new Move("Air Slash"), new Move("Protect")) })
+    const attacker = new Pokemon("Jolteon", { moveSet: new MoveSet(new Move("Thunder"), new Move("Thunderbolt"), new Move("Quick Attack"), new Move("Protect")) })
+    const secondAttacker = new Pokemon("Zapdos", { moveSet: new MoveSet(new Move("Thunder"), new Move("Thunderbolt"), new Move("Air Slash"), new Move("Protect")) })
     const target = new Target(new Pokemon("Ting-Lu"))
     const field = new Field()
 
@@ -134,7 +134,7 @@ describe("Damage Calculator Service", () => {
 
   it("should adjust inputs before calculation", () => {
     const activeMove = new Move("Thunderbolt")
-    const attacker = new Pokemon('Raging Bolt', { moveSet: new MoveSet(activeMove, new Move("Thunderclap"), new Move("Draco Meteor"), new Move("Protect")) })
+    const attacker = new Pokemon("Raging Bolt", { moveSet: new MoveSet(activeMove, new Move("Thunderclap"), new Move("Draco Meteor"), new Move("Protect")) })
     const targetPokemon = new Pokemon("Flutter Mane")
     const target = new Target(targetPokemon)
     const field = new Field()
@@ -147,8 +147,8 @@ describe("Damage Calculator Service", () => {
 
   it("should adjust inputs before calculation when have second attacker", () => {
     const activeMove = new Move("Thunderbolt")
-    const attacker = new Pokemon('Raging Bolt', { moveSet: new MoveSet(activeMove, new Move("Thunderclap"), new Move("Draco Meteor"), new Move("Protect")) })
-    const secondAttacker = new Pokemon('Rillaboom', { moveSet: new MoveSet(new Move("Grassy Glide"), new Move("Fake Out"), new Move("Wood Hammer"), new Move("High Horsepower")) })
+    const attacker = new Pokemon("Raging Bolt", { moveSet: new MoveSet(activeMove, new Move("Thunderclap"), new Move("Draco Meteor"), new Move("Protect")) })
+    const secondAttacker = new Pokemon("Rillaboom", { moveSet: new MoveSet(new Move("Grassy Glide"), new Move("Fake Out"), new Move("Wood Hammer"), new Move("High Horsepower")) })
     const targetPokemon = new Pokemon("Flutter Mane")
     const target = new Target(targetPokemon)
     const field = new Field()

@@ -1,5 +1,5 @@
-import { Opponent } from "cypress/page-object/opponent"
-import { Team } from "cypress/page-object/team"
+import { Opponent } from "@page-object/opponent"
+import { Team } from "@page-object/team"
 
 const team = new Team()
 const opponents = new Opponent()
@@ -13,11 +13,11 @@ before(() => {
 })
 
 beforeEach(() => {
-  cy.get('[data-cy="many-vs-team"]').click({force: true})
+  cy.get('[data-cy="many-vs-team"]').click({ force: true })
 
   team.delete("Team 1")
   team.importPokepaste(defaultTeamData)
-  
+
   opponents.deleteAll()
   opponents.importPokemon(defaultOpponentsData)
 })

@@ -1,5 +1,5 @@
-import { Pokemon } from '../../model/pokemon';
-import { Target } from '../../model/target';
+import { Pokemon } from '@lib/model/pokemon';
+import { Target } from '@lib/model/target';
 import { CommanderAdjuster } from './commander-adjuster';
 
 describe("Commander Adjuster", () => {

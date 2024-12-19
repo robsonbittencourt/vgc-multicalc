@@ -1,4 +1,4 @@
-import { PokemonBuild } from "cypress/page-object/pokemon-build"
+import { PokemonBuild } from "@page-object/pokemon-build"
 
 const leftPokemonBuild = new PokemonBuild("left-pokemon")
 

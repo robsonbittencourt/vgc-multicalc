@@ -1,5 +1,5 @@
-import { DamageResult } from "cypress/page-object/damage-result"
-import { PokemonBuild } from "cypress/page-object/pokemon-build"
+import { DamageResult } from "@page-object/damage-result"
+import { PokemonBuild } from "@page-object/pokemon-build"
 
 const leftDamageResult = new DamageResult("left-damage-result")
 const rightDamageResult = new DamageResult("right-damage-result")
@@ -42,7 +42,7 @@ describe('Test calcs from moves with some mechanic', () => {
 
     it('with item', () => {
       leftPokemonBuild.selectAttackFour()
-      
+
       leftDamageResult.damageIs(3, 72.9, 85.9, 151, 178)
       rightDamageResult.surviveWithThisHpAmmount(29)
     })
@@ -50,7 +50,7 @@ describe('Test calcs from moves with some mechanic', () => {
     it('without item', () => {
       rightPokemonBuild.selectItem("(none)")
       leftPokemonBuild.selectAttackFour()
-      
+
       leftDamageResult.damageIs(3, 49.2, 57.9, 102, 120)
       rightDamageResult.surviveWithThisHpAmmount(87)
     })
@@ -104,21 +104,21 @@ describe('Test calcs from moves with some mechanic', () => {
 
     it('with 100% hp', () => {
       leftPokemonBuild.hpPercentage(100)
-      
+
       leftDamageResult.damageIs(0, 110.7, 132.2, 206, 246)
       rightDamageResult.isFainted()
     })
 
     it('with 75% hp', () => {
       leftPokemonBuild.hpPercentage(75)
-      
+
       leftDamageResult.damageIs(0, 81.7, 97.8, 152, 182)
       rightDamageResult.surviveWithThisHpAmmount(4)
     })
 
     it('with 10% hp', () => {
       leftPokemonBuild.hpPercentage(10)
-      
+
       leftDamageResult.damageIs(0, 10.7, 13.9, 20, 26)
       rightDamageResult.surviveWithThisHpAmmount(160)
     })
@@ -132,28 +132,28 @@ describe('Test calcs from moves with some mechanic', () => {
 
     it('with 100% hp', () => {
       leftPokemonBuild.hpPercentage(100)
-      
+
       leftDamageResult.damageIs(0, 26.3, 31.1, 49, 58)
       rightDamageResult.surviveWithThisHpAmmount(128)
     })
 
     it('with 34% hp', () => {
       leftPokemonBuild.hpPercentage(34)
-      
+
       leftDamageResult.damageIs(0, 26.3, 31.1, 49, 58)
       rightDamageResult.surviveWithThisHpAmmount(128)
     })
 
     it('with 33% hp', () => {
       leftPokemonBuild.hpPercentage(33)
-      
+
       leftDamageResult.damageIs(0, 39.2, 46.7, 73, 87)
       rightDamageResult.surviveWithThisHpAmmount(99)
     })
 
     it('with 1% hp', () => {
       leftPokemonBuild.hpPercentage(1)
-      
+
       leftDamageResult.damageIs(0, 39.2, 46.7, 73, 87)
       rightDamageResult.surviveWithThisHpAmmount(99)
     })

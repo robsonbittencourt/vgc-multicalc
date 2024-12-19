@@ -1,19 +1,19 @@
-import { Component, computed, effect, inject, input, signal } from '@angular/core'
-import { CalculatorStore } from 'src/data/store/calculator-store'
-import { FieldStore } from 'src/data/store/field-store'
-import { SpeedCalcOptionsStore } from 'src/data/store/speed-calc-options-store'
-import { ACTUAL } from 'src/lib/constants'
-import { Field } from 'src/lib/model/field'
-import { Pokemon } from 'src/lib/model/pokemon'
-import { SpeedCalculatorOptions as SpeedScaleOptions } from 'src/lib/speed-calculator/speed-calculator-options'
-import { SpeedCalculatorService } from 'src/lib/speed-calculator/speed-calculator-service'
-import { SpeedDefinition } from 'src/lib/speed-calculator/speed-definition'
-import { SpeedBoxComponent } from '../speed-box/speed-box.component'
+import { Component, computed, effect, inject, input, signal } from "@angular/core"
+import { SpeedBoxComponent } from "@app/speed-box/speed-box.component"
+import { CalculatorStore } from "@data/store/calculator-store"
+import { FieldStore } from "@data/store/field-store"
+import { SpeedCalcOptionsStore } from "@data/store/speed-calc-options-store"
+import { ACTUAL } from "@lib/constants"
+import { Field } from "@lib/model/field"
+import { Pokemon } from "@lib/model/pokemon"
+import { SpeedCalculatorOptions as SpeedScaleOptions } from "@lib/speed-calculator/speed-calculator-options"
+import { SpeedCalculatorService } from "@lib/speed-calculator/speed-calculator-service"
+import { SpeedDefinition } from "@lib/speed-calculator/speed-definition"
 
 @Component({
-  selector: 'app-speed-scale',
-  templateUrl: './speed-scale.component.html',
-  styleUrls: ['./speed-scale.component.scss'],
+  selector: "app-speed-scale",
+  templateUrl: "./speed-scale.component.html",
+  styleUrls: ["./speed-scale.component.scss"],
   imports: [SpeedBoxComponent]
 })
 export class SpeedScaleComponent {

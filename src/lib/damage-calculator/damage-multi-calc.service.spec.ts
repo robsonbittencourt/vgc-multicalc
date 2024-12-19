@@ -1,15 +1,15 @@
-import { provideExperimentalZonelessChangeDetection } from '@angular/core'
-import { TestBed } from '@angular/core/testing'
-import { MenuStore } from "../../data/store/menu-store"
-import { Field } from '../model/field'
-import { Pokemon } from '../model/pokemon'
-import { Target } from '../model/target'
-import { DamageCalculatorService } from './damage-calculator.service'
-import { DamageMultiCalcService } from './damage-multi-calc.service'
-import { DamageResult } from './damage-result'
-import { DamageResultOrderService } from './damage-result-order.service'
+import { provideExperimentalZonelessChangeDetection } from "@angular/core"
+import { TestBed } from "@angular/core/testing"
+import { MenuStore } from "@data/store/menu-store"
+import { DamageCalculatorService } from "@lib/damage-calculator/damage-calculator.service"
+import { DamageMultiCalcService } from "@lib/damage-calculator/damage-multi-calc.service"
+import { DamageResult } from "@lib/damage-calculator/damage-result"
+import { DamageResultOrderService } from "@lib/damage-calculator/damage-result-order.service"
+import { Field } from "@lib/model/field"
+import { Pokemon } from "@lib/model/pokemon"
+import { Target } from "@lib/model/target"
 
-describe('DamageMultiCalcService', () => {
+describe("DamageMultiCalcService", () => {
   let service: DamageMultiCalcService
 
   let menuStoreSpy: any
@@ -17,9 +17,9 @@ describe('DamageMultiCalcService', () => {
   let damageOrderSpy: jasmine.SpyObj<DamageResultOrderService>
 
   beforeEach(() => {
-    menuStoreSpy = jasmine.createSpyObj('MenuStore', ['oneVsManyActivated'])
-    damageCalculatorSpy = jasmine.createSpyObj('DamageCalculatorService', ['calcDamage', 'calcDamageForTwoAttackers'])
-    damageOrderSpy = jasmine.createSpyObj('DamageResultOrderService', ['order'])
+    menuStoreSpy = jasmine.createSpyObj("MenuStore", ["oneVsManyActivated"])
+    damageCalculatorSpy = jasmine.createSpyObj("DamageCalculatorService", ["calcDamage", "calcDamageForTwoAttackers"])
+    damageOrderSpy = jasmine.createSpyObj("DamageResultOrderService", ["order"])
 
     TestBed.configureTestingModule({
       providers: [
@@ -34,12 +34,12 @@ describe('DamageMultiCalcService', () => {
     service = TestBed.inject(DamageMultiCalcService)
   })
 
-  describe('one vs many', () => {
-    it('should calculate damage for one vs many with one attacker', () => {
+  describe("one vs many", () => {
+    it("should calculate damage for one vs many with one attacker", () => {
       menuStoreSpy.oneVsManyActivated.and.returnValue(true)
 
       const field = new Field()
-      const attacker = new Pokemon('Raging Bolt')
+      const attacker = new Pokemon("Raging Bolt")
 
       const target1 = new Target(new Pokemon("Flutter Mane"))
       const target2 = new Target(new Pokemon("Iron Bundle"))
@@ -64,12 +64,12 @@ describe('DamageMultiCalcService', () => {
       expect(result[2].id).toEqual(damageResult3.id)
     })
 
-    it('should calculate damage for one vs many with two attackers', () => {
+    it("should calculate damage for one vs many with two attackers", () => {
       menuStoreSpy.oneVsManyActivated.and.returnValue(true)
 
       const field = new Field()
-      const attacker = new Pokemon('Raging Bolt')
-      const secondAttacker = new Pokemon('Walking Wake')
+      const attacker = new Pokemon("Raging Bolt")
+      const secondAttacker = new Pokemon("Walking Wake")
 
       const target1 = new Target(new Pokemon("Flutter Mane"))
       const target2 = new Target(new Pokemon("Iron Bundle"))
@@ -94,12 +94,12 @@ describe('DamageMultiCalcService', () => {
     })
   })
 
-  describe('many vs one', () => {
-    it('should calculate damage for many vs one with one attacker', () => {
+  describe("many vs one", () => {
+    it("should calculate damage for many vs one with one attacker", () => {
       menuStoreSpy.oneVsManyActivated.and.returnValue(false)
 
       const field = new Field()
-      const teamMember = new Pokemon('Raging Bolt')
+      const teamMember = new Pokemon("Raging Bolt")
 
       const target1 = new Target(new Pokemon("Flutter Mane"))
       const target2 = new Target(new Pokemon("Iron Bundle"))
@@ -124,11 +124,11 @@ describe('DamageMultiCalcService', () => {
       expect(result[2].id).toEqual(damageResult3.id)
     })
 
-    it('should calculate damage for many vs one with two attacker', () => {
+    it("should calculate damage for many vs one with two attacker", () => {
       menuStoreSpy.oneVsManyActivated.and.returnValue(false)
 
       const field = new Field()
-      const teamMember = new Pokemon('Raging Bolt')
+      const teamMember = new Pokemon("Raging Bolt")
 
       const target1 = new Target(new Pokemon("Flutter Mane"), true)
       const target2 = new Target(new Pokemon("Iron Bundle"))

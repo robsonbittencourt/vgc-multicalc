@@ -1,17 +1,17 @@
-import { NgStyle } from '@angular/common'
-import { Component, computed, inject, input, output } from '@angular/core'
-import { MatCard, MatCardMdImage, MatCardSubtitle, MatCardTitle, MatCardTitleGroup } from '@angular/material/card'
-import { MatIcon } from '@angular/material/icon'
-import { MatTooltip } from '@angular/material/tooltip'
-import { CalculatorStore } from 'src/data/store/calculator-store'
-import { MenuStore } from 'src/data/store/menu-store'
-import { DamageResult } from 'src/lib/damage-calculator/damage-result'
-import { Target } from 'src/lib/model/target'
+import { NgStyle } from "@angular/common"
+import { Component, computed, inject, input, output } from "@angular/core"
+import { MatCard, MatCardMdImage, MatCardSubtitle, MatCardTitle, MatCardTitleGroup } from "@angular/material/card"
+import { MatIcon } from "@angular/material/icon"
+import { MatTooltip } from "@angular/material/tooltip"
+import { CalculatorStore } from "@data/store/calculator-store"
+import { MenuStore } from "@data/store/menu-store"
+import { DamageResult } from "@lib/damage-calculator/damage-result"
+import { Target } from "@lib/model/target"
 
 @Component({
-  selector: 'app-pokemon-card',
-  templateUrl: './pokemon-card.component.html',
-  styleUrls: ['./pokemon-card.component.scss'],
+  selector: "app-pokemon-card",
+  templateUrl: "./pokemon-card.component.html",
+  styleUrls: ["./pokemon-card.component.scss"],
   imports: [MatCard, NgStyle, MatCardTitleGroup, MatCardTitle, MatCardSubtitle, MatTooltip, MatIcon, MatCardMdImage]
 })
 export class PokemonCardComponent {
@@ -56,9 +56,9 @@ export class PokemonCardComponent {
   }
 
   cardStyle(): any {
-    const cardStyleSelectPokemon = { 'background-color': '#e7def6' }
-    const cardStyle = { 'background-color': this.cardColor(this.damageResult().koChance) }
-    const cardWithBorder = { 'border': '4px', 'border-style': 'solid', 'border-color': '#8544ee' }
+    const cardStyleSelectPokemon = { "background-color": "#e7def6" }
+    const cardStyle = { "background-color": this.cardColor(this.damageResult().koChance) }
+    const cardWithBorder = { "border": "4px", "border-style": "solid", "border-color": "#8544ee" }
 
     if (this.target().active && this.target().pokemon.isDefault()) {
       return { ...cardStyleSelectPokemon, ...cardWithBorder }

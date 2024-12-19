@@ -1,19 +1,19 @@
-import { Component, computed, inject, input, output } from '@angular/core';
-import { AllPokemon } from 'src/data/all-pokemon';
-import { SETDEX_SV } from 'src/data/movesets';
-import { CalculatorStore } from 'src/data/store/calculator-store';
-import { InputAutocompleteComponent } from '../input-autocomplete/input-autocomplete.component';
+import { Component, computed, inject, input, output } from "@angular/core"
+import { InputAutocompleteComponent } from "@app/input-autocomplete/input-autocomplete.component"
+import { AllPokemon } from "@data/all-pokemon"
+import { SETDEX_SV } from "@data/movesets"
+import { CalculatorStore } from "@data/store/calculator-store"
 
 @Component({
-    selector: 'app-pokemon-combo-box',
-    templateUrl: './pokemon-combo-box.component.html',
-    styleUrls: ['./pokemon-combo-box.component.scss'],
-    imports: [InputAutocompleteComponent]
+  selector: "app-pokemon-combo-box",
+  templateUrl: "./pokemon-combo-box.component.html",
+  styleUrls: ["./pokemon-combo-box.component.scss"],
+  imports: [InputAutocompleteComponent]
 })
 export class PokemonComboBoxComponent {
 
   store = inject(CalculatorStore)
-  
+
   pokemonId = input.required<string>()
 
   pokemonChanged = output()
@@ -25,7 +25,7 @@ export class PokemonComboBoxComponent {
   onValueManuallySelected(pokemonName: string) {
     const poke = SETDEX_SV[pokemonName]
 
-    if(poke) {
+    if (poke) {
       this.store.name(this.pokemonId(), pokemonName)
       this.store.nature(this.pokemonId(), poke.nature)
       this.store.item(this.pokemonId(), poke.item)

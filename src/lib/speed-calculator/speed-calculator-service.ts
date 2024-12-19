@@ -1,16 +1,16 @@
 import { Injectable, inject } from "@angular/core"
+import { ACTUAL, BOOSTER, MAX, META, MIN, SCARF } from "@lib/constants"
+import { FieldMapper } from "@lib/field-mapper"
+import { Field } from "@lib/model/field"
+import { Pokemon } from "@lib/model/pokemon"
+import { SmogonFunctions } from "@lib/smogon-functions/smogon-functions"
+import { SpeedCalculatorOptions } from "@lib/speed-calculator/speed-calculator-options"
+import { SpeedDefinition } from "@lib/speed-calculator/speed-definition"
+import { speedMeta } from "@lib/speed-calculator/speed-meta"
 import { Generations, Pokemon as PokemonSmogon, Field as SmogonField } from "@robsonbittencourt/calc"
-import { ACTUAL, BOOSTER, MAX, META, MIN, SCARF } from "../constants"
-import { FieldMapper } from "../field-mapper"
-import { Field } from "../model/field"
-import { Pokemon } from "../model/pokemon"
-import { SmogonFunctions } from "../smogon-functions/smogon-functions"
-import { SpeedCalculatorOptions } from "./speed-calculator-options"
-import { SpeedDefinition } from "./speed-definition"
-import { speedMeta } from "./speed-meta"
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class SpeedCalculatorService {
   private smogonService = inject(SmogonFunctions)
@@ -42,7 +42,7 @@ export class SpeedCalculatorService {
       speedDefinitions.push(this.maxSpeed(p, smogonField))
       speedDefinitions.push(this.maxMeta(p, smogonField))
 
-      if (p.item == 'Choice Scarf') {
+      if (p.item == "Choice Scarf") {
         speedDefinitions.push(this.maxScarf(p, smogonField))
       }
 

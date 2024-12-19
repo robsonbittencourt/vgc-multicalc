@@ -1,5 +1,5 @@
-import { Pokemon } from "../model/pokemon"
-import { DamageResult } from "./damage-result"
+import { DamageResult } from "@lib/damage-calculator/damage-result"
+import { Pokemon } from "@lib/model/pokemon"
 
 describe('DamageMultiCalcService', () => {
 

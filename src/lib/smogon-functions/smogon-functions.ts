@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core"
+import { Pokemon } from "@lib/model/pokemon"
 import { Field, Side } from "@robsonbittencourt/calc"
 import { StatID } from "@robsonbittencourt/calc/dist/data/interface"
-import { Pokemon } from "../model/pokemon"
 
 @Injectable()
 export class SmogonFunctions {

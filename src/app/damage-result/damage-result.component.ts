@@ -1,19 +1,19 @@
-import { NgStyle } from '@angular/common'
-import { Component, computed, input, output, signal } from '@angular/core'
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { MatButtonToggle, MatButtonToggleGroup } from '@angular/material/button-toggle'
-import { MatChipListbox, MatChipListboxChange, MatChipOption } from '@angular/material/chips'
-import { MatIcon } from '@angular/material/icon'
-import { MatTooltip } from '@angular/material/tooltip'
-import { DamageResult } from 'src/lib/damage-calculator/damage-result'
-import { RollLevelConfig } from 'src/lib/damage-calculator/roll-level-config'
-import { Pokemon } from 'src/lib/model/pokemon'
-import { PokemonHpBadgeComponent } from '../pokemon-hp-badge/pokemon-hp-badge.component'
+import { NgStyle } from "@angular/common"
+import { Component, computed, input, output, signal } from "@angular/core"
+import { FormsModule, ReactiveFormsModule } from "@angular/forms"
+import { MatButtonToggle, MatButtonToggleGroup } from "@angular/material/button-toggle"
+import { MatChipListbox, MatChipListboxChange, MatChipOption } from "@angular/material/chips"
+import { MatIcon } from "@angular/material/icon"
+import { MatTooltip } from "@angular/material/tooltip"
+import { PokemonHpBadgeComponent } from "@app/pokemon-hp-badge/pokemon-hp-badge.component"
+import { DamageResult } from "@lib/damage-calculator/damage-result"
+import { RollLevelConfig } from "@lib/damage-calculator/roll-level-config"
+import { Pokemon } from "@lib/model/pokemon"
 
 @Component({
-  selector: 'app-damage-result',
-  templateUrl: './damage-result.component.html',
-  styleUrls: ['./damage-result.component.scss'],
+  selector: "app-damage-result",
+  templateUrl: "./damage-result.component.html",
+  styleUrls: ["./damage-result.component.scss"],
   imports: [NgStyle, PokemonHpBadgeComponent, MatButtonToggleGroup, MatButtonToggle, MatChipListbox, ReactiveFormsModule, FormsModule, MatChipOption, MatIcon, MatTooltip]
 })
 export class DamageResultComponent {

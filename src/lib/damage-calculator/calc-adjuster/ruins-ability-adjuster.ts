@@ -1,11 +1,11 @@
 import { Injectable } from "@angular/core"
-import { Field as FieldSmogon, Move as MoveSmogon } from '@robsonbittencourt/calc'
-import { Move } from "src/lib/model/move"
-import { Pokemon } from "src/lib/model/pokemon"
-import { CalcAdjuster } from "./calc-adjuster"
+import { CalcAdjuster } from "@lib/damage-calculator/calc-adjuster/calc-adjuster"
+import { Move } from "@lib/model/move"
+import { Pokemon } from "@lib/model/pokemon"
+import { Field as FieldSmogon, Move as MoveSmogon } from "@robsonbittencourt/calc"
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class RuinsAbilityAdjuster implements CalcAdjuster {
   adjust(attacker: Pokemon, target: Pokemon, move: Move, moveSmogon: MoveSmogon, field: FieldSmogon, secondAttacker?: Pokemon) {

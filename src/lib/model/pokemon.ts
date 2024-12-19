@@ -1,12 +1,12 @@
+import { AllPokemon } from "@data/all-pokemon"
+import { Items } from "@data/items"
+import { Move } from "@lib/model/move"
+import { MoveSet } from "@lib/model/moveset"
+import { Stats } from "@lib/types"
 import { Generations, Pokemon as PokemonSmogon } from "@robsonbittencourt/calc"
 import { StatsTable, StatusName, TypeName } from "@robsonbittencourt/calc/dist/data/interface"
 import dedent from "dedent"
-import { AllPokemon } from "src/data/all-pokemon"
-import { Items } from "src/data/items"
 import { v4 as uuidv4 } from 'uuid'
-import { Stats } from "../types"
-import { Move } from "./move"
-import { MoveSet } from "./moveset"
 
 type PokemonParameters = {
   id?: string,

@@ -1,4 +1,4 @@
-import { Move } from "./move"
+import { Move } from "@lib/model/move"
 
 describe("Move", () => {
   it("should initialize with the correct options", () => {

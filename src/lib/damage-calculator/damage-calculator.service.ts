@@ -1,14 +1,14 @@
-import { inject, Injectable } from '@angular/core'
-import { calculate, Generations, Move as MoveSmogon, Result } from '@robsonbittencourt/calc'
-import { FieldMapper } from '../field-mapper'
-import { Field } from '../model/field'
-import { Move } from '../model/move'
-import { Pokemon } from '../model/pokemon'
-import { CALC_ADJUSTERS } from './calc-adjuster/calc-adjuster'
-import { DamageResult } from './damage-result'
+import { inject, Injectable } from "@angular/core"
+import { CALC_ADJUSTERS } from "@lib/damage-calculator/calc-adjuster/calc-adjuster"
+import { DamageResult } from "@lib/damage-calculator/damage-result"
+import { FieldMapper } from "@lib/field-mapper"
+import { Field } from "@lib/model/field"
+import { Move } from "@lib/model/move"
+import { Pokemon } from "@lib/model/pokemon"
+import { calculate, Generations, Move as MoveSmogon, Result } from "@robsonbittencourt/calc"
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class DamageCalculatorService {
   ZERO_RESULT_DAMAGE = Array(16).fill(0)

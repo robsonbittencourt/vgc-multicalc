@@ -1,11 +1,11 @@
-import { provideExperimentalZonelessChangeDetection } from '@angular/core'
-import { TestBed } from '@angular/core/testing'
-import { Move } from "../../lib/model/move"
-import { Pokemon } from '../../lib/model/pokemon'
-import { Target } from "../../lib/model/target"
-import { Team } from "../../lib/model/team"
-import { TeamMember } from '../../lib/model/team-member'
-import { CalculatorStore } from './calculator-store'
+import { provideExperimentalZonelessChangeDetection } from "@angular/core"
+import { TestBed } from "@angular/core/testing"
+import { CalculatorStore } from "@data/store/calculator-store"
+import { Move } from "@lib/model/move"
+import { Pokemon } from "@lib/model/pokemon"
+import { Target } from "@lib/model/target"
+import { Team } from "@lib/model/team"
+import { TeamMember } from "@lib/model/team-member"
 
 describe("Calculator Store", () => {
   let store: any
@@ -532,11 +532,11 @@ describe("Calculator Store", () => {
       beforeEach(() => {
         var store: { [key: string]: string | null } = {}
 
-        spyOn(localStorage, 'getItem').and.callFake((key: string): string | null => {
+        spyOn(localStorage, "getItem").and.callFake((key: string): string | null => {
           return store[key] || null
         })
 
-        spyOn(localStorage, 'setItem').and.callFake((key: string, value: string): void => {
+        spyOn(localStorage, "setItem").and.callFake((key: string, value: string): void => {
           store[key] = value
         })
       })
@@ -574,7 +574,7 @@ describe("Calculator Store", () => {
 
         TestBed.flushEffects()
 
-        const actualStorage = JSON.parse(localStorage.getItem('userData')!)
+        const actualStorage = JSON.parse(localStorage.getItem("userData")!)
         expect(actualStorage.teams[0].teamMembers[0].pokemon.name).toBe("Pikachu")
       })
 
@@ -583,7 +583,7 @@ describe("Calculator Store", () => {
 
         TestBed.flushEffects()
 
-        const actualStorage = JSON.parse(localStorage.getItem('userData')!)
+        const actualStorage = JSON.parse(localStorage.getItem("userData")!)
         expect(actualStorage.leftPokemon.name).toBe("Gholdengo")
       })
     })

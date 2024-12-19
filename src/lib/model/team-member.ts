@@ -1,6 +1,5 @@
-import { DamageResult } from "../damage-calculator/damage-result"
-import { Pokemon } from "./pokemon"
-
+import { DamageResult } from "@lib/damage-calculator/damage-result"
+import { Pokemon } from "@lib/model/pokemon"
 
 export class TeamMember {
   pokemon: Pokemon

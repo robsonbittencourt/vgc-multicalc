@@ -1,6 +1,6 @@
-import { Pokemon } from '../../model/pokemon'
-import { Target } from '../../model/target'
-import { ParadoxAbilityAdjuster } from './paradox-ability-adjuster'
+import { ParadoxAbilityAdjuster } from "@lib/damage-calculator/calc-adjuster/paradox-ability-adjuster"
+import { Pokemon } from '@lib/model/pokemon'
+import { Target } from '@lib/model/target'
 
 describe("Paradox Ability Adjuster", () => {
   it("should set atk as boosted stat when this stat is the highest", () => {

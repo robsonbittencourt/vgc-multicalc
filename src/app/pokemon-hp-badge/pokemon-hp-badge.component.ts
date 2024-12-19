@@ -1,12 +1,12 @@
-import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { Items } from 'src/data/items';
-import { NgStyle } from '@angular/common';
+import { NgStyle } from "@angular/common"
+import { AfterViewInit, Component, ElementRef, Input, ViewChild } from "@angular/core"
+import { Items } from "@data/items"
 
 @Component({
-    selector: 'app-pokemon-hp-badge',
-    templateUrl: './pokemon-hp-badge.component.html',
-    styleUrls: ['./pokemon-hp-badge.component.scss'],
-    imports: [NgStyle]
+  selector: "app-pokemon-hp-badge",
+  templateUrl: "./pokemon-hp-badge.component.html",
+  styleUrls: ["./pokemon-hp-badge.component.scss"],
+  imports: [NgStyle]
 })
 export class PokemonHpBadgeComponent implements AfterViewInit {
 
@@ -20,7 +20,7 @@ export class PokemonHpBadgeComponent implements AfterViewInit {
   _spriteName: string
   _actualSpriteName: string
   _damageTaken: number
-  _item: string  
+  _item: string
 
   @Input()
   name: string
@@ -76,7 +76,7 @@ export class PokemonHpBadgeComponent implements AfterViewInit {
     this.updateHpValues()
   }
 
-  @ViewChild('pokemonImage', { static: false })
+  @ViewChild("pokemonImage", { static: false })
   pokemonImage: ElementRef<HTMLImageElement>
 
   ngAfterViewInit() {
@@ -85,10 +85,10 @@ export class PokemonHpBadgeComponent implements AfterViewInit {
   }
 
   onImageLoad() {
-    if(this.spriteName != this._actualSpriteName) {
+    if (this.spriteName != this._actualSpriteName) {
       this._actualSpriteName = this.spriteName
-      this.removeTransparentSpace()      
-    }    
+      this.removeTransparentSpace()
+    }
   }
 
   canShowItemImage(): boolean {
@@ -121,34 +121,34 @@ export class PokemonHpBadgeComponent implements AfterViewInit {
       this.hpBarColor = "#fe9901" //yellow
     } else {
       this.hpBarColor = "#30ca2e" //green
-    }    
+    }
   }
 
   removeTransparentSpace() {
     if (this.pokemonImage) {
       const image = new Image()
       image.src = this.pokemonImage?.nativeElement.src
-      
+
       image.onload = () => {
         const canvas = document.createElement("canvas")
-        const ctx = canvas.getContext('2d', { willReadFrequently: true })
-        
+        const ctx = canvas.getContext("2d", { willReadFrequently: true })
+
         if (ctx) {
           canvas.width = image.width
           canvas.height = image.height
-          
+
           ctx.drawImage(image, 0, 0)
 
           const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
           const data = imageData.data
 
           let top = canvas.height, bottom = 0, left = canvas.width, right = 0
-          
+
           for (let y = 0; y < canvas.height; y++) {
             for (let x = 0; x < canvas.width; x++) {
               const index = (y * canvas.width + x) * 4
               const alpha = data[index + 3]
-      
+
               if (alpha > 0) {
                 if (y < top) top = y
                 if (y > bottom) bottom = y
@@ -159,17 +159,17 @@ export class PokemonHpBadgeComponent implements AfterViewInit {
           }
 
           const visibleHeight = bottom - top + 1
-          const visibleWidth = right - left -  + 1
-          
+          const visibleWidth = right - left - + 1
+
           const croppedData = ctx.getImageData(left, top, visibleWidth, visibleHeight)
-          
+
           canvas.height = visibleHeight
           canvas.width = visibleWidth
 
           this.imageScale = this.calculateImageScale(visibleHeight)
-          
+
           ctx.putImageData(croppedData, 0, 0)
-          
+
           this.pokemonImage.nativeElement.src = canvas.toDataURL()
         }
       }

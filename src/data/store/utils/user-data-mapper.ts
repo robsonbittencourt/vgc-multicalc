@@ -1,7 +1,7 @@
-import { CalculatorState, PokemonState, TargetState, TeamMemberState, TeamState } from "src/data/store/calculator-store"
-import { defaultPokemon } from "src/lib/default-pokemon"
+import { CalculatorState, PokemonState, TargetState, TeamMemberState, TeamState } from "@data/store/calculator-store"
+import { stateToPokemon } from "@data/store/utils/state-mapper"
+import { defaultPokemon } from "@lib/default-pokemon"
 import { v4 as uuidv4 } from 'uuid'
-import { stateToPokemon } from "./state-mapper"
 
 export function buildUserData(speedCalcPokemon: PokemonState, leftPokemon: PokemonState, rightPokemon: PokemonState, teams: TeamState[], targets: TargetState[]) {
   return {
@@ -16,16 +16,16 @@ export function buildUserData(speedCalcPokemon: PokemonState, leftPokemon: Pokem
           .filter(t => !stateToPokemon(t.pokemon).isDefault())
           .map(t => {
             const pokemon = buildPokemonToUserData(t.pokemon)
-            
+
             return {
               "pokemon": pokemon,
               "active": t.active
             }
-          })          
-      }    
+          })
+      }
     }),
     targets: targets
-      .filter(t => !stateToPokemon(t.pokemon).isDefault())  
+      .filter(t => !stateToPokemon(t.pokemon).isDefault())
       .map(t => {
         const pokemon = buildPokemonToUserData(t.pokemon)
 
@@ -33,7 +33,7 @@ export function buildUserData(speedCalcPokemon: PokemonState, leftPokemon: Pokem
           "pokemon": pokemon
         }
       }
-    )
+      )
   }
 }
 
@@ -68,7 +68,7 @@ function buildPokemonToUserData(pokemon: PokemonState) {
       pokemon.moveSet[1].name,
       pokemon.moveSet[2].name,
       pokemon.moveSet[3].name
-    ]      
+    ]
   }
 }
 

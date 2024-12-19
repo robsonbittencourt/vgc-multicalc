@@ -1,4 +1,4 @@
-import { Pokemon } from "../model/pokemon"
+import { Pokemon } from "@lib/model/pokemon"
 
 export function speedMeta(regulation: string): Pokemon[] {
   if (regulation == "Reg G") {

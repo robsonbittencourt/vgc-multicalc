@@ -1,7 +1,7 @@
-import { DamageResult } from "cypress/page-object/damage-result"
-import { Opponent } from "cypress/page-object/opponent"
-import { PokemonBuild } from "cypress/page-object/pokemon-build"
-import { Team } from "cypress/page-object/team"
+import { DamageResult } from "@page-object/damage-result"
+import { Opponent } from "@page-object/opponent"
+import { PokemonBuild } from "@page-object/pokemon-build"
+import { Team } from "@page-object/team"
 
 const team = new Team()
 const opponents = new Opponent()
@@ -26,16 +26,16 @@ before(() => {
   cy.fixture("terapagos-terastal-data").then((data) => { terapagosTerastalData = data })
   cy.fixture("tornadus-data").then((data) => { tornadusData = data })
   cy.fixture("flutter-mane-data").then((data) => { flutterManeData = data })
-  cy.fixture("porygon2-data").then((data) => { porygon2Data = data }) 
+  cy.fixture("porygon2-data").then((data) => { porygon2Data = data })
 })
 
 describe('Test calcs with Terastal', () => {
   beforeEach(() => {
-    cy.get('[data-cy="team-vs-many"]').click({force: true})
-  
+    cy.get('[data-cy="team-vs-many"]').click({ force: true })
+
     team.delete("Team 1")
     team.importPokepaste(defaultTeamData)
-    
+
     opponents.deleteAll()
     opponents.importPokemon(defaultOpponentsData)
   })
@@ -59,14 +59,14 @@ describe('Test calcs with Terastal', () => {
     team.selectPokemon("Miraidon").selectAttackTwo()
 
     opponents.get("Ogerpon Wellspring").terastalyze()
-    
+
     opponents.get("Ogerpon Wellspring").damageIs(126.2, 148.6).causeOHKO()
   })
 })
 
 describe('Terapagos Terastal calcs', () => {
   beforeEach(() => {
-    cy.get('[data-cy="one-vs-one"]').click({force: true})
+    cy.get('[data-cy="one-vs-one"]').click({ force: true })
     leftPokemonBuild.importPokemon(terapagosTerastalData)
   })
 
@@ -139,7 +139,7 @@ describe('Terapagos Terastal calcs', () => {
 
 describe('Terapagos Stellar calcs', () => {
   beforeEach(() => {
-    cy.get('[data-cy="one-vs-one"]').click({force: true})
+    cy.get('[data-cy="one-vs-one"]').click({ force: true })
     leftPokemonBuild.importPokemon(terapagosStellarData)
   })
 

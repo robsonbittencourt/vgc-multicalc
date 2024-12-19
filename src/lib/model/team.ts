@@ -1,5 +1,5 @@
-import { Pokemon } from "./pokemon"
-import { TeamMember } from "./team-member"
+import { Pokemon } from "@lib/model/pokemon"
+import { TeamMember } from "@lib/model/team-member"
 
 export class Team {
   readonly id: string

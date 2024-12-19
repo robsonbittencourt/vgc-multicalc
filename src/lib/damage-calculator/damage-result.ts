@@ -1,5 +1,5 @@
+import { Pokemon } from "@lib/model/pokemon"
 import { v4 as uuidv4 } from 'uuid'
-import { Pokemon } from "../model/pokemon"
 
 export class DamageResult {
   readonly id: string

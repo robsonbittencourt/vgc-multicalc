@@ -1,15 +1,14 @@
-import { NoopScrollStrategy } from '@angular/cdk/overlay';
-import { Component, inject, input } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { Pokemon } from 'src/lib/model/pokemon';
-import { TeamExportModalComponent } from '../team-export-modal/team-export-modal.component';
-
-import { MatIcon } from '@angular/material/icon';
+import { NoopScrollStrategy } from "@angular/cdk/overlay"
+import { Component, inject, input } from "@angular/core"
+import { MatDialog } from "@angular/material/dialog"
+import { MatIcon } from "@angular/material/icon"
+import { TeamExportModalComponent } from "@app/team-export-modal/team-export-modal.component"
+import { Pokemon } from "@lib/model/pokemon"
 
 @Component({
-  selector: 'app-export-pokemon-button',
-  templateUrl: './export-pokemon-button.component.html',
-  styleUrls: ['./export-pokemon-button.component.scss'],
+  selector: "app-export-pokemon-button",
+  templateUrl: "./export-pokemon-button.component.html",
+  styleUrls: ["./export-pokemon-button.component.scss"],
   imports: [MatIcon]
 })
 export class ExportPokemonButtonComponent {

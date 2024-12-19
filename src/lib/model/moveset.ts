@@ -1,5 +1,5 @@
-import { MovePosition } from "../types"
-import { Move } from "./move"
+import { Move } from "@lib/model/move"
+import { MovePosition } from "@lib/types"
 
 export class MoveSet {
 

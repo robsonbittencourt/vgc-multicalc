@@ -1,6 +1,6 @@
-import { FieldAttackerSide, FieldDefenderSide } from "src/lib/model/field"
-import { GameType } from "src/lib/types"
-import { FieldState } from "../field-store"
+import { FieldState } from "@data/store/field-store"
+import { FieldAttackerSide, FieldDefenderSide } from "@lib/model/field"
+import { GameType } from "@lib/types"
 
 export function initialFieldState(): FieldState {
   const fieldUserData = JSON.parse(localStorage.getItem('userData')!)?.field

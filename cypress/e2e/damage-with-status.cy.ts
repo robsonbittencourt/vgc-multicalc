@@ -1,5 +1,5 @@
-import { Opponent } from "cypress/page-object/opponent"
-import { Team } from "cypress/page-object/team"
+import { Opponent } from "@page-object/opponent"
+import { Team } from "@page-object/team"
 
 const team = new Team()
 const opponents = new Opponent()
@@ -21,11 +21,11 @@ before(() => {
 })
 
 beforeEach(() => {
-  cy.get('[data-cy="team-vs-many"]').click({force: true})
+  cy.get('[data-cy="team-vs-many"]').click({ force: true })
 
   team.delete("Team 1")
   team.importPokepaste(defaultTeamData)
-  
+
   opponents.deleteAll()
   opponents.importPokemon(defaultOpponentsData)
 })
@@ -48,35 +48,35 @@ describe('Test calcs with status', () => {
 
     opponents.get("Calyrex Shadow").edit().paralyzed()
 
-    opponents.get("Calyrex Shadow").damageIs(18.8, 22.8).possible5HKO()    
+    opponents.get("Calyrex Shadow").damageIs(18.8, 22.8).possible5HKO()
   })
 
   it('Validate the damage using burned Guts Ursaluna with Facade', () => {
     const ursaluna = team.importPokemon(ursalunaData)
     team.selectPokemon("Ursaluna").selectAttackThree()
 
-    opponents.get("Urshifu Rapid Strike").damageIs(40, 48).cause3HKO() 
+    opponents.get("Urshifu Rapid Strike").damageIs(40, 48).cause3HKO()
 
     ursaluna.burned()
 
-    opponents.get("Urshifu Rapid Strike").damageIs(118.8, 140.5).causeOHKO() 
+    opponents.get("Urshifu Rapid Strike").damageIs(118.8, 140.5).causeOHKO()
   })
 
   it('Validate the damage using burned Guts Ursaluna with Headlong Rush', () => {
     const ursaluna = team.importPokemon(ursalunaData)
     team.selectPokemon("Ursaluna")
 
-    opponents.get("Urshifu Rapid Strike").damageIs(67.4, 80.5).cause2HKO() 
+    opponents.get("Urshifu Rapid Strike").damageIs(67.4, 80.5).cause2HKO()
 
     ursaluna.burned()
 
-    opponents.get("Urshifu Rapid Strike").damageIs(101.7, 120.5).causeOHKO() 
+    opponents.get("Urshifu Rapid Strike").damageIs(101.7, 120.5).causeOHKO()
   })
 
   it('Validate the damage using poisoned Toxic Boost Zangoose with Facade', () => {
     const zangoose = team.importPokemon(zangooseData)
     team.selectPokemon("Zangoose")
-    
+
     opponents.get("Urshifu Rapid Strike").damageIs(31.4, 37.7).haveChanceOfToCause3HKO(85.4)
 
     zangoose.poisoned()
@@ -100,7 +100,7 @@ describe('Test calcs with status', () => {
     opponents.get("Calyrex Shadow").damageIs(178.2, 212.5).causeOHKO()
 
     opponents.get("Calyrex Shadow").edit().poisoned()
-    
+
     opponents.get("Calyrex Shadow").damageIs(356.5, 420.5).causeOHKO()
   })
 

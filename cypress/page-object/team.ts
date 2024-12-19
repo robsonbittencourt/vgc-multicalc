@@ -4,7 +4,7 @@ import { PokemonBuild } from "./pokemon-build"
 import { TeamMember } from "./team-member"
 
 export class Team {
-  
+
   selectTeamMember(pokemonName: string): TeamMember {
     const teamMember = new TeamMember(pokemonName)
     teamMember.select()
@@ -17,15 +17,15 @@ export class Team {
   }
 
   add(pokemonName: string): PokemonBuild {
-    cy.get('[data-cy="add-team-member-tab"]').click({force: true})
-    cy.get('[data-cy="pokemon-select"] input').type(pokemonName, {force: true}).type("{downArrow}").type("{enter}")
+    cy.get('[data-cy="add-team-member-tab"]').click({ force: true })
+    cy.get('[data-cy="pokemon-select"] input').type(pokemonName, { force: true }).type("{downArrow}").type("{enter}")
     return new PokemonBuild("your-team")
   }
 
   teamIs(pokemonNames: string[]) {
     pokemonNames.forEach((pokemon) => {
-      this.verifyIfExists(pokemon)  
-    })   
+      this.verifyIfExists(pokemon)
+    })
   }
 
   verifyIfExists(pokemonName: string) {
@@ -37,13 +37,13 @@ export class Team {
   }
 
   selectTeam(teamName: string) {
-    cy.get('[data-cy="team-box"]').filter(`:contains(${teamName})`).click({force: true})
+    cy.get('[data-cy="team-box"]').filter(`:contains(${teamName})`).click({ force: true })
     return new Team()
   }
 
   delete(teamName: string) {
     this.selectTeam(teamName)
-    cy.get('[data-cy="delete-team-button"]').click({force: true})
+    cy.get('[data-cy="delete-team-button"]').click({ force: true })
   }
 
   pokemonOnEditNameIs(pokemonName: string) {
@@ -57,7 +57,7 @@ export class Team {
     cy.get('[data-cy="item"] input').should('have.value', item)
     cy.get('[data-cy="nature"] input').should('have.value', nature)
   }
-  
+
   pokemonOnEditAttacksIs(attackOne: string, attackTwo: string, attackThree: string, attackFour: string) {
     cy.get('[data-cy="pokemon-attack-1"] input').should('have.value', attackOne)
     cy.get('[data-cy="pokemon-attack-2"] input').should('have.value', attackTwo)
@@ -84,25 +84,25 @@ export class Team {
   }
 
   importPokemon(pokemonData: string): PokemonBuild {
-    cy.get('[data-cy="import-pokemon-to-team"]').contains("Import").click({force: true})
+    cy.get('[data-cy="import-pokemon-to-team"]').contains("Import").click({ force: true })
     new ImportModal().import(pokemonData)
     return new PokemonBuild("your-team")
   }
 
   importPokepaste(pokepaste: string) {
-    cy.get('[data-cy="import-pokepaste-to-team"]').click({force: true})
+    cy.get('[data-cy="import-pokepaste-to-team"]').click({ force: true })
     new ImportModal().import(pokepaste)
   }
 
   exportPokemon(pokemon: string): ExportModal {
     this.selectPokemon(pokemon)
-    cy.get('[data-cy="export-pokemon-from-team"]').contains("Export").click({force: true})
+    cy.get('[data-cy="export-pokemon-from-team"]').contains("Export").click({ force: true })
     return new ExportModal()
   }
 
   export(team: string): ExportModal {
-    this.selectTeam("Team 2")    
-    cy.get('[data-cy="export-team-button"]').click({force: true})
+    this.selectTeam("Team 2")
+    cy.get('[data-cy="export-team-button"]').click({ force: true })
     return new ExportModal()
   }
 

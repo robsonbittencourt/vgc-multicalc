@@ -1,21 +1,21 @@
-import { Component, computed, effect, inject, input, signal } from '@angular/core'
-import { MatIcon } from '@angular/material/icon'
-import { RouterOutlet } from '@angular/router'
-import { CalculatorStore } from 'src/data/store/calculator-store'
-import { defaultPokemon } from 'src/lib/default-pokemon'
-import { Team } from 'src/lib/model/team'
-import { TeamMember } from 'src/lib/model/team-member'
-import { v4 as uuidv4 } from 'uuid'
-import { Pokemon } from '../../lib/model/pokemon'
-import { ExportPokemonButtonComponent } from '../export-pokemon-button/export-pokemon-button.component'
-import { ImportPokemonButtonComponent } from '../import-pokemon-button/import-pokemon-button.component'
-import { PokemonBuildComponent } from '../pokemon-build/pokemon-build.component'
-import { PokemonTabComponent } from '../pokemon-tab/pokemon-tab.component'
+import { Component, computed, effect, inject, input, signal } from "@angular/core"
+import { MatIcon } from "@angular/material/icon"
+import { RouterOutlet } from "@angular/router"
+import { ExportPokemonButtonComponent } from "@app/export-pokemon-button/export-pokemon-button.component"
+import { ImportPokemonButtonComponent } from "@app/import-pokemon-button/import-pokemon-button.component"
+import { PokemonBuildComponent } from "@app/pokemon-build/pokemon-build.component"
+import { PokemonTabComponent } from "@app/pokemon-tab/pokemon-tab.component"
+import { CalculatorStore } from "@data/store/calculator-store"
+import { defaultPokemon } from "@lib/default-pokemon"
+import { Pokemon } from "@lib/model/pokemon"
+import { Team } from "@lib/model/team"
+import { TeamMember } from "@lib/model/team-member"
+import { v4 as uuidv4 } from "uuid"
 
 @Component({
-  selector: 'app-team',
-  templateUrl: './team.component.html',
-  styleUrls: ['./team.component.scss'],
+  selector: "app-team",
+  templateUrl: "./team.component.html",
+  styleUrls: ["./team.component.scss"],
   imports: [PokemonTabComponent, ImportPokemonButtonComponent, ExportPokemonButtonComponent, MatIcon, PokemonBuildComponent, RouterOutlet]
 })
 export class TeamComponent {

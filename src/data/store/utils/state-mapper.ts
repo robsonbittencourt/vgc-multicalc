@@ -1,11 +1,11 @@
-import { PokemonState, TargetState, TeamState } from "src/data/store/calculator-store"
-import { Move } from "src/lib/model/move"
-import { MoveSet } from "src/lib/model/moveset"
-import { Pokemon } from "src/lib/model/pokemon"
-import { Target } from "src/lib/model/target"
-import { Team } from "src/lib/model/team"
-import { TeamMember } from "src/lib/model/team-member"
-import { MovePosition } from "src/lib/types"
+import { PokemonState, TargetState, TeamState } from "@data/store/calculator-store"
+import { Move } from "@lib/model/move"
+import { MoveSet } from "@lib/model/moveset"
+import { Pokemon } from "@lib/model/pokemon"
+import { Target } from "@lib/model/target"
+import { Team } from "@lib/model/team"
+import { TeamMember } from "@lib/model/team-member"
+import { MovePosition } from "@lib/types"
 
 export function stateToPokemon(state: PokemonState) {
   const moveOne = new Move(state.moveSet[0].name, { alliesFainted: state.moveSet[0].alliesFainted, hits: state.moveSet[0].hits })

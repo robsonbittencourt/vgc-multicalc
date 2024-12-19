@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core"
-import { Pokemon } from "src/lib/model/pokemon"
-import { CalcAdjuster } from "./calc-adjuster"
+import { CalcAdjuster } from "@lib/damage-calculator/calc-adjuster/calc-adjuster"
+import { Pokemon } from "@lib/model/pokemon"
 
 @Injectable({
   providedIn: 'root'

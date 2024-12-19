@@ -1,6 +1,6 @@
+import { Pokemon } from "@lib/model/pokemon"
+import { SmogonFunctions } from "@lib/smogon-functions/smogon-functions"
 import { Field, Side } from "@robsonbittencourt/calc"
-import { Pokemon } from "../model/pokemon"
-import { SmogonFunctions } from "./smogon-functions"
 
 describe('SmogonFunctions', () => {
   let service: SmogonFunctions

@@ -1,5 +1,5 @@
-import { DamageResult } from "cypress/page-object/damage-result"
-import { PokemonBuild } from "cypress/page-object/pokemon-build"
+import { DamageResult } from "@page-object/damage-result"
+import { PokemonBuild } from "@page-object/pokemon-build"
 
 const leftDamageResult = new DamageResult("left-damage-result")
 
@@ -34,7 +34,7 @@ before(() => {
   cy.fixture("iron-moth-high-spa-data").then((data) => { ironMothHighSpaData = data })
   cy.fixture("iron-moth-high-spd-data").then((data) => { ironMothHighSpdData = data })
   cy.fixture("iron-moth-high-spe-data").then((data) => { ironMothHighSpeData = data })
-  
+
   cy.fixture("rillaboom-data").then((data) => { rillaboomData = data })
   cy.fixture("tornadus-data").then((data) => { tornadusData = data })
   cy.fixture("bronzong-data").then((data) => { bronzongData = data })
@@ -47,9 +47,9 @@ describe('Test calcs with Paradox Pokémon and ability activated', () => {
       rightPokemonBuild.importPokemon(rillaboomData)
 
       leftDamageResult.damageIs(0, 44.9, 53.6, 93, 11)
-      
+
       leftPokemonBuild.activateBoosterEnergy()
-            
+
       leftDamageResult.damageIs(0, 58.4, 69.5, 121, 144)
     })
 
@@ -58,9 +58,9 @@ describe('Test calcs with Paradox Pokémon and ability activated', () => {
       rightPokemonBuild.importPokemon(greatTuskHighDefData)
 
       leftDamageResult.damageIs(0, 83.1, 98.9, 158, 188)
-      
+
       rightPokemonBuild.activateBoosterEnergy()
-            
+
       leftDamageResult.damageIs(0, 63.1, 75.7, 120, 144)
     })
 
@@ -69,9 +69,9 @@ describe('Test calcs with Paradox Pokémon and ability activated', () => {
       rightPokemonBuild.importPokemon(rillaboomData)
 
       leftDamageResult.damageIs(0, 28, 33.3, 58, 69)
-      
+
       leftPokemonBuild.activateBoosterEnergy()
-            
+
       leftDamageResult.damageIs(0, 36.7, 43.4, 76, 90)
     })
 
@@ -80,9 +80,9 @@ describe('Test calcs with Paradox Pokémon and ability activated', () => {
       rightPokemonBuild.importPokemon(flutterManeHighSpdData)
 
       leftDamageResult.damageIs(0, 33, 40, 43, 52)
-      
+
       rightPokemonBuild.activateBoosterEnergy()
-            
+
       leftDamageResult.damageIs(0, 26.1, 32.3, 34, 42)
     })
 
@@ -92,9 +92,9 @@ describe('Test calcs with Paradox Pokémon and ability activated', () => {
 
       leftPokemonBuild.selectAttackThree()
       leftDamageResult.damageIs(2, 103, 121.5, 134, 158)
-      
+
       rightPokemonBuild.activateBoosterEnergy()
-            
+
       leftDamageResult.damageIs(2, 153.8, 181.5, 200, 236)
     })
   })
@@ -105,9 +105,9 @@ describe('Test calcs with Paradox Pokémon and ability activated', () => {
       rightPokemonBuild.importPokemon(rillaboomData)
 
       leftDamageResult.damageIs(0, 25.1, 29.9, 52, 62)
-      
+
       leftPokemonBuild.activateBoosterEnergy()
-            
+
       leftDamageResult.damageIs(0, 32.8, 39.1, 68, 81)
     })
 
@@ -116,9 +116,9 @@ describe('Test calcs with Paradox Pokémon and ability activated', () => {
       rightPokemonBuild.importPokemon(ironTreadsHighDefData)
 
       leftDamageResult.damageIs(0, 51.5, 61.8, 85, 102)
-      
+
       rightPokemonBuild.activateBoosterEnergy()
-            
+
       leftDamageResult.damageIs(0, 40.6, 47.8, 67, 79)
     })
 
@@ -127,9 +127,9 @@ describe('Test calcs with Paradox Pokémon and ability activated', () => {
       rightPokemonBuild.importPokemon(rillaboomData)
 
       leftDamageResult.damageIs(0, 44.4, 53.1, 92, 110)
-      
+
       leftPokemonBuild.activateBoosterEnergy()
-            
+
       leftDamageResult.damageIs(0, 57.9, 69.5, 120, 144)
     })
 
@@ -138,9 +138,9 @@ describe('Test calcs with Paradox Pokémon and ability activated', () => {
       rightPokemonBuild.importPokemon(ironMothHighSpdData)
 
       leftDamageResult.damageIs(0, 29.6, 35.4, 46, 55)
-      
+
       rightPokemonBuild.activateBoosterEnergy()
-            
+
       leftDamageResult.damageIs(0, 23.2, 27.7, 36, 43)
     })
 
@@ -150,9 +150,9 @@ describe('Test calcs with Paradox Pokémon and ability activated', () => {
 
       leftPokemonBuild.selectAttackThree()
       leftDamageResult.damageIs(2, 18.7, 22.5, 29, 35)
-      
+
       rightPokemonBuild.activateBoosterEnergy()
-            
+
       leftDamageResult.damageIs(2, 28.3, 33.5, 44, 52)
     })
   })

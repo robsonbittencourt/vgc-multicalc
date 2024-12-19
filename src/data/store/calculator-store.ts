@@ -1,13 +1,13 @@
 import { computed, effect } from "@angular/core"
+import { initialCalculatorState } from "@data/store/utils/initial-calculator-state"
+import { pokemonToState, stateToPokemon, stateToTargets, stateToTeam, stateToTeams, targetToState, teamToState } from "@data/store/utils/state-mapper"
+import { buildUserData } from "@data/store/utils/user-data-mapper"
+import { Move } from "@lib/model/move"
+import { Pokemon } from "@lib/model/pokemon"
+import { Target } from "@lib/model/target"
+import { Team } from "@lib/model/team"
+import { MovePosition, Stats } from "@lib/types"
 import { patchState, signalStore, withComputed, withHooks, withMethods, withState } from "@ngrx/signals"
-import { Move } from "src/lib/model/move"
-import { Pokemon } from "src/lib/model/pokemon"
-import { Target } from "src/lib/model/target"
-import { Team } from "src/lib/model/team"
-import { MovePosition, Stats } from "src/lib/types"
-import { initialCalculatorState } from "./utils/initial-calculator-state"
-import { pokemonToState, stateToPokemon, stateToTargets, stateToTeam, stateToTeams, targetToState, teamToState } from "./utils/state-mapper"
-import { buildUserData } from "./utils/user-data-mapper"
 
 export type MoveState = {
   name: string,

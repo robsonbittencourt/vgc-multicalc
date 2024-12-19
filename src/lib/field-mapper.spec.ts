@@ -1,10 +1,10 @@
-import { FieldMapper } from './field-mapper'
-import { Field, FieldAttackerSide, FieldDefenderSide } from './model/field'
+import { FieldMapper } from "@lib/field-mapper"
+import { Field, FieldAttackerSide, FieldDefenderSide } from "@lib/model/field"
 
-describe('FieldMapper', () => {
+describe("FieldMapper", () => {
 
-  describe('Mapping to Smogon class', () => {
-    it('should mapping Field to Smogon Field with some configs turned on', () => {
+  describe("Mapping to Smogon class", () => {
+    it("should mapping Field to Smogon Field with some configs turned on", () => {
       const field = new Field({ gameType: "Doubles", weather: "Sun", terrain: "Grassy", isBeadsOfRuin: false, isSwordOfRuin: true, isTabletsOfRuin: false, isVesselOfRuin: true, isMagicRoom: false, isWonderRoom: true, isGravity: false, isTrickRoom: true, isCriticalHit: false })
 
       const smogonField = new FieldMapper().toSmogon(field)
@@ -21,7 +21,7 @@ describe('FieldMapper', () => {
       expect(smogonField.isGravity).toEqual(false)
     })
 
-    it('should mapping Field to Smogon Field with another configs turned on', () => {
+    it("should mapping Field to Smogon Field with another configs turned on", () => {
       const field = new Field({ gameType: "Singles", weather: "Rain", terrain: "Psychic", isBeadsOfRuin: true, isSwordOfRuin: false, isTabletsOfRuin: true, isVesselOfRuin: false, isMagicRoom: true, isWonderRoom: false, isGravity: true, isTrickRoom: false, isCriticalHit: true })
 
       const smogonField = new FieldMapper().toSmogon(field)
@@ -38,7 +38,7 @@ describe('FieldMapper', () => {
       expect(smogonField.isGravity).toEqual(true)
     })
 
-    it('should mapping Field Attacker Side to Smogon Attacker Side with some configs turned on', () => {
+    it("should mapping Field Attacker Side to Smogon Attacker Side with some configs turned on", () => {
       const attackerSide = new FieldAttackerSide({ isHelpingHand: true, isBattery: false, isPowerSpot: true, isTailwind: false })
       const field = new Field({ attackerSide })
 
@@ -50,7 +50,7 @@ describe('FieldMapper', () => {
       expect(smogonField.attackerSide.isTailwind).toEqual(false)
     })
 
-    it('should mapping Field Attacker Side to Smogon Attacker Side with another configs turned on', () => {
+    it("should mapping Field Attacker Side to Smogon Attacker Side with another configs turned on", () => {
       const attackerSide = new FieldAttackerSide({ isHelpingHand: false, isBattery: true, isPowerSpot: false, isTailwind: true })
       const field = new Field({ attackerSide })
 
@@ -62,7 +62,7 @@ describe('FieldMapper', () => {
       expect(smogonField.attackerSide.isTailwind).toEqual(true)
     })
 
-    it('should mapping Field Defender Side to Smogon Defender Side with some configs turned on', () => {
+    it("should mapping Field Defender Side to Smogon Defender Side with some configs turned on", () => {
       const defenderSide = new FieldDefenderSide({ isTailwind: false, isReflect: true, isLightScreen: false, isAuroraVeil: true, isFriendGuard: false, spikes: 0, isSR: false, isSeeded: true })
       const field = new Field({ defenderSide })
 
@@ -78,7 +78,7 @@ describe('FieldMapper', () => {
       expect(smogonField.defenderSide.isSeeded).toEqual(true)
     })
 
-    it('should mapping Field Defender Side to Smogon Defender Side with another configs turned on', () => {
+    it("should mapping Field Defender Side to Smogon Defender Side with another configs turned on", () => {
       const defenderSide = new FieldDefenderSide({ isTailwind: true, isReflect: false, isLightScreen: true, isAuroraVeil: false, isFriendGuard: true, spikes: 3, isSR: false, isSeeded: true })
       const field = new Field({ defenderSide })
 

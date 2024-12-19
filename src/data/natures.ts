@@ -1,4 +1,4 @@
-import { KeyValuePair } from "src/app/input-autocomplete/input-autocomplete.component"
+import { KeyValuePair } from "@app/input-autocomplete/input-autocomplete.component"
 
 export class Natures {
 
@@ -11,7 +11,7 @@ export class Natures {
   }
 
   static get instance(): Natures {
-    if(!Natures._instance) {
+    if (!Natures._instance) {
       Natures._instance = new Natures()
     }
 

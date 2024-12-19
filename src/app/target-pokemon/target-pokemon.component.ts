@@ -1,26 +1,25 @@
-import { NoopScrollStrategy } from '@angular/cdk/overlay'
-import { Component, computed, inject, input, output } from '@angular/core'
-import { MatDialog } from '@angular/material/dialog'
-import { Target } from 'src/lib/model/target'
-import { PokePasteParserService } from 'src/lib/poke-paste-parser.service'
-import { SnackbarService } from '../../lib/snackbar.service'
-import { TeamExportModalComponent } from '../team-export-modal/team-export-modal.component'
-import { TeamImportModalComponent } from '../team-import-modal/team-import-modal.component'
-
-import { MatButton } from '@angular/material/button'
-import { MatIcon } from '@angular/material/icon'
-import { CalculatorStore } from 'src/data/store/calculator-store'
-import { MenuStore } from 'src/data/store/menu-store'
-import { DamageResult } from 'src/lib/damage-calculator/damage-result'
-import { defaultPokemon } from 'src/lib/default-pokemon'
-import { Pokemon } from 'src/lib/model/pokemon'
-import { AddPokemonCardComponent } from '../add-pokemon-card/add-pokemon-card.component'
-import { PokemonCardComponent } from '../pokemon-card/pokemon-card.component'
+import { NoopScrollStrategy } from "@angular/cdk/overlay"
+import { Component, computed, inject, input, output } from "@angular/core"
+import { MatButton } from "@angular/material/button"
+import { MatDialog } from "@angular/material/dialog"
+import { MatIcon } from "@angular/material/icon"
+import { AddPokemonCardComponent } from "@app/add-pokemon-card/add-pokemon-card.component"
+import { PokemonCardComponent } from "@app/pokemon-card/pokemon-card.component"
+import { TeamExportModalComponent } from "@app/team-export-modal/team-export-modal.component"
+import { TeamImportModalComponent } from "@app/team-import-modal/team-import-modal.component"
+import { CalculatorStore } from "@data/store/calculator-store"
+import { MenuStore } from "@data/store/menu-store"
+import { DamageResult } from "@lib/damage-calculator/damage-result"
+import { defaultPokemon } from "@lib/default-pokemon"
+import { Pokemon } from "@lib/model/pokemon"
+import { Target } from "@lib/model/target"
+import { PokePasteParserService } from "@lib/poke-paste-parser.service"
+import { SnackbarService } from "@lib/snackbar.service"
 
 @Component({
-  selector: 'app-target-pokemon',
-  templateUrl: './target-pokemon.component.html',
-  styleUrls: ['./target-pokemon.component.scss'],
+  selector: "app-target-pokemon",
+  templateUrl: "./target-pokemon.component.html",
+  styleUrls: ["./target-pokemon.component.scss"],
   imports: [MatIcon, MatButton, PokemonCardComponent, AddPokemonCardComponent]
 })
 export class TargetPokemonComponent {

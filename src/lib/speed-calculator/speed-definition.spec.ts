@@ -1,5 +1,5 @@
-import { META, MIN } from "../constants"
-import { SpeedDefinition } from "./speed-definition"
+import { META, MIN } from "@lib/constants"
+import { SpeedDefinition } from "@lib/speed-calculator/speed-definition"
 
 
 describe("SpeedDefinition", () => {

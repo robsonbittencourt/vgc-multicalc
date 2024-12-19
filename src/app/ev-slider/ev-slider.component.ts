@@ -1,17 +1,17 @@
-import { Component, computed, inject, input, model } from '@angular/core'
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { MatOption } from '@angular/material/core'
-import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field'
-import { MatInput } from '@angular/material/input'
-import { MatSelect } from '@angular/material/select'
-import { MatSlider, MatSliderThumb } from '@angular/material/slider'
-import { CalculatorStore } from 'src/data/store/calculator-store'
-import { Stats } from 'src/lib/types'
+import { Component, computed, inject, input, model } from "@angular/core"
+import { FormsModule, ReactiveFormsModule } from "@angular/forms"
+import { MatOption } from "@angular/material/core"
+import { MatFormField, MatLabel, MatSuffix } from "@angular/material/form-field"
+import { MatInput } from "@angular/material/input"
+import { MatSelect } from "@angular/material/select"
+import { MatSlider, MatSliderThumb } from "@angular/material/slider"
+import { CalculatorStore } from "@data/store/calculator-store"
+import { Stats } from "@lib/types"
 
 @Component({
-  selector: 'app-ev-slider',
-  templateUrl: './ev-slider.component.html',
-  styleUrls: ['./ev-slider.component.scss'],
+  selector: "app-ev-slider",
+  templateUrl: "./ev-slider.component.html",
+  styleUrls: ["./ev-slider.component.scss"],
   imports: [MatFormField, MatSuffix, ReactiveFormsModule, MatInput, FormsModule, MatSelect, MatOption, MatLabel, MatSlider, MatSliderThumb]
 })
 export class EvSliderComponent {
