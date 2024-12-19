@@ -10,5 +10,4 @@ export class TeamMember {
     this.pokemon = pokemon
     this.active = active
   }
-
 }

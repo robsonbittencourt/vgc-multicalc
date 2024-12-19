@@ -10,12 +10,16 @@ let dondozoData: string
 let tornadusData: string
 
 before(() => {
-  cy.fixture("dondozo-data").then((data) => { dondozoData = data })
-  cy.fixture("tornadus-data").then((data) => { tornadusData = data })
+  cy.fixture("dondozo-data").then(data => {
+    dondozoData = data
+  })
+  cy.fixture("tornadus-data").then(data => {
+    tornadusData = data
+  })
 })
 
-describe('Test calcs with Dondozo with Tatsugiri Commander', () => {
-  it('as attacker', () => {
+describe("Test calcs with Dondozo with Tatsugiri Commander", () => {
+  it("as attacker", () => {
     leftPokemonBuild.importPokemon(dondozoData)
     rightPokemonBuild.importPokemon(tornadusData)
 
@@ -26,7 +30,7 @@ describe('Test calcs with Dondozo with Tatsugiri Commander', () => {
     leftDamageResult.damageIs(0, 125.8, 149, 195, 231)
   })
 
-  it('as defender', () => {
+  it("as defender", () => {
     leftPokemonBuild.importPokemon(tornadusData)
     rightPokemonBuild.importPokemon(dondozoData)
 
@@ -36,4 +40,4 @@ describe('Test calcs with Dondozo with Tatsugiri Commander', () => {
 
     leftDamageResult.damageIs(0, 15, 18.5, 34, 42)
   })
-})    
+})

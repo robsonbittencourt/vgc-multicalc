@@ -12,12 +12,24 @@ let defaultTeamData: string
 let defaultOpponentsData: string
 
 before(() => {
-  cy.fixture("bronzong-data").then((data) => { bronzongData = data })
-  cy.fixture("ursaluna-data").then((data) => { ursalunaData = data })
-  cy.fixture("zangoose-data").then((data) => { zangooseData = data })
-  cy.fixture("flutter-mane-data").then((data) => { flutterManeData = data })
-  cy.fixture("default-team-data").then((data) => { defaultTeamData = data })
-  cy.fixture("default-opponents-data").then((data) => { defaultOpponentsData = data })
+  cy.fixture("bronzong-data").then(data => {
+    bronzongData = data
+  })
+  cy.fixture("ursaluna-data").then(data => {
+    ursalunaData = data
+  })
+  cy.fixture("zangoose-data").then(data => {
+    zangooseData = data
+  })
+  cy.fixture("flutter-mane-data").then(data => {
+    flutterManeData = data
+  })
+  cy.fixture("default-team-data").then(data => {
+    defaultTeamData = data
+  })
+  cy.fixture("default-opponents-data").then(data => {
+    defaultOpponentsData = data
+  })
 })
 
 beforeEach(() => {
@@ -30,8 +42,8 @@ beforeEach(() => {
   opponents.importPokemon(defaultOpponentsData)
 })
 
-describe('Test calcs with status', () => {
-  it('Validate the damage with Koraidon burned', () => {
+describe("Test calcs with status", () => {
+  it("Validate the damage with Koraidon burned", () => {
     team.selectPokemon("Koraidon").selectAttackOne()
     opponents.get("Rillaboom").damageIs(83.2, 98.4).cause2HKO()
 
@@ -40,7 +52,7 @@ describe('Test calcs with status', () => {
     opponents.get("Rillaboom").damageIs(41.6, 49.2).cause3HKO()
   })
 
-  it('Validate the damage using Gyro Ball against paralyzed Pokémon', () => {
+  it("Validate the damage using Gyro Ball against paralyzed Pokémon", () => {
     team.importPokemon(bronzongData)
     team.selectPokemon("Bronzong").selectAttackThree()
 
@@ -51,7 +63,7 @@ describe('Test calcs with status', () => {
     opponents.get("Calyrex Shadow").damageIs(18.8, 22.8).possible5HKO()
   })
 
-  it('Validate the damage using burned Guts Ursaluna with Facade', () => {
+  it("Validate the damage using burned Guts Ursaluna with Facade", () => {
     const ursaluna = team.importPokemon(ursalunaData)
     team.selectPokemon("Ursaluna").selectAttackThree()
 
@@ -62,7 +74,7 @@ describe('Test calcs with status', () => {
     opponents.get("Urshifu Rapid Strike").damageIs(118.8, 140.5).causeOHKO()
   })
 
-  it('Validate the damage using burned Guts Ursaluna with Headlong Rush', () => {
+  it("Validate the damage using burned Guts Ursaluna with Headlong Rush", () => {
     const ursaluna = team.importPokemon(ursalunaData)
     team.selectPokemon("Ursaluna")
 
@@ -73,7 +85,7 @@ describe('Test calcs with status', () => {
     opponents.get("Urshifu Rapid Strike").damageIs(101.7, 120.5).causeOHKO()
   })
 
-  it('Validate the damage using poisoned Toxic Boost Zangoose with Facade', () => {
+  it("Validate the damage using poisoned Toxic Boost Zangoose with Facade", () => {
     const zangoose = team.importPokemon(zangooseData)
     team.selectPokemon("Zangoose")
 
@@ -84,7 +96,7 @@ describe('Test calcs with status', () => {
     opponents.get("Urshifu Rapid Strike").damageIs(94.2, 111.4).haveChanceOfToCauseOHKO(68.8)
   })
 
-  it('Validate the damage using poisoned Toxic Boost Zangoose with Quick Attack', () => {
+  it("Validate the damage using poisoned Toxic Boost Zangoose with Quick Attack", () => {
     const zangoose = team.importPokemon(zangooseData).selectAttackThree()
     team.selectPokemon("Zangoose").selectAttackThree()
     opponents.get("Urshifu Rapid Strike").damageIs(18.8, 22.2).possible5HKO()
@@ -94,7 +106,7 @@ describe('Test calcs with status', () => {
     opponents.get("Urshifu Rapid Strike").damageIs(27.4, 32.5).cause4HKO()
   })
 
-  it('Validate the damage using Hex against poisoned Pokémon', () => {
+  it("Validate the damage using Hex against poisoned Pokémon", () => {
     team.importPokemon(flutterManeData)
     team.selectPokemon("Flutter Mane").selectAttackFour()
     opponents.get("Calyrex Shadow").damageIs(178.2, 212.5).causeOHKO()
@@ -103,6 +115,4 @@ describe('Test calcs with status', () => {
 
     opponents.get("Calyrex Shadow").damageIs(356.5, 420.5).causeOHKO()
   })
-
 })
-

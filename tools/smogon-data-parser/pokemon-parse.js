@@ -508,21 +508,19 @@ const input = `[
 console.log(transformPokemonData(input))
 
 function transformPokemonData(input) {
-  const data = JSON.parse(input);
+  const data = JSON.parse(input)
   console.log(data)
 
   const convertPokemon = ([name, properties]) => {
     const filteredEvs = Object.entries(properties.evs)
       .filter(([, value]) => value !== 0)
       .map(([key, value]) => `${key}: ${value}`)
-      .join(", ");
+      .join(", ")
 
-    return `new Pokemon("${name}", { ability: "${properties.ability}", nature: "${properties.nature}", item: "${properties.item}", teraType: "${properties.teraType}", evs: { ${filteredEvs} }, moveSet: new MoveSet(${properties.moves.map(move => `"${move}"`).join(", ")}) })`;
-  };
+    return `new Pokemon("${name}", { ability: "${properties.ability}", nature: "${properties.nature}", item: "${properties.item}", teraType: "${properties.teraType}", evs: { ${filteredEvs} }, moveSet: new MoveSet(${properties.moves.map(move => `"${move}"`).join(", ")}) })`
+  }
 
-  const result = data
-    .map(pokemon => convertPokemon(Object.entries(pokemon)[0]))
-    .join("\n");
+  const result = data.map(pokemon => convertPokemon(Object.entries(pokemon)[0])).join("\n")
 
-  return result;
+  return result
 }

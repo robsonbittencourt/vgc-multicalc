@@ -1,7 +1,7 @@
 .field {
   background-color: white;
   border-radius: 12px;
-  padding: 1em 1.5em 1.0em 1.5em;
+  padding: 1em 1.5em 1em 1.5em;
   border-color: rgb(229, 231, 235);
   border-width: 1px;
   border-style: solid;
@@ -80,6 +80,6 @@
   .button-group {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.2em;  
+    gap: 0.2em;
   }
 }

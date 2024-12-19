@@ -22,17 +22,28 @@ const initialState: SpeedCalcOptionsState = {
 }
 
 export const SpeedCalcOptionsStore = signalStore(
-  { providedIn: 'root' },
+  { providedIn: "root" },
   withState(initialState),
   withComputed(({ regulation, targetName, speedModifier, speedDropActive, paralyzedActive, choiceScarfActive }) => ({
-    options: computed(() => new SpeedCalculatorOptions({
-      regulation: regulation(), targetName: targetName(), speedModifier: speedModifier(), speedDropActive: speedDropActive(),
-      paralyzedActive: paralyzedActive(), choiceScarfActive: choiceScarfActive()
-    })),
+    options: computed(
+      () =>
+        new SpeedCalculatorOptions({
+          regulation: regulation(),
+          targetName: targetName(),
+          speedModifier: speedModifier(),
+          speedDropActive: speedDropActive(),
+          paralyzedActive: paralyzedActive(),
+          choiceScarfActive: choiceScarfActive()
+        })
+    ),
 
-    pokemonNamesByReg: computed(() => speedMeta(regulation()).map(s => s.name).sort())
+    pokemonNamesByReg: computed(() =>
+      speedMeta(regulation())
+        .map(s => s.name)
+        .sort()
+    )
   })),
-  withMethods((store) => ({
+  withMethods(store => ({
     toogleIceWind(enabled: boolean) {
       const speedModifier = enabled ? -1 : 0
       patchState(store, () => ({ speedModifier: speedModifier }))

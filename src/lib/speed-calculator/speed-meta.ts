@@ -73,7 +73,7 @@ export function regG(): Pokemon[] {
     new Pokemon("Jumpluff", { ability: "Chlorophyll", nature: "Timid", item: "Covert Cloak", evs: { hp: 252, atk: 0, def: 4, spa: 36, spd: 84, spe: 108 } }),
     new Pokemon("Torkoal", { ability: "Drought", nature: "Quiet", item: "Choice Specs", evs: { hp: 252, atk: 0, def: 4, spa: 252, spd: 0, spe: 0 } }),
     new Pokemon("Dragonite", { ability: "Inner Focus", nature: "Adamant", item: "Choice Band", evs: { hp: 156, atk: 252, def: 4, spa: 0, spd: 4, spe: 92 } }),
-    new Pokemon("Moltres-Galar", { ability: "Berserk", nature: "Calm", item: "Safety Goggles", evs: { hp: 244, atk: 0, def: 76, spa: 4, spd: 36, spe: 148 } }),
+    new Pokemon("Moltres-Galar", { ability: "Berserk", nature: "Calm", item: "Safety Goggles", evs: { hp: 244, atk: 0, def: 76, spa: 4, spd: 36, spe: 148 } })
   ]
 }
 
@@ -142,6 +142,6 @@ export function regH(): Pokemon[] {
     new Pokemon("Weavile", { ability: "Pickpocket", nature: "Hasty", item: "Focus Sash", evs: { hp: 0, atk: 252, def: 0, spa: 4, spd: 0, spe: 252 } }),
     new Pokemon("Ceruledge", { ability: "Flash Fire", nature: "Adamant", item: "Clear Amulet", evs: { hp: 252, atk: 204, def: 28, spa: 0, spd: 4, spe: 20 } }),
     new Pokemon("Typhlosion-Hisui", { ability: "Blaze", nature: "Modest", item: "Choice Scarf", evs: { hp: 4, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 } }),
-    new Pokemon("Garganacl", { ability: "Purifying Salt", nature: "Careful", item: "Maranga Berry", evs: { hp: 252, atk: 4, def: 12, spa: 0, spd: 236, spe: 4 } }),
+    new Pokemon("Garganacl", { ability: "Purifying Salt", nature: "Careful", item: "Maranga Berry", evs: { hp: 252, atk: 4, def: 12, spa: 0, spd: 236, spe: 4 } })
   ]
 }

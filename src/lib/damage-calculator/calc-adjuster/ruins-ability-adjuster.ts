@@ -30,4 +30,3 @@ export class RuinsAbilityAdjuster implements CalcAdjuster {
     }
   }
 }
-

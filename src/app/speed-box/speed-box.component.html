@@ -1,15 +1,14 @@
-@if (speedDefinition().description == '') {
+@if (speedDefinition().description == "") {
   <div class="speed-box-down"></div>
-}
-@else {
-  <div class="speed-box-up" [ngStyle]="isActual() && { 'font-weight': '600' } || null">
+} @else {
+  <div class="speed-box-up" [ngStyle]="(isActual() && { 'font-weight': '600' }) || null">
     {{ speedDefinition().value }}
   </div>
 
-  <div class="speed-box-down" [ngStyle]="isActual() && { 'background-color': '#e7def6' } || null">
-    <div [@openClose]="{ value: 1, params: { leaveEnd: animation() }}" class="pokemon-image">
-      <img src='assets/sprites/pokemon-sv/{{ speedDefinition().pokemonName }}.png'>
-      <label [ngStyle]="isActual() && { 'font-weight': '600' } || null">{{ speedDefinition().description }}</label>
+  <div class="speed-box-down" [ngStyle]="(isActual() && { 'background-color': '#e7def6' }) || null">
+    <div [@openClose]="{ value: 1, params: { leaveEnd: animation() } }" class="pokemon-image">
+      <img src="assets/sprites/pokemon-sv/{{ speedDefinition().pokemonName }}.png" />
+      <label [ngStyle]="(isActual() && { 'font-weight': '600' }) || null">{{ speedDefinition().description }}</label>
     </div>
   </div>
 }

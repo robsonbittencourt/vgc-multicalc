@@ -7,4 +7,4 @@ export interface CalcAdjuster {
   adjust(attacker: Pokemon, target: Pokemon, move: Move, moveSmogon: MoveSmogon, field: FieldSmogon, secondAttacker?: Pokemon): void
 }
 
-export const CALC_ADJUSTERS = new InjectionToken<CalcAdjuster[]>('CALC_ADJUSTERS')
+export const CALC_ADJUSTERS = new InjectionToken<CalcAdjuster[]>("CALC_ADJUSTERS")

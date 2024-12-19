@@ -1,14 +1,13 @@
 import { Generations, MOVES, Move as MoveSmogon } from "@robsonbittencourt/calc"
 
 export class Move {
-
   readonly name: string
   readonly possibleHits: string[]
   readonly hits: string
   readonly alliesFainted: string
   readonly bp: number
 
-  constructor(name: string, options: { alliesFainted?: string, hits?: string } = {}) {
+  constructor(name: string, options: { alliesFainted?: string; hits?: string } = {}) {
     this.name = name
     this.possibleHits = this.moveHits(name)
     this.hits = options.hits ?? this.possibleHits[0]
@@ -40,5 +39,4 @@ export class Move {
 
     return []
   }
-
 }

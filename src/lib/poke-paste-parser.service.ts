@@ -9,7 +9,6 @@ import { Koffing } from "koffing"
   providedIn: "root"
 })
 export class PokePasteParserService {
-
   async parse(input: string): Promise<Pokemon[]> {
     if (input.startsWith("http")) {
       return await this.parseFromPokePaste(input)
@@ -50,17 +49,6 @@ export class PokePasteParserService {
   }
 
   pokemonWithAlternativeForm(): string[] {
-    return [
-      "Vivillon",
-      "Alcremie",
-      "Dudunsparce",
-      "Pikachu",
-      "Flabébé",
-      "Floette",
-      "Florges",
-      "Squawkabilly",
-      "Maushold",
-      "Tatsugiri"
-    ]
+    return ["Vivillon", "Alcremie", "Dudunsparce", "Pikachu", "Flabébé", "Floette", "Florges", "Squawkabilly", "Maushold", "Tatsugiri"]
   }
 }

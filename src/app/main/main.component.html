@@ -1,5 +1,5 @@
 @if (isDesktopDevice()) {
-  <app-header/>
+  <app-header />
 }
 
 @if (isDesktopDevice() && menuStore.oneVsOneActivated()) {
@@ -19,7 +19,7 @@
 }
 
 @if (!isDesktopDevice()) {
-  <app-header-mobile/>
+  <app-header-mobile />
 }
 
 @if (!isDesktopDevice() && !menuStore.speedCalculatorActivated()) {

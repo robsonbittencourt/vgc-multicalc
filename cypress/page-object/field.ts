@@ -1,5 +1,4 @@
 export class Field {
-
   tabletsOfRuin() {
     this.clickOnButton("tablets-of-ruin")
   }
@@ -125,7 +124,6 @@ export class Field {
   }
 
   private clickOnButton(selector: String) {
-    cy.get(`[data-cy=${selector}] button`).click({force: true})
+    cy.get(`[data-cy=${selector}] button`).click({ force: true })
   }
-
 }

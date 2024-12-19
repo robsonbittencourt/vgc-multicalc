@@ -11,7 +11,6 @@ import { CalculatorStore } from "@data/store/calculator-store"
   imports: [InputAutocompleteComponent]
 })
 export class PokemonComboBoxComponent {
-
   store = inject(CalculatorStore)
 
   pokemonId = input.required<string>()
@@ -54,5 +53,4 @@ export class PokemonComboBoxComponent {
 
     this.pokemonChanged.emit()
   }
-
 }

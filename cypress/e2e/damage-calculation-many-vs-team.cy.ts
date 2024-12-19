@@ -8,8 +8,12 @@ let defaultTeamData: string
 let defaultOpponentsData: string
 
 before(() => {
-  cy.fixture("default-team-data").then((data) => { defaultTeamData = data })
-  cy.fixture("default-opponents-data").then((data) => { defaultOpponentsData = data })
+  cy.fixture("default-team-data").then(data => {
+    defaultTeamData = data
+  })
+  cy.fixture("default-opponents-data").then(data => {
+    defaultOpponentsData = data
+  })
 })
 
 beforeEach(() => {
@@ -22,8 +26,8 @@ beforeEach(() => {
   opponents.importPokemon(defaultOpponentsData)
 })
 
-describe('Test calcs with Many vs Team activated', () => {
-  it('against first team member Pokémon', () => {
+describe("Test calcs with Many vs Team activated", () => {
+  it("against first team member Pokémon", () => {
     opponents.get("Calyrex Ice").damageIs(113.6, 134).causeOHKO()
     opponents.get("Zamazenta Crowned").damageIs(63.6, 75.5).cause2HKO()
     opponents.get("Calyrex Shadow").damageIs(46, 54.5).haveChanceOfToCause2HKO(50)
@@ -36,7 +40,7 @@ describe('Test calcs with Many vs Team activated', () => {
     opponents.get("Raging Bolt").damageIs(85.2, 100).haveChanceOfToCauseOHKO(6.3)
   })
 
-  it('against second team member Pokémon', () => {
+  it("against second team member Pokémon", () => {
     team.selectPokemon("Koraidon")
 
     opponents.get("Calyrex Ice").damageIs(100, 117.7).causeOHKO()

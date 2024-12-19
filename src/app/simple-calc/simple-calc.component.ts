@@ -17,7 +17,6 @@ import { Move } from "@lib/model/move"
   imports: [DamageResultComponent, ImportPokemonButtonComponent, ExportPokemonButtonComponent, PokemonBuildComponent, FieldComponent]
 })
 export class SimpleCalcComponent {
-
   store = inject(CalculatorStore)
   fieldStore = inject(FieldStore)
   private damageCalculator = inject(DamageCalculatorService)
@@ -41,5 +40,4 @@ export class SimpleCalcComponent {
   private findResultByMove(damageResults: DamageResult[], moveName: string): DamageResult {
     return damageResults.find(result => result.move == moveName)!
   }
-
 }

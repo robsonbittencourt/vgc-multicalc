@@ -44,5 +44,4 @@ export class MainComponent {
   isDesktopDevice(): boolean {
     return this.deviceDetectorService.isDesktop()
   }
-
 }

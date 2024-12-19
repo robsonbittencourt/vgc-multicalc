@@ -15,10 +15,10 @@ const initialState: MenuState = {
 }
 
 export const MenuStore = signalStore(
-  { providedIn: 'root' },
+  { providedIn: "root" },
   withState(initialState),
 
-  withMethods((store) => ({
+  withMethods(store => ({
     enableOneVsOne() {
       patchState(store, () => ({ ...this._allOptionsTurnedOff(), oneVsOneActivated: true }))
     },

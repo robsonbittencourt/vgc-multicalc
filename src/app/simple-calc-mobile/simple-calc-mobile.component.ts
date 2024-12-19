@@ -16,7 +16,6 @@ import { DamageResult } from "@lib/damage-calculator/damage-result"
   imports: [PokemonComboBoxComponent, PokemonTabComponent, MatIcon, PokemonBuildMobileComponent, FieldComponent]
 })
 export class SimpleCalcMobileComponent {
-
   store = inject(CalculatorStore)
   fieldStore = inject(FieldStore)
   private damageCalculator = inject(DamageCalculatorService)
@@ -26,7 +25,7 @@ export class SimpleCalcMobileComponent {
   leftIsAttacker = computed(() => this.attacker().id === this.store.leftPokemon().id)
   rightIsAttacker = computed(() => this.attacker().id === this.store.rightPokemon().id)
 
-  activeMoveName = computed(() => this.leftIsAttacker() ? this.store.leftPokemon().activeMoveName : this.store.rightPokemon().activeMoveName)
+  activeMoveName = computed(() => (this.leftIsAttacker() ? this.store.leftPokemon().activeMoveName : this.store.rightPokemon().activeMoveName))
 
   damageResult = computed(() => {
     if (this.leftIsAttacker()) {
@@ -62,5 +61,4 @@ export class SimpleCalcMobileComponent {
       this.attacker.set(this.store.rightPokemon())
     }
   }
-
 }

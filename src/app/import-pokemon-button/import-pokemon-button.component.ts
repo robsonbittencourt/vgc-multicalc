@@ -13,7 +13,6 @@ import { PokePasteParserService } from "@lib/poke-paste-parser.service"
   imports: [MatIcon]
 })
 export class ImportPokemonButtonComponent {
-
   show = input(true)
   hidden = input(false)
 
@@ -35,5 +34,4 @@ export class ImportPokemonButtonComponent {
       this.pokemonImportedEvent.emit(pokemonList[0])
     })
   }
-
 }

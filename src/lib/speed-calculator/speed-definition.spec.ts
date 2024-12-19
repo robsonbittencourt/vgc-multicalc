@@ -1,7 +1,6 @@
 import { META, MIN } from "@lib/constants"
 import { SpeedDefinition } from "@lib/speed-calculator/speed-definition"
 
-
 describe("SpeedDefinition", () => {
   it("should return true when one SpeedDefinition is equal to another", () => {
     const definitionOne = new SpeedDefinition("Raging Bolt", 95, MIN)

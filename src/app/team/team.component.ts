@@ -19,7 +19,6 @@ import { v4 as uuidv4 } from "uuid"
   imports: [PokemonTabComponent, ImportPokemonButtonComponent, ExportPokemonButtonComponent, MatIcon, PokemonBuildComponent, RouterOutlet]
 })
 export class TeamComponent {
-
   store = inject(CalculatorStore)
 
   pokemonId = input.required<string>()
@@ -141,5 +140,4 @@ export class TeamComponent {
   teamMemberOnEdit(): boolean {
     return this.pokemonOnEdit().equals(this.store.team().activePokemon()) || this.pokemonOnEdit().id === this.store.secondAttackerId()
   }
-
 }

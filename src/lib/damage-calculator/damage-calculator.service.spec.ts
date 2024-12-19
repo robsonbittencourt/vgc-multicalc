@@ -19,12 +19,7 @@ describe("Damage Calculator Service", () => {
     adjusterTwoSpy = jasmine.createSpyObj("AdjusterTwo", ["adjust"])
 
     TestBed.configureTestingModule({
-      providers: [
-        DamageCalculatorService,
-        { provide: CALC_ADJUSTERS, useValue: adjusterOneSpy, multi: true },
-        { provide: CALC_ADJUSTERS, useValue: adjusterTwoSpy, multi: true },
-        provideExperimentalZonelessChangeDetection()
-      ],
+      providers: [DamageCalculatorService, { provide: CALC_ADJUSTERS, useValue: adjusterOneSpy, multi: true }, { provide: CALC_ADJUSTERS, useValue: adjusterTwoSpy, multi: true }, provideExperimentalZonelessChangeDetection()]
     })
 
     service = TestBed.inject(DamageCalculatorService)

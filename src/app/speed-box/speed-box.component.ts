@@ -5,7 +5,7 @@ import { ACTUAL } from "@lib/constants"
 import { SpeedDefinition } from "@lib/speed-calculator/speed-definition"
 
 const visible = { transform: "translateX(0)" }
-const timing = "500ms ease-in";
+const timing = "500ms ease-in"
 
 @Component({
   selector: "app-speed-box",
@@ -13,10 +13,7 @@ const timing = "500ms ease-in";
   styleUrls: ["./speed-box.component.scss"],
   animations: [
     trigger("openClose", [
-      transition(":enter", [
-        style({ transform: "translateX({{ leaveEnd }})" }),
-        animate(timing, style(visible))
-      ], {
+      transition(":enter", [style({ transform: "translateX({{ leaveEnd }})" }), animate(timing, style(visible))], {
         params: { leaveEnd: "" }
       })
     ])
@@ -24,7 +21,6 @@ const timing = "500ms ease-in";
   imports: [NgStyle]
 })
 export class SpeedBoxComponent {
-
   speedDefinition = input.required<SpeedDefinition>()
   speedChanged = input.required<boolean>()
   speedIncreasing = input.required<boolean>()
@@ -42,5 +38,4 @@ export class SpeedBoxComponent {
       return "-100%"
     }
   })
-
 }

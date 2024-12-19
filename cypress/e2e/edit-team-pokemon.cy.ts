@@ -5,7 +5,9 @@ const team = new Team()
 let defaultTeamData: string
 
 before(() => {
-  cy.fixture("default-team-data").then((data) => { defaultTeamData = data })
+  cy.fixture("default-team-data").then(data => {
+    defaultTeamData = data
+  })
 })
 
 beforeEach(() => {
@@ -14,8 +16,8 @@ beforeEach(() => {
   team.delete("Team 1")
 })
 
-describe('Add Pokémon to the Team', () => {
-  it('Add Pokémon to the team until have 6', () => {
+describe("Add Pokémon to the Team", () => {
+  it("Add Pokémon to the team until have 6", () => {
     team.add("Squirtle")
     team.add("Bulbasaur")
     team.add("Pikachu")
@@ -23,21 +25,21 @@ describe('Add Pokémon to the Team', () => {
     team.add("Lugia")
     team.add("Mewtwo")
 
-    cy.get('[data-cy="add-team-member-tab"]').should('not.exist')
+    cy.get('[data-cy="add-team-member-tab"]').should("not.exist")
   })
 
-  it('Do not allow delete Pokémon when no Pokémon exist', () => {
+  it("Do not allow delete Pokémon when no Pokémon exist", () => {
     team.delete("Team 1")
     team.importPokepaste(defaultTeamData)
 
     team.selectTeamMember("Miraidon").delete()
     team.selectTeamMember("Koraidon").delete()
 
-    cy.get('[data-cy="add-team-member-tab"]').should('exist')
-    cy.get('[data-cy="delete-from-team-button"]').should('not.exist')
+    cy.get('[data-cy="add-team-member-tab"]').should("exist")
+    cy.get('[data-cy="delete-from-team-button"]').should("not.exist")
   })
 
-  it('Add 4 Pokémon to the team, delete 2, and add new 2', () => {
+  it("Add 4 Pokémon to the team, delete 2, and add new 2", () => {
     team.delete("Team 1")
     team.importPokepaste(defaultTeamData)
 
@@ -53,10 +55,10 @@ describe('Add Pokémon to the Team', () => {
     team.add("Zamazenta")
 
     team.teamIs(["Pikachu", "Tyranitar", "Lugia", "Mewtwo", "Zacian", "Zamazenta"])
-    cy.get('[data-cy="add-team-member-tab"]').should('not.exist')
+    cy.get('[data-cy="add-team-member-tab"]').should("not.exist")
   })
 
-  it('Fill all 4 teams', () => {
+  it("Fill all 4 teams", () => {
     team.delete("Team 1")
     team.importPokepaste(defaultTeamData)
 
@@ -99,7 +101,7 @@ describe('Add Pokémon to the Team', () => {
     team.teamIs(["Kyogre", "Tornadus", "Landorus", "Archaludon", "Farigiraf", "Rillaboom"])
   })
 
-  it('Delete team', () => {
+  it("Delete team", () => {
     team.selectTeam("Team 3")
     team.add("Miraidon")
     team.add("Whimsicott")

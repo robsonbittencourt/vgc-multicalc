@@ -1,15 +1,14 @@
-import { Injectable } from '@angular/core'
+import { Injectable } from "@angular/core"
 
 @Injectable({
   providedIn: "root"
 })
 export class DeviceDetectorService {
-
   userAgent: string = navigator.userAgent || navigator.vendor
 
   isMobileDevice = (): boolean => {
     const regexs = [/(Android)(.+)(Mobile)/i, /BlackBerry/i, /iPhone|iPod/i, /Opera Mini/i, /IEMobile/i]
-    return regexs.some((b) => this.userAgent.match(b))
+    return regexs.some(b => this.userAgent.match(b))
   }
 
   isTabletDevice = (): boolean => {

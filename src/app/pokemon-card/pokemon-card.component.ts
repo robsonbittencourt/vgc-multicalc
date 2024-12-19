@@ -15,7 +15,6 @@ import { Target } from "@lib/model/target"
   imports: [MatCard, NgStyle, MatCardTitleGroup, MatCardTitle, MatCardSubtitle, MatTooltip, MatIcon, MatCardMdImage]
 })
 export class PokemonCardComponent {
-
   store = inject(CalculatorStore)
   menuStore = inject(MenuStore)
 
@@ -58,7 +57,7 @@ export class PokemonCardComponent {
   cardStyle(): any {
     const cardStyleSelectPokemon = { "background-color": "#e7def6" }
     const cardStyle = { "background-color": this.cardColor(this.damageResult().koChance) }
-    const cardWithBorder = { "border": "4px", "border-style": "solid", "border-color": "#8544ee" }
+    const cardWithBorder = { border: "4px", "border-style": "solid", "border-color": "#8544ee" }
 
     if (this.target().active && this.target().pokemon.isDefault()) {
       return { ...cardStyleSelectPokemon, ...cardWithBorder }

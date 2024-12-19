@@ -22,10 +22,25 @@ import { NATURES } from "@robsonbittencourt/calc"
   selector: "app-speed-calculator-mobile",
   templateUrl: "./speed-calculator-mobile.component.html",
   styleUrls: ["./speed-calculator-mobile.component.scss"],
-  imports: [InputAutocompleteComponent, PokemonComboBoxComponent, AbilityComboBoxComponent, MatCheckbox, ReactiveFormsModule, FormsModule, MatTooltip, EvSliderComponent, SpeedScaleComponent, MatFormField, MatSelect, MatOption, MatButtonToggleGroup, MatButtonToggle, MatIcon]
+  imports: [
+    InputAutocompleteComponent,
+    PokemonComboBoxComponent,
+    AbilityComboBoxComponent,
+    MatCheckbox,
+    ReactiveFormsModule,
+    FormsModule,
+    MatTooltip,
+    EvSliderComponent,
+    SpeedScaleComponent,
+    MatFormField,
+    MatSelect,
+    MatOption,
+    MatButtonToggleGroup,
+    MatButtonToggle,
+    MatIcon
+  ]
 })
 export class SpeedCalculatorMobileComponent {
-
   store = inject(CalculatorStore)
   fieldStore = inject(FieldStore)
   optionsStore = inject(SpeedCalcOptionsStore)
@@ -36,16 +51,21 @@ export class SpeedCalculatorMobileComponent {
   allItemsNames = Items.instance.allItems()
   allNatureNames = Object.keys(NATURES)
 
-  statusConditions = [
-    "Healthy", "Paralysis"
-  ]
+  statusConditions = ["Healthy", "Paralysis"]
 
   statsModifiers = [
-    { value: 6, viewValue: "+6" }, { value: 5, viewValue: "+5" }, { value: 4, viewValue: "+4" },
-    { value: 3, viewValue: "+3" }, { value: 2, viewValue: "+2" }, { value: 1, viewValue: "+1" },
+    { value: 6, viewValue: "+6" },
+    { value: 5, viewValue: "+5" },
+    { value: 4, viewValue: "+4" },
+    { value: 3, viewValue: "+3" },
+    { value: 2, viewValue: "+2" },
+    { value: 1, viewValue: "+1" },
     { value: 0, viewValue: "--" },
-    { value: -1, viewValue: "-1" }, { value: -2, viewValue: "-2" }, { value: -3, viewValue: "-3" },
-    { value: -4, viewValue: "-4" }, { value: -5, viewValue: "-5" }, { value: -6, viewValue: "-6" },
+    { value: -1, viewValue: "-1" },
+    { value: -2, viewValue: "-2" },
+    { value: -3, viewValue: "-3" },
+    { value: -4, viewValue: "-4" },
+    { value: -5, viewValue: "-5" },
+    { value: -6, viewValue: "-6" }
   ]
-
 }

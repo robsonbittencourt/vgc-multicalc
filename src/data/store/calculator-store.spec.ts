@@ -13,9 +13,7 @@ describe("Calculator Store", () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        provideExperimentalZonelessChangeDetection()
-      ],
+      providers: [provideExperimentalZonelessChangeDetection()]
     })
 
     store = TestBed.inject(CalculatorStore)
@@ -75,10 +73,7 @@ describe("Calculator Store", () => {
     })
 
     it("should load active Pokémon that is not second attacker from active Team as attacker", () => {
-      const teamX = new Team("123", true, "Team X", [
-        new TeamMember(new Pokemon("Pikachu", { id: "123" }), true),
-        new TeamMember(new Pokemon("Raichu", { id: "456" }), true)
-      ])
+      const teamX = new Team("123", true, "Team X", [new TeamMember(new Pokemon("Pikachu", { id: "123" }), true), new TeamMember(new Pokemon("Raichu", { id: "456" }), true)])
 
       store.updateTeams([teamX])
       store.updateSecondAttacker("123")
@@ -199,8 +194,7 @@ describe("Calculator Store", () => {
       })
 
       it("should throw error when try activate Move that does not exist", () => {
-        expect(() => store.activateMove(defaultId, new Move("Earthquake")))
-          .toThrow(new Error("Move Earthquake does not exist in actual Moveset"))
+        expect(() => store.activateMove(defaultId, new Move("Earthquake"))).toThrow(new Error("Move Earthquake does not exist in actual Moveset"))
       })
 
       it("should activate first Move by position", () => {
@@ -245,15 +239,9 @@ describe("Calculator Store", () => {
       })
 
       it("should replace Team", () => {
-        const teamX = new Team("123", true, "Team X", [
-          new TeamMember(new Pokemon("Pikachu")),
-          new TeamMember(new Pokemon("Raichu"))
-        ])
+        const teamX = new Team("123", true, "Team X", [new TeamMember(new Pokemon("Pikachu")), new TeamMember(new Pokemon("Raichu"))])
 
-        const teamY = new Team("456", true, "Team Y", [
-          new TeamMember(new Pokemon("Clefairy")),
-          new TeamMember(new Pokemon("Clefable"))
-        ])
+        const teamY = new Team("456", true, "Team Y", [new TeamMember(new Pokemon("Clefairy")), new TeamMember(new Pokemon("Clefable"))])
 
         store.updateTeams([teamX])
 
@@ -264,10 +252,7 @@ describe("Calculator Store", () => {
       })
 
       it("should replace active Team", () => {
-        const newTeam = new Team("123", true, "Team X", [
-          new TeamMember(new Pokemon("Pikachu")),
-          new TeamMember(new Pokemon("Raichu"))
-        ])
+        const newTeam = new Team("123", true, "Team X", [new TeamMember(new Pokemon("Pikachu")), new TeamMember(new Pokemon("Raichu"))])
 
         store.replaceActiveTeam(newTeam)
 
@@ -277,15 +262,9 @@ describe("Calculator Store", () => {
       })
 
       it("should update Teams", () => {
-        const teamX = new Team("123", true, "Team X", [
-          new TeamMember(new Pokemon("Pikachu")),
-          new TeamMember(new Pokemon("Raichu"))
-        ])
+        const teamX = new Team("123", true, "Team X", [new TeamMember(new Pokemon("Pikachu")), new TeamMember(new Pokemon("Raichu"))])
 
-        const teamY = new Team("456", false, "Team Y", [
-          new TeamMember(new Pokemon("Clefairy")),
-          new TeamMember(new Pokemon("Clefable"))
-        ])
+        const teamY = new Team("456", false, "Team Y", [new TeamMember(new Pokemon("Clefairy")), new TeamMember(new Pokemon("Clefable"))])
 
         store.updateTeams([teamX, teamY])
 
@@ -299,15 +278,9 @@ describe("Calculator Store", () => {
       })
 
       it("should activate Team with informed id and deactivate anothers", () => {
-        const teamX = new Team("123", true, "Team X", [
-          new TeamMember(new Pokemon("Pikachu")),
-          new TeamMember(new Pokemon("Raichu"))
-        ])
+        const teamX = new Team("123", true, "Team X", [new TeamMember(new Pokemon("Pikachu")), new TeamMember(new Pokemon("Raichu"))])
 
-        const teamY = new Team("456", false, "Team Y", [
-          new TeamMember(new Pokemon("Clefairy")),
-          new TeamMember(new Pokemon("Clefable"))
-        ])
+        const teamY = new Team("456", false, "Team Y", [new TeamMember(new Pokemon("Clefairy")), new TeamMember(new Pokemon("Clefable"))])
 
         store.updateTeams([teamX, teamY])
 
@@ -326,10 +299,7 @@ describe("Calculator Store", () => {
       })
 
       it("should update Targets", () => {
-        const targets = [
-          new Target(new Pokemon("Pikachu")),
-          new Target(new Pokemon("Raichu"))
-        ]
+        const targets = [new Target(new Pokemon("Pikachu")), new Target(new Pokemon("Raichu"))]
 
         store.updateTargets(targets)
 
@@ -339,10 +309,7 @@ describe("Calculator Store", () => {
       })
 
       it("should update Target Commander", () => {
-        const targets = [
-          new Target(new Pokemon("Pikachu", { id: "123" })),
-          new Target(new Pokemon("Dondozo", { id: "456", commanderActive: false }))
-        ]
+        const targets = [new Target(new Pokemon("Pikachu", { id: "123" })), new Target(new Pokemon("Dondozo", { id: "456", commanderActive: false }))]
 
         store.updateTargets(targets)
 
@@ -353,10 +320,7 @@ describe("Calculator Store", () => {
       })
 
       it("should update Target Terastal active", () => {
-        const targets = [
-          new Target(new Pokemon("Pikachu", { id: "123" })),
-          new Target(new Pokemon("Raichu", { id: "456", teraTypeActive: false }))
-        ]
+        const targets = [new Target(new Pokemon("Pikachu", { id: "123" })), new Target(new Pokemon("Raichu", { id: "456", teraTypeActive: false }))]
 
         store.updateTargets(targets)
 
@@ -367,10 +331,7 @@ describe("Calculator Store", () => {
       })
 
       it("should update Target ability", () => {
-        const targets = [
-          new Target(new Pokemon("Pikachu", { id: "123" })),
-          new Target(new Pokemon("Raichu", { id: "456", ability: "Lightning Rod" }))
-        ]
+        const targets = [new Target(new Pokemon("Pikachu", { id: "123" })), new Target(new Pokemon("Raichu", { id: "456", ability: "Lightning Rod" }))]
 
         store.updateTargets(targets)
 
@@ -381,10 +342,7 @@ describe("Calculator Store", () => {
       })
 
       it("should deactivate Targets", () => {
-        const targets = [
-          new Target(new Pokemon("Pikachu"), true),
-          new Target(new Pokemon("Raichu"), true)
-        ]
+        const targets = [new Target(new Pokemon("Pikachu"), true), new Target(new Pokemon("Raichu"), true)]
 
         store.updateTargets(targets)
         store.deactivateTargets()
@@ -473,15 +431,9 @@ describe("Calculator Store", () => {
       })
 
       it("should find Pokémon by id when searched Pokémon is in Team 1", () => {
-        const teamX = new Team("123", true, "Team X", [
-          new TeamMember(new Pokemon("Pikachu", { id: "123" })),
-          new TeamMember(new Pokemon("Raichu", { id: "456" }))
-        ])
+        const teamX = new Team("123", true, "Team X", [new TeamMember(new Pokemon("Pikachu", { id: "123" })), new TeamMember(new Pokemon("Raichu", { id: "456" }))])
 
-        const teamY = new Team("456", false, "Team Y", [
-          new TeamMember(new Pokemon("Clefairy", { id: "789" })),
-          new TeamMember(new Pokemon("Clefable", { id: "012" }))
-        ])
+        const teamY = new Team("456", false, "Team Y", [new TeamMember(new Pokemon("Clefairy", { id: "789" })), new TeamMember(new Pokemon("Clefable", { id: "012" }))])
 
         store.updateTeams([teamX, teamY])
 
@@ -491,15 +443,9 @@ describe("Calculator Store", () => {
       })
 
       it("should find Pokémon by id when searched Pokémon is in Team 2", () => {
-        const teamX = new Team("123", true, "Team X", [
-          new TeamMember(new Pokemon("Pikachu", { id: "123" })),
-          new TeamMember(new Pokemon("Raichu", { id: "456" }))
-        ])
+        const teamX = new Team("123", true, "Team X", [new TeamMember(new Pokemon("Pikachu", { id: "123" })), new TeamMember(new Pokemon("Raichu", { id: "456" }))])
 
-        const teamY = new Team("456", false, "Team Y", [
-          new TeamMember(new Pokemon("Clefairy", { id: "789" })),
-          new TeamMember(new Pokemon("Clefable", { id: "012" }))
-        ])
+        const teamY = new Team("456", false, "Team Y", [new TeamMember(new Pokemon("Clefairy", { id: "789" })), new TeamMember(new Pokemon("Clefable", { id: "012" }))])
 
         store.updateTeams([teamX, teamY])
 
@@ -509,10 +455,7 @@ describe("Calculator Store", () => {
       })
 
       it("should find Pokémon by id when searched Pokémon is in Targets", () => {
-        const targets = [
-          new Target(new Pokemon("Pikachu", { id: "123" })),
-          new Target(new Pokemon("Raichu", { id: "456" }))
-        ]
+        const targets = [new Target(new Pokemon("Pikachu", { id: "123" })), new Target(new Pokemon("Raichu", { id: "456" }))]
 
         store.updateTargets(targets)
 

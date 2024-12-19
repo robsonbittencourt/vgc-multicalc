@@ -149,5 +149,4 @@ describe("Ruins Ability Adjuster", () => {
     expect(fieldSmogon.isVesselOfRuin).toBe(false)
     expect(fieldSmogon.isBeadsOfRuin).toBe(true)
   })
-
 })

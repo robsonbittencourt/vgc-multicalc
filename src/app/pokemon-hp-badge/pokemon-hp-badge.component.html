@@ -7,7 +7,11 @@
     </div>
   </div>
   <div class="pokemon-image">
-    <img #pokemonImage src='assets/sprites/pokemon-sv/{{ spriteName }}.png' (load)="onImageLoad()" [ngStyle]="remainingHp == 0 && { 'transform': 'scale(' + imageScale + ')', 'filter': 'brightness(70%)' } || { 'transform': 'scale(' + imageScale + ')' }">
+    <img
+      #pokemonImage
+      src="assets/sprites/pokemon-sv/{{ spriteName }}.png"
+      (load)="onImageLoad()"
+      [ngStyle]="(remainingHp == 0 && { transform: 'scale(' + imageScale + ')', filter: 'brightness(70%)' }) || { transform: 'scale(' + imageScale + ')' }" />
     @if (remainingHp == 0) {
       <div class="fainted-icon" data-cy="fainted-badge">
         <div class="pokeball-icon">
@@ -25,7 +29,7 @@
   <div class="level-item">
     <span class="level">Lv. 50</span>
     @if (canShowItemImage()) {
-      <img src='assets/sprites/items/{{ item }}.png' class="icon-image">
+      <img src="assets/sprites/items/{{ item }}.png" class="icon-image" />
     }
   </div>
   <div class="triangle"></div>

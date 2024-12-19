@@ -1,7 +1,6 @@
 import { KeyValuePair } from "@app/input-autocomplete/input-autocomplete.component"
 
 export class Natures {
-
   private static _instance: Natures
 
   natures: KeyValuePair[]
@@ -47,5 +46,4 @@ export class Natures {
       { key: "Timid (+Spe, -Atk)", value: "Timid" }
     ]
   }
-
 }

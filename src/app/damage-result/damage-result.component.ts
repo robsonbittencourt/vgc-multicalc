@@ -17,7 +17,6 @@ import { Pokemon } from "@lib/model/pokemon"
   imports: [NgStyle, PokemonHpBadgeComponent, MatButtonToggleGroup, MatButtonToggle, MatChipListbox, ReactiveFormsModule, FormsModule, MatChipOption, MatIcon, MatTooltip]
 })
 export class DamageResultComponent {
-
   pokemon = input.required<Pokemon>()
   damageResults = input.required<DamageResult[]>()
   opponentDamageResult = input.required<DamageResult>()
@@ -78,5 +77,4 @@ export class DamageResultComponent {
 
     return damageResult.rolls![0]
   }
-
 }

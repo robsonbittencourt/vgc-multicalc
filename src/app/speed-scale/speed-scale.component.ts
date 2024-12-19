@@ -17,7 +17,6 @@ import { SpeedDefinition } from "@lib/speed-calculator/speed-definition"
   imports: [SpeedBoxComponent]
 })
 export class SpeedScaleComponent {
-
   pokemonId = input.required<string>()
   pokemonEachSide = input.required<number>()
 
@@ -106,6 +105,4 @@ export class SpeedScaleComponent {
   isActual(speedDefinition: SpeedDefinition): boolean {
     return speedDefinition.description.includes(ACTUAL)
   }
-
 }
-

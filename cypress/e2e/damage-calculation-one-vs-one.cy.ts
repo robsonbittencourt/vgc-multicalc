@@ -16,21 +16,29 @@ let baxcaliburData: string
 let rillaboomData: string
 
 before(() => {
-  cy.fixture("ursaluna-data").then((data) => { ursalunaData = data })
-  cy.fixture("tyranitar-data").then((data) => { tyranitarData = data })
-  cy.fixture("baxcalibur-data").then((data) => { baxcaliburData = data })
-  cy.fixture("rillaboom-data").then((data) => { rillaboomData = data })
+  cy.fixture("ursaluna-data").then(data => {
+    ursalunaData = data
+  })
+  cy.fixture("tyranitar-data").then(data => {
+    tyranitarData = data
+  })
+  cy.fixture("baxcalibur-data").then(data => {
+    baxcaliburData = data
+  })
+  cy.fixture("rillaboom-data").then(data => {
+    rillaboomData = data
+  })
 })
 
-describe('Test calcs with One vs One activated', () => {
+describe("Test calcs with One vs One activated", () => {
   beforeEach(() => {
     cy.get('[data-cy="one-vs-one"]').click({ force: true })
     leftPokemonBuild.importPokemon(ursalunaData)
     rightPokemonBuild.importPokemon(tyranitarData)
   })
 
-  describe('Ursaluna vs Tyranitar', () => {
-    it('First attack', () => {
+  describe("Ursaluna vs Tyranitar", () => {
+    it("First attack", () => {
       leftDamageResult.damageIs(0, 117.2, 139.7, 218, 260)
       rightDamageResult.isFainted()
 
@@ -38,7 +46,7 @@ describe('Test calcs with One vs One activated', () => {
       leftDamageResult.surviveWithThisHpAmmount(139)
     })
 
-    it('Second attack', () => {
+    it("Second attack", () => {
       leftPokemonBuild.selectAttackTwo()
       rightPokemonBuild.selectAttackTwo()
 
@@ -49,7 +57,7 @@ describe('Test calcs with One vs One activated', () => {
       leftDamageResult.surviveWithThisHpAmmount(138)
     })
 
-    it('Third attack', () => {
+    it("Third attack", () => {
       leftPokemonBuild.selectAttackThree()
       rightPokemonBuild.selectAttackThree()
 
@@ -60,7 +68,7 @@ describe('Test calcs with One vs One activated', () => {
       leftDamageResult.surviveWithThisHpAmmount(56)
     })
 
-    it('Fourth attack', () => {
+    it("Fourth attack", () => {
       leftPokemonBuild.selectAttackFour()
       rightPokemonBuild.selectAttackFour()
 
@@ -72,8 +80,8 @@ describe('Test calcs with One vs One activated', () => {
     })
   })
 
-  describe('Roll variation', () => {
-    it('with High roll', () => {
+  describe("Roll variation", () => {
+    it("with High roll", () => {
       leftPokemonBuild.selectAttackTwo()
       rightPokemonBuild.selectAttackTwo()
 
@@ -84,7 +92,7 @@ describe('Test calcs with One vs One activated', () => {
       leftDamageResult.surviveWithThisHpAmmount(138)
     })
 
-    it('with Medium roll', () => {
+    it("with Medium roll", () => {
       leftPokemonBuild.selectAttackTwo()
       rightPokemonBuild.selectAttackTwo()
 
@@ -95,7 +103,7 @@ describe('Test calcs with One vs One activated', () => {
       leftDamageResult.surviveWithThisHpAmmount(145)
     })
 
-    it('with Low roll', () => {
+    it("with Low roll", () => {
       leftPokemonBuild.selectAttackTwo()
       rightPokemonBuild.selectAttackTwo()
 
@@ -107,8 +115,8 @@ describe('Test calcs with One vs One activated', () => {
     })
   })
 
-  describe('With some field influence', () => {
-    it('with critical hit', () => {
+  describe("With some field influence", () => {
+    it("with critical hit", () => {
       field.criticalHit()
 
       leftPokemonBuild.selectAttackTwo()
@@ -122,19 +130,19 @@ describe('Test calcs with One vs One activated', () => {
     })
   })
 
-  describe('Hp bar appearance', () => {
-    it('Item icon should appear', () => {
-      leftDamageResult.withPokemonIcon('flame-orb')
-      rightDamageResult.withPokemonIcon('choice-band')
+  describe("Hp bar appearance", () => {
+    it("Item icon should appear", () => {
+      leftDamageResult.withPokemonIcon("flame-orb")
+      rightDamageResult.withPokemonIcon("choice-band")
 
       leftPokemonBuild.selectItem("Choice Band")
       rightPokemonBuild.selectItem("Flame Orb")
 
-      leftDamageResult.withPokemonIcon('choice-band')
-      rightDamageResult.withPokemonIcon('flame-orb')
+      leftDamageResult.withPokemonIcon("choice-band")
+      rightDamageResult.withPokemonIcon("flame-orb")
     })
 
-    it('Hp value should be ok by each Pokémon', () => {
+    it("Hp value should be ok by each Pokémon", () => {
       leftDamageResult.withMaxHpValue(220)
       rightDamageResult.withMaxHpValue(186)
 
@@ -145,5 +153,4 @@ describe('Test calcs with One vs One activated', () => {
       rightDamageResult.withMaxHpValue(207)
     })
   })
-
 })

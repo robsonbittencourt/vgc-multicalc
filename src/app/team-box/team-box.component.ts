@@ -1,6 +1,6 @@
-import { NgStyle } from "@angular/common";
-import { Component, input, output } from "@angular/core";
-import { Team } from "@lib/model/team";
+import { NgStyle } from "@angular/common"
+import { Component, input, output } from "@angular/core"
+import { Team } from "@lib/model/team"
 
 @Component({
   selector: "app-team-box",
@@ -9,7 +9,6 @@ import { Team } from "@lib/model/team";
   imports: [NgStyle]
 })
 export class TeamBoxComponent {
-
   team = input.required<Team>()
 
   teamActivated = output<Team>()
@@ -23,5 +22,4 @@ export class TeamBoxComponent {
   activate() {
     this.teamActivated.emit(this.team())
   }
-
 }

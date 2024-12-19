@@ -18,7 +18,6 @@ export interface KeyValuePair {
   imports: [FormsModule, ReactiveFormsModule, MatAutocompleteTrigger, MatAutocomplete, MatOption, AsyncPipe]
 })
 export class InputAutocompleteComponent {
-
   value = model.required<string>()
 
   allValues = input.required({
@@ -34,15 +33,15 @@ export class InputAutocompleteComponent {
   constructor() {
     effect(() => this.formControl.setValue(this.value()))
 
-    effect(() => this.disabled() ? this.formControl.disable() : this.formControl?.enable())
+    effect(() => (this.disabled() ? this.formControl.disable() : this.formControl?.enable()))
   }
 
   ngOnInit() {
     this.formControl = new FormControl(this.value())
 
     this.filteredValues = this.formControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this.filter(value || '', this.allValues()))
+      startWith(""),
+      map(value => this.filter(value || "", this.allValues()))
     )
 
     this.filteredValues.subscribe(x => {
@@ -51,7 +50,7 @@ export class InputAutocompleteComponent {
   }
 
   onClick() {
-    this.formControl.setValue('')
+    this.formControl.setValue("")
   }
 
   onBlur() {
@@ -69,7 +68,7 @@ export class InputAutocompleteComponent {
 
   private adjustAllValuesInput(value: string[] | KeyValuePair[]): KeyValuePair[] {
     if (typeof value[0] === "string") {
-      return value.map(x => ({ key: x, value: x } as KeyValuePair))
+      return value.map(x => ({ key: x, value: x }) as KeyValuePair)
     } else {
       return value as KeyValuePair[]
     }
@@ -83,7 +82,6 @@ export class InputAutocompleteComponent {
   }
 
   private normalizeValue(value: string): string {
-    return value.toLowerCase().replace(/\s/g, '')
+    return value.toLowerCase().replace(/\s/g, "")
   }
-
 }

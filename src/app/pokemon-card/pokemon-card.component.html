@@ -1,4 +1,4 @@
-<mat-card (click)="activate()" class="card" [ngStyle]="cardStyle()" [attr.data-cy]='"pokemon-card-" + target().pokemon.displayName'>
+<mat-card (click)="activate()" class="card" [ngStyle]="cardStyle()" [attr.data-cy]="'pokemon-card-' + target().pokemon.displayName">
   <div class="card-container">
     @if (target().pokemon.isDefault()) {
       <div class="card-left-side">
@@ -9,16 +9,15 @@
 
       <div class="card-right-side">
         <div class="pokemon-image-container">
-          <img class="pokemon-image" mat-card-md-image src='assets/icons/question.png'>
+          <img class="pokemon-image" mat-card-md-image src="assets/icons/question.png" />
         </div>
         <div class="card-buttons">
           <button class="icon-button" (click)="removePokemon()" data-cy="delete-opponent-pokemon">
-            <img class="icon-trash" src="assets/icons/trash.png"/>
+            <img class="icon-trash" src="assets/icons/trash.png" />
           </button>
         </div>
       </div>
-    } 
-    @else {
+    } @else {
       <div class="card-left-side">
         <mat-card-title-group>
           <mat-card-title>{{ target().pokemon.displayNameWithoutSuffix }}</mat-card-title>
@@ -32,8 +31,7 @@
 
         @if (damageResult() && showDamageDescription()) {
           <div>
-            <br>Damage: {{ damageResult().result }}
-            <br><label class="ko-chance">{{ damageResult().koChance }}</label>
+            <br />Damage: {{ damageResult().result }} <br /><label class="ko-chance">{{ damageResult().koChance }}</label>
           </div>
         }
       </div>
@@ -49,16 +47,15 @@
               <mat-icon (click)="addSecondAttacker($event)">check_circle</mat-icon>
             }
           </div>
-          <img class="pokemon-image" mat-card-md-image src='assets/sprites/pokemon-home/{{ target().pokemon.name }}.png'>
+          <img class="pokemon-image" mat-card-md-image src="assets/sprites/pokemon-home/{{ target().pokemon.name }}.png" />
         </div>
 
         <div class="card-buttons">
-          @if (target().pokemon.name == 'Dondozo') {
+          @if (target().pokemon.name == "Dondozo") {
             <button class="icon-button" (click)="toogleCommanderAbility($event)">
               @if (target().pokemon.commanderActivated) {
                 <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly.png" />
-              }
-              @else {
+              } @else {
                 <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly-gray.png" />
               }
             </button>
@@ -68,15 +65,14 @@
             <button class="icon-button" (click)="terastalyzePokemon($event)" matTooltip="Terastal" [matTooltipShowDelay]="500" data-cy="terastal-button-opponent">
               @if (target().pokemon.teraTypeActive) {
                 <img class="icon-tera" src="assets/icons/tera-icon.png" />
-              }
-              @else {
+              } @else {
                 <img class="icon-tera" src="assets/icons/tera-icon-gray.png" />
               }
             </button>
           }
 
           <button class="icon-button" (click)="removePokemon()" data-cy="delete-opponent-pokemon">
-            <img class="icon-trash" src="assets/icons/trash.png"/>
+            <img class="icon-trash" src="assets/icons/trash.png" />
           </button>
         </div>
       </div>

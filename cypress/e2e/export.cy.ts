@@ -10,10 +10,18 @@ let defaultTeamData: string
 let defaultOpponentsData: string
 
 before(() => {
-  cy.fixture("chi-yu-data").then((data) => { chiyuData = data })
-  cy.fixture("pokepaste-data").then((data) => { pokepasteData = data })
-  cy.fixture("default-team-data").then((data) => { defaultTeamData = data })
-  cy.fixture("default-opponents-data").then((data) => { defaultOpponentsData = data })
+  cy.fixture("chi-yu-data").then(data => {
+    chiyuData = data
+  })
+  cy.fixture("pokepaste-data").then(data => {
+    pokepasteData = data
+  })
+  cy.fixture("default-team-data").then(data => {
+    defaultTeamData = data
+  })
+  cy.fixture("default-opponents-data").then(data => {
+    defaultOpponentsData = data
+  })
 })
 
 beforeEach(() => {
@@ -23,12 +31,12 @@ beforeEach(() => {
   opponents.importPokemon(defaultOpponentsData)
 })
 
-describe('Export', () => {
+describe("Export", () => {
   beforeEach(() => {
     cy.get('[data-cy="team-vs-many"]').click({ force: true })
   })
 
-  it('Pokémon from team', () => {
+  it("Pokémon from team", () => {
     team.importPokemon(chiyuData)
 
     const exportModal = team.exportPokemon("Chi-Yu")
@@ -36,7 +44,7 @@ describe('Export', () => {
     exportModal.contentIs(exportedPokemon)
   })
 
-  it('team', () => {
+  it("team", () => {
     team.importPokepaste(pokepasteData)
 
     const exportModal = team.export("Team 2")
@@ -44,7 +52,7 @@ describe('Export', () => {
     exportModal.contentIs(exportedTeam)
   })
 
-  it('opponent Pokémon', () => {
+  it("opponent Pokémon", () => {
     team.delete("Team 1")
     team.importPokepaste(defaultTeamData)
 

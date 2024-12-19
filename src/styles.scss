@@ -1,7 +1,8 @@
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
 
-body { 
-  margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 .dense-2 {
@@ -17,8 +18,8 @@ body {
 }
 
 @font-face {
-  font-family: 'Proba Pro';
-  src: url('assets/fonts/ProbaPro-Regular.otf') format('truetype');
+  font-family: "Proba Pro";
+  src: url("assets/fonts/ProbaPro-Regular.otf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }

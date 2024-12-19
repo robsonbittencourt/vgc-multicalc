@@ -7,9 +7,7 @@ describe("Menu Store", () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        provideExperimentalZonelessChangeDetection()
-      ],
+      providers: [provideExperimentalZonelessChangeDetection()]
     })
 
     store = TestBed.inject(SpeedCalcOptionsStore)

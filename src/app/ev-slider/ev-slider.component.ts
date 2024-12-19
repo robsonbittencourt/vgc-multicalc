@@ -15,7 +15,6 @@ import { Stats } from "@lib/types"
   imports: [MatFormField, MatSuffix, ReactiveFormsModule, MatInput, FormsModule, MatSelect, MatOption, MatLabel, MatSlider, MatSliderThumb]
 })
 export class EvSliderComponent {
-
   pokemonId = input.required<string>()
   ev = model.required<number>()
   stat = input.required<keyof Stats>()
@@ -90,11 +89,19 @@ export class EvSliderComponent {
   EV_STEP = 8
 
   statsModifiers = [
-    { value: 6, viewValue: "+6" }, { value: 5, viewValue: "+5" }, { value: 4, viewValue: "+4" },
-    { value: 3, viewValue: "+3" }, { value: 2, viewValue: "+2" }, { value: 1, viewValue: "+1" },
+    { value: 6, viewValue: "+6" },
+    { value: 5, viewValue: "+5" },
+    { value: 4, viewValue: "+4" },
+    { value: 3, viewValue: "+3" },
+    { value: 2, viewValue: "+2" },
+    { value: 1, viewValue: "+1" },
     { value: 0, viewValue: "--" },
-    { value: -1, viewValue: "-1" }, { value: -2, viewValue: "-2" }, { value: -3, viewValue: "-3" },
-    { value: -4, viewValue: "-4" }, { value: -5, viewValue: "-5" }, { value: -6, viewValue: "-6" },
+    { value: -1, viewValue: "-1" },
+    { value: -2, viewValue: "-2" },
+    { value: -3, viewValue: "-3" },
+    { value: -4, viewValue: "-4" },
+    { value: -5, viewValue: "-5" },
+    { value: -6, viewValue: "-6" }
   ]
 
   hpPercentageChanged(event: Event) {
@@ -140,11 +147,9 @@ export class EvSliderComponent {
   }
 
   actualEvsQuantity() {
-    const STATS_KEYS: (keyof Stats)[] = ['hp', 'atk', 'def', 'spa', 'spd', 'spe']
+    const STATS_KEYS: (keyof Stats)[] = ["hp", "atk", "def", "spa", "spd", "spe"]
 
-    return STATS_KEYS
-      .filter(stat => stat !== this.stat())
-      .reduce((total, stat) => total + (this.pokemon().evs[stat] ?? 0), 0)
+    return STATS_KEYS.filter(stat => stat !== this.stat()).reduce((total, stat) => total + (this.pokemon().evs[stat] ?? 0), 0)
   }
 
   ivChanged(event: Event) {
@@ -173,5 +178,4 @@ export class EvSliderComponent {
 
     return this.EV_STEP
   }
-
 }

@@ -11,7 +11,5 @@ import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle } fr
   imports: [MatDialogTitle, CdkScrollable, MatDialogContent, ReactiveFormsModule, FormsModule, MatDialogActions, MatButton, MatDialogClose]
 })
 export class TeamImportModalComponent {
-
   content: string
-
 }

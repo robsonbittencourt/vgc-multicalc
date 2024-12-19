@@ -1,15 +1,14 @@
 import { PokemonBuild } from "./pokemon-build"
 
 export class OpponentPokemon {
-
   private _element: any
-  
+
   constructor(element: any) {
     this._element = element
   }
 
   terastalyze(): OpponentPokemon {
-    this._element.find(`[data-cy="terastal-button-opponent"]`).click({force: true})
+    this._element.find(`[data-cy="terastal-button-opponent"]`).click({ force: true })
     return this
   }
 
@@ -99,16 +98,15 @@ export class OpponentPokemon {
   }
 
   edit(): PokemonBuild {
-    this._element.click({force: true})
+    this._element.click({ force: true })
     return new PokemonBuild("your-team")
   }
 
   delete() {
-    this._element.find(`[data-cy="delete-opponent-pokemon"]`).click({force: true})
+    this._element.find(`[data-cy="delete-opponent-pokemon"]`).click({ force: true })
   }
-  
+
   private contains(text: string) {
     this._element.parent().parent().contains(text)
   }
-
 }

@@ -1,5 +1,5 @@
-import axios from 'axios'
-import fs from 'fs'
+import axios from "axios"
+import fs from "fs"
 
 const LINE_SEPARATOR = "+----------------------------------------+"
 const POKEMON_QUANTITY = 250
@@ -7,10 +7,9 @@ const POKEMON_QUANTITY = 250
 createSpeedMetaFile()
 
 export async function createSpeedMetaFile() {
-  const regHData = await getSmogonData('h')
-  
-  let classContent = 
-`import { Pokemon } from "../pokemon"
+  const regHData = await getSmogonData("h")
+
+  let classContent = `import { Pokemon } from "../pokemon"
 
 export function speedMeta(regulation: string): Pokemon[] {
   if(regulation == "Reg G") {
@@ -25,7 +24,7 @@ export function regH(): Pokemon[] {
 ${printNewPokemon(regHData)} ]  
 }`
 
-  fs.writeFileSync('src/lib/speed-calculator/speed-meta.ts', classContent)
+  fs.writeFileSync("src/lib/speed-calculator/speed-meta.ts", classContent)
 }
 
 export function parseSmogonData(data) {
@@ -57,8 +56,9 @@ export function parsePokemonData(data) {
 }
 
 function extractSections(data) {
-  return data.split(LINE_SEPARATOR)
-    .filter(it => (it != "" && it != " "))
+  return data
+    .split(LINE_SEPARATOR)
+    .filter(it => it != "" && it != " ")
     .map(it => it.replaceAll("| ", ""))
     .map(it => it.trim())
 }
@@ -66,8 +66,12 @@ function extractSections(data) {
 function extractAbility(sections) {
   const abilities = sections[2]
     .split("\n")
-    .map(it => it.replaceAll(/[0-9]+/g, "")
-    .replace(".%", "").trim())
+    .map(it =>
+      it
+        .replaceAll(/[0-9]+/g, "")
+        .replace(".%", "")
+        .trim()
+    )
     .filter(it => it != "Abilities")
 
   return abilities[0]
@@ -76,12 +80,16 @@ function extractAbility(sections) {
 function extractItem(sections) {
   const items = sections[3]
     .split("\n")
-    .map(it => it.replaceAll(/[0-9]+/g, "")
-    .replace(".%", "").trim())
+    .map(it =>
+      it
+        .replaceAll(/[0-9]+/g, "")
+        .replace(".%", "")
+        .trim()
+    )
     .filter(it => it != "Items" && it != "Other")
 
   const item = items.find(it => it == "Choice Scarf") ? "Choice Scarf" : items[0]
-  
+
   return item
 }
 
@@ -99,21 +107,23 @@ function extractNature(spreads) {
 
 function extractEvs(spreads) {
   const rawEvs = spreads[0].substring(spreads[0].indexOf(":") + 1).split("/")
-  const evs = { hp: Number(rawEvs[0]), atk: Number(rawEvs[1]), def: Number(rawEvs[2]), spa: Number(rawEvs[3]), spd: Number(rawEvs[4]), spe: Number(rawEvs[5])}
+  const evs = { hp: Number(rawEvs[0]), atk: Number(rawEvs[1]), def: Number(rawEvs[2]), spa: Number(rawEvs[3]), spd: Number(rawEvs[4]), spe: Number(rawEvs[5]) }
 
   return evs
 }
 
 function printNewPokemon(pokemon) {
-  return pokemon.map(p => {
-    return "    " + p + "\n"
-  }).join('')
+  return pokemon
+    .map(p => {
+      return "    " + p + "\n"
+    })
+    .join("")
 }
 
 function getCurrentYearMonth() {
   const previouslyMonthDate = new Date(new Date().setMonth(new Date().getMonth() - 1))
   const adjustedMonth = previouslyMonthDate.getMonth() + 1
-  
+
   const month = adjustedMonth < 10 ? "0" + adjustedMonth : adjustedMonth
   const year = new Date().getFullYear()
 

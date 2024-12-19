@@ -16,10 +16,23 @@ export class Field {
   readonly attackerSide: FieldAttackerSide
   readonly defenderSide: FieldDefenderSide
 
-  constructor(options: {
-    gameType?: GameType, weather?: Weather, terrain?: Terrain, isBeadsOfRuin?: boolean, isSwordOfRuin?: boolean, isTabletsOfRuin?: boolean, isVesselOfRuin?: boolean, isMagicRoom?: boolean
-    isWonderRoom?: boolean, isGravity?: boolean, isTrickRoom?: boolean, isCriticalHit?: boolean, attackerSide?: FieldAttackerSide, defenderSide?: FieldDefenderSide
-  } = {}
+  constructor(
+    options: {
+      gameType?: GameType
+      weather?: Weather
+      terrain?: Terrain
+      isBeadsOfRuin?: boolean
+      isSwordOfRuin?: boolean
+      isTabletsOfRuin?: boolean
+      isVesselOfRuin?: boolean
+      isMagicRoom?: boolean
+      isWonderRoom?: boolean
+      isGravity?: boolean
+      isTrickRoom?: boolean
+      isCriticalHit?: boolean
+      attackerSide?: FieldAttackerSide
+      defenderSide?: FieldDefenderSide
+    } = {}
   ) {
     this.gameType = options.gameType ?? "Doubles"
     this.weather = options.weather ?? null
@@ -44,7 +57,7 @@ export class FieldAttackerSide {
   readonly isPowerSpot: boolean
   readonly isTailwind: boolean
 
-  constructor(options: { isHelpingHand?: boolean, isBattery?: boolean, isPowerSpot?: boolean, isTailwind?: boolean } = {}) {
+  constructor(options: { isHelpingHand?: boolean; isBattery?: boolean; isPowerSpot?: boolean; isTailwind?: boolean } = {}) {
     this.isHelpingHand = options.isHelpingHand ?? false
     this.isBattery = options.isBattery ?? false
     this.isPowerSpot = options.isPowerSpot ?? false
@@ -62,7 +75,7 @@ export class FieldDefenderSide {
   readonly isSR: boolean
   readonly isSeeded: boolean
 
-  constructor(options: { isTailwind?: boolean, isReflect?: boolean, isLightScreen?: boolean, isAuroraVeil?: boolean, isFriendGuard?: boolean, spikes?: number, isSR?: boolean, isSeeded?: boolean } = {}) {
+  constructor(options: { isTailwind?: boolean; isReflect?: boolean; isLightScreen?: boolean; isAuroraVeil?: boolean; isFriendGuard?: boolean; spikes?: number; isSR?: boolean; isSeeded?: boolean } = {}) {
     this.isTailwind = options.isTailwind ?? false
     this.isReflect = options.isReflect ?? false
     this.isLightScreen = options.isLightScreen ?? false

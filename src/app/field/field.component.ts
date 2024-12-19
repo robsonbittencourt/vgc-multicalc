@@ -9,7 +9,5 @@ import { FieldStore } from "@data/store/field-store"
   imports: [MatButtonToggleGroup, MatButtonToggle]
 })
 export class FieldComponent {
-
   fieldStore = inject(FieldStore)
-
 }

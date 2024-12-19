@@ -4,11 +4,7 @@ import { TeamMember } from "@lib/model/team-member"
 
 describe("Team", () => {
   it("should return active Pokémon", () => {
-    const team = new Team("123", true, "Team 1", [
-      new TeamMember(new Pokemon("Pikachu"), false),
-      new TeamMember(new Pokemon("Tyranitar"), true),
-      new TeamMember(new Pokemon("Mewtwo"), false)
-    ])
+    const team = new Team("123", true, "Team 1", [new TeamMember(new Pokemon("Pikachu"), false), new TeamMember(new Pokemon("Tyranitar"), true), new TeamMember(new Pokemon("Mewtwo"), false)])
 
     const result = team.activePokemon()
 
@@ -45,11 +41,7 @@ describe("Team", () => {
   })
 
   it("should return true when Team has a default Pokémon", () => {
-    const team = new Team("123", true, "Team 1", [
-      new TeamMember(new Pokemon("Pikachu"), true),
-      new TeamMember(new Pokemon("Togepi"), false),
-      new TeamMember(new Pokemon("Mewtwo"), false)
-    ])
+    const team = new Team("123", true, "Team 1", [new TeamMember(new Pokemon("Pikachu"), true), new TeamMember(new Pokemon("Togepi"), false), new TeamMember(new Pokemon("Mewtwo"), false)])
 
     const result = team.hasDefaultPokemon()
 
@@ -57,11 +49,7 @@ describe("Team", () => {
   })
 
   it("should return false when Team has a default Pokémon", () => {
-    const team = new Team("123", true, "Team 1", [
-      new TeamMember(new Pokemon("Pikachu"), true),
-      new TeamMember(new Pokemon("Tyranitar"), false),
-      new TeamMember(new Pokemon("Mewtwo"), false)
-    ])
+    const team = new Team("123", true, "Team 1", [new TeamMember(new Pokemon("Pikachu"), true), new TeamMember(new Pokemon("Tyranitar"), false), new TeamMember(new Pokemon("Mewtwo"), false)])
 
     const result = team.hasDefaultPokemon()
 
@@ -69,9 +57,7 @@ describe("Team", () => {
   })
 
   it("should return true when Team has only a default Pokémon", () => {
-    const team = new Team("123", true, "Team 1", [
-      new TeamMember(new Pokemon("Togepi"), true)
-    ])
+    const team = new Team("123", true, "Team 1", [new TeamMember(new Pokemon("Togepi"), true)])
 
     const result = team.onlyHasDefaultPokemon()
 
@@ -79,10 +65,7 @@ describe("Team", () => {
   })
 
   it("should return false when Team has another Pokémon beside the default one", () => {
-    const team = new Team("123", true, "Team 1", [
-      new TeamMember(new Pokemon("Pikachu"), true),
-      new TeamMember(new Pokemon("Togepi"), false)
-    ])
+    const team = new Team("123", true, "Team 1", [new TeamMember(new Pokemon("Pikachu"), true), new TeamMember(new Pokemon("Togepi"), false)])
 
     const result = team.onlyHasDefaultPokemon()
 
@@ -90,10 +73,7 @@ describe("Team", () => {
   })
 
   it("should return text with exported Pokémon in Showdown format", () => {
-    const team = new Team("123", true, "Team 1", [
-      new TeamMember(new Pokemon("Pikachu"), true),
-      new TeamMember(new Pokemon("Tyranitar"), false)
-    ])
+    const team = new Team("123", true, "Team 1", [new TeamMember(new Pokemon("Pikachu"), true), new TeamMember(new Pokemon("Tyranitar"), false)])
 
     const result = team.exportToShowdownFormat()
 

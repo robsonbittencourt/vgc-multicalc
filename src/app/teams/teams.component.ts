@@ -22,7 +22,6 @@ import { v4 as uuidv4 } from "uuid"
   imports: [MatInput, ReactiveFormsModule, FormsModule, MatButton, TeamBoxComponent]
 })
 export class TeamsComponent {
-
   store = inject(CalculatorStore)
   private pokePasteService = inject(PokePasteParserService)
   private snackBar = inject(SnackbarService)
@@ -85,5 +84,4 @@ export class TeamsComponent {
 
     this.snackBar.open("Team deleted")
   }
-
 }

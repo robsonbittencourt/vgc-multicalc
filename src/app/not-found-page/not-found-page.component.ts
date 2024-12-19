@@ -7,6 +7,4 @@ import { RouterLink } from "@angular/router"
   styleUrls: ["./not-found-page.component.scss"],
   imports: [RouterLink]
 })
-export class NotFoundPageComponent {
-
-}
+export class NotFoundPageComponent {}

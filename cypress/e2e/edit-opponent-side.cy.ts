@@ -7,7 +7,9 @@ const opponents = new Opponent()
 let defaultTeamData: string
 
 before(() => {
-  cy.fixture("default-team-data").then((data) => { defaultTeamData = data })
+  cy.fixture("default-team-data").then(data => {
+    defaultTeamData = data
+  })
 })
 
 beforeEach(() => {
@@ -17,8 +19,8 @@ beforeEach(() => {
   team.importPokepaste(defaultTeamData)
 })
 
-describe('Add Pokémon to the Opponent side', () => {
-  it('Add three Pokémon to the opponent side', () => {
+describe("Add Pokémon to the Opponent side", () => {
+  it("Add three Pokémon to the opponent side", () => {
     opponents.add("Pikachu")
     opponents.add("Tyranitar")
     opponents.add("Lugia")
@@ -28,7 +30,7 @@ describe('Add Pokémon to the Opponent side', () => {
     opponents.exists("Lugia")
   })
 
-  it('Delete Pokémon from the opponent side', () => {
+  it("Delete Pokémon from the opponent side", () => {
     opponents.add("Pikachu")
 
     opponents.get("Pikachu").delete()
@@ -36,7 +38,7 @@ describe('Add Pokémon to the Opponent side', () => {
     opponents.doesNotExists("Pikachu")
   })
 
-  it('When delete Pokémon from the opponent side select first Pokémon from the team to edit', () => {
+  it("When delete Pokémon from the opponent side select first Pokémon from the team to edit", () => {
     opponents.add("Pikachu")
 
     opponents.get("Pikachu").delete()
@@ -44,7 +46,7 @@ describe('Add Pokémon to the Opponent side', () => {
     team.pokemonOnEditNameIs("Miraidon")
   })
 
-  it('Delete all Pokémon from opponent side', () => {
+  it("Delete all Pokémon from opponent side", () => {
     opponents.deleteAll()
 
     opponents.empty()

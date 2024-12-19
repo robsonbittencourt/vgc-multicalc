@@ -22,7 +22,6 @@ import { TypeName } from "@robsonbittencourt/calc/dist/data/interface"
   imports: [PokemonComboBoxComponent, NgStyle, InputAutocompleteComponent, MatTooltip, MatCheckbox, ReactiveFormsModule, FormsModule, AbilityComboBoxComponent, EvSliderComponent, RouterOutlet]
 })
 export class PokemonBuildComponent {
-
   pokemonId = input.required<string>()
   reverse = input<boolean>(false)
 
@@ -40,9 +39,7 @@ export class PokemonBuildComponent {
   availableAbilities: string[]
   alliesFainted = ["0", "1", "2", "3", "4", "5", "6", "7"]
 
-  statusConditions = [
-    "Healthy", "Sleep", "Poison", "Burn", "Freeze", "Paralysis"
-  ]
+  statusConditions = ["Healthy", "Sleep", "Poison", "Burn", "Freeze", "Paralysis"]
 
   moveSelectorDisabled(move: string): boolean {
     return !move || move == this.pokemon().activeMoveName
@@ -75,30 +72,64 @@ export class PokemonBuildComponent {
 
   typeStyle(type?: TypeName): any {
     switch (type) {
-      case "Normal": { return { "background-color": "#9FA19F" } }
-      case "Fighting": { return { "background-color": "#FF8000" } }
-      case "Flying": { return { "background-color": "#81B9EF" } }
-      case "Poison": { return { "background-color": "#9141CB" } }
-      case "Ground": { return { "background-color": "#915121" } }
-      case "Rock": { return { "background-color": "#AFA981" } }
-      case "Bug": { return { "background-color": "#91A119" } }
-      case "Ghost": { return { "background-color": "#704170" } }
-      case "Steel": { return { "background-color": "#60A1B8" } }
-      case "Fire": { return { "background-color": "#E62829" } }
-      case "Water": { return { "background-color": "#2980EF" } }
-      case "Grass": { return { "background-color": "#3FA129" } }
-      case "Electric": { return { "background-color": "#FAC000" } }
-      case "Psychic": { return { "background-color": "#EF4179" } }
-      case "Ice": { return { "background-color": "#3DCEF3" } }
-      case "Dragon": { return { "background-color": "#5060E1" } }
-      case "Dark": { return { "background-color": "#624D4E" } }
-      case "Fairy": { return { "background-color": "#EF70EF" } }
+      case "Normal": {
+        return { "background-color": "#9FA19F" }
+      }
+      case "Fighting": {
+        return { "background-color": "#FF8000" }
+      }
+      case "Flying": {
+        return { "background-color": "#81B9EF" }
+      }
+      case "Poison": {
+        return { "background-color": "#9141CB" }
+      }
+      case "Ground": {
+        return { "background-color": "#915121" }
+      }
+      case "Rock": {
+        return { "background-color": "#AFA981" }
+      }
+      case "Bug": {
+        return { "background-color": "#91A119" }
+      }
+      case "Ghost": {
+        return { "background-color": "#704170" }
+      }
+      case "Steel": {
+        return { "background-color": "#60A1B8" }
+      }
+      case "Fire": {
+        return { "background-color": "#E62829" }
+      }
+      case "Water": {
+        return { "background-color": "#2980EF" }
+      }
+      case "Grass": {
+        return { "background-color": "#3FA129" }
+      }
+      case "Electric": {
+        return { "background-color": "#FAC000" }
+      }
+      case "Psychic": {
+        return { "background-color": "#EF4179" }
+      }
+      case "Ice": {
+        return { "background-color": "#3DCEF3" }
+      }
+      case "Dragon": {
+        return { "background-color": "#5060E1" }
+      }
+      case "Dark": {
+        return { "background-color": "#624D4E" }
+      }
+      case "Fairy": {
+        return { "background-color": "#EF70EF" }
+      }
 
       default: {
         break
       }
     }
   }
-
-
 }

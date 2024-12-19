@@ -3,7 +3,7 @@ import { FieldAttackerSide, FieldDefenderSide } from "@lib/model/field"
 import { GameType } from "@lib/types"
 
 export function initialFieldState(): FieldState {
-  const fieldUserData = JSON.parse(localStorage.getItem('userData')!)?.field
+  const fieldUserData = JSON.parse(localStorage.getItem("userData")!)?.field
   return fieldUserData ? { ...defaultFieldState(), ...fieldUserData } : defaultFieldState()
 }
 

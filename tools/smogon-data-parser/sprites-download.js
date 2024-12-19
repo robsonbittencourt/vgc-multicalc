@@ -1,24 +1,22 @@
-import axios from 'axios';
-import fs from 'fs';
-import path from 'path';
+import axios from "axios"
+import fs from "fs"
+import path from "path"
 
 downloadSprites()
 
 export function downloadSprites() {
-  
-  
-  pokemonNames().forEach(async (p) => {
-    const dir = path.resolve("src/assets/sprites/sv/", `${p}.png`);
+  pokemonNames().forEach(async p => {
+    const dir = path.resolve("src/assets/sprites/sv/", `${p}.png`)
 
     axios({
       method: "GET",
       url: `https://img.pokemondb.net/sprites/scarlet-violet/normal/${p}.png`,
       responseType: "stream"
     }).then(res => {
-      res.data.pipe(fs.createWriteStream(dir));
+      res.data.pipe(fs.createWriteStream(dir))
       res.data.on("end", () => {
-        console.log(`download complete ${p}`);
-      });
+        console.log(`download complete ${p}`)
+      })
     })
   })
 }
@@ -841,6 +839,6 @@ function pokemonNames() {
     "zoroark-hisuian",
     "zorua",
     "zorua-hisuian",
-    "zweilous",
+    "zweilous"
   ]
 }

@@ -49,7 +49,7 @@
 .delete-pokemon {
   display: flex;
   align-items: center;
-  gap: 0.2em
+  gap: 0.2em;
 }
 
 .delete-pokemon:hover > * {
@@ -65,7 +65,6 @@
   .left-container {
     row-gap: 0.5em;
   }
-  
 
   .right-container {
     margin-top: 1em;
@@ -79,5 +78,4 @@
     padding: 0em;
     grid-row-gap: 0.5em;
   }
-
 }

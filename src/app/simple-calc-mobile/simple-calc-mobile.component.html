@@ -2,10 +2,10 @@
   <div class="pokes">
     <div class="pokemon-name">
       <label>Pokémon</label>
-      <app-pokemon-combo-box [pokemonId]="attacker().id" (pokemonChanged)="pokemonChanged()"/>
+      <app-pokemon-combo-box [pokemonId]="attacker().id" (pokemonChanged)="pokemonChanged()" />
     </div>
-    <app-pokemon-tab [active]="leftIsAttacker()" [pokemonId]="store.leftPokemon().id" (tabActivated)="activatePokemon()"/>
-    <app-pokemon-tab [active]="rightIsAttacker()" [pokemonId]="store.rightPokemon().id" (tabActivated)="activatePokemon()"/>
+    <app-pokemon-tab [active]="leftIsAttacker()" [pokemonId]="store.leftPokemon().id" (tabActivated)="activatePokemon()" />
+    <app-pokemon-tab [active]="rightIsAttacker()" [pokemonId]="store.rightPokemon().id" (tabActivated)="activatePokemon()" />
   </div>
 
   <div class="damage-result">
@@ -25,7 +25,7 @@
       <mat-icon class="copy-icon" (click)="copyDamageResult(damageResult())">content_copy</mat-icon>
     </div>
   </div>
-  
+
   <app-pokemon-build-mobile [pokemonId]="attacker().id" />
   <app-field />
 </div>

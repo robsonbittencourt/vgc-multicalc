@@ -9,7 +9,6 @@ import { Items } from "@data/items"
   imports: [NgStyle]
 })
 export class PokemonHpBadgeComponent implements AfterViewInit {
-
   remainingHp: number
   hpPercentage: number
   hpBarColor: string
@@ -110,7 +109,7 @@ export class PokemonHpBadgeComponent implements AfterViewInit {
     const previouslyDamage = this.hpBase - this.actualHp
     const totalDamage = previouslyDamage + this._damageTaken
 
-    const percentage = 100 - ((totalDamage / this.hpBase) * 100)
+    const percentage = 100 - (totalDamage / this.hpBase) * 100
     this.hpPercentage = Math.max(percentage, 0)
   }
 
@@ -142,7 +141,10 @@ export class PokemonHpBadgeComponent implements AfterViewInit {
           const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
           const data = imageData.data
 
-          let top = canvas.height, bottom = 0, left = canvas.width, right = 0
+          let top = canvas.height,
+            bottom = 0,
+            left = canvas.width,
+            right = 0
 
           for (let y = 0; y < canvas.height; y++) {
             for (let x = 0; x < canvas.width; x++) {
@@ -159,7 +161,7 @@ export class PokemonHpBadgeComponent implements AfterViewInit {
           }
 
           const visibleHeight = bottom - top + 1
-          const visibleWidth = right - left - + 1
+          const visibleWidth = right - left - +1
 
           const croppedData = ctx.getImageData(left, top, visibleWidth, visibleHeight)
 
@@ -195,5 +197,4 @@ export class PokemonHpBadgeComponent implements AfterViewInit {
 
     return 0.8
   }
-
 }

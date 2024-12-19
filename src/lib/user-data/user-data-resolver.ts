@@ -9,10 +9,9 @@ export class UserDataResolver {
   private router = inject(Router)
 
   resolve(route: ActivatedRouteSnapshot): Promise<void | AxiosResponse<UserData>> {
-    const response = axios.get<UserData>(`https://l7enx1vgm7.execute-api.us-east-1.amazonaws.com/v1/vgc-multi-calc/${route.params["userDataId"]}`)
-      .catch(() => {
-        this.router.navigate(["/not-found"])
-      })
+    const response = axios.get<UserData>(`https://l7enx1vgm7.execute-api.us-east-1.amazonaws.com/v1/vgc-multi-calc/${route.params["userDataId"]}`).catch(() => {
+      this.router.navigate(["/not-found"])
+    })
 
     return response
   }

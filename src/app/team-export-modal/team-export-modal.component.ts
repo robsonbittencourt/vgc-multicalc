@@ -22,5 +22,4 @@ export class TeamExportModalComponent {
       this.copyText = "Copy"
     }, 2000)
   }
-
 }

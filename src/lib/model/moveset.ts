@@ -2,7 +2,6 @@ import { Move } from "@lib/model/move"
 import { MovePosition } from "@lib/types"
 
 export class MoveSet {
-
   readonly moves: Move[]
   readonly activeMove: Move
   readonly activeMovePosition: MovePosition
@@ -32,5 +31,4 @@ export class MoveSet {
   clone(): MoveSet {
     return new MoveSet(new Move(this.move1.name), new Move(this.move2.name), new Move(this.move3.name), new Move(this.move4.name), this.activeMovePosition)
   }
-
 }

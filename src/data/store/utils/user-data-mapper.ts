@@ -1,7 +1,7 @@
 import { CalculatorState, PokemonState, TargetState, TeamMemberState, TeamState } from "@data/store/calculator-store"
 import { stateToPokemon } from "@data/store/utils/state-mapper"
 import { defaultPokemon } from "@lib/default-pokemon"
-import { v4 as uuidv4 } from 'uuid'
+import { v4 as uuidv4 } from "uuid"
 
 export function buildUserData(speedCalcPokemon: PokemonState, leftPokemon: PokemonState, rightPokemon: PokemonState, teams: TeamState[], targets: TargetState[]) {
   return {
@@ -10,16 +10,16 @@ export function buildUserData(speedCalcPokemon: PokemonState, leftPokemon: Pokem
     rightPokemon: buildPokemonToUserData(rightPokemon),
     teams: teams.map(team => {
       return {
-        "active": team.active,
-        "name": team.name,
-        "teamMembers": team.teamMembers
+        active: team.active,
+        name: team.name,
+        teamMembers: team.teamMembers
           .filter(t => !stateToPokemon(t.pokemon).isDefault())
           .map(t => {
             const pokemon = buildPokemonToUserData(t.pokemon)
 
             return {
-              "pokemon": pokemon,
-              "active": t.active
+              pokemon: pokemon,
+              active: t.active
             }
           })
       }
@@ -30,10 +30,9 @@ export function buildUserData(speedCalcPokemon: PokemonState, leftPokemon: Pokem
         const pokemon = buildPokemonToUserData(t.pokemon)
 
         return {
-          "pokemon": pokemon
+          pokemon: pokemon
         }
-      }
-      )
+      })
   }
 }
 
@@ -51,24 +50,19 @@ export function buildState(userData: any): CalculatorState {
 
 function buildPokemonToUserData(pokemon: PokemonState) {
   return {
-    "name": pokemon.name,
-    "nature": pokemon.nature,
-    "item": pokemon.item,
-    "ability": pokemon.ability,
-    "teraType": pokemon.teraType,
-    "teraTypeActive": pokemon.teraTypeActive,
-    "evs": pokemon.evs,
-    "status": pokemon.status,
-    "boosts": pokemon.boosts,
-    "activeMove": pokemon.activeMove,
-    "abilityOn": pokemon.abilityOn,
-    "ivs": pokemon.ivs,
-    "moveSet": [
-      pokemon.moveSet[0].name,
-      pokemon.moveSet[1].name,
-      pokemon.moveSet[2].name,
-      pokemon.moveSet[3].name
-    ]
+    name: pokemon.name,
+    nature: pokemon.nature,
+    item: pokemon.item,
+    ability: pokemon.ability,
+    teraType: pokemon.teraType,
+    teraTypeActive: pokemon.teraTypeActive,
+    evs: pokemon.evs,
+    status: pokemon.status,
+    boosts: pokemon.boosts,
+    activeMove: pokemon.activeMove,
+    abilityOn: pokemon.abilityOn,
+    ivs: pokemon.ivs,
+    moveSet: [pokemon.moveSet[0].name, pokemon.moveSet[1].name, pokemon.moveSet[2].name, pokemon.moveSet[3].name]
   }
 }
 
@@ -106,10 +100,12 @@ function buildTeamState(teams: any): TeamState[] {
 
 function buildTeamMemberState(teamMembers: any): TeamMemberState[] {
   if (teamMembers.length == 0) {
-    return [{
-      active: true,
-      pokemon: buildPokemonState(defaultPokemon())
-    }]
+    return [
+      {
+        active: true,
+        pokemon: buildPokemonState(defaultPokemon())
+      }
+    ]
   }
 
   return teamMembers.map((member: any, index: number) => {

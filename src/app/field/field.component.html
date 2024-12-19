@@ -14,7 +14,7 @@
 
       <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
         <mat-button-toggle [checked]="fieldStore.isVesselOfRuin()" (change)="fieldStore.toggleVesselOfRuin()" data-cy="vessel-of-ruin">Vessel of Ruin (-spa)</mat-button-toggle>
-        <mat-button-toggle [checked]="fieldStore.isBeadsOfRuin() " (change)="fieldStore.toggleBeadsOfRuin()" data-cy="beads-of-ruin">Beads of Ruin (-spd)</mat-button-toggle>
+        <mat-button-toggle [checked]="fieldStore.isBeadsOfRuin()" (change)="fieldStore.toggleBeadsOfRuin()" data-cy="beads-of-ruin">Beads of Ruin (-spd)</mat-button-toggle>
       </mat-button-toggle-group>
 
       <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
@@ -62,7 +62,7 @@
       <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">
         <mat-button-toggle [checked]="fieldStore.attackerSide().isTailwind" (change)="fieldStore.toggleAttackerTailwind()" data-cy="tailwind-attacker">Tailwind</mat-button-toggle>
       </mat-button-toggle-group>
-    </div>  
+    </div>
     <div>
       <div class="field-subtitle">
         <label>Defenders</label>
@@ -100,5 +100,5 @@
         <mat-button-toggle [checked]="fieldStore.defenderSide().isTailwind" (change)="fieldStore.toggleDefenderTailwind()" data-cy="tailwind-defender">Tailwind</mat-button-toggle>
       </mat-button-toggle-group>
     </div>
-  </div>  
+  </div>
 </div>

@@ -1,5 +1,5 @@
 import { Pokemon } from "@lib/model/pokemon"
-import { v4 as uuidv4 } from 'uuid'
+import { v4 as uuidv4 } from "uuid"
 
 export class DamageResult {
   readonly id: string
@@ -30,7 +30,6 @@ export class DamageResult {
 
   private adjustResult(result: string): string {
     if (this.containsResidualResult(result)) {
-
       return result.substring(0, result.indexOf(this.RESIDUAL_RESULT_IDENTIFIER))
     }
 

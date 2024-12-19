@@ -12,16 +12,15 @@
         <span class="title">Speed List</span>
         <div class="regulation">
           <label>Regulation</label>
-          <app-input-autocomplete [allValues]="regulationsList" [value]="optionsStore.regulation()" (valueChange)="optionsStore.updateRegulation($event)"/>
+          <app-input-autocomplete [allValues]="regulationsList" [value]="optionsStore.regulation()" (valueChange)="optionsStore.updateRegulation($event)" />
         </div>
         <div>
-        
-        <label>Pokémon</label>
-        <div class="pokemon-combo">
-          <app-input-autocomplete [allValues]="optionsStore.pokemonNamesByReg()" [value]="optionsStore.targetName()" (valueChange)="optionsStore.updateTargetName($event)"/>
-          <mat-icon class="clear-button" (click)="optionsStore.clearTargetName()">clear</mat-icon>
-        </div>        
-      </div>
+          <label>Pokémon</label>
+          <div class="pokemon-combo">
+            <app-input-autocomplete [allValues]="optionsStore.pokemonNamesByReg()" [value]="optionsStore.targetName()" (valueChange)="optionsStore.updateTargetName($event)" />
+            <mat-icon class="clear-button" (click)="optionsStore.clearTargetName()">clear</mat-icon>
+          </div>
+        </div>
       </div>
       <div class="header-buttons-section">
         <div class="header-buttons-text">
@@ -49,6 +48,6 @@
       </div>
     </div>
 
-    <app-speed-scale [pokemonId]="pokemonId()" [pokemonEachSide]=31 />
+    <app-speed-scale [pokemonId]="pokemonId()" [pokemonEachSide]="31" />
   </div>
 </div>

@@ -4,7 +4,7 @@
   justify-content: space-between;
   height: 6em;
   width: 28em;
-  background-color: rgba(33,69,70,0.80);
+  background-color: rgba(33, 69, 70, 0.8);
   border-radius: 6px;
   color: #efffff;
   overflow: hidden;
@@ -20,7 +20,7 @@
 
 .pokemon-name {
   font-size: x-large;
-  font-family: 'Proba Pro';
+  font-family: "Proba Pro";
   font-weight: 800;
   margin-top: 0.5em;
 }
@@ -34,7 +34,7 @@
   border-radius: 4px;
   overflow: hidden;
   position: relative;
-  background-color: rgba(33,69,70);
+  background-color: rgba(33, 69, 70);
 }
 
 .progress {
@@ -122,7 +122,8 @@
   background-color: white;
 }
 
-.line-left, .line-right {
+.line-left,
+.line-right {
   width: 7px;
   height: 2px;
   background-color: #3e3e3e;

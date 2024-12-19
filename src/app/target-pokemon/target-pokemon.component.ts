@@ -23,7 +23,6 @@ import { SnackbarService } from "@lib/snackbar.service"
   imports: [MatIcon, MatButton, PokemonCardComponent, AddPokemonCardComponent]
 })
 export class TargetPokemonComponent {
-
   damageResults = input.required<DamageResult[]>()
   isAttacker = input.required<boolean>()
   showDamageDescription = input(true)
@@ -79,7 +78,9 @@ export class TargetPokemonComponent {
 
       this.targetsImported.emit()
 
-      const allTargets = this.targets().filter(t => !t.pokemon.isDefault()).concat(newTargets)
+      const allTargets = this.targets()
+        .filter(t => !t.pokemon.isDefault())
+        .concat(newTargets)
       this.store.updateTargets(allTargets)
 
       this.snackBar.open("Pokémon from PokePaste added")
@@ -159,19 +160,11 @@ export class TargetPokemonComponent {
     if (target.active && this.canSelectSecondPokemon()) return
 
     if (target.active) {
-      const newTargets = [
-        ...this.targets().slice(0, index),
-        new Target(target.pokemon, false),
-        ...this.targets().slice(index + 1)
-      ]
+      const newTargets = [...this.targets().slice(0, index), new Target(target.pokemon, false), ...this.targets().slice(index + 1)]
 
       this.store.updateTargets(newTargets)
     } else {
-      const newTargets = [
-        ...this.targets().slice(0, index),
-        new Target(target.pokemon, true),
-        ...this.targets().slice(index + 1)
-      ]
+      const newTargets = [...this.targets().slice(0, index), new Target(target.pokemon, true), ...this.targets().slice(index + 1)]
 
       this.store.updateTargets(newTargets)
     }
@@ -180,5 +173,4 @@ export class TargetPokemonComponent {
   findTarget(pokemonId: string): Target {
     return this.targets().find(target => target.pokemon.id === pokemonId)!
   }
-
 }

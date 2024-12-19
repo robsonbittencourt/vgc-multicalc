@@ -18,12 +18,7 @@ describe("DamageResultOrderService", () => {
     menuStoreSpy = jasmine.createSpyObj("MenuStore", ["oneVsManyActivated", "manyVsOneActivated"])
 
     TestBed.configureTestingModule({
-      providers: [
-        DamageResultOrderService,
-        { provide: CalculatorStore, useValue: storeSpy },
-        { provide: MenuStore, useValue: menuStoreSpy },
-        provideExperimentalZonelessChangeDetection()
-      ],
+      providers: [DamageResultOrderService, { provide: CalculatorStore, useValue: storeSpy }, { provide: MenuStore, useValue: menuStoreSpy }, provideExperimentalZonelessChangeDetection()]
     })
   })
 
@@ -143,7 +138,7 @@ describe("DamageResultOrderService", () => {
         [target1, target2, target3],
         [target1, target2, target3Active],
         [target1, target2, target3Active],
-        [target1, target2, target3Active],
+        [target1, target2, target3Active]
       )
 
       const damageResult1 = damageResult(attacker, target1.pokemon, 50)
@@ -175,13 +170,7 @@ describe("DamageResultOrderService", () => {
       const target3WithTera = new Target(new Pokemon("Roaring Moon", { teraTypeActive: true }))
 
       menuStoreSpy.oneVsManyActivated.and.returnValue(true)
-      storeSpy.targets.and.returnValues(
-        [target1, target2, target3],
-        [target1, target2, target3],
-        [target1, target2, target3],
-        [target1, target2, target3WithTera],
-        [target1, target2, target3WithTera]
-      )
+      storeSpy.targets.and.returnValues([target1, target2, target3], [target1, target2, target3], [target1, target2, target3], [target1, target2, target3WithTera], [target1, target2, target3WithTera])
 
       const damageResult1 = damageResult(attacker, target1.pokemon, 50)
       const damageResult2 = damageResult(attacker, target2.pokemon, 20)
@@ -205,13 +194,7 @@ describe("DamageResultOrderService", () => {
       const target3WithCommander = new Target(new Pokemon("Dondozo", { commanderActive: true }))
 
       menuStoreSpy.oneVsManyActivated.and.returnValue(true)
-      storeSpy.targets.and.returnValues(
-        [target1, target2, target3],
-        [target1, target2, target3],
-        [target1, target2, target3],
-        [target1, target2, target3WithCommander],
-        [target1, target2, target3WithCommander]
-      )
+      storeSpy.targets.and.returnValues([target1, target2, target3], [target1, target2, target3], [target1, target2, target3], [target1, target2, target3WithCommander], [target1, target2, target3WithCommander])
 
       const damageResult1 = damageResult(attacker, target1.pokemon, 50)
       const damageResult2 = damageResult(attacker, target2.pokemon, 20)
@@ -226,7 +209,6 @@ describe("DamageResultOrderService", () => {
       expect(results[2].id).toEqual(damageResult3.id)
     })
   })
-
 })
 
 function damageResult(attacker: Pokemon, defender: Pokemon, damage: number): DamageResult {

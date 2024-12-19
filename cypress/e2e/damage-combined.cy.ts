@@ -14,14 +14,30 @@ let defaultTeamData: string
 let defaultOpponentsData: string
 
 before(() => {
-  cy.fixture("tornadus-data").then((data) => { tornadusData = data })
-  cy.fixture("chien-pao-data").then((data) => { chienPaoData = data })
-  cy.fixture("wo-chien-data").then((data) => { woChienData = data })
-  cy.fixture("ting-lu-data").then((data) => { tingLuData = data })
-  cy.fixture("chi-yu-data").then((data) => { chiYuData = data })
-  cy.fixture("blaziken-data").then((data) => { blazikenData = data })
-  cy.fixture("default-team-data").then((data) => { defaultTeamData = data })
-  cy.fixture("default-opponents-data").then((data) => { defaultOpponentsData = data })
+  cy.fixture("tornadus-data").then(data => {
+    tornadusData = data
+  })
+  cy.fixture("chien-pao-data").then(data => {
+    chienPaoData = data
+  })
+  cy.fixture("wo-chien-data").then(data => {
+    woChienData = data
+  })
+  cy.fixture("ting-lu-data").then(data => {
+    tingLuData = data
+  })
+  cy.fixture("chi-yu-data").then(data => {
+    chiYuData = data
+  })
+  cy.fixture("blaziken-data").then(data => {
+    blazikenData = data
+  })
+  cy.fixture("default-team-data").then(data => {
+    defaultTeamData = data
+  })
+  cy.fixture("default-opponents-data").then(data => {
+    defaultOpponentsData = data
+  })
 })
 
 beforeEach(() => {
@@ -34,8 +50,8 @@ beforeEach(() => {
   opponents.importPokemon(defaultOpponentsData)
 })
 
-describe('Test calcs with combined damage', () => {
-  it.only('Calculate damage with two Pokémon', () => {
+describe("Test calcs with combined damage", () => {
+  it.only("Calculate damage with two Pokémon", () => {
     team.selectPokemon("Koraidon").selectAttackThree()
     team.selectTeamMember("Koraidon").combineDamage()
 
@@ -45,7 +61,7 @@ describe('Test calcs with combined damage', () => {
     opponents.get("Urshifu Rapid Strike").damageIs(305.1, 360.5).causeOHKO()
   })
 
-  it('Change second Pokémon in combined damage', () => {
+  it("Change second Pokémon in combined damage", () => {
     team.selectPokemon("Koraidon").selectAttackThree()
     team.selectTeamMember("Koraidon").combineDamage()
 
@@ -62,7 +78,7 @@ describe('Test calcs with combined damage', () => {
     opponents.get("Urshifu Rapid Strike").damageIs(402.2, 474.2).causeOHKO()
   })
 
-  it('Create new Pokémon and use it with combined damage', () => {
+  it("Create new Pokémon and use it with combined damage", () => {
     team.importPokemon(tornadusData)
     team.selectTeamMember("Tornadus").combineDamage()
     team.selectTeamMember("Miraidon")
@@ -71,7 +87,7 @@ describe('Test calcs with combined damage', () => {
     opponents.get("Urshifu Rapid Strike").damageIs(402.2, 474.2).causeOHKO()
   })
 
-  it('Remove second Pokémon from calculation when it is deleted', () => {
+  it("Remove second Pokémon from calculation when it is deleted", () => {
     team.selectPokemon("Koraidon").selectAttackThree()
     team.selectTeamMember("Koraidon").combineDamage()
     team.selectTeamMember("Miraidon").delete()
@@ -80,8 +96,8 @@ describe('Test calcs with combined damage', () => {
   })
 })
 
-describe('Combined Damage with Ruin abilities', () => {
-  it('Calculate damage with two Pokémon, one with Tablets of Ruin and another without ability', () => {
+describe("Combined Damage with Ruin abilities", () => {
+  it("Calculate damage with two Pokémon, one with Tablets of Ruin and another without ability", () => {
     team.importPokemon(woChienData)
     team.importPokemon(blazikenData)
 
@@ -91,7 +107,7 @@ describe('Combined Damage with Ruin abilities', () => {
     opponents.get("Urshifu Rapid Strike").damageIs(30.8, 37.1).haveChanceOfToCause3HKO(65.3)
   })
 
-  it('Calculate damage with two Pokémon, one without Tablets of Ruin and with ability', () => {
+  it("Calculate damage with two Pokémon, one without Tablets of Ruin and with ability", () => {
     team.importPokemon(blazikenData)
     team.importPokemon(woChienData)
 
@@ -101,7 +117,7 @@ describe('Combined Damage with Ruin abilities', () => {
     opponents.get("Urshifu Rapid Strike").damageIs(30.8, 37.1).haveChanceOfToCause3HKO(65.3)
   })
 
-  it('Calculate damage with two Pokémon, one with Sword of Ruin and another without ability', () => {
+  it("Calculate damage with two Pokémon, one with Sword of Ruin and another without ability", () => {
     team.importPokemon(chienPaoData)
     team.importPokemon(blazikenData)
 
@@ -111,7 +127,7 @@ describe('Combined Damage with Ruin abilities', () => {
     opponents.get("Urshifu Rapid Strike").damageIs(69.7, 82.2).cause2HKO()
   })
 
-  it('Calculate damage with two Pokémon, one without Sword of Ruin and with ability', () => {
+  it("Calculate damage with two Pokémon, one without Sword of Ruin and with ability", () => {
     team.importPokemon(blazikenData)
     team.importPokemon(chienPaoData)
 
@@ -121,7 +137,7 @@ describe('Combined Damage with Ruin abilities', () => {
     opponents.get("Urshifu Rapid Strike").damageIs(69.7, 82.2).cause2HKO()
   })
 
-  it('Calculate damage with two Pokémon, one with Vessel of Ruin and another without ability', () => {
+  it("Calculate damage with two Pokémon, one with Vessel of Ruin and another without ability", () => {
     team.importPokemon(tingLuData)
     team.importPokemon(tornadusData)
 
@@ -131,7 +147,7 @@ describe('Combined Damage with Ruin abilities', () => {
     opponents.get("Urshifu Rapid Strike").damageIs(89.7, 106.8).haveChanceOfToCauseOHKO(37.5)
   })
 
-  it('Calculate damage with two Pokémon, one without Vessel of Ruin and with ability', () => {
+  it("Calculate damage with two Pokémon, one without Vessel of Ruin and with ability", () => {
     team.importPokemon(tornadusData)
     team.importPokemon(tingLuData)
 
@@ -141,7 +157,7 @@ describe('Combined Damage with Ruin abilities', () => {
     opponents.get("Urshifu Rapid Strike").damageIs(89.7, 106.8).haveChanceOfToCauseOHKO(37.5)
   })
 
-  it('Calculate damage with two Pokémon, one with Beads of Ruin and another without ability', () => {
+  it("Calculate damage with two Pokémon, one with Beads of Ruin and another without ability", () => {
     team.importPokemon(chiYuData)
     team.importPokemon(tornadusData)
 
@@ -151,7 +167,7 @@ describe('Combined Damage with Ruin abilities', () => {
     opponents.get("Urshifu Rapid Strike").damageIs(221.7, 261.7).causeOHKO()
   })
 
-  it('Calculate damage with two Pokémon, one without Beads of Ruin and with ability', () => {
+  it("Calculate damage with two Pokémon, one without Beads of Ruin and with ability", () => {
     team.importPokemon(tornadusData)
     team.importPokemon(chiYuData)
 
@@ -161,7 +177,7 @@ describe('Combined Damage with Ruin abilities', () => {
     opponents.get("Urshifu Rapid Strike").damageIs(221.7, 261.7).causeOHKO()
   })
 
-  it('Calculate damage with two Pokémon, one with Tablets of Ruin and another with Sword of Ruin', () => {
+  it("Calculate damage with two Pokémon, one with Tablets of Ruin and another with Sword of Ruin", () => {
     team.importPokemon(woChienData)
     team.importPokemon(chienPaoData)
 
@@ -171,7 +187,7 @@ describe('Combined Damage with Ruin abilities', () => {
     opponents.get("Urshifu Rapid Strike").damageIs(32, 38.2).haveChanceOfToCause3HKO(95.9)
   })
 
-  it('Calculate damage with two Pokémon, one with Vessel of Ruin and another with Beads of Ruin', () => {
+  it("Calculate damage with two Pokémon, one with Vessel of Ruin and another with Beads of Ruin", () => {
     team.importPokemon(tingLuData)
     team.importPokemon(chiYuData)
 

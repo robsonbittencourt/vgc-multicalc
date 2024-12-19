@@ -4,7 +4,7 @@ import { Pokemon } from "@lib/model/pokemon"
 import { StatIDExceptHP } from "@robsonbittencourt/calc/dist/data/interface"
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class ParadoxAbilityAdjuster implements CalcAdjuster {
   adjust(attacker: Pokemon, target: Pokemon) {
@@ -72,15 +72,15 @@ export class ParadoxAbilityAdjuster implements CalcAdjuster {
       [5, 2],
       [6, 2],
       [7, 2],
-      [8, 2],
-    ];
+      [8, 2]
+    ]
     stat = this.OF16(stat * modernGenBoostTable[6 + mod][numerator])
     stat = Math.floor(stat / modernGenBoostTable[6 + mod][denominator])
 
-    return stat;
+    return stat
   }
 
   private OF16(n: number) {
-    return n > 65535 ? n % 65536 : n;
+    return n > 65535 ? n % 65536 : n
   }
 }

@@ -92,13 +92,11 @@ export class DamageCalculatorService {
       const descriptionTwo = resultTwo.desc()
       const descriptionAttackerTwo = descriptionTwo.substring(0, descriptionTwo.indexOf(" vs."))
 
-      const finalDescription = descriptionOne.substring(0, descriptionOne.indexOf(" vs."))
-        + " AND " + descriptionAttackerTwo + descriptionTwo.substring(descriptionTwo.indexOf(" vs."))
+      const finalDescription = descriptionOne.substring(0, descriptionOne.indexOf(" vs.")) + " AND " + descriptionAttackerTwo + descriptionTwo.substring(descriptionTwo.indexOf(" vs."))
 
       return finalDescription
     } catch (error) {
       return `${resultOne.attacker.name} ${resultOne.move.name} AND ${resultTwo.attacker.name} ${resultTwo.move.name} vs. ${resultOne.defender.name}: 0-0 (0 - 0%) -- possibly the worst move ever`
     }
   }
-
 }

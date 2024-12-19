@@ -8,8 +8,12 @@ let defaultTeamData: string
 let defaultOpponentsData: string
 
 before(() => {
-  cy.fixture("default-team-data").then((data) => { defaultTeamData = data })
-  cy.fixture("default-opponents-data").then((data) => { defaultOpponentsData = data })
+  cy.fixture("default-team-data").then(data => {
+    defaultTeamData = data
+  })
+  cy.fixture("default-opponents-data").then(data => {
+    defaultOpponentsData = data
+  })
 })
 
 beforeEach(() => {
@@ -22,8 +26,8 @@ beforeEach(() => {
   opponents.importPokemon(defaultOpponentsData)
 })
 
-describe('Test calcs with first team member Pokémon', () => {
-  it('Validate the damage Miraidon', () => {
+describe("Test calcs with first team member Pokémon", () => {
+  it("Validate the damage Miraidon", () => {
     team.selectPokemon("Miraidon").selectAttackTwo()
 
     opponents.get("Urshifu Rapid Strike").damageIs(296, 349.7).causeOHKO()
@@ -39,8 +43,8 @@ describe('Test calcs with first team member Pokémon', () => {
   })
 })
 
-describe('Test calcs with second team member Pokémon', () => {
-  it('Validate the damage with Koraidon using Collision Course', () => {
+describe("Test calcs with second team member Pokémon", () => {
+  it("Validate the damage with Koraidon using Collision Course", () => {
     team.selectPokemon("Koraidon").selectAttackTwo()
 
     opponents.get("Urshifu Rapid Strike").damageIs(53.7, 64).cause2HKO()
@@ -55,7 +59,7 @@ describe('Test calcs with second team member Pokémon', () => {
     opponents.get("Rillaboom").damageIs(51.7, 61.4).cause2HKO()
   })
 
-  it('Validate the damage with Koraidon using Flame Charge', () => {
+  it("Validate the damage with Koraidon using Flame Charge", () => {
     team.selectPokemon("Koraidon").selectAttackThree()
 
     opponents.get("Urshifu Rapid Strike").damageIs(9.1, 10.8)
@@ -70,4 +74,3 @@ describe('Test calcs with second team member Pokémon', () => {
     opponents.get("Rillaboom").damageIs(34.5, 41.6).cause3HKO()
   })
 })
-

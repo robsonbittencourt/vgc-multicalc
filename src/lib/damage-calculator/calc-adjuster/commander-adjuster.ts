@@ -3,7 +3,7 @@ import { CalcAdjuster } from "@lib/damage-calculator/calc-adjuster/calc-adjuster
 import { Pokemon } from "@lib/model/pokemon"
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class CommanderAdjuster implements CalcAdjuster {
   adjust(attacker: Pokemon, target: Pokemon) {
@@ -26,4 +26,3 @@ export class CommanderAdjuster implements CalcAdjuster {
     }
   }
 }
-

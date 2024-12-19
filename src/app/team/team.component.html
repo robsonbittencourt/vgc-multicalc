@@ -12,15 +12,14 @@
   </div>
 
   <div class="pokemon-actions">
-    <app-import-pokemon-button [show]="canImportPokemon()" [hidden]="!teamMemberOnEdit()" (pokemonImportedEvent)="pokemonImported($event)" data-cy="import-pokemon-to-team"/>
-    <app-export-pokemon-button [show]="canImportPokemon()" [hidden]="!teamMemberOnEdit()" [pokemon]="pokemonOnEdit() " data-cy="export-pokemon-from-team"/>
+    <app-import-pokemon-button [show]="canImportPokemon()" [hidden]="!teamMemberOnEdit()" (pokemonImportedEvent)="pokemonImported($event)" data-cy="import-pokemon-to-team" />
+    <app-export-pokemon-button [show]="canImportPokemon()" [hidden]="!teamMemberOnEdit()" [pokemon]="pokemonOnEdit()" data-cy="export-pokemon-from-team" />
 
     @if (canShowCombineButton()) {
       <div [hidden]="!teamMemberOnEdit()" class="delete-pokemon" (click)="selectSecondAttacker()">
         @if (combineDamageActive()) {
           <mat-icon data-cy="disable-damage-combined-button">add_circle</mat-icon>
-        }
-        @else {
+        } @else {
           <mat-icon data-cy="damage-combined-button">add_circle_outline</mat-icon>
         }
         <label>Combine Damage</label>

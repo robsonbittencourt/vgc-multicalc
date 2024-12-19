@@ -8,7 +8,6 @@ import { Pokemon } from "@lib/model/pokemon"
 import { Target } from "@lib/model/target"
 
 export class DamageMultiCalcService {
-
   private menuStore = inject(MenuStore)
   private damageCalculator = inject(DamageCalculatorService)
   private damageOrder = inject(DamageResultOrderService)
@@ -47,14 +46,9 @@ export class DamageMultiCalcService {
 
   private removeDuplicatedResults(results: DamageResult[]) {
     if (this.menuStore.oneVsManyActivated()) {
-      return results.filter((result, index) =>
-        results.findIndex(other => result.defender.equals(other.defender)) === index
-      )
+      return results.filter((result, index) => results.findIndex(other => result.defender.equals(other.defender)) === index)
     } else {
-      return results.filter((result, index) =>
-        results.findIndex(other => result.attacker.equals(other.attacker)) === index
-      )
+      return results.filter((result, index) => results.findIndex(other => result.attacker.equals(other.attacker)) === index)
     }
   }
-
 }

@@ -10,7 +10,6 @@ import { CalculatorStore } from "@data/store/calculator-store"
   imports: [NgStyle, MatIcon]
 })
 export class PokemonTabComponent {
-
   pokemonId = input.required<string>()
   active = input.required<boolean>()
 
@@ -33,5 +32,4 @@ export class PokemonTabComponent {
       return null
     }
   }
-
 }

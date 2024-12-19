@@ -12,7 +12,6 @@ import { Pokemon } from "@lib/model/pokemon"
   imports: [MatIcon]
 })
 export class ExportPokemonButtonComponent {
-
   pokemon = input.required<Pokemon>()
   show = input(true)
   hidden = input(false)
@@ -30,5 +29,4 @@ export class ExportPokemonButtonComponent {
       scrollStrategy: new NoopScrollStrategy()
     })
   }
-
 }

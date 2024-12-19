@@ -1,11 +1,10 @@
 export class DamageResult {
-
   constructor(private selector: string) {}
 
   damageIs(position: number, minPercentage: number, maxPercentage: number, minRoll: number, maxRoll: number) {
     const moves = this.baseElement().find('[data-cy="moves"]').find('[data-cy="move-damage"]').eq(position)
     moves.contains(`${minPercentage} - ${maxPercentage}%`)
-    
+
     const description = this.baseElement().find('[data-cy="move-damage-description"]')
     description.contains(`${minPercentage} - ${maxPercentage}`)
 
@@ -45,5 +44,4 @@ export class DamageResult {
   baseElement(): any {
     return cy.get(`[data-cy="${this.selector}"]`)
   }
-
 }

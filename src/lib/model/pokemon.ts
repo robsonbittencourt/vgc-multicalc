@@ -6,22 +6,22 @@ import { Stats } from "@lib/types"
 import { Generations, Pokemon as PokemonSmogon } from "@robsonbittencourt/calc"
 import { StatsTable, StatusName, TypeName } from "@robsonbittencourt/calc/dist/data/interface"
 import dedent from "dedent"
-import { v4 as uuidv4 } from 'uuid'
+import { v4 as uuidv4 } from "uuid"
 
 type PokemonParameters = {
-  id?: string,
-  ability?: string,
-  abilityOn?: boolean,
-  nature?: string,
-  item?: string,
-  teraType?: string,
-  teraTypeActive?: boolean,
-  evs?: Partial<Stats>,
-  moveSet?: MoveSet,
-  boosts?: Partial<Stats>,
-  status?: string,
-  ivs?: Partial<Stats>,
-  hpPercentage?: number,
+  id?: string
+  ability?: string
+  abilityOn?: boolean
+  nature?: string
+  item?: string
+  teraType?: string
+  teraTypeActive?: boolean
+  evs?: Partial<Stats>
+  moveSet?: MoveSet
+  boosts?: Partial<Stats>
+  status?: string
+  ivs?: Partial<Stats>
+  hpPercentage?: number
   commanderActive?: boolean
 }
 
@@ -46,11 +46,11 @@ export class Pokemon {
       item: options.item != Items.instance.withoutItem() ? options.item : undefined,
       ability: options.ability ?? AllPokemon.instance.abilitiesByName(adjustedName)[0],
       abilityOn: options.abilityOn ?? false,
-      teraType: adjustedName == "Terapagos-Stellar" || options.teraTypeActive ? (options.teraType as TypeName ?? defaulTeraType) : undefined,
+      teraType: adjustedName == "Terapagos-Stellar" || options.teraTypeActive ? ((options.teraType as TypeName) ?? defaulTeraType) : undefined,
       evs: options.evs,
       ivs: options.ivs,
       boosts: options.boosts,
-      status: this.statusConditionCode(options.status ?? 'Healthy'),
+      status: this.statusConditionCode(options.status ?? "Healthy"),
       level: 50
     })
 
@@ -59,7 +59,7 @@ export class Pokemon {
 
     this._id = options.id ?? uuidv4()
     this.commanderActivatedStorage = options.commanderActive ?? false
-    this.statusStorage = options.status ?? 'Healthy'
+    this.statusStorage = options.status ?? "Healthy"
     this.teraTypeStorage = options.teraType ?? defaulTeraType
     this.evsStorage = options.evs ?? { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
     this.ivsStorage = options.ivs ?? { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 }
@@ -167,17 +167,17 @@ export class Pokemon {
   }
 
   public get status(): string {
-    return this.statusStorage ?? ''
+    return this.statusStorage ?? ""
   }
 
   public set status(status: string) {
     this.statusStorage = status
-    this.pokemonSmogon = this.buildPokemonSmogon({}, status = this.statusConditionCode(status))
+    this.pokemonSmogon = this.buildPokemonSmogon({}, (status = this.statusConditionCode(status)))
   }
 
   statusConditionCode(status: string): StatusName {
     const statusConditions = [
-      { code: '', status: "Healthy" },
+      { code: "", status: "Healthy" },
       { code: "slp", status: "Sleep" },
       { code: "psn", status: "Poison" },
       { code: "brn", status: "Burn" },
@@ -281,23 +281,23 @@ export class Pokemon {
   }
 
   modifiedAtk(): number {
-    return this.getModifiedStat(this.pokemonSmogon.rawStats['atk'], this.pokemonSmogon.boosts['atk'])
+    return this.getModifiedStat(this.pokemonSmogon.rawStats["atk"], this.pokemonSmogon.boosts["atk"])
   }
 
   modifiedDef(): number {
-    return this.getModifiedStat(this.pokemonSmogon.rawStats['def'], this.pokemonSmogon.boosts['def'])
+    return this.getModifiedStat(this.pokemonSmogon.rawStats["def"], this.pokemonSmogon.boosts["def"])
   }
 
   modifiedSpa(): number {
-    return this.getModifiedStat(this.pokemonSmogon.rawStats['spa'], this.pokemonSmogon.boosts['spa'])
+    return this.getModifiedStat(this.pokemonSmogon.rawStats["spa"], this.pokemonSmogon.boosts["spa"])
   }
 
   modifiedSpd(): number {
-    return this.getModifiedStat(this.pokemonSmogon.rawStats['spd'], this.pokemonSmogon.boosts['spd'])
+    return this.getModifiedStat(this.pokemonSmogon.rawStats["spd"], this.pokemonSmogon.boosts["spd"])
   }
 
   modifiedSpe(): number {
-    return this.getModifiedStat(this.pokemonSmogon.rawStats['spe'], this.pokemonSmogon.boosts['spe'])
+    return this.getModifiedStat(this.pokemonSmogon.rawStats["spe"], this.pokemonSmogon.boosts["spe"])
   }
 
   public isParadoxAbility() {
@@ -326,7 +326,8 @@ export class Pokemon {
   }
 
   public equals(toCompare: Pokemon): boolean {
-    return toCompare &&
+    return (
+      toCompare &&
       this.pokemonSmogon.name === toCompare.pokemonSmogon.name &&
       this.pokemonSmogon.nature === toCompare.pokemonSmogon.nature &&
       this.pokemonSmogon.item === toCompare.pokemonSmogon.item &&
@@ -339,6 +340,7 @@ export class Pokemon {
       this.pokemonSmogon.evs.spa === toCompare.pokemonSmogon.evs.spa &&
       this.pokemonSmogon.evs.spd === toCompare.pokemonSmogon.evs.spd &&
       this.pokemonSmogon.evs.spe === toCompare.pokemonSmogon.evs.spe
+    )
   }
 
   public totalEvs(): number {
@@ -352,7 +354,6 @@ export class Pokemon {
       evsDescription = "Offensive: "
       if (this.evs.atk && this.evs.atk != 0) evsDescription += `atk: ${this.evs.atk} `
       if (this.evs.spa && this.evs.spa != 0) evsDescription += `spa: ${this.evs.spa} `
-
     } else {
       evsDescription = "Bulky: "
       if (this.evs.hp && this.evs.hp != 0) evsDescription += `hp: ${this.evs.hp} `
@@ -393,7 +394,34 @@ export class Pokemon {
     return ivsDescription
   }
 
-  private buildPokemonSmogon({ name, nature, item, ability, abilityOn, teraType, teraTypeActive, evs, ivs, boosts, hpValue }: { name?: string; nature?: string; item?: string; ability?: string; abilityOn?: boolean, teraType?: string; teraTypeActive?: boolean; evs?: Partial<StatsTable> & { spc?: number; }, ivs?: Partial<StatsTable> & { spc?: number; }, boosts?: StatsTable, hpValue?: number } = {}, status?: StatusName): PokemonSmogon {
+  private buildPokemonSmogon(
+    {
+      name,
+      nature,
+      item,
+      ability,
+      abilityOn,
+      teraType,
+      teraTypeActive,
+      evs,
+      ivs,
+      boosts,
+      hpValue
+    }: {
+      name?: string
+      nature?: string
+      item?: string
+      ability?: string
+      abilityOn?: boolean
+      teraType?: string
+      teraTypeActive?: boolean
+      evs?: Partial<StatsTable> & { spc?: number }
+      ivs?: Partial<StatsTable> & { spc?: number }
+      boosts?: StatsTable
+      hpValue?: number
+    } = {},
+    status?: StatusName
+  ): PokemonSmogon {
     const pokemonSmogon = new PokemonSmogon(Generations.get(9), name ? name : this.pokemonSmogon.name, {
       nature: nature ? nature : this.pokemonSmogon.nature,
       item: this.buildItem(item),
@@ -497,7 +525,7 @@ export class Pokemon {
       [5, 2],
       [6, 2],
       [7, 2],
-      [8, 2],
+      [8, 2]
     ]
     stat = this.OF16(stat * modernGenBoostTable[6 + mod][numerator])
     stat = Math.floor(stat / modernGenBoostTable[6 + mod][denominator])
@@ -546,5 +574,4 @@ export class Pokemon {
 
     return text
   }
-
 }

@@ -32,7 +32,30 @@ import { SmogonFunctions } from "@lib/smogon-functions/smogon-functions"
 
 bootstrapApplication(AppComponent, {
   providers: [
-    importProvidersFrom(ReactiveFormsModule, FormsModule, BrowserModule, RouterOutlet, MatAutocompleteModule, MatInputModule, MatFormFieldModule, MatCardModule, MatCheckboxModule, MatSliderModule, MatIconModule, MatButtonModule, MatSelectModule, MatButtonToggleModule, MatChipsModule, MatSlideToggleModule, AppRoutingModule, MatSnackBarModule, MatTooltipModule, MatTabsModule, MatDialogModule, MatMenuModule),
+    importProvidersFrom(
+      ReactiveFormsModule,
+      FormsModule,
+      BrowserModule,
+      RouterOutlet,
+      MatAutocompleteModule,
+      MatInputModule,
+      MatFormFieldModule,
+      MatCardModule,
+      MatCheckboxModule,
+      MatSliderModule,
+      MatIconModule,
+      MatButtonModule,
+      MatSelectModule,
+      MatButtonToggleModule,
+      MatChipsModule,
+      MatSlideToggleModule,
+      AppRoutingModule,
+      MatSnackBarModule,
+      MatTooltipModule,
+      MatTabsModule,
+      MatDialogModule,
+      MatMenuModule
+    ),
     SmogonFunctions,
     provideAnimations(),
     provideExperimentalZonelessChangeDetection(),

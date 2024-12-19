@@ -34,5 +34,4 @@ export class HeaderComponent {
   copyUserDataLink() {
     navigator.clipboard.writeText(this.userDataLink)
   }
-
 }

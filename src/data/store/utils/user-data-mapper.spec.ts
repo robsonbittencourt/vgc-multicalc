@@ -2,22 +2,25 @@ import { CalculatorState, PokemonState, TargetState, TeamState } from "@data/sto
 import { buildState, buildUserData } from "@data/store/utils/user-data-mapper"
 
 describe("User Data Mapper", () => {
-
   describe("buildUserData", () => {
     it("should build user data for speedCalcPokemon", () => {
       const speedCalcPokemon = pikachuState
 
-      const teams: TeamState[] = [{
-        id: "123",
-        active: true,
-        name: "Team 1",
-        teamMembers: [{ active: true, pokemon: speedCalcPokemon }]
-      }]
+      const teams: TeamState[] = [
+        {
+          id: "123",
+          active: true,
+          name: "Team 1",
+          teamMembers: [{ active: true, pokemon: speedCalcPokemon }]
+        }
+      ]
 
-      const targets: TargetState[] = [{
-        active: false,
-        pokemon: speedCalcPokemon
-      }]
+      const targets: TargetState[] = [
+        {
+          active: false,
+          pokemon: speedCalcPokemon
+        }
+      ]
 
       const result = buildUserData(speedCalcPokemon, speedCalcPokemon, speedCalcPokemon, teams, targets)
 
@@ -39,17 +42,21 @@ describe("User Data Mapper", () => {
     it("should build user data for leftPokemon", () => {
       const leftPokemon = pikachuState
 
-      const teams: TeamState[] = [{
-        id: "123",
-        active: true,
-        name: "Team 1",
-        teamMembers: [{ active: true, pokemon: leftPokemon }]
-      }]
+      const teams: TeamState[] = [
+        {
+          id: "123",
+          active: true,
+          name: "Team 1",
+          teamMembers: [{ active: true, pokemon: leftPokemon }]
+        }
+      ]
 
-      const targets: TargetState[] = [{
-        active: false,
-        pokemon: leftPokemon
-      }]
+      const targets: TargetState[] = [
+        {
+          active: false,
+          pokemon: leftPokemon
+        }
+      ]
 
       const result = buildUserData(leftPokemon, leftPokemon, leftPokemon, teams, targets)
 
@@ -71,17 +78,21 @@ describe("User Data Mapper", () => {
     it("should build user data for rightPokemon", () => {
       const rightPokemon = pikachuState
 
-      const teams: TeamState[] = [{
-        id: "123",
-        active: true,
-        name: "Team 1",
-        teamMembers: [{ active: true, pokemon: rightPokemon }]
-      }]
+      const teams: TeamState[] = [
+        {
+          id: "123",
+          active: true,
+          name: "Team 1",
+          teamMembers: [{ active: true, pokemon: rightPokemon }]
+        }
+      ]
 
-      const targets: TargetState[] = [{
-        active: false,
-        pokemon: rightPokemon
-      }]
+      const targets: TargetState[] = [
+        {
+          active: false,
+          pokemon: rightPokemon
+        }
+      ]
 
       const result = buildUserData(rightPokemon, rightPokemon, rightPokemon, teams, targets)
 
@@ -125,10 +136,12 @@ describe("User Data Mapper", () => {
         }
       ]
 
-      const targets: TargetState[] = [{
-        active: false,
-        pokemon: teamPokemonOne
-      }]
+      const targets: TargetState[] = [
+        {
+          active: false,
+          pokemon: teamPokemonOne
+        }
+      ]
 
       const result = buildUserData(teamPokemonOne, teamPokemonOne, teamPokemonOne, teams, targets)
 
@@ -147,12 +160,14 @@ describe("User Data Mapper", () => {
       const targetOne = pikachuState
       const targetTwo = bulbasaurState
 
-      const teams: TeamState[] = [{
-        id: "123",
-        active: true,
-        name: "Team 1",
-        teamMembers: [{ active: true, pokemon: targetOne }]
-      }]
+      const teams: TeamState[] = [
+        {
+          id: "123",
+          active: true,
+          name: "Team 1",
+          teamMembers: [{ active: true, pokemon: targetOne }]
+        }
+      ]
 
       const targets: TargetState[] = [
         {
@@ -179,11 +194,13 @@ describe("User Data Mapper", () => {
         speedCalcPokemon: pikachuUserData,
         leftPokemon: bulbasaurUserData,
         rightPokemon: charmanderUserData,
-        teams: [{
-          name: "Team 1",
-          active: true,
-          teamMembers: [{ active: true, pokemon: bulbasaurUserData }]
-        }],
+        teams: [
+          {
+            name: "Team 1",
+            active: true,
+            teamMembers: [{ active: true, pokemon: bulbasaurUserData }]
+          }
+        ],
         targets: [{ pokemon: charmanderUserData }]
       }
 
@@ -209,11 +226,13 @@ describe("User Data Mapper", () => {
       const userData = {
         leftPokemon: pikachuUserData,
         rightPokemon: charmanderUserData,
-        teams: [{
-          name: "Team 1",
-          active: true,
-          teamMembers: [{ active: true, pokemon: bulbasaurUserData }]
-        }],
+        teams: [
+          {
+            name: "Team 1",
+            active: true,
+            teamMembers: [{ active: true, pokemon: bulbasaurUserData }]
+          }
+        ],
         targets: [{ pokemon: charmanderUserData }]
       }
 
@@ -239,11 +258,13 @@ describe("User Data Mapper", () => {
       const userData = {
         leftPokemon: pikachuUserData,
         rightPokemon: charmanderUserData,
-        teams: [{
-          name: "Team 1",
-          active: true,
-          teamMembers: [{ active: true, pokemon: bulbasaurUserData }]
-        }],
+        teams: [
+          {
+            name: "Team 1",
+            active: true,
+            teamMembers: [{ active: true, pokemon: bulbasaurUserData }]
+          }
+        ],
         targets: [{ pokemon: charmanderUserData }]
       }
 
@@ -269,11 +290,13 @@ describe("User Data Mapper", () => {
       const userData = {
         leftPokemon: pikachuUserData,
         rightPokemon: charmanderUserData,
-        teams: [{
-          name: "Team 1",
-          active: true,
-          teamMembers: [{ active: true, pokemon: bulbasaurUserData }]
-        }],
+        teams: [
+          {
+            name: "Team 1",
+            active: true,
+            teamMembers: [{ active: true, pokemon: bulbasaurUserData }]
+          }
+        ],
         targets: [{ pokemon: charmanderUserData }]
       }
 
@@ -299,11 +322,13 @@ describe("User Data Mapper", () => {
       const userData = {
         leftPokemon: pikachuUserData,
         rightPokemon: charmanderUserData,
-        teams: [{
-          name: "Team 1",
-          active: true,
-          teamMembers: [{ active: true, pokemon: bulbasaurUserData }]
-        }],
+        teams: [
+          {
+            name: "Team 1",
+            active: true,
+            teamMembers: [{ active: true, pokemon: bulbasaurUserData }]
+          }
+        ],
         targets: [{ pokemon: charmanderUserData }]
       }
 

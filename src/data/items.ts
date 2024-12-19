@@ -1,5 +1,4 @@
 export class Items {
-
   private static _instance: Items
 
   items: string[]
@@ -9,7 +8,7 @@ export class Items {
   }
 
   static get instance(): Items {
-    if(!Items._instance) {
+    if (!Items._instance) {
       Items._instance = new Items()
     }
 
@@ -81,7 +80,7 @@ export class Items {
       "Flame Orb",
       "Flame Plate",
       "Float Stone",
-      "Focus Band",      
+      "Focus Band",
       "Ganlon Berry",
       "Grassy Seed",
       "Grepa Berry",
@@ -108,7 +107,7 @@ export class Items {
       "Lagging Tail",
       "Lansat Berry",
       "Leppa Berry",
-      "Liechi Berry",      
+      "Liechi Berry",
       "Light Ball",
       "Light Clay",
       "Loaded Dice",
@@ -157,7 +156,7 @@ export class Items {
       "Razor Fang",
       "Red Card",
       "Rindo Berry",
-      "Ring Target",      
+      "Ring Target",
       "Room Service",
       "Roseli Berry",
       "Rowap Berry",
@@ -171,7 +170,7 @@ export class Items {
       "Shell Bell",
       "Shuca Berry",
       "Silk Scarf",
-      "Silver Powder",      
+      "Silver Powder",
       "Sky Plate",
       "Smooth Rock",
       "Snowball",

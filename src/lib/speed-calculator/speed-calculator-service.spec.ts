@@ -314,7 +314,6 @@ describe("SpeedCalculatorService", () => {
   })
 
   describe("meta speed", () => {
-
     it("should return meta speed description and Pokémon name", () => {
       const pokemon = new Pokemon("Flutter Mane")
       const smogonField = new SmogonField()

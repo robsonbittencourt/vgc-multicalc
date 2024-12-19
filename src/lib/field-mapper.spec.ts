@@ -2,10 +2,22 @@ import { FieldMapper } from "@lib/field-mapper"
 import { Field, FieldAttackerSide, FieldDefenderSide } from "@lib/model/field"
 
 describe("FieldMapper", () => {
-
   describe("Mapping to Smogon class", () => {
     it("should mapping Field to Smogon Field with some configs turned on", () => {
-      const field = new Field({ gameType: "Doubles", weather: "Sun", terrain: "Grassy", isBeadsOfRuin: false, isSwordOfRuin: true, isTabletsOfRuin: false, isVesselOfRuin: true, isMagicRoom: false, isWonderRoom: true, isGravity: false, isTrickRoom: true, isCriticalHit: false })
+      const field = new Field({
+        gameType: "Doubles",
+        weather: "Sun",
+        terrain: "Grassy",
+        isBeadsOfRuin: false,
+        isSwordOfRuin: true,
+        isTabletsOfRuin: false,
+        isVesselOfRuin: true,
+        isMagicRoom: false,
+        isWonderRoom: true,
+        isGravity: false,
+        isTrickRoom: true,
+        isCriticalHit: false
+      })
 
       const smogonField = new FieldMapper().toSmogon(field)
 
@@ -22,7 +34,20 @@ describe("FieldMapper", () => {
     })
 
     it("should mapping Field to Smogon Field with another configs turned on", () => {
-      const field = new Field({ gameType: "Singles", weather: "Rain", terrain: "Psychic", isBeadsOfRuin: true, isSwordOfRuin: false, isTabletsOfRuin: true, isVesselOfRuin: false, isMagicRoom: true, isWonderRoom: false, isGravity: true, isTrickRoom: false, isCriticalHit: true })
+      const field = new Field({
+        gameType: "Singles",
+        weather: "Rain",
+        terrain: "Psychic",
+        isBeadsOfRuin: true,
+        isSwordOfRuin: false,
+        isTabletsOfRuin: true,
+        isVesselOfRuin: false,
+        isMagicRoom: true,
+        isWonderRoom: false,
+        isGravity: true,
+        isTrickRoom: false,
+        isCriticalHit: true
+      })
 
       const smogonField = new FieldMapper().toSmogon(field)
 
@@ -94,5 +119,4 @@ describe("FieldMapper", () => {
       expect(smogonField.defenderSide.isSeeded).toEqual(true)
     })
   })
-
 })

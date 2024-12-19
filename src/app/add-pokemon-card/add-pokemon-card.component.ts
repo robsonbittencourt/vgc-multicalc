@@ -9,11 +9,9 @@ import { MatIcon } from "@angular/material/icon"
   imports: [MatCard, MatIcon]
 })
 export class AddPokemonCardComponent {
-
   pokemonAddedToTeam = output()
 
   addPokemon() {
     this.pokemonAddedToTeam.emit()
   }
-
 }

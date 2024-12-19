@@ -13,21 +13,35 @@ let pokepasteDataForms3: string
 let pokepasteDataForms4: string
 
 before(() => {
-  cy.fixture("chi-yu-data").then((data) => { chiyuData = data })
-  cy.fixture("pokepaste-data").then((data) => { pokepasteData = data })
-  cy.fixture("default-team-data").then((data) => { defaultTeamData = data })
-  cy.fixture("pokepaste-data-forms-1").then((data) => { pokepasteDataForms1 = data })
-  cy.fixture("pokepaste-data-forms-2").then((data) => { pokepasteDataForms2 = data })
-  cy.fixture("pokepaste-data-forms-3").then((data) => { pokepasteDataForms3 = data })
-  cy.fixture("pokepaste-data-forms-4").then((data) => { pokepasteDataForms4 = data })
+  cy.fixture("chi-yu-data").then(data => {
+    chiyuData = data
+  })
+  cy.fixture("pokepaste-data").then(data => {
+    pokepasteData = data
+  })
+  cy.fixture("default-team-data").then(data => {
+    defaultTeamData = data
+  })
+  cy.fixture("pokepaste-data-forms-1").then(data => {
+    pokepasteDataForms1 = data
+  })
+  cy.fixture("pokepaste-data-forms-2").then(data => {
+    pokepasteDataForms2 = data
+  })
+  cy.fixture("pokepaste-data-forms-3").then(data => {
+    pokepasteDataForms3 = data
+  })
+  cy.fixture("pokepaste-data-forms-4").then(data => {
+    pokepasteDataForms4 = data
+  })
 })
 
 beforeEach(() => {
   cy.get('[data-cy="team-vs-many"]').click({ force: true })
 })
 
-describe('Import Pokémon', () => {
-  it('to team', () => {
+describe("Import Pokémon", () => {
+  it("to team", () => {
     team.importPokemon(chiyuData)
 
     team.selectPokemon("Chi-Yu")
@@ -37,7 +51,7 @@ describe('Import Pokémon', () => {
     team.pokemonOnEditIvsIs(31, 30, 29, 28, 27, 0)
   })
 
-  it('to opponent', () => {
+  it("to opponent", () => {
     opponent.importPokemon(chiyuData)
 
     opponent.selectPokemon("Chi-Yu")
@@ -48,8 +62,8 @@ describe('Import Pokémon', () => {
   })
 })
 
-describe('Import Pokepaste', () => {
-  it('to team', () => {
+describe("Import Pokepaste", () => {
+  it("to team", () => {
     const team = new Team()
 
     team.importPokepaste(pokepasteData)
@@ -91,7 +105,7 @@ describe('Import Pokepaste', () => {
     team.pokemonOnEditIvsIs(31, 0, 31, 31, 31, 31)
   })
 
-  it('with Vivillon, Alcremie, Squawkabilly, Dudunsparce, Maushold and Pikachu in normal form', () => {
+  it("with Vivillon, Alcremie, Squawkabilly, Dudunsparce, Maushold and Pikachu in normal form", () => {
     team.importPokepaste(pokepasteDataForms1)
     team.selectTeam("Team 2")
 
@@ -131,7 +145,7 @@ describe('Import Pokepaste', () => {
     team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
   })
 
-  it('with Vivillon, Alcremie, Squawkabilly, Dudunsparce, Maushold and Pikachu in alternative form', () => {
+  it("with Vivillon, Alcremie, Squawkabilly, Dudunsparce, Maushold and Pikachu in alternative form", () => {
     team.importPokepaste(pokepasteDataForms2)
     team.selectTeam("Team 2")
 
@@ -171,7 +185,7 @@ describe('Import Pokepaste', () => {
     team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
   })
 
-  it('with Flabébé, Floette, Florges and Tatsugiri in normal form', () => {
+  it("with Flabébé, Floette, Florges and Tatsugiri in normal form", () => {
     team.importPokepaste(pokepasteDataForms3)
     team.selectTeam("Team 2")
 
@@ -199,7 +213,7 @@ describe('Import Pokepaste', () => {
     team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
   })
 
-  it('with Flabébé, Floette, Florges and Tatsugiri in alternative form', () => {
+  it("with Flabébé, Floette, Florges and Tatsugiri in alternative form", () => {
     team.importPokepaste(pokepasteDataForms4)
     team.selectTeam("Team 2")
 
@@ -227,7 +241,7 @@ describe('Import Pokepaste', () => {
     team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
   })
 
-  it('to opponent', () => {
+  it("to opponent", () => {
     opponent.deleteAll()
     opponent.importPokemon(pokepasteData)
 
@@ -268,7 +282,7 @@ describe('Import Pokepaste', () => {
     team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
   })
 
-  it('when have a new Pokémon on edit', () => {
+  it("when have a new Pokémon on edit", () => {
     team.delete("Team 1")
     team.importPokepaste(defaultTeamData)
 

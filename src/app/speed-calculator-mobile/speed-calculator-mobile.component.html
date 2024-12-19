@@ -2,7 +2,7 @@
   <div class="combo-options">
     <div class="pokemon-name">
       <label>Pokémon</label>
-      <app-pokemon-combo-box [pokemonId]="pokemonId()" data-cy="pokemon-select"/>
+      <app-pokemon-combo-box [pokemonId]="pokemonId()" data-cy="pokemon-select" />
     </div>
 
     <div class="combo-option">
@@ -11,7 +11,7 @@
     </div>
 
     <div class="tab">
-      <img class="pokemon-image-small" src='assets/sprites/pokemon-sv/{{ pokemon().name }}.png'>
+      <img class="pokemon-image-small" src="assets/sprites/pokemon-sv/{{ pokemon().name }}.png" />
     </div>
 
     <div class="combo-option-medium">
@@ -31,12 +31,11 @@
         </div>
       }
 
-      @if (pokemon().name == 'Dondozo') {
+      @if (pokemon().name == "Dondozo") {
         <button class="icon-button" (click)="store.commanderActive(pokemonId(), !pokemon().commanderActivated)" matTooltip="Commander">
           @if (this.pokemon().commanderActivated) {
             <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly.png" />
-          }
-          @else {
+          } @else {
             <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly-gray.png" />
           }
         </button>
@@ -46,8 +45,7 @@
         <button class="icon-button" (click)="store.abilityOn(pokemonId(), !pokemon().abilityOn)" matTooltip="Booster Energy">
           @if (this.pokemon().abilityOn) {
             <img class="icon-tatsugiri" src="assets/icons/booster-energy.png" />
-          }
-          @else {
+          } @else {
             <img class="icon-tatsugiri" src="assets/icons/booster-energy-gray.png" />
           }
         </button>
@@ -56,7 +54,7 @@
 
     <div class="combo-option">
       <label>Ability</label>
-      <app-ability-combo-box [pokemonId]="pokemonId()" data-cy="ability"/>
+      <app-ability-combo-box [pokemonId]="pokemonId()" data-cy="ability" />
     </div>
   </div>
 
@@ -65,7 +63,7 @@
   </div>
 
   <div class="speed-calculator-container">
-    <app-speed-scale [pokemonId]="pokemon().id" [pokemonEachSide]=17 />
+    <app-speed-scale [pokemonId]="pokemon().id" [pokemonEachSide]="17" />
   </div>
 
   <div>
@@ -122,7 +120,7 @@
     <label class="title">Pokémon</label>
   </div>
   <div class="options">
-    <app-input-autocomplete [allValues]="optionsStore.pokemonNamesByReg()" [value]="optionsStore.targetName()" (valueChange)="optionsStore.updateTargetName($event)"/>
+    <app-input-autocomplete [allValues]="optionsStore.pokemonNamesByReg()" [value]="optionsStore.targetName()" (valueChange)="optionsStore.updateTargetName($event)" />
     <mat-icon class="clear-button" (click)="optionsStore.clearTargetName()">clear</mat-icon>
   </div>
 </div>

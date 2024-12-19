@@ -4,7 +4,6 @@ import { MenuStore } from "@data/store/menu-store"
 import { DamageResult } from "@lib/damage-calculator/damage-result"
 
 export class DamageResultOrderService {
-
   private store = inject(CalculatorStore)
   private menuStore = inject(MenuStore)
 
@@ -36,7 +35,10 @@ export class DamageResultOrderService {
   }
 
   private activeTargetsIds(): string[] {
-    return this.store.targets().filter(target => target.active).map(target => target.pokemon.id)
+    return this.store
+      .targets()
+      .filter(target => target.active)
+      .map(target => target.pokemon.id)
   }
 
   private countTargetsWithSpecificCalc(): number {
@@ -47,9 +49,7 @@ export class DamageResultOrderService {
   }
 
   private changeHappenedInTargets(activeTargetsIds: string[], targetIdsWithSpecificCalc: number) {
-    return activeTargetsIds[0] != this.targetsIdsActive[0] ||
-      activeTargetsIds[1] != this.targetsIdsActive[1] ||
-      targetIdsWithSpecificCalc != this.targetsWithSpecificCalc
+    return activeTargetsIds[0] != this.targetsIdsActive[0] || activeTargetsIds[1] != this.targetsIdsActive[1] || targetIdsWithSpecificCalc != this.targetsWithSpecificCalc
   }
 
   private applyActualOrder(results: DamageResult[]) {
@@ -62,8 +62,8 @@ export class DamageResultOrderService {
 
   private applyOrderByDamage(results: DamageResult[]) {
     results.sort((a, b) => {
-      if (this.menuStore.oneVsManyActivated() && (!a.defender.isDefault() && b.defender.isDefault())) return -1
-      if (this.menuStore.manyVsOneActivated() && (!a.attacker.isDefault() && b.attacker.isDefault())) return -1
+      if (this.menuStore.oneVsManyActivated() && !a.defender.isDefault() && b.defender.isDefault()) return -1
+      if (this.menuStore.manyVsOneActivated() && !a.attacker.isDefault() && b.attacker.isDefault()) return -1
 
       return b.damage - a.damage
     })
@@ -72,5 +72,4 @@ export class DamageResultOrderService {
   private pokemonIdToOrder(result: DamageResult): string {
     return this.menuStore.oneVsManyActivated() ? result.defender.id : result.attacker.id
   }
-
 }

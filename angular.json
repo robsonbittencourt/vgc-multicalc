@@ -27,18 +27,10 @@
             },
             "index": "src/index.html",
             "tsConfig": "tsconfig.app.json",
-            "assets": [
-              "src/manifest.json",
-              "src/assets"
-            ],
-            "styles": [
-              "@angular/material/prebuilt-themes/deeppurple-amber.css",
-              "src/styles.scss"
-            ],
+            "assets": ["src/manifest.json", "src/assets"],
+            "styles": ["@angular/material/prebuilt-themes/deeppurple-amber.css", "src/styles.scss"],
             "scripts": [],
-            "allowedCommonJsDependencies": [
-              "@robsonbittencourt/calc"
-            ],
+            "allowedCommonJsDependencies": ["@robsonbittencourt/calc"],
             "browser": "src/main.ts"
           },
           "configurations": {
@@ -88,13 +80,8 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "tsConfig": "tsconfig.spec.json",
-            "assets": [
-              "src/assets"
-            ],
-            "styles": [
-              "@angular/material/prebuilt-themes/deeppurple-amber.css",
-              "src/styles.scss"
-            ],
+            "assets": ["src/assets"],
+            "styles": ["@angular/material/prebuilt-themes/deeppurple-amber.css", "src/styles.scss"],
             "scripts": [],
             "browsers": "ChromeHeadless"
           }

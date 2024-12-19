@@ -1,22 +1,22 @@
 <div class="container">
-  <app-damage-result [pokemon]="store.leftPokemon()" [damageResults]="leftDamageResults()" [opponentDamageResult]="rightDamageResult()" (moveSetChange)="leftMoveActivated($event)" data-cy="left-damage-result"/>
-  <app-damage-result [pokemon]="store.rightPokemon()" [damageResults]="rightDamageResults()" [opponentDamageResult]="leftDamageResult()" (moveSetChange)="rightMoveActivated($event)" [reverse]="true" data-cy="right-damage-result"/>
+  <app-damage-result [pokemon]="store.leftPokemon()" [damageResults]="leftDamageResults()" [opponentDamageResult]="rightDamageResult()" (moveSetChange)="leftMoveActivated($event)" data-cy="left-damage-result" />
+  <app-damage-result [pokemon]="store.rightPokemon()" [damageResults]="rightDamageResults()" [opponentDamageResult]="leftDamageResult()" (moveSetChange)="rightMoveActivated($event)" [reverse]="true" data-cy="right-damage-result" />
 
   <div class="pokemon-edit" data-cy="left-pokemon">
     <div class="pokemon-actions pokemon-actions-left">
-      <app-import-pokemon-button (pokemonImportedEvent)="store.updateLeftPokemon($event)"/>
-      <app-export-pokemon-button [pokemon]="store.leftPokemon()"/>
+      <app-import-pokemon-button (pokemonImportedEvent)="store.updateLeftPokemon($event)" />
+      <app-export-pokemon-button [pokemon]="store.leftPokemon()" />
     </div>
     <app-pokemon-build [pokemonId]="store.leftPokemon().id" />
   </div>
 
   <div class="pokemon-edit" data-cy="right-pokemon">
     <div class="pokemon-actions pokemon-actions-right">
-      <app-import-pokemon-button (pokemonImportedEvent)="store.updateRightPokemon($event)"/>
-      <app-export-pokemon-button [pokemon]="store.rightPokemon()"/>
+      <app-import-pokemon-button (pokemonImportedEvent)="store.updateRightPokemon($event)" />
+      <app-export-pokemon-button [pokemon]="store.rightPokemon()" />
     </div>
-    <app-pokemon-build [pokemonId]="store.rightPokemon().id" [reverse]="true"/>
-  </div> 
+    <app-pokemon-build [pokemonId]="store.rightPokemon().id" [reverse]="true" />
+  </div>
 
   <div class="field">
     <app-field />

@@ -12,7 +12,7 @@ export function stateToPokemon(state: PokemonState) {
   const moveTwo = new Move(state.moveSet[1].name, { alliesFainted: state.moveSet[1].alliesFainted, hits: state.moveSet[1].hits })
   const moveThree = new Move(state.moveSet[2].name, { alliesFainted: state.moveSet[2].alliesFainted, hits: state.moveSet[2].hits })
   const moveFour = new Move(state.moveSet[3].name, { alliesFainted: state.moveSet[3].alliesFainted, hits: state.moveSet[3].hits })
-  const activeMovePosition = [moveOne, moveTwo, moveThree, moveFour].findIndex(move => move.name == state.activeMove) + 1 as MovePosition
+  const activeMovePosition = ([moveOne, moveTwo, moveThree, moveFour].findIndex(move => move.name == state.activeMove) + 1) as MovePosition
 
   return new Pokemon(state.name, {
     id: state.id,

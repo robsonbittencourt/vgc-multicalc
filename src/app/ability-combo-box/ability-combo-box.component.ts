@@ -10,7 +10,6 @@ import { CalculatorStore } from "@data/store/calculator-store"
   imports: [InputAutocompleteComponent]
 })
 export class AbilityComboBoxComponent {
-
   store = inject(CalculatorStore)
 
   pokemonId = input.required<string>()
@@ -18,5 +17,4 @@ export class AbilityComboBoxComponent {
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
 
   availableAbilities = computed(() => AllPokemon.instance.abilitiesByName(this.pokemon().name))
-
 }

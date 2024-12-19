@@ -1,7 +1,6 @@
 import { DamageResult } from "@lib/damage-calculator/damage-result"
 import { Pokemon } from "@lib/model/pokemon"
 export class Target {
-
   active: boolean
   pokemon: Pokemon
   damageResult: DamageResult
@@ -10,5 +9,4 @@ export class Target {
     this.active = active
     this.pokemon = pokemon
   }
-
 }

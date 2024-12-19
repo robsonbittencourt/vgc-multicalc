@@ -6,12 +6,16 @@ let ursalunaData: string
 let baxcaliburData: string
 
 before(() => {
-  cy.fixture("ursaluna-data").then((data) => { ursalunaData = data })
-  cy.fixture("baxcalibur-data").then((data) => { baxcaliburData = data })
+  cy.fixture("ursaluna-data").then(data => {
+    ursalunaData = data
+  })
+  cy.fixture("baxcalibur-data").then(data => {
+    baxcaliburData = data
+  })
 })
 
-describe('Edit Pokémon', () => {
-  it('Show only selected Pokémon abilities when change Pokémon', () => {
+describe("Edit Pokémon", () => {
+  it("Show only selected Pokémon abilities when change Pokémon", () => {
     leftPokemonBuild.importPokemon(ursalunaData)
 
     leftPokemonBuild.selectAbility("Guts")
@@ -22,5 +26,4 @@ describe('Edit Pokémon', () => {
     leftPokemonBuild.selectAbility("Thermal Exchange")
     leftPokemonBuild.selectAbility("Ice Body")
   })
-
 })

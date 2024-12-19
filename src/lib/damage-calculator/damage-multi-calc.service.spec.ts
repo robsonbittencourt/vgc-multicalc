@@ -28,7 +28,7 @@ describe("DamageMultiCalcService", () => {
         { provide: DamageCalculatorService, useValue: damageCalculatorSpy },
         { provide: DamageResultOrderService, useValue: damageOrderSpy },
         provideExperimentalZonelessChangeDetection()
-      ],
+      ]
     })
 
     service = TestBed.inject(DamageMultiCalcService)
@@ -54,7 +54,7 @@ describe("DamageMultiCalcService", () => {
       damageCalculatorSpy.calcDamage.withArgs(attacker, target2.pokemon, field).and.returnValue(damageResult2)
       damageCalculatorSpy.calcDamage.withArgs(attacker, target3.pokemon, field).and.returnValue(damageResult3)
 
-      damageOrderSpy.order.and.callFake((results) => results)
+      damageOrderSpy.order.and.callFake(results => results)
 
       const result = service.calculateDamageForAll(attacker, targets, new Field())
 
@@ -84,7 +84,7 @@ describe("DamageMultiCalcService", () => {
       damageCalculatorSpy.calcDamageForTwoAttackers.withArgs(attacker, secondAttacker, target1.pokemon, field).and.returnValue([damageResult1, damageResult2])
       damageCalculatorSpy.calcDamageForTwoAttackers.withArgs(attacker, secondAttacker, target2.pokemon, field).and.returnValue([damageResult3, damageResult4])
 
-      damageOrderSpy.order.and.callFake((results) => results)
+      damageOrderSpy.order.and.callFake(results => results)
 
       const result = service.calculateDamageForAll(attacker, targets, new Field(), secondAttacker)
 
@@ -114,7 +114,7 @@ describe("DamageMultiCalcService", () => {
       damageCalculatorSpy.calcDamage.withArgs(target2.pokemon, teamMember, field).and.returnValue(damageResult2)
       damageCalculatorSpy.calcDamage.withArgs(target3.pokemon, teamMember, field).and.returnValue(damageResult3)
 
-      damageOrderSpy.order.and.callFake((results) => results)
+      damageOrderSpy.order.and.callFake(results => results)
 
       const result = service.calculateDamageForAll(teamMember, targets, new Field())
 
@@ -143,7 +143,7 @@ describe("DamageMultiCalcService", () => {
       damageCalculatorSpy.calcDamage.withArgs(target2.pokemon, teamMember, field).and.returnValue(damageResult2)
       damageCalculatorSpy.calcDamageForTwoAttackers.withArgs(target1.pokemon, target3.pokemon, teamMember, field).and.returnValue([damageResult1, damageResult3])
 
-      damageOrderSpy.order.and.callFake((results) => results)
+      damageOrderSpy.order.and.callFake(results => results)
 
       const result = service.calculateDamageForAll(teamMember, targets, new Field())
 

@@ -19,7 +19,6 @@ import { MOVES, NATURES, TYPE_CHART } from "@robsonbittencourt/calc"
   imports: [MatChipListbox, ReactiveFormsModule, FormsModule, MatChipOption, MatIcon, InputAutocompleteComponent, MatTooltip, MatCheckbox, AbilityComboBoxComponent, EvSliderComponent]
 })
 export class PokemonBuildMobileComponent {
-
   pokemonId = input.required<string>()
 
   pokemonChangedEvent = output<Pokemon>()
@@ -38,9 +37,7 @@ export class PokemonBuildMobileComponent {
 
   editAttacks: boolean = false
 
-  statusConditions = [
-    "Healthy", "Sleep", "Poison", "Burn", "Freeze", "Paralysis"
-  ]
+  statusConditions = ["Healthy", "Sleep", "Poison", "Burn", "Freeze", "Paralysis"]
 
   activateMove1() {
     this.activateMove(1)
@@ -90,5 +87,4 @@ export class PokemonBuildMobileComponent {
     const activeMovePosition = this.pokemon().moveSet.activeMovePosition
     this.store.hits(this.pokemonId(), event, activeMovePosition)
   }
-
 }

@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from 'uuid'
+import { v4 as uuidv4 } from "uuid"
 
 export class SpeedDefinition {
   id: string
@@ -20,5 +20,4 @@ export class SpeedDefinition {
 
     return true
   }
-
 }

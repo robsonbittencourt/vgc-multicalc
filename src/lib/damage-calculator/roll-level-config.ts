@@ -1,5 +1,4 @@
 export class RollLevelConfig {
-
   high: boolean
   medium: boolean
   low: boolean
@@ -21,5 +20,4 @@ export class RollLevelConfig {
   static low(): RollLevelConfig {
     return new RollLevelConfig(false, false, true)
   }
-
 }

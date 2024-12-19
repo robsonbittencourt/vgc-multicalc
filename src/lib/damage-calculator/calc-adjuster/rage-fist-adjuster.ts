@@ -5,14 +5,13 @@ import { Pokemon } from "@lib/model/pokemon"
 import { Move as MoveSmogon } from "@robsonbittencourt/calc"
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class RageFistAdjuster implements CalcAdjuster {
   adjust(attacker: Pokemon, target: Pokemon, move: Move, moveSmogon: MoveSmogon) {
     if (move.name == "Rage Fist") {
-      const adjustedBasePower = 50 + (50 * +move.hits)
+      const adjustedBasePower = 50 + 50 * +move.hits
       moveSmogon.overrides = { basePower: adjustedBasePower }
     }
   }
 }
-

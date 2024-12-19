@@ -1,7 +1,7 @@
 .teams {
   background-color: white;
   border-radius: 12px;
-  padding: 1em 1.5em 1.0em 1.5em;
+  padding: 1em 1.5em 1em 1.5em;
   border-color: rgb(229, 231, 235);
   border-width: 1px;
   border-style: solid;
@@ -24,7 +24,7 @@
 
 .teams-container {
   display: flex;
-  flex-direction: column;;
+  flex-direction: column;
   margin-top: 1.5em;
 }
 
@@ -45,8 +45,8 @@
 }
 
 .team-name-input {
-  height: 2.35em; 
-  margin-right: 1em; 
+  height: 2.35em;
+  margin-right: 1em;
   padding-left: 0.5em;
   color: rgb(88, 88, 90);
   border-radius: 3px;
@@ -55,7 +55,7 @@
 
 .team-name {
   display: flex;
-  flex-direction: column;  
+  flex-direction: column;
 }
 
 .team-buttons {
@@ -67,7 +67,7 @@
 .card {
   width: 100%;
   height: 100%;
-  padding: 0.5em 0.5em 0.5em 1em; 
+  padding: 0.5em 0.5em 0.5em 1em;
   background-color: #e7def6;
   color: black;
 }

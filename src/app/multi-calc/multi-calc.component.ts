@@ -17,7 +17,6 @@ import { DamageResultOrderService } from "@lib/damage-calculator/damage-result-o
   imports: [TeamComponent, TeamsComponent, FieldComponent, TargetPokemonComponent]
 })
 export class MultiCalcComponent {
-
   store = inject(CalculatorStore)
   menuStore = inject(MenuStore)
   private fieldStore = inject(FieldStore)
@@ -40,5 +39,4 @@ export class MultiCalcComponent {
       this.pokemonId.set(this.store.team().activePokemon().id)
     }
   }
-
 }

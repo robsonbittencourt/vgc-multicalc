@@ -55,7 +55,7 @@ export class SpeedCalculatorService {
   }
 
   private order(speedDefinitions: SpeedDefinition[], isTrickRoom: boolean) {
-    speedDefinitions.sort((a, b) => isTrickRoom ? b.value - a.value : a.value - b.value)
+    speedDefinitions.sort((a, b) => (isTrickRoom ? b.value - a.value : a.value - b.value))
   }
 
   private mergeByDescription(speedDefinitions: SpeedDefinition[]): SpeedDefinition[] {
@@ -139,5 +139,4 @@ export class SpeedCalculatorService {
 
     return new SpeedDefinition(pokemon.name, speed, description)
   }
-
 }

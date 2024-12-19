@@ -3,7 +3,6 @@ import { Side, Field as SmogonField } from "@robsonbittencourt/calc"
 import { Terrain as SmogonTerrain, Weather as SmogonWeather } from "@robsonbittencourt/calc/src/data/interface"
 
 export class FieldMapper {
-
   toSmogon(field: Field): SmogonField {
     const smogonField = new SmogonField()
     smogonField.gameType = field.gameType
@@ -45,5 +44,4 @@ export class FieldMapper {
 
     return smogonSide
   }
-
 }
