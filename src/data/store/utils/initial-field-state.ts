@@ -1,9 +1,10 @@
-import { FieldAttackerSide, FieldDefenderSide, GameType } from "src/lib/field"
+import { FieldAttackerSide, FieldDefenderSide } from "src/lib/field"
+import { GameType } from "src/lib/types"
 import { FieldState } from "../field-store"
 
 export function initialFieldState(): FieldState {
   const fieldUserData = JSON.parse(localStorage.getItem('userData')!)?.field
-  return fieldUserData ? { ...defaultFieldState(), ...fieldUserData } : defaultFieldState() 
+  return fieldUserData ? { ...defaultFieldState(), ...fieldUserData } : defaultFieldState()
 }
 
 function defaultFieldState(): FieldState {
@@ -22,6 +23,6 @@ function defaultFieldState(): FieldState {
     isTrickRoom: false,
     isCriticalHit: false,
     attackerSide: new FieldAttackerSide({ isHelpingHand: false, isBattery: false, isPowerSpot: false, isTailwind: false }),
-    defenderSide: new FieldDefenderSide({ isTailwind: false, isReflect: false, isLightScreen: false, isAuroraVeil: false, isFriendGuard: false, spikes: 0, isSR: false, isSeeded: false })    
+    defenderSide: new FieldDefenderSide({ isTailwind: false, isReflect: false, isLightScreen: false, isAuroraVeil: false, isFriendGuard: false, spikes: 0, isSR: false, isSeeded: false })
   }
 }

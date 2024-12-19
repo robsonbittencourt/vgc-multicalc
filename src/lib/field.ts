@@ -1,3 +1,5 @@
+import { GameType, Terrain, Weather } from "./types"
+
 export class Field {
   readonly gameType: GameType
   readonly weather: Weather
@@ -14,8 +16,10 @@ export class Field {
   readonly attackerSide: FieldAttackerSide
   readonly defenderSide: FieldDefenderSide
 
-  constructor(options: { gameType?: GameType, weather?: Weather, terrain?: Terrain, isBeadsOfRuin?: boolean, isSwordOfRuin?: boolean, isTabletsOfRuin?: boolean, isVesselOfRuin?: boolean, isMagicRoom?: boolean
-    isWonderRoom?: boolean, isGravity?: boolean, isTrickRoom?: boolean, isCriticalHit?: boolean, attackerSide?: FieldAttackerSide, defenderSide?: FieldDefenderSide } = {}
+  constructor(options: {
+    gameType?: GameType, weather?: Weather, terrain?: Terrain, isBeadsOfRuin?: boolean, isSwordOfRuin?: boolean, isTabletsOfRuin?: boolean, isVesselOfRuin?: boolean, isMagicRoom?: boolean
+    isWonderRoom?: boolean, isGravity?: boolean, isTrickRoom?: boolean, isCriticalHit?: boolean, attackerSide?: FieldAttackerSide, defenderSide?: FieldDefenderSide
+  } = {}
   ) {
     this.gameType = options.gameType ?? "Doubles"
     this.weather = options.weather ?? null
@@ -39,7 +43,7 @@ export class FieldAttackerSide {
   readonly isBattery: boolean
   readonly isPowerSpot: boolean
   readonly isTailwind: boolean
-  
+
   constructor(options: { isHelpingHand?: boolean, isBattery?: boolean, isPowerSpot?: boolean, isTailwind?: boolean } = {}) {
     this.isHelpingHand = options.isHelpingHand ?? false
     this.isBattery = options.isBattery ?? false
@@ -69,7 +73,3 @@ export class FieldDefenderSide {
     this.isSeeded = options.isSeeded ?? false
   }
 }
-
-export type GameType = 'Singles' | 'Doubles'
-export type Terrain = 'Electric' | 'Grassy' | 'Psychic' | 'Misty' | null
-export type Weather = 'Sand' | 'Sun' | 'Rain' | 'Snow' |  null
