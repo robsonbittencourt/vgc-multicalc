@@ -11,8 +11,4 @@ export class Target {
     this.pokemon = pokemon
   }
 
-  setDamageResult(damageResult: DamageResult) {
-    this.damageResult = damageResult
-  }
-
 }
