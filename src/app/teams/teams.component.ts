@@ -1,5 +1,5 @@
 import { NoopScrollStrategy } from '@angular/cdk/overlay'
-import { Component, inject, output } from '@angular/core'
+import { Component, inject } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { MatButton } from '@angular/material/button'
 import { MatDialog } from '@angular/material/dialog'
@@ -22,8 +22,6 @@ import { TeamImportModalComponent } from '../team-import-modal/team-import-modal
   imports: [MatInput, ReactiveFormsModule, FormsModule, MatButton, TeamBoxComponent]
 })
 export class TeamsComponent {
-
-  teamChanged = output<Team>()
   
   store = inject(CalculatorStore)
   private pokePasteService = inject(PokePasteParserService)
@@ -55,8 +53,6 @@ export class TeamsComponent {
       const teamToImport = new Team(uuidv4(), teamSlotToImport.active, teamSlotToImport.name, teamMembers)
       
       this.store.replaceTeam(teamToImport, teamSlotToImport.id)
-
-      this.teamChanged.emit(teamToImport)      
       
       this.snackBar.open("Team imported from PokePaste")
     })
@@ -64,7 +60,6 @@ export class TeamsComponent {
 
   activateTeam(team: Team) {
     this.store.activateTeam(team.id)
-    this.teamChanged.emit(this.store.team())
   }
 
   export() {
@@ -87,7 +82,6 @@ export class TeamsComponent {
     inactiveTeams.splice(activeIndex, 0, newTeam)
     
     this.store.updateTeams(inactiveTeams)
-    this.teamChanged.emit(newTeam)
 
     this.snackBar.open("Team deleted")
   }

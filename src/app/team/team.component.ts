@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, input, output, signal } from '@angular/core'
+import { Component, computed, effect, inject, input, signal } from '@angular/core'
 import { MatIcon } from '@angular/material/icon'
 import { RouterOutlet } from '@angular/router'
 import { CalculatorStore } from 'src/data/store/calculator-store'
@@ -25,9 +25,6 @@ export class TeamComponent {
   pokemonId = input.required<string>()
   isAttacker = input(false)
   
-  teamMemberSelected = output<string>()
-  teamMemberRemoved = output()
-
   pokemonOnEdit = computed(() => this.store.findPokemonById(this.pokemonId()))
   
   combineDamageActive = signal(false)
@@ -45,8 +42,6 @@ export class TeamComponent {
 
   activatePokemon(pokemonId: string) {
     const members = this.store.team().teamMembers
-
-    this.teamMemberSelected.emit(pokemonId)
 
     if (this.combineDamageActive()) {
       const active1 = members[0].pokemon.id == this.store.attackerId() || members[0].pokemon.id == pokemonId
@@ -92,8 +87,6 @@ export class TeamComponent {
     if (this.isSecondSelection(activeMember)) {
       this.store.updateSecondAttacker("")
     }
-
-    this.teamMemberRemoved.emit()
   }
 
   selectSecondAttacker() {

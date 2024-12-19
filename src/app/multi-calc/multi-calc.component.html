@@ -1,9 +1,8 @@
 <div class="container">
-  <app-team [pokemonId]="pokemonId()" [isAttacker]="menuStore.oneVsManyActivated()" (teamMemberSelected)="pokemonId.set($event)" 
-    (teamMemberRemoved)="pokemonId.set(store.team().activePokemon().id)"/>
+  <app-team [pokemonId]="pokemonId()" [isAttacker]="menuStore.oneVsManyActivated()" />
   
   <div>
-    <app-teams (teamChanged)="teamChanged($event)"/>
+    <app-teams />
     <app-field />
   </div> 
 
