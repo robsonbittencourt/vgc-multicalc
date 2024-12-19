@@ -1,5 +1,5 @@
-import { Field, FieldAttackerSide, FieldDefenderSide } from './field'
 import { FieldMapper } from './field-mapper'
+import { Field, FieldAttackerSide, FieldDefenderSide } from './model/field'
 
 describe('FieldMapper', () => {
 
@@ -49,7 +49,7 @@ describe('FieldMapper', () => {
       expect(smogonField.attackerSide.isPowerSpot).toEqual(true)
       expect(smogonField.attackerSide.isTailwind).toEqual(false)
     })
-    
+
     it('should mapping Field Attacker Side to Smogon Attacker Side with another configs turned on', () => {
       const attackerSide = new FieldAttackerSide({ isHelpingHand: false, isBattery: true, isPowerSpot: false, isTailwind: true })
       const field = new Field({ attackerSide })

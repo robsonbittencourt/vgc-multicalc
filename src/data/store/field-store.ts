@@ -1,6 +1,6 @@
 import { computed, effect } from "@angular/core"
 import { patchState, signalStore, withComputed, withHooks, withMethods, withState } from "@ngrx/signals"
-import { Field, FieldAttackerSide, FieldDefenderSide } from "src/lib/field"
+import { Field, FieldAttackerSide, FieldDefenderSide } from "src/lib/model/field"
 import { GameType, Terrain, Weather } from "src/lib/types"
 import { initialFieldState } from "./utils/initial-field-state"
 

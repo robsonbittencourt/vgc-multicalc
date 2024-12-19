@@ -3,8 +3,8 @@ import { CalculatorStore } from 'src/data/store/calculator-store'
 import { FieldStore } from 'src/data/store/field-store'
 import { SpeedCalcOptionsStore } from 'src/data/store/speed-calc-options-store'
 import { ACTUAL } from 'src/lib/constants'
-import { Field } from 'src/lib/field'
-import { Pokemon } from 'src/lib/pokemon'
+import { Field } from 'src/lib/model/field'
+import { Pokemon } from 'src/lib/model/pokemon'
 import { SpeedCalculatorOptions as SpeedScaleOptions } from 'src/lib/speed-calculator/speed-calculator-options'
 import { SpeedCalculatorService } from 'src/lib/speed-calculator/speed-calculator-service'
 import { SpeedDefinition } from 'src/lib/speed-calculator/speed-definition'
@@ -17,12 +17,12 @@ import { SpeedBoxComponent } from '../speed-box/speed-box.component'
   imports: [SpeedBoxComponent]
 })
 export class SpeedScaleComponent {
-  
-  pokemonId = input.required<string>() 
+
+  pokemonId = input.required<string>()
   pokemonEachSide = input.required<number>()
 
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
-  
+
   store = inject(CalculatorStore)
   fieldStore = inject(FieldStore)
   optionsStore = inject(SpeedCalcOptionsStore)
@@ -54,21 +54,21 @@ export class SpeedScaleComponent {
     this.timeoutId = setTimeout(() => {
       const pokemonBySideActual = this.pokemonEachSide()
       const orderedPokemon = this.speedCalculatorService.orderedPokemon(pokemon, field, options)
-      
+
       if (options.targetName == "") {
         const actualIndex = orderedPokemon.findIndex(this.isActual)
         const initIndex = actualIndex - pokemonBySideActual >= 0 ? actualIndex - pokemonBySideActual : 0
         const lastIndex = actualIndex + pokemonBySideActual + 1
         const inSpeedRange = orderedPokemon.slice(initIndex, lastIndex)
-        
+
         const updatedActualIndex = inSpeedRange.findIndex(this.isActual)
         if (updatedActualIndex < this.pokemonEachSide()) {
           const diff = pokemonBySideActual - updatedActualIndex
           for (let i = 0; i < diff; i++) {
-            inSpeedRange.unshift(new SpeedDefinition("", 0, ""))        
+            inSpeedRange.unshift(new SpeedDefinition("", 0, ""))
           }
         }
-        
+
         this.inSpeedRange.set(inSpeedRange)
       } else {
         const pokemon = new Pokemon(options.targetName)
@@ -76,13 +76,13 @@ export class SpeedScaleComponent {
       }
 
       this.verifyChanges(this.inSpeedRange())
-    }, 200)    
+    }, 200)
   }
 
   verifyChanges(actualSpeedRange: SpeedDefinition[]) {
     const firstPokemonChange = !this.previousSpeedDefinition[0]?.equals(actualSpeedRange[0])
     const lastPokemonChange = !this.previousSpeedDefinition[this.previousSpeedDefinition.length - 1]?.equals(actualSpeedRange[actualSpeedRange.length - 1])
-    
+
     const previousYoursDescription = this.previousSpeedDefinition.filter(s => this.isActual(s))[0]?.description
     const actualYoursDescription = actualSpeedRange.filter(s => this.isActual(s))[0]?.description
     const yoursDescriptionChange = previousYoursDescription != actualYoursDescription

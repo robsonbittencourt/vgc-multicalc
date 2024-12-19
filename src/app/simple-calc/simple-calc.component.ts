@@ -3,7 +3,7 @@ import { CalculatorStore } from 'src/data/store/calculator-store'
 import { FieldStore } from 'src/data/store/field-store'
 import { DamageCalculatorService } from 'src/lib/damage-calculator/damage-calculator.service'
 import { DamageResult } from 'src/lib/damage-calculator/damage-result'
-import { Move } from 'src/lib/move'
+import { Move } from 'src/lib/model/move'
 import { DamageResultComponent } from '../damage-result/damage-result.component'
 import { ExportPokemonButtonComponent } from '../export-pokemon-button/export-pokemon-button.component'
 import { FieldComponent } from '../field/field.component'
@@ -17,11 +17,11 @@ import { PokemonBuildComponent } from '../pokemon-build/pokemon-build.component'
   imports: [DamageResultComponent, ImportPokemonButtonComponent, ExportPokemonButtonComponent, PokemonBuildComponent, FieldComponent]
 })
 export class SimpleCalcComponent {
-  
+
   store = inject(CalculatorStore)
   fieldStore = inject(FieldStore)
   private damageCalculator = inject(DamageCalculatorService)
-  
+
   leftDamageResults = computed(() => this.damageCalculator.calcDamageAllAttacks(this.store.leftPokemon(), this.store.rightPokemon(), this.fieldStore.field()))
   rightDamageResults = computed(() => this.damageCalculator.calcDamageAllAttacks(this.store.rightPokemon(), this.store.leftPokemon(), this.fieldStore.field()))
 

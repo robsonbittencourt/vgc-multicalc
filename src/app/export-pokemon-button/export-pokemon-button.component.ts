@@ -1,19 +1,19 @@
 import { NoopScrollStrategy } from '@angular/cdk/overlay';
 import { Component, inject, input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Pokemon } from 'src/lib/pokemon';
+import { Pokemon } from 'src/lib/model/pokemon';
 import { TeamExportModalComponent } from '../team-export-modal/team-export-modal.component';
 
 import { MatIcon } from '@angular/material/icon';
 
 @Component({
-    selector: 'app-export-pokemon-button',
-    templateUrl: './export-pokemon-button.component.html',
-    styleUrls: ['./export-pokemon-button.component.scss'],
-    imports: [MatIcon]
+  selector: 'app-export-pokemon-button',
+  templateUrl: './export-pokemon-button.component.html',
+  styleUrls: ['./export-pokemon-button.component.scss'],
+  imports: [MatIcon]
 })
 export class ExportPokemonButtonComponent {
-  
+
   pokemon = input.required<Pokemon>()
   show = input(true)
   hidden = input(false)
@@ -21,8 +21,8 @@ export class ExportPokemonButtonComponent {
   private dialog = inject(MatDialog)
 
   exportPokemon() {
-    this.dialog.open(TeamExportModalComponent, { 
-      data: { 
+    this.dialog.open(TeamExportModalComponent, {
+      data: {
         title: this.pokemon().name,
         content: this.pokemon().showdownTextFormat()
       },

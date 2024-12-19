@@ -1,10 +1,10 @@
 import { provideExperimentalZonelessChangeDetection } from '@angular/core'
 import { TestBed } from '@angular/core/testing'
-import { Move } from "../../lib/move"
-import { Pokemon } from '../../lib/pokemon'
-import { Target } from "../../lib/target"
-import { Team } from "../../lib/team"
-import { TeamMember } from '../../lib/team-member'
+import { Move } from "../../lib/model/move"
+import { Pokemon } from '../../lib/model/pokemon'
+import { Target } from "../../lib/model/target"
+import { Team } from "../../lib/model/team"
+import { TeamMember } from '../../lib/model/team-member'
 import { CalculatorStore } from './calculator-store'
 
 describe("Calculator Store", () => {

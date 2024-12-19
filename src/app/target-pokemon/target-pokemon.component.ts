@@ -1,8 +1,8 @@
 import { NoopScrollStrategy } from '@angular/cdk/overlay'
 import { Component, computed, inject, input, output } from '@angular/core'
 import { MatDialog } from '@angular/material/dialog'
+import { Target } from 'src/lib/model/target'
 import { PokePasteParserService } from 'src/lib/poke-paste-parser.service'
-import { Target } from 'src/lib/target'
 import { SnackbarService } from '../../lib/snackbar.service'
 import { TeamExportModalComponent } from '../team-export-modal/team-export-modal.component'
 import { TeamImportModalComponent } from '../team-import-modal/team-import-modal.component'
@@ -13,18 +13,18 @@ import { CalculatorStore } from 'src/data/store/calculator-store'
 import { MenuStore } from 'src/data/store/menu-store'
 import { DamageResult } from 'src/lib/damage-calculator/damage-result'
 import { defaultPokemon } from 'src/lib/default-pokemon'
-import { Pokemon } from 'src/lib/pokemon'
+import { Pokemon } from 'src/lib/model/pokemon'
 import { AddPokemonCardComponent } from '../add-pokemon-card/add-pokemon-card.component'
 import { PokemonCardComponent } from '../pokemon-card/pokemon-card.component'
 
 @Component({
-    selector: 'app-target-pokemon',
-    templateUrl: './target-pokemon.component.html',
-    styleUrls: ['./target-pokemon.component.scss'],
-    imports: [MatIcon, MatButton, PokemonCardComponent, AddPokemonCardComponent]
+  selector: 'app-target-pokemon',
+  templateUrl: './target-pokemon.component.html',
+  styleUrls: ['./target-pokemon.component.scss'],
+  imports: [MatIcon, MatButton, PokemonCardComponent, AddPokemonCardComponent]
 })
 export class TargetPokemonComponent {
-  
+
   damageResults = input.required<DamageResult[]>()
   isAttacker = input.required<boolean>()
   showDamageDescription = input(true)
@@ -32,7 +32,7 @@ export class TargetPokemonComponent {
   targetActivated = output<string>()
   targetRemoved = output()
   targetsImported = output()
-  
+
   store = inject(CalculatorStore)
   menuStore = inject(MenuStore)
   private pokePasteService = inject(PokePasteParserService)
@@ -48,23 +48,23 @@ export class TargetPokemonComponent {
       return this.damageResults().find(result => result.defender.id == activeTarget?.pokemon.id)
     } else {
       return this.damageResults().find(result => result.attacker.id == activeTarget?.pokemon.id)
-    }    
+    }
   })
 
   copyMessageEnabled = false
-  
+
   removeAll() {
     this.store.removeAllTargets()
   }
 
   async importPokemon() {
-    const dialogRef = this.dialog.open(TeamImportModalComponent, { 
+    const dialogRef = this.dialog.open(TeamImportModalComponent, {
       position: { top: "2em" },
       scrollStrategy: new NoopScrollStrategy()
     })
 
     dialogRef.afterClosed().subscribe(async result => {
-      if(!result) return
+      if (!result) return
 
       const pokemonList = await this.pokePasteService.parse(result)
       const newTargets = []
@@ -74,8 +74,8 @@ export class TargetPokemonComponent {
         const position = this.targets().length + index + 1
 
         if (!this.alreadyExists(pokemon)) {
-          newTargets.push(new Target(pokemon))        
-        }        
+          newTargets.push(new Target(pokemon))
+        }
       }
 
       this.targetsImported.emit()
@@ -94,8 +94,8 @@ export class TargetPokemonComponent {
   }
 
   exportPokemon() {
-    this.dialog.open(TeamExportModalComponent, { 
-      data: { 
+    this.dialog.open(TeamExportModalComponent, {
+      data: {
         title: "Opponent Pokémon",
         content: this.exportToShowdownFormat()
       },
@@ -111,7 +111,7 @@ export class TargetPokemonComponent {
     this.targets().forEach(t => {
       if (!t.pokemon.isDefault()) {
         result += t.pokemon.showdownTextFormat() + "\n"
-      }      
+      }
     })
 
     return result
@@ -130,7 +130,7 @@ export class TargetPokemonComponent {
   selectPokemonActive(): boolean {
     return this.targets().find(t => t.pokemon.isDefault()) != null
   }
-  
+
   damageDescription(): string {
     return this.activeDamageResult()?.description ?? ""
   }
@@ -147,7 +147,7 @@ export class TargetPokemonComponent {
       this.copyMessageEnabled = false
     }, 2000)
   }
-  
+
   canSelectSecondPokemon(): boolean {
     const onlyOneActive = this.targets().filter(t => t.active).length == 1
     return this.isAttacker() && onlyOneActive
@@ -157,9 +157,9 @@ export class TargetPokemonComponent {
     const target = this.targets().find(t => t.pokemon.id == pokemonId)!
     const index = this.targets().findIndex(t => t.pokemon.id == pokemonId)
 
-    if(target.active && this.canSelectSecondPokemon()) return
+    if (target.active && this.canSelectSecondPokemon()) return
 
-    if(target.active) {
+    if (target.active) {
       const newTargets = [
         ...this.targets().slice(0, index),
         new Target(target.pokemon, false),
@@ -175,7 +175,7 @@ export class TargetPokemonComponent {
       ]
 
       this.store.updateTargets(newTargets)
-    }    
+    }
   }
 
   findTarget(pokemonId: string): Target {

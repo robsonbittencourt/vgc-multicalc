@@ -1,12 +1,12 @@
-import { Pokemon } from '../../pokemon';
-import { Target } from '../../target';
+import { Pokemon } from '../../model/pokemon';
+import { Target } from '../../model/target';
 import { CommanderAdjuster } from './commander-adjuster';
 
 describe("Commander Adjuster", () => {
   it("should apply +2 boost in all stats when Commander was activated", () => {
     const attacker = new Pokemon('Dondozo', { commanderActive: true })
     const target = new Target(new Pokemon("Flutter Mane"))
-    
+
     new CommanderAdjuster().adjust(attacker, target.pokemon)
 
     expect(attacker.pokemonSmogon.boosts.atk).toBe(2)
@@ -19,7 +19,7 @@ describe("Commander Adjuster", () => {
   it("should not apply any boost when Commander was not activated", () => {
     const attacker = new Pokemon('Dondozo', { commanderActive: false })
     const target = new Target(new Pokemon("Flutter Mane"))
-    
+
     new CommanderAdjuster().adjust(attacker, target.pokemon)
 
     expect(attacker.pokemonSmogon.boosts.atk).toBe(0)

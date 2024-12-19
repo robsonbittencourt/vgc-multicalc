@@ -6,13 +6,13 @@ import { MatTooltip } from '@angular/material/tooltip'
 import { CalculatorStore } from 'src/data/store/calculator-store'
 import { MenuStore } from 'src/data/store/menu-store'
 import { DamageResult } from 'src/lib/damage-calculator/damage-result'
-import { Target } from 'src/lib/target'
+import { Target } from 'src/lib/model/target'
 
 @Component({
-    selector: 'app-pokemon-card',
-    templateUrl: './pokemon-card.component.html',
-    styleUrls: ['./pokemon-card.component.scss'],
-    imports: [MatCard, NgStyle, MatCardTitleGroup, MatCardTitle, MatCardSubtitle, MatTooltip, MatIcon, MatCardMdImage]
+  selector: 'app-pokemon-card',
+  templateUrl: './pokemon-card.component.html',
+  styleUrls: ['./pokemon-card.component.scss'],
+  imports: [MatCard, NgStyle, MatCardTitleGroup, MatCardTitle, MatCardSubtitle, MatTooltip, MatIcon, MatCardMdImage]
 })
 export class PokemonCardComponent {
 
@@ -45,7 +45,7 @@ export class PokemonCardComponent {
 
       this.store.updateTargets(updatedTargets)
       this.targetActivated.emit(activeTarget.pokemon.id)
-    }    
+    }
   }
 
   removePokemon() {
@@ -61,15 +61,15 @@ export class PokemonCardComponent {
     const cardWithBorder = { 'border': '4px', 'border-style': 'solid', 'border-color': '#8544ee' }
 
     if (this.target().active && this.target().pokemon.isDefault()) {
-      return {...cardStyleSelectPokemon, ...cardWithBorder} 
+      return { ...cardStyleSelectPokemon, ...cardWithBorder }
     }
 
     if (this.target().pokemon.isDefault()) {
-      return cardStyleSelectPokemon 
+      return cardStyleSelectPokemon
     }
-    
+
     if (this.target().active) {
-      return {...cardStyle, ...cardWithBorder}
+      return { ...cardStyle, ...cardWithBorder }
     }
 
     return cardStyle
@@ -105,11 +105,11 @@ export class PokemonCardComponent {
     event.stopPropagation()
     if (!this.target().pokemon.isTerapagos()) {
       this.store.toogleTargetTerastal(this.target())
-      
+
       if (this.target().pokemon.isOgerpon()) {
         const ability = this.target().pokemon.checkOgerponTeraAbility(this.target().pokemon.teraTypeActive)
         this.store.ability(this.target().pokemon.id, ability)
       }
-    }    
+    }
   }
 }

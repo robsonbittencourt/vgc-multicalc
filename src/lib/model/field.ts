@@ -1,4 +1,4 @@
-import { GameType, Terrain, Weather } from "./types"
+import { GameType, Terrain, Weather } from "../types"
 
 export class Field {
   readonly gameType: GameType

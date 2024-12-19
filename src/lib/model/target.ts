@@ -1,7 +1,7 @@
-import { DamageResult } from "./damage-calculator/damage-result"
+import { DamageResult } from "../damage-calculator/damage-result"
 import { Pokemon } from "./pokemon"
 export class Target {
-  
+
   active: boolean
   pokemon: Pokemon
   damageResult: DamageResult

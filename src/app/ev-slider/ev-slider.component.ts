@@ -9,10 +9,10 @@ import { CalculatorStore } from 'src/data/store/calculator-store'
 import { Stats } from 'src/lib/types'
 
 @Component({
-    selector: 'app-ev-slider',
-    templateUrl: './ev-slider.component.html',
-    styleUrls: ['./ev-slider.component.scss'],
-    imports: [MatFormField, MatSuffix, ReactiveFormsModule, MatInput, FormsModule, MatSelect, MatOption, MatLabel, MatSlider, MatSliderThumb]
+  selector: 'app-ev-slider',
+  templateUrl: './ev-slider.component.html',
+  styleUrls: ['./ev-slider.component.scss'],
+  imports: [MatFormField, MatSuffix, ReactiveFormsModule, MatInput, FormsModule, MatSelect, MatOption, MatLabel, MatSlider, MatSliderThumb]
 })
 export class EvSliderComponent {
 
@@ -29,7 +29,7 @@ export class EvSliderComponent {
   hpPercentage = computed(() => this.pokemon().hpPercentage)
   statModifier = computed(() => this.pokemon().boosts[this.stat()])
 
-  baseStat = computed(() => { 
+  baseStat = computed(() => {
     if (this.stat() == "hp") return this.pokemon().baseHp
     if (this.stat() == "atk") return this.pokemon().baseAtk
     if (this.stat() == "def") return this.pokemon().baseDef
@@ -80,7 +80,7 @@ export class EvSliderComponent {
 
     if (this.stat() == "spe" && ["Timid", "Hasty", "Jolly", "Naive"].includes(this.nature())) return "+"
     if (this.stat() == "spe" && ["Brave", "Relaxed", "Quiet", "Sassy"].includes(this.nature())) return "-"
-    
+
     return ""
   })
 
@@ -90,11 +90,11 @@ export class EvSliderComponent {
   EV_STEP = 8
 
   statsModifiers = [
-    { value: 6, viewValue: "+6"}, { value: 5, viewValue: "+5"}, { value: 4, viewValue: "+4"},
-    { value: 3, viewValue: "+3"}, { value: 2, viewValue: "+2"}, { value: 1, viewValue: "+1"},
-    { value: 0, viewValue: "--"},
-    { value: -1, viewValue: "-1"}, { value: -2, viewValue: "-2"}, { value: -3, viewValue: "-3"},
-    { value: -4, viewValue: "-4"}, { value: -5, viewValue: "-5"}, { value: -6, viewValue: "-6"},
+    { value: 6, viewValue: "+6" }, { value: 5, viewValue: "+5" }, { value: 4, viewValue: "+4" },
+    { value: 3, viewValue: "+3" }, { value: 2, viewValue: "+2" }, { value: 1, viewValue: "+1" },
+    { value: 0, viewValue: "--" },
+    { value: -1, viewValue: "-1" }, { value: -2, viewValue: "-2" }, { value: -3, viewValue: "-3" },
+    { value: -4, viewValue: "-4" }, { value: -5, viewValue: "-5" }, { value: -6, viewValue: "-6" },
   ]
 
   hpPercentageChanged(event: Event) {
@@ -104,7 +104,7 @@ export class EvSliderComponent {
   evChanged(event: Event) {
     const newEv = +(event.target as HTMLInputElement).value
     const adjustedEv = this.adjustEv(newEv)
-    
+
     this.updateEv(adjustedEv)
   }
 
@@ -114,26 +114,26 @@ export class EvSliderComponent {
       this.updateEv(adjustedEv)
     }
   }
-  
+
   private adjustEv(newEv: number): number {
     if (this.actualEvsQuantity() + newEv <= this.MAX_EVS) {
       return newEv
     }
-    
+
     const maxAvailableEv = this.MAX_EVS - this.actualEvsQuantity()
 
     if (maxAvailableEv == 0) {
       return 0
-    } 
+    }
 
     const leftoverEvs = (maxAvailableEv - this.FIRST_EV) % this.EV_STEP
-    
+
     return maxAvailableEv - leftoverEvs
   }
-  
+
   private updateEv(ev: number): void {
     this.ev.set(ev)
-  
+
     const updatedEvs = { ...this.pokemon().evs }
     updatedEvs[this.stat()] = ev
     this.store.evs(this.pokemonId(), updatedEvs)
@@ -163,14 +163,14 @@ export class EvSliderComponent {
 
   calculateMin() {
     if (this.ev() == this.EV_ZERO || this.ev() == this.FIRST_EV) return 0
-    
+
     return 4
   }
 
   calculateEvStep() {
     if (this.ev() == this.EV_ZERO) return this.FIRST_EV
     if (this.ev() == this.FIRST_EV) return 6
-    
+
     return this.EV_STEP
   }
 

@@ -1,4 +1,4 @@
-import { FieldAttackerSide, FieldDefenderSide } from "src/lib/field"
+import { FieldAttackerSide, FieldDefenderSide } from "src/lib/model/field"
 import { GameType } from "src/lib/types"
 import { FieldState } from "../field-store"
 

@@ -1,9 +1,9 @@
 import { inject, Injectable } from '@angular/core'
 import { calculate, Generations, Move as MoveSmogon, Result } from '@robsonbittencourt/calc'
-import { Field } from '../field'
 import { FieldMapper } from '../field-mapper'
-import { Move } from '../move'
-import { Pokemon } from '../pokemon'
+import { Field } from '../model/field'
+import { Move } from '../model/move'
+import { Pokemon } from '../model/pokemon'
 import { CALC_ADJUSTERS } from './calc-adjuster/calc-adjuster'
 import { DamageResult } from './damage-result'
 

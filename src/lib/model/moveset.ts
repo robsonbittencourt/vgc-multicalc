@@ -1,5 +1,5 @@
+import { MovePosition } from "../types"
 import { Move } from "./move"
-import { MovePosition } from "./types"
 
 export class MoveSet {
 

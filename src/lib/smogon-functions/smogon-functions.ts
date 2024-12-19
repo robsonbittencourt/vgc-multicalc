@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core"
 import { Field, Side } from "@robsonbittencourt/calc"
 import { StatID } from "@robsonbittencourt/calc/dist/data/interface"
-import { Pokemon } from "../pokemon"
+import { Pokemon } from "../model/pokemon"
 
 @Injectable()
 export class SmogonFunctions {
@@ -15,7 +15,7 @@ export class SmogonFunctions {
     'Power Lens',
     'Power Weight',
   ]
-  
+
   getFinalSpeed(pokemon: Pokemon, field: Field = new Field(), side: Side = new Side()) {
     const pokemonSmogon = pokemon.pokemonSmogon
 
@@ -23,15 +23,15 @@ export class SmogonFunctions {
     const terrain = field.terrain
     let speed = this.getModifiedStat(pokemonSmogon.rawStats.spe, pokemonSmogon.boosts.spe)
     const speedMods = []
-  
+
     if (side.isTailwind) speedMods.push(8192)
-    
+
     if ((pokemonSmogon.hasAbility('Unburden') && pokemonSmogon.abilityOn) ||
-        (pokemonSmogon.hasAbility('Chlorophyll') && weather.includes('Sun')) ||
-        (pokemonSmogon.hasAbility('Sand Rush') && weather === 'Sand') ||
-        (pokemonSmogon.hasAbility('Swift Swim') && weather.includes('Rain')) ||
-        (pokemonSmogon.hasAbility('Slush Rush') && ['Hail', 'Snow'].includes(weather)) ||
-        (pokemonSmogon.hasAbility('Surge Surfer') && terrain === 'Electric')
+      (pokemonSmogon.hasAbility('Chlorophyll') && weather.includes('Sun')) ||
+      (pokemonSmogon.hasAbility('Sand Rush') && weather === 'Sand') ||
+      (pokemonSmogon.hasAbility('Swift Swim') && weather.includes('Rain')) ||
+      (pokemonSmogon.hasAbility('Slush Rush') && ['Hail', 'Snow'].includes(weather)) ||
+      (pokemonSmogon.hasAbility('Surge Surfer') && terrain === 'Electric')
     ) {
       speedMods.push(8192)
     } else if (pokemonSmogon.hasAbility('Quick Feet') && pokemonSmogon.status) {
@@ -41,7 +41,7 @@ export class SmogonFunctions {
     } else if (this.isQPActive(pokemon, field) && this.getQPBoostedStat(pokemon) === 'spe') {
       speedMods.push(6144)
     }
-  
+
     if (pokemonSmogon.hasItem('Choice Scarf')) {
       speedMods.push(6144)
     } else if (pokemonSmogon.hasItem('Iron Ball', ...this.EV_ITEMS)) {
@@ -49,12 +49,12 @@ export class SmogonFunctions {
     } else if (pokemonSmogon.hasItem('Quick Powder') && pokemonSmogon.named('Ditto')) {
       speedMods.push(8192)
     }
-  
+
     speed = this.OF32(this.pokeRound((speed * this.chainMods(speedMods, 410, 131172)) / 4096))
     if (pokemonSmogon.hasStatus('par') && !pokemonSmogon.hasAbility('Quick Feet')) {
       speed = Math.floor(this.OF32(speed * 50) / 100)
     }
-  
+
     speed = Math.min(10000, speed)
     return Math.max(0, speed)
   }
@@ -88,7 +88,7 @@ export class SmogonFunctions {
 
     const weather = field.weather || ''
     const terrain = field.terrain
-  
+
     return (
       (pokemonSmogon.hasAbility('Protosynthesis') && (weather.includes('Sun') || pokemonSmogon.abilityOn)) ||
       (pokemonSmogon.hasAbility('Quark Drive') && (terrain === 'Electric' || pokemonSmogon.abilityOn))
@@ -99,7 +99,7 @@ export class SmogonFunctions {
     const pokemonSmogon = pokemon.pokemonSmogon
 
     let bestStat: StatID = 'atk'
-    
+
     for (const stat of ['def', 'spa', 'spd', 'spe'] as StatID[]) {
       if (
         pokemonSmogon.rawStats[stat] > pokemonSmogon.rawStats[bestStat]
@@ -117,7 +117,7 @@ export class SmogonFunctions {
 
   private chainMods(mods: number[], lowerBound: number, upperBound: number) {
     let M = 4096
-    
+
     for (const mod of mods) {
       if (mod !== 4096) {
         M = (M * mod + 2048) >> 12

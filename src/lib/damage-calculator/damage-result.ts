@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid'
-import { Pokemon } from "../pokemon"
+import { Pokemon } from "../model/pokemon"
 
 export class DamageResult {
   readonly id: string
@@ -30,11 +30,11 @@ export class DamageResult {
 
   private adjustResult(result: string): string {
     if (this.containsResidualResult(result)) {
-      
+
       return result.substring(0, result.indexOf(this.RESIDUAL_RESULT_IDENTIFIER))
     }
 
-    return result    
+    return result
   }
 
   private adjustDescription(result: string, description: string): string {
@@ -42,7 +42,7 @@ export class DamageResult {
       return description.concat(` - ${result.substring(result.indexOf(this.RESIDUAL_RESULT_IDENTIFIER))}`)
     }
 
-    return description    
+    return description
   }
 
   private containsResidualResult(result: string): boolean {

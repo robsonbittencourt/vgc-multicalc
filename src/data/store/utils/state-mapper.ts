@@ -1,10 +1,10 @@
 import { PokemonState, TargetState, TeamState } from "src/data/store/calculator-store"
-import { Move } from "src/lib/move"
-import { MoveSet } from "src/lib/moveset"
-import { Pokemon } from "src/lib/pokemon"
-import { Target } from "src/lib/target"
-import { Team } from "src/lib/team"
-import { TeamMember } from "src/lib/team-member"
+import { Move } from "src/lib/model/move"
+import { MoveSet } from "src/lib/model/moveset"
+import { Pokemon } from "src/lib/model/pokemon"
+import { Target } from "src/lib/model/target"
+import { Team } from "src/lib/model/team"
+import { TeamMember } from "src/lib/model/team-member"
 import { MovePosition } from "src/lib/types"
 
 export function stateToPokemon(state: PokemonState) {
@@ -13,7 +13,7 @@ export function stateToPokemon(state: PokemonState) {
   const moveThree = new Move(state.moveSet[2].name, { alliesFainted: state.moveSet[2].alliesFainted, hits: state.moveSet[2].hits })
   const moveFour = new Move(state.moveSet[3].name, { alliesFainted: state.moveSet[3].alliesFainted, hits: state.moveSet[3].hits })
   const activeMovePosition = [moveOne, moveTwo, moveThree, moveFour].findIndex(move => move.name == state.activeMove) + 1 as MovePosition
-  
+
   return new Pokemon(state.name, {
     id: state.id,
     nature: state.nature,
@@ -24,7 +24,7 @@ export function stateToPokemon(state: PokemonState) {
     commanderActive: state.commanderActive,
     teraType: state.teraType,
     teraTypeActive: state.teraTypeActive,
-    moveSet: new MoveSet(moveOne, moveTwo, moveThree, moveFour, activeMovePosition), 
+    moveSet: new MoveSet(moveOne, moveTwo, moveThree, moveFour, activeMovePosition),
     boosts: state.boosts,
     evs: state.evs,
     ivs: state.ivs,
@@ -64,7 +64,7 @@ export function stateToTeam(state: TeamState): Team {
 }
 
 export function stateToTeams(state: TeamState[]): Team[] {
-  return state.map(team => stateToTeam(team))  
+  return state.map(team => stateToTeam(team))
 }
 
 export function teamToState(team: Team): TeamState {
@@ -81,7 +81,7 @@ export function stateToTarget(state: TargetState): Target {
 }
 
 export function stateToTargets(state: TargetState[]): Target[] {
-  return state.map(target => stateToTarget(target))  
+  return state.map(target => stateToTarget(target))
 }
 
 export function targetToState(target: Target): TargetState {

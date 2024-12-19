@@ -2,8 +2,8 @@ import { provideExperimentalZonelessChangeDetection } from '@angular/core'
 import { TestBed } from '@angular/core/testing'
 import { Field as SmogonField } from "@robsonbittencourt/calc"
 import { ACTUAL, MAX, META, MIN } from '../constants'
-import { Field } from '../field'
-import { Pokemon } from '../pokemon'
+import { Field } from '../model/field'
+import { Pokemon } from '../model/pokemon'
 import { SmogonFunctions } from '../smogon-functions/smogon-functions'
 import { SpeedCalculatorOptions } from './speed-calculator-options'
 import { SpeedCalculatorService } from './speed-calculator-service'
@@ -19,7 +19,7 @@ describe('SpeedCalculatorService', () => {
     service = TestBed.inject(SpeedCalculatorService)
   })
 
-  describe('Test order methods', () =>  {
+  describe('Test order methods', () => {
     it('should return a list of Pokémon with at least more than two', () => {
       const pokemon = new Pokemon('Raging Bolt', { evs: { spe: 100 } })
       const field = new Field()
@@ -116,7 +116,7 @@ describe('SpeedCalculatorService', () => {
     it('should merge Meta and Atual description when speed are equals', () => {
       const pokemon = new Pokemon('Sneasler', { nature: "Jolly", evs: { spe: 252 } })
       const field = new Field()
-      
+
       const inRange = service.orderedPokemon(pokemon, field)
 
       const actual = inRange.find(p => p.pokemonName == "Sneasler" && p.description == ACTUAL)
@@ -137,7 +137,7 @@ describe('SpeedCalculatorService', () => {
       expect(speedDefinition.pokemonName).toEqual("Flutter Mane")
       expect(speedDefinition.description).toEqual(MIN)
     })
-  
+
     it('should return min speed of Raging Bolt', () => {
       const pokemon = new Pokemon("Raging Bolt")
       const smogonField = new SmogonField()
@@ -166,7 +166,7 @@ describe('SpeedCalculatorService', () => {
     })
 
     it('should return min speed of Chien-Pao with -1 in speed', () => {
-      const pokemon = new Pokemon("Chien-Pao", { boosts: { spe: -1 }})
+      const pokemon = new Pokemon("Chien-Pao", { boosts: { spe: -1 } })
       const smogonField = new SmogonField()
 
       const speedDefinition = service.minSpeed(pokemon, smogonField)
@@ -175,7 +175,7 @@ describe('SpeedCalculatorService', () => {
     })
 
     it('should return min speed of Chien-Pao with -6 in speed', () => {
-      const pokemon = new Pokemon("Chien-Pao", { boosts: { spe: -6 }})
+      const pokemon = new Pokemon("Chien-Pao", { boosts: { spe: -6 } })
       const smogonField = new SmogonField()
 
       const speedDefinition = service.minSpeed(pokemon, smogonField)
@@ -184,7 +184,7 @@ describe('SpeedCalculatorService', () => {
     })
 
     it('should return min speed of Chien-Pao with +1 in speed', () => {
-      const pokemon = new Pokemon("Chien-Pao", { boosts: { spe: 1 }})
+      const pokemon = new Pokemon("Chien-Pao", { boosts: { spe: 1 } })
       const smogonField = new SmogonField()
 
       const speedDefinition = service.minSpeed(pokemon, smogonField)
@@ -193,7 +193,7 @@ describe('SpeedCalculatorService', () => {
     })
 
     it('should return min speed of Chien-Pao with +6 in speed', () => {
-      const pokemon = new Pokemon("Chien-Pao", { boosts: { spe: 6 }})
+      const pokemon = new Pokemon("Chien-Pao", { boosts: { spe: 6 } })
       const smogonField = new SmogonField()
 
       const speedDefinition = service.minSpeed(pokemon, smogonField)
@@ -203,7 +203,7 @@ describe('SpeedCalculatorService', () => {
 
     it('should return min speed of Swift Swim Excadrill in the Rain', () => {
       const pokemon = new Pokemon("Kingdra", { ability: "Swift Swim" })
-      const field = new SmogonField( { weather: "Rain" })
+      const field = new SmogonField({ weather: "Rain" })
 
       const speedDefinition = service.minSpeed(pokemon, field)
 
@@ -221,7 +221,7 @@ describe('SpeedCalculatorService', () => {
       expect(speedDefinition.pokemonName).toEqual("Flutter Mane")
       expect(speedDefinition.description).toEqual(MAX)
     })
-  
+
     it('should return max speed of Raging Bolt', () => {
       const pokemon = new Pokemon("Raging Bolt")
       const smogonField = new SmogonField()
@@ -257,9 +257,9 @@ describe('SpeedCalculatorService', () => {
 
       expect(speedDefinition.value).toEqual(79)
     })
-    
+
     it('should return max speed of Chien-Pao with -1 in speed', () => {
-      const pokemon = new Pokemon("Chien-Pao", { boosts: { spe: -1 }})
+      const pokemon = new Pokemon("Chien-Pao", { boosts: { spe: -1 } })
       const smogonField = new SmogonField()
 
       const speedDefinition = service.maxSpeed(pokemon, smogonField)
@@ -268,7 +268,7 @@ describe('SpeedCalculatorService', () => {
     })
 
     it('should return max speed of Chien-Pao with -6 in speed', () => {
-      const pokemon = new Pokemon("Chien-Pao", { boosts: { spe: -6 }})
+      const pokemon = new Pokemon("Chien-Pao", { boosts: { spe: -6 } })
       const smogonField = new SmogonField()
 
       const speedDefinition = service.maxSpeed(pokemon, smogonField)
@@ -277,7 +277,7 @@ describe('SpeedCalculatorService', () => {
     })
 
     it('should return max speed of Chien-Pao with +1 in speed', () => {
-      const pokemon = new Pokemon("Chien-Pao", { boosts: { spe: 1 }})
+      const pokemon = new Pokemon("Chien-Pao", { boosts: { spe: 1 } })
       const smogonField = new SmogonField()
 
       const speedDefinition = service.maxSpeed(pokemon, smogonField)
@@ -286,7 +286,7 @@ describe('SpeedCalculatorService', () => {
     })
 
     it('should return max speed of Chien-Pao with +6 in speed', () => {
-      const pokemon = new Pokemon("Chien-Pao", { boosts: { spe: 6 }})
+      const pokemon = new Pokemon("Chien-Pao", { boosts: { spe: 6 } })
       const smogonField = new SmogonField()
 
       const speedDefinition = service.maxSpeed(pokemon, smogonField)
@@ -305,7 +305,7 @@ describe('SpeedCalculatorService', () => {
 
     it('should return max speed of Sand Rush Excadrill in the Sand', () => {
       const pokemon = new Pokemon("Excadrill", { ability: "Sand Rush" })
-      const field = new SmogonField( { weather: "Sand" })
+      const field = new SmogonField({ weather: "Sand" })
 
       const speedDefinition = service.maxSpeed(pokemon, field)
 
@@ -345,7 +345,7 @@ describe('SpeedCalculatorService', () => {
 
     it('should return meta speed of Flutter Mane with Protosynthesis activated', () => {
       const pokemon = new Pokemon("Flutter Mane", { nature: "Timid", evs: { spe: 124 } })
-      const field = new SmogonField( { weather: "Sun" })
+      const field = new SmogonField({ weather: "Sun" })
 
       const speedDefinition = service.maxMeta(pokemon, field)
 

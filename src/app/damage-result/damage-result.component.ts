@@ -6,15 +6,15 @@ import { MatChipListbox, MatChipListboxChange, MatChipOption } from '@angular/ma
 import { MatIcon } from '@angular/material/icon'
 import { MatTooltip } from '@angular/material/tooltip'
 import { DamageResult } from 'src/lib/damage-calculator/damage-result'
-import { Pokemon } from 'src/lib/pokemon'
-import { RollLevelConfig } from 'src/lib/roll-level-config'
+import { RollLevelConfig } from 'src/lib/damage-calculator/roll-level-config'
+import { Pokemon } from 'src/lib/model/pokemon'
 import { PokemonHpBadgeComponent } from '../pokemon-hp-badge/pokemon-hp-badge.component'
 
 @Component({
-    selector: 'app-damage-result',
-    templateUrl: './damage-result.component.html',
-    styleUrls: ['./damage-result.component.scss'],
-    imports: [NgStyle, PokemonHpBadgeComponent, MatButtonToggleGroup, MatButtonToggle, MatChipListbox, ReactiveFormsModule, FormsModule, MatChipOption, MatIcon, MatTooltip]
+  selector: 'app-damage-result',
+  templateUrl: './damage-result.component.html',
+  styleUrls: ['./damage-result.component.scss'],
+  imports: [NgStyle, PokemonHpBadgeComponent, MatButtonToggleGroup, MatButtonToggle, MatChipListbox, ReactiveFormsModule, FormsModule, MatChipOption, MatIcon, MatTooltip]
 })
 export class DamageResultComponent {
 
@@ -24,7 +24,7 @@ export class DamageResultComponent {
   reverse = input(false)
 
   moveSetChange = output<string>()
-  
+
   rollLevelConfig = signal(RollLevelConfig.high())
 
   activeMoveName = computed(() => this.pokemon().activeMoveName)
@@ -45,7 +45,7 @@ export class DamageResultComponent {
       this.moveSetChange.emit(event.value)
     }
   }
-  
+
   activateHighRoll() {
     this.rollLevelConfig.set(RollLevelConfig.high())
   }
@@ -68,15 +68,15 @@ export class DamageResultComponent {
   }
 
   private damageTakenByRoll(damageResult: DamageResult, rollLevelConfig: RollLevelConfig): number {
-    if(rollLevelConfig.high) {
+    if (rollLevelConfig.high) {
       return damageResult.rolls![15]
     }
 
-    if(rollLevelConfig.medium) {
+    if (rollLevelConfig.medium) {
       return damageResult.rolls![7]
     }
 
-    return damageResult.rolls![0]    
+    return damageResult.rolls![0]
   }
 
 }

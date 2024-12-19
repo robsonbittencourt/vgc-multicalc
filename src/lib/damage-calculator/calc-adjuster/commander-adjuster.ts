@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core"
-import { Pokemon } from "src/lib/pokemon"
+import { Pokemon } from "src/lib/model/pokemon"
 import { CalcAdjuster } from "./calc-adjuster"
 
 @Injectable({
@@ -12,10 +12,10 @@ export class CommanderAdjuster implements CalcAdjuster {
   }
 
   private adjustCommander(pokemon: Pokemon) {
-    if(pokemon.commanderActivated) {
+    if (pokemon.commanderActivated) {
       const maxStatModifier = 6
 
-      pokemon.pokemonSmogon.boosts = { 
+      pokemon.pokemonSmogon.boosts = {
         hp: 0,
         atk: pokemon.pokemonSmogon.boosts.atk <= 4 ? pokemon.pokemonSmogon.boosts.atk + 2 : maxStatModifier,
         def: pokemon.pokemonSmogon.boosts.def <= 4 ? pokemon.pokemonSmogon.boosts.def + 2 : maxStatModifier,

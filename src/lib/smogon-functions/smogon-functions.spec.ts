@@ -1,5 +1,5 @@
 import { Field, Side } from "@robsonbittencourt/calc"
-import { Pokemon } from "../pokemon"
+import { Pokemon } from "../model/pokemon"
 import { SmogonFunctions } from "./smogon-functions"
 
 describe('SmogonFunctions', () => {
@@ -11,7 +11,7 @@ describe('SmogonFunctions', () => {
 
   it('should return the Pokémon speed', () => {
     const pokemon = new Pokemon('Raging Bolt', { evs: { spe: 100 } })
-    
+
     const finalSpeed = service.getFinalSpeed(pokemon)
 
     expect(finalSpeed).toEqual(108)
@@ -19,7 +19,7 @@ describe('SmogonFunctions', () => {
 
   it('should return the Pokémon speed when +1', () => {
     const pokemon = new Pokemon('Raging Bolt', { evs: { spe: 100 }, boosts: { spe: 1 } })
-    
+
     const finalSpeed = service.getFinalSpeed(pokemon)
 
     expect(finalSpeed).toEqual(162)
@@ -27,7 +27,7 @@ describe('SmogonFunctions', () => {
 
   it('should return the Pokémon speed when +2', () => {
     const pokemon = new Pokemon('Raging Bolt', { evs: { spe: 100 }, boosts: { spe: 2 } })
-    
+
     const finalSpeed = service.getFinalSpeed(pokemon)
 
     expect(finalSpeed).toEqual(216)
@@ -35,7 +35,7 @@ describe('SmogonFunctions', () => {
 
   it('should return the Pokémon speed when -1', () => {
     const pokemon = new Pokemon('Raging Bolt', { evs: { spe: 100 }, boosts: { spe: -1 } })
-    
+
     const finalSpeed = service.getFinalSpeed(pokemon)
 
     expect(finalSpeed).toEqual(72)
@@ -43,7 +43,7 @@ describe('SmogonFunctions', () => {
 
   it('should return the Pokémon speed when -2', () => {
     const pokemon = new Pokemon('Raging Bolt', { evs: { spe: 100 }, boosts: { spe: -2 } })
-    
+
     const finalSpeed = service.getFinalSpeed(pokemon)
 
     expect(finalSpeed).toEqual(54)
@@ -53,7 +53,7 @@ describe('SmogonFunctions', () => {
     const pokemon = new Pokemon('Raging Bolt', { evs: { spe: 100 } })
     const side = new Side()
     side.isTailwind = true
-    
+
     const finalSpeed = service.getFinalSpeed(pokemon, new Field(), side)
 
     expect(finalSpeed).toEqual(216)
@@ -61,7 +61,7 @@ describe('SmogonFunctions', () => {
 
   it('should return the Pokémon speed when paralyzed', () => {
     const pokemon = new Pokemon('Raging Bolt', { evs: { spe: 100 }, status: 'Paralysis' })
-    
+
     const finalSpeed = service.getFinalSpeed(pokemon)
 
     expect(finalSpeed).toEqual(54)
@@ -206,7 +206,7 @@ describe('SmogonFunctions', () => {
 
   it('should return the Pokémon speed when hold Iron Ball', () => {
     const pokemon = new Pokemon('Raging Bolt', { item: "Iron Ball", evs: { spe: 100 } })
-    
+
     const finalSpeed = service.getFinalSpeed(pokemon)
 
     expect(finalSpeed).toEqual(54)
@@ -214,7 +214,7 @@ describe('SmogonFunctions', () => {
 
   it('should return the Pokémon speed when hold Macho Brace', () => {
     const pokemon = new Pokemon('Raging Bolt', { item: "Macho Brace", evs: { spe: 100 } })
-    
+
     const finalSpeed = service.getFinalSpeed(pokemon)
 
     expect(finalSpeed).toEqual(54)
@@ -222,7 +222,7 @@ describe('SmogonFunctions', () => {
 
   it('should return the Pokémon speed when hold Power Anklet', () => {
     const pokemon = new Pokemon('Raging Bolt', { item: "Power Anklet", evs: { spe: 100 } })
-    
+
     const finalSpeed = service.getFinalSpeed(pokemon)
 
     expect(finalSpeed).toEqual(54)
@@ -230,7 +230,7 @@ describe('SmogonFunctions', () => {
 
   it('should return the Pokémon speed when hold Power Band', () => {
     const pokemon = new Pokemon('Raging Bolt', { item: "Power Band", evs: { spe: 100 } })
-    
+
     const finalSpeed = service.getFinalSpeed(pokemon)
 
     expect(finalSpeed).toEqual(54)
@@ -238,7 +238,7 @@ describe('SmogonFunctions', () => {
 
   it('should return the Pokémon speed when hold Power Belt', () => {
     const pokemon = new Pokemon('Raging Bolt', { item: "Power Belt", evs: { spe: 100 } })
-    
+
     const finalSpeed = service.getFinalSpeed(pokemon)
 
     expect(finalSpeed).toEqual(54)
@@ -246,7 +246,7 @@ describe('SmogonFunctions', () => {
 
   it('should return the Pokémon speed when hold Power Bracer', () => {
     const pokemon = new Pokemon('Raging Bolt', { item: "Power Bracer", evs: { spe: 100 } })
-    
+
     const finalSpeed = service.getFinalSpeed(pokemon)
 
     expect(finalSpeed).toEqual(54)
@@ -254,7 +254,7 @@ describe('SmogonFunctions', () => {
 
   it('should return the Pokémon speed when hold Power Lens', () => {
     const pokemon = new Pokemon('Raging Bolt', { item: "Power Lens", evs: { spe: 100 } })
-    
+
     const finalSpeed = service.getFinalSpeed(pokemon)
 
     expect(finalSpeed).toEqual(54)
@@ -262,7 +262,7 @@ describe('SmogonFunctions', () => {
 
   it('should return the Pokémon speed when hold Power Weight', () => {
     const pokemon = new Pokemon('Raging Bolt', { item: "Power Weight", evs: { spe: 100 } })
-    
+
     const finalSpeed = service.getFinalSpeed(pokemon)
 
     expect(finalSpeed).toEqual(54)
@@ -270,7 +270,7 @@ describe('SmogonFunctions', () => {
 
   it('should return the Ditto speed when hold Quick Powder', () => {
     const pokemon = new Pokemon('Ditto', { item: "Quick Powder", nature: "Jolly", evs: { spe: 252 } })
-    
+
     const finalSpeed = service.getFinalSpeed(pokemon)
 
     expect(finalSpeed).toEqual(220)

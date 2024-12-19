@@ -7,25 +7,25 @@ import { MatTooltip } from '@angular/material/tooltip'
 import { MOVES, NATURES, TYPE_CHART } from '@robsonbittencourt/calc'
 import { Items } from 'src/data/items'
 import { CalculatorStore } from 'src/data/store/calculator-store'
-import { Pokemon } from 'src/lib/pokemon'
+import { Pokemon } from 'src/lib/model/pokemon'
 import { AbilityComboBoxComponent } from '../ability-combo-box/ability-combo-box.component'
 import { EvSliderComponent } from '../ev-slider/ev-slider.component'
 import { InputAutocompleteComponent } from '../input-autocomplete/input-autocomplete.component'
 
 @Component({
-    selector: 'app-pokemon-build-mobile',
-    templateUrl: './pokemon-build-mobile.component.html',
-    styleUrls: ['./pokemon-build-mobile.component.scss'],
-    imports: [MatChipListbox, ReactiveFormsModule, FormsModule, MatChipOption, MatIcon, InputAutocompleteComponent, MatTooltip, MatCheckbox, AbilityComboBoxComponent, EvSliderComponent]
+  selector: 'app-pokemon-build-mobile',
+  templateUrl: './pokemon-build-mobile.component.html',
+  styleUrls: ['./pokemon-build-mobile.component.scss'],
+  imports: [MatChipListbox, ReactiveFormsModule, FormsModule, MatChipOption, MatIcon, InputAutocompleteComponent, MatTooltip, MatCheckbox, AbilityComboBoxComponent, EvSliderComponent]
 })
 export class PokemonBuildMobileComponent {
-  
+
   pokemonId = input.required<string>()
-  
+
   pokemonChangedEvent = output<Pokemon>()
 
   store = inject(CalculatorStore)
-  
+
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
 
   MAX_EVS = 508
@@ -35,7 +35,7 @@ export class PokemonBuildMobileComponent {
   allNatureNames = Object.keys(NATURES)
   allTeraTypes = Object.keys(TYPE_CHART[9]).splice(1).sort()
   alliesFainted = ["0", "1", "2", "3", "4", "5", "6", "7"]
-  
+
   editAttacks: boolean = false
 
   statusConditions = [

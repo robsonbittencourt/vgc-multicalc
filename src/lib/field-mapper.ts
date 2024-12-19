@@ -1,6 +1,6 @@
 import { Side, Field as SmogonField } from '@robsonbittencourt/calc'
 import { Terrain as SmogonTerrain, Weather as SmogonWeather } from '@robsonbittencourt/calc/src/data/interface'
-import { Field, FieldAttackerSide, FieldDefenderSide } from "./field"
+import { Field, FieldAttackerSide, FieldDefenderSide } from "./model/field"
 
 export class FieldMapper {
 
@@ -18,15 +18,15 @@ export class FieldMapper {
     smogonField.isGravity = field.isGravity
     smogonField.attackerSide = this.toAttackerSide(field.attackerSide)
     smogonField.defenderSide = this.toDefenderSide(field.defenderSide)
-    
+
     return smogonField
   }
 
   private toAttackerSide(fieldSide: FieldAttackerSide): Side {
     const smogonSide = new Side()
-    smogonSide.isTailwind = fieldSide.isTailwind,
-    smogonSide.isHelpingHand = fieldSide.isHelpingHand,
-    smogonSide.isBattery = fieldSide.isBattery,
+    smogonSide.isTailwind = fieldSide.isTailwind
+    smogonSide.isHelpingHand = fieldSide.isHelpingHand
+    smogonSide.isBattery = fieldSide.isBattery
     smogonSide.isPowerSpot = fieldSide.isPowerSpot
 
     return smogonSide
@@ -34,9 +34,9 @@ export class FieldMapper {
 
   private toDefenderSide(fieldSide: FieldDefenderSide): Side {
     const smogonSide = new Side()
-    smogonSide.isTailwind = fieldSide.isTailwind,
-    smogonSide.isReflect = fieldSide.isReflect,
-    smogonSide.isLightScreen = fieldSide.isLightScreen,
+    smogonSide.isTailwind = fieldSide.isTailwind
+    smogonSide.isReflect = fieldSide.isReflect
+    smogonSide.isLightScreen = fieldSide.isLightScreen
     smogonSide.isAuroraVeil = fieldSide.isAuroraVeil
     smogonSide.isFriendGuard = fieldSide.isFriendGuard
     smogonSide.spikes = fieldSide.spikes
