@@ -53,6 +53,10 @@ export class Team {
     cy.get('[data-cy="delete-team-button"]').click({ force: true })
   }
 
+  updateTeamName(teamName: string) {
+    cy.get('[data-cy="team-name"]').clear().type(teamName)
+  }
+
   pokemonOnEditNameIs(pokemonName: string) {
     cy.get('[data-cy="pokemon-select"] input').should("have.value", pokemonName)
   }

@@ -6,7 +6,7 @@
     <div class="teams-top-box">
       <div class="team-name">
         <label>Team Name</label>
-        <input class="team-name-input" type="text" matInput [ngModel]="store.team().name" />
+        <input class="team-name-input" type="text" matInput [ngModel]="store.team().name" (input)="updateTeamName($event)" data-cy="team-name" />
       </div>
       <div class="team-buttons">
         <button mat-flat-button color="primary" (click)="addFromPokePaste()" data-cy="import-pokepaste-to-team">Import</button>

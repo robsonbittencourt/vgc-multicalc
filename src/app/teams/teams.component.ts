@@ -63,6 +63,11 @@ export class TeamsComponent {
     this.store.activateTeam(team.id)
   }
 
+  updateTeamName(event: Event) {
+    const teamName = (event.target as HTMLInputElement).value
+    this.store.updateActiveTeamName(teamName)
+  }
+
   export() {
     this.dialog.open(TeamExportModalComponent, {
       data: {

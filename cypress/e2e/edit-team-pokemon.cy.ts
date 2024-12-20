@@ -12,7 +12,6 @@ before(() => {
 
 beforeEach(() => {
   cy.get('[data-cy="team-vs-many"]').click({ force: true })
-
   team.delete("Team 1")
 })
 
@@ -29,7 +28,6 @@ describe("Add Pokémon to the Team", () => {
   })
 
   it("Do not allow delete Pokémon when no Pokémon exist", () => {
-    team.delete("Team 1")
     team.importPokepaste(defaultTeamData)
 
     team.selectTeamMember("Miraidon").delete()
@@ -40,7 +38,6 @@ describe("Add Pokémon to the Team", () => {
   })
 
   it("Add 4 Pokémon to the team, delete 2, and add new 2", () => {
-    team.delete("Team 1")
     team.importPokepaste(defaultTeamData)
 
     team.add("Pikachu")
@@ -59,7 +56,6 @@ describe("Add Pokémon to the Team", () => {
   })
 
   it("Fill all 4 teams", () => {
-    team.delete("Team 1")
     team.importPokepaste(defaultTeamData)
 
     team.selectTeamMember("Miraidon").delete()
@@ -113,5 +109,23 @@ describe("Add Pokémon to the Team", () => {
     team.delete("Team 3")
 
     team.selectTeam("Team 3").isEmpty()
+  })
+
+  it("Change Team Name", () => {
+    team.selectTeam("Team 3").updateTeamName("Hyper Offense")
+
+    team.selectTeam("Team 1")
+
+    team.selectTeam("Hyper Offense")
+  })
+
+  it("Change Team Name", () => {
+    team.selectTeam("Team 3").updateTeamName("Hyper Offense")
+    team.add("Miraidon")
+
+    team.delete("Hyper Offense")
+
+    team.selectTeam("Team 1")
+    team.selectTeam("Team 3")
   })
 })

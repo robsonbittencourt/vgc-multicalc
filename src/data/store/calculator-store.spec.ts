@@ -261,9 +261,16 @@ describe("Calculator Store", () => {
         expect(store.team().teamMembers[1].pokemon.name).toBe("Raichu")
       })
 
+      it("should replace active Team", () => {
+        const teamName = "New Team With Cool Name"
+
+        store.updateActiveTeamName(teamName)
+
+        expect(store.team().name).toBe(teamName)
+      })
+
       it("should update Teams", () => {
         const teamX = new Team("123", true, "Team X", [new TeamMember(new Pokemon("Pikachu")), new TeamMember(new Pokemon("Raichu"))])
-
         const teamY = new Team("456", false, "Team Y", [new TeamMember(new Pokemon("Clefairy")), new TeamMember(new Pokemon("Clefable"))])
 
         store.updateTeams([teamX, teamY])
@@ -279,7 +286,6 @@ describe("Calculator Store", () => {
 
       it("should activate Team with informed id and deactivate anothers", () => {
         const teamX = new Team("123", true, "Team X", [new TeamMember(new Pokemon("Pikachu")), new TeamMember(new Pokemon("Raichu"))])
-
         const teamY = new Team("456", false, "Team Y", [new TeamMember(new Pokemon("Clefairy")), new TeamMember(new Pokemon("Clefable"))])
 
         store.updateTeams([teamX, teamY])
