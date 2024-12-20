@@ -108,10 +108,8 @@ export class EvSliderComponent {
     this.store.hpPercentage(this.pokemonId(), +(event.target as HTMLInputElement).value)
   }
 
-  evChanged(event: Event) {
-    const newEv = +(event.target as HTMLInputElement).value
-    const adjustedEv = this.adjustEv(newEv)
-
+  evChanged() {
+    const adjustedEv = this.adjustEv(this.ev())
     this.updateEv(adjustedEv)
   }
 

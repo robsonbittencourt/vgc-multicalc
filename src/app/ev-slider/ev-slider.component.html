@@ -34,13 +34,13 @@
       @if (reduced()) {
         <mat-label>{{ statNameAcronym() }}</mat-label>
       }
-      <input class="ev-value-input" type="number" min="0" max="252" matInput [(ngModel)]="ev" (change)="evChanged($event)" data-cy="ev-value" />
+      <input class="ev-value-input" type="number" min="0" max="252" matInput [(ngModel)]="ev" (change)="evChanged()" data-cy="ev-value" />
     </mat-form-field>
   </div>
 
   <div class="ev-slider">
     <mat-slider class="mat-ev-slider" [min]="calculateMin()" [max]="252" [step]="calculateEvStep()">
-      <input matSliderThumb [(ngModel)]="ev" (input)="beforeChangeEvValue()" (change)="evChanged($event)" />
+      <input matSliderThumb [(ngModel)]="ev" (input)="beforeChangeEvValue()" (change)="evChanged()" />
     </mat-slider>
   </div>
 
