@@ -47,7 +47,9 @@ export class TeamsComponent {
         teamMembers.push(new TeamMember(pokemon, active))
       }
 
-      teamMembers.push(new TeamMember(defaultPokemon()))
+      if (teamMembers.length < 6) {
+        teamMembers.push(new TeamMember(defaultPokemon()))
+      }
 
       const teamToImport = new Team(uuidv4(), teamSlotToImport.active, teamSlotToImport.name, teamMembers)
 

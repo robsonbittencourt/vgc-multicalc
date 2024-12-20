@@ -292,4 +292,22 @@ describe("Import Pokepaste", () => {
     team.pokemonOnEditNameIs("Miraidon")
     opponent.addIsVisible()
   })
+
+  it("should show add Pokémon button when the paste have less then 6 Pokémon", () => {
+    const team = new Team()
+
+    team.importPokepaste(pokepasteDataForms4)
+    team.selectTeam("Team 2")
+
+    team.addPokemonAvailable()
+  })
+
+  it("should not show add Pokémon button when the paste have 6 Pokémon", () => {
+    const team = new Team()
+
+    team.importPokepaste(pokepasteData)
+    team.selectTeam("Team 2")
+
+    team.addPokemonUnavailable()
+  })
 })

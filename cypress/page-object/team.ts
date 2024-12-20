@@ -21,6 +21,14 @@ export class Team {
     return new PokemonBuild("your-team")
   }
 
+  addPokemonAvailable() {
+    cy.get('[data-cy="add-team-member-tab"]').should("have.length", 1)
+  }
+
+  addPokemonUnavailable() {
+    cy.get('[data-cy="add-team-member-tab"]').should("have.length", 0)
+  }
+
   teamIs(pokemonNames: string[]) {
     pokemonNames.forEach(pokemon => {
       this.verifyIfExists(pokemon)
