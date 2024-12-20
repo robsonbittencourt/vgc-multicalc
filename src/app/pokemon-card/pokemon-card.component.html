@@ -12,7 +12,7 @@
           <img class="pokemon-image" mat-card-md-image src="assets/icons/question.png" />
         </div>
         <div class="card-buttons">
-          <button class="icon-button" (click)="removePokemon()" data-cy="delete-opponent-pokemon">
+          <button class="icon-button" (click)="removePokemon($event)" data-cy="delete-opponent-pokemon">
             <img class="icon-trash" src="assets/icons/trash.png" />
           </button>
         </div>
@@ -71,7 +71,7 @@
             </button>
           }
 
-          <button class="icon-button" (click)="removePokemon()" data-cy="delete-opponent-pokemon">
+          <button class="icon-button" (click)="removePokemon($event)" data-cy="delete-opponent-pokemon">
             <img class="icon-trash" src="assets/icons/trash.png" />
           </button>
         </div>

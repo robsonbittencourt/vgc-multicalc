@@ -47,7 +47,8 @@ export class PokemonCardComponent {
     }
   }
 
-  removePokemon() {
+  removePokemon(event: Event) {
+    event.stopPropagation()
     const updatedTargets = this.store.targets().filter(target => target.pokemon.id != this.target().pokemon.id)
 
     this.store.updateTargets(updatedTargets)
