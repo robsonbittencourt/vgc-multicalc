@@ -12,46 +12,34 @@ let chiYuData: string
 let blazikenData: string
 let defaultTeamData: string
 let defaultOpponentsData: string
+let pokepasteData: string
 
 before(() => {
-  cy.fixture("tornadus-data").then(data => {
-    tornadusData = data
-  })
-  cy.fixture("chien-pao-data").then(data => {
-    chienPaoData = data
-  })
-  cy.fixture("wo-chien-data").then(data => {
-    woChienData = data
-  })
-  cy.fixture("ting-lu-data").then(data => {
-    tingLuData = data
-  })
-  cy.fixture("chi-yu-data").then(data => {
-    chiYuData = data
-  })
-  cy.fixture("blaziken-data").then(data => {
-    blazikenData = data
-  })
-  cy.fixture("default-team-data").then(data => {
-    defaultTeamData = data
-  })
-  cy.fixture("default-opponents-data").then(data => {
-    defaultOpponentsData = data
-  })
+  cy.fixture("tornadus-data").then(data => (tornadusData = data))
+  cy.fixture("chien-pao-data").then(data => (chienPaoData = data))
+  cy.fixture("wo-chien-data").then(data => (woChienData = data))
+  cy.fixture("ting-lu-data").then(data => (tingLuData = data))
+  cy.fixture("chi-yu-data").then(data => (chiYuData = data))
+  cy.fixture("blaziken-data").then(data => (blazikenData = data))
+  cy.fixture("default-team-data").then(data => (defaultTeamData = data))
+  cy.fixture("default-opponents-data").then(data => (defaultOpponentsData = data))
+  cy.fixture("pokepaste-data").then(data => (pokepasteData = data))
 })
 
 beforeEach(() => {
   cy.get('[data-cy="team-vs-many"]').click({ force: true })
-
-  team.delete("Team 1")
-  team.importPokepaste(defaultTeamData)
 
   opponents.deleteAll()
   opponents.importPokemon(defaultOpponentsData)
 })
 
 describe("Test calcs with combined damage", () => {
-  it.only("Calculate damage with two Pokémon", () => {
+  beforeEach(() => {
+    team.delete("Team 1")
+    team.importPokepaste(defaultTeamData)
+  })
+
+  it("Calculate damage with two Pokémon", () => {
     team.selectPokemon("Koraidon").selectAttackThree()
     team.selectTeamMember("Koraidon").combineDamage()
 
@@ -93,6 +81,34 @@ describe("Test calcs with combined damage", () => {
     team.selectTeamMember("Miraidon").delete()
 
     opponents.get("Urshifu Rapid Strike").damageIs(9.1, 10.8)
+  })
+})
+
+describe("Test edit in combined damage", () => {
+  it("Select a Pokémon to combine damage and repeat the process", () => {
+    team.delete("Team 1")
+    team.importPokepaste(pokepasteData)
+
+    team.selectPokemon("Tatsugiri")
+    team.selectTeamMember("Tatsugiri").combineDamage()
+
+    team.selectTeamMember("Dondozo")
+    opponents.get("Urshifu Rapid Strike").damageIs(122.2, 144.5).causeOHKO()
+
+    team.selectTeamMember("Tatsugiri").disableCombineDamage()
+    opponents.get("Urshifu Rapid Strike").damageIs(97.7, 115.4).haveChanceOfToCauseOHKO(87.5)
+
+    team.selectTeamMember("Tatsugiri").combineDamage()
+    team.selectTeamMember("Chi-Yu")
+    opponents.get("Urshifu Rapid Strike").damageIs(209.7, 246.8).causeOHKO()
+
+    team.selectTeamMember("Tatsugiri").disableCombineDamage()
+    team.selectTeamMember("Dondozo").combineDamage()
+    team.selectTeamMember("Chi-Yu")
+    opponents.get("Urshifu Rapid Strike").damageIs(104, 122.8).causeOHKO()
+
+    team.selectTeamMember("Dondozo").disableCombineDamage()
+    opponents.get("Urshifu Rapid Strike").damageIs(24.5, 29.1).haveChanceOfToCause4HKO(99.9)
   })
 })
 

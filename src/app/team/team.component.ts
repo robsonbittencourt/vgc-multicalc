@@ -50,8 +50,11 @@ export class TeamComponent {
       const active5 = members[4]?.pokemon.id == this.store.attackerId() || members[4]?.pokemon.id == pokemonId
       const active6 = members[5]?.pokemon.id == this.store.attackerId() || members[5]?.pokemon.id == pokemonId
 
+      if (pokemonId != this.store.attackerId()) {
+        this.store.updateSecondAttacker(pokemonId)
+      }
+
       this.store.updateTeamMembersActive(active1, active2, active3, active4, active5, active6)
-      this.store.updateSecondAttacker(pokemonId)
     } else {
       const active1 = members[0].pokemon.id == pokemonId
       const active2 = members[1]?.pokemon.id == pokemonId
@@ -116,12 +119,13 @@ export class TeamComponent {
 
     const actualTeam = this.store.team()
     const newTeamMembers = [...actualTeam.teamMembers]
+    const indexToInsert = newTeamMembers.length - 1
+    const removeDefaultPokemon = newTeamMembers.length == 6
 
-    if (actualTeam.hasDefaultPokemon()) {
-      const indexToInsert = newTeamMembers.length - 1
-      newTeamMembers.splice(indexToInsert, 0, newTeamMember)
+    if (removeDefaultPokemon) {
+      newTeamMembers.splice(indexToInsert, 1, newTeamMember)
     } else {
-      newTeamMembers.push(newTeamMember)
+      newTeamMembers.splice(indexToInsert, 0, newTeamMember)
     }
 
     const newTeam = new Team(actualTeam.id, actualTeam.active, actualTeam.name, newTeamMembers)

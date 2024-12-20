@@ -1,5 +1,5 @@
 <div class="container">
-  <app-team [pokemonId]="pokemonId()" [isAttacker]="menuStore.oneVsManyActivated()" />
+  <app-team [pokemonId]="pokemonOnEditId()" [isAttacker]="menuStore.oneVsManyActivated()" />
 
   <div>
     <app-teams />
@@ -11,8 +11,8 @@
       [damageResults]="damageResults()"
       [isAttacker]="menuStore.manyVsOneActivated()"
       [showDamageDescription]="!activeAttacker().isDefault()"
-      (targetActivated)="pokemonId.set($event)"
-      (targetRemoved)="pokemonId.set(store.team().activePokemon().id)"
+      (targetActivated)="pokemonOnEditId.set($event)"
+      (targetRemoved)="pokemonOnEditId.set(store.team().activePokemon().id)"
       (targetsImported)="targetsImported()" />
   </div>
 </div>
