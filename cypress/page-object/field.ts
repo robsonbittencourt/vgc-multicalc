@@ -123,7 +123,7 @@ export class Field {
     this.clickOnButton("leech-seed")
   }
 
-  private clickOnButton(selector: String) {
+  private clickOnButton(selector: string) {
     cy.get(`[data-cy=${selector}] button`).click({ force: true })
   }
 }

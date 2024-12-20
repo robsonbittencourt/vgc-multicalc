@@ -10,7 +10,7 @@ export class Opponent {
   }
 
   selectPokemon(pokemonName: string): PokemonBuild {
-    const card = cy.get(`[data-cy="pokemon-card-${pokemonName}"]`).click({ force: true })
+    cy.get(`[data-cy="pokemon-card-${pokemonName}"]`).click({ force: true })
     return new PokemonBuild("your-team")
   }
 

@@ -108,7 +108,7 @@ export class Team {
   }
 
   export(team: string): ExportModal {
-    this.selectTeam("Team 2")
+    this.selectTeam(team)
     cy.get('[data-cy="export-team-button"]').click({ force: true })
     return new ExportModal()
   }
