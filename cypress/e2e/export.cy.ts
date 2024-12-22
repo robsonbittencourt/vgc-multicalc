@@ -67,7 +67,7 @@ Ability: Beads of Ruin
 Level: 50
 Tera Type: Water
 EVs: 44 HP / 252 Atk / 12 Def / 32 SpA / 124 SpD / 40 Spe
-Timid Nature 
+Timid Nature
 IVs: 30 Atk / 29 Def / 28 SpA / 27 SpD / 0 Spe
 - Overheat
 - Heat Wave
@@ -79,7 +79,7 @@ Ability: Commander
 Level: 50
 Tera Type: Grass
 EVs: 252 SpA / 4 SpD / 252 Spe
-Modest Nature 
+Modest Nature
 IVs: 0 Atk
 - Draco Meteor
 - Muddy Water
@@ -91,7 +91,7 @@ Ability: Unaware
 Level: 50
 Tera Type: Grass
 EVs: 12 HP / 156 Atk / 60 Def / 116 SpD / 164 Spe
-Adamant Nature 
+Adamant Nature
 - Wave Crash
 - Order Up
 - Protect
@@ -102,7 +102,7 @@ Ability: Moody
 Level: 50
 Tera Type: Ghost
 EVs: 252 HP / 4 Def / 252 Spe
-Jolly Nature 
+Jolly Nature
 - Fake Out
 - Wide Guard
 - Follow Me
@@ -113,7 +113,7 @@ Ability: Beads of Ruin
 Level: 50
 Tera Type: Water
 EVs: 132 HP / 252 Def / 124 Spe
-Timid Nature 
+Timid Nature
 IVs: 0 Atk
 - Overheat
 - Heat Wave
@@ -125,7 +125,7 @@ Ability: Prankster
 Level: 50
 Tera Type: Steel
 EVs: 252 HP / 180 Def / 76 SpD
-Bold Nature 
+Bold Nature
 - Moonblast
 - Beat Up
 - Tailwind
@@ -136,7 +136,7 @@ Ability: Protosynthesis
 Level: 50
 Tera Type: Fairy
 EVs: 116 HP / 116 Def / 68 SpA / 4 SpD / 204 Spe
-Modest Nature 
+Modest Nature
 IVs: 0 Atk
 - Moonblast
 - Dazzling Gleam
@@ -148,7 +148,7 @@ Ability: Unseen Fist
 Level: 50
 Tera Type: Water
 EVs: 252 Atk / 4 SpD / 252 Spe
-Jolly Nature 
+Jolly Nature
 - Close Combat
 - Ice Spinner
 - U-turn
@@ -159,7 +159,7 @@ Ability: As One (Spectrier)
 Level: 50
 Tera Type: Fighting
 EVs: 252 SpA / 4 SpD / 252 Spe
-Timid Nature 
+Timid Nature
 - Astral Barrage
 - Expanding Force
 - Tera Blast
@@ -170,7 +170,7 @@ Ability: Water Absorb
 Level: 50
 Tera Type: Water
 EVs: 252 HP / 76 Atk / 148 Def / 28 SpD / 4 Spe
-Adamant Nature 
+Adamant Nature
 - Ivy Cudgel
 - Horn Leech
 - Spiky Shield
@@ -181,7 +181,7 @@ Ability: Regenerator
 Level: 50
 Tera Type: Water
 EVs: 236 HP / 236 Def / 36 SpD
-Relaxed Nature 
+Relaxed Nature
 - Pollen Puff
 - Spore
 - Rage Powder
@@ -192,7 +192,7 @@ Ability: Intimidate
 Level: 50
 Tera Type: Grass
 EVs: 244 HP / 12 Atk / 76 Def / 100 SpD / 76 Spe
-Impish Nature 
+Impish Nature
 - Knock Off
 - Fake Out
 - Parting Shot
@@ -203,7 +203,7 @@ Ability: Grassy Surge
 Level: 50
 Tera Type: Water
 EVs: 172 HP / 252 Atk / 4 Def / 4 SpD / 76 Spe
-Adamant Nature 
+Adamant Nature
 - Wood Hammer
 - U-turn
 - Grassy Glide
@@ -214,7 +214,7 @@ Ability: As One (Glastrier)
 Level: 50
 Tera Type: Fire
 EVs: 252 HP / 252 Atk / 4 SpD
-Brave Nature 
+Brave Nature
 - Glacial Lance
 - High Horsepower
 - Protect
@@ -225,7 +225,7 @@ Ability: Tera Shell
 Level: 50
 Tera Type: Stellar
 EVs: 252 HP / 180 Def / 76 SpA
-Modest Nature 
+Modest Nature
 - Tera Starstorm
 - Earth Power
 - Calm Mind
@@ -236,7 +236,7 @@ Ability: Dauntless Shield
 Level: 50
 Tera Type: Water
 EVs: 196 HP / 156 Def / 156 Spe
-Impish Nature 
+Impish Nature
 - Body Press
 - Heavy Slam
 - Substitute
@@ -247,7 +247,7 @@ Ability: Protosynthesis
 Level: 50
 Tera Type: Fairy
 EVs: 244 HP / 252 SpA / 12 SpD
-Modest Nature 
+Modest Nature
 - Dragon Pulse
 - Thunderclap
 - Calm Mind

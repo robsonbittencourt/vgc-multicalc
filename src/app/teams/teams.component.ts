@@ -11,8 +11,9 @@ import { CalculatorStore } from "@data/store/calculator-store"
 import { defaultPokemon } from "@lib/default-pokemon"
 import { Team } from "@lib/model/team"
 import { TeamMember } from "@lib/model/team-member"
-import { PokePasteParserService } from "@lib/poke-paste-parser.service"
 import { SnackbarService } from "@lib/snackbar.service"
+import { ExportPokeService } from "@lib/user-data/export-poke.service"
+import { PokePasteParserService } from "@lib/user-data/poke-paste-parser.service"
 import { v4 as uuidv4 } from "uuid"
 
 @Component({
@@ -24,6 +25,7 @@ import { v4 as uuidv4 } from "uuid"
 export class TeamsComponent {
   store = inject(CalculatorStore)
   private pokePasteService = inject(PokePasteParserService)
+  private exportPokeService = inject(ExportPokeService)
   private snackBar = inject(SnackbarService)
   private dialog = inject(MatDialog)
 
@@ -69,10 +71,12 @@ export class TeamsComponent {
   }
 
   export() {
+    const pokemon = this.store.team().teamMembers.map(tm => tm.pokemon)
+
     this.dialog.open(TeamExportModalComponent, {
       data: {
         title: this.store.team().name,
-        content: this.store.team().exportToShowdownFormat()
+        content: this.exportPokeService.exportAll(pokemon)
       },
       width: "40em",
       position: { top: "2em" },

@@ -30,18 +30,6 @@ export class Team {
     return this.size() == 1 && this.activePokemon().isDefault
   }
 
-  exportToShowdownFormat() {
-    let result = ""
-
-    this.teamMembers.forEach(t => {
-      if (!t.pokemon.isDefault) {
-        result += t.pokemon.showdownTextFormat() + "\n"
-      }
-    })
-
-    return result
-  }
-
   private size(): number {
     return this.teamMembers.length
   }

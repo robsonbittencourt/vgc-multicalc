@@ -4,7 +4,7 @@ import { MatDialog } from "@angular/material/dialog"
 import { MatIcon } from "@angular/material/icon"
 import { TeamImportModalComponent } from "@app/team-import-modal/team-import-modal.component"
 import { Pokemon } from "@lib/model/pokemon"
-import { PokePasteParserService } from "@lib/poke-paste-parser.service"
+import { PokePasteParserService } from "@lib/user-data/poke-paste-parser.service"
 
 @Component({
   selector: "app-import-pokemon-button",

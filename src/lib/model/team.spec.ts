@@ -71,13 +71,4 @@ describe("Team", () => {
 
     expect(result).toBeFalse()
   })
-
-  it("should return text with exported Pokémon in Showdown format", () => {
-    const team = new Team("123", true, "Team 1", [new TeamMember(new Pokemon("Pikachu"), true), new TeamMember(new Pokemon("Tyranitar"), false)])
-
-    const result = team.exportToShowdownFormat()
-
-    expect(result.includes("Pikachu")).toBeTrue()
-    expect(result.includes("\nTyranitar")).toBeTrue()
-  })
 })

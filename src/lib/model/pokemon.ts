@@ -8,7 +8,6 @@ import { PokemonParameters, Stats } from "@lib/types"
 import { Generations, Pokemon as PokemonSmogon } from "@robsonbittencourt/calc"
 import { StatsTable, StatusName, TypeName } from "@robsonbittencourt/calc/dist/data/interface"
 import { StatID } from "@robsonbittencourt/calc/src/data/interface"
-import dedent from "dedent"
 import { v4 as uuidv4 } from "uuid"
 
 export class Pokemon {
@@ -325,65 +324,5 @@ export class Pokemon {
 
   private statusDescriptionByCode(code: string): string {
     return this.STATUS_CONDITIONS.find(s => s.code === code)!.description
-  }
-
-  showdownTextFormat(): string {
-    let text = dedent`
-      ${this.name} @ ${this.item}
-      Ability: ${this.ability}
-      Level: ${this.pokemonSmogon.level}
-      Tera Type: ${this.teraType}\n      
-    `
-
-    const evsDescription = this.evsDescriptionShowdown()
-    if (evsDescription.length > 0) {
-      text += `EVs: ${evsDescription}\n`
-    }
-
-    text += `${this.nature} Nature \n`
-
-    const ivsDescription = this.ivsDescriptionShowdown()
-    if (ivsDescription.length > 0) {
-      text += `IVs: ${ivsDescription}\n`
-    }
-
-    text += dedent`
-      - ${this.move1Name}
-      - ${this.move2Name}
-      - ${this.move3Name}
-      - ${this.move4Name}\n
-    `
-
-    return text
-  }
-
-  private evsDescriptionShowdown(): string {
-    let evsDescription = ""
-
-    if (this.evs.hp && this.evs.hp != 0) evsDescription += `${this.evs.hp} HP / `
-    if (this.evs.atk && this.evs.atk != 0) evsDescription += `${this.evs.atk} Atk / `
-    if (this.evs.def && this.evs.def != 0) evsDescription += `${this.evs.def} Def / `
-    if (this.evs.spa && this.evs.spa != 0) evsDescription += `${this.evs.spa} SpA / `
-    if (this.evs.spd && this.evs.spd != 0) evsDescription += `${this.evs.spd} SpD / `
-    if (this.evs.spe && this.evs.spe != 0) evsDescription += `${this.evs.spe} Spe / `
-
-    evsDescription = evsDescription.slice(0, -3)
-
-    return evsDescription
-  }
-
-  private ivsDescriptionShowdown(): string {
-    let ivsDescription = ""
-
-    if (this.ivs.hp != 31) ivsDescription += `${this.ivs.hp} HP / `
-    if (this.ivs.atk != 31) ivsDescription += `${this.ivs.atk} Atk / `
-    if (this.ivs.def != 31) ivsDescription += `${this.ivs.def} Def / `
-    if (this.ivs.spa != 31) ivsDescription += `${this.ivs.spa} SpA / `
-    if (this.ivs.spd != 31) ivsDescription += `${this.ivs.spd} SpD / `
-    if (this.ivs.spe != 31) ivsDescription += `${this.ivs.spe} Spe / `
-
-    ivsDescription = ivsDescription.slice(0, -3)
-
-    return ivsDescription
   }
 }

@@ -13,8 +13,9 @@ import { DamageResult } from "@lib/damage-calculator/damage-result"
 import { defaultPokemon } from "@lib/default-pokemon"
 import { Pokemon } from "@lib/model/pokemon"
 import { Target } from "@lib/model/target"
-import { PokePasteParserService } from "@lib/poke-paste-parser.service"
 import { SnackbarService } from "@lib/snackbar.service"
+import { ExportPokeService } from "@lib/user-data/export-poke.service"
+import { PokePasteParserService } from "@lib/user-data/poke-paste-parser.service"
 
 @Component({
   selector: "app-target-pokemon",
@@ -34,6 +35,7 @@ export class TargetPokemonComponent {
   store = inject(CalculatorStore)
   menuStore = inject(MenuStore)
   private pokePasteService = inject(PokePasteParserService)
+  private exportPokeService = inject(ExportPokeService)
   private dialog = inject(MatDialog)
   private snackBar = inject(SnackbarService)
 
@@ -91,27 +93,17 @@ export class TargetPokemonComponent {
   }
 
   exportPokemon() {
+    const pokemon = this.targets().map(t => t.pokemon)
+
     this.dialog.open(TeamExportModalComponent, {
       data: {
         title: "Opponent Pokémon",
-        content: this.exportToShowdownFormat()
+        content: this.exportPokeService.exportAll(pokemon)
       },
       width: "40em",
       position: { top: "2em" },
       scrollStrategy: new NoopScrollStrategy()
     })
-  }
-
-  private exportToShowdownFormat() {
-    let result = ""
-
-    this.targets().forEach(t => {
-      if (!t.pokemon.isDefault) {
-        result += t.pokemon.showdownTextFormat() + "\n"
-      }
-    })
-
-    return result
   }
 
   addPokemonToTargets() {
