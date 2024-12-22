@@ -7,7 +7,7 @@ import { SmogonFunctions } from "@lib/smogon-functions/smogon-functions"
 import { PokemonParameters, Stats } from "@lib/types"
 import { Generations, Pokemon as PokemonSmogon } from "@robsonbittencourt/calc"
 import { StatsTable, StatusName, TypeName } from "@robsonbittencourt/calc/dist/data/interface"
-import { StatID } from "@robsonbittencourt/calc/src/data/interface"
+import { StatID, StatIDExceptHP } from "@robsonbittencourt/calc/src/data/interface"
 import { v4 as uuidv4 } from "uuid"
 
 export class Pokemon {
@@ -189,7 +189,7 @@ export class Pokemon {
   }
 
   get modifiedAtk(): number {
-    return this.getModifiedStat("atk")
+    return this.getModifiedStat(this.pokemonSmogon, "atk")
   }
 
   get baseDef(): number {
@@ -197,7 +197,7 @@ export class Pokemon {
   }
 
   get modifiedDef(): number {
-    return this.getModifiedStat("def")
+    return this.getModifiedStat(this.pokemonSmogon, "def")
   }
 
   get baseSpa(): number {
@@ -205,7 +205,7 @@ export class Pokemon {
   }
 
   get modifiedSpa(): number {
-    return this.getModifiedStat("spa")
+    return this.getModifiedStat(this.pokemonSmogon, "spa")
   }
 
   get baseSpd(): number {
@@ -213,7 +213,7 @@ export class Pokemon {
   }
 
   get modifiedSpd(): number {
-    return this.getModifiedStat("spd")
+    return this.getModifiedStat(this.pokemonSmogon, "spd")
   }
 
   get baseSpe(): number {
@@ -221,11 +221,11 @@ export class Pokemon {
   }
 
   get modifiedSpe(): number {
-    return this.getModifiedStat("spe")
+    return this.getModifiedStat(this.pokemonSmogon, "spe")
   }
 
   get isParadoxAbility() {
-    return this.ability == "Protosynthesis" || this.ability == "Quark Drive"
+    return this.isSmogonParadoxAbility(this.pokemonSmogon)
   }
 
   get isDefault() {
@@ -296,11 +296,58 @@ export class Pokemon {
     const hpPercentage = options.hpPercentage ?? 100
     pokemonSmogon.originalCurHP = Math.round((pokemonSmogon.maxHP() * hpPercentage) / 100)
 
+    this.applyStatBoost(pokemonSmogon)
+
     return pokemonSmogon
   }
 
-  private getModifiedStat(stat: StatID) {
-    return this.smogonFunctions.getModifiedStat(this.pokemonSmogon.rawStats[stat], this.pokemonSmogon.boosts[stat])
+  private applyStatBoost(pokemonSmogon: PokemonSmogon) {
+    const isParadoxAbility = this.isSmogonParadoxAbility(pokemonSmogon)
+
+    if (isParadoxAbility && pokemonSmogon.abilityOn) {
+      pokemonSmogon.boostedStat = this.higherStat(pokemonSmogon)
+    } else {
+      pokemonSmogon.boostedStat = undefined
+    }
+  }
+
+  private isSmogonParadoxAbility(pokemonSmogon: PokemonSmogon): boolean {
+    return pokemonSmogon.ability == "Protosynthesis" || pokemonSmogon.ability == "Quark Drive"
+  }
+
+  private higherStat(pokemonSmogon: PokemonSmogon): StatIDExceptHP {
+    let bestStat = this.getModifiedStat(pokemonSmogon, "atk")
+    let bestStatDescription: StatIDExceptHP = "atk"
+
+    const def = this.getModifiedStat(pokemonSmogon, "def")
+    if (def > bestStat) {
+      bestStat = def
+      bestStatDescription = "def"
+    }
+
+    const spa = this.getModifiedStat(pokemonSmogon, "spa")
+    if (spa > bestStat) {
+      bestStat = spa
+      bestStatDescription = "spa"
+    }
+
+    const spd = this.getModifiedStat(pokemonSmogon, "spd")
+    if (spd > bestStat) {
+      bestStat = spd
+      bestStatDescription = "spd"
+    }
+
+    const spe = this.getModifiedStat(pokemonSmogon, "spe")
+    if (spe > bestStat) {
+      bestStat = spe
+      bestStatDescription = "spe"
+    }
+
+    return bestStatDescription
+  }
+
+  private getModifiedStat(pokemonSmogon: PokemonSmogon, stat: StatID) {
+    return this.smogonFunctions.getModifiedStat(pokemonSmogon.rawStats[stat], pokemonSmogon.boosts[stat])
   }
 
   private statusCodeByDescription(description: string): StatusName {

@@ -25,7 +25,6 @@ import { AppComponent } from "@app/app.component"
 import { CALC_ADJUSTERS } from "@lib/damage-calculator/calc-adjuster/calc-adjuster"
 import { CommanderAdjuster } from "@lib/damage-calculator/calc-adjuster/commander-adjuster"
 import { LastRespectsAdjuster } from "@lib/damage-calculator/calc-adjuster/last-respects-adjuster"
-import { ParadoxAbilityAdjuster } from "@lib/damage-calculator/calc-adjuster/paradox-ability-adjuster"
 import { RageFistAdjuster } from "@lib/damage-calculator/calc-adjuster/rage-fist-adjuster"
 import { RuinsAbilityAdjuster } from "@lib/damage-calculator/calc-adjuster/ruins-ability-adjuster"
 import { SmogonFunctions } from "@lib/smogon-functions/smogon-functions"
@@ -60,7 +59,6 @@ bootstrapApplication(AppComponent, {
     provideAnimations(),
     provideExperimentalZonelessChangeDetection(),
     { provide: CALC_ADJUSTERS, useClass: RuinsAbilityAdjuster, multi: true },
-    { provide: CALC_ADJUSTERS, useClass: ParadoxAbilityAdjuster, multi: true },
     { provide: CALC_ADJUSTERS, useClass: LastRespectsAdjuster, multi: true },
     { provide: CALC_ADJUSTERS, useClass: RageFistAdjuster, multi: true },
     { provide: CALC_ADJUSTERS, useClass: CommanderAdjuster, multi: true }
