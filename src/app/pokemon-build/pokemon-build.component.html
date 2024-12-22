@@ -56,15 +56,13 @@
           <label>Tera Type</label>
         </div>
         <div class="check-input-section tera-checkbox">
-          @if (pokemon().teraTypeStorage) {
-            <button class="icon-button" (click)="terastalyzePokemon()" matTooltip="Terastal" [matTooltipShowDelay]="1000" data-cy="terastal-button">
-              @if (pokemon().teraTypeActive) {
-                <img class="icon-tera" src="assets/icons/tera-icon.png" />
-              } @else {
-                <img class="icon-tera" src="assets/icons/tera-icon-gray.png" />
-              }
-            </button>
-          }
+          <button class="icon-button" (click)="terastalyzePokemon()" matTooltip="Terastal" [matTooltipShowDelay]="1000" data-cy="terastal-button">
+            @if (pokemon().teraTypeActive) {
+              <img class="icon-tera" src="assets/icons/tera-icon.png" />
+            } @else {
+              <img class="icon-tera" src="assets/icons/tera-icon-gray.png" />
+            }
+          </button>
           <app-input-autocomplete [value]="pokemon().teraType" [allValues]="allTeraTypes" [disabled]="pokemon().isTerapagos()" (valueChange)="store.teraType(pokemonId(), $event)" data-cy="tera-type" />
         </div>
       </div>

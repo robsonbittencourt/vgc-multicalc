@@ -89,15 +89,13 @@
     </div>
 
     <div class="combo-option tera-type">
-      @if (pokemon().teraTypeStorage) {
-        <button class="icon-button" (click)="terastalyzePokemon()" matTooltip="Terastal" [matTooltipShowDelay]="1000">
-          @if (pokemon().teraTypeActive) {
-            <img class="icon-tera" src="assets/icons/tera-icon.png" />
-          } @else {
-            <img class="icon-tera" src="assets/icons/tera-icon-gray.png" />
-          }
-        </button>
-      }
+      <button class="icon-button" (click)="terastalyzePokemon()" matTooltip="Terastal" [matTooltipShowDelay]="1000">
+        @if (pokemon().teraTypeActive) {
+          <img class="icon-tera" src="assets/icons/tera-icon.png" />
+        } @else {
+          <img class="icon-tera" src="assets/icons/tera-icon-gray.png" />
+        }
+      </button>
 
       <div>
         <label>Tera Type</label>

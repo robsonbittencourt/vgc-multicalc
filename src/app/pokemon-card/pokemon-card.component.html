@@ -61,15 +61,13 @@
             </button>
           }
 
-          @if (target().pokemon.teraTypeStorage) {
-            <button class="icon-button" (click)="terastalyzePokemon($event)" matTooltip="Terastal" [matTooltipShowDelay]="500" data-cy="terastal-button-opponent">
-              @if (target().pokemon.teraTypeActive) {
-                <img class="icon-tera" src="assets/icons/tera-icon.png" />
-              } @else {
-                <img class="icon-tera" src="assets/icons/tera-icon-gray.png" />
-              }
-            </button>
-          }
+          <button class="icon-button" (click)="terastalyzePokemon($event)" matTooltip="Terastal" [matTooltipShowDelay]="500" data-cy="terastal-button-opponent">
+            @if (target().pokemon.teraTypeActive) {
+              <img class="icon-tera" src="assets/icons/tera-icon.png" />
+            } @else {
+              <img class="icon-tera" src="assets/icons/tera-icon-gray.png" />
+            }
+          </button>
 
           <button class="icon-button" (click)="removePokemon($event)" data-cy="delete-opponent-pokemon">
             <img class="icon-trash" src="assets/icons/trash.png" />

@@ -12,7 +12,6 @@ import { v4 as uuidv4 } from "uuid"
 export class Pokemon {
   private _id: string
   public pokemonSmogon: PokemonSmogon
-  public teraTypeStorage: string
   public evsStorage: Partial<Stats>
   public ivsStorage: Partial<Stats>
   private moveSetStorage: MoveSet
@@ -21,6 +20,8 @@ export class Pokemon {
   private commanderActivatedStorage: boolean
   private selectPokemonLabel = "Select a Pokémon"
 
+  readonly teraType: string
+
   constructor(name: string, options: PokemonParameters = {}) {
     const adjustedName = name == this.selectPokemonLabel ? "Togepi" : name
 
@@ -28,7 +29,7 @@ export class Pokemon {
     this.statusStorage = options.status ?? "Healthy"
     this.hpPercentageStorage = options.hpPercentage ?? 100
     this.commanderActivatedStorage = options.commanderActive ?? false
-    this.teraTypeStorage = options.teraType ?? DEFAULT_TERA_TYPE
+    this.teraType = options.teraType ?? DEFAULT_TERA_TYPE
     this.evsStorage = options.evs ?? { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
     this.ivsStorage = options.ivs ?? { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 }
     this.moveSetStorage = options.moveSet ?? new MoveSet(new Move("Struggle"), new Move("Struggle"), new Move("Struggle"), new Move("Struggle"))
@@ -143,14 +144,6 @@ export class Pokemon {
     ]
 
     return statusConditions.find(s => s.status === status)?.code as StatusName
-  }
-
-  public get teraType(): string {
-    if (this.pokemonSmogon.teraType) {
-      return this.pokemonSmogon.teraType as string
-    }
-
-    return this.teraTypeStorage
   }
 
   public get teraTypeActive(): boolean {
@@ -271,7 +264,7 @@ export class Pokemon {
       abilityOn: options.abilityOn ?? this.abilityOn,
       nature: options.nature ?? this.nature,
       item: options.item ?? this.item,
-      teraType: options.teraType ?? this.teraTypeStorage,
+      teraType: options.teraType ?? this.teraType,
       teraTypeActive: options.teraTypeActive ?? this.teraTypeActive,
       evs: options.evs ?? this.evs,
       ivs: options.ivs ?? this.ivs,
@@ -289,7 +282,7 @@ export class Pokemon {
       this.pokemonSmogon.nature === toCompare.pokemonSmogon.nature &&
       this.pokemonSmogon.item === toCompare.pokemonSmogon.item &&
       this.pokemonSmogon.ability === toCompare.pokemonSmogon.ability &&
-      this.teraTypeStorage === toCompare.teraTypeStorage &&
+      this.teraType === toCompare.teraType &&
       this.teraTypeActive === toCompare.teraTypeActive &&
       this.pokemonSmogon.evs.hp === toCompare.pokemonSmogon.evs.hp &&
       this.pokemonSmogon.evs.atk === toCompare.pokemonSmogon.evs.atk &&
