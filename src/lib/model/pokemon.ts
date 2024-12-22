@@ -3,20 +3,23 @@ import { Items } from "@data/items"
 import { DEFAULT_TERA_TYPE } from "@lib/constants"
 import { Move } from "@lib/model/move"
 import { MoveSet } from "@lib/model/moveset"
+import { SmogonFunctions } from "@lib/smogon-functions/smogon-functions"
 import { PokemonParameters, Stats } from "@lib/types"
 import { Generations, Pokemon as PokemonSmogon } from "@robsonbittencourt/calc"
 import { StatsTable, StatusName, TypeName } from "@robsonbittencourt/calc/dist/data/interface"
+import { StatID } from "@robsonbittencourt/calc/src/data/interface"
 import dedent from "dedent"
 import { v4 as uuidv4 } from "uuid"
 
 export class Pokemon {
-  pokemonSmogon: PokemonSmogon
-
   readonly id: string
   readonly moveSet: MoveSet
   readonly teraType: string
   readonly hpPercentage: number
   readonly commanderActivated: boolean
+
+  pokemonSmogon: PokemonSmogon
+  private smogonFunctions = new SmogonFunctions()
 
   private SELECT_POKEMON_LABEL = "Select a Pokémon"
 
@@ -81,6 +84,14 @@ export class Pokemon {
     return namesWithHiphen.includes(this.pokemonSmogon.name)
   }
 
+  get type1(): TypeName {
+    return this.pokemonSmogon.types[0]
+  }
+
+  get type2(): TypeName | undefined {
+    return this.pokemonSmogon.types[1]
+  }
+
   get nature(): string {
     return this.pokemonSmogon.nature as string
   }
@@ -115,6 +126,10 @@ export class Pokemon {
 
   get evs(): Partial<Stats> {
     return this.pokemonSmogon.evs
+  }
+
+  get totalEvs(): number {
+    return this.pokemonSmogon.evs.hp + this.pokemonSmogon.evs.atk + this.pokemonSmogon.evs.def + this.pokemonSmogon.evs.spa + this.pokemonSmogon.evs.spd + this.pokemonSmogon.evs.spe
   }
 
   get ivs(): Partial<Stats> {
@@ -169,80 +184,48 @@ export class Pokemon {
     return this.pokemonSmogon.species.baseStats.hp
   }
 
-  get atk(): number {
-    return this.pokemonSmogon.stats.atk
-  }
-
   get baseAtk(): number {
     return this.pokemonSmogon.species.baseStats.atk
   }
 
-  get def(): number {
-    return this.pokemonSmogon.stats.def
+  get modifiedAtk(): number {
+    return this.getModifiedStat("atk")
   }
 
   get baseDef(): number {
     return this.pokemonSmogon.species.baseStats.def
   }
 
-  get spa(): number {
-    return this.pokemonSmogon.stats.spa
+  get modifiedDef(): number {
+    return this.getModifiedStat("def")
   }
 
   get baseSpa(): number {
     return this.pokemonSmogon.species.baseStats.spa
   }
 
-  get spd(): number {
-    return this.pokemonSmogon.stats.spd
+  get modifiedSpa(): number {
+    return this.getModifiedStat("spa")
   }
 
   get baseSpd(): number {
     return this.pokemonSmogon.species.baseStats.spd
   }
 
-  get spe(): number {
-    return this.pokemonSmogon.stats.spe
+  get modifiedSpd(): number {
+    return this.getModifiedStat("spd")
   }
 
   get baseSpe(): number {
     return this.pokemonSmogon.species.baseStats.spe
   }
 
-  get modifiedAtk(): number {
-    return this.getModifiedStat(this.pokemonSmogon.rawStats["atk"], this.pokemonSmogon.boosts["atk"])
-  }
-
-  get modifiedDef(): number {
-    return this.getModifiedStat(this.pokemonSmogon.rawStats["def"], this.pokemonSmogon.boosts["def"])
-  }
-
-  get modifiedSpa(): number {
-    return this.getModifiedStat(this.pokemonSmogon.rawStats["spa"], this.pokemonSmogon.boosts["spa"])
-  }
-
-  get modifiedSpd(): number {
-    return this.getModifiedStat(this.pokemonSmogon.rawStats["spd"], this.pokemonSmogon.boosts["spd"])
-  }
-
   get modifiedSpe(): number {
-    return this.getModifiedStat(this.pokemonSmogon.rawStats["spe"], this.pokemonSmogon.boosts["spe"])
+    return this.getModifiedStat("spe")
   }
 
   get isParadoxAbility() {
     return this.ability == "Protosynthesis" || this.ability == "Quark Drive"
-  }
-
-  get totalEvs(): number {
-    return this.pokemonSmogon.evs.hp + this.pokemonSmogon.evs.atk + this.pokemonSmogon.evs.def + this.pokemonSmogon.evs.spa + this.pokemonSmogon.evs.spd + this.pokemonSmogon.evs.spe
-  }
-
-  get type1(): TypeName {
-    return this.pokemonSmogon.types[0]
-  }
-
-  get type2(): TypeName | undefined {
-    return this.pokemonSmogon.types[1]
   }
 
   get isDefault() {
@@ -349,40 +332,16 @@ export class Pokemon {
     return pokemonSmogon
   }
 
+  private getModifiedStat(stat: StatID) {
+    return this.smogonFunctions.getModifiedStat(this.pokemonSmogon.rawStats[stat], this.pokemonSmogon.boosts[stat])
+  }
+
   private statusCodeByDescription(description: string): StatusName {
     return this.STATUS_CONDITIONS.find(s => s.description === description)!.code as StatusName
   }
 
   private statusDescriptionByCode(code: string): string {
     return this.STATUS_CONDITIONS.find(s => s.code === code)!.description
-  }
-
-  private getModifiedStat(stat: number, mod: number): number {
-    const numerator = 0
-    const denominator = 1
-    const modernGenBoostTable = [
-      [2, 8],
-      [2, 7],
-      [2, 6],
-      [2, 5],
-      [2, 4],
-      [2, 3],
-      [2, 2],
-      [3, 2],
-      [4, 2],
-      [5, 2],
-      [6, 2],
-      [7, 2],
-      [8, 2]
-    ]
-    stat = this.OF16(stat * modernGenBoostTable[6 + mod][numerator])
-    stat = Math.floor(stat / modernGenBoostTable[6 + mod][denominator])
-
-    return stat
-  }
-
-  private OF16(n: number): number {
-    return n > 65535 ? n % 65536 : n
   }
 
   showdownTextFormat(): string {

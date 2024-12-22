@@ -49,15 +49,15 @@ describe("Calculator Store", () => {
 
       expect(store.teams()[1].name).toBe("Team 2")
       expect(store.teams()[1].teamMembers.length).toBe(1)
-      expect(store.teams()[1].teamMembers[0].pokemon.isDefault()).toBeTrue()
+      expect(store.teams()[1].teamMembers[0].pokemon.isDefault).toBeTrue()
 
       expect(store.teams()[2].name).toBe("Team 3")
       expect(store.teams()[2].teamMembers.length).toBe(1)
-      expect(store.teams()[2].teamMembers[0].pokemon.isDefault()).toBeTrue()
+      expect(store.teams()[2].teamMembers[0].pokemon.isDefault).toBeTrue()
 
       expect(store.teams()[3].name).toBe("Team 4")
       expect(store.teams()[3].teamMembers.length).toBe(1)
-      expect(store.teams()[3].teamMembers[0].pokemon.isDefault()).toBeTrue()
+      expect(store.teams()[3].teamMembers[0].pokemon.isDefault).toBeTrue()
     })
 
     it("should load some Targets as default", () => {
