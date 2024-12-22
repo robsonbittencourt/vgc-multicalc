@@ -67,14 +67,7 @@ export class PokemonCardComponent {
 
   terastalyzePokemon(event: Event) {
     event.stopPropagation()
-    if (!this.target().pokemon.isTerapagos) {
-      this.store.toogleTargetTerastal(this.target())
-
-      if (this.target().pokemon.isOgerpon) {
-        const ability = this.target().pokemon.checkOgerponTeraAbility(this.target().pokemon.teraTypeActive)
-        this.store.ability(this.target().pokemon.id, ability)
-      }
-    }
+    this.store.toogleTeraTypeActive(this.target().pokemon.id)
   }
 
   evsDescription(): string {

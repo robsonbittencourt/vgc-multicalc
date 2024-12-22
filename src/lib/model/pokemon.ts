@@ -120,6 +120,7 @@ export class Pokemon {
     if (this.pokemonSmogon.ability?.includes("Embody Aspect")) {
       return "Embody Aspect"
     }
+
     return this.pokemonSmogon.ability as string
   }
 
@@ -276,22 +277,6 @@ export class Pokemon {
       this.pokemonSmogon.evs.spd === toCompare.pokemonSmogon.evs.spd &&
       this.pokemonSmogon.evs.spe === toCompare.pokemonSmogon.evs.spe
     )
-  }
-
-  checkOgerponTeraAbility(teraActived: boolean): string {
-    if (this.name == "Ogerpon-Wellspring") {
-      return teraActived ? "Embody Aspect (Wellspring)" : "Water Absorb"
-    }
-
-    if (this.name == "Ogerpon-Hearthflame") {
-      return teraActived ? "Embody Aspect (Hearthflame)" : "Mold Breaker"
-    }
-
-    if (this.name == "Ogerpon-Cornerstone") {
-      return teraActived ? "Embody Aspect (Cornerstone)" : "Sturdy"
-    }
-
-    return teraActived ? "Embody Aspect (Teal)" : "Defiant"
   }
 
   private buildPokemonSmogon(pokemonName: string, options: PokemonParameters): PokemonSmogon {

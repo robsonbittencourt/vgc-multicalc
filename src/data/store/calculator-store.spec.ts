@@ -132,8 +132,114 @@ describe("Calculator Store", () => {
         expect(store.team().activePokemon().teraType).toBe("Fire")
       })
 
-      it("should update Pokémon Tera Type active", () => {
+      it("should update Pokémon Tera Type active to true", () => {
+        store.teraTypeActive(defaultId, false)
+
         store.teraTypeActive(defaultId, true)
+
+        expect(store.team().activePokemon().teraTypeActive).toBeTrue()
+      })
+
+      it("should update Pokémon Tera Type active to false", () => {
+        store.teraTypeActive(defaultId, true)
+
+        store.teraTypeActive(defaultId, false)
+
+        expect(store.team().activePokemon().teraTypeActive).toBeFalse()
+      })
+
+      it("should not update Pokémon Tera Type active when Pokémon is Terapagos", () => {
+        store.name(defaultId, "Terapagos")
+
+        store.teraTypeActive(defaultId, true)
+
+        expect(store.team().activePokemon().teraTypeActive).toBeFalse()
+      })
+
+      it("should activate Tera Type and change ability when Ogerpon terastalyze", () => {
+        store.name(defaultId, "Ogerpon")
+
+        store.teraTypeActive(defaultId, true)
+
+        expect(store.team().activePokemon().teraTypeActive).toBeTrue()
+        expect(store.team().activePokemon().ability).toBe("Embody Aspect (Teal)")
+      })
+
+      it("should activate Tera Type and change ability when Ogerpon-Wellspring terastalyze", () => {
+        store.name(defaultId, "Ogerpon-Wellspring")
+
+        store.teraTypeActive(defaultId, true)
+
+        expect(store.team().activePokemon().teraTypeActive).toBeTrue()
+        expect(store.team().activePokemon().ability).toBe("Embody Aspect (Wellspring)")
+      })
+
+      it("should activate Tera Type and change ability when Ogerpon-Hearthflame terastalyze", () => {
+        store.name(defaultId, "Ogerpon-Hearthflame")
+
+        store.teraTypeActive(defaultId, true)
+
+        expect(store.team().activePokemon().teraTypeActive).toBeTrue()
+        expect(store.team().activePokemon().ability).toBe("Embody Aspect (Hearthflame)")
+      })
+
+      it("should activate Tera Type and change ability when Ogerpon-Cornerstone terastalyze", () => {
+        store.name(defaultId, "Ogerpon-Cornerstone")
+
+        store.teraTypeActive(defaultId, true)
+
+        expect(store.team().activePokemon().teraTypeActive).toBeTrue()
+        expect(store.team().activePokemon().ability).toBe("Embody Aspect (Cornerstone)")
+      })
+
+      it("should deactivate Tera Type and change ability when Ogerpon deactivate tera", () => {
+        store.name(defaultId, "Ogerpon")
+
+        store.teraTypeActive(defaultId, false)
+
+        expect(store.team().activePokemon().teraTypeActive).toBeFalse()
+        expect(store.team().activePokemon().ability).toBe("Defiant")
+      })
+
+      it("should deactivate Tera Type and change ability when Ogerpon-Wellspring deactivate tera", () => {
+        store.name(defaultId, "Ogerpon-Wellspring")
+
+        store.teraTypeActive(defaultId, false)
+
+        expect(store.team().activePokemon().teraTypeActive).toBeFalse()
+        expect(store.team().activePokemon().ability).toBe("Water Absorb")
+      })
+
+      it("should deactivate Tera Type and change ability when Ogerpon-Hearthflame deactivate tera", () => {
+        store.name(defaultId, "Ogerpon-Hearthflame")
+
+        store.teraTypeActive(defaultId, false)
+
+        expect(store.team().activePokemon().teraTypeActive).toBeFalse()
+        expect(store.team().activePokemon().ability).toBe("Mold Breaker")
+      })
+
+      it("should deactivate Tera Type and change ability when Ogerpon-Cornerstone deactivate tera", () => {
+        store.name(defaultId, "Ogerpon-Cornerstone")
+
+        store.teraTypeActive(defaultId, false)
+
+        expect(store.team().activePokemon().teraTypeActive).toBeFalse()
+        expect(store.team().activePokemon().ability).toBe("Sturdy")
+      })
+
+      it("should Tera Type active change to false when Tera Type is activated and it is toggled", () => {
+        store.teraTypeActive(defaultId, true)
+
+        store.toogleTeraTypeActive(defaultId)
+
+        expect(store.team().activePokemon().teraTypeActive).toBeFalse()
+      })
+
+      it("should Tera Type active change to true when Tera Type is deactivated and it is toggled", () => {
+        store.teraTypeActive(defaultId, false)
+
+        store.toogleTeraTypeActive(defaultId)
 
         expect(store.team().activePokemon().teraTypeActive).toBeTrue()
       })
@@ -323,17 +429,6 @@ describe("Calculator Store", () => {
         store.toogleTargetCommander(newTarget)
 
         expect(store.targets()[1].pokemon.commanderActivated).toBeTrue()
-      })
-
-      it("should update Target Terastal active", () => {
-        const targets = [new Target(new Pokemon("Pikachu", { id: "123" })), new Target(new Pokemon("Raichu", { id: "456", teraTypeActive: false }))]
-
-        store.updateTargets(targets)
-
-        const newTarget = new Target(new Pokemon("Dondozo", { id: "456", teraTypeActive: false }))
-        store.toogleTargetTerastal(newTarget)
-
-        expect(store.targets()[1].pokemon.teraTypeActive).toBeTrue()
       })
 
       it("should update Target ability", () => {
