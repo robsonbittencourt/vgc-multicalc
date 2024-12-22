@@ -37,17 +37,18 @@ export class SpeedCalculatorService {
     const speedDefinitions: SpeedDefinition[] = []
 
     speedMeta(options.regulation).forEach(p => {
-      this.adjustPokemonByOptions(p, options)
-      speedDefinitions.push(this.minSpeed(p, smogonField))
-      speedDefinitions.push(this.maxSpeed(p, smogonField))
-      speedDefinitions.push(this.maxMeta(p, smogonField))
+      const pokemon = this.adjustPokemonByOptions(p, options)
 
-      if (p.item == "Choice Scarf") {
-        speedDefinitions.push(this.maxScarf(p, smogonField))
+      speedDefinitions.push(this.minSpeed(pokemon, smogonField))
+      speedDefinitions.push(this.maxSpeed(pokemon, smogonField))
+      speedDefinitions.push(this.maxMeta(pokemon, smogonField))
+
+      if (pokemon.item == "Choice Scarf") {
+        speedDefinitions.push(this.maxScarf(pokemon, smogonField))
       }
 
-      if (p.isParadoxAbility()) {
-        speedDefinitions.push(this.maxBooster(p, smogonField))
+      if (pokemon.isParadoxAbility()) {
+        speedDefinitions.push(this.maxBooster(pokemon, smogonField))
       }
     })
 
@@ -80,16 +81,12 @@ export class SpeedCalculatorService {
     return merged
   }
 
-  private adjustPokemonByOptions(pokemon: Pokemon, options: SpeedCalculatorOptions) {
-    pokemon.boosts.spe = options.speedModifier
+  private adjustPokemonByOptions(pokemon: Pokemon, options: SpeedCalculatorOptions): Pokemon {
+    const boosts = { ...pokemon.boosts, spe: options.speedModifier }
+    const status = options.paralyzedActive ? "Paralysis" : pokemon.status
+    const item = options.choiceScarfActive ? "Choice Scarf" : pokemon.item
 
-    if (options.paralyzedActive) {
-      pokemon.status = "Paralysis"
-    }
-
-    if (options.choiceScarfActive) {
-      pokemon.item = "Choice Scarf"
-    }
+    return pokemon.clone({ boosts, status, item })
   }
 
   minSpeed(pokemon: Pokemon, smogonField: SmogonField): SpeedDefinition {

@@ -1,29 +1,13 @@
 import { AllPokemon } from "@data/all-pokemon"
 import { Items } from "@data/items"
+import { DEFAULT_TERA_TYPE } from "@lib/constants"
 import { Move } from "@lib/model/move"
 import { MoveSet } from "@lib/model/moveset"
-import { Stats } from "@lib/types"
+import { PokemonParameters, Stats } from "@lib/types"
 import { Generations, Pokemon as PokemonSmogon } from "@robsonbittencourt/calc"
 import { StatsTable, StatusName, TypeName } from "@robsonbittencourt/calc/dist/data/interface"
 import dedent from "dedent"
 import { v4 as uuidv4 } from "uuid"
-
-type PokemonParameters = {
-  id?: string
-  ability?: string
-  abilityOn?: boolean
-  nature?: string
-  item?: string
-  teraType?: string
-  teraTypeActive?: boolean
-  evs?: Partial<Stats>
-  moveSet?: MoveSet
-  boosts?: Partial<Stats>
-  status?: string
-  ivs?: Partial<Stats>
-  hpPercentage?: number
-  commanderActive?: boolean
-}
 
 export class Pokemon {
   private _id: string
@@ -38,32 +22,18 @@ export class Pokemon {
   private selectPokemonLabel = "Select a Pokémon"
 
   constructor(name: string, options: PokemonParameters = {}) {
-    const defaulTeraType = "Water"
     const adjustedName = name == this.selectPokemonLabel ? "Togepi" : name
 
-    this.pokemonSmogon = new PokemonSmogon(Generations.get(9), adjustedName, {
-      nature: options.nature ?? "Hardy",
-      item: options.item != Items.instance.withoutItem() ? options.item : undefined,
-      ability: options.ability ?? AllPokemon.instance.abilitiesByName(adjustedName)[0],
-      abilityOn: options.abilityOn ?? false,
-      teraType: adjustedName == "Terapagos-Stellar" || options.teraTypeActive ? ((options.teraType as TypeName) ?? defaulTeraType) : undefined,
-      evs: options.evs,
-      ivs: options.ivs,
-      boosts: options.boosts,
-      status: this.statusConditionCode(options.status ?? "Healthy"),
-      level: 50
-    })
-
-    this.hpPercentageStorage = options.hpPercentage ?? 100
-    this.pokemonSmogon.originalCurHP = Math.round((this.pokemonSmogon.maxHP() * this.hpPercentageStorage) / 100)
-
     this._id = options.id ?? uuidv4()
-    this.commanderActivatedStorage = options.commanderActive ?? false
     this.statusStorage = options.status ?? "Healthy"
-    this.teraTypeStorage = options.teraType ?? defaulTeraType
+    this.hpPercentageStorage = options.hpPercentage ?? 100
+    this.commanderActivatedStorage = options.commanderActive ?? false
+    this.teraTypeStorage = options.teraType ?? DEFAULT_TERA_TYPE
     this.evsStorage = options.evs ?? { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
     this.ivsStorage = options.ivs ?? { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 }
     this.moveSetStorage = options.moveSet ?? new MoveSet(new Move("Struggle"), new Move("Struggle"), new Move("Struggle"), new Move("Struggle"))
+
+    this.pokemonSmogon = this.buildPokemonSmogon(adjustedName, options)
   }
 
   public get id(): string {
@@ -122,16 +92,8 @@ export class Pokemon {
     return this.pokemonSmogon.item as string
   }
 
-  public set item(item: string) {
-    this.pokemonSmogon = this.buildPokemonSmogon({ item: item })
-  }
-
   public get ability(): string {
     return this.pokemonSmogon.ability as string
-  }
-
-  public set ability(ability: string) {
-    this.pokemonSmogon = this.buildPokemonSmogon({ ability: ability })
   }
 
   public get abilityOn(): boolean {
@@ -168,11 +130,6 @@ export class Pokemon {
 
   public get status(): string {
     return this.statusStorage ?? ""
-  }
-
-  public set status(status: string) {
-    this.statusStorage = status
-    this.pokemonSmogon = this.buildPokemonSmogon({}, (status = this.statusConditionCode(status)))
   }
 
   statusConditionCode(status: string): StatusName {
@@ -394,89 +351,6 @@ export class Pokemon {
     return ivsDescription
   }
 
-  private buildPokemonSmogon(
-    {
-      name,
-      nature,
-      item,
-      ability,
-      abilityOn,
-      teraType,
-      teraTypeActive,
-      evs,
-      ivs,
-      boosts,
-      hpValue
-    }: {
-      name?: string
-      nature?: string
-      item?: string
-      ability?: string
-      abilityOn?: boolean
-      teraType?: string
-      teraTypeActive?: boolean
-      evs?: Partial<StatsTable> & { spc?: number }
-      ivs?: Partial<StatsTable> & { spc?: number }
-      boosts?: StatsTable
-      hpValue?: number
-    } = {},
-    status?: StatusName
-  ): PokemonSmogon {
-    const pokemonSmogon = new PokemonSmogon(Generations.get(9), name ? name : this.pokemonSmogon.name, {
-      nature: nature ? nature : this.pokemonSmogon.nature,
-      item: this.buildItem(item),
-      ability: ability ? ability : this.pokemonSmogon.ability,
-      abilityOn: abilityOn ? abilityOn : this.pokemonSmogon.abilityOn,
-      teraType: this.buildTeraType(teraType, teraTypeActive) as TypeName,
-      evs: evs ? evs : this.pokemonSmogon.evs,
-      ivs: ivs ? ivs : this.pokemonSmogon.ivs,
-      boosts: boosts ? boosts : this.pokemonSmogon.boosts,
-      status: status != undefined ? status : this.pokemonSmogon.status,
-      originalCurHP: hpValue ? hpValue : this.pokemonSmogon.originalCurHP,
-      level: 50
-    })
-
-    if (abilityOn != undefined) {
-      pokemonSmogon.abilityOn = abilityOn
-    } else {
-      pokemonSmogon.abilityOn = this.pokemonSmogon.abilityOn
-    }
-
-    if (hpValue == 0) {
-      pokemonSmogon.originalCurHP = 0
-    }
-
-    return pokemonSmogon
-  }
-
-  private buildItem(item?: string): string | undefined {
-    if (!item) {
-      return this.pokemonSmogon.item
-    }
-
-    if (item == Items.instance.withoutItem()) {
-      return undefined
-    }
-
-    return item
-  }
-
-  private buildTeraType(teraType?: string, teraTypeActive?: boolean) {
-    if (teraTypeActive == false) {
-      return undefined
-    }
-
-    if (teraTypeActive == undefined && !this.teraTypeActive) {
-      return undefined
-    }
-
-    if (teraTypeActive == undefined && this.teraTypeActive) {
-      return this.pokemonSmogon.teraType
-    }
-
-    return teraType
-  }
-
   checkOgerponTeraAbility(teraActived: boolean): string {
     if (this.name == "Ogerpon-Wellspring") {
       return teraActived ? "Embody Aspect (Wellspring)" : "Water Absorb"
@@ -507,6 +381,26 @@ export class Pokemon {
 
   isTerapagosStellar(): boolean {
     return this.name == "Terapagos-Stellar"
+  }
+
+  private buildPokemonSmogon(pokemonName: string, options: PokemonParameters): PokemonSmogon {
+    const pokemonSmogon = new PokemonSmogon(Generations.get(9), pokemonName, {
+      nature: options.nature ?? "Hardy",
+      item: options.item != Items.instance.withoutItem() ? options.item : undefined,
+      ability: options.ability ?? AllPokemon.instance.abilitiesByName(pokemonName)[0],
+      abilityOn: options.abilityOn ?? false,
+      teraType: pokemonName == "Terapagos-Stellar" || options.teraTypeActive ? ((options.teraType as TypeName) ?? DEFAULT_TERA_TYPE) : undefined,
+      evs: options.evs,
+      ivs: options.ivs,
+      boosts: options.boosts,
+      status: this.statusConditionCode(options.status ?? "Healthy"),
+      level: 50
+    })
+
+    const hpPercentage = options.hpPercentage ?? 100
+    pokemonSmogon.originalCurHP = Math.round((pokemonSmogon.maxHP() * hpPercentage) / 100)
+
+    return pokemonSmogon
   }
 
   private getModifiedStat(stat: number, mod: number): number {
