@@ -12,26 +12,29 @@ import { v4 as uuidv4 } from "uuid"
 export class Pokemon {
   private _id: string
   public pokemonSmogon: PokemonSmogon
-  public evsStorage: Partial<Stats>
-  public ivsStorage: Partial<Stats>
   private moveSetStorage: MoveSet
-  private statusStorage?: string
   private hpPercentageStorage: number
   private commanderActivatedStorage: boolean
   private selectPokemonLabel = "Select a Pokémon"
 
   readonly teraType: string
 
+  STATUS_CONDITIONS = [
+    { code: "", description: "Healthy" },
+    { code: "slp", description: "Sleep" },
+    { code: "psn", description: "Poison" },
+    { code: "brn", description: "Burn" },
+    { code: "frz", description: "Freeze" },
+    { code: "par", description: "Paralysis" }
+  ]
+
   constructor(name: string, options: PokemonParameters = {}) {
     const adjustedName = name == this.selectPokemonLabel ? "Togepi" : name
 
     this._id = options.id ?? uuidv4()
-    this.statusStorage = options.status ?? "Healthy"
     this.hpPercentageStorage = options.hpPercentage ?? 100
     this.commanderActivatedStorage = options.commanderActive ?? false
     this.teraType = options.teraType ?? DEFAULT_TERA_TYPE
-    this.evsStorage = options.evs ?? { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
-    this.ivsStorage = options.ivs ?? { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 }
     this.moveSetStorage = options.moveSet ?? new MoveSet(new Move("Struggle"), new Move("Struggle"), new Move("Struggle"), new Move("Struggle"))
 
     this.pokemonSmogon = this.buildPokemonSmogon(adjustedName, options)
@@ -130,20 +133,7 @@ export class Pokemon {
   }
 
   public get status(): string {
-    return this.statusStorage ?? ""
-  }
-
-  statusConditionCode(status: string): StatusName {
-    const statusConditions = [
-      { code: "", status: "Healthy" },
-      { code: "slp", status: "Sleep" },
-      { code: "psn", status: "Poison" },
-      { code: "brn", status: "Burn" },
-      { code: "frz", status: "Freeze" },
-      { code: "par", status: "Paralysis" }
-    ]
-
-    return statusConditions.find(s => s.status === status)?.code as StatusName
+    return this.statusDescriptionByCode(this.pokemonSmogon.status)
   }
 
   public get teraTypeActive(): boolean {
@@ -386,7 +376,7 @@ export class Pokemon {
       evs: options.evs,
       ivs: options.ivs,
       boosts: options.boosts,
-      status: this.statusConditionCode(options.status ?? "Healthy"),
+      status: this.statusCodeByDescription(options.status ?? "Healthy"),
       level: 50
     })
 
@@ -394,6 +384,14 @@ export class Pokemon {
     pokemonSmogon.originalCurHP = Math.round((pokemonSmogon.maxHP() * hpPercentage) / 100)
 
     return pokemonSmogon
+  }
+
+  private statusCodeByDescription(description: string): StatusName {
+    return this.STATUS_CONDITIONS.find(s => s.description === description)!.code as StatusName
+  }
+
+  private statusDescriptionByCode(code: string): string {
+    return this.STATUS_CONDITIONS.find(s => s.code === code)!.description
   }
 
   private getModifiedStat(stat: number, mod: number): number {
