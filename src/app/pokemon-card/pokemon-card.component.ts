@@ -55,6 +55,46 @@ export class PokemonCardComponent {
     this.targetRemoved.emit()
   }
 
+  addSecondAttacker(event: Event) {
+    event.stopPropagation()
+    this.secondTargetActivated.emit(this.target().pokemon.id)
+  }
+
+  toogleCommanderAbility(event: Event) {
+    event.stopPropagation()
+    this.store.toogleTargetCommander(this.target())
+  }
+
+  terastalyzePokemon(event: Event) {
+    event.stopPropagation()
+    if (!this.target().pokemon.isTerapagos) {
+      this.store.toogleTargetTerastal(this.target())
+
+      if (this.target().pokemon.isOgerpon) {
+        const ability = this.target().pokemon.checkOgerponTeraAbility(this.target().pokemon.teraTypeActive)
+        this.store.ability(this.target().pokemon.id, ability)
+      }
+    }
+  }
+
+  evsDescription(): string {
+    const pokemon = this.target().pokemon
+    let evsDescription = ""
+
+    if (this.isAttacker()) {
+      evsDescription = "Offensive: "
+      if (pokemon.evs.atk && pokemon.evs.atk != 0) evsDescription += `atk: ${pokemon.evs.atk} `
+      if (pokemon.evs.spa && pokemon.evs.spa != 0) evsDescription += `spa: ${pokemon.evs.spa} `
+    } else {
+      evsDescription = "Bulky: "
+      if (pokemon.evs.hp && pokemon.evs.hp != 0) evsDescription += `hp: ${pokemon.evs.hp} `
+      if (pokemon.evs.def && pokemon.evs.def != 0) evsDescription += `def: ${pokemon.evs.def} `
+      if (pokemon.evs.spd && pokemon.evs.spd != 0) evsDescription += `spd: ${pokemon.evs.spd} `
+    }
+
+    return evsDescription
+  }
+
   cardStyle(): any {
     const cardStyleSelectPokemon = { "background-color": "#e7def6" }
     const cardStyle = { "background-color": this.cardColor(this.damageResult().koChance) }
@@ -89,27 +129,5 @@ export class PokemonCardComponent {
     }
 
     return "#30ca2e" //green
-  }
-
-  addSecondAttacker(event: Event) {
-    event.stopPropagation()
-    this.secondTargetActivated.emit(this.target().pokemon.id)
-  }
-
-  toogleCommanderAbility(event: Event) {
-    event.stopPropagation()
-    this.store.toogleTargetCommander(this.target())
-  }
-
-  terastalyzePokemon(event: Event) {
-    event.stopPropagation()
-    if (!this.target().pokemon.isTerapagos) {
-      this.store.toogleTargetTerastal(this.target())
-
-      if (this.target().pokemon.isOgerpon) {
-        const ability = this.target().pokemon.checkOgerponTeraAbility(this.target().pokemon.teraTypeActive)
-        this.store.ability(this.target().pokemon.id, ability)
-      }
-    }
   }
 }

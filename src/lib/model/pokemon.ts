@@ -244,23 +244,6 @@ export class Pokemon {
     return this.name == "Terapagos-Stellar"
   }
 
-  evsDescription(isAttacker: boolean): string {
-    let evsDescription = ""
-
-    if (isAttacker) {
-      evsDescription = "Offensive: "
-      if (this.evs.atk && this.evs.atk != 0) evsDescription += `atk: ${this.evs.atk} `
-      if (this.evs.spa && this.evs.spa != 0) evsDescription += `spa: ${this.evs.spa} `
-    } else {
-      evsDescription = "Bulky: "
-      if (this.evs.hp && this.evs.hp != 0) evsDescription += `hp: ${this.evs.hp} `
-      if (this.evs.def && this.evs.def != 0) evsDescription += `def: ${this.evs.def} `
-      if (this.evs.spd && this.evs.spd != 0) evsDescription += `spd: ${this.evs.spd} `
-    }
-
-    return evsDescription
-  }
-
   clone(options: PokemonParameters = {}): Pokemon {
     return new Pokemon(this.name, {
       ability: options.ability ?? this.ability,

@@ -24,7 +24,7 @@
           <mat-card-subtitle>Item: {{ target().pokemon.item }}</mat-card-subtitle>
           <mat-card-subtitle>Nature: {{ target().pokemon.nature }}</mat-card-subtitle>
           <mat-card-subtitle>Ability: {{ target().pokemon.displayAbility }}</mat-card-subtitle>
-          <mat-card-subtitle>{{ target().pokemon.evsDescription(isAttacker()) }}</mat-card-subtitle>
+          <mat-card-subtitle>{{ evsDescription() }}</mat-card-subtitle>
           <mat-card-subtitle>Move: {{ target().pokemon.activeMoveName }}</mat-card-subtitle>
           <mat-card-subtitle>Tera Type: {{ target().pokemon.teraType }}</mat-card-subtitle>
         </mat-card-title-group>
