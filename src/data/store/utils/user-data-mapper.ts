@@ -13,7 +13,7 @@ export function buildUserData(speedCalcPokemon: PokemonState, leftPokemon: Pokem
         active: team.active,
         name: team.name,
         teamMembers: team.teamMembers
-          .filter(t => !stateToPokemon(t.pokemon).isDefault())
+          .filter(t => !stateToPokemon(t.pokemon).isDefault)
           .map(t => {
             const pokemon = buildPokemonToUserData(t.pokemon)
 
@@ -25,7 +25,7 @@ export function buildUserData(speedCalcPokemon: PokemonState, leftPokemon: Pokem
       }
     }),
     targets: targets
-      .filter(t => !stateToPokemon(t.pokemon).isDefault())
+      .filter(t => !stateToPokemon(t.pokemon).isDefault)
       .map(t => {
         const pokemon = buildPokemonToUserData(t.pokemon)
 

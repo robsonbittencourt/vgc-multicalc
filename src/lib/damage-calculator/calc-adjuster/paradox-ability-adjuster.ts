@@ -13,7 +13,7 @@ export class ParadoxAbilityAdjuster implements CalcAdjuster {
   }
 
   private applyStatBoost(pokemon: Pokemon) {
-    if (pokemon.isParadoxAbility() && pokemon.abilityOn) {
+    if (pokemon.isParadoxAbility && pokemon.abilityOn) {
       pokemon.pokemonSmogon.boostedStat = this.higherStat(pokemon)
     } else {
       pokemon.pokemonSmogon.boostedStat = undefined

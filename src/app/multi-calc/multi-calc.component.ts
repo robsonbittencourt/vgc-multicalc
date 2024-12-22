@@ -36,7 +36,7 @@ export class MultiCalcComponent implements OnInit {
   }
 
   targetsImported() {
-    if (this.store.findPokemonById(this.pokemonOnEditId()).isDefault()) {
+    if (this.store.findPokemonById(this.pokemonOnEditId()).isDefault) {
       this.pokemonOnEditId.set(this.store.team().activePokemon().id)
     }
   }

@@ -3,7 +3,7 @@
   <div class="team-pokemon-icons">
     @for (teamMember of team().teamMembers; track teamMember.pokemon.id) {
       <div class="pokemon-image">
-        @if (!teamMember.pokemon.isDefault()) {
+        @if (!teamMember.pokemon.isDefault) {
           <img src="assets/sprites/pokemon-sv/{{ teamMember.pokemon.name }}.png" />
         }
       </div>

@@ -60,11 +60,11 @@ export class PokemonCardComponent {
     const cardStyle = { "background-color": this.cardColor(this.damageResult().koChance) }
     const cardWithBorder = { border: "4px", "border-style": "solid", "border-color": "#8544ee" }
 
-    if (this.target().active && this.target().pokemon.isDefault()) {
+    if (this.target().active && this.target().pokemon.isDefault) {
       return { ...cardStyleSelectPokemon, ...cardWithBorder }
     }
 
-    if (this.target().pokemon.isDefault()) {
+    if (this.target().pokemon.isDefault) {
       return cardStyleSelectPokemon
     }
 
@@ -103,10 +103,10 @@ export class PokemonCardComponent {
 
   terastalyzePokemon(event: Event) {
     event.stopPropagation()
-    if (!this.target().pokemon.isTerapagos()) {
+    if (!this.target().pokemon.isTerapagos) {
       this.store.toogleTargetTerastal(this.target())
 
-      if (this.target().pokemon.isOgerpon()) {
+      if (this.target().pokemon.isOgerpon) {
         const ability = this.target().pokemon.checkOgerponTeraAbility(this.target().pokemon.teraTypeActive)
         this.store.ability(this.target().pokemon.id, ability)
       }

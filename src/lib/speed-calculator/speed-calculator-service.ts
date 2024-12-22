@@ -47,7 +47,7 @@ export class SpeedCalculatorService {
         speedDefinitions.push(this.maxScarf(pokemon, smogonField))
       }
 
-      if (pokemon.isParadoxAbility()) {
+      if (pokemon.isParadoxAbility) {
         speedDefinitions.push(this.maxBooster(pokemon, smogonField))
       }
     })

@@ -39,11 +39,11 @@ export class EvSliderComponent {
 
   statValue = computed(() => {
     if (this.stat() == "hp") return this.pokemon().hp
-    if (this.stat() == "atk") return this.pokemon().modifiedAtk()
-    if (this.stat() == "def") return this.pokemon().modifiedDef()
-    if (this.stat() == "spa") return this.pokemon().modifiedSpa()
-    if (this.stat() == "spd") return this.pokemon().modifiedSpd()
-    return this.pokemon().modifiedSpe()
+    if (this.stat() == "atk") return this.pokemon().modifiedAtk
+    if (this.stat() == "def") return this.pokemon().modifiedDef
+    if (this.stat() == "spa") return this.pokemon().modifiedSpa
+    if (this.stat() == "spd") return this.pokemon().modifiedSpd
+    return this.pokemon().modifiedSpe
   })
 
   statName = computed(() => {

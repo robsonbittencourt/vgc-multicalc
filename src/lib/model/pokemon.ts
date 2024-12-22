@@ -10,7 +10,7 @@ import dedent from "dedent"
 import { v4 as uuidv4 } from "uuid"
 
 export class Pokemon {
-  public pokemonSmogon: PokemonSmogon
+  pokemonSmogon: PokemonSmogon
 
   readonly id: string
   readonly moveSet: MoveSet
@@ -41,14 +41,14 @@ export class Pokemon {
     this.pokemonSmogon = this.buildPokemonSmogon(adjustedName, options)
   }
 
-  public get name(): string {
-    if (this.isDefault()) return this.SELECT_POKEMON_LABEL
+  get name(): string {
+    if (this.isDefault) return this.SELECT_POKEMON_LABEL
 
     return this.pokemonSmogon.name
   }
 
-  public get displayName(): string {
-    if (this.isDefault()) {
+  get displayName(): string {
+    if (this.isDefault) {
       return this.SELECT_POKEMON_LABEL
     }
 
@@ -59,8 +59,8 @@ export class Pokemon {
     return this.pokemonSmogon.name.replaceAll("-", " ")
   }
 
-  public get displayNameWithoutSuffix(): string {
-    if (this.isDefault()) {
+  get displayNameWithoutSuffix(): string {
+    if (this.isDefault) {
       return this.SELECT_POKEMON_LABEL
     }
 
@@ -81,11 +81,11 @@ export class Pokemon {
     return namesWithHiphen.includes(this.pokemonSmogon.name)
   }
 
-  public get nature(): string {
+  get nature(): string {
     return this.pokemonSmogon.nature as string
   }
 
-  public get item(): string {
+  get item(): string {
     if (!this.pokemonSmogon.item) {
       return Items.instance.withoutItem()
     }
@@ -93,147 +93,192 @@ export class Pokemon {
     return this.pokemonSmogon.item as string
   }
 
-  public get ability(): string {
+  get ability(): string {
     return this.pokemonSmogon.ability as string
   }
 
-  public get abilityOn(): boolean {
+  get abilityOn(): boolean {
     return this.pokemonSmogon.abilityOn!
   }
 
-  public actionableAbility(): boolean {
+  get actionableAbility(): boolean {
     const actionableAbilities = ["Slow Start", "Unburden"]
     return actionableAbilities.includes(this.ability)
   }
 
-  public get displayAbility(): string {
+  get displayAbility(): string {
     if (this.pokemonSmogon.ability?.includes("Embody Aspect")) {
       return "Embody Aspect"
     }
     return this.pokemonSmogon.ability as string
   }
 
-  public get evs(): Partial<Stats> {
+  get evs(): Partial<Stats> {
     return this.pokemonSmogon.evs
   }
 
-  public get ivs(): Partial<Stats> {
+  get ivs(): Partial<Stats> {
     return this.pokemonSmogon.ivs
   }
 
-  public get boosts(): StatsTable {
+  get boosts(): StatsTable {
     return this.pokemonSmogon.boosts
   }
 
-  public get status(): string {
+  get status(): string {
     return this.statusDescriptionByCode(this.pokemonSmogon.status)
   }
 
-  public get teraTypeActive(): boolean {
-    return this.isTerapagosStellar() || this.pokemonSmogon.teraType != undefined
+  get teraTypeActive(): boolean {
+    return this.isTerapagosStellar || this.pokemonSmogon.teraType != undefined
   }
 
-  public get move(): Move {
+  get move(): Move {
     return this.moveSet.activeMove
   }
 
-  public get activeMoveName(): string {
+  get activeMoveName(): string {
     return this.moveSet.activeMove.name
   }
 
-  public get move1Name(): string {
+  get move1Name(): string {
     return this.moveSet.move1.name
   }
 
-  public get move2Name(): string {
+  get move2Name(): string {
     return this.moveSet.move2.name
   }
 
-  public get move3Name(): string {
+  get move3Name(): string {
     return this.moveSet.move3.name
   }
 
-  public get move4Name(): string {
+  get move4Name(): string {
     return this.moveSet.move4.name
   }
 
-  public get hp(): number {
+  get hp(): number {
     return this.pokemonSmogon.stats.hp
   }
 
-  public get actualHp(): number {
+  get actualHp(): number {
     return this.pokemonSmogon.curHP()
   }
 
-  public get baseHp(): number {
+  get baseHp(): number {
     return this.pokemonSmogon.species.baseStats.hp
   }
 
-  public get atk(): number {
+  get atk(): number {
     return this.pokemonSmogon.stats.atk
   }
 
-  public get baseAtk(): number {
+  get baseAtk(): number {
     return this.pokemonSmogon.species.baseStats.atk
   }
 
-  public get def(): number {
+  get def(): number {
     return this.pokemonSmogon.stats.def
   }
 
-  public get baseDef(): number {
+  get baseDef(): number {
     return this.pokemonSmogon.species.baseStats.def
   }
 
-  public get spa(): number {
+  get spa(): number {
     return this.pokemonSmogon.stats.spa
   }
 
-  public get baseSpa(): number {
+  get baseSpa(): number {
     return this.pokemonSmogon.species.baseStats.spa
   }
 
-  public get spd(): number {
+  get spd(): number {
     return this.pokemonSmogon.stats.spd
   }
 
-  public get baseSpd(): number {
+  get baseSpd(): number {
     return this.pokemonSmogon.species.baseStats.spd
   }
 
-  public get spe(): number {
+  get spe(): number {
     return this.pokemonSmogon.stats.spe
   }
 
-  public get baseSpe(): number {
+  get baseSpe(): number {
     return this.pokemonSmogon.species.baseStats.spe
   }
 
-  modifiedAtk(): number {
+  get modifiedAtk(): number {
     return this.getModifiedStat(this.pokemonSmogon.rawStats["atk"], this.pokemonSmogon.boosts["atk"])
   }
 
-  modifiedDef(): number {
+  get modifiedDef(): number {
     return this.getModifiedStat(this.pokemonSmogon.rawStats["def"], this.pokemonSmogon.boosts["def"])
   }
 
-  modifiedSpa(): number {
+  get modifiedSpa(): number {
     return this.getModifiedStat(this.pokemonSmogon.rawStats["spa"], this.pokemonSmogon.boosts["spa"])
   }
 
-  modifiedSpd(): number {
+  get modifiedSpd(): number {
     return this.getModifiedStat(this.pokemonSmogon.rawStats["spd"], this.pokemonSmogon.boosts["spd"])
   }
 
-  modifiedSpe(): number {
+  get modifiedSpe(): number {
     return this.getModifiedStat(this.pokemonSmogon.rawStats["spe"], this.pokemonSmogon.boosts["spe"])
   }
 
-  public isParadoxAbility() {
+  get isParadoxAbility() {
     return this.ability == "Protosynthesis" || this.ability == "Quark Drive"
   }
 
-  public clone(options: PokemonParameters = {}): Pokemon {
+  get totalEvs(): number {
+    return this.pokemonSmogon.evs.hp + this.pokemonSmogon.evs.atk + this.pokemonSmogon.evs.def + this.pokemonSmogon.evs.spa + this.pokemonSmogon.evs.spd + this.pokemonSmogon.evs.spe
+  }
+
+  get type1(): TypeName {
+    return this.pokemonSmogon.types[0]
+  }
+
+  get type2(): TypeName | undefined {
+    return this.pokemonSmogon.types[1]
+  }
+
+  get isDefault() {
+    return this.pokemonSmogon.name == "Togepi"
+  }
+
+  get isOgerpon(): boolean {
+    return this.name.startsWith("Ogerpon")
+  }
+
+  get isTerapagos(): boolean {
+    return this.name.startsWith("Terapagos")
+  }
+
+  get isTerapagosStellar(): boolean {
+    return this.name == "Terapagos-Stellar"
+  }
+
+  evsDescription(isAttacker: boolean): string {
+    let evsDescription = ""
+
+    if (isAttacker) {
+      evsDescription = "Offensive: "
+      if (this.evs.atk && this.evs.atk != 0) evsDescription += `atk: ${this.evs.atk} `
+      if (this.evs.spa && this.evs.spa != 0) evsDescription += `spa: ${this.evs.spa} `
+    } else {
+      evsDescription = "Bulky: "
+      if (this.evs.hp && this.evs.hp != 0) evsDescription += `hp: ${this.evs.hp} `
+      if (this.evs.def && this.evs.def != 0) evsDescription += `def: ${this.evs.def} `
+      if (this.evs.spd && this.evs.spd != 0) evsDescription += `spd: ${this.evs.spd} `
+    }
+
+    return evsDescription
+  }
+
+  clone(options: PokemonParameters = {}): Pokemon {
     return new Pokemon(this.name, {
       ability: options.ability ?? this.ability,
       abilityOn: options.abilityOn ?? this.abilityOn,
@@ -250,7 +295,7 @@ export class Pokemon {
     })
   }
 
-  public equals(toCompare: Pokemon): boolean {
+  equals(toCompare: Pokemon): boolean {
     return (
       toCompare &&
       this.pokemonSmogon.name === toCompare.pokemonSmogon.name &&
@@ -268,57 +313,6 @@ export class Pokemon {
     )
   }
 
-  public totalEvs(): number {
-    return this.pokemonSmogon.evs.hp + this.pokemonSmogon.evs.atk + this.pokemonSmogon.evs.def + this.pokemonSmogon.evs.spa + this.pokemonSmogon.evs.spd + this.pokemonSmogon.evs.spe
-  }
-
-  public evsDescription(isAttacker: boolean): string {
-    let evsDescription = ""
-
-    if (isAttacker) {
-      evsDescription = "Offensive: "
-      if (this.evs.atk && this.evs.atk != 0) evsDescription += `atk: ${this.evs.atk} `
-      if (this.evs.spa && this.evs.spa != 0) evsDescription += `spa: ${this.evs.spa} `
-    } else {
-      evsDescription = "Bulky: "
-      if (this.evs.hp && this.evs.hp != 0) evsDescription += `hp: ${this.evs.hp} `
-      if (this.evs.def && this.evs.def != 0) evsDescription += `def: ${this.evs.def} `
-      if (this.evs.spd && this.evs.spd != 0) evsDescription += `spd: ${this.evs.spd} `
-    }
-
-    return evsDescription
-  }
-
-  public evsDescriptionShowdown(): string {
-    let evsDescription = ""
-
-    if (this.evs.hp && this.evs.hp != 0) evsDescription += `${this.evs.hp} HP / `
-    if (this.evs.atk && this.evs.atk != 0) evsDescription += `${this.evs.atk} Atk / `
-    if (this.evs.def && this.evs.def != 0) evsDescription += `${this.evs.def} Def / `
-    if (this.evs.spa && this.evs.spa != 0) evsDescription += `${this.evs.spa} SpA / `
-    if (this.evs.spd && this.evs.spd != 0) evsDescription += `${this.evs.spd} SpD / `
-    if (this.evs.spe && this.evs.spe != 0) evsDescription += `${this.evs.spe} Spe / `
-
-    evsDescription = evsDescription.slice(0, -3)
-
-    return evsDescription
-  }
-
-  public ivsDescriptionShowdown(): string {
-    let ivsDescription = ""
-
-    if (this.ivs.hp != 31) ivsDescription += `${this.ivs.hp} HP / `
-    if (this.ivs.atk != 31) ivsDescription += `${this.ivs.atk} Atk / `
-    if (this.ivs.def != 31) ivsDescription += `${this.ivs.def} Def / `
-    if (this.ivs.spa != 31) ivsDescription += `${this.ivs.spa} SpA / `
-    if (this.ivs.spd != 31) ivsDescription += `${this.ivs.spd} SpD / `
-    if (this.ivs.spe != 31) ivsDescription += `${this.ivs.spe} Spe / `
-
-    ivsDescription = ivsDescription.slice(0, -3)
-
-    return ivsDescription
-  }
-
   checkOgerponTeraAbility(teraActived: boolean): string {
     if (this.name == "Ogerpon-Wellspring") {
       return teraActived ? "Embody Aspect (Wellspring)" : "Water Absorb"
@@ -333,22 +327,6 @@ export class Pokemon {
     }
 
     return teraActived ? "Embody Aspect (Teal)" : "Defiant"
-  }
-
-  isDefault() {
-    return this.pokemonSmogon.name == "Togepi"
-  }
-
-  isOgerpon(): boolean {
-    return this.name.startsWith("Ogerpon")
-  }
-
-  isTerapagos(): boolean {
-    return this.name.startsWith("Terapagos")
-  }
-
-  isTerapagosStellar(): boolean {
-    return this.name == "Terapagos-Stellar"
   }
 
   private buildPokemonSmogon(pokemonName: string, options: PokemonParameters): PokemonSmogon {
@@ -407,14 +385,6 @@ export class Pokemon {
     return n > 65535 ? n % 65536 : n
   }
 
-  type1(): TypeName {
-    return this.pokemonSmogon.types[0]
-  }
-
-  type2(): TypeName | undefined {
-    return this.pokemonSmogon.types[1]
-  }
-
   showdownTextFormat(): string {
     let text = dedent`
       ${this.name} @ ${this.item}
@@ -443,5 +413,35 @@ export class Pokemon {
     `
 
     return text
+  }
+
+  private evsDescriptionShowdown(): string {
+    let evsDescription = ""
+
+    if (this.evs.hp && this.evs.hp != 0) evsDescription += `${this.evs.hp} HP / `
+    if (this.evs.atk && this.evs.atk != 0) evsDescription += `${this.evs.atk} Atk / `
+    if (this.evs.def && this.evs.def != 0) evsDescription += `${this.evs.def} Def / `
+    if (this.evs.spa && this.evs.spa != 0) evsDescription += `${this.evs.spa} SpA / `
+    if (this.evs.spd && this.evs.spd != 0) evsDescription += `${this.evs.spd} SpD / `
+    if (this.evs.spe && this.evs.spe != 0) evsDescription += `${this.evs.spe} Spe / `
+
+    evsDescription = evsDescription.slice(0, -3)
+
+    return evsDescription
+  }
+
+  private ivsDescriptionShowdown(): string {
+    let ivsDescription = ""
+
+    if (this.ivs.hp != 31) ivsDescription += `${this.ivs.hp} HP / `
+    if (this.ivs.atk != 31) ivsDescription += `${this.ivs.atk} Atk / `
+    if (this.ivs.def != 31) ivsDescription += `${this.ivs.def} Def / `
+    if (this.ivs.spa != 31) ivsDescription += `${this.ivs.spa} SpA / `
+    if (this.ivs.spd != 31) ivsDescription += `${this.ivs.spd} SpD / `
+    if (this.ivs.spe != 31) ivsDescription += `${this.ivs.spe} Spe / `
+
+    ivsDescription = ivsDescription.slice(0, -3)
+
+    return ivsDescription
   }
 }

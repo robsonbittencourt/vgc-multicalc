@@ -60,10 +60,10 @@ export class PokemonBuildComponent {
   }
 
   terastalyzePokemon() {
-    if (!this.pokemon().isTerapagos()) {
+    if (!this.pokemon().isTerapagos) {
       this.store.teraTypeActive(this.pokemonId(), !this.pokemon().teraTypeActive)
 
-      if (this.pokemon().isOgerpon()) {
+      if (this.pokemon().isOgerpon) {
         const ability = this.pokemon().checkOgerponTeraAbility(this.pokemon().teraTypeActive)
         this.store.ability(this.pokemonId(), ability)
       }

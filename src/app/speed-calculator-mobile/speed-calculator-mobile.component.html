@@ -25,7 +25,7 @@
     </div>
 
     <div class="ability-enable">
-      @if (pokemon().actionableAbility()) {
+      @if (pokemon().actionableAbility) {
         <div class="ability-checkbox">
           <mat-checkbox [ngModel]="pokemon().abilityOn" (change)="store.abilityOn(pokemonId(), $event.checked)" />
         </div>
@@ -41,7 +41,7 @@
         </button>
       }
 
-      @if (pokemon().isParadoxAbility()) {
+      @if (pokemon().isParadoxAbility) {
         <button class="icon-button" (click)="store.abilityOn(pokemonId(), !pokemon().abilityOn)" matTooltip="Booster Energy">
           @if (this.pokemon().abilityOn) {
             <img class="icon-tatsugiri" src="assets/icons/booster-energy.png" />

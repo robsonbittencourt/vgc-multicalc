@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, input, signal, OnInit } from "@angular/core"
+import { Component, computed, effect, inject, input, OnInit, signal } from "@angular/core"
 import { SpeedBoxComponent } from "@app/speed-box/speed-box.component"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { FieldStore } from "@data/store/field-store"
@@ -44,7 +44,7 @@ export class SpeedScaleComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.previousActualPokemonSpeed = this.pokemon().modifiedSpe()
+    this.previousActualPokemonSpeed = this.pokemon().modifiedSpe
   }
 
   calculateSpeedRange(pokemon: Pokemon, options: SpeedScaleOptions, field: Field) {
@@ -92,14 +92,14 @@ export class SpeedScaleComponent implements OnInit {
       this.speedOrderChanged = false
     }
 
-    if (this.previousActualPokemonSpeed < this.pokemon().modifiedSpe()) {
+    if (this.previousActualPokemonSpeed < this.pokemon().modifiedSpe) {
       this.speedOrderIncrease = true
     } else {
       this.speedOrderIncrease = false
     }
 
     this.previousSpeedDefinition = actualSpeedRange
-    this.previousActualPokemonSpeed = this.pokemon().modifiedSpe()
+    this.previousActualPokemonSpeed = this.pokemon().modifiedSpe
   }
 
   isActual(speedDefinition: SpeedDefinition): boolean {

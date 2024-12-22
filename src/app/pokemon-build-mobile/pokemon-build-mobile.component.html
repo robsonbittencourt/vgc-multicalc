@@ -99,12 +99,12 @@
 
       <div>
         <label>Tera Type</label>
-        <app-input-autocomplete [value]="pokemon().teraType" [allValues]="allTeraTypes" [disabled]="pokemon().isTerapagos()" (valueChange)="store.teraType(pokemonId(), $event)" />
+        <app-input-autocomplete [value]="pokemon().teraType" [allValues]="allTeraTypes" [disabled]="pokemon().isTerapagos" (valueChange)="store.teraType(pokemonId(), $event)" />
       </div>
     </div>
 
     <div class="combo-option ability">
-      @if (pokemon().actionableAbility()) {
+      @if (pokemon().actionableAbility) {
         <div class="ability-checkbox">
           <mat-checkbox [ngModel]="pokemon().abilityOn" (change)="store.abilityOn(pokemonId(), $event.checked)" />
         </div>
@@ -120,7 +120,7 @@
         </button>
       }
 
-      @if (pokemon().isParadoxAbility()) {
+      @if (pokemon().isParadoxAbility) {
         <button class="icon-button" (click)="store.abilityOn(pokemonId(), !pokemon().abilityOn)" matTooltip="Booster Energy">
           @if (pokemon().abilityOn) {
             <img class="icon-tatsugiri" src="assets/icons/booster-energy.png" />

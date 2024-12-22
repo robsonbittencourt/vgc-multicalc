@@ -76,7 +76,7 @@ export class TargetPokemonComponent {
       this.targetsImported.emit()
 
       const allTargets = this.targets()
-        .filter(t => !t.pokemon.isDefault())
+        .filter(t => !t.pokemon.isDefault)
         .concat(newTargets)
       this.store.updateTargets(allTargets)
 
@@ -106,7 +106,7 @@ export class TargetPokemonComponent {
     let result = ""
 
     this.targets().forEach(t => {
-      if (!t.pokemon.isDefault()) {
+      if (!t.pokemon.isDefault) {
         result += t.pokemon.showdownTextFormat() + "\n"
       }
     })
@@ -125,7 +125,7 @@ export class TargetPokemonComponent {
   }
 
   selectPokemonActive(): boolean {
-    return this.targets().find(t => t.pokemon.isDefault()) != null
+    return this.targets().find(t => t.pokemon.isDefault) != null
   }
 
   damageDescription(): string {

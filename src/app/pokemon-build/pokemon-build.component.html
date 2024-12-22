@@ -1,4 +1,4 @@
-@if (pokemon().isDefault()) {
+@if (pokemon().isDefault) {
   <div class="data">
     <div class="pokemon-image-container">
       <div class="pokemon-image">
@@ -63,21 +63,21 @@
               <img class="icon-tera" src="assets/icons/tera-icon-gray.png" />
             }
           </button>
-          <app-input-autocomplete [value]="pokemon().teraType" [allValues]="allTeraTypes" [disabled]="pokemon().isTerapagos()" (valueChange)="store.teraType(pokemonId(), $event)" data-cy="tera-type" />
+          <app-input-autocomplete [value]="pokemon().teraType" [allValues]="allTeraTypes" [disabled]="pokemon().isTerapagos" (valueChange)="store.teraType(pokemonId(), $event)" data-cy="tera-type" />
         </div>
       </div>
 
       <div class="pokemon-types" [ngStyle]="(reverse() && { 'justify-content': 'left' }) || null">
-        <div [ngStyle]="typeStyle(pokemon().type1())" class="pokemon-type">{{ pokemon().type1() }}</div>
+        <div [ngStyle]="typeStyle(pokemon().type1)" class="pokemon-type">{{ pokemon().type1 }}</div>
 
-        @if (pokemon().type2()) {
-          <div [ngStyle]="typeStyle(pokemon().type2())" class="pokemon-type">{{ pokemon().type2() }}</div>
+        @if (pokemon().type2) {
+          <div [ngStyle]="typeStyle(pokemon().type2)" class="pokemon-type">{{ pokemon().type2 }}</div>
         }
       </div>
 
       <div class="pokemon-ability">
         <div class="check-input-section ability-checkbox">
-          @if (pokemon().actionableAbility()) {
+          @if (pokemon().actionableAbility) {
             <mat-checkbox [ngModel]="pokemon().abilityOn" (change)="store.abilityOn(pokemonId(), $event.checked)" data-cy="activate-ability" />
           }
 
@@ -91,7 +91,7 @@
             </button>
           }
 
-          @if (pokemon().isParadoxAbility()) {
+          @if (pokemon().isParadoxAbility) {
             <button class="icon-button" (click)="store.abilityOn(pokemonId(), !pokemon().abilityOn)" matTooltip="Booster Energy" data-cy="booster-energy">
               @if (pokemon().abilityOn) {
                 <img class="icon-tatsugiri" src="assets/icons/booster-energy.png" />
@@ -165,7 +165,7 @@
   <div class="remaining-evs">
     <label>Remaining:</label>
     <div class="remaining-evs-value">
-      <label>{{ MAX_EVS - pokemon().totalEvs() }}</label>
+      <label>{{ MAX_EVS - pokemon().totalEvs }}</label>
     </div>
   </div>
 </div>

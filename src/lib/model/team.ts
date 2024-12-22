@@ -19,22 +19,22 @@ export class Team {
   }
 
   isFull(): boolean {
-    return this.teamMembers.filter(t => !t.pokemon.isDefault()).length == 6
+    return this.teamMembers.filter(t => !t.pokemon.isDefault).length == 6
   }
 
   hasDefaultPokemon(): boolean {
-    return this.teamMembers.find(t => t.pokemon.isDefault()) != null
+    return this.teamMembers.find(t => t.pokemon.isDefault) != null
   }
 
   onlyHasDefaultPokemon() {
-    return this.size() == 1 && this.activePokemon().isDefault()
+    return this.size() == 1 && this.activePokemon().isDefault
   }
 
   exportToShowdownFormat() {
     let result = ""
 
     this.teamMembers.forEach(t => {
-      if (!t.pokemon.isDefault()) {
+      if (!t.pokemon.isDefault) {
         result += t.pokemon.showdownTextFormat() + "\n"
       }
     })

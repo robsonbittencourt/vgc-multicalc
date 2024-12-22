@@ -68,14 +68,14 @@ export class TeamComponent {
   }
 
   canShowDeleteButton(): boolean {
-    return !this.pokemonOnEdit().isDefault()
+    return !this.pokemonOnEdit().isDefault
   }
 
   removePokemon() {
     const activeMember = this.store.team().teamMembers.find(teamMember => teamMember.pokemon.id === this.pokemonOnEdit().id)!
     const inactiveMembers = this.store.team().teamMembers.filter(teamMember => teamMember.pokemon.id !== activeMember.pokemon.id)
     const emptyTeam = inactiveMembers.length == 0
-    const haveDefaultPokemon = inactiveMembers.find(teamMember => teamMember.pokemon.isDefault())
+    const haveDefaultPokemon = inactiveMembers.find(teamMember => teamMember.pokemon.isDefault)
 
     if (emptyTeam || !haveDefaultPokemon) {
       inactiveMembers.push(new TeamMember(defaultPokemon(), false))
@@ -100,7 +100,7 @@ export class TeamComponent {
   }
 
   isSecondSelection(teamMember: TeamMember) {
-    return !teamMember.pokemon.isDefault() && teamMember.pokemon.id === this.store.secondAttackerId()
+    return !teamMember.pokemon.isDefault && teamMember.pokemon.id === this.store.secondAttackerId()
   }
 
   showTeamMemberActive(teamMember: TeamMember) {
@@ -111,7 +111,7 @@ export class TeamComponent {
   }
 
   canShowCombineButton() {
-    return this.isAttacker() && !this.pokemonOnEdit().isDefault() && this.pokemonOnEdit().id === this.store.attackerId()
+    return this.isAttacker() && !this.pokemonOnEdit().isDefault && this.pokemonOnEdit().id === this.store.attackerId()
   }
 
   pokemonImported(pokemon: Pokemon) {
@@ -138,7 +138,7 @@ export class TeamComponent {
   }
 
   canExportPokemon() {
-    return !this.pokemonOnEdit().isDefault()
+    return !this.pokemonOnEdit().isDefault
   }
 
   teamMemberOnEdit(): boolean {

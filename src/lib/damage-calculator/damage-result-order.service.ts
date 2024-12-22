@@ -62,8 +62,8 @@ export class DamageResultOrderService {
 
   private applyOrderByDamage(results: DamageResult[]) {
     results.sort((a, b) => {
-      if (this.menuStore.oneVsManyActivated() && !a.defender.isDefault() && b.defender.isDefault()) return -1
-      if (this.menuStore.manyVsOneActivated() && !a.attacker.isDefault() && b.attacker.isDefault()) return -1
+      if (this.menuStore.oneVsManyActivated() && !a.defender.isDefault && b.defender.isDefault) return -1
+      if (this.menuStore.manyVsOneActivated() && !a.attacker.isDefault && b.attacker.isDefault) return -1
 
       return b.damage - a.damage
     })

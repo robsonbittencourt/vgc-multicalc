@@ -1,6 +1,6 @@
 <mat-card (click)="activate()" class="card" [ngStyle]="cardStyle()" [attr.data-cy]="'pokemon-card-' + target().pokemon.displayName">
   <div class="card-container">
-    @if (target().pokemon.isDefault()) {
+    @if (target().pokemon.isDefault) {
       <div class="card-left-side">
         <mat-card-title-group>
           <mat-card-title>{{ target().pokemon.displayNameWithoutSuffix }}</mat-card-title>
