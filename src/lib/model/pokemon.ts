@@ -10,16 +10,17 @@ import dedent from "dedent"
 import { v4 as uuidv4 } from "uuid"
 
 export class Pokemon {
-  private _id: string
   public pokemonSmogon: PokemonSmogon
-  private moveSetStorage: MoveSet
-  private hpPercentageStorage: number
-  private commanderActivatedStorage: boolean
-  private selectPokemonLabel = "Select a Pokémon"
 
+  readonly id: string
+  readonly moveSet: MoveSet
   readonly teraType: string
+  readonly hpPercentage: number
+  readonly commanderActivated: boolean
 
-  STATUS_CONDITIONS = [
+  private SELECT_POKEMON_LABEL = "Select a Pokémon"
+
+  private STATUS_CONDITIONS = [
     { code: "", description: "Healthy" },
     { code: "slp", description: "Sleep" },
     { code: "psn", description: "Poison" },
@@ -29,30 +30,26 @@ export class Pokemon {
   ]
 
   constructor(name: string, options: PokemonParameters = {}) {
-    const adjustedName = name == this.selectPokemonLabel ? "Togepi" : name
+    const adjustedName = name == this.SELECT_POKEMON_LABEL ? "Togepi" : name
 
-    this._id = options.id ?? uuidv4()
-    this.hpPercentageStorage = options.hpPercentage ?? 100
-    this.commanderActivatedStorage = options.commanderActive ?? false
+    this.id = options.id ?? uuidv4()
+    this.hpPercentage = options.hpPercentage ?? 100
+    this.commanderActivated = options.commanderActive ?? false
     this.teraType = options.teraType ?? DEFAULT_TERA_TYPE
-    this.moveSetStorage = options.moveSet ?? new MoveSet(new Move("Struggle"), new Move("Struggle"), new Move("Struggle"), new Move("Struggle"))
+    this.moveSet = options.moveSet ?? new MoveSet(new Move("Struggle"), new Move("Struggle"), new Move("Struggle"), new Move("Struggle"))
 
     this.pokemonSmogon = this.buildPokemonSmogon(adjustedName, options)
   }
 
-  public get id(): string {
-    return this._id
-  }
-
   public get name(): string {
-    if (this.isDefault()) return this.selectPokemonLabel
+    if (this.isDefault()) return this.SELECT_POKEMON_LABEL
 
     return this.pokemonSmogon.name
   }
 
   public get displayName(): string {
     if (this.isDefault()) {
-      return this.selectPokemonLabel
+      return this.SELECT_POKEMON_LABEL
     }
 
     if (this.isNameWithHiphen()) {
@@ -64,7 +61,7 @@ export class Pokemon {
 
   public get displayNameWithoutSuffix(): string {
     if (this.isDefault()) {
-      return this.selectPokemonLabel
+      return this.SELECT_POKEMON_LABEL
     }
 
     if (this.isNameWithHiphen()) {
@@ -116,10 +113,6 @@ export class Pokemon {
     return this.pokemonSmogon.ability as string
   }
 
-  public get hpPercentage(): number {
-    return this.hpPercentageStorage
-  }
-
   public get evs(): Partial<Stats> {
     return this.pokemonSmogon.evs
   }
@@ -140,16 +133,12 @@ export class Pokemon {
     return this.isTerapagosStellar() || this.pokemonSmogon.teraType != undefined
   }
 
-  public get moveSet(): MoveSet {
-    return this.moveSetStorage
-  }
-
   public get move(): Move {
-    return this.moveSetStorage.activeMove
+    return this.moveSet.activeMove
   }
 
   public get activeMoveName(): string {
-    return this.moveSetStorage.activeMove.name
+    return this.moveSet.activeMove.name
   }
 
   public get move1Name(): string {
@@ -244,10 +233,6 @@ export class Pokemon {
     return this.ability == "Protosynthesis" || this.ability == "Quark Drive"
   }
 
-  public get commanderActivated(): boolean {
-    return this.commanderActivatedStorage
-  }
-
   public clone(options: PokemonParameters = {}): Pokemon {
     return new Pokemon(this.name, {
       ability: options.ability ?? this.ability,
@@ -258,10 +243,10 @@ export class Pokemon {
       teraTypeActive: options.teraTypeActive ?? this.teraTypeActive,
       evs: options.evs ?? this.evs,
       ivs: options.ivs ?? this.ivs,
-      moveSet: options.moveSet ?? this.moveSetStorage.clone(),
+      moveSet: options.moveSet ?? this.moveSet.clone(),
       boosts: options.boosts ?? this.boosts,
       status: options.status ?? this.status,
-      hpPercentage: options.hpPercentage ?? this.hpPercentageStorage
+      hpPercentage: options.hpPercentage ?? this.hpPercentage
     })
   }
 
