@@ -30,6 +30,7 @@ describe("User Data Mapper", () => {
       expect(result.speedCalcPokemon.status).toBe("Healthy")
       expect(result.speedCalcPokemon.ability).toBe("Static")
       expect(result.speedCalcPokemon.abilityOn).toBe(false)
+      expect(result.speedCalcPokemon.commanderActive).toBe(true)
       expect(result.speedCalcPokemon.teraType).toBe("Electric")
       expect(result.speedCalcPokemon.teraTypeActive).toBe(true)
       expect(result.speedCalcPokemon.activeMove).toBe("Thunderbolt")
@@ -66,6 +67,7 @@ describe("User Data Mapper", () => {
       expect(result.leftPokemon.status).toBe("Healthy")
       expect(result.leftPokemon.ability).toBe("Static")
       expect(result.leftPokemon.abilityOn).toBe(false)
+      expect(result.leftPokemon.commanderActive).toBe(true)
       expect(result.leftPokemon.teraType).toBe("Electric")
       expect(result.leftPokemon.teraTypeActive).toBe(true)
       expect(result.leftPokemon.activeMove).toBe("Thunderbolt")
@@ -102,6 +104,7 @@ describe("User Data Mapper", () => {
       expect(result.rightPokemon.status).toBe("Healthy")
       expect(result.rightPokemon.ability).toBe("Static")
       expect(result.rightPokemon.abilityOn).toBe(false)
+      expect(result.rightPokemon.commanderActive).toBe(true)
       expect(result.rightPokemon.teraType).toBe("Electric")
       expect(result.rightPokemon.teraTypeActive).toBe(true)
       expect(result.rightPokemon.activeMove).toBe("Thunderbolt")
@@ -212,7 +215,7 @@ describe("User Data Mapper", () => {
       expect(result._speedCalcPokemonState.status).toBe("Healthy")
       expect(result._speedCalcPokemonState.ability).toBe("Static")
       expect(result._speedCalcPokemonState.abilityOn).toBe(false)
-      expect(result._speedCalcPokemonState.commanderActive).toBe(false)
+      expect(result._speedCalcPokemonState.commanderActive).toBe(true)
       expect(result._speedCalcPokemonState.teraType).toBe("Electric")
       expect(result._speedCalcPokemonState.teraTypeActive).toBe(true)
       expect(result._speedCalcPokemonState.activeMove).toBe("Thunderbolt")
@@ -244,7 +247,7 @@ describe("User Data Mapper", () => {
       expect(result._speedCalcPokemonState.status).toBe("Healthy")
       expect(result._speedCalcPokemonState.ability).toBe("Static")
       expect(result._speedCalcPokemonState.abilityOn).toBe(false)
-      expect(result._speedCalcPokemonState.commanderActive).toBe(false)
+      expect(result._speedCalcPokemonState.commanderActive).toBe(true)
       expect(result._speedCalcPokemonState.teraType).toBe("Electric")
       expect(result._speedCalcPokemonState.teraTypeActive).toBe(true)
       expect(result._speedCalcPokemonState.activeMove).toBe("Thunderbolt")
@@ -276,7 +279,7 @@ describe("User Data Mapper", () => {
       expect(result._leftPokemonState.status).toBe("Healthy")
       expect(result._leftPokemonState.ability).toBe("Static")
       expect(result._leftPokemonState.abilityOn).toBe(false)
-      expect(result._leftPokemonState.commanderActive).toBe(false)
+      expect(result._leftPokemonState.commanderActive).toBe(true)
       expect(result._leftPokemonState.teraType).toBe("Electric")
       expect(result._leftPokemonState.teraTypeActive).toBe(true)
       expect(result._leftPokemonState.activeMove).toBe("Thunderbolt")
@@ -426,7 +429,7 @@ const pikachuState: PokemonState = {
   status: "Healthy",
   ability: "Static",
   abilityOn: false,
-  commanderActive: false,
+  commanderActive: true,
   teraType: "Electric",
   teraTypeActive: true,
   activeMove: "Thunderbolt",
@@ -463,7 +466,7 @@ const pikachuUserData = {
   status: "Healthy",
   ability: "Static",
   abilityOn: false,
-  commanderActive: false,
+  commanderActive: true,
   teraType: "Electric",
   teraTypeActive: true,
   activeMove: "Thunderbolt",

@@ -54,6 +54,7 @@ function buildPokemonToUserData(pokemon: PokemonState) {
     nature: pokemon.nature,
     item: pokemon.item,
     ability: pokemon.ability,
+    commanderActive: pokemon.commanderActive,
     teraType: pokemon.teraType,
     teraTypeActive: pokemon.teraTypeActive,
     evs: pokemon.evs,
