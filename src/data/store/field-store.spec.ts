@@ -1,9 +1,11 @@
 import { provideExperimentalZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
 import { FieldStore } from "@data/store/field-store"
+import { FieldAttackerSide, FieldDefenderSide } from "@lib/model/field"
+import { GameType } from "@lib/types"
 
 describe("Menu Store", () => {
-  let store: any
+  let store: FieldStore
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -547,11 +549,28 @@ describe("Menu Store", () => {
     })
 
     it("should update state locking local storage", () => {
-      const state = { isBeadsOfRuin: true }
+      const state = {
+        updateLocalStorage: true,
+        gameType: "Doubles" as GameType,
+        weather: null,
+        terrain: null,
+        isBeadsOfRuin: true,
+        isSwordOfRuin: false,
+        isTabletsOfRuin: false,
+        isVesselOfRuin: false,
+        isMagicRoom: false,
+        isWonderRoom: false,
+        isGravity: false,
+        isTrickRoom: false,
+        isCriticalHit: false,
+        attackerSide: new FieldAttackerSide({ isHelpingHand: false, isBattery: false, isPowerSpot: false, isTailwind: false }),
+        defenderSide: new FieldDefenderSide({ isTailwind: false, isReflect: false, isLightScreen: false, isAuroraVeil: false, isFriendGuard: false, spikes: 0, isSR: false, isSeeded: false })
+      }
 
       store.updateStateLockingLocalStorage(state)
 
       expect(store.field().isBeadsOfRuin).toBeTrue()
+      expect(store.updateLocalStorage()).toBeFalse()
     })
 
     it("should update local storage when state changes", () => {

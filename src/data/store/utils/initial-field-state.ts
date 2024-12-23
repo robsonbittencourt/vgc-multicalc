@@ -9,7 +9,7 @@ export function initialFieldState(): FieldState {
 
 function defaultFieldState(): FieldState {
   return {
-    _updateLocalStorage: true,
+    updateLocalStorage: true,
     gameType: "Doubles" as GameType,
     weather: null,
     terrain: null,
