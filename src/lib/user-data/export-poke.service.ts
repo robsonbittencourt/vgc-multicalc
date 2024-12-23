@@ -22,7 +22,7 @@ export class ExportPokeService {
     let text = dedent`
       ${pokemon.name} @ ${pokemon.item}
       Ability: ${pokemon.ability}
-      Level: ${pokemon.pokemonSmogon.level}
+      Level: ${pokemon.level}
       Tera Type: ${pokemon.teraType}\n      
     `
 

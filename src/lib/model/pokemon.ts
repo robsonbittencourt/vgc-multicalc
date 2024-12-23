@@ -91,6 +91,10 @@ export class Pokemon {
     return this.pokemonSmogon.types[1]
   }
 
+  get level(): number {
+    return this.pokemonSmogon.level
+  }
+
   get nature(): string {
     return this.pokemonSmogon.nature as string
   }
