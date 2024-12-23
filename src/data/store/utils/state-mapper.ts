@@ -41,7 +41,7 @@ export function pokemonToState(pokemon: Pokemon): PokemonState {
     status: pokemon.status,
     ability: pokemon.ability,
     abilityOn: pokemon.abilityOn,
-    commanderActive: pokemon.commanderActivated,
+    commanderActive: pokemon.commanderActive,
     teraType: pokemon.teraType,
     teraTypeActive: pokemon.teraTypeActive,
     activeMove: pokemon.activeMoveName,

@@ -43,7 +43,7 @@ export class DamageResultOrderService {
 
   private countTargetsWithSpecificCalc(): number {
     const withTera = this.store.targets().filter(t => t.pokemon.teraTypeActive).length
-    const withCommander = this.store.targets().filter(t => t.pokemon.commanderActivated).length
+    const withCommander = this.store.targets().filter(t => t.pokemon.commanderActive).length
 
     return withTera + withCommander
   }

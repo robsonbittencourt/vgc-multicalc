@@ -62,7 +62,7 @@ export class PokemonCardComponent {
 
   toogleCommanderAbility(event: Event) {
     event.stopPropagation()
-    this.store.toogleTargetCommander(this.target())
+    this.store.toogleCommanderActive(this.target().pokemon.id)
   }
 
   terastalyzePokemon(event: Event) {

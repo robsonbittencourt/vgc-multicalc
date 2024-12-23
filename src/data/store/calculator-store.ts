@@ -107,8 +107,13 @@ export const CalculatorStore = signalStore(
       this._updatePokemonById(pokemonId, () => ({ abilityOn }))
     },
 
-    commanderActive(pokemonId: string, commanderActive: boolean) {
-      this._updatePokemonById(pokemonId, () => ({ commanderActive }))
+    toogleCommanderActive(pokemonId: string) {
+      const pokemon = this.findPokemonById(pokemonId)
+      if (pokemon.name != "Dondozo") return
+
+      const commanderActive = !pokemon.commanderActive
+      const boosts = commanderActive ? { hp: 0, atk: 2, def: 2, spa: 2, spd: 2, spe: 2 } : { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
+      this._updatePokemonById(pokemonId, () => ({ commanderActive, boosts }))
     },
 
     teraType(pokemonId: string, teraType: string) {
@@ -285,10 +290,6 @@ export const CalculatorStore = signalStore(
     updateTargets(targets: Target[]) {
       const targetsState = targets.map(target => targetToState(target))
       patchState(store, () => ({ _targetsState: targetsState }))
-    },
-
-    toogleTargetCommander(target: Target) {
-      this._updatePokemonById(target.pokemon.id, () => ({ commanderActive: !target.pokemon.commanderActivated }))
     },
 
     updateTargetAbility(target: Target) {

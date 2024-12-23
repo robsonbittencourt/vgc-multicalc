@@ -15,7 +15,7 @@ export class Pokemon {
   readonly moveSet: MoveSet
   readonly teraType: string
   readonly hpPercentage: number
-  readonly commanderActivated: boolean
+  readonly commanderActive: boolean
 
   pokemonSmogon: PokemonSmogon
   private smogonFunctions = new SmogonFunctions()
@@ -36,7 +36,7 @@ export class Pokemon {
 
     this.id = options.id ?? uuidv4()
     this.hpPercentage = options.hpPercentage ?? 100
-    this.commanderActivated = options.commanderActive ?? false
+    this.commanderActive = options.commanderActive ?? false
     this.teraType = options.teraType ?? DEFAULT_TERA_TYPE
     this.moveSet = options.moveSet ?? new MoveSet(new Move("Struggle"), new Move("Struggle"), new Move("Struggle"), new Move("Struggle"))
 

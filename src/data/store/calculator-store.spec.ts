@@ -120,10 +120,32 @@ describe("Calculator Store", () => {
         expect(store.team().activePokemon().abilityOn).toBeTrue()
       })
 
-      it("should update Pokémon Commander", () => {
-        store.commanderActive(defaultId, true)
+      it("should do nothing when try to apply Commander but Pokémon it is not Dondozo", () => {
+        store.name(defaultId, "Pikachu")
 
-        expect(store.team().activePokemon().commanderActivated).toBeTrue()
+        store.toogleCommanderActive(defaultId)
+
+        expect(store.team().activePokemon().commanderActive).toBeFalse()
+        expect(store.team().activePokemon().boosts).toEqual({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
+      })
+
+      it("should turn Pokémon Commander to true when it is false and apply +2 boosts", () => {
+        store.name(defaultId, "Dondozo")
+
+        store.toogleCommanderActive(defaultId)
+
+        expect(store.team().activePokemon().commanderActive).toBeTrue()
+        expect(store.team().activePokemon().boosts).toEqual({ hp: 0, atk: 2, def: 2, spa: 2, spd: 2, spe: 2 })
+      })
+
+      it("should turn Pokémon Commander to false when it is true and remove any boosts", () => {
+        store.name(defaultId, "Dondozo")
+        store.toogleCommanderActive(defaultId)
+        expect(store.team().activePokemon().commanderActive).toBeTrue()
+
+        store.toogleCommanderActive(defaultId)
+        expect(store.team().activePokemon().commanderActive).toBeFalse()
+        expect(store.team().activePokemon().boosts).toEqual({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
       })
 
       it("should update Pokémon Tera Type", () => {
@@ -418,17 +440,6 @@ describe("Calculator Store", () => {
         expect(store.targets().length).toBe(2)
         expect(store.targets()[0].pokemon.name).toBe("Pikachu")
         expect(store.targets()[1].pokemon.name).toBe("Raichu")
-      })
-
-      it("should update Target Commander", () => {
-        const targets = [new Target(new Pokemon("Pikachu", { id: "123" })), new Target(new Pokemon("Dondozo", { id: "456", commanderActive: false }))]
-
-        store.updateTargets(targets)
-
-        const newTarget = new Target(new Pokemon("Dondozo", { id: "456", commanderActive: false }))
-        store.toogleTargetCommander(newTarget)
-
-        expect(store.targets()[1].pokemon.commanderActivated).toBeTrue()
       })
 
       it("should update Target ability", () => {
