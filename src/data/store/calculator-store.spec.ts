@@ -442,17 +442,6 @@ describe("Calculator Store", () => {
         expect(store.targets()[1].pokemon.name).toBe("Raichu")
       })
 
-      it("should update Target ability", () => {
-        const targets = [new Target(new Pokemon("Pikachu", { id: "123" })), new Target(new Pokemon("Raichu", { id: "456", ability: "Lightning Rod" }))]
-
-        store.updateTargets(targets)
-
-        const newTarget = new Target(new Pokemon("Dondozo", { id: "456", ability: "Static" }))
-        store.updateTargetAbility(newTarget)
-
-        expect(store.targets()[1].pokemon.ability).toBe("Static")
-      })
-
       it("should deactivate Targets", () => {
         const targets = [new Target(new Pokemon("Pikachu"), true), new Target(new Pokemon("Raichu"), true)]
 

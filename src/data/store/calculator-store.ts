@@ -292,10 +292,6 @@ export const CalculatorStore = signalStore(
       patchState(store, () => ({ _targetsState: targetsState }))
     },
 
-    updateTargetAbility(target: Target) {
-      this._updatePokemonById(target.pokemon.id, () => ({ ability: target.pokemon.ability }))
-    },
-
     deactivateTargets() {
       patchState(store, () => {
         const deactivatedTargets = store._targetsState().map(target => ({ ...target, active: false }))
