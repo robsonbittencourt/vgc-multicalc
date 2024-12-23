@@ -2,8 +2,8 @@ import { provideExperimentalZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
 import { SpeedCalcOptionsStore } from "@data/store/speed-calc-options-store"
 
-describe("Menu Store", () => {
-  let store: any
+describe("Speed Calc Options Store", () => {
+  let store: SpeedCalcOptionsStore
 
   beforeEach(() => {
     TestBed.configureTestingModule({

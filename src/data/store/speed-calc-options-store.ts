@@ -1,7 +1,7 @@
-import { computed } from "@angular/core"
+import { computed, Injectable } from "@angular/core"
 import { SpeedCalculatorOptions } from "@lib/speed-calculator/speed-calculator-options"
 import { speedMeta } from "@lib/speed-calculator/speed-meta"
-import { patchState, signalStore, withComputed, withMethods, withState } from "@ngrx/signals"
+import { patchState, signalStore, withState } from "@ngrx/signals"
 
 type SpeedCalcOptionsState = {
   regulation: string
@@ -21,58 +21,54 @@ const initialState: SpeedCalcOptionsState = {
   choiceScarfActive: false
 }
 
-export const SpeedCalcOptionsStore = signalStore(
-  { providedIn: "root" },
-  withState(initialState),
-  withComputed(({ regulation, targetName, speedModifier, speedDropActive, paralyzedActive, choiceScarfActive }) => ({
-    options: computed(
-      () =>
-        new SpeedCalculatorOptions({
-          regulation: regulation(),
-          targetName: targetName(),
-          speedModifier: speedModifier(),
-          speedDropActive: speedDropActive(),
-          paralyzedActive: paralyzedActive(),
-          choiceScarfActive: choiceScarfActive()
-        })
-    ),
+@Injectable({ providedIn: "root" })
+export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }, withState(initialState)) {
+  readonly options = computed(
+    () =>
+      new SpeedCalculatorOptions({
+        regulation: this.regulation(),
+        targetName: this.targetName(),
+        speedModifier: this.speedModifier(),
+        speedDropActive: this.speedDropActive(),
+        paralyzedActive: this.paralyzedActive(),
+        choiceScarfActive: this.choiceScarfActive()
+      })
+  )
 
-    pokemonNamesByReg: computed(() =>
-      speedMeta(regulation())
-        .map(s => s.name)
-        .sort()
-    )
-  })),
-  withMethods(store => ({
-    toogleIceWind(enabled: boolean) {
-      const speedModifier = enabled ? -1 : 0
-      patchState(store, () => ({ speedModifier: speedModifier }))
-      patchState(store, () => ({ speedDropActive: enabled }))
-    },
+  readonly pokemonNamesByReg = computed(() =>
+    speedMeta(this.regulation())
+      .map(s => s.name)
+      .sort()
+  )
 
-    toogleParalyze(enabled: boolean) {
-      patchState(store, () => ({ paralyzedActive: enabled }))
-    },
+  toogleIceWind(enabled: boolean) {
+    const speedModifier = enabled ? -1 : 0
+    patchState(this, () => ({ speedModifier: speedModifier }))
+    patchState(this, () => ({ speedDropActive: enabled }))
+  }
 
-    toogleChoiceScarf(enabled: boolean) {
-      patchState(store, () => ({ choiceScarfActive: enabled }))
-    },
+  toogleParalyze(enabled: boolean) {
+    patchState(this, () => ({ paralyzedActive: enabled }))
+  }
 
-    updateSpeedModifier(speedModifier: number) {
-      patchState(store, () => ({ speedModifier }))
-    },
+  toogleChoiceScarf(enabled: boolean) {
+    patchState(this, () => ({ choiceScarfActive: enabled }))
+  }
 
-    updateRegulation(regulation: string) {
-      patchState(store, () => ({ regulation }))
-      this.clearTargetName()
-    },
+  updateSpeedModifier(speedModifier: number) {
+    patchState(this, () => ({ speedModifier }))
+  }
 
-    updateTargetName(targetName: string) {
-      patchState(store, () => ({ targetName }))
-    },
+  updateRegulation(regulation: string) {
+    patchState(this, () => ({ regulation }))
+    this.clearTargetName()
+  }
 
-    clearTargetName() {
-      this.updateTargetName("")
-    }
-  }))
-)
+  updateTargetName(targetName: string) {
+    patchState(this, () => ({ targetName }))
+  }
+
+  clearTargetName() {
+    this.updateTargetName("")
+  }
+}
