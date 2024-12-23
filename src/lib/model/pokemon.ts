@@ -16,6 +16,7 @@ export class Pokemon {
   readonly teraType: string
   readonly hpPercentage: number
   readonly commanderActive: boolean
+  readonly higherStat: StatIDExceptHP
 
   pokemonSmogon: PokemonSmogon
   private smogonFunctions = new SmogonFunctions()
@@ -33,14 +34,14 @@ export class Pokemon {
 
   constructor(name: string, options: PokemonParameters = {}) {
     const adjustedName = name == this.SELECT_POKEMON_LABEL ? "Togepi" : name
+    this.pokemonSmogon = this.buildPokemonSmogon(adjustedName, options)
 
     this.id = options.id ?? uuidv4()
     this.hpPercentage = options.hpPercentage ?? 100
     this.commanderActive = options.commanderActive ?? false
     this.teraType = options.teraType ?? DEFAULT_TERA_TYPE
     this.moveSet = options.moveSet ?? new MoveSet(new Move("Struggle"), new Move("Struggle"), new Move("Struggle"), new Move("Struggle"))
-
-    this.pokemonSmogon = this.buildPokemonSmogon(adjustedName, options)
+    this.higherStat = this.higherStatSmogon(this.pokemonSmogon)
   }
 
   get name(): string {
@@ -309,7 +310,7 @@ export class Pokemon {
     const isParadoxAbility = this.isSmogonParadoxAbility(pokemonSmogon)
 
     if (isParadoxAbility && pokemonSmogon.abilityOn) {
-      pokemonSmogon.boostedStat = this.higherStat(pokemonSmogon)
+      pokemonSmogon.boostedStat = this.higherStatSmogon(pokemonSmogon)
     } else {
       pokemonSmogon.boostedStat = undefined
     }
@@ -319,35 +320,16 @@ export class Pokemon {
     return pokemonSmogon.ability == "Protosynthesis" || pokemonSmogon.ability == "Quark Drive"
   }
 
-  private higherStat(pokemonSmogon: PokemonSmogon): StatIDExceptHP {
-    let bestStat = this.getModifiedStat(pokemonSmogon, "atk")
-    let bestStatDescription: StatIDExceptHP = "atk"
+  private higherStatSmogon(pokemonSmogon: PokemonSmogon): StatIDExceptHP {
+    let bestStat: StatID = "atk"
 
-    const def = this.getModifiedStat(pokemonSmogon, "def")
-    if (def > bestStat) {
-      bestStat = def
-      bestStatDescription = "def"
+    for (const stat of ["def", "spa", "spd", "spe"] as StatIDExceptHP[]) {
+      if (pokemonSmogon.rawStats[stat] > pokemonSmogon.rawStats[bestStat]) {
+        bestStat = stat
+      }
     }
 
-    const spa = this.getModifiedStat(pokemonSmogon, "spa")
-    if (spa > bestStat) {
-      bestStat = spa
-      bestStatDescription = "spa"
-    }
-
-    const spd = this.getModifiedStat(pokemonSmogon, "spd")
-    if (spd > bestStat) {
-      bestStat = spd
-      bestStatDescription = "spd"
-    }
-
-    const spe = this.getModifiedStat(pokemonSmogon, "spe")
-    if (spe > bestStat) {
-      bestStat = spe
-      bestStatDescription = "spe"
-    }
-
-    return bestStatDescription
+    return bestStat
   }
 
   private getModifiedStat(pokemonSmogon: PokemonSmogon, stat: StatID) {

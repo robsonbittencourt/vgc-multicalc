@@ -1,49 +1,46 @@
 import { Injectable } from "@angular/core"
 import { Pokemon } from "@lib/model/pokemon"
 import { Field, Side } from "@robsonbittencourt/calc"
-import { StatID } from "@robsonbittencourt/calc/dist/data/interface"
 
 @Injectable()
 export class SmogonFunctions {
-  EV_ITEMS = ["Macho Brace", "Power Anklet", "Power Band", "Power Belt", "Power Bracer", "Power Lens", "Power Weight"]
+  LOWER_SPEED_ITEMS = ["Macho Brace", "Power Anklet", "Power Band", "Power Belt", "Power Bracer", "Power Lens", "Power Weight", "Iron Ball"]
 
   getFinalSpeed(pokemon: Pokemon, field: Field = new Field(), side: Side = new Side()) {
-    const pokemonSmogon = pokemon.pokemonSmogon
-
     const weather = field.weather || ""
     const terrain = field.terrain
-    let speed = this.getModifiedStat(pokemonSmogon.rawStats.spe, pokemonSmogon.boosts.spe)
+    let speed = pokemon.modifiedSpe
     const speedMods = []
 
     if (side.isTailwind) speedMods.push(8192)
 
     if (
-      (pokemonSmogon.hasAbility("Unburden") && pokemonSmogon.abilityOn) ||
-      (pokemonSmogon.hasAbility("Chlorophyll") && weather.includes("Sun")) ||
-      (pokemonSmogon.hasAbility("Sand Rush") && weather === "Sand") ||
-      (pokemonSmogon.hasAbility("Swift Swim") && weather.includes("Rain")) ||
-      (pokemonSmogon.hasAbility("Slush Rush") && ["Hail", "Snow"].includes(weather)) ||
-      (pokemonSmogon.hasAbility("Surge Surfer") && terrain === "Electric")
+      (pokemon.ability == "Unburden" && pokemon.abilityOn) ||
+      (pokemon.ability == "Chlorophyll" && weather.includes("Sun")) ||
+      (pokemon.ability == "Sand Rush" && weather === "Sand") ||
+      (pokemon.ability == "Swift Swim" && weather.includes("Rain")) ||
+      (pokemon.ability == "Slush Rush" && ["Hail", "Snow"].includes(weather)) ||
+      (pokemon.ability == "Surge Surfer" && terrain === "Electric")
     ) {
       speedMods.push(8192)
-    } else if (pokemonSmogon.hasAbility("Quick Feet") && pokemonSmogon.status) {
+    } else if (pokemon.ability == "Quick Feet" && pokemon.status) {
       speedMods.push(6144)
-    } else if (pokemonSmogon.hasAbility("Slow Start") && pokemonSmogon.abilityOn) {
+    } else if (pokemon.ability == "Slow Start" && pokemon.abilityOn) {
       speedMods.push(2048)
-    } else if (this.isQPActive(pokemon, field) && this.getQPBoostedStat(pokemon) === "spe") {
+    } else if (this.isQPActive(pokemon, field) && pokemon.higherStat === "spe") {
       speedMods.push(6144)
     }
 
-    if (pokemonSmogon.hasItem("Choice Scarf")) {
+    if (pokemon.item == "Choice Scarf") {
       speedMods.push(6144)
-    } else if (pokemonSmogon.hasItem("Iron Ball", ...this.EV_ITEMS)) {
+    } else if (this.LOWER_SPEED_ITEMS.includes(pokemon.item)) {
       speedMods.push(2048)
-    } else if (pokemonSmogon.hasItem("Quick Powder") && pokemonSmogon.named("Ditto")) {
+    } else if (pokemon.item == "Quick Powder" && pokemon.name === "Ditto") {
       speedMods.push(8192)
     }
 
     speed = this.OF32(this.pokeRound((speed * this.chainMods(speedMods, 410, 131172)) / 4096))
-    if (pokemonSmogon.hasStatus("par") && !pokemonSmogon.hasAbility("Quick Feet")) {
+    if (pokemon.status === "Paralysis" && pokemon.ability !== "Quick Feet") {
       speed = Math.floor(this.OF32(speed * 50) / 100)
     }
 
@@ -76,26 +73,10 @@ export class SmogonFunctions {
   }
 
   private isQPActive(pokemon: Pokemon, field: Field) {
-    const pokemonSmogon = pokemon.pokemonSmogon
-
     const weather = field.weather || ""
     const terrain = field.terrain
 
-    return (pokemonSmogon.hasAbility("Protosynthesis") && (weather.includes("Sun") || pokemonSmogon.abilityOn)) || (pokemonSmogon.hasAbility("Quark Drive") && (terrain === "Electric" || pokemonSmogon.abilityOn))
-  }
-
-  getQPBoostedStat(pokemon: Pokemon): StatID {
-    const pokemonSmogon = pokemon.pokemonSmogon
-
-    let bestStat: StatID = "atk"
-
-    for (const stat of ["def", "spa", "spd", "spe"] as StatID[]) {
-      if (pokemonSmogon.rawStats[stat] > pokemonSmogon.rawStats[bestStat]) {
-        bestStat = stat
-      }
-    }
-
-    return bestStat
+    return (pokemon.ability == "Protosynthesis" && (weather.includes("Sun") || pokemon.abilityOn)) || (pokemon.ability == "Quark Drive" && (terrain === "Electric" || pokemon.abilityOn))
   }
 
   private pokeRound(num: number) {
