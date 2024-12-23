@@ -38,13 +38,13 @@ export function buildUserData(speedCalcPokemon: PokemonState, leftPokemon: Pokem
 
 export function buildState(userData: any): CalculatorState {
   return {
-    _updateLocalStorage: true,
-    _speedCalcPokemonState: userData.speedCalcPokemon ? buildPokemonState(userData.speedCalcPokemon) : buildPokemonState(userData.leftPokemon),
-    _leftPokemonState: buildPokemonState(userData.leftPokemon),
-    _rightPokemonState: buildPokemonState(userData.rightPokemon),
+    updateLocalStorage: true,
+    speedCalcPokemonState: userData.speedCalcPokemon ? buildPokemonState(userData.speedCalcPokemon) : buildPokemonState(userData.leftPokemon),
+    leftPokemonState: buildPokemonState(userData.leftPokemon),
+    rightPokemonState: buildPokemonState(userData.rightPokemon),
     secondAttackerId: "",
-    _teamsState: buildTeamState(userData.teams),
-    _targetsState: buildTargetsState(userData.targets)
+    teamsState: buildTeamState(userData.teams),
+    targetsState: buildTargetsState(userData.targets)
   }
 }
 

@@ -13,9 +13,9 @@ export function initialCalculatorState(): CalculatorState {
 
 function defaultState() {
   return {
-    _updateLocalStorage: true,
+    updateLocalStorage: true,
 
-    _speedCalcPokemonState: {
+    speedCalcPokemonState: {
       id: uuidv4(),
       name: "Sneasler",
       nature: "Jolly",
@@ -34,7 +34,7 @@ function defaultState() {
       hpPercentage: 100
     },
 
-    _leftPokemonState: {
+    leftPokemonState: {
       id: uuidv4(),
       name: "Gholdengo",
       nature: "Timid",
@@ -53,7 +53,7 @@ function defaultState() {
       hpPercentage: 100
     },
 
-    _rightPokemonState: {
+    rightPokemonState: {
       id: uuidv4(),
       name: "Rillaboom",
       nature: "Adamant",
@@ -74,7 +74,7 @@ function defaultState() {
 
     secondAttackerId: "",
 
-    _teamsState: [
+    teamsState: [
       {
         id: uuidv4(),
         active: true,
@@ -186,7 +186,7 @@ function defaultState() {
       }
     ],
 
-    _targetsState: [
+    targetsState: [
       {
         active: false,
         pokemon: {

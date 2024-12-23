@@ -1,6 +1,6 @@
 import { provideExperimentalZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
-import { CalculatorStore } from "@data/store/calculator-store"
+import { CalculatorStore, PokemonState, TargetState, TeamState } from "@data/store/calculator-store"
 import { Move } from "@lib/model/move"
 import { Pokemon } from "@lib/model/pokemon"
 import { Target } from "@lib/model/target"
@@ -8,7 +8,7 @@ import { Team } from "@lib/model/team"
 import { TeamMember } from "@lib/model/team-member"
 
 describe("Calculator Store", () => {
-  let store: any
+  let store: CalculatorStore
   const defaultId = "0dc51a43-1de8-4213-9686-fb07f2507b06"
 
   beforeEach(() => {
@@ -343,16 +343,16 @@ describe("Calculator Store", () => {
 
       it("should update Allies Fainted", () => {
         store.moveOne(defaultId, "Last Respects")
-        store.alliesFainted(defaultId, 3, 1)
+        store.alliesFainted(defaultId, "3", 1)
 
-        expect(store.team().activePokemon().moveSet.move1.alliesFainted).toBe(3)
+        expect(store.team().activePokemon().moveSet.move1.alliesFainted).toBe("3")
       })
 
       it("should update Move Hits", () => {
         store.moveOne(defaultId, "Rage Fist")
-        store.hits(defaultId, 2, 1)
+        store.hits(defaultId, "2", 1)
 
-        expect(store.team().activePokemon().moveSet.move1.hits).toBe(2)
+        expect(store.team().activePokemon().moveSet.move1.hits).toBe("2")
       })
     })
 
@@ -465,7 +465,7 @@ describe("Calculator Store", () => {
       it("should update left Pokémon", () => {
         const leftPokemon = new Pokemon("Pikachu")
 
-        store.updateLeftPokemon(leftPokemon)
+        store.changeLeftPokemon(leftPokemon)
 
         expect(store.leftPokemon().name).toBe("Pikachu")
       })
@@ -473,7 +473,7 @@ describe("Calculator Store", () => {
       it("should update right Pokémon", () => {
         const rightPokemon = new Pokemon("Raichu")
 
-        store.updateRightPokemon(rightPokemon)
+        store.changeRightPokemon(rightPokemon)
 
         expect(store.rightPokemon().name).toBe("Raichu")
       })
@@ -557,12 +557,21 @@ describe("Calculator Store", () => {
 
       it("should find Pokémon by id when searched Pokémon is in Targets", () => {
         const targets = [new Target(new Pokemon("Pikachu", { id: "123" })), new Target(new Pokemon("Raichu", { id: "456" }))]
-
         store.updateTargets(targets)
 
         const result = store.findPokemonById("456")
 
         expect(result.name).toBe("Raichu")
+      })
+
+      it("should update Target by id", () => {
+        const targets = [new Target(new Pokemon("Pikachu", { id: "123" })), new Target(new Pokemon("Raichu", { id: "456" }))]
+        store.updateTargets(targets)
+
+        store.name("456", "Tyranitar")
+
+        const pokemon = store.findPokemonById("456")
+        expect(pokemon.name).toBe("Tyranitar")
       })
 
       it("should return undefind when do not find Pokémon by id", () => {
@@ -586,11 +595,20 @@ describe("Calculator Store", () => {
       })
 
       it("should update state locking local storage", () => {
-        const state = { secondAttackerId: "123" }
+        const state = {
+          updateLocalStorage: true,
+          speedCalcPokemonState: pikachuState,
+          leftPokemonState: pikachuState,
+          rightPokemonState: pikachuState,
+          secondAttackerId: "123",
+          teamsState: teamsState,
+          targetsState: targetsState
+        }
 
         store.updateStateLockingLocalStorage(state)
 
         expect(store.secondAttackerId()).toBe("123")
+        expect(store.updateLocalStorage()).toBeFalse()
       })
 
       it("should build user data using state", () => {
@@ -633,3 +651,38 @@ describe("Calculator Store", () => {
     })
   })
 })
+
+const pikachuState: PokemonState = {
+  id: "123",
+  name: "Pikachu",
+  nature: "Timid",
+  item: "Light Ball",
+  status: "Healthy",
+  ability: "Static",
+  abilityOn: false,
+  commanderActive: true,
+  teraType: "Electric",
+  teraTypeActive: true,
+  activeMove: "Thunderbolt",
+  moveSet: [{ name: "Thunderbolt" }, { name: "Quick Attack" }, { name: "Volt Tackle" }, { name: "Iron Tail" }],
+  boosts: { hp: 0, atk: -1, def: -2, spa: 1, spd: 2, spe: 3 },
+  evs: { hp: 4, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 },
+  ivs: { hp: 26, atk: 27, def: 28, spa: 29, spd: 30, spe: 31 },
+  hpPercentage: 100
+}
+
+const teamsState: TeamState[] = [
+  {
+    id: "123",
+    active: true,
+    name: "Team 1",
+    teamMembers: [{ active: true, pokemon: pikachuState }]
+  }
+]
+
+const targetsState: TargetState[] = [
+  {
+    active: false,
+    pokemon: pikachuState
+  }
+]
