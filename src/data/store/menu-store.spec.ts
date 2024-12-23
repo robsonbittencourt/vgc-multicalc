@@ -3,7 +3,7 @@ import { TestBed } from "@angular/core/testing"
 import { MenuStore } from "@data/store/menu-store"
 
 describe("Menu Store", () => {
-  let store: any
+  let store: MenuStore
 
   beforeEach(() => {
     TestBed.configureTestingModule({

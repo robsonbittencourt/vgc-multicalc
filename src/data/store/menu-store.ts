@@ -1,4 +1,5 @@
-import { patchState, signalStore, withMethods, withState } from "@ngrx/signals"
+import { Injectable } from "@angular/core"
+import { patchState, signalStore, withState } from "@ngrx/signals"
 
 type MenuState = {
   oneVsOneActivated: boolean
@@ -14,29 +15,25 @@ const initialState: MenuState = {
   speedCalculatorActivated: false
 }
 
-export const MenuStore = signalStore(
-  { providedIn: "root" },
-  withState(initialState),
+@Injectable({ providedIn: "root" })
+export class MenuStore extends signalStore({ protectedState: false }, withState(initialState)) {
+  enableOneVsOne() {
+    patchState(this, () => ({ ...this.allOptionsTurnedOff(), oneVsOneActivated: true }))
+  }
 
-  withMethods(store => ({
-    enableOneVsOne() {
-      patchState(store, () => ({ ...this._allOptionsTurnedOff(), oneVsOneActivated: true }))
-    },
+  enableOneVsMany() {
+    patchState(this, () => ({ ...this.allOptionsTurnedOff(), oneVsManyActivated: true }))
+  }
 
-    enableOneVsMany() {
-      patchState(store, () => ({ ...this._allOptionsTurnedOff(), oneVsManyActivated: true }))
-    },
+  enableManyVsOne() {
+    patchState(this, () => ({ ...this.allOptionsTurnedOff(), manyVsOneActivated: true }))
+  }
 
-    enableManyVsOne() {
-      patchState(store, () => ({ ...this._allOptionsTurnedOff(), manyVsOneActivated: true }))
-    },
+  enableSpeedCalculator() {
+    patchState(this, () => ({ ...this.allOptionsTurnedOff(), speedCalculatorActivated: true }))
+  }
 
-    enableSpeedCalculator() {
-      patchState(store, () => ({ ...this._allOptionsTurnedOff(), speedCalculatorActivated: true }))
-    },
-
-    _allOptionsTurnedOff() {
-      return Object.fromEntries(Object.keys(initialState).map(key => [key, false])) as MenuState
-    }
-  }))
-)
+  private allOptionsTurnedOff() {
+    return Object.fromEntries(Object.keys(initialState).map(key => [key, false])) as MenuState
+  }
+}
