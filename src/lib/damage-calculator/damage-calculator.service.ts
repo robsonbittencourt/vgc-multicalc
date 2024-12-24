@@ -5,7 +5,7 @@ import { FieldMapper } from "@lib/field-mapper"
 import { Field } from "@lib/model/field"
 import { Move } from "@lib/model/move"
 import { Pokemon } from "@lib/model/pokemon"
-import { SmogonPokemonBuilder } from "@lib/smogon-functions/smogon-pokemon-builder"
+import { SmogonPokemonBuilder } from "@lib/smogon/smogon-pokemon-builder"
 import { calculate, Generations, Move as MoveSmogon, Result } from "@robsonbittencourt/calc"
 
 @Injectable({

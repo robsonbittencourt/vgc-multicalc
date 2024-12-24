@@ -1,5 +1,5 @@
 import { Pokemon } from "@lib/model/pokemon"
-import { SmogonFunctions } from "@lib/smogon-functions/smogon-functions"
+import { SmogonFunctions } from "@lib/smogon/smogon-functions"
 import { Field, Side } from "@robsonbittencourt/calc"
 
 describe("SmogonFunctions", () => {

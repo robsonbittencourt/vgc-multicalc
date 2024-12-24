@@ -26,7 +26,7 @@ import { CALC_ADJUSTERS } from "@lib/damage-calculator/calc-adjuster/calc-adjust
 import { LastRespectsAdjuster } from "@lib/damage-calculator/calc-adjuster/last-respects-adjuster"
 import { RageFistAdjuster } from "@lib/damage-calculator/calc-adjuster/rage-fist-adjuster"
 import { RuinsAbilityAdjuster } from "@lib/damage-calculator/calc-adjuster/ruins-ability-adjuster"
-import { SmogonFunctions } from "@lib/smogon-functions/smogon-functions"
+import { SmogonFunctions } from "@lib/smogon/smogon-functions"
 
 bootstrapApplication(AppComponent, {
   providers: [
