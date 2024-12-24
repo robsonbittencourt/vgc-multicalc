@@ -21,7 +21,7 @@
     <div class="pokemon-status" [ngStyle]="(reverse() && { order: 3 }) || null">
       <div>
         <label>Status</label>
-        <app-input-autocomplete [value]="pokemon().status" [allValues]="statusConditions" (valueChange)="store.status(pokemonId(), $event)" data-cy="pokemon-status" />
+        <app-input-autocomplete [value]="pokemon().status.description" [allValues]="statusConditions" (valueChange)="store.status(pokemonId(), $event)" data-cy="pokemon-status" />
       </div>
 
       @if (pokemon().activeMoveName === "Last Respects") {

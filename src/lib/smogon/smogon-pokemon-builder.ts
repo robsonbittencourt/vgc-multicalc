@@ -44,7 +44,7 @@ export class SmogonPokemonBuilder {
       evs: options.evs,
       ivs: options.ivs,
       boosts: options.boosts,
-      status: Status.getByDescription(options.status ?? "Healthy").code,
+      status: options.status?.code ?? Status.HEALTHY.code,
       level: 50
     })
 

@@ -1,5 +1,6 @@
 import { Ability } from "@lib/model/ability"
 import { Pokemon } from "@lib/model/pokemon"
+import { Status } from "@lib/model/status"
 import { SmogonFunctions } from "@lib/smogon/smogon-functions"
 import { Field, Side } from "@robsonbittencourt/calc"
 
@@ -61,7 +62,7 @@ describe("SmogonFunctions", () => {
   })
 
   it("should return the Pokémon speed when paralyzed", () => {
-    const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 }, status: "Paralysis" })
+    const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 }, status: Status.PARALYSIS })
 
     const finalSpeed = service.getFinalSpeed(pokemon)
 
@@ -179,7 +180,7 @@ describe("SmogonFunctions", () => {
   })
 
   it("should return the speed of Jolteon with Quick Feet when it has status condition", () => {
-    const pokemon = new Pokemon("Jolteon", { ability: new Ability("Quick Feet"), status: "Burn", nature: "Timid", evs: { spe: 252 } })
+    const pokemon = new Pokemon("Jolteon", { ability: new Ability("Quick Feet"), status: Status.BURN, nature: "Timid", evs: { spe: 252 } })
     const field = new Field()
 
     const finalSpeed = service.getFinalSpeed(pokemon, field)

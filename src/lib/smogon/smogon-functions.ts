@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core"
 import { Pokemon } from "@lib/model/pokemon"
+import { Status } from "@lib/model/status"
 import { Field, Pokemon as PokemonSmogon, Side, StatID } from "@robsonbittencourt/calc"
 import { StatIDExceptHP } from "@robsonbittencourt/calc/src/data/interface"
 
@@ -41,7 +42,7 @@ export class SmogonFunctions {
     }
 
     speed = this.OF32(this.pokeRound((speed * this.chainMods(speedMods, 410, 131172)) / 4096))
-    if (pokemon.status === "Paralysis" && pokemon.ability.isNot("Quick Feet")) {
+    if (pokemon.status == Status.PARALYSIS && pokemon.ability.isNot("Quick Feet")) {
       speed = Math.floor(this.OF32(speed * 50) / 100)
     }
 

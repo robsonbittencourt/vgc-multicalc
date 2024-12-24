@@ -4,6 +4,7 @@ import { FieldMapper } from "@lib/field-mapper"
 import { Ability } from "@lib/model/ability"
 import { Field } from "@lib/model/field"
 import { Pokemon } from "@lib/model/pokemon"
+import { Status } from "@lib/model/status"
 import { SmogonFunctions } from "@lib/smogon/smogon-functions"
 import { SpeedCalculatorOptions } from "@lib/speed-calculator/speed-calculator-options"
 import { SpeedDefinition } from "@lib/speed-calculator/speed-definition"
@@ -85,7 +86,7 @@ export class SpeedCalculatorService {
 
   private adjustPokemonByOptions(pokemon: Pokemon, options: SpeedCalculatorOptions): Pokemon {
     const boosts = { ...pokemon.boosts, spe: options.speedModifier }
-    const status = options.paralyzedActive ? "Paralysis" : pokemon.status
+    const status = options.paralyzedActive ? Status.PARALYSIS : pokemon.status
     const item = options.choiceScarfActive ? "Choice Scarf" : pokemon.item
 
     return pokemon.clone({ boosts, status, item })

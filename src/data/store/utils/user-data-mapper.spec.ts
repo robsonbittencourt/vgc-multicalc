@@ -1,5 +1,6 @@
 import { CalculatorState, PokemonState, TargetState, TeamState } from "@data/store/calculator-store"
 import { buildState, buildUserData } from "@data/store/utils/user-data-mapper"
+import { Status } from "@lib/model/status"
 
 describe("User Data Mapper", () => {
   describe("buildUserData", () => {
@@ -27,7 +28,7 @@ describe("User Data Mapper", () => {
       expect(result.speedCalcPokemon.name).toBe("Pikachu")
       expect(result.speedCalcPokemon.nature).toBe("Timid")
       expect(result.speedCalcPokemon.item).toBe("Light Ball")
-      expect(result.speedCalcPokemon.status).toBe("Healthy")
+      expect(result.speedCalcPokemon.status).toBe(Status.HEALTHY.description)
       expect(result.speedCalcPokemon.ability).toBe("Static")
       expect(result.speedCalcPokemon.abilityOn).toBe(false)
       expect(result.speedCalcPokemon.commanderActive).toBe(true)
@@ -64,7 +65,7 @@ describe("User Data Mapper", () => {
       expect(result.leftPokemon.name).toBe("Pikachu")
       expect(result.leftPokemon.nature).toBe("Timid")
       expect(result.leftPokemon.item).toBe("Light Ball")
-      expect(result.leftPokemon.status).toBe("Healthy")
+      expect(result.leftPokemon.status).toBe(Status.HEALTHY.description)
       expect(result.leftPokemon.ability).toBe("Static")
       expect(result.leftPokemon.abilityOn).toBe(false)
       expect(result.leftPokemon.commanderActive).toBe(true)
@@ -101,7 +102,7 @@ describe("User Data Mapper", () => {
       expect(result.rightPokemon.name).toBe("Pikachu")
       expect(result.rightPokemon.nature).toBe("Timid")
       expect(result.rightPokemon.item).toBe("Light Ball")
-      expect(result.rightPokemon.status).toBe("Healthy")
+      expect(result.rightPokemon.status).toBe(Status.HEALTHY.description)
       expect(result.rightPokemon.ability).toBe("Static")
       expect(result.rightPokemon.abilityOn).toBe(false)
       expect(result.rightPokemon.commanderActive).toBe(true)
@@ -212,7 +213,7 @@ describe("User Data Mapper", () => {
       expect(result.speedCalcPokemonState.name).toBe("Pikachu")
       expect(result.speedCalcPokemonState.nature).toBe("Timid")
       expect(result.speedCalcPokemonState.item).toBe("Light Ball")
-      expect(result.speedCalcPokemonState.status).toBe("Healthy")
+      expect(result.speedCalcPokemonState.status).toBe(Status.HEALTHY.description)
       expect(result.speedCalcPokemonState.ability).toBe("Static")
       expect(result.speedCalcPokemonState.abilityOn).toBe(false)
       expect(result.speedCalcPokemonState.commanderActive).toBe(true)
@@ -244,7 +245,7 @@ describe("User Data Mapper", () => {
       expect(result.speedCalcPokemonState.name).toBe("Pikachu")
       expect(result.speedCalcPokemonState.nature).toBe("Timid")
       expect(result.speedCalcPokemonState.item).toBe("Light Ball")
-      expect(result.speedCalcPokemonState.status).toBe("Healthy")
+      expect(result.speedCalcPokemonState.status).toBe(Status.HEALTHY.description)
       expect(result.speedCalcPokemonState.ability).toBe("Static")
       expect(result.speedCalcPokemonState.abilityOn).toBe(false)
       expect(result.speedCalcPokemonState.commanderActive).toBe(true)
@@ -276,7 +277,7 @@ describe("User Data Mapper", () => {
       expect(result.leftPokemonState.name).toBe("Pikachu")
       expect(result.leftPokemonState.nature).toBe("Timid")
       expect(result.leftPokemonState.item).toBe("Light Ball")
-      expect(result.leftPokemonState.status).toBe("Healthy")
+      expect(result.leftPokemonState.status).toBe(Status.HEALTHY.description)
       expect(result.leftPokemonState.ability).toBe("Static")
       expect(result.leftPokemonState.abilityOn).toBe(false)
       expect(result.leftPokemonState.commanderActive).toBe(true)
@@ -308,7 +309,7 @@ describe("User Data Mapper", () => {
       expect(result.rightPokemonState.name).toBe("Charmander")
       expect(result.rightPokemonState.nature).toBe("Adamant")
       expect(result.rightPokemonState.item).toBe("Charcoal")
-      expect(result.rightPokemonState.status).toBe("Paralysis")
+      expect(result.rightPokemonState.status).toBe(Status.PARALYSIS.description)
       expect(result.rightPokemonState.ability).toBe("Blaze")
       expect(result.rightPokemonState.abilityOn).toBe(true)
       expect(result.rightPokemonState.commanderActive).toBe(false)
@@ -426,7 +427,7 @@ const pikachuState: PokemonState = {
   name: "Pikachu",
   nature: "Timid",
   item: "Light Ball",
-  status: "Healthy",
+  status: Status.HEALTHY.description,
   ability: "Static",
   abilityOn: false,
   commanderActive: true,
@@ -445,7 +446,7 @@ const bulbasaurState: PokemonState = {
   name: "Bulbasaur",
   nature: "Modest",
   item: "Leftovers",
-  status: "Healthy",
+  status: Status.HEALTHY.description,
   ability: "Overgrow",
   abilityOn: true,
   commanderActive: false,
@@ -463,7 +464,7 @@ const pikachuUserData = {
   name: "Pikachu",
   nature: "Timid",
   item: "Light Ball",
-  status: "Healthy",
+  status: Status.HEALTHY.description,
   ability: "Static",
   abilityOn: false,
   commanderActive: true,
@@ -481,7 +482,7 @@ const bulbasaurUserData = {
   name: "Bulbasaur",
   nature: "Modest",
   item: "Leftovers",
-  status: "Healthy",
+  status: Status.HEALTHY.description,
   ability: "Overgrow",
   abilityOn: true,
   commanderActive: false,
@@ -499,7 +500,7 @@ const charmanderUserData = {
   name: "Charmander",
   nature: "Adamant",
   item: "Charcoal",
-  status: "Paralysis",
+  status: Status.PARALYSIS.description,
   ability: "Blaze",
   abilityOn: true,
   commanderActive: false,

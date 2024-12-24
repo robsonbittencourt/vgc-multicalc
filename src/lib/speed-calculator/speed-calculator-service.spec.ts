@@ -4,6 +4,7 @@ import { ACTUAL, MAX, META, MIN } from "@lib/constants"
 import { Ability } from "@lib/model/ability"
 import { Field } from "@lib/model/field"
 import { Pokemon } from "@lib/model/pokemon"
+import { Status } from "@lib/model/status"
 import { SmogonFunctions } from "@lib/smogon/smogon-functions"
 import { SpeedCalculatorOptions } from "@lib/speed-calculator/speed-calculator-options"
 import { SpeedCalculatorService } from "@lib/speed-calculator/speed-calculator-service"
@@ -296,7 +297,7 @@ describe("SpeedCalculatorService", () => {
     })
 
     it("should return max speed of Chien-Pao paralyzed", () => {
-      const pokemon = new Pokemon("Chien-Pao", { status: "Paralysis" })
+      const pokemon = new Pokemon("Chien-Pao", { status: Status.PARALYSIS })
       const smogonField = new SmogonField()
 
       const speedDefinition = service.maxSpeed(pokemon, smogonField)

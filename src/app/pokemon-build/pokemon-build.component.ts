@@ -12,6 +12,7 @@ import { AllPokemon } from "@data/all-pokemon"
 import { Items } from "@data/items"
 import { Natures } from "@data/natures"
 import { CalculatorStore } from "@data/store/calculator-store"
+import { Status } from "@lib/model/status"
 import { MOVES, TYPE_CHART } from "@robsonbittencourt/calc"
 import { TypeName } from "@robsonbittencourt/calc/dist/data/interface"
 
@@ -39,7 +40,7 @@ export class PokemonBuildComponent {
   availableAbilities: string[]
   alliesFainted = ["0", "1", "2", "3", "4", "5", "6", "7"]
 
-  statusConditions = ["Healthy", "Sleep", "Poison", "Burn", "Freeze", "Paralysis"]
+  statusConditions = Status.allDescriptions()
 
   moveSelectorDisabled(move: string): boolean {
     return !move || move == this.pokemon().activeMoveName

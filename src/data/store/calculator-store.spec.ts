@@ -3,6 +3,7 @@ import { TestBed } from "@angular/core/testing"
 import { CalculatorStore, PokemonState, TargetState, TeamState } from "@data/store/calculator-store"
 import { Move } from "@lib/model/move"
 import { Pokemon } from "@lib/model/pokemon"
+import { Status } from "@lib/model/status"
 import { Target } from "@lib/model/target"
 import { Team } from "@lib/model/team"
 import { TeamMember } from "@lib/model/team-member"
@@ -93,7 +94,7 @@ describe("Calculator Store", () => {
       it("should update Pokémon status", () => {
         store.status(defaultId, "Burn")
 
-        expect(store.team().activePokemon().status).toBe("Burn")
+        expect(store.team().activePokemon().status).toBe(Status.BURN)
       })
 
       it("should update Pokémon item", () => {
@@ -657,7 +658,7 @@ const pikachuState: PokemonState = {
   name: "Pikachu",
   nature: "Timid",
   item: "Light Ball",
-  status: "Healthy",
+  status: Status.HEALTHY.description,
   ability: "Static",
   abilityOn: false,
   commanderActive: true,

@@ -16,6 +16,7 @@ import { Items } from "@data/items"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { FieldStore } from "@data/store/field-store"
 import { SpeedCalcOptionsStore } from "@data/store/speed-calc-options-store"
+import { Status } from "@lib/model/status"
 import { NATURES } from "@robsonbittencourt/calc"
 
 @Component({
@@ -51,7 +52,7 @@ export class SpeedCalculatorMobileComponent {
   allItemsNames = Items.instance.allItems()
   allNatureNames = Object.keys(NATURES)
 
-  statusConditions = ["Healthy", "Paralysis"]
+  statusConditions = [Status.HEALTHY.description, Status.PARALYSIS.description]
 
   statsModifiers = [
     { value: 6, viewValue: "+6" },

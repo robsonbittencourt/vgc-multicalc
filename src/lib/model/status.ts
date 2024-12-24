@@ -18,15 +18,15 @@ export class Status {
   static readonly FREEZE = new Status("frz", "Freeze")
   static readonly PARALYSIS = new Status("par", "Paralysis")
 
-  static getByCode(code: string): Status {
+  static byCode(code: string): Status {
     return Status.values.find(condition => condition.code === code)!
   }
 
-  static getByDescription(description: string): Status {
+  static byDescription(description: string): Status {
     return Status.values.find(condition => condition.description === description)!
   }
 
-  static getAll(): Status[] {
-    return [...Status.values]
+  static allDescriptions(): string[] {
+    return Status.values.map(s => s.description)
   }
 }

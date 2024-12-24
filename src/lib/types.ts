@@ -1,5 +1,6 @@
 import { Ability } from "@lib/model/ability"
 import { MoveSet } from "@lib/model/moveset"
+import { Status } from "@lib/model/status"
 
 export type Stats = { hp: number; atk: number; def: number; spa: number; spd: number; spe: number }
 
@@ -23,7 +24,7 @@ export type PokemonParameters = {
   evs?: Partial<Stats>
   moveSet?: MoveSet
   boosts?: Partial<Stats>
-  status?: string
+  status?: Status
   ivs?: Partial<Stats>
   hpPercentage?: number
   commanderActive?: boolean

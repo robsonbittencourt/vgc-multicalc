@@ -3,6 +3,7 @@ import { Ability } from "@lib/model/ability"
 import { Move } from "@lib/model/move"
 import { MoveSet } from "@lib/model/moveset"
 import { Pokemon } from "@lib/model/pokemon"
+import { Status } from "@lib/model/status"
 import { Target } from "@lib/model/target"
 import { Team } from "@lib/model/team"
 import { TeamMember } from "@lib/model/team-member"
@@ -19,7 +20,7 @@ export function stateToPokemon(state: PokemonState) {
     id: state.id,
     nature: state.nature,
     item: state.item,
-    status: state.status,
+    status: Status.byDescription(state.status),
     ability: new Ability(state.ability, state.abilityOn),
     commanderActive: state.commanderActive,
     teraType: state.teraType,
@@ -38,7 +39,7 @@ export function pokemonToState(pokemon: Pokemon): PokemonState {
     name: pokemon.name,
     nature: pokemon.nature,
     item: pokemon.item,
-    status: pokemon.status,
+    status: pokemon.status.description,
     ability: pokemon.ability.name,
     abilityOn: pokemon.ability.on,
     commanderActive: pokemon.commanderActive,

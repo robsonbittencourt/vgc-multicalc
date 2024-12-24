@@ -10,6 +10,7 @@ import { InputAutocompleteComponent } from "@app/input-autocomplete/input-autoco
 import { Items } from "@data/items"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { Pokemon } from "@lib/model/pokemon"
+import { Status } from "@lib/model/status"
 import { MOVES, NATURES, TYPE_CHART } from "@robsonbittencourt/calc"
 
 @Component({
@@ -37,7 +38,7 @@ export class PokemonBuildMobileComponent {
 
   editAttacks = false
 
-  statusConditions = ["Healthy", "Sleep", "Poison", "Burn", "Freeze", "Paralysis"]
+  statusConditions = Status.allDescriptions()
 
   activateMove1() {
     this.activateMove(1)

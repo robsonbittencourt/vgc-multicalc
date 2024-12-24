@@ -117,8 +117,8 @@ export class Pokemon {
     return this.pokemonSmogon.boosts
   }
 
-  get status(): string {
-    return Status.getByCode(this.pokemonSmogon.status).description
+  get status(): Status {
+    return Status.byCode(this.pokemonSmogon.status)
   }
 
   get teraTypeActive(): boolean {
