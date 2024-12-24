@@ -3,7 +3,7 @@ import { Pokemon } from "@lib/model/pokemon"
 import { Field, Pokemon as PokemonSmogon, Side, StatID } from "@robsonbittencourt/calc"
 import { StatIDExceptHP } from "@robsonbittencourt/calc/src/data/interface"
 
-@Injectable()
+@Injectable({ providedIn: "root" })
 export class SmogonFunctions {
   LOWER_SPEED_ITEMS = ["Macho Brace", "Power Anklet", "Power Band", "Power Belt", "Power Bracer", "Power Lens", "Power Weight", "Iron Ball"]
 
