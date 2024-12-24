@@ -1,6 +1,7 @@
 import { provideExperimentalZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
 import { ACTUAL, MAX, META, MIN } from "@lib/constants"
+import { Ability } from "@lib/model/ability"
 import { Field } from "@lib/model/field"
 import { Pokemon } from "@lib/model/pokemon"
 import { SmogonFunctions } from "@lib/smogon/smogon-functions"
@@ -202,7 +203,7 @@ describe("SpeedCalculatorService", () => {
     })
 
     it("should return min speed of Swift Swim Excadrill in the Rain", () => {
-      const pokemon = new Pokemon("Kingdra", { ability: "Swift Swim" })
+      const pokemon = new Pokemon("Kingdra", { ability: new Ability("Swift Swim") })
       const field = new SmogonField({ weather: "Rain" })
 
       const speedDefinition = service.minSpeed(pokemon, field)
@@ -304,7 +305,7 @@ describe("SpeedCalculatorService", () => {
     })
 
     it("should return max speed of Sand Rush Excadrill in the Sand", () => {
-      const pokemon = new Pokemon("Excadrill", { ability: "Sand Rush" })
+      const pokemon = new Pokemon("Excadrill", { ability: new Ability("Sand Rush") })
       const field = new SmogonField({ weather: "Sand" })
 
       const speedDefinition = service.maxSpeed(pokemon, field)

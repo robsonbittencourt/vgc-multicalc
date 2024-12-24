@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core"
+import { Ability } from "@lib/model/ability"
 import { Move } from "@lib/model/move"
 import { MoveSet } from "@lib/model/moveset"
 import { Pokemon } from "@lib/model/pokemon"
@@ -32,7 +33,7 @@ export class PokePasteParserService {
       const evs = { hp: poke.evs?.hp ?? 0, atk: poke.evs?.atk ?? 0, def: poke.evs?.def ?? 0, spa: poke.evs?.spa ?? 0, spd: poke.evs?.spd ?? 0, spe: poke.evs?.spe ?? 0 }
       const moveSet = new MoveSet(new Move(poke.moves[0]), new Move(poke.moves[1]), new Move(poke.moves[2]), new Move(poke.moves[3]))
 
-      return new Pokemon(name, { ability: poke.ability, nature: poke.nature, item: poke.item, teraType: poke.teraType, evs, moveSet, ivs })
+      return new Pokemon(name, { ability: new Ability(poke.ability, false), nature: poke.nature, item: poke.item, teraType: poke.teraType, evs, moveSet, ivs })
     })
   }
 

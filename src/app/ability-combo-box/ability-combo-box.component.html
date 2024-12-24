@@ -1,1 +1,1 @@
-<app-input-autocomplete [value]="pokemon().ability" [allValues]="availableAbilities()" (valueChange)="store.ability(pokemonId(), $event)" />
+<app-input-autocomplete [value]="pokemon().ability.name" [allValues]="availableAbilities()" (valueChange)="store.ability(pokemonId(), $event)" />

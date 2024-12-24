@@ -23,7 +23,7 @@
           <mat-card-title>{{ target().pokemon.displayNameWithoutSuffix }}</mat-card-title>
           <mat-card-subtitle>Item: {{ target().pokemon.item }}</mat-card-subtitle>
           <mat-card-subtitle>Nature: {{ target().pokemon.nature }}</mat-card-subtitle>
-          <mat-card-subtitle>Ability: {{ target().pokemon.displayAbility }}</mat-card-subtitle>
+          <mat-card-subtitle>Ability: {{ target().pokemon.ability.simpleName }}</mat-card-subtitle>
           <mat-card-subtitle>{{ evsDescription() }}</mat-card-subtitle>
           <mat-card-subtitle>Move: {{ target().pokemon.activeMoveName }}</mat-card-subtitle>
           <mat-card-subtitle>Tera Type: {{ target().pokemon.teraType }}</mat-card-subtitle>

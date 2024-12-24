@@ -1,3 +1,4 @@
+import { Ability } from "@lib/model/ability"
 import { MoveSet } from "@lib/model/moveset"
 
 export type Stats = { hp: number; atk: number; def: number; spa: number; spd: number; spe: number }
@@ -14,8 +15,7 @@ export type StatusDescription = "Healthy" | "Sleep" | "Poison" | "Burn" | "Freez
 
 export type PokemonParameters = {
   id?: string
-  ability?: string
-  abilityOn?: boolean
+  ability?: Ability
   nature?: string
   item?: string
   teraType?: string

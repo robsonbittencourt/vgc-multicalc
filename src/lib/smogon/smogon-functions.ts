@@ -16,17 +16,17 @@ export class SmogonFunctions {
     if (side.isTailwind) speedMods.push(8192)
 
     if (
-      (pokemon.ability == "Unburden" && pokemon.abilityOn) ||
-      (pokemon.ability == "Chlorophyll" && weather.includes("Sun")) ||
-      (pokemon.ability == "Sand Rush" && weather === "Sand") ||
-      (pokemon.ability == "Swift Swim" && weather.includes("Rain")) ||
-      (pokemon.ability == "Slush Rush" && ["Hail", "Snow"].includes(weather)) ||
-      (pokemon.ability == "Surge Surfer" && terrain === "Electric")
+      (pokemon.ability.is("Unburden") && pokemon.ability.on) ||
+      (pokemon.ability.is("Chlorophyll") && weather.includes("Sun")) ||
+      (pokemon.ability.is("Sand Rush") && weather === "Sand") ||
+      (pokemon.ability.is("Swift Swim") && weather.includes("Rain")) ||
+      (pokemon.ability.is("Slush Rush") && ["Hail", "Snow"].includes(weather)) ||
+      (pokemon.ability.is("Surge Surfer") && terrain === "Electric")
     ) {
       speedMods.push(8192)
-    } else if (pokemon.ability == "Quick Feet" && pokemon.status) {
+    } else if (pokemon.ability.is("Quick Feet") && pokemon.status) {
       speedMods.push(6144)
-    } else if (pokemon.ability == "Slow Start" && pokemon.abilityOn) {
+    } else if (pokemon.ability.is("Slow Start") && pokemon.ability.on) {
       speedMods.push(2048)
     } else if (this.isQPActive(pokemon, field) && pokemon.higherStat === "spe") {
       speedMods.push(6144)
@@ -41,7 +41,7 @@ export class SmogonFunctions {
     }
 
     speed = this.OF32(this.pokeRound((speed * this.chainMods(speedMods, 410, 131172)) / 4096))
-    if (pokemon.status === "Paralysis" && pokemon.ability !== "Quick Feet") {
+    if (pokemon.status === "Paralysis" && pokemon.ability.isNot("Quick Feet")) {
       speed = Math.floor(this.OF32(speed * 50) / 100)
     }
 
@@ -89,7 +89,7 @@ export class SmogonFunctions {
     const weather = field.weather || ""
     const terrain = field.terrain
 
-    return (pokemon.ability == "Protosynthesis" && (weather.includes("Sun") || pokemon.abilityOn)) || (pokemon.ability == "Quark Drive" && (terrain === "Electric" || pokemon.abilityOn))
+    return (pokemon.ability.protosynthesis && (weather.includes("Sun") || pokemon.ability.on)) || (pokemon.ability.quarkDrive && (terrain === "Electric" || pokemon.ability.on))
   }
 
   private pokeRound(num: number) {

@@ -1,5 +1,6 @@
 import { Items } from "@data/items"
 import { DEFAULT_TERA_TYPE, SELECT_POKEMON_LABEL } from "@lib/constants"
+import { Ability } from "@lib/model/ability"
 import { Move } from "@lib/model/move"
 import { MoveSet } from "@lib/model/moveset"
 import { Status } from "@lib/model/status"
@@ -14,6 +15,7 @@ import { v4 as uuidv4 } from "uuid"
 export class Pokemon {
   readonly id: string
   readonly moveSet: MoveSet
+  readonly ability: Ability
   readonly teraType: string
   readonly hpPercentage: number
   readonly commanderActive: boolean
@@ -27,10 +29,11 @@ export class Pokemon {
     this.pokemonSmogon = new SmogonPokemonBuilder().fromScratch(adjustedName, options)
 
     this.id = options.id ?? uuidv4()
+    this.moveSet = options.moveSet ?? new MoveSet(new Move("Struggle"), new Move("Struggle"), new Move("Struggle"), new Move("Struggle"))
+    this.ability = new Ability(this.pokemonSmogon.ability as string, this.pokemonSmogon.abilityOn)
+    this.teraType = options.teraType ?? DEFAULT_TERA_TYPE
     this.hpPercentage = options.hpPercentage ?? 100
     this.commanderActive = options.commanderActive ?? false
-    this.teraType = options.teraType ?? DEFAULT_TERA_TYPE
-    this.moveSet = options.moveSet ?? new MoveSet(new Move("Struggle"), new Move("Struggle"), new Move("Struggle"), new Move("Struggle"))
     this.higherStat = this.smogonFunctions.higherStat(this.pokemonSmogon)
   }
 
@@ -96,27 +99,6 @@ export class Pokemon {
     }
 
     return this.pokemonSmogon.item as string
-  }
-
-  get ability(): string {
-    return this.pokemonSmogon.ability as string
-  }
-
-  get abilityOn(): boolean {
-    return this.pokemonSmogon.abilityOn!
-  }
-
-  get actionableAbility(): boolean {
-    const actionableAbilities = ["Slow Start", "Unburden"]
-    return actionableAbilities.includes(this.ability)
-  }
-
-  get displayAbility(): string {
-    if (this.pokemonSmogon.ability?.includes("Embody Aspect")) {
-      return "Embody Aspect"
-    }
-
-    return this.pokemonSmogon.ability as string
   }
 
   get evs(): Partial<Stats> {
@@ -242,7 +224,6 @@ export class Pokemon {
   clone(options: PokemonParameters = {}): Pokemon {
     return new Pokemon(this.name, {
       ability: options.ability ?? this.ability,
-      abilityOn: options.abilityOn ?? this.abilityOn,
       nature: options.nature ?? this.nature,
       item: options.item ?? this.item,
       teraType: options.teraType ?? this.teraType,

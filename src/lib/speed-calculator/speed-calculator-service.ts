@@ -1,6 +1,7 @@
 import { Injectable, inject } from "@angular/core"
 import { ACTUAL, BOOSTER, MAX, META, MIN, SCARF } from "@lib/constants"
 import { FieldMapper } from "@lib/field-mapper"
+import { Ability } from "@lib/model/ability"
 import { Field } from "@lib/model/field"
 import { Pokemon } from "@lib/model/pokemon"
 import { SmogonFunctions } from "@lib/smogon/smogon-functions"
@@ -121,7 +122,7 @@ export class SpeedCalculatorService {
   }
 
   maxBooster(pokemon: Pokemon, smogonField: SmogonField): SpeedDefinition {
-    const clonedPokemon = pokemon.clone({ abilityOn: true })
+    const clonedPokemon = pokemon.clone({ ability: new Ability(pokemon.ability.name, true) })
 
     const speed = this.smogonService.getFinalSpeed(clonedPokemon, smogonField, smogonField.defenderSide)
     const description = BOOSTER

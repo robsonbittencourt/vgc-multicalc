@@ -13,19 +13,19 @@ export class RuinsAbilityAdjuster implements CalcAdjuster {
       return
     }
 
-    if (attacker.ability == "Tablets of Ruin" || secondAttacker?.ability == "Tablets of Ruin") {
+    if (attacker.ability.is("Tablets of Ruin") || secondAttacker?.ability.is("Tablets of Ruin")) {
       field.isTabletsOfRuin = true
     }
 
-    if (attacker.ability == "Sword of Ruin" || secondAttacker?.ability == "Sword of Ruin") {
+    if (attacker.ability.is("Sword of Ruin") || secondAttacker?.ability.is("Sword of Ruin")) {
       field.isSwordOfRuin = true
     }
 
-    if (attacker.ability == "Vessel of Ruin" || secondAttacker?.ability == "Vessel of Ruin") {
+    if (attacker.ability.is("Vessel of Ruin") || secondAttacker?.ability.is("Vessel of Ruin")) {
       field.isVesselOfRuin = true
     }
 
-    if (attacker.ability == "Beads of Ruin" || secondAttacker?.ability == "Beads of Ruin") {
+    if (attacker.ability.is("Beads of Ruin") || secondAttacker?.ability.is("Beads of Ruin")) {
       field.isBeadsOfRuin = true
     }
   }

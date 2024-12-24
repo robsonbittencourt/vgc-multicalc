@@ -1,3 +1,4 @@
+import { Ability } from "@lib/model/ability"
 import { Pokemon } from "@lib/model/pokemon"
 import { SmogonFunctions } from "@lib/smogon/smogon-functions"
 import { Field, Side } from "@robsonbittencourt/calc"
@@ -68,7 +69,7 @@ describe("SmogonFunctions", () => {
   })
 
   it("should return the speed of Iron Bundle with Quark Drive activated", () => {
-    const pokemon = new Pokemon("Iron Bundle", { abilityOn: true, nature: "Timid", evs: { spe: 252 } })
+    const pokemon = new Pokemon("Iron Bundle", { ability: new Ability("Quark Drive", true), nature: "Timid", evs: { spe: 252 } })
     const field = new Field()
 
     const finalSpeed = service.getFinalSpeed(pokemon, field)
@@ -87,7 +88,7 @@ describe("SmogonFunctions", () => {
   })
 
   it("should return the speed of Flutter Mane with Protosynthesis activated", () => {
-    const pokemon = new Pokemon("Flutter Mane", { abilityOn: true, item: "Choice Scarf", nature: "Timid", evs: { spe: 124 } })
+    const pokemon = new Pokemon("Flutter Mane", { ability: new Ability("Protosynthesis", true), item: "Choice Scarf", nature: "Timid", evs: { spe: 124 } })
     const field = new Field()
 
     const finalSpeed = service.getFinalSpeed(pokemon, field)
@@ -119,7 +120,7 @@ describe("SmogonFunctions", () => {
   })
 
   it("should return the speed of Sneasler with Unburden activated", () => {
-    const pokemon = new Pokemon("Sneasler", { ability: "Unburden", abilityOn: true, nature: "Jolly", evs: { spe: 252 } })
+    const pokemon = new Pokemon("Sneasler", { ability: new Ability("Unburden", true), nature: "Jolly", evs: { spe: 252 } })
     const field = new Field()
 
     const finalSpeed = service.getFinalSpeed(pokemon, field)
@@ -128,7 +129,7 @@ describe("SmogonFunctions", () => {
   })
 
   it("should return the speed of Jumpluff with Chlorophyll in the Sun", () => {
-    const pokemon = new Pokemon("Jumpluff", { ability: "Chlorophyll", nature: "Timid", evs: { spe: 252 } })
+    const pokemon = new Pokemon("Jumpluff", { ability: new Ability("Chlorophyll"), nature: "Timid", evs: { spe: 252 } })
     const field = new Field()
     field.weather = "Sun"
 
@@ -138,7 +139,7 @@ describe("SmogonFunctions", () => {
   })
 
   it("should return the speed of Excadrill with Sand Rush in the Sandstorm", () => {
-    const pokemon = new Pokemon("Excadrill", { ability: "Sand Rush", nature: "Jolly", evs: { spe: 252 } })
+    const pokemon = new Pokemon("Excadrill", { ability: new Ability("Sand Rush"), nature: "Jolly", evs: { spe: 252 } })
     const field = new Field()
     field.weather = "Sand"
 
@@ -148,7 +149,7 @@ describe("SmogonFunctions", () => {
   })
 
   it("should return the speed of Basculegion with Swift Swim in the Rain", () => {
-    const pokemon = new Pokemon("Basculegion", { ability: "Swift Swim", nature: "Jolly", evs: { spe: 252 } })
+    const pokemon = new Pokemon("Basculegion", { ability: new Ability("Swift Swim"), nature: "Jolly", evs: { spe: 252 } })
     const field = new Field()
     field.weather = "Rain"
 
@@ -158,7 +159,7 @@ describe("SmogonFunctions", () => {
   })
 
   it("should return the speed of Beartic with Slush Rush in the Snow", () => {
-    const pokemon = new Pokemon("Beartic", { ability: "Slush Rush", nature: "Jolly", evs: { spe: 252 } })
+    const pokemon = new Pokemon("Beartic", { ability: new Ability("Slush Rush"), nature: "Jolly", evs: { spe: 252 } })
     const field = new Field()
     field.weather = "Snow"
 
@@ -168,7 +169,7 @@ describe("SmogonFunctions", () => {
   })
 
   it("should return the speed of Raichu-Alola with Surge Surfer in the Eletric Terrain", () => {
-    const pokemon = new Pokemon("Raichu-Alola", { ability: "Surge Surfer", nature: "Timid", evs: { spe: 252 } })
+    const pokemon = new Pokemon("Raichu-Alola", { ability: new Ability("Surge Surfer"), nature: "Timid", evs: { spe: 252 } })
     const field = new Field()
     field.terrain = "Electric"
 
@@ -178,7 +179,7 @@ describe("SmogonFunctions", () => {
   })
 
   it("should return the speed of Jolteon with Quick Feet when it has status condition", () => {
-    const pokemon = new Pokemon("Jolteon", { ability: "Quick Feet", status: "Burn", nature: "Timid", evs: { spe: 252 } })
+    const pokemon = new Pokemon("Jolteon", { ability: new Ability("Quick Feet"), status: "Burn", nature: "Timid", evs: { spe: 252 } })
     const field = new Field()
 
     const finalSpeed = service.getFinalSpeed(pokemon, field)
@@ -187,7 +188,7 @@ describe("SmogonFunctions", () => {
   })
 
   it("should return the speed of Regigigas with Slow Start when tha ability is on", () => {
-    const pokemon = new Pokemon("Regigigas", { ability: "Slow Start", abilityOn: true, nature: "Jolly", evs: { spe: 252 } })
+    const pokemon = new Pokemon("Regigigas", { ability: new Ability("Slow Start", true), nature: "Jolly", evs: { spe: 252 } })
     const field = new Field()
 
     const finalSpeed = service.getFinalSpeed(pokemon, field)
@@ -196,7 +197,7 @@ describe("SmogonFunctions", () => {
   })
 
   it("should return the speed of Regigigas with Slow Start when tha ability is off", () => {
-    const pokemon = new Pokemon("Regigigas", { ability: "Slow Start", abilityOn: false, nature: "Jolly", evs: { spe: 252 } })
+    const pokemon = new Pokemon("Regigigas", { ability: new Ability("Slow Start", false), nature: "Jolly", evs: { spe: 252 } })
     const field = new Field()
 
     const finalSpeed = service.getFinalSpeed(pokemon, field)

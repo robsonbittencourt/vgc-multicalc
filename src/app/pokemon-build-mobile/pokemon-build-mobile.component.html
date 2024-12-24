@@ -104,9 +104,9 @@
     </div>
 
     <div class="combo-option ability">
-      @if (pokemon().actionableAbility) {
+      @if (pokemon().ability.actionableAbility) {
         <div class="ability-checkbox">
-          <mat-checkbox [ngModel]="pokemon().abilityOn" (change)="store.abilityOn(pokemonId(), $event.checked)" />
+          <mat-checkbox [ngModel]="pokemon().ability.on" (change)="store.abilityOn(pokemonId(), $event.checked)" />
         </div>
       }
 
@@ -121,8 +121,8 @@
       }
 
       @if (pokemon().isParadoxAbility) {
-        <button class="icon-button" (click)="store.abilityOn(pokemonId(), !pokemon().abilityOn)" matTooltip="Booster Energy">
-          @if (pokemon().abilityOn) {
+        <button class="icon-button" (click)="store.abilityOn(pokemonId(), !pokemon().ability.on)" matTooltip="Booster Energy">
+          @if (pokemon().ability.on) {
             <img class="icon-tatsugiri" src="assets/icons/booster-energy.png" />
           } @else {
             <img class="icon-tatsugiri" src="assets/icons/booster-energy-gray.png" />

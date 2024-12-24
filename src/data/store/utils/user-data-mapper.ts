@@ -1,5 +1,6 @@
 import { CalculatorState, PokemonState, TargetState, TeamMemberState, TeamState } from "@data/store/calculator-store"
 import { stateToPokemon } from "@data/store/utils/state-mapper"
+import { SELECT_POKEMON_LABEL } from "@lib/constants"
 import { defaultPokemon } from "@lib/default-pokemon"
 import { v4 as uuidv4 } from "uuid"
 
@@ -54,6 +55,7 @@ function buildPokemonToUserData(pokemon: PokemonState) {
     nature: pokemon.nature,
     item: pokemon.item,
     ability: pokemon.ability,
+    abilityOn: pokemon.abilityOn,
     commanderActive: pokemon.commanderActive,
     teraType: pokemon.teraType,
     teraTypeActive: pokemon.teraTypeActive,
@@ -61,21 +63,24 @@ function buildPokemonToUserData(pokemon: PokemonState) {
     status: pokemon.status,
     boosts: pokemon.boosts,
     activeMove: pokemon.activeMove,
-    abilityOn: pokemon.abilityOn,
     ivs: pokemon.ivs,
     moveSet: [pokemon.moveSet[0].name, pokemon.moveSet[1].name, pokemon.moveSet[2].name, pokemon.moveSet[3].name]
   }
 }
 
 function buildPokemonState(pokemon: any): PokemonState {
+  const isDefault = pokemon.name == SELECT_POKEMON_LABEL
+  const ability = isDefault ? pokemon.ability.name : pokemon.ability
+  const abilityOn = isDefault ? pokemon.ability.on : pokemon.abilityOn
+
   return {
     id: uuidv4(),
     name: pokemon.name,
     nature: pokemon.nature,
     item: pokemon.item,
     status: pokemon.status,
-    ability: pokemon.ability,
-    abilityOn: pokemon.abilityOn,
+    ability: ability,
+    abilityOn: abilityOn,
     commanderActive: pokemon.commanderActive,
     teraType: pokemon.teraType,
     teraTypeActive: pokemon.teraTypeActive,

@@ -1,4 +1,5 @@
 import { PokemonState, TargetState, TeamState } from "@data/store/calculator-store"
+import { Ability } from "@lib/model/ability"
 import { Move } from "@lib/model/move"
 import { MoveSet } from "@lib/model/moveset"
 import { Pokemon } from "@lib/model/pokemon"
@@ -19,8 +20,7 @@ export function stateToPokemon(state: PokemonState) {
     nature: state.nature,
     item: state.item,
     status: state.status,
-    ability: state.ability,
-    abilityOn: state.abilityOn,
+    ability: new Ability(state.ability, state.abilityOn),
     commanderActive: state.commanderActive,
     teraType: state.teraType,
     teraTypeActive: state.teraTypeActive,
@@ -39,8 +39,8 @@ export function pokemonToState(pokemon: Pokemon): PokemonState {
     nature: pokemon.nature,
     item: pokemon.item,
     status: pokemon.status,
-    ability: pokemon.ability,
-    abilityOn: pokemon.abilityOn,
+    ability: pokemon.ability.name,
+    abilityOn: pokemon.ability.on,
     commanderActive: pokemon.commanderActive,
     teraType: pokemon.teraType,
     teraTypeActive: pokemon.teraTypeActive,

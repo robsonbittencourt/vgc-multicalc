@@ -1,5 +1,6 @@
 import { provideExperimentalZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
+import { Ability } from "@lib/model/ability"
 import { Move } from "@lib/model/move"
 import { MoveSet } from "@lib/model/moveset"
 import { Pokemon } from "@lib/model/pokemon"
@@ -18,7 +19,7 @@ describe("ExportPokeService", () => {
 
   it("should export a Pokémon", () => {
     const pokemon = new Pokemon("Rillaboom", {
-      ability: "Grassy Surge",
+      ability: new Ability("Grassy Surge"),
       nature: "Adamant",
       item: "Assault Vest",
       teraType: "Fire",
@@ -43,7 +44,7 @@ Adamant Nature
 
   it("should export a list of Pokémon", () => {
     const pokemon1 = new Pokemon("Rillaboom", {
-      ability: "Grassy Surge",
+      ability: new Ability("Grassy Surge"),
       nature: "Adamant",
       item: "Assault Vest",
       teraType: "Fire",
@@ -52,7 +53,7 @@ Adamant Nature
     })
 
     const pokemon2 = new Pokemon("Incineroar", {
-      ability: "Intimidate",
+      ability: new Ability("Intimidate"),
       nature: "Jolly",
       item: "Safety Goggles",
       teraType: "Ghost",
@@ -61,7 +62,7 @@ Adamant Nature
     })
 
     const pokemon3 = new Pokemon("Urshifu-Rapid-Strike", {
-      ability: "Unseen Fist",
+      ability: new Ability("Unseen Fist"),
       nature: "Adamant",
       item: "Focus Sash",
       teraType: "Stellar",
