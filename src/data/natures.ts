@@ -1,4 +1,4 @@
-import { KeyValuePair } from "@app/input-autocomplete/input-autocomplete.component"
+import { KeyValuePair } from "@app/shared/input-autocomplete/input-autocomplete.component"
 
 export class Natures {
   private static _instance: Natures

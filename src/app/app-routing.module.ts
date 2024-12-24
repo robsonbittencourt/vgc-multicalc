@@ -1,8 +1,8 @@
 import { NgModule } from "@angular/core"
 import { RouterModule, Routes } from "@angular/router"
 import { UserDataResolver } from "@lib/user-data/user-data-resolver"
-import { MainComponent } from "./main/main.component"
-import { NotFoundPageComponent } from "./not-found-page/not-found-page.component"
+import { MainComponent } from "./core/main/main.component"
+import { NotFoundPageComponent } from "./core/not-found-page/not-found-page.component"
 
 const appRoutes: Routes = [
   { path: "", component: MainComponent },
