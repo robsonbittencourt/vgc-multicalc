@@ -5,6 +5,7 @@ import { FieldMapper } from "@lib/field-mapper"
 import { Field } from "@lib/model/field"
 import { Move } from "@lib/model/move"
 import { Pokemon } from "@lib/model/pokemon"
+import { SmogonPokemonBuilder } from "@lib/smogon-functions/smogon-pokemon-builder"
 import { calculate, Generations, Move as MoveSmogon, Result } from "@robsonbittencourt/calc"
 
 @Injectable({
@@ -14,6 +15,7 @@ export class DamageCalculatorService {
   ZERO_RESULT_DAMAGE = Array(16).fill(0)
 
   adjusters = inject(CALC_ADJUSTERS)
+  builder = inject(SmogonPokemonBuilder)
 
   calcDamage(attacker: Pokemon, target: Pokemon, field: Field): DamageResult {
     const result = this.calculateResult(attacker, target, attacker.move, field, field.isCriticalHit)
@@ -49,14 +51,17 @@ export class DamageCalculatorService {
 
     this.adjusters.forEach(a => a.adjust(attacker, target, move, moveSmogon, smogonField, secondAttacker))
 
-    const result = calculate(gen, attacker.pokemonSmogon, target.pokemonSmogon, moveSmogon, smogonField)
+    const smogonAttacker = this.builder.fromExisting(attacker)
+    const smogonTarget = this.builder.fromExisting(target)
+
+    const result = calculate(gen, smogonAttacker, smogonTarget, moveSmogon, smogonField)
 
     if (!result.damage) {
       result.damage = this.ZERO_RESULT_DAMAGE
       return result
     }
 
-    return calculate(gen, attacker.pokemonSmogon, target.pokemonSmogon, moveSmogon, smogonField)
+    return calculate(gen, smogonAttacker, smogonTarget, moveSmogon, smogonField)
   }
 
   private sumDamageResult(result: Result, secondResult: Result): number[] {

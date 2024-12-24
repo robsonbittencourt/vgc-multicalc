@@ -1,12 +1,12 @@
-import { AllPokemon } from "@data/all-pokemon"
 import { Items } from "@data/items"
-import { DEFAULT_TERA_TYPE } from "@lib/constants"
+import { DEFAULT_TERA_TYPE, SELECT_POKEMON_LABEL, STATUS_CONDITIONS } from "@lib/constants"
 import { Move } from "@lib/model/move"
 import { MoveSet } from "@lib/model/moveset"
 import { SmogonFunctions } from "@lib/smogon-functions/smogon-functions"
+import { SmogonPokemonBuilder } from "@lib/smogon-functions/smogon-pokemon-builder"
 import { PokemonParameters, Stats } from "@lib/types"
-import { Generations, Pokemon as PokemonSmogon } from "@robsonbittencourt/calc"
-import { StatsTable, StatusName, TypeName } from "@robsonbittencourt/calc/dist/data/interface"
+import { Pokemon as PokemonSmogon } from "@robsonbittencourt/calc"
+import { StatsTable, TypeName } from "@robsonbittencourt/calc/dist/data/interface"
 import { StatID, StatIDExceptHP } from "@robsonbittencourt/calc/src/data/interface"
 import { v4 as uuidv4 } from "uuid"
 
@@ -18,41 +18,30 @@ export class Pokemon {
   readonly commanderActive: boolean
   readonly higherStat: StatIDExceptHP
 
-  pokemonSmogon: PokemonSmogon
+  private pokemonSmogon: PokemonSmogon
   private smogonFunctions = new SmogonFunctions()
 
-  private SELECT_POKEMON_LABEL = "Select a Pokémon"
-
-  private STATUS_CONDITIONS = [
-    { code: "", description: "Healthy" },
-    { code: "slp", description: "Sleep" },
-    { code: "psn", description: "Poison" },
-    { code: "brn", description: "Burn" },
-    { code: "frz", description: "Freeze" },
-    { code: "par", description: "Paralysis" }
-  ]
-
   constructor(name: string, options: PokemonParameters = {}) {
-    const adjustedName = name == this.SELECT_POKEMON_LABEL ? "Togepi" : name
-    this.pokemonSmogon = this.buildPokemonSmogon(adjustedName, options)
+    const adjustedName = name == SELECT_POKEMON_LABEL ? "Togepi" : name
+    this.pokemonSmogon = new SmogonPokemonBuilder().fromScratch(adjustedName, options)
 
     this.id = options.id ?? uuidv4()
     this.hpPercentage = options.hpPercentage ?? 100
     this.commanderActive = options.commanderActive ?? false
     this.teraType = options.teraType ?? DEFAULT_TERA_TYPE
     this.moveSet = options.moveSet ?? new MoveSet(new Move("Struggle"), new Move("Struggle"), new Move("Struggle"), new Move("Struggle"))
-    this.higherStat = this.higherStatSmogon(this.pokemonSmogon)
+    this.higherStat = this.smogonFunctions.higherStat(this.pokemonSmogon)
   }
 
   get name(): string {
-    if (this.isDefault) return this.SELECT_POKEMON_LABEL
+    if (this.isDefault) return SELECT_POKEMON_LABEL
 
     return this.pokemonSmogon.name
   }
 
   get displayName(): string {
     if (this.isDefault) {
-      return this.SELECT_POKEMON_LABEL
+      return SELECT_POKEMON_LABEL
     }
 
     if (this.isNameWithHiphen()) {
@@ -64,7 +53,7 @@ export class Pokemon {
 
   get displayNameWithoutSuffix(): string {
     if (this.isDefault) {
-      return this.SELECT_POKEMON_LABEL
+      return SELECT_POKEMON_LABEL
     }
 
     if (this.isNameWithHiphen()) {
@@ -284,63 +273,15 @@ export class Pokemon {
     )
   }
 
-  private buildPokemonSmogon(pokemonName: string, options: PokemonParameters): PokemonSmogon {
-    const pokemonSmogon = new PokemonSmogon(Generations.get(9), pokemonName, {
-      nature: options.nature ?? "Hardy",
-      item: options.item != Items.instance.withoutItem() ? options.item : undefined,
-      ability: options.ability ?? AllPokemon.instance.abilitiesByName(pokemonName)[0],
-      abilityOn: options.abilityOn ?? false,
-      teraType: pokemonName == "Terapagos-Stellar" || options.teraTypeActive ? ((options.teraType as TypeName) ?? DEFAULT_TERA_TYPE) : undefined,
-      evs: options.evs,
-      ivs: options.ivs,
-      boosts: options.boosts,
-      status: this.statusCodeByDescription(options.status ?? "Healthy"),
-      level: 50
-    })
-
-    const hpPercentage = options.hpPercentage ?? 100
-    pokemonSmogon.originalCurHP = Math.round((pokemonSmogon.maxHP() * hpPercentage) / 100)
-
-    this.applyStatBoost(pokemonSmogon)
-
-    return pokemonSmogon
-  }
-
-  private applyStatBoost(pokemonSmogon: PokemonSmogon) {
-    const isParadoxAbility = this.isSmogonParadoxAbility(pokemonSmogon)
-
-    if (isParadoxAbility && pokemonSmogon.abilityOn) {
-      pokemonSmogon.boostedStat = this.higherStatSmogon(pokemonSmogon)
-    } else {
-      pokemonSmogon.boostedStat = undefined
-    }
-  }
-
   private isSmogonParadoxAbility(pokemonSmogon: PokemonSmogon): boolean {
     return pokemonSmogon.ability == "Protosynthesis" || pokemonSmogon.ability == "Quark Drive"
-  }
-
-  private higherStatSmogon(pokemonSmogon: PokemonSmogon): StatIDExceptHP {
-    let bestStat: StatID = "atk"
-
-    for (const stat of ["def", "spa", "spd", "spe"] as StatIDExceptHP[]) {
-      if (pokemonSmogon.rawStats[stat] > pokemonSmogon.rawStats[bestStat]) {
-        bestStat = stat
-      }
-    }
-
-    return bestStat
   }
 
   private getModifiedStat(pokemonSmogon: PokemonSmogon, stat: StatID) {
     return this.smogonFunctions.getModifiedStat(pokemonSmogon.rawStats[stat], pokemonSmogon.boosts[stat])
   }
 
-  private statusCodeByDescription(description: string): StatusName {
-    return this.STATUS_CONDITIONS.find(s => s.description === description)!.code as StatusName
-  }
-
   private statusDescriptionByCode(code: string): string {
-    return this.STATUS_CONDITIONS.find(s => s.code === code)!.description
+    return STATUS_CONDITIONS.find(s => s.code === code)!.description
   }
 }

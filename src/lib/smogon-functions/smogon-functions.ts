@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core"
 import { Pokemon } from "@lib/model/pokemon"
-import { Field, Side } from "@robsonbittencourt/calc"
+import { Field, Pokemon as PokemonSmogon, Side, StatID } from "@robsonbittencourt/calc"
+import { StatIDExceptHP } from "@robsonbittencourt/calc/src/data/interface"
 
 @Injectable()
 export class SmogonFunctions {
@@ -70,6 +71,18 @@ export class SmogonFunctions {
     stat = Math.floor(stat / modernGenBoostTable[6 + mod][denominator])
 
     return stat
+  }
+
+  higherStat(pokemonSmogon: PokemonSmogon): StatIDExceptHP {
+    let bestStat: StatID = "atk"
+
+    for (const stat of ["def", "spa", "spd", "spe"] as StatIDExceptHP[]) {
+      if (pokemonSmogon.rawStats[stat] > pokemonSmogon.rawStats[bestStat]) {
+        bestStat = stat
+      }
+    }
+
+    return bestStat
   }
 
   private isQPActive(pokemon: Pokemon, field: Field) {
