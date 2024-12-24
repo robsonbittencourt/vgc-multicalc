@@ -15,6 +15,7 @@ export class DamageCalculatorService {
   ZERO_RESULT_DAMAGE = Array(16).fill(0)
 
   adjusters = inject(CALC_ADJUSTERS)
+  fieldMapper = inject(FieldMapper)
   builder = inject(SmogonPokemonBuilder)
 
   calcDamage(attacker: Pokemon, target: Pokemon, field: Field): DamageResult {
@@ -42,7 +43,7 @@ export class DamageCalculatorService {
 
   private calculateResult(attacker: Pokemon, target: Pokemon, move: Move, field: Field, criticalHit: boolean, secondAttacker?: Pokemon): Result {
     const gen = Generations.get(9)
-    const smogonField = new FieldMapper().toSmogon(field)
+    const smogonField = this.fieldMapper.toSmogon(field)
 
     const moveSmogon = new MoveSmogon(gen, move.name)
     moveSmogon.isCrit = criticalHit

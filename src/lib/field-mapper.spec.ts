@@ -1,7 +1,19 @@
+import { provideExperimentalZonelessChangeDetection } from "@angular/core"
+import { TestBed } from "@angular/core/testing"
 import { FieldMapper } from "@lib/field-mapper"
 import { Field, FieldAttackerSide, FieldDefenderSide } from "@lib/model/field"
 
 describe("FieldMapper", () => {
+  let mapper: FieldMapper
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [provideExperimentalZonelessChangeDetection()]
+    })
+
+    mapper = TestBed.inject(FieldMapper)
+  })
+
   describe("Mapping to Smogon class", () => {
     it("should mapping Field to Smogon Field with some configs turned on", () => {
       const field = new Field({
@@ -19,7 +31,7 @@ describe("FieldMapper", () => {
         isCriticalHit: false
       })
 
-      const smogonField = new FieldMapper().toSmogon(field)
+      const smogonField = mapper.toSmogon(field)
 
       expect(smogonField.gameType).toEqual("Doubles")
       expect(smogonField.weather).toEqual("Sun")
@@ -49,7 +61,7 @@ describe("FieldMapper", () => {
         isCriticalHit: true
       })
 
-      const smogonField = new FieldMapper().toSmogon(field)
+      const smogonField = mapper.toSmogon(field)
 
       expect(smogonField.gameType).toEqual("Singles")
       expect(smogonField.weather).toEqual("Rain")
@@ -67,7 +79,7 @@ describe("FieldMapper", () => {
       const attackerSide = new FieldAttackerSide({ isHelpingHand: true, isBattery: false, isPowerSpot: true, isTailwind: false })
       const field = new Field({ attackerSide })
 
-      const smogonField = new FieldMapper().toSmogon(field)
+      const smogonField = mapper.toSmogon(field)
 
       expect(smogonField.attackerSide.isHelpingHand).toEqual(true)
       expect(smogonField.attackerSide.isBattery).toEqual(false)
@@ -79,7 +91,7 @@ describe("FieldMapper", () => {
       const attackerSide = new FieldAttackerSide({ isHelpingHand: false, isBattery: true, isPowerSpot: false, isTailwind: true })
       const field = new Field({ attackerSide })
 
-      const smogonField = new FieldMapper().toSmogon(field)
+      const smogonField = mapper.toSmogon(field)
 
       expect(smogonField.attackerSide.isHelpingHand).toEqual(false)
       expect(smogonField.attackerSide.isBattery).toEqual(true)
@@ -91,7 +103,7 @@ describe("FieldMapper", () => {
       const defenderSide = new FieldDefenderSide({ isTailwind: false, isReflect: true, isLightScreen: false, isAuroraVeil: true, isFriendGuard: false, spikes: 0, isSR: false, isSeeded: true })
       const field = new Field({ defenderSide })
 
-      const smogonField = new FieldMapper().toSmogon(field)
+      const smogonField = mapper.toSmogon(field)
 
       expect(smogonField.defenderSide.isTailwind).toEqual(false)
       expect(smogonField.defenderSide.isReflect).toEqual(true)
@@ -107,7 +119,7 @@ describe("FieldMapper", () => {
       const defenderSide = new FieldDefenderSide({ isTailwind: true, isReflect: false, isLightScreen: true, isAuroraVeil: false, isFriendGuard: true, spikes: 3, isSR: false, isSeeded: true })
       const field = new Field({ defenderSide })
 
-      const smogonField = new FieldMapper().toSmogon(field)
+      const smogonField = mapper.toSmogon(field)
 
       expect(smogonField.defenderSide.isTailwind).toEqual(true)
       expect(smogonField.defenderSide.isReflect).toEqual(false)

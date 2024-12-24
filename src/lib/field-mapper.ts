@@ -1,7 +1,9 @@
+import { Injectable } from "@angular/core"
 import { Field, FieldAttackerSide, FieldDefenderSide } from "@lib/model/field"
 import { Side, Field as SmogonField } from "@robsonbittencourt/calc"
 import { Terrain as SmogonTerrain, Weather as SmogonWeather } from "@robsonbittencourt/calc/src/data/interface"
 
+@Injectable({ providedIn: "root" })
 export class FieldMapper {
   toSmogon(field: Field): SmogonField {
     const smogonField = new SmogonField()

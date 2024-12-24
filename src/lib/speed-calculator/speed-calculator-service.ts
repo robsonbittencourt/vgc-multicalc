@@ -14,10 +14,11 @@ import { Generations, Pokemon as PokemonSmogon, Field as SmogonField } from "@ro
 })
 export class SpeedCalculatorService {
   private smogonService = inject(SmogonFunctions)
+  private fieldMapper = inject(FieldMapper)
 
   orderedPokemon(pokemon: Pokemon, field: Field, options: SpeedCalculatorOptions = new SpeedCalculatorOptions()): SpeedDefinition[] {
     const speedDefinitions: SpeedDefinition[] = []
-    const smogonField = new FieldMapper().toSmogon(field)
+    const smogonField = this.fieldMapper.toSmogon(field)
 
     speedDefinitions.push(this.buildActual(pokemon, smogonField))
     speedDefinitions.push(...this.loadSpeedMeta(options, smogonField))
