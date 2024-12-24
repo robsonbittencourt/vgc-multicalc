@@ -7,7 +7,7 @@ import { Status } from "@lib/model/status"
 import { SmogonFunctions } from "@lib/smogon/smogon-functions"
 import { SmogonPokemonBuilder } from "@lib/smogon/smogon-pokemon-builder"
 import { PokemonParameters, Stats } from "@lib/types"
-import { Pokemon as PokemonSmogon } from "@robsonbittencourt/calc"
+import { Pokemon as SmogonPokemon } from "@robsonbittencourt/calc"
 import { StatsTable, TypeName } from "@robsonbittencourt/calc/dist/data/interface"
 import { StatID, StatIDExceptHP } from "@robsonbittencourt/calc/src/data/interface"
 import { v4 as uuidv4 } from "uuid"
@@ -21,26 +21,26 @@ export class Pokemon {
   readonly commanderActive: boolean
   readonly higherStat: StatIDExceptHP
 
-  private pokemonSmogon: PokemonSmogon
+  private smogonPokemon: SmogonPokemon
   private smogonFunctions = new SmogonFunctions()
 
   constructor(name: string, options: PokemonParameters = {}) {
     const adjustedName = name == SELECT_POKEMON_LABEL ? "Togepi" : name
-    this.pokemonSmogon = new SmogonPokemonBuilder().fromScratch(adjustedName, options)
+    this.smogonPokemon = new SmogonPokemonBuilder().fromScratch(adjustedName, options)
 
     this.id = options.id ?? uuidv4()
     this.moveSet = options.moveSet ?? new MoveSet(new Move("Struggle"), new Move("Struggle"), new Move("Struggle"), new Move("Struggle"))
-    this.ability = new Ability(this.pokemonSmogon.ability as string, this.pokemonSmogon.abilityOn)
+    this.ability = new Ability(this.smogonPokemon.ability as string, this.smogonPokemon.abilityOn)
     this.teraType = options.teraType ?? DEFAULT_TERA_TYPE
     this.hpPercentage = options.hpPercentage ?? 100
     this.commanderActive = options.commanderActive ?? false
-    this.higherStat = this.smogonFunctions.higherStat(this.pokemonSmogon)
+    this.higherStat = this.smogonFunctions.higherStat(this.smogonPokemon)
   }
 
   get name(): string {
     if (this.isDefault) return SELECT_POKEMON_LABEL
 
-    return this.pokemonSmogon.name
+    return this.smogonPokemon.name
   }
 
   get displayName(): string {
@@ -49,10 +49,10 @@ export class Pokemon {
     }
 
     if (this.isNameWithHiphen()) {
-      return this.pokemonSmogon.name
+      return this.smogonPokemon.name
     }
 
-    return this.pokemonSmogon.name.replaceAll("-", " ")
+    return this.smogonPokemon.name.replaceAll("-", " ")
   }
 
   get displayNameWithoutSuffix(): string {
@@ -61,68 +61,68 @@ export class Pokemon {
     }
 
     if (this.isNameWithHiphen()) {
-      return this.pokemonSmogon.name
+      return this.smogonPokemon.name
     }
 
-    if (this.pokemonSmogon.name.includes("-")) {
-      return this.pokemonSmogon.name.substring(0, this.pokemonSmogon.name.indexOf("-"))
+    if (this.smogonPokemon.name.includes("-")) {
+      return this.smogonPokemon.name.substring(0, this.smogonPokemon.name.indexOf("-"))
     }
 
-    return this.pokemonSmogon.name
+    return this.smogonPokemon.name
   }
 
   private isNameWithHiphen(): boolean {
     const namesWithHiphen = ["Porygon-Z", "Ho-Oh", "Jangmo-o", "Hakamo-o", "Kommo-o", "Ting-Lu", "Chien-Pao", "Wo-Chien", "Chi-Yu"]
 
-    return namesWithHiphen.includes(this.pokemonSmogon.name)
+    return namesWithHiphen.includes(this.smogonPokemon.name)
   }
 
   get type1(): TypeName {
-    return this.pokemonSmogon.types[0]
+    return this.smogonPokemon.types[0]
   }
 
   get type2(): TypeName | undefined {
-    return this.pokemonSmogon.types[1]
+    return this.smogonPokemon.types[1]
   }
 
   get level(): number {
-    return this.pokemonSmogon.level
+    return this.smogonPokemon.level
   }
 
   get nature(): string {
-    return this.pokemonSmogon.nature as string
+    return this.smogonPokemon.nature as string
   }
 
   get item(): string {
-    if (!this.pokemonSmogon.item) {
+    if (!this.smogonPokemon.item) {
       return Items.instance.withoutItem()
     }
 
-    return this.pokemonSmogon.item as string
+    return this.smogonPokemon.item as string
   }
 
   get evs(): Partial<Stats> {
-    return this.pokemonSmogon.evs
+    return this.smogonPokemon.evs
   }
 
   get totalEvs(): number {
-    return this.pokemonSmogon.evs.hp + this.pokemonSmogon.evs.atk + this.pokemonSmogon.evs.def + this.pokemonSmogon.evs.spa + this.pokemonSmogon.evs.spd + this.pokemonSmogon.evs.spe
+    return this.smogonPokemon.evs.hp + this.smogonPokemon.evs.atk + this.smogonPokemon.evs.def + this.smogonPokemon.evs.spa + this.smogonPokemon.evs.spd + this.smogonPokemon.evs.spe
   }
 
   get ivs(): Partial<Stats> {
-    return this.pokemonSmogon.ivs
+    return this.smogonPokemon.ivs
   }
 
   get boosts(): StatsTable {
-    return this.pokemonSmogon.boosts
+    return this.smogonPokemon.boosts
   }
 
   get status(): Status {
-    return Status.byCode(this.pokemonSmogon.status)
+    return Status.byCode(this.smogonPokemon.status)
   }
 
   get teraTypeActive(): boolean {
-    return this.pokemonSmogon.teraType != undefined || this.isTerapagosStellar
+    return this.smogonPokemon.teraType != undefined || this.isTerapagosStellar
   }
 
   get move(): Move {
@@ -150,63 +150,63 @@ export class Pokemon {
   }
 
   get hp(): number {
-    return this.pokemonSmogon.stats.hp
+    return this.smogonPokemon.stats.hp
   }
 
   get actualHp(): number {
-    return this.pokemonSmogon.curHP()
+    return this.smogonPokemon.curHP()
   }
 
   get baseHp(): number {
-    return this.pokemonSmogon.species.baseStats.hp
+    return this.smogonPokemon.species.baseStats.hp
   }
 
   get baseAtk(): number {
-    return this.pokemonSmogon.species.baseStats.atk
+    return this.smogonPokemon.species.baseStats.atk
   }
 
   get modifiedAtk(): number {
-    return this.getModifiedStat(this.pokemonSmogon, "atk")
+    return this.getModifiedStat(this.smogonPokemon, "atk")
   }
 
   get baseDef(): number {
-    return this.pokemonSmogon.species.baseStats.def
+    return this.smogonPokemon.species.baseStats.def
   }
 
   get modifiedDef(): number {
-    return this.getModifiedStat(this.pokemonSmogon, "def")
+    return this.getModifiedStat(this.smogonPokemon, "def")
   }
 
   get baseSpa(): number {
-    return this.pokemonSmogon.species.baseStats.spa
+    return this.smogonPokemon.species.baseStats.spa
   }
 
   get modifiedSpa(): number {
-    return this.getModifiedStat(this.pokemonSmogon, "spa")
+    return this.getModifiedStat(this.smogonPokemon, "spa")
   }
 
   get baseSpd(): number {
-    return this.pokemonSmogon.species.baseStats.spd
+    return this.smogonPokemon.species.baseStats.spd
   }
 
   get modifiedSpd(): number {
-    return this.getModifiedStat(this.pokemonSmogon, "spd")
+    return this.getModifiedStat(this.smogonPokemon, "spd")
   }
 
   get baseSpe(): number {
-    return this.pokemonSmogon.species.baseStats.spe
+    return this.smogonPokemon.species.baseStats.spe
   }
 
   get modifiedSpe(): number {
-    return this.getModifiedStat(this.pokemonSmogon, "spe")
+    return this.getModifiedStat(this.smogonPokemon, "spe")
   }
 
   get isParadoxAbility() {
-    return this.isSmogonParadoxAbility(this.pokemonSmogon)
+    return this.isSmogonParadoxAbility(this.smogonPokemon)
   }
 
   get isDefault() {
-    return this.pokemonSmogon.name == "Togepi"
+    return this.smogonPokemon.name == "Togepi"
   }
 
   get isOgerpon(): boolean {
@@ -239,26 +239,26 @@ export class Pokemon {
 
   equals(toCompare: Pokemon): boolean {
     return (
-      this.pokemonSmogon.name === toCompare.pokemonSmogon.name &&
-      this.pokemonSmogon.nature === toCompare.pokemonSmogon.nature &&
-      this.pokemonSmogon.item === toCompare.pokemonSmogon.item &&
-      this.pokemonSmogon.ability === toCompare.pokemonSmogon.ability &&
+      this.smogonPokemon.name === toCompare.smogonPokemon.name &&
+      this.smogonPokemon.nature === toCompare.smogonPokemon.nature &&
+      this.smogonPokemon.item === toCompare.smogonPokemon.item &&
+      this.smogonPokemon.ability === toCompare.smogonPokemon.ability &&
       this.teraType === toCompare.teraType &&
       this.teraTypeActive === toCompare.teraTypeActive &&
-      this.pokemonSmogon.evs.hp === toCompare.pokemonSmogon.evs.hp &&
-      this.pokemonSmogon.evs.atk === toCompare.pokemonSmogon.evs.atk &&
-      this.pokemonSmogon.evs.def === toCompare.pokemonSmogon.evs.def &&
-      this.pokemonSmogon.evs.spa === toCompare.pokemonSmogon.evs.spa &&
-      this.pokemonSmogon.evs.spd === toCompare.pokemonSmogon.evs.spd &&
-      this.pokemonSmogon.evs.spe === toCompare.pokemonSmogon.evs.spe
+      this.smogonPokemon.evs.hp === toCompare.smogonPokemon.evs.hp &&
+      this.smogonPokemon.evs.atk === toCompare.smogonPokemon.evs.atk &&
+      this.smogonPokemon.evs.def === toCompare.smogonPokemon.evs.def &&
+      this.smogonPokemon.evs.spa === toCompare.smogonPokemon.evs.spa &&
+      this.smogonPokemon.evs.spd === toCompare.smogonPokemon.evs.spd &&
+      this.smogonPokemon.evs.spe === toCompare.smogonPokemon.evs.spe
     )
   }
 
-  private isSmogonParadoxAbility(pokemonSmogon: PokemonSmogon): boolean {
-    return pokemonSmogon.ability == "Protosynthesis" || pokemonSmogon.ability == "Quark Drive"
+  private isSmogonParadoxAbility(smogonPokemon: SmogonPokemon): boolean {
+    return smogonPokemon.ability == "Protosynthesis" || smogonPokemon.ability == "Quark Drive"
   }
 
-  private getModifiedStat(pokemonSmogon: PokemonSmogon, stat: StatID) {
-    return this.smogonFunctions.getModifiedStat(pokemonSmogon.rawStats[stat], pokemonSmogon.boosts[stat])
+  private getModifiedStat(smogonPokemon: SmogonPokemon, stat: StatID) {
+    return this.smogonFunctions.getModifiedStat(smogonPokemon.rawStats[stat], smogonPokemon.boosts[stat])
   }
 }

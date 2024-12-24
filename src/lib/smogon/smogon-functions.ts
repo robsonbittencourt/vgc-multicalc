@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core"
 import { Pokemon } from "@lib/model/pokemon"
 import { Status } from "@lib/model/status"
-import { Field, Pokemon as PokemonSmogon, Side, StatID } from "@robsonbittencourt/calc"
+import { Field, Side, Pokemon as SmogonPokemon, StatID } from "@robsonbittencourt/calc"
 import { StatIDExceptHP } from "@robsonbittencourt/calc/src/data/interface"
 
 @Injectable({ providedIn: "root" })
@@ -74,11 +74,11 @@ export class SmogonFunctions {
     return stat
   }
 
-  higherStat(pokemonSmogon: PokemonSmogon): StatIDExceptHP {
+  higherStat(smogonPokemon: SmogonPokemon): StatIDExceptHP {
     let bestStat: StatID = "atk"
 
     for (const stat of ["def", "spa", "spd", "spe"] as StatIDExceptHP[]) {
-      if (pokemonSmogon.rawStats[stat] > pokemonSmogon.rawStats[bestStat]) {
+      if (smogonPokemon.rawStats[stat] > smogonPokemon.rawStats[bestStat]) {
         bestStat = stat
       }
     }

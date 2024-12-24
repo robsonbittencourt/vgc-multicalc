@@ -7,7 +7,7 @@ import { Pokemon } from "@lib/model/pokemon"
 import { Status } from "@lib/model/status"
 import { SmogonFunctions } from "@lib/smogon/smogon-functions"
 import { PokemonParameters } from "@lib/types"
-import { Generations, Pokemon as PokemonSmogon } from "@robsonbittencourt/calc"
+import { Generations, Pokemon as SmogonPokemon } from "@robsonbittencourt/calc"
 import { TypeName } from "@robsonbittencourt/calc/src/data/interface"
 
 @Injectable({
@@ -16,7 +16,7 @@ import { TypeName } from "@robsonbittencourt/calc/src/data/interface"
 export class SmogonPokemonBuilder {
   private smogonFunctions = new SmogonFunctions()
 
-  fromExisting(pokemon: Pokemon): PokemonSmogon {
+  fromExisting(pokemon: Pokemon): SmogonPokemon {
     return this.fromScratch(pokemon.name, {
       nature: pokemon.nature,
       item: pokemon.item,
@@ -31,11 +31,11 @@ export class SmogonPokemonBuilder {
     })
   }
 
-  fromScratch(pokemonName: string, options: PokemonParameters): PokemonSmogon {
+  fromScratch(pokemonName: string, options: PokemonParameters): SmogonPokemon {
     const adjustedName = pokemonName == SELECT_POKEMON_LABEL ? "Togepi" : pokemonName
     const ability = options.ability ?? new Ability(AllPokemon.instance.abilitiesByName(adjustedName)[0])
 
-    const pokemonSmogon = new PokemonSmogon(Generations.get(9), adjustedName, {
+    const smogonPokemon = new SmogonPokemon(Generations.get(9), adjustedName, {
       nature: options.nature ?? "Hardy",
       item: options.item != Items.instance.withoutItem() ? options.item : undefined,
       ability: ability.name,
@@ -49,17 +49,17 @@ export class SmogonPokemonBuilder {
     })
 
     const hpPercentage = options.hpPercentage ?? 100
-    pokemonSmogon.originalCurHP = Math.round((pokemonSmogon.maxHP() * hpPercentage) / 100)
+    smogonPokemon.originalCurHP = Math.round((smogonPokemon.maxHP() * hpPercentage) / 100)
 
-    this.applyStatBoost(pokemonSmogon, ability)
+    this.applyStatBoost(smogonPokemon, ability)
 
-    return pokemonSmogon
+    return smogonPokemon
   }
-  private applyStatBoost(pokemonSmogon: PokemonSmogon, ability: Ability) {
-    if (ability.paradoxAbility && pokemonSmogon.abilityOn) {
-      pokemonSmogon.boostedStat = this.smogonFunctions.higherStat(pokemonSmogon)
+  private applyStatBoost(smogonPokemon: SmogonPokemon, ability: Ability) {
+    if (ability.paradoxAbility && smogonPokemon.abilityOn) {
+      smogonPokemon.boostedStat = this.smogonFunctions.higherStat(smogonPokemon)
     } else {
-      pokemonSmogon.boostedStat = undefined
+      smogonPokemon.boostedStat = undefined
     }
   }
 }

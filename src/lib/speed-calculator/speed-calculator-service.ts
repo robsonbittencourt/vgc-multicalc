@@ -9,7 +9,7 @@ import { SmogonFunctions } from "@lib/smogon/smogon-functions"
 import { SpeedCalculatorOptions } from "@lib/speed-calculator/speed-calculator-options"
 import { SpeedDefinition } from "@lib/speed-calculator/speed-definition"
 import { speedMeta } from "@lib/speed-calculator/speed-meta"
-import { Generations, Pokemon as PokemonSmogon, Field as SmogonField } from "@robsonbittencourt/calc"
+import { Generations, Field as SmogonField, Pokemon as SmogonPokemon } from "@robsonbittencourt/calc"
 
 @Injectable({
   providedIn: "root"
@@ -94,7 +94,7 @@ export class SpeedCalculatorService {
 
   minSpeed(pokemon: Pokemon, smogonField: SmogonField): SpeedDefinition {
     const MAX_BASE_SPEED_FOR_TR = 52
-    const isTrickRoomPokemon = new PokemonSmogon(Generations.get(9), pokemon.name).species.baseStats.spe <= MAX_BASE_SPEED_FOR_TR
+    const isTrickRoomPokemon = new SmogonPokemon(Generations.get(9), pokemon.name).species.baseStats.spe <= MAX_BASE_SPEED_FOR_TR
 
     const nature = isTrickRoomPokemon ? "Brave" : "Bashful"
     const ivs = isTrickRoomPokemon ? { spe: 0 } : { spe: 31 }
