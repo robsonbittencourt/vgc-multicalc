@@ -1,12 +1,13 @@
 import { Injectable } from "@angular/core"
 import { AllPokemon } from "@data/all-pokemon"
 import { Items } from "@data/items"
-import { DEFAULT_TERA_TYPE, SELECT_POKEMON_LABEL, STATUS_CONDITIONS } from "@lib/constants"
+import { DEFAULT_TERA_TYPE, SELECT_POKEMON_LABEL } from "@lib/constants"
 import { Pokemon } from "@lib/model/pokemon"
+import { Status } from "@lib/model/status"
 import { SmogonFunctions } from "@lib/smogon/smogon-functions"
 import { PokemonParameters } from "@lib/types"
 import { Generations, Pokemon as PokemonSmogon } from "@robsonbittencourt/calc"
-import { StatusName, TypeName } from "@robsonbittencourt/calc/src/data/interface"
+import { TypeName } from "@robsonbittencourt/calc/src/data/interface"
 
 @Injectable({
   providedIn: "root"
@@ -42,7 +43,7 @@ export class SmogonPokemonBuilder {
       evs: options.evs,
       ivs: options.ivs,
       boosts: options.boosts,
-      status: this.statusCodeByDescription(options.status ?? "Healthy"),
+      status: Status.getByDescription(options.status ?? "Healthy").code,
       level: 50
     })
 
@@ -53,11 +54,6 @@ export class SmogonPokemonBuilder {
 
     return pokemonSmogon
   }
-
-  private statusCodeByDescription(description: string): StatusName {
-    return STATUS_CONDITIONS.find(s => s.description === description)!.code as StatusName
-  }
-
   private applyStatBoost(pokemonSmogon: PokemonSmogon) {
     const isParadoxAbility = this.isSmogonParadoxAbility(pokemonSmogon)
 

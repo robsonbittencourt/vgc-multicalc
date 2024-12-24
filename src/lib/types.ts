@@ -10,6 +10,8 @@ export type Terrain = "Electric" | "Grassy" | "Psychic" | "Misty" | null
 
 export type Weather = "Sand" | "Sun" | "Rain" | "Snow" | null
 
+export type StatusDescription = "Healthy" | "Sleep" | "Poison" | "Burn" | "Freeze" | "Paralysis"
+
 export type PokemonParameters = {
   id?: string
   ability?: string

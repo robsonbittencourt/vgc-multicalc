@@ -1,7 +1,8 @@
 import { Items } from "@data/items"
-import { DEFAULT_TERA_TYPE, SELECT_POKEMON_LABEL, STATUS_CONDITIONS } from "@lib/constants"
+import { DEFAULT_TERA_TYPE, SELECT_POKEMON_LABEL } from "@lib/constants"
 import { Move } from "@lib/model/move"
 import { MoveSet } from "@lib/model/moveset"
+import { Status } from "@lib/model/status"
 import { SmogonFunctions } from "@lib/smogon/smogon-functions"
 import { SmogonPokemonBuilder } from "@lib/smogon/smogon-pokemon-builder"
 import { PokemonParameters, Stats } from "@lib/types"
@@ -135,7 +136,7 @@ export class Pokemon {
   }
 
   get status(): string {
-    return this.statusDescriptionByCode(this.pokemonSmogon.status)
+    return Status.getByCode(this.pokemonSmogon.status).description
   }
 
   get teraTypeActive(): boolean {
@@ -279,9 +280,5 @@ export class Pokemon {
 
   private getModifiedStat(pokemonSmogon: PokemonSmogon, stat: StatID) {
     return this.smogonFunctions.getModifiedStat(pokemonSmogon.rawStats[stat], pokemonSmogon.boosts[stat])
-  }
-
-  private statusDescriptionByCode(code: string): string {
-    return STATUS_CONDITIONS.find(s => s.code === code)!.description
   }
 }
