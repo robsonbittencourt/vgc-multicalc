@@ -122,7 +122,7 @@ export class Pokemon {
   }
 
   get teraTypeActive(): boolean {
-    return this.isTerapagosStellar || this.pokemonSmogon.teraType != undefined
+    return this.pokemonSmogon.teraType != undefined || this.isTerapagosStellar
   }
 
   get move(): Move {
@@ -239,7 +239,6 @@ export class Pokemon {
 
   equals(toCompare: Pokemon): boolean {
     return (
-      toCompare &&
       this.pokemonSmogon.name === toCompare.pokemonSmogon.name &&
       this.pokemonSmogon.nature === toCompare.pokemonSmogon.nature &&
       this.pokemonSmogon.item === toCompare.pokemonSmogon.item &&
