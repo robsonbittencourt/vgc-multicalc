@@ -46,8 +46,8 @@ jobs:
       - name: Build project
         run: npm run build
 
-  test:
-    name: Test
+  unit-tests:
+    name: Unit Tests
     runs-on: ubuntu-24.04
     needs: install-dependencies
 
@@ -72,6 +72,27 @@ jobs:
         with:
           name: coverage-reports
           path: ./coverage/vgc-multicalc/lcov.info
+
+  e2e-tests:
+    name: E2E Tests
+    runs-on: ubuntu-24.04
+    needs: install-dependencies
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npx cypress run
 
   lint:
     name: Lint
