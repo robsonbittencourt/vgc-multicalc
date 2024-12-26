@@ -25,9 +25,10 @@ describe("SpeedCalculatorService", () => {
     it("should return a list of Pokémon with at least more than two", () => {
       const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
       const field = new Field()
+      const pokemonEachSide = 30
       const options = new SpeedCalculatorOptions({ regulation: "Reg G" })
 
-      const inRange = service.orderedPokemon(pokemon, field, options)
+      const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide, options)
 
       expect(inRange.length).toBeGreaterThan(2)
     })
@@ -35,9 +36,10 @@ describe("SpeedCalculatorService", () => {
     it("should return Pokémon in speed range ordered", () => {
       const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
       const field = new Field()
+      const pokemonEachSide = 30
       const options = new SpeedCalculatorOptions({ regulation: "Reg G" })
 
-      const inRange = service.orderedPokemon(pokemon, field, options)
+      const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide, options)
 
       for (let index = 0; index < inRange.length; index++) {
         const actual = inRange[index]
@@ -52,8 +54,42 @@ describe("SpeedCalculatorService", () => {
     it("should return Pokémon in speed range ordered with default options", () => {
       const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
       const field = new Field()
+      const pokemonEachSide = 30
 
-      const inRange = service.orderedPokemon(pokemon, field)
+      const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide)
+
+      for (let index = 0; index < inRange.length; index++) {
+        const actual = inRange[index]
+        const next = inRange[index + 1]
+
+        if (next) {
+          expect(next >= actual).toBeTruthy()
+        }
+      }
+    })
+
+    it("should fill left side with empty Speed Definitions of actual until have pokemonEachSide value", () => {
+      const pokemon = new Pokemon("Gastrodon")
+      const field = new Field()
+      const pokemonEachSide = 30
+
+      const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide)
+
+      const actualIndex = inRange.findIndex(p => p.pokemonName == "Gastrodon" && p.description == ACTUAL)
+      expect(actualIndex).toBe(30)
+
+      expect(inRange[0].pokemonName).toEqual("")
+    })
+
+    it("should return only Pokémon informed in options and actual when option target is informed", () => {
+      const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
+      const field = new Field()
+      const pokemonEachSide = 30
+      const options = new SpeedCalculatorOptions({ targetName: "Tyranitar" })
+
+      const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide, options)
+
+      expect(inRange.length).toEqual(4)
 
       for (let index = 0; index < inRange.length; index++) {
         const actual = inRange[index]
@@ -68,9 +104,10 @@ describe("SpeedCalculatorService", () => {
     it("should return Pokémon in speed range ordered when Paralyzed option was activated", () => {
       const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
       const field = new Field()
+      const pokemonEachSide = 30
       const options = new SpeedCalculatorOptions({ paralyzedActive: true })
 
-      const inRange = service.orderedPokemon(pokemon, field, options)
+      const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide, options)
 
       for (let index = 0; index < inRange.length; index++) {
         const actual = inRange[index]
@@ -85,9 +122,10 @@ describe("SpeedCalculatorService", () => {
     it("should return Pokémon in speed range ordered when Choice Scarf option was activated", () => {
       const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
       const field = new Field()
+      const pokemonEachSide = 30
       const options = new SpeedCalculatorOptions({ choiceScarfActive: true })
 
-      const inRange = service.orderedPokemon(pokemon, field, options)
+      const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide, options)
 
       for (let index = 0; index < inRange.length; index++) {
         const actual = inRange[index]
@@ -102,8 +140,9 @@ describe("SpeedCalculatorService", () => {
     it("should return Pokémon in speed range reverse ordered when Trick Room was activated", () => {
       const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
       const field = new Field({ isTrickRoom: true })
+      const pokemonEachSide = 30
 
-      const inRange = service.orderedPokemon(pokemon, field)
+      const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide)
 
       for (let index = 0; index < inRange.length; index++) {
         const actual = inRange[index]
@@ -118,8 +157,9 @@ describe("SpeedCalculatorService", () => {
     it("should merge Meta and Atual description when speed are equals", () => {
       const pokemon = new Pokemon("Sneasler", { nature: "Jolly", evs: { spe: 252 } })
       const field = new Field()
+      const pokemonEachSide = 30
 
-      const inRange = service.orderedPokemon(pokemon, field)
+      const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide)
 
       const actual = inRange.find(p => p.pokemonName == "Sneasler" && p.description == ACTUAL)
       const meta = inRange.find(p => p.pokemonName == "Sneasler" && p.description == META)

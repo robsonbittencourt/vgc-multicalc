@@ -18,16 +18,24 @@ export class SpeedCalculatorService {
   private smogonService = inject(SmogonFunctions)
   private fieldMapper = inject(FieldMapper)
 
-  orderedPokemon(pokemon: Pokemon, field: Field, options: SpeedCalculatorOptions = new SpeedCalculatorOptions()): SpeedDefinition[] {
-    const speedDefinitions: SpeedDefinition[] = []
+  orderedPokemon(pokemon: Pokemon, field: Field, pokemonEachSide: number, options: SpeedCalculatorOptions = new SpeedCalculatorOptions()): SpeedDefinition[] {
     const smogonField = this.fieldMapper.toSmogon(field)
 
-    speedDefinitions.push(this.buildActual(pokemon, smogonField))
-    speedDefinitions.push(...this.loadSpeedMeta(options, smogonField))
+    let speedDefinitions: SpeedDefinition[] = [this.buildActual(pokemon, smogonField), ...this.loadSpeedMeta(options, smogonField)]
+
+    if (options.targetName.length > 0) {
+      speedDefinitions = speedDefinitions.filter(s => s.pokemonName == options.targetName || this.isActual(s))
+    }
 
     this.order(speedDefinitions, field.isTrickRoom)
 
-    return this.mergeByDescription(speedDefinitions)
+    speedDefinitions = this.mergeByDescription(speedDefinitions)
+
+    if (options.targetName.length == 0) {
+      speedDefinitions = this.limitQuantity(speedDefinitions, pokemonEachSide)
+    }
+
+    return speedDefinitions
   }
 
   private buildActual(pokemon: Pokemon, smogonField: SmogonField): SpeedDefinition {
@@ -56,6 +64,28 @@ export class SpeedCalculatorService {
     })
 
     return speedDefinitions
+  }
+
+  private limitQuantity(speedDefinitions: SpeedDefinition[], pokemonEachSide: number): SpeedDefinition[] {
+    const actualIndex = speedDefinitions.findIndex(this.isActual)
+
+    const initIndex = Math.max(0, actualIndex - pokemonEachSide)
+    const lastIndex = actualIndex + pokemonEachSide + 1
+    const range = speedDefinitions.slice(initIndex, lastIndex)
+
+    const updatedActualIndex = range.findIndex(this.isActual)
+
+    if (updatedActualIndex < pokemonEachSide) {
+      const diff = pokemonEachSide - updatedActualIndex
+      const padding = Array.from({ length: diff }, () => new SpeedDefinition("", 0, ""))
+      return [...padding, ...range]
+    }
+
+    return range
+  }
+
+  private isActual(speedDefinition: SpeedDefinition): boolean {
+    return speedDefinition.description.includes(ACTUAL)
   }
 
   private order(speedDefinitions: SpeedDefinition[], isTrickRoom: boolean) {
