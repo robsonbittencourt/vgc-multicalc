@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test --code-coverage",
+    "test": "ng test --code-coverage --watch=false",
+    "test-watch": "ng test --code-coverage",
     "lint": "ng lint",
     "formatter": "npx prettier . --check",
     "check": "npm run lint && npm run formatter"
