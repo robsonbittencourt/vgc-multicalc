@@ -11,7 +11,6 @@ jobs:
   install-dependencies:
     name: Install Dependencies
     runs-on: ubuntu-24.04
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -29,7 +28,6 @@ jobs:
     name: Build
     runs-on: ubuntu-24.04
     needs: install-dependencies
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -50,7 +48,6 @@ jobs:
     name: Unit Tests
     runs-on: ubuntu-24.04
     needs: install-dependencies
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -73,32 +70,10 @@ jobs:
           name: coverage-reports
           path: ./coverage/vgc-multicalc/lcov.info
 
-  e2e-tests:
-    name: E2E Tests
-    runs-on: ubuntu-24.04
-    needs: install-dependencies
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "18"
-          cache: "npm"
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run tests
-        run: npx cypress run
-
   lint:
     name: Lint
     runs-on: ubuntu-24.04
     needs: install-dependencies
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -115,14 +90,29 @@ jobs:
       - name: Run tests
         run: npm run check
 
-  deploy:
-    name: Deploy
+  e2e-tests:
+    name: E2E Tests
     runs-on: ubuntu-24.04
     needs:
       - build
-      - test
+      - unit-tests
       - lint
 
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          start: npm start
+          wait-on: "http://localhost:4200"
+          browser: chrome
+
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-24.04
+    if: github.ref == 'refs/heads/main'
+    needs: e2e-tests
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
