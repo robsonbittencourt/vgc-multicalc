@@ -347,7 +347,7 @@ export class CalculatorStore extends signalStore(
   private updateMove(pokemonId: string, move: string, index: number) {
     this.updatePokemonById(pokemonId, state => {
       const moveSet = [...state.moveSet]
-      moveSet.splice(index, 1, { name: move, alliesFainted: "0", hits: "0" })
+      moveSet.splice(index, 1, { name: move })
       return { activeMove: move, moveSet: moveSet }
     })
   }

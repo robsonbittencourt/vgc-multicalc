@@ -10,7 +10,7 @@ export class Move {
   constructor(name: string, options: { alliesFainted?: string; hits?: string } = {}) {
     this.name = name
     this.possibleHits = this.moveHits(name)
-    this.hits = options.hits ?? this.possibleHits[0]
+    this.hits = options.hits ?? this.possibleHits[this.possibleHits.length - 1]
     this.alliesFainted = options.alliesFainted ?? "0"
     this.bp = new MoveSmogon(Generations.get(9), name).bp
   }
@@ -21,7 +21,7 @@ export class Move {
     }
 
     if (move === "Rage Fist") {
-      return ["0", "1", "2", "3", "4", "5", "6"]
+      return ["6", "5", "4", "3", "2", "1", "0"]
     }
 
     const multihit = MOVES[9][move]?.multihit
@@ -34,6 +34,7 @@ export class Move {
       for (let index = multihit[0]; index <= multihit[multihit.length - 1]; index++) {
         result.push(index.toString())
       }
+
       return result
     }
 
