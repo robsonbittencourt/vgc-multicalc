@@ -107,6 +107,7 @@ jobs:
           start: npm start
           wait-on: "http://localhost:4200"
           browser: chrome
+          quiet: true
 
   deploy:
     name: Deploy
