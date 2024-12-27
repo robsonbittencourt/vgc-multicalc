@@ -509,7 +509,6 @@ console.log(transformPokemonData(input))
 
 function transformPokemonData(input) {
   const data = JSON.parse(input)
-  console.log(data)
 
   const convertPokemon = ([name, properties]) => {
     const filteredEvs = Object.entries(properties.evs)

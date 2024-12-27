@@ -1,30 +1,17 @@
+import { Generations, Move } from "@robsonbittencourt/calc"
 import axios from "axios"
-import fs from "fs"
 
 const LINE_SEPARATOR = "+----------------------------------------+"
-const POKEMON_QUANTITY = 250
+const POKEMON_QUANTITY = 64
 
-createSpeedMetaFile()
-
-export async function createSpeedMetaFile() {
-  const regHData = await getSmogonData("h")
-
-  let classContent = `import { Pokemon } from "../pokemon"
-
-export function speedMeta(regulation: string): Pokemon[] {
-  if(regulation == "Reg G") {
-    return regG()
-  } else {
-    return regH()
+export async function getSmogonData(date, reg) {
+  try {
+    const response = await axios.get(`https://www.smogon.com/stats/${date}/moveset/gen9vgc2024reg${reg}bo3-1760.txt`)
+    const parsedSmogonData = parseSmogonData(response.data)
+    return parsedSmogonData
+  } catch (error) {
+    console.error(error)
   }
-}
-
-export function regH(): Pokemon[] {
-  return [
-${printNewPokemon(regHData)} ]  
-}`
-
-  fs.writeFileSync("src/lib/speed-calculator/speed-meta.ts", classContent)
 }
 
 export function parseSmogonData(data) {
@@ -43,16 +30,19 @@ export function parseSmogonData(data) {
   return pokemon.map(p => parsePokemonData(p))
 }
 
-export function parsePokemonData(data) {
+function parsePokemonData(data) {
   const sections = extractSections(data)
 
+  const name = extractName(sections)
   const ability = extractAbility(sections)
-  const item = extractItem(sections)
+  const items = extractItems(sections)
   const spreads = extractSpreads(sections)
   const nature = extractNature(spreads)
   const evs = extractEvs(spreads)
+  const moves = extractMoves(sections)
+  const teraType = extractTeraType(sections)
 
-  return `new Pokemon("${sections[0]}", { ability: "${ability}", nature: "${nature}", item: "${item}", evs: { hp: ${evs.hp}, atk: ${evs.atk}, def: ${evs.def}, spa: ${evs.spa}, spd: ${evs.spd}, spe: ${evs.spe} }}),`
+  return { name, teraType, ability, items, nature, evs, moves }
 }
 
 function extractSections(data) {
@@ -61,6 +51,10 @@ function extractSections(data) {
     .filter(it => it != "" && it != " ")
     .map(it => it.replaceAll("| ", ""))
     .map(it => it.trim())
+}
+
+function extractName(sections) {
+  return sections[0]
 }
 
 function extractAbility(sections) {
@@ -77,7 +71,7 @@ function extractAbility(sections) {
   return abilities[0]
 }
 
-function extractItem(sections) {
+function extractItems(sections) {
   const items = sections[3]
     .split("\n")
     .map(it =>
@@ -88,9 +82,7 @@ function extractItem(sections) {
     )
     .filter(it => it != "Items" && it != "Other")
 
-  const item = items.find(it => it == "Choice Scarf") ? "Choice Scarf" : items[0]
-
-  return item
+  return items
 }
 
 function extractSpreads(sections) {
@@ -112,30 +104,35 @@ function extractEvs(spreads) {
   return evs
 }
 
-function printNewPokemon(pokemon) {
-  return pokemon
-    .map(p => {
-      return "    " + p + "\n"
-    })
-    .join("")
+function extractMoves(sections) {
+  const allMoves = sections[5]
+    .split("\n")
+    .map(it =>
+      it
+        .replaceAll(/[0-9]+/g, "")
+        .replace(".%", "")
+        .trim()
+    )
+    .filter(it => it != "Moves" && it != "Other")
+
+  const mainMoves = allMoves.slice(0, 4)
+
+  return mainMoves
+    .map(m => new Move(Generations.get(9), m))
+    .sort((a, b) => b.bp - a.bp)
+    .map(m => m.name)
 }
 
-function getCurrentYearMonth() {
-  const previouslyMonthDate = new Date(new Date().setMonth(new Date().getMonth() - 1))
-  const adjustedMonth = previouslyMonthDate.getMonth() + 1
+function extractTeraType(sections) {
+  const teraType = sections[6]
+    .split("\n")
+    .map(it =>
+      it
+        .replaceAll(/[0-9]+/g, "")
+        .replace(".%", "")
+        .trim()
+    )
+    .filter(it => it != "Tera Types" && it != "Other")
 
-  const month = adjustedMonth < 10 ? "0" + adjustedMonth : adjustedMonth
-  const year = new Date().getFullYear()
-
-  return `${year}-${month}`
-}
-
-async function getSmogonData(reg) {
-  try {
-    const response = await axios.get(`https://www.smogon.com/stats/${getCurrentYearMonth()}/moveset/gen9vgc2024reg${reg}bo3-1760.txt`)
-    const parsedSmogonData = parseSmogonData(response.data)
-    return parsedSmogonData
-  } catch (error) {
-    console.error(error)
-  }
+  return teraType[0]
 }
