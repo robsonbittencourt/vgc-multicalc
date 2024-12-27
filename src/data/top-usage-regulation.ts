@@ -16,7 +16,7 @@ export const topUsageByRegulation: Record<Regulation, string[]> = {
     "Whimsicott",
     "Miraidon",
     "Amoonguss",
-    "Ogerpon-Cornerston",
+    "Ogerpon-Cornerstone",
     "Clefairy",
     "Tornadus",
     "Terapagos",

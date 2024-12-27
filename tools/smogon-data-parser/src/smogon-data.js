@@ -4,6 +4,14 @@ import axios from "axios"
 const LINE_SEPARATOR = "+----------------------------------------+"
 const POKEMON_QUANTITY = 64
 
+export async function smogonUsageList(date, reg) {
+  try {
+    return await axios.get(`https://www.smogon.com/stats/${date}/gen9vgc2024reg${reg}bo3-1760.txt`)
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 export async function getSmogonData(date, reg) {
   try {
     const response = await axios.get(`https://www.smogon.com/stats/${date}/moveset/gen9vgc2024reg${reg}bo3-1760.txt`)
