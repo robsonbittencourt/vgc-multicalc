@@ -26,7 +26,7 @@ describe("SpeedCalculatorService", () => {
       const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
       const field = new Field()
       const pokemonEachSide = 30
-      const options = new SpeedCalculatorOptions({ regulation: "Reg G" })
+      const options = new SpeedCalculatorOptions({ regulation: "G" })
 
       const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide, options)
 
@@ -37,7 +37,7 @@ describe("SpeedCalculatorService", () => {
       const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
       const field = new Field()
       const pokemonEachSide = 30
-      const options = new SpeedCalculatorOptions({ regulation: "Reg G" })
+      const options = new SpeedCalculatorOptions({ regulation: "G" })
 
       const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide, options)
 
@@ -69,13 +69,13 @@ describe("SpeedCalculatorService", () => {
     })
 
     it("should fill left side with empty Speed Definitions of actual until have pokemonEachSide value", () => {
-      const pokemon = new Pokemon("Gastrodon")
+      const pokemon = new Pokemon("Torkoal")
       const field = new Field()
       const pokemonEachSide = 30
 
       const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide)
 
-      const actualIndex = inRange.findIndex(p => p.pokemonName == "Gastrodon" && p.description == ACTUAL)
+      const actualIndex = inRange.findIndex(p => p.pokemonName == "Torkoal" && p.description == ACTUAL)
       expect(actualIndex).toBe(30)
 
       expect(inRange[0].pokemonName).toEqual("")

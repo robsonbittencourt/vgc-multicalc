@@ -14,6 +14,8 @@ export type Weather = "Sand" | "Sun" | "Rain" | "Snow" | null
 
 export type StatusDescription = "Healthy" | "Sleep" | "Poison" | "Burn" | "Freeze" | "Paralysis"
 
+export type Regulation = "G" | "H"
+
 export type PokemonParameters = {
   id?: string
   ability?: Ability

@@ -11,6 +11,7 @@ import { TeamComponent } from "@app/shared/team/team/team.component"
 import { TeamsComponent } from "@app/shared/team/teams/teams.component"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { SpeedCalcOptionsStore } from "@data/store/speed-calc-options-store"
+import { Regulation } from "@lib/types"
 
 @Component({
   selector: "app-speed-calculator",
@@ -25,7 +26,7 @@ export class SpeedCalculatorComponent {
 
   optionsStore = inject(SpeedCalcOptionsStore)
 
-  regulationsList: string[] = ["Reg G", "Reg H"]
+  regulationsList: Regulation[] = ["G", "H"]
 
   statsModifiers = [
     { value: 6, viewValue: "+6" },

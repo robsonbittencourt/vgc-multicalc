@@ -1,4 +1,5 @@
 import { Injectable, inject } from "@angular/core"
+import { pokemonByRegulation } from "@data/regulation-pokemon"
 import { ACTUAL, BOOSTER, MAX, META, MIN, SCARF } from "@lib/constants"
 import { FieldMapper } from "@lib/field-mapper"
 import { Ability } from "@lib/model/ability"
@@ -8,7 +9,6 @@ import { Status } from "@lib/model/status"
 import { SmogonFunctions } from "@lib/smogon/smogon-functions"
 import { SpeedCalculatorOptions } from "@lib/speed-calculator/speed-calculator-options"
 import { SpeedDefinition } from "@lib/speed-calculator/speed-definition"
-import { speedMeta } from "@lib/speed-calculator/speed-meta"
 import { Generations, Field as SmogonField, Pokemon as SmogonPokemon } from "@robsonbittencourt/calc"
 
 @Injectable({
@@ -47,7 +47,7 @@ export class SpeedCalculatorService {
   private loadSpeedMeta(options: SpeedCalculatorOptions, smogonField: SmogonField): SpeedDefinition[] {
     const speedDefinitions: SpeedDefinition[] = []
 
-    speedMeta(options.regulation).forEach(p => {
+    pokemonByRegulation(options.regulation).forEach(p => {
       const pokemon = this.adjustPokemonByOptions(p, options)
 
       speedDefinitions.push(this.minSpeed(pokemon, smogonField))

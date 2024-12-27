@@ -1,6 +1,7 @@
 import { computed, Injectable } from "@angular/core"
+import { pokemonByRegulation } from "@data/regulation-pokemon"
 import { SpeedCalculatorOptions } from "@lib/speed-calculator/speed-calculator-options"
-import { speedMeta } from "@lib/speed-calculator/speed-meta"
+import { Regulation } from "@lib/types"
 import { patchState, signalStore, withState } from "@ngrx/signals"
 
 type SpeedCalcOptionsState = {
@@ -13,7 +14,7 @@ type SpeedCalcOptionsState = {
 }
 
 const initialState: SpeedCalcOptionsState = {
-  regulation: "Reg H",
+  regulation: "H",
   targetName: "",
   speedModifier: 0,
   speedDropActive: false,
@@ -26,7 +27,7 @@ export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }
   readonly options = computed(
     () =>
       new SpeedCalculatorOptions({
-        regulation: this.regulation(),
+        regulation: this.regulation() as Regulation,
         targetName: this.targetName(),
         speedModifier: this.speedModifier(),
         speedDropActive: this.speedDropActive(),
@@ -36,7 +37,7 @@ export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }
   )
 
   readonly pokemonNamesByReg = computed(() =>
-    speedMeta(this.regulation())
+    pokemonByRegulation(this.regulation() as Regulation)
       .map(s => s.name)
       .sort()
   )
