@@ -1,4 +1,5 @@
 import { Injectable, inject } from "@angular/core"
+import { SETDEX_SV } from "@data/movesets"
 import { pokemonByRegulation } from "@data/regulation-pokemon"
 import { ACTUAL, BOOSTER, MAX, META, MIN, SCARF } from "@lib/constants"
 import { FieldMapper } from "@lib/field-mapper"
@@ -17,6 +18,8 @@ import { Generations, Field as SmogonField, Pokemon as SmogonPokemon } from "@ro
 export class SpeedCalculatorService {
   private smogonService = inject(SmogonFunctions)
   private fieldMapper = inject(FieldMapper)
+
+  private POKEMON_QUANTITY = 64
 
   orderedPokemon(pokemon: Pokemon, field: Field, pokemonEachSide: number, options: SpeedCalculatorOptions = new SpeedCalculatorOptions()): SpeedDefinition[] {
     const smogonField = this.fieldMapper.toSmogon(field)
@@ -47,14 +50,17 @@ export class SpeedCalculatorService {
   private loadSpeedMeta(options: SpeedCalculatorOptions, smogonField: SmogonField): SpeedDefinition[] {
     const speedDefinitions: SpeedDefinition[] = []
 
-    pokemonByRegulation(options.regulation).forEach(p => {
+    const quantity = options.targetName.length > 0 ? undefined : this.POKEMON_QUANTITY
+    const pokemon = pokemonByRegulation(options.regulation, quantity)
+
+    pokemon.forEach(p => {
       const pokemon = this.adjustPokemonByOptions(p, options)
 
       speedDefinitions.push(this.minSpeed(pokemon, smogonField))
       speedDefinitions.push(this.maxSpeed(pokemon, smogonField))
       speedDefinitions.push(this.maxMeta(pokemon, smogonField))
 
-      if (pokemon.item == "Choice Scarf") {
+      if (this.hasChoiceScarf(pokemon)) {
         speedDefinitions.push(this.maxScarf(pokemon, smogonField))
       }
 
@@ -64,6 +70,10 @@ export class SpeedCalculatorService {
     })
 
     return speedDefinitions
+  }
+
+  private hasChoiceScarf(pokemon: Pokemon): boolean {
+    return pokemon.item == "Choice Scarf" || SETDEX_SV[pokemon.name].items.includes("Choice Scarf")
   }
 
   private limitQuantity(speedDefinitions: SpeedDefinition[], pokemonEachSide: number): SpeedDefinition[] {
@@ -144,7 +154,7 @@ export class SpeedCalculatorService {
   }
 
   maxScarf(pokemon: Pokemon, smogonField: SmogonField): SpeedDefinition {
-    const clonedPokemon = pokemon.clone({ nature: "Timid", evs: { spe: 252 } })
+    const clonedPokemon = pokemon.clone({ nature: "Timid", item: "Choice Scarf", evs: { spe: 252 } })
 
     const speed = this.smogonService.getFinalSpeed(clonedPokemon, smogonField, smogonField.defenderSide)
     const description = SCARF
