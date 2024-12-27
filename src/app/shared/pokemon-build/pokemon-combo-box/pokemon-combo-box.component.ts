@@ -27,7 +27,7 @@ export class PokemonComboBoxComponent {
     if (poke) {
       this.store.name(this.pokemonId(), pokemonName)
       this.store.nature(this.pokemonId(), poke.nature)
-      this.store.item(this.pokemonId(), poke.item)
+      this.store.item(this.pokemonId(), poke.items[0])
       this.store.ability(this.pokemonId(), poke.ability)
       this.store.teraType(this.pokemonId(), poke.teraType)
       this.store.teraTypeActive(this.pokemonId(), false)
