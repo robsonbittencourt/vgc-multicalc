@@ -1,10 +1,10 @@
-.delete-pokemon {
+.export-pokemon {
   display: flex;
   align-items: center;
   gap: 0.2em;
 }
 
-.delete-pokemon:hover > * {
+.export-pokemon:hover > * {
   cursor: pointer;
   font-weight: 500;
 }
