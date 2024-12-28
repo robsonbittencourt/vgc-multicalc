@@ -5,7 +5,6 @@ import { MatButton } from "@angular/material/button"
 import { MatDialog } from "@angular/material/dialog"
 import { MatInput } from "@angular/material/input"
 import { TeamBoxComponent } from "@app/shared/team/team-box/team-box.component"
-import { TeamExportModalComponent } from "@app/shared/team/team-export-modal/team-export-modal.component"
 import { TeamImportModalComponent } from "@app/shared/team/team-import-modal/team-import-modal.component"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { defaultPokemon } from "@lib/default-pokemon"
@@ -72,16 +71,7 @@ export class TeamsComponent {
 
   export() {
     const pokemon = this.store.team().teamMembers.map(tm => tm.pokemon)
-
-    this.dialog.open(TeamExportModalComponent, {
-      data: {
-        title: this.store.team().name,
-        content: this.exportPokeService.exportAll(pokemon)
-      },
-      width: "40em",
-      position: { top: "2em" },
-      scrollStrategy: new NoopScrollStrategy()
-    })
+    this.exportPokeService.export(this.store.team().name, ...pokemon)
   }
 
   deleteTeam() {

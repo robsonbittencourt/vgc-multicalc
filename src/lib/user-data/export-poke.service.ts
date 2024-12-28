@@ -1,4 +1,7 @@
-import { Injectable } from "@angular/core"
+import { NoopScrollStrategy } from "@angular/cdk/overlay"
+import { inject, Injectable } from "@angular/core"
+import { MatDialog } from "@angular/material/dialog"
+import { TeamExportModalComponent } from "@app/shared/team/team-export-modal/team-export-modal.component"
 import { Pokemon } from "@lib/model/pokemon"
 import dedent from "dedent"
 
@@ -6,19 +9,21 @@ import dedent from "dedent"
   providedIn: "root"
 })
 export class ExportPokeService {
-  exportAll(pokemon: Pokemon[]): string {
+  private dialog = inject(MatDialog)
+
+  export(title: string, ...pokemon: Pokemon[]) {
     let result = ""
 
     pokemon.forEach(p => {
       if (!p.isDefault) {
-        result += this.export(p) + "\n"
+        result += this.parse(p) + "\n"
       }
     })
 
-    return result
+    this.openModal(title, result)
   }
 
-  export(pokemon: Pokemon): string {
+  private parse(pokemon: Pokemon): string {
     let text = dedent`
       ${pokemon.name} @ ${pokemon.item}
       Ability: ${pokemon.ability.name}
@@ -76,5 +81,17 @@ export class ExportPokeService {
     ivsDescription = ivsDescription.slice(0, -3)
 
     return ivsDescription
+  }
+
+  private openModal(title: string, content: string) {
+    this.dialog.open(TeamExportModalComponent, {
+      data: {
+        title: title,
+        content: content
+      },
+      width: "40em",
+      position: { top: "2em" },
+      scrollStrategy: new NoopScrollStrategy()
+    })
   }
 }

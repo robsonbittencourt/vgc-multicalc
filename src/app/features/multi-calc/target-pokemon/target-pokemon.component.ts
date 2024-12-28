@@ -5,7 +5,6 @@ import { MatDialog } from "@angular/material/dialog"
 import { MatIcon } from "@angular/material/icon"
 import { AddPokemonCardComponent } from "@app/features/multi-calc/add-pokemon-card/add-pokemon-card.component"
 import { PokemonCardComponent } from "@app/features/multi-calc/pokemon-card/pokemon-card.component"
-import { TeamExportModalComponent } from "@app/shared/team/team-export-modal/team-export-modal.component"
 import { TeamImportModalComponent } from "@app/shared/team/team-import-modal/team-import-modal.component"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { MenuStore } from "@data/store/menu-store"
@@ -80,6 +79,7 @@ export class TargetPokemonComponent {
       const allTargets = this.targets()
         .filter(t => !t.pokemon.isDefault)
         .concat(newTargets)
+
       this.store.updateTargets(allTargets)
 
       this.snackBar.open("Pokémon from PokePaste added")
@@ -94,16 +94,7 @@ export class TargetPokemonComponent {
 
   exportPokemon() {
     const pokemon = this.targets().map(t => t.pokemon)
-
-    this.dialog.open(TeamExportModalComponent, {
-      data: {
-        title: "Opponent Pokémon",
-        content: this.exportPokeService.exportAll(pokemon)
-      },
-      width: "40em",
-      position: { top: "2em" },
-      scrollStrategy: new NoopScrollStrategy()
-    })
+    this.exportPokeService.export("Opponent Pokémon", ...pokemon)
   }
 
   addPokemonToTargets() {

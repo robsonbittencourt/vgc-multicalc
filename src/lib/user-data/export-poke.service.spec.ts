@@ -1,5 +1,8 @@
+import { NoopScrollStrategy } from "@angular/cdk/overlay"
 import { provideExperimentalZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
+import { MatDialog } from "@angular/material/dialog"
+import { TeamExportModalComponent } from "@app/shared/team/team-export-modal/team-export-modal.component"
 import { Ability } from "@lib/model/ability"
 import { Move } from "@lib/model/move"
 import { MoveSet } from "@lib/model/moveset"
@@ -8,10 +11,13 @@ import { ExportPokeService } from "@lib/user-data/export-poke.service"
 
 describe("ExportPokeService", () => {
   let service: ExportPokeService
+  let dialogSpy: jasmine.SpyObj<MatDialog>
 
   beforeEach(() => {
+    dialogSpy = jasmine.createSpyObj("MatDialog", ["open"])
+
     TestBed.configureTestingModule({
-      providers: [ExportPokeService, provideExperimentalZonelessChangeDetection()]
+      providers: [ExportPokeService, { provide: MatDialog, useValue: dialogSpy }, provideExperimentalZonelessChangeDetection()]
     })
 
     service = TestBed.inject(ExportPokeService)
@@ -27,19 +33,9 @@ describe("ExportPokeService", () => {
       evs: { hp: 140, atk: 116, def: 4, spa: 0, spd: 84, spe: 164 }
     })
 
-    const text = service.export(pokemon)
+    service.export("Title", pokemon)
 
-    expect(text).toEqual(`Rillaboom @ Assault Vest
-Ability: Grassy Surge
-Level: 50
-Tera Type: Fire
-EVs: 140 HP / 116 Atk / 4 Def / 84 SpD / 164 Spe
-Adamant Nature
-- Fake Out
-- Grassy Glide
-- Wood Hammer
-- High Horsepower
-`)
+    expect(dialogSpy.open).toHaveBeenCalledWith(TeamExportModalComponent, { data: { title: "Title", content: pasteWithOnePokemon }, width: "40em", position: { top: "2em" }, scrollStrategy: jasmine.any(NoopScrollStrategy) })
   })
 
   it("should export a list of Pokémon", () => {
@@ -71,9 +67,26 @@ Adamant Nature
       ivs: { hp: 1, atk: 2, def: 3, spa: 4, spd: 5, spe: 6 }
     })
 
-    const text = service.exportAll([pokemon1, pokemon2, pokemon3])
+    service.export("Title", pokemon1, pokemon2, pokemon3)
 
-    expect(text).toBe(`Rillaboom @ Assault Vest
+    expect(dialogSpy.open).toHaveBeenCalledWith(TeamExportModalComponent, { data: { title: "Title", content: pasteWithThreePokemon }, width: "40em", position: { top: "2em" }, scrollStrategy: jasmine.any(NoopScrollStrategy) })
+  })
+})
+
+const pasteWithOnePokemon = `Rillaboom @ Assault Vest
+Ability: Grassy Surge
+Level: 50
+Tera Type: Fire
+EVs: 140 HP / 116 Atk / 4 Def / 84 SpD / 164 Spe
+Adamant Nature
+- Fake Out
+- Grassy Glide
+- Wood Hammer
+- High Horsepower
+
+`
+
+const pasteWithThreePokemon = `Rillaboom @ Assault Vest
 Ability: Grassy Surge
 Level: 50
 Tera Type: Fire
@@ -107,6 +120,4 @@ IVs: 1 HP / 2 Atk / 3 Def / 4 SpA / 5 SpD / 6 Spe
 - Aqua Jet
 - Detect
 
-`)
-  })
-})
+`
