@@ -97,6 +97,10 @@ export class Team {
   importPokemon(pokemonData: string): PokemonBuild {
     cy.get('[data-cy="import-pokemon-to-team"]').contains("Import").click({ force: true })
     new ImportModal().import(pokemonData)
+
+    const pokemonName = this.extractPokemonName(pokemonData)
+    this.selectPokemon(pokemonName)
+
     return new PokemonBuild("your-team")
   }
 
@@ -115,5 +119,15 @@ export class Team {
     this.selectTeam(team)
     cy.get('[data-cy="export-team-button"]').click({ force: true })
     return new ExportModal()
+  }
+
+  private extractPokemonName(pokemonData: string): string {
+    const pokemonName = pokemonData.substring(0, pokemonData.indexOf(" @"))
+
+    if (pokemonName.includes("-")) {
+      return pokemonData.substring(0, pokemonData.indexOf("-"))
+    }
+
+    return pokemonName
   }
 }

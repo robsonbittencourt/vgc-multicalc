@@ -55,6 +55,10 @@ export class Field {
     this.clickOnButton("wonder-room")
   }
 
+  trickRoom() {
+    this.clickOnButton("trick-room")
+  }
+
   gravity() {
     this.clickOnButton("gravity")
   }

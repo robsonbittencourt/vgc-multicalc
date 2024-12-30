@@ -1,6 +1,6 @@
 <div class="center-section text-color">
   @for (speedDefinition of inSpeedRange(); track speedDefinition.id) {
-    <div class="speed-box">
+    <div class="speed-box" data-cy="speed-box">
       <app-speed-box [speedDefinition]="speedDefinition" [speedChanged]="speedOrderChanged" [speedIncreasing]="speedOrderIncrease" />
     </div>
   }

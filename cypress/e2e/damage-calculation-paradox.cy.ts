@@ -38,7 +38,6 @@ before(() => {
   cy.fixture("flutter-mane-high-spe-data").then(data => {
     flutterManeHighSpeData = data
   })
-
   cy.fixture("iron-treads-high-atk-data").then(data => {
     ironTreadsHighAtkData = data
   })
@@ -54,7 +53,6 @@ before(() => {
   cy.fixture("iron-moth-high-spe-data").then(data => {
     ironMothHighSpeData = data
   })
-
   cy.fixture("rillaboom-data").then(data => {
     rillaboomData = data
   })

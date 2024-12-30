@@ -4,7 +4,7 @@ export class TeamMember {
   private _element: any
 
   constructor(pokemonName: string) {
-    this._element = cy.get('[data-cy="team-member-tab"]').filter(`:contains(${pokemonName})`)
+    this._element = cy.get('[data-cy="team-member-tab"]').contains(pokemonName)
   }
 
   select() {

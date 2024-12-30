@@ -2,13 +2,13 @@
   <div class="speed-box-down"></div>
 } @else {
   <div class="speed-box-up" [ngStyle]="(isActual() && { 'font-weight': '600' }) || null">
-    {{ speedDefinition().value }}
+    <label data-cy="speed-box-value">{{ speedDefinition().value }}</label>
   </div>
 
   <div class="speed-box-down" [ngStyle]="(isActual() && { 'background-color': '#e7def6' }) || null">
     <div [@openClose]="{ value: 1, params: { leaveEnd: animation() } }" class="pokemon-image">
-      <img src="assets/sprites/pokemon-sv/{{ speedDefinition().pokemonName }}.png" />
-      <label [ngStyle]="(isActual() && { 'font-weight': '600' }) || null">{{ speedDefinition().description }}</label>
+      <img src="assets/sprites/pokemon-sv/{{ speedDefinition().pokemonName }}.png" alt="{{ speedDefinition().pokemonName }}" data-cy="speed-box-pokemon" />
+      <label [ngStyle]="(isActual() && { 'font-weight': '600' }) || null" data-cy="speed-box-description">{{ speedDefinition().description }}</label>
     </div>
   </div>
 }

@@ -55,8 +55,14 @@ export class PokemonBuild {
     cy.get('[data-cy="pokemon-status"] input').type("Poison", { force: true }).type("{downArrow}").type("{enter}")
   }
 
-  selectAbility(name: string) {
+  selectNature(name: string): PokemonBuild {
+    this.container().find('[data-cy="nature"]').click().get("mat-option").contains(name).click()
+    return this
+  }
+
+  selectAbility(name: string): PokemonBuild {
     this.container().find('[data-cy="ability"]').click().get("mat-option").contains(name).click()
+    return this
   }
 
   activateAbility() {
@@ -73,6 +79,20 @@ export class PokemonBuild {
 
   hpPercentage(hpPercentage: number) {
     this.container().find(`[data-cy="stat-hp"]`).find('[data-cy="hp-percentage-value"]').clear().clear().type(hpPercentage.toString(), { force: true })
+  }
+
+  hpEvs(hpEvs: number): PokemonBuild {
+    this.container().find(`[data-cy="stat-hp"]`).find('[data-cy="ev-value"]').clear().clear().type(hpEvs.toString(), { force: true }).blur()
+    return this
+  }
+
+  speedEvs(speedEvs: number): PokemonBuild {
+    this.container().find(`[data-cy="stat-spe"]`).find('[data-cy="ev-value"]').clear().clear().type(speedEvs.toString(), { force: true }).blur()
+    return this
+  }
+
+  speedIvs(speedIvs: number) {
+    this.container().find(`[data-cy="stat-spe"]`).find('[data-cy="iv-value"]').clear().clear().type(speedIvs.toString(), { force: true }).blur()
   }
 
   allieFainted(alliesFainted: number) {
