@@ -111,6 +111,13 @@ export class TargetPokemonComponent {
     return this.targets().find(t => t.pokemon.isDefault) != null
   }
 
+  activateTarget(pokemonId: string) {
+    const withoutDefaultPokemon = this.targets().filter(t => !t.pokemon.isDefault)
+    this.store.updateTargets(withoutDefaultPokemon)
+
+    this.targetActivated.emit(pokemonId)
+  }
+
   damageDescription(): string {
     const damageResult = this.activeDamageResult()
 

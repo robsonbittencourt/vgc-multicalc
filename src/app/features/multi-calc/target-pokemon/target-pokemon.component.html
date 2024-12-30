@@ -40,7 +40,7 @@
         (secondTargetActivated)="secondTargetActivated($event)"
         [isAttacker]="isAttacker()"
         [showDamageDescription]="showDamageDescription()"
-        (targetActivated)="targetActivated.emit($event)"
+        (targetActivated)="activateTarget($event)"
         (targetRemoved)="targetRemoved.emit()" />
     }
 
