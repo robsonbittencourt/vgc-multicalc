@@ -112,7 +112,13 @@ export class TargetPokemonComponent {
   }
 
   damageDescription(): string {
-    return this.activeDamageResult()?.description ?? ""
+    const damageResult = this.activeDamageResult()
+
+    if (damageResult && !damageResult?.attacker.isDefault && !damageResult?.defender.isDefault) {
+      return damageResult.description
+    } else {
+      return ""
+    }
   }
 
   rolls(): number[] {
