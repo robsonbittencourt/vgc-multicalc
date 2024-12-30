@@ -49,6 +49,7 @@ export class DamageResultOrderService {
   }
 
   private changeHappenedInTargets(activeTargetsIds: string[], targetIdsWithSpecificCalc: number) {
+    if (this.store.targets().filter(t => t.pokemon.isDefault).length > 0) return false
     return activeTargetsIds[0] != this.targetsIdsActive[0] || activeTargetsIds[1] != this.targetsIdsActive[1] || targetIdsWithSpecificCalc != this.targetsWithSpecificCalc
   }
 
@@ -62,8 +63,15 @@ export class DamageResultOrderService {
 
   private applyOrderByDamage(results: DamageResult[]) {
     results.sort((a, b) => {
-      if (this.menuStore.oneVsManyActivated() && !a.defender.isDefault && b.defender.isDefault) return -1
-      if (this.menuStore.manyVsOneActivated() && !a.attacker.isDefault && b.attacker.isDefault) return -1
+      if (this.menuStore.oneVsManyActivated()) {
+        if (a.defender.isDefault && !b.defender.isDefault) return 1
+        if (!a.defender.isDefault && b.defender.isDefault) return -1
+      }
+
+      if (this.menuStore.manyVsOneActivated()) {
+        if (a.attacker.isDefault && !b.attacker.isDefault) return 1
+        if (!a.attacker.isDefault && b.attacker.isDefault) return -1
+      }
 
       return b.damage - a.damage
     })
