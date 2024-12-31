@@ -122,7 +122,7 @@ npm run test-watch
 
 ```
 
-You can view the test coverage report by opening the file /coverage/lcov-report/index.html. The coverage report is also available on the [project's Sonar Cloud](https://sonarcloud.io/summary/overall?id=robsonbittencourt_vgc-multicalc&branch=main).
+You can view the test coverage report by opening the file `/coverage/lcov-report/index.html`. The coverage report is also available on the [project's Sonar Cloud](https://sonarcloud.io/summary/overall?id=robsonbittencourt_vgc-multicalc&branch=main).
 
 ### E2E Tests
 
