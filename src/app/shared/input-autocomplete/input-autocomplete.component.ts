@@ -78,7 +78,7 @@ export class InputAutocompleteComponent implements OnInit {
     if (!values) return []
 
     const filterValue = this.normalizeValue(value)
-    return values.filter(v => this.normalizeValue(v.key).startsWith(filterValue))
+    return values.filter(v => this.normalizeValue(v.key).includes(filterValue))
   }
 
   private normalizeValue(value: string): string {
