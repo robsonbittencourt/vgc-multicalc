@@ -59,10 +59,9 @@ export class DamageCalculatorService {
 
     if (!result.damage) {
       result.damage = this.ZERO_RESULT_DAMAGE
-      return result
     }
 
-    return calculate(gen, smogonAttacker, smogonTarget, moveSmogon, smogonField)
+    return result
   }
 
   private sumDamageResult(result: Result, secondResult: Result): number[] {
