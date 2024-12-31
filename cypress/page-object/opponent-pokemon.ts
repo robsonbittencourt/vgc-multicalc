@@ -107,6 +107,6 @@ export class OpponentPokemon {
   }
 
   private contains(text: string) {
-    this._element.parent().parent().contains(text)
+    this._element.parent().contains(text)
   }
 }

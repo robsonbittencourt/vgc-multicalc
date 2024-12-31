@@ -1,8 +1,10 @@
+import { Field } from "@page-object/field"
 import { Opponent } from "@page-object/opponent"
 import { Team } from "@page-object/team"
 
 const team = new Team()
 const opponents = new Opponent()
+const field = new Field()
 
 let tornadusData: string
 let chienPaoData: string
@@ -10,6 +12,7 @@ let woChienData: string
 let tingLuData: string
 let chiYuData: string
 let blazikenData: string
+let kingdraData: string
 let defaultTeamData: string
 let defaultOpponentsData: string
 let pokepasteData: string
@@ -21,6 +24,7 @@ before(() => {
   cy.fixture("ting-lu-data").then(data => (tingLuData = data))
   cy.fixture("chi-yu-data").then(data => (chiYuData = data))
   cy.fixture("blaziken-data").then(data => (blazikenData = data))
+  cy.fixture("kingdra-data").then(data => (kingdraData = data))
   cy.fixture("default-team-data").then(data => (defaultTeamData = data))
   cy.fixture("default-opponents-data").then(data => (defaultOpponentsData = data))
   cy.fixture("pokepaste-data").then(data => (pokepasteData = data))
@@ -211,5 +215,67 @@ describe("Combined Damage with Ruin abilities", () => {
     team.selectTeamMember("Chi-Yu")
 
     opponents.get("Urshifu Rapid Strike").damageIs(74.8, 89.1).cause2HKO()
+  })
+})
+
+describe.only("Combined Damage against reduce damage abilities", () => {
+  beforeEach(() => {
+    team.delete("Team 1")
+  })
+
+  it("two Pokémon against one with Multiscale when Miraidon is faster", () => {
+    team.importPokepaste(defaultTeamData)
+    team.selectPokemon("Koraidon").selectAttackThree()
+    team.selectTeamMember("Koraidon").combineDamage()
+
+    team.selectTeamMember("Miraidon")
+    team.selectPokemon("Miraidon").selectAttackTwo()
+
+    opponents.get("Dragonite").damageIs(49.7, 58.6).haveChanceOfToCause2HKO(98.4)
+  })
+
+  it("two Pokémon against one with Multiscale when Koraidon is faster", () => {
+    team.importPokepaste(defaultTeamData)
+    team.selectPokemon("Koraidon").selectAttackThree().selectStatsModifier("spe", "+2")
+    team.selectTeamMember("Koraidon").combineDamage()
+
+    team.selectTeamMember("Miraidon")
+    team.selectPokemon("Miraidon").selectAttackTwo()
+
+    opponents.get("Dragonite").damageIs(83.8, 99.4).cause2HKO()
+  })
+
+  it("two Pokémon against one with Multiscale considering Ability in speed calculation", () => {
+    team.importPokemon(tornadusData)
+    team.importPokemon(kingdraData)
+
+    team.selectTeamMember("Tornadus").combineDamage()
+    team.selectTeamMember("Kingdra")
+
+    field.rain()
+
+    opponents.get("Terapagos Terastal").damageIs(51.9, 61.3).haveChanceOfToCause2HKO(93.8)
+  })
+
+  it("two Pokémon against one with Tera Shell", () => {
+    team.importPokepaste(defaultTeamData)
+    team.selectPokemon("Koraidon").selectAttackThree()
+    team.selectTeamMember("Koraidon").combineDamage()
+
+    team.selectTeamMember("Miraidon")
+    team.selectPokemon("Miraidon").selectAttackTwo()
+
+    opponents.get("Terapagos Terastal").damageIs(42, 50.4).cause3HKO()
+  })
+
+  it("two Pokémon against one with Shadow Shield", () => {
+    team.importPokepaste(defaultTeamData)
+    team.selectPokemon("Koraidon").selectAttackThree()
+    team.selectTeamMember("Koraidon").combineDamage()
+
+    team.selectTeamMember("Miraidon")
+    team.selectPokemon("Miraidon").selectAttackTwo()
+
+    opponents.get("Lunala").damageIs(40, 47.5).cause3HKO()
   })
 })
