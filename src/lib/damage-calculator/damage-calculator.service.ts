@@ -93,15 +93,56 @@ export class DamageCalculatorService {
 
   private damageDescriptionWithTwo(resultOne: Result, resultTwo: Result): string {
     try {
-      const descriptionOne = resultOne.desc()
-      const descriptionTwo = resultTwo.desc()
-      const descriptionAttackerTwo = descriptionTwo.substring(0, descriptionTwo.indexOf(" vs."))
+      const attackerDescription = resultOne.desc().substring(0, resultOne.desc().indexOf(" vs."))
+      const secondAttackerDescritption = resultTwo.desc().substring(0, resultTwo.desc().indexOf(" vs."))
+      const defenderBulk = this.mergeBulkStats(resultOne, resultTwo)
+      const defenderNameAndDamage = resultOne.desc().substring(resultOne.desc().indexOf(resultOne.defender.name))
 
-      const finalDescription = descriptionOne.substring(0, descriptionOne.indexOf(" vs.")) + " AND " + descriptionAttackerTwo + descriptionTwo.substring(descriptionTwo.indexOf(" vs."))
-
-      return finalDescription
+      return `${attackerDescription} AND ${secondAttackerDescritption} vs. ${defenderBulk} ${defenderNameAndDamage}`
     } catch (error) {
       return `${resultOne.attacker.name} ${resultOne.move.name} AND ${resultTwo.attacker.name} ${resultTwo.move.name} vs. ${resultOne.defender.name}: 0-0 (0 - 0%) -- possibly the worst move ever`
     }
+  }
+
+  mergeBulkStats(resultOne: Result, resultTwo: Result): string {
+    const defenderBulkFirtSide = resultOne.desc().substring(resultOne.desc().indexOf(" vs.") + 5, resultOne.desc().indexOf(resultOne.defender.name) - 1)
+    const defenderBulkSecondSide = resultTwo.desc().substring(resultTwo.desc().indexOf(" vs.") + 5, resultTwo.desc().indexOf(resultTwo.defender.name) - 1)
+
+    const data1 = this.parseStats(defenderBulkFirtSide)
+    const data2 = this.parseStats(defenderBulkSecondSide)
+
+    const mergedStats: Record<string, number> = { ...data1.stats }
+
+    for (const stat in data2.stats) {
+      mergedStats[stat] = Math.max(data2.stats[stat] || 0, mergedStats[stat] || 0)
+    }
+
+    const item = data1.item || data2.item
+
+    const statsString = Object.entries(mergedStats)
+      .map(([stat, value]) => `${value} ${stat}`)
+      .join(" / ")
+
+    return item ? `${statsString} / ${item}` : statsString
+  }
+
+  parseStats(input: string) {
+    const stats: Record<string, number> = {}
+    let item = ""
+
+    const parts = input.split("/").map(part => part.trim())
+
+    parts.forEach((part, index) => {
+      const match = part.match(/^(\d+)\s+(\w+)$/)
+
+      if (match) {
+        const [, value, stat] = match
+        stats[stat] = parseInt(value, 10)
+      } else if (index === parts.length - 1) {
+        item = part
+      }
+    })
+
+    return { stats, item }
   }
 }

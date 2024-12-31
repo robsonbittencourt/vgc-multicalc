@@ -102,7 +102,7 @@ describe("Damage Calculator Service", () => {
     expect(damageResults[0].result).toEqual("86.1 - 103.8%")
     expect(damageResults[0].koChance).toEqual("18.8% chance to OHKO")
     expect(damageResults[0].damage).toEqual(103.8)
-    expect(damageResults[0].description).toEqual("0 SpA Raging Bolt Thunderbolt AND 0 Atk Rillaboom Grassy Glide vs. 0 HP / 0 Def Flutter Mane: 60-72 (46.1 - 55.3%) -- 66.8% chance to 2HKO")
+    expect(damageResults[0].description).toEqual("0 SpA Raging Bolt Thunderbolt AND 0 Atk Rillaboom Grassy Glide vs. 0 HP / 0 SpD / 0 Def Flutter Mane: 112-135 (86.1 - 103.8%) -- 18.8% chance to OHKO")
     expect(damageResults[0].rolls).toEqual(undefined)
 
     expect(damageResults[1].attacker.id).toEqual(secondAttacker.id)
@@ -111,7 +111,7 @@ describe("Damage Calculator Service", () => {
     expect(damageResults[1].result).toEqual("86.1 - 103.8%")
     expect(damageResults[1].koChance).toEqual("18.8% chance to OHKO")
     expect(damageResults[1].damage).toEqual(103.8)
-    expect(damageResults[1].description).toEqual("0 SpA Raging Bolt Thunderbolt AND 0 Atk Rillaboom Grassy Glide vs. 0 HP / 0 Def Flutter Mane: 60-72 (46.1 - 55.3%) -- 66.8% chance to 2HKO")
+    expect(damageResults[1].description).toEqual("0 SpA Raging Bolt Thunderbolt AND 0 Atk Rillaboom Grassy Glide vs. 0 HP / 0 SpD / 0 Def Flutter Mane: 112-135 (86.1 - 103.8%) -- 18.8% chance to OHKO")
     expect(damageResults[1].rolls).toEqual(undefined)
   })
 
