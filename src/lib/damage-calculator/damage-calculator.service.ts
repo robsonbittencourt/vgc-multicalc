@@ -6,6 +6,7 @@ import { Field } from "@lib/model/field"
 import { Move } from "@lib/model/move"
 import { Pokemon } from "@lib/model/pokemon"
 import { SmogonPokemonBuilder } from "@lib/smogon/smogon-pokemon-builder"
+import { SpeedCalculatorService } from "@lib/speed-calculator/speed-calculator-service"
 import { calculate, Generations, Move as MoveSmogon, Result } from "@robsonbittencourt/calc"
 
 @Injectable({
@@ -17,6 +18,7 @@ export class DamageCalculatorService {
   adjusters = inject(CALC_ADJUSTERS)
   fieldMapper = inject(FieldMapper)
   builder = inject(SmogonPokemonBuilder)
+  speedCalculator = inject(SpeedCalculatorService)
 
   calcDamage(attacker: Pokemon, target: Pokemon, field: Field): DamageResult {
     const result = this.calculateResult(attacker, target, attacker.move, field, field.isCriticalHit)
@@ -31,13 +33,19 @@ export class DamageCalculatorService {
   }
 
   calcDamageForTwoAttackers(attacker: Pokemon, secondAttacker: Pokemon, target: Pokemon, field: Field): [DamageResult, DamageResult] {
-    const result = this.calculateResult(attacker, target, attacker.move, field, field.isCriticalHit, secondAttacker)
-    const secondResult = this.calculateResult(secondAttacker, target, secondAttacker.move, field, field.isCriticalHit, attacker)
-    result.damage = this.sumDamageResult(result, secondResult)
+    const [firstBySpeed, secondBySpeed] = this.speedCalculator.orderPairBySpeed(attacker, secondAttacker, field)
+
+    const firstResult = this.calculateResult(firstBySpeed, target, firstBySpeed.move, field, field.isCriticalHit, secondBySpeed)
+
+    const targetWithTakedDamage = this.applyDamageInTarget(firstResult, target)
+
+    const secondResult = this.calculateResult(secondBySpeed, targetWithTakedDamage, secondBySpeed.move, field, field.isCriticalHit, attacker)
+
+    this.applyTotalDamage(firstResult, secondResult)
 
     return [
-      new DamageResult(attacker, target, attacker.move.name, result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescriptionWithTwo(result, secondResult), undefined, secondAttacker),
-      new DamageResult(secondAttacker, target, secondAttacker.move.name, result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescriptionWithTwo(result, secondResult), undefined, attacker)
+      new DamageResult(firstBySpeed, target, firstBySpeed.move.name, firstResult.moveDesc(), this.koChance(firstResult), this.maxPercentageDamage(firstResult), this.damageDescriptionWithTwo(firstResult, secondResult), undefined, secondBySpeed),
+      new DamageResult(secondBySpeed, target, secondBySpeed.move.name, secondResult.moveDesc(), this.koChance(firstResult), this.maxPercentageDamage(secondResult), this.damageDescriptionWithTwo(firstResult, secondResult), undefined, firstBySpeed)
     ]
   }
 
@@ -64,11 +72,21 @@ export class DamageCalculatorService {
     return result
   }
 
-  private sumDamageResult(result: Result, secondResult: Result): number[] {
+  private applyDamageInTarget(result: Result, target: Pokemon): Pokemon {
+    const maxDamage = (result.damage as number[])[15]
+    const percentualDamage = 100 - (maxDamage / target.hp) * 100
+    const targetHpPercentage = Math.max(percentualDamage, 0)
+
+    return target.clone({ hpPercentage: targetHpPercentage })
+  }
+
+  private applyTotalDamage(result: Result, secondResult: Result) {
     const firstDamage = result.damage as number[]
     const secondDamage = secondResult.damage as number[]
+    const totalDamage = firstDamage.map((num, idx) => num + secondDamage[idx])
 
-    return firstDamage.map((num, idx) => num + secondDamage[idx])
+    result.damage = totalDamage
+    secondResult.damage = totalDamage
   }
 
   private koChance(result: Result): string {

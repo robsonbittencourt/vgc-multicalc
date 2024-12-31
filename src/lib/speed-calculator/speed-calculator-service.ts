@@ -41,6 +41,15 @@ export class SpeedCalculatorService {
     return speedDefinitions
   }
 
+  orderPairBySpeed(pokemonOne: Pokemon, pokemonTwo: Pokemon, field: Field): [Pokemon, Pokemon] {
+    const smogonField = this.fieldMapper.toSmogon(field)
+
+    const speedOne = this.smogonService.getFinalSpeed(pokemonOne, smogonField, smogonField.attackerSide)
+    const speedTwo = this.smogonService.getFinalSpeed(pokemonTwo, smogonField, smogonField.attackerSide)
+
+    return speedOne >= speedTwo ? [pokemonOne, pokemonTwo] : [pokemonTwo, pokemonOne]
+  }
+
   private buildActual(pokemon: Pokemon, smogonField: SmogonField): SpeedDefinition {
     const speed = this.smogonService.getFinalSpeed(pokemon, smogonField, smogonField.attackerSide)
 

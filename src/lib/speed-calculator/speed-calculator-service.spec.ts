@@ -169,6 +169,30 @@ describe("SpeedCalculatorService", () => {
     })
   })
 
+  describe("Test orderPairBySpeed method", () => {
+    it("should return first Pokémon as first in pair when it is faster", () => {
+      const pokemonOne = new Pokemon("Rillaboom")
+      const pokemonTwo = new Pokemon("Raging Bolt")
+      const field = new Field()
+
+      const [faster, slower] = service.orderPairBySpeed(pokemonOne, pokemonTwo, field)
+
+      expect(faster.id).toBe(pokemonOne.id)
+      expect(slower.id).toBe(pokemonTwo.id)
+    })
+
+    it("should return second Pokémon as first in pair when it is faster", () => {
+      const pokemonOne = new Pokemon("Raging Bolt")
+      const pokemonTwo = new Pokemon("Rillaboom")
+      const field = new Field()
+
+      const [faster, slower] = service.orderPairBySpeed(pokemonOne, pokemonTwo, field)
+
+      expect(faster.id).toBe(pokemonTwo.id)
+      expect(slower.id).toBe(pokemonOne.id)
+    })
+  })
+
   describe("min speed", () => {
     it("should return min speed description and Pokémon name", () => {
       const pokemon = new Pokemon("Flutter Mane")
