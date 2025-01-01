@@ -109,6 +109,29 @@ export class Pokemon {
     return this.smogonPokemon.evs.hp + this.smogonPokemon.evs.atk + this.smogonPokemon.evs.def + this.smogonPokemon.evs.spa + this.smogonPokemon.evs.spd + this.smogonPokemon.evs.spe
   }
 
+  get jumps(): [number, number, number] {
+    const stat = this.baseStatWithbeneficalNature()
+    if (!stat) return [0, 0, 0]
+
+    const baseStat = this.smogonPokemon.species.baseStats[stat]
+    const iv = this.smogonPokemon.ivs[stat]
+    let ev = 4
+
+    const jumps = []
+
+    while (ev <= 252 && jumps.length != 3) {
+      const statValue = this.statPhormula(baseStat, iv, ev)
+
+      if (statValue % 1 === 0) {
+        jumps.push(ev)
+      }
+
+      ev += 8
+    }
+
+    return jumps as [number, number, number]
+  }
+
   get ivs(): Partial<Stats> {
     return this.smogonPokemon.ivs
   }
@@ -260,5 +283,37 @@ export class Pokemon {
 
   private getModifiedStat(smogonPokemon: SmogonPokemon, stat: StatID) {
     return this.smogonFunctions.getModifiedStat(smogonPokemon.rawStats[stat], smogonPokemon.boosts[stat])
+  }
+
+  private baseStatWithbeneficalNature(): StatID | undefined {
+    if (["Lonely", "Adamant", "Naughty", "Brave"].includes(this.nature)) {
+      return "atk"
+    }
+
+    if (["Bold", "Impish", "Lax", "Relaxed"].includes(this.nature)) {
+      return "def"
+    }
+
+    if (["Modest", "Mild", "Rash", "Quiet"].includes(this.nature)) {
+      return "spa"
+    }
+
+    if (["Calm", "Gentle", "Careful", "Sassy"].includes(this.nature)) {
+      return "spd"
+    }
+
+    if (["Timid", "Hasty", "Jolly", "Naive"].includes(this.nature)) {
+      return "spe"
+    }
+
+    return undefined
+  }
+
+  private statPhormula(baseStat: number, iv: number, ev: number): number {
+    const firstPart = (2 * baseStat + iv + ev / 4) / 100
+    const secondPart = firstPart * this.level + 5
+    const result = Math.round(secondPart * 1.1 * 100) / 100
+
+    return result
   }
 }

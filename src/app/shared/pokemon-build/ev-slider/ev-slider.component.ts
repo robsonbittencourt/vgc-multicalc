@@ -1,10 +1,11 @@
-import { Component, computed, inject, input, model } from "@angular/core"
+import { Component, computed, ElementRef, inject, input, model, viewChild } from "@angular/core"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { MatOption } from "@angular/material/core"
 import { MatFormField, MatLabel, MatSuffix } from "@angular/material/form-field"
 import { MatInput } from "@angular/material/input"
 import { MatSelect } from "@angular/material/select"
 import { MatSlider, MatSliderThumb } from "@angular/material/slider"
+import { MatTooltip } from "@angular/material/tooltip"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { Stats } from "@lib/types"
 
@@ -12,7 +13,7 @@ import { Stats } from "@lib/types"
   selector: "app-ev-slider",
   templateUrl: "./ev-slider.component.html",
   styleUrls: ["./ev-slider.component.scss"],
-  imports: [MatFormField, MatSuffix, ReactiveFormsModule, MatInput, FormsModule, MatSelect, MatOption, MatLabel, MatSlider, MatSliderThumb]
+  imports: [MatFormField, MatSuffix, ReactiveFormsModule, MatInput, FormsModule, MatSelect, MatOption, MatLabel, MatSlider, MatSliderThumb, MatTooltip]
 })
 export class EvSliderComponent {
   pokemonId = input.required<string>()
@@ -21,6 +22,8 @@ export class EvSliderComponent {
   reduced = input(false)
 
   store = inject(CalculatorStore)
+
+  sliderElement = viewChild<ElementRef>("slider")
 
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
   nature = computed(() => this.pokemon().nature)
@@ -82,6 +85,14 @@ export class EvSliderComponent {
 
     return ""
   })
+
+  isStatWithBeneficialNature = computed(() => {
+    return this.natureModifier() === "+"
+  })
+
+  firstJumpPosition = computed(() => this.positionBySliderIncrements(0))
+  secondJumpPosition = computed(() => this.positionBySliderIncrements(1))
+  thirdJumpPosition = computed(() => this.positionBySliderIncrements(2))
 
   MAX_EVS = 508
   EV_ZERO = 0
@@ -175,5 +186,28 @@ export class EvSliderComponent {
     if (this.ev() == this.FIRST_EV) return 6
 
     return this.EV_STEP
+  }
+
+  private positionBySliderIncrements(jump: 0 | 1 | 2): string {
+    const width = this.sliderElement()!.nativeElement.offsetWidth
+    const steps = 32
+    const pixelsByStep = width / steps
+
+    const increments = this.incrementsUntilJump(jump)
+
+    const largerSlider = width > 200
+    const adjusterValue = largerSlider ? 2.3 * (jump + 1) : 2
+
+    const result = increments * pixelsByStep + adjusterValue
+
+    return `${result}px`
+  }
+
+  private incrementsUntilJump(jump: number) {
+    const increments = (this.pokemon().jumps[jump] - 4) / 8
+
+    if (increments == 0) return 1
+
+    return increments
   }
 }
