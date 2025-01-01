@@ -1,31 +1,33 @@
-@if (isDesktopDevice()) {
-  <app-header />
-}
+<div class="container">
+  @if (isDesktopDevice()) {
+    <app-header />
+  }
 
-@if (isDesktopDevice() && menuStore.oneVsOneActivated()) {
-  <app-simple-calc />
-}
+  @if (isDesktopDevice() && menuStore.oneVsOneActivated()) {
+    <app-simple-calc />
+  }
 
-@if (isDesktopDevice() && menuStore.oneVsManyActivated()) {
-  <app-multi-calc />
-}
+  @if (isDesktopDevice() && menuStore.oneVsManyActivated()) {
+    <app-multi-calc />
+  }
 
-@if (isDesktopDevice() && menuStore.manyVsOneActivated()) {
-  <app-multi-calc />
-}
+  @if (isDesktopDevice() && menuStore.manyVsOneActivated()) {
+    <app-multi-calc />
+  }
 
-@if (isDesktopDevice() && menuStore.speedCalculatorActivated()) {
-  <app-speed-calculator />
-}
+  @if (isDesktopDevice() && menuStore.speedCalculatorActivated()) {
+    <app-speed-calculator />
+  }
 
-@if (!isDesktopDevice()) {
-  <app-header-mobile />
-}
+  @if (!isDesktopDevice()) {
+    <app-header-mobile />
+  }
 
-@if (!isDesktopDevice() && !menuStore.speedCalculatorActivated()) {
-  <app-simple-calc-mobile />
-}
+  @if (!isDesktopDevice() && !menuStore.speedCalculatorActivated()) {
+    <app-simple-calc-mobile />
+  }
 
-@if (!isDesktopDevice() && menuStore.speedCalculatorActivated()) {
-  <app-speed-calculator-mobile />
-}
+  @if (!isDesktopDevice() && menuStore.speedCalculatorActivated()) {
+    <app-speed-calculator-mobile />
+  }
+</div>
