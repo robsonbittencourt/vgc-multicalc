@@ -38,8 +38,18 @@
     </mat-form-field>
   </div>
 
-  <div class="ev-slider">
+  <div class="ev-slider" #slider>
     <mat-slider class="mat-ev-slider" [min]="calculateMin()" [max]="252" [step]="calculateEvStep()">
+      @if (isStatWithBeneficialNature()) {
+        <div class="slider-pipe" [style.left]="firstJumpPosition()"></div>
+        <div class="tooltip-container" [style.left]="firstJumpPosition()" matTooltip="Jump 1"></div>
+
+        <div class="slider-pipe" [style.left]="secondJumpPosition()"></div>
+        <div class="tooltip-container" [style.left]="secondJumpPosition()" matTooltip="Jump 2"></div>
+
+        <div class="slider-pipe" [style.left]="thirdJumpPosition()"></div>
+        <div class="tooltip-container" [style.left]="thirdJumpPosition()" matTooltip="Jump 3"></div>
+      }
       <input matSliderThumb [(ngModel)]="ev" (input)="beforeChangeEvValue()" (change)="evChanged()" />
     </mat-slider>
   </div>
