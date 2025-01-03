@@ -6,7 +6,8 @@ const POKEMON_QUANTITY = 64
 
 export async function smogonUsageList(date, reg) {
   try {
-    return await axios.get(`https://www.smogon.com/stats/${date}/gen9vgc2024reg${reg}bo3-1760.txt`)
+    const year = reg === "h" ? "2024" : "2025"
+    return await axios.get(`https://www.smogon.com/stats/${date}/gen9vgc${year}reg${reg}bo3-1760.txt`)
   } catch (error) {
     console.error(error)
   }
@@ -14,7 +15,8 @@ export async function smogonUsageList(date, reg) {
 
 export async function getSmogonData(date, reg) {
   try {
-    const response = await axios.get(`https://www.smogon.com/stats/${date}/moveset/gen9vgc2024reg${reg}bo3-1760.txt`)
+    const year = reg === "h" ? "2024" : "2025"
+    const response = await axios.get(`https://www.smogon.com/stats/${date}/moveset/gen9vgc${year}reg${reg}bo3-1760.txt`)
     const parsedSmogonData = parseSmogonData(response.data)
     return parsedSmogonData
   } catch (error) {
@@ -123,7 +125,11 @@ function extractMoves(sections) {
     )
     .filter(it => it != "Moves" && it != "Other")
 
-  const mainMoves = allMoves.slice(0, 4)
+  const mainMoves = allMoves.slice(0, 4).filter(it => it != "Nothing")
+
+  while (mainMoves.length < 4) {
+    mainMoves.push("")
+  }
 
   return mainMoves
     .map(m => new Move(Generations.get(9), m))

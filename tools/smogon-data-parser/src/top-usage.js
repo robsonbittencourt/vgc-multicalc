@@ -8,8 +8,8 @@ export const topUsageByRegulation: Record<Regulation, string[]> = {\n  `
 await topUsage()
 
 async function topUsage() {
-  const usageListRegG = await usageList("2024-08", "g")
-  const usageListRegH = await usageList("2024-11", "h")
+  const usageListRegG = await usageList("2024-12", "g")
+  const usageListRegH = await usageList("2024-12", "h")
   const usageLists = [usageListRegG, usageListRegH]
 
   const fileContent = buildFileContent(usageLists)
@@ -33,7 +33,11 @@ async function usageList(date, regulation) {
 
     const pokemonName = columns[2]
     if (pokemonName) {
-      pokemonNames.push(pokemonName)
+      if (pokemonName == "Terapagos") {
+        pokemonNames.push("Terapagos-Terastal")
+      } else {
+        pokemonNames.push(pokemonName)
+      }
     }
   }
 
