@@ -21,7 +21,7 @@ describe("Speed Calc Options Store", () => {
 
       const options = store.options()
 
-      expect(options.regulation).toBe("H")
+      expect(options.regulation).toBe("G")
       expect(options.targetName).toBe("Pikachu")
       expect(options.speedModifier).toBe(-1)
       expect(options.speedDropActive).toBeTrue()

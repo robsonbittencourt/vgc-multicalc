@@ -14,7 +14,7 @@ type SpeedCalcOptionsState = {
 }
 
 const initialState: SpeedCalcOptionsState = {
-  regulation: "H",
+  regulation: "G",
   targetName: "",
   speedModifier: 0,
   speedDropActive: false,
