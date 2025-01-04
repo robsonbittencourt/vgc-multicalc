@@ -50,7 +50,17 @@
         <div class="slider-pipe" [style.left]="thirdJumpPosition()"></div>
         <div class="tooltip-container" [style.left]="thirdJumpPosition()" matTooltip="Jump 3"></div>
       }
-      <input matSliderThumb [(ngModel)]="ev" (input)="beforeChangeEvValue()" (change)="evChanged()" />
+      <input
+        matSliderThumb
+        [(ngModel)]="ev"
+        (input)="beforeChangeEvValue()"
+        (change)="evChanged()"
+        (keydown)="onKeydown($event)"
+        (mousemove)="onMouseMove($event)"
+        (mouseleave)="resetMousePosition()"
+        (touchstart)="onTouchMove($event)"
+        (touchmove)="onTouchMove($event)"
+        (touchend)="resetTouchPosition()" />
     </mat-slider>
   </div>
 

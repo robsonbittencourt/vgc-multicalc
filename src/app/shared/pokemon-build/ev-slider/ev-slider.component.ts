@@ -31,6 +31,27 @@ export class EvSliderComponent implements AfterViewInit {
   hpPercentage = computed(() => this.pokemon().hpPercentage)
   statModifier = computed(() => this.pokemon().boosts[this.stat()])
 
+  actualEvsQuantity = computed(() => {
+    const STATS_KEYS: (keyof Stats)[] = ["hp", "atk", "def", "spa", "spd", "spe"]
+
+    return STATS_KEYS.filter(stat => stat !== this.stat()).reduce((total, stat) => total + (this.pokemon().evs[stat] ?? 0), 0)
+  })
+
+  maxAvailableEv = computed(() => this.MAX_EVS - this.actualEvsQuantity())
+
+  calculateMin = computed(() => {
+    if (this.ev() == this.EV_ZERO || this.ev() == this.FIRST_EV) return 0
+
+    return 4
+  })
+
+  calculateEvStep = computed(() => {
+    if (this.ev() == this.EV_ZERO) return this.FIRST_EV
+    if (this.ev() == this.FIRST_EV) return 6
+
+    return this.EV_STEP
+  })
+
   baseStat = computed(() => {
     if (this.stat() == "hp") return this.pokemon().baseHp
     if (this.stat() == "atk") return this.pokemon().baseAtk
@@ -101,10 +122,6 @@ export class EvSliderComponent implements AfterViewInit {
   FIRST_EV = 4
   EV_STEP = 8
 
-  ngAfterViewInit(): void {
-    this.width.set(this.sliderElement()!.nativeElement.clientWidth)
-  }
-
   statsModifiers = [
     { value: 6, viewValue: "+6" },
     { value: 5, viewValue: "+5" },
@@ -120,6 +137,13 @@ export class EvSliderComponent implements AfterViewInit {
     { value: -5, viewValue: "-5" },
     { value: -6, viewValue: "-6" }
   ]
+
+  previousMouseX: number | null = null
+  previousTouchX: number | null = null
+
+  ngAfterViewInit(): void {
+    this.width.set(this.sliderElement()!.nativeElement.clientWidth)
+  }
 
   hpPercentageChanged(event: Event) {
     this.store.hpPercentage(this.pokemonId(), +(event.target as HTMLInputElement).value)
@@ -137,20 +161,77 @@ export class EvSliderComponent implements AfterViewInit {
     }
   }
 
+  onKeydown(event: KeyboardEvent) {
+    if (event.key === "Home" || event.key === "End") {
+      event.preventDefault()
+    }
+
+    if ((event.key === "ArrowRight" || event.key === "ArrowUp") && this.evsExceed()) {
+      event.preventDefault()
+    }
+  }
+
+  onTouchStart(event: TouchEvent) {
+    if (this.evsExceed()) {
+      event.preventDefault()
+    }
+  }
+
+  onTouchMove(event: TouchEvent): void {
+    const currentTouchX = event.touches[0]?.clientX
+
+    if (currentTouchX !== undefined && this.previousTouchX !== null) {
+      const moveToRight = currentTouchX >= this.previousTouchX
+
+      if (moveToRight && this.evsExceed()) {
+        event.preventDefault()
+      }
+    }
+
+    this.previousTouchX = currentTouchX
+  }
+
+  resetTouchPosition(): void {
+    this.previousTouchX = null
+  }
+
+  onMouseMove(event: MouseEvent) {
+    const currentMouseX = event.clientX
+
+    if (this.previousMouseX !== null) {
+      const moveToRight = currentMouseX >= this.previousMouseX
+
+      if (moveToRight && this.evsExceed()) {
+        event.preventDefault()
+      }
+    }
+
+    this.previousMouseX = currentMouseX
+  }
+
+  resetMousePosition() {
+    this.previousMouseX = null
+  }
+
+  private evsExceed(): boolean {
+    const moreThenFirstEv = this.maxAvailableEv() - this.ev() == this.FIRST_EV && this.ev() > this.FIRST_EV
+    const moreThenMax = this.actualEvsQuantity() + this.ev() >= this.MAX_EVS
+
+    return moreThenFirstEv || moreThenMax
+  }
+
   private adjustEv(newEv: number): number {
     if (this.actualEvsQuantity() + newEv <= this.MAX_EVS) {
       return newEv
     }
 
-    const maxAvailableEv = this.MAX_EVS - this.actualEvsQuantity()
-
-    if (maxAvailableEv == 0) {
+    if (this.maxAvailableEv() == 0) {
       return 0
     }
 
-    const leftoverEvs = (maxAvailableEv - this.FIRST_EV) % this.EV_STEP
+    const leftoverEvs = (this.maxAvailableEv() - this.FIRST_EV) % this.EV_STEP
 
-    return maxAvailableEv - leftoverEvs
+    return this.maxAvailableEv() - leftoverEvs
   }
 
   private updateEv(ev: number): void {
@@ -159,12 +240,6 @@ export class EvSliderComponent implements AfterViewInit {
     const updatedEvs = { ...this.pokemon().evs }
     updatedEvs[this.stat()] = ev
     this.store.evs(this.pokemonId(), updatedEvs)
-  }
-
-  actualEvsQuantity() {
-    const STATS_KEYS: (keyof Stats)[] = ["hp", "atk", "def", "spa", "spd", "spe"]
-
-    return STATS_KEYS.filter(stat => stat !== this.stat()).reduce((total, stat) => total + (this.pokemon().evs[stat] ?? 0), 0)
   }
 
   ivChanged(event: Event) {
@@ -179,19 +254,6 @@ export class EvSliderComponent implements AfterViewInit {
     newBoosts[this.stat()] = statModifier
 
     this.store.boosts(this.pokemonId(), newBoosts)
-  }
-
-  calculateMin() {
-    if (this.ev() == this.EV_ZERO || this.ev() == this.FIRST_EV) return 0
-
-    return 4
-  }
-
-  calculateEvStep() {
-    if (this.ev() == this.EV_ZERO) return this.FIRST_EV
-    if (this.ev() == this.FIRST_EV) return 6
-
-    return this.EV_STEP
   }
 
   private positionBySliderIncrements(width: number, jump: 0 | 1 | 2): string {
