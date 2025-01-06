@@ -3,6 +3,7 @@ import { Component, computed, inject, input, output } from "@angular/core"
 import { MatButton } from "@angular/material/button"
 import { MatDialog } from "@angular/material/dialog"
 import { MatIcon } from "@angular/material/icon"
+import { MatTooltip } from "@angular/material/tooltip"
 import { AddPokemonCardComponent } from "@app/features/multi-calc/add-pokemon-card/add-pokemon-card.component"
 import { PokemonCardComponent } from "@app/features/multi-calc/pokemon-card/pokemon-card.component"
 import { TeamImportModalComponent } from "@app/shared/team/team-import-modal/team-import-modal.component"
@@ -20,7 +21,7 @@ import { PokePasteParserService } from "@lib/user-data/poke-paste-parser.service
   selector: "app-target-pokemon",
   templateUrl: "./target-pokemon.component.html",
   styleUrls: ["./target-pokemon.component.scss"],
-  imports: [MatIcon, MatButton, PokemonCardComponent, AddPokemonCardComponent]
+  imports: [MatIcon, MatButton, MatTooltip, PokemonCardComponent, AddPokemonCardComponent]
 })
 export class TargetPokemonComponent {
   damageResults = input.required<DamageResult[]>()
