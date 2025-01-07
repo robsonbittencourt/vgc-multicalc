@@ -51,6 +51,10 @@ export class PokemonComboBoxComponent {
       this.store.activateMoveByPosition(this.pokemonId(), 1)
     }
 
+    this.store.commander(this.pokemonId(), false)
+    this.store.boosts(this.pokemonId(), { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
+    this.store.hpPercentage(this.pokemonId(), 100)
+
     this.pokemonChanged.emit()
   }
 }

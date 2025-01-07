@@ -115,6 +115,10 @@ export class CalculatorStore extends signalStore(
     this.updatePokemonById(pokemonId, () => ({ abilityOn }))
   }
 
+  commander(pokemonId: string, commanderActive: boolean) {
+    this.updatePokemonById(pokemonId, () => ({ commanderActive }))
+  }
+
   toogleCommanderActive(pokemonId: string) {
     const pokemon = this.findPokemonById(pokemonId)
     if (pokemon.name != "Dondozo") return

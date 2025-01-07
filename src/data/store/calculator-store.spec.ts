@@ -121,6 +121,20 @@ describe("Calculator Store", () => {
         expect(store.team().activePokemon().ability.on).toBeTrue()
       })
 
+      it("should update Commander Active to true", () => {
+        store.commander(defaultId, false)
+        store.commander(defaultId, true)
+
+        expect(store.team().activePokemon().commanderActive).toBe(true)
+      })
+
+      it("should update Commander Active to false", () => {
+        store.commander(defaultId, true)
+        store.commander(defaultId, false)
+
+        expect(store.team().activePokemon().commanderActive).toBe(false)
+      })
+
       it("should do nothing when try to apply Commander but Pokémon it is not Dondozo", () => {
         store.name(defaultId, "Pikachu")
 

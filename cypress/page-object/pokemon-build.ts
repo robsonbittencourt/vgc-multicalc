@@ -3,6 +3,11 @@ import { ImportModal } from "./import-modal"
 export class PokemonBuild {
   constructor(private selector: string) {}
 
+  selectPokémon(pokemonName: string): PokemonBuild {
+    this.container().find('[data-cy="pokemon-select"] input').clear().type(pokemonName, { force: true }).type("{downArrow}").type("{enter}")
+    return this
+  }
+
   selectAttackOne(): PokemonBuild {
     this.container().find('[data-cy="attack1"] input').click({ force: true })
     return this
@@ -77,8 +82,33 @@ export class PokemonBuild {
     this.container().find('[data-cy="commander"]').click({ force: true })
   }
 
+  commanderNotActivated() {
+    this.container().find('[data-cy="commander-deactivated"]')
+  }
+
+  boostsIs(atk: number, def: number, spa: number, spd: number, spe: number) {
+    this.verifyBoostIs("atk", atk)
+    this.verifyBoostIs("def", def)
+    this.verifyBoostIs("spa", spa)
+    this.verifyBoostIs("spd", spd)
+    this.verifyBoostIs("spe", spe)
+  }
+
+  private verifyBoostIs(stat: string, statValue: number) {
+    const adjustedStatValue = this.adjustedBoostStat(statValue)
+    this.container().find(`[data-cy="stat-${stat}"]`).find('[data-cy="stat-modifier"]').contains(adjustedStatValue)
+  }
+
+  private adjustedBoostStat(stat: number): string {
+    return stat == 0 ? "-" : `${stat}`
+  }
+
   hpPercentage(hpPercentage: number) {
     this.container().find(`[data-cy="stat-hp"]`).find('[data-cy="hp-percentage-value"]').clear().clear().type(hpPercentage.toString(), { force: true })
+  }
+
+  hpPercentageIs(hpPercentage: number) {
+    this.container().find(`[data-cy="stat-hp"]`).find('[data-cy="hp-percentage-value"]').invoke("val").should("eq", `${hpPercentage}`)
   }
 
   hpEvs(hpEvs: number): PokemonBuild {
