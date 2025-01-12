@@ -10,10 +10,11 @@ import { EvSliderComponent } from "@app/shared/pokemon-build/ev-slider/ev-slider
 import { PokemonComboBoxComponent } from "@app/shared/pokemon-build/pokemon-combo-box/pokemon-combo-box.component"
 import { AllPokemon } from "@data/all-pokemon"
 import { Items } from "@data/items"
+import { Moves } from "@data/moves"
 import { Natures } from "@data/natures"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { Status } from "@lib/model/status"
-import { MOVES, TYPE_CHART } from "@robsonbittencourt/calc"
+import { TYPE_CHART } from "@robsonbittencourt/calc"
 import { TypeName } from "@robsonbittencourt/calc/dist/data/interface"
 
 @Component({
@@ -32,7 +33,7 @@ export class PokemonBuildComponent {
 
   MAX_EVS = 508
 
-  allMoveNames = Object.keys(MOVES[9]).splice(1).sort()
+  allMoveNames = Moves.instance.allMoves()
   allNatureNames = Natures.instance.natures
   allItemsNames = Items.instance.allItems()
   allTeraTypes = Object.keys(TYPE_CHART[9]).splice(1).sort()

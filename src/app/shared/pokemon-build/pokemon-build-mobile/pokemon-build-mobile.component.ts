@@ -8,10 +8,11 @@ import { InputAutocompleteComponent } from "@app/shared/input-autocomplete/input
 import { AbilityComboBoxComponent } from "@app/shared/pokemon-build/ability-combo-box/ability-combo-box.component"
 import { EvSliderComponent } from "@app/shared/pokemon-build/ev-slider/ev-slider.component"
 import { Items } from "@data/items"
+import { Moves } from "@data/moves"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { Pokemon } from "@lib/model/pokemon"
 import { Status } from "@lib/model/status"
-import { MOVES, NATURES, TYPE_CHART } from "@robsonbittencourt/calc"
+import { NATURES, TYPE_CHART } from "@robsonbittencourt/calc"
 
 @Component({
   selector: "app-pokemon-build-mobile",
@@ -31,7 +32,7 @@ export class PokemonBuildMobileComponent {
   MAX_EVS = 508
 
   allItemsNames = Items.instance.allItems()
-  allMoveNames = Object.keys(MOVES[9]).splice(1).sort()
+  allMoveNames = Moves.instance.allMoves()
   allNatureNames = Object.keys(NATURES)
   allTeraTypes = Object.keys(TYPE_CHART[9]).splice(1).sort()
   alliesFainted = ["0", "1", "2", "3", "4", "5", "6", "7"]
