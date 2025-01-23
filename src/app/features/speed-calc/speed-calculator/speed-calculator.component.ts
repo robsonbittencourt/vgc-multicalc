@@ -24,6 +24,8 @@ export class SpeedCalculatorComponent {
 
   pokemonId = computed(() => this.store.team().activePokemon().id)
 
+  isPokemonDefault = computed(() => this.store.team().activePokemon().isDefault)
+
   optionsStore = inject(SpeedCalcOptionsStore)
 
   regulationsList: Regulation[] = ["G", "H"]
