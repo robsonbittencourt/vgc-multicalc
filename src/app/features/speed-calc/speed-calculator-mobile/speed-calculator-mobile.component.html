@@ -2,7 +2,7 @@
   <div class="combo-options">
     <div class="pokemon-name">
       <label>Pokémon</label>
-      <app-pokemon-combo-box [pokemonId]="pokemonId()" data-cy="pokemon-select" />
+      <app-pokemon-combo-box [pokemonId]="pokemonId()" (pokemonChanged)="resetEvs()" data-cy="pokemon-select" />
     </div>
 
     <div class="combo-option">

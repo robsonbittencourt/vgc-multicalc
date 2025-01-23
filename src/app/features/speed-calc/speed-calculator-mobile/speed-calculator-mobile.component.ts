@@ -1,4 +1,4 @@
-import { Component, computed, inject } from "@angular/core"
+import { Component, computed, inject, OnInit } from "@angular/core"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { MatButtonToggle, MatButtonToggleGroup } from "@angular/material/button-toggle"
 import { MatCheckbox } from "@angular/material/checkbox"
@@ -41,7 +41,7 @@ import { NATURES } from "@robsonbittencourt/calc"
     MatIcon
   ]
 })
-export class SpeedCalculatorMobileComponent {
+export class SpeedCalculatorMobileComponent implements OnInit {
   store = inject(CalculatorStore)
   fieldStore = inject(FieldStore)
   optionsStore = inject(SpeedCalcOptionsStore)
@@ -69,4 +69,12 @@ export class SpeedCalculatorMobileComponent {
     { value: -5, viewValue: "-5" },
     { value: -6, viewValue: "-6" }
   ]
+
+  ngOnInit() {
+    this.resetEvs()
+  }
+
+  resetEvs() {
+    this.store.evs(this.pokemonId(), { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
+  }
 }
