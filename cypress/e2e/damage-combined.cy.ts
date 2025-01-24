@@ -104,7 +104,7 @@ describe("Test edit in combined damage", () => {
 
     team.selectTeamMember("Tatsugiri").combineDamage()
     team.selectTeamMember("Chi-Yu")
-    opponents.get("Urshifu Rapid Strike").damageIs(209.7, 246.8).causeOHKO()
+    opponents.get("Urshifu Rapid Strike").damageIs(177.1, 209.1).causeOHKO()
 
     team.selectTeamMember("Tatsugiri").disableCombineDamage()
     team.selectTeamMember("Dondozo").combineDamage()
@@ -154,7 +154,7 @@ describe("Combined Damage with Ruin abilities", () => {
     team.selectTeamMember("Blaziken").combineDamage()
     team.selectTeamMember("Chien-Pao")
 
-    opponents.get("Urshifu Rapid Strike").damageIs(69.7, 82.2).cause2HKO()
+    opponents.get("Urshifu Rapid Strike").damageIs(60, 70.2).cause2HKO()
   })
 
   it("Calculate damage with two Pokémon, one with Vessel of Ruin and another without ability", () => {
@@ -204,7 +204,7 @@ describe("Combined Damage with Ruin abilities", () => {
     team.selectTeamMember("Wo-Chien").combineDamage()
     team.selectTeamMember("Chien-Pao")
 
-    opponents.get("Urshifu Rapid Strike").damageIs(32, 38.2).haveChanceOfToCause3HKO(95.9)
+    opponents.get("Urshifu Rapid Strike").damageIs(29.7, 35.4).haveChanceOfToCause3HKO(21.5)
   })
 
   it("Calculate damage with two Pokémon, one with Vessel of Ruin and another with Beads of Ruin", () => {
@@ -214,11 +214,11 @@ describe("Combined Damage with Ruin abilities", () => {
     team.selectTeamMember("Ting-Lu").combineDamage()
     team.selectTeamMember("Chi-Yu")
 
-    opponents.get("Urshifu Rapid Strike").damageIs(74.8, 89.1).cause2HKO()
+    opponents.get("Urshifu Rapid Strike").damageIs(71.4, 85.1).cause2HKO()
   })
 })
 
-describe.only("Combined Damage against reduce damage abilities", () => {
+describe("Combined Damage against reduce damage abilities", () => {
   beforeEach(() => {
     team.delete("Team 1")
   })

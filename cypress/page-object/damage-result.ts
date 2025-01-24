@@ -9,8 +9,13 @@ export class DamageResult {
     description.contains(`${minPercentage} - ${maxPercentage}`)
 
     const rolls = this.baseElement().find('[data-cy="damage-rolls"]')
-    rolls.contains(`${minRoll},`)
-    rolls.contains(`,${maxRoll}`)
+
+    if (minRoll == 0 && maxRoll == 0) {
+      rolls.contains(`${minRoll}`)
+    } else {
+      rolls.contains(`${minRoll},`)
+      rolls.contains(`,${maxRoll}`)
+    }
   }
 
   isFainted() {
