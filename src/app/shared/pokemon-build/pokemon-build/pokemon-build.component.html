@@ -4,8 +4,8 @@
       <div class="pokemon-image">
         <img src="assets/icons/question.png" />
       </div>
-      <label>Pokémon</label>
-      <app-pokemon-combo-box [pokemonId]="pokemonId()" data-cy="pokemon-select" />
+
+      <app-pokemon-combo-box label="Pokémon" [pokemonId]="pokemonId()" data-cy="pokemon-select" />
     </div>
   </div>
 } @else {
@@ -14,57 +14,35 @@
       <div class="pokemon-image">
         <img src="assets/sprites/pokemon-home/{{ pokemon().name }}.png" />
       </div>
-      <label>Pokémon</label>
-      <app-pokemon-combo-box [pokemonId]="pokemonId()" data-cy="pokemon-select" />
+
+      <app-pokemon-combo-box label="Pokémon" [pokemonId]="pokemonId()" data-cy="pokemon-select" />
     </div>
 
-    <div class="pokemon-status" [ngStyle]="(reverse() && { order: 3 }) || null">
-      <div>
-        <label>Status</label>
-        <app-input-autocomplete [value]="pokemon().status.description" [allValues]="statusConditions" (valueChange)="store.status(pokemonId(), $event)" data-cy="pokemon-status" />
-      </div>
+    <div class="status-item" [ngStyle]="(reverse() && { order: 3 }) || null">
+      <app-input-autocomplete label="Status" [value]="pokemon().status.description" [allValues]="statusConditions" (valueChange)="store.status(pokemonId(), $event)" data-cy="pokemon-status" />
 
       @if (pokemon().activeMoveName === "Last Respects") {
-        <div class="multihit">
-          <label>Allies Fainted</label>
-          <app-input-autocomplete [value]="pokemon().moveSet.activeMove.alliesFainted" [allValues]="alliesFainted" (valueChange)="alliesFaintedChanged($event)" data-cy="allies-fainted" />
-        </div>
+        <app-input-autocomplete label="Allies Fainted" [value]="pokemon().moveSet.activeMove.alliesFainted" [allValues]="alliesFainted" (valueChange)="alliesFaintedChanged($event)" data-cy="allies-fainted" />
       }
 
       @if (pokemon().moveSet.activeMove.possibleHits.length > 0) {
-        <div class="multihit">
-          @if (pokemon().activeMoveName !== "Rage Fist") {
-            <label>Hits</label>
-          }
-
-          @if (pokemon().activeMoveName === "Rage Fist") {
-            <label>Hits Taken</label>
-          }
-          <app-input-autocomplete [value]="pokemon().moveSet.activeMove.hits" [allValues]="pokemon().moveSet.activeMove.possibleHits" (valueChange)="hitsChanged($event)" data-cy="hits-taken" />
-        </div>
+        <app-input-autocomplete [label]="multiHitLabel()" [value]="pokemon().moveSet.activeMove.hits" [allValues]="pokemon().moveSet.activeMove.possibleHits" (valueChange)="hitsChanged($event)" data-cy="hits-taken" />
       }
 
-      <div>
-        <label>Item</label>
-        <app-input-autocomplete [value]="pokemon().item" [allValues]="allItemsNames" (valueChange)="store.item(pokemonId(), $event)" data-cy="item" />
-      </div>
+      <app-input-autocomplete label="Item" [value]="pokemon().item" [allValues]="allItemsNames" (valueChange)="store.item(pokemonId(), $event)" data-cy="item" />
     </div>
 
-    <div class="pokemon-tera" [ngStyle]="(reverse() && { order: 2 }) || null">
-      <div>
-        <div class="info-label tera-label">
-          <label>Tera Type</label>
+    <div class="tera-type-ability" [ngStyle]="(reverse() && { order: 2 }) || null">
+      <div class="check-input-section tera-section">
+        <div (click)="terastalyzePokemon()" matTooltip="Terastal" [matTooltipShowDelay]="1000" data-cy="terastal-button">
+          @if (pokemon().teraTypeActive) {
+            <img class="icon-tera" src="assets/icons/tera-icon.png" />
+          } @else {
+            <img class="icon-tera" src="assets/icons/tera-icon-gray.png" />
+          }
         </div>
-        <div class="check-input-section tera-checkbox">
-          <button class="icon-button" (click)="terastalyzePokemon()" matTooltip="Terastal" [matTooltipShowDelay]="1000" data-cy="terastal-button">
-            @if (pokemon().teraTypeActive) {
-              <img class="icon-tera" src="assets/icons/tera-icon.png" />
-            } @else {
-              <img class="icon-tera" src="assets/icons/tera-icon-gray.png" />
-            }
-          </button>
-          <app-input-autocomplete [value]="pokemon().teraType" [allValues]="allTeraTypes" [disabled]="pokemon().isTerapagos" (valueChange)="store.teraType(pokemonId(), $event)" data-cy="tera-type" />
-        </div>
+
+        <app-input-autocomplete label="Tera Type" [value]="pokemon().teraType" [allValues]="allTeraTypes" [disabled]="pokemon().isTerapagos" (valueChange)="store.teraType(pokemonId(), $event)" data-cy="tera-type" />
       </div>
 
       <div class="pokemon-types" [ngStyle]="(reverse() && { 'justify-content': 'left' }) || null">
@@ -76,72 +54,72 @@
       </div>
 
       <div class="pokemon-ability">
-        <div class="check-input-section ability-checkbox">
+        <div class="check-input-section">
           @if (pokemon().ability.actionableAbility) {
             <mat-checkbox [ngModel]="pokemon().ability.on" (change)="store.abilityOn(pokemonId(), $event.checked)" data-cy="activate-ability" />
           }
 
           @if (pokemon().name === "Dondozo") {
-            <button class="icon-button" (click)="store.toogleCommanderActive(pokemonId())" [matTooltipShowDelay]="1000" matTooltip="Commander" data-cy="commander">
+            <div (click)="store.toogleCommanderActive(pokemonId())" [matTooltipShowDelay]="1000" matTooltip="Commander" data-cy="commander">
               @if (pokemon().commanderActive) {
                 <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly.png" data-cy="commander-activated" />
               } @else {
                 <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly-gray.png" data-cy="commander-deactivated" />
               }
-            </button>
+            </div>
           }
 
           @if (pokemon().isParadoxAbility) {
-            <button class="icon-button" (click)="store.abilityOn(pokemonId(), !pokemon().ability.on)" matTooltip="Booster Energy" data-cy="booster-energy">
+            <div class="booster-section" (click)="store.abilityOn(pokemonId(), !pokemon().ability.on)" matTooltip="Booster Energy" data-cy="booster-energy">
               @if (pokemon().ability.on) {
-                <img class="icon-tatsugiri" src="assets/icons/booster-energy.png" />
+                <img class="icon-booster" src="assets/icons/booster-energy.png" />
               } @else {
-                <img class="icon-tatsugiri" src="assets/icons/booster-energy-gray.png" />
+                <img class="icon-booster" src="assets/icons/booster-energy-gray.png" />
               }
-            </button>
+            </div>
           }
-        </div>
-        <div class="ability-combo-box">
-          <label>Ability</label>
-          <app-ability-combo-box [pokemonId]="pokemonId()" data-cy="ability" />
+
+          <app-ability-combo-box label="Ability" [pokemonId]="pokemonId()" data-cy="ability" />
         </div>
       </div>
     </div>
 
-    <div class="moves-section" [ngStyle]="(reverse() && { order: 1, margin: '0em 1em 0em 0em' }) || null">
-      <div class="info-label moves-labels">
-        <label>Moves</label>
-        <label class="bp-label">BP</label>
-      </div>
-      <div class="moves">
+    <div>
+      <label class="moves-label" [ngClass]="{ 'reversed-moves-label': reverse() }">Moves</label>
+      <div class="moves" [ngClass]="{ 'reversed-moves': reverse() }">
         <div class="move">
           <mat-checkbox [ngModel]="pokemon().move1Name === pokemon().activeMoveName" (change)="activateMove(1)" [disabled]="moveSelectorDisabled(pokemon().move1Name)" data-cy="attack1" />
           <app-input-autocomplete [value]="pokemon().moveSet.move1.name" [allValues]="allMoveNames" (valueChange)="store.moveOne(pokemonId(), $event)" data-cy="pokemon-attack-1" />
-          <div class="move-bp">
-            <label>{{ pokemon().moveSet.move1.bp }}</label>
-          </div>
         </div>
         <div class="move">
           <mat-checkbox [ngModel]="pokemon().move2Name === pokemon().activeMoveName" (change)="activateMove(2)" [disabled]="moveSelectorDisabled(pokemon().move2Name)" data-cy="attack2" />
           <app-input-autocomplete [value]="pokemon().moveSet.move2.name" [allValues]="allMoveNames" (valueChange)="store.moveTwo(pokemonId(), $event)" data-cy="pokemon-attack-2" />
-          <div class="move-bp">
-            <label>{{ pokemon().moveSet.move2.bp }}</label>
-          </div>
         </div>
         <div class="move">
           <mat-checkbox [ngModel]="pokemon().move3Name === pokemon().activeMoveName" (change)="activateMove(3)" [disabled]="moveSelectorDisabled(pokemon().move3Name)" data-cy="attack3" />
           <app-input-autocomplete [value]="pokemon().moveSet.move3.name" [allValues]="allMoveNames" (valueChange)="store.moveThree(pokemonId(), $event)" data-cy="pokemon-attack-3" />
-          <div class="move-bp">
-            <label>{{ pokemon().moveSet.move3.bp }}</label>
-          </div>
         </div>
         <div class="move">
           <mat-checkbox [ngModel]="pokemon().move4Name === pokemon().activeMoveName" (change)="activateMove(4)" [disabled]="moveSelectorDisabled(pokemon().move4Name)" data-cy="attack4" />
           <app-input-autocomplete [value]="pokemon().moveSet.move4.name" [allValues]="allMoveNames" (valueChange)="store.moveFour(pokemonId(), $event)" data-cy="pokemon-attack-4" />
-          <div class="move-bp">
-            <label>{{ pokemon().moveSet.move4.bp }}</label>
-          </div>
         </div>
+      </div>
+    </div>
+
+    <div class="bps" [ngClass]="{ 'reversed-bps': reverse() }">
+      <label class="bp-label">BP</label>
+
+      <div class="move-bp">
+        <label>{{ pokemon().moveSet.move1.bp }}</label>
+      </div>
+      <div class="move-bp">
+        <label>{{ pokemon().moveSet.move2.bp }}</label>
+      </div>
+      <div class="move-bp">
+        <label>{{ pokemon().moveSet.move3.bp }}</label>
+      </div>
+      <div class="move-bp">
+        <label>{{ pokemon().moveSet.move4.bp }}</label>
       </div>
     </div>
   </div>
@@ -171,10 +149,7 @@
 </div>
 
 <div class="nature">
-  <label>Nature</label>
-  <div class="nature-combobox">
-    <app-input-autocomplete [value]="pokemon().nature" [allValues]="allNatureNames" (valueChange)="store.nature(pokemonId(), $event)" data-cy="nature" />
-  </div>
+  <app-input-autocomplete label="Nature" [leftLabel]="true" [value]="pokemon().nature" [allValues]="allNatureNames" (valueChange)="store.nature(pokemonId(), $event)" data-cy="nature" />
 </div>
 
 <router-outlet></router-outlet>

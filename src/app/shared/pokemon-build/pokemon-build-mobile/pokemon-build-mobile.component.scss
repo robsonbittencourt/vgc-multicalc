@@ -32,6 +32,7 @@
 .edit-button {
   display: flex;
   align-items: center;
+  margin-top: 0.5em;
 }
 
 .save-button {
@@ -74,14 +75,14 @@
 }
 
 .icon-button .icon-tera {
-  width: 20px;
-  height: 22px;
+  width: 1.5em;
+  height: auto;
   margin-top: 1.6em;
 }
 
 .icon-button .icon-tatsugiri {
-  width: 25px;
-  height: 25px;
+  width: 2em;
+  height: auto;
   margin-top: 1.6em;
 }
 
@@ -89,9 +90,9 @@
   display: flex;
   flex-wrap: wrap;
   gap: 1em;
-  row-gap: 0.75em;
-  margin-top: 1em;
-  padding: 0.75em;
+  row-gap: 1em;
+  margin-top: 0.5em;
+  padding: 0.75em 1.25em 0.75em 0.75em;
   background-color: #ded2f0;
 }
 

@@ -30,7 +30,7 @@
         </mat-card-title-group>
 
         @if (damageResult() && showDamageDescription()) {
-          <div>
+          <div class="damage-result">
             <br />Damage: {{ damageResult().result }} <br /><label class="ko-chance">{{ damageResult().koChance }}</label>
           </div>
         }

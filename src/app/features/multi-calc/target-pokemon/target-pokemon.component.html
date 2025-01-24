@@ -9,10 +9,10 @@
 
       @if (damageDescription()) {
         <div class="damage-description">
-          <div>
-            <p>{{ damageDescription() }}</p>
+          <div class="damage-rolls">
+            <span>{{ damageDescription() }}</span>
             @if (rolls().length > 0) {
-              <p>Rolls: {{ rolls() }}</p>
+              <span>Rolls: {{ rolls() }}</span>
             }
           </div>
           <div class="copy-button" (click)="copyDamageResult()" matTooltip="Copy">
@@ -25,11 +25,11 @@
       }
     </div>
 
-    <li class="form-row">
-      <button mat-flat-button color="primary" (click)="importPokemon()" data-cy="import-pokemon-to-opponent">Import</button>
-      <button mat-flat-button color="primary" (click)="exportPokemon()" data-cy="export-opponent-pokemon-button">Export</button>
-      <button mat-flat-button color="warn" (click)="removeAll()" data-cy="delete-opponent-pokemon-button">Remove all</button>
-    </li>
+    <div class="buttons">
+      <button mat-flat-button (click)="importPokemon()" data-cy="import-pokemon-to-opponent">Import</button>
+      <button mat-flat-button (click)="exportPokemon()" data-cy="export-opponent-pokemon-button">Export</button>
+      <button mat-flat-button class="warn" (click)="removeAll()" data-cy="delete-opponent-pokemon-button">Delete all</button>
+    </div>
   </div>
 
   <div class="target-pokemon">

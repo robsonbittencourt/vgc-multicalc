@@ -15,6 +15,8 @@ export class PokemonComboBoxComponent {
 
   pokemonId = input.required<string>()
 
+  label = input<string>()
+
   pokemonChanged = output()
 
   name = computed(() => this.store.findPokemonById(this.pokemonId()).name)

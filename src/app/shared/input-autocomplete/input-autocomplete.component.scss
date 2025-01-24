@@ -1,18 +1,38 @@
-.form-row {
+@use "variables.scss" as *;
+
+.form-column {
   display: flex;
+  flex-direction: column;
+  gap: 0.2em;
 }
 
+.form-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.form-column > input,
 .form-row > input {
-  width: 100%;
+  width: 96%;
   padding: 0.5em 0em 0.5em 0.5em;
   border: 1px solid rgb(133, 129, 129);
   border-radius: 3px;
+  outline: none;
+  transition: box-shadow 0.3s ease;
   color: rgb(88, 88, 90);
-  font-size: 14px;
+  font-size: $font-size;
 }
 
-.viewport {
-  height: 200px;
-  width: 100%;
-  overflow: auto;
+.form-column > input:focus,
+.form-row > input:focus {
+  box-shadow: inset 0 0 0 1.2px #673ab7;
+}
+
+@media only screen and (max-width: 768px) {
+  .form-column > input,
+  .form-row > input {
+    font-size: $font-size-mobile;
+  }
 }

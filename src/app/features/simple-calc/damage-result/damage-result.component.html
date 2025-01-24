@@ -1,5 +1,5 @@
-<div class="damage-result" [ngStyle]="(reverse() && { 'grid-template-columns': '0.4fr 1fr' }) || null">
-  <div [ngStyle]="(reverse() && { 'justify-self': 'end' }) || null">
+<div class="damage-result" [ngStyle]="(reverse() && { 'grid-template-columns': '0.5fr 1fr' }) || null">
+  <div class="hp-badge" [ngStyle]="(reverse() && { 'align-items': 'flex-end', 'justify-self': 'end' }) || null">
     <app-pokemon-hp-badge [name]="pokemon().displayNameWithoutSuffix" [actualHp]="pokemon().actualHp" [hpBase]="pokemon().hp" [spriteName]="pokemon().name" [item]="pokemon().item" [damageTaken]="damageTaken()" />
 
     <div class="roll-level">
@@ -10,9 +10,14 @@
         <mat-button-toggle [checked]="rollLevelConfig().low" (change)="activateLowRoll()" data-cy="low-roll">Low</mat-button-toggle>
       </mat-button-toggle-group>
     </div>
+
+    <div class="rolls">
+      <label class="label">Rolls: </label>
+      <span data-cy="damage-rolls">{{ rolls() }}</span>
+    </div>
   </div>
 
-  <div class="moves-result" [ngStyle]="(reverse() && { order: -1 }) || null" data-cy="moves">
+  <div [ngStyle]="(reverse() && { order: -1 }) || null" data-cy="moves">
     <mat-chip-listbox class="mat-mdc-chip-set-stacked" (change)="moveSelected($event)">
       @for (damageResult of damageResults(); let i = $index; track i) {
         <div class="move" [ngStyle]="(reverse() && { 'flex-flow': 'row-reverse', 'margin-right': '0.8em' }) || null">
@@ -32,10 +37,6 @@
       @if (copyMessageEnabled) {
         <label>Copied!</label>
       }
-    </div>
-    <div>
-      <label class="label">Rolls: </label>
-      <span data-cy="damage-rolls">{{ activeDamageResult().rolls }}</span>
     </div>
   </div>
 </div>

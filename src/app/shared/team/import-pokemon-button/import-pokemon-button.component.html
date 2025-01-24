@@ -1,6 +1,6 @@
 @if (show()) {
-  <div class="delete-pokemon" [hidden]="hidden()" (click)="importPokemon()" data-cy="import-pokemon">
-    <mat-icon>download</mat-icon>
+  <div class="import-pokemon" [hidden]="hidden()" (click)="importPokemon()" data-cy="import-pokemon">
+    <mat-icon class="icon">download</mat-icon>
     <label>Import</label>
   </div>
 }

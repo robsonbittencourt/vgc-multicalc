@@ -4,7 +4,7 @@
     <textarea cdkFocusInitial class="import-textarea" placeholder="PokePaste link or team in text format" [(ngModel)]="content" data-cy="import-paste-textarea"></textarea>
   </mat-dialog-content>
   <mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-button [mat-dialog-close]="content" [disabled]="!content" data-cy="confirm-import">Import</button>
+    <button mat-flat-button mat-dialog-close>Cancel</button>
+    <button mat-flat-button [mat-dialog-close]="content" [disabled]="!content" data-cy="confirm-import">Import</button>
   </mat-dialog-actions>
 </div>

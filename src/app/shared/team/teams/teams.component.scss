@@ -6,35 +6,27 @@
   border-width: 1px;
   border-style: solid;
   margin-bottom: 1em;
-  height: 42.3%;
-}
-
-.header {
-  display: flex;
-  font-size: large;
-  display: flex;
-  align-items: center;
-  flex-direction: row;
 }
 
 .title {
   color: black;
   font-weight: 500;
+  font-size: clamp(12px, 2vh, 18px);
 }
 
 .teams-container {
   display: flex;
   flex-direction: column;
-  margin-top: 1.5em;
+  margin-top: 0.5em;
 }
 
 .teams-boxes {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-auto-rows: minmax(5.6em, 1fr);
+  grid-auto-rows: 6.5em;
   column-gap: 1.5em;
-  row-gap: 2.5em;
-  margin-top: 2em;
+  row-gap: 1em;
+  margin-top: 1em;
 }
 
 .teams-top-box {
@@ -44,18 +36,15 @@
   align-items: flex-end;
 }
 
-.team-name-input {
-  height: 2.35em;
-  margin-right: 1em;
-  padding-left: 0.5em;
-  color: rgb(88, 88, 90);
-  border-radius: 3px;
-  border: 1px solid rgb(133, 129, 129);
-}
-
 .team-name {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.team-name-input {
+  width: 60%;
+  margin-bottom: -1.5em;
 }
 
 .team-buttons {
@@ -70,8 +59,4 @@
   padding: 0.5em 0.5em 0.5em 1em;
   background-color: #e7def6;
   color: black;
-}
-
-.label-import {
-  margin-bottom: -1em;
 }

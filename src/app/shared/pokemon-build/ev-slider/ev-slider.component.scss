@@ -1,17 +1,26 @@
 .ev-slider-container {
   display: grid;
   grid-template-columns: 64px 64px 67px 64px 1fr 64px 40px;
-  grid-auto-rows: 50px;
+  grid-auto-rows: 3em;
   grid-column-gap: 1.5em;
+}
+
+.mod {
+  margin-top: 0.3em;
 }
 
 .ev-value {
   width: 100%;
+  margin-top: 0.3em;
 }
 
 .ev-slider {
+  display: flex;
+  align-items: center;
   position: relative;
   width: 95%;
+  height: 2.5em;
+  margin-top: 0.3em;
 }
 
 .slider-pipe {
@@ -37,11 +46,6 @@
 
 .mat-ev-field {
   width: 100%;
-  font-size: 14px;
-}
-
-.hp-percentage {
-  font-size: 14px;
 }
 
 .mat-ev-stat-modifier {
@@ -49,7 +53,6 @@
 }
 
 .mat-ev-slider {
-  position: relative;
   z-index: 0;
   width: 100%;
 }
@@ -82,7 +85,10 @@ input::-webkit-inner-spin-button {
 
 .ev-value-input {
   text-align: center;
-  color: rgb(88, 88, 90) !important;
+}
+
+::ng-deep .mat-mdc-option {
+  min-height: 3em !important;
 }
 
 @media only screen and (max-width: 768px) {
@@ -93,10 +99,6 @@ input::-webkit-inner-spin-button {
 
   .ev-value {
     width: 87%;
-  }
-
-  .mat-ev-field {
-    font-size: 14px;
   }
 
   .mat-ev-stat-modifier {

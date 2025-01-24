@@ -11,7 +11,6 @@
 .header {
   grid-column-start: 1;
   grid-column-end: 3;
-  font-size: large;
   display: flex;
   justify-content: space-between;
 }
@@ -19,24 +18,35 @@
 .title {
   color: black;
   font-weight: 500;
+  font-size: clamp(12px, 2vh, 18px);
 }
 
 .title-damage-description {
   display: flex;
+  align-items: flex-start;
 }
 
-.form-row {
+.damage-description {
+  display: flex;
+  align-items: flex-start;
+  gap: 1em;
+  margin-left: 1em;
+}
+
+.damage-rolls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.copy-button {
+  cursor: pointer;
+}
+
+.buttons {
   display: flex;
   justify-content: flex-end;
   column-gap: 1em;
-}
-
-.poke-paste-input {
-  height: 82%;
-  padding-left: 0.5em;
-  color: rgb(88, 88, 90);
-  border-radius: 3px;
-  border: 1px solid rgb(133, 129, 129);
 }
 
 .error-message-poke-paste {
@@ -48,69 +58,8 @@
   background-color: white;
   margin-top: 1em;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  grid-auto-rows: minmax(250px, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(25em, 1fr));
+  grid-auto-rows: minmax(16em, 1fr);
   grid-column-gap: 1em;
   grid-row-gap: 1em;
-}
-
-.damage-description {
-  display: flex;
-  align-items: flex-start;
-  column-gap: 0.5em;
-  font-size: 14px;
-  margin-left: 1em;
-  margin-bottom: -1.25em;
-}
-
-.copy-button {
-  display: flex;
-  align-items: center;
-  gap: 0.5em;
-  cursor: pointer;
-}
-
-@media only screen and (max-width: 768px) {
-  .container {
-    border-radius: 0%;
-    padding: 1em 1em 0em 1em;
-  }
-
-  .header {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 0.2fr 1fr;
-  }
-
-  .inputs {
-    margin-left: 0em;
-    margin-right: 0em;
-  }
-
-  .form-row {
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    row-gap: 1em;
-  }
-
-  .form-row > * {
-    flex-basis: 47.5%;
-    font-size: smaller;
-  }
-
-  .poke-paste-input {
-    width: 95%;
-    height: 82%;
-    font-size: smaller;
-  }
-
-  .target-pokemon {
-    grid-column-start: 0;
-    grid-column-end: 1;
-    margin: 1em 0 1em 0;
-  }
-
-  .damage-description {
-    margin-top: 1em;
-  }
 }

@@ -1,11 +1,10 @@
 .container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: minmax(475px, 1fr);
   grid-column-gap: 1em;
   background-color: rgb(252, 248, 248);
   color: rgb(88, 88, 90);
-  margin: 0 1em 0em 1em;
+  margin: 0.5em 1em 0em 1em;
 }
 
 .container-speed-scale {
@@ -43,24 +42,18 @@
 .title {
   color: black;
   font-weight: 500;
-  font-size: large;
+  font-size: clamp(12px, 2vh, 18px);
 }
 
 .header-buttons-section {
   display: flex;
-  gap: 1em;
   align-items: center;
+  gap: 1em;
 }
 
 .header-buttons-text {
   display: flex;
   flex-direction: column;
-}
-
-.header-buttons-title {
-  color: black;
-  font-weight: 500;
-  font-size: large;
 }
 
 .header-buttons {
@@ -70,8 +63,8 @@
 }
 
 .mat-ev-stat-modifier {
-  width: 4em;
-  margin-bottom: -1.3em;
+  width: 5em;
+  height: 2.5em;
 }
 
 .regulation {

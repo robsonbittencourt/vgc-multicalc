@@ -74,18 +74,15 @@
 
   <div class="combo-options">
     <div class="combo-option">
-      <label>Item</label>
-      <app-input-autocomplete [value]="pokemon().item" [allValues]="allItemsNames" (valueChange)="store.item(pokemonId(), $event)" />
+      <app-input-autocomplete label="Item" [value]="pokemon().item" [allValues]="allItemsNames" (valueChange)="store.item(pokemonId(), $event)" />
     </div>
 
     <div class="combo-option">
-      <label>Nature</label>
-      <app-input-autocomplete [value]="pokemon().nature" [allValues]="allNatureNames" (valueChange)="store.nature(pokemonId(), $event)" />
+      <app-input-autocomplete label="Nature" [value]="pokemon().nature" [allValues]="allNatureNames" (valueChange)="store.nature(pokemonId(), $event)" />
     </div>
 
     <div class="combo-option">
-      <label>Status</label>
-      <app-input-autocomplete [value]="pokemon().status.description" [allValues]="statusConditions" (valueChange)="store.status(pokemonId(), $event)" />
+      <app-input-autocomplete label="Status" [value]="pokemon().status.description" [allValues]="statusConditions" (valueChange)="store.status(pokemonId(), $event)" />
     </div>
 
     <div class="combo-option tera-type">

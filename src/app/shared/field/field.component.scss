@@ -1,3 +1,5 @@
+@use "variables.scss" as *;
+
 .field {
   background-color: white;
   border-radius: 12px;
@@ -8,8 +10,6 @@
 }
 
 .header {
-  display: flex;
-  font-size: large;
   display: flex;
   align-items: center;
   flex-direction: row;
@@ -29,6 +29,7 @@
 .title {
   color: black;
   font-weight: 500;
+  font-size: clamp(12px, 2vh, 18px);
 }
 
 .button-group {
@@ -38,7 +39,6 @@
 }
 
 .button-group mat-button-toggle {
-  font-size: 0.9rem;
   flex: 1 1 0px;
 }
 
@@ -57,12 +57,14 @@
 .field-subtitle {
   margin-bottom: 0.2em;
   font-weight: 500;
-  font-size: medium;
+  font-size: $font-size;
 }
 
 @media only screen and (max-width: 768px) {
   .field {
     border-radius: 0px;
+    border-width: 0px;
+    margin-top: 1em;
   }
 
   .field-container {
@@ -73,7 +75,7 @@
   }
 
   .field-subtitle {
-    margin-top: 1.5em;
+    margin-top: 1em;
     margin-bottom: 0.5em;
   }
 
@@ -81,5 +83,13 @@
     display: flex;
     flex-wrap: wrap;
     gap: 0.2em;
+  }
+
+  .title {
+    font-size: 16px;
+  }
+
+  .field-subtitle {
+    font-size: 16px;
   }
 }

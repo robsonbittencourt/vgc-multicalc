@@ -20,14 +20,10 @@
 }
 
 .title {
-  grid-row: 1;
   margin-bottom: 2.5em;
-}
-
-.title {
   color: black;
   font-weight: 500;
-  font-size: large;
+  font-size: clamp(12px, 2vh, 18px);
 }
 
 .tabs {
@@ -40,21 +36,28 @@
   align-items: center;
   justify-content: right;
   gap: 1em;
-  margin-top: -0.4em;
   margin-bottom: -0.8em;
   margin-right: 0.5em;
   min-height: 2em;
 }
 
-.delete-pokemon {
+.delete-pokemon,
+.combine-damage {
   display: flex;
   align-items: center;
   gap: 0.2em;
 }
 
-.delete-pokemon:hover > * {
+.delete-pokemon:hover,
+.combine-damage:hover > * {
   cursor: pointer;
   font-weight: 500;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @media only screen and (max-width: 768px) {

@@ -1,12 +1,178 @@
 @use "@angular/material" as mat;
+@use "theme-colors" as my-theme;
+@use "sass:map";
+
+@use "variables.scss" as *;
+
+html {
+  color-scheme: light;
+  @include mat.theme(
+    (
+      color: (
+        primary: my-theme.$primary-palette,
+        tertiary: my-theme.$tertiary-palette,
+        theme-type: light
+      ),
+      density: -5
+    )
+  );
+}
+
+.warn {
+  @include mat.theme(
+    (
+      color: my-theme.$error-palette
+    )
+  );
+}
+
+:root {
+  @include mat.button-overrides(
+    (
+      filled-container-shape: 4px,
+      filled-container-height: 2.5em,
+      filled-horizontal-padding: 1.5rem
+    )
+  );
+
+  @include mat.button-toggle-overrides(
+    (
+      height: 3em,
+      shape: 4px,
+      divider-color: #dfdfe2,
+      selected-state-background-color: #dfdfe2,
+      label-text-size: $font-size
+    )
+  );
+
+  @include mat.form-field-overrides(
+    (
+      container-text-size: $font-size,
+      outlined-outline-color: #a0a0a3,
+      outlined-input-text-color: rgb(88, 88, 90),
+      container-height: 2.5em,
+      container-vertical-padding: 0.7em
+    )
+  );
+
+  @include mat.autocomplete-overrides(
+    (
+      background-color: white
+    )
+  );
+
+  @include mat.select-overrides(
+    (
+      panel-background-color: white,
+      trigger-text-size: $font-size,
+      trigger-text-weight: 300
+    )
+  );
+
+  @include mat.slider-overrides(
+    (
+      handle-height: 1.5em,
+      handle-width: 1.5em,
+      inactive-track-color: map.get(my-theme.$primary-palette, 40)
+    )
+  );
+
+  @include mat.chips-overrides(
+    (
+      container-height: 2em,
+      container-shape-radius: 20px,
+      elevated-selected-container-color: map.get(my-theme.$primary-palette, 35),
+      elevated-container-color: #dfdfe2,
+      selected-label-text-color: white,
+      outline-color: white,
+      focus-outline-color: white
+    )
+  );
+
+  @include mat.checkbox-overrides(
+    (
+      unselected-icon-color: #6d6d6e
+    )
+  );
+
+  @include mat.dialog-overrides(
+    (
+      container-shape: square,
+      container-color: white,
+      subhead-color: black,
+      subhead-size: 1.2rem,
+      subhead-weight: 500
+    )
+  );
+
+  @include mat.card-overrides(
+    (
+      title-text-size: 1.3rem,
+      title-text-weight: 500,
+      title-text-line-height: 1.7em,
+      subtitle-text-line-height: 1.7em,
+      subtitle-text-color: rgb(76, 76, 78, 0.9),
+      subtitle-text-weight: 500
+    )
+  );
+
+  @include mat.menu-overrides(
+    (
+      container-color: white,
+      item-spacing: 2px
+    )
+  );
+}
+
+app-header,
+app-team-import-modal,
+app-team-export-modal {
+  @include mat.button-overrides(
+    (
+      filled-container-shape: square,
+      filled-container-color: white,
+      filled-label-text-color: black,
+      filled-state-layer-color: grey,
+      filled-label-text-weight: 500
+    )
+  );
+}
+
+app-damage-result {
+  @include mat.button-toggle-overrides(
+    (
+      height: 2em
+    )
+  );
+}
+
+app-speed-calculator,
+app-speed-calculator-mobile,
+app-ev-slider {
+  .mat-mdc-text-field-wrapper {
+    height: 2.5em;
+  }
+
+  .mat-mdc-select {
+    margin-top: -0.6em;
+  }
+}
+
+.mat-icon {
+  font-size: 1.8em;
+}
 
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: $font-size;
+  overflow: auto;
+  scrollbar-width: none;
 }
 
-.dense-2 {
-  @include mat.all-component-densities(-3);
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
 }
 
 .center {
@@ -22,4 +188,24 @@ body {
   src: url("assets/fonts/ProbaPro-Regular.otf") format("truetype");
   font-weight: normal;
   font-style: normal;
+}
+
+@media only screen and (max-width: 768px) {
+  :root {
+    @include mat.form-field-overrides(
+      (
+        container-text-size: $font-size-mobile
+      )
+    );
+
+    @include mat.button-toggle-overrides(
+      (
+        label-text-size: $font-size-mobile
+      )
+    );
+  }
+
+  body {
+    font-size: $font-size-mobile;
+  }
 }

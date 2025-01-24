@@ -1,4 +1,13 @@
 .container {
   max-width: 1920px;
   margin: 0 auto;
+  min-width: 1366px;
+  min-height: 768px;
+}
+
+@media only screen and (max-width: 768px) {
+  .container {
+    min-width: auto;
+    min-height: auto;
+  }
 }

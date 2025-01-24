@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, computed, ElementRef, inject, input, model, signal, viewChild } from "@angular/core"
+import { AfterViewInit, Component, computed, inject, input, model, signal, viewChild } from "@angular/core"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { MatOption } from "@angular/material/core"
 import { MatFormField, MatLabel, MatSuffix } from "@angular/material/form-field"
@@ -23,7 +23,7 @@ export class EvSliderComponent implements AfterViewInit {
 
   store = inject(CalculatorStore)
 
-  sliderElement = viewChild<ElementRef>("slider")
+  sliderElement = viewChild<MatSlider>("slider")
 
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
   nature = computed(() => this.pokemon().nature)
@@ -142,7 +142,7 @@ export class EvSliderComponent implements AfterViewInit {
   previousTouchX: number | null = null
 
   ngAfterViewInit(): void {
-    this.width.set(this.sliderElement()!.nativeElement.clientWidth)
+    this.width.set(this.sliderElement()?._cachedWidth ?? 0)
   }
 
   hpPercentageChanged(event: Event) {

@@ -13,6 +13,9 @@
 }
 
 .plus-button {
-  color: #673ab7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--highlight-border);
   transform: scale(3);
 }

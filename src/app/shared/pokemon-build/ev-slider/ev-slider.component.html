@@ -9,9 +9,9 @@
     </div>
   }
 
-  <div class="dense-2">
+  <div class="mod">
     @if (stat() === "hp") {
-      <mat-form-field appearance="outline" class="mat-ev-stat-modifier hp-percentage">
+      <mat-form-field appearance="outline" class="mat-ev-stat-modifier">
         @if (!reduced()) {
           <span matTextSuffix>%</span>
         }
@@ -20,16 +20,16 @@
       </mat-form-field>
     } @else {
       <mat-form-field appearance="outline" class="mat-ev-stat-modifier">
-        <mat-select data-cy="stat-modifier" class="mat-small" [value]="statModifier()" (valueChange)="statModifierChanged($event)">
+        <mat-select data-cy="stat-modifier" [value]="statModifier()" (valueChange)="statModifierChanged($event)" [hideSingleSelectionIndicator]="true">
           @for (statsModifier of statsModifiers; track statsModifier) {
-            <mat-option class="mat-small" [value]="statsModifier.value">{{ statsModifier.viewValue }}</mat-option>
+            <mat-option [value]="statsModifier.value">{{ statsModifier.viewValue }}</mat-option>
           }
         </mat-select>
       </mat-form-field>
     }
   </div>
 
-  <div class="ev-value dense-2">
+  <div class="ev-value">
     <mat-form-field appearance="outline" class="mat-ev-field">
       @if (reduced()) {
         <mat-label>{{ statNameAcronym() }}</mat-label>
@@ -38,8 +38,8 @@
     </mat-form-field>
   </div>
 
-  <div class="ev-slider" #slider>
-    <mat-slider class="mat-ev-slider" [min]="calculateMin()" [max]="252" [step]="calculateEvStep()">
+  <div class="ev-slider">
+    <mat-slider class="mat-ev-slider" #slider [min]="calculateMin()" [max]="252" [step]="calculateEvStep()">
       @if (isStatWithBeneficialNature()) {
         <div class="slider-pipe" [style.left]="firstJumpPosition()"></div>
         <div class="tooltip-container" [style.left]="firstJumpPosition()" matTooltip="Jump 1"></div>
@@ -64,7 +64,7 @@
     </mat-slider>
   </div>
 
-  <div class="ev-value dense-2">
+  <div class="ev-value">
     <mat-form-field appearance="outline" class="mat-ev-field">
       <input class="ev-value-input" type="number" min="0" max="31" matInput [ngModel]="iv()" (input)="ivChanged($event)" data-cy="iv-value" />
     </mat-form-field>
