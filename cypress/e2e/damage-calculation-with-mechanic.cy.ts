@@ -78,7 +78,7 @@ describe("Test calcs from moves with some mechanic", () => {
     })
   })
 
-  describe.only("Unburden", () => {
+  describe("Unburden", () => {
     beforeEach(() => {
       leftPokemonBuild.importPokemon(bronzongData)
       rightPokemonBuild.importPokemon(sneaslerData)
