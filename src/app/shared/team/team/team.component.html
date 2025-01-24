@@ -16,11 +16,11 @@
     <app-export-pokemon-button [show]="canExportPokemon()" [hidden]="!teamMemberOnEdit()" [pokemon]="pokemonOnEdit()" data-cy="export-pokemon-from-team" />
 
     @if (canShowCombineButton()) {
-      <div [hidden]="!teamMemberOnEdit()" class="delete-pokemon" (click)="selectSecondAttacker()">
+      <div [hidden]="!teamMemberOnEdit()" class="combine-damage" (click)="selectSecondAttacker()">
         @if (combineDamageActive()) {
-          <mat-icon data-cy="disable-damage-combined-button">add_circle</mat-icon>
+          <mat-icon class="icon" data-cy="disable-damage-combined-button">add_circle</mat-icon>
         } @else {
-          <mat-icon data-cy="damage-combined-button">add_circle_outline</mat-icon>
+          <mat-icon class="icon" data-cy="damage-combined-button">add_circle_outline</mat-icon>
         }
         <label>Combine Damage</label>
       </div>
@@ -28,7 +28,7 @@
 
     @if (canShowDeleteButton()) {
       <div [hidden]="!teamMemberOnEdit()" class="delete-pokemon" (click)="removePokemon()" data-cy="delete-from-team-button">
-        <mat-icon>delete</mat-icon>
+        <mat-icon class="icon">delete</mat-icon>
         <label>Delete</label>
       </div>
     }

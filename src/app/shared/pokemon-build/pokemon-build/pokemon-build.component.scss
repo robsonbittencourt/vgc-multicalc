@@ -1,6 +1,6 @@
 .data {
   display: flex;
-  gap: 0.5em;
+  gap: 2em;
   border: solid 1px #ded2f0;
   border-radius: 12px;
   background-color: #ded2f0;
@@ -21,64 +21,64 @@
 }
 
 .pokemon-image img {
-  width: 120px;
-  height: 120px;
+  width: 8em;
+  height: auto;
 }
 
-.pokemon-image-small {
-  width: 60px;
-  height: 60px;
-  margin-bottom: 1em;
-  margin-right: 0.3em;
-}
-
-.pokemon-status {
+.status-item {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.pokemon-tera {
+.tera-type-ability {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-}
-
-.tera-checkbox {
-  margin-top: 0.4em;
-}
-
-.tera-label {
-  margin-left: 2.3em;
-}
-
-.moves-section {
-  margin-left: 1em;
+  width: 15em;
 }
 
 .moves {
   display: flex;
   flex-direction: column;
-  margin-top: 0.1em;
+  justify-content: space-between;
+  gap: 0.2em;
+  margin-top: 0.2em;
+  margin-left: 2em;
+}
+
+.reversed-moves {
+  margin-left: 0em;
 }
 
 .move {
   display: flex;
   align-items: center;
+  gap: 0.2em;
+}
+
+.bps {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: -1em;
+}
+
+.reversed-bps {
+  margin-right: 2em;
 }
 
 .move-bp {
   display: flex;
-  width: 1em;
   justify-content: flex-end;
-  margin-left: 1.2em;
+  align-items: center;
+  height: 18%;
 }
 
 .pokemon-types {
   display: flex;
   justify-content: right;
   align-items: center;
-  margin-top: 2em;
   gap: 0.2em;
 }
 
@@ -87,7 +87,7 @@
   justify-content: center;
   border: 1px solid;
   width: 30%;
-  font-size: small;
+  padding: 0.3em;
   text-transform: uppercase;
   font-weight: 500;
   color: white;
@@ -98,7 +98,6 @@
   grid-template-columns: 64px 64px 64px 64px 1fr 64px 40px;
   grid-column-gap: 1.5em;
   margin-top: 1em;
-  margin-bottom: -0.4em;
 }
 
 .base-title {
@@ -127,8 +126,8 @@
 
 .evs {
   display: grid;
-  grid-row-gap: 0.7em;
-  margin-top: 1em;
+  grid-row-gap: 0.2em;
+  margin-top: 0.2em;
 }
 
 .remaining-evs {
@@ -146,46 +145,43 @@
 
 .nature {
   display: flex;
-  align-items: center;
-  column-gap: 0.5em;
-}
-
-.nature-combobox {
-  flex: 0 0 15.5em;
 }
 
 .check-input-section {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
+  gap: 0.5em;
 }
 
-.moves-labels {
-  margin-left: 2.9em;
+.moves-label {
+  margin-left: 4.3em;
+}
+
+.reversed-moves-label {
+  margin-left: 2.3em;
 }
 
 .bp-label {
-  margin-left: 11.4em;
+  display: flex;
+  justify-content: flex-end;
 }
 
-.info-label {
-  margin-bottom: -0.35em;
-}
-
-.icon-button {
-  background: none;
-  border: 0;
+.icon-tera {
+  width: auto;
+  height: 1.8em;
   cursor: pointer;
-  margin-top: 0.3em;
 }
 
-.icon-button .icon-tera {
-  width: 20px;
-  height: 22px;
+.icon-tatsugiri {
+  width: auto;
+  height: 1.8em;
+  cursor: pointer;
 }
 
-.icon-button .icon-tatsugiri {
-  width: 30px;
-  height: 30px;
+.icon-booster {
+  width: auto;
+  height: 1.8em;
+  cursor: pointer;
 }
 
 .pokemon-ability {
@@ -193,10 +189,10 @@
   width: 100%;
 }
 
-.ability-checkbox {
-  margin-bottom: -1.4em;
+.tera-section {
+  gap: 0.9em;
 }
 
-.ability-combo-box {
-  width: 100%;
+.booster-section {
+  margin-right: 0.1em;
 }

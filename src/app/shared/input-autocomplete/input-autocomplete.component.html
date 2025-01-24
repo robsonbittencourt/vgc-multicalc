@@ -1,4 +1,5 @@
-<div class="form-row">
+<div class="form-column" [ngClass]="{ 'form-row': leftLabel() }">
+  <label>{{ label() }}</label>
   <input type="text" [formControl]="formControl" [matAutocomplete]="autoPokemon" (click)="onClick()" (blur)="onBlur()" />
   <mat-autocomplete #autoPokemon="matAutocomplete" hideSingleSelectionIndicator="true" (optionSelected)="onValueSelected($event.option.value)">
     @for (value of filteredValues | async; track value.key) {

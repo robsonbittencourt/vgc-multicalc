@@ -1,8 +1,5 @@
 .header {
-  grid-column-start: 1;
-  grid-column-end: 3;
   background-color: rgb(255, 255, 255);
-  font-size: large;
   display: flex;
   justify-content: space-between;
   border-bottom: 1px;
@@ -11,7 +8,6 @@
   border-style: solid;
   padding-left: 2.5em;
   padding-right: 2.5em;
-  margin-bottom: 0.5em;
 }
 
 .left-header {
@@ -25,22 +21,14 @@
   column-gap: 1em;
 }
 
-.copy-icon {
-  cursor: pointer;
-}
-
-.calc-link {
-  font-size: medium;
-}
-
 .slowking-icon {
-  width: 50px;
-  height: 50px;
+  width: 3.5em;
+  height: auto;
 }
 
 .icon {
-  width: 30px;
-  height: 30px;
+  width: 2em;
+  height: auto;
 }
 
 .title {
@@ -53,10 +41,8 @@
   display: flex;
   align-items: center;
   column-gap: 2em;
-  font-size: medium;
   color: rgb(133, 129, 129);
   margin-left: 2em;
-  padding: 1em;
   height: 75%;
 }
 

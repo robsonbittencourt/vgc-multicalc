@@ -1,4 +1,4 @@
-import { NgStyle } from "@angular/common"
+import { NgClass, NgStyle } from "@angular/common"
 import { Component, computed, inject, input } from "@angular/core"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { MatCheckbox } from "@angular/material/checkbox"
@@ -21,7 +21,7 @@ import { TypeName } from "@robsonbittencourt/calc/dist/data/interface"
   selector: "app-pokemon-build",
   templateUrl: "./pokemon-build.component.html",
   styleUrls: ["./pokemon-build.component.scss"],
-  imports: [PokemonComboBoxComponent, NgStyle, InputAutocompleteComponent, MatTooltip, MatCheckbox, ReactiveFormsModule, FormsModule, AbilityComboBoxComponent, EvSliderComponent, RouterOutlet]
+  imports: [PokemonComboBoxComponent, NgStyle, NgClass, InputAutocompleteComponent, MatTooltip, MatCheckbox, ReactiveFormsModule, FormsModule, AbilityComboBoxComponent, EvSliderComponent, RouterOutlet]
 })
 export class PokemonBuildComponent {
   pokemonId = input.required<string>()
@@ -30,6 +30,8 @@ export class PokemonBuildComponent {
   store = inject(CalculatorStore)
 
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
+
+  multiHitLabel = computed(() => (this.pokemon().activeMoveName !== "Rage Fist" ? "Hits" : "Hits Taken"))
 
   MAX_EVS = 508
 

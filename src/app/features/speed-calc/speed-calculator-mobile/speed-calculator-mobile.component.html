@@ -1,60 +1,42 @@
 <div class="container">
-  <div class="combo-options">
-    <div class="pokemon-name">
-      <label>Pokémon</label>
-      <app-pokemon-combo-box [pokemonId]="pokemonId()" (pokemonChanged)="resetEvs()" data-cy="pokemon-select" />
+  <div class="pokemon-build">
+    <div class="pokemon-build-section">
+      <app-pokemon-combo-box class="combo-small" label="Pokémon" [pokemonId]="pokemonId()" (pokemonChanged)="resetEvs()" data-cy="pokemon-select" />
+      <app-input-autocomplete class="combo-small" label="Item" [value]="pokemon().item" [allValues]="allItemsNames" (valueChange)="store.item(pokemonId(), $event)" />
+      <img class="pokemon-image" src="assets/sprites/pokemon-sv/{{ pokemon().name }}.png" />
     </div>
 
-    <div class="combo-option">
-      <label>Item</label>
-      <app-input-autocomplete [value]="pokemon().item" [allValues]="allItemsNames" (valueChange)="store.item(pokemonId(), $event)" />
-    </div>
+    <div class="pokemon-build-section">
+      <app-input-autocomplete class="combo-large" label="Status" [value]="pokemon().status.description" [allValues]="statusConditions" (valueChange)="store.status(pokemonId(), $event)" />
+      <app-input-autocomplete class="combo-large" label="Nature" [value]="pokemon().nature" [allValues]="allNatureNames" (valueChange)="store.nature(pokemonId(), $event)" />
 
-    <div class="tab">
-      <img class="pokemon-image-small" src="assets/sprites/pokemon-sv/{{ pokemon().name }}.png" />
-    </div>
-
-    <div class="combo-option-medium">
-      <label>Status</label>
-      <app-input-autocomplete [value]="pokemon().status.description" [allValues]="statusConditions" (valueChange)="store.status(pokemonId(), $event)" />
-    </div>
-
-    <div class="combo-option-medium">
-      <label>Nature</label>
-      <app-input-autocomplete [value]="pokemon().nature" [allValues]="allNatureNames" (valueChange)="store.nature(pokemonId(), $event)" />
-    </div>
-
-    <div class="ability-enable">
-      @if (pokemon().ability.actionableAbility) {
-        <div class="ability-checkbox">
+      <div class="ability">
+        @if (pokemon().ability.actionableAbility) {
           <mat-checkbox [ngModel]="pokemon().ability.on" (change)="store.abilityOn(pokemonId(), $event.checked)" />
-        </div>
-      }
+        }
 
-      @if (pokemon().name === "Dondozo") {
-        <button class="icon-button" (click)="store.toogleCommanderActive(pokemonId())" matTooltip="Commander">
-          @if (this.pokemon().commanderActive) {
-            <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly.png" />
-          } @else {
-            <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly-gray.png" />
-          }
-        </button>
-      }
+        @if (pokemon().name === "Dondozo") {
+          <button class="icon-button" (click)="store.toogleCommanderActive(pokemonId())" matTooltip="Commander">
+            @if (this.pokemon().commanderActive) {
+              <img class="icon-image" src="assets/icons/tatsugiri-curly.png" />
+            } @else {
+              <img class="icon-image" src="assets/icons/tatsugiri-curly-gray.png" />
+            }
+          </button>
+        }
 
-      @if (pokemon().isParadoxAbility) {
-        <button class="icon-button" (click)="store.abilityOn(pokemonId(), !pokemon().ability.on)" matTooltip="Booster Energy">
-          @if (this.pokemon().ability.on) {
-            <img class="icon-tatsugiri" src="assets/icons/booster-energy.png" />
-          } @else {
-            <img class="icon-tatsugiri" src="assets/icons/booster-energy-gray.png" />
-          }
-        </button>
-      }
-    </div>
+        @if (pokemon().isParadoxAbility) {
+          <button class="icon-button" (click)="store.abilityOn(pokemonId(), !pokemon().ability.on)" matTooltip="Booster Energy">
+            @if (this.pokemon().ability.on) {
+              <img class="icon-image" src="assets/icons/booster-energy.png" />
+            } @else {
+              <img class="icon-image" src="assets/icons/booster-energy-gray.png" />
+            }
+          </button>
+        }
 
-    <div class="combo-option">
-      <label>Ability</label>
-      <app-ability-combo-box [pokemonId]="pokemonId()" data-cy="ability" />
+        <app-ability-combo-box class="ability-combo" label="Ability" [pokemonId]="pokemonId()" data-cy="ability" />
+      </div>
     </div>
   </div>
 
@@ -63,22 +45,18 @@
   </div>
 
   <div class="speed-calculator-container">
-    <app-speed-scale [pokemonId]="pokemon().id" [pokemonEachSide]="17" />
+    <app-speed-scale class="speed-calculator-container" [pokemonId]="pokemon().id" [pokemonEachSide]="17" />
   </div>
 
-  <div>
-    <label class="title">Opponent Side</label>
-  </div>
-  <div class="options">
-    <div class="dense-2">
-      <mat-form-field appearance="outline" class="mat-ev-stat-modifier">
-        <mat-select class="mat-small" [value]="optionsStore.speedModifier()" (valueChange)="optionsStore.updateSpeedModifier($event)">
-          @for (statsModifier of statsModifiers; track statsModifier) {
-            <mat-option class="mat-small" [value]="statsModifier.value">{{ statsModifier.viewValue }}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
-    </div>
+  <label class="title opponent-title">Opponent Side</label>
+  <div class="options opponent-options">
+    <mat-form-field appearance="outline" class="speed-modifier">
+      <mat-select [value]="optionsStore.speedModifier()" (valueChange)="optionsStore.updateSpeedModifier($event)">
+        @for (statsModifier of statsModifiers; track statsModifier) {
+          <mat-option [value]="statsModifier.value">{{ statsModifier.viewValue }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
 
     <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">
       <mat-button-toggle [checked]="optionsStore.speedDropActive()" (change)="optionsStore.toogleIceWind($event.source.checked)">Ice Wind</mat-button-toggle>
@@ -87,12 +65,10 @@
     </mat-button-toggle-group>
   </div>
 
-  <div>
-    <label class="title">Field</label>
-  </div>
+  <label class="title opponent-title">Field</label>
   <div class="options">
-    <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
-      <mat-button-toggle [checked]="fieldStore.isWeatherSun()" (change)="fieldStore.toggleSunWeather()" data-cy="sun">Sun</mat-button-toggle>
+    <mat-button-toggle-group multiple [hideMultipleSelectionIndicator]="true">
+      <mat-button-toggle class="max-width" [checked]="fieldStore.isWeatherSun()" (change)="fieldStore.toggleSunWeather()" data-cy="sun">Sun</mat-button-toggle>
       <mat-button-toggle [checked]="fieldStore.isWeatherRain()" (change)="fieldStore.toggleRainWeather()" data-cy="rain">Rain</mat-button-toggle>
       <mat-button-toggle [checked]="fieldStore.isWeatherSand()" (change)="fieldStore.toggleSandWeather()" data-cy="sand">Sand</mat-button-toggle>
       <mat-button-toggle [checked]="fieldStore.isWeatherSnow()" (change)="fieldStore.toggleSnowWeather()" data-cy="snow">Snow</mat-button-toggle>
@@ -106,19 +82,15 @@
     </mat-button-toggle-group>
   </div>
 
-  <div>
-    <label class="title">Regulation</label>
-  </div>
+  <label class="title">Regulation</label>
   <div class="options">
-    <mat-button-toggle-group class="button-group botton-space" [hideSingleSelectionIndicator]="true">
+    <mat-button-toggle-group [hideSingleSelectionIndicator]="true">
       <mat-button-toggle [checked]="optionsStore.regulation() === 'G'" value="G" (change)="optionsStore.updateRegulation($event.source.value)">Regulation G</mat-button-toggle>
       <mat-button-toggle [checked]="optionsStore.regulation() === 'H'" value="H" (change)="optionsStore.updateRegulation($event.source.value)">Regulation H</mat-button-toggle>
     </mat-button-toggle-group>
   </div>
 
-  <div>
-    <label class="title">Pokémon</label>
-  </div>
+  <label class="title">Pokémon</label>
   <div class="options">
     <app-input-autocomplete [allValues]="optionsStore.pokemonNamesByReg()" [value]="optionsStore.targetName()" (valueChange)="optionsStore.updateTargetName($event)" />
     <mat-icon class="clear-button" (click)="optionsStore.clearTargetName()">clear</mat-icon>

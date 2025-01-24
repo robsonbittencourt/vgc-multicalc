@@ -25,20 +25,18 @@
         </div>
         <div class="header-buttons-section">
           <div class="header-buttons-text">
-            <span class="header-buttons-title">Options to opponent side</span>
+            <span class="title">Options to opponent side</span>
             <span>Use Your Team and Field section for more options</span>
           </div>
           <div class="header-buttons text-color">
             <label>Speed Modifier</label>
-            <div class="dense-2">
-              <mat-form-field appearance="outline" class="mat-ev-stat-modifier">
-                <mat-select class="mat-small" [value]="optionsStore.speedModifier()" (valueChange)="optionsStore.updateSpeedModifier($event)" data-cy="speed-calc-spe-modifier">
-                  @for (statsModifier of statsModifiers; track statsModifier) {
-                    <mat-option class="mat-small" [value]="statsModifier.value">{{ statsModifier.viewValue }}</mat-option>
-                  }
-                </mat-select>
-              </mat-form-field>
-            </div>
+            <mat-form-field appearance="outline" class="mat-ev-stat-modifier">
+              <mat-select [value]="optionsStore.speedModifier()" (valueChange)="optionsStore.updateSpeedModifier($event)" [hideSingleSelectionIndicator]="true" data-cy="speed-calc-spe-modifier">
+                @for (statsModifier of statsModifiers; track statsModifier) {
+                  <mat-option [value]="statsModifier.value">{{ statsModifier.viewValue }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
 
             <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">
               <mat-button-toggle [checked]="optionsStore.speedDropActive()" (change)="optionsStore.toogleIceWind($event.source.checked)" data-cy="speed-calc-ice-wind">Ice Wind</mat-button-toggle>

@@ -3,7 +3,7 @@ import { Component, inject } from "@angular/core"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { MatButton } from "@angular/material/button"
 import { MatDialog } from "@angular/material/dialog"
-import { MatInput } from "@angular/material/input"
+import { MatFormField, MatInput } from "@angular/material/input"
 import { TeamBoxComponent } from "@app/shared/team/team-box/team-box.component"
 import { TeamImportModalComponent } from "@app/shared/team/team-import-modal/team-import-modal.component"
 import { CalculatorStore } from "@data/store/calculator-store"
@@ -19,7 +19,7 @@ import { v4 as uuidv4 } from "uuid"
   selector: "app-teams",
   templateUrl: "./teams.component.html",
   styleUrls: ["./teams.component.scss"],
-  imports: [MatInput, ReactiveFormsModule, FormsModule, MatButton, TeamBoxComponent]
+  imports: [MatFormField, MatInput, ReactiveFormsModule, FormsModule, MatButton, TeamBoxComponent]
 })
 export class TeamsComponent {
   store = inject(CalculatorStore)

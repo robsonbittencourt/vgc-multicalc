@@ -29,7 +29,7 @@
             "index": "src/index.html",
             "tsConfig": "tsconfig.app.json",
             "assets": ["src/manifest.json", "src/assets"],
-            "styles": ["@angular/material/prebuilt-themes/deeppurple-amber.css", "src/styles.scss"],
+            "styles": ["src/styles.scss"],
             "scripts": [],
             "allowedCommonJsDependencies": ["@robsonbittencourt/calc"],
             "browser": "src/main.ts"
@@ -82,7 +82,7 @@
           "options": {
             "tsConfig": "tsconfig.spec.json",
             "assets": ["src/assets"],
-            "styles": ["@angular/material/prebuilt-themes/deeppurple-amber.css", "src/styles.scss"],
+            "styles": ["src/styles.scss"],
             "scripts": [],
             "browsers": "ChromeHeadless",
             "karmaConfig": "karma.conf.js"

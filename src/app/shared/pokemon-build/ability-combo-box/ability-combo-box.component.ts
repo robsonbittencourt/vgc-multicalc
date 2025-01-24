@@ -14,6 +14,8 @@ export class AbilityComboBoxComponent {
 
   pokemonId = input.required<string>()
 
+  label = input<string>()
+
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
 
   availableAbilities = computed(() => AllPokemon.instance.abilitiesByName(this.pokemon().name))

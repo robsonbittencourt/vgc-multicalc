@@ -1,29 +1,3 @@
-.container {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
-  background-color: white;
-  border-radius: 12px;
-  border-color: rgb(229, 231, 235);
-  border-width: 1px;
-  border-style: solid;
-  padding: 1em 1.5em 1em 1.5em;
-  margin-top: 1em;
-}
-
-.header {
-  grid-column-start: 1;
-  grid-column-end: 4;
-  margin-bottom: 1.5em;
-  display: flex;
-  justify-content: space-between;
-}
-
-.title-box {
-  display: flex;
-  gap: 2em;
-}
-
 .text-color * {
   color: rgb(88, 88, 90);
 }
@@ -35,58 +9,13 @@
   overflow: hidden;
 }
 
-.title {
-  color: black;
-  font-weight: 500;
-  font-size: large;
-}
-
-.header-buttons-section {
-  display: flex;
-  gap: 1em;
-  align-items: center;
-}
-
-.header-buttons-text {
-  display: flex;
-  flex-direction: column;
-}
-
-.header-buttons-title {
-  color: black;
-  font-weight: 500;
-  font-size: large;
-}
-
-.header-buttons {
-  display: flex;
-  gap: 1em;
-  align-items: center;
-}
-
 .speed-box {
   display: grid;
   grid-template-rows: 1fr 1fr;
-  height: 150px;
-}
-
-.mat-ev-stat-modifier {
-  width: 4em;
-  margin-bottom: -1.3em;
-}
-
-.regulation {
-  display: flex;
-  flex-direction: column;
+  height: 11em;
 }
 
 @media only screen and (max-width: 768px) {
-  .container {
-    border-width: 0px;
-    border-radius: 0px;
-    padding: 0em 0em 0em 0em;
-  }
-
   .center-section {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
@@ -95,8 +24,6 @@
   }
 
   .speed-box {
-    display: grid;
-    grid-template-rows: 1fr 1fr;
-    height: 110px;
+    height: 8em;
   }
 }

@@ -33,6 +33,10 @@ export class DamageResultComponent {
     return active ? active : this.damageResults()[0]
   })
 
+  rolls = computed(() => {
+    return [...new Set(this.activeDamageResult().rolls)]
+  })
+
   damageTaken = computed(() => this.damageTakenByRoll(this.opponentDamageResult(), this.rollLevelConfig()))
 
   copyMessageEnabled = false

@@ -1,17 +1,17 @@
 <div class="teams">
-  <div class="header">
-    <span class="title">Teams</span>
-  </div>
+  <span class="title">Teams</span>
   <div class="teams-container">
     <div class="teams-top-box">
       <div class="team-name">
-        <label>Team Name</label>
-        <input class="team-name-input" type="text" matInput [ngModel]="store.team().name" (input)="updateTeamName($event)" data-cy="team-name" />
+        <label>Name</label>
+        <mat-form-field appearance="outline" class="team-name-input">
+          <input type="text" matInput [ngModel]="store.team().name" (input)="updateTeamName($event)" data-cy="team-name" />
+        </mat-form-field>
       </div>
       <div class="team-buttons">
-        <button mat-flat-button color="primary" (click)="addFromPokePaste()" data-cy="import-pokepaste-to-team">Import</button>
-        <button mat-flat-button color="primary" (click)="export()" [disabled]="store.team().onlyHasDefaultPokemon()" data-cy="export-team-button">Export</button>
-        <button mat-flat-button color="warn" (click)="deleteTeam()" [disabled]="store.team().onlyHasDefaultPokemon()" data-cy="delete-team-button">Delete</button>
+        <button mat-flat-button (click)="addFromPokePaste()" data-cy="import-pokepaste-to-team">Import</button>
+        <button mat-flat-button (click)="export()" [disabled]="store.team().onlyHasDefaultPokemon()" data-cy="export-team-button">Export</button>
+        <button mat-flat-button class="warn" (click)="deleteTeam()" [disabled]="store.team().onlyHasDefaultPokemon()" data-cy="delete-team-button">Delete</button>
       </div>
     </div>
     <div class="teams-boxes">
