@@ -4,16 +4,16 @@
     <img class="icon" src="assets/icons/calc-72x72.png" />
     <span class="title">VGC Multi Calc</span>
     <div class="menu">
-      <div class="menu-option" [ngStyle]="(menuStore.oneVsOneActivated() && { 'background-color': '#e7def6' }) || null" (click)="menuStore.enableOneVsOne()" data-cy="one-vs-one">
+      <div class="menu-option" [ngClass]="{ 'active-menu-option': menuStore.oneVsOneActivated() }" (click)="menuStore.enableOneVsOne()" data-cy="one-vs-one">
         <span>One vs One</span>
       </div>
-      <div class="menu-option" [ngStyle]="(menuStore.oneVsManyActivated() && { 'background-color': '#e7def6' }) || null" (click)="menuStore.enableOneVsMany()" data-cy="team-vs-many">
+      <div class="menu-option" [ngClass]="{ 'active-menu-option': menuStore.oneVsManyActivated() }" (click)="menuStore.enableOneVsMany()" data-cy="team-vs-many">
         <span>Team vs Many</span>
       </div>
-      <div class="menu-option" [ngStyle]="(menuStore.manyVsOneActivated() && { 'background-color': '#e7def6' }) || null" (click)="menuStore.enableManyVsOne()" data-cy="many-vs-team">
+      <div class="menu-option" [ngClass]="{ 'active-menu-option': menuStore.manyVsOneActivated() }" (click)="menuStore.enableManyVsOne()" data-cy="many-vs-team">
         <span>Many vs Team</span>
       </div>
-      <div class="menu-option" [ngStyle]="(menuStore.speedCalculatorActivated() && { 'background-color': '#e7def6' }) || null" (click)="menuStore.enableSpeedCalculator()" data-cy="speed-calculator">
+      <div class="menu-option" [ngClass]="{ 'active-menu-option': menuStore.speedCalculatorActivated() }" (click)="menuStore.enableSpeedCalculator()" data-cy="speed-calculator">
         <span>Speed Calculator</span>
       </div>
     </div>
@@ -27,5 +27,31 @@
     <a target="_blank" href="https://twitter.com/rluizv"><img class="icon" src="assets/icons/twitter.png" /></a>
     <a target="_blank" href="https://github.com/robsonbittencourt/vgc-multicalc"><img class="icon" src="assets/icons/github.png" /></a>
     <a href="https://ko-fi.com/B0B2VFTC3" target="_blank"><img style="border: 0px; margin-top: 0.2em; height: 2.2em" src="https://storage.ko-fi.com/cdn/kofi2.png?v=3" border="0" alt="Buy Me a Coffee at ko-fi.com" /></a>
+    <mat-icon [matMenuTriggerFor]="themeMenu">{{ themeService.selectedTheme().icon }}</mat-icon>
+    <mat-menu #themeMenu="matMenu">
+      <div class="menu-content">
+        <span class="menu-title">Themes</span>
+        @for (theme of themeService.getThemes(); track theme.name) {
+          <div class="menu-item" (click)="themeService.setTheme(theme.name)">
+            <div class="pokemon-image-container">
+              <img class="pokemon-image" src="assets/sprites/menu/{{ theme.pokemon }}.png" />
+            </div>
+            <span>{{ theme.name | titlecase }}</span>
+          </div>
+        }
+
+        <mat-divider></mat-divider>
+
+        <span class="menu-title">Colors</span>
+        @for (color of themeService.getColors(); track color.name) {
+          <div class="menu-item" (click)="themeService.setColor(color.name)">
+            <div class="pokemon-image-container">
+              <img class="pokemon-image" src="assets/sprites/menu/{{ color.pokemon }}.png" />
+            </div>
+            <span>{{ color.name | titlecase }}</span>
+          </div>
+        }
+      </div>
+    </mat-menu>
   </div>
 </div>

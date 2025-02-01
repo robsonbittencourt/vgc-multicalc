@@ -1,0 +1,60 @@
+body {
+  --background: light-dark(#f0f4f9, #121212);
+  --widget-background: light-dark(#ffffff, #212121);
+  --widget-border: light-dark(#e5e7eb, #212121);
+  --text: light-dark(#615d66, white);
+  --text-strong: light-dark(black, white);
+  --primary-contrast: white;
+  --highlight-contrast: light-dark(#615d66, white);
+  --warn: #ba1a1a;
+
+  --chip-color: light-dark(#dfdfe2, #212121);
+  --checkmark-color: light-dark(white, #cbc4cf);
+
+  --mat-sys-primary: var(--primary);
+  --mat-sys-on-primary: light-dark(#ffffff, #3f008d);
+  --mat-sys-secondary-container: var(--highlight);
+  --mat-sys-on-secondary-container: #22123f;
+  --mat-sys-surface: var(--background);
+  --mat-sys-on-surface: light-dark(#1c1b1c, white);
+  --mat-sys-on-surface-variant: light-dark(#49464b, white);
+
+  --mat-option-label-text-color: var(--text);
+  --mat-option-selected-state-label-text-color: var(--text);
+}
+
+.purple-theme {
+  --primary: #4b4b8c;
+  --highlight: light-dark(#c5c3e3, #45445f);
+  --highlight-border: #7070b3;
+}
+
+.green-theme {
+  --primary: #3d5a20;
+  --highlight: light-dark(#bdcca9, #3e4b30);
+  --highlight-border: #618041;
+}
+
+.gray-theme {
+  --primary: #5c5c5c;
+  --highlight: light-dark(#c1c7cc, #42484c);
+  --highlight-border: #697984;
+}
+
+.yellow-theme {
+  --primary: light-dark(#c9a839, #907400);
+  --highlight: light-dark(#d8c590, #53461c);
+  --highlight-border: #907400;
+}
+
+.red-theme {
+  --primary: light-dark(#9d2223, #ae2f2e);
+  --highlight: light-dark(#ffb3ad, #73332f);
+  --highlight-border: #d04843;
+}
+
+.blue-theme {
+  --primary: #418186;
+  --highlight: light-dark(#b3cbcd, #344b4d);
+  --highlight-border: #418186;
+}

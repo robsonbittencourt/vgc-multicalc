@@ -1,15 +1,11 @@
-<div class="container" data-cy="your-team">
-  <div class="header">
-    <div class="team-header">
-      <span class="title">Your Team</span>
-    </div>
-
+<app-widget title="Your Team" data-cy="your-team">
+  <right-header>
     <div class="tabs">
       @for (teamMember of store.team().teamMembers; track teamMember.pokemon.id) {
         <app-pokemon-tab [pokemonId]="teamMember.pokemon.id" [active]="showTeamMemberActive(teamMember)" (tabActivated)="activatePokemon($event)" />
       }
     </div>
-  </div>
+  </right-header>
 
   <div class="pokemon-actions">
     <app-import-pokemon-button [show]="canImportPokemon()" [hidden]="!teamMemberOnEdit()" (pokemonImportedEvent)="pokemonImported($event)" data-cy="import-pokemon-to-team" />
@@ -35,5 +31,5 @@
   </div>
 
   <app-pokemon-build [pokemonId]="pokemonId()" />
-</div>
+</app-widget>
 <router-outlet></router-outlet>

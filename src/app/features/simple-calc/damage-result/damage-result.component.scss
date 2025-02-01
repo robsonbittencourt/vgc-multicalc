@@ -2,12 +2,6 @@
   display: grid;
   gap: 1em;
   grid-template-columns: 1fr 0.5fr;
-  background-color: white;
-  border-radius: 12px;
-  border-color: rgb(229, 231, 235);
-  border-width: 1px;
-  border-style: solid;
-  padding: 0.5em 1.5em 1em 1.5em;
 }
 
 .hp-badge {
@@ -20,12 +14,15 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  margin-bottom: -0.2em;
 }
 
 .chip-move {
   width: 50%;
   margin-left: 1em;
+}
+
+.damage-percentage {
+  margin-left: 0.7em;
 }
 
 .label {
@@ -50,7 +47,7 @@
 }
 
 .description-text {
-  color: black;
+  color: var(--text-strong);
   font-weight: 500;
 }
 

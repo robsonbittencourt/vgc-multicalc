@@ -4,7 +4,7 @@ import { FieldStore } from "@data/store/field-store"
 import { FieldAttackerSide, FieldDefenderSide } from "@lib/model/field"
 import { GameType } from "@lib/types"
 
-describe("Menu Store", () => {
+describe("Field Store", () => {
   let store: FieldStore
 
   beforeEach(() => {

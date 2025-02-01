@@ -9,7 +9,10 @@
 
 .tab:hover {
   cursor: pointer;
-  background-color: #f9f7fc;
+  font-weight: 500;
+  border-bottom: solid 2px;
+  border-color: var(--primary);
+  background-color: var(--highlight);
 }
 
 .tab-label:hover {
@@ -20,4 +23,11 @@
   width: 4em;
   height: auto;
   margin-bottom: -0.1em;
+}
+
+.active-tab {
+  font-weight: 500;
+  border-bottom: solid 2px;
+  border-color: var(--primary);
+  background-color: var(--highlight);
 }

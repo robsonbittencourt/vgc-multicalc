@@ -1,8 +1,7 @@
 .container {
   display: grid;
   grid-template-columns: 1fr;
-  color: rgb(88, 88, 90);
-  background-color: white;
+  background-color: var(--widget-background);
 }
 
 .pokes {

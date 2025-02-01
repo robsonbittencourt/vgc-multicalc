@@ -1,34 +1,11 @@
-.container {
-  display: grid;
-  row-gap: 1em;
-  background-color: white;
-  border-radius: 12px;
-  border-color: rgb(229, 231, 235);
-  border-width: 1px;
-  border-style: solid;
-  padding: 1em 1.5em 1em 1.5em;
-}
-
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.team-header {
-  display: grid;
-}
-
-.title {
-  margin-bottom: 2.5em;
-  color: black;
-  font-weight: 500;
-  font-size: clamp(12px, 2vh, 18px);
-}
-
 .tabs {
   display: flex;
-  align-items: center;
 }
 
 .pokemon-actions {
@@ -36,7 +13,7 @@
   align-items: center;
   justify-content: right;
   gap: 1em;
-  margin-bottom: -0.8em;
+  margin-top: 1em;
   margin-right: 0.5em;
   min-height: 2em;
 }
@@ -58,27 +35,4 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-@media only screen and (max-width: 768px) {
-  .container {
-    grid-template-columns: 1fr;
-  }
-
-  .left-container {
-    row-gap: 0.5em;
-  }
-
-  .right-container {
-    margin-top: 1em;
-  }
-
-  .edit-attacks-button {
-    margin-left: 0.2em;
-  }
-
-  .evs {
-    padding: 0em;
-    grid-row-gap: 0.5em;
-  }
 }

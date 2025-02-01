@@ -1,4 +1,8 @@
 .container {
-  background-color: rgb(252, 248, 248);
+  background-color: var(--background);
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
   height: 100vh;
 }

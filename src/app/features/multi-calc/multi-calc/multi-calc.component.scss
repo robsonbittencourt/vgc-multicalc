@@ -3,9 +3,14 @@
   grid-template-columns: 1fr 1fr;
   grid-column-gap: 1em;
   row-gap: 1em;
-  background-color: rgb(252, 248, 248);
-  color: rgb(88, 88, 90);
-  margin: 0.5em 1em 0em 1em;
+  color: var(--text);
+  margin: 1em 1em 0em 1em;
+}
+
+.teams-field {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
 }
 
 .target-pokemon {

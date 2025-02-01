@@ -1,10 +1,11 @@
-import { Component, computed, effect, inject, input, signal } from "@angular/core"
+import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, effect, inject, input, signal } from "@angular/core"
 import { MatIcon } from "@angular/material/icon"
 import { RouterOutlet } from "@angular/router"
 import { PokemonBuildComponent } from "@app/shared/pokemon-build/pokemon-build/pokemon-build.component"
 import { ExportPokemonButtonComponent } from "@app/shared/team/export-pokemon-button/export-pokemon-button.component"
 import { ImportPokemonButtonComponent } from "@app/shared/team/import-pokemon-button/import-pokemon-button.component"
 import { PokemonTabComponent } from "@app/shared/team/pokemon-tab/pokemon-tab.component"
+import { WidgetComponent } from "@app/widget/widget.component"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { defaultPokemon } from "@lib/default-pokemon"
 import { Pokemon } from "@lib/model/pokemon"
@@ -16,7 +17,8 @@ import { v4 as uuidv4 } from "uuid"
   selector: "app-team",
   templateUrl: "./team.component.html",
   styleUrls: ["./team.component.scss"],
-  imports: [PokemonTabComponent, ImportPokemonButtonComponent, ExportPokemonButtonComponent, MatIcon, PokemonBuildComponent, RouterOutlet]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  imports: [WidgetComponent, PokemonTabComponent, ImportPokemonButtonComponent, ExportPokemonButtonComponent, MatIcon, PokemonBuildComponent, RouterOutlet]
 })
 export class TeamComponent {
   store = inject(CalculatorStore)

@@ -2,21 +2,21 @@
   <app-damage-result [pokemon]="store.leftPokemon()" [damageResults]="leftDamageResults()" [opponentDamageResult]="rightDamageResult()" (moveSetChange)="leftMoveActivated($event)" data-cy="left-damage-result" />
   <app-damage-result [pokemon]="store.rightPokemon()" [damageResults]="rightDamageResults()" [opponentDamageResult]="leftDamageResult()" (moveSetChange)="rightMoveActivated($event)" [reverse]="true" data-cy="right-damage-result" />
 
-  <div class="pokemon-edit" data-cy="left-pokemon">
+  <app-widget data-cy="left-pokemon">
     <div class="pokemon-actions pokemon-actions-left">
       <app-import-pokemon-button (pokemonImportedEvent)="store.changeLeftPokemon($event)" />
       <app-export-pokemon-button [pokemon]="store.leftPokemon()" />
     </div>
     <app-pokemon-build [pokemonId]="store.leftPokemon().id" />
-  </div>
+  </app-widget>
 
-  <div class="pokemon-edit" data-cy="right-pokemon">
+  <app-widget data-cy="right-pokemon">
     <div class="pokemon-actions pokemon-actions-right">
       <app-import-pokemon-button (pokemonImportedEvent)="store.changeRightPokemon($event)" />
       <app-export-pokemon-button [pokemon]="store.rightPokemon()" />
     </div>
     <app-pokemon-build [pokemonId]="store.rightPokemon().id" [reverse]="true" />
-  </div>
+  </app-widget>
 
   <div class="field">
     <app-field />

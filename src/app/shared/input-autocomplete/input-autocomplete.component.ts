@@ -1,8 +1,9 @@
 import { AsyncPipe, NgClass } from "@angular/common"
-import { Component, effect, input, model, OnInit } from "@angular/core"
+import { Component, effect, input, model, OnInit, output } from "@angular/core"
 import { FormControl, FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { MatAutocomplete, MatAutocompleteTrigger } from "@angular/material/autocomplete"
 import { MatOption } from "@angular/material/core"
+import { MatIcon } from "@angular/material/icon"
 import { Observable } from "rxjs"
 import { map, startWith } from "rxjs/operators"
 
@@ -15,7 +16,7 @@ export interface KeyValuePair {
   selector: "app-input-autocomplete",
   templateUrl: "./input-autocomplete.component.html",
   styleUrls: ["./input-autocomplete.component.scss"],
-  imports: [FormsModule, ReactiveFormsModule, MatAutocompleteTrigger, MatAutocomplete, MatOption, AsyncPipe, NgClass]
+  imports: [FormsModule, ReactiveFormsModule, MatAutocompleteTrigger, MatAutocomplete, MatOption, MatIcon, AsyncPipe, NgClass]
 })
 export class InputAutocompleteComponent implements OnInit {
   value = model.required<string>()
@@ -29,6 +30,10 @@ export class InputAutocompleteComponent implements OnInit {
   leftLabel = input(false)
 
   disabled = input(false)
+
+  enableClear = input(false)
+
+  cleared = output()
 
   formControl: FormControl
   filteredValues: Observable<KeyValuePair[]>

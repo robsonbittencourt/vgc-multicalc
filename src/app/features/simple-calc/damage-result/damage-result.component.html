@@ -1,42 +1,44 @@
-<div class="damage-result" [ngStyle]="(reverse() && { 'grid-template-columns': '0.5fr 1fr' }) || null">
-  <div class="hp-badge" [ngStyle]="(reverse() && { 'align-items': 'flex-end', 'justify-self': 'end' }) || null">
-    <app-pokemon-hp-badge [name]="pokemon().displayNameWithoutSuffix" [actualHp]="pokemon().actualHp" [hpBase]="pokemon().hp" [spriteName]="pokemon().name" [item]="pokemon().item" [damageTaken]="damageTaken()" />
+<app-widget>
+  <div class="damage-result" [ngStyle]="(reverse() && { 'grid-template-columns': '0.5fr 1fr' }) || null">
+    <div class="hp-badge" [ngStyle]="(reverse() && { 'align-items': 'flex-end', 'justify-self': 'end' }) || null">
+      <app-pokemon-hp-badge [name]="pokemon().displayNameWithoutSuffix" [actualHp]="pokemon().actualHp" [hpBase]="pokemon().hp" [spriteName]="pokemon().name" [item]="pokemon().item" [damageTaken]="damageTaken()" />
 
-    <div class="roll-level">
-      <label class="label">Roll level</label>
-      <mat-button-toggle-group class="button-group" [hideSingleSelectionIndicator]="true">
-        <mat-button-toggle [checked]="rollLevelConfig().high" (change)="activateHighRoll()" data-cy="high-roll">High</mat-button-toggle>
-        <mat-button-toggle [checked]="rollLevelConfig().medium" (change)="activateMediumRoll()" data-cy="medium-roll">Medium</mat-button-toggle>
-        <mat-button-toggle [checked]="rollLevelConfig().low" (change)="activateLowRoll()" data-cy="low-roll">Low</mat-button-toggle>
-      </mat-button-toggle-group>
+      <div class="roll-level">
+        <label class="label">Roll level</label>
+        <mat-button-toggle-group class="button-group" [hideSingleSelectionIndicator]="true">
+          <mat-button-toggle [checked]="rollLevelConfig().high" (change)="activateHighRoll()" data-cy="high-roll">High</mat-button-toggle>
+          <mat-button-toggle [checked]="rollLevelConfig().medium" (change)="activateMediumRoll()" data-cy="medium-roll">Medium</mat-button-toggle>
+          <mat-button-toggle [checked]="rollLevelConfig().low" (change)="activateLowRoll()" data-cy="low-roll">Low</mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+
+      <div class="rolls">
+        <label class="label">Rolls: </label>
+        <span data-cy="damage-rolls">{{ rolls() }}</span>
+      </div>
     </div>
 
-    <div class="rolls">
-      <label class="label">Rolls: </label>
-      <span data-cy="damage-rolls">{{ rolls() }}</span>
-    </div>
-  </div>
-
-  <div [ngStyle]="(reverse() && { order: -1 }) || null" data-cy="moves">
-    <mat-chip-listbox class="mat-mdc-chip-set-stacked" (change)="moveSelected($event)">
-      @for (damageResult of damageResults(); let i = $index; track i) {
-        <div class="move" [ngStyle]="(reverse() && { 'flex-flow': 'row-reverse', 'margin-right': '0.8em' }) || null">
-          <div class="chip-move" [ngStyle]="(reverse() && { 'margin-left': '0em', 'margin-right': '1em' }) || null">
-            <mat-chip-option [selected]="damageResult.move === activeMoveName()" [disabled]="!damageResult.move">{{ damageResult.move }}</mat-chip-option>
+    <div [ngStyle]="(reverse() && { order: -1 }) || null" data-cy="moves">
+      <mat-chip-listbox class="mat-mdc-chip-set-stacked" (change)="moveSelected($event)">
+        @for (damageResult of damageResults(); let i = $index; track i) {
+          <div class="move" [ngStyle]="(reverse() && { 'flex-flow': 'row-reverse', 'margin-right': '0.8em' }) || null">
+            <div class="chip-move" [ngStyle]="(reverse() && { 'margin-left': '0em', 'margin-right': '1em' }) || null">
+              <mat-chip-option [selected]="damageResult.move === activeMoveName()" [disabled]="!damageResult.move">{{ damageResult.move }}</mat-chip-option>
+            </div>
+            <span class="damage-percentage" data-cy="move-damage">{{ damageResult.result }}</span>
           </div>
-          <span data-cy="move-damage">{{ damageResult.result }}</span>
-        </div>
-      }
-    </mat-chip-listbox>
-  </div>
+        }
+      </mat-chip-listbox>
+    </div>
 
-  <div class="description-container">
-    <div class="description-with-button">
-      <span class="description-text" data-cy="move-damage-description">{{ activeDamageResult().description }}</span>
-      <mat-icon class="copy-icon" (click)="copy(activeDamageResult().description)" matTooltip="Copy">content_copy</mat-icon>
-      @if (copyMessageEnabled) {
-        <label>Copied!</label>
-      }
+    <div class="description-container">
+      <div class="description-with-button">
+        <span class="description-text" data-cy="move-damage-description">{{ activeDamageResult().description }}</span>
+        <mat-icon class="copy-icon" (click)="copy(activeDamageResult().description)" matTooltip="Copy">content_copy</mat-icon>
+        @if (copyMessageEnabled) {
+          <label>Copied!</label>
+        }
+      </div>
     </div>
   </div>
-</div>
+</app-widget>

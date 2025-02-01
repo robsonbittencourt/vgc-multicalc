@@ -1,4 +1,4 @@
-import { NgStyle } from "@angular/common"
+import { NgClass } from "@angular/common"
 import { Component, computed, inject, input, output } from "@angular/core"
 import { MatCard, MatCardMdImage, MatCardSubtitle, MatCardTitle, MatCardTitleGroup } from "@angular/material/card"
 import { MatIcon } from "@angular/material/icon"
@@ -12,7 +12,7 @@ import { Target } from "@lib/model/target"
   selector: "app-pokemon-card",
   templateUrl: "./pokemon-card.component.html",
   styleUrls: ["./pokemon-card.component.scss"],
-  imports: [MatCard, NgStyle, MatCardTitleGroup, MatCardTitle, MatCardSubtitle, MatTooltip, MatIcon, MatCardMdImage]
+  imports: [MatCard, NgClass, MatCardTitleGroup, MatCardTitle, MatCardSubtitle, MatTooltip, MatIcon, MatCardMdImage]
 })
 export class PokemonCardComponent {
   store = inject(CalculatorStore)
@@ -36,6 +36,8 @@ export class PokemonCardComponent {
       return this.store.targets().find(target => target.pokemon.id === pokemonId)!
     }
   })
+
+  koChance = computed(() => this.damageResult().koChance)
 
   activate() {
     if (!this.target().active) {
@@ -88,39 +90,19 @@ export class PokemonCardComponent {
     return evsDescription
   }
 
-  cardStyle(): any {
-    const cardStyleSelectPokemon = { "background-color": "#e7def6" }
-    const cardStyle = { "background-color": this.cardColor(this.damageResult().koChance) }
-    const cardWithBorder = { border: "4px", "border-style": "solid", "border-color": "#8544ee" }
-
-    if (this.target().active && this.target().pokemon.isDefault) {
-      return { ...cardStyleSelectPokemon, ...cardWithBorder }
-    }
+  cardColorClass() {
+    let baseClass = "green-card"
 
     if (this.target().pokemon.isDefault) {
-      return cardStyleSelectPokemon
+      baseClass = "select-pokemon-card"
+    } else if (this.koChance() === "guaranteed OHKO") {
+      baseClass = "grey-card"
+    } else if (this.koChance().includes("chance to OHKO")) {
+      baseClass = "red-card"
+    } else if (this.koChance().includes("2HKO")) {
+      baseClass = "yellow-card"
     }
 
-    if (this.target().active) {
-      return { ...cardStyle, ...cardWithBorder }
-    }
-
-    return cardStyle
-  }
-
-  private cardColor(koChance: string) {
-    if (koChance == "guaranteed OHKO") {
-      return "#dbd8e3" //gray
-    }
-
-    if (koChance.includes("chance to OHKO")) {
-      return "#f33d42" //red
-    }
-
-    if (koChance.includes("2HKO")) {
-      return "#fe9901" //yellow
-    }
-
-    return "#30ca2e" //green
+    return this.target().active ? `${baseClass} border` : baseClass
   }
 }

@@ -1,36 +1,29 @@
-<div class="container">
-  <div class="header">
-    <div class="title-damage-description">
-      @if (isAttacker()) {
-        <label class="title">Opponent Attackers</label>
-      } @else {
-        <label class="title">Opponent Defenders</label>
-      }
-
-      @if (damageDescription()) {
-        <div class="damage-description">
-          <div class="damage-rolls">
-            <span>{{ damageDescription() }}</span>
-            @if (rolls().length > 0) {
-              <span>Rolls: {{ rolls() }}</span>
-            }
-          </div>
-          <div class="copy-button" (click)="copyDamageResult()" matTooltip="Copy">
-            <mat-icon>content_copy</mat-icon>
-            @if (copyMessageEnabled) {
-              <label>Copied!</label>
-            }
-          </div>
+<app-widget [title]="title()">
+  <left-header>
+    @if (damageDescription()) {
+      <div class="damage-description">
+        <div class="damage-rolls">
+          <span>{{ damageDescription() }}</span>
+          @if (rolls().length > 0) {
+            <span>Rolls: {{ rolls() }}</span>
+          }
         </div>
-      }
-    </div>
-
+        <div class="copy-button" (click)="copyDamageResult()" matTooltip="Copy">
+          <mat-icon>content_copy</mat-icon>
+          @if (copyMessageEnabled) {
+            <label>Copied!</label>
+          }
+        </div>
+      </div>
+    }
+  </left-header>
+  <right-header>
     <div class="buttons">
       <button mat-flat-button (click)="importPokemon()" data-cy="import-pokemon-to-opponent">Import</button>
       <button mat-flat-button (click)="exportPokemon()" data-cy="export-opponent-pokemon-button">Export</button>
       <button mat-flat-button class="warn" (click)="removeAll()" data-cy="delete-opponent-pokemon-button">Delete all</button>
     </div>
-  </div>
+  </right-header>
 
   <div class="target-pokemon">
     @for (damageResult of damageResults(); track damageResult.id) {
@@ -48,4 +41,4 @@
       <app-add-pokemon-card (pokemonAddedToTeam)="addPokemonToTargets()" />
     }
   </div>
-</div>
+</app-widget>

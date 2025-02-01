@@ -1,37 +1,30 @@
 @use "@angular/material" as mat;
-@use "theme-colors" as my-theme;
-@use "sass:map";
 
 @use "variables.scss" as *;
 
 html {
-  color-scheme: light;
   @include mat.theme(
     (
-      color: (
-        primary: my-theme.$primary-palette,
-        tertiary: my-theme.$tertiary-palette,
-        theme-type: light
-      ),
       density: -5
     )
   );
 }
 
 .warn {
-  @include mat.theme(
+  @include mat.button-overrides(
     (
-      color: my-theme.$error-palette
+      filled-container-color: var(--warn)
     )
   );
 }
 
-:root {
+body {
   @include mat.button-overrides(
     (
       filled-container-shape: 4px,
       filled-container-height: 2.5em,
-      filled-horizontal-padding: 1.5rem
+      filled-horizontal-padding: 1.5rem,
+      filled-label-text-color: var(--primary-contrast)
     )
   );
 
@@ -41,6 +34,7 @@ html {
       shape: 4px,
       divider-color: #dfdfe2,
       selected-state-background-color: #dfdfe2,
+      text-color: var(--text),
       label-text-size: $font-size
     )
   );
@@ -49,7 +43,7 @@ html {
     (
       container-text-size: $font-size,
       outlined-outline-color: #a0a0a3,
-      outlined-input-text-color: rgb(88, 88, 90),
+      outlined-input-text-color: var(--text),
       container-height: 2.5em,
       container-vertical-padding: 0.7em
     )
@@ -57,13 +51,13 @@ html {
 
   @include mat.autocomplete-overrides(
     (
-      background-color: white
+      background-color: var(--widget-background)
     )
   );
 
   @include mat.select-overrides(
     (
-      panel-background-color: white,
+      panel-background-color: var(--widget-background),
       trigger-text-size: $font-size,
       trigger-text-weight: 300
     )
@@ -73,7 +67,7 @@ html {
     (
       handle-height: 1.5em,
       handle-width: 1.5em,
-      inactive-track-color: map.get(my-theme.$primary-palette, 40)
+      inactive-track-color: var(--primary)
     )
   );
 
@@ -81,9 +75,9 @@ html {
     (
       container-height: 2em,
       container-shape-radius: 20px,
-      elevated-selected-container-color: map.get(my-theme.$primary-palette, 35),
-      elevated-container-color: #dfdfe2,
-      selected-label-text-color: white,
+      elevated-selected-container-color: var(--primary),
+      elevated-container-color: var(--chip-color),
+      selected-label-text-color: var(--primary-contrast),
       outline-color: white,
       focus-outline-color: white
     )
@@ -91,15 +85,16 @@ html {
 
   @include mat.checkbox-overrides(
     (
-      unselected-icon-color: #6d6d6e
+      unselected-icon-color: var(--text),
+      disabled-selected-checkmark-color: var(--checkmark-color)
     )
   );
 
   @include mat.dialog-overrides(
     (
       container-shape: square,
-      container-color: white,
-      subhead-color: black,
+      container-color: var(--highlight),
+      subhead-color: var(--text),
       subhead-size: 1.2rem,
       subhead-weight: 500
     )
@@ -107,19 +102,27 @@ html {
 
   @include mat.card-overrides(
     (
-      title-text-size: 1.3rem,
+      title-text-size: 1.3em,
       title-text-weight: 500,
       title-text-line-height: 1.7em,
       subtitle-text-line-height: 1.7em,
-      subtitle-text-color: rgb(76, 76, 78, 0.9),
-      subtitle-text-weight: 500
+      subtitle-text-color: black,
+      subtitle-text-weight: 400
     )
   );
 
   @include mat.menu-overrides(
     (
-      container-color: white,
-      item-spacing: 2px
+      container-color: var(--background),
+      item-spacing: 2px,
+      divider-top-spacing: 2em,
+      divider-bottom-spacing: 1em
+    )
+  );
+
+  @include mat.button-toggle-overrides(
+    (
+      height: 2.5em
     )
   );
 }
@@ -166,6 +169,7 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   font-size: $font-size;
+  color: var(--text);
   overflow: auto;
   scrollbar-width: none;
 }
@@ -191,7 +195,7 @@ body {
 }
 
 @media only screen and (max-width: 768px) {
-  :root {
+  body {
     @include mat.form-field-overrides(
       (
         container-text-size: $font-size-mobile
