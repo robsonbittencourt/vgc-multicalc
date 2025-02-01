@@ -195,7 +195,7 @@ describe("Pokemon", () => {
     it("should return the three ev jumps of Pokémon when nature is beneficial in spa", () => {
       const pokemon = new Pokemon("Charizard", { nature: "Modest" })
 
-      expect(pokemon.jumps).toEqual([4, 84, 164])
+      expect(pokemon.jumps).toEqual([84, 164, 244])
     })
 
     it("should return the three ev jumps of Pokémon when nature is beneficial in spd", () => {
