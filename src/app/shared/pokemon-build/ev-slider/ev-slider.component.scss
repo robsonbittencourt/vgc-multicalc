@@ -91,6 +91,10 @@ input::-webkit-inner-spin-button {
   min-height: 3em !important;
 }
 
+input[matinput][type="number"] {
+  -moz-appearance: textfield;
+}
+
 @media only screen and (max-width: 768px) {
   .ev-slider-container {
     grid-column-gap: 0em;
