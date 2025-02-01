@@ -110,23 +110,23 @@ export class Pokemon {
   }
 
   get jumps(): [number, number, number] {
-    const stat = this.baseStatWithbeneficalNature()
+    const stat = this.baseStatWithBeneficalNature()
     if (!stat) return [0, 0, 0]
 
-    const baseStat = this.smogonPokemon.species.baseStats[stat]
-    const iv = this.smogonPokemon.ivs[stat]
     let ev = 4
+    let actualStatValue = this.rawStatWithEv(stat, ev)
 
     const jumps = []
 
     while (ev <= 252 && jumps.length != 3) {
-      const statValue = this.statPhormula(baseStat, iv, ev)
+      const statValue = this.rawStatWithEv(stat, ev)
 
-      if (statValue % 1 === 0) {
+      if (statValue - actualStatValue == 2) {
         jumps.push(ev)
       }
 
       ev += 8
+      actualStatValue = statValue
     }
 
     return jumps as [number, number, number]
@@ -285,7 +285,7 @@ export class Pokemon {
     return this.smogonFunctions.getModifiedStat(smogonPokemon.rawStats[stat], smogonPokemon.boosts[stat])
   }
 
-  private baseStatWithbeneficalNature(): StatID | undefined {
+  private baseStatWithBeneficalNature(): StatID | undefined {
     if (["Lonely", "Adamant", "Naughty", "Brave"].includes(this.nature)) {
       return "atk"
     }
@@ -309,11 +309,7 @@ export class Pokemon {
     return undefined
   }
 
-  private statPhormula(baseStat: number, iv: number, ev: number): number {
-    const firstPart = (2 * baseStat + iv + ev / 4) / 100
-    const secondPart = firstPart * this.level + 5
-    const result = Math.round(secondPart * 1.1 * 100) / 100
-
-    return result
+  private rawStatWithEv(stat: StatID, ev: number): number {
+    return this.clone({ evs: { [stat]: ev } }).smogonPokemon.rawStats[stat]
   }
 }
