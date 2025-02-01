@@ -14,12 +14,13 @@ import { SnackbarService } from "@lib/snackbar.service"
 import { ExportPokeService } from "@lib/user-data/export-poke.service"
 import { PokePasteParserService } from "@lib/user-data/poke-paste-parser.service"
 import { v4 as uuidv4 } from "uuid"
+import { WidgetComponent } from "../../../widget/widget.component"
 
 @Component({
   selector: "app-teams",
   templateUrl: "./teams.component.html",
   styleUrls: ["./teams.component.scss"],
-  imports: [MatFormField, MatInput, ReactiveFormsModule, FormsModule, MatButton, TeamBoxComponent]
+  imports: [WidgetComponent, MatFormField, MatInput, ReactiveFormsModule, FormsModule, MatButton, TeamBoxComponent, WidgetComponent]
 })
 export class TeamsComponent {
   store = inject(CalculatorStore)

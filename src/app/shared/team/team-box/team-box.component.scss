@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 4px;
-  background-color: #e7def6;
+  background-color: var(--highlight);
   height: 100%;
   padding-top: 0.2em;
 }
@@ -22,4 +22,8 @@
 .pokemon-image img {
   width: 4em;
   height: auto;
+}
+
+.active-team {
+  box-shadow: inset 0px 0px 0px 3px var(--highlight-border);
 }

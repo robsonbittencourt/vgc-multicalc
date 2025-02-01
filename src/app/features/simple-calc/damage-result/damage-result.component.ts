@@ -9,12 +9,13 @@ import { PokemonHpBadgeComponent } from "@app/features/simple-calc/pokemon-hp-ba
 import { DamageResult } from "@lib/damage-calculator/damage-result"
 import { RollLevelConfig } from "@lib/damage-calculator/roll-level-config"
 import { Pokemon } from "@lib/model/pokemon"
+import { WidgetComponent } from "../../../widget/widget.component"
 
 @Component({
   selector: "app-damage-result",
   templateUrl: "./damage-result.component.html",
   styleUrls: ["./damage-result.component.scss"],
-  imports: [NgStyle, PokemonHpBadgeComponent, MatButtonToggleGroup, MatButtonToggle, MatChipListbox, ReactiveFormsModule, FormsModule, MatChipOption, MatIcon, MatTooltip]
+  imports: [WidgetComponent, NgStyle, PokemonHpBadgeComponent, MatButtonToggleGroup, MatButtonToggle, MatChipListbox, ReactiveFormsModule, FormsModule, MatChipOption, MatIcon, MatTooltip, WidgetComponent]
 })
 export class DamageResultComponent {
   pokemon = input.required<Pokemon>()

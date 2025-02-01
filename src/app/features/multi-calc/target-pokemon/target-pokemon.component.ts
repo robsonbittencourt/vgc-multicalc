@@ -1,5 +1,5 @@
 import { NoopScrollStrategy } from "@angular/cdk/overlay"
-import { Component, computed, inject, input, output } from "@angular/core"
+import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, inject, input, output } from "@angular/core"
 import { MatButton } from "@angular/material/button"
 import { MatDialog } from "@angular/material/dialog"
 import { MatIcon } from "@angular/material/icon"
@@ -7,6 +7,7 @@ import { MatTooltip } from "@angular/material/tooltip"
 import { AddPokemonCardComponent } from "@app/features/multi-calc/add-pokemon-card/add-pokemon-card.component"
 import { PokemonCardComponent } from "@app/features/multi-calc/pokemon-card/pokemon-card.component"
 import { TeamImportModalComponent } from "@app/shared/team/team-import-modal/team-import-modal.component"
+import { WidgetComponent } from "@app/widget/widget.component"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { MenuStore } from "@data/store/menu-store"
 import { DamageResult } from "@lib/damage-calculator/damage-result"
@@ -21,7 +22,8 @@ import { PokePasteParserService } from "@lib/user-data/poke-paste-parser.service
   selector: "app-target-pokemon",
   templateUrl: "./target-pokemon.component.html",
   styleUrls: ["./target-pokemon.component.scss"],
-  imports: [MatIcon, MatButton, MatTooltip, PokemonCardComponent, AddPokemonCardComponent]
+  imports: [WidgetComponent, MatIcon, MatButton, MatTooltip, PokemonCardComponent, AddPokemonCardComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class TargetPokemonComponent {
   damageResults = input.required<DamageResult[]>()
@@ -38,6 +40,8 @@ export class TargetPokemonComponent {
   private exportPokeService = inject(ExportPokeService)
   private dialog = inject(MatDialog)
   private snackBar = inject(SnackbarService)
+
+  title = computed(() => (this.isAttacker() ? "Opponent Attackers" : "Opponent Defenders"))
 
   targets = computed(() => this.store.targets())
 

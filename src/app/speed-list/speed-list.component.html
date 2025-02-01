@@ -1,0 +1,36 @@
+<app-widget title="Speed List">
+  <left-header>
+    <div class="title-box">
+      <app-input-autocomplete label="Regulation" [allValues]="regulationsList" [value]="optionsStore.regulation()" (valueChange)="optionsStore.updateRegulation($event)" />
+      <app-input-autocomplete label="Pokémon" [enableClear]="true" [allValues]="optionsStore.pokemonNamesByReg()" [value]="optionsStore.targetName()" (valueChange)="optionsStore.updateTargetName($event)" (cleared)="optionsStore.clearTargetName()" />
+    </div>
+  </left-header>
+  <right-header>
+    <div class="header-buttons-section">
+      <div class="header-buttons-text">
+        <span class="title">Options to opponent side</span>
+        <span>Use Your Team and Field section for more options</span>
+      </div>
+      <div class="header-buttons">
+        <label>Speed Modifier</label>
+        <mat-form-field appearance="outline" class="mat-ev-stat-modifier">
+          <mat-select [value]="optionsStore.speedModifier()" (valueChange)="optionsStore.updateSpeedModifier($event)" [hideSingleSelectionIndicator]="true" data-cy="speed-calc-spe-modifier">
+            @for (statsModifier of statsModifiers; track statsModifier) {
+              <mat-option [value]="statsModifier.value">{{ statsModifier.viewValue }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">
+          <mat-button-toggle [checked]="optionsStore.speedDropActive()" (change)="optionsStore.toogleIceWind($event.source.checked)" data-cy="speed-calc-ice-wind">Ice Wind</mat-button-toggle>
+          <mat-button-toggle [checked]="optionsStore.paralyzedActive()" (change)="optionsStore.toogleParalyze($event.source.checked)" data-cy="speed-calc-paralyzed">Paralyzed</mat-button-toggle>
+          <mat-button-toggle [checked]="optionsStore.choiceScarfActive()" (change)="optionsStore.toogleChoiceScarf($event.source.checked)" data-cy="speed-calc-choice-scarf">Choice Scarf</mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+    </div>
+  </right-header>
+
+  <div class="speed-scale">
+    <app-speed-scale [pokemonId]="pokemonId()" [pokemonEachSide]="31" />
+  </div>
+</app-widget>

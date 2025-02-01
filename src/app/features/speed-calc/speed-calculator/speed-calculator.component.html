@@ -1,53 +1,14 @@
 <div class="container">
   <app-team [pokemonId]="pokemonId()" />
 
-  <div>
+  <div class="teams-field">
     <app-teams />
     <app-field />
   </div>
 
   @if (!isPokemonDefault()) {
-    <div class="container-speed-scale">
-      <div class="header">
-        <div class="title-box">
-          <span class="title">Speed List</span>
-          <div class="regulation">
-            <label>Regulation</label>
-            <app-input-autocomplete [allValues]="regulationsList" [value]="optionsStore.regulation()" (valueChange)="optionsStore.updateRegulation($event)" />
-          </div>
-          <div>
-            <label>Pokémon</label>
-            <div class="pokemon-combo">
-              <app-input-autocomplete [allValues]="optionsStore.pokemonNamesByReg()" [value]="optionsStore.targetName()" (valueChange)="optionsStore.updateTargetName($event)" />
-              <mat-icon class="clear-button" (click)="optionsStore.clearTargetName()">clear</mat-icon>
-            </div>
-          </div>
-        </div>
-        <div class="header-buttons-section">
-          <div class="header-buttons-text">
-            <span class="title">Options to opponent side</span>
-            <span>Use Your Team and Field section for more options</span>
-          </div>
-          <div class="header-buttons text-color">
-            <label>Speed Modifier</label>
-            <mat-form-field appearance="outline" class="mat-ev-stat-modifier">
-              <mat-select [value]="optionsStore.speedModifier()" (valueChange)="optionsStore.updateSpeedModifier($event)" [hideSingleSelectionIndicator]="true" data-cy="speed-calc-spe-modifier">
-                @for (statsModifier of statsModifiers; track statsModifier) {
-                  <mat-option [value]="statsModifier.value">{{ statsModifier.viewValue }}</mat-option>
-                }
-              </mat-select>
-            </mat-form-field>
-
-            <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">
-              <mat-button-toggle [checked]="optionsStore.speedDropActive()" (change)="optionsStore.toogleIceWind($event.source.checked)" data-cy="speed-calc-ice-wind">Ice Wind</mat-button-toggle>
-              <mat-button-toggle [checked]="optionsStore.paralyzedActive()" (change)="optionsStore.toogleParalyze($event.source.checked)" data-cy="speed-calc-paralyzed">Paralyzed</mat-button-toggle>
-              <mat-button-toggle [checked]="optionsStore.choiceScarfActive()" (change)="optionsStore.toogleChoiceScarf($event.source.checked)" data-cy="speed-calc-choice-scarf">Choice Scarf</mat-button-toggle>
-            </mat-button-toggle-group>
-          </div>
-        </div>
-      </div>
-
-      <app-speed-scale [pokemonId]="pokemonId()" [pokemonEachSide]="31" />
+    <div class="speed-list">
+      <app-speed-list></app-speed-list>
     </div>
   }
 </div>

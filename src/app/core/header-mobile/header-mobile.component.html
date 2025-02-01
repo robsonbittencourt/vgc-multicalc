@@ -9,12 +9,39 @@
       <mat-icon>menu</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="menuStore.enableOneVsMany()">
-        <span>Damage Calculator</span>
-      </button>
-      <button mat-menu-item (click)="menuStore.enableSpeedCalculator()">
-        <span>Speed Calculator</span>
-      </button>
+      <div class="menu-content">
+        <span class="menu-title">Pages</span>
+        <button mat-menu-item (click)="menuStore.enableOneVsMany()">
+          <span>Damage Calculator</span>
+        </button>
+        <button mat-menu-item (click)="menuStore.enableSpeedCalculator()">
+          <span>Speed Calculator</span>
+        </button>
+
+        <mat-divider></mat-divider>
+
+        <span class="menu-title">Themes</span>
+        @for (theme of themeService.getThemes(); track theme.name) {
+          <div class="menu-item" (click)="themeService.setTheme(theme.name)">
+            <div class="pokemon-image-container">
+              <img class="pokemon-image" src="assets/sprites/menu/{{ theme.pokemon }}.png" />
+            </div>
+            <span>{{ theme.name | titlecase }}</span>
+          </div>
+        }
+
+        <mat-divider></mat-divider>
+
+        <span class="menu-title">Colors</span>
+        @for (color of themeService.getColors(); track color.name) {
+          <div class="menu-item" (click)="themeService.setColor(color.name)">
+            <div class="pokemon-image-container">
+              <img class="pokemon-image" src="assets/sprites/menu/{{ color.pokemon }}.png" />
+            </div>
+            <span>{{ color.name | titlecase }}</span>
+          </div>
+        }
+      </div>
     </mat-menu>
   </div>
 </div>

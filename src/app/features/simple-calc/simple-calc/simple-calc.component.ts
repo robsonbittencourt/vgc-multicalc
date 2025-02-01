@@ -4,6 +4,7 @@ import { FieldComponent } from "@app/shared/field/field.component"
 import { PokemonBuildComponent } from "@app/shared/pokemon-build/pokemon-build/pokemon-build.component"
 import { ExportPokemonButtonComponent } from "@app/shared/team/export-pokemon-button/export-pokemon-button.component"
 import { ImportPokemonButtonComponent } from "@app/shared/team/import-pokemon-button/import-pokemon-button.component"
+import { WidgetComponent } from "@app/widget/widget.component"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { FieldStore } from "@data/store/field-store"
 import { DamageCalculatorService } from "@lib/damage-calculator/damage-calculator.service"
@@ -14,7 +15,7 @@ import { Move } from "@lib/model/move"
   selector: "app-simple-calc",
   templateUrl: "./simple-calc.component.html",
   styleUrls: ["./simple-calc.component.scss"],
-  imports: [DamageResultComponent, ImportPokemonButtonComponent, ExportPokemonButtonComponent, PokemonBuildComponent, FieldComponent]
+  imports: [WidgetComponent, DamageResultComponent, ImportPokemonButtonComponent, ExportPokemonButtonComponent, PokemonBuildComponent, FieldComponent]
 })
 export class SimpleCalcComponent {
   store = inject(CalculatorStore)

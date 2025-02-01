@@ -1,35 +1,10 @@
 @use "variables.scss" as *;
 
-.field {
-  background-color: white;
-  border-radius: 12px;
-  padding: 1em 1.5em 1em 1.5em;
-  border-color: rgb(229, 231, 235);
-  border-width: 1px;
-  border-style: solid;
-}
-
-.header {
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-}
-
 .field-container {
   display: grid;
   grid-template-columns: 1.5fr 1fr 1fr;
   column-gap: 1.5em;
-  margin-top: 1em;
-}
-
-.text-color * {
-  color: rgb(88, 88, 90);
-}
-
-.title {
-  color: black;
-  font-weight: 500;
-  font-size: clamp(12px, 2vh, 18px);
+  margin-top: 2em;
 }
 
 .button-group {
@@ -61,12 +36,6 @@
 }
 
 @media only screen and (max-width: 768px) {
-  .field {
-    border-radius: 0px;
-    border-width: 0px;
-    margin-top: 1em;
-  }
-
   .field-container {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
@@ -85,11 +54,13 @@
     gap: 0.2em;
   }
 
-  .title {
-    font-size: 16px;
-  }
-
   .field-subtitle {
     font-size: 16px;
+  }
+}
+
+@media only screen and (max-width: 1919px) {
+  .field-container {
+    margin-top: 0.5em;
   }
 }

@@ -1,4 +1,4 @@
-<mat-card (click)="activate()" class="card" [ngStyle]="cardStyle()" [attr.data-cy]="'pokemon-card-' + target().pokemon.displayName">
+<mat-card (click)="activate()" class="card" [ngClass]="cardColorClass()" [attr.data-cy]="'pokemon-card-' + target().pokemon.displayName">
   <div class="card-container">
     @if (target().pokemon.isDefault) {
       <div class="card-left-side">
@@ -31,7 +31,7 @@
 
         @if (damageResult() && showDamageDescription()) {
           <div class="damage-result">
-            <br />Damage: {{ damageResult().result }} <br /><label class="ko-chance">{{ damageResult().koChance }}</label>
+            <br />Damage: {{ damageResult().result }} <br /><label class="ko-chance">{{ koChance() }}</label>
           </div>
         }
       </div>

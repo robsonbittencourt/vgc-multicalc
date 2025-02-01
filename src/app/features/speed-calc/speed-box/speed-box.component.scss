@@ -16,11 +16,20 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  gap: 0.5em;
 }
 
 .pokemon-image img {
   width: 6em;
   height: auto;
+}
+
+.actual {
+  background-color: var(--highlight);
+}
+
+.actual-label {
+  font-weight: 600;
 }
 
 @media only screen and (max-width: 768px) {

@@ -1,5 +1,5 @@
 import { animate, style, transition, trigger } from "@angular/animations"
-import { NgStyle } from "@angular/common"
+import { NgClass } from "@angular/common"
 import { Component, computed, input } from "@angular/core"
 import { ACTUAL } from "@lib/constants"
 import { SpeedDefinition } from "@lib/speed-calculator/speed-definition"
@@ -18,7 +18,7 @@ const timing = "500ms ease-in"
       })
     ])
   ],
-  imports: [NgStyle]
+  imports: [NgClass]
 })
 export class SpeedBoxComponent {
   speedDefinition = input.required<SpeedDefinition>()

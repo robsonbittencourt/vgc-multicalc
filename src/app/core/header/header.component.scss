@@ -1,13 +1,18 @@
 .header {
-  background-color: rgb(255, 255, 255);
+  background-color: var(--widget-background);
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
   display: flex;
   justify-content: space-between;
   border-bottom: 1px;
-  border-color: rgb(229, 231, 235);
+  border-color: var(--widget-background);
   border-width: 1px;
   border-style: solid;
   padding-left: 2.5em;
   padding-right: 2.5em;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .left-header {
@@ -32,7 +37,7 @@
 }
 
 .title {
-  color: black;
+  color: var(--text-strong);
   font-weight: 500;
   margin-left: 1em;
 }
@@ -41,9 +46,12 @@
   display: flex;
   align-items: center;
   column-gap: 2em;
-  color: rgb(133, 129, 129);
   margin-left: 2em;
   height: 75%;
+}
+
+.menu-content {
+  width: 50em;
 }
 
 .menu-option {
@@ -56,4 +64,39 @@
 .menu-option:hover {
   cursor: pointer;
   font-weight: 500;
+}
+
+.active-menu-option {
+  color: var(--primary-contrast);
+  background-color: var(--primary);
+}
+
+.menu-title {
+  font-size: clamp(12px, 2vh, 18px);
+  margin-left: 1em;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  padding-left: 1em;
+}
+
+.menu-item:hover {
+  background-color: var(--highlight);
+  color: var(--highlight-contrast);
+}
+
+.pokemon-image-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4em;
+  padding: 0.5em;
+}
+
+.pokemon-image {
+  height: 3em;
+  width: auto;
 }
