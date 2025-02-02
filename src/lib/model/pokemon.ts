@@ -6,7 +6,7 @@ import { MoveSet } from "@lib/model/moveset"
 import { Status } from "@lib/model/status"
 import { SmogonFunctions } from "@lib/smogon/smogon-functions"
 import { SmogonPokemonBuilder } from "@lib/smogon/smogon-pokemon-builder"
-import { PokemonParameters, Stats } from "@lib/types"
+import { Jumps, PokemonParameters, Stats } from "@lib/types"
 import { Pokemon as SmogonPokemon } from "@robsonbittencourt/calc"
 import { StatsTable, TypeName } from "@robsonbittencourt/calc/dist/data/interface"
 import { StatID, StatIDExceptHP } from "@robsonbittencourt/calc/src/data/interface"
@@ -109,27 +109,29 @@ export class Pokemon {
     return this.smogonPokemon.evs.hp + this.smogonPokemon.evs.atk + this.smogonPokemon.evs.def + this.smogonPokemon.evs.spa + this.smogonPokemon.evs.spd + this.smogonPokemon.evs.spe
   }
 
-  get jumps(): [number, number, number] {
+  get jumps(): Jumps {
     const stat = this.baseStatWithBeneficalNature()
-    if (!stat) return [0, 0, 0]
+    if (!stat) return [0, 0, 0, 0]
 
-    let ev = 4
+    let ev = 0
     let actualStatValue = this.rawStatWithEv(stat, ev)
 
     const jumps = []
 
-    while (ev <= 252 && jumps.length != 3) {
-      const statValue = this.rawStatWithEv(stat, ev)
+    while (ev <= 252) {
+      ev += this.evToIncrementStat(stat, actualStatValue, ev)
 
-      if (statValue - actualStatValue == 2) {
+      const statValue = this.rawStatWithEv(stat, ev)
+      const isJump = statValue - actualStatValue == 2
+
+      if (isJump) {
         jumps.push(ev)
       }
 
-      ev += 8
       actualStatValue = statValue
     }
 
-    return jumps as [number, number, number]
+    return jumps as Jumps
   }
 
   get ivs(): Partial<Stats> {
@@ -311,5 +313,9 @@ export class Pokemon {
 
   private rawStatWithEv(stat: StatID, ev: number): number {
     return this.clone({ evs: { [stat]: ev } }).smogonPokemon.rawStats[stat]
+  }
+
+  private evToIncrementStat(stat: StatID, actualStatValue: number, ev: number) {
+    return this.rawStatWithEv(stat, ev + 4) > actualStatValue ? 4 : 8
   }
 }

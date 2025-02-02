@@ -195,7 +195,7 @@ describe("Pokemon", () => {
     it("should return the three ev jumps of Pokémon when nature is beneficial in spa", () => {
       const pokemon = new Pokemon("Charizard", { nature: "Modest" })
 
-      expect(pokemon.jumps).toEqual([84, 164, 244])
+      expect(pokemon.jumps).toEqual([4, 84, 164, 244])
     })
 
     it("should return the three ev jumps of Pokémon when nature is beneficial in spd", () => {
@@ -210,10 +210,16 @@ describe("Pokemon", () => {
       expect(pokemon.jumps).toEqual([76, 156, 236])
     })
 
+    it("should return the three ev jumps of Pokémon when nature is beneficial in atk and atk has IV zero", () => {
+      const pokemon = new Pokemon("Chien-Pao", { nature: "Adamant", ivs: { hp: 31, atk: 0, def: 31, spa: 31, spd: 31, spe: 31 } })
+
+      expect(pokemon.jumps).toEqual([40, 120, 200])
+    })
+
     it("should return the three ev jumps as zero when nature is neutral", () => {
       const pokemon = new Pokemon("Charizard", { nature: "Docile" })
 
-      expect(pokemon.jumps).toEqual([0, 0, 0])
+      expect(pokemon.jumps).toEqual([0, 0, 0, 0])
     })
 
     it("should return the IVs of the Pokemon", () => {

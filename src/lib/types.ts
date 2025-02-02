@@ -16,6 +16,8 @@ export type StatusDescription = "Healthy" | "Sleep" | "Poison" | "Burn" | "Freez
 
 export type Regulation = "G" | "H"
 
+export type Jumps = [number, number, number, number | null]
+
 export type PokemonParameters = {
   id?: string
   ability?: Ability

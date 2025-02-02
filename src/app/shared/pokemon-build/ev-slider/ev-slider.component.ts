@@ -114,6 +114,7 @@ export class EvSliderComponent implements AfterViewInit {
   firstJumpPosition = computed(() => this.positionBySliderIncrements(this.width(), 0))
   secondJumpPosition = computed(() => this.positionBySliderIncrements(this.width(), 1))
   thirdJumpPosition = computed(() => this.positionBySliderIncrements(this.width(), 2))
+  fourthJumpPosition = computed(() => this.positionBySliderIncrements(this.width(), 3))
 
   width = signal(0)
 
@@ -256,7 +257,7 @@ export class EvSliderComponent implements AfterViewInit {
     this.store.boosts(this.pokemonId(), newBoosts)
   }
 
-  private positionBySliderIncrements(width: number, jump: 0 | 1 | 2): string {
+  private positionBySliderIncrements(width: number, jump: 0 | 1 | 2 | 3): string {
     const increments = this.incrementsUntilJump(jump)
 
     const steps = 32
@@ -268,7 +269,7 @@ export class EvSliderComponent implements AfterViewInit {
     return `${result}px`
   }
 
-  private sliderSpaceAdjust(increments: number, width: number, jump: 0 | 1 | 2): number {
+  private sliderSpaceAdjust(increments: number, width: number, jump: 0 | 1 | 2 | 3): number {
     const largeSlider = width > 200
     const problematicPosition = 9
 
@@ -279,7 +280,12 @@ export class EvSliderComponent implements AfterViewInit {
   }
 
   private incrementsUntilJump(jump: number) {
-    const increments = (this.pokemon().jumps[jump] - 4) / 8
+    if (this.pokemon().jumps[jump] == null) {
+      console.log("zerpo", jump)
+      return 0
+    }
+
+    const increments = (this.pokemon().jumps[jump]! - 4) / 8
 
     if (increments == 0) return 1
 
