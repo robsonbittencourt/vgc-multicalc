@@ -128,16 +128,31 @@
 }
 
 .remaining-evs {
-  display: flex;
-  align-items: center;
-  margin-left: 186px;
-  margin-bottom: 1em;
+  display: grid;
+  grid-template-columns: 64px 64px 80px 38px;
+  grid-column-gap: 1.5em;
+  margin: 0.5em 0em 1em 0em;
 }
 
 .remaining-evs-value {
   display: flex;
   justify-content: center;
-  width: 62px;
+}
+
+.bst-label {
+  display: flex;
+  justify-content: right;
+}
+
+.bst-value-label {
+  display: flex;
+  justify-content: center;
+  font-weight: 500;
+}
+
+.remaining-label {
+  display: flex;
+  justify-content: end;
 }
 
 .nature {

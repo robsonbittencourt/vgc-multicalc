@@ -374,6 +374,12 @@ describe("Pokemon", () => {
 
         expect(pokemon.modifiedSpe).toEqual(385)
       })
+
+      it("should return the BST", () => {
+        const pokemon = new Pokemon("Pikachu")
+
+        expect(pokemon.bst).toEqual(320)
+      })
     })
 
     describe("Another methods", () => {

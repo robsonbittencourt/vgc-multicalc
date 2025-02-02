@@ -141,7 +141,10 @@
   <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.spe ?? 0" data-cy="stat-spe" stat="spe" />
 
   <div class="remaining-evs">
-    <label>Remaining:</label>
+    <label class="bst-label">BST</label>
+    <label class="bst-value-label">{{ pokemon().bst }}</label>
+
+    <label class="remaining-label">Remaining:</label>
     <div class="remaining-evs-value">
       <label>{{ MAX_EVS - pokemon().totalEvs }}</label>
     </div>

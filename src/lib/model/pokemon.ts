@@ -222,6 +222,11 @@ export class Pokemon {
     return this.smogonPokemon.species.baseStats.spe
   }
 
+  get bst(): number {
+    const baseStats = this.smogonPokemon.species.baseStats
+    return baseStats.hp + baseStats.atk + baseStats.def + baseStats.spa + baseStats.spd + baseStats.spe
+  }
+
   get modifiedSpe(): number {
     return this.getModifiedStat(this.smogonPokemon, "spe")
   }
