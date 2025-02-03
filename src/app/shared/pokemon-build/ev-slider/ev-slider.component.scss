@@ -95,7 +95,7 @@ input[matinput][type="number"] {
   -moz-appearance: textfield;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 1279px) {
   .ev-slider-container {
     grid-column-gap: 0em;
     grid-template-columns: 64px 64px 1fr 64px 25px;

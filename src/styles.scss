@@ -165,8 +165,15 @@ app-ev-slider {
   font-size: 1.8em;
 }
 
+html,
 body {
+  height: 100%;
   margin: 0;
+  background-color: var(--background);
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   font-size: $font-size;
   color: var(--text);
@@ -194,7 +201,7 @@ body {
   font-style: normal;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 1279px) {
   body {
     @include mat.form-field-overrides(
       (

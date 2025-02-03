@@ -35,7 +35,7 @@
   font-size: $font-size;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 1279px) {
   .field-container {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
@@ -59,8 +59,8 @@
   }
 }
 
-@media only screen and (max-width: 1919px) {
+@media only screen and (min-width: 1920px) {
   .field-container {
-    margin-top: 0.5em;
+    margin-top: 2.5em;
   }
 }

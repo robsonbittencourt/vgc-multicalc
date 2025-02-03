@@ -6,8 +6,7 @@
 
 .pokes {
   display: flex;
-  justify-content: space-evenly;
-  width: 100%;
+  justify-content: space-between;
 }
 
 .pokemon-name {
@@ -15,7 +14,11 @@
   flex-direction: column;
   justify-content: center;
   max-width: 35%;
-  margin-inline: 0.5em 2em;
+  margin-left: 0.75em;
+}
+
+.pokemon-tabs {
+  display: flex;
 }
 
 .damage-result {

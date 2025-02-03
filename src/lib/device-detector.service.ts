@@ -1,20 +1,20 @@
-import { Injectable } from "@angular/core"
+import { Injectable, signal } from "@angular/core"
 
 @Injectable({
   providedIn: "root"
 })
 export class DeviceDetectorService {
-  userAgent: string = navigator.userAgent || navigator.vendor
+  private largeWidthResolution = 1280
 
-  isMobileDevice = (): boolean => {
-    const regexs = [/(Android)(.+)(Mobile)/i, /BlackBerry/i, /iPhone|iPod/i, /Opera Mini/i, /IEMobile/i]
-    return regexs.some(b => this.userAgent.match(b))
+  private largeScreen = signal(window.innerWidth >= this.largeWidthResolution)
+
+  constructor() {
+    window.addEventListener("resize", () => {
+      this.largeScreen.set(window.innerWidth >= this.largeWidthResolution)
+    })
   }
 
-  isTabletDevice = (): boolean => {
-    const regex = /(ipad|tablet|(android(?!.*mobile))|(windows(?!.*phone)(.*touch))|kindle|playbook|silk|(puffin(?!.*(IP|AP|WP))))/
-    return regex.test(this.userAgent.toLowerCase())
+  isDesktop = (): boolean => {
+    return this.largeScreen()
   }
-
-  isDesktop = (): boolean => !this.isMobileDevice() && !this.isTabletDevice()
 }

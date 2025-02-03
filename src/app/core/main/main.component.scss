@@ -1,11 +1,11 @@
 .container {
   max-width: 1920px;
   margin: 0 auto;
-  min-width: 1366px;
-  min-height: 768px;
+  min-width: 1280px;
+  min-height: 800px;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 1279px) {
   .container {
     min-width: auto;
     min-height: auto;

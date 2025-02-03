@@ -3,8 +3,10 @@
     <div class="pokemon-name">
       <app-pokemon-combo-box label="Pokémon" [pokemonId]="attacker().id" (pokemonChanged)="pokemonChanged()" />
     </div>
-    <app-pokemon-tab [active]="leftIsAttacker()" [pokemonId]="store.leftPokemon().id" (tabActivated)="activatePokemon()" />
-    <app-pokemon-tab [active]="rightIsAttacker()" [pokemonId]="store.rightPokemon().id" (tabActivated)="activatePokemon()" />
+    <div class="pokemon-tabs">
+      <app-pokemon-tab [active]="leftIsAttacker()" [pokemonId]="store.leftPokemon().id" (tabActivated)="activatePokemon()" />
+      <app-pokemon-tab [active]="rightIsAttacker()" [pokemonId]="store.rightPokemon().id" (tabActivated)="activatePokemon()" />
+    </div>
   </div>
 
   <div class="damage-result">
