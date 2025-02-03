@@ -28,7 +28,7 @@ export type PokemonState = {
   teraTypeActive: boolean
   activeMove: string
   moveSet: MoveState[]
-  boosts: Stats
+  boosts: Partial<Stats>
   evs: Partial<Stats>
   ivs: Partial<Stats>
   hpPercentage: number
@@ -124,7 +124,7 @@ export class CalculatorStore extends signalStore(
     if (pokemon.name != "Dondozo") return
 
     const commanderActive = !pokemon.commanderActive
-    const boosts = commanderActive ? { hp: 0, atk: 2, def: 2, spa: 2, spd: 2, spe: 2 } : { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
+    const boosts = commanderActive ? { atk: 2, def: 2, spa: 2, spd: 2, spe: 2 } : { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
     this.updatePokemonById(pokemonId, () => ({ commanderActive, boosts }))
   }
 
@@ -178,7 +178,7 @@ export class CalculatorStore extends signalStore(
     this.updatePokemonById(pokemonId, () => ({ ivs }))
   }
 
-  boosts(pokemonId: string, boosts: Stats) {
+  boosts(pokemonId: string, boosts: Partial<Stats>) {
     this.updatePokemonById(pokemonId, () => ({ boosts }))
   }
 

@@ -8,7 +8,7 @@ import { SmogonFunctions } from "@lib/smogon/smogon-functions"
 import { SmogonPokemonBuilder } from "@lib/smogon/smogon-pokemon-builder"
 import { Jumps, PokemonParameters, Stats } from "@lib/types"
 import { Pokemon as SmogonPokemon } from "@robsonbittencourt/calc"
-import { StatsTable, TypeName } from "@robsonbittencourt/calc/dist/data/interface"
+import { TypeName } from "@robsonbittencourt/calc/dist/data/interface"
 import { StatID, StatIDExceptHP } from "@robsonbittencourt/calc/src/data/interface"
 import { v4 as uuidv4 } from "uuid"
 
@@ -138,8 +138,14 @@ export class Pokemon {
     return this.smogonPokemon.ivs
   }
 
-  get boosts(): StatsTable {
-    return this.smogonPokemon.boosts
+  get boosts(): Partial<Stats> {
+    return {
+      atk: this.smogonPokemon.boosts.atk,
+      def: this.smogonPokemon.boosts.def,
+      spa: this.smogonPokemon.boosts.spa,
+      spd: this.smogonPokemon.boosts.spd,
+      spe: this.smogonPokemon.boosts.spe
+    }
   }
 
   get status(): Status {

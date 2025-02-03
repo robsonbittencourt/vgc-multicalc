@@ -18,6 +18,11 @@ let basculegionData: string
 let annihilapeData: string
 let tingLuData: string
 let tingLuSpeedData: string
+let zacianData: string
+let zacianCrownedData: string
+let zamazentaData: string
+let zamazentaCrownedData: string
+let farigirafData: string
 
 before(() => {
   cy.fixture("tyranitar-data").then(data => {
@@ -52,6 +57,21 @@ before(() => {
   })
   cy.fixture("ting-lu-speed-data").then(data => {
     tingLuSpeedData = data
+  })
+  cy.fixture("zacian-data").then(data => {
+    zacianData = data
+  })
+  cy.fixture("zacian-crowned-data").then(data => {
+    zacianCrownedData = data
+  })
+  cy.fixture("zamazenta-data").then(data => {
+    zamazentaData = data
+  })
+  cy.fixture("zamazenta-crowned-data").then(data => {
+    zamazentaCrownedData = data
+  })
+  cy.fixture("farigiraf-data").then(data => {
+    farigirafData = data
   })
 })
 
@@ -278,6 +298,80 @@ describe("Test calcs from moves with some mechanic", () => {
       leftPokemonBuild.hitsTaken(6)
 
       leftDamageResult.damageIs(0, 143.4, 168.5, 297, 349)
+    })
+  })
+
+  describe("Zacian and Zamazenta boost", () => {
+    it("Zacian should have +1 in attack", () => {
+      leftPokemonBuild.importPokemon(zacianData)
+      rightPokemonBuild.importPokemon(rillaboomData)
+
+      leftPokemonBuild.boostsIs(1, 0, 0, 0, 0)
+      leftDamageResult.damageIs(0, 85.9, 101.4, 178, 210)
+    })
+
+    it("Zacian Crowned should have +1 in attack", () => {
+      leftPokemonBuild.importPokemon(zacianCrownedData)
+      rightPokemonBuild.importPokemon(rillaboomData)
+
+      leftPokemonBuild.boostsIs(1, 0, 0, 0, 0)
+      leftDamageResult.damageIs(0, 69.5, 81.6, 144, 169)
+    })
+
+    it("Zacian should have +1 in attack when it is defender", () => {
+      leftPokemonBuild.importPokemon(farigirafData)
+      rightPokemonBuild.importPokemon(zacianData)
+
+      rightPokemonBuild.boostsIs(1, 0, 0, 0, 0)
+      leftDamageResult.damageIs(0, 20.3, 23.9, 34, 40)
+    })
+
+    it("Zacian Crowned should have +1 in attack when it is defender", () => {
+      leftPokemonBuild.importPokemon(farigirafData)
+      rightPokemonBuild.importPokemon(zacianCrownedData)
+
+      rightPokemonBuild.boostsIs(1, 0, 0, 0, 0)
+      leftDamageResult.damageIs(0, 19.3, 23, 37, 44)
+    })
+
+    it("Zamazenta should have +1 in defense when it is attacker", () => {
+      leftPokemonBuild.importPokemon(zamazentaData)
+      rightPokemonBuild.importPokemon(rillaboomData)
+
+      leftPokemonBuild.boostsIs(0, 1, 0, 0, 0)
+      leftDamageResult.damageIs(0, 43.4, 51.2, 90, 106)
+    })
+
+    it("Zamazenta Crowned should have +1 in defense when it is attacker", () => {
+      leftPokemonBuild.importPokemon(zamazentaCrownedData)
+      rightPokemonBuild.importPokemon(rillaboomData)
+
+      leftPokemonBuild.boostsIs(0, 1, 0, 0, 0)
+      leftDamageResult.damageIs(0, 57, 67.1, 118, 139)
+    })
+
+    it("Zamazenta should have +1 in defense when it is defender", () => {
+      leftPokemonBuild.importPokemon(zacianData)
+      rightPokemonBuild.importPokemon(zamazentaData)
+
+      rightPokemonBuild.boostsIs(0, 1, 0, 0, 0)
+      leftDamageResult.damageIs(0, 90.4, 106.5, 180, 212)
+    })
+
+    it("Zamazenta Crowned should have +1 in defense when it is defender", () => {
+      leftPokemonBuild.importPokemon(zacianData)
+      rightPokemonBuild.importPokemon(zamazentaCrownedData)
+
+      rightPokemonBuild.boostsIs(0, 1, 0, 0, 0)
+      leftDamageResult.damageIs(0, 38.1, 45.3, 69, 82)
+    })
+
+    it("Should not change boosts with another Pokémon", () => {
+      leftPokemonBuild.importPokemon(annihilapeData)
+      rightPokemonBuild.importPokemon(rillaboomData)
+
+      leftPokemonBuild.boostsIs(0, 0, 0, 0, 0)
+      rightPokemonBuild.boostsIs(0, 0, 0, 0, 0)
     })
   })
 })

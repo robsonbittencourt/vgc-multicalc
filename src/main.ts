@@ -7,6 +7,7 @@ import { CALC_ADJUSTERS } from "@lib/damage-calculator/calc-adjuster/calc-adjust
 import { LastRespectsAdjuster } from "@lib/damage-calculator/calc-adjuster/last-respects-adjuster"
 import { RageFistAdjuster } from "@lib/damage-calculator/calc-adjuster/rage-fist-adjuster"
 import { RuinsAbilityAdjuster } from "@lib/damage-calculator/calc-adjuster/ruins-ability-adjuster"
+import { ZacianZamazentaAdjuster } from "@lib/damage-calculator/calc-adjuster/zacian-zamazenta-adjuster"
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -15,6 +16,7 @@ bootstrapApplication(AppComponent, {
     provideExperimentalZonelessChangeDetection(),
     { provide: CALC_ADJUSTERS, useClass: RuinsAbilityAdjuster, multi: true },
     { provide: CALC_ADJUSTERS, useClass: LastRespectsAdjuster, multi: true },
-    { provide: CALC_ADJUSTERS, useClass: RageFistAdjuster, multi: true }
+    { provide: CALC_ADJUSTERS, useClass: RageFistAdjuster, multi: true },
+    { provide: CALC_ADJUSTERS, useClass: ZacianZamazentaAdjuster, multi: true }
   ]
 }).catch(err => console.error(err))

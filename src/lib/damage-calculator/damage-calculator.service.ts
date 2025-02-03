@@ -58,10 +58,10 @@ export class DamageCalculatorService {
     moveSmogon.isStellarFirstUse = true
     moveSmogon.hits = +move.hits
 
-    this.adjusters.forEach(a => a.adjust(attacker, target, move, moveSmogon, smogonField, secondAttacker))
-
     const smogonAttacker = this.builder.fromExisting(attacker)
     const smogonTarget = this.builder.fromExisting(target)
+
+    this.adjusters.forEach(a => a.adjust(smogonAttacker, smogonTarget, move, moveSmogon, smogonField, secondAttacker))
 
     const result = calculate(gen, smogonAttacker, smogonTarget, moveSmogon, smogonField)
 

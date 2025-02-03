@@ -229,9 +229,9 @@ describe("Pokemon", () => {
     })
 
     it("should return the stat boosts of the Pokemon", () => {
-      const pokemon = new Pokemon("Charizard", { boosts: { atk: 1, def: -1, spa: 0, spd: 0, spe: 2, hp: 0 } })
+      const pokemon = new Pokemon("Charizard", { boosts: { atk: 1, def: -1, spa: 0, spd: 0, spe: 2 } })
 
-      expect(pokemon.boosts).toEqual({ atk: 1, def: -1, spa: 0, spd: 0, spe: 2, hp: 0 })
+      expect(pokemon.boosts).toEqual({ atk: 1, def: -1, spa: 0, spd: 0, spe: 2 })
     })
 
     it("should return the correct status of the Pokemon", () => {

@@ -54,9 +54,24 @@ export class PokemonComboBoxComponent {
     }
 
     this.store.commander(this.pokemonId(), false)
-    this.store.boosts(this.pokemonId(), { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
     this.store.hpPercentage(this.pokemonId(), 100)
 
+    this.adjustBoosts(pokemonName)
+
     this.pokemonChanged.emit()
+  }
+
+  adjustBoosts(pokemonName: string) {
+    if (pokemonName.startsWith("Zacian")) {
+      this.store.boosts(this.pokemonId(), { atk: 1, def: 0, spa: 0, spd: 0, spe: 0 })
+      return
+    }
+
+    if (pokemonName.startsWith("Zamazenta")) {
+      this.store.boosts(this.pokemonId(), { atk: 0, def: 1, spa: 0, spd: 0, spe: 0 })
+      return
+    }
+
+    this.store.boosts(this.pokemonId(), { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
   }
 }

@@ -141,7 +141,7 @@ describe("Calculator Store", () => {
         store.toogleCommanderActive(defaultId)
 
         expect(store.team().activePokemon().commanderActive).toBeFalse()
-        expect(store.team().activePokemon().boosts).toEqual({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
+        expect(store.team().activePokemon().boosts).toEqual({ atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
       })
 
       it("should turn Pokémon Commander to true when it is false and apply +2 boosts", () => {
@@ -150,7 +150,7 @@ describe("Calculator Store", () => {
         store.toogleCommanderActive(defaultId)
 
         expect(store.team().activePokemon().commanderActive).toBeTrue()
-        expect(store.team().activePokemon().boosts).toEqual({ hp: 0, atk: 2, def: 2, spa: 2, spd: 2, spe: 2 })
+        expect(store.team().activePokemon().boosts).toEqual({ atk: 2, def: 2, spa: 2, spd: 2, spe: 2 })
       })
 
       it("should turn Pokémon Commander to false when it is true and remove any boosts", () => {
@@ -160,7 +160,7 @@ describe("Calculator Store", () => {
 
         store.toogleCommanderActive(defaultId)
         expect(store.team().activePokemon().commanderActive).toBeFalse()
-        expect(store.team().activePokemon().boosts).toEqual({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
+        expect(store.team().activePokemon().boosts).toEqual({ atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
       })
 
       it("should update Pokémon Tera Type", () => {
@@ -300,9 +300,9 @@ describe("Calculator Store", () => {
       })
 
       it("should update Pokémon Boosts", () => {
-        store.boosts(defaultId, { hp: 0, atk: 1, def: 2, spa: -1, spd: -2, spe: -3 })
+        store.boosts(defaultId, { atk: 1, def: 2, spa: -1, spd: -2, spe: -3 })
 
-        expect(store.team().activePokemon().boosts).toEqual({ hp: 0, atk: 1, def: 2, spa: -1, spd: -2, spe: -3 })
+        expect(store.team().activePokemon().boosts).toEqual({ atk: 1, def: 2, spa: -1, spd: -2, spe: -3 })
       })
 
       it("should update Pokémon Move one", () => {
