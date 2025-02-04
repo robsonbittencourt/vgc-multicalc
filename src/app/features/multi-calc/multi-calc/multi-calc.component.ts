@@ -1,4 +1,4 @@
-import { Component, computed, inject, linkedSignal, OnInit } from "@angular/core"
+import { Component, computed, inject, linkedSignal, OnInit, signal } from "@angular/core"
 import { TargetPokemonComponent } from "@app/features/multi-calc/target-pokemon/target-pokemon.component"
 import { FieldComponent } from "@app/shared/field/field.component"
 import { TeamComponent } from "@app/shared/team/team/team.component"
@@ -23,11 +23,12 @@ export class MultiCalcComponent implements OnInit {
   private fieldStore = inject(FieldStore)
   private damageCalculator = inject(DamageMultiCalcService)
 
+  order = signal(false)
   pokemonOnEditId = linkedSignal<string>(() => this.activeSecondAttackerId(this.store.team()) ?? this.store.team().activePokemon().id)
 
   activeAttacker = computed(() => this.store.findPokemonById(this.store.attackerId()))
   activeSecondAttacker = computed(() => this.store.findNullablePokemonById(this.store.secondAttackerId()))
-  damageResults = computed(() => this.damageCalculator.calculateDamageForAll(this.activeAttacker(), this.store.targets(), this.fieldStore.field(), this.activeSecondAttacker()))
+  damageResults = computed(() => this.damageCalculator.calculateDamageForAll(this.activeAttacker(), this.store.targets(), this.fieldStore.field(), this.order(), this.activeSecondAttacker()))
 
   ngOnInit() {
     this.store.updateSecondAttacker("")
@@ -39,6 +40,10 @@ export class MultiCalcComponent implements OnInit {
     if (this.store.findPokemonById(this.pokemonOnEditId()).isDefault) {
       this.pokemonOnEditId.set(this.store.team().activePokemon().id)
     }
+  }
+
+  orderChanged(order: boolean) {
+    this.order.set(order)
   }
 
   private activeSecondAttackerId(team: Team): string | undefined {

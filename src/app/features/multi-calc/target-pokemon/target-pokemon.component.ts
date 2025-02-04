@@ -3,6 +3,7 @@ import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, inject, input, output } fr
 import { MatButton } from "@angular/material/button"
 import { MatDialog } from "@angular/material/dialog"
 import { MatIcon } from "@angular/material/icon"
+import { MatSlideToggle } from "@angular/material/slide-toggle"
 import { MatTooltip } from "@angular/material/tooltip"
 import { AddPokemonCardComponent } from "@app/features/multi-calc/add-pokemon-card/add-pokemon-card.component"
 import { PokemonCardComponent } from "@app/features/multi-calc/pokemon-card/pokemon-card.component"
@@ -22,7 +23,7 @@ import { PokePasteParserService } from "@lib/user-data/poke-paste-parser.service
   selector: "app-target-pokemon",
   templateUrl: "./target-pokemon.component.html",
   styleUrls: ["./target-pokemon.component.scss"],
-  imports: [WidgetComponent, MatIcon, MatButton, MatTooltip, PokemonCardComponent, AddPokemonCardComponent],
+  imports: [WidgetComponent, MatIcon, MatButton, MatTooltip, MatSlideToggle, PokemonCardComponent, AddPokemonCardComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class TargetPokemonComponent {
@@ -33,6 +34,7 @@ export class TargetPokemonComponent {
   targetActivated = output<string>()
   targetRemoved = output()
   targetsImported = output()
+  orderChanged = output<boolean>()
 
   store = inject(CalculatorStore)
   menuStore = inject(MenuStore)
@@ -55,6 +57,7 @@ export class TargetPokemonComponent {
     }
   })
 
+  order = false
   copyMessageEnabled = false
 
   removeAll() {
@@ -170,5 +173,10 @@ export class TargetPokemonComponent {
 
   findTarget(pokemonId: string): Target {
     return this.targets().find(target => target.pokemon.id === pokemonId)!
+  }
+
+  toogleOrder() {
+    this.order = !this.order
+    this.orderChanged.emit(this.order)
   }
 }

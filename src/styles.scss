@@ -125,6 +125,22 @@ body {
       height: 2.5em
     )
   );
+
+  @include mat.slide-toggle-overrides(
+    (
+      track-height: 2em,
+      label-text-color: var(--text),
+      handle-surface-color: var(--primary),
+      selected-hover-handle-color: white,
+      selected-handle-color: white,
+      selected-focus-handle-color: white,
+      selected-pressed-handle-color: white,
+      unselected-hover-handle-color: var(--highlight),
+      unselected-handle-color: var(--highlight),
+      unselected-focus-handle-color: var(--highlight),
+      unselected-pressed-handle-color: var(--highlight)
+    )
+  );
 }
 
 app-header,

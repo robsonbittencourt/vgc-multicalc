@@ -56,7 +56,7 @@ describe("DamageMultiCalcService", () => {
 
       damageOrderSpy.order.and.callFake(results => results)
 
-      const result = service.calculateDamageForAll(attacker, targets, new Field())
+      const result = service.calculateDamageForAll(attacker, targets, new Field(), true)
 
       expect(result.length).toEqual(3)
       expect(result[0].id).toEqual(damageResult1.id)
@@ -86,7 +86,7 @@ describe("DamageMultiCalcService", () => {
 
       damageOrderSpy.order.and.callFake(results => results)
 
-      const result = service.calculateDamageForAll(attacker, targets, new Field(), secondAttacker)
+      const result = service.calculateDamageForAll(attacker, targets, new Field(), true, secondAttacker)
 
       expect(result.length).toEqual(2)
       expect(result[0].id).toEqual(damageResult1.id)
@@ -116,7 +116,7 @@ describe("DamageMultiCalcService", () => {
 
       damageOrderSpy.order.and.callFake(results => results)
 
-      const result = service.calculateDamageForAll(teamMember, targets, new Field())
+      const result = service.calculateDamageForAll(teamMember, targets, new Field(), true)
 
       expect(result.length).toEqual(3)
       expect(result[0].id).toEqual(damageResult1.id)
@@ -145,12 +145,36 @@ describe("DamageMultiCalcService", () => {
 
       damageOrderSpy.order.and.callFake(results => results)
 
-      const result = service.calculateDamageForAll(teamMember, targets, new Field())
+      const result = service.calculateDamageForAll(teamMember, targets, new Field(), true)
 
       expect(result.length).toEqual(3)
       expect(result[0].id).toEqual(damageResult1.id)
       expect(result[1].id).toEqual(damageResult3.id)
       expect(result[2].id).toEqual(damageResult2.id)
+    })
+
+    it("should calculate damage without order the results", () => {
+      menuStoreSpy.oneVsManyActivated.and.returnValue(false)
+
+      const field = new Field()
+      const teamMember = new Pokemon("Raging Bolt")
+
+      const target1 = new Target(new Pokemon("Flutter Mane"))
+      const target2 = new Target(new Pokemon("Iron Bundle"))
+      const target3 = new Target(new Pokemon("Roaring Moon"))
+      const targets = [target1, target2, target3]
+
+      const damageResult1 = damageResult(target1.pokemon, teamMember)
+      const damageResult2 = damageResult(target2.pokemon, teamMember)
+      const damageResult3 = damageResult(target3.pokemon, teamMember)
+
+      damageCalculatorSpy.calcDamage.withArgs(target1.pokemon, teamMember, field).and.returnValue(damageResult1)
+      damageCalculatorSpy.calcDamage.withArgs(target2.pokemon, teamMember, field).and.returnValue(damageResult2)
+      damageCalculatorSpy.calcDamage.withArgs(target3.pokemon, teamMember, field).and.returnValue(damageResult3)
+
+      service.calculateDamageForAll(teamMember, targets, new Field(), false)
+
+      expect(damageOrderSpy.order).not.toHaveBeenCalled()
     })
   })
 })

@@ -13,6 +13,7 @@
       [showDamageDescription]="!activeAttacker().isDefault"
       (targetActivated)="pokemonOnEditId.set($event)"
       (targetRemoved)="pokemonOnEditId.set(store.team().activePokemon().id)"
-      (targetsImported)="targetsImported()" />
+      (targetsImported)="targetsImported()"
+      (orderChanged)="orderChanged($event)" />
   </div>
 </div>

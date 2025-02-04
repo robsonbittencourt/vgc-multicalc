@@ -10,7 +10,9 @@
 
 .buttons {
   display: flex;
+  align-items: center;
   gap: 1em;
+  min-width: 34em;
 }
 
 .damage-rolls {

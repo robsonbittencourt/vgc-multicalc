@@ -12,7 +12,7 @@ export class DamageMultiCalcService {
   private damageCalculator = inject(DamageCalculatorService)
   private damageOrder = inject(DamageResultOrderService)
 
-  calculateDamageForAll(attacker: Pokemon, targets: Target[], field: Field, secondAttacker?: Pokemon): DamageResult[] {
+  calculateDamageForAll(attacker: Pokemon, targets: Target[], field: Field, order: boolean, secondAttacker?: Pokemon): DamageResult[] {
     const results = targets.flatMap(target => {
       if (this.menuStore.oneVsManyActivated()) {
         return this.calculateDamageOneVsMany(attacker, target, field, secondAttacker)
@@ -23,7 +23,7 @@ export class DamageMultiCalcService {
 
     const withoutDuplicates = this.removeDuplicatedResults(results)
 
-    return this.damageOrder.order(withoutDuplicates)
+    return order ? this.damageOrder.order(withoutDuplicates) : withoutDuplicates
   }
 
   private calculateDamageOneVsMany(attacker: Pokemon, target: Target, field: Field, secondAttacker?: Pokemon): DamageResult[] {

@@ -19,6 +19,7 @@
   </left-header>
   <right-header>
     <div class="buttons">
+      <mat-slide-toggle [checked]="order" (change)="toogleOrder()">Order by Damage</mat-slide-toggle>
       <button mat-flat-button (click)="importPokemon()" data-cy="import-pokemon-to-opponent">Import</button>
       <button mat-flat-button (click)="exportPokemon()" data-cy="export-opponent-pokemon-button">Export</button>
       <button mat-flat-button class="warn" (click)="removeAll()" data-cy="delete-opponent-pokemon-button">Delete all</button>
