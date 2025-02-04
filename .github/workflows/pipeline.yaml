@@ -22,7 +22,7 @@ jobs:
           cache: "npm"
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
   build:
     name: Build
@@ -39,7 +39,7 @@ jobs:
           cache: "npm"
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Build project
         run: npm run build
@@ -59,7 +59,7 @@ jobs:
           cache: "npm"
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Run tests
         run: npm test
@@ -85,7 +85,7 @@ jobs:
           cache: "npm"
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Run tests
         run: npm run check
@@ -125,7 +125,7 @@ jobs:
           cache: "npm"
 
       - name: Install dependencies
-        run: npm install && npm install -g @angular/cli
+        run: npm ci && npm install -g @angular/cli
 
       - name: Deploy
         run: ng deploy --cname=vgcmulticalc.com --name="robsonbittencourt" --email=robson.luizv@gmail.com
