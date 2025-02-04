@@ -22,24 +22,24 @@ describe("Calculator Store", () => {
 
   describe("computed", () => {
     it("should load default Pokémon to Speed Calc", () => {
-      expect(store.speedCalcPokemon().name).toBe("Sneasler")
+      expect(store.speedCalcPokemon().name).toBe("Miraidon")
     })
 
     it("should load default left Pokémon", () => {
-      expect(store.leftPokemon().name).toBe("Gholdengo")
+      expect(store.leftPokemon().name).toBe("Miraidon")
     })
 
     it("should load default right Pokémon", () => {
-      expect(store.rightPokemon().name).toBe("Rillaboom")
+      expect(store.rightPokemon().name).toBe("Koraidon")
     })
 
     it("should load Team 1 as default", () => {
       expect(store.team().name).toBe("Team 1")
       expect(store.team().teamMembers.length).toBe(4)
-      expect(store.team().teamMembers[0].pokemon.name).toBe("Gholdengo")
-      expect(store.team().teamMembers[1].pokemon.name).toBe("Rillaboom")
-      expect(store.team().teamMembers[2].pokemon.name).toBe("Kingambit")
-      expect(store.team().teamMembers[3].pokemon.name).toBe("Sneasler")
+      expect(store.team().teamMembers[0].pokemon.name).toBe("Miraidon")
+      expect(store.team().teamMembers[1].pokemon.name).toBe("Koraidon")
+      expect(store.team().teamMembers[2].pokemon.name).toBe("Rillaboom")
+      expect(store.team().teamMembers[3].pokemon.name).toBe("Incineroar")
     })
 
     it("should load Team 1 and another 3 Teams with only default Pokémon", () => {
@@ -62,11 +62,11 @@ describe("Calculator Store", () => {
     })
 
     it("should load some Targets as default", () => {
-      expect(store.targets().length).toBe(4)
-      expect(store.targets()[0].pokemon.name).toBe("Primarina")
-      expect(store.targets()[1].pokemon.name).toBe("Amoonguss")
-      expect(store.targets()[2].pokemon.name).toBe("Dragonite")
-      expect(store.targets()[3].pokemon.name).toBe("Garchomp")
+      expect(store.targets().length).toBe(10)
+      expect(store.targets()[0].pokemon.name).toBe("Urshifu-Rapid-Strike")
+      expect(store.targets()[1].pokemon.name).toBe("Incineroar")
+      expect(store.targets()[2].pokemon.name).toBe("Rillaboom")
+      expect(store.targets()[3].pokemon.name).toBe("Amoonguss")
     })
 
     it("should load active Pokémon from active Team as attacker", () => {
@@ -629,21 +629,21 @@ describe("Calculator Store", () => {
       it("should build user data using state", () => {
         const result = store.buildUserData()
 
-        expect(result.speedCalcPokemon.name).toBe("Sneasler")
-        expect(result.leftPokemon.name).toBe("Gholdengo")
-        expect(result.rightPokemon.name).toBe("Rillaboom")
+        expect(result.speedCalcPokemon.name).toBe("Miraidon")
+        expect(result.leftPokemon.name).toBe("Miraidon")
+        expect(result.rightPokemon.name).toBe("Koraidon")
 
         expect(result.teams.length).toBe(4)
         expect(result.teams[0].active).toBeTrue()
         expect(result.teams[0].name).toBe("Team 1")
         expect(result.teams[0].teamMembers[0].active).toBeTrue()
-        expect(result.teams[0].teamMembers[0].pokemon.name).toBe("Gholdengo")
+        expect(result.teams[0].teamMembers[0].pokemon.name).toBe("Miraidon")
         expect(result.teams[0].teamMembers[1].active).toBeFalse()
-        expect(result.teams[0].teamMembers[1].pokemon.name).toBe("Rillaboom")
+        expect(result.teams[0].teamMembers[1].pokemon.name).toBe("Koraidon")
 
-        expect(result.targets.length).toBe(4)
-        expect(result.targets[0].pokemon.name).toBe("Primarina")
-        expect(result.targets[1].pokemon.name).toBe("Amoonguss")
+        expect(result.targets.length).toBe(10)
+        expect(result.targets[0].pokemon.name).toBe("Urshifu-Rapid-Strike")
+        expect(result.targets[1].pokemon.name).toBe("Incineroar")
       })
 
       it("should update local storage when state changes", () => {
@@ -661,7 +661,7 @@ describe("Calculator Store", () => {
         TestBed.flushEffects()
 
         const actualStorage = JSON.parse(localStorage.getItem("userData")!)
-        expect(actualStorage.leftPokemon.name).toBe("Gholdengo")
+        expect(actualStorage.leftPokemon.name).toBe("Miraidon")
       })
     })
   })
