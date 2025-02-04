@@ -8,6 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test --code-coverage --watch=false",
     "test-watch": "ng test --code-coverage",
+    "e2e-test": "npx cypress run --quiet; exit_code=$?; if [ $exit_code -eq 0 ]; then echo '✅ Tests PASSED successfully!\n'; else echo '❌ Tests FAILED.\n'; fi; exit $exit_code",
     "lint": "ng lint",
     "formatter": "npx prettier . --check",
     "check": "npm run lint && npm run formatter"
