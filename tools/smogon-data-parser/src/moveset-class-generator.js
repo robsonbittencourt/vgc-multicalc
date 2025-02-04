@@ -6,10 +6,10 @@ const MOVESET_MODULE_PREFIX = "export const SETDEX_SV: Record<string, any> = "
 await createMovesetsFile()
 
 export async function createMovesetsFile() {
-  const regGData = await getSmogonData("2024-12", "g")
+  const regGData = await getSmogonData("2025-01", "g")
   const regHData = await getSmogonData("2024-12", "h")
 
-  const smogonData = getUniquePokemons(regHData, regGData)
+  const smogonData = getUniquePokemons(regGData)
 
   writeInMovesetsFile(smogonData)
 }
@@ -38,7 +38,7 @@ function getUniquePokemons(...pokemonArrays) {
 function readMovesets() {
   const data = fs.readFileSync("src/data/movesets.ts", "utf8")
   const rawJson = data.substring(MOVESET_MODULE_PREFIX.length)
-  const jsonWithQuotes = rawJson.replace(/([a-zA-Z0-9_]+):/g, '"$1":')
+  const jsonWithQuotes = rawJson.replace(/([\p{L}\p{M}0-9_]+):/gu, '"$1":')
   const jsonContent = JSON.parse(jsonWithQuotes)
 
   return jsonContent

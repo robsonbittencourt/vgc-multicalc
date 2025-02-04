@@ -8,7 +8,7 @@ export const topUsageByRegulation: Record<Regulation, string[]> = {\n  `
 await topUsage()
 
 async function topUsage() {
-  const usageListRegG = await usageList("2024-12", "g")
+  const usageListRegG = await usageList("2025-01", "g")
   const usageListRegH = await usageList("2024-12", "h")
   const usageLists = [usageListRegG, usageListRegH]
 
