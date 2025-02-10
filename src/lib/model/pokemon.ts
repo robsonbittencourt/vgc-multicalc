@@ -101,7 +101,7 @@ export class Pokemon {
     return this.smogonPokemon.item as string
   }
 
-  get evs(): Partial<Stats> {
+  get evs(): Stats {
     return this.smogonPokemon.evs
   }
 
