@@ -1,0 +1,1 @@
+<app-input-autocomplete label="Status" [value]="pokemon().status.description" [allValues]="statusConditions()" (valueChange)="store.status(pokemonId(), $event)" data-cy="pokemon-status" />

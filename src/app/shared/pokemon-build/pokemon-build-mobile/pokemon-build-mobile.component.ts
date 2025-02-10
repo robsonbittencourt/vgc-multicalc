@@ -5,19 +5,19 @@ import { InputAutocompleteComponent } from "@app/shared/input-autocomplete/input
 import { AbilityComboBoxComponent } from "@app/shared/pokemon-build/ability-combo-box/ability-combo-box.component"
 import { EvSliderComponent } from "@app/shared/pokemon-build/ev-slider/ev-slider.component"
 import { MultiHitComboBoxComponent } from "@app/shared/pokemon-build/multi-hit-combo-box/multi-hit-combo-box.component"
+import { StatusComboBoxComponent } from "@app/shared/pokemon-build/status-combo-box/status-combo-box.component"
 import { TeraComboBoxComponent } from "@app/shared/pokemon-build/tera-combo-box/tera-combo-box.component"
 import { Items } from "@data/items"
 import { Moves } from "@data/moves"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { Pokemon } from "@lib/model/pokemon"
-import { Status } from "@lib/model/status"
 import { NATURES } from "@robsonbittencourt/calc"
 
 @Component({
   selector: "app-pokemon-build-mobile",
   templateUrl: "./pokemon-build-mobile.component.html",
   styleUrls: ["./pokemon-build-mobile.component.scss"],
-  imports: [MatChipListbox, MatChipOption, MatIcon, InputAutocompleteComponent, AbilityComboBoxComponent, EvSliderComponent, TeraComboBoxComponent, MultiHitComboBoxComponent]
+  imports: [MatChipListbox, MatChipOption, MatIcon, InputAutocompleteComponent, AbilityComboBoxComponent, EvSliderComponent, TeraComboBoxComponent, MultiHitComboBoxComponent, StatusComboBoxComponent]
 })
 export class PokemonBuildMobileComponent {
   pokemonId = input.required<string>()
@@ -33,8 +33,6 @@ export class PokemonBuildMobileComponent {
   allNatureNames = Object.keys(NATURES)
 
   editAttacks = false
-
-  statusConditions = Status.allDescriptions()
 
   activateMove1() {
     this.activateMove(1)

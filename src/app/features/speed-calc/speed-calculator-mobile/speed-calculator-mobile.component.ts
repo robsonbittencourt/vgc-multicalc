@@ -9,6 +9,7 @@ import { InputAutocompleteComponent } from "@app/shared/input-autocomplete/input
 import { AbilityComboBoxComponent } from "@app/shared/pokemon-build/ability-combo-box/ability-combo-box.component"
 import { EvSliderComponent } from "@app/shared/pokemon-build/ev-slider/ev-slider.component"
 import { PokemonComboBoxComponent } from "@app/shared/pokemon-build/pokemon-combo-box/pokemon-combo-box.component"
+import { StatusComboBoxComponent } from "@app/shared/pokemon-build/status-combo-box/status-combo-box.component"
 import { Items } from "@data/items"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { FieldStore } from "@data/store/field-store"
@@ -20,7 +21,7 @@ import { NATURES } from "@robsonbittencourt/calc"
   selector: "app-speed-calculator-mobile",
   templateUrl: "./speed-calculator-mobile.component.html",
   styleUrls: ["./speed-calculator-mobile.component.scss"],
-  imports: [InputAutocompleteComponent, PokemonComboBoxComponent, AbilityComboBoxComponent, EvSliderComponent, SpeedScaleComponent, MatFormField, MatSelect, MatOption, MatButtonToggleGroup, MatButtonToggle, MatIcon]
+  imports: [InputAutocompleteComponent, PokemonComboBoxComponent, AbilityComboBoxComponent, EvSliderComponent, SpeedScaleComponent, MatFormField, MatSelect, MatOption, MatButtonToggleGroup, MatButtonToggle, MatIcon, StatusComboBoxComponent]
 })
 export class SpeedCalculatorMobileComponent implements OnInit {
   store = inject(CalculatorStore)

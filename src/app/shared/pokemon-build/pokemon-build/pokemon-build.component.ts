@@ -7,13 +7,13 @@ import { InputAutocompleteComponent } from "@app/shared/input-autocomplete/input
 import { AbilityComboBoxComponent } from "@app/shared/pokemon-build/ability-combo-box/ability-combo-box.component"
 import { EvSliderComponent } from "@app/shared/pokemon-build/ev-slider/ev-slider.component"
 import { PokemonComboBoxComponent } from "@app/shared/pokemon-build/pokemon-combo-box/pokemon-combo-box.component"
+import { StatusComboBoxComponent } from "@app/shared/pokemon-build/status-combo-box/status-combo-box.component"
 import { TeraComboBoxComponent } from "@app/shared/pokemon-build/tera-combo-box/tera-combo-box.component"
 import { AllPokemon } from "@data/all-pokemon"
 import { Items } from "@data/items"
 import { Moves } from "@data/moves"
 import { Natures } from "@data/natures"
 import { CalculatorStore } from "@data/store/calculator-store"
-import { Status } from "@lib/model/status"
 import { TypeName } from "@robsonbittencourt/calc/dist/data/interface"
 import { MultiHitComboBoxComponent } from "../multi-hit-combo-box/multi-hit-combo-box.component"
 
@@ -21,7 +21,7 @@ import { MultiHitComboBoxComponent } from "../multi-hit-combo-box/multi-hit-comb
   selector: "app-pokemon-build",
   templateUrl: "./pokemon-build.component.html",
   styleUrls: ["./pokemon-build.component.scss"],
-  imports: [PokemonComboBoxComponent, NgStyle, NgClass, InputAutocompleteComponent, MatCheckbox, FormsModule, AbilityComboBoxComponent, EvSliderComponent, RouterOutlet, TeraComboBoxComponent, MultiHitComboBoxComponent]
+  imports: [PokemonComboBoxComponent, NgStyle, NgClass, InputAutocompleteComponent, MatCheckbox, FormsModule, AbilityComboBoxComponent, EvSliderComponent, RouterOutlet, TeraComboBoxComponent, MultiHitComboBoxComponent, StatusComboBoxComponent]
 })
 export class PokemonBuildComponent {
   pokemonId = input.required<string>()
@@ -38,8 +38,6 @@ export class PokemonBuildComponent {
   allItemsNames = Items.instance.allItems()
   allPokemonNames = AllPokemon.instance.allPokemonNames
   availableAbilities: string[]
-
-  statusConditions = Status.allDescriptions()
 
   moveSelectorDisabled(move: string): boolean {
     return !move || move == this.pokemon().activeMoveName

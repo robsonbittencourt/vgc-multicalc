@@ -49,15 +49,15 @@ export class PokemonBuild {
   }
 
   burned() {
-    cy.get('[data-cy="pokemon-status"] input').type("Burn", { force: true }).type("{downArrow}").type("{enter}")
+    this.container().get('[data-cy="pokemon-status"]').click().get("mat-option").contains("Burn").click()
   }
 
   paralyzed() {
-    cy.get('[data-cy="pokemon-status"] input').type("Paralysis", { force: true }).type("{downArrow}").type("{enter}")
+    this.container().get('[data-cy="pokemon-status"]').click().get("mat-option").contains("Paralysis").click()
   }
 
   poisoned() {
-    cy.get('[data-cy="pokemon-status"] input').type("Poison", { force: true }).type("{downArrow}").type("{enter}")
+    this.container().get('[data-cy="pokemon-status"]').click().get("mat-option").contains("Poison").click()
   }
 
   selectNature(name: string): PokemonBuild {

@@ -7,7 +7,7 @@
     </div>
 
     <div class="pokemon-build-section">
-      <app-input-autocomplete class="combo-large" label="Status" [value]="pokemon().status.description" [allValues]="statusConditions" (valueChange)="store.status(pokemonId(), $event)" />
+      <app-status-combo-box [pokemonId]="pokemonId()" [statusConditions]="statusConditions" />
       <app-input-autocomplete class="combo-large" label="Nature" [value]="pokemon().nature" [allValues]="allNatureNames" (valueChange)="store.nature(pokemonId(), $event)" />
       <app-ability-combo-box [pokemonId]="pokemonId()" />
     </div>

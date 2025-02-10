@@ -19,7 +19,7 @@
     </div>
 
     <div class="status-item" [ngStyle]="(reverse() && { order: 3 }) || null">
-      <app-input-autocomplete label="Status" [value]="pokemon().status.description" [allValues]="statusConditions" (valueChange)="store.status(pokemonId(), $event)" data-cy="pokemon-status" />
+      <app-status-combo-box [pokemonId]="pokemonId()" />
       <app-multi-hit-combo-box [pokemonId]="pokemonId()" />
       <app-input-autocomplete label="Item" [value]="pokemon().item" [allValues]="allItemsNames" (valueChange)="store.item(pokemonId(), $event)" data-cy="item" />
     </div>

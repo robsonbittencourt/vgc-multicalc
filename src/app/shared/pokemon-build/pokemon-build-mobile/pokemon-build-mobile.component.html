@@ -63,7 +63,7 @@
   </div>
 
   <div class="combo-option">
-    <app-input-autocomplete label="Status" [value]="pokemon().status.description" [allValues]="statusConditions" (valueChange)="store.status(pokemonId(), $event)" />
+    <app-status-combo-box [pokemonId]="pokemonId()" />
   </div>
 
   <div class="combo-option">
