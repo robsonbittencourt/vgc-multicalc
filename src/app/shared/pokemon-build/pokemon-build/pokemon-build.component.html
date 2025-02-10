@@ -26,15 +26,7 @@
 
     <div class="tera-type-ability" [ngStyle]="(reverse() && { order: 2 }) || null">
       <app-tera-combo-box [pokemonId]="pokemonId()" />
-
-      <div class="pokemon-types" [ngStyle]="(reverse() && { 'justify-content': 'left' }) || null">
-        <div [ngStyle]="typeStyle(pokemon().type1)" class="pokemon-type">{{ pokemon().type1 }}</div>
-
-        @if (pokemon().type2) {
-          <div [ngStyle]="typeStyle(pokemon().type2)" class="pokemon-type">{{ pokemon().type2 }}</div>
-        }
-      </div>
-
+      <app-type-combo-box [pokemonId]="pokemonId()" [reverse]="reverse()" />
       <app-ability-combo-box [pokemonId]="pokemonId()" />
     </div>
 

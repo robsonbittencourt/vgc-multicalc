@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  gap: 0.2em;
+}
+
+.pokemon-type {
+  display: flex;
+  justify-content: center;
+  border: 1px solid;
+  width: 30%;
+  padding: 0.3em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: white;
+}

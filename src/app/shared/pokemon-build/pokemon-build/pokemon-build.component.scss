@@ -72,24 +72,6 @@
   height: 18%;
 }
 
-.pokemon-types {
-  display: flex;
-  justify-content: right;
-  align-items: center;
-  gap: 0.2em;
-}
-
-.pokemon-type {
-  display: flex;
-  justify-content: center;
-  border: 1px solid;
-  width: 30%;
-  padding: 0.3em;
-  text-transform: uppercase;
-  font-weight: 500;
-  color: white;
-}
-
 .evs-titles {
   display: grid;
   grid-template-columns: 64px 64px 64px 64px 1fr 64px 40px;
@@ -157,12 +139,6 @@
 
 .nature {
   display: flex;
-}
-
-.check-input-section {
-  display: flex;
-  align-items: flex-end;
-  gap: 0.5em;
 }
 
 .moves-label {
