@@ -20,30 +20,30 @@ export class Natures {
   allNatures(): KeyValuePair[] {
     return [
       { key: "Adamant (+Atk, -SpA)", value: "Adamant" },
-      { key: "Bashful", value: "Bashful" },
+      { key: "Modest (+SpA, -Atk)", value: "Modest" },
+      { key: "Jolly (+Spe, -SpA)", value: "Jolly" },
+      { key: "Timid (+Spe, -Atk)", value: "Timid" },
       { key: "Bold (+Def, -Atk)", value: "Bold" },
-      { key: "Brave (+Atk, -Spe)", value: "Brave" },
+      { key: "Impish (+Def, -SpA)", value: "Impish" },
       { key: "Calm (+SpD, -Atk)", value: "Calm" },
       { key: "Careful (+SpD, -SpA)", value: "Careful" },
-      { key: "Docile", value: "Docile" },
+      { key: "Brave (+Atk, -Spe)", value: "Brave" },
+      { key: "Quiet (+SpA, -Spe)", value: "Quiet" },
       { key: "Gentle (+SpD, -Def)", value: "Gentle" },
-      { key: "Hardy", value: "Hardy" },
       { key: "Hasty (+Spe, -Def)", value: "Hasty" },
-      { key: "Impish (+Def, -SpA)", value: "Impish" },
-      { key: "Jolly (+Spe, -SpA)", value: "Jolly" },
       { key: "Lax (+Def, -SpD)", value: "Lax" },
       { key: "Lonely (+Atk, -Def)", value: "Lonely" },
       { key: "Mild (+SpA, -Def)", value: "Mild" },
-      { key: "Modest (+SpA, -Atk)", value: "Modest" },
       { key: "Naive (+Spe, -SpD)", value: "Naive" },
       { key: "Naughty (+Atk, -SpD)", value: "Naughty" },
-      { key: "Quiet (+SpA, -Spe)", value: "Quiet" },
-      { key: "Quirky", value: "Quirky" },
       { key: "Rash (+SpA, -SpD)", value: "Rash" },
       { key: "Relaxed (+Def, -Spe)", value: "Relaxed" },
       { key: "Sassy (+SpD, -Spe)", value: "Sassy" },
-      { key: "Serious", value: "Serious" },
-      { key: "Timid (+Spe, -Atk)", value: "Timid" }
+      { key: "Bashful", value: "Bashful" },
+      { key: "Docile", value: "Docile" },
+      { key: "Hardy", value: "Hardy" },
+      { key: "Quirky", value: "Quirky" },
+      { key: "Serious", value: "Serious" }
     ]
   }
 }

@@ -9,6 +9,7 @@ import { InputAutocompleteComponent } from "@app/shared/input-autocomplete/input
 import { AbilityComboBoxComponent } from "@app/shared/pokemon-build/ability-combo-box/ability-combo-box.component"
 import { EvSliderComponent } from "@app/shared/pokemon-build/ev-slider/ev-slider.component"
 import { ItemComboBoxComponent } from "@app/shared/pokemon-build/item-combo-box/item-combo-box.component"
+import { NatureComboBoxComponent } from "@app/shared/pokemon-build/nature-combo-box/nature-combo-box.component"
 import { PokemonComboBoxComponent } from "@app/shared/pokemon-build/pokemon-combo-box/pokemon-combo-box.component"
 import { StatusComboBoxComponent } from "@app/shared/pokemon-build/status-combo-box/status-combo-box.component"
 import { CalculatorStore } from "@data/store/calculator-store"
@@ -34,7 +35,8 @@ import { NATURES } from "@robsonbittencourt/calc"
     EvSliderComponent,
     SpeedScaleComponent,
     StatusComboBoxComponent,
-    ItemComboBoxComponent
+    ItemComboBoxComponent,
+    NatureComboBoxComponent
   ]
 })
 export class SpeedCalculatorMobileComponent implements OnInit {

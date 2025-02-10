@@ -59,7 +59,7 @@
   </div>
 
   <div class="combo-option">
-    <app-input-autocomplete label="Nature" [value]="pokemon().nature" [allValues]="allNatureNames" (valueChange)="store.nature(pokemonId(), $event)" />
+    <app-nature-combo-box [pokemonId]="pokemonId()" />
   </div>
 
   <div class="combo-option">

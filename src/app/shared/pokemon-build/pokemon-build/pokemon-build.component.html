@@ -97,8 +97,6 @@
   </div>
 </div>
 
-<div class="nature">
-  <app-input-autocomplete label="Nature" [leftLabel]="true" [value]="pokemon().nature" [allValues]="allNatureNames" (valueChange)="store.nature(pokemonId(), $event)" data-cy="nature" />
-</div>
+<app-nature-combo-box [pokemonId]="pokemonId()" [leftLabel]="true" />
 
 <router-outlet></router-outlet>
