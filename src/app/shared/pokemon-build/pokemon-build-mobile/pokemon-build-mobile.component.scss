@@ -64,24 +64,6 @@
   margin: 1.5em 0.75em 0 0.75em;
 }
 
-.icon-button {
-  background: none;
-  border: 0;
-  cursor: pointer;
-}
-
-.icon-button .icon-tera {
-  width: 1.5em;
-  height: auto;
-  margin-top: 1.6em;
-}
-
-.icon-button .icon-tatsugiri {
-  width: 2em;
-  height: auto;
-  margin-top: 1.6em;
-}
-
 .combo-options {
   display: flex;
   flex-wrap: wrap;
@@ -94,17 +76,6 @@
 
 .combo-option {
   flex: 1 0 7em;
-}
-
-.ability {
-  display: flex;
-  gap: 0.5em;
-}
-
-.ability-checkbox {
-  margin-top: 1.1em;
-  margin-bottom: -1em;
-  margin-left: -0.2em;
 }
 
 ::ng-deep .mat-mdc-standard-chip .mdc-evolution-chip__graphic {

@@ -1,8 +1,7 @@
 import { NgClass, NgStyle } from "@angular/common"
 import { Component, computed, inject, input } from "@angular/core"
-import { FormsModule, ReactiveFormsModule } from "@angular/forms"
+import { FormsModule } from "@angular/forms"
 import { MatCheckbox } from "@angular/material/checkbox"
-import { MatTooltip } from "@angular/material/tooltip"
 import { RouterOutlet } from "@angular/router"
 import { InputAutocompleteComponent } from "@app/shared/input-autocomplete/input-autocomplete.component"
 import { AbilityComboBoxComponent } from "@app/shared/pokemon-build/ability-combo-box/ability-combo-box.component"
@@ -21,7 +20,7 @@ import { TypeName } from "@robsonbittencourt/calc/dist/data/interface"
   selector: "app-pokemon-build",
   templateUrl: "./pokemon-build.component.html",
   styleUrls: ["./pokemon-build.component.scss"],
-  imports: [PokemonComboBoxComponent, NgStyle, NgClass, InputAutocompleteComponent, MatTooltip, MatCheckbox, ReactiveFormsModule, FormsModule, AbilityComboBoxComponent, EvSliderComponent, RouterOutlet, TeraComboBoxComponent]
+  imports: [PokemonComboBoxComponent, NgStyle, NgClass, InputAutocompleteComponent, MatCheckbox, FormsModule, AbilityComboBoxComponent, EvSliderComponent, RouterOutlet, TeraComboBoxComponent]
 })
 export class PokemonBuildComponent {
   pokemonId = input.required<string>()

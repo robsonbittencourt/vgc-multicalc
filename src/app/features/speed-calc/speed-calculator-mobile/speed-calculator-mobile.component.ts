@@ -1,12 +1,9 @@
 import { Component, computed, inject, OnInit } from "@angular/core"
-import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { MatButtonToggle, MatButtonToggleGroup } from "@angular/material/button-toggle"
-import { MatCheckbox } from "@angular/material/checkbox"
 import { MatOption } from "@angular/material/core"
 import { MatFormField } from "@angular/material/form-field"
 import { MatIcon } from "@angular/material/icon"
 import { MatSelect } from "@angular/material/select"
-import { MatTooltip } from "@angular/material/tooltip"
 import { SpeedScaleComponent } from "@app/features/speed-calc/speed-scale/speed-scale.component"
 import { InputAutocompleteComponent } from "@app/shared/input-autocomplete/input-autocomplete.component"
 import { AbilityComboBoxComponent } from "@app/shared/pokemon-build/ability-combo-box/ability-combo-box.component"
@@ -23,23 +20,7 @@ import { NATURES } from "@robsonbittencourt/calc"
   selector: "app-speed-calculator-mobile",
   templateUrl: "./speed-calculator-mobile.component.html",
   styleUrls: ["./speed-calculator-mobile.component.scss"],
-  imports: [
-    InputAutocompleteComponent,
-    PokemonComboBoxComponent,
-    AbilityComboBoxComponent,
-    MatCheckbox,
-    ReactiveFormsModule,
-    FormsModule,
-    MatTooltip,
-    EvSliderComponent,
-    SpeedScaleComponent,
-    MatFormField,
-    MatSelect,
-    MatOption,
-    MatButtonToggleGroup,
-    MatButtonToggle,
-    MatIcon
-  ]
+  imports: [InputAutocompleteComponent, PokemonComboBoxComponent, AbilityComboBoxComponent, EvSliderComponent, SpeedScaleComponent, MatFormField, MatSelect, MatOption, MatButtonToggleGroup, MatButtonToggle, MatIcon]
 })
 export class SpeedCalculatorMobileComponent implements OnInit {
   store = inject(CalculatorStore)

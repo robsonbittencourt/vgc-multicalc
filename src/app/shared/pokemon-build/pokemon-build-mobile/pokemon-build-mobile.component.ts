@@ -1,9 +1,6 @@
 import { Component, computed, inject, input, output } from "@angular/core"
-import { FormsModule, ReactiveFormsModule } from "@angular/forms"
-import { MatCheckbox } from "@angular/material/checkbox"
 import { MatChipListbox, MatChipOption } from "@angular/material/chips"
 import { MatIcon } from "@angular/material/icon"
-import { MatTooltip } from "@angular/material/tooltip"
 import { InputAutocompleteComponent } from "@app/shared/input-autocomplete/input-autocomplete.component"
 import { AbilityComboBoxComponent } from "@app/shared/pokemon-build/ability-combo-box/ability-combo-box.component"
 import { EvSliderComponent } from "@app/shared/pokemon-build/ev-slider/ev-slider.component"
@@ -19,7 +16,7 @@ import { NATURES } from "@robsonbittencourt/calc"
   selector: "app-pokemon-build-mobile",
   templateUrl: "./pokemon-build-mobile.component.html",
   styleUrls: ["./pokemon-build-mobile.component.scss"],
-  imports: [MatChipListbox, ReactiveFormsModule, FormsModule, MatChipOption, MatIcon, InputAutocompleteComponent, MatTooltip, MatCheckbox, AbilityComboBoxComponent, EvSliderComponent, TeraComboBoxComponent]
+  imports: [MatChipListbox, MatChipOption, MatIcon, InputAutocompleteComponent, AbilityComboBoxComponent, EvSliderComponent, TeraComboBoxComponent]
 })
 export class PokemonBuildMobileComponent {
   pokemonId = input.required<string>()

@@ -9,34 +9,7 @@
     <div class="pokemon-build-section">
       <app-input-autocomplete class="combo-large" label="Status" [value]="pokemon().status.description" [allValues]="statusConditions" (valueChange)="store.status(pokemonId(), $event)" />
       <app-input-autocomplete class="combo-large" label="Nature" [value]="pokemon().nature" [allValues]="allNatureNames" (valueChange)="store.nature(pokemonId(), $event)" />
-
-      <div class="ability">
-        @if (pokemon().ability.actionableAbility) {
-          <mat-checkbox [ngModel]="pokemon().ability.on" (change)="store.abilityOn(pokemonId(), $event.checked)" />
-        }
-
-        @if (pokemon().name === "Dondozo") {
-          <button class="icon-button" (click)="store.toogleCommanderActive(pokemonId())" matTooltip="Commander">
-            @if (this.pokemon().commanderActive) {
-              <img class="icon-image" src="assets/icons/tatsugiri-curly.png" />
-            } @else {
-              <img class="icon-image" src="assets/icons/tatsugiri-curly-gray.png" />
-            }
-          </button>
-        }
-
-        @if (pokemon().isParadoxAbility) {
-          <button class="icon-button" (click)="store.abilityOn(pokemonId(), !pokemon().ability.on)" matTooltip="Booster Energy">
-            @if (this.pokemon().ability.on) {
-              <img class="icon-image" src="assets/icons/booster-energy.png" />
-            } @else {
-              <img class="icon-image" src="assets/icons/booster-energy-gray.png" />
-            }
-          </button>
-        }
-
-        <app-ability-combo-box class="ability-combo" label="Ability" [pokemonId]="pokemonId()" data-cy="ability" />
-      </div>
+      <app-ability-combo-box [pokemonId]="pokemonId()" />
     </div>
   </div>
 

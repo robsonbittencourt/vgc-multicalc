@@ -43,35 +43,7 @@
         }
       </div>
 
-      <div class="pokemon-ability">
-        <div class="check-input-section">
-          @if (pokemon().ability.actionableAbility) {
-            <mat-checkbox [ngModel]="pokemon().ability.on" (change)="store.abilityOn(pokemonId(), $event.checked)" data-cy="activate-ability" />
-          }
-
-          @if (pokemon().name === "Dondozo") {
-            <div (click)="store.toogleCommanderActive(pokemonId())" [matTooltipShowDelay]="1000" matTooltip="Commander" data-cy="commander">
-              @if (pokemon().commanderActive) {
-                <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly.png" data-cy="commander-activated" />
-              } @else {
-                <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly-gray.png" data-cy="commander-deactivated" />
-              }
-            </div>
-          }
-
-          @if (pokemon().isParadoxAbility) {
-            <div class="booster-section" (click)="store.abilityOn(pokemonId(), !pokemon().ability.on)" matTooltip="Booster Energy" data-cy="booster-energy">
-              @if (pokemon().ability.on) {
-                <img class="icon-booster" src="assets/icons/booster-energy.png" />
-              } @else {
-                <img class="icon-booster" src="assets/icons/booster-energy-gray.png" />
-              }
-            </div>
-          }
-
-          <app-ability-combo-box label="Ability" [pokemonId]="pokemonId()" data-cy="ability" />
-        </div>
-      </div>
+      <app-ability-combo-box [pokemonId]="pokemonId()" />
     </div>
 
     <div>
