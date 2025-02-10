@@ -15,12 +15,13 @@ import { Natures } from "@data/natures"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { Status } from "@lib/model/status"
 import { TypeName } from "@robsonbittencourt/calc/dist/data/interface"
+import { MultiHitComboBoxComponent } from "../multi-hit-combo-box/multi-hit-combo-box.component"
 
 @Component({
   selector: "app-pokemon-build",
   templateUrl: "./pokemon-build.component.html",
   styleUrls: ["./pokemon-build.component.scss"],
-  imports: [PokemonComboBoxComponent, NgStyle, NgClass, InputAutocompleteComponent, MatCheckbox, FormsModule, AbilityComboBoxComponent, EvSliderComponent, RouterOutlet, TeraComboBoxComponent]
+  imports: [PokemonComboBoxComponent, NgStyle, NgClass, InputAutocompleteComponent, MatCheckbox, FormsModule, AbilityComboBoxComponent, EvSliderComponent, RouterOutlet, TeraComboBoxComponent, MultiHitComboBoxComponent]
 })
 export class PokemonBuildComponent {
   pokemonId = input.required<string>()
@@ -30,8 +31,6 @@ export class PokemonBuildComponent {
 
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
 
-  multiHitLabel = computed(() => (this.pokemon().activeMoveName !== "Rage Fist" ? "Hits" : "Hits Taken"))
-
   MAX_EVS = 508
 
   allMoveNames = Moves.instance.allMoves()
@@ -39,7 +38,6 @@ export class PokemonBuildComponent {
   allItemsNames = Items.instance.allItems()
   allPokemonNames = AllPokemon.instance.allPokemonNames
   availableAbilities: string[]
-  alliesFainted = ["0", "1", "2", "3", "4", "5", "6", "7"]
 
   statusConditions = Status.allDescriptions()
 
@@ -49,16 +47,6 @@ export class PokemonBuildComponent {
 
   activateMove(position: number) {
     this.store.activateMoveByPosition(this.pokemonId(), position)
-  }
-
-  alliesFaintedChanged(event: string) {
-    const activeMovePosition = this.pokemon().moveSet.activeMovePosition
-    this.store.alliesFainted(this.pokemonId(), event, activeMovePosition)
-  }
-
-  hitsChanged(event: string) {
-    const activeMovePosition = this.pokemon().moveSet.activeMovePosition
-    this.store.hits(this.pokemonId(), event, activeMovePosition)
   }
 
   typeStyle(type?: TypeName): any {

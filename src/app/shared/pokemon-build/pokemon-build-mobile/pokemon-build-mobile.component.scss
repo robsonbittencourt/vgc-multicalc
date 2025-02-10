@@ -21,8 +21,6 @@
 .edit-button-section {
   display: flex;
   margin-left: 1.5em;
-  flex-basis: 0;
-  flex-grow: 1;
 }
 
 .edit-button {
@@ -41,16 +39,8 @@
   font-size: 18px;
 }
 
-.multihit {
-  display: flex;
-  justify-content: right;
-  align-items: center;
-  gap: 0.75em;
-  margin-left: 0.75em;
-}
-
 .hits-input {
-  width: 30%;
+  width: 50%;
 }
 
 .check-input-section-input {

@@ -1,0 +1,7 @@
+@if (pokemon().activeMoveName === "Last Respects") {
+  <app-input-autocomplete label="Allies Fainted" [leftLabel]="leftLabel()" [value]="pokemon().moveSet.activeMove.alliesFainted" [allValues]="alliesFainted" (valueChange)="alliesFaintedChanged($event)" data-cy="allies-fainted" />
+}
+
+@if (pokemon().moveSet.activeMove.possibleHits.length > 0) {
+  <app-input-autocomplete [label]="multiHitLabel()" [leftLabel]="leftLabel()" [value]="pokemon().moveSet.activeMove.hits" [allValues]="pokemon().moveSet.activeMove.possibleHits" (valueChange)="hitsChanged($event)" data-cy="hits-taken" />
+}

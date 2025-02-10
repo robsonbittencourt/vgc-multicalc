@@ -44,27 +44,9 @@
 
         <div class="edit-button-section">
           <div (click)="editMoves()" class="edit-button"><mat-icon class="edit-icon">edit</mat-icon>Edit</div>
-
-          @if (pokemon().moveSet.activeMove.name === "Last Respects") {
-            <div class="multihit">
-              <label>Fainted</label>
-              <app-input-autocomplete [(value)]="pokemon().moveSet.activeMove.alliesFainted" [allValues]="alliesFainted" (valueChange)="alliesFaintedChanged($event)" />
-            </div>
-          }
-
-          @if (pokemon().moveSet.activeMove.possibleHits.length > 0) {
-            <div class="multihit">
-              @if (pokemon().activeMoveName === "Rage Fist") {
-                <label>Hits Taken</label>
-              } @else {
-                <label>Hits</label>
-              }
-
-              <div class="hits-input">
-                <app-input-autocomplete [(value)]="pokemon().moveSet.activeMove.hits" [allValues]="pokemon().moveSet.activeMove.possibleHits" (valueChange)="hitsChanged($event)" />
-              </div>
-            </div>
-          }
+          <div class="hits-input">
+            <app-multi-hit-combo-box [pokemonId]="pokemonId()" [leftLabel]="true" />
+          </div>
         </div>
       </mat-chip-listbox>
     </div>
