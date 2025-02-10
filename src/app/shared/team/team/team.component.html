@@ -1,4 +1,4 @@
-<app-widget title="Your Team" data-cy="your-team">
+<app-widget [title]="'Your Team'" data-cy="your-team">
   <right-header>
     <div class="tabs">
       @for (teamMember of store.team().teamMembers; track teamMember.pokemon.id) {

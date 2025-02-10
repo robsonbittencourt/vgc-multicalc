@@ -1,4 +1,4 @@
-<app-widget title="Speed List">
+<app-widget [title]="'Speed List'">
   <left-header>
     <div class="title-box">
       <app-input-autocomplete label="Regulation" [allValues]="regulationsList" [value]="optionsStore.regulation()" (valueChange)="optionsStore.updateRegulation($event)" />
