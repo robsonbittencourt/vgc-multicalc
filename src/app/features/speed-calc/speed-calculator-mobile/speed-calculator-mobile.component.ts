@@ -8,9 +8,9 @@ import { SpeedScaleComponent } from "@app/features/speed-calc/speed-scale/speed-
 import { InputAutocompleteComponent } from "@app/shared/input-autocomplete/input-autocomplete.component"
 import { AbilityComboBoxComponent } from "@app/shared/pokemon-build/ability-combo-box/ability-combo-box.component"
 import { EvSliderComponent } from "@app/shared/pokemon-build/ev-slider/ev-slider.component"
+import { ItemComboBoxComponent } from "@app/shared/pokemon-build/item-combo-box/item-combo-box.component"
 import { PokemonComboBoxComponent } from "@app/shared/pokemon-build/pokemon-combo-box/pokemon-combo-box.component"
 import { StatusComboBoxComponent } from "@app/shared/pokemon-build/status-combo-box/status-combo-box.component"
-import { Items } from "@data/items"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { FieldStore } from "@data/store/field-store"
 import { SpeedCalcOptionsStore } from "@data/store/speed-calc-options-store"
@@ -21,7 +21,21 @@ import { NATURES } from "@robsonbittencourt/calc"
   selector: "app-speed-calculator-mobile",
   templateUrl: "./speed-calculator-mobile.component.html",
   styleUrls: ["./speed-calculator-mobile.component.scss"],
-  imports: [InputAutocompleteComponent, PokemonComboBoxComponent, AbilityComboBoxComponent, EvSliderComponent, SpeedScaleComponent, MatFormField, MatSelect, MatOption, MatButtonToggleGroup, MatButtonToggle, MatIcon, StatusComboBoxComponent]
+  imports: [
+    MatFormField,
+    MatSelect,
+    MatOption,
+    MatButtonToggleGroup,
+    MatButtonToggle,
+    MatIcon,
+    InputAutocompleteComponent,
+    PokemonComboBoxComponent,
+    AbilityComboBoxComponent,
+    EvSliderComponent,
+    SpeedScaleComponent,
+    StatusComboBoxComponent,
+    ItemComboBoxComponent
+  ]
 })
 export class SpeedCalculatorMobileComponent implements OnInit {
   store = inject(CalculatorStore)
@@ -31,7 +45,6 @@ export class SpeedCalculatorMobileComponent implements OnInit {
   pokemonId = computed(() => this.store.speedCalcPokemon().id)
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
 
-  allItemsNames = Items.instance.allItems()
   allNatureNames = Object.keys(NATURES)
 
   statusConditions = [Status.HEALTHY.description, Status.PARALYSIS.description]

@@ -55,7 +55,7 @@
 
 <div class="combo-options">
   <div class="combo-option">
-    <app-input-autocomplete label="Item" [value]="pokemon().item" [allValues]="allItemsNames" (valueChange)="store.item(pokemonId(), $event)" />
+    <app-item-combo-box [pokemonId]="pokemonId()" />
   </div>
 
   <div class="combo-option">

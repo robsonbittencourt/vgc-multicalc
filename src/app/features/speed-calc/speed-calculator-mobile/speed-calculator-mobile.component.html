@@ -2,7 +2,7 @@
   <div class="pokemon-build">
     <div class="pokemon-build-section">
       <app-pokemon-combo-box class="combo-small" [pokemonId]="pokemonId()" (pokemonChanged)="resetEvs()" />
-      <app-input-autocomplete class="combo-small" label="Item" [value]="pokemon().item" [allValues]="allItemsNames" (valueChange)="store.item(pokemonId(), $event)" />
+      <app-item-combo-box [pokemonId]="pokemonId()" />
       <img class="pokemon-image" src="assets/sprites/pokemon-sv/{{ pokemon().name }}.png" />
     </div>
 

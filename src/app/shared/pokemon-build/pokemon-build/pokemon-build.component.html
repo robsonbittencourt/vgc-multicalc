@@ -21,7 +21,7 @@
     <div class="status-item" [ngStyle]="(reverse() && { order: 3 }) || null">
       <app-status-combo-box [pokemonId]="pokemonId()" />
       <app-multi-hit-combo-box [pokemonId]="pokemonId()" />
-      <app-input-autocomplete label="Item" [value]="pokemon().item" [allValues]="allItemsNames" (valueChange)="store.item(pokemonId(), $event)" data-cy="item" />
+      <app-item-combo-box [pokemonId]="pokemonId()" />
     </div>
 
     <div class="tera-type-ability" [ngStyle]="(reverse() && { order: 2 }) || null">
