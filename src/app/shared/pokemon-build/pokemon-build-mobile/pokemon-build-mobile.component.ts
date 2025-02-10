@@ -7,18 +7,19 @@ import { MatTooltip } from "@angular/material/tooltip"
 import { InputAutocompleteComponent } from "@app/shared/input-autocomplete/input-autocomplete.component"
 import { AbilityComboBoxComponent } from "@app/shared/pokemon-build/ability-combo-box/ability-combo-box.component"
 import { EvSliderComponent } from "@app/shared/pokemon-build/ev-slider/ev-slider.component"
+import { TeraComboBoxComponent } from "@app/shared/pokemon-build/tera-combo-box/tera-combo-box.component"
 import { Items } from "@data/items"
 import { Moves } from "@data/moves"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { Pokemon } from "@lib/model/pokemon"
 import { Status } from "@lib/model/status"
-import { NATURES, TYPE_CHART } from "@robsonbittencourt/calc"
+import { NATURES } from "@robsonbittencourt/calc"
 
 @Component({
   selector: "app-pokemon-build-mobile",
   templateUrl: "./pokemon-build-mobile.component.html",
   styleUrls: ["./pokemon-build-mobile.component.scss"],
-  imports: [MatChipListbox, ReactiveFormsModule, FormsModule, MatChipOption, MatIcon, InputAutocompleteComponent, MatTooltip, MatCheckbox, AbilityComboBoxComponent, EvSliderComponent]
+  imports: [MatChipListbox, ReactiveFormsModule, FormsModule, MatChipOption, MatIcon, InputAutocompleteComponent, MatTooltip, MatCheckbox, AbilityComboBoxComponent, EvSliderComponent, TeraComboBoxComponent]
 })
 export class PokemonBuildMobileComponent {
   pokemonId = input.required<string>()
@@ -34,7 +35,6 @@ export class PokemonBuildMobileComponent {
   allItemsNames = Items.instance.allItems()
   allMoveNames = Moves.instance.allMoves()
   allNatureNames = Object.keys(NATURES)
-  allTeraTypes = Object.keys(TYPE_CHART[9]).splice(1).sort()
   alliesFainted = ["0", "1", "2", "3", "4", "5", "6", "7"]
 
   editAttacks = false
@@ -67,10 +67,6 @@ export class PokemonBuildMobileComponent {
 
   saveMoves() {
     this.editAttacks = false
-  }
-
-  terastalyzePokemon() {
-    this.store.toogleTeraTypeActive(this.pokemonId())
   }
 
   alliesFaintedChanged(event: string) {

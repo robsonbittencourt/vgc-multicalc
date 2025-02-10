@@ -1,0 +1,11 @@
+<div class="container">
+  <div (click)="terastalyzePokemon()" matTooltip="Terastal" [matTooltipShowDelay]="1000" data-cy="terastal-button">
+    @if (pokemon().teraTypeActive) {
+      <img class="icon-tera" src="assets/icons/tera-icon.png" />
+    } @else {
+      <img class="icon-tera" src="assets/icons/tera-icon-gray.png" />
+    }
+  </div>
+
+  <app-input-autocomplete label="Tera Type" [value]="pokemon().teraType" [allValues]="allTeraTypes" [disabled]="pokemon().isTerapagos" (valueChange)="store.teraType(pokemonId(), $event)" data-cy="tera-type" />
+</div>

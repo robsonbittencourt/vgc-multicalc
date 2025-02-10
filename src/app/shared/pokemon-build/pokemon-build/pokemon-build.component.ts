@@ -8,20 +8,20 @@ import { InputAutocompleteComponent } from "@app/shared/input-autocomplete/input
 import { AbilityComboBoxComponent } from "@app/shared/pokemon-build/ability-combo-box/ability-combo-box.component"
 import { EvSliderComponent } from "@app/shared/pokemon-build/ev-slider/ev-slider.component"
 import { PokemonComboBoxComponent } from "@app/shared/pokemon-build/pokemon-combo-box/pokemon-combo-box.component"
+import { TeraComboBoxComponent } from "@app/shared/pokemon-build/tera-combo-box/tera-combo-box.component"
 import { AllPokemon } from "@data/all-pokemon"
 import { Items } from "@data/items"
 import { Moves } from "@data/moves"
 import { Natures } from "@data/natures"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { Status } from "@lib/model/status"
-import { TYPE_CHART } from "@robsonbittencourt/calc"
 import { TypeName } from "@robsonbittencourt/calc/dist/data/interface"
 
 @Component({
   selector: "app-pokemon-build",
   templateUrl: "./pokemon-build.component.html",
   styleUrls: ["./pokemon-build.component.scss"],
-  imports: [PokemonComboBoxComponent, NgStyle, NgClass, InputAutocompleteComponent, MatTooltip, MatCheckbox, ReactiveFormsModule, FormsModule, AbilityComboBoxComponent, EvSliderComponent, RouterOutlet]
+  imports: [PokemonComboBoxComponent, NgStyle, NgClass, InputAutocompleteComponent, MatTooltip, MatCheckbox, ReactiveFormsModule, FormsModule, AbilityComboBoxComponent, EvSliderComponent, RouterOutlet, TeraComboBoxComponent]
 })
 export class PokemonBuildComponent {
   pokemonId = input.required<string>()
@@ -38,7 +38,6 @@ export class PokemonBuildComponent {
   allMoveNames = Moves.instance.allMoves()
   allNatureNames = Natures.instance.natures
   allItemsNames = Items.instance.allItems()
-  allTeraTypes = Object.keys(TYPE_CHART[9]).splice(1).sort()
   allPokemonNames = AllPokemon.instance.allPokemonNames
   availableAbilities: string[]
   alliesFainted = ["0", "1", "2", "3", "4", "5", "6", "7"]
@@ -61,10 +60,6 @@ export class PokemonBuildComponent {
   hitsChanged(event: string) {
     const activeMovePosition = this.pokemon().moveSet.activeMovePosition
     this.store.hits(this.pokemonId(), event, activeMovePosition)
-  }
-
-  terastalyzePokemon() {
-    this.store.toogleTeraTypeActive(this.pokemonId())
   }
 
   typeStyle(type?: TypeName): any {

@@ -84,19 +84,8 @@
     <app-input-autocomplete label="Status" [value]="pokemon().status.description" [allValues]="statusConditions" (valueChange)="store.status(pokemonId(), $event)" />
   </div>
 
-  <div class="combo-option tera-type">
-    <button class="icon-button" (click)="terastalyzePokemon()" matTooltip="Terastal" [matTooltipShowDelay]="1000">
-      @if (pokemon().teraTypeActive) {
-        <img class="icon-tera" src="assets/icons/tera-icon.png" />
-      } @else {
-        <img class="icon-tera" src="assets/icons/tera-icon-gray.png" />
-      }
-    </button>
-
-    <div>
-      <label>Tera Type</label>
-      <app-input-autocomplete [value]="pokemon().teraType" [allValues]="allTeraTypes" [disabled]="pokemon().isTerapagos" (valueChange)="store.teraType(pokemonId(), $event)" />
-    </div>
+  <div class="combo-option">
+    <app-tera-combo-box [pokemonId]="pokemonId()" />
   </div>
 
   <div class="combo-option ability">
