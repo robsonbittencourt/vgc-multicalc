@@ -1,7 +1,7 @@
 <div class="container">
   <div class="pokes">
     <div class="pokemon-name">
-      <app-pokemon-combo-box label="Pokémon" [pokemonId]="attacker().id" (pokemonChanged)="pokemonChanged()" />
+      <app-pokemon-combo-box [pokemonId]="attacker().id" (pokemonChanged)="pokemonChanged()" />
     </div>
     <div class="pokemon-tabs">
       <app-pokemon-tab [active]="leftIsAttacker()" [pokemonId]="store.leftPokemon().id" (tabActivated)="activatePokemon()" />

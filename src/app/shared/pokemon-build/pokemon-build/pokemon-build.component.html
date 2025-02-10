@@ -5,7 +5,7 @@
         <img src="assets/icons/question.png" />
       </div>
 
-      <app-pokemon-combo-box label="Pokémon" [pokemonId]="pokemonId()" data-cy="pokemon-select" />
+      <app-pokemon-combo-box [pokemonId]="pokemonId()" />
     </div>
   </div>
 } @else {
@@ -15,7 +15,7 @@
         <img src="assets/sprites/pokemon-home/{{ pokemon().name }}.png" />
       </div>
 
-      <app-pokemon-combo-box label="Pokémon" [pokemonId]="pokemonId()" data-cy="pokemon-select" />
+      <app-pokemon-combo-box [pokemonId]="pokemonId()" />
     </div>
 
     <div class="status-item" [ngStyle]="(reverse() && { order: 3 }) || null">
