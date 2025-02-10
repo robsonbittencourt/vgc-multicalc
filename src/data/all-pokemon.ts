@@ -3694,6 +3694,11 @@ const FormatsData: { [k: string]: SpeciesFormatsData } = {
     doublesTier: "(DUU)",
     natDexTier: "RU"
   },
+  meloettapirouette: {
+    tier: "NU",
+    doublesTier: "(DUU)",
+    natDexTier: "RU"
+  },
   genesect: {
     isNonstandard: "Past",
     tier: "Illegal",

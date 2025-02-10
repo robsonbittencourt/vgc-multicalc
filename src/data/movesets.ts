@@ -6048,6 +6048,21 @@ export const SETDEX_SV: Record<string, any> = {
     moves: ["Hyper Voice", "Psychic", "Shadow Ball", "Trick"],
     items: ["Choice Specs"]
   },
+  "Meloetta-Pirouette": {
+    ability: "Serene Grace",
+    nature: "Adamant",
+    teraType: "Fighting",
+    evs: {
+      hp: 252,
+      atk: 0,
+      def: 0,
+      spa: 0,
+      spd: 240,
+      spe: 6
+    },
+    moves: ["Relic Song", "Close Combat", "U-Turn", "Dream Eater"],
+    items: ["Focus Sash"]
+  },
   Meowth: {
     ability: "Technician",
     nature: "Adamant",
