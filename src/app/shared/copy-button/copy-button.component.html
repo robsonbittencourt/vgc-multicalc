@@ -1,0 +1,5 @@
+@if (copyMessageEnabled()) {
+  <mat-icon>check</mat-icon>
+} @else {
+  <mat-icon class="copy-button" (click)="copyDamageResult()">content_copy</mat-icon>
+}

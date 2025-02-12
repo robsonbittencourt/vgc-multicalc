@@ -19,12 +19,7 @@
       }
       <span>{{ damageResult().result }} - {{ damageResult().koChance }}</span>
     </div>
-    <div class="copy-button">
-      @if (copyMessageEnabled) {
-        <label>Copied!</label>
-      }
-      <mat-icon class="copy-icon" (click)="copyDamageResult(damageResult())">content_copy</mat-icon>
-    </div>
+    <app-copy-button [value]="damageResult().description" />
   </div>
 
   <app-pokemon-build-mobile [pokemonId]="attacker().id" />

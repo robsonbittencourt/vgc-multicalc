@@ -2,11 +2,10 @@ import { NoopScrollStrategy } from "@angular/cdk/overlay"
 import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, inject, input, output } from "@angular/core"
 import { MatButton } from "@angular/material/button"
 import { MatDialog } from "@angular/material/dialog"
-import { MatIcon } from "@angular/material/icon"
 import { MatSlideToggle } from "@angular/material/slide-toggle"
-import { MatTooltip } from "@angular/material/tooltip"
 import { AddPokemonCardComponent } from "@app/features/multi-calc/add-pokemon-card/add-pokemon-card.component"
 import { PokemonCardComponent } from "@app/features/multi-calc/pokemon-card/pokemon-card.component"
+import { CopyButtonComponent } from "@app/shared/copy-button/copy-button.component"
 import { TeamImportModalComponent } from "@app/shared/team/team-import-modal/team-import-modal.component"
 import { WidgetComponent } from "@app/widget/widget.component"
 import { CalculatorStore } from "@data/store/calculator-store"
@@ -23,7 +22,7 @@ import { PokePasteParserService } from "@lib/user-data/poke-paste-parser.service
   selector: "app-target-pokemon",
   templateUrl: "./target-pokemon.component.html",
   styleUrls: ["./target-pokemon.component.scss"],
-  imports: [WidgetComponent, MatIcon, MatButton, MatTooltip, MatSlideToggle, PokemonCardComponent, AddPokemonCardComponent],
+  imports: [WidgetComponent, MatButton, MatSlideToggle, PokemonCardComponent, AddPokemonCardComponent, CopyButtonComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class TargetPokemonComponent {
@@ -58,7 +57,6 @@ export class TargetPokemonComponent {
   })
 
   order = false
-  copyMessageEnabled = false
 
   removeAll() {
     this.store.removeAllTargets()
@@ -138,15 +136,6 @@ export class TargetPokemonComponent {
 
   rolls(): number[] {
     return this.activeDamageResult()?.rolls ?? []
-  }
-
-  copyDamageResult() {
-    this.copyMessageEnabled = true
-    navigator.clipboard.writeText(this.damageDescription())
-
-    setTimeout(() => {
-      this.copyMessageEnabled = false
-    }, 2000)
   }
 
   canSelectSecondPokemon(): boolean {

@@ -8,12 +8,7 @@
             <span>Rolls: {{ rolls() }}</span>
           }
         </div>
-        <div class="copy-button" (click)="copyDamageResult()" matTooltip="Copy">
-          <mat-icon>content_copy</mat-icon>
-          @if (copyMessageEnabled) {
-            <label>Copied!</label>
-          }
-        </div>
+        <app-copy-button [value]="this.damageDescription()" />
       </div>
     }
   </left-header>

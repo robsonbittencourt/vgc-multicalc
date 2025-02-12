@@ -3,19 +3,18 @@ import { Component, computed, input, output, signal } from "@angular/core"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { MatButtonToggle, MatButtonToggleGroup } from "@angular/material/button-toggle"
 import { MatChipListbox, MatChipListboxChange, MatChipOption } from "@angular/material/chips"
-import { MatIcon } from "@angular/material/icon"
-import { MatTooltip } from "@angular/material/tooltip"
 import { PokemonHpBadgeComponent } from "@app/features/simple-calc/pokemon-hp-badge/pokemon-hp-badge.component"
+import { CopyButtonComponent } from "@app/shared/copy-button/copy-button.component"
+import { WidgetComponent } from "@app/widget/widget.component"
 import { DamageResult } from "@lib/damage-calculator/damage-result"
 import { RollLevelConfig } from "@lib/damage-calculator/roll-level-config"
 import { Pokemon } from "@lib/model/pokemon"
-import { WidgetComponent } from "../../../widget/widget.component"
 
 @Component({
   selector: "app-damage-result",
   templateUrl: "./damage-result.component.html",
   styleUrls: ["./damage-result.component.scss"],
-  imports: [WidgetComponent, NgStyle, PokemonHpBadgeComponent, MatButtonToggleGroup, MatButtonToggle, MatChipListbox, ReactiveFormsModule, FormsModule, MatChipOption, MatIcon, MatTooltip, WidgetComponent]
+  imports: [WidgetComponent, NgStyle, PokemonHpBadgeComponent, MatButtonToggleGroup, MatButtonToggle, MatChipListbox, ReactiveFormsModule, FormsModule, MatChipOption, WidgetComponent, CopyButtonComponent]
 })
 export class DamageResultComponent {
   pokemon = input.required<Pokemon>()
@@ -40,8 +39,6 @@ export class DamageResultComponent {
 
   damageTaken = computed(() => this.damageTakenByRoll(this.opponentDamageResult(), this.rollLevelConfig()))
 
-  copyMessageEnabled = false
-
   moveSelected(event: MatChipListboxChange) {
     if (!event.value || event.value == this.pokemon().activeMoveName) {
       event.source.value = this.pokemon().activeMoveName
@@ -60,15 +57,6 @@ export class DamageResultComponent {
 
   activateLowRoll() {
     this.rollLevelConfig.set(RollLevelConfig.low())
-  }
-
-  copy(text: string) {
-    this.copyMessageEnabled = true
-    navigator.clipboard.writeText(text)
-
-    setTimeout(() => {
-      this.copyMessageEnabled = false
-    }, 2000)
   }
 
   private damageTakenByRoll(damageResult: DamageResult, rollLevelConfig: RollLevelConfig): number {

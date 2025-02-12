@@ -1,5 +1,5 @@
 import { Component, computed, inject, signal } from "@angular/core"
-import { MatIcon } from "@angular/material/icon"
+import { CopyButtonComponent } from "@app/shared/copy-button/copy-button.component"
 import { FieldComponent } from "@app/shared/field/field.component"
 import { PokemonBuildMobileComponent } from "@app/shared/pokemon-build/pokemon-build-mobile/pokemon-build-mobile.component"
 import { PokemonComboBoxComponent } from "@app/shared/pokemon-build/pokemon-combo-box/pokemon-combo-box.component"
@@ -7,13 +7,12 @@ import { PokemonTabComponent } from "@app/shared/team/pokemon-tab/pokemon-tab.co
 import { CalculatorStore } from "@data/store/calculator-store"
 import { FieldStore } from "@data/store/field-store"
 import { DamageCalculatorService } from "@lib/damage-calculator/damage-calculator.service"
-import { DamageResult } from "@lib/damage-calculator/damage-result"
 
 @Component({
   selector: "app-simple-calc-mobile",
   templateUrl: "./simple-calc-mobile.component.html",
   styleUrls: ["./simple-calc-mobile.component.scss"],
-  imports: [PokemonComboBoxComponent, PokemonTabComponent, MatIcon, PokemonBuildMobileComponent, FieldComponent]
+  imports: [PokemonComboBoxComponent, PokemonTabComponent, PokemonBuildMobileComponent, FieldComponent, CopyButtonComponent]
 })
 export class SimpleCalcMobileComponent {
   store = inject(CalculatorStore)
@@ -34,17 +33,6 @@ export class SimpleCalcMobileComponent {
       return this.damageCalculator.calcDamage(this.store.rightPokemon(), this.store.leftPokemon(), this.fieldStore.field())
     }
   })
-
-  copyMessageEnabled = false
-
-  copyDamageResult(damageResult: DamageResult) {
-    this.copyMessageEnabled = true
-    navigator.clipboard.writeText(damageResult.description)
-
-    setTimeout(() => {
-      this.copyMessageEnabled = false
-    }, 2000)
-  }
 
   activatePokemon() {
     if (this.leftIsAttacker()) {

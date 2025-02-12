@@ -34,10 +34,7 @@
     <div class="description-container">
       <div class="description-with-button">
         <span class="description-text" data-cy="move-damage-description">{{ activeDamageResult().description }}</span>
-        <mat-icon class="copy-icon" (click)="copy(activeDamageResult().description)" matTooltip="Copy">content_copy</mat-icon>
-        @if (copyMessageEnabled) {
-          <label>Copied!</label>
-        }
+        <app-copy-button [value]="activeDamageResult().description" />
       </div>
     </div>
   </div>

@@ -1,5 +1,5 @@
 import { CdkScrollable } from "@angular/cdk/scrolling"
-import { Component, inject } from "@angular/core"
+import { Component, inject, signal } from "@angular/core"
 import { MatButton } from "@angular/material/button"
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle } from "@angular/material/dialog"
 
@@ -12,14 +12,14 @@ import { MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent, Ma
 export class TeamExportModalComponent {
   data = inject(MAT_DIALOG_DATA)
 
-  copyText = "Copy"
+  copyText = signal("Copy")
 
   copy() {
     navigator.clipboard.writeText(this.data.content)
-    this.copyText = "Copied"
+    this.copyText.set("Copied")
 
     setTimeout(() => {
-      this.copyText = "Copy"
+      this.copyText.set("Copy")
     }, 2000)
   }
 }
