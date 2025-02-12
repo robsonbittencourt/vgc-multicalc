@@ -7,5 +7,7 @@
     }
   </div>
 
-  <app-input-autocomplete label="Tera Type" [value]="pokemon().teraType" [allValues]="allTeraTypes" [disabled]="pokemon().isTerapagos" (valueChange)="store.teraType(pokemonId(), $event)" data-cy="tera-type" />
+  <div class="input-select">
+    <app-input-select label="Tera Type" [value]="pokemon().teraType" [allValues]="allTeraTypes" [disabled]="pokemon().isTerapagos" (valueChange)="store.teraType(pokemonId(), $event)" data-cy="tera-type" />
+  </div>
 </div>

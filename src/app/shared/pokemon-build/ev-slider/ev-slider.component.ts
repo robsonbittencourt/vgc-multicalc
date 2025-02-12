@@ -281,7 +281,6 @@ export class EvSliderComponent implements AfterViewInit {
 
   private incrementsUntilJump(jump: number) {
     if (this.pokemon().jumps[jump] == null) {
-      console.log("zerpo", jump)
       return 0
     }
 

@@ -1,12 +1,12 @@
 import { Component, computed, inject, input } from "@angular/core"
 import { MatTooltip } from "@angular/material/tooltip"
-import { InputAutocompleteComponent } from "@app/shared/input-autocomplete/input-autocomplete.component"
+import { InputSelectComponent } from "@app/shared/input-select/input-select.component"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { TYPE_CHART } from "@robsonbittencourt/calc"
 
 @Component({
   selector: "app-tera-combo-box",
-  imports: [MatTooltip, InputAutocompleteComponent],
+  imports: [MatTooltip, InputSelectComponent],
   templateUrl: "./tera-combo-box.component.html",
   styleUrl: "./tera-combo-box.component.scss"
 })

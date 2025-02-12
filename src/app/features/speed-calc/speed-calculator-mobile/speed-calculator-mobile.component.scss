@@ -10,22 +10,35 @@
 }
 
 .pokemon-build {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
   background-color: var(--highlight);
-  padding: 0em 0.75em 0.75em 0.75em;
+  padding: 0.75em 0.5em 0.75em 0.75em;
+}
+
+.pokemon-build-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
 }
 
 .pokemon-build-section {
   display: flex;
   align-items: center;
-  gap: 1.5em;
+  gap: 1.2em;
 }
 
 .combo-small {
-  width: 35%;
+  width: 36%;
+}
+
+.combo-medium {
+  width: 38%;
 }
 
 .combo-large {
-  width: 45%;
+  width: 50%;
 }
 
 .evs {
@@ -35,7 +48,6 @@
 .pokemon-image {
   width: 5em;
   height: auto;
-  margin-left: auto;
 }
 
 .speed-calculator-container {
@@ -50,11 +62,6 @@
   display: block;
 }
 
-.opponent-title {
-  margin-top: -0.5em;
-  display: block;
-}
-
 .options {
   display: flex;
   flex-wrap: wrap;
@@ -64,16 +71,16 @@
   margin-top: 0.5em;
 }
 
-.opponent-options {
-  margin-top: -1em;
-}
-
 .speed-modifier {
   width: 20%;
-  margin-top: 1.7em;
 }
 
 .clear-button {
   display: flex;
   align-items: center;
+}
+
+.speed-modifier {
+  width: 5em;
+  height: 2.5em;
 }

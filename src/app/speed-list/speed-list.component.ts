@@ -1,9 +1,8 @@
 import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, inject } from "@angular/core"
 import { MatButtonToggle, MatButtonToggleGroup } from "@angular/material/button-toggle"
-import { MatFormField } from "@angular/material/form-field"
-import { MatOption, MatSelect } from "@angular/material/select"
 import { SpeedScaleComponent } from "@app/features/speed-calc/speed-scale/speed-scale.component"
-import { InputAutocompleteComponent } from "@app/shared/input-autocomplete/input-autocomplete.component"
+import { InputAutocompleteComponent, KeyValuePair } from "@app/shared/input-autocomplete/input-autocomplete.component"
+import { InputSelectComponent } from "@app/shared/input-select/input-select.component"
 import { WidgetComponent } from "@app/widget/widget.component"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { SpeedCalcOptionsStore } from "@data/store/speed-calc-options-store"
@@ -13,7 +12,7 @@ import { Regulation } from "@lib/types"
   selector: "app-speed-list",
   templateUrl: "./speed-list.component.html",
   styleUrl: "./speed-list.component.scss",
-  imports: [WidgetComponent, InputAutocompleteComponent, MatFormField, MatSelect, MatOption, MatButtonToggleGroup, MatButtonToggle, SpeedScaleComponent],
+  imports: [WidgetComponent, InputAutocompleteComponent, InputSelectComponent, MatButtonToggleGroup, MatButtonToggle, SpeedScaleComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class SpeedListComponent {
@@ -24,19 +23,23 @@ export class SpeedListComponent {
 
   regulationsList: Regulation[] = ["G", "H"]
 
-  statsModifiers = [
-    { value: 6, viewValue: "+6" },
-    { value: 5, viewValue: "+5" },
-    { value: 4, viewValue: "+4" },
-    { value: 3, viewValue: "+3" },
-    { value: 2, viewValue: "+2" },
-    { value: 1, viewValue: "+1" },
-    { value: 0, viewValue: "--" },
-    { value: -1, viewValue: "-1" },
-    { value: -2, viewValue: "-2" },
-    { value: -3, viewValue: "-3" },
-    { value: -4, viewValue: "-4" },
-    { value: -5, viewValue: "-5" },
-    { value: -6, viewValue: "-6" }
+  statsModifiers: KeyValuePair[] = [
+    { key: "+6", value: "6" },
+    { key: "+5", value: "5" },
+    { key: "+4", value: "4" },
+    { key: "+3", value: "3" },
+    { key: "+2", value: "2" },
+    { key: "+1", value: "1" },
+    { key: "--", value: "0" },
+    { key: "-1", value: "-1" },
+    { key: "-2", value: "-2" },
+    { key: "-3", value: "-3" },
+    { key: "-4", value: "-4" },
+    { key: "-5", value: "-5" },
+    { key: "-6", value: "-6" }
   ]
+
+  updateSpeedModifier(event: string) {
+    this.optionsStore.updateSpeedModifier(parseInt(event))
+  }
 }

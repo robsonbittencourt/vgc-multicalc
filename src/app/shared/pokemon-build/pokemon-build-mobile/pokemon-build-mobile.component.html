@@ -54,23 +54,23 @@
 </div>
 
 <div class="combo-options">
-  <div class="combo-option">
-    <app-item-combo-box [pokemonId]="pokemonId()" />
-  </div>
-
-  <div class="combo-option">
-    <app-nature-combo-box [pokemonId]="pokemonId()" />
-  </div>
-
-  <div class="combo-option">
-    <app-status-combo-box [pokemonId]="pokemonId()" />
-  </div>
-
-  <div class="combo-option">
+  <div class="combo-tera">
     <app-tera-combo-box [pokemonId]="pokemonId()" />
   </div>
 
-  <div class="combo-option">
+  <div class="combo-item">
+    <app-item-combo-box [pokemonId]="pokemonId()" />
+  </div>
+
+  <div class="combo-status">
+    <app-status-combo-box [pokemonId]="pokemonId()" />
+  </div>
+
+  <div class="combo-nature">
+    <app-nature-combo-box [pokemonId]="pokemonId()" />
+  </div>
+
+  <div class="combo-ability">
     <app-ability-combo-box [pokemonId]="pokemonId()" />
   </div>
 </div>

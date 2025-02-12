@@ -1,16 +1,18 @@
 <div class="container">
   <div class="pokemon-build">
-    <div class="pokemon-build-section">
-      <app-pokemon-combo-box class="combo-small" [pokemonId]="pokemonId()" (pokemonChanged)="resetEvs()" />
-      <app-item-combo-box [pokemonId]="pokemonId()" />
-      <img class="pokemon-image" src="assets/sprites/pokemon-sv/{{ pokemon().name }}.png" />
-    </div>
+    <div class="pokemon-build-sections">
+      <div class="pokemon-build-section">
+        <app-pokemon-combo-box class="combo-large" [pokemonId]="pokemonId()" (pokemonChanged)="resetEvs()" />
+        <app-item-combo-box class="combo-large" [pokemonId]="pokemonId()" />
+        <app-status-combo-box class="combo-small" [pokemonId]="pokemonId()" [statusConditions]="statusConditions" />
+      </div>
 
-    <div class="pokemon-build-section">
-      <app-status-combo-box [pokemonId]="pokemonId()" [statusConditions]="statusConditions" />
-      <app-nature-combo-box [pokemonId]="pokemonId()" />
-      <app-ability-combo-box [pokemonId]="pokemonId()" />
+      <div class="pokemon-build-section">
+        <app-nature-combo-box class="combo-large" [pokemonId]="pokemonId()" />
+        <app-ability-combo-box class="combo-large" [pokemonId]="pokemonId()" />
+      </div>
     </div>
+    <img class="pokemon-image" src="assets/sprites/pokemon-sv/{{ pokemon().name }}.png" />
   </div>
 
   <div class="evs">
@@ -23,13 +25,9 @@
 
   <label class="title opponent-title">Opponent Side</label>
   <div class="options opponent-options">
-    <mat-form-field appearance="outline" class="speed-modifier">
-      <mat-select [value]="optionsStore.speedModifier()" (valueChange)="optionsStore.updateSpeedModifier($event)">
-        @for (statsModifier of statsModifiers; track statsModifier) {
-          <mat-option [value]="statsModifier.value">{{ statsModifier.viewValue }}</mat-option>
-        }
-      </mat-select>
-    </mat-form-field>
+    <div class="speed-modifier">
+      <app-input-select [value]="optionsStore.speedModifier().toString()" [allValues]="statsModifiers" (valueChange)="updateSpeedModifier($event)" />
+    </div>
 
     <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">
       <mat-button-toggle [checked]="optionsStore.speedDropActive()" (change)="optionsStore.toogleIceWind($event.source.checked)">Ice Wind</mat-button-toggle>
@@ -38,7 +36,7 @@
     </mat-button-toggle-group>
   </div>
 
-  <label class="title opponent-title">Field</label>
+  <label class="title">Field</label>
   <div class="options">
     <mat-button-toggle-group multiple [hideMultipleSelectionIndicator]="true">
       <mat-button-toggle class="max-width" [checked]="fieldStore.isWeatherSun()" (change)="fieldStore.toggleSunWeather()" data-cy="sun">Sun</mat-button-toggle>

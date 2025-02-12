@@ -1,7 +1,7 @@
 <app-widget [title]="'Speed List'">
   <left-header>
     <div class="title-box">
-      <app-input-autocomplete label="Regulation" [allValues]="regulationsList" [value]="optionsStore.regulation()" (valueChange)="optionsStore.updateRegulation($event)" />
+      <app-input-select label="Regulation" [allValues]="regulationsList" [value]="optionsStore.regulation()" (valueChange)="optionsStore.updateRegulation($event)" />
       <app-input-autocomplete label="Pokémon" [enableClear]="true" [allValues]="optionsStore.pokemonNamesByReg()" [value]="optionsStore.targetName()" (valueChange)="optionsStore.updateTargetName($event)" (cleared)="optionsStore.clearTargetName()" />
     </div>
   </left-header>
@@ -12,14 +12,9 @@
         <span>Use Your Team and Field section for more options</span>
       </div>
       <div class="header-buttons">
-        <label>Speed Modifier</label>
-        <mat-form-field appearance="outline" class="mat-ev-stat-modifier">
-          <mat-select [value]="optionsStore.speedModifier()" (valueChange)="optionsStore.updateSpeedModifier($event)" [hideSingleSelectionIndicator]="true" data-cy="speed-calc-spe-modifier">
-            @for (statsModifier of statsModifiers; track statsModifier) {
-              <mat-option [value]="statsModifier.value">{{ statsModifier.viewValue }}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
+        <div class="speed-modifier">
+          <app-input-select label="Speed Modifier" leftLabel="true" [value]="optionsStore.speedModifier().toString()" [allValues]="statsModifiers" (valueChange)="updateSpeedModifier($event)" data-cy="speed-calc-spe-modifier" />
+        </div>
 
         <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">
           <mat-button-toggle [checked]="optionsStore.speedDropActive()" (change)="optionsStore.toogleIceWind($event.source.checked)" data-cy="speed-calc-ice-wind">Ice Wind</mat-button-toggle>

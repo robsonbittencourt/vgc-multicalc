@@ -1,11 +1,9 @@
 import { Component, computed, inject, OnInit } from "@angular/core"
 import { MatButtonToggle, MatButtonToggleGroup } from "@angular/material/button-toggle"
-import { MatOption } from "@angular/material/core"
-import { MatFormField } from "@angular/material/form-field"
 import { MatIcon } from "@angular/material/icon"
-import { MatSelect } from "@angular/material/select"
 import { SpeedScaleComponent } from "@app/features/speed-calc/speed-scale/speed-scale.component"
-import { InputAutocompleteComponent } from "@app/shared/input-autocomplete/input-autocomplete.component"
+import { InputAutocompleteComponent, KeyValuePair } from "@app/shared/input-autocomplete/input-autocomplete.component"
+import { InputSelectComponent } from "@app/shared/input-select/input-select.component"
 import { AbilityComboBoxComponent } from "@app/shared/pokemon-build/ability-combo-box/ability-combo-box.component"
 import { EvSliderComponent } from "@app/shared/pokemon-build/ev-slider/ev-slider.component"
 import { ItemComboBoxComponent } from "@app/shared/pokemon-build/item-combo-box/item-combo-box.component"
@@ -23,9 +21,6 @@ import { NATURES } from "@robsonbittencourt/calc"
   templateUrl: "./speed-calculator-mobile.component.html",
   styleUrls: ["./speed-calculator-mobile.component.scss"],
   imports: [
-    MatFormField,
-    MatSelect,
-    MatOption,
     MatButtonToggleGroup,
     MatButtonToggle,
     MatIcon,
@@ -36,7 +31,8 @@ import { NATURES } from "@robsonbittencourt/calc"
     SpeedScaleComponent,
     StatusComboBoxComponent,
     ItemComboBoxComponent,
-    NatureComboBoxComponent
+    NatureComboBoxComponent,
+    InputSelectComponent
   ]
 })
 export class SpeedCalculatorMobileComponent implements OnInit {
@@ -51,20 +47,20 @@ export class SpeedCalculatorMobileComponent implements OnInit {
 
   statusConditions = [Status.HEALTHY.description, Status.PARALYSIS.description]
 
-  statsModifiers = [
-    { value: 6, viewValue: "+6" },
-    { value: 5, viewValue: "+5" },
-    { value: 4, viewValue: "+4" },
-    { value: 3, viewValue: "+3" },
-    { value: 2, viewValue: "+2" },
-    { value: 1, viewValue: "+1" },
-    { value: 0, viewValue: "--" },
-    { value: -1, viewValue: "-1" },
-    { value: -2, viewValue: "-2" },
-    { value: -3, viewValue: "-3" },
-    { value: -4, viewValue: "-4" },
-    { value: -5, viewValue: "-5" },
-    { value: -6, viewValue: "-6" }
+  statsModifiers: KeyValuePair[] = [
+    { key: "+6", value: "6" },
+    { key: "+5", value: "5" },
+    { key: "+4", value: "4" },
+    { key: "+3", value: "3" },
+    { key: "+2", value: "2" },
+    { key: "+1", value: "1" },
+    { key: "--", value: "0" },
+    { key: "-1", value: "-1" },
+    { key: "-2", value: "-2" },
+    { key: "-3", value: "-3" },
+    { key: "-4", value: "-4" },
+    { key: "-5", value: "-5" },
+    { key: "-6", value: "-6" }
   ]
 
   ngOnInit() {
@@ -73,5 +69,9 @@ export class SpeedCalculatorMobileComponent implements OnInit {
 
   resetEvs() {
     this.store.evs(this.pokemonId(), { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
+  }
+
+  updateSpeedModifier(event: string) {
+    this.optionsStore.updateSpeedModifier(parseInt(event))
   }
 }

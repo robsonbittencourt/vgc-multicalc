@@ -1,11 +1,11 @@
 import { Component, computed, inject, input } from "@angular/core"
-import { InputAutocompleteComponent } from "@app/shared/input-autocomplete/input-autocomplete.component"
+import { InputSelectComponent } from "@app/shared/input-select/input-select.component"
 import { Natures } from "@data/natures"
 import { CalculatorStore } from "@data/store/calculator-store"
 
 @Component({
   selector: "app-nature-combo-box",
-  imports: [InputAutocompleteComponent],
+  imports: [InputSelectComponent],
   templateUrl: "./nature-combo-box.component.html",
   styleUrl: "./nature-combo-box.component.scss"
 })

@@ -1,7 +1,6 @@
 export class SpeedCalculator {
   speedModifier(modifier: string) {
-    cy.get('[data-cy="speed-calc-spe-modifier"]').click()
-    cy.get("mat-option").contains(modifier).click()
+    cy.get('[data-cy="speed-calc-spe-modifier"]').find('[data-cy="input-select"]').click().get("mat-option").contains(modifier).click()
   }
 
   iceWind() {

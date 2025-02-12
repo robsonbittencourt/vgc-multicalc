@@ -1,4 +1,4 @@
-<div class="container" data-cy="ability">
+<div class="container">
   @if (pokemon().ability.actionableAbility) {
     <mat-checkbox [ngModel]="pokemon().ability.on" (change)="store.abilityOn(pokemonId(), $event.checked)" data-cy="activate-ability" />
   }
@@ -22,6 +22,7 @@
       }
     </div>
   }
-
-  <app-input-autocomplete label="Ability" [value]="pokemon().ability.name" [allValues]="availableAbilities()" (valueChange)="store.ability(pokemonId(), $event)" />
+  <div class="input-select">
+    <app-input-select label="Ability" [value]="pokemon().ability.name" [allValues]="availableAbilities()" (valueChange)="store.ability(pokemonId(), $event)" data-cy="ability" />
+  </div>
 </div>

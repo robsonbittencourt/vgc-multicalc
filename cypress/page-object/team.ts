@@ -63,10 +63,10 @@ export class Team {
 
   pokemonOnEditIs(pokemonName: string, ability: string, teraType: string, item: string, nature: string) {
     this.pokemonOnEditNameIs(pokemonName)
-    cy.get('[data-cy="ability"] input').should("have.value", ability)
-    cy.get('[data-cy="tera-type"] input').should("have.value", teraType)
+    cy.get('[data-cy="ability"]').contains(ability)
+    cy.get('[data-cy="tera-type"]').contains(teraType)
     cy.get('[data-cy="item"] input').should("have.value", item)
-    cy.get('[data-cy="nature"] input').should("have.value", nature)
+    cy.get('[data-cy="nature"]').contains(nature)
   }
 
   pokemonOnEditAttacksIs(attackOne: string, attackTwo: string, attackThree: string, attackFour: string) {
