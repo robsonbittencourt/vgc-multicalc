@@ -1,5 +1,5 @@
 import { AsyncPipe, NgClass } from "@angular/common"
-import { Component, effect, input, model, OnInit, output } from "@angular/core"
+import { Component, effect, ElementRef, input, model, OnInit, output, viewChild } from "@angular/core"
 import { FormControl, FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { MatAutocomplete, MatAutocompleteTrigger } from "@angular/material/autocomplete"
 import { MatOption } from "@angular/material/core"
@@ -34,6 +34,8 @@ export class InputAutocompleteComponent implements OnInit {
   enableClear = input(false)
 
   cleared = output()
+
+  autoCompleteInput = viewChild<ElementRef>("autoCompleteInput")
 
   formControl: FormControl
   filteredValues: Observable<KeyValuePair[]>
@@ -73,6 +75,9 @@ export class InputAutocompleteComponent implements OnInit {
   onValueSelected(selectedValue: string) {
     this.value.set(selectedValue)
     this.formControl.setValue(selectedValue)
+    queueMicrotask(() => {
+      this.autoCompleteInput()!.nativeElement.blur()
+    })
   }
 
   private adjustAllValuesInput(value: string[] | KeyValuePair[]): KeyValuePair[] {

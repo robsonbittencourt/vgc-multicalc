@@ -1,6 +1,6 @@
 <div class="input-column" [ngClass]="{ 'input-row': leftLabel() }">
   <label>{{ label() }}</label>
-  <input type="text" [formControl]="formControl" [matAutocomplete]="autoPokemon" (click)="onClick()" (blur)="onBlur()" />
+  <input type="text" #autoCompleteInput [formControl]="formControl" [matAutocomplete]="autoPokemon" (click)="onClick()" (blur)="onBlur()" />
   <mat-autocomplete #autoPokemon="matAutocomplete" hideSingleSelectionIndicator="true" (optionSelected)="onValueSelected($event.option.value)">
     @for (value of filteredValues | async; track value.key) {
       <mat-option [value]="value.value" (mousedown)="$event.preventDefault()">
