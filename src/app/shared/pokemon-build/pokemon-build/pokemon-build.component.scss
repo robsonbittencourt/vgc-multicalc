@@ -58,7 +58,8 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-left: -1em;
+  margin-left: -0.5em;
+  min-width: 1.6em;
 }
 
 .reversed-bps {
