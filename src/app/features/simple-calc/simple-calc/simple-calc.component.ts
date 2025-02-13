@@ -1,4 +1,4 @@
-import { Component, computed, inject } from "@angular/core"
+import { Component, computed, inject, signal } from "@angular/core"
 import { DamageResultComponent } from "@app/features/simple-calc/damage-result/damage-result.component"
 import { FieldComponent } from "@app/shared/field/field.component"
 import { PokemonBuildComponent } from "@app/shared/pokemon-build/pokemon-build/pokemon-build.component"
@@ -9,6 +9,7 @@ import { CalculatorStore } from "@data/store/calculator-store"
 import { FieldStore } from "@data/store/field-store"
 import { DamageCalculatorService } from "@lib/damage-calculator/damage-calculator.service"
 import { DamageResult } from "@lib/damage-calculator/damage-result"
+import { RollLevelConfig } from "@lib/damage-calculator/roll-level-config"
 import { Move } from "@lib/model/move"
 
 @Component({
@@ -28,6 +29,9 @@ export class SimpleCalcComponent {
   leftDamageResult = computed(() => this.findResultByMove(this.leftDamageResults(), this.store.leftPokemon().activeMoveName))
   rightDamageResult = computed(() => this.findResultByMove(this.rightDamageResults(), this.store.rightPokemon().activeMoveName))
 
+  leftRollLevel = signal(RollLevelConfig.high())
+  rightRollLevel = signal(RollLevelConfig.high())
+
   leftMoveActivated(move: string) {
     const activatedMove = new Move(move)
     this.store.activateMove(this.store.leftPokemon().id, activatedMove)
@@ -36,6 +40,14 @@ export class SimpleCalcComponent {
   rightMoveActivated(move: string) {
     const activatedMove = new Move(move)
     this.store.activateMove(this.store.rightPokemon().id, activatedMove)
+  }
+
+  setLeftRollLevel(rollLevel: RollLevelConfig) {
+    this.leftRollLevel.set(rollLevel)
+  }
+
+  setRigthRollLevel(rollLevel: RollLevelConfig) {
+    this.rightRollLevel.set(rollLevel)
   }
 
   private findResultByMove(damageResults: DamageResult[], moveName: string): DamageResult {

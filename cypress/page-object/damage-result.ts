@@ -11,10 +11,10 @@ export class DamageResult {
     const rolls = this.baseElement().find('[data-cy="damage-rolls"]')
 
     if (minRoll == 0 && maxRoll == 0) {
-      rolls.contains(`${minRoll}`)
+      rolls.should("contains.text", `${minRoll}`)
     } else {
-      rolls.contains(`${minRoll},`)
-      rolls.contains(`,${maxRoll}`)
+      rolls.should("contains.text", `${minRoll}`)
+      rolls.should("contains.text", `${maxRoll}`)
     }
   }
 

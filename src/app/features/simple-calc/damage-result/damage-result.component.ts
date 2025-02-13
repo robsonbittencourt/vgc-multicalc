@@ -1,6 +1,5 @@
-import { NgStyle } from "@angular/common"
+import { NgClass, NgStyle } from "@angular/common"
 import { Component, computed, input, output, signal } from "@angular/core"
-import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { MatButtonToggle, MatButtonToggleGroup } from "@angular/material/button-toggle"
 import { MatChipListbox, MatChipListboxChange, MatChipOption } from "@angular/material/chips"
 import { PokemonHpBadgeComponent } from "@app/features/simple-calc/pokemon-hp-badge/pokemon-hp-badge.component"
@@ -14,15 +13,17 @@ import { Pokemon } from "@lib/model/pokemon"
   selector: "app-damage-result",
   templateUrl: "./damage-result.component.html",
   styleUrls: ["./damage-result.component.scss"],
-  imports: [WidgetComponent, NgStyle, PokemonHpBadgeComponent, MatButtonToggleGroup, MatButtonToggle, MatChipListbox, ReactiveFormsModule, FormsModule, MatChipOption, WidgetComponent, CopyButtonComponent]
+  imports: [WidgetComponent, NgStyle, NgClass, PokemonHpBadgeComponent, MatButtonToggleGroup, MatButtonToggle, MatChipListbox, MatChipOption, WidgetComponent, CopyButtonComponent]
 })
 export class DamageResultComponent {
   pokemon = input.required<Pokemon>()
   damageResults = input.required<DamageResult[]>()
   opponentDamageResult = input.required<DamageResult>()
+  opponentRollLevel = input.required<RollLevelConfig>()
   reverse = input(false)
 
   moveSetChange = output<string>()
+  rollLevelChange = output<RollLevelConfig>()
 
   rollLevelConfig = signal(RollLevelConfig.high())
 
@@ -37,7 +38,8 @@ export class DamageResultComponent {
     return [...new Set(this.activeDamageResult().rolls)]
   })
 
-  damageTaken = computed(() => this.damageTakenByRoll(this.opponentDamageResult(), this.rollLevelConfig()))
+  damageInflicted = computed(() => this.damageTakenByRoll(this.activeDamageResult(), this.rollLevelConfig()))
+  damageTaken = computed(() => this.damageTakenByRoll(this.opponentDamageResult(), this.opponentRollLevel()))
 
   moveSelected(event: MatChipListboxChange) {
     if (!event.value || event.value == this.pokemon().activeMoveName) {
@@ -49,14 +51,17 @@ export class DamageResultComponent {
 
   activateHighRoll() {
     this.rollLevelConfig.set(RollLevelConfig.high())
+    this.rollLevelChange.emit(this.rollLevelConfig())
   }
 
   activateMediumRoll() {
     this.rollLevelConfig.set(RollLevelConfig.medium())
+    this.rollLevelChange.emit(this.rollLevelConfig())
   }
 
   activateLowRoll() {
     this.rollLevelConfig.set(RollLevelConfig.low())
+    this.rollLevelChange.emit(this.rollLevelConfig())
   }
 
   private damageTakenByRoll(damageResult: DamageResult, rollLevelConfig: RollLevelConfig): number {

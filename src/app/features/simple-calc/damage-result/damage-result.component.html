@@ -6,15 +6,19 @@
       <div class="roll-level">
         <label class="label">Roll level</label>
         <mat-button-toggle-group class="button-group" [hideSingleSelectionIndicator]="true">
-          <mat-button-toggle [checked]="rollLevelConfig().high" (change)="activateHighRoll()" data-cy="high-roll">High</mat-button-toggle>
-          <mat-button-toggle [checked]="rollLevelConfig().medium" (change)="activateMediumRoll()" data-cy="medium-roll">Medium</mat-button-toggle>
           <mat-button-toggle [checked]="rollLevelConfig().low" (change)="activateLowRoll()" data-cy="low-roll">Low</mat-button-toggle>
+          <mat-button-toggle [checked]="rollLevelConfig().medium" (change)="activateMediumRoll()" data-cy="medium-roll">Medium</mat-button-toggle>
+          <mat-button-toggle [checked]="rollLevelConfig().high" (change)="activateHighRoll()" data-cy="high-roll">High</mat-button-toggle>
         </mat-button-toggle-group>
       </div>
 
       <div class="rolls">
         <label class="label">Rolls: </label>
-        <span data-cy="damage-rolls">{{ rolls() }}</span>
+        <div data-cy="damage-rolls">
+          @for (roll of rolls(); track roll) {
+            <span class="roll-value" [ngClass]="{ 'roll-highlight': roll === damageInflicted() }"> {{ roll }}</span>
+          }
+        </div>
       </div>
     </div>
 

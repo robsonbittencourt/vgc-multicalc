@@ -1,6 +1,21 @@
 <div class="container">
-  <app-damage-result [pokemon]="store.leftPokemon()" [damageResults]="leftDamageResults()" [opponentDamageResult]="rightDamageResult()" (moveSetChange)="leftMoveActivated($event)" data-cy="left-damage-result" />
-  <app-damage-result [pokemon]="store.rightPokemon()" [damageResults]="rightDamageResults()" [opponentDamageResult]="leftDamageResult()" (moveSetChange)="rightMoveActivated($event)" [reverse]="true" data-cy="right-damage-result" />
+  <app-damage-result
+    [pokemon]="store.leftPokemon()"
+    [damageResults]="leftDamageResults()"
+    [opponentDamageResult]="rightDamageResult()"
+    [opponentRollLevel]="rightRollLevel()"
+    (moveSetChange)="leftMoveActivated($event)"
+    (rollLevelChange)="setLeftRollLevel($event)"
+    data-cy="left-damage-result" />
+  <app-damage-result
+    [pokemon]="store.rightPokemon()"
+    [damageResults]="rightDamageResults()"
+    [opponentDamageResult]="leftDamageResult()"
+    [opponentRollLevel]="leftRollLevel()"
+    (moveSetChange)="rightMoveActivated($event)"
+    (rollLevelChange)="setRigthRollLevel($event)"
+    [reverse]="true"
+    data-cy="right-damage-result" />
 
   <app-widget data-cy="left-pokemon">
     <div class="pokemon-actions pokemon-actions-left">
