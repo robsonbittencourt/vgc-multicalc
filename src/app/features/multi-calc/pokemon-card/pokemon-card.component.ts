@@ -77,17 +77,15 @@ export class PokemonCardComponent {
     let evsDescription = ""
 
     if (this.isAttacker()) {
-      evsDescription = "Offensive: "
-      if (pokemon.evs.atk && pokemon.evs.atk != 0) evsDescription += `atk: ${pokemon.evs.atk} `
-      if (pokemon.evs.spa && pokemon.evs.spa != 0) evsDescription += `spa: ${pokemon.evs.spa} `
+      if (pokemon.evs.atk != 0) evsDescription += `atk: ${pokemon.evs.atk} `
+      if (pokemon.evs.spa != 0) evsDescription += `spa: ${pokemon.evs.spa} `
+      return evsDescription != "" ? `Offensive: ${evsDescription}` : "Offensive: --"
     } else {
-      evsDescription = "Bulky: "
-      if (pokemon.evs.hp && pokemon.evs.hp != 0) evsDescription += `hp: ${pokemon.evs.hp} `
-      if (pokemon.evs.def && pokemon.evs.def != 0) evsDescription += `def: ${pokemon.evs.def} `
-      if (pokemon.evs.spd && pokemon.evs.spd != 0) evsDescription += `spd: ${pokemon.evs.spd} `
+      if (pokemon.evs.hp != 0) evsDescription += `hp: ${pokemon.evs.hp} `
+      if (pokemon.evs.def != 0) evsDescription += `def: ${pokemon.evs.def} `
+      if (pokemon.evs.spd != 0) evsDescription += `spd: ${pokemon.evs.spd} `
+      return evsDescription != "" ? `Bulky: ${evsDescription}` : "Bulky: --"
     }
-
-    return evsDescription
   }
 
   cardColorClass() {
