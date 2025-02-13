@@ -1,5 +1,5 @@
 import { Component, computed, inject, signal } from "@angular/core"
-import { CopyButtonComponent } from "@app/shared/copy-button/copy-button.component"
+import { CopyButtonComponent } from "@app/shared/buttons/copy-button/copy-button.component"
 import { FieldComponent } from "@app/shared/field/field.component"
 import { PokemonBuildMobileComponent } from "@app/shared/pokemon-build/pokemon-build-mobile/pokemon-build-mobile.component"
 import { PokemonComboBoxComponent } from "@app/shared/pokemon-build/pokemon-combo-box/pokemon-combo-box.component"

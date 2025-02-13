@@ -1,19 +1,7 @@
-.container {
+:host {
   display: flex;
   align-items: flex-end;
-  gap: 0.5em;
-}
-
-.icon-tatsugiri {
-  width: auto;
-  height: 1.8em;
-  cursor: pointer;
-}
-
-.icon-booster {
-  width: auto;
-  height: 2em;
-  cursor: pointer;
+  gap: 1em;
 }
 
 .input-select {

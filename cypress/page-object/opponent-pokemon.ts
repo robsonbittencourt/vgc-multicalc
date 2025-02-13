@@ -8,7 +8,7 @@ export class OpponentPokemon {
   }
 
   terastalyze(): OpponentPokemon {
-    this._element.find(`[data-cy="terastal-button-opponent"]`).click({ force: true })
+    this._element.find(`[data-cy="terastal-button"]`).click({ force: true })
     return this
   }
 

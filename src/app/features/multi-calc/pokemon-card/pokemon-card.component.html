@@ -51,23 +51,8 @@
         </div>
 
         <div class="card-buttons">
-          @if (target().pokemon.name === "Dondozo") {
-            <button class="icon-button" (click)="toogleCommanderAbility($event)">
-              @if (target().pokemon.commanderActive) {
-                <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly.png" />
-              } @else {
-                <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly-gray.png" />
-              }
-            </button>
-          }
-
-          <button class="icon-button" (click)="terastalyzePokemon($event)" matTooltip="Terastal" [matTooltipShowDelay]="500" data-cy="terastal-button-opponent">
-            @if (target().pokemon.teraTypeActive) {
-              <img class="icon-tera" src="assets/icons/tera-icon.png" />
-            } @else {
-              <img class="icon-tera" src="assets/icons/tera-icon-gray.png" />
-            }
-          </button>
+          <app-tatsugiri-button [pokemonId]="target().pokemon.id" />
+          <app-terastal-button [pokemonId]="target().pokemon.id" />
 
           <button class="icon-button" (click)="removePokemon($event)" data-cy="delete-opponent-pokemon">
             <img class="icon-trash" src="assets/icons/trash.png" />

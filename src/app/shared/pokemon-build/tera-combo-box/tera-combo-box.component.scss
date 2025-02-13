@@ -1,13 +1,7 @@
-.container {
+:host {
   display: flex;
   align-items: flex-end;
   gap: 1em;
-}
-
-.icon-tera {
-  width: auto;
-  height: 1.8em;
-  cursor: pointer;
 }
 
 .input-select {

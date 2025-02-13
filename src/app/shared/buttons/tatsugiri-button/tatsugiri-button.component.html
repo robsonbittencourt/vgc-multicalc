@@ -1,0 +1,9 @@
+@if (isDondozo()) {
+  <div (click)="toogleCommanderAbility($event)" [matTooltipShowDelay]="1000" matTooltip="Commander" data-cy="commander">
+    @if (pokemon().commanderActive) {
+      <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly.png" data-cy="commander-activated" />
+    } @else {
+      <img class="icon-tatsugiri" src="assets/icons/tatsugiri-curly-gray.png" data-cy="commander-deactivated" />
+    }
+  </div>
+}

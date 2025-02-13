@@ -1,0 +1,9 @@
+@if (pokemon().isParadoxAbility) {
+  <div (click)="toogleBoosterEnergy($event)" matTooltip="Booster Energy" [matTooltipShowDelay]="1000" data-cy="booster-energy">
+    @if (pokemon().ability.on) {
+      <img class="icon-booster" src="assets/icons/booster-energy.png" />
+    } @else {
+      <img class="icon-booster" src="assets/icons/booster-energy-gray.png" />
+    }
+  </div>
+}
