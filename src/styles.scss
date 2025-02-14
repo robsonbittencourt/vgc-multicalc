@@ -141,6 +141,13 @@ body {
       unselected-pressed-handle-color: var(--highlight)
     )
   );
+
+  @include mat.snack-bar-overrides(
+    (
+      container-color: var(--highlight),
+      supporting-text-color: var(--text-strong)
+    )
+  );
 }
 
 app-header,
