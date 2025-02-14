@@ -197,7 +197,7 @@ export class Pokemon {
   }
 
   get modifiedAtk(): number {
-    return this.getModifiedStat(this.smogonPokemon, "atk")
+    return this.getModifiedStat("atk")
   }
 
   get baseDef(): number {
@@ -205,7 +205,7 @@ export class Pokemon {
   }
 
   get modifiedDef(): number {
-    return this.getModifiedStat(this.smogonPokemon, "def")
+    return this.getModifiedStat("def")
   }
 
   get baseSpa(): number {
@@ -213,7 +213,7 @@ export class Pokemon {
   }
 
   get modifiedSpa(): number {
-    return this.getModifiedStat(this.smogonPokemon, "spa")
+    return this.getModifiedStat("spa")
   }
 
   get baseSpd(): number {
@@ -221,7 +221,7 @@ export class Pokemon {
   }
 
   get modifiedSpd(): number {
-    return this.getModifiedStat(this.smogonPokemon, "spd")
+    return this.getModifiedStat("spd")
   }
 
   get baseSpe(): number {
@@ -229,12 +229,11 @@ export class Pokemon {
   }
 
   get bst(): number {
-    const baseStats = this.smogonPokemon.species.baseStats
-    return baseStats.hp + baseStats.atk + baseStats.def + baseStats.spa + baseStats.spd + baseStats.spe
+    return this.baseHp + this.baseAtk + this.baseDef + this.baseSpa + this.baseSpd + this.baseSpe
   }
 
   get modifiedSpe(): number {
-    return this.getModifiedStat(this.smogonPokemon, "spe")
+    return this.getModifiedStat("spe")
   }
 
   get isParadoxAbility() {
@@ -294,8 +293,8 @@ export class Pokemon {
     return smogonPokemon.ability == "Protosynthesis" || smogonPokemon.ability == "Quark Drive"
   }
 
-  private getModifiedStat(smogonPokemon: SmogonPokemon, stat: StatID) {
-    return this.smogonFunctions.getModifiedStat(smogonPokemon.rawStats[stat], smogonPokemon.boosts[stat])
+  private getModifiedStat(stat: StatID) {
+    return this.smogonFunctions.getModifiedStat(this.smogonPokemon.rawStats[stat], this.smogonPokemon.boosts[stat])
   }
 
   private baseStatWithBeneficalNature(): StatID | undefined {

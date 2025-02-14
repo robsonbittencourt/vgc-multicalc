@@ -78,7 +78,10 @@ export class SmogonFunctions {
     let bestStat: StatID = "atk"
 
     for (const stat of ["def", "spa", "spd", "spe"] as StatIDExceptHP[]) {
-      if (smogonPokemon.rawStats[stat] > smogonPokemon.rawStats[bestStat]) {
+      const actual = this.getModifiedStat(smogonPokemon.rawStats[stat], smogonPokemon.boosts[stat])
+      const best = this.getModifiedStat(smogonPokemon.rawStats[bestStat], smogonPokemon.boosts[bestStat])
+
+      if (actual > best) {
         bestStat = stat
       }
     }

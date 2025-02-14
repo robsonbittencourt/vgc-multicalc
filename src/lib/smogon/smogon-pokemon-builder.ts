@@ -55,6 +55,7 @@ export class SmogonPokemonBuilder {
 
     return smogonPokemon
   }
+
   private applyStatBoost(smogonPokemon: SmogonPokemon, ability: Ability) {
     if (ability.paradoxAbility && smogonPokemon.abilityOn) {
       smogonPokemon.boostedStat = this.smogonFunctions.higherStat(smogonPokemon)

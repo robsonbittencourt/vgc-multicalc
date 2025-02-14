@@ -78,7 +78,7 @@ describe("Speed Calculator", () => {
       cy.wait(300)
 
       speedCalculator.speedTierIs(0, "Koraidon", 82, "Meta")
-      speedCalculator.speedTierIs(58, "Flutter Mane", 144, "Booster")
+      speedCalculator.speedTierIs(50, "Regieleki", 138, "Max")
     })
 
     it("decrement speed of opponent Pokémon with Ice Wind", () => {
@@ -119,8 +119,8 @@ describe("Speed Calculator", () => {
       speedCalculator.choiceScarf()
       cy.wait(300)
 
-      speedCalculator.speedTierIs(0, "Kyogre", 78, "Scarf")
-      speedCalculator.speedTierIs(48, "Flutter Mane", 144, "Booster")
+      speedCalculator.speedTierIs(0, "Annihilape", 78, "Scarf")
+      speedCalculator.speedTierIs(39, "Regieleki", 138, "Scarf")
     })
   })
 
