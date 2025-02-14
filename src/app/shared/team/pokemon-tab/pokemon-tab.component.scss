@@ -3,9 +3,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
   min-width: 8em;
-  min-height: 5em;
-  height: 100%;
+  height: 6em;
 }
 
 .tab:hover {
@@ -23,7 +23,6 @@
 .pokemon-image-small {
   width: 5em;
   height: auto;
-  margin-bottom: -0.1em;
 }
 
 .active-tab {
