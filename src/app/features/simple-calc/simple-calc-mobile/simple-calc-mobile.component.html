@@ -8,8 +8,8 @@
       </div>
     </div>
     <div class="pokemon-tabs">
-      <app-pokemon-tab [active]="leftIsAttacker()" [pokemonId]="store.leftPokemon().id" (tabActivated)="activatePokemon()" />
-      <app-pokemon-tab [active]="rightIsAttacker()" [pokemonId]="store.rightPokemon().id" (tabActivated)="activatePokemon()" />
+      <app-pokemon-tab [active]="leftIsAttacker()" [pokemonId]="store.leftPokemon().id" (tabActivated)="activateLeftPokemon()" />
+      <app-pokemon-tab [active]="rightIsAttacker()" [pokemonId]="store.rightPokemon().id" (tabActivated)="activateRightPokemon()" />
     </div>
   </div>
 

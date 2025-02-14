@@ -35,12 +35,12 @@ export class SimpleCalcMobileComponent {
     }
   })
 
-  activatePokemon() {
-    if (this.leftIsAttacker()) {
-      this.attacker.set(this.store.rightPokemon())
-    } else {
-      this.attacker.set(this.store.leftPokemon())
-    }
+  activateLeftPokemon() {
+    this.attacker.set(this.store.leftPokemon())
+  }
+
+  activateRightPokemon() {
+    this.attacker.set(this.store.rightPokemon())
   }
 
   pokemonChanged() {
