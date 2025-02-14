@@ -1,6 +1,6 @@
 .import-textarea {
   height: 30em;
-  width: 30em;
+  width: clamp(23em, 80vw, 30em);
   padding-left: 0.5em;
   background-color: var(--widget-background);
 }

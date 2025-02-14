@@ -1,6 +1,6 @@
-import { Component, inject, input } from "@angular/core"
+import { Component, computed, inject, input } from "@angular/core"
 import { MatIcon } from "@angular/material/icon"
-import { Pokemon } from "@lib/model/pokemon"
+import { CalculatorStore } from "@data/store/calculator-store"
 import { ExportPokeService } from "@lib/user-data/export-poke.service"
 
 @Component({
@@ -10,9 +10,13 @@ import { ExportPokeService } from "@lib/user-data/export-poke.service"
   imports: [MatIcon]
 })
 export class ExportPokemonButtonComponent {
-  pokemon = input.required<Pokemon>()
+  pokemonId = input.required<string>()
   show = input(true)
   hidden = input(false)
+
+  store = inject(CalculatorStore)
+
+  pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
 
   private exportPokeService = inject(ExportPokeService)
 

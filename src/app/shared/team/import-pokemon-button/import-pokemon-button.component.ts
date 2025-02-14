@@ -23,6 +23,7 @@ export class ImportPokemonButtonComponent {
 
   importPokemon() {
     const dialogRef = this.dialog.open(TeamImportModalComponent, {
+      data: { placeholder: "Pokémon build in text format" },
       position: { top: "2em" },
       scrollStrategy: new NoopScrollStrategy()
     })

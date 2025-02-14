@@ -13,8 +13,14 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  gap: 1em;
   max-width: 35%;
   margin-left: 0.75em;
+}
+
+.import-export {
+  display: flex;
+  gap: 1em;
 }
 
 .pokemon-tabs {
@@ -24,7 +30,6 @@
 .damage-result {
   display: flex;
   justify-content: space-between;
-
   align-items: center;
   gap: 1em;
   margin: 1.5em 0.75em 0em 0.75em;

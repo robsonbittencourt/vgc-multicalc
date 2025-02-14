@@ -1,8 +1,8 @@
 import { CdkScrollable } from "@angular/cdk/scrolling"
-import { Component } from "@angular/core"
+import { Component, Inject } from "@angular/core"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { MatButton } from "@angular/material/button"
-import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle } from "@angular/material/dialog"
+import { MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle } from "@angular/material/dialog"
 
 @Component({
   selector: "app-team-import-modal",
@@ -12,4 +12,9 @@ import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle } fr
 })
 export class TeamImportModalComponent {
   content: string
+  placeholder: string
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: { placeholder: string }) {
+    this.placeholder = data.placeholder
+  }
 }

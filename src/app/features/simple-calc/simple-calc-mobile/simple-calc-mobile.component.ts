@@ -3,16 +3,19 @@ import { CopyButtonComponent } from "@app/shared/buttons/copy-button/copy-button
 import { FieldComponent } from "@app/shared/field/field.component"
 import { PokemonBuildMobileComponent } from "@app/shared/pokemon-build/pokemon-build-mobile/pokemon-build-mobile.component"
 import { PokemonComboBoxComponent } from "@app/shared/pokemon-build/pokemon-combo-box/pokemon-combo-box.component"
+import { ExportPokemonButtonComponent } from "@app/shared/team/export-pokemon-button/export-pokemon-button.component"
+import { ImportPokemonButtonComponent } from "@app/shared/team/import-pokemon-button/import-pokemon-button.component"
 import { PokemonTabComponent } from "@app/shared/team/pokemon-tab/pokemon-tab.component"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { FieldStore } from "@data/store/field-store"
 import { DamageCalculatorService } from "@lib/damage-calculator/damage-calculator.service"
+import { Pokemon } from "@lib/model/pokemon"
 
 @Component({
   selector: "app-simple-calc-mobile",
   templateUrl: "./simple-calc-mobile.component.html",
   styleUrls: ["./simple-calc-mobile.component.scss"],
-  imports: [PokemonComboBoxComponent, PokemonTabComponent, PokemonBuildMobileComponent, FieldComponent, CopyButtonComponent]
+  imports: [PokemonComboBoxComponent, PokemonTabComponent, PokemonBuildMobileComponent, FieldComponent, CopyButtonComponent, ImportPokemonButtonComponent, ExportPokemonButtonComponent]
 })
 export class SimpleCalcMobileComponent {
   store = inject(CalculatorStore)
@@ -45,6 +48,16 @@ export class SimpleCalcMobileComponent {
       this.attacker.set(this.store.leftPokemon())
     } else {
       this.attacker.set(this.store.rightPokemon())
+    }
+  }
+
+  importPokemon(pokemon: Pokemon) {
+    if (this.leftIsAttacker()) {
+      this.attacker.set(pokemon)
+      this.store.changeLeftPokemon(pokemon)
+    } else {
+      this.attacker.set(pokemon)
+      this.store.changeRightPokemon(pokemon)
     }
   }
 }

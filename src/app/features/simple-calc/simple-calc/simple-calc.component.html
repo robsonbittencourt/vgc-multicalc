@@ -20,7 +20,7 @@
   <app-widget data-cy="left-pokemon">
     <div class="pokemon-actions pokemon-actions-left">
       <app-import-pokemon-button (pokemonImportedEvent)="store.changeLeftPokemon($event)" />
-      <app-export-pokemon-button [pokemon]="store.leftPokemon()" />
+      <app-export-pokemon-button [pokemonId]="store.leftPokemon().id" />
     </div>
     <app-pokemon-build [pokemonId]="store.leftPokemon().id" />
   </app-widget>
@@ -28,7 +28,7 @@
   <app-widget data-cy="right-pokemon">
     <div class="pokemon-actions pokemon-actions-right">
       <app-import-pokemon-button (pokemonImportedEvent)="store.changeRightPokemon($event)" />
-      <app-export-pokemon-button [pokemon]="store.rightPokemon()" />
+      <app-export-pokemon-button [pokemonId]="store.rightPokemon().id" />
     </div>
     <app-pokemon-build [pokemonId]="store.rightPokemon().id" [reverse]="true" />
   </app-widget>

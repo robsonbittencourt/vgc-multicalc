@@ -31,6 +31,7 @@ export class TeamsComponent {
 
   async addFromPokePaste() {
     const dialogRef = this.dialog.open(TeamImportModalComponent, {
+      data: { placeholder: "PokePaste link or team in text format" },
       position: { top: "2em" },
       scrollStrategy: new NoopScrollStrategy()
     })
