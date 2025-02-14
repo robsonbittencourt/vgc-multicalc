@@ -1,5 +1,7 @@
 import { DamageResult } from "@page-object/damage-result"
+import { Opponent } from "@page-object/opponent"
 import { PokemonBuild } from "@page-object/pokemon-build"
+import { Team } from "@page-object/team"
 
 const leftDamageResult = new DamageResult("left-damage-result")
 
@@ -178,6 +180,69 @@ describe("Test calcs with Paradox Pokémon and ability activated", () => {
       rightPokemonBuild.activateBoosterEnergy()
 
       leftDamageResult.damageIs(2, 28.3, 33.5, 44, 52)
+    })
+  })
+})
+
+describe.only("Test calcs with Paradox Pokémon in opponent side", () => {
+  const pokemonBuild = new PokemonBuild("your-team")
+  const team = new Team()
+  const opponents = new Opponent()
+
+  describe("in Team x Many", () => {
+    beforeEach(() => {
+      cy.get('[data-cy="team-vs-many"]').click()
+
+      team.delete("Team 1")
+      opponents.deleteAll()
+    })
+
+    it("team Pokémon with booster in spa x opponent Pokémon", () => {
+      pokemonBuild.importPokemon(flutterManeHighSpaData)
+      opponents.importPokemon(tornadusData)
+
+      team.selectPokemon("Flutter Mane").activateBoosterEnergy()
+
+      opponents.get("Tornadus").damageIs(76.1, 90.9).cause2HKO()
+    })
+
+    it("team Pokémon x opponent Pokémon with booster in spd", () => {
+      pokemonBuild.importPokemon(tornadusData)
+      opponents.importPokemon(flutterManeHighSpdData)
+
+      team.selectPokemon("Tornadus")
+      opponents.selectPokemon("Flutter Mane").activateBoosterEnergy()
+
+      opponents.get("Flutter Mane").damageIs(26.1, 32.3).cause4HKO()
+    })
+  })
+
+  describe("in Many x Team", () => {
+    beforeEach(() => {
+      cy.get('[data-cy="many-vs-team"]').click()
+
+      team.delete("Team 1")
+      opponents.deleteAll()
+    })
+
+    it("opponent Pokémon x team Pokémon with booster in spd", () => {
+      pokemonBuild.importPokemon(flutterManeHighSpdData)
+      opponents.importPokemon(tornadusData)
+
+      team.selectPokemon("Flutter Mane").activateBoosterEnergy()
+      opponents.selectPokemon("Tornadus")
+
+      opponents.get("Tornadus").damageIs(26.1, 32.3).cause4HKO()
+    })
+
+    it("opponent Pokémon with booster in spa x team Pokémon", () => {
+      pokemonBuild.importPokemon(tornadusData)
+      opponents.importPokemon(flutterManeHighSpaData)
+
+      team.selectPokemon("Tornadus")
+      opponents.selectPokemon("Flutter Mane").activateBoosterEnergy()
+
+      opponents.get("Flutter Mane").damageIs(76.1, 90.9).cause2HKO()
     })
   })
 })

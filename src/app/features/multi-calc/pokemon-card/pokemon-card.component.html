@@ -52,6 +52,7 @@
 
         <div class="card-buttons">
           <app-tatsugiri-button [pokemonId]="target().pokemon.id" />
+          <app-booster-energy-button [pokemonId]="target().pokemon.id" />
           <app-terastal-button [pokemonId]="target().pokemon.id" />
 
           <button class="icon-button" (click)="removePokemon($event)" data-cy="delete-opponent-pokemon">

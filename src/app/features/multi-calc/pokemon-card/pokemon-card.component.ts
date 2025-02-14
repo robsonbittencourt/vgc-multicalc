@@ -3,6 +3,7 @@ import { Component, computed, inject, input, output } from "@angular/core"
 import { MatCard, MatCardMdImage, MatCardSubtitle, MatCardTitle, MatCardTitleGroup } from "@angular/material/card"
 import { MatIcon } from "@angular/material/icon"
 import { MatTooltip } from "@angular/material/tooltip"
+import { BoosterEnergyButtonComponent } from "@app/shared/buttons/booster-energy-button/booster-energy-button.component"
 import { TatsugiriButtonComponent } from "@app/shared/buttons/tatsugiri-button/tatsugiri-button.component"
 import { TerastalButtonComponent } from "@app/shared/buttons/terastal-button/terastal-button.component"
 import { CalculatorStore } from "@data/store/calculator-store"
@@ -14,7 +15,7 @@ import { Target } from "@lib/model/target"
   selector: "app-pokemon-card",
   templateUrl: "./pokemon-card.component.html",
   styleUrls: ["./pokemon-card.component.scss"],
-  imports: [MatCard, NgClass, MatCardTitleGroup, MatCardTitle, MatCardSubtitle, MatTooltip, MatIcon, MatCardMdImage, TatsugiriButtonComponent, TerastalButtonComponent]
+  imports: [MatCard, NgClass, MatCardTitleGroup, MatCardTitle, MatCardSubtitle, MatTooltip, MatIcon, MatCardMdImage, TatsugiriButtonComponent, TerastalButtonComponent, BoosterEnergyButtonComponent]
 })
 export class PokemonCardComponent {
   store = inject(CalculatorStore)
