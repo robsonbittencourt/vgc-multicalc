@@ -1,9 +1,9 @@
 import { Component, computed, inject, signal } from "@angular/core"
 import { DamageResultComponent } from "@app/features/simple-calc/damage-result/damage-result.component"
+import { ExportPokemonButtonComponent } from "@app/shared/buttons/export-pokemon-button/export-pokemon-button.component"
+import { ImportPokemonButtonComponent } from "@app/shared/buttons/import-pokemon-button/import-pokemon-button.component"
 import { FieldComponent } from "@app/shared/field/field.component"
 import { PokemonBuildComponent } from "@app/shared/pokemon-build/pokemon-build/pokemon-build.component"
-import { ExportPokemonButtonComponent } from "@app/shared/team/export-pokemon-button/export-pokemon-button.component"
-import { ImportPokemonButtonComponent } from "@app/shared/team/import-pokemon-button/import-pokemon-button.component"
 import { WidgetComponent } from "@app/widget/widget.component"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { FieldStore } from "@data/store/field-store"
@@ -11,6 +11,7 @@ import { DamageCalculatorService } from "@lib/damage-calculator/damage-calculato
 import { DamageResult } from "@lib/damage-calculator/damage-result"
 import { RollLevelConfig } from "@lib/damage-calculator/roll-level-config"
 import { Move } from "@lib/model/move"
+import { Pokemon } from "@lib/model/pokemon"
 
 @Component({
   selector: "app-simple-calc",
@@ -48,6 +49,14 @@ export class SimpleCalcComponent {
 
   setRigthRollLevel(rollLevel: RollLevelConfig) {
     this.rightRollLevel.set(rollLevel)
+  }
+
+  leftPokemonImported(pokemon: Pokemon | Pokemon[]) {
+    this.store.changeLeftPokemon(pokemon as Pokemon)
+  }
+
+  rightPokemonImported(pokemon: Pokemon | Pokemon[]) {
+    this.store.changeRightPokemon(pokemon as Pokemon)
   }
 
   private findResultByMove(damageResults: DamageResult[], moveName: string): DamageResult {

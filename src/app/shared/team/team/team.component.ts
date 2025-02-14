@@ -1,9 +1,9 @@
 import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, effect, inject, input, signal } from "@angular/core"
 import { MatIcon } from "@angular/material/icon"
 import { RouterOutlet } from "@angular/router"
+import { ExportPokemonButtonComponent } from "@app/shared/buttons/export-pokemon-button/export-pokemon-button.component"
+import { ImportPokemonButtonComponent } from "@app/shared/buttons/import-pokemon-button/import-pokemon-button.component"
 import { PokemonBuildComponent } from "@app/shared/pokemon-build/pokemon-build/pokemon-build.component"
-import { ExportPokemonButtonComponent } from "@app/shared/team/export-pokemon-button/export-pokemon-button.component"
-import { ImportPokemonButtonComponent } from "@app/shared/team/import-pokemon-button/import-pokemon-button.component"
 import { PokemonTabComponent } from "@app/shared/team/pokemon-tab/pokemon-tab.component"
 import { WidgetComponent } from "@app/widget/widget.component"
 import { CalculatorStore } from "@data/store/calculator-store"
@@ -116,8 +116,8 @@ export class TeamComponent {
     return this.isAttacker() && !this.pokemonOnEdit().isDefault && this.pokemonOnEdit().id === this.store.attackerId()
   }
 
-  pokemonImported(pokemon: Pokemon) {
-    const newTeamMember = new TeamMember(pokemon, false)
+  pokemonImported(pokemon: Pokemon | Pokemon[]) {
+    const newTeamMember = new TeamMember(pokemon as Pokemon, false)
 
     const actualTeam = this.store.team()
     const newTeamMembers = [...actualTeam.teamMembers]

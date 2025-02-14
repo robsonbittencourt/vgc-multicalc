@@ -1,10 +1,10 @@
 import { Component, computed, inject, signal } from "@angular/core"
 import { CopyButtonComponent } from "@app/shared/buttons/copy-button/copy-button.component"
+import { ExportPokemonButtonComponent } from "@app/shared/buttons/export-pokemon-button/export-pokemon-button.component"
+import { ImportPokemonButtonComponent } from "@app/shared/buttons/import-pokemon-button/import-pokemon-button.component"
 import { FieldComponent } from "@app/shared/field/field.component"
 import { PokemonBuildMobileComponent } from "@app/shared/pokemon-build/pokemon-build-mobile/pokemon-build-mobile.component"
 import { PokemonComboBoxComponent } from "@app/shared/pokemon-build/pokemon-combo-box/pokemon-combo-box.component"
-import { ExportPokemonButtonComponent } from "@app/shared/team/export-pokemon-button/export-pokemon-button.component"
-import { ImportPokemonButtonComponent } from "@app/shared/team/import-pokemon-button/import-pokemon-button.component"
 import { PokemonTabComponent } from "@app/shared/team/pokemon-tab/pokemon-tab.component"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { FieldStore } from "@data/store/field-store"
@@ -51,13 +51,15 @@ export class SimpleCalcMobileComponent {
     }
   }
 
-  importPokemon(pokemon: Pokemon) {
+  importPokemon(pokemon: Pokemon | Pokemon[]) {
+    const singlePokemon = pokemon as Pokemon
+
     if (this.leftIsAttacker()) {
-      this.attacker.set(pokemon)
-      this.store.changeLeftPokemon(pokemon)
+      this.attacker.set(singlePokemon)
+      this.store.changeLeftPokemon(singlePokemon)
     } else {
-      this.attacker.set(pokemon)
-      this.store.changeRightPokemon(pokemon)
+      this.attacker.set(singlePokemon)
+      this.store.changeRightPokemon(singlePokemon)
     }
   }
 }

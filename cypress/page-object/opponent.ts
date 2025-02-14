@@ -45,7 +45,7 @@ export class Opponent {
   }
 
   importPokemon(pokemonData: string) {
-    cy.get('[data-cy="import-pokemon-to-opponent"]').click({ force: true })
+    cy.get('[data-cy="opponent-widget"]').find('[data-cy="import-pokemon"]').click()
     new ImportModal().import(pokemonData)
   }
 

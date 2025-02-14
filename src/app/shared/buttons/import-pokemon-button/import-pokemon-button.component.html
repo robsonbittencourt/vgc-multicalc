@@ -1,0 +1,10 @@
+@if (show()) {
+  @if (singlePokemon()) {
+    <div class="import-pokemon" [hidden]="hidden()" (click)="importPokemon()" data-cy="import-pokemon">
+      <mat-icon class="icon">download</mat-icon>
+      <label>Import</label>
+    </div>
+  } @else {
+    <button mat-flat-button (click)="importPokemon()" data-cy="import-pokemon">Import</button>
+  }
+}

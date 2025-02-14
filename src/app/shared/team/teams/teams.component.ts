@@ -1,65 +1,52 @@
-import { NoopScrollStrategy } from "@angular/cdk/overlay"
 import { Component, inject } from "@angular/core"
-import { FormsModule, ReactiveFormsModule } from "@angular/forms"
+import { FormsModule } from "@angular/forms"
 import { MatButton } from "@angular/material/button"
-import { MatDialog } from "@angular/material/dialog"
 import { MatFormField, MatInput } from "@angular/material/input"
+import { ImportPokemonButtonComponent } from "@app/shared/buttons/import-pokemon-button/import-pokemon-button.component"
 import { TeamBoxComponent } from "@app/shared/team/team-box/team-box.component"
-import { TeamImportModalComponent } from "@app/shared/team/team-import-modal/team-import-modal.component"
+import { WidgetComponent } from "@app/widget/widget.component"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { defaultPokemon } from "@lib/default-pokemon"
+import { Pokemon } from "@lib/model/pokemon"
 import { Team } from "@lib/model/team"
 import { TeamMember } from "@lib/model/team-member"
 import { SnackbarService } from "@lib/snackbar.service"
 import { ExportPokeService } from "@lib/user-data/export-poke.service"
-import { PokePasteParserService } from "@lib/user-data/poke-paste-parser.service"
 import { v4 as uuidv4 } from "uuid"
-import { WidgetComponent } from "../../../widget/widget.component"
 
 @Component({
   selector: "app-teams",
   templateUrl: "./teams.component.html",
   styleUrls: ["./teams.component.scss"],
-  imports: [WidgetComponent, MatFormField, MatInput, ReactiveFormsModule, FormsModule, MatButton, TeamBoxComponent, WidgetComponent]
+  imports: [WidgetComponent, MatFormField, MatInput, FormsModule, MatButton, TeamBoxComponent, WidgetComponent, ImportPokemonButtonComponent]
 })
 export class TeamsComponent {
   store = inject(CalculatorStore)
-  private pokePasteService = inject(PokePasteParserService)
   private exportPokeService = inject(ExportPokeService)
   private snackBar = inject(SnackbarService)
-  private dialog = inject(MatDialog)
 
-  async addFromPokePaste() {
-    const dialogRef = this.dialog.open(TeamImportModalComponent, {
-      data: { placeholder: "PokePaste link or team in text format" },
-      position: { top: "2em" },
-      scrollStrategy: new NoopScrollStrategy()
-    })
+  pokemonImported(pokemon: Pokemon | Pokemon[]) {
+    const pokemonList = pokemon as Pokemon[]
 
-    dialogRef.afterClosed().subscribe(async result => {
-      if (!result) return
+    const teamSlotToImport = this.store.teams().find(t => t.onlyHasDefaultPokemon()) ?? this.store.teams()[this.store.teams().length - 1]
 
-      const pokemonList = await this.pokePasteService.parse(result)
-      const teamSlotToImport = this.store.teams().find(t => t.onlyHasDefaultPokemon()) ?? this.store.teams()[this.store.teams().length - 1]
+    const teamMembers: TeamMember[] = []
 
-      const teamMembers: TeamMember[] = []
+    for (let index = 0; index < pokemonList.length; index++) {
+      const pokemon = pokemonList[index]
+      const active = index == 0
+      teamMembers.push(new TeamMember(pokemon, active))
+    }
 
-      for (let index = 0; index < pokemonList.length; index++) {
-        const pokemon = pokemonList[index]
-        const active = index == 0
-        teamMembers.push(new TeamMember(pokemon, active))
-      }
+    if (teamMembers.length < 6) {
+      teamMembers.push(new TeamMember(defaultPokemon()))
+    }
 
-      if (teamMembers.length < 6) {
-        teamMembers.push(new TeamMember(defaultPokemon()))
-      }
+    const teamToImport = new Team(uuidv4(), teamSlotToImport.active, teamSlotToImport.name, teamMembers)
 
-      const teamToImport = new Team(uuidv4(), teamSlotToImport.active, teamSlotToImport.name, teamMembers)
+    this.store.replaceTeam(teamToImport, teamSlotToImport.id)
 
-      this.store.replaceTeam(teamToImport, teamSlotToImport.id)
-
-      this.snackBar.open("Team imported from PokePaste")
-    })
+    this.snackBar.open("Team imported from PokePaste")
   }
 
   activateTeam(team: Team) {

@@ -1,12 +1,10 @@
-import { NoopScrollStrategy } from "@angular/cdk/overlay"
 import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, inject, input, output } from "@angular/core"
 import { MatButton } from "@angular/material/button"
-import { MatDialog } from "@angular/material/dialog"
 import { MatSlideToggle } from "@angular/material/slide-toggle"
 import { AddPokemonCardComponent } from "@app/features/multi-calc/add-pokemon-card/add-pokemon-card.component"
 import { PokemonCardComponent } from "@app/features/multi-calc/pokemon-card/pokemon-card.component"
 import { CopyButtonComponent } from "@app/shared/buttons/copy-button/copy-button.component"
-import { TeamImportModalComponent } from "@app/shared/team/team-import-modal/team-import-modal.component"
+import { ImportPokemonButtonComponent } from "@app/shared/buttons/import-pokemon-button/import-pokemon-button.component"
 import { WidgetComponent } from "@app/widget/widget.component"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { MenuStore } from "@data/store/menu-store"
@@ -16,13 +14,12 @@ import { Pokemon } from "@lib/model/pokemon"
 import { Target } from "@lib/model/target"
 import { SnackbarService } from "@lib/snackbar.service"
 import { ExportPokeService } from "@lib/user-data/export-poke.service"
-import { PokePasteParserService } from "@lib/user-data/poke-paste-parser.service"
 
 @Component({
   selector: "app-target-pokemon",
   templateUrl: "./target-pokemon.component.html",
   styleUrls: ["./target-pokemon.component.scss"],
-  imports: [WidgetComponent, MatButton, MatSlideToggle, PokemonCardComponent, AddPokemonCardComponent, CopyButtonComponent],
+  imports: [WidgetComponent, MatButton, MatSlideToggle, PokemonCardComponent, AddPokemonCardComponent, CopyButtonComponent, ImportPokemonButtonComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class TargetPokemonComponent {
@@ -37,9 +34,7 @@ export class TargetPokemonComponent {
 
   store = inject(CalculatorStore)
   menuStore = inject(MenuStore)
-  private pokePasteService = inject(PokePasteParserService)
   private exportPokeService = inject(ExportPokeService)
-  private dialog = inject(MatDialog)
   private snackBar = inject(SnackbarService)
 
   title = computed(() => (this.isAttacker() ? "Opponent Attackers" : "Opponent Defenders"))
@@ -62,35 +57,25 @@ export class TargetPokemonComponent {
     this.store.removeAllTargets()
   }
 
-  async importPokemon() {
-    const dialogRef = this.dialog.open(TeamImportModalComponent, {
-      data: { placeholder: "PokePaste link or team in text format" },
-      position: { top: "2em" },
-      scrollStrategy: new NoopScrollStrategy()
-    })
+  pokemonImported(pokemon: Pokemon | Pokemon[]) {
+    const pokemonList = pokemon as Pokemon[]
+    const newTargets = []
 
-    dialogRef.afterClosed().subscribe(async result => {
-      if (!result) return
-
-      const pokemonList = await this.pokePasteService.parse(result)
-      const newTargets = []
-
-      for (const pokemon of pokemonList) {
-        if (!this.alreadyExists(pokemon)) {
-          newTargets.push(new Target(pokemon))
-        }
+    for (const pokemon of pokemonList) {
+      if (!this.alreadyExists(pokemon)) {
+        newTargets.push(new Target(pokemon))
       }
+    }
 
-      this.targetsImported.emit()
+    this.targetsImported.emit()
 
-      const allTargets = this.targets()
-        .filter(t => !t.pokemon.isDefault)
-        .concat(newTargets)
+    const allTargets = this.targets()
+      .filter(t => !t.pokemon.isDefault)
+      .concat(newTargets)
 
-      this.store.updateTargets(allTargets)
+    this.store.updateTargets(allTargets)
 
-      this.snackBar.open("Pokémon from PokePaste added")
-    })
+    this.snackBar.open("Pokémon from PokePaste added")
   }
 
   private alreadyExists(pokemon: Pokemon): boolean {

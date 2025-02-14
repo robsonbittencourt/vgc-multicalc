@@ -95,8 +95,7 @@ export class Team {
   }
 
   importPokemon(pokemonData: string): PokemonBuild {
-    cy.get('[data-cy="import-pokemon-to-team"]').contains("Import").click({ force: true })
-    new ImportModal().import(pokemonData)
+    new PokemonBuild("your-team").importPokemon(pokemonData)
 
     const pokemonName = this.extractPokemonName(pokemonData)
     this.selectPokemon(pokemonName)
@@ -105,7 +104,7 @@ export class Team {
   }
 
   importPokepaste(pokepaste: string) {
-    cy.get('[data-cy="import-pokepaste-to-team"]').click({ force: true })
+    cy.get('[data-cy="teams-widget"]').find('[data-cy="import-pokemon"]').click()
     new ImportModal().import(pokepaste)
   }
 
