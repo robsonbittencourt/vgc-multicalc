@@ -43,7 +43,7 @@ generate_badge_template() {
   local sha=$2
   local commit_scope=$3
   local badge_color=$4
-  local commit_message=$5
+  local commit_message=$(remove_commit_scope "$5")
   
   echo "| [![Static Badge](https://img.shields.io/badge/${sha_resumido}-${commit_scope}-${badge_color})](https://github.com/robsonbittencourt/vgc-multicalc/commit/${sha}) | ${commit_message} |"
 }
@@ -70,22 +70,26 @@ generate_changes_link() {
   local tag1=$1
   local tag2=$2
   echo "[All changes since the last version](https://github.com/robsonbittencourt/vgc-multicalc/compare/${tag2}...${tag1})"
-  echo -e "\n"
+  echo -e ""
 }
 
 generate_commit_templates() {
   local commits=$1
 
   while IFS=" " read -r sha_resumido sha commit_message; do
-    echo "### ${commit_message}"
+    echo "### $(remove_commit_scope "$commit_message")"
     commit_description=$(get_commit_description $sha_resumido)
 
     if [ -n "$commit_description" ]; then
       echo "${commit_description}"
     fi
     
-    echo -e "\n"
+    echo -e ""
   done <<< "$commits"
+}
+
+remove_commit_scope() {
+  echo "$1" | sed 's/^.*: //'
 }
 
 tags=($(get_recent_tags))
