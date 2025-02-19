@@ -76,10 +76,6 @@
   </div>
 
   <div class="stat-value">
-    @if (reduced()) {
-      <label>{{ statValue() }}</label>
-    } @else {
-      <label>{{ natureModifier() }}{{ statValue() }}</label>
-    }
+    <label>{{ natureModifier() }}{{ statValue() }}</label>
   </div>
 </div>
