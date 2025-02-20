@@ -1,39 +1,35 @@
-<div class="container">
-  <app-damage-result
-    [pokemon]="store.leftPokemon()"
-    [damageResults]="leftDamageResults()"
-    [opponentDamageResult]="rightDamageResult()"
-    [opponentRollLevel]="rightRollLevel()"
-    (moveSetChange)="leftMoveActivated($event)"
-    (rollLevelChange)="setLeftRollLevel($event)"
-    data-cy="left-damage-result" />
-  <app-damage-result
-    [pokemon]="store.rightPokemon()"
-    [damageResults]="rightDamageResults()"
-    [opponentDamageResult]="leftDamageResult()"
-    [opponentRollLevel]="leftRollLevel()"
-    (moveSetChange)="rightMoveActivated($event)"
-    (rollLevelChange)="setRigthRollLevel($event)"
-    [reverse]="true"
-    data-cy="right-damage-result" />
+<app-damage-result
+  [pokemon]="store.leftPokemon()"
+  [damageResults]="leftDamageResults()"
+  [opponentDamageResult]="rightDamageResult()"
+  [opponentRollLevel]="rightRollLevel()"
+  (moveSetChange)="leftMoveActivated($event)"
+  (rollLevelChange)="setLeftRollLevel($event)"
+  data-cy="left-damage-result" />
+<app-damage-result
+  [pokemon]="store.rightPokemon()"
+  [damageResults]="rightDamageResults()"
+  [opponentDamageResult]="leftDamageResult()"
+  [opponentRollLevel]="leftRollLevel()"
+  (moveSetChange)="rightMoveActivated($event)"
+  (rollLevelChange)="setRigthRollLevel($event)"
+  [reverse]="true"
+  data-cy="right-damage-result" />
 
-  <app-widget data-cy="left-pokemon">
-    <div class="pokemon-actions pokemon-actions-left">
-      <app-import-pokemon-button (pokemonImportedEvent)="leftPokemonImported($event)" />
-      <app-export-pokemon-button [pokemonId]="store.leftPokemon().id" />
-    </div>
-    <app-pokemon-build [pokemonId]="store.leftPokemon().id" />
-  </app-widget>
-
-  <app-widget data-cy="right-pokemon">
-    <div class="pokemon-actions pokemon-actions-right">
-      <app-import-pokemon-button (pokemonImportedEvent)="rightPokemonImported($event)" />
-      <app-export-pokemon-button [pokemonId]="store.rightPokemon().id" />
-    </div>
-    <app-pokemon-build [pokemonId]="store.rightPokemon().id" [reverse]="true" />
-  </app-widget>
-
-  <div class="field">
-    <app-field />
+<app-widget data-cy="left-pokemon">
+  <div class="pokemon-actions pokemon-actions-left">
+    <app-import-pokemon-button (pokemonImportedEvent)="leftPokemonImported($event)" />
+    <app-export-pokemon-button [pokemonId]="store.leftPokemon().id" />
   </div>
-</div>
+  <app-pokemon-build [pokemonId]="store.leftPokemon().id" />
+</app-widget>
+
+<app-widget data-cy="right-pokemon">
+  <div class="pokemon-actions pokemon-actions-right">
+    <app-import-pokemon-button (pokemonImportedEvent)="rightPokemonImported($event)" />
+    <app-export-pokemon-button [pokemonId]="store.rightPokemon().id" />
+  </div>
+  <app-pokemon-build [pokemonId]="store.rightPokemon().id" [reverse]="true" />
+</app-widget>
+
+<app-field class="field" />

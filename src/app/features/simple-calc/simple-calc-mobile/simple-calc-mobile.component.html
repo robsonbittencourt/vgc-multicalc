@@ -1,25 +1,23 @@
-<div class="container">
-  <div class="pokes">
-    <div class="pokemon-name">
-      <app-pokemon-combo-box [pokemonId]="attacker().id" (pokemonChanged)="pokemonChanged()" />
-      <div class="import-export">
-        <app-import-pokemon-button (pokemonImportedEvent)="importPokemon($event)" />
-        <app-export-pokemon-button [pokemonId]="attacker().id" />
-      </div>
-    </div>
-    <div class="pokemon-tabs">
-      <app-pokemon-tab [active]="leftIsAttacker()" [pokemonId]="store.leftPokemon().id" (tabActivated)="activateLeftPokemon()" />
-      <app-pokemon-tab [active]="rightIsAttacker()" [pokemonId]="store.rightPokemon().id" (tabActivated)="activateRightPokemon()" />
+<div class="pokes">
+  <div class="pokemon-name">
+    <app-pokemon-combo-box [pokemonId]="attacker().id" (pokemonChanged)="pokemonChanged()" />
+    <div class="import-export">
+      <app-import-pokemon-button (pokemonImportedEvent)="importPokemon($event)" />
+      <app-export-pokemon-button [pokemonId]="attacker().id" />
     </div>
   </div>
-
-  <div class="damage-result">
-    <div class="damage-result-text">
-      <span>{{ damageResult().description }}</span>
-    </div>
-    <app-copy-button [value]="damageResult().description" />
+  <div class="pokemon-tabs">
+    <app-pokemon-tab [active]="leftIsAttacker()" [pokemonId]="store.leftPokemon().id" (tabActivated)="activateLeftPokemon()" />
+    <app-pokemon-tab [active]="rightIsAttacker()" [pokemonId]="store.rightPokemon().id" (tabActivated)="activateRightPokemon()" />
   </div>
-
-  <app-pokemon-build-mobile [pokemonId]="attacker().id" />
-  <app-field />
 </div>
+
+<div class="damage-result">
+  <div class="damage-result-text">
+    <span>{{ damageResult().description }}</span>
+  </div>
+  <app-copy-button [value]="damageResult().description" />
+</div>
+
+<app-pokemon-build-mobile [pokemonId]="attacker().id" />
+<app-field />
