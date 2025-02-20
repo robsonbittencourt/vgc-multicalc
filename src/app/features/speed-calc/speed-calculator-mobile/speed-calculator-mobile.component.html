@@ -36,22 +36,7 @@
     </mat-button-toggle-group>
   </div>
 
-  <label class="title">Field</label>
-  <div class="options">
-    <mat-button-toggle-group multiple [hideMultipleSelectionIndicator]="true">
-      <mat-button-toggle class="max-width" [checked]="fieldStore.isWeatherSun()" (change)="fieldStore.toggleSunWeather()" data-cy="sun">Sun</mat-button-toggle>
-      <mat-button-toggle [checked]="fieldStore.isWeatherRain()" (change)="fieldStore.toggleRainWeather()" data-cy="rain">Rain</mat-button-toggle>
-      <mat-button-toggle [checked]="fieldStore.isWeatherSand()" (change)="fieldStore.toggleSandWeather()" data-cy="sand">Sand</mat-button-toggle>
-      <mat-button-toggle [checked]="fieldStore.isWeatherSnow()" (change)="fieldStore.toggleSnowWeather()" data-cy="snow">Snow</mat-button-toggle>
-    </mat-button-toggle-group>
-    <mat-button-toggle [checked]="fieldStore.isTerrainElectric()" (change)="fieldStore.toggleElectricTerrain()" data-cy="eletric-terrain">Electric Terrain</mat-button-toggle>
-
-    <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">
-      <mat-button-toggle [checked]="fieldStore.attackerSide().isTailwind" (change)="fieldStore.toggleAttackerTailwind()" data-cy="tailwind-attacker">Your Tailwind</mat-button-toggle>
-      <mat-button-toggle [checked]="fieldStore.defenderSide().isTailwind" (change)="fieldStore.toggleDefenderTailwind()" data-cy="tailwind-defender">Opponent Tailwind</mat-button-toggle>
-      <mat-button-toggle [checked]="fieldStore.isTrickRoom()" (change)="fieldStore.toggleTrickRoom()">Trick Room</mat-button-toggle>
-    </mat-button-toggle-group>
-  </div>
+  <app-field onlySpeed="true" />
 
   <label class="title">Regulation</label>
   <div class="options">

@@ -2,6 +2,7 @@ import { Component, computed, inject, OnInit } from "@angular/core"
 import { MatButtonToggle, MatButtonToggleGroup } from "@angular/material/button-toggle"
 import { MatIcon } from "@angular/material/icon"
 import { SpeedScaleComponent } from "@app/features/speed-calc/speed-scale/speed-scale.component"
+import { FieldComponent } from "@app/shared/field/field.component"
 import { InputAutocompleteComponent, KeyValuePair } from "@app/shared/input-autocomplete/input-autocomplete.component"
 import { InputSelectComponent } from "@app/shared/input-select/input-select.component"
 import { AbilityComboBoxComponent } from "@app/shared/pokemon-build/ability-combo-box/ability-combo-box.component"
@@ -32,7 +33,8 @@ import { NATURES } from "@robsonbittencourt/calc"
     StatusComboBoxComponent,
     ItemComboBoxComponent,
     NatureComboBoxComponent,
-    InputSelectComponent
+    InputSelectComponent,
+    FieldComponent
   ]
 })
 export class SpeedCalculatorMobileComponent implements OnInit {
