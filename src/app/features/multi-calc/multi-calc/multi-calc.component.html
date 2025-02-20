@@ -1,19 +1,14 @@
-<div class="container">
-  <app-team [pokemonId]="pokemonOnEditId()" [isAttacker]="menuStore.oneVsManyActivated()" />
+<app-team class="team" [pokemonId]="pokemonOnEditId()" [isAttacker]="menuStore.oneVsManyActivated()" />
 
-  <div class="teams-field">
-    <app-teams />
-    <app-field />
-  </div>
+<app-teams />
+<app-field />
 
-  <div class="target-pokemon">
-    <app-target-pokemon
-      [damageResults]="damageResults()"
-      [isAttacker]="menuStore.manyVsOneActivated()"
-      [showDamageDescription]="!activeAttacker().isDefault"
-      (targetActivated)="pokemonOnEditId.set($event)"
-      (targetRemoved)="pokemonOnEditId.set(store.team().activePokemon().id)"
-      (targetsImported)="targetsImported()"
-      (orderChanged)="orderChanged($event)" />
-  </div>
-</div>
+<app-target-pokemon
+  class="target-pokemon"
+  [damageResults]="damageResults()"
+  [isAttacker]="menuStore.manyVsOneActivated()"
+  [showDamageDescription]="!activeAttacker().isDefault"
+  (targetActivated)="pokemonOnEditId.set($event)"
+  (targetRemoved)="pokemonOnEditId.set(store.team().activePokemon().id)"
+  (targetsImported)="targetsImported()"
+  (orderChanged)="orderChanged($event)" />

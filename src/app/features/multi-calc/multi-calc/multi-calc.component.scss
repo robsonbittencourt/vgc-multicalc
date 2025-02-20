@@ -1,20 +1,18 @@
-.container {
+:host {
   display: grid;
+  grid-template-rows: auto;
   grid-template-columns: 1fr 1fr;
-  grid-column-gap: 1em;
   row-gap: 1em;
-  color: var(--text);
-  margin: 1em 1em 0em 1em;
+  grid-column-gap: 1em;
+  margin: 1em;
 }
 
-.teams-field {
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
+.team {
+  grid-row-start: 1;
+  grid-row-end: 3;
 }
 
 .target-pokemon {
   grid-column-start: 1;
   grid-column-end: 3;
-  margin-bottom: 1em;
 }
