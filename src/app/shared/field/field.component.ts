@@ -1,4 +1,4 @@
-import { Component, inject } from "@angular/core"
+import { booleanAttribute, Component, inject, input } from "@angular/core"
 import { MatButtonToggle, MatButtonToggleGroup } from "@angular/material/button-toggle"
 import { WidgetComponent } from "@app/widget/widget.component"
 import { FieldStore } from "@data/store/field-store"
@@ -10,5 +10,7 @@ import { FieldStore } from "@data/store/field-store"
   imports: [WidgetComponent, MatButtonToggleGroup, MatButtonToggle]
 })
 export class FieldComponent {
+  onlySpeed = input(false, { transform: booleanAttribute })
+
   fieldStore = inject(FieldStore)
 }

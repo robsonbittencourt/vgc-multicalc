@@ -1,14 +1,10 @@
-<div class="container">
-  <app-team [pokemonId]="pokemonId()" />
+<app-team class="team" [pokemonId]="pokemonId()" />
 
-  <div class="teams-field">
-    <app-teams />
-    <app-field />
+<app-teams />
+<app-field onlySpeed="true" />
+
+@if (!isPokemonDefault()) {
+  <div class="speed-list">
+    <app-speed-list></app-speed-list>
   </div>
-
-  @if (!isPokemonDefault()) {
-    <div class="speed-list">
-      <app-speed-list></app-speed-list>
-    </div>
-  }
-</div>
+}

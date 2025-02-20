@@ -1,15 +1,15 @@
-.container {
+:host {
   display: grid;
+  grid-template-rows: 1fr 1fr;
   grid-template-columns: 1fr 1fr;
   row-gap: 1em;
   grid-column-gap: 1em;
   margin: 1em 1em 0em 1em;
 }
 
-.teams-field {
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
+.team {
+  grid-row-start: 1;
+  grid-row-end: 3;
 }
 
 .speed-list {
