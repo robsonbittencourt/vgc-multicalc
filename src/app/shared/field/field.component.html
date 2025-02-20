@@ -2,6 +2,27 @@
   <div class="field-container">
     <div>
       <div class="field-subtitle">
+        <label>Attacker</label>
+      </div>
+      <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
+        <mat-button-toggle [checked]="fieldStore.attackerSide().isHelpingHand" (change)="fieldStore.toggleAttackerHelpingHand()" data-cy="helping-hand">Helping Hand</mat-button-toggle>
+      </mat-button-toggle-group>
+
+      <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
+        <mat-button-toggle [checked]="fieldStore.isCriticalHit()" (change)="fieldStore.toggleCriticalHit()" data-cy="critical-hit">Critical Hit</mat-button-toggle>
+      </mat-button-toggle-group>
+
+      <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
+        <mat-button-toggle [checked]="fieldStore.attackerSide().isBattery" (change)="fieldStore.toggleAttackerBattery()" data-cy="battery">Battery</mat-button-toggle>
+        <mat-button-toggle [checked]="fieldStore.attackerSide().isPowerSpot" (change)="fieldStore.toggleAttackerPowerSpot()" data-cy="power-spot">Power Spot</mat-button-toggle>
+      </mat-button-toggle-group>
+
+      <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">
+        <mat-button-toggle [checked]="fieldStore.attackerSide().isTailwind" (change)="fieldStore.toggleAttackerTailwind()" data-cy="tailwind-attacker">Tailwind</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+    <div>
+      <div class="field-subtitle">
         <label>Both</label>
       </div>
       <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">
@@ -38,27 +59,6 @@
           <mat-button-toggle [checked]="fieldStore.isTrickRoom()" (change)="fieldStore.toggleTrickRoom()" data-cy="trick-room">Trick Room</mat-button-toggle>
         </mat-button-toggle-group>
       </div>
-    </div>
-    <div>
-      <div class="field-subtitle">
-        <label>Attacker</label>
-      </div>
-      <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
-        <mat-button-toggle [checked]="fieldStore.attackerSide().isHelpingHand" (change)="fieldStore.toggleAttackerHelpingHand()" data-cy="helping-hand">Helping Hand</mat-button-toggle>
-      </mat-button-toggle-group>
-
-      <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
-        <mat-button-toggle [checked]="fieldStore.isCriticalHit()" (change)="fieldStore.toggleCriticalHit()" data-cy="critical-hit">Critical Hit</mat-button-toggle>
-      </mat-button-toggle-group>
-
-      <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
-        <mat-button-toggle [checked]="fieldStore.attackerSide().isBattery" (change)="fieldStore.toggleAttackerBattery()" data-cy="battery">Battery</mat-button-toggle>
-        <mat-button-toggle [checked]="fieldStore.attackerSide().isPowerSpot" (change)="fieldStore.toggleAttackerPowerSpot()" data-cy="power-spot">Power Spot</mat-button-toggle>
-      </mat-button-toggle-group>
-
-      <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">
-        <mat-button-toggle [checked]="fieldStore.attackerSide().isTailwind" (change)="fieldStore.toggleAttackerTailwind()" data-cy="tailwind-attacker">Tailwind</mat-button-toggle>
-      </mat-button-toggle-group>
     </div>
     <div>
       <div class="field-subtitle">
