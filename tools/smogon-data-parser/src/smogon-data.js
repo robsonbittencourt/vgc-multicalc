@@ -1,8 +1,10 @@
-import { Generations, Move } from "@robsonbittencourt/calc"
+import { Generations, Move, Pokemon } from "@robsonbittencourt/calc"
 import axios from "axios"
 
 const LINE_SEPARATOR = "+----------------------------------------+"
 const POKEMON_QUANTITY = 64
+
+await smogonChaosData()
 
 export async function smogonUsageList(date, reg) {
   try {
@@ -22,6 +24,70 @@ export async function getSmogonData(date, reg) {
   } catch (error) {
     console.error(error)
   }
+}
+
+export async function smogonChaosData(date, reg) {
+  try {
+    const response = await axios.get(`https://www.smogon.com/stats/2025-01/chaos/gen9vgc2025reggbo3-0.json`)
+
+    let count = 0
+
+    return Object.entries(response.data.data).map(([pokemon, data]) => {
+      if (count <= 10) {
+        count++
+        const speedValues = sumSpeedSpreads(pokemon, data.Spreads)
+
+        console.log({
+          pokemon,
+          percentil50: calculatePercentile(speedValues, 50),
+          percentil75: calculatePercentile(speedValues, 75),
+          percentil90: calculatePercentile(speedValues, 90),
+          percentil95: calculatePercentile(speedValues, 95)
+        })
+      }
+    })
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+function sumSpeedSpreads(pokemon, spreads) {
+  const speedSums = {}
+
+  for (const key in spreads) {
+    const nature = key.split(":")[0]
+    const evSpeed = key.split(":")[1].split("/")[5]
+    const value = spreads[key]
+
+    const speed = new Pokemon(Generations.get(9), pokemon, { level: 50, nature, evs: { spe: evSpeed } }).stats.spe
+
+    if (speedSums[speed]) {
+      speedSums[speed] += value
+    } else {
+      speedSums[speed] = value
+    }
+  }
+
+  return speedSums
+}
+
+function calculatePercentile(speedValues, percentile) {
+  const sortedSpeeds = Object.entries(speedValues).sort((a, b) => a[0] - b[0])
+
+  const totalCount = Object.values(speedValues).reduce((acc, count) => acc + count, 0)
+
+  const rank = (percentile / 100) * totalCount
+
+  let cumulativeCount = 0
+  for (const [speed, count] of sortedSpeeds) {
+    cumulativeCount += count
+
+    if (cumulativeCount >= rank) {
+      return speed
+    }
+  }
+
+  return sortedSpeeds[sortedSpeeds.length - 1][0]
 }
 
 export function parseSmogonData(data) {
