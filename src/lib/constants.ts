@@ -1,3 +1,4 @@
+export const MIN_IV_0 = "Min IV 0"
 export const MIN = "Min"
 export const MAX = "Max"
 export const SCARF = "Scarf"

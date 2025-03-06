@@ -2,7 +2,7 @@ import { Injectable, inject } from "@angular/core"
 import { SETDEX_SV } from "@data/movesets"
 import { pokemonByRegulation } from "@data/regulation-pokemon"
 import { SPEED_STATISTICS } from "@data/speed-statistics"
-import { ACTUAL, BOOSTER, MAX, MAX_BASE_SPEED_FOR_TR, MIN, SCARF } from "@lib/constants"
+import { ACTUAL, BOOSTER, MAX, MAX_BASE_SPEED_FOR_TR, MIN, MIN_IV_0, SCARF } from "@lib/constants"
 import { defaultPokemon } from "@lib/default-pokemon"
 import { FieldMapper } from "@lib/field-mapper"
 import { Ability } from "@lib/model/ability"
@@ -71,6 +71,10 @@ export class SpeedCalculatorService {
       speedDefinitions.push(this.maxSpeed(pokemon, smogonField))
       speedDefinitions.push(...this.statistics(pokemon, smogonField))
 
+      if (this.isTrickRoomPokemon(pokemon)) {
+        speedDefinitions.push(this.minSpeedIvZero(pokemon, smogonField))
+      }
+
       if (this.hasChoiceScarf(pokemon)) {
         speedDefinitions.push(this.maxScarf(pokemon, smogonField))
       }
@@ -137,12 +141,16 @@ export class SpeedCalculatorService {
     return pokemon.clone({ boosts, status, item })
   }
 
-  minSpeed(pokemon: Pokemon, smogonField: SmogonField): SpeedDefinition {
-    const isTrickRoomPokemon = new SmogonPokemon(Generations.get(9), pokemon.name).species.baseStats.spe <= MAX_BASE_SPEED_FOR_TR
+  minSpeedIvZero(pokemon: Pokemon, smogonField: SmogonField): SpeedDefinition {
+    const clonedPokemon = pokemon.clone({ item: "Leftovers", nature: "Brave", evs: { spe: 0 }, ivs: { spe: 0 } })
 
-    const nature = isTrickRoomPokemon ? "Brave" : "Bashful"
-    const ivs = isTrickRoomPokemon ? { spe: 0 } : { spe: 31 }
-    const clonedPokemon = pokemon.clone({ nature, item: "Leftovers", evs: { spe: 0 }, ivs })
+    const speed = this.smogonService.getFinalSpeed(clonedPokemon, smogonField, smogonField.defenderSide)
+
+    return new SpeedDefinition(clonedPokemon, speed, MIN_IV_0)
+  }
+
+  minSpeed(pokemon: Pokemon, smogonField: SmogonField): SpeedDefinition {
+    const clonedPokemon = pokemon.clone({ item: "Leftovers", nature: "Bashful", evs: { spe: 0 }, ivs: { spe: 31 } })
 
     const speed = this.smogonService.getFinalSpeed(clonedPokemon, smogonField, smogonField.defenderSide)
 
@@ -192,5 +200,9 @@ export class SpeedCalculatorService {
     }
 
     return speedDefinitions
+  }
+
+  private isTrickRoomPokemon(pokemon: Pokemon): boolean {
+    return new SmogonPokemon(Generations.get(9), pokemon.name).species.baseStats.spe <= MAX_BASE_SPEED_FOR_TR
   }
 }

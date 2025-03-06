@@ -67,8 +67,8 @@ describe("Speed Calculator", () => {
       speedCalculator.speedModifier("+2")
       cy.wait(300)
 
-      speedCalculator.speedTierIs(14, "Torkoal", 44, "Min")
-      speedCalculator.speedTierIs(56, "Incineroar", 162, "11% Usage")
+      speedCalculator.speedTierIs(14, "Torkoal", 44, "Min IV 0")
+      speedCalculator.speedTierIs(56, "Weezing-Galar", 160, "Min15% Usage")
     })
 
     it("decrement speed modifier of opponent Pokémon", () => {
@@ -107,7 +107,7 @@ describe("Speed Calculator", () => {
       speedCalculator.choiceScarf()
       cy.wait(300)
 
-      speedCalculator.speedTierIs(0, "Ting-Lu", 65, "35% Usage")
+      speedCalculator.speedTierIs(0, "Ting-Lu", 66, "29% Usage")
       speedCalculator.speedTierIs(56, "Iron Crown", 118, "Min")
     })
 
@@ -131,7 +131,7 @@ describe("Speed Calculator", () => {
       pokemon.selectNature("Jolly")
       cy.wait(300)
 
-      speedCalculator.speedTierIs(0, "Grimmsnarl", 81, "11% Usage")
+      speedCalculator.speedTierIs(0, "Incineroar", 81, "11% Usage")
       speedCalculator.speedTierIs(28, "Tyranitar", 108, "Actual")
       speedCalculator.speedTierIs(56, "Iron Treads", 126, "Min")
     })
@@ -142,7 +142,7 @@ describe("Speed Calculator", () => {
       pokemon.speedEvs(156)
       cy.wait(300)
 
-      speedCalculator.speedTierIs(0, "Ursaluna-Bloodmoon", 72, "20% Usage")
+      speedCalculator.speedTierIs(0, "Farigiraf", 72, "17% Usage")
       speedCalculator.speedTierIs(28, "Tyranitar", 101, "Actual")
       speedCalculator.speedTierIs(56, "Volcarona", 121, "16% Usage")
     })
@@ -153,9 +153,9 @@ describe("Speed Calculator", () => {
       pokemon.speedIvs(15)
       cy.wait(300)
 
-      speedCalculator.speedTierIs(0, "Grimmsnarl", 58, "Min")
+      speedCalculator.speedTierIs(0, "Ting-Lu", 58, "28% Usage")
       speedCalculator.speedTierIs(28, "Tyranitar", 91, "Actual")
-      speedCalculator.speedTierIs(56, "Groudon", 112, "17% Usage")
+      speedCalculator.speedTierIs(56, "Ursaluna", 112, "Max")
     })
 
     it("change the speed tier when Pokémon is paralyzed", () => {
@@ -164,9 +164,9 @@ describe("Speed Calculator", () => {
       pokemon.paralyzed()
       cy.wait(300)
 
-      speedCalculator.speedTierIs(18, "Torkoal", 22, "Min")
+      speedCalculator.speedTierIs(18, "Torkoal", 22, "Min IV 0")
       speedCalculator.speedTierIs(28, "Tyranitar", 49, "Actual")
-      speedCalculator.speedTierIs(56, "Incineroar", 80, "30% Usage")
+      speedCalculator.speedTierIs(56, "Dondozo", 75, "32% Usage")
     })
 
     it("change the speed tier when Pokémon has Choice Scarf", () => {
@@ -186,9 +186,9 @@ describe("Speed Calculator", () => {
       pokemon.selectItem("Iron Ball")
       cy.wait(300)
 
-      speedCalculator.speedTierIs(18, "Torkoal", 22, "Min")
+      speedCalculator.speedTierIs(18, "Torkoal", 22, "Min IV 0")
       speedCalculator.speedTierIs(28, "Tyranitar", 49, "Actual")
-      speedCalculator.speedTierIs(56, "Incineroar", 80, "30% Usage")
+      speedCalculator.speedTierIs(56, "Dondozo", 75, "32% Usage")
     })
 
     it("change the speed tier when Pokémon has activated Unburden", () => {
@@ -221,9 +221,9 @@ describe("Speed Calculator", () => {
       field.tailwindDefender()
       cy.wait(300)
 
-      speedCalculator.speedTierIs(14, "Torkoal", 44, "Min")
+      speedCalculator.speedTierIs(14, "Torkoal", 44, "Min IV 0")
       speedCalculator.speedTierIs(28, "Tyranitar", 99, "Actual")
-      speedCalculator.speedTierIs(56, "Incineroar", 162, "11% Usage")
+      speedCalculator.speedTierIs(56, "Weezing-Galar", 160, "Min15% Usage")
     })
 
     it("change the speed tier when Trick Room was activated", () => {

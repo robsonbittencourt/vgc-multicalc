@@ -226,7 +226,7 @@ describe("SpeedCalculatorService", () => {
       const pokemon = new Pokemon("Torkoal")
       const smogonField = new SmogonField()
 
-      const speedDefinition = service.minSpeed(pokemon, smogonField)
+      const speedDefinition = service.minSpeedIvZero(pokemon, smogonField)
 
       expect(speedDefinition.value).toEqual(22)
     })
@@ -390,32 +390,5 @@ describe("SpeedCalculatorService", () => {
       expect(speedDefinition[0].value).toEqual(188)
       expect(speedDefinition[0].description.includes("12% Usage")).toBeTrue()
     })
-
-    // it("should return meta speed of Rillaboom", () => {
-    //   const pokemon = new Pokemon("Rillaboom", { evs: { spe: 28 } })
-    //   const smogonField = new SmogonField()
-
-    //   const speedDefinition = service.maxMeta(pokemon, smogonField)
-
-    //   expect(speedDefinition.value).toEqual(109)
-    // })
-
-    // it("should return meta speed of Urshifu", () => {
-    //   const pokemon = new Pokemon("Urshifu-Rapid-Strike", { evs: { spe: 252 } })
-    //   const smogonField = new SmogonField()
-
-    //   const speedDefinition = service.maxMeta(pokemon, smogonField)
-
-    //   expect(speedDefinition.value).toEqual(149)
-    // })
-
-    // it("should return meta speed of Flutter Mane with Protosynthesis activated", () => {
-    //   const pokemon = new Pokemon("Flutter Mane", { nature: "Timid", evs: { spe: 124 } })
-    //   const field = new SmogonField({ weather: "Sun" })
-
-    //   const speedDefinition = service.maxMeta(pokemon, field)
-
-    //   expect(speedDefinition.value).toEqual(282)
-    // })
   })
 })
