@@ -193,6 +193,17 @@ describe("SpeedCalculatorService", () => {
     })
   })
 
+  describe("minSpeedIvZero", () => {
+    it("should return min speed of a Trick Room Pokémon", () => {
+      const pokemon = new Pokemon("Torkoal")
+      const smogonField = new SmogonField()
+
+      const speedDefinition = service.minSpeedIvZero(pokemon, smogonField)
+
+      expect(speedDefinition.value).toEqual(22)
+    })
+  })
+
   describe("min speed", () => {
     it("should return min speed description and Pokémon name", () => {
       const pokemon = new Pokemon("Flutter Mane")
@@ -220,15 +231,6 @@ describe("SpeedCalculatorService", () => {
       const speedDefinition = service.minSpeed(pokemon, smogonField)
 
       expect(speedDefinition.value).toEqual(155)
-    })
-
-    it("should return min speed of a Trick Room Pokémon", () => {
-      const pokemon = new Pokemon("Torkoal")
-      const smogonField = new SmogonField()
-
-      const speedDefinition = service.minSpeedIvZero(pokemon, smogonField)
-
-      expect(speedDefinition.value).toEqual(22)
     })
 
     it("should return min speed of Chien-Pao with -1 in speed", () => {
@@ -379,7 +381,18 @@ describe("SpeedCalculatorService", () => {
     })
   })
 
-  describe("meta speed", () => {
+  describe("maxBooster", () => {
+    it("should return max speed of Flutter Mane with Booster Energy", () => {
+      const pokemon = new Pokemon("Flutter Mane")
+      const smogonField = new SmogonField()
+
+      const speedDefinition = service.maxBooster(pokemon, smogonField)
+
+      expect(speedDefinition.value).toEqual(307)
+    })
+  })
+
+  describe("statistics", () => {
     it("should return meta speed description and Pokémon name", () => {
       const pokemon = new Pokemon("Flutter Mane")
       const smogonField = new SmogonField()

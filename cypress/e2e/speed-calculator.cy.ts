@@ -327,7 +327,7 @@ const palafinSpeedTier = [
   { pokemon: "Iron Leaves", speed: 124, description: "Min" },
   { pokemon: "Mienshao", speed: 125, description: "Min" },
   { pokemon: "Iron Treads", speed: 126, description: "Min" },
-  { pokemon: "Raging Bolt", speed: 127, description: "14% UsageBooster" },
+  { pokemon: "Raging Bolt", speed: 127, description: "14% Usage" },
   { pokemon: "Pelipper", speed: 128, description: "Max12% Usage" },
   { pokemon: "Tsareena", speed: 129, description: "28% Usage" },
   { pokemon: "Regidrago", speed: 129, description: "19% Usage" },

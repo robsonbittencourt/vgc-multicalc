@@ -79,7 +79,7 @@ export class SpeedCalculatorService {
         speedDefinitions.push(this.maxScarf(pokemon, smogonField))
       }
 
-      if (pokemon.isParadoxAbility) {
+      if (this.isBoosterSpeedPokemon(pokemon)) {
         speedDefinitions.push(this.maxBooster(pokemon, smogonField))
       }
     })
@@ -175,7 +175,7 @@ export class SpeedCalculatorService {
   }
 
   maxBooster(pokemon: Pokemon, smogonField: SmogonField): SpeedDefinition {
-    const clonedPokemon = pokemon.clone({ ability: new Ability(pokemon.ability.name, true), evs: { spe: 252 } })
+    const clonedPokemon = pokemon.clone({ ability: new Ability(pokemon.ability.name, true), nature: "Timid", evs: { spe: 252 } })
 
     const speed = this.smogonService.getFinalSpeed(clonedPokemon, smogonField, smogonField.defenderSide)
     const description = BOOSTER
@@ -204,5 +204,9 @@ export class SpeedCalculatorService {
 
   private isTrickRoomPokemon(pokemon: Pokemon): boolean {
     return new SmogonPokemon(Generations.get(9), pokemon.name).species.baseStats.spe <= MAX_BASE_SPEED_FOR_TR
+  }
+
+  private isBoosterSpeedPokemon(pokemon: Pokemon): boolean {
+    return pokemon.isParadoxAbility && !this.isTrickRoomPokemon(pokemon)
   }
 }
