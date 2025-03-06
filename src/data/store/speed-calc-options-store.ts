@@ -5,6 +5,7 @@ import { Regulation } from "@lib/types"
 import { patchState, signalStore, withState } from "@ngrx/signals"
 
 type SpeedCalcOptionsState = {
+  topUsage: string
   regulation: string
   targetName: string
   speedModifier: number
@@ -14,6 +15,7 @@ type SpeedCalcOptionsState = {
 }
 
 const initialState: SpeedCalcOptionsState = {
+  topUsage: "60",
   regulation: "G",
   targetName: "",
   speedModifier: 0,
@@ -27,6 +29,7 @@ export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }
   readonly options = computed(
     () =>
       new SpeedCalculatorOptions({
+        topUsage: this.topUsage(),
         regulation: this.regulation() as Regulation,
         targetName: this.targetName(),
         speedModifier: this.speedModifier(),
@@ -62,6 +65,11 @@ export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }
 
   updateRegulation(regulation: string) {
     patchState(this, () => ({ regulation }))
+    this.clearTargetName()
+  }
+
+  updateTopUsage(topUsage: string) {
+    patchState(this, () => ({ topUsage }))
     this.clearTargetName()
   }
 

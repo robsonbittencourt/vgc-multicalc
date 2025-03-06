@@ -1,6 +1,8 @@
+import { AllPokemon } from "@data/all-pokemon"
 import { Regulation } from "@lib/types"
 
 export class SpeedCalculatorOptions {
+  _topUsage: string
   readonly regulation: Regulation
   readonly targetName: string
   readonly paralyzedActive: boolean
@@ -8,12 +10,21 @@ export class SpeedCalculatorOptions {
   readonly speedDropActive: boolean
   readonly speedModifier: number
 
-  constructor(options: { regulation?: Regulation; targetName?: string; speedDropActive?: boolean; speedModifier?: number; paralyzedActive?: boolean; choiceScarfActive?: boolean } = {}) {
-    this.regulation = options.regulation ?? "H"
+  constructor(options: { topUsage?: string; regulation?: Regulation; targetName?: string; speedDropActive?: boolean; speedModifier?: number; paralyzedActive?: boolean; choiceScarfActive?: boolean } = {}) {
+    this._topUsage = options.topUsage ?? "60"
+    this.regulation = options.regulation ?? "G"
     this.targetName = options.targetName ?? ""
     this.paralyzedActive = options.paralyzedActive ?? false
     this.choiceScarfActive = options.choiceScarfActive ?? false
     this.speedDropActive = options.speedDropActive ?? false
     this.speedModifier = options.speedModifier ?? 0
+  }
+
+  get topUsage(): number {
+    if (this._topUsage == "All") {
+      return AllPokemon.instance.allPokemonNames.length + 1
+    }
+
+    return +this._topUsage
   }
 }

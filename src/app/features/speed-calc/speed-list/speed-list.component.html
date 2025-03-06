@@ -2,6 +2,7 @@
   <left-header>
     <div class="title-box">
       <app-input-select label="Regulation" [allValues]="regulationsList" [value]="optionsStore.regulation()" (valueChange)="optionsStore.updateRegulation($event)" />
+      <app-input-select label="Top Usage" [allValues]="topUsageList" [value]="optionsStore.topUsage()" (valueChange)="optionsStore.updateTopUsage($event)" />
       <app-input-autocomplete label="Pokémon" [enableClear]="true" [allValues]="optionsStore.pokemonNamesByReg()" [value]="optionsStore.targetName()" (valueChange)="optionsStore.updateTargetName($event)" (cleared)="optionsStore.clearTargetName()" />
     </div>
   </left-header>

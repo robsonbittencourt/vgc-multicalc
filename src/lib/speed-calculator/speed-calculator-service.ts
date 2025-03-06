@@ -21,8 +21,6 @@ export class SpeedCalculatorService {
   private smogonService = inject(SmogonFunctions)
   private fieldMapper = inject(FieldMapper)
 
-  private POKEMON_QUANTITY = 57
-
   orderedPokemon(pokemon: Pokemon, field: Field, pokemonEachSide: number, options: SpeedCalculatorOptions = new SpeedCalculatorOptions()): SpeedDefinition[] {
     const smogonField = this.fieldMapper.toSmogon(field)
 
@@ -61,7 +59,7 @@ export class SpeedCalculatorService {
   private loadSpeedMeta(options: SpeedCalculatorOptions, smogonField: SmogonField): SpeedDefinition[] {
     const speedDefinitions: SpeedDefinition[] = []
 
-    const quantity = options.targetName.length > 0 ? undefined : this.POKEMON_QUANTITY
+    const quantity = options.targetName.length > 0 ? undefined : options.topUsage
     const pokemon = pokemonByRegulation(options.regulation, quantity)
 
     pokemon.forEach(p => {

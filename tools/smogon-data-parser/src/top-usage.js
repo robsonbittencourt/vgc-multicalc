@@ -1,6 +1,7 @@
 import fs from "fs"
 import { smogonUsageList } from "./smogon-data.js"
 
+const POKEMON_QUANTITY = 125
 const MOVESET_MODULE_PREFIX = `import { Regulation } from "@lib/types"
 
 export const topUsageByRegulation: Record<Regulation, string[]> = {\n  `
@@ -25,7 +26,7 @@ async function usageList(date, regulation) {
 
   const startIndex = 5
 
-  for (let i = startIndex; i < 125; i++) {
+  for (let i = startIndex; i < POKEMON_QUANTITY; i++) {
     const line = lines[i]
     if (!line.startsWith("|")) break
 

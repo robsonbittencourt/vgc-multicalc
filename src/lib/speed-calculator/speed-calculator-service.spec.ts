@@ -155,14 +155,14 @@ describe("SpeedCalculatorService", () => {
     })
 
     it("should merge Meta and Atual description when speed are equals", () => {
-      const pokemon = new Pokemon("Talonflame", { nature: "Jolly", evs: { spe: 252 } })
+      const pokemon = new Pokemon("Urshifu", { nature: "Adamant", evs: { spe: 252 } })
       const field = new Field()
       const pokemonEachSide = 30
 
       const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide)
 
-      const actual = inRange.find(p => p.pokemonName == "Talonflame" && p.description.includes(ACTUAL) && p.description.includes("44% Usage"))
-      const quantity = inRange.filter(p => p.pokemonName == "Talonflame" && p.value == 178).length
+      const actual = inRange.find(p => p.pokemonName == "Urshifu" && p.description.includes(ACTUAL) && p.description.includes("62% Usage"))
+      const quantity = inRange.filter(p => p.pokemonName == "Urshifu" && p.value == 149).length
 
       expect(actual).not.toBeUndefined()
       expect(quantity).toBe(1)

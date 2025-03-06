@@ -67,8 +67,12 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 0.5em;
+  gap: 2em;
   margin-top: 1em;
+}
+
+.options > app-input-select {
+  flex: 1;
 }
 
 .clear-button {

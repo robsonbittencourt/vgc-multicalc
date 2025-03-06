@@ -31,10 +31,8 @@
 
   <app-widget class="card" title="Filters">
     <div class="options">
-      <mat-button-toggle-group [hideSingleSelectionIndicator]="true">
-        <mat-button-toggle [checked]="optionsStore.regulation() === 'G'" value="G" (change)="optionsStore.updateRegulation($event.source.value)">Regulation G</mat-button-toggle>
-        <mat-button-toggle [checked]="optionsStore.regulation() === 'H'" value="H" (change)="optionsStore.updateRegulation($event.source.value)">Regulation H</mat-button-toggle>
-      </mat-button-toggle-group>
+      <app-input-select label="Regulation" leftLabel="true" [allValues]="regulationsList" [value]="optionsStore.regulation()" (valueChange)="optionsStore.updateRegulation($event)" />
+      <app-input-select label="Top Usage" leftLabel="true" [allValues]="topUsageList" [value]="optionsStore.topUsage()" (valueChange)="optionsStore.updateTopUsage($event)" />
     </div>
 
     <div class="options">

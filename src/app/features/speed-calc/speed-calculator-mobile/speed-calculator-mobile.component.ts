@@ -1,11 +1,11 @@
 import { Component, computed, inject, OnInit, signal } from "@angular/core"
-import { MatButtonToggle, MatButtonToggleGroup } from "@angular/material/button-toggle"
 import { MatIcon } from "@angular/material/icon"
 import { OpponentOptionsComponent } from "@app/features/speed-calc/opponent-options/opponent-options.component"
 import { SpeedInsightsComponent } from "@app/features/speed-calc/speed-insights/speed-insights.component"
 import { SpeedScaleComponent } from "@app/features/speed-calc/speed-scale/speed-scale.component"
 import { FieldComponent } from "@app/shared/field/field.component"
 import { InputAutocompleteComponent } from "@app/shared/input-autocomplete/input-autocomplete.component"
+import { InputSelectComponent } from "@app/shared/input-select/input-select.component"
 import { AbilityComboBoxComponent } from "@app/shared/pokemon-build/ability-combo-box/ability-combo-box.component"
 import { EvSliderComponent } from "@app/shared/pokemon-build/ev-slider/ev-slider.component"
 import { ItemComboBoxComponent } from "@app/shared/pokemon-build/item-combo-box/item-combo-box.component"
@@ -18,6 +18,7 @@ import { FieldStore } from "@data/store/field-store"
 import { SpeedCalcOptionsStore } from "@data/store/speed-calc-options-store"
 import { Pokemon } from "@lib/model/pokemon"
 import { Status } from "@lib/model/status"
+import { Regulation } from "@lib/types"
 import { NATURES } from "@robsonbittencourt/calc"
 
 @Component({
@@ -25,9 +26,8 @@ import { NATURES } from "@robsonbittencourt/calc"
   templateUrl: "./speed-calculator-mobile.component.html",
   styleUrls: ["./speed-calculator-mobile.component.scss"],
   imports: [
-    MatButtonToggleGroup,
-    MatButtonToggle,
     MatIcon,
+    InputSelectComponent,
     InputAutocompleteComponent,
     PokemonComboBoxComponent,
     AbilityComboBoxComponent,
@@ -55,6 +55,10 @@ export class SpeedCalculatorMobileComponent implements OnInit {
   allNatureNames = Object.keys(NATURES)
 
   statusConditions = [Status.HEALTHY.description, Status.PARALYSIS.description]
+
+  regulationsList: Regulation[] = ["G"]
+
+  topUsageList: string[] = ["60", "100", "125", "All"]
 
   ngOnInit() {
     this.resetEvs()
