@@ -1,7 +1,7 @@
 <div class="center-section">
   @for (speedDefinition of inSpeedRange(); track speedDefinition.id) {
     <div class="speed-box" data-cy="speed-box">
-      <app-speed-box [speedDefinition]="speedDefinition" [speedChanged]="speedOrderChanged" [speedIncreasing]="speedOrderIncrease" />
+      <app-speed-box [speedDefinition]="speedDefinition" [speedChanged]="speedOrderChanged" [speedIncreasing]="speedOrderIncrease" (pokemonSelected)="setPokemonSelected($event)" [selected]="selectedPokemon().id === speedDefinition.pokemon.id" />
     </div>
   }
 </div>

@@ -1,6 +1,6 @@
 import { provideExperimentalZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
-import { ACTUAL, MAX, META, MIN } from "@lib/constants"
+import { ACTUAL, MAX, MIN } from "@lib/constants"
 import { Ability } from "@lib/model/ability"
 import { Field } from "@lib/model/field"
 import { Pokemon } from "@lib/model/pokemon"
@@ -75,10 +75,10 @@ describe("SpeedCalculatorService", () => {
 
       const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide)
 
-      const actualIndex = inRange.findIndex(p => p.pokemonName == "Torkoal" && p.description == ACTUAL)
+      const actualIndex = inRange.findIndex(p => p.pokemonName == "Torkoal" && p.description.includes(ACTUAL))
       expect(actualIndex).toBe(30)
 
-      expect(inRange[0].pokemonName).toEqual("")
+      expect(inRange[0].pokemonName).toEqual("Select a Pokémon")
     })
 
     it("should return only Pokémon informed in options and actual when option target is informed", () => {
@@ -161,11 +161,11 @@ describe("SpeedCalculatorService", () => {
 
       const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide)
 
-      const actual = inRange.find(p => p.pokemonName == "Talonflame" && p.description == ACTUAL)
-      const meta = inRange.find(p => p.pokemonName == "Talonflame" && p.description == META)
+      const actual = inRange.find(p => p.pokemonName == "Talonflame" && p.description.includes(ACTUAL) && p.description.includes("44% Usage"))
+      const quantity = inRange.filter(p => p.pokemonName == "Talonflame" && p.value == 178).length
 
       expect(actual).not.toBeUndefined()
-      expect(meta).toBeUndefined()
+      expect(quantity).toBe(1)
     })
   })
 
@@ -201,7 +201,7 @@ describe("SpeedCalculatorService", () => {
       const speedDefinition = service.minSpeed(pokemon, smogonField)
 
       expect(speedDefinition.pokemonName).toEqual("Flutter Mane")
-      expect(speedDefinition.description).toEqual(MIN)
+      expect(speedDefinition.description.includes(MIN)).toBeTrue()
     })
 
     it("should return min speed of Raging Bolt", () => {
@@ -285,7 +285,7 @@ describe("SpeedCalculatorService", () => {
       const speedDefinition = service.maxSpeed(pokemon, smogonField)
 
       expect(speedDefinition.pokemonName).toEqual("Flutter Mane")
-      expect(speedDefinition.description).toEqual(MAX)
+      expect(speedDefinition.description.includes(MAX)).toBeTrue()
     })
 
     it("should return max speed of Raging Bolt", () => {
@@ -384,46 +384,38 @@ describe("SpeedCalculatorService", () => {
       const pokemon = new Pokemon("Flutter Mane")
       const smogonField = new SmogonField()
 
-      const speedDefinition = service.maxMeta(pokemon, smogonField)
+      const speedDefinition = service.statistics(pokemon, smogonField)
 
-      expect(speedDefinition.pokemonName).toEqual("Flutter Mane")
-      expect(speedDefinition.description).toEqual(META)
+      expect(speedDefinition[0].pokemonName).toEqual("Flutter Mane")
+      expect(speedDefinition[0].value).toEqual(188)
+      expect(speedDefinition[0].description.includes("12% Usage")).toBeTrue()
     })
 
-    it("should return meta speed of Rillaboom", () => {
-      const pokemon = new Pokemon("Rillaboom", { evs: { spe: 28 } })
-      const smogonField = new SmogonField()
+    // it("should return meta speed of Rillaboom", () => {
+    //   const pokemon = new Pokemon("Rillaboom", { evs: { spe: 28 } })
+    //   const smogonField = new SmogonField()
 
-      const speedDefinition = service.maxMeta(pokemon, smogonField)
+    //   const speedDefinition = service.maxMeta(pokemon, smogonField)
 
-      expect(speedDefinition.value).toEqual(109)
-    })
+    //   expect(speedDefinition.value).toEqual(109)
+    // })
 
-    it("should return meta speed of Urshifu", () => {
-      const pokemon = new Pokemon("Urshifu-Rapid-Strike", { evs: { spe: 252 } })
-      const smogonField = new SmogonField()
+    // it("should return meta speed of Urshifu", () => {
+    //   const pokemon = new Pokemon("Urshifu-Rapid-Strike", { evs: { spe: 252 } })
+    //   const smogonField = new SmogonField()
 
-      const speedDefinition = service.maxMeta(pokemon, smogonField)
+    //   const speedDefinition = service.maxMeta(pokemon, smogonField)
 
-      expect(speedDefinition.value).toEqual(149)
-    })
+    //   expect(speedDefinition.value).toEqual(149)
+    // })
 
-    it("should return meta speed of Flutter Mane with Protosynthesis activated", () => {
-      const pokemon = new Pokemon("Flutter Mane", { nature: "Timid", evs: { spe: 124 } })
-      const field = new SmogonField({ weather: "Sun" })
+    // it("should return meta speed of Flutter Mane with Protosynthesis activated", () => {
+    //   const pokemon = new Pokemon("Flutter Mane", { nature: "Timid", evs: { spe: 124 } })
+    //   const field = new SmogonField({ weather: "Sun" })
 
-      const speedDefinition = service.maxMeta(pokemon, field)
+    //   const speedDefinition = service.maxMeta(pokemon, field)
 
-      expect(speedDefinition.value).toEqual(282)
-    })
-
-    it("should return meta speed of Protosynthesis Flutter Mane with ability activated", () => {
-      const pokemon = new Pokemon("Flutter Mane", { nature: "Timid", evs: { spe: 124 } })
-      const smogonField = new SmogonField()
-
-      const speedDefinition = service.maxBooster(pokemon, smogonField)
-
-      expect(speedDefinition.value).toEqual(282)
-    })
+    //   expect(speedDefinition.value).toEqual(282)
+    // })
   })
 })

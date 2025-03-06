@@ -1,0 +1,93 @@
+<app-widget title="Speed Insights">
+  <div class="container">
+    <p>Select a Pokémon from Speed List to see insights about metagame.</p>
+
+    <div class="card">
+      <div class="speed-values">
+        <span class="pokemon-name">{{ pokemonName() }}</span>
+        <span
+          >Base: <b>{{ base() }}</b></span
+        >
+        @if (isTrSpeed()) {
+          <span
+            >Negative Nature, EV 0, IV 0: <b>{{ minWithIvZero() }}</b></span
+          >
+        }
+        <span
+          >Neutral Nature: <b>{{ min() }}</b> to <b>{{ max() }}</b></span
+        >
+        <span
+          >Positive Nature, EV 252: <b>{{ maxWithNature() }}</b></span
+        >
+      </div>
+      <img src="assets/sprites/pokemon-sv/{{ pokemonName() }}.png" alt="{{ pokemonName() }}" />
+    </div>
+
+    @if (usageInsights().length > 0) {
+      <p>In the current metagame, excluding external Speed modifications (e.g., Paradox Abilities, Choice Scarf):</p>
+
+      <ul class="custom-list">
+        <li>
+          <b>{{ firstInsight().speed }}</b> Speed is used by <b>{{ firstInsight().percentage }}%</b> of {{ pokemonName() }} and allows it to outspeed or tie with <b>{{ firstInsight().percentile }}%</b> of others {{ pokemonName() }}.
+          @if (firstInsightIsMoreUsed()) {
+            This is the <b>most common</b> Speed.
+          }
+          @if (firstInsightHasNegativeNature()) {
+            This insight assumes speed IV is zero.
+          }
+        </li>
+
+        @if (secondInsight()) {
+          <li>
+            <b>{{ secondInsight().speed }}</b> Speed is used by <b>{{ secondInsight().percentage }}%</b> of {{ pokemonName() }} and outspeeds or ties with <b>{{ secondInsight().percentile }}%</b>.
+            @if (secondInsightIsMoreUsed()) {
+              This is the <b>most common</b> Speed.
+            }
+            @if (secondInsightHasNegativeNature()) {
+              This insight assumes speed IV is zero.
+            }
+          </li>
+        }
+
+        @if (thirdInsight()) {
+          <li>
+            <b>{{ thirdInsight().speed }}</b> Speed is used by <b>{{ thirdInsight().percentage }}%</b>, and ensures outspeeding or tying with <b>{{ thirdInsight().percentile }}%</b> of {{ pokemonName() }}.
+            @if (thirdInsightIsMoreUsed()) {
+              This is the <b>most common</b> Speed.
+            }
+            @if (thirdInsightHasNegativeNature()) {
+              This insight assumes speed IV is zero.
+            }
+          </li>
+        }
+      </ul>
+
+      @if (boosterInsight() || scarfInsight()) {
+        <p>Speed modifications:</p>
+      }
+      @if (boosterInsight()) {
+        <li>
+          {{ pokemonName() }} can reach <b>{{ boosterInsight()!.speed }}</b> Speed with its ability. <b>{{ boosterInsight()!.percentage }}%</b> of them use the item Booster Energy.
+          @if (boosterIsMoreUsed()) {
+            This makes it the most common item.
+          }
+        </li>
+      }
+
+      @if (scarfInsight()) {
+        <li>
+          {{ pokemonName() }} can reach <b>{{ scarfInsight()!.speed }}</b> Speed with Choice Scarf. <b>{{ scarfInsight()!.percentage }}%</b> of them use this item.
+          @if (choiceScarfIsMoreUsed()) {
+            This makes it the most common item.
+          }
+        </li>
+      }
+
+      <div class="note">
+        <p>These statistics are based on {{ pokemonName() }} usage in the Pokémon Showdown Bo3 ladder across all ratings over the past month.</p>
+      </div>
+    } @else {
+      <p>{{ pokemonName() }} does not have enough data to extract insights.</p>
+    }
+  </div>
+</app-widget>

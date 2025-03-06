@@ -1,0 +1,11 @@
+<div class="options">
+  <div class="speed-modifier">
+    <app-input-select label="Speed Modifier" leftLabel="true" [value]="optionsStore.speedModifier().toString()" [allValues]="statsModifiers" (valueChange)="updateSpeedModifier($event)" data-cy="speed-calc-spe-modifier" />
+  </div>
+
+  <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">
+    <mat-button-toggle [checked]="optionsStore.speedDropActive()" (change)="optionsStore.toogleIceWind($event.source.checked)" data-cy="speed-calc-ice-wind">Ice Wind</mat-button-toggle>
+    <mat-button-toggle [checked]="optionsStore.paralyzedActive()" (change)="optionsStore.toogleParalyze($event.source.checked)" data-cy="speed-calc-paralyzed">Paralyzed</mat-button-toggle>
+    <mat-button-toggle [checked]="optionsStore.choiceScarfActive()" (change)="optionsStore.toogleChoiceScarf($event.source.checked)" data-cy="speed-calc-choice-scarf">Choice Scarf</mat-button-toggle>
+  </mat-button-toggle-group>
+</div>

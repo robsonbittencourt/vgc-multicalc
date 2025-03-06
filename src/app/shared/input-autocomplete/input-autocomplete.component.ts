@@ -1,5 +1,5 @@
 import { AsyncPipe, NgClass } from "@angular/common"
-import { Component, effect, ElementRef, input, model, OnInit, output, viewChild } from "@angular/core"
+import { booleanAttribute, Component, effect, ElementRef, input, model, OnInit, output, viewChild } from "@angular/core"
 import { FormControl, FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { MatAutocomplete, MatAutocompleteTrigger } from "@angular/material/autocomplete"
 import { MatOption } from "@angular/material/core"
@@ -27,7 +27,7 @@ export class InputAutocompleteComponent implements OnInit {
 
   label = input<string>()
 
-  leftLabel = input(false)
+  leftLabel = input(false, { transform: booleanAttribute })
 
   disabled = input(false)
 

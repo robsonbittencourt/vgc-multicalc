@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, input, OnInit, signal } from "@angular/core"
+import { Component, computed, effect, inject, input, linkedSignal, OnInit, output, signal } from "@angular/core"
 import { SpeedBoxComponent } from "@app/features/speed-calc/speed-box/speed-box.component"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { FieldStore } from "@data/store/field-store"
@@ -19,6 +19,8 @@ export class SpeedScaleComponent implements OnInit {
   pokemonId = input.required<string>()
   pokemonEachSide = input.required<number>()
 
+  pokemonSelected = output<Pokemon>()
+
   store = inject(CalculatorStore)
   fieldStore = inject(FieldStore)
   optionsStore = inject(SpeedCalcOptionsStore)
@@ -26,6 +28,7 @@ export class SpeedScaleComponent implements OnInit {
 
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
   inSpeedRange = signal<SpeedDefinition[]>([])
+  selectedPokemon = linkedSignal<Pokemon>(() => this.store.findPokemonById(this.pokemonId()))
 
   actualSpeedDefinitions: SpeedDefinition[] = []
   actualPokemonSpeed: number
@@ -52,7 +55,13 @@ export class SpeedScaleComponent implements OnInit {
       this.inSpeedRange.set(range)
 
       this.verifyChanges(range)
+      this.setPokemonSelected(this.pokemon())
     }, 200)
+  }
+
+  setPokemonSelected(pokemon: Pokemon) {
+    this.selectedPokemon.set(pokemon)
+    this.pokemonSelected.emit(pokemon)
   }
 
   private verifyChanges(newSpeedDefinitions: SpeedDefinition[]) {

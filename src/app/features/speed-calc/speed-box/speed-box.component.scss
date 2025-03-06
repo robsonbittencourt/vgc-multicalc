@@ -3,12 +3,14 @@
   align-items: flex-end;
   justify-content: center;
   border-bottom: 2px solid;
+  font-size: 1.1rem;
 }
 
 .speed-box-down {
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 .pokemon-image {
@@ -40,5 +42,10 @@
 
   .speed-box-up {
     border-bottom: 1px solid;
+    font-size: 1.4rem;
+  }
+
+  .speed-box-down {
+    font-size: 1.2rem;
   }
 }

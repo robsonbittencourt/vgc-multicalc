@@ -1,14 +1,16 @@
-@if (speedDefinition().description === "") {
+@if (speedDefinition().description[0] === "") {
   <div class="speed-box-down"></div>
 } @else {
   <div class="speed-box-up" [ngClass]="{ 'actual-label': isActual() }">
     <label data-cy="speed-box-value">{{ speedDefinition().value }}</label>
   </div>
 
-  <div class="speed-box-down" [ngClass]="{ actual: isActual(), 'actual-label': isActual() }">
+  <div class="speed-box-down" [ngClass]="{ actual: selected(), 'actual-label': isActual() }" (click)="pokemonSelected.emit(speedDefinition().pokemon)">
     <div [@openClose]="{ value: 1, params: { leaveEnd: animation() } }" class="pokemon-image">
       <img src="assets/sprites/pokemon-sv/{{ speedDefinition().pokemonName }}.png" alt="{{ speedDefinition().pokemonName }}" data-cy="speed-box-pokemon" />
-      <label data-cy="speed-box-description">{{ speedDefinition().description }}</label>
+      @for (description of speedDefinition().description; track $index) {
+        <label data-cy="speed-box-description">{{ description }}</label>
+      }
     </div>
   </div>
 }

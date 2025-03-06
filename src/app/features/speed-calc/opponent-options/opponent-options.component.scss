@@ -1,0 +1,16 @@
+:host {
+  display: block;
+}
+
+.options {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: left;
+  gap: 0.5em;
+}
+
+.speed-modifier {
+  width: 12em;
+  height: 2.5em;
+}

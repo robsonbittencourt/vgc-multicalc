@@ -1,0 +1,22 @@
+<app-widget [title]="'Speed List'">
+  <left-header>
+    <div class="title-box">
+      <app-input-select label="Regulation" [allValues]="regulationsList" [value]="optionsStore.regulation()" (valueChange)="optionsStore.updateRegulation($event)" />
+      <app-input-autocomplete label="Pokémon" [enableClear]="true" [allValues]="optionsStore.pokemonNamesByReg()" [value]="optionsStore.targetName()" (valueChange)="optionsStore.updateTargetName($event)" (cleared)="optionsStore.clearTargetName()" />
+    </div>
+  </left-header>
+  <right-header>
+    <div class="header-buttons-section">
+      <div class="header-buttons-text">
+        <span class="title">Options to opponent side</span>
+        <span>Use Your Team and Field section for more options</span>
+      </div>
+
+      <app-opponent-options />
+    </div>
+  </right-header>
+
+  <div class="speed-scale">
+    <app-speed-scale [pokemonId]="pokemonId()" [pokemonEachSide]="28" (pokemonSelected)="pokemonSelected.emit($event)" />
+  </div>
+</app-widget>

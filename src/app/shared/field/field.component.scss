@@ -1,5 +1,9 @@
 @use "variables.scss" as *;
 
+:host {
+  display: block;
+}
+
 .field-container {
   display: grid;
   grid-template-columns: 1fr 1.5fr 1fr;

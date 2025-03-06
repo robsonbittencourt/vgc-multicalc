@@ -1,25 +1,32 @@
+:host {
+  display: block;
+}
+
 .center-section {
   display: grid;
-  grid-template-columns: repeat(21, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(19, 1fr);
   overflow: hidden;
 }
 
 .speed-box {
   display: grid;
   grid-template-rows: 1fr 1fr;
-  height: 11em;
+  height: 14em;
 }
 
 @media only screen and (max-width: 1279px) {
   .center-section {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    grid-template-rows: repeat(5, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     overflow: hidden;
   }
 
-  .speed-box {
-    height: 8em;
+  .speed-box:nth-child(-n + 5),
+  .speed-box:nth-child(n + 11):nth-child(-n + 15) {
+    height: 8.5em;
+  }
+
+  .speed-box:nth-child(n + 6):nth-child(-n + 10) {
+    height: 10em;
   }
 }

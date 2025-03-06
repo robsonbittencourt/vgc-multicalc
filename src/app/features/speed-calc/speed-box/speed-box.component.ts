@@ -1,7 +1,8 @@
 import { animate, style, transition, trigger } from "@angular/animations"
 import { NgClass } from "@angular/common"
-import { Component, computed, input } from "@angular/core"
+import { Component, computed, input, output } from "@angular/core"
 import { ACTUAL } from "@lib/constants"
+import { Pokemon } from "@lib/model/pokemon"
 import { SpeedDefinition } from "@lib/speed-calculator/speed-definition"
 
 const visible = { transform: "translateX(0)" }
@@ -24,6 +25,9 @@ export class SpeedBoxComponent {
   speedDefinition = input.required<SpeedDefinition>()
   speedChanged = input.required<boolean>()
   speedIncreasing = input.required<boolean>()
+  selected = input.required<boolean>()
+
+  pokemonSelected = output<Pokemon>()
 
   isActual = computed(() => this.speedDefinition().description.includes(ACTUAL))
 

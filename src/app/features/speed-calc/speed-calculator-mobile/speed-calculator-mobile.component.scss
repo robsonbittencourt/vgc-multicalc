@@ -1,7 +1,7 @@
 @use "variables.scss" as *;
 
 .container {
-  background-color: var(--widget-background);
+  background-color: var(--background);
   transition:
     background-color 0.3s ease,
     color 0.3s ease,
@@ -42,7 +42,7 @@
 }
 
 .evs {
-  margin: 1.5em 0.75em 0 0.75em;
+  margin: 1.5em 1em 0 0.75em;
 }
 
 .pokemon-image {
@@ -50,16 +50,16 @@
   height: auto;
 }
 
-.speed-calculator-container {
+.speed-scale {
   margin-top: 2em;
 }
 
-.title {
-  font-size: 16px;
-  font-weight: 500;
-  margin-left: 1em;
+.card {
+  padding: 0em 1em 1em 1em;
+}
+
+.opponent-options {
   margin-top: 1em;
-  display: block;
 }
 
 .options {
@@ -68,19 +68,10 @@
   align-items: center;
   justify-content: center;
   gap: 0.5em;
-  margin-top: 0.5em;
-}
-
-.speed-modifier {
-  width: 20%;
+  margin-top: 1em;
 }
 
 .clear-button {
   display: flex;
   align-items: center;
-}
-
-.speed-modifier {
-  width: 5em;
-  height: 2.5em;
 }

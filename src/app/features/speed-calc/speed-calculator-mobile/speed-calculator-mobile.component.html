@@ -19,36 +19,27 @@
     <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.spe" stat="spe" [reduced]="true" />
   </div>
 
-  <div class="speed-calculator-container">
-    <app-speed-scale class="speed-calculator-container" [pokemonId]="pokemon().id" [pokemonEachSide]="17" />
-  </div>
+  <app-speed-scale class="speed-scale" [pokemonId]="pokemon().id" [pokemonEachSide]="7" (pokemonSelected)="selectedPokemon.set($event)" />
 
-  <label class="title opponent-title">Opponent Side</label>
-  <div class="options opponent-options">
-    <div class="speed-modifier">
-      <app-input-select [value]="optionsStore.speedModifier().toString()" [allValues]="statsModifiers" (valueChange)="updateSpeedModifier($event)" />
+  <app-speed-insights class="card" [pokemon]="selectedPokemon()" />
+
+  <app-widget class="card" title="Opponent Side">
+    <app-opponent-options class="opponent-options" />
+  </app-widget>
+
+  <app-field class="card" onlySpeed="true" />
+
+  <app-widget class="card" title="Filters">
+    <div class="options">
+      <mat-button-toggle-group [hideSingleSelectionIndicator]="true">
+        <mat-button-toggle [checked]="optionsStore.regulation() === 'G'" value="G" (change)="optionsStore.updateRegulation($event.source.value)">Regulation G</mat-button-toggle>
+        <mat-button-toggle [checked]="optionsStore.regulation() === 'H'" value="H" (change)="optionsStore.updateRegulation($event.source.value)">Regulation H</mat-button-toggle>
+      </mat-button-toggle-group>
     </div>
 
-    <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">
-      <mat-button-toggle [checked]="optionsStore.speedDropActive()" (change)="optionsStore.toogleIceWind($event.source.checked)">Ice Wind</mat-button-toggle>
-      <mat-button-toggle [checked]="optionsStore.paralyzedActive()" (change)="optionsStore.toogleParalyze($event.source.checked)">Paralyzed</mat-button-toggle>
-      <mat-button-toggle [checked]="optionsStore.choiceScarfActive()" (change)="optionsStore.toogleChoiceScarf($event.source.checked)">Choice Scarf</mat-button-toggle>
-    </mat-button-toggle-group>
-  </div>
-
-  <app-field onlySpeed="true" />
-
-  <label class="title">Regulation</label>
-  <div class="options">
-    <mat-button-toggle-group [hideSingleSelectionIndicator]="true">
-      <mat-button-toggle [checked]="optionsStore.regulation() === 'G'" value="G" (change)="optionsStore.updateRegulation($event.source.value)">Regulation G</mat-button-toggle>
-      <mat-button-toggle [checked]="optionsStore.regulation() === 'H'" value="H" (change)="optionsStore.updateRegulation($event.source.value)">Regulation H</mat-button-toggle>
-    </mat-button-toggle-group>
-  </div>
-
-  <label class="title">Pokémon</label>
-  <div class="options">
-    <app-input-autocomplete [allValues]="optionsStore.pokemonNamesByReg()" [value]="optionsStore.targetName()" (valueChange)="optionsStore.updateTargetName($event)" />
-    <mat-icon class="clear-button" (click)="optionsStore.clearTargetName()">clear</mat-icon>
-  </div>
+    <div class="options">
+      <app-input-autocomplete label="Pokémon" leftLabel="true" [allValues]="optionsStore.pokemonNamesByReg()" [value]="optionsStore.targetName()" (valueChange)="optionsStore.updateTargetName($event)" />
+      <mat-icon class="clear-button" (click)="optionsStore.clearTargetName()">clear</mat-icon>
+    </div>
+  </app-widget>
 </div>
