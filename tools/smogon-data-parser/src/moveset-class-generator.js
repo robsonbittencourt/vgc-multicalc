@@ -6,7 +6,7 @@ const MOVESET_MODULE_PREFIX = "export const SETDEX_SV: Record<string, any> = "
 await createMovesetsFile()
 
 export async function createMovesetsFile() {
-  const regGData = await getSmogonData("2025-01", "g")
+  const regGData = await getSmogonData("2025-02", "g")
   const regHData = await getSmogonData("2024-12", "h")
 
   const smogonData = getUniquePokemons(regGData)
