@@ -74,10 +74,6 @@ export class PokemonBuild {
     this.container().find('[data-cy="activate-ability"] input').click({ force: true })
   }
 
-  activateBoosterEnergy() {
-    this.container().find('[data-cy="booster-energy"]').click({ force: true })
-  }
-
   activateCommander() {
     this.container().find('[data-cy="commander"]').click({ force: true })
   }

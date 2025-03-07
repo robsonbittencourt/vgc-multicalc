@@ -7,3 +7,12 @@
 .input-select {
   width: 100%;
 }
+
+.check {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25em;
+  width: 2em;
+  margin-top: -1px;
+}

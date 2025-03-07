@@ -85,8 +85,10 @@ body {
 
   @include mat.checkbox-overrides(
     (
+      disabled-selected-icon-color: var(--primary),
       unselected-icon-color: var(--text),
-      disabled-selected-checkmark-color: var(--checkmark-color)
+      disabled-selected-checkmark-color: var(--checkmark-color),
+      selected-checkmark-color: var(--checkmark-color)
     )
   );
 

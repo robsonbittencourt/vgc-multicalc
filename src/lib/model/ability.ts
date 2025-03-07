@@ -28,7 +28,7 @@ export class Ability {
   }
 
   get actionableAbility(): boolean {
-    const actionableAbilities = ["Slow Start", "Unburden"]
+    const actionableAbilities = ["Slow Start", "Unburden", "Protosynthesis", "Quark Drive"]
     return actionableAbilities.includes(this.name)
   }
 

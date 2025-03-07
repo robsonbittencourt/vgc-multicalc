@@ -74,7 +74,7 @@ describe("Test calcs with Paradox Pokémon and ability activated", () => {
 
       leftDamageResult.damageIs(0, 44.9, 53.6, 93, 11)
 
-      leftPokemonBuild.activateBoosterEnergy()
+      leftPokemonBuild.activateAbility()
 
       leftDamageResult.damageIs(0, 58.4, 69.5, 121, 144)
     })
@@ -85,7 +85,7 @@ describe("Test calcs with Paradox Pokémon and ability activated", () => {
 
       leftDamageResult.damageIs(0, 83.1, 98.9, 158, 188)
 
-      rightPokemonBuild.activateBoosterEnergy()
+      rightPokemonBuild.activateAbility()
 
       leftDamageResult.damageIs(0, 63.1, 75.7, 120, 144)
     })
@@ -96,7 +96,7 @@ describe("Test calcs with Paradox Pokémon and ability activated", () => {
 
       leftDamageResult.damageIs(0, 28, 33.3, 58, 69)
 
-      leftPokemonBuild.activateBoosterEnergy()
+      leftPokemonBuild.activateAbility()
 
       leftDamageResult.damageIs(0, 36.7, 43.4, 76, 90)
     })
@@ -107,7 +107,7 @@ describe("Test calcs with Paradox Pokémon and ability activated", () => {
 
       leftDamageResult.damageIs(0, 33, 40, 43, 52)
 
-      rightPokemonBuild.activateBoosterEnergy()
+      rightPokemonBuild.activateAbility()
 
       leftDamageResult.damageIs(0, 26.1, 32.3, 34, 42)
     })
@@ -119,7 +119,7 @@ describe("Test calcs with Paradox Pokémon and ability activated", () => {
       leftPokemonBuild.selectAttackThree()
       leftDamageResult.damageIs(2, 103, 121.5, 134, 158)
 
-      rightPokemonBuild.activateBoosterEnergy()
+      rightPokemonBuild.activateAbility()
 
       leftDamageResult.damageIs(2, 153.8, 181.5, 200, 236)
     })
@@ -132,7 +132,7 @@ describe("Test calcs with Paradox Pokémon and ability activated", () => {
 
       leftDamageResult.damageIs(0, 25.1, 29.9, 52, 62)
 
-      leftPokemonBuild.activateBoosterEnergy()
+      leftPokemonBuild.activateAbility()
 
       leftDamageResult.damageIs(0, 32.8, 39.1, 68, 81)
     })
@@ -143,7 +143,7 @@ describe("Test calcs with Paradox Pokémon and ability activated", () => {
 
       leftDamageResult.damageIs(0, 51.5, 61.8, 85, 102)
 
-      rightPokemonBuild.activateBoosterEnergy()
+      rightPokemonBuild.activateAbility()
 
       leftDamageResult.damageIs(0, 40.6, 47.8, 67, 79)
     })
@@ -154,7 +154,7 @@ describe("Test calcs with Paradox Pokémon and ability activated", () => {
 
       leftDamageResult.damageIs(0, 44.4, 53.1, 92, 110)
 
-      leftPokemonBuild.activateBoosterEnergy()
+      leftPokemonBuild.activateAbility()
 
       leftDamageResult.damageIs(0, 57.9, 69.5, 120, 144)
     })
@@ -165,7 +165,7 @@ describe("Test calcs with Paradox Pokémon and ability activated", () => {
 
       leftDamageResult.damageIs(0, 29.6, 35.4, 46, 55)
 
-      rightPokemonBuild.activateBoosterEnergy()
+      rightPokemonBuild.activateAbility()
 
       leftDamageResult.damageIs(0, 23.2, 27.7, 36, 43)
     })
@@ -177,7 +177,7 @@ describe("Test calcs with Paradox Pokémon and ability activated", () => {
       leftPokemonBuild.selectAttackThree()
       leftDamageResult.damageIs(2, 18.7, 22.5, 29, 35)
 
-      rightPokemonBuild.activateBoosterEnergy()
+      rightPokemonBuild.activateAbility()
 
       leftDamageResult.damageIs(2, 28.3, 33.5, 44, 52)
     })
@@ -201,7 +201,7 @@ describe.only("Test calcs with Paradox Pokémon in opponent side", () => {
       pokemonBuild.importPokemon(flutterManeHighSpaData)
       opponents.importPokemon(tornadusData)
 
-      team.selectPokemon("Flutter Mane").activateBoosterEnergy()
+      team.selectPokemon("Flutter Mane").activateAbility()
 
       opponents.get("Tornadus").damageIs(76.1, 90.9).cause2HKO()
     })
@@ -211,7 +211,7 @@ describe.only("Test calcs with Paradox Pokémon in opponent side", () => {
       opponents.importPokemon(flutterManeHighSpdData)
 
       team.selectPokemon("Tornadus")
-      opponents.selectPokemon("Flutter Mane").activateBoosterEnergy()
+      opponents.selectPokemon("Flutter Mane").activateAbility()
 
       opponents.get("Flutter Mane").damageIs(26.1, 32.3).cause4HKO()
     })
@@ -229,7 +229,7 @@ describe.only("Test calcs with Paradox Pokémon in opponent side", () => {
       pokemonBuild.importPokemon(flutterManeHighSpdData)
       opponents.importPokemon(tornadusData)
 
-      team.selectPokemon("Flutter Mane").activateBoosterEnergy()
+      team.selectPokemon("Flutter Mane").activateAbility()
       opponents.selectPokemon("Tornadus")
 
       opponents.get("Tornadus").damageIs(26.1, 32.3).cause4HKO()
@@ -240,7 +240,7 @@ describe.only("Test calcs with Paradox Pokémon in opponent side", () => {
       opponents.importPokemon(flutterManeHighSpaData)
 
       team.selectPokemon("Tornadus")
-      opponents.selectPokemon("Flutter Mane").activateBoosterEnergy()
+      opponents.selectPokemon("Flutter Mane").activateAbility()
 
       opponents.get("Flutter Mane").damageIs(76.1, 90.9).cause2HKO()
     })

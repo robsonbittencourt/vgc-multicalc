@@ -1,8 +1,12 @@
 @if (pokemon().ability.actionableAbility) {
-  <mat-checkbox [ngModel]="pokemon().ability.on" (change)="store.abilityOn(pokemonId(), $event.checked)" data-cy="activate-ability" />
+  <div class="check">
+    @if (pokemon().isParadoxAbility && pokemon().ability.on) {
+      <span>+{{ pokemon().higherStat | titlecase }}</span>
+    }
+    <mat-checkbox [ngModel]="pokemon().ability.on" (change)="store.abilityOn(pokemonId(), $event.checked)" data-cy="activate-ability" />
+  </div>
 }
 
 <app-tatsugiri-button [pokemonId]="pokemon().id" />
-<app-booster-energy-button [pokemonId]="pokemon().id" />
 
 <app-input-select class="input-select" label="Ability" [value]="pokemon().ability.name" [allValues]="availableAbilities()" (valueChange)="store.ability(pokemonId(), $event)" data-cy="ability" />
