@@ -19,7 +19,6 @@ import { SpeedCalcOptionsStore } from "@data/store/speed-calc-options-store"
 import { Pokemon } from "@lib/model/pokemon"
 import { Status } from "@lib/model/status"
 import { SPEED_CALCULATOR_MODES } from "@lib/speed-calculator/speed-calculator-mode"
-import { Regulation } from "@lib/types"
 import { NATURES } from "@robsonbittencourt/calc"
 
 @Component({
@@ -56,8 +55,6 @@ export class SpeedCalculatorMobileComponent implements OnInit {
   allNatureNames = Object.keys(NATURES)
 
   statusConditions = [Status.HEALTHY.description, Status.PARALYSIS.description]
-
-  regulationsList: Regulation[] = ["G"]
 
   topUsageList: string[] = ["60", "100", "125", "All"]
 
