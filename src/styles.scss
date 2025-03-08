@@ -113,7 +113,7 @@ body {
 
   @include mat.menu-overrides(
     (
-      container-color: var(--background),
+      container-color: var(--widget-background),
       item-spacing: 2px,
       divider-top-spacing: 2em,
       divider-bottom-spacing: 1em

@@ -1,7 +1,7 @@
 :host {
   display: grid;
   grid-template-columns: 1fr;
-  background-color: var(--widget-background);
+  background-color: var(--background);
 }
 
 .pokes {
@@ -44,4 +44,9 @@
 .options {
   display: flex;
   justify-content: space-between;
+}
+
+.field-card {
+  margin-top: 1em;
+  padding: 0em 1em 1em 1em;
 }
