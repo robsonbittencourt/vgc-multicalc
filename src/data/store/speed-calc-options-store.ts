@@ -1,5 +1,6 @@
 import { computed, Injectable } from "@angular/core"
 import { pokemonByRegulation } from "@data/regulation-pokemon"
+import { SpeedCalculatorMode } from "@lib/speed-calculator/speed-calculator-mode"
 import { SpeedCalculatorOptions } from "@lib/speed-calculator/speed-calculator-options"
 import { Regulation } from "@lib/types"
 import { patchState, signalStore, withState } from "@ngrx/signals"
@@ -8,6 +9,7 @@ type SpeedCalcOptionsState = {
   topUsage: string
   regulation: string
   targetName: string
+  mode: SpeedCalculatorMode
   speedModifier: number
   speedDropActive: boolean
   paralyzedActive: boolean
@@ -18,6 +20,7 @@ const initialState: SpeedCalcOptionsState = {
   topUsage: "60",
   regulation: "G",
   targetName: "",
+  mode: SpeedCalculatorMode.StatsAndMeta,
   speedModifier: 0,
   speedDropActive: false,
   paralyzedActive: false,
@@ -32,6 +35,7 @@ export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }
         topUsage: this.topUsage(),
         regulation: this.regulation() as Regulation,
         targetName: this.targetName(),
+        mode: this.mode(),
         speedModifier: this.speedModifier(),
         speedDropActive: this.speedDropActive(),
         paralyzedActive: this.paralyzedActive(),
@@ -70,6 +74,11 @@ export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }
 
   updateTopUsage(topUsage: string) {
     patchState(this, () => ({ topUsage }))
+    this.clearTargetName()
+  }
+
+  updateMode(mode: string) {
+    patchState(this, () => ({ mode: mode as SpeedCalculatorMode }))
     this.clearTargetName()
   }
 

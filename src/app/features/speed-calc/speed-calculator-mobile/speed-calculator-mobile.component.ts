@@ -18,6 +18,7 @@ import { FieldStore } from "@data/store/field-store"
 import { SpeedCalcOptionsStore } from "@data/store/speed-calc-options-store"
 import { Pokemon } from "@lib/model/pokemon"
 import { Status } from "@lib/model/status"
+import { SPEED_CALCULATOR_MODES } from "@lib/speed-calculator/speed-calculator-mode"
 import { Regulation } from "@lib/types"
 import { NATURES } from "@robsonbittencourt/calc"
 
@@ -59,6 +60,8 @@ export class SpeedCalculatorMobileComponent implements OnInit {
   regulationsList: Regulation[] = ["G"]
 
   topUsageList: string[] = ["60", "100", "125", "All"]
+
+  speedCalculatorModes: string[] = SPEED_CALCULATOR_MODES
 
   ngOnInit() {
     this.resetEvs()

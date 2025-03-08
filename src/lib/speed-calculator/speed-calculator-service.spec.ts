@@ -6,6 +6,7 @@ import { Field } from "@lib/model/field"
 import { Pokemon } from "@lib/model/pokemon"
 import { Status } from "@lib/model/status"
 import { SmogonFunctions } from "@lib/smogon/smogon-functions"
+import { SpeedCalculatorMode } from "@lib/speed-calculator/speed-calculator-mode"
 import { SpeedCalculatorOptions } from "@lib/speed-calculator/speed-calculator-options"
 import { SpeedCalculatorService } from "@lib/speed-calculator/speed-calculator-service"
 import { Field as SmogonField } from "@robsonbittencourt/calc"
@@ -166,6 +167,21 @@ describe("SpeedCalculatorService", () => {
 
       expect(actual).not.toBeUndefined()
       expect(quantity).toBe(1)
+    })
+  })
+
+  describe("Test filter options", () => {
+    it("should calculate Base speed", () => {
+      const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
+      const field = new Field()
+      const pokemonEachSide = 10
+      const options = new SpeedCalculatorOptions({ mode: SpeedCalculatorMode.Base })
+
+      const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide, options)
+
+      inRange.forEach(r => {
+        expect(r.description.includes("Base")).toBeTrue()
+      })
     })
   })
 

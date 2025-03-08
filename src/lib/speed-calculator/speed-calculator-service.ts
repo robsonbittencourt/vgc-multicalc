@@ -10,6 +10,7 @@ import { Field } from "@lib/model/field"
 import { Pokemon } from "@lib/model/pokemon"
 import { Status } from "@lib/model/status"
 import { SmogonFunctions } from "@lib/smogon/smogon-functions"
+import { SpeedCalculatorMode } from "@lib/speed-calculator/speed-calculator-mode"
 import { SpeedCalculatorOptions } from "@lib/speed-calculator/speed-calculator-options"
 import { SpeedDefinition } from "@lib/speed-calculator/speed-definition"
 import { Generations, Field as SmogonField, Pokemon as SmogonPokemon } from "@robsonbittencourt/calc"
@@ -24,7 +25,7 @@ export class SpeedCalculatorService {
   orderedPokemon(pokemon: Pokemon, field: Field, pokemonEachSide: number, options: SpeedCalculatorOptions = new SpeedCalculatorOptions()): SpeedDefinition[] {
     const smogonField = this.fieldMapper.toSmogon(field)
 
-    let speedDefinitions: SpeedDefinition[] = [this.buildActual(pokemon, smogonField), ...this.loadSpeedMeta(options, smogonField)]
+    let speedDefinitions: SpeedDefinition[] = [this.buildActual(pokemon, smogonField, options), ...this.loadSpeedMeta(options, smogonField)]
 
     if (options.targetName.length > 0) {
       speedDefinitions = speedDefinitions.filter(s => s.pokemonName == options.targetName || this.isActual(s))
@@ -50,7 +51,11 @@ export class SpeedCalculatorService {
     return speedOne >= speedTwo ? [pokemonOne, pokemonTwo] : [pokemonTwo, pokemonOne]
   }
 
-  private buildActual(pokemon: Pokemon, smogonField: SmogonField): SpeedDefinition {
+  private buildActual(pokemon: Pokemon, smogonField: SmogonField, options: SpeedCalculatorOptions): SpeedDefinition {
+    if (options.mode == SpeedCalculatorMode.Base) {
+      return new SpeedDefinition(pokemon, pokemon.baseSpe, ACTUAL)
+    }
+
     const speed = this.smogonService.getFinalSpeed(pokemon, smogonField, smogonField.attackerSide)
 
     return new SpeedDefinition(pokemon, speed, ACTUAL)
@@ -65,9 +70,18 @@ export class SpeedCalculatorService {
     pokemon.forEach(p => {
       const pokemon = this.adjustPokemonByOptions(p, options)
 
+      this.loadStats(pokemon, smogonField, speedDefinitions, options)
+      this.loadMetaStatistics(pokemon, smogonField, speedDefinitions, options)
+      this.loadBaseSpeed(pokemon, speedDefinitions, options)
+    })
+
+    return speedDefinitions
+  }
+
+  private loadStats(pokemon: Pokemon, smogonField: SmogonField, speedDefinitions: SpeedDefinition[], options: SpeedCalculatorOptions) {
+    if (options.mode == SpeedCalculatorMode.StatsAndMeta || options.mode == SpeedCalculatorMode.Stats) {
       speedDefinitions.push(this.minSpeed(pokemon, smogonField))
       speedDefinitions.push(this.maxSpeed(pokemon, smogonField))
-      speedDefinitions.push(...this.statistics(pokemon, smogonField))
 
       if (this.isTrickRoomPokemon(pokemon)) {
         speedDefinitions.push(this.minSpeedIvZero(pokemon, smogonField))
@@ -80,9 +94,19 @@ export class SpeedCalculatorService {
       if (this.isBoosterSpeedPokemon(pokemon)) {
         speedDefinitions.push(this.maxBooster(pokemon, smogonField))
       }
-    })
+    }
+  }
 
-    return speedDefinitions
+  private loadMetaStatistics(pokemon: Pokemon, smogonField: SmogonField, speedDefinitions: SpeedDefinition[], options: SpeedCalculatorOptions) {
+    if (options.mode == SpeedCalculatorMode.StatsAndMeta || options.mode == SpeedCalculatorMode.Meta) {
+      speedDefinitions.push(...this.statistics(pokemon, smogonField))
+    }
+  }
+
+  private loadBaseSpeed(pokemon: Pokemon, speedDefinitions: SpeedDefinition[], options: SpeedCalculatorOptions) {
+    if (options.mode == SpeedCalculatorMode.Base) {
+      speedDefinitions.push(new SpeedDefinition(pokemon, pokemon.baseSpe, "Base"))
+    }
   }
 
   private hasChoiceScarf(pokemon: Pokemon): boolean {

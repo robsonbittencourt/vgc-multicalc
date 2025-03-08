@@ -1,6 +1,7 @@
 import { provideExperimentalZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
 import { SpeedCalcOptionsStore } from "@data/store/speed-calc-options-store"
+import { SpeedCalculatorMode } from "@lib/speed-calculator/speed-calculator-mode"
 
 describe("Speed Calc Options Store", () => {
   let store: SpeedCalcOptionsStore
@@ -116,6 +117,18 @@ describe("Speed Calc Options Store", () => {
       store.updateRegulation("G")
 
       expect(store.regulation()).toBe("G")
+    })
+
+    it("should update Top Usage when it is changed", () => {
+      store.updateTopUsage("100")
+
+      expect(store.topUsage()).toBe("100")
+    })
+
+    it("should update Mode when it is changed", () => {
+      store.updateMode(SpeedCalculatorMode.Base)
+
+      expect(store.mode()).toBe("Base")
     })
 
     it("should clear Target Name when Regulation is updated", () => {
