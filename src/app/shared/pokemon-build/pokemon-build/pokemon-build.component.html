@@ -19,7 +19,10 @@
     </div>
 
     <div class="status-item" [ngStyle]="(reverse() && { order: 3 }) || null">
-      <app-status-combo-box [pokemonId]="pokemonId()" />
+      <div class="status-level">
+        <app-status-combo-box class="status" [pokemonId]="pokemonId()" />
+        <input class="level" type="number" min="1" max="100" matInput [ngModel]="pokemon().level" (input)="levelChanged($event)" />
+      </div>
       <app-multi-hit-combo-box [pokemonId]="pokemonId()" />
       <app-item-combo-box [pokemonId]="pokemonId()" />
     </div>

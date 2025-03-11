@@ -60,4 +60,8 @@ export class PokemonBuildComponent {
   activateMove(position: number) {
     this.store.activateMoveByPosition(this.pokemonId(), position)
   }
+
+  levelChanged(event: Event) {
+    console.log(+(event.target as HTMLInputElement).value)
+  }
 }

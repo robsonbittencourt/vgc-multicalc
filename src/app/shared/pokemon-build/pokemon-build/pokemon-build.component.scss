@@ -28,6 +28,19 @@
   justify-content: space-between;
 }
 
+.status-level {
+  display: flex;
+  gap: 1em;
+}
+
+.status {
+  width: 100%;
+}
+
+.level {
+  width: 100%;
+}
+
 .tera-type-ability {
   display: flex;
   flex-direction: column;
