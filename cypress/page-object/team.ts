@@ -15,6 +15,11 @@ export class Team {
     return this.selectTeamMember(pokemonName).pokemon()
   }
 
+  clickOnAdd(): PokemonBuild {
+    cy.get('[data-cy="add-team-member-tab"]').click({ force: true })
+    return new PokemonBuild("your-team")
+  }
+
   add(pokemonName: string): PokemonBuild {
     cy.get('[data-cy="add-team-member-tab"]').click({ force: true })
     cy.get('[data-cy="pokemon-select"] input').type(pokemonName, { force: true }).type("{downArrow}").type("{enter}")

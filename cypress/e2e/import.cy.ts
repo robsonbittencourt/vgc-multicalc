@@ -11,6 +11,7 @@ let pokepasteDataForms1: string
 let pokepasteDataForms2: string
 let pokepasteDataForms3: string
 let pokepasteDataForms4: string
+let pokepasteDataForms5: string
 
 before(() => {
   cy.fixture("chi-yu-data").then(data => {
@@ -33,6 +34,9 @@ before(() => {
   })
   cy.fixture("pokepaste-data-forms-4").then(data => {
     pokepasteDataForms4 = data
+  })
+  cy.fixture("pokepaste-data-forms-5").then(data => {
+    pokepasteDataForms5 = data
   })
 })
 
@@ -309,5 +313,17 @@ describe("Import Pokepaste", () => {
     team.selectTeam("Team 2")
 
     team.addPokemonUnavailable()
+  })
+
+  it("should import individual Pokémon when already have another 5", () => {
+    const team = new Team()
+    team.importPokepaste(pokepasteDataForms5)
+    team.selectTeam("Team 2")
+
+    team.clickOnAdd()
+    team.importPokemon(chiyuData)
+
+    team.addPokemonUnavailable()
+    team.selectPokemon("Chi-Yu")
   })
 })

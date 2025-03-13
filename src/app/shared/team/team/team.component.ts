@@ -117,9 +117,11 @@ export class TeamComponent {
   }
 
   pokemonImported(pokemon: Pokemon | Pokemon[]) {
-    const newTeamMember = new TeamMember(pokemon as Pokemon, false)
-
     const actualTeam = this.store.team()
+
+    const newTeamMemberActive = actualTeam.activePokemon().isDefault
+    const newTeamMember = new TeamMember(pokemon as Pokemon, newTeamMemberActive)
+
     const newTeamMembers = [...actualTeam.teamMembers]
     const indexToInsert = newTeamMembers.length - 1
     const removeDefaultPokemon = newTeamMembers.length == 6
