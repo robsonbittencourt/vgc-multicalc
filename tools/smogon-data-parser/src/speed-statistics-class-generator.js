@@ -1,10 +1,8 @@
 import fs from "fs"
 import { smogonSpeedData } from "./smogon-speed-data.js"
 
-createSpeedStatisticsFile("2025-01", "g")
-
-export async function createSpeedStatisticsFile(date, reg) {
-  const speedStatistics = await smogonSpeedData(date, reg)
+export async function createSpeedStatisticsFile(date, regulation) {
+  const speedStatistics = await smogonSpeedData(date, regulation)
 
   let fileContent = ""
 

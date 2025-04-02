@@ -90,7 +90,7 @@ describe("SpeedCalculatorService", () => {
 
       const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide, options)
 
-      expect(inRange.length).toEqual(4)
+      expect(inRange.length).toEqual(5)
 
       for (let index = 0; index < inRange.length; index++) {
         const actual = inRange[index]
@@ -162,7 +162,7 @@ describe("SpeedCalculatorService", () => {
 
       const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide)
 
-      const actual = inRange.find(p => p.pokemonName == "Urshifu" && p.description.includes(ACTUAL) && p.description.includes("62% Usage"))
+      const actual = inRange.find(p => p.pokemonName == "Urshifu" && p.description.includes(ACTUAL) && p.description.includes("48% Usage"))
       const quantity = inRange.filter(p => p.pokemonName == "Urshifu" && p.value == 149).length
 
       expect(actual).not.toBeUndefined()
@@ -416,8 +416,8 @@ describe("SpeedCalculatorService", () => {
       const speedDefinition = service.statistics(pokemon, smogonField)
 
       expect(speedDefinition[0].pokemonName).toEqual("Flutter Mane")
-      expect(speedDefinition[0].value).toEqual(188)
-      expect(speedDefinition[0].description.includes("12% Usage")).toBeTrue()
+      expect(speedDefinition[0].value).toEqual(205)
+      expect(speedDefinition[0].description.includes("50% Usage")).toBeTrue()
     })
   })
 })

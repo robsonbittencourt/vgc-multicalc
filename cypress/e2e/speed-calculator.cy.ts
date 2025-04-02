@@ -67,8 +67,8 @@ describe("Speed Calculator", () => {
       speedCalculator.speedModifier("+2")
       cy.wait(300)
 
-      speedCalculator.speedTierIs(14, "Torkoal", 44, "Min IV 0")
-      speedCalculator.speedTierIs(56, "Grimmsnarl", 160, "Min65% Usage")
+      speedCalculator.speedTierIs(15, "Torkoal", 44, "Min IV 0")
+      speedCalculator.speedTierIs(56, "Torkoal", 158, "Max")
     })
 
     it("decrement speed modifier of opponent Pokémon", () => {
@@ -77,8 +77,8 @@ describe("Speed Calculator", () => {
       speedCalculator.speedModifier("-2")
       cy.wait(300)
 
-      speedCalculator.speedTierIs(0, "Zamazenta-Crowned", 84, "24% Usage")
-      speedCalculator.speedTierIs(47, "Regieleki", 138, "Max23% Usage")
+      speedCalculator.speedTierIs(0, "Landorus", 84, "Max25% Usage")
+      speedCalculator.speedTierIs(46, "Regieleki", 138, "Max32% Usage")
     })
 
     it("decrement speed of opponent Pokémon with Ice Wind", () => {
@@ -87,8 +87,8 @@ describe("Speed Calculator", () => {
       speedCalculator.iceWind()
       cy.wait(300)
 
-      speedCalculator.speedTierIs(0, "Tsareena", 82, "15% Usage")
-      speedCalculator.speedTierIs(56, "Lunala", 108, "Max")
+      speedCalculator.speedTierIs(0, "Mienshao", 83, "Min")
+      speedCalculator.speedTierIs(56, "Ditto", 109, "Scarf")
     })
 
     it("decrement speed of opponent Pokémon with Paralyzis", () => {
@@ -97,8 +97,8 @@ describe("Speed Calculator", () => {
       speedCalculator.paralyzed()
       cy.wait(300)
 
-      speedCalculator.speedTierIs(0, "Zamazenta-Crowned", 84, "24% Usage")
-      speedCalculator.speedTierIs(56, "Iron Bundle", 154, "Booster")
+      speedCalculator.speedTierIs(0, "Landorus", 84, "Max25% Usage")
+      speedCalculator.speedTierIs(54, "Iron Bundle", 154, "Booster")
     })
 
     it("increment speed of opponent Pokémon with Choice Scarf", () => {
@@ -107,8 +107,8 @@ describe("Speed Calculator", () => {
       speedCalculator.choiceScarf()
       cy.wait(300)
 
-      speedCalculator.speedTierIs(0, "Iron Hands", 70, "Min18% Usage")
-      speedCalculator.speedTierIs(56, "Torkoal", 118, "Scarf")
+      speedCalculator.speedTierIs(0, "Farigiraf", 72, "20% Usage")
+      speedCalculator.speedTierIs(56, "Groudon", 119, "12% Usage")
     })
 
     it("activate all opponent options at the same time", () => {
@@ -131,9 +131,9 @@ describe("Speed Calculator", () => {
       pokemon.selectNature("Jolly")
       cy.wait(300)
 
-      speedCalculator.speedTierIs(0, "Weezing-Galar", 82, "49% Usage")
+      speedCalculator.speedTierIs(0, "Grimmsnarl", 81, "11% Usage")
       speedCalculator.speedTierIs(28, "Tyranitar", 108, "Actual")
-      speedCalculator.speedTierIs(56, "Iron Leaves", 124, "Min")
+      speedCalculator.speedTierIs(56, "Mienshao", 125, "Min")
     })
 
     it("change the speed tier when speed ev changes", () => {
@@ -142,9 +142,9 @@ describe("Speed Calculator", () => {
       pokemon.speedEvs(156)
       cy.wait(300)
 
-      speedCalculator.speedTierIs(0, "Ursaluna-Bloodmoon", 72, "Min20% Usage")
+      speedCalculator.speedTierIs(0, "Ursaluna-Bloodmoon", 72, "Min25% Usage")
       speedCalculator.speedTierIs(28, "Tyranitar", 101, "Actual")
-      speedCalculator.speedTierIs(56, "Entei", 120, "Min")
+      speedCalculator.speedTierIs(56, "Volcarona", 120, "Min12% Usage")
     })
 
     it("change the speed tier when speed iv changes", () => {
@@ -153,9 +153,9 @@ describe("Speed Calculator", () => {
       pokemon.speedIvs(15)
       cy.wait(300)
 
-      speedCalculator.speedTierIs(0, "Gastrodon", 59, "Min54% Usage")
+      speedCalculator.speedTierIs(0, "Ursaluna-Bloodmoon", 64, "34% Usage")
       speedCalculator.speedTierIs(28, "Tyranitar", 91, "Actual")
-      speedCalculator.speedTierIs(56, "Ursaluna", 112, "Max")
+      speedCalculator.speedTierIs(56, "Ursaluna-Bloodmoon", 114, "Max")
     })
 
     it("change the speed tier when Pokémon is paralyzed", () => {
@@ -164,9 +164,9 @@ describe("Speed Calculator", () => {
       pokemon.paralyzed()
       cy.wait(300)
 
-      speedCalculator.speedTierIs(18, "Torkoal", 22, "Min IV 0")
+      speedCalculator.speedTierIs(19, "Torkoal", 22, "Min IV 0")
       speedCalculator.speedTierIs(28, "Tyranitar", 49, "Actual")
-      speedCalculator.speedTierIs(56, "Dondozo", 75, "32% Usage")
+      speedCalculator.speedTierIs(56, "Ursaluna-Bloodmoon", 72, "Min25% Usage")
     })
 
     it("change the speed tier when Pokémon has Choice Scarf", () => {
@@ -175,9 +175,9 @@ describe("Speed Calculator", () => {
       pokemon.selectItem("Choice Scarf")
       cy.wait(300)
 
-      speedCalculator.speedTierIs(0, "Weezing-Galar", 123, "Max")
+      speedCalculator.speedTierIs(0, "Iron Leaves", 124, "Min")
       speedCalculator.speedTierIs(28, "Tyranitar", 148, "Actual")
-      speedCalculator.speedTierIs(56, "Urshifu", 163, "Max23% Usage")
+      speedCalculator.speedTierIs(56, "Lunala", 163, "Max")
     })
 
     it("change the speed tier when Pokémon has Iron Ball", () => {
@@ -186,9 +186,9 @@ describe("Speed Calculator", () => {
       pokemon.selectItem("Iron Ball")
       cy.wait(300)
 
-      speedCalculator.speedTierIs(18, "Torkoal", 22, "Min IV 0")
+      speedCalculator.speedTierIs(19, "Torkoal", 22, "Min IV 0")
       speedCalculator.speedTierIs(28, "Tyranitar", 49, "Actual")
-      speedCalculator.speedTierIs(56, "Dondozo", 75, "32% Usage")
+      speedCalculator.speedTierIs(56, "Ursaluna-Bloodmoon", 72, "Min25% Usage")
     })
 
     it("change the speed tier when Pokémon has activated Unburden", () => {
@@ -198,7 +198,7 @@ describe("Speed Calculator", () => {
       pokemon.activateAbility()
       cy.wait(300)
 
-      speedCalculator.speedTierIs(0, "Zamazenta-Crowned", 198, "Max")
+      speedCalculator.speedTierIs(0, "Roaring Moon", 188, "Max47% Usage")
       speedCalculator.speedTierIs(28, "Sneasler", 378, "Actual")
     })
   })
@@ -210,9 +210,9 @@ describe("Speed Calculator", () => {
       field.tailwindAttacker()
       cy.wait(300)
 
-      speedCalculator.speedTierIs(0, "Zacian-Crowned", 168, "Min")
+      speedCalculator.speedTierIs(0, "Landorus", 168, "Max25% Usage")
       speedCalculator.speedTierIs(28, "Tyranitar", 198, "Actual")
-      speedCalculator.speedTierIs(56, "Iron Bundle", 309, "Booster")
+      speedCalculator.speedTierIs(54, "Iron Bundle", 309, "Booster")
     })
 
     it("change the speed tier when Defender Tailwind was activated", () => {
@@ -221,9 +221,9 @@ describe("Speed Calculator", () => {
       field.tailwindDefender()
       cy.wait(300)
 
-      speedCalculator.speedTierIs(14, "Torkoal", 44, "Min IV 0")
+      speedCalculator.speedTierIs(15, "Torkoal", 44, "Min IV 0")
       speedCalculator.speedTierIs(28, "Tyranitar", 99, "Actual")
-      speedCalculator.speedTierIs(56, "Grimmsnarl", 160, "Min65% Usage")
+      speedCalculator.speedTierIs(56, "Torkoal", 158, "Max")
     })
 
     it("change the speed tier when Trick Room was activated", () => {
@@ -232,9 +232,9 @@ describe("Speed Calculator", () => {
       field.trickRoom()
       cy.wait(300)
 
-      speedCalculator.speedTierIs(0, "Iron Crown", 118, "Min")
+      speedCalculator.speedTierIs(0, "Entei", 120, "Min")
       speedCalculator.speedTierIs(28, "Tyranitar", 99, "Actual")
-      speedCalculator.speedTierIs(56, "Iron Hands", 70, "Min18% Usage")
+      speedCalculator.speedTierIs(56, "Farigiraf", 72, "20% Usage")
     })
 
     it("double speed when Pokémon has Chlorophyll and Sun was activated", () => {
@@ -285,61 +285,61 @@ describe("Speed Calculator", () => {
 })
 
 const palafinSpeedTier = [
-  { pokemon: "Ditto", speed: 100, description: "11% Usage" },
-  { pokemon: "Gastrodon", speed: 100, description: "Max" },
-  { pokemon: "Dragonite", speed: 101, description: "21% Usage" },
+  { pokemon: "Heatran", speed: 97, description: "Min19% Usage" },
+  { pokemon: "Dragonite", speed: 100, description: "Min40% Usage" },
+  { pokemon: "Dragonite", speed: 101, description: "12% Usage" },
   { pokemon: "Tatsugiri", speed: 102, description: "Min" },
   { pokemon: "Gholdengo", speed: 104, description: "Min" },
-  { pokemon: "Rillaboom", speed: 105, description: "Min12% Usage" },
+  { pokemon: "Rillaboom", speed: 105, description: "Min15% Usage" },
   { pokemon: "Terapagos-Terastal", speed: 105, description: "Min" },
-  { pokemon: "Indeedee-F", speed: 105, description: "Min55% Usage" },
-  { pokemon: "Archaludon", speed: 105, description: "Min29% Usage" },
-  { pokemon: "Rillaboom", speed: 106, description: "15% Usage" },
+  { pokemon: "Indeedee-F", speed: 105, description: "Min58% Usage" },
+  { pokemon: "Urshifu", speed: 105, description: "13% Usage" },
+  { pokemon: "Archaludon", speed: 105, description: "Min30% Usage" },
+  { pokemon: "Rillaboom", speed: 106, description: "19% Usage" },
   { pokemon: "Ting-Lu", speed: 106, description: "Max" },
   { pokemon: "Kyogre", speed: 110, description: "Min" },
-  { pokemon: "Ditto", speed: 110, description: "Max55% Usage" },
-  { pokemon: "Annihilape", speed: 110, description: "Min" },
-  { pokemon: "Groudon", speed: 110, description: "Min11% Usage" },
-  { pokemon: "Calyrex-Ice", speed: 112, description: "Max" },
+  { pokemon: "Ditto", speed: 110, description: "Max44% Usage" },
+  { pokemon: "Annihilape", speed: 110, description: "Min13% Usage" },
+  { pokemon: "Groudon", speed: 110, description: "Min16% Usage" },
   { pokemon: "Iron Hands", speed: 112, description: "Max" },
+  { pokemon: "Calyrex-Ice", speed: 112, description: "Max" },
   { pokemon: "Ursaluna", speed: 112, description: "Max" },
-  { pokemon: "Groudon", speed: 112, description: "17% Usage" },
+  { pokemon: "Groudon", speed: 112, description: "12% Usage" },
   { pokemon: "Ursaluna-Bloodmoon", speed: 114, description: "Max" },
-  { pokemon: "Rillaboom", speed: 115, description: "12% Usage" },
   { pokemon: "Urshifu-Rapid-Strike", speed: 117, description: "Min" },
   { pokemon: "Urshifu", speed: 117, description: "Min" },
-  { pokemon: "Pelipper", speed: 117, description: "31% Usage" },
-  { pokemon: "Lunala", speed: 117, description: "Min11% Usage" },
+  { pokemon: "Pelipper", speed: 117, description: "27% Usage" },
+  { pokemon: "Lunala", speed: 117, description: "Min12% Usage" },
+  { pokemon: "Lunala", speed: 118, description: "35% Usage" },
   { pokemon: "Iron Crown", speed: 118, description: "Min" },
-  { pokemon: "Lunala", speed: 118, description: "20% Usage" },
-  { pokemon: "Groudon", speed: 119, description: "11% Usage" },
+  { pokemon: "Groudon", speed: 119, description: "12% Usage" },
   { pokemon: "Palafin-Hero", speed: 120, description: "Actual" },
   { pokemon: "Chi-Yu", speed: 120, description: "Min" },
+  { pokemon: "Volcarona", speed: 120, description: "Min12% Usage" },
   { pokemon: "Entei", speed: 120, description: "Min" },
-  { pokemon: "Volcarona", speed: 120, description: "Min16% Usage" },
   { pokemon: "Landorus", speed: 121, description: "Min" },
-  { pokemon: "Volcarona", speed: 121, description: "16% Usage" },
+  { pokemon: "Volcarona", speed: 121, description: "18% Usage" },
   { pokemon: "Incineroar", speed: 123, description: "Max" },
   { pokemon: "Farigiraf", speed: 123, description: "Max" },
-  { pokemon: "Grimmsnarl", speed: 123, description: "Max" },
   { pokemon: "Weezing-Galar", speed: 123, description: "Max" },
-  { pokemon: "Tsareena", speed: 124, description: "15% Usage" },
+  { pokemon: "Grimmsnarl", speed: 123, description: "Max" },
+  { pokemon: "Tsareena", speed: 124, description: "17% Usage" },
   { pokemon: "Iron Leaves", speed: 124, description: "Min" },
   { pokemon: "Mienshao", speed: 125, description: "Min" },
-  { pokemon: "Lunala", speed: 126, description: "13% Usage" },
   { pokemon: "Iron Treads", speed: 126, description: "Min" },
-  { pokemon: "Raging Bolt", speed: 127, description: "14% Usage" },
-  { pokemon: "Gholdengo", speed: 127, description: "12% Usage" },
-  { pokemon: "Pelipper", speed: 128, description: "Max12% Usage" },
-  { pokemon: "Iron Jugulis", speed: 128, description: "Min" },
-  { pokemon: "Tsareena", speed: 129, description: "28% Usage" },
+  { pokemon: "Pelipper", speed: 128, description: "Max" },
+  { pokemon: "Gothitelle", speed: 128, description: "Max" },
+  { pokemon: "Iron Crown", speed: 129, description: "14% Usage" },
+  { pokemon: "Tsareena", speed: 129, description: "13% Usage" },
   { pokemon: "Ogerpon-Hearthflame", speed: 130, description: "Min" },
   { pokemon: "Ogerpon-Cornerstone", speed: 130, description: "Min" },
-  { pokemon: "Ogerpon-Wellspring", speed: 130, description: "Min" },
-  { pokemon: "Tornadus", speed: 131, description: "Min14% Usage" },
+  { pokemon: "Ogerpon-Wellspring", speed: 130, description: "Min12% Usage" },
+  { pokemon: "Tornadus", speed: 131, description: "Min15% Usage" },
   { pokemon: "Scream Tail", speed: 131, description: "Min" },
-  { pokemon: "Dragonite", speed: 132, description: "11% Usage" },
-  { pokemon: "Tatsugiri", speed: 134, description: "48% Usage" },
-  { pokemon: "Whimsicott", speed: 136, description: "Min" },
-  { pokemon: "Tsareena", speed: 136, description: "Max" }
+  { pokemon: "Thundurus", speed: 131, description: "Min35% Usage" },
+  { pokemon: "Tornadus", speed: 132, description: "11% Usage" },
+  { pokemon: "Thundurus", speed: 132, description: "20% Usage" },
+  { pokemon: "Ogerpon-Hearthflame", speed: 133, description: "13% Usage" },
+  { pokemon: "Tatsugiri", speed: 134, description: "32% Usage" },
+  { pokemon: "Whimsicott", speed: 136, description: "Min" }
 ]
