@@ -61,7 +61,7 @@ export class DamageCalculatorService {
     const smogonAttacker = this.builder.fromExisting(attacker)
     const smogonTarget = this.builder.fromExisting(target)
 
-    this.adjusters.forEach(a => a.adjust(smogonAttacker, smogonTarget, move, moveSmogon, smogonField, secondAttacker))
+    this.adjusters.forEach(a => a.adjust(smogonAttacker, smogonTarget, move, moveSmogon, smogonField, secondAttacker, field))
 
     const result = calculate(gen, smogonAttacker, smogonTarget, moveSmogon, smogonField)
 

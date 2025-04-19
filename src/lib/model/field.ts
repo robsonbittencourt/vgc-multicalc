@@ -12,6 +12,7 @@ export class Field {
   readonly isWonderRoom: boolean
   readonly isGravity: boolean
   readonly isTrickRoom: boolean
+  readonly isNeutralizingGas: boolean
   readonly isCriticalHit: boolean
   readonly attackerSide: FieldAttackerSide
   readonly defenderSide: FieldDefenderSide
@@ -30,6 +31,7 @@ export class Field {
       isGravity?: boolean
       isTrickRoom?: boolean
       isCriticalHit?: boolean
+      isNeutralizingGas?: boolean
       attackerSide?: FieldAttackerSide
       defenderSide?: FieldDefenderSide
     } = {}
@@ -45,6 +47,7 @@ export class Field {
     this.isWonderRoom = options.isWonderRoom ?? false
     this.isGravity = options.isGravity ?? false
     this.isTrickRoom = options.isTrickRoom ?? false
+    this.isNeutralizingGas = options.isNeutralizingGas ?? false
     this.isCriticalHit = options.isCriticalHit ?? false
     this.attackerSide = options.attackerSide ?? new FieldAttackerSide()
     this.defenderSide = options.defenderSide ?? new FieldDefenderSide()

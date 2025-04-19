@@ -61,7 +61,7 @@
       }
 
       <div class="rooms-section">
-        <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">
+        <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
           @if (!onlySpeed()) {
             <mat-button-toggle [checked]="fieldStore.isGravity()" (change)="fieldStore.toggleGravity()" data-cy="gravity">Gravity</mat-button-toggle>
             <mat-button-toggle [checked]="fieldStore.isMagicRoom()" (change)="fieldStore.toggleMagicRoom()" data-cy="magic-room">M. Room</mat-button-toggle>
@@ -70,6 +70,10 @@
           <mat-button-toggle [checked]="fieldStore.isTrickRoom()" (change)="fieldStore.toggleTrickRoom()" data-cy="trick-room">Trick Room</mat-button-toggle>
         </mat-button-toggle-group>
       </div>
+
+      <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">
+        <mat-button-toggle [checked]="fieldStore.isNeutralizingGas()" (change)="fieldStore.toggleNeutralizingGas()" data-cy="neutralizing-gas">Neutralizing Gas</mat-button-toggle>
+      </mat-button-toggle-group>
     </div>
     <div>
       <div class="field-subtitle">

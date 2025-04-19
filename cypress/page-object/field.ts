@@ -127,6 +127,10 @@ export class Field {
     this.clickOnButton("leech-seed")
   }
 
+  neutralizingGas() {
+    this.clickOnButton("neutralizing-gas")
+  }
+
   private clickOnButton(selector: string) {
     cy.get(`[data-cy=${selector}] button`).click({ force: true })
   }

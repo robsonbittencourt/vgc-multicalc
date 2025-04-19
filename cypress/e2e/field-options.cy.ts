@@ -6,6 +6,7 @@ const team = new Team()
 const field = new Field()
 const opponents = new Opponent()
 
+let chiYuData: string
 let vaporeonData: string
 let tyranitarData: string
 let baxcaliburData: string
@@ -17,6 +18,9 @@ let defaultTeamData: string
 let defaultOpponentsData: string
 
 before(() => {
+  cy.fixture("chi-yu-data").then(data => {
+    chiYuData = data
+  })
   cy.fixture("vaporeon-data").then(data => {
     vaporeonData = data
   })
@@ -313,5 +317,32 @@ describe("Test the Field options", () => {
     field.leechSeed()
 
     opponents.get("Rillaboom").cause3HKO()
+  })
+
+  it("With Neutralizing Gas active", () => {
+    team.importPokemon(chiYuData)
+    team.selectPokemon("Chi-Yu")
+
+    field.neutralizingGas()
+
+    opponents.get("Incineroar").damageIs(35.3, 41.7)
+  })
+
+  it("With Neutralizing Gas active and Ability Shield", () => {
+    team.importPokemon(chiYuData)
+    team.selectPokemon("Chi-Yu").selectItem("Ability Shield")
+
+    field.neutralizingGas()
+
+    opponents.get("Incineroar").damageIs(31.3, 37.3)
+  })
+
+  it("With Neutralizing Gas active but not affected ability", () => {
+    team.importPokemon(chiYuData)
+    team.selectPokemon("Chi-Yu").selectItem("Ability Shield")
+
+    field.neutralizingGas()
+
+    opponents.get("Calyrex Shadow").damageIs(72.5, 86.2)
   })
 })

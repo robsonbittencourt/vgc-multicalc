@@ -22,6 +22,7 @@ function defaultFieldState(): FieldState {
     isGravity: false,
     isTrickRoom: false,
     isCriticalHit: false,
+    isNeutralizingGas: false,
     attackerSide: new FieldAttackerSide({ isHelpingHand: false, isBattery: false, isPowerSpot: false, isTailwind: false }),
     defenderSide: new FieldDefenderSide({ isTailwind: false, isReflect: false, isLightScreen: false, isAuroraVeil: false, isFriendGuard: false, spikes: 0, isSR: false, isSeeded: false })
   }
