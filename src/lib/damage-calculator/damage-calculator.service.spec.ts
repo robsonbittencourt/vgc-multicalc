@@ -163,8 +163,8 @@ describe("Damage Calculator Service", () => {
 
     service.calcDamage(attacker, target.pokemon, field)
 
-    expect(adjusterOneSpy.adjust).toHaveBeenCalledWith(jasmine.any(SmogonPokemon), jasmine.any(SmogonPokemon), activeMove, jasmine.any(MoveSmogon), jasmine.any(FieldSmogon), undefined)
-    expect(adjusterTwoSpy.adjust).toHaveBeenCalledWith(jasmine.any(SmogonPokemon), jasmine.any(SmogonPokemon), activeMove, jasmine.any(MoveSmogon), jasmine.any(FieldSmogon), undefined)
+    expect(adjusterOneSpy.adjust).toHaveBeenCalledWith(jasmine.any(SmogonPokemon), jasmine.any(SmogonPokemon), activeMove, jasmine.any(MoveSmogon), jasmine.any(FieldSmogon), undefined, jasmine.any(Field))
+    expect(adjusterTwoSpy.adjust).toHaveBeenCalledWith(jasmine.any(SmogonPokemon), jasmine.any(SmogonPokemon), activeMove, jasmine.any(MoveSmogon), jasmine.any(FieldSmogon), undefined, jasmine.any(Field))
   })
 
   it("should adjust inputs before calculation when have second attacker", () => {
@@ -177,7 +177,7 @@ describe("Damage Calculator Service", () => {
 
     service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
 
-    expect(adjusterOneSpy.adjust).toHaveBeenCalledWith(jasmine.any(SmogonPokemon), jasmine.any(SmogonPokemon), activeMove, jasmine.any(MoveSmogon), jasmine.any(FieldSmogon), attacker)
-    expect(adjusterTwoSpy.adjust).toHaveBeenCalledWith(jasmine.any(SmogonPokemon), jasmine.any(SmogonPokemon), activeMove, jasmine.any(MoveSmogon), jasmine.any(FieldSmogon), attacker)
+    expect(adjusterOneSpy.adjust).toHaveBeenCalledWith(jasmine.any(SmogonPokemon), jasmine.any(SmogonPokemon), activeMove, jasmine.any(MoveSmogon), jasmine.any(FieldSmogon), attacker, jasmine.any(Field))
+    expect(adjusterTwoSpy.adjust).toHaveBeenCalledWith(jasmine.any(SmogonPokemon), jasmine.any(SmogonPokemon), activeMove, jasmine.any(MoveSmogon), jasmine.any(FieldSmogon), attacker, jasmine.any(Field))
   })
 })

@@ -367,6 +367,19 @@ describe("Field Store", () => {
       expect(store.field().isCriticalHit).toBeFalse()
     })
 
+    it("should change Neutralizing Gas to true when it is false", () => {
+      store.toggleNeutralizingGas()
+
+      expect(store.field().isNeutralizingGas).toBeTrue()
+    })
+
+    it("should change Neutralizing Gas to false when it is true", () => {
+      store.toggleNeutralizingGas()
+      store.toggleNeutralizingGas()
+
+      expect(store.field().isNeutralizingGas).toBeFalse()
+    })
+
     it("should change Attacker Helping Hand to true when it is false", () => {
       store.toggleAttackerHelpingHand()
 
@@ -563,6 +576,7 @@ describe("Field Store", () => {
         isGravity: false,
         isTrickRoom: false,
         isCriticalHit: false,
+        isNeutralizingGas: false,
         attackerSide: new FieldAttackerSide({ isHelpingHand: false, isBattery: false, isPowerSpot: false, isTailwind: false }),
         defenderSide: new FieldDefenderSide({ isTailwind: false, isReflect: false, isLightScreen: false, isAuroraVeil: false, isFriendGuard: false, spikes: 0, isSR: false, isSeeded: false })
       }

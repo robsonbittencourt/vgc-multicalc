@@ -4,7 +4,6 @@ import { pokemonByRegulation } from "@data/regulation-pokemon"
 import { SPEED_STATISTICS } from "@data/speed-statistics"
 import { ACTUAL, BOOSTER, MAX, MAX_BASE_SPEED_FOR_TR, MIN, MIN_IV_0, SCARF } from "@lib/constants"
 import { defaultPokemon } from "@lib/default-pokemon"
-import { FieldMapper } from "@lib/field-mapper"
 import { Ability } from "@lib/model/ability"
 import { Field } from "@lib/model/field"
 import { Pokemon } from "@lib/model/pokemon"
@@ -13,19 +12,16 @@ import { SmogonFunctions } from "@lib/smogon/smogon-functions"
 import { SpeedCalculatorMode } from "@lib/speed-calculator/speed-calculator-mode"
 import { SpeedCalculatorOptions } from "@lib/speed-calculator/speed-calculator-options"
 import { SpeedDefinition } from "@lib/speed-calculator/speed-definition"
-import { Generations, Field as SmogonField, Pokemon as SmogonPokemon } from "@robsonbittencourt/calc"
+import { Generations, Pokemon as SmogonPokemon } from "@robsonbittencourt/calc"
 
 @Injectable({
   providedIn: "root"
 })
 export class SpeedCalculatorService {
   private smogonService = inject(SmogonFunctions)
-  private fieldMapper = inject(FieldMapper)
 
   orderedPokemon(pokemon: Pokemon, field: Field, pokemonEachSide: number, options: SpeedCalculatorOptions = new SpeedCalculatorOptions()): SpeedDefinition[] {
-    const smogonField = this.fieldMapper.toSmogon(field)
-
-    let speedDefinitions: SpeedDefinition[] = [this.buildActual(pokemon, smogonField, options), ...this.loadSpeedMeta(options, smogonField)]
+    let speedDefinitions: SpeedDefinition[] = [this.buildActual(pokemon, field, options), ...this.loadSpeedMeta(options, field)]
 
     if (options.targetName.length > 0) {
       speedDefinitions = speedDefinitions.filter(s => s.pokemonName == options.targetName || this.isActual(s))
@@ -43,25 +39,23 @@ export class SpeedCalculatorService {
   }
 
   orderPairBySpeed(pokemonOne: Pokemon, pokemonTwo: Pokemon, field: Field): [Pokemon, Pokemon] {
-    const smogonField = this.fieldMapper.toSmogon(field)
-
-    const speedOne = this.smogonService.getFinalSpeed(pokemonOne, smogonField, smogonField.attackerSide)
-    const speedTwo = this.smogonService.getFinalSpeed(pokemonTwo, smogonField, smogonField.attackerSide)
+    const speedOne = this.smogonService.getFinalSpeed(pokemonOne, field, field.attackerSide.isTailwind)
+    const speedTwo = this.smogonService.getFinalSpeed(pokemonTwo, field, field.attackerSide.isTailwind)
 
     return speedOne >= speedTwo ? [pokemonOne, pokemonTwo] : [pokemonTwo, pokemonOne]
   }
 
-  private buildActual(pokemon: Pokemon, smogonField: SmogonField, options: SpeedCalculatorOptions): SpeedDefinition {
+  private buildActual(pokemon: Pokemon, field: Field, options: SpeedCalculatorOptions): SpeedDefinition {
     if (options.mode == SpeedCalculatorMode.Base) {
       return new SpeedDefinition(pokemon, pokemon.baseSpe, ACTUAL)
     }
 
-    const speed = this.smogonService.getFinalSpeed(pokemon, smogonField, smogonField.attackerSide)
+    const speed = this.smogonService.getFinalSpeed(pokemon, field, field.attackerSide.isTailwind)
 
     return new SpeedDefinition(pokemon, speed, ACTUAL)
   }
 
-  private loadSpeedMeta(options: SpeedCalculatorOptions, smogonField: SmogonField): SpeedDefinition[] {
+  private loadSpeedMeta(options: SpeedCalculatorOptions, field: Field): SpeedDefinition[] {
     const speedDefinitions: SpeedDefinition[] = []
 
     const quantity = options.targetName.length > 0 ? undefined : options.topUsage
@@ -70,36 +64,36 @@ export class SpeedCalculatorService {
     pokemon.forEach(p => {
       const pokemon = this.adjustPokemonByOptions(p, options)
 
-      this.loadStats(pokemon, smogonField, speedDefinitions, options)
-      this.loadMetaStatistics(pokemon, smogonField, speedDefinitions, options)
+      this.loadStats(pokemon, field, speedDefinitions, options)
+      this.loadMetaStatistics(pokemon, field, speedDefinitions, options)
       this.loadBaseSpeed(pokemon, speedDefinitions, options)
     })
 
     return speedDefinitions
   }
 
-  private loadStats(pokemon: Pokemon, smogonField: SmogonField, speedDefinitions: SpeedDefinition[], options: SpeedCalculatorOptions) {
+  private loadStats(pokemon: Pokemon, field: Field, speedDefinitions: SpeedDefinition[], options: SpeedCalculatorOptions) {
     if (options.mode == SpeedCalculatorMode.StatsAndMeta || options.mode == SpeedCalculatorMode.Stats) {
-      speedDefinitions.push(this.minSpeed(pokemon, smogonField))
-      speedDefinitions.push(this.maxSpeed(pokemon, smogonField))
+      speedDefinitions.push(this.minSpeed(pokemon, field))
+      speedDefinitions.push(this.maxSpeed(pokemon, field))
 
       if (this.isTrickRoomPokemon(pokemon)) {
-        speedDefinitions.push(this.minSpeedIvZero(pokemon, smogonField))
+        speedDefinitions.push(this.minSpeedIvZero(pokemon, field))
       }
 
       if (this.hasChoiceScarf(pokemon)) {
-        speedDefinitions.push(this.maxScarf(pokemon, smogonField))
+        speedDefinitions.push(this.maxScarf(pokemon, field))
       }
 
       if (this.isBoosterSpeedPokemon(pokemon)) {
-        speedDefinitions.push(this.maxBooster(pokemon, smogonField))
+        speedDefinitions.push(this.maxBooster(pokemon, field))
       }
     }
   }
 
-  private loadMetaStatistics(pokemon: Pokemon, smogonField: SmogonField, speedDefinitions: SpeedDefinition[], options: SpeedCalculatorOptions) {
+  private loadMetaStatistics(pokemon: Pokemon, field: Field, speedDefinitions: SpeedDefinition[], options: SpeedCalculatorOptions) {
     if (options.mode == SpeedCalculatorMode.StatsAndMeta || options.mode == SpeedCalculatorMode.Meta) {
-      speedDefinitions.push(...this.statistics(pokemon, smogonField))
+      speedDefinitions.push(...this.statistics(pokemon, field))
     }
   }
 
@@ -163,49 +157,49 @@ export class SpeedCalculatorService {
     return pokemon.clone({ boosts, status, item })
   }
 
-  minSpeedIvZero(pokemon: Pokemon, smogonField: SmogonField): SpeedDefinition {
+  minSpeedIvZero(pokemon: Pokemon, field: Field): SpeedDefinition {
     const clonedPokemon = pokemon.clone({ item: "Leftovers", nature: "Brave", evs: { spe: 0 }, ivs: { spe: 0 } })
 
-    const speed = this.smogonService.getFinalSpeed(clonedPokemon, smogonField, smogonField.defenderSide)
+    const speed = this.smogonService.getFinalSpeed(clonedPokemon, field, field.defenderSide.isTailwind)
 
     return new SpeedDefinition(clonedPokemon, speed, MIN_IV_0)
   }
 
-  minSpeed(pokemon: Pokemon, smogonField: SmogonField): SpeedDefinition {
+  minSpeed(pokemon: Pokemon, field: Field): SpeedDefinition {
     const clonedPokemon = pokemon.clone({ item: "Leftovers", nature: "Bashful", evs: { spe: 0 }, ivs: { spe: 31 } })
 
-    const speed = this.smogonService.getFinalSpeed(clonedPokemon, smogonField, smogonField.defenderSide)
+    const speed = this.smogonService.getFinalSpeed(clonedPokemon, field, field.defenderSide.isTailwind)
 
     return new SpeedDefinition(clonedPokemon, speed, MIN)
   }
 
-  maxSpeed(pokemon: Pokemon, smogonField: SmogonField): SpeedDefinition {
+  maxSpeed(pokemon: Pokemon, field: Field): SpeedDefinition {
     const clonedPokemon = pokemon.clone({ nature: "Timid", item: "Leftovers", evs: { spe: 252 }, ivs: { spe: 31 } })
 
-    const speed = this.smogonService.getFinalSpeed(clonedPokemon, smogonField, smogonField.defenderSide)
+    const speed = this.smogonService.getFinalSpeed(clonedPokemon, field, field.defenderSide.isTailwind)
 
     return new SpeedDefinition(clonedPokemon, speed, MAX)
   }
 
-  maxScarf(pokemon: Pokemon, smogonField: SmogonField): SpeedDefinition {
+  maxScarf(pokemon: Pokemon, field: Field): SpeedDefinition {
     const clonedPokemon = pokemon.clone({ nature: "Timid", item: "Choice Scarf", evs: { spe: 252 } })
 
-    const speed = this.smogonService.getFinalSpeed(clonedPokemon, smogonField, smogonField.defenderSide)
+    const speed = this.smogonService.getFinalSpeed(clonedPokemon, field, field.defenderSide.isTailwind)
     const description = SCARF
 
     return new SpeedDefinition(pokemon, speed, description)
   }
 
-  maxBooster(pokemon: Pokemon, smogonField: SmogonField): SpeedDefinition {
+  maxBooster(pokemon: Pokemon, field: Field): SpeedDefinition {
     const clonedPokemon = pokemon.clone({ ability: new Ability(pokemon.ability.name, true), nature: "Timid", evs: { spe: 252 } })
 
-    const speed = this.smogonService.getFinalSpeed(clonedPokemon, smogonField, smogonField.defenderSide)
+    const speed = this.smogonService.getFinalSpeed(clonedPokemon, field, field.defenderSide.isTailwind)
     const description = BOOSTER
 
     return new SpeedDefinition(clonedPokemon, speed, description)
   }
 
-  statistics(pokemon: Pokemon, smogonField: SmogonField): SpeedDefinition[] {
+  statistics(pokemon: Pokemon, field: Field): SpeedDefinition[] {
     const speedDefinitions: SpeedDefinition[] = []
 
     if (SPEED_STATISTICS[pokemon.name]) {
@@ -213,7 +207,7 @@ export class SpeedCalculatorService {
         .filter(s => s.type === "usage")
         .forEach(speedStatistic => {
           const clonedPokemon = pokemon.clone({ item: "Leftovers", nature: speedStatistic.nature, evs: { spe: speedStatistic.speedEv } })
-          const speed = this.smogonService.getFinalSpeed(clonedPokemon, smogonField, smogonField.defenderSide)
+          const speed = this.smogonService.getFinalSpeed(clonedPokemon, field, field.defenderSide.isTailwind)
 
           const speedDefinition = new SpeedDefinition(clonedPokemon, speed, `${speedStatistic.percentage}% Usage`)
 

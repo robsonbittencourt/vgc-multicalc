@@ -281,6 +281,27 @@ describe("Speed Calculator", () => {
 
       speedCalculator.speedTierIs(28, "Raichu-Alola", 260, "Actual")
     })
+
+    it("don't double speed when Pokémon has Surge Surfer and Electric Terrain was activated but Neutralizing Gas was activated", () => {
+      team.importPokemon(raichuAlolaData)
+
+      field.eletricTerrain()
+      field.neutralizingGas()
+      cy.wait(300)
+
+      speedCalculator.speedTierIs(28, "Raichu-Alola", 130, "Actual")
+    })
+
+    it("ignore Neutralizing Gas when Pokémon have Ability Shield equipped", () => {
+      team.importPokemon(raichuAlolaData)
+      team.selectPokemon("Raichu").selectItem("Ability Shield")
+
+      field.eletricTerrain()
+      field.neutralizingGas()
+      cy.wait(300)
+
+      speedCalculator.speedTierIs(28, "Raichu-Alola", 260, "Actual")
+    })
   })
 })
 

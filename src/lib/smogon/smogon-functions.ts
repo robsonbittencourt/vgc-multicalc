@@ -1,20 +1,46 @@
 import { Injectable } from "@angular/core"
+import { Field } from "@lib/model/field"
 import { Pokemon } from "@lib/model/pokemon"
 import { Status } from "@lib/model/status"
-import { Field, Side, Pokemon as SmogonPokemon, StatID } from "@robsonbittencourt/calc"
+import { Pokemon as SmogonPokemon, StatID } from "@robsonbittencourt/calc"
 import { StatIDExceptHP } from "@robsonbittencourt/calc/src/data/interface"
 
 @Injectable({ providedIn: "root" })
 export class SmogonFunctions {
   LOWER_SPEED_ITEMS = ["Macho Brace", "Power Anklet", "Power Band", "Power Belt", "Power Bracer", "Power Lens", "Power Weight", "Iron Ball"]
 
-  getFinalSpeed(pokemon: Pokemon, field: Field = new Field(), side: Side = new Side()) {
-    const weather = field.weather || ""
-    const terrain = field.terrain
+  getFinalSpeed(pokemon: Pokemon, field: Field, isTailwind: boolean): number {
     let speed = pokemon.modifiedSpe
     const speedMods = []
 
-    if (side.isTailwind) speedMods.push(8192)
+    if (isTailwind) speedMods.push(8192)
+
+    this.adjustSpeedByAbility(pokemon, field, speedMods)
+
+    if (pokemon.item == "Choice Scarf") {
+      speedMods.push(6144)
+    } else if (this.LOWER_SPEED_ITEMS.includes(pokemon.item)) {
+      speedMods.push(2048)
+    } else if (pokemon.item == "Quick Powder" && pokemon.name === "Ditto") {
+      speedMods.push(8192)
+    }
+
+    speed = this.OF32(this.pokeRound((speed * this.chainMods(speedMods, 410, 131172)) / 4096))
+    if (pokemon.status == Status.PARALYSIS && pokemon.ability.isNot("Quick Feet")) {
+      speed = Math.floor(this.OF32(speed * 50) / 100)
+    }
+
+    speed = Math.min(10000, speed)
+    return Math.max(0, speed)
+  }
+
+  adjustSpeedByAbility(pokemon: Pokemon, field: Field, speedMods: number[]) {
+    if (field.isNeutralizingGas && pokemon.item != "Ability Shield") {
+      return
+    }
+
+    const weather = field.weather || ""
+    const terrain = field.terrain
 
     if (
       (pokemon.ability.is("Unburden") && pokemon.ability.on) ||
@@ -32,22 +58,6 @@ export class SmogonFunctions {
     } else if (this.isQPActive(pokemon, field) && pokemon.higherStat === "spe") {
       speedMods.push(6144)
     }
-
-    if (pokemon.item == "Choice Scarf") {
-      speedMods.push(6144)
-    } else if (this.LOWER_SPEED_ITEMS.includes(pokemon.item)) {
-      speedMods.push(2048)
-    } else if (pokemon.item == "Quick Powder" && pokemon.name === "Ditto") {
-      speedMods.push(8192)
-    }
-
-    speed = this.OF32(this.pokeRound((speed * this.chainMods(speedMods, 410, 131172)) / 4096))
-    if (pokemon.status == Status.PARALYSIS && pokemon.ability.isNot("Quick Feet")) {
-      speed = Math.floor(this.OF32(speed * 50) / 100)
-    }
-
-    speed = Math.min(10000, speed)
-    return Math.max(0, speed)
   }
 
   getModifiedStat(stat: number, mod: number): number {

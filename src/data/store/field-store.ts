@@ -18,6 +18,7 @@ export type FieldState = {
   isGravity: boolean
   isTrickRoom: boolean
   isCriticalHit: boolean
+  isNeutralizingGas: boolean
   attackerSide: FieldAttackerSide
   defenderSide: FieldDefenderSide
 }
@@ -45,6 +46,7 @@ export class FieldStore extends signalStore(
             isGravity: store.isGravity(),
             isTrickRoom: store.isTrickRoom(),
             isCriticalHit: store.isCriticalHit(),
+            isNeutralizingGas: store.isNeutralizingGas(),
             attackerSide: store.attackerSide(),
             defenderSide: store.defenderSide()
           }
@@ -70,6 +72,7 @@ export class FieldStore extends signalStore(
         isGravity: this.isGravity(),
         isTrickRoom: this.isTrickRoom(),
         isCriticalHit: this.isCriticalHit(),
+        isNeutralizingGas: this.isNeutralizingGas(),
         attackerSide: this.attackerSide(),
         defenderSide: this.defenderSide()
       })
@@ -158,6 +161,10 @@ export class FieldStore extends signalStore(
 
   toggleCriticalHit() {
     patchState(this, state => ({ isCriticalHit: !state.isCriticalHit }))
+  }
+
+  toggleNeutralizingGas() {
+    patchState(this, state => ({ isNeutralizingGas: !state.isNeutralizingGas }))
   }
 
   toggleAttackerHelpingHand() {
