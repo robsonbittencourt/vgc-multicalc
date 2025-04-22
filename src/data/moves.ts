@@ -381,6 +381,7 @@ export class Moves {
       "Metal Burst",
       "Metal Claw",
       "Metal Sound",
+      "Meteor Beam",
       "Metronome",
       "Mighty Cleave",
       "Milk Drink",
