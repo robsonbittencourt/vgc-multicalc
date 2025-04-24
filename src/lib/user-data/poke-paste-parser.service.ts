@@ -52,7 +52,7 @@ export class PokePasteParserService {
   }
 
   pokemonWithAlternativeForm(): string[] {
-    return ["Vivillon", "Alcremie", "Dudunsparce", "Pikachu", "Flabébé", "Floette", "Florges", "Squawkabilly", "Maushold", "Tatsugiri"]
+    return ["Rockruff", "Polteageist", "Sinistea", "Sinistcha", "Vivillon", "Alcremie", "Dudunsparce", "Pikachu", "Flabébé", "Floette", "Florges", "Squawkabilly", "Maushold", "Tatsugiri"]
   }
 
   buildBoosts(poke: any): Partial<Stats> {

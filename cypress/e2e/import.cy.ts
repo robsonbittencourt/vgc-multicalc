@@ -12,6 +12,7 @@ let pokepasteDataForms2: string
 let pokepasteDataForms3: string
 let pokepasteDataForms4: string
 let pokepasteDataForms5: string
+let pokepasteDataForms6: string
 
 before(() => {
   cy.fixture("chi-yu-data").then(data => {
@@ -37,6 +38,9 @@ before(() => {
   })
   cy.fixture("pokepaste-data-forms-5").then(data => {
     pokepasteDataForms5 = data
+  })
+  cy.fixture("pokepaste-data-forms-6").then(data => {
+    pokepasteDataForms6 = data
   })
 })
 
@@ -242,6 +246,34 @@ describe("Import Pokepaste", () => {
     team.pokemonOnEditIs("Tatsugiri", "Commander", "Dragon", "Choice Scarf", "Modest")
     team.pokemonOnEditAttacksIs("Draco Meteor", "Chilling Water", "Baton Pass", "Counter")
     team.pokemonOnEditEvsIs(0, 0, 0, 252, 0, 252)
+    team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
+  })
+
+  it.only("with Polteageist, Sinistcha, Sinistea, Rockruff in alternative form", () => {
+    team.importPokepaste(pokepasteDataForms6)
+    team.selectTeam("Team 2")
+
+    team.pokemonOnEditIs("Polteageist", "Weak Armor", "Ghost", "Clear Amulet", "Modest")
+    team.pokemonOnEditAttacksIs("Dark Pulse", "Calm Mind", "Giga Drain", "Hex")
+    team.pokemonOnEditEvsIs(252, 0, 0, 252, 0, 0)
+    team.pokemonOnEditIvsIs(31, 0, 31, 31, 31, 31)
+
+    team.selectPokemon("Sinistcha")
+    team.pokemonOnEditIs("Sinistcha", "Hospitality", "Grass", "Assault Vest", "Modest")
+    team.pokemonOnEditAttacksIs("Giga Drain", "Calm Mind", "Matcha Gotcha", "Leaf Storm")
+    team.pokemonOnEditEvsIs(252, 0, 0, 252, 0, 0)
+    team.pokemonOnEditIvsIs(31, 0, 31, 31, 31, 31)
+
+    team.selectPokemon("Sinistea")
+    team.pokemonOnEditIs("Sinistea", "Weak Armor", "Ghost", "Choice Specs", "Modest")
+    team.pokemonOnEditAttacksIs("Dark Pulse", "Giga Drain", "Hex", "Psychic")
+    team.pokemonOnEditEvsIs(252, 0, 0, 252, 0, 0)
+    team.pokemonOnEditIvsIs(31, 0, 31, 31, 31, 31)
+
+    team.selectPokemon("Rockruff")
+    team.pokemonOnEditIs("Rockruff", "Own Tempo", "Rock", "Choice Band", "Jolly")
+    team.pokemonOnEditAttacksIs("Body Slam", "Crunch", "Double-Edge", "Play Rough")
+    team.pokemonOnEditEvsIs(0, 252, 0, 0, 0, 252)
     team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
   })
 
