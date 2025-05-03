@@ -15,15 +15,22 @@
         "url": "https://vgcmulticalc.com/"
       }
     </script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1BZW6NLXJ1"></script>
     <script>
-      window.dataLayer = window.dataLayer || []
-      function gtag() {
-        dataLayer.push(arguments)
-      }
-      gtag("js", new Date())
+      if (window.location.hostname !== "localhost") {
+        const script = document.createElement("script")
+        script.src = "https://www.googletagmanager.com/gtag/js?id=G-1BZW6NLXJ1"
+        script.async = true
+        document.head.appendChild(script)
 
-      gtag("config", "G-1BZW6NLXJ1")
+        script.onload = function () {
+          window.dataLayer = window.dataLayer || []
+          function gtag() {
+            dataLayer.push(arguments)
+          }
+          gtag("js", new Date())
+          gtag("config", "G-1BZW6NLXJ1")
+        }
+      }
     </script>
     <link rel="icon" href="assets/icons/calc-72x72.png" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
