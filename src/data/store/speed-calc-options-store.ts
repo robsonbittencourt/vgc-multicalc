@@ -18,7 +18,7 @@ type SpeedCalcOptionsState = {
 
 const initialState: SpeedCalcOptionsState = {
   topUsage: "60",
-  regulation: "G",
+  regulation: "I",
   targetName: "",
   mode: SpeedCalculatorMode.StatsAndMeta,
   speedModifier: 0,

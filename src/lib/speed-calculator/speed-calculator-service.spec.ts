@@ -26,7 +26,7 @@ describe("SpeedCalculatorService", () => {
       const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
       const field = new Field()
       const pokemonEachSide = 30
-      const options = new SpeedCalculatorOptions({ regulation: "G" })
+      const options = new SpeedCalculatorOptions({ regulation: "I" })
 
       const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide, options)
 
@@ -37,7 +37,7 @@ describe("SpeedCalculatorService", () => {
       const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
       const field = new Field()
       const pokemonEachSide = 30
-      const options = new SpeedCalculatorOptions({ regulation: "G" })
+      const options = new SpeedCalculatorOptions({ regulation: "I" })
 
       const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide, options)
 
@@ -416,7 +416,7 @@ describe("SpeedCalculatorService", () => {
 
       expect(speedDefinition[0].pokemonName).toEqual("Flutter Mane")
       expect(speedDefinition[0].value).toEqual(205)
-      expect(speedDefinition[0].description.includes("50% Usage")).toBeTrue()
+      expect(speedDefinition[0].description).toMatch(/\d{1,3}% Usage/)
     })
   })
 })

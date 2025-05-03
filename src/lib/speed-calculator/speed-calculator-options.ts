@@ -14,7 +14,7 @@ export class SpeedCalculatorOptions {
 
   constructor(options: { topUsage?: string; regulation?: Regulation; targetName?: string; mode?: SpeedCalculatorMode; speedDropActive?: boolean; speedModifier?: number; paralyzedActive?: boolean; choiceScarfActive?: boolean } = {}) {
     this._topUsage = options.topUsage ?? "60"
-    this.regulation = options.regulation ?? "G"
+    this.regulation = options.regulation ?? "I"
     this.targetName = options.targetName ?? ""
     this.mode = options.mode ?? SpeedCalculatorMode.StatsAndMeta
     this.paralyzedActive = options.paralyzedActive ?? false

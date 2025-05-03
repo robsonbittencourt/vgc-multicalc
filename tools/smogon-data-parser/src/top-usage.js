@@ -7,8 +7,8 @@ const MOVESET_MODULE_PREFIX = `import { Regulation } from "@lib/types"
 export const topUsageByRegulation: Record<Regulation, string[]> = {\n  `
 
 export async function topUsage(date, regulation) {
-  const usageListRegG = await usageList(date, regulation)
-  const usageLists = [usageListRegG]
+  const usageListReg = await usageList(date, regulation)
+  const usageLists = [usageListReg]
 
   const fileContent = buildFileContent(usageLists)
 
