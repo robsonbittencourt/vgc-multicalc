@@ -1,6 +1,6 @@
 {
   "name": "vgc-multicalc",
-  "version": "1.4.7",
+  "version": "1.4.8",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -15,17 +15,17 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "19.2.9",
-    "@angular/cdk": "19.2.14",
-    "@angular/common": "19.2.9",
-    "@angular/compiler": "19.2.9",
-    "@angular/core": "19.2.9",
-    "@angular/forms": "19.2.9",
-    "@angular/material": "19.2.14",
-    "@angular/platform-browser": "19.2.9",
-    "@angular/platform-browser-dynamic": "19.2.9",
-    "@angular/router": "19.2.9",
-    "@ngrx/signals": "19.1.0",
+    "@angular/animations": "19.2.11",
+    "@angular/cdk": "19.2.16",
+    "@angular/common": "19.2.11",
+    "@angular/compiler": "19.2.11",
+    "@angular/core": "19.2.11",
+    "@angular/forms": "19.2.11",
+    "@angular/material": "19.2.16",
+    "@angular/platform-browser": "19.2.11",
+    "@angular/platform-browser-dynamic": "19.2.11",
+    "@angular/router": "19.2.11",
+    "@ngrx/signals": "19.2.0",
     "@robsonbittencourt/calc": "0.10.1",
     "axios": "1.9.0",
     "dedent": "1.6.0",
@@ -35,15 +35,15 @@
     "uuid": "11.1.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "19.2.10",
-    "@angular/cli": "19.2.10",
-    "@angular/compiler-cli": "19.2.9",
-    "@types/jasmine": "5.1.7",
+    "@angular-devkit/build-angular": "19.2.12",
+    "@angular/cli": "19.2.12",
+    "@angular/compiler-cli": "19.2.11",
+    "@types/jasmine": "5.1.8",
     "@types/uuid": "10.0.0",
     "angular-cli-ghpages": "2.0.3",
-    "angular-eslint": "19.3.0",
-    "cypress": "14.3.2",
-    "eslint": "9.26.0",
+    "angular-eslint": "19.4.0",
+    "cypress": "14.3.3",
+    "eslint": "9.27.0",
     "jasmine-core": "5.7.1",
     "karma": "6.4.4",
     "karma-chrome-launcher": "3.2.0",
@@ -52,6 +52,6 @@
     "karma-jasmine-html-reporter": "2.1.0",
     "prettier": "3.5.3",
     "typescript": "5.8.3",
-    "typescript-eslint": "8.31.1"
+    "typescript-eslint": "8.32.1"
   }
 }
