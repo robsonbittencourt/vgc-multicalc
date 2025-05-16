@@ -6544,17 +6544,18 @@ export const SETDEX_SV: Record<string, any> = {
     items: ["Heavy-Duty Boots"]
   },
   Pikachu: {
-    ability: "Imposter",
+    ability: "Lightning Rod",
     nature: "Modest",
+    teraType: "Fairy",
     evs: {
-      hp: 252,
+      hp: 4,
       atk: 0,
-      def: 252,
+      def: 0,
       spa: 252,
-      spd: 252,
+      spd: 0,
       spe: 252
     },
-    moves: ["Volt Switch", "Jungle Healing", "Glare", "Healing Wish"],
+    moves: ["Fake Out", "Thunderbolt", "Alluring Voice", "Protect"],
     items: ["Light Ball"]
   },
   Piloswine: {
