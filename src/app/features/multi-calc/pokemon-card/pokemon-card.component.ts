@@ -3,6 +3,7 @@ import { Component, computed, inject, input, output } from "@angular/core"
 import { MatCard, MatCardMdImage, MatCardSubtitle, MatCardTitle, MatCardTitleGroup } from "@angular/material/card"
 import { MatIcon } from "@angular/material/icon"
 import { MatTooltip } from "@angular/material/tooltip"
+import { PokemonHpBadgeComponent } from "@app/features/simple-calc/pokemon-hp-badge/pokemon-hp-badge.component"
 import { BoosterEnergyButtonComponent } from "@app/shared/buttons/booster-energy-button/booster-energy-button.component"
 import { TatsugiriButtonComponent } from "@app/shared/buttons/tatsugiri-button/tatsugiri-button.component"
 import { TerastalButtonComponent } from "@app/shared/buttons/terastal-button/terastal-button.component"
@@ -15,7 +16,7 @@ import { Target } from "@lib/model/target"
   selector: "app-pokemon-card",
   templateUrl: "./pokemon-card.component.html",
   styleUrls: ["./pokemon-card.component.scss"],
-  imports: [MatCard, NgClass, MatCardTitleGroup, MatCardTitle, MatCardSubtitle, MatTooltip, MatIcon, MatCardMdImage, TatsugiriButtonComponent, TerastalButtonComponent, BoosterEnergyButtonComponent]
+  imports: [MatCard, NgClass, MatCardTitleGroup, MatCardTitle, MatCardSubtitle, MatTooltip, MatIcon, MatCardMdImage, TatsugiriButtonComponent, TerastalButtonComponent, BoosterEnergyButtonComponent, PokemonHpBadgeComponent]
 })
 export class PokemonCardComponent {
   store = inject(CalculatorStore)
@@ -41,6 +42,7 @@ export class PokemonCardComponent {
   })
 
   koChance = computed(() => this.damageResult().koChance)
+  damageTaken = computed(() => this.damageResult().rolls![0])
 
   activate() {
     if (!this.target().active) {
@@ -92,17 +94,7 @@ export class PokemonCardComponent {
   }
 
   cardColorClass() {
-    let baseClass = "green-card"
-
-    if (this.target().pokemon.isDefault) {
-      baseClass = "select-pokemon-card"
-    } else if (this.koChance() === "guaranteed OHKO") {
-      baseClass = "grey-card"
-    } else if (this.koChance().includes("chance to OHKO")) {
-      baseClass = "red-card"
-    } else if (this.koChance().includes("2HKO")) {
-      baseClass = "yellow-card"
-    }
+    const baseClass = "select-pokemon-card"
 
     return this.target().active ? `${baseClass} border` : baseClass
   }
