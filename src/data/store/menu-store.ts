@@ -9,8 +9,8 @@ type MenuState = {
 }
 
 const initialState: MenuState = {
-  oneVsOneActivated: true,
-  oneVsManyActivated: false,
+  oneVsOneActivated: false,
+  oneVsManyActivated: true,
   manyVsOneActivated: false,
   speedCalculatorActivated: false
 }

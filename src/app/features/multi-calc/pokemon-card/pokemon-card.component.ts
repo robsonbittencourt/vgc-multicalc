@@ -1,8 +1,6 @@
 import { NgClass } from "@angular/common"
 import { Component, computed, inject, input, output } from "@angular/core"
-import { MatCard, MatCardMdImage, MatCardSubtitle, MatCardTitle, MatCardTitleGroup } from "@angular/material/card"
-import { MatIcon } from "@angular/material/icon"
-import { MatTooltip } from "@angular/material/tooltip"
+import { MatCardMdImage, MatCardTitle, MatCardTitleGroup } from "@angular/material/card"
 import { PokemonHpBadgeComponent } from "@app/features/simple-calc/pokemon-hp-badge/pokemon-hp-badge.component"
 import { BoosterEnergyButtonComponent } from "@app/shared/buttons/booster-energy-button/booster-energy-button.component"
 import { TatsugiriButtonComponent } from "@app/shared/buttons/tatsugiri-button/tatsugiri-button.component"
@@ -16,7 +14,7 @@ import { Target } from "@lib/model/target"
   selector: "app-pokemon-card",
   templateUrl: "./pokemon-card.component.html",
   styleUrls: ["./pokemon-card.component.scss"],
-  imports: [MatCard, NgClass, MatCardTitleGroup, MatCardTitle, MatCardSubtitle, MatTooltip, MatIcon, MatCardMdImage, TatsugiriButtonComponent, TerastalButtonComponent, BoosterEnergyButtonComponent, PokemonHpBadgeComponent]
+  imports: [NgClass, MatCardTitleGroup, MatCardTitle, MatCardMdImage, TatsugiriButtonComponent, TerastalButtonComponent, BoosterEnergyButtonComponent, PokemonHpBadgeComponent]
 })
 export class PokemonCardComponent {
   store = inject(CalculatorStore)
@@ -42,7 +40,18 @@ export class PokemonCardComponent {
   })
 
   koChance = computed(() => this.damageResult().koChance)
-  damageTaken = computed(() => this.damageResult().rolls![0])
+  damageTaken = computed(() => this.damageResult().rolls?.[0] ?? 0)
+  attackerDescription = computed(() => {
+    const attackerName = this.damageResult().attacker.name
+    const withoutPokemonName = this.damageResult().description.replace(attackerName, "")
+    const attackerDescription = withoutPokemonName.substring(0, withoutPokemonName.indexOf("vs"))
+
+    if (attackerDescription.includes(" AND ")) {
+      return attackerDescription.substring(0, attackerDescription.indexOf(" AND"))
+    }
+
+    return attackerDescription
+  })
 
   activate() {
     if (!this.target().active) {
