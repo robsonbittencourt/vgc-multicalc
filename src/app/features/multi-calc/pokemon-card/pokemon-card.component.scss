@@ -3,6 +3,7 @@
   flex-direction: column;
   justify-content: space-between;
   padding: 1em;
+  height: 90%;
 }
 
 .card-top {
@@ -13,6 +14,9 @@
 }
 
 .card-left-side {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .left-pokemon {
@@ -30,13 +34,13 @@
 }
 
 .card-bottom {
-  margin-top: 1.5em;
+  margin-top: 1em;
+  border-top: 1px solid var(--highlight-contrast);
 }
 
 .card-right-side {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   gap: 1em;
 }
 
@@ -56,6 +60,7 @@
 .middle-section-items {
   display: flex;
   flex-direction: column;
+  margin-left: 1em;
   gap: 0.5em;
 }
 
@@ -80,6 +85,11 @@
 .pokemon-image {
   width: 7em;
   height: auto;
+}
+
+.vs-icon {
+  width: auto;
+  height: 4em;
 }
 
 .plus-icon {

@@ -28,7 +28,9 @@
           </div>
         }
       </div>
-      <div class="card-middle">VS</div>
+      <div class="card-middle">
+        <img class="vs-icon" src="assets/icons/vs.png" />
+      </div>
       <div class="card-right-side">
         <div class="top-section">
           <app-pokemon-hp-badge
@@ -44,8 +46,8 @@
           <div class="middle-section-items">
             <span>Nature: {{ target().pokemon.nature }}</span>
             <span>Ability: {{ target().pokemon.ability.simpleName }}</span>
-            <span>{{ evsDescription() }}</span>
             <span>Tera Type: {{ target().pokemon.teraType }}</span>
+            <span>{{ evsDescription() }}</span>
           </div>
 
           <div class="card-buttons">
