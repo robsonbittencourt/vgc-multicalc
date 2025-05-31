@@ -17,45 +17,48 @@
       </div>
     </div>
   } @else {
-    <div class="card-left-side">
-      <div class="left-pokemon">
-        <img class="pokemon-image" src="assets/sprites/pokemon-sv/{{ damageResult().attacker.name }}.png" />
-        <div class="attacker-description">{{ attackerDescription() }}</div>
-      </div>
-      @if (damageResult().secondAttacker) {
+    <div class="card-top">
+      <div class="card-left-side">
         <div class="left-pokemon">
-          <img class="pokemon-image" src="assets/sprites/pokemon-sv/{{ damageResult().secondAttacker?.name }}.png" />
-          <div>
-            {{ damageResult().secondAttacker?.activeMoveName }}
+          <img class="pokemon-image" src="assets/sprites/pokemon-sv/{{ damageResult().attacker.name }}.png" />
+        </div>
+        @if (damageResult().secondAttacker) {
+          <div class="left-pokemon">
+            <img class="pokemon-image" src="assets/sprites/pokemon-sv/{{ damageResult().secondAttacker?.name }}.png" />
+          </div>
+        }
+      </div>
+      <div class="card-middle">VS</div>
+      <div class="card-right-side">
+        <div class="top-section">
+          <app-pokemon-hp-badge
+            [name]="target().pokemon.displayNameWithoutSuffix"
+            [actualHp]="target().pokemon.actualHp"
+            [hpBase]="target().pokemon.hp"
+            [spriteName]="target().pokemon.name"
+            [item]="target().pokemon.item"
+            [damageTaken]="damageTaken()" />
+        </div>
+
+        <div class="middle-section">
+          <div class="middle-section-items">
+            <span>Nature: {{ target().pokemon.nature }}</span>
+            <span>Ability: {{ target().pokemon.ability.simpleName }}</span>
+            <span>{{ evsDescription() }}</span>
+            <span>Tera Type: {{ target().pokemon.teraType }}</span>
+          </div>
+
+          <div class="card-buttons">
+            <app-tatsugiri-button [pokemonId]="target().pokemon.id" />
+            <app-booster-energy-button [pokemonId]="target().pokemon.id" />
+            <app-terastal-button [pokemonId]="target().pokemon.id" />
+
+            <button class="icon-button" (click)="removePokemon($event)" data-cy="delete-opponent-pokemon">
+              <img class="icon-trash" src="assets/icons/trash.png" />
+            </button>
           </div>
         </div>
-      }
-    </div>
-    <div class="card-middle">VS</div>
-    <div class="card-right-side">
-      <div class="top-section">
-        <app-pokemon-hp-badge
-          [name]="target().pokemon.displayNameWithoutSuffix"
-          [actualHp]="target().pokemon.actualHp"
-          [hpBase]="target().pokemon.hp"
-          [spriteName]="target().pokemon.name"
-          [item]="target().pokemon.item"
-          [damageTaken]="damageTaken()" />
-      </div>
 
-      <div class="middle-section">
-        <div class="middle-section-items">
-          <span>Nature: {{ target().pokemon.nature }}</span>
-          <span>Ability: {{ target().pokemon.ability.simpleName }}</span>
-        </div>
-
-        <div class="middle-section-items">
-          <span>{{ evsDescription() }}</span>
-          <span>Tera Type: {{ target().pokemon.teraType }}</span>
-        </div>
-      </div>
-
-      <div class="bottom-section">
         <!-- <div class="plus-icon" matTooltip="Combine damage" [matTooltipShowDelay]="500">
         @if (!target().active && canSelectSecondPokemon()) {
           <mat-icon (click)="addSecondAttacker($event)">check_circle_outline</mat-icon>
@@ -65,23 +68,12 @@
           <mat-icon (click)="addSecondAttacker($event)">check_circle</mat-icon>
         }
       </div> -->
-
-        @if (damageResult() && showDamageDescription()) {
-          <div class="damage-result">
-            <br />Damage: {{ damageResult().result }} <br /><label class="ko-chance">{{ koChance() }}</label>
-          </div>
-        }
-
-        <div class="card-buttons">
-          <app-tatsugiri-button [pokemonId]="target().pokemon.id" />
-          <app-booster-energy-button [pokemonId]="target().pokemon.id" />
-          <app-terastal-button [pokemonId]="target().pokemon.id" />
-
-          <button class="icon-button" (click)="removePokemon($event)" data-cy="delete-opponent-pokemon">
-            <img class="icon-trash" src="assets/icons/trash.png" />
-          </button>
-        </div>
       </div>
+    </div>
+    <div class="card-bottom">
+      @if (damageResult() && showDamageDescription()) {
+        <div class="damage-result"><br />{{ damageResult().description }}</div>
+      }
     </div>
   }
 </div>

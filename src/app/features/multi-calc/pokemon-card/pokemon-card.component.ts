@@ -98,7 +98,7 @@ export class PokemonCardComponent {
       if (pokemon.evs.hp != 0) evsDescription += `hp: ${pokemon.evs.hp} `
       if (pokemon.evs.def != 0) evsDescription += `def: ${pokemon.evs.def} `
       if (pokemon.evs.spd != 0) evsDescription += `spd: ${pokemon.evs.spd} `
-      return evsDescription != "" ? `Bulky: ${evsDescription}` : "Bulky: --"
+      return evsDescription != "" ? `Bulk: ${evsDescription}` : "Bulky: --"
     }
   }
 

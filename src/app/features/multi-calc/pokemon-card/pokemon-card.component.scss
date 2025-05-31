@@ -1,20 +1,24 @@
 .card {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
-  gap: 1em;
   padding: 1em;
 }
 
+.card-top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  gap: 1em;
+}
+
 .card-left-side {
-  // background-color: var(--primary);
 }
 
 .left-pokemon {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0.5em 0.5em 0.5em 0.5em;
 }
 
 .attacker-description {
@@ -25,12 +29,15 @@
   align-items: center;
 }
 
+.card-bottom {
+  margin-top: 1.5em;
+}
+
 .card-right-side {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 1em;
-  // background-color: var(--primary);
+  gap: 1em;
 }
 
 .top-section {
@@ -42,8 +49,8 @@
 .middle-section {
   display: flex;
   flex-direction: row;
+  align-items: flex-start;
   justify-content: space-between;
-  margin-top: 1.5em;
 }
 
 .middle-section-items {
@@ -57,7 +64,6 @@
   flex-direction: row;
   align-items: flex-end;
   justify-content: space-between;
-  margin-top: 1.5em;
 }
 
 .icon-button {
@@ -98,6 +104,7 @@
 
 .card-buttons {
   display: flex;
+  align-items: center;
   z-index: 1;
 }
 

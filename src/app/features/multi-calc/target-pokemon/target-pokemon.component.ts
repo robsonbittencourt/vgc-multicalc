@@ -3,7 +3,6 @@ import { MatButton } from "@angular/material/button"
 import { MatSlideToggle } from "@angular/material/slide-toggle"
 import { AddPokemonCardComponent } from "@app/features/multi-calc/add-pokemon-card/add-pokemon-card.component"
 import { PokemonCardComponent } from "@app/features/multi-calc/pokemon-card/pokemon-card.component"
-import { CopyButtonComponent } from "@app/shared/buttons/copy-button/copy-button.component"
 import { ImportPokemonButtonComponent } from "@app/shared/buttons/import-pokemon-button/import-pokemon-button.component"
 import { WidgetComponent } from "@app/widget/widget.component"
 import { CalculatorStore } from "@data/store/calculator-store"
@@ -19,7 +18,7 @@ import { ExportPokeService } from "@lib/user-data/export-poke.service"
   selector: "app-target-pokemon",
   templateUrl: "./target-pokemon.component.html",
   styleUrls: ["./target-pokemon.component.scss"],
-  imports: [WidgetComponent, MatButton, MatSlideToggle, PokemonCardComponent, AddPokemonCardComponent, CopyButtonComponent, ImportPokemonButtonComponent],
+  imports: [WidgetComponent, MatButton, MatSlideToggle, PokemonCardComponent, AddPokemonCardComponent, ImportPokemonButtonComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class TargetPokemonComponent {
