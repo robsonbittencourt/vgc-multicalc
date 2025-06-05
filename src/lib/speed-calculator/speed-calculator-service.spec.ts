@@ -161,7 +161,7 @@ describe("SpeedCalculatorService", () => {
 
       const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide)
 
-      const actual = inRange.find(p => p.pokemonName == "Urshifu" && p.description.includes(ACTUAL) && p.description.includes("48% Usage"))
+      const actual = inRange.find(p => p.pokemonName == "Urshifu" && p.description.includes(ACTUAL))
       const quantity = inRange.filter(p => p.pokemonName == "Urshifu" && p.value == 149).length
 
       expect(actual).not.toBeUndefined()

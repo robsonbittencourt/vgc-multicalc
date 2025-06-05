@@ -2,7 +2,7 @@ import { createMovesetsFile } from "./moveset-class-generator.js"
 import { createSpeedStatisticsFile } from "./speed-statistics-class-generator.js"
 import { topUsage } from "./top-usage.js"
 
-const date = "2025-04"
+const date = "2025-05"
 const regulation = "i"
 
 await topUsage(date, regulation)
