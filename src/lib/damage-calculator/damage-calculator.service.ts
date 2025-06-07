@@ -114,8 +114,10 @@ export class DamageCalculatorService {
     try {
       const attackerDescription = resultOne.desc().substring(0, resultOne.desc().indexOf(" vs."))
       const secondAttackerDescritption = resultTwo.desc().substring(0, resultTwo.desc().indexOf(" vs."))
+      const defenderDescription = resultOne.desc().substring(resultOne.desc().indexOf(" vs.") + 5)
+
       const defenderBulk = this.mergeBulkStats(resultOne, resultTwo)
-      const defenderNameAndDamage = resultOne.desc().substring(resultOne.desc().indexOf(resultOne.defender.name))
+      const defenderNameAndDamage = defenderDescription.substring(defenderDescription.indexOf(resultOne.defender.name))
 
       return `${attackerDescription} AND ${secondAttackerDescritption} vs. ${defenderBulk} ${defenderNameAndDamage}`
     } catch (error) {
@@ -124,10 +126,13 @@ export class DamageCalculatorService {
   }
 
   mergeBulkStats(resultOne: Result, resultTwo: Result): string {
-    const defenderBulkFirtSide = resultOne.desc().substring(resultOne.desc().indexOf(" vs.") + 5, resultOne.desc().indexOf(resultOne.defender.name) - 1)
-    const defenderBulkSecondSide = resultTwo.desc().substring(resultTwo.desc().indexOf(" vs.") + 5, resultTwo.desc().indexOf(resultTwo.defender.name) - 1)
+    const resultOneDefenderDesc = resultOne.desc().substring(resultOne.desc().indexOf(" vs.") + 5)
+    const resultTwoDefenderDesc = resultTwo.desc().substring(resultTwo.desc().indexOf(" vs.") + 5)
 
-    const data1 = this.parseStats(defenderBulkFirtSide)
+    const defenderBulkFirstSide = resultOneDefenderDesc.substring(0, resultOneDefenderDesc.indexOf(resultOne.defender.name) - 1)
+    const defenderBulkSecondSide = resultTwoDefenderDesc.substring(0, resultTwoDefenderDesc.indexOf(resultTwo.defender.name) - 1)
+
+    const data1 = this.parseStats(defenderBulkFirstSide)
     const data2 = this.parseStats(defenderBulkSecondSide)
 
     const mergedStats: Record<string, number> = { ...data1.stats }
