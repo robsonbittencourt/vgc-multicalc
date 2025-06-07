@@ -18,7 +18,6 @@ describe("User Data Mapper", () => {
 
       const targets: TargetState[] = [
         {
-          active: false,
           pokemon: speedCalcPokemon
         }
       ]
@@ -55,7 +54,6 @@ describe("User Data Mapper", () => {
 
       const targets: TargetState[] = [
         {
-          active: false,
           pokemon: leftPokemon
         }
       ]
@@ -92,7 +90,6 @@ describe("User Data Mapper", () => {
 
       const targets: TargetState[] = [
         {
-          active: false,
           pokemon: rightPokemon
         }
       ]
@@ -142,7 +139,6 @@ describe("User Data Mapper", () => {
 
       const targets: TargetState[] = [
         {
-          active: false,
           pokemon: teamPokemonOne
         }
       ]
@@ -163,6 +159,7 @@ describe("User Data Mapper", () => {
     it("should build user data for targets", () => {
       const targetOne = pikachuState
       const targetTwo = bulbasaurState
+      const targetTwoSecondAttacker = charmanderState
 
       const teams: TeamState[] = [
         {
@@ -175,12 +172,11 @@ describe("User Data Mapper", () => {
 
       const targets: TargetState[] = [
         {
-          active: true,
           pokemon: targetOne
         },
         {
-          active: false,
-          pokemon: targetTwo
+          pokemon: targetTwo,
+          secondPokemon: targetTwoSecondAttacker
         }
       ]
 
@@ -189,6 +185,7 @@ describe("User Data Mapper", () => {
       expect(result.targets.length).toBe(2)
       expect(result.targets[0].pokemon.name).toBe("Pikachu")
       expect(result.targets[1].pokemon.name).toBe("Bulbasaur")
+      expect(result.targets[1].secondPokemon!.name).toBe("Charmander")
     })
   })
 
@@ -410,7 +407,7 @@ describe("User Data Mapper", () => {
             teamMembers: [{ active: true, pokemon: charmanderUserData }]
           }
         ],
-        targets: [{ pokemon: bulbasaurUserData }, { pokemon: charmanderUserData }]
+        targets: [{ pokemon: bulbasaurUserData }, { pokemon: charmanderUserData, secondPokemon: pikachuUserData }]
       }
 
       const result: CalculatorState = buildState(userData)
@@ -418,6 +415,7 @@ describe("User Data Mapper", () => {
       expect(result.targetsState.length).toBe(2)
       expect(result.targetsState[0].pokemon.name).toBe("Bulbasaur")
       expect(result.targetsState[1].pokemon.name).toBe("Charmander")
+      expect(result.targetsState[1].secondPokemon!.name).toBe("Pikachu")
     })
   })
 })
@@ -457,6 +455,25 @@ const bulbasaurState: PokemonState = {
   boosts: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
   evs: { hp: 4, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 },
   ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
+  hpPercentage: 100
+}
+
+const charmanderState: PokemonState = {
+  id: "789",
+  name: "Charmander",
+  nature: "Adamant",
+  item: "Charcoal",
+  status: Status.PARALYSIS.description,
+  ability: "Blaze",
+  abilityOn: true,
+  commanderActive: false,
+  teraType: "Fire",
+  teraTypeActive: true,
+  activeMove: "Flamethrower",
+  moveSet: [{ name: "Flamethrower" }, { name: "Scratch" }, { name: "Growl" }, { name: "Ember" }],
+  boosts: { hp: 0, atk: 2, def: 3, spa: 4, spd: 5, spe: -2 },
+  evs: { hp: 4, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 },
+  ivs: { hp: 0, atk: 1, def: 2, spa: 3, spd: 4, spe: 5 },
   hpPercentage: 100
 }
 

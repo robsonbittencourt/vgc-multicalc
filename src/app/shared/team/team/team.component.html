@@ -2,7 +2,7 @@
   <right-header>
     <div class="tabs">
       @for (teamMember of store.team().teamMembers; track teamMember.pokemon.id) {
-        <app-pokemon-tab [pokemonId]="teamMember.pokemon.id" [active]="showTeamMemberActive(teamMember)" (tabActivated)="activatePokemon($event)" />
+        <app-pokemon-tab [pokemonId]="teamMember.pokemon.id" [active]="showTeamMemberActive(teamMember)" (tabActivated)="activatePokemon($event)" (secondTabActivated)="activateSecondPokemon($event)" />
       }
     </div>
   </right-header>

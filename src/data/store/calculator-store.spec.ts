@@ -1,6 +1,7 @@
 import { provideExperimentalZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
 import { CalculatorStore, PokemonState, TargetState, TeamState } from "@data/store/calculator-store"
+import { Ability } from "@lib/model/ability"
 import { Move } from "@lib/model/move"
 import { Pokemon } from "@lib/model/pokemon"
 import { Status } from "@lib/model/status"
@@ -456,16 +457,6 @@ describe("Calculator Store", () => {
         expect(store.targets()[0].pokemon.name).toBe("Pikachu")
         expect(store.targets()[1].pokemon.name).toBe("Raichu")
       })
-
-      it("should deactivate Targets", () => {
-        const targets = [new Target(new Pokemon("Pikachu"), true), new Target(new Pokemon("Raichu"), true)]
-
-        store.updateTargets(targets)
-        store.deactivateTargets()
-
-        expect(store.targets()[0].active).toBeFalse()
-        expect(store.targets()[1].active).toBeFalse()
-      })
     })
 
     describe("Update another Pokémon", () => {
@@ -515,6 +506,26 @@ describe("Calculator Store", () => {
         store.name(id, "Pikachu")
 
         expect(store.rightPokemon().name).toBe("Pikachu")
+      })
+
+      it("should update Pokémon in target by id", () => {
+        const pokemon = new Pokemon("Pikachu", { ability: new Ability("Lightning Rod") })
+        const targets = [new Target(pokemon, new Pokemon("Raichu"))]
+        store.updateTargets(targets)
+
+        store.ability(pokemon.id, "Static")
+
+        expect(store.targets()[0].pokemon.ability.name).toBe("Static")
+      })
+
+      it("should update second Pokémon in target by id", () => {
+        const secondPokemon = new Pokemon("Raichu", { ability: new Ability("Lightning Rod") })
+        const targets = [new Target(new Pokemon("Pikachu"), secondPokemon)]
+        store.updateTargets(targets)
+
+        store.ability(secondPokemon.id, "Static")
+
+        expect(store.targets()[0].secondPokemon?.ability.name).toBe("Static")
       })
     })
 
@@ -577,6 +588,15 @@ describe("Calculator Store", () => {
         const result = store.findPokemonById("456")
 
         expect(result.name).toBe("Raichu")
+      })
+
+      it("should find Pokémon by id when searched Pokémon is in Targets as second attacker", () => {
+        const targets = [new Target(new Pokemon("Pikachu", { id: "123" }), new Pokemon("Tyranitar", { id: "789" })), new Target(new Pokemon("Raichu", { id: "456" }))]
+        store.updateTargets(targets)
+
+        const result = store.findPokemonById("789")
+
+        expect(result.name).toBe("Tyranitar")
       })
 
       it("should update Target by id", () => {
@@ -675,13 +695,32 @@ const pikachuState: PokemonState = {
   status: Status.HEALTHY.description,
   ability: "Static",
   abilityOn: false,
-  commanderActive: true,
+  commanderActive: false,
   teraType: "Electric",
   teraTypeActive: true,
   activeMove: "Thunderbolt",
   moveSet: [{ name: "Thunderbolt" }, { name: "Quick Attack" }, { name: "Volt Tackle" }, { name: "Iron Tail" }],
   boosts: { hp: 0, atk: -1, def: -2, spa: 1, spd: 2, spe: 3 },
   evs: { hp: 4, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 },
+  ivs: { hp: 26, atk: 27, def: 28, spa: 29, spd: 30, spe: 31 },
+  hpPercentage: 100
+}
+
+const raichuState: PokemonState = {
+  id: "456",
+  name: "Raichu",
+  nature: "Timid",
+  item: "Choice Specs",
+  status: Status.HEALTHY.description,
+  ability: "Lightning Rod",
+  abilityOn: false,
+  commanderActive: false,
+  teraType: "Electric",
+  teraTypeActive: true,
+  activeMove: "Thunderbolt",
+  moveSet: [{ name: "Thunderbolt" }, { name: "Quick Attack" }, { name: "Volt Tackle" }, { name: "Iron Tail" }],
+  boosts: { hp: 0, atk: 0, def: 0, spa: 1, spd: 2, spe: 3 },
+  evs: { hp: 0, atk: 0, def: 4, spa: 252, spd: 0, spe: 252 },
   ivs: { hp: 26, atk: 27, def: 28, spa: 29, spd: 30, spe: 31 },
   hpPercentage: 100
 }
@@ -697,7 +736,7 @@ const teamsState: TeamState[] = [
 
 const targetsState: TargetState[] = [
   {
-    active: false,
-    pokemon: pikachuState
+    pokemon: pikachuState,
+    secondPokemon: raichuState
   }
 ]

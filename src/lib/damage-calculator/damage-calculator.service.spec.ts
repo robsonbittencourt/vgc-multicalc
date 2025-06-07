@@ -94,25 +94,17 @@ describe("Damage Calculator Service", () => {
     const target = new Target(new Pokemon("Flutter Mane", { item: "Assault Vest" }))
     const field = new Field()
 
-    const damageResults = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
+    const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
 
-    expect(damageResults[0].attacker.id).toEqual(secondAttacker.id)
-    expect(damageResults[0].defender.id).toEqual(target.pokemon.id)
-    expect(damageResults[0].move).toEqual("Grassy Glide")
-    expect(damageResults[0].result).toEqual("72.3 - 87.6%")
-    expect(damageResults[0].koChance).toEqual("guaranteed 2HKO")
-    expect(damageResults[0].damage).toEqual(87.6)
-    expect(damageResults[0].description).toEqual("0 Atk Rillaboom Grassy Glide AND 0 SpA Raging Bolt Thunderbolt vs. 0 HP / 0 Def / 0 SpD Assault Vest Flutter Mane: 94-114 (72.3 - 87.6%) -- guaranteed 2HKO")
-    expect(damageResults[0].rolls).toEqual(undefined)
-
-    expect(damageResults[1].attacker.id).toEqual(attacker.id)
-    expect(damageResults[1].defender.id).toEqual(target.pokemon.id)
-    expect(damageResults[1].move).toEqual("Thunderbolt")
-    expect(damageResults[1].result).toEqual("72.3 - 87.6%")
-    expect(damageResults[1].koChance).toEqual("guaranteed 2HKO")
-    expect(damageResults[1].damage).toEqual(87.6)
-    expect(damageResults[1].description).toEqual("0 Atk Rillaboom Grassy Glide AND 0 SpA Raging Bolt Thunderbolt vs. 0 HP / 0 Def / 0 SpD Assault Vest Flutter Mane: 94-114 (72.3 - 87.6%) -- guaranteed 2HKO")
-    expect(damageResults[1].rolls).toEqual(undefined)
+    expect(damageResult.attacker.id).toEqual(secondAttacker.id)
+    expect(damageResult.secondAttacker!.id).toEqual(attacker.id)
+    expect(damageResult.defender.id).toEqual(target.pokemon.id)
+    expect(damageResult.move).toEqual("Grassy Glide")
+    expect(damageResult.result).toEqual("72.3 - 87.6%")
+    expect(damageResult.koChance).toEqual("guaranteed 2HKO")
+    expect(damageResult.damage).toEqual(87.6)
+    expect(damageResult.description).toEqual("0 Atk Rillaboom Grassy Glide AND 0 SpA Raging Bolt Thunderbolt vs. 0 HP / 0 Def / 0 SpD Assault Vest Flutter Mane: 94-114 (72.3 - 87.6%) -- guaranteed 2HKO")
+    expect(damageResult.rolls).toEqual([94, 97, 97, 99, 99, 101, 101, 103, 105, 106, 106, 108, 109, 110, 110, 114])
   })
 
   it("should calculate damage to two attackers considering speed", () => {
@@ -121,25 +113,17 @@ describe("Damage Calculator Service", () => {
     const target = new Target(new Pokemon("Flutter Mane", { item: "Assault Vest" }))
     const field = new Field()
 
-    const damageResults = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
+    const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
 
-    expect(damageResults[0].attacker.id).toEqual(attacker.id)
-    expect(damageResults[0].defender.id).toEqual(target.pokemon.id)
-    expect(damageResults[0].move).toEqual("Thunderbolt")
-    expect(damageResults[0].result).toEqual("72.3 - 87.6%")
-    expect(damageResults[0].koChance).toEqual("guaranteed 2HKO")
-    expect(damageResults[0].damage).toEqual(87.6)
-    expect(damageResults[0].description).toEqual("0 SpA Raging Bolt Thunderbolt AND 0 Atk Rillaboom Grassy Glide vs. 0 HP / 0 Def / 0 SpD Assault Vest Flutter Mane: 94-114 (72.3 - 87.6%) -- guaranteed 2HKO")
-    expect(damageResults[0].rolls).toEqual(undefined)
-
-    expect(damageResults[1].attacker.id).toEqual(secondAttacker.id)
-    expect(damageResults[1].defender.id).toEqual(target.pokemon.id)
-    expect(damageResults[1].move).toEqual("Grassy Glide")
-    expect(damageResults[1].result).toEqual("72.3 - 87.6%")
-    expect(damageResults[1].koChance).toEqual("guaranteed 2HKO")
-    expect(damageResults[1].damage).toEqual(87.6)
-    expect(damageResults[1].description).toEqual("0 SpA Raging Bolt Thunderbolt AND 0 Atk Rillaboom Grassy Glide vs. 0 HP / 0 Def / 0 SpD Assault Vest Flutter Mane: 94-114 (72.3 - 87.6%) -- guaranteed 2HKO")
-    expect(damageResults[1].rolls).toEqual(undefined)
+    expect(damageResult.attacker.id).toEqual(attacker.id)
+    expect(damageResult.secondAttacker?.id).toEqual(secondAttacker.id)
+    expect(damageResult.defender.id).toEqual(target.pokemon.id)
+    expect(damageResult.move).toEqual("Thunderbolt")
+    expect(damageResult.result).toEqual("72.3 - 87.6%")
+    expect(damageResult.koChance).toEqual("guaranteed 2HKO")
+    expect(damageResult.damage).toEqual(87.6)
+    expect(damageResult.description).toEqual("0 SpA Raging Bolt Thunderbolt AND 0 Atk Rillaboom Grassy Glide vs. 0 HP / 0 Def / 0 SpD Assault Vest Flutter Mane: 94-114 (72.3 - 87.6%) -- guaranteed 2HKO")
+    expect(damageResult.rolls).toEqual([94, 97, 97, 99, 99, 101, 101, 103, 105, 106, 106, 108, 109, 110, 110, 114])
   })
 
   it("should calculate damage to two attackers without damage", () => {
@@ -148,10 +132,9 @@ describe("Damage Calculator Service", () => {
     const target = new Target(new Pokemon("Ting-Lu"))
     const field = new Field()
 
-    const damageResults = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
+    const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
 
-    expect(damageResults[0].description).toEqual("Jolteon Thunder AND Zapdos Thunder vs. Ting-Lu: 0-0 (0 - 0%) -- possibly the worst move ever")
-    expect(damageResults[1].description).toEqual("Jolteon Thunder AND Zapdos Thunder vs. Ting-Lu: 0-0 (0 - 0%) -- possibly the worst move ever")
+    expect(damageResult.description).toEqual("Jolteon Thunder AND Zapdos Thunder vs. Ting-Lu: 0-0 (0 - 0%) -- possibly the worst move ever")
   })
 
   it("should adjust inputs before calculation", () => {

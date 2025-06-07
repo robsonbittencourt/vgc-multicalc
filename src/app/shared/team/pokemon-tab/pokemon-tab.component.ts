@@ -14,12 +14,17 @@ export class PokemonTabComponent {
   active = input.required<boolean>()
 
   tabActivated = output<string>()
+  secondTabActivated = output<string>()
 
   store = inject(CalculatorStore)
 
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
 
-  activateTab() {
-    this.tabActivated.emit(this.pokemonId())
+  activateTab(event: MouseEvent) {
+    if (event.ctrlKey || event.metaKey) {
+      this.secondTabActivated.emit(this.pokemonId())
+    } else {
+      this.tabActivated.emit(this.pokemonId())
+    }
   }
 }

@@ -7,7 +7,6 @@
   class="target-pokemon"
   [damageResults]="damageResults()"
   [isAttacker]="menuStore.manyVsOneActivated()"
-  [showDamageDescription]="!activeAttacker().isDefault"
   (targetActivated)="pokemonOnEditId.set($event)"
   (targetRemoved)="pokemonOnEditId.set(store.team().activePokemon().id)"
   (targetsImported)="targetsImported()"

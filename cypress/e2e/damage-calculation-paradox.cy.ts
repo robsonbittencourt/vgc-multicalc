@@ -184,7 +184,7 @@ describe("Test calcs with Paradox Pokémon and ability activated", () => {
   })
 })
 
-describe.only("Test calcs with Paradox Pokémon in opponent side", () => {
+describe("Test calcs with Paradox Pokémon in opponent side", () => {
   const pokemonBuild = new PokemonBuild("your-team")
   const team = new Team()
   const opponents = new Opponent()
@@ -211,7 +211,7 @@ describe.only("Test calcs with Paradox Pokémon in opponent side", () => {
       opponents.importPokemon(flutterManeHighSpdData)
 
       team.selectPokemon("Tornadus")
-      opponents.selectPokemon("Flutter Mane").activateAbility()
+      opponents.selectDefender("Flutter Mane").activateAbility()
 
       opponents.get("Flutter Mane").damageIs(26.1, 32.3).cause4HKO()
     })
@@ -230,7 +230,7 @@ describe.only("Test calcs with Paradox Pokémon in opponent side", () => {
       opponents.importPokemon(tornadusData)
 
       team.selectPokemon("Flutter Mane").activateAbility()
-      opponents.selectPokemon("Tornadus")
+      opponents.selectAttacker("Tornadus")
 
       opponents.get("Tornadus").damageIs(26.1, 32.3).cause4HKO()
     })
@@ -240,7 +240,7 @@ describe.only("Test calcs with Paradox Pokémon in opponent side", () => {
       opponents.importPokemon(flutterManeHighSpaData)
 
       team.selectPokemon("Tornadus")
-      opponents.selectPokemon("Flutter Mane").activateAbility()
+      opponents.selectAttacker("Flutter Mane").activateAbility()
 
       opponents.get("Flutter Mane").damageIs(76.1, 90.9).cause2HKO()
     })

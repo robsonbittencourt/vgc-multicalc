@@ -3,7 +3,7 @@
   position: relative;
   justify-content: space-between;
   height: clamp(50px, 2vh + 2vw, 84px);
-  width: clamp(300px, 20vw, 385px);
+  width: clamp(245px, 19vw, 385px);
   background-color: rgba(33, 69, 70, 0.8);
   border-radius: 6px;
   color: #efffff;
@@ -27,7 +27,7 @@
 }
 
 .hp-bar {
-  width: 13.3em;
+  width: 12em;
   height: 30%;
   border: solid #82b4b3 2px;
   box-shadow: inset 0 0 1px black;
@@ -72,7 +72,7 @@
 
 .icon-image {
   width: auto;
-  height: 60%;
+  height: 55%;
   z-index: 1;
 }
 

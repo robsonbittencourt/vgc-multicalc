@@ -1,11 +1,13 @@
+import { animate, style, transition, trigger } from "@angular/animations"
 import { NgStyle } from "@angular/common"
-import { Component, computed, ElementRef, input, viewChild } from "@angular/core"
+import { Component, computed, ElementRef, input, signal, viewChild } from "@angular/core"
 import { Items } from "@data/items"
 
 @Component({
   selector: "app-pokemon-hp-badge",
   templateUrl: "./pokemon-hp-badge.component.html",
   styleUrls: ["./pokemon-hp-badge.component.scss"],
+  animations: [trigger("fadeIn", [transition(":enter", [style({ opacity: 0 }), animate("300ms ease-out", style({ opacity: 1 }))])])],
   imports: [NgStyle]
 })
 export class PokemonHpBadgeComponent {
@@ -19,6 +21,8 @@ export class PokemonHpBadgeComponent {
   item = input.required({ transform: (value: string) => value.toLowerCase().replaceAll(" ", "-") })
 
   pokemonImage = viewChild<ElementRef>("pokemonImage")
+
+  showImage = signal(false)
 
   remainingHp = computed(() => {
     const hp = this.actualHp() - this.damageTaken()
@@ -53,6 +57,10 @@ export class PokemonHpBadgeComponent {
     if (this.spriteName() != this._actualSpriteName) {
       this._actualSpriteName = this.spriteName()
       this.removeTransparentSpace()
+
+      setTimeout(() => {
+        this.showImage.set(true)
+      }, 0)
     }
   }
 
@@ -127,5 +135,22 @@ export class PokemonHpBadgeComponent {
     }
 
     return 0.8
+  }
+
+  getPokemonImageStyles(showImage: boolean): Record<string, string> {
+    const styles: Record<string, string> = {}
+
+    styles["display"] = showImage ? "block" : "none"
+
+    const scaleValue = `scale(${this.imageScale})`
+
+    if (this.remainingHp() === 0) {
+      styles["transform"] = scaleValue
+      styles["filter"] = "brightness(70%)"
+    } else {
+      styles["transform"] = scaleValue
+    }
+
+    return styles
   }
 }
