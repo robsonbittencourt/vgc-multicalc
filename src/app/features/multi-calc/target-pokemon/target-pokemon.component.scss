@@ -20,7 +20,7 @@
 .target-pokemon {
   margin-top: 1em;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(25em, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(34em, 1fr));
   grid-auto-rows: minmax(16em, 1fr);
   grid-column-gap: 1em;
   grid-row-gap: 1em;

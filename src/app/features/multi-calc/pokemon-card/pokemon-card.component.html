@@ -1,65 +1,106 @@
-<mat-card (click)="activate()" class="card" [ngClass]="cardColorClass()" [attr.data-cy]="'pokemon-card-' + target().pokemon.displayName">
-  <div class="card-container">
-    @if (target().pokemon.isDefault) {
-      <div class="card-left-side">
-        <mat-card-title-group>
-          <mat-card-title>{{ target().pokemon.displayNameWithoutSuffix }}</mat-card-title>
-        </mat-card-title-group>
-      </div>
-
+<div class="card" cdkDrag cdkDragBoundary=".target-pokemon" [cdkDragDisabled]="canDrag()" [attr.data-cy]="'pokemon-card-' + target().pokemon.displayName">
+  @if (target().pokemon.isDefault) {
+    <div class="body">
       <div class="card-right-side">
-        <div class="pokemon-image-container">
-          <img class="pokemon-image" mat-card-md-image src="assets/icons/question.png" />
-        </div>
-        <div class="card-buttons">
-          <button class="icon-button" (click)="removePokemon($event)" data-cy="delete-opponent-pokemon">
-            <img class="icon-trash" src="assets/icons/trash.png" />
-          </button>
+        <div class="pokemon-image-container" [@fadeIn]>
+          <img src="assets/icons/question.png" />
+          <app-pokemon-combo-box [pokemonId]="target().pokemon.id" data-cy="card-pokemon-select" />
         </div>
       </div>
-    } @else {
-      <div class="card-left-side">
-        <mat-card-title-group>
-          <mat-card-title>{{ target().pokemon.displayNameWithoutSuffix }}</mat-card-title>
-          <mat-card-subtitle>Item: {{ target().pokemon.item }}</mat-card-subtitle>
-          <mat-card-subtitle>Nature: {{ target().pokemon.nature }}</mat-card-subtitle>
-          <mat-card-subtitle>Ability: {{ target().pokemon.ability.simpleName }}</mat-card-subtitle>
-          <mat-card-subtitle>{{ evsDescription() }}</mat-card-subtitle>
-          <mat-card-subtitle>Move: {{ target().pokemon.activeMoveName }}</mat-card-subtitle>
-          <mat-card-subtitle>Tera Type: {{ target().pokemon.teraType }}</mat-card-subtitle>
-        </mat-card-title-group>
-
-        @if (damageResult() && showDamageDescription()) {
-          <div class="damage-result">
-            <br />Damage: {{ damageResult().result }} <br /><label class="ko-chance">{{ koChance() }}</label>
-          </div>
+    </div>
+  } @else {
+    <div class="body">
+      <div class="combine-buttons">
+        @if (isAttacker() && !isDefaultDefender()) {
+          @if (!damageResult().secondAttacker) {
+            <div class="combine-buttons handle" cdkDragHandle matTooltip="Combine" [matTooltipShowDelay]="500" [attr.data-cy]="moveCardSelector()">
+              <mat-icon>open_with</mat-icon>
+            </div>
+          } @else {
+            <div class="combine-buttons pointer" (click)="separateAttackers()" matTooltip="Separate" [matTooltipShowDelay]="500" [attr.data-cy]="separateCardSelector()">
+              <mat-icon>move_down</mat-icon>
+            </div>
+          }
         }
       </div>
 
-      <div class="card-right-side">
-        <div class="pokemon-image-container">
-          <div class="plus-icon" matTooltip="Combine damage" [matTooltipShowDelay]="500">
-            @if (!target().active && canSelectSecondPokemon()) {
-              <mat-icon (click)="addSecondAttacker($event)">check_circle_outline</mat-icon>
-            }
-
-            @if (target().active) {
-              <mat-icon (click)="addSecondAttacker($event)">check_circle</mat-icon>
-            }
+      <div class="left-side" [@fadeIn]>
+        @if (isDefaultAttacker()) {
+          <div class="pokemon-image-container">
+            <img src="assets/icons/question.png" />
+            Select a Pokémon
           </div>
-          <img class="pokemon-image" mat-card-md-image src="assets/sprites/pokemon-home/{{ target().pokemon.name }}.png" />
-        </div>
+        } @else {
+          <div class="left-pokemon" (click)="activate(damageResult().attacker.id)" matTooltip="Edit" [matTooltipShowDelay]="500" [attr.data-cy]="attackerSelector()">
+            <img class="pokemon-image" src="assets/sprites/pokemon-sv/{{ damageResult().attacker.name }}.png" />
+          </div>
+          @if (damageResult().secondAttacker) {
+            <div class="left-pokemon" (click)="activate(damageResult().secondAttacker!.id)" matTooltip="Edit" [matTooltipShowDelay]="500" [attr.data-cy]="secondAttackerSelector()">
+              <img class="pokemon-image" src="assets/sprites/pokemon-sv/{{ damageResult().secondAttacker?.name }}.png" />
+            </div>
+          }
+        }
+      </div>
 
-        <div class="card-buttons">
-          <app-tatsugiri-button [pokemonId]="target().pokemon.id" />
-          <app-booster-energy-button [pokemonId]="target().pokemon.id" />
-          <app-terastal-button [pokemonId]="target().pokemon.id" />
+      <div class="middle">
+        <img class="vs-icon" src="assets/icons/vs.png" />
+      </div>
 
-          <button class="icon-button" (click)="removePokemon($event)" data-cy="delete-opponent-pokemon">
-            <img class="icon-trash" src="assets/icons/trash.png" />
-          </button>
+      <div class="right-side">
+        @if (isDefaultDefender()) {
+          <div class="body">
+            <div class="card-right-side">
+              <div class="pokemon-image-container" [@fadeIn]>
+                <img src="assets/icons/question.png" />
+                Select a Pokémon
+              </div>
+            </div>
+          </div>
+        } @else {
+          <div class="pointer" (click)="activate(defender().id)" matTooltip="Edit" [matTooltipShowDelay]="500" [attr.data-cy]="defenderSelector()">
+            <app-pokemon-hp-badge [name]="defender().displayNameWithoutSuffix" [actualHp]="defender().actualHp" [hpBase]="defender().hp" [spriteName]="defender().name" [item]="defender().item" [damageTaken]="damageTaken()" />
+          </div>
+
+          <div class="middle-section">
+            <div class="middle-section-items">
+              <span>Nature: {{ defender().nature }}</span>
+              <span>Ability: {{ defender().ability.simpleName }}</span>
+              <span>Item: {{ defender().item }}</span>
+              <span
+                >Tera: {{ defender().teraType }}
+                @if (defender().teraTypeActive) {
+                  Active
+                }
+              </span>
+            </div>
+
+            <div class="middle-section-buttons">
+              <div class="card-buttons">
+                <app-tatsugiri-button [pokemonId]="defender().id" />
+                <app-booster-energy-button [pokemonId]="defender().id" />
+                <app-terastal-button [pokemonId]="defender().id" />
+
+                <button class="icon-button" (click)="removePokemon($event)" data-cy="delete-opponent-pokemon">
+                  <img class="icon-trash" src="assets/icons/trash.png" />
+                </button>
+              </div>
+
+              <span>{{ evsDescription() }}</span>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+    @if (damageResult() && !isDefaultAttacker() && !isDefaultDefender()) {
+      <div class="footer">
+        <div class="damage-result">
+          {{ damageResult().description }}
+          <app-copy-button [value]="damageResult().description" />
         </div>
       </div>
     }
-  </div>
-</mat-card>
+  }
+
+  <div *cdkDragPlaceholder></div>
+</div>

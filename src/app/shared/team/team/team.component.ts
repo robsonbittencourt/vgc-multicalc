@@ -18,7 +18,7 @@ import { v4 as uuidv4 } from "uuid"
   templateUrl: "./team.component.html",
   styleUrls: ["./team.component.scss"],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  imports: [WidgetComponent, PokemonTabComponent, ImportPokemonButtonComponent, ExportPokemonButtonComponent, MatIcon, PokemonBuildComponent, RouterOutlet]
+  imports: [MatIcon, WidgetComponent, PokemonTabComponent, ImportPokemonButtonComponent, ExportPokemonButtonComponent, PokemonBuildComponent, RouterOutlet]
 })
 export class TeamComponent {
   store = inject(CalculatorStore)
@@ -42,31 +42,51 @@ export class TeamComponent {
   }
 
   activatePokemon(pokemonId: string) {
+    if (this.combineDamageActive()) {
+      this.selectedPokemon(pokemonId)
+    } else {
+      this.selectedPokemonRemovingSecond(pokemonId)
+    }
+  }
+
+  activateSecondPokemon(pokemonId: string) {
+    if (this.isAttacker()) {
+      this.selectedPokemon(pokemonId)
+    } else {
+      this.selectedPokemonRemovingSecond(pokemonId)
+    }
+  }
+
+  private selectedPokemon(pokemonId: string) {
     const members = this.store.team().teamMembers
 
-    if (this.combineDamageActive()) {
-      const active1 = members[0].pokemon.id == this.store.attackerId() || members[0].pokemon.id == pokemonId
-      const active2 = members[1]?.pokemon.id == this.store.attackerId() || members[1]?.pokemon.id == pokemonId
-      const active3 = members[2]?.pokemon.id == this.store.attackerId() || members[2]?.pokemon.id == pokemonId
-      const active4 = members[3]?.pokemon.id == this.store.attackerId() || members[3]?.pokemon.id == pokemonId
-      const active5 = members[4]?.pokemon.id == this.store.attackerId() || members[4]?.pokemon.id == pokemonId
-      const active6 = members[5]?.pokemon.id == this.store.attackerId() || members[5]?.pokemon.id == pokemonId
+    const active1 = members[0].pokemon.id == this.store.attackerId() || members[0].pokemon.id == pokemonId
+    const active2 = members[1]?.pokemon.id == this.store.attackerId() || members[1]?.pokemon.id == pokemonId
+    const active3 = members[2]?.pokemon.id == this.store.attackerId() || members[2]?.pokemon.id == pokemonId
+    const active4 = members[3]?.pokemon.id == this.store.attackerId() || members[3]?.pokemon.id == pokemonId
+    const active5 = members[4]?.pokemon.id == this.store.attackerId() || members[4]?.pokemon.id == pokemonId
+    const active6 = members[5]?.pokemon.id == this.store.attackerId() || members[5]?.pokemon.id == pokemonId
 
-      if (pokemonId != this.store.attackerId()) {
-        this.store.updateSecondAttacker(pokemonId)
-      }
-
-      this.store.updateTeamMembersActive(active1, active2, active3, active4, active5, active6)
-    } else {
-      const active1 = members[0].pokemon.id == pokemonId
-      const active2 = members[1]?.pokemon.id == pokemonId
-      const active3 = members[2]?.pokemon.id == pokemonId
-      const active4 = members[3]?.pokemon.id == pokemonId
-      const active5 = members[4]?.pokemon.id == pokemonId
-      const active6 = members[5]?.pokemon.id == pokemonId
-
-      this.store.updateTeamMembersActive(active1, active2, active3, active4, active5, active6)
+    if (pokemonId != this.store.attackerId()) {
+      this.store.updateSecondAttacker(pokemonId)
     }
+
+    this.store.updateTeamMembersActive(active1, active2, active3, active4, active5, active6)
+  }
+
+  private selectedPokemonRemovingSecond(pokemonId: string) {
+    const members = this.store.team().teamMembers
+
+    this.store.updateSecondAttacker("")
+
+    const active1 = members[0].pokemon.id == pokemonId
+    const active2 = members[1]?.pokemon.id == pokemonId
+    const active3 = members[2]?.pokemon.id == pokemonId
+    const active4 = members[3]?.pokemon.id == pokemonId
+    const active5 = members[4]?.pokemon.id == pokemonId
+    const active6 = members[5]?.pokemon.id == pokemonId
+
+    this.store.updateTeamMembersActive(active1, active2, active3, active4, active5, active6)
   }
 
   canShowDeleteButton(): boolean {

@@ -47,8 +47,8 @@ export type TeamState = {
 }
 
 export type TargetState = {
-  active: boolean
   pokemon: PokemonState
+  secondPokemon?: PokemonState
 }
 
 export type CalculatorState = {
@@ -307,13 +307,6 @@ export class CalculatorStore extends signalStore(
     patchState(this, () => ({ targetsState: targetsState }))
   }
 
-  deactivateTargets() {
-    patchState(this, () => {
-      const deactivatedTargets = this.targetsState().map(target => ({ ...target, active: false }))
-      return { targetsState: deactivatedTargets }
-    })
-  }
-
   changeLeftPokemon(pokemon: Pokemon) {
     patchState(this, () => ({ leftPokemonState: pokemonToState(pokemon) }))
   }
@@ -341,7 +334,11 @@ export class CalculatorStore extends signalStore(
 
     const pokemonFromTargets = this.targetsState().find(target => target.pokemon.id == pokemonId)
 
-    return pokemonFromTargets ? stateToPokemon(pokemonFromTargets.pokemon) : undefined
+    if (pokemonFromTargets) return stateToPokemon(pokemonFromTargets.pokemon)
+
+    const secondPokemonFromTargets = this.targetsState().find(target => target.secondPokemon?.id == pokemonId)
+
+    return secondPokemonFromTargets ? stateToPokemon(secondPokemonFromTargets.secondPokemon!) : undefined
   }
 
   buildUserData() {
@@ -374,7 +371,7 @@ export class CalculatorStore extends signalStore(
   }
 
   private activeTargetIndex(pokemonId: string) {
-    return this.targets().findIndex(target => target.pokemon.id == pokemonId)
+    return this.targets().findIndex(target => target.pokemon.id == pokemonId || target.secondPokemon?.id == pokemonId)
   }
 
   private updatePokemonById(pokemonId: string, updateFn: (pokemon: PokemonState) => Partial<PokemonState>) {
@@ -434,10 +431,13 @@ export class CalculatorStore extends signalStore(
     patchState(this, state => {
       const activeTargetIndex = this.activeTargetIndex(pokemonId)
       const updatedTargets = [...state.targetsState]
-      const currentPokemon = pokemonToState(this.targets()[activeTargetIndex].pokemon)
-      const updatedPokemon = { ...currentPokemon, ...updateFn(currentPokemon) }
+      const target = this.targets()[activeTargetIndex]
 
-      updatedTargets[activeTargetIndex] = { ...updatedTargets[activeTargetIndex], pokemon: updatedPokemon }
+      const key = target.pokemon.id === pokemonId ? "pokemon" : "secondPokemon"
+      const currentPokemon = pokemonToState(target[key]!)
+
+      const updatedPokemon = { ...currentPokemon, ...updateFn(currentPokemon) }
+      updatedTargets[activeTargetIndex] = { ...updatedTargets[activeTargetIndex], [key]: updatedPokemon }
 
       return { targetsState: updatedTargets }
     })

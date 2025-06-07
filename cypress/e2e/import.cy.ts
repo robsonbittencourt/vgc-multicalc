@@ -62,7 +62,7 @@ describe("Import Pokémon", () => {
   it("to opponent", () => {
     opponent.importPokemon(chiyuData)
 
-    opponent.selectPokemon("Chi-Yu")
+    opponent.selectDefender("Chi-Yu")
     team.pokemonOnEditIs("Chi-Yu", "Beads of Ruin", "Water", "Choice Specs", "Timid")
     team.pokemonOnEditAttacksIs("Overheat", "Heat Wave", "Dark Pulse", "Snarl")
     team.pokemonOnEditEvsIs(44, 252, 12, 32, 124, 40)
@@ -249,7 +249,7 @@ describe("Import Pokepaste", () => {
     team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
   })
 
-  it.only("with Polteageist, Sinistcha, Sinistea, Rockruff in alternative form", () => {
+  it("with Polteageist, Sinistcha, Sinistea, Rockruff in alternative form", () => {
     team.importPokepaste(pokepasteDataForms6)
     team.selectTeam("Team 2")
 
@@ -281,37 +281,37 @@ describe("Import Pokepaste", () => {
     opponent.deleteAll()
     opponent.importPokemon(pokepasteData)
 
-    opponent.selectPokemon("Tatsugiri")
+    opponent.selectDefender("Tatsugiri")
     team.pokemonOnEditIs("Tatsugiri", "Commander", "Grass", "Toxic Orb", "Modest")
     team.pokemonOnEditAttacksIs("Draco Meteor", "Muddy Water", "Endure", "Taunt")
     team.pokemonOnEditEvsIs(0, 0, 0, 252, 4, 252)
     team.pokemonOnEditIvsIs(31, 0, 31, 31, 31, 31)
 
-    opponent.selectPokemon("Dondozo")
+    opponent.selectDefender("Dondozo")
     team.pokemonOnEditIs("Dondozo", "Unaware", "Grass", "Sitrus Berry", "Adamant")
     team.pokemonOnEditAttacksIs("Wave Crash", "Order Up", "Protect", "Substitute")
     team.pokemonOnEditEvsIs(12, 156, 60, 0, 116, 164)
     team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
 
-    opponent.selectPokemon("Smeargle")
+    opponent.selectDefender("Smeargle")
     team.pokemonOnEditIs("Smeargle", "Moody", "Ghost", "Focus Sash", "Jolly")
     team.pokemonOnEditAttacksIs("Fake Out", "Wide Guard", "Follow Me", "Spore")
     team.pokemonOnEditEvsIs(252, 0, 4, 0, 0, 252)
     team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
 
-    opponent.selectPokemon("Flutter Mane")
+    opponent.selectDefender("Flutter Mane")
     team.pokemonOnEditIs("Flutter Mane", "Protosynthesis", "Fairy", "Booster Energy", "Modest")
     team.pokemonOnEditAttacksIs("Moonblast", "Dazzling Gleam", "Icy Wind", "Protect")
     team.pokemonOnEditEvsIs(116, 0, 116, 68, 4, 204)
     team.pokemonOnEditIvsIs(31, 0, 31, 31, 31, 31)
 
-    opponent.selectPokemon("Chi-Yu")
+    opponent.selectDefender("Chi-Yu")
     team.pokemonOnEditIs("Chi-Yu", "Beads of Ruin", "Water", "Choice Specs", "Timid")
     team.pokemonOnEditAttacksIs("Overheat", "Heat Wave", "Dark Pulse", "Snarl")
     team.pokemonOnEditEvsIs(132, 0, 252, 0, 0, 124)
     team.pokemonOnEditIvsIs(31, 0, 31, 31, 31, 31)
 
-    opponent.selectPokemon("Whimsicott")
+    opponent.selectDefender("Whimsicott")
     team.pokemonOnEditIs("Whimsicott", "Prankster", "Steel", "Covert Cloak", "Bold")
     team.pokemonOnEditAttacksIs("Moonblast", "Beat Up", "Tailwind", "Fake Tears")
     team.pokemonOnEditEvsIs(252, 0, 180, 0, 76, 0)

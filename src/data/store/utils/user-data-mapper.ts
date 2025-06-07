@@ -28,10 +28,9 @@ export function buildUserData(speedCalcPokemon: PokemonState, leftPokemon: Pokem
     targets: targets
       .filter(t => !stateToPokemon(t.pokemon).isDefault)
       .map(t => {
-        const pokemon = buildPokemonToUserData(t.pokemon)
-
         return {
-          pokemon: pokemon
+          pokemon: buildPokemonToUserData(t.pokemon),
+          secondPokemon: t.secondPokemon && buildPokemonToUserData(t.secondPokemon)
         }
       })
   }
@@ -125,8 +124,8 @@ function buildTeamMemberState(teamMembers: any): TeamMemberState[] {
 function buildTargetsState(targets: any): TargetState[] {
   return targets.map((target: any) => {
     return {
-      active: false,
-      pokemon: buildPokemonState(target.pokemon)
+      pokemon: buildPokemonState(target.pokemon),
+      secondPokemon: target.secondPokemon && buildPokemonState(target.secondPokemon)
     }
   })
 }

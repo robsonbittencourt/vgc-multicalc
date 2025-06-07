@@ -1,4 +1,4 @@
-<div [ngClass]="{ 'active-tab': active() }" class="tab" (click)="activateTab()" data-cy="team-member-tab">
+<div [ngClass]="{ 'active-tab': active() }" class="tab" (click)="activateTab($event)" data-cy="team-member-tab">
   @if (pokemon().isDefault) {
     <mat-icon data-cy="add-team-member-tab">add</mat-icon>
   } @else {

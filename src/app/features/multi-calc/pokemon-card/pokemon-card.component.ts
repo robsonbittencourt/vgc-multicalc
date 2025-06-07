@@ -1,21 +1,25 @@
-import { NgClass } from "@angular/common"
+import { animate, style, transition, trigger } from "@angular/animations"
+import { CdkDrag, CdkDragHandle, CdkDragPlaceholder } from "@angular/cdk/drag-drop"
 import { Component, computed, inject, input, output } from "@angular/core"
-import { MatCard, MatCardMdImage, MatCardSubtitle, MatCardTitle, MatCardTitleGroup } from "@angular/material/card"
 import { MatIcon } from "@angular/material/icon"
 import { MatTooltip } from "@angular/material/tooltip"
+import { PokemonHpBadgeComponent } from "@app/features/simple-calc/pokemon-hp-badge/pokemon-hp-badge.component"
 import { BoosterEnergyButtonComponent } from "@app/shared/buttons/booster-energy-button/booster-energy-button.component"
+import { CopyButtonComponent } from "@app/shared/buttons/copy-button/copy-button.component"
 import { TatsugiriButtonComponent } from "@app/shared/buttons/tatsugiri-button/tatsugiri-button.component"
 import { TerastalButtonComponent } from "@app/shared/buttons/terastal-button/terastal-button.component"
+import { PokemonComboBoxComponent } from "@app/shared/pokemon-build/pokemon-combo-box/pokemon-combo-box.component"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { MenuStore } from "@data/store/menu-store"
 import { DamageResult } from "@lib/damage-calculator/damage-result"
-import { Target } from "@lib/model/target"
+import { RollLevelConfig } from "@lib/damage-calculator/roll-level-config"
 
 @Component({
   selector: "app-pokemon-card",
   templateUrl: "./pokemon-card.component.html",
   styleUrls: ["./pokemon-card.component.scss"],
-  imports: [MatCard, NgClass, MatCardTitleGroup, MatCardTitle, MatCardSubtitle, MatTooltip, MatIcon, MatCardMdImage, TatsugiriButtonComponent, TerastalButtonComponent, BoosterEnergyButtonComponent]
+  animations: [trigger("fadeIn", [transition(":enter", [style({ opacity: 0 }), animate("300ms ease-out", style({ opacity: 1 }))])])],
+  imports: [CdkDrag, CdkDragPlaceholder, CdkDragHandle, MatIcon, MatTooltip, TatsugiriButtonComponent, TerastalButtonComponent, BoosterEnergyButtonComponent, PokemonHpBadgeComponent, PokemonComboBoxComponent, CopyButtonComponent]
 })
 export class PokemonCardComponent {
   store = inject(CalculatorStore)
@@ -23,12 +27,28 @@ export class PokemonCardComponent {
 
   damageResult = input.required<DamageResult>()
   isAttacker = input.required<boolean>()
-  showDamageDescription = input.required<boolean>()
-  canSelectSecondPokemon = input.required<boolean>()
+  rollLevelConfig = input.required<RollLevelConfig>()
 
   targetActivated = output<string>()
-  secondTargetActivated = output<string>()
+  targetSelected = output<string>()
   targetRemoved = output()
+  attackersSeparated = output<string>()
+
+  canDrag = computed(() => !this.isAttacker() || this.damageResult().secondAttacker)
+  damageTaken = computed(() => {
+    if (this.isDefaultAttacker()) return 0
+    return this.damageTakenByRoll(this.damageResult(), this.rollLevelConfig())
+  })
+  isDefaultAttacker = computed(() => this.damageResult().attacker.isDefault)
+  isDefaultDefender = computed(() => this.damageResult().defender.isDefault)
+
+  defender = computed(() => this.damageResult().defender)
+
+  moveCardSelector = computed(() => `move-card-${this.damageResult().attacker.displayName}`)
+  separateCardSelector = computed(() => `separate-opponent-${this.damageResult().attacker.displayName}`)
+  defenderSelector = computed(() => `select-defender-${this.defender().displayName}`)
+  attackerSelector = computed(() => `select-attacker-${this.damageResult().attacker.displayName}`)
+  secondAttackerSelector = computed(() => `select-second-attacker-${this.damageResult().secondAttacker?.displayName}`)
 
   target = computed(() => {
     if (this.menuStore.oneVsManyActivated()) {
@@ -36,20 +56,12 @@ export class PokemonCardComponent {
       return this.store.targets().find(target => target.pokemon.id === pokemonId)!
     } else {
       const pokemonId = this.damageResult().attacker.id
-      return this.store.targets().find(target => target.pokemon.id === pokemonId)!
+      return this.store.targets().find(target => target.pokemon.id === pokemonId || target.secondPokemon?.id === pokemonId)!
     }
   })
 
-  koChance = computed(() => this.damageResult().koChance)
-
-  activate() {
-    if (!this.target().active) {
-      const updatedTargets = this.store.targets().map(target => new Target(target.pokemon, target.pokemon.id === this.target().pokemon.id))
-      const activeTarget = updatedTargets.find(target => target.active)!
-
-      this.store.updateTargets(updatedTargets)
-      this.targetActivated.emit(activeTarget.pokemon.id)
-    }
+  activate(pokemonId: string) {
+    this.targetActivated.emit(pokemonId)
   }
 
   removePokemon(event: Event) {
@@ -58,11 +70,6 @@ export class PokemonCardComponent {
 
     this.store.updateTargets(updatedTargets)
     this.targetRemoved.emit()
-  }
-
-  addSecondAttacker(event: Event) {
-    event.stopPropagation()
-    this.secondTargetActivated.emit(this.target().pokemon.id)
   }
 
   toogleCommanderAbility(event: Event) {
@@ -76,34 +83,29 @@ export class PokemonCardComponent {
   }
 
   evsDescription(): string {
-    const pokemon = this.target().pokemon
+    const pokemon = this.damageResult().defender
     let evsDescription = ""
 
-    if (this.isAttacker()) {
-      if (pokemon.evs.atk != 0) evsDescription += `atk: ${pokemon.evs.atk} `
-      if (pokemon.evs.spa != 0) evsDescription += `spa: ${pokemon.evs.spa} `
-      return evsDescription != "" ? `Offensive: ${evsDescription}` : "Offensive: --"
-    } else {
-      if (pokemon.evs.hp != 0) evsDescription += `hp: ${pokemon.evs.hp} `
-      if (pokemon.evs.def != 0) evsDescription += `def: ${pokemon.evs.def} `
-      if (pokemon.evs.spd != 0) evsDescription += `spd: ${pokemon.evs.spd} `
-      return evsDescription != "" ? `Bulky: ${evsDescription}` : "Bulky: --"
-    }
+    if (pokemon.evs.hp != 0) evsDescription += `hp: ${pokemon.evs.hp} `
+    if (pokemon.evs.def != 0) evsDescription += `def: ${pokemon.evs.def} `
+    if (pokemon.evs.spd != 0) evsDescription += `spd: ${pokemon.evs.spd} `
+
+    return evsDescription != "" ? `Bulk: ${evsDescription}` : "Bulk: --"
   }
 
-  cardColorClass() {
-    let baseClass = "green-card"
+  separateAttackers() {
+    this.attackersSeparated.emit(this.damageResult().secondAttacker!.id)
+  }
 
-    if (this.target().pokemon.isDefault) {
-      baseClass = "select-pokemon-card"
-    } else if (this.koChance() === "guaranteed OHKO") {
-      baseClass = "grey-card"
-    } else if (this.koChance().includes("chance to OHKO")) {
-      baseClass = "red-card"
-    } else if (this.koChance().includes("2HKO")) {
-      baseClass = "yellow-card"
+  private damageTakenByRoll(damageResult: DamageResult, rollLevelConfig: RollLevelConfig): number {
+    if (rollLevelConfig.high) {
+      return damageResult.rolls![15]
     }
 
-    return this.target().active ? `${baseClass} border` : baseClass
+    if (rollLevelConfig.medium) {
+      return damageResult.rolls![7]
+    }
+
+    return damageResult.rolls![0]
   }
 }

@@ -1,19 +1,8 @@
 <app-widget [title]="title()" data-cy="opponent-widget">
-  <left-header>
-    @if (damageDescription()) {
-      <div class="damage-description">
-        <div class="damage-rolls">
-          <span>{{ damageDescription() }}</span>
-          @if (rolls().length > 0) {
-            <span>Rolls: {{ rolls() }}</span>
-          }
-        </div>
-        <app-copy-button [value]="this.damageDescription()" />
-      </div>
-    }
-  </left-header>
   <right-header>
     <div class="buttons">
+      <app-roll-config (rollLevelChange)="rollLevelConfig.set($event)" />
+
       <mat-slide-toggle [checked]="order" (change)="toogleOrder()">Order by Damage</mat-slide-toggle>
       <app-import-pokemon-button [singlePokemon]="false" (pokemonImportedEvent)="pokemonImported($event)" />
 
@@ -22,16 +11,19 @@
     </div>
   </right-header>
 
-  <div class="target-pokemon">
-    @for (damageResult of damageResults(); track damageResult.id) {
+  <div class="target-pokemon" cdkDropListGroup>
+    @for (damageResult of damageResults(); track $index) {
       <app-pokemon-card
+        cdkDropList
+        cdkDropListOrientation="horizontal"
+        [cdkDropListData]="damageResult.attacker.id"
         [damageResult]="damageResult"
-        [canSelectSecondPokemon]="canSelectSecondPokemon()"
-        (secondTargetActivated)="secondTargetActivated($event)"
+        [rollLevelConfig]="rollLevelConfig()"
         [isAttacker]="isAttacker()"
-        [showDamageDescription]="showDamageDescription()"
+        (cdkDropListDropped)="drop($event)"
         (targetActivated)="activateTarget($event)"
-        (targetRemoved)="targetRemoved.emit()" />
+        (targetRemoved)="targetRemoved.emit()"
+        (attackersSeparated)="separateAttackers($event)" />
     }
 
     @if (!selectPokemonActive()) {

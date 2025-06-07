@@ -32,7 +32,7 @@ export class DamageCalculatorService {
     })
   }
 
-  calcDamageForTwoAttackers(attacker: Pokemon, secondAttacker: Pokemon, target: Pokemon, field: Field): [DamageResult, DamageResult] {
+  calcDamageForTwoAttackers(attacker: Pokemon, secondAttacker: Pokemon, target: Pokemon, field: Field): DamageResult {
     const [firstBySpeed, secondBySpeed] = this.speedCalculator.orderPairBySpeed(attacker, secondAttacker, field)
 
     const firstResult = this.calculateResult(firstBySpeed, target, firstBySpeed.move, field, field.isCriticalHit, secondBySpeed)
@@ -43,10 +43,11 @@ export class DamageCalculatorService {
 
     this.applyTotalDamage(firstResult, secondResult)
 
-    return [
-      new DamageResult(firstBySpeed, target, firstBySpeed.move.name, firstResult.moveDesc(), this.koChance(firstResult), this.maxPercentageDamage(firstResult), this.damageDescriptionWithTwo(firstResult, secondResult), undefined, secondBySpeed),
-      new DamageResult(secondBySpeed, target, secondBySpeed.move.name, secondResult.moveDesc(), this.koChance(firstResult), this.maxPercentageDamage(secondResult), this.damageDescriptionWithTwo(firstResult, secondResult), undefined, firstBySpeed)
-    ]
+    const koChance = this.koChance(firstResult)
+    const maxPercentageDamage = this.maxPercentageDamage(firstResult)
+    const damageDescription = this.damageDescriptionWithTwo(firstResult, secondResult)
+
+    return new DamageResult(firstBySpeed, target, firstBySpeed.move.name, firstResult.moveDesc(), koChance, maxPercentageDamage, damageDescription, firstResult.damage as number[], secondBySpeed)
   }
 
   private calculateResult(attacker: Pokemon, target: Pokemon, move: Move, field: Field, criticalHit: boolean, secondAttacker?: Pokemon): Result {

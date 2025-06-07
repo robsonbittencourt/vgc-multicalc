@@ -1,5 +1,4 @@
 import { Pokemon } from "@lib/model/pokemon"
-import { v4 as uuidv4 } from "uuid"
 
 export class DamageResult {
   readonly id: string
@@ -16,7 +15,7 @@ export class DamageResult {
   private RESIDUAL_RESULT_IDENTIFIER = "("
 
   constructor(attacker: Pokemon, defender: Pokemon, move: string, result: string, koChance: string, damage: number, description: string, rolls: number[] | undefined = undefined, secondAttacker?: Pokemon) {
-    this.id = uuidv4()
+    this.id = attacker.id + defender.id
     this.attacker = attacker
     this.secondAttacker = secondAttacker
     this.defender = defender

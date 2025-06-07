@@ -1,0 +1,8 @@
+<div class="roll-level">
+  <label class="label">Roll Level</label>
+  <mat-button-toggle-group class="button-group" [hideSingleSelectionIndicator]="true">
+    <mat-button-toggle [checked]="rollLevelConfig().low" (change)="activateLowRoll()" data-cy="low-roll">Low</mat-button-toggle>
+    <mat-button-toggle [checked]="rollLevelConfig().medium" (change)="activateMediumRoll()" data-cy="medium-roll">Medium</mat-button-toggle>
+    <mat-button-toggle [checked]="rollLevelConfig().high" (change)="activateHighRoll()" data-cy="high-roll">High</mat-button-toggle>
+  </mat-button-toggle-group>
+</div>

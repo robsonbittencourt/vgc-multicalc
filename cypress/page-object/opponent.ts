@@ -9,14 +9,24 @@ export class Opponent {
     return new OpponentPokemon(card)
   }
 
-  selectPokemon(pokemonName: string): PokemonBuild {
-    cy.get(`[data-cy="pokemon-card-${pokemonName}"]`).click({ force: true })
+  selectAttacker(pokemonName: string): PokemonBuild {
+    cy.get(`[data-cy="select-attacker-${pokemonName}"]`).click({ force: true })
+    return new PokemonBuild("your-team")
+  }
+
+  selectSecondAttacker(pokemonName: string): PokemonBuild {
+    cy.get(`[data-cy="select-second-attacker-${pokemonName}"]`).click({ force: true })
+    return new PokemonBuild("your-team")
+  }
+
+  selectDefender(pokemonName: string): PokemonBuild {
+    cy.get(`[data-cy="select-defender-${pokemonName}"]`).click({ force: true })
     return new PokemonBuild("your-team")
   }
 
   add(pokemonName: string): PokemonBuild {
     cy.get('[data-cy="add-opponent-pokemon"]').click({ force: true })
-    cy.get('[data-cy="pokemon-select"] input').type(pokemonName, { force: true }).type("{downArrow}").type("{enter}")
+    cy.get('[data-cy="card-pokemon-select"] input').type(pokemonName, { force: true }).type("{downArrow}").type("{enter}")
     return new PokemonBuild("your-team")
   }
 
@@ -57,5 +67,14 @@ export class Opponent {
   export(): ExportModal {
     cy.get('[data-cy="export-opponent-pokemon-button"]').click({ force: true })
     return new ExportModal()
+  }
+
+  combine(sourcePokemonName: string, targetPokemonName: string) {
+    cy.get(`[data-cy="move-card-${sourcePokemonName}"]`).realMouseDown({ button: "left", position: "center" }).realMouseMove(0, 10, { position: "center" })
+    cy.get(`[data-cy="pokemon-card-${targetPokemonName}"]`).realMouseMove(0, 0, { position: "center" }).realHover().realMouseUp().wait(300)
+  }
+
+  separate(targetPokemonName: string) {
+    cy.get(`[data-cy="separate-opponent-${targetPokemonName}"]`).click()
   }
 }

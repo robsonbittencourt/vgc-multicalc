@@ -1,8 +1,8 @@
 import { NgClass, NgStyle } from "@angular/common"
 import { Component, computed, input, output, signal } from "@angular/core"
-import { MatButtonToggle, MatButtonToggleGroup } from "@angular/material/button-toggle"
 import { MatChipListbox, MatChipListboxChange, MatChipOption } from "@angular/material/chips"
 import { PokemonHpBadgeComponent } from "@app/features/simple-calc/pokemon-hp-badge/pokemon-hp-badge.component"
+import { RollConfigComponent } from "@app/roll-config/roll-config.component"
 import { CopyButtonComponent } from "@app/shared/buttons/copy-button/copy-button.component"
 import { WidgetComponent } from "@app/widget/widget.component"
 import { DamageResult } from "@lib/damage-calculator/damage-result"
@@ -13,7 +13,7 @@ import { Pokemon } from "@lib/model/pokemon"
   selector: "app-damage-result",
   templateUrl: "./damage-result.component.html",
   styleUrls: ["./damage-result.component.scss"],
-  imports: [WidgetComponent, NgStyle, NgClass, PokemonHpBadgeComponent, MatButtonToggleGroup, MatButtonToggle, MatChipListbox, MatChipOption, WidgetComponent, CopyButtonComponent]
+  imports: [NgStyle, NgClass, MatChipListbox, MatChipOption, WidgetComponent, PokemonHpBadgeComponent, CopyButtonComponent, RollConfigComponent]
 })
 export class DamageResultComponent {
   pokemon = input.required<Pokemon>()
@@ -49,19 +49,9 @@ export class DamageResultComponent {
     }
   }
 
-  activateHighRoll() {
-    this.rollLevelConfig.set(RollLevelConfig.high())
-    this.rollLevelChange.emit(this.rollLevelConfig())
-  }
-
-  activateMediumRoll() {
-    this.rollLevelConfig.set(RollLevelConfig.medium())
-    this.rollLevelChange.emit(this.rollLevelConfig())
-  }
-
-  activateLowRoll() {
-    this.rollLevelConfig.set(RollLevelConfig.low())
-    this.rollLevelChange.emit(this.rollLevelConfig())
+  rollLevelChanged(rollLevel: RollLevelConfig) {
+    this.rollLevelConfig.set(rollLevel)
+    this.rollLevelChange.emit(rollLevel)
   }
 
   private damageTakenByRoll(damageResult: DamageResult, rollLevelConfig: RollLevelConfig): number {

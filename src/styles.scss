@@ -108,7 +108,6 @@ body {
       title-text-weight: 500,
       title-text-line-height: 1.7em,
       subtitle-text-line-height: 1.7em,
-      subtitle-text-color: black,
       subtitle-text-weight: 400
     )
   );
@@ -197,6 +196,10 @@ app-ability-combo-box {
 
 .mat-icon {
   font-size: 1.8em;
+}
+
+.cdk-drop-list-dragging .cdk-drag:not(.cdk-drag-disabled) {
+  opacity: 0.5;
 }
 
 html,

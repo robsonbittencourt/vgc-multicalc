@@ -58,7 +58,7 @@ describe("Test calcs with status", () => {
 
     opponents.get("Calyrex Shadow").damageIs(37.7, 44.5).cause3HKO()
 
-    opponents.get("Calyrex Shadow").edit().paralyzed()
+    opponents.selectDefender("Calyrex Shadow").paralyzed()
 
     opponents.get("Calyrex Shadow").damageIs(18.8, 22.8).possible5HKO()
   })
@@ -111,7 +111,7 @@ describe("Test calcs with status", () => {
     team.selectPokemon("Flutter Mane").selectAttackFour()
     opponents.get("Calyrex Shadow").damageIs(178.2, 212.5).causeOHKO()
 
-    opponents.get("Calyrex Shadow").edit().poisoned()
+    opponents.selectDefender("Calyrex Shadow").poisoned()
 
     opponents.get("Calyrex Shadow").damageIs(356.5, 420.5).causeOHKO()
   })
