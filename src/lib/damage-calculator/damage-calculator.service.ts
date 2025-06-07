@@ -138,8 +138,16 @@ export class DamageCalculatorService {
 
     const item = data1.item || data2.item
 
-    const statsString = Object.entries(mergedStats)
-      .map(([stat, value]) => `${value} ${stat}`)
+    const desiredStatOrder = ["HP", "Def", "SpD"]
+
+    const statsString = desiredStatOrder
+      .map(statName => {
+        if (Object.prototype.hasOwnProperty.call(mergedStats, statName)) {
+          return `${mergedStats[statName]} ${statName}`
+        }
+        return null
+      })
+      .filter(s => s !== null)
       .join(" / ")
 
     return item ? `${statsString} / ${item}` : statsString
