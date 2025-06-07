@@ -78,7 +78,9 @@ export function teamToState(team: Team): TeamState {
 }
 
 export function stateToTarget(state: TargetState): Target {
-  return new Target(stateToPokemon(state.pokemon), state.active)
+  const secondPokemon = state.secondPokemon && stateToPokemon(state.secondPokemon)
+
+  return new Target(stateToPokemon(state.pokemon), secondPokemon)
 }
 
 export function stateToTargets(state: TargetState[]): Target[] {
@@ -86,8 +88,10 @@ export function stateToTargets(state: TargetState[]): Target[] {
 }
 
 export function targetToState(target: Target): TargetState {
+  const secondPokemon = target.secondPokemon && pokemonToState(target.secondPokemon)
+
   return {
-    active: target.active,
-    pokemon: pokemonToState(target.pokemon)
+    pokemon: pokemonToState(target.pokemon),
+    secondPokemon: secondPokemon
   }
 }

@@ -456,16 +456,6 @@ describe("Calculator Store", () => {
         expect(store.targets()[0].pokemon.name).toBe("Pikachu")
         expect(store.targets()[1].pokemon.name).toBe("Raichu")
       })
-
-      it("should deactivate Targets", () => {
-        const targets = [new Target(new Pokemon("Pikachu"), true), new Target(new Pokemon("Raichu"), true)]
-
-        store.updateTargets(targets)
-        store.deactivateTargets()
-
-        expect(store.targets()[0].active).toBeFalse()
-        expect(store.targets()[1].active).toBeFalse()
-      })
     })
 
     describe("Update another Pokémon", () => {
@@ -697,7 +687,6 @@ const teamsState: TeamState[] = [
 
 const targetsState: TargetState[] = [
   {
-    active: false,
     pokemon: pikachuState
   }
 ]

@@ -7,6 +7,7 @@
 .hp-badge {
   display: flex;
   flex-direction: column;
+  gap: 1em;
 }
 
 .move {
@@ -32,7 +33,6 @@
 .rolls {
   display: flex;
   gap: 0.5em;
-  margin-top: 1em;
 }
 
 .description-container {
@@ -51,14 +51,6 @@
 .description-text {
   color: var(--text-strong);
   font-weight: 500;
-}
-
-.roll-level {
-  display: flex;
-  align-items: center;
-  justify-content: left;
-  gap: 1em;
-  margin-top: 0.5em;
 }
 
 .roll-highlight {

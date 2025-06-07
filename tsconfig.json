@@ -25,7 +25,8 @@
     "module": "ES2022",
     "useDefineForClassFields": false,
     "lib": ["ES2022", "dom"],
-    "strictPropertyInitialization": false
+    "strictPropertyInitialization": false,
+    "types": ["cypress", "node", "cypress-real-events"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

@@ -13,12 +13,12 @@ export class OpponentPokemon {
   }
 
   doesNotCauseAnyDamage() {
-    this.contains(`Damage: 0 - 0%`)
-    this.contains(`Does not cause any damage`)
+    this.contains(`0 - 0%`)
+    this.contains(`possibly the worst move ever`)
   }
 
   damageIs(min: number, max: number): OpponentPokemon {
-    this.contains(`Damage: ${min} - ${max}%`)
+    this.contains(`${min} - ${max}%`)
     return this
   }
 

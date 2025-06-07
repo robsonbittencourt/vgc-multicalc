@@ -8,22 +8,18 @@ export class DamageResultOrderService {
   private menuStore = inject(MenuStore)
 
   targetsWithSpecificCalc: number
-  targetsIdsActive: string[]
   actualOrder: string[]
 
   constructor() {
     this.targetsWithSpecificCalc = this.countTargetsWithSpecificCalc()
-    this.targetsIdsActive = []
     this.actualOrder = []
   }
 
   order(results: DamageResult[]): DamageResult[] {
-    const actualTargetsActive = this.activeTargetsIds()
     const actualTargetWithSpecificCalc = this.countTargetsWithSpecificCalc()
 
-    if (this.changeHappenedInTargets(actualTargetsActive, actualTargetWithSpecificCalc)) {
+    if (actualTargetWithSpecificCalc != this.targetsWithSpecificCalc) {
       this.applyActualOrder(results)
-      this.targetsIdsActive = actualTargetsActive
       this.targetsWithSpecificCalc = actualTargetWithSpecificCalc
     } else {
       this.applyOrderByDamage(results)
@@ -34,23 +30,11 @@ export class DamageResultOrderService {
     return results
   }
 
-  private activeTargetsIds(): string[] {
-    return this.store
-      .targets()
-      .filter(target => target.active)
-      .map(target => target.pokemon.id)
-  }
-
   private countTargetsWithSpecificCalc(): number {
     const withTera = this.store.targets().filter(t => t.pokemon.teraTypeActive).length
     const withCommander = this.store.targets().filter(t => t.pokemon.commanderActive).length
 
     return withTera + withCommander
-  }
-
-  private changeHappenedInTargets(activeTargetsIds: string[], targetIdsWithSpecificCalc: number) {
-    if (this.store.targets().filter(t => t.pokemon.isDefault).length > 0) return false
-    return activeTargetsIds[0] != this.targetsIdsActive[0] || activeTargetsIds[1] != this.targetsIdsActive[1] || targetIdsWithSpecificCalc != this.targetsWithSpecificCalc
   }
 
   private applyActualOrder(results: DamageResult[]) {

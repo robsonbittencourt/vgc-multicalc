@@ -47,8 +47,8 @@ export type TeamState = {
 }
 
 export type TargetState = {
-  active: boolean
   pokemon: PokemonState
+  secondPokemon?: PokemonState
 }
 
 export type CalculatorState = {
@@ -307,13 +307,6 @@ export class CalculatorStore extends signalStore(
     patchState(this, () => ({ targetsState: targetsState }))
   }
 
-  deactivateTargets() {
-    patchState(this, () => {
-      const deactivatedTargets = this.targetsState().map(target => ({ ...target, active: false }))
-      return { targetsState: deactivatedTargets }
-    })
-  }
-
   changeLeftPokemon(pokemon: Pokemon) {
     patchState(this, () => ({ leftPokemonState: pokemonToState(pokemon) }))
   }
@@ -341,7 +334,11 @@ export class CalculatorStore extends signalStore(
 
     const pokemonFromTargets = this.targetsState().find(target => target.pokemon.id == pokemonId)
 
-    return pokemonFromTargets ? stateToPokemon(pokemonFromTargets.pokemon) : undefined
+    if (pokemonFromTargets) return stateToPokemon(pokemonFromTargets.pokemon)
+
+    const secondPokemonFromTargets = this.targetsState().find(target => target.secondPokemon?.id == pokemonId)
+
+    return secondPokemonFromTargets ? stateToPokemon(secondPokemonFromTargets.secondPokemon!) : undefined
   }
 
   buildUserData() {

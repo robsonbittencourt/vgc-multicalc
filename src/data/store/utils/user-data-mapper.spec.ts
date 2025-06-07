@@ -18,7 +18,6 @@ describe("User Data Mapper", () => {
 
       const targets: TargetState[] = [
         {
-          active: false,
           pokemon: speedCalcPokemon
         }
       ]
@@ -55,7 +54,6 @@ describe("User Data Mapper", () => {
 
       const targets: TargetState[] = [
         {
-          active: false,
           pokemon: leftPokemon
         }
       ]
@@ -92,7 +90,6 @@ describe("User Data Mapper", () => {
 
       const targets: TargetState[] = [
         {
-          active: false,
           pokemon: rightPokemon
         }
       ]
@@ -142,7 +139,6 @@ describe("User Data Mapper", () => {
 
       const targets: TargetState[] = [
         {
-          active: false,
           pokemon: teamPokemonOne
         }
       ]
@@ -175,11 +171,9 @@ describe("User Data Mapper", () => {
 
       const targets: TargetState[] = [
         {
-          active: true,
           pokemon: targetOne
         },
         {
-          active: false,
           pokemon: targetTwo
         }
       ]
