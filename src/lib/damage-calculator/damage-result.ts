@@ -36,7 +36,9 @@ export class DamageResult {
   }
 
   private adjustDescription(result: string, description: string): string {
-    if (this.containsResidualResult(result)) {
+    const isCombinedDamage = !description.includes(" AND ")
+
+    if (this.containsResidualResult(result) && isCombinedDamage) {
       return description.concat(` - ${result.substring(result.indexOf(this.RESIDUAL_RESULT_IDENTIFIER))}`)
     }
 
