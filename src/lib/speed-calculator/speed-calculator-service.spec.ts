@@ -3,6 +3,8 @@ import { TestBed } from "@angular/core/testing"
 import { ACTUAL, MAX, MIN } from "@lib/constants"
 import { Ability } from "@lib/model/ability"
 import { Field } from "@lib/model/field"
+import { Move } from "@lib/model/move"
+import { MoveSet } from "@lib/model/moveset"
 import { Pokemon } from "@lib/model/pokemon"
 import { Status } from "@lib/model/status"
 import { SmogonFunctions } from "@lib/smogon/smogon-functions"
@@ -205,6 +207,138 @@ describe("SpeedCalculatorService", () => {
 
       expect(faster.id).toBe(pokemonTwo.id)
       expect(slower.id).toBe(pokemonOne.id)
+    })
+
+    it("should return Pokémon with priority move", () => {
+      const pokemonOne = new Pokemon("Raging Bolt", { moveSet: new MoveSet(new Move("Thunderclap"), new Move("Draco Meteor"), new Move("Thunderbolt"), new Move("Protect"), 1) })
+      const pokemonTwo = new Pokemon("Flutter Mane")
+      const field = new Field()
+
+      const [faster, slower] = service.orderPairBySpeed(pokemonOne, pokemonTwo, field)
+
+      expect(faster.id).toBe(pokemonOne.id)
+      expect(slower.id).toBe(pokemonTwo.id)
+    })
+
+    it("should consider first Pokémon because the high priority", () => {
+      const pokemonOne = new Pokemon("Rillaboom", { moveSet: new MoveSet(new Move("Fake Out"), new Move("Wood Hammer"), new Move("High Horsepower"), new Move("Protect"), 1) })
+      const pokemonTwo = new Pokemon("Dragonite", { moveSet: new MoveSet(new Move("Extreme Speed"), new Move("Earthquake"), new Move("Scale Shot"), new Move("Protect"), 1) })
+      const field = new Field()
+
+      const [faster, slower] = service.orderPairBySpeed(pokemonOne, pokemonTwo, field)
+
+      expect(faster.id).toBe(pokemonOne.id)
+      expect(slower.id).toBe(pokemonTwo.id)
+    })
+
+    it("should consider second Pokémon because the high priority", () => {
+      const pokemonOne = new Pokemon("Dragonite", { moveSet: new MoveSet(new Move("Extreme Speed"), new Move("Earthquake"), new Move("Scale Shot"), new Move("Protect"), 1) })
+      const pokemonTwo = new Pokemon("Rillaboom", { moveSet: new MoveSet(new Move("Fake Out"), new Move("Wood Hammer"), new Move("High Horsepower"), new Move("Protect"), 1) })
+      const field = new Field()
+
+      const [faster, slower] = service.orderPairBySpeed(pokemonOne, pokemonTwo, field)
+
+      expect(faster.id).toBe(pokemonTwo.id)
+      expect(slower.id).toBe(pokemonOne.id)
+    })
+
+    it("should return faster Pokémon when two attacks have same priority", () => {
+      const pokemonOne = new Pokemon("Rillaboom", { moveSet: new MoveSet(new Move("Grassy Glide"), new Move("Wood Hammer"), new Move("Fake Out"), new Move("Protect"), 1), evs: { spe: 60 } })
+      const pokemonTwo = new Pokemon("Rillaboom", { moveSet: new MoveSet(new Move("Grassy Glide"), new Move("Wood Hammer"), new Move("Fake Out"), new Move("Protect"), 1), evs: { spe: 68 } })
+      const field = new Field({ terrain: "Grassy" })
+
+      const [faster, slower] = service.orderPairBySpeed(pokemonOne, pokemonTwo, field)
+
+      expect(faster.id).toBe(pokemonTwo.id)
+      expect(slower.id).toBe(pokemonOne.id)
+    })
+
+    it("should return Pokémon with Grassy Glide if Grassy Terrain is active", () => {
+      const pokemonOne = new Pokemon("Rillaboom", { moveSet: new MoveSet(new Move("Grassy Glide"), new Move("Wood Hammer"), new Move("Fake Out"), new Move("Protect"), 1) })
+      const pokemonTwo = new Pokemon("Flutter Mane")
+      const field = new Field({ terrain: "Grassy" })
+
+      const [faster, slower] = service.orderPairBySpeed(pokemonOne, pokemonTwo, field)
+
+      expect(faster.id).toBe(pokemonOne.id)
+      expect(slower.id).toBe(pokemonTwo.id)
+    })
+
+    it("should not consider Grassy Glide as priority if Grassy Terrain is not active", () => {
+      const pokemonOne = new Pokemon("Rillaboom", { moveSet: new MoveSet(new Move("Grassy Glide"), new Move("Wood Hammer"), new Move("Fake Out"), new Move("Protect"), 1) })
+      const pokemonTwo = new Pokemon("Flutter Mane")
+      const field = new Field()
+
+      const [faster, slower] = service.orderPairBySpeed(pokemonOne, pokemonTwo, field)
+
+      expect(faster.id).toBe(pokemonTwo.id)
+      expect(slower.id).toBe(pokemonOne.id)
+    })
+
+    it("should consider Helping Hand priority", () => {
+      const pokemonOne = new Pokemon("Torkoal", { moveSet: new MoveSet(new Move("Helping Hand"), new Move("Eruption"), new Move("Heat Wave"), new Move("Protect"), 1) })
+      const pokemonTwo = new Pokemon("Flutter Mane")
+      const field = new Field()
+
+      const [faster, slower] = service.orderPairBySpeed(pokemonOne, pokemonTwo, field)
+
+      expect(faster.id).toBe(pokemonOne.id)
+      expect(slower.id).toBe(pokemonTwo.id)
+    })
+
+    it("should consider Protect priority", () => {
+      const pokemonOne = new Pokemon("Torkoal", { moveSet: new MoveSet(new Move("Protect"), new Move("Weather Ball"), new Move("Eruption"), new Move("Heat Wave"), 1) })
+      const pokemonTwo = new Pokemon("Flutter Mane")
+      const field = new Field()
+
+      const [faster, slower] = service.orderPairBySpeed(pokemonOne, pokemonTwo, field)
+
+      expect(faster.id).toBe(pokemonOne.id)
+      expect(slower.id).toBe(pokemonTwo.id)
+    })
+
+    it("should consider Focus Punch and Avalanche priority", () => {
+      const pokemonOne = new Pokemon("Blaziken", { moveSet: new MoveSet(new Move("Focus Punch"), new Move("Double-Edge"), new Move("Heat Crash"), new Move("Knock Off"), 1) })
+      const pokemonTwo = new Pokemon("Avalugg", { moveSet: new MoveSet(new Move("Avalanche"), new Move("Double-Edge"), new Move("Icicle Crash"), new Move("Crunch"), 1) })
+      const field = new Field()
+
+      const [faster, slower] = service.orderPairBySpeed(pokemonOne, pokemonTwo, field)
+
+      expect(faster.id).toBe(pokemonOne.id)
+      expect(slower.id).toBe(pokemonTwo.id)
+    })
+
+    it("should consider Avalanche and Counter priority", () => {
+      const pokemonOne = new Pokemon("Blaziken", { moveSet: new MoveSet(new Move("Counter"), new Move("Double-Edge"), new Move("Heat Crash"), new Move("Knock Off"), 1) })
+      const pokemonTwo = new Pokemon("Avalugg", { moveSet: new MoveSet(new Move("Avalanche"), new Move("Double-Edge"), new Move("Icicle Crash"), new Move("Crunch"), 1) })
+      const field = new Field()
+
+      const [faster, slower] = service.orderPairBySpeed(pokemonOne, pokemonTwo, field)
+
+      expect(faster.id).toBe(pokemonTwo.id)
+      expect(slower.id).toBe(pokemonOne.id)
+    })
+
+    it("should consider Dragon Tail priority", () => {
+      const pokemonOne = new Pokemon("Dragonite", { moveSet: new MoveSet(new Move("Dragon Tail"), new Move("Earthquake"), new Move("Scale Shot"), new Move("Protect"), 1) })
+      const pokemonTwo = new Pokemon("Flutter Mane", { moveSet: new MoveSet(new Move("Trick Room"), new Move("Moonblast"), new Move("Shadow Ball"), new Move("Protect"), 1) })
+      const field = new Field()
+
+      const [faster, slower] = service.orderPairBySpeed(pokemonOne, pokemonTwo, field)
+
+      expect(faster.id).toBe(pokemonOne.id)
+      expect(slower.id).toBe(pokemonTwo.id)
+    })
+
+    it("should consider Trick Room priority", () => {
+      const pokemonOne = new Pokemon("Torkoal", { moveSet: new MoveSet(new Move("Heat Wave"), new Move("Weather Ball"), new Move("Eruption"), new Move("Protect"), 1) })
+      const pokemonTwo = new Pokemon("Flutter Mane", { moveSet: new MoveSet(new Move("Trick Room"), new Move("Moonblast"), new Move("Shadow Ball"), new Move("Protect"), 1) })
+      const field = new Field()
+
+      const [faster, slower] = service.orderPairBySpeed(pokemonOne, pokemonTwo, field)
+
+      expect(faster.id).toBe(pokemonOne.id)
+      expect(slower.id).toBe(pokemonTwo.id)
     })
   })
 

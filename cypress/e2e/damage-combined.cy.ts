@@ -104,7 +104,7 @@ describe("Test edit in combined damage", () => {
 
     team.selectTeamMember("Tatsugiri").combineDamage()
     team.selectTeamMember("Chi-Yu")
-    opponents.get("Urshifu Rapid Strike").damageIs(177.1, 209.1).causeOHKO()
+    opponents.get("Urshifu Rapid Strike").damageIs(209.7, 246.8).causeOHKO()
 
     team.selectTeamMember("Tatsugiri").disableCombineDamage()
     team.selectTeamMember("Dondozo").combineDamage()
@@ -154,7 +154,7 @@ describe("Combined Damage with Ruin abilities", () => {
     team.selectTeamMember("Blaziken").combineDamage()
     team.selectTeamMember("Chien-Pao")
 
-    opponents.get("Urshifu Rapid Strike").damageIs(60, 70.2).cause2HKO()
+    opponents.get("Urshifu Rapid Strike").damageIs(69.7, 82.2).cause2HKO()
   })
 
   it("Calculate damage with two Pokémon, one with Vessel of Ruin and another without ability", () => {
@@ -204,7 +204,7 @@ describe("Combined Damage with Ruin abilities", () => {
     team.selectTeamMember("Wo-Chien").combineDamage()
     team.selectTeamMember("Chien-Pao")
 
-    opponents.get("Urshifu Rapid Strike").damageIs(29.7, 35.4).haveChanceOfToCause3HKO(21.5)
+    opponents.get("Urshifu Rapid Strike").damageIs(32, 38.2).haveChanceOfToCause3HKO(95.9)
   })
 
   it("Calculate damage with two Pokémon, one with Vessel of Ruin and another with Beads of Ruin", () => {
@@ -214,7 +214,7 @@ describe("Combined Damage with Ruin abilities", () => {
     team.selectTeamMember("Ting-Lu").combineDamage()
     team.selectTeamMember("Chi-Yu")
 
-    opponents.get("Urshifu Rapid Strike").damageIs(71.4, 85.1).cause2HKO()
+    opponents.get("Urshifu Rapid Strike").damageIs(74.8, 89.1).cause2HKO()
   })
 })
 
@@ -243,6 +243,17 @@ describe("Combined Damage against reduce damage abilities", () => {
     team.selectPokemon("Miraidon").selectAttackTwo()
 
     opponents.get("Dragonite").damageIs(83.8, 99.4).cause2HKO()
+  })
+
+  it("two Pokémon against one with Multiscale when the slower has priority move", () => {
+    team.importPokemon(blazikenData)
+    team.importPokemon(chiYuData)
+    team.selectTeamMember("Blaziken").combineDamage()
+    team.selectTeamMember("Chi-Yu")
+
+    team.selectPokemon("Blaziken").selectAttackThree()
+
+    opponents.get("Dragonite").damageIs(62.2, 74.2).cause2HKO()
   })
 
   it("two Pokémon against one with Multiscale considering Ability in speed calculation", () => {

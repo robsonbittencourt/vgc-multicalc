@@ -35,7 +35,7 @@ describe("Test calcs with opponent combined damage", () => {
 
   it("Calculate damage after separate two opponent Pokémon", () => {
     opponents.combine("Urshifu Rapid Strike", "Dragonite")
-    opponents.separate("Urshifu Rapid Strike")
+    opponents.separate("Dragonite")
 
     opponents.get("Urshifu Rapid Strike").damageIs(58.5, 69.8).cause2HKO()
     opponents.get("Dragonite").damageIs(28.9, 34.6).haveChanceOfToCause3HKO(6.5)

@@ -39,7 +39,7 @@ export class DamageCalculatorService {
 
     const targetWithTakedDamage = this.applyDamageInTarget(firstResult, target)
 
-    const secondResult = this.calculateResult(secondBySpeed, targetWithTakedDamage, secondBySpeed.move, field, field.isCriticalHit, attacker)
+    const secondResult = this.calculateResult(secondBySpeed, targetWithTakedDamage, secondBySpeed.move, field, field.isCriticalHit, firstBySpeed)
 
     this.applyTotalDamage(firstResult, secondResult)
 
@@ -125,56 +125,24 @@ export class DamageCalculatorService {
     }
   }
 
-  mergeBulkStats(resultOne: Result, resultTwo: Result): string {
+  private mergeBulkStats(resultOne: Result, resultTwo: Result): string {
     const resultOneDefenderDesc = resultOne.desc().substring(resultOne.desc().indexOf(" vs.") + 5)
     const resultTwoDefenderDesc = resultTwo.desc().substring(resultTwo.desc().indexOf(" vs.") + 5)
 
-    const defenderBulkFirstSide = resultOneDefenderDesc.substring(0, resultOneDefenderDesc.indexOf(resultOne.defender.name) - 1)
-    const defenderBulkSecondSide = resultTwoDefenderDesc.substring(0, resultTwoDefenderDesc.indexOf(resultTwo.defender.name) - 1)
+    let output = `${resultOne.defender.evs.hp} HP`
 
-    const data1 = this.parseStats(defenderBulkFirstSide)
-    const data2 = this.parseStats(defenderBulkSecondSide)
-
-    const mergedStats: Record<string, number> = { ...data1.stats }
-
-    for (const stat in data2.stats) {
-      mergedStats[stat] = Math.max(data2.stats[stat] || 0, mergedStats[stat] || 0)
+    if (resultOneDefenderDesc.includes("Def") || resultTwoDefenderDesc.includes("Def")) {
+      output += ` / ${resultOne.defender.evs.def} Def`
     }
 
-    const item = data1.item || data2.item
+    if (resultOneDefenderDesc.includes("SpD") || resultTwoDefenderDesc.includes("SpD")) {
+      output += ` / ${resultOne.defender.evs.spd} SpD`
+    }
 
-    const desiredStatOrder = ["HP", "Def", "SpD"]
+    if (resultOneDefenderDesc.includes(resultOne.defender.item!) || resultTwoDefenderDesc.includes(resultTwo.defender.item!)) {
+      output += ` ${resultOne.defender.item}`
+    }
 
-    const statsString = desiredStatOrder
-      .map(statName => {
-        if (Object.prototype.hasOwnProperty.call(mergedStats, statName)) {
-          return `${mergedStats[statName]} ${statName}`
-        }
-        return null
-      })
-      .filter(s => s !== null)
-      .join(" / ")
-
-    return item ? `${statsString} / ${item}` : statsString
-  }
-
-  parseStats(input: string) {
-    const stats: Record<string, number> = {}
-    let item = ""
-
-    const parts = input.split("/").map(part => part.trim())
-
-    parts.forEach((part, index) => {
-      const match = part.match(/^(\d+)\s+(\w+)$/)
-
-      if (match) {
-        const [, value, stat] = match
-        stats[stat] = parseInt(value, 10)
-      } else if (index === parts.length - 1) {
-        item = part
-      }
-    })
-
-    return { stats, item }
+    return output
   }
 }
