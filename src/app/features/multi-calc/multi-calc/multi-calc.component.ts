@@ -32,7 +32,7 @@ export class MultiCalcComponent implements OnInit {
 
   ngOnInit() {
     this.store.updateSecondAttacker("")
-    this.store.updateTeamMembersActive(true, false, false, false, false, false)
+    this.store.activateTeamMember(this.store.team().activePokemonIndex())
   }
 
   targetsImported() {
