@@ -6,6 +6,7 @@ import { ACTUAL, BOOSTER, MAX, MAX_BASE_SPEED_FOR_TR, MIN, MIN_IV_0, SCARF } fro
 import { defaultPokemon } from "@lib/default-pokemon"
 import { Ability } from "@lib/model/ability"
 import { Field } from "@lib/model/field"
+import { Move } from "@lib/model/move"
 import { Pokemon } from "@lib/model/pokemon"
 import { Status } from "@lib/model/status"
 import { SmogonFunctions } from "@lib/smogon/smogon-functions"
@@ -41,6 +42,16 @@ export class SpeedCalculatorService {
   orderPairBySpeed(pokemonOne: Pokemon, pokemonTwo: Pokemon, field: Field): [Pokemon, Pokemon] {
     const speedOne = this.smogonService.getFinalSpeed(pokemonOne, field, field.attackerSide.isTailwind)
     const speedTwo = this.smogonService.getFinalSpeed(pokemonTwo, field, field.attackerSide.isTailwind)
+
+    const pokemonOnePriority = this.priorityLevel(pokemonOne.move, field)
+    const pokemonTwoPriority = this.priorityLevel(pokemonTwo.move, field)
+
+    const someoneHasPriority = pokemonOnePriority != 0 || pokemonTwoPriority != 0
+    const equalsPriority = pokemonOnePriority == pokemonTwoPriority
+
+    if (someoneHasPriority && !equalsPriority) {
+      return pokemonOnePriority > pokemonTwoPriority ? [pokemonOne, pokemonTwo] : [pokemonTwo, pokemonOne]
+    }
 
     return speedOne >= speedTwo ? [pokemonOne, pokemonTwo] : [pokemonTwo, pokemonOne]
   }
@@ -224,5 +235,58 @@ export class SpeedCalculatorService {
 
   private isBoosterSpeedPokemon(pokemon: Pokemon): boolean {
     return pokemon.isParadoxAbility && !this.isTrickRoomPokemon(pokemon)
+  }
+
+  private priorityLevel(move: Move, field: Field): number {
+    if (move.name == "Grassy Glide" && field.terrain == "Grassy") {
+      return 1
+    }
+
+    const priority5 = ["Helping Hand"]
+    const priority4 = ["Baneful Bunker", "Burning Bulwark", "Detect", "Endure", "Protect", "Spiky Shield", "Silk Trap"]
+    const priority3 = ["Fake Out", "Quick Guard", "Upper Hand", "Wide Guard"]
+    const priority2 = ["Ally Switch", "Extreme Speed", "Feint", "First Impression", "Follow Me", "Rage Powder"]
+    const priority1 = ["Accelerock", "Aqua Jet", "Baby-Doll Eyes", "Bullet Punch", "Ice Shard", "Jet Punch", "Mach Punch", "Quick Attack", "Shadow Sneak", "Sucker Punch", "Thunderclap", "Vacuum Wave", "Water Shuriken"]
+
+    const priorityMinus3 = ["Beak Blast", "Focus Punch"]
+    const priorityMinus4 = ["Avalanche"]
+    const priorityMinus5 = ["Counter", "Mirror Coat"]
+    const priorityMinus6 = ["Circle Throw", "Dragon Tail", "Roar", "Whirlwind", "Teleport"]
+    const priorityMinus7 = ["Trick Room"]
+
+    switch (move.name) {
+      case priority5.find(a => a === move.name):
+        return 5
+
+      case priority4.find(a => a === move.name):
+        return 4
+
+      case priority3.find(a => a === move.name):
+        return 3
+
+      case priority2.find(a => a === move.name):
+        return 2
+
+      case priority1.find(a => a === move.name):
+        return 1
+
+      case priorityMinus3.find(a => a === move.name):
+        return -3
+
+      case priorityMinus4.find(a => a === move.name):
+        return -4
+
+      case priorityMinus5.find(a => a === move.name):
+        return -5
+
+      case priorityMinus6.find(a => a === move.name):
+        return -6
+
+      case priorityMinus7.find(a => a === move.name):
+        return -7
+
+      default:
+        return 0
+    }
   }
 }

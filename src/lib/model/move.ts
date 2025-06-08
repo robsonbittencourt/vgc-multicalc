@@ -15,7 +15,7 @@ export class Move {
     this.bp = new MoveSmogon(Generations.get(9), name).bp
   }
 
-  moveHits(move: string): string[] {
+  private moveHits(move: string): string[] {
     if (move === "Population Bomb") {
       return ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
     }

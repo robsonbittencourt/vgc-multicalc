@@ -245,6 +245,17 @@ describe("Combined Damage against reduce damage abilities", () => {
     opponents.get("Dragonite").damageIs(83.8, 99.4).cause2HKO()
   })
 
+  it("two Pokémon against one with Multiscale when the slower has priority move", () => {
+    team.importPokemon(blazikenData)
+    team.importPokemon(chiYuData)
+    team.selectTeamMember("Blaziken").combineDamage()
+    team.selectTeamMember("Chi-Yu")
+
+    team.selectPokemon("Blaziken").selectAttackThree()
+
+    opponents.get("Dragonite").damageIs(62.2, 74.2).cause2HKO()
+  })
+
   it("two Pokémon against one with Multiscale considering Ability in speed calculation", () => {
     team.importPokemon(tornadusData)
     team.importPokemon(kingdraData)
