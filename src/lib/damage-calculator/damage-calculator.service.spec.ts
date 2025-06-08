@@ -1,4 +1,4 @@
-import { provideExperimentalZonelessChangeDetection } from "@angular/core"
+import { provideZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
 import { CALC_ADJUSTERS, CalcAdjuster } from "@lib/damage-calculator/calc-adjuster/calc-adjuster"
 import { DamageCalculatorService } from "@lib/damage-calculator/damage-calculator.service"
@@ -19,7 +19,7 @@ describe("Damage Calculator Service", () => {
     adjusterTwoSpy = jasmine.createSpyObj("AdjusterTwo", ["adjust"])
 
     TestBed.configureTestingModule({
-      providers: [DamageCalculatorService, { provide: CALC_ADJUSTERS, useValue: adjusterOneSpy, multi: true }, { provide: CALC_ADJUSTERS, useValue: adjusterTwoSpy, multi: true }, provideExperimentalZonelessChangeDetection()]
+      providers: [DamageCalculatorService, { provide: CALC_ADJUSTERS, useValue: adjusterOneSpy, multi: true }, { provide: CALC_ADJUSTERS, useValue: adjusterTwoSpy, multi: true }, provideZonelessChangeDetection()]
     })
 
     service = TestBed.inject(DamageCalculatorService)

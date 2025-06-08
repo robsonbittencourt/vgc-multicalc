@@ -1,5 +1,5 @@
 import { NoopScrollStrategy } from "@angular/cdk/overlay"
-import { provideExperimentalZonelessChangeDetection } from "@angular/core"
+import { provideZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
 import { MatDialog } from "@angular/material/dialog"
 import { TeamExportModalComponent } from "@app/shared/export-modal/export-modal.component"
@@ -17,7 +17,7 @@ describe("ExportPokeService", () => {
     dialogSpy = jasmine.createSpyObj("MatDialog", ["open"])
 
     TestBed.configureTestingModule({
-      providers: [ExportPokeService, { provide: MatDialog, useValue: dialogSpy }, provideExperimentalZonelessChangeDetection()]
+      providers: [ExportPokeService, { provide: MatDialog, useValue: dialogSpy }, provideZonelessChangeDetection()]
     })
 
     service = TestBed.inject(ExportPokeService)

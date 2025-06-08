@@ -1,4 +1,4 @@
-import { provideExperimentalZonelessChangeDetection } from "@angular/core"
+import { provideZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
 import { CalculatorStore, PokemonState, TargetState, TeamState } from "@data/store/calculator-store"
 import { Ability } from "@lib/model/ability"
@@ -15,7 +15,7 @@ describe("Calculator Store", () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [provideExperimentalZonelessChangeDetection()]
+      providers: [provideZonelessChangeDetection()]
     })
 
     store = TestBed.inject(CalculatorStore)

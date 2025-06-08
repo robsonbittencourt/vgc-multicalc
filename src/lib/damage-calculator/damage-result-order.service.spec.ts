@@ -1,4 +1,4 @@
-import { provideExperimentalZonelessChangeDetection } from "@angular/core"
+import { provideZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { MenuStore } from "@data/store/menu-store"
@@ -18,7 +18,7 @@ describe("DamageResultOrderService", () => {
     menuStoreSpy = jasmine.createSpyObj("MenuStore", ["oneVsManyActivated", "manyVsOneActivated"])
 
     TestBed.configureTestingModule({
-      providers: [DamageResultOrderService, { provide: CalculatorStore, useValue: storeSpy }, { provide: MenuStore, useValue: menuStoreSpy }, provideExperimentalZonelessChangeDetection()]
+      providers: [DamageResultOrderService, { provide: CalculatorStore, useValue: storeSpy }, { provide: MenuStore, useValue: menuStoreSpy }, provideZonelessChangeDetection()]
     })
   })
 
