@@ -382,6 +382,39 @@ describe("Calculator Store", () => {
         expect(store.team().teamMembers[3].active).toBeFalse()
       })
 
+      it("should activate Team Member", () => {
+        store.updateTeamMembersActive(true, true, false, false, false, false)
+
+        store.activateTeamMember(2)
+
+        expect(store.team().teamMembers[0].active).toBeFalse()
+        expect(store.team().teamMembers[1].active).toBeFalse()
+        expect(store.team().teamMembers[2].active).toBeTrue()
+        expect(store.team().teamMembers[3].active).toBeFalse()
+      })
+
+      it("should activate first Team Member if index is negative", () => {
+        store.updateTeamMembersActive(true, true, false, false, false, false)
+
+        store.activateTeamMember(-2)
+
+        expect(store.team().teamMembers[0].active).toBeTrue()
+        expect(store.team().teamMembers[1].active).toBeFalse()
+        expect(store.team().teamMembers[2].active).toBeFalse()
+        expect(store.team().teamMembers[3].active).toBeFalse()
+      })
+
+      it("should activate first Team Member if index is out of bounds", () => {
+        store.updateTeamMembersActive(true, true, false, false, false, false)
+
+        store.activateTeamMember(5)
+
+        expect(store.team().teamMembers[0].active).toBeTrue()
+        expect(store.team().teamMembers[1].active).toBeFalse()
+        expect(store.team().teamMembers[2].active).toBeFalse()
+        expect(store.team().teamMembers[3].active).toBeFalse()
+      })
+
       it("should replace Team", () => {
         const teamX = new Team("123", true, "Team X", [new TeamMember(new Pokemon("Pikachu")), new TeamMember(new Pokemon("Raichu"))])
 

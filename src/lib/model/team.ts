@@ -18,6 +18,10 @@ export class Team {
     return this.teamMembers.find(t => t.active)!.pokemon
   }
 
+  activePokemonIndex(): number {
+    return this.teamMembers.findIndex(t => t.active)
+  }
+
   isFull(): boolean {
     return this.teamMembers.filter(t => !t.pokemon.isDefault).length == 6
   }

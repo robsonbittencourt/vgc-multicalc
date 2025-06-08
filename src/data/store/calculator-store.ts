@@ -247,6 +247,28 @@ export class CalculatorStore extends signalStore(
     })
   }
 
+  activateTeamMember(activatedIndex: number) {
+    const activeTeamIndex = this.activeTeamIndex()
+
+    patchState(this, state => {
+      const updatedTeams = [...state.teamsState]
+      const currentTeam = updatedTeams[activeTeamIndex]
+
+      if (activatedIndex < 0 || activatedIndex >= currentTeam.teamMembers.length) {
+        activatedIndex = 0
+      }
+
+      const updatedTeamMembers = currentTeam.teamMembers.map((member, index) => ({
+        ...member,
+        active: index === activatedIndex
+      }))
+
+      updatedTeams[activeTeamIndex] = { ...currentTeam, teamMembers: updatedTeamMembers }
+
+      return { teamsState: updatedTeams }
+    })
+  }
+
   replaceTeam(newTeam: Team, teamId: string) {
     const teamIndex = this.teamIndexWithId(teamId)
 

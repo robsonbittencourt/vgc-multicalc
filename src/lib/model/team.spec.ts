@@ -71,4 +71,18 @@ describe("Team", () => {
 
     expect(result).toBeFalse()
   })
+
+  it("should return active team member index", () => {
+    const team = new Team("123", true, "Team 1", [
+      new TeamMember(new Pokemon("Pikachu"), false),
+      new TeamMember(new Pokemon("Tyranitar"), true),
+      new TeamMember(new Pokemon("Mewtwo"), false),
+      new TeamMember(new Pokemon("Gholdengo"), false),
+      new TeamMember(new Pokemon("Archaludon"), false)
+    ])
+
+    const result = team.activePokemonIndex()
+
+    expect(result).toBe(1)
+  })
 })
