@@ -1,4 +1,4 @@
-import { provideExperimentalZonelessChangeDetection } from "@angular/core"
+import { provideZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
 import { MenuStore } from "@data/store/menu-store"
 import { DamageCalculatorService } from "@lib/damage-calculator/damage-calculator.service"
@@ -27,7 +27,7 @@ describe("DamageMultiCalcService", () => {
         { provide: MenuStore, useValue: menuStoreSpy },
         { provide: DamageCalculatorService, useValue: damageCalculatorSpy },
         { provide: DamageResultOrderService, useValue: damageOrderSpy },
-        provideExperimentalZonelessChangeDetection()
+        provideZonelessChangeDetection()
       ]
     })
 

@@ -1,4 +1,4 @@
-import { provideExperimentalZonelessChangeDetection } from "@angular/core"
+import { provideZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
 import { ThemeStore } from "@data/store/theme-store"
 import { Color, Theme, ThemeService } from "./theme.service"
@@ -12,7 +12,7 @@ describe("ThemeService", () => {
     storeSpy = jasmine.createSpyObj("ThemeStore", ["theme", "color", "updateTheme", "updateColor"])
 
     TestBed.configureTestingModule({
-      providers: [ThemeService, { provide: ThemeStore, useValue: storeSpy }, provideExperimentalZonelessChangeDetection()]
+      providers: [ThemeService, { provide: ThemeStore, useValue: storeSpy }, provideZonelessChangeDetection()]
     })
 
     service = TestBed.inject(ThemeService)

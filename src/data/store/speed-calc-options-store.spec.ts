@@ -1,4 +1,4 @@
-import { provideExperimentalZonelessChangeDetection } from "@angular/core"
+import { provideZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
 import { SpeedCalcOptionsStore } from "@data/store/speed-calc-options-store"
 import { SpeedCalculatorMode } from "@lib/speed-calculator/speed-calculator-mode"
@@ -8,7 +8,7 @@ describe("Speed Calc Options Store", () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [provideExperimentalZonelessChangeDetection()]
+      providers: [provideZonelessChangeDetection()]
     })
 
     store = TestBed.inject(SpeedCalcOptionsStore)

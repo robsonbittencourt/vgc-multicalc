@@ -1,4 +1,4 @@
-import { provideExperimentalZonelessChangeDetection } from "@angular/core"
+import { provideZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
 import { FieldMapper } from "@lib/field-mapper"
 import { Field, FieldAttackerSide, FieldDefenderSide } from "@lib/model/field"
@@ -8,7 +8,7 @@ describe("FieldMapper", () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [provideExperimentalZonelessChangeDetection()]
+      providers: [provideZonelessChangeDetection()]
     })
 
     mapper = TestBed.inject(FieldMapper)

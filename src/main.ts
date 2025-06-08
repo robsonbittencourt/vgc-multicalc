@@ -1,4 +1,4 @@
-import { importProvidersFrom, provideExperimentalZonelessChangeDetection } from "@angular/core"
+import { importProvidersFrom, provideZonelessChangeDetection } from "@angular/core"
 import { bootstrapApplication } from "@angular/platform-browser"
 import { provideAnimations } from "@angular/platform-browser/animations"
 import { AppRoutingModule } from "@app/app-routing.module"
@@ -14,7 +14,7 @@ bootstrapApplication(AppComponent, {
   providers: [
     importProvidersFrom(AppRoutingModule),
     provideAnimations(),
-    provideExperimentalZonelessChangeDetection(),
+    provideZonelessChangeDetection(),
     { provide: CALC_ADJUSTERS, useClass: RuinsAbilityAdjuster, multi: true },
     { provide: CALC_ADJUSTERS, useClass: LastRespectsAdjuster, multi: true },
     { provide: CALC_ADJUSTERS, useClass: RageFistAdjuster, multi: true },

@@ -1,4 +1,4 @@
-import { provideExperimentalZonelessChangeDetection } from "@angular/core"
+import { provideZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
 import { FieldStore } from "@data/store/field-store"
 import { FieldAttackerSide, FieldDefenderSide } from "@lib/model/field"
@@ -9,7 +9,7 @@ describe("Field Store", () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [provideExperimentalZonelessChangeDetection()]
+      providers: [provideZonelessChangeDetection()]
     })
 
     store = TestBed.inject(FieldStore)

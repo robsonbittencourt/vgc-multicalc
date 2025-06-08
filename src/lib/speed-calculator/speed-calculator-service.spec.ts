@@ -1,4 +1,4 @@
-import { provideExperimentalZonelessChangeDetection } from "@angular/core"
+import { provideZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
 import { ACTUAL, MAX, MIN } from "@lib/constants"
 import { Ability } from "@lib/model/ability"
@@ -17,7 +17,7 @@ describe("SpeedCalculatorService", () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [SpeedCalculatorService, SmogonFunctions, provideExperimentalZonelessChangeDetection()]
+      providers: [SpeedCalculatorService, SmogonFunctions, provideZonelessChangeDetection()]
     })
 
     service = TestBed.inject(SpeedCalculatorService)
