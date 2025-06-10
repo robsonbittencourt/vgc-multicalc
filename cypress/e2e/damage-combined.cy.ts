@@ -124,7 +124,7 @@ describe("Combined Damage with Ruin abilities", () => {
     team.selectTeamMember("Wo-Chien").combineDamage()
     team.selectTeamMember("Blaziken")
 
-    opponents.get("Urshifu Rapid Strike").damageIs(30.8, 37.1).haveChanceOfToCause3HKO(65.3)
+    opponents.get("Urshifu Rapid Strike").damageIs(30.8, 37.1).haveChanceOfToCause3HKO(69.8)
   })
 
   it("Calculate damage with two Pokémon, one without Tablets of Ruin and with ability", () => {
@@ -134,7 +134,7 @@ describe("Combined Damage with Ruin abilities", () => {
     team.selectTeamMember("Blaziken").combineDamage()
     team.selectTeamMember("Wo-Chien")
 
-    opponents.get("Urshifu Rapid Strike").damageIs(30.8, 37.1).haveChanceOfToCause3HKO(65.3)
+    opponents.get("Urshifu Rapid Strike").damageIs(30.8, 37.1).haveChanceOfToCause3HKO(69.8)
   })
 
   it("Calculate damage with two Pokémon, one with Sword of Ruin and another without ability", () => {
@@ -164,7 +164,7 @@ describe("Combined Damage with Ruin abilities", () => {
     team.selectTeamMember("Ting-Lu").combineDamage()
     team.selectTeamMember("Tornadus")
 
-    opponents.get("Urshifu Rapid Strike").damageIs(89.7, 106.8).haveChanceOfToCauseOHKO(37.5)
+    opponents.get("Urshifu Rapid Strike").damageIs(89.7, 106.8).haveChanceOfToCauseOHKO(38.3)
   })
 
   it("Calculate damage with two Pokémon, one without Vessel of Ruin and with ability", () => {
@@ -174,7 +174,7 @@ describe("Combined Damage with Ruin abilities", () => {
     team.selectTeamMember("Tornadus").combineDamage()
     team.selectTeamMember("Ting-Lu")
 
-    opponents.get("Urshifu Rapid Strike").damageIs(89.7, 106.8).haveChanceOfToCauseOHKO(37.5)
+    opponents.get("Urshifu Rapid Strike").damageIs(89.7, 106.8).haveChanceOfToCauseOHKO(38.3)
   })
 
   it("Calculate damage with two Pokémon, one with Beads of Ruin and another without ability", () => {
@@ -204,7 +204,7 @@ describe("Combined Damage with Ruin abilities", () => {
     team.selectTeamMember("Wo-Chien").combineDamage()
     team.selectTeamMember("Chien-Pao")
 
-    opponents.get("Urshifu Rapid Strike").damageIs(32, 38.2).haveChanceOfToCause3HKO(95.9)
+    opponents.get("Urshifu Rapid Strike").damageIs(32, 38.2).haveChanceOfToCause3HKO(99.2)
   })
 
   it("Calculate damage with two Pokémon, one with Vessel of Ruin and another with Beads of Ruin", () => {
@@ -231,7 +231,7 @@ describe("Combined Damage against reduce damage abilities", () => {
     team.selectTeamMember("Miraidon")
     team.selectPokemon("Miraidon").selectAttackTwo()
 
-    opponents.get("Dragonite").damageIs(49.7, 58.6).haveChanceOfToCause2HKO(98.4)
+    opponents.get("Dragonite").damageIs(49.7, 58.6).haveChanceOfToCause2HKO(99.8)
   })
 
   it("two Pokémon against one with Multiscale when Koraidon is faster", () => {
@@ -265,7 +265,7 @@ describe("Combined Damage against reduce damage abilities", () => {
 
     field.rain()
 
-    opponents.get("Terapagos Terastal").damageIs(51.9, 61.3).haveChanceOfToCause2HKO(93.8)
+    opponents.get("Terapagos Terastal").damageIs(51.9, 61.3).haveChanceOfToCause2HKO(99.2)
   })
 
   it("two Pokémon against one with Tera Shell", () => {

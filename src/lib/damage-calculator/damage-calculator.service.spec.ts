@@ -39,7 +39,31 @@ describe("Damage Calculator Service", () => {
     expect(damageResult.koChance).toEqual("guaranteed 3HKO")
     expect(damageResult.damage).toEqual(48.4)
     expect(damageResult.description).toEqual("0 SpA Raging Bolt Thunderbolt vs. 0 HP / 0 SpD Flutter Mane: 52-63 (40 - 48.4%) -- guaranteed 3HKO")
-    expect(damageResult.rolls).toEqual([52, 54, 54, 54, 55, 55, 57, 57, 58, 58, 58, 60, 60, 61, 61, 63])
+    expect(damageResult.attackerRolls).toEqual([[52, 54, 54, 54, 55, 55, 57, 57, 58, 58, 58, 60, 60, 61, 61, 63]])
+  })
+
+  it("should calculate damage with multi hit move", () => {
+    const attacker = new Pokemon("Urshifu-Rapid-Strike", {
+      nature: "Adamant",
+      moveSet: new MoveSet(new Move("Surging Strikes"), new Move("Close Combat"), new Move("Aqua Jet"), new Move("Detect")),
+      evs: { hp: 4, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 }
+    })
+
+    const target = new Target(new Pokemon("Flutter Mane"))
+    const field = new Field()
+
+    const damageResult = service.calcDamage(attacker, target.pokemon, field)
+
+    expect(damageResult.attacker.id).toEqual(attacker.id)
+    expect(damageResult.defender.id).toEqual(target.pokemon.id)
+    expect(damageResult.move).toEqual("Surging Strikes")
+    expect(damageResult.result).toEqual("133.8 - 159.2%")
+    expect(damageResult.koChance).toEqual("guaranteed OHKO")
+    expect(damageResult.damage).toEqual(159.2)
+    expect(damageResult.description).toEqual("252+ Atk Urshifu-Rapid-Strike Surging Strikes (3 hits) vs. 0 HP / 0 Def Flutter Mane on a critical hit: 174-207 (133.8 - 159.2%) -- guaranteed OHKO")
+    expect(damageResult.attackerRolls[0]).toEqual([58, 58, 60, 60, 60, 61, 61, 63, 63, 64, 64, 66, 66, 67, 67, 69])
+    expect(damageResult.attackerRolls[1]).toEqual([58, 58, 60, 60, 60, 61, 61, 63, 63, 64, 64, 66, 66, 67, 67, 69])
+    expect(damageResult.attackerRolls[2]).toEqual([58, 58, 60, 60, 60, 61, 61, 63, 63, 64, 64, 66, 66, 67, 67, 69])
   })
 
   it("should calculate damage to all attacks", () => {
@@ -58,7 +82,7 @@ describe("Damage Calculator Service", () => {
     expect(damageResults[0].koChance).toEqual("guaranteed 3HKO")
     expect(damageResults[0].damage).toEqual(48.4)
     expect(damageResults[0].description).toEqual("0 SpA Raging Bolt Thunderbolt vs. 0 HP / 0 SpD Flutter Mane: 52-63 (40 - 48.4%) -- guaranteed 3HKO")
-    expect(damageResults[0].rolls).toEqual([52, 54, 54, 54, 55, 55, 57, 57, 58, 58, 58, 60, 60, 61, 61, 63])
+    expect(damageResults[0].attackerRolls).toEqual([[52, 54, 54, 54, 55, 55, 57, 57, 58, 58, 58, 60, 60, 61, 61, 63]])
 
     expect(damageResults[1].attacker.id).toEqual(attacker.id)
     expect(damageResults[1].defender.id).toEqual(target.pokemon.id)
@@ -67,7 +91,7 @@ describe("Damage Calculator Service", () => {
     expect(damageResults[1].koChance).toEqual("92.7% chance to 3HKO")
     expect(damageResults[1].damage).toEqual(37.6)
     expect(damageResults[1].description).toEqual("0 SpA Raging Bolt Thunderclap vs. 0 HP / 0 SpD Flutter Mane: 42-49 (32.3 - 37.6%) -- 92.7% chance to 3HKO")
-    expect(damageResults[1].rolls).toEqual([42, 42, 42, 43, 43, 43, 45, 45, 45, 46, 46, 46, 48, 48, 48, 49])
+    expect(damageResults[1].attackerRolls).toEqual([[42, 42, 42, 43, 43, 43, 45, 45, 45, 46, 46, 46, 48, 48, 48, 49]])
 
     expect(damageResults[2].attacker.id).toEqual(attacker.id)
     expect(damageResults[2].defender.id).toEqual(target.pokemon.id)
@@ -76,7 +100,7 @@ describe("Damage Calculator Service", () => {
     expect(damageResults[2].koChance).toEqual("Does not cause any damage")
     expect(damageResults[2].damage).toEqual(0)
     expect(damageResults[2].description).toEqual("Raging Bolt Draco Meteor vs. Flutter Mane: 0-0 (0 - 0%) -- possibly the worst move ever")
-    expect(damageResults[2].rolls).toEqual([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    expect(damageResults[2].attackerRolls).toEqual([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]])
 
     expect(damageResults[3].attacker.id).toEqual(attacker.id)
     expect(damageResults[3].defender.id).toEqual(target.pokemon.id)
@@ -85,7 +109,7 @@ describe("Damage Calculator Service", () => {
     expect(damageResults[2].koChance).toEqual("Does not cause any damage")
     expect(damageResults[2].damage).toEqual(0)
     expect(damageResults[3].description).toEqual("Raging Bolt Protect vs. Flutter Mane: 0-0 (0 - 0%)")
-    expect(damageResults[2].rolls).toEqual([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    expect(damageResults[2].attackerRolls).toEqual([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]])
   })
 
   it("should calculate damage to two attackers", () => {
@@ -104,7 +128,8 @@ describe("Damage Calculator Service", () => {
     expect(damageResult.koChance).toEqual("guaranteed 2HKO")
     expect(damageResult.damage).toEqual(87.6)
     expect(damageResult.description).toEqual("0 Atk Rillaboom Grassy Glide AND 0 SpA Raging Bolt Thunderbolt vs. 0 HP / 0 Def / 0 SpD Assault Vest Flutter Mane: 94-114 (72.3 - 87.6%) -- guaranteed 2HKO")
-    expect(damageResult.rolls).toEqual([94, 97, 97, 99, 99, 101, 101, 103, 105, 106, 106, 108, 109, 110, 110, 114])
+    expect(damageResult.attackerRolls).toEqual([[60, 61, 61, 63, 63, 64, 64, 66, 66, 67, 67, 69, 69, 70, 70, 72]])
+    expect(damageResult.secondAttackerRolls).toEqual([[34, 36, 36, 36, 36, 37, 37, 37, 39, 39, 39, 39, 40, 40, 40, 42]])
   })
 
   it("should calculate damage to two attackers considering speed", () => {
@@ -123,7 +148,8 @@ describe("Damage Calculator Service", () => {
     expect(damageResult.koChance).toEqual("guaranteed 2HKO")
     expect(damageResult.damage).toEqual(87.6)
     expect(damageResult.description).toEqual("0 SpA Raging Bolt Thunderbolt AND 0 Atk Rillaboom Grassy Glide vs. 0 HP / 0 Def / 0 SpD Assault Vest Flutter Mane: 94-114 (72.3 - 87.6%) -- guaranteed 2HKO")
-    expect(damageResult.rolls).toEqual([94, 97, 97, 99, 99, 101, 101, 103, 105, 106, 106, 108, 109, 110, 110, 114])
+    expect(damageResult.attackerRolls).toEqual([[34, 36, 36, 36, 36, 37, 37, 37, 39, 39, 39, 39, 40, 40, 40, 42]])
+    expect(damageResult.secondAttackerRolls).toEqual([[60, 61, 61, 63, 63, 64, 64, 66, 66, 67, 67, 69, 69, 70, 70, 72]])
   })
 
   it("should calculate damage to two attackers without damage", () => {
@@ -162,5 +188,31 @@ describe("Damage Calculator Service", () => {
 
     expect(adjusterOneSpy.adjust).toHaveBeenCalledWith(jasmine.any(SmogonPokemon), jasmine.any(SmogonPokemon), activeMove, jasmine.any(MoveSmogon), jasmine.any(FieldSmogon), attacker, jasmine.any(Field))
     expect(adjusterTwoSpy.adjust).toHaveBeenCalledWith(jasmine.any(SmogonPokemon), jasmine.any(SmogonPokemon), activeMove, jasmine.any(MoveSmogon), jasmine.any(FieldSmogon), attacker, jasmine.any(Field))
+  })
+
+  it("should calculate damage to two attackers one with multi hit move", () => {
+    const attacker = new Pokemon("Urshifu-Rapid-Strike", {
+      nature: "Adamant",
+      moveSet: new MoveSet(new Move("Surging Strikes"), new Move("Close Combat"), new Move("Aqua Jet"), new Move("Detect")),
+      evs: { hp: 4, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 }
+    })
+    const secondAttacker = new Pokemon("Rillaboom", { moveSet: new MoveSet(new Move("Grassy Glide"), new Move("Fake Out"), new Move("Wood Hammer"), new Move("High Horsepower")) })
+
+    const target = new Target(new Pokemon("Flutter Mane"))
+    const field = new Field()
+
+    const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
+
+    expect(damageResult.attacker.id).toEqual(attacker.id)
+    expect(damageResult.defender.id).toEqual(target.pokemon.id)
+    expect(damageResult.move).toEqual("Surging Strikes")
+    expect(damageResult.result).toEqual("180 - 214.6%")
+    expect(damageResult.koChance).toEqual("guaranteed OHKO")
+    expect(damageResult.damage).toEqual(214.6)
+    expect(damageResult.description).toEqual("252+ Atk Urshifu-Rapid-Strike Surging Strikes (3 hits) AND 0 Atk Rillaboom Grassy Glide vs. 0 HP / 0 Def Flutter Mane on a critical hit: 234-279 (180 - 214.6%) -- guaranteed OHKO")
+    expect(damageResult.attackerRolls[0]).toEqual([58, 58, 60, 60, 60, 61, 61, 63, 63, 64, 64, 66, 66, 67, 67, 69])
+    expect(damageResult.attackerRolls[1]).toEqual([58, 58, 60, 60, 60, 61, 61, 63, 63, 64, 64, 66, 66, 67, 67, 69])
+    expect(damageResult.attackerRolls[2]).toEqual([58, 58, 60, 60, 60, 61, 61, 63, 63, 64, 64, 66, 66, 67, 67, 69])
+    expect(damageResult.secondAttackerRolls).toEqual([[60, 61, 61, 63, 63, 64, 64, 66, 66, 67, 67, 69, 69, 70, 70, 72]])
   })
 })

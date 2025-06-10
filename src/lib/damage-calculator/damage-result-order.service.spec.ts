@@ -203,5 +203,5 @@ describe("DamageResultOrderService", () => {
 })
 
 function damageResult(attacker: Pokemon, defender: Pokemon, damage: number): DamageResult {
-  return new DamageResult(attacker, defender, "", "", "", damage, "")
+  return new DamageResult(attacker, defender, "", "", "", damage, "", [])
 }

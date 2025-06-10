@@ -22,13 +22,13 @@ export class DamageCalculatorService {
 
   calcDamage(attacker: Pokemon, target: Pokemon, field: Field): DamageResult {
     const result = this.calculateResult(attacker, target, attacker.move, field, field.isCriticalHit)
-    return new DamageResult(attacker, target, attacker.move.name, result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescription(result), result.damage as number[])
+    return new DamageResult(attacker, target, attacker.move.name, result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescription(result), result.damage)
   }
 
   calcDamageAllAttacks(attacker: Pokemon, target: Pokemon, field: Field): DamageResult[] {
     return attacker.moveSet.moves.map(move => {
       const result = this.calculateResult(attacker, target, move, field, field.isCriticalHit)
-      return new DamageResult(attacker, target, move.name, result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescription(result), result.damage as number[])
+      return new DamageResult(attacker, target, move.name, result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescription(result), result.damage)
     })
   }
 
@@ -41,13 +41,15 @@ export class DamageCalculatorService {
 
     const secondResult = this.calculateResult(secondBySpeed, targetWithTakedDamage, secondBySpeed.move, field, field.isCriticalHit, firstBySpeed)
 
-    this.applyTotalDamage(firstResult, secondResult)
+    const firstRolls = firstResult.damage
+    const secondRolls = secondResult.damage
+    this.combineDamageRolls(firstResult, secondResult)
 
     const koChance = this.koChance(firstResult)
     const maxPercentageDamage = this.maxPercentageDamage(firstResult)
     const damageDescription = this.damageDescriptionWithTwo(firstResult, secondResult)
 
-    return new DamageResult(firstBySpeed, target, firstBySpeed.move.name, firstResult.moveDesc(), koChance, maxPercentageDamage, damageDescription, firstResult.damage as number[], secondBySpeed)
+    return new DamageResult(firstBySpeed, target, firstBySpeed.move.name, firstResult.moveDesc(), koChance, maxPercentageDamage, damageDescription, firstRolls, secondBySpeed, secondRolls)
   }
 
   private calculateResult(attacker: Pokemon, target: Pokemon, move: Move, field: Field, criticalHit: boolean, secondAttacker?: Pokemon): Result {
@@ -73,21 +75,30 @@ export class DamageCalculatorService {
     return result
   }
 
+  combineDamageRolls(resultOne: Result, resultTwo: Result) {
+    const extractedDamageOne = this.extractDamageSubArrays(resultOne.damage as number[] | number[][])
+    const extractedDamageTwo = this.extractDamageSubArrays(resultTwo.damage as number[] | number[][])
+
+    const combinedDamage: number[][] = [...extractedDamageOne, ...extractedDamageTwo]
+
+    resultOne.damage = combinedDamage
+    resultTwo.damage = combinedDamage
+  }
+
+  private extractDamageSubArrays(inputDamage: number[] | number[][]): number[][] {
+    if (Array.isArray(inputDamage) && inputDamage.length > 0 && Array.isArray(inputDamage[0])) {
+      return inputDamage as number[][]
+    } else {
+      return [inputDamage as number[]]
+    }
+  }
+
   private applyDamageInTarget(result: Result, target: Pokemon): Pokemon {
     const maxDamage = (result.damage as number[])[15]
     const percentualDamage = 100 - (maxDamage / target.hp) * 100
     const targetHpPercentage = Math.max(percentualDamage, 0)
 
     return target.clone({ hpPercentage: targetHpPercentage })
-  }
-
-  private applyTotalDamage(result: Result, secondResult: Result) {
-    const firstDamage = result.damage as number[]
-    const secondDamage = secondResult.damage as number[]
-    const totalDamage = firstDamage.map((num, idx) => num + secondDamage[idx])
-
-    result.damage = totalDamage
-    secondResult.damage = totalDamage
   }
 
   private koChance(result: Result): string {

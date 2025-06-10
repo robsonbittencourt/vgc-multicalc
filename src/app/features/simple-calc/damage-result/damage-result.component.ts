@@ -35,11 +35,17 @@ export class DamageResultComponent {
   })
 
   rolls = computed(() => {
-    return [...new Set(this.activeDamageResult().rolls)]
+    return this.activeDamageResult().attackerRolls
   })
 
-  damageInflicted = computed(() => this.damageTakenByRoll(this.activeDamageResult(), this.rollLevelConfig()))
-  damageTaken = computed(() => this.damageTakenByRoll(this.opponentDamageResult(), this.opponentRollLevel()))
+  rollIndexActive = computed(() => {
+    if (this.rollLevelConfig().high) return 15
+    if (this.rollLevelConfig().medium) return 7
+    return 0
+  })
+
+  damageInflicted = computed(() => this.activeDamageResult().damageByRollConfig(this.rollLevelConfig()))
+  damageTaken = computed(() => this.opponentDamageResult().damageByRollConfig(this.opponentRollLevel()))
 
   moveSelected(event: MatChipListboxChange) {
     if (!event.value || event.value == this.pokemon().activeMoveName) {
@@ -52,17 +58,5 @@ export class DamageResultComponent {
   rollLevelChanged(rollLevel: RollLevelConfig) {
     this.rollLevelConfig.set(rollLevel)
     this.rollLevelChange.emit(rollLevel)
-  }
-
-  private damageTakenByRoll(damageResult: DamageResult, rollLevelConfig: RollLevelConfig): number {
-    if (rollLevelConfig.high) {
-      return damageResult.rolls![15]
-    }
-
-    if (rollLevelConfig.medium) {
-      return damageResult.rolls![7]
-    }
-
-    return damageResult.rolls![0]
   }
 }

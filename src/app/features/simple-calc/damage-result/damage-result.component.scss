@@ -57,14 +57,6 @@
   font-weight: bold;
 }
 
-.roll-value::after {
-  content: ", ";
-}
-
-.roll-value:last-child::after {
-  content: "";
-}
-
 ::ng-deep .mat-mdc-standard-chip .mdc-evolution-chip__graphic {
   display: none !important;
 }

@@ -37,8 +37,9 @@ export class PokemonCardComponent {
   canDrag = computed(() => !this.isAttacker() || this.damageResult().secondAttacker)
   damageTaken = computed(() => {
     if (this.isDefaultAttacker()) return 0
-    return this.damageTakenByRoll(this.damageResult(), this.rollLevelConfig())
+    return this.damageResult().damageByRollConfig(this.rollLevelConfig())
   })
+
   isDefaultAttacker = computed(() => this.damageResult().attacker.isDefault)
   isDefaultDefender = computed(() => this.damageResult().defender.isDefault)
 
@@ -95,17 +96,5 @@ export class PokemonCardComponent {
 
   separateAttackers() {
     this.attackersSeparated.emit(this.damageResult().secondAttacker!.id)
-  }
-
-  private damageTakenByRoll(damageResult: DamageResult, rollLevelConfig: RollLevelConfig): number {
-    if (rollLevelConfig.high) {
-      return damageResult.rolls![15]
-    }
-
-    if (rollLevelConfig.medium) {
-      return damageResult.rolls![7]
-    }
-
-    return damageResult.rolls![0]
   }
 }

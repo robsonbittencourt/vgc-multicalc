@@ -8,8 +8,16 @@
       <div class="rolls">
         <label class="label">Rolls: </label>
         <div data-cy="damage-rolls">
-          @for (roll of rolls(); track roll) {
-            <span class="roll-value" [ngClass]="{ 'roll-highlight': roll === damageInflicted() }"> {{ roll }}</span>
+          @for (roll of rolls()[0]; track $index) {
+            <span [ngClass]="{ 'roll-highlight': $index === rollIndexActive() }"> {{ roll }}</span>
+
+            @if (!$last) {
+              <span>,</span>
+            }
+
+            @if ($last && rolls().length > 1) {
+              <span> ( {{ rolls().length }} hits )</span>
+            }
           }
         </div>
       </div>

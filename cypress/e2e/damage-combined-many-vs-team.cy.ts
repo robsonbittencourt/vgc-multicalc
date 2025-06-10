@@ -29,7 +29,7 @@ describe("Test calcs with opponent combined damage", () => {
     opponents.combine("Urshifu Rapid Strike", "Dragonite")
     opponents.combine("Rillaboom", "Incineroar")
 
-    opponents.get("Dragonite").damageIs(87.5, 104.5).haveChanceOfToCauseOHKO(25)
+    opponents.get("Dragonite").damageIs(87.5, 104.5).haveChanceOfToCauseOHKO(17.2)
     opponents.get("Incineroar").damageIs(66.4, 79.5).cause2HKO()
   })
 
@@ -45,7 +45,7 @@ describe("Test calcs with opponent combined damage", () => {
     opponents.combine("Urshifu Rapid Strike", "Dragonite")
     opponents.combine("Rillaboom", "Dragonite")
 
-    opponents.get("Dragonite").damageIs(87.5, 104.5).haveChanceOfToCauseOHKO(25)
+    opponents.get("Dragonite").damageIs(87.5, 104.5).haveChanceOfToCauseOHKO(17.2)
     opponents.get("Rillaboom").damageIs(30.6, 36.9).haveChanceOfToCause3HKO(72.3)
   })
 })
