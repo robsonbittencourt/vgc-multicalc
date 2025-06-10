@@ -215,4 +215,15 @@ describe("Damage Calculator Service", () => {
     expect(damageResult.attackerRolls[2]).toEqual([58, 58, 60, 60, 60, 61, 61, 63, 63, 64, 64, 66, 66, 67, 67, 69])
     expect(damageResult.secondAttackerRolls).toEqual([[60, 61, 61, 63, 63, 64, 64, 66, 66, 67, 67, 69, 69, 70, 70, 72]])
   })
+
+  it("should calculate damage to two attackers with Tera active in defender", () => {
+    const attacker = new Pokemon("Raging Bolt", { moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Thunderclap"), new Move("Draco Meteor"), new Move("Protect")) })
+    const secondAttacker = new Pokemon("Rillaboom", { moveSet: new MoveSet(new Move("Grassy Glide"), new Move("Fake Out"), new Move("Wood Hammer"), new Move("High Horsepower")) })
+    const target = new Target(new Pokemon("Flutter Mane", { teraType: "Fairy", teraTypeActive: true, nature: "Bold", boosts: { def: 1 }, evs: { def: 252, spd: 12 }, item: "Assault Vest" }))
+    const field = new Field()
+
+    const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
+
+    expect(damageResult.description).toContain("vs. 0 HP / +1 252+ Def / 12 SpD Assault Vest Tera Fairy Flutter Mane")
+  })
 })

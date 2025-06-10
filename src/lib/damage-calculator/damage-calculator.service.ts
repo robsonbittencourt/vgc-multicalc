@@ -128,9 +128,10 @@ export class DamageCalculatorService {
       const defenderDescription = resultOne.desc().substring(resultOne.desc().indexOf(" vs.") + 5)
 
       const defenderBulk = this.mergeBulkStats(resultOne, resultTwo)
+      const tera = resultOne.defender.teraType ? `Tera ${resultOne.defender.teraType} ` : ""
       const defenderNameAndDamage = defenderDescription.substring(defenderDescription.indexOf(resultOne.defender.name))
 
-      return `${attackerDescription} AND ${secondAttackerDescritption} vs. ${defenderBulk} ${defenderNameAndDamage}`
+      return `${attackerDescription} AND ${secondAttackerDescritption} vs. ${defenderBulk} ${tera}${defenderNameAndDamage}`
     } catch (error) {
       return `${resultOne.attacker.name} ${resultOne.move.name} AND ${resultTwo.attacker.name} ${resultTwo.move.name} vs. ${resultOne.defender.name}: 0-0 (0 - 0%) -- possibly the worst move ever`
     }
