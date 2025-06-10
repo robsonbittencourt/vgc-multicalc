@@ -226,4 +226,59 @@ describe("Damage Calculator Service", () => {
 
     expect(damageResult.description).toContain("vs. 0 HP / +1 252+ Def / 12 SpD Assault Vest Tera Fairy Flutter Mane")
   })
+
+  it("should calculate damage to two attackers with positive def modifier/nature in defender", () => {
+    const attacker = new Pokemon("Raging Bolt", { moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Thunderclap"), new Move("Draco Meteor"), new Move("Protect")) })
+    const secondAttacker = new Pokemon("Rillaboom", { moveSet: new MoveSet(new Move("Grassy Glide"), new Move("Fake Out"), new Move("Wood Hammer"), new Move("High Horsepower")) })
+    const target = new Target(new Pokemon("Flutter Mane", { nature: "Bold", boosts: { def: 1 }, evs: { def: 252, spd: 12 }, item: "Assault Vest" }))
+    const field = new Field()
+
+    const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
+
+    expect(damageResult.description).toContain("vs. 0 HP / +1 252+ Def / 12 SpD Assault Vest Flutter Mane")
+  })
+
+  it("should calculate damage to two attackers with positive spd modifier/nature in defender", () => {
+    const attacker = new Pokemon("Raging Bolt", { moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Thunderclap"), new Move("Draco Meteor"), new Move("Protect")) })
+    const secondAttacker = new Pokemon("Rillaboom", { moveSet: new MoveSet(new Move("Grassy Glide"), new Move("Fake Out"), new Move("Wood Hammer"), new Move("High Horsepower")) })
+    const target = new Target(new Pokemon("Flutter Mane", { nature: "Sassy", boosts: { spd: 3 }, evs: { def: 20, spd: 228 }, item: "Assault Vest" }))
+    const field = new Field()
+
+    const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
+
+    expect(damageResult.description).toContain("vs. 0 HP / 20 Def / +3 228+ SpD Assault Vest Flutter Mane")
+  })
+
+  it("should calculate damage to two attackers with negative def modifier/nature in defender", () => {
+    const attacker = new Pokemon("Raging Bolt", { moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Thunderclap"), new Move("Draco Meteor"), new Move("Protect")) })
+    const secondAttacker = new Pokemon("Rillaboom", { moveSet: new MoveSet(new Move("Grassy Glide"), new Move("Fake Out"), new Move("Wood Hammer"), new Move("High Horsepower")) })
+    const target = new Target(new Pokemon("Flutter Mane", { nature: "Hasty", boosts: { def: -1 }, evs: { def: 140, spd: 28 }, item: "Assault Vest" }))
+    const field = new Field()
+
+    const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
+
+    expect(damageResult.description).toContain("vs. 0 HP / -1 140- Def / 28 SpD Assault Vest Flutter Mane")
+  })
+
+  it("should calculate damage to two attackers with negative spd modifier/nature in defender", () => {
+    const attacker = new Pokemon("Raging Bolt", { moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Thunderclap"), new Move("Draco Meteor"), new Move("Protect")) })
+    const secondAttacker = new Pokemon("Rillaboom", { moveSet: new MoveSet(new Move("Grassy Glide"), new Move("Fake Out"), new Move("Wood Hammer"), new Move("High Horsepower")) })
+    const target = new Target(new Pokemon("Flutter Mane", { nature: "Naive", boosts: { spd: -3 }, evs: { def: 36, spd: 148 }, item: "Assault Vest" }))
+    const field = new Field()
+
+    const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
+
+    expect(damageResult.description).toContain("vs. 0 HP / 36 Def / -3 148- SpD Assault Vest Flutter Mane")
+  })
+
+  it("should calculate damage to two attackers with positive def modifier/nature and negative spd modifier/nature in defender", () => {
+    const attacker = new Pokemon("Raging Bolt", { moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Thunderclap"), new Move("Draco Meteor"), new Move("Protect")) })
+    const secondAttacker = new Pokemon("Rillaboom", { moveSet: new MoveSet(new Move("Grassy Glide"), new Move("Fake Out"), new Move("Wood Hammer"), new Move("High Horsepower")) })
+    const target = new Target(new Pokemon("Flutter Mane", { nature: "Lax", boosts: { def: 6, spd: -4 }, evs: { def: 252, spd: 140 }, item: "Assault Vest" }))
+    const field = new Field()
+
+    const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
+
+    expect(damageResult.description).toContain("vs. 0 HP / +6 252+ Def / -4 140- SpD Assault Vest Flutter Mane")
+  })
 })

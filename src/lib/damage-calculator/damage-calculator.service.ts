@@ -7,7 +7,7 @@ import { Move } from "@lib/model/move"
 import { Pokemon } from "@lib/model/pokemon"
 import { SmogonPokemonBuilder } from "@lib/smogon/smogon-pokemon-builder"
 import { SpeedCalculatorService } from "@lib/speed-calculator/speed-calculator-service"
-import { calculate, Generations, Move as MoveSmogon, Result } from "@robsonbittencourt/calc"
+import { calculate, Generations, Move as MoveSmogon, Result, StatID } from "@robsonbittencourt/calc"
 
 @Injectable({
   providedIn: "root"
@@ -47,7 +47,7 @@ export class DamageCalculatorService {
 
     const koChance = this.koChance(firstResult)
     const maxPercentageDamage = this.maxPercentageDamage(firstResult)
-    const damageDescription = this.damageDescriptionWithTwo(firstResult, secondResult)
+    const damageDescription = this.damageDescriptionWithTwo(firstResult, secondResult, target)
 
     return new DamageResult(firstBySpeed, target, firstBySpeed.move.name, firstResult.moveDesc(), koChance, maxPercentageDamage, damageDescription, firstRolls, secondBySpeed, secondRolls)
   }
@@ -121,13 +121,13 @@ export class DamageCalculatorService {
     }
   }
 
-  private damageDescriptionWithTwo(resultOne: Result, resultTwo: Result): string {
+  private damageDescriptionWithTwo(resultOne: Result, resultTwo: Result, defender: Pokemon): string {
     try {
       const attackerDescription = resultOne.desc().substring(0, resultOne.desc().indexOf(" vs."))
       const secondAttackerDescritption = resultTwo.desc().substring(0, resultTwo.desc().indexOf(" vs."))
       const defenderDescription = resultOne.desc().substring(resultOne.desc().indexOf(" vs.") + 5)
 
-      const defenderBulk = this.mergeBulkStats(resultOne, resultTwo)
+      const defenderBulk = this.mergeBulkStats(resultOne, resultTwo, defender)
       const tera = resultOne.defender.teraType ? `Tera ${resultOne.defender.teraType} ` : ""
       const defenderNameAndDamage = defenderDescription.substring(defenderDescription.indexOf(resultOne.defender.name))
 
@@ -137,24 +137,55 @@ export class DamageCalculatorService {
     }
   }
 
-  private mergeBulkStats(resultOne: Result, resultTwo: Result): string {
+  private mergeBulkStats(resultOne: Result, resultTwo: Result, defender: Pokemon): string {
     const resultOneDefenderDesc = resultOne.desc().substring(resultOne.desc().indexOf(" vs.") + 5)
     const resultTwoDefenderDesc = resultTwo.desc().substring(resultTwo.desc().indexOf(" vs.") + 5)
 
     let output = `${resultOne.defender.evs.hp} HP`
 
-    if (resultOneDefenderDesc.includes("Def") || resultTwoDefenderDesc.includes("Def")) {
-      output += ` / ${resultOne.defender.evs.def} Def`
-    }
-
-    if (resultOneDefenderDesc.includes("SpD") || resultTwoDefenderDesc.includes("SpD")) {
-      output += ` / ${resultOne.defender.evs.spd} SpD`
-    }
+    output += this.modifyStat(defender, resultOneDefenderDesc, resultTwoDefenderDesc, "def", "Def")
+    output += this.modifyStat(defender, resultOneDefenderDesc, resultTwoDefenderDesc, "spd", "SpD")
 
     if (resultOneDefenderDesc.includes(resultOne.defender.item!) || resultTwoDefenderDesc.includes(resultTwo.defender.item!)) {
       output += ` ${resultOne.defender.item}`
     }
 
     return output
+  }
+
+  private modifyStat(defender: Pokemon, resultOneDefenderDesc: string, resultTwoDefenderDesc: string, stat: StatID, statText: string) {
+    let output = ""
+
+    if (resultOneDefenderDesc.includes(statText) || resultTwoDefenderDesc.includes(statText)) {
+      output += ` /`
+      output += this.boostByStat(defender, stat)
+      output += ` ${defender.evs[stat]}`
+      output += this.natureModifier(defender, stat)
+      output += ` ${statText}`
+    }
+
+    return output
+  }
+
+  private boostByStat(pokemon: Pokemon, stat: StatID): string {
+    if (pokemon.boosts[stat] && pokemon.boosts[stat] > 0) {
+      return ` +${pokemon.boosts[stat]}`
+    }
+
+    if (pokemon.boosts[stat] && pokemon.boosts[stat] < 0) {
+      return ` ${pokemon.boosts[stat]}`
+    }
+
+    return ""
+  }
+
+  private natureModifier(pokemon: Pokemon, stat: StatID) {
+    if (stat == "def" && ["Bold", "Impish", "Lax", "Relaxed"].includes(pokemon.nature)) return "+"
+    if (stat == "def" && ["Lonely", "Mild", "Gentle", "Hasty"].includes(pokemon.nature)) return "-"
+
+    if (stat == "spd" && ["Calm", "Gentle", "Careful", "Sassy"].includes(pokemon.nature)) return "+"
+    if (stat == "spd" && ["Naughty", "Lax", "Rash", "Naive"].includes(pokemon.nature)) return "-"
+
+    return ""
   }
 }
