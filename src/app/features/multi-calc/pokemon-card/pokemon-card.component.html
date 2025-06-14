@@ -13,11 +13,11 @@
       <div class="combine-buttons">
         @if (isAttacker() && !isDefaultDefender()) {
           @if (!damageResult().secondAttacker) {
-            <div class="combine-buttons handle" cdkDragHandle matTooltip="Combine" [matTooltipShowDelay]="500" [attr.data-cy]="moveCardSelector()">
+            <div class="handle" cdkDragHandle matTooltip="Combine" [matTooltipShowDelay]="500" [attr.data-cy]="moveCardSelector()">
               <mat-icon>open_with</mat-icon>
             </div>
           } @else {
-            <div class="combine-buttons pointer" (click)="separateAttackers()" matTooltip="Separate" [matTooltipShowDelay]="500" [attr.data-cy]="separateCardSelector()">
+            <div class="pointer" (click)="separateAttackers()" matTooltip="Separate" [matTooltipShowDelay]="500" [attr.data-cy]="separateCardSelector()">
               <mat-icon>move_down</mat-icon>
             </div>
           }
