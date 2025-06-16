@@ -1,3 +1,5 @@
+import { ABILITY_DETAILS } from "@data/abilities/abiliity-details"
+import { AbilityName } from "@data/abilities/ability-name"
 import { ITEM_DETAILS } from "../items/item-details"
 import { MOVE_DETAILS } from "../moves/move-details"
 import { MoveName } from "../moves/move-name"
@@ -66,24 +68,28 @@ export class AllPokemon {
       })
 
       const item = ITEM_DETAILS["assaultvest"]
+      const ability = ABILITY_DETAILS["serenegrace"]
 
       console.log(`${item.name} --- ${item.description}`)
+      console.log(`${ability.name} --- ${ability.description}`)
     }
 
-    return Object.values(Pokedex).find(p => p.name == name)!.abilities
+    return Object.values(Pokedex)
+      .find(p => p.name == name)!
+      .abilities.map(a => ABILITY_DETAILS[a].name)
   }
 }
 
 interface SpeciesData {
   name: string
-  abilities: string[]
+  abilities: AbilityName[]
   learnset: MoveName[]
 }
 
 export const Pokedex: Record<PokemonName, SpeciesData> = {
   bulbasaur: {
     name: "Bulbasaur",
-    abilities: ["Overgrow", "Chlorophyll"],
+    abilities: ["overgrow", "chlorophyll"],
     learnset: [
       "acidspray",
       "bodyslam",
@@ -137,7 +143,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   ivysaur: {
     name: "Ivysaur",
-    abilities: ["Overgrow", "Chlorophyll"],
+    abilities: ["overgrow", "chlorophyll"],
     learnset: [
       "acidspray",
       "bodyslam",
@@ -190,7 +196,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   venusaur: {
     name: "Venusaur",
-    abilities: ["Overgrow", "Chlorophyll"],
+    abilities: ["overgrow", "chlorophyll"],
     learnset: [
       "acidspray",
       "amnesia",
@@ -255,7 +261,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   charmander: {
     name: "Charmander",
-    abilities: ["Blaze", "Solar Power"],
+    abilities: ["blaze", "solarpower"],
     learnset: [
       "ancientpower",
       "bellydrum",
@@ -320,7 +326,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   charmeleon: {
     name: "Charmeleon",
-    abilities: ["Blaze", "Solar Power"],
+    abilities: ["blaze", "solarpower"],
     learnset: [
       "bodyslam",
       "breakingswipe",
@@ -378,7 +384,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   charizard: {
     name: "Charizard",
-    abilities: ["Blaze", "Solar Power"],
+    abilities: ["blaze", "solarpower"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -453,7 +459,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   squirtle: {
     name: "Squirtle",
-    abilities: ["Torrent", "Rain Dish"],
+    abilities: ["torrent", "raindish"],
     learnset: [
       "aquajet",
       "aquaring",
@@ -513,7 +519,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   wartortle: {
     name: "Wartortle",
-    abilities: ["Torrent", "Rain Dish"],
+    abilities: ["torrent", "raindish"],
     learnset: [
       "aquatail",
       "bite",
@@ -564,7 +570,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   blastoise: {
     name: "Blastoise",
-    abilities: ["Torrent", "Rain Dish"],
+    abilities: ["torrent", "raindish"],
     learnset: [
       "aquatail",
       "aurasphere",
@@ -632,7 +638,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   ekans: {
     name: "Ekans",
-    abilities: ["Intimidate", "Shed Skin", "Unnerve"],
+    abilities: ["intimidate", "shedskin", "unnerve"],
     learnset: [
       "acid",
       "acidspray",
@@ -697,7 +703,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   arbok: {
     name: "Arbok",
-    abilities: ["Intimidate", "Shed Skin", "Unnerve"],
+    abilities: ["intimidate", "shedskin", "unnerve"],
     learnset: [
       "acid",
       "acidspray",
@@ -770,7 +776,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   pikachu: {
     name: "Pikachu",
-    abilities: ["Static", "Lightning Rod"],
+    abilities: ["static", "lightningrod"],
     learnset: [
       "agility",
       "alluringvoice",
@@ -838,7 +844,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   raichu: {
     name: "Raichu",
-    abilities: ["Static", "Lightning Rod"],
+    abilities: ["static", "lightningrod"],
     learnset: [
       "agility",
       "alluringvoice",
@@ -906,7 +912,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   raichualola: {
     name: "Raichu-Alola",
-    abilities: ["Surge Surfer"],
+    abilities: ["surgesurfer"],
     learnset: [
       "agility",
       "alluringvoice",
@@ -981,7 +987,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   sandshrew: {
     name: "Sandshrew",
-    abilities: ["Sand Veil", "Sand Rush"],
+    abilities: ["sandveil", "sandrush"],
     learnset: [
       "aerialace",
       "agility",
@@ -1050,7 +1056,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   sandshrewalola: {
     name: "Sandshrew-Alola",
-    abilities: ["Snow Cloak", "Slush Rush"],
+    abilities: ["snowcloak", "slushrush"],
     learnset: [
       "aerialace",
       "amnesia",
@@ -1121,7 +1127,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   sandslash: {
     name: "Sandslash",
-    abilities: ["Sand Veil", "Sand Rush"],
+    abilities: ["sandveil", "sandrush"],
     learnset: [
       "aerialace",
       "agility",
@@ -1192,7 +1198,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   sandslashalola: {
     name: "Sandslash-Alola",
-    abilities: ["Snow Cloak", "Slush Rush"],
+    abilities: ["snowcloak", "slushrush"],
     learnset: [
       "aerialace",
       "agility",
@@ -1265,7 +1271,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   clefairy: {
     name: "Clefairy",
-    abilities: ["Cute Charm", "Magic Guard", "Friend Guard"],
+    abilities: ["cutecharm", "magicguard", "friendguard"],
     learnset: [
       "afteryou",
       "alluringvoice",
@@ -1358,7 +1364,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   clefable: {
     name: "Clefable",
-    abilities: ["Cute Charm", "Magic Guard", "Unaware"],
+    abilities: ["cutecharm", "magicguard", "unaware"],
     learnset: [
       "afteryou",
       "alluringvoice",
@@ -1455,7 +1461,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   vulpix: {
     name: "Vulpix",
-    abilities: ["Flash Fire", "Drought"],
+    abilities: ["flashfire", "drought"],
     learnset: [
       "agility",
       "babydolleyes",
@@ -1516,7 +1522,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   vulpixalola: {
     name: "Vulpix-Alola",
-    abilities: ["Snow Cloak", "Snow Warning"],
+    abilities: ["snowcloak", "snowwarning"],
     learnset: [
       "agility",
       "aurorabeam",
@@ -1579,7 +1585,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   ninetales: {
     name: "Ninetales",
-    abilities: ["Flash Fire", "Drought"],
+    abilities: ["flashfire", "drought"],
     learnset: [
       "agility",
       "batonpass",
@@ -1644,7 +1650,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   ninetalesalola: {
     name: "Ninetales-Alola",
-    abilities: ["Snow Cloak", "Snow Warning"],
+    abilities: ["snowcloak", "snowwarning"],
     learnset: [
       "agility",
       "aurorabeam",
@@ -1708,7 +1714,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   jigglypuff: {
     name: "Jigglypuff",
-    abilities: ["Cute Charm", "Competitive", "Friend Guard"],
+    abilities: ["cutecharm", "competitive", "friendguard"],
     learnset: [
       "alluringvoice",
       "amnesia",
@@ -1804,7 +1810,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   wigglytuff: {
     name: "Wigglytuff",
-    abilities: ["Cute Charm", "Competitive", "Frisk"],
+    abilities: ["cutecharm", "competitive", "frisk"],
     learnset: [
       "alluringvoice",
       "amnesia",
@@ -1904,7 +1910,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   oddish: {
     name: "Oddish",
-    abilities: ["Chlorophyll", "Run Away"],
+    abilities: ["chlorophyll", "runaway"],
     learnset: [
       "absorb",
       "acid",
@@ -1956,7 +1962,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   gloom: {
     name: "Gloom",
-    abilities: ["Chlorophyll", "Stench"],
+    abilities: ["chlorophyll", "stench"],
     learnset: [
       "absorb",
       "acid",
@@ -2001,7 +2007,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   vileplume: {
     name: "Vileplume",
-    abilities: ["Chlorophyll", "Effect Spore"],
+    abilities: ["chlorophyll", "effectspore"],
     learnset: [
       "absorb",
       "acid",
@@ -2054,7 +2060,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   venonat: {
     name: "Venonat",
-    abilities: ["Compound Eyes", "Tinted Lens", "Run Away"],
+    abilities: ["compoundeyes", "tintedlens", "runaway"],
     learnset: [
       "acidspray",
       "agility",
@@ -2107,7 +2113,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   venomoth: {
     name: "Venomoth",
-    abilities: ["Shield Dust", "Tinted Lens", "Wonder Skin"],
+    abilities: ["shielddust", "tintedlens", "wonderskin"],
     learnset: [
       "acidspray",
       "acrobatics",
@@ -2166,7 +2172,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   diglett: {
     name: "Diglett",
-    abilities: ["Sand Veil", "Arena Trap", "Sand Force"],
+    abilities: ["sandveil", "arenatrap", "sandforce"],
     learnset: [
       "agility",
       "ancientpower",
@@ -2224,7 +2230,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   diglettalola: {
     name: "Diglett-Alola",
-    abilities: ["Sand Veil", "Tangling Hair", "Sand Force"],
+    abilities: ["sandveil", "tanglinghair", "sandforce"],
     learnset: [
       "agility",
       "ancientpower",
@@ -2283,7 +2289,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   dugtrio: {
     name: "Dugtrio",
-    abilities: ["Sand Veil", "Arena Trap", "Sand Force"],
+    abilities: ["sandveil", "arenatrap", "sandforce"],
     learnset: [
       "agility",
       "astonish",
@@ -2342,7 +2348,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   dugtrioalola: {
     name: "Dugtrio-Alola",
-    abilities: ["Sand Veil", "Tangling Hair", "Sand Force"],
+    abilities: ["sandveil", "tanglinghair", "sandforce"],
     learnset: [
       "agility",
       "astonish",
@@ -2405,7 +2411,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   meowth: {
     name: "Meowth",
-    abilities: ["Pickup", "Technician", "Unnerve"],
+    abilities: ["pickup", "technician", "unnerve"],
     learnset: [
       "aerialace",
       "agility",
@@ -2475,7 +2481,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   meowthalola: {
     name: "Meowth-Alola",
-    abilities: ["Pickup", "Technician", "Rattled"],
+    abilities: ["pickup", "technician", "rattled"],
     learnset: [
       "aerialace",
       "agility",
@@ -2545,7 +2551,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   meowthgalar: {
     name: "Meowth-Galar",
-    abilities: ["Pickup", "Tough Claws", "Unnerve"],
+    abilities: ["pickup", "toughclaws", "unnerve"],
     learnset: [
       "aerialace",
       "amnesia",
@@ -2618,7 +2624,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   persian: {
     name: "Persian",
-    abilities: ["Limber", "Technician", "Unnerve"],
+    abilities: ["limber", "technician", "unnerve"],
     learnset: [
       "aerialace",
       "agility",
@@ -2688,7 +2694,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   persianalola: {
     name: "Persian-Alola",
-    abilities: ["Fur Coat", "Technician", "Rattled"],
+    abilities: ["furcoat", "technician", "rattled"],
     learnset: [
       "aerialace",
       "agility",
@@ -2761,7 +2767,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   psyduck: {
     name: "Psyduck",
-    abilities: ["Damp", "Cloud Nine", "Swift Swim"],
+    abilities: ["damp", "cloudnine", "swiftswim"],
     learnset: [
       "amnesia",
       "aquatail",
@@ -2837,7 +2843,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   golduck: {
     name: "Golduck",
-    abilities: ["Damp", "Cloud Nine", "Swift Swim"],
+    abilities: ["damp", "cloudnine", "swiftswim"],
     learnset: [
       "amnesia",
       "aquajet",
@@ -2915,7 +2921,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   mankey: {
     name: "Mankey",
-    abilities: ["Vital Spirit", "Anger Point", "Defiant"],
+    abilities: ["vitalspirit", "angerpoint", "defiant"],
     learnset: [
       "acrobatics",
       "assurance",
@@ -2990,7 +2996,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   primeape: {
     name: "Primeape",
-    abilities: ["Vital Spirit", "Anger Point", "Defiant"],
+    abilities: ["vitalspirit", "angerpoint", "defiant"],
     learnset: [
       "acrobatics",
       "assurance",
@@ -3068,7 +3074,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   growlithe: {
     name: "Growlithe",
-    abilities: ["Intimidate", "Flash Fire", "Justified"],
+    abilities: ["intimidate", "flashfire", "justified"],
     learnset: [
       "agility",
       "bite",
@@ -3124,7 +3130,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   growlithehisui: {
     name: "Growlithe-Hisui",
-    abilities: ["Intimidate", "Flash Fire", "Rock Head"],
+    abilities: ["intimidate", "flashfire", "rockhead"],
     learnset: [
       "agility",
       "bite",
@@ -3184,7 +3190,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   arcanine: {
     name: "Arcanine",
-    abilities: ["Intimidate", "Flash Fire", "Justified"],
+    abilities: ["intimidate", "flashfire", "justified"],
     learnset: [
       "aerialace",
       "agility",
@@ -3246,7 +3252,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   arcaninehisui: {
     name: "Arcanine-Hisui",
-    abilities: ["Intimidate", "Flash Fire", "Rock Head"],
+    abilities: ["intimidate", "flashfire", "rockhead"],
     learnset: [
       "aerialace",
       "agility",
@@ -3315,7 +3321,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   poliwag: {
     name: "Poliwag",
-    abilities: ["Water Absorb", "Damp", "Swift Swim"],
+    abilities: ["waterabsorb", "damp", "swiftswim"],
     learnset: [
       "amnesia",
       "bellydrum",
@@ -3366,7 +3372,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   poliwhirl: {
     name: "Poliwhirl",
-    abilities: ["Water Absorb", "Damp", "Swift Swim"],
+    abilities: ["waterabsorb", "damp", "swiftswim"],
     learnset: [
       "amnesia",
       "bellydrum",
@@ -3422,7 +3428,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   poliwrath: {
     name: "Poliwrath",
-    abilities: ["Water Absorb", "Damp", "Swift Swim"],
+    abilities: ["waterabsorb", "damp", "swiftswim"],
     learnset: [
       "amnesia",
       "batonpass",
@@ -3499,7 +3505,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   bellsprout: {
     name: "Bellsprout",
-    abilities: ["Chlorophyll", "Gluttony"],
+    abilities: ["chlorophyll", "gluttony"],
     learnset: [
       "acid",
       "acidspray",
@@ -3558,7 +3564,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   weepinbell: {
     name: "Weepinbell",
-    abilities: ["Chlorophyll", "Gluttony"],
+    abilities: ["chlorophyll", "gluttony"],
     learnset: [
       "acid",
       "acidspray",
@@ -3613,7 +3619,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   victreebel: {
     name: "Victreebel",
-    abilities: ["Chlorophyll", "Gluttony"],
+    abilities: ["chlorophyll", "gluttony"],
     learnset: [
       "acidspray",
       "bodyslam",
@@ -3669,7 +3675,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   tentacool: {
     name: "Tentacool",
-    abilities: ["Clear Body", "Liquid Ooze", "Rain Dish"],
+    abilities: ["clearbody", "liquidooze", "raindish"],
     learnset: [
       "acid",
       "acidarmor",
@@ -3728,7 +3734,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   tentacruel: {
     name: "Tentacruel",
-    abilities: ["Clear Body", "Liquid Ooze", "Rain Dish"],
+    abilities: ["clearbody", "liquidooze", "raindish"],
     learnset: [
       "acid",
       "acidarmor",
@@ -3787,7 +3793,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   geodude: {
     name: "Geodude",
-    abilities: ["Rock Head", "Sturdy", "Sand Veil"],
+    abilities: ["rockhead", "sturdy", "sandveil"],
     learnset: [
       "block",
       "bodyslam",
@@ -3844,7 +3850,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   geodudealola: {
     name: "Geodude-Alola",
-    abilities: ["Magnet Pull", "Sturdy", "Galvanize"],
+    abilities: ["magnetpull", "sturdy", "galvanize"],
     learnset: [
       "block",
       "bodyslam",
@@ -3909,7 +3915,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   graveler: {
     name: "Graveler",
-    abilities: ["Rock Head", "Sturdy", "Sand Veil"],
+    abilities: ["rockhead", "sturdy", "sandveil"],
     learnset: [
       "bodypress",
       "bodyslam",
@@ -3965,7 +3971,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   graveleralola: {
     name: "Graveler-Alola",
-    abilities: ["Magnet Pull", "Sturdy", "Galvanize"],
+    abilities: ["magnetpull", "sturdy", "galvanize"],
     learnset: [
       "bodyslam",
       "brickbreak",
@@ -4030,7 +4036,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   golem: {
     name: "Golem",
-    abilities: ["Rock Head", "Sturdy", "Sand Veil"],
+    abilities: ["rockhead", "sturdy", "sandveil"],
     learnset: [
       "bodypress",
       "bodyslam",
@@ -4088,7 +4094,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   golemalola: {
     name: "Golem-Alola",
-    abilities: ["Magnet Pull", "Sturdy", "Galvanize"],
+    abilities: ["magnetpull", "sturdy", "galvanize"],
     learnset: [
       "bodypress",
       "bodyslam",
@@ -4158,7 +4164,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   slowpoke: {
     name: "Slowpoke",
-    abilities: ["Oblivious", "Own Tempo", "Regenerator"],
+    abilities: ["oblivious", "owntempo", "regenerator"],
     learnset: [
       "amnesia",
       "avalanche",
@@ -4229,7 +4235,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   slowpokegalar: {
     name: "Slowpoke-Galar",
-    abilities: ["Gluttony", "Own Tempo", "Regenerator"],
+    abilities: ["gluttony", "owntempo", "regenerator"],
     learnset: [
       "acid",
       "amnesia",
@@ -4300,7 +4306,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   slowbro: {
     name: "Slowbro",
-    abilities: ["Oblivious", "Own Tempo", "Regenerator"],
+    abilities: ["oblivious", "owntempo", "regenerator"],
     learnset: [
       "amnesia",
       "avalanche",
@@ -4384,7 +4390,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   slowbrogalar: {
     name: "Slowbro-Galar",
-    abilities: ["Quick Draw", "Own Tempo", "Regenerator"],
+    abilities: ["quickdraw", "owntempo", "regenerator"],
     learnset: [
       "acid",
       "acidspray",
@@ -4480,7 +4486,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   magnemite: {
     name: "Magnemite",
-    abilities: ["Magnet Pull", "Sturdy", "Analytic"],
+    abilities: ["magnetpull", "sturdy", "analytic"],
     learnset: [
       "charge",
       "chargebeam",
@@ -4531,7 +4537,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   magneton: {
     name: "Magneton",
-    abilities: ["Magnet Pull", "Sturdy", "Analytic"],
+    abilities: ["magnetpull", "sturdy", "analytic"],
     learnset: [
       "charge",
       "chargebeam",
@@ -4583,7 +4589,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   doduo: {
     name: "Doduo",
-    abilities: ["Run Away", "Early Bird", "Tangled Feet"],
+    abilities: ["runaway", "earlybird", "tangledfeet"],
     learnset: [
       "acrobatics",
       "acupressure",
@@ -4632,7 +4638,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   dodrio: {
     name: "Dodrio",
-    abilities: ["Run Away", "Early Bird", "Tangled Feet"],
+    abilities: ["runaway", "earlybird", "tangledfeet"],
     learnset: [
       "acrobatics",
       "acupressure",
@@ -4687,7 +4693,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   seel: {
     name: "Seel",
-    abilities: ["Thick Fat", "Hydration", "Ice Body"],
+    abilities: ["thickfat", "hydration", "icebody"],
     learnset: [
       "aquajet",
       "aquaring",
@@ -4751,7 +4757,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   dewgong: {
     name: "Dewgong",
-    abilities: ["Thick Fat", "Hydration", "Ice Body"],
+    abilities: ["thickfat", "hydration", "icebody"],
     learnset: [
       "alluringvoice",
       "aquajet",
@@ -4813,7 +4819,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   grimer: {
     name: "Grimer",
-    abilities: ["Stench", "Sticky Hold", "Poison Touch"],
+    abilities: ["stench", "stickyhold", "poisontouch"],
     learnset: [
       "acidarmor",
       "acidspray",
@@ -4882,7 +4888,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   grimeralola: {
     name: "Grimer-Alola",
-    abilities: ["Poison Touch", "Gluttony", "Power of Alchemy"],
+    abilities: ["poisontouch", "gluttony", "powerofalchemy"],
     learnset: [
       "acidarmor",
       "acidspray",
@@ -4962,7 +4968,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   muk: {
     name: "Muk",
-    abilities: ["Stench", "Sticky Hold", "Poison Touch"],
+    abilities: ["stench", "stickyhold", "poisontouch"],
     learnset: [
       "acidarmor",
       "acidspray",
@@ -5037,7 +5043,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   mukalola: {
     name: "Muk-Alola",
-    abilities: ["Poison Touch", "Gluttony", "Power of Alchemy"],
+    abilities: ["poisontouch", "gluttony", "powerofalchemy"],
     learnset: [
       "acidarmor",
       "acidspray",
@@ -5113,7 +5119,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   shellder: {
     name: "Shellder",
-    abilities: ["Shell Armor", "Skill Link", "Overcoat"],
+    abilities: ["shellarmor", "skilllink", "overcoat"],
     learnset: [
       "aquaring",
       "aurorabeam",
@@ -5161,7 +5167,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   cloyster: {
     name: "Cloyster",
-    abilities: ["Shell Armor", "Skill Link", "Overcoat"],
+    abilities: ["shellarmor", "skilllink", "overcoat"],
     learnset: [
       "aurorabeam",
       "avalanche",
@@ -5216,7 +5222,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   gastly: {
     name: "Gastly",
-    abilities: ["Levitate"],
+    abilities: ["levitate"],
     learnset: [
       "acidspray",
       "astonish",
@@ -5283,7 +5289,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   haunter: {
     name: "Haunter",
-    abilities: ["Levitate"],
+    abilities: ["levitate"],
     learnset: [
       "acidspray",
       "confuseray",
@@ -5352,7 +5358,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   gengar: {
     name: "Gengar",
-    abilities: ["Cursed Body"],
+    abilities: ["cursedbody"],
     learnset: [
       "acidspray",
       "bodyslam",
@@ -5432,7 +5438,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   drowzee: {
     name: "Drowzee",
-    abilities: ["Insomnia", "Forewarn", "Inner Focus"],
+    abilities: ["insomnia", "forewarn", "innerfocus"],
     learnset: [
       "bodyslam",
       "brickbreak",
@@ -5509,7 +5515,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   hypno: {
     name: "Hypno",
-    abilities: ["Insomnia", "Forewarn", "Inner Focus"],
+    abilities: ["insomnia", "forewarn", "innerfocus"],
     learnset: [
       "batonpass",
       "bodypress",
@@ -5589,7 +5595,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   voltorb: {
     name: "Voltorb",
-    abilities: ["Soundproof", "Static", "Aftermath"],
+    abilities: ["soundproof", "static", "aftermath"],
     learnset: [
       "agility",
       "charge",
@@ -5636,7 +5642,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   voltorbhisui: {
     name: "Voltorb-Hisui",
-    abilities: ["Soundproof", "Static", "Aftermath"],
+    abilities: ["soundproof", "static", "aftermath"],
     learnset: [
       "agility",
       "bulletseed",
@@ -5689,7 +5695,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   electrode: {
     name: "Electrode",
-    abilities: ["Soundproof", "Static", "Aftermath"],
+    abilities: ["soundproof", "static", "aftermath"],
     learnset: [
       "agility",
       "charge",
@@ -5741,7 +5747,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   electrodehisui: {
     name: "Electrode-Hisui",
-    abilities: ["Soundproof", "Static", "Aftermath"],
+    abilities: ["soundproof", "static", "aftermath"],
     learnset: [
       "agility",
       "bulletseed",
@@ -5797,7 +5803,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   exeggcute: {
     name: "Exeggcute",
-    abilities: ["Chlorophyll", "Harvest"],
+    abilities: ["chlorophyll", "harvest"],
     learnset: [
       "absorb",
       "ancientpower",
@@ -5853,7 +5859,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   exeggutor: {
     name: "Exeggutor",
-    abilities: ["Chlorophyll", "Harvest"],
+    abilities: ["chlorophyll", "harvest"],
     learnset: [
       "absorb",
       "bodyslam",
@@ -5921,7 +5927,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   exeggutoralola: {
     name: "Exeggutor-Alola",
-    abilities: ["Frisk", "Harvest"],
+    abilities: ["frisk", "harvest"],
     learnset: [
       "absorb",
       "bodyslam",
@@ -5998,7 +6004,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   hitmonlee: {
     name: "Hitmonlee",
-    abilities: ["Limber", "Reckless", "Unburden"],
+    abilities: ["limber", "reckless", "unburden"],
     learnset: [
       "aurasphere",
       "axekick",
@@ -6061,7 +6067,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   hitmonchan: {
     name: "Hitmonchan",
-    abilities: ["Keen Eye", "Iron Fist", "Inner Focus"],
+    abilities: ["keeneye", "ironfist", "innerfocus"],
     learnset: [
       "agility",
       "aurasphere",
@@ -6129,7 +6135,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   koffing: {
     name: "Koffing",
-    abilities: ["Levitate", "Neutralizing Gas", "Stench"],
+    abilities: ["levitate", "neutralizinggas", "stench"],
     learnset: [
       "acidspray",
       "assurance",
@@ -6184,7 +6190,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   weezing: {
     name: "Weezing",
-    abilities: ["Levitate", "Neutralizing Gas", "Stench"],
+    abilities: ["levitate", "neutralizinggas", "stench"],
     learnset: [
       "acidspray",
       "assurance",
@@ -6240,7 +6246,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   weezinggalar: {
     name: "Weezing-Galar",
-    abilities: ["Levitate", "Neutralizing Gas", "Misty Surge"],
+    abilities: ["levitate", "neutralizinggas", "mistysurge"],
     learnset: [
       "acidspray",
       "aromaticmist",
@@ -6306,7 +6312,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   rhyhorn: {
     name: "Rhyhorn",
-    abilities: ["Lightning Rod", "Rock Head", "Reckless"],
+    abilities: ["lightningrod", "rockhead", "reckless"],
     learnset: [
       "blizzard",
       "bodypress",
@@ -6377,7 +6383,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   rhydon: {
     name: "Rhydon",
-    abilities: ["Lightning Rod", "Rock Head", "Reckless"],
+    abilities: ["lightningrod", "rockhead", "reckless"],
     learnset: [
       "avalanche",
       "blizzard",
@@ -6463,7 +6469,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   chansey: {
     name: "Chansey",
-    abilities: ["Natural Cure", "Serene Grace", "Healer"],
+    abilities: ["naturalcure", "serenegrace", "healer"],
     learnset: [
       "blizzard",
       "bodyslam",
@@ -6543,7 +6549,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   horsea: {
     name: "Horsea",
-    abilities: ["Swift Swim", "Sniper", "Damp"],
+    abilities: ["swiftswim", "sniper", "damp"],
     learnset: [
       "agility",
       "aurorabeam",
@@ -6589,7 +6595,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   seadra: {
     name: "Seadra",
-    abilities: ["Poison Point", "Sniper", "Damp"],
+    abilities: ["poisonpoint", "sniper", "damp"],
     learnset: [
       "agility",
       "blizzard",
@@ -6634,7 +6640,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   scyther: {
     name: "Scyther",
-    abilities: ["Swarm", "Technician", "Steadfast"],
+    abilities: ["swarm", "technician", "steadfast"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -6693,7 +6699,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   electabuzz: {
     name: "Electabuzz",
-    abilities: ["Static", "Vital Spirit"],
+    abilities: ["static", "vitalspirit"],
     learnset: [
       "bodyslam",
       "brickbreak",
@@ -6751,7 +6757,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   magmar: {
     name: "Magmar",
-    abilities: ["Flame Body", "Vital Spirit"],
+    abilities: ["flamebody", "vitalspirit"],
     learnset: [
       "acidspray",
       "bodyslam",
@@ -6810,7 +6816,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   tauros: {
     name: "Tauros",
-    abilities: ["Intimidate", "Anger Point", "Sheer Force"],
+    abilities: ["intimidate", "angerpoint", "sheerforce"],
     learnset: [
       "assurance",
       "blizzard",
@@ -6873,7 +6879,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   taurospaldeacombat: {
     name: "Tauros-Paldea-Combat",
-    abilities: ["Intimidate", "Anger Point", "Cud Chew"],
+    abilities: ["intimidate", "angerpoint", "cudchew"],
     learnset: [
       "assurance",
       "bodypress",
@@ -6929,7 +6935,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   taurospaldeablaze: {
     name: "Tauros-Paldea-Blaze",
-    abilities: ["Intimidate", "Anger Point", "Cud Chew"],
+    abilities: ["intimidate", "angerpoint", "cudchew"],
     learnset: [
       "bodypress",
       "bodyslam",
@@ -6990,7 +6996,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   taurospaldeaaqua: {
     name: "Tauros-Paldea-Aqua",
-    abilities: ["Intimidate", "Anger Point", "Cud Chew"],
+    abilities: ["intimidate", "angerpoint", "cudchew"],
     learnset: [
       "aquajet",
       "bodypress",
@@ -7050,12 +7056,12 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   magikarp: {
     name: "Magikarp",
-    abilities: ["Swift Swim", "Rattled"],
+    abilities: ["swiftswim", "rattled"],
     learnset: ["flail", "splash", "tackle"]
   },
   gyarados: {
     name: "Gyarados",
-    abilities: ["Intimidate", "Moxie"],
+    abilities: ["intimidate", "moxie"],
     learnset: [
       "aquatail",
       "avalanche",
@@ -7124,7 +7130,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   lapras: {
     name: "Lapras",
-    abilities: ["Water Absorb", "Shell Armor", "Hydration"],
+    abilities: ["waterabsorb", "shellarmor", "hydration"],
     learnset: [
       "alluringvoice",
       "ancientpower",
@@ -7197,12 +7203,12 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   ditto: {
     name: "Ditto",
-    abilities: ["Limber", "Imposter"],
+    abilities: ["limber", "imposter"],
     learnset: ["transform"]
   },
   eevee: {
     name: "Eevee",
-    abilities: ["Run Away", "Adaptability", "Anticipation"],
+    abilities: ["runaway", "adaptability", "anticipation"],
     learnset: [
       "alluringvoice",
       "babydolleyes",
@@ -7252,7 +7258,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   vaporeon: {
     name: "Vaporeon",
-    abilities: ["Water Absorb", "Hydration"],
+    abilities: ["waterabsorb", "hydration"],
     learnset: [
       "acidarmor",
       "alluringvoice",
@@ -7316,7 +7322,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   jolteon: {
     name: "Jolteon",
-    abilities: ["Volt Absorb", "Quick Feet"],
+    abilities: ["voltabsorb", "quickfeet"],
     learnset: [
       "agility",
       "alluringvoice",
@@ -7381,7 +7387,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   flareon: {
     name: "Flareon",
-    abilities: ["Flash Fire", "Guts"],
+    abilities: ["flashfire", "guts"],
     learnset: [
       "alluringvoice",
       "babydolleyes",
@@ -7444,7 +7450,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   porygon: {
     name: "Porygon",
-    abilities: ["Trace", "Download", "Analytic"],
+    abilities: ["trace", "download", "analytic"],
     learnset: [
       "agility",
       "blizzard",
@@ -7497,7 +7503,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   snorlax: {
     name: "Snorlax",
-    abilities: ["Immunity", "Thick Fat", "Gluttony"],
+    abilities: ["immunity", "thickfat", "gluttony"],
     learnset: [
       "amnesia",
       "belch",
@@ -7583,7 +7589,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   articuno: {
     name: "Articuno",
-    abilities: ["Pressure", "Snow Cloak"],
+    abilities: ["pressure", "snowcloak"],
     learnset: [
       "aerialace",
       "agility",
@@ -7638,7 +7644,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   articunogalar: {
     name: "Articuno-Galar",
-    abilities: ["Competitive"],
+    abilities: ["competitive"],
     learnset: [
       "agility",
       "aircutter",
@@ -7694,7 +7700,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   zapdos: {
     name: "Zapdos",
-    abilities: ["Pressure", "Static"],
+    abilities: ["pressure", "static"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -7750,7 +7756,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   zapdosgalar: {
     name: "Zapdos-Galar",
-    abilities: ["Defiant"],
+    abilities: ["defiant"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -7806,7 +7812,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   moltres: {
     name: "Moltres",
-    abilities: ["Pressure", "Flame Body"],
+    abilities: ["pressure", "flamebody"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -7862,7 +7868,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   moltresgalar: {
     name: "Moltres-Galar",
-    abilities: ["Berserk"],
+    abilities: ["berserk"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -7918,7 +7924,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   dratini: {
     name: "Dratini",
-    abilities: ["Shed Skin", "Marvel Scale"],
+    abilities: ["shedskin", "marvelscale"],
     learnset: [
       "agility",
       "aquajet",
@@ -7977,7 +7983,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   dragonair: {
     name: "Dragonair",
-    abilities: ["Shed Skin", "Marvel Scale"],
+    abilities: ["shedskin", "marvelscale"],
     learnset: [
       "agility",
       "aquatail",
@@ -8032,7 +8038,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   dragonite: {
     name: "Dragonite",
-    abilities: ["Inner Focus", "Multiscale"],
+    abilities: ["innerfocus", "multiscale"],
     learnset: [
       "aerialace",
       "agility",
@@ -8120,7 +8126,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   mewtwo: {
     name: "Mewtwo",
-    abilities: ["Pressure", "Unnerve"],
+    abilities: ["pressure", "unnerve"],
     learnset: [
       "agility",
       "amnesia",
@@ -8228,7 +8234,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   mew: {
     name: "Mew",
-    abilities: ["Synchronize"],
+    abilities: ["synchronize"],
     learnset: [
       "acidspray",
       "acrobatics",
@@ -8468,7 +8474,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   chikorita: {
     name: "Chikorita",
-    abilities: ["Overgrow", "Leaf Guard"],
+    abilities: ["overgrow", "leafguard"],
     learnset: [
       "ancientpower",
       "bodyslam",
@@ -8521,7 +8527,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   bayleef: {
     name: "Bayleef",
-    abilities: ["Overgrow", "Leaf Guard"],
+    abilities: ["overgrow", "leafguard"],
     learnset: [
       "bodyslam",
       "bulletseed",
@@ -8570,7 +8576,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   meganium: {
     name: "Meganium",
-    abilities: ["Overgrow", "Leaf Guard"],
+    abilities: ["overgrow", "leafguard"],
     learnset: [
       "bodypress",
       "bodyslam",
@@ -8632,7 +8638,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   cyndaquil: {
     name: "Cyndaquil",
-    abilities: ["Blaze", "Flash Fire"],
+    abilities: ["blaze", "flashfire"],
     learnset: [
       "aerialace",
       "bodyslam",
@@ -8686,7 +8692,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   quilava: {
     name: "Quilava",
-    abilities: ["Blaze", "Flash Fire"],
+    abilities: ["blaze", "flashfire"],
     learnset: [
       "aerialace",
       "bodyslam",
@@ -8738,7 +8744,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   typhlosion: {
     name: "Typhlosion",
-    abilities: ["Blaze", "Flash Fire"],
+    abilities: ["blaze", "flashfire"],
     learnset: [
       "aerialace",
       "blastburn",
@@ -8811,7 +8817,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   typhlosionhisui: {
     name: "Typhlosion-Hisui",
-    abilities: ["Blaze", "Frisk"],
+    abilities: ["blaze", "frisk"],
     learnset: [
       "aerialace",
       "blastburn",
@@ -8886,7 +8892,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   totodile: {
     name: "Totodile",
-    abilities: ["Torrent", "Sheer Force"],
+    abilities: ["torrent", "sheerforce"],
     learnset: [
       "aerialace",
       "ancientpower",
@@ -8956,7 +8962,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   croconaw: {
     name: "Croconaw",
-    abilities: ["Torrent", "Sheer Force"],
+    abilities: ["torrent", "sheerforce"],
     learnset: [
       "aerialace",
       "aquatail",
@@ -9023,7 +9029,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   feraligatr: {
     name: "Feraligatr",
-    abilities: ["Torrent", "Sheer Force"],
+    abilities: ["torrent", "sheerforce"],
     learnset: [
       "aerialace",
       "agility",
@@ -9106,7 +9112,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   sentret: {
     name: "Sentret",
-    abilities: ["Run Away", "Keen Eye", "Frisk"],
+    abilities: ["runaway", "keeneye", "frisk"],
     learnset: [
       "amnesia",
       "babydolleyes",
@@ -9173,7 +9179,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   furret: {
     name: "Furret",
-    abilities: ["Run Away", "Keen Eye", "Frisk"],
+    abilities: ["runaway", "keeneye", "frisk"],
     learnset: [
       "agility",
       "amnesia",
@@ -9241,7 +9247,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   hoothoot: {
     name: "Hoothoot",
-    abilities: ["Insomnia", "Keen Eye", "Tinted Lens"],
+    abilities: ["insomnia", "keeneye", "tintedlens"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -9303,7 +9309,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   noctowl: {
     name: "Noctowl",
-    abilities: ["Insomnia", "Keen Eye", "Tinted Lens"],
+    abilities: ["insomnia", "keeneye", "tintedlens"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -9371,7 +9377,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   spinarak: {
     name: "Spinarak",
-    abilities: ["Swarm", "Insomnia", "Sniper"],
+    abilities: ["swarm", "insomnia", "sniper"],
     learnset: [
       "absorb",
       "acidspray",
@@ -9430,7 +9436,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   ariados: {
     name: "Ariados",
-    abilities: ["Swarm", "Insomnia", "Sniper"],
+    abilities: ["swarm", "insomnia", "sniper"],
     learnset: [
       "absorb",
       "acidspray",
@@ -9492,7 +9498,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   chinchou: {
     name: "Chinchou",
-    abilities: ["Volt Absorb", "Illuminate", "Water Absorb"],
+    abilities: ["voltabsorb", "illuminate", "waterabsorb"],
     learnset: [
       "agility",
       "amnesia",
@@ -9548,7 +9554,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   lanturn: {
     name: "Lanturn",
-    abilities: ["Volt Absorb", "Illuminate", "Water Absorb"],
+    abilities: ["voltabsorb", "illuminate", "waterabsorb"],
     learnset: [
       "agility",
       "amnesia",
@@ -9606,7 +9612,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   pichu: {
     name: "Pichu",
-    abilities: ["Static", "Lightning Rod"],
+    abilities: ["static", "lightningrod"],
     learnset: [
       "bodyslam",
       "charge",
@@ -9657,7 +9663,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   cleffa: {
     name: "Cleffa",
-    abilities: ["Cute Charm", "Magic Guard", "Friend Guard"],
+    abilities: ["cutecharm", "magicguard", "friendguard"],
     learnset: [
       "alluringvoice",
       "amnesia",
@@ -9720,7 +9726,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   igglybuff: {
     name: "Igglybuff",
-    abilities: ["Cute Charm", "Competitive", "Friend Guard"],
+    abilities: ["cutecharm", "competitive", "friendguard"],
     learnset: [
       "alluringvoice",
       "bodyslam",
@@ -9781,7 +9787,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   mareep: {
     name: "Mareep",
-    abilities: ["Static", "Plus"],
+    abilities: ["static", "plus"],
     learnset: [
       "afteryou",
       "agility",
@@ -9828,7 +9834,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   flaaffy: {
     name: "Flaaffy",
-    abilities: ["Static", "Plus"],
+    abilities: ["static", "plus"],
     learnset: [
       "agility",
       "bodyslam",
@@ -9882,7 +9888,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   ampharos: {
     name: "Ampharos",
-    abilities: ["Static", "Plus"],
+    abilities: ["static", "plus"],
     learnset: [
       "agility",
       "bodyslam",
@@ -9950,7 +9956,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   bellossom: {
     name: "Bellossom",
-    abilities: ["Chlorophyll", "Healer"],
+    abilities: ["chlorophyll", "healer"],
     learnset: [
       "absorb",
       "acid",
@@ -10009,7 +10015,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   marill: {
     name: "Marill",
-    abilities: ["Thick Fat", "Huge Power", "Sap Sipper"],
+    abilities: ["thickfat", "hugepower", "sapsipper"],
     learnset: [
       "alluringvoice",
       "amnesia",
@@ -10076,7 +10082,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   azumarill: {
     name: "Azumarill",
-    abilities: ["Thick Fat", "Huge Power", "Sap Sipper"],
+    abilities: ["thickfat", "hugepower", "sapsipper"],
     learnset: [
       "alluringvoice",
       "amnesia",
@@ -10146,7 +10152,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   sudowoodo: {
     name: "Sudowoodo",
-    abilities: ["Sturdy", "Rock Head", "Rattled"],
+    abilities: ["sturdy", "rockhead", "rattled"],
     learnset: [
       "block",
       "bodypress",
@@ -10218,7 +10224,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   politoed: {
     name: "Politoed",
-    abilities: ["Water Absorb", "Damp", "Drizzle"],
+    abilities: ["waterabsorb", "damp", "drizzle"],
     learnset: [
       "amnesia",
       "bellydrum",
@@ -10281,7 +10287,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   hoppip: {
     name: "Hoppip",
-    abilities: ["Chlorophyll", "Leaf Guard", "Infiltrator"],
+    abilities: ["chlorophyll", "leafguard", "infiltrator"],
     learnset: [
       "absorb",
       "acrobatics",
@@ -10343,7 +10349,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   skiploom: {
     name: "Skiploom",
-    abilities: ["Chlorophyll", "Leaf Guard", "Infiltrator"],
+    abilities: ["chlorophyll", "leafguard", "infiltrator"],
     learnset: [
       "absorb",
       "acrobatics",
@@ -10401,7 +10407,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   jumpluff: {
     name: "Jumpluff",
-    abilities: ["Chlorophyll", "Leaf Guard", "Infiltrator"],
+    abilities: ["chlorophyll", "leafguard", "infiltrator"],
     learnset: [
       "absorb",
       "acrobatics",
@@ -10461,7 +10467,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   aipom: {
     name: "Aipom",
-    abilities: ["Run Away", "Pickup", "Skill Link"],
+    abilities: ["runaway", "pickup", "skilllink"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -10537,7 +10543,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   sunkern: {
     name: "Sunkern",
-    abilities: ["Chlorophyll", "Solar Power", "Early Bird"],
+    abilities: ["chlorophyll", "solarpower", "earlybird"],
     learnset: [
       "absorb",
       "bulletseed",
@@ -10581,7 +10587,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   sunflora: {
     name: "Sunflora",
-    abilities: ["Chlorophyll", "Solar Power", "Early Bird"],
+    abilities: ["chlorophyll", "solarpower", "earlybird"],
     learnset: [
       "absorb",
       "bulletseed",
@@ -10632,7 +10638,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   yanma: {
     name: "Yanma",
-    abilities: ["Speed Boost", "Compound Eyes", "Frisk"],
+    abilities: ["speedboost", "compoundeyes", "frisk"],
     learnset: [
       "aerialace",
       "aircutter",
@@ -10682,7 +10688,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   wooper: {
     name: "Wooper",
-    abilities: ["Damp", "Water Absorb", "Unaware"],
+    abilities: ["damp", "waterabsorb", "unaware"],
     learnset: [
       "acidspray",
       "afteryou",
@@ -10749,7 +10755,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   wooperpaldea: {
     name: "Wooper-Paldea",
-    abilities: ["Poison Point", "Water Absorb", "Unaware"],
+    abilities: ["poisonpoint", "waterabsorb", "unaware"],
     learnset: [
       "acidspray",
       "afteryou",
@@ -10814,7 +10820,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   quagsire: {
     name: "Quagsire",
-    abilities: ["Damp", "Water Absorb", "Unaware"],
+    abilities: ["damp", "waterabsorb", "unaware"],
     learnset: [
       "acidspray",
       "amnesia",
@@ -10886,7 +10892,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   espeon: {
     name: "Espeon",
-    abilities: ["Synchronize", "Magic Bounce"],
+    abilities: ["synchronize", "magicbounce"],
     learnset: [
       "alluringvoice",
       "babydolleyes",
@@ -10959,7 +10965,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   umbreon: {
     name: "Umbreon",
-    abilities: ["Synchronize", "Inner Focus"],
+    abilities: ["synchronize", "innerfocus"],
     learnset: [
       "alluringvoice",
       "assurance",
@@ -11028,7 +11034,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   murkrow: {
     name: "Murkrow",
-    abilities: ["Insomnia", "Super Luck", "Prankster"],
+    abilities: ["insomnia", "superluck", "prankster"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -11095,7 +11101,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   slowking: {
     name: "Slowking",
-    abilities: ["Oblivious", "Own Tempo", "Regenerator"],
+    abilities: ["oblivious", "owntempo", "regenerator"],
     learnset: [
       "amnesia",
       "avalanche",
@@ -11185,7 +11191,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   slowkinggalar: {
     name: "Slowking-Galar",
-    abilities: ["Curious Medicine", "Own Tempo", "Regenerator"],
+    abilities: ["curiousmedicine", "owntempo", "regenerator"],
     learnset: [
       "acid",
       "acidspray",
@@ -11284,7 +11290,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   misdreavus: {
     name: "Misdreavus",
-    abilities: ["Levitate"],
+    abilities: ["levitate"],
     learnset: [
       "astonish",
       "burningjealousy",
@@ -11359,7 +11365,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   girafarig: {
     name: "Girafarig",
-    abilities: ["Inner Focus", "Early Bird", "Sap Sipper"],
+    abilities: ["innerfocus", "earlybird", "sapsipper"],
     learnset: [
       "agility",
       "allyswitch",
@@ -11441,7 +11447,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   pineco: {
     name: "Pineco",
-    abilities: ["Sturdy", "Overcoat"],
+    abilities: ["sturdy", "overcoat"],
     learnset: [
       "bodyslam",
       "bugbite",
@@ -11501,7 +11507,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   forretress: {
     name: "Forretress",
-    abilities: ["Sturdy", "Overcoat"],
+    abilities: ["sturdy", "overcoat"],
     learnset: [
       "bodypress",
       "bodyslam",
@@ -11574,7 +11580,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   dunsparce: {
     name: "Dunsparce",
-    abilities: ["Serene Grace", "Run Away", "Rattled"],
+    abilities: ["serenegrace", "runaway", "rattled"],
     learnset: [
       "agility",
       "airslash",
@@ -11662,7 +11668,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   gligar: {
     name: "Gligar",
-    abilities: ["Hyper Cutter", "Sand Veil", "Immunity"],
+    abilities: ["hypercutter", "sandveil", "immunity"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -11742,7 +11748,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   snubbull: {
     name: "Snubbull",
-    abilities: ["Intimidate", "Run Away", "Rattled"],
+    abilities: ["intimidate", "runaway", "rattled"],
     learnset: [
       "bite",
       "bodyslam",
@@ -11825,7 +11831,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   granbull: {
     name: "Granbull",
-    abilities: ["Intimidate", "Quick Feet", "Rattled"],
+    abilities: ["intimidate", "quickfeet", "rattled"],
     learnset: [
       "bite",
       "bodyslam",
@@ -11911,7 +11917,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   qwilfish: {
     name: "Qwilfish",
-    abilities: ["Poison Point", "Swift Swim", "Intimidate"],
+    abilities: ["poisonpoint", "swiftswim", "intimidate"],
     learnset: [
       "acidspray",
       "acupressure",
@@ -11987,7 +11993,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   qwilfishhisui: {
     name: "Qwilfish-Hisui",
-    abilities: ["Poison Point", "Swift Swim", "Intimidate"],
+    abilities: ["poisonpoint", "swiftswim", "intimidate"],
     learnset: [
       "acidspray",
       "acupressure",
@@ -12061,7 +12067,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   scizor: {
     name: "Scizor",
-    abilities: ["Swarm", "Technician", "Light Metal"],
+    abilities: ["swarm", "technician", "lightmetal"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -12127,7 +12133,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   heracross: {
     name: "Heracross",
-    abilities: ["Swarm", "Guts", "Moxie"],
+    abilities: ["swarm", "guts", "moxie"],
     learnset: [
       "aerialace",
       "armthrust",
@@ -12202,7 +12208,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   sneasel: {
     name: "Sneasel",
-    abilities: ["Inner Focus", "Keen Eye", "Pickpocket"],
+    abilities: ["innerfocus", "keeneye", "pickpocket"],
     learnset: [
       "aerialace",
       "agility",
@@ -12277,7 +12283,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   sneaselhisui: {
     name: "Sneasel-Hisui",
-    abilities: ["Inner Focus", "Keen Eye", "Pickpocket"],
+    abilities: ["innerfocus", "keeneye", "pickpocket"],
     learnset: [
       "acidspray",
       "aerialace",
@@ -12347,7 +12353,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   teddiursa: {
     name: "Teddiursa",
-    abilities: ["Pickup", "Quick Feet", "Honey Gather"],
+    abilities: ["pickup", "quickfeet", "honeygather"],
     learnset: [
       "aerialace",
       "avalanche",
@@ -12417,7 +12423,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   ursaring: {
     name: "Ursaring",
-    abilities: ["Guts", "Quick Feet", "Unnerve"],
+    abilities: ["guts", "quickfeet", "unnerve"],
     learnset: [
       "aerialace",
       "avalanche",
@@ -12488,7 +12494,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   slugma: {
     name: "Slugma",
-    abilities: ["Magma Armor", "Flame Body", "Weak Armor"],
+    abilities: ["magmaarmor", "flamebody", "weakarmor"],
     learnset: [
       "acidarmor",
       "amnesia",
@@ -12550,7 +12556,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   magcargo: {
     name: "Magcargo",
-    abilities: ["Magma Armor", "Flame Body", "Weak Armor"],
+    abilities: ["magmaarmor", "flamebody", "weakarmor"],
     learnset: [
       "amnesia",
       "ancientpower",
@@ -12614,7 +12620,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   swinub: {
     name: "Swinub",
-    abilities: ["Oblivious", "Snow Cloak", "Thick Fat"],
+    abilities: ["oblivious", "snowcloak", "thickfat"],
     learnset: [
       "amnesia",
       "ancientpower",
@@ -12672,7 +12678,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   piloswine: {
     name: "Piloswine",
-    abilities: ["Oblivious", "Snow Cloak", "Thick Fat"],
+    abilities: ["oblivious", "snowcloak", "thickfat"],
     learnset: [
       "amnesia",
       "ancientpower",
@@ -12730,7 +12736,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   delibird: {
     name: "Delibird",
-    abilities: ["Vital Spirit", "Hustle", "Insomnia"],
+    abilities: ["vitalspirit", "hustle", "insomnia"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -12799,7 +12805,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   skarmory: {
     name: "Skarmory",
-    abilities: ["Keen Eye", "Sturdy", "Weak Armor"],
+    abilities: ["keeneye", "sturdy", "weakarmor"],
     learnset: [
       "aerialace",
       "agility",
@@ -12863,7 +12869,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   houndour: {
     name: "Houndour",
-    abilities: ["Early Bird", "Flash Fire", "Unnerve"],
+    abilities: ["earlybird", "flashfire", "unnerve"],
     learnset: [
       "beatup",
       "bite",
@@ -12931,7 +12937,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   houndoom: {
     name: "Houndoom",
-    abilities: ["Early Bird", "Flash Fire", "Unnerve"],
+    abilities: ["earlybird", "flashfire", "unnerve"],
     learnset: [
       "beatup",
       "bite",
@@ -12999,7 +13005,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   kingdra: {
     name: "Kingdra",
-    abilities: ["Swift Swim", "Sniper", "Damp"],
+    abilities: ["swiftswim", "sniper", "damp"],
     learnset: [
       "agility",
       "blizzard",
@@ -13054,7 +13060,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   phanpy: {
     name: "Phanpy",
-    abilities: ["Pickup", "Sand Veil"],
+    abilities: ["pickup", "sandveil"],
     learnset: [
       "ancientpower",
       "bodyslam",
@@ -13116,7 +13122,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   donphan: {
     name: "Donphan",
-    abilities: ["Sturdy", "Sand Veil"],
+    abilities: ["sturdy", "sandveil"],
     learnset: [
       "assurance",
       "bodypress",
@@ -13185,7 +13191,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   porygon2: {
     name: "Porygon2",
-    abilities: ["Trace", "Download", "Analytic"],
+    abilities: ["trace", "download", "analytic"],
     learnset: [
       "agility",
       "blizzard",
@@ -13239,7 +13245,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   stantler: {
     name: "Stantler",
-    abilities: ["Intimidate", "Frisk", "Sap Sipper"],
+    abilities: ["intimidate", "frisk", "sapsipper"],
     learnset: [
       "agility",
       "astonish",
@@ -13313,12 +13319,12 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   smeargle: {
     name: "Smeargle",
-    abilities: ["Own Tempo", "Technician", "Moody"],
+    abilities: ["owntempo", "technician", "moody"],
     learnset: ["sketch"]
   },
   tyrogue: {
     name: "Tyrogue",
-    abilities: ["Guts", "Steadfast", "Vital Spirit"],
+    abilities: ["guts", "steadfast", "vitalspirit"],
     learnset: [
       "bodyslam",
       "brickbreak",
@@ -13356,7 +13362,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   hitmontop: {
     name: "Hitmontop",
-    abilities: ["Intimidate", "Technician", "Steadfast"],
+    abilities: ["intimidate", "technician", "steadfast"],
     learnset: [
       "aerialace",
       "agility",
@@ -13415,7 +13421,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   elekid: {
     name: "Elekid",
-    abilities: ["Static", "Vital Spirit"],
+    abilities: ["static", "vitalspirit"],
     learnset: [
       "bodyslam",
       "brickbreak",
@@ -13473,7 +13479,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   magby: {
     name: "Magby",
-    abilities: ["Flame Body", "Vital Spirit"],
+    abilities: ["flamebody", "vitalspirit"],
     learnset: [
       "acidspray",
       "belch",
@@ -13527,7 +13533,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   blissey: {
     name: "Blissey",
-    abilities: ["Natural Cure", "Serene Grace", "Healer"],
+    abilities: ["naturalcure", "serenegrace", "healer"],
     learnset: [
       "alluringvoice",
       "avalanche",
@@ -13612,7 +13618,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   raikou: {
     name: "Raikou",
-    abilities: ["Pressure", "Inner Focus"],
+    abilities: ["pressure", "innerfocus"],
     learnset: [
       "agility",
       "aurasphere",
@@ -13674,7 +13680,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   entei: {
     name: "Entei",
-    abilities: ["Pressure", "Inner Focus"],
+    abilities: ["pressure", "innerfocus"],
     learnset: [
       "agility",
       "bite",
@@ -13735,7 +13741,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   suicune: {
     name: "Suicune",
-    abilities: ["Pressure", "Inner Focus"],
+    abilities: ["pressure", "innerfocus"],
     learnset: [
       "agility",
       "airslash",
@@ -13791,7 +13797,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   larvitar: {
     name: "Larvitar",
-    abilities: ["Guts", "Sand Veil"],
+    abilities: ["guts", "sandveil"],
     learnset: [
       "ancientpower",
       "assurance",
@@ -13850,7 +13856,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   pupitar: {
     name: "Pupitar",
-    abilities: ["Shed Skin"],
+    abilities: ["shedskin"],
     learnset: [
       "aerialace",
       "bite",
@@ -13908,7 +13914,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   tyranitar: {
     name: "Tyranitar",
-    abilities: ["Sand Stream", "Unnerve"],
+    abilities: ["sandstream", "unnerve"],
     learnset: [
       "aerialace",
       "avalanche",
@@ -14000,7 +14006,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   lugia: {
     name: "Lugia",
-    abilities: ["Pressure", "Multiscale"],
+    abilities: ["pressure", "multiscale"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -14080,7 +14086,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   hooh: {
     name: "Ho-Oh",
-    abilities: ["Pressure", "Regenerator"],
+    abilities: ["pressure", "regenerator"],
     learnset: [
       "aerialace",
       "aircutter",
@@ -14148,7 +14154,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   treecko: {
     name: "Treecko",
-    abilities: ["Overgrow", "Unburden"],
+    abilities: ["overgrow", "unburden"],
     learnset: [
       "absorb",
       "acrobatics",
@@ -14214,7 +14220,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   grovyle: {
     name: "Grovyle",
-    abilities: ["Overgrow", "Unburden"],
+    abilities: ["overgrow", "unburden"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -14279,7 +14285,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   sceptile: {
     name: "Sceptile",
-    abilities: ["Overgrow", "Unburden"],
+    abilities: ["overgrow", "unburden"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -14362,7 +14368,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   torchic: {
     name: "Torchic",
-    abilities: ["Blaze", "Speed Boost"],
+    abilities: ["blaze", "speedboost"],
     learnset: [
       "aerialace",
       "agility",
@@ -14419,7 +14425,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   combusken: {
     name: "Combusken",
-    abilities: ["Blaze", "Speed Boost"],
+    abilities: ["blaze", "speedboost"],
     learnset: [
       "aerialace",
       "agility",
@@ -14485,7 +14491,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   blaziken: {
     name: "Blaziken",
-    abilities: ["Blaze", "Speed Boost"],
+    abilities: ["blaze", "speedboost"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -14568,7 +14574,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   mudkip: {
     name: "Mudkip",
-    abilities: ["Torrent", "Damp"],
+    abilities: ["torrent", "damp"],
     learnset: [
       "amnesia",
       "ancientpower",
@@ -14626,7 +14632,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   marshtomp: {
     name: "Marshtomp",
-    abilities: ["Torrent", "Damp"],
+    abilities: ["torrent", "damp"],
     learnset: [
       "amnesia",
       "avalanche",
@@ -14685,7 +14691,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   swampert: {
     name: "Swampert",
-    abilities: ["Torrent", "Damp"],
+    abilities: ["torrent", "damp"],
     learnset: [
       "amnesia",
       "avalanche",
@@ -14762,7 +14768,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   poochyena: {
     name: "Poochyena",
-    abilities: ["Run Away", "Quick Feet", "Rattled"],
+    abilities: ["runaway", "quickfeet", "rattled"],
     learnset: [
       "assurance",
       "astonish",
@@ -14817,7 +14823,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   mightyena: {
     name: "Mightyena",
-    abilities: ["Intimidate", "Quick Feet", "Moxie"],
+    abilities: ["intimidate", "quickfeet", "moxie"],
     learnset: [
       "assurance",
       "bite",
@@ -14873,7 +14879,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   lotad: {
     name: "Lotad",
-    abilities: ["Swift Swim", "Rain Dish", "Own Tempo"],
+    abilities: ["swiftswim", "raindish", "owntempo"],
     learnset: [
       "absorb",
       "astonish",
@@ -14930,7 +14936,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   lombre: {
     name: "Lombre",
-    abilities: ["Swift Swim", "Rain Dish", "Own Tempo"],
+    abilities: ["swiftswim", "raindish", "owntempo"],
     learnset: [
       "absorb",
       "astonish",
@@ -14997,7 +15003,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   ludicolo: {
     name: "Ludicolo",
-    abilities: ["Swift Swim", "Rain Dish", "Own Tempo"],
+    abilities: ["swiftswim", "raindish", "owntempo"],
     learnset: [
       "absorb",
       "amnesia",
@@ -15071,7 +15077,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   seedot: {
     name: "Seedot",
-    abilities: ["Chlorophyll", "Early Bird", "Pickpocket"],
+    abilities: ["chlorophyll", "earlybird", "pickpocket"],
     learnset: [
       "absorb",
       "amnesia",
@@ -15126,7 +15132,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   nuzleaf: {
     name: "Nuzleaf",
-    abilities: ["Chlorophyll", "Early Bird", "Pickpocket"],
+    abilities: ["chlorophyll", "earlybird", "pickpocket"],
     learnset: [
       "absorb",
       "aircutter",
@@ -15201,7 +15207,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   shiftry: {
     name: "Shiftry",
-    abilities: ["Chlorophyll", "Wind Rider", "Pickpocket"],
+    abilities: ["chlorophyll", "windrider", "pickpocket"],
     learnset: [
       "absorb",
       "aerialace",
@@ -15299,7 +15305,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   wingull: {
     name: "Wingull",
-    abilities: ["Keen Eye", "Hydration", "Rain Dish"],
+    abilities: ["keeneye", "hydration", "raindish"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -15354,7 +15360,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   pelipper: {
     name: "Pelipper",
-    abilities: ["Keen Eye", "Drizzle", "Rain Dish"],
+    abilities: ["keeneye", "drizzle", "raindish"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -15416,7 +15422,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   ralts: {
     name: "Ralts",
-    abilities: ["Synchronize", "Trace", "Telepathy"],
+    abilities: ["synchronize", "trace", "telepathy"],
     learnset: [
       "alluringvoice",
       "bodyslam",
@@ -15490,7 +15496,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   kirlia: {
     name: "Kirlia",
-    abilities: ["Synchronize", "Trace", "Telepathy"],
+    abilities: ["synchronize", "trace", "telepathy"],
     learnset: [
       "alluringvoice",
       "bodyslam",
@@ -15560,7 +15566,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   gardevoir: {
     name: "Gardevoir",
-    abilities: ["Synchronize", "Trace", "Telepathy"],
+    abilities: ["synchronize", "trace", "telepathy"],
     learnset: [
       "alluringvoice",
       "aurasphere",
@@ -15643,7 +15649,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   surskit: {
     name: "Surskit",
-    abilities: ["Swift Swim", "Rain Dish"],
+    abilities: ["swiftswim", "raindish"],
     learnset: [
       "acrobatics",
       "agility",
@@ -15698,7 +15704,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   masquerain: {
     name: "Masquerain",
-    abilities: ["Intimidate", "Unnerve"],
+    abilities: ["intimidate", "unnerve"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -15765,7 +15771,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   shroomish: {
     name: "Shroomish",
-    abilities: ["Effect Spore", "Poison Heal", "Quick Feet"],
+    abilities: ["effectspore", "poisonheal", "quickfeet"],
     learnset: [
       "absorb",
       "bodyslam",
@@ -15812,7 +15818,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   breloom: {
     name: "Breloom",
-    abilities: ["Effect Spore", "Poison Heal", "Technician"],
+    abilities: ["effectspore", "poisonheal", "technician"],
     learnset: [
       "absorb",
       "aerialace",
@@ -15887,7 +15893,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   slakoth: {
     name: "Slakoth",
-    abilities: ["Truant"],
+    abilities: ["truant"],
     learnset: [
       "aerialace",
       "afteryou",
@@ -15956,7 +15962,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   vigoroth: {
     name: "Vigoroth",
-    abilities: ["Vital Spirit"],
+    abilities: ["vitalspirit"],
     learnset: [
       "aerialace",
       "amnesia",
@@ -16037,7 +16043,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   slaking: {
     name: "Slaking",
-    abilities: ["Truant"],
+    abilities: ["truant"],
     learnset: [
       "aerialace",
       "amnesia",
@@ -16132,7 +16138,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   makuhita: {
     name: "Makuhita",
-    abilities: ["Thick Fat", "Guts", "Sheer Force"],
+    abilities: ["thickfat", "guts", "sheerforce"],
     learnset: [
       "armthrust",
       "bellydrum",
@@ -16204,7 +16210,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   hariyama: {
     name: "Hariyama",
-    abilities: ["Thick Fat", "Guts", "Sheer Force"],
+    abilities: ["thickfat", "guts", "sheerforce"],
     learnset: [
       "armthrust",
       "bellydrum",
@@ -16279,7 +16285,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   azurill: {
     name: "Azurill",
-    abilities: ["Thick Fat", "Huge Power", "Sap Sipper"],
+    abilities: ["thickfat", "hugepower", "sapsipper"],
     learnset: [
       "alluringvoice",
       "aquajet",
@@ -16325,7 +16331,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   nosepass: {
     name: "Nosepass",
-    abilities: ["Sturdy", "Magnet Pull", "Sand Force"],
+    abilities: ["sturdy", "magnetpull", "sandforce"],
     learnset: [
       "block",
       "bodypress",
@@ -16386,7 +16392,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   sableye: {
     name: "Sableye",
-    abilities: ["Keen Eye", "Stall", "Prankster"],
+    abilities: ["keeneye", "stall", "prankster"],
     learnset: [
       "aerialace",
       "astonish",
@@ -16480,7 +16486,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   meditite: {
     name: "Meditite",
-    abilities: ["Pure Power", "Telepathy"],
+    abilities: ["purepower", "telepathy"],
     learnset: [
       "acupressure",
       "aerialace",
@@ -16558,7 +16564,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   medicham: {
     name: "Medicham",
-    abilities: ["Pure Power", "Telepathy"],
+    abilities: ["purepower", "telepathy"],
     learnset: [
       "acupressure",
       "aerialace",
@@ -16636,7 +16642,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   plusle: {
     name: "Plusle",
-    abilities: ["Plus", "Lightning Rod"],
+    abilities: ["plus", "lightningrod"],
     learnset: [
       "agility",
       "alluringvoice",
@@ -16694,7 +16700,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   minun: {
     name: "Minun",
-    abilities: ["Minus", "Volt Absorb"],
+    abilities: ["minus", "voltabsorb"],
     learnset: [
       "agility",
       "alluringvoice",
@@ -16750,7 +16756,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   volbeat: {
     name: "Volbeat",
-    abilities: ["Illuminate", "Swarm", "Prankster"],
+    abilities: ["illuminate", "swarm", "prankster"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -16819,7 +16825,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   illumise: {
     name: "Illumise",
-    abilities: ["Oblivious", "Tinted Lens", "Prankster"],
+    abilities: ["oblivious", "tintedlens", "prankster"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -16891,7 +16897,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   gulpin: {
     name: "Gulpin",
-    abilities: ["Liquid Ooze", "Sticky Hold", "Gluttony"],
+    abilities: ["liquidooze", "stickyhold", "gluttony"],
     learnset: [
       "acidarmor",
       "acidspray",
@@ -16951,7 +16957,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   swalot: {
     name: "Swalot",
-    abilities: ["Liquid Ooze", "Sticky Hold", "Gluttony"],
+    abilities: ["liquidooze", "stickyhold", "gluttony"],
     learnset: [
       "acidspray",
       "amnesia",
@@ -17016,7 +17022,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   numel: {
     name: "Numel",
-    abilities: ["Oblivious", "Simple", "Own Tempo"],
+    abilities: ["oblivious", "simple", "owntempo"],
     learnset: [
       "amnesia",
       "ancientpower",
@@ -17088,7 +17094,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   camerupt: {
     name: "Camerupt",
-    abilities: ["Magma Armor", "Solid Rock", "Anger Point"],
+    abilities: ["magmaarmor", "solidrock", "angerpoint"],
     learnset: [
       "amnesia",
       "bodypress",
@@ -17157,7 +17163,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   torkoal: {
     name: "Torkoal",
-    abilities: ["White Smoke", "Drought", "Shell Armor"],
+    abilities: ["whitesmoke", "drought", "shellarmor"],
     learnset: [
       "amnesia",
       "ancientpower",
@@ -17223,7 +17229,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   spoink: {
     name: "Spoink",
-    abilities: ["Thick Fat", "Own Tempo", "Gluttony"],
+    abilities: ["thickfat", "owntempo", "gluttony"],
     learnset: [
       "amnesia",
       "bodyslam",
@@ -17289,7 +17295,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   grumpig: {
     name: "Grumpig",
-    abilities: ["Thick Fat", "Own Tempo", "Gluttony"],
+    abilities: ["thickfat", "owntempo", "gluttony"],
     learnset: [
       "amnesia",
       "belch",
@@ -17377,7 +17383,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   trapinch: {
     name: "Trapinch",
-    abilities: ["Hyper Cutter", "Arena Trap", "Sheer Force"],
+    abilities: ["hypercutter", "arenatrap", "sheerforce"],
     learnset: [
       "astonish",
       "bite",
@@ -17422,7 +17428,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   vibrava: {
     name: "Vibrava",
-    abilities: ["Levitate"],
+    abilities: ["levitate"],
     learnset: [
       "aerialace",
       "aircutter",
@@ -17485,7 +17491,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   flygon: {
     name: "Flygon",
-    abilities: ["Levitate"],
+    abilities: ["levitate"],
     learnset: [
       "aerialace",
       "agility",
@@ -17564,7 +17570,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   cacnea: {
     name: "Cacnea",
-    abilities: ["Sand Veil", "Water Absorb"],
+    abilities: ["sandveil", "waterabsorb"],
     learnset: [
       "absorb",
       "acid",
@@ -17640,7 +17646,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   cacturne: {
     name: "Cacturne",
-    abilities: ["Sand Veil", "Water Absorb"],
+    abilities: ["sandveil", "waterabsorb"],
     learnset: [
       "absorb",
       "bodyslam",
@@ -17719,7 +17725,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   swablu: {
     name: "Swablu",
-    abilities: ["Natural Cure", "Cloud Nine"],
+    abilities: ["naturalcure", "cloudnine"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -17775,7 +17781,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   altaria: {
     name: "Altaria",
-    abilities: ["Natural Cure", "Cloud Nine"],
+    abilities: ["naturalcure", "cloudnine"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -17847,7 +17853,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   zangoose: {
     name: "Zangoose",
-    abilities: ["Immunity", "Toxic Boost"],
+    abilities: ["immunity", "toxicboost"],
     learnset: [
       "aerialace",
       "agility",
@@ -17937,7 +17943,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   seviper: {
     name: "Seviper",
-    abilities: ["Shed Skin", "Infiltrator"],
+    abilities: ["shedskin", "infiltrator"],
     learnset: [
       "acidspray",
       "assurance",
@@ -18016,7 +18022,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   barboach: {
     name: "Barboach",
-    abilities: ["Oblivious", "Anticipation", "Hydration"],
+    abilities: ["oblivious", "anticipation", "hydration"],
     learnset: [
       "amnesia",
       "aquatail",
@@ -18070,7 +18076,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   whiscash: {
     name: "Whiscash",
-    abilities: ["Oblivious", "Anticipation", "Hydration"],
+    abilities: ["oblivious", "anticipation", "hydration"],
     learnset: [
       "amnesia",
       "aquatail",
@@ -18132,7 +18138,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   corphish: {
     name: "Corphish",
-    abilities: ["Hyper Cutter", "Shell Armor", "Adaptability"],
+    abilities: ["hypercutter", "shellarmor", "adaptability"],
     learnset: [
       "ancientpower",
       "aquajet",
@@ -18191,7 +18197,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   crawdaunt: {
     name: "Crawdaunt",
-    abilities: ["Hyper Cutter", "Shell Armor", "Adaptability"],
+    abilities: ["hypercutter", "shellarmor", "adaptability"],
     learnset: [
       "avalanche",
       "blizzard",
@@ -18259,7 +18265,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   feebas: {
     name: "Feebas",
-    abilities: ["Swift Swim", "Oblivious", "Adaptability"],
+    abilities: ["swiftswim", "oblivious", "adaptability"],
     learnset: [
       "blizzard",
       "chillingwater",
@@ -18298,7 +18304,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   milotic: {
     name: "Milotic",
-    abilities: ["Marvel Scale", "Competitive", "Cute Charm"],
+    abilities: ["marvelscale", "competitive", "cutecharm"],
     learnset: [
       "alluringvoice",
       "aquaring",
@@ -18365,7 +18371,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   shuppet: {
     name: "Shuppet",
-    abilities: ["Insomnia", "Frisk", "Cursed Body"],
+    abilities: ["insomnia", "frisk", "cursedbody"],
     learnset: [
       "astonish",
       "calmmind",
@@ -18424,7 +18430,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   banette: {
     name: "Banette",
-    abilities: ["Insomnia", "Frisk", "Cursed Body"],
+    abilities: ["insomnia", "frisk", "cursedbody"],
     learnset: [
       "burningjealousy",
       "calmmind",
@@ -18489,7 +18495,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   duskull: {
     name: "Duskull",
-    abilities: ["Levitate", "Frisk"],
+    abilities: ["levitate", "frisk"],
     learnset: [
       "astonish",
       "blizzard",
@@ -18542,7 +18548,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   dusclops: {
     name: "Dusclops",
-    abilities: ["Pressure", "Frisk"],
+    abilities: ["pressure", "frisk"],
     learnset: [
       "astonish",
       "bind",
@@ -18605,7 +18611,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   tropius: {
     name: "Tropius",
-    abilities: ["Chlorophyll", "Solar Power", "Harvest"],
+    abilities: ["chlorophyll", "solarpower", "harvest"],
     learnset: [
       "aerialace",
       "aircutter",
@@ -18673,7 +18679,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   chimecho: {
     name: "Chimecho",
-    abilities: ["Levitate"],
+    abilities: ["levitate"],
     learnset: [
       "astonish",
       "batonpass",
@@ -18738,7 +18744,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   snorunt: {
     name: "Snorunt",
-    abilities: ["Inner Focus", "Ice Body", "Moody"],
+    abilities: ["innerfocus", "icebody", "moody"],
     learnset: [
       "astonish",
       "avalanche",
@@ -18787,7 +18793,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   glalie: {
     name: "Glalie",
-    abilities: ["Inner Focus", "Ice Body", "Moody"],
+    abilities: ["innerfocus", "icebody", "moody"],
     learnset: [
       "astonish",
       "avalanche",
@@ -18843,7 +18849,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   luvdisc: {
     name: "Luvdisc",
-    abilities: ["Swift Swim", "Hydration"],
+    abilities: ["swiftswim", "hydration"],
     learnset: [
       "agility",
       "aquajet",
@@ -18889,7 +18895,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   bagon: {
     name: "Bagon",
-    abilities: ["Rock Head", "Sheer Force"],
+    abilities: ["rockhead", "sheerforce"],
     learnset: [
       "bite",
       "bodyslam",
@@ -18943,7 +18949,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   shelgon: {
     name: "Shelgon",
-    abilities: ["Rock Head", "Overcoat"],
+    abilities: ["rockhead", "overcoat"],
     learnset: [
       "bite",
       "bodyslam",
@@ -18994,7 +19000,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   salamence: {
     name: "Salamence",
-    abilities: ["Intimidate", "Moxie"],
+    abilities: ["intimidate", "moxie"],
     learnset: [
       "aerialace",
       "airslash",
@@ -19061,12 +19067,12 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   beldum: {
     name: "Beldum",
-    abilities: ["Clear Body", "Light Metal"],
+    abilities: ["clearbody", "lightmetal"],
     learnset: ["irondefense", "ironhead", "steelbeam", "tackle", "takedown", "terablast", "zenheadbutt"]
   },
   metang: {
     name: "Metang",
-    abilities: ["Clear Body", "Light Metal"],
+    abilities: ["clearbody", "lightmetal"],
     learnset: [
       "aerialace",
       "agility",
@@ -19131,7 +19137,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   metagross: {
     name: "Metagross",
-    abilities: ["Clear Body", "Light Metal"],
+    abilities: ["clearbody", "lightmetal"],
     learnset: [
       "aerialace",
       "agility",
@@ -19205,7 +19211,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   regirock: {
     name: "Regirock",
-    abilities: ["Clear Body", "Sturdy"],
+    abilities: ["clearbody", "sturdy"],
     learnset: [
       "ancientpower",
       "bodypress",
@@ -19267,7 +19273,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   regice: {
     name: "Regice",
-    abilities: ["Clear Body", "Ice Body"],
+    abilities: ["clearbody", "icebody"],
     learnset: [
       "amnesia",
       "ancientpower",
@@ -19320,7 +19326,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   registeel: {
     name: "Registeel",
-    abilities: ["Clear Body", "Light Metal"],
+    abilities: ["clearbody", "lightmetal"],
     learnset: [
       "amnesia",
       "ancientpower",
@@ -19380,7 +19386,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   latias: {
     name: "Latias",
-    abilities: ["Levitate"],
+    abilities: ["levitate"],
     learnset: [
       "aerialace",
       "agility",
@@ -19464,7 +19470,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   latios: {
     name: "Latios",
-    abilities: ["Levitate"],
+    abilities: ["levitate"],
     learnset: [
       "aerialace",
       "agility",
@@ -19545,7 +19551,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   kyogre: {
     name: "Kyogre",
-    abilities: ["Drizzle"],
+    abilities: ["drizzle"],
     learnset: [
       "ancientpower",
       "aquaring",
@@ -19596,7 +19602,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   groudon: {
     name: "Groudon",
-    abilities: ["Drought"],
+    abilities: ["drought"],
     learnset: [
       "aerialace",
       "ancientpower",
@@ -19671,7 +19677,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   rayquaza: {
     name: "Rayquaza",
-    abilities: ["Air Lock"],
+    abilities: ["airlock"],
     learnset: [
       "aerialace",
       "airslash",
@@ -19750,7 +19756,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   jirachi: {
     name: "Jirachi",
-    abilities: ["Serene Grace"],
+    abilities: ["serenegrace"],
     learnset: [
       "amnesia",
       "aurasphere",
@@ -19830,7 +19836,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   deoxys: {
     name: "Deoxys",
-    abilities: ["Pressure"],
+    abilities: ["pressure"],
     learnset: [
       "aerialace",
       "agility",
@@ -19919,7 +19925,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   deoxysattack: {
     name: "Deoxys-Attack",
-    abilities: ["Pressure"],
+    abilities: ["pressure"],
     learnset: [
       "aerialace",
       "agility",
@@ -20008,7 +20014,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   deoxysdefense: {
     name: "Deoxys-Defense",
-    abilities: ["Pressure"],
+    abilities: ["pressure"],
     learnset: [
       "aerialace",
       "agility",
@@ -20097,7 +20103,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   deoxysspeed: {
     name: "Deoxys-Speed",
-    abilities: ["Pressure"],
+    abilities: ["pressure"],
     learnset: [
       "aerialace",
       "agility",
@@ -20186,7 +20192,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   turtwig: {
     name: "Turtwig",
-    abilities: ["Overgrow", "Shell Armor"],
+    abilities: ["overgrow", "shellarmor"],
     learnset: [
       "absorb",
       "amnesia",
@@ -20250,7 +20256,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   grotle: {
     name: "Grotle",
-    abilities: ["Overgrow", "Shell Armor"],
+    abilities: ["overgrow", "shellarmor"],
     learnset: [
       "absorb",
       "amnesia",
@@ -20304,7 +20310,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   torterra: {
     name: "Torterra",
-    abilities: ["Overgrow", "Shell Armor"],
+    abilities: ["overgrow", "shellarmor"],
     learnset: [
       "absorb",
       "amnesia",
@@ -20378,7 +20384,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   chimchar: {
     name: "Chimchar",
-    abilities: ["Blaze", "Iron Fist"],
+    abilities: ["blaze", "ironfist"],
     learnset: [
       "acrobatics",
       "agility",
@@ -20452,7 +20458,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   monferno: {
     name: "Monferno",
-    abilities: ["Blaze", "Iron Fist"],
+    abilities: ["blaze", "ironfist"],
     learnset: [
       "acrobatics",
       "agility",
@@ -20530,7 +20536,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   infernape: {
     name: "Infernape",
-    abilities: ["Blaze", "Iron Fist"],
+    abilities: ["blaze", "ironfist"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -20625,7 +20631,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   piplup: {
     name: "Piplup",
-    abilities: ["Torrent", "Competitive"],
+    abilities: ["torrent", "competitive"],
     learnset: [
       "aerialace",
       "agility",
@@ -20684,7 +20690,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   prinplup: {
     name: "Prinplup",
-    abilities: ["Torrent", "Competitive"],
+    abilities: ["torrent", "competitive"],
     learnset: [
       "aerialace",
       "agility",
@@ -20741,7 +20747,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   empoleon: {
     name: "Empoleon",
-    abilities: ["Torrent", "Competitive"],
+    abilities: ["torrent", "competitive"],
     learnset: [
       "aerialace",
       "agility",
@@ -20826,7 +20832,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   starly: {
     name: "Starly",
-    abilities: ["Keen Eye", "Reckless"],
+    abilities: ["keeneye", "reckless"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -20871,7 +20877,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   staravia: {
     name: "Staravia",
-    abilities: ["Intimidate", "Reckless"],
+    abilities: ["intimidate", "reckless"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -20913,7 +20919,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   staraptor: {
     name: "Staraptor",
-    abilities: ["Intimidate", "Reckless"],
+    abilities: ["intimidate", "reckless"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -20959,12 +20965,12 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   kricketot: {
     name: "Kricketot",
-    abilities: ["Shed Skin", "Run Away"],
+    abilities: ["shedskin", "runaway"],
     learnset: ["bugbite", "endeavor", "growl", "lunge", "skittersmack", "strugglebug", "tackle", "terablast"]
   },
   kricketune: {
     name: "Kricketune",
-    abilities: ["Swarm", "Technician"],
+    abilities: ["swarm", "technician"],
     learnset: [
       "absorb",
       "aerialace",
@@ -21016,7 +21022,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   shinx: {
     name: "Shinx",
-    abilities: ["Rivalry", "Intimidate", "Guts"],
+    abilities: ["rivalry", "intimidate", "guts"],
     learnset: [
       "babydolleyes",
       "bite",
@@ -21073,7 +21079,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   luxio: {
     name: "Luxio",
-    abilities: ["Rivalry", "Intimidate", "Guts"],
+    abilities: ["rivalry", "intimidate", "guts"],
     learnset: [
       "bite",
       "charge",
@@ -21124,7 +21130,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   luxray: {
     name: "Luxray",
-    abilities: ["Rivalry", "Intimidate", "Guts"],
+    abilities: ["rivalry", "intimidate", "guts"],
     learnset: [
       "agility",
       "bite",
@@ -21181,7 +21187,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   cranidos: {
     name: "Cranidos",
-    abilities: ["Mold Breaker", "Sheer Force"],
+    abilities: ["moldbreaker", "sheerforce"],
     learnset: [
       "ancientpower",
       "assurance",
@@ -21247,7 +21253,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   rampardos: {
     name: "Rampardos",
-    abilities: ["Mold Breaker", "Sheer Force"],
+    abilities: ["moldbreaker", "sheerforce"],
     learnset: [
       "ancientpower",
       "assurance",
@@ -21323,7 +21329,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   shieldon: {
     name: "Shieldon",
-    abilities: ["Sturdy", "Soundproof"],
+    abilities: ["sturdy", "soundproof"],
     learnset: [
       "ancientpower",
       "blizzard",
@@ -21385,7 +21391,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   bastiodon: {
     name: "Bastiodon",
-    abilities: ["Sturdy", "Soundproof"],
+    abilities: ["sturdy", "soundproof"],
     learnset: [
       "ancientpower",
       "avalanche",
@@ -21452,12 +21458,12 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   combee: {
     name: "Combee",
-    abilities: ["Honey Gather", "Hustle"],
+    abilities: ["honeygather", "hustle"],
     learnset: ["bugbite", "bugbuzz", "endeavor", "gust", "lunge", "skittersmack", "sleeptalk", "strugglebug", "sweetscent", "terablast"]
   },
   vespiquen: {
     name: "Vespiquen",
-    abilities: ["Pressure", "Unnerve"],
+    abilities: ["pressure", "unnerve"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -21521,7 +21527,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   pachirisu: {
     name: "Pachirisu",
-    abilities: ["Run Away", "Pickup", "Volt Absorb"],
+    abilities: ["runaway", "pickup", "voltabsorb"],
     learnset: [
       "aerialace",
       "agility",
@@ -21592,7 +21598,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   buizel: {
     name: "Buizel",
-    abilities: ["Swift Swim", "Water Veil"],
+    abilities: ["swiftswim", "waterveil"],
     learnset: [
       "agility",
       "aquajet",
@@ -21653,7 +21659,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   floatzel: {
     name: "Floatzel",
-    abilities: ["Swift Swim", "Water Veil"],
+    abilities: ["swiftswim", "waterveil"],
     learnset: [
       "agility",
       "aquajet",
@@ -21717,7 +21723,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   shellos: {
     name: "Shellos",
-    abilities: ["Sticky Hold", "Storm Drain", "Sand Force"],
+    abilities: ["stickyhold", "stormdrain", "sandforce"],
     learnset: [
       "acidarmor",
       "amnesia",
@@ -21774,7 +21780,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   gastrodon: {
     name: "Gastrodon",
-    abilities: ["Sticky Hold", "Storm Drain", "Sand Force"],
+    abilities: ["stickyhold", "stormdrain", "sandforce"],
     learnset: [
       "amnesia",
       "ancientpower",
@@ -21832,7 +21838,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   ambipom: {
     name: "Ambipom",
-    abilities: ["Technician", "Pickup", "Skill Link"],
+    abilities: ["technician", "pickup", "skilllink"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -21902,7 +21908,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   drifloon: {
     name: "Drifloon",
-    abilities: ["Aftermath", "Unburden", "Flare Boost"],
+    abilities: ["aftermath", "unburden", "flareboost"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -21968,7 +21974,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   drifblim: {
     name: "Drifblim",
-    abilities: ["Aftermath", "Unburden", "Flare Boost"],
+    abilities: ["aftermath", "unburden", "flareboost"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -22035,7 +22041,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   mismagius: {
     name: "Mismagius",
-    abilities: ["Levitate"],
+    abilities: ["levitate"],
     learnset: [
       "astonish",
       "burningjealousy",
@@ -22102,7 +22108,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   honchkrow: {
     name: "Honchkrow",
-    abilities: ["Insomnia", "Super Luck", "Moxie"],
+    abilities: ["insomnia", "superluck", "moxie"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -22165,7 +22171,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   chingling: {
     name: "Chingling",
-    abilities: ["Levitate"],
+    abilities: ["levitate"],
     learnset: [
       "allyswitch",
       "astonish",
@@ -22223,7 +22229,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   stunky: {
     name: "Stunky",
-    abilities: ["Stench", "Aftermath", "Keen Eye"],
+    abilities: ["stench", "aftermath", "keeneye"],
     learnset: [
       "acidspray",
       "astonish",
@@ -22291,7 +22297,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   skuntank: {
     name: "Skuntank",
-    abilities: ["Stench", "Aftermath", "Keen Eye"],
+    abilities: ["stench", "aftermath", "keeneye"],
     learnset: [
       "acidspray",
       "belch",
@@ -22361,7 +22367,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   bronzor: {
     name: "Bronzor",
-    abilities: ["Levitate", "Heatproof", "Heavy Metal"],
+    abilities: ["levitate", "heatproof", "heavymetal"],
     learnset: [
       "bodyslam",
       "bulldoze",
@@ -22425,7 +22431,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   bronzong: {
     name: "Bronzong",
-    abilities: ["Levitate", "Heatproof", "Heavy Metal"],
+    abilities: ["levitate", "heatproof", "heavymetal"],
     learnset: [
       "block",
       "bodypress",
@@ -22498,7 +22504,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   bonsly: {
     name: "Bonsly",
-    abilities: ["Sturdy", "Rock Head", "Rattled"],
+    abilities: ["sturdy", "rockhead", "rattled"],
     learnset: [
       "block",
       "bodyslam",
@@ -22556,7 +22562,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   happiny: {
     name: "Happiny",
-    abilities: ["Natural Cure", "Serene Grace", "Friend Guard"],
+    abilities: ["naturalcure", "serenegrace", "friendguard"],
     learnset: [
       "charm",
       "copycat",
@@ -22597,7 +22603,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   spiritomb: {
     name: "Spiritomb",
-    abilities: ["Pressure", "Infiltrator"],
+    abilities: ["pressure", "infiltrator"],
     learnset: [
       "allyswitch",
       "bodyslam",
@@ -22657,7 +22663,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   gible: {
     name: "Gible",
-    abilities: ["Sand Veil", "Rough Skin"],
+    abilities: ["sandveil", "roughskin"],
     learnset: [
       "bite",
       "bodyslam",
@@ -22714,7 +22720,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   gabite: {
     name: "Gabite",
-    abilities: ["Sand Veil", "Rough Skin"],
+    abilities: ["sandveil", "roughskin"],
     learnset: [
       "aerialace",
       "bite",
@@ -22773,7 +22779,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   garchomp: {
     name: "Garchomp",
-    abilities: ["Sand Veil", "Rough Skin"],
+    abilities: ["sandveil", "roughskin"],
     learnset: [
       "aerialace",
       "bite",
@@ -22841,7 +22847,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   munchlax: {
     name: "Munchlax",
-    abilities: ["Pickup", "Thick Fat", "Gluttony"],
+    abilities: ["pickup", "thickfat", "gluttony"],
     learnset: [
       "amnesia",
       "belch",
@@ -22913,7 +22919,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   riolu: {
     name: "Riolu",
-    abilities: ["Steadfast", "Inner Focus", "Prankster"],
+    abilities: ["steadfast", "innerfocus", "prankster"],
     learnset: [
       "aerialace",
       "agility",
@@ -22979,7 +22985,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   lucario: {
     name: "Lucario",
-    abilities: ["Steadfast", "Inner Focus", "Justified"],
+    abilities: ["steadfast", "innerfocus", "justified"],
     learnset: [
       "aerialace",
       "agility",
@@ -23063,7 +23069,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   hippopotas: {
     name: "Hippopotas",
-    abilities: ["Sand Stream", "Sand Force"],
+    abilities: ["sandstream", "sandforce"],
     learnset: [
       "amnesia",
       "bite",
@@ -23115,7 +23121,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   hippowdon: {
     name: "Hippowdon",
-    abilities: ["Sand Stream", "Sand Force"],
+    abilities: ["sandstream", "sandforce"],
     learnset: [
       "amnesia",
       "bite",
@@ -23169,7 +23175,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   croagunk: {
     name: "Croagunk",
-    abilities: ["Anticipation", "Dry Skin", "Poison Touch"],
+    abilities: ["anticipation", "dryskin", "poisontouch"],
     learnset: [
       "acidspray",
       "aerialace",
@@ -23245,7 +23251,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   toxicroak: {
     name: "Toxicroak",
-    abilities: ["Anticipation", "Dry Skin", "Poison Touch"],
+    abilities: ["anticipation", "dryskin", "poisontouch"],
     learnset: [
       "acidspray",
       "aerialace",
@@ -23320,7 +23326,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   finneon: {
     name: "Finneon",
-    abilities: ["Swift Swim", "Storm Drain", "Water Veil"],
+    abilities: ["swiftswim", "stormdrain", "waterveil"],
     learnset: [
       "acrobatics",
       "agility",
@@ -23371,7 +23377,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   lumineon: {
     name: "Lumineon",
-    abilities: ["Swift Swim", "Storm Drain", "Water Veil"],
+    abilities: ["swiftswim", "stormdrain", "waterveil"],
     learnset: [
       "acrobatics",
       "agility",
@@ -23422,7 +23428,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   snover: {
     name: "Snover",
-    abilities: ["Snow Warning", "Soundproof"],
+    abilities: ["snowwarning", "soundproof"],
     learnset: [
       "avalanche",
       "blizzard",
@@ -23477,7 +23483,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   abomasnow: {
     name: "Abomasnow",
-    abilities: ["Snow Warning", "Soundproof"],
+    abilities: ["snowwarning", "soundproof"],
     learnset: [
       "auroraveil",
       "avalanche",
@@ -23547,7 +23553,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   weavile: {
     name: "Weavile",
-    abilities: ["Pressure", "Pickpocket"],
+    abilities: ["pressure", "pickpocket"],
     learnset: [
       "aerialace",
       "agility",
@@ -23624,7 +23630,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   magnezone: {
     name: "Magnezone",
-    abilities: ["Magnet Pull", "Sturdy", "Analytic"],
+    abilities: ["magnetpull", "sturdy", "analytic"],
     learnset: [
       "bodypress",
       "bodyslam",
@@ -23684,7 +23690,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   rhyperior: {
     name: "Rhyperior",
-    abilities: ["Lightning Rod", "Solid Rock", "Reckless"],
+    abilities: ["lightningrod", "solidrock", "reckless"],
     learnset: [
       "avalanche",
       "blizzard",
@@ -23776,7 +23782,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   electivire: {
     name: "Electivire",
-    abilities: ["Motor Drive", "Vital Spirit"],
+    abilities: ["motordrive", "vitalspirit"],
     learnset: [
       "bodyslam",
       "brickbreak",
@@ -23843,7 +23849,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   magmortar: {
     name: "Magmortar",
-    abilities: ["Flame Body", "Vital Spirit"],
+    abilities: ["flamebody", "vitalspirit"],
     learnset: [
       "acidspray",
       "bodyslam",
@@ -23911,7 +23917,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   yanmega: {
     name: "Yanmega",
-    abilities: ["Speed Boost", "Tinted Lens", "Frisk"],
+    abilities: ["speedboost", "tintedlens", "frisk"],
     learnset: [
       "aerialace",
       "aircutter",
@@ -23966,7 +23972,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   leafeon: {
     name: "Leafeon",
-    abilities: ["Leaf Guard", "Chlorophyll"],
+    abilities: ["leafguard", "chlorophyll"],
     learnset: [
       "aerialace",
       "alluringvoice",
@@ -24031,7 +24037,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   glaceon: {
     name: "Glaceon",
-    abilities: ["Snow Cloak", "Ice Body"],
+    abilities: ["snowcloak", "icebody"],
     learnset: [
       "alluringvoice",
       "avalanche",
@@ -24093,7 +24099,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   gliscor: {
     name: "Gliscor",
-    abilities: ["Hyper Cutter", "Sand Veil", "Poison Heal"],
+    abilities: ["hypercutter", "sandveil", "poisonheal"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -24169,7 +24175,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   mamoswine: {
     name: "Mamoswine",
-    abilities: ["Oblivious", "Snow Cloak", "Thick Fat"],
+    abilities: ["oblivious", "snowcloak", "thickfat"],
     learnset: [
       "amnesia",
       "ancientpower",
@@ -24235,7 +24241,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   porygonz: {
     name: "Porygon-Z",
-    abilities: ["Adaptability", "Download", "Analytic"],
+    abilities: ["adaptability", "download", "analytic"],
     learnset: [
       "agility",
       "blizzard",
@@ -24292,7 +24298,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   gallade: {
     name: "Gallade",
-    abilities: ["Steadfast", "Sharpness", "Justified"],
+    abilities: ["steadfast", "sharpness", "justified"],
     learnset: [
       "aerialace",
       "agility",
@@ -24406,7 +24412,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   probopass: {
     name: "Probopass",
-    abilities: ["Sturdy", "Magnet Pull", "Sand Force"],
+    abilities: ["sturdy", "magnetpull", "sandforce"],
     learnset: [
       "block",
       "bodypress",
@@ -24472,7 +24478,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   dusknoir: {
     name: "Dusknoir",
-    abilities: ["Pressure", "Frisk"],
+    abilities: ["pressure", "frisk"],
     learnset: [
       "astonish",
       "bind",
@@ -24542,7 +24548,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   froslass: {
     name: "Froslass",
-    abilities: ["Snow Cloak", "Cursed Body"],
+    abilities: ["snowcloak", "cursedbody"],
     learnset: [
       "astonish",
       "auroraveil",
@@ -24612,7 +24618,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   rotom: {
     name: "Rotom",
-    abilities: ["Levitate"],
+    abilities: ["levitate"],
     learnset: [
       "astonish",
       "charge",
@@ -24662,32 +24668,32 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   rotomheat: {
     name: "Rotom-Heat",
-    abilities: ["Levitate"],
+    abilities: ["levitate"],
     learnset: ["overheat"]
   },
   rotomwash: {
     name: "Rotom-Wash",
-    abilities: ["Levitate"],
+    abilities: ["levitate"],
     learnset: ["hydropump"]
   },
   rotomfrost: {
     name: "Rotom-Frost",
-    abilities: ["Levitate"],
+    abilities: ["levitate"],
     learnset: ["blizzard"]
   },
   rotomfan: {
     name: "Rotom-Fan",
-    abilities: ["Levitate"],
+    abilities: ["levitate"],
     learnset: ["airslash"]
   },
   rotommow: {
     name: "Rotom-Mow",
-    abilities: ["Levitate"],
+    abilities: ["levitate"],
     learnset: ["leafstorm"]
   },
   uxie: {
     name: "Uxie",
-    abilities: ["Levitate"],
+    abilities: ["levitate"],
     learnset: [
       "acrobatics",
       "allyswitch",
@@ -24769,7 +24775,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   mesprit: {
     name: "Mesprit",
-    abilities: ["Levitate"],
+    abilities: ["levitate"],
     learnset: [
       "acrobatics",
       "allyswitch",
@@ -24850,7 +24856,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   azelf: {
     name: "Azelf",
-    abilities: ["Levitate"],
+    abilities: ["levitate"],
     learnset: [
       "acrobatics",
       "allyswitch",
@@ -24934,7 +24940,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   dialga: {
     name: "Dialga",
-    abilities: ["Pressure", "Telepathy"],
+    abilities: ["pressure", "telepathy"],
     learnset: [
       "ancientpower",
       "aurasphere",
@@ -25005,7 +25011,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   dialgaorigin: {
     name: "Dialga-Origin",
-    abilities: ["Pressure", "Telepathy"],
+    abilities: ["pressure", "telepathy"],
     learnset: [
       "ancientpower",
       "aurasphere",
@@ -25076,7 +25082,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   palkia: {
     name: "Palkia",
-    abilities: ["Pressure", "Telepathy"],
+    abilities: ["pressure", "telepathy"],
     learnset: [
       "aerialace",
       "ancientpower",
@@ -25152,7 +25158,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   palkiaorigin: {
     name: "Palkia-Origin",
-    abilities: ["Pressure", "Telepathy"],
+    abilities: ["pressure", "telepathy"],
     learnset: [
       "aerialace",
       "ancientpower",
@@ -25228,7 +25234,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   heatran: {
     name: "Heatran",
-    abilities: ["Flash Fire", "Flame Body"],
+    abilities: ["flashfire", "flamebody"],
     learnset: [
       "ancientpower",
       "bodypress",
@@ -25291,7 +25297,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   regigigas: {
     name: "Regigigas",
-    abilities: ["Slow Start"],
+    abilities: ["slowstart"],
     learnset: [
       "avalanche",
       "bodypress",
@@ -25348,7 +25354,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   giratina: {
     name: "Giratina",
-    abilities: ["Pressure", "Telepathy"],
+    abilities: ["pressure", "telepathy"],
     learnset: [
       "ancientpower",
       "aurasphere",
@@ -25412,7 +25418,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   giratinaorigin: {
     name: "Giratina-Origin",
-    abilities: ["Levitate"],
+    abilities: ["levitate"],
     learnset: [
       "ancientpower",
       "aurasphere",
@@ -25476,7 +25482,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   cresselia: {
     name: "Cresselia",
-    abilities: ["Levitate"],
+    abilities: ["levitate"],
     learnset: [
       "allyswitch",
       "aurorabeam",
@@ -25539,7 +25545,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   phione: {
     name: "Phione",
-    abilities: ["Hydration"],
+    abilities: ["hydration"],
     learnset: [
       "acidarmor",
       "alluringvoice",
@@ -25587,7 +25593,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   manaphy: {
     name: "Manaphy",
-    abilities: ["Hydration"],
+    abilities: ["hydration"],
     learnset: [
       "acidarmor",
       "alluringvoice",
@@ -25650,7 +25656,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   darkrai: {
     name: "Darkrai",
-    abilities: ["Bad Dreams"],
+    abilities: ["baddreams"],
     learnset: [
       "blizzard",
       "brickbreak",
@@ -25716,7 +25722,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   shaymin: {
     name: "Shaymin",
-    abilities: ["Natural Cure"],
+    abilities: ["naturalcure"],
     learnset: [
       "aircutter",
       "airslash",
@@ -25769,7 +25775,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   shayminsky: {
     name: "Shaymin-Sky",
-    abilities: ["Serene Grace"],
+    abilities: ["serenegrace"],
     learnset: [
       "aircutter",
       "airslash",
@@ -25822,7 +25828,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   arceus: {
     name: "Arceus",
-    abilities: ["Multitype"],
+    abilities: ["multitype"],
     learnset: [
       "acidspray",
       "agility",
@@ -25949,7 +25955,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   snivy: {
     name: "Snivy",
-    abilities: ["Overgrow", "Contrary"],
+    abilities: ["overgrow", "contrary"],
     learnset: [
       "aerialace",
       "bulletseed",
@@ -26005,7 +26011,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   servine: {
     name: "Servine",
-    abilities: ["Overgrow", "Contrary"],
+    abilities: ["overgrow", "contrary"],
     learnset: [
       "aerialace",
       "bulletseed",
@@ -26054,7 +26060,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   serperior: {
     name: "Serperior",
-    abilities: ["Overgrow", "Contrary"],
+    abilities: ["overgrow", "contrary"],
     learnset: [
       "aerialace",
       "bodyslam",
@@ -26113,7 +26119,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   tepig: {
     name: "Tepig",
-    abilities: ["Blaze", "Thick Fat"],
+    abilities: ["blaze", "thickfat"],
     learnset: [
       "assurance",
       "bodyslam",
@@ -26170,7 +26176,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   pignite: {
     name: "Pignite",
-    abilities: ["Blaze", "Thick Fat"],
+    abilities: ["blaze", "thickfat"],
     learnset: [
       "armthrust",
       "assurance",
@@ -26243,7 +26249,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   emboar: {
     name: "Emboar",
-    abilities: ["Blaze", "Reckless"],
+    abilities: ["blaze", "reckless"],
     learnset: [
       "armthrust",
       "assurance",
@@ -26326,7 +26332,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   oshawott: {
     name: "Oshawott",
-    abilities: ["Torrent", "Shell Armor"],
+    abilities: ["torrent", "shellarmor"],
     learnset: [
       "aerialace",
       "airslash",
@@ -26385,7 +26391,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   dewott: {
     name: "Dewott",
-    abilities: ["Torrent", "Shell Armor"],
+    abilities: ["torrent", "shellarmor"],
     learnset: [
       "aerialace",
       "airslash",
@@ -26440,7 +26446,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   samurott: {
     name: "Samurott",
-    abilities: ["Torrent", "Shell Armor"],
+    abilities: ["torrent", "shellarmor"],
     learnset: [
       "aerialace",
       "airslash",
@@ -26506,7 +26512,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   samurotthisui: {
     name: "Samurott-Hisui",
-    abilities: ["Torrent", "Sharpness"],
+    abilities: ["torrent", "sharpness"],
     learnset: [
       "aerialace",
       "airslash",
@@ -26577,7 +26583,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   blitzle: {
     name: "Blitzle",
-    abilities: ["Lightning Rod", "Motor Drive", "Sap Sipper"],
+    abilities: ["lightningrod", "motordrive", "sapsipper"],
     learnset: [
       "agility",
       "batonpass",
@@ -26629,7 +26635,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   zebstrika: {
     name: "Zebstrika",
-    abilities: ["Lightning Rod", "Motor Drive", "Sap Sipper"],
+    abilities: ["lightningrod", "motordrive", "sapsipper"],
     learnset: [
       "agility",
       "batonpass",
@@ -26684,7 +26690,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   drilbur: {
     name: "Drilbur",
-    abilities: ["Sand Rush", "Sand Force", "Mold Breaker"],
+    abilities: ["sandrush", "sandforce", "moldbreaker"],
     learnset: [
       "aerialace",
       "brickbreak",
@@ -26734,7 +26740,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   excadrill: {
     name: "Excadrill",
-    abilities: ["Sand Rush", "Sand Force", "Mold Breaker"],
+    abilities: ["sandrush", "sandforce", "moldbreaker"],
     learnset: [
       "aerialace",
       "bodyslam",
@@ -26794,7 +26800,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   timburr: {
     name: "Timburr",
-    abilities: ["Guts", "Sheer Force", "Iron Fist"],
+    abilities: ["guts", "sheerforce", "ironfist"],
     learnset: [
       "brickbreak",
       "bulkup",
@@ -26851,7 +26857,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   gurdurr: {
     name: "Gurdurr",
-    abilities: ["Guts", "Sheer Force", "Iron Fist"],
+    abilities: ["guts", "sheerforce", "ironfist"],
     learnset: [
       "brickbreak",
       "bulkup",
@@ -26904,7 +26910,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   conkeldurr: {
     name: "Conkeldurr",
-    abilities: ["Guts", "Sheer Force", "Iron Fist"],
+    abilities: ["guts", "sheerforce", "ironfist"],
     learnset: [
       "bodyslam",
       "brickbreak",
@@ -26966,7 +26972,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   sewaddle: {
     name: "Sewaddle",
-    abilities: ["Swarm", "Chlorophyll", "Overcoat"],
+    abilities: ["swarm", "chlorophyll", "overcoat"],
     learnset: [
       "batonpass",
       "bugbite",
@@ -27011,7 +27017,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   swadloon: {
     name: "Swadloon",
-    abilities: ["Leaf Guard", "Chlorophyll", "Overcoat"],
+    abilities: ["leafguard", "chlorophyll", "overcoat"],
     learnset: [
       "batonpass",
       "bugbite",
@@ -27052,7 +27058,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   leavanny: {
     name: "Leavanny",
-    abilities: ["Swarm", "Chlorophyll", "Overcoat"],
+    abilities: ["swarm", "chlorophyll", "overcoat"],
     learnset: [
       "agility",
       "airslash",
@@ -27114,7 +27120,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   cottonee: {
     name: "Cottonee",
-    abilities: ["Prankster", "Infiltrator", "Chlorophyll"],
+    abilities: ["prankster", "infiltrator", "chlorophyll"],
     learnset: [
       "absorb",
       "beatup",
@@ -27159,7 +27165,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   whimsicott: {
     name: "Whimsicott",
-    abilities: ["Prankster", "Infiltrator", "Chlorophyll"],
+    abilities: ["prankster", "infiltrator", "chlorophyll"],
     learnset: [
       "absorb",
       "charm",
@@ -27214,7 +27220,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   petilil: {
     name: "Petilil",
-    abilities: ["Chlorophyll", "Own Tempo", "Leaf Guard"],
+    abilities: ["chlorophyll", "owntempo", "leafguard"],
     learnset: [
       "absorb",
       "afteryou",
@@ -27255,7 +27261,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   lilligant: {
     name: "Lilligant",
-    abilities: ["Chlorophyll", "Own Tempo", "Leaf Guard"],
+    abilities: ["chlorophyll", "owntempo", "leafguard"],
     learnset: [
       "absorb",
       "afteryou",
@@ -27305,7 +27311,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   lilliganthisui: {
     name: "Lilligant-Hisui",
-    abilities: ["Chlorophyll", "Hustle", "Leaf Guard"],
+    abilities: ["chlorophyll", "hustle", "leafguard"],
     learnset: [
       "absorb",
       "acrobatics",
@@ -27373,7 +27379,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   basculin: {
     name: "Basculin",
-    abilities: ["Reckless", "Adaptability", "Mold Breaker"],
+    abilities: ["reckless", "adaptability", "moldbreaker"],
     learnset: [
       "agility",
       "aquajet",
@@ -27429,7 +27435,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   sandile: {
     name: "Sandile",
-    abilities: ["Intimidate", "Moxie", "Anger Point"],
+    abilities: ["intimidate", "moxie", "angerpoint"],
     learnset: [
       "aquatail",
       "bite",
@@ -27489,7 +27495,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   krokorok: {
     name: "Krokorok",
-    abilities: ["Intimidate", "Moxie", "Anger Point"],
+    abilities: ["intimidate", "moxie", "angerpoint"],
     learnset: [
       "aerialace",
       "bite",
@@ -27557,7 +27563,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   krookodile: {
     name: "Krookodile",
-    abilities: ["Intimidate", "Moxie", "Anger Point"],
+    abilities: ["intimidate", "moxie", "angerpoint"],
     learnset: [
       "aerialace",
       "bite",
@@ -27636,7 +27642,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   scraggy: {
     name: "Scraggy",
-    abilities: ["Shed Skin", "Moxie", "Intimidate"],
+    abilities: ["shedskin", "moxie", "intimidate"],
     learnset: [
       "acidspray",
       "amnesia",
@@ -27716,7 +27722,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   scrafty: {
     name: "Scrafty",
-    abilities: ["Shed Skin", "Moxie", "Intimidate"],
+    abilities: ["shedskin", "moxie", "intimidate"],
     learnset: [
       "acidspray",
       "amnesia",
@@ -27800,7 +27806,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   zorua: {
     name: "Zorua",
-    abilities: ["Illusion"],
+    abilities: ["illusion"],
     learnset: [
       "agility",
       "burningjealousy",
@@ -27863,7 +27869,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   zoruahisui: {
     name: "Zorua-Hisui",
-    abilities: ["Illusion"],
+    abilities: ["illusion"],
     learnset: [
       "agility",
       "bittermalice",
@@ -27925,7 +27931,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   zoroark: {
     name: "Zoroark",
-    abilities: ["Illusion"],
+    abilities: ["illusion"],
     learnset: [
       "aerialace",
       "agility",
@@ -27996,7 +28002,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   zoroarkhisui: {
     name: "Zoroark-Hisui",
-    abilities: ["Illusion"],
+    abilities: ["illusion"],
     learnset: [
       "aerialace",
       "agility",
@@ -28071,7 +28077,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   minccino: {
     name: "Minccino",
-    abilities: ["Cute Charm", "Technician", "Skill Link"],
+    abilities: ["cutecharm", "technician", "skilllink"],
     learnset: [
       "afteryou",
       "alluringvoice",
@@ -28129,7 +28135,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   cinccino: {
     name: "Cinccino",
-    abilities: ["Cute Charm", "Technician", "Skill Link"],
+    abilities: ["cutecharm", "technician", "skilllink"],
     learnset: [
       "afteryou",
       "alluringvoice",
@@ -28191,7 +28197,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   gothita: {
     name: "Gothita",
-    abilities: ["Frisk", "Competitive", "Shadow Tag"],
+    abilities: ["frisk", "competitive", "shadowtag"],
     learnset: [
       "calmmind",
       "charm",
@@ -28252,7 +28258,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   gothorita: {
     name: "Gothorita",
-    abilities: ["Frisk", "Competitive", "Shadow Tag"],
+    abilities: ["frisk", "competitive", "shadowtag"],
     learnset: [
       "calmmind",
       "charm",
@@ -28309,7 +28315,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   gothitelle: {
     name: "Gothitelle",
-    abilities: ["Frisk", "Competitive", "Shadow Tag"],
+    abilities: ["frisk", "competitive", "shadowtag"],
     learnset: [
       "bodyslam",
       "brickbreak",
@@ -28372,7 +28378,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   solosis: {
     name: "Solosis",
-    abilities: ["Overcoat", "Magic Guard", "Regenerator"],
+    abilities: ["overcoat", "magicguard", "regenerator"],
     learnset: [
       "acidarmor",
       "allyswitch",
@@ -28427,7 +28433,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   duosion: {
     name: "Duosion",
-    abilities: ["Overcoat", "Magic Guard", "Regenerator"],
+    abilities: ["overcoat", "magicguard", "regenerator"],
     learnset: [
       "allyswitch",
       "calmmind",
@@ -28480,7 +28486,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   reuniclus: {
     name: "Reuniclus",
-    abilities: ["Overcoat", "Magic Guard", "Regenerator"],
+    abilities: ["overcoat", "magicguard", "regenerator"],
     learnset: [
       "allyswitch",
       "bodyslam",
@@ -28547,7 +28553,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   ducklett: {
     name: "Ducklett",
-    abilities: ["Keen Eye", "Big Pecks", "Hydration"],
+    abilities: ["keeneye", "bigpecks", "hydration"],
     learnset: [
       "aerialace",
       "aircutter",
@@ -28593,7 +28599,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   swanna: {
     name: "Swanna",
-    abilities: ["Keen Eye", "Big Pecks", "Hydration"],
+    abilities: ["keeneye", "bigpecks", "hydration"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -28642,7 +28648,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   deerling: {
     name: "Deerling",
-    abilities: ["Chlorophyll", "Sap Sipper", "Serene Grace"],
+    abilities: ["chlorophyll", "sapsipper", "serenegrace"],
     learnset: [
       "agility",
       "batonpass",
@@ -28693,7 +28699,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   sawsbuck: {
     name: "Sawsbuck",
-    abilities: ["Chlorophyll", "Sap Sipper", "Serene Grace"],
+    abilities: ["chlorophyll", "sapsipper", "serenegrace"],
     learnset: [
       "agility",
       "batonpass",
@@ -28752,7 +28758,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   foongus: {
     name: "Foongus",
-    abilities: ["Effect Spore", "Regenerator"],
+    abilities: ["effectspore", "regenerator"],
     learnset: [
       "absorb",
       "astonish",
@@ -28797,7 +28803,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   amoonguss: {
     name: "Amoonguss",
-    abilities: ["Effect Spore", "Regenerator"],
+    abilities: ["effectspore", "regenerator"],
     learnset: [
       "absorb",
       "astonish",
@@ -28843,7 +28849,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   alomomola: {
     name: "Alomomola",
-    abilities: ["Healer", "Hydration", "Regenerator"],
+    abilities: ["healer", "hydration", "regenerator"],
     learnset: [
       "acrobatics",
       "alluringvoice",
@@ -28902,7 +28908,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   joltik: {
     name: "Joltik",
-    abilities: ["Compound Eyes", "Unnerve", "Swarm"],
+    abilities: ["compoundeyes", "unnerve", "swarm"],
     learnset: [
       "absorb",
       "agility",
@@ -28951,7 +28957,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   galvantula: {
     name: "Galvantula",
-    abilities: ["Compound Eyes", "Unnerve", "Swarm"],
+    abilities: ["compoundeyes", "unnerve", "swarm"],
     learnset: [
       "absorb",
       "agility",
@@ -29002,12 +29008,12 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   tynamo: {
     name: "Tynamo",
-    abilities: ["Levitate"],
+    abilities: ["levitate"],
     learnset: ["charge", "chargebeam", "knockoff", "spark", "tackle", "terablast", "thunderwave"]
   },
   eelektrik: {
     name: "Eelektrik",
-    abilities: ["Levitate"],
+    abilities: ["levitate"],
     learnset: [
       "acid",
       "acidspray",
@@ -29056,7 +29062,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   eelektross: {
     name: "Eelektross",
-    abilities: ["Levitate"],
+    abilities: ["levitate"],
     learnset: [
       "acid",
       "acidspray",
@@ -29132,7 +29138,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   litwick: {
     name: "Litwick",
-    abilities: ["Flash Fire", "Flame Body", "Infiltrator"],
+    abilities: ["flashfire", "flamebody", "infiltrator"],
     learnset: [
       "acidarmor",
       "astonish",
@@ -29186,7 +29192,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   lampent: {
     name: "Lampent",
-    abilities: ["Flash Fire", "Flame Body", "Infiltrator"],
+    abilities: ["flashfire", "flamebody", "infiltrator"],
     learnset: [
       "astonish",
       "burningjealousy",
@@ -29238,7 +29244,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   chandelure: {
     name: "Chandelure",
-    abilities: ["Flash Fire", "Flame Body", "Infiltrator"],
+    abilities: ["flashfire", "flamebody", "infiltrator"],
     learnset: [
       "astonish",
       "burningjealousy",
@@ -29293,7 +29299,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   axew: {
     name: "Axew",
-    abilities: ["Rivalry", "Mold Breaker", "Unnerve"],
+    abilities: ["rivalry", "moldbreaker", "unnerve"],
     learnset: [
       "aerialace",
       "aquatail",
@@ -29355,7 +29361,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   fraxure: {
     name: "Fraxure",
-    abilities: ["Rivalry", "Mold Breaker", "Unnerve"],
+    abilities: ["rivalry", "moldbreaker", "unnerve"],
     learnset: [
       "aerialace",
       "assurance",
@@ -29413,7 +29419,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   haxorus: {
     name: "Haxorus",
-    abilities: ["Rivalry", "Mold Breaker", "Unnerve"],
+    abilities: ["rivalry", "moldbreaker", "unnerve"],
     learnset: [
       "aerialace",
       "assurance",
@@ -29479,7 +29485,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   cubchoo: {
     name: "Cubchoo",
-    abilities: ["Snow Cloak", "Slush Rush", "Rattled"],
+    abilities: ["snowcloak", "slushrush", "rattled"],
     learnset: [
       "aerialace",
       "avalanche",
@@ -29544,7 +29550,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   beartic: {
     name: "Beartic",
-    abilities: ["Snow Cloak", "Slush Rush", "Swift Swim"],
+    abilities: ["snowcloak", "slushrush", "swiftswim"],
     learnset: [
       "aerialace",
       "aquajet",
@@ -29627,7 +29633,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   cryogonal: {
     name: "Cryogonal",
-    abilities: ["Levitate"],
+    abilities: ["levitate"],
     learnset: [
       "acidarmor",
       "acrobatics",
@@ -29680,7 +29686,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   mienfoo: {
     name: "Mienfoo",
-    abilities: ["Inner Focus", "Regenerator", "Reckless"],
+    abilities: ["innerfocus", "regenerator", "reckless"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -29737,7 +29743,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   mienshao: {
     name: "Mienshao",
-    abilities: ["Inner Focus", "Regenerator", "Reckless"],
+    abilities: ["innerfocus", "regenerator", "reckless"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -29800,7 +29806,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   golett: {
     name: "Golett",
-    abilities: ["Iron Fist", "Klutz", "No Guard"],
+    abilities: ["ironfist", "klutz", "noguard"],
     learnset: [
       "astonish",
       "bodyslam",
@@ -29868,7 +29874,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   golurk: {
     name: "Golurk",
-    abilities: ["Iron Fist", "Klutz", "No Guard"],
+    abilities: ["ironfist", "klutz", "noguard"],
     learnset: [
       "astonish",
       "bodypress",
@@ -29951,7 +29957,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   pawniard: {
     name: "Pawniard",
-    abilities: ["Defiant", "Inner Focus", "Pressure"],
+    abilities: ["defiant", "innerfocus", "pressure"],
     learnset: [
       "aerialace",
       "airslash",
@@ -30011,7 +30017,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   bisharp: {
     name: "Bisharp",
-    abilities: ["Defiant", "Inner Focus", "Pressure"],
+    abilities: ["defiant", "innerfocus", "pressure"],
     learnset: [
       "aerialace",
       "airslash",
@@ -30073,7 +30079,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   rufflet: {
     name: "Rufflet",
-    abilities: ["Keen Eye", "Sheer Force", "Hustle"],
+    abilities: ["keeneye", "sheerforce", "hustle"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -30124,7 +30130,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   braviary: {
     name: "Braviary",
-    abilities: ["Keen Eye", "Sheer Force", "Defiant"],
+    abilities: ["keeneye", "sheerforce", "defiant"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -30180,7 +30186,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   braviaryhisui: {
     name: "Braviary-Hisui",
-    abilities: ["Keen Eye", "Sheer Force", "Tinted Lens"],
+    abilities: ["keeneye", "sheerforce", "tintedlens"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -30254,7 +30260,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   vullaby: {
     name: "Vullaby",
-    abilities: ["Big Pecks", "Overcoat", "Weak Armor"],
+    abilities: ["bigpecks", "overcoat", "weakarmor"],
     learnset: [
       "aircutter",
       "airslash",
@@ -30308,7 +30314,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   mandibuzz: {
     name: "Mandibuzz",
-    abilities: ["Big Pecks", "Overcoat", "Weak Armor"],
+    abilities: ["bigpecks", "overcoat", "weakarmor"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -30368,7 +30374,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   deino: {
     name: "Deino",
-    abilities: ["Hustle"],
+    abilities: ["hustle"],
     learnset: [
       "assurance",
       "astonish",
@@ -30420,7 +30426,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   zweilous: {
     name: "Zweilous",
-    abilities: ["Hustle"],
+    abilities: ["hustle"],
     learnset: [
       "assurance",
       "bite",
@@ -30472,7 +30478,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   hydreigon: {
     name: "Hydreigon",
-    abilities: ["Levitate"],
+    abilities: ["levitate"],
     learnset: [
       "acrobatics",
       "assurance",
@@ -30551,7 +30557,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   larvesta: {
     name: "Larvesta",
-    abilities: ["Flame Body", "Swarm"],
+    abilities: ["flamebody", "swarm"],
     learnset: [
       "absorb",
       "acrobatics",
@@ -30602,7 +30608,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   volcarona: {
     name: "Volcarona",
-    abilities: ["Flame Body", "Swarm"],
+    abilities: ["flamebody", "swarm"],
     learnset: [
       "acrobatics",
       "aircutter",
@@ -30664,7 +30670,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   cobalion: {
     name: "Cobalion",
-    abilities: ["Justified"],
+    abilities: ["justified"],
     learnset: [
       "aerialace",
       "airslash",
@@ -30729,7 +30735,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   terrakion: {
     name: "Terrakion",
-    abilities: ["Justified"],
+    abilities: ["justified"],
     learnset: [
       "aerialace",
       "airslash",
@@ -30790,7 +30796,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   virizion: {
     name: "Virizion",
-    abilities: ["Justified"],
+    abilities: ["justified"],
     learnset: [
       "aerialace",
       "airslash",
@@ -30854,7 +30860,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   tornadus: {
     name: "Tornadus",
-    abilities: ["Prankster", "Defiant"],
+    abilities: ["prankster", "defiant"],
     learnset: [
       "acrobatics",
       "agility",
@@ -30917,7 +30923,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   tornadustherian: {
     name: "Tornadus-Therian",
-    abilities: ["Regenerator"],
+    abilities: ["regenerator"],
     learnset: [
       "acrobatics",
       "agility",
@@ -30980,7 +30986,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   thundurus: {
     name: "Thundurus",
-    abilities: ["Prankster", "Defiant"],
+    abilities: ["prankster", "defiant"],
     learnset: [
       "acrobatics",
       "agility",
@@ -31050,7 +31056,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   thundurustherian: {
     name: "Thundurus-Therian",
-    abilities: ["Volt Absorb"],
+    abilities: ["voltabsorb"],
     learnset: [
       "acrobatics",
       "agility",
@@ -31120,7 +31126,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   reshiram: {
     name: "Reshiram",
-    abilities: ["Turboblaze"],
+    abilities: ["turboblaze"],
     learnset: [
       "ancientpower",
       "blueflare",
@@ -31192,7 +31198,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   zekrom: {
     name: "Zekrom",
-    abilities: ["Teravolt"],
+    abilities: ["teravolt"],
     learnset: [
       "ancientpower",
       "bodypress",
@@ -31268,7 +31274,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   landorus: {
     name: "Landorus",
-    abilities: ["Sand Force", "Sheer Force"],
+    abilities: ["sandforce", "sheerforce"],
     learnset: [
       "block",
       "bodyslam",
@@ -31328,7 +31334,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   landorustherian: {
     name: "Landorus-Therian",
-    abilities: ["Intimidate"],
+    abilities: ["intimidate"],
     learnset: [
       "block",
       "bodyslam",
@@ -31388,7 +31394,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   kyurem: {
     name: "Kyurem",
-    abilities: ["Pressure"],
+    abilities: ["pressure"],
     learnset: [
       "aerialace",
       "ancientpower",
@@ -31456,7 +31462,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   kyuremblack: {
     name: "Kyurem-Black",
-    abilities: ["Teravolt"],
+    abilities: ["teravolt"],
     learnset: [
       "aerialace",
       "ancientpower",
@@ -31525,7 +31531,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   kyuremwhite: {
     name: "Kyurem-White",
-    abilities: ["Turboblaze"],
+    abilities: ["turboblaze"],
     learnset: [
       "aerialace",
       "ancientpower",
@@ -31594,7 +31600,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   keldeo: {
     name: "Keldeo",
-    abilities: ["Justified"],
+    abilities: ["justified"],
     learnset: [
       "aerialace",
       "airslash",
@@ -31658,7 +31664,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   meloetta: {
     name: "Meloetta",
-    abilities: ["Serene Grace"],
+    abilities: ["serenegrace"],
     learnset: [
       "acrobatics",
       "alluringvoice",
@@ -31732,7 +31738,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   meloettapirouette: {
     name: "Meloetta-Pirouette",
-    abilities: ["Serene Grace"],
+    abilities: ["serenegrace"],
     learnset: [
       "acrobatics",
       "alluringvoice",
@@ -31806,7 +31812,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   chespin: {
     name: "Chespin",
-    abilities: ["Overgrow", "Bulletproof"],
+    abilities: ["overgrow", "bulletproof"],
     learnset: [
       "aerialace",
       "bellydrum",
@@ -31873,7 +31879,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   quilladin: {
     name: "Quilladin",
-    abilities: ["Overgrow", "Bulletproof"],
+    abilities: ["overgrow", "bulletproof"],
     learnset: [
       "aerialace",
       "bite",
@@ -31942,7 +31948,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   chesnaught: {
     name: "Chesnaught",
-    abilities: ["Overgrow", "Bulletproof"],
+    abilities: ["overgrow", "bulletproof"],
     learnset: [
       "aerialace",
       "bite",
@@ -32033,7 +32039,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   fennekin: {
     name: "Fennekin",
-    abilities: ["Blaze", "Magician"],
+    abilities: ["blaze", "magician"],
     learnset: [
       "agility",
       "burningjealousy",
@@ -32089,7 +32095,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   braixen: {
     name: "Braixen",
-    abilities: ["Blaze", "Magician"],
+    abilities: ["blaze", "magician"],
     learnset: [
       "agility",
       "burningjealousy",
@@ -32146,7 +32152,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   delphox: {
     name: "Delphox",
-    abilities: ["Blaze", "Magician"],
+    abilities: ["blaze", "magician"],
     learnset: [
       "agility",
       "blastburn",
@@ -32224,7 +32230,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   froakie: {
     name: "Froakie",
-    abilities: ["Torrent", "Protean"],
+    abilities: ["torrent", "protean"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -32281,7 +32287,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   frogadier: {
     name: "Frogadier",
-    abilities: ["Torrent", "Protean"],
+    abilities: ["torrent", "protean"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -32339,7 +32345,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   greninja: {
     name: "Greninja",
-    abilities: ["Torrent", "Protean", "Battle Bond"],
+    abilities: ["torrent", "protean", "battlebond"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -32410,7 +32416,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   fletchling: {
     name: "Fletchling",
-    abilities: ["Big Pecks", "Gale Wings"],
+    abilities: ["bigpecks", "galewings"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -32456,7 +32462,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   fletchinder: {
     name: "Fletchinder",
-    abilities: ["Flame Body", "Gale Wings"],
+    abilities: ["flamebody", "galewings"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -32506,7 +32512,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   talonflame: {
     name: "Talonflame",
-    abilities: ["Flame Body", "Gale Wings"],
+    abilities: ["flamebody", "galewings"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -32562,17 +32568,17 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   scatterbug: {
     name: "Scatterbug",
-    abilities: ["Shield Dust", "Compound Eyes", "Friend Guard"],
+    abilities: ["shielddust", "compoundeyes", "friendguard"],
     learnset: ["bugbite", "poisonpowder", "pounce", "ragepowder", "stringshot", "strugglebug", "stunspore", "tackle", "terablast"]
   },
   spewpa: {
     name: "Spewpa",
-    abilities: ["Shed Skin", "Friend Guard"],
+    abilities: ["shedskin", "friendguard"],
     learnset: ["bugbite", "harden", "irondefense", "pounce", "protect", "strugglebug", "terablast"]
   },
   vivillon: {
     name: "Vivillon",
-    abilities: ["Shield Dust", "Compound Eyes", "Friend Guard"],
+    abilities: ["shielddust", "compoundeyes", "friendguard"],
     learnset: [
       "acrobatics",
       "aircutter",
@@ -32620,7 +32626,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   litleo: {
     name: "Litleo",
-    abilities: ["Rivalry", "Unnerve", "Moxie"],
+    abilities: ["rivalry", "unnerve", "moxie"],
     learnset: [
       "acrobatics",
       "bodyslam",
@@ -32675,7 +32681,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   pyroar: {
     name: "Pyroar",
-    abilities: ["Rivalry", "Unnerve", "Moxie"],
+    abilities: ["rivalry", "unnerve", "moxie"],
     learnset: [
       "acrobatics",
       "bodyslam",
@@ -32733,7 +32739,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   flabebe: {
     name: "Flabébé",
-    abilities: ["Flower Veil", "Symbiosis"],
+    abilities: ["flowerveil", "symbiosis"],
     learnset: [
       "alluringvoice",
       "batonpass",
@@ -32784,7 +32790,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   floette: {
     name: "Floette",
-    abilities: ["Flower Veil", "Symbiosis"],
+    abilities: ["flowerveil", "symbiosis"],
     learnset: [
       "alluringvoice",
       "batonpass",
@@ -32836,7 +32842,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   florges: {
     name: "Florges",
-    abilities: ["Flower Veil", "Symbiosis"],
+    abilities: ["flowerveil", "symbiosis"],
     learnset: [
       "alluringvoice",
       "batonpass",
@@ -32888,7 +32894,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   skiddo: {
     name: "Skiddo",
-    abilities: ["Sap Sipper", "Grass Pelt"],
+    abilities: ["sapsipper", "grasspelt"],
     learnset: [
       "bodyslam",
       "brickbreak",
@@ -32945,7 +32951,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   gogoat: {
     name: "Gogoat",
-    abilities: ["Sap Sipper", "Grass Pelt"],
+    abilities: ["sapsipper", "grasspelt"],
     learnset: [
       "aerialace",
       "bodyslam",
@@ -33006,7 +33012,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   espurr: {
     name: "Espurr",
-    abilities: ["Keen Eye", "Infiltrator", "Own Tempo"],
+    abilities: ["keeneye", "infiltrator", "owntempo"],
     learnset: [
       "calmmind",
       "chargebeam",
@@ -33055,7 +33061,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   meowstic: {
     name: "Meowstic",
-    abilities: ["Keen Eye", "Infiltrator", "Prankster"],
+    abilities: ["keeneye", "infiltrator", "prankster"],
     learnset: [
       "alluringvoice",
       "batonpass",
@@ -33116,7 +33122,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   inkay: {
     name: "Inkay",
-    abilities: ["Contrary", "Suction Cups", "Infiltrator"],
+    abilities: ["contrary", "suctioncups", "infiltrator"],
     learnset: [
       "acupressure",
       "aerialace",
@@ -33180,7 +33186,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   malamar: {
     name: "Malamar",
-    abilities: ["Contrary", "Suction Cups", "Infiltrator"],
+    abilities: ["contrary", "suctioncups", "infiltrator"],
     learnset: [
       "aerialace",
       "batonpass",
@@ -33248,7 +33254,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   skrelp: {
     name: "Skrelp",
-    abilities: ["Poison Point", "Poison Touch", "Adaptability"],
+    abilities: ["poisonpoint", "poisontouch", "adaptability"],
     learnset: [
       "acid",
       "acidarmor",
@@ -33304,7 +33310,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   dragalge: {
     name: "Dragalge",
-    abilities: ["Poison Point", "Poison Touch", "Adaptability"],
+    abilities: ["poisonpoint", "poisontouch", "adaptability"],
     learnset: [
       "acid",
       "acidspray",
@@ -33363,7 +33369,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   clauncher: {
     name: "Clauncher",
-    abilities: ["Mega Launcher"],
+    abilities: ["megalauncher"],
     learnset: [
       "aquajet",
       "aquatail",
@@ -33416,7 +33422,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   clawitzer: {
     name: "Clawitzer",
-    abilities: ["Mega Launcher"],
+    abilities: ["megalauncher"],
     learnset: [
       "aquajet",
       "aurasphere",
@@ -33474,7 +33480,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   sylveon: {
     name: "Sylveon",
-    abilities: ["Cute Charm", "Pixilate"],
+    abilities: ["cutecharm", "pixilate"],
     learnset: [
       "alluringvoice",
       "babydolleyes",
@@ -33534,7 +33540,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   hawlucha: {
     name: "Hawlucha",
-    abilities: ["Limber", "Unburden", "Mold Breaker"],
+    abilities: ["limber", "unburden", "moldbreaker"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -33613,7 +33619,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   dedenne: {
     name: "Dedenne",
-    abilities: ["Cheek Pouch", "Pickup", "Plus"],
+    abilities: ["cheekpouch", "pickup", "plus"],
     learnset: [
       "agility",
       "charge",
@@ -33672,7 +33678,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   carbink: {
     name: "Carbink",
-    abilities: ["Clear Body", "Sturdy"],
+    abilities: ["clearbody", "sturdy"],
     learnset: [
       "ancientpower",
       "bodypress",
@@ -33731,7 +33737,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   goomy: {
     name: "Goomy",
-    abilities: ["Sap Sipper", "Hydration", "Gooey"],
+    abilities: ["sapsipper", "hydration", "gooey"],
     learnset: [
       "absorb",
       "bodyslam",
@@ -33769,7 +33775,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   sliggoo: {
     name: "Sliggoo",
-    abilities: ["Sap Sipper", "Hydration", "Gooey"],
+    abilities: ["sapsipper", "hydration", "gooey"],
     learnset: [
       "absorb",
       "acidarmor",
@@ -33811,7 +33817,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   sliggoohisui: {
     name: "Sliggoo-Hisui",
-    abilities: ["Sap Sipper", "Shell Armor", "Gooey"],
+    abilities: ["sapsipper", "shellarmor", "gooey"],
     learnset: [
       "absorb",
       "acidarmor",
@@ -33861,7 +33867,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   goodra: {
     name: "Goodra",
-    abilities: ["Sap Sipper", "Hydration", "Gooey"],
+    abilities: ["sapsipper", "hydration", "gooey"],
     learnset: [
       "absorb",
       "acidspray",
@@ -33928,7 +33934,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   goodrahisui: {
     name: "Goodra-Hisui",
-    abilities: ["Sap Sipper", "Shell Armor", "Gooey"],
+    abilities: ["sapsipper", "shellarmor", "gooey"],
     learnset: [
       "absorb",
       "acidspray",
@@ -34000,7 +34006,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   klefki: {
     name: "Klefki",
-    abilities: ["Prankster", "Magician"],
+    abilities: ["prankster", "magician"],
     learnset: [
       "astonish",
       "calmmind",
@@ -34051,7 +34057,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   phantump: {
     name: "Phantump",
-    abilities: ["Natural Cure", "Frisk", "Harvest"],
+    abilities: ["naturalcure", "frisk", "harvest"],
     learnset: [
       "allyswitch",
       "astonish",
@@ -34115,7 +34121,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   trevenant: {
     name: "Trevenant",
-    abilities: ["Natural Cure", "Frisk", "Harvest"],
+    abilities: ["naturalcure", "frisk", "harvest"],
     learnset: [
       "astonish",
       "branchpoke",
@@ -34191,7 +34197,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   bergmite: {
     name: "Bergmite",
-    abilities: ["Own Tempo", "Ice Body", "Sturdy"],
+    abilities: ["owntempo", "icebody", "sturdy"],
     learnset: [
       "auroraveil",
       "avalanche",
@@ -34234,7 +34240,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   avalugg: {
     name: "Avalugg",
-    abilities: ["Own Tempo", "Ice Body", "Sturdy"],
+    abilities: ["owntempo", "icebody", "sturdy"],
     learnset: [
       "avalanche",
       "bite",
@@ -34288,7 +34294,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   avalugghisui: {
     name: "Avalugg-Hisui",
-    abilities: ["Strong Jaw", "Ice Body", "Sturdy"],
+    abilities: ["strongjaw", "icebody", "sturdy"],
     learnset: [
       "avalanche",
       "bite",
@@ -34345,7 +34351,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   noibat: {
     name: "Noibat",
-    abilities: ["Frisk", "Infiltrator", "Telepathy"],
+    abilities: ["frisk", "infiltrator", "telepathy"],
     learnset: [
       "absorb",
       "acrobatics",
@@ -34403,7 +34409,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   noivern: {
     name: "Noivern",
-    abilities: ["Frisk", "Infiltrator", "Telepathy"],
+    abilities: ["frisk", "infiltrator", "telepathy"],
     learnset: [
       "absorb",
       "acrobatics",
@@ -34473,7 +34479,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   diancie: {
     name: "Diancie",
-    abilities: ["Clear Body"],
+    abilities: ["clearbody"],
     learnset: [
       "amnesia",
       "ancientpower",
@@ -34541,7 +34547,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   hoopa: {
     name: "Hoopa",
-    abilities: ["Magician"],
+    abilities: ["magician"],
     learnset: [
       "allyswitch",
       "astonish",
@@ -34612,7 +34618,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   hoopaunbound: {
     name: "Hoopa-Unbound",
-    abilities: ["Magician"],
+    abilities: ["magician"],
     learnset: [
       "allyswitch",
       "astonish",
@@ -34683,7 +34689,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   volcanion: {
     name: "Volcanion",
-    abilities: ["Water Absorb"],
+    abilities: ["waterabsorb"],
     learnset: [
       "bodypress",
       "bodyslam",
@@ -34754,7 +34760,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   rowlet: {
     name: "Rowlet",
-    abilities: ["Overgrow", "Long Reach"],
+    abilities: ["overgrow", "longreach"],
     learnset: [
       "aerialace",
       "aircutter",
@@ -34813,7 +34819,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   dartrix: {
     name: "Dartrix",
-    abilities: ["Overgrow", "Long Reach"],
+    abilities: ["overgrow", "longreach"],
     learnset: [
       "aerialace",
       "aircutter",
@@ -34871,7 +34877,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   decidueye: {
     name: "Decidueye",
-    abilities: ["Overgrow", "Long Reach"],
+    abilities: ["overgrow", "longreach"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -34948,7 +34954,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   decidueyehisui: {
     name: "Decidueye-Hisui",
-    abilities: ["Overgrow", "Scrappy"],
+    abilities: ["overgrow", "scrappy"],
     learnset: [
       "aerialace",
       "aircutter",
@@ -35025,7 +35031,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   litten: {
     name: "Litten",
-    abilities: ["Blaze", "Intimidate"],
+    abilities: ["blaze", "intimidate"],
     learnset: [
       "acrobatics",
       "bite",
@@ -35080,7 +35086,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   torracat: {
     name: "Torracat",
-    abilities: ["Blaze", "Intimidate"],
+    abilities: ["blaze", "intimidate"],
     learnset: [
       "acrobatics",
       "bite",
@@ -35132,7 +35138,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   incineroar: {
     name: "Incineroar",
-    abilities: ["Blaze", "Intimidate"],
+    abilities: ["blaze", "intimidate"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -35215,7 +35221,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   popplio: {
     name: "Popplio",
-    abilities: ["Torrent", "Liquid Voice"],
+    abilities: ["torrent", "liquidvoice"],
     learnset: [
       "acrobatics",
       "amnesia",
@@ -35265,7 +35271,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   brionne: {
     name: "Brionne",
-    abilities: ["Torrent", "Liquid Voice"],
+    abilities: ["torrent", "liquidvoice"],
     learnset: [
       "acrobatics",
       "amnesia",
@@ -35313,7 +35319,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   primarina: {
     name: "Primarina",
-    abilities: ["Torrent", "Liquid Voice"],
+    abilities: ["torrent", "liquidvoice"],
     learnset: [
       "acrobatics",
       "alluringvoice",
@@ -35381,7 +35387,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   pikipek: {
     name: "Pikipek",
-    abilities: ["Keen Eye", "Skill Link", "Pickup"],
+    abilities: ["keeneye", "skilllink", "pickup"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -35431,7 +35437,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   trumbeak: {
     name: "Trumbeak",
-    abilities: ["Keen Eye", "Skill Link", "Pickup"],
+    abilities: ["keeneye", "skilllink", "pickup"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -35481,7 +35487,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   toucannon: {
     name: "Toucannon",
-    abilities: ["Keen Eye", "Skill Link", "Sheer Force"],
+    abilities: ["keeneye", "skilllink", "sheerforce"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -35543,7 +35549,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   yungoos: {
     name: "Yungoos",
-    abilities: ["Stakeout", "Strong Jaw", "Adaptability"],
+    abilities: ["stakeout", "strongjaw", "adaptability"],
     learnset: [
       "bite",
       "bulldoze",
@@ -35594,7 +35600,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   gumshoos: {
     name: "Gumshoos",
-    abilities: ["Stakeout", "Strong Jaw", "Adaptability"],
+    abilities: ["stakeout", "strongjaw", "adaptability"],
     learnset: [
       "bite",
       "bodyslam",
@@ -35658,7 +35664,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   grubbin: {
     name: "Grubbin",
-    abilities: ["Swarm"],
+    abilities: ["swarm"],
     learnset: [
       "batonpass",
       "bite",
@@ -35701,7 +35707,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   charjabug: {
     name: "Charjabug",
-    abilities: ["Battery"],
+    abilities: ["battery"],
     learnset: [
       "batonpass",
       "bite",
@@ -35747,7 +35753,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   vikavolt: {
     name: "Vikavolt",
-    abilities: ["Levitate"],
+    abilities: ["levitate"],
     learnset: [
       "acrobatics",
       "agility",
@@ -35808,7 +35814,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   crabrawler: {
     name: "Crabrawler",
-    abilities: ["Hyper Cutter", "Iron Fist", "Anger Point"],
+    abilities: ["hypercutter", "ironfist", "angerpoint"],
     learnset: [
       "amnesia",
       "bodyslam",
@@ -35867,7 +35873,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   crabominable: {
     name: "Crabominable",
-    abilities: ["Hyper Cutter", "Iron Fist", "Anger Point"],
+    abilities: ["hypercutter", "ironfist", "angerpoint"],
     learnset: [
       "amnesia",
       "avalanche",
@@ -35933,7 +35939,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   oricorio: {
     name: "Oricorio",
-    abilities: ["Dancer"],
+    abilities: ["dancer"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -35985,7 +35991,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   oricoriopompom: {
     name: "Oricorio-Pom-Pom",
-    abilities: ["Dancer"],
+    abilities: ["dancer"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -36037,7 +36043,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   oricoriopau: {
     name: "Oricorio-Pa'u",
-    abilities: ["Dancer"],
+    abilities: ["dancer"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -36089,7 +36095,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   oricoriosensu: {
     name: "Oricorio-Sensu",
-    abilities: ["Dancer"],
+    abilities: ["dancer"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -36141,7 +36147,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   cutiefly: {
     name: "Cutiefly",
-    abilities: ["Honey Gather", "Shield Dust", "Sweet Veil"],
+    abilities: ["honeygather", "shielddust", "sweetveil"],
     learnset: [
       "absorb",
       "acrobatics",
@@ -36196,7 +36202,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   ribombee: {
     name: "Ribombee",
-    abilities: ["Honey Gather", "Shield Dust", "Sweet Veil"],
+    abilities: ["honeygather", "shielddust", "sweetveil"],
     learnset: [
       "absorb",
       "acrobatics",
@@ -36258,7 +36264,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   rockruff: {
     name: "Rockruff",
-    abilities: ["Keen Eye", "Vital Spirit", "Steadfast", "Own Tempo"],
+    abilities: ["keeneye", "vitalspirit", "steadfast", "owntempo"],
     learnset: [
       "bite",
       "bodyslam",
@@ -36312,7 +36318,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   lycanroc: {
     name: "Lycanroc",
-    abilities: ["Keen Eye", "Sand Rush", "Steadfast"],
+    abilities: ["keeneye", "sandrush", "steadfast"],
     learnset: [
       "accelerock",
       "agility",
@@ -36376,7 +36382,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   lycanrocmidnight: {
     name: "Lycanroc-Midnight",
-    abilities: ["Keen Eye", "Vital Spirit", "No Guard"],
+    abilities: ["keeneye", "vitalspirit", "noguard"],
     learnset: [
       "bite",
       "bodyslam",
@@ -36447,7 +36453,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   lycanrocdusk: {
     name: "Lycanroc-Dusk",
-    abilities: ["Tough Claws"],
+    abilities: ["toughclaws"],
     learnset: [
       "accelerock",
       "bite",
@@ -36513,7 +36519,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   mareanie: {
     name: "Mareanie",
-    abilities: ["Merciless", "Limber", "Regenerator"],
+    abilities: ["merciless", "limber", "regenerator"],
     learnset: [
       "acidspray",
       "bite",
@@ -36561,7 +36567,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   toxapex: {
     name: "Toxapex",
-    abilities: ["Merciless", "Limber", "Regenerator"],
+    abilities: ["merciless", "limber", "regenerator"],
     learnset: [
       "acidspray",
       "banefulbunker",
@@ -36612,7 +36618,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   mudbray: {
     name: "Mudbray",
-    abilities: ["Own Tempo", "Stamina", "Inner Focus"],
+    abilities: ["owntempo", "stamina", "innerfocus"],
     learnset: [
       "bodyslam",
       "bulldoze",
@@ -36659,7 +36665,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   mudsdale: {
     name: "Mudsdale",
-    abilities: ["Own Tempo", "Stamina", "Inner Focus"],
+    abilities: ["owntempo", "stamina", "innerfocus"],
     learnset: [
       "bodypress",
       "bodyslam",
@@ -36712,7 +36718,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   dewpider: {
     name: "Dewpider",
-    abilities: ["Water Bubble", "Water Absorb"],
+    abilities: ["waterbubble", "waterabsorb"],
     learnset: [
       "aquaring",
       "bite",
@@ -36761,7 +36767,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   araquanid: {
     name: "Araquanid",
-    abilities: ["Water Bubble", "Water Absorb"],
+    abilities: ["waterbubble", "waterabsorb"],
     learnset: [
       "aquaring",
       "bite",
@@ -36812,7 +36818,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   fomantis: {
     name: "Fomantis",
-    abilities: ["Leaf Guard", "Contrary"],
+    abilities: ["leafguard", "contrary"],
     learnset: [
       "bugbite",
       "bulletseed",
@@ -36859,7 +36865,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   lurantis: {
     name: "Lurantis",
-    abilities: ["Leaf Guard", "Contrary"],
+    abilities: ["leafguard", "contrary"],
     learnset: [
       "brickbreak",
       "bugbite",
@@ -36914,7 +36920,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   salandit: {
     name: "Salandit",
-    abilities: ["Corrosion", "Oblivious"],
+    abilities: ["corrosion", "oblivious"],
     learnset: [
       "acidspray",
       "agility",
@@ -36978,7 +36984,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   salazzle: {
     name: "Salazzle",
-    abilities: ["Corrosion", "Oblivious"],
+    abilities: ["corrosion", "oblivious"],
     learnset: [
       "acidspray",
       "acrobatics",
@@ -37055,7 +37061,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   bounsweet: {
     name: "Bounsweet",
-    abilities: ["Leaf Guard", "Oblivious", "Sweet Veil"],
+    abilities: ["leafguard", "oblivious", "sweetveil"],
     learnset: [
       "acupressure",
       "aromaticmist",
@@ -37101,7 +37107,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   steenee: {
     name: "Steenee",
-    abilities: ["Leaf Guard", "Oblivious", "Sweet Veil"],
+    abilities: ["leafguard", "oblivious", "sweetveil"],
     learnset: [
       "aromaticmist",
       "bulletseed",
@@ -37151,7 +37157,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   tsareena: {
     name: "Tsareena",
-    abilities: ["Leaf Guard", "Queenly Majesty", "Sweet Veil"],
+    abilities: ["leafguard", "queenlymajesty", "sweetveil"],
     learnset: [
       "acrobatics",
       "aromaticmist",
@@ -37212,7 +37218,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   comfey: {
     name: "Comfey",
-    abilities: ["Flower Veil", "Triage", "Natural Cure"],
+    abilities: ["flowerveil", "triage", "naturalcure"],
     learnset: [
       "acrobatics",
       "afteryou",
@@ -37275,7 +37281,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   oranguru: {
     name: "Oranguru",
-    abilities: ["Inner Focus", "Telepathy", "Symbiosis"],
+    abilities: ["innerfocus", "telepathy", "symbiosis"],
     learnset: [
       "afteryou",
       "bodyslam",
@@ -37343,7 +37349,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   passimian: {
     name: "Passimian",
-    abilities: ["Receiver", "Defiant"],
+    abilities: ["receiver", "defiant"],
     learnset: [
       "acrobatics",
       "batonpass",
@@ -37412,7 +37418,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   sandygast: {
     name: "Sandygast",
-    abilities: ["Water Compaction", "Sand Veil"],
+    abilities: ["watercompaction", "sandveil"],
     learnset: [
       "absorb",
       "amnesia",
@@ -37473,7 +37479,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   palossand: {
     name: "Palossand",
-    abilities: ["Water Compaction", "Sand Veil"],
+    abilities: ["watercompaction", "sandveil"],
     learnset: [
       "absorb",
       "amnesia",
@@ -37532,7 +37538,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   minior: {
     name: "Minior",
-    abilities: ["Shields Down"],
+    abilities: ["shieldsdown"],
     learnset: [
       "acrobatics",
       "ancientpower",
@@ -37586,7 +37592,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   komala: {
     name: "Komala",
-    abilities: ["Comatose"],
+    abilities: ["comatose"],
     learnset: [
       "acrobatics",
       "bodyslam",
@@ -37651,7 +37657,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   mimikyu: {
     name: "Mimikyu",
-    abilities: ["Disguise"],
+    abilities: ["disguise"],
     learnset: [
       "astonish",
       "babydolleyes",
@@ -37717,7 +37723,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   bruxish: {
     name: "Bruxish",
-    abilities: ["Dazzling", "Strong Jaw", "Wonder Skin"],
+    abilities: ["dazzling", "strongjaw", "wonderskin"],
     learnset: [
       "agility",
       "aquajet",
@@ -37775,7 +37781,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   jangmoo: {
     name: "Jangmo-o",
-    abilities: ["Bulletproof", "Soundproof", "Overcoat"],
+    abilities: ["bulletproof", "soundproof", "overcoat"],
     learnset: [
       "bodyslam",
       "breakingswipe",
@@ -37827,7 +37833,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   hakamoo: {
     name: "Hakamo-o",
-    abilities: ["Bulletproof", "Soundproof", "Overcoat"],
+    abilities: ["bulletproof", "soundproof", "overcoat"],
     learnset: [
       "aerialace",
       "bodyslam",
@@ -37888,7 +37894,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   kommoo: {
     name: "Kommo-o",
-    abilities: ["Bulletproof", "Soundproof", "Overcoat"],
+    abilities: ["bulletproof", "soundproof", "overcoat"],
     learnset: [
       "aerialace",
       "aurasphere",
@@ -37970,17 +37976,17 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   cosmog: {
     name: "Cosmog",
-    abilities: ["Unaware"],
+    abilities: ["unaware"],
     learnset: ["splash", "teleport"]
   },
   cosmoem: {
     name: "Cosmoem",
-    abilities: ["Sturdy"],
+    abilities: ["sturdy"],
     learnset: ["cosmicpower", "teleport"]
   },
   solgaleo: {
     name: "Solgaleo",
-    abilities: ["Full Metal Body"],
+    abilities: ["fullmetalbody"],
     learnset: [
       "agility",
       "bodyslam",
@@ -38054,7 +38060,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   lunala: {
     name: "Lunala",
-    abilities: ["Shadow Shield"],
+    abilities: ["shadowshield"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -38121,7 +38127,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   necrozma: {
     name: "Necrozma",
-    abilities: ["Prism Armor"],
+    abilities: ["prismarmor"],
     learnset: [
       "aerialace",
       "bodyslam",
@@ -38193,17 +38199,17 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   necrozmaduskmane: {
     name: "Necrozma-Dusk-Mane",
-    abilities: ["Prism Armor"],
+    abilities: ["prismarmor"],
     learnset: ["sunsteelstrike"]
   },
   necrozmadawnwings: {
     name: "Necrozma-Dawn-Wings",
-    abilities: ["Prism Armor"],
+    abilities: ["prismarmor"],
     learnset: ["moongeistbeam"]
   },
   magearna: {
     name: "Magearna",
-    abilities: ["Soul-Heart"],
+    abilities: ["soulheart"],
     learnset: [
       "agility",
       "aurasphere",
@@ -38281,7 +38287,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   grookey: {
     name: "Grookey",
-    abilities: ["Overgrow", "Grassy Surge"],
+    abilities: ["overgrow", "grassysurge"],
     learnset: [
       "acrobatics",
       "bodyslam",
@@ -38336,7 +38342,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   thwackey: {
     name: "Thwackey",
-    abilities: ["Overgrow", "Grassy Surge"],
+    abilities: ["overgrow", "grassysurge"],
     learnset: [
       "acrobatics",
       "bodyslam",
@@ -38388,7 +38394,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   rillaboom: {
     name: "Rillaboom",
-    abilities: ["Overgrow", "Grassy Surge"],
+    abilities: ["overgrow", "grassysurge"],
     learnset: [
       "acrobatics",
       "bodypress",
@@ -38460,7 +38466,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   scorbunny: {
     name: "Scorbunny",
-    abilities: ["Blaze", "Libero"],
+    abilities: ["blaze", "libero"],
     learnset: [
       "acrobatics",
       "agility",
@@ -38512,7 +38518,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   raboot: {
     name: "Raboot",
-    abilities: ["Blaze", "Libero"],
+    abilities: ["blaze", "libero"],
     learnset: [
       "acrobatics",
       "agility",
@@ -38565,7 +38571,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   cinderace: {
     name: "Cinderace",
-    abilities: ["Blaze", "Libero"],
+    abilities: ["blaze", "libero"],
     learnset: [
       "acrobatics",
       "agility",
@@ -38636,7 +38642,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   sobble: {
     name: "Sobble",
-    abilities: ["Torrent", "Sniper"],
+    abilities: ["torrent", "sniper"],
     learnset: [
       "aquajet",
       "aquaring",
@@ -38680,7 +38686,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   drizzile: {
     name: "Drizzile",
-    abilities: ["Torrent", "Sniper"],
+    abilities: ["torrent", "sniper"],
     learnset: [
       "batonpass",
       "bind",
@@ -38720,7 +38726,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   inteleon: {
     name: "Inteleon",
-    abilities: ["Torrent", "Sniper"],
+    abilities: ["torrent", "sniper"],
     learnset: [
       "acrobatics",
       "agility",
@@ -38785,7 +38791,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   skwovet: {
     name: "Skwovet",
-    abilities: ["Cheek Pouch", "Gluttony"],
+    abilities: ["cheekpouch", "gluttony"],
     learnset: [
       "amnesia",
       "belch",
@@ -38829,7 +38835,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   greedent: {
     name: "Greedent",
-    abilities: ["Cheek Pouch", "Gluttony"],
+    abilities: ["cheekpouch", "gluttony"],
     learnset: [
       "amnesia",
       "belch",
@@ -38886,7 +38892,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   rookidee: {
     name: "Rookidee",
-    abilities: ["Keen Eye", "Unnerve", "Big Pecks"],
+    abilities: ["keeneye", "unnerve", "bigpecks"],
     learnset: [
       "aerialace",
       "agility",
@@ -38930,7 +38936,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   corvisquire: {
     name: "Corvisquire",
-    abilities: ["Keen Eye", "Unnerve", "Big Pecks"],
+    abilities: ["keeneye", "unnerve", "bigpecks"],
     learnset: [
       "aerialace",
       "agility",
@@ -38971,7 +38977,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   corviknight: {
     name: "Corviknight",
-    abilities: ["Pressure", "Unnerve", "Mirror Armor"],
+    abilities: ["pressure", "unnerve", "mirrorarmor"],
     learnset: [
       "aerialace",
       "agility",
@@ -39031,7 +39037,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   chewtle: {
     name: "Chewtle",
-    abilities: ["Strong Jaw", "Shell Armor", "Swift Swim"],
+    abilities: ["strongjaw", "shellarmor", "swiftswim"],
     learnset: [
       "bite",
       "bodyslam",
@@ -39071,7 +39077,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   drednaw: {
     name: "Drednaw",
-    abilities: ["Strong Jaw", "Shell Armor", "Swift Swim"],
+    abilities: ["strongjaw", "shellarmor", "swiftswim"],
     learnset: [
       "bite",
       "blizzard",
@@ -39138,7 +39144,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   rolycoly: {
     name: "Rolycoly",
-    abilities: ["Steam Engine", "Heatproof", "Flash Fire"],
+    abilities: ["steamengine", "heatproof", "flashfire"],
     learnset: [
       "ancientpower",
       "block",
@@ -39183,7 +39189,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   carkol: {
     name: "Carkol",
-    abilities: ["Steam Engine", "Flame Body", "Flash Fire"],
+    abilities: ["steamengine", "flamebody", "flashfire"],
     learnset: [
       "ancientpower",
       "bodypress",
@@ -39238,7 +39244,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   coalossal: {
     name: "Coalossal",
-    abilities: ["Steam Engine", "Flame Body", "Flash Fire"],
+    abilities: ["steamengine", "flamebody", "flashfire"],
     learnset: [
       "ancientpower",
       "bodypress",
@@ -39301,12 +39307,12 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   applin: {
     name: "Applin",
-    abilities: ["Ripen", "Gluttony", "Bulletproof"],
+    abilities: ["ripen", "gluttony", "bulletproof"],
     learnset: ["astonish", "defensecurl", "pounce", "recycle", "rollout", "suckerpunch", "terablast", "withdraw"]
   },
   flapple: {
     name: "Flapple",
-    abilities: ["Ripen", "Gluttony", "Hustle"],
+    abilities: ["ripen", "gluttony", "hustle"],
     learnset: [
       "acidspray",
       "acrobatics",
@@ -39360,7 +39366,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   appletun: {
     name: "Appletun",
-    abilities: ["Ripen", "Gluttony", "Thick Fat"],
+    abilities: ["ripen", "gluttony", "thickfat"],
     learnset: [
       "amnesia",
       "appleacid",
@@ -39420,7 +39426,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   silicobra: {
     name: "Silicobra",
-    abilities: ["Sand Spit", "Shed Skin", "Sand Veil"],
+    abilities: ["sandspit", "shedskin", "sandveil"],
     learnset: [
       "belch",
       "bodyslam",
@@ -39465,7 +39471,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   sandaconda: {
     name: "Sandaconda",
-    abilities: ["Sand Spit", "Shed Skin", "Sand Veil"],
+    abilities: ["sandspit", "shedskin", "sandveil"],
     learnset: [
       "bodypress",
       "bodyslam",
@@ -39519,7 +39525,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   cramorant: {
     name: "Cramorant",
-    abilities: ["Gulp Missile"],
+    abilities: ["gulpmissile"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -39579,7 +39585,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   arrokuda: {
     name: "Arrokuda",
-    abilities: ["Swift Swim", "Propeller Tail"],
+    abilities: ["swiftswim", "propellertail"],
     learnset: [
       "acupressure",
       "agility",
@@ -39623,7 +39629,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   barraskewda: {
     name: "Barraskewda",
-    abilities: ["Swift Swim", "Propeller Tail"],
+    abilities: ["swiftswim", "propellertail"],
     learnset: [
       "agility",
       "aquajet",
@@ -39669,12 +39675,12 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   toxel: {
     name: "Toxel",
-    abilities: ["Rattled", "Static", "Klutz"],
+    abilities: ["rattled", "static", "klutz"],
     learnset: ["acid", "belch", "charm", "encore", "endeavor", "endure", "facade", "flail", "growl", "metalsound", "nuzzle", "protect", "rest", "sleeptalk", "substitute", "tearfullook", "terablast"]
   },
   toxtricity: {
     name: "Toxtricity",
-    abilities: ["Punk Rock", "Plus", "Technician"],
+    abilities: ["punkrock", "plus", "technician"],
     learnset: [
       "acid",
       "acidspray",
@@ -39753,7 +39759,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   sinistea: {
     name: "Sinistea",
-    abilities: ["Weak Armor", "Cursed Body"],
+    abilities: ["weakarmor", "cursedbody"],
     learnset: [
       "allyswitch",
       "aromaticmist",
@@ -39800,7 +39806,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   polteageist: {
     name: "Polteageist",
-    abilities: ["Weak Armor", "Cursed Body"],
+    abilities: ["weakarmor", "cursedbody"],
     learnset: [
       "aromaticmist",
       "astonish",
@@ -39853,7 +39859,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   hatenna: {
     name: "Hatenna",
-    abilities: ["Healer", "Anticipation", "Magic Bounce"],
+    abilities: ["healer", "anticipation", "magicbounce"],
     learnset: [
       "afteryou",
       "aromaticmist",
@@ -39905,7 +39911,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   hattrem: {
     name: "Hattrem",
-    abilities: ["Healer", "Anticipation", "Magic Bounce"],
+    abilities: ["healer", "anticipation", "magicbounce"],
     learnset: [
       "aromaticmist",
       "batonpass",
@@ -39954,7 +39960,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   hatterene: {
     name: "Hatterene",
-    abilities: ["Healer", "Anticipation", "Magic Bounce"],
+    abilities: ["healer", "anticipation", "magicbounce"],
     learnset: [
       "agility",
       "aromaticmist",
@@ -40015,7 +40021,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   impidimp: {
     name: "Impidimp",
-    abilities: ["Prankster", "Frisk", "Pickpocket"],
+    abilities: ["prankster", "frisk", "pickpocket"],
     learnset: [
       "assurance",
       "bite",
@@ -40063,7 +40069,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   morgrem: {
     name: "Morgrem",
-    abilities: ["Prankster", "Frisk", "Pickpocket"],
+    abilities: ["prankster", "frisk", "pickpocket"],
     learnset: [
       "assurance",
       "bite",
@@ -40113,7 +40119,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   grimmsnarl: {
     name: "Grimmsnarl",
-    abilities: ["Prankster", "Frisk", "Pickpocket"],
+    abilities: ["prankster", "frisk", "pickpocket"],
     learnset: [
       "assurance",
       "bite",
@@ -40179,7 +40185,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   perrserker: {
     name: "Perrserker",
-    abilities: ["Battle Armor", "Tough Claws", "Steely Spirit"],
+    abilities: ["battlearmor", "toughclaws", "steelyspirit"],
     learnset: [
       "aerialace",
       "amnesia",
@@ -40256,7 +40262,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   milcery: {
     name: "Milcery",
-    abilities: ["Sweet Veil", "Aroma Veil"],
+    abilities: ["sweetveil", "aromaveil"],
     learnset: [
       "acidarmor",
       "aromaticmist",
@@ -40285,7 +40291,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   alcremie: {
     name: "Alcremie",
-    abilities: ["Sweet Veil", "Aroma Veil"],
+    abilities: ["sweetveil", "aromaveil"],
     learnset: [
       "acidarmor",
       "alluringvoice",
@@ -40336,7 +40342,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   falinks: {
     name: "Falinks",
-    abilities: ["Battle Armor", "Defiant"],
+    abilities: ["battlearmor", "defiant"],
     learnset: [
       "agility",
       "bodypress",
@@ -40390,7 +40396,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   pincurchin: {
     name: "Pincurchin",
-    abilities: ["Lightning Rod", "Electric Surge"],
+    abilities: ["lightningrod", "electricsurge"],
     learnset: [
       "acupressure",
       "bodyslam",
@@ -40446,12 +40452,12 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   snom: {
     name: "Snom",
-    abilities: ["Shield Dust", "Ice Scales"],
+    abilities: ["shielddust", "icescales"],
     learnset: ["bugbite", "bugbuzz", "facade", "fairywind", "iciclespear", "icywind", "lunge", "mirrorcoat", "pounce", "powdersnow", "protect", "rest", "skittersmack", "sleeptalk", "strugglebug", "substitute", "terablast"]
   },
   frosmoth: {
     name: "Frosmoth",
-    abilities: ["Shield Dust", "Ice Scales"],
+    abilities: ["shielddust", "icescales"],
     learnset: [
       "acrobatics",
       "airslash",
@@ -40508,7 +40514,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   stonjourner: {
     name: "Stonjourner",
-    abilities: ["Power Spot"],
+    abilities: ["powerspot"],
     learnset: [
       "ancientpower",
       "block",
@@ -40560,7 +40566,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   eiscue: {
     name: "Eiscue",
-    abilities: ["Ice Face"],
+    abilities: ["iceface"],
     learnset: [
       "agility",
       "amnesia",
@@ -40615,7 +40621,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   eiscuenoice: {
     name: "Eiscue-Noice",
-    abilities: ["Ice Face"],
+    abilities: ["iceface"],
     learnset: [
       "agility",
       "amnesia",
@@ -40670,7 +40676,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   indeedee: {
     name: "Indeedee",
-    abilities: ["Inner Focus", "Synchronize", "Psychic Surge"],
+    abilities: ["innerfocus", "synchronize", "psychicsurge"],
     learnset: [
       "afteryou",
       "bodyslam",
@@ -40720,7 +40726,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   indeedeef: {
     name: "Indeedee-F",
-    abilities: ["Own Tempo", "Synchronize", "Psychic Surge"],
+    abilities: ["owntempo", "synchronize", "psychicsurge"],
     learnset: [
       "alluringvoice",
       "batonpass",
@@ -40770,7 +40776,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   morpeko: {
     name: "Morpeko",
-    abilities: ["Hunger Switch"],
+    abilities: ["hungerswitch"],
     learnset: [
       "agility",
       "aurawheel",
@@ -40843,7 +40849,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   cufant: {
     name: "Cufant",
-    abilities: ["Sheer Force", "Heavy Metal"],
+    abilities: ["sheerforce", "heavymetal"],
     learnset: [
       "belch",
       "bodypress",
@@ -40897,7 +40903,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   copperajah: {
     name: "Copperajah",
-    abilities: ["Sheer Force", "Heavy Metal"],
+    abilities: ["sheerforce", "heavymetal"],
     learnset: [
       "bodypress",
       "bodyslam",
@@ -40955,7 +40961,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   duraludon: {
     name: "Duraludon",
-    abilities: ["Light Metal", "Heavy Metal", "Stalwart"],
+    abilities: ["lightmetal", "heavymetal", "stalwart"],
     learnset: [
       "bodypress",
       "bodyslam",
@@ -41014,7 +41020,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   dreepy: {
     name: "Dreepy",
-    abilities: ["Clear Body", "Infiltrator", "Cursed Body"],
+    abilities: ["clearbody", "infiltrator", "cursedbody"],
     learnset: [
       "astonish",
       "batonpass",
@@ -41042,7 +41048,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   drakloak: {
     name: "Drakloak",
-    abilities: ["Clear Body", "Infiltrator", "Cursed Body"],
+    abilities: ["clearbody", "infiltrator", "cursedbody"],
     learnset: [
       "acrobatics",
       "agility",
@@ -41099,7 +41105,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   dragapult: {
     name: "Dragapult",
-    abilities: ["Clear Body", "Infiltrator", "Cursed Body"],
+    abilities: ["clearbody", "infiltrator", "cursedbody"],
     learnset: [
       "acrobatics",
       "agility",
@@ -41164,7 +41170,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   zacian: {
     name: "Zacian",
-    abilities: ["Intrepid Sword"],
+    abilities: ["intrepidsword"],
     learnset: [
       "agility",
       "airslash",
@@ -41221,12 +41227,12 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   zaciancrowned: {
     name: "Zacian-Crowned",
-    abilities: ["Intrepid Sword"],
+    abilities: ["intrepidsword"],
     learnset: ["behemothblade"]
   },
   zamazenta: {
     name: "Zamazenta",
-    abilities: ["Dauntless Shield"],
+    abilities: ["dauntlessshield"],
     learnset: [
       "agility",
       "bite",
@@ -41287,12 +41293,12 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   zamazentacrowned: {
     name: "Zamazenta-Crowned",
-    abilities: ["Dauntless Shield"],
+    abilities: ["dauntlessshield"],
     learnset: ["behemothbash"]
   },
   eternatus: {
     name: "Eternatus",
-    abilities: ["Pressure"],
+    abilities: ["pressure"],
     learnset: [
       "agility",
       "bodyslam",
@@ -41342,7 +41348,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   kubfu: {
     name: "Kubfu",
-    abilities: ["Inner Focus"],
+    abilities: ["innerfocus"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -41386,7 +41392,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   urshifu: {
     name: "Urshifu",
-    abilities: ["Unseen Fist"],
+    abilities: ["unseenfist"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -41454,7 +41460,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   urshifurapidstrike: {
     name: "Urshifu-Rapid-Strike",
-    abilities: ["Unseen Fist"],
+    abilities: ["unseenfist"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -41520,7 +41526,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   zarude: {
     name: "Zarude",
-    abilities: ["Leaf Guard"],
+    abilities: ["leafguard"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -41597,7 +41603,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   regieleki: {
     name: "Regieleki",
-    abilities: ["Transistor"],
+    abilities: ["transistor"],
     learnset: [
       "acrobatics",
       "agility",
@@ -41643,7 +41649,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   regidrago: {
     name: "Regidrago",
-    abilities: ["Dragon's Maw"],
+    abilities: ["dragonsmaw"],
     learnset: [
       "ancientpower",
       "bite",
@@ -41688,7 +41694,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   glastrier: {
     name: "Glastrier",
-    abilities: ["Chilling Neigh"],
+    abilities: ["chillingneigh"],
     learnset: [
       "avalanche",
       "blizzard",
@@ -41740,7 +41746,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   spectrier: {
     name: "Spectrier",
-    abilities: ["Grim Neigh"],
+    abilities: ["grimneigh"],
     learnset: [
       "agility",
       "bodyslam",
@@ -41790,7 +41796,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   calyrex: {
     name: "Calyrex",
-    abilities: ["Unnerve"],
+    abilities: ["unnerve"],
     learnset: [
       "agility",
       "batonpass",
@@ -41853,7 +41859,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   calyrexice: {
     name: "Calyrex-Ice",
-    abilities: ["As One (Glastrier)"],
+    abilities: ["asoneglastrier"],
     learnset: [
       "agility",
       "avalanche",
@@ -41949,7 +41955,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   calyrexshadow: {
     name: "Calyrex-Shadow",
-    abilities: ["As One (Spectrier)"],
+    abilities: ["asonespectrier"],
     learnset: [
       "agility",
       "astralbarrage",
@@ -42037,7 +42043,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   wyrdeer: {
     name: "Wyrdeer",
-    abilities: ["Intimidate", "Frisk", "Sap Sipper"],
+    abilities: ["intimidate", "frisk", "sapsipper"],
     learnset: [
       "agility",
       "astonish",
@@ -42109,7 +42115,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   kleavor: {
     name: "Kleavor",
-    abilities: ["Swarm", "Sheer Force", "Sharpness"],
+    abilities: ["swarm", "sheerforce", "sharpness"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -42171,7 +42177,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   ursaluna: {
     name: "Ursaluna",
-    abilities: ["Guts", "Bulletproof", "Unnerve"],
+    abilities: ["guts", "bulletproof", "unnerve"],
     learnset: [
       "aerialace",
       "avalanche",
@@ -42251,7 +42257,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   ursalunabloodmoon: {
     name: "Ursaluna-Bloodmoon",
-    abilities: ["Mind's Eye"],
+    abilities: ["mindseye"],
     learnset: [
       "avalanche",
       "bloodmoon",
@@ -42326,7 +42332,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   basculegion: {
     name: "Basculegion",
-    abilities: ["Swift Swim", "Adaptability", "Mold Breaker"],
+    abilities: ["swiftswim", "adaptability", "moldbreaker"],
     learnset: [
       "agility",
       "aquajet",
@@ -42388,7 +42394,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   basculegionf: {
     name: "Basculegion-F",
-    abilities: ["Swift Swim", "Adaptability", "Mold Breaker"],
+    abilities: ["swiftswim", "adaptability", "moldbreaker"],
     learnset: [
       "agility",
       "aquajet",
@@ -42450,7 +42456,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   sneasler: {
     name: "Sneasler",
-    abilities: ["Pressure", "Unburden", "Poison Touch"],
+    abilities: ["pressure", "unburden", "poisontouch"],
     learnset: [
       "acidspray",
       "acrobatics",
@@ -42521,7 +42527,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   overqwil: {
     name: "Overqwil",
-    abilities: ["Poison Point", "Swift Swim", "Intimidate"],
+    abilities: ["poisonpoint", "swiftswim", "intimidate"],
     learnset: [
       "acidspray",
       "acupressure",
@@ -42591,7 +42597,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   enamorus: {
     name: "Enamorus",
-    abilities: ["Cute Charm", "Contrary"],
+    abilities: ["cutecharm", "contrary"],
     learnset: [
       "agility",
       "alluringvoice",
@@ -42648,7 +42654,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   enamorustherian: {
     name: "Enamorus-Therian",
-    abilities: ["Overcoat"],
+    abilities: ["overcoat"],
     learnset: [
       "agility",
       "alluringvoice",
@@ -42705,7 +42711,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   sprigatito: {
     name: "Sprigatito",
-    abilities: ["Overgrow", "Protean"],
+    abilities: ["overgrow", "protean"],
     learnset: [
       "acrobatics",
       "agility",
@@ -42757,7 +42763,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   floragato: {
     name: "Floragato",
-    abilities: ["Overgrow", "Protean"],
+    abilities: ["overgrow", "protean"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -42810,7 +42816,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   meowscarada: {
     name: "Meowscarada",
-    abilities: ["Overgrow", "Protean"],
+    abilities: ["overgrow", "protean"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -42888,7 +42894,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   fuecoco: {
     name: "Fuecoco",
-    abilities: ["Blaze", "Unaware"],
+    abilities: ["blaze", "unaware"],
     learnset: [
       "belch",
       "bite",
@@ -42939,7 +42945,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   crocalor: {
     name: "Crocalor",
-    abilities: ["Blaze", "Unaware"],
+    abilities: ["blaze", "unaware"],
     learnset: [
       "bite",
       "bodyslam",
@@ -42989,7 +42995,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   skeledirge: {
     name: "Skeledirge",
-    abilities: ["Blaze", "Unaware"],
+    abilities: ["blaze", "unaware"],
     learnset: [
       "alluringvoice",
       "bite",
@@ -43057,7 +43063,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   quaxly: {
     name: "Quaxly",
-    abilities: ["Torrent", "Moxie"],
+    abilities: ["torrent", "moxie"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -43104,7 +43110,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   quaxwell: {
     name: "Quaxwell",
-    abilities: ["Torrent", "Moxie"],
+    abilities: ["torrent", "moxie"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -43152,7 +43158,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   quaquaval: {
     name: "Quaquaval",
-    abilities: ["Torrent", "Moxie"],
+    abilities: ["torrent", "moxie"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -43223,7 +43229,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   lechonk: {
     name: "Lechonk",
-    abilities: ["Aroma Veil", "Gluttony", "Thick Fat"],
+    abilities: ["aromaveil", "gluttony", "thickfat"],
     learnset: [
       "bodyslam",
       "bulldoze",
@@ -43271,7 +43277,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   oinkologne: {
     name: "Oinkologne",
-    abilities: ["Lingering Aroma", "Gluttony", "Thick Fat"],
+    abilities: ["lingeringaroma", "gluttony", "thickfat"],
     learnset: [
       "belch",
       "bodypress",
@@ -43324,7 +43330,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   oinkolognef: {
     name: "Oinkologne-F",
-    abilities: ["Aroma Veil", "Gluttony", "Thick Fat"],
+    abilities: ["aromaveil", "gluttony", "thickfat"],
     learnset: [
       "belch",
       "bodypress",
@@ -43377,7 +43383,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   tarountula: {
     name: "Tarountula",
-    abilities: ["Insomnia", "Stakeout"],
+    abilities: ["insomnia", "stakeout"],
     learnset: [
       "assurance",
       "block",
@@ -43427,7 +43433,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   spidops: {
     name: "Spidops",
-    abilities: ["Insomnia", "Stakeout"],
+    abilities: ["insomnia", "stakeout"],
     learnset: [
       "aerialace",
       "assurance",
@@ -43488,7 +43494,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   nymble: {
     name: "Nymble",
-    abilities: ["Swarm", "Tinted Lens"],
+    abilities: ["swarm", "tintedlens"],
     learnset: [
       "agility",
       "assurance",
@@ -43525,7 +43531,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   lokix: {
     name: "Lokix",
-    abilities: ["Swarm", "Tinted Lens"],
+    abilities: ["swarm", "tintedlens"],
     learnset: [
       "aerialace",
       "agility",
@@ -43581,7 +43587,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   pawmi: {
     name: "Pawmi",
-    abilities: ["Static", "Natural Cure", "Iron Fist"],
+    abilities: ["static", "naturalcure", "ironfist"],
     learnset: [
       "agility",
       "batonpass",
@@ -43637,7 +43643,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   pawmo: {
     name: "Pawmo",
-    abilities: ["Volt Absorb", "Natural Cure", "Iron Fist"],
+    abilities: ["voltabsorb", "naturalcure", "ironfist"],
     learnset: [
       "agility",
       "armthrust",
@@ -43696,7 +43702,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   pawmot: {
     name: "Pawmot",
-    abilities: ["Volt Absorb", "Natural Cure", "Iron Fist"],
+    abilities: ["voltabsorb", "naturalcure", "ironfist"],
     learnset: [
       "agility",
       "armthrust",
@@ -43773,7 +43779,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   tandemaus: {
     name: "Tandemaus",
-    abilities: ["Run Away", "Pickup", "Own Tempo"],
+    abilities: ["runaway", "pickup", "owntempo"],
     learnset: [
       "aerialace",
       "afteryou",
@@ -43829,7 +43835,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   maushold: {
     name: "Maushold",
-    abilities: ["Friend Guard", "Cheek Pouch", "Technician"],
+    abilities: ["friendguard", "cheekpouch", "technician"],
     learnset: [
       "aerialace",
       "agility",
@@ -43885,7 +43891,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   fidough: {
     name: "Fidough",
-    abilities: ["Own Tempo", "Klutz"],
+    abilities: ["owntempo", "klutz"],
     learnset: [
       "agility",
       "alluringvoice",
@@ -43939,7 +43945,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   dachsbun: {
     name: "Dachsbun",
-    abilities: ["Well-Baked Body", "Aroma Veil"],
+    abilities: ["wellbakedbody", "aromaveil"],
     learnset: [
       "agility",
       "alluringvoice",
@@ -43993,7 +43999,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   smoliv: {
     name: "Smoliv",
-    abilities: ["Early Bird", "Harvest"],
+    abilities: ["earlybird", "harvest"],
     learnset: [
       "absorb",
       "bulletseed",
@@ -44035,7 +44041,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   dolliv: {
     name: "Dolliv",
-    abilities: ["Early Bird", "Harvest"],
+    abilities: ["earlybird", "harvest"],
     learnset: [
       "absorb",
       "bulletseed",
@@ -44074,7 +44080,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   arboliva: {
     name: "Arboliva",
-    abilities: ["Seed Sower", "Harvest"],
+    abilities: ["seedsower", "harvest"],
     learnset: [
       "absorb",
       "alluringvoice",
@@ -44129,7 +44135,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   squawkabilly: {
     name: "Squawkabilly",
-    abilities: ["Intimidate", "Hustle", "Guts"],
+    abilities: ["intimidate", "hustle", "guts"],
     learnset: [
       "aerialace",
       "aircutter",
@@ -44182,7 +44188,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   nacli: {
     name: "Nacli",
-    abilities: ["Purifying Salt", "Sturdy", "Clear Body"],
+    abilities: ["purifyingsalt", "sturdy", "clearbody"],
     learnset: [
       "ancientpower",
       "bodyslam",
@@ -44227,7 +44233,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   naclstack: {
     name: "Naclstack",
-    abilities: ["Purifying Salt", "Sturdy", "Clear Body"],
+    abilities: ["purifyingsalt", "sturdy", "clearbody"],
     learnset: [
       "bodypress",
       "bodyslam",
@@ -44275,7 +44281,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   garganacl: {
     name: "Garganacl",
-    abilities: ["Purifying Salt", "Sturdy", "Clear Body"],
+    abilities: ["purifyingsalt", "sturdy", "clearbody"],
     learnset: [
       "avalanche",
       "block",
@@ -44338,7 +44344,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   charcadet: {
     name: "Charcadet",
-    abilities: ["Flash Fire", "Flame Body"],
+    abilities: ["flashfire", "flamebody"],
     learnset: [
       "astonish",
       "celebrate",
@@ -44374,7 +44380,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   armarouge: {
     name: "Armarouge",
-    abilities: ["Flash Fire", "Weak Armor"],
+    abilities: ["flashfire", "weakarmor"],
     learnset: [
       "acidspray",
       "allyswitch",
@@ -44438,7 +44444,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   ceruledge: {
     name: "Ceruledge",
-    abilities: ["Flash Fire", "Weak Armor"],
+    abilities: ["flashfire", "weakarmor"],
     learnset: [
       "allyswitch",
       "astonish",
@@ -44502,7 +44508,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   tadbulb: {
     name: "Tadbulb",
-    abilities: ["Own Tempo", "Static", "Damp"],
+    abilities: ["owntempo", "static", "damp"],
     learnset: [
       "acidspray",
       "charge",
@@ -44548,7 +44554,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   bellibolt: {
     name: "Bellibolt",
-    abilities: ["Electromorphosis", "Static", "Damp"],
+    abilities: ["electromorphosis", "static", "damp"],
     learnset: [
       "acidspray",
       "charge",
@@ -44597,7 +44603,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   wattrel: {
     name: "Wattrel",
-    abilities: ["Wind Power", "Volt Absorb", "Competitive"],
+    abilities: ["windpower", "voltabsorb", "competitive"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -44649,7 +44655,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   kilowattrel: {
     name: "Kilowattrel",
-    abilities: ["Wind Power", "Volt Absorb", "Competitive"],
+    abilities: ["windpower", "voltabsorb", "competitive"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -44702,7 +44708,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   maschiff: {
     name: "Maschiff",
-    abilities: ["Intimidate", "Run Away", "Stakeout"],
+    abilities: ["intimidate", "runaway", "stakeout"],
     learnset: [
       "bite",
       "bodyslam",
@@ -44751,7 +44757,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   mabosstiff: {
     name: "Mabosstiff",
-    abilities: ["Intimidate", "Guard Dog", "Stakeout"],
+    abilities: ["intimidate", "guarddog", "stakeout"],
     learnset: [
       "bite",
       "bodyslam",
@@ -44807,7 +44813,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   shroodle: {
     name: "Shroodle",
-    abilities: ["Unburden", "Pickpocket", "Prankster"],
+    abilities: ["unburden", "pickpocket", "prankster"],
     learnset: [
       "acidspray",
       "acrobatics",
@@ -44866,7 +44872,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   grafaiai: {
     name: "Grafaiai",
-    abilities: ["Unburden", "Poison Touch", "Prankster"],
+    abilities: ["unburden", "poisontouch", "prankster"],
     learnset: [
       "acidspray",
       "acrobatics",
@@ -44928,7 +44934,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   bramblin: {
     name: "Bramblin",
-    abilities: ["Wind Rider", "Infiltrator"],
+    abilities: ["windrider", "infiltrator"],
     learnset: [
       "absorb",
       "astonish",
@@ -44978,7 +44984,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   brambleghast: {
     name: "Brambleghast",
-    abilities: ["Wind Rider", "Infiltrator"],
+    abilities: ["windrider", "infiltrator"],
     learnset: [
       "absorb",
       "astonish",
@@ -45026,7 +45032,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   toedscool: {
     name: "Toedscool",
-    abilities: ["Mycelium Might"],
+    abilities: ["myceliummight"],
     learnset: [
       "absorb",
       "acidspray",
@@ -45090,7 +45096,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   toedscruel: {
     name: "Toedscruel",
-    abilities: ["Mycelium Might"],
+    abilities: ["myceliummight"],
     learnset: [
       "absorb",
       "acidspray",
@@ -45152,7 +45158,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   klawf: {
     name: "Klawf",
-    abilities: ["Anger Shell", "Shell Armor", "Regenerator"],
+    abilities: ["angershell", "shellarmor", "regenerator"],
     learnset: [
       "ancientpower",
       "block",
@@ -45213,7 +45219,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   capsakid: {
     name: "Capsakid",
-    abilities: ["Chlorophyll", "Insomnia", "Klutz"],
+    abilities: ["chlorophyll", "insomnia", "klutz"],
     learnset: [
       "bite",
       "bulletseed",
@@ -45258,7 +45264,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   scovillain: {
     name: "Scovillain",
-    abilities: ["Chlorophyll", "Insomnia", "Moody"],
+    abilities: ["chlorophyll", "insomnia", "moody"],
     learnset: [
       "bite",
       "bulletseed",
@@ -45311,7 +45317,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   rellor: {
     name: "Rellor",
-    abilities: ["Compound Eyes", "Shed Skin"],
+    abilities: ["compoundeyes", "shedskin"],
     learnset: [
       "bugbite",
       "bugbuzz",
@@ -45350,7 +45356,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   rabsca: {
     name: "Rabsca",
-    abilities: ["Synchronize", "Telepathy"],
+    abilities: ["synchronize", "telepathy"],
     learnset: [
       "bugbite",
       "bugbuzz",
@@ -45424,7 +45430,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   flittle: {
     name: "Flittle",
-    abilities: ["Anticipation", "Frisk", "Speed Boost"],
+    abilities: ["anticipation", "frisk", "speedboost"],
     learnset: [
       "agility",
       "allyswitch",
@@ -45475,7 +45481,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   espathra: {
     name: "Espathra",
-    abilities: ["Opportunist", "Frisk", "Speed Boost"],
+    abilities: ["opportunist", "frisk", "speedboost"],
     learnset: [
       "aerialace",
       "agility",
@@ -45543,7 +45549,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   tinkatink: {
     name: "Tinkatink",
-    abilities: ["Mold Breaker", "Own Tempo", "Pickpocket"],
+    abilities: ["moldbreaker", "owntempo", "pickpocket"],
     learnset: [
       "astonish",
       "babydolleyes",
@@ -45595,7 +45601,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   tinkatuff: {
     name: "Tinkatuff",
-    abilities: ["Mold Breaker", "Own Tempo", "Pickpocket"],
+    abilities: ["moldbreaker", "owntempo", "pickpocket"],
     learnset: [
       "astonish",
       "babydolleyes",
@@ -45645,7 +45651,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   tinkaton: {
     name: "Tinkaton",
-    abilities: ["Mold Breaker", "Own Tempo", "Pickpocket"],
+    abilities: ["moldbreaker", "owntempo", "pickpocket"],
     learnset: [
       "astonish",
       "babydolleyes",
@@ -45700,7 +45706,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   wiglett: {
     name: "Wiglett",
-    abilities: ["Gooey", "Rattled", "Sand Veil"],
+    abilities: ["gooey", "rattled", "sandveil"],
     learnset: [
       "agility",
       "aquajet",
@@ -45745,7 +45751,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   wugtrio: {
     name: "Wugtrio",
-    abilities: ["Gooey", "Rattled", "Sand Veil"],
+    abilities: ["gooey", "rattled", "sandveil"],
     learnset: [
       "agility",
       "aquajet",
@@ -45792,7 +45798,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   bombirdier: {
     name: "Bombirdier",
-    abilities: ["Big Pecks", "Keen Eye", "Rocky Payload"],
+    abilities: ["bigpecks", "keeneye", "rockypayload"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -45859,7 +45865,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   finizen: {
     name: "Finizen",
-    abilities: ["Water Veil"],
+    abilities: ["waterveil"],
     learnset: [
       "acrobatics",
       "agility",
@@ -45909,7 +45915,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   palafin: {
     name: "Palafin",
-    abilities: ["Zero to Hero"],
+    abilities: ["zerotohero"],
     learnset: [
       "acrobatics",
       "agility",
@@ -45977,7 +45983,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   palafinhero: {
     name: "Palafin-Hero",
-    abilities: ["Zero to Hero"],
+    abilities: ["zerotohero"],
     learnset: [
       "acrobatics",
       "agility",
@@ -46045,7 +46051,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   varoom: {
     name: "Varoom",
-    abilities: ["Overcoat", "Slow Start"],
+    abilities: ["overcoat", "slowstart"],
     learnset: [
       "acidspray",
       "assurance",
@@ -46098,7 +46104,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   revavroom: {
     name: "Revavroom",
-    abilities: ["Overcoat", "Filter"],
+    abilities: ["overcoat", "filter"],
     learnset: [
       "acidspray",
       "assurance",
@@ -46159,7 +46165,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   cyclizar: {
     name: "Cyclizar",
-    abilities: ["Shed Skin", "Regenerator"],
+    abilities: ["shedskin", "regenerator"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -46221,7 +46227,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   orthworm: {
     name: "Orthworm",
-    abilities: ["Earth Eater", "Sand Veil"],
+    abilities: ["eartheater", "sandveil"],
     learnset: [
       "bodypress",
       "bodyslam",
@@ -46272,7 +46278,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   glimmet: {
     name: "Glimmet",
-    abilities: ["Toxic Debris", "Corrosion"],
+    abilities: ["toxicdebris", "corrosion"],
     learnset: [
       "acidarmor",
       "acidspray",
@@ -46319,7 +46325,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   glimmora: {
     name: "Glimmora",
-    abilities: ["Toxic Debris", "Corrosion"],
+    abilities: ["toxicdebris", "corrosion"],
     learnset: [
       "acidarmor",
       "acidspray",
@@ -46372,7 +46378,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   greavard: {
     name: "Greavard",
-    abilities: ["Pickup", "Fluffy"],
+    abilities: ["pickup", "fluffy"],
     learnset: [
       "allyswitch",
       "bite",
@@ -46430,7 +46436,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   houndstone: {
     name: "Houndstone",
-    abilities: ["Sand Rush", "Fluffy"],
+    abilities: ["sandrush", "fluffy"],
     learnset: [
       "bite",
       "bodypress",
@@ -46486,7 +46492,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   flamigo: {
     name: "Flamigo",
-    abilities: ["Scrappy", "Tangled Feet", "Costar"],
+    abilities: ["scrappy", "tangledfeet", "costar"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -46546,7 +46552,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   cetoddle: {
     name: "Cetoddle",
-    abilities: ["Thick Fat", "Snow Cloak", "Sheer Force"],
+    abilities: ["thickfat", "snowcloak", "sheerforce"],
     learnset: [
       "amnesia",
       "avalanche",
@@ -46600,7 +46606,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   cetitan: {
     name: "Cetitan",
-    abilities: ["Thick Fat", "Slush Rush", "Sheer Force"],
+    abilities: ["thickfat", "slushrush", "sheerforce"],
     learnset: [
       "amnesia",
       "avalanche",
@@ -46652,7 +46658,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   veluza: {
     name: "Veluza",
-    abilities: ["Mold Breaker", "Sharpness"],
+    abilities: ["moldbreaker", "sharpness"],
     learnset: [
       "agility",
       "aquacutter",
@@ -46706,7 +46712,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   dondozo: {
     name: "Dondozo",
-    abilities: ["Unaware", "Oblivious", "Water Veil"],
+    abilities: ["unaware", "oblivious", "waterveil"],
     learnset: [
       "aquatail",
       "avalanche",
@@ -46758,7 +46764,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   tatsugiri: {
     name: "Tatsugiri",
-    abilities: ["Commander", "Storm Drain"],
+    abilities: ["commander", "stormdrain"],
     learnset: [
       "batonpass",
       "chillingwater",
@@ -46800,7 +46806,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   annihilape: {
     name: "Annihilape",
-    abilities: ["Vital Spirit", "Inner Focus", "Defiant"],
+    abilities: ["vitalspirit", "innerfocus", "defiant"],
     learnset: [
       "acrobatics",
       "assurance",
@@ -46884,7 +46890,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   clodsire: {
     name: "Clodsire",
-    abilities: ["Poison Point", "Water Absorb", "Unaware"],
+    abilities: ["poisonpoint", "waterabsorb", "unaware"],
     learnset: [
       "acidspray",
       "amnesia",
@@ -46948,7 +46954,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   farigiraf: {
     name: "Farigiraf",
-    abilities: ["Cud Chew", "Armor Tail", "Sap Sipper"],
+    abilities: ["cudchew", "armortail", "sapsipper"],
     learnset: [
       "agility",
       "amnesia",
@@ -47028,7 +47034,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   dudunsparce: {
     name: "Dudunsparce",
-    abilities: ["Serene Grace", "Run Away", "Rattled"],
+    abilities: ["serenegrace", "runaway", "rattled"],
     learnset: [
       "agility",
       "airslash",
@@ -47120,7 +47126,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   kingambit: {
     name: "Kingambit",
-    abilities: ["Defiant", "Supreme Overlord", "Pressure"],
+    abilities: ["defiant", "supremeoverlord", "pressure"],
     learnset: [
       "aerialace",
       "airslash",
@@ -47184,7 +47190,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   greattusk: {
     name: "Great Tusk",
-    abilities: ["Protosynthesis"],
+    abilities: ["protosynthesis"],
     learnset: [
       "bodypress",
       "bodyslam",
@@ -47248,7 +47254,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   screamtail: {
     name: "Scream Tail",
-    abilities: ["Protosynthesis"],
+    abilities: ["protosynthesis"],
     learnset: [
       "amnesia",
       "batonpass",
@@ -47334,7 +47340,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   brutebonnet: {
     name: "Brute Bonnet",
-    abilities: ["Protosynthesis"],
+    abilities: ["protosynthesis"],
     learnset: [
       "absorb",
       "astonish",
@@ -47391,7 +47397,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   fluttermane: {
     name: "Flutter Mane",
-    abilities: ["Protosynthesis"],
+    abilities: ["protosynthesis"],
     learnset: [
       "astonish",
       "calmmind",
@@ -47446,7 +47452,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   slitherwing: {
     name: "Slither Wing",
-    abilities: ["Protosynthesis"],
+    abilities: ["protosynthesis"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -47509,7 +47515,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   sandyshocks: {
     name: "Sandy Shocks",
-    abilities: ["Protosynthesis"],
+    abilities: ["protosynthesis"],
     learnset: [
       "bodypress",
       "bodyslam",
@@ -47569,7 +47575,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   irontreads: {
     name: "Iron Treads",
-    abilities: ["Quark Drive"],
+    abilities: ["quarkdrive"],
     learnset: [
       "bodypress",
       "bodyslam",
@@ -47627,7 +47633,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   ironbundle: {
     name: "Iron Bundle",
-    abilities: ["Quark Drive"],
+    abilities: ["quarkdrive"],
     learnset: [
       "acrobatics",
       "agility",
@@ -47674,7 +47680,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   ironhands: {
     name: "Iron Hands",
-    abilities: ["Quark Drive"],
+    abilities: ["quarkdrive"],
     learnset: [
       "armthrust",
       "bellydrum",
@@ -47736,7 +47742,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   ironjugulis: {
     name: "Iron Jugulis",
-    abilities: ["Quark Drive"],
+    abilities: ["quarkdrive"],
     learnset: [
       "acrobatics",
       "aircutter",
@@ -47798,7 +47804,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   ironmoth: {
     name: "Iron Moth",
-    abilities: ["Quark Drive"],
+    abilities: ["quarkdrive"],
     learnset: [
       "acidspray",
       "acrobatics",
@@ -47856,7 +47862,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   ironthorns: {
     name: "Iron Thorns",
-    abilities: ["Quark Drive"],
+    abilities: ["quarkdrive"],
     learnset: [
       "bite",
       "blizzard",
@@ -47938,7 +47944,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   frigibax: {
     name: "Frigibax",
-    abilities: ["Thermal Exchange", "Ice Body"],
+    abilities: ["thermalexchange", "icebody"],
     learnset: [
       "aquatail",
       "avalanche",
@@ -47979,7 +47985,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   arctibax: {
     name: "Arctibax",
-    abilities: ["Thermal Exchange", "Ice Body"],
+    abilities: ["thermalexchange", "icebody"],
     learnset: [
       "aerialace",
       "avalanche",
@@ -48021,7 +48027,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   baxcalibur: {
     name: "Baxcalibur",
-    abilities: ["Thermal Exchange", "Ice Body"],
+    abilities: ["thermalexchange", "icebody"],
     learnset: [
       "aerialace",
       "avalanche",
@@ -48080,17 +48086,17 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   gimmighoul: {
     name: "Gimmighoul",
-    abilities: ["Rattled"],
+    abilities: ["rattled"],
     learnset: ["astonish", "confuseray", "endure", "hex", "lightscreen", "nastyplot", "nightshade", "powergem", "protect", "reflect", "rest", "shadowball", "sleeptalk", "substitute", "tackle", "takedown", "terablast", "thief"]
   },
   gimmighoulroaming: {
     name: "Gimmighoul-Roaming",
-    abilities: ["Run Away"],
+    abilities: ["runaway"],
     learnset: ["astonish", "confuseray", "endure", "hex", "lightscreen", "nastyplot", "nightshade", "powergem", "protect", "reflect", "rest", "shadowball", "sleeptalk", "substitute", "tackle", "takedown", "terablast", "thief"]
   },
   gholdengo: {
     name: "Gholdengo",
-    abilities: ["Good as Gold"],
+    abilities: ["goodasgold"],
     learnset: [
       "astonish",
       "chargebeam",
@@ -48141,7 +48147,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   wochien: {
     name: "Wo-Chien",
-    abilities: ["Tablets of Ruin"],
+    abilities: ["tabletsofruin"],
     learnset: [
       "absorb",
       "bodypress",
@@ -48199,7 +48205,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   chienpao: {
     name: "Chien-Pao",
-    abilities: ["Sword of Ruin"],
+    abilities: ["swordofruin"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -48250,7 +48256,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   tinglu: {
     name: "Ting-Lu",
-    abilities: ["Vessel of Ruin"],
+    abilities: ["vesselofruin"],
     learnset: [
       "bodypress",
       "bodyslam",
@@ -48302,7 +48308,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   chiyu: {
     name: "Chi-Yu",
-    abilities: ["Beads of Ruin"],
+    abilities: ["beadsofruin"],
     learnset: [
       "bounce",
       "burningjealousy",
@@ -48354,7 +48360,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   roaringmoon: {
     name: "Roaring Moon",
-    abilities: ["Protosynthesis"],
+    abilities: ["protosynthesis"],
     learnset: [
       "acrobatics",
       "aerialace",
@@ -48428,7 +48434,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   ironvaliant: {
     name: "Iron Valiant",
-    abilities: ["Quark Drive"],
+    abilities: ["quarkdrive"],
     learnset: [
       "aerialace",
       "agility",
@@ -48514,7 +48520,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   koraidon: {
     name: "Koraidon",
-    abilities: ["Orichalcum Pulse"],
+    abilities: ["orichalcumpulse"],
     learnset: [
       "acrobatics",
       "agility",
@@ -48592,7 +48598,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   miraidon: {
     name: "Miraidon",
-    abilities: ["Hadron Engine"],
+    abilities: ["hadronengine"],
     learnset: [
       "acrobatics",
       "agility",
@@ -48654,7 +48660,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   walkingwake: {
     name: "Walking Wake",
-    abilities: ["Protosynthesis"],
+    abilities: ["protosynthesis"],
     learnset: [
       "agility",
       "aquajet",
@@ -48713,7 +48719,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   ironleaves: {
     name: "Iron Leaves",
-    abilities: ["Quark Drive"],
+    abilities: ["quarkdrive"],
     learnset: [
       "aerialace",
       "agility",
@@ -48776,7 +48782,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   dipplin: {
     name: "Dipplin",
-    abilities: ["Supersweet Syrup", "Gluttony", "Sticky Hold"],
+    abilities: ["supersweetsyrup", "gluttony", "stickyhold"],
     learnset: [
       "astonish",
       "bodyslam",
@@ -48823,7 +48829,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   poltchageist: {
     name: "Poltchageist",
-    abilities: ["Hospitality", "Heatproof"],
+    abilities: ["hospitality", "heatproof"],
     learnset: [
       "absorb",
       "astonish",
@@ -48867,7 +48873,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   sinistcha: {
     name: "Sinistcha",
-    abilities: ["Hospitality", "Heatproof"],
+    abilities: ["hospitality", "heatproof"],
     learnset: [
       "absorb",
       "astonish",
@@ -48914,7 +48920,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   okidogi: {
     name: "Okidogi",
-    abilities: ["Toxic Chain", "Guard Dog"],
+    abilities: ["toxicchain", "guarddog"],
     learnset: [
       "bite",
       "bodypress",
@@ -48985,7 +48991,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   munkidori: {
     name: "Munkidori",
-    abilities: ["Toxic Chain", "Frisk"],
+    abilities: ["toxicchain", "frisk"],
     learnset: [
       "acidspray",
       "batonpass",
@@ -49047,7 +49053,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   fezandipiti: {
     name: "Fezandipiti",
-    abilities: ["Toxic Chain", "Technician"],
+    abilities: ["toxicchain", "technician"],
     learnset: [
       "acidspray",
       "acrobatics",
@@ -49116,7 +49122,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   ogerpon: {
     name: "Ogerpon",
-    abilities: ["Defiant"],
+    abilities: ["defiant"],
     learnset: [
       "brickbreak",
       "bulletseed",
@@ -49184,7 +49190,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   ogerponwellspring: {
     name: "Ogerpon-Wellspring",
-    abilities: ["Water Absorb"],
+    abilities: ["waterabsorb"],
     learnset: [
       "brickbreak",
       "bulletseed",
@@ -49252,7 +49258,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   ogerponhearthflame: {
     name: "Ogerpon-Hearthflame",
-    abilities: ["Mold Breaker"],
+    abilities: ["moldbreaker"],
     learnset: [
       "brickbreak",
       "bulletseed",
@@ -49320,7 +49326,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   ogerponcornerstone: {
     name: "Ogerpon-Cornerstone",
-    abilities: ["Sturdy"],
+    abilities: ["sturdy"],
     learnset: [
       "brickbreak",
       "bulletseed",
@@ -49388,7 +49394,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   archaludon: {
     name: "Archaludon",
-    abilities: ["Stamina", "Sturdy", "Stalwart"],
+    abilities: ["stamina", "sturdy", "stalwart"],
     learnset: [
       "aurasphere",
       "bodypress",
@@ -49450,7 +49456,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   hydrapple: {
     name: "Hydrapple",
-    abilities: ["Supersweet Syrup", "Regenerator", "Sticky Hold"],
+    abilities: ["supersweetsyrup", "regenerator", "stickyhold"],
     learnset: [
       "astonish",
       "bodypress",
@@ -49512,7 +49518,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   gougingfire: {
     name: "Gouging Fire",
-    abilities: ["Protosynthesis"],
+    abilities: ["protosynthesis"],
     learnset: [
       "ancientpower",
       "bite",
@@ -49579,7 +49585,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   ragingbolt: {
     name: "Raging Bolt",
-    abilities: ["Protosynthesis"],
+    abilities: ["protosynthesis"],
     learnset: [
       "ancientpower",
       "bodypress",
@@ -49640,7 +49646,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   ironboulder: {
     name: "Iron Boulder",
-    abilities: ["Quark Drive"],
+    abilities: ["quarkdrive"],
     learnset: [
       "aerialace",
       "agility",
@@ -49695,7 +49701,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   ironcrown: {
     name: "Iron Crown",
-    abilities: ["Quark Drive"],
+    abilities: ["quarkdrive"],
     learnset: [
       "agility",
       "airslash",
@@ -49750,7 +49756,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   terapagos: {
     name: "Terapagos",
-    abilities: ["Tera Shift"],
+    abilities: ["terashift"],
     learnset: [
       "ancientpower",
       "aurasphere",
@@ -49815,7 +49821,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   terapagosterastal: {
     name: "Terapagos-Terastal",
-    abilities: ["Tera Shell"],
+    abilities: ["terashell"],
     learnset: [
       "ancientpower",
       "aurasphere",
@@ -49880,7 +49886,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   terapagosstellar: {
     name: "Terapagos-Stellar",
-    abilities: ["Teraform Zero"],
+    abilities: ["teraformzero"],
     learnset: [
       "ancientpower",
       "aurasphere",
@@ -49945,7 +49951,7 @@ export const Pokedex: Record<PokemonName, SpeciesData> = {
   },
   pecharunt: {
     name: "Pecharunt",
-    abilities: ["Poison Puppeteer"],
+    abilities: ["poisonpuppeteer"],
     learnset: [
       "acidspray",
       "astonish",

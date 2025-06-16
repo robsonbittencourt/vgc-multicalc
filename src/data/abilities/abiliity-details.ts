@@ -5,7 +5,7 @@ export interface AbilityDetail {
   description: string
 }
 
-export const ITEM_DETAILS: Record<AbilityName, AbilityDetail> = {
+export const ABILITY_DETAILS: Record<AbilityName, AbilityDetail> = {
   adaptability: {
     name: "Adaptability",
     description: "This Pokemon's same-type attack bonus (STAB) is 2 instead of 1.5."
