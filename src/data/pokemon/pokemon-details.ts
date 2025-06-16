@@ -1,4 +1,4 @@
-import { ITEM_DETAILS } from "../items-details"
+import { ITEM_DETAILS } from "../items/item-details"
 import { MOVE_DETAILS } from "../moves/move-details"
 import { MoveName } from "../moves/move-name"
 import { PokemonName } from "./pokemon-name"
@@ -37,9 +37,6 @@ export class AllPokemon {
   abilitiesByName(name: string): string[] {
     if ("Togepi" == name) return ["Hustle"]
 
-    const a = ITEM_DETAILS["choiceband"]
-
-    console.log(a)
     const pokemon = Object.values(Pokedex).find(p => p.name == name)!
 
     if (pokemon.learnset) {
@@ -67,6 +64,10 @@ export class AllPokemon {
             "|"
         )
       })
+
+      const item = ITEM_DETAILS["assaultvest"]
+
+      console.log(`${item.name} --- ${item.description}`)
     }
 
     return Object.values(Pokedex).find(p => p.name == name)!.abilities
