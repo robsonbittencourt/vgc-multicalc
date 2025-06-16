@@ -19,7 +19,7 @@ export class Items {
     return "(none)"
   }
 
-  allItems(): string[] {
+  private allItems(): string[] {
     return [
       this.withoutItem(),
       "Assault Vest",

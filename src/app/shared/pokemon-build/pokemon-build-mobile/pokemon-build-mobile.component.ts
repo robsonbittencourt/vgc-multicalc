@@ -28,7 +28,7 @@ export class PokemonBuildMobileComponent {
 
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
 
-  allMoveNames = Moves.instance.allMoves()
+  allMoveNames = Moves.instance.moves
 
   editAttacks = false
 

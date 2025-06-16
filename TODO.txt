@@ -1,0 +1,1 @@
+Remover a lista de moves em moves.ts. Ela é duplicada  e desatualizada

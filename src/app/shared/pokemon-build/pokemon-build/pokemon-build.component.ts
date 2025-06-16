@@ -13,8 +13,8 @@ import { PokemonComboBoxComponent } from "@app/shared/pokemon-build/pokemon-comb
 import { StatusComboBoxComponent } from "@app/shared/pokemon-build/status-combo-box/status-combo-box.component"
 import { TeraComboBoxComponent } from "@app/shared/pokemon-build/tera-combo-box/tera-combo-box.component"
 import { TypeComboBoxComponent } from "@app/shared/pokemon-build/type-combo-box/type-combo-box.component"
-import { AllPokemon } from "@data/all-pokemon"
 import { Moves } from "@data/moves"
+import { AllPokemon } from "@data/pokemon/pokemon-details"
 import { CalculatorStore } from "@data/store/calculator-store"
 
 @Component({
@@ -49,7 +49,7 @@ export class PokemonBuildComponent {
 
   MAX_EVS = 508
 
-  allMoveNames = Moves.instance.allMoves()
+  allMoveNames = Moves.instance.moves
   allPokemonNames = AllPokemon.instance.allPokemonNames
   availableAbilities: string[]
 

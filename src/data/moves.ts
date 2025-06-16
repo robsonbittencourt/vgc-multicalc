@@ -15,7 +15,7 @@ export class Moves {
     return Moves._instance
   }
 
-  allMoves(): string[] {
+  private allMoves(): string[] {
     return [
       "Absorb",
       "Accelerock",
@@ -594,6 +594,7 @@ export class Moves {
       "Struggle Bug",
       "Stuff Cheeks",
       "Stun Spore",
+      "Substitute",
       "Sucker Punch",
       "Sunny Day",
       "Sunsteel Strike",
@@ -606,6 +607,7 @@ export class Moves {
       "Swagger",
       "Swallow",
       "Sweet Kiss",
+      "Sweet Scent",
       "Swift",
       "Switcheroo",
       "Swords Dance",
