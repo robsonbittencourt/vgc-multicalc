@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core"
 import { Items } from "@data/items"
-import { AllPokemon } from "@data/pokemon/pokemon-details"
+import { AllPokemon } from "@data/pokemon-details"
 import { DEFAULT_TERA_TYPE, SELECT_POKEMON_LABEL } from "@lib/constants"
 import { Ability } from "@lib/model/ability"
 import { Pokemon } from "@lib/model/pokemon"

@@ -1,9 +1,6 @@
-import { ABILITY_DETAILS } from "@data/abilities/abiliity-details"
-import { AbilityName } from "@data/abilities/ability-name"
-import { ITEM_DETAILS } from "../items/item-details"
-import { MOVE_DETAILS } from "../moves/move-details"
-import { MoveName } from "../moves/move-name"
-import { PokemonName } from "./pokemon-name"
+import { ABILITY_DETAILS, AbilityName } from "@data/abiliity-details"
+import { ITEM_DETAILS } from "./item-details"
+import { MOVE_DETAILS, MoveName } from "./move-details"
 
 export class AllPokemon {
   private static _instance: AllPokemon
@@ -11,7 +8,7 @@ export class AllPokemon {
   allPokemonNames: string[]
 
   private constructor() {
-    this.allPokemonNames = Object.values(Pokedex).map(p => p.name)
+    this.allPokemonNames = Object.values(POKEMON_DETAILS).map(p => p.name)
   }
 
   static get instance(): AllPokemon {
@@ -39,7 +36,7 @@ export class AllPokemon {
   abilitiesByName(name: string): string[] {
     if ("Togepi" == name) return ["Hustle"]
 
-    const pokemon = Object.values(Pokedex).find(p => p.name == name)!
+    const pokemon = Object.values(POKEMON_DETAILS).find(p => p.name == name)!
 
     if (pokemon.learnset) {
       console.log(`${name} attack set`)
@@ -74,11 +71,13 @@ export class AllPokemon {
       console.log(`${ability.name} --- ${ability.description}`)
     }
 
-    return Object.values(Pokedex)
+    return Object.values(POKEMON_DETAILS)
       .find(p => p.name == name)!
       .abilities.map(a => ABILITY_DETAILS[a].name)
   }
 }
+
+export type PokemonName = keyof typeof ABILITY_DETAILS
 
 interface SpeciesData {
   name: string
@@ -86,7 +85,7 @@ interface SpeciesData {
   learnset: MoveName[]
 }
 
-export const Pokedex: Record<PokemonName, SpeciesData> = {
+export const POKEMON_DETAILS: Record<string, SpeciesData> = {
   bulbasaur: {
     name: "Bulbasaur",
     abilities: ["overgrow", "chlorophyll"],

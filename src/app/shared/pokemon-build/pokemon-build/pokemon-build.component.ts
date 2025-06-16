@@ -14,7 +14,7 @@ import { StatusComboBoxComponent } from "@app/shared/pokemon-build/status-combo-
 import { TeraComboBoxComponent } from "@app/shared/pokemon-build/tera-combo-box/tera-combo-box.component"
 import { TypeComboBoxComponent } from "@app/shared/pokemon-build/type-combo-box/type-combo-box.component"
 import { Moves } from "@data/moves"
-import { AllPokemon } from "@data/pokemon/pokemon-details"
+import { AllPokemon } from "@data/pokemon-details"
 import { CalculatorStore } from "@data/store/calculator-store"
 
 @Component({

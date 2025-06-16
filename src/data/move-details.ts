@@ -1,5 +1,6 @@
 import { PokemonType } from "@lib/types"
-import { MoveName } from "./move-name"
+
+export type MoveName = keyof typeof MOVE_DETAILS
 
 export interface MoveDetail {
   accuracy: number | true
@@ -11,7 +12,7 @@ export interface MoveDetail {
   description: string
 }
 
-export const MOVE_DETAILS: Record<MoveName, MoveDetail> = {
+export const MOVE_DETAILS: Record<string, MoveDetail> = {
   absorb: {
     accuracy: 100,
     basePower: 20,

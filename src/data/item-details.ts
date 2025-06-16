@@ -1,11 +1,11 @@
-import { ItemName } from "./item-name"
+export type ItemName = keyof typeof ITEM_DETAILS
 
 export interface ItemDetail {
   name: string
   description: string
 }
 
-export const ITEM_DETAILS: Record<ItemName, ItemDetail> = {
+export const ITEM_DETAILS: Record<string, ItemDetail> = {
   abilityshield: {
     name: "Ability Shield",
     description: "Holder's Ability cannot be changed, suppressed, or ignored by any effect."
