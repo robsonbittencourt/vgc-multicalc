@@ -1,0 +1,102 @@
+<div class="container">
+  <div class="filters-bar">
+    <span class="filter-label">Filters:</span>
+    @for (filter of activeFilters(); track filter.type + filter.value) {
+      <div class="filter-tag">
+        <span>{{ filter.value }}</span>
+        <span class="remove-filter" (click)="removeFilter(filter)">×</span>
+      </div>
+    } @empty {
+      <div class="filter-tag initial-tag">No Filters Active</div>
+    }
+  </div>
+
+  @if (currentView() === "movesTable") {
+    <div class="table-header">
+      <div class="header-cell name-col sortable" (click)="toggleSort('name')">Name</div>
+      <div class="header-cell type-col sortable" (click)="showTypeFilter()">Type</div>
+      <div class="header-cell cat-col sortable" (click)="showCategoryFilter()">Cat</div>
+      <div class="header-cell pow-col sortable" (click)="toggleSort('power')">Pow</div>
+      <div class="header-cell acc-col sortable" (click)="toggleSort('accuracy')">Acc</div>
+      <div class="header-cell pp-col sortable" (click)="toggleSort('pp')">PP</div>
+      <div class="header-cell description-col"></div>
+    </div>
+
+    <div class="moves-section-title">Moves</div>
+
+    <div class="moves-list">
+      @for (move of filteredAndSortedMoves(); track move.name) {
+        <div class="move-item">
+          <div class="move-cell move-name">
+            <span>{{ move.name }}</span>
+          </div>
+          <div class="move-cell move-type">
+            <span [ngClass]="['move-type-badge', move.type]">{{ move.type }}</span>
+          </div>
+          <div class="move-cell move-cat">
+            <div class="category-display">
+              <img [src]="getCategoryIconPath(move.category)" alt="{{ move.category }} Category" class="category-icon" />
+            </div>
+          </div>
+          <div class="move-cell move-pow">
+            <div class="stat-group">
+              <div class="stat-label">Power</div>
+              <div class="stat-value">{{ move.power }}</div>
+            </div>
+          </div>
+          <div class="move-cell move-acc">
+            <div class="stat-group">
+              <div class="stat-label">Accuracy</div>
+              <div class="stat-value">{{ move.accuracy }}%</div>
+            </div>
+          </div>
+          <div class="move-cell move-pp">
+            <div class="stat-group">
+              <div class="stat-label">PP</div>
+              <div class="stat-value">{{ move.pp }}</div>
+            </div>
+          </div>
+          <div class="move-cell move-description">
+            <span>{{ move.description }}</span>
+          </div>
+        </div>
+      } @empty {
+        <div class="no-moves">No moves to display.</div>
+      }
+    </div>
+  } @else if (currentView() === "typeList") {
+    <div class="type-filter-section filter-list-section">
+      <div class="type-filter-header filter-list-header">
+        <h3>Select Type Filter</h3>
+        <button class="back-button" (click)="currentView.set('movesTable')">← Back to Moves</button>
+      </div>
+      <div class="type-list filter-options-list">
+        @for (type of uniqueTypes(); track type) {
+          <div class="type-item filter-option-item" (click)="applyTypeFilter(type)">
+            <span [ngClass]="['move-type-badge', type]">{{ type }}</span>
+          </div>
+        } @empty {
+          <div class="no-types">No types available.</div>
+        }
+      </div>
+    </div>
+  } @else if (currentView() === "categoryList") {
+    <div class="category-filter-section filter-list-section">
+      <div class="category-filter-header filter-list-header">
+        <h3>Select Category Filter</h3>
+        <button class="back-button" (click)="currentView.set('movesTable')">← Back to Moves</button>
+      </div>
+      <div class="category-list filter-options-list">
+        @for (category of uniqueCategories(); track category) {
+          <div class="category-item filter-option-item" (click)="applyCategoryFilter(category)">
+            <div class="category-display">
+              <img [src]="getCategoryIconPath(category)" alt="{{ category }} Category" class="category-icon" />
+            </div>
+          </div>
+        } @empty {
+          <div class="no-categories">No categories available.</div>
+        }
+      </div>
+    </div>
+  }
+</div>

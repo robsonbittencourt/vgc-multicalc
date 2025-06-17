@@ -16,6 +16,7 @@ import { TypeComboBoxComponent } from "@app/shared/pokemon-build/type-combo-box/
 import { Moves } from "@data/moves"
 import { AllPokemon } from "@data/pokemon-details"
 import { CalculatorStore } from "@data/store/calculator-store"
+import { FilterableTableComponent } from "../../../filterable-table/filterable-table.component"
 
 @Component({
   selector: "app-pokemon-build",
@@ -36,7 +37,8 @@ import { CalculatorStore } from "@data/store/calculator-store"
     StatusComboBoxComponent,
     ItemComboBoxComponent,
     TypeComboBoxComponent,
-    NatureComboBoxComponent
+    NatureComboBoxComponent,
+    FilterableTableComponent
   ]
 })
 export class PokemonBuildComponent {
