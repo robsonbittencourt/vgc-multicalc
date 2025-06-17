@@ -200,20 +200,6 @@ export class FilterableTableComponent {
     return movesToProcess
   })
 
-  getSortIcon(column: keyof Move): string {
-    const currentColumn = this.sortColumn()
-    const currentDirection = this.sortDirection()
-
-    if (currentColumn === column) {
-      if (currentDirection === "asc") {
-        return "▲"
-      } else if (currentDirection === "desc") {
-        return "▼"
-      }
-    }
-    return ""
-  }
-
   toggleSort(column: keyof Move): void {
     this.currentView.set("movesTable")
 
