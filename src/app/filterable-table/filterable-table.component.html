@@ -1,15 +1,17 @@
 <div class="container">
-  <div class="filters-bar">
-    <span class="filter-label">Filters:</span>
-    @for (filter of activeFilters(); track filter.field + filter.value) {
-      <div class="filter-tag">
-        <span>{{ filter.value }}</span>
-        <span class="remove-filter" (click)="removeFilter(filter)">×</span>
-      </div>
-    } @empty {
-      <div class="filter-tag initial-tag">No Filters Active</div>
-    }
-  </div>
+  @if (activeFilters().length > 0) {
+    <div class="filters-bar">
+      <span class="filter-label">Filters:</span>
+      @for (filter of activeFilters(); track filter.field + filter.value) {
+        <div class="filter-tag">
+          <span>{{ filter.value }}</span>
+          <span class="remove-filter" (click)="removeFilter(filter)">×</span>
+        </div>
+      } @empty {
+        <div class="filter-tag initial-tag">No Filters Active</div>
+      }
+    </div>
+  }
 
   @if (currentView() === "table") {
     <div class="table-header">
@@ -36,7 +38,7 @@
                   @if (column.showHeaderInCell) {
                     <div class="stat-label">{{ column.header }}</div>
                   }
-                  <div class="stat-value">
+                  <div class="stat-value" [ngClass]="{ 'stat-value-left': column.alignLeft }">
                     {{ column.displayFn ? column.displayFn(item) : item[column.field] }}
                   </div>
                 </div>
@@ -51,8 +53,8 @@
   } @else if (currentView() === "filterList") {
     <div class="filter-list-section">
       <div class="filter-list-header">
-        <h3>Selecione o filtro para {{ currentFilterConfig()?.header }}</h3>
-        <button class="back-button" (click)="backToTable()">← Voltar para a Tabela</button>
+        <h3>Select a {{ currentFilterConfig()?.description }} to filter</h3>
+        <button class="back-button" (click)="backToTable()">← Back</button>
       </div>
       <div class="filter-options-list">
         @for (option of currentFilterOptions(); track option.value) {

@@ -13,20 +13,12 @@ import { PokemonComboBoxComponent } from "@app/shared/pokemon-build/pokemon-comb
 import { StatusComboBoxComponent } from "@app/shared/pokemon-build/status-combo-box/status-combo-box.component"
 import { TeraComboBoxComponent } from "@app/shared/pokemon-build/tera-combo-box/tera-combo-box.component"
 import { TypeComboBoxComponent } from "@app/shared/pokemon-build/type-combo-box/type-combo-box.component"
+import { MOVE_DETAILS, MoveDetail, MoveName } from "@data/move-details"
 import { Moves } from "@data/moves"
-import { AllPokemon } from "@data/pokemon-details"
+import { AllPokemon, POKEMON_DETAILS } from "@data/pokemon-details"
 import { CalculatorStore } from "@data/store/calculator-store"
+import { PokemonTypes } from "@lib/types"
 import { ColumnConfig, FilterableTableComponent } from "../../../filterable-table/filterable-table.component"
-
-interface Move {
-  name: string
-  type: string
-  category: string
-  power: number
-  accuracy: number
-  pp: number
-  description: string
-}
 
 @Component({
   selector: "app-pokemon-build",
@@ -73,145 +65,67 @@ export class PokemonBuildComponent {
     this.store.activateMoveByPosition(this.pokemonId(), position)
   }
 
-  movesData: Move[] = [
-    {
-      name: "Draining Kiss",
-      type: "FAIRY",
-      category: "Special",
-      power: 50,
-      accuracy: 100,
-      pp: 16,
-      description: "User recovers 75% of the damage dealt."
-    },
-    {
-      name: "Alluring Voice",
-      type: "FAIRY",
-      category: "Special",
-      power: 80,
-      accuracy: 100,
-      pp: 16,
-      description: "100% confuse target that had a stat rise this turn."
-    },
-    {
-      name: "Dazzling Gleam",
-      type: "FAIRY",
-      category: "Special",
-      power: 80,
-      accuracy: 100,
-      pp: 16,
-      description: "No additional effect. Hits adjacent foes."
-    },
-    {
-      name: "Flamethrower",
-      type: "FIRE",
-      category: "Special",
-      power: 90,
-      accuracy: 100,
-      pp: 24,
-      description: "The target is scorched with an intense blast of fire. This may also leave the target with a burn."
-    },
-    {
-      name: "Leaf Storm",
-      type: "GRASS",
-      category: "Special",
-      power: 130,
-      accuracy: 90,
-      pp: 8,
-      description: "The user attacks the target with a storm of sharp leaves. This lowers the user's Sp. Atk stat by two stages."
-    },
-    {
-      name: "Aqua Jet",
-      type: "WATER",
-      category: "Physical",
-      power: 40,
-      accuracy: 100,
-      pp: 32,
-      description: "The user attacks first. This move has a heightened priority."
-    },
-    {
-      name: "Bug Buzz",
-      type: "BUG",
-      category: "Special",
-      power: 90,
-      accuracy: 100,
-      pp: 16,
-      description: "The user generates a damaging sound wave. This may also lower the target's Special Defense stat."
-    },
-    {
-      name: "Crunch",
-      type: "DARK",
-      category: "Physical",
-      power: 80,
-      accuracy: 100,
-      pp: 24,
-      description: "The user crunches up the target with sharp fangs. This may also lower the target's Defense stat."
-    },
-    {
-      name: "Draco Meteor",
-      type: "DRAGON",
-      category: "Special",
-      power: 130,
-      accuracy: 90,
-      pp: 8,
-      description: "Comets are summoned down from the sky. This lowers the user's Special Attack stat by two stages."
-    },
-    {
-      name: "Tackle",
-      type: "NORMAL",
-      category: "Physical",
-      power: 40,
-      accuracy: 100,
-      pp: 56,
-      description: "A physical attack in which the user charges and slams into the target with its whole body."
-    },
-    {
-      name: "Growl",
-      type: "NORMAL",
-      category: "Status",
-      power: 0,
-      accuracy: 100,
-      pp: 64,
-      description: "The user growls in an endearing way, making opposing Pokémon less wary. This lowers their Attack stat."
-    }
-  ]
+  movesData = computed(() => {
+    const pokemonDetails = Object.values(POKEMON_DETAILS).find(p => p.name == this.pokemon().name)!
+    return this.getMoveDetails(pokemonDetails.learnset!)
+  })
 
-  moveColumns: ColumnConfig<Move>[] = [
-    { field: "name", sortable: true },
+  getMoveDetails(learnset: MoveName[]): MoveDetail[] {
+    const details = learnset
+      .map(move => {
+        const moveDetail = MOVE_DETAILS[move]
+        if (moveDetail) {
+          return { move, ...moveDetail }
+        }
+        return null
+      })
+      .filter(detail => detail !== null)
+
+    return details
+  }
+
+  moveColumns: ColumnConfig<MoveDetail>[] = [
+    { field: "name", sortable: true, alignLeft: true },
     {
       field: "type",
       header: "Type",
+      description: "Type",
       filterable: true,
       isImageColumn: true,
-      displayFn: (item: Move) => `assets/icons/types/${item.type.toLowerCase()}.png`,
-      filterValues: ["FAIRY", "FIRE", "GRASS", "WATER", "BUG", "DARK", "DRAGON", "ELECTRIC", "NORMAL"]
+      displayFn: (item: MoveDetail) => `assets/icons/types/${item.type.toLowerCase()}.png`,
+      filterValues: [...PokemonTypes]
     },
     {
       field: "category",
       header: "Cat",
+      description: "Move category",
       filterable: true,
       isImageColumn: true,
-      displayFn: (item: Move) => `assets/icons/${item.category.toLowerCase()}.png`,
+      displayFn: (item: MoveDetail) => `assets/icons/${item.category.toLowerCase()}.png`,
       filterValues: ["Physical", "Special", "Status"]
     },
     {
-      field: "power",
+      field: "basePower",
       header: "Pow",
+      description: "Base Power",
       sortable: true,
       showHeaderInCell: true
     },
     {
       field: "accuracy",
       header: "Acc",
+      description: "Accuracy",
       sortable: true,
-      displayFn: (item: Move) => `${item.accuracy}%`,
+      displayFn: (item: MoveDetail) => (typeof item.accuracy === "number" ? `${item.accuracy}%` : "-"),
       showHeaderInCell: true
     },
     {
       field: "pp",
       header: "PP",
+      description: "PP",
       sortable: true,
       showHeaderInCell: true
     },
-    { field: "description" }
+    { field: "description", description: "Description", alignLeft: true }
   ]
 }

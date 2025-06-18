@@ -4,12 +4,14 @@ import { Component, computed, input, signal } from "@angular/core"
 export interface ColumnConfig<T> {
   field: keyof T
   header?: string
+  description?: string
   sortable?: boolean
   filterable?: boolean
   displayFn?: (item: T) => string | number | boolean | any
   isImageColumn?: boolean
   filterValues?: string[]
   showHeaderInCell?: boolean
+  alignLeft?: boolean
 }
 
 interface ActiveFilter {

@@ -1,48 +1,38 @@
-/* Estilos globais para o host do componente */
 :host {
   display: block;
-  font-family: "Inter", Arial, sans-serif;
-  background-color: #2c2f33;
-  color: #ffffff;
-  padding: 20px;
-  border-radius: 8px;
-  max-width: 1200px;
-  margin: 20px auto;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  cursor: default;
+  margin-top: 20px;
 }
 
 .container {
   display: flex;
   flex-direction: column;
+  height: 55em;
+  overflow: auto;
+  padding-right: 0.5em;
 }
 
 .filters-bar {
   display: flex;
   align-items: center;
-  background-color: #40444b;
+  background-color: #36393f;
   padding: 10px 15px;
   border-radius: 5px;
-  margin-bottom: 20px;
-  gap: 10px;
+  margin-bottom: 1em;
+  gap: 1em;
   flex-wrap: wrap;
 }
 
 .filter-label {
-  font-weight: bold;
-  color: #bbb;
-  margin-right: 5px;
+  font-weight: 500;
 }
 
 .filter-tag {
-  background-color: #7289da;
-  color: white;
+  background-color: var(--primary);
   padding: 5px 10px;
   border-radius: 4px;
   display: flex;
   align-items: center;
   gap: 5px;
-  font-size: 0.9em;
   transition: all 0.2s ease-in-out;
 
   .remove-filter {
@@ -63,34 +53,21 @@
 
 .table-header {
   display: grid;
-  /* NOVO: Ajusta as larguras das colunas
-     - minmax(100px, 1.5fr): Nome (mín 100px, mais espaço flexível)
-     - minmax(50px, auto): Tipo, Categoria, Pow, Acc, PP (mín 50px, ajusta ao conteúdo, não cresce mais que o necessário)
-     - 2fr: Descrição (ocupa o dobro do espaço flexível restante)
-  */
-  grid-template-columns: minmax(100px, 1.5fr) minmax(50px, auto) minmax(50px, auto) minmax(50px, auto) minmax(50px, auto) minmax(50px, auto) 2fr;
+  grid-template-columns: 1fr 80px 80px 70px 70px 70px 2fr;
   background-color: #36393f;
-  padding: 10px 15px;
+  padding: 10px 8px;
   border-radius: 5px;
   font-weight: bold;
-  color: #ddd;
-  margin-bottom: 15px;
+  margin-bottom: 1em;
   text-transform: uppercase;
   gap: 5px;
-  box-sizing: border-box;
 }
 
 .header-cell {
-  padding: 5px;
   transition: all 0.2s ease-in-out;
-  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
-  max-width: 150px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .header-cell.sortable {
@@ -112,79 +89,44 @@
 }
 
 .moves-section-title {
-  font-size: 1.5em;
+  font-size: 1.2em;
   font-weight: bold;
-  color: #ffffff;
-  margin-bottom: 15px;
-  padding-left: 5px;
-  border-bottom: 2px solid #40444b;
-  padding-bottom: 5px;
+  margin-bottom: 0.5em;
+  margin-left: 0.3em;
 }
 
 .moves-list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
 
   .move-item {
-    background-color: #36393f;
-    border-radius: 5px;
-    padding: 15px 8px;
+    border-bottom: 1px solid var(--background);
+    padding: 12px 8px;
     display: grid;
-    grid-template-columns: minmax(100px, 1.5fr) minmax(50px, auto) minmax(50px, auto) minmax(50px, auto) minmax(50px, auto) minmax(50px, auto) 2fr;
+    grid-template-columns: 1fr 80px 80px 70px 70px 70px 2fr;
     align-items: center;
     gap: 5px;
-    box-sizing: border-box;
+    transition:
+      box-shadow 0.3s ease,
+      background-color 0.3s ease;
   }
+}
+
+.move-item:hover {
+  background-color: #40444b; /* Cor que você deseja ao passar o mouse */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .move-cell {
-  padding: 0 5px;
-  box-sizing: border-box;
   display: flex;
   align-items: center;
-  justify-content: left; /* Centraliza o conteúdo por padrão */
-}
-
-$type-colors: (
-  FAIRY: #ee99ee,
-  FIRE: #ff4422,
-  GRASS: #77cc55,
-  WATER: #6699ff,
-  BUG: #aabb22,
-  DARK: #775544,
-  DRAGON: #7766ee,
-  ELECTRIC: #ffcc33,
-  NORMAL: #aaaa99,
-  DEFAULT: #68a090
-);
-
-.move-type-badge {
-  color: white;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 0.8em;
-  font-weight: bold;
-  text-transform: uppercase;
-  min-width: 60px;
-  text-align: center;
-  display: inline-block;
-
-  @each $type, $color in $type-colors {
-    &.#{$type} {
-      background-color: $color;
-    }
-  }
-  &:not(.FAIRY):not(.FIRE):not(.GRASS):not(.WATER):not(.BUG):not(.DARK):not(.DRAGON):not(.ELECTRIC):not(.NORMAL) {
-    background-color: map-get($type-colors, DEFAULT);
-  }
+  justify-content: center;
 }
 
 .category-display {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
 }
 
 .stat-group {
@@ -206,10 +148,12 @@ $type-colors: (
 }
 
 .stat-value {
-  font-size: 1em;
-  font-weight: bold;
-  color: #ffffff;
   line-height: 1;
+}
+
+.stat-value-left {
+  text-align: left;
+  width: 100%;
 }
 
 .move-description {
@@ -244,7 +188,7 @@ $type-colors: (
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
-  border-bottom: 2px solid #40444b;
+  border-bottom: 2px solid #36393f;
   padding-bottom: 10px;
 
   .back-button {
@@ -275,7 +219,7 @@ $type-colors: (
 }
 
 .filter-option-item {
-  background-color: #40444b;
+  background-color: #36393f;
   border-radius: 8px;
   padding: 2px;
   display: flex;
@@ -309,4 +253,14 @@ $type-colors: (
       height: 44px;
     }
   }
+}
+
+.container::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.container::-webkit-scrollbar-thumb {
+  background-color: #36393f;
+  border-radius: 4px;
 }
