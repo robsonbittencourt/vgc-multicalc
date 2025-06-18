@@ -182,7 +182,7 @@ export class PokemonBuildComponent {
       header: "Type",
       filterable: true,
       isImageColumn: true,
-      displayFn: (item: Move) => `assets/icons/${item.type.toLowerCase()}.png`,
+      displayFn: (item: Move) => `assets/icons/types/${item.type.toLowerCase()}.png`,
       filterValues: ["FAIRY", "FIRE", "GRASS", "WATER", "BUG", "DARK", "DRAGON", "ELECTRIC", "NORMAL"]
     },
     {

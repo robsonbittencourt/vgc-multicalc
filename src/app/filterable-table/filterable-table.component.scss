@@ -86,8 +86,7 @@
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  justify-content: center; /* Centraliza o conteúdo por padrão */
-  /* Limita a largura do cabeçalho da coluna, truncando o texto se exceder */
+  justify-content: center;
   max-width: 150px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -130,9 +129,8 @@
   .move-item {
     background-color: #36393f;
     border-radius: 5px;
-    padding: 4px 15px;
+    padding: 15px 8px;
     display: grid;
-    /* NOVO: Espelha o table-header */
     grid-template-columns: minmax(100px, 1.5fr) minmax(50px, auto) minmax(50px, auto) minmax(50px, auto) minmax(50px, auto) minmax(50px, auto) 2fr;
     align-items: center;
     gap: 5px;
