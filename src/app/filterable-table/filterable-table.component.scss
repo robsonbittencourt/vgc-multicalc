@@ -63,7 +63,12 @@
 
 .table-header {
   display: grid;
-  grid-template-columns: 1.5fr 0.9fr 1.05fr 0.5fr 0.5fr 0.5fr 3fr;
+  /* NOVO: Ajusta as larguras das colunas
+     - minmax(100px, 1.5fr): Nome (mín 100px, mais espaço flexível)
+     - minmax(50px, auto): Tipo, Categoria, Pow, Acc, PP (mín 50px, ajusta ao conteúdo, não cresce mais que o necessário)
+     - 2fr: Descrição (ocupa o dobro do espaço flexível restante)
+  */
+  grid-template-columns: minmax(100px, 1.5fr) minmax(50px, auto) minmax(50px, auto) minmax(50px, auto) minmax(50px, auto) minmax(50px, auto) 2fr;
   background-color: #36393f;
   padding: 10px 15px;
   border-radius: 5px;
@@ -73,23 +78,20 @@
   text-transform: uppercase;
   gap: 5px;
   box-sizing: border-box;
-
-  .header-cell.type-col,
-  .header-cell.cat-col,
-  .header-cell.pow-col,
-  .header-cell.acc-col,
-  .header-cell.pp-col {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-  }
 }
 
 .header-cell {
   padding: 5px;
   transition: all 0.2s ease-in-out;
   box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centraliza o conteúdo por padrão */
+  /* Limita a largura do cabeçalho da coluna, truncando o texto se exceder */
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .header-cell.sortable {
@@ -108,11 +110,6 @@
     cursor: default;
     outline: none;
   }
-}
-
-.header-cell.description-col {
-  padding: 0;
-  margin: 0;
 }
 
 .moves-section-title {
@@ -135,46 +132,20 @@
     border-radius: 5px;
     padding: 4px 15px;
     display: grid;
-    grid-template-columns: 1.5fr 0.9fr 1.05fr 0.5fr 0.5fr 0.5fr 3fr;
+    /* NOVO: Espelha o table-header */
+    grid-template-columns: minmax(100px, 1.5fr) minmax(50px, auto) minmax(50px, auto) minmax(50px, auto) minmax(50px, auto) minmax(50px, auto) 2fr;
     align-items: center;
     gap: 5px;
     box-sizing: border-box;
-
-    .move-cell.move-type {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .move-cell.move-cat {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .move-cell.move-pow,
-    .move-cell.move-acc,
-    .move-cell.move-pp {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 0;
-    }
   }
 }
 
 .move-cell {
   padding: 0 5px;
   box-sizing: border-box;
-}
-
-.move-name {
-  font-size: 1.1em;
-  font-weight: bold;
-  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: left; /* Centraliza o conteúdo por padrão */
 }
 
 $type-colors: (
@@ -207,7 +178,7 @@ $type-colors: (
     }
   }
   &:not(.FAIRY):not(.FIRE):not(.GRASS):not(.WATER):not(.BUG):not(.DARK):not(.DRAGON):not(.ELECTRIC):not(.NORMAL) {
-    background-color: map-get($type-colors, DEFAULT); // <--- REVERTIDO AQUI
+    background-color: map-get($type-colors, DEFAULT);
   }
 }
 
@@ -216,28 +187,7 @@ $type-colors: (
   flex-direction: row;
   align-items: center;
   justify-content: center;
-}
-
-.category-icon {
-  width: 44px;
-  height: 44px;
-  object-fit: contain;
-  vertical-align: middle;
-}
-
-.move-description {
-  color: #ffffff;
-  font-size: 0.9em;
-  white-space: normal;
-  overflow: visible;
-  text-overflow: clip;
-}
-
-.no-moves {
-  text-align: center;
-  color: #ccc;
-  padding: 20px;
-  font-style: italic;
+  border: 1px solid red;
 }
 
 .stat-group {
@@ -263,6 +213,25 @@ $type-colors: (
   font-weight: bold;
   color: #ffffff;
   line-height: 1;
+}
+
+.move-description {
+  color: #ffffff;
+  font-size: 0.9em;
+  white-space: normal; /* Permite que o texto quebre linhas */
+  overflow: visible; /* Não truncar o texto da descrição com reticências */
+  text-overflow: clip; /* Não adiciona reticências se o texto quebrar */
+  justify-content: flex-start; /* Sobrescreve o justify-content: center do .move-cell genérico */
+  text-align: left;
+  max-width: none; /* Garante que a descrição não seja restringida pelo max-width de .move-cell */
+}
+
+.no-moves {
+  text-align: center;
+  color: #ccc;
+  grid-column: 1 / -1; /* Ocupa a largura total do grid */
+  padding: 20px;
+  font-style: italic;
 }
 
 .filter-list-section {
@@ -321,12 +290,6 @@ $type-colors: (
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   min-height: calc(44px + (2px * 2));
 
-  &:hover {
-    background-color: #50545c;
-    transform: translateY(-3px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  }
-
   div.type-item & .move-type-badge {
     min-width: 90px !important;
     height: 44px !important;
@@ -348,79 +311,5 @@ $type-colors: (
       width: 44px;
       height: 44px;
     }
-  }
-}
-
-.no-types,
-.no-categories {
-  text-align: center;
-  color: #ccc;
-  padding: 20px;
-  font-style: italic;
-}
-
-@media (max-width: 1024px) {
-  .table-header,
-  .move-item {
-    grid-template-columns: 1.5fr 0.8fr 0.5fr 0.5fr 0.5fr 0.5fr 2fr;
-    font-size: 0.95em;
-  }
-}
-
-@media (max-width: 768px) {
-  .table-header,
-  .move-item {
-    grid-template-columns: 1.2fr 0.7fr 0.4fr 0.4fr 0.4fr 0.4fr 1.5fr;
-    font-size: 0.9em;
-  }
-  .filter-options-list {
-    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-    gap: 8px;
-  }
-  .filter-option-item {
-    padding: 8px;
-  }
-}
-
-@media (max-width: 480px) {
-  .table-header,
-  .move-item {
-    grid-template-columns: 1fr 0.7fr 0.5fr 2fr;
-    font-size: 0.8em;
-  }
-
-  .header-cell.pow-col,
-  .move-cell.move-pow,
-  .header-cell.acc-col,
-  .move-cell.move-acc,
-  .move-cell.pp-col,
-  .move-cell.move-pp {
-    display: none;
-  }
-
-  .move-type-badge {
-    min-width: unset;
-    padding: 3px 6px;
-  }
-
-  .filters-bar {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .filter-info {
-    margin-left: 0;
-    margin-top: 5px;
-  }
-
-  .filter-list-header {
-    flex-direction: column;
-    align-items: flex-start;
-    .back-button {
-      margin-bottom: 10px;
-    }
-  }
-  .filter-options-list {
-    grid-template-columns: 1fr;
   }
 }

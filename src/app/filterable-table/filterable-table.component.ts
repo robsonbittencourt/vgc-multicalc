@@ -1,19 +1,20 @@
 import { CommonModule } from "@angular/common"
-import { Component, computed, signal } from "@angular/core"
+import { Component, computed, input, signal } from "@angular/core"
 
-interface Move {
-  name: string
-  type: string
-  category: string
-  power: number
-  accuracy: number
-  pp: number
-  description: string
+export interface ColumnConfig<T> {
+  field: keyof T
+  header?: string
+  sortable?: boolean
+  filterable?: boolean
+  displayFn?: (item: T) => string | number | boolean | any
+  isImageColumn?: boolean
+  filterValues?: string[]
+  showHeaderInCell?: boolean
 }
 
 interface ActiveFilter {
-  type: "type" | "category"
-  value: string
+  field: string
+  value: any
 }
 
 @Component({
@@ -23,236 +24,91 @@ interface ActiveFilter {
   templateUrl: "./filterable-table.component.html",
   styleUrls: ["./filterable-table.component.scss"]
 })
-export class FilterableTableComponent {
-  allMoves = signal<Move[]>([
-    {
-      name: "Draining Kiss",
-      type: "FAIRY",
-      category: "Special",
-      power: 50,
-      accuracy: 100,
-      pp: 16,
-      description: "User recovers 75% of the damage dealt."
-    },
-    {
-      name: "Alluring Voice",
-      type: "FAIRY",
-      category: "Special",
-      power: 80,
-      accuracy: 100,
-      pp: 16,
-      description: "100% confuse target that had a stat rise this turn."
-    },
-    {
-      name: "Dazzling Gleam",
-      type: "FAIRY",
-      category: "Special",
-      power: 80,
-      accuracy: 100,
-      pp: 16,
-      description: "No additional effect. Hits adjacent foes."
-    },
-    {
-      name: "Flamethrower",
-      type: "FIRE",
-      category: "Special",
-      power: 90,
-      accuracy: 100,
-      pp: 24,
-      description: "The target is scorched with an intense blast of fire. This may also leave the target with a burn."
-    },
-    {
-      name: "Leaf Storm",
-      type: "GRASS",
-      category: "Special",
-      power: 130,
-      accuracy: 90,
-      pp: 8,
-      description: "The user attacks the target with a storm of sharp leaves. This lowers the user's Sp. Atk stat by two stages."
-    },
-    {
-      name: "Aqua Jet",
-      type: "WATER",
-      category: "Physical",
-      power: 40,
-      accuracy: 100,
-      pp: 32,
-      description: "The user attacks first. This move has a heightened priority."
-    },
-    {
-      name: "Bug Buzz",
-      type: "BUG",
-      category: "Special",
-      power: 90,
-      accuracy: 100,
-      pp: 16,
-      description: "The user generates a damaging sound wave. This may also lower the target's Special Defense stat."
-    },
-    {
-      name: "Crunch",
-      type: "DARK",
-      category: "Physical",
-      power: 80,
-      accuracy: 100,
-      pp: 24,
-      description: "The user crunches up the target with sharp fangs. This may also lower the target's Defense stat."
-    },
-    {
-      name: "Draco Meteor",
-      type: "DRAGON",
-      category: "Special",
-      power: 130,
-      accuracy: 90,
-      pp: 8,
-      description: "Comets are summoned down from the sky. This lowers the user's Special Attack stat by two stages."
-    },
-    {
-      name: "Tackle",
-      type: "NORMAL",
-      category: "Physical",
-      power: 40,
-      accuracy: 100,
-      pp: 56,
-      description: "A physical attack in which the user charges and slams into the target with its whole body."
-    },
-    {
-      name: "Growl",
-      type: "NORMAL",
-      category: "Status",
-      power: 0,
-      accuracy: 100,
-      pp: 64,
-      description: "The user growls in an endearing way, making opposing Pokémon less wary. This lowers their Attack stat."
-    }
-  ])
+export class FilterableTableComponent<T extends Record<string, any>> {
+  data = input.required<T[]>()
+  columns = input.required<ColumnConfig<T>[]>()
 
-  currentView = signal<"movesTable" | "typeList" | "categoryList">("movesTable")
+  currentView = signal<"table" | "filterList">("table")
+  currentFilterField = signal<keyof T | null>(null)
 
-  sortColumn = signal<keyof Move | null>("name")
-
-  sortDirection = signal<"asc" | "desc" | null>("asc")
-
+  sortColumn = signal<keyof T | null>(null)
+  sortDirection = signal<"asc" | "desc" | null>(null)
   activeFilters = signal<ActiveFilter[]>([])
 
-  uniqueTypes = computed(() => {
-    const types = new Set<string>()
-    this.allMoves().forEach(move => types.add(move.type))
-    return Array.from(types).sort()
-  })
-
-  uniqueCategories = computed(() => {
-    const categories = new Set<string>()
-    this.allMoves().forEach(move => categories.add(move.category))
-    return Array.from(categories).sort()
-  })
-
-  filteredAndSortedMoves = computed(() => {
-    let movesToProcess = [...this.allMoves()]
+  filteredAndSortedData = computed(() => {
+    let dataToProcess = [...this.data()]
 
     const filters = this.activeFilters()
     filters.forEach(filter => {
-      if (filter.type === "type") {
-        movesToProcess = movesToProcess.filter(move => move.type === filter.value)
-      } else if (filter.type === "category") {
-        movesToProcess = movesToProcess.filter(move => move.category === filter.value)
+      const columnConfig = this.columns().find(col => String(col.field) === filter.field)
+      if (columnConfig) {
+        dataToProcess = dataToProcess.filter(item => {
+          return item[columnConfig.field] === filter.value
+        })
       }
     })
 
     const column = this.sortColumn()
     const direction = this.sortDirection()
 
-    if (column && direction) {
-      movesToProcess.sort((a, b) => {
-        let valueA: any
-        let valueB: any
+    this.orderData(dataToProcess, column, direction)
 
-        switch (column) {
-          case "name":
-            valueA = a.name.toLowerCase()
-            valueB = b.name.toLowerCase()
-            break
-          case "power":
-            valueA = a.power
-            valueB = b.power
-            break
-          case "accuracy":
-            valueA = a.accuracy
-            valueB = b.accuracy
-            break
-          case "pp":
-            valueA = a.pp
-            valueB = b.pp
-            break
-          default:
-            return 0
-        }
-
-        if (valueA < valueB) {
-          return direction === "asc" ? -1 : 1
-        }
-        if (valueA > valueB) {
-          return direction === "asc" ? 1 : -1
-        }
-        return 0
-      })
-    }
-
-    return movesToProcess
+    return dataToProcess
   })
 
-  toggleSort(column: keyof Move): void {
-    this.currentView.set("movesTable")
+  currentFilterOptions = computed(() => {
+    const field = this.currentFilterField()
+    if (!field) return []
 
+    return this.columns()
+      .find(col => col.field === field)
+      ?.filterValues?.map(value => ({ value: value, label: value }))
+  })
+
+  currentFilterConfig = computed(() => {
+    return this.columns().find(col => col.field === this.currentFilterField())
+  })
+
+  toggleSort(columnField: keyof T): void {
     const currentColumn = this.sortColumn()
     const currentDirection = this.sortDirection()
 
-    if (currentColumn !== column) {
-      this.sortColumn.set(column)
+    if (currentColumn !== columnField) {
+      this.sortColumn.set(columnField)
       this.sortDirection.set("asc")
     } else {
       if (currentDirection === "asc") {
         this.sortDirection.set("desc")
-      } else if (currentDirection === "desc") {
-        this.sortColumn.set(null)
-        this.sortDirection.set(null)
       } else {
         this.sortDirection.set("asc")
       }
     }
   }
 
-  showTypeFilter(): void {
-    this.currentView.set("typeList")
+  showFilterList(columnField: keyof T): void {
+    this.currentFilterField.set(columnField)
+    this.currentView.set("filterList")
   }
 
-  showCategoryFilter(): void {
-    this.currentView.set("categoryList")
-  }
+  applyFilter(value: any): void {
+    const field = this.currentFilterField()
 
-  applyTypeFilter(typeValue: string): void {
     this.activeFilters.update(currentFilters => {
-      const newFilters = currentFilters.filter(f => f.type !== "type")
-      newFilters.push({ type: "type", value: typeValue })
+      const newFilters = currentFilters.filter(f => f.field !== field)
+      newFilters.push({ field: String(field), value: value })
       return newFilters
     })
-    this.currentView.set("movesTable")
-  }
 
-  applyCategoryFilter(categoryValue: string): void {
-    this.activeFilters.update(currentFilters => {
-      const newFilters = currentFilters.filter(f => f.type !== "category")
-      newFilters.push({ type: "category", value: categoryValue })
-      return newFilters
-    })
-    this.currentView.set("movesTable")
+    this.currentView.set("table")
   }
 
   removeFilter(filterToRemove: ActiveFilter): void {
-    this.activeFilters.update(currentFilters => currentFilters.filter(f => !(f.type === filterToRemove.type && f.value === filterToRemove.value)))
+    this.activeFilters.update(currentFilters => currentFilters.filter(f => !(f.field === filterToRemove.field && f.value === filterToRemove.value)))
   }
 
-  isFilterActive(type: "type" | "category", value: string): boolean {
-    return this.activeFilters().some(f => f.type === type && f.value === value)
+  backToTable(): void {
+    this.currentView.set("table")
+    this.currentFilterField.set(null)
   }
 
   getCategoryIconPath(category: string): string {
@@ -266,6 +122,39 @@ export class FilterableTableComponent {
         return `${iconBase}/other.png`
       default:
         return `${iconBase}/other.png`
+    }
+  }
+
+  headerCellAction(column: ColumnConfig<T>) {
+    if (column.sortable) {
+      this.toggleSort(column.field)
+    }
+
+    if (column.filterable) {
+      this.showFilterList(column.field)
+    }
+  }
+
+  private orderData(dataToProcess: T[], column: keyof T | null, direction: "asc" | "desc" | null) {
+    if (column && direction) {
+      dataToProcess.sort((a, b) => {
+        let valueA: any = a[column]
+        let valueB: any = b[column]
+
+        if (typeof valueA === "string" && typeof valueB === "string") {
+          valueA = valueA.toLowerCase()
+          valueB = valueB.toLowerCase()
+        }
+
+        if (valueA < valueB) {
+          return direction === "asc" ? -1 : 1
+        }
+        if (valueA > valueB) {
+          return direction === "asc" ? 1 : -1
+        }
+
+        return 0
+      })
     }
   }
 }
