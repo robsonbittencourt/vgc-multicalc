@@ -31,6 +31,8 @@ export class FilterableTableComponent<T extends Record<string, any>> {
   selectedValues = input.required<string[]>()
   columns = input.required<ColumnConfig<T>[]>()
 
+  dataFilter = input.required<string>()
+
   itemSelected = output<string>()
 
   currentView = signal<"table" | "filterList">("table")
@@ -42,6 +44,12 @@ export class FilterableTableComponent<T extends Record<string, any>> {
 
   filteredAndSortedData = computed(() => {
     let dataToProcess = [...this.data()]
+
+    if (this.dataFilter() != "") {
+      dataToProcess = dataToProcess.filter(item => {
+        return (item["name"] as string).startsWith(this.dataFilter())
+      })
+    }
 
     const filters = this.activeFilters()
     filters.forEach(filter => {

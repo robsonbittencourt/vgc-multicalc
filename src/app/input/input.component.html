@@ -1,0 +1,4 @@
+<div class="input-column" [ngClass]="{ 'input-row': leftLabel() }">
+  <label>{{ label() }}</label>
+  <input type="text" [value]="value()" (click)="onClick()" (blur)="onBlur()" />
+</div>

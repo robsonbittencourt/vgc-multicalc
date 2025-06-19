@@ -19,6 +19,7 @@ import { AllPokemon, POKEMON_DETAILS } from "@data/pokemon-details"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { PokemonTypes } from "@lib/types"
 import { ColumnConfig, FilterableTableComponent } from "../../../filterable-table/filterable-table.component"
+import { InputComponent } from "../../../input/input.component"
 
 @Component({
   selector: "app-pokemon-build",
@@ -40,7 +41,8 @@ import { ColumnConfig, FilterableTableComponent } from "../../../filterable-tabl
     ItemComboBoxComponent,
     TypeComboBoxComponent,
     NatureComboBoxComponent,
-    FilterableTableComponent
+    FilterableTableComponent,
+    InputComponent
   ]
 })
 export class PokemonBuildComponent {
@@ -50,6 +52,8 @@ export class PokemonBuildComponent {
   store = inject(CalculatorStore)
 
   activeMoveIndex = signal<number | null>(null)
+
+  dataFilter = signal<string>("")
 
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
 
@@ -147,5 +151,10 @@ export class PokemonBuildComponent {
 
   moveSelected(move: string) {
     this.store.updateMove(this.pokemonId(), move, this.activeMoveIndex()!)
+  }
+
+  teste(s: string) {
+    console.log("Aki")
+    console.log(s)
   }
 }

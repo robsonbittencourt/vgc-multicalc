@@ -35,19 +35,19 @@
       <div class="moves" [ngClass]="{ 'reversed-moves': reverse() }">
         <div class="move">
           <mat-checkbox [ngModel]="pokemon().move1Name === pokemon().activeMoveName" (change)="activateMove(1)" [disabled]="moveSelectorDisabled(pokemon().move1Name)" data-cy="attack1" />
-          <app-input-autocomplete [value]="pokemon().moveSet.move1.name" [allValues]="[]" (valueChange)="store.moveOne(pokemonId(), $event)" (selected)="moveComboOnClick(1)" data-cy="pokemon-attack-1" />
+          <app-input-autocomplete [value]="pokemon().moveSet.move1.name" [allValues]="[]" (valueChange)="dataFilter.set($event)" (selected)="moveComboOnClick(1)" data-cy="pokemon-attack-1" />
         </div>
         <div class="move">
           <mat-checkbox [ngModel]="pokemon().move2Name === pokemon().activeMoveName" (change)="activateMove(2)" [disabled]="moveSelectorDisabled(pokemon().move2Name)" data-cy="attack2" />
-          <app-input-autocomplete [value]="pokemon().moveSet.move2.name" [allValues]="[]" (valueChange)="store.moveTwo(pokemonId(), $event)" (selected)="moveComboOnClick(2)" data-cy="pokemon-attack-2" />
+          <app-input-autocomplete [value]="pokemon().moveSet.move2.name" [allValues]="[]" (valueChange)="dataFilter.set($event)" (selected)="moveComboOnClick(2)" data-cy="pokemon-attack-2" />
         </div>
         <div class="move">
           <mat-checkbox [ngModel]="pokemon().move3Name === pokemon().activeMoveName" (change)="activateMove(3)" [disabled]="moveSelectorDisabled(pokemon().move3Name)" data-cy="attack3" />
-          <app-input-autocomplete [value]="pokemon().moveSet.move3.name" [allValues]="[]" (valueChange)="store.moveThree(pokemonId(), $event)" (selected)="moveComboOnClick(3)" data-cy="pokemon-attack-3" />
+          <app-input-autocomplete [value]="pokemon().moveSet.move3.name" [allValues]="[]" (valueChange)="teste($event)" (selected)="moveComboOnClick(3)" data-cy="pokemon-attack-3" />
         </div>
         <div class="move">
           <mat-checkbox [ngModel]="pokemon().move4Name === pokemon().activeMoveName" (change)="activateMove(4)" [disabled]="moveSelectorDisabled(pokemon().move4Name)" data-cy="attack4" />
-          <app-input-autocomplete [value]="pokemon().moveSet.move4.name" [allValues]="[]" (valueChange)="store.moveFour(pokemonId(), $event)" (selected)="moveComboOnClick(4)" data-cy="pokemon-attack-4" />
+          <app-input [value]="pokemon().moveSet.move4.name" (valueChange)="teste($event)" (selected)="moveComboOnClick(4)" data-cy="pokemon-attack-4" />
         </div>
       </div>
     </div>
@@ -103,8 +103,10 @@
   </div>
 }
 
+AAA {{ dataFilter() }}
+
 @if (showMoveSelectComponent()) {
-  <app-filterable-table [data]="movesData()" [selectedValues]="actualMoves()" [columns]="moveColumns" (itemSelected)="moveSelected($event)"></app-filterable-table>
+  <app-filterable-table [data]="movesData()" [selectedValues]="actualMoves()" [columns]="moveColumns" [dataFilter]="dataFilter()" (itemSelected)="moveSelected($event)"></app-filterable-table>
 }
 
 <router-outlet></router-outlet>
