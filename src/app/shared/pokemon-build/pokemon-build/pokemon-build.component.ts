@@ -1,5 +1,5 @@
 import { NgClass, NgStyle } from "@angular/common"
-import { Component, computed, inject, input } from "@angular/core"
+import { Component, computed, inject, input, signal } from "@angular/core"
 import { FormsModule } from "@angular/forms"
 import { MatCheckbox } from "@angular/material/checkbox"
 import { RouterOutlet } from "@angular/router"
@@ -49,6 +49,8 @@ export class PokemonBuildComponent {
 
   store = inject(CalculatorStore)
 
+  activeMoveIndex = signal<number | null>(null)
+
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
 
   MAX_EVS = 508
@@ -62,12 +64,26 @@ export class PokemonBuildComponent {
   }
 
   activateMove(position: number) {
+    this.activeMoveIndex.set(null)
     this.store.activateMoveByPosition(this.pokemonId(), position)
   }
+
+  moveComboOnClick(position: number) {
+    this.store.activateMoveByPosition(this.pokemonId(), position)
+    this.activeMoveIndex.set(position - 1)
+  }
+
+  actualMoves = computed(() => {
+    return this.pokemon().moveSet.moves.map(m => m.name)
+  })
 
   movesData = computed(() => {
     const pokemonDetails = Object.values(POKEMON_DETAILS).find(p => p.name == this.pokemon().name)!
     return this.getMoveDetails(pokemonDetails.learnset!)
+  })
+
+  showMoveSelectComponent = computed(() => {
+    return this.activeMoveIndex() != null ? this.activeMoveIndex()! >= 0 : false
   })
 
   getMoveDetails(learnset: MoveName[]): MoveDetail[] {
@@ -128,4 +144,8 @@ export class PokemonBuildComponent {
     },
     { field: "description", description: "Description", alignLeft: true }
   ]
+
+  moveSelected(move: string) {
+    this.store.updateMove(this.pokemonId(), move, this.activeMoveIndex()!)
+  }
 }

@@ -1,5 +1,4 @@
 import { ABILITY_DETAILS, AbilityName } from "@data/abiliity-details"
-import { ITEM_DETAILS } from "./item-details"
 import { MOVE_DETAILS, MoveName } from "./move-details"
 
 export class AllPokemon {
@@ -35,41 +34,6 @@ export class AllPokemon {
 
   abilitiesByName(name: string): string[] {
     if ("Togepi" == name) return ["Hustle"]
-
-    const pokemon = Object.values(POKEMON_DETAILS).find(p => p.name == name)!
-
-    if (pokemon.learnset) {
-      console.log(`${name} attack set`)
-      console.log("Name".padEnd(15) + "| " + "Type".padEnd(10) + "| " + "Cat".padEnd(10) + "| " + "Pow".padEnd(7) + "| " + "Acc".padEnd(7) + "| " + "PP".padEnd(5) + "| " + "Description".padEnd(50) + "|")
-      console.log("-".repeat(117))
-
-      const details = this.getMoveDetails(pokemon.learnset!)
-
-      details.forEach(detail => {
-        console.log(
-          detail.name.padEnd(15) +
-            "| " +
-            detail.type.padEnd(10) +
-            "| " +
-            detail.category.padEnd(10) +
-            "| " +
-            String(detail.basePower).padEnd(7) +
-            "| " +
-            String(detail.accuracy).padEnd(7) +
-            "| " +
-            String(detail.pp).padEnd(5) +
-            "| " +
-            detail.description.padEnd(50) +
-            "|"
-        )
-      })
-
-      const item = ITEM_DETAILS["assaultvest"]
-      const ability = ABILITY_DETAILS["serenegrace"]
-
-      console.log(`${item.name} --- ${item.description}`)
-      console.log(`${ability.name} --- ${ability.description}`)
-    }
 
     return Object.values(POKEMON_DETAILS)
       .find(p => p.name == name)!

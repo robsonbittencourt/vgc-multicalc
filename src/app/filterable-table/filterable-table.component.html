@@ -25,8 +25,8 @@
     <div class="moves-section-title">Moves</div>
 
     <div class="moves-list">
-      @for (item of filteredAndSortedData(); track item) {
-        <div class="move-item">
+      @for (item of filteredAndSortedData(); track item["name"]) {
+        <div class="move-item" [ngClass]="{ 'move-item-selected': item['active'] }" (click)="selectItem(item)">
           @for (column of columns(); track column.field) {
             <div class="move-cell">
               @if (column.isImageColumn) {

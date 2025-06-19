@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common"
-import { Component, computed, input, signal } from "@angular/core"
+import { Component, computed, input, output, signal } from "@angular/core"
 
 export interface ColumnConfig<T> {
   field: keyof T
@@ -28,7 +28,10 @@ interface ActiveFilter {
 })
 export class FilterableTableComponent<T extends Record<string, any>> {
   data = input.required<T[]>()
+  selectedValues = input.required<string[]>()
   columns = input.required<ColumnConfig<T>[]>()
+
+  itemSelected = output<string>()
 
   currentView = signal<"table" | "filterList">("table")
   currentFilterField = signal<keyof T | null>(null)
@@ -50,6 +53,13 @@ export class FilterableTableComponent<T extends Record<string, any>> {
       }
     })
 
+    dataToProcess = dataToProcess.map(item => {
+      return {
+        ...item,
+        active: this.selectedValues().includes(item["name"])
+      }
+    }) as (T & { active: boolean })[]
+
     const column = this.sortColumn()
     const direction = this.sortDirection()
 
@@ -70,6 +80,10 @@ export class FilterableTableComponent<T extends Record<string, any>> {
   currentFilterConfig = computed(() => {
     return this.columns().find(col => col.field === this.currentFilterField())
   })
+
+  selectItem(item: T) {
+    this.itemSelected.emit(item["name"])
+  }
 
   toggleSort(columnField: keyof T): void {
     const currentColumn = this.sortColumn()

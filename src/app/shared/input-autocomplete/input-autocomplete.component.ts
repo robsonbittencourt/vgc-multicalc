@@ -35,6 +35,8 @@ export class InputAutocompleteComponent implements OnInit {
 
   cleared = output()
 
+  selected = output()
+
   autoCompleteInput = viewChild<ElementRef>("autoCompleteInput")
 
   formControl: FormControl
@@ -61,15 +63,15 @@ export class InputAutocompleteComponent implements OnInit {
   }
 
   onClick() {
-    this.formControl.setValue("")
+    this.selected.emit()
   }
 
   onBlur() {
-    if (!this.formControl.value) {
-      this.formControl.setValue(this.value())
-    } else {
-      this.onValueSelected(this.actualFilteredValues[0].value)
-    }
+    // if (!this.formControl.value) {
+    //   this.formControl.setValue(this.value())
+    // } else {
+    //   this.onValueSelected(this.actualFilteredValues[0].value)
+    // }
   }
 
   onValueSelected(selectedValue: string) {
