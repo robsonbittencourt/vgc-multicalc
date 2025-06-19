@@ -106,7 +106,7 @@ export class PokemonBuildComponent {
     },
     {
       field: "basePower",
-      header: "Pow",
+      header: "BP",
       description: "Base Power",
       sortable: true,
       showHeaderInCell: true
