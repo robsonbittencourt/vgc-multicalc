@@ -154,7 +154,6 @@ export class PokemonBuildComponent {
   }
 
   teste(s: string) {
-    console.log("Aki")
-    console.log(s)
+    this.dataFilter.set(s)
   }
 }

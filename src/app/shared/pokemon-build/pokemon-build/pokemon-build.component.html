@@ -103,8 +103,6 @@
   </div>
 }
 
-AAA {{ dataFilter() }}
-
 @if (showMoveSelectComponent()) {
   <app-filterable-table [data]="movesData()" [selectedValues]="actualMoves()" [columns]="moveColumns" [dataFilter]="dataFilter()" (itemSelected)="moveSelected($event)"></app-filterable-table>
 }
