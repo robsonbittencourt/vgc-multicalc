@@ -72,6 +72,10 @@ export class DamageCalculatorService {
       result.damage = this.ZERO_RESULT_DAMAGE
     }
 
+    if (typeof result.damage === "number") {
+      result.damage = Array(16).fill(result.damage)
+    }
+
     return result
   }
 
