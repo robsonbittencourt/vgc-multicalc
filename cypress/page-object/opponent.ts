@@ -71,7 +71,7 @@ export class Opponent {
 
   combine(sourcePokemonName: string, targetPokemonName: string) {
     cy.get(`[data-cy="move-card-${sourcePokemonName}"]`).realMouseDown({ button: "left", position: "center" }).realMouseMove(0, 10, { position: "center" })
-    cy.get(`[data-cy="pokemon-card-${targetPokemonName}"]`).realMouseMove(0, 0, { position: "center" }).realHover().realMouseUp().wait(300)
+    cy.get(`[data-cy="pokemon-card-${targetPokemonName}"]`).realMouseMove(0, 0, { position: "center" }).realHover().realMouseUp().wait(600)
   }
 
   separate(targetPokemonName: string) {
