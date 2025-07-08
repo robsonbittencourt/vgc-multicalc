@@ -6779,7 +6779,7 @@ export const SETDEX_SV: Record<string, any> = {
       spe: 252
     },
     moves: ["Nasty Plot", "Psychic", "Rising Voltage", "Grass Knot"],
-    items: ["Psychium Z"]
+    items: ["Heavy-Duty Boots"]
   },
   Raikou: {
     ability: "Pressure",
