@@ -3,22 +3,22 @@
     <div class="edit-moves">
       <div>
         <div class="check-input-section-input">
-          <app-input-autocomplete [value]="pokemon().moveSet.move1.name" [allValues]="allMoveNames" (valueChange)="store.moveOne(pokemonId(), $event)" />
+          <app-input-autocomplete [value]="pokemon().moveSet.move1.name" [allValues]="allMoveNames()" (valueChange)="store.moveOne(pokemonId(), $event)" />
         </div>
       </div>
       <div>
         <div class="check-input-section-input">
-          <app-input-autocomplete [value]="pokemon().moveSet.move2.name" [allValues]="allMoveNames" (valueChange)="store.moveTwo(pokemonId(), $event)" />
+          <app-input-autocomplete [value]="pokemon().moveSet.move2.name" [allValues]="allMoveNames()" (valueChange)="store.moveTwo(pokemonId(), $event)" />
         </div>
       </div>
       <div>
         <div class="check-input-section-input">
-          <app-input-autocomplete [value]="pokemon().moveSet.move3.name" [allValues]="allMoveNames" (valueChange)="store.moveThree(pokemonId(), $event)" />
+          <app-input-autocomplete [value]="pokemon().moveSet.move3.name" [allValues]="allMoveNames()" (valueChange)="store.moveThree(pokemonId(), $event)" />
         </div>
       </div>
       <div>
         <div class="check-input-section-input">
-          <app-input-autocomplete [value]="pokemon().moveSet.move4.name" [allValues]="allMoveNames" (valueChange)="store.moveFour(pokemonId(), $event)" />
+          <app-input-autocomplete [value]="pokemon().moveSet.move4.name" [allValues]="allMoveNames()" (valueChange)="store.moveFour(pokemonId(), $event)" />
         </div>
       </div>
       <div class="save-button" (click)="saveMoves()"><mat-icon class="edit-icon">save</mat-icon>Save</div>
@@ -71,7 +71,7 @@
   </div>
 
   <div class="combo-ability">
-    <app-ability-combo-box [pokemonId]="pokemonId()" />
+    <app-ability-combo-box [pokemonId]="pokemonId()" [isMobile]="true" />
   </div>
 </div>
 

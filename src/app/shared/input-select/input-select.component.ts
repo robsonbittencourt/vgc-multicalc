@@ -1,5 +1,5 @@
 import { NgClass } from "@angular/common"
-import { booleanAttribute, Component, input, model } from "@angular/core"
+import { booleanAttribute, Component, input, model, output } from "@angular/core"
 import { MatOption, MatSelect, MatSelectChange } from "@angular/material/select"
 import { KeyValuePair } from "@app/shared/input-autocomplete/input-autocomplete.component"
 
@@ -17,6 +17,9 @@ export class InputSelectComponent {
   label = input<string>()
   leftLabel = input(false, { transform: booleanAttribute })
   disabled = input(false)
+  haveFocus = input(false)
+
+  selected = output()
 
   selectionChange(event: MatSelectChange) {
     this.value.set(event.value)

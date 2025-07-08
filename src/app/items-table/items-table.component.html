@@ -1,0 +1,9 @@
+<app-filterable-table
+  [data]="itemsData"
+  [selectedValues]="actualItem()"
+  [columns]="itemColumns"
+  [dataFilter]="dataFilter()"
+  [haveFocus]="haveFocus()"
+  (itemSelected)="itemSelected.emit($event)"
+  (firstListItem)="firstItemFromList.emit($event)"
+  (escapeWasPressed)="escapeWasPressed.emit()" />

@@ -1,4 +1,4 @@
-import { Component, computed, inject, input } from "@angular/core"
+import { Component, computed, inject, input, output } from "@angular/core"
 import { TerastalButtonComponent } from "@app/shared/buttons/terastal-button/terastal-button.component"
 import { InputSelectComponent } from "@app/shared/input-select/input-select.component"
 import { CalculatorStore } from "@data/store/calculator-store"
@@ -12,6 +12,9 @@ import { TYPE_CHART } from "@robsonbittencourt/calc"
 })
 export class TeraComboBoxComponent {
   pokemonId = input.required<string>()
+  haveFocus = input(false)
+
+  selected = output()
 
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
 

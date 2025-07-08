@@ -1,4 +1,4 @@
-import { AllPokemon } from "@data/all-pokemon"
+import { AllPokemon } from "@data/pokemon-details"
 import { SpeedCalculatorMode } from "@lib/speed-calculator/speed-calculator-mode"
 import { Regulation } from "@lib/types"
 

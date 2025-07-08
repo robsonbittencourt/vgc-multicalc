@@ -1,4 +1,4 @@
-import { AllPokemon } from "@data/all-pokemon"
+import { AllPokemon } from "@data/pokemon-details"
 import { SpeedCalculatorOptions } from "@lib/speed-calculator/speed-calculator-options"
 
 describe("SpeedCalculatorOptions", () => {

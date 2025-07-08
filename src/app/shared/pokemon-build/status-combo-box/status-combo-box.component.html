@@ -1,1 +1,1 @@
-<app-input-select label="Status" [value]="pokemon().status.description" [allValues]="statusConditions()" (valueChange)="store.status(pokemonId(), $event)" data-cy="pokemon-status" />
+<app-input-select label="Status" [value]="pokemon().status.description" [allValues]="statusConditions()" [haveFocus]="haveFocus()" (selected)="selected.emit()" (valueChange)="store.status(pokemonId(), $event)" data-cy="pokemon-status" />

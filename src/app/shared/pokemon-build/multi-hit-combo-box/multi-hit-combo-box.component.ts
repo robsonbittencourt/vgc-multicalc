@@ -1,4 +1,4 @@
-import { Component, computed, inject, input } from "@angular/core"
+import { Component, computed, inject, input, output } from "@angular/core"
 import { InputAutocompleteComponent } from "@app/shared/input-autocomplete/input-autocomplete.component"
 import { CalculatorStore } from "@data/store/calculator-store"
 
@@ -11,6 +11,9 @@ import { CalculatorStore } from "@data/store/calculator-store"
 export class MultiHitComboBoxComponent {
   pokemonId = input.required<string>()
   leftLabel = input(false)
+  haveFocus = input(false)
+
+  selected = output()
 
   store = inject(CalculatorStore)
 

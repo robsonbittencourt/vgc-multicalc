@@ -255,7 +255,7 @@ describe("Test the Field options", () => {
   })
 
   it("With Single Target active", () => {
-    team.selectPokemon("Miraidon").changeAttackOne("Discharge")
+    team.selectPokemon("Miraidon").changeAttackOne("Discharge").selectAttackOne()
 
     field.singleTarget()
 

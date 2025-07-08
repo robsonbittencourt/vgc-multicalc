@@ -33,7 +33,11 @@ export class InputAutocompleteComponent implements OnInit {
 
   enableClear = input(false)
 
+  haveFocus = input(false)
+
   cleared = output()
+
+  selected = output()
 
   autoCompleteInput = viewChild<ElementRef>("autoCompleteInput")
 

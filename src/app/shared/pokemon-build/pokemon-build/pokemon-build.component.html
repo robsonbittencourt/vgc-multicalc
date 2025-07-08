@@ -5,7 +5,14 @@
         <img src="assets/icons/question.png" />
       </div>
 
-      <app-pokemon-combo-box [pokemonId]="pokemonId()" />
+      <app-input
+        [value]="pokemon().name"
+        (valueChange)="pokemonDataFilter.set($event)"
+        [haveFocus]="pokemonHasFocus()"
+        (selected)="pokemonSelectorOnClick()"
+        (lostFocus)="pokemonSelectorLostFocus()"
+        [tabIndex]="pokemonTabIndex()"
+        data-cy="pokemon-select" />
     </div>
   </div>
 } @else {
@@ -15,19 +22,26 @@
         <img src="assets/sprites/pokemon-home/{{ pokemon().name }}.png" />
       </div>
 
-      <app-pokemon-combo-box [pokemonId]="pokemonId()" />
+      <app-input
+        [value]="pokemon().name"
+        (valueChange)="pokemonDataFilter.set($event)"
+        [haveFocus]="pokemonHasFocus()"
+        (selected)="pokemonSelectorOnClick()"
+        (lostFocus)="pokemonSelectorLostFocus()"
+        [tabIndex]="pokemonTabIndex()"
+        data-cy="pokemon-select" />
     </div>
 
     <div class="status-item" [ngStyle]="(reverse() && { order: 3 }) || null">
-      <app-status-combo-box [pokemonId]="pokemonId()" />
-      <app-multi-hit-combo-box [pokemonId]="pokemonId()" />
-      <app-item-combo-box [pokemonId]="pokemonId()" />
+      <app-status-combo-box [pokemonId]="pokemonId()" [haveFocus]="statusHaveFocus()" (selected)="statusOnClick()" />
+      <app-multi-hit-combo-box [pokemonId]="pokemonId()" [haveFocus]="multiHitHasFocus()" (selected)="multiHitOnClick()" />
+      <app-input label="Item" [value]="pokemon().item" [haveFocus]="itemHasFocus()" [tabIndex]="itemTabIndex()" (valueChange)="itemDataFilter.set($event)" (selected)="itemSelectorOnClick()" (lostFocus)="itemSelectorLostFocus()" data-cy="item" />
     </div>
 
     <div class="tera-type-ability" [ngStyle]="(reverse() && { order: 2 }) || null">
-      <app-tera-combo-box [pokemonId]="pokemonId()" />
-      <app-type-combo-box [pokemonId]="pokemonId()" [reverse]="reverse()" />
-      <app-ability-combo-box [pokemonId]="pokemonId()" />
+      <app-tera-combo-box [pokemonId]="pokemonId()" [haveFocus]="teraHasFocus()" (selected)="teraOnClick()" />
+      <app-type-combo-box [type1]="pokemon().type1" [type2]="pokemon().type2" [reverse]="reverse()" />
+      <app-ability-combo-box [pokemonId]="pokemonId()" [haveFocus]="abilityHasFocus()" [tabIndex]="abilityTabIndex()" (valueChange)="abilityDataFilter.set($event)" (selected)="abilitySelectorOnClick()" (lostFocus)="abilitySelectorLostFocus()" />
     </div>
 
     <div>
@@ -35,19 +49,47 @@
       <div class="moves" [ngClass]="{ 'reversed-moves': reverse() }">
         <div class="move">
           <mat-checkbox [ngModel]="pokemon().move1Name === pokemon().activeMoveName" (change)="activateMove(1)" [disabled]="moveSelectorDisabled(pokemon().move1Name)" data-cy="attack1" />
-          <app-input-autocomplete [value]="pokemon().moveSet.move1.name" [allValues]="allMoveNames" (valueChange)="store.moveOne(pokemonId(), $event)" data-cy="pokemon-attack-1" />
+          <app-input
+            [value]="pokemon().moveSet.move1.name"
+            [haveFocus]="move1HasFocus()"
+            (valueChange)="moveDataFilter.set($event)"
+            (selected)="moveSelectorOnClick(1)"
+            (lostFocus)="moveSelectorLostFocus(1)"
+            [tabIndex]="tabIndexMove1()"
+            data-cy="pokemon-attack-1" />
         </div>
         <div class="move">
           <mat-checkbox [ngModel]="pokemon().move2Name === pokemon().activeMoveName" (change)="activateMove(2)" [disabled]="moveSelectorDisabled(pokemon().move2Name)" data-cy="attack2" />
-          <app-input-autocomplete [value]="pokemon().moveSet.move2.name" [allValues]="allMoveNames" (valueChange)="store.moveTwo(pokemonId(), $event)" data-cy="pokemon-attack-2" />
+          <app-input
+            [value]="pokemon().moveSet.move2.name"
+            [haveFocus]="move2HasFocus()"
+            (valueChange)="moveDataFilter.set($event)"
+            (selected)="moveSelectorOnClick(2)"
+            (lostFocus)="moveSelectorLostFocus(2)"
+            [tabIndex]="tabIndexMove2()"
+            data-cy="pokemon-attack-2" />
         </div>
         <div class="move">
           <mat-checkbox [ngModel]="pokemon().move3Name === pokemon().activeMoveName" (change)="activateMove(3)" [disabled]="moveSelectorDisabled(pokemon().move3Name)" data-cy="attack3" />
-          <app-input-autocomplete [value]="pokemon().moveSet.move3.name" [allValues]="allMoveNames" (valueChange)="store.moveThree(pokemonId(), $event)" data-cy="pokemon-attack-3" />
+          <app-input
+            [value]="pokemon().moveSet.move3.name"
+            [haveFocus]="move3HasFocus()"
+            (valueChange)="moveDataFilter.set($event)"
+            (selected)="moveSelectorOnClick(3)"
+            (lostFocus)="moveSelectorLostFocus(3)"
+            [tabIndex]="tabIndexMove3()"
+            data-cy="pokemon-attack-3" />
         </div>
         <div class="move">
           <mat-checkbox [ngModel]="pokemon().move4Name === pokemon().activeMoveName" (change)="activateMove(4)" [disabled]="moveSelectorDisabled(pokemon().move4Name)" data-cy="attack4" />
-          <app-input-autocomplete [value]="pokemon().moveSet.move4.name" [allValues]="allMoveNames" (valueChange)="store.moveFour(pokemonId(), $event)" data-cy="pokemon-attack-4" />
+          <app-input
+            [value]="pokemon().moveSet.move4.name"
+            [haveFocus]="move4HasFocus()"
+            (valueChange)="moveDataFilter.set($event)"
+            (selected)="moveSelectorOnClick(4)"
+            (lostFocus)="moveSelectorLostFocus(4)"
+            [tabIndex]="tabIndexMove4()"
+            data-cy="pokemon-attack-4" />
         </div>
       </div>
     </div>
@@ -71,34 +113,64 @@
   </div>
 }
 
-<div class="evs-titles">
-  <label class="base-title">Base</label>
-  <label class="modifier-title">Mod.</label>
-  <label class="evs-title">EVs</label>
-  <label class="ivs-title">IVs</label>
-</div>
+@if (showEvsTable()) {
+  <div class="evs-titles" @fadeInOut>
+    <label class="base-title">Base</label>
+    <label class="modifier-title">Mod.</label>
+    <label class="evs-title">EVs</label>
+    <label class="ivs-title">IVs</label>
+  </div>
 
-<div class="evs">
-  <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.hp" data-cy="stat-hp" stat="hp" />
-  <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.atk" data-cy="stat-atk" stat="atk" />
-  <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.def" data-cy="stat-def" stat="def" />
-  <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.spa" data-cy="stat-spa" stat="spa" />
-  <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.spd" data-cy="stat-spd" stat="spd" />
-  <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.spe" data-cy="stat-spe" stat="spe" />
+  <div class="evs" @fadeInOut>
+    <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.hp" data-cy="stat-hp" stat="hp" />
+    <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.atk" data-cy="stat-atk" stat="atk" />
+    <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.def" data-cy="stat-def" stat="def" />
+    <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.spa" data-cy="stat-spa" stat="spa" />
+    <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.spd" data-cy="stat-spd" stat="spd" />
+    <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.spe" data-cy="stat-spe" stat="spe" />
 
-  <div class="remaining-evs">
-    <label class="bst-label">BST</label>
-    <label class="bst-value-label">{{ pokemon().bst }}</label>
+    <div class="remaining-evs">
+      <label class="bst-label">BST</label>
+      <label class="bst-value-label">{{ pokemon().bst }}</label>
 
-    <label class="remaining-label">Remaining:</label>
-    <div class="remaining-evs-value">
-      <label>{{ MAX_EVS - pokemon().totalEvs }}</label>
+      <label class="remaining-label">Remaining:</label>
+      <div class="remaining-evs-value">
+        <label>{{ MAX_EVS - pokemon().totalEvs }}</label>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="combo-nature">
-  <app-nature-combo-box [pokemonId]="pokemonId()" [leftLabel]="true" />
-</div>
+  <div class="combo-nature" @fadeInOut>
+    <app-nature-combo-box [pokemonId]="pokemonId()" [leftLabel]="true" />
+  </div>
+}
+
+@if (showPokemonTable()) {
+  <app-pokemon-table
+    [pokemonId]="pokemonId()"
+    [dataFilter]="pokemonDataFilter()"
+    [haveFocus]="tableWasActive()"
+    (escapeWasPressed)="escapeWasPressed()"
+    (pokemonSelected)="pokemonSelected($event)"
+    (firstPokemonFromList)="firstPokemonFromList.set($event)" />
+}
+
+@if (showItemsTable()) {
+  <app-items-table [pokemonId]="pokemonId()" [dataFilter]="itemDataFilter()" [haveFocus]="tableWasActive()" (escapeWasPressed)="escapeWasPressed()" (itemSelected)="itemSelected($event)" (firstItemFromList)="firstItemFromList.set($event)" />
+}
+
+@if (showAbilitiesTable()) {
+  <app-abilities-table
+    [pokemonId]="pokemonId()"
+    [dataFilter]="abilityDataFilter()"
+    [haveFocus]="tableWasActive()"
+    (escapeWasPressed)="escapeWasPressed()"
+    (abilitySelected)="abilitySelected($event)"
+    (firstAbilityFromList)="firstAbilityFromList.set($event)" />
+}
+
+@if (showMovesTable()) {
+  <app-moves-table [pokemonId]="pokemonId()" [dataFilter]="moveDataFilter()" [haveFocus]="tableWasActive()" (escapeWasPressed)="escapeWasPressed()" (moveSelected)="moveSelected($event)" (firstMoveFromList)="firstMoveFromList.set($event)" />
+}
 
 <router-outlet></router-outlet>

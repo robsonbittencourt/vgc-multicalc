@@ -1,4 +1,4 @@
-import { Component, computed, inject, input } from "@angular/core"
+import { Component, computed, inject, input, output } from "@angular/core"
 import { InputSelectComponent } from "@app/shared/input-select/input-select.component"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { Status } from "@lib/model/status"
@@ -12,6 +12,9 @@ import { Status } from "@lib/model/status"
 export class StatusComboBoxComponent {
   pokemonId = input.required<string>()
   statusConditions = input(Status.allDescriptions())
+  haveFocus = input(false)
+
+  selected = output()
 
   store = inject(CalculatorStore)
 

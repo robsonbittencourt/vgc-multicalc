@@ -15,7 +15,7 @@ describe("Reset configurations when change the Pokémon", () => {
     leftPokemonBuild.importPokemon(dondozoData)
     leftPokemonBuild.activateCommander()
 
-    leftPokemonBuild.selectPokémon("Tyranitar")
+    leftPokemonBuild.selectPokemon("Tyranitar")
 
     leftPokemonBuild.boostsIs(0, 0, 0, 0, 0)
   })
@@ -24,8 +24,8 @@ describe("Reset configurations when change the Pokémon", () => {
     leftPokemonBuild.importPokemon(dondozoData)
     leftPokemonBuild.activateCommander()
 
-    leftPokemonBuild.selectPokémon("Tyranitar")
-    leftPokemonBuild.selectPokémon("Dondozo")
+    leftPokemonBuild.selectPokemon("Tyranitar")
+    leftPokemonBuild.selectPokemon("Dondozo")
 
     leftPokemonBuild.commanderNotActivated()
   })
@@ -34,7 +34,7 @@ describe("Reset configurations when change the Pokémon", () => {
     leftPokemonBuild.importPokemon(dondozoData)
     leftPokemonBuild.hpPercentage(50)
 
-    leftPokemonBuild.selectPokémon("Tyranitar")
+    leftPokemonBuild.selectPokemon("Tyranitar")
 
     leftPokemonBuild.hpPercentageIs(100)
   })
