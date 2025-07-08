@@ -1,7 +1,7 @@
-<div class="container" [ngStyle]="(reverse() && { 'justify-content': 'left' }) || null">
-  <div [ngStyle]="typeStyle(pokemon().type1)" class="pokemon-type">{{ pokemon().type1 }}</div>
+<div class="container" [ngStyle]="align()">
+  <div [ngStyle]="typeStyle(type1())" class="pokemon-type">{{ type1() }}</div>
 
-  @if (pokemon().type2) {
-    <div [ngStyle]="typeStyle(pokemon().type2)" class="pokemon-type">{{ pokemon().type2 }}</div>
+  @if (type2()) {
+    <div [ngStyle]="typeStyle(type2())" class="pokemon-type">{{ type2() }}</div>
   }
 </div>

@@ -1,5 +1,13 @@
 <app-terastal-button [pokemonId]="pokemon().id" />
 
 <div class="input-select">
-  <app-input-select label="Tera Type" [value]="pokemon().teraType" [allValues]="allTeraTypes" [disabled]="pokemon().isTerapagos" (valueChange)="store.teraType(pokemonId(), $event)" data-cy="tera-type" />
+  <app-input-select
+    label="Tera Type"
+    [value]="pokemon().teraType"
+    [allValues]="allTeraTypes"
+    [disabled]="pokemon().isTerapagos"
+    (selected)="selected.emit()"
+    (valueChange)="store.teraType(pokemonId(), $event)"
+    [haveFocus]="haveFocus()"
+    data-cy="tera-type" />
 </div>

@@ -3,8 +3,11 @@ import { ImportModal } from "./import-modal"
 export class PokemonBuild {
   constructor(private selector: string) {}
 
-  selectPokémon(pokemonName: string): PokemonBuild {
-    this.container().find('[data-cy="pokemon-select"] input').clear().type(pokemonName, { force: true }).type("{downArrow}").type("{enter}")
+  selectPokemon(pokemonName: string): PokemonBuild {
+    this.closeTable()
+    this.container().find('[data-cy="pokemon-select"] input').click()
+    this.scrollAndSearch(pokemonName)
+
     return this
   }
 
@@ -29,12 +32,16 @@ export class PokemonBuild {
   }
 
   changeAttackOne(attackName: string): PokemonBuild {
-    cy.get('[data-cy="pokemon-attack-1"] input').type(attackName, { force: true }).type("{downArrow}").type("{enter}")
+    this.closeTable()
+    this.container().find('[data-cy="pokemon-attack-1"] input').click()
+    this.scrollAndSearch(attackName)
     return this
   }
 
   selectItem(itemName: string): PokemonBuild {
-    this.container().find('[data-cy="item"] input').type(itemName, { force: true }).type("{downArrow}").type("{enter}")
+    this.closeTable()
+    this.container().find('[data-cy="item"] input').click()
+    this.scrollAndSearch(itemName)
     return this
   }
 
@@ -66,7 +73,8 @@ export class PokemonBuild {
   }
 
   selectAbility(name: string): PokemonBuild {
-    this.container().find('[data-cy="ability"]').click().get("mat-option").contains(name).click()
+    this.container().find('[data-cy="ability"] input').click()
+    cy.get(`[data-cy="table-item-${name}"]`).click()
     return this
   }
 
@@ -79,10 +87,12 @@ export class PokemonBuild {
   }
 
   commanderNotActivated() {
+    this.closeTable()
     this.container().find('[data-cy="commander-deactivated"]')
   }
 
   boostsIs(atk: number, def: number, spa: number, spd: number, spe: number) {
+    this.closeTable()
     this.verifyBoostIs("atk", atk)
     this.verifyBoostIs("def", def)
     this.verifyBoostIs("spa", spa)
@@ -104,6 +114,7 @@ export class PokemonBuild {
   }
 
   hpPercentageIs(hpPercentage: number) {
+    this.closeTable()
     this.container().find(`[data-cy="stat-hp"]`).find('[data-cy="hp-percentage-value"]').invoke("val").should("eq", `${hpPercentage}`)
   }
 
@@ -130,13 +141,50 @@ export class PokemonBuild {
   }
 
   importPokemon(pokemonData: string): PokemonBuild {
+    this.closeTable()
     this.container().find('[data-cy="import-pokemon"]').click({ force: true })
     new ImportModal().import(pokemonData)
 
     return this
   }
 
+  closeTable() {
+    cy.get("body").type("{esc}")
+  }
+
   private container() {
     return cy.get(`[data-cy="${this.selector}"]`)
+  }
+
+  private scrollAndSearch(pokemonName: string) {
+    const firstLetter = pokemonName[0].toLowerCase()
+    const firstAlphabetHalf = "abcdefghijklm"
+
+    if (firstAlphabetHalf.includes(firstLetter)) {
+      cy.get('[data-cy="table-header-Name"]').click()
+    } else {
+      cy.get('[data-cy="table-header-Name"]').dblclick()
+    }
+
+    let currentOffset = 0
+    const scrollStep = 220
+
+    function tryScroll() {
+      const $el = Cypress.$(`[data-cy="table-item-${pokemonName}"]`)
+
+      if ($el.length) {
+        cy.wrap($el).click()
+      } else {
+        currentOffset += scrollStep
+
+        cy.get("[data-cy='scroll-viewport']")
+          .scrollTo(0, currentOffset)
+          .wait(10)
+          .then(() => tryScroll())
+      }
+    }
+
+    cy.get("[data-cy='scroll-viewport']").scrollTo(0, currentOffset)
+    tryScroll()
   }
 }

@@ -21,6 +21,11 @@ body {
 
   --mat-option-label-text-color: var(--text);
   --mat-option-selected-state-label-text-color: var(--text);
+
+  --filterable-table-header: light-dark(#eaeaec, #36393f);
+  --filterable-table-active-line: light-dark(#f4f4f5, #959ba3);
+  --filterable-table-selected-line: light-dark(#dfdfe2, #676e79);
+  --filterable-table-cell-header: light-dark(#8f8f8f, #bbb);
 }
 
 .purple-theme {

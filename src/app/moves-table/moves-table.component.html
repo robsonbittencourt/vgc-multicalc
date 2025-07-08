@@ -1,0 +1,9 @@
+<app-filterable-table
+  [data]="movesData()"
+  [haveFocus]="haveFocus()"
+  [selectedValues]="actualMoves()"
+  [columns]="moveColumns"
+  [dataFilter]="dataFilter()"
+  (itemSelected)="moveSelected.emit($event)"
+  (firstListItem)="firstMoveFromList.emit($event)"
+  (escapeWasPressed)="escapeWasPressed.emit()" />

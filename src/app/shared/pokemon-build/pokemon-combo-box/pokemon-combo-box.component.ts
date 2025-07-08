@@ -1,7 +1,7 @@
 import { Component, computed, inject, input, output } from "@angular/core"
 import { InputAutocompleteComponent } from "@app/shared/input-autocomplete/input-autocomplete.component"
-import { AllPokemon } from "@data/all-pokemon"
 import { SETDEX_SV } from "@data/movesets"
+import { AllPokemon } from "@data/pokemon-details"
 import { CalculatorStore } from "@data/store/calculator-store"
 
 @Component({

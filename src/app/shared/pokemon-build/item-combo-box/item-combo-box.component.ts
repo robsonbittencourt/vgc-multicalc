@@ -16,5 +16,5 @@ export class ItemComboBoxComponent {
 
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
 
-  allItemsNames = Items.instance.allItems()
+  allItemsNames = Items.instance.items
 }

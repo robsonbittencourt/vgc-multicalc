@@ -33,6 +33,8 @@ export class SimpleCalcComponent {
   leftRollLevel = signal(RollLevelConfig.high())
   rightRollLevel = signal(RollLevelConfig.high())
 
+  activeSide = signal<"left" | "right">("left")
+
   leftMoveActivated(move: string) {
     const activatedMove = new Move(move)
     this.store.activateMove(this.store.leftPokemon().id, activatedMove)

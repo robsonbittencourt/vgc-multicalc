@@ -11329,21 +11329,6 @@ export const SETDEX_SV: Record<string, any> = {
     },
     moves: ["Surf", "Thunderbolt", "Play Rough", "Fake Out"]
   },
-  Flabebe: {
-    teraType: "Fairy",
-    ability: "Flower Veil",
-    items: ["Eviolite", "Choice Scarf", "Assault Vest", "Leftovers"],
-    nature: "Modest",
-    evs: {
-      hp: 252,
-      atk: 0,
-      def: 252,
-      spa: 0,
-      spd: 4,
-      spe: 0
-    },
-    moves: ["Moonblast", "Energy Ball", "Draining Kiss", "Calm Mind"]
-  },
   Skwovet: {
     teraType: "Normal",
     ability: "Cheek Pouch",

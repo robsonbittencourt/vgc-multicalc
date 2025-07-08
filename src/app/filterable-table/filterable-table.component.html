@@ -1,0 +1,116 @@
+<div tabindex="0" (focus)="onFocus()" (blur)="onBlur()" class="container" @fadeInOut>
+  @if (activeFilters().length > 0) {
+    <div class="filters-bar">
+      <span class="filter-label">Filters:</span>
+      @for (filter of activeFilters(); track filter.field + filter.value) {
+        <div class="filter-tag">
+          <span>{{ filter.value }}</span>
+          <span class="remove-filter" (click)="removeFilter(filter)">×</span>
+        </div>
+      } @empty {
+        <div class="filter-tag initial-tag">No Filters Active</div>
+      }
+    </div>
+  }
+
+  @if (currentView() === "table") {
+    @if (dataFilter() === "") {
+      <div class="table-header" [ngStyle]="{ 'grid-template-columns': buildGridTemplateColumns(), 'padding-right': '18px' }">
+        @for (column of columns(); track column.id) {
+          <div class="header-cell" [ngStyle]="{ 'justify-content': column.alignLeft ? 'left' : 'center' }" [ngClass]="{ sortable: column.sortable }" (click)="headerCellAction(column)" [attr.data-cy]="headerDataCy(column)">
+            {{ column.header }}
+          </div>
+        }
+        <div class="header-cell" (click)="escapeWasPressed.emit()" matTooltip="Close or use Esc" [matTooltipShowDelay]="1000"><span class="close-button">X</span></div>
+      </div>
+    }
+
+    <div class="moves-list">
+      @if (hasResult()) {
+        <cdk-virtual-scroll-viewport itemSize="45" minBufferPx="180" maxBufferPx="360" [ngStyle]="panelStyle()" data-cy="scroll-viewport">
+          <div *cdkVirtualFor="let item of viewData(); let index = index; trackBy: trackById">
+            @if (item.group) {
+              <div class="moves-section-title">{{ item.group }}</div>
+            } @else {
+              <div class="move-item" [ngStyle]="{ 'grid-template-columns': buildGridTemplateColumns() }" [ngClass]="getItemClass(item)" (click)="selectItem(item)" #row [attr.data-cy]="itemDataCy(item)">
+                @for (column of columns(); track column.id) {
+                  <div class="move-cell">
+                    @if (column.isImageColumn) {
+                      <div class="category-display" [ngClass]="{ 'stat-value-left': column.alignLeft }">
+                        <img class="image-icon" [src]="column.displayFn ? column.displayFn(item.data) : item.data[column.field]" />
+                      </div>
+                    } @else if (column.isPokemonType) {
+                      <div class="type-column">
+                        @if (isArray(item, column.field)) {
+                          <app-type-combo-box [type1]="item.data[column.field][0]" [type2]="item.data[column.field][1]" [centralized]="true" [reduced]="true" />
+                        } @else {
+                          <app-type-combo-box [type1]="item.data[column.field]" [centralized]="true" [reduced]="true" />
+                        }
+                      </div>
+                    } @else if (isArray(item, column.field)) {
+                      <div class="multi-value-field">
+                        <div>
+                          <div class="stat-value" [ngClass]="{ 'multi-value': item.data[column.field][2] !== undefined }">
+                            {{ item.data[column.field][0] }}
+                          </div>
+                          <div class="stat-value">
+                            {{ item.data[column.field][2] }}
+                          </div>
+                        </div>
+                        <div>
+                          <div class="stat-value" [ngClass]="{ 'multi-value': item.data[column.field][3] !== undefined }">
+                            {{ item.data[column.field][1] }}
+                          </div>
+                          <div class="stat-value">
+                            {{ item.data[column.field][3] }}
+                          </div>
+                        </div>
+                      </div>
+                    } @else {
+                      <div class="stat-group col-large">
+                        @if (column.showHeaderInCell) {
+                          <div class="stat-label">{{ column.header }}</div>
+                        }
+                        <div class="stat-value" [ngClass]="{ 'stat-value-left': column.alignLeft }">
+                          {{ column.displayFn ? column.displayFn(item.data) : item.data[column.field] }}
+                        </div>
+                      </div>
+                    }
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        </cdk-virtual-scroll-viewport>
+      } @else {
+        <div class="no-types">No results found for the selected filters.</div>
+      }
+    </div>
+  } @else if (currentView() === "filterList") {
+    <div class="filter-list-section">
+      <div class="filter-list-header">
+        <h3>Select a {{ currentFilterConfig()?.description }} to filter</h3>
+        <button class="back-button" (click)="backToTable()">← Back</button>
+      </div>
+      <div class="filter-options-list">
+        @for (option of currentFilterOptions(); track option.value) {
+          <div class="filter-option-item" (click)="applyFilter(option.value)">
+            <span>{{ option.label }}</span>
+          </div>
+        } @empty {
+          <div class="no-types">Nenhuma opção de filtro disponível.</div>
+        }
+      </div>
+    </div>
+  }
+
+  @if (currentView() === "table" && viewData().length > 6) {
+    <div class="expand-icon">
+      @if (expanded()) {
+        <mat-icon matTooltip="Collapse" [matTooltipShowDelay]="1000" (click)="expanded.set(false)">keyboard_double_arrow_up</mat-icon>
+      } @else {
+        <mat-icon matTooltip="Expand" [matTooltipShowDelay]="1000" (click)="expanded.set(true)">keyboard_double_arrow_down</mat-icon>
+      }
+    </div>
+  }
+</div>

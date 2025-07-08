@@ -18,6 +18,10 @@ export type Regulation = "I"
 
 export type Jumps = [number, number, number, number | null]
 
+export const PokemonTypes = ["Normal", "Fire", "Water", "Grass", "Electric", "Ice", "Fighting", "Poison", "Ground", "Flying", "Psychic", "Bug", "Rock", "Ghost", "Dragon", "Steel", "Dark", "Fairy"] as const
+
+export type PokemonType = (typeof PokemonTypes)[number]
+
 export type PokemonParameters = {
   id?: string
   ability?: Ability

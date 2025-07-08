@@ -22,8 +22,10 @@ export class Team {
 
   add(pokemonName: string): PokemonBuild {
     cy.get('[data-cy="add-team-member-tab"]').click({ force: true })
-    cy.get('[data-cy="pokemon-select"] input').type(pokemonName, { force: true }).type("{downArrow}").type("{enter}")
-    return new PokemonBuild("your-team")
+    const pokemonBuild = new PokemonBuild("your-team")
+    pokemonBuild.selectPokemon(pokemonName)
+
+    return pokemonBuild
   }
 
   addPokemonAvailable() {
@@ -67,8 +69,9 @@ export class Team {
   }
 
   pokemonOnEditIs(pokemonName: string, ability: string, teraType: string, item: string, nature: string) {
+    cy.get("body").type("{esc}")
     this.pokemonOnEditNameIs(pokemonName)
-    cy.get('[data-cy="ability"]').contains(ability)
+    cy.get('[data-cy="ability"] input').should("have.value", ability)
     cy.get('[data-cy="tera-type"]').contains(teraType)
     cy.get('[data-cy="item"] input').should("have.value", item)
     cy.get('[data-cy="nature"]').contains(nature)

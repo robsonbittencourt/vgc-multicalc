@@ -1,6 +1,5 @@
 import { NgStyle } from "@angular/common"
-import { Component, computed, inject, input } from "@angular/core"
-import { CalculatorStore } from "@data/store/calculator-store"
+import { Component, input } from "@angular/core"
 import { TypeName } from "@robsonbittencourt/calc/dist/data/interface"
 
 @Component({
@@ -10,14 +9,35 @@ import { TypeName } from "@robsonbittencourt/calc/dist/data/interface"
   styleUrl: "./type-combo-box.component.scss"
 })
 export class TypeComboBoxComponent {
-  pokemonId = input.required<string>()
+  type1 = input.required<TypeName>()
+  type2 = input<TypeName>()
   reverse = input(false)
+  centralized = input(false)
+  reduced = input(false)
 
-  store = inject(CalculatorStore)
+  align(): Record<string, string> | null {
+    if (this.reverse()) {
+      return { "justify-content": "left" }
+    }
 
-  pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
+    if (this.centralized()) {
+      return { "justify-content": "center" }
+    }
+
+    return null
+  }
 
   typeStyle(type?: TypeName): any {
+    const style = this.getTypeBackgroundStyle(type)
+
+    if (this.reduced()) {
+      style["font-size"] = "0.8rem"
+    }
+
+    return style
+  }
+
+  private getTypeBackgroundStyle(type?: TypeName): any {
     switch (type) {
       case "Normal": {
         return { "background-color": "#9FA19F" }

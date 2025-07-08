@@ -9,7 +9,8 @@ import { MultiHitComboBoxComponent } from "@app/shared/pokemon-build/multi-hit-c
 import { NatureComboBoxComponent } from "@app/shared/pokemon-build/nature-combo-box/nature-combo-box.component"
 import { StatusComboBoxComponent } from "@app/shared/pokemon-build/status-combo-box/status-combo-box.component"
 import { TeraComboBoxComponent } from "@app/shared/pokemon-build/tera-combo-box/tera-combo-box.component"
-import { Moves } from "@data/moves"
+import { MOVE_DETAILS } from "@data/move-details"
+import { POKEMON_DETAILS } from "@data/pokemon-details"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { Pokemon } from "@lib/model/pokemon"
 
@@ -28,7 +29,10 @@ export class PokemonBuildMobileComponent {
 
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
 
-  allMoveNames = Moves.instance.allMoves()
+  allMoveNames = computed(() => {
+    const pokemonDetails = Object.values(POKEMON_DETAILS).find(p => p.name == this.pokemon().name)!
+    return pokemonDetails.learnset.map(move => MOVE_DETAILS[move].name)
+  })
 
   editAttacks = false
 
