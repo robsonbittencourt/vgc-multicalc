@@ -153,7 +153,7 @@ export class Pokemon {
   }
 
   get teraTypeActive(): boolean {
-    return this.smogonPokemon.teraType != undefined || this.isTerapagosStellar
+    return this.smogonPokemon.teraType != undefined
   }
 
   get move(): Move {
@@ -248,12 +248,8 @@ export class Pokemon {
     return this.name.startsWith("Ogerpon")
   }
 
-  get isTerapagos(): boolean {
+  get isTerapagosForm(): boolean {
     return this.name.startsWith("Terapagos")
-  }
-
-  get isTerapagosStellar(): boolean {
-    return this.name == "Terapagos-Stellar"
   }
 
   clone(options: PokemonParameters = {}): Pokemon {

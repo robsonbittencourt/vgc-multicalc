@@ -265,7 +265,7 @@ describe("Combined Damage against reduce damage abilities", () => {
 
     field.rain()
 
-    opponents.get("Terapagos Terastal").damageIs(51.9, 61.3).haveChanceOfToCause2HKO(99.2)
+    opponents.get("Dragonite").damageIs(51.4, 61).cause2HKO()
   })
 
   it("two Pokémon against one with Tera Shell", () => {

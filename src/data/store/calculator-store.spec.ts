@@ -186,14 +186,6 @@ describe("Calculator Store", () => {
         expect(store.team().activePokemon().teraTypeActive).toBeFalse()
       })
 
-      it("should not update Pokémon Tera Type active when Pokémon is Terapagos and Tera Type is active", () => {
-        store.name(defaultId, "Terapagos")
-
-        store.teraTypeActive(defaultId, true)
-
-        expect(store.team().activePokemon().teraTypeActive).toBeFalse()
-      })
-
       it("should activate Tera Type and change ability when Ogerpon terastalyze", () => {
         store.name(defaultId, "Ogerpon")
 

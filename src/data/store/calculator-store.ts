@@ -135,8 +135,6 @@ export class CalculatorStore extends signalStore(
   teraTypeActive(pokemonId: string, teraTypeActive: boolean) {
     const pokemon = this.findPokemonById(pokemonId)
 
-    if (pokemon.isTerapagos && teraTypeActive) return
-
     if (pokemon.isOgerpon) return this.updateOgerponTeraAndAbility(pokemon, teraTypeActive)
 
     this.updatePokemonById(pokemonId, () => ({ teraTypeActive }))

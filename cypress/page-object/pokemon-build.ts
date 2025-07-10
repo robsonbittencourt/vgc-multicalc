@@ -55,6 +55,16 @@ export class PokemonBuild {
     return this
   }
 
+  isTerastalyzed(): PokemonBuild {
+    this.container().find('[data-cy="terastal-button"]').find('[data-cy="terastal-activated"]').should("exist")
+    return this
+  }
+
+  isNotTerastalyzed(): PokemonBuild {
+    this.container().find('[data-cy="terastal-button"]').find('[data-cy="terastal-deactivated"]').should("exist")
+    return this
+  }
+
   burned() {
     this.container().get('[data-cy="pokemon-status"]').click().get("mat-option").contains("Burn").click()
   }
@@ -89,6 +99,10 @@ export class PokemonBuild {
   commanderNotActivated() {
     this.closeTable()
     this.container().find('[data-cy="commander-deactivated"]')
+  }
+
+  nameIs(pokemonName: string) {
+    this.container().find('[data-cy="pokemon-select"] input').invoke("val").should("eq", `${pokemonName}`)
   }
 
   boostsIs(atk: number, def: number, spa: number, spd: number, spe: number) {

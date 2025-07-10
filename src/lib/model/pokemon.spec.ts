@@ -425,28 +425,16 @@ describe("Pokemon", () => {
         expect(pokemon.isOgerpon).toBeFalse()
       })
 
-      it('should return true for isTerapagos when name starts with "Terapagos"', () => {
+      it('should return true for isTerapagosForm when name starts with "Terapagos"', () => {
         const pokemon = new Pokemon("Terapagos-Terastal")
 
-        expect(pokemon.isTerapagos).toBeTrue()
+        expect(pokemon.isTerapagosForm).toBeTrue()
       })
 
-      it('should return false for isTerapagos when name does not start with "Terapagos"', () => {
+      it('should return false for isTerapagosForm when name does not start with "Terapagos"', () => {
         const pokemon = new Pokemon("Snorlax")
 
-        expect(pokemon.isTerapagos).toBeFalse()
-      })
-
-      it('should return true for isTerapagosStellar when name is "Terapagos-Stellar"', () => {
-        const pokemon = new Pokemon("Terapagos-Stellar")
-
-        expect(pokemon.isTerapagosStellar).toBeTrue()
-      })
-
-      it('should return false for isTerapagosStellar when name is not "Terapagos-Stellar"', () => {
-        const pokemon = new Pokemon("Terapagos-Terastal")
-
-        expect(pokemon.isTerapagosStellar).toBeFalse()
+        expect(pokemon.isTerapagosForm).toBeFalse()
       })
     })
   })

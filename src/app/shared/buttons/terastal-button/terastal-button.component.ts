@@ -17,6 +17,25 @@ export class TerastalButtonComponent {
 
   terastalyzePokemon(event: Event) {
     event.stopPropagation()
+
+    if (this.pokemon().name === "Terapagos") {
+      return
+    }
+
+    if (this.pokemon().name === "Terapagos-Stellar") {
+      this.store.name(this.pokemonId(), "Terapagos-Terastal")
+      this.store.ability(this.pokemonId(), "Tera Shell")
+      this.store.teraTypeActive(this.pokemonId(), false)
+      return
+    }
+
+    if (this.pokemon().name === "Terapagos-Terastal") {
+      this.store.name(this.pokemonId(), "Terapagos-Stellar")
+      this.store.ability(this.pokemonId(), "Teraform Zero")
+      this.store.teraTypeActive(this.pokemonId(), true)
+      return
+    }
+
     this.store.toogleTeraTypeActive(this.pokemonId())
   }
 }
