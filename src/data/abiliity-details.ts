@@ -218,6 +218,22 @@ export const ABILITY_DETAILS: Record<string, AbilityDetail> = {
     name: "Electromorphosis",
     description: "This Pokemon gains the Charge effect when it takes a hit from an attack."
   },
+  embodyaspecthearthflame: {
+    name: "Embody Aspect (Hearthflame)",
+    description: "When Terastalize Attack is increased by +1"
+  },
+  embodyaspectcornerstone: {
+    name: "Embody Aspect (Cornerstone)",
+    description: "When Terastalize Defense is increased by +1"
+  },
+  embodyaspectwellspring: {
+    name: "Embody Aspect (Wellspring)",
+    description: "When Terastalize Special Defense is increased by +1"
+  },
+  embodyaspectteal: {
+    name: "Embody Aspect (Teal)",
+    description: "When Terastalize Speed is increased by +1"
+  },
   filter: {
     name: "Filter",
     description: "This Pokemon receives 3/4 damage from supereffective attacks."
