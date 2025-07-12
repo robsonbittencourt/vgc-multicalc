@@ -35,7 +35,16 @@
     <div class="status-item" [ngStyle]="(reverse() && { order: 3 }) || null">
       <app-status-combo-box [pokemonId]="pokemonId()" [haveFocus]="statusHaveFocus()" (selected)="statusOnClick()" />
       <app-multi-hit-combo-box [pokemonId]="pokemonId()" [haveFocus]="multiHitHasFocus()" (selected)="multiHitOnClick()" />
-      <app-input label="Item" [value]="pokemon().item" [haveFocus]="itemHasFocus()" [tabIndex]="itemTabIndex()" (valueChange)="itemDataFilter.set($event)" (selected)="itemSelectorOnClick()" (lostFocus)="itemSelectorLostFocus()" data-cy="item" />
+      <app-input
+        label="Item"
+        [value]="pokemon().item"
+        [disabled]="isItemDisabled()"
+        [haveFocus]="itemHasFocus()"
+        [tabIndex]="itemTabIndex()"
+        (valueChange)="itemDataFilter.set($event)"
+        (selected)="itemSelectorOnClick()"
+        (lostFocus)="itemSelectorLostFocus()"
+        data-cy="item" />
     </div>
 
     <div class="tera-type-ability" [ngStyle]="(reverse() && { order: 2 }) || null">

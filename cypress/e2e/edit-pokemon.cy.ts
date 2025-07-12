@@ -75,3 +75,41 @@ describe("Terapagos Terastal", () => {
     leftPokemonBuild.isTerastalyzed()
   })
 })
+
+describe("Ogerpon Terastal", () => {
+  it("Ogerpon-Hearthflame should change ability when terastalyze", () => {
+    leftPokemonBuild.selectPokemon("Ogerpon-Hearthflame")
+    leftPokemonBuild.abilityIs("Mold Breaker")
+
+    leftPokemonBuild.terastalyze()
+
+    leftPokemonBuild.abilityIs("Embody Aspect (Hearthflame)")
+  })
+
+  it("Ogerpon-Cornerstone should change ability when terastalyze", () => {
+    leftPokemonBuild.selectPokemon("Ogerpon-Cornerstone")
+    leftPokemonBuild.abilityIs("Sturdy")
+
+    leftPokemonBuild.terastalyze()
+
+    leftPokemonBuild.abilityIs("Embody Aspect (Cornerstone)")
+  })
+
+  it("Ogerpon-Wellspring should change ability when terastalyze", () => {
+    leftPokemonBuild.selectPokemon("Ogerpon-Wellspring")
+    leftPokemonBuild.abilityIs("Water Absorb")
+
+    leftPokemonBuild.terastalyze()
+
+    leftPokemonBuild.abilityIs("Embody Aspect (Wellspring)")
+  })
+
+  it("Ogerpon should change ability when terastalyze", () => {
+    leftPokemonBuild.selectPokemon("Ogerpon")
+    leftPokemonBuild.abilityIs("Defiant")
+
+    leftPokemonBuild.terastalyze()
+
+    leftPokemonBuild.abilityIs("Embody Aspect (Teal)")
+  })
+})

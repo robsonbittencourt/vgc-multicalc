@@ -343,4 +343,9 @@ export class PokemonBuildComponent {
     this.activeTable.set("evs")
     this.selected.emit()
   }
+
+  isItemDisabled() {
+    const ogerponForms = ["Ogerpon-Wellspring", "Ogerpon-Hearthflame", "Ogerpon-Cornerstone"]
+    return ogerponForms.includes(this.pokemon().name)
+  }
 }

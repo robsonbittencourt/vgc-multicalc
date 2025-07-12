@@ -258,22 +258,6 @@ describe("Calculator Store", () => {
         expect(store.team().activePokemon().ability.name).toBe("Sturdy")
       })
 
-      it("should Tera Type active change to false when Tera Type is activated and it is toggled", () => {
-        store.teraTypeActive(defaultId, true)
-
-        store.toogleTeraTypeActive(defaultId)
-
-        expect(store.team().activePokemon().teraTypeActive).toBeFalse()
-      })
-
-      it("should Tera Type active change to true when Tera Type is deactivated and it is toggled", () => {
-        store.teraTypeActive(defaultId, false)
-
-        store.toogleTeraTypeActive(defaultId)
-
-        expect(store.team().activePokemon().teraTypeActive).toBeTrue()
-      })
-
       it("should update Pokémon Hp Percentage", () => {
         store.hpPercentage(defaultId, 55)
 

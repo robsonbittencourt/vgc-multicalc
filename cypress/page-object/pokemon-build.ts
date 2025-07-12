@@ -105,6 +105,10 @@ export class PokemonBuild {
     this.container().find('[data-cy="pokemon-select"] input').invoke("val").should("eq", `${pokemonName}`)
   }
 
+  abilityIs(abilityName: string) {
+    this.container().find('[data-cy="ability"] input').invoke("val").should("eq", `${abilityName}`)
+  }
+
   boostsIs(atk: number, def: number, spa: number, spd: number, spe: number) {
     this.closeTable()
     this.verifyBoostIs("atk", atk)

@@ -15,6 +15,8 @@ export class TerastalButtonComponent {
 
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
 
+  teraTypeActive = computed(() => this.pokemon().teraTypeActive)
+
   terastalyzePokemon(event: Event) {
     event.stopPropagation()
 
@@ -36,6 +38,31 @@ export class TerastalButtonComponent {
       return
     }
 
-    this.store.toogleTeraTypeActive(this.pokemonId())
+    if (this.pokemon().isOgerpon) {
+      this.updateOgerponTeraAndAbility()
+      return
+    }
+
+    this.store.teraTypeActive(this.pokemonId(), !this.teraTypeActive())
+  }
+
+  private updateOgerponTeraAndAbility() {
+    const teraTypeActive = !this.teraTypeActive()
+    const ability = this.getOgerponAbility(this.pokemon().name, teraTypeActive)
+
+    this.store.ability(this.pokemonId(), ability)
+    this.store.teraTypeActive(this.pokemonId(), teraTypeActive)
+  }
+
+  private getOgerponAbility(name: string, teraTypeActive: boolean): string {
+    const abilitiesMap: Record<string, { active: string; inactive: string }> = {
+      "Ogerpon-Wellspring": { active: "Embody Aspect (Wellspring)", inactive: "Water Absorb" },
+      "Ogerpon-Hearthflame": { active: "Embody Aspect (Hearthflame)", inactive: "Mold Breaker" },
+      "Ogerpon-Cornerstone": { active: "Embody Aspect (Cornerstone)", inactive: "Sturdy" },
+      Ogerpon: { active: "Embody Aspect (Teal)", inactive: "Defiant" }
+    }
+
+    const { active, inactive } = abilitiesMap[name]
+    return teraTypeActive ? active : inactive
   }
 }
