@@ -1,6 +1,7 @@
 import { Component, computed, inject, input } from "@angular/core"
 import { MatTooltip } from "@angular/material/tooltip"
 import { CalculatorStore } from "@data/store/calculator-store"
+import { Stats } from "@lib/types"
 
 @Component({
   selector: "app-terastal-button",
@@ -16,6 +17,8 @@ export class TerastalButtonComponent {
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
 
   teraTypeActive = computed(() => this.pokemon().teraTypeActive)
+
+  boostChanged = false
 
   terastalyzePokemon(event: Event) {
     event.stopPropagation()
@@ -39,19 +42,21 @@ export class TerastalButtonComponent {
     }
 
     if (this.pokemon().isOgerpon) {
-      this.updateOgerponTeraAndAbility()
+      this.updateOgerponData()
       return
     }
 
     this.store.teraTypeActive(this.pokemonId(), !this.teraTypeActive())
   }
 
-  private updateOgerponTeraAndAbility() {
+  private updateOgerponData() {
     const teraTypeActive = !this.teraTypeActive()
-    const ability = this.getOgerponAbility(this.pokemon().name, teraTypeActive)
-
-    this.store.ability(this.pokemonId(), ability)
     this.store.teraTypeActive(this.pokemonId(), teraTypeActive)
+
+    const ability = this.getOgerponAbility(this.pokemon().name, teraTypeActive)
+    this.store.ability(this.pokemonId(), ability)
+
+    this.updateOgerponBoost(teraTypeActive)
   }
 
   private getOgerponAbility(name: string, teraTypeActive: boolean): string {
@@ -64,5 +69,38 @@ export class TerastalButtonComponent {
 
     const { active, inactive } = abilitiesMap[name]
     return teraTypeActive ? active : inactive
+  }
+
+  private updateOgerponBoost(teraTypeActive: boolean) {
+    const stat = this.getOgerponBoostedStat()
+    let actual = this.pokemon().boosts[stat]!
+
+    if (teraTypeActive && actual <= 5) {
+      actual++
+      this.boostChanged = true
+    }
+
+    if (!teraTypeActive && this.boostChanged) {
+      actual--
+      this.boostChanged = false
+    }
+
+    this.store.boosts(this.pokemonId(), { [stat]: actual })
+  }
+
+  private getOgerponBoostedStat(): keyof Stats {
+    if (this.pokemon().name == "Ogerpon-Wellspring") {
+      return "spd"
+    }
+
+    if (this.pokemon().name == "Ogerpon-Hearthflame") {
+      return "atk"
+    }
+
+    if (this.pokemon().name == "Ogerpon-Cornerstone") {
+      return "def"
+    }
+
+    return "spe"
   }
 }
