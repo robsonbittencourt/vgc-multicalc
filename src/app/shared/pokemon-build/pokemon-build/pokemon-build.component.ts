@@ -348,4 +348,8 @@ export class PokemonBuildComponent {
     const ogerponForms = ["Ogerpon-Wellspring", "Ogerpon-Hearthflame", "Ogerpon-Cornerstone"]
     return ogerponForms.includes(this.pokemon().name)
   }
+
+  isTeraDisabled() {
+    return this.pokemon().name.startsWith("Ogerpon")
+  }
 }
