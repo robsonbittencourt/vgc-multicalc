@@ -66,12 +66,14 @@
     <app-status-combo-box [pokemonId]="pokemonId()" />
   </div>
 
-  <div class="combo-nature">
-    <app-nature-combo-box [pokemonId]="pokemonId()" />
-  </div>
+  <div class="combo-nature-ability">
+    <div class="combo-nature">
+      <app-nature-combo-box [pokemonId]="pokemonId()" />
+    </div>
 
-  <div class="combo-ability">
-    <app-ability-combo-box [pokemonId]="pokemonId()" [isMobile]="true" />
+    <div class="combo-ability">
+      <app-ability-combo-box [pokemonId]="pokemonId()" [isMobile]="true" />
+    </div>
   </div>
 </div>
 
