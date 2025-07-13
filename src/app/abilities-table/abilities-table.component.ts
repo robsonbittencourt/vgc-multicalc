@@ -1,8 +1,7 @@
 import { Component, computed, inject, input, output } from "@angular/core"
 import { FilterableTableComponent } from "@app/filterable-table/filterable-table.component"
 import { ColumnConfig } from "@app/filterable-table/filtered-table-types"
-import { ABILITY_DETAILS, AbilityDetail } from "@data/abiliity-details"
-import { POKEMON_DETAILS } from "@data/pokemon-details"
+import { AbilityDetail } from "@data/abiliity-details"
 import { CalculatorStore } from "@data/store/calculator-store"
 
 @Component({
@@ -25,8 +24,7 @@ export class AbilitiesTableComponent {
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
 
   abilitiesData = computed(() => {
-    const pokemonDetails = Object.values(POKEMON_DETAILS).find(p => p.name == this.pokemon().name)!
-    return [{ group: "Abilities", data: pokemonDetails.abilities.map(ability => ABILITY_DETAILS[ability]) }]
+    return [{ group: "Abilities", data: this.pokemon().availableAbilities }]
   })
 
   actualAbility = computed(() => {

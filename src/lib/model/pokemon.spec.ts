@@ -296,6 +296,91 @@ describe("Pokemon", () => {
       })
     })
 
+    describe("Abilities", () => {
+      it("should return available abilities", () => {
+        const pokemon = new Pokemon("Dondozo")
+
+        const abilities = pokemon.availableAbilities
+
+        expect(abilities.length).toEqual(3)
+        expect(abilities[0].name).toEqual("Unaware")
+        expect(abilities[1].name).toEqual("Oblivious")
+        expect(abilities[2].name).toEqual("Water Veil")
+      })
+
+      it("should return Ogerpon Teal ability", () => {
+        const pokemon = new Pokemon("Ogerpon")
+
+        const abilities = pokemon.availableAbilities
+
+        expect(abilities.length).toEqual(1)
+        expect(abilities[0].name).toEqual("Defiant")
+      })
+
+      it("should return Ogerpon Teal ability when use Tera", () => {
+        const pokemon = new Pokemon("Ogerpon", { teraTypeActive: true })
+
+        const abilities = pokemon.availableAbilities
+
+        expect(abilities.length).toEqual(1)
+        expect(abilities[0].name).toEqual("Embody Aspect (Teal)")
+      })
+
+      it("should return Ogerpon Cornerstone ability", () => {
+        const pokemon = new Pokemon("Ogerpon-Cornerstone")
+
+        const abilities = pokemon.availableAbilities
+
+        expect(abilities.length).toEqual(1)
+        expect(abilities[0].name).toEqual("Sturdy")
+      })
+
+      it("should return Ogerpon Cornerstone Teal ability when use Tera", () => {
+        const pokemon = new Pokemon("Ogerpon-Cornerstone", { teraTypeActive: true })
+
+        const abilities = pokemon.availableAbilities
+
+        expect(abilities.length).toEqual(1)
+        expect(abilities[0].name).toEqual("Embody Aspect (Cornerstone)")
+      })
+
+      it("should return Ogerpon Hearthflame ability", () => {
+        const pokemon = new Pokemon("Ogerpon-Hearthflame")
+
+        const abilities = pokemon.availableAbilities
+
+        expect(abilities.length).toEqual(1)
+        expect(abilities[0].name).toEqual("Mold Breaker")
+      })
+
+      it("should return Ogerpon Hearthflame Teal ability when use Tera", () => {
+        const pokemon = new Pokemon("Ogerpon-Hearthflame", { teraTypeActive: true })
+
+        const abilities = pokemon.availableAbilities
+
+        expect(abilities.length).toEqual(1)
+        expect(abilities[0].name).toEqual("Embody Aspect (Hearthflame)")
+      })
+
+      it("should return Ogerpon Wellspring ability", () => {
+        const pokemon = new Pokemon("Ogerpon-Wellspring")
+
+        const abilities = pokemon.availableAbilities
+
+        expect(abilities.length).toEqual(1)
+        expect(abilities[0].name).toEqual("Water Absorb")
+      })
+
+      it("should return Ogerpon Wellspring Teal ability when use Tera", () => {
+        const pokemon = new Pokemon("Ogerpon-Wellspring", { teraTypeActive: true })
+
+        const abilities = pokemon.availableAbilities
+
+        expect(abilities.length).toEqual(1)
+        expect(abilities[0].name).toEqual("Embody Aspect (Wellspring)")
+      })
+    })
+
     describe("Stats", () => {
       it("should return the hp", () => {
         const pokemon = new Pokemon("Pikachu")

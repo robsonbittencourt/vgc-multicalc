@@ -46,7 +46,7 @@ export class PokemonBuild {
   }
 
   selectStatsModifier(stat: string, modifier: string): PokemonBuild {
-    cy.get(`[data-cy="stat-${stat}"]`).find('[data-cy="stat-modifier"]').click({ force: true }).get("mat-option").contains(modifier).click({ force: true })
+    this.container().find(`[data-cy="stat-${stat}"]`).find('[data-cy="stat-modifier"]').click({ force: true }).get("mat-option").contains(modifier).click({ force: true })
     return this
   }
 
@@ -103,6 +103,22 @@ export class PokemonBuild {
 
   nameIs(pokemonName: string) {
     this.container().find('[data-cy="pokemon-select"] input').invoke("val").should("eq", `${pokemonName}`)
+  }
+
+  abilityIs(abilityName: string) {
+    this.container().find('[data-cy="ability"] input').invoke("val").should("eq", `${abilityName}`)
+  }
+
+  itemIs(itemName: string) {
+    this.container().find('[data-cy="item"] input').invoke("val").should("eq", `${itemName}`)
+  }
+
+  itemIsDisabled() {
+    this.container().find('[data-cy="item"] input').should("be.disabled")
+  }
+
+  teraIsDisabled() {
+    this.container().find('[data-cy="tera-type"]').find('[data-cy="input-select"]').should("have.attr", "aria-disabled", "true")
   }
 
   boostsIs(atk: number, def: number, spa: number, spd: number, spe: number) {

@@ -41,7 +41,7 @@ export class PokemonComboBoxComponent {
       this.store.name(this.pokemonId(), pokemonName)
       this.store.nature(this.pokemonId(), "Docile")
       this.store.item(this.pokemonId(), "Leftovers")
-      this.store.ability(this.pokemonId(), AllPokemon.instance.abilitiesByName(pokemonName)[0])
+      this.store.ability(this.pokemonId(), "Hustle")
       this.store.teraType(this.pokemonId(), "Normal")
       this.store.evs(this.pokemonId(), { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
       this.store.moveOne(this.pokemonId(), "Tackle")

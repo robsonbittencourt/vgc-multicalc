@@ -1,1 +1,1 @@
-<app-input-autocomplete label="Item" [value]="pokemon().item" [allValues]="allItemsNames" (valueChange)="store.item(pokemonId(), $event)" data-cy="item" />
+<app-input-autocomplete label="Item" [value]="pokemon().item" [allValues]="allItemsNames" [disabled]="isItemDisabled()" (valueChange)="store.item(pokemonId(), $event)" data-cy="item" />

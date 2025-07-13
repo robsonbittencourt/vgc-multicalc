@@ -194,6 +194,19 @@ app-ability-combo-box {
   }
 }
 
+.mat-mdc-select-disabled,
+.mat-mdc-select-disabled .mat-mdc-select,
+.mat-mdc-select-disabled .mat-mdc-select-trigger,
+.mat-mdc-select-disabled .mdc-select {
+  cursor: not-allowed !important;
+  pointer-events: auto !important;
+}
+
+.input-column input:disabled,
+.input-row input:disabled {
+  cursor: not-allowed;
+}
+
 .mat-icon {
   font-size: 1.8em;
 }

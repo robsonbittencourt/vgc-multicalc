@@ -5,7 +5,7 @@
     label="Tera Type"
     [value]="pokemon().teraType"
     [allValues]="allTeraTypes"
-    [disabled]="pokemon().isTerapagosForm"
+    [disabled]="isTeraDisabled()"
     (selected)="selected.emit()"
     (valueChange)="store.teraType(pokemonId(), $event)"
     [haveFocus]="haveFocus()"

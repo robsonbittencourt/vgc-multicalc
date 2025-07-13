@@ -17,4 +17,9 @@ export class ItemComboBoxComponent {
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
 
   allItemsNames = Items.instance.items
+
+  isItemDisabled() {
+    const ogerponForms = ["Ogerpon-Wellspring", "Ogerpon-Hearthflame", "Ogerpon-Cornerstone"]
+    return ogerponForms.includes(this.pokemon().name)
+  }
 }

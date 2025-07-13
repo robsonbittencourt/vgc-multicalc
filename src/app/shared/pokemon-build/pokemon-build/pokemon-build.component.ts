@@ -17,7 +17,6 @@ import { StatusComboBoxComponent } from "@app/shared/pokemon-build/status-combo-
 import { TeraComboBoxComponent } from "@app/shared/pokemon-build/tera-combo-box/tera-combo-box.component"
 import { TypeComboBoxComponent } from "@app/shared/pokemon-build/type-combo-box/type-combo-box.component"
 import { SETDEX_SV } from "@data/movesets"
-import { AllPokemon } from "@data/pokemon-details"
 import { CalculatorStore } from "@data/store/calculator-store"
 
 @Component({
@@ -280,7 +279,7 @@ export class PokemonBuildComponent {
       this.store.name(this.pokemonId(), pokemonName)
       this.store.nature(this.pokemonId(), "Docile")
       this.store.item(this.pokemonId(), "Leftovers")
-      this.store.ability(this.pokemonId(), AllPokemon.instance.abilitiesByName(pokemonName)[0])
+      this.store.ability(this.pokemonId(), "Hustle")
       this.store.teraType(this.pokemonId(), "Normal")
       this.store.evs(this.pokemonId(), { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
       this.store.moveOne(this.pokemonId(), "Tackle")
@@ -342,5 +341,14 @@ export class PokemonBuildComponent {
     this.teraHasFocus.set(true)
     this.activeTable.set("evs")
     this.selected.emit()
+  }
+
+  isItemDisabled() {
+    const ogerponForms = ["Ogerpon-Wellspring", "Ogerpon-Hearthflame", "Ogerpon-Cornerstone"]
+    return ogerponForms.includes(this.pokemon().name)
+  }
+
+  isTeraDisabled() {
+    return this.pokemon().name.startsWith("Ogerpon")
   }
 }

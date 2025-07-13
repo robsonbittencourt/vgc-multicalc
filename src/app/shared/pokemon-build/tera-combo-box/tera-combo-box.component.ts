@@ -21,4 +21,8 @@ export class TeraComboBoxComponent {
   store = inject(CalculatorStore)
 
   allTeraTypes = Object.keys(TYPE_CHART[9]).splice(1).sort()
+
+  isTeraDisabled() {
+    return this.pokemon().name.startsWith("Ogerpon")
+  }
 }
