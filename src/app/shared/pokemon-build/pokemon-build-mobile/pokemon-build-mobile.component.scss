@@ -76,12 +76,18 @@
   flex: 1 0 5em;
 }
 
-.combo-nature {
-  flex: 1 0 12em;
+.combo-nature-ability {
+  display: flex;
+  gap: 1em;
+  width: 100%;
+  flex-wrap: nowrap;
+  box-sizing: border-box;
 }
 
+.combo-nature,
 .combo-ability {
-  flex: 1 0 12em;
+  flex: 1 1 0;
+  min-width: 0;
 }
 
 ::ng-deep .mat-mdc-standard-chip .mdc-evolution-chip__graphic {
