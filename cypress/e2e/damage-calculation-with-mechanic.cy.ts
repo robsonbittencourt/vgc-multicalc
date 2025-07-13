@@ -23,6 +23,10 @@ let zacianCrownedData: string
 let zamazentaData: string
 let zamazentaCrownedData: string
 let farigirafData: string
+let ogerponData: string
+let ogerponCornerstoneData: string
+let ogerponHearthflameData: string
+let ogerponWellspringData: string
 
 before(() => {
   cy.fixture("tyranitar-data").then(data => {
@@ -72,6 +76,18 @@ before(() => {
   })
   cy.fixture("farigiraf-data").then(data => {
     farigirafData = data
+  })
+  cy.fixture("ogerpon-data").then(data => {
+    ogerponData = data
+  })
+  cy.fixture("ogerpon-cornerstone-data").then(data => {
+    ogerponCornerstoneData = data
+  })
+  cy.fixture("ogerpon-hearthflame-data").then(data => {
+    ogerponHearthflameData = data
+  })
+  cy.fixture("ogerpon-wellspring-data").then(data => {
+    ogerponWellspringData = data
   })
 })
 
@@ -372,6 +388,48 @@ describe("Test calcs from moves with some mechanic", () => {
 
       leftPokemonBuild.boostsIs(0, 0, 0, 0, 0)
       rightPokemonBuild.boostsIs(0, 0, 0, 0, 0)
+    })
+  })
+
+  describe("Ogerpon boost", () => {
+    it("Ogerpon Teal should receive +1 in speed when terastalyze", () => {
+      leftPokemonBuild.importPokemon(ogerponData)
+      rightPokemonBuild.importPokemon(bronzongData).selectAttackThree()
+
+      rightDamageResult.damageIs(2, 25.4, 30.9, 42, 51)
+
+      leftPokemonBuild.terastalyze()
+      rightDamageResult.damageIs(2, 38.1, 45.4, 63, 75)
+    })
+
+    it("Ogerpon Cornerstone should receive +1 in defense when terastalyze", () => {
+      leftPokemonBuild.importPokemon(ogerponCornerstoneData)
+      rightPokemonBuild.importPokemon(basculegionData)
+
+      rightDamageResult.damageIs(0, 48, 56.4, 75, 88)
+
+      leftPokemonBuild.terastalyze()
+      rightDamageResult.damageIs(0, 32.6, 38.4, 51, 60)
+    })
+
+    it("Ogerpon Hearthflame should receive +1 in attack when terastalyze", () => {
+      leftPokemonBuild.importPokemon(ogerponHearthflameData)
+      rightPokemonBuild.importPokemon(basculegionData)
+
+      leftDamageResult.damageIs(0, 38.2, 44.8, 75, 88)
+
+      leftPokemonBuild.terastalyze()
+      leftDamageResult.damageIs(0, 76.5, 90.3, 150, 177)
+    })
+
+    it("Ogerpon Wellspring should receive +1 in special defense when terastalyze", () => {
+      leftPokemonBuild.importPokemon(ogerponWellspringData)
+      rightPokemonBuild.importPokemon(farigirafData).selectAttackTwo()
+
+      rightDamageResult.damageIs(1, 23.2, 28.1, 43, 52)
+
+      leftPokemonBuild.terastalyze()
+      rightDamageResult.damageIs(1, 16.2, 19.4, 30, 36)
     })
   })
 })

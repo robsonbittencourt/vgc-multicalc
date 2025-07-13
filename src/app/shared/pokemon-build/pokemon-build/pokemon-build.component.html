@@ -35,11 +35,20 @@
     <div class="status-item" [ngStyle]="(reverse() && { order: 3 }) || null">
       <app-status-combo-box [pokemonId]="pokemonId()" [haveFocus]="statusHaveFocus()" (selected)="statusOnClick()" />
       <app-multi-hit-combo-box [pokemonId]="pokemonId()" [haveFocus]="multiHitHasFocus()" (selected)="multiHitOnClick()" />
-      <app-input label="Item" [value]="pokemon().item" [haveFocus]="itemHasFocus()" [tabIndex]="itemTabIndex()" (valueChange)="itemDataFilter.set($event)" (selected)="itemSelectorOnClick()" (lostFocus)="itemSelectorLostFocus()" data-cy="item" />
+      <app-input
+        label="Item"
+        [value]="pokemon().item"
+        [disabled]="isItemDisabled()"
+        [haveFocus]="itemHasFocus()"
+        [tabIndex]="itemTabIndex()"
+        (valueChange)="itemDataFilter.set($event)"
+        (selected)="itemSelectorOnClick()"
+        (lostFocus)="itemSelectorLostFocus()"
+        data-cy="item" />
     </div>
 
     <div class="tera-type-ability" [ngStyle]="(reverse() && { order: 2 }) || null">
-      <app-tera-combo-box [pokemonId]="pokemonId()" [haveFocus]="teraHasFocus()" (selected)="teraOnClick()" />
+      <app-tera-combo-box [pokemonId]="pokemonId()" [haveFocus]="teraHasFocus()" [disabled]="isTeraDisabled()" (selected)="teraOnClick()" />
       <app-type-combo-box [type1]="pokemon().type1" [type2]="pokemon().type2" [reverse]="reverse()" />
       <app-ability-combo-box [pokemonId]="pokemonId()" [haveFocus]="abilityHasFocus()" [tabIndex]="abilityTabIndex()" (valueChange)="abilityDataFilter.set($event)" (selected)="abilitySelectorOnClick()" (lostFocus)="abilitySelectorLostFocus()" />
     </div>

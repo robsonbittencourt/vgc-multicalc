@@ -13,6 +13,7 @@ import { TYPE_CHART } from "@robsonbittencourt/calc"
 export class TeraComboBoxComponent {
   pokemonId = input.required<string>()
   haveFocus = input(false)
+  disabled = input(false)
 
   selected = output()
 

@@ -1,4 +1,6 @@
+import { ABILITY_DETAILS } from "@data/abiliity-details"
 import { Items } from "@data/items"
+import { POKEMON_DETAILS } from "@data/pokemon-details"
 import { DEFAULT_TERA_TYPE, SELECT_POKEMON_LABEL } from "@lib/constants"
 import { Ability } from "@lib/model/ability"
 import { Move } from "@lib/model/move"
@@ -250,6 +252,17 @@ export class Pokemon {
 
   get isTerapagosForm(): boolean {
     return this.name.startsWith("Terapagos")
+  }
+
+  get availableAbilities() {
+    if (this.name.startsWith("Ogerpon") && this.teraTypeActive) {
+      const isTealForm = this.name === "Ogerpon"
+      const form = isTealForm ? "teal" : this.name.replace("Ogerpon-", "").toLowerCase()
+      return [ABILITY_DETAILS[`embodyaspect${form}`]]
+    }
+
+    const pokemonDetails = Object.values(POKEMON_DETAILS).find(p => p.name == this.name)!
+    return pokemonDetails.abilities.map(ability => ABILITY_DETAILS[ability])
   }
 
   clone(options: PokemonParameters = {}): Pokemon {

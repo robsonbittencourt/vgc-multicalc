@@ -133,35 +133,7 @@ export class CalculatorStore extends signalStore(
   }
 
   teraTypeActive(pokemonId: string, teraTypeActive: boolean) {
-    const pokemon = this.findPokemonById(pokemonId)
-
-    if (pokemon.isOgerpon) return this.updateOgerponTeraAndAbility(pokemon, teraTypeActive)
-
     this.updatePokemonById(pokemonId, () => ({ teraTypeActive }))
-  }
-
-  private updateOgerponTeraAndAbility(pokemon: Pokemon, teraTypeActive: boolean) {
-    const ability = this.getOgerponAbility(pokemon.name, teraTypeActive)
-    this.updatePokemonById(pokemon.id, () => ({ teraTypeActive, ability }))
-  }
-
-  private getOgerponAbility(name: string, teraTypeActive: boolean): string {
-    const abilitiesMap: Record<string, { active: string; inactive: string }> = {
-      "Ogerpon-Wellspring": { active: "Embody Aspect (Wellspring)", inactive: "Water Absorb" },
-      "Ogerpon-Hearthflame": { active: "Embody Aspect (Hearthflame)", inactive: "Mold Breaker" },
-      "Ogerpon-Cornerstone": { active: "Embody Aspect (Cornerstone)", inactive: "Sturdy" },
-      Ogerpon: { active: "Embody Aspect (Teal)", inactive: "Defiant" }
-    }
-
-    const { active, inactive } = abilitiesMap[name]
-    return teraTypeActive ? active : inactive
-  }
-
-  toogleTeraTypeActive(pokemonId: string) {
-    const pokemon = this.findPokemonById(pokemonId)
-    const teraTypeActive = !pokemon.teraTypeActive
-
-    this.teraTypeActive(pokemonId, teraTypeActive)
   }
 
   hpPercentage(pokemonId: string, hpPercentage: number) {

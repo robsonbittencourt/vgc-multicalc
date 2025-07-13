@@ -73,16 +73,6 @@ export class PokemonCardComponent {
     this.targetRemoved.emit()
   }
 
-  toogleCommanderAbility(event: Event) {
-    event.stopPropagation()
-    this.store.toogleCommanderActive(this.target().pokemon.id)
-  }
-
-  terastalyzePokemon(event: Event) {
-    event.stopPropagation()
-    this.store.toogleTeraTypeActive(this.target().pokemon.id)
-  }
-
   evsDescription(): string {
     const pokemon = this.damageResult().defender
     let evsDescription = ""
