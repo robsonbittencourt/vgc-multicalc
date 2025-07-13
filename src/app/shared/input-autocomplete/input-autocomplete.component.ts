@@ -93,12 +93,13 @@ export class InputAutocompleteComponent implements OnInit {
   }
 
   private filter(value: string, values: KeyValuePair[]): KeyValuePair[] {
-    if (!values) return []
+    if (!value) return values
 
     const filterValue = this.normalizeValue(value)
 
-    const startsWithMatch = values.filter(v => this.normalizeValue(v.key).startsWith(filterValue))
-    const containsMatch = values.filter(v => !this.normalizeValue(v.key).startsWith(filterValue) && this.normalizeValue(v.key).includes(filterValue))
+    const startsWithMatch = values.filter(v => this.normalizeValue(v.key).startsWith(filterValue)).sort((a, b) => this.normalizeValue(a.key).length - this.normalizeValue(b.key).length)
+
+    const containsMatch = values.filter(v => !this.normalizeValue(v.key).startsWith(filterValue) && this.normalizeValue(v.key).includes(filterValue)).sort((a, b) => this.normalizeValue(a.key).length - this.normalizeValue(b.key).length)
 
     return [...startsWithMatch, ...containsMatch]
   }
