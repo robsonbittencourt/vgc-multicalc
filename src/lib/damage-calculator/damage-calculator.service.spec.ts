@@ -71,7 +71,7 @@ describe("Damage Calculator Service", () => {
     const target = new Target(new Pokemon("Flutter Mane"))
     const field = new Field()
 
-    const damageResults = service.calcDamageAllAttacks(attacker, target.pokemon, field)
+    const damageResults = service.calcDamageAllAttacks(attacker, target.pokemon, field, true)
 
     expect(damageResults.length).toEqual(4)
 

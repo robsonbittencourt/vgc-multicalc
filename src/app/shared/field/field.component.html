@@ -2,15 +2,40 @@
   <div class="field-container">
     <div>
       <div class="field-subtitle">
-        <label>Attacker</label>
+        @if (oneVsOne()) {
+          <label>Left</label>
+        } @else {
+          <label>Attacker</label>
+        }
       </div>
-      @if (!onlySpeed()) {
+      @if (!onlySpeed() && oneVsOne()) {
         <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
-          <mat-button-toggle [checked]="fieldStore.attackerSide().isHelpingHand" (change)="fieldStore.toggleAttackerHelpingHand()" data-cy="helping-hand">Helping Hand</mat-button-toggle>
+          <mat-button-toggle [checked]="fieldStore.attackerSide().isReflect" (change)="fieldStore.toggleAttackerReflect()" data-cy="reflect">Reflect</mat-button-toggle>
+          <mat-button-toggle [checked]="fieldStore.attackerSide().isLightScreen" (change)="fieldStore.toggleAttackerLightScreen()" data-cy="light-screen">Light Screen</mat-button-toggle>
+          <mat-button-toggle [checked]="fieldStore.attackerSide().isAuroraVeil" (change)="fieldStore.toggleAttackerAuroraVeil()" data-cy="aurora-veil">Aurora Veil</mat-button-toggle>
         </mat-button-toggle-group>
 
         <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
-          <mat-button-toggle [checked]="fieldStore.isCriticalHit()" (change)="fieldStore.toggleCriticalHit()" data-cy="critical-hit">Critical Hit</mat-button-toggle>
+          <mat-button-toggle [checked]="fieldStore.defenderSide().gameType === 'Singles'" (change)="fieldStore.toggleDefenderGameType()" data-cy="single-target-attacker">Single Target</mat-button-toggle>
+          <mat-button-toggle [checked]="fieldStore.attackerSide().isFriendGuard" (change)="fieldStore.toggleAttackerFriendGuard()" data-cy="friend-guard">Friend Guard</mat-button-toggle>
+        </mat-button-toggle-group>
+
+        <mat-button-toggle-group class="button-group" [hideSingleSelectionIndicator]="true">
+          <mat-button-toggle class="max-width" [checked]="fieldStore.attackerSide().spikes === 3" (change)="fieldStore.toggleAttackerSpikes3()" data-cy="three-spikes">3 spikes</mat-button-toggle>
+          <mat-button-toggle class="max-width" [checked]="fieldStore.attackerSide().spikes === 2" (change)="fieldStore.toggleAttackerSpikes2()" data-cy="two-spikes">2</mat-button-toggle>
+          <mat-button-toggle class="max-width" [checked]="fieldStore.attackerSide().spikes === 1" (change)="fieldStore.toggleAttackerSpikes1()" data-cy="one-spikes">1</mat-button-toggle>
+          <mat-button-toggle class="max-width" [checked]="fieldStore.attackerSide().spikes === 0" (change)="fieldStore.toggleAttackerSpikes0()">0</mat-button-toggle>
+        </mat-button-toggle-group>
+
+        <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
+          <mat-button-toggle class="max-width" [checked]="fieldStore.attackerSide().isSR" (change)="fieldStore.toggleAttackerStealthRock()" data-cy="stealth-rock">Stealth Rock</mat-button-toggle>
+          <mat-button-toggle class="max-width" [checked]="fieldStore.attackerSide().isSeeded" (change)="fieldStore.toggleAttackerSeeded()" data-cy="leech-seed">Leech Seed</mat-button-toggle>
+        </mat-button-toggle-group>
+      }
+      @if (!onlySpeed()) {
+        <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">
+          <mat-button-toggle [checked]="fieldStore.attackerSide().isHelpingHand" (change)="fieldStore.toggleAttackerHelpingHand()" data-cy="helping-hand">Helping Hand</mat-button-toggle>
+          <mat-button-toggle [checked]="fieldStore.attackerSide().isCriticalHit" (change)="fieldStore.toggleAttackerCriticalHit()" data-cy="critical-hit">Critical Hit</mat-button-toggle>
         </mat-button-toggle-group>
 
         <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
@@ -77,7 +102,11 @@
     </div>
     <div>
       <div class="field-subtitle">
-        <label>Defenders</label>
+        @if (oneVsOne()) {
+          <label>Right</label>
+        } @else {
+          <label>Defender</label>
+        }
       </div>
       @if (!onlySpeed()) {
         <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
@@ -87,27 +116,33 @@
         </mat-button-toggle-group>
 
         <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
-          <mat-button-toggle [checked]="fieldStore.gameType() === 'Singles'" (change)="fieldStore.toggleGameType()" data-cy="single-target">Single Target</mat-button-toggle>
+          <mat-button-toggle [checked]="fieldStore.attackerSide().gameType === 'Singles'" (change)="fieldStore.toggleAttackerGameType()" data-cy="single-target-defender">Single Target</mat-button-toggle>
           <mat-button-toggle [checked]="fieldStore.defenderSide().isFriendGuard" (change)="fieldStore.toggleDefenderFriendGuard()" data-cy="friend-guard">Friend Guard</mat-button-toggle>
         </mat-button-toggle-group>
 
-        <div class="button-group">
-          <div class="max-width">
-            <mat-button-toggle-group class="button-group" [hideSingleSelectionIndicator]="true">
-              <mat-button-toggle class="max-width" [checked]="fieldStore.defenderSide().spikes === 3" (change)="fieldStore.toggleDefenderSpikes3()" data-cy="three-spikes">3 spikes</mat-button-toggle>
-              <mat-button-toggle class="max-width" [checked]="fieldStore.defenderSide().spikes === 2" (change)="fieldStore.toggleDefenderSpikes2()" data-cy="two-spikes">2</mat-button-toggle>
-              <mat-button-toggle class="max-width" [checked]="fieldStore.defenderSide().spikes === 1" (change)="fieldStore.toggleDefenderSpikes1()" data-cy="one-spikes">1</mat-button-toggle>
-              <mat-button-toggle class="max-width" [checked]="fieldStore.defenderSide().spikes === 0" (change)="fieldStore.toggleDefenderSpikes0()">0</mat-button-toggle>
-            </mat-button-toggle-group>
-          </div>
+        <mat-button-toggle-group class="button-group" [hideSingleSelectionIndicator]="true">
+          <mat-button-toggle class="max-width" [checked]="fieldStore.defenderSide().spikes === 3" (change)="fieldStore.toggleDefenderSpikes3()" data-cy="three-spikes">3 spikes</mat-button-toggle>
+          <mat-button-toggle class="max-width" [checked]="fieldStore.defenderSide().spikes === 2" (change)="fieldStore.toggleDefenderSpikes2()" data-cy="two-spikes">2</mat-button-toggle>
+          <mat-button-toggle class="max-width" [checked]="fieldStore.defenderSide().spikes === 1" (change)="fieldStore.toggleDefenderSpikes1()" data-cy="one-spikes">1</mat-button-toggle>
+          <mat-button-toggle class="max-width" [checked]="fieldStore.defenderSide().spikes === 0" (change)="fieldStore.toggleDefenderSpikes0()">0</mat-button-toggle>
+        </mat-button-toggle-group>
 
-          <div class="max-width">
-            <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
-              <mat-button-toggle class="max-width" [checked]="fieldStore.defenderSide().isSR" (change)="fieldStore.toggleDefenderStealthRock()" data-cy="stealth-rock">Stealth Rock</mat-button-toggle>
-              <mat-button-toggle class="max-width" [checked]="fieldStore.defenderSide().isSeeded" (change)="fieldStore.toggleDefenderSeeded()" data-cy="leech-seed">Leech Seed</mat-button-toggle>
-            </mat-button-toggle-group>
-          </div>
-        </div>
+        <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
+          <mat-button-toggle class="max-width" [checked]="fieldStore.defenderSide().isSR" (change)="fieldStore.toggleDefenderStealthRock()" data-cy="stealth-rock">Stealth Rock</mat-button-toggle>
+          <mat-button-toggle class="max-width" [checked]="fieldStore.defenderSide().isSeeded" (change)="fieldStore.toggleDefenderSeeded()" data-cy="leech-seed">Leech Seed</mat-button-toggle>
+        </mat-button-toggle-group>
+      }
+
+      @if (!onlySpeed() && oneVsOne()) {
+        <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">
+          <mat-button-toggle [checked]="fieldStore.defenderSide().isHelpingHand" (change)="fieldStore.toggleDefenderHelpingHand()" data-cy="helping-hand">Helping Hand</mat-button-toggle>
+          <mat-button-toggle [checked]="fieldStore.defenderSide().isCriticalHit" (change)="fieldStore.toggleDefenderCriticalHit()" data-cy="critical-hit">Critical Hit</mat-button-toggle>
+        </mat-button-toggle-group>
+
+        <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
+          <mat-button-toggle [checked]="fieldStore.defenderSide().isBattery" (change)="fieldStore.toggleDefenderBattery()" data-cy="battery">Battery</mat-button-toggle>
+          <mat-button-toggle [checked]="fieldStore.defenderSide().isPowerSpot" (change)="fieldStore.toggleDefenderPowerSpot()" data-cy="power-spot">Power Spot</mat-button-toggle>
+        </mat-button-toggle-group>
       }
 
       <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">

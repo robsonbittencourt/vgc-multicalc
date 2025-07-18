@@ -1,7 +1,7 @@
 import { provideZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
 import { FieldStore } from "@data/store/field-store"
-import { FieldAttackerSide, FieldDefenderSide } from "@lib/model/field"
+import { FieldSide } from "@lib/model/field"
 import { GameType } from "@lib/types"
 
 describe("Field Store", () => {
@@ -78,16 +78,16 @@ describe("Field Store", () => {
 
   describe("Methods", () => {
     it("should change Game Type to Singles when actual Game Type is Doubles", () => {
-      store.toggleGameType()
+      store.toggleAttackerGameType()
 
-      expect(store.field().gameType).toBe("Singles")
+      expect(store.field().attackerSide.gameType).toBe("Singles")
     })
 
     it("should change Game Type to Doubles when actual Game Type is Singles", () => {
-      store.toggleGameType()
-      store.toggleGameType()
+      store.toggleAttackerGameType()
+      store.toggleAttackerGameType()
 
-      expect(store.field().gameType).toBe("Doubles")
+      expect(store.field().attackerSide.gameType).toBe("Doubles")
     })
 
     it("should change weather to Sun when weather is null", () => {
@@ -355,16 +355,16 @@ describe("Field Store", () => {
     })
 
     it("should change Critical Hit to true when it is false", () => {
-      store.toggleCriticalHit()
+      store.toggleAttackerCriticalHit()
 
-      expect(store.field().isCriticalHit).toBeTrue()
+      expect(store.field().attackerSide.isCriticalHit).toBeTrue()
     })
 
     it("should change Critical Hit to false when it is true", () => {
-      store.toggleCriticalHit()
-      store.toggleCriticalHit()
+      store.toggleAttackerCriticalHit()
+      store.toggleAttackerCriticalHit()
 
-      expect(store.field().isCriticalHit).toBeFalse()
+      expect(store.field().attackerSide.isCriticalHit).toBeFalse()
     })
 
     it("should change Neutralizing Gas to true when it is false", () => {
@@ -577,8 +577,8 @@ describe("Field Store", () => {
         isTrickRoom: false,
         isCriticalHit: false,
         isNeutralizingGas: false,
-        attackerSide: new FieldAttackerSide({ isHelpingHand: false, isBattery: false, isPowerSpot: false, isTailwind: false }),
-        defenderSide: new FieldDefenderSide({ isTailwind: false, isReflect: false, isLightScreen: false, isAuroraVeil: false, isFriendGuard: false, spikes: 0, isSR: false, isSeeded: false })
+        attackerSide: new FieldSide({ isHelpingHand: false, isBattery: false, isPowerSpot: false, isTailwind: false }),
+        defenderSide: new FieldSide({ isTailwind: false, isReflect: false, isLightScreen: false, isAuroraVeil: false, isFriendGuard: false, spikes: 0, isSR: false, isSeeded: false })
       }
 
       store.updateStateLockingLocalStorage(state)
@@ -602,7 +602,7 @@ describe("Field Store", () => {
       TestBed.flushEffects()
 
       const actualStorage = JSON.parse(localStorage.getItem("userData")!)
-      expect(actualStorage.field.isCriticalHit).toBeFalse()
+      expect(actualStorage.field.isBeadsOfRuin).toBeFalse()
     })
   })
 })

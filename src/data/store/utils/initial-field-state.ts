@@ -1,6 +1,5 @@
 import { FieldState } from "@data/store/field-store"
-import { FieldAttackerSide, FieldDefenderSide } from "@lib/model/field"
-import { GameType } from "@lib/types"
+import { FieldSide } from "@lib/model/field"
 
 export function initialFieldState(): FieldState {
   const fieldUserData = JSON.parse(localStorage.getItem("userData")!)?.field
@@ -10,7 +9,6 @@ export function initialFieldState(): FieldState {
 function defaultFieldState(): FieldState {
   return {
     updateLocalStorage: true,
-    gameType: "Doubles" as GameType,
     weather: null,
     terrain: null,
     isBeadsOfRuin: false,
@@ -21,9 +19,8 @@ function defaultFieldState(): FieldState {
     isWonderRoom: false,
     isGravity: false,
     isTrickRoom: false,
-    isCriticalHit: false,
     isNeutralizingGas: false,
-    attackerSide: new FieldAttackerSide({ isHelpingHand: false, isBattery: false, isPowerSpot: false, isTailwind: false }),
-    defenderSide: new FieldDefenderSide({ isTailwind: false, isReflect: false, isLightScreen: false, isAuroraVeil: false, isFriendGuard: false, spikes: 0, isSR: false, isSeeded: false })
+    attackerSide: new FieldSide(),
+    defenderSide: new FieldSide()
   }
 }

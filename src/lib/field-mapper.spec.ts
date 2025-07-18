@@ -1,7 +1,7 @@
 import { provideZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
 import { FieldMapper } from "@lib/field-mapper"
-import { Field, FieldAttackerSide, FieldDefenderSide } from "@lib/model/field"
+import { Field, FieldSide } from "@lib/model/field"
 
 describe("FieldMapper", () => {
   let mapper: FieldMapper
@@ -17,7 +17,6 @@ describe("FieldMapper", () => {
   describe("Mapping to Smogon class", () => {
     it("should mapping Field to Smogon Field with some configs turned on", () => {
       const field = new Field({
-        gameType: "Doubles",
         weather: "Sun",
         terrain: "Grassy",
         isBeadsOfRuin: false,
@@ -27,8 +26,7 @@ describe("FieldMapper", () => {
         isMagicRoom: false,
         isWonderRoom: true,
         isGravity: false,
-        isTrickRoom: true,
-        isCriticalHit: false
+        isTrickRoom: true
       })
 
       const smogonField = mapper.toSmogon(field)
@@ -47,7 +45,6 @@ describe("FieldMapper", () => {
 
     it("should mapping Field to Smogon Field with another configs turned on", () => {
       const field = new Field({
-        gameType: "Singles",
         weather: "Rain",
         terrain: "Psychic",
         isBeadsOfRuin: true,
@@ -57,13 +54,11 @@ describe("FieldMapper", () => {
         isMagicRoom: true,
         isWonderRoom: false,
         isGravity: true,
-        isTrickRoom: false,
-        isCriticalHit: true
+        isTrickRoom: false
       })
 
       const smogonField = mapper.toSmogon(field)
 
-      expect(smogonField.gameType).toEqual("Singles")
       expect(smogonField.weather).toEqual("Rain")
       expect(smogonField.terrain).toEqual("Psychic")
       expect(smogonField.isBeadsOfRuin).toEqual(true)
@@ -76,7 +71,7 @@ describe("FieldMapper", () => {
     })
 
     it("should mapping Field Attacker Side to Smogon Attacker Side with some configs turned on", () => {
-      const attackerSide = new FieldAttackerSide({ isHelpingHand: true, isBattery: false, isPowerSpot: true, isTailwind: false })
+      const attackerSide = new FieldSide({ isHelpingHand: true, isBattery: false, isPowerSpot: true, isTailwind: false })
       const field = new Field({ attackerSide })
 
       const smogonField = mapper.toSmogon(field)
@@ -88,7 +83,7 @@ describe("FieldMapper", () => {
     })
 
     it("should mapping Field Attacker Side to Smogon Attacker Side with another configs turned on", () => {
-      const attackerSide = new FieldAttackerSide({ isHelpingHand: false, isBattery: true, isPowerSpot: false, isTailwind: true })
+      const attackerSide = new FieldSide({ isHelpingHand: false, isBattery: true, isPowerSpot: false, isTailwind: true })
       const field = new Field({ attackerSide })
 
       const smogonField = mapper.toSmogon(field)
@@ -100,7 +95,7 @@ describe("FieldMapper", () => {
     })
 
     it("should mapping Field Defender Side to Smogon Defender Side with some configs turned on", () => {
-      const defenderSide = new FieldDefenderSide({ isTailwind: false, isReflect: true, isLightScreen: false, isAuroraVeil: true, isFriendGuard: false, spikes: 0, isSR: false, isSeeded: true })
+      const defenderSide = new FieldSide({ isTailwind: false, isReflect: true, isLightScreen: false, isAuroraVeil: true, isFriendGuard: false, spikes: 0, isSR: false, isSeeded: true })
       const field = new Field({ defenderSide })
 
       const smogonField = mapper.toSmogon(field)
@@ -116,7 +111,7 @@ describe("FieldMapper", () => {
     })
 
     it("should mapping Field Defender Side to Smogon Defender Side with another configs turned on", () => {
-      const defenderSide = new FieldDefenderSide({ isTailwind: true, isReflect: false, isLightScreen: true, isAuroraVeil: false, isFriendGuard: true, spikes: 3, isSR: false, isSeeded: true })
+      const defenderSide = new FieldSide({ isTailwind: true, isReflect: false, isLightScreen: true, isAuroraVeil: false, isFriendGuard: true, spikes: 3, isSR: false, isSeeded: true })
       const field = new Field({ defenderSide })
 
       const smogonField = mapper.toSmogon(field)
