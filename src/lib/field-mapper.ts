@@ -5,7 +5,7 @@ import { Terrain as SmogonTerrain, Weather as SmogonWeather } from "@robsonbitte
 
 @Injectable({ providedIn: "root" })
 export class FieldMapper {
-  toSmogon(field: Field, rigthIsDefender = true): SmogonField {
+  toSmogon(field: Field, rightIsDefender = true): SmogonField {
     const smogonField = new SmogonField()
     smogonField.weather = field.weather as SmogonWeather
     smogonField.terrain = field.terrain as SmogonTerrain
@@ -17,7 +17,7 @@ export class FieldMapper {
     smogonField.isWonderRoom = field.isWonderRoom
     smogonField.isGravity = field.isGravity
 
-    if (rigthIsDefender) {
+    if (rightIsDefender) {
       smogonField.gameType = field.attackerSide.gameType
       smogonField.attackerSide = this.toAttackerSide(field.attackerSide)
       smogonField.defenderSide = this.toDefenderSide(field.defenderSide)

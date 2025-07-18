@@ -25,9 +25,9 @@ export class DamageCalculatorService {
     return new DamageResult(attacker, target, attacker.move.name, result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescription(result), result.damage)
   }
 
-  calcDamageAllAttacks(attacker: Pokemon, target: Pokemon, field: Field, rigthIsDefender: boolean): DamageResult[] {
+  calcDamageAllAttacks(attacker: Pokemon, target: Pokemon, field: Field, rightIsDefender: boolean): DamageResult[] {
     return attacker.moveSet.moves.map(move => {
-      const result = this.calculateResult(attacker, target, move, field, rigthIsDefender)
+      const result = this.calculateResult(attacker, target, move, field, rightIsDefender)
       return new DamageResult(attacker, target, move.name, result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescription(result), result.damage)
     })
   }
@@ -52,12 +52,12 @@ export class DamageCalculatorService {
     return new DamageResult(firstBySpeed, target, firstBySpeed.move.name, firstResult.moveDesc(), koChance, maxPercentageDamage, damageDescription, firstRolls, secondBySpeed, secondRolls)
   }
 
-  private calculateResult(attacker: Pokemon, target: Pokemon, move: Move, field: Field, rigthIsDefender: boolean, secondAttacker?: Pokemon): Result {
+  private calculateResult(attacker: Pokemon, target: Pokemon, move: Move, field: Field, rightIsDefender: boolean, secondAttacker?: Pokemon): Result {
     const gen = Generations.get(9)
-    const smogonField = this.fieldMapper.toSmogon(field, rigthIsDefender)
+    const smogonField = this.fieldMapper.toSmogon(field, rightIsDefender)
 
     const moveSmogon = new MoveSmogon(gen, move.name)
-    moveSmogon.isCrit = rigthIsDefender ? field.attackerSide.isCriticalHit : field.defenderSide.isCriticalHit
+    moveSmogon.isCrit = rightIsDefender ? field.attackerSide.isCriticalHit : field.defenderSide.isCriticalHit
     moveSmogon.isStellarFirstUse = true
     moveSmogon.hits = +move.hits
 
