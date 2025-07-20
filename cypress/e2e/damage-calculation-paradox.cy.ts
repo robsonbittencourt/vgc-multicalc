@@ -2,75 +2,18 @@ import { DamageResult } from "@page-object/damage-result"
 import { Opponent } from "@page-object/opponent"
 import { PokemonBuild } from "@page-object/pokemon-build"
 import { Team } from "@page-object/team"
+import { poke } from "../support/e2e"
 
 const leftDamageResult = new DamageResult("left-damage-result")
 
 const leftPokemonBuild = new PokemonBuild("left-pokemon")
 const rightPokemonBuild = new PokemonBuild("right-pokemon")
 
-let greatTuskHighAtkData: string
-let greatTuskHighDefData: string
-let flutterManeHighSpaData: string
-let flutterManeHighSpdData: string
-let flutterManeHighSpeData: string
-
-let ironTreadsHighAtkData: string
-let ironTreadsHighDefData: string
-let ironMothHighSpaData: string
-let ironMothHighSpdData: string
-let ironMothHighSpeData: string
-
-let rillaboomData: string
-let tornadusData: string
-let bronzongData: string
-
-before(() => {
-  cy.fixture("great-tusk-high-atk-data").then(data => {
-    greatTuskHighAtkData = data
-  })
-  cy.fixture("great-tusk-high-def-data").then(data => {
-    greatTuskHighDefData = data
-  })
-  cy.fixture("flutter-mane-high-spa-data").then(data => {
-    flutterManeHighSpaData = data
-  })
-  cy.fixture("flutter-mane-high-spd-data").then(data => {
-    flutterManeHighSpdData = data
-  })
-  cy.fixture("flutter-mane-high-spe-data").then(data => {
-    flutterManeHighSpeData = data
-  })
-  cy.fixture("iron-treads-high-atk-data").then(data => {
-    ironTreadsHighAtkData = data
-  })
-  cy.fixture("iron-treads-high-def-data").then(data => {
-    ironTreadsHighDefData = data
-  })
-  cy.fixture("iron-moth-high-spa-data").then(data => {
-    ironMothHighSpaData = data
-  })
-  cy.fixture("iron-moth-high-spd-data").then(data => {
-    ironMothHighSpdData = data
-  })
-  cy.fixture("iron-moth-high-spe-data").then(data => {
-    ironMothHighSpeData = data
-  })
-  cy.fixture("rillaboom-data").then(data => {
-    rillaboomData = data
-  })
-  cy.fixture("tornadus-data").then(data => {
-    tornadusData = data
-  })
-  cy.fixture("bronzong-data").then(data => {
-    bronzongData = data
-  })
-})
-
 describe("Test calcs with Paradox Pokémon and ability activated", () => {
   describe("Prothosynthesis", () => {
     it("with atk as high stat", () => {
-      leftPokemonBuild.importPokemon(greatTuskHighAtkData)
-      rightPokemonBuild.importPokemon(rillaboomData)
+      leftPokemonBuild.importPokemon(poke["great-tusk-high-atk"])
+      rightPokemonBuild.importPokemon(poke["rillaboom"])
 
       leftDamageResult.damageIs(0, 44.9, 53.6, 93, 11)
 
@@ -80,8 +23,8 @@ describe("Test calcs with Paradox Pokémon and ability activated", () => {
     })
 
     it("with def as high stat", () => {
-      leftPokemonBuild.importPokemon(rillaboomData)
-      rightPokemonBuild.importPokemon(greatTuskHighDefData)
+      leftPokemonBuild.importPokemon(poke["rillaboom"])
+      rightPokemonBuild.importPokemon(poke["great-tusk-high-def"])
 
       leftDamageResult.damageIs(0, 83.1, 98.9, 158, 188)
 
@@ -91,8 +34,8 @@ describe("Test calcs with Paradox Pokémon and ability activated", () => {
     })
 
     it("with spa as high stat", () => {
-      leftPokemonBuild.importPokemon(flutterManeHighSpaData)
-      rightPokemonBuild.importPokemon(rillaboomData)
+      leftPokemonBuild.importPokemon(poke["flutter-mane-high-spa"])
+      rightPokemonBuild.importPokemon(poke["rillaboom"])
 
       leftDamageResult.damageIs(0, 28, 33.3, 58, 69)
 
@@ -102,8 +45,8 @@ describe("Test calcs with Paradox Pokémon and ability activated", () => {
     })
 
     it("with spd as high stat", () => {
-      leftPokemonBuild.importPokemon(tornadusData)
-      rightPokemonBuild.importPokemon(flutterManeHighSpdData)
+      leftPokemonBuild.importPokemon(poke["tornadus"])
+      rightPokemonBuild.importPokemon(poke["flutter-mane-high-spd"])
 
       leftDamageResult.damageIs(0, 33, 40, 43, 52)
 
@@ -113,8 +56,8 @@ describe("Test calcs with Paradox Pokémon and ability activated", () => {
     })
 
     it("with spe as high stat", () => {
-      leftPokemonBuild.importPokemon(bronzongData)
-      rightPokemonBuild.importPokemon(flutterManeHighSpeData)
+      leftPokemonBuild.importPokemon(poke["bronzong"])
+      rightPokemonBuild.importPokemon(poke["flutter-mane-high-spe"])
 
       leftPokemonBuild.selectAttackThree()
       leftDamageResult.damageIs(2, 103, 121.5, 134, 158)
@@ -127,8 +70,8 @@ describe("Test calcs with Paradox Pokémon and ability activated", () => {
 
   describe("Quark Drive", () => {
     it("with atk as high stat", () => {
-      leftPokemonBuild.importPokemon(ironTreadsHighAtkData)
-      rightPokemonBuild.importPokemon(rillaboomData)
+      leftPokemonBuild.importPokemon(poke["iron-treads-high-atk"])
+      rightPokemonBuild.importPokemon(poke["rillaboom"])
 
       leftDamageResult.damageIs(0, 25.1, 29.9, 52, 62)
 
@@ -138,8 +81,8 @@ describe("Test calcs with Paradox Pokémon and ability activated", () => {
     })
 
     it("with def as high stat", () => {
-      leftPokemonBuild.importPokemon(rillaboomData)
-      rightPokemonBuild.importPokemon(ironTreadsHighDefData)
+      leftPokemonBuild.importPokemon(poke["rillaboom"])
+      rightPokemonBuild.importPokemon(poke["iron-treads-high-def"])
 
       leftDamageResult.damageIs(0, 51.5, 61.8, 85, 102)
 
@@ -149,8 +92,8 @@ describe("Test calcs with Paradox Pokémon and ability activated", () => {
     })
 
     it("with spa as high stat", () => {
-      leftPokemonBuild.importPokemon(ironMothHighSpaData)
-      rightPokemonBuild.importPokemon(rillaboomData)
+      leftPokemonBuild.importPokemon(poke["iron-moth-high-spa"])
+      rightPokemonBuild.importPokemon(poke["rillaboom"])
 
       leftDamageResult.damageIs(0, 44.4, 53.1, 92, 110)
 
@@ -160,8 +103,8 @@ describe("Test calcs with Paradox Pokémon and ability activated", () => {
     })
 
     it("with spd as high stat", () => {
-      leftPokemonBuild.importPokemon(tornadusData)
-      rightPokemonBuild.importPokemon(ironMothHighSpdData)
+      leftPokemonBuild.importPokemon(poke["tornadus"])
+      rightPokemonBuild.importPokemon(poke["iron-moth-high-spd"])
 
       leftDamageResult.damageIs(0, 29.6, 35.4, 46, 55)
 
@@ -171,8 +114,8 @@ describe("Test calcs with Paradox Pokémon and ability activated", () => {
     })
 
     it("with spe as high stat", () => {
-      leftPokemonBuild.importPokemon(bronzongData)
-      rightPokemonBuild.importPokemon(ironMothHighSpeData)
+      leftPokemonBuild.importPokemon(poke["bronzong"])
+      rightPokemonBuild.importPokemon(poke["iron-moth-high-spe"])
 
       leftPokemonBuild.selectAttackThree()
       leftDamageResult.damageIs(2, 18.7, 22.5, 29, 35)
@@ -198,8 +141,8 @@ describe("Test calcs with Paradox Pokémon in opponent side", () => {
     })
 
     it("team Pokémon with booster in spa x opponent Pokémon", () => {
-      pokemonBuild.importPokemon(flutterManeHighSpaData)
-      opponents.importPokemon(tornadusData)
+      pokemonBuild.importPokemon(poke["flutter-mane-high-spa"])
+      opponents.importPokemon(poke["tornadus"])
 
       team.selectPokemon("Flutter Mane").activateAbility()
 
@@ -207,8 +150,8 @@ describe("Test calcs with Paradox Pokémon in opponent side", () => {
     })
 
     it("team Pokémon x opponent Pokémon with booster in spd", () => {
-      pokemonBuild.importPokemon(tornadusData)
-      opponents.importPokemon(flutterManeHighSpdData)
+      pokemonBuild.importPokemon(poke["tornadus"])
+      opponents.importPokemon(poke["flutter-mane-high-spd"])
 
       team.selectPokemon("Tornadus")
       opponents.selectDefender("Flutter Mane").activateAbility()
@@ -226,8 +169,8 @@ describe("Test calcs with Paradox Pokémon in opponent side", () => {
     })
 
     it("opponent Pokémon x team Pokémon with booster in spd", () => {
-      pokemonBuild.importPokemon(flutterManeHighSpdData)
-      opponents.importPokemon(tornadusData)
+      pokemonBuild.importPokemon(poke["flutter-mane-high-spd"])
+      opponents.importPokemon(poke["tornadus"])
 
       team.selectPokemon("Flutter Mane").activateAbility()
       opponents.selectAttacker("Tornadus")
@@ -236,8 +179,8 @@ describe("Test calcs with Paradox Pokémon in opponent side", () => {
     })
 
     it("opponent Pokémon with booster in spa x team Pokémon", () => {
-      pokemonBuild.importPokemon(tornadusData)
-      opponents.importPokemon(flutterManeHighSpaData)
+      pokemonBuild.importPokemon(poke["tornadus"])
+      opponents.importPokemon(poke["flutter-mane-high-spa"])
 
       team.selectPokemon("Tornadus")
       opponents.selectAttacker("Flutter Mane").activateAbility()

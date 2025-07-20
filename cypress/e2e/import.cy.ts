@@ -1,48 +1,9 @@
 import { Opponent } from "@page-object/opponent"
 import { Team } from "@page-object/team"
+import { poke } from "../support/e2e"
 
 const team = new Team()
 const opponent = new Opponent()
-
-let chiyuData: string
-let pokepasteData: string
-let defaultTeamData: string
-let pokepasteDataForms1: string
-let pokepasteDataForms2: string
-let pokepasteDataForms3: string
-let pokepasteDataForms4: string
-let pokepasteDataForms5: string
-let pokepasteDataForms6: string
-
-before(() => {
-  cy.fixture("chi-yu-data").then(data => {
-    chiyuData = data
-  })
-  cy.fixture("pokepaste-data").then(data => {
-    pokepasteData = data
-  })
-  cy.fixture("default-team-data").then(data => {
-    defaultTeamData = data
-  })
-  cy.fixture("pokepaste-data-forms-1").then(data => {
-    pokepasteDataForms1 = data
-  })
-  cy.fixture("pokepaste-data-forms-2").then(data => {
-    pokepasteDataForms2 = data
-  })
-  cy.fixture("pokepaste-data-forms-3").then(data => {
-    pokepasteDataForms3 = data
-  })
-  cy.fixture("pokepaste-data-forms-4").then(data => {
-    pokepasteDataForms4 = data
-  })
-  cy.fixture("pokepaste-data-forms-5").then(data => {
-    pokepasteDataForms5 = data
-  })
-  cy.fixture("pokepaste-data-forms-6").then(data => {
-    pokepasteDataForms6 = data
-  })
-})
 
 beforeEach(() => {
   cy.get('[data-cy="team-vs-many"]').click({ force: true })
@@ -50,7 +11,7 @@ beforeEach(() => {
 
 describe("Import Pokémon", () => {
   it("to team", () => {
-    team.importPokemon(chiyuData)
+    team.importPokemon(poke["chi-yu"])
 
     team.selectPokemon("Chi-Yu")
     team.pokemonOnEditIs("Chi-Yu", "Beads of Ruin", "Water", "Choice Specs", "Timid")
@@ -60,7 +21,7 @@ describe("Import Pokémon", () => {
   })
 
   it("to opponent", () => {
-    opponent.importPokemon(chiyuData)
+    opponent.importPokemon(poke["chi-yu"])
 
     opponent.selectDefender("Chi-Yu")
     team.pokemonOnEditIs("Chi-Yu", "Beads of Ruin", "Water", "Choice Specs", "Timid")
@@ -74,7 +35,7 @@ describe("Import Pokepaste", () => {
   it("to team", () => {
     const team = new Team()
 
-    team.importPokepaste(pokepasteData)
+    team.importPokepaste(poke["pokepaste"])
     team.selectTeam("Team 2")
 
     team.pokemonOnEditIs("Tatsugiri", "Commander", "Grass", "Toxic Orb", "Modest")
@@ -114,7 +75,7 @@ describe("Import Pokepaste", () => {
   })
 
   it("with Vivillon, Alcremie, Squawkabilly, Dudunsparce, Maushold and Pikachu in normal form", () => {
-    team.importPokepaste(pokepasteDataForms1)
+    team.importPokepaste(poke["pokepaste-forms-1"])
     team.selectTeam("Team 2")
 
     team.pokemonOnEditIs("Vivillon", "Compound Eyes", "Ghost", "Focus Sash", "Timid")
@@ -154,7 +115,7 @@ describe("Import Pokepaste", () => {
   })
 
   it("with Vivillon, Alcremie, Squawkabilly, Dudunsparce, Maushold and Pikachu in alternative form", () => {
-    team.importPokepaste(pokepasteDataForms2)
+    team.importPokepaste(poke["pokepaste-forms-2"])
     team.selectTeam("Team 2")
 
     team.pokemonOnEditIs("Vivillon", "Compound Eyes", "Ghost", "Focus Sash", "Timid")
@@ -194,7 +155,7 @@ describe("Import Pokepaste", () => {
   })
 
   it("with Flabébé, Floette, Florges and Tatsugiri in normal form", () => {
-    team.importPokepaste(pokepasteDataForms3)
+    team.importPokepaste(poke["pokepaste-forms-3"])
     team.selectTeam("Team 2")
 
     team.pokemonOnEditIs("Flabébé", "Flower Veil", "Fairy", "Leftovers", "Modest")
@@ -222,7 +183,7 @@ describe("Import Pokepaste", () => {
   })
 
   it("with Flabébé, Floette, Florges and Tatsugiri in alternative form", () => {
-    team.importPokepaste(pokepasteDataForms4)
+    team.importPokepaste(poke["pokepaste-forms-4"])
     team.selectTeam("Team 2")
 
     team.pokemonOnEditIs("Flabébé", "Flower Veil", "Fairy", "Leftovers", "Modest")
@@ -250,7 +211,7 @@ describe("Import Pokepaste", () => {
   })
 
   it("with Polteageist, Sinistcha, Sinistea, Rockruff in alternative form", () => {
-    team.importPokepaste(pokepasteDataForms6)
+    team.importPokepaste(poke["pokepaste-forms-6"])
     team.selectTeam("Team 2")
 
     team.pokemonOnEditIs("Polteageist", "Weak Armor", "Ghost", "Clear Amulet", "Modest")
@@ -279,7 +240,7 @@ describe("Import Pokepaste", () => {
 
   it("to opponent", () => {
     opponent.deleteAll()
-    opponent.importPokemon(pokepasteData)
+    opponent.importPokemon(poke["pokepaste"])
 
     opponent.selectDefender("Tatsugiri")
     team.pokemonOnEditIs("Tatsugiri", "Commander", "Grass", "Toxic Orb", "Modest")
@@ -320,10 +281,10 @@ describe("Import Pokepaste", () => {
 
   it("when have a new Pokémon on edit", () => {
     team.delete("Team 1")
-    team.importPokepaste(defaultTeamData)
+    team.importPokepaste(poke["default-team"])
 
     opponent.clickOnAdd()
-    opponent.importPokemon(pokepasteData)
+    opponent.importPokemon(poke["pokepaste"])
 
     team.pokemonOnEditNameIs("Miraidon")
     opponent.addIsVisible()
@@ -332,7 +293,7 @@ describe("Import Pokepaste", () => {
   it("should show add Pokémon button when the paste have less then 6 Pokémon", () => {
     const team = new Team()
 
-    team.importPokepaste(pokepasteDataForms4)
+    team.importPokepaste(poke["pokepaste-forms-4"])
     team.selectTeam("Team 2")
 
     team.addPokemonAvailable()
@@ -341,7 +302,7 @@ describe("Import Pokepaste", () => {
   it("should not show add Pokémon button when the paste have 6 Pokémon", () => {
     const team = new Team()
 
-    team.importPokepaste(pokepasteData)
+    team.importPokepaste(poke["pokepaste"])
     team.selectTeam("Team 2")
 
     team.addPokemonUnavailable()
@@ -349,11 +310,11 @@ describe("Import Pokepaste", () => {
 
   it("should import individual Pokémon when already have another 5", () => {
     const team = new Team()
-    team.importPokepaste(pokepasteDataForms5)
+    team.importPokepaste(poke["pokepaste-forms-5"])
     team.selectTeam("Team 2")
 
     team.clickOnAdd()
-    team.importPokemon(chiyuData)
+    team.importPokemon(poke["chi-yu"])
 
     team.addPokemonUnavailable()
     team.selectPokemon("Chi-Yu")

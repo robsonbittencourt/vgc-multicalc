@@ -1,34 +1,15 @@
 import { Opponent } from "@page-object/opponent"
 import { Team } from "@page-object/team"
+import { poke } from "../support/e2e"
 
 const team = new Team()
 const opponents = new Opponent()
-
-let chiyuData: string
-let pokepasteData: string
-let defaultTeamData: string
-let defaultOpponentsData: string
-
-before(() => {
-  cy.fixture("chi-yu-data").then(data => {
-    chiyuData = data
-  })
-  cy.fixture("pokepaste-data").then(data => {
-    pokepasteData = data
-  })
-  cy.fixture("default-team-data").then(data => {
-    defaultTeamData = data
-  })
-  cy.fixture("default-opponents-data").then(data => {
-    defaultOpponentsData = data
-  })
-})
 
 beforeEach(() => {
   cy.get('[data-cy="team-vs-many"]').click({ force: true })
 
   opponents.deleteAll()
-  opponents.importPokemon(defaultOpponentsData)
+  opponents.importPokemon(poke["default-opponents"])
 })
 
 describe("Export", () => {
@@ -37,7 +18,7 @@ describe("Export", () => {
   })
 
   it("Pokémon from team", () => {
-    team.importPokemon(chiyuData)
+    team.importPokemon(poke["chi-yu"])
 
     const exportModal = team.exportPokemon("Chi-Yu")
 
@@ -45,7 +26,7 @@ describe("Export", () => {
   })
 
   it("team", () => {
-    team.importPokepaste(pokepasteData)
+    team.importPokepaste(poke["pokepaste"])
 
     const exportModal = team.export("Team 2")
 
@@ -54,7 +35,7 @@ describe("Export", () => {
 
   it("opponent Pokémon", () => {
     team.delete("Team 1")
-    team.importPokepaste(defaultTeamData)
+    team.importPokepaste(poke["default-team"])
 
     const exportModal = opponents.export()
 

@@ -1,18 +1,11 @@
 import { PokemonBuild } from "@page-object/pokemon-build"
+import { poke } from "../support/e2e"
 
 const leftPokemonBuild = new PokemonBuild("left-pokemon")
 
-let dondozoData: string
-
-before(() => {
-  cy.fixture("dondozo-data").then(data => {
-    dondozoData = data
-  })
-})
-
 describe("Reset configurations when change the Pokémon", () => {
   it("Reset boosts", () => {
-    leftPokemonBuild.importPokemon(dondozoData)
+    leftPokemonBuild.importPokemon(poke["dondozo"])
     leftPokemonBuild.activateCommander()
 
     leftPokemonBuild.selectPokemon("Tyranitar")
@@ -21,7 +14,7 @@ describe("Reset configurations when change the Pokémon", () => {
   })
 
   it("Reset Commander", () => {
-    leftPokemonBuild.importPokemon(dondozoData)
+    leftPokemonBuild.importPokemon(poke["dondozo"])
     leftPokemonBuild.activateCommander()
 
     leftPokemonBuild.selectPokemon("Tyranitar")
@@ -31,7 +24,7 @@ describe("Reset configurations when change the Pokémon", () => {
   })
 
   it("Reset HP percentage", () => {
-    leftPokemonBuild.importPokemon(dondozoData)
+    leftPokemonBuild.importPokemon(poke["dondozo"])
     leftPokemonBuild.hpPercentage(50)
 
     leftPokemonBuild.selectPokemon("Tyranitar")

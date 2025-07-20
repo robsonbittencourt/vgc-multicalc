@@ -1,14 +1,7 @@
 import { Team } from "@page-object/team"
+import { poke } from "../support/e2e"
 
 const team = new Team()
-
-let defaultTeamData: string
-
-before(() => {
-  cy.fixture("default-team-data").then(data => {
-    defaultTeamData = data
-  })
-})
 
 beforeEach(() => {
   cy.get('[data-cy="team-vs-many"]').click({ force: true })
@@ -28,7 +21,7 @@ describe("Add Pokémon to the Team", () => {
   })
 
   it("Do not allow delete Pokémon when no Pokémon exist", () => {
-    team.importPokepaste(defaultTeamData)
+    team.importPokepaste(poke["default-team"])
 
     team.selectTeamMember("Miraidon").delete()
     team.selectTeamMember("Koraidon").delete()
@@ -38,7 +31,7 @@ describe("Add Pokémon to the Team", () => {
   })
 
   it("Add 4 Pokémon to the team, delete 2, and add new 2", () => {
-    team.importPokepaste(defaultTeamData)
+    team.importPokepaste(poke["default-team"])
 
     team.add("Pikachu")
     team.add("Tyranitar")
@@ -56,7 +49,7 @@ describe("Add Pokémon to the Team", () => {
   })
 
   it("Fill all 4 teams", () => {
-    team.importPokepaste(defaultTeamData)
+    team.importPokepaste(poke["default-team"])
 
     team.selectTeamMember("Miraidon").delete()
     team.selectTeamMember("Koraidon").delete()

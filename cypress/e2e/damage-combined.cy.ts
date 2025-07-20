@@ -1,46 +1,23 @@
 import { Field } from "@page-object/field"
 import { Opponent } from "@page-object/opponent"
 import { Team } from "@page-object/team"
+import { poke } from "../support/e2e"
 
 const team = new Team()
 const opponents = new Opponent()
 const field = new Field()
 
-let tornadusData: string
-let chienPaoData: string
-let woChienData: string
-let tingLuData: string
-let chiYuData: string
-let blazikenData: string
-let kingdraData: string
-let defaultTeamData: string
-let defaultOpponentsData: string
-let pokepasteData: string
-
-before(() => {
-  cy.fixture("tornadus-data").then(data => (tornadusData = data))
-  cy.fixture("chien-pao-data").then(data => (chienPaoData = data))
-  cy.fixture("wo-chien-data").then(data => (woChienData = data))
-  cy.fixture("ting-lu-data").then(data => (tingLuData = data))
-  cy.fixture("chi-yu-data").then(data => (chiYuData = data))
-  cy.fixture("blaziken-data").then(data => (blazikenData = data))
-  cy.fixture("kingdra-data").then(data => (kingdraData = data))
-  cy.fixture("default-team-data").then(data => (defaultTeamData = data))
-  cy.fixture("default-opponents-data").then(data => (defaultOpponentsData = data))
-  cy.fixture("pokepaste-data").then(data => (pokepasteData = data))
-})
-
 beforeEach(() => {
   cy.get('[data-cy="team-vs-many"]').click({ force: true })
 
   opponents.deleteAll()
-  opponents.importPokemon(defaultOpponentsData)
+  opponents.importPokemon(poke["default-opponents"])
 })
 
 describe("Test calcs with combined damage", () => {
   beforeEach(() => {
     team.delete("Team 1")
-    team.importPokepaste(defaultTeamData)
+    team.importPokepaste(poke["default-team"])
   })
 
   it("Calculate damage with two Pokémon", () => {
@@ -57,7 +34,7 @@ describe("Test calcs with combined damage", () => {
     team.selectPokemon("Koraidon").selectAttackThree()
     team.selectTeamMember("Koraidon").combineDamage()
 
-    team.importPokemon(tornadusData)
+    team.importPokemon(poke["tornadus"])
 
     team.selectTeamMember("Miraidon")
     team.selectPokemon("Miraidon").selectAttackTwo()
@@ -71,7 +48,7 @@ describe("Test calcs with combined damage", () => {
   })
 
   it("Create new Pokémon and use it with combined damage", () => {
-    team.importPokemon(tornadusData)
+    team.importPokemon(poke["tornadus"])
     team.selectTeamMember("Tornadus").combineDamage()
     team.selectTeamMember("Miraidon")
     team.selectPokemon("Miraidon").selectAttackTwo()
@@ -91,7 +68,7 @@ describe("Test calcs with combined damage", () => {
 describe("Test edit in combined damage", () => {
   it("Select a Pokémon to combine damage and repeat the process", () => {
     team.delete("Team 1")
-    team.importPokepaste(pokepasteData)
+    team.importPokepaste(poke["pokepaste"])
 
     team.selectPokemon("Tatsugiri")
     team.selectTeamMember("Tatsugiri").combineDamage()
@@ -118,8 +95,8 @@ describe("Test edit in combined damage", () => {
 
 describe("Combined Damage with Ruin abilities", () => {
   it("Calculate damage with two Pokémon, one with Tablets of Ruin and another without ability", () => {
-    team.importPokemon(woChienData)
-    team.importPokemon(blazikenData)
+    team.importPokemon(poke["wo-chien"])
+    team.importPokemon(poke["blaziken"])
 
     team.selectTeamMember("Wo-Chien").combineDamage()
     team.selectTeamMember("Blaziken")
@@ -128,8 +105,8 @@ describe("Combined Damage with Ruin abilities", () => {
   })
 
   it("Calculate damage with two Pokémon, one without Tablets of Ruin and with ability", () => {
-    team.importPokemon(blazikenData)
-    team.importPokemon(woChienData)
+    team.importPokemon(poke["blaziken"])
+    team.importPokemon(poke["wo-chien"])
 
     team.selectTeamMember("Blaziken").combineDamage()
     team.selectTeamMember("Wo-Chien")
@@ -138,8 +115,8 @@ describe("Combined Damage with Ruin abilities", () => {
   })
 
   it("Calculate damage with two Pokémon, one with Sword of Ruin and another without ability", () => {
-    team.importPokemon(chienPaoData)
-    team.importPokemon(blazikenData)
+    team.importPokemon(poke["chien-pao"])
+    team.importPokemon(poke["blaziken"])
 
     team.selectTeamMember("Chien-Pao").combineDamage()
     team.selectTeamMember("Blaziken")
@@ -148,8 +125,8 @@ describe("Combined Damage with Ruin abilities", () => {
   })
 
   it("Calculate damage with two Pokémon, one without Sword of Ruin and with ability", () => {
-    team.importPokemon(blazikenData)
-    team.importPokemon(chienPaoData)
+    team.importPokemon(poke["blaziken"])
+    team.importPokemon(poke["chien-pao"])
 
     team.selectTeamMember("Blaziken").combineDamage()
     team.selectTeamMember("Chien-Pao")
@@ -158,8 +135,8 @@ describe("Combined Damage with Ruin abilities", () => {
   })
 
   it("Calculate damage with two Pokémon, one with Vessel of Ruin and another without ability", () => {
-    team.importPokemon(tingLuData)
-    team.importPokemon(tornadusData)
+    team.importPokemon(poke["ting-lu"])
+    team.importPokemon(poke["tornadus"])
 
     team.selectTeamMember("Ting-Lu").combineDamage()
     team.selectTeamMember("Tornadus")
@@ -168,8 +145,8 @@ describe("Combined Damage with Ruin abilities", () => {
   })
 
   it("Calculate damage with two Pokémon, one without Vessel of Ruin and with ability", () => {
-    team.importPokemon(tornadusData)
-    team.importPokemon(tingLuData)
+    team.importPokemon(poke["tornadus"])
+    team.importPokemon(poke["ting-lu"])
 
     team.selectTeamMember("Tornadus").combineDamage()
     team.selectTeamMember("Ting-Lu")
@@ -178,8 +155,8 @@ describe("Combined Damage with Ruin abilities", () => {
   })
 
   it("Calculate damage with two Pokémon, one with Beads of Ruin and another without ability", () => {
-    team.importPokemon(chiYuData)
-    team.importPokemon(tornadusData)
+    team.importPokemon(poke["chi-yu"])
+    team.importPokemon(poke["tornadus"])
 
     team.selectTeamMember("Chi-Yu").combineDamage()
     team.selectTeamMember("Tornadus")
@@ -188,8 +165,8 @@ describe("Combined Damage with Ruin abilities", () => {
   })
 
   it("Calculate damage with two Pokémon, one without Beads of Ruin and with ability", () => {
-    team.importPokemon(tornadusData)
-    team.importPokemon(chiYuData)
+    team.importPokemon(poke["tornadus"])
+    team.importPokemon(poke["chi-yu"])
 
     team.selectTeamMember("Tornadus").combineDamage()
     team.selectTeamMember("Chi-Yu")
@@ -198,8 +175,8 @@ describe("Combined Damage with Ruin abilities", () => {
   })
 
   it("Calculate damage with two Pokémon, one with Tablets of Ruin and another with Sword of Ruin", () => {
-    team.importPokemon(woChienData)
-    team.importPokemon(chienPaoData)
+    team.importPokemon(poke["wo-chien"])
+    team.importPokemon(poke["chien-pao"])
 
     team.selectTeamMember("Wo-Chien").combineDamage()
     team.selectTeamMember("Chien-Pao")
@@ -208,8 +185,8 @@ describe("Combined Damage with Ruin abilities", () => {
   })
 
   it("Calculate damage with two Pokémon, one with Vessel of Ruin and another with Beads of Ruin", () => {
-    team.importPokemon(tingLuData)
-    team.importPokemon(chiYuData)
+    team.importPokemon(poke["ting-lu"])
+    team.importPokemon(poke["chi-yu"])
 
     team.selectTeamMember("Ting-Lu").combineDamage()
     team.selectTeamMember("Chi-Yu")
@@ -224,7 +201,7 @@ describe("Combined Damage against reduce damage abilities", () => {
   })
 
   it("two Pokémon against one with Multiscale when Miraidon is faster", () => {
-    team.importPokepaste(defaultTeamData)
+    team.importPokepaste(poke["default-team"])
     team.selectPokemon("Koraidon").selectAttackThree()
     team.selectTeamMember("Koraidon").combineDamage()
 
@@ -235,7 +212,7 @@ describe("Combined Damage against reduce damage abilities", () => {
   })
 
   it("two Pokémon against one with Multiscale when Koraidon is faster", () => {
-    team.importPokepaste(defaultTeamData)
+    team.importPokepaste(poke["default-team"])
     team.selectPokemon("Koraidon").selectAttackThree().selectStatsModifier("spe", "+2")
     team.selectTeamMember("Koraidon").combineDamage()
 
@@ -246,8 +223,8 @@ describe("Combined Damage against reduce damage abilities", () => {
   })
 
   it("two Pokémon against one with Multiscale when the slower has priority move", () => {
-    team.importPokemon(blazikenData)
-    team.importPokemon(chiYuData)
+    team.importPokemon(poke["blaziken"])
+    team.importPokemon(poke["chi-yu"])
     team.selectTeamMember("Blaziken").combineDamage()
     team.selectTeamMember("Chi-Yu")
 
@@ -257,8 +234,8 @@ describe("Combined Damage against reduce damage abilities", () => {
   })
 
   it("two Pokémon against one with Multiscale considering Ability in speed calculation", () => {
-    team.importPokemon(tornadusData)
-    team.importPokemon(kingdraData)
+    team.importPokemon(poke["tornadus"])
+    team.importPokemon(poke["kingdra"])
 
     team.selectTeamMember("Tornadus").combineDamage()
     team.selectTeamMember("Kingdra")
@@ -269,7 +246,7 @@ describe("Combined Damage against reduce damage abilities", () => {
   })
 
   it("two Pokémon against one with Tera Shell", () => {
-    team.importPokepaste(defaultTeamData)
+    team.importPokepaste(poke["default-team"])
     team.selectPokemon("Koraidon").selectAttackThree()
     team.selectTeamMember("Koraidon").combineDamage()
 
@@ -280,7 +257,7 @@ describe("Combined Damage against reduce damage abilities", () => {
   })
 
   it("two Pokémon against one with Shadow Shield", () => {
-    team.importPokepaste(defaultTeamData)
+    team.importPokepaste(poke["default-team"])
     team.selectPokemon("Koraidon").selectAttackThree()
     team.selectTeamMember("Koraidon").combineDamage()
 

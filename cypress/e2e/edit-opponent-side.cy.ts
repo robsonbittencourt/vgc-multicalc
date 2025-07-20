@@ -1,38 +1,21 @@
 import { Opponent } from "@page-object/opponent"
 import { Team } from "@page-object/team"
+import { poke } from "../support/e2e"
 
 const team = new Team()
 const opponents = new Opponent()
-
-let defaultTeamData: string
-let tyranitarData: string
-let flutterManeData: string
-
-before(() => {
-  cy.fixture("default-team-data").then(data => {
-    defaultTeamData = data
-  })
-
-  cy.fixture("tyranitar-data").then(data => {
-    tyranitarData = data
-  })
-
-  cy.fixture("flutter-mane-data").then(data => {
-    flutterManeData = data
-  })
-})
 
 beforeEach(() => {
   cy.get('[data-cy="team-vs-many"]').click({ force: true })
 
   team.delete("Team 1")
-  team.importPokepaste(defaultTeamData)
+  team.importPokepaste(poke["default-team"])
 })
 
 describe("Edit Opponent Pokémon", () => {
   it("In Team vs Many", () => {
     opponents.deleteAll()
-    opponents.importPokemon(tyranitarData)
+    opponents.importPokemon(poke["tyranitar"])
 
     opponents.selectDefender("Tyranitar").selectStatsModifier("spd", "+3")
 
@@ -42,7 +25,7 @@ describe("Edit Opponent Pokémon", () => {
   it("In Many vs Team with one attacker", () => {
     cy.get('[data-cy="many-vs-team"]').click({ force: true })
     opponents.deleteAll()
-    opponents.importPokemon(tyranitarData)
+    opponents.importPokemon(poke["tyranitar"])
 
     opponents.selectAttacker("Tyranitar").selectStatsModifier("atk", "+3")
 
@@ -52,8 +35,8 @@ describe("Edit Opponent Pokémon", () => {
   it("In Many vs Team with two attackers edit the first", () => {
     cy.get('[data-cy="many-vs-team"]').click({ force: true })
     opponents.deleteAll()
-    opponents.importPokemon(tyranitarData)
-    opponents.importPokemon(flutterManeData)
+    opponents.importPokemon(poke["tyranitar"])
+    opponents.importPokemon(poke["flutter-mane"])
     opponents.combine("Tyranitar", "Flutter Mane")
 
     opponents.selectAttacker("Flutter Mane").selectStatsModifier("spa", "+3")
@@ -64,8 +47,8 @@ describe("Edit Opponent Pokémon", () => {
   it("In Many vs Team with two attackers edit the second", () => {
     cy.get('[data-cy="many-vs-team"]').click({ force: true })
     opponents.deleteAll()
-    opponents.importPokemon(tyranitarData)
-    opponents.importPokemon(flutterManeData)
+    opponents.importPokemon(poke["tyranitar"])
+    opponents.importPokemon(poke["flutter-mane"])
     opponents.combine("Tyranitar", "Flutter Mane")
 
     opponents.selectSecondAttacker("Tyranitar").selectStatsModifier("atk", "+1")

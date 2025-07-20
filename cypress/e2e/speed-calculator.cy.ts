@@ -1,44 +1,13 @@
 import { Field } from "@page-object/field"
 import { SpeedCalculator } from "@page-object/speed-calculator"
 import { Team } from "@page-object/team"
+import { poke } from "../support/e2e"
 
 const team = new Team()
 const field = new Field()
 const speedCalculator = new SpeedCalculator()
 
-let tyranitarData: string
-let sneaslerData: string
-let jumpluffData: string
-let kingdraData: string
-let excadrillData: string
-let bearticData: string
-let raichuAlolaData: string
-
 describe("Speed Calculator", () => {
-  before(() => {
-    cy.fixture("tyranitar-data").then(data => {
-      tyranitarData = data
-    })
-    cy.fixture("sneasler-data").then(data => {
-      sneaslerData = data
-    })
-    cy.fixture("jumpluff-data").then(data => {
-      jumpluffData = data
-    })
-    cy.fixture("kingdra-data").then(data => {
-      kingdraData = data
-    })
-    cy.fixture("excadrill-data").then(data => {
-      excadrillData = data
-    })
-    cy.fixture("beartic-data").then(data => {
-      bearticData = data
-    })
-    cy.fixture("raichu-alola-data").then(data => {
-      raichuAlolaData = data
-    })
-  })
-
   beforeEach(() => {
     cy.get('[data-cy="speed-calculator"]').click({ force: true })
   })
@@ -51,7 +20,7 @@ describe("Speed Calculator", () => {
 
   context("Validate opponent options", () => {
     it("increment speed modifier of opponent Pokémon", () => {
-      team.importPokemon(tyranitarData)
+      team.importPokemon(poke["tyranitar"])
 
       speedCalculator.speedModifier("+2")
       cy.wait(300)
@@ -60,7 +29,7 @@ describe("Speed Calculator", () => {
     })
 
     it("decrement speed modifier of opponent Pokémon", () => {
-      team.importPokemon(tyranitarData)
+      team.importPokemon(poke["tyranitar"])
 
       speedCalculator.speedModifier("-2")
       cy.wait(300)
@@ -69,7 +38,7 @@ describe("Speed Calculator", () => {
     })
 
     it("decrement speed of opponent Pokémon with Ice Wind", () => {
-      team.importPokemon(tyranitarData)
+      team.importPokemon(poke["tyranitar"])
 
       speedCalculator.iceWind()
       cy.wait(300)
@@ -78,7 +47,7 @@ describe("Speed Calculator", () => {
     })
 
     it("decrement speed of opponent Pokémon with Paralyzis", () => {
-      team.importPokemon(tyranitarData)
+      team.importPokemon(poke["tyranitar"])
 
       speedCalculator.paralyzed()
       cy.wait(300)
@@ -87,7 +56,7 @@ describe("Speed Calculator", () => {
     })
 
     it("increment speed of opponent Pokémon with Choice Scarf", () => {
-      team.importPokemon(tyranitarData)
+      team.importPokemon(poke["tyranitar"])
 
       speedCalculator.choiceScarf()
       cy.wait(300)
@@ -96,7 +65,7 @@ describe("Speed Calculator", () => {
     })
 
     it("activate all opponent options at the same time", () => {
-      team.importPokemon(tyranitarData)
+      team.importPokemon(poke["tyranitar"])
 
       speedCalculator.iceWind()
       speedCalculator.paralyzed()
@@ -109,7 +78,7 @@ describe("Speed Calculator", () => {
 
   context("Validate Pokémon variations", () => {
     it("change the speed tier when nature changes", () => {
-      const pokemon = team.importPokemon(tyranitarData)
+      const pokemon = team.importPokemon(poke["tyranitar"])
 
       pokemon.selectNature("Jolly")
       cy.wait(300)
@@ -119,7 +88,7 @@ describe("Speed Calculator", () => {
     })
 
     it("change the speed tier when speed ev changes", () => {
-      const pokemon = team.importPokemon(tyranitarData)
+      const pokemon = team.importPokemon(poke["tyranitar"])
 
       pokemon.speedEvs(156)
       cy.wait(300)
@@ -129,7 +98,7 @@ describe("Speed Calculator", () => {
     })
 
     it("change the speed tier when speed iv changes", () => {
-      const pokemon = team.importPokemon(tyranitarData)
+      const pokemon = team.importPokemon(poke["tyranitar"])
 
       pokemon.speedIvs(15)
       cy.wait(300)
@@ -139,7 +108,7 @@ describe("Speed Calculator", () => {
     })
 
     it("change the speed tier when Pokémon is paralyzed", () => {
-      const pokemon = team.importPokemon(tyranitarData)
+      const pokemon = team.importPokemon(poke["tyranitar"])
 
       pokemon.paralyzed()
       cy.wait(300)
@@ -149,7 +118,7 @@ describe("Speed Calculator", () => {
     })
 
     it("change the speed tier when Pokémon has Choice Scarf", () => {
-      const pokemon = team.importPokemon(tyranitarData)
+      const pokemon = team.importPokemon(poke["tyranitar"])
 
       pokemon.selectItem("Choice Scarf")
       cy.wait(300)
@@ -159,7 +128,7 @@ describe("Speed Calculator", () => {
     })
 
     it("change the speed tier when Pokémon has Iron Ball", () => {
-      const pokemon = team.importPokemon(tyranitarData)
+      const pokemon = team.importPokemon(poke["tyranitar"])
 
       pokemon.selectItem("Iron Ball")
       cy.wait(300)
@@ -169,7 +138,7 @@ describe("Speed Calculator", () => {
     })
 
     it("change the speed tier when Pokémon has activated Unburden", () => {
-      const pokemon = team.importPokemon(sneaslerData)
+      const pokemon = team.importPokemon(poke["sneasler"])
 
       pokemon.selectAbility("Unburden")
       pokemon.activateAbility()
@@ -182,7 +151,7 @@ describe("Speed Calculator", () => {
 
   describe("Field influence", () => {
     it("change the speed tier when Attacker Tailwind was activated", () => {
-      team.importPokemon(tyranitarData)
+      team.importPokemon(poke["tyranitar"])
 
       field.tailwindAttacker()
       cy.wait(300)
@@ -192,7 +161,7 @@ describe("Speed Calculator", () => {
     })
 
     it("change the speed tier when Defender Tailwind was activated", () => {
-      team.importPokemon(tyranitarData)
+      team.importPokemon(poke["tyranitar"])
 
       field.tailwindDefender()
       cy.wait(300)
@@ -202,7 +171,7 @@ describe("Speed Calculator", () => {
     })
 
     it("change the speed tier when Trick Room was activated", () => {
-      team.importPokemon(tyranitarData)
+      team.importPokemon(poke["tyranitar"])
 
       field.trickRoom()
       cy.wait(300)
@@ -212,7 +181,7 @@ describe("Speed Calculator", () => {
     })
 
     it("double speed when Pokémon has Chlorophyll and Sun was activated", () => {
-      team.importPokemon(jumpluffData)
+      team.importPokemon(poke["jumpluff"])
 
       field.sun()
       cy.wait(300)
@@ -221,7 +190,7 @@ describe("Speed Calculator", () => {
     })
 
     it("double speed when Pokémon has Swift Swim and Rain was activated", () => {
-      team.importPokemon(kingdraData)
+      team.importPokemon(poke["kingdra"])
 
       field.rain()
       cy.wait(300)
@@ -230,7 +199,7 @@ describe("Speed Calculator", () => {
     })
 
     it("double speed when Pokémon has Sand Rush and Sun was activated", () => {
-      team.importPokemon(excadrillData)
+      team.importPokemon(poke["excadrill"])
 
       field.sand()
       cy.wait(300)
@@ -239,7 +208,7 @@ describe("Speed Calculator", () => {
     })
 
     it("double speed when Pokémon has Slush Rush and Snow was activated", () => {
-      team.importPokemon(bearticData)
+      team.importPokemon(poke["beartic"])
 
       field.snow()
       cy.wait(300)
@@ -248,7 +217,7 @@ describe("Speed Calculator", () => {
     })
 
     it("double speed when Pokémon has Surge Surfer and Electric Terrain was activated", () => {
-      team.importPokemon(raichuAlolaData)
+      team.importPokemon(poke["raichu-alola"])
 
       field.eletricTerrain()
       cy.wait(300)
@@ -257,7 +226,7 @@ describe("Speed Calculator", () => {
     })
 
     it("don't double speed when Pokémon has Surge Surfer and Electric Terrain was activated but Neutralizing Gas was activated", () => {
-      team.importPokemon(raichuAlolaData)
+      team.importPokemon(poke["raichu-alola"])
 
       field.eletricTerrain()
       field.neutralizingGas()
@@ -267,7 +236,7 @@ describe("Speed Calculator", () => {
     })
 
     it("ignore Neutralizing Gas when Pokémon have Ability Shield equipped", () => {
-      team.importPokemon(raichuAlolaData)
+      team.importPokemon(poke["raichu-alola"])
       team.selectPokemon("Raichu").selectItem("Ability Shield")
 
       field.eletricTerrain()

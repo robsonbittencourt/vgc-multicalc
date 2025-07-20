@@ -1,29 +1,18 @@
 import { Opponent } from "@page-object/opponent"
 import { Team } from "@page-object/team"
+import { poke } from "../support/e2e"
 
 const team = new Team()
 const opponents = new Opponent()
-
-let defaultTeamData: string
-let defaultOpponentsData: string
-
-before(() => {
-  cy.fixture("default-team-data").then(data => {
-    defaultTeamData = data
-  })
-  cy.fixture("default-opponents-data").then(data => {
-    defaultOpponentsData = data
-  })
-})
 
 beforeEach(() => {
   cy.get('[data-cy="team-vs-many"]').click({ force: true })
 
   team.delete("Team 1")
-  team.importPokepaste(defaultTeamData)
+  team.importPokepaste(poke["default-team"])
 
   opponents.deleteAll()
-  opponents.importPokemon(defaultOpponentsData)
+  opponents.importPokemon(poke["default-opponents"])
 })
 
 describe("Test calcs with stats modifiers in attacker", () => {

@@ -2,6 +2,7 @@ import { DamageResult } from "@page-object/damage-result"
 import { Opponent } from "@page-object/opponent"
 import { PokemonBuild } from "@page-object/pokemon-build"
 import { Team } from "@page-object/team"
+import { poke } from "../support/e2e"
 
 const team = new Team()
 const opponents = new Opponent()
@@ -11,47 +12,15 @@ const leftDamageResult = new DamageResult("left-damage-result")
 const leftPokemonBuild = new PokemonBuild("left-pokemon")
 const rightPokemonBuild = new PokemonBuild("right-pokemon")
 
-let defaultTeamData: string
-let defaultOpponentsData: string
-let terapagosStellarData: string
-let terapagosTerastalData: string
-let tornadusData: string
-let flutterManeData: string
-let porygon2Data: string
-
-before(() => {
-  cy.fixture("default-team-data").then(data => {
-    defaultTeamData = data
-  })
-  cy.fixture("default-opponents-data").then(data => {
-    defaultOpponentsData = data
-  })
-  cy.fixture("terapagos-stellar-data").then(data => {
-    terapagosStellarData = data
-  })
-  cy.fixture("terapagos-terastal-data").then(data => {
-    terapagosTerastalData = data
-  })
-  cy.fixture("tornadus-data").then(data => {
-    tornadusData = data
-  })
-  cy.fixture("flutter-mane-data").then(data => {
-    flutterManeData = data
-  })
-  cy.fixture("porygon2-data").then(data => {
-    porygon2Data = data
-  })
-})
-
 describe("Test calcs with Terastal", () => {
   beforeEach(() => {
     cy.get('[data-cy="team-vs-many"]').click({ force: true })
 
     team.delete("Team 1")
-    team.importPokepaste(defaultTeamData)
+    team.importPokepaste(poke["default-team"])
 
     opponents.deleteAll()
-    opponents.importPokemon(defaultOpponentsData)
+    opponents.importPokemon(poke["default-opponents"])
   })
 
   it("Validate the damage with Koraidon Terastallized using Flame Charge", () => {
@@ -81,11 +50,11 @@ describe("Test calcs with Terastal", () => {
 describe("Terapagos Terastal calcs", () => {
   beforeEach(() => {
     cy.get('[data-cy="one-vs-one"]').click({ force: true })
-    leftPokemonBuild.importPokemon(terapagosTerastalData)
+    leftPokemonBuild.importPokemon(poke["terapagos-terastal"])
   })
 
   it("Validate the damage with Terapagos-Terastal using Terastar Storm in not Terastallyzed Pokemon", () => {
-    rightPokemonBuild.importPokemon(porygon2Data)
+    rightPokemonBuild.importPokemon(poke["porygon2"])
 
     leftPokemonBuild.selectAttackOne()
 
@@ -93,7 +62,7 @@ describe("Terapagos Terastal calcs", () => {
   })
 
   it("Validate the damage with Terapagos-Terastal using Terastar Storm in Terastallyzed Pokemon", () => {
-    rightPokemonBuild.importPokemon(porygon2Data)
+    rightPokemonBuild.importPokemon(poke["porygon2"])
     rightPokemonBuild.terastalyze()
 
     leftPokemonBuild.selectAttackOne()
@@ -102,7 +71,7 @@ describe("Terapagos Terastal calcs", () => {
   })
 
   it("Terapagos-Terastal Terastar Storm is a Normal type attack and should not hit Ghost types", () => {
-    rightPokemonBuild.importPokemon(flutterManeData)
+    rightPokemonBuild.importPokemon(poke["flutter-mane"])
 
     leftPokemonBuild.selectAttackOne()
 
@@ -110,7 +79,7 @@ describe("Terapagos Terastal calcs", () => {
   })
 
   it("Validate the damage with Terapagos-Terastal using Tera Blast in not Terastallyzed Pokemon", () => {
-    rightPokemonBuild.importPokemon(porygon2Data)
+    rightPokemonBuild.importPokemon(poke["porygon2"])
 
     leftPokemonBuild.selectAttackTwo()
 
@@ -118,7 +87,7 @@ describe("Terapagos Terastal calcs", () => {
   })
 
   it("Validate the damage with Terapagos-Terastal using Tera Blast in Terastallyzed Pokemon", () => {
-    rightPokemonBuild.importPokemon(porygon2Data)
+    rightPokemonBuild.importPokemon(poke["porygon2"])
     rightPokemonBuild.terastalyze()
 
     leftPokemonBuild.selectAttackTwo()
@@ -127,7 +96,7 @@ describe("Terapagos Terastal calcs", () => {
   })
 
   it("Terapagos-Terastal Tera Blast is a Normal type attack and should not hit Ghost types", () => {
-    rightPokemonBuild.importPokemon(flutterManeData)
+    rightPokemonBuild.importPokemon(poke["flutter-mane"])
 
     leftPokemonBuild.selectAttackTwo()
 
@@ -135,7 +104,7 @@ describe("Terapagos Terastal calcs", () => {
   })
 
   it("Validate the damage with Terapagos-Terastal using Earth Power", () => {
-    rightPokemonBuild.importPokemon(porygon2Data)
+    rightPokemonBuild.importPokemon(poke["porygon2"])
 
     leftPokemonBuild.selectAttackThree()
 
@@ -143,7 +112,7 @@ describe("Terapagos Terastal calcs", () => {
   })
 
   it("Validate the damage with Terapagos-Terastal using Hyper Beam", () => {
-    rightPokemonBuild.importPokemon(porygon2Data)
+    rightPokemonBuild.importPokemon(poke["porygon2"])
 
     leftPokemonBuild.selectAttackFour()
 
@@ -154,11 +123,11 @@ describe("Terapagos Terastal calcs", () => {
 describe("Terapagos Stellar calcs", () => {
   beforeEach(() => {
     cy.get('[data-cy="one-vs-one"]').click({ force: true })
-    leftPokemonBuild.importPokemon(terapagosStellarData)
+    leftPokemonBuild.importPokemon(poke["terapagos-stellar"])
   })
 
   it("Validate the damage with Terapagos-Stellar using Terastar Storm in not Terastallyzed Pokemon", () => {
-    rightPokemonBuild.importPokemon(tornadusData)
+    rightPokemonBuild.importPokemon(poke["tornadus"])
 
     leftPokemonBuild.selectAttackOne()
 
@@ -166,7 +135,7 @@ describe("Terapagos Stellar calcs", () => {
   })
 
   it("Validate the damage with Terapagos-Stellar using Terastar Storm in Terastallyzed Pokemon", () => {
-    rightPokemonBuild.importPokemon(tornadusData)
+    rightPokemonBuild.importPokemon(poke["tornadus"])
     rightPokemonBuild.terastalyze()
 
     leftPokemonBuild.selectAttackOne()
@@ -175,7 +144,7 @@ describe("Terapagos Stellar calcs", () => {
   })
 
   it("Terapagos-Stellar Terastar Storm is a Stellar type attack and should hit Ghost types", () => {
-    rightPokemonBuild.importPokemon(flutterManeData)
+    rightPokemonBuild.importPokemon(poke["flutter-mane"])
 
     leftPokemonBuild.selectAttackOne()
 
@@ -183,7 +152,7 @@ describe("Terapagos Stellar calcs", () => {
   })
 
   it("Validate the damage with Terapagos-Stellar using Tera Blast in not Terastallyzed Pokemon", () => {
-    rightPokemonBuild.importPokemon(tornadusData)
+    rightPokemonBuild.importPokemon(poke["tornadus"])
 
     leftPokemonBuild.selectAttackTwo()
 
@@ -191,7 +160,7 @@ describe("Terapagos Stellar calcs", () => {
   })
 
   it("Validate the damage with Terapagos-Stellar using Tera Blast in Terastallyzed Pokemon", () => {
-    rightPokemonBuild.importPokemon(tornadusData)
+    rightPokemonBuild.importPokemon(poke["tornadus"])
     rightPokemonBuild.terastalyze()
 
     leftPokemonBuild.selectAttackTwo()
@@ -200,7 +169,7 @@ describe("Terapagos Stellar calcs", () => {
   })
 
   it("Terapagos-Stellar Tera Blast is a Stellar type attack and should hit Ghost types", () => {
-    rightPokemonBuild.importPokemon(flutterManeData)
+    rightPokemonBuild.importPokemon(poke["flutter-mane"])
 
     leftPokemonBuild.selectAttackTwo()
 
@@ -208,7 +177,7 @@ describe("Terapagos Stellar calcs", () => {
   })
 
   it("Validate the damage with Terapagos-Stellar using Earth Power", () => {
-    rightPokemonBuild.importPokemon(flutterManeData)
+    rightPokemonBuild.importPokemon(poke["flutter-mane"])
 
     leftPokemonBuild.selectAttackThree()
 
@@ -216,7 +185,7 @@ describe("Terapagos Stellar calcs", () => {
   })
 
   it("Terapagos-Stellar Hyper Beam is a Normal type attack and should not hit Ghost types", () => {
-    rightPokemonBuild.importPokemon(flutterManeData)
+    rightPokemonBuild.importPokemon(poke["flutter-mane"])
 
     leftPokemonBuild.selectAttackFour()
 

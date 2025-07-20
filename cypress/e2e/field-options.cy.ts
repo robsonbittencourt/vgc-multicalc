@@ -3,6 +3,7 @@ import { Field } from "@page-object/field"
 import { Opponent } from "@page-object/opponent"
 import { PokemonBuild } from "@page-object/pokemon-build"
 import { Team } from "@page-object/team"
+import { poke } from "../support/e2e"
 
 const leftDamageResult = new DamageResult("left-damage-result")
 const rightDamageResult = new DamageResult("right-damage-result")
@@ -13,58 +14,6 @@ const rightPokemonBuild = new PokemonBuild("right-pokemon")
 const team = new Team()
 const field = new Field()
 const opponents = new Opponent()
-
-let chiYuData: string
-let vaporeonData: string
-let tyranitarData: string
-let baxcaliburData: string
-let rillaboomData: string
-let hattereneData: string
-let talonflameData: string
-let bronzongData: string
-let dondozoData: string
-let dragoniteData: string
-let defaultTeamData: string
-let defaultOpponentsData: string
-
-before(() => {
-  cy.fixture("chi-yu-data").then(data => {
-    chiYuData = data
-  })
-  cy.fixture("vaporeon-data").then(data => {
-    vaporeonData = data
-  })
-  cy.fixture("tyranitar-data").then(data => {
-    tyranitarData = data
-  })
-  cy.fixture("baxcalibur-data").then(data => {
-    baxcaliburData = data
-  })
-  cy.fixture("rillaboom-data").then(data => {
-    rillaboomData = data
-  })
-  cy.fixture("hatterene-data").then(data => {
-    hattereneData = data
-  })
-  cy.fixture("talonflame-data").then(data => {
-    talonflameData = data
-  })
-  cy.fixture("bronzong-data").then(data => {
-    bronzongData = data
-  })
-  cy.fixture("dondozo-data").then(data => {
-    dondozoData = data
-  })
-  cy.fixture("dragonite-data").then(data => {
-    dragoniteData = data
-  })
-  cy.fixture("default-team-data").then(data => {
-    defaultTeamData = data
-  })
-  cy.fixture("default-opponents-data").then(data => {
-    defaultOpponentsData = data
-  })
-})
 
 describe("Test the Field options on options with One vs One", () => {
   beforeEach(() => {
@@ -79,7 +28,7 @@ describe("Test the Field options on options with One vs One", () => {
     })
 
     it("With Light Screen active", () => {
-      rightPokemonBuild.importPokemon(chiYuData)
+      rightPokemonBuild.importPokemon(poke["chi-yu"])
 
       field.lightScreenAttacker()
 
@@ -93,7 +42,7 @@ describe("Test the Field options on options with One vs One", () => {
     })
 
     it("With Single Target active", () => {
-      leftPokemonBuild.importPokemon(chiYuData).selectAttackTwo()
+      leftPokemonBuild.importPokemon(poke["chi-yu"]).selectAttackTwo()
 
       field.singleTargetAttacker()
 
@@ -161,7 +110,7 @@ describe("Test the Field options on options with One vs One", () => {
     })
 
     it("With Tailwind active", () => {
-      leftPokemonBuild.importPokemon(bronzongData).selectAttackThree()
+      leftPokemonBuild.importPokemon(poke["bronzong"]).selectAttackThree()
 
       field.tailwindAttacker()
 
@@ -171,7 +120,7 @@ describe("Test the Field options on options with One vs One", () => {
 
   describe("Both sides", () => {
     it("With Tablets of Ruin active", () => {
-      leftPokemonBuild.importPokemon(baxcaliburData)
+      leftPokemonBuild.importPokemon(poke["baxcalibur"])
 
       field.tabletsOfRuin()
 
@@ -180,7 +129,7 @@ describe("Test the Field options on options with One vs One", () => {
     })
 
     it("With Sword of Ruin active", () => {
-      leftPokemonBuild.importPokemon(baxcaliburData)
+      leftPokemonBuild.importPokemon(poke["baxcalibur"])
 
       field.swordOfRuin()
 
@@ -189,7 +138,7 @@ describe("Test the Field options on options with One vs One", () => {
     })
 
     it("With Vessel of Ruin active", () => {
-      rightPokemonBuild.importPokemon(vaporeonData)
+      rightPokemonBuild.importPokemon(poke["vaporeon"])
 
       field.vesselOfRuin()
 
@@ -198,7 +147,7 @@ describe("Test the Field options on options with One vs One", () => {
     })
 
     it("With Beads of Ruin active", () => {
-      rightPokemonBuild.importPokemon(vaporeonData)
+      rightPokemonBuild.importPokemon(poke["vaporeon"])
 
       field.beadsOfRuin()
 
@@ -207,7 +156,7 @@ describe("Test the Field options on options with One vs One", () => {
     })
 
     it("With Sun active", () => {
-      leftPokemonBuild.importPokemon(chiYuData)
+      leftPokemonBuild.importPokemon(poke["chi-yu"])
 
       field.sun()
 
@@ -216,28 +165,28 @@ describe("Test the Field options on options with One vs One", () => {
     })
 
     it("With Rain active", () => {
-      leftPokemonBuild.importPokemon(dondozoData)
-      rightPokemonBuild.importPokemon(tyranitarData).selectAttackFour()
+      leftPokemonBuild.importPokemon(poke["dondozo"])
+      rightPokemonBuild.importPokemon(poke["rhyperior"])
 
       field.rain()
 
-      leftDamageResult.damageIs(0, 109.6, 130.1, 204, 242)
-      rightDamageResult.damageIs(3, 13.2, 15.9, 30, 36)
+      leftDamageResult.damageIs(0, 166, 198.1, 352, 420)
+      rightDamageResult.damageIs(0, 4.8, 6.1, 11, 14)
     })
 
     it("With Sand active", () => {
-      leftPokemonBuild.importPokemon(hattereneData).selectAttackTwo().terastalyze()
-      rightPokemonBuild.importPokemon(tyranitarData).selectAttackFour()
+      leftPokemonBuild.importPokemon(poke["hatterene"]).selectAttackTwo().terastalyze()
+      rightPokemonBuild.importPokemon(poke["rhyperior"])
 
       field.sand()
 
-      leftDamageResult.damageIs(1, 26.8, 33.3, 50, 62)
-      rightDamageResult.damageIs(3, 29.2, 35.3, 48, 58)
+      leftDamageResult.damageIs(1, 12.7, 15.5, 27, 33)
+      rightDamageResult.damageIs(0, 12.1, 14.6, 20, 24)
     })
 
     it("With Snow active", () => {
-      leftPokemonBuild.importPokemon(baxcaliburData)
-      rightPokemonBuild.importPokemon(talonflameData).selectAttackFour().terastalyze()
+      leftPokemonBuild.importPokemon(poke["baxcalibur"])
+      rightPokemonBuild.importPokemon(poke["talonflame"]).selectAttackFour().terastalyze()
 
       field.snow()
 
@@ -247,17 +196,17 @@ describe("Test the Field options on options with One vs One", () => {
 
     it("With Eletric Terrain active", () => {
       leftPokemonBuild.selectAttackTwo()
-      rightPokemonBuild.importPokemon(tyranitarData).selectAttackThree()
+      rightPokemonBuild.importPokemon(poke["kyogre"]).selectAttackFour()
 
       field.eletricTerrain()
 
-      leftDamageResult.damageIs(1, 133.8, 158, 249, 294)
-      rightDamageResult.damageIs(2, 5.5, 6.6, 10, 12)
+      leftDamageResult.damageIs(1, 256.2, 301, 492, 578)
+      rightDamageResult.damageIs(3, 10.4, 12.7, 19, 23)
     })
 
     it("With Grassy Terrain active", () => {
-      leftPokemonBuild.importPokemon(rillaboomData)
-      rightPokemonBuild.importPokemon(rillaboomData)
+      leftPokemonBuild.importPokemon(poke["rillaboom"])
+      rightPokemonBuild.importPokemon(poke["rillaboom"])
 
       field.grassyTerrain()
 
@@ -266,8 +215,8 @@ describe("Test the Field options on options with One vs One", () => {
     })
 
     it("With Psychic Terrain active", () => {
-      leftPokemonBuild.importPokemon(hattereneData)
-      rightPokemonBuild.importPokemon(hattereneData)
+      leftPokemonBuild.importPokemon(poke["hatterene"])
+      rightPokemonBuild.importPokemon(poke["hatterene"])
 
       field.psychicTerrain()
 
@@ -276,7 +225,7 @@ describe("Test the Field options on options with One vs One", () => {
     })
 
     it("With Misty Terrain active", () => {
-      rightPokemonBuild.importPokemon(baxcaliburData).selectAttackTwo()
+      rightPokemonBuild.importPokemon(poke["baxcalibur"]).selectAttackTwo()
 
       field.mistyTerrain()
 
@@ -285,8 +234,8 @@ describe("Test the Field options on options with One vs One", () => {
     })
 
     it("With Gravity active", () => {
-      leftPokemonBuild.importPokemon(tyranitarData).selectAttackTwo().terastalyze()
-      rightPokemonBuild.importPokemon(dragoniteData)
+      leftPokemonBuild.importPokemon(poke["tyranitar"]).selectAttackTwo().terastalyze()
+      rightPokemonBuild.importPokemon(poke["dragonite"])
 
       field.gravity()
 
@@ -295,8 +244,8 @@ describe("Test the Field options on options with One vs One", () => {
     })
 
     it("With Magic Room active", () => {
-      leftPokemonBuild.importPokemon(tyranitarData).selectItem("Choice Band")
-      rightPokemonBuild.importPokemon(rillaboomData).selectItem("Choice Band")
+      leftPokemonBuild.importPokemon(poke["tyranitar"]).selectItem("Choice Band")
+      rightPokemonBuild.importPokemon(poke["rillaboom"]).selectItem("Choice Band")
 
       field.magicRoom()
 
@@ -337,7 +286,7 @@ describe("Test the Field options on options with One vs One", () => {
 
   describe("Right side", () => {
     it("With Reflect active", () => {
-      leftPokemonBuild.importPokemon(baxcaliburData)
+      leftPokemonBuild.importPokemon(poke["baxcalibur"])
 
       field.reflectDefender()
 
@@ -357,7 +306,7 @@ describe("Test the Field options on options with One vs One", () => {
     })
 
     it("With Single Target active", () => {
-      rightPokemonBuild.importPokemon(chiYuData).selectAttackTwo()
+      rightPokemonBuild.importPokemon(poke["chi-yu"]).selectAttackTwo()
 
       field.singleTargetDefender()
 
@@ -423,7 +372,7 @@ describe("Test the Field options on options with One vs One", () => {
     })
 
     it("With Battery active", () => {
-      rightPokemonBuild.importPokemon(chiYuData)
+      rightPokemonBuild.importPokemon(poke["chi-yu"])
 
       field.batteryDefender()
 
@@ -437,7 +386,7 @@ describe("Test the Field options on options with One vs One", () => {
     })
 
     it("With Tailwind active", () => {
-      rightPokemonBuild.importPokemon(bronzongData).selectAttackThree()
+      rightPokemonBuild.importPokemon(poke["bronzong"]).selectAttackThree()
 
       field.tailwindDefender()
 
@@ -451,10 +400,10 @@ describe("Test the Field options on options with Many Pokémon", () => {
     cy.get('[data-cy="team-vs-many"]').click({ force: true })
 
     team.delete("Team 1")
-    team.importPokepaste(defaultTeamData)
+    team.importPokepaste(poke["default-team"])
 
     opponents.deleteAll()
-    opponents.importPokemon(defaultOpponentsData)
+    opponents.importPokemon(poke["default-opponents"])
   })
 
   it("With Tablets of Ruin active", () => {
@@ -498,7 +447,7 @@ describe("Test the Field options on options with Many Pokémon", () => {
   })
 
   it("With Rain active", () => {
-    team.importPokemon(vaporeonData)
+    team.importPokemon(poke["vaporeon"])
     team.selectPokemon("Vaporeon")
 
     field.rain()
@@ -507,7 +456,7 @@ describe("Test the Field options on options with Many Pokémon", () => {
   })
 
   it("With Sand active", () => {
-    opponents.importPokemon(tyranitarData)
+    opponents.importPokemon(poke["tyranitar"])
     team.selectPokemon("Miraidon").selectAttackTwo()
 
     field.sand()
@@ -516,7 +465,7 @@ describe("Test the Field options on options with Many Pokémon", () => {
   })
 
   it("With Snow active", () => {
-    opponents.importPokemon(baxcaliburData)
+    opponents.importPokemon(poke["baxcalibur"])
     team.selectPokemon("Koraidon").selectAttackThree()
 
     field.snow()
@@ -533,7 +482,7 @@ describe("Test the Field options on options with Many Pokémon", () => {
   })
 
   it("With Grassy Terrain active", () => {
-    team.importPokemon(rillaboomData)
+    team.importPokemon(poke["rillaboom"])
     team.selectPokemon("Rillaboom").selectAttackThree()
 
     field.grassyTerrain()
@@ -542,7 +491,7 @@ describe("Test the Field options on options with Many Pokémon", () => {
   })
 
   it("With Psychic Terrain active", () => {
-    team.importPokemon(hattereneData)
+    team.importPokemon(poke["hatterene"])
     team.selectPokemon("Hatterene")
 
     field.psychicTerrain()
@@ -575,10 +524,10 @@ describe("Test the Field options on options with Many Pokémon", () => {
   })
 
   it("With Gravity active", () => {
-    team.importPokemon(tyranitarData)
+    team.importPokemon(poke["tyranitar"])
     team.selectPokemon("Tyranitar").selectAttackTwo()
 
-    opponents.importPokemon(talonflameData)
+    opponents.importPokemon(poke["talonflame"])
 
     field.gravity()
 
@@ -618,7 +567,7 @@ describe("Test the Field options on options with Many Pokémon", () => {
   })
 
   it("With Tailwind in attacker side active", () => {
-    team.importPokemon(bronzongData)
+    team.importPokemon(poke["bronzong"])
     team.selectPokemon("Bronzong").selectAttackThree()
 
     field.tailwindAttacker()
@@ -667,7 +616,7 @@ describe("Test the Field options on options with Many Pokémon", () => {
   })
 
   it("With Tailwind in defender side active", () => {
-    team.importPokemon(bronzongData)
+    team.importPokemon(poke["bronzong"])
     team.selectPokemon("Bronzong").selectAttackThree()
 
     field.tailwindDefender()
@@ -716,7 +665,7 @@ describe("Test the Field options on options with Many Pokémon", () => {
   })
 
   it("With Neutralizing Gas active", () => {
-    team.importPokemon(chiYuData)
+    team.importPokemon(poke["chi-yu"])
     team.selectPokemon("Chi-Yu")
 
     field.neutralizingGas()
@@ -725,7 +674,7 @@ describe("Test the Field options on options with Many Pokémon", () => {
   })
 
   it("With Neutralizing Gas active and Ability Shield", () => {
-    team.importPokemon(chiYuData)
+    team.importPokemon(poke["chi-yu"])
     team.selectPokemon("Chi-Yu").selectItem("Ability Shield")
 
     field.neutralizingGas()
@@ -734,7 +683,7 @@ describe("Test the Field options on options with Many Pokémon", () => {
   })
 
   it("With Neutralizing Gas active but not affected ability", () => {
-    team.importPokemon(chiYuData)
+    team.importPokemon(poke["chi-yu"])
     team.selectPokemon("Chi-Yu")
 
     field.neutralizingGas()

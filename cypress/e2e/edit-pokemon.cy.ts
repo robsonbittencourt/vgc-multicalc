@@ -1,59 +1,17 @@
 import { PokemonBuild } from "@page-object/pokemon-build"
+import { poke } from "../support/e2e"
 
 const leftPokemonBuild = new PokemonBuild("left-pokemon")
 
-let ursalunaData: string
-let baxcaliburData: string
-let terapagosData: string
-let terapagosTerastalData: string
-let terapagosStellarData: string
-let ogerponData: string
-let ogerponCornerstoneData: string
-let ogerponHearthflameData: string
-let ogerponWellspringData: string
-
-before(() => {
-  cy.fixture("ursaluna-data").then(data => {
-    ursalunaData = data
-  })
-  cy.fixture("terapagos-data").then(data => {
-    terapagosData = data
-  })
-  cy.fixture("terapagos-terastal-data").then(data => {
-    terapagosTerastalData = data
-  })
-  cy.fixture("terapagos-stellar-data").then(data => {
-    terapagosStellarData = data
-  })
-  cy.fixture("baxcalibur-data").then(data => {
-    baxcaliburData = data
-  })
-  cy.fixture("baxcalibur-data").then(data => {
-    baxcaliburData = data
-  })
-  cy.fixture("ogerpon-data").then(data => {
-    ogerponData = data
-  })
-  cy.fixture("ogerpon-cornerstone-data").then(data => {
-    ogerponCornerstoneData = data
-  })
-  cy.fixture("ogerpon-hearthflame-data").then(data => {
-    ogerponHearthflameData = data
-  })
-  cy.fixture("ogerpon-wellspring-data").then(data => {
-    ogerponWellspringData = data
-  })
-})
-
 describe("Edit Pokémon", () => {
   it("Show only selected Pokémon abilities when change Pokémon", () => {
-    leftPokemonBuild.importPokemon(ursalunaData)
+    leftPokemonBuild.importPokemon(poke["ursaluna"])
 
     leftPokemonBuild.selectAbility("Guts")
     leftPokemonBuild.selectAbility("Bulletproof")
     leftPokemonBuild.selectAbility("Unnerve")
 
-    leftPokemonBuild.importPokemon(baxcaliburData)
+    leftPokemonBuild.importPokemon(poke["baxcalibur"])
     leftPokemonBuild.selectAbility("Thermal Exchange")
     leftPokemonBuild.selectAbility("Ice Body")
   })
@@ -61,7 +19,7 @@ describe("Edit Pokémon", () => {
 
 describe("Terapagos Terastal", () => {
   it("Terapagos can't terastalyze", () => {
-    leftPokemonBuild.importPokemon(terapagosData)
+    leftPokemonBuild.importPokemon(poke["terapagos"])
 
     leftPokemonBuild.terastalyze()
 
@@ -69,7 +27,7 @@ describe("Terapagos Terastal", () => {
   })
 
   it("Terapagos-Terastal turns Terapagos Stellar when terastalyze", () => {
-    leftPokemonBuild.importPokemon(terapagosTerastalData)
+    leftPokemonBuild.importPokemon(poke["terapagos-terastal"])
     leftPokemonBuild.isNotTerastalyzed()
 
     leftPokemonBuild.terastalyze()
@@ -78,7 +36,7 @@ describe("Terapagos Terastal", () => {
   })
 
   it("Terapagos-Stellar turns Terapagos Terastal when terastalyze", () => {
-    leftPokemonBuild.importPokemon(terapagosStellarData)
+    leftPokemonBuild.importPokemon(poke["terapagos-stellar"])
     leftPokemonBuild.isTerastalyzed()
 
     leftPokemonBuild.terastalyze()
@@ -87,7 +45,7 @@ describe("Terapagos Terastal", () => {
   })
 
   it("Toogle Terapagos terastal multiple times", () => {
-    leftPokemonBuild.importPokemon(terapagosTerastalData)
+    leftPokemonBuild.importPokemon(poke["terapagos-terastal"])
     leftPokemonBuild.isNotTerastalyzed()
 
     leftPokemonBuild.terastalyze()
@@ -110,7 +68,7 @@ describe("Terapagos Terastal", () => {
 describe("Ogerpon Terastal", () => {
   describe("Ability and boost", () => {
     it("Ogerpon Teal should change ability when terastalyze", () => {
-      leftPokemonBuild.importPokemon(ogerponData)
+      leftPokemonBuild.importPokemon(poke["ogerpon"])
       leftPokemonBuild.abilityIs("Defiant")
       leftPokemonBuild.boostsIs(0, 0, 0, 0, 0)
 
@@ -133,7 +91,7 @@ describe("Ogerpon Terastal", () => {
     })
 
     it("Ogerpon Cornerstone should change ability when terastalyze", () => {
-      leftPokemonBuild.importPokemon(ogerponCornerstoneData)
+      leftPokemonBuild.importPokemon(poke["ogerpon-cornerstone"])
       leftPokemonBuild.abilityIs("Sturdy")
       leftPokemonBuild.boostsIs(0, 0, 0, 0, 0)
 
@@ -156,7 +114,7 @@ describe("Ogerpon Terastal", () => {
     })
 
     it("Ogerpon Hearthflame should change ability when terastalyze", () => {
-      leftPokemonBuild.importPokemon(ogerponHearthflameData)
+      leftPokemonBuild.importPokemon(poke["ogerpon-hearthflame"])
       leftPokemonBuild.abilityIs("Mold Breaker")
       leftPokemonBuild.boostsIs(0, 0, 0, 0, 0)
 
@@ -179,7 +137,7 @@ describe("Ogerpon Terastal", () => {
     })
 
     it("Ogerpon Wellspring should change ability when terastalyze", () => {
-      leftPokemonBuild.importPokemon(ogerponWellspringData)
+      leftPokemonBuild.importPokemon(poke["ogerpon-wellspring"])
       leftPokemonBuild.abilityIs("Water Absorb")
       leftPokemonBuild.boostsIs(0, 0, 0, 0, 0)
 
@@ -202,7 +160,7 @@ describe("Ogerpon Terastal", () => {
     })
 
     it("Should not increase and decrease when stats already +6", () => {
-      leftPokemonBuild.importPokemon(ogerponWellspringData)
+      leftPokemonBuild.importPokemon(poke["ogerpon-wellspring"])
       leftPokemonBuild.selectStatsModifier("spd", "+6")
 
       leftPokemonBuild.terastalyze()
@@ -216,7 +174,7 @@ describe("Ogerpon Terastal", () => {
   describe("Disabled fields", () => {
     describe("Items", () => {
       it("Ogerpon Teal can change item", () => {
-        leftPokemonBuild.importPokemon(ogerponData)
+        leftPokemonBuild.importPokemon(poke["ogerpon"])
 
         leftPokemonBuild.selectItem("Choice Band")
         leftPokemonBuild.itemIs("Choice Band")
@@ -226,21 +184,21 @@ describe("Ogerpon Terastal", () => {
       })
 
       it("Ogerpon Cornerstone cannot change item", () => {
-        leftPokemonBuild.importPokemon(ogerponCornerstoneData)
+        leftPokemonBuild.importPokemon(poke["ogerpon-cornerstone"])
 
         leftPokemonBuild.itemIs("Cornerstone Mask")
         leftPokemonBuild.itemIsDisabled()
       })
 
       it("Ogerpon Hearthflame cannot change item", () => {
-        leftPokemonBuild.importPokemon(ogerponHearthflameData)
+        leftPokemonBuild.importPokemon(poke["ogerpon-hearthflame"])
 
         leftPokemonBuild.itemIs("Hearthflame Mask")
         leftPokemonBuild.itemIsDisabled()
       })
 
       it("Ogerpon Wellspring cannot change item", () => {
-        leftPokemonBuild.importPokemon(ogerponWellspringData)
+        leftPokemonBuild.importPokemon(poke["ogerpon-wellspring"])
 
         leftPokemonBuild.itemIs("Wellspring Mask")
         leftPokemonBuild.itemIsDisabled()
@@ -249,25 +207,25 @@ describe("Ogerpon Terastal", () => {
 
     describe("Tera", () => {
       it("Ogerpon Teal cannot change Tera type", () => {
-        leftPokemonBuild.importPokemon(ogerponData)
+        leftPokemonBuild.importPokemon(poke["ogerpon"])
 
         leftPokemonBuild.teraIsDisabled()
       })
 
       it("Ogerpon Cornerstone cannot change Tera type", () => {
-        leftPokemonBuild.importPokemon(ogerponCornerstoneData)
+        leftPokemonBuild.importPokemon(poke["ogerpon-cornerstone"])
 
         leftPokemonBuild.teraIsDisabled()
       })
 
       it("Ogerpon Hearthflame cannot change Tera type", () => {
-        leftPokemonBuild.importPokemon(ogerponHearthflameData)
+        leftPokemonBuild.importPokemon(poke["ogerpon-hearthflame"])
 
         leftPokemonBuild.teraIsDisabled()
       })
 
       it("Ogerpon Wellspring cannot change Tera type", () => {
-        leftPokemonBuild.importPokemon(ogerponWellspringData)
+        leftPokemonBuild.importPokemon(poke["ogerpon-wellspring"])
 
         leftPokemonBuild.teraIsDisabled()
       })

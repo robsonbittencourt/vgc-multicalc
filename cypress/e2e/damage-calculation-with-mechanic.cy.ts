@@ -1,5 +1,6 @@
 import { DamageResult } from "@page-object/damage-result"
 import { PokemonBuild } from "@page-object/pokemon-build"
+import { poke } from "../support/e2e"
 
 const leftDamageResult = new DamageResult("left-damage-result")
 const rightDamageResult = new DamageResult("right-damage-result")
@@ -7,95 +8,11 @@ const rightDamageResult = new DamageResult("right-damage-result")
 const leftPokemonBuild = new PokemonBuild("left-pokemon")
 const rightPokemonBuild = new PokemonBuild("right-pokemon")
 
-let tyranitarData: string
-let rillaboomData: string
-let kyogreData: string
-let blazikenData: string
-let sneaslerData: string
-let bronzongData: string
-let porygon2Data: string
-let basculegionData: string
-let annihilapeData: string
-let tingLuData: string
-let tingLuSpeedData: string
-let zacianData: string
-let zacianCrownedData: string
-let zamazentaData: string
-let zamazentaCrownedData: string
-let farigirafData: string
-let ogerponData: string
-let ogerponCornerstoneData: string
-let ogerponHearthflameData: string
-let ogerponWellspringData: string
-
-before(() => {
-  cy.fixture("tyranitar-data").then(data => {
-    tyranitarData = data
-  })
-  cy.fixture("rillaboom-data").then(data => {
-    rillaboomData = data
-  })
-  cy.fixture("kyogre-data").then(data => {
-    kyogreData = data
-  })
-  cy.fixture("blaziken-data").then(data => {
-    blazikenData = data
-  })
-  cy.fixture("sneasler-data").then(data => {
-    sneaslerData = data
-  })
-  cy.fixture("bronzong-data").then(data => {
-    bronzongData = data
-  })
-  cy.fixture("porygon2-data").then(data => {
-    porygon2Data = data
-  })
-  cy.fixture("basculegion-data").then(data => {
-    basculegionData = data
-  })
-  cy.fixture("annihilape-data").then(data => {
-    annihilapeData = data
-  })
-  cy.fixture("ting-lu-data").then(data => {
-    tingLuData = data
-  })
-  cy.fixture("ting-lu-speed-data").then(data => {
-    tingLuSpeedData = data
-  })
-  cy.fixture("zacian-data").then(data => {
-    zacianData = data
-  })
-  cy.fixture("zacian-crowned-data").then(data => {
-    zacianCrownedData = data
-  })
-  cy.fixture("zamazenta-data").then(data => {
-    zamazentaData = data
-  })
-  cy.fixture("zamazenta-crowned-data").then(data => {
-    zamazentaCrownedData = data
-  })
-  cy.fixture("farigiraf-data").then(data => {
-    farigirafData = data
-  })
-  cy.fixture("ogerpon-data").then(data => {
-    ogerponData = data
-  })
-  cy.fixture("ogerpon-cornerstone-data").then(data => {
-    ogerponCornerstoneData = data
-  })
-  cy.fixture("ogerpon-hearthflame-data").then(data => {
-    ogerponHearthflameData = data
-  })
-  cy.fixture("ogerpon-wellspring-data").then(data => {
-    ogerponWellspringData = data
-  })
-})
-
 describe("Test calcs from moves with some mechanic", () => {
   describe("Knock off", () => {
     beforeEach(() => {
-      leftPokemonBuild.importPokemon(tyranitarData)
-      rightPokemonBuild.importPokemon(rillaboomData)
+      leftPokemonBuild.importPokemon(poke["tyranitar"])
+      rightPokemonBuild.importPokemon(poke["rillaboom"])
     })
 
     it("with item", () => {
@@ -116,8 +33,8 @@ describe("Test calcs from moves with some mechanic", () => {
 
   describe("Unburden", () => {
     beforeEach(() => {
-      leftPokemonBuild.importPokemon(bronzongData)
-      rightPokemonBuild.importPokemon(sneaslerData)
+      leftPokemonBuild.importPokemon(poke["bronzong"])
+      rightPokemonBuild.importPokemon(poke["sneasler"])
     })
 
     it("without Unburden actived", () => {
@@ -138,16 +55,16 @@ describe("Test calcs from moves with some mechanic", () => {
 
   describe("Analytic", () => {
     it("when Pokémon is faster Analytic was not activated", () => {
-      leftPokemonBuild.importPokemon(porygon2Data)
-      rightPokemonBuild.importPokemon(tingLuData)
+      leftPokemonBuild.importPokemon(poke["porygon2"])
+      rightPokemonBuild.importPokemon(poke["ting-lu"])
 
       leftDamageResult.damageIs(0, 24.4, 29.5, 58, 70)
       rightDamageResult.surviveWithThisHpAmmount(167)
     })
 
     it("when Pokémon is slower Analytic was activated", () => {
-      leftPokemonBuild.importPokemon(porygon2Data)
-      rightPokemonBuild.importPokemon(tingLuSpeedData)
+      leftPokemonBuild.importPokemon(poke["porygon2"])
+      rightPokemonBuild.importPokemon(poke["ting-lu-speed"])
 
       leftDamageResult.damageIs(0, 32, 37.9, 76, 90)
       rightDamageResult.surviveWithThisHpAmmount(147)
@@ -156,8 +73,8 @@ describe("Test calcs from moves with some mechanic", () => {
 
   describe("Water Spout", () => {
     beforeEach(() => {
-      leftPokemonBuild.importPokemon(kyogreData)
-      rightPokemonBuild.importPokemon(tyranitarData)
+      leftPokemonBuild.importPokemon(poke["kyogre"])
+      rightPokemonBuild.importPokemon(poke["tyranitar"])
     })
 
     it("with 100% hp", () => {
@@ -184,8 +101,8 @@ describe("Test calcs from moves with some mechanic", () => {
 
   describe("Blaze", () => {
     beforeEach(() => {
-      leftPokemonBuild.importPokemon(blazikenData)
-      rightPokemonBuild.importPokemon(tyranitarData)
+      leftPokemonBuild.importPokemon(poke["blaziken"])
+      rightPokemonBuild.importPokemon(poke["tyranitar"])
     })
 
     it("with 100% hp", () => {
@@ -219,8 +136,8 @@ describe("Test calcs from moves with some mechanic", () => {
 
   describe("Last Respects", () => {
     beforeEach(() => {
-      leftPokemonBuild.importPokemon(basculegionData)
-      rightPokemonBuild.importPokemon(rillaboomData)
+      leftPokemonBuild.importPokemon(poke["basculegion"])
+      rightPokemonBuild.importPokemon(poke["rillaboom"])
     })
 
     it("with 0 ally fainted", () => {
@@ -272,8 +189,8 @@ describe("Test calcs from moves with some mechanic", () => {
 
   describe("Rage Fist", () => {
     beforeEach(() => {
-      leftPokemonBuild.importPokemon(annihilapeData)
-      rightPokemonBuild.importPokemon(rillaboomData)
+      leftPokemonBuild.importPokemon(poke["annihilape"])
+      rightPokemonBuild.importPokemon(poke["rillaboom"])
     })
 
     it("with 0 hit taken", () => {
@@ -319,72 +236,72 @@ describe("Test calcs from moves with some mechanic", () => {
 
   describe("Zacian and Zamazenta boost", () => {
     it("Zacian should have +1 in attack", () => {
-      leftPokemonBuild.importPokemon(zacianData)
-      rightPokemonBuild.importPokemon(rillaboomData)
+      leftPokemonBuild.importPokemon(poke["zacian"])
+      rightPokemonBuild.importPokemon(poke["rillaboom"])
 
       leftPokemonBuild.boostsIs(1, 0, 0, 0, 0)
       leftDamageResult.damageIs(0, 85.9, 101.4, 178, 210)
     })
 
     it("Zacian Crowned should have +1 in attack", () => {
-      leftPokemonBuild.importPokemon(zacianCrownedData)
-      rightPokemonBuild.importPokemon(rillaboomData)
+      leftPokemonBuild.importPokemon(poke["zacian-crowned"])
+      rightPokemonBuild.importPokemon(poke["rillaboom"])
 
       leftPokemonBuild.boostsIs(1, 0, 0, 0, 0)
       leftDamageResult.damageIs(0, 69.5, 81.6, 144, 169)
     })
 
     it("Zacian should have +1 in attack when it is defender", () => {
-      leftPokemonBuild.importPokemon(farigirafData)
-      rightPokemonBuild.importPokemon(zacianData)
+      leftPokemonBuild.importPokemon(poke["farigiraf"])
+      rightPokemonBuild.importPokemon(poke["zacian"])
 
       rightPokemonBuild.boostsIs(1, 0, 0, 0, 0)
       leftDamageResult.damageIs(0, 20.3, 23.9, 34, 40)
     })
 
     it("Zacian Crowned should have +1 in attack when it is defender", () => {
-      leftPokemonBuild.importPokemon(farigirafData)
-      rightPokemonBuild.importPokemon(zacianCrownedData)
+      leftPokemonBuild.importPokemon(poke["farigiraf"])
+      rightPokemonBuild.importPokemon(poke["zacian-crowned"])
 
       rightPokemonBuild.boostsIs(1, 0, 0, 0, 0)
       leftDamageResult.damageIs(0, 19.3, 23, 37, 44)
     })
 
     it("Zamazenta should have +1 in defense when it is attacker", () => {
-      leftPokemonBuild.importPokemon(zamazentaData)
-      rightPokemonBuild.importPokemon(rillaboomData)
+      leftPokemonBuild.importPokemon(poke["zamazenta"])
+      rightPokemonBuild.importPokemon(poke["rillaboom"])
 
       leftPokemonBuild.boostsIs(0, 1, 0, 0, 0)
       leftDamageResult.damageIs(0, 43.4, 51.2, 90, 106)
     })
 
     it("Zamazenta Crowned should have +1 in defense when it is attacker", () => {
-      leftPokemonBuild.importPokemon(zamazentaCrownedData)
-      rightPokemonBuild.importPokemon(rillaboomData)
+      leftPokemonBuild.importPokemon(poke["zamazenta-crowned"])
+      rightPokemonBuild.importPokemon(poke["rillaboom"])
 
       leftPokemonBuild.boostsIs(0, 1, 0, 0, 0)
       leftDamageResult.damageIs(0, 57, 67.1, 118, 139)
     })
 
     it("Zamazenta should have +1 in defense when it is defender", () => {
-      leftPokemonBuild.importPokemon(zacianData)
-      rightPokemonBuild.importPokemon(zamazentaData)
+      leftPokemonBuild.importPokemon(poke["zacian"])
+      rightPokemonBuild.importPokemon(poke["zamazenta"])
 
       rightPokemonBuild.boostsIs(0, 1, 0, 0, 0)
       leftDamageResult.damageIs(0, 90.4, 106.5, 180, 212)
     })
 
     it("Zamazenta Crowned should have +1 in defense when it is defender", () => {
-      leftPokemonBuild.importPokemon(zacianData)
-      rightPokemonBuild.importPokemon(zamazentaCrownedData)
+      leftPokemonBuild.importPokemon(poke["zacian"])
+      rightPokemonBuild.importPokemon(poke["zamazenta-crowned"])
 
       rightPokemonBuild.boostsIs(0, 1, 0, 0, 0)
       leftDamageResult.damageIs(0, 38.1, 45.3, 69, 82)
     })
 
     it("Should not change boosts with another Pokémon", () => {
-      leftPokemonBuild.importPokemon(annihilapeData)
-      rightPokemonBuild.importPokemon(rillaboomData)
+      leftPokemonBuild.importPokemon(poke["annihilape"])
+      rightPokemonBuild.importPokemon(poke["rillaboom"])
 
       leftPokemonBuild.boostsIs(0, 0, 0, 0, 0)
       rightPokemonBuild.boostsIs(0, 0, 0, 0, 0)
@@ -393,8 +310,8 @@ describe("Test calcs from moves with some mechanic", () => {
 
   describe("Ogerpon boost", () => {
     it("Ogerpon Teal should receive +1 in speed when terastalyze", () => {
-      leftPokemonBuild.importPokemon(ogerponData)
-      rightPokemonBuild.importPokemon(bronzongData).selectAttackThree()
+      leftPokemonBuild.importPokemon(poke["ogerpon"])
+      rightPokemonBuild.importPokemon(poke["bronzong"]).selectAttackThree()
 
       rightDamageResult.damageIs(2, 25.4, 30.9, 42, 51)
 
@@ -403,8 +320,8 @@ describe("Test calcs from moves with some mechanic", () => {
     })
 
     it("Ogerpon Cornerstone should receive +1 in defense when terastalyze", () => {
-      leftPokemonBuild.importPokemon(ogerponCornerstoneData)
-      rightPokemonBuild.importPokemon(basculegionData)
+      leftPokemonBuild.importPokemon(poke["ogerpon-cornerstone"])
+      rightPokemonBuild.importPokemon(poke["basculegion"])
 
       rightDamageResult.damageIs(0, 48, 56.4, 75, 88)
 
@@ -413,8 +330,8 @@ describe("Test calcs from moves with some mechanic", () => {
     })
 
     it("Ogerpon Hearthflame should receive +1 in attack when terastalyze", () => {
-      leftPokemonBuild.importPokemon(ogerponHearthflameData)
-      rightPokemonBuild.importPokemon(basculegionData)
+      leftPokemonBuild.importPokemon(poke["ogerpon-hearthflame"])
+      rightPokemonBuild.importPokemon(poke["basculegion"])
 
       leftDamageResult.damageIs(0, 38.2, 44.8, 75, 88)
 
@@ -423,8 +340,8 @@ describe("Test calcs from moves with some mechanic", () => {
     })
 
     it("Ogerpon Wellspring should receive +1 in special defense when terastalyze", () => {
-      leftPokemonBuild.importPokemon(ogerponWellspringData)
-      rightPokemonBuild.importPokemon(farigirafData).selectAttackTwo()
+      leftPokemonBuild.importPokemon(poke["ogerpon-wellspring"])
+      rightPokemonBuild.importPokemon(poke["farigiraf"]).selectAttackTwo()
 
       rightDamageResult.damageIs(1, 23.2, 28.1, 43, 52)
 

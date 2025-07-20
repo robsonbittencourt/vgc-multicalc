@@ -1,6 +1,7 @@
 import { DamageResult } from "@page-object/damage-result"
 import { Field } from "@page-object/field"
 import { PokemonBuild } from "@page-object/pokemon-build"
+import { poke } from "../support/e2e"
 
 const leftDamageResult = new DamageResult("left-damage-result")
 const rightDamageResult = new DamageResult("right-damage-result")
@@ -10,31 +11,11 @@ const rightPokemonBuild = new PokemonBuild("right-pokemon")
 
 const field = new Field()
 
-let ursalunaData: string
-let tyranitarData: string
-let baxcaliburData: string
-let rillaboomData: string
-
-before(() => {
-  cy.fixture("ursaluna-data").then(data => {
-    ursalunaData = data
-  })
-  cy.fixture("tyranitar-data").then(data => {
-    tyranitarData = data
-  })
-  cy.fixture("baxcalibur-data").then(data => {
-    baxcaliburData = data
-  })
-  cy.fixture("rillaboom-data").then(data => {
-    rillaboomData = data
-  })
-})
-
 describe("Test calcs with One vs One activated", () => {
   beforeEach(() => {
     cy.get('[data-cy="one-vs-one"]').click({ force: true })
-    leftPokemonBuild.importPokemon(ursalunaData)
-    rightPokemonBuild.importPokemon(tyranitarData)
+    leftPokemonBuild.importPokemon(poke["ursaluna"])
+    rightPokemonBuild.importPokemon(poke["tyranitar"])
   })
 
   describe("Ursaluna vs Tyranitar", () => {
@@ -117,7 +98,8 @@ describe("Test calcs with One vs One activated", () => {
 
   describe("With some field influence", () => {
     it("with critical hit", () => {
-      field.criticalHit()
+      field.criticalHitAttacker()
+      field.criticalHitDefender()
 
       leftPokemonBuild.selectAttackTwo()
       rightPokemonBuild.selectAttackTwo()
@@ -146,8 +128,8 @@ describe("Test calcs with One vs One activated", () => {
       leftDamageResult.withMaxHpValue(220)
       rightDamageResult.withMaxHpValue(186)
 
-      leftPokemonBuild.importPokemon(baxcaliburData)
-      rightPokemonBuild.importPokemon(rillaboomData)
+      leftPokemonBuild.importPokemon(poke["baxcalibur"])
+      rightPokemonBuild.importPokemon(poke["rillaboom"])
 
       leftDamageResult.withMaxHpValue(190)
       rightDamageResult.withMaxHpValue(207)
