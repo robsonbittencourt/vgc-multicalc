@@ -132,6 +132,8 @@ export class PokemonBuildComponent {
   activateMove(position: number) {
     this.activeMoveIndex.set(null)
     this.store.activateMoveByPosition(this.pokemonId(), position)
+    this.activeTable.set("evs")
+    this.removeFocusFromAllFields()
   }
 
   moveSelectorOnClick(position: number) {
@@ -145,9 +147,14 @@ export class PokemonBuildComponent {
     this.moveWasSelected = true
     this.setMoveSelectorFocus(this.activeMoveIndex()!)
     this.store.updateMove(this.pokemonId(), move, this.activeMoveIndex()!)
-    this.focusNextTabIndex()
     this.moveDataFilter.set("")
-    this.selected.emit()
+
+    if (this.activeMoveIndex() == 3) {
+      this.activeTable.set("evs")
+      this.removeFocusFromAllFields()
+    } else {
+      this.focusNextTabIndex()
+    }
   }
 
   private focusNextTabIndex() {
@@ -202,7 +209,8 @@ export class PokemonBuildComponent {
   abilitySelected(ability: string) {
     this.abilityDataFilter.set("")
     this.store.ability(this.pokemonId(), ability)
-    this.selected.emit()
+    this.activeTable.set("evs")
+    this.removeFocusFromAllFields()
   }
 
   abilitySelectorOnClick() {
@@ -222,7 +230,8 @@ export class PokemonBuildComponent {
   itemSelected(item: string) {
     this.itemDataFilter.set("")
     this.store.item(this.pokemonId(), item)
-    this.selected.emit()
+    this.activeTable.set("evs")
+    this.removeFocusFromAllFields()
   }
 
   itemSelectorOnClick() {
@@ -242,7 +251,8 @@ export class PokemonBuildComponent {
   pokemonSelected(pokemon: string) {
     this.pokemonDataFilter.set("")
     this.updatePokemon(pokemon)
-    this.selected.emit()
+    this.activeTable.set("evs")
+    this.removeFocusFromAllFields()
   }
 
   pokemonSelectorOnClick() {
