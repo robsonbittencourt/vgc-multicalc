@@ -46,6 +46,46 @@ export class DamageResult {
     this.baseElement().find(`[src="assets/sprites/items/${iconName}.png"]`)
   }
 
+  causeOHKO() {
+    this.baseElement().contains("guaranteed OHKO")
+    return this
+  }
+
+  cause2HKO() {
+    this.baseElement().contains("guaranteed 2HKO")
+    return this
+  }
+
+  cause3HKO() {
+    this.baseElement().contains("guaranteed 3HKO")
+    return this
+  }
+
+  cause4HKO() {
+    this.baseElement().contains("guaranteed 4HKO")
+    return this
+  }
+
+  haveChanceOfToCauseOHKO(chance: number) {
+    this.baseElement().contains(`${chance}% chance to OHKO`)
+    return this
+  }
+
+  haveChanceOfToCause2HKO(chance: number) {
+    this.baseElement().contains(`${chance}% chance to 2HKO`)
+    return this
+  }
+
+  haveChanceOfToCause3HKO(chance: number) {
+    this.baseElement().contains(`${chance}% chance to 3HKO`)
+    return this
+  }
+
+  haveChanceOfToCause4HKO(chance: number) {
+    this.baseElement().contains(`${chance}% chance to 4HKO`)
+    return this
+  }
+
   baseElement(): any {
     return cy.get(`[data-cy="${this.selector}"]`)
   }

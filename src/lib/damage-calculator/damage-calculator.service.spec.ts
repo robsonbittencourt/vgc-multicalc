@@ -2,7 +2,7 @@ import { provideZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
 import { CALC_ADJUSTERS, CalcAdjuster } from "@lib/damage-calculator/calc-adjuster/calc-adjuster"
 import { DamageCalculatorService } from "@lib/damage-calculator/damage-calculator.service"
-import { Field } from "@lib/model/field"
+import { Field, FieldSide } from "@lib/model/field"
 import { Move } from "@lib/model/move"
 import { MoveSet } from "@lib/model/moveset"
 import { Pokemon } from "@lib/model/pokemon"
@@ -71,7 +71,7 @@ describe("Damage Calculator Service", () => {
     const target = new Target(new Pokemon("Flutter Mane"))
     const field = new Field()
 
-    const damageResults = service.calcDamageAllAttacks(attacker, target.pokemon, field)
+    const damageResults = service.calcDamageAllAttacks(attacker, target.pokemon, field, true)
 
     expect(damageResults.length).toEqual(4)
 
@@ -280,5 +280,44 @@ describe("Damage Calculator Service", () => {
     const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
 
     expect(damageResult.description).toContain("vs. 0 HP / +6 252+ Def / -4 140- SpD Assault Vest Flutter Mane")
+  })
+
+  it("should calculate damage in a critical hit when attacker have critical hit configured and right is defender", () => {
+    const rightIsDefender = true
+    const attacker = new Pokemon("Raging Bolt", { moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Thunderclap"), new Move("Draco Meteor"), new Move("Protect")) })
+    const target = new Target(new Pokemon("Flutter Mane"))
+    const attackerSide = new FieldSide({ isCriticalHit: true })
+    const field = new Field({ attackerSide })
+
+    const damageResult = service.calcDamageAllAttacks(attacker, target.pokemon, field, rightIsDefender)
+
+    expect(damageResult[0].description).toEqual("0 SpA Raging Bolt Thunderbolt vs. 0 HP / 0 SpD Flutter Mane on a critical hit: 79-94 (60.7 - 72.3%) -- guaranteed 2HKO")
+  })
+
+  it("should calculate damage in a critical hit when defender have critical hit configured and right is not defender", () => {
+    const rightIsDefender = false
+    const attacker = new Pokemon("Raging Bolt", { moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Thunderclap"), new Move("Draco Meteor"), new Move("Protect")) })
+    const target = new Target(new Pokemon("Flutter Mane"))
+    const defenderSide = new FieldSide({ isCriticalHit: true })
+    const field = new Field({ defenderSide })
+
+    const damageResult = service.calcDamageAllAttacks(attacker, target.pokemon, field, rightIsDefender)
+
+    expect(damageResult[0].description).toEqual("0 SpA Raging Bolt Thunderbolt vs. 0 HP / 0 SpD Flutter Mane on a critical hit: 79-94 (60.7 - 72.3%) -- guaranteed 2HKO")
+  })
+
+  it("should calculate damage of a fixed damage move", () => {
+    const attacker = new Pokemon("Annihilape", { moveSet: new MoveSet(new Move("Final Gambit"), new Move("Close Combat"), new Move("Shadow Claw"), new Move("Coaching")) })
+    const target = new Target(new Pokemon("Incineroar"))
+    const field = new Field()
+
+    const damageResult = service.calcDamage(attacker, target.pokemon, field)
+
+    expect(damageResult.move).toEqual("Final Gambit")
+    expect(damageResult.result).toEqual("108.8 - 108.8%")
+    expect(damageResult.koChance).toEqual("guaranteed OHKO")
+    expect(damageResult.damage).toEqual(108.8)
+    expect(damageResult.description).toEqual("Annihilape Final Gambit vs. 0 HP Incineroar: 185-185 (108.8 - 108.8%) -- guaranteed OHKO")
+    expect(damageResult.attackerRolls).toEqual([[185, 185, 185, 185, 185, 185, 185, 185, 185, 185, 185, 185, 185, 185, 185, 185]])
   })
 })

@@ -21,13 +21,13 @@ export class DamageCalculatorService {
   speedCalculator = inject(SpeedCalculatorService)
 
   calcDamage(attacker: Pokemon, target: Pokemon, field: Field): DamageResult {
-    const result = this.calculateResult(attacker, target, attacker.move, field, field.isCriticalHit)
+    const result = this.calculateResult(attacker, target, attacker.move, field, true)
     return new DamageResult(attacker, target, attacker.move.name, result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescription(result), result.damage)
   }
 
-  calcDamageAllAttacks(attacker: Pokemon, target: Pokemon, field: Field): DamageResult[] {
+  calcDamageAllAttacks(attacker: Pokemon, target: Pokemon, field: Field, rightIsDefender: boolean): DamageResult[] {
     return attacker.moveSet.moves.map(move => {
-      const result = this.calculateResult(attacker, target, move, field, field.isCriticalHit)
+      const result = this.calculateResult(attacker, target, move, field, rightIsDefender)
       return new DamageResult(attacker, target, move.name, result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescription(result), result.damage)
     })
   }
@@ -35,11 +35,11 @@ export class DamageCalculatorService {
   calcDamageForTwoAttackers(attacker: Pokemon, secondAttacker: Pokemon, target: Pokemon, field: Field): DamageResult {
     const [firstBySpeed, secondBySpeed] = this.speedCalculator.orderPairBySpeed(attacker, secondAttacker, field)
 
-    const firstResult = this.calculateResult(firstBySpeed, target, firstBySpeed.move, field, field.isCriticalHit, secondBySpeed)
+    const firstResult = this.calculateResult(firstBySpeed, target, firstBySpeed.move, field, true, secondBySpeed)
 
     const targetWithTakedDamage = this.applyDamageInTarget(firstResult, target)
 
-    const secondResult = this.calculateResult(secondBySpeed, targetWithTakedDamage, secondBySpeed.move, field, field.isCriticalHit, firstBySpeed)
+    const secondResult = this.calculateResult(secondBySpeed, targetWithTakedDamage, secondBySpeed.move, field, true, firstBySpeed)
 
     const firstRolls = firstResult.damage
     const secondRolls = secondResult.damage
@@ -52,12 +52,12 @@ export class DamageCalculatorService {
     return new DamageResult(firstBySpeed, target, firstBySpeed.move.name, firstResult.moveDesc(), koChance, maxPercentageDamage, damageDescription, firstRolls, secondBySpeed, secondRolls)
   }
 
-  private calculateResult(attacker: Pokemon, target: Pokemon, move: Move, field: Field, criticalHit: boolean, secondAttacker?: Pokemon): Result {
+  private calculateResult(attacker: Pokemon, target: Pokemon, move: Move, field: Field, rightIsDefender: boolean, secondAttacker?: Pokemon): Result {
     const gen = Generations.get(9)
-    const smogonField = this.fieldMapper.toSmogon(field)
+    const smogonField = this.fieldMapper.toSmogon(field, rightIsDefender)
 
     const moveSmogon = new MoveSmogon(gen, move.name)
-    moveSmogon.isCrit = criticalHit
+    moveSmogon.isCrit = rightIsDefender ? field.attackerSide.isCriticalHit : field.defenderSide.isCriticalHit
     moveSmogon.isStellarFirstUse = true
     moveSmogon.hits = +move.hits
 

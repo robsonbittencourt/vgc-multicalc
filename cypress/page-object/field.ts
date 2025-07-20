@@ -63,68 +63,124 @@ export class Field {
     this.clickOnButton("gravity")
   }
 
-  helpingHand() {
-    this.clickOnButton("helping-hand")
+  helpingHandAttacker() {
+    this.clickOnButton("helping-hand-attacker")
   }
 
-  criticalHit() {
-    this.clickOnButton("critical-hit")
+  helpingHandDefender() {
+    this.clickOnButton("helping-hand-defender")
   }
 
-  battery() {
-    this.clickOnButton("battery")
+  criticalHitAttacker() {
+    this.clickOnButton("critical-hit-attacker")
   }
 
-  powerSpot() {
-    this.clickOnButton("power-spot")
+  criticalHitDefender() {
+    this.clickOnButton("critical-hit-defender")
+  }
+
+  batteryAttacker() {
+    this.clickOnButton("battery-attacker")
+  }
+
+  batteryDefender() {
+    this.clickOnButton("battery-defender")
+  }
+
+  powerSpotAttacker() {
+    this.clickOnButton("power-spot-attacker")
+  }
+
+  powerSpotDefender() {
+    this.clickOnButton("power-spot-defender")
   }
 
   tailwindAttacker() {
     this.clickOnButton("tailwind-attacker")
   }
 
-  reflect() {
-    this.clickOnButton("reflect")
-  }
-
-  lightScreen() {
-    this.clickOnButton("light-screen")
-  }
-
-  auroraVeil() {
-    this.clickOnButton("aurora-veil")
-  }
-
-  singleTarget() {
-    this.clickOnButton("single-target")
-  }
-
-  friendGuard() {
-    this.clickOnButton("friend-guard")
-  }
-
   tailwindDefender() {
     this.clickOnButton("tailwind-defender")
   }
 
-  threeSpikes() {
-    this.clickOnButton("three-spikes")
+  reflectAttacker() {
+    this.clickOnButton("reflect-attacker")
   }
 
-  twoSpikes() {
-    this.clickOnButton("two-spikes")
+  reflectDefender() {
+    this.clickOnButton("reflect-defender")
   }
 
-  oneSpikes() {
-    this.clickOnButton("one-spikes")
+  lightScreenAttacker() {
+    this.clickOnButton("light-screen-attacker")
   }
 
-  stealthRock() {
-    this.clickOnButton("stealth-rock")
+  lightScreenDefender() {
+    this.clickOnButton("light-screen-defender")
   }
 
-  leechSeed() {
-    this.clickOnButton("leech-seed")
+  auroraVeilAttacker() {
+    this.clickOnButton("aurora-veil-attacker")
+  }
+
+  auroraVeilDefender() {
+    this.clickOnButton("aurora-veil-defender")
+  }
+
+  singleTargetAttacker() {
+    this.clickOnButton("single-target-attacker")
+  }
+
+  singleTargetDefender() {
+    this.clickOnButton("single-target-defender")
+  }
+
+  friendGuardAttacker() {
+    this.clickOnButton("friend-guard-attacker")
+  }
+
+  friendGuardDefender() {
+    this.clickOnButton("friend-guard-defender")
+  }
+
+  threeSpikesAttacker() {
+    this.clickOnButton("three-spikes-attacker")
+  }
+
+  threeSpikesDefender() {
+    this.clickOnButton("three-spikes-defender")
+  }
+
+  twoSpikesAttacker() {
+    this.clickOnButton("two-spikes-attacker")
+  }
+
+  twoSpikesDefender() {
+    this.clickOnButton("two-spikes-defender")
+  }
+
+  oneSpikesAttacker() {
+    this.clickOnButton("one-spikes-attacker")
+  }
+
+  oneSpikesDefender() {
+    this.clickOnButton("one-spikes-defender")
+  }
+
+  stealthRockAttacker() {
+    this.clickOnButton("stealth-rock-attacker")
+  }
+
+  stealthRockDefender() {
+    this.clickOnButton("stealth-rock-defender")
+  }
+
+  leechSeedAttacker() {
+    this.clickOnButton("leech-seed-attacker")
+  }
+
+  leechSeedDefender() {
+    this.clickOnButton("leech-seed-defender")
   }
 
   neutralizingGas() {

@@ -24,8 +24,8 @@ export class SimpleCalcComponent {
   fieldStore = inject(FieldStore)
   private damageCalculator = inject(DamageCalculatorService)
 
-  leftDamageResults = computed(() => this.damageCalculator.calcDamageAllAttacks(this.store.leftPokemon(), this.store.rightPokemon(), this.fieldStore.field()))
-  rightDamageResults = computed(() => this.damageCalculator.calcDamageAllAttacks(this.store.rightPokemon(), this.store.leftPokemon(), this.fieldStore.field()))
+  leftDamageResults = computed(() => this.damageCalculator.calcDamageAllAttacks(this.store.leftPokemon(), this.store.rightPokemon(), this.fieldStore.field(), true))
+  rightDamageResults = computed(() => this.damageCalculator.calcDamageAllAttacks(this.store.rightPokemon(), this.store.leftPokemon(), this.fieldStore.field(), false))
 
   leftDamageResult = computed(() => this.findResultByMove(this.leftDamageResults(), this.store.leftPokemon().activeMoveName))
   rightDamageResult = computed(() => this.findResultByMove(this.rightDamageResults(), this.store.rightPokemon().activeMoveName))
@@ -49,7 +49,7 @@ export class SimpleCalcComponent {
     this.leftRollLevel.set(rollLevel)
   }
 
-  setRigthRollLevel(rollLevel: RollLevelConfig) {
+  setRightRollLevel(rollLevel: RollLevelConfig) {
     this.rightRollLevel.set(rollLevel)
   }
 

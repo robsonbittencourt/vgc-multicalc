@@ -29,7 +29,7 @@ beforeEach(() => {
   team.importPokepaste(defaultTeamData)
 })
 
-describe.only("Edit Opponent Pokémon", () => {
+describe("Edit Opponent Pokémon", () => {
   it("In Team vs Many", () => {
     opponents.deleteAll()
     opponents.importPokemon(tyranitarData)

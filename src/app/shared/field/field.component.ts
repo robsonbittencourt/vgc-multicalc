@@ -11,6 +11,7 @@ import { FieldStore } from "@data/store/field-store"
 })
 export class FieldComponent {
   onlySpeed = input(false, { transform: booleanAttribute })
+  oneVsOne = input(false, { transform: booleanAttribute })
 
   fieldStore = inject(FieldStore)
 }

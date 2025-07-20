@@ -12,7 +12,7 @@
   [opponentDamageResult]="leftDamageResult()"
   [opponentRollLevel]="leftRollLevel()"
   (moveSetChange)="rightMoveActivated($event)"
-  (rollLevelChange)="setRigthRollLevel($event)"
+  (rollLevelChange)="setRightRollLevel($event)"
   [reverse]="true"
   data-cy="right-damage-result" />
 
@@ -32,4 +32,4 @@
   <app-pokemon-build [pokemonId]="store.rightPokemon().id" [hasFocus]="activeSide() === 'right'" [reverse]="true" (selected)="activeSide.set('right')" />
 </app-widget>
 
-<app-field class="field" />
+<app-field class="field" oneVsOne="true" />

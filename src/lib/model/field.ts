@@ -1,7 +1,6 @@
 import { GameType, Terrain, Weather } from "@lib/types"
 
 export class Field {
-  readonly gameType: GameType
   readonly weather: Weather
   readonly terrain: Terrain
   readonly isBeadsOfRuin: boolean
@@ -13,13 +12,11 @@ export class Field {
   readonly isGravity: boolean
   readonly isTrickRoom: boolean
   readonly isNeutralizingGas: boolean
-  readonly isCriticalHit: boolean
-  readonly attackerSide: FieldAttackerSide
-  readonly defenderSide: FieldDefenderSide
+  readonly attackerSide: FieldSide
+  readonly defenderSide: FieldSide
 
   constructor(
     options: {
-      gameType?: GameType
       weather?: Weather
       terrain?: Terrain
       isBeadsOfRuin?: boolean
@@ -30,13 +27,11 @@ export class Field {
       isWonderRoom?: boolean
       isGravity?: boolean
       isTrickRoom?: boolean
-      isCriticalHit?: boolean
       isNeutralizingGas?: boolean
-      attackerSide?: FieldAttackerSide
-      defenderSide?: FieldDefenderSide
+      attackerSide?: FieldSide
+      defenderSide?: FieldSide
     } = {}
   ) {
-    this.gameType = options.gameType ?? "Doubles"
     this.weather = options.weather ?? null
     this.terrain = options.terrain ?? null
     this.isBeadsOfRuin = options.isBeadsOfRuin ?? false
@@ -48,27 +43,17 @@ export class Field {
     this.isGravity = options.isGravity ?? false
     this.isTrickRoom = options.isTrickRoom ?? false
     this.isNeutralizingGas = options.isNeutralizingGas ?? false
-    this.isCriticalHit = options.isCriticalHit ?? false
-    this.attackerSide = options.attackerSide ?? new FieldAttackerSide()
-    this.defenderSide = options.defenderSide ?? new FieldDefenderSide()
+    this.attackerSide = options.attackerSide ?? new FieldSide()
+    this.defenderSide = options.defenderSide ?? new FieldSide()
   }
 }
 
-export class FieldAttackerSide {
+export class FieldSide {
+  readonly gameType: GameType
+  readonly isCriticalHit: boolean
   readonly isHelpingHand: boolean
   readonly isBattery: boolean
   readonly isPowerSpot: boolean
-  readonly isTailwind: boolean
-
-  constructor(options: { isHelpingHand?: boolean; isBattery?: boolean; isPowerSpot?: boolean; isTailwind?: boolean } = {}) {
-    this.isHelpingHand = options.isHelpingHand ?? false
-    this.isBattery = options.isBattery ?? false
-    this.isPowerSpot = options.isPowerSpot ?? false
-    this.isTailwind = options.isTailwind ?? false
-  }
-}
-
-export class FieldDefenderSide {
   readonly isTailwind: boolean
   readonly isReflect: boolean
   readonly isLightScreen: boolean
@@ -78,7 +63,28 @@ export class FieldDefenderSide {
   readonly isSR: boolean
   readonly isSeeded: boolean
 
-  constructor(options: { isTailwind?: boolean; isReflect?: boolean; isLightScreen?: boolean; isAuroraVeil?: boolean; isFriendGuard?: boolean; spikes?: number; isSR?: boolean; isSeeded?: boolean } = {}) {
+  constructor(
+    options: {
+      gameType?: GameType
+      isCriticalHit?: boolean
+      isHelpingHand?: boolean
+      isBattery?: boolean
+      isPowerSpot?: boolean
+      isTailwind?: boolean
+      isReflect?: boolean
+      isLightScreen?: boolean
+      isAuroraVeil?: boolean
+      isFriendGuard?: boolean
+      spikes?: number
+      isSR?: boolean
+      isSeeded?: boolean
+    } = {}
+  ) {
+    this.gameType = options.gameType ?? "Doubles"
+    this.isCriticalHit = options.isCriticalHit ?? false
+    this.isHelpingHand = options.isHelpingHand ?? false
+    this.isBattery = options.isBattery ?? false
+    this.isPowerSpot = options.isPowerSpot ?? false
     this.isTailwind = options.isTailwind ?? false
     this.isReflect = options.isReflect ?? false
     this.isLightScreen = options.isLightScreen ?? false

@@ -1,13 +1,12 @@
 import { Injectable } from "@angular/core"
-import { Field, FieldAttackerSide, FieldDefenderSide } from "@lib/model/field"
+import { Field, FieldSide } from "@lib/model/field"
 import { Side, Field as SmogonField } from "@robsonbittencourt/calc"
 import { Terrain as SmogonTerrain, Weather as SmogonWeather } from "@robsonbittencourt/calc/src/data/interface"
 
 @Injectable({ providedIn: "root" })
 export class FieldMapper {
-  toSmogon(field: Field): SmogonField {
+  toSmogon(field: Field, rightIsDefender = true): SmogonField {
     const smogonField = new SmogonField()
-    smogonField.gameType = field.gameType
     smogonField.weather = field.weather as SmogonWeather
     smogonField.terrain = field.terrain as SmogonTerrain
     smogonField.isBeadsOfRuin = field.isBeadsOfRuin
@@ -17,13 +16,21 @@ export class FieldMapper {
     smogonField.isMagicRoom = field.isMagicRoom
     smogonField.isWonderRoom = field.isWonderRoom
     smogonField.isGravity = field.isGravity
-    smogonField.attackerSide = this.toAttackerSide(field.attackerSide)
-    smogonField.defenderSide = this.toDefenderSide(field.defenderSide)
+
+    if (rightIsDefender) {
+      smogonField.gameType = field.attackerSide.gameType
+      smogonField.attackerSide = this.toAttackerSide(field.attackerSide)
+      smogonField.defenderSide = this.toDefenderSide(field.defenderSide)
+    } else {
+      smogonField.gameType = field.defenderSide.gameType
+      smogonField.attackerSide = this.toAttackerSide(field.defenderSide)
+      smogonField.defenderSide = this.toDefenderSide(field.attackerSide)
+    }
 
     return smogonField
   }
 
-  private toAttackerSide(fieldSide: FieldAttackerSide): Side {
+  private toAttackerSide(fieldSide: FieldSide): Side {
     const smogonSide = new Side()
     smogonSide.isTailwind = fieldSide.isTailwind
     smogonSide.isHelpingHand = fieldSide.isHelpingHand
@@ -33,7 +40,7 @@ export class FieldMapper {
     return smogonSide
   }
 
-  private toDefenderSide(fieldSide: FieldDefenderSide): Side {
+  private toDefenderSide(fieldSide: FieldSide): Side {
     const smogonSide = new Side()
     smogonSide.isTailwind = fieldSide.isTailwind
     smogonSide.isReflect = fieldSide.isReflect
