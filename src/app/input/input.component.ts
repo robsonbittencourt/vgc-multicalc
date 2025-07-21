@@ -1,5 +1,5 @@
 import { NgClass } from "@angular/common"
-import { booleanAttribute, Component, input, model, output } from "@angular/core"
+import { booleanAttribute, Component, ElementRef, input, model, output, viewChild } from "@angular/core"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 
 @Component({
@@ -25,17 +25,24 @@ export class InputComponent {
 
   lostFocus = output()
 
-  onClick() {
+  inputElement = viewChild<ElementRef>("inputRef")
+
+  onClick(event: FocusEvent) {
+    ;(event.target as HTMLInputElement).select()
     this.selected.emit()
   }
 
   onBlur() {
     setTimeout(() => {
       this.lostFocus.emit()
-    }, 150)
+    }, 100)
   }
 
   onValueSelected(selectedValue: string) {
     this.value.set(selectedValue)
+  }
+
+  blur() {
+    this.inputElement()?.nativeElement.blur()
   }
 }

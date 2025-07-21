@@ -1,5 +1,5 @@
 import { TitleCasePipe } from "@angular/common"
-import { Component, computed, inject, input, output } from "@angular/core"
+import { Component, computed, inject, input, output, viewChild } from "@angular/core"
 import { FormsModule } from "@angular/forms"
 import { MatCheckbox } from "@angular/material/checkbox"
 import { InputComponent } from "@app/input/input.component"
@@ -33,4 +33,10 @@ export class AbilityComboBoxComponent {
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
 
   availableAbilities = computed(() => this.pokemon().availableAbilities.map(a => a.name))
+
+  abilityInput = viewChild<InputComponent>("abilityInput")
+
+  blur() {
+    this.abilityInput()?.blur()
+  }
 }

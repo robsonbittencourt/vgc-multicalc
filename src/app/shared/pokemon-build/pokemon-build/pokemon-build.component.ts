@@ -1,6 +1,6 @@
 import { animate, style, transition, trigger } from "@angular/animations"
 import { NgClass, NgStyle } from "@angular/common"
-import { Component, computed, effect, inject, input, output, signal } from "@angular/core"
+import { Component, computed, effect, inject, input, output, signal, viewChild } from "@angular/core"
 import { FormsModule } from "@angular/forms"
 import { MatCheckbox } from "@angular/material/checkbox"
 import { RouterOutlet } from "@angular/router"
@@ -103,6 +103,11 @@ export class PokemonBuildComponent {
 
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
 
+  pokemonInput = viewChild<InputComponent>("pokemonInput")
+  itemInput = viewChild<InputComponent>("itemInput")
+  abilityInput = viewChild<InputComponent>("abilityInput")
+  move4Input = viewChild<InputComponent>("move4Input")
+
   MAX_EVS = 508
 
   moveWasSelected = false
@@ -152,6 +157,7 @@ export class PokemonBuildComponent {
     if (this.activeMoveIndex() == 3) {
       this.activeTable.set("evs")
       this.removeFocusFromAllFields()
+      this.move4Input()?.blur()
     } else {
       this.focusNextTabIndex()
     }
@@ -211,6 +217,7 @@ export class PokemonBuildComponent {
     this.store.ability(this.pokemonId(), ability)
     this.activeTable.set("evs")
     this.removeFocusFromAllFields()
+    this.abilityInput()?.blur()
   }
 
   abilitySelectorOnClick() {
@@ -232,6 +239,7 @@ export class PokemonBuildComponent {
     this.store.item(this.pokemonId(), item)
     this.activeTable.set("evs")
     this.removeFocusFromAllFields()
+    this.itemInput()?.blur()
   }
 
   itemSelectorOnClick() {
@@ -253,6 +261,7 @@ export class PokemonBuildComponent {
     this.updatePokemon(pokemon)
     this.activeTable.set("evs")
     this.removeFocusFromAllFields()
+    this.pokemonInput()?.blur()
   }
 
   pokemonSelectorOnClick() {

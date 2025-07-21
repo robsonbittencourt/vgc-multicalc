@@ -6,6 +6,7 @@
       </div>
 
       <app-input
+        #pokemonInput
         [value]="pokemon().name"
         (valueChange)="pokemonDataFilter.set($event)"
         [haveFocus]="pokemonHasFocus()"
@@ -23,6 +24,7 @@
       </div>
 
       <app-input
+        #pokemonInput
         [value]="pokemon().name"
         (valueChange)="pokemonDataFilter.set($event)"
         [haveFocus]="pokemonHasFocus()"
@@ -36,6 +38,7 @@
       <app-status-combo-box [pokemonId]="pokemonId()" [haveFocus]="statusHaveFocus()" (selected)="statusOnClick()" />
       <app-multi-hit-combo-box [pokemonId]="pokemonId()" [haveFocus]="multiHitHasFocus()" (selected)="multiHitOnClick()" />
       <app-input
+        #itemInput
         label="Item"
         [value]="pokemon().item"
         [disabled]="isItemDisabled()"
@@ -50,7 +53,14 @@
     <div class="tera-type-ability" [ngStyle]="(reverse() && { order: 2 }) || null">
       <app-tera-combo-box [pokemonId]="pokemonId()" [haveFocus]="teraHasFocus()" (selected)="teraOnClick()" />
       <app-type-combo-box [type1]="pokemon().type1" [type2]="pokemon().type2" [reverse]="reverse()" />
-      <app-ability-combo-box [pokemonId]="pokemonId()" [haveFocus]="abilityHasFocus()" [tabIndex]="abilityTabIndex()" (valueChange)="abilityDataFilter.set($event)" (selected)="abilitySelectorOnClick()" (lostFocus)="abilitySelectorLostFocus()" />
+      <app-ability-combo-box
+        #abilityInput
+        [pokemonId]="pokemonId()"
+        [haveFocus]="abilityHasFocus()"
+        [tabIndex]="abilityTabIndex()"
+        (valueChange)="abilityDataFilter.set($event)"
+        (selected)="abilitySelectorOnClick()"
+        (lostFocus)="abilitySelectorLostFocus()" />
     </div>
 
     <div>
@@ -59,6 +69,7 @@
         <div class="move">
           <mat-checkbox [ngModel]="pokemon().move1Name === pokemon().activeMoveName" (change)="activateMove(1)" [disabled]="moveSelectorDisabled(pokemon().move1Name)" data-cy="attack1" />
           <app-input
+            #move1Input
             [value]="pokemon().moveSet.move1.name"
             [haveFocus]="move1HasFocus()"
             (valueChange)="moveDataFilter.set($event)"
@@ -70,6 +81,7 @@
         <div class="move">
           <mat-checkbox [ngModel]="pokemon().move2Name === pokemon().activeMoveName" (change)="activateMove(2)" [disabled]="moveSelectorDisabled(pokemon().move2Name)" data-cy="attack2" />
           <app-input
+            #move2Input
             [value]="pokemon().moveSet.move2.name"
             [haveFocus]="move2HasFocus()"
             (valueChange)="moveDataFilter.set($event)"
@@ -81,6 +93,7 @@
         <div class="move">
           <mat-checkbox [ngModel]="pokemon().move3Name === pokemon().activeMoveName" (change)="activateMove(3)" [disabled]="moveSelectorDisabled(pokemon().move3Name)" data-cy="attack3" />
           <app-input
+            #move3Input
             [value]="pokemon().moveSet.move3.name"
             [haveFocus]="move3HasFocus()"
             (valueChange)="moveDataFilter.set($event)"
@@ -92,6 +105,7 @@
         <div class="move">
           <mat-checkbox [ngModel]="pokemon().move4Name === pokemon().activeMoveName" (change)="activateMove(4)" [disabled]="moveSelectorDisabled(pokemon().move4Name)" data-cy="attack4" />
           <app-input
+            #move4Input
             [value]="pokemon().moveSet.move4.name"
             [haveFocus]="move4HasFocus()"
             (valueChange)="moveDataFilter.set($event)"

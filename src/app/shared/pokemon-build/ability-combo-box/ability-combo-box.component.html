@@ -13,6 +13,7 @@
   <app-input-select class="input-select" label="Ability" [value]="pokemon().ability.name" [allValues]="availableAbilities()" (valueChange)="store.ability(pokemonId(), $event)" data-cy="ability" />
 } @else {
   <app-input
+    #abilityInput
     class="input-select"
     label="Ability"
     [value]="pokemon().ability.name"
