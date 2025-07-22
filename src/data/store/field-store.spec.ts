@@ -757,7 +757,7 @@ describe("Field Store", () => {
     it("should update local storage when state changes", () => {
       store.toggleSunWeather()
 
-      TestBed.flushEffects()
+      TestBed.tick()
 
       const actualStorage = JSON.parse(localStorage.getItem("userData")!)
       expect(actualStorage.field.weather).toBe("Sun")
@@ -766,7 +766,7 @@ describe("Field Store", () => {
     it("should update local storage when state changes mantaining existent data", () => {
       store.toggleSunWeather()
 
-      TestBed.flushEffects()
+      TestBed.tick()
 
       const actualStorage = JSON.parse(localStorage.getItem("userData")!)
       expect(actualStorage.field.isBeadsOfRuin).toBeFalse()

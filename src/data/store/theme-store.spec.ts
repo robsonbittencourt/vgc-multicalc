@@ -47,7 +47,7 @@ describe("Theme Store", () => {
     it("should update local storage when state changes", () => {
       store.updateTheme("dark")
 
-      TestBed.flushEffects()
+      TestBed.tick()
 
       const actualStorage = JSON.parse(localStorage.getItem("userData")!)
       expect(actualStorage.themeData.theme).toBe("dark")
@@ -56,7 +56,7 @@ describe("Theme Store", () => {
     it("should update local storage when state changes mantaining existent data", () => {
       store.updateColor("red")
 
-      TestBed.flushEffects()
+      TestBed.tick()
 
       const actualStorage = JSON.parse(localStorage.getItem("userData")!)
       expect(actualStorage.themeData.color).toBe("red")

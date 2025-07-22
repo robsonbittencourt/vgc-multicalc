@@ -606,7 +606,7 @@ describe("Calculator Store", () => {
       it("should update local storage when state changes", () => {
         store.name(defaultId, "Pikachu")
 
-        TestBed.flushEffects()
+        TestBed.tick()
 
         const actualStorage = JSON.parse(localStorage.getItem("userData")!)
         expect(actualStorage.teams[0].teamMembers[0].pokemon.name).toBe("Pikachu")
@@ -615,7 +615,7 @@ describe("Calculator Store", () => {
       it("should update local storage when state changes mantaining existent data", () => {
         store.name(defaultId, "Pikachu")
 
-        TestBed.flushEffects()
+        TestBed.tick()
 
         const actualStorage = JSON.parse(localStorage.getItem("userData")!)
         expect(actualStorage.leftPokemon.name).toBe("Miraidon")
