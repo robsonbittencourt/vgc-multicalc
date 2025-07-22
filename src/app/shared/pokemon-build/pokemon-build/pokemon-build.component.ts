@@ -119,15 +119,18 @@ export class PokemonBuildComponent {
       }
 
       if (!this.hasFocus()) {
-        this.removeFocusFromAllFields()
-        this.activeTable.set("evs")
+        this.showDefaultView()
       }
     })
   }
 
-  escapeWasPressed() {
-    this.activeTable.set("evs")
+  focusPokemonSelector() {
+    this.pokemonInput()?.focus()
+  }
+
+  showDefaultView() {
     this.removeFocusFromAllFields()
+    this.activeTable.set("evs")
   }
 
   moveSelectorDisabled(move: string): boolean {
@@ -137,8 +140,7 @@ export class PokemonBuildComponent {
   activateMove(position: number) {
     this.activeMoveIndex.set(null)
     this.store.activateMoveByPosition(this.pokemonId(), position)
-    this.activeTable.set("evs")
-    this.removeFocusFromAllFields()
+    this.showDefaultView()
   }
 
   moveSelectorOnClick(position: number) {
@@ -155,8 +157,7 @@ export class PokemonBuildComponent {
     this.moveDataFilter.set("")
 
     if (this.activeMoveIndex() == 3) {
-      this.activeTable.set("evs")
-      this.removeFocusFromAllFields()
+      this.showDefaultView()
       this.move4Input()?.blur()
     } else {
       this.focusNextTabIndex()
@@ -215,8 +216,7 @@ export class PokemonBuildComponent {
   abilitySelected(ability: string) {
     this.abilityDataFilter.set("")
     this.store.ability(this.pokemonId(), ability)
-    this.activeTable.set("evs")
-    this.removeFocusFromAllFields()
+    this.showDefaultView()
     this.abilityInput()?.blur()
   }
 
@@ -237,8 +237,7 @@ export class PokemonBuildComponent {
   itemSelected(item: string) {
     this.itemDataFilter.set("")
     this.store.item(this.pokemonId(), item)
-    this.activeTable.set("evs")
-    this.removeFocusFromAllFields()
+    this.showDefaultView()
     this.itemInput()?.blur()
   }
 
@@ -259,8 +258,7 @@ export class PokemonBuildComponent {
   pokemonSelected(pokemon: string) {
     this.pokemonDataFilter.set("")
     this.updatePokemon(pokemon)
-    this.activeTable.set("evs")
-    this.removeFocusFromAllFields()
+    this.showDefaultView()
     this.pokemonInput()?.blur()
   }
 
@@ -275,6 +273,14 @@ export class PokemonBuildComponent {
     if (this.pokemonDataFilter() != "") {
       this.updatePokemon(this.firstPokemonFromList())
       this.pokemonDataFilter.set("")
+    }
+  }
+
+  newPokemonSelectorLostFocus() {
+    this.pokemonSelectorLostFocus()
+    if (this.pokemonDataFilter() != "") {
+      this.showDefaultView()
+      this.pokemonInput()?.blur()
     }
   }
 
@@ -343,22 +349,19 @@ export class PokemonBuildComponent {
 
   statusOnClick() {
     this.removeFocusFromAllFields()
-    this.statusHaveFocus.set(true)
-    this.activeTable.set("evs")
+    this.showDefaultView()
     this.selected.emit()
   }
 
   multiHitOnClick() {
-    this.removeFocusFromAllFields()
     this.multiHitHasFocus.set(true)
-    this.activeTable.set("evs")
+    this.showDefaultView()
     this.selected.emit()
   }
 
   teraOnClick() {
-    this.removeFocusFromAllFields()
     this.teraHasFocus.set(true)
-    this.activeTable.set("evs")
+    this.showDefaultView()
     this.selected.emit()
   }
 

@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, output } from "@angular/core"
+import { AfterViewInit, booleanAttribute, Component, computed, inject, input, output, viewChild } from "@angular/core"
 import { InputAutocompleteComponent } from "@app/shared/input-autocomplete/input-autocomplete.component"
 import { SETDEX_SV } from "@data/movesets"
 import { AllPokemon } from "@data/pokemon-details"
@@ -10,16 +10,26 @@ import { CalculatorStore } from "@data/store/calculator-store"
   styleUrls: ["./pokemon-combo-box.component.scss"],
   imports: [InputAutocompleteComponent]
 })
-export class PokemonComboBoxComponent {
+export class PokemonComboBoxComponent implements AfterViewInit {
   store = inject(CalculatorStore)
 
   pokemonId = input.required<string>()
+
+  autoFocus = input(false, { transform: booleanAttribute })
 
   pokemonChanged = output()
 
   name = computed(() => this.store.findPokemonById(this.pokemonId()).name)
 
+  autoCompleteInput = viewChild<InputAutocompleteComponent>("autoCompleteInput")
+
   allPokemonNames = AllPokemon.instance.allPokemonNames
+
+  ngAfterViewInit() {
+    if (this.autoFocus()) {
+      this.autoCompleteInput()?.focus()
+    }
+  }
 
   onValueManuallySelected(pokemonName: string) {
     const poke = SETDEX_SV[pokemonName]

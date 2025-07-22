@@ -84,6 +84,10 @@ export class InputAutocompleteComponent implements OnInit {
     })
   }
 
+  focus() {
+    this.autoCompleteInput()!.nativeElement.select()
+  }
+
   private adjustAllValuesInput(value: string[] | KeyValuePair[]): KeyValuePair[] {
     if (typeof value[0] === "string") {
       return value.map(x => ({ key: x, value: x }) as KeyValuePair)

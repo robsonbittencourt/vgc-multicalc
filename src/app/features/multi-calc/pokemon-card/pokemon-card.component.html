@@ -4,7 +4,7 @@
       <div class="card-right-side">
         <div class="pokemon-image-container" [@fadeIn]>
           <img src="assets/icons/question.png" />
-          <app-pokemon-combo-box [pokemonId]="target().pokemon.id" data-cy="card-pokemon-select" />
+          <app-pokemon-combo-box [pokemonId]="target().pokemon.id" autoFocus="true" data-cy="card-pokemon-select" />
         </div>
       </div>
     </div>

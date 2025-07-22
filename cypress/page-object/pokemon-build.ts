@@ -4,8 +4,7 @@ export class PokemonBuild {
   constructor(private selector: string) {}
 
   selectPokemon(pokemonName: string): PokemonBuild {
-    this.closeTable()
-    this.container().find('[data-cy="pokemon-select"] input').click()
+    this.container().find('[data-cy="pokemon-select"] input').click({ force: true })
     this.scrollAndSearch(pokemonName)
 
     return this

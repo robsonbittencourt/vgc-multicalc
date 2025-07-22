@@ -1,4 +1,4 @@
-import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, effect, inject, input, signal } from "@angular/core"
+import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, effect, inject, input, signal, viewChild } from "@angular/core"
 import { MatIcon } from "@angular/material/icon"
 import { RouterOutlet } from "@angular/router"
 import { ExportPokemonButtonComponent } from "@app/shared/buttons/export-pokemon-button/export-pokemon-button.component"
@@ -30,6 +30,8 @@ export class TeamComponent {
 
   combineDamageActive = signal(false)
 
+  pokemonBuild = viewChild<PokemonBuildComponent>("pokemonBuild")
+
   constructor() {
     effect(() => {
       if (!this.store.team().hasDefaultPokemon() && !this.store.team().isFull()) {
@@ -47,6 +49,14 @@ export class TeamComponent {
     } else {
       this.selectedPokemonRemovingSecond(pokemonId)
     }
+
+    setTimeout(() => {
+      if (this.pokemonOnEdit().isDefault) {
+        this.pokemonBuild()?.focusPokemonSelector()
+      } else {
+        this.pokemonBuild()?.showDefaultView()
+      }
+    }, 0)
   }
 
   activateSecondPokemon(pokemonId: string) {

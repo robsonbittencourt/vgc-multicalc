@@ -11,7 +11,7 @@
         (valueChange)="pokemonDataFilter.set($event)"
         [haveFocus]="pokemonHasFocus()"
         (selected)="pokemonSelectorOnClick()"
-        (lostFocus)="pokemonSelectorLostFocus()"
+        (lostFocus)="newPokemonSelectorLostFocus()"
         [tabIndex]="pokemonTabIndex()"
         data-cy="pokemon-select" />
     </div>
@@ -173,13 +173,13 @@
     [pokemonId]="pokemonId()"
     [dataFilter]="pokemonDataFilter()"
     [haveFocus]="tableWasActive()"
-    (escapeWasPressed)="escapeWasPressed()"
+    (escapeWasPressed)="showDefaultView()"
     (pokemonSelected)="pokemonSelected($event)"
     (firstPokemonFromList)="firstPokemonFromList.set($event)" />
 }
 
 @if (showItemsTable()) {
-  <app-items-table [pokemonId]="pokemonId()" [dataFilter]="itemDataFilter()" [haveFocus]="tableWasActive()" (escapeWasPressed)="escapeWasPressed()" (itemSelected)="itemSelected($event)" (firstItemFromList)="firstItemFromList.set($event)" />
+  <app-items-table [pokemonId]="pokemonId()" [dataFilter]="itemDataFilter()" [haveFocus]="tableWasActive()" (escapeWasPressed)="showDefaultView()" (itemSelected)="itemSelected($event)" (firstItemFromList)="firstItemFromList.set($event)" />
 }
 
 @if (showAbilitiesTable()) {
@@ -187,13 +187,13 @@
     [pokemonId]="pokemonId()"
     [dataFilter]="abilityDataFilter()"
     [haveFocus]="tableWasActive()"
-    (escapeWasPressed)="escapeWasPressed()"
+    (escapeWasPressed)="showDefaultView()"
     (abilitySelected)="abilitySelected($event)"
     (firstAbilityFromList)="firstAbilityFromList.set($event)" />
 }
 
 @if (showMovesTable()) {
-  <app-moves-table [pokemonId]="pokemonId()" [dataFilter]="moveDataFilter()" [haveFocus]="tableWasActive()" (escapeWasPressed)="escapeWasPressed()" (moveSelected)="moveSelected($event)" (firstMoveFromList)="firstMoveFromList.set($event)" />
+  <app-moves-table [pokemonId]="pokemonId()" [dataFilter]="moveDataFilter()" [haveFocus]="tableWasActive()" (escapeWasPressed)="showDefaultView()" (moveSelected)="moveSelected($event)" (firstMoveFromList)="firstMoveFromList.set($event)" />
 }
 
 <router-outlet></router-outlet>
