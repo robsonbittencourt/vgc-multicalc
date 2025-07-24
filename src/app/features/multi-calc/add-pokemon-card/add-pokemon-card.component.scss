@@ -4,6 +4,7 @@
   border-radius: 0px;
   padding: 1em;
   background-color: var(--highlight);
+  cursor: pointer;
 }
 
 .container {
@@ -19,4 +20,9 @@
   justify-content: center;
   color: var(--highlight-border);
   transform: scale(3);
+}
+
+.card:hover .plus-button {
+  transform: scale(3.2);
+  filter: brightness(1.4);
 }
