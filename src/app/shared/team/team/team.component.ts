@@ -43,6 +43,10 @@ export class TeamComponent {
     })
   }
 
+  scrollToPokemonSelector() {
+    this.pokemonBuild()?.scrollToPokemonSelector()
+  }
+
   activatePokemon(pokemonId: string) {
     if (this.combineDamageActive()) {
       this.selectedPokemon(pokemonId)

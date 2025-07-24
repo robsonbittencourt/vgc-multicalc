@@ -57,4 +57,8 @@ export class InputComponent implements OnDestroy {
   focus() {
     this.inputElement()?.nativeElement.select()
   }
+
+  scrollTo() {
+    this.inputElement()?.nativeElement.scrollIntoView({ behavior: "smooth", block: "center" })
+  }
 }

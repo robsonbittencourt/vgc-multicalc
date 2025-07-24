@@ -128,6 +128,10 @@ export class PokemonBuildComponent {
     this.pokemonInput()?.focus()
   }
 
+  scrollToPokemonSelector() {
+    this.pokemonInput()?.scrollTo()
+  }
+
   showDefaultView() {
     this.removeFocusFromAllFields()
     this.activeTable.set("evs")

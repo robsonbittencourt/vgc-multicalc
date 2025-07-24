@@ -1,4 +1,4 @@
-import { Component, computed, inject, linkedSignal, OnInit, signal } from "@angular/core"
+import { Component, computed, inject, linkedSignal, OnInit, signal, viewChild } from "@angular/core"
 import { TargetPokemonComponent } from "@app/features/multi-calc/target-pokemon/target-pokemon.component"
 import { FieldComponent } from "@app/shared/field/field.component"
 import { TeamComponent } from "@app/shared/team/team/team.component"
@@ -30,6 +30,8 @@ export class MultiCalcComponent implements OnInit {
   activeSecondAttacker = computed(() => this.store.findNullablePokemonById(this.store.secondAttackerId()))
   damageResults = computed(() => this.damageCalculator.calculateDamageForAll(this.activeAttacker(), this.store.targets(), this.fieldStore.field(), this.order(), this.activeSecondAttacker()))
 
+  teamComponent = viewChild<TeamComponent>("teamComponent")
+
   ngOnInit() {
     this.store.updateSecondAttacker("")
     this.store.activateTeamMember(this.store.team().activePokemonIndex())
@@ -43,6 +45,11 @@ export class MultiCalcComponent implements OnInit {
 
   orderChanged(order: boolean) {
     this.order.set(order)
+  }
+
+  targetActivated(pokemonId: string) {
+    this.pokemonOnEditId.set(pokemonId)
+    this.teamComponent()?.scrollToPokemonSelector()
   }
 
   private activeSecondAttackerId(team: Team): string | undefined {
