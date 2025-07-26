@@ -1,7 +1,7 @@
 import { animate, style, transition, trigger } from "@angular/animations"
 import { ScrollingModule } from "@angular/cdk/scrolling"
 import { CommonModule } from "@angular/common"
-import { Component, computed, effect, ElementRef, HostListener, inject, input, output, signal, viewChildren } from "@angular/core"
+import { AfterViewInit, Component, computed, effect, ElementRef, HostListener, inject, input, output, signal, viewChild, viewChildren } from "@angular/core"
 import { MatIcon } from "@angular/material/icon"
 import { MatTooltip } from "@angular/material/tooltip"
 import { TypeComboBoxComponent } from "../shared/pokemon-build/type-combo-box/type-combo-box.component"
@@ -16,7 +16,7 @@ import { TableDataFilterService } from "./table-data-filter.service"
   styleUrls: ["./filterable-table.component.scss"],
   animations: [trigger("fadeInOut", [transition(":enter", [style({ opacity: 0 }), animate("200ms ease-in", style({ opacity: 1 }))])])]
 })
-export class FilterableTableComponent<T extends Record<string, any>> {
+export class FilterableTableComponent<T extends Record<string, any>> implements AfterViewInit {
   filterService = inject(TableDataFilterService)
 
   data = input.required<TableData<T>[]>()
@@ -26,6 +26,7 @@ export class FilterableTableComponent<T extends Record<string, any>> {
   haveFocus = input.required<boolean>()
 
   rows = viewChildren("row", { read: ElementRef })
+  scroll = viewChild("scroll", { read: ElementRef })
 
   activeLine = signal<LinkedTableData<T> | null>(null)
 
@@ -40,6 +41,7 @@ export class FilterableTableComponent<T extends Record<string, any>> {
   sortDirection = signal<"asc" | "desc" | null>(null)
   activeFilters = signal<ActiveFilter[]>([])
   expanded = signal(false)
+  isHoverEnabled = signal(true)
 
   tableHeight = computed(() => (this.expanded() ? "600px" : "300px"))
 
@@ -94,6 +96,24 @@ export class FilterableTableComponent<T extends Record<string, any>> {
         this.activeLine.set(null)
       }
     })
+  }
+
+  ngAfterViewInit() {
+    const element = this.scroll()!.nativeElement
+
+    element.addEventListener("scroll", () => {
+      this.disableHoverTemporarily()
+    })
+
+    document.addEventListener("mousemove", () => {
+      if (!this.isHoverEnabled()) {
+        this.isHoverEnabled.set(true)
+      }
+    })
+  }
+
+  disableHoverTemporarily() {
+    this.isHoverEnabled.set(false)
   }
 
   isArray(item: LinkedTableData<T>, field: keyof T): boolean {
@@ -267,7 +287,8 @@ export class FilterableTableComponent<T extends Record<string, any>> {
 
   getItemClass(item: LinkedTableData<T>): Record<string, boolean> {
     return {
-      "move-item-active": item.id === this.activeLine()?.id || item.selected
+      "move-item-active": item.id === this.activeLine()?.id || item.selected,
+      "disable-hover": !this.isHoverEnabled()
     }
   }
 

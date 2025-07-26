@@ -27,7 +27,7 @@
 
     <div class="moves-list">
       @if (hasResult()) {
-        <cdk-virtual-scroll-viewport itemSize="45" minBufferPx="180" maxBufferPx="360" [ngStyle]="panelStyle()" data-cy="scroll-viewport">
+        <cdk-virtual-scroll-viewport itemSize="45" minBufferPx="300" maxBufferPx="600" [ngStyle]="panelStyle()" #scroll data-cy="scroll-viewport">
           <div *cdkVirtualFor="let item of viewData(); let index = index; trackBy: trackById">
             @if (item.group) {
               <div class="moves-section-title">{{ item.group }}</div>

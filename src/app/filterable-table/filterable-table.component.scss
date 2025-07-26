@@ -113,6 +113,12 @@
   cursor: pointer;
 }
 
+.disable-hover:hover {
+  background: none !important;
+  box-shadow: none !important;
+  cursor: default;
+}
+
 .move-item-active {
   background-color: var(--filterable-table-selected-line);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
