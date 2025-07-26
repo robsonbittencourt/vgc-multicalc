@@ -1,6 +1,9 @@
-import { Component, inject } from "@angular/core"
+import { animate, style, transition, trigger } from "@angular/animations"
+import { NgClass } from "@angular/common"
+import { Component, computed, effect, inject, OnInit } from "@angular/core"
 import { FormsModule } from "@angular/forms"
 import { MatButton } from "@angular/material/button"
+import { MatIcon } from "@angular/material/icon"
 import { MatFormField, MatInput } from "@angular/material/input"
 import { ImportPokemonButtonComponent } from "@app/shared/buttons/import-pokemon-button/import-pokemon-button.component"
 import { TeamBoxComponent } from "@app/shared/team/team-box/team-box.component"
@@ -18,17 +21,51 @@ import { v4 as uuidv4 } from "uuid"
   selector: "app-teams",
   templateUrl: "./teams.component.html",
   styleUrls: ["./teams.component.scss"],
-  imports: [WidgetComponent, MatFormField, MatInput, FormsModule, MatButton, TeamBoxComponent, WidgetComponent, ImportPokemonButtonComponent]
+  imports: [NgClass, WidgetComponent, MatFormField, MatInput, FormsModule, MatButton, MatIcon, TeamBoxComponent, WidgetComponent, ImportPokemonButtonComponent],
+  animations: [trigger("fadeInAnimation", [transition(":increment", [style({ opacity: 0 }), animate("300ms ease-in", style({ opacity: 1 }))]), transition(":decrement", [style({ opacity: 0 }), animate("300ms ease-in", style({ opacity: 1 }))])])]
 })
-export class TeamsComponent {
+export class TeamsComponent implements OnInit {
   store = inject(CalculatorStore)
   private exportPokeService = inject(ExportPokeService)
   private snackBar = inject(SnackbarService)
 
+  allTeamsFilled = computed(() => this.store.teams().filter(t => t.onlyHasDefaultPokemon()).length == 0)
+
+  currentPage = 0
+
+  constructor() {
+    effect(() => {
+      if (this.allTeamsFilled()) {
+        const teamNumber = this.store.teams().length
+
+        for (let index = 1; index < 5; index++) {
+          this.store.addTeam(new Team(uuidv4(), false, `Team ${teamNumber + index}`, [new TeamMember(defaultPokemon(), true)]))
+        }
+      }
+    })
+  }
+
+  ngOnInit() {
+    const orderedTeams = this.store.teams().sort(this.moveEmptyListsToEnd)
+    const newTeams = this.cleanTeamsInChunks(orderedTeams)
+    this.store.updateTeams(newTeams)
+    this.ensureCorrectTeamCount()
+  }
+
+  nextPage() {
+    this.currentPage++
+    this.activateFirstTeamByPage()
+  }
+
+  prevPage() {
+    this.currentPage--
+    this.activateFirstTeamByPage()
+  }
+
   pokemonImported(pokemon: Pokemon | Pokemon[]) {
     const pokemonList = pokemon as Pokemon[]
 
-    const teamSlotToImport = this.store.teams().find(t => t.onlyHasDefaultPokemon()) ?? this.store.teams()[this.store.teams().length - 1]
+    const teamSlotToImport = this.store.teams().find(t => t.onlyHasDefaultPokemon())!
 
     const teamMembers: TeamMember[] = []
 
@@ -43,8 +80,15 @@ export class TeamsComponent {
     }
 
     const teamToImport = new Team(uuidv4(), teamSlotToImport.active, teamSlotToImport.name, teamMembers)
-
     this.store.replaceTeam(teamToImport, teamSlotToImport.id)
+
+    if (this.allTeamsFilled()) {
+      const teamNumber = this.store.teams().length
+
+      for (let index = 1; index < 5; index++) {
+        this.store.addTeam(new Team(uuidv4(), false, `Team ${teamNumber + index}`, [new TeamMember(defaultPokemon(), true)]))
+      }
+    }
 
     this.snackBar.open("Team imported from PokePaste")
   }
@@ -73,5 +117,52 @@ export class TeamsComponent {
     this.store.updateTeams(inactiveTeams)
 
     this.snackBar.open("Team deleted")
+  }
+
+  private ensureCorrectTeamCount() {
+    const remainder = this.store.teams().length % 4
+
+    if (remainder !== 0) {
+      const teamsToAdd = 4 - remainder
+      const teamNumber = this.store.teams().length + 1
+
+      for (let index = 0; index < teamsToAdd; index++) {
+        this.store.addTeam(new Team(uuidv4(), false, `Team ${teamNumber + index}`, [new TeamMember(defaultPokemon(), true)]))
+      }
+    }
+  }
+
+  private activateFirstTeamByPage() {
+    const team = this.store.teams()[this.currentPage * 4]
+    this.activateTeam(team)
+  }
+
+  private moveEmptyListsToEnd(a: Team, b: Team): number {
+    if (a.onlyHasDefaultPokemon() === b.onlyHasDefaultPokemon()) return 0
+
+    return a.onlyHasDefaultPokemon() ? 1 : -1
+  }
+
+  private cleanTeamsInChunks(teams: Team[]): Team[] {
+    const result = [...teams]
+
+    for (let i = 0; i <= result.length - 4; ) {
+      const chunk = result.slice(i, i + 4)
+      const allDefault = chunk.every(team => team.onlyHasDefaultPokemon())
+
+      const hasMoreAfterChunk = i + 4 < result.length
+
+      const hasPrevChunk = i >= 4
+      const prevChunk = hasPrevChunk ? result.slice(i - 4, i) : []
+      const prevHasNonDefault = prevChunk.some(team => team.onlyHasDefaultPokemon())
+
+      if (allDefault && (hasMoreAfterChunk || (hasPrevChunk && prevHasNonDefault))) {
+        result.splice(i, 4)
+      } else {
+        i += 4
+      }
+    }
+
+    return result
   }
 }

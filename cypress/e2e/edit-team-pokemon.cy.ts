@@ -122,3 +122,104 @@ describe("Add Pokémon to the Team", () => {
     team.selectTeam("Team 3")
   })
 })
+
+describe("Create Teams", () => {
+  it("Create 9 teams", () => {
+    for (let i = 1; i <= 4; i++) {
+      team.selectTeam(`Team ${i}`)
+      team.add("Abomasnow")
+    }
+
+    team.goToRightPage()
+
+    for (let i = 5; i <= 8; i++) {
+      team.selectTeam(`Team ${i}`)
+      team.add("Abomasnow")
+    }
+
+    team.goToRightPage()
+
+    team.selectTeam("Team 9")
+    team.add("Abomasnow")
+  })
+
+  it("Should import on empty slot on the middle and give focus on imported team", () => {
+    for (let i = 1; i <= 9; i++) {
+      team.importPokepaste(poke["default-team"])
+    }
+
+    team.goToLeftPage()
+    team.delete("Team 7")
+
+    team.goToLeftPage()
+
+    team.importPokepaste(poke["pokepaste-forms-1"])
+
+    team.pokemonOnEditNameIs("Vivillon")
+  })
+
+  it("Should remove empty pages when reload", () => {
+    for (let i = 1; i <= 8; i++) {
+      team.importPokepaste(poke["default-team"])
+    }
+
+    team.importPokepaste(poke["pokepaste-forms-1"])
+
+    team.goToLeftPage()
+    team.delete("Team 5")
+    team.delete("Team 6")
+    team.delete("Team 7")
+    team.delete("Team 8")
+
+    cy.reload()
+    cy.get('[data-cy="team-vs-many"]').click({ force: true })
+    team.goToRightPage()
+
+    team.pokemonOnEditNameIs("Vivillon")
+  })
+
+  it("Should mantain second page when delete team and first page is full", () => {
+    for (let i = 1; i <= 5; i++) {
+      team.importPokepaste(poke["default-team"])
+    }
+
+    team.delete("Team 5")
+
+    cy.reload()
+    cy.get('[data-cy="team-vs-many"]').click({ force: true })
+    team.goToRightPage()
+
+    team.pokemonOnEditNameIs("Select a Pokémon")
+  })
+
+  it("Should navigate to left until first page", () => {
+    team.selectTeam("Team 1")
+    team.add("Pikachu")
+
+    for (let i = 2; i <= 4; i++) {
+      team.selectTeam(`Team ${i}`)
+      team.add("Abomasnow")
+    }
+
+    team.goToRightPage()
+
+    team.selectTeam("Team 5")
+    team.add("Tyranitar")
+
+    for (let i = 6; i <= 8; i++) {
+      team.selectTeam(`Team ${i}`)
+      team.add("Abomasnow")
+    }
+
+    team.goToRightPage()
+
+    team.selectTeam("Team 9")
+    team.add("Abomasnow")
+
+    team.goToLeftPage()
+    team.pokemonOnEditNameIs("Tyranitar")
+
+    team.goToLeftPage()
+    team.pokemonOnEditNameIs("Pikachu")
+  })
+})

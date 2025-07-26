@@ -13,10 +13,20 @@
         <button mat-flat-button class="warn" (click)="deleteTeam()" [disabled]="store.team().onlyHasDefaultPokemon()" data-cy="delete-team-button">Delete</button>
       </div>
     </div>
-    <div class="teams-boxes">
-      @for (team of store.teams(); track team.id) {
-        <app-team-box [team]="team" (teamActivated)="activateTeam($event)" />
-      }
+    <div class="teams-carousel">
+      <button mat-icon-button (click)="prevPage()" [ngClass]="{ hidden: currentPage === 0 }">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+
+      <div class="teams-boxes" [@fadeInAnimation]="currentPage">
+        @for (team of store.teams().slice(currentPage * 4, (currentPage + 1) * 4); track team.id) {
+          <app-team-box [team]="team" (teamActivated)="activateTeam($event)" />
+        }
+      </div>
+
+      <button mat-icon-button (click)="nextPage()" [ngClass]="{ hidden: (currentPage + 1) * 4 >= store.teams().length }">
+        <mat-icon>chevron_right</mat-icon>
+      </button>
     </div>
   </div>
 </app-widget>

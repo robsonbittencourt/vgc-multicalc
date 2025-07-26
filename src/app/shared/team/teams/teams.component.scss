@@ -1,13 +1,4 @@
 .teams-container {
-  margin-top: 2.5em;
-}
-
-.teams-boxes {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-auto-rows: 6.5em;
-  column-gap: 1.5em;
-  row-gap: 1.8em;
   margin-top: 1em;
 }
 
@@ -21,7 +12,7 @@
 .team-name {
   display: flex;
   align-items: center;
-  gap: 0.5em;
+  gap: 1.3em;
 }
 
 .team-name-input {
@@ -33,4 +24,31 @@
   display: flex;
   align-items: center;
   gap: 1em;
+}
+
+.teams-carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  margin-top: 2em;
+}
+
+.teams-boxes-outer {
+  overflow: hidden;
+  width: 100%;
+}
+
+.teams-boxes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: 6.5em;
+  column-gap: 1.5em;
+  row-gap: 1.5em;
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.hidden {
+  visibility: hidden;
 }

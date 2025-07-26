@@ -319,6 +319,17 @@ describe("Calculator Store", () => {
         expect(store.team().teamMembers[3].active).toBeFalse()
       })
 
+      it("should add Team", () => {
+        const teamX = new Team("123", true, "Team X", [new TeamMember(new Pokemon("Pikachu")), new TeamMember(new Pokemon("Raichu"))])
+        const teamY = new Team("456", true, "Team Y", [new TeamMember(new Pokemon("Clefairy")), new TeamMember(new Pokemon("Clefable"))])
+
+        store.updateTeams([teamX])
+
+        store.addTeam(teamY)
+
+        expect(store.teams().length).toBe(2)
+      })
+
       it("should replace Team", () => {
         const teamX = new Team("123", true, "Team X", [new TeamMember(new Pokemon("Pikachu")), new TeamMember(new Pokemon("Raichu"))])
 

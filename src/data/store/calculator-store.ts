@@ -240,6 +240,15 @@ export class CalculatorStore extends signalStore(
     })
   }
 
+  addTeam(newTeam: Team) {
+    patchState(this, state => {
+      const updatedTeams = [...state.teamsState]
+      updatedTeams.push(teamToState(newTeam))
+
+      return { teamsState: updatedTeams }
+    })
+  }
+
   replaceTeam(newTeam: Team, teamId: string) {
     const teamIndex = this.teamIndexWithId(teamId)
 
