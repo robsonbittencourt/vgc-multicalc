@@ -82,13 +82,9 @@ export class TeamsComponent implements OnInit {
     const teamToImport = new Team(uuidv4(), teamSlotToImport.active, teamSlotToImport.name, teamMembers)
     this.store.replaceTeam(teamToImport, teamSlotToImport.id)
 
-    if (this.allTeamsFilled()) {
-      const teamNumber = this.store.teams().length
-
-      for (let index = 1; index < 5; index++) {
-        this.store.addTeam(new Team(uuidv4(), false, `Team ${teamNumber + index}`, [new TeamMember(defaultPokemon(), true)]))
-      }
-    }
+    const teamIndex = this.store.teams().findIndex(t => t.id == teamToImport.id)
+    this.currentPage = Math.floor(teamIndex / 4)
+    this.activateTeam(teamToImport)
 
     this.snackBar.open("Team imported from PokePaste")
   }

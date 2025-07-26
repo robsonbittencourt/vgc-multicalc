@@ -64,6 +64,14 @@ export class Team {
     cy.get('[data-cy="team-name"]').clear().type(teamName)
   }
 
+  goToRightPage() {
+    cy.get('[data-cy="teams-to-right-button"]').click({ force: true })
+  }
+
+  goToLeftPage() {
+    cy.get('[data-cy="teams-to-left-button"]').click({ force: true })
+  }
+
   pokemonOnEditNameIs(pokemonName: string) {
     cy.get('[data-cy="pokemon-select"] input').should("have.value", pokemonName)
   }
