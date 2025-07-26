@@ -1,11 +1,11 @@
 import { animate, style, transition, trigger } from "@angular/animations"
-import { NgClass } from "@angular/common"
-import { Component, computed, effect, inject, OnInit } from "@angular/core"
+import { Component, computed, effect, inject, OnInit, signal } from "@angular/core"
 import { FormsModule } from "@angular/forms"
 import { MatButton } from "@angular/material/button"
 import { MatIcon } from "@angular/material/icon"
 import { MatFormField, MatInput } from "@angular/material/input"
 import { ImportPokemonButtonComponent } from "@app/shared/buttons/import-pokemon-button/import-pokemon-button.component"
+import { HiddenDirective } from "@app/shared/hidden-keepiing/hidden.directive"
 import { TeamBoxComponent } from "@app/shared/team/team-box/team-box.component"
 import { WidgetComponent } from "@app/widget/widget.component"
 import { CalculatorStore } from "@data/store/calculator-store"
@@ -21,7 +21,7 @@ import { v4 as uuidv4 } from "uuid"
   selector: "app-teams",
   templateUrl: "./teams.component.html",
   styleUrls: ["./teams.component.scss"],
-  imports: [NgClass, WidgetComponent, MatFormField, MatInput, FormsModule, MatButton, MatIcon, TeamBoxComponent, WidgetComponent, ImportPokemonButtonComponent],
+  imports: [WidgetComponent, MatFormField, MatInput, FormsModule, MatButton, MatIcon, TeamBoxComponent, WidgetComponent, ImportPokemonButtonComponent, HiddenDirective],
   animations: [trigger("fadeInAnimation", [transition(":increment", [style({ opacity: 0 }), animate("300ms ease-in", style({ opacity: 1 }))]), transition(":decrement", [style({ opacity: 0 }), animate("300ms ease-in", style({ opacity: 1 }))])])]
 })
 export class TeamsComponent implements OnInit {
@@ -29,9 +29,13 @@ export class TeamsComponent implements OnInit {
   private exportPokeService = inject(ExportPokeService)
   private snackBar = inject(SnackbarService)
 
-  allTeamsFilled = computed(() => this.store.teams().filter(t => t.onlyHasDefaultPokemon()).length == 0)
+  currentPage = signal(0)
 
-  currentPage = 0
+  allTeamsFilled = computed(() => this.store.teams().filter(t => t.onlyHasDefaultPokemon()).length == 0)
+  teamsCurrentPage = computed(() => this.store.teams().slice(this.currentPage() * 4, (this.currentPage() + 1) * 4))
+
+  hiddenPrevButton = computed(() => this.currentPage() === 0)
+  hiddenNextButton = computed(() => (this.currentPage() + 1) * 4 >= this.store.teams().length)
 
   constructor() {
     effect(() => {
@@ -53,12 +57,12 @@ export class TeamsComponent implements OnInit {
   }
 
   nextPage() {
-    this.currentPage++
+    this.currentPage.set(this.currentPage() + 1)
     this.activateFirstTeamByPage()
   }
 
   prevPage() {
-    this.currentPage--
+    this.currentPage.set(this.currentPage() - 1)
     this.activateFirstTeamByPage()
   }
 
@@ -83,7 +87,7 @@ export class TeamsComponent implements OnInit {
     this.store.replaceTeam(teamToImport, teamSlotToImport.id)
 
     const teamIndex = this.store.teams().findIndex(t => t.id == teamToImport.id)
-    this.currentPage = Math.floor(teamIndex / 4)
+    this.currentPage.set(Math.floor(teamIndex / 4))
     this.activateTeam(teamToImport)
 
     this.snackBar.open("Team imported from PokePaste")
@@ -129,7 +133,7 @@ export class TeamsComponent implements OnInit {
   }
 
   private activateFirstTeamByPage() {
-    const team = this.store.teams()[this.currentPage * 4]
+    const team = this.store.teams()[this.currentPage() * 4]
     this.activateTeam(team)
   }
 

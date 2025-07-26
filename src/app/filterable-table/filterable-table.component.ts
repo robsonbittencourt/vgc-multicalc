@@ -4,14 +4,15 @@ import { CommonModule } from "@angular/common"
 import { AfterViewInit, Component, computed, effect, ElementRef, HostListener, inject, input, output, signal, viewChild, viewChildren } from "@angular/core"
 import { MatIcon } from "@angular/material/icon"
 import { MatTooltip } from "@angular/material/tooltip"
-import { TypeComboBoxComponent } from "../shared/pokemon-build/type-combo-box/type-combo-box.component"
+import { HiddenDirective } from "@app/shared/hidden-keepiing/hidden.directive"
+import { TypeComboBoxComponent } from "@app/shared/pokemon-build/type-combo-box/type-combo-box.component"
 import { ActiveFilter, ColumnConfig, LinkedTableData, TableData } from "./filtered-table-types"
 import { TableDataFilterService } from "./table-data-filter.service"
 
 @Component({
   selector: "app-filterable-table",
   standalone: true,
-  imports: [CommonModule, ScrollingModule, MatTooltip, MatIcon, TypeComboBoxComponent],
+  imports: [CommonModule, ScrollingModule, MatTooltip, MatIcon, TypeComboBoxComponent, HiddenDirective],
   templateUrl: "./filterable-table.component.html",
   styleUrls: ["./filterable-table.component.scss"],
   animations: [trigger("fadeInOut", [transition(":enter", [style({ opacity: 0 }), animate("200ms ease-in", style({ opacity: 1 }))])])]
@@ -44,6 +45,7 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
   isHoverEnabled = signal(true)
 
   tableHeight = computed(() => (this.expanded() ? "600px" : "300px"))
+  showExpandIcon = computed(() => this.currentView() === "table" && this.viewData().length > 6)
 
   filteredAndSortedData = computed(() => {
     const data = this.data()

@@ -14,17 +14,17 @@
       </div>
     </div>
     <div class="teams-carousel">
-      <button mat-icon-button (click)="prevPage()" [ngClass]="{ hidden: currentPage === 0 }" data-cy="teams-to-left-button">
+      <button mat-icon-button (click)="prevPage()" [appHidden]="hiddenPrevButton()" data-cy="teams-to-left-button">
         <mat-icon>chevron_left</mat-icon>
       </button>
 
-      <div class="teams-boxes" [@fadeInAnimation]="currentPage">
-        @for (team of store.teams().slice(currentPage * 4, (currentPage + 1) * 4); track team.id) {
+      <div class="teams-boxes" [@fadeInAnimation]="currentPage()">
+        @for (team of teamsCurrentPage(); track team.id) {
           <app-team-box [team]="team" (teamActivated)="activateTeam($event)" />
         }
       </div>
 
-      <button mat-icon-button (click)="nextPage()" [ngClass]="{ hidden: (currentPage + 1) * 4 >= store.teams().length }" data-cy="teams-to-right-button">
+      <button mat-icon-button (click)="nextPage()" [appHidden]="hiddenNextButton()" data-cy="teams-to-right-button">
         <mat-icon>chevron_right</mat-icon>
       </button>
     </div>

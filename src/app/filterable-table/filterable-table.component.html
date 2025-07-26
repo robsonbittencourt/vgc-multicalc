@@ -104,13 +104,11 @@
     </div>
   }
 
-  @if (currentView() === "table" && viewData().length > 6) {
-    <div class="expand-icon">
-      @if (expanded()) {
-        <mat-icon matTooltip="Collapse" [matTooltipShowDelay]="1000" (click)="expanded.set(false)">keyboard_double_arrow_up</mat-icon>
-      } @else {
-        <mat-icon matTooltip="Expand" [matTooltipShowDelay]="1000" (click)="expanded.set(true)">keyboard_double_arrow_down</mat-icon>
-      }
-    </div>
-  }
+  <div class="expand-icon" [appHidden]="!showExpandIcon()">
+    @if (expanded()) {
+      <mat-icon matTooltip="Collapse" [matTooltipShowDelay]="1000" (click)="expanded.set(false)">keyboard_double_arrow_up</mat-icon>
+    } @else {
+      <mat-icon matTooltip="Expand" [matTooltipShowDelay]="1000" (click)="expanded.set(true)">keyboard_double_arrow_down</mat-icon>
+    }
+  </div>
 </div>
