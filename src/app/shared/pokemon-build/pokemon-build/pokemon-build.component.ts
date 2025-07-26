@@ -93,6 +93,8 @@ export class PokemonBuildComponent {
   multiHitHasFocus = signal(false)
   teraHasFocus = signal(false)
 
+  shouldAnimate = signal(false)
+
   someMoveHasFocus = computed(() => {
     return this.move1HasFocus() || this.move2HasFocus() || this.move3HasFocus() || this.move4HasFocus()
   })
@@ -113,6 +115,8 @@ export class PokemonBuildComponent {
   moveWasSelected = false
 
   constructor() {
+    queueMicrotask(() => this.shouldAnimate.set(true))
+
     effect(() => {
       if (!this.showMovesTable() && !this.showAbilitiesTable() && !this.showItemsTable() && !this.showPokemonTable()) {
         this.activeTable.set("evs")

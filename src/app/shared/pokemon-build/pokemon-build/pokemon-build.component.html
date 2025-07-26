@@ -137,14 +137,14 @@
 }
 
 @if (showEvsTable()) {
-  <div class="evs-titles" @fadeInOut>
+  <div class="evs-titles" [@fadeInOut]="shouldAnimate() ? 'in' : null">
     <label class="base-title">Base</label>
     <label class="modifier-title">Mod.</label>
     <label class="evs-title">EVs</label>
     <label class="ivs-title">IVs</label>
   </div>
 
-  <div class="evs" @fadeInOut>
+  <div class="evs" [@fadeInOut]="shouldAnimate() ? 'in' : null">
     <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.hp" data-cy="stat-hp" stat="hp" />
     <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.atk" data-cy="stat-atk" stat="atk" />
     <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.def" data-cy="stat-def" stat="def" />
@@ -163,7 +163,7 @@
     </div>
   </div>
 
-  <div class="combo-nature" @fadeInOut>
+  <div class="combo-nature" [@fadeInOut]="shouldAnimate() ? 'in' : null">
     <app-nature-combo-box [pokemonId]="pokemonId()" [leftLabel]="true" />
   </div>
 }
