@@ -19,15 +19,23 @@
     <app-speed-calculator />
   }
 
+  @if (isDesktopDevice() && menuStore.howToUseActivated()) {
+    <app-how-to-use />
+  }
+
   @if (!isDesktopDevice()) {
     <app-header-mobile />
   }
 
-  @if (!isDesktopDevice() && !menuStore.speedCalculatorActivated()) {
+  @if (!isDesktopDevice() && menuStore.oneVsOneActivated()) {
     <app-simple-calc-mobile />
   }
 
   @if (!isDesktopDevice() && menuStore.speedCalculatorActivated()) {
     <app-speed-calculator-mobile />
+  }
+
+  @if (!isDesktopDevice() && menuStore.howToUseActivated()) {
+    <app-how-to-use />
   }
 </div>

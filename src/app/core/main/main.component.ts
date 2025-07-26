@@ -7,6 +7,7 @@ import { SimpleCalcMobileComponent } from "@app/features/simple-calc/simple-calc
 import { SimpleCalcComponent } from "@app/features/simple-calc/simple-calc/simple-calc.component"
 import { SpeedCalculatorMobileComponent } from "@app/features/speed-calc/speed-calculator-mobile/speed-calculator-mobile.component"
 import { SpeedCalculatorComponent } from "@app/features/speed-calc/speed-calculator/speed-calculator.component"
+import { HowToUseComponent } from "@app/how-to-use/how-to-use.component"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { FieldStore } from "@data/store/field-store"
 import { MenuStore } from "@data/store/menu-store"
@@ -17,7 +18,7 @@ import { DeviceDetectorService } from "@lib/device-detector.service"
   selector: "app-main",
   templateUrl: "./main.component.html",
   styleUrls: ["./main.component.scss"],
-  imports: [HeaderComponent, SimpleCalcComponent, MultiCalcComponent, SpeedCalculatorComponent, HeaderMobileComponent, SimpleCalcMobileComponent, SpeedCalculatorMobileComponent]
+  imports: [HeaderComponent, SimpleCalcComponent, MultiCalcComponent, SpeedCalculatorComponent, HowToUseComponent, HeaderMobileComponent, SimpleCalcMobileComponent, SpeedCalculatorMobileComponent, HowToUseComponent]
 })
 export class MainComponent implements OnInit {
   store = inject(CalculatorStore)

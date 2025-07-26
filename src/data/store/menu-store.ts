@@ -6,13 +6,15 @@ type MenuState = {
   oneVsManyActivated: boolean
   manyVsOneActivated: boolean
   speedCalculatorActivated: boolean
+  howToUseActivated: boolean
 }
 
 const initialState: MenuState = {
   oneVsOneActivated: true,
   oneVsManyActivated: false,
   manyVsOneActivated: false,
-  speedCalculatorActivated: false
+  speedCalculatorActivated: false,
+  howToUseActivated: false
 }
 
 @Injectable({ providedIn: "root" })
@@ -31,6 +33,10 @@ export class MenuStore extends signalStore({ protectedState: false }, withState(
 
   enableSpeedCalculator() {
     patchState(this, () => ({ ...this.allOptionsTurnedOff(), speedCalculatorActivated: true }))
+  }
+
+  enableHowToUse() {
+    patchState(this, () => ({ ...this.allOptionsTurnedOff(), howToUseActivated: true }))
   }
 
   private allOptionsTurnedOff() {

@@ -1,0 +1,39 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 1em;
+  box-sizing: border-box;
+  text-align: center;
+  color: var(--text);
+  height: 100vh;
+}
+
+h1 {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+}
+
+.description {
+  max-width: 800px;
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.description p {
+  margin: 0.5em 0;
+}
+
+.video-container {
+  width: 100%;
+  max-width: 90vw;
+  aspect-ratio: 16 / 9;
+}
+
+iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}

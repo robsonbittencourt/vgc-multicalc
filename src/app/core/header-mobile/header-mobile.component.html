@@ -11,11 +11,14 @@
     <mat-menu #menu="matMenu">
       <div class="menu-content">
         <span class="menu-title">Pages</span>
-        <button mat-menu-item (click)="menuStore.enableOneVsMany()">
+        <button mat-menu-item (click)="menuStore.enableOneVsOne()">
           <span>Damage Calculator</span>
         </button>
         <button mat-menu-item (click)="menuStore.enableSpeedCalculator()">
           <span>Speed Calculator</span>
+        </button>
+        <button mat-menu-item (click)="menuStore.enableHowToUse()">
+          <span>How to use</span>
         </button>
 
         <mat-divider></mat-divider>
