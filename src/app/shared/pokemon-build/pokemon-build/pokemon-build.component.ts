@@ -3,7 +3,6 @@ import { NgClass, NgStyle } from "@angular/common"
 import { Component, computed, effect, inject, input, output, signal, viewChild } from "@angular/core"
 import { FormsModule } from "@angular/forms"
 import { MatCheckbox } from "@angular/material/checkbox"
-import { RouterOutlet } from "@angular/router"
 import { AbilitiesTableComponent } from "@app/abilities-table/abilities-table.component"
 import { InputComponent } from "@app/input/input.component"
 import { ItemsTableComponent } from "@app/items-table/items-table.component"
@@ -29,7 +28,6 @@ import { CalculatorStore } from "@data/store/calculator-store"
     NgClass,
     MatCheckbox,
     FormsModule,
-    RouterOutlet,
     AbilityComboBoxComponent,
     EvSliderComponent,
     TeraComboBoxComponent,
