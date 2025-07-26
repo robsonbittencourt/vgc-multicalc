@@ -1,5 +1,5 @@
+import { poke } from "@cy-support/e2e"
 import { Team } from "@page-object/team"
-import { poke } from "../support/e2e"
 
 const team = new Team()
 

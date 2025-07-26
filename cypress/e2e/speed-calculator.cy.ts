@@ -1,7 +1,7 @@
+import { poke } from "@cy-support/e2e"
 import { Field } from "@page-object/field"
 import { SpeedCalculator } from "@page-object/speed-calculator"
 import { Team } from "@page-object/team"
-import { poke } from "../support/e2e"
 
 const team = new Team()
 const field = new Field()

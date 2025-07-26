@@ -32,7 +32,13 @@ module.exports = tseslint.config(
         }
       ],
       "@typescript-eslint/no-explicit-any": "off",
-      "@typescript-eslint/consistent-type-definitions": "off"
+      "@typescript-eslint/consistent-type-definitions": "off",
+      "no-restricted-imports": [
+        "error",
+        {
+          patterns: ["../*"]
+        }
+      ]
     }
   },
   {

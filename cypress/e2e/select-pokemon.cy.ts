@@ -1,5 +1,5 @@
+import { poke } from "@cy-support/e2e"
 import { PokemonBuild } from "@page-object/pokemon-build"
-import { poke } from "../support/e2e"
 
 const leftPokemonBuild = new PokemonBuild("left-pokemon")
 

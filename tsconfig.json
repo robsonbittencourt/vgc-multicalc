@@ -5,6 +5,10 @@
     "baseUrl": "src",
     "paths": {
       "@app/*": ["app/*"],
+      "@basic/*": ["app/basic/*"],
+      "@features/*": ["app/features/*"],
+      "@pages/*": ["app/pages/*"],
+      "@core/*": ["app/core/*"],
       "@data/*": ["data/*"],
       "@lib/*": ["lib/*"]
     },

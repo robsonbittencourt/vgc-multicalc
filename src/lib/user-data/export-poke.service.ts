@@ -1,7 +1,7 @@
 import { NoopScrollStrategy } from "@angular/cdk/overlay"
 import { inject, Injectable } from "@angular/core"
 import { MatDialog } from "@angular/material/dialog"
-import { TeamExportModalComponent } from "@app/shared/export-modal/export-modal.component"
+import { TeamExportModalComponent } from "@features/export-modal/export-modal.component"
 import { Pokemon } from "@lib/model/pokemon"
 import dedent from "dedent"
 

@@ -1,6 +1,6 @@
+import { poke } from "@cy-support/e2e"
 import { Opponent } from "@page-object/opponent"
 import { Team } from "@page-object/team"
-import { poke } from "../support/e2e"
 
 const team = new Team()
 const opponent = new Opponent()

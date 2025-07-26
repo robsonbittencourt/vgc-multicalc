@@ -1,8 +1,8 @@
+import { poke } from "@cy-support/e2e"
 import { DamageResult } from "@page-object/damage-result"
 import { Opponent } from "@page-object/opponent"
 import { PokemonBuild } from "@page-object/pokemon-build"
 import { Team } from "@page-object/team"
-import { poke } from "../support/e2e"
 
 const leftDamageResult = new DamageResult("left-damage-result")
 
