@@ -28,6 +28,13 @@ export class Team {
     return pokemonBuild
   }
 
+  addWithFilter(nameFilter: string, pokemonName: string): PokemonBuild {
+    const pokemonBuild = new PokemonBuild("your-team")
+    pokemonBuild.selectPokemonByFilter(nameFilter, pokemonName)
+
+    return pokemonBuild
+  }
+
   addPokemonAvailable() {
     cy.get('[data-cy="add-team-member-tab"]').should("have.length", 1)
   }
@@ -74,6 +81,14 @@ export class Team {
 
   pokemonOnEditNameIs(pokemonName: string) {
     cy.get('[data-cy="pokemon-select"] input').should("have.value", pokemonName)
+  }
+
+  pokemonOnEditItemIs(itemName: string) {
+    cy.get('[data-cy="item"] input').should("have.value", itemName)
+  }
+
+  pokemonOnEditAbilityIs(abilityName: string) {
+    cy.get('[data-cy="ability"] input').should("have.value", abilityName)
   }
 
   pokemonOnEditIs(pokemonName: string, ability: string, teraType: string, item: string, nature: string) {

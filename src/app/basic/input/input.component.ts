@@ -1,5 +1,5 @@
 import { NgClass } from "@angular/common"
-import { booleanAttribute, Component, ElementRef, input, model, OnDestroy, output, viewChild } from "@angular/core"
+import { booleanAttribute, Component, ElementRef, input, model, output, viewChild } from "@angular/core"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 
 @Component({
@@ -8,7 +8,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms"
   templateUrl: "./input.component.html",
   styleUrl: "./input.component.scss"
 })
-export class InputComponent implements OnDestroy {
+export class InputComponent {
   value = model.required<string>()
 
   label = input<string>()
@@ -27,23 +27,13 @@ export class InputComponent implements OnDestroy {
 
   inputElement = viewChild<ElementRef>("inputRef")
 
-  blurTimeoutId: any
-
-  ngOnDestroy() {
-    clearTimeout(this.blurTimeoutId)
-  }
-
   onClick(event: FocusEvent) {
     ;(event.target as HTMLInputElement).select()
     this.selected.emit()
   }
 
   onBlur() {
-    clearTimeout(this.blurTimeoutId)
-
-    this.blurTimeoutId = setTimeout(() => {
-      this.lostFocus.emit()
-    }, 100)
+    this.lostFocus.emit()
   }
 
   onValueSelected(selectedValue: string) {

@@ -111,6 +111,7 @@ export class PokemonBuildComponent {
   MAX_EVS = 508
 
   moveWasSelected = false
+  blurTimeout: any = null
 
   constructor() {
     queueMicrotask(() => this.shouldAnimate.set(true))
@@ -157,6 +158,7 @@ export class PokemonBuildComponent {
   }
 
   moveSelected(move: string) {
+    this.clearBlurTimeout()
     this.moveWasSelected = true
     this.setMoveSelectorFocus(this.activeMoveIndex()!)
     this.store.updateMove(this.pokemonId(), move, this.activeMoveIndex()!)
@@ -190,13 +192,15 @@ export class PokemonBuildComponent {
   }
 
   moveSelectorLostFocus(position: number) {
-    if (this.moveDataFilter() != "" && !this.moveWasSelected) {
-      this.store.updateMove(this.pokemonId(), this.firstMoveFromList(), position - 1)
-      this.store.activateMoveByPosition(this.pokemonId(), position + 1)
-    }
+    this.blurTimeout = setTimeout(() => {
+      if (this.moveDataFilter() != "" && !this.moveWasSelected) {
+        this.store.updateMove(this.pokemonId(), this.firstMoveFromList(), position - 1)
+        this.store.activateMoveByPosition(this.pokemonId(), position + 1)
+      }
 
-    this.moveDataFilter.set("")
-    this.moveWasSelected = false
+      this.moveDataFilter.set("")
+      this.moveWasSelected = false
+    }, 200)
   }
 
   private setMoveSelectorFocus(moveIndex: number) {
@@ -220,6 +224,7 @@ export class PokemonBuildComponent {
   }
 
   abilitySelected(ability: string) {
+    this.clearBlurTimeout()
     this.abilityDataFilter.set("")
     this.store.ability(this.pokemonId(), ability)
     this.showDefaultView()
@@ -234,13 +239,16 @@ export class PokemonBuildComponent {
   }
 
   abilitySelectorLostFocus() {
-    if (this.abilityDataFilter() != "") {
-      this.store.ability(this.pokemonId(), this.firstAbilityFromList())
-      this.abilityDataFilter.set("")
-    }
+    this.blurTimeout = setTimeout(() => {
+      if (this.abilityDataFilter() != "") {
+        this.store.ability(this.pokemonId(), this.firstAbilityFromList())
+        this.abilityDataFilter.set("")
+      }
+    }, 200)
   }
 
   itemSelected(item: string) {
+    this.clearBlurTimeout()
     this.itemDataFilter.set("")
     this.store.item(this.pokemonId(), item)
     this.showDefaultView()
@@ -255,13 +263,16 @@ export class PokemonBuildComponent {
   }
 
   itemSelectorLostFocus() {
-    if (this.itemDataFilter() != "") {
-      this.store.item(this.pokemonId(), this.firstItemFromList())
-      this.itemDataFilter.set("")
-    }
+    this.blurTimeout = setTimeout(() => {
+      if (this.itemDataFilter() != "") {
+        this.store.item(this.pokemonId(), this.firstItemFromList())
+        this.itemDataFilter.set("")
+      }
+    }, 200)
   }
 
   pokemonSelected(pokemon: string) {
+    this.clearBlurTimeout()
     this.pokemonDataFilter.set("")
     this.updatePokemon(pokemon)
     this.showDefaultView()
@@ -275,15 +286,17 @@ export class PokemonBuildComponent {
     this.selected.emit()
   }
 
-  pokemonSelectorLostFocus() {
-    if (this.pokemonDataFilter() != "") {
-      this.updatePokemon(this.firstPokemonFromList())
-      this.pokemonDataFilter.set("")
-    }
+  async pokemonSelectorLostFocus() {
+    this.blurTimeout = setTimeout(() => {
+      if (this.pokemonDataFilter() != "") {
+        this.updatePokemon(this.firstPokemonFromList())
+        this.pokemonDataFilter.set("")
+      }
+    }, 200)
   }
 
-  newPokemonSelectorLostFocus() {
-    this.pokemonSelectorLostFocus()
+  async newPokemonSelectorLostFocus() {
+    await this.pokemonSelectorLostFocus()
     if (this.pokemonDataFilter() != "") {
       this.showDefaultView()
       this.pokemonInput()?.blur()
@@ -378,5 +391,12 @@ export class PokemonBuildComponent {
 
   isTeraDisabled() {
     return this.pokemon().name.startsWith("Ogerpon")
+  }
+
+  private clearBlurTimeout() {
+    if (this.blurTimeout) {
+      clearTimeout(this.blurTimeout)
+      this.blurTimeout = null
+    }
   }
 }

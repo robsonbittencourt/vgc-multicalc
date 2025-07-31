@@ -10,6 +10,18 @@ export class PokemonBuild {
     return this
   }
 
+  selectPokemonByFilter(filter: string, pokemonName: string): PokemonBuild {
+    this.inputPokemonName(filter)
+    cy.get(`[data-cy="table-item-${pokemonName}"]`).click({ force: true })
+
+    return this
+  }
+
+  inputPokemonName(filter: string): PokemonBuild {
+    this.container().find('[data-cy="pokemon-select"] input').click({ force: true }).type(filter)
+    return this
+  }
+
   selectAttackOne(): PokemonBuild {
     this.container().find('[data-cy="attack1"] input').click({ force: true })
     return this
@@ -31,9 +43,51 @@ export class PokemonBuild {
   }
 
   changeAttackOne(attackName: string): PokemonBuild {
-    this.closeTable()
     this.container().find('[data-cy="pokemon-attack-1"] input').click()
     this.scrollAndSearch(attackName)
+    return this
+  }
+
+  changeAttackOneByFilter(filter: string, attackName: string): PokemonBuild {
+    return this.changeAttackByFilter(filter, attackName, 1)
+  }
+
+  changeAttackTwoByFilter(filter: string, attackName: string): PokemonBuild {
+    return this.changeAttackByFilter(filter, attackName, 2)
+  }
+
+  changeAttackThreeByFilter(filter: string, attackName: string): PokemonBuild {
+    return this.changeAttackByFilter(filter, attackName, 3)
+  }
+
+  changeAttackFourByFilter(filter: string, attackName: string): PokemonBuild {
+    return this.changeAttackByFilter(filter, attackName, 4)
+  }
+
+  private changeAttackByFilter(filter: string, attackName: string, position: number): PokemonBuild {
+    this.container().find(`[data-cy="pokemon-attack-${position}"] input`).click().type(filter)
+    cy.get(`[data-cy="table-item-${attackName}"]`).click({ force: true })
+    return this
+  }
+
+  inputPokemonAttackOne(filter: string): PokemonBuild {
+    return this.inputPokemonMove(filter, 1)
+  }
+
+  inputPokemonAttackTwo(filter: string): PokemonBuild {
+    return this.inputPokemonMove(filter, 2)
+  }
+
+  inputPokemonAttackThree(filter: string): PokemonBuild {
+    return this.inputPokemonMove(filter, 3)
+  }
+
+  inputPokemonAttackFour(filter: string): PokemonBuild {
+    return this.inputPokemonMove(filter, 4)
+  }
+
+  private inputPokemonMove(filter: string, position: number): PokemonBuild {
+    this.container().find(`[data-cy="pokemon-attack-${position}"] input`).click().type(filter)
     return this
   }
 
@@ -41,6 +95,17 @@ export class PokemonBuild {
     this.closeTable()
     this.container().find('[data-cy="item"] input').click()
     this.scrollAndSearch(itemName)
+    return this
+  }
+
+  selectItemByFilter(filter: string, itemName: string): PokemonBuild {
+    this.container().find('[data-cy="item"] input').click().type(filter)
+    cy.get(`[data-cy="table-item-${itemName}"]`).click({ force: true })
+    return this
+  }
+
+  inputPokemonItem(filter: string): PokemonBuild {
+    this.container().find('[data-cy="item"] input').click({ force: true }).type(filter)
     return this
   }
 
@@ -84,6 +149,17 @@ export class PokemonBuild {
   selectAbility(name: string): PokemonBuild {
     this.container().find('[data-cy="ability"] input').click()
     cy.get(`[data-cy="table-item-${name}"]`).click()
+    return this
+  }
+
+  selectAbilityByFilter(filter: string, abilityName: string): PokemonBuild {
+    this.container().find('[data-cy="ability"] input').click().type(filter)
+    cy.get(`[data-cy="table-item-${abilityName}"]`).click({ force: true })
+    return this
+  }
+
+  inputPokemonAbility(filter: string): PokemonBuild {
+    this.container().find('[data-cy="ability"] input').click({ force: true }).type(filter)
     return this
   }
 
@@ -174,6 +250,11 @@ export class PokemonBuild {
     this.container().find('[data-cy="import-pokemon"]').click({ force: true })
     new ImportModal().import(pokemonData)
 
+    return this
+  }
+
+  delete(): PokemonBuild {
+    cy.get('[data-cy="delete-team-button"]').click({ force: true })
     return this
   }
 
