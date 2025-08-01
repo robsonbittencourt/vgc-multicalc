@@ -154,7 +154,7 @@ describe("Import Pokepaste", () => {
     team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
   })
 
-  it("with Flabébé, Floette, Florges and Tatsugiri in normal form", () => {
+  it("with Flabébé, Floette, Florges, Gastrodon and Tatsugiri in normal form", () => {
     team.importPokepaste(poke["pokepaste-forms-3"])
     team.selectTeam("Team 2")
 
@@ -175,6 +175,12 @@ describe("Import Pokepaste", () => {
     team.pokemonOnEditEvsIs(252, 4, 0, 252, 0, 0)
     team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
 
+    team.selectPokemon("Gastrodon")
+    team.pokemonOnEditIs("Gastrodon", "Storm Drain", "Grass", "Leftovers", "Relaxed")
+    team.pokemonOnEditAttacksIs("Muddy Water", "Earth Power", "Icy Wind", "Protect")
+    team.pokemonOnEditEvsIs(252, 0, 180, 0, 76, 0)
+    team.pokemonOnEditIvsIs(31, 0, 31, 31, 31, 10)
+
     team.selectPokemon("Tatsugiri")
     team.pokemonOnEditIs("Tatsugiri", "Commander", "Dragon", "Choice Scarf", "Modest")
     team.pokemonOnEditAttacksIs("Draco Meteor", "Chilling Water", "Baton Pass", "Counter")
@@ -182,7 +188,7 @@ describe("Import Pokepaste", () => {
     team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
   })
 
-  it("with Flabébé, Floette, Florges and Tatsugiri in alternative form", () => {
+  it("with Flabébé, Floette, Florges, Gastrodon and Tatsugiri in alternative form", () => {
     team.importPokepaste(poke["pokepaste-forms-4"])
     team.selectTeam("Team 2")
 
@@ -202,6 +208,12 @@ describe("Import Pokepaste", () => {
     team.pokemonOnEditAttacksIs("Alluring Voice", "Chilling Water", "Baton Pass", "Calm Mind")
     team.pokemonOnEditEvsIs(252, 4, 0, 252, 0, 0)
     team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
+
+    team.selectPokemon("Gastrodon")
+    team.pokemonOnEditIs("Gastrodon", "Storm Drain", "Grass", "Leftovers", "Relaxed")
+    team.pokemonOnEditAttacksIs("Muddy Water", "Earth Power", "Icy Wind", "Protect")
+    team.pokemonOnEditEvsIs(252, 0, 180, 0, 76, 0)
+    team.pokemonOnEditIvsIs(31, 0, 31, 31, 31, 10)
 
     team.selectPokemon("Tatsugiri")
     team.pokemonOnEditIs("Tatsugiri", "Commander", "Dragon", "Choice Scarf", "Modest")
