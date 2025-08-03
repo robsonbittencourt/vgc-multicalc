@@ -1,4 +1,5 @@
 import { computed, effect, Injectable } from "@angular/core"
+import { SETDEX_SV } from "@data/movesets"
 import { initialCalculatorState } from "@data/store/utils/initial-calculator-state"
 import { pokemonToState, stateToPokemon, stateToTargets, stateToTeam, stateToTeams, targetToState, teamToState } from "@data/store/utils/state-mapper"
 import { buildUserData } from "@data/store/utils/user-data-mapper"
@@ -353,6 +354,43 @@ export class CalculatorStore extends signalStore(
       moveSet.splice(index, 1, { name: move })
       return { activeMove: move, moveSet: moveSet }
     })
+  }
+
+  loadPokemonInfo(pokemonId: string, pokemonName: string) {
+    const poke = SETDEX_SV[pokemonName]
+
+    if (poke) {
+      this.name(pokemonId, pokemonName)
+      this.nature(pokemonId, poke?.nature)
+      this.item(pokemonId, poke.items[0])
+      this.ability(pokemonId, poke.ability)
+      this.teraType(pokemonId, poke.teraType)
+      this.teraTypeActive(pokemonId, false)
+      this.evs(pokemonId, poke.evs)
+      this.moveOne(pokemonId, poke.moves[0])
+      this.moveTwo(pokemonId, poke.moves[1])
+      this.moveThree(pokemonId, poke.moves[2])
+      this.moveFour(pokemonId, poke.moves[3])
+      this.activateMoveByPosition(pokemonId, 1)
+    }
+
+    this.commander(pokemonId, false)
+    this.hpPercentage(pokemonId, 100)
+    this.adjustBoosts(pokemonId, pokemonName)
+  }
+
+  private adjustBoosts(pokemonId: string, pokemonName: string) {
+    if (pokemonName.startsWith("Zacian")) {
+      this.boosts(pokemonId, { atk: 1, def: 0, spa: 0, spd: 0, spe: 0 })
+      return
+    }
+
+    if (pokemonName.startsWith("Zamazenta")) {
+      this.boosts(pokemonId, { atk: 0, def: 1, spa: 0, spd: 0, spe: 0 })
+      return
+    }
+
+    this.boosts(pokemonId, { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
   }
 
   private activeTeamIndex(): number {

@@ -4,7 +4,6 @@ import { Component, computed, effect, inject, input, output, signal, viewChild }
 import { FormsModule } from "@angular/forms"
 import { MatCheckbox } from "@angular/material/checkbox"
 import { InputComponent } from "@basic/input/input.component"
-import { SETDEX_SV } from "@data/movesets"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { AbilityComboBoxComponent } from "@features/pokemon-build/ability-combo-box/ability-combo-box.component"
 import { EvSliderComponent } from "@features/pokemon-build/ev-slider/ev-slider.component"
@@ -274,7 +273,7 @@ export class PokemonBuildComponent {
   pokemonSelected(pokemon: string) {
     this.clearBlurTimeout()
     this.pokemonDataFilter.set("")
-    this.updatePokemon(pokemon)
+    this.store.loadPokemonInfo(this.pokemonId(), pokemon)
     this.showDefaultView()
     this.pokemonInput()?.blur()
   }
@@ -289,7 +288,7 @@ export class PokemonBuildComponent {
   async pokemonSelectorLostFocus() {
     this.blurTimeout = setTimeout(() => {
       if (this.pokemonDataFilter() != "") {
-        this.updatePokemon(this.firstPokemonFromList())
+        this.store.loadPokemonInfo(this.pokemonId(), this.firstPokemonFromList())
         this.pokemonDataFilter.set("")
       }
     }, 200)
@@ -301,56 +300,6 @@ export class PokemonBuildComponent {
       this.showDefaultView()
       this.pokemonInput()?.blur()
     }
-  }
-
-  private updatePokemon(pokemonName: string) {
-    const poke = SETDEX_SV[pokemonName]
-
-    if (poke) {
-      this.store.name(this.pokemonId(), pokemonName)
-      this.store.nature(this.pokemonId(), poke.nature)
-      this.store.item(this.pokemonId(), poke.items[0])
-      this.store.ability(this.pokemonId(), poke.ability)
-      this.store.teraType(this.pokemonId(), poke.teraType)
-      this.store.teraTypeActive(this.pokemonId(), false)
-      this.store.evs(this.pokemonId(), poke.evs)
-      this.store.moveOne(this.pokemonId(), poke.moves[0])
-      this.store.moveTwo(this.pokemonId(), poke.moves[1])
-      this.store.moveThree(this.pokemonId(), poke.moves[2])
-      this.store.moveFour(this.pokemonId(), poke.moves[3])
-      this.store.activateMoveByPosition(this.pokemonId(), 1)
-    } else {
-      this.store.name(this.pokemonId(), pokemonName)
-      this.store.nature(this.pokemonId(), "Docile")
-      this.store.item(this.pokemonId(), "Leftovers")
-      this.store.ability(this.pokemonId(), "Hustle")
-      this.store.teraType(this.pokemonId(), "Normal")
-      this.store.evs(this.pokemonId(), { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
-      this.store.moveOne(this.pokemonId(), "Tackle")
-      this.store.moveTwo(this.pokemonId(), "")
-      this.store.moveThree(this.pokemonId(), "")
-      this.store.moveFour(this.pokemonId(), "")
-      this.store.activateMoveByPosition(this.pokemonId(), 1)
-    }
-
-    this.store.commander(this.pokemonId(), false)
-    this.store.hpPercentage(this.pokemonId(), 100)
-
-    this.adjustBoosts(pokemonName)
-  }
-
-  adjustBoosts(pokemonName: string) {
-    if (pokemonName.startsWith("Zacian")) {
-      this.store.boosts(this.pokemonId(), { atk: 1, def: 0, spa: 0, spd: 0, spe: 0 })
-      return
-    }
-
-    if (pokemonName.startsWith("Zamazenta")) {
-      this.store.boosts(this.pokemonId(), { atk: 0, def: 1, spa: 0, spd: 0, spe: 0 })
-      return
-    }
-
-    this.store.boosts(this.pokemonId(), { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
   }
 
   private removeFocusFromAllFields() {
