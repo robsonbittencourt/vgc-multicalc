@@ -4,6 +4,6 @@
   [columns]="itemColumns"
   [dataFilter]="dataFilter()"
   [haveFocus]="haveFocus()"
-  (itemSelected)="itemSelected.emit($event)"
-  (firstListItem)="firstItemFromList.emit($event)"
+  (entrySelected)="itemSelected.emit($event)"
+  (firstListEntry)="firstItemFromList.emit($event)"
   (escapeWasPressed)="escapeWasPressed.emit()" />

@@ -7,8 +7,6 @@
           <span>{{ filter.value }}</span>
           <span class="remove-filter" (click)="removeFilter(filter)">×</span>
         </div>
-      } @empty {
-        <div class="filter-tag initial-tag">No Filters Active</div>
       }
     </div>
   }
@@ -25,54 +23,54 @@
       </div>
     }
 
-    <div class="moves-list">
+    <div class="entries-list">
       @if (hasResult()) {
         <cdk-virtual-scroll-viewport itemSize="45" minBufferPx="300" maxBufferPx="600" [ngStyle]="panelStyle()" #scroll data-cy="scroll-viewport">
-          <div *cdkVirtualFor="let item of viewData(); let index = index; trackBy: trackById">
-            @if (item.group) {
-              <div class="moves-section-title">{{ item.group }}</div>
+          <div *cdkVirtualFor="let entry of viewData(); let index = index; trackBy: trackById">
+            @if (entry.group) {
+              <div class="entries-section-title">{{ entry.group }}</div>
             } @else {
-              <div class="move-item" [ngStyle]="{ 'grid-template-columns': buildGridTemplateColumns() }" [ngClass]="getItemClass(item)" (click)="selectItem(item)" #row [attr.data-cy]="itemDataCy(item)">
+              <div class="entry" [ngStyle]="{ 'grid-template-columns': buildGridTemplateColumns() }" [ngClass]="getEntryClass(entry)" (click)="selectEntry(entry)" #row [attr.data-cy]="entryDataCy(entry)">
                 @for (column of columns(); track column.id) {
-                  <div class="move-cell">
+                  <div class="entry-cell">
                     @if (column.isImageColumn) {
-                      <div class="category-display" [ngClass]="{ 'stat-value-left': column.alignLeft }">
-                        <img class="image-icon" [src]="column.displayFn ? column.displayFn(item.data) : item.data[column.field]" />
+                      <div class="image-column" [ngClass]="{ 'column-value-left': column.alignLeft }">
+                        <img class="image-icon" [src]="column.displayFn ? column.displayFn(entry.data) : entry.data[column.field]" />
                       </div>
                     } @else if (column.isPokemonType) {
                       <div class="type-column">
-                        @if (isArray(item, column.field)) {
-                          <app-type-combo-box [type1]="item.data[column.field][0]" [type2]="item.data[column.field][1]" [centralized]="true" [reduced]="true" />
+                        @if (isArray(entry, column.field)) {
+                          <app-type-combo-box [type1]="entry.data[column.field][0]" [type2]="entry.data[column.field][1]" [centralized]="true" [reduced]="true" />
                         } @else {
-                          <app-type-combo-box [type1]="item.data[column.field]" [centralized]="true" [reduced]="true" />
+                          <app-type-combo-box [type1]="entry.data[column.field]" [centralized]="true" [reduced]="true" />
                         }
                       </div>
-                    } @else if (isArray(item, column.field)) {
-                      <div class="multi-value-field">
+                    } @else if (isArray(entry, column.field)) {
+                      <div class="multi-value-column">
                         <div>
-                          <div class="stat-value" [ngClass]="{ 'multi-value': item.data[column.field][2] !== undefined }">
-                            {{ item.data[column.field][0] }}
+                          <div class="column-value" [ngClass]="{ 'multi-value': entry.data[column.field][2] !== undefined }">
+                            {{ entry.data[column.field][0] }}
                           </div>
-                          <div class="stat-value">
-                            {{ item.data[column.field][2] }}
+                          <div class="column-value">
+                            {{ entry.data[column.field][2] }}
                           </div>
                         </div>
                         <div>
-                          <div class="stat-value" [ngClass]="{ 'multi-value': item.data[column.field][3] !== undefined }">
-                            {{ item.data[column.field][1] }}
+                          <div class="column-value" [ngClass]="{ 'multi-value': entry.data[column.field][3] !== undefined }">
+                            {{ entry.data[column.field][1] }}
                           </div>
-                          <div class="stat-value">
-                            {{ item.data[column.field][3] }}
+                          <div class="column-value">
+                            {{ entry.data[column.field][3] }}
                           </div>
                         </div>
                       </div>
                     } @else {
-                      <div class="stat-group col-large">
+                      <div class="basic-column">
                         @if (column.showHeaderInCell) {
-                          <div class="stat-label">{{ column.header }}</div>
+                          <div class="column-label">{{ column.header }}</div>
                         }
-                        <div class="stat-value" [ngClass]="{ 'stat-value-left': column.alignLeft }">
-                          {{ column.displayFn ? column.displayFn(item.data) : item.data[column.field] }}
+                        <div class="column-value" [ngClass]="{ 'column-value-left': column.alignLeft }">
+                          {{ column.displayFn ? column.displayFn(entry.data) : entry.data[column.field] }}
                         </div>
                       </div>
                     }
@@ -90,15 +88,13 @@
     <div class="filter-list-section">
       <div class="filter-list-header">
         <h3>Select a {{ currentFilterConfig()?.description }} to filter</h3>
-        <button class="back-button" (click)="backToTable()">← Back</button>
+        <button mat-flat-button (click)="backToTable()">< Back</button>
       </div>
       <div class="filter-options-list">
         @for (option of currentFilterOptions(); track option.value) {
-          <div class="filter-option-item" (click)="applyFilter(option.value)">
+          <div class="filter-option" (click)="applyFilter(option.value)">
             <span>{{ option.label }}</span>
           </div>
-        } @empty {
-          <div class="no-types">Nenhuma opção de filtro disponível.</div>
         }
       </div>
     </div>

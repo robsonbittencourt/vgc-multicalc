@@ -4,6 +4,6 @@
   [columns]="pokemonColumns"
   [dataFilter]="dataFilter()"
   [haveFocus]="haveFocus()"
-  (itemSelected)="pokemonSelected.emit($event)"
-  (firstListItem)="firstPokemonFromList.emit($event)"
+  (entrySelected)="pokemonSelected.emit($event)"
+  (firstListEntry)="firstPokemonFromList.emit($event)"
   (escapeWasPressed)="escapeWasPressed.emit()" />

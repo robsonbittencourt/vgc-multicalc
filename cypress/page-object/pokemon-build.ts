@@ -12,7 +12,7 @@ export class PokemonBuild {
 
   selectPokemonByFilter(filter: string, pokemonName: string): PokemonBuild {
     this.inputPokemonName(filter)
-    cy.get(`[data-cy="table-item-${pokemonName}"]`).click({ force: true })
+    cy.get(`[data-cy="table-entry-${pokemonName}"]`).click({ force: true })
 
     return this
   }
@@ -66,7 +66,7 @@ export class PokemonBuild {
 
   private changeAttackByFilter(filter: string, attackName: string, position: number): PokemonBuild {
     this.container().find(`[data-cy="pokemon-attack-${position}"] input`).click().type(filter)
-    cy.get(`[data-cy="table-item-${attackName}"]`).click({ force: true })
+    cy.get(`[data-cy="table-entry-${attackName}"]`).click({ force: true })
     return this
   }
 
@@ -100,7 +100,7 @@ export class PokemonBuild {
 
   selectItemByFilter(filter: string, itemName: string): PokemonBuild {
     this.container().find('[data-cy="item"] input').click().type(filter)
-    cy.get(`[data-cy="table-item-${itemName}"]`).click({ force: true })
+    cy.get(`[data-cy="table-entry-${itemName}"]`).click({ force: true })
     return this
   }
 
@@ -148,13 +148,13 @@ export class PokemonBuild {
 
   selectAbility(name: string): PokemonBuild {
     this.container().find('[data-cy="ability"] input').click()
-    cy.get(`[data-cy="table-item-${name}"]`).click()
+    cy.get(`[data-cy="table-entry-${name}"]`).click()
     return this
   }
 
   selectAbilityByFilter(filter: string, abilityName: string): PokemonBuild {
     this.container().find('[data-cy="ability"] input').click().type(filter)
-    cy.get(`[data-cy="table-item-${abilityName}"]`).click({ force: true })
+    cy.get(`[data-cy="table-entry-${abilityName}"]`).click({ force: true })
     return this
   }
 
@@ -280,7 +280,7 @@ export class PokemonBuild {
     const scrollStep = 220
 
     function tryScroll() {
-      const $el = Cypress.$(`[data-cy="table-item-${pokemonName}"]`)
+      const $el = Cypress.$(`[data-cy="table-entry-${pokemonName}"]`)
 
       if ($el.length) {
         cy.wrap($el).click()

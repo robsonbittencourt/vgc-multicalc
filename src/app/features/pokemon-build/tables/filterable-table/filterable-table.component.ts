@@ -26,20 +26,20 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
   dataFilter = input.required<string>()
   haveFocus = input.required<boolean>()
 
+  entrySelected = output<string>()
+  firstListEntry = output<string>()
+  escapeWasPressed = output()
+
   rows = viewChildren("row", { read: ElementRef })
   scroll = viewChild("scroll", { read: ElementRef })
 
-  activeLine = signal<LinkedTableData<T> | null>(null)
-
-  itemSelected = output<string>()
-  firstListItem = output<string>()
-  escapeWasPressed = output()
-
+  activeEntry = signal<LinkedTableData<T> | null>(null)
   currentView = signal<"table" | "filterList">("table")
   currentFilterField = signal<keyof T | null>(null)
 
   sortColumn = signal<keyof T | null>(null)
   sortDirection = signal<"asc" | "desc" | null>(null)
+
   activeFilters = signal<ActiveFilter[]>([])
   expanded = signal(false)
   isHoverEnabled = signal(true)
@@ -54,7 +54,7 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
       const result = this.filterService.filterDataByInput(data, this.selectedValues(), this.dataFilter())
 
       if (result[0].data.length > 0) {
-        this.firstListItem.emit(result[0].data[0]["name"])
+        this.firstListEntry.emit(result[0].data[0]["name"])
       }
 
       return result
@@ -68,10 +68,8 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
   })
 
   viewData = computed(() => {
-    const a = this.transformTableData(this.filteredAndSortedData())
-    const b = this.linkedListToArray(a)
-
-    return b
+    const tableData = this.transformTableData(this.filteredAndSortedData())
+    return this.linkedListToArray(tableData)
   })
 
   currentFilterOptions = computed(() => {
@@ -90,12 +88,12 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
   arrowKeyTimesPressed = 0
   arrowKeyTimeoutId: any
   isComponentFocused = false
-  itemWasSelected = false
+  entryWasSelected = false
 
   constructor() {
     effect(() => {
       if (this.dataFilter()) {
-        this.activeLine.set(null)
+        this.activeEntry.set(null)
       }
     })
   }
@@ -118,8 +116,8 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
     this.isHoverEnabled.set(false)
   }
 
-  isArray(item: LinkedTableData<T>, field: keyof T): boolean {
-    return item.data ? Array.isArray(item.data[field]) : false
+  isArray(entry: LinkedTableData<T>, field: keyof T): boolean {
+    return entry.data ? Array.isArray(entry.data[field]) : false
   }
 
   @HostListener("window:keydown", ["$event"])
@@ -166,11 +164,11 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
     event.preventDefault()
   }
 
-  selectItem(item: LinkedTableData<T>) {
-    this.itemWasSelected = true
+  selectEntry(entry: LinkedTableData<T>) {
+    this.entryWasSelected = true
     this.isComponentFocused = true
-    this.activeLine.set(item)
-    this.itemSelected.emit(item.data!["name"])
+    this.activeEntry.set(entry)
+    this.entrySelected.emit(entry.data!["name"])
   }
 
   toggleSort(columnField: keyof T): void {
@@ -207,7 +205,7 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
     })
 
     this.currentView.set("table")
-    this.activeLine.set(null)
+    this.activeEntry.set(null)
   }
 
   removeFilter(filterToRemove: ActiveFilter): void {
@@ -217,7 +215,7 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
   backToTable(): void {
     this.currentView.set("table")
     this.currentFilterField.set(null)
-    this.activeLine.set(null)
+    this.activeEntry.set(null)
   }
 
   getCategoryIconPath(category: string): string {
@@ -271,11 +269,11 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
   }
 
   onBlur() {
-    if (!this.itemWasSelected) {
+    if (!this.entryWasSelected) {
       this.isComponentFocused = false
     }
 
-    this.itemWasSelected = false
+    this.entryWasSelected = false
   }
 
   panelStyle() {
@@ -287,15 +285,15 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
     }
   }
 
-  getItemClass(item: LinkedTableData<T>): Record<string, boolean> {
+  getEntryClass(entry: LinkedTableData<T>): Record<string, boolean> {
     return {
-      "move-item-active": item.id === this.activeLine()?.id || item.selected,
+      "entry-active": entry.id === this.activeEntry()?.id || entry.selected,
       "disable-hover": !this.isHoverEnabled()
     }
   }
 
-  itemDataCy(item: LinkedTableData<T>): string {
-    return `table-item-${item.data!["name"]}`
+  entryDataCy(entry: LinkedTableData<T>): string {
+    return `table-entry-${entry.data!["name"]}`
   }
 
   headerDataCy(column: ColumnConfig<T>): string {
@@ -305,54 +303,54 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
   private handleArrowUp() {
     this.arrowKeyTimesPressed++
 
-    if (this.activeLine() == null) {
+    if (this.activeEntry() == null) {
       return
     }
 
-    let newActiveLine = null
-    const previous = this.activeLine()?.prev
+    let newActiveEntry = null
+    const previous = this.activeEntry()?.prev
 
     if (previous?.group != null) {
-      newActiveLine = previous.prev == null ? this.activeLine() : previous.prev
+      newActiveEntry = previous.prev == null ? this.activeEntry() : previous.prev
     } else {
-      newActiveLine = previous != null ? previous : this.activeLine()
+      newActiveEntry = previous != null ? previous : this.activeEntry()
     }
 
-    this.activeLine.set(newActiveLine)
-    this.scrollToActiveItem(newActiveLine!.id!)
+    this.activeEntry.set(newActiveEntry)
+    this.scrollToActiveEntry(newActiveEntry!.id!)
   }
 
   private handleArrowDown() {
     this.arrowKeyTimesPressed++
 
-    if (this.activeLine() == null) {
+    if (this.activeEntry() == null) {
       const firstLine = this.viewData().find(d => d.group == null)!
-      this.activeLine.set(firstLine)
+      this.activeEntry.set(firstLine)
       return
     }
 
-    let newActiveLine = null
-    const next = this.activeLine()?.next
+    let newActiveEntry = null
+    const next = this.activeEntry()?.next
 
     if (next?.group != null) {
-      newActiveLine = next.next == null ? this.activeLine() : next.next
+      newActiveEntry = next.next == null ? this.activeEntry() : next.next
     } else {
-      newActiveLine = next != null ? next : this.activeLine()
+      newActiveEntry = next != null ? next : this.activeEntry()
     }
 
-    this.activeLine.set(newActiveLine)
-    this.scrollToActiveItem(newActiveLine!.id!)
+    this.activeEntry.set(newActiveEntry)
+    this.scrollToActiveEntry(newActiveEntry!.id!)
   }
 
   private handleEnter() {
-    if (this.activeLine() == null) {
+    if (this.activeEntry() == null) {
       return
     }
 
-    this.itemSelected.emit(this.activeLine()?.data!["name"])
+    this.entrySelected.emit(this.activeEntry()?.data!["name"])
   }
 
-  private scrollToActiveItem(id: string) {
+  private scrollToActiveEntry(id: string) {
     const targetRow = this.rows().find(row => {
       const text = row.nativeElement.textContent?.trim()
       return text.includes(id)
@@ -380,13 +378,13 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
         })
       }
 
-      for (const item of tableData.data) {
+      for (const entry of tableData.data) {
         nodes.push({
-          id: item.name,
+          id: entry.name,
           group: null,
-          data: item,
-          active: item.active,
-          selected: item.selected,
+          data: entry,
+          active: entry.active,
+          selected: entry.selected,
           next: null,
           prev: null
         })
@@ -419,7 +417,7 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
     return result
   }
 
-  trackById(index: number, item: LinkedTableData<any>): string {
-    return item.id!
+  trackById(index: number, entry: LinkedTableData<any>): string {
+    return entry.id!
   }
 }

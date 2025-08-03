@@ -4,6 +4,6 @@
   [selectedValues]="actualMoves()"
   [columns]="moveColumns"
   [dataFilter]="dataFilter()"
-  (itemSelected)="moveSelected.emit($event)"
-  (firstListItem)="firstMoveFromList.emit($event)"
+  (entrySelected)="moveSelected.emit($event)"
+  (firstListEntry)="firstMoveFromList.emit($event)"
   (escapeWasPressed)="escapeWasPressed.emit()" />
