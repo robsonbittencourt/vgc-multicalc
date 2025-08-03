@@ -25,6 +25,7 @@ body {
   --filterable-table-header: light-dark(#eaeaec, #36393f);
   --filterable-table-active-line: light-dark(#f4f4f5, #2e2e2e);
   --filterable-table-selected-line: light-dark(#dfdfe2, #676e79);
+  --filterable-table-bottom-line: light-dark(#dfdfe2, #121212);
   --filterable-table-cell-header: light-dark(#8f8f8f, #bbb);
 }
 
