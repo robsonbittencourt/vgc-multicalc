@@ -13,7 +13,7 @@
 
   @if (currentView() === "table") {
     @if (dataFilter() === "") {
-      <div class="table-header" [ngStyle]="{ 'grid-template-columns': buildGridTemplateColumns(), 'padding-right': '18px' }">
+      <div class="table-header" [ngStyle]="{ 'grid-template-columns': gridTemplateColumnsSize(), 'padding-right': '18px' }">
         @for (column of columns(); track column.id) {
           <div class="header-cell" [ngStyle]="{ 'justify-content': column.alignLeft ? 'left' : 'center' }" [ngClass]="{ sortable: column.sortable }" (click)="headerCellAction(column)" [attr.data-cy]="headerDataCy(column)">
             {{ column.header }}
@@ -30,7 +30,7 @@
             @if (entry.group) {
               <div class="entries-section-title">{{ entry.group }}</div>
             } @else {
-              <div class="entry" [ngStyle]="{ 'grid-template-columns': buildGridTemplateColumns() }" [ngClass]="getEntryClass(entry)" (click)="selectEntry(entry)" #row [attr.data-cy]="entryDataCy(entry)">
+              <div class="entry" [ngStyle]="{ 'grid-template-columns': gridTemplateColumnsSize() }" [ngClass]="getEntryClass(entry)" (click)="selectEntry(entry)" #row [attr.data-cy]="entryDataCy(entry)">
                 @for (column of columns(); track column.id) {
                   <div class="entry-cell">
                     @if (column.isImageColumn) {

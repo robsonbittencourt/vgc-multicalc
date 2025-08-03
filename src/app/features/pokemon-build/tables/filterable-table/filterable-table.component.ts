@@ -85,6 +85,26 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
     return this.columns().find(col => col.field === this.currentFilterField())
   })
 
+  gridTemplateColumnsSize = computed(() => {
+    return this.columns()
+      .map(col => {
+        switch (col.width) {
+          case "verysmall":
+            return "2.5em"
+          case "small":
+            return "6em"
+          case "medium":
+            return "9em"
+          case "large":
+            return "15em"
+          default:
+            return "auto"
+        }
+      })
+      .join(" ")
+      .concat(" 1em")
+  })
+
   arrowKeyTimesPressed = 0
   arrowKeyTimeoutId: any
   isComponentFocused = false
@@ -228,26 +248,6 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
       default:
         return `${iconBase}/other.png`
     }
-  }
-
-  buildGridTemplateColumns(): string {
-    return this.columns()
-      .map(col => {
-        switch (col.width) {
-          case "verysmall":
-            return "2.5em"
-          case "small":
-            return "6em"
-          case "medium":
-            return "9em"
-          case "large":
-            return "15em"
-          default:
-            return "auto"
-        }
-      })
-      .join(" ")
-      .concat(" 1em")
   }
 
   headerCellAction(column: ColumnConfig<T>) {
