@@ -33,6 +33,8 @@ get_badge_color() {
   commit_scope=$1
   if [ "$commit_scope" == "fix" ]; then
     echo "red"
+  elif [ "$commit_scope" == "chore" ]; then
+    echo "blue"
   else
     echo "green"
   fi
@@ -57,11 +59,25 @@ generate_release_notes() {
   | Commit  | Description                                              |
   |-------|----------------------------------------------------------|"
 
+  local features=()
+  local fixes=()
+  local chores=()
+
   while IFS=" " read -r sha_resumido sha commit_message; do
     commit_scope=$(get_commit_scope "$commit_message")
     badge_color=$(get_badge_color "$commit_scope")
-    generate_badge_template "$sha_resumido" "$sha" "$commit_scope" "$badge_color" "$commit_message"
+    badge_line=$(generate_badge_template "$sha_resumido" "$sha" "$commit_scope" "$badge_color" "$commit_message")
+
+    case "$commit_scope" in
+      feature) features+=("$badge_line") ;;
+      fix)     fixes+=("$badge_line") ;;
+      chore)   chores+=("$badge_line") ;;
+    esac
   done <<< "$commits"
+
+  for line in "${features[@]}"; do echo "$line"; done
+  for line in "${fixes[@]}"; do echo "$line"; done
+  for line in "${chores[@]}"; do echo "$line"; done
 
   echo -e "\n"
 }
