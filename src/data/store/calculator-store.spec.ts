@@ -564,6 +564,81 @@ describe("Calculator Store", () => {
       })
     })
 
+    describe("Load Pokémon Info", () => {
+      it("should load Pokémon information using it name", () => {
+        store.loadPokemonInfo(defaultId, "Spinarak")
+        const result = store.findPokemonById(defaultId)
+
+        expect(result.name).toBe("Spinarak")
+        expect(result.nature).toBe("Careful")
+        expect(result.item).toBe("Eviolite")
+        expect(result.ability.name).toBe("Insomnia")
+        expect(result.teraType).toBe("Dark")
+        expect(result.teraTypeActive).toBeFalse()
+        expect(result.evs).toEqual({ hp: 252, atk: 0, def: 252, spa: 0, spd: 4, spe: 0 })
+        expect(result.move1Name).toBe("Foul Play")
+        expect(result.move2Name).toBe("Leech Life")
+        expect(result.move3Name).toBe("Knock Off")
+        expect(result.move4Name).toBe("Shadow Sneak")
+        expect(result.activeMoveName).toBe("Foul Play")
+      })
+
+      it("should reset previous commander state", () => {
+        store.commander(defaultId, true)
+
+        store.loadPokemonInfo(defaultId, "Spinarak")
+        const result = store.findPokemonById(defaultId)
+
+        expect(result.commanderActive).toBeFalse()
+      })
+
+      it("should reset previous hp percentage state", () => {
+        store.hpPercentage(defaultId, 50)
+
+        store.loadPokemonInfo(defaultId, "Spinarak")
+        const result = store.findPokemonById(defaultId)
+
+        expect(result.hpPercentage).toBe(100)
+      })
+
+      it("should set +1 atk when Pokémon is Zacian", () => {
+        store.loadPokemonInfo(defaultId, "Zacian")
+        const result = store.findPokemonById(defaultId)
+
+        expect(result.boosts).toEqual({ atk: 1, def: 0, spa: 0, spd: 0, spe: 0 })
+      })
+
+      it("should set +1 atk when Pokémon is Zacian-Crowned", () => {
+        store.loadPokemonInfo(defaultId, "Zacian-Crowned")
+        const result = store.findPokemonById(defaultId)
+
+        expect(result.boosts).toEqual({ atk: 1, def: 0, spa: 0, spd: 0, spe: 0 })
+      })
+
+      it("should set +1 def when Pokémon is Zamazenta", () => {
+        store.loadPokemonInfo(defaultId, "Zamazenta")
+        const result = store.findPokemonById(defaultId)
+
+        expect(result.boosts).toEqual({ atk: 0, def: 1, spa: 0, spd: 0, spe: 0 })
+      })
+
+      it("should set +1 def when Pokémon is Zamazenta-Crowned", () => {
+        store.loadPokemonInfo(defaultId, "Zamazenta-Crowned")
+        const result = store.findPokemonById(defaultId)
+
+        expect(result.boosts).toEqual({ atk: 0, def: 1, spa: 0, spd: 0, spe: 0 })
+      })
+
+      it("should reset previous stats boosts state", () => {
+        store.boosts(defaultId, { atk: 1, def: 2, spa: 3, spd: 4, spe: 5 })
+
+        store.loadPokemonInfo(defaultId, "Spinarak")
+        const result = store.findPokemonById(defaultId)
+
+        expect(result.boosts).toEqual({ atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
+      })
+    })
+
     describe("User data", () => {
       beforeEach(() => {
         const store: Record<string, string | null> = {}
