@@ -37,8 +37,14 @@
     </div>
 
     <div class="options">
-      <app-input-autocomplete label="Pokémon" leftLabel="true" [allValues]="optionsStore.pokemonNamesByReg()" [value]="optionsStore.targetName()" (valueChange)="optionsStore.updateTargetName($event)" />
-      <mat-icon class="clear-button" (click)="optionsStore.clearTargetName()">clear</mat-icon>
+      <app-input-autocomplete
+        label="Pokémon"
+        leftLabel="true"
+        [allValues]="optionsStore.pokemonNamesByReg()"
+        [value]="optionsStore.targetName()"
+        (valueChange)="optionsStore.updateTargetName($event)"
+        [enableClear]="optionsStore.targetName() !== ''"
+        (cleared)="optionsStore.clearTargetName()" />
     </div>
   </app-widget>
 </div>

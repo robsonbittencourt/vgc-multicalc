@@ -7,7 +7,7 @@
       <app-input-autocomplete
         class="select-pokemon"
         label="Pokémon"
-        [enableClear]="true"
+        [enableClear]="optionsStore.targetName() !== ''"
         [allValues]="optionsStore.pokemonNamesByReg()"
         [value]="optionsStore.targetName()"
         (valueChange)="optionsStore.updateTargetName($event)"

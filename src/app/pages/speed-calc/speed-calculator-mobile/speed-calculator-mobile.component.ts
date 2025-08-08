@@ -1,5 +1,4 @@
 import { Component, computed, inject, OnInit, signal } from "@angular/core"
-import { MatIcon } from "@angular/material/icon"
 import { InputAutocompleteComponent } from "@basic/input-autocomplete/input-autocomplete.component"
 import { InputSelectComponent } from "@basic/input-select/input-select.component"
 import { WidgetComponent } from "@basic/widget/widget.component"
@@ -27,7 +26,6 @@ import { NATURES } from "@robsonbittencourt/calc"
   templateUrl: "./speed-calculator-mobile.component.html",
   styleUrls: ["./speed-calculator-mobile.component.scss"],
   imports: [
-    MatIcon,
     InputSelectComponent,
     InputAutocompleteComponent,
     PokemonComboBoxComponent,
