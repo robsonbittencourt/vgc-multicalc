@@ -31,6 +31,7 @@
 
   <app-widget class="card" title="Filters">
     <div class="options">
+      <app-input-select label="Regulation" leftLabel="true" [allValues]="regulationsList" [value]="optionsStore.regulation()" (valueChange)="updateRegulation($event)" />
       <app-input-select label="Top Usage" leftLabel="true" [allValues]="topUsageList" [value]="optionsStore.topUsage()" (valueChange)="optionsStore.updateTopUsage($event)" />
       <app-input-select label="Mode" leftLabel="true" [allValues]="speedCalculatorModes" [value]="optionsStore.mode()" (valueChange)="optionsStore.updateMode($event)" />
     </div>

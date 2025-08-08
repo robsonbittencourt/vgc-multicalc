@@ -1,6 +1,7 @@
 <app-widget [title]="'Speed List'">
   <left-header>
     <div class="title-box">
+      <app-input-select label="Regulation" [allValues]="regulationsList" [value]="optionsStore.regulation()" (valueChange)="updateRegulation($event)" />
       <app-input-select class="select-usage" label="Top Usage" [allValues]="topUsageList" [value]="optionsStore.topUsage()" (valueChange)="optionsStore.updateTopUsage($event)" />
       <app-input-select class="select-mode" label="Mode" [allValues]="speedCalculatorModes" [value]="optionsStore.mode()" (valueChange)="optionsStore.updateMode($event)" />
       <app-input-autocomplete

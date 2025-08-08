@@ -2,7 +2,8 @@ import { Generations, Pokemon } from "@robsonbittencourt/calc"
 import axios from "axios"
 
 export async function smogonSpeedData(date, reg) {
-  const response = await axios.get(`https://www.smogon.com/stats/${date}/chaos/gen9vgc2025reg${reg}bo3-0.json`)
+  const year = date.substring(0, date.indexOf("-"))
+  const response = await axios.get(`https://www.smogon.com/stats/${date}/chaos/gen9vgc${year}reg${reg}bo3-0.json`)
 
   return allPokemon().map(pokemon => {
     const data = response.data.data[pokemon]

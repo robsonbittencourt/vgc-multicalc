@@ -7,7 +7,7 @@ import { patchState, signalStore, withState } from "@ngrx/signals"
 
 type SpeedCalcOptionsState = {
   topUsage: string
-  regulation: string
+  regulation: Regulation
   targetName: string
   mode: SpeedCalculatorMode
   speedModifier: number
@@ -67,7 +67,7 @@ export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }
     patchState(this, () => ({ speedModifier }))
   }
 
-  updateRegulation(regulation: string) {
+  updateRegulation(regulation: Regulation) {
     patchState(this, () => ({ regulation }))
     this.clearTargetName()
   }

@@ -16,6 +16,7 @@ import { StatusComboBoxComponent } from "@features/pokemon-build/status-combo-bo
 import { Pokemon } from "@lib/model/pokemon"
 import { Status } from "@lib/model/status"
 import { SPEED_CALCULATOR_MODES } from "@lib/speed-calculator/speed-calculator-mode"
+import { Regulation } from "@lib/types"
 import { OpponentOptionsComponent } from "@pages/speed-calc/opponent-options/opponent-options.component"
 import { SpeedInsightsComponent } from "@pages/speed-calc/speed-insights/speed-insights.component"
 import { SpeedScaleComponent } from "@pages/speed-calc/speed-scale/speed-scale.component"
@@ -56,6 +57,8 @@ export class SpeedCalculatorMobileComponent implements OnInit {
 
   statusConditions = [Status.HEALTHY.description, Status.PARALYSIS.description]
 
+  regulationsList: Regulation[] = ["H", "I"]
+
   topUsageList: string[] = ["60", "100", "125", "All"]
 
   speedCalculatorModes: string[] = SPEED_CALCULATOR_MODES
@@ -66,5 +69,9 @@ export class SpeedCalculatorMobileComponent implements OnInit {
 
   resetEvs() {
     this.store.evs(this.pokemonId(), { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
+  }
+
+  updateRegulation(regulation: string) {
+    this.optionsStore.updateRegulation(regulation as Regulation)
   }
 }

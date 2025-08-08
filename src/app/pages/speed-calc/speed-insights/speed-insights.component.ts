@@ -1,8 +1,10 @@
-import { Component, computed, input } from "@angular/core"
+import { Component, computed, inject, input } from "@angular/core"
 import { WidgetComponent } from "@basic/widget/widget.component"
-import { SPEED_STATISTICS, SpeedStatistic } from "@data/speed-statistics"
+import { SpeedStatistic } from "@data/speed-data"
+import { SpeedCalcOptionsStore } from "@data/store/speed-calc-options-store"
 import { MAX_BASE_SPEED_FOR_TR, NEGATIVE_SPEED_NATURES } from "@lib/constants"
 import { Pokemon } from "@lib/model/pokemon"
+import { SpeedCalculatorService } from "@lib/speed-calculator/speed-calculator-service"
 
 @Component({
   selector: "app-speed-insights",
@@ -11,10 +13,14 @@ import { Pokemon } from "@lib/model/pokemon"
   styleUrl: "./speed-insights.component.scss"
 })
 export class SpeedInsightsComponent {
+  optionsStore = inject(SpeedCalcOptionsStore)
+  speedCalculatorService = inject(SpeedCalculatorService)
+
   pokemon = input.required<Pokemon>()
 
   pokemonName = computed(() => this.pokemon().name)
-  speedInsights = computed(() => SPEED_STATISTICS[this.pokemon().name])
+  regulation = computed(() => this.optionsStore.regulation())
+  speedInsights = computed(() => this.speedCalculatorService.retrieveSpeedStatistics(this.pokemonName(), this.regulation()))
 
   base = computed(() => this.speedInsights().baseSpeed)
   min = computed(() => this.speedInsights().minSpeed)

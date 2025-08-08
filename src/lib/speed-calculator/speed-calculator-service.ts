@@ -1,7 +1,9 @@
 import { Injectable, inject } from "@angular/core"
 import { SETDEX_SV } from "@data/movesets"
 import { pokemonByRegulation } from "@data/regulation-pokemon"
-import { SPEED_STATISTICS } from "@data/speed-statistics"
+import { SpeedData } from "@data/speed-data"
+import { SPEED_STATISTICS_REG_H } from "@data/speed-statistics-reg-h"
+import { SPEED_STATISTICS_REG_I } from "@data/speed-statistics-reg-i"
 import { ACTUAL, BOOSTER, MAX, MAX_BASE_SPEED_FOR_TR, MIN, MIN_IV_0, SCARF } from "@lib/constants"
 import { defaultPokemon } from "@lib/default-pokemon"
 import { Ability } from "@lib/model/ability"
@@ -13,6 +15,7 @@ import { SmogonFunctions } from "@lib/smogon/smogon-functions"
 import { SpeedCalculatorMode } from "@lib/speed-calculator/speed-calculator-mode"
 import { SpeedCalculatorOptions } from "@lib/speed-calculator/speed-calculator-options"
 import { SpeedDefinition } from "@lib/speed-calculator/speed-definition"
+import { Regulation } from "@lib/types"
 import { Generations, Pokemon as SmogonPokemon } from "@robsonbittencourt/calc"
 
 @Injectable({
@@ -104,7 +107,7 @@ export class SpeedCalculatorService {
 
   private loadMetaStatistics(pokemon: Pokemon, field: Field, speedDefinitions: SpeedDefinition[], options: SpeedCalculatorOptions) {
     if (options.mode == SpeedCalculatorMode.StatsAndMeta || options.mode == SpeedCalculatorMode.Meta) {
-      speedDefinitions.push(...this.statistics(pokemon, field))
+      speedDefinitions.push(...this.statistics(pokemon, field, options.regulation))
     }
   }
 
@@ -210,11 +213,12 @@ export class SpeedCalculatorService {
     return new SpeedDefinition(clonedPokemon, speed, description)
   }
 
-  statistics(pokemon: Pokemon, field: Field): SpeedDefinition[] {
+  statistics(pokemon: Pokemon, field: Field, regulation: Regulation): SpeedDefinition[] {
     const speedDefinitions: SpeedDefinition[] = []
+    const speedData = this.retrieveSpeedStatistics(pokemon.name, regulation)
 
-    if (SPEED_STATISTICS[pokemon.name]) {
-      SPEED_STATISTICS[pokemon.name].statistics
+    if (speedData) {
+      speedData.statistics
         .filter(s => s.type === "usage")
         .forEach(speedStatistic => {
           const clonedPokemon = pokemon.clone({ item: "Leftovers", nature: speedStatistic.nature, evs: { spe: speedStatistic.speedEv } })
@@ -227,6 +231,14 @@ export class SpeedCalculatorService {
     }
 
     return speedDefinitions
+  }
+
+  retrieveSpeedStatistics(pokemonName: string, regulation: Regulation): SpeedData {
+    if (regulation == "H") {
+      return SPEED_STATISTICS_REG_H[pokemonName]
+    }
+
+    return SPEED_STATISTICS_REG_I[pokemonName]
   }
 
   private isTrickRoomPokemon(pokemon: Pokemon): boolean {
