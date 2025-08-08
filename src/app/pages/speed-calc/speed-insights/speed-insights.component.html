@@ -24,7 +24,7 @@
     </div>
 
     @if (usageInsights().length > 0) {
-      <p>In the current metagame, excluding external Speed modifications (e.g., Paradox Abilities, Choice Scarf):</p>
+      <p>In the Regulation {{ regulation() }} metagame, excluding external Speed modifications (e.g., Paradox Abilities, Choice Scarf):</p>
 
       <ul class="custom-list">
         <li>
@@ -84,10 +84,10 @@
       }
 
       <div class="note">
-        <p>These statistics are based on {{ pokemonName() }} usage in the Pokémon Showdown Bo3 ladder across all ratings over the past month.</p>
+        <p>These statistics are based on {{ pokemonName() }} usage in the Pokémon Showdown Bo3 ladder across all ratings during {{ referenceDate() }}.</p>
       </div>
     } @else {
-      <p>{{ pokemonName() }} does not have enough data to extract insights.</p>
+      <p>{{ pokemonName() }} doesn't have enough data in this Regulation to extract insights.</p>
     }
   </div>
 </app-widget>

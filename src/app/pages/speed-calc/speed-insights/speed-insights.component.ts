@@ -22,6 +22,7 @@ export class SpeedInsightsComponent {
   regulation = computed(() => this.optionsStore.regulation())
   speedInsights = computed(() => this.speedCalculatorService.retrieveSpeedStatistics(this.pokemonName(), this.regulation()))
 
+  referenceDate = computed(() => this.speedInsights().referenceDate)
   base = computed(() => this.speedInsights().baseSpeed)
   min = computed(() => this.speedInsights().minSpeed)
   max = computed(() => this.speedInsights().maxSpeed)

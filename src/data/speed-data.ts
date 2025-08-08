@@ -1,4 +1,5 @@
 export type SpeedData = {
+  referenceDate: string
   baseSpeed: number
   minSpeedWithIvZero: number
   minSpeed: number

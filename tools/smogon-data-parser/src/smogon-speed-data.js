@@ -8,14 +8,15 @@ export async function smogonSpeedData(date, reg) {
   return allPokemon().map(pokemon => {
     const data = response.data.data[pokemon]
 
-    return generateStatistics(pokemon, data)
+    return generateStatistics(pokemon, data, date)
   })
 }
 
-function generateStatistics(pokemon, data) {
+function generateStatistics(pokemon, data, date) {
   if (!data) {
     return {
       [pokemon]: {
+        referenceDate: date,
         baseSpeed: calculateSpeedBase(pokemon),
         minSpeed: calculateMinSpeed(pokemon),
         maxSpeed: calculateMaxSpeed(pokemon),
@@ -34,6 +35,7 @@ function generateStatistics(pokemon, data) {
 
   return {
     [pokemon]: {
+      referenceDate: date,
       baseSpeed: calculateSpeedBase(pokemon),
       minSpeed: calculateMinSpeed(pokemon),
       maxSpeed: calculateMaxSpeed(pokemon),

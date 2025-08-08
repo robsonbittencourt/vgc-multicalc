@@ -4,6 +4,7 @@ import { SpeedData } from "./speed-data"
 
 export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
   Abomasnow: {
+    referenceDate: "2024-12",
     baseSpeed: 60,
     minSpeed: 80,
     maxSpeed: 112,
@@ -19,8 +20,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 87, percentile: 90, percentage: 36, speedEv: 52, nature: "Modest" }
     ]
   },
-  Aipom: { baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
+  Aipom: { referenceDate: "2024-12", baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
   Alcremie: {
+    referenceDate: "2024-12",
     baseSpeed: 64,
     minSpeed: 84,
     maxSpeed: 116,
@@ -36,6 +38,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Alomomola: {
+    referenceDate: "2024-12",
     baseSpeed: 65,
     minSpeed: 85,
     maxSpeed: 117,
@@ -51,6 +54,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Altaria: {
+    referenceDate: "2024-12",
     baseSpeed: 80,
     minSpeed: 100,
     maxSpeed: 132,
@@ -66,6 +70,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Ambipom: {
+    referenceDate: "2024-12",
     baseSpeed: 115,
     minSpeed: 135,
     maxSpeed: 167,
@@ -78,6 +83,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     statistics: [{ type: "usage", speed: 183, percentile: 100, percentage: 81, speedEv: 252, nature: "Jolly" }]
   },
   Amoonguss: {
+    referenceDate: "2024-12",
     baseSpeed: 30,
     minSpeed: 50,
     maxSpeed: 82,
@@ -93,6 +99,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Ampharos: {
+    referenceDate: "2024-12",
     baseSpeed: 55,
     minSpeed: 75,
     maxSpeed: 107,
@@ -108,6 +115,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Annihilape: {
+    referenceDate: "2024-12",
     baseSpeed: 90,
     minSpeed: 110,
     maxSpeed: 142,
@@ -123,6 +131,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Appletun: {
+    referenceDate: "2024-12",
     baseSpeed: 30,
     minSpeed: 50,
     maxSpeed: 82,
@@ -137,8 +146,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 50, percentile: 97, percentage: 47, speedEv: 0, nature: "Calm" }
     ]
   },
-  Applin: { baseSpeed: 20, minSpeed: 40, maxSpeed: 72, minSpeedWithIvZero: 22, maxSpeedWithNature: 79, statistics: [] },
+  Applin: { referenceDate: "2024-12", baseSpeed: 20, minSpeed: 40, maxSpeed: 72, minSpeedWithIvZero: 22, maxSpeedWithNature: 79, statistics: [] },
   Araquanid: {
+    referenceDate: "2024-12",
     baseSpeed: 42,
     minSpeed: 62,
     maxSpeed: 94,
@@ -154,6 +164,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Arbok: {
+    referenceDate: "2024-12",
     baseSpeed: 80,
     minSpeed: 100,
     maxSpeed: 132,
@@ -170,6 +181,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Arboliva: {
+    referenceDate: "2024-12",
     baseSpeed: 39,
     minSpeed: 59,
     maxSpeed: 91,
@@ -186,6 +198,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Arcanine: {
+    referenceDate: "2024-12",
     baseSpeed: 95,
     minSpeed: 115,
     maxSpeed: 147,
@@ -202,6 +215,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   "Arcanine-Hisui": {
+    referenceDate: "2024-12",
     baseSpeed: 90,
     minSpeed: 110,
     maxSpeed: 142,
@@ -217,8 +231,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "scarf", speed: 234, percentile: 100, percentage: 9, speedEv: 252, nature: "" }
     ]
   },
-  Arceus: { baseSpeed: 120, minSpeed: 140, maxSpeed: 172, minSpeedWithIvZero: 112, maxSpeedWithNature: 189, statistics: [] },
+  Arceus: { referenceDate: "2024-12", baseSpeed: 120, minSpeed: 140, maxSpeed: 172, minSpeedWithIvZero: 112, maxSpeedWithNature: 189, statistics: [] },
   Archaludon: {
+    referenceDate: "2024-12",
     baseSpeed: 85,
     minSpeed: 105,
     maxSpeed: 137,
@@ -233,9 +248,10 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 150, percentile: 100, percentage: 19, speedEv: 252, nature: "Timid" }
     ]
   },
-  Arctibax: { baseSpeed: 62, minSpeed: 82, maxSpeed: 114, minSpeedWithIvZero: 60, maxSpeedWithNature: 125, statistics: [] },
-  Ariados: { baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Arctibax: { referenceDate: "2024-12", baseSpeed: 62, minSpeed: 82, maxSpeed: 114, minSpeedWithIvZero: 60, maxSpeedWithNature: 125, statistics: [] },
+  Ariados: { referenceDate: "2024-12", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
   Armarouge: {
+    referenceDate: "2024-12",
     baseSpeed: 75,
     minSpeed: 95,
     maxSpeed: 127,
@@ -250,10 +266,11 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 95, percentile: 53, percentage: 17, speedEv: 0, nature: "Modest" }
     ]
   },
-  Arrokuda: { baseSpeed: 66, minSpeed: 86, maxSpeed: 118, minSpeedWithIvZero: 63, maxSpeedWithNature: 129, statistics: [] },
-  Articuno: { baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
-  "Articuno-Galar": { baseSpeed: 95, minSpeed: 115, maxSpeed: 147, minSpeedWithIvZero: 90, maxSpeedWithNature: 161, statistics: [] },
+  Arrokuda: { referenceDate: "2024-12", baseSpeed: 66, minSpeed: 86, maxSpeed: 118, minSpeedWithIvZero: 63, maxSpeedWithNature: 129, statistics: [] },
+  Articuno: { referenceDate: "2024-12", baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
+  "Articuno-Galar": { referenceDate: "2024-12", baseSpeed: 95, minSpeed: 115, maxSpeed: 147, minSpeedWithIvZero: 90, maxSpeedWithNature: 161, statistics: [] },
   Avalugg: {
+    referenceDate: "2024-12",
     baseSpeed: 28,
     minSpeed: 48,
     maxSpeed: 80,
@@ -266,6 +283,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     statistics: [{ type: "usage", speed: 29, percentile: 82, percentage: 82, speedEv: 0, nature: "Brave" }]
   },
   "Avalugg-Hisui": {
+    referenceDate: "2024-12",
     baseSpeed: 38,
     minSpeed: 58,
     maxSpeed: 90,
@@ -281,9 +299,10 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 90, percentile: 100, percentage: 13, speedEv: 252, nature: "Adamant" }
     ]
   },
-  Axew: { baseSpeed: 57, minSpeed: 77, maxSpeed: 109, minSpeedWithIvZero: 55, maxSpeedWithNature: 119, statistics: [] },
-  Azelf: { baseSpeed: 115, minSpeed: 135, maxSpeed: 167, minSpeedWithIvZero: 108, maxSpeedWithNature: 183, statistics: [] },
+  Axew: { referenceDate: "2024-12", baseSpeed: 57, minSpeed: 77, maxSpeed: 109, minSpeedWithIvZero: 55, maxSpeedWithNature: 119, statistics: [] },
+  Azelf: { referenceDate: "2024-12", baseSpeed: 115, minSpeed: 135, maxSpeed: 167, minSpeedWithIvZero: 108, maxSpeedWithNature: 183, statistics: [] },
   Azumarill: {
+    referenceDate: "2024-12",
     baseSpeed: 50,
     minSpeed: 70,
     maxSpeed: 102,
@@ -298,11 +317,12 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 70, percentile: 66, percentage: 54, speedEv: 0, nature: "Adamant" }
     ]
   },
-  Azurill: { baseSpeed: 20, minSpeed: 40, maxSpeed: 72, minSpeedWithIvZero: 22, maxSpeedWithNature: 79, statistics: [] },
-  Bagon: { baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
-  Banette: { baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
-  Barboach: { baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  Azurill: { referenceDate: "2024-12", baseSpeed: 20, minSpeed: 40, maxSpeed: 72, minSpeedWithIvZero: 22, maxSpeedWithNature: 79, statistics: [] },
+  Bagon: { referenceDate: "2024-12", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Banette: { referenceDate: "2024-12", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  Barboach: { referenceDate: "2024-12", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
   Barraskewda: {
+    referenceDate: "2024-12",
     baseSpeed: 136,
     minSpeed: 156,
     maxSpeed: 188,
@@ -318,6 +338,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Basculegion: {
+    referenceDate: "2024-12",
     baseSpeed: 78,
     minSpeed: 98,
     maxSpeed: 130,
@@ -334,6 +355,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   "Basculegion-F": {
+    referenceDate: "2024-12",
     baseSpeed: 78,
     minSpeed: 98,
     maxSpeed: 130,
@@ -350,8 +372,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "scarf", speed: 214, percentile: 100, percentage: 16, speedEv: 252, nature: "" }
     ]
   },
-  Basculin: { baseSpeed: 98, minSpeed: 118, maxSpeed: 150, minSpeedWithIvZero: 92, maxSpeedWithNature: 165, statistics: [] },
+  Basculin: { referenceDate: "2024-12", baseSpeed: 98, minSpeed: 118, maxSpeed: 150, minSpeedWithIvZero: 92, maxSpeedWithNature: 165, statistics: [] },
   Bastiodon: {
+    referenceDate: "2024-12",
     baseSpeed: 30,
     minSpeed: 50,
     maxSpeed: 82,
@@ -367,6 +390,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Baxcalibur: {
+    referenceDate: "2024-12",
     baseSpeed: 87,
     minSpeed: 107,
     maxSpeed: 139,
@@ -382,8 +406,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 152, percentile: 100, percentage: 16, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Bayleef: { baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  Bayleef: { referenceDate: "2024-12", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
   Beartic: {
+    referenceDate: "2024-12",
     baseSpeed: 50,
     minSpeed: 70,
     maxSpeed: 102,
@@ -399,8 +424,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 102, percentile: 89, percentage: 21, speedEv: 252, nature: "Adamant" }
     ]
   },
-  Beldum: { baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
+  Beldum: { referenceDate: "2024-12", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
   Bellibolt: {
+    referenceDate: "2024-12",
     baseSpeed: 45,
     minSpeed: 65,
     maxSpeed: 97,
@@ -416,6 +442,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Bellossom: {
+    referenceDate: "2024-12",
     baseSpeed: 50,
     minSpeed: 70,
     maxSpeed: 102,
@@ -430,9 +457,10 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 102, percentile: 95, percentage: 57, speedEv: 252, nature: "Modest" }
     ]
   },
-  Bellsprout: { baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
-  Bergmite: { baseSpeed: 28, minSpeed: 48, maxSpeed: 80, minSpeedWithIvZero: 29, maxSpeedWithNature: 88, statistics: [] },
+  Bellsprout: { referenceDate: "2024-12", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Bergmite: { referenceDate: "2024-12", baseSpeed: 28, minSpeed: 48, maxSpeed: 80, minSpeedWithIvZero: 29, maxSpeedWithNature: 88, statistics: [] },
   Bisharp: {
+    referenceDate: "2024-12",
     baseSpeed: 70,
     minSpeed: 90,
     maxSpeed: 122,
@@ -449,6 +477,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Blastoise: {
+    referenceDate: "2024-12",
     baseSpeed: 78,
     minSpeed: 98,
     maxSpeed: 130,
@@ -466,6 +495,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Blaziken: {
+    referenceDate: "2024-12",
     baseSpeed: 80,
     minSpeed: 100,
     maxSpeed: 132,
@@ -481,6 +511,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Blissey: {
+    referenceDate: "2024-12",
     baseSpeed: 55,
     minSpeed: 75,
     maxSpeed: 107,
@@ -496,8 +527,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 76, percentile: 97, percentage: 24, speedEv: 4, nature: "Calm" }
     ]
   },
-  Blitzle: { baseSpeed: 76, minSpeed: 96, maxSpeed: 128, minSpeedWithIvZero: 72, maxSpeedWithNature: 140, statistics: [] },
+  Blitzle: { referenceDate: "2024-12", baseSpeed: 76, minSpeed: 96, maxSpeed: 128, minSpeedWithIvZero: 72, maxSpeedWithNature: 140, statistics: [] },
   Bombirdier: {
+    referenceDate: "2024-12",
     baseSpeed: 82,
     minSpeed: 102,
     maxSpeed: 134,
@@ -513,10 +545,11 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 147, percentile: 100, percentage: 48, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Bonsly: { baseSpeed: 10, minSpeed: 30, maxSpeed: 62, minSpeedWithIvZero: 13, maxSpeedWithNature: 68, statistics: [] },
-  Bounsweet: { baseSpeed: 32, minSpeed: 52, maxSpeed: 84, minSpeedWithIvZero: 33, maxSpeedWithNature: 92, statistics: [] },
-  Braixen: { baseSpeed: 73, minSpeed: 93, maxSpeed: 125, minSpeedWithIvZero: 70, maxSpeedWithNature: 137, statistics: [] },
+  Bonsly: { referenceDate: "2024-12", baseSpeed: 10, minSpeed: 30, maxSpeed: 62, minSpeedWithIvZero: 13, maxSpeedWithNature: 68, statistics: [] },
+  Bounsweet: { referenceDate: "2024-12", baseSpeed: 32, minSpeed: 52, maxSpeed: 84, minSpeedWithIvZero: 33, maxSpeedWithNature: 92, statistics: [] },
+  Braixen: { referenceDate: "2024-12", baseSpeed: 73, minSpeed: 93, maxSpeed: 125, minSpeedWithIvZero: 70, maxSpeedWithNature: 137, statistics: [] },
   Brambleghast: {
+    referenceDate: "2024-12",
     baseSpeed: 90,
     minSpeed: 110,
     maxSpeed: 142,
@@ -531,8 +564,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 156, percentile: 100, percentage: 52, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Bramblin: { baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  Bramblin: { referenceDate: "2024-12", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
   Braviary: {
+    referenceDate: "2024-12",
     baseSpeed: 80,
     minSpeed: 100,
     maxSpeed: 132,
@@ -548,6 +582,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   "Braviary-Hisui": {
+    referenceDate: "2024-12",
     baseSpeed: 65,
     minSpeed: 85,
     maxSpeed: 117,
@@ -563,6 +598,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Breloom: {
+    referenceDate: "2024-12",
     baseSpeed: 70,
     minSpeed: 90,
     maxSpeed: 122,
@@ -578,8 +614,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "scarf", speed: 201, percentile: 100, percentage: 6, speedEv: 252, nature: "" }
     ]
   },
-  Brionne: { baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Brionne: { referenceDate: "2024-12", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
   Bronzong: {
+    referenceDate: "2024-12",
     baseSpeed: 33,
     minSpeed: 53,
     maxSpeed: 85,
@@ -594,9 +631,10 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 53, percentile: 99, percentage: 12, speedEv: 0, nature: "Bold" }
     ]
   },
-  Bronzor: { baseSpeed: 23, minSpeed: 43, maxSpeed: 75, minSpeedWithIvZero: 25, maxSpeedWithNature: 82, statistics: [] },
-  "Brute Bonnet": { baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
+  Bronzor: { referenceDate: "2024-12", baseSpeed: 23, minSpeed: 43, maxSpeed: 75, minSpeedWithIvZero: 25, maxSpeedWithNature: 82, statistics: [] },
+  "Brute Bonnet": { referenceDate: "2024-12", baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
   Bruxish: {
+    referenceDate: "2024-12",
     baseSpeed: 92,
     minSpeed: 112,
     maxSpeed: 144,
@@ -613,10 +651,11 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "scarf", speed: 237, percentile: 100, percentage: 46, speedEv: 252, nature: "" }
     ]
   },
-  Buizel: { baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
-  Bulbasaur: { baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
-  Cacnea: { baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
+  Buizel: { referenceDate: "2024-12", baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
+  Bulbasaur: { referenceDate: "2024-12", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  Cacnea: { referenceDate: "2024-12", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
   Cacturne: {
+    referenceDate: "2024-12",
     baseSpeed: 55,
     minSpeed: 75,
     maxSpeed: 107,
@@ -632,10 +671,11 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 85, percentile: 90, percentage: 43, speedEv: 76, nature: "Adamant" }
     ]
   },
-  Calyrex: { baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
-  "Calyrex-Ice": { baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
-  "Calyrex-Shadow": { baseSpeed: 150, minSpeed: 170, maxSpeed: 202, minSpeedWithIvZero: 139, maxSpeedWithNature: 222, statistics: [] },
+  Calyrex: { referenceDate: "2024-12", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
+  "Calyrex-Ice": { referenceDate: "2024-12", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  "Calyrex-Shadow": { referenceDate: "2024-12", baseSpeed: 150, minSpeed: 170, maxSpeed: 202, minSpeedWithIvZero: 139, maxSpeedWithNature: 222, statistics: [] },
   Camerupt: {
+    referenceDate: "2024-12",
     baseSpeed: 40,
     minSpeed: 60,
     maxSpeed: 92,
@@ -650,8 +690,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 60, percentile: 94, percentage: 49, speedEv: 0, nature: "Modest" }
     ]
   },
-  Capsakid: { baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Capsakid: { referenceDate: "2024-12", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
   Carbink: {
+    referenceDate: "2024-12",
     baseSpeed: 50,
     minSpeed: 70,
     maxSpeed: 102,
@@ -666,8 +707,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 70, percentile: 97, percentage: 73, speedEv: 0, nature: "Hardy" }
     ]
   },
-  Carkol: { baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Carkol: { referenceDate: "2024-12", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
   Ceruledge: {
+    referenceDate: "2024-12",
     baseSpeed: 85,
     minSpeed: 105,
     maxSpeed: 137,
@@ -684,6 +726,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Cetitan: {
+    referenceDate: "2024-12",
     baseSpeed: 73,
     minSpeed: 93,
     maxSpeed: 125,
@@ -699,8 +742,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 125, percentile: 94, percentage: 24, speedEv: 252, nature: "Adamant" }
     ]
   },
-  Cetoddle: { baseSpeed: 43, minSpeed: 63, maxSpeed: 95, minSpeedWithIvZero: 43, maxSpeedWithNature: 104, statistics: [] },
+  Cetoddle: { referenceDate: "2024-12", baseSpeed: 43, minSpeed: 63, maxSpeed: 95, minSpeedWithIvZero: 43, maxSpeedWithNature: 104, statistics: [] },
   Chandelure: {
+    referenceDate: "2024-12",
     baseSpeed: 80,
     minSpeed: 100,
     maxSpeed: 132,
@@ -718,6 +762,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Chansey: {
+    referenceDate: "2024-12",
     baseSpeed: 50,
     minSpeed: 70,
     maxSpeed: 102,
@@ -732,8 +777,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 70, percentile: 91, percentage: 79, speedEv: 0, nature: "Bold" }
     ]
   },
-  Charcadet: { baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
+  Charcadet: { referenceDate: "2024-12", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
   Charizard: {
+    referenceDate: "2024-12",
     baseSpeed: 100,
     minSpeed: 120,
     maxSpeed: 152,
@@ -750,6 +796,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Charjabug: {
+    referenceDate: "2024-12",
     baseSpeed: 36,
     minSpeed: 56,
     maxSpeed: 88,
@@ -764,9 +811,10 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 56, percentile: 100, percentage: 77, speedEv: 0, nature: "Modest" }
     ]
   },
-  Charmander: { baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
-  Charmeleon: { baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
+  Charmander: { referenceDate: "2024-12", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  Charmeleon: { referenceDate: "2024-12", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
   Chesnaught: {
+    referenceDate: "2024-12",
     baseSpeed: 64,
     minSpeed: 84,
     maxSpeed: 116,
@@ -782,16 +830,17 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 116, percentile: 99, percentage: 22, speedEv: 252, nature: "Adamant" }
     ]
   },
-  Chespin: { baseSpeed: 38, minSpeed: 58, maxSpeed: 90, minSpeedWithIvZero: 38, maxSpeedWithNature: 99, statistics: [] },
-  Chewtle: { baseSpeed: 44, minSpeed: 64, maxSpeed: 96, minSpeedWithIvZero: 44, maxSpeedWithNature: 105, statistics: [] },
-  "Chi-Yu": { baseSpeed: 100, minSpeed: 120, maxSpeed: 152, minSpeedWithIvZero: 94, maxSpeedWithNature: 167, statistics: [] },
-  "Chien-Pao": { baseSpeed: 135, minSpeed: 155, maxSpeed: 187, minSpeedWithIvZero: 126, maxSpeedWithNature: 205, statistics: [] },
-  Chikorita: { baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
-  Chimchar: { baseSpeed: 61, minSpeed: 81, maxSpeed: 113, minSpeedWithIvZero: 59, maxSpeedWithNature: 124, statistics: [] },
-  Chimecho: { baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
-  Chinchou: { baseSpeed: 67, minSpeed: 87, maxSpeed: 119, minSpeedWithIvZero: 64, maxSpeedWithNature: 130, statistics: [] },
-  Chingling: { baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  Chespin: { referenceDate: "2024-12", baseSpeed: 38, minSpeed: 58, maxSpeed: 90, minSpeedWithIvZero: 38, maxSpeedWithNature: 99, statistics: [] },
+  Chewtle: { referenceDate: "2024-12", baseSpeed: 44, minSpeed: 64, maxSpeed: 96, minSpeedWithIvZero: 44, maxSpeedWithNature: 105, statistics: [] },
+  "Chi-Yu": { referenceDate: "2024-12", baseSpeed: 100, minSpeed: 120, maxSpeed: 152, minSpeedWithIvZero: 94, maxSpeedWithNature: 167, statistics: [] },
+  "Chien-Pao": { referenceDate: "2024-12", baseSpeed: 135, minSpeed: 155, maxSpeed: 187, minSpeedWithIvZero: 126, maxSpeedWithNature: 205, statistics: [] },
+  Chikorita: { referenceDate: "2024-12", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  Chimchar: { referenceDate: "2024-12", baseSpeed: 61, minSpeed: 81, maxSpeed: 113, minSpeedWithIvZero: 59, maxSpeedWithNature: 124, statistics: [] },
+  Chimecho: { referenceDate: "2024-12", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  Chinchou: { referenceDate: "2024-12", baseSpeed: 67, minSpeed: 87, maxSpeed: 119, minSpeedWithIvZero: 64, maxSpeedWithNature: 130, statistics: [] },
+  Chingling: { referenceDate: "2024-12", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
   Cinccino: {
+    referenceDate: "2024-12",
     baseSpeed: 115,
     minSpeed: 135,
     maxSpeed: 167,
@@ -807,6 +856,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Cinderace: {
+    referenceDate: "2024-12",
     baseSpeed: 119,
     minSpeed: 139,
     maxSpeed: 171,
@@ -822,8 +872,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 188, percentile: 100, percentage: 56, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Clauncher: { baseSpeed: 44, minSpeed: 64, maxSpeed: 96, minSpeedWithIvZero: 44, maxSpeedWithNature: 105, statistics: [] },
+  Clauncher: { referenceDate: "2024-12", baseSpeed: 44, minSpeed: 64, maxSpeed: 96, minSpeedWithIvZero: 44, maxSpeedWithNature: 105, statistics: [] },
   Clawitzer: {
+    referenceDate: "2024-12",
     baseSpeed: 59,
     minSpeed: 79,
     maxSpeed: 111,
@@ -839,6 +890,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Clefable: {
+    referenceDate: "2024-12",
     baseSpeed: 60,
     minSpeed: 80,
     maxSpeed: 112,
@@ -854,6 +906,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Clefairy: {
+    referenceDate: "2024-12",
     baseSpeed: 35,
     minSpeed: 55,
     maxSpeed: 87,
@@ -868,8 +921,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 55, percentile: 98, percentage: 44, speedEv: 0, nature: "Calm" }
     ]
   },
-  Cleffa: { baseSpeed: 15, minSpeed: 35, maxSpeed: 67, minSpeedWithIvZero: 18, maxSpeedWithNature: 73, statistics: [] },
+  Cleffa: { referenceDate: "2024-12", baseSpeed: 15, minSpeed: 35, maxSpeed: 67, minSpeedWithIvZero: 18, maxSpeedWithNature: 73, statistics: [] },
   Clodsire: {
+    referenceDate: "2024-12",
     baseSpeed: 20,
     minSpeed: 40,
     maxSpeed: 72,
@@ -885,6 +939,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Cloyster: {
+    referenceDate: "2024-12",
     baseSpeed: 70,
     minSpeed: 90,
     maxSpeed: 122,
@@ -901,6 +956,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Coalossal: {
+    referenceDate: "2024-12",
     baseSpeed: 30,
     minSpeed: 50,
     maxSpeed: 82,
@@ -915,10 +971,11 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 82, percentile: 98, percentage: 48, speedEv: 252, nature: "Adamant" }
     ]
   },
-  Cobalion: { baseSpeed: 108, minSpeed: 128, maxSpeed: 160, minSpeedWithIvZero: 101, maxSpeedWithNature: 176, statistics: [] },
-  Combee: { baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
-  Combusken: { baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
+  Cobalion: { referenceDate: "2024-12", baseSpeed: 108, minSpeed: 128, maxSpeed: 160, minSpeedWithIvZero: 101, maxSpeedWithNature: 176, statistics: [] },
+  Combee: { referenceDate: "2024-12", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
+  Combusken: { referenceDate: "2024-12", baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
   Comfey: {
+    referenceDate: "2024-12",
     baseSpeed: 100,
     minSpeed: 120,
     maxSpeed: 152,
@@ -934,6 +991,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Conkeldurr: {
+    referenceDate: "2024-12",
     baseSpeed: 45,
     minSpeed: 65,
     maxSpeed: 97,
@@ -949,6 +1007,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Copperajah: {
+    referenceDate: "2024-12",
     baseSpeed: 30,
     minSpeed: 50,
     maxSpeed: 82,
@@ -963,8 +1022,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 50, percentile: 97, percentage: 19, speedEv: 0, nature: "Adamant" }
     ]
   },
-  Corphish: { baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
+  Corphish: { referenceDate: "2024-12", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
   Corviknight: {
+    referenceDate: "2024-12",
     baseSpeed: 67,
     minSpeed: 87,
     maxSpeed: 119,
@@ -979,11 +1039,12 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 98, percentile: 84, percentage: 34, speedEv: 84, nature: "Adamant" }
     ]
   },
-  Corvisquire: { baseSpeed: 77, minSpeed: 97, maxSpeed: 129, minSpeedWithIvZero: 73, maxSpeedWithNature: 141, statistics: [] },
-  Cosmoem: { baseSpeed: 37, minSpeed: 57, maxSpeed: 89, minSpeedWithIvZero: 37, maxSpeedWithNature: 97, statistics: [] },
-  Cosmog: { baseSpeed: 37, minSpeed: 57, maxSpeed: 89, minSpeedWithIvZero: 37, maxSpeedWithNature: 97, statistics: [] },
-  Cottonee: { baseSpeed: 66, minSpeed: 86, maxSpeed: 118, minSpeedWithIvZero: 63, maxSpeedWithNature: 129, statistics: [] },
+  Corvisquire: { referenceDate: "2024-12", baseSpeed: 77, minSpeed: 97, maxSpeed: 129, minSpeedWithIvZero: 73, maxSpeedWithNature: 141, statistics: [] },
+  Cosmoem: { referenceDate: "2024-12", baseSpeed: 37, minSpeed: 57, maxSpeed: 89, minSpeedWithIvZero: 37, maxSpeedWithNature: 97, statistics: [] },
+  Cosmog: { referenceDate: "2024-12", baseSpeed: 37, minSpeed: 57, maxSpeed: 89, minSpeedWithIvZero: 37, maxSpeedWithNature: 97, statistics: [] },
+  Cottonee: { referenceDate: "2024-12", baseSpeed: 66, minSpeed: 86, maxSpeed: 118, minSpeedWithIvZero: 63, maxSpeedWithNature: 129, statistics: [] },
   Crabominable: {
+    referenceDate: "2024-12",
     baseSpeed: 43,
     minSpeed: 63,
     maxSpeed: 95,
@@ -998,8 +1059,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 63, percentile: 81, percentage: 45, speedEv: 0, nature: "Adamant" }
     ]
   },
-  Crabrawler: { baseSpeed: 63, minSpeed: 83, maxSpeed: 115, minSpeedWithIvZero: 61, maxSpeedWithNature: 126, statistics: [] },
+  Crabrawler: { referenceDate: "2024-12", baseSpeed: 63, minSpeed: 83, maxSpeed: 115, minSpeedWithIvZero: 61, maxSpeedWithNature: 126, statistics: [] },
   Cramorant: {
+    referenceDate: "2024-12",
     baseSpeed: 85,
     minSpeed: 105,
     maxSpeed: 137,
@@ -1011,8 +1073,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     boosterEnergyIsMoreUsed: false,
     statistics: [{ type: "usage", speed: 150, percentile: 100, percentage: 91, speedEv: 252, nature: "Timid" }]
   },
-  Cranidos: { baseSpeed: 58, minSpeed: 78, maxSpeed: 110, minSpeedWithIvZero: 56, maxSpeedWithNature: 121, statistics: [] },
+  Cranidos: { referenceDate: "2024-12", baseSpeed: 58, minSpeed: 78, maxSpeed: 110, minSpeedWithIvZero: 56, maxSpeedWithNature: 121, statistics: [] },
   Crawdaunt: {
+    referenceDate: "2024-12",
     baseSpeed: 55,
     minSpeed: 75,
     maxSpeed: 107,
@@ -1027,11 +1090,12 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 75, percentile: 67, percentage: 40, speedEv: 0, nature: "Adamant" }
     ]
   },
-  Cresselia: { baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
-  Croagunk: { baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
-  Crocalor: { baseSpeed: 49, minSpeed: 69, maxSpeed: 101, minSpeedWithIvZero: 48, maxSpeedWithNature: 111, statistics: [] },
-  Croconaw: { baseSpeed: 58, minSpeed: 78, maxSpeed: 110, minSpeedWithIvZero: 56, maxSpeedWithNature: 121, statistics: [] },
+  Cresselia: { referenceDate: "2024-12", baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
+  Croagunk: { referenceDate: "2024-12", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Crocalor: { referenceDate: "2024-12", baseSpeed: 49, minSpeed: 69, maxSpeed: 101, minSpeedWithIvZero: 48, maxSpeedWithNature: 111, statistics: [] },
+  Croconaw: { referenceDate: "2024-12", baseSpeed: 58, minSpeed: 78, maxSpeed: 110, minSpeedWithIvZero: 56, maxSpeedWithNature: 121, statistics: [] },
   Cryogonal: {
+    referenceDate: "2024-12",
     baseSpeed: 105,
     minSpeed: 125,
     maxSpeed: 157,
@@ -1047,10 +1111,11 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "scarf", speed: 258, percentile: 100, percentage: 5, speedEv: 252, nature: "" }
     ]
   },
-  Cubchoo: { baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
-  Cufant: { baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
-  Cutiefly: { baseSpeed: 84, minSpeed: 104, maxSpeed: 136, minSpeedWithIvZero: 80, maxSpeedWithNature: 149, statistics: [] },
+  Cubchoo: { referenceDate: "2024-12", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Cufant: { referenceDate: "2024-12", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Cutiefly: { referenceDate: "2024-12", baseSpeed: 84, minSpeed: 104, maxSpeed: 136, minSpeedWithIvZero: 80, maxSpeedWithNature: 149, statistics: [] },
   Cyclizar: {
+    referenceDate: "2024-12",
     baseSpeed: 121,
     minSpeed: 141,
     maxSpeed: 173,
@@ -1065,8 +1130,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "scarf", speed: 285, percentile: 100, percentage: 14, speedEv: 252, nature: "" }
     ]
   },
-  Cyndaquil: { baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  Cyndaquil: { referenceDate: "2024-12", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
   Dachsbun: {
+    referenceDate: "2024-12",
     baseSpeed: 95,
     minSpeed: 115,
     maxSpeed: 147,
@@ -1078,9 +1144,10 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     boosterEnergyIsMoreUsed: false,
     statistics: [{ type: "usage", speed: 115, percentile: 59, percentage: 54, speedEv: 0, nature: "Careful" }]
   },
-  Darkrai: { baseSpeed: 125, minSpeed: 145, maxSpeed: 177, minSpeedWithIvZero: 117, maxSpeedWithNature: 194, statistics: [] },
-  Dartrix: { baseSpeed: 52, minSpeed: 72, maxSpeed: 104, minSpeedWithIvZero: 51, maxSpeedWithNature: 114, statistics: [] },
+  Darkrai: { referenceDate: "2024-12", baseSpeed: 125, minSpeed: 145, maxSpeed: 177, minSpeedWithIvZero: 117, maxSpeedWithNature: 194, statistics: [] },
+  Dartrix: { referenceDate: "2024-12", baseSpeed: 52, minSpeed: 72, maxSpeed: 104, minSpeedWithIvZero: 51, maxSpeedWithNature: 114, statistics: [] },
   Decidueye: {
+    referenceDate: "2024-12",
     baseSpeed: 70,
     minSpeed: 90,
     maxSpeed: 122,
@@ -1097,6 +1164,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   "Decidueye-Hisui": {
+    referenceDate: "2024-12",
     baseSpeed: 60,
     minSpeed: 80,
     maxSpeed: 112,
@@ -1114,6 +1182,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Dedenne: {
+    referenceDate: "2024-12",
     baseSpeed: 101,
     minSpeed: 121,
     maxSpeed: 153,
@@ -1130,9 +1199,10 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "scarf", speed: 252, percentile: 100, percentage: 32, speedEv: 252, nature: "" }
     ]
   },
-  Deerling: { baseSpeed: 75, minSpeed: 95, maxSpeed: 127, minSpeedWithIvZero: 72, maxSpeedWithNature: 139, statistics: [] },
-  Deino: { baseSpeed: 38, minSpeed: 58, maxSpeed: 90, minSpeedWithIvZero: 38, maxSpeedWithNature: 99, statistics: [] },
+  Deerling: { referenceDate: "2024-12", baseSpeed: 75, minSpeed: 95, maxSpeed: 127, minSpeedWithIvZero: 72, maxSpeedWithNature: 139, statistics: [] },
+  Deino: { referenceDate: "2024-12", baseSpeed: 38, minSpeed: 58, maxSpeed: 90, minSpeedWithIvZero: 38, maxSpeedWithNature: 99, statistics: [] },
   Delibird: {
+    referenceDate: "2024-12",
     baseSpeed: 75,
     minSpeed: 95,
     maxSpeed: 127,
@@ -1149,6 +1219,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Delphox: {
+    referenceDate: "2024-12",
     baseSpeed: 104,
     minSpeed: 124,
     maxSpeed: 156,
@@ -1160,11 +1231,12 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     boosterEnergyIsMoreUsed: false,
     statistics: [{ type: "usage", speed: 171, percentile: 100, percentage: 76, speedEv: 252, nature: "Timid" }]
   },
-  Deoxys: { baseSpeed: 150, minSpeed: 170, maxSpeed: 202, minSpeedWithIvZero: 139, maxSpeedWithNature: 222, statistics: [] },
-  "Deoxys-Attack": { baseSpeed: 150, minSpeed: 170, maxSpeed: 202, minSpeedWithIvZero: 139, maxSpeedWithNature: 222, statistics: [] },
-  "Deoxys-Defense": { baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
-  "Deoxys-Speed": { baseSpeed: 180, minSpeed: 200, maxSpeed: 232, minSpeedWithIvZero: 166, maxSpeedWithNature: 255, statistics: [] },
+  Deoxys: { referenceDate: "2024-12", baseSpeed: 150, minSpeed: 170, maxSpeed: 202, minSpeedWithIvZero: 139, maxSpeedWithNature: 222, statistics: [] },
+  "Deoxys-Attack": { referenceDate: "2024-12", baseSpeed: 150, minSpeed: 170, maxSpeed: 202, minSpeedWithIvZero: 139, maxSpeedWithNature: 222, statistics: [] },
+  "Deoxys-Defense": { referenceDate: "2024-12", baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
+  "Deoxys-Speed": { referenceDate: "2024-12", baseSpeed: 180, minSpeed: 200, maxSpeed: 232, minSpeedWithIvZero: 166, maxSpeedWithNature: 255, statistics: [] },
   Dewgong: {
+    referenceDate: "2024-12",
     baseSpeed: 70,
     minSpeed: 90,
     maxSpeed: 122,
@@ -1180,14 +1252,15 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 105, percentile: 100, percentage: 12, speedEv: 50, nature: "Naive" }
     ]
   },
-  Dewott: { baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
-  Dewpider: { baseSpeed: 27, minSpeed: 47, maxSpeed: 79, minSpeedWithIvZero: 28, maxSpeedWithNature: 86, statistics: [] },
-  Dialga: { baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
-  "Dialga-Origin": { baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
-  Diancie: { baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
-  Diglett: { baseSpeed: 95, minSpeed: 115, maxSpeed: 147, minSpeedWithIvZero: 90, maxSpeedWithNature: 161, statistics: [] },
-  "Diglett-Alola": { baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
+  Dewott: { referenceDate: "2024-12", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  Dewpider: { referenceDate: "2024-12", baseSpeed: 27, minSpeed: 47, maxSpeed: 79, minSpeedWithIvZero: 28, maxSpeedWithNature: 86, statistics: [] },
+  Dialga: { referenceDate: "2024-12", baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
+  "Dialga-Origin": { referenceDate: "2024-12", baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
+  Diancie: { referenceDate: "2024-12", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Diglett: { referenceDate: "2024-12", baseSpeed: 95, minSpeed: 115, maxSpeed: 147, minSpeedWithIvZero: 90, maxSpeedWithNature: 161, statistics: [] },
+  "Diglett-Alola": { referenceDate: "2024-12", baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
   Dipplin: {
+    referenceDate: "2024-12",
     baseSpeed: 40,
     minSpeed: 60,
     maxSpeed: 92,
@@ -1203,6 +1276,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Ditto: {
+    referenceDate: "2024-12",
     baseSpeed: 48,
     minSpeed: 68,
     maxSpeed: 100,
@@ -1220,6 +1294,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Dodrio: {
+    referenceDate: "2024-12",
     baseSpeed: 110,
     minSpeed: 130,
     maxSpeed: 162,
@@ -1234,9 +1309,10 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 178, percentile: 100, percentage: 64, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Doduo: { baseSpeed: 75, minSpeed: 95, maxSpeed: 127, minSpeedWithIvZero: 72, maxSpeedWithNature: 139, statistics: [] },
-  Dolliv: { baseSpeed: 33, minSpeed: 53, maxSpeed: 85, minSpeedWithIvZero: 34, maxSpeedWithNature: 93, statistics: [] },
+  Doduo: { referenceDate: "2024-12", baseSpeed: 75, minSpeed: 95, maxSpeed: 127, minSpeedWithIvZero: 72, maxSpeedWithNature: 139, statistics: [] },
+  Dolliv: { referenceDate: "2024-12", baseSpeed: 33, minSpeed: 53, maxSpeed: 85, minSpeedWithIvZero: 34, maxSpeedWithNature: 93, statistics: [] },
   Dondozo: {
+    referenceDate: "2024-12",
     baseSpeed: 35,
     minSpeed: 55,
     maxSpeed: 87,
@@ -1253,6 +1329,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Donphan: {
+    referenceDate: "2024-12",
     baseSpeed: 50,
     minSpeed: 70,
     maxSpeed: 102,
@@ -1270,6 +1347,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Dragalge: {
+    referenceDate: "2024-12",
     baseSpeed: 44,
     minSpeed: 64,
     maxSpeed: 96,
@@ -1285,6 +1363,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Dragapult: {
+    referenceDate: "2024-12",
     baseSpeed: 142,
     minSpeed: 162,
     maxSpeed: 194,
@@ -1299,8 +1378,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 213, percentile: 100, percentage: 41, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Dragonair: { baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
+  Dragonair: { referenceDate: "2024-12", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
   Dragonite: {
+    referenceDate: "2024-12",
     baseSpeed: 80,
     minSpeed: 100,
     maxSpeed: 132,
@@ -1312,9 +1392,10 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     boosterEnergyIsMoreUsed: false,
     statistics: [{ type: "usage", speed: 132, percentile: 91, percentage: 63, speedEv: 252, nature: "Adamant" }]
   },
-  Drakloak: { baseSpeed: 102, minSpeed: 122, maxSpeed: 154, minSpeedWithIvZero: 96, maxSpeedWithNature: 169, statistics: [] },
-  Dratini: { baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Drakloak: { referenceDate: "2024-12", baseSpeed: 102, minSpeed: 122, maxSpeed: 154, minSpeedWithIvZero: 96, maxSpeedWithNature: 169, statistics: [] },
+  Dratini: { referenceDate: "2024-12", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
   Drednaw: {
+    referenceDate: "2024-12",
     baseSpeed: 74,
     minSpeed: 94,
     maxSpeed: 126,
@@ -1329,8 +1410,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 138, percentile: 100, percentage: 11, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Dreepy: { baseSpeed: 82, minSpeed: 102, maxSpeed: 134, minSpeedWithIvZero: 78, maxSpeedWithNature: 147, statistics: [] },
+  Dreepy: { referenceDate: "2024-12", baseSpeed: 82, minSpeed: 102, maxSpeed: 134, minSpeedWithIvZero: 78, maxSpeedWithNature: 147, statistics: [] },
   Drifblim: {
+    referenceDate: "2024-12",
     baseSpeed: 80,
     minSpeed: 100,
     maxSpeed: 132,
@@ -1346,12 +1428,13 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 145, percentile: 100, percentage: 17, speedEv: 252, nature: "Timid" }
     ]
   },
-  Drifloon: { baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
-  Drilbur: { baseSpeed: 68, minSpeed: 88, maxSpeed: 120, minSpeedWithIvZero: 65, maxSpeedWithNature: 132, statistics: [] },
-  Drizzile: { baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
-  Drowzee: { baseSpeed: 42, minSpeed: 62, maxSpeed: 94, minSpeedWithIvZero: 42, maxSpeedWithNature: 103, statistics: [] },
-  Ducklett: { baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
+  Drifloon: { referenceDate: "2024-12", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
+  Drilbur: { referenceDate: "2024-12", baseSpeed: 68, minSpeed: 88, maxSpeed: 120, minSpeedWithIvZero: 65, maxSpeedWithNature: 132, statistics: [] },
+  Drizzile: { referenceDate: "2024-12", baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
+  Drowzee: { referenceDate: "2024-12", baseSpeed: 42, minSpeed: 62, maxSpeed: 94, minSpeedWithIvZero: 42, maxSpeedWithNature: 103, statistics: [] },
+  Ducklett: { referenceDate: "2024-12", baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
   Dudunsparce: {
+    referenceDate: "2024-12",
     baseSpeed: 55,
     minSpeed: 75,
     maxSpeed: 107,
@@ -1368,6 +1451,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Dugtrio: {
+    referenceDate: "2024-12",
     baseSpeed: 120,
     minSpeed: 140,
     maxSpeed: 172,
@@ -1382,8 +1466,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 189, percentile: 100, percentage: 78, speedEv: 252, nature: "Jolly" }
     ]
   },
-  "Dugtrio-Alola": { baseSpeed: 110, minSpeed: 130, maxSpeed: 162, minSpeedWithIvZero: 103, maxSpeedWithNature: 178, statistics: [] },
+  "Dugtrio-Alola": { referenceDate: "2024-12", baseSpeed: 110, minSpeed: 130, maxSpeed: 162, minSpeedWithIvZero: 103, maxSpeedWithNature: 178, statistics: [] },
   Dunsparce: {
+    referenceDate: "2024-12",
     baseSpeed: 45,
     minSpeed: 65,
     maxSpeed: 97,
@@ -1399,8 +1484,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 66, percentile: 100, percentage: 43, speedEv: 4, nature: "Bold" }
     ]
   },
-  Duosion: { baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
+  Duosion: { referenceDate: "2024-12", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
   Duraludon: {
+    referenceDate: "2024-12",
     baseSpeed: 85,
     minSpeed: 105,
     maxSpeed: 137,
@@ -1416,6 +1502,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Dusclops: {
+    referenceDate: "2024-12",
     baseSpeed: 25,
     minSpeed: 45,
     maxSpeed: 77,
@@ -1431,6 +1518,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Dusknoir: {
+    referenceDate: "2024-12",
     baseSpeed: 45,
     minSpeed: 65,
     maxSpeed: 97,
@@ -1446,9 +1534,10 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 71, percentile: 100, percentage: 13, speedEv: 50, nature: "Calm" }
     ]
   },
-  Duskull: { baseSpeed: 25, minSpeed: 45, maxSpeed: 77, minSpeedWithIvZero: 27, maxSpeedWithNature: 84, statistics: [] },
-  Eelektrik: { baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Duskull: { referenceDate: "2024-12", baseSpeed: 25, minSpeed: 45, maxSpeed: 77, minSpeedWithIvZero: 27, maxSpeedWithNature: 84, statistics: [] },
+  Eelektrik: { referenceDate: "2024-12", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
   Eelektross: {
+    referenceDate: "2024-12",
     baseSpeed: 50,
     minSpeed: 70,
     maxSpeed: 102,
@@ -1464,8 +1553,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 81, percentile: 94, percentage: 11, speedEv: 33, nature: "Timid" }
     ]
   },
-  Eevee: { baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
+  Eevee: { referenceDate: "2024-12", baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
   Eiscue: {
+    referenceDate: "2024-12",
     baseSpeed: 50,
     minSpeed: 70,
     maxSpeed: 102,
@@ -1481,9 +1571,10 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 108, percentile: 95, percentage: 31, speedEv: 228, nature: "Jolly" }
     ]
   },
-  "Eiscue-Noice": { baseSpeed: 130, minSpeed: 150, maxSpeed: 182, minSpeedWithIvZero: 121, maxSpeedWithNature: 200, statistics: [] },
-  Ekans: { baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
+  "Eiscue-Noice": { referenceDate: "2024-12", baseSpeed: 130, minSpeed: 150, maxSpeed: 182, minSpeedWithIvZero: 121, maxSpeedWithNature: 200, statistics: [] },
+  Ekans: { referenceDate: "2024-12", baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
   Electabuzz: {
+    referenceDate: "2024-12",
     baseSpeed: 105,
     minSpeed: 125,
     maxSpeed: 157,
@@ -1500,6 +1591,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Electivire: {
+    referenceDate: "2024-12",
     baseSpeed: 95,
     minSpeed: 115,
     maxSpeed: 147,
@@ -1514,8 +1606,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 147, percentile: 92, percentage: 20, speedEv: 252, nature: "Adamant" }
     ]
   },
-  Electrode: { baseSpeed: 150, minSpeed: 170, maxSpeed: 202, minSpeedWithIvZero: 139, maxSpeedWithNature: 222, statistics: [] },
+  Electrode: { referenceDate: "2024-12", baseSpeed: 150, minSpeed: 170, maxSpeed: 202, minSpeedWithIvZero: 139, maxSpeedWithNature: 222, statistics: [] },
   "Electrode-Hisui": {
+    referenceDate: "2024-12",
     baseSpeed: 150,
     minSpeed: 170,
     maxSpeed: 202,
@@ -1531,8 +1624,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 222, percentile: 100, percentage: 33, speedEv: 252, nature: "Timid" }
     ]
   },
-  Elekid: { baseSpeed: 95, minSpeed: 115, maxSpeed: 147, minSpeedWithIvZero: 90, maxSpeedWithNature: 161, statistics: [] },
+  Elekid: { referenceDate: "2024-12", baseSpeed: 95, minSpeed: 115, maxSpeed: 147, minSpeedWithIvZero: 90, maxSpeedWithNature: 161, statistics: [] },
   Emboar: {
+    referenceDate: "2024-12",
     baseSpeed: 65,
     minSpeed: 85,
     maxSpeed: 117,
@@ -1549,6 +1643,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Empoleon: {
+    referenceDate: "2024-12",
     baseSpeed: 60,
     minSpeed: 80,
     maxSpeed: 112,
@@ -1563,10 +1658,11 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 81, percentile: 69, percentage: 17, speedEv: 4, nature: "Modest" }
     ]
   },
-  Enamorus: { baseSpeed: 106, minSpeed: 126, maxSpeed: 158, minSpeedWithIvZero: 99, maxSpeedWithNature: 173, statistics: [] },
-  "Enamorus-Therian": { baseSpeed: 46, minSpeed: 66, maxSpeed: 98, minSpeedWithIvZero: 45, maxSpeedWithNature: 107, statistics: [] },
-  Entei: { baseSpeed: 100, minSpeed: 120, maxSpeed: 152, minSpeedWithIvZero: 94, maxSpeedWithNature: 167, statistics: [] },
+  Enamorus: { referenceDate: "2024-12", baseSpeed: 106, minSpeed: 126, maxSpeed: 158, minSpeedWithIvZero: 99, maxSpeedWithNature: 173, statistics: [] },
+  "Enamorus-Therian": { referenceDate: "2024-12", baseSpeed: 46, minSpeed: 66, maxSpeed: 98, minSpeedWithIvZero: 45, maxSpeedWithNature: 107, statistics: [] },
+  Entei: { referenceDate: "2024-12", baseSpeed: 100, minSpeed: 120, maxSpeed: 152, minSpeedWithIvZero: 94, maxSpeedWithNature: 167, statistics: [] },
   Espathra: {
+    referenceDate: "2024-12",
     baseSpeed: 105,
     minSpeed: 125,
     maxSpeed: 157,
@@ -1583,6 +1679,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Espeon: {
+    referenceDate: "2024-12",
     baseSpeed: 110,
     minSpeed: 130,
     maxSpeed: 162,
@@ -1598,9 +1695,10 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "scarf", speed: 267, percentile: 100, percentage: 5, speedEv: 252, nature: "" }
     ]
   },
-  Espurr: { baseSpeed: 68, minSpeed: 88, maxSpeed: 120, minSpeedWithIvZero: 65, maxSpeedWithNature: 132, statistics: [] },
-  Eternatus: { baseSpeed: 130, minSpeed: 150, maxSpeed: 182, minSpeedWithIvZero: 121, maxSpeedWithNature: 200, statistics: [] },
+  Espurr: { referenceDate: "2024-12", baseSpeed: 68, minSpeed: 88, maxSpeed: 120, minSpeedWithIvZero: 65, maxSpeedWithNature: 132, statistics: [] },
+  Eternatus: { referenceDate: "2024-12", baseSpeed: 130, minSpeed: 150, maxSpeed: 182, minSpeedWithIvZero: 121, maxSpeedWithNature: 200, statistics: [] },
   Excadrill: {
+    referenceDate: "2024-12",
     baseSpeed: 88,
     minSpeed: 108,
     maxSpeed: 140,
@@ -1615,8 +1713,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 154, percentile: 100, percentage: 24, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Exeggcute: { baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Exeggcute: { referenceDate: "2024-12", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
   Exeggutor: {
+    referenceDate: "2024-12",
     baseSpeed: 55,
     minSpeed: 75,
     maxSpeed: 107,
@@ -1632,6 +1731,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   "Exeggutor-Alola": {
+    referenceDate: "2024-12",
     baseSpeed: 45,
     minSpeed: 65,
     maxSpeed: 97,
@@ -1647,6 +1747,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Falinks: {
+    referenceDate: "2024-12",
     baseSpeed: 75,
     minSpeed: 95,
     maxSpeed: 127,
@@ -1662,6 +1763,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Farigiraf: {
+    referenceDate: "2024-12",
     baseSpeed: 60,
     minSpeed: 80,
     maxSpeed: 112,
@@ -1677,9 +1779,10 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 81, percentile: 79, percentage: 12, speedEv: 4, nature: "Modest" }
     ]
   },
-  Feebas: { baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
-  Fennekin: { baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  Feebas: { referenceDate: "2024-12", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
+  Fennekin: { referenceDate: "2024-12", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
   Feraligatr: {
+    referenceDate: "2024-12",
     baseSpeed: 78,
     minSpeed: 98,
     maxSpeed: 130,
@@ -1695,13 +1798,14 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 130, percentile: 91, percentage: 12, speedEv: 252, nature: "Adamant" }
     ]
   },
-  Fezandipiti: { baseSpeed: 99, minSpeed: 119, maxSpeed: 151, minSpeedWithIvZero: 93, maxSpeedWithNature: 166, statistics: [] },
-  Fidough: { baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
-  Finizen: { baseSpeed: 75, minSpeed: 95, maxSpeed: 127, minSpeedWithIvZero: 72, maxSpeedWithNature: 139, statistics: [] },
-  Finneon: { baseSpeed: 66, minSpeed: 86, maxSpeed: 118, minSpeedWithIvZero: 63, maxSpeedWithNature: 129, statistics: [] },
-  Flaaffy: { baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
-  Flabébé: { baseSpeed: 42, minSpeed: 62, maxSpeed: 94, minSpeedWithIvZero: 42, maxSpeedWithNature: 103, statistics: [] },
+  Fezandipiti: { referenceDate: "2024-12", baseSpeed: 99, minSpeed: 119, maxSpeed: 151, minSpeedWithIvZero: 93, maxSpeedWithNature: 166, statistics: [] },
+  Fidough: { referenceDate: "2024-12", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  Finizen: { referenceDate: "2024-12", baseSpeed: 75, minSpeed: 95, maxSpeed: 127, minSpeedWithIvZero: 72, maxSpeedWithNature: 139, statistics: [] },
+  Finneon: { referenceDate: "2024-12", baseSpeed: 66, minSpeed: 86, maxSpeed: 118, minSpeedWithIvZero: 63, maxSpeedWithNature: 129, statistics: [] },
+  Flaaffy: { referenceDate: "2024-12", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  Flabébé: { referenceDate: "2024-12", baseSpeed: 42, minSpeed: 62, maxSpeed: 94, minSpeedWithIvZero: 42, maxSpeedWithNature: 103, statistics: [] },
   Flamigo: {
+    referenceDate: "2024-12",
     baseSpeed: 90,
     minSpeed: 110,
     maxSpeed: 142,
@@ -1718,6 +1822,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Flapple: {
+    referenceDate: "2024-12",
     baseSpeed: 70,
     minSpeed: 90,
     maxSpeed: 122,
@@ -1733,6 +1838,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Flareon: {
+    referenceDate: "2024-12",
     baseSpeed: 65,
     minSpeed: 85,
     maxSpeed: 117,
@@ -1749,10 +1855,11 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "scarf", speed: 192, percentile: 100, percentage: 22, speedEv: 252, nature: "" }
     ]
   },
-  Fletchinder: { baseSpeed: 84, minSpeed: 104, maxSpeed: 136, minSpeedWithIvZero: 80, maxSpeedWithNature: 149, statistics: [] },
-  Fletchling: { baseSpeed: 62, minSpeed: 82, maxSpeed: 114, minSpeedWithIvZero: 60, maxSpeedWithNature: 125, statistics: [] },
-  Flittle: { baseSpeed: 75, minSpeed: 95, maxSpeed: 127, minSpeedWithIvZero: 72, maxSpeedWithNature: 139, statistics: [] },
+  Fletchinder: { referenceDate: "2024-12", baseSpeed: 84, minSpeed: 104, maxSpeed: 136, minSpeedWithIvZero: 80, maxSpeedWithNature: 149, statistics: [] },
+  Fletchling: { referenceDate: "2024-12", baseSpeed: 62, minSpeed: 82, maxSpeed: 114, minSpeedWithIvZero: 60, maxSpeedWithNature: 125, statistics: [] },
+  Flittle: { referenceDate: "2024-12", baseSpeed: 75, minSpeed: 95, maxSpeed: 127, minSpeedWithIvZero: 72, maxSpeedWithNature: 139, statistics: [] },
   Floatzel: {
+    referenceDate: "2024-12",
     baseSpeed: 115,
     minSpeed: 135,
     maxSpeed: 167,
@@ -1767,9 +1874,10 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 183, percentile: 100, percentage: 26, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Floette: { baseSpeed: 52, minSpeed: 72, maxSpeed: 104, minSpeedWithIvZero: 51, maxSpeedWithNature: 114, statistics: [] },
-  Floragato: { baseSpeed: 83, minSpeed: 103, maxSpeed: 135, minSpeedWithIvZero: 79, maxSpeedWithNature: 148, statistics: [] },
+  Floette: { referenceDate: "2024-12", baseSpeed: 52, minSpeed: 72, maxSpeed: 104, minSpeedWithIvZero: 51, maxSpeedWithNature: 114, statistics: [] },
+  Floragato: { referenceDate: "2024-12", baseSpeed: 83, minSpeed: 103, maxSpeed: 135, minSpeedWithIvZero: 79, maxSpeedWithNature: 148, statistics: [] },
   Florges: {
+    referenceDate: "2024-12",
     baseSpeed: 75,
     minSpeed: 95,
     maxSpeed: 127,
@@ -1781,8 +1889,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     boosterEnergyIsMoreUsed: false,
     statistics: [{ type: "usage", speed: 95, percentile: 72, percentage: 70, speedEv: 0, nature: "Modest" }]
   },
-  "Flutter Mane": { baseSpeed: 135, minSpeed: 155, maxSpeed: 187, minSpeedWithIvZero: 126, maxSpeedWithNature: 205, statistics: [] },
+  "Flutter Mane": { referenceDate: "2024-12", baseSpeed: 135, minSpeed: 155, maxSpeed: 187, minSpeedWithIvZero: 126, maxSpeedWithNature: 205, statistics: [] },
   Flygon: {
+    referenceDate: "2024-12",
     baseSpeed: 100,
     minSpeed: 120,
     maxSpeed: 152,
@@ -1798,9 +1907,10 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "scarf", speed: 250, percentile: 100, percentage: 8, speedEv: 252, nature: "" }
     ]
   },
-  Fomantis: { baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
-  Foongus: { baseSpeed: 15, minSpeed: 35, maxSpeed: 67, minSpeedWithIvZero: 18, maxSpeedWithNature: 73, statistics: [] },
+  Fomantis: { referenceDate: "2024-12", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
+  Foongus: { referenceDate: "2024-12", baseSpeed: 15, minSpeed: 35, maxSpeed: 67, minSpeedWithIvZero: 18, maxSpeedWithNature: 73, statistics: [] },
   Forretress: {
+    referenceDate: "2024-12",
     baseSpeed: 40,
     minSpeed: 60,
     maxSpeed: 92,
@@ -1815,11 +1925,12 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 60, percentile: 100, percentage: 13, speedEv: 0, nature: "Calm" }
     ]
   },
-  Fraxure: { baseSpeed: 67, minSpeed: 87, maxSpeed: 119, minSpeedWithIvZero: 64, maxSpeedWithNature: 130, statistics: [] },
-  Frigibax: { baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
-  Froakie: { baseSpeed: 71, minSpeed: 91, maxSpeed: 123, minSpeedWithIvZero: 68, maxSpeedWithNature: 135, statistics: [] },
-  Frogadier: { baseSpeed: 97, minSpeed: 117, maxSpeed: 149, minSpeedWithIvZero: 91, maxSpeedWithNature: 163, statistics: [] },
+  Fraxure: { referenceDate: "2024-12", baseSpeed: 67, minSpeed: 87, maxSpeed: 119, minSpeedWithIvZero: 64, maxSpeedWithNature: 130, statistics: [] },
+  Frigibax: { referenceDate: "2024-12", baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
+  Froakie: { referenceDate: "2024-12", baseSpeed: 71, minSpeed: 91, maxSpeed: 123, minSpeedWithIvZero: 68, maxSpeedWithNature: 135, statistics: [] },
+  Frogadier: { referenceDate: "2024-12", baseSpeed: 97, minSpeed: 117, maxSpeed: 149, minSpeedWithIvZero: 91, maxSpeedWithNature: 163, statistics: [] },
   Froslass: {
+    referenceDate: "2024-12",
     baseSpeed: 110,
     minSpeed: 130,
     maxSpeed: 162,
@@ -1832,6 +1943,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     statistics: [{ type: "usage", speed: 178, percentile: 100, percentage: 75, speedEv: 252, nature: "Timid" }]
   },
   Frosmoth: {
+    referenceDate: "2024-12",
     baseSpeed: 65,
     minSpeed: 85,
     maxSpeed: 117,
@@ -1843,8 +1955,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     boosterEnergyIsMoreUsed: false,
     statistics: [{ type: "usage", speed: 87, percentile: 53, percentage: 45, speedEv: 12, nature: "Bold" }]
   },
-  Fuecoco: { baseSpeed: 36, minSpeed: 56, maxSpeed: 88, minSpeedWithIvZero: 36, maxSpeedWithNature: 96, statistics: [] },
+  Fuecoco: { referenceDate: "2024-12", baseSpeed: 36, minSpeed: 56, maxSpeed: 88, minSpeedWithIvZero: 36, maxSpeedWithNature: 96, statistics: [] },
   Furret: {
+    referenceDate: "2024-12",
     baseSpeed: 90,
     minSpeed: 110,
     maxSpeed: 142,
@@ -1861,8 +1974,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "scarf", speed: 234, percentile: 100, percentage: 24, speedEv: 252, nature: "" }
     ]
   },
-  Gabite: { baseSpeed: 82, minSpeed: 102, maxSpeed: 134, minSpeedWithIvZero: 78, maxSpeedWithNature: 147, statistics: [] },
+  Gabite: { referenceDate: "2024-12", baseSpeed: 82, minSpeed: 102, maxSpeed: 134, minSpeedWithIvZero: 78, maxSpeedWithNature: 147, statistics: [] },
   Gallade: {
+    referenceDate: "2024-12",
     baseSpeed: 80,
     minSpeed: 100,
     maxSpeed: 132,
@@ -1878,6 +1992,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Galvantula: {
+    referenceDate: "2024-12",
     baseSpeed: 108,
     minSpeed: 128,
     maxSpeed: 160,
@@ -1893,6 +2008,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Garchomp: {
+    referenceDate: "2024-12",
     baseSpeed: 102,
     minSpeed: 122,
     maxSpeed: 154,
@@ -1908,6 +2024,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Gardevoir: {
+    referenceDate: "2024-12",
     baseSpeed: 80,
     minSpeed: 100,
     maxSpeed: 132,
@@ -1925,6 +2042,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Garganacl: {
+    referenceDate: "2024-12",
     baseSpeed: 35,
     minSpeed: 55,
     maxSpeed: 87,
@@ -1939,8 +2057,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 55, percentile: 98, percentage: 80, speedEv: 0, nature: "Careful" }
     ]
   },
-  Gastly: { baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
+  Gastly: { referenceDate: "2024-12", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
   Gastrodon: {
+    referenceDate: "2024-12",
     baseSpeed: 39,
     minSpeed: 59,
     maxSpeed: 91,
@@ -1957,6 +2076,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Gengar: {
+    referenceDate: "2024-12",
     baseSpeed: 110,
     minSpeed: 130,
     maxSpeed: 162,
@@ -1968,9 +2088,10 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     boosterEnergyIsMoreUsed: false,
     statistics: [{ type: "usage", speed: 178, percentile: 100, percentage: 78, speedEv: 252, nature: "Timid" }]
   },
-  Geodude: { baseSpeed: 20, minSpeed: 40, maxSpeed: 72, minSpeedWithIvZero: 22, maxSpeedWithNature: 79, statistics: [] },
-  "Geodude-Alola": { baseSpeed: 20, minSpeed: 40, maxSpeed: 72, minSpeedWithIvZero: 22, maxSpeedWithNature: 79, statistics: [] },
+  Geodude: { referenceDate: "2024-12", baseSpeed: 20, minSpeed: 40, maxSpeed: 72, minSpeedWithIvZero: 22, maxSpeedWithNature: 79, statistics: [] },
+  "Geodude-Alola": { referenceDate: "2024-12", baseSpeed: 20, minSpeed: 40, maxSpeed: 72, minSpeedWithIvZero: 22, maxSpeedWithNature: 79, statistics: [] },
   Gholdengo: {
+    referenceDate: "2024-12",
     baseSpeed: 84,
     minSpeed: 104,
     maxSpeed: 136,
@@ -1986,10 +2107,11 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "scarf", speed: 223, percentile: 100, percentage: 7, speedEv: 252, nature: "" }
     ]
   },
-  Gible: { baseSpeed: 42, minSpeed: 62, maxSpeed: 94, minSpeedWithIvZero: 42, maxSpeedWithNature: 103, statistics: [] },
-  Gimmighoul: { baseSpeed: 10, minSpeed: 30, maxSpeed: 62, minSpeedWithIvZero: 13, maxSpeedWithNature: 68, statistics: [] },
-  "Gimmighoul-Roaming": { baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
+  Gible: { referenceDate: "2024-12", baseSpeed: 42, minSpeed: 62, maxSpeed: 94, minSpeedWithIvZero: 42, maxSpeedWithNature: 103, statistics: [] },
+  Gimmighoul: { referenceDate: "2024-12", baseSpeed: 10, minSpeed: 30, maxSpeed: 62, minSpeedWithIvZero: 13, maxSpeedWithNature: 68, statistics: [] },
+  "Gimmighoul-Roaming": { referenceDate: "2024-12", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
   Girafarig: {
+    referenceDate: "2024-12",
     baseSpeed: 85,
     minSpeed: 105,
     maxSpeed: 137,
@@ -2005,9 +2127,10 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 147, percentile: 100, percentage: 56, speedEv: 228, nature: "Timid" }
     ]
   },
-  Giratina: { baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
-  "Giratina-Origin": { baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
+  Giratina: { referenceDate: "2024-12", baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
+  "Giratina-Origin": { referenceDate: "2024-12", baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
   Glaceon: {
+    referenceDate: "2024-12",
     baseSpeed: 65,
     minSpeed: 85,
     maxSpeed: 117,
@@ -2023,6 +2146,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Glalie: {
+    referenceDate: "2024-12",
     baseSpeed: 80,
     minSpeed: 100,
     maxSpeed: 132,
@@ -2039,10 +2163,11 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "scarf", speed: 217, percentile: 100, percentage: 5, speedEv: 252, nature: "" }
     ]
   },
-  Glastrier: { baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
-  Gligar: { baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
-  Glimmet: { baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  Glastrier: { referenceDate: "2024-12", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
+  Gligar: { referenceDate: "2024-12", baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
+  Glimmet: { referenceDate: "2024-12", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
   Glimmora: {
+    referenceDate: "2024-12",
     baseSpeed: 86,
     minSpeed: 106,
     maxSpeed: 138,
@@ -2055,6 +2180,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     statistics: [{ type: "usage", speed: 151, percentile: 100, percentage: 59, speedEv: 252, nature: "Timid" }]
   },
   Gliscor: {
+    referenceDate: "2024-12",
     baseSpeed: 95,
     minSpeed: 115,
     maxSpeed: 147,
@@ -2069,9 +2195,10 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 161, percentile: 100, percentage: 26, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Gloom: { baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
-  Gogoat: { baseSpeed: 68, minSpeed: 88, maxSpeed: 120, minSpeedWithIvZero: 65, maxSpeedWithNature: 132, statistics: [] },
+  Gloom: { referenceDate: "2024-12", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Gogoat: { referenceDate: "2024-12", baseSpeed: 68, minSpeed: 88, maxSpeed: 120, minSpeedWithIvZero: 65, maxSpeedWithNature: 132, statistics: [] },
   Golduck: {
+    referenceDate: "2024-12",
     baseSpeed: 85,
     minSpeed: 105,
     maxSpeed: 137,
@@ -2086,8 +2213,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 150, percentile: 100, percentage: 75, speedEv: 252, nature: "Timid" }
     ]
   },
-  Golem: { baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  Golem: { referenceDate: "2024-12", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
   "Golem-Alola": {
+    referenceDate: "2024-12",
     baseSpeed: 45,
     minSpeed: 65,
     maxSpeed: 97,
@@ -2103,8 +2231,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 97, percentile: 98, percentage: 15, speedEv: 252, nature: "Adamant" }
     ]
   },
-  Golett: { baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
+  Golett: { referenceDate: "2024-12", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
   Golurk: {
+    referenceDate: "2024-12",
     baseSpeed: 55,
     minSpeed: 75,
     maxSpeed: 107,
@@ -2120,6 +2249,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Goodra: {
+    referenceDate: "2024-12",
     baseSpeed: 80,
     minSpeed: 100,
     maxSpeed: 132,
@@ -2136,6 +2266,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   "Goodra-Hisui": {
+    referenceDate: "2024-12",
     baseSpeed: 60,
     minSpeed: 80,
     maxSpeed: 112,
@@ -2150,9 +2281,10 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 80, percentile: 84, percentage: 51, speedEv: 0, nature: "Modest" }
     ]
   },
-  Goomy: { baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
-  Gothita: { baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  Goomy: { referenceDate: "2024-12", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Gothita: { referenceDate: "2024-12", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
   Gothitelle: {
+    referenceDate: "2024-12",
     baseSpeed: 65,
     minSpeed: 85,
     maxSpeed: 117,
@@ -2168,6 +2300,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Gothorita: {
+    referenceDate: "2024-12",
     baseSpeed: 55,
     minSpeed: 75,
     maxSpeed: 107,
@@ -2183,8 +2316,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 80, percentile: 100, percentage: 23, speedEv: 36, nature: "Careful" }
     ]
   },
-  "Gouging Fire": { baseSpeed: 91, minSpeed: 111, maxSpeed: 143, minSpeedWithIvZero: 86, maxSpeedWithNature: 157, statistics: [] },
+  "Gouging Fire": { referenceDate: "2024-12", baseSpeed: 91, minSpeed: 111, maxSpeed: 143, minSpeedWithIvZero: 86, maxSpeedWithNature: 157, statistics: [] },
   Grafaiai: {
+    referenceDate: "2024-12",
     baseSpeed: 110,
     minSpeed: 130,
     maxSpeed: 162,
@@ -2200,12 +2334,13 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 162, percentile: 85, percentage: 17, speedEv: 252, nature: "Adamant" }
     ]
   },
-  Granbull: { baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
-  Graveler: { baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
-  "Graveler-Alola": { baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
-  "Great Tusk": { baseSpeed: 87, minSpeed: 107, maxSpeed: 139, minSpeedWithIvZero: 82, maxSpeedWithNature: 152, statistics: [] },
-  Greavard: { baseSpeed: 34, minSpeed: 54, maxSpeed: 86, minSpeedWithIvZero: 35, maxSpeedWithNature: 94, statistics: [] },
+  Granbull: { referenceDate: "2024-12", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  Graveler: { referenceDate: "2024-12", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
+  "Graveler-Alola": { referenceDate: "2024-12", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
+  "Great Tusk": { referenceDate: "2024-12", baseSpeed: 87, minSpeed: 107, maxSpeed: 139, minSpeedWithIvZero: 82, maxSpeedWithNature: 152, statistics: [] },
+  Greavard: { referenceDate: "2024-12", baseSpeed: 34, minSpeed: 54, maxSpeed: 86, minSpeedWithIvZero: 35, maxSpeedWithNature: 94, statistics: [] },
   Greedent: {
+    referenceDate: "2024-12",
     baseSpeed: 20,
     minSpeed: 40,
     maxSpeed: 72,
@@ -2218,6 +2353,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     statistics: [{ type: "usage", speed: 22, percentile: 100, percentage: 100, speedEv: 0, nature: "Sassy" }]
   },
   Greninja: {
+    referenceDate: "2024-12",
     baseSpeed: 122,
     minSpeed: 142,
     maxSpeed: 174,
@@ -2233,9 +2369,10 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 191, percentile: 100, percentage: 52, speedEv: 252, nature: "Timid" }
     ]
   },
-  Grimer: { baseSpeed: 25, minSpeed: 45, maxSpeed: 77, minSpeedWithIvZero: 27, maxSpeedWithNature: 84, statistics: [] },
-  "Grimer-Alola": { baseSpeed: 25, minSpeed: 45, maxSpeed: 77, minSpeedWithIvZero: 27, maxSpeedWithNature: 84, statistics: [] },
+  Grimer: { referenceDate: "2024-12", baseSpeed: 25, minSpeed: 45, maxSpeed: 77, minSpeedWithIvZero: 27, maxSpeedWithNature: 84, statistics: [] },
+  "Grimer-Alola": { referenceDate: "2024-12", baseSpeed: 25, minSpeed: 45, maxSpeed: 77, minSpeedWithIvZero: 27, maxSpeedWithNature: 84, statistics: [] },
   Grimmsnarl: {
+    referenceDate: "2024-12",
     baseSpeed: 60,
     minSpeed: 80,
     maxSpeed: 112,
@@ -2247,14 +2384,15 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     boosterEnergyIsMoreUsed: false,
     statistics: [{ type: "usage", speed: 80, percentile: 73, percentage: 66, speedEv: 0, nature: "Careful" }]
   },
-  Grookey: { baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
-  Grotle: { baseSpeed: 36, minSpeed: 56, maxSpeed: 88, minSpeedWithIvZero: 36, maxSpeedWithNature: 96, statistics: [] },
-  Groudon: { baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
-  Grovyle: { baseSpeed: 95, minSpeed: 115, maxSpeed: 147, minSpeedWithIvZero: 90, maxSpeedWithNature: 161, statistics: [] },
-  Growlithe: { baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
-  "Growlithe-Hisui": { baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
-  Grubbin: { baseSpeed: 46, minSpeed: 66, maxSpeed: 98, minSpeedWithIvZero: 45, maxSpeedWithNature: 107, statistics: [] },
+  Grookey: { referenceDate: "2024-12", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  Grotle: { referenceDate: "2024-12", baseSpeed: 36, minSpeed: 56, maxSpeed: 88, minSpeedWithIvZero: 36, maxSpeedWithNature: 96, statistics: [] },
+  Groudon: { referenceDate: "2024-12", baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
+  Grovyle: { referenceDate: "2024-12", baseSpeed: 95, minSpeed: 115, maxSpeed: 147, minSpeedWithIvZero: 90, maxSpeedWithNature: 161, statistics: [] },
+  Growlithe: { referenceDate: "2024-12", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  "Growlithe-Hisui": { referenceDate: "2024-12", baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
+  Grubbin: { referenceDate: "2024-12", baseSpeed: 46, minSpeed: 66, maxSpeed: 98, minSpeedWithIvZero: 45, maxSpeedWithNature: 107, statistics: [] },
   Grumpig: {
+    referenceDate: "2024-12",
     baseSpeed: 80,
     minSpeed: 100,
     maxSpeed: 132,
@@ -2266,8 +2404,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     boosterEnergyIsMoreUsed: false,
     statistics: [{ type: "usage", speed: 100, percentile: 88, percentage: 88, speedEv: 0, nature: "Bold" }]
   },
-  Gulpin: { baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Gulpin: { referenceDate: "2024-12", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
   Gumshoos: {
+    referenceDate: "2024-12",
     baseSpeed: 45,
     minSpeed: 65,
     maxSpeed: 97,
@@ -2282,8 +2421,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 77, percentile: 100, percentage: 23, speedEv: 36, nature: "Jolly" }
     ]
   },
-  Gurdurr: { baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Gurdurr: { referenceDate: "2024-12", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
   Gyarados: {
+    referenceDate: "2024-12",
     baseSpeed: 81,
     minSpeed: 101,
     maxSpeed: 133,
@@ -2299,9 +2439,10 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 146, percentile: 100, percentage: 11, speedEv: 252, nature: "Jolly" }
     ]
   },
-  "Hakamo-o": { baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
-  Happiny: { baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
+  "Hakamo-o": { referenceDate: "2024-12", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  Happiny: { referenceDate: "2024-12", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
   Hariyama: {
+    referenceDate: "2024-12",
     baseSpeed: 50,
     minSpeed: 70,
     maxSpeed: 102,
@@ -2317,8 +2458,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 71, percentile: 97, percentage: 35, speedEv: 4, nature: "Adamant" }
     ]
   },
-  Hatenna: { baseSpeed: 39, minSpeed: 59, maxSpeed: 91, minSpeedWithIvZero: 39, maxSpeedWithNature: 100, statistics: [] },
+  Hatenna: { referenceDate: "2024-12", baseSpeed: 39, minSpeed: 59, maxSpeed: 91, minSpeedWithIvZero: 39, maxSpeedWithNature: 100, statistics: [] },
   Hatterene: {
+    referenceDate: "2024-12",
     baseSpeed: 29,
     minSpeed: 49,
     maxSpeed: 81,
@@ -2330,8 +2472,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     boosterEnergyIsMoreUsed: false,
     statistics: [{ type: "usage", speed: 30, percentile: 90, percentage: 90, speedEv: 0, nature: "Quiet" }]
   },
-  Hattrem: { baseSpeed: 49, minSpeed: 69, maxSpeed: 101, minSpeedWithIvZero: 48, maxSpeedWithNature: 111, statistics: [] },
+  Hattrem: { referenceDate: "2024-12", baseSpeed: 49, minSpeed: 69, maxSpeed: 101, minSpeedWithIvZero: 48, maxSpeedWithNature: 111, statistics: [] },
   Haunter: {
+    referenceDate: "2024-12",
     baseSpeed: 95,
     minSpeed: 115,
     maxSpeed: 147,
@@ -2347,6 +2490,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Hawlucha: {
+    referenceDate: "2024-12",
     baseSpeed: 118,
     minSpeed: 138,
     maxSpeed: 170,
@@ -2362,6 +2506,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Haxorus: {
+    referenceDate: "2024-12",
     baseSpeed: 97,
     minSpeed: 117,
     maxSpeed: 149,
@@ -2376,8 +2521,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 163, percentile: 100, percentage: 46, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Heatran: { baseSpeed: 77, minSpeed: 97, maxSpeed: 129, minSpeedWithIvZero: 73, maxSpeedWithNature: 141, statistics: [] },
+  Heatran: { referenceDate: "2024-12", baseSpeed: 77, minSpeed: 97, maxSpeed: 129, minSpeedWithIvZero: 73, maxSpeedWithNature: 141, statistics: [] },
   Heracross: {
+    referenceDate: "2024-12",
     baseSpeed: 85,
     minSpeed: 105,
     maxSpeed: 137,
@@ -2394,8 +2540,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "scarf", speed: 225, percentile: 100, percentage: 23, speedEv: 252, nature: "" }
     ]
   },
-  Hippopotas: { baseSpeed: 32, minSpeed: 52, maxSpeed: 84, minSpeedWithIvZero: 33, maxSpeedWithNature: 92, statistics: [] },
+  Hippopotas: { referenceDate: "2024-12", baseSpeed: 32, minSpeed: 52, maxSpeed: 84, minSpeedWithIvZero: 33, maxSpeedWithNature: 92, statistics: [] },
   Hippowdon: {
+    referenceDate: "2024-12",
     baseSpeed: 47,
     minSpeed: 67,
     maxSpeed: 99,
@@ -2411,6 +2558,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Hitmonchan: {
+    referenceDate: "2024-12",
     baseSpeed: 76,
     minSpeed: 96,
     maxSpeed: 128,
@@ -2426,6 +2574,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Hitmonlee: {
+    referenceDate: "2024-12",
     baseSpeed: 87,
     minSpeed: 107,
     maxSpeed: 139,
@@ -2442,6 +2591,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Hitmontop: {
+    referenceDate: "2024-12",
     baseSpeed: 70,
     minSpeed: 90,
     maxSpeed: 122,
@@ -2453,8 +2603,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     boosterEnergyIsMoreUsed: false,
     statistics: [{ type: "usage", speed: 90, percentile: 62, percentage: 61, speedEv: 0, nature: "Adamant" }]
   },
-  "Ho-Oh": { baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
+  "Ho-Oh": { referenceDate: "2024-12", baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
   Honchkrow: {
+    referenceDate: "2024-12",
     baseSpeed: 71,
     minSpeed: 91,
     maxSpeed: 123,
@@ -2469,12 +2620,13 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 123, percentile: 98, percentage: 21, speedEv: 164, nature: "Jolly" }
     ]
   },
-  Hoopa: { baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
-  "Hoopa-Unbound": { baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
-  Hoothoot: { baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
-  Hoppip: { baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
-  Horsea: { baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  Hoopa: { referenceDate: "2024-12", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
+  "Hoopa-Unbound": { referenceDate: "2024-12", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
+  Hoothoot: { referenceDate: "2024-12", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Hoppip: { referenceDate: "2024-12", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Horsea: { referenceDate: "2024-12", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
   Houndoom: {
+    referenceDate: "2024-12",
     baseSpeed: 95,
     minSpeed: 115,
     maxSpeed: 147,
@@ -2489,8 +2641,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 161, percentile: 100, percentage: 74, speedEv: 252, nature: "Timid" }
     ]
   },
-  Houndour: { baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  Houndour: { referenceDate: "2024-12", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
   Houndstone: {
+    referenceDate: "2024-12",
     baseSpeed: 68,
     minSpeed: 88,
     maxSpeed: 120,
@@ -2507,6 +2660,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Hydrapple: {
+    referenceDate: "2024-12",
     baseSpeed: 44,
     minSpeed: 64,
     maxSpeed: 96,
@@ -2522,6 +2676,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Hydreigon: {
+    referenceDate: "2024-12",
     baseSpeed: 98,
     minSpeed: 118,
     maxSpeed: 150,
@@ -2538,6 +2693,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Hypno: {
+    referenceDate: "2024-12",
     baseSpeed: 67,
     minSpeed: 87,
     maxSpeed: 119,
@@ -2552,8 +2708,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 87, percentile: 92, percentage: 23, speedEv: 0, nature: "Modest" }
     ]
   },
-  Igglybuff: { baseSpeed: 15, minSpeed: 35, maxSpeed: 67, minSpeedWithIvZero: 18, maxSpeedWithNature: 73, statistics: [] },
+  Igglybuff: { referenceDate: "2024-12", baseSpeed: 15, minSpeed: 35, maxSpeed: 67, minSpeedWithIvZero: 18, maxSpeedWithNature: 73, statistics: [] },
   Illumise: {
+    referenceDate: "2024-12",
     baseSpeed: 85,
     minSpeed: 105,
     maxSpeed: 137,
@@ -2565,8 +2722,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     boosterEnergyIsMoreUsed: false,
     statistics: [{ type: "usage", speed: 105, percentile: 88, percentage: 88, speedEv: 0, nature: "Bold" }]
   },
-  Impidimp: { baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Impidimp: { referenceDate: "2024-12", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
   Incineroar: {
+    referenceDate: "2024-12",
     baseSpeed: 60,
     minSpeed: 80,
     maxSpeed: 112,
@@ -2579,6 +2737,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     statistics: [{ type: "usage", speed: 80, percentile: 25, percentage: 21, speedEv: 0, nature: "Adamant" }]
   },
   Indeedee: {
+    referenceDate: "2024-12",
     baseSpeed: 95,
     minSpeed: 115,
     maxSpeed: 147,
@@ -2595,6 +2754,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   "Indeedee-F": {
+    referenceDate: "2024-12",
     baseSpeed: 85,
     minSpeed: 105,
     maxSpeed: 137,
@@ -2610,6 +2770,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Infernape: {
+    referenceDate: "2024-12",
     baseSpeed: 108,
     minSpeed: 128,
     maxSpeed: 160,
@@ -2624,8 +2785,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 176, percentile: 100, percentage: 63, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Inkay: { baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  Inkay: { referenceDate: "2024-12", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
   Inteleon: {
+    referenceDate: "2024-12",
     baseSpeed: 120,
     minSpeed: 140,
     maxSpeed: 172,
@@ -2637,19 +2799,20 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     boosterEnergyIsMoreUsed: false,
     statistics: [{ type: "usage", speed: 189, percentile: 100, percentage: 75, speedEv: 252, nature: "Timid" }]
   },
-  "Iron Boulder": { baseSpeed: 124, minSpeed: 144, maxSpeed: 176, minSpeedWithIvZero: 116, maxSpeedWithNature: 193, statistics: [] },
-  "Iron Bundle": { baseSpeed: 136, minSpeed: 156, maxSpeed: 188, minSpeedWithIvZero: 126, maxSpeedWithNature: 206, statistics: [] },
-  "Iron Crown": { baseSpeed: 98, minSpeed: 118, maxSpeed: 150, minSpeedWithIvZero: 92, maxSpeedWithNature: 165, statistics: [] },
-  "Iron Hands": { baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
-  "Iron Jugulis": { baseSpeed: 108, minSpeed: 128, maxSpeed: 160, minSpeedWithIvZero: 101, maxSpeedWithNature: 176, statistics: [] },
-  "Iron Leaves": { baseSpeed: 104, minSpeed: 124, maxSpeed: 156, minSpeedWithIvZero: 98, maxSpeedWithNature: 171, statistics: [] },
-  "Iron Moth": { baseSpeed: 110, minSpeed: 130, maxSpeed: 162, minSpeedWithIvZero: 103, maxSpeedWithNature: 178, statistics: [] },
-  "Iron Thorns": { baseSpeed: 72, minSpeed: 92, maxSpeed: 124, minSpeedWithIvZero: 69, maxSpeedWithNature: 136, statistics: [] },
-  "Iron Treads": { baseSpeed: 106, minSpeed: 126, maxSpeed: 158, minSpeedWithIvZero: 99, maxSpeedWithNature: 173, statistics: [] },
-  "Iron Valiant": { baseSpeed: 116, minSpeed: 136, maxSpeed: 168, minSpeedWithIvZero: 108, maxSpeedWithNature: 184, statistics: [] },
-  Ivysaur: { baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
-  "Jangmo-o": { baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  "Iron Boulder": { referenceDate: "2024-12", baseSpeed: 124, minSpeed: 144, maxSpeed: 176, minSpeedWithIvZero: 116, maxSpeedWithNature: 193, statistics: [] },
+  "Iron Bundle": { referenceDate: "2024-12", baseSpeed: 136, minSpeed: 156, maxSpeed: 188, minSpeedWithIvZero: 126, maxSpeedWithNature: 206, statistics: [] },
+  "Iron Crown": { referenceDate: "2024-12", baseSpeed: 98, minSpeed: 118, maxSpeed: 150, minSpeedWithIvZero: 92, maxSpeedWithNature: 165, statistics: [] },
+  "Iron Hands": { referenceDate: "2024-12", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  "Iron Jugulis": { referenceDate: "2024-12", baseSpeed: 108, minSpeed: 128, maxSpeed: 160, minSpeedWithIvZero: 101, maxSpeedWithNature: 176, statistics: [] },
+  "Iron Leaves": { referenceDate: "2024-12", baseSpeed: 104, minSpeed: 124, maxSpeed: 156, minSpeedWithIvZero: 98, maxSpeedWithNature: 171, statistics: [] },
+  "Iron Moth": { referenceDate: "2024-12", baseSpeed: 110, minSpeed: 130, maxSpeed: 162, minSpeedWithIvZero: 103, maxSpeedWithNature: 178, statistics: [] },
+  "Iron Thorns": { referenceDate: "2024-12", baseSpeed: 72, minSpeed: 92, maxSpeed: 124, minSpeedWithIvZero: 69, maxSpeedWithNature: 136, statistics: [] },
+  "Iron Treads": { referenceDate: "2024-12", baseSpeed: 106, minSpeed: 126, maxSpeed: 158, minSpeedWithIvZero: 99, maxSpeedWithNature: 173, statistics: [] },
+  "Iron Valiant": { referenceDate: "2024-12", baseSpeed: 116, minSpeed: 136, maxSpeed: 168, minSpeedWithIvZero: 108, maxSpeedWithNature: 184, statistics: [] },
+  Ivysaur: { referenceDate: "2024-12", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  "Jangmo-o": { referenceDate: "2024-12", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
   Jigglypuff: {
+    referenceDate: "2024-12",
     baseSpeed: 20,
     minSpeed: 40,
     maxSpeed: 72,
@@ -2664,8 +2827,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 40, percentile: 100, percentage: 37, speedEv: 0, nature: "Calm" }
     ]
   },
-  Jirachi: { baseSpeed: 100, minSpeed: 120, maxSpeed: 152, minSpeedWithIvZero: 94, maxSpeedWithNature: 167, statistics: [] },
+  Jirachi: { referenceDate: "2024-12", baseSpeed: 100, minSpeed: 120, maxSpeed: 152, minSpeedWithIvZero: 94, maxSpeedWithNature: 167, statistics: [] },
   Jolteon: {
+    referenceDate: "2024-12",
     baseSpeed: 130,
     minSpeed: 150,
     maxSpeed: 182,
@@ -2681,8 +2845,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 200, percentile: 100, percentage: 45, speedEv: 252, nature: "Timid" }
     ]
   },
-  Joltik: { baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  Joltik: { referenceDate: "2024-12", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
   Jumpluff: {
+    referenceDate: "2024-12",
     baseSpeed: 110,
     minSpeed: 130,
     maxSpeed: 162,
@@ -2697,8 +2862,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 178, percentile: 100, percentage: 49, speedEv: 252, nature: "Timid" }
     ]
   },
-  Keldeo: { baseSpeed: 108, minSpeed: 128, maxSpeed: 160, minSpeedWithIvZero: 101, maxSpeedWithNature: 176, statistics: [] },
+  Keldeo: { referenceDate: "2024-12", baseSpeed: 108, minSpeed: 128, maxSpeed: 160, minSpeedWithIvZero: 101, maxSpeedWithNature: 176, statistics: [] },
   Kilowattrel: {
+    referenceDate: "2024-12",
     baseSpeed: 125,
     minSpeed: 145,
     maxSpeed: 177,
@@ -2711,6 +2877,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     statistics: [{ type: "usage", speed: 194, percentile: 100, percentage: 81, speedEv: 252, nature: "Timid" }]
   },
   Kingambit: {
+    referenceDate: "2024-12",
     baseSpeed: 50,
     minSpeed: 70,
     maxSpeed: 102,
@@ -2726,6 +2893,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Kingdra: {
+    referenceDate: "2024-12",
     baseSpeed: 85,
     minSpeed: 105,
     maxSpeed: 137,
@@ -2740,8 +2908,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 137, percentile: 91, percentage: 48, speedEv: 252, nature: "Modest" }
     ]
   },
-  Kirlia: { baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Kirlia: { referenceDate: "2024-12", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
   Klawf: {
+    referenceDate: "2024-12",
     baseSpeed: 75,
     minSpeed: 95,
     maxSpeed: 127,
@@ -2758,6 +2927,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Kleavor: {
+    referenceDate: "2024-12",
     baseSpeed: 85,
     minSpeed: 105,
     maxSpeed: 137,
@@ -2774,6 +2944,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Klefki: {
+    referenceDate: "2024-12",
     baseSpeed: 75,
     minSpeed: 95,
     maxSpeed: 127,
@@ -2786,6 +2957,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     statistics: [{ type: "usage", speed: 95, percentile: 80, percentage: 75, speedEv: 0, nature: "Calm" }]
   },
   Koffing: {
+    referenceDate: "2024-12",
     baseSpeed: 35,
     minSpeed: 55,
     maxSpeed: 87,
@@ -2800,8 +2972,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 59, percentile: 100, percentage: 46, speedEv: 28, nature: "Bold" }
     ]
   },
-  Komala: { baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  Komala: { referenceDate: "2024-12", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
   "Kommo-o": {
+    referenceDate: "2024-12",
     baseSpeed: 85,
     minSpeed: 105,
     maxSpeed: 137,
@@ -2813,11 +2986,12 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     boosterEnergyIsMoreUsed: false,
     statistics: [{ type: "usage", speed: 137, percentile: 72, percentage: 11, speedEv: 252, nature: "Modest" }]
   },
-  Koraidon: { baseSpeed: 135, minSpeed: 155, maxSpeed: 187, minSpeedWithIvZero: 126, maxSpeedWithNature: 205, statistics: [] },
-  Kricketot: { baseSpeed: 25, minSpeed: 45, maxSpeed: 77, minSpeedWithIvZero: 27, maxSpeedWithNature: 84, statistics: [] },
-  Kricketune: { baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
-  Krokorok: { baseSpeed: 74, minSpeed: 94, maxSpeed: 126, minSpeedWithIvZero: 71, maxSpeedWithNature: 138, statistics: [] },
+  Koraidon: { referenceDate: "2024-12", baseSpeed: 135, minSpeed: 155, maxSpeed: 187, minSpeedWithIvZero: 126, maxSpeedWithNature: 205, statistics: [] },
+  Kricketot: { referenceDate: "2024-12", baseSpeed: 25, minSpeed: 45, maxSpeed: 77, minSpeedWithIvZero: 27, maxSpeedWithNature: 84, statistics: [] },
+  Kricketune: { referenceDate: "2024-12", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  Krokorok: { referenceDate: "2024-12", baseSpeed: 74, minSpeed: 94, maxSpeed: 126, minSpeedWithIvZero: 71, maxSpeedWithNature: 138, statistics: [] },
   Krookodile: {
+    referenceDate: "2024-12",
     baseSpeed: 92,
     minSpeed: 112,
     maxSpeed: 144,
@@ -2833,15 +3007,16 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "scarf", speed: 237, percentile: 100, percentage: 9, speedEv: 252, nature: "" }
     ]
   },
-  Kubfu: { baseSpeed: 72, minSpeed: 92, maxSpeed: 124, minSpeedWithIvZero: 69, maxSpeedWithNature: 136, statistics: [] },
-  Kyogre: { baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
-  Kyurem: { baseSpeed: 95, minSpeed: 115, maxSpeed: 147, minSpeedWithIvZero: 90, maxSpeedWithNature: 161, statistics: [] },
-  "Kyurem-Black": { baseSpeed: 95, minSpeed: 115, maxSpeed: 147, minSpeedWithIvZero: 90, maxSpeedWithNature: 161, statistics: [] },
-  "Kyurem-White": { baseSpeed: 95, minSpeed: 115, maxSpeed: 147, minSpeedWithIvZero: 90, maxSpeedWithNature: 161, statistics: [] },
-  Lampent: { baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
-  Landorus: { baseSpeed: 101, minSpeed: 121, maxSpeed: 153, minSpeedWithIvZero: 95, maxSpeedWithNature: 168, statistics: [] },
-  "Landorus-Therian": { baseSpeed: 91, minSpeed: 111, maxSpeed: 143, minSpeedWithIvZero: 86, maxSpeedWithNature: 157, statistics: [] },
+  Kubfu: { referenceDate: "2024-12", baseSpeed: 72, minSpeed: 92, maxSpeed: 124, minSpeedWithIvZero: 69, maxSpeedWithNature: 136, statistics: [] },
+  Kyogre: { referenceDate: "2024-12", baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
+  Kyurem: { referenceDate: "2024-12", baseSpeed: 95, minSpeed: 115, maxSpeed: 147, minSpeedWithIvZero: 90, maxSpeedWithNature: 161, statistics: [] },
+  "Kyurem-Black": { referenceDate: "2024-12", baseSpeed: 95, minSpeed: 115, maxSpeed: 147, minSpeedWithIvZero: 90, maxSpeedWithNature: 161, statistics: [] },
+  "Kyurem-White": { referenceDate: "2024-12", baseSpeed: 95, minSpeed: 115, maxSpeed: 147, minSpeedWithIvZero: 90, maxSpeedWithNature: 161, statistics: [] },
+  Lampent: { referenceDate: "2024-12", baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
+  Landorus: { referenceDate: "2024-12", baseSpeed: 101, minSpeed: 121, maxSpeed: 153, minSpeedWithIvZero: 95, maxSpeedWithNature: 168, statistics: [] },
+  "Landorus-Therian": { referenceDate: "2024-12", baseSpeed: 91, minSpeed: 111, maxSpeed: 143, minSpeedWithIvZero: 86, maxSpeedWithNature: 157, statistics: [] },
   Lanturn: {
+    referenceDate: "2024-12",
     baseSpeed: 67,
     minSpeed: 87,
     maxSpeed: 119,
@@ -2859,6 +3034,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Lapras: {
+    referenceDate: "2024-12",
     baseSpeed: 60,
     minSpeed: 80,
     maxSpeed: 112,
@@ -2873,11 +3049,12 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 80, percentile: 91, percentage: 62, speedEv: 0, nature: "Calm" }
     ]
   },
-  Larvesta: { baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
-  Larvitar: { baseSpeed: 41, minSpeed: 61, maxSpeed: 93, minSpeedWithIvZero: 41, maxSpeedWithNature: 102, statistics: [] },
-  Latias: { baseSpeed: 110, minSpeed: 130, maxSpeed: 162, minSpeedWithIvZero: 103, maxSpeedWithNature: 178, statistics: [] },
-  Latios: { baseSpeed: 110, minSpeed: 130, maxSpeed: 162, minSpeedWithIvZero: 103, maxSpeedWithNature: 178, statistics: [] },
+  Larvesta: { referenceDate: "2024-12", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  Larvitar: { referenceDate: "2024-12", baseSpeed: 41, minSpeed: 61, maxSpeed: 93, minSpeedWithIvZero: 41, maxSpeedWithNature: 102, statistics: [] },
+  Latias: { referenceDate: "2024-12", baseSpeed: 110, minSpeed: 130, maxSpeed: 162, minSpeedWithIvZero: 103, maxSpeedWithNature: 178, statistics: [] },
+  Latios: { referenceDate: "2024-12", baseSpeed: 110, minSpeed: 130, maxSpeed: 162, minSpeedWithIvZero: 103, maxSpeedWithNature: 178, statistics: [] },
   Leafeon: {
+    referenceDate: "2024-12",
     baseSpeed: 95,
     minSpeed: 115,
     maxSpeed: 147,
@@ -2895,6 +3072,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Leavanny: {
+    referenceDate: "2024-12",
     baseSpeed: 92,
     minSpeed: 112,
     maxSpeed: 144,
@@ -2910,8 +3088,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 144, percentile: 100, percentage: 54, speedEv: 252, nature: "Adamant" }
     ]
   },
-  Lechonk: { baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
+  Lechonk: { referenceDate: "2024-12", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
   Lilligant: {
+    referenceDate: "2024-12",
     baseSpeed: 90,
     minSpeed: 110,
     maxSpeed: 142,
@@ -2928,6 +3107,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   "Lilligant-Hisui": {
+    referenceDate: "2024-12",
     baseSpeed: 105,
     minSpeed: 125,
     maxSpeed: 157,
@@ -2942,10 +3122,11 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 172, percentile: 100, percentage: 70, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Litleo: { baseSpeed: 72, minSpeed: 92, maxSpeed: 124, minSpeedWithIvZero: 69, maxSpeedWithNature: 136, statistics: [] },
-  Litten: { baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
-  Litwick: { baseSpeed: 20, minSpeed: 40, maxSpeed: 72, minSpeedWithIvZero: 22, maxSpeedWithNature: 79, statistics: [] },
+  Litleo: { referenceDate: "2024-12", baseSpeed: 72, minSpeed: 92, maxSpeed: 124, minSpeedWithIvZero: 69, maxSpeedWithNature: 136, statistics: [] },
+  Litten: { referenceDate: "2024-12", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
+  Litwick: { referenceDate: "2024-12", baseSpeed: 20, minSpeed: 40, maxSpeed: 72, minSpeedWithIvZero: 22, maxSpeedWithNature: 79, statistics: [] },
   Lokix: {
+    referenceDate: "2024-12",
     baseSpeed: 92,
     minSpeed: 112,
     maxSpeed: 144,
@@ -2960,9 +3141,10 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 158, percentile: 100, percentage: 42, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Lombre: { baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
-  Lotad: { baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
+  Lombre: { referenceDate: "2024-12", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Lotad: { referenceDate: "2024-12", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
   Lucario: {
+    referenceDate: "2024-12",
     baseSpeed: 90,
     minSpeed: 110,
     maxSpeed: 142,
@@ -2978,6 +3160,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Ludicolo: {
+    referenceDate: "2024-12",
     baseSpeed: 70,
     minSpeed: 90,
     maxSpeed: 122,
@@ -2993,8 +3176,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 122, percentile: 98, percentage: 50, speedEv: 252, nature: "Modest" }
     ]
   },
-  Lugia: { baseSpeed: 110, minSpeed: 130, maxSpeed: 162, minSpeedWithIvZero: 103, maxSpeedWithNature: 178, statistics: [] },
+  Lugia: { referenceDate: "2024-12", baseSpeed: 110, minSpeed: 130, maxSpeed: 162, minSpeedWithIvZero: 103, maxSpeedWithNature: 178, statistics: [] },
   Lumineon: {
+    referenceDate: "2024-12",
     baseSpeed: 91,
     minSpeed: 111,
     maxSpeed: 143,
@@ -3011,8 +3195,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "scarf", speed: 235, percentile: 100, percentage: 12, speedEv: 252, nature: "" }
     ]
   },
-  Lunala: { baseSpeed: 97, minSpeed: 117, maxSpeed: 149, minSpeedWithIvZero: 91, maxSpeedWithNature: 163, statistics: [] },
+  Lunala: { referenceDate: "2024-12", baseSpeed: 97, minSpeed: 117, maxSpeed: 149, minSpeedWithIvZero: 91, maxSpeedWithNature: 163, statistics: [] },
   Lurantis: {
+    referenceDate: "2024-12",
     baseSpeed: 45,
     minSpeed: 65,
     maxSpeed: 97,
@@ -3027,9 +3212,10 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 65, percentile: 89, percentage: 15, speedEv: 0, nature: "Adamant" }
     ]
   },
-  Luvdisc: { baseSpeed: 97, minSpeed: 117, maxSpeed: 149, minSpeedWithIvZero: 91, maxSpeedWithNature: 163, statistics: [] },
-  Luxio: { baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  Luvdisc: { referenceDate: "2024-12", baseSpeed: 97, minSpeed: 117, maxSpeed: 149, minSpeedWithIvZero: 91, maxSpeedWithNature: 163, statistics: [] },
+  Luxio: { referenceDate: "2024-12", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
   Luxray: {
+    referenceDate: "2024-12",
     baseSpeed: 70,
     minSpeed: 90,
     maxSpeed: 122,
@@ -3047,6 +3233,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Lycanroc: {
+    referenceDate: "2024-12",
     baseSpeed: 112,
     minSpeed: 132,
     maxSpeed: 164,
@@ -3063,6 +3250,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   "Lycanroc-Dusk": {
+    referenceDate: "2024-12",
     baseSpeed: 110,
     minSpeed: 130,
     maxSpeed: 162,
@@ -3079,6 +3267,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   "Lycanroc-Midnight": {
+    referenceDate: "2024-12",
     baseSpeed: 82,
     minSpeed: 102,
     maxSpeed: 134,
@@ -3094,6 +3283,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Mabosstiff: {
+    referenceDate: "2024-12",
     baseSpeed: 85,
     minSpeed: 105,
     maxSpeed: 137,
@@ -3109,11 +3299,12 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 115, percentile: 88, percentage: 35, speedEv: 76, nature: "Adamant" }
     ]
   },
-  Magby: { baseSpeed: 83, minSpeed: 103, maxSpeed: 135, minSpeedWithIvZero: 79, maxSpeedWithNature: 148, statistics: [] },
-  Magcargo: { baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
-  Magearna: { baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
-  Magikarp: { baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
+  Magby: { referenceDate: "2024-12", baseSpeed: 83, minSpeed: 103, maxSpeed: 135, minSpeedWithIvZero: 79, maxSpeedWithNature: 148, statistics: [] },
+  Magcargo: { referenceDate: "2024-12", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
+  Magearna: { referenceDate: "2024-12", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  Magikarp: { referenceDate: "2024-12", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
   Magmar: {
+    referenceDate: "2024-12",
     baseSpeed: 93,
     minSpeed: 113,
     maxSpeed: 145,
@@ -3130,6 +3321,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Magmortar: {
+    referenceDate: "2024-12",
     baseSpeed: 83,
     minSpeed: 103,
     maxSpeed: 135,
@@ -3146,8 +3338,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "scarf", speed: 222, percentile: 100, percentage: 9, speedEv: 252, nature: "" }
     ]
   },
-  Magnemite: { baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  Magnemite: { referenceDate: "2024-12", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
   Magneton: {
+    referenceDate: "2024-12",
     baseSpeed: 70,
     minSpeed: 90,
     maxSpeed: 122,
@@ -3160,6 +3353,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     statistics: [{ type: "usage", speed: 90, percentile: 90, percentage: 90, speedEv: 0, nature: "Hardy" }]
   },
   Magnezone: {
+    referenceDate: "2024-12",
     baseSpeed: 60,
     minSpeed: 80,
     maxSpeed: 112,
@@ -3175,8 +3369,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "scarf", speed: 184, percentile: 100, percentage: 5, speedEv: 252, nature: "" }
     ]
   },
-  Makuhita: { baseSpeed: 25, minSpeed: 45, maxSpeed: 77, minSpeedWithIvZero: 27, maxSpeedWithNature: 84, statistics: [] },
+  Makuhita: { referenceDate: "2024-12", baseSpeed: 25, minSpeed: 45, maxSpeed: 77, minSpeedWithIvZero: 27, maxSpeedWithNature: 84, statistics: [] },
   Malamar: {
+    referenceDate: "2024-12",
     baseSpeed: 73,
     minSpeed: 93,
     maxSpeed: 125,
@@ -3193,6 +3388,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Mamoswine: {
+    referenceDate: "2024-12",
     baseSpeed: 80,
     minSpeed: 100,
     maxSpeed: 132,
@@ -3208,8 +3404,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 145, percentile: 100, percentage: 15, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Manaphy: { baseSpeed: 100, minSpeed: 120, maxSpeed: 152, minSpeedWithIvZero: 94, maxSpeedWithNature: 167, statistics: [] },
+  Manaphy: { referenceDate: "2024-12", baseSpeed: 100, minSpeed: 120, maxSpeed: 152, minSpeedWithIvZero: 94, maxSpeedWithNature: 167, statistics: [] },
   Mandibuzz: {
+    referenceDate: "2024-12",
     baseSpeed: 80,
     minSpeed: 100,
     maxSpeed: 132,
@@ -3224,13 +3421,14 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 105, percentile: 72, percentage: 22, speedEv: 36, nature: "Calm" }
     ]
   },
-  Mankey: { baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
-  Mareanie: { baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
-  Mareep: { baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
-  Marill: { baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
-  Marshtomp: { baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
-  Maschiff: { baseSpeed: 51, minSpeed: 71, maxSpeed: 103, minSpeedWithIvZero: 50, maxSpeedWithNature: 113, statistics: [] },
+  Mankey: { referenceDate: "2024-12", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
+  Mareanie: { referenceDate: "2024-12", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  Mareep: { referenceDate: "2024-12", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
+  Marill: { referenceDate: "2024-12", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Marshtomp: { referenceDate: "2024-12", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Maschiff: { referenceDate: "2024-12", baseSpeed: 51, minSpeed: 71, maxSpeed: 103, minSpeedWithIvZero: 50, maxSpeedWithNature: 113, statistics: [] },
   Masquerain: {
+    referenceDate: "2024-12",
     baseSpeed: 80,
     minSpeed: 100,
     maxSpeed: 132,
@@ -3246,6 +3444,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Maushold: {
+    referenceDate: "2024-12",
     baseSpeed: 111,
     minSpeed: 131,
     maxSpeed: 163,
@@ -3258,6 +3457,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     statistics: [{ type: "usage", speed: 179, percentile: 100, percentage: 65, speedEv: 252, nature: "Jolly" }]
   },
   Medicham: {
+    referenceDate: "2024-12",
     baseSpeed: 80,
     minSpeed: 100,
     maxSpeed: 132,
@@ -3273,8 +3473,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "scarf", speed: 217, percentile: 100, percentage: 21, speedEv: 252, nature: "" }
     ]
   },
-  Meditite: { baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  Meditite: { referenceDate: "2024-12", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
   Meganium: {
+    referenceDate: "2024-12",
     baseSpeed: 80,
     minSpeed: 100,
     maxSpeed: 132,
@@ -3289,9 +3490,10 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 145, percentile: 100, percentage: 17, speedEv: 252, nature: "Timid" }
     ]
   },
-  Meloetta: { baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
-  "Meloetta-Pirouette": { baseSpeed: 128, minSpeed: 148, maxSpeed: 180, minSpeedWithIvZero: 119, maxSpeedWithNature: 198, statistics: [] },
+  Meloetta: { referenceDate: "2024-12", baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
+  "Meloetta-Pirouette": { referenceDate: "2024-12", baseSpeed: 128, minSpeed: 148, maxSpeed: 180, minSpeedWithIvZero: 119, maxSpeedWithNature: 198, statistics: [] },
   Meowscarada: {
+    referenceDate: "2024-12",
     baseSpeed: 123,
     minSpeed: 143,
     maxSpeed: 175,
@@ -3307,6 +3509,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Meowstic: {
+    referenceDate: "2024-12",
     baseSpeed: 104,
     minSpeed: 124,
     maxSpeed: 156,
@@ -3322,11 +3525,12 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 171, percentile: 100, percentage: 36, speedEv: 252, nature: "Timid" }
     ]
   },
-  Meowth: { baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
-  "Meowth-Alola": { baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
-  "Meowth-Galar": { baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
-  Mesprit: { baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
+  Meowth: { referenceDate: "2024-12", baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
+  "Meowth-Alola": { referenceDate: "2024-12", baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
+  "Meowth-Galar": { referenceDate: "2024-12", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Mesprit: { referenceDate: "2024-12", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
   Metagross: {
+    referenceDate: "2024-12",
     baseSpeed: 70,
     minSpeed: 90,
     maxSpeed: 122,
@@ -3338,11 +3542,12 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     boosterEnergyIsMoreUsed: false,
     statistics: [{ type: "usage", speed: 90, percentile: 49, percentage: 43, speedEv: 0, nature: "Adamant" }]
   },
-  Metang: { baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
-  Mew: { baseSpeed: 100, minSpeed: 120, maxSpeed: 152, minSpeedWithIvZero: 94, maxSpeedWithNature: 167, statistics: [] },
-  Mewtwo: { baseSpeed: 130, minSpeed: 150, maxSpeed: 182, minSpeedWithIvZero: 121, maxSpeedWithNature: 200, statistics: [] },
-  Mienfoo: { baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  Metang: { referenceDate: "2024-12", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Mew: { referenceDate: "2024-12", baseSpeed: 100, minSpeed: 120, maxSpeed: 152, minSpeedWithIvZero: 94, maxSpeedWithNature: 167, statistics: [] },
+  Mewtwo: { referenceDate: "2024-12", baseSpeed: 130, minSpeed: 150, maxSpeed: 182, minSpeedWithIvZero: 121, maxSpeedWithNature: 200, statistics: [] },
+  Mienfoo: { referenceDate: "2024-12", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
   Mienshao: {
+    referenceDate: "2024-12",
     baseSpeed: 105,
     minSpeed: 125,
     maxSpeed: 157,
@@ -3357,9 +3562,10 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 172, percentile: 100, percentage: 82, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Mightyena: { baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
-  Milcery: { baseSpeed: 34, minSpeed: 54, maxSpeed: 86, minSpeedWithIvZero: 35, maxSpeedWithNature: 94, statistics: [] },
+  Mightyena: { referenceDate: "2024-12", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
+  Milcery: { referenceDate: "2024-12", baseSpeed: 34, minSpeed: 54, maxSpeed: 86, minSpeedWithIvZero: 35, maxSpeedWithNature: 94, statistics: [] },
   Milotic: {
+    referenceDate: "2024-12",
     baseSpeed: 81,
     minSpeed: 101,
     maxSpeed: 133,
@@ -3376,6 +3582,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Mimikyu: {
+    referenceDate: "2024-12",
     baseSpeed: 96,
     minSpeed: 116,
     maxSpeed: 148,
@@ -3391,8 +3598,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 162, percentile: 100, percentage: 30, speedEv: 252, nature: "Hasty" }
     ]
   },
-  Minccino: { baseSpeed: 75, minSpeed: 95, maxSpeed: 127, minSpeedWithIvZero: 72, maxSpeedWithNature: 139, statistics: [] },
+  Minccino: { referenceDate: "2024-12", baseSpeed: 75, minSpeed: 95, maxSpeed: 127, minSpeedWithIvZero: 72, maxSpeedWithNature: 139, statistics: [] },
   Minior: {
+    referenceDate: "2024-12",
     baseSpeed: 120,
     minSpeed: 140,
     maxSpeed: 172,
@@ -3409,6 +3617,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Minun: {
+    referenceDate: "2024-12",
     baseSpeed: 95,
     minSpeed: 115,
     maxSpeed: 147,
@@ -3420,8 +3629,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     boosterEnergyIsMoreUsed: false,
     statistics: [{ type: "usage", speed: 161, percentile: 100, percentage: 100, speedEv: 252, nature: "Timid" }]
   },
-  Miraidon: { baseSpeed: 135, minSpeed: 155, maxSpeed: 187, minSpeedWithIvZero: 126, maxSpeedWithNature: 205, statistics: [] },
+  Miraidon: { referenceDate: "2024-12", baseSpeed: 135, minSpeed: 155, maxSpeed: 187, minSpeedWithIvZero: 126, maxSpeedWithNature: 205, statistics: [] },
   Misdreavus: {
+    referenceDate: "2024-12",
     baseSpeed: 85,
     minSpeed: 105,
     maxSpeed: 137,
@@ -3437,6 +3647,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Mismagius: {
+    referenceDate: "2024-12",
     baseSpeed: 105,
     minSpeed: 125,
     maxSpeed: 157,
@@ -3452,11 +3663,12 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "scarf", speed: 258, percentile: 100, percentage: 15, speedEv: 252, nature: "" }
     ]
   },
-  Moltres: { baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
-  "Moltres-Galar": { baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
-  Monferno: { baseSpeed: 81, minSpeed: 101, maxSpeed: 133, minSpeedWithIvZero: 77, maxSpeedWithNature: 146, statistics: [] },
-  Morgrem: { baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
+  Moltres: { referenceDate: "2024-12", baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
+  "Moltres-Galar": { referenceDate: "2024-12", baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
+  Monferno: { referenceDate: "2024-12", baseSpeed: 81, minSpeed: 101, maxSpeed: 133, minSpeedWithIvZero: 77, maxSpeedWithNature: 146, statistics: [] },
+  Morgrem: { referenceDate: "2024-12", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
   Morpeko: {
+    referenceDate: "2024-12",
     baseSpeed: 97,
     minSpeed: 117,
     maxSpeed: 149,
@@ -3472,9 +3684,10 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 163, percentile: 100, percentage: 32, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Mudbray: { baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
-  Mudkip: { baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Mudbray: { referenceDate: "2024-12", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  Mudkip: { referenceDate: "2024-12", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
   Mudsdale: {
+    referenceDate: "2024-12",
     baseSpeed: 35,
     minSpeed: 55,
     maxSpeed: 87,
@@ -3490,6 +3703,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Muk: {
+    referenceDate: "2024-12",
     baseSpeed: 50,
     minSpeed: 70,
     maxSpeed: 102,
@@ -3505,6 +3719,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   "Muk-Alola": {
+    referenceDate: "2024-12",
     baseSpeed: 50,
     minSpeed: 70,
     maxSpeed: 102,
@@ -3519,9 +3734,10 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 70, percentile: 72, percentage: 57, speedEv: 0, nature: "Careful" }
     ]
   },
-  Munchlax: { baseSpeed: 5, minSpeed: 25, maxSpeed: 57, minSpeedWithIvZero: 9, maxSpeedWithNature: 62, statistics: [] },
-  Munkidori: { baseSpeed: 106, minSpeed: 126, maxSpeed: 158, minSpeedWithIvZero: 99, maxSpeedWithNature: 173, statistics: [] },
+  Munchlax: { referenceDate: "2024-12", baseSpeed: 5, minSpeed: 25, maxSpeed: 57, minSpeedWithIvZero: 9, maxSpeedWithNature: 62, statistics: [] },
+  Munkidori: { referenceDate: "2024-12", baseSpeed: 106, minSpeed: 126, maxSpeed: 158, minSpeedWithIvZero: 99, maxSpeedWithNature: 173, statistics: [] },
   Murkrow: {
+    referenceDate: "2024-12",
     baseSpeed: 91,
     minSpeed: 111,
     maxSpeed: 143,
@@ -3533,12 +3749,13 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     boosterEnergyIsMoreUsed: false,
     statistics: [{ type: "usage", speed: 111, percentile: 75, percentage: 75, speedEv: 0, nature: "Calm" }]
   },
-  Nacli: { baseSpeed: 25, minSpeed: 45, maxSpeed: 77, minSpeedWithIvZero: 27, maxSpeedWithNature: 84, statistics: [] },
-  Naclstack: { baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
-  Necrozma: { baseSpeed: 79, minSpeed: 99, maxSpeed: 131, minSpeedWithIvZero: 75, maxSpeedWithNature: 144, statistics: [] },
-  "Necrozma-Dawn-Wings": { baseSpeed: 77, minSpeed: 97, maxSpeed: 129, minSpeedWithIvZero: 73, maxSpeedWithNature: 141, statistics: [] },
-  "Necrozma-Dusk-Mane": { baseSpeed: 77, minSpeed: 97, maxSpeed: 129, minSpeedWithIvZero: 73, maxSpeedWithNature: 141, statistics: [] },
+  Nacli: { referenceDate: "2024-12", baseSpeed: 25, minSpeed: 45, maxSpeed: 77, minSpeedWithIvZero: 27, maxSpeedWithNature: 84, statistics: [] },
+  Naclstack: { referenceDate: "2024-12", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
+  Necrozma: { referenceDate: "2024-12", baseSpeed: 79, minSpeed: 99, maxSpeed: 131, minSpeedWithIvZero: 75, maxSpeedWithNature: 144, statistics: [] },
+  "Necrozma-Dawn-Wings": { referenceDate: "2024-12", baseSpeed: 77, minSpeed: 97, maxSpeed: 129, minSpeedWithIvZero: 73, maxSpeedWithNature: 141, statistics: [] },
+  "Necrozma-Dusk-Mane": { referenceDate: "2024-12", baseSpeed: 77, minSpeed: 97, maxSpeed: 129, minSpeedWithIvZero: 73, maxSpeedWithNature: 141, statistics: [] },
   Ninetales: {
+    referenceDate: "2024-12",
     baseSpeed: 100,
     minSpeed: 120,
     maxSpeed: 152,
@@ -3554,6 +3771,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   "Ninetales-Alola": {
+    referenceDate: "2024-12",
     baseSpeed: 109,
     minSpeed: 129,
     maxSpeed: 161,
@@ -3565,9 +3783,10 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     boosterEnergyIsMoreUsed: false,
     statistics: [{ type: "usage", speed: 177, percentile: 100, percentage: 69, speedEv: 252, nature: "Timid" }]
   },
-  Noctowl: { baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
-  Noibat: { baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
+  Noctowl: { referenceDate: "2024-12", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
+  Noibat: { referenceDate: "2024-12", baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
   Noivern: {
+    referenceDate: "2024-12",
     baseSpeed: 123,
     minSpeed: 143,
     maxSpeed: 175,
@@ -3579,19 +3798,20 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     boosterEnergyIsMoreUsed: false,
     statistics: [{ type: "usage", speed: 192, percentile: 100, percentage: 67, speedEv: 252, nature: "Timid" }]
   },
-  Nosepass: { baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
-  Numel: { baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
-  Nuzleaf: { baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
-  Nymble: { baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
-  Oddish: { baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
-  Ogerpon: { baseSpeed: 110, minSpeed: 130, maxSpeed: 162, minSpeedWithIvZero: 103, maxSpeedWithNature: 178, statistics: [] },
-  "Ogerpon-Cornerstone": { baseSpeed: 110, minSpeed: 130, maxSpeed: 162, minSpeedWithIvZero: 103, maxSpeedWithNature: 178, statistics: [] },
-  "Ogerpon-Hearthflame": { baseSpeed: 110, minSpeed: 130, maxSpeed: 162, minSpeedWithIvZero: 103, maxSpeedWithNature: 178, statistics: [] },
-  "Ogerpon-Wellspring": { baseSpeed: 110, minSpeed: 130, maxSpeed: 162, minSpeedWithIvZero: 103, maxSpeedWithNature: 178, statistics: [] },
-  Oinkologne: { baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
-  "Oinkologne-F": { baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
-  Okidogi: { baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
+  Nosepass: { referenceDate: "2024-12", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
+  Numel: { referenceDate: "2024-12", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
+  Nuzleaf: { referenceDate: "2024-12", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  Nymble: { referenceDate: "2024-12", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  Oddish: { referenceDate: "2024-12", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
+  Ogerpon: { referenceDate: "2024-12", baseSpeed: 110, minSpeed: 130, maxSpeed: 162, minSpeedWithIvZero: 103, maxSpeedWithNature: 178, statistics: [] },
+  "Ogerpon-Cornerstone": { referenceDate: "2024-12", baseSpeed: 110, minSpeed: 130, maxSpeed: 162, minSpeedWithIvZero: 103, maxSpeedWithNature: 178, statistics: [] },
+  "Ogerpon-Hearthflame": { referenceDate: "2024-12", baseSpeed: 110, minSpeed: 130, maxSpeed: 162, minSpeedWithIvZero: 103, maxSpeedWithNature: 178, statistics: [] },
+  "Ogerpon-Wellspring": { referenceDate: "2024-12", baseSpeed: 110, minSpeed: 130, maxSpeed: 162, minSpeedWithIvZero: 103, maxSpeedWithNature: 178, statistics: [] },
+  Oinkologne: { referenceDate: "2024-12", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  "Oinkologne-F": { referenceDate: "2024-12", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  Okidogi: { referenceDate: "2024-12", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
   Oranguru: {
+    referenceDate: "2024-12",
     baseSpeed: 60,
     minSpeed: 80,
     maxSpeed: 112,
@@ -3607,6 +3827,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Oricorio: {
+    referenceDate: "2024-12",
     baseSpeed: 93,
     minSpeed: 113,
     maxSpeed: 145,
@@ -3622,8 +3843,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 159, percentile: 100, percentage: 36, speedEv: 252, nature: "Timid" }
     ]
   },
-  "Oricorio-Pa'u": { baseSpeed: 93, minSpeed: 113, maxSpeed: 145, minSpeedWithIvZero: 88, maxSpeedWithNature: 159, statistics: [] },
+  "Oricorio-Pa'u": { referenceDate: "2024-12", baseSpeed: 93, minSpeed: 113, maxSpeed: 145, minSpeedWithIvZero: 88, maxSpeedWithNature: 159, statistics: [] },
   "Oricorio-Pom-Pom": {
+    referenceDate: "2024-12",
     baseSpeed: 93,
     minSpeed: 113,
     maxSpeed: 145,
@@ -3640,6 +3862,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   "Oricorio-Sensu": {
+    referenceDate: "2024-12",
     baseSpeed: 93,
     minSpeed: 113,
     maxSpeed: 145,
@@ -3655,6 +3878,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Orthworm: {
+    referenceDate: "2024-12",
     baseSpeed: 65,
     minSpeed: 85,
     maxSpeed: 117,
@@ -3670,8 +3894,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 94, percentile: 99, percentage: 17, speedEv: 68, nature: "Careful" }
     ]
   },
-  Oshawott: { baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  Oshawott: { referenceDate: "2024-12", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
   Overqwil: {
+    referenceDate: "2024-12",
     baseSpeed: 85,
     minSpeed: 105,
     maxSpeed: 137,
@@ -3688,6 +3913,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Pachirisu: {
+    referenceDate: "2024-12",
     baseSpeed: 95,
     minSpeed: 115,
     maxSpeed: 147,
@@ -3703,6 +3929,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Palafin: {
+    referenceDate: "2024-12",
     baseSpeed: 100,
     minSpeed: 120,
     maxSpeed: 152,
@@ -3718,10 +3945,11 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "scarf", speed: 250, percentile: 100, percentage: 5, speedEv: 252, nature: "" }
     ]
   },
-  "Palafin-Hero": { baseSpeed: 100, minSpeed: 120, maxSpeed: 152, minSpeedWithIvZero: 94, maxSpeedWithNature: 167, statistics: [] },
-  Palkia: { baseSpeed: 100, minSpeed: 120, maxSpeed: 152, minSpeedWithIvZero: 94, maxSpeedWithNature: 167, statistics: [] },
-  "Palkia-Origin": { baseSpeed: 120, minSpeed: 140, maxSpeed: 172, minSpeedWithIvZero: 112, maxSpeedWithNature: 189, statistics: [] },
+  "Palafin-Hero": { referenceDate: "2024-12", baseSpeed: 100, minSpeed: 120, maxSpeed: 152, minSpeedWithIvZero: 94, maxSpeedWithNature: 167, statistics: [] },
+  Palkia: { referenceDate: "2024-12", baseSpeed: 100, minSpeed: 120, maxSpeed: 152, minSpeedWithIvZero: 94, maxSpeedWithNature: 167, statistics: [] },
+  "Palkia-Origin": { referenceDate: "2024-12", baseSpeed: 120, minSpeed: 140, maxSpeed: 172, minSpeedWithIvZero: 112, maxSpeedWithNature: 189, statistics: [] },
   Palossand: {
+    referenceDate: "2024-12",
     baseSpeed: 35,
     minSpeed: 55,
     maxSpeed: 87,
@@ -3737,6 +3965,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Passimian: {
+    referenceDate: "2024-12",
     baseSpeed: 80,
     minSpeed: 100,
     maxSpeed: 132,
@@ -3753,9 +3982,10 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "scarf", speed: 217, percentile: 100, percentage: 8, speedEv: 252, nature: "" }
     ]
   },
-  Pawmi: { baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
-  Pawmo: { baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
+  Pawmi: { referenceDate: "2024-12", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  Pawmo: { referenceDate: "2024-12", baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
   Pawmot: {
+    referenceDate: "2024-12",
     baseSpeed: 105,
     minSpeed: 125,
     maxSpeed: 157,
@@ -3770,9 +4000,10 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 172, percentile: 100, percentage: 82, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Pawniard: { baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
-  Pecharunt: { baseSpeed: 88, minSpeed: 108, maxSpeed: 140, minSpeedWithIvZero: 83, maxSpeedWithNature: 154, statistics: [] },
+  Pawniard: { referenceDate: "2024-12", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  Pecharunt: { referenceDate: "2024-12", baseSpeed: 88, minSpeed: 108, maxSpeed: 140, minSpeedWithIvZero: 83, maxSpeedWithNature: 154, statistics: [] },
   Pelipper: {
+    referenceDate: "2024-12",
     baseSpeed: 65,
     minSpeed: 85,
     maxSpeed: 117,
@@ -3789,6 +4020,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Perrserker: {
+    referenceDate: "2024-12",
     baseSpeed: 50,
     minSpeed: 70,
     maxSpeed: 102,
@@ -3804,8 +4036,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 112, percentile: 100, percentage: 14, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Persian: { baseSpeed: 115, minSpeed: 135, maxSpeed: 167, minSpeedWithIvZero: 108, maxSpeedWithNature: 183, statistics: [] },
+  Persian: { referenceDate: "2024-12", baseSpeed: 115, minSpeed: 135, maxSpeed: 167, minSpeedWithIvZero: 108, maxSpeedWithNature: 183, statistics: [] },
   "Persian-Alola": {
+    referenceDate: "2024-12",
     baseSpeed: 115,
     minSpeed: 135,
     maxSpeed: 167,
@@ -3820,13 +4053,14 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 183, percentile: 100, percentage: 70, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Petilil: { baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
-  Phanpy: { baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
-  Phantump: { baseSpeed: 38, minSpeed: 58, maxSpeed: 90, minSpeedWithIvZero: 38, maxSpeedWithNature: 99, statistics: [] },
-  Phione: { baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
-  Pichu: { baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
-  Pignite: { baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
+  Petilil: { referenceDate: "2024-12", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
+  Phanpy: { referenceDate: "2024-12", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Phantump: { referenceDate: "2024-12", baseSpeed: 38, minSpeed: 58, maxSpeed: 90, minSpeedWithIvZero: 38, maxSpeedWithNature: 99, statistics: [] },
+  Phione: { referenceDate: "2024-12", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
+  Pichu: { referenceDate: "2024-12", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  Pignite: { referenceDate: "2024-12", baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
   Pikachu: {
+    referenceDate: "2024-12",
     baseSpeed: 90,
     minSpeed: 110,
     maxSpeed: 142,
@@ -3841,8 +4075,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 140, percentile: 88, percentage: 36, speedEv: 236, nature: "Modest" }
     ]
   },
-  Pikipek: { baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  Pikipek: { referenceDate: "2024-12", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
   Piloswine: {
+    referenceDate: "2024-12",
     baseSpeed: 50,
     minSpeed: 70,
     maxSpeed: 102,
@@ -3855,6 +4090,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     statistics: [{ type: "usage", speed: 70, percentile: 94, percentage: 91, speedEv: 0, nature: "Careful" }]
   },
   Pincurchin: {
+    referenceDate: "2024-12",
     baseSpeed: 15,
     minSpeed: 35,
     maxSpeed: 67,
@@ -3869,10 +4105,11 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 35, percentile: 98, percentage: 41, speedEv: 0, nature: "Adamant" }
     ]
   },
-  Pineco: { baseSpeed: 15, minSpeed: 35, maxSpeed: 67, minSpeedWithIvZero: 18, maxSpeedWithNature: 73, statistics: [] },
-  Piplup: { baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
-  Plusle: { baseSpeed: 95, minSpeed: 115, maxSpeed: 147, minSpeedWithIvZero: 90, maxSpeedWithNature: 161, statistics: [] },
+  Pineco: { referenceDate: "2024-12", baseSpeed: 15, minSpeed: 35, maxSpeed: 67, minSpeedWithIvZero: 18, maxSpeedWithNature: 73, statistics: [] },
+  Piplup: { referenceDate: "2024-12", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Plusle: { referenceDate: "2024-12", baseSpeed: 95, minSpeed: 115, maxSpeed: 147, minSpeedWithIvZero: 90, maxSpeedWithNature: 161, statistics: [] },
   Politoed: {
+    referenceDate: "2024-12",
     baseSpeed: 70,
     minSpeed: 90,
     maxSpeed: 122,
@@ -3887,9 +4124,10 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 91, percentile: 70, percentage: 14, speedEv: 4, nature: "Modest" }
     ]
   },
-  Poliwag: { baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
-  Poliwhirl: { baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
+  Poliwag: { referenceDate: "2024-12", baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
+  Poliwhirl: { referenceDate: "2024-12", baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
   Poliwrath: {
+    referenceDate: "2024-12",
     baseSpeed: 70,
     minSpeed: 90,
     maxSpeed: 122,
@@ -3905,8 +4143,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 106, percentile: 76, percentage: 18, speedEv: 124, nature: "Adamant" }
     ]
   },
-  Poltchageist: { baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Poltchageist: { referenceDate: "2024-12", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
   Polteageist: {
+    referenceDate: "2024-12",
     baseSpeed: 70,
     minSpeed: 90,
     maxSpeed: 122,
@@ -3922,10 +4161,11 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 134, percentile: 100, percentage: 12, speedEv: 252, nature: "Timid" }
     ]
   },
-  Poochyena: { baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
-  Popplio: { baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
-  Porygon: { baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Poochyena: { referenceDate: "2024-12", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
+  Popplio: { referenceDate: "2024-12", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Porygon: { referenceDate: "2024-12", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
   "Porygon-Z": {
+    referenceDate: "2024-12",
     baseSpeed: 90,
     minSpeed: 110,
     maxSpeed: 142,
@@ -3942,6 +4182,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Porygon2: {
+    referenceDate: "2024-12",
     baseSpeed: 60,
     minSpeed: 80,
     maxSpeed: 112,
@@ -3958,6 +4199,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Primarina: {
+    referenceDate: "2024-12",
     baseSpeed: 60,
     minSpeed: 80,
     maxSpeed: 112,
@@ -3970,6 +4212,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     statistics: [{ type: "usage", speed: 80, percentile: 30, percentage: 25, speedEv: 0, nature: "Modest" }]
   },
   Primeape: {
+    referenceDate: "2024-12",
     baseSpeed: 95,
     minSpeed: 115,
     maxSpeed: 147,
@@ -3985,8 +4228,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 161, percentile: 100, percentage: 12, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Prinplup: { baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Prinplup: { referenceDate: "2024-12", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
   Probopass: {
+    referenceDate: "2024-12",
     baseSpeed: 40,
     minSpeed: 60,
     maxSpeed: 92,
@@ -4001,9 +4245,10 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 60, percentile: 100, percentage: 83, speedEv: 0, nature: "Careful" }
     ]
   },
-  Psyduck: { baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
-  Pupitar: { baseSpeed: 51, minSpeed: 71, maxSpeed: 103, minSpeedWithIvZero: 50, maxSpeedWithNature: 113, statistics: [] },
+  Psyduck: { referenceDate: "2024-12", baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
+  Pupitar: { referenceDate: "2024-12", baseSpeed: 51, minSpeed: 71, maxSpeed: 103, minSpeedWithIvZero: 50, maxSpeedWithNature: 113, statistics: [] },
   Pyroar: {
+    referenceDate: "2024-12",
     baseSpeed: 106,
     minSpeed: 126,
     maxSpeed: 158,
@@ -4021,6 +4266,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Quagsire: {
+    referenceDate: "2024-12",
     baseSpeed: 35,
     minSpeed: 55,
     maxSpeed: 87,
@@ -4036,6 +4282,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Quaquaval: {
+    referenceDate: "2024-12",
     baseSpeed: 85,
     minSpeed: 105,
     maxSpeed: 137,
@@ -4052,12 +4299,13 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "scarf", speed: 225, percentile: 100, percentage: 9, speedEv: 252, nature: "" }
     ]
   },
-  Quaxly: { baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
-  Quaxwell: { baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
-  Quilava: { baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
-  Quilladin: { baseSpeed: 57, minSpeed: 77, maxSpeed: 109, minSpeedWithIvZero: 55, maxSpeedWithNature: 119, statistics: [] },
-  Qwilfish: { baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
+  Quaxly: { referenceDate: "2024-12", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Quaxwell: { referenceDate: "2024-12", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  Quilava: { referenceDate: "2024-12", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
+  Quilladin: { referenceDate: "2024-12", baseSpeed: 57, minSpeed: 77, maxSpeed: 109, minSpeedWithIvZero: 55, maxSpeedWithNature: 119, statistics: [] },
+  Qwilfish: { referenceDate: "2024-12", baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
   "Qwilfish-Hisui": {
+    referenceDate: "2024-12",
     baseSpeed: 85,
     minSpeed: 105,
     maxSpeed: 137,
@@ -4073,8 +4321,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 112, percentile: 89, percentage: 13, speedEv: 56, nature: "Impish" }
     ]
   },
-  Raboot: { baseSpeed: 94, minSpeed: 114, maxSpeed: 146, minSpeedWithIvZero: 89, maxSpeedWithNature: 160, statistics: [] },
+  Raboot: { referenceDate: "2024-12", baseSpeed: 94, minSpeed: 114, maxSpeed: 146, minSpeedWithIvZero: 89, maxSpeedWithNature: 160, statistics: [] },
   Rabsca: {
+    referenceDate: "2024-12",
     baseSpeed: 45,
     minSpeed: 65,
     maxSpeed: 97,
@@ -4089,8 +4338,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 65, percentile: 99, percentage: 13, speedEv: 0, nature: "Calm" }
     ]
   },
-  "Raging Bolt": { baseSpeed: 75, minSpeed: 95, maxSpeed: 127, minSpeedWithIvZero: 72, maxSpeedWithNature: 139, statistics: [] },
+  "Raging Bolt": { referenceDate: "2024-12", baseSpeed: 75, minSpeed: 95, maxSpeed: 127, minSpeedWithIvZero: 72, maxSpeedWithNature: 139, statistics: [] },
   Raichu: {
+    referenceDate: "2024-12",
     baseSpeed: 110,
     minSpeed: 130,
     maxSpeed: 162,
@@ -4106,6 +4356,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   "Raichu-Alola": {
+    referenceDate: "2024-12",
     baseSpeed: 110,
     minSpeed: 130,
     maxSpeed: 162,
@@ -4122,9 +4373,10 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "scarf", speed: 267, percentile: 100, percentage: 14, speedEv: 252, nature: "" }
     ]
   },
-  Raikou: { baseSpeed: 115, minSpeed: 135, maxSpeed: 167, minSpeedWithIvZero: 108, maxSpeedWithNature: 183, statistics: [] },
-  Ralts: { baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Raikou: { referenceDate: "2024-12", baseSpeed: 115, minSpeed: 135, maxSpeed: 167, minSpeedWithIvZero: 108, maxSpeedWithNature: 183, statistics: [] },
+  Ralts: { referenceDate: "2024-12", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
   Rampardos: {
+    referenceDate: "2024-12",
     baseSpeed: 58,
     minSpeed: 78,
     maxSpeed: 110,
@@ -4140,16 +4392,17 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 110, percentile: 90, percentage: 19, speedEv: 252, nature: "Adamant" }
     ]
   },
-  Rayquaza: { baseSpeed: 95, minSpeed: 115, maxSpeed: 147, minSpeedWithIvZero: 90, maxSpeedWithNature: 161, statistics: [] },
-  Regice: { baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
-  Regidrago: { baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
-  Regieleki: { baseSpeed: 200, minSpeed: 220, maxSpeed: 252, minSpeedWithIvZero: 184, maxSpeedWithNature: 277, statistics: [] },
-  Regigigas: { baseSpeed: 100, minSpeed: 120, maxSpeed: 152, minSpeedWithIvZero: 94, maxSpeedWithNature: 167, statistics: [] },
-  Regirock: { baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
-  Registeel: { baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
-  Rellor: { baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
-  Reshiram: { baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
+  Rayquaza: { referenceDate: "2024-12", baseSpeed: 95, minSpeed: 115, maxSpeed: 147, minSpeedWithIvZero: 90, maxSpeedWithNature: 161, statistics: [] },
+  Regice: { referenceDate: "2024-12", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Regidrago: { referenceDate: "2024-12", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
+  Regieleki: { referenceDate: "2024-12", baseSpeed: 200, minSpeed: 220, maxSpeed: 252, minSpeedWithIvZero: 184, maxSpeedWithNature: 277, statistics: [] },
+  Regigigas: { referenceDate: "2024-12", baseSpeed: 100, minSpeed: 120, maxSpeed: 152, minSpeedWithIvZero: 94, maxSpeedWithNature: 167, statistics: [] },
+  Regirock: { referenceDate: "2024-12", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Registeel: { referenceDate: "2024-12", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Rellor: { referenceDate: "2024-12", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
+  Reshiram: { referenceDate: "2024-12", baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
   Reuniclus: {
+    referenceDate: "2024-12",
     baseSpeed: 30,
     minSpeed: 50,
     maxSpeed: 82,
@@ -4165,6 +4418,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Revavroom: {
+    referenceDate: "2024-12",
     baseSpeed: 90,
     minSpeed: 110,
     maxSpeed: 142,
@@ -4180,6 +4434,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Rhydon: {
+    referenceDate: "2024-12",
     baseSpeed: 40,
     minSpeed: 60,
     maxSpeed: 92,
@@ -4194,8 +4449,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 60, percentile: 90, percentage: 52, speedEv: 0, nature: "Careful" }
     ]
   },
-  Rhyhorn: { baseSpeed: 25, minSpeed: 45, maxSpeed: 77, minSpeedWithIvZero: 27, maxSpeedWithNature: 84, statistics: [] },
+  Rhyhorn: { referenceDate: "2024-12", baseSpeed: 25, minSpeed: 45, maxSpeed: 77, minSpeedWithIvZero: 27, maxSpeedWithNature: 84, statistics: [] },
   Rhyperior: {
+    referenceDate: "2024-12",
     baseSpeed: 40,
     minSpeed: 60,
     maxSpeed: 92,
@@ -4211,6 +4467,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Ribombee: {
+    referenceDate: "2024-12",
     baseSpeed: 124,
     minSpeed: 144,
     maxSpeed: 176,
@@ -4227,6 +4484,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Rillaboom: {
+    referenceDate: "2024-12",
     baseSpeed: 85,
     minSpeed: 105,
     maxSpeed: 137,
@@ -4243,6 +4501,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Riolu: {
+    referenceDate: "2024-12",
     baseSpeed: 60,
     minSpeed: 80,
     maxSpeed: 112,
@@ -4258,12 +4517,13 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 123, percentile: 100, percentage: 13, speedEv: 252, nature: "Jolly" }
     ]
   },
-  "Roaring Moon": { baseSpeed: 119, minSpeed: 139, maxSpeed: 171, minSpeedWithIvZero: 111, maxSpeedWithNature: 188, statistics: [] },
-  Rockruff: { baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
-  Rolycoly: { baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
-  Rookidee: { baseSpeed: 57, minSpeed: 77, maxSpeed: 109, minSpeedWithIvZero: 55, maxSpeedWithNature: 119, statistics: [] },
-  Rotom: { baseSpeed: 91, minSpeed: 111, maxSpeed: 143, minSpeedWithIvZero: 86, maxSpeedWithNature: 157, statistics: [] },
+  "Roaring Moon": { referenceDate: "2024-12", baseSpeed: 119, minSpeed: 139, maxSpeed: 171, minSpeedWithIvZero: 111, maxSpeedWithNature: 188, statistics: [] },
+  Rockruff: { referenceDate: "2024-12", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  Rolycoly: { referenceDate: "2024-12", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
+  Rookidee: { referenceDate: "2024-12", baseSpeed: 57, minSpeed: 77, maxSpeed: 109, minSpeedWithIvZero: 55, maxSpeedWithNature: 119, statistics: [] },
+  Rotom: { referenceDate: "2024-12", baseSpeed: 91, minSpeed: 111, maxSpeed: 143, minSpeedWithIvZero: 86, maxSpeedWithNature: 157, statistics: [] },
   "Rotom-Fan": {
+    referenceDate: "2024-12",
     baseSpeed: 86,
     minSpeed: 106,
     maxSpeed: 138,
@@ -4279,6 +4539,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   "Rotom-Frost": {
+    referenceDate: "2024-12",
     baseSpeed: 86,
     minSpeed: 106,
     maxSpeed: 138,
@@ -4296,6 +4557,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   "Rotom-Heat": {
+    referenceDate: "2024-12",
     baseSpeed: 86,
     minSpeed: 106,
     maxSpeed: 138,
@@ -4313,6 +4575,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   "Rotom-Mow": {
+    referenceDate: "2024-12",
     baseSpeed: 86,
     minSpeed: 106,
     maxSpeed: 138,
@@ -4330,6 +4593,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   "Rotom-Wash": {
+    referenceDate: "2024-12",
     baseSpeed: 86,
     minSpeed: 106,
     maxSpeed: 138,
@@ -4346,9 +4610,10 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "scarf", speed: 226, percentile: 100, percentage: 12, speedEv: 252, nature: "" }
     ]
   },
-  Rowlet: { baseSpeed: 42, minSpeed: 62, maxSpeed: 94, minSpeedWithIvZero: 42, maxSpeedWithNature: 103, statistics: [] },
-  Rufflet: { baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  Rowlet: { referenceDate: "2024-12", baseSpeed: 42, minSpeed: 62, maxSpeed: 94, minSpeedWithIvZero: 42, maxSpeedWithNature: 103, statistics: [] },
+  Rufflet: { referenceDate: "2024-12", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
   Sableye: {
+    referenceDate: "2024-12",
     baseSpeed: 50,
     minSpeed: 70,
     maxSpeed: 102,
@@ -4361,6 +4626,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     statistics: [{ type: "usage", speed: 70, percentile: 90, percentage: 86, speedEv: 0, nature: "Bold" }]
   },
   Salamence: {
+    referenceDate: "2024-12",
     baseSpeed: 100,
     minSpeed: 120,
     maxSpeed: 152,
@@ -4376,8 +4642,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "scarf", speed: 250, percentile: 100, percentage: 6, speedEv: 252, nature: "" }
     ]
   },
-  Salandit: { baseSpeed: 77, minSpeed: 97, maxSpeed: 129, minSpeedWithIvZero: 73, maxSpeedWithNature: 141, statistics: [] },
+  Salandit: { referenceDate: "2024-12", baseSpeed: 77, minSpeed: 97, maxSpeed: 129, minSpeedWithIvZero: 73, maxSpeedWithNature: 141, statistics: [] },
   Salazzle: {
+    referenceDate: "2024-12",
     baseSpeed: 117,
     minSpeed: 137,
     maxSpeed: 169,
@@ -4392,8 +4659,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 185, percentile: 100, percentage: 78, speedEv: 252, nature: "Timid" }
     ]
   },
-  Samurott: { baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
+  Samurott: { referenceDate: "2024-12", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
   "Samurott-Hisui": {
+    referenceDate: "2024-12",
     baseSpeed: 85,
     minSpeed: 105,
     maxSpeed: 137,
@@ -4411,6 +4679,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Sandaconda: {
+    referenceDate: "2024-12",
     baseSpeed: 71,
     minSpeed: 91,
     maxSpeed: 123,
@@ -4425,11 +4694,12 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 96, percentile: 100, percentage: 25, speedEv: 36, nature: "Impish" }
     ]
   },
-  Sandile: { baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
-  Sandshrew: { baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
-  "Sandshrew-Alola": { baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
-  Sandslash: { baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  Sandile: { referenceDate: "2024-12", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  Sandshrew: { referenceDate: "2024-12", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  "Sandshrew-Alola": { referenceDate: "2024-12", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Sandslash: { referenceDate: "2024-12", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
   "Sandslash-Alola": {
+    referenceDate: "2024-12",
     baseSpeed: 65,
     minSpeed: 85,
     maxSpeed: 117,
@@ -4445,11 +4715,12 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 117, percentile: 98, percentage: 52, speedEv: 252, nature: "Adamant" }
     ]
   },
-  "Sandy Shocks": { baseSpeed: 101, minSpeed: 121, maxSpeed: 153, minSpeedWithIvZero: 95, maxSpeedWithNature: 168, statistics: [] },
-  Sandygast: { baseSpeed: 15, minSpeed: 35, maxSpeed: 67, minSpeedWithIvZero: 18, maxSpeedWithNature: 73, statistics: [] },
-  Sawsbuck: { baseSpeed: 95, minSpeed: 115, maxSpeed: 147, minSpeedWithIvZero: 90, maxSpeedWithNature: 161, statistics: [] },
-  Scatterbug: { baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
+  "Sandy Shocks": { referenceDate: "2024-12", baseSpeed: 101, minSpeed: 121, maxSpeed: 153, minSpeedWithIvZero: 95, maxSpeedWithNature: 168, statistics: [] },
+  Sandygast: { referenceDate: "2024-12", baseSpeed: 15, minSpeed: 35, maxSpeed: 67, minSpeedWithIvZero: 18, maxSpeedWithNature: 73, statistics: [] },
+  Sawsbuck: { referenceDate: "2024-12", baseSpeed: 95, minSpeed: 115, maxSpeed: 147, minSpeedWithIvZero: 90, maxSpeedWithNature: 161, statistics: [] },
+  Scatterbug: { referenceDate: "2024-12", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
   Sceptile: {
+    referenceDate: "2024-12",
     baseSpeed: 120,
     minSpeed: 140,
     maxSpeed: 172,
@@ -4466,6 +4737,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Scizor: {
+    referenceDate: "2024-12",
     baseSpeed: 65,
     minSpeed: 85,
     maxSpeed: 117,
@@ -4480,8 +4752,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 86, percentile: 55, percentage: 15, speedEv: 4, nature: "Adamant" }
     ]
   },
-  Scorbunny: { baseSpeed: 69, minSpeed: 89, maxSpeed: 121, minSpeedWithIvZero: 66, maxSpeedWithNature: 133, statistics: [] },
+  Scorbunny: { referenceDate: "2024-12", baseSpeed: 69, minSpeed: 89, maxSpeed: 121, minSpeedWithIvZero: 66, maxSpeedWithNature: 133, statistics: [] },
   Scovillain: {
+    referenceDate: "2024-12",
     baseSpeed: 75,
     minSpeed: 95,
     maxSpeed: 127,
@@ -4497,6 +4770,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Scrafty: {
+    referenceDate: "2024-12",
     baseSpeed: 58,
     minSpeed: 78,
     maxSpeed: 110,
@@ -4512,9 +4786,10 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 110, percentile: 100, percentage: 11, speedEv: 252, nature: "Hardy" }
     ]
   },
-  Scraggy: { baseSpeed: 48, minSpeed: 68, maxSpeed: 100, minSpeedWithIvZero: 47, maxSpeedWithNature: 110, statistics: [] },
-  "Scream Tail": { baseSpeed: 111, minSpeed: 131, maxSpeed: 163, minSpeedWithIvZero: 104, maxSpeedWithNature: 179, statistics: [] },
+  Scraggy: { referenceDate: "2024-12", baseSpeed: 48, minSpeed: 68, maxSpeed: 100, minSpeedWithIvZero: 47, maxSpeedWithNature: 110, statistics: [] },
+  "Scream Tail": { referenceDate: "2024-12", baseSpeed: 111, minSpeed: 131, maxSpeed: 163, minSpeedWithIvZero: 104, maxSpeedWithNature: 179, statistics: [] },
   Scyther: {
+    referenceDate: "2024-12",
     baseSpeed: 105,
     minSpeed: 125,
     maxSpeed: 157,
@@ -4526,10 +4801,11 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     boosterEnergyIsMoreUsed: false,
     statistics: [{ type: "usage", speed: 172, percentile: 100, percentage: 82, speedEv: 252, nature: "Jolly" }]
   },
-  Seadra: { baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
-  Seedot: { baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
-  Seel: { baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  Seadra: { referenceDate: "2024-12", baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
+  Seedot: { referenceDate: "2024-12", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
+  Seel: { referenceDate: "2024-12", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
   Sentret: {
+    referenceDate: "2024-12",
     baseSpeed: 20,
     minSpeed: 40,
     maxSpeed: 72,
@@ -4545,6 +4821,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Serperior: {
+    referenceDate: "2024-12",
     baseSpeed: 113,
     minSpeed: 133,
     maxSpeed: 165,
@@ -4559,16 +4836,17 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 181, percentile: 100, percentage: 68, speedEv: 252, nature: "Timid" }
     ]
   },
-  Servine: { baseSpeed: 83, minSpeed: 103, maxSpeed: 135, minSpeedWithIvZero: 79, maxSpeedWithNature: 148, statistics: [] },
-  Seviper: { baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
-  Sewaddle: { baseSpeed: 42, minSpeed: 62, maxSpeed: 94, minSpeedWithIvZero: 42, maxSpeedWithNature: 103, statistics: [] },
-  Shaymin: { baseSpeed: 100, minSpeed: 120, maxSpeed: 152, minSpeedWithIvZero: 94, maxSpeedWithNature: 167, statistics: [] },
-  "Shaymin-Sky": { baseSpeed: 127, minSpeed: 147, maxSpeed: 179, minSpeedWithIvZero: 118, maxSpeedWithNature: 196, statistics: [] },
-  Shelgon: { baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
-  Shellder: { baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
-  Shellos: { baseSpeed: 34, minSpeed: 54, maxSpeed: 86, minSpeedWithIvZero: 35, maxSpeedWithNature: 94, statistics: [] },
-  Shieldon: { baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
+  Servine: { referenceDate: "2024-12", baseSpeed: 83, minSpeed: 103, maxSpeed: 135, minSpeedWithIvZero: 79, maxSpeedWithNature: 148, statistics: [] },
+  Seviper: { referenceDate: "2024-12", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  Sewaddle: { referenceDate: "2024-12", baseSpeed: 42, minSpeed: 62, maxSpeed: 94, minSpeedWithIvZero: 42, maxSpeedWithNature: 103, statistics: [] },
+  Shaymin: { referenceDate: "2024-12", baseSpeed: 100, minSpeed: 120, maxSpeed: 152, minSpeedWithIvZero: 94, maxSpeedWithNature: 167, statistics: [] },
+  "Shaymin-Sky": { referenceDate: "2024-12", baseSpeed: 127, minSpeed: 147, maxSpeed: 179, minSpeedWithIvZero: 118, maxSpeedWithNature: 196, statistics: [] },
+  Shelgon: { referenceDate: "2024-12", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Shellder: { referenceDate: "2024-12", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Shellos: { referenceDate: "2024-12", baseSpeed: 34, minSpeed: 54, maxSpeed: 86, minSpeedWithIvZero: 35, maxSpeedWithNature: 94, statistics: [] },
+  Shieldon: { referenceDate: "2024-12", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
   Shiftry: {
+    referenceDate: "2024-12",
     baseSpeed: 80,
     minSpeed: 100,
     maxSpeed: 132,
@@ -4583,12 +4861,13 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 145, percentile: 100, percentage: 31, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Shinx: { baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
-  Shroodle: { baseSpeed: 75, minSpeed: 95, maxSpeed: 127, minSpeedWithIvZero: 72, maxSpeedWithNature: 139, statistics: [] },
-  Shroomish: { baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
-  Shuppet: { baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
-  Silicobra: { baseSpeed: 46, minSpeed: 66, maxSpeed: 98, minSpeedWithIvZero: 45, maxSpeedWithNature: 107, statistics: [] },
+  Shinx: { referenceDate: "2024-12", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  Shroodle: { referenceDate: "2024-12", baseSpeed: 75, minSpeed: 95, maxSpeed: 127, minSpeedWithIvZero: 72, maxSpeedWithNature: 139, statistics: [] },
+  Shroomish: { referenceDate: "2024-12", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
+  Shuppet: { referenceDate: "2024-12", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  Silicobra: { referenceDate: "2024-12", baseSpeed: 46, minSpeed: 66, maxSpeed: 98, minSpeedWithIvZero: 45, maxSpeedWithNature: 107, statistics: [] },
   Sinistcha: {
+    referenceDate: "2024-12",
     baseSpeed: 70,
     minSpeed: 90,
     maxSpeed: 122,
@@ -4604,8 +4883,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 91, percentile: 88, percentage: 17, speedEv: 4, nature: "Calm" }
     ]
   },
-  Sinistea: { baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Sinistea: { referenceDate: "2024-12", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
   Skarmory: {
+    referenceDate: "2024-12",
     baseSpeed: 70,
     minSpeed: 90,
     maxSpeed: 122,
@@ -4622,6 +4902,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Skeledirge: {
+    referenceDate: "2024-12",
     baseSpeed: 66,
     minSpeed: 86,
     maxSpeed: 118,
@@ -4636,12 +4917,13 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 87, percentile: 84, percentage: 12, speedEv: 4, nature: "Modest" }
     ]
   },
-  Skiddo: { baseSpeed: 52, minSpeed: 72, maxSpeed: 104, minSpeedWithIvZero: 51, maxSpeedWithNature: 114, statistics: [] },
-  Skiploom: { baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
-  Skrelp: { baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
-  Skuntank: { baseSpeed: 84, minSpeed: 104, maxSpeed: 136, minSpeedWithIvZero: 80, maxSpeedWithNature: 149, statistics: [] },
-  Skwovet: { baseSpeed: 25, minSpeed: 45, maxSpeed: 77, minSpeedWithIvZero: 27, maxSpeedWithNature: 84, statistics: [] },
+  Skiddo: { referenceDate: "2024-12", baseSpeed: 52, minSpeed: 72, maxSpeed: 104, minSpeedWithIvZero: 51, maxSpeedWithNature: 114, statistics: [] },
+  Skiploom: { referenceDate: "2024-12", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
+  Skrelp: { referenceDate: "2024-12", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
+  Skuntank: { referenceDate: "2024-12", baseSpeed: 84, minSpeed: 104, maxSpeed: 136, minSpeedWithIvZero: 80, maxSpeedWithNature: 149, statistics: [] },
+  Skwovet: { referenceDate: "2024-12", baseSpeed: 25, minSpeed: 45, maxSpeed: 77, minSpeedWithIvZero: 27, maxSpeedWithNature: 84, statistics: [] },
   Slaking: {
+    referenceDate: "2024-12",
     baseSpeed: 100,
     minSpeed: 120,
     maxSpeed: 152,
@@ -4657,11 +4939,12 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 167, percentile: 100, percentage: 32, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Slakoth: { baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
-  Sliggoo: { baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
-  "Sliggoo-Hisui": { baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
-  "Slither Wing": { baseSpeed: 81, minSpeed: 101, maxSpeed: 133, minSpeedWithIvZero: 77, maxSpeedWithNature: 146, statistics: [] },
+  Slakoth: { referenceDate: "2024-12", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
+  Sliggoo: { referenceDate: "2024-12", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  "Sliggoo-Hisui": { referenceDate: "2024-12", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  "Slither Wing": { referenceDate: "2024-12", baseSpeed: 81, minSpeed: 101, maxSpeed: 133, minSpeedWithIvZero: 77, maxSpeedWithNature: 146, statistics: [] },
   Slowbro: {
+    referenceDate: "2024-12",
     baseSpeed: 30,
     minSpeed: 50,
     maxSpeed: 82,
@@ -4677,6 +4960,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   "Slowbro-Galar": {
+    referenceDate: "2024-12",
     baseSpeed: 30,
     minSpeed: 50,
     maxSpeed: 82,
@@ -4692,6 +4976,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Slowking: {
+    referenceDate: "2024-12",
     baseSpeed: 30,
     minSpeed: 50,
     maxSpeed: 82,
@@ -4707,6 +4992,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   "Slowking-Galar": {
+    referenceDate: "2024-12",
     baseSpeed: 30,
     minSpeed: 50,
     maxSpeed: 82,
@@ -4722,6 +5008,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Slowpoke: {
+    referenceDate: "2024-12",
     baseSpeed: 15,
     minSpeed: 35,
     maxSpeed: 67,
@@ -4736,9 +5023,10 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 35, percentile: 100, percentage: 60, speedEv: 0, nature: "Careful" }
     ]
   },
-  "Slowpoke-Galar": { baseSpeed: 15, minSpeed: 35, maxSpeed: 67, minSpeedWithIvZero: 18, maxSpeedWithNature: 73, statistics: [] },
-  Slugma: { baseSpeed: 20, minSpeed: 40, maxSpeed: 72, minSpeedWithIvZero: 22, maxSpeedWithNature: 79, statistics: [] },
+  "Slowpoke-Galar": { referenceDate: "2024-12", baseSpeed: 15, minSpeed: 35, maxSpeed: 67, minSpeedWithIvZero: 18, maxSpeedWithNature: 73, statistics: [] },
+  Slugma: { referenceDate: "2024-12", baseSpeed: 20, minSpeed: 40, maxSpeed: 72, minSpeedWithIvZero: 22, maxSpeedWithNature: 79, statistics: [] },
   Smeargle: {
+    referenceDate: "2024-12",
     baseSpeed: 75,
     minSpeed: 95,
     maxSpeed: 127,
@@ -4753,8 +5041,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 139, percentile: 100, percentage: 63, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Smoliv: { baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
+  Smoliv: { referenceDate: "2024-12", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
   Sneasel: {
+    referenceDate: "2024-12",
     baseSpeed: 115,
     minSpeed: 135,
     maxSpeed: 167,
@@ -4769,8 +5058,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 167, percentile: 97, percentage: 69, speedEv: 252, nature: "Adamant" }
     ]
   },
-  "Sneasel-Hisui": { baseSpeed: 115, minSpeed: 135, maxSpeed: 167, minSpeedWithIvZero: 108, maxSpeedWithNature: 183, statistics: [] },
+  "Sneasel-Hisui": { referenceDate: "2024-12", baseSpeed: 115, minSpeed: 135, maxSpeed: 167, minSpeedWithIvZero: 108, maxSpeedWithNature: 183, statistics: [] },
   Sneasler: {
+    referenceDate: "2024-12",
     baseSpeed: 120,
     minSpeed: 140,
     maxSpeed: 172,
@@ -4785,9 +5075,10 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 189, percentile: 100, percentage: 58, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Snivy: { baseSpeed: 63, minSpeed: 83, maxSpeed: 115, minSpeedWithIvZero: 61, maxSpeedWithNature: 126, statistics: [] },
-  Snom: { baseSpeed: 20, minSpeed: 40, maxSpeed: 72, minSpeedWithIvZero: 22, maxSpeedWithNature: 79, statistics: [] },
+  Snivy: { referenceDate: "2024-12", baseSpeed: 63, minSpeed: 83, maxSpeed: 115, minSpeedWithIvZero: 61, maxSpeedWithNature: 126, statistics: [] },
+  Snom: { referenceDate: "2024-12", baseSpeed: 20, minSpeed: 40, maxSpeed: 72, minSpeedWithIvZero: 22, maxSpeedWithNature: 79, statistics: [] },
   Snorlax: {
+    referenceDate: "2024-12",
     baseSpeed: 30,
     minSpeed: 50,
     maxSpeed: 82,
@@ -4802,17 +5093,18 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 50, percentile: 92, percentage: 37, speedEv: 0, nature: "Adamant" }
     ]
   },
-  Snorunt: { baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
-  Snover: { baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
-  Snubbull: { baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
-  Sobble: { baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
-  Solgaleo: { baseSpeed: 97, minSpeed: 117, maxSpeed: 149, minSpeedWithIvZero: 91, maxSpeedWithNature: 163, statistics: [] },
-  Solosis: { baseSpeed: 20, minSpeed: 40, maxSpeed: 72, minSpeedWithIvZero: 22, maxSpeedWithNature: 79, statistics: [] },
-  Spectrier: { baseSpeed: 130, minSpeed: 150, maxSpeed: 182, minSpeedWithIvZero: 121, maxSpeedWithNature: 200, statistics: [] },
-  Spewpa: { baseSpeed: 29, minSpeed: 49, maxSpeed: 81, minSpeedWithIvZero: 30, maxSpeedWithNature: 89, statistics: [] },
-  Spidops: { baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
-  Spinarak: { baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
+  Snorunt: { referenceDate: "2024-12", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Snover: { referenceDate: "2024-12", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Snubbull: { referenceDate: "2024-12", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
+  Sobble: { referenceDate: "2024-12", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
+  Solgaleo: { referenceDate: "2024-12", baseSpeed: 97, minSpeed: 117, maxSpeed: 149, minSpeedWithIvZero: 91, maxSpeedWithNature: 163, statistics: [] },
+  Solosis: { referenceDate: "2024-12", baseSpeed: 20, minSpeed: 40, maxSpeed: 72, minSpeedWithIvZero: 22, maxSpeedWithNature: 79, statistics: [] },
+  Spectrier: { referenceDate: "2024-12", baseSpeed: 130, minSpeed: 150, maxSpeed: 182, minSpeedWithIvZero: 121, maxSpeedWithNature: 200, statistics: [] },
+  Spewpa: { referenceDate: "2024-12", baseSpeed: 29, minSpeed: 49, maxSpeed: 81, minSpeedWithIvZero: 30, maxSpeedWithNature: 89, statistics: [] },
+  Spidops: { referenceDate: "2024-12", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
+  Spinarak: { referenceDate: "2024-12", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
   Spiritomb: {
+    referenceDate: "2024-12",
     baseSpeed: 35,
     minSpeed: 55,
     maxSpeed: 87,
@@ -4827,11 +5119,12 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 56, percentile: 100, percentage: 11, speedEv: 4, nature: "Calm" }
     ]
   },
-  Spoink: { baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
-  Sprigatito: { baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
-  Squawkabilly: { baseSpeed: 92, minSpeed: 112, maxSpeed: 144, minSpeedWithIvZero: 87, maxSpeedWithNature: 158, statistics: [] },
-  Squirtle: { baseSpeed: 43, minSpeed: 63, maxSpeed: 95, minSpeedWithIvZero: 43, maxSpeedWithNature: 104, statistics: [] },
+  Spoink: { referenceDate: "2024-12", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  Sprigatito: { referenceDate: "2024-12", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  Squawkabilly: { referenceDate: "2024-12", baseSpeed: 92, minSpeed: 112, maxSpeed: 144, minSpeedWithIvZero: 87, maxSpeedWithNature: 158, statistics: [] },
+  Squirtle: { referenceDate: "2024-12", baseSpeed: 43, minSpeed: 63, maxSpeed: 95, minSpeedWithIvZero: 43, maxSpeedWithNature: 104, statistics: [] },
   Stantler: {
+    referenceDate: "2024-12",
     baseSpeed: 85,
     minSpeed: 105,
     maxSpeed: 137,
@@ -4847,6 +5140,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Staraptor: {
+    referenceDate: "2024-12",
     baseSpeed: 100,
     minSpeed: 120,
     maxSpeed: 152,
@@ -4862,10 +5156,11 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "scarf", speed: 250, percentile: 100, percentage: 39, speedEv: 252, nature: "" }
     ]
   },
-  Staravia: { baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
-  Starly: { baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
-  Steenee: { baseSpeed: 62, minSpeed: 82, maxSpeed: 114, minSpeedWithIvZero: 60, maxSpeedWithNature: 125, statistics: [] },
+  Staravia: { referenceDate: "2024-12", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
+  Starly: { referenceDate: "2024-12", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  Steenee: { referenceDate: "2024-12", baseSpeed: 62, minSpeed: 82, maxSpeed: 114, minSpeedWithIvZero: 60, maxSpeedWithNature: 125, statistics: [] },
   Stonjourner: {
+    referenceDate: "2024-12",
     baseSpeed: 70,
     minSpeed: 90,
     maxSpeed: 122,
@@ -4881,10 +5176,11 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 134, percentile: 100, percentage: 37, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Stunky: { baseSpeed: 74, minSpeed: 94, maxSpeed: 126, minSpeedWithIvZero: 71, maxSpeedWithNature: 138, statistics: [] },
-  Sudowoodo: { baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
-  Suicune: { baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
+  Stunky: { referenceDate: "2024-12", baseSpeed: 74, minSpeed: 94, maxSpeed: 126, minSpeedWithIvZero: 71, maxSpeedWithNature: 138, statistics: [] },
+  Sudowoodo: { referenceDate: "2024-12", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
+  Suicune: { referenceDate: "2024-12", baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
   Sunflora: {
+    referenceDate: "2024-12",
     baseSpeed: 30,
     minSpeed: 50,
     maxSpeed: 82,
@@ -4900,12 +5196,13 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 82, percentile: 100, percentage: 11, speedEv: 252, nature: "Modest" }
     ]
   },
-  Sunkern: { baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
-  Surskit: { baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
-  Swablu: { baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
-  Swadloon: { baseSpeed: 42, minSpeed: 62, maxSpeed: 94, minSpeedWithIvZero: 42, maxSpeedWithNature: 103, statistics: [] },
-  Swalot: { baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
+  Sunkern: { referenceDate: "2024-12", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
+  Surskit: { referenceDate: "2024-12", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  Swablu: { referenceDate: "2024-12", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Swadloon: { referenceDate: "2024-12", baseSpeed: 42, minSpeed: 62, maxSpeed: 94, minSpeedWithIvZero: 42, maxSpeedWithNature: 103, statistics: [] },
+  Swalot: { referenceDate: "2024-12", baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
   Swampert: {
+    referenceDate: "2024-12",
     baseSpeed: 60,
     minSpeed: 80,
     maxSpeed: 112,
@@ -4921,6 +5218,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Swanna: {
+    referenceDate: "2024-12",
     baseSpeed: 98,
     minSpeed: 118,
     maxSpeed: 150,
@@ -4935,8 +5233,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 165, percentile: 100, percentage: 47, speedEv: 252, nature: "Timid" }
     ]
   },
-  Swinub: { baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Swinub: { referenceDate: "2024-12", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
   Sylveon: {
+    referenceDate: "2024-12",
     baseSpeed: 60,
     minSpeed: 80,
     maxSpeed: 112,
@@ -4951,8 +5250,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 80, percentile: 42, percentage: 26, speedEv: 0, nature: "Modest" }
     ]
   },
-  Tadbulb: { baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  Tadbulb: { referenceDate: "2024-12", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
   Talonflame: {
+    referenceDate: "2024-12",
     baseSpeed: 126,
     minSpeed: 146,
     maxSpeed: 178,
@@ -4967,9 +5267,10 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 195, percentile: 100, percentage: 75, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Tandemaus: { baseSpeed: 75, minSpeed: 95, maxSpeed: 127, minSpeedWithIvZero: 72, maxSpeedWithNature: 139, statistics: [] },
-  Tarountula: { baseSpeed: 20, minSpeed: 40, maxSpeed: 72, minSpeedWithIvZero: 22, maxSpeedWithNature: 79, statistics: [] },
+  Tandemaus: { referenceDate: "2024-12", baseSpeed: 75, minSpeed: 95, maxSpeed: 127, minSpeedWithIvZero: 72, maxSpeedWithNature: 139, statistics: [] },
+  Tarountula: { referenceDate: "2024-12", baseSpeed: 20, minSpeed: 40, maxSpeed: 72, minSpeedWithIvZero: 22, maxSpeedWithNature: 79, statistics: [] },
   Tatsugiri: {
+    referenceDate: "2024-12",
     baseSpeed: 82,
     minSpeed: 102,
     maxSpeed: 134,
@@ -4985,8 +5286,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "scarf", speed: 220, percentile: 100, percentage: 28, speedEv: 252, nature: "" }
     ]
   },
-  Tauros: { baseSpeed: 110, minSpeed: 130, maxSpeed: 162, minSpeedWithIvZero: 103, maxSpeedWithNature: 178, statistics: [] },
+  Tauros: { referenceDate: "2024-12", baseSpeed: 110, minSpeed: 130, maxSpeed: 162, minSpeedWithIvZero: 103, maxSpeedWithNature: 178, statistics: [] },
   "Tauros-Paldea-Aqua": {
+    referenceDate: "2024-12",
     baseSpeed: 100,
     minSpeed: 120,
     maxSpeed: 152,
@@ -5002,6 +5304,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   "Tauros-Paldea-Blaze": {
+    referenceDate: "2024-12",
     baseSpeed: 100,
     minSpeed: 120,
     maxSpeed: 152,
@@ -5017,10 +5320,11 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 167, percentile: 100, percentage: 40, speedEv: 252, nature: "Jolly" }
     ]
   },
-  "Tauros-Paldea-Combat": { baseSpeed: 100, minSpeed: 120, maxSpeed: 152, minSpeedWithIvZero: 94, maxSpeedWithNature: 167, statistics: [] },
-  Teddiursa: { baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
-  Tentacool: { baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
+  "Tauros-Paldea-Combat": { referenceDate: "2024-12", baseSpeed: 100, minSpeed: 120, maxSpeed: 152, minSpeedWithIvZero: 94, maxSpeedWithNature: 167, statistics: [] },
+  Teddiursa: { referenceDate: "2024-12", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Tentacool: { referenceDate: "2024-12", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
   Tentacruel: {
+    referenceDate: "2024-12",
     baseSpeed: 100,
     minSpeed: 120,
     maxSpeed: 152,
@@ -5036,18 +5340,19 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 146, percentile: 86, percentage: 31, speedEv: 204, nature: "Modest" }
     ]
   },
-  Tepig: { baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
-  Terapagos: { baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
-  "Terapagos-Stellar": { baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
-  "Terapagos-Terastal": { baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
-  Terrakion: { baseSpeed: 108, minSpeed: 128, maxSpeed: 160, minSpeedWithIvZero: 101, maxSpeedWithNature: 176, statistics: [] },
-  Thundurus: { baseSpeed: 111, minSpeed: 131, maxSpeed: 163, minSpeedWithIvZero: 104, maxSpeedWithNature: 179, statistics: [] },
-  "Thundurus-Therian": { baseSpeed: 101, minSpeed: 121, maxSpeed: 153, minSpeedWithIvZero: 95, maxSpeedWithNature: 168, statistics: [] },
-  Thwackey: { baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
-  Timburr: { baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
-  "Ting-Lu": { baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
-  Tinkatink: { baseSpeed: 58, minSpeed: 78, maxSpeed: 110, minSpeedWithIvZero: 56, maxSpeedWithNature: 121, statistics: [] },
+  Tepig: { referenceDate: "2024-12", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  Terapagos: { referenceDate: "2024-12", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  "Terapagos-Stellar": { referenceDate: "2024-12", baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
+  "Terapagos-Terastal": { referenceDate: "2024-12", baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
+  Terrakion: { referenceDate: "2024-12", baseSpeed: 108, minSpeed: 128, maxSpeed: 160, minSpeedWithIvZero: 101, maxSpeedWithNature: 176, statistics: [] },
+  Thundurus: { referenceDate: "2024-12", baseSpeed: 111, minSpeed: 131, maxSpeed: 163, minSpeedWithIvZero: 104, maxSpeedWithNature: 179, statistics: [] },
+  "Thundurus-Therian": { referenceDate: "2024-12", baseSpeed: 101, minSpeed: 121, maxSpeed: 153, minSpeedWithIvZero: 95, maxSpeedWithNature: 168, statistics: [] },
+  Thwackey: { referenceDate: "2024-12", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
+  Timburr: { referenceDate: "2024-12", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
+  "Ting-Lu": { referenceDate: "2024-12", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  Tinkatink: { referenceDate: "2024-12", baseSpeed: 58, minSpeed: 78, maxSpeed: 110, minSpeedWithIvZero: 56, maxSpeedWithNature: 121, statistics: [] },
   Tinkaton: {
+    referenceDate: "2024-12",
     baseSpeed: 94,
     minSpeed: 114,
     maxSpeed: 146,
@@ -5060,6 +5365,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     statistics: [{ type: "usage", speed: 160, percentile: 100, percentage: 31, speedEv: 252, nature: "Jolly" }]
   },
   Tinkatuff: {
+    referenceDate: "2024-12",
     baseSpeed: 78,
     minSpeed: 98,
     maxSpeed: 130,
@@ -5071,8 +5377,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     boosterEnergyIsMoreUsed: false,
     statistics: [{ type: "usage", speed: 98, percentile: 98, percentage: 98, speedEv: 0, nature: "Careful" }]
   },
-  Toedscool: { baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
+  Toedscool: { referenceDate: "2024-12", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
   Toedscruel: {
+    referenceDate: "2024-12",
     baseSpeed: 100,
     minSpeed: 120,
     maxSpeed: 152,
@@ -5084,8 +5391,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     boosterEnergyIsMoreUsed: false,
     statistics: [{ type: "usage", speed: 167, percentile: 100, percentage: 80, speedEv: 252, nature: "Timid" }]
   },
-  Torchic: { baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  Torchic: { referenceDate: "2024-12", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
   Torkoal: {
+    referenceDate: "2024-12",
     baseSpeed: 20,
     minSpeed: 40,
     maxSpeed: 72,
@@ -5100,10 +5408,11 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 40, percentile: 94, percentage: 23, speedEv: 0, nature: "Modest" }
     ]
   },
-  Tornadus: { baseSpeed: 111, minSpeed: 131, maxSpeed: 163, minSpeedWithIvZero: 104, maxSpeedWithNature: 179, statistics: [] },
-  "Tornadus-Therian": { baseSpeed: 121, minSpeed: 141, maxSpeed: 173, minSpeedWithIvZero: 113, maxSpeedWithNature: 190, statistics: [] },
-  Torracat: { baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
+  Tornadus: { referenceDate: "2024-12", baseSpeed: 111, minSpeed: 131, maxSpeed: 163, minSpeedWithIvZero: 104, maxSpeedWithNature: 179, statistics: [] },
+  "Tornadus-Therian": { referenceDate: "2024-12", baseSpeed: 121, minSpeed: 141, maxSpeed: 173, minSpeedWithIvZero: 113, maxSpeedWithNature: 190, statistics: [] },
+  Torracat: { referenceDate: "2024-12", baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
   Torterra: {
+    referenceDate: "2024-12",
     baseSpeed: 56,
     minSpeed: 76,
     maxSpeed: 108,
@@ -5119,8 +5428,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 108, percentile: 98, percentage: 21, speedEv: 252, nature: "Adamant" }
     ]
   },
-  Totodile: { baseSpeed: 43, minSpeed: 63, maxSpeed: 95, minSpeedWithIvZero: 43, maxSpeedWithNature: 104, statistics: [] },
+  Totodile: { referenceDate: "2024-12", baseSpeed: 43, minSpeed: 63, maxSpeed: 95, minSpeedWithIvZero: 43, maxSpeedWithNature: 104, statistics: [] },
   Toucannon: {
+    referenceDate: "2024-12",
     baseSpeed: 60,
     minSpeed: 80,
     maxSpeed: 112,
@@ -5137,6 +5447,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Toxapex: {
+    referenceDate: "2024-12",
     baseSpeed: 35,
     minSpeed: 55,
     maxSpeed: 87,
@@ -5151,8 +5462,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 55, percentile: 98, percentage: 82, speedEv: 0, nature: "Careful" }
     ]
   },
-  Toxel: { baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Toxel: { referenceDate: "2024-12", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
   Toxicroak: {
+    referenceDate: "2024-12",
     baseSpeed: 85,
     minSpeed: 105,
     maxSpeed: 137,
@@ -5169,6 +5481,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Toxtricity: {
+    referenceDate: "2024-12",
     baseSpeed: 75,
     minSpeed: 95,
     maxSpeed: 127,
@@ -5185,9 +5498,10 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "scarf", speed: 208, percentile: 100, percentage: 6, speedEv: 252, nature: "" }
     ]
   },
-  Trapinch: { baseSpeed: 10, minSpeed: 30, maxSpeed: 62, minSpeedWithIvZero: 13, maxSpeedWithNature: 68, statistics: [] },
-  Treecko: { baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
+  Trapinch: { referenceDate: "2024-12", baseSpeed: 10, minSpeed: 30, maxSpeed: 62, minSpeedWithIvZero: 13, maxSpeedWithNature: 68, statistics: [] },
+  Treecko: { referenceDate: "2024-12", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
   Trevenant: {
+    referenceDate: "2024-12",
     baseSpeed: 56,
     minSpeed: 76,
     maxSpeed: 108,
@@ -5203,6 +5517,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Tropius: {
+    referenceDate: "2024-12",
     baseSpeed: 51,
     minSpeed: 71,
     maxSpeed: 103,
@@ -5218,8 +5533,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 83, percentile: 81, percentage: 23, speedEv: 92, nature: "Calm" }
     ]
   },
-  Trumbeak: { baseSpeed: 75, minSpeed: 95, maxSpeed: 127, minSpeedWithIvZero: 72, maxSpeedWithNature: 139, statistics: [] },
+  Trumbeak: { referenceDate: "2024-12", baseSpeed: 75, minSpeed: 95, maxSpeed: 127, minSpeedWithIvZero: 72, maxSpeedWithNature: 139, statistics: [] },
   Tsareena: {
+    referenceDate: "2024-12",
     baseSpeed: 72,
     minSpeed: 92,
     maxSpeed: 124,
@@ -5231,9 +5547,10 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     boosterEnergyIsMoreUsed: false,
     statistics: [{ type: "usage", speed: 92, percentile: 34, percentage: 31, speedEv: 0, nature: "Adamant" }]
   },
-  Turtwig: { baseSpeed: 31, minSpeed: 51, maxSpeed: 83, minSpeedWithIvZero: 32, maxSpeedWithNature: 91, statistics: [] },
-  Tynamo: { baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  Turtwig: { referenceDate: "2024-12", baseSpeed: 31, minSpeed: 51, maxSpeed: 83, minSpeedWithIvZero: 32, maxSpeedWithNature: 91, statistics: [] },
+  Tynamo: { referenceDate: "2024-12", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
   Typhlosion: {
+    referenceDate: "2024-12",
     baseSpeed: 100,
     minSpeed: 120,
     maxSpeed: 152,
@@ -5249,6 +5566,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   "Typhlosion-Hisui": {
+    referenceDate: "2024-12",
     baseSpeed: 95,
     minSpeed: 115,
     maxSpeed: 147,
@@ -5265,6 +5583,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Tyranitar: {
+    referenceDate: "2024-12",
     baseSpeed: 61,
     minSpeed: 81,
     maxSpeed: 113,
@@ -5276,8 +5595,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     boosterEnergyIsMoreUsed: false,
     statistics: [{ type: "usage", speed: 81, percentile: 32, percentage: 23, speedEv: 0, nature: "Adamant" }]
   },
-  Tyrogue: { baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
+  Tyrogue: { referenceDate: "2024-12", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
   Umbreon: {
+    referenceDate: "2024-12",
     baseSpeed: 65,
     minSpeed: 85,
     maxSpeed: 117,
@@ -5290,6 +5610,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     statistics: [{ type: "usage", speed: 85, percentile: 90, percentage: 88, speedEv: 0, nature: "Bold" }]
   },
   Ursaluna: {
+    referenceDate: "2024-12",
     baseSpeed: 50,
     minSpeed: 70,
     maxSpeed: 102,
@@ -5305,6 +5626,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   "Ursaluna-Bloodmoon": {
+    referenceDate: "2024-12",
     baseSpeed: 52,
     minSpeed: 72,
     maxSpeed: 104,
@@ -5319,11 +5641,12 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 104, percentile: 91, percentage: 22, speedEv: 252, nature: "Modest" }
     ]
   },
-  Ursaring: { baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
-  Urshifu: { baseSpeed: 97, minSpeed: 117, maxSpeed: 149, minSpeedWithIvZero: 91, maxSpeedWithNature: 163, statistics: [] },
-  "Urshifu-Rapid-Strike": { baseSpeed: 97, minSpeed: 117, maxSpeed: 149, minSpeedWithIvZero: 91, maxSpeedWithNature: 163, statistics: [] },
-  Uxie: { baseSpeed: 95, minSpeed: 115, maxSpeed: 147, minSpeedWithIvZero: 90, maxSpeedWithNature: 161, statistics: [] },
+  Ursaring: { referenceDate: "2024-12", baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
+  Urshifu: { referenceDate: "2024-12", baseSpeed: 97, minSpeed: 117, maxSpeed: 149, minSpeedWithIvZero: 91, maxSpeedWithNature: 163, statistics: [] },
+  "Urshifu-Rapid-Strike": { referenceDate: "2024-12", baseSpeed: 97, minSpeed: 117, maxSpeed: 149, minSpeedWithIvZero: 91, maxSpeedWithNature: 163, statistics: [] },
+  Uxie: { referenceDate: "2024-12", baseSpeed: 95, minSpeed: 115, maxSpeed: 147, minSpeedWithIvZero: 90, maxSpeedWithNature: 161, statistics: [] },
   Vaporeon: {
+    referenceDate: "2024-12",
     baseSpeed: 65,
     minSpeed: 85,
     maxSpeed: 117,
@@ -5339,8 +5662,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 95, percentile: 91, percentage: 19, speedEv: 80, nature: "Bold" }
     ]
   },
-  Varoom: { baseSpeed: 47, minSpeed: 67, maxSpeed: 99, minSpeedWithIvZero: 46, maxSpeedWithNature: 108, statistics: [] },
+  Varoom: { referenceDate: "2024-12", baseSpeed: 47, minSpeed: 67, maxSpeed: 99, minSpeedWithIvZero: 46, maxSpeedWithNature: 108, statistics: [] },
   Veluza: {
+    referenceDate: "2024-12",
     baseSpeed: 70,
     minSpeed: 90,
     maxSpeed: 122,
@@ -5357,6 +5681,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Venomoth: {
+    referenceDate: "2024-12",
     baseSpeed: 90,
     minSpeed: 110,
     maxSpeed: 142,
@@ -5373,6 +5698,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Venonat: {
+    referenceDate: "2024-12",
     baseSpeed: 45,
     minSpeed: 65,
     maxSpeed: 97,
@@ -5388,6 +5714,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Venusaur: {
+    referenceDate: "2024-12",
     baseSpeed: 80,
     minSpeed: 100,
     maxSpeed: 132,
@@ -5402,11 +5729,12 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 145, percentile: 100, percentage: 20, speedEv: 252, nature: "Timid" }
     ]
   },
-  Vespiquen: { baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
-  Vibrava: { baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
-  Victreebel: { baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
-  Vigoroth: { baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
+  Vespiquen: { referenceDate: "2024-12", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Vibrava: { referenceDate: "2024-12", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
+  Victreebel: { referenceDate: "2024-12", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
+  Vigoroth: { referenceDate: "2024-12", baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
   Vikavolt: {
+    referenceDate: "2024-12",
     baseSpeed: 43,
     minSpeed: 63,
     maxSpeed: 95,
@@ -5423,6 +5751,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Vileplume: {
+    referenceDate: "2024-12",
     baseSpeed: 50,
     minSpeed: 70,
     maxSpeed: 102,
@@ -5438,8 +5767,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 112, percentile: 100, percentage: 38, speedEv: 252, nature: "Timid" }
     ]
   },
-  Virizion: { baseSpeed: 108, minSpeed: 128, maxSpeed: 160, minSpeedWithIvZero: 101, maxSpeedWithNature: 176, statistics: [] },
+  Virizion: { referenceDate: "2024-12", baseSpeed: 108, minSpeed: 128, maxSpeed: 160, minSpeedWithIvZero: 101, maxSpeedWithNature: 176, statistics: [] },
   Vivillon: {
+    referenceDate: "2024-12",
     baseSpeed: 89,
     minSpeed: 109,
     maxSpeed: 141,
@@ -5455,6 +5785,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Volbeat: {
+    referenceDate: "2024-12",
     baseSpeed: 85,
     minSpeed: 105,
     maxSpeed: 137,
@@ -5470,8 +5801,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 150, percentile: 100, percentage: 16, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Volcanion: { baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
+  Volcanion: { referenceDate: "2024-12", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
   Volcarona: {
+    referenceDate: "2024-12",
     baseSpeed: 100,
     minSpeed: 120,
     maxSpeed: 152,
@@ -5486,15 +5818,16 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 152, percentile: 83, percentage: 12, speedEv: 252, nature: "Modest" }
     ]
   },
-  Voltorb: { baseSpeed: 100, minSpeed: 120, maxSpeed: 152, minSpeedWithIvZero: 94, maxSpeedWithNature: 167, statistics: [] },
-  "Voltorb-Hisui": { baseSpeed: 100, minSpeed: 120, maxSpeed: 152, minSpeedWithIvZero: 94, maxSpeedWithNature: 167, statistics: [] },
-  Vullaby: { baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
-  Vulpix: { baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
-  "Vulpix-Alola": { baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
-  "Walking Wake": { baseSpeed: 109, minSpeed: 129, maxSpeed: 161, minSpeedWithIvZero: 102, maxSpeedWithNature: 177, statistics: [] },
-  Wartortle: { baseSpeed: 58, minSpeed: 78, maxSpeed: 110, minSpeedWithIvZero: 56, maxSpeedWithNature: 121, statistics: [] },
-  Wattrel: { baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
+  Voltorb: { referenceDate: "2024-12", baseSpeed: 100, minSpeed: 120, maxSpeed: 152, minSpeedWithIvZero: 94, maxSpeedWithNature: 167, statistics: [] },
+  "Voltorb-Hisui": { referenceDate: "2024-12", baseSpeed: 100, minSpeed: 120, maxSpeed: 152, minSpeedWithIvZero: 94, maxSpeedWithNature: 167, statistics: [] },
+  Vullaby: { referenceDate: "2024-12", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  Vulpix: { referenceDate: "2024-12", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  "Vulpix-Alola": { referenceDate: "2024-12", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  "Walking Wake": { referenceDate: "2024-12", baseSpeed: 109, minSpeed: 129, maxSpeed: 161, minSpeedWithIvZero: 102, maxSpeedWithNature: 177, statistics: [] },
+  Wartortle: { referenceDate: "2024-12", baseSpeed: 58, minSpeed: 78, maxSpeed: 110, minSpeedWithIvZero: 56, maxSpeedWithNature: 121, statistics: [] },
+  Wattrel: { referenceDate: "2024-12", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
   Weavile: {
+    referenceDate: "2024-12",
     baseSpeed: 125,
     minSpeed: 145,
     maxSpeed: 177,
@@ -5506,8 +5839,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     boosterEnergyIsMoreUsed: false,
     statistics: [{ type: "usage", speed: 194, percentile: 100, percentage: 83, speedEv: 252, nature: "Jolly" }]
   },
-  Weepinbell: { baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
+  Weepinbell: { referenceDate: "2024-12", baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
   Weezing: {
+    referenceDate: "2024-12",
     baseSpeed: 60,
     minSpeed: 80,
     maxSpeed: 112,
@@ -5524,6 +5858,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   "Weezing-Galar": {
+    referenceDate: "2024-12",
     baseSpeed: 60,
     minSpeed: 80,
     maxSpeed: 112,
@@ -5539,6 +5874,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Whimsicott: {
+    referenceDate: "2024-12",
     baseSpeed: 116,
     minSpeed: 136,
     maxSpeed: 168,
@@ -5553,8 +5889,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 184, percentile: 100, percentage: 41, speedEv: 252, nature: "Timid" }
     ]
   },
-  Whiscash: { baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  Whiscash: { referenceDate: "2024-12", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
   Wigglytuff: {
+    referenceDate: "2024-12",
     baseSpeed: 45,
     minSpeed: 65,
     maxSpeed: 97,
@@ -5570,12 +5907,13 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 104, percentile: 100, percentage: 31, speedEv: 236, nature: "Timid" }
     ]
   },
-  Wiglett: { baseSpeed: 95, minSpeed: 115, maxSpeed: 147, minSpeedWithIvZero: 90, maxSpeedWithNature: 161, statistics: [] },
-  Wingull: { baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
-  "Wo-Chien": { baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
-  Wooper: { baseSpeed: 15, minSpeed: 35, maxSpeed: 67, minSpeedWithIvZero: 18, maxSpeedWithNature: 73, statistics: [] },
-  "Wooper-Paldea": { baseSpeed: 15, minSpeed: 35, maxSpeed: 67, minSpeedWithIvZero: 18, maxSpeedWithNature: 73, statistics: [] },
+  Wiglett: { referenceDate: "2024-12", baseSpeed: 95, minSpeed: 115, maxSpeed: 147, minSpeedWithIvZero: 90, maxSpeedWithNature: 161, statistics: [] },
+  Wingull: { referenceDate: "2024-12", baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
+  "Wo-Chien": { referenceDate: "2024-12", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
+  Wooper: { referenceDate: "2024-12", baseSpeed: 15, minSpeed: 35, maxSpeed: 67, minSpeedWithIvZero: 18, maxSpeedWithNature: 73, statistics: [] },
+  "Wooper-Paldea": { referenceDate: "2024-12", baseSpeed: 15, minSpeed: 35, maxSpeed: 67, minSpeedWithIvZero: 18, maxSpeedWithNature: 73, statistics: [] },
   Wugtrio: {
+    referenceDate: "2024-12",
     baseSpeed: 120,
     minSpeed: 140,
     maxSpeed: 172,
@@ -5592,6 +5930,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Wyrdeer: {
+    referenceDate: "2024-12",
     baseSpeed: 65,
     minSpeed: 85,
     maxSpeed: 117,
@@ -5608,6 +5947,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   Yanma: {
+    referenceDate: "2024-12",
     baseSpeed: 95,
     minSpeed: 115,
     maxSpeed: 147,
@@ -5620,6 +5960,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     statistics: [{ type: "usage", speed: 161, percentile: 100, percentage: 98, speedEv: 252, nature: "Timid" }]
   },
   Yanmega: {
+    referenceDate: "2024-12",
     baseSpeed: 95,
     minSpeed: 115,
     maxSpeed: 147,
@@ -5635,16 +5976,17 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 161, percentile: 100, percentage: 32, speedEv: 252, nature: "Timid" }
     ]
   },
-  Yungoos: { baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
-  Zacian: { baseSpeed: 138, minSpeed: 158, maxSpeed: 190, minSpeedWithIvZero: 128, maxSpeedWithNature: 209, statistics: [] },
-  "Zacian-Crowned": { baseSpeed: 148, minSpeed: 168, maxSpeed: 200, minSpeedWithIvZero: 137, maxSpeedWithNature: 220, statistics: [] },
-  Zamazenta: { baseSpeed: 138, minSpeed: 158, maxSpeed: 190, minSpeedWithIvZero: 128, maxSpeedWithNature: 209, statistics: [] },
-  "Zamazenta-Crowned": { baseSpeed: 128, minSpeed: 148, maxSpeed: 180, minSpeedWithIvZero: 119, maxSpeedWithNature: 198, statistics: [] },
-  Zangoose: { baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
-  Zapdos: { baseSpeed: 100, minSpeed: 120, maxSpeed: 152, minSpeedWithIvZero: 94, maxSpeedWithNature: 167, statistics: [] },
-  "Zapdos-Galar": { baseSpeed: 100, minSpeed: 120, maxSpeed: 152, minSpeedWithIvZero: 94, maxSpeedWithNature: 167, statistics: [] },
-  Zarude: { baseSpeed: 105, minSpeed: 125, maxSpeed: 157, minSpeedWithIvZero: 99, maxSpeedWithNature: 172, statistics: [] },
+  Yungoos: { referenceDate: "2024-12", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  Zacian: { referenceDate: "2024-12", baseSpeed: 138, minSpeed: 158, maxSpeed: 190, minSpeedWithIvZero: 128, maxSpeedWithNature: 209, statistics: [] },
+  "Zacian-Crowned": { referenceDate: "2024-12", baseSpeed: 148, minSpeed: 168, maxSpeed: 200, minSpeedWithIvZero: 137, maxSpeedWithNature: 220, statistics: [] },
+  Zamazenta: { referenceDate: "2024-12", baseSpeed: 138, minSpeed: 158, maxSpeed: 190, minSpeedWithIvZero: 128, maxSpeedWithNature: 209, statistics: [] },
+  "Zamazenta-Crowned": { referenceDate: "2024-12", baseSpeed: 128, minSpeed: 148, maxSpeed: 180, minSpeedWithIvZero: 119, maxSpeedWithNature: 198, statistics: [] },
+  Zangoose: { referenceDate: "2024-12", baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
+  Zapdos: { referenceDate: "2024-12", baseSpeed: 100, minSpeed: 120, maxSpeed: 152, minSpeedWithIvZero: 94, maxSpeedWithNature: 167, statistics: [] },
+  "Zapdos-Galar": { referenceDate: "2024-12", baseSpeed: 100, minSpeed: 120, maxSpeed: 152, minSpeedWithIvZero: 94, maxSpeedWithNature: 167, statistics: [] },
+  Zarude: { referenceDate: "2024-12", baseSpeed: 105, minSpeed: 125, maxSpeed: 157, minSpeedWithIvZero: 99, maxSpeedWithNature: 172, statistics: [] },
   Zebstrika: {
+    referenceDate: "2024-12",
     baseSpeed: 116,
     minSpeed: 136,
     maxSpeed: 168,
@@ -5660,8 +6002,9 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "usage", speed: 184, percentile: 100, percentage: 23, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Zekrom: { baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
+  Zekrom: { referenceDate: "2024-12", baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
   Zoroark: {
+    referenceDate: "2024-12",
     baseSpeed: 105,
     minSpeed: 125,
     maxSpeed: 157,
@@ -5678,6 +6021,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
     ]
   },
   "Zoroark-Hisui": {
+    referenceDate: "2024-12",
     baseSpeed: 110,
     minSpeed: 130,
     maxSpeed: 162,
@@ -5693,7 +6037,7 @@ export const SPEED_STATISTICS_REG_H: Record<string, SpeedData> = {
       { type: "scarf", speed: 267, percentile: 100, percentage: 13, speedEv: 252, nature: "" }
     ]
   },
-  Zorua: { baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
-  "Zorua-Hisui": { baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
-  Zweilous: { baseSpeed: 58, minSpeed: 78, maxSpeed: 110, minSpeedWithIvZero: 56, maxSpeedWithNature: 121, statistics: [] }
+  Zorua: { referenceDate: "2024-12", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  "Zorua-Hisui": { referenceDate: "2024-12", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
+  Zweilous: { referenceDate: "2024-12", baseSpeed: 58, minSpeed: 78, maxSpeed: 110, minSpeedWithIvZero: 56, maxSpeedWithNature: 121, statistics: [] }
 }
