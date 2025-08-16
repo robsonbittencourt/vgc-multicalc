@@ -349,4 +349,16 @@ describe("Test calcs from moves with some mechanic", () => {
       rightDamageResult.damageIs(1, 16.2, 19.4, 30, 36)
     })
   })
+
+  describe("Intimidate debuff", () => {
+    it("Ursaluna should receive -1 on atk when Intimidate is active", () => {
+      leftPokemonBuild.importPokemon(poke["incineroar"])
+      rightPokemonBuild.importPokemon(poke["ursaluna"]).selectAttackThree()
+
+      rightDamageResult.damageIs(2, 28.8, 34.3, 58, 69)
+
+      leftPokemonBuild.activateAbility()
+      rightDamageResult.damageIs(2, 19.4, 22.8, 39, 46)
+    })
+  })
 })

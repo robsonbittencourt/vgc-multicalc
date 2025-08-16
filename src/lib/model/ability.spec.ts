@@ -81,6 +81,12 @@ describe("Ability", () => {
     expect(ability.actionableAbility).toBe(true)
   })
 
+  it("should return true for actionableAbility if ability is Intimidate", () => {
+    const ability = new Ability("Intimidate")
+
+    expect(ability.actionableAbility).toBe(true)
+  })
+
   it("should return false for actionableAbility if ability is not Slow Start or Unburden", () => {
     const ability = new Ability("Levitate")
 

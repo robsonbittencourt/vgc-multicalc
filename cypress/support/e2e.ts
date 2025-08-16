@@ -55,6 +55,7 @@ const pokeNames = [
   "flutter-mane-high-spa",
   "flutter-mane-high-spd",
   "flutter-mane-high-spe",
+  "incineroar",
   "iron-treads-high-atk",
   "iron-treads-high-def",
   "iron-moth-high-spa",
