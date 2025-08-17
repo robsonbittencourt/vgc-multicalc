@@ -32,6 +32,7 @@ export type PokemonParameters = {
   evs?: Partial<Stats>
   moveSet?: MoveSet
   boosts?: Partial<Stats>
+  bonusBoosts?: Partial<Stats>
   status?: Status
   ivs?: Partial<Stats>
   hpPercentage?: number

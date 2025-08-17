@@ -27,6 +27,7 @@ export function stateToPokemon(state: PokemonState) {
     teraTypeActive: state.teraTypeActive,
     moveSet: new MoveSet(moveOne, moveTwo, moveThree, moveFour, activeMovePosition),
     boosts: state.boosts,
+    bonusBoosts: state.bonusBoosts,
     evs: state.evs,
     ivs: state.ivs,
     hpPercentage: state.hpPercentage
@@ -53,6 +54,7 @@ export function pokemonToState(pokemon: Pokemon): PokemonState {
       { name: pokemon.move4Name, alliesFainted: pokemon.moveSet.move4.alliesFainted, hits: pokemon.moveSet.move4.hits }
     ],
     boosts: pokemon.boosts,
+    bonusBoosts: pokemon.bonusBoosts,
     evs: { hp: pokemon.evs.hp!, atk: pokemon.evs.atk!, def: pokemon.evs.def!, spa: pokemon.evs.spa!, spd: pokemon.evs.spd!, spe: pokemon.evs.spe! },
     ivs: { hp: pokemon.ivs.hp!, atk: pokemon.ivs.atk!, def: pokemon.ivs.def!, spa: pokemon.ivs.spa!, spd: pokemon.ivs.spd!, spe: pokemon.ivs.spe! },
     hpPercentage: pokemon.hpPercentage

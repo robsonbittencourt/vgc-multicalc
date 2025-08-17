@@ -1,7 +1,7 @@
 import { TitleCasePipe } from "@angular/common"
 import { Component, computed, inject, input, output, viewChild } from "@angular/core"
 import { FormsModule } from "@angular/forms"
-import { MatCheckbox } from "@angular/material/checkbox"
+import { MatCheckbox, MatCheckboxChange } from "@angular/material/checkbox"
 import { InputSelectComponent } from "@basic/input-select/input-select.component"
 import { InputComponent } from "@basic/input/input.component"
 import { CalculatorStore } from "@data/store/calculator-store"
@@ -38,5 +38,9 @@ export class AbilityComboBoxComponent {
 
   blur() {
     this.abilityInput()?.blur()
+  }
+
+  toogleAbility(event: MatCheckboxChange) {
+    this.store.abilityOn(this.pokemonId(), event.checked)
   }
 }

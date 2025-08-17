@@ -22,6 +22,7 @@ export class Pokemon {
   readonly hpPercentage: number
   readonly commanderActive: boolean
   readonly higherStat: StatIDExceptHP
+  readonly bonusBoosts: Partial<Stats>
 
   private smogonPokemon: SmogonPokemon
   private smogonFunctions = new SmogonFunctions()
@@ -37,6 +38,7 @@ export class Pokemon {
     this.hpPercentage = options.hpPercentage ?? 100
     this.commanderActive = options.commanderActive ?? false
     this.higherStat = this.smogonFunctions.higherStat(this.smogonPokemon)
+    this.bonusBoosts = options.bonusBoosts ?? { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
   }
 
   get name(): string {
@@ -276,6 +278,7 @@ export class Pokemon {
       ivs: options.ivs ?? this.ivs,
       moveSet: options.moveSet ?? this.moveSet.clone(),
       boosts: options.boosts ?? this.boosts,
+      bonusBoosts: options.bonusBoosts ?? this.bonusBoosts,
       status: options.status ?? this.status,
       hpPercentage: options.hpPercentage ?? this.hpPercentage
     })

@@ -29,7 +29,8 @@ function defaultState() {
       teraTypeActive: false,
       activeMove: "Draco Meteor",
       moveSet: [{ name: "Draco Meteor" }, { name: "Electro Drift" }, { name: "Dazzling Gleam" }, { name: "Volt Switch" }],
-      boosts: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+      boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+      bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
       evs: { hp: 44, atk: 0, def: 4, spa: 244, spd: 12, spe: 204 },
       ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
       hpPercentage: 100
@@ -48,7 +49,8 @@ function defaultState() {
       teraTypeActive: false,
       activeMove: "Draco Meteor",
       moveSet: [{ name: "Draco Meteor" }, { name: "Electro Drift" }, { name: "Dazzling Gleam" }, { name: "Volt Switch" }],
-      boosts: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+      boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+      bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
       evs: { hp: 44, atk: 0, def: 4, spa: 244, spd: 12, spe: 204 },
       ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
       hpPercentage: 100
@@ -67,7 +69,8 @@ function defaultState() {
       teraTypeActive: false,
       activeMove: "Flare Blitz",
       moveSet: [{ name: "Flare Blitz" }, { name: "Collision Course" }, { name: "Flame Charge" }, { name: "Protect" }],
-      boosts: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+      boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+      bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
       evs: { hp: 236, atk: 196, def: 4, spa: 0, spd: 4, spe: 68 },
       ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
       hpPercentage: 100
@@ -96,7 +99,8 @@ function defaultState() {
               teraTypeActive: false,
               activeMove: "Draco Meteor",
               moveSet: [{ name: "Draco Meteor" }, { name: "Electro Drift" }, { name: "Dazzling Gleam" }, { name: "Volt Switch" }],
-              boosts: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+              boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+              bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
               evs: { hp: 44, atk: 0, def: 4, spa: 244, spd: 12, spe: 204 },
               ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
               hpPercentage: 100
@@ -117,7 +121,8 @@ function defaultState() {
               teraTypeActive: false,
               activeMove: "Flare Blitz",
               moveSet: [{ name: "Flare Blitz" }, { name: "Collision Course" }, { name: "Flame Charge" }, { name: "Protect" }],
-              boosts: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+              boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+              bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
               evs: { hp: 236, atk: 196, def: 4, spa: 0, spd: 4, spe: 68 },
               ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
               hpPercentage: 100
@@ -138,7 +143,8 @@ function defaultState() {
               teraTypeActive: false,
               activeMove: "Wood Hammer",
               moveSet: [{ name: "Wood Hammer" }, { name: "U-turn" }, { name: "Grassy Glide" }, { name: "Fake Out" }],
-              boosts: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+              boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+              bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
               evs: { hp: 236, atk: 116, def: 4, spa: 0, spd: 76, spe: 76 },
               ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
               hpPercentage: 100
@@ -159,7 +165,8 @@ function defaultState() {
               teraTypeActive: false,
               activeMove: "Knock Off",
               moveSet: [{ name: "Knock Off" }, { name: "Fake Out" }, { name: "Parting Shot" }, { name: "Will-O-Wisp" }],
-              boosts: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+              boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+              bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
               evs: { hp: 244, atk: 0, def: 188, spa: 0, spd: 76, spe: 0 },
               ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
               hpPercentage: 100
@@ -203,7 +210,8 @@ function defaultState() {
           teraTypeActive: false,
           activeMove: "Close Combat",
           moveSet: [{ name: "Close Combat" }, { name: "Aqua Jet" }, { name: "Surging Strikes" }, { name: "Detect" }],
-          boosts: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+          boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+          bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
           evs: { hp: 4, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 },
           ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
           hpPercentage: 100
@@ -224,7 +232,8 @@ function defaultState() {
           teraTypeActive: false,
           activeMove: "Knock Off",
           moveSet: [{ name: "Knock Off" }, { name: "Fake Out" }, { name: "Parting Shot" }, { name: "Will-O-Wisp" }],
-          boosts: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+          boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+          bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
           evs: { hp: 244, atk: 0, def: 188, spa: 0, spd: 76, spe: 0 },
           ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
           hpPercentage: 100
@@ -245,7 +254,8 @@ function defaultState() {
           teraTypeActive: false,
           activeMove: "Wood Hammer",
           moveSet: [{ name: "Wood Hammer" }, { name: "U-turn" }, { name: "Grassy Glide" }, { name: "Fake Out" }],
-          boosts: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+          boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+          bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
           evs: { hp: 236, atk: 116, def: 4, spa: 0, spd: 76, spe: 76 },
           ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
           hpPercentage: 100
@@ -266,7 +276,8 @@ function defaultState() {
           teraTypeActive: false,
           activeMove: "Pollen Puff",
           moveSet: [{ name: "Pollen Puff" }, { name: "Spore" }, { name: "Rage Powder" }, { name: "Protect" }],
-          boosts: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+          boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+          bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
           evs: { hp: 236, atk: 0, def: 236, spa: 0, spd: 36, spe: 0 },
           ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
           hpPercentage: 100
@@ -287,7 +298,8 @@ function defaultState() {
           teraTypeActive: false,
           activeMove: "Moonblast",
           moveSet: [{ name: "Moonblast" }, { name: "Shadow Ball" }, { name: "Icy Wind" }, { name: "Protect" }],
-          boosts: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+          boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+          bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
           evs: { hp: 212, atk: 0, def: 132, spa: 4, spd: 4, spe: 156 },
           ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
           hpPercentage: 100
@@ -308,7 +320,8 @@ function defaultState() {
           teraTypeActive: false,
           activeMove: "Astral Barrage",
           moveSet: [{ name: "Astral Barrage" }, { name: "Psychic" }, { name: "Protect" }, { name: "Nasty Plot" }],
-          boosts: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+          boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+          bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
           evs: { hp: 84, atk: 0, def: 12, spa: 156, spd: 4, spe: 252 },
           ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
           hpPercentage: 100
@@ -329,7 +342,8 @@ function defaultState() {
           teraTypeActive: false,
           activeMove: "Glacial Lance",
           moveSet: [{ name: "Glacial Lance" }, { name: "High Horsepower" }, { name: "Trick Room" }, { name: "Protect" }],
-          boosts: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+          boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+          bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
           evs: { hp: 252, atk: 116, def: 4, spa: 0, spd: 20, spe: 116 },
           ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
           hpPercentage: 100
@@ -350,7 +364,8 @@ function defaultState() {
           teraTypeActive: false,
           activeMove: "Draco Meteor",
           moveSet: [{ name: "Draco Meteor" }, { name: "Electro Drift" }, { name: "Dazzling Gleam" }, { name: "Volt Switch" }],
-          boosts: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+          boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+          bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
           evs: { hp: 44, atk: 0, def: 4, spa: 244, spd: 12, spe: 204 },
           ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
           hpPercentage: 100
@@ -371,7 +386,8 @@ function defaultState() {
           teraTypeActive: false,
           activeMove: "Body Press",
           moveSet: [{ name: "Body Press" }, { name: "Protect" }, { name: "Heavy Slam" }, { name: "Wide Guard" }],
-          boosts: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+          boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+          bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
           evs: { hp: 92, atk: 4, def: 244, spa: 0, spd: 4, spe: 164 },
           ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
           hpPercentage: 100
@@ -392,7 +408,8 @@ function defaultState() {
           teraTypeActive: false,
           activeMove: "Tera Starstorm",
           moveSet: [{ name: "Tera Starstorm" }, { name: "Earth Power" }, { name: "Calm Mind" }, { name: "Protect" }],
-          boosts: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+          boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+          bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
           evs: { hp: 252, atk: 0, def: 180, spa: 76, spd: 0, spe: 0 },
           ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
           hpPercentage: 100

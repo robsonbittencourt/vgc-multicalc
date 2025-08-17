@@ -348,6 +348,33 @@ describe("Test calcs from moves with some mechanic", () => {
       leftPokemonBuild.terastalyze()
       rightDamageResult.damageIs(1, 16.2, 19.4, 30, 36)
     })
+
+    it("Ogerpon Wellspring should receive -1 in special defense when remove terastal", () => {
+      leftPokemonBuild.importPokemon(poke["ogerpon-wellspring"])
+      rightPokemonBuild.importPokemon(poke["farigiraf"]).selectAttackTwo()
+
+      rightDamageResult.damageIs(1, 23.2, 28.1, 43, 52)
+
+      leftPokemonBuild.terastalyze()
+      rightDamageResult.damageIs(1, 16.2, 19.4, 30, 36)
+
+      leftPokemonBuild.terastalyze()
+      rightDamageResult.damageIs(1, 23.2, 28.1, 43, 52)
+    })
+
+    it("Ogerpon Wellspring should not receive -1 in special defense when remove terastal and already have -6", () => {
+      leftPokemonBuild.importPokemon(poke["ogerpon-wellspring"])
+      rightPokemonBuild.importPokemon(poke["farigiraf"]).selectAttackTwo()
+
+      rightDamageResult.damageIs(1, 23.2, 28.1, 43, 52)
+
+      leftPokemonBuild.terastalyze()
+      rightDamageResult.damageIs(1, 16.2, 19.4, 30, 36)
+
+      leftPokemonBuild.selectStatsModifier("spd", "-6")
+      leftPokemonBuild.terastalyze()
+      rightDamageResult.damageIs(1, 94, 110.8, 174, 205)
+    })
   })
 
   describe("Intimidate debuff", () => {

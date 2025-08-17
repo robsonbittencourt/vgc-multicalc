@@ -73,19 +73,14 @@ export class TerastalButtonComponent {
 
   private updateOgerponBoost(teraTypeActive: boolean) {
     const stat = this.getOgerponBoostedStat()
-    let actual = this.pokemon().boosts[stat]!
 
-    if (teraTypeActive && actual <= 5) {
-      actual++
-      this.boostChanged = true
+    if (teraTypeActive) {
+      this.store.bonusBoost(this.pokemonId(), stat, 1)
     }
 
-    if (!teraTypeActive && this.boostChanged) {
-      actual--
-      this.boostChanged = false
+    if (!teraTypeActive) {
+      this.store.bonusBoost(this.pokemonId(), stat, -1)
     }
-
-    this.store.boosts(this.pokemonId(), { [stat]: actual })
   }
 
   private getOgerponBoostedStat(): keyof Stats {

@@ -30,6 +30,7 @@ export type PokemonState = {
   activeMove: string
   moveSet: MoveState[]
   boosts: Partial<Stats>
+  bonusBoosts: Partial<Stats>
   evs: Partial<Stats>
   ivs: Partial<Stats>
   hpPercentage: number
@@ -151,6 +152,25 @@ export class CalculatorStore extends signalStore(
 
   boosts(pokemonId: string, boosts: Partial<Stats>) {
     this.updatePokemonById(pokemonId, () => ({ boosts }))
+  }
+
+  bonusBoost(pokemonId: string, stat: keyof Stats, value: number) {
+    const pokemon = this.findPokemonById(pokemonId)
+    let actual = pokemon.boosts[stat]!
+    const bonusBoosts: Partial<Stats> = { [stat]: value }
+    const hasBonusBoost = pokemon.bonusBoosts[stat] != 0
+
+    if (value > 0 && actual <= 5) {
+      actual++
+      this.updatePokemonById(pokemonId, () => ({ bonusBoosts }))
+    }
+
+    if (value < 0 && actual >= -5 && hasBonusBoost) {
+      actual--
+      this.updatePokemonById(pokemonId, () => ({ bonusBoosts }))
+    }
+
+    this.boosts(pokemonId, { [stat]: actual })
   }
 
   moveOne(pokemonId: string, moveOne: string) {

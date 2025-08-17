@@ -35,7 +35,8 @@ describe("User Data Mapper", () => {
       expect(result.speedCalcPokemon.teraTypeActive).toBe(true)
       expect(result.speedCalcPokemon.activeMove).toBe("Thunderbolt")
       expect(result.speedCalcPokemon.moveSet).toEqual(["Thunderbolt", "Quick Attack", "Volt Tackle", "Iron Tail"])
-      expect(result.speedCalcPokemon.boosts).toEqual({ hp: 0, atk: -1, def: -2, spa: 1, spd: 2, spe: 3 })
+      expect(result.speedCalcPokemon.boosts).toEqual({ atk: -1, def: -2, spa: 1, spd: 2, spe: 3 })
+      expect(result.speedCalcPokemon.bonusBoosts).toEqual({ atk: -1, def: 0, spa: 0, spd: 0, spe: 0 })
       expect(result.speedCalcPokemon.evs).toEqual({ hp: 4, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 })
       expect(result.speedCalcPokemon.ivs).toEqual({ hp: 26, atk: 27, def: 28, spa: 29, spd: 30, spe: 31 })
     })
@@ -71,7 +72,8 @@ describe("User Data Mapper", () => {
       expect(result.leftPokemon.teraTypeActive).toBe(true)
       expect(result.leftPokemon.activeMove).toBe("Thunderbolt")
       expect(result.leftPokemon.moveSet).toEqual(["Thunderbolt", "Quick Attack", "Volt Tackle", "Iron Tail"])
-      expect(result.leftPokemon.boosts).toEqual({ hp: 0, atk: -1, def: -2, spa: 1, spd: 2, spe: 3 })
+      expect(result.leftPokemon.boosts).toEqual({ atk: -1, def: -2, spa: 1, spd: 2, spe: 3 })
+      expect(result.leftPokemon.bonusBoosts).toEqual({ atk: -1, def: 0, spa: 0, spd: 0, spe: 0 })
       expect(result.leftPokemon.evs).toEqual({ hp: 4, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 })
       expect(result.leftPokemon.ivs).toEqual({ hp: 26, atk: 27, def: 28, spa: 29, spd: 30, spe: 31 })
     })
@@ -107,7 +109,8 @@ describe("User Data Mapper", () => {
       expect(result.rightPokemon.teraTypeActive).toBe(true)
       expect(result.rightPokemon.activeMove).toBe("Thunderbolt")
       expect(result.rightPokemon.moveSet).toEqual(["Thunderbolt", "Quick Attack", "Volt Tackle", "Iron Tail"])
-      expect(result.rightPokemon.boosts).toEqual({ hp: 0, atk: -1, def: -2, spa: 1, spd: 2, spe: 3 })
+      expect(result.rightPokemon.boosts).toEqual({ atk: -1, def: -2, spa: 1, spd: 2, spe: 3 })
+      expect(result.rightPokemon.bonusBoosts).toEqual({ atk: -1, def: 0, spa: 0, spd: 0, spe: 0 })
       expect(result.rightPokemon.evs).toEqual({ hp: 4, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 })
       expect(result.rightPokemon.ivs).toEqual({ hp: 26, atk: 27, def: 28, spa: 29, spd: 30, spe: 31 })
     })
@@ -218,7 +221,8 @@ describe("User Data Mapper", () => {
       expect(result.speedCalcPokemonState.teraTypeActive).toBe(true)
       expect(result.speedCalcPokemonState.activeMove).toBe("Thunderbolt")
       expect(result.speedCalcPokemonState.moveSet).toEqual([{ name: "Thunderbolt" }, { name: "Quick Attack" }, { name: "Volt Tackle" }, { name: "Iron Tail" }])
-      expect(result.speedCalcPokemonState.boosts).toEqual({ hp: 0, atk: -1, def: -2, spa: 1, spd: 2, spe: 3 })
+      expect(result.speedCalcPokemonState.boosts).toEqual({ atk: -1, def: -2, spa: 1, spd: 2, spe: 3 })
+      expect(result.speedCalcPokemonState.bonusBoosts).toEqual({ atk: -1, def: 0, spa: 0, spd: 0, spe: 0 })
       expect(result.speedCalcPokemonState.evs).toEqual({ hp: 4, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 })
       expect(result.speedCalcPokemonState.ivs).toEqual({ hp: 26, atk: 27, def: 28, spa: 29, spd: 30, spe: 31 })
     })
@@ -250,7 +254,8 @@ describe("User Data Mapper", () => {
       expect(result.speedCalcPokemonState.teraTypeActive).toBe(true)
       expect(result.speedCalcPokemonState.activeMove).toBe("Thunderbolt")
       expect(result.speedCalcPokemonState.moveSet).toEqual([{ name: "Thunderbolt" }, { name: "Quick Attack" }, { name: "Volt Tackle" }, { name: "Iron Tail" }])
-      expect(result.speedCalcPokemonState.boosts).toEqual({ hp: 0, atk: -1, def: -2, spa: 1, spd: 2, spe: 3 })
+      expect(result.speedCalcPokemonState.boosts).toEqual({ atk: -1, def: -2, spa: 1, spd: 2, spe: 3 })
+      expect(result.speedCalcPokemonState.bonusBoosts).toEqual({ atk: -1, def: 0, spa: 0, spd: 0, spe: 0 })
       expect(result.speedCalcPokemonState.evs).toEqual({ hp: 4, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 })
       expect(result.speedCalcPokemonState.ivs).toEqual({ hp: 26, atk: 27, def: 28, spa: 29, spd: 30, spe: 31 })
     })
@@ -282,7 +287,8 @@ describe("User Data Mapper", () => {
       expect(result.leftPokemonState.teraTypeActive).toBe(true)
       expect(result.leftPokemonState.activeMove).toBe("Thunderbolt")
       expect(result.leftPokemonState.moveSet).toEqual([{ name: "Thunderbolt" }, { name: "Quick Attack" }, { name: "Volt Tackle" }, { name: "Iron Tail" }])
-      expect(result.leftPokemonState.boosts).toEqual({ hp: 0, atk: -1, def: -2, spa: 1, spd: 2, spe: 3 })
+      expect(result.leftPokemonState.boosts).toEqual({ atk: -1, def: -2, spa: 1, spd: 2, spe: 3 })
+      expect(result.speedCalcPokemonState.bonusBoosts).toEqual({ atk: -1, def: 0, spa: 0, spd: 0, spe: 0 })
       expect(result.leftPokemonState.evs).toEqual({ hp: 4, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 })
       expect(result.leftPokemonState.ivs).toEqual({ hp: 26, atk: 27, def: 28, spa: 29, spd: 30, spe: 31 })
     })
@@ -314,7 +320,8 @@ describe("User Data Mapper", () => {
       expect(result.rightPokemonState.teraTypeActive).toBe(true)
       expect(result.rightPokemonState.activeMove).toBe("Flamethrower")
       expect(result.rightPokemonState.moveSet).toEqual([{ name: "Flamethrower" }, { name: "Scratch" }, { name: "Growl" }, { name: "Ember" }])
-      expect(result.rightPokemonState.boosts).toEqual({ hp: 0, atk: 2, def: 3, spa: 4, spd: 5, spe: -2 })
+      expect(result.rightPokemonState.boosts).toEqual({ atk: 2, def: 3, spa: 4, spd: 5, spe: -2 })
+      expect(result.rightPokemonState.bonusBoosts).toEqual({ atk: 0, def: 0, spa: 0, spd: 0, spe: -1 })
       expect(result.rightPokemonState.evs).toEqual({ hp: 4, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 })
       expect(result.rightPokemonState.ivs).toEqual({ hp: 0, atk: 1, def: 2, spa: 3, spd: 4, spe: 5 })
     })
@@ -433,7 +440,8 @@ const pikachuState: PokemonState = {
   teraTypeActive: true,
   activeMove: "Thunderbolt",
   moveSet: [{ name: "Thunderbolt" }, { name: "Quick Attack" }, { name: "Volt Tackle" }, { name: "Iron Tail" }],
-  boosts: { hp: 0, atk: -1, def: -2, spa: 1, spd: 2, spe: 3 },
+  boosts: { atk: -1, def: -2, spa: 1, spd: 2, spe: 3 },
+  bonusBoosts: { atk: -1, def: 0, spa: 0, spd: 0, spe: 0 },
   evs: { hp: 4, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 },
   ivs: { hp: 26, atk: 27, def: 28, spa: 29, spd: 30, spe: 31 },
   hpPercentage: 100
@@ -452,7 +460,8 @@ const bulbasaurState: PokemonState = {
   teraTypeActive: false,
   activeMove: "Vine Whip",
   moveSet: [{ name: "Vine Whip" }, { name: "Razor Leaf" }, { name: "Tackle" }, { name: "Growl" }],
-  boosts: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+  boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+  bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
   evs: { hp: 4, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 },
   ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
   hpPercentage: 100
@@ -471,7 +480,8 @@ const charmanderState: PokemonState = {
   teraTypeActive: true,
   activeMove: "Flamethrower",
   moveSet: [{ name: "Flamethrower" }, { name: "Scratch" }, { name: "Growl" }, { name: "Ember" }],
-  boosts: { hp: 0, atk: 2, def: 3, spa: 4, spd: 5, spe: -2 },
+  boosts: { atk: 2, def: 3, spa: 4, spd: 5, spe: -2 },
+  bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
   evs: { hp: 4, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 },
   ivs: { hp: 0, atk: 1, def: 2, spa: 3, spd: 4, spe: 5 },
   hpPercentage: 100
@@ -489,7 +499,8 @@ const pikachuUserData = {
   teraTypeActive: true,
   activeMove: "Thunderbolt",
   moveSet: ["Thunderbolt", "Quick Attack", "Volt Tackle", "Iron Tail"],
-  boosts: { hp: 0, atk: -1, def: -2, spa: 1, spd: 2, spe: 3 },
+  boosts: { atk: -1, def: -2, spa: 1, spd: 2, spe: 3 },
+  bonusBoosts: { atk: -1, def: 0, spa: 0, spd: 0, spe: 0 },
   evs: { hp: 4, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 },
   ivs: { hp: 26, atk: 27, def: 28, spa: 29, spd: 30, spe: 31 }
 }
@@ -507,7 +518,8 @@ const bulbasaurUserData = {
   teraTypeActive: false,
   activeMove: "Vine Whip",
   moveSet: ["Vine Whip", "Razor Leaf", "Tackle", "Growl"],
-  boosts: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+  boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+  bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
   evs: { hp: 4, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 },
   ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 }
 }
@@ -525,7 +537,8 @@ const charmanderUserData = {
   teraTypeActive: true,
   activeMove: "Flamethrower",
   moveSet: ["Flamethrower", "Scratch", "Growl", "Ember"],
-  boosts: { hp: 0, atk: 2, def: 3, spa: 4, spd: 5, spe: -2 },
+  boosts: { atk: 2, def: 3, spa: 4, spd: 5, spe: -2 },
+  bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: -1 },
   evs: { hp: 4, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 },
   ivs: { hp: 0, atk: 1, def: 2, spa: 3, spd: 4, spe: 5 }
 }

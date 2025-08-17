@@ -210,6 +210,44 @@ describe("Calculator Store", () => {
         expect(store.team().activePokemon().boosts).toEqual({ atk: 1, def: 2, spa: -1, spd: -2, spe: -3 })
       })
 
+      it("should increase Pokémon Bonus Boosts", () => {
+        store.bonusBoost(defaultId, "atk", +1)
+
+        expect(store.team().activePokemon().boosts).toEqual({ atk: 1, def: 0, spa: 0, spd: 0, spe: 0 })
+        expect(store.team().activePokemon().bonusBoosts).toEqual({ atk: 1 })
+      })
+
+      it("should decrease Pokémon Boosts and Bonus only if have a previous bonus", () => {
+        store.boosts(defaultId, { atk: 0 })
+        store.bonusBoost(defaultId, "atk", 1)
+
+        expect(store.team().activePokemon().boosts).toEqual({ atk: 1, def: 0, spa: 0, spd: 0, spe: 0 })
+        expect(store.team().activePokemon().bonusBoosts).toEqual({ atk: 1 })
+
+        store.bonusBoost(defaultId, "atk", -1)
+
+        expect(store.team().activePokemon().boosts).toEqual({ atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
+        expect(store.team().activePokemon().bonusBoosts).toEqual({ atk: -1 })
+      })
+
+      it("should not increase Pokémon Boosts and Bonus if already maximized", () => {
+        store.boosts(defaultId, { atk: 6 })
+
+        store.bonusBoost(defaultId, "atk", +1)
+
+        expect(store.team().activePokemon().boosts).toEqual({ atk: 6, def: 0, spa: 0, spd: 0, spe: 0 })
+        expect(store.team().activePokemon().bonusBoosts).toEqual({ atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
+      })
+
+      it("should not decrease Pokémon Boosts and Bonus if already minimized", () => {
+        store.boosts(defaultId, { atk: -6 })
+
+        store.bonusBoost(defaultId, "atk", -1)
+
+        expect(store.team().activePokemon().boosts).toEqual({ atk: -6, def: 0, spa: 0, spd: 0, spe: 0 })
+        expect(store.team().activePokemon().bonusBoosts).toEqual({ atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
+      })
+
       it("should update Pokémon Move one", () => {
         store.moveOne(defaultId, "Earthquake")
 
@@ -723,7 +761,8 @@ const pikachuState: PokemonState = {
   teraTypeActive: true,
   activeMove: "Thunderbolt",
   moveSet: [{ name: "Thunderbolt" }, { name: "Quick Attack" }, { name: "Volt Tackle" }, { name: "Iron Tail" }],
-  boosts: { hp: 0, atk: -1, def: -2, spa: 1, spd: 2, spe: 3 },
+  boosts: { atk: -1, def: -2, spa: 1, spd: 2, spe: 3 },
+  bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
   evs: { hp: 4, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 },
   ivs: { hp: 26, atk: 27, def: 28, spa: 29, spd: 30, spe: 31 },
   hpPercentage: 100
@@ -742,7 +781,8 @@ const raichuState: PokemonState = {
   teraTypeActive: true,
   activeMove: "Thunderbolt",
   moveSet: [{ name: "Thunderbolt" }, { name: "Quick Attack" }, { name: "Volt Tackle" }, { name: "Iron Tail" }],
-  boosts: { hp: 0, atk: 0, def: 0, spa: 1, spd: 2, spe: 3 },
+  boosts: { atk: 0, def: 0, spa: 1, spd: 2, spe: 3 },
+  bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
   evs: { hp: 0, atk: 0, def: 4, spa: 252, spd: 0, spe: 252 },
   ivs: { hp: 26, atk: 27, def: 28, spa: 29, spd: 30, spe: 31 },
   hpPercentage: 100
