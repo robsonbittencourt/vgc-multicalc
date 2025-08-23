@@ -2,7 +2,8 @@ import { Injectable } from "@angular/core"
 import { Field } from "@lib/model/field"
 import { Pokemon } from "@lib/model/pokemon"
 import { Status } from "@lib/model/status"
-import { Pokemon as SmogonPokemon, StatID } from "@robsonbittencourt/calc"
+import { Generations, Move, Field as SmogonField, Pokemon as SmogonPokemon, StatID } from "@robsonbittencourt/calc"
+import { Generation, MoveCategory } from "@robsonbittencourt/calc/dist/data/interface"
 import { StatIDExceptHP } from "@robsonbittencourt/calc/src/data/interface"
 
 @Injectable({ providedIn: "root" })
@@ -97,6 +98,126 @@ export class SmogonFunctions {
     }
 
     return bestStat
+  }
+
+  calculateAttackSMSSSV(attacker: SmogonPokemon, defender: SmogonPokemon, move: Move, field: SmogonField, isCritical = false) {
+    const gen = Generations.get(9)
+    let attack: number
+    const attackStat = move.named("Shell Side Arm") && this.getShellSideArmCategory(attacker, defender) === "Physical" ? "atk" : move.named("Body Press") ? "def" : move.category === "Special" ? "spa" : "atk"
+
+    // desc.attackEVs =
+    //   move.named('Foul Play')
+    //     ? getStatDescriptionText(gen, defender, attackStat, defender.nature)
+    //     : getStatDescriptionText(gen, attacker, attackStat, attacker.nature);
+
+    const attackSource = move.named("Foul Play") ? defender : attacker
+    if (attackSource.boosts[attackStat] === 0 || (isCritical && attackSource.boosts[attackStat] < 0)) {
+      attack = attackSource.rawStats[attackStat]
+    } else if (defender.hasAbility("Unaware")) {
+      attack = attackSource.rawStats[attackStat]
+    } else {
+      attack = this.getModifiedStat(attackSource.rawStats[attackStat]!, attackSource.boosts[attackStat]!)
+    }
+
+    if (attacker.hasAbility("Hustle") && move.category === "Physical") {
+      attack = this.pokeRound((attack * 3) / 2)
+    }
+
+    const atMods = this.calculateAtModsSMSSSV(gen, attacker, defender, move, field)
+    attack = this.OF16(Math.max(1, this.pokeRound((attack * this.chainMods(atMods, 410, 131072)) / 4096)))
+    return attack
+  }
+
+  private calculateAtModsSMSSSV(gen: Generation, attacker: SmogonPokemon, defender: SmogonPokemon, move: Move, field: SmogonField) {
+    const atMods = []
+
+    // Slow Start also halves damage with special Z-moves
+    if ((attacker.hasAbility("Slow Start") && attacker.abilityOn && (move.category === "Physical" || (move.category === "Special" && move.isZ))) || (attacker.hasAbility("Defeatist") && attacker.curHP() <= attacker.maxHP() / 2)) {
+      atMods.push(2048)
+    } else if (
+      (attacker.hasAbility("Solar Power") && field.hasWeather("Sun", "Harsh Sunshine") && move.category === "Special") ||
+      (attacker.named("Cherrim") && attacker.hasAbility("Flower Gift") && field.hasWeather("Sun", "Harsh Sunshine") && move.category === "Physical")
+    ) {
+      atMods.push(6144)
+    } else if (
+      // Gorilla Tactics has no effect during Dynamax (Anubis)
+      attacker.hasAbility("Gorilla Tactics") &&
+      move.category === "Physical" &&
+      !attacker.isDynamaxed
+    ) {
+      atMods.push(6144)
+    } else if (
+      (attacker.hasAbility("Guts") && attacker.status && move.category === "Physical") ||
+      (attacker.curHP() <= attacker.maxHP() / 3 &&
+        ((attacker.hasAbility("Overgrow") && move.hasType("Grass")) || (attacker.hasAbility("Blaze") && move.hasType("Fire")) || (attacker.hasAbility("Torrent") && move.hasType("Water")) || (attacker.hasAbility("Swarm") && move.hasType("Bug")))) ||
+      (move.category === "Special" && attacker.abilityOn && attacker.hasAbility("Plus", "Minus"))
+    ) {
+      atMods.push(6144)
+    } else if (attacker.hasAbility("Flash Fire") && attacker.abilityOn && move.hasType("Fire")) {
+      atMods.push(6144)
+    } else if ((attacker.hasAbility("Steelworker") && move.hasType("Steel")) || (attacker.hasAbility("Dragon's Maw") && move.hasType("Dragon")) || (attacker.hasAbility("Rocky Payload") && move.hasType("Rock"))) {
+      atMods.push(6144)
+    } else if (attacker.hasAbility("Transistor") && move.hasType("Electric")) {
+      atMods.push(gen.num >= 9 ? 5325 : 6144)
+    } else if (attacker.hasAbility("Stakeout") && attacker.abilityOn) {
+      atMods.push(8192)
+    } else if ((attacker.hasAbility("Water Bubble") && move.hasType("Water")) || (attacker.hasAbility("Huge Power", "Pure Power") && move.category === "Physical")) {
+      atMods.push(8192)
+    }
+
+    if (field.attackerSide.isFlowerGift && !attacker.hasAbility("Flower Gift") && field.hasWeather("Sun", "Harsh Sunshine") && move.category === "Physical") {
+      atMods.push(6144)
+    }
+
+    if (field.attackerSide.isSteelySpirit && move.hasType("Steel")) {
+      atMods.push(6144)
+    }
+
+    if ((defender.hasAbility("Thick Fat") && move.hasType("Fire", "Ice")) || (defender.hasAbility("Water Bubble") && move.hasType("Fire")) || (defender.hasAbility("Purifying Salt") && move.hasType("Ghost"))) {
+      atMods.push(2048)
+    }
+
+    if (gen.num >= 9 && defender.hasAbility("Heatproof") && move.hasType("Fire")) {
+      atMods.push(2048)
+    }
+    // Pokemon with "-of Ruin" Ability are immune to the opposing "-of Ruin" ability
+    const isTabletsOfRuinActive = (defender.hasAbility("Tablets of Ruin") || field.isTabletsOfRuin) && !attacker.hasAbility("Tablets of Ruin")
+    const isVesselOfRuinActive = (defender.hasAbility("Vessel of Ruin") || field.isVesselOfRuin) && !attacker.hasAbility("Vessel of Ruin")
+    if ((isTabletsOfRuinActive && move.category === "Physical") || (isVesselOfRuinActive && move.category === "Special")) {
+      atMods.push(3072)
+    }
+
+    // if (this.isQPActive(attacker, field)) {
+    //   if ((move.category === "Physical" && getQPBoostedStat(attacker) === "atk") || (move.category === "Special" && getQPBoostedStat(attacker) === "spa")) {
+    //     atMods.push(5325)
+    //     desc.attackerAbility = attacker.ability
+    //   }
+    // }
+
+    if (
+      (attacker.hasAbility("Hadron Engine") && move.category === "Special" && field.hasTerrain("Electric")) ||
+      (attacker.hasAbility("Orichalcum Pulse") && move.category === "Physical" && field.hasWeather("Sun", "Harsh Sunshine") && !attacker.hasItem("Utility Umbrella"))
+    ) {
+      atMods.push(5461)
+    }
+
+    if (
+      (attacker.hasItem("Thick Club") && attacker.named("Cubone", "Marowak", "Marowak-Alola", "Marowak-Alola-Totem") && move.category === "Physical") ||
+      (attacker.hasItem("Deep Sea Tooth") && attacker.named("Clamperl") && move.category === "Special") ||
+      (attacker.hasItem("Light Ball") && attacker.name.includes("Pikachu") && !move.isZ)
+    ) {
+      atMods.push(8192)
+      // Choice Band/Scarf/Specs move lock and stat boosts are ignored during Dynamax (Anubis)
+    } else if (!move.isZ && !move.isMax && ((attacker.hasItem("Choice Band") && move.category === "Physical") || (attacker.hasItem("Choice Specs") && move.category === "Special"))) {
+      atMods.push(6144)
+    }
+    return atMods
+  }
+
+  private getShellSideArmCategory(source: SmogonPokemon, target: SmogonPokemon): MoveCategory {
+    const physicalDamage = source.stats.atk / target.stats.def
+    const specialDamage = source.stats.spa / target.stats.spd
+    return physicalDamage > specialDamage ? "Physical" : "Special"
   }
 
   private isQPActive(pokemon: Pokemon, field: Field) {

@@ -9,7 +9,7 @@ import { Status } from "@lib/model/status"
 import { SmogonFunctions } from "@lib/smogon/smogon-functions"
 import { SmogonPokemonBuilder } from "@lib/smogon/smogon-pokemon-builder"
 import { Jumps, PokemonParameters, Stats } from "@lib/types"
-import { Pokemon as SmogonPokemon } from "@robsonbittencourt/calc"
+import { Field, Generations, Move as MoveSmogon, Pokemon as SmogonPokemon } from "@robsonbittencourt/calc"
 import { TypeName } from "@robsonbittencourt/calc/dist/data/interface"
 import { StatID, StatIDExceptHP } from "@robsonbittencourt/calc/src/data/interface"
 import { v4 as uuidv4 } from "uuid"
@@ -201,7 +201,7 @@ export class Pokemon {
   }
 
   get modifiedAtk(): number {
-    return this.getModifiedStat("atk")
+    return this.smogonFunctions.calculateAttackSMSSSV(this.smogonPokemon, this.smogonPokemon, new MoveSmogon(Generations.get(9), this.activeMoveName), new Field(), true)
   }
 
   get baseDef(): number {
