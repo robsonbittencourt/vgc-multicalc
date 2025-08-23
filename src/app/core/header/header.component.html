@@ -20,7 +20,7 @@
   </div>
   <div class="right-header">
     @if (userDataLink) {
-      <mat-icon (click)="copyUserDataLink()">content_copy</mat-icon>
+      <app-copy-button [value]="userDataLink" />
       <a target="_blank" [href]="userDataLink">Link</a>
     }
     <button mat-flat-button color="link" (click)="uploadData()">Share your calcs</button>

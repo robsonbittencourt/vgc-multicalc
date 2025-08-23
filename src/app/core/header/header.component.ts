@@ -4,6 +4,7 @@ import { MatButton } from "@angular/material/button"
 import { MatDivider } from "@angular/material/divider"
 import { MatIcon } from "@angular/material/icon"
 import { MatMenu, MatMenuTrigger } from "@angular/material/menu"
+import { CopyButtonComponent } from "@app/basic/copy-button/copy-button.component"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { FieldStore } from "@data/store/field-store"
 import { MenuStore } from "@data/store/menu-store"
@@ -16,7 +17,7 @@ import { v4 as uuidv4 } from "uuid"
   selector: "app-header",
   templateUrl: "./header.component.html",
   styleUrls: ["./header.component.scss"],
-  imports: [NgClass, MatIcon, MatButton, MatMenu, MatMenuTrigger, MatDivider, TitleCasePipe]
+  imports: [NgClass, MatIcon, MatButton, MatMenu, MatMenuTrigger, MatDivider, TitleCasePipe, CopyButtonComponent]
 })
 export class HeaderComponent {
   store = inject(CalculatorStore)
