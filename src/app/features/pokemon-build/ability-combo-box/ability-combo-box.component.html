@@ -3,7 +3,7 @@
     @if (pokemon().isParadoxAbility && pokemon().ability.on) {
       <span>+{{ pokemon().higherStat | titlecase }}</span>
     }
-    <mat-checkbox [ngModel]="pokemon().ability.on" (change)="toogleAbility($event)" data-cy="activate-ability" />
+    <mat-checkbox [ngModel]="pokemon().ability.on" (change)="toogleAbility($event)" [disabled]="abilityCheckDisabled()" data-cy="activate-ability" />
   </div>
 }
 
