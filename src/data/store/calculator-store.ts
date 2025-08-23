@@ -1,4 +1,4 @@
-import { computed, effect, Injectable } from "@angular/core"
+import { computed, effect, inject, Injectable } from "@angular/core"
 import { SETDEX_SV } from "@data/movesets"
 import { initialCalculatorState } from "@data/store/utils/initial-calculator-state"
 import { pokemonToState, stateToPokemon, stateToTargets, stateToTeam, stateToTeams, targetToState, teamToState } from "@data/store/utils/state-mapper"
@@ -9,6 +9,7 @@ import { Target } from "@lib/model/target"
 import { Team } from "@lib/model/team"
 import { MovePosition, Stats } from "@lib/types"
 import { patchState, signalStore, withHooks, withState } from "@ngrx/signals"
+import { FieldStore } from "./field-store"
 
 export type MoveState = {
   name: string
@@ -81,12 +82,15 @@ export class CalculatorStore extends signalStore(
     }
   }))
 ) {
-  readonly speedCalcPokemon = computed(() => stateToPokemon(this.speedCalcPokemonState()))
-  readonly leftPokemon = computed(() => stateToPokemon(this.leftPokemonState()))
-  readonly rightPokemon = computed(() => stateToPokemon(this.rightPokemonState()))
-  readonly team = computed(() => stateToTeam(this.teamsState().find(t => t.active)!))
-  readonly teams = computed(() => stateToTeams(this.teamsState()))
-  readonly targets = computed(() => stateToTargets(this.targetsState()))
+  private fieldStore = inject(FieldStore)
+  private field = computed(() => this.fieldStore.field())
+
+  readonly speedCalcPokemon = computed(() => stateToPokemon(this.speedCalcPokemonState(), this.field()))
+  readonly leftPokemon = computed(() => stateToPokemon(this.leftPokemonState(), this.field()))
+  readonly rightPokemon = computed(() => stateToPokemon(this.rightPokemonState(), this.field()))
+  readonly team = computed(() => stateToTeam(this.teamsState().find(t => t.active)!, this.field()))
+  readonly teams = computed(() => stateToTeams(this.teamsState(), this.field()))
+  readonly targets = computed(() => stateToTargets(this.targetsState(), this.field()))
   readonly attackerId = computed(() => this.team().teamMembers.find(t => t.active && t.pokemon.id != this.secondAttackerId())!.pokemon.id)
 
   updateStateLockingLocalStorage(state: CalculatorState) {
@@ -343,25 +347,25 @@ export class CalculatorStore extends signalStore(
   }
 
   findNullablePokemonById(pokemonId: string): Pokemon | undefined {
-    if (this.speedCalcPokemonState().id == pokemonId) return stateToPokemon(this.speedCalcPokemonState())
+    if (this.speedCalcPokemonState().id == pokemonId) return stateToPokemon(this.speedCalcPokemonState(), this.field())
 
-    if (this.leftPokemonState().id == pokemonId) return stateToPokemon(this.leftPokemonState())
+    if (this.leftPokemonState().id == pokemonId) return stateToPokemon(this.leftPokemonState(), this.field())
 
-    if (this.rightPokemonState().id == pokemonId) return stateToPokemon(this.rightPokemonState())
+    if (this.rightPokemonState().id == pokemonId) return stateToPokemon(this.rightPokemonState(), this.field())
 
     const pokemonFromTeam = this.teamsState()
       .find(team => team.teamMembers.some(member => member.pokemon.id === pokemonId))
       ?.teamMembers.find(member => member.pokemon.id === pokemonId)?.pokemon
 
-    if (pokemonFromTeam) return stateToPokemon(pokemonFromTeam)
+    if (pokemonFromTeam) return stateToPokemon(pokemonFromTeam, this.field())
 
     const pokemonFromTargets = this.targetsState().find(target => target.pokemon.id == pokemonId)
 
-    if (pokemonFromTargets) return stateToPokemon(pokemonFromTargets.pokemon)
+    if (pokemonFromTargets) return stateToPokemon(pokemonFromTargets.pokemon, this.field())
 
     const secondPokemonFromTargets = this.targetsState().find(target => target.secondPokemon?.id == pokemonId)
 
-    return secondPokemonFromTargets ? stateToPokemon(secondPokemonFromTargets.secondPokemon!) : undefined
+    return secondPokemonFromTargets ? stateToPokemon(secondPokemonFromTargets.secondPokemon!, this.field()) : undefined
   }
 
   buildUserData() {
