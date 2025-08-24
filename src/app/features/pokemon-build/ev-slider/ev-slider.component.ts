@@ -1,3 +1,4 @@
+import { NgStyle } from "@angular/common"
 import { AfterViewInit, Component, computed, inject, input, model, signal, viewChild } from "@angular/core"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { MatOption } from "@angular/material/core"
@@ -13,7 +14,7 @@ import { Stats } from "@lib/types"
   selector: "app-ev-slider",
   templateUrl: "./ev-slider.component.html",
   styleUrls: ["./ev-slider.component.scss"],
-  imports: [MatFormField, MatSuffix, ReactiveFormsModule, MatInput, FormsModule, MatSelect, MatOption, MatLabel, MatSlider, MatSliderThumb, MatTooltip]
+  imports: [NgStyle, MatFormField, MatSuffix, ReactiveFormsModule, MatInput, FormsModule, MatSelect, MatOption, MatLabel, MatSlider, MatSliderThumb, MatTooltip]
 })
 export class EvSliderComponent implements AfterViewInit {
   pokemonId = input.required<string>()
@@ -62,6 +63,15 @@ export class EvSliderComponent implements AfterViewInit {
   })
 
   statValue = computed(() => {
+    if (this.stat() == "hp") return this.pokemon().hp
+    if (this.stat() == "atk") return this.pokemon().atk
+    if (this.stat() == "def") return this.pokemon().modifiedDef
+    if (this.stat() == "spa") return this.pokemon().spa
+    if (this.stat() == "spd") return this.pokemon().modifiedSpd
+    return this.pokemon().modifiedSpe
+  })
+
+  modifiedStat = computed(() => {
     if (this.stat() == "hp") return this.pokemon().hp
     if (this.stat() == "atk") return this.pokemon().modifiedAtk
     if (this.stat() == "def") return this.pokemon().modifiedDef
@@ -212,6 +222,18 @@ export class EvSliderComponent implements AfterViewInit {
 
   resetMousePosition() {
     this.previousMouseX = null
+  }
+
+  statValueStyle(): any {
+    if (this.modifiedStat() > this.statValue()) {
+      return { color: "#69e969" }
+    }
+
+    if (this.modifiedStat() < this.statValue()) {
+      return { color: "#f73f3f" }
+    }
+
+    return ""
   }
 
   private evsExceed(): boolean {

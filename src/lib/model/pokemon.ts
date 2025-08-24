@@ -200,8 +200,12 @@ export class Pokemon {
     return this.smogonPokemon.species.baseStats.atk
   }
 
+  get atk(): number {
+    return this.smogonPokemon.stats.atk
+  }
+
   get modifiedAtk(): number {
-    return this.smogonFunctions.calculateAttackSMSSSV(this.smogonPokemon, this.smogonPokemon, new MoveSmogon(Generations.get(9), this.activeMoveName), new Field(), true)
+    return this.smogonFunctions.getFinalAttack(this.smogonPokemon, new MoveSmogon(Generations.get(9), this.activeMoveName), new Field(), false)
   }
 
   get baseDef(): number {
@@ -216,8 +220,12 @@ export class Pokemon {
     return this.smogonPokemon.species.baseStats.spa
   }
 
+  get spa(): number {
+    return this.smogonPokemon.stats.spa
+  }
+
   get modifiedSpa(): number {
-    return this.getModifiedStat("spa")
+    return this.smogonFunctions.getFinalSpecialAttack(this.smogonPokemon, new MoveSmogon(Generations.get(9), this.activeMoveName), new Field(), false)
   }
 
   get baseSpd(): number {
