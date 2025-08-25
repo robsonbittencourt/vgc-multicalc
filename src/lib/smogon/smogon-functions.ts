@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core"
 import { Field } from "@lib/model/field"
 import { Pokemon } from "@lib/model/pokemon"
 import { Status } from "@lib/model/status"
-import { Generations, Move, Field as SmogonField, Pokemon as SmogonPokemon, StatID } from "@robsonbittencourt/calc"
+import { Generations, Move, Pokemon as SmogonPokemon, StatID } from "@robsonbittencourt/calc"
 import { StatIDExceptHP } from "@robsonbittencourt/calc/src/data/interface"
 
 @Injectable({ providedIn: "root" })
@@ -99,25 +99,25 @@ export class SmogonFunctions {
     return bestStat
   }
 
-  getFinalAttack(attacker: SmogonPokemon, move: Move, field: SmogonField, isCritical = false): number {
+  getFinalAttack(attacker: Pokemon, move: Move, field: Field, isCritical = false): number {
     return this.calculateAttackSMSSSV(true, attacker, move, field, isCritical)
   }
 
-  getFinalSpecialAttack(attacker: SmogonPokemon, move: Move, field: SmogonField, isCritical = false): number {
+  getFinalSpecialAttack(attacker: Pokemon, move: Move, field: Field, isCritical = false): number {
     return this.calculateAttackSMSSSV(false, attacker, move, field, isCritical)
   }
 
-  private calculateAttackSMSSSV(isAttack: boolean, attacker: SmogonPokemon, move: Move, field: SmogonField, isCritical = false): number {
+  private calculateAttackSMSSSV(isAttack: boolean, attacker: Pokemon, move: Move, field: Field, isCritical = false): number {
     let attack: number
     const attackStat = isAttack ? "atk" : "spa"
 
-    if (attacker.boosts[attackStat] === 0 || (isCritical && attacker.boosts[attackStat] < 0)) {
-      attack = attacker.rawStats[attackStat]
+    if (attacker.boosts[attackStat] === 0 || (isCritical && attacker.boosts[attackStat]! < 0)) {
+      attack = attacker.rawStats[attackStat]!
     } else {
       attack = this.getModifiedStat(attacker.rawStats[attackStat]!, attacker.boosts[attackStat]!)
     }
 
-    if (attacker.hasAbility("Hustle") && move.category === "Physical") {
+    if (attacker.hasAbility("Hustle") && move.category === "Physical" && isAttack) {
       attack = this.pokeRound((attack * 3) / 2)
     }
 
@@ -126,22 +126,24 @@ export class SmogonFunctions {
     return attack
   }
 
-  private calculateAtModsSMSSSV(isAttack: boolean, attacker: SmogonPokemon, move: Move, field: SmogonField) {
+  private calculateAtModsSMSSSV(isAttack: boolean, attacker: Pokemon, move: Move, field: Field) {
     const gen = Generations.get(9)
     const atMods = []
 
-    if (attacker.hasAbility("Slow Start") && attacker.abilityOn && move.category === "Physical") {
+    if (attacker.hasAbility("Slow Start") && attacker.abilityOn && isAttack) {
       atMods.push(2048)
-    } else if (attacker.hasAbility("Solar Power") && field.hasWeather("Sun") && move.category === "Special") {
+    } else if (attacker.hasAbility("Solar Power") && field.weather == "Sun" && !isAttack) {
       atMods.push(6144)
     } else if (
-      (attacker.hasAbility("Guts") && attacker.status && move.category === "Physical" && isAttack) ||
-      (attacker.curHP() <= attacker.maxHP() / 3 &&
-        ((attacker.hasAbility("Overgrow") && move.hasType("Grass")) || (attacker.hasAbility("Blaze") && move.hasType("Fire")) || (attacker.hasAbility("Torrent") && move.hasType("Water")) || (attacker.hasAbility("Swarm") && move.hasType("Bug")))) ||
-      (move.category === "Special" && attacker.abilityOn && attacker.hasAbility("Plus", "Minus"))
+      (attacker.hasAbility("Guts") && attacker.status && isAttack) ||
+      (attacker.actualHp <= attacker.hp / 3 && attacker.hasAbility("Overgrow") && move.hasType("Grass") && ((isAttack && move.category == "Physical") || (!isAttack && move.category == "Special"))) ||
+      (attacker.hasAbility("Blaze") && move.hasType("Fire") && ((isAttack && move.category == "Physical") || (!isAttack && move.category == "Special"))) ||
+      (attacker.hasAbility("Torrent") && move.hasType("Water") && ((isAttack && move.category == "Physical") || (!isAttack && move.category == "Special"))) ||
+      (attacker.hasAbility("Swarm") && move.hasType("Bug") && ((isAttack && move.category == "Physical") || (!isAttack && move.category == "Special"))) ||
+      (!isAttack && attacker.abilityOn && attacker.hasAbility("Plus", "Minus"))
     ) {
       atMods.push(6144)
-    } else if (attacker.hasAbility("Flash Fire") && attacker.abilityOn && move.hasType("Fire")) {
+    } else if (attacker.hasAbility("Flash Fire") && attacker.abilityOn && move.hasType("Fire") && ((isAttack && move.category == "Physical") || (!isAttack && move.category == "Special"))) {
       atMods.push(6144)
     } else if ((attacker.hasAbility("Dragon's Maw") && move.hasType("Dragon") && ((move.category === "Physical" && isAttack) || (move.category === "Special" && !isAttack))) || (attacker.hasAbility("Rocky Payload") && move.hasType("Rock"))) {
       atMods.push(6144)
@@ -149,29 +151,33 @@ export class SmogonFunctions {
       atMods.push(gen.num >= 9 ? 5325 : 6144)
     } else if (attacker.hasAbility("Stakeout") && attacker.abilityOn) {
       atMods.push(8192)
-    } else if ((attacker.hasAbility("Water Bubble") && move.hasType("Water")) || (attacker.hasAbility("Huge Power", "Pure Power") && move.category === "Physical")) {
+    } else if ((attacker.hasAbility("Water Bubble") && move.hasType("Water") && ((isAttack && move.category == "Physical") || (!isAttack && move.category == "Special"))) || (attacker.hasAbility("Huge Power", "Pure Power") && isAttack)) {
       atMods.push(8192)
     }
 
     const isTabletsOfRuinActive = field.isTabletsOfRuin && !attacker.hasAbility("Tablets of Ruin")
     const isVesselOfRuinActive = field.isVesselOfRuin && !attacker.hasAbility("Vessel of Ruin")
-    if ((isTabletsOfRuinActive && move.category === "Physical") || (isVesselOfRuinActive && move.category === "Special")) {
+    if (isTabletsOfRuinActive && isAttack) {
       atMods.push(3072)
     }
 
-    // if (this.isQPActive(attacker, field)) {
-    //   if ((move.category === "Physical" && getQPBoostedStat(attacker) === "atk") || (move.category === "Special" && getQPBoostedStat(attacker) === "spa")) {
-    //     atMods.push(5325)
-    //   }
-    // }
+    if (isVesselOfRuinActive && !isAttack) {
+      atMods.push(3072)
+    }
 
-    if ((attacker.hasAbility("Hadron Engine") && move.category === "Special" && field.hasTerrain("Electric")) || (attacker.hasAbility("Orichalcum Pulse") && move.category === "Physical" && true && !attacker.hasItem("Utility Umbrella"))) {
+    if (this.isQPActive(attacker, field)) {
+      if ((isAttack && attacker.higherStat === "atk") || (!isAttack && attacker.higherStat === "spa")) {
+        atMods.push(5325)
+      }
+    }
+
+    if ((attacker.hasAbility("Hadron Engine") && field.terrain == "Electric" && !isAttack) || (attacker.hasAbility("Orichalcum Pulse") && field.weather == "Sun" && isAttack && !attacker.hasItem("Utility Umbrella"))) {
       atMods.push(5461)
     }
 
     if (attacker.hasItem("Light Ball") && attacker.name.includes("Pikachu")) {
       atMods.push(8192)
-    } else if ((attacker.hasItem("Choice Band") && move.category === "Physical" && isAttack) || (attacker.hasItem("Choice Specs") && move.category === "Special" && !isAttack)) {
+    } else if ((attacker.hasItem("Choice Band") && isAttack) || (attacker.hasItem("Choice Specs") && !isAttack)) {
       atMods.push(6144)
     }
     return atMods

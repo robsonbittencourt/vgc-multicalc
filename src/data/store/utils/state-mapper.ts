@@ -33,7 +33,8 @@ export function stateToPokemon(state: PokemonState, field: Field): Pokemon {
     bonusBoosts: state.bonusBoosts,
     evs: state.evs,
     ivs: state.ivs,
-    hpPercentage: state.hpPercentage
+    hpPercentage: state.hpPercentage,
+    field: field
   })
 }
 
