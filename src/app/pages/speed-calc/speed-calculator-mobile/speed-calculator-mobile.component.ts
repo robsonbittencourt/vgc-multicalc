@@ -55,7 +55,7 @@ export class SpeedCalculatorMobileComponent implements OnInit {
 
   statusConditions = [Status.HEALTHY.description, Status.PARALYSIS.description]
 
-  regulationsList: Regulation[] = ["H", "I"]
+  regulationsList: Regulation[] = ["H", "I", "J"]
 
   topUsageList: string[] = ["60", "100", "125", "All"]
 

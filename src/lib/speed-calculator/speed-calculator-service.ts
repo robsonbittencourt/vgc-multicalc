@@ -4,6 +4,7 @@ import { pokemonByRegulation } from "@data/regulation-pokemon"
 import { SpeedData } from "@data/speed-data"
 import { SPEED_STATISTICS_REG_H } from "@data/speed-statistics-reg-h"
 import { SPEED_STATISTICS_REG_I } from "@data/speed-statistics-reg-i"
+import { SPEED_STATISTICS_REG_J } from "@data/speed-statistics-reg-j"
 import { ACTUAL, BOOSTER, MAX, MAX_BASE_SPEED_FOR_TR, MIN, MIN_IV_0, SCARF } from "@lib/constants"
 import { defaultPokemon } from "@lib/default-pokemon"
 import { Ability } from "@lib/model/ability"
@@ -238,7 +239,11 @@ export class SpeedCalculatorService {
       return SPEED_STATISTICS_REG_H[pokemonName]
     }
 
-    return SPEED_STATISTICS_REG_I[pokemonName]
+    if (regulation == "I") {
+      return SPEED_STATISTICS_REG_I[pokemonName]
+    }
+
+    return SPEED_STATISTICS_REG_J[pokemonName]
   }
 
   private isTrickRoomPokemon(pokemon: Pokemon): boolean {

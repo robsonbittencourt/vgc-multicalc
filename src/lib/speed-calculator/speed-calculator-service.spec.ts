@@ -84,14 +84,14 @@ describe("SpeedCalculatorService", () => {
     })
 
     it("should return only Pokémon informed in options and actual when option target is informed", () => {
-      const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
+      const pokemon = new Pokemon("Rillaboom", { evs: { spe: 100 } })
       const field = new Field()
       const pokemonEachSide = 30
       const options = new SpeedCalculatorOptions({ targetName: "Tyranitar" })
 
       const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide, options)
 
-      expect(inRange.length).toEqual(5)
+      expect(inRange.length).toEqual(4)
 
       for (let index = 0; index < inRange.length; index++) {
         const actual = inRange[index]

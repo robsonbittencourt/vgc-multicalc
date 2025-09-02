@@ -6,7 +6,7 @@ const POKEMON_QUANTITY = 64
 
 export async function smogonUsageList(date, reg) {
   try {
-    const year = reg === "h" ? "2024" : "2025"
+    const year = date.substring(0, date.indexOf("-"))
     return await axios.get(`https://www.smogon.com/stats/${date}/gen9vgc${year}reg${reg}bo3-1760.txt`)
   } catch (error) {
     console.error(error)
@@ -15,7 +15,7 @@ export async function smogonUsageList(date, reg) {
 
 export async function getSmogonData(date, reg) {
   try {
-    const year = reg === "h" ? "2024" : "2025"
+    const year = date.substring(0, date.indexOf("-"))
     const response = await axios.get(`https://www.smogon.com/stats/${date}/moveset/gen9vgc${year}reg${reg}bo3-1760.txt`)
     const parsedSmogonData = parseSmogonData(response.data)
     return parsedSmogonData

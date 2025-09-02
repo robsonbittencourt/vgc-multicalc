@@ -4,7 +4,7 @@ import { SpeedData } from "./speed-data"
 
 export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
   Abomasnow: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 60,
     minSpeed: 80,
     maxSpeed: 112,
@@ -15,75 +15,77 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 58, percentile: 34, percentage: 34, speedEv: 0, nature: "Quiet" },
-      { type: "usage", speed: 80, percentile: 88, percentage: 53, speedEv: 0, nature: "Careful" }
+      { type: "usage", speed: 58, percentile: 16, percentage: 16, speedEv: 0, nature: "Sassy" },
+      { type: "usage", speed: 80, percentile: 85, percentage: 67, speedEv: 0, nature: "Calm" }
     ]
   },
-  Aipom: { referenceDate: "2025-07", baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
+  Aipom: { referenceDate: "2025-08", baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
   Alcremie: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 64,
     minSpeed: 84,
     maxSpeed: 116,
     minSpeedWithIvZero: 62,
     maxSpeedWithNature: 127,
-    choiceScarfPercentage: 4,
+    choiceScarfPercentage: 5,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 62, percentile: 44, percentage: 44, speedEv: 0, nature: "Relaxed" },
-      { type: "usage", speed: 84, percentile: 80, percentage: 35, speedEv: 0, nature: "Calm" }
+      { type: "usage", speed: 62, percentile: 60, percentage: 60, speedEv: 0, nature: "Sassy" },
+      { type: "usage", speed: 84, percentile: 83, percentage: 23, speedEv: 0, nature: "Calm" },
+      { type: "scarf", speed: 190, percentile: 100, percentage: 5, speedEv: 252, nature: "" }
     ]
   },
   Alomomola: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 65,
     minSpeed: 85,
     maxSpeed: 117,
     minSpeedWithIvZero: 63,
     maxSpeedWithNature: 128,
-    choiceScarfPercentage: 1,
+    choiceScarfPercentage: 2,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
-    statistics: [{ type: "usage", speed: 85, percentile: 80, percentage: 71, speedEv: 0, nature: "Impish" }]
+    statistics: [{ type: "usage", speed: 85, percentile: 88, percentage: 86, speedEv: 0, nature: "Careful" }]
   },
   Altaria: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 80,
     minSpeed: 100,
     maxSpeed: 132,
     minSpeedWithIvZero: 76,
     maxSpeedWithNature: 145,
-    choiceScarfPercentage: 0,
+    choiceScarfPercentage: 3,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 100, percentile: 65, percentage: 57, speedEv: 0, nature: "Careful" },
-      { type: "usage", speed: 145, percentile: 100, percentage: 11, speedEv: 252, nature: "Jolly" }
+      { type: "usage", speed: 100, percentile: 65, percentage: 58, speedEv: 0, nature: "Careful" },
+      { type: "usage", speed: 115, percentile: 94, percentage: 29, speedEv: 116, nature: "Careful" }
     ]
   },
   Ambipom: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 115,
     minSpeed: 135,
     maxSpeed: 167,
     minSpeedWithIvZero: 108,
     maxSpeedWithNature: 183,
-    choiceScarfPercentage: 1,
+    choiceScarfPercentage: 5,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 160, percentile: 38, percentage: 25, speedEv: 196, nature: "Adamant" },
-      { type: "usage", speed: 167, percentile: 49, percentage: 12, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 183, percentile: 100, percentage: 51, speedEv: 252, nature: "Jolly" }
+      { type: "usage", speed: 140, percentile: 30, percentage: 29, speedEv: 36, nature: "Adamant" },
+      { type: "usage", speed: 158, percentile: 48, percentage: 16, speedEv: 180, nature: "Adamant" },
+      { type: "usage", speed: 183, percentile: 100, percentage: 41, speedEv: 252, nature: "Jolly" },
+      { type: "scarf", speed: 274, percentile: 100, percentage: 5, speedEv: 252, nature: "" }
     ]
   },
   Amoonguss: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 30,
     minSpeed: 50,
     maxSpeed: 82,
@@ -94,45 +96,30 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 31, percentile: 46, percentage: 46, speedEv: 0, nature: "Relaxed" },
-      { type: "usage", speed: 50, percentile: 98, percentage: 52, speedEv: 0, nature: "Bold" }
+      { type: "usage", speed: 31, percentile: 44, percentage: 44, speedEv: 0, nature: "Relaxed" },
+      { type: "usage", speed: 50, percentile: 98, percentage: 53, speedEv: 0, nature: "Bold" }
     ]
   },
-  Ampharos: {
-    referenceDate: "2025-07",
-    baseSpeed: 55,
-    minSpeed: 75,
-    maxSpeed: 107,
-    minSpeedWithIvZero: 54,
-    maxSpeedWithNature: 117,
-    choiceScarfPercentage: 1,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 54, percentile: 21, percentage: 21, speedEv: 0, nature: "Sassy" },
-      { type: "usage", speed: 75, percentile: 78, percentage: 54, speedEv: 0, nature: "Modest" }
-    ]
-  },
+  Ampharos: { referenceDate: "2025-08", baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
   Annihilape: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 90,
     minSpeed: 110,
     maxSpeed: 142,
     minSpeedWithIvZero: 85,
     maxSpeedWithNature: 156,
-    choiceScarfPercentage: 75,
+    choiceScarfPercentage: 81,
     choiceScarfIsMoreUsed: true,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 154, percentile: 49, percentage: 16, speedEv: 236, nature: "Jolly" },
-      { type: "usage", speed: 156, percentile: 100, percentage: 50, speedEv: 252, nature: "Jolly" },
-      { type: "scarf", speed: 234, percentile: 100, percentage: 75, speedEv: 252, nature: "" }
+      { type: "usage", speed: 154, percentile: 53, percentage: 22, speedEv: 236, nature: "Jolly" },
+      { type: "usage", speed: 156, percentile: 100, percentage: 47, speedEv: 252, nature: "Jolly" },
+      { type: "scarf", speed: 234, percentile: 100, percentage: 81, speedEv: 252, nature: "" }
     ]
   },
   Appletun: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 30,
     minSpeed: 50,
     maxSpeed: 82,
@@ -142,14 +129,11 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 31, percentile: 48, percentage: 48, speedEv: 0, nature: "Relaxed" },
-      { type: "usage", speed: 50, percentile: 99, percentage: 51, speedEv: 0, nature: "Careful" }
-    ]
+    statistics: [{ type: "usage", speed: 50, percentile: 92, percentage: 87, speedEv: 0, nature: "Modest" }]
   },
-  Applin: { referenceDate: "2025-07", baseSpeed: 20, minSpeed: 40, maxSpeed: 72, minSpeedWithIvZero: 22, maxSpeedWithNature: 79, statistics: [] },
+  Applin: { referenceDate: "2025-08", baseSpeed: 20, minSpeed: 40, maxSpeed: 72, minSpeedWithIvZero: 22, maxSpeedWithNature: 79, statistics: [] },
   Araquanid: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 42,
     minSpeed: 62,
     maxSpeed: 94,
@@ -160,13 +144,13 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 42, percentile: 67, percentage: 67, speedEv: 0, nature: "Sassy" },
-      { type: "usage", speed: 62, percentile: 94, percentage: 28, speedEv: 0, nature: "Adamant" }
+      { type: "usage", speed: 42, percentile: 73, percentage: 73, speedEv: 0, nature: "Brave" },
+      { type: "usage", speed: 62, percentile: 95, percentage: 22, speedEv: 0, nature: "Adamant" }
     ]
   },
-  Arbok: { referenceDate: "2025-07", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
+  Arbok: { referenceDate: "2025-08", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
   Arboliva: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 39,
     minSpeed: 59,
     maxSpeed: 91,
@@ -177,67 +161,67 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 39, percentile: 21, percentage: 21, speedEv: 0, nature: "Quiet" },
-      { type: "usage", speed: 59, percentile: 86, percentage: 65, speedEv: 0, nature: "Bold" }
+      { type: "usage", speed: 39, percentile: 32, percentage: 32, speedEv: 0, nature: "Quiet" },
+      { type: "usage", speed: 59, percentile: 100, percentage: 68, speedEv: 0, nature: "Modest" }
     ]
   },
   Arcanine: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 95,
     minSpeed: 115,
     maxSpeed: 147,
     minSpeedWithIvZero: 90,
     maxSpeedWithNature: 161,
-    choiceScarfPercentage: 1,
+    choiceScarfPercentage: 4,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 115, percentile: 35, percentage: 35, speedEv: 0, nature: "Adamant" },
-      { type: "usage", speed: 147, percentile: 78, percentage: 17, speedEv: 252, nature: "Hardy" },
-      { type: "usage", speed: 161, percentile: 100, percentage: 18, speedEv: 252, nature: "Jolly" }
+      { type: "usage", speed: 115, percentile: 24, percentage: 15, speedEv: 0, nature: "Adamant" },
+      { type: "usage", speed: 116, percentile: 38, percentage: 13, speedEv: 4, nature: "Adamant" },
+      { type: "usage", speed: 161, percentile: 100, percentage: 33, speedEv: 252, nature: "Jolly" }
     ]
   },
   "Arcanine-Hisui": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 90,
     minSpeed: 110,
     maxSpeed: 142,
     minSpeedWithIvZero: 85,
     maxSpeedWithNature: 156,
-    choiceScarfPercentage: 9,
+    choiceScarfPercentage: 7,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 110, percentile: 14, percentage: 12, speedEv: 0, nature: "Adamant" },
-      { type: "usage", speed: 142, percentile: 66, percentage: 16, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 156, percentile: 100, percentage: 31, speedEv: 252, nature: "Jolly" },
-      { type: "scarf", speed: 234, percentile: 100, percentage: 9, speedEv: 252, nature: "" }
+      { type: "usage", speed: 110, percentile: 16, percentage: 14, speedEv: 0, nature: "Impish" },
+      { type: "usage", speed: 142, percentile: 66, percentage: 19, speedEv: 252, nature: "Adamant" },
+      { type: "usage", speed: 156, percentile: 100, percentage: 32, speedEv: 252, nature: "Jolly" },
+      { type: "scarf", speed: 234, percentile: 100, percentage: 7, speedEv: 252, nature: "" }
     ]
   },
-  Arceus: { referenceDate: "2025-07", baseSpeed: 120, minSpeed: 140, maxSpeed: 172, minSpeedWithIvZero: 112, maxSpeedWithNature: 189, statistics: [] },
+  Arceus: { referenceDate: "2025-08", baseSpeed: 120, minSpeed: 140, maxSpeed: 172, minSpeedWithIvZero: 112, maxSpeedWithNature: 189, statistics: [] },
   Archaludon: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 85,
     minSpeed: 105,
     maxSpeed: 137,
     minSpeedWithIvZero: 81,
     maxSpeedWithNature: 150,
-    choiceScarfPercentage: 0,
+    choiceScarfPercentage: 3,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 81, percentile: 11, percentage: 11, speedEv: 0, nature: "Sassy" },
-      { type: "usage", speed: 105, percentile: 41, percentage: 30, speedEv: 0, nature: "Modest" },
+      { type: "usage", speed: 81, percentile: 13, percentage: 13, speedEv: 0, nature: "Quiet" },
+      { type: "usage", speed: 105, percentile: 40, percentage: 28, speedEv: 0, nature: "Bold" },
       { type: "usage", speed: 150, percentile: 100, percentage: 17, speedEv: 252, nature: "Timid" }
     ]
   },
-  Arctibax: { referenceDate: "2025-07", baseSpeed: 62, minSpeed: 82, maxSpeed: 114, minSpeedWithIvZero: 60, maxSpeedWithNature: 125, statistics: [] },
-  Ariados: { referenceDate: "2025-07", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Arctibax: { referenceDate: "2025-08", baseSpeed: 62, minSpeed: 82, maxSpeed: 114, minSpeedWithIvZero: 60, maxSpeedWithNature: 125, statistics: [] },
+  Ariados: { referenceDate: "2025-08", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
   Armarouge: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 75,
     minSpeed: 95,
     maxSpeed: 127,
@@ -248,48 +232,49 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 72, percentile: 32, percentage: 32, speedEv: 0, nature: "Quiet" },
-      { type: "usage", speed: 95, percentile: 63, percentage: 31, speedEv: 0, nature: "Modest" },
-      { type: "usage", speed: 127, percentile: 95, percentage: 20, speedEv: 252, nature: "Modest" }
+      { type: "usage", speed: 72, percentile: 30, percentage: 30, speedEv: 0, nature: "Quiet" },
+      { type: "usage", speed: 95, percentile: 55, percentage: 25, speedEv: 0, nature: "Modest" },
+      { type: "usage", speed: 127, percentile: 98, percentage: 15, speedEv: 252, nature: "Modest" }
     ]
   },
-  Arrokuda: { referenceDate: "2025-07", baseSpeed: 66, minSpeed: 86, maxSpeed: 118, minSpeedWithIvZero: 63, maxSpeedWithNature: 129, statistics: [] },
+  Arrokuda: { referenceDate: "2025-08", baseSpeed: 66, minSpeed: 86, maxSpeed: 118, minSpeedWithIvZero: 63, maxSpeedWithNature: 129, statistics: [] },
   Articuno: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 85,
     minSpeed: 105,
     maxSpeed: 137,
     minSpeedWithIvZero: 81,
     maxSpeedWithNature: 150,
-    choiceScarfPercentage: 4,
+    choiceScarfPercentage: 11,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 105, percentile: 32, percentage: 25, speedEv: 0, nature: "Modest" },
-      { type: "usage", speed: 150, percentile: 100, percentage: 34, speedEv: 252, nature: "Timid" }
+      { type: "usage", speed: 105, percentile: 33, percentage: 32, speedEv: 0, nature: "Modest" },
+      { type: "usage", speed: 112, percentile: 60, percentage: 12, speedEv: 52, nature: "Modest" },
+      { type: "usage", speed: 150, percentile: 100, percentage: 20, speedEv: 252, nature: "Timid" },
+      { type: "scarf", speed: 225, percentile: 100, percentage: 11, speedEv: 252, nature: "" }
     ]
   },
   "Articuno-Galar": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 95,
     minSpeed: 115,
     maxSpeed: 147,
     minSpeedWithIvZero: 90,
     maxSpeedWithNature: 161,
-    choiceScarfPercentage: 9,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 115, percentile: 25, percentage: 18, speedEv: 0, nature: "Modest" },
-      { type: "usage", speed: 147, percentile: 58, percentage: 21, speedEv: 252, nature: "Modest" },
-      { type: "usage", speed: 161, percentile: 100, percentage: 24, speedEv: 252, nature: "Timid" },
-      { type: "scarf", speed: 241, percentile: 100, percentage: 9, speedEv: 252, nature: "" }
+      { type: "usage", speed: 126, percentile: 27, percentage: 12, speedEv: 84, nature: "Modest" },
+      { type: "usage", speed: 147, percentile: 68, percentage: 27, speedEv: 252, nature: "Calm" },
+      { type: "usage", speed: 161, percentile: 100, percentage: 32, speedEv: 252, nature: "Timid" }
     ]
   },
   Avalugg: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 28,
     minSpeed: 48,
     maxSpeed: 80,
@@ -300,150 +285,113 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 29, percentile: 48, percentage: 48, speedEv: 0, nature: "Relaxed" },
-      { type: "usage", speed: 48, percentile: 100, percentage: 52, speedEv: 0, nature: "Adamant" }
+      { type: "usage", speed: 29, percentile: 87, percentage: 87, speedEv: 0, nature: "Relaxed" },
+      { type: "usage", speed: 48, percentile: 100, percentage: 13, speedEv: 0, nature: "Careful" }
     ]
   },
-  "Avalugg-Hisui": {
-    referenceDate: "2025-07",
-    baseSpeed: 38,
-    minSpeed: 58,
-    maxSpeed: 90,
-    minSpeedWithIvZero: 38,
-    maxSpeedWithNature: 99,
-    choiceScarfPercentage: 0,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 38, percentile: 70, percentage: 70, speedEv: 0, nature: "Brave" },
-      { type: "usage", speed: 58, percentile: 97, percentage: 27, speedEv: 0, nature: "Adamant" }
-    ]
-  },
-  Axew: { referenceDate: "2025-07", baseSpeed: 57, minSpeed: 77, maxSpeed: 109, minSpeedWithIvZero: 55, maxSpeedWithNature: 119, statistics: [] },
-  Azelf: {
-    referenceDate: "2025-07",
-    baseSpeed: 115,
-    minSpeed: 135,
-    maxSpeed: 167,
-    minSpeedWithIvZero: 108,
-    maxSpeedWithNature: 183,
-    choiceScarfPercentage: 30,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 167, percentile: 74, percentage: 41, speedEv: 252, nature: "Modest" },
-      { type: "usage", speed: 183, percentile: 100, percentage: 19, speedEv: 252, nature: "Jolly" },
-      { type: "scarf", speed: 274, percentile: 100, percentage: 30, speedEv: 252, nature: "" }
-    ]
-  },
+  "Avalugg-Hisui": { referenceDate: "2025-08", baseSpeed: 38, minSpeed: 58, maxSpeed: 90, minSpeedWithIvZero: 38, maxSpeedWithNature: 99, statistics: [] },
+  Axew: { referenceDate: "2025-08", baseSpeed: 57, minSpeed: 77, maxSpeed: 109, minSpeedWithIvZero: 55, maxSpeedWithNature: 119, statistics: [] },
+  Azelf: { referenceDate: "2025-08", baseSpeed: 115, minSpeed: 135, maxSpeed: 167, minSpeedWithIvZero: 108, maxSpeedWithNature: 183, statistics: [] },
   Azumarill: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 50,
     minSpeed: 70,
     maxSpeed: 102,
     minSpeedWithIvZero: 49,
     maxSpeedWithNature: 112,
-    choiceScarfPercentage: 1,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 49, percentile: 41, percentage: 41, speedEv: 0, nature: "Brave" },
-      { type: "usage", speed: 70, percentile: 74, percentage: 33, speedEv: 0, nature: "Adamant" },
-      { type: "usage", speed: 71, percentile: 86, percentage: 12, speedEv: 4, nature: "Adamant" }
-    ]
-  },
-  Azurill: { referenceDate: "2025-07", baseSpeed: 20, minSpeed: 40, maxSpeed: 72, minSpeedWithIvZero: 22, maxSpeedWithNature: 79, statistics: [] },
-  Bagon: { referenceDate: "2025-07", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
-  Banette: { referenceDate: "2025-07", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
-  Barboach: { referenceDate: "2025-07", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
-  Barraskewda: {
-    referenceDate: "2025-07",
-    baseSpeed: 136,
-    minSpeed: 156,
-    maxSpeed: 188,
-    minSpeedWithIvZero: 126,
-    maxSpeedWithNature: 206,
-    choiceScarfPercentage: 1,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 188, percentile: 67, percentage: 67, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 206, percentile: 100, percentage: 33, speedEv: 252, nature: "Jolly" }
-    ]
-  },
-  Basculegion: {
-    referenceDate: "2025-07",
-    baseSpeed: 78,
-    minSpeed: 98,
-    maxSpeed: 130,
-    minSpeedWithIvZero: 74,
-    maxSpeedWithNature: 143,
-    choiceScarfPercentage: 3,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 112, percentile: 33, percentage: 30, speedEv: 108, nature: "Adamant" },
-      { type: "usage", speed: 130, percentile: 92, percentage: 33, speedEv: 252, nature: "Adamant" }
-    ]
-  },
-  "Basculegion-F": {
-    referenceDate: "2025-07",
-    baseSpeed: 78,
-    minSpeed: 98,
-    maxSpeed: 130,
-    minSpeedWithIvZero: 74,
-    maxSpeedWithNature: 143,
-    choiceScarfPercentage: 5,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 107, percentile: 32, percentage: 11, speedEv: 0, nature: "Timid" },
-      { type: "usage", speed: 112, percentile: 51, percentage: 17, speedEv: 108, nature: "Modest" },
-      { type: "usage", speed: 130, percentile: 93, percentage: 23, speedEv: 252, nature: "Mild" },
-      { type: "scarf", speed: 214, percentile: 100, percentage: 5, speedEv: 252, nature: "" }
-    ]
-  },
-  Basculin: {
-    referenceDate: "2025-07",
-    baseSpeed: 98,
-    minSpeed: 118,
-    maxSpeed: 150,
-    minSpeedWithIvZero: 92,
-    maxSpeedWithNature: 165,
-    choiceScarfPercentage: 91,
-    choiceScarfIsMoreUsed: true,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 150, percentile: 87, percentage: 85, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 165, percentile: 100, percentage: 13, speedEv: 252, nature: "Jolly" },
-      { type: "scarf", speed: 247, percentile: 100, percentage: 91, speedEv: 252, nature: "" }
-    ]
-  },
-  Bastiodon: {
-    referenceDate: "2025-07",
-    baseSpeed: 30,
-    minSpeed: 50,
-    maxSpeed: 82,
-    minSpeedWithIvZero: 31,
-    maxSpeedWithNature: 90,
     choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 31, percentile: 35, percentage: 35, speedEv: 0, nature: "Relaxed" },
-      { type: "usage", speed: 50, percentile: 99, percentage: 63, speedEv: 0, nature: "Calm" }
+      { type: "usage", speed: 70, percentile: 39, percentage: 35, speedEv: 0, nature: "Calm" },
+      { type: "usage", speed: 71, percentile: 92, percentage: 53, speedEv: 4, nature: "Adamant" }
+    ]
+  },
+  Azurill: { referenceDate: "2025-08", baseSpeed: 20, minSpeed: 40, maxSpeed: 72, minSpeedWithIvZero: 22, maxSpeedWithNature: 79, statistics: [] },
+  Bagon: { referenceDate: "2025-08", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Banette: {
+    referenceDate: "2025-08",
+    baseSpeed: 65,
+    minSpeed: 85,
+    maxSpeed: 117,
+    minSpeedWithIvZero: 63,
+    maxSpeedWithNature: 128,
+    choiceScarfPercentage: 4,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [{ type: "usage", speed: 63, percentile: 93, percentage: 93, speedEv: 0, nature: "Relaxed" }]
+  },
+  Barboach: { referenceDate: "2025-08", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  Barraskewda: {
+    referenceDate: "2025-08",
+    baseSpeed: 136,
+    minSpeed: 156,
+    maxSpeed: 188,
+    minSpeedWithIvZero: 126,
+    maxSpeedWithNature: 206,
+    choiceScarfPercentage: 10,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 188, percentile: 92, percentage: 75, speedEv: 252, nature: "Adamant" },
+      { type: "scarf", speed: 309, percentile: 100, percentage: 10, speedEv: 252, nature: "" }
+    ]
+  },
+  Basculegion: {
+    referenceDate: "2025-08",
+    baseSpeed: 78,
+    minSpeed: 98,
+    maxSpeed: 130,
+    minSpeedWithIvZero: 74,
+    maxSpeedWithNature: 143,
+    choiceScarfPercentage: 2,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 112, percentile: 33, percentage: 30, speedEv: 108, nature: "Adamant" },
+      { type: "usage", speed: 130, percentile: 90, percentage: 23, speedEv: 252, nature: "Adamant" }
+    ]
+  },
+  "Basculegion-F": {
+    referenceDate: "2025-08",
+    baseSpeed: 78,
+    minSpeed: 98,
+    maxSpeed: 130,
+    minSpeedWithIvZero: 74,
+    maxSpeedWithNature: 143,
+    choiceScarfPercentage: 7,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 121, percentile: 27, percentage: 20, speedEv: 180, nature: "Hardy" },
+      { type: "usage", speed: 130, percentile: 93, percentage: 60, speedEv: 252, nature: "Adamant" },
+      { type: "scarf", speed: 214, percentile: 100, percentage: 7, speedEv: 252, nature: "" }
+    ]
+  },
+  Basculin: { referenceDate: "2025-08", baseSpeed: 98, minSpeed: 118, maxSpeed: 150, minSpeedWithIvZero: 92, maxSpeedWithNature: 165, statistics: [] },
+  Bastiodon: {
+    referenceDate: "2025-08",
+    baseSpeed: 30,
+    minSpeed: 50,
+    maxSpeed: 82,
+    minSpeedWithIvZero: 31,
+    maxSpeedWithNature: 90,
+    choiceScarfPercentage: 3,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 31, percentile: 33, percentage: 33, speedEv: 0, nature: "Relaxed" },
+      { type: "usage", speed: 50, percentile: 95, percentage: 62, speedEv: 0, nature: "Calm" }
     ]
   },
   Baxcalibur: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 87,
     minSpeed: 107,
     maxSpeed: 139,
@@ -454,67 +402,51 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 107, percentile: 28, percentage: 23, speedEv: 0, nature: "Adamant" },
-      { type: "usage", speed: 139, percentile: 78, percentage: 12, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 152, percentile: 100, percentage: 15, speedEv: 252, nature: "Jolly" }
+      { type: "usage", speed: 107, percentile: 24, percentage: 15, speedEv: 0, nature: "Adamant" },
+      { type: "usage", speed: 108, percentile: 44, percentage: 20, speedEv: 4, nature: "Careful" },
+      { type: "usage", speed: 139, percentile: 86, percentage: 15, speedEv: 252, nature: "Adamant" }
     ]
   },
-  Bayleef: {
-    referenceDate: "2025-07",
-    baseSpeed: 60,
-    minSpeed: 80,
-    maxSpeed: 112,
-    minSpeedWithIvZero: 58,
-    maxSpeedWithNature: 123,
-    choiceScarfPercentage: 0,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 58, percentile: 39, percentage: 39, speedEv: 0, nature: "Relaxed" },
-      { type: "usage", speed: 80, percentile: 99, percentage: 60, speedEv: 0, nature: "Bold" }
-    ]
-  },
-  Beartic: {
-    referenceDate: "2025-07",
-    baseSpeed: 50,
-    minSpeed: 70,
-    maxSpeed: 102,
-    minSpeedWithIvZero: 49,
-    maxSpeedWithNature: 112,
-    choiceScarfPercentage: 9,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 70, percentile: 24, percentage: 24, speedEv: 0, nature: "Adamant" },
-      { type: "usage", speed: 102, percentile: 51, percentage: 21, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 112, percentile: 100, percentage: 46, speedEv: 252, nature: "Jolly" },
-      { type: "scarf", speed: 168, percentile: 100, percentage: 9, speedEv: 252, nature: "" }
-    ]
-  },
-  Beldum: { referenceDate: "2025-07", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
+  Bayleef: { referenceDate: "2025-08", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  Beartic: { referenceDate: "2025-08", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Beldum: { referenceDate: "2025-08", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
   Bellibolt: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 45,
     minSpeed: 65,
     maxSpeed: 97,
     minSpeedWithIvZero: 45,
     maxSpeedWithNature: 106,
-    choiceScarfPercentage: 3,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 45, percentile: 13, percentage: 13, speedEv: 0, nature: "Relaxed" },
-      { type: "usage", speed: 65, percentile: 93, percentage: 80, speedEv: 0, nature: "Hardy" }
+      { type: "usage", speed: 45, percentile: 31, percentage: 31, speedEv: 0, nature: "Quiet" },
+      { type: "usage", speed: 65, percentile: 100, percentage: 69, speedEv: 0, nature: "Hardy" }
     ]
   },
-  Bellossom: { referenceDate: "2025-07", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
-  Bellsprout: { referenceDate: "2025-07", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
-  Bergmite: { referenceDate: "2025-07", baseSpeed: 28, minSpeed: 48, maxSpeed: 80, minSpeedWithIvZero: 29, maxSpeedWithNature: 88, statistics: [] },
+  Bellossom: {
+    referenceDate: "2025-08",
+    baseSpeed: 50,
+    minSpeed: 70,
+    maxSpeed: 102,
+    minSpeedWithIvZero: 49,
+    maxSpeedWithNature: 112,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 70, percentile: 52, percentage: 52, speedEv: 0, nature: "Bold" },
+      { type: "usage", speed: 102, percentile: 84, percentage: 32, speedEv: 252, nature: "Modest" },
+      { type: "usage", speed: 112, percentile: 100, percentage: 16, speedEv: 252, nature: "Timid" }
+    ]
+  },
+  Bellsprout: { referenceDate: "2025-08", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Bergmite: { referenceDate: "2025-08", baseSpeed: 28, minSpeed: 48, maxSpeed: 80, minSpeedWithIvZero: 29, maxSpeedWithNature: 88, statistics: [] },
   Bisharp: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 70,
     minSpeed: 90,
     maxSpeed: 122,
@@ -525,12 +457,12 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 90, percentile: 67, percentage: 60, speedEv: 0, nature: "Adamant" },
-      { type: "usage", speed: 91, percentile: 78, percentage: 11, speedEv: 4, nature: "Careful" }
+      { type: "usage", speed: 90, percentile: 88, percentage: 88, speedEv: 0, nature: "Adamant" },
+      { type: "usage", speed: 91, percentile: 100, percentage: 12, speedEv: 4, nature: "Careful" }
     ]
   },
   Blastoise: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 78,
     minSpeed: 98,
     maxSpeed: 130,
@@ -541,29 +473,29 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 74, percentile: 20, percentage: 20, speedEv: 0, nature: "Sassy" },
-      { type: "usage", speed: 98, percentile: 49, percentage: 29, speedEv: 0, nature: "Hardy" },
-      { type: "usage", speed: 110, percentile: 80, percentage: 18, speedEv: 92, nature: "Careful" }
+      { type: "usage", speed: 74, percentile: 34, percentage: 34, speedEv: 0, nature: "Relaxed" },
+      { type: "usage", speed: 98, percentile: 86, percentage: 52, speedEv: 0, nature: "Bold" }
     ]
   },
   Blaziken: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 80,
     minSpeed: 100,
     maxSpeed: 132,
     minSpeedWithIvZero: 76,
     maxSpeedWithNature: 145,
-    choiceScarfPercentage: 2,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 132, percentile: 75, percentage: 58, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 145, percentile: 100, percentage: 22, speedEv: 252, nature: "Jolly" }
+      { type: "usage", speed: 100, percentile: 18, percentage: 18, speedEv: 0, nature: "Adamant" },
+      { type: "usage", speed: 132, percentile: 65, percentage: 41, speedEv: 252, nature: "Adamant" },
+      { type: "usage", speed: 145, percentile: 100, percentage: 34, speedEv: 252, nature: "Hasty" }
     ]
   },
   Blissey: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 55,
     minSpeed: 75,
     maxSpeed: 107,
@@ -574,36 +506,35 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 54, percentile: 22, percentage: 22, speedEv: 0, nature: "Relaxed" },
-      { type: "usage", speed: 75, percentile: 82, percentage: 57, speedEv: 0, nature: "Bold" },
-      { type: "usage", speed: 76, percentile: 97, percentage: 16, speedEv: 4, nature: "Calm" }
+      { type: "usage", speed: 54, percentile: 33, percentage: 33, speedEv: 4, nature: "Sassy" },
+      { type: "usage", speed: 75, percentile: 86, percentage: 52, speedEv: 0, nature: "Bold" }
     ]
   },
-  Blitzle: { referenceDate: "2025-07", baseSpeed: 76, minSpeed: 96, maxSpeed: 128, minSpeedWithIvZero: 72, maxSpeedWithNature: 140, statistics: [] },
-  Bombirdier: { referenceDate: "2025-07", baseSpeed: 82, minSpeed: 102, maxSpeed: 134, minSpeedWithIvZero: 78, maxSpeedWithNature: 147, statistics: [] },
-  Bonsly: { referenceDate: "2025-07", baseSpeed: 10, minSpeed: 30, maxSpeed: 62, minSpeedWithIvZero: 13, maxSpeedWithNature: 68, statistics: [] },
-  Bounsweet: { referenceDate: "2025-07", baseSpeed: 32, minSpeed: 52, maxSpeed: 84, minSpeedWithIvZero: 33, maxSpeedWithNature: 92, statistics: [] },
-  Braixen: { referenceDate: "2025-07", baseSpeed: 73, minSpeed: 93, maxSpeed: 125, minSpeedWithIvZero: 70, maxSpeedWithNature: 137, statistics: [] },
+  Blitzle: { referenceDate: "2025-08", baseSpeed: 76, minSpeed: 96, maxSpeed: 128, minSpeedWithIvZero: 72, maxSpeedWithNature: 140, statistics: [] },
+  Bombirdier: { referenceDate: "2025-08", baseSpeed: 82, minSpeed: 102, maxSpeed: 134, minSpeedWithIvZero: 78, maxSpeedWithNature: 147, statistics: [] },
+  Bonsly: { referenceDate: "2025-08", baseSpeed: 10, minSpeed: 30, maxSpeed: 62, minSpeedWithIvZero: 13, maxSpeedWithNature: 68, statistics: [] },
+  Bounsweet: { referenceDate: "2025-08", baseSpeed: 32, minSpeed: 52, maxSpeed: 84, minSpeedWithIvZero: 33, maxSpeedWithNature: 92, statistics: [] },
+  Braixen: { referenceDate: "2025-08", baseSpeed: 73, minSpeed: 93, maxSpeed: 125, minSpeedWithIvZero: 70, maxSpeedWithNature: 137, statistics: [] },
   Brambleghast: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 90,
     minSpeed: 110,
     maxSpeed: 142,
     minSpeedWithIvZero: 85,
     maxSpeedWithNature: 156,
-    choiceScarfPercentage: 2,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 111, percentile: 17, percentage: 13, speedEv: 4, nature: "Adamant" },
-      { type: "usage", speed: 142, percentile: 60, percentage: 40, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 156, percentile: 100, percentage: 32, speedEv: 252, nature: "Jolly" }
+      { type: "usage", speed: 122, percentile: 19, percentage: 16, speedEv: 96, nature: "Adamant" },
+      { type: "usage", speed: 142, percentile: 65, percentage: 32, speedEv: 252, nature: "Adamant" },
+      { type: "usage", speed: 150, percentile: 97, percentage: 32, speedEv: 212, nature: "Jolly" }
     ]
   },
-  Bramblin: { referenceDate: "2025-07", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  Bramblin: { referenceDate: "2025-08", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
   Braviary: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 80,
     minSpeed: 100,
     maxSpeed: 132,
@@ -613,49 +544,29 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 76, percentile: 22, percentage: 22, speedEv: 0, nature: "Brave" },
-      { type: "usage", speed: 132, percentile: 75, percentage: 32, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 145, percentile: 100, percentage: 22, speedEv: 252, nature: "Jolly" }
-    ]
+    statistics: [{ type: "usage", speed: 145, percentile: 100, percentage: 88, speedEv: 252, nature: "Naive" }]
   },
-  "Braviary-Hisui": {
-    referenceDate: "2025-07",
-    baseSpeed: 65,
-    minSpeed: 85,
-    maxSpeed: 117,
-    minSpeedWithIvZero: 63,
-    maxSpeedWithNature: 128,
-    choiceScarfPercentage: 4,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 85, percentile: 30, percentage: 26, speedEv: 0, nature: "Modest" },
-      { type: "usage", speed: 117, percentile: 61, percentage: 14, speedEv: 252, nature: "Modest" },
-      { type: "usage", speed: 121, percentile: 87, percentage: 27, speedEv: 196, nature: "Timid" }
-    ]
-  },
+  "Braviary-Hisui": { referenceDate: "2025-08", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
   Breloom: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 70,
     minSpeed: 90,
     maxSpeed: 122,
     minSpeedWithIvZero: 67,
     maxSpeedWithNature: 134,
-    choiceScarfPercentage: 1,
+    choiceScarfPercentage: 3,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 90, percentile: 22, percentage: 18, speedEv: 0, nature: "Impish" },
-      { type: "usage", speed: 122, percentile: 52, percentage: 24, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 134, percentile: 100, percentage: 48, speedEv: 252, nature: "Jolly" }
+      { type: "usage", speed: 90, percentile: 29, percentage: 27, speedEv: 0, nature: "Careful" },
+      { type: "usage", speed: 122, percentile: 59, percentage: 13, speedEv: 252, nature: "Adamant" },
+      { type: "usage", speed: 134, percentile: 100, percentage: 41, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Brionne: { referenceDate: "2025-07", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Brionne: { referenceDate: "2025-08", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
   Bronzong: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 33,
     minSpeed: 53,
     maxSpeed: 85,
@@ -666,13 +577,13 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 34, percentile: 73, percentage: 73, speedEv: 0, nature: "Sassy" },
-      { type: "usage", speed: 53, percentile: 99, percentage: 25, speedEv: 0, nature: "Bold" }
+      { type: "usage", speed: 34, percentile: 62, percentage: 62, speedEv: 0, nature: "Sassy" },
+      { type: "usage", speed: 53, percentile: 93, percentage: 32, speedEv: 0, nature: "Impish" }
     ]
   },
-  Bronzor: { referenceDate: "2025-07", baseSpeed: 23, minSpeed: 43, maxSpeed: 75, minSpeedWithIvZero: 25, maxSpeedWithNature: 82, statistics: [] },
+  Bronzor: { referenceDate: "2025-08", baseSpeed: 23, minSpeed: 43, maxSpeed: 75, minSpeedWithIvZero: 25, maxSpeedWithNature: 82, statistics: [] },
   "Brute Bonnet": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 55,
     minSpeed: 75,
     maxSpeed: 107,
@@ -680,38 +591,39 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     maxSpeedWithNature: 117,
     choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 7,
+    boosterEnergyPercentage: 10,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 54, percentile: 17, percentage: 17, speedEv: 0, nature: "Relaxed" },
-      { type: "usage", speed: 75, percentile: 52, percentage: 35, speedEv: 0, nature: "Impish" },
-      { type: "usage", speed: 76, percentile: 73, percentage: 21, speedEv: 4, nature: "Impish" },
-      { type: "booster", speed: 175, percentile: 100, percentage: 7, speedEv: 252, nature: "" }
+      { type: "usage", speed: 54, percentile: 22, percentage: 22, speedEv: 0, nature: "Sassy" },
+      { type: "usage", speed: 75, percentile: 65, percentage: 43, speedEv: 0, nature: "Impish" },
+      { type: "usage", speed: 76, percentile: 83, percentage: 18, speedEv: 4, nature: "Impish" },
+      { type: "booster", speed: 175, percentile: 100, percentage: 10, speedEv: 252, nature: "" }
     ]
   },
   Bruxish: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 92,
     minSpeed: 112,
     maxSpeed: 144,
     minSpeedWithIvZero: 87,
     maxSpeedWithNature: 158,
-    choiceScarfPercentage: 69,
+    choiceScarfPercentage: 50,
     choiceScarfIsMoreUsed: true,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 158, percentile: 100, percentage: 75, speedEv: 252, nature: "Jolly" },
-      { type: "scarf", speed: 237, percentile: 100, percentage: 69, speedEv: 252, nature: "" }
+      { type: "usage", speed: 149, percentile: 50, percentage: 30, speedEv: 188, nature: "Jolly" },
+      { type: "usage", speed: 158, percentile: 100, percentage: 50, speedEv: 252, nature: "Timid" },
+      { type: "scarf", speed: 237, percentile: 100, percentage: 50, speedEv: 252, nature: "" }
     ]
   },
-  Buizel: { referenceDate: "2025-07", baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
-  Bulbasaur: { referenceDate: "2025-07", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
-  Cacnea: { referenceDate: "2025-07", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
-  Cacturne: { referenceDate: "2025-07", baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
-  Calyrex: { referenceDate: "2025-07", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
+  Buizel: { referenceDate: "2025-08", baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
+  Bulbasaur: { referenceDate: "2025-08", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  Cacnea: { referenceDate: "2025-08", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
+  Cacturne: { referenceDate: "2025-08", baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
+  Calyrex: { referenceDate: "2025-08", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
   "Calyrex-Ice": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 50,
     minSpeed: 70,
     maxSpeed: 102,
@@ -723,12 +635,12 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyIsMoreUsed: false,
     statistics: [
       { type: "usage", speed: 49, percentile: 34, percentage: 34, speedEv: 0, nature: "Brave" },
-      { type: "usage", speed: 70, percentile: 46, percentage: 12, speedEv: 0, nature: "Adamant" },
+      { type: "usage", speed: 70, percentile: 47, percentage: 12, speedEv: 0, nature: "Adamant" },
       { type: "usage", speed: 71, percentile: 60, percentage: 13, speedEv: 4, nature: "Adamant" }
     ]
   },
   "Calyrex-Shadow": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 150,
     minSpeed: 170,
     maxSpeed: 202,
@@ -738,10 +650,10 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
-    statistics: [{ type: "usage", speed: 222, percentile: 100, percentage: 75, speedEv: 252, nature: "Timid" }]
+    statistics: [{ type: "usage", speed: 222, percentile: 100, percentage: 72, speedEv: 252, nature: "Timid" }]
   },
   Camerupt: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 40,
     minSpeed: 60,
     maxSpeed: 92,
@@ -751,31 +663,28 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 40, percentile: 51, percentage: 51, speedEv: 0, nature: "Quiet" },
-      { type: "usage", speed: 60, percentile: 87, percentage: 36, speedEv: 0, nature: "Hardy" }
-    ]
+    statistics: [{ type: "usage", speed: 40, percentile: 100, percentage: 100, speedEv: 0, nature: "Relaxed" }]
   },
-  Capsakid: { referenceDate: "2025-07", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Capsakid: { referenceDate: "2025-08", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
   Carbink: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 50,
     minSpeed: 70,
     maxSpeed: 102,
     minSpeedWithIvZero: 49,
     maxSpeedWithNature: 112,
-    choiceScarfPercentage: 1,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 49, percentile: 77, percentage: 77, speedEv: 0, nature: "Relaxed" },
-      { type: "usage", speed: 70, percentile: 93, percentage: 17, speedEv: 0, nature: "Careful" }
+      { type: "usage", speed: 49, percentile: 38, percentage: 38, speedEv: 0, nature: "Sassy" },
+      { type: "usage", speed: 70, percentile: 97, percentage: 55, speedEv: 0, nature: "Hardy" }
     ]
   },
-  Carkol: { referenceDate: "2025-07", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Carkol: { referenceDate: "2025-08", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
   Ceruledge: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 85,
     minSpeed: 105,
     maxSpeed: 137,
@@ -786,13 +695,12 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 105, percentile: 15, percentage: 13, speedEv: 0, nature: "Careful" },
-      { type: "usage", speed: 112, percentile: 46, percentage: 12, speedEv: 52, nature: "Adamant" },
-      { type: "usage", speed: 150, percentile: 100, percentage: 20, speedEv: 252, nature: "Jolly" }
+      { type: "usage", speed: 105, percentile: 47, percentage: 43, speedEv: 0, nature: "Hardy" },
+      { type: "usage", speed: 150, percentile: 100, percentage: 19, speedEv: 252, nature: "Jolly" }
     ]
   },
   Cetitan: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 73,
     minSpeed: 93,
     maxSpeed: 125,
@@ -803,63 +711,50 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 93, percentile: 32, percentage: 22, speedEv: 0, nature: "Adamant" },
-      { type: "usage", speed: 125, percentile: 78, percentage: 15, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 137, percentile: 100, percentage: 22, speedEv: 252, nature: "Jolly" }
+      { type: "usage", speed: 93, percentile: 27, percentage: 23, speedEv: 0, nature: "Hardy" },
+      { type: "usage", speed: 114, percentile: 62, percentage: 15, speedEv: 164, nature: "Lonely" },
+      { type: "usage", speed: 125, percentile: 96, percentage: 35, speedEv: 252, nature: "Adamant" }
     ]
   },
-  Cetoddle: { referenceDate: "2025-07", baseSpeed: 43, minSpeed: 63, maxSpeed: 95, minSpeedWithIvZero: 43, maxSpeedWithNature: 104, statistics: [] },
+  Cetoddle: { referenceDate: "2025-08", baseSpeed: 43, minSpeed: 63, maxSpeed: 95, minSpeedWithIvZero: 43, maxSpeedWithNature: 104, statistics: [] },
   Chandelure: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 80,
     minSpeed: 100,
     maxSpeed: 132,
     minSpeedWithIvZero: 76,
     maxSpeedWithNature: 145,
-    choiceScarfPercentage: 6,
+    choiceScarfPercentage: 3,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 101, percentile: 36, percentage: 13, speedEv: 4, nature: "Modest" },
-      { type: "usage", speed: 132, percentile: 77, percentage: 23, speedEv: 252, nature: "Modest" },
-      { type: "usage", speed: 145, percentile: 100, percentage: 22, speedEv: 252, nature: "Timid" },
-      { type: "scarf", speed: 217, percentile: 100, percentage: 6, speedEv: 252, nature: "" }
+      { type: "usage", speed: 76, percentile: 39, percentage: 39, speedEv: 0, nature: "Quiet" },
+      { type: "usage", speed: 132, percentile: 85, percentage: 25, speedEv: 252, nature: "Modest" },
+      { type: "usage", speed: 145, percentile: 100, percentage: 15, speedEv: 252, nature: "Timid" }
     ]
   },
-  Chansey: {
-    referenceDate: "2025-07",
-    baseSpeed: 50,
-    minSpeed: 70,
-    maxSpeed: 102,
-    minSpeedWithIvZero: 49,
-    maxSpeedWithNature: 112,
-    choiceScarfPercentage: 0,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [{ type: "usage", speed: 70, percentile: 94, percentage: 85, speedEv: 0, nature: "Bold" }]
-  },
-  Charcadet: { referenceDate: "2025-07", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
+  Chansey: { referenceDate: "2025-08", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Charcadet: { referenceDate: "2025-08", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
   Charizard: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 100,
     minSpeed: 120,
     maxSpeed: 152,
     minSpeedWithIvZero: 94,
     maxSpeedWithNature: 167,
-    choiceScarfPercentage: 21,
-    choiceScarfIsMoreUsed: false,
+    choiceScarfPercentage: 38,
+    choiceScarfIsMoreUsed: true,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 152, percentile: 42, percentage: 25, speedEv: 252, nature: "Modest" },
-      { type: "usage", speed: 167, percentile: 100, percentage: 57, speedEv: 252, nature: "Timid" },
-      { type: "scarf", speed: 250, percentile: 100, percentage: 21, speedEv: 252, nature: "" }
+      { type: "usage", speed: 152, percentile: 29, percentage: 21, speedEv: 252, nature: "Modest" },
+      { type: "usage", speed: 167, percentile: 100, percentage: 70, speedEv: 252, nature: "Timid" },
+      { type: "scarf", speed: 250, percentile: 100, percentage: 38, speedEv: 252, nature: "" }
     ]
   },
   Charjabug: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 36,
     minSpeed: 56,
     maxSpeed: 88,
@@ -870,14 +765,14 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 36, percentile: 45, percentage: 45, speedEv: 0, nature: "Sassy" },
-      { type: "usage", speed: 56, percentile: 97, percentage: 52, speedEv: 0, nature: "Calm" }
+      { type: "usage", speed: 36, percentile: 47, percentage: 47, speedEv: 0, nature: "Sassy" },
+      { type: "usage", speed: 56, percentile: 98, percentage: 52, speedEv: 0, nature: "Careful" }
     ]
   },
-  Charmander: { referenceDate: "2025-07", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
-  Charmeleon: { referenceDate: "2025-07", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
+  Charmander: { referenceDate: "2025-08", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  Charmeleon: { referenceDate: "2025-08", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
   Chesnaught: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 64,
     minSpeed: 84,
     maxSpeed: 116,
@@ -888,12 +783,12 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 84, percentile: 37, percentage: 34, speedEv: 0, nature: "Impish" },
-      { type: "usage", speed: 92, percentile: 98, percentage: 46, speedEv: 60, nature: "Bold" }
+      { type: "usage", speed: 84, percentile: 51, percentage: 44, speedEv: 0, nature: "Impish" },
+      { type: "usage", speed: 92, percentile: 98, percentage: 37, speedEv: 60, nature: "Bold" }
     ]
   },
   Chespin: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 38,
     minSpeed: 58,
     maxSpeed: 90,
@@ -903,103 +798,96 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 38, percentile: 44, percentage: 44, speedEv: 0, nature: "Relaxed" },
-      { type: "usage", speed: 58, percentile: 100, percentage: 56, speedEv: 0, nature: "Careful" }
-    ]
+    statistics: [{ type: "usage", speed: 38, percentile: 100, percentage: 100, speedEv: 0, nature: "Relaxed" }]
   },
-  Chewtle: { referenceDate: "2025-07", baseSpeed: 44, minSpeed: 64, maxSpeed: 96, minSpeedWithIvZero: 44, maxSpeedWithNature: 105, statistics: [] },
+  Chewtle: { referenceDate: "2025-08", baseSpeed: 44, minSpeed: 64, maxSpeed: 96, minSpeedWithIvZero: 44, maxSpeedWithNature: 105, statistics: [] },
   "Chi-Yu": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 100,
     minSpeed: 120,
     maxSpeed: 152,
     minSpeedWithIvZero: 94,
     maxSpeedWithNature: 167,
-    choiceScarfPercentage: 88,
+    choiceScarfPercentage: 87,
     choiceScarfIsMoreUsed: true,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 152, percentile: 71, percentage: 57, speedEv: 252, nature: "Modest" },
-      { type: "usage", speed: 167, percentile: 100, percentage: 22, speedEv: 252, nature: "Timid" },
-      { type: "scarf", speed: 250, percentile: 100, percentage: 88, speedEv: 252, nature: "" }
+      { type: "usage", speed: 152, percentile: 73, percentage: 57, speedEv: 252, nature: "Modest" },
+      { type: "usage", speed: 167, percentile: 100, percentage: 24, speedEv: 252, nature: "Timid" },
+      { type: "scarf", speed: 250, percentile: 100, percentage: 87, speedEv: 252, nature: "" }
     ]
   },
   "Chien-Pao": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 135,
     minSpeed: 155,
     maxSpeed: 187,
     minSpeedWithIvZero: 126,
     maxSpeedWithNature: 205,
-    choiceScarfPercentage: 0,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 187, percentile: 27, percentage: 26, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 205, percentile: 100, percentage: 68, speedEv: 252, nature: "Jolly" }
-    ]
-  },
-  Chikorita: { referenceDate: "2025-07", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
-  Chimchar: { referenceDate: "2025-07", baseSpeed: 61, minSpeed: 81, maxSpeed: 113, minSpeedWithIvZero: 59, maxSpeedWithNature: 124, statistics: [] },
-  Chimecho: { referenceDate: "2025-07", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
-  Chinchou: { referenceDate: "2025-07", baseSpeed: 67, minSpeed: 87, maxSpeed: 119, minSpeedWithIvZero: 64, maxSpeedWithNature: 130, statistics: [] },
-  Chingling: { referenceDate: "2025-07", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
-  Cinccino: {
-    referenceDate: "2025-07",
-    baseSpeed: 115,
-    minSpeed: 135,
-    maxSpeed: 167,
-    minSpeedWithIvZero: 108,
-    maxSpeedWithNature: 183,
-    choiceScarfPercentage: 4,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 167, percentile: 76, percentage: 69, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 183, percentile: 100, percentage: 22, speedEv: 252, nature: "Jolly" }
-    ]
-  },
-  Cinderace: {
-    referenceDate: "2025-07",
-    baseSpeed: 119,
-    minSpeed: 139,
-    maxSpeed: 171,
-    minSpeedWithIvZero: 111,
-    maxSpeedWithNature: 188,
-    choiceScarfPercentage: 7,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 171, percentile: 45, percentage: 24, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 188, percentile: 100, percentage: 53, speedEv: 252, nature: "Jolly" },
-      { type: "scarf", speed: 282, percentile: 100, percentage: 7, speedEv: 252, nature: "" }
-    ]
-  },
-  Clauncher: { referenceDate: "2025-07", baseSpeed: 44, minSpeed: 64, maxSpeed: 96, minSpeedWithIvZero: 44, maxSpeedWithNature: 105, statistics: [] },
-  Clawitzer: {
-    referenceDate: "2025-07",
-    baseSpeed: 59,
-    minSpeed: 79,
-    maxSpeed: 111,
-    minSpeedWithIvZero: 57,
-    maxSpeedWithNature: 122,
     choiceScarfPercentage: 1,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 57, percentile: 31, percentage: 31, speedEv: 0, nature: "Quiet" },
-      { type: "usage", speed: 79, percentile: 76, percentage: 46, speedEv: 0, nature: "Modest" },
-      { type: "usage", speed: 111, percentile: 99, percentage: 19, speedEv: 252, nature: "Modest" }
+      { type: "usage", speed: 187, percentile: 23, percentage: 18, speedEv: 252, nature: "Adamant" },
+      { type: "usage", speed: 205, percentile: 100, percentage: 61, speedEv: 252, nature: "Jolly" }
     ]
   },
+  Chikorita: { referenceDate: "2025-08", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  Chimchar: { referenceDate: "2025-08", baseSpeed: 61, minSpeed: 81, maxSpeed: 113, minSpeedWithIvZero: 59, maxSpeedWithNature: 124, statistics: [] },
+  Chimecho: {
+    referenceDate: "2025-08",
+    baseSpeed: 65,
+    minSpeed: 85,
+    maxSpeed: 117,
+    minSpeedWithIvZero: 63,
+    maxSpeedWithNature: 128,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [{ type: "usage", speed: 63, percentile: 100, percentage: 100, speedEv: 0, nature: "Sassy" }]
+  },
+  Chinchou: { referenceDate: "2025-08", baseSpeed: 67, minSpeed: 87, maxSpeed: 119, minSpeedWithIvZero: 64, maxSpeedWithNature: 130, statistics: [] },
+  Chingling: { referenceDate: "2025-08", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  Cinccino: {
+    referenceDate: "2025-08",
+    baseSpeed: 115,
+    minSpeed: 135,
+    maxSpeed: 167,
+    minSpeedWithIvZero: 108,
+    maxSpeedWithNature: 183,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 167, percentile: 87, percentage: 87, speedEv: 252, nature: "Adamant" },
+      { type: "usage", speed: 183, percentile: 100, percentage: 13, speedEv: 252, nature: "Jolly" }
+    ]
+  },
+  Cinderace: {
+    referenceDate: "2025-08",
+    baseSpeed: 119,
+    minSpeed: 139,
+    maxSpeed: 171,
+    minSpeedWithIvZero: 111,
+    maxSpeedWithNature: 188,
+    choiceScarfPercentage: 10,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 171, percentile: 26, percentage: 12, speedEv: 252, nature: "Modest" },
+      { type: "usage", speed: 188, percentile: 100, percentage: 72, speedEv: 252, nature: "Jolly" },
+      { type: "scarf", speed: 282, percentile: 100, percentage: 10, speedEv: 252, nature: "" }
+    ]
+  },
+  Clauncher: { referenceDate: "2025-08", baseSpeed: 44, minSpeed: 64, maxSpeed: 96, minSpeedWithIvZero: 44, maxSpeedWithNature: 105, statistics: [] },
+  Clawitzer: { referenceDate: "2025-08", baseSpeed: 59, minSpeed: 79, maxSpeed: 111, minSpeedWithIvZero: 57, maxSpeedWithNature: 122, statistics: [] },
   Clefable: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 60,
     minSpeed: 80,
     maxSpeed: 112,
@@ -1009,13 +897,10 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 58, percentile: 14, percentage: 14, speedEv: 0, nature: "Sassy" },
-      { type: "usage", speed: 80, percentile: 79, percentage: 63, speedEv: 0, nature: "Bold" }
-    ]
+    statistics: [{ type: "usage", speed: 80, percentile: 95, percentage: 87, speedEv: 0, nature: "Bold" }]
   },
   Clefairy: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 35,
     minSpeed: 55,
     maxSpeed: 87,
@@ -1026,13 +911,13 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 36, percentile: 81, percentage: 81, speedEv: 0, nature: "Relaxed" },
-      { type: "usage", speed: 55, percentile: 100, percentage: 19, speedEv: 0, nature: "Bold" }
+      { type: "usage", speed: 36, percentile: 82, percentage: 82, speedEv: 0, nature: "Relaxed" },
+      { type: "usage", speed: 55, percentile: 99, percentage: 18, speedEv: 0, nature: "Bold" }
     ]
   },
-  Cleffa: { referenceDate: "2025-07", baseSpeed: 15, minSpeed: 35, maxSpeed: 67, minSpeedWithIvZero: 18, maxSpeedWithNature: 73, statistics: [] },
+  Cleffa: { referenceDate: "2025-08", baseSpeed: 15, minSpeed: 35, maxSpeed: 67, minSpeedWithIvZero: 18, maxSpeedWithNature: 73, statistics: [] },
   Clodsire: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 20,
     minSpeed: 40,
     maxSpeed: 72,
@@ -1043,12 +928,13 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 22, percentile: 32, percentage: 32, speedEv: 0, nature: "Relaxed" },
-      { type: "usage", speed: 40, percentile: 100, percentage: 68, speedEv: 0, nature: "Calm" }
+      { type: "usage", speed: 22, percentile: 13, percentage: 13, speedEv: 0, nature: "Relaxed" },
+      { type: "usage", speed: 26, percentile: 26, percentage: 14, speedEv: 36, nature: "Brave" },
+      { type: "usage", speed: 40, percentile: 93, percentage: 67, speedEv: 0, nature: "Careful" }
     ]
   },
   Cloyster: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 70,
     minSpeed: 90,
     maxSpeed: 122,
@@ -1059,13 +945,13 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 67, percentile: 26, percentage: 26, speedEv: 0, nature: "Sassy" },
-      { type: "usage", speed: 90, percentile: 55, percentage: 29, speedEv: 0, nature: "Careful" },
-      { type: "usage", speed: 122, percentile: 94, percentage: 25, speedEv: 252, nature: "Adamant" }
+      { type: "usage", speed: 67, percentile: 24, percentage: 24, speedEv: 0, nature: "Sassy" },
+      { type: "usage", speed: 122, percentile: 76, percentage: 41, speedEv: 252, nature: "Adamant" },
+      { type: "usage", speed: 134, percentile: 100, percentage: 24, speedEv: 252, nature: "Jolly" }
     ]
   },
   Coalossal: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 30,
     minSpeed: 50,
     maxSpeed: 82,
@@ -1076,32 +962,31 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 31, percentile: 12, percentage: 12, speedEv: 0, nature: "Quiet" },
-      { type: "usage", speed: 50, percentile: 59, percentage: 47, speedEv: 0, nature: "Modest" },
-      { type: "usage", speed: 57, percentile: 81, percentage: 20, speedEv: 56, nature: "Modest" }
+      { type: "usage", speed: 31, percentile: 21, percentage: 21, speedEv: 0, nature: "Quiet" },
+      { type: "usage", speed: 50, percentile: 51, percentage: 30, speedEv: 0, nature: "Hardy" },
+      { type: "usage", speed: 57, percentile: 94, percentage: 43, speedEv: 56, nature: "Modest" }
     ]
   },
   Cobalion: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 108,
     minSpeed: 128,
     maxSpeed: 160,
     minSpeedWithIvZero: 101,
     maxSpeedWithNature: 176,
-    choiceScarfPercentage: 2,
+    choiceScarfPercentage: 4,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 128, percentile: 43, percentage: 43, speedEv: 0, nature: "Impish" },
-      { type: "usage", speed: 130, percentile: 65, percentage: 15, speedEv: 12, nature: "Careful" },
-      { type: "usage", speed: 147, percentile: 89, percentage: 15, speedEv: 148, nature: "Bold" }
+      { type: "usage", speed: 150, percentile: 64, percentage: 39, speedEv: 178, nature: "Impish" },
+      { type: "usage", speed: 176, percentile: 100, percentage: 29, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Combee: { referenceDate: "2025-07", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
-  Combusken: { referenceDate: "2025-07", baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
+  Combee: { referenceDate: "2025-08", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
+  Combusken: { referenceDate: "2025-08", baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
   Comfey: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 100,
     minSpeed: 120,
     maxSpeed: 152,
@@ -1112,12 +997,12 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 120, percentile: 59, percentage: 55, speedEv: 0, nature: "Bold" },
-      { type: "usage", speed: 167, percentile: 100, percentage: 22, speedEv: 252, nature: "Timid" }
+      { type: "usage", speed: 120, percentile: 55, percentage: 51, speedEv: 0, nature: "Bold" },
+      { type: "usage", speed: 167, percentile: 100, percentage: 24, speedEv: 252, nature: "Timid" }
     ]
   },
   Conkeldurr: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 45,
     minSpeed: 65,
     maxSpeed: 97,
@@ -1128,12 +1013,12 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 45, percentile: 79, percentage: 79, speedEv: 0, nature: "Brave" },
-      { type: "usage", speed: 65, percentile: 97, percentage: 17, speedEv: 0, nature: "Adamant" }
+      { type: "usage", speed: 45, percentile: 46, percentage: 46, speedEv: 0, nature: "Brave" },
+      { type: "usage", speed: 65, percentile: 100, percentage: 54, speedEv: 0, nature: "Adamant" }
     ]
   },
   Copperajah: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 30,
     minSpeed: 50,
     maxSpeed: 82,
@@ -1144,13 +1029,13 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 31, percentile: 63, percentage: 63, speedEv: 0, nature: "Brave" },
-      { type: "usage", speed: 50, percentile: 100, percentage: 37, speedEv: 0, nature: "Adamant" }
+      { type: "usage", speed: 31, percentile: 42, percentage: 42, speedEv: 0, nature: "Brave" },
+      { type: "usage", speed: 50, percentile: 100, percentage: 58, speedEv: 0, nature: "Adamant" }
     ]
   },
-  Corphish: { referenceDate: "2025-07", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
+  Corphish: { referenceDate: "2025-08", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
   Corviknight: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 67,
     minSpeed: 87,
     maxSpeed: 119,
@@ -1160,14 +1045,17 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
-    statistics: [{ type: "usage", speed: 87, percentile: 65, percentage: 57, speedEv: 0, nature: "Impish" }]
+    statistics: [
+      { type: "usage", speed: 87, percentile: 63, percentage: 59, speedEv: 0, nature: "Adamant" },
+      { type: "usage", speed: 103, percentile: 93, percentage: 17, speedEv: 124, nature: "Impish" }
+    ]
   },
-  Corvisquire: { referenceDate: "2025-07", baseSpeed: 77, minSpeed: 97, maxSpeed: 129, minSpeedWithIvZero: 73, maxSpeedWithNature: 141, statistics: [] },
-  Cosmoem: { referenceDate: "2025-07", baseSpeed: 37, minSpeed: 57, maxSpeed: 89, minSpeedWithIvZero: 37, maxSpeedWithNature: 97, statistics: [] },
-  Cosmog: { referenceDate: "2025-07", baseSpeed: 37, minSpeed: 57, maxSpeed: 89, minSpeedWithIvZero: 37, maxSpeedWithNature: 97, statistics: [] },
-  Cottonee: { referenceDate: "2025-07", baseSpeed: 66, minSpeed: 86, maxSpeed: 118, minSpeedWithIvZero: 63, maxSpeedWithNature: 129, statistics: [] },
+  Corvisquire: { referenceDate: "2025-08", baseSpeed: 77, minSpeed: 97, maxSpeed: 129, minSpeedWithIvZero: 73, maxSpeedWithNature: 141, statistics: [] },
+  Cosmoem: { referenceDate: "2025-08", baseSpeed: 37, minSpeed: 57, maxSpeed: 89, minSpeedWithIvZero: 37, maxSpeedWithNature: 97, statistics: [] },
+  Cosmog: { referenceDate: "2025-08", baseSpeed: 37, minSpeed: 57, maxSpeed: 89, minSpeedWithIvZero: 37, maxSpeedWithNature: 97, statistics: [] },
+  Cottonee: { referenceDate: "2025-08", baseSpeed: 66, minSpeed: 86, maxSpeed: 118, minSpeedWithIvZero: 63, maxSpeedWithNature: 129, statistics: [] },
   Crabominable: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 43,
     minSpeed: 63,
     maxSpeed: 95,
@@ -1177,33 +1065,11 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 43, percentile: 47, percentage: 47, speedEv: 0, nature: "Brave" },
-      { type: "usage", speed: 63, percentile: 92, percentage: 45, speedEv: 0, nature: "Adamant" }
-    ]
+    statistics: [{ type: "usage", speed: 43, percentile: 94, percentage: 94, speedEv: 0, nature: "Brave" }]
   },
-  Crabrawler: { referenceDate: "2025-07", baseSpeed: 63, minSpeed: 83, maxSpeed: 115, minSpeedWithIvZero: 61, maxSpeedWithNature: 126, statistics: [] },
-  Cramorant: { referenceDate: "2025-07", baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
-  Cranidos: { referenceDate: "2025-07", baseSpeed: 58, minSpeed: 78, maxSpeed: 110, minSpeedWithIvZero: 56, maxSpeedWithNature: 121, statistics: [] },
-  Crawdaunt: {
-    referenceDate: "2025-07",
-    baseSpeed: 55,
-    minSpeed: 75,
-    maxSpeed: 107,
-    minSpeedWithIvZero: 54,
-    maxSpeedWithNature: 117,
-    choiceScarfPercentage: 0,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 54, percentile: 39, percentage: 39, speedEv: 0, nature: "Brave" },
-      { type: "usage", speed: 75, percentile: 65, percentage: 26, speedEv: 0, nature: "Adamant" },
-      { type: "usage", speed: 107, percentile: 100, percentage: 30, speedEv: 252, nature: "Adamant" }
-    ]
-  },
-  Cresselia: {
-    referenceDate: "2025-07",
+  Crabrawler: { referenceDate: "2025-08", baseSpeed: 63, minSpeed: 83, maxSpeed: 115, minSpeedWithIvZero: 61, maxSpeedWithNature: 126, statistics: [] },
+  Cramorant: {
+    referenceDate: "2025-08",
     baseSpeed: 85,
     minSpeed: 105,
     maxSpeed: 137,
@@ -1214,38 +1080,71 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 81, percentile: 27, percentage: 27, speedEv: 0, nature: "Sassy" },
-      { type: "usage", speed: 105, percentile: 61, percentage: 34, speedEv: 0, nature: "Calm" },
-      { type: "usage", speed: 107, percentile: 80, percentage: 15, speedEv: 12, nature: "Calm" }
+      { type: "usage", speed: 105, percentile: 12, percentage: 12, speedEv: 0, nature: "Bold" },
+      { type: "usage", speed: 150, percentile: 100, percentage: 82, speedEv: 252, nature: "Timid" }
     ]
   },
-  Croagunk: { referenceDate: "2025-07", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
-  Crocalor: { referenceDate: "2025-07", baseSpeed: 49, minSpeed: 69, maxSpeed: 101, minSpeedWithIvZero: 48, maxSpeedWithNature: 111, statistics: [] },
-  Croconaw: { referenceDate: "2025-07", baseSpeed: 58, minSpeed: 78, maxSpeed: 110, minSpeedWithIvZero: 56, maxSpeedWithNature: 121, statistics: [] },
-  Cryogonal: { referenceDate: "2025-07", baseSpeed: 105, minSpeed: 125, maxSpeed: 157, minSpeedWithIvZero: 99, maxSpeedWithNature: 172, statistics: [] },
-  Cubchoo: { referenceDate: "2025-07", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
-  Cufant: { referenceDate: "2025-07", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
-  Cutiefly: { referenceDate: "2025-07", baseSpeed: 84, minSpeed: 104, maxSpeed: 136, minSpeedWithIvZero: 80, maxSpeedWithNature: 149, statistics: [] },
+  Cranidos: { referenceDate: "2025-08", baseSpeed: 58, minSpeed: 78, maxSpeed: 110, minSpeedWithIvZero: 56, maxSpeedWithNature: 121, statistics: [] },
+  Crawdaunt: {
+    referenceDate: "2025-08",
+    baseSpeed: 55,
+    minSpeed: 75,
+    maxSpeed: 107,
+    minSpeedWithIvZero: 54,
+    maxSpeedWithNature: 117,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 54, percentile: 68, percentage: 68, speedEv: 0, nature: "Brave" },
+      { type: "usage", speed: 75, percentile: 100, percentage: 32, speedEv: 0, nature: "Adamant" }
+    ]
+  },
+  Cresselia: {
+    referenceDate: "2025-08",
+    baseSpeed: 85,
+    minSpeed: 105,
+    maxSpeed: 137,
+    minSpeedWithIvZero: 81,
+    maxSpeedWithNature: 150,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 81, percentile: 41, percentage: 41, speedEv: 0, nature: "Sassy" },
+      { type: "usage", speed: 105, percentile: 72, percentage: 31, speedEv: 0, nature: "Bold" },
+      { type: "usage", speed: 107, percentile: 93, percentage: 13, speedEv: 12, nature: "Calm" }
+    ]
+  },
+  Croagunk: { referenceDate: "2025-08", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Crocalor: { referenceDate: "2025-08", baseSpeed: 49, minSpeed: 69, maxSpeed: 101, minSpeedWithIvZero: 48, maxSpeedWithNature: 111, statistics: [] },
+  Croconaw: { referenceDate: "2025-08", baseSpeed: 58, minSpeed: 78, maxSpeed: 110, minSpeedWithIvZero: 56, maxSpeedWithNature: 121, statistics: [] },
+  Cryogonal: { referenceDate: "2025-08", baseSpeed: 105, minSpeed: 125, maxSpeed: 157, minSpeedWithIvZero: 99, maxSpeedWithNature: 172, statistics: [] },
+  Cubchoo: { referenceDate: "2025-08", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Cufant: { referenceDate: "2025-08", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Cutiefly: { referenceDate: "2025-08", baseSpeed: 84, minSpeed: 104, maxSpeed: 136, minSpeedWithIvZero: 80, maxSpeedWithNature: 149, statistics: [] },
   Cyclizar: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 121,
     minSpeed: 141,
     maxSpeed: 173,
     minSpeedWithIvZero: 113,
     maxSpeedWithNature: 190,
-    choiceScarfPercentage: 35,
-    choiceScarfIsMoreUsed: true,
+    choiceScarfPercentage: 5,
+    choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 173, percentile: 40, percentage: 12, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 190, percentile: 100, percentage: 46, speedEv: 252, nature: "Jolly" },
-      { type: "scarf", speed: 285, percentile: 100, percentage: 35, speedEv: 252, nature: "" }
+      { type: "usage", speed: 169, percentile: 19, percentage: 12, speedEv: 100, nature: "Timid" },
+      { type: "usage", speed: 190, percentile: 100, percentage: 60, speedEv: 252, nature: "Jolly" },
+      { type: "scarf", speed: 285, percentile: 100, percentage: 5, speedEv: 252, nature: "" }
     ]
   },
-  Cyndaquil: { referenceDate: "2025-07", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  Cyndaquil: { referenceDate: "2025-08", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
   Dachsbun: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 95,
     minSpeed: 115,
     maxSpeed: 147,
@@ -1255,91 +1154,78 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
-    statistics: [{ type: "usage", speed: 115, percentile: 88, percentage: 88, speedEv: 0, nature: "Impish" }]
+    statistics: [
+      { type: "usage", speed: 115, percentile: 77, percentage: 77, speedEv: 0, nature: "Impish" },
+      { type: "usage", speed: 116, percentile: 94, percentage: 17, speedEv: 4, nature: "Calm" }
+    ]
   },
-  Darkrai: { referenceDate: "2025-07", baseSpeed: 125, minSpeed: 145, maxSpeed: 177, minSpeedWithIvZero: 117, maxSpeedWithNature: 194, statistics: [] },
-  Dartrix: { referenceDate: "2025-07", baseSpeed: 52, minSpeed: 72, maxSpeed: 104, minSpeedWithIvZero: 51, maxSpeedWithNature: 114, statistics: [] },
+  Darkrai: { referenceDate: "2025-08", baseSpeed: 125, minSpeed: 145, maxSpeed: 177, minSpeedWithIvZero: 117, maxSpeedWithNature: 194, statistics: [] },
+  Dartrix: { referenceDate: "2025-08", baseSpeed: 52, minSpeed: 72, maxSpeed: 104, minSpeedWithIvZero: 51, maxSpeedWithNature: 114, statistics: [] },
   Decidueye: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 70,
     minSpeed: 90,
     maxSpeed: 122,
     minSpeedWithIvZero: 67,
     maxSpeedWithNature: 134,
-    choiceScarfPercentage: 20,
-    choiceScarfIsMoreUsed: true,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 90, percentile: 57, percentage: 35, speedEv: 0, nature: "Adamant" },
-      { type: "usage", speed: 105, percentile: 73, percentage: 13, speedEv: 116, nature: "Hardy" },
-      { type: "usage", speed: 122, percentile: 96, percentage: 19, speedEv: 252, nature: "Adamant" },
-      { type: "scarf", speed: 201, percentile: 100, percentage: 20, speedEv: 252, nature: "" }
+      { type: "usage", speed: 67, percentile: 20, percentage: 20, speedEv: 0, nature: "Quiet" },
+      { type: "usage", speed: 90, percentile: 66, percentage: 45, speedEv: 0, nature: "Adamant" },
+      { type: "usage", speed: 122, percentile: 100, percentage: 23, speedEv: 252, nature: "Adamant" }
     ]
   },
   "Decidueye-Hisui": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 60,
     minSpeed: 80,
     maxSpeed: 112,
     minSpeedWithIvZero: 58,
     maxSpeedWithNature: 123,
-    choiceScarfPercentage: 6,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 64, percentile: 26, percentage: 14, speedEv: 60, nature: "Brave" },
-      { type: "usage", speed: 80, percentile: 63, percentage: 37, speedEv: 0, nature: "Adamant" },
-      { type: "usage", speed: 123, percentile: 100, percentage: 13, speedEv: 252, nature: "Jolly" },
-      { type: "scarf", speed: 184, percentile: 100, percentage: 6, speedEv: 252, nature: "" }
+      { type: "usage", speed: 58, percentile: 29, percentage: 29, speedEv: 0, nature: "Brave" },
+      { type: "usage", speed: 80, percentile: 65, percentage: 31, speedEv: 0, nature: "Adamant" },
+      { type: "usage", speed: 81, percentile: 78, percentage: 13, speedEv: 4, nature: "Adamant" }
     ]
   },
-  Dedenne: { referenceDate: "2025-07", baseSpeed: 101, minSpeed: 121, maxSpeed: 153, minSpeedWithIvZero: 95, maxSpeedWithNature: 168, statistics: [] },
-  Deerling: { referenceDate: "2025-07", baseSpeed: 75, minSpeed: 95, maxSpeed: 127, minSpeedWithIvZero: 72, maxSpeedWithNature: 139, statistics: [] },
-  Deino: { referenceDate: "2025-07", baseSpeed: 38, minSpeed: 58, maxSpeed: 90, minSpeedWithIvZero: 38, maxSpeedWithNature: 99, statistics: [] },
-  Delibird: { referenceDate: "2025-07", baseSpeed: 75, minSpeed: 95, maxSpeed: 127, minSpeedWithIvZero: 72, maxSpeedWithNature: 139, statistics: [] },
+  Dedenne: { referenceDate: "2025-08", baseSpeed: 101, minSpeed: 121, maxSpeed: 153, minSpeedWithIvZero: 95, maxSpeedWithNature: 168, statistics: [] },
+  Deerling: { referenceDate: "2025-08", baseSpeed: 75, minSpeed: 95, maxSpeed: 127, minSpeedWithIvZero: 72, maxSpeedWithNature: 139, statistics: [] },
+  Deino: { referenceDate: "2025-08", baseSpeed: 38, minSpeed: 58, maxSpeed: 90, minSpeedWithIvZero: 38, maxSpeedWithNature: 99, statistics: [] },
+  Delibird: { referenceDate: "2025-08", baseSpeed: 75, minSpeed: 95, maxSpeed: 127, minSpeedWithIvZero: 72, maxSpeedWithNature: 139, statistics: [] },
   Delphox: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 104,
     minSpeed: 124,
     maxSpeed: 156,
     minSpeedWithIvZero: 98,
     maxSpeedWithNature: 171,
-    choiceScarfPercentage: 0,
+    choiceScarfPercentage: 5,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 98, percentile: 14, percentage: 14, speedEv: 0, nature: "Quiet" },
-      { type: "usage", speed: 165, percentile: 56, percentage: 14, speedEv: 204, nature: "Timid" },
-      { type: "usage", speed: 171, percentile: 100, percentage: 44, speedEv: 252, nature: "Timid" }
+      { type: "usage", speed: 124, percentile: 30, percentage: 23, speedEv: 0, nature: "Modest" },
+      { type: "usage", speed: 156, percentile: 44, percentage: 14, speedEv: 252, nature: "Hardy" },
+      { type: "usage", speed: 171, percentile: 100, percentage: 49, speedEv: 252, nature: "Timid" },
+      { type: "scarf", speed: 256, percentile: 100, percentage: 5, speedEv: 252, nature: "" }
     ]
   },
-  Deoxys: { referenceDate: "2025-07", baseSpeed: 150, minSpeed: 170, maxSpeed: 202, minSpeedWithIvZero: 139, maxSpeedWithNature: 222, statistics: [] },
-  "Deoxys-Attack": { referenceDate: "2025-07", baseSpeed: 150, minSpeed: 170, maxSpeed: 202, minSpeedWithIvZero: 139, maxSpeedWithNature: 222, statistics: [] },
-  "Deoxys-Defense": { referenceDate: "2025-07", baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
-  "Deoxys-Speed": { referenceDate: "2025-07", baseSpeed: 180, minSpeed: 200, maxSpeed: 232, minSpeedWithIvZero: 166, maxSpeedWithNature: 255, statistics: [] },
-  Dewgong: {
-    referenceDate: "2025-07",
-    baseSpeed: 70,
-    minSpeed: 90,
-    maxSpeed: 122,
-    minSpeedWithIvZero: 67,
-    maxSpeedWithNature: 134,
-    choiceScarfPercentage: 0,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 67, percentile: 23, percentage: 23, speedEv: 0, nature: "Relaxed" },
-      { type: "usage", speed: 90, percentile: 90, percentage: 67, speedEv: 0, nature: "Adamant" }
-    ]
-  },
-  Dewott: { referenceDate: "2025-07", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
-  Dewpider: { referenceDate: "2025-07", baseSpeed: 27, minSpeed: 47, maxSpeed: 79, minSpeedWithIvZero: 28, maxSpeedWithNature: 86, statistics: [] },
+  Deoxys: { referenceDate: "2025-08", baseSpeed: 150, minSpeed: 170, maxSpeed: 202, minSpeedWithIvZero: 139, maxSpeedWithNature: 222, statistics: [] },
+  "Deoxys-Attack": { referenceDate: "2025-08", baseSpeed: 150, minSpeed: 170, maxSpeed: 202, minSpeedWithIvZero: 139, maxSpeedWithNature: 222, statistics: [] },
+  "Deoxys-Defense": { referenceDate: "2025-08", baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
+  "Deoxys-Speed": { referenceDate: "2025-08", baseSpeed: 180, minSpeed: 200, maxSpeed: 232, minSpeedWithIvZero: 166, maxSpeedWithNature: 255, statistics: [] },
+  Dewgong: { referenceDate: "2025-08", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
+  Dewott: { referenceDate: "2025-08", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  Dewpider: { referenceDate: "2025-08", baseSpeed: 27, minSpeed: 47, maxSpeed: 79, minSpeedWithIvZero: 28, maxSpeedWithNature: 86, statistics: [] },
   Dialga: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 90,
     minSpeed: 110,
     maxSpeed: 142,
@@ -1350,12 +1236,12 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 85, percentile: 34, percentage: 34, speedEv: 0, nature: "Quiet" },
-      { type: "usage", speed: 110, percentile: 72, percentage: 38, speedEv: 0, nature: "Modest" }
+      { type: "usage", speed: 85, percentile: 23, percentage: 23, speedEv: 0, nature: "Quiet" },
+      { type: "usage", speed: 110, percentile: 94, percentage: 71, speedEv: 0, nature: "Modest" }
     ]
   },
   "Dialga-Origin": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 90,
     minSpeed: 110,
     maxSpeed: 142,
@@ -1366,38 +1252,64 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 85, percentile: 51, percentage: 51, speedEv: 0, nature: "Quiet" },
-      { type: "usage", speed: 110, percentile: 72, percentage: 20, speedEv: 0, nature: "Modest" },
-      { type: "usage", speed: 112, percentile: 88, percentage: 12, speedEv: 12, nature: "Modest" }
+      { type: "usage", speed: 85, percentile: 46, percentage: 46, speedEv: 0, nature: "Quiet" },
+      { type: "usage", speed: 110, percentile: 78, percentage: 31, speedEv: 0, nature: "Modest" }
     ]
   },
-  Diancie: { referenceDate: "2025-07", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
-  Diglett: { referenceDate: "2025-07", baseSpeed: 95, minSpeed: 115, maxSpeed: 147, minSpeedWithIvZero: 90, maxSpeedWithNature: 161, statistics: [] },
-  "Diglett-Alola": { referenceDate: "2025-07", baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
-  Dipplin: { referenceDate: "2025-07", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Diancie: { referenceDate: "2025-08", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Diglett: { referenceDate: "2025-08", baseSpeed: 95, minSpeed: 115, maxSpeed: 147, minSpeedWithIvZero: 90, maxSpeedWithNature: 161, statistics: [] },
+  "Diglett-Alola": { referenceDate: "2025-08", baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
+  Dipplin: {
+    referenceDate: "2025-08",
+    baseSpeed: 40,
+    minSpeed: 60,
+    maxSpeed: 92,
+    minSpeedWithIvZero: 40,
+    maxSpeedWithNature: 101,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 40, percentile: 13, percentage: 13, speedEv: 0, nature: "Quiet" },
+      { type: "usage", speed: 60, percentile: 99, percentage: 82, speedEv: 0, nature: "Modest" }
+    ]
+  },
   Ditto: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 48,
     minSpeed: 68,
     maxSpeed: 100,
     minSpeedWithIvZero: 47,
     maxSpeedWithNature: 110,
-    choiceScarfPercentage: 22,
+    choiceScarfPercentage: 16,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
       { type: "usage", speed: 47, percentile: 22, percentage: 22, speedEv: 0, nature: "Relaxed" },
-      { type: "usage", speed: 68, percentile: 33, percentage: 11, speedEv: 0, nature: "Hardy" },
-      { type: "usage", speed: 110, percentile: 100, percentage: 48, speedEv: 252, nature: "Jolly" },
-      { type: "scarf", speed: 165, percentile: 100, percentage: 22, speedEv: 252, nature: "" }
+      { type: "usage", speed: 68, percentile: 36, percentage: 14, speedEv: 0, nature: "Impish" },
+      { type: "usage", speed: 110, percentile: 100, percentage: 44, speedEv: 252, nature: "Jolly" },
+      { type: "scarf", speed: 165, percentile: 100, percentage: 16, speedEv: 252, nature: "" }
     ]
   },
-  Dodrio: { referenceDate: "2025-07", baseSpeed: 110, minSpeed: 130, maxSpeed: 162, minSpeedWithIvZero: 103, maxSpeedWithNature: 178, statistics: [] },
-  Doduo: { referenceDate: "2025-07", baseSpeed: 75, minSpeed: 95, maxSpeed: 127, minSpeedWithIvZero: 72, maxSpeedWithNature: 139, statistics: [] },
-  Dolliv: { referenceDate: "2025-07", baseSpeed: 33, minSpeed: 53, maxSpeed: 85, minSpeedWithIvZero: 34, maxSpeedWithNature: 93, statistics: [] },
+  Dodrio: {
+    referenceDate: "2025-08",
+    baseSpeed: 110,
+    minSpeed: 130,
+    maxSpeed: 162,
+    minSpeedWithIvZero: 103,
+    maxSpeedWithNature: 178,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [{ type: "usage", speed: 178, percentile: 100, percentage: 100, speedEv: 252, nature: "Jolly" }]
+  },
+  Doduo: { referenceDate: "2025-08", baseSpeed: 75, minSpeed: 95, maxSpeed: 127, minSpeedWithIvZero: 72, maxSpeedWithNature: 139, statistics: [] },
+  Dolliv: { referenceDate: "2025-08", baseSpeed: 33, minSpeed: 53, maxSpeed: 85, minSpeedWithIvZero: 34, maxSpeedWithNature: 93, statistics: [] },
   Dondozo: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 35,
     minSpeed: 55,
     maxSpeed: 87,
@@ -1408,14 +1320,14 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 55, percentile: 26, percentage: 20, speedEv: 0, nature: "Careful" },
-      { type: "usage", speed: 57, percentile: 48, percentage: 14, speedEv: 12, nature: "Adamant" },
-      { type: "usage", speed: 75, percentile: 90, percentage: 17, speedEv: 156, nature: "Impish" }
+      { type: "usage", speed: 55, percentile: 17, percentage: 13, speedEv: 0, nature: "Careful" },
+      { type: "usage", speed: 57, percentile: 49, percentage: 29, speedEv: 12, nature: "Adamant" },
+      { type: "usage", speed: 62, percentile: 67, percentage: 15, speedEv: 52, nature: "Impish" }
     ]
   },
-  Donphan: { referenceDate: "2025-07", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Donphan: { referenceDate: "2025-08", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
   Dragalge: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 44,
     minSpeed: 64,
     maxSpeed: 96,
@@ -1425,51 +1337,29 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 44, percentile: 31, percentage: 31, speedEv: 0, nature: "Quiet" },
-      { type: "usage", speed: 64, percentile: 93, percentage: 62, speedEv: 0, nature: "Modest" }
-    ]
+    statistics: [{ type: "usage", speed: 64, percentile: 98, percentage: 98, speedEv: 0, nature: "Modest" }]
   },
   Dragapult: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 142,
     minSpeed: 162,
     maxSpeed: 194,
     minSpeedWithIvZero: 132,
     maxSpeedWithNature: 213,
-    choiceScarfPercentage: 5,
+    choiceScarfPercentage: 11,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 194, percentile: 31, percentage: 21, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 213, percentile: 100, percentage: 55, speedEv: 252, nature: "Jolly" },
-      { type: "scarf", speed: 319, percentile: 100, percentage: 5, speedEv: 252, nature: "" }
+      { type: "usage", speed: 194, percentile: 23, percentage: 14, speedEv: 252, nature: "Adamant" },
+      { type: "usage", speed: 204, percentile: 35, percentage: 12, speedEv: 188, nature: "Jolly" },
+      { type: "usage", speed: 213, percentile: 100, percentage: 59, speedEv: 252, nature: "Hasty" },
+      { type: "scarf", speed: 319, percentile: 100, percentage: 11, speedEv: 252, nature: "" }
     ]
   },
-  Dragonair: { referenceDate: "2025-07", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
+  Dragonair: { referenceDate: "2025-08", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
   Dragonite: {
-    referenceDate: "2025-07",
-    baseSpeed: 80,
-    minSpeed: 100,
-    maxSpeed: 132,
-    minSpeedWithIvZero: 76,
-    maxSpeedWithNature: 145,
-    choiceScarfPercentage: 1,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 100, percentile: 28, percentage: 24, speedEv: 0, nature: "Adamant" },
-      { type: "usage", speed: 101, percentile: 50, percentage: 23, speedEv: 4, nature: "Adamant" }
-    ]
-  },
-  Drakloak: { referenceDate: "2025-07", baseSpeed: 102, minSpeed: 122, maxSpeed: 154, minSpeedWithIvZero: 96, maxSpeedWithNature: 169, statistics: [] },
-  Dratini: { referenceDate: "2025-07", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
-  Drednaw: { referenceDate: "2025-07", baseSpeed: 74, minSpeed: 94, maxSpeed: 126, minSpeedWithIvZero: 71, maxSpeedWithNature: 138, statistics: [] },
-  Dreepy: { referenceDate: "2025-07", baseSpeed: 82, minSpeed: 102, maxSpeed: 134, minSpeedWithIvZero: 78, maxSpeedWithNature: 147, statistics: [] },
-  Drifblim: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 80,
     minSpeed: 100,
     maxSpeed: 132,
@@ -1480,57 +1370,88 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 112, percentile: 42, percentage: 30, speedEv: 12, nature: "Timid" },
-      { type: "usage", speed: 132, percentile: 77, percentage: 13, speedEv: 252, nature: "Modest" },
-      { type: "usage", speed: 145, percentile: 100, percentage: 20, speedEv: 252, nature: "Timid" }
+      { type: "usage", speed: 100, percentile: 18, percentage: 18, speedEv: 0, nature: "Adamant" },
+      { type: "usage", speed: 101, percentile: 44, percentage: 26, speedEv: 4, nature: "Adamant" }
     ]
   },
-  Drifloon: { referenceDate: "2025-07", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
-  Drilbur: { referenceDate: "2025-07", baseSpeed: 68, minSpeed: 88, maxSpeed: 120, minSpeedWithIvZero: 65, maxSpeedWithNature: 132, statistics: [] },
-  Drizzile: { referenceDate: "2025-07", baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
-  Drowzee: { referenceDate: "2025-07", baseSpeed: 42, minSpeed: 62, maxSpeed: 94, minSpeedWithIvZero: 42, maxSpeedWithNature: 103, statistics: [] },
-  Ducklett: { referenceDate: "2025-07", baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
+  Drakloak: { referenceDate: "2025-08", baseSpeed: 102, minSpeed: 122, maxSpeed: 154, minSpeedWithIvZero: 96, maxSpeedWithNature: 169, statistics: [] },
+  Dratini: { referenceDate: "2025-08", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Drednaw: { referenceDate: "2025-08", baseSpeed: 74, minSpeed: 94, maxSpeed: 126, minSpeedWithIvZero: 71, maxSpeedWithNature: 138, statistics: [] },
+  Dreepy: { referenceDate: "2025-08", baseSpeed: 82, minSpeed: 102, maxSpeed: 134, minSpeedWithIvZero: 78, maxSpeedWithNature: 147, statistics: [] },
+  Drifblim: {
+    referenceDate: "2025-08",
+    baseSpeed: 80,
+    minSpeed: 100,
+    maxSpeed: 132,
+    minSpeedWithIvZero: 76,
+    maxSpeedWithNature: 145,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 113, percentile: 48, percentage: 31, speedEv: 100, nature: "Calm" },
+      { type: "usage", speed: 132, percentile: 62, percentage: 12, speedEv: 252, nature: "Impish" },
+      { type: "usage", speed: 145, percentile: 100, percentage: 28, speedEv: 252, nature: "Timid" }
+    ]
+  },
+  Drifloon: { referenceDate: "2025-08", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
+  Drilbur: { referenceDate: "2025-08", baseSpeed: 68, minSpeed: 88, maxSpeed: 120, minSpeedWithIvZero: 65, maxSpeedWithNature: 132, statistics: [] },
+  Drizzile: { referenceDate: "2025-08", baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
+  Drowzee: { referenceDate: "2025-08", baseSpeed: 42, minSpeed: 62, maxSpeed: 94, minSpeedWithIvZero: 42, maxSpeedWithNature: 103, statistics: [] },
+  Ducklett: { referenceDate: "2025-08", baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
   Dudunsparce: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 55,
     minSpeed: 75,
     maxSpeed: 107,
     minSpeedWithIvZero: 54,
     maxSpeedWithNature: 117,
-    choiceScarfPercentage: 40,
-    choiceScarfIsMoreUsed: true,
+    choiceScarfPercentage: 2,
+    choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 54, percentile: 18, percentage: 18, speedEv: 0, nature: "Relaxed" },
-      { type: "usage", speed: 75, percentile: 40, percentage: 22, speedEv: 0, nature: "Adamant" },
-      { type: "usage", speed: 117, percentile: 100, percentage: 47, speedEv: 252, nature: "Jolly" },
-      { type: "scarf", speed: 175, percentile: 100, percentage: 40, speedEv: 252, nature: "" }
+      { type: "usage", speed: 54, percentile: 58, percentage: 58, speedEv: 0, nature: "Sassy" },
+      { type: "usage", speed: 75, percentile: 73, percentage: 16, speedEv: 0, nature: "Careful" },
+      { type: "usage", speed: 117, percentile: 100, percentage: 18, speedEv: 252, nature: "Jolly" }
     ]
   },
   Dugtrio: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 120,
     minSpeed: 140,
     maxSpeed: 172,
     minSpeedWithIvZero: 112,
     maxSpeedWithNature: 189,
-    choiceScarfPercentage: 20,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [{ type: "usage", speed: 189, percentile: 100, percentage: 82, speedEv: 252, nature: "Jolly" }]
+  },
+  "Dugtrio-Alola": { referenceDate: "2025-08", baseSpeed: 110, minSpeed: 130, maxSpeed: 162, minSpeedWithIvZero: 103, maxSpeedWithNature: 178, statistics: [] },
+  Dunsparce: { referenceDate: "2025-08", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  Duosion: { referenceDate: "2025-08", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
+  Duraludon: {
+    referenceDate: "2025-08",
+    baseSpeed: 85,
+    minSpeed: 105,
+    maxSpeed: 137,
+    minSpeedWithIvZero: 81,
+    maxSpeedWithNature: 150,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 185, percentile: 27, percentage: 14, speedEv: 228, nature: "Timid" },
-      { type: "usage", speed: 189, percentile: 100, percentage: 73, speedEv: 252, nature: "Jolly" },
-      { type: "scarf", speed: 283, percentile: 100, percentage: 20, speedEv: 252, nature: "" }
+      { type: "usage", speed: 81, percentile: 14, percentage: 14, speedEv: 4, nature: "Relaxed" },
+      { type: "usage", speed: 105, percentile: 71, percentage: 57, speedEv: 0, nature: "Calm" },
+      { type: "usage", speed: 112, percentile: 89, percentage: 18, speedEv: 52, nature: "Modest" }
     ]
   },
-  "Dugtrio-Alola": { referenceDate: "2025-07", baseSpeed: 110, minSpeed: 130, maxSpeed: 162, minSpeedWithIvZero: 103, maxSpeedWithNature: 178, statistics: [] },
-  Dunsparce: { referenceDate: "2025-07", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
-  Duosion: { referenceDate: "2025-07", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
-  Duraludon: { referenceDate: "2025-07", baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
   Dusclops: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 25,
     minSpeed: 45,
     maxSpeed: 77,
@@ -1541,12 +1462,12 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 27, percentile: 60, percentage: 60, speedEv: 0, nature: "Sassy" },
-      { type: "usage", speed: 45, percentile: 99, percentage: 38, speedEv: 0, nature: "Calm" }
+      { type: "usage", speed: 27, percentile: 85, percentage: 85, speedEv: 0, nature: "Sassy" },
+      { type: "usage", speed: 45, percentile: 100, percentage: 14, speedEv: 0, nature: "Careful" }
     ]
   },
   Dusknoir: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 45,
     minSpeed: 65,
     maxSpeed: 97,
@@ -1556,15 +1477,12 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 45, percentile: 65, percentage: 65, speedEv: 0, nature: "Brave" },
-      { type: "usage", speed: 65, percentile: 92, percentage: 26, speedEv: 0, nature: "Adamant" }
-    ]
+    statistics: [{ type: "usage", speed: 45, percentile: 76, percentage: 76, speedEv: 0, nature: "Relaxed" }]
   },
-  Duskull: { referenceDate: "2025-07", baseSpeed: 25, minSpeed: 45, maxSpeed: 77, minSpeedWithIvZero: 27, maxSpeedWithNature: 84, statistics: [] },
-  Eelektrik: { referenceDate: "2025-07", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Duskull: { referenceDate: "2025-08", baseSpeed: 25, minSpeed: 45, maxSpeed: 77, minSpeedWithIvZero: 27, maxSpeedWithNature: 84, statistics: [] },
+  Eelektrik: { referenceDate: "2025-08", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
   Eelektross: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 50,
     minSpeed: 70,
     maxSpeed: 102,
@@ -1575,16 +1493,17 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 49, percentile: 25, percentage: 25, speedEv: 0, nature: "Quiet" },
-      { type: "usage", speed: 70, percentile: 79, percentage: 53, speedEv: 0, nature: "Hardy" }
+      { type: "usage", speed: 49, percentile: 19, percentage: 19, speedEv: 0, nature: "Brave" },
+      { type: "usage", speed: 70, percentile: 45, percentage: 26, speedEv: 0, nature: "Hardy" },
+      { type: "usage", speed: 77, percentile: 81, percentage: 32, speedEv: 56, nature: "Hardy" }
     ]
   },
-  Eevee: { referenceDate: "2025-07", baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
-  Eiscue: { referenceDate: "2025-07", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
-  "Eiscue-Noice": { referenceDate: "2025-07", baseSpeed: 130, minSpeed: 150, maxSpeed: 182, minSpeedWithIvZero: 121, maxSpeedWithNature: 200, statistics: [] },
-  Ekans: { referenceDate: "2025-07", baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
+  Eevee: { referenceDate: "2025-08", baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
+  Eiscue: { referenceDate: "2025-08", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  "Eiscue-Noice": { referenceDate: "2025-08", baseSpeed: 130, minSpeed: 150, maxSpeed: 182, minSpeedWithIvZero: 121, maxSpeedWithNature: 200, statistics: [] },
+  Ekans: { referenceDate: "2025-08", baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
   Electabuzz: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 105,
     minSpeed: 125,
     maxSpeed: 157,
@@ -1595,77 +1514,59 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 125, percentile: 44, percentage: 44, speedEv: 0, nature: "Calm" },
-      { type: "usage", speed: 126, percentile: 55, percentage: 12, speedEv: 4, nature: "Bold" }
+      { type: "usage", speed: 125, percentile: 47, percentage: 42, speedEv: 0, nature: "Bold" },
+      { type: "usage", speed: 126, percentile: 58, percentage: 12, speedEv: 4, nature: "Bold" }
     ]
   },
   Electivire: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 95,
     minSpeed: 115,
     maxSpeed: 147,
     minSpeedWithIvZero: 90,
     maxSpeedWithNature: 161,
-    choiceScarfPercentage: 4,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 115, percentile: 37, percentage: 31, speedEv: 0, nature: "Bold" },
-      { type: "usage", speed: 147, percentile: 70, percentage: 17, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 161, percentile: 100, percentage: 25, speedEv: 252, nature: "Jolly" }
-    ]
+    statistics: [{ type: "usage", speed: 115, percentile: 70, percentage: 67, speedEv: 0, nature: "Adamant" }]
   },
   Electrode: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 150,
     minSpeed: 170,
     maxSpeed: 202,
     minSpeedWithIvZero: 139,
     maxSpeedWithNature: 222,
-    choiceScarfPercentage: 3,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 170, percentile: 25, percentage: 25, speedEv: 0, nature: "Hardy" },
-      { type: "usage", speed: 222, percentile: 100, percentage: 71, speedEv: 252, nature: "Timid" }
+      { type: "usage", speed: 202, percentile: 50, percentage: 50, speedEv: 252, nature: "Mild" },
+      { type: "usage", speed: 222, percentile: 100, percentage: 50, speedEv: 252, nature: "Timid" }
     ]
   },
   "Electrode-Hisui": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 150,
     minSpeed: 170,
     maxSpeed: 202,
     minSpeedWithIvZero: 139,
     maxSpeedWithNature: 222,
-    choiceScarfPercentage: 3,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [{ type: "usage", speed: 222, percentile: 100, percentage: 78, speedEv: 252, nature: "Timid" }]
-  },
-  Elekid: { referenceDate: "2025-07", baseSpeed: 95, minSpeed: 115, maxSpeed: 147, minSpeedWithIvZero: 90, maxSpeedWithNature: 161, statistics: [] },
-  Emboar: {
-    referenceDate: "2025-07",
-    baseSpeed: 65,
-    minSpeed: 85,
-    maxSpeed: 117,
-    minSpeedWithIvZero: 63,
-    maxSpeedWithNature: 128,
-    choiceScarfPercentage: 19,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 63, percentile: 40, percentage: 40, speedEv: 0, nature: "Sassy" },
-      { type: "usage", speed: 85, percentile: 72, percentage: 32, speedEv: 0, nature: "Adamant" },
-      { type: "usage", speed: 128, percentile: 100, percentage: 19, speedEv: 252, nature: "Jolly" },
-      { type: "scarf", speed: 192, percentile: 100, percentage: 19, speedEv: 252, nature: "" }
+      { type: "usage", speed: 202, percentile: 23, percentage: 22, speedEv: 252, nature: "Mild" },
+      { type: "usage", speed: 222, percentile: 100, percentage: 77, speedEv: 252, nature: "Hasty" }
     ]
   },
+  Elekid: { referenceDate: "2025-08", baseSpeed: 95, minSpeed: 115, maxSpeed: 147, minSpeedWithIvZero: 90, maxSpeedWithNature: 161, statistics: [] },
+  Emboar: { referenceDate: "2025-08", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
   Empoleon: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 60,
     minSpeed: 80,
     maxSpeed: 112,
@@ -1676,30 +1577,29 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 58, percentile: 19, percentage: 19, speedEv: 0, nature: "Relaxed" },
-      { type: "usage", speed: 80, percentile: 83, percentage: 63, speedEv: 0, nature: "Modest" }
+      { type: "usage", speed: 58, percentile: 21, percentage: 21, speedEv: 0, nature: "Sassy" },
+      { type: "usage", speed: 80, percentile: 95, percentage: 75, speedEv: 0, nature: "Modest" }
     ]
   },
   Enamorus: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 106,
     minSpeed: 126,
     maxSpeed: 158,
     minSpeedWithIvZero: 99,
     maxSpeedWithNature: 173,
-    choiceScarfPercentage: 18,
-    choiceScarfIsMoreUsed: true,
+    choiceScarfPercentage: 2,
+    choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 126, percentile: 24, percentage: 13, speedEv: 0, nature: "Hardy" },
-      { type: "usage", speed: 158, percentile: 54, percentage: 14, speedEv: 252, nature: "Modest" },
-      { type: "usage", speed: 173, percentile: 100, percentage: 34, speedEv: 252, nature: "Timid" },
-      { type: "scarf", speed: 259, percentile: 100, percentage: 18, speedEv: 252, nature: "" }
+      { type: "usage", speed: 126, percentile: 15, percentage: 15, speedEv: 0, nature: "Hardy" },
+      { type: "usage", speed: 158, percentile: 51, percentage: 24, speedEv: 252, nature: "Mild" },
+      { type: "usage", speed: 173, percentile: 100, percentage: 46, speedEv: 252, nature: "Naive" }
     ]
   },
   "Enamorus-Therian": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 46,
     minSpeed: 66,
     maxSpeed: 98,
@@ -1709,98 +1609,101 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
-    statistics: [{ type: "usage", speed: 45, percentile: 89, percentage: 89, speedEv: 0, nature: "Quiet" }]
+    statistics: [
+      { type: "usage", speed: 45, percentile: 67, percentage: 67, speedEv: 0, nature: "Quiet" },
+      { type: "usage", speed: 66, percentile: 90, percentage: 23, speedEv: 0, nature: "Modest" }
+    ]
   },
   Entei: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 100,
     minSpeed: 120,
     maxSpeed: 152,
     minSpeedWithIvZero: 94,
     maxSpeedWithNature: 167,
-    choiceScarfPercentage: 7,
+    choiceScarfPercentage: 8,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 121, percentile: 20, percentage: 12, speedEv: 4, nature: "Adamant" },
-      { type: "usage", speed: 150, percentile: 71, percentage: 12, speedEv: 236, nature: "Adamant" },
-      { type: "usage", speed: 152, percentile: 89, percentage: 17, speedEv: 252, nature: "Adamant" },
-      { type: "scarf", speed: 250, percentile: 100, percentage: 7, speedEv: 252, nature: "" }
+      { type: "usage", speed: 126, percentile: 27, percentage: 13, speedEv: 44, nature: "Adamant" },
+      { type: "usage", speed: 140, percentile: 57, percentage: 13, speedEv: 156, nature: "Adamant" },
+      { type: "usage", speed: 152, percentile: 88, percentage: 25, speedEv: 252, nature: "Adamant" },
+      { type: "scarf", speed: 250, percentile: 100, percentage: 8, speedEv: 252, nature: "" }
     ]
   },
   Espathra: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 105,
     minSpeed: 125,
     maxSpeed: 157,
     minSpeedWithIvZero: 99,
     maxSpeedWithNature: 172,
-    choiceScarfPercentage: 3,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 125, percentile: 19, percentage: 18, speedEv: 0, nature: "Hardy" },
-      { type: "usage", speed: 157, percentile: 54, percentage: 27, speedEv: 252, nature: "Modest" },
-      { type: "usage", speed: 172, percentile: 100, percentage: 43, speedEv: 252, nature: "Timid" }
+      { type: "usage", speed: 125, percentile: 19, percentage: 19, speedEv: 0, nature: "Bold" },
+      { type: "usage", speed: 150, percentile: 65, percentage: 42, speedEv: 196, nature: "Hardy" },
+      { type: "usage", speed: 157, percentile: 94, percentage: 29, speedEv: 252, nature: "Modest" }
     ]
   },
   Espeon: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 110,
     minSpeed: 130,
     maxSpeed: 162,
     minSpeedWithIvZero: 103,
     maxSpeedWithNature: 178,
-    choiceScarfPercentage: 5,
-    choiceScarfIsMoreUsed: false,
+    choiceScarfPercentage: 47,
+    choiceScarfIsMoreUsed: true,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 130, percentile: 12, percentage: 11, speedEv: 0, nature: "Calm" },
-      { type: "usage", speed: 162, percentile: 48, percentage: 26, speedEv: 252, nature: "Modest" },
-      { type: "usage", speed: 178, percentile: 100, percentage: 48, speedEv: 252, nature: "Timid" },
-      { type: "scarf", speed: 267, percentile: 100, percentage: 5, speedEv: 252, nature: "" }
+      { type: "usage", speed: 130, percentile: 23, percentage: 23, speedEv: 0, nature: "Bold" },
+      { type: "usage", speed: 162, percentile: 58, percentage: 30, speedEv: 252, nature: "Hardy" },
+      { type: "usage", speed: 178, percentile: 100, percentage: 40, speedEv: 252, nature: "Timid" },
+      { type: "scarf", speed: 267, percentile: 100, percentage: 47, speedEv: 252, nature: "" }
     ]
   },
-  Espurr: { referenceDate: "2025-07", baseSpeed: 68, minSpeed: 88, maxSpeed: 120, minSpeedWithIvZero: 65, maxSpeedWithNature: 132, statistics: [] },
+  Espurr: { referenceDate: "2025-08", baseSpeed: 68, minSpeed: 88, maxSpeed: 120, minSpeedWithIvZero: 65, maxSpeedWithNature: 132, statistics: [] },
   Eternatus: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 130,
     minSpeed: 150,
     maxSpeed: 182,
     minSpeedWithIvZero: 121,
     maxSpeedWithNature: 200,
-    choiceScarfPercentage: 1,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 150, percentile: 21, percentage: 20, speedEv: 0, nature: "Calm" },
-      { type: "usage", speed: 151, percentile: 37, percentage: 16, speedEv: 4, nature: "Modest" },
-      { type: "usage", speed: 200, percentile: 100, percentage: 18, speedEv: 252, nature: "Timid" }
+      { type: "usage", speed: 150, percentile: 20, percentage: 20, speedEv: 0, nature: "Calm" },
+      { type: "usage", speed: 151, percentile: 37, percentage: 17, speedEv: 4, nature: "Calm" },
+      { type: "usage", speed: 200, percentile: 100, percentage: 24, speedEv: 252, nature: "Timid" }
     ]
   },
   Excadrill: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 88,
     minSpeed: 108,
     maxSpeed: 140,
     minSpeedWithIvZero: 83,
     maxSpeedWithNature: 154,
-    choiceScarfPercentage: 2,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 140, percentile: 68, percentage: 43, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 154, percentile: 100, percentage: 31, speedEv: 252, nature: "Jolly" }
+      { type: "usage", speed: 140, percentile: 62, percentage: 41, speedEv: 252, nature: "Adamant" },
+      { type: "usage", speed: 154, percentile: 100, percentage: 37, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Exeggcute: { referenceDate: "2025-07", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Exeggcute: { referenceDate: "2025-08", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
   Exeggutor: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 55,
     minSpeed: 75,
     maxSpeed: 107,
@@ -1811,45 +1714,15 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 54, percentile: 18, percentage: 18, speedEv: 0, nature: "Sassy" },
-      { type: "usage", speed: 75, percentile: 46, percentage: 28, speedEv: 0, nature: "Calm" },
-      { type: "usage", speed: 117, percentile: 100, percentage: 28, speedEv: 252, nature: "Timid" }
+      { type: "usage", speed: 75, percentile: 28, percentage: 18, speedEv: 0, nature: "Modest" },
+      { type: "usage", speed: 107, percentile: 73, percentage: 38, speedEv: 252, nature: "Modest" },
+      { type: "usage", speed: 117, percentile: 100, percentage: 26, speedEv: 252, nature: "Timid" }
     ]
   },
-  "Exeggutor-Alola": {
-    referenceDate: "2025-07",
-    baseSpeed: 45,
-    minSpeed: 65,
-    maxSpeed: 97,
-    minSpeedWithIvZero: 45,
-    maxSpeedWithNature: 106,
-    choiceScarfPercentage: 0,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 45, percentile: 70, percentage: 70, speedEv: 0, nature: "Quiet" },
-      { type: "usage", speed: 65, percentile: 88, percentage: 18, speedEv: 0, nature: "Modest" }
-    ]
-  },
-  Falinks: {
-    referenceDate: "2025-07",
-    baseSpeed: 75,
-    minSpeed: 95,
-    maxSpeed: 127,
-    minSpeedWithIvZero: 72,
-    maxSpeedWithNature: 139,
-    choiceScarfPercentage: 3,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 95, percentile: 29, percentage: 25, speedEv: 0, nature: "Adamant" },
-      { type: "usage", speed: 96, percentile: 83, percentage: 53, speedEv: 4, nature: "Adamant" }
-    ]
-  },
+  "Exeggutor-Alola": { referenceDate: "2025-08", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  Falinks: { referenceDate: "2025-08", baseSpeed: 75, minSpeed: 95, maxSpeed: 127, minSpeedWithIvZero: 72, maxSpeedWithNature: 139, statistics: [] },
   Farigiraf: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 60,
     minSpeed: 80,
     maxSpeed: 112,
@@ -1860,37 +1733,53 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 58, percentile: 23, percentage: 23, speedEv: 0, nature: "Sassy" },
-      { type: "usage", speed: 80, percentile: 68, percentage: 44, speedEv: 0, nature: "Bold" },
-      { type: "usage", speed: 81, percentile: 82, percentage: 14, speedEv: 4, nature: "Modest" }
+      { type: "usage", speed: 58, percentile: 27, percentage: 27, speedEv: 0, nature: "Sassy" },
+      { type: "usage", speed: 80, percentile: 73, percentage: 46, speedEv: 0, nature: "Bold" },
+      { type: "usage", speed: 81, percentile: 85, percentage: 12, speedEv: 4, nature: "Modest" }
     ]
   },
-  Feebas: { referenceDate: "2025-07", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
-  Fennekin: { referenceDate: "2025-07", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
-  Feraligatr: { referenceDate: "2025-07", baseSpeed: 78, minSpeed: 98, maxSpeed: 130, minSpeedWithIvZero: 74, maxSpeedWithNature: 143, statistics: [] },
+  Feebas: { referenceDate: "2025-08", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
+  Fennekin: { referenceDate: "2025-08", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  Feraligatr: {
+    referenceDate: "2025-08",
+    baseSpeed: 78,
+    minSpeed: 98,
+    maxSpeed: 130,
+    minSpeedWithIvZero: 74,
+    maxSpeedWithNature: 143,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 98, percentile: 21, percentage: 21, speedEv: 0, nature: "Adamant" },
+      { type: "usage", speed: 130, percentile: 71, percentage: 42, speedEv: 252, nature: "Adamant" },
+      { type: "usage", speed: 143, percentile: 100, percentage: 29, speedEv: 252, nature: "Jolly" }
+    ]
+  },
   Fezandipiti: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 99,
     minSpeed: 119,
     maxSpeed: 151,
     minSpeedWithIvZero: 93,
     maxSpeedWithNature: 166,
-    choiceScarfPercentage: 3,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 119, percentile: 27, percentage: 27, speedEv: 0, nature: "Calm" },
-      { type: "usage", speed: 166, percentile: 100, percentage: 30, speedEv: 252, nature: "Timid" }
+      { type: "usage", speed: 119, percentile: 58, percentage: 58, speedEv: 0, nature: "Modest" },
+      { type: "usage", speed: 166, percentile: 100, percentage: 29, speedEv: 252, nature: "Timid" }
     ]
   },
-  Fidough: { referenceDate: "2025-07", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
-  Finizen: { referenceDate: "2025-07", baseSpeed: 75, minSpeed: 95, maxSpeed: 127, minSpeedWithIvZero: 72, maxSpeedWithNature: 139, statistics: [] },
-  Finneon: { referenceDate: "2025-07", baseSpeed: 66, minSpeed: 86, maxSpeed: 118, minSpeedWithIvZero: 63, maxSpeedWithNature: 129, statistics: [] },
-  Flaaffy: { referenceDate: "2025-07", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
-  Flabébé: { referenceDate: "2025-07", baseSpeed: 42, minSpeed: 62, maxSpeed: 94, minSpeedWithIvZero: 42, maxSpeedWithNature: 103, statistics: [] },
+  Fidough: { referenceDate: "2025-08", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  Finizen: { referenceDate: "2025-08", baseSpeed: 75, minSpeed: 95, maxSpeed: 127, minSpeedWithIvZero: 72, maxSpeedWithNature: 139, statistics: [] },
+  Finneon: { referenceDate: "2025-08", baseSpeed: 66, minSpeed: 86, maxSpeed: 118, minSpeedWithIvZero: 63, maxSpeedWithNature: 129, statistics: [] },
+  Flaaffy: { referenceDate: "2025-08", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  Flabébé: { referenceDate: "2025-08", baseSpeed: 42, minSpeed: 62, maxSpeed: 94, minSpeedWithIvZero: 42, maxSpeedWithNature: 103, statistics: [] },
   Flamigo: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 90,
     minSpeed: 110,
     maxSpeed: 142,
@@ -1901,769 +1790,12 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 142, percentile: 49, percentage: 29, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 156, percentile: 100, percentage: 50, speedEv: 252, nature: "Jolly" }
+      { type: "usage", speed: 142, percentile: 53, percentage: 36, speedEv: 252, nature: "Adamant" },
+      { type: "usage", speed: 156, percentile: 100, percentage: 47, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Flapple: { referenceDate: "2025-07", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
-  Flareon: { referenceDate: "2025-07", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
-  Fletchinder: { referenceDate: "2025-07", baseSpeed: 84, minSpeed: 104, maxSpeed: 136, minSpeedWithIvZero: 80, maxSpeedWithNature: 149, statistics: [] },
-  Fletchling: {
-    referenceDate: "2025-07",
-    baseSpeed: 62,
-    minSpeed: 82,
-    maxSpeed: 114,
-    minSpeedWithIvZero: 60,
-    maxSpeedWithNature: 125,
-    choiceScarfPercentage: 0,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 82, percentile: 13, percentage: 13, speedEv: 0, nature: "Bold" },
-      { type: "usage", speed: 114, percentile: 41, percentage: 12, speedEv: 252, nature: "Bold" },
-      { type: "usage", speed: 125, percentile: 100, percentage: 58, speedEv: 252, nature: "Timid" }
-    ]
-  },
-  Flittle: { referenceDate: "2025-07", baseSpeed: 75, minSpeed: 95, maxSpeed: 127, minSpeedWithIvZero: 72, maxSpeedWithNature: 139, statistics: [] },
-  Floatzel: { referenceDate: "2025-07", baseSpeed: 115, minSpeed: 135, maxSpeed: 167, minSpeedWithIvZero: 108, maxSpeedWithNature: 183, statistics: [] },
-  Floette: { referenceDate: "2025-07", baseSpeed: 52, minSpeed: 72, maxSpeed: 104, minSpeedWithIvZero: 51, maxSpeedWithNature: 114, statistics: [] },
-  Floragato: { referenceDate: "2025-07", baseSpeed: 83, minSpeed: 103, maxSpeed: 135, minSpeedWithIvZero: 79, maxSpeedWithNature: 148, statistics: [] },
-  Florges: {
-    referenceDate: "2025-07",
-    baseSpeed: 75,
-    minSpeed: 95,
-    maxSpeed: 127,
-    minSpeedWithIvZero: 72,
-    maxSpeedWithNature: 139,
-    choiceScarfPercentage: 0,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [{ type: "usage", speed: 95, percentile: 93, percentage: 89, speedEv: 0, nature: "Modest" }]
-  },
-  "Flutter Mane": {
-    referenceDate: "2025-07",
-    baseSpeed: 135,
-    minSpeed: 155,
-    maxSpeed: 187,
-    minSpeedWithIvZero: 126,
-    maxSpeedWithNature: 205,
-    choiceScarfPercentage: 1,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 25,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 205, percentile: 100, percentage: 75, speedEv: 252, nature: "Timid" },
-      { type: "booster", speed: 307, percentile: 100, percentage: 25, speedEv: 252, nature: "" }
-    ]
-  },
-  Flygon: {
-    referenceDate: "2025-07",
-    baseSpeed: 100,
-    minSpeed: 120,
-    maxSpeed: 152,
-    minSpeedWithIvZero: 94,
-    maxSpeedWithNature: 167,
-    choiceScarfPercentage: 12,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 120, percentile: 15, percentage: 14, speedEv: 0, nature: "Gentle" },
-      { type: "usage", speed: 167, percentile: 100, percentage: 66, speedEv: 252, nature: "Jolly" },
-      { type: "scarf", speed: 250, percentile: 100, percentage: 12, speedEv: 252, nature: "" }
-    ]
-  },
-  Fomantis: { referenceDate: "2025-07", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
-  Foongus: { referenceDate: "2025-07", baseSpeed: 15, minSpeed: 35, maxSpeed: 67, minSpeedWithIvZero: 18, maxSpeedWithNature: 73, statistics: [] },
-  Forretress: { referenceDate: "2025-07", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
-  Fraxure: { referenceDate: "2025-07", baseSpeed: 67, minSpeed: 87, maxSpeed: 119, minSpeedWithIvZero: 64, maxSpeedWithNature: 130, statistics: [] },
-  Frigibax: { referenceDate: "2025-07", baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
-  Froakie: { referenceDate: "2025-07", baseSpeed: 71, minSpeed: 91, maxSpeed: 123, minSpeedWithIvZero: 68, maxSpeedWithNature: 135, statistics: [] },
-  Frogadier: { referenceDate: "2025-07", baseSpeed: 97, minSpeed: 117, maxSpeed: 149, minSpeedWithIvZero: 91, maxSpeedWithNature: 163, statistics: [] },
-  Froslass: {
-    referenceDate: "2025-07",
-    baseSpeed: 110,
-    minSpeed: 130,
-    maxSpeed: 162,
-    minSpeedWithIvZero: 103,
-    maxSpeedWithNature: 178,
-    choiceScarfPercentage: 21,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 178, percentile: 100, percentage: 77, speedEv: 252, nature: "Timid" },
-      { type: "scarf", speed: 267, percentile: 100, percentage: 21, speedEv: 252, nature: "" }
-    ]
-  },
-  Frosmoth: {
-    referenceDate: "2025-07",
-    baseSpeed: 65,
-    minSpeed: 85,
-    maxSpeed: 117,
-    minSpeedWithIvZero: 63,
-    maxSpeedWithNature: 128,
-    choiceScarfPercentage: 1,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 85, percentile: 46, percentage: 40, speedEv: 0, nature: "Modest" },
-      { type: "usage", speed: 90, percentile: 66, percentage: 14, speedEv: 36, nature: "Modest" },
-      { type: "usage", speed: 113, percentile: 86, percentage: 11, speedEv: 140, nature: "Timid" }
-    ]
-  },
-  Fuecoco: { referenceDate: "2025-07", baseSpeed: 36, minSpeed: 56, maxSpeed: 88, minSpeedWithIvZero: 36, maxSpeedWithNature: 96, statistics: [] },
-  Furret: {
-    referenceDate: "2025-07",
-    baseSpeed: 90,
-    minSpeed: 110,
-    maxSpeed: 142,
-    minSpeedWithIvZero: 85,
-    maxSpeedWithNature: 156,
-    choiceScarfPercentage: 20,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 156, percentile: 100, percentage: 86, speedEv: 252, nature: "Jolly" },
-      { type: "scarf", speed: 234, percentile: 100, percentage: 20, speedEv: 252, nature: "" }
-    ]
-  },
-  Gabite: { referenceDate: "2025-07", baseSpeed: 82, minSpeed: 102, maxSpeed: 134, minSpeedWithIvZero: 78, maxSpeedWithNature: 147, statistics: [] },
-  Gallade: {
-    referenceDate: "2025-07",
-    baseSpeed: 80,
-    minSpeed: 100,
-    maxSpeed: 132,
-    minSpeedWithIvZero: 76,
-    maxSpeedWithNature: 145,
-    choiceScarfPercentage: 1,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [{ type: "usage", speed: 76, percentile: 60, percentage: 60, speedEv: 0, nature: "Brave" }]
-  },
-  Galvantula: {
-    referenceDate: "2025-07",
-    baseSpeed: 108,
-    minSpeed: 128,
-    maxSpeed: 160,
-    minSpeedWithIvZero: 101,
-    maxSpeedWithNature: 176,
-    choiceScarfPercentage: 5,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 176, percentile: 100, percentage: 78, speedEv: 252, nature: "Timid" },
-      { type: "scarf", speed: 264, percentile: 100, percentage: 5, speedEv: 252, nature: "" }
-    ]
-  },
-  Garchomp: {
-    referenceDate: "2025-07",
-    baseSpeed: 102,
-    minSpeed: 122,
-    maxSpeed: 154,
-    minSpeedWithIvZero: 96,
-    maxSpeedWithNature: 169,
-    choiceScarfPercentage: 4,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 154, percentile: 45, percentage: 22, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 169, percentile: 100, percentage: 53, speedEv: 252, nature: "Jolly" }
-    ]
-  },
-  Gardevoir: {
-    referenceDate: "2025-07",
-    baseSpeed: 80,
-    minSpeed: 100,
-    maxSpeed: 132,
-    minSpeedWithIvZero: 76,
-    maxSpeedWithNature: 145,
-    choiceScarfPercentage: 9,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 76, percentile: 20, percentage: 20, speedEv: 0, nature: "Relaxed" },
-      { type: "usage", speed: 100, percentile: 39, percentage: 19, speedEv: 0, nature: "Modest" },
-      { type: "usage", speed: 145, percentile: 100, percentage: 32, speedEv: 252, nature: "Timid" },
-      { type: "scarf", speed: 217, percentile: 100, percentage: 9, speedEv: 252, nature: "" }
-    ]
-  },
-  Garganacl: {
-    referenceDate: "2025-07",
-    baseSpeed: 35,
-    minSpeed: 55,
-    maxSpeed: 87,
-    minSpeedWithIvZero: 36,
-    maxSpeedWithNature: 95,
-    choiceScarfPercentage: 0,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 36, percentile: 35, percentage: 35, speedEv: 0, nature: "Brave" },
-      { type: "usage", speed: 55, percentile: 98, percentage: 63, speedEv: 0, nature: "Impish" }
-    ]
-  },
-  Gastly: { referenceDate: "2025-07", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
-  Gastrodon: {
-    referenceDate: "2025-07",
-    baseSpeed: 39,
-    minSpeed: 59,
-    maxSpeed: 91,
-    minSpeedWithIvZero: 39,
-    maxSpeedWithNature: 100,
-    choiceScarfPercentage: 0,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 39, percentile: 42, percentage: 42, speedEv: 0, nature: "Relaxed" },
-      { type: "usage", speed: 59, percentile: 93, percentage: 50, speedEv: 0, nature: "Modest" }
-    ]
-  },
-  Gengar: {
-    referenceDate: "2025-07",
-    baseSpeed: 110,
-    minSpeed: 130,
-    maxSpeed: 162,
-    minSpeedWithIvZero: 103,
-    maxSpeedWithNature: 178,
-    choiceScarfPercentage: 19,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 162, percentile: 41, percentage: 21, speedEv: 252, nature: "Hardy" },
-      { type: "usage", speed: 178, percentile: 100, percentage: 56, speedEv: 252, nature: "Timid" },
-      { type: "scarf", speed: 267, percentile: 100, percentage: 19, speedEv: 252, nature: "" }
-    ]
-  },
-  Geodude: { referenceDate: "2025-07", baseSpeed: 20, minSpeed: 40, maxSpeed: 72, minSpeedWithIvZero: 22, maxSpeedWithNature: 79, statistics: [] },
-  "Geodude-Alola": { referenceDate: "2025-07", baseSpeed: 20, minSpeed: 40, maxSpeed: 72, minSpeedWithIvZero: 22, maxSpeedWithNature: 79, statistics: [] },
-  Gholdengo: {
-    referenceDate: "2025-07",
-    baseSpeed: 84,
-    minSpeed: 104,
-    maxSpeed: 136,
-    minSpeedWithIvZero: 80,
-    maxSpeedWithNature: 149,
-    choiceScarfPercentage: 10,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 104, percentile: 16, percentage: 12, speedEv: 0, nature: "Modest" },
-      { type: "usage", speed: 149, percentile: 100, percentage: 30, speedEv: 252, nature: "Timid" },
-      { type: "scarf", speed: 223, percentile: 100, percentage: 10, speedEv: 252, nature: "" }
-    ]
-  },
-  Gible: { referenceDate: "2025-07", baseSpeed: 42, minSpeed: 62, maxSpeed: 94, minSpeedWithIvZero: 42, maxSpeedWithNature: 103, statistics: [] },
-  Gimmighoul: { referenceDate: "2025-07", baseSpeed: 10, minSpeed: 30, maxSpeed: 62, minSpeedWithIvZero: 13, maxSpeedWithNature: 68, statistics: [] },
-  "Gimmighoul-Roaming": { referenceDate: "2025-07", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
-  Girafarig: { referenceDate: "2025-07", baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
-  Giratina: {
-    referenceDate: "2025-07",
-    baseSpeed: 90,
-    minSpeed: 110,
-    maxSpeed: 142,
-    minSpeedWithIvZero: 85,
-    maxSpeedWithNature: 156,
-    choiceScarfPercentage: 1,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 85, percentile: 14, percentage: 14, speedEv: 0, nature: "Sassy" },
-      { type: "usage", speed: 110, percentile: 65, percentage: 51, speedEv: 0, nature: "Careful" },
-      { type: "usage", speed: 113, percentile: 88, percentage: 14, speedEv: 20, nature: "Bold" }
-    ]
-  },
-  "Giratina-Origin": {
-    referenceDate: "2025-07",
-    baseSpeed: 90,
-    minSpeed: 110,
-    maxSpeed: 142,
-    minSpeedWithIvZero: 85,
-    maxSpeedWithNature: 156,
-    choiceScarfPercentage: 0,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 85, percentile: 43, percentage: 43, speedEv: 0, nature: "Brave" },
-      { type: "usage", speed: 110, percentile: 59, percentage: 13, speedEv: 0, nature: "Adamant" },
-      { type: "usage", speed: 112, percentile: 72, percentage: 11, speedEv: 12, nature: "Adamant" }
-    ]
-  },
-  Glaceon: {
-    referenceDate: "2025-07",
-    baseSpeed: 65,
-    minSpeed: 85,
-    maxSpeed: 117,
-    minSpeedWithIvZero: 63,
-    maxSpeedWithNature: 128,
-    choiceScarfPercentage: 0,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 63, percentile: 28, percentage: 28, speedEv: 0, nature: "Quiet" },
-      { type: "usage", speed: 85, percentile: 70, percentage: 42, speedEv: 0, nature: "Modest" },
-      { type: "usage", speed: 86, percentile: 81, percentage: 11, speedEv: 4, nature: "Modest" }
-    ]
-  },
-  Glalie: { referenceDate: "2025-07", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
-  Glastrier: {
-    referenceDate: "2025-07",
-    baseSpeed: 30,
-    minSpeed: 50,
-    maxSpeed: 82,
-    minSpeedWithIvZero: 31,
-    maxSpeedWithNature: 90,
-    choiceScarfPercentage: 0,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 31, percentile: 41, percentage: 41, speedEv: 0, nature: "Brave" },
-      { type: "usage", speed: 50, percentile: 90, percentage: 48, speedEv: 0, nature: "Adamant" }
-    ]
-  },
-  Gligar: { referenceDate: "2025-07", baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
-  Glimmet: { referenceDate: "2025-07", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
-  Glimmora: {
-    referenceDate: "2025-07",
-    baseSpeed: 86,
-    minSpeed: 106,
-    maxSpeed: 138,
-    minSpeedWithIvZero: 81,
-    maxSpeedWithNature: 151,
-    choiceScarfPercentage: 1,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 106, percentile: 16, percentage: 15, speedEv: 0, nature: "Modest" },
-      { type: "usage", speed: 151, percentile: 100, percentage: 46, speedEv: 252, nature: "Naive" }
-    ]
-  },
-  Gliscor: {
-    referenceDate: "2025-07",
-    baseSpeed: 95,
-    minSpeed: 115,
-    maxSpeed: 147,
-    minSpeedWithIvZero: 90,
-    maxSpeedWithNature: 161,
-    choiceScarfPercentage: 0,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 115, percentile: 41, percentage: 38, speedEv: 0, nature: "Impish" },
-      { type: "usage", speed: 161, percentile: 100, percentage: 23, speedEv: 252, nature: "Jolly" }
-    ]
-  },
-  Gloom: { referenceDate: "2025-07", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
-  Gogoat: { referenceDate: "2025-07", baseSpeed: 68, minSpeed: 88, maxSpeed: 120, minSpeedWithIvZero: 65, maxSpeedWithNature: 132, statistics: [] },
-  Golduck: {
-    referenceDate: "2025-07",
-    baseSpeed: 85,
-    minSpeed: 105,
-    maxSpeed: 137,
-    minSpeedWithIvZero: 81,
-    maxSpeedWithNature: 150,
-    choiceScarfPercentage: 2,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 137, percentile: 39, percentage: 29, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 150, percentile: 100, percentage: 60, speedEv: 252, nature: "Jolly" }
-    ]
-  },
-  Golem: {
-    referenceDate: "2025-07",
-    baseSpeed: 45,
-    minSpeed: 65,
-    maxSpeed: 97,
-    minSpeedWithIvZero: 45,
-    maxSpeedWithNature: 106,
-    choiceScarfPercentage: 0,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 45, percentile: 29, percentage: 29, speedEv: 0, nature: "Brave" },
-      { type: "usage", speed: 65, percentile: 71, percentage: 41, speedEv: 0, nature: "Adamant" },
-      { type: "usage", speed: 106, percentile: 100, percentage: 29, speedEv: 252, nature: "Jolly" }
-    ]
-  },
-  "Golem-Alola": {
-    referenceDate: "2025-07",
-    baseSpeed: 45,
-    minSpeed: 65,
-    maxSpeed: 97,
-    minSpeedWithIvZero: 45,
-    maxSpeedWithNature: 106,
-    choiceScarfPercentage: 6,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 45, percentile: 37, percentage: 37, speedEv: 0, nature: "Brave" },
-      { type: "usage", speed: 65, percentile: 83, percentage: 46, speedEv: 0, nature: "Hardy" },
-      { type: "usage", speed: 106, percentile: 100, percentage: 13, speedEv: 252, nature: "Jolly" },
-      { type: "scarf", speed: 159, percentile: 100, percentage: 6, speedEv: 252, nature: "" }
-    ]
-  },
-  Golett: { referenceDate: "2025-07", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
-  Golurk: {
-    referenceDate: "2025-07",
-    baseSpeed: 55,
-    minSpeed: 75,
-    maxSpeed: 107,
-    minSpeedWithIvZero: 54,
-    maxSpeedWithNature: 117,
-    choiceScarfPercentage: 0,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 6,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 54, percentile: 13, percentage: 13, speedEv: 0, nature: "Sassy" },
-      { type: "usage", speed: 75, percentile: 68, percentage: 55, speedEv: 0, nature: "Adamant" }
-    ]
-  },
-  Goodra: {
-    referenceDate: "2025-07",
-    baseSpeed: 80,
-    minSpeed: 100,
-    maxSpeed: 132,
-    minSpeedWithIvZero: 76,
-    maxSpeedWithNature: 145,
-    choiceScarfPercentage: 0,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 100, percentile: 73, percentage: 67, speedEv: 0, nature: "Calm" },
-      { type: "usage", speed: 136, percentile: 92, percentage: 11, speedEv: 188, nature: "Timid" }
-    ]
-  },
-  "Goodra-Hisui": {
-    referenceDate: "2025-07",
-    baseSpeed: 60,
-    minSpeed: 80,
-    maxSpeed: 112,
-    minSpeedWithIvZero: 58,
-    maxSpeedWithNature: 123,
-    choiceScarfPercentage: 0,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 58, percentile: 43, percentage: 43, speedEv: 0, nature: "Relaxed" },
-      { type: "usage", speed: 80, percentile: 91, percentage: 41, speedEv: 0, nature: "Impish" }
-    ]
-  },
-  Goomy: { referenceDate: "2025-07", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
-  Gothita: { referenceDate: "2025-07", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
-  Gothitelle: {
-    referenceDate: "2025-07",
-    baseSpeed: 65,
-    minSpeed: 85,
-    maxSpeed: 117,
-    minSpeedWithIvZero: 63,
-    maxSpeedWithNature: 128,
-    choiceScarfPercentage: 1,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 63, percentile: 31, percentage: 31, speedEv: 0, nature: "Sassy" },
-      { type: "usage", speed: 85, percentile: 80, percentage: 49, speedEv: 0, nature: "Calm" }
-    ]
-  },
-  Gothorita: {
-    referenceDate: "2025-07",
-    baseSpeed: 55,
-    minSpeed: 75,
-    maxSpeed: 107,
-    minSpeedWithIvZero: 54,
-    maxSpeedWithNature: 117,
-    choiceScarfPercentage: 0,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 54, percentile: 85, percentage: 85, speedEv: 0, nature: "Sassy" },
-      { type: "usage", speed: 75, percentile: 98, percentage: 13, speedEv: 0, nature: "Calm" }
-    ]
-  },
-  "Gouging Fire": {
-    referenceDate: "2025-07",
-    baseSpeed: 91,
-    minSpeed: 111,
-    maxSpeed: 143,
-    minSpeedWithIvZero: 86,
-    maxSpeedWithNature: 157,
-    choiceScarfPercentage: 4,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 27,
-    boosterEnergyIsMoreUsed: true,
-    statistics: [
-      { type: "usage", speed: 111, percentile: 21, percentage: 18, speedEv: 0, nature: "Careful" },
-      { type: "usage", speed: 157, percentile: 100, percentage: 31, speedEv: 252, nature: "Jolly" },
-      { type: "booster", speed: 235, percentile: 100, percentage: 27, speedEv: 252, nature: "" }
-    ]
-  },
-  Grafaiai: {
-    referenceDate: "2025-07",
-    baseSpeed: 110,
-    minSpeed: 130,
-    maxSpeed: 162,
-    minSpeedWithIvZero: 103,
-    maxSpeedWithNature: 178,
-    choiceScarfPercentage: 0,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 1,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 130, percentile: 42, percentage: 40, speedEv: 0, nature: "Calm" },
-      { type: "usage", speed: 143, percentile: 62, percentage: 15, speedEv: 0, nature: "Timid" },
-      { type: "usage", speed: 178, percentile: 100, percentage: 16, speedEv: 252, nature: "Jolly" }
-    ]
-  },
-  Granbull: { referenceDate: "2025-07", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
-  Graveler: { referenceDate: "2025-07", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
-  "Graveler-Alola": { referenceDate: "2025-07", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
-  "Great Tusk": {
-    referenceDate: "2025-07",
-    baseSpeed: 87,
-    minSpeed: 107,
-    maxSpeed: 139,
-    minSpeedWithIvZero: 82,
-    maxSpeedWithNature: 152,
-    choiceScarfPercentage: 9,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 36,
-    boosterEnergyIsMoreUsed: true,
-    statistics: [
-      { type: "usage", speed: 107, percentile: 25, percentage: 21, speedEv: 0, nature: "Adamant" },
-      { type: "usage", speed: 108, percentile: 38, percentage: 13, speedEv: 4, nature: "Adamant" },
-      { type: "usage", speed: 152, percentile: 100, percentage: 35, speedEv: 252, nature: "Jolly" },
-      { type: "booster", speed: 228, percentile: 100, percentage: 36, speedEv: 252, nature: "" },
-      { type: "scarf", speed: 228, percentile: 100, percentage: 9, speedEv: 252, nature: "" }
-    ]
-  },
-  Greavard: { referenceDate: "2025-07", baseSpeed: 34, minSpeed: 54, maxSpeed: 86, minSpeedWithIvZero: 35, maxSpeedWithNature: 94, statistics: [] },
-  Greedent: { referenceDate: "2025-07", baseSpeed: 20, minSpeed: 40, maxSpeed: 72, minSpeedWithIvZero: 22, maxSpeedWithNature: 79, statistics: [] },
-  Greninja: {
-    referenceDate: "2025-07",
-    baseSpeed: 122,
-    minSpeed: 142,
-    maxSpeed: 174,
-    minSpeedWithIvZero: 114,
-    maxSpeedWithNature: 191,
-    choiceScarfPercentage: 9,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 174, percentile: 24, percentage: 11, speedEv: 252, nature: "Modest" },
-      { type: "usage", speed: 191, percentile: 100, percentage: 75, speedEv: 252, nature: "Timid" },
-      { type: "scarf", speed: 286, percentile: 100, percentage: 9, speedEv: 252, nature: "" }
-    ]
-  },
-  Grimer: { referenceDate: "2025-07", baseSpeed: 25, minSpeed: 45, maxSpeed: 77, minSpeedWithIvZero: 27, maxSpeedWithNature: 84, statistics: [] },
-  "Grimer-Alola": { referenceDate: "2025-07", baseSpeed: 25, minSpeed: 45, maxSpeed: 77, minSpeedWithIvZero: 27, maxSpeedWithNature: 84, statistics: [] },
-  Grimmsnarl: {
-    referenceDate: "2025-07",
-    baseSpeed: 60,
-    minSpeed: 80,
-    maxSpeed: 112,
-    minSpeedWithIvZero: 58,
-    maxSpeedWithNature: 123,
-    choiceScarfPercentage: 0,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 80, percentile: 45, percentage: 42, speedEv: 0, nature: "Careful" },
-      { type: "usage", speed: 81, percentile: 63, percentage: 18, speedEv: 4, nature: "Careful" },
-      { type: "usage", speed: 82, percentile: 85, percentage: 22, speedEv: 12, nature: "Careful" }
-    ]
-  },
-  Grookey: { referenceDate: "2025-07", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
-  Grotle: { referenceDate: "2025-07", baseSpeed: 36, minSpeed: 56, maxSpeed: 88, minSpeedWithIvZero: 36, maxSpeedWithNature: 96, statistics: [] },
-  Groudon: {
-    referenceDate: "2025-07",
-    baseSpeed: 90,
-    minSpeed: 110,
-    maxSpeed: 142,
-    minSpeedWithIvZero: 85,
-    maxSpeedWithNature: 156,
-    choiceScarfPercentage: 1,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [{ type: "usage", speed: 110, percentile: 17, percentage: 13, speedEv: 0, nature: "Adamant" }]
-  },
-  Grovyle: { referenceDate: "2025-07", baseSpeed: 95, minSpeed: 115, maxSpeed: 147, minSpeedWithIvZero: 90, maxSpeedWithNature: 161, statistics: [] },
-  Growlithe: { referenceDate: "2025-07", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
-  "Growlithe-Hisui": { referenceDate: "2025-07", baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
-  Grubbin: { referenceDate: "2025-07", baseSpeed: 46, minSpeed: 66, maxSpeed: 98, minSpeedWithIvZero: 45, maxSpeedWithNature: 107, statistics: [] },
-  Grumpig: { referenceDate: "2025-07", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
-  Gulpin: { referenceDate: "2025-07", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
-  Gumshoos: { referenceDate: "2025-07", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
-  Gurdurr: { referenceDate: "2025-07", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
-  Gyarados: {
-    referenceDate: "2025-07",
-    baseSpeed: 81,
-    minSpeed: 101,
-    maxSpeed: 133,
-    minSpeedWithIvZero: 77,
-    maxSpeedWithNature: 146,
-    choiceScarfPercentage: 0,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 101, percentile: 24, percentage: 22, speedEv: 0, nature: "Careful" },
-      { type: "usage", speed: 133, percentile: 80, percentage: 13, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 146, percentile: 100, percentage: 12, speedEv: 252, nature: "Jolly" }
-    ]
-  },
-  "Hakamo-o": { referenceDate: "2025-07", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
-  Happiny: { referenceDate: "2025-07", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
-  Hariyama: {
-    referenceDate: "2025-07",
-    baseSpeed: 50,
-    minSpeed: 70,
-    maxSpeed: 102,
-    minSpeedWithIvZero: 49,
-    maxSpeedWithNature: 112,
-    choiceScarfPercentage: 0,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 49, percentile: 45, percentage: 45, speedEv: 0, nature: "Brave" },
-      { type: "usage", speed: 70, percentile: 87, percentage: 42, speedEv: 0, nature: "Adamant" },
-      { type: "usage", speed: 71, percentile: 98, percentage: 11, speedEv: 4, nature: "Adamant" }
-    ]
-  },
-  Hatenna: { referenceDate: "2025-07", baseSpeed: 39, minSpeed: 59, maxSpeed: 91, minSpeedWithIvZero: 39, maxSpeedWithNature: 100, statistics: [] },
-  Hatterene: {
-    referenceDate: "2025-07",
-    baseSpeed: 29,
-    minSpeed: 49,
-    maxSpeed: 81,
-    minSpeedWithIvZero: 30,
-    maxSpeedWithNature: 89,
-    choiceScarfPercentage: 1,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 30, percentile: 84, percentage: 84, speedEv: 0, nature: "Quiet" },
-      { type: "usage", speed: 49, percentile: 97, percentage: 13, speedEv: 0, nature: "Modest" }
-    ]
-  },
-  Hattrem: { referenceDate: "2025-07", baseSpeed: 49, minSpeed: 69, maxSpeed: 101, minSpeedWithIvZero: 48, maxSpeedWithNature: 111, statistics: [] },
-  Haunter: { referenceDate: "2025-07", baseSpeed: 95, minSpeed: 115, maxSpeed: 147, minSpeedWithIvZero: 90, maxSpeedWithNature: 161, statistics: [] },
-  Hawlucha: {
-    referenceDate: "2025-07",
-    baseSpeed: 118,
-    minSpeed: 138,
-    maxSpeed: 170,
-    minSpeedWithIvZero: 110,
-    maxSpeedWithNature: 187,
-    choiceScarfPercentage: 3,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 165, percentile: 33, percentage: 12, speedEv: 212, nature: "Serious" },
-      { type: "usage", speed: 170, percentile: 82, percentage: 49, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 187, percentile: 100, percentage: 13, speedEv: 252, nature: "Jolly" }
-    ]
-  },
-  Haxorus: {
-    referenceDate: "2025-07",
-    baseSpeed: 97,
-    minSpeed: 117,
-    maxSpeed: 149,
-    minSpeedWithIvZero: 91,
-    maxSpeedWithNature: 163,
-    choiceScarfPercentage: 5,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 149, percentile: 66, percentage: 30, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 163, percentile: 100, percentage: 33, speedEv: 252, nature: "Jolly" },
-      { type: "scarf", speed: 244, percentile: 100, percentage: 5, speedEv: 252, nature: "" }
-    ]
-  },
-  Heatran: {
-    referenceDate: "2025-07",
-    baseSpeed: 77,
-    minSpeed: 97,
-    maxSpeed: 129,
-    minSpeedWithIvZero: 73,
-    maxSpeedWithNature: 141,
-    choiceScarfPercentage: 0,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 73, percentile: 17, percentage: 17, speedEv: 0, nature: "Quiet" },
-      { type: "usage", speed: 97, percentile: 50, percentage: 33, speedEv: 0, nature: "Modest" },
-      { type: "usage", speed: 98, percentile: 67, percentage: 17, speedEv: 4, nature: "Modest" }
-    ]
-  },
-  Heracross: { referenceDate: "2025-07", baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
-  Hippopotas: { referenceDate: "2025-07", baseSpeed: 32, minSpeed: 52, maxSpeed: 84, minSpeedWithIvZero: 33, maxSpeedWithNature: 92, statistics: [] },
-  Hippowdon: {
-    referenceDate: "2025-07",
-    baseSpeed: 47,
-    minSpeed: 67,
-    maxSpeed: 99,
-    minSpeedWithIvZero: 46,
-    maxSpeedWithNature: 108,
-    choiceScarfPercentage: 0,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 46, percentile: 17, percentage: 17, speedEv: 0, nature: "Relaxed" },
-      { type: "usage", speed: 67, percentile: 91, percentage: 74, speedEv: 0, nature: "Impish" }
-    ]
-  },
-  Hitmonchan: { referenceDate: "2025-07", baseSpeed: 76, minSpeed: 96, maxSpeed: 128, minSpeedWithIvZero: 72, maxSpeedWithNature: 140, statistics: [] },
-  Hitmonlee: {
-    referenceDate: "2025-07",
-    baseSpeed: 87,
-    minSpeed: 107,
-    maxSpeed: 139,
-    minSpeedWithIvZero: 82,
-    maxSpeedWithNature: 152,
-    choiceScarfPercentage: 1,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [{ type: "usage", speed: 139, percentile: 92, percentage: 86, speedEv: 252, nature: "Adamant" }]
-  },
-  Hitmontop: {
-    referenceDate: "2025-07",
+  Flapple: {
+    referenceDate: "2025-08",
     baseSpeed: 70,
     minSpeed: 90,
     maxSpeed: 122,
@@ -2674,13 +1806,278 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 90, percentile: 46, percentage: 40, speedEv: 0, nature: "Careful" },
-      { type: "usage", speed: 91, percentile: 60, percentage: 14, speedEv: 4, nature: "Careful" },
-      { type: "usage", speed: 134, percentile: 100, percentage: 18, speedEv: 252, nature: "Jolly" }
+      { type: "usage", speed: 90, percentile: 21, percentage: 21, speedEv: 0, nature: "Hardy" },
+      { type: "usage", speed: 134, percentile: 100, percentage: 77, speedEv: 252, nature: "Naive" }
     ]
   },
-  "Ho-Oh": {
-    referenceDate: "2025-07",
+  Flareon: {
+    referenceDate: "2025-08",
+    baseSpeed: 65,
+    minSpeed: 85,
+    maxSpeed: 117,
+    minSpeedWithIvZero: 63,
+    maxSpeedWithNature: 128,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 85, percentile: 26, percentage: 19, speedEv: 0, nature: "Adamant" },
+      { type: "usage", speed: 128, percentile: 100, percentage: 74, speedEv: 252, nature: "Jolly" }
+    ]
+  },
+  Fletchinder: { referenceDate: "2025-08", baseSpeed: 84, minSpeed: 104, maxSpeed: 136, minSpeedWithIvZero: 80, maxSpeedWithNature: 149, statistics: [] },
+  Fletchling: {
+    referenceDate: "2025-08",
+    baseSpeed: 62,
+    minSpeed: 82,
+    maxSpeed: 114,
+    minSpeedWithIvZero: 60,
+    maxSpeedWithNature: 125,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 50,
+    boosterEnergyIsMoreUsed: true,
+    statistics: [
+      { type: "usage", speed: 82, percentile: 75, percentage: 75, speedEv: 0, nature: "Hardy" },
+      { type: "usage", speed: 125, percentile: 100, percentage: 25, speedEv: 252, nature: "Timid" }
+    ]
+  },
+  Flittle: { referenceDate: "2025-08", baseSpeed: 75, minSpeed: 95, maxSpeed: 127, minSpeedWithIvZero: 72, maxSpeedWithNature: 139, statistics: [] },
+  Floatzel: {
+    referenceDate: "2025-08",
+    baseSpeed: 115,
+    minSpeed: 135,
+    maxSpeed: 167,
+    minSpeedWithIvZero: 108,
+    maxSpeedWithNature: 183,
+    choiceScarfPercentage: 5,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 161, percentile: 16, percentage: 16, speedEv: 204, nature: "Adamant" },
+      { type: "usage", speed: 167, percentile: 95, percentage: 79, speedEv: 252, nature: "Adamant" },
+      { type: "scarf", speed: 274, percentile: 100, percentage: 5, speedEv: 252, nature: "" }
+    ]
+  },
+  Floette: { referenceDate: "2025-08", baseSpeed: 52, minSpeed: 72, maxSpeed: 104, minSpeedWithIvZero: 51, maxSpeedWithNature: 114, statistics: [] },
+  Floragato: { referenceDate: "2025-08", baseSpeed: 83, minSpeed: 103, maxSpeed: 135, minSpeedWithIvZero: 79, maxSpeedWithNature: 148, statistics: [] },
+  Florges: {
+    referenceDate: "2025-08",
+    baseSpeed: 75,
+    minSpeed: 95,
+    maxSpeed: 127,
+    minSpeedWithIvZero: 72,
+    maxSpeedWithNature: 139,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [{ type: "usage", speed: 95, percentile: 81, percentage: 74, speedEv: 0, nature: "Modest" }]
+  },
+  "Flutter Mane": {
+    referenceDate: "2025-08",
+    baseSpeed: 135,
+    minSpeed: 155,
+    maxSpeed: 187,
+    minSpeedWithIvZero: 126,
+    maxSpeedWithNature: 205,
+    choiceScarfPercentage: 1,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 17,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 205, percentile: 100, percentage: 82, speedEv: 252, nature: "Timid" },
+      { type: "booster", speed: 307, percentile: 100, percentage: 17, speedEv: 252, nature: "" }
+    ]
+  },
+  Flygon: { referenceDate: "2025-08", baseSpeed: 100, minSpeed: 120, maxSpeed: 152, minSpeedWithIvZero: 94, maxSpeedWithNature: 167, statistics: [] },
+  Fomantis: { referenceDate: "2025-08", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
+  Foongus: { referenceDate: "2025-08", baseSpeed: 15, minSpeed: 35, maxSpeed: 67, minSpeedWithIvZero: 18, maxSpeedWithNature: 73, statistics: [] },
+  Forretress: { referenceDate: "2025-08", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Fraxure: { referenceDate: "2025-08", baseSpeed: 67, minSpeed: 87, maxSpeed: 119, minSpeedWithIvZero: 64, maxSpeedWithNature: 130, statistics: [] },
+  Frigibax: { referenceDate: "2025-08", baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
+  Froakie: { referenceDate: "2025-08", baseSpeed: 71, minSpeed: 91, maxSpeed: 123, minSpeedWithIvZero: 68, maxSpeedWithNature: 135, statistics: [] },
+  Frogadier: { referenceDate: "2025-08", baseSpeed: 97, minSpeed: 117, maxSpeed: 149, minSpeedWithIvZero: 91, maxSpeedWithNature: 163, statistics: [] },
+  Froslass: {
+    referenceDate: "2025-08",
+    baseSpeed: 110,
+    minSpeed: 130,
+    maxSpeed: 162,
+    minSpeedWithIvZero: 103,
+    maxSpeedWithNature: 178,
+    choiceScarfPercentage: 7,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 162, percentile: 37, percentage: 34, speedEv: 252, nature: "Hardy" },
+      { type: "usage", speed: 178, percentile: 100, percentage: 61, speedEv: 252, nature: "Jolly" },
+      { type: "scarf", speed: 267, percentile: 100, percentage: 7, speedEv: 252, nature: "" }
+    ]
+  },
+  Frosmoth: {
+    referenceDate: "2025-08",
+    baseSpeed: 65,
+    minSpeed: 85,
+    maxSpeed: 117,
+    minSpeedWithIvZero: 63,
+    maxSpeedWithNature: 128,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 85, percentile: 52, percentage: 51, speedEv: 0, nature: "Calm" },
+      { type: "usage", speed: 114, percentile: 97, percentage: 29, speedEv: 148, nature: "Timid" }
+    ]
+  },
+  Fuecoco: { referenceDate: "2025-08", baseSpeed: 36, minSpeed: 56, maxSpeed: 88, minSpeedWithIvZero: 36, maxSpeedWithNature: 96, statistics: [] },
+  Furret: {
+    referenceDate: "2025-08",
+    baseSpeed: 90,
+    minSpeed: 110,
+    maxSpeed: 142,
+    minSpeedWithIvZero: 85,
+    maxSpeedWithNature: 156,
+    choiceScarfPercentage: 4,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [{ type: "usage", speed: 156, percentile: 100, percentage: 83, speedEv: 252, nature: "Naive" }]
+  },
+  Gabite: { referenceDate: "2025-08", baseSpeed: 82, minSpeed: 102, maxSpeed: 134, minSpeedWithIvZero: 78, maxSpeedWithNature: 147, statistics: [] },
+  Gallade: {
+    referenceDate: "2025-08",
+    baseSpeed: 80,
+    minSpeed: 100,
+    maxSpeed: 132,
+    minSpeedWithIvZero: 76,
+    maxSpeedWithNature: 145,
+    choiceScarfPercentage: 1,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 76, percentile: 47, percentage: 47, speedEv: 0, nature: "Brave" },
+      { type: "usage", speed: 100, percentile: 74, percentage: 27, speedEv: 0, nature: "Impish" },
+      { type: "usage", speed: 145, percentile: 100, percentage: 11, speedEv: 252, nature: "Jolly" }
+    ]
+  },
+  Galvantula: { referenceDate: "2025-08", baseSpeed: 108, minSpeed: 128, maxSpeed: 160, minSpeedWithIvZero: 101, maxSpeedWithNature: 176, statistics: [] },
+  Garchomp: {
+    referenceDate: "2025-08",
+    baseSpeed: 102,
+    minSpeed: 122,
+    maxSpeed: 154,
+    minSpeedWithIvZero: 96,
+    maxSpeedWithNature: 169,
+    choiceScarfPercentage: 12,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 122, percentile: 12, percentage: 12, speedEv: 0, nature: "Adamant" },
+      { type: "usage", speed: 154, percentile: 44, percentage: 21, speedEv: 252, nature: "Serious" },
+      { type: "usage", speed: 169, percentile: 100, percentage: 54, speedEv: 252, nature: "Jolly" },
+      { type: "scarf", speed: 253, percentile: 100, percentage: 12, speedEv: 252, nature: "" }
+    ]
+  },
+  Gardevoir: {
+    referenceDate: "2025-08",
+    baseSpeed: 80,
+    minSpeed: 100,
+    maxSpeed: 132,
+    minSpeedWithIvZero: 76,
+    maxSpeedWithNature: 145,
+    choiceScarfPercentage: 2,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 76, percentile: 22, percentage: 22, speedEv: 0, nature: "Sassy" },
+      { type: "usage", speed: 100, percentile: 65, percentage: 43, speedEv: 0, nature: "Modest" },
+      { type: "usage", speed: 145, percentile: 100, percentage: 18, speedEv: 252, nature: "Timid" }
+    ]
+  },
+  Garganacl: {
+    referenceDate: "2025-08",
+    baseSpeed: 35,
+    minSpeed: 55,
+    maxSpeed: 87,
+    minSpeedWithIvZero: 36,
+    maxSpeedWithNature: 95,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 36, percentile: 33, percentage: 33, speedEv: 0, nature: "Sassy" },
+      { type: "usage", speed: 55, percentile: 78, percentage: 45, speedEv: 0, nature: "Impish" },
+      { type: "usage", speed: 79, percentile: 100, percentage: 13, speedEv: 132, nature: "Jolly" }
+    ]
+  },
+  Gastly: { referenceDate: "2025-08", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
+  Gastrodon: {
+    referenceDate: "2025-08",
+    baseSpeed: 39,
+    minSpeed: 59,
+    maxSpeed: 91,
+    minSpeedWithIvZero: 39,
+    maxSpeedWithNature: 100,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 39, percentile: 34, percentage: 34, speedEv: 0, nature: "Relaxed" },
+      { type: "usage", speed: 59, percentile: 88, percentage: 53, speedEv: 0, nature: "Calm" }
+    ]
+  },
+  Gengar: {
+    referenceDate: "2025-08",
+    baseSpeed: 110,
+    minSpeed: 130,
+    maxSpeed: 162,
+    minSpeedWithIvZero: 103,
+    maxSpeedWithNature: 178,
+    choiceScarfPercentage: 8,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 162, percentile: 27, percentage: 23, speedEv: 252, nature: "Modest" },
+      { type: "usage", speed: 178, percentile: 100, percentage: 71, speedEv: 252, nature: "Timid" },
+      { type: "scarf", speed: 267, percentile: 100, percentage: 8, speedEv: 252, nature: "" }
+    ]
+  },
+  Geodude: { referenceDate: "2025-08", baseSpeed: 20, minSpeed: 40, maxSpeed: 72, minSpeedWithIvZero: 22, maxSpeedWithNature: 79, statistics: [] },
+  "Geodude-Alola": { referenceDate: "2025-08", baseSpeed: 20, minSpeed: 40, maxSpeed: 72, minSpeedWithIvZero: 22, maxSpeedWithNature: 79, statistics: [] },
+  Gholdengo: {
+    referenceDate: "2025-08",
+    baseSpeed: 84,
+    minSpeed: 104,
+    maxSpeed: 136,
+    minSpeedWithIvZero: 80,
+    maxSpeedWithNature: 149,
+    choiceScarfPercentage: 8,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 104, percentile: 13, percentage: 11, speedEv: 0, nature: "Modest" },
+      { type: "usage", speed: 136, percentile: 53, percentage: 11, speedEv: 252, nature: "Hardy" },
+      { type: "usage", speed: 149, percentile: 100, percentage: 46, speedEv: 252, nature: "Timid" },
+      { type: "scarf", speed: 223, percentile: 100, percentage: 8, speedEv: 252, nature: "" }
+    ]
+  },
+  Gible: { referenceDate: "2025-08", baseSpeed: 42, minSpeed: 62, maxSpeed: 94, minSpeedWithIvZero: 42, maxSpeedWithNature: 103, statistics: [] },
+  Gimmighoul: { referenceDate: "2025-08", baseSpeed: 10, minSpeed: 30, maxSpeed: 62, minSpeedWithIvZero: 13, maxSpeedWithNature: 68, statistics: [] },
+  "Gimmighoul-Roaming": { referenceDate: "2025-08", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
+  Girafarig: { referenceDate: "2025-08", baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
+  Giratina: {
+    referenceDate: "2025-08",
     baseSpeed: 90,
     minSpeed: 110,
     maxSpeed: 142,
@@ -2691,109 +2088,161 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 110, percentile: 20, percentage: 18, speedEv: 0, nature: "Adamant" },
-      { type: "usage", speed: 112, percentile: 37, percentage: 12, speedEv: 12, nature: "Adamant" },
-      { type: "usage", speed: 119, percentile: 81, percentage: 15, speedEv: 68, nature: "Adamant" }
+      { type: "usage", speed: 85, percentile: 21, percentage: 21, speedEv: 0, nature: "Sassy" },
+      { type: "usage", speed: 110, percentile: 97, percentage: 75, speedEv: 0, nature: "Careful" }
     ]
   },
-  Honchkrow: {
-    referenceDate: "2025-07",
-    baseSpeed: 71,
-    minSpeed: 91,
-    maxSpeed: 123,
-    minSpeedWithIvZero: 68,
-    maxSpeedWithNature: 135,
+  "Giratina-Origin": {
+    referenceDate: "2025-08",
+    baseSpeed: 90,
+    minSpeed: 110,
+    maxSpeed: 142,
+    minSpeedWithIvZero: 85,
+    maxSpeedWithNature: 156,
     choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 91, percentile: 38, percentage: 33, speedEv: 0, nature: "Modest" },
-      { type: "usage", speed: 112, percentile: 71, percentage: 29, speedEv: 164, nature: "Hardy" },
-      { type: "usage", speed: 135, percentile: 100, percentage: 13, speedEv: 252, nature: "Jolly" }
+      { type: "usage", speed: 85, percentile: 39, percentage: 39, speedEv: 0, nature: "Brave" },
+      { type: "usage", speed: 110, percentile: 68, percentage: 29, speedEv: 0, nature: "Adamant" }
     ]
   },
-  Hoopa: { referenceDate: "2025-07", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
-  "Hoopa-Unbound": { referenceDate: "2025-07", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
-  Hoothoot: { referenceDate: "2025-07", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
-  Hoppip: { referenceDate: "2025-07", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
-  Horsea: { referenceDate: "2025-07", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
-  Houndoom: { referenceDate: "2025-07", baseSpeed: 95, minSpeed: 115, maxSpeed: 147, minSpeedWithIvZero: 90, maxSpeedWithNature: 161, statistics: [] },
-  Houndour: { referenceDate: "2025-07", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
-  Houndstone: {
-    referenceDate: "2025-07",
+  Glaceon: { referenceDate: "2025-08", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  Glalie: { referenceDate: "2025-08", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
+  Glastrier: {
+    referenceDate: "2025-08",
+    baseSpeed: 30,
+    minSpeed: 50,
+    maxSpeed: 82,
+    minSpeedWithIvZero: 31,
+    maxSpeedWithNature: 90,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 31, percentile: 37, percentage: 37, speedEv: 0, nature: "Relaxed" },
+      { type: "usage", speed: 50, percentile: 98, percentage: 61, speedEv: 0, nature: "Adamant" }
+    ]
+  },
+  Gligar: { referenceDate: "2025-08", baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
+  Glimmet: { referenceDate: "2025-08", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  Glimmora: {
+    referenceDate: "2025-08",
+    baseSpeed: 86,
+    minSpeed: 106,
+    maxSpeed: 138,
+    minSpeedWithIvZero: 81,
+    maxSpeedWithNature: 151,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [{ type: "usage", speed: 151, percentile: 100, percentage: 69, speedEv: 252, nature: "Timid" }]
+  },
+  Gliscor: {
+    referenceDate: "2025-08",
+    baseSpeed: 95,
+    minSpeed: 115,
+    maxSpeed: 147,
+    minSpeedWithIvZero: 90,
+    maxSpeedWithNature: 161,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 115, percentile: 45, percentage: 43, speedEv: 0, nature: "Careful" },
+      { type: "usage", speed: 160, percentile: 86, percentage: 14, speedEv: 244, nature: "Jolly" },
+      { type: "usage", speed: 161, percentile: 100, percentage: 14, speedEv: 252, nature: "Jolly" }
+    ]
+  },
+  Gloom: { referenceDate: "2025-08", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Gogoat: {
+    referenceDate: "2025-08",
     baseSpeed: 68,
     minSpeed: 88,
     maxSpeed: 120,
     minSpeedWithIvZero: 65,
     maxSpeedWithNature: 132,
-    choiceScarfPercentage: 4,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 88, percentile: 14, percentage: 13, speedEv: 0, nature: "Hardy" },
-      { type: "usage", speed: 120, percentile: 67, percentage: 36, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 132, percentile: 100, percentage: 33, speedEv: 252, nature: "Jolly" }
-    ]
-  },
-  Hydrapple: {
-    referenceDate: "2025-07",
-    baseSpeed: 44,
-    minSpeed: 64,
-    maxSpeed: 96,
-    minSpeedWithIvZero: 44,
-    maxSpeedWithNature: 105,
     choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 44, percentile: 40, percentage: 40, speedEv: 0, nature: "Quiet" },
-      { type: "usage", speed: 64, percentile: 80, percentage: 40, speedEv: 0, nature: "Modest" },
-      { type: "usage", speed: 65, percentile: 91, percentage: 12, speedEv: 4, nature: "Modest" }
-    ]
+    statistics: [{ type: "usage", speed: 88, percentile: 100, percentage: 100, speedEv: 0, nature: "Adamant" }]
   },
-  Hydreigon: {
-    referenceDate: "2025-07",
-    baseSpeed: 98,
-    minSpeed: 118,
-    maxSpeed: 150,
-    minSpeedWithIvZero: 92,
-    maxSpeedWithNature: 165,
-    choiceScarfPercentage: 13,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 119, percentile: 22, percentage: 16, speedEv: 4, nature: "Calm" },
-      { type: "usage", speed: 150, percentile: 64, percentage: 29, speedEv: 252, nature: "Modest" },
-      { type: "usage", speed: 165, percentile: 100, percentage: 36, speedEv: 252, nature: "Timid" },
-      { type: "scarf", speed: 247, percentile: 100, percentage: 13, speedEv: 252, nature: "" }
-    ]
-  },
-  Hypno: { referenceDate: "2025-07", baseSpeed: 67, minSpeed: 87, maxSpeed: 119, minSpeedWithIvZero: 64, maxSpeedWithNature: 130, statistics: [] },
-  Igglybuff: { referenceDate: "2025-07", baseSpeed: 15, minSpeed: 35, maxSpeed: 67, minSpeedWithIvZero: 18, maxSpeedWithNature: 73, statistics: [] },
-  Illumise: {
-    referenceDate: "2025-07",
+  Golduck: {
+    referenceDate: "2025-08",
     baseSpeed: 85,
     minSpeed: 105,
     maxSpeed: 137,
     minSpeedWithIvZero: 81,
     maxSpeedWithNature: 150,
+    choiceScarfPercentage: 15,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 105, percentile: 62, percentage: 62, speedEv: 0, nature: "Calm" },
+      { type: "usage", speed: 137, percentile: 73, percentage: 12, speedEv: 252, nature: "Hardy" },
+      { type: "usage", speed: 150, percentile: 100, percentage: 27, speedEv: 252, nature: "Timid" },
+      { type: "scarf", speed: 225, percentile: 100, percentage: 15, speedEv: 252, nature: "" }
+    ]
+  },
+  Golem: { referenceDate: "2025-08", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  "Golem-Alola": {
+    referenceDate: "2025-08",
+    baseSpeed: 45,
+    minSpeed: 65,
+    maxSpeed: 97,
+    minSpeedWithIvZero: 45,
+    maxSpeedWithNature: 106,
+    choiceScarfPercentage: 4,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 45, percentile: 36, percentage: 36, speedEv: 0, nature: "Brave" },
+      { type: "usage", speed: 65, percentile: 71, percentage: 35, speedEv: 0, nature: "Hardy" },
+      { type: "usage", speed: 106, percentile: 100, percentage: 12, speedEv: 252, nature: "Jolly" }
+    ]
+  },
+  Golett: { referenceDate: "2025-08", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
+  Golurk: {
+    referenceDate: "2025-08",
+    baseSpeed: 55,
+    minSpeed: 75,
+    maxSpeed: 107,
+    minSpeedWithIvZero: 54,
+    maxSpeedWithNature: 117,
     choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 105, percentile: 52, percentage: 51, speedEv: 0, nature: "Calm" },
-      { type: "usage", speed: 112, percentile: 68, percentage: 16, speedEv: 52, nature: "Calm" },
-      { type: "usage", speed: 150, percentile: 100, percentage: 18, speedEv: 252, nature: "Timid" }
+      { type: "usage", speed: 54, percentile: 14, percentage: 14, speedEv: 0, nature: "Relaxed" },
+      { type: "usage", speed: 75, percentile: 92, percentage: 78, speedEv: 0, nature: "Adamant" }
     ]
   },
-  Impidimp: { referenceDate: "2025-07", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
-  Incineroar: {
-    referenceDate: "2025-07",
+  Goodra: {
+    referenceDate: "2025-08",
+    baseSpeed: 80,
+    minSpeed: 100,
+    maxSpeed: 132,
+    minSpeedWithIvZero: 76,
+    maxSpeedWithNature: 145,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 100, percentile: 77, percentage: 77, speedEv: 0, nature: "Calm" },
+      { type: "usage", speed: 145, percentile: 100, percentage: 12, speedEv: 252, nature: "Timid" }
+    ]
+  },
+  "Goodra-Hisui": {
+    referenceDate: "2025-08",
     baseSpeed: 60,
     minSpeed: 80,
     maxSpeed: 112,
@@ -2804,30 +2253,303 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 80, percentile: 39, percentage: 31, speedEv: 0, nature: "Impish" },
-      { type: "usage", speed: 81, percentile: 50, percentage: 12, speedEv: 4, nature: "Impish" }
+      { type: "usage", speed: 58, percentile: 38, percentage: 38, speedEv: 0, nature: "Relaxed" },
+      { type: "usage", speed: 80, percentile: 66, percentage: 28, speedEv: 0, nature: "Bold" },
+      { type: "usage", speed: 82, percentile: 96, percentage: 24, speedEv: 12, nature: "Modest" }
     ]
   },
-  Indeedee: {
-    referenceDate: "2025-07",
+  Goomy: { referenceDate: "2025-08", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Gothita: { referenceDate: "2025-08", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  Gothitelle: {
+    referenceDate: "2025-08",
+    baseSpeed: 65,
+    minSpeed: 85,
+    maxSpeed: 117,
+    minSpeedWithIvZero: 63,
+    maxSpeedWithNature: 128,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 63, percentile: 43, percentage: 43, speedEv: 0, nature: "Sassy" },
+      { type: "usage", speed: 85, percentile: 85, percentage: 42, speedEv: 0, nature: "Calm" }
+    ]
+  },
+  Gothorita: {
+    referenceDate: "2025-08",
+    baseSpeed: 55,
+    minSpeed: 75,
+    maxSpeed: 107,
+    minSpeedWithIvZero: 54,
+    maxSpeedWithNature: 117,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 54, percentile: 72, percentage: 72, speedEv: 0, nature: "Sassy" },
+      { type: "usage", speed: 75, percentile: 100, percentage: 28, speedEv: 0, nature: "Impish" }
+    ]
+  },
+  "Gouging Fire": {
+    referenceDate: "2025-08",
+    baseSpeed: 91,
+    minSpeed: 111,
+    maxSpeed: 143,
+    minSpeedWithIvZero: 86,
+    maxSpeedWithNature: 157,
+    choiceScarfPercentage: 2,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 26,
+    boosterEnergyIsMoreUsed: true,
+    statistics: [
+      { type: "usage", speed: 111, percentile: 34, percentage: 24, speedEv: 0, nature: "Adamant" },
+      { type: "usage", speed: 157, percentile: 100, percentage: 30, speedEv: 252, nature: "Jolly" },
+      { type: "booster", speed: 235, percentile: 100, percentage: 26, speedEv: 252, nature: "" }
+    ]
+  },
+  Grafaiai: {
+    referenceDate: "2025-08",
+    baseSpeed: 110,
+    minSpeed: 130,
+    maxSpeed: 162,
+    minSpeedWithIvZero: 103,
+    maxSpeedWithNature: 178,
+    choiceScarfPercentage: 2,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 158, percentile: 44, percentage: 21, speedEv: 108, nature: "Timid" },
+      { type: "usage", speed: 162, percentile: 79, percentage: 31, speedEv: 252, nature: "Impish" },
+      { type: "usage", speed: 178, percentile: 100, percentage: 21, speedEv: 252, nature: "Timid" }
+    ]
+  },
+  Granbull: { referenceDate: "2025-08", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  Graveler: { referenceDate: "2025-08", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
+  "Graveler-Alola": { referenceDate: "2025-08", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
+  "Great Tusk": {
+    referenceDate: "2025-08",
+    baseSpeed: 87,
+    minSpeed: 107,
+    maxSpeed: 139,
+    minSpeedWithIvZero: 82,
+    maxSpeedWithNature: 152,
+    choiceScarfPercentage: 8,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 24,
+    boosterEnergyIsMoreUsed: true,
+    statistics: [
+      { type: "usage", speed: 107, percentile: 45, percentage: 38, speedEv: 0, nature: "Adamant" },
+      { type: "usage", speed: 152, percentile: 100, percentage: 30, speedEv: 252, nature: "Jolly" },
+      { type: "booster", speed: 228, percentile: 100, percentage: 24, speedEv: 252, nature: "" },
+      { type: "scarf", speed: 228, percentile: 100, percentage: 8, speedEv: 252, nature: "" }
+    ]
+  },
+  Greavard: { referenceDate: "2025-08", baseSpeed: 34, minSpeed: 54, maxSpeed: 86, minSpeedWithIvZero: 35, maxSpeedWithNature: 94, statistics: [] },
+  Greedent: {
+    referenceDate: "2025-08",
+    baseSpeed: 20,
+    minSpeed: 40,
+    maxSpeed: 72,
+    minSpeedWithIvZero: 22,
+    maxSpeedWithNature: 79,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 22, percentile: 78, percentage: 78, speedEv: 0, nature: "Brave" },
+      { type: "usage", speed: 40, percentile: 100, percentage: 22, speedEv: 0, nature: "Serious" }
+    ]
+  },
+  Greninja: {
+    referenceDate: "2025-08",
+    baseSpeed: 122,
+    minSpeed: 142,
+    maxSpeed: 174,
+    minSpeedWithIvZero: 114,
+    maxSpeedWithNature: 191,
+    choiceScarfPercentage: 11,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 174, percentile: 50, percentage: 37, speedEv: 252, nature: "Modest" },
+      { type: "usage", speed: 191, percentile: 100, percentage: 44, speedEv: 252, nature: "Timid" },
+      { type: "scarf", speed: 286, percentile: 100, percentage: 11, speedEv: 252, nature: "" }
+    ]
+  },
+  Grimer: { referenceDate: "2025-08", baseSpeed: 25, minSpeed: 45, maxSpeed: 77, minSpeedWithIvZero: 27, maxSpeedWithNature: 84, statistics: [] },
+  "Grimer-Alola": { referenceDate: "2025-08", baseSpeed: 25, minSpeed: 45, maxSpeed: 77, minSpeedWithIvZero: 27, maxSpeedWithNature: 84, statistics: [] },
+  Grimmsnarl: {
+    referenceDate: "2025-08",
+    baseSpeed: 60,
+    minSpeed: 80,
+    maxSpeed: 112,
+    minSpeedWithIvZero: 58,
+    maxSpeedWithNature: 123,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 80, percentile: 50, percentage: 46, speedEv: 0, nature: "Careful" },
+      { type: "usage", speed: 81, percentile: 68, percentage: 18, speedEv: 4, nature: "Careful" },
+      { type: "usage", speed: 82, percentile: 85, percentage: 18, speedEv: 12, nature: "Careful" }
+    ]
+  },
+  Grookey: { referenceDate: "2025-08", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  Grotle: { referenceDate: "2025-08", baseSpeed: 36, minSpeed: 56, maxSpeed: 88, minSpeedWithIvZero: 36, maxSpeedWithNature: 96, statistics: [] },
+  Groudon: {
+    referenceDate: "2025-08",
+    baseSpeed: 90,
+    minSpeed: 110,
+    maxSpeed: 142,
+    minSpeedWithIvZero: 85,
+    maxSpeedWithNature: 156,
+    choiceScarfPercentage: 1,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 110, percentile: 17, percentage: 13, speedEv: 0, nature: "Adamant" },
+      { type: "usage", speed: 112, percentile: 34, percentage: 14, speedEv: 12, nature: "Adamant" },
+      { type: "usage", speed: 113, percentile: 49, percentage: 15, speedEv: 20, nature: "Adamant" }
+    ]
+  },
+  Grovyle: { referenceDate: "2025-08", baseSpeed: 95, minSpeed: 115, maxSpeed: 147, minSpeedWithIvZero: 90, maxSpeedWithNature: 161, statistics: [] },
+  Growlithe: { referenceDate: "2025-08", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  "Growlithe-Hisui": { referenceDate: "2025-08", baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
+  Grubbin: { referenceDate: "2025-08", baseSpeed: 46, minSpeed: 66, maxSpeed: 98, minSpeedWithIvZero: 45, maxSpeedWithNature: 107, statistics: [] },
+  Grumpig: { referenceDate: "2025-08", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
+  Gulpin: { referenceDate: "2025-08", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Gumshoos: { referenceDate: "2025-08", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  Gurdurr: { referenceDate: "2025-08", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Gyarados: {
+    referenceDate: "2025-08",
+    baseSpeed: 81,
+    minSpeed: 101,
+    maxSpeed: 133,
+    minSpeedWithIvZero: 77,
+    maxSpeedWithNature: 146,
+    choiceScarfPercentage: 1,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 101, percentile: 20, percentage: 18, speedEv: 0, nature: "Careful" },
+      { type: "usage", speed: 112, percentile: 52, percentage: 27, speedEv: 84, nature: "Impish" },
+      { type: "usage", speed: 138, percentile: 96, percentage: 21, speedEv: 196, nature: "Jolly" }
+    ]
+  },
+  "Hakamo-o": { referenceDate: "2025-08", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  Happiny: { referenceDate: "2025-08", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
+  Hariyama: {
+    referenceDate: "2025-08",
+    baseSpeed: 50,
+    minSpeed: 70,
+    maxSpeed: 102,
+    minSpeedWithIvZero: 49,
+    maxSpeedWithNature: 112,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 49, percentile: 53, percentage: 53, speedEv: 0, nature: "Brave" },
+      { type: "usage", speed: 70, percentile: 88, percentage: 34, speedEv: 0, nature: "Adamant" }
+    ]
+  },
+  Hatenna: { referenceDate: "2025-08", baseSpeed: 39, minSpeed: 59, maxSpeed: 91, minSpeedWithIvZero: 39, maxSpeedWithNature: 100, statistics: [] },
+  Hatterene: {
+    referenceDate: "2025-08",
+    baseSpeed: 29,
+    minSpeed: 49,
+    maxSpeed: 81,
+    minSpeedWithIvZero: 30,
+    maxSpeedWithNature: 89,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 30, percentile: 75, percentage: 75, speedEv: 0, nature: "Quiet" },
+      { type: "usage", speed: 49, percentile: 94, percentage: 19, speedEv: 0, nature: "Modest" }
+    ]
+  },
+  Hattrem: { referenceDate: "2025-08", baseSpeed: 49, minSpeed: 69, maxSpeed: 101, minSpeedWithIvZero: 48, maxSpeedWithNature: 111, statistics: [] },
+  Haunter: {
+    referenceDate: "2025-08",
     baseSpeed: 95,
     minSpeed: 115,
     maxSpeed: 147,
     minSpeedWithIvZero: 90,
     maxSpeedWithNature: 161,
-    choiceScarfPercentage: 13,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 90, percentile: 23, percentage: 23, speedEv: 0, nature: "Quiet" },
-      { type: "usage", speed: 115, percentile: 36, percentage: 13, speedEv: 0, nature: "Modest" },
-      { type: "usage", speed: 161, percentile: 100, percentage: 26, speedEv: 252, nature: "Timid" },
-      { type: "scarf", speed: 241, percentile: 100, percentage: 13, speedEv: 252, nature: "" }
+      { type: "usage", speed: 116, percentile: 27, percentage: 27, speedEv: 4, nature: "Calm" },
+      { type: "usage", speed: 136, percentile: 45, percentage: 18, speedEv: 164, nature: "Gentle" },
+      { type: "usage", speed: 161, percentile: 100, percentage: 23, speedEv: 252, nature: "Timid" }
     ]
   },
-  "Indeedee-F": {
-    referenceDate: "2025-07",
+  Hawlucha: {
+    referenceDate: "2025-08",
+    baseSpeed: 118,
+    minSpeed: 138,
+    maxSpeed: 170,
+    minSpeedWithIvZero: 110,
+    maxSpeedWithNature: 187,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 169, percentile: 32, percentage: 15, speedEv: 244, nature: "Hardy" },
+      { type: "usage", speed: 170, percentile: 84, percentage: 52, speedEv: 252, nature: "Adamant" },
+      { type: "usage", speed: 187, percentile: 100, percentage: 16, speedEv: 252, nature: "Jolly" }
+    ]
+  },
+  Haxorus: {
+    referenceDate: "2025-08",
+    baseSpeed: 97,
+    minSpeed: 117,
+    maxSpeed: 149,
+    minSpeedWithIvZero: 91,
+    maxSpeedWithNature: 163,
+    choiceScarfPercentage: 4,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 117, percentile: 13, percentage: 13, speedEv: 0, nature: "Hardy" },
+      { type: "usage", speed: 149, percentile: 72, percentage: 35, speedEv: 252, nature: "Adamant" },
+      { type: "usage", speed: 163, percentile: 100, percentage: 17, speedEv: 252, nature: "Jolly" }
+    ]
+  },
+  Heatran: {
+    referenceDate: "2025-08",
+    baseSpeed: 77,
+    minSpeed: 97,
+    maxSpeed: 129,
+    minSpeedWithIvZero: 73,
+    maxSpeedWithNature: 141,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 73, percentile: 14, percentage: 14, speedEv: 0, nature: "Quiet" },
+      { type: "usage", speed: 97, percentile: 51, percentage: 37, speedEv: 0, nature: "Modest" },
+      { type: "usage", speed: 98, percentile: 73, percentage: 21, speedEv: 4, nature: "Modest" }
+    ]
+  },
+  Heracross: {
+    referenceDate: "2025-08",
     baseSpeed: 85,
     minSpeed: 105,
     maxSpeed: 137,
@@ -2838,65 +2560,290 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 81, percentile: 42, percentage: 42, speedEv: 0, nature: "Relaxed" },
-      { type: "usage", speed: 105, percentile: 89, percentage: 47, speedEv: 0, nature: "Bold" }
+      { type: "usage", speed: 81, percentile: 19, percentage: 19, speedEv: 0, nature: "Brave" },
+      { type: "usage", speed: 130, percentile: 65, percentage: 46, speedEv: 196, nature: "Adamant" },
+      { type: "usage", speed: 137, percentile: 88, percentage: 23, speedEv: 252, nature: "Adamant" }
+    ]
+  },
+  Hippopotas: { referenceDate: "2025-08", baseSpeed: 32, minSpeed: 52, maxSpeed: 84, minSpeedWithIvZero: 33, maxSpeedWithNature: 92, statistics: [] },
+  Hippowdon: {
+    referenceDate: "2025-08",
+    baseSpeed: 47,
+    minSpeed: 67,
+    maxSpeed: 99,
+    minSpeedWithIvZero: 46,
+    maxSpeedWithNature: 108,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 46, percentile: 13, percentage: 13, speedEv: 0, nature: "Brave" },
+      { type: "usage", speed: 67, percentile: 91, percentage: 78, speedEv: 0, nature: "Impish" }
+    ]
+  },
+  Hitmonchan: { referenceDate: "2025-08", baseSpeed: 76, minSpeed: 96, maxSpeed: 128, minSpeedWithIvZero: 72, maxSpeedWithNature: 140, statistics: [] },
+  Hitmonlee: {
+    referenceDate: "2025-08",
+    baseSpeed: 87,
+    minSpeed: 107,
+    maxSpeed: 139,
+    minSpeedWithIvZero: 82,
+    maxSpeedWithNature: 152,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 116, percentile: 23, percentage: 16, speedEv: 68, nature: "Adamant" },
+      { type: "usage", speed: 152, percentile: 100, percentage: 77, speedEv: 252, nature: "Jolly" }
+    ]
+  },
+  Hitmontop: {
+    referenceDate: "2025-08",
+    baseSpeed: 70,
+    minSpeed: 90,
+    maxSpeed: 122,
+    minSpeedWithIvZero: 67,
+    maxSpeedWithNature: 134,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 90, percentile: 68, percentage: 64, speedEv: 0, nature: "Careful" },
+      { type: "usage", speed: 96, percentile: 86, percentage: 11, speedEv: 44, nature: "Careful" }
+    ]
+  },
+  "Ho-Oh": {
+    referenceDate: "2025-08",
+    baseSpeed: 90,
+    minSpeed: 110,
+    maxSpeed: 142,
+    minSpeedWithIvZero: 85,
+    maxSpeedWithNature: 156,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 110, percentile: 24, percentage: 22, speedEv: 0, nature: "Adamant" },
+      { type: "usage", speed: 112, percentile: 43, percentage: 15, speedEv: 12, nature: "Adamant" },
+      { type: "usage", speed: 115, percentile: 69, percentage: 15, speedEv: 36, nature: "Adamant" }
+    ]
+  },
+  Honchkrow: {
+    referenceDate: "2025-08",
+    baseSpeed: 71,
+    minSpeed: 91,
+    maxSpeed: 123,
+    minSpeedWithIvZero: 68,
+    maxSpeedWithNature: 135,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 68, percentile: 17, percentage: 17, speedEv: 0, nature: "Brave" },
+      { type: "usage", speed: 91, percentile: 74, percentage: 57, speedEv: 0, nature: "Careful" },
+      { type: "usage", speed: 112, percentile: 87, percentage: 13, speedEv: 164, nature: "Hardy" }
+    ]
+  },
+  Hoopa: { referenceDate: "2025-08", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
+  "Hoopa-Unbound": { referenceDate: "2025-08", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
+  Hoothoot: { referenceDate: "2025-08", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Hoppip: { referenceDate: "2025-08", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Horsea: { referenceDate: "2025-08", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  Houndoom: {
+    referenceDate: "2025-08",
+    baseSpeed: 95,
+    minSpeed: 115,
+    maxSpeed: 147,
+    minSpeedWithIvZero: 90,
+    maxSpeedWithNature: 161,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 124, percentile: 17, percentage: 17, speedEv: 70, nature: "Hardy" },
+      { type: "usage", speed: 161, percentile: 100, percentage: 81, speedEv: 252, nature: "Timid" }
+    ]
+  },
+  Houndour: { referenceDate: "2025-08", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  Houndstone: {
+    referenceDate: "2025-08",
+    baseSpeed: 68,
+    minSpeed: 88,
+    maxSpeed: 120,
+    minSpeedWithIvZero: 65,
+    maxSpeedWithNature: 132,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 120, percentile: 41, percentage: 29, speedEv: 252, nature: "Adamant" },
+      { type: "usage", speed: 132, percentile: 100, percentage: 59, speedEv: 252, nature: "Jolly" }
+    ]
+  },
+  Hydrapple: {
+    referenceDate: "2025-08",
+    baseSpeed: 44,
+    minSpeed: 64,
+    maxSpeed: 96,
+    minSpeedWithIvZero: 44,
+    maxSpeedWithNature: 105,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 44, percentile: 27, percentage: 27, speedEv: 0, nature: "Relaxed" },
+      { type: "usage", speed: 64, percentile: 75, percentage: 46, speedEv: 0, nature: "Modest" },
+      { type: "usage", speed: 65, percentile: 87, percentage: 12, speedEv: 4, nature: "Hardy" }
+    ]
+  },
+  Hydreigon: {
+    referenceDate: "2025-08",
+    baseSpeed: 98,
+    minSpeed: 118,
+    maxSpeed: 150,
+    minSpeedWithIvZero: 92,
+    maxSpeedWithNature: 165,
+    choiceScarfPercentage: 5,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 129, percentile: 63, percentage: 53, speedEv: 88, nature: "Modest" },
+      { type: "usage", speed: 165, percentile: 100, percentage: 31, speedEv: 252, nature: "Timid" },
+      { type: "scarf", speed: 247, percentile: 100, percentage: 5, speedEv: 252, nature: "" }
+    ]
+  },
+  Hypno: { referenceDate: "2025-08", baseSpeed: 67, minSpeed: 87, maxSpeed: 119, minSpeedWithIvZero: 64, maxSpeedWithNature: 130, statistics: [] },
+  Igglybuff: { referenceDate: "2025-08", baseSpeed: 15, minSpeed: 35, maxSpeed: 67, minSpeedWithIvZero: 18, maxSpeedWithNature: 73, statistics: [] },
+  Illumise: {
+    referenceDate: "2025-08",
+    baseSpeed: 85,
+    minSpeed: 105,
+    maxSpeed: 137,
+    minSpeedWithIvZero: 81,
+    maxSpeedWithNature: 150,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 105, percentile: 35, percentage: 35, speedEv: 0, nature: "Hardy" },
+      { type: "usage", speed: 109, percentile: 51, percentage: 16, speedEv: 28, nature: "Calm" },
+      { type: "usage", speed: 150, percentile: 100, percentage: 37, speedEv: 252, nature: "Timid" }
+    ]
+  },
+  Impidimp: { referenceDate: "2025-08", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Incineroar: {
+    referenceDate: "2025-08",
+    baseSpeed: 60,
+    minSpeed: 80,
+    maxSpeed: 112,
+    minSpeedWithIvZero: 58,
+    maxSpeedWithNature: 123,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 80, percentile: 41, percentage: 33, speedEv: 0, nature: "Adamant" },
+      { type: "usage", speed: 81, percentile: 53, percentage: 11, speedEv: 4, nature: "Impish" }
+    ]
+  },
+  Indeedee: {
+    referenceDate: "2025-08",
+    baseSpeed: 95,
+    minSpeed: 115,
+    maxSpeed: 147,
+    minSpeedWithIvZero: 90,
+    maxSpeedWithNature: 161,
+    choiceScarfPercentage: 22,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 115, percentile: 17, percentage: 12, speedEv: 0, nature: "Modest" },
+      { type: "usage", speed: 147, percentile: 65, percentage: 42, speedEv: 252, nature: "Modest" },
+      { type: "usage", speed: 161, percentile: 100, percentage: 28, speedEv: 252, nature: "Timid" },
+      { type: "scarf", speed: 241, percentile: 100, percentage: 22, speedEv: 252, nature: "" }
+    ]
+  },
+  "Indeedee-F": {
+    referenceDate: "2025-08",
+    baseSpeed: 85,
+    minSpeed: 105,
+    maxSpeed: 137,
+    minSpeedWithIvZero: 81,
+    maxSpeedWithNature: 150,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 81, percentile: 44, percentage: 44, speedEv: 0, nature: "Relaxed" },
+      { type: "usage", speed: 105, percentile: 90, percentage: 46, speedEv: 0, nature: "Bold" }
     ]
   },
   Infernape: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 108,
     minSpeed: 128,
     maxSpeed: 160,
     minSpeedWithIvZero: 101,
     maxSpeedWithNature: 176,
-    choiceScarfPercentage: 7,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 159, percentile: 29, percentage: 13, speedEv: 244, nature: "Modest" },
-      { type: "usage", speed: 160, percentile: 46, percentage: 17, speedEv: 252, nature: "Modest" },
-      { type: "usage", speed: 176, percentile: 100, percentage: 53, speedEv: 252, nature: "Jolly" },
-      { type: "scarf", speed: 264, percentile: 100, percentage: 7, speedEv: 252, nature: "" }
+      { type: "usage", speed: 160, percentile: 20, percentage: 20, speedEv: 252, nature: "Hardy" },
+      { type: "usage", speed: 176, percentile: 100, percentage: 80, speedEv: 252, nature: "Timid" }
     ]
   },
-  Inkay: { referenceDate: "2025-07", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  Inkay: { referenceDate: "2025-08", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
   Inteleon: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 120,
     minSpeed: 140,
     maxSpeed: 172,
     minSpeedWithIvZero: 112,
     maxSpeedWithNature: 189,
-    choiceScarfPercentage: 7,
+    choiceScarfPercentage: 8,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 172, percentile: 48, percentage: 22, speedEv: 252, nature: "Modest" },
-      { type: "usage", speed: 189, percentile: 100, percentage: 48, speedEv: 252, nature: "Timid" },
-      { type: "scarf", speed: 283, percentile: 100, percentage: 7, speedEv: 252, nature: "" }
+      { type: "usage", speed: 172, percentile: 35, percentage: 19, speedEv: 252, nature: "Modest" },
+      { type: "usage", speed: 189, percentile: 100, percentage: 65, speedEv: 252, nature: "Timid" },
+      { type: "scarf", speed: 283, percentile: 100, percentage: 8, speedEv: 252, nature: "" }
     ]
   },
   "Iron Boulder": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 124,
     minSpeed: 144,
     maxSpeed: 176,
     minSpeedWithIvZero: 116,
     maxSpeedWithNature: 193,
-    choiceScarfPercentage: 1,
+    choiceScarfPercentage: 2,
     choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 21,
+    boosterEnergyPercentage: 24,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 176, percentile: 53, percentage: 34, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 193, percentile: 100, percentage: 40, speedEv: 252, nature: "Jolly" },
-      { type: "booster", speed: 289, percentile: 100, percentage: 21, speedEv: 252, nature: "" }
+      { type: "usage", speed: 176, percentile: 57, percentage: 32, speedEv: 252, nature: "Adamant" },
+      { type: "usage", speed: 193, percentile: 100, percentage: 36, speedEv: 252, nature: "Jolly" },
+      { type: "booster", speed: 289, percentile: 100, percentage: 24, speedEv: 252, nature: "" }
     ]
   },
   "Iron Bundle": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 136,
     minSpeed: 156,
     maxSpeed: 188,
@@ -2904,32 +2851,33 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     maxSpeedWithNature: 206,
     choiceScarfPercentage: 1,
     choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 17,
+    boosterEnergyPercentage: 16,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 206, percentile: 100, percentage: 93, speedEv: 252, nature: "Timid" },
-      { type: "booster", speed: 309, percentile: 100, percentage: 17, speedEv: 252, nature: "" }
+      { type: "usage", speed: 206, percentile: 100, percentage: 90, speedEv: 252, nature: "Timid" },
+      { type: "booster", speed: 309, percentile: 100, percentage: 16, speedEv: 252, nature: "" }
     ]
   },
   "Iron Crown": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 98,
     minSpeed: 118,
     maxSpeed: 150,
     minSpeedWithIvZero: 92,
     maxSpeedWithNature: 165,
-    choiceScarfPercentage: 3,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 41,
+    boosterEnergyPercentage: 48,
     boosterEnergyIsMoreUsed: true,
     statistics: [
-      { type: "usage", speed: 150, percentile: 43, percentage: 13, speedEv: 252, nature: "Modest" },
-      { type: "usage", speed: 165, percentile: 100, percentage: 45, speedEv: 252, nature: "Timid" },
-      { type: "booster", speed: 247, percentile: 100, percentage: 41, speedEv: 252, nature: "" }
+      { type: "usage", speed: 118, percentile: 24, percentage: 19, speedEv: 0, nature: "Modest" },
+      { type: "usage", speed: 157, percentile: 66, percentage: 13, speedEv: 196, nature: "Timid" },
+      { type: "usage", speed: 165, percentile: 100, percentage: 29, speedEv: 252, nature: "Timid" },
+      { type: "booster", speed: 247, percentile: 100, percentage: 48, speedEv: 252, nature: "" }
     ]
   },
   "Iron Hands": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 50,
     minSpeed: 70,
     maxSpeed: 102,
@@ -2937,16 +2885,16 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     maxSpeedWithNature: 112,
     choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 2,
+    boosterEnergyPercentage: 3,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 49, percentile: 50, percentage: 50, speedEv: 0, nature: "Brave" },
-      { type: "usage", speed: 70, percentile: 66, percentage: 16, speedEv: 0, nature: "Adamant" },
-      { type: "booster", speed: 168, percentile: 100, percentage: 2, speedEv: 252, nature: "" }
+      { type: "usage", speed: 49, percentile: 51, percentage: 51, speedEv: 0, nature: "Brave" },
+      { type: "usage", speed: 70, percentile: 70, percentage: 19, speedEv: 0, nature: "Adamant" },
+      { type: "booster", speed: 168, percentile: 100, percentage: 3, speedEv: 252, nature: "" }
     ]
   },
   "Iron Jugulis": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 108,
     minSpeed: 128,
     maxSpeed: 160,
@@ -2954,83 +2902,86 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     maxSpeedWithNature: 176,
     choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 84,
+    boosterEnergyPercentage: 74,
     boosterEnergyIsMoreUsed: true,
     statistics: [
-      { type: "usage", speed: 154, percentile: 24, percentage: 13, speedEv: 92, nature: "Timid" },
-      { type: "usage", speed: 155, percentile: 37, percentage: 13, speedEv: 100, nature: "Timid" },
-      { type: "usage", speed: 176, percentile: 100, percentage: 22, speedEv: 252, nature: "Timid" },
-      { type: "booster", speed: 264, percentile: 100, percentage: 84, speedEv: 252, nature: "" }
+      { type: "usage", speed: 154, percentile: 33, percentage: 20, speedEv: 92, nature: "Timid" },
+      { type: "usage", speed: 176, percentile: 100, percentage: 23, speedEv: 252, nature: "Timid" },
+      { type: "booster", speed: 264, percentile: 100, percentage: 74, speedEv: 252, nature: "" }
     ]
   },
   "Iron Leaves": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 104,
     minSpeed: 124,
     maxSpeed: 156,
     minSpeedWithIvZero: 98,
     maxSpeedWithNature: 171,
-    choiceScarfPercentage: 2,
+    choiceScarfPercentage: 3,
     choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 20,
+    boosterEnergyPercentage: 3,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 171, percentile: 100, percentage: 76, speedEv: 252, nature: "Jolly" },
-      { type: "booster", speed: 256, percentile: 100, percentage: 20, speedEv: 252, nature: "" }
+      { type: "usage", speed: 132, percentile: 53, percentage: 48, speedEv: 60, nature: "Adamant" },
+      { type: "usage", speed: 151, percentile: 68, percentage: 14, speedEv: 212, nature: "Careful" },
+      { type: "usage", speed: 171, percentile: 100, percentage: 23, speedEv: 252, nature: "Jolly" },
+      { type: "booster", speed: 256, percentile: 100, percentage: 3, speedEv: 252, nature: "" }
     ]
   },
   "Iron Moth": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 110,
     minSpeed: 130,
     maxSpeed: 162,
     minSpeedWithIvZero: 103,
     maxSpeedWithNature: 178,
-    choiceScarfPercentage: 2,
+    choiceScarfPercentage: 8,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 31,
     boosterEnergyIsMoreUsed: true,
     statistics: [
-      { type: "usage", speed: 178, percentile: 100, percentage: 52, speedEv: 252, nature: "Timid" },
-      { type: "booster", speed: 267, percentile: 100, percentage: 31, speedEv: 252, nature: "" }
+      { type: "usage", speed: 159, percentile: 38, percentage: 11, speedEv: 228, nature: "Modest" },
+      { type: "usage", speed: 178, percentile: 100, percentage: 37, speedEv: 252, nature: "Timid" },
+      { type: "booster", speed: 267, percentile: 100, percentage: 31, speedEv: 252, nature: "" },
+      { type: "scarf", speed: 267, percentile: 100, percentage: 8, speedEv: 252, nature: "" }
     ]
   },
   "Iron Thorns": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 72,
     minSpeed: 92,
     maxSpeed: 124,
     minSpeedWithIvZero: 69,
     maxSpeedWithNature: 136,
-    choiceScarfPercentage: 3,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 66,
+    boosterEnergyPercentage: 51,
     boosterEnergyIsMoreUsed: true,
     statistics: [
-      { type: "usage", speed: 69, percentile: 11, percentage: 11, speedEv: 0, nature: "Brave" },
-      { type: "usage", speed: 92, percentile: 58, percentage: 46, speedEv: 0, nature: "Adamant" },
-      { type: "usage", speed: 136, percentile: 100, percentage: 26, speedEv: 252, nature: "Timid" },
-      { type: "booster", speed: 204, percentile: 100, percentage: 66, speedEv: 252, nature: "" }
+      { type: "usage", speed: 69, percentile: 18, percentage: 18, speedEv: 0, nature: "Brave" },
+      { type: "usage", speed: 92, percentile: 69, percentage: 51, speedEv: 0, nature: "Adamant" },
+      { type: "usage", speed: 136, percentile: 100, percentage: 22, speedEv: 252, nature: "Jolly" },
+      { type: "booster", speed: 204, percentile: 100, percentage: 51, speedEv: 252, nature: "" }
     ]
   },
   "Iron Treads": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 106,
     minSpeed: 126,
     maxSpeed: 158,
     minSpeedWithIvZero: 99,
     maxSpeedWithNature: 173,
-    choiceScarfPercentage: 1,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 3,
+    boosterEnergyPercentage: 4,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 173, percentile: 100, percentage: 53, speedEv: 252, nature: "Jolly" },
-      { type: "booster", speed: 259, percentile: 100, percentage: 3, speedEv: 252, nature: "" }
+      { type: "usage", speed: 173, percentile: 100, percentage: 61, speedEv: 252, nature: "Jolly" },
+      { type: "booster", speed: 259, percentile: 100, percentage: 4, speedEv: 252, nature: "" }
     ]
   },
   "Iron Valiant": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 116,
     minSpeed: 136,
     maxSpeed: 168,
@@ -3038,36 +2989,37 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     maxSpeedWithNature: 184,
     choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 48,
+    boosterEnergyPercentage: 57,
     boosterEnergyIsMoreUsed: true,
     statistics: [
-      { type: "usage", speed: 184, percentile: 100, percentage: 55, speedEv: 252, nature: "Jolly" },
-      { type: "booster", speed: 276, percentile: 100, percentage: 48, speedEv: 252, nature: "" }
+      { type: "usage", speed: 184, percentile: 100, percentage: 52, speedEv: 252, nature: "Jolly" },
+      { type: "booster", speed: 276, percentile: 100, percentage: 57, speedEv: 252, nature: "" }
     ]
   },
-  Ivysaur: { referenceDate: "2025-07", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
-  "Jangmo-o": { referenceDate: "2025-07", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
-  Jigglypuff: { referenceDate: "2025-07", baseSpeed: 20, minSpeed: 40, maxSpeed: 72, minSpeedWithIvZero: 22, maxSpeedWithNature: 79, statistics: [] },
-  Jirachi: { referenceDate: "2025-07", baseSpeed: 100, minSpeed: 120, maxSpeed: 152, minSpeedWithIvZero: 94, maxSpeedWithNature: 167, statistics: [] },
+  Ivysaur: { referenceDate: "2025-08", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  "Jangmo-o": { referenceDate: "2025-08", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  Jigglypuff: { referenceDate: "2025-08", baseSpeed: 20, minSpeed: 40, maxSpeed: 72, minSpeedWithIvZero: 22, maxSpeedWithNature: 79, statistics: [] },
+  Jirachi: { referenceDate: "2025-08", baseSpeed: 100, minSpeed: 120, maxSpeed: 152, minSpeedWithIvZero: 94, maxSpeedWithNature: 167, statistics: [] },
   Jolteon: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 130,
     minSpeed: 150,
     maxSpeed: 182,
     minSpeedWithIvZero: 121,
     maxSpeedWithNature: 200,
-    choiceScarfPercentage: 3,
+    choiceScarfPercentage: 12,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 182, percentile: 41, percentage: 18, speedEv: 252, nature: "Modest" },
-      { type: "usage", speed: 200, percentile: 100, percentage: 47, speedEv: 252, nature: "Timid" }
+      { type: "usage", speed: 182, percentile: 70, percentage: 55, speedEv: 252, nature: "Modest" },
+      { type: "usage", speed: 200, percentile: 100, percentage: 30, speedEv: 252, nature: "Timid" },
+      { type: "scarf", speed: 300, percentile: 100, percentage: 12, speedEv: 252, nature: "" }
     ]
   },
-  Joltik: { referenceDate: "2025-07", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  Joltik: { referenceDate: "2025-08", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
   Jumpluff: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 110,
     minSpeed: 130,
     maxSpeed: 162,
@@ -3078,29 +3030,30 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 157, percentile: 37, percentage: 12, speedEv: 100, nature: "Timid" },
-      { type: "usage", speed: 178, percentile: 100, percentage: 38, speedEv: 252, nature: "Timid" }
+      { type: "usage", speed: 157, percentile: 38, percentage: 12, speedEv: 100, nature: "Timid" },
+      { type: "usage", speed: 178, percentile: 100, percentage: 42, speedEv: 252, nature: "Timid" }
     ]
   },
-  Keldeo: { referenceDate: "2025-07", baseSpeed: 108, minSpeed: 128, maxSpeed: 160, minSpeedWithIvZero: 101, maxSpeedWithNature: 176, statistics: [] },
+  Keldeo: { referenceDate: "2025-08", baseSpeed: 108, minSpeed: 128, maxSpeed: 160, minSpeedWithIvZero: 101, maxSpeedWithNature: 176, statistics: [] },
   Kilowattrel: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 125,
     minSpeed: 145,
     maxSpeed: 177,
     minSpeedWithIvZero: 117,
     maxSpeedWithNature: 194,
-    choiceScarfPercentage: 4,
+    choiceScarfPercentage: 7,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 177, percentile: 21, percentage: 17, speedEv: 252, nature: "Modest" },
-      { type: "usage", speed: 194, percentile: 100, percentage: 74, speedEv: 252, nature: "Timid" }
+      { type: "usage", speed: 177, percentile: 22, percentage: 19, speedEv: 252, nature: "Modest" },
+      { type: "usage", speed: 194, percentile: 100, percentage: 77, speedEv: 252, nature: "Timid" },
+      { type: "scarf", speed: 291, percentile: 100, percentage: 7, speedEv: 252, nature: "" }
     ]
   },
   Kingambit: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 50,
     minSpeed: 70,
     maxSpeed: 102,
@@ -3111,48 +3064,31 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 49, percentile: 32, percentage: 32, speedEv: 0, nature: "Brave" },
-      { type: "usage", speed: 70, percentile: 78, percentage: 45, speedEv: 0, nature: "Adamant" }
+      { type: "usage", speed: 49, percentile: 38, percentage: 38, speedEv: 0, nature: "Brave" },
+      { type: "usage", speed: 70, percentile: 87, percentage: 48, speedEv: 0, nature: "Adamant" }
     ]
   },
   Kingdra: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 85,
     minSpeed: 105,
     maxSpeed: 137,
     minSpeedWithIvZero: 81,
     maxSpeedWithNature: 150,
-    choiceScarfPercentage: 1,
+    choiceScarfPercentage: 3,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 137, percentile: 80, percentage: 44, speedEv: 252, nature: "Modest" },
-      { type: "usage", speed: 150, percentile: 100, percentage: 15, speedEv: 252, nature: "Timid" }
+      { type: "usage", speed: 134, percentile: 31, percentage: 13, speedEv: 228, nature: "Modest" },
+      { type: "usage", speed: 137, percentile: 90, percentage: 59, speedEv: 252, nature: "Modest" }
     ]
   },
-  Kirlia: { referenceDate: "2025-07", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
-  Klawf: { referenceDate: "2025-07", baseSpeed: 75, minSpeed: 95, maxSpeed: 127, minSpeedWithIvZero: 72, maxSpeedWithNature: 139, statistics: [] },
-  Kleavor: {
-    referenceDate: "2025-07",
-    baseSpeed: 85,
-    minSpeed: 105,
-    maxSpeed: 137,
-    minSpeedWithIvZero: 81,
-    maxSpeedWithNature: 150,
-    choiceScarfPercentage: 23,
-    choiceScarfIsMoreUsed: true,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 105, percentile: 22, percentage: 12, speedEv: 0, nature: "Adamant" },
-      { type: "usage", speed: 137, percentile: 42, percentage: 14, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 150, percentile: 100, percentage: 52, speedEv: 252, nature: "Jolly" },
-      { type: "scarf", speed: 225, percentile: 100, percentage: 23, speedEv: 252, nature: "" }
-    ]
-  },
+  Kirlia: { referenceDate: "2025-08", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Klawf: { referenceDate: "2025-08", baseSpeed: 75, minSpeed: 95, maxSpeed: 127, minSpeedWithIvZero: 72, maxSpeedWithNature: 139, statistics: [] },
+  Kleavor: { referenceDate: "2025-08", baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
   Klefki: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 75,
     minSpeed: 95,
     maxSpeed: 127,
@@ -3163,43 +3099,30 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 72, percentile: 23, percentage: 23, speedEv: 0, nature: "Relaxed" },
-      { type: "usage", speed: 95, percentile: 82, percentage: 59, speedEv: 0, nature: "Bold" },
-      { type: "usage", speed: 96, percentile: 93, percentage: 12, speedEv: 4, nature: "Bold" }
+      { type: "usage", speed: 72, percentile: 33, percentage: 33, speedEv: 0, nature: "Relaxed" },
+      { type: "usage", speed: 95, percentile: 99, percentage: 65, speedEv: 0, nature: "Calm" }
     ]
   },
-  Koffing: {
-    referenceDate: "2025-07",
-    baseSpeed: 35,
-    minSpeed: 55,
-    maxSpeed: 87,
-    minSpeedWithIvZero: 36,
-    maxSpeedWithNature: 95,
-    choiceScarfPercentage: 0,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [{ type: "usage", speed: 36, percentile: 100, percentage: 100, speedEv: 0, nature: "Sassy" }]
-  },
-  Komala: { referenceDate: "2025-07", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  Koffing: { referenceDate: "2025-08", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
+  Komala: { referenceDate: "2025-08", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
   "Kommo-o": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 85,
     minSpeed: 105,
     maxSpeed: 137,
     minSpeedWithIvZero: 81,
     maxSpeedWithNature: 150,
-    choiceScarfPercentage: 14,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 150, percentile: 100, percentage: 50, speedEv: 252, nature: "Timid" },
-      { type: "scarf", speed: 225, percentile: 100, percentage: 14, speedEv: 252, nature: "" }
+      { type: "usage", speed: 105, percentile: 15, percentage: 15, speedEv: 0, nature: "Adamant" },
+      { type: "usage", speed: 150, percentile: 100, percentage: 47, speedEv: 252, nature: "Timid" }
     ]
   },
   Koraidon: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 135,
     minSpeed: 155,
     maxSpeed: 187,
@@ -3210,34 +3133,34 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 187, percentile: 51, percentage: 16, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 205, percentile: 100, percentage: 46, speedEv: 252, nature: "Jolly" }
+      { type: "usage", speed: 187, percentile: 51, percentage: 15, speedEv: 252, nature: "Adamant" },
+      { type: "usage", speed: 205, percentile: 100, percentage: 45, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Kricketot: { referenceDate: "2025-07", baseSpeed: 25, minSpeed: 45, maxSpeed: 77, minSpeedWithIvZero: 27, maxSpeedWithNature: 84, statistics: [] },
-  Kricketune: { referenceDate: "2025-07", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
-  Krokorok: { referenceDate: "2025-07", baseSpeed: 74, minSpeed: 94, maxSpeed: 126, minSpeedWithIvZero: 71, maxSpeedWithNature: 138, statistics: [] },
+  Kricketot: { referenceDate: "2025-08", baseSpeed: 25, minSpeed: 45, maxSpeed: 77, minSpeedWithIvZero: 27, maxSpeedWithNature: 84, statistics: [] },
+  Kricketune: { referenceDate: "2025-08", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  Krokorok: { referenceDate: "2025-08", baseSpeed: 74, minSpeed: 94, maxSpeed: 126, minSpeedWithIvZero: 71, maxSpeedWithNature: 138, statistics: [] },
   Krookodile: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 92,
     minSpeed: 112,
     maxSpeed: 144,
     minSpeedWithIvZero: 87,
     maxSpeedWithNature: 158,
-    choiceScarfPercentage: 13,
+    choiceScarfPercentage: 23,
     choiceScarfIsMoreUsed: true,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 112, percentile: 13, percentage: 12, speedEv: 0, nature: "Adamant" },
-      { type: "usage", speed: 144, percentile: 47, percentage: 22, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 158, percentile: 100, percentage: 48, speedEv: 252, nature: "Jolly" },
-      { type: "scarf", speed: 237, percentile: 100, percentage: 13, speedEv: 252, nature: "" }
+      { type: "usage", speed: 121, percentile: 17, percentage: 11, speedEv: 68, nature: "Adamant" },
+      { type: "usage", speed: 123, percentile: 31, percentage: 14, speedEv: 0, nature: "Jolly" },
+      { type: "usage", speed: 158, percentile: 100, percentage: 61, speedEv: 252, nature: "Jolly" },
+      { type: "scarf", speed: 237, percentile: 100, percentage: 23, speedEv: 252, nature: "" }
     ]
   },
-  Kubfu: { referenceDate: "2025-07", baseSpeed: 72, minSpeed: 92, maxSpeed: 124, minSpeedWithIvZero: 69, maxSpeedWithNature: 136, statistics: [] },
+  Kubfu: { referenceDate: "2025-08", baseSpeed: 72, minSpeed: 92, maxSpeed: 124, minSpeedWithIvZero: 69, maxSpeedWithNature: 136, statistics: [] },
   Kyogre: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 90,
     minSpeed: 110,
     maxSpeed: 142,
@@ -3252,130 +3175,131 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
       { type: "scarf", speed: 234, percentile: 100, percentage: 11, speedEv: 252, nature: "" }
     ]
   },
-  Kyurem: {
-    referenceDate: "2025-07",
-    baseSpeed: 95,
-    minSpeed: 115,
-    maxSpeed: 147,
-    minSpeedWithIvZero: 90,
-    maxSpeedWithNature: 161,
-    choiceScarfPercentage: 4,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 115, percentile: 22, percentage: 15, speedEv: 0, nature: "Naughty" },
-      { type: "usage", speed: 147, percentile: 52, percentage: 27, speedEv: 252, nature: "Modest" },
-      { type: "usage", speed: 161, percentile: 100, percentage: 37, speedEv: 252, nature: "Timid" }
-    ]
-  },
+  Kyurem: { referenceDate: "2025-08", baseSpeed: 95, minSpeed: 115, maxSpeed: 147, minSpeedWithIvZero: 90, maxSpeedWithNature: 161, statistics: [] },
   "Kyurem-Black": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 95,
     minSpeed: 115,
     maxSpeed: 147,
     minSpeedWithIvZero: 90,
     maxSpeedWithNature: 161,
-    choiceScarfPercentage: 1,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 147, percentile: 58, percentage: 19, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 150, percentile: 80, percentage: 14, speedEv: 172, nature: "Jolly" },
-      { type: "usage", speed: 161, percentile: 100, percentage: 12, speedEv: 252, nature: "Jolly" }
-    ]
-  },
-  "Kyurem-White": {
-    referenceDate: "2025-07",
-    baseSpeed: 95,
-    minSpeed: 115,
-    maxSpeed: 147,
-    minSpeedWithIvZero: 90,
-    maxSpeedWithNature: 161,
-    choiceScarfPercentage: 7,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 115, percentile: 22, percentage: 19, speedEv: 0, nature: "Modest" },
-      { type: "usage", speed: 161, percentile: 100, percentage: 19, speedEv: 252, nature: "Timid" },
-      { type: "scarf", speed: 241, percentile: 100, percentage: 7, speedEv: 252, nature: "" }
-    ]
-  },
-  Lampent: { referenceDate: "2025-07", baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
-  Landorus: {
-    referenceDate: "2025-07",
-    baseSpeed: 101,
-    minSpeed: 121,
-    maxSpeed: 153,
-    minSpeedWithIvZero: 95,
-    maxSpeedWithNature: 168,
-    choiceScarfPercentage: 7,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 122, percentile: 25, percentage: 22, speedEv: 4, nature: "Modest" },
-      { type: "usage", speed: 153, percentile: 88, percentage: 11, speedEv: 252, nature: "Modest" },
-      { type: "usage", speed: 168, percentile: 100, percentage: 11, speedEv: 252, nature: "Timid" },
-      { type: "scarf", speed: 252, percentile: 100, percentage: 7, speedEv: 252, nature: "" }
-    ]
-  },
-  "Landorus-Therian": {
-    referenceDate: "2025-07",
-    baseSpeed: 91,
-    minSpeed: 111,
-    maxSpeed: 143,
-    minSpeedWithIvZero: 86,
-    maxSpeedWithNature: 157,
-    choiceScarfPercentage: 40,
-    choiceScarfIsMoreUsed: true,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 143, percentile: 51, percentage: 16, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 157, percentile: 100, percentage: 41, speedEv: 252, nature: "Jolly" },
-      { type: "scarf", speed: 235, percentile: 100, percentage: 40, speedEv: 252, nature: "" }
-    ]
-  },
-  Lanturn: {
-    referenceDate: "2025-07",
-    baseSpeed: 67,
-    minSpeed: 87,
-    maxSpeed: 119,
-    minSpeedWithIvZero: 64,
-    maxSpeedWithNature: 130,
-    choiceScarfPercentage: 2,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 87, percentile: 44, percentage: 41, speedEv: 0, nature: "Calm" },
-      { type: "usage", speed: 119, percentile: 77, percentage: 19, speedEv: 252, nature: "Modest" },
-      { type: "usage", speed: 130, percentile: 100, percentage: 23, speedEv: 252, nature: "Timid" }
-    ]
-  },
-  Lapras: {
-    referenceDate: "2025-07",
-    baseSpeed: 60,
-    minSpeed: 80,
-    maxSpeed: 112,
-    minSpeedWithIvZero: 58,
-    maxSpeedWithNature: 123,
     choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 58, percentile: 25, percentage: 25, speedEv: 0, nature: "Relaxed" },
-      { type: "usage", speed: 80, percentile: 86, percentage: 61, speedEv: 0, nature: "Bold" }
+      { type: "usage", speed: 147, percentile: 53, percentage: 15, speedEv: 252, nature: "Adamant" },
+      { type: "usage", speed: 154, percentile: 71, percentage: 14, speedEv: 196, nature: "Jolly" },
+      { type: "usage", speed: 161, percentile: 100, percentage: 29, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Larvesta: { referenceDate: "2025-07", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
-  Larvitar: { referenceDate: "2025-07", baseSpeed: 41, minSpeed: 61, maxSpeed: 93, minSpeedWithIvZero: 41, maxSpeedWithNature: 102, statistics: [] },
+  "Kyurem-White": {
+    referenceDate: "2025-08",
+    baseSpeed: 95,
+    minSpeed: 115,
+    maxSpeed: 147,
+    minSpeedWithIvZero: 90,
+    maxSpeedWithNature: 161,
+    choiceScarfPercentage: 6,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 115, percentile: 21, percentage: 19, speedEv: 0, nature: "Modest" },
+      { type: "usage", speed: 147, percentile: 74, percentage: 18, speedEv: 252, nature: "Modest" },
+      { type: "usage", speed: 161, percentile: 100, percentage: 15, speedEv: 252, nature: "Timid" },
+      { type: "scarf", speed: 241, percentile: 100, percentage: 6, speedEv: 252, nature: "" }
+    ]
+  },
+  Lampent: { referenceDate: "2025-08", baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
+  Landorus: {
+    referenceDate: "2025-08",
+    baseSpeed: 101,
+    minSpeed: 121,
+    maxSpeed: 153,
+    minSpeedWithIvZero: 95,
+    maxSpeedWithNature: 168,
+    choiceScarfPercentage: 5,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 122, percentile: 27, percentage: 23, speedEv: 4, nature: "Modest" },
+      { type: "usage", speed: 168, percentile: 100, percentage: 11, speedEv: 252, nature: "Timid" },
+      { type: "scarf", speed: 252, percentile: 100, percentage: 5, speedEv: 252, nature: "" }
+    ]
+  },
+  "Landorus-Therian": {
+    referenceDate: "2025-08",
+    baseSpeed: 91,
+    minSpeed: 111,
+    maxSpeed: 143,
+    minSpeedWithIvZero: 86,
+    maxSpeedWithNature: 157,
+    choiceScarfPercentage: 27,
+    choiceScarfIsMoreUsed: true,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 111, percentile: 15, percentage: 14, speedEv: 0, nature: "Naughty" },
+      { type: "usage", speed: 157, percentile: 100, percentage: 48, speedEv: 252, nature: "Jolly" },
+      { type: "scarf", speed: 235, percentile: 100, percentage: 27, speedEv: 252, nature: "" }
+    ]
+  },
+  Lanturn: {
+    referenceDate: "2025-08",
+    baseSpeed: 67,
+    minSpeed: 87,
+    maxSpeed: 119,
+    minSpeedWithIvZero: 64,
+    maxSpeedWithNature: 130,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 87, percentile: 22, percentage: 17, speedEv: 0, nature: "Calm" },
+      { type: "usage", speed: 92, percentile: 61, percentage: 22, speedEv: 36, nature: "Modest" },
+      { type: "usage", speed: 119, percentile: 100, percentage: 39, speedEv: 252, nature: "Modest" }
+    ]
+  },
+  Lapras: {
+    referenceDate: "2025-08",
+    baseSpeed: 60,
+    minSpeed: 80,
+    maxSpeed: 112,
+    minSpeedWithIvZero: 58,
+    maxSpeedWithNature: 123,
+    choiceScarfPercentage: 4,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 58, percentile: 19, percentage: 19, speedEv: 0, nature: "Relaxed" },
+      { type: "usage", speed: 80, percentile: 85, percentage: 65, speedEv: 0, nature: "Bold" }
+    ]
+  },
+  Larvesta: { referenceDate: "2025-08", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  Larvitar: { referenceDate: "2025-08", baseSpeed: 41, minSpeed: 61, maxSpeed: 93, minSpeedWithIvZero: 41, maxSpeedWithNature: 102, statistics: [] },
   Latias: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
+    baseSpeed: 110,
+    minSpeed: 130,
+    maxSpeed: 162,
+    minSpeedWithIvZero: 103,
+    maxSpeedWithNature: 178,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 103, percentile: 29, percentage: 29, speedEv: 0, nature: "Sassy" },
+      { type: "usage", speed: 130, percentile: 66, percentage: 36, speedEv: 0, nature: "Impish" },
+      { type: "usage", speed: 178, percentile: 100, percentage: 20, speedEv: 252, nature: "Timid" }
+    ]
+  },
+  Latios: {
+    referenceDate: "2025-08",
     baseSpeed: 110,
     minSpeed: 130,
     maxSpeed: 162,
@@ -3386,63 +3310,46 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 130, percentile: 22, percentage: 14, speedEv: 0, nature: "Hardy" },
-      { type: "usage", speed: 178, percentile: 100, percentage: 37, speedEv: 252, nature: "Timid" }
-    ]
-  },
-  Latios: {
-    referenceDate: "2025-07",
-    baseSpeed: 110,
-    minSpeed: 130,
-    maxSpeed: 162,
-    minSpeedWithIvZero: 103,
-    maxSpeedWithNature: 178,
-    choiceScarfPercentage: 8,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 178, percentile: 100, percentage: 73, speedEv: 252, nature: "Timid" },
-      { type: "scarf", speed: 267, percentile: 100, percentage: 8, speedEv: 252, nature: "" }
+      { type: "usage", speed: 130, percentile: 11, percentage: 11, speedEv: 0, nature: "Hardy" },
+      { type: "usage", speed: 178, percentile: 100, percentage: 61, speedEv: 252, nature: "Timid" }
     ]
   },
   Leafeon: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 95,
     minSpeed: 115,
     maxSpeed: 147,
     minSpeedWithIvZero: 90,
     maxSpeedWithNature: 161,
-    choiceScarfPercentage: 1,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 147, percentile: 80, percentage: 49, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 161, percentile: 100, percentage: 20, speedEv: 252, nature: "Jolly" }
+      { type: "usage", speed: 119, percentile: 24, percentage: 24, speedEv: 28, nature: "Impish" },
+      { type: "usage", speed: 147, percentile: 88, percentage: 52, speedEv: 252, nature: "Adamant" },
+      { type: "usage", speed: 161, percentile: 100, percentage: 12, speedEv: 252, nature: "Jolly" }
     ]
   },
   Leavanny: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 92,
     minSpeed: 112,
     maxSpeed: 144,
     minSpeedWithIvZero: 87,
     maxSpeedWithNature: 158,
-    choiceScarfPercentage: 11,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 137, percentile: 28, percentage: 16, speedEv: 200, nature: "Naughty" },
-      { type: "usage", speed: 144, percentile: 53, percentage: 23, speedEv: 252, nature: "Mild" },
-      { type: "usage", speed: 158, percentile: 100, percentage: 31, speedEv: 252, nature: "Jolly" },
-      { type: "scarf", speed: 237, percentile: 100, percentage: 11, speedEv: 252, nature: "" }
+      { type: "usage", speed: 144, percentile: 27, percentage: 27, speedEv: 252, nature: "Adamant" },
+      { type: "usage", speed: 158, percentile: 100, percentage: 73, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Lechonk: { referenceDate: "2025-07", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
+  Lechonk: { referenceDate: "2025-08", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
   Lilligant: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 90,
     minSpeed: 110,
     maxSpeed: 142,
@@ -3453,13 +3360,13 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 122, percentile: 43, percentage: 18, speedEv: 92, nature: "Modest" },
-      { type: "usage", speed: 142, percentile: 68, percentage: 23, speedEv: 252, nature: "Modest" },
-      { type: "usage", speed: 156, percentile: 100, percentage: 24, speedEv: 252, nature: "Timid" }
+      { type: "usage", speed: 118, percentile: 30, percentage: 22, speedEv: 60, nature: "Bold" },
+      { type: "usage", speed: 142, percentile: 59, percentage: 18, speedEv: 252, nature: "Modest" },
+      { type: "usage", speed: 156, percentile: 100, percentage: 26, speedEv: 252, nature: "Timid" }
     ]
   },
   "Lilligant-Hisui": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 105,
     minSpeed: 125,
     maxSpeed: 157,
@@ -3470,35 +3377,51 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 157, percentile: 53, percentage: 40, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 172, percentile: 100, percentage: 43, speedEv: 252, nature: "Jolly" }
+      { type: "usage", speed: 157, percentile: 53, percentage: 34, speedEv: 252, nature: "Adamant" },
+      { type: "usage", speed: 172, percentile: 100, percentage: 42, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Litleo: { referenceDate: "2025-07", baseSpeed: 72, minSpeed: 92, maxSpeed: 124, minSpeedWithIvZero: 69, maxSpeedWithNature: 136, statistics: [] },
-  Litten: { referenceDate: "2025-07", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
-  Litwick: { referenceDate: "2025-07", baseSpeed: 20, minSpeed: 40, maxSpeed: 72, minSpeedWithIvZero: 22, maxSpeedWithNature: 79, statistics: [] },
-  Lokix: { referenceDate: "2025-07", baseSpeed: 92, minSpeed: 112, maxSpeed: 144, minSpeedWithIvZero: 87, maxSpeedWithNature: 158, statistics: [] },
-  Lombre: { referenceDate: "2025-07", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
-  Lotad: { referenceDate: "2025-07", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
+  Litleo: { referenceDate: "2025-08", baseSpeed: 72, minSpeed: 92, maxSpeed: 124, minSpeedWithIvZero: 69, maxSpeedWithNature: 136, statistics: [] },
+  Litten: { referenceDate: "2025-08", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
+  Litwick: { referenceDate: "2025-08", baseSpeed: 20, minSpeed: 40, maxSpeed: 72, minSpeedWithIvZero: 22, maxSpeedWithNature: 79, statistics: [] },
+  Lokix: {
+    referenceDate: "2025-08",
+    baseSpeed: 92,
+    minSpeed: 112,
+    maxSpeed: 144,
+    minSpeedWithIvZero: 87,
+    maxSpeedWithNature: 158,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 112, percentile: 18, percentage: 18, speedEv: 0, nature: "Hardy" },
+      { type: "usage", speed: 144, percentile: 54, percentage: 18, speedEv: 252, nature: "Adamant" },
+      { type: "usage", speed: 158, percentile: 100, percentage: 46, speedEv: 252, nature: "Jolly" }
+    ]
+  },
+  Lombre: { referenceDate: "2025-08", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Lotad: { referenceDate: "2025-08", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
   Lucario: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 90,
     minSpeed: 110,
     maxSpeed: 142,
     minSpeedWithIvZero: 85,
     maxSpeedWithNature: 156,
-    choiceScarfPercentage: 11,
+    choiceScarfPercentage: 4,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 142, percentile: 34, percentage: 14, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 156, percentile: 100, percentage: 66, speedEv: 252, nature: "Jolly" },
-      { type: "scarf", speed: 234, percentile: 100, percentage: 11, speedEv: 252, nature: "" }
+      { type: "usage", speed: 111, percentile: 19, percentage: 15, speedEv: 4, nature: "Adamant" },
+      { type: "usage", speed: 126, percentile: 31, percentage: 13, speedEv: 128, nature: "Careful" },
+      { type: "usage", speed: 156, percentile: 100, percentage: 48, speedEv: 252, nature: "Jolly" }
     ]
   },
   Ludicolo: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 70,
     minSpeed: 90,
     maxSpeed: 122,
@@ -3509,12 +3432,12 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 122, percentile: 76, percentage: 35, speedEv: 252, nature: "Mild" },
-      { type: "usage", speed: 134, percentile: 100, percentage: 20, speedEv: 252, nature: "Timid" }
+      { type: "usage", speed: 105, percentile: 19, percentage: 15, speedEv: 116, nature: "Quirky" },
+      { type: "usage", speed: 112, percentile: 79, percentage: 56, speedEv: 172, nature: "Modest" }
     ]
   },
   Lugia: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 110,
     minSpeed: 130,
     maxSpeed: 162,
@@ -3525,14 +3448,14 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 130, percentile: 53, percentage: 49, speedEv: 0, nature: "Calm" },
-      { type: "usage", speed: 162, percentile: 87, percentage: 12, speedEv: 252, nature: "Bold" },
-      { type: "usage", speed: 178, percentile: 100, percentage: 13, speedEv: 252, nature: "Timid" }
+      { type: "usage", speed: 103, percentile: 12, percentage: 12, speedEv: 0, nature: "Sassy" },
+      { type: "usage", speed: 130, percentile: 63, percentage: 50, speedEv: 0, nature: "Bold" },
+      { type: "usage", speed: 131, percentile: 74, percentage: 11, speedEv: 4, nature: "Modest" }
     ]
   },
-  Lumineon: { referenceDate: "2025-07", baseSpeed: 91, minSpeed: 111, maxSpeed: 143, minSpeedWithIvZero: 86, maxSpeedWithNature: 157, statistics: [] },
+  Lumineon: { referenceDate: "2025-08", baseSpeed: 91, minSpeed: 111, maxSpeed: 143, minSpeedWithIvZero: 86, maxSpeedWithNature: 157, statistics: [] },
   Lunala: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 97,
     minSpeed: 117,
     maxSpeed: 149,
@@ -3543,28 +3466,28 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 117, percentile: 22, percentage: 13, speedEv: 0, nature: "Modest" },
-      { type: "usage", speed: 118, percentile: 37, percentage: 15, speedEv: 4, nature: "Modest" },
-      { type: "usage", speed: 119, percentile: 57, percentage: 20, speedEv: 12, nature: "Modest" }
+      { type: "usage", speed: 117, percentile: 29, percentage: 15, speedEv: 0, nature: "Modest" },
+      { type: "usage", speed: 118, percentile: 45, percentage: 16, speedEv: 4, nature: "Modest" },
+      { type: "usage", speed: 119, percentile: 64, percentage: 19, speedEv: 12, nature: "Modest" }
     ]
   },
   Lurantis: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 45,
     minSpeed: 65,
     maxSpeed: 97,
     minSpeedWithIvZero: 45,
     maxSpeedWithNature: 106,
-    choiceScarfPercentage: 1,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
-    statistics: [{ type: "usage", speed: 45, percentile: 86, percentage: 86, speedEv: 0, nature: "Sassy" }]
+    statistics: [{ type: "usage", speed: 45, percentile: 94, percentage: 94, speedEv: 0, nature: "Brave" }]
   },
-  Luvdisc: { referenceDate: "2025-07", baseSpeed: 97, minSpeed: 117, maxSpeed: 149, minSpeedWithIvZero: 91, maxSpeedWithNature: 163, statistics: [] },
-  Luxio: { referenceDate: "2025-07", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  Luvdisc: { referenceDate: "2025-08", baseSpeed: 97, minSpeed: 117, maxSpeed: 149, minSpeedWithIvZero: 91, maxSpeedWithNature: 163, statistics: [] },
+  Luxio: { referenceDate: "2025-08", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
   Luxray: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 70,
     minSpeed: 90,
     maxSpeed: 122,
@@ -3575,66 +3498,32 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 90, percentile: 67, percentage: 61, speedEv: 0, nature: "Impish" },
-      { type: "usage", speed: 134, percentile: 100, percentage: 11, speedEv: 252, nature: "Jolly" }
+      { type: "usage", speed: 90, percentile: 49, percentage: 41, speedEv: 0, nature: "Calm" },
+      { type: "usage", speed: 106, percentile: 66, percentage: 17, speedEv: 124, nature: "Hardy" }
     ]
   },
-  Lycanroc: {
-    referenceDate: "2025-07",
-    baseSpeed: 112,
-    minSpeed: 132,
-    maxSpeed: 164,
-    minSpeedWithIvZero: 105,
-    maxSpeedWithNature: 180,
+  Lycanroc: { referenceDate: "2025-08", baseSpeed: 112, minSpeed: 132, maxSpeed: 164, minSpeedWithIvZero: 105, maxSpeedWithNature: 180, statistics: [] },
+  "Lycanroc-Dusk": { referenceDate: "2025-08", baseSpeed: 110, minSpeed: 130, maxSpeed: 162, minSpeedWithIvZero: 103, maxSpeedWithNature: 178, statistics: [] },
+  "Lycanroc-Midnight": { referenceDate: "2025-08", baseSpeed: 82, minSpeed: 102, maxSpeed: 134, minSpeedWithIvZero: 78, maxSpeedWithNature: 147, statistics: [] },
+  Mabosstiff: { referenceDate: "2025-08", baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
+  Magby: { referenceDate: "2025-08", baseSpeed: 83, minSpeed: 103, maxSpeed: 135, minSpeedWithIvZero: 79, maxSpeedWithNature: 148, statistics: [] },
+  Magcargo: { referenceDate: "2025-08", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
+  Magearna: { referenceDate: "2025-08", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  Magikarp: {
+    referenceDate: "2025-08",
+    baseSpeed: 80,
+    minSpeed: 100,
+    maxSpeed: 132,
+    minSpeedWithIvZero: 76,
+    maxSpeedWithNature: 145,
     choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 164, percentile: 68, percentage: 66, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 180, percentile: 100, percentage: 32, speedEv: 252, nature: "Jolly" }
-    ]
+    statistics: [{ type: "usage", speed: 145, percentile: 100, percentage: 99, speedEv: 252, nature: "Timid" }]
   },
-  "Lycanroc-Dusk": {
-    referenceDate: "2025-07",
-    baseSpeed: 110,
-    minSpeed: 130,
-    maxSpeed: 162,
-    minSpeedWithIvZero: 103,
-    maxSpeedWithNature: 178,
-    choiceScarfPercentage: 1,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 162, percentile: 45, percentage: 41, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 178, percentile: 100, percentage: 55, speedEv: 252, nature: "Jolly" }
-    ]
-  },
-  "Lycanroc-Midnight": { referenceDate: "2025-07", baseSpeed: 82, minSpeed: 102, maxSpeed: 134, minSpeedWithIvZero: 78, maxSpeedWithNature: 147, statistics: [] },
-  Mabosstiff: {
-    referenceDate: "2025-07",
-    baseSpeed: 85,
-    minSpeed: 105,
-    maxSpeed: 137,
-    minSpeedWithIvZero: 81,
-    maxSpeedWithNature: 150,
-    choiceScarfPercentage: 0,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 105, percentile: 18, percentage: 18, speedEv: 0, nature: "Adamant" },
-      { type: "usage", speed: 137, percentile: 86, percentage: 63, speedEv: 252, nature: "Hardy" },
-      { type: "usage", speed: 150, percentile: 100, percentage: 14, speedEv: 252, nature: "Jolly" }
-    ]
-  },
-  Magby: { referenceDate: "2025-07", baseSpeed: 83, minSpeed: 103, maxSpeed: 135, minSpeedWithIvZero: 79, maxSpeedWithNature: 148, statistics: [] },
-  Magcargo: { referenceDate: "2025-07", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
-  Magearna: { referenceDate: "2025-07", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
-  Magikarp: { referenceDate: "2025-07", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
   Magmar: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 93,
     minSpeed: 113,
     maxSpeed: 145,
@@ -3644,82 +3533,105 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
-    statistics: [{ type: "usage", speed: 113, percentile: 68, percentage: 62, speedEv: 0, nature: "Bold" }]
+    statistics: [
+      { type: "usage", speed: 88, percentile: 20, percentage: 20, speedEv: 0, nature: "Relaxed" },
+      { type: "usage", speed: 113, percentile: 74, percentage: 54, speedEv: 0, nature: "Impish" },
+      { type: "usage", speed: 114, percentile: 86, percentage: 11, speedEv: 4, nature: "Careful" }
+    ]
   },
   Magmortar: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 83,
     minSpeed: 103,
     maxSpeed: 135,
     minSpeedWithIvZero: 79,
     maxSpeedWithNature: 148,
-    choiceScarfPercentage: 1,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 103, percentile: 45, percentage: 36, speedEv: 0, nature: "Bold" },
-      { type: "usage", speed: 113, percentile: 79, percentage: 13, speedEv: 0, nature: "Timid" },
-      { type: "usage", speed: 148, percentile: 100, percentage: 18, speedEv: 252, nature: "Timid" }
+      { type: "usage", speed: 79, percentile: 18, percentage: 18, speedEv: 0, nature: "Sassy" },
+      { type: "usage", speed: 103, percentile: 47, percentage: 29, speedEv: 0, nature: "Bold" },
+      { type: "usage", speed: 148, percentile: 100, percentage: 35, speedEv: 252, nature: "Hasty" }
     ]
   },
-  Magnemite: { referenceDate: "2025-07", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
-  Magneton: { referenceDate: "2025-07", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
+  Magnemite: { referenceDate: "2025-08", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  Magneton: {
+    referenceDate: "2025-08",
+    baseSpeed: 70,
+    minSpeed: 90,
+    maxSpeed: 122,
+    minSpeedWithIvZero: 67,
+    maxSpeedWithNature: 134,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [{ type: "usage", speed: 95, percentile: 100, percentage: 100, speedEv: 36, nature: "Modest" }]
+  },
   Magnezone: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 60,
     minSpeed: 80,
     maxSpeed: 112,
     minSpeedWithIvZero: 58,
     maxSpeedWithNature: 123,
-    choiceScarfPercentage: 0,
+    choiceScarfPercentage: 5,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 58, percentile: 13, percentage: 13, speedEv: 0, nature: "Quiet" },
-      { type: "usage", speed: 80, percentile: 75, percentage: 60, speedEv: 0, nature: "Modest" },
-      { type: "usage", speed: 87, percentile: 92, percentage: 13, speedEv: 52, nature: "Modest" }
+      { type: "usage", speed: 80, percentile: 71, percentage: 62, speedEv: 0, nature: "Modest" },
+      { type: "usage", speed: 81, percentile: 86, percentage: 14, speedEv: 4, nature: "Hardy" },
+      { type: "scarf", speed: 184, percentile: 100, percentage: 5, speedEv: 252, nature: "" }
     ]
   },
-  Makuhita: { referenceDate: "2025-07", baseSpeed: 25, minSpeed: 45, maxSpeed: 77, minSpeedWithIvZero: 27, maxSpeedWithNature: 84, statistics: [] },
+  Makuhita: { referenceDate: "2025-08", baseSpeed: 25, minSpeed: 45, maxSpeed: 77, minSpeedWithIvZero: 27, maxSpeedWithNature: 84, statistics: [] },
   Malamar: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 73,
     minSpeed: 93,
     maxSpeed: 125,
     minSpeedWithIvZero: 70,
     maxSpeedWithNature: 137,
-    choiceScarfPercentage: 13,
+    choiceScarfPercentage: 3,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 70, percentile: 14, percentage: 14, speedEv: 0, nature: "Relaxed" },
-      { type: "usage", speed: 93, percentile: 50, percentage: 36, speedEv: 0, nature: "Adamant" },
-      { type: "usage", speed: 137, percentile: 100, percentage: 14, speedEv: 252, nature: "Timid" },
-      { type: "scarf", speed: 205, percentile: 100, percentage: 13, speedEv: 252, nature: "" }
+      { type: "usage", speed: 70, percentile: 33, percentage: 33, speedEv: 0, nature: "Brave" },
+      { type: "usage", speed: 93, percentile: 78, percentage: 46, speedEv: 0, nature: "Modest" }
     ]
   },
   Mamoswine: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 80,
     minSpeed: 100,
     maxSpeed: 132,
     minSpeedWithIvZero: 76,
     maxSpeedWithNature: 145,
-    choiceScarfPercentage: 2,
+    choiceScarfPercentage: 6,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 100, percentile: 36, percentage: 30, speedEv: 0, nature: "Adamant" },
-      { type: "usage", speed: 112, percentile: 79, percentage: 20, speedEv: 92, nature: "Adamant" }
+      { type: "usage", speed: 76, percentile: 27, percentage: 27, speedEv: 0, nature: "Relaxed" },
+      { type: "usage", speed: 100, percentile: 59, percentage: 33, speedEv: 0, nature: "Adamant" },
+      { type: "usage", speed: 145, percentile: 100, percentage: 16, speedEv: 252, nature: "Jolly" },
+      { type: "scarf", speed: 217, percentile: 100, percentage: 6, speedEv: 252, nature: "" }
     ]
   },
-  Manaphy: { referenceDate: "2025-07", baseSpeed: 100, minSpeed: 120, maxSpeed: 152, minSpeedWithIvZero: 94, maxSpeedWithNature: 167, statistics: [] },
-  Mandibuzz: {
-    referenceDate: "2025-07",
+  Manaphy: { referenceDate: "2025-08", baseSpeed: 100, minSpeed: 120, maxSpeed: 152, minSpeedWithIvZero: 94, maxSpeedWithNature: 167, statistics: [] },
+  Mandibuzz: { referenceDate: "2025-08", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
+  Mankey: { referenceDate: "2025-08", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
+  Mareanie: { referenceDate: "2025-08", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  Mareep: { referenceDate: "2025-08", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
+  Marill: { referenceDate: "2025-08", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Marshtomp: { referenceDate: "2025-08", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Maschiff: { referenceDate: "2025-08", baseSpeed: 51, minSpeed: 71, maxSpeed: 103, minSpeedWithIvZero: 50, maxSpeedWithNature: 113, statistics: [] },
+  Masquerain: {
+    referenceDate: "2025-08",
     baseSpeed: 80,
     minSpeed: 100,
     maxSpeed: 132,
@@ -3729,54 +3641,28 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 100, percentile: 31, percentage: 28, speedEv: 0, nature: "Careful" },
-      { type: "usage", speed: 112, percentile: 81, percentage: 50, speedEv: 12, nature: "Timid" }
-    ]
+    statistics: [{ type: "usage", speed: 145, percentile: 100, percentage: 100, speedEv: 252, nature: "Timid" }]
   },
-  Mankey: { referenceDate: "2025-07", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
-  Mareanie: { referenceDate: "2025-07", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
-  Mareep: { referenceDate: "2025-07", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
-  Marill: { referenceDate: "2025-07", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
-  Marshtomp: { referenceDate: "2025-07", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
-  Maschiff: { referenceDate: "2025-07", baseSpeed: 51, minSpeed: 71, maxSpeed: 103, minSpeedWithIvZero: 50, maxSpeedWithNature: 113, statistics: [] },
-  Masquerain: { referenceDate: "2025-07", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
   Maushold: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 111,
     minSpeed: 131,
     maxSpeed: 163,
     minSpeedWithIvZero: 104,
     maxSpeedWithNature: 179,
-    choiceScarfPercentage: 2,
+    choiceScarfPercentage: 1,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 140, percentile: 28, percentage: 16, speedEv: 68, nature: "Impish" },
-      { type: "usage", speed: 179, percentile: 100, percentage: 60, speedEv: 252, nature: "Jolly" }
+      { type: "usage", speed: 140, percentile: 41, percentage: 27, speedEv: 68, nature: "Impish" },
+      { type: "usage", speed: 179, percentile: 100, percentage: 44, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Medicham: {
-    referenceDate: "2025-07",
-    baseSpeed: 80,
-    minSpeed: 100,
-    maxSpeed: 132,
-    minSpeedWithIvZero: 76,
-    maxSpeedWithNature: 145,
-    choiceScarfPercentage: 0,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 76, percentile: 11, percentage: 11, speedEv: 0, nature: "Brave" },
-      { type: "usage", speed: 132, percentile: 69, percentage: 47, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 145, percentile: 100, percentage: 30, speedEv: 252, nature: "Timid" }
-    ]
-  },
-  Meditite: { referenceDate: "2025-07", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  Medicham: { referenceDate: "2025-08", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
+  Meditite: { referenceDate: "2025-08", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
   Meganium: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 80,
     minSpeed: 100,
     maxSpeed: 132,
@@ -3786,32 +3672,29 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 76, percentile: 14, percentage: 14, speedEv: 0, nature: "Relaxed" },
-      { type: "usage", speed: 100, percentile: 94, percentage: 81, speedEv: 0, nature: "Bold" }
-    ]
+    statistics: [{ type: "usage", speed: 100, percentile: 100, percentage: 100, speedEv: 0, nature: "Bold" }]
   },
-  Meloetta: { referenceDate: "2025-07", baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
-  "Meloetta-Pirouette": { referenceDate: "2025-07", baseSpeed: 128, minSpeed: 148, maxSpeed: 180, minSpeedWithIvZero: 119, maxSpeedWithNature: 198, statistics: [] },
+  Meloetta: { referenceDate: "2025-08", baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
+  "Meloetta-Pirouette": { referenceDate: "2025-08", baseSpeed: 128, minSpeed: 148, maxSpeed: 180, minSpeedWithIvZero: 119, maxSpeedWithNature: 198, statistics: [] },
   Meowscarada: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 123,
     minSpeed: 143,
     maxSpeed: 175,
     minSpeedWithIvZero: 115,
     maxSpeedWithNature: 192,
-    choiceScarfPercentage: 15,
+    choiceScarfPercentage: 6,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 175, percentile: 51, percentage: 35, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 192, percentile: 100, percentage: 46, speedEv: 252, nature: "Jolly" },
-      { type: "scarf", speed: 288, percentile: 100, percentage: 15, speedEv: 252, nature: "" }
+      { type: "usage", speed: 175, percentile: 40, percentage: 27, speedEv: 252, nature: "Adamant" },
+      { type: "usage", speed: 192, percentile: 100, percentage: 58, speedEv: 252, nature: "Jolly" },
+      { type: "scarf", speed: 288, percentile: 100, percentage: 6, speedEv: 252, nature: "" }
     ]
   },
   Meowstic: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 104,
     minSpeed: 124,
     maxSpeed: 156,
@@ -3821,71 +3704,69 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 124, percentile: 73, percentage: 70, speedEv: 0, nature: "Calm" },
-      { type: "usage", speed: 171, percentile: 100, percentage: 14, speedEv: 252, nature: "Timid" }
-    ]
+    statistics: [{ type: "usage", speed: 124, percentile: 88, percentage: 83, speedEv: 0, nature: "Calm" }]
   },
-  Meowth: { referenceDate: "2025-07", baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
-  "Meowth-Alola": { referenceDate: "2025-07", baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
-  "Meowth-Galar": { referenceDate: "2025-07", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
-  Mesprit: { referenceDate: "2025-07", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
+  Meowth: { referenceDate: "2025-08", baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
+  "Meowth-Alola": { referenceDate: "2025-08", baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
+  "Meowth-Galar": { referenceDate: "2025-08", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Mesprit: { referenceDate: "2025-08", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
   Metagross: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 70,
     minSpeed: 90,
     maxSpeed: 122,
     minSpeedWithIvZero: 67,
     maxSpeedWithNature: 134,
-    choiceScarfPercentage: 4,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 67, percentile: 15, percentage: 15, speedEv: 0, nature: "Brave" },
-      { type: "usage", speed: 90, percentile: 67, percentage: 52, speedEv: 0, nature: "Adamant" }
-    ]
-  },
-  Metang: { referenceDate: "2025-07", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
-  Mew: { referenceDate: "2025-07", baseSpeed: 100, minSpeed: 120, maxSpeed: 152, minSpeedWithIvZero: 94, maxSpeedWithNature: 167, statistics: [] },
-  Mewtwo: {
-    referenceDate: "2025-07",
-    baseSpeed: 130,
-    minSpeed: 150,
-    maxSpeed: 182,
-    minSpeedWithIvZero: 121,
-    maxSpeedWithNature: 200,
-    choiceScarfPercentage: 7,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 182, percentile: 54, percentage: 23, speedEv: 252, nature: "Modest" },
-      { type: "usage", speed: 200, percentile: 100, percentage: 42, speedEv: 252, nature: "Timid" },
-      { type: "scarf", speed: 300, percentile: 100, percentage: 7, speedEv: 252, nature: "" }
-    ]
-  },
-  Mienfoo: { referenceDate: "2025-07", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
-  Mienshao: {
-    referenceDate: "2025-07",
-    baseSpeed: 105,
-    minSpeed: 125,
-    maxSpeed: 157,
-    minSpeedWithIvZero: 99,
-    maxSpeedWithNature: 172,
     choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 157, percentile: 36, percentage: 28, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 172, percentile: 100, percentage: 62, speedEv: 252, nature: "Jolly" }
+      { type: "usage", speed: 90, percentile: 64, percentage: 52, speedEv: 0, nature: "Adamant" },
+      { type: "usage", speed: 91, percentile: 77, percentage: 13, speedEv: 4, nature: "Adamant" }
     ]
   },
-  Mightyena: { referenceDate: "2025-07", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
-  Milcery: { referenceDate: "2025-07", baseSpeed: 34, minSpeed: 54, maxSpeed: 86, minSpeedWithIvZero: 35, maxSpeedWithNature: 94, statistics: [] },
+  Metang: { referenceDate: "2025-08", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Mew: { referenceDate: "2025-08", baseSpeed: 100, minSpeed: 120, maxSpeed: 152, minSpeedWithIvZero: 94, maxSpeedWithNature: 167, statistics: [] },
+  Mewtwo: {
+    referenceDate: "2025-08",
+    baseSpeed: 130,
+    minSpeed: 150,
+    maxSpeed: 182,
+    minSpeedWithIvZero: 121,
+    maxSpeedWithNature: 200,
+    choiceScarfPercentage: 14,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 150, percentile: 30, percentage: 29, speedEv: 0, nature: "Bold" },
+      { type: "usage", speed: 182, percentile: 63, percentage: 20, speedEv: 252, nature: "Modest" },
+      { type: "usage", speed: 200, percentile: 100, percentage: 35, speedEv: 252, nature: "Timid" },
+      { type: "scarf", speed: 300, percentile: 100, percentage: 14, speedEv: 252, nature: "" }
+    ]
+  },
+  Mienfoo: { referenceDate: "2025-08", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  Mienshao: {
+    referenceDate: "2025-08",
+    baseSpeed: 105,
+    minSpeed: 125,
+    maxSpeed: 157,
+    minSpeedWithIvZero: 99,
+    maxSpeedWithNature: 172,
+    choiceScarfPercentage: 1,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 157, percentile: 31, percentage: 26, speedEv: 252, nature: "Adamant" },
+      { type: "usage", speed: 172, percentile: 100, percentage: 68, speedEv: 252, nature: "Jolly" }
+    ]
+  },
+  Mightyena: { referenceDate: "2025-08", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
+  Milcery: { referenceDate: "2025-08", baseSpeed: 34, minSpeed: 54, maxSpeed: 86, minSpeedWithIvZero: 35, maxSpeedWithNature: 94, statistics: [] },
   Milotic: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 81,
     minSpeed: 101,
     maxSpeed: 133,
@@ -3896,52 +3777,78 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 77, percentile: 13, percentage: 13, speedEv: 0, nature: "Sassy" },
-      { type: "usage", speed: 101, percentile: 68, percentage: 55, speedEv: 0, nature: "Bold" },
-      { type: "usage", speed: 146, percentile: 100, percentage: 14, speedEv: 252, nature: "Timid" }
+      { type: "usage", speed: 101, percentile: 54, percentage: 50, speedEv: 0, nature: "Modest" },
+      { type: "usage", speed: 102, percentile: 86, percentage: 32, speedEv: 4, nature: "Modest" }
     ]
   },
   Mimikyu: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 96,
     minSpeed: 116,
     maxSpeed: 148,
     minSpeedWithIvZero: 90,
     maxSpeedWithNature: 162,
-    choiceScarfPercentage: 1,
+    choiceScarfPercentage: 3,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 90, percentile: 26, percentage: 26, speedEv: 0, nature: "Brave" },
-      { type: "usage", speed: 116, percentile: 57, percentage: 31, speedEv: 0, nature: "Adamant" },
-      { type: "usage", speed: 162, percentile: 100, percentage: 15, speedEv: 252, nature: "Jolly" }
+      { type: "usage", speed: 90, percentile: 20, percentage: 20, speedEv: 0, nature: "Sassy" },
+      { type: "usage", speed: 116, percentile: 46, percentage: 27, speedEv: 0, nature: "Careful" },
+      { type: "usage", speed: 117, percentile: 64, percentage: 17, speedEv: 4, nature: "Adamant" }
     ]
   },
-  Minccino: { referenceDate: "2025-07", baseSpeed: 75, minSpeed: 95, maxSpeed: 127, minSpeedWithIvZero: 72, maxSpeedWithNature: 139, statistics: [] },
-  Minior: { referenceDate: "2025-07", baseSpeed: 120, minSpeed: 140, maxSpeed: 172, minSpeedWithIvZero: 112, maxSpeedWithNature: 189, statistics: [] },
-  Minun: { referenceDate: "2025-07", baseSpeed: 95, minSpeed: 115, maxSpeed: 147, minSpeedWithIvZero: 90, maxSpeedWithNature: 161, statistics: [] },
+  Minccino: { referenceDate: "2025-08", baseSpeed: 75, minSpeed: 95, maxSpeed: 127, minSpeedWithIvZero: 72, maxSpeedWithNature: 139, statistics: [] },
+  Minior: { referenceDate: "2025-08", baseSpeed: 120, minSpeed: 140, maxSpeed: 172, minSpeedWithIvZero: 112, maxSpeedWithNature: 189, statistics: [] },
+  Minun: { referenceDate: "2025-08", baseSpeed: 95, minSpeed: 115, maxSpeed: 147, minSpeedWithIvZero: 90, maxSpeedWithNature: 161, statistics: [] },
   Miraidon: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 135,
     minSpeed: 155,
     maxSpeed: 187,
     minSpeedWithIvZero: 126,
     maxSpeedWithNature: 205,
-    choiceScarfPercentage: 30,
+    choiceScarfPercentage: 28,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 187, percentile: 68, percentage: 12, speedEv: 252, nature: "Modest" },
-      { type: "usage", speed: 205, percentile: 100, percentage: 24, speedEv: 252, nature: "Timid" },
-      { type: "scarf", speed: 307, percentile: 100, percentage: 30, speedEv: 252, nature: "" }
+      { type: "usage", speed: 187, percentile: 64, percentage: 14, speedEv: 252, nature: "Modest" },
+      { type: "usage", speed: 205, percentile: 100, percentage: 26, speedEv: 252, nature: "Timid" },
+      { type: "scarf", speed: 307, percentile: 100, percentage: 28, speedEv: 252, nature: "" }
     ]
   },
-  Misdreavus: { referenceDate: "2025-07", baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
-  Mismagius: { referenceDate: "2025-07", baseSpeed: 105, minSpeed: 125, maxSpeed: 157, minSpeedWithIvZero: 99, maxSpeedWithNature: 172, statistics: [] },
+  Misdreavus: {
+    referenceDate: "2025-08",
+    baseSpeed: 85,
+    minSpeed: 105,
+    maxSpeed: 137,
+    minSpeedWithIvZero: 81,
+    maxSpeedWithNature: 150,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [{ type: "usage", speed: 105, percentile: 100, percentage: 100, speedEv: 0, nature: "Calm" }]
+  },
+  Mismagius: {
+    referenceDate: "2025-08",
+    baseSpeed: 105,
+    minSpeed: 125,
+    maxSpeed: 157,
+    minSpeedWithIvZero: 99,
+    maxSpeedWithNature: 172,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 125, percentile: 69, percentage: 69, speedEv: 0, nature: "Bold" },
+      { type: "usage", speed: 172, percentile: 100, percentage: 19, speedEv: 252, nature: "Timid" }
+    ]
+  },
   Moltres: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 90,
     minSpeed: 110,
     maxSpeed: 142,
@@ -3952,35 +3859,35 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 110, percentile: 16, percentage: 16, speedEv: 0, nature: "Calm" },
-      { type: "usage", speed: 142, percentile: 81, percentage: 17, speedEv: 252, nature: "Modest" },
-      { type: "usage", speed: 156, percentile: 100, percentage: 19, speedEv: 252, nature: "Timid" }
+      { type: "usage", speed: 110, percentile: 19, percentage: 19, speedEv: 0, nature: "Calm" },
+      { type: "usage", speed: 113, percentile: 81, percentage: 56, speedEv: 20, nature: "Bold" }
     ]
   },
   "Moltres-Galar": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 90,
     minSpeed: 110,
     maxSpeed: 142,
     minSpeedWithIvZero: 85,
     maxSpeedWithNature: 156,
-    choiceScarfPercentage: 1,
+    choiceScarfPercentage: 18,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 110, percentile: 20, percentage: 20, speedEv: 0, nature: "Modest" },
-      { type: "usage", speed: 112, percentile: 34, percentage: 13, speedEv: 12, nature: "Bold" },
-      { type: "usage", speed: 156, percentile: 100, percentage: 15, speedEv: 252, nature: "Timid" }
+      { type: "usage", speed: 110, percentile: 19, percentage: 19, speedEv: 0, nature: "Bold" },
+      { type: "usage", speed: 141, percentile: 78, percentage: 30, speedEv: 244, nature: "Modest" },
+      { type: "usage", speed: 156, percentile: 100, percentage: 11, speedEv: 252, nature: "Timid" },
+      { type: "scarf", speed: 234, percentile: 100, percentage: 18, speedEv: 252, nature: "" }
     ]
   },
-  Monferno: { referenceDate: "2025-07", baseSpeed: 81, minSpeed: 101, maxSpeed: 133, minSpeedWithIvZero: 77, maxSpeedWithNature: 146, statistics: [] },
-  Morgrem: { referenceDate: "2025-07", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
-  Morpeko: { referenceDate: "2025-07", baseSpeed: 97, minSpeed: 117, maxSpeed: 149, minSpeedWithIvZero: 91, maxSpeedWithNature: 163, statistics: [] },
-  Mudbray: { referenceDate: "2025-07", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
-  Mudkip: { referenceDate: "2025-07", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Monferno: { referenceDate: "2025-08", baseSpeed: 81, minSpeed: 101, maxSpeed: 133, minSpeedWithIvZero: 77, maxSpeedWithNature: 146, statistics: [] },
+  Morgrem: { referenceDate: "2025-08", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
+  Morpeko: { referenceDate: "2025-08", baseSpeed: 97, minSpeed: 117, maxSpeed: 149, minSpeedWithIvZero: 91, maxSpeedWithNature: 163, statistics: [] },
+  Mudbray: { referenceDate: "2025-08", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  Mudkip: { referenceDate: "2025-08", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
   Mudsdale: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 35,
     minSpeed: 55,
     maxSpeed: 87,
@@ -3990,11 +3897,14 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
-    statistics: [{ type: "usage", speed: 55, percentile: 98, percentage: 93, speedEv: 0, nature: "Adamant" }]
+    statistics: [
+      { type: "usage", speed: 36, percentile: 35, percentage: 35, speedEv: 0, nature: "Brave" },
+      { type: "usage", speed: 55, percentile: 100, percentage: 65, speedEv: 0, nature: "Adamant" }
+    ]
   },
-  Muk: { referenceDate: "2025-07", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Muk: { referenceDate: "2025-08", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
   "Muk-Alola": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 50,
     minSpeed: 70,
     maxSpeed: 102,
@@ -4005,31 +3915,27 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 49, percentile: 19, percentage: 19, speedEv: 0, nature: "Sassy" },
-      { type: "usage", speed: 70, percentile: 70, percentage: 50, speedEv: 0, nature: "Careful" },
-      { type: "usage", speed: 71, percentile: 82, percentage: 12, speedEv: 4, nature: "Impish" }
+      { type: "usage", speed: 49, percentile: 24, percentage: 24, speedEv: 0, nature: "Sassy" },
+      { type: "usage", speed: 70, percentile: 67, percentage: 44, speedEv: 0, nature: "Adamant" },
+      { type: "usage", speed: 72, percentile: 81, percentage: 12, speedEv: 12, nature: "Impish" }
     ]
   },
-  Munchlax: { referenceDate: "2025-07", baseSpeed: 5, minSpeed: 25, maxSpeed: 57, minSpeedWithIvZero: 9, maxSpeedWithNature: 62, statistics: [] },
+  Munchlax: { referenceDate: "2025-08", baseSpeed: 5, minSpeed: 25, maxSpeed: 57, minSpeedWithIvZero: 9, maxSpeedWithNature: 62, statistics: [] },
   Munkidori: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 106,
     minSpeed: 126,
     maxSpeed: 158,
     minSpeedWithIvZero: 99,
     maxSpeedWithNature: 173,
-    choiceScarfPercentage: 9,
+    choiceScarfPercentage: 2,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 150, percentile: 31, percentage: 16, speedEv: 188, nature: "Bold" },
-      { type: "usage", speed: 173, percentile: 100, percentage: 58, speedEv: 252, nature: "Timid" },
-      { type: "scarf", speed: 259, percentile: 100, percentage: 9, speedEv: 252, nature: "" }
-    ]
+    statistics: [{ type: "usage", speed: 173, percentile: 100, percentage: 76, speedEv: 252, nature: "Hasty" }]
   },
   Murkrow: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 91,
     minSpeed: 111,
     maxSpeed: 143,
@@ -4040,16 +3946,16 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 111, percentile: 55, percentage: 53, speedEv: 0, nature: "Calm" },
-      { type: "usage", speed: 112, percentile: 70, percentage: 14, speedEv: 4, nature: "Calm" },
-      { type: "usage", speed: 157, percentile: 100, percentage: 15, speedEv: 252, nature: "Naive" }
+      { type: "usage", speed: 111, percentile: 56, percentage: 56, speedEv: 0, nature: "Careful" },
+      { type: "usage", speed: 113, percentile: 81, percentage: 21, speedEv: 12, nature: "Careful" },
+      { type: "usage", speed: 157, percentile: 100, percentage: 15, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Nacli: { referenceDate: "2025-07", baseSpeed: 25, minSpeed: 45, maxSpeed: 77, minSpeedWithIvZero: 27, maxSpeedWithNature: 84, statistics: [] },
-  Naclstack: { referenceDate: "2025-07", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
-  Necrozma: { referenceDate: "2025-07", baseSpeed: 79, minSpeed: 99, maxSpeed: 131, minSpeedWithIvZero: 75, maxSpeedWithNature: 144, statistics: [] },
+  Nacli: { referenceDate: "2025-08", baseSpeed: 25, minSpeed: 45, maxSpeed: 77, minSpeedWithIvZero: 27, maxSpeedWithNature: 84, statistics: [] },
+  Naclstack: { referenceDate: "2025-08", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
+  Necrozma: { referenceDate: "2025-08", baseSpeed: 79, minSpeed: 99, maxSpeed: 131, minSpeedWithIvZero: 75, maxSpeedWithNature: 144, statistics: [] },
   "Necrozma-Dawn-Wings": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 77,
     minSpeed: 97,
     maxSpeed: 129,
@@ -4060,12 +3966,12 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 73, percentile: 76, percentage: 76, speedEv: 0, nature: "Quiet" },
-      { type: "usage", speed: 97, percentile: 90, percentage: 14, speedEv: 0, nature: "Modest" }
+      { type: "usage", speed: 73, percentile: 68, percentage: 68, speedEv: 0, nature: "Quiet" },
+      { type: "usage", speed: 97, percentile: 90, percentage: 21, speedEv: 0, nature: "Modest" }
     ]
   },
   "Necrozma-Dusk-Mane": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 77,
     minSpeed: 97,
     maxSpeed: 129,
@@ -4076,66 +3982,65 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 73, percentile: 59, percentage: 59, speedEv: 0, nature: "Brave" },
-      { type: "usage", speed: 97, percentile: 74, percentage: 15, speedEv: 0, nature: "Adamant" }
+      { type: "usage", speed: 73, percentile: 46, percentage: 46, speedEv: 0, nature: "Brave" },
+      { type: "usage", speed: 97, percentile: 68, percentage: 21, speedEv: 0, nature: "Adamant" }
     ]
   },
   Ninetales: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 100,
     minSpeed: 120,
     maxSpeed: 152,
     minSpeedWithIvZero: 94,
     maxSpeedWithNature: 167,
-    choiceScarfPercentage: 2,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 120, percentile: 13, percentage: 13, speedEv: 0, nature: "Modest" },
-      { type: "usage", speed: 151, percentile: 43, percentage: 23, speedEv: 244, nature: "Modest" },
-      { type: "usage", speed: 167, percentile: 100, percentage: 45, speedEv: 252, nature: "Timid" }
+      { type: "usage", speed: 120, percentile: 12, percentage: 12, speedEv: 0, nature: "Modest" },
+      { type: "usage", speed: 152, percentile: 28, percentage: 12, speedEv: 252, nature: "Gentle" },
+      { type: "usage", speed: 167, percentile: 100, percentage: 68, speedEv: 252, nature: "Timid" }
     ]
   },
   "Ninetales-Alola": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 109,
     minSpeed: 129,
     maxSpeed: 161,
     minSpeedWithIvZero: 102,
     maxSpeedWithNature: 177,
-    choiceScarfPercentage: 2,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
-    statistics: [{ type: "usage", speed: 177, percentile: 100, percentage: 55, speedEv: 252, nature: "Timid" }]
+    statistics: [
+      { type: "usage", speed: 129, percentile: 24, percentage: 23, speedEv: 0, nature: "Calm" },
+      { type: "usage", speed: 177, percentile: 100, percentage: 56, speedEv: 252, nature: "Timid" }
+    ]
   },
-  Noctowl: { referenceDate: "2025-07", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
-  Noibat: { referenceDate: "2025-07", baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
+  Noctowl: { referenceDate: "2025-08", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
+  Noibat: { referenceDate: "2025-08", baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
   Noivern: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 123,
     minSpeed: 143,
     maxSpeed: 175,
     minSpeedWithIvZero: 115,
     maxSpeedWithNature: 192,
-    choiceScarfPercentage: 7,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 175, percentile: 18, percentage: 15, speedEv: 252, nature: "Hardy" },
-      { type: "usage", speed: 192, percentile: 100, percentage: 81, speedEv: 252, nature: "Timid" },
-      { type: "scarf", speed: 288, percentile: 100, percentage: 7, speedEv: 252, nature: "" }
-    ]
+    statistics: [{ type: "usage", speed: 192, percentile: 100, percentage: 85, speedEv: 252, nature: "Timid" }]
   },
-  Nosepass: { referenceDate: "2025-07", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
-  Numel: { referenceDate: "2025-07", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
-  Nuzleaf: { referenceDate: "2025-07", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
-  Nymble: { referenceDate: "2025-07", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
-  Oddish: { referenceDate: "2025-07", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
+  Nosepass: { referenceDate: "2025-08", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
+  Numel: { referenceDate: "2025-08", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
+  Nuzleaf: { referenceDate: "2025-08", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  Nymble: { referenceDate: "2025-08", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  Oddish: { referenceDate: "2025-08", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
   Ogerpon: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 110,
     minSpeed: 130,
     maxSpeed: 162,
@@ -4146,13 +4051,13 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 157, percentile: 56, percentage: 21, speedEv: 212, nature: "Adamant" },
-      { type: "usage", speed: 162, percentile: 75, percentage: 13, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 178, percentile: 100, percentage: 12, speedEv: 252, nature: "Jolly" }
+      { type: "usage", speed: 162, percentile: 45, percentage: 13, speedEv: 252, nature: "Adamant" },
+      { type: "usage", speed: 169, percentile: 82, percentage: 37, speedEv: 188, nature: "Jolly" },
+      { type: "usage", speed: 178, percentile: 100, percentage: 18, speedEv: 252, nature: "Jolly" }
     ]
   },
   "Ogerpon-Cornerstone": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 110,
     minSpeed: 130,
     maxSpeed: 162,
@@ -4163,12 +4068,12 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 162, percentile: 41, percentage: 19, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 178, percentile: 100, percentage: 52, speedEv: 252, nature: "Jolly" }
+      { type: "usage", speed: 162, percentile: 41, percentage: 21, speedEv: 252, nature: "Adamant" },
+      { type: "usage", speed: 178, percentile: 100, percentage: 53, speedEv: 252, nature: "Jolly" }
     ]
   },
   "Ogerpon-Hearthflame": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 110,
     minSpeed: 130,
     maxSpeed: 162,
@@ -4179,12 +4084,12 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 131, percentile: 25, percentage: 18, speedEv: 4, nature: "Adamant" },
-      { type: "usage", speed: 154, percentile: 81, percentage: 13, speedEv: 188, nature: "Adamant" }
+      { type: "usage", speed: 131, percentile: 32, percentage: 22, speedEv: 4, nature: "Impish" },
+      { type: "usage", speed: 154, percentile: 83, percentage: 16, speedEv: 188, nature: "Adamant" }
     ]
   },
   "Ogerpon-Wellspring": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 110,
     minSpeed: 130,
     maxSpeed: 162,
@@ -4195,15 +4100,15 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 130, percentile: 13, percentage: 12, speedEv: 0, nature: "Adamant" },
-      { type: "usage", speed: 140, percentile: 52, percentage: 15, speedEv: 76, nature: "Adamant" },
+      { type: "usage", speed: 130, percentile: 12, percentage: 12, speedEv: 0, nature: "Careful" },
+      { type: "usage", speed: 140, percentile: 56, percentage: 19, speedEv: 76, nature: "Careful" },
       { type: "usage", speed: 178, percentile: 100, percentage: 13, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Oinkologne: { referenceDate: "2025-07", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
-  "Oinkologne-F": { referenceDate: "2025-07", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  Oinkologne: { referenceDate: "2025-08", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  "Oinkologne-F": { referenceDate: "2025-08", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
   Okidogi: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 80,
     minSpeed: 100,
     maxSpeed: 132,
@@ -4214,48 +4119,30 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 76, percentile: 14, percentage: 14, speedEv: 0, nature: "Brave" },
-      { type: "usage", speed: 100, percentile: 43, percentage: 29, speedEv: 0, nature: "Adamant" },
-      { type: "usage", speed: 113, percentile: 76, percentage: 12, speedEv: 100, nature: "Adamant" }
+      { type: "usage", speed: 100, percentile: 39, percentage: 31, speedEv: 0, nature: "Adamant" },
+      { type: "usage", speed: 101, percentile: 57, percentage: 18, speedEv: 4, nature: "Adamant" }
     ]
   },
   Oranguru: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 60,
     minSpeed: 80,
     maxSpeed: 112,
     minSpeedWithIvZero: 58,
     maxSpeedWithNature: 123,
-    choiceScarfPercentage: 1,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 58, percentile: 68, percentage: 68, speedEv: 0, nature: "Sassy" },
-      { type: "usage", speed: 80, percentile: 94, percentage: 26, speedEv: 0, nature: "Modest" }
+      { type: "usage", speed: 58, percentile: 70, percentage: 70, speedEv: 0, nature: "Relaxed" },
+      { type: "usage", speed: 80, percentile: 96, percentage: 26, speedEv: 0, nature: "Calm" }
     ]
   },
-  Oricorio: { referenceDate: "2025-07", baseSpeed: 93, minSpeed: 113, maxSpeed: 145, minSpeedWithIvZero: 88, maxSpeedWithNature: 159, statistics: [] },
-  "Oricorio-Pa'u": { referenceDate: "2025-07", baseSpeed: 93, minSpeed: 113, maxSpeed: 145, minSpeedWithIvZero: 88, maxSpeedWithNature: 159, statistics: [] },
+  Oricorio: { referenceDate: "2025-08", baseSpeed: 93, minSpeed: 113, maxSpeed: 145, minSpeedWithIvZero: 88, maxSpeedWithNature: 159, statistics: [] },
+  "Oricorio-Pa'u": { referenceDate: "2025-08", baseSpeed: 93, minSpeed: 113, maxSpeed: 145, minSpeedWithIvZero: 88, maxSpeedWithNature: 159, statistics: [] },
   "Oricorio-Pom-Pom": {
-    referenceDate: "2025-07",
-    baseSpeed: 93,
-    minSpeed: 113,
-    maxSpeed: 145,
-    minSpeedWithIvZero: 88,
-    maxSpeedWithNature: 159,
-    choiceScarfPercentage: 3,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 113, percentile: 11, percentage: 11, speedEv: 0, nature: "Bold" },
-      { type: "usage", speed: 145, percentile: 58, percentage: 45, speedEv: 252, nature: "Modest" },
-      { type: "usage", speed: 159, percentile: 100, percentage: 32, speedEv: 252, nature: "Timid" }
-    ]
-  },
-  "Oricorio-Sensu": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 93,
     minSpeed: 113,
     maxSpeed: 145,
@@ -4266,100 +4153,102 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 145, percentile: 43, percentage: 24, speedEv: 252, nature: "Modest" },
-      { type: "usage", speed: 159, percentile: 100, percentage: 55, speedEv: 252, nature: "Timid" }
+      { type: "usage", speed: 130, percentile: 34, percentage: 22, speedEv: 132, nature: "Modest" },
+      { type: "usage", speed: 132, percentile: 58, percentage: 25, speedEv: 56, nature: "Timid" },
+      { type: "usage", speed: 145, percentile: 94, percentage: 35, speedEv: 252, nature: "Modest" }
     ]
   },
-  Orthworm: {
-    referenceDate: "2025-07",
-    baseSpeed: 65,
-    minSpeed: 85,
-    maxSpeed: 117,
-    minSpeedWithIvZero: 63,
-    maxSpeedWithNature: 128,
-    choiceScarfPercentage: 5,
+  "Oricorio-Sensu": {
+    referenceDate: "2025-08",
+    baseSpeed: 93,
+    minSpeed: 113,
+    maxSpeed: 145,
+    minSpeedWithIvZero: 88,
+    maxSpeedWithNature: 159,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 63, percentile: 58, percentage: 58, speedEv: 0, nature: "Relaxed" },
-      { type: "usage", speed: 85, percentile: 93, percentage: 35, speedEv: 0, nature: "Careful" },
-      { type: "scarf", speed: 192, percentile: 100, percentage: 5, speedEv: 252, nature: "" }
+      { type: "usage", speed: 113, percentile: 23, percentage: 23, speedEv: 0, nature: "Modest" },
+      { type: "usage", speed: 159, percentile: 100, percentage: 66, speedEv: 252, nature: "Timid" }
     ]
   },
-  Oshawott: { referenceDate: "2025-07", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  Orthworm: { referenceDate: "2025-08", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  Oshawott: { referenceDate: "2025-08", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
   Overqwil: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 85,
     minSpeed: 105,
     maxSpeed: 137,
     minSpeedWithIvZero: 81,
     maxSpeedWithNature: 150,
-    choiceScarfPercentage: 1,
-    choiceScarfIsMoreUsed: false,
+    choiceScarfPercentage: 38,
+    choiceScarfIsMoreUsed: true,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 105, percentile: 26, percentage: 25, speedEv: 0, nature: "Careful" },
-      { type: "usage", speed: 137, percentile: 83, percentage: 38, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 150, percentile: 100, percentage: 17, speedEv: 252, nature: "Jolly" }
+      { type: "usage", speed: 105, percentile: 57, percentage: 55, speedEv: 0, nature: "Impish" },
+      { type: "usage", speed: 112, percentile: 72, percentage: 15, speedEv: 52, nature: "Impish" },
+      { type: "usage", speed: 137, percentile: 98, percentage: 14, speedEv: 252, nature: "Adamant" },
+      { type: "scarf", speed: 225, percentile: 100, percentage: 38, speedEv: 252, nature: "" }
     ]
   },
   Pachirisu: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 95,
     minSpeed: 115,
     maxSpeed: 147,
     minSpeedWithIvZero: 90,
     maxSpeedWithNature: 161,
-    choiceScarfPercentage: 0,
+    choiceScarfPercentage: 1,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 115, percentile: 68, percentage: 67, speedEv: 0, nature: "Impish" },
-      { type: "usage", speed: 161, percentile: 100, percentage: 17, speedEv: 252, nature: "Jolly" }
+      { type: "usage", speed: 115, percentile: 48, percentage: 44, speedEv: 0, nature: "Impish" },
+      { type: "usage", speed: 161, percentile: 100, percentage: 42, speedEv: 252, nature: "Jolly" }
     ]
   },
   Palafin: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 100,
     minSpeed: 120,
     maxSpeed: 152,
     minSpeedWithIvZero: 94,
     maxSpeedWithNature: 167,
-    choiceScarfPercentage: 12,
+    choiceScarfPercentage: 17,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 120, percentile: 15, percentage: 14, speedEv: 0, nature: "Adamant" },
-      { type: "usage", speed: 152, percentile: 65, percentage: 27, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 167, percentile: 100, percentage: 34, speedEv: 252, nature: "Jolly" },
-      { type: "scarf", speed: 250, percentile: 100, percentage: 12, speedEv: 252, nature: "" }
+      { type: "usage", speed: 120, percentile: 13, percentage: 13, speedEv: 0, nature: "Adamant" },
+      { type: "usage", speed: 152, percentile: 56, percentage: 20, speedEv: 252, nature: "Careful" },
+      { type: "usage", speed: 167, percentile: 100, percentage: 44, speedEv: 252, nature: "Jolly" },
+      { type: "scarf", speed: 250, percentile: 100, percentage: 17, speedEv: 252, nature: "" }
     ]
   },
-  "Palafin-Hero": { referenceDate: "2025-07", baseSpeed: 100, minSpeed: 120, maxSpeed: 152, minSpeedWithIvZero: 94, maxSpeedWithNature: 167, statistics: [] },
+  "Palafin-Hero": { referenceDate: "2025-08", baseSpeed: 100, minSpeed: 120, maxSpeed: 152, minSpeedWithIvZero: 94, maxSpeedWithNature: 167, statistics: [] },
   Palkia: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 100,
     minSpeed: 120,
     maxSpeed: 152,
     minSpeedWithIvZero: 94,
     maxSpeedWithNature: 167,
-    choiceScarfPercentage: 8,
+    choiceScarfPercentage: 13,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 94, percentile: 24, percentage: 24, speedEv: 0, nature: "Quiet" },
-      { type: "usage", speed: 120, percentile: 47, percentage: 23, speedEv: 0, nature: "Modest" },
-      { type: "usage", speed: 124, percentile: 74, percentage: 16, speedEv: 28, nature: "Modest" },
-      { type: "scarf", speed: 250, percentile: 100, percentage: 8, speedEv: 252, nature: "" }
+      { type: "usage", speed: 94, percentile: 20, percentage: 20, speedEv: 0, nature: "Sassy" },
+      { type: "usage", speed: 120, percentile: 44, percentage: 24, speedEv: 0, nature: "Modest" },
+      { type: "usage", speed: 121, percentile: 57, percentage: 13, speedEv: 4, nature: "Modest" },
+      { type: "scarf", speed: 250, percentile: 100, percentage: 13, speedEv: 252, nature: "" }
     ]
   },
   "Palkia-Origin": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 120,
     minSpeed: 140,
     maxSpeed: 172,
@@ -4370,47 +4259,35 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 140, percentile: 15, percentage: 15, speedEv: 0, nature: "Modest" },
-      { type: "usage", speed: 189, percentile: 100, percentage: 38, speedEv: 252, nature: "Timid" }
+      { type: "usage", speed: 140, percentile: 23, percentage: 21, speedEv: 0, nature: "Modest" },
+      { type: "usage", speed: 172, percentile: 70, percentage: 16, speedEv: 252, nature: "Modest" },
+      { type: "usage", speed: 189, percentile: 100, percentage: 27, speedEv: 252, nature: "Timid" }
     ]
   },
-  Palossand: {
-    referenceDate: "2025-07",
-    baseSpeed: 35,
-    minSpeed: 55,
-    maxSpeed: 87,
-    minSpeedWithIvZero: 36,
-    maxSpeedWithNature: 95,
-    choiceScarfPercentage: 0,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [{ type: "usage", speed: 55, percentile: 95, percentage: 85, speedEv: 0, nature: "Modest" }]
-  },
-  Passimian: { referenceDate: "2025-07", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
-  Pawmi: { referenceDate: "2025-07", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
-  Pawmo: { referenceDate: "2025-07", baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
+  Palossand: { referenceDate: "2025-08", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
+  Passimian: { referenceDate: "2025-08", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
+  Pawmi: { referenceDate: "2025-08", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  Pawmo: { referenceDate: "2025-08", baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
   Pawmot: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 105,
     minSpeed: 125,
     maxSpeed: 157,
     minSpeedWithIvZero: 99,
     maxSpeedWithNature: 172,
-    choiceScarfPercentage: 5,
+    choiceScarfPercentage: 2,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 157, percentile: 26, percentage: 16, speedEv: 252, nature: "Hardy" },
-      { type: "usage", speed: 172, percentile: 100, percentage: 68, speedEv: 252, nature: "Jolly" },
-      { type: "scarf", speed: 258, percentile: 100, percentage: 5, speedEv: 252, nature: "" }
+      { type: "usage", speed: 157, percentile: 42, percentage: 32, speedEv: 252, nature: "Bold" },
+      { type: "usage", speed: 172, percentile: 100, percentage: 56, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Pawniard: { referenceDate: "2025-07", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
-  Pecharunt: { referenceDate: "2025-07", baseSpeed: 88, minSpeed: 108, maxSpeed: 140, minSpeedWithIvZero: 83, maxSpeedWithNature: 154, statistics: [] },
+  Pawniard: { referenceDate: "2025-08", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  Pecharunt: { referenceDate: "2025-08", baseSpeed: 88, minSpeed: 108, maxSpeed: 140, minSpeedWithIvZero: 83, maxSpeedWithNature: 154, statistics: [] },
   Pelipper: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 65,
     minSpeed: 85,
     maxSpeed: 117,
@@ -4421,70 +4298,41 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 85, percentile: 31, percentage: 23, speedEv: 0, nature: "Modest" },
-      { type: "usage", speed: 117, percentile: 88, percentage: 26, speedEv: 252, nature: "Modest" },
-      { type: "usage", speed: 128, percentile: 100, percentage: 12, speedEv: 252, nature: "Timid" }
+      { type: "usage", speed: 85, percentile: 33, percentage: 27, speedEv: 0, nature: "Modest" },
+      { type: "usage", speed: 117, percentile: 83, percentage: 22, speedEv: 252, nature: "Modest" },
+      { type: "usage", speed: 128, percentile: 100, percentage: 17, speedEv: 252, nature: "Timid" }
     ]
   },
-  Perrserker: {
-    referenceDate: "2025-07",
-    baseSpeed: 50,
-    minSpeed: 70,
-    maxSpeed: 102,
-    minSpeedWithIvZero: 49,
-    maxSpeedWithNature: 112,
-    choiceScarfPercentage: 0,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 49, percentile: 63, percentage: 63, speedEv: 0, nature: "Brave" },
-      { type: "usage", speed: 70, percentile: 92, percentage: 30, speedEv: 0, nature: "Careful" }
-    ]
-  },
-  Persian: { referenceDate: "2025-07", baseSpeed: 115, minSpeed: 135, maxSpeed: 167, minSpeedWithIvZero: 108, maxSpeedWithNature: 183, statistics: [] },
-  "Persian-Alola": {
-    referenceDate: "2025-07",
-    baseSpeed: 115,
-    minSpeed: 135,
-    maxSpeed: 167,
-    minSpeedWithIvZero: 108,
-    maxSpeedWithNature: 183,
-    choiceScarfPercentage: 0,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 181, percentile: 75, percentage: 37, speedEv: 236, nature: "Jolly" },
-      { type: "usage", speed: 183, percentile: 100, percentage: 25, speedEv: 252, nature: "Timid" }
-    ]
-  },
-  Petilil: { referenceDate: "2025-07", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
-  Phanpy: { referenceDate: "2025-07", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
-  Phantump: { referenceDate: "2025-07", baseSpeed: 38, minSpeed: 58, maxSpeed: 90, minSpeedWithIvZero: 38, maxSpeedWithNature: 99, statistics: [] },
-  Phione: { referenceDate: "2025-07", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
-  Pichu: { referenceDate: "2025-07", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
-  Pignite: { referenceDate: "2025-07", baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
+  Perrserker: { referenceDate: "2025-08", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Persian: { referenceDate: "2025-08", baseSpeed: 115, minSpeed: 135, maxSpeed: 167, minSpeedWithIvZero: 108, maxSpeedWithNature: 183, statistics: [] },
+  "Persian-Alola": { referenceDate: "2025-08", baseSpeed: 115, minSpeed: 135, maxSpeed: 167, minSpeedWithIvZero: 108, maxSpeedWithNature: 183, statistics: [] },
+  Petilil: { referenceDate: "2025-08", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
+  Phanpy: { referenceDate: "2025-08", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Phantump: { referenceDate: "2025-08", baseSpeed: 38, minSpeed: 58, maxSpeed: 90, minSpeedWithIvZero: 38, maxSpeedWithNature: 99, statistics: [] },
+  Phione: { referenceDate: "2025-08", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
+  Pichu: { referenceDate: "2025-08", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  Pignite: { referenceDate: "2025-08", baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
   Pikachu: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 90,
     minSpeed: 110,
     maxSpeed: 142,
     minSpeedWithIvZero: 85,
     maxSpeedWithNature: 156,
-    choiceScarfPercentage: 0,
+    choiceScarfPercentage: 1,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 142, percentile: 38, percentage: 18, speedEv: 252, nature: "Serious" },
-      { type: "usage", speed: 156, percentile: 100, percentage: 59, speedEv: 252, nature: "Jolly" }
+      { type: "usage", speed: 110, percentile: 13, percentage: 13, speedEv: 0, nature: "Careful" },
+      { type: "usage", speed: 142, percentile: 38, percentage: 20, speedEv: 252, nature: "Adamant" },
+      { type: "usage", speed: 156, percentile: 100, percentage: 61, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Pikipek: { referenceDate: "2025-07", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
-  Piloswine: { referenceDate: "2025-07", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Pikipek: { referenceDate: "2025-08", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  Piloswine: { referenceDate: "2025-08", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
   Pincurchin: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 15,
     minSpeed: 35,
     maxSpeed: 67,
@@ -4495,174 +4343,147 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 18, percentile: 79, percentage: 79, speedEv: 0, nature: "Quiet" },
-      { type: "usage", speed: 35, percentile: 97, percentage: 18, speedEv: 0, nature: "Adamant" }
+      { type: "usage", speed: 18, percentile: 86, percentage: 86, speedEv: 0, nature: "Quiet" },
+      { type: "usage", speed: 35, percentile: 100, percentage: 14, speedEv: 0, nature: "Calm" }
     ]
   },
-  Pineco: { referenceDate: "2025-07", baseSpeed: 15, minSpeed: 35, maxSpeed: 67, minSpeedWithIvZero: 18, maxSpeedWithNature: 73, statistics: [] },
-  Piplup: { referenceDate: "2025-07", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
-  Plusle: { referenceDate: "2025-07", baseSpeed: 95, minSpeed: 115, maxSpeed: 147, minSpeedWithIvZero: 90, maxSpeedWithNature: 161, statistics: [] },
+  Pineco: { referenceDate: "2025-08", baseSpeed: 15, minSpeed: 35, maxSpeed: 67, minSpeedWithIvZero: 18, maxSpeedWithNature: 73, statistics: [] },
+  Piplup: { referenceDate: "2025-08", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Plusle: { referenceDate: "2025-08", baseSpeed: 95, minSpeed: 115, maxSpeed: 147, minSpeedWithIvZero: 90, maxSpeedWithNature: 161, statistics: [] },
   Politoed: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 70,
     minSpeed: 90,
     maxSpeed: 122,
     minSpeedWithIvZero: 67,
     maxSpeedWithNature: 134,
-    choiceScarfPercentage: 0,
+    choiceScarfPercentage: 1,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 67, percentile: 20, percentage: 20, speedEv: 0, nature: "Sassy" },
-      { type: "usage", speed: 90, percentile: 69, percentage: 49, speedEv: 0, nature: "Calm" }
+      { type: "usage", speed: 67, percentile: 21, percentage: 21, speedEv: 0, nature: "Relaxed" },
+      { type: "usage", speed: 90, percentile: 77, percentage: 55, speedEv: 0, nature: "Calm" }
     ]
   },
-  Poliwag: { referenceDate: "2025-07", baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
-  Poliwhirl: {
-    referenceDate: "2025-07",
-    baseSpeed: 90,
-    minSpeed: 110,
-    maxSpeed: 142,
-    minSpeedWithIvZero: 85,
-    maxSpeedWithNature: 156,
-    choiceScarfPercentage: 0,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [{ type: "usage", speed: 156, percentile: 100, percentage: 100, speedEv: 252, nature: "Timid" }]
-  },
-  Poliwrath: {
-    referenceDate: "2025-07",
-    baseSpeed: 70,
-    minSpeed: 90,
-    maxSpeed: 122,
-    minSpeedWithIvZero: 67,
-    maxSpeedWithNature: 134,
-    choiceScarfPercentage: 0,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 90, percentile: 28, percentage: 16, speedEv: 0, nature: "Adamant" },
-      { type: "usage", speed: 122, percentile: 71, percentage: 17, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 134, percentile: 100, percentage: 28, speedEv: 252, nature: "Jolly" }
-    ]
-  },
-  Poltchageist: { referenceDate: "2025-07", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
-  Polteageist: { referenceDate: "2025-07", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
-  Poochyena: { referenceDate: "2025-07", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
-  Popplio: { referenceDate: "2025-07", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
-  Porygon: { referenceDate: "2025-07", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Poliwag: { referenceDate: "2025-08", baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
+  Poliwhirl: { referenceDate: "2025-08", baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
+  Poliwrath: { referenceDate: "2025-08", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
+  Poltchageist: { referenceDate: "2025-08", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Polteageist: { referenceDate: "2025-08", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
+  Poochyena: { referenceDate: "2025-08", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
+  Popplio: { referenceDate: "2025-08", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Porygon: { referenceDate: "2025-08", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
   "Porygon-Z": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 90,
     minSpeed: 110,
     maxSpeed: 142,
     minSpeedWithIvZero: 85,
     maxSpeedWithNature: 156,
-    choiceScarfPercentage: 21,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 142, percentile: 33, percentage: 16, speedEv: 252, nature: "Modest" },
-      { type: "usage", speed: 156, percentile: 100, percentage: 63, speedEv: 252, nature: "Timid" },
-      { type: "scarf", speed: 234, percentile: 100, percentage: 21, speedEv: 252, nature: "" }
-    ]
-  },
-  Porygon2: {
-    referenceDate: "2025-07",
-    baseSpeed: 60,
-    minSpeed: 80,
-    maxSpeed: 112,
-    minSpeedWithIvZero: 58,
-    maxSpeedWithNature: 123,
-    choiceScarfPercentage: 0,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 58, percentile: 60, percentage: 60, speedEv: 0, nature: "Sassy" },
-      { type: "usage", speed: 80, percentile: 89, percentage: 30, speedEv: 0, nature: "Bold" }
-    ]
-  },
-  Primarina: {
-    referenceDate: "2025-07",
-    baseSpeed: 60,
-    minSpeed: 80,
-    maxSpeed: 112,
-    minSpeedWithIvZero: 58,
-    maxSpeedWithNature: 123,
-    choiceScarfPercentage: 0,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 58, percentile: 30, percentage: 30, speedEv: 0, nature: "Quiet" },
-      { type: "usage", speed: 80, percentile: 75, percentage: 45, speedEv: 0, nature: "Modest" }
-    ]
-  },
-  Primeape: { referenceDate: "2025-07", baseSpeed: 95, minSpeed: 115, maxSpeed: 147, minSpeedWithIvZero: 90, maxSpeedWithNature: 161, statistics: [] },
-  Prinplup: { referenceDate: "2025-07", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
-  Probopass: {
-    referenceDate: "2025-07",
-    baseSpeed: 40,
-    minSpeed: 60,
-    maxSpeed: 92,
-    minSpeedWithIvZero: 40,
-    maxSpeedWithNature: 101,
     choiceScarfPercentage: 2,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 60, percentile: 85, percentage: 75, speedEv: 0, nature: "Bold" },
-      { type: "usage", speed: 71, percentile: 100, percentage: 13, speedEv: 84, nature: "Modest" }
+      { type: "usage", speed: 111, percentile: 24, percentage: 16, speedEv: 4, nature: "Modest" },
+      { type: "usage", speed: 142, percentile: 54, percentage: 16, speedEv: 252, nature: "Modest" },
+      { type: "usage", speed: 156, percentile: 100, percentage: 46, speedEv: 252, nature: "Timid" }
     ]
   },
-  Psyduck: { referenceDate: "2025-07", baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
-  Pupitar: { referenceDate: "2025-07", baseSpeed: 51, minSpeed: 71, maxSpeed: 103, minSpeedWithIvZero: 50, maxSpeedWithNature: 113, statistics: [] },
-  Pyroar: { referenceDate: "2025-07", baseSpeed: 106, minSpeed: 126, maxSpeed: 158, minSpeedWithIvZero: 99, maxSpeedWithNature: 173, statistics: [] },
-  Quagsire: {
-    referenceDate: "2025-07",
-    baseSpeed: 35,
-    minSpeed: 55,
-    maxSpeed: 87,
-    minSpeedWithIvZero: 36,
-    maxSpeedWithNature: 95,
+  Porygon2: {
+    referenceDate: "2025-08",
+    baseSpeed: 60,
+    minSpeed: 80,
+    maxSpeed: 112,
+    minSpeedWithIvZero: 58,
+    maxSpeedWithNature: 123,
     choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 36, percentile: 11, percentage: 11, speedEv: 0, nature: "Relaxed" },
-      { type: "usage", speed: 55, percentile: 98, percentage: 87, speedEv: 0, nature: "Bold" }
+      { type: "usage", speed: 58, percentile: 72, percentage: 72, speedEv: 0, nature: "Sassy" },
+      { type: "usage", speed: 80, percentile: 93, percentage: 20, speedEv: 0, nature: "Bold" }
     ]
   },
+  Primarina: {
+    referenceDate: "2025-08",
+    baseSpeed: 60,
+    minSpeed: 80,
+    maxSpeed: 112,
+    minSpeedWithIvZero: 58,
+    maxSpeedWithNature: 123,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 58, percentile: 24, percentage: 24, speedEv: 0, nature: "Quiet" },
+      { type: "usage", speed: 80, percentile: 71, percentage: 46, speedEv: 0, nature: "Modest" }
+    ]
+  },
+  Primeape: {
+    referenceDate: "2025-08",
+    baseSpeed: 95,
+    minSpeed: 115,
+    maxSpeed: 147,
+    minSpeedWithIvZero: 90,
+    maxSpeedWithNature: 161,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 147, percentile: 77, percentage: 67, speedEv: 252, nature: "Adamant" },
+      { type: "usage", speed: 161, percentile: 100, percentage: 23, speedEv: 252, nature: "Hasty" }
+    ]
+  },
+  Prinplup: { referenceDate: "2025-08", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Probopass: {
+    referenceDate: "2025-08",
+    baseSpeed: 40,
+    minSpeed: 60,
+    maxSpeed: 92,
+    minSpeedWithIvZero: 40,
+    maxSpeedWithNature: 101,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 40, percentile: 14, percentage: 14, speedEv: 0, nature: "Quiet" },
+      { type: "usage", speed: 60, percentile: 97, percentage: 84, speedEv: 0, nature: "Adamant" }
+    ]
+  },
+  Psyduck: { referenceDate: "2025-08", baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
+  Pupitar: { referenceDate: "2025-08", baseSpeed: 51, minSpeed: 71, maxSpeed: 103, minSpeedWithIvZero: 50, maxSpeedWithNature: 113, statistics: [] },
+  Pyroar: { referenceDate: "2025-08", baseSpeed: 106, minSpeed: 126, maxSpeed: 158, minSpeedWithIvZero: 99, maxSpeedWithNature: 173, statistics: [] },
+  Quagsire: { referenceDate: "2025-08", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
   Quaquaval: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 85,
     minSpeed: 105,
     maxSpeed: 137,
     minSpeedWithIvZero: 81,
     maxSpeedWithNature: 150,
-    choiceScarfPercentage: 8,
-    choiceScarfIsMoreUsed: false,
+    choiceScarfPercentage: 20,
+    choiceScarfIsMoreUsed: true,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
+      { type: "usage", speed: 137, percentile: 33, percentage: 15, speedEv: 252, nature: "Adamant" },
       { type: "usage", speed: 150, percentile: 100, percentage: 67, speedEv: 252, nature: "Jolly" },
-      { type: "scarf", speed: 225, percentile: 100, percentage: 8, speedEv: 252, nature: "" }
+      { type: "scarf", speed: 225, percentile: 100, percentage: 20, speedEv: 252, nature: "" }
     ]
   },
-  Quaxly: { referenceDate: "2025-07", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
-  Quaxwell: { referenceDate: "2025-07", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
-  Quilava: { referenceDate: "2025-07", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
-  Quilladin: { referenceDate: "2025-07", baseSpeed: 57, minSpeed: 77, maxSpeed: 109, minSpeedWithIvZero: 55, maxSpeedWithNature: 119, statistics: [] },
-  Qwilfish: { referenceDate: "2025-07", baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
+  Quaxly: { referenceDate: "2025-08", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Quaxwell: { referenceDate: "2025-08", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  Quilava: { referenceDate: "2025-08", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
+  Quilladin: { referenceDate: "2025-08", baseSpeed: 57, minSpeed: 77, maxSpeed: 109, minSpeedWithIvZero: 55, maxSpeedWithNature: 119, statistics: [] },
+  Qwilfish: { referenceDate: "2025-08", baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
   "Qwilfish-Hisui": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 85,
     minSpeed: 105,
     maxSpeed: 137,
@@ -4673,13 +4494,13 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 105, percentile: 31, percentage: 28, speedEv: 0, nature: "Careful" },
-      { type: "usage", speed: 113, percentile: 70, percentage: 33, speedEv: 60, nature: "Bold" }
+      { type: "usage", speed: 112, percentile: 26, percentage: 24, speedEv: 52, nature: "Impish" },
+      { type: "usage", speed: 150, percentile: 100, percentage: 63, speedEv: 252, nature: "Timid" }
     ]
   },
-  Raboot: { referenceDate: "2025-07", baseSpeed: 94, minSpeed: 114, maxSpeed: 146, minSpeedWithIvZero: 89, maxSpeedWithNature: 160, statistics: [] },
+  Raboot: { referenceDate: "2025-08", baseSpeed: 94, minSpeed: 114, maxSpeed: 146, minSpeedWithIvZero: 89, maxSpeedWithNature: 160, statistics: [] },
   Rabsca: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 45,
     minSpeed: 65,
     maxSpeed: 97,
@@ -4690,12 +4511,12 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 45, percentile: 67, percentage: 67, speedEv: 0, nature: "Sassy" },
-      { type: "usage", speed: 65, percentile: 100, percentage: 32, speedEv: 0, nature: "Hardy" }
+      { type: "usage", speed: 45, percentile: 73, percentage: 73, speedEv: 0, nature: "Quiet" },
+      { type: "usage", speed: 65, percentile: 94, percentage: 21, speedEv: 0, nature: "Hardy" }
     ]
   },
   "Raging Bolt": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 75,
     minSpeed: 95,
     maxSpeed: 127,
@@ -4703,30 +4524,16 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     maxSpeedWithNature: 139,
     choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 51,
+    boosterEnergyPercentage: 52,
     boosterEnergyIsMoreUsed: true,
     statistics: [
-      { type: "usage", speed: 95, percentile: 17, percentage: 15, speedEv: 0, nature: "Modest" },
-      { type: "usage", speed: 96, percentile: 30, percentage: 14, speedEv: 4, nature: "Modest" },
-      { type: "usage", speed: 98, percentile: 53, percentage: 19, speedEv: 20, nature: "Modest" },
-      { type: "booster", speed: 208, percentile: 100, percentage: 51, speedEv: 252, nature: "" }
+      { type: "usage", speed: 95, percentile: 16, percentage: 15, speedEv: 0, nature: "Modest" },
+      { type: "usage", speed: 98, percentile: 47, percentage: 17, speedEv: 20, nature: "Modest" },
+      { type: "booster", speed: 208, percentile: 100, percentage: 52, speedEv: 252, nature: "" }
     ]
   },
   Raichu: {
-    referenceDate: "2025-07",
-    baseSpeed: 110,
-    minSpeed: 130,
-    maxSpeed: 162,
-    minSpeedWithIvZero: 103,
-    maxSpeedWithNature: 178,
-    choiceScarfPercentage: 1,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [{ type: "usage", speed: 178, percentile: 100, percentage: 54, speedEv: 252, nature: "Timid" }]
-  },
-  "Raichu-Alola": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 110,
     minSpeed: 130,
     maxSpeed: 162,
@@ -4736,63 +4543,62 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
+    statistics: [{ type: "usage", speed: 178, percentile: 100, percentage: 52, speedEv: 252, nature: "Timid" }]
+  },
+  "Raichu-Alola": {
+    referenceDate: "2025-08",
+    baseSpeed: 110,
+    minSpeed: 130,
+    maxSpeed: 162,
+    minSpeedWithIvZero: 103,
+    maxSpeedWithNature: 178,
+    choiceScarfPercentage: 1,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 162, percentile: 25, percentage: 16, speedEv: 252, nature: "Modest" },
-      { type: "usage", speed: 178, percentile: 100, percentage: 69, speedEv: 252, nature: "Timid" }
+      { type: "usage", speed: 162, percentile: 48, percentage: 40, speedEv: 252, nature: "Modest" },
+      { type: "usage", speed: 178, percentile: 100, percentage: 51, speedEv: 252, nature: "Timid" }
     ]
   },
   Raikou: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 115,
     minSpeed: 135,
     maxSpeed: 167,
     minSpeedWithIvZero: 108,
     maxSpeedWithNature: 183,
-    choiceScarfPercentage: 18,
+    choiceScarfPercentage: 16,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 135, percentile: 18, percentage: 15, speedEv: 0, nature: "Calm" },
-      { type: "usage", speed: 183, percentile: 100, percentage: 44, speedEv: 252, nature: "Timid" },
-      { type: "scarf", speed: 274, percentile: 100, percentage: 18, speedEv: 252, nature: "" }
+      { type: "usage", speed: 167, percentile: 26, percentage: 16, speedEv: 252, nature: "Modest" },
+      { type: "usage", speed: 183, percentile: 100, percentage: 74, speedEv: 252, nature: "Hasty" },
+      { type: "scarf", speed: 274, percentile: 100, percentage: 16, speedEv: 252, nature: "" }
     ]
   },
-  Ralts: { referenceDate: "2025-07", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
-  Rampardos: {
-    referenceDate: "2025-07",
-    baseSpeed: 58,
-    minSpeed: 78,
-    maxSpeed: 110,
-    minSpeedWithIvZero: 56,
-    maxSpeedWithNature: 121,
-    choiceScarfPercentage: 1,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 56, percentile: 57, percentage: 57, speedEv: 0, nature: "Brave" },
-      { type: "usage", speed: 78, percentile: 96, percentage: 39, speedEv: 0, nature: "Adamant" }
-    ]
-  },
+  Ralts: { referenceDate: "2025-08", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Rampardos: { referenceDate: "2025-08", baseSpeed: 58, minSpeed: 78, maxSpeed: 110, minSpeedWithIvZero: 56, maxSpeedWithNature: 121, statistics: [] },
   Rayquaza: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 95,
     minSpeed: 115,
     maxSpeed: 147,
     minSpeedWithIvZero: 90,
     maxSpeedWithNature: 161,
-    choiceScarfPercentage: 2,
+    choiceScarfPercentage: 4,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 147, percentile: 77, percentage: 16, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 161, percentile: 100, percentage: 19, speedEv: 252, nature: "Jolly" }
+      { type: "usage", speed: 119, percentile: 54, percentage: 29, speedEv: 28, nature: "Adamant" },
+      { type: "usage", speed: 147, percentile: 80, percentage: 11, speedEv: 252, nature: "Adamant" },
+      { type: "usage", speed: 161, percentile: 100, percentage: 16, speedEv: 252, nature: "Jolly" }
     ]
   },
   Regice: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 50,
     minSpeed: 70,
     maxSpeed: 102,
@@ -4803,79 +4609,81 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 49, percentile: 50, percentage: 50, speedEv: 0, nature: "Quiet" },
-      { type: "usage", speed: 70, percentile: 96, percentage: 46, speedEv: 0, nature: "Calm" }
+      { type: "usage", speed: 49, percentile: 48, percentage: 48, speedEv: 0, nature: "Relaxed" },
+      { type: "usage", speed: 70, percentile: 96, percentage: 48, speedEv: 0, nature: "Calm" }
     ]
   },
   Regidrago: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 80,
     minSpeed: 100,
     maxSpeed: 132,
     minSpeedWithIvZero: 76,
     maxSpeedWithNature: 145,
-    choiceScarfPercentage: 11,
+    choiceScarfPercentage: 12,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 76, percentile: 19, percentage: 19, speedEv: 0, nature: "Quiet" },
-      { type: "usage", speed: 132, percentile: 71, percentage: 26, speedEv: 252, nature: "Modest" },
-      { type: "usage", speed: 145, percentile: 100, percentage: 27, speedEv: 252, nature: "Timid" },
-      { type: "scarf", speed: 217, percentile: 100, percentage: 11, speedEv: 252, nature: "" }
+      { type: "usage", speed: 76, percentile: 11, percentage: 11, speedEv: 0, nature: "Quiet" },
+      { type: "usage", speed: 132, percentile: 84, percentage: 27, speedEv: 252, nature: "Modest" },
+      { type: "usage", speed: 145, percentile: 100, percentage: 16, speedEv: 252, nature: "Timid" },
+      { type: "scarf", speed: 217, percentile: 100, percentage: 12, speedEv: 252, nature: "" }
     ]
   },
   Regieleki: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 200,
     minSpeed: 220,
     maxSpeed: 252,
     minSpeedWithIvZero: 184,
     maxSpeedWithNature: 277,
-    choiceScarfPercentage: 3,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 252, percentile: 61, percentage: 32, speedEv: 252, nature: "Modest" },
+      { type: "usage", speed: 252, percentile: 55, percentage: 38, speedEv: 252, nature: "Modest" },
       { type: "usage", speed: 277, percentile: 100, percentage: 37, speedEv: 252, nature: "Timid" }
     ]
   },
   Regigigas: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 100,
     minSpeed: 120,
     maxSpeed: 152,
     minSpeedWithIvZero: 94,
     maxSpeedWithNature: 167,
-    choiceScarfPercentage: 3,
+    choiceScarfPercentage: 1,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 94, percentile: 36, percentage: 36, speedEv: 0, nature: "Relaxed" },
-      { type: "usage", speed: 120, percentile: 58, percentage: 22, speedEv: 0, nature: "Adamant" },
+      { type: "usage", speed: 94, percentile: 46, percentage: 46, speedEv: 0, nature: "Relaxed" },
+      { type: "usage", speed: 120, percentile: 65, percentage: 19, speedEv: 0, nature: "Adamant" },
       { type: "usage", speed: 167, percentile: 100, percentage: 16, speedEv: 252, nature: "Jolly" }
     ]
   },
   Regirock: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 50,
     minSpeed: 70,
     maxSpeed: 102,
     minSpeedWithIvZero: 49,
     maxSpeedWithNature: 112,
-    choiceScarfPercentage: 0,
-    choiceScarfIsMoreUsed: false,
+    choiceScarfPercentage: 24,
+    choiceScarfIsMoreUsed: true,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 49, percentile: 40, percentage: 40, speedEv: 0, nature: "Brave" },
-      { type: "usage", speed: 70, percentile: 90, percentage: 51, speedEv: 0, nature: "Impish" }
+      { type: "usage", speed: 49, percentile: 48, percentage: 48, speedEv: 0, nature: "Relaxed" },
+      { type: "usage", speed: 70, percentile: 68, percentage: 20, speedEv: 0, nature: "Impish" },
+      { type: "usage", speed: 102, percentile: 100, percentage: 32, speedEv: 252, nature: "Hardy" },
+      { type: "scarf", speed: 168, percentile: 100, percentage: 24, speedEv: 252, nature: "" }
     ]
   },
   Registeel: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 50,
     minSpeed: 70,
     maxSpeed: 102,
@@ -4886,30 +4694,31 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 49, percentile: 35, percentage: 35, speedEv: 0, nature: "Quiet" },
-      { type: "usage", speed: 70, percentile: 96, percentage: 60, speedEv: 0, nature: "Impish" }
+      { type: "usage", speed: 49, percentile: 17, percentage: 17, speedEv: 0, nature: "Sassy" },
+      { type: "usage", speed: 70, percentile: 93, percentage: 76, speedEv: 0, nature: "Impish" }
     ]
   },
-  Rellor: { referenceDate: "2025-07", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
+  Rellor: { referenceDate: "2025-08", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
   Reshiram: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 90,
     minSpeed: 110,
     maxSpeed: 142,
     minSpeedWithIvZero: 85,
     maxSpeedWithNature: 156,
-    choiceScarfPercentage: 2,
+    choiceScarfPercentage: 6,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 110, percentile: 14, percentage: 11, speedEv: 0, nature: "Modest" },
-      { type: "usage", speed: 112, percentile: 40, percentage: 18, speedEv: 12, nature: "Modest" },
-      { type: "usage", speed: 156, percentile: 100, percentage: 11, speedEv: 252, nature: "Timid" }
+      { type: "usage", speed: 110, percentile: 21, percentage: 14, speedEv: 0, nature: "Modest" },
+      { type: "usage", speed: 112, percentile: 55, percentage: 28, speedEv: 12, nature: "Modest" },
+      { type: "usage", speed: 156, percentile: 100, percentage: 13, speedEv: 252, nature: "Timid" },
+      { type: "scarf", speed: 234, percentile: 100, percentage: 6, speedEv: 252, nature: "" }
     ]
   },
   Reuniclus: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 30,
     minSpeed: 50,
     maxSpeed: 82,
@@ -4920,13 +4729,13 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 31, percentile: 49, percentage: 49, speedEv: 0, nature: "Quiet" },
-      { type: "usage", speed: 50, percentile: 99, percentage: 49, speedEv: 0, nature: "Modest" }
+      { type: "usage", speed: 31, percentile: 63, percentage: 63, speedEv: 0, nature: "Sassy" },
+      { type: "usage", speed: 50, percentile: 99, percentage: 36, speedEv: 0, nature: "Modest" }
     ]
   },
-  Revavroom: { referenceDate: "2025-07", baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
+  Revavroom: { referenceDate: "2025-08", baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
   Rhydon: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 40,
     minSpeed: 60,
     maxSpeed: 92,
@@ -4937,13 +4746,13 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 40, percentile: 65, percentage: 65, speedEv: 0, nature: "Sassy" },
-      { type: "usage", speed: 60, percentile: 92, percentage: 27, speedEv: 0, nature: "Adamant" }
+      { type: "usage", speed: 40, percentile: 68, percentage: 68, speedEv: 0, nature: "Sassy" },
+      { type: "usage", speed: 60, percentile: 92, percentage: 24, speedEv: 0, nature: "Adamant" }
     ]
   },
-  Rhyhorn: { referenceDate: "2025-07", baseSpeed: 25, minSpeed: 45, maxSpeed: 77, minSpeedWithIvZero: 27, maxSpeedWithNature: 84, statistics: [] },
+  Rhyhorn: { referenceDate: "2025-08", baseSpeed: 25, minSpeed: 45, maxSpeed: 77, minSpeedWithIvZero: 27, maxSpeedWithNature: 84, statistics: [] },
   Rhyperior: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 40,
     minSpeed: 60,
     maxSpeed: 92,
@@ -4954,28 +4763,29 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 40, percentile: 79, percentage: 79, speedEv: 0, nature: "Brave" },
-      { type: "usage", speed: 60, percentile: 98, percentage: 20, speedEv: 0, nature: "Adamant" }
+      { type: "usage", speed: 40, percentile: 80, percentage: 80, speedEv: 0, nature: "Brave" },
+      { type: "usage", speed: 60, percentile: 96, percentage: 16, speedEv: 0, nature: "Adamant" }
     ]
   },
   Ribombee: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 124,
     minSpeed: 144,
     maxSpeed: 176,
     minSpeedWithIvZero: 116,
     maxSpeedWithNature: 193,
-    choiceScarfPercentage: 2,
+    choiceScarfPercentage: 3,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 176, percentile: 17, percentage: 11, speedEv: 252, nature: "Hardy" },
-      { type: "usage", speed: 193, percentile: 100, percentage: 82, speedEv: 252, nature: "Timid" }
+      { type: "usage", speed: 159, percentile: 16, percentage: 16, speedEv: 4, nature: "Timid" },
+      { type: "usage", speed: 176, percentile: 41, percentage: 14, speedEv: 252, nature: "Modest" },
+      { type: "usage", speed: 193, percentile: 100, percentage: 51, speedEv: 252, nature: "Timid" }
     ]
   },
   Rillaboom: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 85,
     minSpeed: 105,
     maxSpeed: 137,
@@ -4986,13 +4796,13 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 106, percentile: 37, percentage: 24, speedEv: 4, nature: "Adamant" },
-      { type: "usage", speed: 107, percentile: 50, percentage: 13, speedEv: 12, nature: "Adamant" },
-      { type: "usage", speed: 108, percentile: 66, percentage: 15, speedEv: 20, nature: "Adamant" }
+      { type: "usage", speed: 105, percentile: 17, percentage: 16, speedEv: 0, nature: "Adamant" },
+      { type: "usage", speed: 106, percentile: 37, percentage: 21, speedEv: 4, nature: "Adamant" },
+      { type: "usage", speed: 108, percentile: 64, percentage: 14, speedEv: 20, nature: "Adamant" }
     ]
   },
   Riolu: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 60,
     minSpeed: 80,
     maxSpeed: 112,
@@ -5003,12 +4813,13 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 80, percentile: 48, percentage: 44, speedEv: 0, nature: "Impish" },
-      { type: "usage", speed: 123, percentile: 100, percentage: 28, speedEv: 252, nature: "Jolly" }
+      { type: "usage", speed: 80, percentile: 49, percentage: 49, speedEv: 0, nature: "Careful" },
+      { type: "usage", speed: 112, percentile: 74, percentage: 11, speedEv: 252, nature: "Modest" },
+      { type: "usage", speed: 123, percentile: 100, percentage: 26, speedEv: 252, nature: "Jolly" }
     ]
   },
   "Roaring Moon": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 119,
     minSpeed: 139,
     maxSpeed: 171,
@@ -5016,58 +4827,58 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     maxSpeedWithNature: 188,
     choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 94,
+    boosterEnergyPercentage: 89,
     boosterEnergyIsMoreUsed: true,
     statistics: [
-      { type: "usage", speed: 188, percentile: 100, percentage: 70, speedEv: 252, nature: "Jolly" },
-      { type: "booster", speed: 282, percentile: 100, percentage: 94, speedEv: 252, nature: "" }
+      { type: "usage", speed: 188, percentile: 100, percentage: 77, speedEv: 252, nature: "Jolly" },
+      { type: "booster", speed: 282, percentile: 100, percentage: 89, speedEv: 252, nature: "" }
     ]
   },
-  Rockruff: { referenceDate: "2025-07", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
-  Rolycoly: { referenceDate: "2025-07", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
-  Rookidee: { referenceDate: "2025-07", baseSpeed: 57, minSpeed: 77, maxSpeed: 109, minSpeedWithIvZero: 55, maxSpeedWithNature: 119, statistics: [] },
-  Rotom: { referenceDate: "2025-07", baseSpeed: 91, minSpeed: 111, maxSpeed: 143, minSpeedWithIvZero: 86, maxSpeedWithNature: 157, statistics: [] },
-  "Rotom-Fan": { referenceDate: "2025-07", baseSpeed: 86, minSpeed: 106, maxSpeed: 138, minSpeedWithIvZero: 81, maxSpeedWithNature: 151, statistics: [] },
-  "Rotom-Frost": { referenceDate: "2025-07", baseSpeed: 86, minSpeed: 106, maxSpeed: 138, minSpeedWithIvZero: 81, maxSpeedWithNature: 151, statistics: [] },
+  Rockruff: { referenceDate: "2025-08", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  Rolycoly: { referenceDate: "2025-08", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
+  Rookidee: { referenceDate: "2025-08", baseSpeed: 57, minSpeed: 77, maxSpeed: 109, minSpeedWithIvZero: 55, maxSpeedWithNature: 119, statistics: [] },
+  Rotom: { referenceDate: "2025-08", baseSpeed: 91, minSpeed: 111, maxSpeed: 143, minSpeedWithIvZero: 86, maxSpeedWithNature: 157, statistics: [] },
+  "Rotom-Fan": { referenceDate: "2025-08", baseSpeed: 86, minSpeed: 106, maxSpeed: 138, minSpeedWithIvZero: 81, maxSpeedWithNature: 151, statistics: [] },
+  "Rotom-Frost": { referenceDate: "2025-08", baseSpeed: 86, minSpeed: 106, maxSpeed: 138, minSpeedWithIvZero: 81, maxSpeedWithNature: 151, statistics: [] },
   "Rotom-Heat": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 86,
     minSpeed: 106,
     maxSpeed: 138,
     minSpeedWithIvZero: 81,
     maxSpeedWithNature: 151,
-    choiceScarfPercentage: 8,
+    choiceScarfPercentage: 1,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 106, percentile: 23, percentage: 22, speedEv: 0, nature: "Calm" },
-      { type: "usage", speed: 107, percentile: 40, percentage: 16, speedEv: 4, nature: "Modest" },
-      { type: "usage", speed: 151, percentile: 100, percentage: 26, speedEv: 252, nature: "Timid" },
-      { type: "scarf", speed: 226, percentile: 100, percentage: 8, speedEv: 252, nature: "" }
+      { type: "usage", speed: 106, percentile: 24, percentage: 24, speedEv: 0, nature: "Modest" },
+      { type: "usage", speed: 151, percentile: 100, percentage: 69, speedEv: 252, nature: "Timid" }
     ]
   },
-  "Rotom-Mow": { referenceDate: "2025-07", baseSpeed: 86, minSpeed: 106, maxSpeed: 138, minSpeedWithIvZero: 81, maxSpeedWithNature: 151, statistics: [] },
+  "Rotom-Mow": { referenceDate: "2025-08", baseSpeed: 86, minSpeed: 106, maxSpeed: 138, minSpeedWithIvZero: 81, maxSpeedWithNature: 151, statistics: [] },
   "Rotom-Wash": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 86,
     minSpeed: 106,
     maxSpeed: 138,
     minSpeedWithIvZero: 81,
     maxSpeedWithNature: 151,
-    choiceScarfPercentage: 2,
+    choiceScarfPercentage: 14,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 106, percentile: 52, percentage: 43, speedEv: 0, nature: "Bold" },
-      { type: "usage", speed: 151, percentile: 100, percentage: 17, speedEv: 252, nature: "Timid" }
+      { type: "usage", speed: 106, percentile: 30, percentage: 30, speedEv: 0, nature: "Modest" },
+      { type: "usage", speed: 113, percentile: 49, percentage: 13, speedEv: 52, nature: "Modest" },
+      { type: "usage", speed: 151, percentile: 100, percentage: 23, speedEv: 252, nature: "Timid" },
+      { type: "scarf", speed: 226, percentile: 100, percentage: 14, speedEv: 252, nature: "" }
     ]
   },
-  Rowlet: { referenceDate: "2025-07", baseSpeed: 42, minSpeed: 62, maxSpeed: 94, minSpeedWithIvZero: 42, maxSpeedWithNature: 103, statistics: [] },
-  Rufflet: { referenceDate: "2025-07", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  Rowlet: { referenceDate: "2025-08", baseSpeed: 42, minSpeed: 62, maxSpeed: 94, minSpeedWithIvZero: 42, maxSpeedWithNature: 103, statistics: [] },
+  Rufflet: { referenceDate: "2025-08", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
   Sableye: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 50,
     minSpeed: 70,
     maxSpeed: 102,
@@ -5078,122 +4889,110 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 49, percentile: 19, percentage: 19, speedEv: 0, nature: "Sassy" },
-      { type: "usage", speed: 70, percentile: 84, percentage: 65, speedEv: 0, nature: "Calm" }
+      { type: "usage", speed: 49, percentile: 23, percentage: 23, speedEv: 0, nature: "Relaxed" },
+      { type: "usage", speed: 70, percentile: 94, percentage: 70, speedEv: 0, nature: "Careful" }
     ]
   },
   Salamence: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 100,
     minSpeed: 120,
     maxSpeed: 152,
     minSpeedWithIvZero: 94,
     maxSpeedWithNature: 167,
-    choiceScarfPercentage: 12,
+    choiceScarfPercentage: 5,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 152, percentile: 55, percentage: 28, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 167, percentile: 100, percentage: 36, speedEv: 252, nature: "Timid" },
-      { type: "scarf", speed: 250, percentile: 100, percentage: 12, speedEv: 252, nature: "" }
+      { type: "usage", speed: 120, percentile: 16, percentage: 16, speedEv: 0, nature: "Modest" },
+      { type: "usage", speed: 152, percentile: 73, percentage: 51, speedEv: 252, nature: "Serious" },
+      { type: "usage", speed: 167, percentile: 100, percentage: 20, speedEv: 252, nature: "Hasty" },
+      { type: "scarf", speed: 250, percentile: 100, percentage: 5, speedEv: 252, nature: "" }
     ]
   },
-  Salandit: { referenceDate: "2025-07", baseSpeed: 77, minSpeed: 97, maxSpeed: 129, minSpeedWithIvZero: 73, maxSpeedWithNature: 141, statistics: [] },
+  Salandit: { referenceDate: "2025-08", baseSpeed: 77, minSpeed: 97, maxSpeed: 129, minSpeedWithIvZero: 73, maxSpeedWithNature: 141, statistics: [] },
   Salazzle: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 117,
     minSpeed: 137,
     maxSpeed: 169,
     minSpeedWithIvZero: 109,
     maxSpeedWithNature: 185,
-    choiceScarfPercentage: 4,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 169, percentile: 38, percentage: 13, speedEv: 252, nature: "Calm" },
-      { type: "usage", speed: 185, percentile: 100, percentage: 59, speedEv: 252, nature: "Timid" }
-    ]
-  },
-  Samurott: { referenceDate: "2025-07", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
-  "Samurott-Hisui": {
-    referenceDate: "2025-07",
-    baseSpeed: 85,
-    minSpeed: 105,
-    maxSpeed: 137,
-    minSpeedWithIvZero: 81,
-    maxSpeedWithNature: 150,
-    choiceScarfPercentage: 8,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 130, percentile: 63, percentage: 46, speedEv: 200, nature: "Adamant" },
-      { type: "usage", speed: 137, percentile: 79, percentage: 16, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 150, percentile: 100, percentage: 21, speedEv: 252, nature: "Jolly" },
-      { type: "scarf", speed: 225, percentile: 100, percentage: 8, speedEv: 252, nature: "" }
-    ]
-  },
-  Sandaconda: { referenceDate: "2025-07", baseSpeed: 71, minSpeed: 91, maxSpeed: 123, minSpeedWithIvZero: 68, maxSpeedWithNature: 135, statistics: [] },
-  Sandile: { referenceDate: "2025-07", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
-  Sandshrew: { referenceDate: "2025-07", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
-  "Sandshrew-Alola": {
-    referenceDate: "2025-07",
-    baseSpeed: 40,
-    minSpeed: 60,
-    maxSpeed: 92,
-    minSpeedWithIvZero: 40,
-    maxSpeedWithNature: 101,
     choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 40, percentile: 87, percentage: 87, speedEv: 0, nature: "Relaxed" },
-      { type: "usage", speed: 60, percentile: 100, percentage: 13, speedEv: 0, nature: "Adamant" }
+      { type: "usage", speed: 169, percentile: 55, percentage: 45, speedEv: 252, nature: "Calm" },
+      { type: "usage", speed: 185, percentile: 100, percentage: 45, speedEv: 252, nature: "Timid" }
     ]
   },
-  Sandslash: { referenceDate: "2025-07", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
-  "Sandslash-Alola": { referenceDate: "2025-07", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  Samurott: { referenceDate: "2025-08", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
+  "Samurott-Hisui": {
+    referenceDate: "2025-08",
+    baseSpeed: 85,
+    minSpeed: 105,
+    maxSpeed: 137,
+    minSpeedWithIvZero: 81,
+    maxSpeedWithNature: 150,
+    choiceScarfPercentage: 6,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 130, percentile: 24, percentage: 16, speedEv: 200, nature: "Adamant" },
+      { type: "usage", speed: 137, percentile: 70, percentage: 46, speedEv: 252, nature: "Adamant" },
+      { type: "usage", speed: 150, percentile: 100, percentage: 30, speedEv: 252, nature: "Jolly" },
+      { type: "scarf", speed: 225, percentile: 100, percentage: 6, speedEv: 252, nature: "" }
+    ]
+  },
+  Sandaconda: { referenceDate: "2025-08", baseSpeed: 71, minSpeed: 91, maxSpeed: 123, minSpeedWithIvZero: 68, maxSpeedWithNature: 135, statistics: [] },
+  Sandile: { referenceDate: "2025-08", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  Sandshrew: { referenceDate: "2025-08", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  "Sandshrew-Alola": { referenceDate: "2025-08", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Sandslash: { referenceDate: "2025-08", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  "Sandslash-Alola": { referenceDate: "2025-08", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
   "Sandy Shocks": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 101,
     minSpeed: 121,
     maxSpeed: 153,
     minSpeedWithIvZero: 95,
     maxSpeedWithNature: 168,
-    choiceScarfPercentage: 11,
+    choiceScarfPercentage: 6,
     choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 34,
+    boosterEnergyPercentage: 32,
     boosterEnergyIsMoreUsed: true,
     statistics: [
-      { type: "usage", speed: 168, percentile: 100, percentage: 71, speedEv: 252, nature: "Timid" },
-      { type: "booster", speed: 252, percentile: 100, percentage: 34, speedEv: 252, nature: "" },
-      { type: "scarf", speed: 252, percentile: 100, percentage: 11, speedEv: 252, nature: "" }
+      { type: "usage", speed: 139, percentile: 16, percentage: 14, speedEv: 140, nature: "Modest" },
+      { type: "usage", speed: 168, percentile: 100, percentage: 77, speedEv: 252, nature: "Timid" },
+      { type: "booster", speed: 252, percentile: 100, percentage: 32, speedEv: 252, nature: "" },
+      { type: "scarf", speed: 252, percentile: 100, percentage: 6, speedEv: 252, nature: "" }
     ]
   },
-  Sandygast: { referenceDate: "2025-07", baseSpeed: 15, minSpeed: 35, maxSpeed: 67, minSpeedWithIvZero: 18, maxSpeedWithNature: 73, statistics: [] },
-  Sawsbuck: { referenceDate: "2025-07", baseSpeed: 95, minSpeed: 115, maxSpeed: 147, minSpeedWithIvZero: 90, maxSpeedWithNature: 161, statistics: [] },
-  Scatterbug: { referenceDate: "2025-07", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
+  Sandygast: { referenceDate: "2025-08", baseSpeed: 15, minSpeed: 35, maxSpeed: 67, minSpeedWithIvZero: 18, maxSpeedWithNature: 73, statistics: [] },
+  Sawsbuck: { referenceDate: "2025-08", baseSpeed: 95, minSpeed: 115, maxSpeed: 147, minSpeedWithIvZero: 90, maxSpeedWithNature: 161, statistics: [] },
+  Scatterbug: { referenceDate: "2025-08", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
   Sceptile: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 120,
     minSpeed: 140,
     maxSpeed: 172,
     minSpeedWithIvZero: 112,
     maxSpeedWithNature: 189,
-    choiceScarfPercentage: 1,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 172, percentile: 75, percentage: 50, speedEv: 252, nature: "Modest" },
-      { type: "usage", speed: 189, percentile: 100, percentage: 23, speedEv: 252, nature: "Timid" }
+      { type: "usage", speed: 165, percentile: 35, percentage: 25, speedEv: 76, nature: "Timid" },
+      { type: "usage", speed: 172, percentile: 83, percentage: 46, speedEv: 252, nature: "Modest" },
+      { type: "usage", speed: 189, percentile: 100, percentage: 11, speedEv: 252, nature: "Jolly" }
     ]
   },
   Scizor: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 65,
     minSpeed: 85,
     maxSpeed: 117,
@@ -5204,14 +5003,13 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 63, percentile: 11, percentage: 11, speedEv: 0, nature: "Brave" },
-      { type: "usage", speed: 85, percentile: 61, percentage: 50, speedEv: 0, nature: "Adamant" },
-      { type: "usage", speed: 117, percentile: 94, percentage: 11, speedEv: 252, nature: "Adamant" }
+      { type: "usage", speed: 85, percentile: 61, percentage: 57, speedEv: 0, nature: "Adamant" },
+      { type: "usage", speed: 86, percentile: 88, percentage: 27, speedEv: 4, nature: "Adamant" }
     ]
   },
-  Scorbunny: { referenceDate: "2025-07", baseSpeed: 69, minSpeed: 89, maxSpeed: 121, minSpeedWithIvZero: 66, maxSpeedWithNature: 133, statistics: [] },
+  Scorbunny: { referenceDate: "2025-08", baseSpeed: 69, minSpeed: 89, maxSpeed: 121, minSpeedWithIvZero: 66, maxSpeedWithNature: 133, statistics: [] },
   Scovillain: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 75,
     minSpeed: 95,
     maxSpeed: 127,
@@ -5222,12 +5020,12 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 127, percentile: 33, percentage: 24, speedEv: 252, nature: "Modest" },
-      { type: "usage", speed: 139, percentile: 100, percentage: 67, speedEv: 252, nature: "Timid" }
+      { type: "usage", speed: 127, percentile: 18, percentage: 11, speedEv: 252, nature: "Modest" },
+      { type: "usage", speed: 139, percentile: 100, percentage: 81, speedEv: 252, nature: "Timid" }
     ]
   },
   Scrafty: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 58,
     minSpeed: 78,
     maxSpeed: 110,
@@ -5238,13 +5036,13 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 56, percentile: 34, percentage: 34, speedEv: 0, nature: "Sassy" },
-      { type: "usage", speed: 78, percentile: 69, percentage: 35, speedEv: 0, nature: "Adamant" },
-      { type: "usage", speed: 79, percentile: 80, percentage: 11, speedEv: 4, nature: "Impish" }
+      { type: "usage", speed: 56, percentile: 16, percentage: 16, speedEv: 0, nature: "Brave" },
+      { type: "usage", speed: 78, percentile: 70, percentage: 54, speedEv: 0, nature: "Impish" },
+      { type: "usage", speed: 79, percentile: 93, percentage: 23, speedEv: 4, nature: "Careful" }
     ]
   },
   Scraggy: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 48,
     minSpeed: 68,
     maxSpeed: 100,
@@ -5254,10 +5052,10 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
-    statistics: [{ type: "usage", speed: 47, percentile: 94, percentage: 94, speedEv: 0, nature: "Sassy" }]
+    statistics: [{ type: "usage", speed: 47, percentile: 96, percentage: 96, speedEv: 0, nature: "Sassy" }]
   },
   "Scream Tail": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 111,
     minSpeed: 131,
     maxSpeed: 163,
@@ -5265,47 +5063,61 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     maxSpeedWithNature: 179,
     choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 82,
+    boosterEnergyPercentage: 78,
     boosterEnergyIsMoreUsed: true,
     statistics: [
-      { type: "usage", speed: 158, percentile: 35, percentage: 16, speedEv: 100, nature: "Timid" },
-      { type: "usage", speed: 179, percentile: 100, percentage: 31, speedEv: 252, nature: "Timid" },
-      { type: "booster", speed: 268, percentile: 100, percentage: 82, speedEv: 252, nature: "" }
+      { type: "usage", speed: 179, percentile: 100, percentage: 33, speedEv: 252, nature: "Timid" },
+      { type: "booster", speed: 268, percentile: 100, percentage: 78, speedEv: 252, nature: "" }
     ]
   },
-  Scyther: { referenceDate: "2025-07", baseSpeed: 105, minSpeed: 125, maxSpeed: 157, minSpeedWithIvZero: 99, maxSpeedWithNature: 172, statistics: [] },
-  Seadra: { referenceDate: "2025-07", baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
-  Seedot: { referenceDate: "2025-07", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
-  Seel: { referenceDate: "2025-07", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
-  Sentret: { referenceDate: "2025-07", baseSpeed: 20, minSpeed: 40, maxSpeed: 72, minSpeedWithIvZero: 22, maxSpeedWithNature: 79, statistics: [] },
+  Scyther: {
+    referenceDate: "2025-08",
+    baseSpeed: 105,
+    minSpeed: 125,
+    maxSpeed: 157,
+    minSpeedWithIvZero: 99,
+    maxSpeedWithNature: 172,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 126, percentile: 54, percentage: 35, speedEv: 4, nature: "Adamant" },
+      { type: "usage", speed: 157, percentile: 77, percentage: 23, speedEv: 252, nature: "Adamant" },
+      { type: "usage", speed: 172, percentile: 100, percentage: 23, speedEv: 252, nature: "Jolly" }
+    ]
+  },
+  Seadra: { referenceDate: "2025-08", baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
+  Seedot: { referenceDate: "2025-08", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
+  Seel: { referenceDate: "2025-08", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  Sentret: { referenceDate: "2025-08", baseSpeed: 20, minSpeed: 40, maxSpeed: 72, minSpeedWithIvZero: 22, maxSpeedWithNature: 79, statistics: [] },
   Serperior: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 113,
     minSpeed: 133,
     maxSpeed: 165,
     minSpeedWithIvZero: 106,
     maxSpeedWithNature: 181,
-    choiceScarfPercentage: 3,
+    choiceScarfPercentage: 1,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 133, percentile: 12, percentage: 11, speedEv: 0, nature: "Calm" },
-      { type: "usage", speed: 165, percentile: 50, percentage: 26, speedEv: 252, nature: "Modest" },
-      { type: "usage", speed: 181, percentile: 100, percentage: 50, speedEv: 252, nature: "Timid" }
+      { type: "usage", speed: 165, percentile: 27, percentage: 11, speedEv: 252, nature: "Modest" },
+      { type: "usage", speed: 181, percentile: 100, percentage: 73, speedEv: 252, nature: "Hasty" }
     ]
   },
-  Servine: { referenceDate: "2025-07", baseSpeed: 83, minSpeed: 103, maxSpeed: 135, minSpeedWithIvZero: 79, maxSpeedWithNature: 148, statistics: [] },
-  Seviper: { referenceDate: "2025-07", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
-  Sewaddle: { referenceDate: "2025-07", baseSpeed: 42, minSpeed: 62, maxSpeed: 94, minSpeedWithIvZero: 42, maxSpeedWithNature: 103, statistics: [] },
-  Shaymin: { referenceDate: "2025-07", baseSpeed: 100, minSpeed: 120, maxSpeed: 152, minSpeedWithIvZero: 94, maxSpeedWithNature: 167, statistics: [] },
-  "Shaymin-Sky": { referenceDate: "2025-07", baseSpeed: 127, minSpeed: 147, maxSpeed: 179, minSpeedWithIvZero: 118, maxSpeedWithNature: 196, statistics: [] },
-  Shelgon: { referenceDate: "2025-07", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
-  Shellder: { referenceDate: "2025-07", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
-  Shellos: { referenceDate: "2025-07", baseSpeed: 34, minSpeed: 54, maxSpeed: 86, minSpeedWithIvZero: 35, maxSpeedWithNature: 94, statistics: [] },
-  Shieldon: { referenceDate: "2025-07", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
+  Servine: { referenceDate: "2025-08", baseSpeed: 83, minSpeed: 103, maxSpeed: 135, minSpeedWithIvZero: 79, maxSpeedWithNature: 148, statistics: [] },
+  Seviper: { referenceDate: "2025-08", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  Sewaddle: { referenceDate: "2025-08", baseSpeed: 42, minSpeed: 62, maxSpeed: 94, minSpeedWithIvZero: 42, maxSpeedWithNature: 103, statistics: [] },
+  Shaymin: { referenceDate: "2025-08", baseSpeed: 100, minSpeed: 120, maxSpeed: 152, minSpeedWithIvZero: 94, maxSpeedWithNature: 167, statistics: [] },
+  "Shaymin-Sky": { referenceDate: "2025-08", baseSpeed: 127, minSpeed: 147, maxSpeed: 179, minSpeedWithIvZero: 118, maxSpeedWithNature: 196, statistics: [] },
+  Shelgon: { referenceDate: "2025-08", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Shellder: { referenceDate: "2025-08", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Shellos: { referenceDate: "2025-08", baseSpeed: 34, minSpeed: 54, maxSpeed: 86, minSpeedWithIvZero: 35, maxSpeedWithNature: 94, statistics: [] },
+  Shieldon: { referenceDate: "2025-08", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
   Shiftry: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 80,
     minSpeed: 100,
     maxSpeed: 132,
@@ -5316,18 +5128,18 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 130, percentile: 26, percentage: 11, speedEv: 148, nature: "Jolly" },
-      { type: "usage", speed: 132, percentile: 46, percentage: 20, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 145, percentile: 100, percentage: 50, speedEv: 252, nature: "Jolly" }
+      { type: "usage", speed: 132, percentile: 17, percentage: 11, speedEv: 252, nature: "Adamant" },
+      { type: "usage", speed: 143, percentile: 57, percentage: 37, speedEv: 236, nature: "Jolly" },
+      { type: "usage", speed: 145, percentile: 100, percentage: 43, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Shinx: { referenceDate: "2025-07", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
-  Shroodle: { referenceDate: "2025-07", baseSpeed: 75, minSpeed: 95, maxSpeed: 127, minSpeedWithIvZero: 72, maxSpeedWithNature: 139, statistics: [] },
-  Shroomish: { referenceDate: "2025-07", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
-  Shuppet: { referenceDate: "2025-07", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
-  Silicobra: { referenceDate: "2025-07", baseSpeed: 46, minSpeed: 66, maxSpeed: 98, minSpeedWithIvZero: 45, maxSpeedWithNature: 107, statistics: [] },
+  Shinx: { referenceDate: "2025-08", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  Shroodle: { referenceDate: "2025-08", baseSpeed: 75, minSpeed: 95, maxSpeed: 127, minSpeedWithIvZero: 72, maxSpeedWithNature: 139, statistics: [] },
+  Shroomish: { referenceDate: "2025-08", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
+  Shuppet: { referenceDate: "2025-08", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  Silicobra: { referenceDate: "2025-08", baseSpeed: 46, minSpeed: 66, maxSpeed: 98, minSpeedWithIvZero: 45, maxSpeedWithNature: 107, statistics: [] },
   Sinistcha: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 70,
     minSpeed: 90,
     maxSpeed: 122,
@@ -5338,14 +5150,14 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 67, percentile: 14, percentage: 14, speedEv: 0, nature: "Relaxed" },
-      { type: "usage", speed: 90, percentile: 57, percentage: 43, speedEv: 0, nature: "Bold" },
-      { type: "usage", speed: 91, percentile: 73, percentage: 16, speedEv: 4, nature: "Modest" }
+      { type: "usage", speed: 67, percentile: 15, percentage: 15, speedEv: 0, nature: "Relaxed" },
+      { type: "usage", speed: 90, percentile: 67, percentage: 52, speedEv: 0, nature: "Bold" },
+      { type: "usage", speed: 91, percentile: 79, percentage: 12, speedEv: 4, nature: "Bold" }
     ]
   },
-  Sinistea: { referenceDate: "2025-07", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Sinistea: { referenceDate: "2025-08", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
   Skarmory: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 70,
     minSpeed: 90,
     maxSpeed: 122,
@@ -5356,12 +5168,12 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 90, percentile: 17, percentage: 14, speedEv: 0, nature: "Impish" },
-      { type: "usage", speed: 93, percentile: 78, percentage: 60, speedEv: 24, nature: "Impish" }
+      { type: "usage", speed: 90, percentile: 11, percentage: 11, speedEv: 0, nature: "Careful" },
+      { type: "usage", speed: 93, percentile: 94, percentage: 79, speedEv: 24, nature: "Impish" }
     ]
   },
   Skeledirge: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 66,
     minSpeed: 86,
     maxSpeed: 118,
@@ -5372,37 +5184,49 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 63, percentile: 25, percentage: 25, speedEv: 0, nature: "Quiet" },
-      { type: "usage", speed: 86, percentile: 86, percentage: 61, speedEv: 0, nature: "Calm" }
+      { type: "usage", speed: 63, percentile: 43, percentage: 43, speedEv: 0, nature: "Quiet" },
+      { type: "usage", speed: 86, percentile: 92, percentage: 49, speedEv: 0, nature: "Modest" }
     ]
   },
-  Skiddo: { referenceDate: "2025-07", baseSpeed: 52, minSpeed: 72, maxSpeed: 104, minSpeedWithIvZero: 51, maxSpeedWithNature: 114, statistics: [] },
-  Skiploom: { referenceDate: "2025-07", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
-  Skrelp: { referenceDate: "2025-07", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
-  Skuntank: { referenceDate: "2025-07", baseSpeed: 84, minSpeed: 104, maxSpeed: 136, minSpeedWithIvZero: 80, maxSpeedWithNature: 149, statistics: [] },
-  Skwovet: { referenceDate: "2025-07", baseSpeed: 25, minSpeed: 45, maxSpeed: 77, minSpeedWithIvZero: 27, maxSpeedWithNature: 84, statistics: [] },
+  Skiddo: { referenceDate: "2025-08", baseSpeed: 52, minSpeed: 72, maxSpeed: 104, minSpeedWithIvZero: 51, maxSpeedWithNature: 114, statistics: [] },
+  Skiploom: {
+    referenceDate: "2025-08",
+    baseSpeed: 80,
+    minSpeed: 100,
+    maxSpeed: 132,
+    minSpeedWithIvZero: 76,
+    maxSpeedWithNature: 145,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [{ type: "usage", speed: 134, percentile: 91, percentage: 91, speedEv: 172, nature: "Timid" }]
+  },
+  Skrelp: { referenceDate: "2025-08", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
+  Skuntank: { referenceDate: "2025-08", baseSpeed: 84, minSpeed: 104, maxSpeed: 136, minSpeedWithIvZero: 80, maxSpeedWithNature: 149, statistics: [] },
+  Skwovet: { referenceDate: "2025-08", baseSpeed: 25, minSpeed: 45, maxSpeed: 77, minSpeedWithIvZero: 27, maxSpeedWithNature: 84, statistics: [] },
   Slaking: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 100,
     minSpeed: 120,
     maxSpeed: 152,
     minSpeedWithIvZero: 94,
     maxSpeedWithNature: 167,
-    choiceScarfPercentage: 1,
+    choiceScarfPercentage: 3,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 120, percentile: 44, percentage: 34, speedEv: 0, nature: "Adamant" },
-      { type: "usage", speed: 152, percentile: 76, percentage: 15, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 167, percentile: 100, percentage: 23, speedEv: 252, nature: "Jolly" }
+      { type: "usage", speed: 120, percentile: 39, percentage: 38, speedEv: 0, nature: "Adamant" },
+      { type: "usage", speed: 152, percentile: 78, percentage: 16, speedEv: 252, nature: "Adamant" },
+      { type: "usage", speed: 167, percentile: 100, percentage: 22, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Slakoth: { referenceDate: "2025-07", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
-  Sliggoo: { referenceDate: "2025-07", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
-  "Sliggoo-Hisui": { referenceDate: "2025-07", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Slakoth: { referenceDate: "2025-08", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
+  Sliggoo: { referenceDate: "2025-08", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  "Sliggoo-Hisui": { referenceDate: "2025-08", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
   "Slither Wing": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 81,
     minSpeed: 101,
     maxSpeed: 133,
@@ -5410,17 +5234,17 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     maxSpeedWithNature: 146,
     choiceScarfPercentage: 1,
     choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 30,
-    boosterEnergyIsMoreUsed: true,
+    boosterEnergyPercentage: 6,
+    boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 101, percentile: 28, percentage: 20, speedEv: 0, nature: "Adamant" },
-      { type: "usage", speed: 132, percentile: 78, percentage: 11, speedEv: 244, nature: "Adamant" },
-      { type: "usage", speed: 146, percentile: 100, percentage: 13, speedEv: 252, nature: "Jolly" },
-      { type: "booster", speed: 219, percentile: 100, percentage: 30, speedEv: 252, nature: "" }
+      { type: "usage", speed: 101, percentile: 17, percentage: 17, speedEv: 0, nature: "Adamant" },
+      { type: "usage", speed: 125, percentile: 83, percentage: 50, speedEv: 188, nature: "Adamant" },
+      { type: "usage", speed: 146, percentile: 100, percentage: 12, speedEv: 252, nature: "Jolly" },
+      { type: "booster", speed: 219, percentile: 100, percentage: 6, speedEv: 252, nature: "" }
     ]
   },
   Slowbro: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 30,
     minSpeed: 50,
     maxSpeed: 82,
@@ -5431,12 +5255,12 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 31, percentile: 54, percentage: 54, speedEv: 0, nature: "Relaxed" },
-      { type: "usage", speed: 50, percentile: 100, percentage: 45, speedEv: 0, nature: "Modest" }
+      { type: "usage", speed: 31, percentile: 66, percentage: 66, speedEv: 0, nature: "Quiet" },
+      { type: "usage", speed: 50, percentile: 96, percentage: 30, speedEv: 0, nature: "Bold" }
     ]
   },
   "Slowbro-Galar": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 30,
     minSpeed: 50,
     maxSpeed: 82,
@@ -5447,12 +5271,12 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 31, percentile: 65, percentage: 65, speedEv: 0, nature: "Quiet" },
-      { type: "usage", speed: 50, percentile: 100, percentage: 35, speedEv: 0, nature: "Modest" }
+      { type: "usage", speed: 31, percentile: 74, percentage: 74, speedEv: 0, nature: "Quiet" },
+      { type: "usage", speed: 50, percentile: 100, percentage: 26, speedEv: 0, nature: "Bold" }
     ]
   },
   Slowking: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 30,
     minSpeed: 50,
     maxSpeed: 82,
@@ -5463,12 +5287,12 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 31, percentile: 82, percentage: 82, speedEv: 0, nature: "Sassy" },
-      { type: "usage", speed: 50, percentile: 98, percentage: 17, speedEv: 0, nature: "Calm" }
+      { type: "usage", speed: 31, percentile: 36, percentage: 36, speedEv: 0, nature: "Sassy" },
+      { type: "usage", speed: 50, percentile: 100, percentage: 64, speedEv: 0, nature: "Bold" }
     ]
   },
   "Slowking-Galar": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 30,
     minSpeed: 50,
     maxSpeed: 82,
@@ -5479,15 +5303,15 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 31, percentile: 51, percentage: 51, speedEv: 0, nature: "Sassy" },
-      { type: "usage", speed: 50, percentile: 99, percentage: 48, speedEv: 0, nature: "Modest" }
+      { type: "usage", speed: 31, percentile: 67, percentage: 67, speedEv: 0, nature: "Sassy" },
+      { type: "usage", speed: 50, percentile: 98, percentage: 31, speedEv: 0, nature: "Bold" }
     ]
   },
-  Slowpoke: { referenceDate: "2025-07", baseSpeed: 15, minSpeed: 35, maxSpeed: 67, minSpeedWithIvZero: 18, maxSpeedWithNature: 73, statistics: [] },
-  "Slowpoke-Galar": { referenceDate: "2025-07", baseSpeed: 15, minSpeed: 35, maxSpeed: 67, minSpeedWithIvZero: 18, maxSpeedWithNature: 73, statistics: [] },
-  Slugma: { referenceDate: "2025-07", baseSpeed: 20, minSpeed: 40, maxSpeed: 72, minSpeedWithIvZero: 22, maxSpeedWithNature: 79, statistics: [] },
+  Slowpoke: { referenceDate: "2025-08", baseSpeed: 15, minSpeed: 35, maxSpeed: 67, minSpeedWithIvZero: 18, maxSpeedWithNature: 73, statistics: [] },
+  "Slowpoke-Galar": { referenceDate: "2025-08", baseSpeed: 15, minSpeed: 35, maxSpeed: 67, minSpeedWithIvZero: 18, maxSpeedWithNature: 73, statistics: [] },
+  Slugma: { referenceDate: "2025-08", baseSpeed: 20, minSpeed: 40, maxSpeed: 72, minSpeedWithIvZero: 22, maxSpeedWithNature: 79, statistics: [] },
   Smeargle: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 75,
     minSpeed: 95,
     maxSpeed: 127,
@@ -5497,31 +5321,32 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
-    statistics: [{ type: "usage", speed: 139, percentile: 100, percentage: 95, speedEv: 252, nature: "Jolly" }]
+    statistics: [{ type: "usage", speed: 139, percentile: 100, percentage: 96, speedEv: 252, nature: "Jolly" }]
   },
-  Smoliv: { referenceDate: "2025-07", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
-  Sneasel: { referenceDate: "2025-07", baseSpeed: 115, minSpeed: 135, maxSpeed: 167, minSpeedWithIvZero: 108, maxSpeedWithNature: 183, statistics: [] },
-  "Sneasel-Hisui": { referenceDate: "2025-07", baseSpeed: 115, minSpeed: 135, maxSpeed: 167, minSpeedWithIvZero: 108, maxSpeedWithNature: 183, statistics: [] },
+  Smoliv: { referenceDate: "2025-08", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
+  Sneasel: { referenceDate: "2025-08", baseSpeed: 115, minSpeed: 135, maxSpeed: 167, minSpeedWithIvZero: 108, maxSpeedWithNature: 183, statistics: [] },
+  "Sneasel-Hisui": { referenceDate: "2025-08", baseSpeed: 115, minSpeed: 135, maxSpeed: 167, minSpeedWithIvZero: 108, maxSpeedWithNature: 183, statistics: [] },
   Sneasler: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 120,
     minSpeed: 140,
     maxSpeed: 172,
     minSpeedWithIvZero: 112,
     maxSpeedWithNature: 189,
-    choiceScarfPercentage: 1,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 172, percentile: 79, percentage: 35, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 189, percentile: 100, percentage: 21, speedEv: 252, nature: "Jolly" }
+      { type: "usage", speed: 155, percentile: 28, percentage: 16, speedEv: 116, nature: "Adamant" },
+      { type: "usage", speed: 172, percentile: 68, percentage: 26, speedEv: 252, nature: "Adamant" },
+      { type: "usage", speed: 189, percentile: 100, percentage: 31, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Snivy: { referenceDate: "2025-07", baseSpeed: 63, minSpeed: 83, maxSpeed: 115, minSpeedWithIvZero: 61, maxSpeedWithNature: 126, statistics: [] },
-  Snom: { referenceDate: "2025-07", baseSpeed: 20, minSpeed: 40, maxSpeed: 72, minSpeedWithIvZero: 22, maxSpeedWithNature: 79, statistics: [] },
+  Snivy: { referenceDate: "2025-08", baseSpeed: 63, minSpeed: 83, maxSpeed: 115, minSpeedWithIvZero: 61, maxSpeedWithNature: 126, statistics: [] },
+  Snom: { referenceDate: "2025-08", baseSpeed: 20, minSpeed: 40, maxSpeed: 72, minSpeedWithIvZero: 22, maxSpeedWithNature: 79, statistics: [] },
   Snorlax: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 30,
     minSpeed: 50,
     maxSpeed: 82,
@@ -5532,52 +5357,51 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 31, percentile: 50, percentage: 50, speedEv: 0, nature: "Brave" },
-      { type: "usage", speed: 50, percentile: 96, percentage: 45, speedEv: 0, nature: "Adamant" }
+      { type: "usage", speed: 31, percentile: 54, percentage: 54, speedEv: 0, nature: "Brave" },
+      { type: "usage", speed: 50, percentile: 94, percentage: 40, speedEv: 0, nature: "Impish" }
     ]
   },
-  Snorunt: { referenceDate: "2025-07", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
-  Snover: { referenceDate: "2025-07", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
-  Snubbull: { referenceDate: "2025-07", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
-  Sobble: { referenceDate: "2025-07", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
+  Snorunt: { referenceDate: "2025-08", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Snover: { referenceDate: "2025-08", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Snubbull: { referenceDate: "2025-08", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
+  Sobble: { referenceDate: "2025-08", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
   Solgaleo: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 97,
     minSpeed: 117,
     maxSpeed: 149,
     minSpeedWithIvZero: 91,
     maxSpeedWithNature: 163,
-    choiceScarfPercentage: 2,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 91, percentile: 26, percentage: 26, speedEv: 0, nature: "Brave" },
-      { type: "usage", speed: 149, percentile: 84, percentage: 34, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 163, percentile: 100, percentage: 13, speedEv: 252, nature: "Jolly" }
+      { type: "usage", speed: 117, percentile: 51, percentage: 41, speedEv: 0, nature: "Careful" },
+      { type: "usage", speed: 149, percentile: 93, percentage: 13, speedEv: 252, nature: "Adamant" }
     ]
   },
-  Solosis: { referenceDate: "2025-07", baseSpeed: 20, minSpeed: 40, maxSpeed: 72, minSpeedWithIvZero: 22, maxSpeedWithNature: 79, statistics: [] },
+  Solosis: { referenceDate: "2025-08", baseSpeed: 20, minSpeed: 40, maxSpeed: 72, minSpeedWithIvZero: 22, maxSpeedWithNature: 79, statistics: [] },
   Spectrier: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 130,
     minSpeed: 150,
     maxSpeed: 182,
     minSpeedWithIvZero: 121,
     maxSpeedWithNature: 200,
-    choiceScarfPercentage: 4,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 151, percentile: 28, percentage: 19, speedEv: 4, nature: "Modest" },
-      { type: "usage", speed: 182, percentile: 58, percentage: 23, speedEv: 252, nature: "Modest" },
-      { type: "usage", speed: 200, percentile: 100, percentage: 31, speedEv: 252, nature: "Timid" }
+      { type: "usage", speed: 150, percentile: 44, percentage: 44, speedEv: 0, nature: "Modest" },
+      { type: "usage", speed: 182, percentile: 87, percentage: 43, speedEv: 252, nature: "Modest" },
+      { type: "usage", speed: 200, percentile: 100, percentage: 13, speedEv: 252, nature: "Timid" }
     ]
   },
-  Spewpa: { referenceDate: "2025-07", baseSpeed: 29, minSpeed: 49, maxSpeed: 81, minSpeedWithIvZero: 30, maxSpeedWithNature: 89, statistics: [] },
+  Spewpa: { referenceDate: "2025-08", baseSpeed: 29, minSpeed: 49, maxSpeed: 81, minSpeedWithIvZero: 30, maxSpeedWithNature: 89, statistics: [] },
   Spidops: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 35,
     minSpeed: 55,
     maxSpeed: 87,
@@ -5587,68 +5411,52 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 55, percentile: 47, percentage: 44, speedEv: 0, nature: "Adamant" },
-      { type: "usage", speed: 87, percentile: 88, percentage: 40, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 95, percentile: 100, percentage: 12, speedEv: 252, nature: "Jolly" }
-    ]
+    statistics: [{ type: "usage", speed: 87, percentile: 100, percentage: 91, speedEv: 252, nature: "Adamant" }]
   },
-  Spinarak: { referenceDate: "2025-07", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
+  Spinarak: { referenceDate: "2025-08", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
   Spiritomb: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 35,
     minSpeed: 55,
     maxSpeed: 87,
     minSpeedWithIvZero: 36,
     maxSpeedWithNature: 95,
-    choiceScarfPercentage: 3,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 36, percentile: 39, percentage: 39, speedEv: 0, nature: "Sassy" },
-      { type: "usage", speed: 55, percentile: 95, percentage: 56, speedEv: 0, nature: "Hardy" }
-    ]
-  },
-  Spoink: { referenceDate: "2025-07", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
-  Sprigatito: { referenceDate: "2025-07", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
-  Squawkabilly: { referenceDate: "2025-07", baseSpeed: 92, minSpeed: 112, maxSpeed: 144, minSpeedWithIvZero: 87, maxSpeedWithNature: 158, statistics: [] },
-  Squirtle: { referenceDate: "2025-07", baseSpeed: 43, minSpeed: 63, maxSpeed: 95, minSpeedWithIvZero: 43, maxSpeedWithNature: 104, statistics: [] },
-  Stantler: {
-    referenceDate: "2025-07",
-    baseSpeed: 85,
-    minSpeed: 105,
-    maxSpeed: 137,
-    minSpeedWithIvZero: 81,
-    maxSpeedWithNature: 150,
     choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
-    statistics: [{ type: "usage", speed: 81, percentile: 93, percentage: 93, speedEv: 0, nature: "Sassy" }]
+    statistics: [
+      { type: "usage", speed: 36, percentile: 54, percentage: 54, speedEv: 0, nature: "Sassy" },
+      { type: "usage", speed: 56, percentile: 97, percentage: 34, speedEv: 4, nature: "Calm" }
+    ]
   },
+  Spoink: { referenceDate: "2025-08", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  Sprigatito: { referenceDate: "2025-08", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  Squawkabilly: { referenceDate: "2025-08", baseSpeed: 92, minSpeed: 112, maxSpeed: 144, minSpeedWithIvZero: 87, maxSpeedWithNature: 158, statistics: [] },
+  Squirtle: { referenceDate: "2025-08", baseSpeed: 43, minSpeed: 63, maxSpeed: 95, minSpeedWithIvZero: 43, maxSpeedWithNature: 104, statistics: [] },
+  Stantler: { referenceDate: "2025-08", baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
   Staraptor: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 100,
     minSpeed: 120,
     maxSpeed: 152,
     minSpeedWithIvZero: 94,
     maxSpeedWithNature: 167,
-    choiceScarfPercentage: 39,
+    choiceScarfPercentage: 48,
     choiceScarfIsMoreUsed: true,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 152, percentile: 41, percentage: 37, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 167, percentile: 100, percentage: 58, speedEv: 252, nature: "Jolly" },
-      { type: "scarf", speed: 250, percentile: 100, percentage: 39, speedEv: 252, nature: "" }
+      { type: "usage", speed: 152, percentile: 41, percentage: 34, speedEv: 252, nature: "Adamant" },
+      { type: "usage", speed: 167, percentile: 100, percentage: 59, speedEv: 252, nature: "Jolly" },
+      { type: "scarf", speed: 250, percentile: 100, percentage: 48, speedEv: 252, nature: "" }
     ]
   },
-  Staravia: { referenceDate: "2025-07", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
-  Starly: { referenceDate: "2025-07", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
-  Steenee: { referenceDate: "2025-07", baseSpeed: 62, minSpeed: 82, maxSpeed: 114, minSpeedWithIvZero: 60, maxSpeedWithNature: 125, statistics: [] },
+  Staravia: { referenceDate: "2025-08", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
+  Starly: { referenceDate: "2025-08", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  Steenee: { referenceDate: "2025-08", baseSpeed: 62, minSpeed: 82, maxSpeed: 114, minSpeedWithIvZero: 60, maxSpeedWithNature: 125, statistics: [] },
   Stonjourner: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 70,
     minSpeed: 90,
     maxSpeed: 122,
@@ -5659,15 +5467,15 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 90, percentile: 46, percentage: 40, speedEv: 0, nature: "Careful" },
-      { type: "usage", speed: 122, percentile: 79, percentage: 16, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 134, percentile: 100, percentage: 20, speedEv: 252, nature: "Jolly" }
+      { type: "usage", speed: 67, percentile: 17, percentage: 17, speedEv: 0, nature: "Relaxed" },
+      { type: "usage", speed: 90, percentile: 72, percentage: 55, speedEv: 0, nature: "Adamant" },
+      { type: "usage", speed: 101, percentile: 92, percentage: 16, speedEv: 84, nature: "Adamant" }
     ]
   },
-  Stunky: { referenceDate: "2025-07", baseSpeed: 74, minSpeed: 94, maxSpeed: 126, minSpeedWithIvZero: 71, maxSpeedWithNature: 138, statistics: [] },
-  Sudowoodo: { referenceDate: "2025-07", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
+  Stunky: { referenceDate: "2025-08", baseSpeed: 74, minSpeed: 94, maxSpeed: 126, minSpeedWithIvZero: 71, maxSpeedWithNature: 138, statistics: [] },
+  Sudowoodo: { referenceDate: "2025-08", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
   Suicune: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 85,
     minSpeed: 105,
     maxSpeed: 137,
@@ -5678,19 +5486,50 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 105, percentile: 41, percentage: 39, speedEv: 0, nature: "Modest" },
-      { type: "usage", speed: 112, percentile: 71, percentage: 15, speedEv: 52, nature: "Bold" },
-      { type: "usage", speed: 116, percentile: 90, percentage: 11, speedEv: 84, nature: "Calm" }
+      { type: "usage", speed: 105, percentile: 55, percentage: 55, speedEv: 0, nature: "Calm" },
+      { type: "usage", speed: 106, percentile: 81, percentage: 26, speedEv: 4, nature: "Bold" },
+      { type: "usage", speed: 112, percentile: 92, percentage: 11, speedEv: 52, nature: "Calm" }
     ]
   },
-  Sunflora: { referenceDate: "2025-07", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
-  Sunkern: { referenceDate: "2025-07", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
-  Surskit: { referenceDate: "2025-07", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
-  Swablu: { referenceDate: "2025-07", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
-  Swadloon: { referenceDate: "2025-07", baseSpeed: 42, minSpeed: 62, maxSpeed: 94, minSpeedWithIvZero: 42, maxSpeedWithNature: 103, statistics: [] },
-  Swalot: { referenceDate: "2025-07", baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
+  Sunflora: {
+    referenceDate: "2025-08",
+    baseSpeed: 30,
+    minSpeed: 50,
+    maxSpeed: 82,
+    minSpeedWithIvZero: 31,
+    maxSpeedWithNature: 90,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 31, percentile: 56, percentage: 56, speedEv: 0, nature: "Quiet" },
+      { type: "usage", speed: 50, percentile: 88, percentage: 31, speedEv: 0, nature: "Modest" },
+      { type: "usage", speed: 82, percentile: 100, percentage: 13, speedEv: 252, nature: "Mild" }
+    ]
+  },
+  Sunkern: { referenceDate: "2025-08", baseSpeed: 30, minSpeed: 50, maxSpeed: 82, minSpeedWithIvZero: 31, maxSpeedWithNature: 90, statistics: [] },
+  Surskit: { referenceDate: "2025-08", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  Swablu: { referenceDate: "2025-08", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Swadloon: { referenceDate: "2025-08", baseSpeed: 42, minSpeed: 62, maxSpeed: 94, minSpeedWithIvZero: 42, maxSpeedWithNature: 103, statistics: [] },
+  Swalot: { referenceDate: "2025-08", baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
   Swampert: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
+    baseSpeed: 60,
+    minSpeed: 80,
+    maxSpeed: 112,
+    minSpeedWithIvZero: 58,
+    maxSpeedWithNature: 123,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [{ type: "usage", speed: 80, percentile: 82, percentage: 72, speedEv: 0, nature: "Bold" }]
+  },
+  Swanna: { referenceDate: "2025-08", baseSpeed: 98, minSpeed: 118, maxSpeed: 150, minSpeedWithIvZero: 92, maxSpeedWithNature: 165, statistics: [] },
+  Swinub: { referenceDate: "2025-08", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
+  Sylveon: {
+    referenceDate: "2025-08",
     baseSpeed: 60,
     minSpeed: 80,
     maxSpeed: 112,
@@ -5701,107 +5540,90 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 58, percentile: 34, percentage: 34, speedEv: 0, nature: "Relaxed" },
-      { type: "usage", speed: 80, percentile: 75, percentage: 41, speedEv: 0, nature: "Adamant" }
+      { type: "usage", speed: 58, percentile: 20, percentage: 20, speedEv: 0, nature: "Quiet" },
+      { type: "usage", speed: 80, percentile: 59, percentage: 39, speedEv: 0, nature: "Modest" },
+      { type: "usage", speed: 81, percentile: 74, percentage: 15, speedEv: 4, nature: "Modest" }
     ]
   },
-  Swanna: { referenceDate: "2025-07", baseSpeed: 98, minSpeed: 118, maxSpeed: 150, minSpeedWithIvZero: 92, maxSpeedWithNature: 165, statistics: [] },
-  Swinub: { referenceDate: "2025-07", baseSpeed: 50, minSpeed: 70, maxSpeed: 102, minSpeedWithIvZero: 49, maxSpeedWithNature: 112, statistics: [] },
-  Sylveon: {
-    referenceDate: "2025-07",
-    baseSpeed: 60,
-    minSpeed: 80,
-    maxSpeed: 112,
-    minSpeedWithIvZero: 58,
-    maxSpeedWithNature: 123,
-    choiceScarfPercentage: 1,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 58, percentile: 31, percentage: 31, speedEv: 0, nature: "Quiet" },
-      { type: "usage", speed: 80, percentile: 73, percentage: 42, speedEv: 0, nature: "Modest" }
-    ]
-  },
-  Tadbulb: { referenceDate: "2025-07", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  Tadbulb: { referenceDate: "2025-08", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
   Talonflame: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 126,
     minSpeed: 146,
     maxSpeed: 178,
     minSpeedWithIvZero: 117,
     maxSpeedWithNature: 195,
-    choiceScarfPercentage: 1,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 178, percentile: 35, percentage: 11, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 195, percentile: 100, percentage: 55, speedEv: 252, nature: "Jolly" }
+      { type: "usage", speed: 146, percentile: 12, percentage: 12, speedEv: 0, nature: "Adamant" },
+      { type: "usage", speed: 178, percentile: 33, percentage: 16, speedEv: 252, nature: "Adamant" },
+      { type: "usage", speed: 195, percentile: 100, percentage: 56, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Tandemaus: { referenceDate: "2025-07", baseSpeed: 75, minSpeed: 95, maxSpeed: 127, minSpeedWithIvZero: 72, maxSpeedWithNature: 139, statistics: [] },
-  Tarountula: { referenceDate: "2025-07", baseSpeed: 20, minSpeed: 40, maxSpeed: 72, minSpeedWithIvZero: 22, maxSpeedWithNature: 79, statistics: [] },
+  Tandemaus: { referenceDate: "2025-08", baseSpeed: 75, minSpeed: 95, maxSpeed: 127, minSpeedWithIvZero: 72, maxSpeedWithNature: 139, statistics: [] },
+  Tarountula: { referenceDate: "2025-08", baseSpeed: 20, minSpeed: 40, maxSpeed: 72, minSpeedWithIvZero: 22, maxSpeedWithNature: 79, statistics: [] },
   Tatsugiri: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 82,
     minSpeed: 102,
     maxSpeed: 134,
     minSpeedWithIvZero: 78,
     maxSpeedWithNature: 147,
-    choiceScarfPercentage: 19,
+    choiceScarfPercentage: 21,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 134, percentile: 46, percentage: 23, speedEv: 252, nature: "Modest" },
-      { type: "usage", speed: 147, percentile: 100, percentage: 46, speedEv: 252, nature: "Timid" },
-      { type: "scarf", speed: 220, percentile: 100, percentage: 19, speedEv: 252, nature: "" }
+      { type: "usage", speed: 102, percentile: 15, percentage: 14, speedEv: 0, nature: "Calm" },
+      { type: "usage", speed: 134, percentile: 51, percentage: 19, speedEv: 252, nature: "Modest" },
+      { type: "usage", speed: 147, percentile: 100, percentage: 42, speedEv: 252, nature: "Timid" },
+      { type: "scarf", speed: 220, percentile: 100, percentage: 21, speedEv: 252, nature: "" }
     ]
   },
-  Tauros: { referenceDate: "2025-07", baseSpeed: 110, minSpeed: 130, maxSpeed: 162, minSpeedWithIvZero: 103, maxSpeedWithNature: 178, statistics: [] },
+  Tauros: { referenceDate: "2025-08", baseSpeed: 110, minSpeed: 130, maxSpeed: 162, minSpeedWithIvZero: 103, maxSpeedWithNature: 178, statistics: [] },
   "Tauros-Paldea-Aqua": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 100,
     minSpeed: 120,
     maxSpeed: 152,
     minSpeedWithIvZero: 94,
     maxSpeedWithNature: 167,
-    choiceScarfPercentage: 7,
+    choiceScarfPercentage: 2,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 125, percentile: 39, percentage: 25, speedEv: 36, nature: "Careful" },
-      { type: "usage", speed: 127, percentile: 54, percentage: 14, speedEv: 56, nature: "Impish" },
-      { type: "usage", speed: 167, percentile: 100, percentage: 36, speedEv: 252, nature: "Jolly" },
-      { type: "scarf", speed: 250, percentile: 100, percentage: 7, speedEv: 252, nature: "" }
+      { type: "usage", speed: 121, percentile: 32, percentage: 32, speedEv: 4, nature: "Impish" },
+      { type: "usage", speed: 125, percentile: 72, percentage: 40, speedEv: 36, nature: "Careful" },
+      { type: "usage", speed: 132, percentile: 94, percentage: 22, speedEv: 92, nature: "Adamant" }
     ]
   },
   "Tauros-Paldea-Blaze": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 100,
     minSpeed: 120,
     maxSpeed: 152,
     minSpeedWithIvZero: 94,
     maxSpeedWithNature: 167,
-    choiceScarfPercentage: 9,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 120, percentile: 23, percentage: 23, speedEv: 0, nature: "Careful" },
-      { type: "usage", speed: 167, percentile: 100, percentage: 63, speedEv: 252, nature: "Jolly" },
-      { type: "scarf", speed: 250, percentile: 100, percentage: 9, speedEv: 252, nature: "" }
+      { type: "usage", speed: 121, percentile: 37, percentage: 33, speedEv: 4, nature: "Careful" },
+      { type: "usage", speed: 167, percentile: 100, percentage: 59, speedEv: 252, nature: "Jolly" }
     ]
   },
-  "Tauros-Paldea-Combat": { referenceDate: "2025-07", baseSpeed: 100, minSpeed: 120, maxSpeed: 152, minSpeedWithIvZero: 94, maxSpeedWithNature: 167, statistics: [] },
-  Teddiursa: { referenceDate: "2025-07", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
-  Tentacool: { referenceDate: "2025-07", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
-  Tentacruel: { referenceDate: "2025-07", baseSpeed: 100, minSpeed: 120, maxSpeed: 152, minSpeedWithIvZero: 94, maxSpeedWithNature: 167, statistics: [] },
-  Tepig: { referenceDate: "2025-07", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  "Tauros-Paldea-Combat": { referenceDate: "2025-08", baseSpeed: 100, minSpeed: 120, maxSpeed: 152, minSpeedWithIvZero: 94, maxSpeedWithNature: 167, statistics: [] },
+  Teddiursa: { referenceDate: "2025-08", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Tentacool: { referenceDate: "2025-08", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
+  Tentacruel: { referenceDate: "2025-08", baseSpeed: 100, minSpeed: 120, maxSpeed: 152, minSpeedWithIvZero: 94, maxSpeedWithNature: 167, statistics: [] },
+  Tepig: { referenceDate: "2025-08", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
   Terapagos: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 60,
     minSpeed: 80,
     maxSpeed: 112,
@@ -5811,34 +5633,29 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 80, percentile: 20, percentage: 17, speedEv: 0, nature: "Modest" },
-      { type: "usage", speed: 81, percentile: 30, percentage: 11, speedEv: 4, nature: "Modest" },
-      { type: "usage", speed: 112, percentile: 93, percentage: 15, speedEv: 252, nature: "Modest" }
-    ]
+    statistics: [{ type: "usage", speed: 80, percentile: 28, percentage: 21, speedEv: 0, nature: "Modest" }]
   },
-  "Terapagos-Stellar": { referenceDate: "2025-07", baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
-  "Terapagos-Terastal": { referenceDate: "2025-07", baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
+  "Terapagos-Stellar": { referenceDate: "2025-08", baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
+  "Terapagos-Terastal": { referenceDate: "2025-08", baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
   Terrakion: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 108,
     minSpeed: 128,
     maxSpeed: 160,
     minSpeedWithIvZero: 101,
     maxSpeedWithNature: 176,
-    choiceScarfPercentage: 6,
-    choiceScarfIsMoreUsed: false,
+    choiceScarfPercentage: 41,
+    choiceScarfIsMoreUsed: true,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 153, percentile: 38, percentage: 13, speedEv: 196, nature: "Adamant" },
-      { type: "usage", speed: 165, percentile: 68, percentage: 19, speedEv: 172, nature: "Jolly" },
-      { type: "usage", speed: 176, percentile: 100, percentage: 30, speedEv: 252, nature: "Jolly" },
-      { type: "scarf", speed: 264, percentile: 100, percentage: 6, speedEv: 252, nature: "" }
+      { type: "usage", speed: 128, percentile: 15, percentage: 15, speedEv: 0, nature: "Adamant" },
+      { type: "usage", speed: 176, percentile: 100, percentage: 71, speedEv: 252, nature: "Jolly" },
+      { type: "scarf", speed: 264, percentile: 100, percentage: 41, speedEv: 252, nature: "" }
     ]
   },
   Thundurus: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 111,
     minSpeed: 131,
     maxSpeed: 163,
@@ -5849,32 +5666,33 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 131, percentile: 40, percentage: 40, speedEv: 0, nature: "Calm" },
-      { type: "usage", speed: 132, percentile: 58, percentage: 18, speedEv: 4, nature: "Modest" },
-      { type: "usage", speed: 179, percentile: 100, percentage: 14, speedEv: 252, nature: "Timid" }
+      { type: "usage", speed: 131, percentile: 39, percentage: 39, speedEv: 0, nature: "Calm" },
+      { type: "usage", speed: 132, percentile: 51, percentage: 12, speedEv: 4, nature: "Bold" },
+      { type: "usage", speed: 179, percentile: 100, percentage: 13, speedEv: 252, nature: "Timid" }
     ]
   },
   "Thundurus-Therian": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 101,
     minSpeed: 121,
     maxSpeed: 153,
     minSpeedWithIvZero: 95,
     maxSpeedWithNature: 168,
-    choiceScarfPercentage: 24,
+    choiceScarfPercentage: 14,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 153, percentile: 56, percentage: 17, speedEv: 252, nature: "Modest" },
-      { type: "usage", speed: 168, percentile: 100, percentage: 41, speedEv: 252, nature: "Timid" },
-      { type: "scarf", speed: 252, percentile: 100, percentage: 24, speedEv: 252, nature: "" }
+      { type: "usage", speed: 129, percentile: 30, percentage: 25, speedEv: 64, nature: "Modest" },
+      { type: "usage", speed: 153, percentile: 68, percentage: 25, speedEv: 252, nature: "Modest" },
+      { type: "usage", speed: 168, percentile: 100, percentage: 30, speedEv: 252, nature: "Timid" },
+      { type: "scarf", speed: 252, percentile: 100, percentage: 14, speedEv: 252, nature: "" }
     ]
   },
-  Thwackey: { referenceDate: "2025-07", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
-  Timburr: { referenceDate: "2025-07", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
+  Thwackey: { referenceDate: "2025-08", baseSpeed: 80, minSpeed: 100, maxSpeed: 132, minSpeedWithIvZero: 76, maxSpeedWithNature: 145, statistics: [] },
+  Timburr: { referenceDate: "2025-08", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
   "Ting-Lu": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 45,
     minSpeed: 65,
     maxSpeed: 97,
@@ -5885,14 +5703,14 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 45, percentile: 42, percentage: 42, speedEv: 0, nature: "Sassy" },
-      { type: "usage", speed: 65, percentile: 81, percentage: 38, speedEv: 0, nature: "Adamant" },
-      { type: "usage", speed: 66, percentile: 96, percentage: 15, speedEv: 4, nature: "Impish" }
+      { type: "usage", speed: 45, percentile: 30, percentage: 30, speedEv: 0, nature: "Sassy" },
+      { type: "usage", speed: 65, percentile: 68, percentage: 38, speedEv: 0, nature: "Impish" },
+      { type: "usage", speed: 66, percentile: 97, percentage: 29, speedEv: 4, nature: "Impish" }
     ]
   },
-  Tinkatink: { referenceDate: "2025-07", baseSpeed: 58, minSpeed: 78, maxSpeed: 110, minSpeedWithIvZero: 56, maxSpeedWithNature: 121, statistics: [] },
+  Tinkatink: { referenceDate: "2025-08", baseSpeed: 58, minSpeed: 78, maxSpeed: 110, minSpeedWithIvZero: 56, maxSpeedWithNature: 121, statistics: [] },
   Tinkaton: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 94,
     minSpeed: 114,
     maxSpeed: 146,
@@ -5903,31 +5721,33 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 114, percentile: 24, percentage: 18, speedEv: 0, nature: "Careful" },
-      { type: "usage", speed: 125, percentile: 60, percentage: 18, speedEv: 84, nature: "Adamant" }
+      { type: "usage", speed: 114, percentile: 28, percentage: 26, speedEv: 0, nature: "Adamant" },
+      { type: "usage", speed: 140, percentile: 68, percentage: 14, speedEv: 108, nature: "Jolly" },
+      { type: "usage", speed: 160, percentile: 100, percentage: 11, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Tinkatuff: { referenceDate: "2025-07", baseSpeed: 78, minSpeed: 98, maxSpeed: 130, minSpeedWithIvZero: 74, maxSpeedWithNature: 143, statistics: [] },
-  Toedscool: { referenceDate: "2025-07", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
+  Tinkatuff: { referenceDate: "2025-08", baseSpeed: 78, minSpeed: 98, maxSpeed: 130, minSpeedWithIvZero: 74, maxSpeedWithNature: 143, statistics: [] },
+  Toedscool: { referenceDate: "2025-08", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
   Toedscruel: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 100,
     minSpeed: 120,
     maxSpeed: 152,
     minSpeedWithIvZero: 94,
     maxSpeedWithNature: 167,
-    choiceScarfPercentage: 1,
+    choiceScarfPercentage: 6,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 120, percentile: 13, percentage: 12, speedEv: 0, nature: "Bold" },
-      { type: "usage", speed: 167, percentile: 100, percentage: 60, speedEv: 252, nature: "Timid" }
+      { type: "usage", speed: 152, percentile: 39, percentage: 23, speedEv: 148, nature: "Timid" },
+      { type: "usage", speed: 167, percentile: 100, percentage: 57, speedEv: 252, nature: "Timid" },
+      { type: "scarf", speed: 250, percentile: 100, percentage: 6, speedEv: 252, nature: "" }
     ]
   },
-  Torchic: { referenceDate: "2025-07", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  Torchic: { referenceDate: "2025-08", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
   Torkoal: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 20,
     minSpeed: 40,
     maxSpeed: 72,
@@ -5938,12 +5758,12 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 22, percentile: 84, percentage: 84, speedEv: 0, nature: "Quiet" },
-      { type: "usage", speed: 40, percentile: 99, percentage: 14, speedEv: 0, nature: "Modest" }
+      { type: "usage", speed: 22, percentile: 86, percentage: 86, speedEv: 0, nature: "Quiet" },
+      { type: "usage", speed: 40, percentile: 99, percentage: 12, speedEv: 0, nature: "Modest" }
     ]
   },
   Tornadus: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 111,
     minSpeed: 131,
     maxSpeed: 163,
@@ -5954,42 +5774,31 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 131, percentile: 13, percentage: 13, speedEv: 0, nature: "Calm" },
-      { type: "usage", speed: 133, percentile: 48, percentage: 23, speedEv: 12, nature: "Modest" },
-      { type: "usage", speed: 179, percentile: 100, percentage: 17, speedEv: 252, nature: "Timid" }
+      { type: "usage", speed: 131, percentile: 18, percentage: 18, speedEv: 0, nature: "Calm" },
+      { type: "usage", speed: 133, percentile: 44, percentage: 17, speedEv: 12, nature: "Modest" },
+      { type: "usage", speed: 179, percentile: 100, percentage: 18, speedEv: 252, nature: "Timid" }
     ]
   },
   "Tornadus-Therian": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 121,
     minSpeed: 141,
     maxSpeed: 173,
     minSpeedWithIvZero: 113,
     maxSpeedWithNature: 190,
-    choiceScarfPercentage: 3,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [{ type: "usage", speed: 190, percentile: 100, percentage: 81, speedEv: 252, nature: "Timid" }]
-  },
-  Torracat: {
-    referenceDate: "2025-07",
-    baseSpeed: 90,
-    minSpeed: 110,
-    maxSpeed: 142,
-    minSpeedWithIvZero: 85,
-    maxSpeedWithNature: 156,
     choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 110, percentile: 57, percentage: 57, speedEv: 0, nature: "Careful" },
-      { type: "usage", speed: 156, percentile: 100, percentage: 26, speedEv: 252, nature: "Jolly" }
+      { type: "usage", speed: 141, percentile: 41, percentage: 41, speedEv: 0, nature: "Careful" },
+      { type: "usage", speed: 173, percentile: 76, percentage: 31, speedEv: 252, nature: "Mild" },
+      { type: "usage", speed: 190, percentile: 100, percentage: 24, speedEv: 252, nature: "Timid" }
     ]
   },
+  Torracat: { referenceDate: "2025-08", baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
   Torterra: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 56,
     minSpeed: 76,
     maxSpeed: 108,
@@ -6000,14 +5809,15 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 54, percentile: 26, percentage: 26, speedEv: 0, nature: "Brave" },
-      { type: "usage", speed: 76, percentile: 59, percentage: 32, speedEv: 0, nature: "Impish" }
+      { type: "usage", speed: 54, percentile: 20, percentage: 20, speedEv: 0, nature: "Brave" },
+      { type: "usage", speed: 76, percentile: 65, percentage: 40, speedEv: 0, nature: "Impish" },
+      { type: "usage", speed: 108, percentile: 100, percentage: 18, speedEv: 252, nature: "Hardy" }
     ]
   },
-  Totodile: { referenceDate: "2025-07", baseSpeed: 43, minSpeed: 63, maxSpeed: 95, minSpeedWithIvZero: 43, maxSpeedWithNature: 104, statistics: [] },
-  Toucannon: { referenceDate: "2025-07", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  Totodile: { referenceDate: "2025-08", baseSpeed: 43, minSpeed: 63, maxSpeed: 95, minSpeedWithIvZero: 43, maxSpeedWithNature: 104, statistics: [] },
+  Toucannon: { referenceDate: "2025-08", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
   Toxapex: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 35,
     minSpeed: 55,
     maxSpeed: 87,
@@ -6018,13 +5828,14 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 36, percentile: 33, percentage: 33, speedEv: 0, nature: "Sassy" },
-      { type: "usage", speed: 55, percentile: 95, percentage: 62, speedEv: 0, nature: "Bold" }
+      { type: "usage", speed: 36, percentile: 40, percentage: 40, speedEv: 0, nature: "Sassy" },
+      { type: "usage", speed: 55, percentile: 88, percentage: 48, speedEv: 0, nature: "Bold" },
+      { type: "usage", speed: 56, percentile: 100, percentage: 12, speedEv: 8, nature: "Modest" }
     ]
   },
-  Toxel: { referenceDate: "2025-07", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Toxel: { referenceDate: "2025-08", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
   Toxicroak: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 85,
     minSpeed: 105,
     maxSpeed: 137,
@@ -6035,12 +5846,13 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 105, percentile: 43, percentage: 34, speedEv: 0, nature: "Adamant" },
-      { type: "usage", speed: 150, percentile: 100, percentage: 24, speedEv: 252, nature: "Jolly" }
+      { type: "usage", speed: 105, percentile: 26, percentage: 22, speedEv: 0, nature: "Adamant" },
+      { type: "usage", speed: 112, percentile: 49, percentage: 11, speedEv: 52, nature: "Adamant" },
+      { type: "usage", speed: 150, percentile: 100, percentage: 49, speedEv: 252, nature: "Jolly" }
     ]
   },
   Toxtricity: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 75,
     minSpeed: 95,
     maxSpeed: 127,
@@ -6051,15 +5863,14 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 95, percentile: 36, percentage: 33, speedEv: 0, nature: "Modest" },
-      { type: "usage", speed: 112, percentile: 55, percentage: 11, speedEv: 132, nature: "Modest" },
-      { type: "usage", speed: 127, percentile: 90, percentage: 21, speedEv: 252, nature: "Modest" }
+      { type: "usage", speed: 95, percentile: 78, percentage: 78, speedEv: 0, nature: "Modest" },
+      { type: "usage", speed: 139, percentile: 100, percentage: 15, speedEv: 252, nature: "Timid" }
     ]
   },
-  Trapinch: { referenceDate: "2025-07", baseSpeed: 10, minSpeed: 30, maxSpeed: 62, minSpeedWithIvZero: 13, maxSpeedWithNature: 68, statistics: [] },
-  Treecko: { referenceDate: "2025-07", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
+  Trapinch: { referenceDate: "2025-08", baseSpeed: 10, minSpeed: 30, maxSpeed: 62, minSpeedWithIvZero: 13, maxSpeedWithNature: 68, statistics: [] },
+  Treecko: { referenceDate: "2025-08", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
   Trevenant: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 56,
     minSpeed: 76,
     maxSpeed: 108,
@@ -6070,12 +5881,13 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 54, percentile: 34, percentage: 34, speedEv: 0, nature: "Relaxed" },
-      { type: "usage", speed: 76, percentile: 88, percentage: 54, speedEv: 0, nature: "Careful" }
+      { type: "usage", speed: 54, percentile: 61, percentage: 61, speedEv: 0, nature: "Sassy" },
+      { type: "usage", speed: 76, percentile: 73, percentage: 12, speedEv: 0, nature: "Careful" },
+      { type: "usage", speed: 77, percentile: 85, percentage: 12, speedEv: 4, nature: "Adamant" }
     ]
   },
   Tropius: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 51,
     minSpeed: 71,
     maxSpeed: 103,
@@ -6086,14 +5898,14 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 50, percentile: 12, percentage: 12, speedEv: 0, nature: "Relaxed" },
-      { type: "usage", speed: 71, percentile: 47, percentage: 35, speedEv: 0, nature: "Bold" },
-      { type: "usage", speed: 113, percentile: 100, percentage: 32, speedEv: 252, nature: "Timid" }
+      { type: "usage", speed: 103, percentile: 48, percentage: 17, speedEv: 252, nature: "Adamant" },
+      { type: "usage", speed: 112, percentile: 61, percentage: 13, speedEv: 244, nature: "Timid" },
+      { type: "usage", speed: 113, percentile: 100, percentage: 39, speedEv: 252, nature: "Timid" }
     ]
   },
-  Trumbeak: { referenceDate: "2025-07", baseSpeed: 75, minSpeed: 95, maxSpeed: 127, minSpeedWithIvZero: 72, maxSpeedWithNature: 139, statistics: [] },
+  Trumbeak: { referenceDate: "2025-08", baseSpeed: 75, minSpeed: 95, maxSpeed: 127, minSpeedWithIvZero: 72, maxSpeedWithNature: 139, statistics: [] },
   Tsareena: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 72,
     minSpeed: 92,
     maxSpeed: 124,
@@ -6104,68 +5916,69 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 92, percentile: 19, percentage: 16, speedEv: 0, nature: "Adamant" },
-      { type: "usage", speed: 112, percentile: 45, percentage: 14, speedEv: 156, nature: "Adamant" },
-      { type: "usage", speed: 124, percentile: 92, percentage: 36, speedEv: 252, nature: "Adamant" }
+      { type: "usage", speed: 92, percentile: 21, percentage: 21, speedEv: 0, nature: "Adamant" },
+      { type: "usage", speed: 124, percentile: 80, percentage: 39, speedEv: 252, nature: "Adamant" },
+      { type: "usage", speed: 136, percentile: 100, percentage: 20, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Turtwig: { referenceDate: "2025-07", baseSpeed: 31, minSpeed: 51, maxSpeed: 83, minSpeedWithIvZero: 32, maxSpeedWithNature: 91, statistics: [] },
-  Tynamo: { referenceDate: "2025-07", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  Turtwig: { referenceDate: "2025-08", baseSpeed: 31, minSpeed: 51, maxSpeed: 83, minSpeedWithIvZero: 32, maxSpeedWithNature: 91, statistics: [] },
+  Tynamo: { referenceDate: "2025-08", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
   Typhlosion: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 100,
     minSpeed: 120,
     maxSpeed: 152,
     minSpeedWithIvZero: 94,
     maxSpeedWithNature: 167,
-    choiceScarfPercentage: 45,
-    choiceScarfIsMoreUsed: true,
+    choiceScarfPercentage: 28,
+    choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 152, percentile: 37, percentage: 25, speedEv: 252, nature: "Modest" },
-      { type: "usage", speed: 167, percentile: 100, percentage: 63, speedEv: 252, nature: "Timid" },
-      { type: "scarf", speed: 250, percentile: 100, percentage: 45, speedEv: 252, nature: "" }
+      { type: "usage", speed: 152, percentile: 38, percentage: 22, speedEv: 252, nature: "Modest" },
+      { type: "usage", speed: 156, percentile: 53, percentage: 16, speedEv: 174, nature: "Timid" },
+      { type: "usage", speed: 167, percentile: 100, percentage: 47, speedEv: 252, nature: "Timid" },
+      { type: "scarf", speed: 250, percentile: 100, percentage: 28, speedEv: 252, nature: "" }
     ]
   },
   "Typhlosion-Hisui": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 95,
     minSpeed: 115,
     maxSpeed: 147,
     minSpeedWithIvZero: 90,
     maxSpeedWithNature: 161,
-    choiceScarfPercentage: 41,
+    choiceScarfPercentage: 58,
     choiceScarfIsMoreUsed: true,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 115, percentile: 12, percentage: 11, speedEv: 0, nature: "Modest" },
-      { type: "usage", speed: 147, percentile: 44, percentage: 29, speedEv: 252, nature: "Modest" },
-      { type: "usage", speed: 161, percentile: 100, percentage: 54, speedEv: 252, nature: "Timid" },
-      { type: "scarf", speed: 241, percentile: 100, percentage: 41, speedEv: 252, nature: "" }
+      { type: "usage", speed: 115, percentile: 20, percentage: 19, speedEv: 0, nature: "Modest" },
+      { type: "usage", speed: 147, percentile: 43, percentage: 15, speedEv: 252, nature: "Modest" },
+      { type: "usage", speed: 161, percentile: 100, percentage: 50, speedEv: 252, nature: "Timid" },
+      { type: "scarf", speed: 241, percentile: 100, percentage: 58, speedEv: 252, nature: "" }
     ]
   },
   Tyranitar: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 61,
     minSpeed: 81,
     maxSpeed: 113,
     minSpeedWithIvZero: 59,
     maxSpeedWithNature: 124,
-    choiceScarfPercentage: 1,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 59, percentile: 16, percentage: 16, speedEv: 0, nature: "Brave" },
-      { type: "usage", speed: 81, percentile: 49, percentage: 33, speedEv: 0, nature: "Adamant" },
-      { type: "usage", speed: 82, percentile: 65, percentage: 16, speedEv: 4, nature: "Adamant" }
+      { type: "usage", speed: 81, percentile: 43, percentage: 33, speedEv: 0, nature: "Careful" },
+      { type: "usage", speed: 82, percentile: 61, percentage: 18, speedEv: 4, nature: "Adamant" },
+      { type: "usage", speed: 124, percentile: 100, percentage: 13, speedEv: 252, nature: "Jolly" }
     ]
   },
-  Tyrogue: { referenceDate: "2025-07", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
+  Tyrogue: { referenceDate: "2025-08", baseSpeed: 35, minSpeed: 55, maxSpeed: 87, minSpeedWithIvZero: 36, maxSpeedWithNature: 95, statistics: [] },
   Umbreon: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 65,
     minSpeed: 85,
     maxSpeed: 117,
@@ -6175,13 +5988,10 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 63, percentile: 12, percentage: 12, speedEv: 0, nature: "Sassy" },
-      { type: "usage", speed: 85, percentile: 78, percentage: 67, speedEv: 0, nature: "Calm" }
-    ]
+    statistics: [{ type: "usage", speed: 85, percentile: 95, percentage: 89, speedEv: 0, nature: "Calm" }]
   },
   Ursaluna: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 50,
     minSpeed: 70,
     maxSpeed: 102,
@@ -6192,12 +6002,12 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 49, percentile: 76, percentage: 76, speedEv: 0, nature: "Brave" },
-      { type: "usage", speed: 70, percentile: 89, percentage: 12, speedEv: 0, nature: "Adamant" }
+      { type: "usage", speed: 49, percentile: 72, percentage: 72, speedEv: 0, nature: "Brave" },
+      { type: "usage", speed: 70, percentile: 88, percentage: 16, speedEv: 0, nature: "Adamant" }
     ]
   },
   "Ursaluna-Bloodmoon": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 52,
     minSpeed: 72,
     maxSpeed: 104,
@@ -6208,48 +6018,48 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 51, percentile: 41, percentage: 41, speedEv: 0, nature: "Quiet" },
-      { type: "usage", speed: 72, percentile: 71, percentage: 30, speedEv: 0, nature: "Modest" }
+      { type: "usage", speed: 51, percentile: 46, percentage: 46, speedEv: 0, nature: "Quiet" },
+      { type: "usage", speed: 72, percentile: 80, percentage: 34, speedEv: 0, nature: "Modest" }
     ]
   },
-  Ursaring: { referenceDate: "2025-07", baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
+  Ursaring: { referenceDate: "2025-08", baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
   Urshifu: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 97,
     minSpeed: 117,
     maxSpeed: 149,
     minSpeedWithIvZero: 91,
     maxSpeedWithNature: 163,
-    choiceScarfPercentage: 10,
+    choiceScarfPercentage: 11,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
       { type: "usage", speed: 91, percentile: 19, percentage: 19, speedEv: 0, nature: "Brave" },
-      { type: "usage", speed: 149, percentile: 76, percentage: 36, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 163, percentile: 100, percentage: 23, speedEv: 252, nature: "Jolly" },
-      { type: "scarf", speed: 244, percentile: 100, percentage: 10, speedEv: 252, nature: "" }
+      { type: "usage", speed: 149, percentile: 72, percentage: 33, speedEv: 252, nature: "Adamant" },
+      { type: "usage", speed: 163, percentile: 100, percentage: 25, speedEv: 252, nature: "Jolly" },
+      { type: "scarf", speed: 244, percentile: 100, percentage: 11, speedEv: 252, nature: "" }
     ]
   },
   "Urshifu-Rapid-Strike": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 97,
     minSpeed: 117,
     maxSpeed: 149,
     minSpeedWithIvZero: 91,
     maxSpeedWithNature: 163,
-    choiceScarfPercentage: 29,
+    choiceScarfPercentage: 28,
     choiceScarfIsMoreUsed: true,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 149, percentile: 87, percentage: 53, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 163, percentile: 100, percentage: 11, speedEv: 252, nature: "Jolly" },
-      { type: "scarf", speed: 244, percentile: 100, percentage: 29, speedEv: 252, nature: "" }
+      { type: "usage", speed: 149, percentile: 84, percentage: 51, speedEv: 252, nature: "Adamant" },
+      { type: "usage", speed: 163, percentile: 100, percentage: 15, speedEv: 252, nature: "Jolly" },
+      { type: "scarf", speed: 244, percentile: 100, percentage: 28, speedEv: 252, nature: "" }
     ]
   },
   Uxie: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 95,
     minSpeed: 115,
     maxSpeed: 147,
@@ -6260,13 +6070,12 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 90, percentile: 17, percentage: 17, speedEv: 0, nature: "Sassy" },
-      { type: "usage", speed: 115, percentile: 79, percentage: 62, speedEv: 0, nature: "Impish" },
-      { type: "usage", speed: 116, percentile: 97, percentage: 18, speedEv: 4, nature: "Calm" }
+      { type: "usage", speed: 90, percentile: 68, percentage: 68, speedEv: 0, nature: "Sassy" },
+      { type: "usage", speed: 115, percentile: 98, percentage: 30, speedEv: 0, nature: "Careful" }
     ]
   },
   Vaporeon: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 65,
     minSpeed: 85,
     maxSpeed: 117,
@@ -6276,14 +6085,14 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
-    statistics: [{ type: "usage", speed: 85, percentile: 67, percentage: 63, speedEv: 0, nature: "Calm" }]
+    statistics: [{ type: "usage", speed: 85, percentile: 90, percentage: 90, speedEv: 0, nature: "Modest" }]
   },
-  Varoom: { referenceDate: "2025-07", baseSpeed: 47, minSpeed: 67, maxSpeed: 99, minSpeedWithIvZero: 46, maxSpeedWithNature: 108, statistics: [] },
-  Veluza: { referenceDate: "2025-07", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
-  Venomoth: { referenceDate: "2025-07", baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
-  Venonat: { referenceDate: "2025-07", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  Varoom: { referenceDate: "2025-08", baseSpeed: 47, minSpeed: 67, maxSpeed: 99, minSpeedWithIvZero: 46, maxSpeedWithNature: 108, statistics: [] },
+  Veluza: { referenceDate: "2025-08", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
+  Venomoth: { referenceDate: "2025-08", baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
+  Venonat: { referenceDate: "2025-08", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
   Venusaur: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 80,
     minSpeed: 100,
     maxSpeed: 132,
@@ -6294,31 +6103,17 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 132, percentile: 82, percentage: 48, speedEv: 252, nature: "Modest" },
-      { type: "usage", speed: 145, percentile: 100, percentage: 17, speedEv: 252, nature: "Timid" }
+      { type: "usage", speed: 112, percentile: 27, percentage: 15, speedEv: 92, nature: "Calm" },
+      { type: "usage", speed: 132, percentile: 80, percentage: 44, speedEv: 252, nature: "Modest" },
+      { type: "usage", speed: 145, percentile: 100, percentage: 20, speedEv: 252, nature: "Hasty" }
     ]
   },
-  Vespiquen: {
-    referenceDate: "2025-07",
-    baseSpeed: 40,
-    minSpeed: 60,
-    maxSpeed: 92,
-    minSpeedWithIvZero: 40,
-    maxSpeedWithNature: 101,
-    choiceScarfPercentage: 0,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 40, percentile: 41, percentage: 41, speedEv: 0, nature: "Sassy" },
-      { type: "usage", speed: 60, percentile: 100, percentage: 59, speedEv: 0, nature: "Careful" }
-    ]
-  },
-  Vibrava: { referenceDate: "2025-07", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
-  Victreebel: { referenceDate: "2025-07", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
-  Vigoroth: { referenceDate: "2025-07", baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
+  Vespiquen: { referenceDate: "2025-08", baseSpeed: 40, minSpeed: 60, maxSpeed: 92, minSpeedWithIvZero: 40, maxSpeedWithNature: 101, statistics: [] },
+  Vibrava: { referenceDate: "2025-08", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
+  Victreebel: { referenceDate: "2025-08", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
+  Vigoroth: { referenceDate: "2025-08", baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
   Vikavolt: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 43,
     minSpeed: 63,
     maxSpeed: 95,
@@ -6329,30 +6124,28 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 43, percentile: 43, percentage: 43, speedEv: 0, nature: "Quiet" },
-      { type: "usage", speed: 63, percentile: 78, percentage: 35, speedEv: 0, nature: "Calm" }
+      { type: "usage", speed: 43, percentile: 67, percentage: 67, speedEv: 0, nature: "Quiet" },
+      { type: "usage", speed: 63, percentile: 90, percentage: 23, speedEv: 0, nature: "Calm" }
     ]
   },
   Vileplume: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 50,
     minSpeed: 70,
     maxSpeed: 102,
     minSpeedWithIvZero: 49,
     maxSpeedWithNature: 112,
-    choiceScarfPercentage: 19,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 70, percentile: 19, percentage: 14, speedEv: 0, nature: "Modest" },
-      { type: "usage", speed: 88, percentile: 57, percentage: 36, speedEv: 140, nature: "Hardy" },
-      { type: "usage", speed: 112, percentile: 100, percentage: 36, speedEv: 252, nature: "Timid" },
-      { type: "scarf", speed: 168, percentile: 100, percentage: 19, speedEv: 252, nature: "" }
+      { type: "usage", speed: 49, percentile: 18, percentage: 18, speedEv: 0, nature: "Relaxed" },
+      { type: "usage", speed: 88, percentile: 89, percentage: 68, speedEv: 140, nature: "Hardy" }
     ]
   },
   Virizion: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 108,
     minSpeed: 128,
     maxSpeed: 160,
@@ -6362,29 +6155,27 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 129, percentile: 81, percentage: 79, speedEv: 4, nature: "Impish" },
-      { type: "usage", speed: 160, percentile: 98, percentage: 16, speedEv: 252, nature: "Adamant" }
-    ]
+    statistics: [{ type: "usage", speed: 176, percentile: 100, percentage: 80, speedEv: 252, nature: "Hasty" }]
   },
   Vivillon: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 89,
     minSpeed: 109,
     maxSpeed: 141,
     minSpeedWithIvZero: 84,
     maxSpeedWithNature: 155,
-    choiceScarfPercentage: 2,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 141, percentile: 43, percentage: 23, speedEv: 252, nature: "Modest" },
-      { type: "usage", speed: 155, percentile: 100, percentage: 49, speedEv: 252, nature: "Timid" }
+      { type: "usage", speed: 109, percentile: 26, percentage: 26, speedEv: 0, nature: "Calm" },
+      { type: "usage", speed: 141, percentile: 62, percentage: 29, speedEv: 252, nature: "Bold" },
+      { type: "usage", speed: 155, percentile: 100, percentage: 29, speedEv: 252, nature: "Timid" }
     ]
   },
   Volbeat: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 85,
     minSpeed: 105,
     maxSpeed: 137,
@@ -6395,14 +6186,13 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 105, percentile: 24, percentage: 20, speedEv: 0, nature: "Bold" },
-      { type: "usage", speed: 120, percentile: 73, percentage: 36, speedEv: 116, nature: "Careful" },
-      { type: "usage", speed: 150, percentile: 100, percentage: 26, speedEv: 252, nature: "Timid" }
+      { type: "usage", speed: 105, percentile: 38, percentage: 28, speedEv: 0, nature: "Bold" },
+      { type: "usage", speed: 120, percentile: 89, percentage: 39, speedEv: 116, nature: "Careful" }
     ]
   },
-  Volcanion: { referenceDate: "2025-07", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
+  Volcanion: { referenceDate: "2025-08", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
   Volcarona: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 100,
     minSpeed: 120,
     maxSpeed: 152,
@@ -6412,50 +6202,50 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
-    statistics: [{ type: "usage", speed: 150, percentile: 86, percentage: 44, speedEv: 132, nature: "Timid" }]
+    statistics: [
+      { type: "usage", speed: 120, percentile: 11, percentage: 11, speedEv: 0, nature: "Bold" },
+      { type: "usage", speed: 150, percentile: 79, percentage: 41, speedEv: 132, nature: "Timid" }
+    ]
   },
-  Voltorb: { referenceDate: "2025-07", baseSpeed: 100, minSpeed: 120, maxSpeed: 152, minSpeedWithIvZero: 94, maxSpeedWithNature: 167, statistics: [] },
-  "Voltorb-Hisui": { referenceDate: "2025-07", baseSpeed: 100, minSpeed: 120, maxSpeed: 152, minSpeedWithIvZero: 94, maxSpeedWithNature: 167, statistics: [] },
-  Vullaby: { referenceDate: "2025-07", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
-  Vulpix: { referenceDate: "2025-07", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
-  "Vulpix-Alola": { referenceDate: "2025-07", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  Voltorb: { referenceDate: "2025-08", baseSpeed: 100, minSpeed: 120, maxSpeed: 152, minSpeedWithIvZero: 94, maxSpeedWithNature: 167, statistics: [] },
+  "Voltorb-Hisui": { referenceDate: "2025-08", baseSpeed: 100, minSpeed: 120, maxSpeed: 152, minSpeedWithIvZero: 94, maxSpeedWithNature: 167, statistics: [] },
+  Vullaby: { referenceDate: "2025-08", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  Vulpix: { referenceDate: "2025-08", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  "Vulpix-Alola": { referenceDate: "2025-08", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
   "Walking Wake": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 109,
     minSpeed: 129,
     maxSpeed: 161,
     minSpeedWithIvZero: 102,
     maxSpeedWithNature: 177,
-    choiceScarfPercentage: 4,
+    choiceScarfPercentage: 3,
     choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 11,
+    boosterEnergyPercentage: 13,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 177, percentile: 100, percentage: 59, speedEv: 252, nature: "Timid" },
-      { type: "booster", speed: 265, percentile: 100, percentage: 11, speedEv: 252, nature: "" }
+      { type: "usage", speed: 177, percentile: 100, percentage: 56, speedEv: 252, nature: "Timid" },
+      { type: "booster", speed: 265, percentile: 100, percentage: 13, speedEv: 252, nature: "" }
     ]
   },
-  Wartortle: { referenceDate: "2025-07", baseSpeed: 58, minSpeed: 78, maxSpeed: 110, minSpeedWithIvZero: 56, maxSpeedWithNature: 121, statistics: [] },
-  Wattrel: { referenceDate: "2025-07", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
+  Wartortle: { referenceDate: "2025-08", baseSpeed: 58, minSpeed: 78, maxSpeed: 110, minSpeedWithIvZero: 56, maxSpeedWithNature: 121, statistics: [] },
+  Wattrel: { referenceDate: "2025-08", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
   Weavile: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 125,
     minSpeed: 145,
     maxSpeed: 177,
     minSpeedWithIvZero: 117,
     maxSpeedWithNature: 194,
-    choiceScarfPercentage: 3,
+    choiceScarfPercentage: 2,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 177, percentile: 23, percentage: 20, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 194, percentile: 100, percentage: 76, speedEv: 252, nature: "Jolly" }
-    ]
+    statistics: [{ type: "usage", speed: 194, percentile: 100, percentage: 94, speedEv: 252, nature: "Jolly" }]
   },
-  Weepinbell: { referenceDate: "2025-07", baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
+  Weepinbell: { referenceDate: "2025-08", baseSpeed: 55, minSpeed: 75, maxSpeed: 107, minSpeedWithIvZero: 54, maxSpeedWithNature: 117, statistics: [] },
   Weezing: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 60,
     minSpeed: 80,
     maxSpeed: 112,
@@ -6466,12 +6256,13 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 80, percentile: 60, percentage: 49, speedEv: 0, nature: "Calm" },
-      { type: "usage", speed: 123, percentile: 100, percentage: 15, speedEv: 252, nature: "Timid" }
+      { type: "usage", speed: 80, percentile: 46, percentage: 40, speedEv: 0, nature: "Calm" },
+      { type: "usage", speed: 92, percentile: 67, percentage: 13, speedEv: 92, nature: "Calm" },
+      { type: "usage", speed: 123, percentile: 100, percentage: 27, speedEv: 252, nature: "Timid" }
     ]
   },
   "Weezing-Galar": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 60,
     minSpeed: 80,
     maxSpeed: 112,
@@ -6482,13 +6273,13 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 80, percentile: 26, percentage: 22, speedEv: 0, nature: "Careful" },
-      { type: "usage", speed: 82, percentile: 50, percentage: 18, speedEv: 12, nature: "Bold" },
-      { type: "usage", speed: 88, percentile: 90, percentage: 12, speedEv: 60, nature: "Impish" }
+      { type: "usage", speed: 80, percentile: 30, percentage: 27, speedEv: 0, nature: "Careful" },
+      { type: "usage", speed: 82, percentile: 55, percentage: 20, speedEv: 12, nature: "Bold" },
+      { type: "usage", speed: 88, percentile: 89, percentage: 11, speedEv: 60, nature: "Impish" }
     ]
   },
   Whimsicott: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 116,
     minSpeed: 136,
     maxSpeed: 168,
@@ -6499,32 +6290,16 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 136, percentile: 14, percentage: 14, speedEv: 0, nature: "Bold" },
-      { type: "usage", speed: 184, percentile: 100, percentage: 21, speedEv: 252, nature: "Timid" }
+      { type: "usage", speed: 136, percentile: 16, percentage: 16, speedEv: 0, nature: "Bold" },
+      { type: "usage", speed: 184, percentile: 100, percentage: 22, speedEv: 252, nature: "Timid" }
     ]
   },
-  Whiscash: { referenceDate: "2025-07", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
-  Wigglytuff: {
-    referenceDate: "2025-07",
-    baseSpeed: 45,
-    minSpeed: 65,
-    maxSpeed: 97,
-    minSpeedWithIvZero: 45,
-    maxSpeedWithNature: 106,
-    choiceScarfPercentage: 13,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 65, percentile: 87, percentage: 79, speedEv: 0, nature: "Modest" },
-      { type: "usage", speed: 106, percentile: 100, percentage: 13, speedEv: 252, nature: "Hasty" },
-      { type: "scarf", speed: 159, percentile: 100, percentage: 13, speedEv: 252, nature: "" }
-    ]
-  },
-  Wiglett: { referenceDate: "2025-07", baseSpeed: 95, minSpeed: 115, maxSpeed: 147, minSpeedWithIvZero: 90, maxSpeedWithNature: 161, statistics: [] },
-  Wingull: { referenceDate: "2025-07", baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
+  Whiscash: { referenceDate: "2025-08", baseSpeed: 60, minSpeed: 80, maxSpeed: 112, minSpeedWithIvZero: 58, maxSpeedWithNature: 123, statistics: [] },
+  Wigglytuff: { referenceDate: "2025-08", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  Wiglett: { referenceDate: "2025-08", baseSpeed: 95, minSpeed: 115, maxSpeed: 147, minSpeedWithIvZero: 90, maxSpeedWithNature: 161, statistics: [] },
+  Wingull: { referenceDate: "2025-08", baseSpeed: 85, minSpeed: 105, maxSpeed: 137, minSpeedWithIvZero: 81, maxSpeedWithNature: 150, statistics: [] },
   "Wo-Chien": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 70,
     minSpeed: 90,
     maxSpeed: 122,
@@ -6535,15 +6310,16 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 67, percentile: 16, percentage: 16, speedEv: 0, nature: "Sassy" },
-      { type: "usage", speed: 90, percentile: 57, percentage: 41, speedEv: 0, nature: "Calm" }
+      { type: "usage", speed: 67, percentile: 23, percentage: 23, speedEv: 0, nature: "Relaxed" },
+      { type: "usage", speed: 90, percentile: 54, percentage: 31, speedEv: 0, nature: "Calm" },
+      { type: "usage", speed: 114, percentile: 95, percentage: 20, speedEv: 188, nature: "Calm" }
     ]
   },
-  Wooper: { referenceDate: "2025-07", baseSpeed: 15, minSpeed: 35, maxSpeed: 67, minSpeedWithIvZero: 18, maxSpeedWithNature: 73, statistics: [] },
-  "Wooper-Paldea": { referenceDate: "2025-07", baseSpeed: 15, minSpeed: 35, maxSpeed: 67, minSpeedWithIvZero: 18, maxSpeedWithNature: 73, statistics: [] },
-  Wugtrio: { referenceDate: "2025-07", baseSpeed: 120, minSpeed: 140, maxSpeed: 172, minSpeedWithIvZero: 112, maxSpeedWithNature: 189, statistics: [] },
+  Wooper: { referenceDate: "2025-08", baseSpeed: 15, minSpeed: 35, maxSpeed: 67, minSpeedWithIvZero: 18, maxSpeedWithNature: 73, statistics: [] },
+  "Wooper-Paldea": { referenceDate: "2025-08", baseSpeed: 15, minSpeed: 35, maxSpeed: 67, minSpeedWithIvZero: 18, maxSpeedWithNature: 73, statistics: [] },
+  Wugtrio: { referenceDate: "2025-08", baseSpeed: 120, minSpeed: 140, maxSpeed: 172, minSpeedWithIvZero: 112, maxSpeedWithNature: 189, statistics: [] },
   Wyrdeer: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 65,
     minSpeed: 85,
     maxSpeed: 117,
@@ -6554,26 +6330,14 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 63, percentile: 34, percentage: 34, speedEv: 0, nature: "Sassy" },
-      { type: "usage", speed: 85, percentile: 58, percentage: 24, speedEv: 0, nature: "Calm" },
-      { type: "usage", speed: 93, percentile: 78, percentage: 17, speedEv: 0, nature: "Jolly" }
+      { type: "usage", speed: 63, percentile: 30, percentage: 30, speedEv: 0, nature: "Sassy" },
+      { type: "usage", speed: 85, percentile: 70, percentage: 41, speedEv: 0, nature: "Bold" },
+      { type: "usage", speed: 111, percentile: 89, percentage: 15, speedEv: 128, nature: "Naive" }
     ]
   },
-  Yanma: {
-    referenceDate: "2025-07",
-    baseSpeed: 95,
-    minSpeed: 115,
-    maxSpeed: 147,
-    minSpeedWithIvZero: 90,
-    maxSpeedWithNature: 161,
-    choiceScarfPercentage: 0,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [{ type: "usage", speed: 161, percentile: 100, percentage: 98, speedEv: 252, nature: "Timid" }]
-  },
+  Yanma: { referenceDate: "2025-08", baseSpeed: 95, minSpeed: 115, maxSpeed: 147, minSpeedWithIvZero: 90, maxSpeedWithNature: 161, statistics: [] },
   Yanmega: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 95,
     minSpeed: 115,
     maxSpeed: 147,
@@ -6584,31 +6348,31 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 147, percentile: 40, percentage: 34, speedEv: 252, nature: "Modest" },
-      { type: "usage", speed: 161, percentile: 100, percentage: 59, speedEv: 252, nature: "Timid" }
+      { type: "usage", speed: 147, percentile: 56, percentage: 52, speedEv: 252, nature: "Modest" },
+      { type: "usage", speed: 161, percentile: 100, percentage: 41, speedEv: 252, nature: "Timid" }
     ]
   },
-  Yungoos: { referenceDate: "2025-07", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
+  Yungoos: { referenceDate: "2025-08", baseSpeed: 45, minSpeed: 65, maxSpeed: 97, minSpeedWithIvZero: 45, maxSpeedWithNature: 106, statistics: [] },
   Zacian: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 138,
     minSpeed: 158,
     maxSpeed: 190,
     minSpeedWithIvZero: 128,
     maxSpeedWithNature: 209,
-    choiceScarfPercentage: 8,
+    choiceScarfPercentage: 31,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 206, percentile: 47, percentage: 15, speedEv: 236, nature: "Jolly" },
-      { type: "usage", speed: 207, percentile: 66, percentage: 19, speedEv: 244, nature: "Jolly" },
-      { type: "usage", speed: 209, percentile: 100, percentage: 34, speedEv: 252, nature: "Jolly" },
-      { type: "scarf", speed: 313, percentile: 100, percentage: 8, speedEv: 252, nature: "" }
+      { type: "usage", speed: 158, percentile: 29, percentage: 26, speedEv: 0, nature: "Adamant" },
+      { type: "usage", speed: 206, percentile: 77, percentage: 34, speedEv: 236, nature: "Jolly" },
+      { type: "usage", speed: 209, percentile: 100, percentage: 23, speedEv: 252, nature: "Jolly" },
+      { type: "scarf", speed: 313, percentile: 100, percentage: 31, speedEv: 252, nature: "" }
     ]
   },
   "Zacian-Crowned": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 148,
     minSpeed: 168,
     maxSpeed: 200,
@@ -6619,13 +6383,13 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 206, percentile: 44, percentage: 19, speedEv: 156, nature: "Jolly" },
-      { type: "usage", speed: 209, percentile: 66, percentage: 12, speedEv: 172, nature: "Jolly" },
-      { type: "usage", speed: 220, percentile: 100, percentage: 25, speedEv: 252, nature: "Jolly" }
+      { type: "usage", speed: 206, percentile: 51, percentage: 26, speedEv: 156, nature: "Jolly" },
+      { type: "usage", speed: 209, percentile: 70, percentage: 12, speedEv: 172, nature: "Jolly" },
+      { type: "usage", speed: 220, percentile: 100, percentage: 24, speedEv: 252, nature: "Jolly" }
     ]
   },
   Zamazenta: {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 138,
     minSpeed: 158,
     maxSpeed: 190,
@@ -6636,13 +6400,13 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 158, percentile: 29, percentage: 26, speedEv: 0, nature: "Hardy" },
-      { type: "usage", speed: 190, percentile: 57, percentage: 16, speedEv: 252, nature: "Impish" },
-      { type: "usage", speed: 209, percentile: 100, percentage: 18, speedEv: 252, nature: "Timid" }
+      { type: "usage", speed: 158, percentile: 36, percentage: 36, speedEv: 0, nature: "Hardy" },
+      { type: "usage", speed: 173, percentile: 68, percentage: 30, speedEv: 0, nature: "Jolly" },
+      { type: "usage", speed: 188, percentile: 80, percentage: 12, speedEv: 240, nature: "Impish" }
     ]
   },
   "Zamazenta-Crowned": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 128,
     minSpeed: 148,
     maxSpeed: 180,
@@ -6652,10 +6416,63 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
-    statistics: [{ type: "usage", speed: 160, percentile: 57, percentage: 13, speedEv: 92, nature: "Impish" }]
+    statistics: []
   },
-  Zangoose: {
-    referenceDate: "2025-07",
+  Zangoose: { referenceDate: "2025-08", baseSpeed: 90, minSpeed: 110, maxSpeed: 142, minSpeedWithIvZero: 85, maxSpeedWithNature: 156, statistics: [] },
+  Zapdos: {
+    referenceDate: "2025-08",
+    baseSpeed: 100,
+    minSpeed: 120,
+    maxSpeed: 152,
+    minSpeedWithIvZero: 94,
+    maxSpeedWithNature: 167,
+    choiceScarfPercentage: 2,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 120, percentile: 19, percentage: 19, speedEv: 0, nature: "Calm" },
+      { type: "usage", speed: 152, percentile: 59, percentage: 14, speedEv: 252, nature: "Mild" },
+      { type: "usage", speed: 167, percentile: 100, percentage: 31, speedEv: 252, nature: "Timid" }
+    ]
+  },
+  "Zapdos-Galar": {
+    referenceDate: "2025-08",
+    baseSpeed: 100,
+    minSpeed: 120,
+    maxSpeed: 152,
+    minSpeedWithIvZero: 94,
+    maxSpeedWithNature: 167,
+    choiceScarfPercentage: 40,
+    choiceScarfIsMoreUsed: true,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 152, percentile: 49, percentage: 41, speedEv: 252, nature: "Adamant" },
+      { type: "usage", speed: 167, percentile: 100, percentage: 49, speedEv: 252, nature: "Jolly" },
+      { type: "scarf", speed: 250, percentile: 100, percentage: 40, speedEv: 252, nature: "" }
+    ]
+  },
+  Zarude: { referenceDate: "2025-08", baseSpeed: 105, minSpeed: 125, maxSpeed: 157, minSpeedWithIvZero: 99, maxSpeedWithNature: 172, statistics: [] },
+  Zebstrika: {
+    referenceDate: "2025-08",
+    baseSpeed: 116,
+    minSpeed: 136,
+    maxSpeed: 168,
+    minSpeedWithIvZero: 108,
+    maxSpeedWithNature: 184,
+    choiceScarfPercentage: 0,
+    choiceScarfIsMoreUsed: false,
+    boosterEnergyPercentage: 0,
+    boosterEnergyIsMoreUsed: false,
+    statistics: [
+      { type: "usage", speed: 162, percentile: 24, percentage: 14, speedEv: 204, nature: "Adamant" },
+      { type: "usage", speed: 168, percentile: 38, percentage: 14, speedEv: 252, nature: "Modest" },
+      { type: "usage", speed: 184, percentile: 100, percentage: 62, speedEv: 252, nature: "Jolly" }
+    ]
+  },
+  Zekrom: {
+    referenceDate: "2025-08",
     baseSpeed: 90,
     minSpeed: 110,
     maxSpeed: 142,
@@ -6665,93 +6482,31 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
-    statistics: [{ type: "usage", speed: 142, percentile: 97, percentage: 97, speedEv: 252, nature: "Adamant" }]
-  },
-  Zapdos: {
-    referenceDate: "2025-07",
-    baseSpeed: 100,
-    minSpeed: 120,
-    maxSpeed: 152,
-    minSpeedWithIvZero: 94,
-    maxSpeedWithNature: 167,
-    choiceScarfPercentage: 2,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 120, percentile: 25, percentage: 24, speedEv: 0, nature: "Modest" },
-      { type: "usage", speed: 152, percentile: 73, percentage: 14, speedEv: 252, nature: "Modest" },
-      { type: "usage", speed: 167, percentile: 100, percentage: 21, speedEv: 252, nature: "Timid" }
+      { type: "usage", speed: 85, percentile: 20, percentage: 20, speedEv: 0, nature: "Brave" },
+      { type: "usage", speed: 142, percentile: 75, percentage: 16, speedEv: 252, nature: "Adamant" },
+      { type: "usage", speed: 156, percentile: 100, percentage: 17, speedEv: 252, nature: "Jolly" }
     ]
   },
-  "Zapdos-Galar": {
-    referenceDate: "2025-07",
-    baseSpeed: 100,
-    minSpeed: 120,
-    maxSpeed: 152,
-    minSpeedWithIvZero: 94,
-    maxSpeedWithNature: 167,
-    choiceScarfPercentage: 23,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 121, percentile: 14, percentage: 11, speedEv: 4, nature: "Adamant" },
-      { type: "usage", speed: 152, percentile: 49, percentage: 23, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 167, percentile: 100, percentage: 50, speedEv: 252, nature: "Jolly" },
-      { type: "scarf", speed: 250, percentile: 100, percentage: 23, speedEv: 252, nature: "" }
-    ]
-  },
-  Zarude: { referenceDate: "2025-07", baseSpeed: 105, minSpeed: 125, maxSpeed: 157, minSpeedWithIvZero: 99, maxSpeedWithNature: 172, statistics: [] },
-  Zebstrika: {
-    referenceDate: "2025-07",
-    baseSpeed: 116,
-    minSpeed: 136,
-    maxSpeed: 168,
-    minSpeedWithIvZero: 108,
-    maxSpeedWithNature: 184,
-    choiceScarfPercentage: 3,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [{ type: "usage", speed: 184, percentile: 100, percentage: 90, speedEv: 252, nature: "Jolly" }]
-  },
-  Zekrom: {
-    referenceDate: "2025-07",
-    baseSpeed: 90,
-    minSpeed: 110,
-    maxSpeed: 142,
-    minSpeedWithIvZero: 85,
-    maxSpeedWithNature: 156,
-    choiceScarfPercentage: 2,
-    choiceScarfIsMoreUsed: false,
-    boosterEnergyPercentage: 0,
-    boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 110, percentile: 16, percentage: 11, speedEv: 0, nature: "Adamant" },
-      { type: "usage", speed: 142, percentile: 60, percentage: 15, speedEv: 252, nature: "Adamant" },
-      { type: "usage", speed: 156, percentile: 100, percentage: 29, speedEv: 252, nature: "Jolly" }
-    ]
-  },
-  Zoroark: { referenceDate: "2025-07", baseSpeed: 105, minSpeed: 125, maxSpeed: 157, minSpeedWithIvZero: 99, maxSpeedWithNature: 172, statistics: [] },
+  Zoroark: { referenceDate: "2025-08", baseSpeed: 105, minSpeed: 125, maxSpeed: 157, minSpeedWithIvZero: 99, maxSpeedWithNature: 172, statistics: [] },
   "Zoroark-Hisui": {
-    referenceDate: "2025-07",
+    referenceDate: "2025-08",
     baseSpeed: 110,
     minSpeed: 130,
     maxSpeed: 162,
     minSpeedWithIvZero: 103,
     maxSpeedWithNature: 178,
-    choiceScarfPercentage: 20,
+    choiceScarfPercentage: 17,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 162, percentile: 26, percentage: 21, speedEv: 252, nature: "Modest" },
-      { type: "usage", speed: 178, percentile: 100, percentage: 72, speedEv: 252, nature: "Timid" },
-      { type: "scarf", speed: 267, percentile: 100, percentage: 20, speedEv: 252, nature: "" }
+      { type: "usage", speed: 162, percentile: 20, percentage: 16, speedEv: 252, nature: "Modest" },
+      { type: "usage", speed: 178, percentile: 100, percentage: 79, speedEv: 252, nature: "Timid" },
+      { type: "scarf", speed: 267, percentile: 100, percentage: 17, speedEv: 252, nature: "" }
     ]
   },
-  Zorua: { referenceDate: "2025-07", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
-  "Zorua-Hisui": { referenceDate: "2025-07", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
-  Zweilous: { referenceDate: "2025-07", baseSpeed: 58, minSpeed: 78, maxSpeed: 110, minSpeedWithIvZero: 56, maxSpeedWithNature: 121, statistics: [] }
+  Zorua: { referenceDate: "2025-08", baseSpeed: 65, minSpeed: 85, maxSpeed: 117, minSpeedWithIvZero: 63, maxSpeedWithNature: 128, statistics: [] },
+  "Zorua-Hisui": { referenceDate: "2025-08", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
+  Zweilous: { referenceDate: "2025-08", baseSpeed: 58, minSpeed: 78, maxSpeed: 110, minSpeedWithIvZero: 56, maxSpeedWithNature: 121, statistics: [] }
 }
