@@ -11,43 +11,43 @@ fdescribe("Calculate final attack stat with modifiers", () => {
   it("should return raw attack stat when does not have any modification", () => {
     const pokemon = new Pokemon("Tyranitar", { nature: "Adamant", evs: { atk: 100 } })
 
-    const result = calculator.getFinalAttack(pokemon, new Move("Protect"), new Field())
+    const atk = calculator.getFinalAttack(pokemon, new Move("Protect"), new Field())
 
-    expect(result).toBe(183)
+    expect(atk).toBe(183)
   })
 
   it("should return modified attack when have positive stat modifiers", () => {
     const pokemon = new Pokemon("Tyranitar", { nature: "Adamant", evs: { atk: 100 }, boosts: { atk: 2 } })
 
-    const result = calculator.getFinalAttack(pokemon, new Move("Protect"), new Field())
+    const atk = calculator.getFinalAttack(pokemon, new Move("Protect"), new Field())
 
-    expect(result).toBe(366)
+    expect(atk).toBe(366)
   })
 
   it("should not ignore positive stats modifiers when is a critical hit", () => {
     const pokemon = new Pokemon("Tyranitar", { nature: "Adamant", evs: { atk: 100 }, boosts: { atk: 2 } })
     const field = new Field({ attackerSide: new FieldSide({ isCriticalHit: true }) })
 
-    const result = calculator.getFinalAttack(pokemon, new Move("Protect"), field)
+    const atk = calculator.getFinalAttack(pokemon, new Move("Protect"), field)
 
-    expect(result).toBe(366)
+    expect(atk).toBe(366)
   })
 
   it("should return modified attack when have negative stat modifiers", () => {
     const pokemon = new Pokemon("Tyranitar", { nature: "Adamant", evs: { atk: 100 }, boosts: { atk: -4 } })
 
-    const result = calculator.getFinalAttack(pokemon, new Move("Protect"), new Field())
+    const atk = calculator.getFinalAttack(pokemon, new Move("Protect"), new Field())
 
-    expect(result).toBe(61)
+    expect(atk).toBe(61)
   })
 
   it("should ignore negative stats modifiers when is a critical hit", () => {
     const pokemon = new Pokemon("Tyranitar", { nature: "Adamant", evs: { atk: 100 }, boosts: { atk: -4 } })
     const field = new Field({ attackerSide: new FieldSide({ isCriticalHit: true }) })
 
-    const result = calculator.getFinalAttack(pokemon, new Move("Protect"), field)
+    const atk = calculator.getFinalAttack(pokemon, new Move("Protect"), field)
 
-    expect(result).toBe(183)
+    expect(atk).toBe(183)
   })
 
   it("should return modified attack when have Hustle ability", () => {
@@ -179,6 +179,210 @@ fdescribe("Calculate final attack stat with modifiers", () => {
     expect(atk).toBe(150)
     expect(spa).toBe(67)
   })
+
+  it("should return modified attack when have Flash Fire ability active and use a psysical fire move", () => {
+    const pokemon = new Pokemon("Houndoom", { nature: "Timid", evs: { atk: 12, spa: 156 }, ability: new Ability("Flash Fire", true) })
+
+    const atk = calculator.getFinalAttack(pokemon, new Move("Fire Fang"), new Field())
+    const spa = calculator.getFinalSpecialAttack(pokemon, new Move("Fire Fang"), new Field())
+
+    expect(atk).toBe(150)
+    expect(spa).toBe(150)
+  })
+
+  it("should return modified attack when have Flash Fire ability active but not use a fire move", () => {
+    const pokemon = new Pokemon("Houndoom", { nature: "Timid", evs: { atk: 12, spa: 156 }, ability: new Ability("Flash Fire", true) })
+
+    const atk = calculator.getFinalAttack(pokemon, new Move("Crunch"), new Field())
+
+    expect(atk).toBe(100)
+  })
+
+  it("should return modified attack when have Flash Fire ability but not active even if use a fire move", () => {
+    const pokemon = new Pokemon("Houndoom", { nature: "Timid", evs: { atk: 12, spa: 156 }, ability: new Ability("Flash Fire", false) })
+
+    const atk = calculator.getFinalAttack(pokemon, new Move("Fire Fang"), new Field())
+
+    expect(atk).toBe(100)
+  })
+
+  it("should return modified attack when have Dragon's Maw ability and use a physical dragon move", () => {
+    const pokemon = new Pokemon("Regidrago", { nature: "Modest", evs: { atk: 108, spa: 132 }, ability: new Ability("Dragon's Maw") })
+
+    const atk = calculator.getFinalAttack(pokemon, new Move("Breaking Swipe"), new Field())
+    const spa = calculator.getFinalSpecialAttack(pokemon, new Move("Breaking Swipe"), new Field())
+
+    expect(atk).toBe(180)
+    expect(spa).toBe(150)
+  })
+
+  it("should return modified attack when have Dragon's Maw ability but not use a physical dragon move", () => {
+    const pokemon = new Pokemon("Regidrago", { nature: "Modest", evs: { atk: 108, spa: 132 }, ability: new Ability("Dragon's Maw") })
+
+    const atk = calculator.getFinalAttack(pokemon, new Move("Body Slam"), new Field())
+
+    expect(atk).toBe(120)
+  })
+
+  it("should return modified attack when have Rocky Payload ability and use a physical rock move", () => {
+    const pokemon = new Pokemon("Bombirdier", { nature: "Careful", evs: { atk: 212, spa: 252 }, ability: new Ability("Rocky Payload") })
+
+    const atk = calculator.getFinalAttack(pokemon, new Move("Rock Tomb"), new Field())
+    const spa = calculator.getFinalSpecialAttack(pokemon, new Move("Rock Tomb"), new Field())
+
+    expect(atk).toBe(225)
+    expect(spa).toBe(100)
+  })
+
+  it("should return modified attack when have Rocky Payload ability but not use a physical rock move", () => {
+    const pokemon = new Pokemon("Bombirdier", { nature: "Careful", evs: { atk: 212, spa: 252 }, ability: new Ability("Rocky Payload") })
+
+    const atk = calculator.getFinalAttack(pokemon, new Move("Hyper Beam"), new Field())
+
+    expect(atk).toBe(150)
+  })
+
+  it("should return modified attack when have Transistor ability and use a physical electric move", () => {
+    const pokemon = new Pokemon("Regieleki", { nature: "Modest", evs: { atk: 20, spa: 156 }, ability: new Ability("Transistor") })
+
+    const atk = calculator.getFinalAttack(pokemon, new Move("Supercell Slam"), new Field())
+    const spa = calculator.getFinalSpecialAttack(pokemon, new Move("Supercell Slam"), new Field())
+
+    expect(atk).toBe(143)
+    expect(spa).toBe(154)
+  })
+
+  it("should return modified attack when have Transistor ability but not use a physical electric move", () => {
+    const pokemon = new Pokemon("Regieleki", { nature: "Modest", evs: { atk: 20, spa: 156 }, ability: new Ability("Transistor") })
+
+    const atk = calculator.getFinalAttack(pokemon, new Move("Body Slam"), new Field())
+
+    expect(atk).toBe(110)
+  })
+
+  it("should return modified attack when have Stakeout ability active", () => {
+    const pokemon = new Pokemon("Mabosstiff", { nature: "Jolly", evs: { atk: 76, spa: 28 }, ability: new Ability("Stakeout", true) })
+
+    const atk = calculator.getFinalAttack(pokemon, new Move("Protect"), new Field())
+
+    expect(atk).toBe(300)
+  })
+
+  it("should return modified attack when have Stakeout ability but not active", () => {
+    const pokemon = new Pokemon("Mabosstiff", { nature: "Jolly", evs: { atk: 76, spa: 28 }, ability: new Ability("Stakeout", false) })
+
+    const atk = calculator.getFinalAttack(pokemon, new Move("Protect"), new Field())
+
+    expect(atk).toBe(150)
+  })
+
+  it("should return modified attack when have Water Bubble ability active and use a physical water move", () => {
+    const pokemon = new Pokemon("Araquanid", { nature: "Brave", evs: { atk: 188, spa: 236 }, ability: new Ability("Water Bubble", true) })
+
+    const atk = calculator.getFinalAttack(pokemon, new Move("Liquidation"), new Field())
+    const spa = calculator.getFinalSpecialAttack(pokemon, new Move("Liquidation"), new Field())
+
+    expect(atk).toBe(250)
+    expect(spa).toBe(100)
+  })
+
+  it("should return modified attack when have Water Bubble ability active but not use a water move", () => {
+    const pokemon = new Pokemon("Araquanid", { nature: "Brave", evs: { atk: 188, spa: 236 }, ability: new Ability("Water Bubble", true) })
+
+    const atk = calculator.getFinalAttack(pokemon, new Move("Blizzard"), new Field())
+
+    expect(atk).toBe(125)
+  })
+
+  it("should return modified attack when Tablets of Ruin active", () => {
+    const pokemon = new Pokemon("Tyranitar", { nature: "Adamant", evs: { atk: 100 } })
+    const field = new Field({ isTabletsOfRuin: true })
+
+    const atk = calculator.getFinalAttack(pokemon, new Move("Protect"), field)
+    const spa = calculator.getFinalSpecialAttack(pokemon, new Move("Protect"), field)
+
+    expect(atk).toBe(137)
+    expect(spa).toBe(103)
+  })
+
+  it("should return modified special attack when Tablets of Ruin active active but Pokémon have Tablets of Ruin active", () => {
+    const pokemon = new Pokemon("Wo-Chien", { nature: "Adamant", evs: { atk: 252 } })
+    const field = new Field({ isTabletsOfRuin: true })
+
+    const atk = calculator.getFinalAttack(pokemon, new Move("Protect"), field)
+
+    expect(atk).toBe(150)
+  })
+
+  it("should return modified attack when have Protosynthesis active and the higher status is atk", () => {
+    const pokemon = new Pokemon("Roaring Moon", { nature: "Adamant", evs: { atk: 124 }, ability: new Ability("Protosynthesis", true) })
+
+    const atk = calculator.getFinalAttack(pokemon, new Move("Protect"), new Field())
+    const spa = calculator.getFinalSpecialAttack(pokemon, new Move("Protect"), new Field())
+
+    expect(atk).toBe(250)
+    expect(spa).toBe(67)
+  })
+
+  it("should return modified attack when have Protosynthesis active and the higher status is spe", () => {
+    const pokemon = new Pokemon("Roaring Moon", { nature: "Jolly", evs: { spe: 252 }, ability: new Ability("Protosynthesis", true) })
+
+    const atk = calculator.getFinalAttack(pokemon, new Move("Protect"), new Field())
+
+    expect(atk).toBe(159)
+  })
+
+  it("should return modified attack when have Protosynthesis but not active and the higher status is atk", () => {
+    const pokemon = new Pokemon("Roaring Moon", { nature: "Adamant", evs: { atk: 124 }, ability: new Ability("Protosynthesis", false) })
+
+    const atk = calculator.getFinalAttack(pokemon, new Move("Protect"), new Field())
+
+    expect(atk).toBe(192)
+  })
+
+  it("should return modified attack when have Quark Drive active and the higher status is atk", () => {
+    const pokemon = new Pokemon("Iron Treads", { nature: "Adamant", evs: { atk: 252 }, ability: new Ability("Quark Drive", true) })
+
+    const atk = calculator.getFinalAttack(pokemon, new Move("Protect"), new Field())
+    const spa = calculator.getFinalSpecialAttack(pokemon, new Move("Protect"), new Field())
+
+    expect(atk).toBe(234)
+    expect(spa).toBe(82)
+  })
+
+  it("should return modified attack when have Quark Drive active and the higher status is spe", () => {
+    const pokemon = new Pokemon("Iron Treads", { nature: "Adamant", evs: { spe: 252 }, ability: new Ability("Quark Drive", true) })
+
+    const atk = calculator.getFinalAttack(pokemon, new Move("Protect"), new Field())
+
+    expect(atk).toBe(145)
+  })
+
+  it("should return modified attack when have Quark Drive but not active and the higher status is atk", () => {
+    const pokemon = new Pokemon("Iron Treads", { nature: "Adamant", evs: { atk: 252 }, ability: new Ability("Quark Drive", false) })
+
+    const atk = calculator.getFinalAttack(pokemon, new Move("Protect"), new Field())
+
+    expect(atk).toBe(180)
+  })
+
+  it("should return modified attack when have Orichalcum Pulse active", () => {
+    const pokemon = new Pokemon("Koraidon", { nature: "Adamant", evs: { atk: 212 } })
+    const field = new Field({ weather: "Sun" })
+
+    const atk = calculator.getFinalAttack(pokemon, new Move("Protect"), field)
+
+    expect(atk).toBe(267)
+  })
+
+  it("should return modified attack when have Orichalcum Pulse but not active", () => {
+    const pokemon = new Pokemon("Koraidon", { nature: "Adamant", evs: { atk: 212 } })
+    const field = new Field({ weather: "Rain" })
+
+    const atk = calculator.getFinalAttack(pokemon, new Move("Protect"), field)
+
+    expect(atk).toBe(200)
+  })
 })
 
 fdescribe("Calculate final special attack stat with modifiers", () => {
@@ -285,7 +489,7 @@ fdescribe("Calculate final special attack stat with modifiers", () => {
     expect(spa).toBe(225)
   })
 
-  it("should return modified special attack when have Plus ability but not  active", () => {
+  it("should return modified special attack when have Plus ability but not active", () => {
     const pokemon = new Pokemon("Toxtricity", { nature: "Modest", evs: { spa: 20 }, ability: new Ability("Plus", false) })
 
     const atk = calculator.getFinalAttack(pokemon, new Move("Protect"), new Field())
@@ -293,5 +497,229 @@ fdescribe("Calculate final special attack stat with modifiers", () => {
 
     expect(atk).toBe(106)
     expect(spa).toBe(150)
+  })
+
+  it("should return modified special attack when have Minus ability is active", () => {
+    const pokemon = new Pokemon("Toxtricity-Low-Key", { nature: "Modest", evs: { spa: 20 }, ability: new Ability("Minus", true) })
+
+    const atk = calculator.getFinalAttack(pokemon, new Move("Protect"), new Field())
+    const spa = calculator.getFinalSpecialAttack(pokemon, new Move("Protect"), new Field())
+
+    expect(atk).toBe(106)
+    expect(spa).toBe(225)
+  })
+
+  it("should return modified special attack when have Minus ability but not active", () => {
+    const pokemon = new Pokemon("Toxtricity-Low-Key", { nature: "Modest", evs: { spa: 20 }, ability: new Ability("Minus", false) })
+
+    const atk = calculator.getFinalAttack(pokemon, new Move("Protect"), new Field())
+    const spa = calculator.getFinalSpecialAttack(pokemon, new Move("Protect"), new Field())
+
+    expect(atk).toBe(106)
+    expect(spa).toBe(150)
+  })
+
+  it("should return modified special attack when have Flash Fire ability active and use a special fire move", () => {
+    const pokemon = new Pokemon("Houndoom", { nature: "Timid", evs: { atk: 12, spa: 156 }, ability: new Ability("Flash Fire", true) })
+
+    const atk = calculator.getFinalAttack(pokemon, new Move("Flamethrower"), new Field())
+    const spa = calculator.getFinalSpecialAttack(pokemon, new Move("Flamethrower"), new Field())
+
+    expect(atk).toBe(100)
+    expect(spa).toBe(225)
+  })
+
+  it("should return modified special attack when have Flash Fire ability active but not use a fire move", () => {
+    const pokemon = new Pokemon("Houndoom", { nature: "Timid", evs: { atk: 12, spa: 156 }, ability: new Ability("Flash Fire", true) })
+
+    const spa = calculator.getFinalSpecialAttack(pokemon, new Move("Sludge Bomb"), new Field())
+
+    expect(spa).toBe(150)
+  })
+
+  it("should return modified special attack when have Flash Fire ability but not active even if use a fire move", () => {
+    const pokemon = new Pokemon("Houndoom", { nature: "Timid", evs: { atk: 12, spa: 156 }, ability: new Ability("Flash Fire", false) })
+
+    const spa = calculator.getFinalSpecialAttack(pokemon, new Move("Flamethrower"), new Field())
+
+    expect(spa).toBe(150)
+  })
+
+  it("should return modified special attack when have Dragon's Maw ability and use a special dragon move", () => {
+    const pokemon = new Pokemon("Regidrago", { nature: "Modest", evs: { atk: 108, spa: 132 }, ability: new Ability("Dragon's Maw") })
+
+    const atk = calculator.getFinalAttack(pokemon, new Move("Draco Meteor"), new Field())
+    const spa = calculator.getFinalSpecialAttack(pokemon, new Move("Draco Meteor"), new Field())
+
+    expect(atk).toBe(120)
+    expect(spa).toBe(225)
+  })
+
+  it("should return modified special attack when have Dragon's Maw ability but not use a special dragon move", () => {
+    const pokemon = new Pokemon("Regidrago", { nature: "Modest", evs: { atk: 108, spa: 132 }, ability: new Ability("Dragon's Maw") })
+
+    const spa = calculator.getFinalSpecialAttack(pokemon, new Move("Earth Power"), new Field())
+
+    expect(spa).toBe(150)
+  })
+
+  it("should return modified special attack when have Rocky Payload ability and use a special rock move", () => {
+    const pokemon = new Pokemon("Bombirdier", { nature: "Careful", evs: { atk: 212, spa: 252 }, ability: new Ability("Rocky Payload") })
+
+    const atk = calculator.getFinalAttack(pokemon, new Move("Power Gem"), new Field())
+    const spa = calculator.getFinalSpecialAttack(pokemon, new Move("Power Gem"), new Field())
+
+    expect(atk).toBe(150)
+    expect(spa).toBe(150)
+  })
+
+  it("should return modified special attack when have Rocky Payload ability but not use a special rock move", () => {
+    const pokemon = new Pokemon("Bombirdier", { nature: "Careful", evs: { atk: 212, spa: 252 }, ability: new Ability("Rocky Payload") })
+
+    const spa = calculator.getFinalSpecialAttack(pokemon, new Move("Hyper Voice"), new Field())
+
+    expect(spa).toBe(100)
+  })
+
+  it("should return modified special attack when have Transistor ability and use a special electric move", () => {
+    const pokemon = new Pokemon("Regieleki", { nature: "Modest", evs: { atk: 20, spa: 156 }, ability: new Ability("Transistor") })
+
+    const atk = calculator.getFinalAttack(pokemon, new Move("Thunderbolt"), new Field())
+    const spa = calculator.getFinalSpecialAttack(pokemon, new Move("Thunderbolt"), new Field())
+
+    expect(atk).toBe(110)
+    expect(spa).toBe(200)
+  })
+
+  it("should return modified special attack when have Transistor ability but not use a special electric move", () => {
+    const pokemon = new Pokemon("Regieleki", { nature: "Modest", evs: { atk: 20, spa: 156 }, ability: new Ability("Transistor") })
+
+    const spa = calculator.getFinalSpecialAttack(pokemon, new Move("Hyper Voice"), new Field())
+
+    expect(spa).toBe(154)
+  })
+
+  it("should return modified attack when have Stakeout ability active", () => {
+    const pokemon = new Pokemon("Mabosstiff", { nature: "Jolly", evs: { atk: 76, spa: 28 }, ability: new Ability("Stakeout", true) })
+
+    const spa = calculator.getFinalSpecialAttack(pokemon, new Move("Protect"), new Field())
+
+    expect(spa).toBe(150)
+  })
+
+  it("should return modified attack when have Stakeout ability but not active", () => {
+    const pokemon = new Pokemon("Mabosstiff", { nature: "Jolly", evs: { atk: 76, spa: 28 }, ability: new Ability("Stakeout", false) })
+
+    const spa = calculator.getFinalSpecialAttack(pokemon, new Move("Protect"), new Field())
+
+    expect(spa).toBe(75)
+  })
+
+  it("should return modified special attack when have Water Bubble ability active and use a special water move", () => {
+    const pokemon = new Pokemon("Araquanid", { nature: "Brave", evs: { atk: 188, spa: 236 }, ability: new Ability("Water Bubble", true) })
+
+    const atk = calculator.getFinalAttack(pokemon, new Move("Surf"), new Field())
+    const spa = calculator.getFinalSpecialAttack(pokemon, new Move("Surf"), new Field())
+
+    expect(atk).toBe(125)
+    expect(spa).toBe(200)
+  })
+
+  it("should return modified special attack when have Water Bubble ability active but not use a water move", () => {
+    const pokemon = new Pokemon("Araquanid", { nature: "Brave", evs: { atk: 188, spa: 236 }, ability: new Ability("Water Bubble", true) })
+
+    const spa = calculator.getFinalSpecialAttack(pokemon, new Move("Blizzard"), new Field())
+
+    expect(spa).toBe(100)
+  })
+
+  it("should return modified special attack when Vessel of Ruin active", () => {
+    const pokemon = new Pokemon("Farigiraf", { nature: "Quiet", evs: { spa: 52 } })
+    const field = new Field({ isVesselOfRuin: true })
+
+    const atk = calculator.getFinalAttack(pokemon, new Move("Protect"), field)
+    const spa = calculator.getFinalSpecialAttack(pokemon, new Move("Protect"), field)
+
+    expect(atk).toBe(110)
+    expect(spa).toBe(112)
+  })
+
+  it("should return modified special attack when Vessel of Ruin active but Pokémon have Vessel of Ruin", () => {
+    const pokemon = new Pokemon("Ting-Lu", { nature: "Sassy ", evs: { spa: 196 } })
+    const field = new Field({ isVesselOfRuin: true })
+
+    const spa = calculator.getFinalSpecialAttack(pokemon, new Move("Protect"), field)
+
+    expect(spa).toBe(100)
+  })
+
+  it("should return modified special attack when have Protosynthesis active and the higher status is spa", () => {
+    const pokemon = new Pokemon("Flutter Mane", { nature: "Modest", evs: { spa: 212 }, ability: new Ability("Protosynthesis", true) })
+
+    const atk = calculator.getFinalAttack(pokemon, new Move("Protect"), new Field())
+    const spa = calculator.getFinalSpecialAttack(pokemon, new Move("Protect"), new Field())
+
+    expect(atk).toBe(67)
+    expect(spa).toBe(260)
+  })
+
+  it("should return modified special attack when have Protosynthesis active and the higher status is spe", () => {
+    const pokemon = new Pokemon("Flutter Mane", { nature: "Modest", evs: { spe: 212 }, ability: new Ability("Protosynthesis", true) })
+
+    const spa = calculator.getFinalSpecialAttack(pokemon, new Move("Protect"), new Field())
+
+    expect(spa).toBe(170)
+  })
+
+  it("should return modified special attack when have Protosynthesis but not active and the higher status is spa", () => {
+    const pokemon = new Pokemon("Flutter Mane", { nature: "Modest", evs: { spa: 212 }, ability: new Ability("Protosynthesis", false) })
+
+    const spa = calculator.getFinalSpecialAttack(pokemon, new Move("Protect"), new Field())
+
+    expect(spa).toBe(200)
+  })
+
+  it("should return modified special attack when have Quark Drive active and the higher status is spa", () => {
+    const pokemon = new Pokemon("Iron Bundle", { nature: "Modest", evs: { spa: 252 }, ability: new Ability("Quark Drive", true) })
+
+    const atk = calculator.getFinalAttack(pokemon, new Move("Protect"), new Field())
+    const spa = calculator.getFinalSpecialAttack(pokemon, new Move("Protect"), new Field())
+
+    expect(atk).toBe(90)
+    expect(spa).toBe(251)
+  })
+
+  it("should return modified special attack when have Quark Drive active and the higher status is spe", () => {
+    const pokemon = new Pokemon("Iron Bundle", { nature: "Modest", evs: { spe: 252 }, ability: new Ability("Quark Drive", true) })
+
+    const spa = calculator.getFinalSpecialAttack(pokemon, new Move("Protect"), new Field())
+
+    expect(spa).toBe(158)
+  })
+
+  it("should return modified special attack when have Quark Drive but not active and the higher status is spa", () => {
+    const pokemon = new Pokemon("Iron Bundle", { nature: "Modest", evs: { spa: 252 }, ability: new Ability("Quark Drive", false) })
+
+    const spa = calculator.getFinalSpecialAttack(pokemon, new Move("Protect"), new Field())
+
+    expect(spa).toBe(193)
+  })
+
+  it("should return modified attack when have Hadron Engine active", () => {
+    const pokemon = new Pokemon("Miraidon", { nature: "Modest", evs: { spa: 212 } })
+    const field = new Field({ terrain: "Electric" })
+
+    const spa = calculator.getFinalSpecialAttack(pokemon, new Move("Protect"), field)
+
+    expect(spa).toBe(267)
+  })
+
+  it("should return modified attack when have Hadron Engine but not active", () => {
+    const pokemon = new Pokemon("Miraidon", { nature: "Modest", evs: { spa: 212 } })
+    const field = new Field({ terrain: "Grassy" })
+
+    const spa = calculator.getFinalSpecialAttack(pokemon, new Move("Protect"), field)
+
+    expect(spa).toBe(200)
   })
 })

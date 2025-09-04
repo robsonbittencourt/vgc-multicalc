@@ -57,10 +57,13 @@ export default class OffensiveStatCalculator {
       abilityModifiers.push(6144)
     } else if (attacker.hasAbility("Flash Fire") && attacker.abilityOn && move.hasType("Fire") && ((isAttack && move.category == "Physical") || (!isAttack && move.category == "Special"))) {
       abilityModifiers.push(6144)
-    } else if ((attacker.hasAbility("Dragon's Maw") && move.hasType("Dragon") && ((move.category === "Physical" && isAttack) || (move.category === "Special" && !isAttack))) || (attacker.hasAbility("Rocky Payload") && move.hasType("Rock"))) {
+    } else if (
+      (attacker.hasAbility("Dragon's Maw") && move.hasType("Dragon") && ((move.category === "Physical" && isAttack) || (move.category === "Special" && !isAttack))) ||
+      (attacker.hasAbility("Rocky Payload") && move.hasType("Rock") && ((move.category === "Physical" && isAttack) || (move.category === "Special" && !isAttack)))
+    ) {
       abilityModifiers.push(6144)
     } else if (attacker.hasAbility("Transistor") && move.hasType("Electric") && ((move.category === "Physical" && isAttack) || (move.category === "Special" && !isAttack))) {
-      abilityModifiers.push(gen.num >= 9 ? 5325 : 6144)
+      abilityModifiers.push(5325)
     } else if (attacker.hasAbility("Stakeout") && attacker.abilityOn) {
       abilityModifiers.push(8192)
     } else if ((attacker.hasAbility("Water Bubble") && move.hasType("Water") && ((isAttack && move.category == "Physical") || (!isAttack && move.category == "Special"))) || (attacker.hasAbility("Huge Power", "Pure Power") && isAttack)) {
