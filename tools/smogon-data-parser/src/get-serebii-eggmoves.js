@@ -592,6 +592,7 @@ const pokemonList = [
   "barraskewda",
   "toxel",
   "toxtricity",
+  "toxtricity-low-key",
   "sinistea",
   "polteageist",
   "hatenna",

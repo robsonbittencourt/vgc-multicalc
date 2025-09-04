@@ -7484,6 +7484,7 @@ export const SPEED_STATISTICS_REG_J: Record<string, SpeedData> = {
       { type: "scarf", speed: 208, percentile: 100, percentage: 7, speedEv: 252, nature: "" }
     ]
   },
+  "Toxtricity-Low-Key": { referenceDate: "2025-08", baseSpeed: 75, minSpeed: 95, maxSpeed: 127, minSpeedWithIvZero: 72, maxSpeedWithNature: 139, statistics: [] },
   Trapinch: {
     referenceDate: "2025-08",
     baseSpeed: 10,
