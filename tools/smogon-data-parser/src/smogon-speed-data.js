@@ -943,6 +943,7 @@ function allPokemon() {
     "Toxel",
     "Toxicroak",
     "Toxtricity",
+    "Toxtricity-Low-Key",
     "Trapinch",
     "Treecko",
     "Trevenant",

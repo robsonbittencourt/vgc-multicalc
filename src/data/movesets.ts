@@ -1349,6 +1349,21 @@ export const SETDEX_SV: Record<string, any> = {
     moves: ["Overdrive", "Sludge Bomb", "Boomburst", "Volt Switch"],
     items: ["Choice Specs"]
   },
+  "Toxtricity-Low-Key": {
+    ability: "Punk Rock",
+    nature: "Modest",
+    teraType: "Normal",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 4,
+      spa: 252,
+      spd: 4,
+      spe: 244
+    },
+    moves: ["Overdrive", "Sludge Bomb", "Boomburst", "Volt Switch"],
+    items: ["Choice Specs"]
+  },
   Gyarados: {
     ability: "Intimidate",
     nature: "Adamant",

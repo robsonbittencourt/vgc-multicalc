@@ -547,6 +547,7 @@ export const eggMoves = {
   barraskewda: ["thrash", "slash", "acupressure", "nightslash"],
   toxel: ["endeavor", "metalsound"],
   toxtricity: ["endeavor", "metalsound"],
+  toxtricitylowkey: ["endeavor", "metalsound"],
   sinistea: ["allyswitch"],
   polteageist: ["allyswitch"],
   hatenna: ["afteryou", "quash", "mysticalfire", "nuzzle"],

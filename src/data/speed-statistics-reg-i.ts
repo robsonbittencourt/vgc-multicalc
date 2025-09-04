@@ -5867,6 +5867,7 @@ export const SPEED_STATISTICS_REG_I: Record<string, SpeedData> = {
       { type: "usage", speed: 139, percentile: 100, percentage: 15, speedEv: 252, nature: "Timid" }
     ]
   },
+  "Toxtricity-Low-Key": { referenceDate: "2025-08", baseSpeed: 75, minSpeed: 95, maxSpeed: 127, minSpeedWithIvZero: 72, maxSpeedWithNature: 139, statistics: [] },
   Trapinch: { referenceDate: "2025-08", baseSpeed: 10, minSpeed: 30, maxSpeed: 62, minSpeedWithIvZero: 13, maxSpeedWithNature: 68, statistics: [] },
   Treecko: { referenceDate: "2025-08", baseSpeed: 70, minSpeed: 90, maxSpeed: 122, minSpeedWithIvZero: 67, maxSpeedWithNature: 134, statistics: [] },
   Trevenant: {

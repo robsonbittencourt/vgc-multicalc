@@ -765,6 +765,7 @@ function pokemonNames() {
     "toxel",
     "toxicroak",
     "toxtricity",
+    "toxtricity-low-key",
     "trapinch",
     "treecko",
     "trevenant",
