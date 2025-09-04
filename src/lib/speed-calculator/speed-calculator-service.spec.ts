@@ -7,7 +7,6 @@ import { Move } from "@lib/model/move"
 import { MoveSet } from "@lib/model/moveset"
 import { Pokemon } from "@lib/model/pokemon"
 import { Status } from "@lib/model/status"
-import { SmogonFunctions } from "@lib/smogon/smogon-functions"
 import { SpeedCalculatorMode } from "@lib/speed-calculator/speed-calculator-mode"
 import { SpeedCalculatorOptions } from "@lib/speed-calculator/speed-calculator-options"
 import { SpeedCalculatorService } from "@lib/speed-calculator/speed-calculator-service"
@@ -17,7 +16,7 @@ describe("SpeedCalculatorService", () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [SpeedCalculatorService, SmogonFunctions, provideZonelessChangeDetection()]
+      providers: [SpeedCalculatorService, provideZonelessChangeDetection()]
     })
 
     service = TestBed.inject(SpeedCalculatorService)

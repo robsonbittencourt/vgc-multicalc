@@ -8,7 +8,7 @@ import { Pokemon } from "@lib/model/pokemon"
 import { Status } from "@lib/model/status"
 import { PokemonParameters } from "@lib/types"
 import { AbilityName, ItemName } from "@robsonbittencourt/calc/src/data/interface"
-import { SmogonPokemonBuilder } from "./smogon-pokemon-builder"
+import SmogonPokemonBuilder from "./smogon-pokemon-builder"
 
 describe("SmogonPokemonBuilder", () => {
   let builder: SmogonPokemonBuilder

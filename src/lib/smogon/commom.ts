@@ -1,0 +1,81 @@
+import { Field } from "@lib/model/field"
+import { Pokemon } from "@lib/model/pokemon"
+import { Pokemon as SmogonPokemon, StatID } from "@robsonbittencourt/calc"
+import { ID } from "@robsonbittencourt/calc/dist/data/interface"
+import { StatIDExceptHP } from "@robsonbittencourt/calc/src/data/interface"
+
+export default class Commom {
+  getModifiedStat(stat: number, mod: number): number {
+    const numerator = 0
+    const denominator = 1
+    const modernGenBoostTable = [
+      [2, 8],
+      [2, 7],
+      [2, 6],
+      [2, 5],
+      [2, 4],
+      [2, 3],
+      [2, 2],
+      [3, 2],
+      [4, 2],
+      [5, 2],
+      [6, 2],
+      [7, 2],
+      [8, 2]
+    ]
+    stat = this.OF16(stat * modernGenBoostTable[6 + mod][numerator])
+    stat = Math.floor(stat / modernGenBoostTable[6 + mod][denominator])
+
+    return stat
+  }
+
+  higherStat(smogonPokemon: SmogonPokemon): StatIDExceptHP {
+    let bestStat: StatID = "atk"
+
+    for (const stat of ["def", "spa", "spd", "spe"] as StatIDExceptHP[]) {
+      const actual = this.getModifiedStat(smogonPokemon.rawStats[stat], smogonPokemon.boosts[stat])
+      const best = this.getModifiedStat(smogonPokemon.rawStats[bestStat], smogonPokemon.boosts[bestStat])
+
+      if (actual > best) {
+        bestStat = stat
+      }
+    }
+
+    return bestStat
+  }
+
+  isQPActive(pokemon: Pokemon, field: Field) {
+    const weather = field.weather || ""
+    const terrain = field.terrain
+
+    return (pokemon.ability.protosynthesis && (weather.includes("Sun") || pokemon.ability.on)) || (pokemon.ability.quarkDrive && (terrain === "Electric" || pokemon.ability.on))
+  }
+
+  OF16(n: number): number {
+    return n > 65535 ? n % 65536 : n
+  }
+
+  OF32(n: number) {
+    return n > 4294967295 ? n % 4294967296 : n
+  }
+
+  pokeRound(num: number) {
+    return num % 1 > 0.5 ? Math.ceil(num) : Math.floor(num)
+  }
+
+  chainMods(mods: number[], lowerBound: number, upperBound: number) {
+    let M = 4096
+
+    for (const mod of mods) {
+      if (mod !== 4096) {
+        M = (M * mod + 2048) >> 12
+      }
+    }
+
+    return Math.max(Math.min(M, upperBound), lowerBound)
+  }
+
+  toID(text: any): ID {
+    return ("" + text).toLowerCase().replace(/[^a-z0-9]+/g, "") as ID
+  }
+}

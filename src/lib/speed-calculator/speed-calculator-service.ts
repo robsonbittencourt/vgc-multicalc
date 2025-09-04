@@ -1,4 +1,4 @@
-import { Injectable, inject } from "@angular/core"
+import { Injectable } from "@angular/core"
 import { SETDEX_SV } from "@data/movesets"
 import { pokemonByRegulation } from "@data/regulation-pokemon"
 import { SpeedData } from "@data/speed-data"
@@ -12,7 +12,7 @@ import { Field } from "@lib/model/field"
 import { Move } from "@lib/model/move"
 import { Pokemon } from "@lib/model/pokemon"
 import { Status } from "@lib/model/status"
-import { SmogonFunctions } from "@lib/smogon/smogon-functions"
+import SpeedStatCalculator from "@lib/smogon/modified-spe"
 import { SpeedCalculatorMode } from "@lib/speed-calculator/speed-calculator-mode"
 import { SpeedCalculatorOptions } from "@lib/speed-calculator/speed-calculator-options"
 import { SpeedDefinition } from "@lib/speed-calculator/speed-definition"
@@ -23,7 +23,7 @@ import { Generations, Pokemon as SmogonPokemon } from "@robsonbittencourt/calc"
   providedIn: "root"
 })
 export class SpeedCalculatorService {
-  private smogonService = inject(SmogonFunctions)
+  private smogonService = new SpeedStatCalculator()
 
   orderedPokemon(pokemon: Pokemon, field: Field, pokemonEachSide: number, options: SpeedCalculatorOptions = new SpeedCalculatorOptions()): SpeedDefinition[] {
     let speedDefinitions: SpeedDefinition[] = [this.buildActual(pokemon, field, options), ...this.loadSpeedMeta(options, field)]

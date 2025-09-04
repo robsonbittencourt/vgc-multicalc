@@ -1,16 +1,15 @@
-import { Injectable } from "@angular/core"
 import { Field } from "@lib/model/field"
 import { Pokemon } from "@lib/model/pokemon"
 import { Status } from "@lib/model/status"
-import { Pokemon as SmogonPokemon, StatID } from "@robsonbittencourt/calc"
-import { StatIDExceptHP } from "@robsonbittencourt/calc/src/data/interface"
+import Commom from "./commom"
 
-@Injectable({ providedIn: "root" })
-export class SmogonFunctions {
+export default class SpeedStatCalculator {
+  commom = new Commom()
+
   LOWER_SPEED_ITEMS = ["Macho Brace", "Power Anklet", "Power Band", "Power Belt", "Power Bracer", "Power Lens", "Power Weight", "Iron Ball"]
 
   getFinalSpeed(pokemon: Pokemon, field: Field, isTailwind: boolean): number {
-    let speed = pokemon.modifiedSpe
+    let speed = this.commom.getModifiedStat(pokemon.rawStats["spe"]!, pokemon.boosts["spe"]!)
     const speedMods = []
 
     if (isTailwind) speedMods.push(8192)
@@ -25,9 +24,10 @@ export class SmogonFunctions {
       speedMods.push(8192)
     }
 
-    speed = this.OF32(this.pokeRound((speed * this.chainMods(speedMods, 410, 131172)) / 4096))
+    speed = this.commom.OF32(this.pokeRound((speed * this.chainMods(speedMods, 410, 131172)) / 4096))
+
     if (pokemon.status == Status.PARALYSIS && pokemon.ability.isNot("Quick Feet")) {
-      speed = Math.floor(this.OF32(speed * 50) / 100)
+      speed = Math.floor(this.commom.OF32(speed * 50) / 100)
     }
 
     speed = Math.min(10000, speed)
@@ -60,45 +60,6 @@ export class SmogonFunctions {
     }
   }
 
-  getModifiedStat(stat: number, mod: number): number {
-    const numerator = 0
-    const denominator = 1
-    const modernGenBoostTable = [
-      [2, 8],
-      [2, 7],
-      [2, 6],
-      [2, 5],
-      [2, 4],
-      [2, 3],
-      [2, 2],
-      [3, 2],
-      [4, 2],
-      [5, 2],
-      [6, 2],
-      [7, 2],
-      [8, 2]
-    ]
-    stat = this.OF16(stat * modernGenBoostTable[6 + mod][numerator])
-    stat = Math.floor(stat / modernGenBoostTable[6 + mod][denominator])
-
-    return stat
-  }
-
-  higherStat(smogonPokemon: SmogonPokemon): StatIDExceptHP {
-    let bestStat: StatID = "atk"
-
-    for (const stat of ["def", "spa", "spd", "spe"] as StatIDExceptHP[]) {
-      const actual = this.getModifiedStat(smogonPokemon.rawStats[stat], smogonPokemon.boosts[stat])
-      const best = this.getModifiedStat(smogonPokemon.rawStats[bestStat], smogonPokemon.boosts[bestStat])
-
-      if (actual > best) {
-        bestStat = stat
-      }
-    }
-
-    return bestStat
-  }
-
   private isQPActive(pokemon: Pokemon, field: Field) {
     const weather = field.weather || ""
     const terrain = field.terrain
@@ -120,13 +81,5 @@ export class SmogonFunctions {
     }
 
     return Math.max(Math.min(M, upperBound), lowerBound)
-  }
-
-  private OF16(n: number): number {
-    return n > 65535 ? n % 65536 : n
-  }
-
-  private OF32(n: number) {
-    return n > 4294967295 ? n % 4294967296 : n
   }
 }

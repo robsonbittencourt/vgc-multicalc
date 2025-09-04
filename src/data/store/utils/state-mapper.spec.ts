@@ -10,7 +10,7 @@ import { pokemonToState, stateToPokemon } from "./state-mapper"
 describe("State Mapper", () => {
   describe("stateToPokemon", () => {
     it("should build Pokémon using state", () => {
-      const result = stateToPokemon(pikachuState)
+      const result = stateToPokemon(pikachuState, new Field())
 
       expect(result.name).toBe("Pikachu")
       expect(result.nature).toBe("Timid")
@@ -76,12 +76,6 @@ describe("State Mapper", () => {
       const field = new Field({ weather: "Rain", terrain: "Grassy" })
 
       const result = stateToPokemon(quarkDriveState, field)
-
-      expect(result.ability.on).toBe(false)
-    })
-
-    it("should not activate Quark Drive when field is undefined", () => {
-      const result = stateToPokemon({ ...quarkDriveState, abilityOn: false })
 
       expect(result.ability.on).toBe(false)
     })

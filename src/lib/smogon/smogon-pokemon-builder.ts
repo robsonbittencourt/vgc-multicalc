@@ -1,20 +1,16 @@
-import { Injectable } from "@angular/core"
 import { Items } from "@data/items"
 import { DEFAULT_TERA_TYPE, SELECT_POKEMON_LABEL } from "@lib/constants"
 import { Ability } from "@lib/model/ability"
 import { Pokemon } from "@lib/model/pokemon"
 import { Status } from "@lib/model/status"
-import { SmogonFunctions } from "@lib/smogon/smogon-functions"
 import { PokemonParameters } from "@lib/types"
 import { Generations, Pokemon as SmogonPokemon } from "@robsonbittencourt/calc"
 import { AbilityName } from "@robsonbittencourt/calc/dist/data/interface"
 import { TypeName } from "@robsonbittencourt/calc/src/data/interface"
+import Commom from "./commom"
 
-@Injectable({
-  providedIn: "root"
-})
-export class SmogonPokemonBuilder {
-  private smogonFunctions = new SmogonFunctions()
+export default class SmogonPokemonBuilder {
+  private smogonCommom = new Commom()
 
   fromExisting(pokemon: Pokemon): SmogonPokemon {
     return this.fromScratch(pokemon.name, {
@@ -59,7 +55,7 @@ export class SmogonPokemonBuilder {
 
   private applyStatBoost(smogonPokemon: SmogonPokemon, ability: Ability) {
     if (ability.paradoxAbility && smogonPokemon.abilityOn) {
-      smogonPokemon.boostedStat = this.smogonFunctions.higherStat(smogonPokemon)
+      smogonPokemon.boostedStat = this.smogonCommom.higherStat(smogonPokemon)
     } else {
       smogonPokemon.boostedStat = undefined
     }
