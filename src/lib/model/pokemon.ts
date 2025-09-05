@@ -93,7 +93,11 @@ export class Pokemon {
   }
 
   hasType(type: TypeName): boolean {
-    return this.type1 == type || this.type2 == type || (this.teraType == type && this.teraTypeActive)
+    if (this.teraTypeActive) {
+      return this.teraType == type
+    }
+
+    return this.type1 == type || this.type2 == type
   }
 
   get level(): number {

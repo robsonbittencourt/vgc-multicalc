@@ -1,5 +1,3 @@
-import { provideZonelessChangeDetection } from "@angular/core"
-import { TestBed } from "@angular/core/testing"
 import { SELECT_POKEMON_LABEL } from "@lib/constants"
 import { Ability } from "@lib/model/ability"
 import { Move } from "@lib/model/move"
@@ -11,15 +9,7 @@ import { AbilityName, ItemName } from "@robsonbittencourt/calc/src/data/interfac
 import SmogonPokemonBuilder from "./smogon-pokemon-builder"
 
 describe("SmogonPokemonBuilder", () => {
-  let builder: SmogonPokemonBuilder
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [provideZonelessChangeDetection()]
-    })
-
-    builder = TestBed.inject(SmogonPokemonBuilder)
-  })
+  const builder = new SmogonPokemonBuilder()
 
   it("should create a SmogonPokemon from an existing Pokemon", () => {
     const moveSet = new MoveSet(new Move("Thunderbolt"), new Move("Quick Attack"), new Move("Iron Tail"), new Move("Electro Ball"))
