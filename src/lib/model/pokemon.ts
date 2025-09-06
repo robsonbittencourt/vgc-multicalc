@@ -7,6 +7,7 @@ import { Move } from "@lib/model/move"
 import { MoveSet } from "@lib/model/moveset"
 import { Status } from "@lib/model/status"
 import { SmogonFunctions } from "@lib/smogon"
+import { getFinalAttack, getFinalSpecialAttack } from "@lib/smogon/stat-calculator"
 import { Jumps, PokemonParameters, Stats } from "@lib/types"
 import { Pokemon as SmogonPokemon } from "@robsonbittencourt/calc"
 import { TypeName } from "@robsonbittencourt/calc/dist/data/interface"
@@ -216,7 +217,7 @@ export class Pokemon {
   }
 
   get modifiedAtk(): number {
-    return this.smogonFunctions.getFinalAttack(this, this.move, this.field)
+    return getFinalAttack(this, this.move, this.field)
   }
 
   get baseDef(): number {
@@ -240,7 +241,7 @@ export class Pokemon {
   }
 
   get modifiedSpa(): number {
-    return this.smogonFunctions.getFinalSpecialAttack(this, this.move, this.field)
+    return getFinalSpecialAttack(this, this.move, this.field)
   }
 
   get baseSpd(): number {

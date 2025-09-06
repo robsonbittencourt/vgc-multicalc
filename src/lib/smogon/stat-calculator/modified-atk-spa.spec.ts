@@ -3,7 +3,7 @@ import { Field, FieldSide } from "@lib/model/field"
 import { Move } from "@lib/model/move"
 import { Pokemon } from "@lib/model/pokemon"
 import { Status } from "@lib/model/status"
-import OffensiveStatCalculator from "./modified-atk-spa"
+import { OffensiveStatCalculator } from "./modified-atk-spa"
 
 const calculator = new OffensiveStatCalculator()
 
