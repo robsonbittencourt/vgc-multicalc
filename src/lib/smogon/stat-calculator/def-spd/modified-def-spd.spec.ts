@@ -2,17 +2,15 @@ import { Ability } from "@lib/model/ability"
 import { Field, FieldSide } from "@lib/model/field"
 import { Pokemon } from "@lib/model/pokemon"
 import { Status } from "@lib/model/status"
-import DefensiveStatCalculator from "./modified-def-spd"
-
-const calculator = new DefensiveStatCalculator()
+import { getFinalDefense, getFinalSpecialDefense } from "./modified-def-spd"
 
 describe("DefensiveStatCalculator", () => {
   describe("by stat modifiers", () => {
     it("should return raw defense stat when does not have any modification", () => {
       const pokemon = new Pokemon("Tyranitar", { nature: "Impish", evs: { def: 100, spd: 100 } })
 
-      const def = calculator.getFinalDefense(pokemon, new Field())
-      const spd = calculator.getFinalSpecialDefense(pokemon, new Field())
+      const def = getFinalDefense(pokemon, new Field())
+      const spd = getFinalSpecialDefense(pokemon, new Field())
 
       expect(def).toBe(157)
       expect(spd).toBe(133)
@@ -21,8 +19,8 @@ describe("DefensiveStatCalculator", () => {
     it("should return modified defense when have positive stat modifiers", () => {
       const pokemon = new Pokemon("Tyranitar", { nature: "Impish", evs: { def: 100, spd: 100 }, boosts: { def: 2 } })
 
-      const def = calculator.getFinalDefense(pokemon, new Field())
-      const spd = calculator.getFinalSpecialDefense(pokemon, new Field())
+      const def = getFinalDefense(pokemon, new Field())
+      const spd = getFinalSpecialDefense(pokemon, new Field())
 
       expect(def).toBe(314)
       expect(spd).toBe(133)
@@ -32,7 +30,7 @@ describe("DefensiveStatCalculator", () => {
       const pokemon = new Pokemon("Tyranitar", { nature: "Impish", evs: { def: 100 }, boosts: { def: 2 } })
       const field = new Field({ defenderSide: new FieldSide({ isCriticalHit: true }) })
 
-      const def = calculator.getFinalDefense(pokemon, field)
+      const def = getFinalDefense(pokemon, field)
 
       expect(def).toBe(157)
     })
@@ -40,8 +38,8 @@ describe("DefensiveStatCalculator", () => {
     it("should return modified defense when have negative stat modifiers", () => {
       const pokemon = new Pokemon("Tyranitar", { nature: "Impish", evs: { def: 100, spd: 100 }, boosts: { def: -4 } })
 
-      const def = calculator.getFinalDefense(pokemon, new Field())
-      const spd = calculator.getFinalSpecialDefense(pokemon, new Field())
+      const def = getFinalDefense(pokemon, new Field())
+      const spd = getFinalSpecialDefense(pokemon, new Field())
 
       expect(def).toBe(52)
       expect(spd).toBe(133)
@@ -51,8 +49,8 @@ describe("DefensiveStatCalculator", () => {
       const pokemon = new Pokemon("Tyranitar", { nature: "Impish", evs: { def: 100, spd: 100 }, boosts: { def: -4 } })
       const field = new Field({ defenderSide: new FieldSide({ isCriticalHit: true }) })
 
-      const def = calculator.getFinalDefense(pokemon, field)
-      const spd = calculator.getFinalSpecialDefense(pokemon, field)
+      const def = getFinalDefense(pokemon, field)
+      const spd = getFinalSpecialDefense(pokemon, field)
 
       expect(def).toBe(52)
       expect(spd).toBe(133)
@@ -64,8 +62,8 @@ describe("DefensiveStatCalculator", () => {
       const pokemon = new Pokemon("Tyranitar", { nature: "Careful", evs: { def: 100, spd: 100 } })
       const field = new Field({ weather: "Sand" })
 
-      const def = calculator.getFinalDefense(pokemon, field)
-      const spd = calculator.getFinalSpecialDefense(pokemon, field)
+      const def = getFinalDefense(pokemon, field)
+      const spd = getFinalSpecialDefense(pokemon, field)
 
       expect(def).toBe(143)
       expect(spd).toBe(219)
@@ -75,7 +73,7 @@ describe("DefensiveStatCalculator", () => {
       const pokemon = new Pokemon("Tyranitar", { nature: "Careful", evs: { spd: 100 }, teraType: "Water", teraTypeActive: true })
       const field = new Field({ weather: "Sand" })
 
-      const spd = calculator.getFinalSpecialDefense(pokemon, field)
+      const spd = getFinalSpecialDefense(pokemon, field)
 
       expect(spd).toBe(146)
     })
@@ -84,7 +82,7 @@ describe("DefensiveStatCalculator", () => {
       const pokemon = new Pokemon("Tyranitar", { nature: "Careful", evs: { spd: 100 } })
       const field = new Field({ weather: "Sand", defenderSide: new FieldSide({ isCriticalHit: true }) })
 
-      const spd = calculator.getFinalSpecialDefense(pokemon, field)
+      const spd = getFinalSpecialDefense(pokemon, field)
 
       expect(spd).toBe(219)
     })
@@ -93,7 +91,7 @@ describe("DefensiveStatCalculator", () => {
       const pokemon = new Pokemon("Porygon", { nature: "Careful", evs: { spd: 100 } })
       const field = new Field({ weather: "Sand" })
 
-      const spd = calculator.getFinalSpecialDefense(pokemon, field)
+      const spd = getFinalSpecialDefense(pokemon, field)
 
       expect(spd).toBe(118)
     })
@@ -102,7 +100,7 @@ describe("DefensiveStatCalculator", () => {
       const pokemon = new Pokemon("Porygon", { nature: "Careful", evs: { spd: 100 }, teraType: "Rock", teraTypeActive: true })
       const field = new Field({ weather: "Sand" })
 
-      const spd = calculator.getFinalSpecialDefense(pokemon, field)
+      const spd = getFinalSpecialDefense(pokemon, field)
 
       expect(spd).toBe(177)
     })
@@ -111,8 +109,8 @@ describe("DefensiveStatCalculator", () => {
       const pokemon = new Pokemon("Avalugg", { nature: "Impish", evs: { def: 100, spd: 100 } })
       const field = new Field({ weather: "Snow" })
 
-      const def = calculator.getFinalDefense(pokemon, field)
-      const spd = calculator.getFinalSpecialDefense(pokemon, field)
+      const def = getFinalDefense(pokemon, field)
+      const spd = getFinalSpecialDefense(pokemon, field)
 
       expect(def).toBe(357)
       expect(spd).toBe(79)
@@ -122,7 +120,7 @@ describe("DefensiveStatCalculator", () => {
       const pokemon = new Pokemon("Avalugg", { nature: "Impish", evs: { def: 100 }, teraType: "Water", teraTypeActive: true })
       const field = new Field({ weather: "Snow" })
 
-      const def = calculator.getFinalDefense(pokemon, field)
+      const def = getFinalDefense(pokemon, field)
 
       expect(def).toBe(238)
     })
@@ -131,7 +129,7 @@ describe("DefensiveStatCalculator", () => {
       const pokemon = new Pokemon("Avalugg", { nature: "Impish", evs: { def: 100 } })
       const field = new Field({ weather: "Snow", defenderSide: new FieldSide({ isCriticalHit: true }) })
 
-      const def = calculator.getFinalDefense(pokemon, field)
+      const def = getFinalDefense(pokemon, field)
 
       expect(def).toBe(357)
     })
@@ -140,7 +138,7 @@ describe("DefensiveStatCalculator", () => {
       const pokemon = new Pokemon("Porygon", { nature: "Impish", evs: { def: 100 } })
       const field = new Field({ weather: "Snow" })
 
-      const def = calculator.getFinalDefense(pokemon, field)
+      const def = getFinalDefense(pokemon, field)
 
       expect(def).toBe(113)
     })
@@ -149,7 +147,7 @@ describe("DefensiveStatCalculator", () => {
       const pokemon = new Pokemon("Porygon", { nature: "Impish", evs: { def: 100 }, teraType: "Ice", teraTypeActive: true })
       const field = new Field({ weather: "Snow" })
 
-      const def = calculator.getFinalDefense(pokemon, field)
+      const def = getFinalDefense(pokemon, field)
 
       expect(def).toBe(169)
     })
@@ -159,8 +157,8 @@ describe("DefensiveStatCalculator", () => {
     it("should modify defense when has Marvel Scale and is statused", () => {
       const pokemon = new Pokemon("Milotic", { nature: "Bold", evs: { def: 100, spd: 100 }, ability: new Ability("Marvel Scale"), status: Status.BURN })
 
-      const def = calculator.getFinalDefense(pokemon, new Field())
-      const spd = calculator.getFinalSpecialDefense(pokemon, new Field())
+      const def = getFinalDefense(pokemon, new Field())
+      const spd = getFinalSpecialDefense(pokemon, new Field())
 
       expect(def).toBe(184)
       expect(spd).toBe(158)
@@ -169,7 +167,7 @@ describe("DefensiveStatCalculator", () => {
     it("should not modify defense when has Marvel Scale but not is statused", () => {
       const pokemon = new Pokemon("Milotic", { nature: "Bold", evs: { def: 100 }, ability: new Ability("Marvel Scale"), status: Status.HEALTHY })
 
-      const def = calculator.getFinalDefense(pokemon, new Field())
+      const def = getFinalDefense(pokemon, new Field())
 
       expect(def).toBe(123)
     })
@@ -177,8 +175,8 @@ describe("DefensiveStatCalculator", () => {
     it("should modify defense when has Fur Coat", () => {
       const pokemon = new Pokemon("Persian-Alola", { nature: "Impish", evs: { def: 100, spd: 100 }, ability: new Ability("Fur Coat") })
 
-      const def = calculator.getFinalDefense(pokemon, new Field())
-      const spd = calculator.getFinalSpecialDefense(pokemon, new Field())
+      const def = getFinalDefense(pokemon, new Field())
+      const spd = getFinalSpecialDefense(pokemon, new Field())
 
       expect(def).toBe(204)
       expect(spd).toBe(98)
@@ -188,8 +186,8 @@ describe("DefensiveStatCalculator", () => {
       const pokemon = new Pokemon("Gogoat", { nature: "Impish", evs: { def: 100, spd: 100 }, ability: new Ability("Grass Pelt") })
       const field = new Field({ terrain: "Grassy" })
 
-      const def = calculator.getFinalDefense(pokemon, field)
-      const spd = calculator.getFinalSpecialDefense(pokemon, field)
+      const def = getFinalDefense(pokemon, field)
+      const spd = getFinalSpecialDefense(pokemon, field)
 
       expect(def).toBe(156)
       expect(spd).toBe(114)
@@ -199,7 +197,7 @@ describe("DefensiveStatCalculator", () => {
       const pokemon = new Pokemon("Gogoat", { nature: "Impish", evs: { def: 100 }, ability: new Ability("Grass Pelt") })
       const field = new Field({ terrain: "Electric" })
 
-      const def = calculator.getFinalDefense(pokemon, field)
+      const def = getFinalDefense(pokemon, field)
 
       expect(def).toBe(104)
     })
@@ -208,8 +206,8 @@ describe("DefensiveStatCalculator", () => {
       const pokemon = new Pokemon("Tyranitar", { nature: "Impish", evs: { def: 100, spd: 100 } })
       const field = new Field({ isSwordOfRuin: true })
 
-      const def = calculator.getFinalDefense(pokemon, field)
-      const spd = calculator.getFinalSpecialDefense(pokemon, field)
+      const def = getFinalDefense(pokemon, field)
+      const spd = getFinalSpecialDefense(pokemon, field)
 
       expect(def).toBe(118)
       expect(spd).toBe(133)
@@ -219,7 +217,7 @@ describe("DefensiveStatCalculator", () => {
       const pokemon = new Pokemon("Chien-Pao", { nature: "Impish", evs: { def: 100 } })
       const field = new Field({ isSwordOfRuin: true })
 
-      const def = calculator.getFinalDefense(pokemon, field)
+      const def = getFinalDefense(pokemon, field)
 
       expect(def).toBe(124)
     })
@@ -228,8 +226,8 @@ describe("DefensiveStatCalculator", () => {
       const pokemon = new Pokemon("Tyranitar", { nature: "Careful", evs: { def: 100, spd: 100 } })
       const field = new Field({ isBeadsOfRuin: true })
 
-      const def = calculator.getFinalDefense(pokemon, field)
-      const spd = calculator.getFinalSpecialDefense(pokemon, field)
+      const def = getFinalDefense(pokemon, field)
+      const spd = getFinalSpecialDefense(pokemon, field)
 
       expect(def).toBe(143)
       expect(spd).toBe(109)
@@ -239,7 +237,7 @@ describe("DefensiveStatCalculator", () => {
       const pokemon = new Pokemon("Chi-Yu", { nature: "Careful", evs: { spd: 100 } })
       const field = new Field({ isBeadsOfRuin: true })
 
-      const spd = calculator.getFinalSpecialDefense(pokemon, field)
+      const spd = getFinalSpecialDefense(pokemon, field)
 
       expect(spd).toBe(168)
     })
@@ -249,8 +247,8 @@ describe("DefensiveStatCalculator", () => {
     it("should modify defense when holding Eviolite", () => {
       const pokemon = new Pokemon("Chansey", { nature: "Bold", evs: { def: 100, spd: 100 }, item: "Eviolite" })
 
-      const def = calculator.getFinalDefense(pokemon, new Field())
-      const spd = calculator.getFinalSpecialDefense(pokemon, new Field())
+      const def = getFinalDefense(pokemon, new Field())
+      const spd = getFinalSpecialDefense(pokemon, new Field())
 
       expect(def).toBe(61)
       expect(spd).toBe(207)
@@ -259,8 +257,8 @@ describe("DefensiveStatCalculator", () => {
     it("should not modify defense when holding Eviolite but is a final form", () => {
       const pokemon = new Pokemon("Tyranitar", { nature: "Impish", evs: { def: 100, spd: 100 }, item: "Eviolite" })
 
-      const def = calculator.getFinalDefense(pokemon, new Field())
-      const spd = calculator.getFinalSpecialDefense(pokemon, new Field())
+      const def = getFinalDefense(pokemon, new Field())
+      const spd = getFinalSpecialDefense(pokemon, new Field())
 
       expect(def).toBe(157)
       expect(spd).toBe(133)
@@ -269,8 +267,8 @@ describe("DefensiveStatCalculator", () => {
     it("should modify special defense when holding Assault Vest", () => {
       const pokemon = new Pokemon("Tyranitar", { nature: "Careful", evs: { def: 100, spd: 100 }, item: "Assault Vest" })
 
-      const def = calculator.getFinalDefense(pokemon, new Field())
-      const spd = calculator.getFinalSpecialDefense(pokemon, new Field())
+      const def = getFinalDefense(pokemon, new Field())
+      const spd = getFinalSpecialDefense(pokemon, new Field())
 
       expect(def).toBe(143)
       expect(spd).toBe(219)
@@ -282,7 +280,7 @@ describe("DefensiveStatCalculator", () => {
       const pokemon = new Pokemon("Tyranitar", { nature: "Impish", evs: { def: 100 } })
       const field = new Field({ isSwordOfRuin: true, isNeutralizingGas: true })
 
-      const def = calculator.getFinalDefense(pokemon, field)
+      const def = getFinalDefense(pokemon, field)
 
       expect(def).toBe(157)
     })
@@ -291,7 +289,7 @@ describe("DefensiveStatCalculator", () => {
       const pokemon = new Pokemon("Tyranitar", { nature: "Impish", evs: { def: 100 }, item: "Ability Shield" })
       const field = new Field({ isSwordOfRuin: true, isNeutralizingGas: true })
 
-      const def = calculator.getFinalDefense(pokemon, field)
+      const def = getFinalDefense(pokemon, field)
 
       expect(def).toBe(118)
     })

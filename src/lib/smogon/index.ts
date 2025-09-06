@@ -6,13 +6,11 @@ import { PokemonParameters } from "@lib/types"
 import { Pokemon as SmogonPokemon } from "@robsonbittencourt/calc"
 import { StatIDExceptHP } from "@robsonbittencourt/calc/dist/data/interface"
 import Commom from "./commom"
-import DefensiveStatCalculator from "./modified-def-spd"
 import SpeedStatCalculator from "./modified-spe"
 import SmogonPokemonBuilder from "./smogon-pokemon-builder"
 
 @Injectable({ providedIn: "root" })
 export class SmogonFunctions {
-  private defensiveCalc = new DefensiveStatCalculator()
   private speedCalc = new SpeedStatCalculator()
   private commom = new Commom()
   private builder = new SmogonPokemonBuilder()
@@ -22,7 +20,7 @@ export class SmogonFunctions {
   }
 
   getFinalDefense(attacker: Pokemon, field: Field): number {
-    return this.defensiveCalc.getFinalDefense(attacker, field)
+    return 0
   }
 
   getFinalSpecialAttack(attacker: Pokemon, move: Move, field: Field): number {
@@ -30,7 +28,7 @@ export class SmogonFunctions {
   }
 
   getFinalSpecialDefense(attacker: Pokemon, field: Field): number {
-    return this.defensiveCalc.getFinalSpecialDefense(attacker, field)
+    return 0
   }
 
   getFinalSpeed(pokemon: Pokemon, field: Field, isTailwind: boolean): number {
