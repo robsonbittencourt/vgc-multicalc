@@ -3,7 +3,8 @@ import { Move } from "@lib/model/move"
 import { Pokemon } from "@lib/model/pokemon"
 import { Generations, Move as MoveSmogon } from "@robsonbittencourt/calc"
 import Commom from "../commom"
-import { calculateAbilityMods } from "./ability/offensive-ability-strategy"
+import { abilityStrategies } from "./ability/offensive-ability-strategy"
+import { itemStrategies } from "./item/offensive-item-strategy"
 
 export class OffensiveStatCalculator {
   commom = new Commom()
@@ -17,38 +18,39 @@ export class OffensiveStatCalculator {
   }
 
   private calculateOffensiveStat(isAttack: boolean, attacker: Pokemon, move: Move, field: Field): number {
-    let attack: number
+    let statValue: number
     const attackStat = isAttack ? "atk" : "spa"
     const moveSmogon = new MoveSmogon(Generations.get(9), move.name)
 
     if (attacker.boosts[attackStat] === 0 || (field.attackerSide.isCriticalHit && attacker.boosts[attackStat]! < 0)) {
-      attack = attacker.rawStats[attackStat]!
+      statValue = attacker.rawStats[attackStat]!
     } else {
-      attack = this.commom.getModifiedStat(attacker.rawStats[attackStat]!, attacker.boosts[attackStat]!)
+      statValue = this.commom.getModifiedStat(attacker.rawStats[attackStat]!, attacker.boosts[attackStat]!)
     }
 
     if (attacker.hasAbility("Hustle") && isAttack) {
-      attack = this.commom.pokeRound((attack * 3) / 2)
+      statValue = this.commom.pokeRound((statValue * 3) / 2)
     }
 
-    const abilityMods = calculateAbilityMods(isAttack, attacker, moveSmogon, field)
-    const itemModifiers = this.calculateItemMods(isAttack, attacker)
-    const modifiers = abilityMods.concat(itemModifiers)
+    const modifiers = this.calculateModifiers(isAttack, attacker, moveSmogon, field)
+    statValue = this.calculateStatValueWithModifiers(statValue, modifiers)
 
-    attack = this.commom.OF16(Math.max(1, this.commom.pokeRound((attack * this.commom.chainMods(modifiers, 410, 131072)) / 4096)))
-
-    return attack
+    return statValue
   }
 
-  private calculateItemMods(isAttack: boolean, attacker: Pokemon) {
-    const itemModifiers: number[] = []
+  private calculateModifiers(isAttack: boolean, attacker: Pokemon, moveSmogon: MoveSmogon, field: Field): number[] {
+    let modifiers: number[] = []
 
-    if (attacker.hasItem("Light Ball") && attacker.name.includes("Pikachu")) {
-      itemModifiers.push(8192)
-    } else if ((attacker.hasItem("Choice Band") && isAttack) || (attacker.hasItem("Choice Specs") && !isAttack)) {
-      itemModifiers.push(6144)
+    if (!(field.isNeutralizingGas && !attacker.hasItem("Ability Shield"))) {
+      modifiers = modifiers.concat(abilityStrategies.filter(s => s.shouldApply(isAttack, attacker, moveSmogon, field)).map(s => s.getModifier()))
     }
 
-    return itemModifiers
+    modifiers = modifiers.concat(itemStrategies.filter(s => s.shouldApply(isAttack, attacker)).map(s => s.getModifier()))
+
+    return modifiers
+  }
+
+  private calculateStatValueWithModifiers(statValue: number, modifiers: number[]) {
+    return this.commom.OF16(Math.max(1, this.commom.pokeRound((statValue * this.commom.chainMods(modifiers, 410, 131072)) / 4096)))
   }
 }

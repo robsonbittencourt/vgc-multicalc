@@ -24,20 +24,12 @@ import { Transistor } from "./transistor"
 import { VesselOfRuin } from "./vessel-of-ruin"
 import { WaterBubble } from "./water-bubble"
 
-export function calculateAbilityMods(isAttack: boolean, attacker: Pokemon, move: Move, field: Field): number[] {
-  if (field.isNeutralizingGas && !attacker.hasItem("Ability Shield")) {
-    return []
-  }
-
-  return abilityStrategies.filter(s => s.shouldApply(isAttack, attacker, move, field)).map(s => s.getModifier())
-}
-
 export interface OffensiveAbilityStrategy {
   shouldApply(isAttack: boolean, attacker: Pokemon, move: Move, field: Field): boolean
   getModifier(): number
 }
 
-const abilityStrategies: OffensiveAbilityStrategy[] = [
+export const abilityStrategies: OffensiveAbilityStrategy[] = [
   new Blaze(),
   new DragonsMaw(),
   new FlashFire(),
