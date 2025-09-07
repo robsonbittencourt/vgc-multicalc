@@ -6,6 +6,7 @@ import { Field } from "@lib/model/field"
 import { Move } from "@lib/model/move"
 import { Pokemon } from "@lib/model/pokemon"
 import { SmogonFunctions } from "@lib/smogon"
+import { fromExisting } from "@lib/smogon/smogon-pokemon-builder"
 import { SpeedCalculatorService } from "@lib/speed-calculator/speed-calculator-service"
 import { calculate, Generations, Move as MoveSmogon, Result, StatID } from "@robsonbittencourt/calc"
 
@@ -61,8 +62,8 @@ export class DamageCalculatorService {
     moveSmogon.isStellarFirstUse = true
     moveSmogon.hits = +move.hits
 
-    const smogonAttacker = this.smogonFunctions.fromExisting(attacker)
-    const smogonTarget = this.smogonFunctions.fromExisting(target)
+    const smogonAttacker = fromExisting(attacker)
+    const smogonTarget = fromExisting(target)
 
     this.adjusters.forEach(a => a.adjust(smogonAttacker, smogonTarget, move, moveSmogon, smogonField, secondAttacker, field))
 

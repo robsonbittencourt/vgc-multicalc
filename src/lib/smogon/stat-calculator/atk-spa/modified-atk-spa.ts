@@ -1,8 +1,8 @@
 import { Field } from "@lib/model/field"
 import { Move } from "@lib/model/move"
 import { Pokemon } from "@lib/model/pokemon"
+import { chainMods, getModifiedStat, OF16, pokeRound } from "@lib/smogon/commom"
 import { Generations, Move as MoveSmogon } from "@robsonbittencourt/calc"
-import Commom from "../../commom"
 import { abilityStrategies } from "./ability/offensive-ability-strategy"
 import { itemStrategies } from "./item/offensive-item-strategy"
 
@@ -14,8 +14,6 @@ export function getFinalSpecialAttack(attacker: Pokemon, move: Move, field: Fiel
   return calculateOffensiveStat(false, attacker, move, field)
 }
 
-const commom = new Commom()
-
 function calculateOffensiveStat(isAttack: boolean, attacker: Pokemon, move: Move, field: Field): number {
   let statValue: number
   const attackStat = isAttack ? "atk" : "spa"
@@ -24,11 +22,11 @@ function calculateOffensiveStat(isAttack: boolean, attacker: Pokemon, move: Move
   if (attacker.boosts[attackStat] === 0 || (field.attackerSide.isCriticalHit && attacker.boosts[attackStat]! < 0)) {
     statValue = attacker.rawStats[attackStat]!
   } else {
-    statValue = commom.getModifiedStat(attacker.rawStats[attackStat]!, attacker.boosts[attackStat]!)
+    statValue = getModifiedStat(attacker.rawStats[attackStat]!, attacker.boosts[attackStat]!)
   }
 
   if (attacker.hasAbility("Hustle") && isAttack) {
-    statValue = commom.pokeRound((statValue * 3) / 2)
+    statValue = pokeRound((statValue * 3) / 2)
   }
 
   const modifiers = calculateModifiers(isAttack, attacker, moveSmogon, field)
@@ -50,5 +48,5 @@ function calculateModifiers(isAttack: boolean, attacker: Pokemon, moveSmogon: Mo
 }
 
 function calculateStatValueWithModifiers(statValue: number, modifiers: number[]) {
-  return commom.OF16(Math.max(1, commom.pokeRound((statValue * commom.chainMods(modifiers, 410, 131072)) / 4096)))
+  return OF16(Math.max(1, pokeRound((statValue * chainMods(modifiers, 410, 131072)) / 4096)))
 }

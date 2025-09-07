@@ -3,7 +3,7 @@ import { Field } from "@lib/model/field"
 import { Pokemon } from "@lib/model/pokemon"
 import { Status } from "@lib/model/status"
 import { Generations, Pokemon as SmogonPokemon } from "@robsonbittencourt/calc"
-import Commom from "./commom"
+import { higherStat } from "../../commom"
 import SpeedStatCalculator from "./modified-spe"
 
 describe("SmogonFunctions", () => {
@@ -277,78 +277,72 @@ describe("SmogonFunctions", () => {
 
   describe("higherStat", () => {
     describe("specific modifications", () => {
-      const smogonCommom = new Commom()
-
       it("should return the atk stat when this is the highest stat considering nature", () => {
         const pokemon = new SmogonPokemon(Generations.get(9), "Mew", { nature: "Adamant" })
 
-        const higherStat = smogonCommom.higherStat(pokemon)
+        const result = higherStat(pokemon)
 
-        expect(higherStat).toEqual("atk")
+        expect(result).toEqual("atk")
       })
 
       it("should return the atk stat when this is the highest stat considering evs", () => {
         const pokemon = new SmogonPokemon(Generations.get(9), "Mew", { evs: { atk: 100 } })
 
-        const higherStat = smogonCommom.higherStat(pokemon)
+        const result = higherStat(pokemon)
 
-        expect(higherStat).toEqual("atk")
+        expect(result).toEqual("atk")
       })
 
       it("should return the atk stat when this is the highest stat considering boosts", () => {
         const pokemon = new SmogonPokemon(Generations.get(9), "Mew", { boosts: { atk: 1 } })
 
-        const higherStat = smogonCommom.higherStat(pokemon)
+        const result = higherStat(pokemon)
 
-        expect(higherStat).toEqual("atk")
+        expect(result).toEqual("atk")
       })
     })
 
     describe("another stats", () => {
-      const smogonCommom = new Commom()
-
       it("should return the def stat when this is the highest stat", () => {
         const pokemon = new SmogonPokemon(Generations.get(9), "Mew", { evs: { def: 100 } })
 
-        const higherStat = smogonCommom.higherStat(pokemon)
+        const result = higherStat(pokemon)
 
-        expect(higherStat).toEqual("def")
+        expect(result).toEqual("def")
       })
 
       it("should return the spa stat when this is the highest stat", () => {
         const pokemon = new SmogonPokemon(Generations.get(9), "Mew", { evs: { spa: 100 } })
 
-        const higherStat = smogonCommom.higherStat(pokemon)
+        const result = higherStat(pokemon)
 
-        expect(higherStat).toEqual("spa")
+        expect(result).toEqual("spa")
       })
 
       it("should return the spd stat when this is the highest stat", () => {
         const pokemon = new SmogonPokemon(Generations.get(9), "Mew", { evs: { spd: 100 } })
 
-        const higherStat = smogonCommom.higherStat(pokemon)
+        const result = higherStat(pokemon)
 
-        expect(higherStat).toEqual("spd")
+        expect(result).toEqual("spd")
       })
 
       it("should return the spe stat when this is the highest stat", () => {
         const pokemon = new SmogonPokemon(Generations.get(9), "Mew", { evs: { spe: 100 } })
 
-        const higherStat = smogonCommom.higherStat(pokemon)
+        const result = higherStat(pokemon)
 
-        expect(higherStat).toEqual("spe")
+        expect(result).toEqual("spe")
       })
     })
 
     describe("itens", () => {
-      const smogonCommom = new Commom()
-
       it("should not considering item effect and return the spe as the highest stat", () => {
         const pokemon = new SmogonPokemon(Generations.get(9), "Mew", { item: "Iron Ball", evs: { spe: 4 } })
 
-        const higherStat = smogonCommom.higherStat(pokemon)
+        const result = higherStat(pokemon)
 
-        expect(higherStat).toEqual("spe")
+        expect(result).toEqual("spe")
       })
     })
   })

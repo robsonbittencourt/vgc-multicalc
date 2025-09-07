@@ -1,15 +1,13 @@
 import { Field } from "@lib/model/field"
 import { Pokemon } from "@lib/model/pokemon"
 import { Status } from "@lib/model/status"
-import Commom from "./commom"
+import { getModifiedStat, OF32 } from "@lib/smogon/commom"
 
 export default class SpeedStatCalculator {
-  commom = new Commom()
-
   LOWER_SPEED_ITEMS = ["Macho Brace", "Power Anklet", "Power Band", "Power Belt", "Power Bracer", "Power Lens", "Power Weight", "Iron Ball"]
 
   getFinalSpeed(pokemon: Pokemon, field: Field, isTailwind: boolean): number {
-    let speed = this.commom.getModifiedStat(pokemon.rawStats["spe"]!, pokemon.boosts["spe"]!)
+    let speed = getModifiedStat(pokemon.rawStats["spe"]!, pokemon.boosts["spe"]!)
     const speedMods = []
 
     if (isTailwind) speedMods.push(8192)
@@ -24,10 +22,10 @@ export default class SpeedStatCalculator {
       speedMods.push(8192)
     }
 
-    speed = this.commom.OF32(this.pokeRound((speed * this.chainMods(speedMods, 410, 131172)) / 4096))
+    speed = OF32(this.pokeRound((speed * this.chainMods(speedMods, 410, 131172)) / 4096))
 
     if (pokemon.status == Status.PARALYSIS && pokemon.ability.isNot("Quick Feet")) {
-      speed = Math.floor(this.commom.OF32(speed * 50) / 100)
+      speed = Math.floor(OF32(speed * 50) / 100)
     }
 
     speed = Math.min(10000, speed)

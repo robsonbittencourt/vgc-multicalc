@@ -7,6 +7,8 @@ import { Move } from "@lib/model/move"
 import { MoveSet } from "@lib/model/moveset"
 import { Status } from "@lib/model/status"
 import { SmogonFunctions } from "@lib/smogon"
+import { higherStat } from "@lib/smogon/commom"
+import { fromScratch } from "@lib/smogon/smogon-pokemon-builder"
 import { getFinalAttack, getFinalSpecialAttack } from "@lib/smogon/stat-calculator/atk-spa/modified-atk-spa"
 import { getFinalDefense, getFinalSpecialDefense } from "@lib/smogon/stat-calculator/def-spd/modified-def-spd"
 import { Jumps, PokemonParameters, Stats } from "@lib/types"
@@ -34,7 +36,7 @@ export class Pokemon {
     this.field = options.field ?? new Field()
 
     const adjustedName = name == SELECT_POKEMON_LABEL ? "Togepi" : name
-    this.smogonPokemon = this.smogonFunctions.fromScratch(adjustedName, options)
+    this.smogonPokemon = fromScratch(adjustedName, options)
 
     this.id = options.id ?? uuidv4()
     this.moveSet = options.moveSet ?? new MoveSet(new Move("Struggle"), new Move("Struggle"), new Move("Struggle"), new Move("Struggle"))
@@ -42,7 +44,7 @@ export class Pokemon {
     this.teraType = options.teraType ?? DEFAULT_TERA_TYPE
     this.hpPercentage = options.hpPercentage ?? 100
     this.commanderActive = options.commanderActive ?? false
-    this.higherStat = this.smogonFunctions.higherStat(this.smogonPokemon)
+    this.higherStat = higherStat(this.smogonPokemon)
     this.bonusBoosts = options.bonusBoosts ?? { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
   }
 
