@@ -317,8 +317,8 @@ export class Pokemon {
     return this.smogonPokemon.rawStats
   }
 
-  hasAbility(...ability: string[]): boolean {
-    return ability.includes(this.ability.name)
+  hasAbility(ability: string): boolean {
+    return ability == this.ability.name
   }
 
   hasItem(item: string): boolean {
