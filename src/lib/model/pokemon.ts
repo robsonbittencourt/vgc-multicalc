@@ -6,11 +6,11 @@ import { Ability } from "@lib/model/ability"
 import { Move } from "@lib/model/move"
 import { MoveSet } from "@lib/model/moveset"
 import { Status } from "@lib/model/status"
-import { SmogonFunctions } from "@lib/smogon"
 import { higherStat } from "@lib/smogon/commom"
 import { fromScratch } from "@lib/smogon/smogon-pokemon-builder"
 import { getFinalAttack, getFinalSpecialAttack } from "@lib/smogon/stat-calculator/atk-spa/modified-atk-spa"
 import { getFinalDefense, getFinalSpecialDefense } from "@lib/smogon/stat-calculator/def-spd/modified-def-spd"
+import { getFinalSpeed } from "@lib/smogon/stat-calculator/spe/modified-spe"
 import { Jumps, PokemonParameters, Stats } from "@lib/types"
 import { Pokemon as SmogonPokemon } from "@robsonbittencourt/calc"
 import { TypeName } from "@robsonbittencourt/calc/dist/data/interface"
@@ -30,7 +30,6 @@ export class Pokemon {
 
   private field: Field
   private smogonPokemon: SmogonPokemon
-  private smogonFunctions = new SmogonFunctions()
 
   constructor(name: string, options: PokemonParameters = {}) {
     this.field = options.field ?? new Field()
@@ -268,7 +267,7 @@ export class Pokemon {
   }
 
   get modifiedSpe(): number {
-    return this.smogonFunctions.getFinalSpeed(this, this.field, false)
+    return getFinalSpeed(this, this.field, false)
   }
 
   get bst(): number {

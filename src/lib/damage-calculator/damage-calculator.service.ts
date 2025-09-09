@@ -5,7 +5,6 @@ import { FieldMapper } from "@lib/field-mapper"
 import { Field } from "@lib/model/field"
 import { Move } from "@lib/model/move"
 import { Pokemon } from "@lib/model/pokemon"
-import { SmogonFunctions } from "@lib/smogon"
 import { fromExisting } from "@lib/smogon/smogon-pokemon-builder"
 import { SpeedCalculatorService } from "@lib/speed-calculator/speed-calculator-service"
 import { calculate, Generations, Move as MoveSmogon, Result, StatID } from "@robsonbittencourt/calc"
@@ -18,7 +17,6 @@ export class DamageCalculatorService {
 
   adjusters = inject(CALC_ADJUSTERS)
   fieldMapper = inject(FieldMapper)
-  smogonFunctions = new SmogonFunctions()
   speedCalculator = inject(SpeedCalculatorService)
 
   calcDamage(attacker: Pokemon, target: Pokemon, field: Field): DamageResult {
