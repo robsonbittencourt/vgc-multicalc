@@ -4,21 +4,22 @@ import { chainMods, getModifiedStat, OF16, pokeRound } from "@lib/smogon/commom"
 import { abilityStrategies } from "./ability/defensive-ability-strategy"
 import { itemStrategies } from "./item/defensive-item-strategy"
 
-export function getFinalDefense(pokemon: Pokemon, field: Field): number {
-  return calculateDefensiveStat(true, pokemon, field)
+export function getFinalDefense(pokemon: Pokemon, field: Field, isAttacker: boolean): number {
+  return calculateDefensiveStat(true, pokemon, field, isAttacker)
 }
 
-export function getFinalSpecialDefense(pokemon: Pokemon, field: Field): number {
-  return calculateDefensiveStat(false, pokemon, field)
+export function getFinalSpecialDefense(pokemon: Pokemon, field: Field, isAttacker: boolean): number {
+  return calculateDefensiveStat(false, pokemon, field, isAttacker)
 }
 
-function calculateDefensiveStat(isDefense: boolean, pokemon: Pokemon, field: Field) {
+function calculateDefensiveStat(isDefense: boolean, pokemon: Pokemon, field: Field, isAttacker: boolean) {
   let statValue: number
 
   const defenseStat = isDefense ? "def" : "spd"
   const boosts = pokemon.boosts[field.isWonderRoom ? (isDefense ? "spd" : "def") : defenseStat]!
+  const takedCriticalHit = isAttacker ? field.defenderSide.isCriticalHit : field.attackerSide.isCriticalHit
 
-  if (boosts === 0 || (field.defenderSide.isCriticalHit && boosts > 0)) {
+  if (boosts === 0 || (takedCriticalHit && boosts > 0)) {
     statValue = pokemon.rawStats[defenseStat]!
   } else {
     statValue = getModifiedStat(pokemon.rawStats[defenseStat]!, boosts)

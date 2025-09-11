@@ -6,20 +6,21 @@ import { Generations, Move as MoveSmogon } from "@robsonbittencourt/calc"
 import { abilityStrategies } from "./ability/offensive-ability-strategy"
 import { itemStrategies } from "./item/offensive-item-strategy"
 
-export function getFinalAttack(attacker: Pokemon, move: Move, field: Field): number {
-  return calculateOffensiveStat(true, attacker, move, field)
+export function getFinalAttack(attacker: Pokemon, move: Move, field: Field, isAttacker: boolean): number {
+  return calculateOffensiveStat(true, attacker, move, field, isAttacker)
 }
 
-export function getFinalSpecialAttack(attacker: Pokemon, move: Move, field: Field): number {
-  return calculateOffensiveStat(false, attacker, move, field)
+export function getFinalSpecialAttack(attacker: Pokemon, move: Move, field: Field, isAttacker: boolean): number {
+  return calculateOffensiveStat(false, attacker, move, field, isAttacker)
 }
 
-function calculateOffensiveStat(isAttack: boolean, attacker: Pokemon, move: Move, field: Field): number {
+function calculateOffensiveStat(isAttack: boolean, attacker: Pokemon, move: Move, field: Field, isAttacker: boolean): number {
   let statValue: number
   const attackStat = isAttack ? "atk" : "spa"
   const moveSmogon = new MoveSmogon(Generations.get(9), move.name)
+  const causedCriticalHit = isAttacker ? field.attackerSide.isCriticalHit : field.defenderSide.isCriticalHit
 
-  if (attacker.boosts[attackStat] === 0 || (field.attackerSide.isCriticalHit && attacker.boosts[attackStat]! < 0)) {
+  if (attacker.boosts[attackStat] === 0 || (causedCriticalHit && attacker.boosts[attackStat]! < 0)) {
     statValue = attacker.rawStats[attackStat]!
   } else {
     statValue = getModifiedStat(attacker.rawStats[attackStat]!, attacker.boosts[attackStat]!)

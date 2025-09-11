@@ -27,6 +27,7 @@ export class Pokemon {
   readonly commanderActive: boolean
   readonly higherStat: StatIDExceptHP
   readonly bonusBoosts: Partial<Stats>
+  readonly isAttacker: boolean
 
   private field: Field
   private smogonPokemon: SmogonPokemon
@@ -45,6 +46,7 @@ export class Pokemon {
     this.commanderActive = options.commanderActive ?? false
     this.higherStat = higherStat(this.smogonPokemon)
     this.bonusBoosts = options.bonusBoosts ?? { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
+    this.isAttacker = options.isAttacker ?? false
   }
 
   get name(): string {
@@ -219,7 +221,7 @@ export class Pokemon {
   }
 
   get modifiedAtk(): number {
-    return getFinalAttack(this, this.move, this.field)
+    return getFinalAttack(this, this.move, this.field, this.isAttacker)
   }
 
   get baseDef(): number {
@@ -231,7 +233,7 @@ export class Pokemon {
   }
 
   get modifiedDef(): number {
-    return getFinalDefense(this, this.field)
+    return getFinalDefense(this, this.field, this.isAttacker)
   }
 
   get baseSpa(): number {
@@ -243,7 +245,7 @@ export class Pokemon {
   }
 
   get modifiedSpa(): number {
-    return getFinalSpecialAttack(this, this.move, this.field)
+    return getFinalSpecialAttack(this, this.move, this.field, this.isAttacker)
   }
 
   get baseSpd(): number {
@@ -255,7 +257,7 @@ export class Pokemon {
   }
 
   get modifiedSpd(): number {
-    return getFinalSpecialDefense(this, this.field)
+    return getFinalSpecialDefense(this, this.field, this.isAttacker)
   }
 
   get baseSpe(): number {

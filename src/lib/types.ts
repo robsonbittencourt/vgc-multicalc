@@ -39,4 +39,5 @@ export type PokemonParameters = {
   hpPercentage?: number
   commanderActive?: boolean
   field?: Field
+  isAttacker?: boolean
 }
