@@ -269,7 +269,7 @@ export class Pokemon {
   }
 
   get modifiedSpe(): number {
-    return getFinalSpeed(this, this.field, false)
+    return getFinalSpeed(this, this.field, this.isAttacker)
   }
 
   get hasModifier(): boolean {

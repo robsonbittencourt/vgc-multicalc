@@ -1,7 +1,6 @@
 Wonder room verificar
 
-não está considerando tailwind
-
+QUando adiciona module, quebra a barrinha do jump. Se recarregar corrige
 
 Arrumar pokes mais usados no filtro de seleção. Usar reg h.
 

@@ -5,10 +5,11 @@ import { chainMods, getModifiedStat, OF32, pokeRound } from "@lib/smogon/commom"
 import { abilityStrategies } from "./ability/speed-ability-strategy"
 import { itemStrategies } from "./item/speed-item-strategy"
 
-export function getFinalSpeed(pokemon: Pokemon, field: Field, isTailwind: boolean): number {
+export function getFinalSpeed(pokemon: Pokemon, field: Field, isAttacker: boolean): number {
   let speed = getModifiedStat(pokemon.rawStats["spe"]!, pokemon.boosts["spe"]!)
 
   const speedMods = calculateModifiers(pokemon, field)
+  const isTailwind = isAttacker ? field.attackerSide.isTailwind : field.defenderSide.isTailwind
 
   if (isTailwind) {
     speedMods.push(8192)
