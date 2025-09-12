@@ -272,6 +272,10 @@ export class Pokemon {
     return getFinalSpeed(this, this.field, false)
   }
 
+  get hasModifier(): boolean {
+    return this.atk != this.modifiedAtk || this.def != this.modifiedDef || this.spa != this.modifiedSpa || this.spd != this.modifiedSpd || this.spe != this.modifiedSpe
+  }
+
   get bst(): number {
     return this.baseHp + this.baseAtk + this.baseDef + this.baseSpa + this.baseSpd + this.baseSpe
   }

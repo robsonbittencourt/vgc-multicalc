@@ -137,11 +137,15 @@
 }
 
 @if (showEvsTable()) {
-  <div class="evs-titles" [@fadeInOut]="shouldAnimate() ? 'in' : null">
+  <div class="evs-titles" [ngStyle]="gridTemplateColumns()" [@fadeInOut]="shouldAnimate() ? 'in' : null">
     <label class="base-title">Base</label>
     <label class="modifier-title">Mod.</label>
     <label class="evs-title">EVs</label>
     <label class="ivs-title">IVs</label>
+    <label class="stats-title">Stat</label>
+    @if (pokemon().hasModifier) {
+      <label class="mod-title">Mod</label>
+    }
   </div>
 
   <div class="evs" [@fadeInOut]="shouldAnimate() ? 'in' : null">

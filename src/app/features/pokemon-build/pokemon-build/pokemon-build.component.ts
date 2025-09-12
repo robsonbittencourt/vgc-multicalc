@@ -342,6 +342,14 @@ export class PokemonBuildComponent {
     return this.pokemon().name.startsWith("Ogerpon")
   }
 
+  gridTemplateColumns(): any {
+    if (this.pokemon().hasModifier) {
+      return { "grid-template-columns": "64px 64px 67px 64px 1fr 64px 40px 30px" }
+    }
+
+    return { "grid-template-columns": "64px 64px 67px 64px 1fr 64px 40px" }
+  }
+
   private clearBlurTimeout() {
     if (this.blurTimeout) {
       clearTimeout(this.blurTimeout)

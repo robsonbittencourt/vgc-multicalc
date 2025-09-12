@@ -1,11 +1,6 @@
 Wonder room verificar
 
-Arrumar o critical hit está considerando somente o do attacker. E defender nas defesas e tailwind na speed
-
-Colocar tooltip dizendo quantos % está a mais e valor original
-
-
-
+não está considerando tailwind
 
 
 Arrumar pokes mais usados no filtro de seleção. Usar reg h.

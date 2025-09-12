@@ -80,6 +80,16 @@ export class EvSliderComponent implements AfterViewInit {
     return this.pokemon().modifiedSpe
   })
 
+  originalWithModifier = computed(() => {
+    if (this.modifiedStat() != this.statValue()) {
+      const operator = this.modifiedStat() > this.statValue() ? "+" : "-"
+      const percentage = Math.floor(Math.abs((this.modifiedStat() - this.statValue()) / this.statValue()) * 100)
+      return `${operator}${percentage}%`
+    }
+
+    return ""
+  })
+
   statName = computed(() => {
     if (this.stat() == "hp") return "HP"
     if (this.stat() == "atk") return "Attack"
@@ -222,6 +232,14 @@ export class EvSliderComponent implements AfterViewInit {
 
   resetMousePosition() {
     this.previousMouseX = null
+  }
+
+  gridTemplateColumns(): any {
+    if (this.pokemon().hasModifier) {
+      return { "grid-template-columns": "64px 64px 67px 64px 1fr 64px 40px 30px" }
+    }
+
+    return { "grid-template-columns": "64px 64px 67px 64px 1fr 64px 40px" }
   }
 
   statValueStyle(): any {
