@@ -244,6 +244,14 @@ export class Pokemon {
     return this.isSmogonParadoxAbility(this.smogonPokemon)
   }
 
+  get isProtosynthesisAbility() {
+    return this.ability.name == "Protosynthesis"
+  }
+
+  get isQuarkDriveAbility() {
+    return this.ability.name == "Quark Drive"
+  }
+
   get isDefault() {
     return this.smogonPokemon.name == "Togepi"
   }

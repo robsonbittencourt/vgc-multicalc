@@ -1,4 +1,4 @@
-import { Component, computed, inject, linkedSignal, OnInit, signal, viewChild } from "@angular/core"
+import { Component, computed, inject, OnInit, signal, viewChild } from "@angular/core"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { FieldStore } from "@data/store/field-store"
 import { MenuStore } from "@data/store/menu-store"
@@ -7,7 +7,6 @@ import { TeamComponent } from "@features/team/team/team.component"
 import { TeamsComponent } from "@features/team/teams/teams.component"
 import { DamageMultiCalcService } from "@lib/damage-calculator/damage-multi-calc.service"
 import { DamageResultOrderService } from "@lib/damage-calculator/damage-result-order.service"
-import { Team } from "@lib/model/team"
 import { TargetPokemonComponent } from "@pages/multi-calc/target-pokemon/target-pokemon.component"
 
 @Component({
@@ -24,7 +23,7 @@ export class MultiCalcComponent implements OnInit {
   private damageCalculator = inject(DamageMultiCalcService)
 
   order = signal(false)
-  pokemonOnEditId = linkedSignal<string>(() => this.activeSecondAttackerId(this.store.team()) ?? this.store.team().activePokemon().id)
+  pokemonOnEditId = signal<string>(this.store.team().activePokemon().id)
 
   activeAttacker = computed(() => this.store.findPokemonById(this.store.attackerId()))
   activeSecondAttacker = computed(() => this.store.findNullablePokemonById(this.store.secondAttackerId()))
@@ -50,9 +49,5 @@ export class MultiCalcComponent implements OnInit {
   targetActivated(pokemonId: string) {
     this.pokemonOnEditId.set(pokemonId)
     this.teamComponent()?.scrollToPokemonSelector()
-  }
-
-  private activeSecondAttackerId(team: Team): string | undefined {
-    return team.teamMembers.find(t => t.active && t.pokemon.id == this.store.secondAttackerId())?.pokemon.id
   }
 }

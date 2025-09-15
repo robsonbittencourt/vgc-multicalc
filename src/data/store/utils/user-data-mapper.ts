@@ -1,5 +1,4 @@
 import { CalculatorState, PokemonState, TargetState, TeamMemberState, TeamState } from "@data/store/calculator-store"
-import { stateToPokemon } from "@data/store/utils/state-mapper"
 import { SELECT_POKEMON_LABEL } from "@lib/constants"
 import { defaultPokemon } from "@lib/default-pokemon"
 import { v4 as uuidv4 } from "uuid"
@@ -14,7 +13,7 @@ export function buildUserData(speedCalcPokemon: PokemonState, leftPokemon: Pokem
         active: team.active,
         name: team.name,
         teamMembers: team.teamMembers
-          .filter(t => !stateToPokemon(t.pokemon).isDefault)
+          .filter(t => !isDefaultPokemon(t.pokemon))
           .map(t => {
             const pokemon = buildPokemonToUserData(t.pokemon)
 
@@ -26,7 +25,7 @@ export function buildUserData(speedCalcPokemon: PokemonState, leftPokemon: Pokem
       }
     }),
     targets: targets
-      .filter(t => !stateToPokemon(t.pokemon).isDefault)
+      .filter(t => !isDefaultPokemon(t.pokemon))
       .map(t => {
         return {
           pokemon: buildPokemonToUserData(t.pokemon),
@@ -90,7 +89,8 @@ function buildPokemonState(pokemon: any): PokemonState {
     bonusBoosts: pokemon.bonusBoosts,
     evs: pokemon.evs,
     ivs: pokemon.ivs,
-    hpPercentage: pokemon.hpPercentage
+    hpPercentage: pokemon.hpPercentage,
+    automaticAbilityOn: false
   }
 }
 
@@ -130,4 +130,8 @@ function buildTargetsState(targets: any): TargetState[] {
       secondPokemon: target.secondPokemon && buildPokemonState(target.secondPokemon)
     }
   })
+}
+
+function isDefaultPokemon(pokemonState: PokemonState) {
+  return pokemonState.name == "Select a Pokémon"
 }

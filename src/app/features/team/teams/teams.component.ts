@@ -1,5 +1,5 @@
 import { animate, style, transition, trigger } from "@angular/animations"
-import { Component, computed, effect, inject, OnInit, signal } from "@angular/core"
+import { Component, computed, effect, inject, OnInit, output, signal } from "@angular/core"
 import { FormsModule } from "@angular/forms"
 import { MatButton } from "@angular/material/button"
 import { MatIcon } from "@angular/material/icon"
@@ -28,6 +28,8 @@ export class TeamsComponent implements OnInit {
   store = inject(CalculatorStore)
   private exportPokeService = inject(ExportPokeService)
   private snackBar = inject(SnackbarService)
+
+  pokemonSelected = output<string>()
 
   currentPage = signal(0)
 
@@ -90,11 +92,14 @@ export class TeamsComponent implements OnInit {
     this.currentPage.set(Math.floor(teamIndex / 4))
     this.activateTeam(teamToImport)
 
+    this.pokemonSelected.emit(teamToImport.activePokemon().id)
+
     this.snackBar.open("Team imported from PokePaste")
   }
 
   activateTeam(team: Team) {
     this.store.activateTeam(team.id)
+    this.pokemonSelected.emit(team.activePokemon().id)
   }
 
   updateTeamName(event: Event) {
@@ -115,6 +120,7 @@ export class TeamsComponent implements OnInit {
     inactiveTeams.splice(activeIndex, 0, newTeam)
 
     this.store.updateTeams(inactiveTeams)
+    this.pokemonSelected.emit(newTeam.activePokemon().id)
 
     this.snackBar.open("Team deleted")
   }

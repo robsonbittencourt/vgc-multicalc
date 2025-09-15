@@ -444,7 +444,8 @@ const pikachuState: PokemonState = {
   bonusBoosts: { atk: -1, def: 0, spa: 0, spd: 0, spe: 0 },
   evs: { hp: 4, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 },
   ivs: { hp: 26, atk: 27, def: 28, spa: 29, spd: 30, spe: 31 },
-  hpPercentage: 100
+  hpPercentage: 100,
+  automaticAbilityOn: false
 }
 
 const bulbasaurState: PokemonState = {
@@ -464,7 +465,8 @@ const bulbasaurState: PokemonState = {
   bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
   evs: { hp: 4, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 },
   ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
-  hpPercentage: 100
+  hpPercentage: 100,
+  automaticAbilityOn: false
 }
 
 const charmanderState: PokemonState = {
@@ -484,7 +486,8 @@ const charmanderState: PokemonState = {
   bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
   evs: { hp: 4, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 },
   ivs: { hp: 0, atk: 1, def: 2, spa: 3, spd: 4, spe: 5 },
-  hpPercentage: 100
+  hpPercentage: 100,
+  automaticAbilityOn: false
 }
 
 const pikachuUserData = {

@@ -1,6 +1,6 @@
-<app-team #teamComponent class="team" [pokemonId]="pokemonOnEditId()" [isAttacker]="menuStore.oneVsManyActivated()" />
+<app-team #teamComponent class="team" [pokemonId]="pokemonOnEditId()" [isAttacker]="menuStore.oneVsManyActivated()" (teamMemberSelected)="pokemonOnEditId.set($event)" />
 
-<app-teams />
+<app-teams (pokemonSelected)="pokemonOnEditId.set($event)" />
 <app-field />
 
 <app-target-pokemon

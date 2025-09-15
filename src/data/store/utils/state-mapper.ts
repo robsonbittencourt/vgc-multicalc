@@ -21,7 +21,7 @@ export function stateToPokemon(state: PokemonState) {
     nature: state.nature,
     item: state.item,
     status: Status.byDescription(state.status),
-    ability: new Ability(state.ability, state.abilityOn),
+    ability: new Ability(state.ability, state.automaticAbilityOn || state.abilityOn),
     commanderActive: state.commanderActive,
     teraType: state.teraType,
     teraTypeActive: state.teraTypeActive,
@@ -57,7 +57,8 @@ export function pokemonToState(pokemon: Pokemon): PokemonState {
     bonusBoosts: pokemon.bonusBoosts,
     evs: { hp: pokemon.evs.hp!, atk: pokemon.evs.atk!, def: pokemon.evs.def!, spa: pokemon.evs.spa!, spd: pokemon.evs.spd!, spe: pokemon.evs.spe! },
     ivs: { hp: pokemon.ivs.hp!, atk: pokemon.ivs.atk!, def: pokemon.ivs.def!, spa: pokemon.ivs.spa!, spd: pokemon.ivs.spd!, spe: pokemon.ivs.spe! },
-    hpPercentage: pokemon.hpPercentage
+    hpPercentage: pokemon.hpPercentage,
+    automaticAbilityOn: false
   }
 }
 

@@ -1,8 +1,9 @@
-import { computed, effect, Injectable } from "@angular/core"
+import { computed, effect, inject, Injectable } from "@angular/core"
 import { initialFieldState } from "@data/store/utils/initial-field-state"
 import { Field, FieldSide } from "@lib/model/field"
 import { GameType, Terrain, Weather } from "@lib/types"
 import { patchState, signalStore, withHooks, withState } from "@ngrx/signals"
+import { CalculatorStore } from "./calculator-store"
 
 export type FieldState = {
   updateLocalStorage: boolean
@@ -53,6 +54,8 @@ export class FieldStore extends signalStore(
     }
   })
 ) {
+  calculatorStore = inject(CalculatorStore)
+
   readonly field = computed(
     () =>
       new Field({
@@ -87,6 +90,7 @@ export class FieldStore extends signalStore(
 
   toggleSunWeather() {
     patchState(this, state => ({ weather: state.weather != "Sun" ? "Sun" : (null as Weather) }))
+    this.calculatorStore.toogleProtosynthesis(this.isWeatherSun())
   }
 
   toggleRainWeather() {
@@ -103,6 +107,7 @@ export class FieldStore extends signalStore(
 
   toggleElectricTerrain() {
     patchState(this, state => ({ terrain: state.terrain != "Electric" ? "Electric" : (null as Terrain) }))
+    this.calculatorStore.toogleQuarkDrive(this.isTerrainElectric())
   }
 
   toggleGrassyTerrain() {

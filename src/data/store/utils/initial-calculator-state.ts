@@ -33,7 +33,8 @@ function defaultState() {
       bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
       evs: { hp: 44, atk: 0, def: 4, spa: 244, spd: 12, spe: 204 },
       ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
-      hpPercentage: 100
+      hpPercentage: 100,
+      automaticAbilityOn: false
     },
 
     leftPokemonState: {
@@ -53,7 +54,8 @@ function defaultState() {
       bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
       evs: { hp: 44, atk: 0, def: 4, spa: 244, spd: 12, spe: 204 },
       ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
-      hpPercentage: 100
+      hpPercentage: 100,
+      automaticAbilityOn: false
     },
 
     rightPokemonState: {
@@ -73,7 +75,8 @@ function defaultState() {
       bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
       evs: { hp: 236, atk: 196, def: 4, spa: 0, spd: 4, spe: 68 },
       ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
-      hpPercentage: 100
+      hpPercentage: 100,
+      automaticAbilityOn: false
     },
 
     secondAttackerId: "",
@@ -103,7 +106,8 @@ function defaultState() {
               bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
               evs: { hp: 44, atk: 0, def: 4, spa: 244, spd: 12, spe: 204 },
               ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
-              hpPercentage: 100
+              hpPercentage: 100,
+              automaticAbilityOn: false
             }
           },
           {
@@ -125,7 +129,8 @@ function defaultState() {
               bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
               evs: { hp: 236, atk: 196, def: 4, spa: 0, spd: 4, spe: 68 },
               ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
-              hpPercentage: 100
+              hpPercentage: 100,
+              automaticAbilityOn: false
             }
           },
           {
@@ -147,7 +152,8 @@ function defaultState() {
               bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
               evs: { hp: 236, atk: 116, def: 4, spa: 0, spd: 76, spe: 76 },
               ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
-              hpPercentage: 100
+              hpPercentage: 100,
+              automaticAbilityOn: false
             }
           },
           {
@@ -169,7 +175,8 @@ function defaultState() {
               bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
               evs: { hp: 244, atk: 0, def: 188, spa: 0, spd: 76, spe: 0 },
               ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
-              hpPercentage: 100
+              hpPercentage: 100,
+              automaticAbilityOn: false
             }
           }
         ]
@@ -214,7 +221,8 @@ function defaultState() {
           bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
           evs: { hp: 4, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 },
           ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
-          hpPercentage: 100
+          hpPercentage: 100,
+          automaticAbilityOn: false
         }
       },
       {
@@ -236,7 +244,8 @@ function defaultState() {
           bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
           evs: { hp: 244, atk: 0, def: 188, spa: 0, spd: 76, spe: 0 },
           ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
-          hpPercentage: 100
+          hpPercentage: 100,
+          automaticAbilityOn: false
         }
       },
       {
@@ -258,7 +267,8 @@ function defaultState() {
           bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
           evs: { hp: 236, atk: 116, def: 4, spa: 0, spd: 76, spe: 76 },
           ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
-          hpPercentage: 100
+          hpPercentage: 100,
+          automaticAbilityOn: false
         }
       },
       {
@@ -280,7 +290,8 @@ function defaultState() {
           bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
           evs: { hp: 236, atk: 0, def: 236, spa: 0, spd: 36, spe: 0 },
           ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
-          hpPercentage: 100
+          hpPercentage: 100,
+          automaticAbilityOn: false
         }
       },
       {
@@ -302,7 +313,8 @@ function defaultState() {
           bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
           evs: { hp: 212, atk: 0, def: 132, spa: 4, spd: 4, spe: 156 },
           ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
-          hpPercentage: 100
+          hpPercentage: 100,
+          automaticAbilityOn: false
         }
       },
       {
@@ -324,7 +336,8 @@ function defaultState() {
           bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
           evs: { hp: 84, atk: 0, def: 12, spa: 156, spd: 4, spe: 252 },
           ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
-          hpPercentage: 100
+          hpPercentage: 100,
+          automaticAbilityOn: false
         }
       },
       {
@@ -346,7 +359,8 @@ function defaultState() {
           bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
           evs: { hp: 252, atk: 116, def: 4, spa: 0, spd: 20, spe: 116 },
           ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
-          hpPercentage: 100
+          hpPercentage: 100,
+          automaticAbilityOn: false
         }
       },
       {
@@ -368,7 +382,8 @@ function defaultState() {
           bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
           evs: { hp: 44, atk: 0, def: 4, spa: 244, spd: 12, spe: 204 },
           ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
-          hpPercentage: 100
+          hpPercentage: 100,
+          automaticAbilityOn: false
         }
       },
       {
@@ -390,7 +405,8 @@ function defaultState() {
           bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
           evs: { hp: 92, atk: 4, def: 244, spa: 0, spd: 4, spe: 164 },
           ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
-          hpPercentage: 100
+          hpPercentage: 100,
+          automaticAbilityOn: false
         }
       },
       {
@@ -412,7 +428,8 @@ function defaultState() {
           bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
           evs: { hp: 252, atk: 0, def: 180, spa: 76, spd: 0, spe: 0 },
           ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
-          hpPercentage: 100
+          hpPercentage: 100,
+          automaticAbilityOn: false
         }
       }
     ]

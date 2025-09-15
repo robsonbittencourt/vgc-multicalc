@@ -1,4 +1,4 @@
-import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, effect, inject, input, signal, viewChild } from "@angular/core"
+import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, effect, inject, input, output, signal, viewChild } from "@angular/core"
 import { MatIcon } from "@angular/material/icon"
 import { WidgetComponent } from "@basic/widget/widget.component"
 import { CalculatorStore } from "@data/store/calculator-store"
@@ -24,6 +24,8 @@ export class TeamComponent {
 
   pokemonId = input.required<string>()
   isAttacker = input(false)
+
+  teamMemberSelected = output<string>()
 
   pokemonOnEdit = computed(() => this.store.findPokemonById(this.pokemonId()))
 
@@ -60,6 +62,8 @@ export class TeamComponent {
         this.pokemonBuild()?.showDefaultView()
       }
     }, 0)
+
+    this.teamMemberSelected.emit(pokemonId)
   }
 
   activateSecondPokemon(pokemonId: string) {
@@ -120,6 +124,7 @@ export class TeamComponent {
     const team = new Team(uuidv4(), this.store.team().active, this.store.team().name, teamMembers)
 
     this.store.replaceActiveTeam(team)
+    this.teamMemberSelected.emit(team.activePokemon().id)
 
     if (this.isSecondSelection(activeMember)) {
       this.store.updateSecondAttacker("")

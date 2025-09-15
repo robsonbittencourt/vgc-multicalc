@@ -34,6 +34,7 @@ export type PokemonState = {
   evs: Partial<Stats>
   ivs: Partial<Stats>
   hpPercentage: number
+  automaticAbilityOn: boolean
 }
 
 export type TeamMemberState = {
@@ -115,6 +116,38 @@ export class CalculatorStore extends signalStore(
 
   abilityOn(pokemonId: string, abilityOn: boolean) {
     this.updatePokemonById(pokemonId, () => ({ abilityOn }))
+  }
+
+  toogleProtosynthesis(enabled: boolean) {
+    this.enableAllByAbility("Protosynthesis", enabled)
+  }
+
+  toogleQuarkDrive(enabled: boolean) {
+    this.enableAllByAbility("Quark Drive", enabled)
+  }
+
+  private enableAllByAbility(abilityName: string, enabled: boolean) {
+    const hasAbility = this.allPokemon()
+      .filter(pokemon => pokemon.ability === abilityName)
+      .map(pokemon => pokemon.id)
+
+    hasAbility.forEach(id => {
+      this.updatePokemonById(id, () => ({ automaticAbilityOn: enabled }))
+    })
+  }
+
+  private allPokemon(): PokemonState[] {
+    const fromTeams = this.teamsState()
+      .flatMap(team => team.teamMembers)
+      .map(member => member.pokemon)
+
+    const fromTarget = this.targetsState().map(target => target.pokemon)
+
+    let allPokemon = [this.leftPokemonState(), this.rightPokemonState(), this.speedCalcPokemonState()]
+    allPokemon = allPokemon.concat(fromTeams)
+    allPokemon = allPokemon.concat(fromTarget)
+
+    return allPokemon
   }
 
   commander(pokemonId: string, commanderActive: boolean) {

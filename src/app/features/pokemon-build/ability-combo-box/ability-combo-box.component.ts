@@ -5,6 +5,7 @@ import { MatCheckbox, MatCheckboxChange } from "@angular/material/checkbox"
 import { InputSelectComponent } from "@basic/input-select/input-select.component"
 import { InputComponent } from "@basic/input/input.component"
 import { CalculatorStore } from "@data/store/calculator-store"
+import { FieldStore } from "@data/store/field-store"
 import { TatsugiriButtonComponent } from "@features/buttons/tatsugiri-button/tatsugiri-button.component"
 
 @Component({
@@ -14,8 +15,6 @@ import { TatsugiriButtonComponent } from "@features/buttons/tatsugiri-button/tat
   imports: [TitleCasePipe, FormsModule, MatCheckbox, InputComponent, InputSelectComponent, TatsugiriButtonComponent]
 })
 export class AbilityComboBoxComponent {
-  store = inject(CalculatorStore)
-
   pokemonId = input.required<string>()
 
   haveFocus = input<boolean>(false)
@@ -30,9 +29,19 @@ export class AbilityComboBoxComponent {
 
   valueChange = output<string>()
 
+  store = inject(CalculatorStore)
+  fieldStore = inject(FieldStore)
+
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
 
   availableAbilities = computed(() => this.pokemon().availableAbilities.map(a => a.name))
+
+  abilityCheckDisabled = computed(() => {
+    if (this.pokemon().isProtosynthesisAbility && this.fieldStore.isWeatherSun()) return true
+    if (this.pokemon().isQuarkDriveAbility && this.fieldStore.isTerrainElectric()) return true
+
+    return false
+  })
 
   abilityInput = viewChild<InputComponent>("abilityInput")
 

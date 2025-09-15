@@ -1,5 +1,6 @@
 import { poke } from "@cy-support/e2e"
 import { DamageResult } from "@page-object/damage-result"
+import { Field } from "@page-object/field"
 import { Opponent } from "@page-object/opponent"
 import { PokemonBuild } from "@page-object/pokemon-build"
 import { Team } from "@page-object/team"
@@ -8,6 +9,12 @@ const leftDamageResult = new DamageResult("left-damage-result")
 
 const leftPokemonBuild = new PokemonBuild("left-pokemon")
 const rightPokemonBuild = new PokemonBuild("right-pokemon")
+
+const pokemonBuild = new PokemonBuild("your-team")
+const team = new Team()
+const opponents = new Opponent()
+
+const field = new Field()
 
 describe("Test calcs with Paradox Pokémon and ability activated", () => {
   describe("Prothosynthesis", () => {
@@ -128,10 +135,6 @@ describe("Test calcs with Paradox Pokémon and ability activated", () => {
 })
 
 describe("Test calcs with Paradox Pokémon in opponent side", () => {
-  const pokemonBuild = new PokemonBuild("your-team")
-  const team = new Team()
-  const opponents = new Opponent()
-
   describe("in Team x Many", () => {
     beforeEach(() => {
       cy.get('[data-cy="team-vs-many"]').click()
@@ -186,6 +189,142 @@ describe("Test calcs with Paradox Pokémon in opponent side", () => {
       opponents.selectAttacker("Flutter Mane").activateAbility()
 
       opponents.get("Flutter Mane").damageIs(76.1, 90.9).cause2HKO()
+    })
+  })
+})
+
+describe("Activate Paradox abilities by Field conditions", () => {
+  describe("in One x One", () => {
+    it("Activate Protosynthesis when Sun is activated", () => {
+      leftPokemonBuild.importPokemon(poke["great-tusk-high-atk"])
+      rightPokemonBuild.importPokemon(poke["rillaboom"])
+
+      leftDamageResult.damageIs(0, 44.9, 53.6, 93, 11)
+
+      field.sun()
+
+      leftDamageResult.damageIs(0, 58.4, 69.5, 121, 144)
+
+      field.sun()
+
+      leftDamageResult.damageIs(0, 44.9, 53.6, 93, 11)
+    })
+
+    it("Activate Quark Drive when Electric Terrain is activated", () => {
+      leftPokemonBuild.importPokemon(poke["iron-treads-high-atk"])
+      rightPokemonBuild.importPokemon(poke["rillaboom"])
+
+      leftDamageResult.damageIs(0, 25.1, 29.9, 52, 62)
+
+      field.eletricTerrain()
+
+      leftDamageResult.damageIs(0, 32.8, 39.1, 68, 81)
+
+      field.eletricTerrain()
+
+      leftDamageResult.damageIs(0, 25.1, 29.9, 52, 62)
+    })
+  })
+
+  describe("in Team x Many", () => {
+    beforeEach(() => {
+      cy.get('[data-cy="team-vs-many"]').click()
+
+      team.delete("Team 1")
+      opponents.deleteAll()
+    })
+
+    it("Activate Protosynthesis when Sun is activated", () => {
+      pokemonBuild.importPokemon(poke["flutter-mane-high-spa"])
+
+      opponents.importPokemon(poke["brute-bonnet-high-spd"])
+      opponents.importPokemon(poke["flutter-mane-high-spd"])
+
+      field.sun()
+
+      opponents.get("Brute Bonnet").damageIs(56.2, 67.2).cause2HKO()
+      opponents.get("Flutter Mane").damageIs(41.5, 49.2).cause3HKO()
+    })
+
+    it("Activate Quark Drive when Electric Terrain is activated", () => {
+      pokemonBuild.importPokemon(poke["iron-treads-high-atk"])
+
+      opponents.importPokemon(poke["iron-treads-high-def"])
+      opponents.importPokemon(poke["iron-thorns-high-def"])
+
+      field.eletricTerrain()
+
+      opponents.get("Iron Treads").damageIs(101.8, 120).causeOHKO()
+      opponents.get("Iron Thorns").damageIs(166.8, 198.8).causeOHKO()
+    })
+  })
+
+  describe("in Many x Team", () => {
+    beforeEach(() => {
+      cy.get('[data-cy="many-vs-team"]').click()
+
+      team.delete("Team 1")
+      opponents.deleteAll()
+    })
+
+    it("Activate Protosynthesis when Sun is activated", () => {
+      pokemonBuild.importPokemon(poke["brute-bonnet-high-def"])
+
+      opponents.importPokemon(poke["great-tusk-high-atk"])
+      opponents.importPokemon(poke["roaring-moon-high-atk"])
+
+      field.sun()
+
+      opponents.get("Great Tusk").damageIs(57.7, 68.8).cause2HKO()
+      opponents.get("Roaring Moon").damageIs(14.2, 16.9).possible6HKO()
+    })
+
+    it("Activate Quark Drive when Electric Terrain is activated", () => {
+      pokemonBuild.importPokemon(poke["iron-treads-high-def"])
+
+      opponents.importPokemon(poke["iron-treads-high-atk"])
+      opponents.importPokemon(poke["iron-thorns-high-atk"])
+
+      field.eletricTerrain()
+
+      opponents.get("Iron Treads").damageIs(101.8, 120).causeOHKO()
+      opponents.get("Iron Thorns").damageIs(23, 27.2).haveChanceOfToCause4HKO(51.8)
+    })
+  })
+
+  describe("mantain user selection", () => {
+    it("should not deactivate when Sun is deactivated but the user had activated it", () => {
+      leftPokemonBuild.importPokemon(poke["great-tusk-high-atk"])
+      rightPokemonBuild.importPokemon(poke["rillaboom"])
+
+      leftPokemonBuild.activateAbility()
+
+      leftDamageResult.damageIs(0, 58.4, 69.5, 121, 144)
+
+      field.sun()
+
+      leftDamageResult.damageIs(0, 58.4, 69.5, 121, 144)
+
+      field.sun()
+
+      leftDamageResult.damageIs(0, 58.4, 69.5, 121, 144)
+    })
+
+    it("should not deactivate when Electric Terrain is deactivated but the user had activated it", () => {
+      leftPokemonBuild.importPokemon(poke["iron-treads-high-atk"])
+      rightPokemonBuild.importPokemon(poke["rillaboom"])
+
+      leftPokemonBuild.activateAbility()
+
+      leftDamageResult.damageIs(0, 32.8, 39.1, 68, 81)
+
+      field.eletricTerrain()
+
+      leftDamageResult.damageIs(0, 32.8, 39.1, 68, 81)
+
+      field.eletricTerrain()
+
+      leftDamageResult.damageIs(0, 32.8, 39.1, 68, 81)
     })
   })
 })

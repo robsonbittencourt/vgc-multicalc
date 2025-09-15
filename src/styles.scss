@@ -211,6 +211,10 @@ app-ability-combo-box {
   font-size: 1.8em;
 }
 
+.mat-mdc-checkbox-disabled .mdc-checkbox {
+  opacity: 0.7;
+}
+
 .cdk-drop-list-dragging .cdk-drag:not(.cdk-drag-disabled) {
   opacity: 0.5;
 }
