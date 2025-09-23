@@ -379,6 +379,24 @@ describe("Pokemon", () => {
         expect(abilities.length).toEqual(1)
         expect(abilities[0].name).toEqual("Embody Aspect (Wellspring)")
       })
+
+      it("should return true when do not have Ability Shield and is a Ability affected by Neutralizing Gas", () => {
+        const pokemon = new Pokemon("Chien-Pao")
+
+        expect(pokemon.isAffectedByNeutralizingGas).toBeTrue()
+      })
+
+      it("should return false when have Ability Shield", () => {
+        const pokemon = new Pokemon("Chien-Pao", { item: "Ability Shield" })
+
+        expect(pokemon.isAffectedByNeutralizingGas).toBeFalse()
+      })
+
+      it("should return false when do not have Ability Shield and is a Ability not affected by Neutralizing Gas", () => {
+        const pokemon = new Pokemon("Terapagos")
+
+        expect(pokemon.isAffectedByNeutralizingGas).toBeFalse()
+      })
     })
 
     describe("Stats", () => {

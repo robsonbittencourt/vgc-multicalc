@@ -80,22 +80,22 @@ describe("Test calcs from moves with some mechanic", () => {
     it("with 100% hp", () => {
       leftPokemonBuild.hpPercentage(100)
 
-      leftDamageResult.damageIs(0, 110.7, 132.2, 206, 246)
-      rightDamageResult.isFainted()
+      leftDamageResult.damageIs(0, 74.1, 88.1, 138, 164)
+      rightDamageResult.surviveWithThisHpAmmount(22)
     })
 
     it("with 75% hp", () => {
       leftPokemonBuild.hpPercentage(75)
 
-      leftDamageResult.damageIs(0, 81.7, 97.8, 152, 182)
-      rightDamageResult.surviveWithThisHpAmmount(4)
+      leftDamageResult.damageIs(0, 54.8, 65.5, 102, 122)
+      rightDamageResult.surviveWithThisHpAmmount(64)
     })
 
     it("with 10% hp", () => {
       leftPokemonBuild.hpPercentage(10)
 
-      leftDamageResult.damageIs(0, 10.7, 13.9, 20, 26)
-      rightDamageResult.surviveWithThisHpAmmount(160)
+      leftDamageResult.damageIs(0, 7.5, 9.6, 14, 18)
+      rightDamageResult.surviveWithThisHpAmmount(168)
     })
   })
 

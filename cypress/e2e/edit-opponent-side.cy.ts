@@ -19,7 +19,7 @@ describe("Edit Opponent Pokémon", () => {
 
     opponents.selectDefender("Tyranitar").selectStatsModifier("spd", "+3")
 
-    opponents.get("Tyranitar").damageIs(37, 44).cause3HKO()
+    opponents.get("Tyranitar").damageIs(50, 58.6).cause2HKO()
   })
 
   it("In Many vs Team with one attacker", () => {

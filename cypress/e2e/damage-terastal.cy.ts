@@ -26,16 +26,16 @@ describe("Test calcs with Terastal", () => {
   it("Validate the damage with Koraidon Terastallized using Flame Charge", () => {
     team.selectPokemon("Koraidon").selectAttackThree().terastalyze()
 
-    opponents.get("Urshifu Rapid Strike").damageIs(16.5, 19.4).possible6HKO()
-    opponents.get("Calyrex Shadow").damageIs(39.4, 46.8).cause3HKO()
-    opponents.get("Ogerpon Wellspring").damageIs(30.4, 35.8).haveChanceOfToCause3HKO(38.1)
-    opponents.get("Incineroar").possible7HKO()
-    opponents.get("Raging Bolt").damageIs(12.9, 15.5).possible7HKO()
-    opponents.get("Zamazenta Crowned").damageIs(25, 29.1).cause4HKO()
-    opponents.get("Calyrex Ice").damageIs(40.5, 47.3).cause3HKO()
-    opponents.get("Amoonguss").damageIs(47.4, 57.5).haveChanceOfToCause2HKO(85.9)
-    opponents.get("Terapagos Terastal").damageIs(10.8, 13.3)
-    opponents.get("Rillaboom").damageIs(61.9, 74.1).cause2HKO()
+    opponents.get("Urshifu Rapid Strike").damageIs(32.5, 38.2).haveChanceOfToCause3HKO(97.9)
+    opponents.get("Calyrex Shadow").damageIs(77.7, 92.5).cause2HKO()
+    opponents.get("Ogerpon Wellspring").damageIs(59.3, 70.5).cause2HKO()
+    opponents.get("Incineroar").damageIs(25.3, 30.3).cause4HKO()
+    opponents.get("Raging Bolt").damageIs(26.4, 31.1).cause4HKO()
+    opponents.get("Zamazenta Crowned").damageIs(47.9, 57.2).haveChanceOfToCause2HKO(90.6)
+    opponents.get("Calyrex Ice").damageIs(78.2, 92.7).cause2HKO()
+    opponents.get("Amoonguss").damageIs(94, 112.3).haveChanceOfToCauseOHKO(62.5)
+    opponents.get("Terapagos Terastal").damageIs(22.2, 26.7).possible5HKO()
+    opponents.get("Rillaboom").damageIs(124.8, 147.2).causeOHKO()
   })
 
   it("Validate the damage with Miraidon using Electro Drift in Terastallyzed Ogerpon", () => {
@@ -43,7 +43,7 @@ describe("Test calcs with Terastal", () => {
 
     opponents.get("Ogerpon Wellspring").terastalyze()
 
-    opponents.get("Ogerpon Wellspring").damageIs(126.2, 148.6).causeOHKO()
+    opponents.get("Ogerpon Wellspring").damageIs(218.1, 256.6).causeOHKO()
   })
 })
 

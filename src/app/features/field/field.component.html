@@ -60,13 +60,13 @@
       </div>
       @if (!onlySpeed()) {
         <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">
-          <mat-button-toggle [checked]="fieldStore.isTabletsOfRuin()" (change)="fieldStore.toggleTabletsOfRuin()" data-cy="tablets-of-ruin">Tablets of Ruin (-atk)</mat-button-toggle>
-          <mat-button-toggle [checked]="fieldStore.isSwordOfRuin()" (change)="fieldStore.toggleSwordOfRuin()" data-cy="sword-of-ruin">Sword of Ruin (-def)</mat-button-toggle>
+          <mat-button-toggle [checked]="fieldStore.tabletsOfRuinActivated()" (change)="fieldStore.toggleTabletsOfRuin()" data-cy="tablets-of-ruin">Tablets of Ruin (-atk)</mat-button-toggle>
+          <mat-button-toggle [checked]="fieldStore.swordOfRuinActivated()" (change)="fieldStore.toggleSwordOfRuin()" data-cy="sword-of-ruin">Sword of Ruin (-def)</mat-button-toggle>
         </mat-button-toggle-group>
 
         <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
-          <mat-button-toggle [checked]="fieldStore.isVesselOfRuin()" (change)="fieldStore.toggleVesselOfRuin()" data-cy="vessel-of-ruin">Vessel of Ruin (-spa)</mat-button-toggle>
-          <mat-button-toggle [checked]="fieldStore.isBeadsOfRuin()" (change)="fieldStore.toggleBeadsOfRuin()" data-cy="beads-of-ruin">Beads of Ruin (-spd)</mat-button-toggle>
+          <mat-button-toggle [checked]="fieldStore.vesselOfRuinActivated()" (change)="fieldStore.toggleVesselOfRuin()" data-cy="vessel-of-ruin">Vessel of Ruin (-spa)</mat-button-toggle>
+          <mat-button-toggle [checked]="fieldStore.beadsOfRuinActivated()" (change)="fieldStore.toggleBeadsOfRuin()" data-cy="beads-of-ruin">Beads of Ruin (-spd)</mat-button-toggle>
         </mat-button-toggle-group>
       }
 
@@ -103,7 +103,7 @@
       </div>
 
       <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">
-        <mat-button-toggle [checked]="fieldStore.isNeutralizingGas()" (change)="fieldStore.toggleNeutralizingGas()" data-cy="neutralizing-gas">Neutralizing Gas</mat-button-toggle>
+        <mat-button-toggle [checked]="fieldStore.neutralizingGasActivated()" (change)="fieldStore.toggleNeutralizingGas()" data-cy="neutralizing-gas">Neutralizing Gas</mat-button-toggle>
       </mat-button-toggle-group>
     </div>
     <div>

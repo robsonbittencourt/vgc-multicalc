@@ -18,11 +18,11 @@ beforeEach(() => {
 describe("Test calcs with status", () => {
   it("Validate the damage with Koraidon burned", () => {
     team.selectPokemon("Koraidon").selectAttackOne()
-    opponents.get("Rillaboom").damageIs(83.2, 98.4).cause2HKO()
+    opponents.get("Rillaboom").damageIs(166.4, 195.9).causeOHKO()
 
     team.selectPokemon("Koraidon").burned()
 
-    opponents.get("Rillaboom").damageIs(41.6, 49.2).cause3HKO()
+    opponents.get("Rillaboom").damageIs(83.2, 97.9).cause2HKO()
   })
 
   it("Validate the damage using Gyro Ball against paralyzed Pokémon", () => {

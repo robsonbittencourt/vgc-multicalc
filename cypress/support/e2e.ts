@@ -88,7 +88,14 @@ const pokeNames = [
   "kingdra",
   "excadrill",
   "beartic",
-  "raichu-alola"
+  "raichu-alola",
+  "ninetales-alola",
+  "groudon",
+  "weezing-galar",
+  "weezing-galar-misty-surge",
+  "indeedee-f",
+  "miraidon",
+  "politoad"
 ]
 
 before(() => {

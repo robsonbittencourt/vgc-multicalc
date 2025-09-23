@@ -20,6 +20,13 @@ export type FieldState = {
   isNeutralizingGas: boolean
   attackerSide: FieldSide
   defenderSide: FieldSide
+  automaticWeather: Weather
+  automaticTerrain: Terrain
+  automaticBeadsOfRuinActivated: boolean
+  automaticSwordOfRuinActivated: boolean
+  automaticTabletsOfRuinActivated: boolean
+  automaticVesselOfRuinActivated: boolean
+  automaticNeutralizingGasActivated: boolean
 }
 
 @Injectable({ providedIn: "root" })
@@ -59,83 +66,221 @@ export class FieldStore extends signalStore(
   readonly field = computed(
     () =>
       new Field({
-        weather: this.weather(),
-        terrain: this.terrain(),
-        isBeadsOfRuin: this.isBeadsOfRuin(),
-        isSwordOfRuin: this.isSwordOfRuin(),
-        isTabletsOfRuin: this.isTabletsOfRuin(),
-        isVesselOfRuin: this.isVesselOfRuin(),
+        weather: this.automaticWeather() ?? this.weather(),
+        terrain: this.automaticTerrain() ?? this.terrain(),
+        isBeadsOfRuin: this.beadsOfRuinActivated(),
+        isSwordOfRuin: this.swordOfRuinActivated(),
+        isTabletsOfRuin: this.tabletsOfRuinActivated(),
+        isVesselOfRuin: this.vesselOfRuinActivated(),
         isMagicRoom: this.isMagicRoom(),
         isWonderRoom: this.isWonderRoom(),
         isGravity: this.isGravity(),
         isTrickRoom: this.isTrickRoom(),
-        isNeutralizingGas: this.isNeutralizingGas(),
+        isNeutralizingGas: this.neutralizingGasActivated(),
         attackerSide: this.attackerSide(),
         defenderSide: this.defenderSide()
       })
   )
 
-  readonly isWeatherSun = computed(() => this.weather() == "Sun")
-  readonly isWeatherRain = computed(() => this.weather() == "Rain")
-  readonly isWeatherSand = computed(() => this.weather() == "Sand")
-  readonly isWeatherSnow = computed(() => this.weather() == "Snow")
-  readonly isTerrainElectric = computed(() => this.terrain() == "Electric")
-  readonly isTerrainGrassy = computed(() => this.terrain() == "Grassy")
-  readonly isTerrainPsychic = computed(() => this.terrain() == "Psychic")
-  readonly isTerrainMisty = computed(() => this.terrain() == "Misty")
+  readonly isWeatherSun = computed(() => (this.automaticWeather() ?? this.weather()) === "Sun")
+  readonly isWeatherRain = computed(() => (this.automaticWeather() ?? this.weather()) === "Rain")
+  readonly isWeatherSand = computed(() => (this.automaticWeather() ?? this.weather()) === "Sand")
+  readonly isWeatherSnow = computed(() => (this.automaticWeather() ?? this.weather()) === "Snow")
+
+  readonly isTerrainElectric = computed(() => (this.automaticTerrain() ?? this.terrain()) == "Electric")
+  readonly isTerrainGrassy = computed(() => (this.automaticTerrain() ?? this.terrain()) == "Grassy")
+  readonly isTerrainPsychic = computed(() => (this.automaticTerrain() ?? this.terrain()) == "Psychic")
+  readonly isTerrainMisty = computed(() => (this.automaticTerrain() ?? this.terrain()) == "Misty")
+
+  readonly beadsOfRuinActivated = computed(() => this.automaticBeadsOfRuinActivated() || this.isBeadsOfRuin())
+  readonly swordOfRuinActivated = computed(() => this.automaticSwordOfRuinActivated() || this.isSwordOfRuin())
+  readonly tabletsOfRuinActivated = computed(() => this.automaticTabletsOfRuinActivated() || this.isTabletsOfRuin())
+  readonly vesselOfRuinActivated = computed(() => this.automaticVesselOfRuinActivated() || this.isVesselOfRuin())
+
+  readonly neutralizingGasActivated = computed(() => this.automaticNeutralizingGasActivated() || this.isNeutralizingGas())
 
   updateStateLockingLocalStorage(field: Field) {
     patchState(this, { ...field, updateLocalStorage: false })
   }
 
+  cleanAutomaticOptions(except: (keyof FieldState)[] = []) {
+    patchState(this, state => ({
+      automaticWeather: except.includes("automaticWeather") ? state.automaticWeather : null,
+      automaticTerrain: except.includes("automaticTerrain") ? state.automaticTerrain : null,
+      automaticBeadsOfRuinActivated: except.includes("automaticBeadsOfRuinActivated") ? state.automaticBeadsOfRuinActivated : false,
+      automaticSwordOfRuinActivated: except.includes("automaticSwordOfRuinActivated") ? state.automaticSwordOfRuinActivated : false,
+      automaticTabletsOfRuinActivated: except.includes("automaticTabletsOfRuinActivated") ? state.automaticTabletsOfRuinActivated : false,
+      automaticVesselOfRuinActivated: except.includes("automaticVesselOfRuinActivated") ? state.automaticVesselOfRuinActivated : false,
+      automaticNeutralizingGasActivated: except.includes("automaticNeutralizingGasActivated") ? state.automaticNeutralizingGasActivated : false
+    }))
+  }
+
   toggleSunWeather() {
-    patchState(this, state => ({ weather: state.weather != "Sun" ? "Sun" : (null as Weather) }))
+    this.toggleWeather("Sun")
     this.calculatorStore.toogleProtosynthesis(this.isWeatherSun())
   }
 
+  toggleAutomaticSunWeather() {
+    patchState(this, _state => ({ automaticWeather: "Sun" as Weather }))
+  }
+
   toggleRainWeather() {
-    patchState(this, state => ({ weather: state.weather != "Rain" ? "Rain" : (null as Weather) }))
+    this.toggleWeather("Rain")
+  }
+
+  toggleAutomaticRainWeather() {
+    patchState(this, _state => ({ automaticWeather: "Rain" as Weather }))
   }
 
   toggleSandWeather() {
-    patchState(this, state => ({ weather: state.weather != "Sand" ? "Sand" : (null as Weather) }))
+    this.toggleWeather("Sand")
+  }
+
+  toggleAutomaticSandWeather() {
+    patchState(this, _state => ({ automaticWeather: "Sand" as Weather }))
   }
 
   toggleSnowWeather() {
-    patchState(this, state => ({ weather: state.weather != "Snow" ? "Snow" : (null as Weather) }))
+    this.toggleWeather("Snow")
+  }
+
+  toggleAutomaticSnowWeather() {
+    patchState(this, _state => ({ automaticWeather: "Snow" as Weather }))
+  }
+
+  private toggleWeather(newWeather: Weather) {
+    patchState(this, state => {
+      let weather: Weather | null = state.weather
+      const automaticWeather: Weather | null = null
+
+      if (state.automaticWeather) {
+        if (state.automaticWeather === newWeather) {
+          weather = state.weather
+        } else {
+          weather = newWeather
+        }
+      } else {
+        weather = state.weather === newWeather ? null : newWeather
+      }
+
+      return { weather, automaticWeather }
+    })
   }
 
   toggleElectricTerrain() {
-    patchState(this, state => ({ terrain: state.terrain != "Electric" ? "Electric" : (null as Terrain) }))
+    this.toggleTerrain("Electric")
     this.calculatorStore.toogleQuarkDrive(this.isTerrainElectric())
   }
 
+  toggleAutomaticElectricTerrain() {
+    patchState(this, _state => ({ automaticTerrain: "Electric" as Terrain }))
+  }
+
   toggleGrassyTerrain() {
-    patchState(this, state => ({ terrain: state.terrain != "Grassy" ? "Grassy" : (null as Terrain) }))
+    this.toggleTerrain("Grassy")
+  }
+
+  toggleAutomaticGrassyTerrain() {
+    patchState(this, _state => ({ automaticTerrain: "Grassy" as Terrain }))
   }
 
   togglePsychicTerrain() {
-    patchState(this, state => ({ terrain: state.terrain != "Psychic" ? "Psychic" : (null as Terrain) }))
+    this.toggleTerrain("Psychic")
+  }
+
+  toggleAutomaticPsychicTerrain() {
+    patchState(this, _state => ({ automaticTerrain: "Psychic" as Terrain }))
   }
 
   toggleMistyTerrain() {
-    patchState(this, state => ({ terrain: state.terrain != "Misty" ? "Misty" : (null as Terrain) }))
+    this.toggleTerrain("Misty")
+  }
+
+  toggleAutomaticMistyTerrain() {
+    patchState(this, _state => ({ automaticTerrain: "Misty" as Terrain }))
+  }
+
+  private toggleTerrain(newTerrain: Terrain) {
+    patchState(this, state => {
+      let terrain: Terrain | null = state.terrain
+      const automaticTerrain: Terrain | null = null
+
+      if (state.automaticTerrain) {
+        if (state.automaticTerrain === newTerrain) {
+          terrain = state.terrain
+        } else {
+          terrain = newTerrain
+        }
+      } else {
+        terrain = state.terrain === newTerrain ? null : newTerrain
+      }
+
+      return { terrain, automaticTerrain }
+    })
   }
 
   toggleBeadsOfRuin() {
-    patchState(this, state => ({ isBeadsOfRuin: !state.isBeadsOfRuin }))
+    if (this.automaticBeadsOfRuinActivated()) {
+      patchState(this, _state => ({ automaticBeadsOfRuinActivated: false }))
+
+      if (this.isBeadsOfRuin()) {
+        patchState(this, state => ({ isBeadsOfRuin: !state.isBeadsOfRuin }))
+      }
+    } else {
+      patchState(this, state => ({ isBeadsOfRuin: !state.isBeadsOfRuin }))
+    }
+  }
+
+  toggleAutomaticBeadsOfRuin() {
+    patchState(this, _state => ({ automaticBeadsOfRuinActivated: true }))
   }
 
   toggleSwordOfRuin() {
-    patchState(this, state => ({ isSwordOfRuin: !state.isSwordOfRuin }))
+    if (this.automaticSwordOfRuinActivated()) {
+      patchState(this, _state => ({ automaticSwordOfRuinActivated: false }))
+
+      if (this.isSwordOfRuin()) {
+        patchState(this, state => ({ isSwordOfRuin: !state.isSwordOfRuin }))
+      }
+    } else {
+      patchState(this, state => ({ isSwordOfRuin: !state.isSwordOfRuin }))
+    }
+  }
+
+  toggleAutomaticSwordOfRuin() {
+    patchState(this, _state => ({ automaticSwordOfRuinActivated: true }))
   }
 
   toggleTabletsOfRuin() {
-    patchState(this, state => ({ isTabletsOfRuin: !state.isTabletsOfRuin }))
+    if (this.automaticTabletsOfRuinActivated()) {
+      patchState(this, _state => ({ automaticTabletsOfRuinActivated: false }))
+
+      if (this.isTabletsOfRuin()) {
+        patchState(this, state => ({ isTabletsOfRuin: !state.isTabletsOfRuin }))
+      }
+    } else {
+      patchState(this, state => ({ isTabletsOfRuin: !state.isTabletsOfRuin }))
+    }
+  }
+
+  toggleAutomaticTabletsOfRuin() {
+    patchState(this, _state => ({ automaticTabletsOfRuinActivated: true }))
   }
 
   toggleVesselOfRuin() {
-    patchState(this, state => ({ isVesselOfRuin: !state.isVesselOfRuin }))
+    if (this.automaticVesselOfRuinActivated()) {
+      patchState(this, _state => ({ automaticVesselOfRuinActivated: false }))
+
+      if (this.isVesselOfRuin()) {
+        patchState(this, state => ({ isVesselOfRuin: !state.isVesselOfRuin }))
+      }
+    } else {
+      patchState(this, state => ({ isVesselOfRuin: !state.isVesselOfRuin }))
+    }
+  }
+
+  toggleAutomaticVesselOfRuin() {
+    patchState(this, _state => ({ automaticVesselOfRuinActivated: true }))
   }
 
   toggleMagicRoom() {
@@ -163,7 +308,19 @@ export class FieldStore extends signalStore(
   }
 
   toggleNeutralizingGas() {
-    patchState(this, state => ({ isNeutralizingGas: !state.isNeutralizingGas }))
+    if (this.automaticNeutralizingGasActivated()) {
+      patchState(this, _state => ({ automaticNeutralizingGasActivated: false }))
+
+      if (this.isNeutralizingGas()) {
+        patchState(this, state => ({ isNeutralizingGas: !state.isNeutralizingGas }))
+      }
+    } else {
+      patchState(this, state => ({ isNeutralizingGas: !state.isNeutralizingGas }))
+    }
+  }
+
+  toggleAutomaticNeutralizingGas() {
+    patchState(this, _state => ({ automaticNeutralizingGasActivated: true }))
   }
 
   toggleAttackerGameType() {

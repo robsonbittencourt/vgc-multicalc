@@ -81,7 +81,7 @@
 
   @if (statValue() !== modifiedStat()) {
     <div class="stat-value" [ngStyle]="statValueStyle()">
-      <label [matTooltip]="originalWithModifier()">{{ modifiedStat() }}</label>
+      <label [matTooltip]="originalWithModifier()" data-cy="stat-modified">{{ modifiedStat() }}</label>
     </div>
   }
 </div>

@@ -27,7 +27,7 @@ describe("Test calcs with combined damage", () => {
     team.selectTeamMember("Miraidon")
     team.selectPokemon("Miraidon").selectAttackTwo()
 
-    opponents.get("Urshifu Rapid Strike").damageIs(305.1, 360.5).causeOHKO()
+    opponents.get("Urshifu Rapid Strike").damageIs(532.5, 626.2).causeOHKO()
   })
 
   it("Change second Pokémon in combined damage", () => {
@@ -39,12 +39,12 @@ describe("Test calcs with combined damage", () => {
     team.selectTeamMember("Miraidon")
     team.selectPokemon("Miraidon").selectAttackTwo()
 
-    opponents.get("Urshifu Rapid Strike").damageIs(305.1, 360.5).causeOHKO()
+    opponents.get("Urshifu Rapid Strike").damageIs(532.5, 626.2).causeOHKO()
 
     team.selectTeamMember("Koraidon").disableCombineDamage()
     team.selectTeamMember("Tornadus").combineDamage()
     team.selectTeamMember("Miraidon")
-    opponents.get("Urshifu Rapid Strike").damageIs(402.2, 474.2).causeOHKO()
+    opponents.get("Urshifu Rapid Strike").damageIs(620.5, 729.1).causeOHKO()
   })
 
   it("Create new Pokémon and use it with combined damage", () => {
@@ -53,7 +53,7 @@ describe("Test calcs with combined damage", () => {
     team.selectTeamMember("Miraidon")
     team.selectPokemon("Miraidon").selectAttackTwo()
 
-    opponents.get("Urshifu Rapid Strike").damageIs(402.2, 474.2).causeOHKO()
+    opponents.get("Urshifu Rapid Strike").damageIs(620.5, 729.1).causeOHKO()
   })
 
   it("Remove second Pokémon from calculation when it is deleted", () => {
@@ -61,7 +61,7 @@ describe("Test calcs with combined damage", () => {
     team.selectTeamMember("Koraidon").combineDamage()
     team.selectTeamMember("Miraidon").delete()
 
-    opponents.get("Urshifu Rapid Strike").damageIs(9.1, 10.8)
+    opponents.get("Urshifu Rapid Strike").damageIs(18.2, 21.7)
   })
 })
 
@@ -208,7 +208,7 @@ describe("Combined Damage against reduce damage abilities", () => {
     team.selectTeamMember("Miraidon")
     team.selectPokemon("Miraidon").selectAttackTwo()
 
-    opponents.get("Dragonite").damageIs(49.7, 58.6).haveChanceOfToCause2HKO(99.8)
+    opponents.get("Dragonite").damageIs(88, 104.1).haveChanceOfToCauseOHKO(21.5)
   })
 
   it("two Pokémon against one with Multiscale when Koraidon is faster", () => {
@@ -219,7 +219,7 @@ describe("Combined Damage against reduce damage abilities", () => {
     team.selectTeamMember("Miraidon")
     team.selectPokemon("Miraidon").selectAttackTwo()
 
-    opponents.get("Dragonite").damageIs(83.8, 99.4).cause2HKO()
+    opponents.get("Dragonite").damageIs(146.7, 173).causeOHKO()
   })
 
   it("two Pokémon against one with Multiscale when the slower has priority move", () => {
@@ -253,7 +253,7 @@ describe("Combined Damage against reduce damage abilities", () => {
     team.selectTeamMember("Miraidon")
     team.selectPokemon("Miraidon").selectAttackTwo()
 
-    opponents.get("Terapagos Terastal").damageIs(42, 50.4).cause3HKO()
+    opponents.get("Terapagos Terastal").damageIs(77.2, 91).cause2HKO()
   })
 
   it("two Pokémon against one with Shadow Shield", () => {
@@ -264,6 +264,6 @@ describe("Combined Damage against reduce damage abilities", () => {
     team.selectTeamMember("Miraidon")
     team.selectPokemon("Miraidon").selectAttackTwo()
 
-    opponents.get("Lunala").damageIs(40, 47.5).cause3HKO()
+    opponents.get("Lunala").damageIs(73.3, 86.6).cause2HKO()
   })
 })

@@ -172,6 +172,7 @@ export class TeamComponent {
 
     const newTeam = new Team(actualTeam.id, actualTeam.active, actualTeam.name, newTeamMembers)
 
+    this.teamMemberSelected.emit((pokemon as Pokemon).id)
     this.store.replaceActiveTeam(newTeam)
   }
 

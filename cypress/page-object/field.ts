@@ -187,6 +187,14 @@ export class Field {
     this.clickOnButton("neutralizing-gas")
   }
 
+  isActiveOption(selector: string) {
+    cy.get(`[data-cy=${selector}]`).should("have.class", "mat-button-toggle-checked")
+  }
+
+  isNotActiveOption(selector: string) {
+    cy.get(`[data-cy=${selector}]`).should("not.have.class", "mat-button-toggle-checked")
+  }
+
   private clickOnButton(selector: string) {
     cy.get(`[data-cy=${selector}] button`).click({ force: true })
   }

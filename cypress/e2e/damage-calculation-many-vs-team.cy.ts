@@ -37,7 +37,7 @@ describe("Test calcs with Many vs Team activated", () => {
     opponents.get("Calyrex Shadow").damageIs(51.6, 60.5).cause2HKO()
     opponents.get("Terapagos Terastal").damageIs(46.6, 55.5).haveChanceOfToCause2HKO(73.8)
     opponents.get("Urshifu Rapid Strike").damageIs(51.6, 60.5).cause2HKO()
-    opponents.get("Ogerpon Wellspring").damageIs(23.3, 27.2).haveChanceOfToCause4HKO(60.3)
+    opponents.get("Ogerpon Wellspring").damageIs(11.6, 13.3).possible8HKO()
     opponents.get("Raging Bolt").damageIs(93.3, 110).haveChanceOfToCauseOHKO(62.5)
     opponents.get("Incineroar").damageIs(15.5, 18.3).possible6HKO()
     opponents.get("Rillaboom").damageIs(26.6, 31.6).cause4HKO()

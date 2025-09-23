@@ -14,12 +14,4 @@ export class Blaze implements OffensiveAbilityStrategy {
   getModifier(): number {
     return 6144
   }
-
-  applyInAtk(): boolean {
-    return true
-  }
-
-  applyInSpa(): boolean {
-    return true
-  }
 }

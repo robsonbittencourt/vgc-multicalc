@@ -16,7 +16,14 @@ describe("initialFieldState", () => {
     isTrickRoom: false,
     isNeutralizingGas: false,
     attackerSide: new FieldSide(),
-    defenderSide: new FieldSide()
+    defenderSide: new FieldSide(),
+    automaticWeather: null,
+    automaticTerrain: null,
+    automaticBeadsOfRuinActivated: false,
+    automaticSwordOfRuinActivated: false,
+    automaticTabletsOfRuinActivated: false,
+    automaticVesselOfRuinActivated: false,
+    automaticNeutralizingGasActivated: false
   }
 
   afterEach(() => {

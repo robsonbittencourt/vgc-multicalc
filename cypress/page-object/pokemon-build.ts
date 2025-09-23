@@ -110,7 +110,7 @@ export class PokemonBuild {
   }
 
   selectStatsModifier(stat: string, modifier: string): PokemonBuild {
-    this.container().find(`[data-cy="stat-${stat}"]`).find('[data-cy="stat-modifier"]').click({ force: true }).get("mat-option").contains(modifier).click({ force: true })
+    this.container().find(`[data-cy="stat-${stat}"]`).find('[data-cy="stat-modifier"]').click().get("mat-option").contains(modifier).scrollIntoView().click()
     return this
   }
 
@@ -260,6 +260,10 @@ export class PokemonBuild {
 
   closeTable() {
     cy.get("body").type("{esc}")
+  }
+
+  statModifiedIs(stat: string, statValue: string) {
+    this.container().find(`[data-cy="stat-${stat}"]`).find('[data-cy="stat-modified"]').contains(statValue)
   }
 
   private container() {

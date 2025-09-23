@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from "@angular/core"
+import { Component, computed, effect, inject, signal } from "@angular/core"
 import { CopyButtonComponent } from "@basic/copy-button/copy-button.component"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { FieldStore } from "@data/store/field-store"
@@ -8,6 +8,7 @@ import { FieldComponent } from "@features/field/field.component"
 import { PokemonBuildMobileComponent } from "@features/pokemon-build/pokemon-build-mobile/pokemon-build-mobile.component"
 import { PokemonComboBoxComponent } from "@features/pokemon-build/pokemon-combo-box/pokemon-combo-box.component"
 import { PokemonTabComponent } from "@features/team/pokemon-tab/pokemon-tab.component"
+import { AutomaticFieldService } from "@lib/automatic-field-service"
 import { DamageCalculatorService } from "@lib/damage-calculator/damage-calculator.service"
 import { Pokemon } from "@lib/model/pokemon"
 
@@ -21,6 +22,7 @@ export class SimpleCalcMobileComponent {
   store = inject(CalculatorStore)
   fieldStore = inject(FieldStore)
   private damageCalculator = inject(DamageCalculatorService)
+  private automaticFieldService = inject(AutomaticFieldService)
 
   attacker = signal(this.store.leftPokemon())
 
@@ -34,6 +36,28 @@ export class SimpleCalcMobileComponent {
       return this.damageCalculator.calcDamage(this.store.rightPokemon(), this.store.leftPokemon(), this.fieldStore.field())
     }
   })
+
+  lastHandledLeftPokemonName = ""
+  lastHandledLeftAbilityName = ""
+  lastHandledRightPokemonName = ""
+  lastHandledRightAbilityName = ""
+
+  constructor() {
+    effect(() => {
+      const leftPokemonChanged = this.lastHandledLeftPokemonName != this.store.leftPokemon().name || this.lastHandledLeftAbilityName != this.store.leftPokemon().ability.name
+      const rightPokemonChanged = this.lastHandledRightPokemonName != this.store.rightPokemon().name || this.lastHandledRightAbilityName != this.store.rightPokemon().ability.name
+
+      if (leftPokemonChanged || rightPokemonChanged) {
+        this.lastHandledLeftPokemonName = this.store.leftPokemon().name
+        this.lastHandledLeftAbilityName = this.store.leftPokemon().ability.name
+
+        this.lastHandledRightPokemonName = this.store.rightPokemon().name
+        this.lastHandledRightAbilityName = this.store.rightPokemon().ability.name
+
+        this.automaticFieldService.checkAutomaticField(this.store.leftPokemon(), leftPokemonChanged, this.store.rightPokemon(), rightPokemonChanged)
+      }
+    })
+  }
 
   activateLeftPokemon() {
     this.attacker.set(this.store.leftPokemon())

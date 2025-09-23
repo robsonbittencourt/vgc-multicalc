@@ -33,8 +33,20 @@ describe("Field Store", () => {
       expect(store.isWeatherSun()).toBeTrue()
     })
 
+    it("should return if is automatic Weather Sun", () => {
+      store.toggleAutomaticSunWeather()
+
+      expect(store.isWeatherSun()).toBeTrue()
+    })
+
     it("should return if is Weather Rain", () => {
       store.toggleRainWeather()
+
+      expect(store.isWeatherRain()).toBeTrue()
+    })
+
+    it("should return if is automatic Weather Rain", () => {
+      store.toggleAutomaticRainWeather()
 
       expect(store.isWeatherRain()).toBeTrue()
     })
@@ -45,14 +57,53 @@ describe("Field Store", () => {
       expect(store.isWeatherSand()).toBeTrue()
     })
 
+    it("should return if is automatic Weather Sand", () => {
+      store.toggleAutomaticSandWeather()
+
+      expect(store.isWeatherSand()).toBeTrue()
+    })
+
     it("should return if is Weather Snow", () => {
       store.toggleSnowWeather()
 
       expect(store.isWeatherSnow()).toBeTrue()
     })
 
+    it("should return if is automatic Weather Snow", () => {
+      store.toggleAutomaticSnowWeather()
+
+      expect(store.isWeatherSnow()).toBeTrue()
+    })
+
+    it("should return if is Weather Sun when come back from automatic to the same previous weather", () => {
+      store.toggleSunWeather()
+
+      store.toggleAutomaticSunWeather()
+
+      store.toggleSunWeather()
+
+      expect(store.isWeatherSun()).toBeTrue()
+    })
+
+    it("should return if is Weather Sun when come back from automatic to the Sun previous weather", () => {
+      store.toggleSunWeather()
+
+      store.toggleAutomaticRainWeather()
+
+      store.toggleSunWeather()
+
+      expect(store.isWeatherSun()).toBeTrue()
+      expect(store.isWeatherRain()).toBeFalse()
+    })
+
     it("should return if is Electric Terrain", () => {
       store.toggleElectricTerrain()
+
+      expect(store.isTerrainElectric()).toBeTrue()
+    })
+
+    it("should return if is automatic Electric Terrain", () => {
+      store.toggleAutomaticElectricTerrain()
 
       expect(store.isTerrainElectric()).toBeTrue()
     })
@@ -63,8 +114,20 @@ describe("Field Store", () => {
       expect(store.isTerrainGrassy()).toBeTrue()
     })
 
+    it("should return if is automatic Grassy Terrain", () => {
+      store.toggleAutomaticGrassyTerrain()
+
+      expect(store.isTerrainGrassy()).toBeTrue()
+    })
+
     it("should return if is Psychic Terrain", () => {
       store.togglePsychicTerrain()
+
+      expect(store.isTerrainPsychic()).toBeTrue()
+    })
+
+    it("should return if is automatic Psychic Terrain", () => {
+      store.toggleAutomaticPsychicTerrain()
 
       expect(store.isTerrainPsychic()).toBeTrue()
     })
@@ -73,6 +136,33 @@ describe("Field Store", () => {
       store.toggleMistyTerrain()
 
       expect(store.isTerrainMisty()).toBeTrue()
+    })
+
+    it("should return if is automatic Misty Terrain", () => {
+      store.toggleAutomaticMistyTerrain()
+
+      expect(store.isTerrainMisty()).toBeTrue()
+    })
+
+    it("should return if is Terrain Electric when come back from automatic to the same previous weather", () => {
+      store.toggleElectricTerrain()
+
+      store.toggleAutomaticElectricTerrain()
+
+      store.toggleElectricTerrain()
+
+      expect(store.isTerrainElectric()).toBeTrue()
+    })
+
+    it("should return if is Terrain Electric when come back from automatic to the Electric previous weather", () => {
+      store.toggleElectricTerrain()
+
+      store.toggleAutomaticGrassyTerrain()
+
+      store.toggleElectricTerrain()
+
+      expect(store.isTerrainElectric()).toBeTrue()
+      expect(store.isTerrainGrassy()).toBeFalse()
     })
   })
 
@@ -276,6 +366,22 @@ describe("Field Store", () => {
       expect(store.field().isBeadsOfRuin).toBeFalse()
     })
 
+    it("should change automatic Beads Of Ruin to true when it is false", () => {
+      store.toggleAutomaticBeadsOfRuin()
+
+      expect(store.field().isBeadsOfRuin).toBeTrue()
+    })
+
+    it("should change Beads Of Ruin to false when it is true in automatic and normal value", () => {
+      store.toggleBeadsOfRuin()
+
+      store.toggleAutomaticBeadsOfRuin()
+
+      store.toggleBeadsOfRuin()
+
+      expect(store.field().isBeadsOfRuin).toBeFalse()
+    })
+
     it("should change Sword Of Ruin to true when it is false", () => {
       store.toggleSwordOfRuin()
 
@@ -284,6 +390,22 @@ describe("Field Store", () => {
 
     it("should change Sword Of Ruin to false when it is true", () => {
       store.toggleSwordOfRuin()
+      store.toggleSwordOfRuin()
+
+      expect(store.field().isSwordOfRuin).toBeFalse()
+    })
+
+    it("should change automatic Sword Of Ruin to true when it is false", () => {
+      store.toggleAutomaticSwordOfRuin()
+
+      expect(store.field().isSwordOfRuin).toBeTrue()
+    })
+
+    it("should change Sword Of Ruin to false when it is true in automatic and normal value", () => {
+      store.toggleSwordOfRuin()
+
+      store.toggleAutomaticSwordOfRuin()
+
       store.toggleSwordOfRuin()
 
       expect(store.field().isSwordOfRuin).toBeFalse()
@@ -302,6 +424,22 @@ describe("Field Store", () => {
       expect(store.field().isTabletsOfRuin).toBeFalse()
     })
 
+    it("should change automatic Tablets Of Ruin to true when it is false", () => {
+      store.toggleAutomaticTabletsOfRuin()
+
+      expect(store.field().isTabletsOfRuin).toBeTrue()
+    })
+
+    it("should change Tablets Of Ruin to false when it is true in automatic and normal value", () => {
+      store.toggleTabletsOfRuin()
+
+      store.toggleAutomaticTabletsOfRuin()
+
+      store.toggleTabletsOfRuin()
+
+      expect(store.field().isTabletsOfRuin).toBeFalse()
+    })
+
     it("should change Vessel Of Ruin to true when it is false", () => {
       store.toggleVesselOfRuin()
 
@@ -310,6 +448,22 @@ describe("Field Store", () => {
 
     it("should change Vessel Of Ruin to false when it is true", () => {
       store.toggleVesselOfRuin()
+      store.toggleVesselOfRuin()
+
+      expect(store.field().isVesselOfRuin).toBeFalse()
+    })
+
+    it("should change automatic Vessel Of Ruin to true when it is false", () => {
+      store.toggleAutomaticVesselOfRuin()
+
+      expect(store.field().isVesselOfRuin).toBeTrue()
+    })
+
+    it("should change Vessel Of Ruin to false when it is true in automatic and normal value", () => {
+      store.toggleVesselOfRuin()
+
+      store.toggleAutomaticVesselOfRuin()
+
       store.toggleVesselOfRuin()
 
       expect(store.field().isVesselOfRuin).toBeFalse()
@@ -401,6 +555,22 @@ describe("Field Store", () => {
 
     it("should change Neutralizing Gas to false when it is true", () => {
       store.toggleNeutralizingGas()
+      store.toggleNeutralizingGas()
+
+      expect(store.field().isNeutralizingGas).toBeFalse()
+    })
+
+    it("should change Automatic Neutralizing Gas to true when it is false", () => {
+      store.toggleAutomaticNeutralizingGas()
+
+      expect(store.field().isNeutralizingGas).toBeTrue()
+    })
+
+    it("should change Neutralizing Gas to false when it is true in automatic and normal value", () => {
+      store.toggleNeutralizingGas()
+
+      store.toggleAutomaticNeutralizingGas()
+
       store.toggleNeutralizingGas()
 
       expect(store.field().isNeutralizingGas).toBeFalse()
@@ -712,6 +882,46 @@ describe("Field Store", () => {
       store.toggleDefenderStealthRock()
 
       expect(store.field().defenderSide.isSR).toBeFalse()
+    })
+
+    it("should clean automatic options", () => {
+      store.toggleAutomaticSunWeather()
+      store.toggleAutomaticElectricTerrain()
+      store.toggleAutomaticBeadsOfRuin()
+      store.toggleAutomaticSwordOfRuin()
+      store.toggleAutomaticTabletsOfRuin()
+      store.toggleAutomaticVesselOfRuin()
+      store.toggleAutomaticNeutralizingGas()
+
+      store.cleanAutomaticOptions()
+
+      expect(store.field().weather == "Sun").toBeFalse()
+      expect(store.field().terrain == "Electric").toBeFalse()
+      expect(store.field().isBeadsOfRuin).toBeFalse()
+      expect(store.field().isSwordOfRuin).toBeFalse()
+      expect(store.field().isTabletsOfRuin).toBeFalse()
+      expect(store.field().isVesselOfRuin).toBeFalse()
+      expect(store.field().isNeutralizingGas).toBeFalse()
+    })
+
+    it("should not clean automatic options with exceptions", () => {
+      store.toggleAutomaticSunWeather()
+      store.toggleAutomaticElectricTerrain()
+      store.toggleAutomaticBeadsOfRuin()
+      store.toggleAutomaticSwordOfRuin()
+      store.toggleAutomaticTabletsOfRuin()
+      store.toggleAutomaticVesselOfRuin()
+      store.toggleAutomaticNeutralizingGas()
+
+      store.cleanAutomaticOptions(["automaticWeather", "automaticTerrain", "automaticBeadsOfRuinActivated", "automaticSwordOfRuinActivated", "automaticTabletsOfRuinActivated", "automaticVesselOfRuinActivated", "automaticNeutralizingGasActivated"])
+
+      expect(store.field().weather == "Sun").toBeTrue()
+      expect(store.field().terrain == "Electric").toBeTrue()
+      expect(store.field().isBeadsOfRuin).toBeTrue()
+      expect(store.field().isSwordOfRuin).toBeTrue()
+      expect(store.field().isTabletsOfRuin).toBeTrue()
+      expect(store.field().isVesselOfRuin).toBeTrue()
+      expect(store.field().isNeutralizingGas).toBeTrue()
     })
   })
 

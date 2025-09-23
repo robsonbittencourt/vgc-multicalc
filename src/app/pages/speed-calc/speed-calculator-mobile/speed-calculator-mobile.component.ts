@@ -12,6 +12,7 @@ import { ItemComboBoxComponent } from "@features/pokemon-build/item-combo-box/it
 import { NatureComboBoxComponent } from "@features/pokemon-build/nature-combo-box/nature-combo-box.component"
 import { PokemonComboBoxComponent } from "@features/pokemon-build/pokemon-combo-box/pokemon-combo-box.component"
 import { StatusComboBoxComponent } from "@features/pokemon-build/status-combo-box/status-combo-box.component"
+import { AutomaticFieldService } from "@lib/automatic-field-service"
 import { Pokemon } from "@lib/model/pokemon"
 import { Status } from "@lib/model/status"
 import { getFinalSpeed } from "@lib/smogon/stat-calculator/spe/modified-spe"
@@ -46,6 +47,7 @@ export class SpeedCalculatorMobileComponent implements OnInit {
   store = inject(CalculatorStore)
   fieldStore = inject(FieldStore)
   optionsStore = inject(SpeedCalcOptionsStore)
+  private automaticFieldService = inject(AutomaticFieldService)
 
   modifiedSpe = signal<number>(0)
 
@@ -58,6 +60,9 @@ export class SpeedCalculatorMobileComponent implements OnInit {
     return this.modifiedSpe() != this.pokemon().spe
   })
 
+  lastHandledPokemonName = ""
+  lastHandledAbilityName = ""
+
   constructor() {
     effect(() => {
       if (this.fieldStore.field()) {
@@ -65,6 +70,17 @@ export class SpeedCalculatorMobileComponent implements OnInit {
         const activatedPokemon = this.store.findPokemonById(id)
 
         this.modifiedSpe.set(getFinalSpeed(activatedPokemon, this.fieldStore.field(), true))
+      }
+    })
+
+    effect(() => {
+      const pokemonChanged = this.lastHandledPokemonName != this.store.speedCalcPokemon().name || this.lastHandledAbilityName != this.store.speedCalcPokemon().ability.name
+
+      if (pokemonChanged) {
+        this.lastHandledPokemonName = this.store.speedCalcPokemon().name
+        this.lastHandledAbilityName = this.store.speedCalcPokemon().ability.name
+
+        this.automaticFieldService.checkAutomaticField(this.store.speedCalcPokemon(), pokemonChanged)
       }
     })
   }

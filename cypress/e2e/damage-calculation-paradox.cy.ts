@@ -33,11 +33,11 @@ describe("Test calcs with Paradox Pokémon and ability activated", () => {
       leftPokemonBuild.importPokemon(poke["rillaboom"])
       rightPokemonBuild.importPokemon(poke["great-tusk-high-def"])
 
-      leftDamageResult.damageIs(0, 83.1, 98.9, 158, 188)
+      leftDamageResult.damageIs(0, 107.3, 127.3, 204, 242)
 
       rightPokemonBuild.activateAbility()
 
-      leftDamageResult.damageIs(0, 63.1, 75.7, 120, 144)
+      leftDamageResult.damageIs(0, 83.1, 98.9, 158, 188)
     })
 
     it("with spa as high stat", () => {
@@ -91,11 +91,11 @@ describe("Test calcs with Paradox Pokémon and ability activated", () => {
       leftPokemonBuild.importPokemon(poke["rillaboom"])
       rightPokemonBuild.importPokemon(poke["iron-treads-high-def"])
 
-      leftDamageResult.damageIs(0, 51.5, 61.8, 85, 102)
+      leftDamageResult.damageIs(0, 67.2, 80, 111, 132)
 
       rightPokemonBuild.activateAbility()
 
-      leftDamageResult.damageIs(0, 40.6, 47.8, 67, 79)
+      leftDamageResult.damageIs(0, 51.5, 61.8, 85, 102)
     })
 
     it("with spa as high stat", () => {
