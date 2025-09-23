@@ -37,8 +37,8 @@ export class AbilityComboBoxComponent {
   availableAbilities = computed(() => this.pokemon().availableAbilities.map(a => a.name))
 
   abilityCheckDisabled = computed(() => {
-    if (this.pokemon().isProtosynthesisAbility && this.fieldStore.isWeatherSun()) return true
-    if (this.pokemon().isQuarkDriveAbility && this.fieldStore.isTerrainElectric()) return true
+    if (this.pokemon().hasAbility("Protosynthesis") && this.fieldStore.isWeatherSun()) return true
+    if (this.pokemon().hasAbility("Quark Drive") && this.fieldStore.isTerrainElectric()) return true
 
     return false
   })

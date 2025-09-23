@@ -406,10 +406,10 @@ describe("Pokemon", () => {
         expect(pokemon.baseAtk).toEqual(55)
       })
 
-      it("should return the modifiedAtk", () => {
-        const pokemon = new Pokemon("Pikachu", { boosts: { atk: 1 } })
+      it("should return the atk", () => {
+        const pokemon = new Pokemon("Pikachu")
 
-        expect(pokemon.modifiedAtk).toEqual(112)
+        expect(pokemon.atk).toEqual(75)
       })
 
       it("should return the baseDef", () => {
@@ -418,10 +418,10 @@ describe("Pokemon", () => {
         expect(pokemon.baseDef).toEqual(40)
       })
 
-      it("should return the modifiedDef", () => {
-        const pokemon = new Pokemon("Pikachu", { boosts: { def: 2 } })
+      it("should return the def", () => {
+        const pokemon = new Pokemon("Pikachu")
 
-        expect(pokemon.modifiedDef).toEqual(120)
+        expect(pokemon.def).toEqual(60)
       })
 
       it("should return the baseSpa", () => {
@@ -430,10 +430,10 @@ describe("Pokemon", () => {
         expect(pokemon.baseSpa).toEqual(50)
       })
 
-      it("should return the modifiedSpa", () => {
-        const pokemon = new Pokemon("Pikachu", { boosts: { spa: 3 } })
+      it("should return the spa", () => {
+        const pokemon = new Pokemon("Pikachu")
 
-        expect(pokemon.modifiedSpa).toEqual(175)
+        expect(pokemon.spa).toEqual(70)
       })
 
       it("should return the baseSpd", () => {
@@ -442,10 +442,10 @@ describe("Pokemon", () => {
         expect(pokemon.baseSpd).toEqual(50)
       })
 
-      it("should return the modifiedSpd", () => {
-        const pokemon = new Pokemon("Pikachu", { boosts: { spd: 4 } })
+      it("should return the spd", () => {
+        const pokemon = new Pokemon("Pikachu")
 
-        expect(pokemon.modifiedSpd).toEqual(210)
+        expect(pokemon.spd).toEqual(70)
       })
 
       it("should return the baseSpe", () => {
@@ -454,10 +454,10 @@ describe("Pokemon", () => {
         expect(pokemon.baseSpe).toEqual(90)
       })
 
-      it("should return the modifiedSpe", () => {
-        const pokemon = new Pokemon("Pikachu", { boosts: { spe: 5 } })
+      it("should return the spe", () => {
+        const pokemon = new Pokemon("Pikachu")
 
-        expect(pokemon.modifiedSpe).toEqual(385)
+        expect(pokemon.spe).toEqual(110)
       })
 
       it("should return the BST", () => {

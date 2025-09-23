@@ -16,7 +16,7 @@
   </div>
 
   <div class="evs">
-    <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.spe" stat="spe" [reduced]="true" />
+    <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.spe" [modifiedStat]="modifiedSpe()" [hasModifiedStat]="hasModifiedStat()" stat="spe" [reduced]="true" />
   </div>
 
   <app-speed-scale class="speed-scale" [pokemonId]="pokemon().id" [pokemonEachSide]="7" (pokemonSelected)="selectedPokemon.set($event)" />

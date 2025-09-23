@@ -1,5 +1,3 @@
-import { provideZonelessChangeDetection } from "@angular/core"
-import { TestBed } from "@angular/core/testing"
 import { SELECT_POKEMON_LABEL } from "@lib/constants"
 import { Ability } from "@lib/model/ability"
 import { Move } from "@lib/model/move"
@@ -8,19 +6,9 @@ import { Pokemon } from "@lib/model/pokemon"
 import { Status } from "@lib/model/status"
 import { PokemonParameters } from "@lib/types"
 import { AbilityName, ItemName } from "@robsonbittencourt/calc/src/data/interface"
-import { SmogonPokemonBuilder } from "./smogon-pokemon-builder"
+import { fromExisting, fromScratch } from "./smogon-pokemon-builder"
 
 describe("SmogonPokemonBuilder", () => {
-  let builder: SmogonPokemonBuilder
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [provideZonelessChangeDetection()]
-    })
-
-    builder = TestBed.inject(SmogonPokemonBuilder)
-  })
-
   it("should create a SmogonPokemon from an existing Pokemon", () => {
     const moveSet = new MoveSet(new Move("Thunderbolt"), new Move("Quick Attack"), new Move("Iron Tail"), new Move("Electro Ball"))
     const ability = new Ability("Levitate", true)
@@ -41,7 +29,7 @@ describe("SmogonPokemonBuilder", () => {
     }
     const pokemon = new Pokemon("Pikachu", options)
 
-    const smogonPokemon = builder.fromExisting(pokemon)
+    const smogonPokemon = fromExisting(pokemon)
 
     expect(smogonPokemon.name).toBe("Pikachu")
     expect(smogonPokemon.ability).toBe("Levitate" as AbilityName)
@@ -55,7 +43,7 @@ describe("SmogonPokemonBuilder", () => {
   })
 
   it("should create a SmogonPokemon from scratch with default values", () => {
-    const smogonPokemon = builder.fromScratch(SELECT_POKEMON_LABEL, {})
+    const smogonPokemon = fromScratch(SELECT_POKEMON_LABEL, {})
 
     expect(smogonPokemon.name).toBe("Togepi")
     expect(smogonPokemon.ability).toBe("Hustle" as AbilityName)
@@ -82,7 +70,7 @@ describe("SmogonPokemonBuilder", () => {
       status: Status.PARALYSIS,
       hpPercentage: 50
     }
-    const smogonPokemon = builder.fromScratch("Pikachu", options)
+    const smogonPokemon = fromScratch("Pikachu", options)
 
     expect(smogonPokemon.name).toBe("Pikachu")
     expect(smogonPokemon.ability).toBe("Levitate" as AbilityName)

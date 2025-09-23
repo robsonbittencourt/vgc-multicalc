@@ -37,4 +37,5 @@ export type PokemonParameters = {
   ivs?: Partial<Stats>
   hpPercentage?: number
   commanderActive?: boolean
+  isAttacker?: boolean
 }

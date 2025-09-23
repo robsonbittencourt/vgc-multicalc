@@ -7,7 +7,6 @@ import { Move } from "@lib/model/move"
 import { MoveSet } from "@lib/model/moveset"
 import { Pokemon } from "@lib/model/pokemon"
 import { Status } from "@lib/model/status"
-import { SmogonFunctions } from "@lib/smogon/smogon-functions"
 import { SpeedCalculatorMode } from "@lib/speed-calculator/speed-calculator-mode"
 import { SpeedCalculatorOptions } from "@lib/speed-calculator/speed-calculator-options"
 import { SpeedCalculatorService } from "@lib/speed-calculator/speed-calculator-service"
@@ -17,7 +16,7 @@ describe("SpeedCalculatorService", () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [SpeedCalculatorService, SmogonFunctions, provideZonelessChangeDetection()]
+      providers: [SpeedCalculatorService, provideZonelessChangeDetection()]
     })
 
     service = TestBed.inject(SpeedCalculatorService)
@@ -542,7 +541,7 @@ describe("SpeedCalculatorService", () => {
   })
 
   describe("statistics", () => {
-    it("should return meta speed description and Pokémon name frpm Regulation H", () => {
+    it("should return meta speed description and Pokémon name from Regulation H", () => {
       const pokemon = new Pokemon("Baxcalibur")
       const field = new Field()
       const regulation = "H"
@@ -554,7 +553,7 @@ describe("SpeedCalculatorService", () => {
       expect(speedDefinition[0].description).toMatch(/\d{1,3}% Usage/)
     })
 
-    it("should return meta speed description and Pokémon name frpm Regulation I", () => {
+    it("should return meta speed description and Pokémon name from Regulation I", () => {
       const pokemon = new Pokemon("Flutter Mane")
       const field = new Field()
       const regulation = "I"
@@ -563,6 +562,18 @@ describe("SpeedCalculatorService", () => {
 
       expect(speedDefinition[0].pokemonName).toEqual("Flutter Mane")
       expect(speedDefinition[0].value).toEqual(205)
+      expect(speedDefinition[0].description).toMatch(/\d{1,3}% Usage/)
+    })
+
+    it("should return meta speed description and Pokémon name from Regulation J", () => {
+      const pokemon = new Pokemon("Arceus")
+      const field = new Field()
+      const regulation = "J"
+
+      const speedDefinition = service.statistics(pokemon, field, regulation)
+
+      expect(speedDefinition[0].pokemonName).toEqual("Arceus")
+      expect(speedDefinition[0].value).toEqual(140)
       expect(speedDefinition[0].description).toMatch(/\d{1,3}% Usage/)
     })
   })

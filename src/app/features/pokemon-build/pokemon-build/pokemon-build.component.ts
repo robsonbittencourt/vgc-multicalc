@@ -5,6 +5,7 @@ import { FormsModule } from "@angular/forms"
 import { MatCheckbox } from "@angular/material/checkbox"
 import { InputComponent } from "@basic/input/input.component"
 import { CalculatorStore } from "@data/store/calculator-store"
+import { FieldStore } from "@data/store/field-store"
 import { AbilityComboBoxComponent } from "@features/pokemon-build/ability-combo-box/ability-combo-box.component"
 import { EvSliderComponent } from "@features/pokemon-build/ev-slider/ev-slider.component"
 import { MultiHitComboBoxComponent } from "@features/pokemon-build/multi-hit-combo-box/multi-hit-combo-box.component"
@@ -16,6 +17,9 @@ import { MovesTableComponent } from "@features/pokemon-build/tables/moves-table/
 import { PokemonTableComponent } from "@features/pokemon-build/tables/pokemon-table/pokemon-table.component"
 import { TeraComboBoxComponent } from "@features/pokemon-build/tera-combo-box/tera-combo-box.component"
 import { TypeComboBoxComponent } from "@features/pokemon-build/type-combo-box/type-combo-box.component"
+import { getFinalAttack, getFinalSpecialAttack } from "@lib/smogon/stat-calculator/atk-spa/modified-atk-spa"
+import { getFinalDefense, getFinalSpecialDefense } from "@lib/smogon/stat-calculator/def-spd/modified-def-spd"
+import { getFinalSpeed } from "@lib/smogon/stat-calculator/spe/modified-spe"
 
 @Component({
   selector: "app-pokemon-build",
@@ -49,6 +53,7 @@ export class PokemonBuildComponent {
   selected = output()
 
   store = inject(CalculatorStore)
+  fieldStore = inject(FieldStore)
 
   activeMoveIndex = signal<number | null>(null)
 
@@ -92,6 +97,12 @@ export class PokemonBuildComponent {
 
   shouldAnimate = signal(false)
 
+  modifiedAtk = signal<number>(0)
+  modifiedDef = signal<number>(0)
+  modifiedSpa = signal<number>(0)
+  modifiedSpd = signal<number>(0)
+  modifiedSpe = signal<number>(0)
+
   someMoveHasFocus = computed(() => {
     return this.move1HasFocus() || this.move2HasFocus() || this.move3HasFocus() || this.move4HasFocus()
   })
@@ -101,6 +112,9 @@ export class PokemonBuildComponent {
   })
 
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
+  hasModifiedStat = computed(() => {
+    return this.modifiedAtk() != this.pokemon().atk || this.modifiedDef() != this.pokemon().def || this.modifiedSpa() != this.pokemon().spa || this.modifiedSpd() != this.pokemon().spd || this.modifiedSpe() != this.pokemon().spe
+  })
 
   pokemonInput = viewChild<InputComponent>("pokemonInput")
   itemInput = viewChild<InputComponent>("itemInput")
@@ -122,6 +136,19 @@ export class PokemonBuildComponent {
 
       if (!this.hasFocus()) {
         this.showDefaultView()
+      }
+    })
+
+    effect(() => {
+      if (this.fieldStore.field()) {
+        const id = this.pokemonId()
+        const activatedPokemon = this.store.findPokemonById(id)
+
+        this.modifiedAtk.set(getFinalAttack(activatedPokemon, activatedPokemon.move, this.fieldStore.field()))
+        this.modifiedDef.set(getFinalDefense(activatedPokemon, this.fieldStore.field(), this.reverse()))
+        this.modifiedSpa.set(getFinalSpecialAttack(activatedPokemon, activatedPokemon.move, this.fieldStore.field()))
+        this.modifiedSpd.set(getFinalSpecialDefense(activatedPokemon, this.fieldStore.field(), !this.reverse()))
+        this.modifiedSpe.set(getFinalSpeed(activatedPokemon, this.fieldStore.field(), !this.reverse()))
       }
     })
   }
@@ -340,6 +367,14 @@ export class PokemonBuildComponent {
 
   isTeraDisabled() {
     return this.pokemon().name.startsWith("Ogerpon")
+  }
+
+  gridTemplateColumns(): any {
+    if (this.hasModifiedStat()) {
+      return { "grid-template-columns": "64px 64px 67px 64px 1fr 64px 40px 30px" }
+    }
+
+    return { "grid-template-columns": "64px 64px 67px 64px 1fr 64px 40px" }
   }
 
   private clearBlurTimeout() {

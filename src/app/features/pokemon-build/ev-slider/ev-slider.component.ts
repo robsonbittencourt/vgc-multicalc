@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, computed, inject, input, model, signal, viewChild } from "@angular/core"
+import { NgStyle } from "@angular/common"
+import { Component, computed, effect, inject, input, model, signal, viewChild } from "@angular/core"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { MatOption } from "@angular/material/core"
 import { MatFormField, MatLabel, MatSuffix } from "@angular/material/form-field"
@@ -13,13 +14,15 @@ import { Stats } from "@lib/types"
   selector: "app-ev-slider",
   templateUrl: "./ev-slider.component.html",
   styleUrls: ["./ev-slider.component.scss"],
-  imports: [MatFormField, MatSuffix, ReactiveFormsModule, MatInput, FormsModule, MatSelect, MatOption, MatLabel, MatSlider, MatSliderThumb, MatTooltip]
+  imports: [NgStyle, MatFormField, MatSuffix, ReactiveFormsModule, MatInput, FormsModule, MatSelect, MatOption, MatLabel, MatSlider, MatSliderThumb, MatTooltip]
 })
-export class EvSliderComponent implements AfterViewInit {
+export class EvSliderComponent {
   pokemonId = input.required<string>()
   ev = model.required<number>()
   stat = input.required<keyof Stats>()
   reduced = input(false)
+  modifiedStat = input(0)
+  hasModifiedStat = input<boolean>()
 
   store = inject(CalculatorStore)
 
@@ -63,11 +66,21 @@ export class EvSliderComponent implements AfterViewInit {
 
   statValue = computed(() => {
     if (this.stat() == "hp") return this.pokemon().hp
-    if (this.stat() == "atk") return this.pokemon().modifiedAtk
-    if (this.stat() == "def") return this.pokemon().modifiedDef
-    if (this.stat() == "spa") return this.pokemon().modifiedSpa
-    if (this.stat() == "spd") return this.pokemon().modifiedSpd
-    return this.pokemon().modifiedSpe
+    if (this.stat() == "atk") return this.pokemon().atk
+    if (this.stat() == "def") return this.pokemon().def
+    if (this.stat() == "spa") return this.pokemon().spa
+    if (this.stat() == "spd") return this.pokemon().spd
+    return this.pokemon().spe
+  })
+
+  originalWithModifier = computed(() => {
+    if (this.hasModifiedStat() && this.modifiedStat() != this.statValue()) {
+      const operator = this.modifiedStat()! > this.statValue() ? "+" : "-"
+      const percentage = Math.floor(Math.abs((this.modifiedStat()! - this.statValue()) / this.statValue()) * 100)
+      return `${operator}${percentage}%`
+    }
+
+    return ""
   })
 
   statName = computed(() => {
@@ -117,6 +130,25 @@ export class EvSliderComponent implements AfterViewInit {
   fourthJumpPosition = computed(() => this.positionBySliderIncrements(this.width(), 3))
 
   width = signal(0)
+  resizeObserver: ResizeObserver
+
+  constructor() {
+    effect(() => {
+      const slider = this.sliderElement()
+
+      if (slider) {
+        const el = slider._elementRef.nativeElement as HTMLElement
+
+        this.resizeObserver = new ResizeObserver(entries => {
+          for (const entry of entries) {
+            this.width.set(entry.contentRect.width)
+          }
+        })
+
+        this.resizeObserver.observe(el)
+      }
+    })
+  }
 
   MAX_EVS = 508
   EV_ZERO = 0
@@ -141,10 +173,6 @@ export class EvSliderComponent implements AfterViewInit {
 
   previousMouseX: number | null = null
   previousTouchX: number | null = null
-
-  ngAfterViewInit(): void {
-    this.width.set(this.sliderElement()?._cachedWidth ?? 0)
-  }
 
   hpPercentageChanged(event: Event) {
     this.store.hpPercentage(this.pokemonId(), +(event.target as HTMLInputElement).value)
@@ -212,6 +240,25 @@ export class EvSliderComponent implements AfterViewInit {
 
   resetMousePosition() {
     this.previousMouseX = null
+  }
+
+  gridTemplateColumns(): any {
+    const base = this.reduced() ? "62px 64px 1fr 53px 25px" : "64px 64px 67px 64px 1fr 64px 40px"
+    const extra = this.hasModifiedStat() ? " 30px" : ""
+
+    return { "grid-template-columns": base + extra }
+  }
+
+  statValueStyle(): any {
+    if (this.modifiedStat() > this.statValue()) {
+      return { color: "#69e969" }
+    }
+
+    if (this.modifiedStat() < this.statValue()) {
+      return { color: "#f73f3f" }
+    }
+
+    return ""
   }
 
   private evsExceed(): boolean {

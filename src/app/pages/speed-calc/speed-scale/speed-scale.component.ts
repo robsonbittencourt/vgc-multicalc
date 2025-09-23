@@ -4,6 +4,7 @@ import { FieldStore } from "@data/store/field-store"
 import { SpeedCalcOptionsStore } from "@data/store/speed-calc-options-store"
 import { Field } from "@lib/model/field"
 import { Pokemon } from "@lib/model/pokemon"
+import { getFinalSpeed } from "@lib/smogon/stat-calculator/spe/modified-spe"
 import { SpeedCalculatorOptions as SpeedScaleOptions } from "@lib/speed-calculator/speed-calculator-options"
 import { SpeedCalculatorService } from "@lib/speed-calculator/speed-calculator-service"
 import { SpeedDefinition } from "@lib/speed-calculator/speed-definition"
@@ -44,7 +45,7 @@ export class SpeedScaleComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.actualPokemonSpeed = this.pokemon().modifiedSpe
+    this.actualPokemonSpeed = getFinalSpeed(this.pokemon(), this.fieldStore.field())
   }
 
   calculateSpeedRange(pokemon: Pokemon, options: SpeedScaleOptions, field: Field) {
@@ -66,10 +67,10 @@ export class SpeedScaleComponent implements OnInit {
 
   private verifyChanges(newSpeedDefinitions: SpeedDefinition[]) {
     this.speedOrderChanged = this.verifyIfOrderChanged(newSpeedDefinitions)
-    this.speedOrderIncrease = this.actualPokemonSpeed < this.pokemon().modifiedSpe
+    this.speedOrderIncrease = this.actualPokemonSpeed < getFinalSpeed(this.pokemon(), this.fieldStore.field())
 
     this.actualSpeedDefinitions = newSpeedDefinitions
-    this.actualPokemonSpeed = this.pokemon().modifiedSpe
+    this.actualPokemonSpeed = getFinalSpeed(this.pokemon(), this.fieldStore.field())
   }
 
   private verifyIfOrderChanged(newSpeedDefinitions: SpeedDefinition[]): boolean {

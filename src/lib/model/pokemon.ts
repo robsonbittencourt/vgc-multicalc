@@ -6,8 +6,8 @@ import { Ability } from "@lib/model/ability"
 import { Move } from "@lib/model/move"
 import { MoveSet } from "@lib/model/moveset"
 import { Status } from "@lib/model/status"
-import { SmogonFunctions } from "@lib/smogon/smogon-functions"
-import { SmogonPokemonBuilder } from "@lib/smogon/smogon-pokemon-builder"
+import { higherStat } from "@lib/smogon/commom"
+import { fromScratch } from "@lib/smogon/smogon-pokemon-builder"
 import { Jumps, PokemonParameters, Stats } from "@lib/types"
 import { Pokemon as SmogonPokemon } from "@robsonbittencourt/calc"
 import { TypeName } from "@robsonbittencourt/calc/dist/data/interface"
@@ -23,13 +23,13 @@ export class Pokemon {
   readonly commanderActive: boolean
   readonly higherStat: StatIDExceptHP
   readonly bonusBoosts: Partial<Stats>
+  readonly isAttacker: boolean
 
   private smogonPokemon: SmogonPokemon
-  private smogonFunctions = new SmogonFunctions()
 
   constructor(name: string, options: PokemonParameters = {}) {
     const adjustedName = name == SELECT_POKEMON_LABEL ? "Togepi" : name
-    this.smogonPokemon = new SmogonPokemonBuilder().fromScratch(adjustedName, options)
+    this.smogonPokemon = fromScratch(adjustedName, options)
 
     this.id = options.id ?? uuidv4()
     this.moveSet = options.moveSet ?? new MoveSet(new Move("Struggle"), new Move("Struggle"), new Move("Struggle"), new Move("Struggle"))
@@ -37,8 +37,9 @@ export class Pokemon {
     this.teraType = options.teraType ?? DEFAULT_TERA_TYPE
     this.hpPercentage = options.hpPercentage ?? 100
     this.commanderActive = options.commanderActive ?? false
-    this.higherStat = this.smogonFunctions.higherStat(this.smogonPokemon)
+    this.higherStat = higherStat(this.smogonPokemon)
     this.bonusBoosts = options.bonusBoosts ?? { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
+    this.isAttacker = options.isAttacker ?? false
   }
 
   get name(): string {
@@ -87,6 +88,14 @@ export class Pokemon {
 
   get type2(): TypeName | undefined {
     return this.smogonPokemon.types[1]
+  }
+
+  hasType(type: TypeName): boolean {
+    if (this.teraTypeActive) {
+      return this.teraType == type
+    }
+
+    return this.type1 == type || this.type2 == type
   }
 
   get level(): number {
@@ -200,56 +209,52 @@ export class Pokemon {
     return this.smogonPokemon.species.baseStats.atk
   }
 
-  get modifiedAtk(): number {
-    return this.getModifiedStat("atk")
+  get atk(): number {
+    return this.smogonPokemon.stats.atk
   }
 
   get baseDef(): number {
     return this.smogonPokemon.species.baseStats.def
   }
 
-  get modifiedDef(): number {
-    return this.getModifiedStat("def")
+  get def(): number {
+    return this.smogonPokemon.stats.def
   }
 
   get baseSpa(): number {
     return this.smogonPokemon.species.baseStats.spa
   }
 
-  get modifiedSpa(): number {
-    return this.getModifiedStat("spa")
+  get spa(): number {
+    return this.smogonPokemon.stats.spa
   }
 
   get baseSpd(): number {
     return this.smogonPokemon.species.baseStats.spd
   }
 
-  get modifiedSpd(): number {
-    return this.getModifiedStat("spd")
+  get spd(): number {
+    return this.smogonPokemon.stats.spd
   }
 
   get baseSpe(): number {
     return this.smogonPokemon.species.baseStats.spe
   }
 
+  get spe(): number {
+    return this.smogonPokemon.stats.spe
+  }
+
   get bst(): number {
     return this.baseHp + this.baseAtk + this.baseDef + this.baseSpa + this.baseSpd + this.baseSpe
   }
 
-  get modifiedSpe(): number {
-    return this.getModifiedStat("spe")
+  get abilityOn(): boolean {
+    return this.ability.on
   }
 
-  get isParadoxAbility() {
+  get isParadoxAbility(): boolean {
     return this.isSmogonParadoxAbility(this.smogonPokemon)
-  }
-
-  get isProtosynthesisAbility() {
-    return this.ability.name == "Protosynthesis"
-  }
-
-  get isQuarkDriveAbility() {
-    return this.ability.name == "Quark Drive"
   }
 
   get isDefault() {
@@ -273,6 +278,28 @@ export class Pokemon {
 
     const pokemonDetails = Object.values(POKEMON_DETAILS).find(p => p.name == this.name)!
     return pokemonDetails.abilities.map(ability => ABILITY_DETAILS[ability])
+  }
+
+  get rawStats(): Partial<Stats> {
+    return this.smogonPokemon.rawStats
+  }
+
+  get isAffectedByNeutralizingGas(): boolean {
+    if (this.item == "Ability Shield") {
+      return false
+    }
+
+    const notAffectedAbilities = ["Neutralizing Gas", "Multitype", "Power Construct", "Disguise", "Ice Face", "As One (Spectrier)", "Tera Shift"]
+
+    return !notAffectedAbilities.includes(this.ability.name)
+  }
+
+  hasAbility(ability: string): boolean {
+    return ability == this.ability.name
+  }
+
+  hasItem(item: string): boolean {
+    return this.item == item
   }
 
   clone(options: PokemonParameters = {}): Pokemon {
@@ -311,10 +338,6 @@ export class Pokemon {
 
   private isSmogonParadoxAbility(smogonPokemon: SmogonPokemon): boolean {
     return smogonPokemon.ability == "Protosynthesis" || smogonPokemon.ability == "Quark Drive"
-  }
-
-  private getModifiedStat(stat: StatID) {
-    return this.smogonFunctions.getModifiedStat(this.smogonPokemon.rawStats[stat], this.smogonPokemon.boosts[stat])
   }
 
   private baseStatWithBeneficalNature(): StatID | undefined {

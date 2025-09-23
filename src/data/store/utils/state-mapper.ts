@@ -9,7 +9,7 @@ import { Team } from "@lib/model/team"
 import { TeamMember } from "@lib/model/team-member"
 import { MovePosition } from "@lib/types"
 
-export function stateToPokemon(state: PokemonState) {
+export function stateToPokemon(state: PokemonState, isAttacker = false): Pokemon {
   const moveOne = new Move(state.moveSet[0].name, { alliesFainted: state.moveSet[0].alliesFainted, hits: state.moveSet[0].hits })
   const moveTwo = new Move(state.moveSet[1].name, { alliesFainted: state.moveSet[1].alliesFainted, hits: state.moveSet[1].hits })
   const moveThree = new Move(state.moveSet[2].name, { alliesFainted: state.moveSet[2].alliesFainted, hits: state.moveSet[2].hits })
@@ -30,7 +30,8 @@ export function stateToPokemon(state: PokemonState) {
     bonusBoosts: state.bonusBoosts,
     evs: state.evs,
     ivs: state.ivs,
-    hpPercentage: state.hpPercentage
+    hpPercentage: state.hpPercentage,
+    isAttacker: isAttacker
   })
 }
 
@@ -62,13 +63,13 @@ export function pokemonToState(pokemon: Pokemon): PokemonState {
   }
 }
 
-export function stateToTeam(state: TeamState): Team {
-  const teamMembers = state.teamMembers.map(t => new TeamMember(stateToPokemon(t.pokemon), t.active))
+export function stateToTeam(state: TeamState, isAttacker: boolean): Team {
+  const teamMembers = state.teamMembers.map(t => new TeamMember(stateToPokemon(t.pokemon, isAttacker), t.active))
   return new Team(state.id, state.active, state.name, teamMembers)
 }
 
-export function stateToTeams(state: TeamState[]): Team[] {
-  return state.map(team => stateToTeam(team))
+export function stateToTeams(state: TeamState[], isAttacker: boolean): Team[] {
+  return state.map(team => stateToTeam(team, isAttacker))
 }
 
 export function teamToState(team: Team): TeamState {
@@ -80,14 +81,14 @@ export function teamToState(team: Team): TeamState {
   }
 }
 
-export function stateToTarget(state: TargetState): Target {
-  const secondPokemon = state.secondPokemon && stateToPokemon(state.secondPokemon)
+export function stateToTarget(state: TargetState, isAttacker: boolean): Target {
+  const secondPokemon = state.secondPokemon && stateToPokemon(state.secondPokemon, isAttacker)
 
-  return new Target(stateToPokemon(state.pokemon), secondPokemon)
+  return new Target(stateToPokemon(state.pokemon, isAttacker), secondPokemon)
 }
 
-export function stateToTargets(state: TargetState[]): Target[] {
-  return state.map(target => stateToTarget(target))
+export function stateToTargets(state: TargetState[], isAttacker: boolean): Target[] {
+  return state.map(target => stateToTarget(target, isAttacker))
 }
 
 export function targetToState(target: Target): TargetState {

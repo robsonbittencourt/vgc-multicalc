@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit, signal } from "@angular/core"
+import { Component, computed, effect, inject, OnInit, signal } from "@angular/core"
 import { InputAutocompleteComponent } from "@basic/input-autocomplete/input-autocomplete.component"
 import { InputSelectComponent } from "@basic/input-select/input-select.component"
 import { WidgetComponent } from "@basic/widget/widget.component"
@@ -14,6 +14,7 @@ import { PokemonComboBoxComponent } from "@features/pokemon-build/pokemon-combo-
 import { StatusComboBoxComponent } from "@features/pokemon-build/status-combo-box/status-combo-box.component"
 import { Pokemon } from "@lib/model/pokemon"
 import { Status } from "@lib/model/status"
+import { getFinalSpeed } from "@lib/smogon/stat-calculator/spe/modified-spe"
 import { SPEED_CALCULATOR_MODES } from "@lib/speed-calculator/speed-calculator-mode"
 import { Regulation } from "@lib/types"
 import { OpponentOptionsComponent } from "@pages/speed-calc/opponent-options/opponent-options.component"
@@ -46,10 +47,27 @@ export class SpeedCalculatorMobileComponent implements OnInit {
   fieldStore = inject(FieldStore)
   optionsStore = inject(SpeedCalcOptionsStore)
 
+  modifiedSpe = signal<number>(0)
+
   selectedPokemon = signal<Pokemon>(this.store.findPokemonById(this.store.speedCalcPokemon().id))
 
   pokemonId = computed(() => this.store.speedCalcPokemon().id)
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
+
+  hasModifiedStat = computed(() => {
+    return this.modifiedSpe() != this.pokemon().spe
+  })
+
+  constructor() {
+    effect(() => {
+      if (this.fieldStore.field()) {
+        const id = this.pokemonId()
+        const activatedPokemon = this.store.findPokemonById(id)
+
+        this.modifiedSpe.set(getFinalSpeed(activatedPokemon, this.fieldStore.field(), true))
+      }
+    })
+  }
 
   allNatureNames = Object.keys(NATURES)
 

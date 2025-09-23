@@ -137,20 +137,24 @@
 }
 
 @if (showEvsTable()) {
-  <div class="evs-titles" [@fadeInOut]="shouldAnimate() ? 'in' : null">
+  <div class="evs-titles" [ngStyle]="gridTemplateColumns()" [@fadeInOut]="shouldAnimate() ? 'in' : null">
     <label class="base-title">Base</label>
     <label class="modifier-title">Mod.</label>
     <label class="evs-title">EVs</label>
     <label class="ivs-title">IVs</label>
+    <label class="stats-title">Stat</label>
+    @if (this.hasModifiedStat()) {
+      <label class="mod-title">Mod</label>
+    }
   </div>
 
   <div class="evs" [@fadeInOut]="shouldAnimate() ? 'in' : null">
-    <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.hp" data-cy="stat-hp" stat="hp" />
-    <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.atk" data-cy="stat-atk" stat="atk" />
-    <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.def" data-cy="stat-def" stat="def" />
-    <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.spa" data-cy="stat-spa" stat="spa" />
-    <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.spd" data-cy="stat-spd" stat="spd" />
-    <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.spe" data-cy="stat-spe" stat="spe" />
+    <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.hp" [modifiedStat]="pokemon().hp" [hasModifiedStat]="hasModifiedStat()" data-cy="stat-hp" stat="hp" />
+    <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.atk" [modifiedStat]="modifiedAtk()" [hasModifiedStat]="hasModifiedStat()" data-cy="stat-atk" stat="atk" />
+    <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.def" [modifiedStat]="modifiedDef()" [hasModifiedStat]="hasModifiedStat()" data-cy="stat-def" stat="def" />
+    <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.spa" [modifiedStat]="modifiedSpa()" [hasModifiedStat]="hasModifiedStat()" data-cy="stat-spa" stat="spa" />
+    <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.spd" [modifiedStat]="modifiedSpd()" [hasModifiedStat]="hasModifiedStat()" data-cy="stat-spd" stat="spd" />
+    <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.spe" [modifiedStat]="modifiedSpe()" [hasModifiedStat]="hasModifiedStat()" data-cy="stat-spe" stat="spe" />
 
     <div class="remaining-evs">
       <label class="bst-label">BST</label>

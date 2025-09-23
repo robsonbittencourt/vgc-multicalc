@@ -79,7 +79,6 @@
 
 .evs-titles {
   display: grid;
-  grid-template-columns: 64px 64px 64px 64px 1fr 64px 40px;
   grid-column-gap: 1.5em;
   margin-top: 1em;
 }
@@ -104,6 +103,18 @@
 
 .ivs-title {
   grid-column: 6 / 7;
+  display: flex;
+  justify-content: center;
+}
+
+.stats-title {
+  grid-column: 7 / 8;
+  display: flex;
+  justify-content: center;
+}
+
+.mod-title {
+  grid-column: 8 / 9;
   display: flex;
   justify-content: center;
 }

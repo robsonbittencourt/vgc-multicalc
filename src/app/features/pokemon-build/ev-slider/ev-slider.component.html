@@ -1,4 +1,4 @@
-<div class="ev-slider-container">
+<div class="ev-slider-container" [ngStyle]="gridTemplateColumns()">
   @if (!reduced()) {
     <div class="stat-name">
       <label>{{ statName() }}</label>
@@ -78,4 +78,10 @@
   <div class="stat-value">
     <label>{{ natureModifier() }}{{ statValue() }}</label>
   </div>
+
+  @if (statValue() !== modifiedStat()) {
+    <div class="stat-value" [ngStyle]="statValueStyle()">
+      <label [matTooltip]="originalWithModifier()">{{ modifiedStat() }}</label>
+    </div>
+  }
 </div>
