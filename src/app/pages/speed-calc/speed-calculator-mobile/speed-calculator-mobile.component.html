@@ -9,7 +9,7 @@
 
       <div class="pokemon-build-section">
         <app-nature-combo-box class="combo-large" [pokemonId]="pokemonId()" />
-        <app-ability-combo-box class="combo-large" [pokemonId]="pokemonId()" />
+        <app-ability-combo-box class="combo-large" [pokemonId]="pokemonId()" [isMobile]="true" />
       </div>
     </div>
     <img class="pokemon-image" src="assets/sprites/pokemon-sv/{{ pokemon().name }}.png" />
