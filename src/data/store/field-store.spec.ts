@@ -941,7 +941,6 @@ describe("Field Store", () => {
     it("should update state locking local storage", () => {
       const state = {
         updateLocalStorage: true,
-        gameType: "Doubles" as GameType,
         weather: null,
         terrain: null,
         isBeadsOfRuin: true,
@@ -952,10 +951,9 @@ describe("Field Store", () => {
         isWonderRoom: false,
         isGravity: false,
         isTrickRoom: false,
-        isCriticalHit: false,
         isNeutralizingGas: false,
-        attackerSide: new FieldSide({ isHelpingHand: false, isBattery: false, isPowerSpot: false, isTailwind: false }),
-        defenderSide: new FieldSide({ isTailwind: false, isReflect: false, isLightScreen: false, isAuroraVeil: false, isFriendGuard: false, spikes: 0, isSR: false, isSeeded: false })
+        attackerSide: new FieldSide({ gameType: "Doubles" as GameType, isHelpingHand: false, isBattery: false, isPowerSpot: false, isTailwind: false, isCriticalHit: false }),
+        defenderSide: new FieldSide({ gameType: "Singles" as GameType, isTailwind: false, isReflect: false, isLightScreen: false, isAuroraVeil: false, isFriendGuard: false, spikes: 0, isSR: false, isSeeded: false, isCriticalHit: true })
       }
 
       store.updateStateLockingLocalStorage(state)
