@@ -167,7 +167,11 @@ export class SpeedCalculatorService {
     const status = options.paralyzedActive ? Status.PARALYSIS : pokemon.status
     const item = options.choiceScarfActive ? "Choice Scarf" : pokemon.item
 
-    return pokemon.clone({ boosts, status, item })
+    const speedAbilities = ["Swift Swim", "Sand Rush", "Surge Surfer", "Chlorophyll", "Slush Rush"]
+    const matchedAbility = speedAbilities.find(ability => pokemon.availableAbilities.some(a => a.name === ability))
+    const abilityName = matchedAbility ? matchedAbility : pokemon.ability.name
+
+    return pokemon.clone({ boosts, status, item, ability: new Ability(abilityName) })
   }
 
   minSpeedIvZero(pokemon: Pokemon, field: Field): SpeedDefinition {
