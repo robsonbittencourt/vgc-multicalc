@@ -7,7 +7,7 @@ const topUsagePath = path.resolve("src/data/top-usage-regulation.ts")
 const pokemonFileContent = fs.readFileSync(pokemonDetailsPath, "utf-8")
 const topUsageContent = fs.readFileSync(topUsagePath, "utf-8")
 
-const topMatch = topUsageContent.match(/I:\s*\[((?:.|\n)*?)\]/m)
+const topMatch = topUsageContent.match(/H:\s*\[((?:.|\n)*?)\]/m)
 if (!topMatch) {
   console.error("❌ Não foi possível extrair a lista do top usage.")
   process.exit(1)
