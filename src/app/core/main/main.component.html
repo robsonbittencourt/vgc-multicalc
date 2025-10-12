@@ -19,6 +19,10 @@
     <app-speed-calculator />
   }
 
+  @if (isDesktopDevice() && menuStore.probabilityCalcActivated()) {
+    <app-probability-calc />
+  }
+
   @if (isDesktopDevice() && menuStore.howToUseActivated()) {
     <app-how-to-use />
   }

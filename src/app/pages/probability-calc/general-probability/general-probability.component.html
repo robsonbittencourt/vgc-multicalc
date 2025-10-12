@@ -1,0 +1,238 @@
+<app-widget [title]="'General Probabilities'">
+  <div class="container">
+    <div class="probability-card">
+      <span class="title">Critical Hit in 1 turn</span>
+      <span>Each time Pokémon attacks: 4.17%</span>
+      <span>One of your two attackers: 8.16%</span>
+      <span>One of two opponent attackers: 8.16%</span>
+      <span>Some of the four Pokémon: 15.65%</span>
+    </div>
+
+    <div class="probability-card">
+      <span class="title">Protect</span>
+
+      <!-- Cabeçalho -->
+      <div class="probability-row header">
+        <div class="cell">Times</div>
+        <div class="cell">Probability</div>
+      </div>
+
+      <!-- Linhas de dados -->
+      <div class="probability-row">
+        <div class="cell">1x</div>
+        <div class="cell">33%</div>
+      </div>
+      <div class="probability-row">
+        <div class="cell">2x</div>
+        <div class="cell">11%</div>
+      </div>
+      <div class="probability-row">
+        <div class="cell">3x</div>
+        <div class="cell">3%</div>
+      </div>
+      <div class="probability-row">
+        <div class="cell">4x</div>
+        <div class="cell">1%</div>
+      </div>
+    </div>
+
+    <div class="probability-card">
+      <span class="title">Turns to sleep</span>
+
+      <!-- Cabeçalho -->
+      <div class="probability-row header">
+        <div class="cell">Turns</div>
+        <div class="cell">Chance</div>
+      </div>
+
+      <!-- Linhas de dados -->
+      <div class="probability-row">
+        <div class="cell">1 turn</div>
+        <div class="cell">33%</div>
+      </div>
+      <div class="probability-row">
+        <div class="cell">2 turns</div>
+        <div class="cell">33%</div>
+      </div>
+      <div class="probability-row">
+        <div class="cell">3 turns</div>
+        <div class="cell">33%</div>
+      </div>
+    </div>
+
+    <div class="probability-card">
+      <span class="title">Wake up from sleep</span>
+
+      <!-- Cabeçalho -->
+      <div class="probability-row header">
+        <div class="cell">Condition</div>
+        <div class="cell">Chance to wake up</div>
+      </div>
+
+      <!-- Linhas de dados -->
+      <div class="probability-row">
+        <div class="cell">If is turn 1 after sleep</div>
+        <div class="cell">0%</div>
+      </div>
+      <div class="probability-row">
+        <div class="cell">If is turn 2 after sleep</div>
+        <div class="cell">33%</div>
+      </div>
+      <div class="probability-row">
+        <div class="cell">If is turn 3 after sleep</div>
+        <div class="cell">50%</div>
+      </div>
+      <div class="probability-row">
+        <div class="cell">If is turn 4 after sleep</div>
+        <div class="cell">100%</div>
+      </div>
+    </div>
+
+    <div class="probability-card">
+      <span class="title">Fully Paralized</span>
+
+      <!-- Cabeçalho -->
+      <div class="probability-row header">
+        <div class="cell">Turns</div>
+        <div class="cell">1 time</div>
+        <div class="cell">2 times</div>
+        <div class="cell">3 times</div>
+        <div class="cell">4 times</div>
+      </div>
+
+      <!-- Linhas de dados -->
+      <div class="probability-row">
+        <div class="cell">1</div>
+        <div class="cell">25%</div>
+        <div class="cell">-</div>
+        <div class="cell">-</div>
+        <div class="cell">-</div>
+      </div>
+      <div class="probability-row">
+        <div class="cell">2</div>
+        <div class="cell">44%</div>
+        <div class="cell">6%</div>
+        <div class="cell">-</div>
+        <div class="cell">-</div>
+      </div>
+      <div class="probability-row">
+        <div class="cell">3</div>
+        <div class="cell">58%</div>
+        <div class="cell">16%</div>
+        <div class="cell">2%</div>
+        <div class="cell">-</div>
+      </div>
+      <div class="probability-row">
+        <div class="cell">4</div>
+        <div class="cell">68%</div>
+        <div class="cell">26%</div>
+        <div class="cell">5%</div>
+        <div class="cell">0.03%</div>
+      </div>
+    </div>
+
+    <div class="probability-card">
+      <span class="title">Freeze</span>
+
+      <!-- Cabeçalho -->
+      <div class="probability-row header">
+        <div class="cell">Turn</div>
+        <div class="cell">Chance to thaw</div>
+        <div class="cell">Chance to freeze</div>
+      </div>
+
+      <!-- Linhas de dados -->
+      <div class="probability-row">
+        <div class="cell">In turn 1</div>
+        <div class="cell">20%</div>
+        <div class="cell">80%</div>
+      </div>
+      <div class="probability-row">
+        <div class="cell">In turn 2</div>
+        <div class="cell">36%</div>
+        <div class="cell">64%</div>
+      </div>
+      <div class="probability-row">
+        <div class="cell">In turn 3</div>
+        <div class="cell">49%</div>
+        <div class="cell">51%</div>
+      </div>
+      <div class="probability-row">
+        <div class="cell">In turn 4</div>
+        <div class="cell">59%</div>
+        <div class="cell">41%</div>
+      </div>
+    </div>
+
+    <div class="probability-card">
+      <span class="title">Snap out of confusion</span>
+
+      <!-- Cabeçalho -->
+      <div class="probability-row header">
+        <div class="cell">Duration</div>
+        <div class="cell">Snap out confusion</div>
+        <div class="cell">One hit himself</div>
+      </div>
+
+      <!-- Linhas de dados -->
+      <div class="probability-row">
+        <div class="cell">1 turn</div>
+        <div class="cell">0%</div>
+        <div class="cell">33%</div>
+      </div>
+      <div class="probability-row">
+        <div class="cell">2 turns</div>
+        <div class="cell">25%</div>
+        <div class="cell">55%</div>
+      </div>
+      <div class="probability-row">
+        <div class="cell">3 turns</div>
+        <div class="cell">50%</div>
+        <div class="cell">70%</div>
+      </div>
+      <div class="probability-row">
+        <div class="cell">4 turns</div>
+        <div class="cell">75%</div>
+        <div class="cell">80%</div>
+      </div>
+      <div class="probability-row">
+        <div class="cell">5 turns</div>
+        <div class="cell">100%</div>
+        <div class="cell">0%</div>
+      </div>
+    </div>
+
+    <div class="probability-card">
+      <span class="title">Multi Hit moves</span>
+
+      <!-- Cabeçalho -->
+      <div class="probability-row header">
+        <div class="cell">Times</div>
+        <div class="cell">Probability</div>
+        <div class="cell">One critical hit</div>
+      </div>
+
+      <!-- Linhas de dados -->
+      <div class="probability-row">
+        <div class="cell">2 hits</div>
+        <div class="cell">35%</div>
+        <div class="cell">8.17%</div>
+      </div>
+      <div class="probability-row">
+        <div class="cell">3 hits</div>
+        <div class="cell">35%</div>
+        <div class="cell">12.08%</div>
+      </div>
+      <div class="probability-row">
+        <div class="cell">4 hits</div>
+        <div class="cell">15%</div>
+        <div class="cell">15.84%</div>
+      </div>
+      <div class="probability-row">
+        <div class="cell">5 hits</div>
+        <div class="cell">15%</div>
+        <div class="cell">19.46%</div>
+      </div>
+    </div>
+  </div>
+</app-widget>

@@ -1,0 +1,5 @@
+Faria sentido ter a chance de para flinch (flinch de 30%)
+
+Limpar html
+Verificar ortografia do ingles nos cards
+Talvez criar componentes para os cards de probabilidade

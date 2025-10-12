@@ -1,0 +1,19 @@
+:host {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 1em;
+  grid-column-gap: 1em;
+  margin: 1em 1em 0em 1em;
+}
+
+.team {
+  grid-column: 1 / 2;
+  align-self: start;
+}
+
+.right-column {
+  grid-column: 2 / 3;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
