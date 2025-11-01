@@ -2,6 +2,7 @@ import { animate, style, transition, trigger } from "@angular/animations"
 import { NgClass, NgStyle } from "@angular/common"
 import { Component, computed, effect, inject, input, output, signal, viewChild } from "@angular/core"
 import { FormsModule } from "@angular/forms"
+import { MatButton } from "@angular/material/button"
 import { MatCheckbox } from "@angular/material/checkbox"
 import { InputComponent } from "@basic/input/input.component"
 import { CalculatorStore } from "@data/store/calculator-store"
@@ -29,6 +30,7 @@ import { getFinalSpeed } from "@lib/smogon/stat-calculator/spe/modified-spe"
   imports: [
     NgStyle,
     NgClass,
+    MatButton,
     MatCheckbox,
     FormsModule,
     AbilityComboBoxComponent,
@@ -375,6 +377,10 @@ export class PokemonBuildComponent {
     }
 
     return { "grid-template-columns": "64px 64px 67px 64px 1fr 64px 40px" }
+  }
+
+  clearEvs() {
+    this.store.evs(this.pokemonId(), { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
   }
 
   private clearBlurTimeout() {

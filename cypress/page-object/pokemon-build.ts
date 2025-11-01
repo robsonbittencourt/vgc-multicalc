@@ -196,6 +196,15 @@ export class PokemonBuild {
     this.container().find('[data-cy="tera-type"]').find('[data-cy="input-select"]').should("have.attr", "aria-disabled", "true")
   }
 
+  evsIs(hp: number, atk: number, def: number, spa: number, spd: number, spe: number) {
+    cy.get(`[data-cy="stat-hp"]`).find('[data-cy="ev-value"]').should("have.value", hp)
+    cy.get(`[data-cy="stat-atk"]`).find('[data-cy="ev-value"]').should("have.value", atk)
+    cy.get(`[data-cy="stat-def"]`).find('[data-cy="ev-value"]').should("have.value", def)
+    cy.get(`[data-cy="stat-spa"]`).find('[data-cy="ev-value"]').should("have.value", spa)
+    cy.get(`[data-cy="stat-spd"]`).find('[data-cy="ev-value"]').should("have.value", spd)
+    cy.get(`[data-cy="stat-spe"]`).find('[data-cy="ev-value"]').should("have.value", spe)
+  }
+
   boostsIs(atk: number, def: number, spa: number, spd: number, spe: number) {
     this.closeTable()
     this.verifyBoostIs("atk", atk)
@@ -251,6 +260,10 @@ export class PokemonBuild {
     new ImportModal().import(pokemonData)
 
     return this
+  }
+
+  clearEvs() {
+    this.container().find('[data-cy="clear-evs"]').click({ force: true })
   }
 
   delete(): PokemonBuild {

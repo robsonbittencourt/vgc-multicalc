@@ -167,8 +167,11 @@
     </div>
   </div>
 
-  <div class="combo-nature" [@fadeInOut]="shouldAnimate() ? 'in' : null">
-    <app-nature-combo-box [pokemonId]="pokemonId()" [leftLabel]="true" />
+  <div class="nature" [@fadeInOut]="shouldAnimate() ? 'in' : null">
+    <div class="combo-nature">
+      <app-nature-combo-box [pokemonId]="pokemonId()" [leftLabel]="true" />
+    </div>
+    <button mat-flat-button (click)="clearEvs()" data-cy="clear-evs">Clear EVs</button>
   </div>
 }
 

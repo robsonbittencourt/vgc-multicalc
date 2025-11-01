@@ -15,6 +15,14 @@ describe("Edit Pokémon", () => {
     leftPokemonBuild.selectAbility("Thermal Exchange")
     leftPokemonBuild.selectAbility("Ice Body")
   })
+
+  it("Clean evs", () => {
+    leftPokemonBuild.importPokemon(poke["incineroar"])
+
+    leftPokemonBuild.clearEvs()
+
+    leftPokemonBuild.evsIs(0, 0, 0, 0, 0, 0)
+  })
 })
 
 describe("Terapagos Terastal", () => {
