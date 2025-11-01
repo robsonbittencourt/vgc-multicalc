@@ -332,3 +332,22 @@ describe("Import Pokepaste", () => {
     team.selectPokemon("Chi-Yu")
   })
 })
+
+describe("Import from Meta", () => {
+  it.only("should import most usage Pokémon from Meta", () => {
+    opponent.lengthIs(10)
+
+    opponent.addMeta()
+
+    opponent.lengthIs(60)
+  })
+
+  it.only("should delete Pokémon from Meta and keep the previously existing one", () => {
+    opponent.lengthIs(10)
+
+    opponent.addMeta()
+    opponent.addMeta()
+
+    opponent.lengthIs(10)
+  })
+})

@@ -3,7 +3,13 @@
     <div class="buttons">
       <app-roll-config (rollLevelChange)="rollLevelConfig.set($event)" />
 
-      <mat-slide-toggle [checked]="order" (change)="toogleOrder()">Order by Damage</mat-slide-toggle>
+      <mat-slide-toggle [checked]="order" (change)="toogleOrder()" [labelPosition]="'before'">Order by Damage</mat-slide-toggle>
+
+      <div class="regulation-combo">
+        <app-input-select label="Regulation" leftLabel="true" [allValues]="regulationsList" [disabled]="haveMetaData()" [value]="regulation()" (valueChange)="updateRegulation($event)" />
+      </div>
+
+      <button mat-flat-button (click)="onMetaClick()" data-cy="add-meta-button">{{ metaButtonLabel() }}</button>
       <app-import-pokemon-button [singlePokemon]="false" (pokemonImportedEvent)="pokemonImported($event)" />
 
       <button mat-flat-button (click)="exportPokemon()" data-cy="export-opponent-pokemon-button">Export</button>

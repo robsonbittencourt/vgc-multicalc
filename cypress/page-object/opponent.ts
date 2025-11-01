@@ -54,6 +54,10 @@ export class Opponent {
     cy.get('[data-cy="delete-opponent-pokemon-button"]').click({ force: true })
   }
 
+  addMeta() {
+    cy.get('[data-cy="add-meta-button"]').click({ force: true })
+  }
+
   importPokemon(pokemonData: string) {
     cy.get('[data-cy="opponent-widget"]').find('[data-cy="import-pokemon"]').click()
     new ImportModal().import(pokemonData)
@@ -76,5 +80,9 @@ export class Opponent {
 
   separate(targetPokemonName: string) {
     cy.get(`[data-cy="separate-opponent-${targetPokemonName}"]`).click()
+  }
+
+  lengthIs(length: number) {
+    cy.get('[data-cy^="select-defender-"]').should("have.length", length)
   }
 }

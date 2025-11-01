@@ -1,6 +1,7 @@
 import { SETDEX_SV } from "@data/movesets"
 import { topUsageByRegulation } from "@data/top-usage-regulation"
 import { Ability } from "@lib/model/ability"
+import { Move } from "@lib/model/move"
 import { MoveSet } from "@lib/model/moveset"
 import { Pokemon } from "@lib/model/pokemon"
 import { Regulation } from "@lib/types"
@@ -20,7 +21,7 @@ function toPokemon(key: string): Pokemon {
     item: SETDEX_SV[key].items[0],
     teraType: SETDEX_SV[key].teraType,
     evs: SETDEX_SV[key].evs,
-    moveSet: new MoveSet(SETDEX_SV[key].moves[0], SETDEX_SV[key].moves[1], SETDEX_SV[key].moves[2], SETDEX_SV[key].moves[3])
+    moveSet: new MoveSet(new Move(SETDEX_SV[key].moves[0]), new Move(SETDEX_SV[key].moves[1]), new Move(SETDEX_SV[key].moves[2]), new Move(SETDEX_SV[key].moves[3]))
   })
 }
 

@@ -7,7 +7,7 @@ import { Move } from "@lib/model/move"
 import { Pokemon } from "@lib/model/pokemon"
 import { Target } from "@lib/model/target"
 import { Team } from "@lib/model/team"
-import { MovePosition, Stats } from "@lib/types"
+import { MovePosition, Regulation, Stats } from "@lib/types"
 import { patchState, signalStore, withHooks, withState } from "@ngrx/signals"
 import { MenuStore } from "./menu-store"
 
@@ -63,6 +63,7 @@ export type CalculatorState = {
   secondAttackerId: string
   teamsState: TeamState[]
   targetsState: TargetState[]
+  targetMetaRegulation: Regulation | undefined
 }
 
 @Injectable({ providedIn: "root" })
@@ -73,7 +74,7 @@ export class CalculatorStore extends signalStore(
     onInit() {
       effect(() => {
         if (store.updateLocalStorage()) {
-          const userData = buildUserData(store.speedCalcPokemonState(), store.leftPokemonState(), store.rightPokemonState(), store.teamsState(), store.targetsState())
+          const userData = buildUserData(store.speedCalcPokemonState(), store.leftPokemonState(), store.rightPokemonState(), store.teamsState(), store.targetsState(), store.targetMetaRegulation())
           const actualStorage = JSON.parse(localStorage.getItem("userData")!)
 
           const mergedUserData = { ...actualStorage, ...userData }
@@ -358,6 +359,10 @@ export class CalculatorStore extends signalStore(
     patchState(this, () => ({ secondAttackerId: pokemonId }))
   }
 
+  updateTargetMetaRegulation(targetMetaRegulation: Regulation | undefined) {
+    patchState(this, () => ({ targetMetaRegulation }))
+  }
+
   removeAllTargets() {
     patchState(this, () => ({ targetsState: [] }))
   }
@@ -402,7 +407,7 @@ export class CalculatorStore extends signalStore(
   }
 
   buildUserData() {
-    return buildUserData(this.speedCalcPokemonState(), this.leftPokemonState(), this.rightPokemonState(), this.teamsState(), this.targetsState())
+    return buildUserData(this.speedCalcPokemonState(), this.leftPokemonState(), this.rightPokemonState(), this.teamsState(), this.targetsState(), this.targetMetaRegulation())
   }
 
   updateMove(pokemonId: string, move: string, index: number) {

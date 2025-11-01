@@ -2,7 +2,9 @@ import { CdkDragDrop, CdkDropList, CdkDropListGroup } from "@angular/cdk/drag-dr
 import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, inject, input, output, signal } from "@angular/core"
 import { MatButton } from "@angular/material/button"
 import { MatSlideToggle } from "@angular/material/slide-toggle"
+import { InputSelectComponent } from "@app/basic/input-select/input-select.component"
 import { WidgetComponent } from "@basic/widget/widget.component"
+import { pokemonByRegulation } from "@data/regulation-pokemon"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { MenuStore } from "@data/store/menu-store"
 import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
@@ -13,6 +15,7 @@ import { defaultPokemon } from "@lib/default-pokemon"
 import { Pokemon } from "@lib/model/pokemon"
 import { Target } from "@lib/model/target"
 import { SnackbarService } from "@lib/snackbar.service"
+import { Regulation } from "@lib/types"
 import { ExportPokeService } from "@lib/user-data/export-poke.service"
 import { AddPokemonCardComponent } from "@pages/multi-calc/add-pokemon-card/add-pokemon-card.component"
 import { PokemonCardComponent } from "@pages/multi-calc/pokemon-card/pokemon-card.component"
@@ -21,7 +24,7 @@ import { PokemonCardComponent } from "@pages/multi-calc/pokemon-card/pokemon-car
   selector: "app-target-pokemon",
   templateUrl: "./target-pokemon.component.html",
   styleUrls: ["./target-pokemon.component.scss"],
-  imports: [CdkDropList, CdkDropListGroup, MatButton, MatSlideToggle, WidgetComponent, PokemonCardComponent, AddPokemonCardComponent, ImportPokemonButtonComponent, RollConfigComponent],
+  imports: [CdkDropList, CdkDropListGroup, MatButton, MatSlideToggle, WidgetComponent, InputSelectComponent, PokemonCardComponent, AddPokemonCardComponent, ImportPokemonButtonComponent, RollConfigComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class TargetPokemonComponent {
@@ -38,16 +41,41 @@ export class TargetPokemonComponent {
   private exportPokeService = inject(ExportPokeService)
   private snackBar = inject(SnackbarService)
 
+  regulation = signal<Regulation>(this.store.targetMetaRegulation() ?? "H")
   rollLevelConfig = signal(RollLevelConfig.high())
 
   title = computed(() => (this.isAttacker() ? "Opponent Attackers" : "Opponent Defenders"))
 
   targets = computed(() => this.store.targets())
 
+  haveMetaData = computed(() => this.store.targetMetaRegulation() != undefined)
+
+  metaButtonLabel = computed(() => (this.haveMetaData() ? "Remove Meta" : "Add Meta"))
+
+  regulationsList: Regulation[] = ["F", "H", "J"]
+
   order = false
 
+  onMetaClick() {
+    if (this.haveMetaData()) {
+      const newTargets = this.targetsExcludingMetaData()
+
+      this.store.updateTargetMetaRegulation(undefined)
+      this.activateTeamMember()
+      this.store.updateTargets(newTargets)
+      this.snackBar.open("Pokémon removed")
+    } else {
+      this.store.updateTargetMetaRegulation(this.regulation())
+      const metaPokemon = pokemonByRegulation(this.regulation(), 50)
+      this.pokemonImported(metaPokemon)
+    }
+  }
+
   removeAll() {
+    this.activateTeamMember()
+    this.store.updateTargetMetaRegulation(undefined)
     this.store.removeAllTargets()
+    this.snackBar.open("Pokémon removed")
   }
 
   pokemonImported(pokemon: Pokemon | Pokemon[]) {
@@ -55,9 +83,7 @@ export class TargetPokemonComponent {
     const newTargets = []
 
     for (const pokemon of pokemonList) {
-      if (!this.alreadyExists(pokemon)) {
-        newTargets.push(new Target(pokemon))
-      }
+      newTargets.push(new Target(pokemon))
     }
 
     this.targetsImported.emit()
@@ -68,13 +94,7 @@ export class TargetPokemonComponent {
 
     this.store.updateTargets(allTargets)
 
-    this.snackBar.open("Pokémon from PokePaste added")
-  }
-
-  private alreadyExists(pokemon: Pokemon): boolean {
-    return this.targets().some(target => {
-      return target.pokemon.equals(pokemon)
-    })
+    this.snackBar.open("Pokémon imported")
   }
 
   exportPokemon() {
@@ -137,11 +157,36 @@ export class TargetPokemonComponent {
     this.store.updateTargets(newTargets)
   }
 
+  updateRegulation(event: string) {
+    const regulation = event as Regulation
+    this.regulation.set(regulation)
+  }
+
   private findTarget(pokemonId: string): Target {
     return this.targets().find(t => t.pokemon.id == pokemonId || t.secondPokemon?.id == pokemonId)!
   }
 
   private findTargetIndex(pokemonId: string): number {
     return this.targets().findIndex(t => t.pokemon.id == pokemonId || t.secondPokemon?.id == pokemonId)
+  }
+
+  private targetsExcludingMetaData(): Target[] {
+    const metaLeft = pokemonByRegulation(this.store.targetMetaRegulation()!, 50)
+
+    const newTargets = [...this.targets()]
+      .reverse()
+      .filter(target => {
+        const index = metaLeft.findIndex(m => m.equals(target.pokemon))
+
+        if (index !== -1) {
+          metaLeft.splice(index, 1)
+          return false
+        }
+
+        return true
+      })
+      .reverse()
+
+    return newTargets
   }
 }

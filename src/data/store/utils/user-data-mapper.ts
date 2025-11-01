@@ -1,9 +1,10 @@
 import { CalculatorState, PokemonState, TargetState, TeamMemberState, TeamState } from "@data/store/calculator-store"
 import { SELECT_POKEMON_LABEL } from "@lib/constants"
 import { defaultPokemon } from "@lib/default-pokemon"
+import { Regulation } from "@lib/types"
 import { v4 as uuidv4 } from "uuid"
 
-export function buildUserData(speedCalcPokemon: PokemonState, leftPokemon: PokemonState, rightPokemon: PokemonState, teams: TeamState[], targets: TargetState[]) {
+export function buildUserData(speedCalcPokemon: PokemonState, leftPokemon: PokemonState, rightPokemon: PokemonState, teams: TeamState[], targets: TargetState[], targetMetaRegulation: Regulation | undefined) {
   return {
     speedCalcPokemon: buildPokemonToUserData(speedCalcPokemon),
     leftPokemon: buildPokemonToUserData(leftPokemon),
@@ -31,7 +32,8 @@ export function buildUserData(speedCalcPokemon: PokemonState, leftPokemon: Pokem
           pokemon: buildPokemonToUserData(t.pokemon),
           secondPokemon: t.secondPokemon && buildPokemonToUserData(t.secondPokemon)
         }
-      })
+      }),
+    targetMetaRegulation: targetMetaRegulation
   }
 }
 
@@ -43,7 +45,8 @@ export function buildState(userData: any): CalculatorState {
     rightPokemonState: buildPokemonState(userData.rightPokemon),
     secondAttackerId: "",
     teamsState: buildTeamState(userData.teams),
-    targetsState: buildTargetsState(userData.targets)
+    targetsState: buildTargetsState(userData.targets),
+    targetMetaRegulation: userData.targetMetaRegulation as Regulation
   }
 }
 

@@ -8,6 +8,7 @@ import { Status } from "@lib/model/status"
 import { Target } from "@lib/model/target"
 import { Team } from "@lib/model/team"
 import { TeamMember } from "@lib/model/team-member"
+import { Regulation } from "@lib/types"
 
 describe("Calculator Store", () => {
   let store: CalculatorStore
@@ -428,6 +429,12 @@ describe("Calculator Store", () => {
     })
 
     describe("Update Targets", () => {
+      it("should update target meta regulation", () => {
+        store.updateTargetMetaRegulation("F")
+
+        expect(store.targetMetaRegulation()).toBe("F")
+      })
+
       it("should remove all Targets", () => {
         store.removeAllTargets()
 
@@ -698,7 +705,8 @@ describe("Calculator Store", () => {
           rightPokemonState: pikachuState,
           secondAttackerId: "123",
           teamsState: teamsState,
-          targetsState: targetsState
+          targetsState: targetsState,
+          targetMetaRegulation: "H" as Regulation
         }
 
         store.updateStateLockingLocalStorage(state)

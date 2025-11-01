@@ -426,12 +426,13 @@ function defaultState() {
           moveSet: [{ name: "Tera Starstorm" }, { name: "Earth Power" }, { name: "Calm Mind" }, { name: "Protect" }],
           boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
           bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
-          evs: { hp: 252, atk: 0, def: 180, spa: 76, spd: 0, spe: 0 },
+          evs: { hp: 252, atk: 0, def: 172, spa: 84, spd: 0, spe: 0 },
           ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
           hpPercentage: 100,
           automaticAbilityOn: false
         }
       }
-    ]
+    ],
+    targetMetaRegulation: undefined
   }
 }
