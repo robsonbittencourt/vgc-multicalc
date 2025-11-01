@@ -3,6 +3,7 @@ import { Component, inject, input, output } from "@angular/core"
 import { MatButton } from "@angular/material/button"
 import { MatDialog } from "@angular/material/dialog"
 import { MatIcon } from "@angular/material/icon"
+import { toPokemon } from "@data/regulation-pokemon"
 import { ImportModalComponent } from "@features/import-modal/import-modal.component"
 import { Pokemon } from "@lib/model/pokemon"
 import { PokePasteParserService } from "@lib/user-data/poke-paste-parser.service"
@@ -35,7 +36,17 @@ export class ImportPokemonButtonComponent {
     dialogRef.afterClosed().subscribe(async result => {
       if (!result) return
 
-      const pokemonList = await this.pokePasteService.parse(result)
+      const pokemonList = (await this.pokePasteService.parse(result)).map(p => {
+        const allZero = Object.values(p.evs).every(ev => ev === 0)
+
+        if (allZero) {
+          const pokeMetaData = toPokemon(p.name)
+          return p.clone({ nature: pokeMetaData.nature, evs: pokeMetaData.evs })
+        }
+
+        return p
+      })
+
       const output = this.singlePokemon() ? pokemonList[0] : pokemonList
 
       this.pokemonImportedEvent.emit(output)

@@ -25,6 +25,7 @@ const pokeNames = [
   "default-team",
   "default-opponents",
   "pokepaste",
+  "pokepaste-cts",
   "pokepaste-forms-1",
   "pokepaste-forms-2",
   "pokepaste-forms-3",

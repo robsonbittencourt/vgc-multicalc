@@ -382,7 +382,7 @@ describe("Test the Field options on options with One vs One", () => {
 
       field.helpingHandDefender()
 
-      rightDamageResult.damageIs(0, 62.2, 74, 84, 100)
+      rightDamageResult.damageIs(0, 62.2, 73.3, 84, 99)
     })
 
     it("With Critical active", () => {

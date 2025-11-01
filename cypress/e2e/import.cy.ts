@@ -291,6 +291,54 @@ describe("Import Pokepaste", () => {
     team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
   })
 
+  it("Close Team Sheet", () => {
+    const team = new Team()
+
+    team.importPokepaste(poke["pokepaste-cts"])
+    team.selectTeam("Team 2")
+
+    team.pokemonOnEditIs("Tatsugiri", "Commander", "Grass", "Toxic Orb")
+    team.pokemonOnEditAttacksIs("Draco Meteor", "Muddy Water", "Endure", "Taunt")
+    team.haveSomeEvs()
+    team.natureIsNot("Hardy")
+    team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
+
+    team.selectPokemon("Dondozo")
+    team.pokemonOnEditIs("Dondozo", "Unaware", "Grass", "Sitrus Berry")
+    team.pokemonOnEditAttacksIs("Wave Crash", "Order Up", "Protect", "Substitute")
+    team.haveSomeEvs()
+    team.natureIsNot("Hardy")
+    team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
+
+    team.selectPokemon("Smeargle")
+    team.pokemonOnEditIs("Smeargle", "Moody", "Ghost", "Focus Sash")
+    team.pokemonOnEditAttacksIs("Fake Out", "Wide Guard", "Follow Me", "Spore")
+    team.haveSomeEvs()
+    team.natureIsNot("Hardy")
+    team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
+
+    team.selectPokemon("Chi-Yu")
+    team.pokemonOnEditIs("Chi-Yu", "Beads of Ruin", "Water", "Choice Specs")
+    team.pokemonOnEditAttacksIs("Overheat", "Heat Wave", "Dark Pulse", "Snarl")
+    team.haveSomeEvs()
+    team.natureIsNot("Hardy")
+    team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
+
+    team.selectPokemon("Whimsicott")
+    team.pokemonOnEditIs("Whimsicott", "Prankster", "Steel", "Covert Cloak")
+    team.pokemonOnEditAttacksIs("Moonblast", "Beat Up", "Tailwind", "Fake Tears")
+    team.haveSomeEvs()
+    team.natureIsNot("Hardy")
+    team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
+
+    team.selectPokemon("Flutter Mane")
+    team.pokemonOnEditIs("Flutter Mane", "Protosynthesis", "Fairy", "Booster Energy")
+    team.pokemonOnEditAttacksIs("Moonblast", "Dazzling Gleam", "Icy Wind", "Protect")
+    team.haveSomeEvs()
+    team.natureIsNot("Hardy")
+    team.pokemonOnEditIvsIs(31, 31, 31, 31, 31, 31)
+  })
+
   it("when have a new Pokémon on edit", () => {
     team.delete("Team 1")
     team.importPokepaste(poke["default-team"])

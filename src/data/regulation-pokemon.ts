@@ -14,14 +14,16 @@ export function pokemonByRegulation(regulation: Regulation, quantity?: number): 
     .slice(0, quantity)
 }
 
-function toPokemon(key: string): Pokemon {
+export function toPokemon(key: string): Pokemon {
+  const poke = SETDEX_SV[key]
+
   return new Pokemon(key, {
-    ability: new Ability(SETDEX_SV[key].ability),
-    nature: SETDEX_SV[key].nature,
-    item: SETDEX_SV[key].items[0],
-    teraType: SETDEX_SV[key].teraType,
-    evs: SETDEX_SV[key].evs,
-    moveSet: new MoveSet(new Move(SETDEX_SV[key].moves[0]), new Move(SETDEX_SV[key].moves[1]), new Move(SETDEX_SV[key].moves[2]), new Move(SETDEX_SV[key].moves[3]))
+    ability: new Ability(poke.ability),
+    nature: poke.nature,
+    item: poke.items[0],
+    teraType: poke.teraType,
+    evs: poke.evs,
+    moveSet: new MoveSet(new Move(poke.moves[0]), new Move(poke.moves[1]), new Move(poke.moves[2]), new Move(poke.moves[3]))
   })
 }
 

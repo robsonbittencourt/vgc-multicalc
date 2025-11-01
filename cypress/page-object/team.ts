@@ -91,13 +91,15 @@ export class Team {
     cy.get('[data-cy="ability"] input').should("have.value", abilityName)
   }
 
-  pokemonOnEditIs(pokemonName: string, ability: string, teraType: string, item: string, nature: string) {
+  pokemonOnEditIs(pokemonName: string, ability: string, teraType: string, item: string, nature?: string) {
     cy.get("body").type("{esc}")
     this.pokemonOnEditNameIs(pokemonName)
     cy.get('[data-cy="ability"] input').should("have.value", ability)
     cy.get('[data-cy="tera-type"]').contains(teraType)
     cy.get('[data-cy="item"] input').should("have.value", item)
-    cy.get('[data-cy="nature"]').contains(nature)
+    if (nature) {
+      cy.get('[data-cy="nature"]').contains(nature)
+    }
   }
 
   pokemonOnEditAttacksIs(attackOne: string, attackTwo: string, attackThree: string, attackFour: string) {
@@ -123,6 +125,14 @@ export class Team {
     cy.get(`[data-cy="stat-spa"]`).find('[data-cy="iv-value"]').should("have.value", spa)
     cy.get(`[data-cy="stat-spd"]`).find('[data-cy="iv-value"]').should("have.value", spd)
     cy.get(`[data-cy="stat-spe"]`).find('[data-cy="iv-value"]').should("have.value", spe)
+  }
+
+  haveSomeEvs() {
+    cy.get(`[data-cy="remaining-evs"]`).should("not.have.value", 508)
+  }
+
+  natureIsNot(nature: string) {
+    cy.get('[data-cy="nature"]').should("not.contain", nature)
   }
 
   importPokemon(pokemonData: string): PokemonBuild {
