@@ -10,12 +10,12 @@ beforeEach(() => {
 
 describe("Add Pokémon to the Team", () => {
   it("Add Pokémon to the team until have 6", () => {
-    team.add("Squirtle")
-    team.add("Bulbasaur")
-    team.add("Pikachu")
-    team.add("Tyranitar")
-    team.add("Lugia")
-    team.add("Mewtwo")
+    team.add("Abomasnow")
+    team.add("Aipom")
+    team.add("Alcremie")
+    team.add("Alomomola")
+    team.add("Altaria")
+    team.add("Ambipom")
 
     cy.get('[data-cy="add-team-member-tab"]').should("not.exist")
   })
@@ -33,18 +33,18 @@ describe("Add Pokémon to the Team", () => {
   it("Add 4 Pokémon to the team, delete 2, and add new 2", () => {
     team.importPokepaste(poke["default-team"])
 
-    team.add("Pikachu")
-    team.add("Tyranitar")
-    team.add("Lugia")
-    team.add("Mewtwo")
+    team.add("Abomasnow")
+    team.add("Aipom")
+    team.add("Alcremie")
+    team.add("Alomomola")
 
     team.selectTeamMember("Miraidon").delete()
     team.selectTeamMember("Koraidon").delete()
 
-    team.add("Zacian")
-    team.add("Zamazenta")
+    team.add("Altaria")
+    team.add("Ambipom")
 
-    team.teamIs(["Pikachu", "Tyranitar", "Lugia", "Mewtwo", "Zacian", "Zamazenta"])
+    team.teamIs(["Abomasnow", "Aipom", "Alcremie", "Alomomola", "Altaria", "Ambipom"])
     cy.get('[data-cy="add-team-member-tab"]').should("not.exist")
   })
 
@@ -54,57 +54,57 @@ describe("Add Pokémon to the Team", () => {
     team.selectTeamMember("Miraidon").delete()
     team.selectTeamMember("Koraidon").delete()
 
-    team.add("Tornadus")
-    team.add("Calyrex-Shadow")
-    team.add("Clefairy")
-    team.add("Chi-Yu")
-    team.add("Urshifu-Rapid-Strike")
-    team.add("Rillaboom")
-    team.teamIs(["Tornadus", "Calyrex", "Clefairy", "Chi-Yu", "Urshifu", "Rillaboom"])
+    team.add("Abomasnow")
+    team.add("Aipom")
+    team.add("Alcremie")
+    team.add("Alomomola")
+    team.add("Altaria")
+    team.add("Ambipom")
+    team.teamIs(["Abomasnow", "Aipom", "Alcremie", "Alomomola", "Altaria", "Ambipom"])
 
     team.selectTeam("Team 2")
-    team.add("Calyrex-Ice")
-    team.add("Incineroar")
     team.add("Amoonguss")
-    team.add("Urshifu-Rapid-Strike")
-    team.add("Pelipper")
-    team.add("Ting-Lu")
-    team.teamIs(["Calyrex", "Incineroar", "Amoonguss", "Urshifu", "Pelipper", "Ting-Lu"])
+    team.add("Ampharos")
+    team.add("Annihilape")
+    team.add("Appletun")
+    team.add("Applin")
+    team.add("Araquanid")
+    team.teamIs(["Amoonguss", "Ampharos", "Annihilape", "Appletun", "Applin", "Araquanid"])
 
     team.selectTeam("Team 3")
-    team.add("Miraidon")
-    team.add("Whimsicott")
-    team.add("Iron Hands")
-    team.add("Farigiraf")
-    team.add("Chi-Yu")
-    team.add("Ursaluna-Bloodmoon")
-    team.teamIs(["Miraidon", "Whimsicott", "Iron Hands", "Farigiraf", "Chi-Yu", "Ursaluna"])
+    team.add("Abomasnow")
+    team.add("Aipom")
+    team.add("Alcremie")
+    team.add("Alomomola")
+    team.add("Altaria")
+    team.add("Ambipom")
+    team.teamIs(["Abomasnow", "Aipom", "Alcremie", "Alomomola", "Altaria", "Ambipom"])
 
     team.selectTeam("Team 4")
-    team.add("Kyogre")
-    team.add("Tornadus")
-    team.add("Landorus")
-    team.add("Archaludon")
-    team.add("Farigiraf")
-    team.add("Rillaboom")
-    team.teamIs(["Kyogre", "Tornadus", "Landorus", "Archaludon", "Farigiraf", "Rillaboom"])
+    team.add("Amoonguss")
+    team.add("Ampharos")
+    team.add("Annihilape")
+    team.add("Appletun")
+    team.add("Applin")
+    team.add("Araquanid")
+    team.teamIs(["Amoonguss", "Ampharos", "Annihilape", "Appletun", "Applin", "Araquanid"])
   })
 
   it("Delete team", () => {
     team.selectTeam("Team 3")
-    team.add("Miraidon")
-    team.add("Whimsicott")
-    team.add("Iron Hands")
-    team.add("Farigiraf")
-    team.add("Chi-Yu")
-    team.add("Ursaluna-Bloodmoon")
+    team.add("Abomasnow")
+    team.add("Aipom")
+    team.add("Alcremie")
+    team.add("Alomomola")
+    team.add("Altaria")
+    team.add("Ambipom")
 
     team.delete("Team 3")
 
     team.selectTeam("Team 3").isEmpty()
   })
 
-  it("Change Team Name", () => {
+  it("Change team name", () => {
     team.selectTeam("Team 3").updateTeamName("Hyper Offense")
 
     team.selectTeam("Team 1")
@@ -112,7 +112,7 @@ describe("Add Pokémon to the Team", () => {
     team.selectTeam("Hyper Offense")
   })
 
-  it("Change Team Name", () => {
+  it("Delete team with updated name", () => {
     team.selectTeam("Team 3").updateTeamName("Hyper Offense")
     team.add("Miraidon")
 
@@ -194,7 +194,7 @@ describe("Create Teams", () => {
 
   it("Should navigate to left until first page", () => {
     team.selectTeam("Team 1")
-    team.add("Pikachu")
+    team.add("Aipom")
 
     for (let i = 2; i <= 4; i++) {
       team.selectTeam(`Team ${i}`)
@@ -204,7 +204,7 @@ describe("Create Teams", () => {
     team.goToRightPage()
 
     team.selectTeam("Team 5")
-    team.add("Tyranitar")
+    team.add("Alcremie")
 
     for (let i = 6; i <= 8; i++) {
       team.selectTeam(`Team ${i}`)
@@ -217,9 +217,9 @@ describe("Create Teams", () => {
     team.add("Abomasnow")
 
     team.goToLeftPage()
-    team.pokemonOnEditNameIs("Tyranitar")
+    team.pokemonOnEditNameIs("Alcremie")
 
     team.goToLeftPage()
-    team.pokemonOnEditNameIs("Pikachu")
+    team.pokemonOnEditNameIs("Aipom")
   })
 })
