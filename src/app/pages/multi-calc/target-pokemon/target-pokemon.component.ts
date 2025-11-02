@@ -189,4 +189,8 @@ export class TargetPokemonComponent {
 
     return newTargets
   }
+
+  private activateTeamMember() {
+    this.targetActivated.emit(this.store.team().activePokemon().id)
+  }
 }
