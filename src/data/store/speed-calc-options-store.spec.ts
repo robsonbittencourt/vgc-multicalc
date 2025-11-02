@@ -31,7 +31,7 @@ describe("Speed Calc Options Store", () => {
     })
 
     it("should return Pokémon by Regulation", () => {
-      store.updateRegulation("I")
+      store.updateRegulation("J")
 
       const pokemonList = store.pokemonNamesByReg()
 
@@ -39,7 +39,7 @@ describe("Speed Calc Options Store", () => {
     })
 
     it("should order Pokémon of Regulation", () => {
-      store.updateRegulation("I")
+      store.updateRegulation("F")
 
       const pokemonList = store.pokemonNamesByReg()
 
@@ -114,9 +114,9 @@ describe("Speed Calc Options Store", () => {
     })
 
     it("should update Regulation when it is changed", () => {
-      store.updateRegulation("I")
+      store.updateRegulation("F")
 
-      expect(store.regulation()).toBe("I")
+      expect(store.regulation()).toBe("F")
     })
 
     it("should update Top Usage when it is changed", () => {

@@ -1,48 +1,48 @@
 export const SETDEX_SV: Record<string, any> = {
   Sneasler: {
     ability: "Unburden",
-    nature: "Jolly",
-    teraType: "Stellar",
+    nature: "Adamant",
+    teraType: "Flying",
     evs: {
-      hp: 0,
-      atk: 252,
-      def: 4,
+      hp: 4,
+      atk: 236,
+      def: 28,
       spa: 0,
-      spd: 0,
-      spe: 252
+      spd: 4,
+      spe: 236
     },
-    moves: ["Close Combat", "Dire Claw", "Fake Out", "Protect"],
-    items: ["Focus Sash", "Grassy Seed", "Psychic Seed", "White Herb"]
+    moves: ["Close Combat", "Acrobatics", "Protect", "Swords Dance"],
+    items: ["Grassy Seed", "Focus Sash", "Psychic Seed", "White Herb"]
   },
   Gholdengo: {
     ability: "Good as Gold",
     nature: "Timid",
     teraType: "Water",
     evs: {
-      hp: 4,
+      hp: 116,
       atk: 0,
-      def: 0,
-      spa: 252,
-      spd: 0,
+      def: 4,
+      spa: 132,
+      spd: 4,
       spe: 252
     },
     moves: ["Make It Rain", "Shadow Ball", "Protect", "Nasty Plot"],
-    items: ["Life Orb", "Choice Specs", "Choice Scarf", "Iron Plate", "Metal Coat", "Grassy Seed"]
+    items: ["Life Orb", "Choice Specs", "Choice Scarf", "Metal Coat", "Iron Plate", "Grassy Seed", "Aguav Berry", "Spooky Plate"]
   },
   Incineroar: {
     ability: "Intimidate",
-    nature: "Impish",
+    nature: "Jolly",
     teraType: "Ghost",
     evs: {
-      hp: 252,
-      atk: 0,
-      def: 180,
+      hp: 244,
+      atk: 4,
+      def: 4,
       spa: 0,
-      spd: 0,
-      spe: 76
+      spd: 4,
+      spe: 252
     },
     moves: ["Flare Blitz", "Knock Off", "Fake Out", "Parting Shot"],
-    items: ["Safety Goggles", "Assault Vest", "Sitrus Berry", "Rocky Helmet", "Mirror Herb"]
+    items: ["Safety Goggles", "Assault Vest", "Sitrus Berry", "Clear Amulet", "Mirror Herb"]
   },
   Dragonite: {
     ability: "Multiscale",
@@ -56,20 +56,20 @@ export const SETDEX_SV: Record<string, any> = {
       spd: 0,
       spe: 252
     },
-    moves: ["Scale Shot", "Protect", "Haze", "Tailwind"],
+    moves: ["Scale Shot", "Protect", "Tailwind", "Haze"],
     items: ["Loaded Dice"]
   },
   Rillaboom: {
     ability: "Grassy Surge",
-    nature: "Jolly",
+    nature: "Adamant",
     teraType: "Fire",
     evs: {
-      hp: 108,
-      atk: 140,
+      hp: 172,
+      atk: 252,
       def: 4,
       spa: 0,
-      spd: 4,
-      spe: 252
+      spd: 52,
+      spe: 28
     },
     moves: ["Wood Hammer", "High Horsepower", "Grassy Glide", "Fake Out"],
     items: ["Assault Vest", "Miracle Seed"]
@@ -77,7 +77,7 @@ export const SETDEX_SV: Record<string, any> = {
   "Ursaluna-Bloodmoon": {
     ability: "Mind's Eye",
     nature: "Modest",
-    teraType: "Water",
+    teraType: "Electric",
     evs: {
       hp: 4,
       atk: 0,
@@ -87,21 +87,21 @@ export const SETDEX_SV: Record<string, any> = {
       spe: 252
     },
     moves: ["Blood Moon", "Earth Power", "Hyper Voice", "Protect"],
-    items: ["Assault Vest", "Life Orb", "Leftovers", "Focus Sash"]
+    items: ["Leftovers", "Life Orb", "Assault Vest", "Covert Cloak", "Focus Sash"]
   },
   Archaludon: {
     ability: "Stamina",
-    nature: "Timid",
-    teraType: "Fighting",
+    nature: "Modest",
+    teraType: "Bug",
     evs: {
-      hp: 4,
+      hp: 252,
       atk: 0,
-      def: 0,
-      spa: 252,
-      spd: 0,
-      spe: 252
+      def: 4,
+      spa: 36,
+      spd: 92,
+      spe: 124
     },
-    moves: ["Electro Shot", "Draco Meteor", "Flash Cannon", "Body Press"],
+    moves: ["Electro Shot", "Flash Cannon", "Body Press", "Snarl"],
     items: ["Assault Vest", "Power Herb"]
   },
   Electabuzz: {
@@ -111,9 +111,9 @@ export const SETDEX_SV: Record<string, any> = {
     evs: {
       hp: 244,
       atk: 0,
-      def: 180,
+      def: 196,
       spa: 4,
-      spd: 20,
+      spd: 4,
       spe: 60
     },
     moves: ["Electroweb", "Follow Me", "Protect", "Taunt"],
@@ -124,12 +124,12 @@ export const SETDEX_SV: Record<string, any> = {
     nature: "Adamant",
     teraType: "Ghost",
     evs: {
-      hp: 140,
-      atk: 236,
+      hp: 188,
+      atk: 196,
       def: 4,
       spa: 0,
-      spd: 44,
-      spe: 84
+      spd: 52,
+      spe: 68
     },
     moves: ["Headlong Rush", "Earthquake", "Facade", "Protect"],
     items: ["Flame Orb"]
@@ -137,17 +137,17 @@ export const SETDEX_SV: Record<string, any> = {
   Amoonguss: {
     ability: "Regenerator",
     nature: "Bold",
-    teraType: "Fairy",
+    teraType: "Water",
     evs: {
       hp: 244,
       atk: 0,
-      def: 244,
+      def: 164,
       spa: 0,
-      spd: 20,
+      spd: 100,
       spe: 0
     },
     moves: ["Pollen Puff", "Spore", "Rage Powder", "Protect"],
-    items: ["Sitrus Berry", "Rocky Helmet", "Covert Cloak"]
+    items: ["Sitrus Berry", "Covert Cloak"]
   },
   Pelipper: {
     ability: "Drizzle",
@@ -162,7 +162,7 @@ export const SETDEX_SV: Record<string, any> = {
       spe: 252
     },
     moves: ["Hurricane", "Weather Ball", "Tailwind", "Protect"],
-    items: ["Focus Sash", "Safety Goggles", "Choice Scarf", "Covert Cloak"]
+    items: ["Focus Sash", "Choice Scarf", "Safety Goggles"]
   },
   Kingambit: {
     ability: "Defiant",
@@ -177,7 +177,7 @@ export const SETDEX_SV: Record<string, any> = {
       spe: 0
     },
     moves: ["Kowtow Cleave", "Sucker Punch", "Protect", "Swords Dance"],
-    items: ["Black Glasses", "Safety Goggles", "Assault Vest"]
+    items: ["Black Glasses", "Safety Goggles", "Assault Vest", "Dread Plate"]
   },
   Annihilape: {
     ability: "Defiant",
@@ -191,32 +191,32 @@ export const SETDEX_SV: Record<string, any> = {
       spd: 4,
       spe: 252
     },
-    moves: ["Close Combat", "Drain Punch", "Rage Fist", "Protect"],
-    items: ["Safety Goggles", "Sitrus Berry", "Leftovers", "Choice Scarf", "Focus Sash"]
+    moves: ["Close Combat", "Rage Fist", "Protect", "Bulk Up"],
+    items: ["Sitrus Berry", "Safety Goggles", "Focus Sash", "Leftovers", "Choice Scarf"]
   },
   Volcarona: {
     ability: "Flame Body",
-    nature: "Timid",
+    nature: "Modest",
     teraType: "Fairy",
     evs: {
       hp: 252,
       atk: 0,
-      def: 100,
-      spa: 4,
+      def: 76,
+      spa: 36,
       spd: 4,
-      spe: 148
+      spe: 140
     },
-    moves: ["Heat Wave", "Tera Blast", "Protect", "Quiver Dance"],
-    items: ["Covert Cloak", "Sitrus Berry", "Leftovers", "Grassy Seed", "Safety Goggles"]
+    moves: ["Heat Wave", "Tera Blast", "Quiver Dance", "Protect"],
+    items: ["Grassy Seed", "Covert Cloak", "Sitrus Berry", "Leftovers"]
   },
   Basculegion: {
     ability: "Adaptability",
     nature: "Adamant",
     teraType: "Water",
     evs: {
-      hp: 4,
+      hp: 0,
       atk: 252,
-      def: 0,
+      def: 4,
       spa: 0,
       spd: 0,
       spe: 252
@@ -227,21 +227,21 @@ export const SETDEX_SV: Record<string, any> = {
   Talonflame: {
     ability: "Gale Wings",
     nature: "Jolly",
-    teraType: "Ghost",
+    teraType: "Fairy",
     evs: {
-      hp: 4,
-      atk: 252,
-      def: 0,
+      hp: 140,
+      atk: 12,
+      def: 100,
       spa: 0,
-      spd: 0,
+      spd: 4,
       spe: 252
     },
-    moves: ["Flare Blitz", "Brave Bird", "Tailwind", "Will-O-Wisp"],
-    items: ["Covert Cloak", "Life Orb", "Safety Goggles"]
+    moves: ["Brave Bird", "Tailwind", "Will-O-Wisp", "Taunt"],
+    items: ["Covert Cloak", "Sharp Beak", "Life Orb"]
   },
   Indeedee: {
     ability: "Psychic Surge",
-    nature: "Modest",
+    nature: "Timid",
     teraType: "Psychic",
     evs: {
       hp: 4,
@@ -251,53 +251,53 @@ export const SETDEX_SV: Record<string, any> = {
       spd: 0,
       spe: 252
     },
-    moves: ["Expanding Force", "Tera Blast", "Protect", "Trick"],
+    moves: ["Expanding Force", "Tera Blast", "Protect", "Helping Hand"],
     items: ["Focus Sash", "Choice Scarf"]
   },
   Porygon2: {
     ability: "Download",
-    nature: "Quiet",
+    nature: "Calm",
     teraType: "Fighting",
     evs: {
       hp: 252,
-      atk: 4,
-      def: 124,
-      spa: 92,
-      spd: 36,
-      spe: 0
+      atk: 0,
+      def: 100,
+      spa: 36,
+      spd: 116,
+      spe: 4
     },
     moves: ["Ice Beam", "Tera Blast", "Trick Room", "Recover"],
     items: ["Eviolite"]
   },
   Dondozo: {
     ability: "Unaware",
-    nature: "Careful",
+    nature: "Impish",
     teraType: "Grass",
     evs: {
-      hp: 244,
+      hp: 156,
       atk: 4,
-      def: 60,
+      def: 4,
       spa: 0,
-      spd: 196,
-      spe: 4
+      spd: 252,
+      spe: 92
     },
-    moves: ["Wave Crash", "Earthquake", "Protect", "Yawn"],
+    moves: ["Wave Crash", "Earthquake", "Order Up", "Protect"],
     items: ["Leftovers", "Covert Cloak", "Life Orb"]
   },
   Primarina: {
     ability: "Liquid Voice",
-    nature: "Modest",
-    teraType: "Poison",
+    nature: "Timid",
+    teraType: "Water",
     evs: {
-      hp: 228,
+      hp: 4,
       atk: 0,
-      def: 188,
-      spa: 28,
-      spd: 4,
-      spe: 60
+      def: 0,
+      spa: 252,
+      spd: 0,
+      spe: 252
     },
-    moves: ["Moonblast", "Hyper Voice", "Haze", "Protect"],
-    items: ["Sitrus Berry", "Throat Spray", "Choice Specs", "Life Orb", "Leftovers", "Choice Scarf"]
+    moves: ["Moonblast", "Hyper Voice", "Protect", "Haze"],
+    items: ["Focus Sash", "Choice Specs", "Life Orb", "Throat Spray", "Sitrus Berry", "Leftovers", "Choice Scarf", "Mystic Water"]
   },
   "Ninetales-Alola": {
     ability: "Snow Warning",
@@ -312,7 +312,7 @@ export const SETDEX_SV: Record<string, any> = {
       spe: 252
     },
     moves: ["Blizzard", "Icy Wind", "Protect", "Aurora Veil"],
-    items: ["Focus Sash", "Life Orb", "Covert Cloak", "Light Clay", "Choice Specs"]
+    items: ["Focus Sash", "Life Orb", "Covert Cloak", "Choice Scarf", "Light Clay"]
   },
   Torkoal: {
     ability: "Drought",
@@ -326,28 +326,28 @@ export const SETDEX_SV: Record<string, any> = {
       spd: 4,
       spe: 0
     },
-    moves: ["Eruption", "Heat Wave", "Earth Power", "Weather Ball"],
-    items: ["Choice Specs", "Charcoal", "Eject Pack", "Sitrus Berry"]
+    moves: ["Eruption", "Weather Ball", "Protect", "Helping Hand"],
+    items: ["Eject Pack", "Charcoal", "Choice Specs", "Sitrus Berry"]
   },
   Garchomp: {
     ability: "Rough Skin",
     nature: "Jolly",
     teraType: "Steel",
     evs: {
-      hp: 12,
-      atk: 236,
-      def: 4,
+      hp: 4,
+      atk: 252,
+      def: 0,
       spa: 0,
-      spd: 4,
+      spd: 0,
       spe: 252
     },
     moves: ["Earthquake", "Dragon Claw", "Stomping Tantrum", "Protect"],
-    items: ["Life Orb", "Clear Amulet", "Choice Band", "Loaded Dice"]
+    items: ["Life Orb", "Clear Amulet"]
   },
   "Indeedee-F": {
     ability: "Psychic Surge",
     nature: "Relaxed",
-    teraType: "Water",
+    teraType: "Grass",
     evs: {
       hp: 252,
       atk: 0,
@@ -356,13 +356,13 @@ export const SETDEX_SV: Record<string, any> = {
       spd: 4,
       spe: 0
     },
-    moves: ["Psychic", "Follow Me", "Helping Hand", "Trick Room"],
-    items: ["Psychic Seed", "Rocky Helmet", "Safety Goggles"]
+    moves: ["Psychic", "Follow Me", "Trick Room", "Helping Hand"],
+    items: ["Psychic Seed", "Rocky Helmet", "Safety Goggles", "Mental Herb"]
   },
   Sinistcha: {
     ability: "Hospitality",
     nature: "Calm",
-    teraType: "Dark",
+    teraType: "Water",
     evs: {
       hp: 252,
       atk: 0,
@@ -376,18 +376,18 @@ export const SETDEX_SV: Record<string, any> = {
   },
   Tatsugiri: {
     ability: "Commander",
-    nature: "Modest",
+    nature: "Timid",
     teraType: "Fairy",
     evs: {
-      hp: 92,
+      hp: 0,
       atk: 0,
-      def: 212,
-      spa: 76,
+      def: 0,
+      spa: 252,
       spd: 4,
-      spe: 124
+      spe: 252
     },
-    moves: ["Draco Meteor", "Muddy Water", "Protect", "Helping Hand"],
-    items: ["Safety Goggles", "Focus Sash", "Choice Scarf", "Ability Shield", "Assault Vest"]
+    moves: ["Draco Meteor", "Muddy Water", "Icy Wind", "Protect"],
+    items: ["Safety Goggles", "Choice Scarf", "Focus Sash", "Wide Lens", "Ability Shield"]
   },
   Dragapult: {
     ability: "Clear Body",
@@ -402,42 +402,42 @@ export const SETDEX_SV: Record<string, any> = {
       spe: 252
     },
     moves: ["Outrage", "Phantom Force", "U-turn", "Dragon Darts"],
-    items: ["Choice Band", "Choice Specs"]
+    items: ["Choice Band", "Life Orb", "Choice Specs"]
   },
   Maushold: {
     ability: "Friend Guard",
     nature: "Jolly",
     teraType: "Ghost",
     evs: {
-      hp: 4,
-      atk: 252,
-      def: 0,
+      hp: 156,
+      atk: 0,
+      def: 100,
       spa: 0,
       spd: 0,
       spe: 252
     },
     moves: ["Protect", "Follow Me", "Beat Up", "Super Fang"],
-    items: ["Focus Sash", "Wide Lens", "Safety Goggles", "Rocky Helmet"]
+    items: ["Focus Sash", "Wide Lens", "Rocky Helmet", "Safety Goggles"]
   },
   "Kommo-o": {
     ability: "Overcoat",
-    nature: "Modest",
+    nature: "Timid",
     teraType: "Fire",
     evs: {
-      hp: 20,
+      hp: 4,
       atk: 0,
-      def: 4,
+      def: 0,
       spa: 252,
-      spd: 12,
-      spe: 220
+      spd: 0,
+      spe: 252
     },
-    moves: ["Clanging Scales", "Aura Sphere", "Protect", "Clangorous Soul"],
-    items: ["Throat Spray", "Leftovers", "Life Orb", "Choice Specs", "Sitrus Berry"]
+    moves: ["Clanging Scales", "Flamethrower", "Aura Sphere", "Protect"],
+    items: ["Throat Spray", "Leftovers", "Clear Amulet", "Life Orb"]
   },
   Hatterene: {
     ability: "Magic Bounce",
     nature: "Quiet",
-    teraType: "Fire",
+    teraType: "Water",
     evs: {
       hp: 212,
       atk: 0,
@@ -447,22 +447,22 @@ export const SETDEX_SV: Record<string, any> = {
       spe: 0
     },
     moves: ["Dazzling Gleam", "Expanding Force", "Trick Room", "Protect"],
-    items: ["Life Orb", "Covert Cloak"]
+    items: ["Life Orb"]
   },
   Tyranitar: {
     ability: "Sand Stream",
     nature: "Adamant",
     teraType: "Flying",
     evs: {
-      hp: 100,
+      hp: 92,
       atk: 156,
       def: 12,
       spa: 0,
       spd: 28,
-      spe: 212
+      spe: 220
     },
     moves: ["Tera Blast", "Rock Slide", "Knock Off", "Low Kick"],
-    items: ["Assault Vest", "Choice Band"]
+    items: ["Assault Vest", "Clear Amulet"]
   },
   "Lilligant-Hisui": {
     ability: "Chlorophyll",
@@ -476,7 +476,7 @@ export const SETDEX_SV: Record<string, any> = {
       spd: 0,
       spe: 252
     },
-    moves: ["Solar Blade", "Close Combat", "After You", "Sleep Powder"],
+    moves: ["Solar Blade", "Close Combat", "Sleep Powder", "After You"],
     items: ["Focus Sash"]
   },
   Magmar: {
@@ -484,60 +484,60 @@ export const SETDEX_SV: Record<string, any> = {
     nature: "Bold",
     teraType: "Ghost",
     evs: {
-      hp: 236,
+      hp: 244,
       atk: 0,
-      def: 228,
+      def: 244,
       spa: 0,
-      spd: 0,
-      spe: 44
+      spd: 20,
+      spe: 0
     },
-    moves: ["Overheat", "Follow Me", "Protect", "Taunt"],
+    moves: ["Burning Jealousy", "Clear Smog", "Follow Me", "Protect"],
     items: ["Eviolite"]
   },
   Glimmora: {
     ability: "Toxic Debris",
-    nature: "Timid",
+    nature: "Modest",
     teraType: "Grass",
     evs: {
-      hp: 4,
+      hp: 252,
       atk: 0,
-      def: 0,
-      spa: 252,
-      spd: 0,
-      spe: 252
+      def: 20,
+      spa: 76,
+      spd: 4,
+      spe: 156
     },
-    moves: ["Meteor Beam", "Earth Power", "Sludge Bomb", "Spiky Shield"],
-    items: ["Power Herb", "Life Orb", "Focus Sash"]
+    moves: ["Sludge Bomb", "Power Gem", "Mortal Spin", "Spiky Shield"],
+    items: ["Focus Sash", "Power Herb"]
   },
   Farigiraf: {
     ability: "Armor Tail",
     nature: "Modest",
     teraType: "Fairy",
     evs: {
-      hp: 108,
+      hp: 188,
       atk: 0,
-      def: 180,
-      spa: 76,
-      spd: 68,
-      spe: 76
+      def: 44,
+      spa: 156,
+      spd: 116,
+      spe: 4
     },
     moves: ["Hyper Voice", "Psychic", "Trick Room", "Protect"],
-    items: ["Throat Spray", "Sitrus Berry", "Safety Goggles", "Grassy Seed", "Mental Herb"]
+    items: ["Throat Spray", "Mental Herb", "Sitrus Berry", "Psychic Seed"]
   },
   Corviknight: {
     ability: "Mirror Armor",
-    nature: "Careful",
-    teraType: "Dragon",
+    nature: "Impish",
+    teraType: "Fire",
     evs: {
       hp: 244,
-      atk: 20,
-      def: 20,
+      atk: 4,
+      def: 196,
       spa: 0,
-      spd: 116,
-      spe: 108
+      spd: 44,
+      spe: 20
     },
     moves: ["Brave Bird", "Roost", "Tailwind", "Bulk Up"],
-    items: ["Sitrus Berry", "Leftovers", "Covert Cloak", "Rocky Helmet"]
+    items: ["Sitrus Berry", "Covert Cloak", "Leftovers", "Psychic Seed"]
   },
   Gallade: {
     ability: "Sharpness",
@@ -551,8 +551,8 @@ export const SETDEX_SV: Record<string, any> = {
       spd: 0,
       spe: 44
     },
-    moves: ["Sacred Sword", "Psycho Cut", "Trick Room", "Wide Guard"],
-    items: ["Clear Amulet", "Life Orb"]
+    moves: ["Sacred Sword", "Psycho Cut", "Wide Guard", "Trick Room"],
+    items: ["Clear Amulet", "Assault Vest"]
   },
   Vivillon: {
     ability: "Compound Eyes",
@@ -572,16 +572,16 @@ export const SETDEX_SV: Record<string, any> = {
   Dusclops: {
     ability: "Pressure",
     nature: "Sassy",
-    teraType: "Grass",
+    teraType: "Dark",
     evs: {
       hp: 252,
       atk: 0,
-      def: 4,
+      def: 180,
       spa: 0,
-      spd: 252,
+      spd: 76,
       spe: 0
     },
-    moves: ["Trick Room", "Night Shade", "Will-O-Wisp", "Pain Split"],
+    moves: ["Trick Room", "Night Shade", "Haze", "Will-O-Wisp"],
     items: ["Eviolite"]
   },
   Kilowattrel: {
@@ -589,15 +589,15 @@ export const SETDEX_SV: Record<string, any> = {
     nature: "Timid",
     teraType: "Ghost",
     evs: {
-      hp: 4,
+      hp: 0,
       atk: 0,
       def: 4,
-      spa: 236,
-      spd: 12,
+      spa: 252,
+      spd: 0,
       spe: 252
     },
     moves: ["Thunderbolt", "Air Slash", "Tailwind", "Protect"],
-    items: ["Focus Sash", "Covert Cloak"]
+    items: ["Focus Sash"]
   },
   Grimmsnarl: {
     ability: "Prankster",
@@ -611,8 +611,8 @@ export const SETDEX_SV: Record<string, any> = {
       spd: 116,
       spe: 4
     },
-    moves: ["Spirit Break", "Reflect", "Light Screen", "Thunder Wave"],
-    items: ["Light Clay"]
+    moves: ["Spirit Break", "Light Screen", "Reflect", "Thunder Wave"],
+    items: ["Light Clay", "Covert Cloak"]
   },
   Baxcalibur: {
     ability: "Thermal Exchange",
@@ -620,14 +620,14 @@ export const SETDEX_SV: Record<string, any> = {
     teraType: "Ghost",
     evs: {
       hp: 12,
-      atk: 252,
-      def: 12,
+      atk: 236,
+      def: 4,
       spa: 0,
-      spd: 28,
-      spe: 204
+      spd: 4,
+      spe: 252
     },
     moves: ["Ice Shard", "Icicle Spear", "Scale Shot", "Protect"],
-    items: ["Loaded Dice", "Assault Vest"]
+    items: ["Loaded Dice", "Assault Vest", "Life Orb"]
   },
   Meowscarada: {
     ability: "Protean",
@@ -672,16 +672,16 @@ export const SETDEX_SV: Record<string, any> = {
       spe: 252
     },
     moves: ["Overheat", "Heat Wave", "Air Slash", "Weather Ball"],
-    items: ["Choice Specs", "Life Orb", "Choice Scarf"]
+    items: ["Choice Specs"]
   },
   Jumpluff: {
     ability: "Chlorophyll",
     nature: "Timid",
     teraType: "Water",
     evs: {
-      hp: 228,
+      hp: 164,
       atk: 0,
-      def: 28,
+      def: 92,
       spa: 0,
       spd: 0,
       spe: 252
@@ -694,35 +694,35 @@ export const SETDEX_SV: Record<string, any> = {
     nature: "Calm",
     teraType: "Water",
     evs: {
-      hp: 236,
+      hp: 252,
       atk: 0,
-      def: 156,
-      spa: 20,
-      spd: 84,
-      spe: 12
+      def: 180,
+      spa: 0,
+      spd: 76,
+      spe: 0
     },
     moves: ["Moonblast", "Follow Me", "Protect", "Life Dew"],
-    items: ["Sitrus Berry", "Rocky Helmet", "Safety Goggles", "Mental Herb"]
+    items: ["Sitrus Berry", "Safety Goggles", "Rocky Helmet"]
   },
   Murkrow: {
     ability: "Prankster",
-    nature: "Impish",
+    nature: "Bold",
     teraType: "Ghost",
     evs: {
       hp: 252,
       atk: 0,
-      def: 228,
+      def: 140,
       spa: 0,
-      spd: 28,
+      spd: 116,
       spe: 0
     },
-    moves: ["Foul Play", "Tailwind", "Haze", "Quash"],
-    items: ["Eviolite", "Focus Sash"]
+    moves: ["Foul Play", "Tailwind", "Haze", "Sunny Day"],
+    items: ["Eviolite"]
   },
   Excadrill: {
     ability: "Sand Rush",
     nature: "Adamant",
-    teraType: "Ground",
+    teraType: "Stellar",
     evs: {
       hp: 4,
       atk: 252,
@@ -732,7 +732,7 @@ export const SETDEX_SV: Record<string, any> = {
       spe: 252
     },
     moves: ["Earthquake", "High Horsepower", "Iron Head", "Protect"],
-    items: ["Focus Sash"]
+    items: ["Focus Sash", "Clear Amulet"]
   },
   Gastrodon: {
     ability: "Storm Drain",
@@ -769,15 +769,15 @@ export const SETDEX_SV: Record<string, any> = {
     nature: "Timid",
     teraType: "Ghost",
     evs: {
-      hp: 0,
+      hp: 4,
       atk: 0,
-      def: 0,
-      spa: 252,
-      spd: 4,
-      spe: 252
+      def: 4,
+      spa: 236,
+      spd: 28,
+      spe: 236
     },
     moves: ["Draco Meteor", "Snarl", "Protect", "Tailwind"],
-    items: ["Safety Goggles", "Life Orb", "Choice Specs", "Covert Cloak", "Assault Vest"]
+    items: ["Safety Goggles", "Life Orb", "Covert Cloak", "Choice Specs", "Assault Vest"]
   },
   Delphox: {
     ability: "Blaze",
@@ -799,15 +799,15 @@ export const SETDEX_SV: Record<string, any> = {
     nature: "Jolly",
     teraType: "Ghost",
     evs: {
-      hp: 4,
+      hp: 0,
       atk: 252,
       def: 0,
       spa: 0,
-      spd: 0,
+      spd: 4,
       spe: 252
     },
-    moves: ["Close Combat", "Brave Bird", "Protect", "Wide Guard"],
-    items: ["Focus Sash", "Covert Cloak", "Safety Goggles"]
+    moves: ["Close Combat", "Dual Wingbeat", "Wide Guard", "Protect"],
+    items: ["Focus Sash"]
   },
   "Arcanine-Hisui": {
     ability: "Intimidate",
@@ -822,12 +822,12 @@ export const SETDEX_SV: Record<string, any> = {
       spe: 252
     },
     moves: ["Flare Blitz", "Extreme Speed", "Rock Slide", "Protect"],
-    items: ["Clear Amulet", "Mirror Herb", "Choice Band"]
+    items: ["Clear Amulet", "Mirror Herb", "Choice Band", "Loaded Dice"]
   },
   "Tauros-Paldea-Aqua": {
     ability: "Intimidate",
     nature: "Jolly",
-    teraType: "Stellar",
+    teraType: "Fire",
     evs: {
       hp: 4,
       atk: 252,
@@ -837,7 +837,7 @@ export const SETDEX_SV: Record<string, any> = {
       spe: 252
     },
     moves: ["Close Combat", "Wave Crash", "Aqua Jet", "Protect"],
-    items: ["Mirror Herb", "Choice Band", "Safety Goggles", "Life Orb"]
+    items: ["Mirror Herb", "Clear Amulet", "Ability Shield", "Mystic Water"]
   },
   Armarouge: {
     ability: "Flash Fire",
@@ -972,7 +972,7 @@ export const SETDEX_SV: Record<string, any> = {
       spe: 0
     },
     moves: ["Salt Cure", "Recover", "Protect", "Stealth Rock"],
-    items: ["Maranga Berry", "Leftovers"]
+    items: ["Maranga Berry"]
   },
   Klefki: {
     ability: "Prankster",
@@ -991,18 +991,18 @@ export const SETDEX_SV: Record<string, any> = {
   },
   Salamence: {
     ability: "Intimidate",
-    nature: "Jolly",
+    nature: "Timid",
     teraType: "Steel",
     evs: {
       hp: 4,
-      atk: 244,
-      def: 4,
-      spa: 0,
-      spd: 4,
+      atk: 0,
+      def: 0,
+      spa: 252,
+      spd: 0,
       spe: 252
     },
-    moves: ["Rock Slide", "Dual Wingbeat", "Tailwind", "Protect"],
-    items: ["Lum Berry", "Choice Specs", "Sky Plate", "Life Orb", "Sitrus Berry", "Covert Cloak", "Rocky Helmet"]
+    moves: ["Draco Meteor", "Air Slash", "Tailwind", "Protect"],
+    items: ["Mirror Herb", "Eject Pack", "Life Orb", "Covert Cloak", "Choice Specs"]
   },
   Greninja: {
     ability: "Torrent",
@@ -1046,8 +1046,8 @@ export const SETDEX_SV: Record<string, any> = {
       spd: 4,
       spe: 196
     },
-    moves: ["Strange Steam", "Sludge Bomb", "Dazzling Gleam", "Tera Blast"],
-    items: ["Choice Specs", "Sitrus Berry", "Focus Sash", "Covert Cloak"]
+    moves: ["Sludge Bomb", "Strange Steam", "Dazzling Gleam", "Tera Blast"],
+    items: ["Choice Specs", "Sitrus Berry", "Covert Cloak", "Air Balloon", "Focus Sash"]
   },
   Sableye: {
     ability: "Prankster",
@@ -1096,17 +1096,17 @@ export const SETDEX_SV: Record<string, any> = {
   },
   Smeargle: {
     ability: "Moody",
-    nature: "Timid",
+    nature: "Jolly",
     teraType: "Ghost",
     evs: {
-      hp: 236,
-      atk: 0,
-      def: 20,
+      hp: 252,
+      atk: 4,
+      def: 0,
       spa: 0,
       spd: 0,
       spe: 252
     },
-    moves: ["Follow Me", "Spore", "Decorate", "Spiky Shield"],
+    moves: ["Fake Out", "Spore", "Follow Me", "Tailwind"],
     items: ["Focus Sash"]
   },
   Gliscor: {
@@ -1172,7 +1172,7 @@ export const SETDEX_SV: Record<string, any> = {
   "Zoroark-Hisui": {
     ability: "Illusion",
     nature: "Timid",
-    teraType: "Stellar",
+    teraType: "Ghost",
     evs: {
       hp: 4,
       atk: 0,
@@ -1181,8 +1181,8 @@ export const SETDEX_SV: Record<string, any> = {
       spd: 0,
       spe: 252
     },
-    moves: ["Hyper Voice", "Bitter Malice", "Icy Wind", "Protect"],
-    items: ["Focus Sash", "Choice Specs", "Life Orb"]
+    moves: ["Bitter Malice", "Icy Wind", "Taunt", "Protect"],
+    items: ["Focus Sash", "Choice Specs"]
   },
   Frosmoth: {
     ability: "Ice Scales",
@@ -1231,18 +1231,18 @@ export const SETDEX_SV: Record<string, any> = {
   },
   Magmortar: {
     ability: "Vital Spirit",
-    nature: "Modest",
-    teraType: "Ghost",
+    nature: "Bold",
+    teraType: "Dragon",
     evs: {
-      hp: 4,
+      hp: 252,
       atk: 0,
-      def: 0,
-      spa: 252,
-      spd: 0,
-      spe: 252
+      def: 196,
+      spa: 0,
+      spd: 60,
+      spe: 0
     },
-    moves: ["Protect", "Follow Me", "Heat Wave", "Flamethrower"],
-    items: ["Focus Sash"]
+    moves: ["Burning Jealousy", "Follow Me", "Protect", "Helping Hand"],
+    items: ["Sitrus Berry"]
   },
   Drifblim: {
     ability: "Unburden",
@@ -1262,17 +1262,17 @@ export const SETDEX_SV: Record<string, any> = {
   Chandelure: {
     ability: "Flash Fire",
     nature: "Modest",
-    teraType: "Grass",
+    teraType: "Fire",
     evs: {
-      hp: 0,
+      hp: 220,
       atk: 0,
-      def: 4,
+      def: 28,
       spa: 252,
-      spd: 0,
-      spe: 252
+      spd: 4,
+      spe: 4
     },
     moves: ["Heat Wave", "Shadow Ball", "Protect", "Trick Room"],
-    items: ["Focus Sash"]
+    items: ["Focus Sash", "Sitrus Berry"]
   },
   "Rotom-Wash": {
     ability: "Levitate",
@@ -1396,47 +1396,47 @@ export const SETDEX_SV: Record<string, any> = {
   },
   Weezing: {
     ability: "Neutralizing Gas",
-    nature: "Bold",
+    nature: "Calm",
     teraType: "Water",
     evs: {
       hp: 252,
       atk: 0,
-      def: 4,
+      def: 12,
       spa: 4,
       spd: 236,
-      spe: 12
+      spe: 4
     },
-    moves: ["Taunt", "Protect", "Will-O-Wisp", "Sludge Bomb"],
-    items: ["Sitrus Berry"]
+    moves: ["Sludge Bomb", "Protect", "Taunt", "Will-O-Wisp"],
+    items: ["Covert Cloak", "Mental Herb", "Sitrus Berry", "Choice Scarf"]
   },
   Blaziken: {
     ability: "Speed Boost",
-    nature: "Adamant",
-    teraType: "Stellar",
+    nature: "Timid",
+    teraType: "Fire",
     evs: {
-      hp: 4,
-      atk: 252,
+      hp: 0,
+      atk: 0,
       def: 0,
-      spa: 0,
-      spd: 0,
+      spa: 252,
+      spd: 4,
       spe: 252
     },
-    moves: ["Protect", "Coaching", "Heat Wave", "Close Combat"],
+    moves: ["Heat Wave", "Aura Sphere", "Coaching", "Protect"],
     items: ["Focus Sash"]
   },
   Ribombee: {
     ability: "Shield Dust",
     nature: "Timid",
-    teraType: "Flying",
+    teraType: "Fairy",
     evs: {
-      hp: 4,
+      hp: 0,
       atk: 0,
-      def: 0,
+      def: 4,
       spa: 252,
       spd: 0,
       spe: 252
     },
-    moves: ["Moonblast", "Pollen Puff", "Tailwind", "Protect"],
+    moves: ["Moonblast", "Tailwind", "Fake Tears", "Protect"],
     items: ["Focus Sash"]
   },
   Clefairy: {
@@ -1444,14 +1444,14 @@ export const SETDEX_SV: Record<string, any> = {
     nature: "Relaxed",
     teraType: "Grass",
     evs: {
-      hp: 244,
+      hp: 252,
       atk: 0,
-      def: 180,
+      def: 252,
       spa: 0,
-      spd: 84,
+      spd: 4,
       spe: 0
     },
-    moves: ["Follow Me", "Protect", "Helping Hand", "Life Dew"],
+    moves: ["Follow Me", "Helping Hand", "Protect", "Life Dew"],
     items: ["Eviolite"]
   },
   Beartic: {
@@ -1667,17 +1667,17 @@ export const SETDEX_SV: Record<string, any> = {
   "Tauros-Paldea-Blaze": {
     ability: "Intimidate",
     nature: "Jolly",
-    teraType: "Grass",
+    teraType: "Water",
     evs: {
-      hp: 4,
+      hp: 0,
       atk: 252,
       def: 0,
       spa: 0,
-      spd: 0,
+      spd: 4,
       spe: 252
     },
-    moves: ["Close Combat", "Flare Blitz", "Protect", "Will-O-Wisp"],
-    items: ["Mirror Herb", "Clear Amulet"]
+    moves: ["Close Combat", "Raging Bull", "Protect", "Will-O-Wisp"],
+    items: ["Clear Amulet", "Mirror Herb"]
   },
   Torracat: {
     ability: "Intimidate",
@@ -2012,13 +2012,13 @@ export const SETDEX_SV: Record<string, any> = {
   Scyther: {
     ability: "Technician",
     nature: "Adamant",
-    teraType: "Steel",
+    teraType: "Fire",
     evs: {
-      hp: 156,
-      atk: 76,
+      hp: 124,
+      atk: 92,
       def: 12,
       spa: 0,
-      spd: 12,
+      spd: 28,
       spe: 252
     },
     moves: ["Close Combat", "U-turn", "Dual Wingbeat", "Protect"],
@@ -2042,17 +2042,17 @@ export const SETDEX_SV: Record<string, any> = {
   Tsareena: {
     ability: "Queenly Majesty",
     nature: "Adamant",
-    teraType: "Ice",
+    teraType: "Water",
     evs: {
-      hp: 20,
+      hp: 140,
       atk: 236,
-      def: 0,
+      def: 4,
       spa: 0,
-      spd: 0,
-      spe: 252
+      spd: 4,
+      spe: 124
     },
-    moves: ["Power Whip", "Triple Axel", "Taunt", "Helping Hand"],
-    items: ["Wide Lens", "Loaded Dice", "Focus Sash"]
+    moves: ["Power Whip", "Triple Axel", "Protect", "Taunt"],
+    items: ["Wide Lens"]
   },
   "Muk-Alola": {
     ability: "Power of Alchemy",
@@ -2374,95 +2374,50 @@ export const SETDEX_SV: Record<string, any> = {
     nature: "Adamant",
     teraType: "Ghost",
     evs: {
-      hp: 4,
-      atk: 252,
-      def: 0,
+      hp: 44,
+      atk: 156,
+      def: 4,
       spa: 0,
-      spd: 0,
-      spe: 252
+      spd: 92,
+      spe: 212
     },
     moves: ["Close Combat", "U-turn", "Aqua Jet", "Surging Strikes"],
-    items: ["Focus Sash", "Choice Band", "Choice Scarf", "Mystic Water"]
+    items: ["Choice Scarf", "Mystic Water", "Focus Sash", "Choice Band"]
   },
   "Raging Bolt": {
     ability: "Protosynthesis",
     nature: "Modest",
     teraType: "Electric",
     evs: {
-      hp: 4,
+      hp: 244,
       atk: 0,
-      def: 4,
-      spa: 244,
+      def: 108,
+      spa: 100,
       spd: 4,
-      spe: 252
+      spe: 52
     },
-    moves: ["Thunderbolt", "Dragon Pulse", "Thunderclap", "Protect"],
-    items: ["Booster Energy", "Life Orb", "Magnet"]
+    moves: ["Dragon Pulse", "Thunderclap", "Electroweb", "Snarl"],
+    items: ["Assault Vest", "Leftovers", "Booster Energy"]
   },
   "Iron Hands": {
     ability: "Quark Drive",
     nature: "Adamant",
     teraType: "Water",
     evs: {
-      hp: 76,
-      atk: 132,
-      def: 156,
+      hp: 84,
+      atk: 212,
+      def: 12,
       spa: 0,
-      spd: 76,
-      spe: 68
+      spd: 140,
+      spe: 60
     },
-    moves: ["Wild Charge", "Volt Switch", "Fake Out", "Low Kick"],
-    items: ["Assault Vest", "Electric Seed"]
+    moves: ["Wild Charge", "Drain Punch", "Fake Out", "Heavy Slam"],
+    items: ["Assault Vest", "Clear Amulet"]
   },
   "Calyrex-Shadow": {
     ability: "As One (Spectrier)",
     nature: "Timid",
-    teraType: "Dark",
-    evs: {
-      hp: 0,
-      atk: 0,
-      def: 4,
-      spa: 252,
-      spd: 0,
-      spe: 252
-    },
-    moves: ["Astral Barrage", "Psychic", "Protect", "Nasty Plot"],
-    items: ["Life Orb", "Focus Sash", "Spell Tag", "Covert Cloak"]
-  },
-  "Chi-Yu": {
-    ability: "Beads of Ruin",
-    nature: "Modest",
     teraType: "Ghost",
-    evs: {
-      hp: 0,
-      atk: 0,
-      def: 4,
-      spa: 252,
-      spd: 0,
-      spe: 252
-    },
-    moves: ["Overheat", "Heat Wave", "Dark Pulse", "Snarl"],
-    items: ["Choice Scarf"]
-  },
-  "Calyrex-Ice": {
-    ability: "As One (Glastrier)",
-    nature: "Brave",
-    teraType: "Fairy",
-    evs: {
-      hp: 252,
-      atk: 196,
-      def: 0,
-      spa: 0,
-      spd: 60,
-      spe: 0
-    },
-    moves: ["Glacial Lance", "Trick Room", "Protect", "Leech Seed"],
-    items: ["Clear Amulet", "Leftovers", "Never-Melt Ice"]
-  },
-  "Flutter Mane": {
-    ability: "Protosynthesis",
-    nature: "Timid",
-    teraType: "Fairy",
     evs: {
       hp: 4,
       atk: 0,
@@ -2471,27 +2426,72 @@ export const SETDEX_SV: Record<string, any> = {
       spd: 0,
       spe: 252
     },
-    moves: ["Moonblast", "Shadow Ball", "Icy Wind", "Protect"],
-    items: ["Focus Sash", "Choice Specs", "Booster Energy"]
+    moves: ["Astral Barrage", "Psychic", "Protect", "Encore"],
+    items: ["Focus Sash", "Life Orb", "Choice Specs", "Choice Scarf", "Spooky Plate", "Spell Tag"]
+  },
+  "Chi-Yu": {
+    ability: "Beads of Ruin",
+    nature: "Bold",
+    teraType: "Ghost",
+    evs: {
+      hp: 252,
+      atk: 0,
+      def: 188,
+      spa: 4,
+      spd: 4,
+      spe: 60
+    },
+    moves: ["Overheat", "Heat Wave", "Dark Pulse", "Snarl"],
+    items: ["Choice Specs", "Choice Scarf", "Focus Sash"]
+  },
+  "Calyrex-Ice": {
+    ability: "As One (Glastrier)",
+    nature: "Adamant",
+    teraType: "Fairy",
+    evs: {
+      hp: 252,
+      atk: 36,
+      def: 4,
+      spa: 0,
+      spd: 180,
+      spe: 36
+    },
+    moves: ["Glacial Lance", "Trick Room", "Protect", "Leech Seed"],
+    items: ["Leftovers", "Clear Amulet", "Assault Vest", "Never-Melt Ice", "Electric Seed", "Mental Herb"]
+  },
+  "Flutter Mane": {
+    ability: "Protosynthesis",
+    nature: "Timid",
+    teraType: "Fairy",
+    evs: {
+      hp: 100,
+      atk: 0,
+      def: 236,
+      spa: 4,
+      spd: 4,
+      spe: 164
+    },
+    moves: ["Moonblast", "Shadow Ball", "Dazzling Gleam", "Protect"],
+    items: ["Choice Specs", "Booster Energy"]
   },
   "Ogerpon-Hearthflame": {
     ability: "Mold Breaker",
-    nature: "Adamant",
+    nature: "Jolly",
     teraType: "Fire",
     evs: {
-      hp: 252,
-      atk: 12,
-      def: 132,
+      hp: 36,
+      atk: 220,
+      def: 0,
       spa: 0,
-      spd: 108,
-      spe: 4
+      spd: 0,
+      spe: 252
     },
-    moves: ["Ivy Cudgel", "Grassy Glide", "Spiky Shield", "Follow Me"],
+    moves: ["Ivy Cudgel", "Stomping Tantrum", "Grassy Glide", "Spiky Shield"],
     items: ["Hearthflame Mask"]
   },
   Miraidon: {
     ability: "Hadron Engine",
-    nature: "Modest",
+    nature: "Timid",
     teraType: "Electric",
     evs: {
       hp: 4,
@@ -2501,22 +2501,22 @@ export const SETDEX_SV: Record<string, any> = {
       spd: 0,
       spe: 252
     },
-    moves: ["Draco Meteor", "Electro Drift", "Volt Switch", "Snarl"],
-    items: ["Choice Scarf", "Choice Specs", "Life Orb", "Assault Vest"]
+    moves: ["Draco Meteor", "Electro Drift", "Dazzling Gleam", "Volt Switch"],
+    items: ["Choice Specs", "Choice Scarf", "Life Orb", "Assault Vest", "Covert Cloak"]
   },
   "Ogerpon-Cornerstone": {
     ability: "Sturdy",
-    nature: "Jolly",
+    nature: "Brave",
     teraType: "Rock",
     evs: {
-      hp: 4,
+      hp: 252,
       atk: 252,
-      def: 0,
+      def: 4,
       spa: 0,
       spd: 0,
-      spe: 252
+      spe: 0
     },
-    moves: ["Wood Hammer", "Ivy Cudgel", "Follow Me", "Spiky Shield"],
+    moves: ["Ivy Cudgel", "Horn Leech", "Follow Me", "Spiky Shield"],
     items: ["Cornerstone Mask"]
   },
   Tornadus: {
@@ -2524,15 +2524,15 @@ export const SETDEX_SV: Record<string, any> = {
     nature: "Modest",
     teraType: "Dark",
     evs: {
-      hp: 244,
+      hp: 4,
       atk: 0,
-      def: 116,
-      spa: 44,
-      spd: 92,
-      spe: 12
+      def: 0,
+      spa: 252,
+      spd: 0,
+      spe: 252
     },
-    moves: ["Bleakwind Storm", "Tailwind", "Taunt", "Protect"],
-    items: ["Sharp Beak", "Covert Cloak", "Sky Plate"]
+    moves: ["Bleakwind Storm", "Tailwind", "Protect", "Rain Dance"],
+    items: ["Focus Sash", "Covert Cloak", "Rocky Helmet", "Mental Herb", "Sitrus Berry"]
   },
   Terapagos: {
     ability: "Tera Shift",
@@ -2541,13 +2541,13 @@ export const SETDEX_SV: Record<string, any> = {
     evs: {
       hp: 172,
       atk: 0,
-      def: 156,
-      spa: 92,
-      spd: 4,
-      spe: 84
+      def: 164,
+      spa: 84,
+      spd: 12,
+      spe: 76
     },
     moves: ["Tera Starstorm", "Earth Power", "Protect", "Calm Mind"],
-    items: ["Leftovers", "Power Herb", "Electric Seed", "Grassy Seed"]
+    items: ["Leftovers", "Electric Seed", "Choice Specs", "Power Herb", "Covert Cloak"]
   },
   "Terapagos-Stellar": {
     ability: "Teraform Zero",
@@ -2575,7 +2575,7 @@ export const SETDEX_SV: Record<string, any> = {
   },
   "Chien-Pao": {
     ability: "Sword of Ruin",
-    nature: "Jolly",
+    nature: "Adamant",
     teraType: "Ghost",
     evs: {
       hp: 0,
@@ -2585,53 +2585,53 @@ export const SETDEX_SV: Record<string, any> = {
       spd: 0,
       spe: 252
     },
-    moves: ["Ice Spinner", "Sucker Punch", "Protect", "Ruination"],
-    items: ["Focus Sash", "Assault Vest", "Covert Cloak"]
+    moves: ["Sacred Sword", "Icicle Crash", "Sucker Punch", "Protect"],
+    items: ["Focus Sash", "Clear Amulet"]
   },
   Urshifu: {
     ability: "Unseen Fist",
-    nature: "Brave",
+    nature: "Adamant",
     teraType: "Grass",
     evs: {
-      hp: 252,
+      hp: 0,
       atk: 252,
-      def: 4,
+      def: 0,
       spa: 0,
-      spd: 0,
-      spe: 0
+      spd: 4,
+      spe: 252
     },
-    moves: ["Close Combat", "Wicked Blow", "Sucker Punch", "U-turn"],
-    items: ["Choice Band", "Focus Sash"]
+    moves: ["Close Combat", "Wicked Blow", "Sucker Punch", "Protect"],
+    items: ["Focus Sash", "Choice Band"]
   },
   "Zamazenta-Crowned": {
     ability: "Dauntless Shield",
     nature: "Impish",
     teraType: "Dragon",
     evs: {
-      hp: 204,
+      hp: 252,
       atk: 4,
-      def: 156,
+      def: 180,
       spa: 0,
-      spd: 20,
-      spe: 124
+      spd: 4,
+      spe: 68
     },
-    moves: ["Body Press", "Wide Guard", "Protect", "Heavy Slam"],
+    moves: ["Body Press", "Protect", "Wide Guard", "Heavy Slam"],
     items: ["Rusted Shield"]
   },
   Koraidon: {
     ability: "Orichalcum Pulse",
-    nature: "Adamant",
+    nature: "Jolly",
     teraType: "Fire",
     evs: {
-      hp: 116,
+      hp: 4,
       atk: 252,
-      def: 4,
+      def: 0,
       spa: 0,
-      spd: 4,
-      spe: 132
+      spd: 0,
+      spe: 252
     },
-    moves: ["Flare Blitz", "Collision Course", "Flame Charge", "Protect"],
-    items: ["Clear Amulet", "Life Orb"]
+    moves: ["Flare Blitz", "Close Combat", "Flame Charge", "Protect"],
+    items: ["Life Orb", "Clear Amulet", "Choice Scarf", "Ability Shield", "Loaded Dice", "Covert Cloak"]
   },
   Ditto: {
     ability: "Imposter",
@@ -2640,27 +2640,27 @@ export const SETDEX_SV: Record<string, any> = {
     evs: {
       hp: 252,
       atk: 0,
-      def: 4,
+      def: 0,
       spa: 0,
-      spd: 0,
+      spd: 4,
       spe: 252
     },
     moves: ["Transform", "", "", ""],
-    items: ["Focus Sash", "Choice Scarf"]
+    items: ["Focus Sash", "Choice Scarf", "Quick Claw", "Leftovers"]
   },
   Landorus: {
     ability: "Sheer Force",
-    nature: "Modest",
+    nature: "Timid",
     teraType: "Poison",
     evs: {
-      hp: 252,
+      hp: 76,
       atk: 0,
-      def: 4,
-      spa: 116,
-      spd: 132,
-      spe: 4
+      def: 36,
+      spa: 140,
+      spd: 4,
+      spe: 252
     },
-    moves: ["Sandsear Storm", "Earth Power", "Sludge Bomb", "Protect"],
+    moves: ["Sludge Bomb", "Earth Power", "Protect", "Substitute"],
     items: ["Life Orb"]
   },
   Groudon: {
@@ -2668,87 +2668,87 @@ export const SETDEX_SV: Record<string, any> = {
     nature: "Adamant",
     teraType: "Fire",
     evs: {
-      hp: 236,
-      atk: 156,
+      hp: 124,
+      atk: 164,
       def: 4,
       spa: 0,
-      spd: 44,
-      spe: 68
+      spd: 108,
+      spe: 108
     },
     moves: ["Precipice Blades", "High Horsepower", "Heat Crash", "Protect"],
-    items: ["Clear Amulet", "Assault Vest"]
+    items: ["Clear Amulet", "Assault Vest", "Leftovers", "Choice Band", "Wide Lens", "Choice Scarf"]
   },
   Kyogre: {
     ability: "Drizzle",
-    nature: "Modest",
+    nature: "Timid",
     teraType: "Grass",
     evs: {
-      hp: 140,
+      hp: 4,
       atk: 0,
-      def: 68,
-      spa: 156,
-      spd: 4,
-      spe: 140
+      def: 0,
+      spa: 252,
+      spd: 0,
+      spe: 252
     },
-    moves: ["Water Spout", "Hydro Pump", "Origin Pulse", "Protect"],
-    items: ["Mystic Water", "Iron Ball", "Splash Plate", "Choice Scarf"]
+    moves: ["Water Spout", "Origin Pulse", "Thunder", "Ice Beam"],
+    items: ["Choice Scarf", "Assault Vest", "Mystic Water", "Splash Plate", "Choice Specs", "Iron Ball", "Covert Cloak"]
   },
   Ogerpon: {
     ability: "Defiant",
     nature: "Jolly",
     teraType: "Grass",
     evs: {
-      hp: 44,
-      atk: 252,
-      def: 4,
+      hp: 20,
+      atk: 196,
+      def: 76,
       spa: 0,
-      spd: 20,
-      spe: 188
+      spd: 4,
+      spe: 212
     },
-    moves: ["Wood Hammer", "Knock Off", "Follow Me", "Taunt"],
-    items: ["Focus Sash", "Loaded Dice", "Covert Cloak"]
+    moves: ["Ivy Cudgel", "Stomping Tantrum", "Spiky Shield", "Taunt"],
+    items: ["Life Orb", "Covert Cloak", "Coba Berry"]
   },
   Entei: {
     ability: "Inner Focus",
     nature: "Adamant",
-    teraType: "Normal",
+    teraType: "Water",
     evs: {
-      hp: 148,
-      atk: 252,
+      hp: 228,
+      atk: 196,
       def: 4,
       spa: 0,
-      spd: 4,
-      spe: 100
+      spd: 76,
+      spe: 4
     },
-    moves: ["Sacred Fire", "Extreme Speed", "Stomping Tantrum", "Protect"],
-    items: ["Life Orb", "Choice Band"]
+    moves: ["Sacred Fire", "Stone Edge", "Extreme Speed", "Protect"],
+    items: ["Safety Goggles", "Choice Band", "Assault Vest", "Choice Scarf", "Life Orb"]
   },
   "Iron Crown": {
     ability: "Quark Drive",
-    nature: "Timid",
+    nature: "Modest",
     teraType: "Ground",
     evs: {
-      hp: 0,
+      hp: 252,
       atk: 0,
-      def: 68,
-      spa: 244,
-      spd: 0,
-      spe: 196
+      def: 20,
+      spa: 220,
+      spd: 12,
+      spe: 4
     },
-    moves: ["Psychic", "Tera Blast", "Tachyon Cutter", "Protect"],
-    items: ["Life Orb", "Booster Energy", "Metal Coat"]
+    moves: ["Expanding Force", "Tera Blast", "Tachyon Cutter", "Protect"],
+    items: ["Booster Energy"]
   },
   "Ogerpon-Wellspring": {
     ability: "Water Absorb",
-    nature: "Impish",
+    nature: "Adamant",
     teraType: "Water",
     evs: {
       hp: 252,
-      atk: 76,
-      def: 132,
+      atk: 156,
+      def: 4,
       spa: 0,
-      spd: 28,
-      spe: 20
+      spd: 44,
+      spe: 52
     },
     moves: ["Ivy Cudgel", "Horn Leech", "Spiky Shield", "Follow Me"],
     items: ["Wellspring Mask"]
@@ -2756,16 +2756,16 @@ export const SETDEX_SV: Record<string, any> = {
   "Iron Jugulis": {
     ability: "Quark Drive",
     nature: "Timid",
-    teraType: "Ground",
+    teraType: "Fire",
     evs: {
       hp: 252,
       atk: 0,
-      def: 36,
+      def: 4,
       spa: 4,
-      spd: 44,
-      spe: 172
+      spd: 148,
+      spe: 100
     },
-    moves: ["Hurricane", "Snarl", "Tailwind", "Taunt"],
+    moves: ["Hurricane", "Snarl", "Tailwind", "Protect"],
     items: ["Booster Energy"]
   },
   Latios: {
@@ -2796,7 +2796,7 @@ export const SETDEX_SV: Record<string, any> = {
       spe: 252
     },
     moves: ["Steel Roller", "High Horsepower", "Iron Head", "Protect"],
-    items: ["Life Orb", "Choice Band"]
+    items: ["Life Orb", "Choice Band", "Clear Amulet", "Booster Energy", "Assault Vest"]
   },
   "Scream Tail": {
     ability: "Protosynthesis",
@@ -2820,27 +2820,27 @@ export const SETDEX_SV: Record<string, any> = {
     evs: {
       hp: 220,
       atk: 0,
-      def: 0,
-      spa: 196,
-      spd: 0,
-      spe: 92
+      def: 36,
+      spa: 236,
+      spd: 12,
+      spe: 0
     },
-    moves: ["Moongeist Beam", "Moonblast", "Trick Room", "Wide Guard"],
-    items: ["Electric Seed", "Power Herb", "Leftovers"]
+    moves: ["Meteor Beam", "Moongeist Beam", "Trick Room", "Wide Guard"],
+    items: ["Power Herb", "Electric Seed", "Leftovers", "Mental Herb", "Safety Goggles", "Covert Cloak"]
   },
   "Roaring Moon": {
     ability: "Protosynthesis",
-    nature: "Jolly",
+    nature: "Adamant",
     teraType: "Flying",
     evs: {
-      hp: 28,
-      atk: 220,
-      def: 4,
+      hp: 0,
+      atk: 252,
+      def: 0,
       spa: 0,
       spd: 4,
       spe: 252
     },
-    moves: ["Knock Off", "Acrobatics", "Protect", "Tailwind"],
+    moves: ["Knock Off", "Acrobatics", "Protect", "Dragon Dance"],
     items: ["Booster Energy"]
   },
   Regidrago: {
@@ -2848,15 +2848,15 @@ export const SETDEX_SV: Record<string, any> = {
     nature: "Timid",
     teraType: "Ghost",
     evs: {
-      hp: 0,
+      hp: 4,
       atk: 0,
-      def: 4,
+      def: 60,
       spa: 252,
-      spd: 0,
-      spe: 252
+      spd: 140,
+      spe: 52
     },
     moves: ["Dragon Energy", "Draco Meteor", "Earth Power", "Protect"],
-    items: ["Life Orb", "Dragon Fang", "Draco Plate"]
+    items: ["Dragon Fang"]
   },
   Hitmontop: {
     ability: "Intimidate",
@@ -2878,14 +2878,14 @@ export const SETDEX_SV: Record<string, any> = {
     nature: "Adamant",
     teraType: "Fairy",
     evs: {
-      hp: 244,
-      atk: 92,
-      def: 4,
+      hp: 236,
+      atk: 164,
+      def: 44,
       spa: 0,
-      spd: 4,
-      spe: 164
+      spd: 44,
+      spe: 20
     },
-    moves: ["Behemoth Blade", "Play Rough", "Protect", "Swords Dance"],
+    moves: ["Play Rough", "Iron Head", "Protect", "Substitute"],
     items: ["Rusted Sword"]
   },
   Okidogi: {
@@ -2965,17 +2965,17 @@ export const SETDEX_SV: Record<string, any> = {
   },
   "Iron Valiant": {
     ability: "Quark Drive",
-    nature: "Timid",
-    teraType: "Dark",
+    nature: "Jolly",
+    teraType: "Ghost",
     evs: {
-      hp: 44,
-      atk: 0,
+      hp: 0,
+      atk: 252,
       def: 4,
-      spa: 252,
-      spd: 28,
-      spe: 180
+      spa: 0,
+      spd: 0,
+      spe: 252
     },
-    moves: ["Dazzling Gleam", "Aura Sphere", "Protect", "Disable"],
+    moves: ["Spirit Break", "Wide Guard", "Coaching", "Encore"],
     items: ["Booster Energy", "Focus Sash"]
   },
   Regigigas: {
@@ -2995,18 +2995,18 @@ export const SETDEX_SV: Record<string, any> = {
   },
   "Ting-Lu": {
     ability: "Vessel of Ruin",
-    nature: "Impish",
+    nature: "Sassy",
     teraType: "Fairy",
     evs: {
-      hp: 204,
-      atk: 0,
-      def: 132,
-      spa: 0,
-      spd: 172,
+      hp: 244,
+      atk: 4,
+      def: 4,
+      spa: 4,
+      spd: 252,
       spe: 0
     },
-    moves: ["Rock Tomb", "Sand Tomb", "Protect", "Ruination"],
-    items: ["Leftovers", "Safety Goggles", "Rocky Helmet", "Assault Vest"]
+    moves: ["Stomping Tantrum", "Snarl", "Stealth Rock", "Heavy Slam"],
+    items: ["Rocky Helmet"]
   },
   Regieleki: {
     ability: "Transistor",
@@ -3025,18 +3025,18 @@ export const SETDEX_SV: Record<string, any> = {
   },
   Cresselia: {
     ability: "Levitate",
-    nature: "Calm",
+    nature: "Bold",
     teraType: "Fairy",
     evs: {
       hp: 252,
       atk: 0,
       def: 156,
-      spa: 4,
-      spd: 20,
-      spe: 76
+      spa: 0,
+      spd: 100,
+      spe: 0
     },
-    moves: ["Moonblast", "Icy Wind", "Lunar Blessing", "Thunder Wave"],
-    items: ["Electric Seed", "Safety Goggles"]
+    moves: ["Lunar Blessing", "Trick Room", "Helping Hand", "Thunder Wave"],
+    items: ["Mental Herb", "Leftovers", "Covert Cloak", "Maranga Berry", "Safety Goggles"]
   },
   "Brute Bonnet": {
     ability: "Protosynthesis",
@@ -3045,13 +3045,13 @@ export const SETDEX_SV: Record<string, any> = {
     evs: {
       hp: 252,
       atk: 4,
-      def: 244,
+      def: 164,
       spa: 0,
-      spd: 4,
+      spd: 84,
       spe: 4
     },
     moves: ["Seed Bomb", "Sucker Punch", "Spore", "Rage Powder"],
-    items: ["Covert Cloak", "Sitrus Berry"]
+    items: ["Sitrus Berry", "Covert Cloak", "Quick Claw", "Rocky Helmet", "Booster Energy", "Mental Herb", "Roseli Berry"]
   },
   Alcremie: {
     ability: "Sweet Veil",
@@ -3129,19 +3129,19 @@ export const SETDEX_SV: Record<string, any> = {
     items: ["Covert Cloak", "Sitrus Berry", "Safety Goggles", "Ability Shield"]
   },
   "Goodra-Hisui": {
-    ability: "Sap Sipper",
-    nature: "Modest",
+    ability: "Shell Armor",
+    nature: "Impish",
     teraType: "Ghost",
     evs: {
-      hp: 252,
-      atk: 0,
-      def: 148,
-      spa: 4,
-      spd: 92,
+      hp: 36,
+      atk: 4,
+      def: 244,
+      spa: 0,
+      spd: 212,
       spe: 12
     },
-    moves: ["Body Press", "Protect", "Acid Armor", "Heavy Slam"],
-    items: ["Leftovers"]
+    moves: ["Body Press", "Protect", "Shelter", "Heavy Slam"],
+    items: ["Leftovers", "Sitrus Berry"]
   },
   Umbreon: {
     ability: "Inner Focus",
@@ -3163,30 +3163,30 @@ export const SETDEX_SV: Record<string, any> = {
     nature: "Timid",
     teraType: "Water",
     evs: {
-      hp: 4,
+      hp: 0,
       atk: 0,
-      def: 4,
-      spa: 244,
-      spd: 4,
+      def: 0,
+      spa: 248,
+      spd: 8,
       spe: 252
     },
-    moves: ["Draco Meteor", "Hydro Steam", "Snarl", "Protect"],
-    items: ["Life Orb", "Assault Vest"]
+    moves: ["Draco Meteor", "Flamethrower", "Hydro Steam", "Protect"],
+    items: ["Life Orb", "Choice Specs", "Booster Energy"]
   },
   Heatran: {
     ability: "Flash Fire",
-    nature: "Quiet",
+    nature: "Modest",
     teraType: "Fairy",
     evs: {
-      hp: 252,
-      atk: 4,
-      def: 108,
-      spa: 76,
-      spd: 68,
-      spe: 0
+      hp: 244,
+      atk: 0,
+      def: 4,
+      spa: 236,
+      spd: 4,
+      spe: 20
     },
-    moves: ["Magma Storm", "Tera Blast", "Protect", "Heavy Slam"],
-    items: ["Sitrus Berry", "Zoom Lens"]
+    moves: ["Magma Storm", "Earth Power", "Flash Cannon", "Protect"],
+    items: ["Leftovers"]
   },
   Cobalion: {
     ability: "Justified",
@@ -3205,18 +3205,18 @@ export const SETDEX_SV: Record<string, any> = {
   },
   "Iron Bundle": {
     ability: "Quark Drive",
-    nature: "Timid",
+    nature: "Modest",
     teraType: "Ghost",
     evs: {
-      hp: 4,
+      hp: 0,
       atk: 0,
       def: 0,
       spa: 252,
-      spd: 0,
+      spd: 4,
       spe: 252
     },
-    moves: ["Freeze-Dry", "Icy Wind", "Protect", "Encore"],
-    items: ["Focus Sash"]
+    moves: ["Hydro Pump", "Ice Beam", "Tera Blast", "Freeze-Dry"],
+    items: ["Booster Energy"]
   },
   "Wo-Chien": {
     ability: "Tablets of Ruin",
@@ -3283,15 +3283,15 @@ export const SETDEX_SV: Record<string, any> = {
     nature: "Adamant",
     teraType: "Water",
     evs: {
-      hp: 252,
-      atk: 4,
-      def: 0,
+      hp: 124,
+      atk: 204,
+      def: 44,
       spa: 0,
-      spd: 252,
-      spe: 0
+      spd: 4,
+      spe: 132
     },
-    moves: ["U-turn", "Stomping Tantrum", "Rock Slide", "Earthquake"],
-    items: ["Assault Vest"]
+    moves: ["Earthquake", "Rock Slide", "Stomping Tantrum", "U-turn"],
+    items: ["Choice Band", "Choice Scarf", "Assault Vest", "Leftovers"]
   },
   Altaria: {
     ability: "Cloud Nine",
@@ -3313,15 +3313,15 @@ export const SETDEX_SV: Record<string, any> = {
     nature: "Jolly",
     teraType: "Normal",
     evs: {
-      hp: 156,
-      atk: 84,
+      hp: 108,
+      atk: 148,
       def: 4,
       spa: 0,
-      spd: 60,
-      spe: 204
+      spd: 4,
+      spe: 244
     },
-    moves: ["Flare Blitz", "Breaking Swipe", "Burning Bulwark", "Howl"],
-    items: ["Clear Amulet", "Covert Cloak", "Booster Energy", "Safety Goggles", "Choice Band"]
+    moves: ["Breaking Swipe", "Burning Bulwark", "Howl", "Heat Crash"],
+    items: ["Booster Energy", "Clear Amulet", "Figy Berry", "Life Orb"]
   },
   "Sandy Shocks": {
     ability: "Protosynthesis",
@@ -3340,18 +3340,18 @@ export const SETDEX_SV: Record<string, any> = {
   },
   Eternatus: {
     ability: "Pressure",
-    nature: "Bold",
-    teraType: "Fairy",
+    nature: "Timid",
+    teraType: "Dark",
     evs: {
-      hp: 196,
+      hp: 108,
       atk: 0,
-      def: 124,
-      spa: 4,
-      spd: 180,
-      spe: 4
+      def: 76,
+      spa: 84,
+      spd: 20,
+      spe: 220
     },
-    moves: ["Dynamax Cannon", "Sludge Bomb", "Protect", "Recover"],
-    items: ["Black Sludge", "Power Herb", "Life Orb", "Leftovers", "Covert Cloak", "Safety Goggles"]
+    moves: ["Dynamax Cannon", "Sludge Bomb", "Shadow Ball", "Toxic Spikes"],
+    items: ["Covert Cloak", "Power Herb", "Life Orb", "Leftovers"]
   },
   Dugtrio: {
     ability: "Arena Trap",
@@ -3583,15 +3583,15 @@ export const SETDEX_SV: Record<string, any> = {
     nature: "Adamant",
     teraType: "Normal",
     evs: {
-      hp: 252,
+      hp: 196,
       atk: 252,
-      def: 0,
+      def: 4,
       spa: 0,
       spd: 4,
-      spe: 0
+      spe: 52
     },
     moves: ["Extreme Speed", "Shadow Claw", "Protect", "Swords Dance"],
-    items: ["Clear Amulet", "Choice Band", "Leftovers", "Life Orb", "Silk Scarf", "Covert Cloak", "Electric Seed", "Sitrus Berry"]
+    items: ["Clear Amulet", "Choice Band", "Life Orb", "Silk Scarf", "Covert Cloak", "Leftovers"]
   },
   Arctibax: {
     ability: "Thermal Exchange",
@@ -3639,19 +3639,19 @@ export const SETDEX_SV: Record<string, any> = {
     items: ["Life Orb", "Choice Band", "Choice Scarf"]
   },
   Articuno: {
-    ability: "Pressure",
-    nature: "Calm",
+    ability: "Snow Cloak",
+    nature: "Modest",
     teraType: "Steel",
     evs: {
-      hp: 248,
+      hp: 252,
       atk: 0,
-      def: 0,
-      spa: 0,
-      spd: 208,
-      spe: 52
+      def: 44,
+      spa: 196,
+      spd: 4,
+      spe: 12
     },
-    moves: ["Freeze-Dry", "Roost", "Substitute", "Haze"],
-    items: ["Leftovers"]
+    moves: ["Blizzard", "Ice Beam", "Freeze-Dry", "Sheer Cold"],
+    items: ["Choice Specs", "Never-Melt Ice"]
   },
   "Articuno-Galar": {
     ability: "Competitive",
@@ -4408,15 +4408,15 @@ export const SETDEX_SV: Record<string, any> = {
     nature: "Timid",
     teraType: "Ghost",
     evs: {
-      hp: 0,
+      hp: 4,
       atk: 0,
       def: 0,
       spa: 252,
-      spd: 4,
+      spd: 0,
       spe: 252
     },
-    moves: ["Sludge Bomb", "Dark Pulse", "Dark Void", "Protect"],
-    items: ["Focus Sash", "Wide Lens", "Covert Cloak", "Choice Scarf", "Blunder Policy", "Life Orb", "Leftovers", "Sitrus Berry"]
+    moves: ["Dark Pulse", "Icy Wind", "Dark Void", "Protect"],
+    items: ["Focus Sash", "Covert Cloak", "Wide Lens", "Choice Scarf", "Blunder Policy"]
   },
   Decidueye: {
     ability: "Long Reach",
@@ -4464,18 +4464,18 @@ export const SETDEX_SV: Record<string, any> = {
   },
   "Deoxys-Attack": {
     ability: "Pressure",
-    nature: "Hasty",
-    teraType: "Psychic",
+    nature: "Naive",
+    teraType: "Stellar",
     evs: {
       hp: 0,
-      atk: 4,
+      atk: 196,
       def: 0,
-      spa: 252,
+      spa: 60,
       spd: 0,
       spe: 252
     },
-    moves: ["Psycho Boost", "Superpower", "Expanding Force", "Protect"],
-    items: ["Focus Sash", "Life Orb", "Choice Specs", "Power Herb", "Choice Band"]
+    moves: ["Psycho Boost", "Superpower", "Knock Off", "Protect"],
+    items: ["Focus Sash", "Power Herb"]
   },
   "Deoxys-Defense": {
     ability: "Pressure",
@@ -5392,18 +5392,18 @@ export const SETDEX_SV: Record<string, any> = {
   },
   "Ho-Oh": {
     ability: "Regenerator",
-    nature: "Adamant",
-    teraType: "Grass",
+    nature: "Impish",
+    teraType: "Dragon",
     evs: {
-      hp: 156,
-      atk: 76,
-      def: 204,
+      hp: 252,
+      atk: 96,
+      def: 124,
       spa: 0,
-      spd: 4,
-      spe: 68
+      spd: 0,
+      spe: 36
     },
     moves: ["Brave Bird", "Sacred Fire", "Protect", "Tailwind"],
-    items: ["Clear Amulet", "Rocky Helmet"]
+    items: ["Clear Amulet", "Safety Goggles", "Leftovers", "Rocky Helmet", "Covert Cloak"]
   },
   Honchkrow: {
     ability: "Moxie",
@@ -5542,17 +5542,17 @@ export const SETDEX_SV: Record<string, any> = {
   "Iron Moth": {
     ability: "Quark Drive",
     nature: "Timid",
-    teraType: "Dark",
+    teraType: "Ghost",
     evs: {
-      hp: 172,
+      hp: 124,
       atk: 0,
-      def: 36,
-      spa: 44,
-      spd: 4,
+      def: 0,
+      spa: 132,
+      spd: 0,
       spe: 252
     },
-    moves: ["Flamethrower", "Pounce", "Protect", "Toxic Spikes"],
-    items: ["Booster Energy", "Expert Belt"]
+    moves: ["Overheat", "Protect", "Toxic Spikes", "Light Screen"],
+    items: ["Covert Cloak", "Focus Sash", "Booster Energy", "Assault Vest"]
   },
   "Iron Thorns": {
     ability: "Quark Drive",
@@ -5915,7 +5915,7 @@ export const SETDEX_SV: Record<string, any> = {
   },
   Magearna: {
     ability: "Soul-Heart",
-    nature: "Quiet",
+    nature: "Modest",
     teraType: "Water",
     evs: {
       hp: 252,
@@ -5925,8 +5925,8 @@ export const SETDEX_SV: Record<string, any> = {
       spd: 4,
       spe: 0
     },
-    moves: ["Flash Cannon", "Dazzling Gleam", "Trick Room", "Protect"],
-    items: ["Life Orb", "Leftovers", "Covert Cloak", "Safety Goggles", "Fairy Feather", "Sitrus Berry", "Mental Herb", "Assault Vest", "Pixie Plate", "Electric Seed", "Weakness Policy", "Room Service", "Lum Berry", "Choice Specs"]
+    moves: ["Dazzling Gleam", "Flash Cannon", "Trick Room", "Protect"],
+    items: ["Safety Goggles", "Covert Cloak", "Mental Herb", "Fairy Feather", "Life Orb", "Leftovers", "Assault Vest", "Sitrus Berry", "Pixie Plate"]
   },
   Magnemite: {
     ability: "Sturdy",
@@ -6516,17 +6516,17 @@ export const SETDEX_SV: Record<string, any> = {
   Pecharunt: {
     ability: "Poison Puppeteer",
     nature: "Calm",
-    teraType: "Dark",
+    teraType: "Water",
     evs: {
-      hp: 220,
+      hp: 228,
       atk: 0,
       def: 4,
-      spa: 4,
-      spd: 252,
-      spe: 28
+      spa: 76,
+      spd: 156,
+      spe: 44
     },
-    moves: ["Malignant Chain", "Hex", "Protect", "Poison Gas"],
-    items: ["Leftovers", "Sitrus Berry", "Rocky Helmet", "Black Sludge", "Electric Seed", "Covert Cloak", "Focus Sash", "Life Orb", "Assault Vest", "Wide Lens", "Safety Goggles", "Choice Scarf", "Psychic Seed", "Mental Herb"]
+    moves: ["Malignant Chain", "Shadow Ball", "Protect", "Poison Gas"],
+    items: ["Leftovers", "Rocky Helmet", "Black Sludge", "Sitrus Berry", "Wide Lens"]
   },
   Perrserker: {
     ability: "Tough Claws",
@@ -7455,19 +7455,19 @@ export const SETDEX_SV: Record<string, any> = {
     items: ["Eviolite"]
   },
   Staraptor: {
-    ability: "Reckless",
+    ability: "Intimidate",
     nature: "Jolly",
     teraType: "Flying",
     evs: {
-      hp: 0,
+      hp: 4,
       atk: 252,
       def: 0,
       spa: 0,
-      spd: 4,
+      spd: 0,
       spe: 252
     },
-    moves: ["Brave Bird", "Quick Attack", "U-turn", "Close Combat"],
-    items: ["Choice Band"]
+    moves: ["Brave Bird", "Tailwind", "Endure", "Endeavor"],
+    items: ["Sharp Beak"]
   },
   Stunky: {
     ability: "Aftermath",
@@ -8014,15 +8014,15 @@ export const SETDEX_SV: Record<string, any> = {
     nature: "Jolly",
     teraType: "Flying",
     evs: {
-      hp: 96,
+      hp: 0,
       atk: 252,
       def: 0,
       spa: 0,
-      spd: 0,
-      spe: 160
+      spd: 4,
+      spe: 252
     },
-    moves: ["Close Combat", "Brave Bird", "Knock Off", "U-turn"],
-    items: ["Choice Scarf"]
+    moves: ["Brave Bird", "Close Combat", "Throat Chop", "U-turn"],
+    items: ["Choice Scarf", "Life Orb"]
   },
   Zarude: {
     ability: "Leaf Guard",
