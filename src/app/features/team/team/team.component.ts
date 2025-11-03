@@ -27,11 +27,19 @@ export class TeamComponent {
 
   teamMemberSelected = output<string>()
 
-  pokemonOnEdit = computed(() => this.store.findPokemonById(this.pokemonId()))
-
   combineDamageActive = signal(false)
 
   pokemonBuild = viewChild<PokemonBuildComponent>("pokemonBuild")
+
+  pokemonOnEdit = computed(() => this.store.findPokemonById(this.pokemonId()))
+
+  canImportPokemon = computed(() => !this.store.team().isFull())
+
+  canExportPokemon = computed(() => !this.pokemonOnEdit().isDefault)
+
+  teamMemberOnEdit = computed(() => this.pokemonOnEdit().equals(this.store.team().activePokemon()) || this.pokemonOnEdit().id === this.store.secondAttackerId())
+
+  targetOnEdit = computed(() => this.store.targets().some(t => t.pokemon.id === this.pokemonOnEdit().id))
 
   constructor() {
     effect(() => {
@@ -174,17 +182,5 @@ export class TeamComponent {
 
     this.teamMemberSelected.emit((pokemon as Pokemon).id)
     this.store.replaceActiveTeam(newTeam)
-  }
-
-  canImportPokemon() {
-    return !this.store.team().isFull()
-  }
-
-  canExportPokemon() {
-    return !this.pokemonOnEdit().isDefault
-  }
-
-  teamMemberOnEdit(): boolean {
-    return this.pokemonOnEdit().equals(this.store.team().activePokemon()) || this.pokemonOnEdit().id === this.store.secondAttackerId()
   }
 }

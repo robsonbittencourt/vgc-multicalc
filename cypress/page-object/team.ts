@@ -149,13 +149,18 @@ export class Team {
     new ImportModal().import(pokepaste)
   }
 
+  export(): ExportModal {
+    cy.get('[data-cy="export-pokemon-from-team"]').contains("Export").click({ force: true })
+    return new ExportModal()
+  }
+
   exportPokemon(pokemon: string): ExportModal {
     this.selectPokemon(pokemon)
     cy.get('[data-cy="export-pokemon-from-team"]').contains("Export").click({ force: true })
     return new ExportModal()
   }
 
-  export(team: string): ExportModal {
+  exportTeam(team: string): ExportModal {
     this.selectTeam(team)
     cy.get('[data-cy="export-team-button"]').click({ force: true })
     return new ExportModal()

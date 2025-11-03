@@ -25,10 +25,19 @@ describe("Export", () => {
     exportModal.contentIs(exportedPokemon)
   })
 
+  it("Pokémon from opponent", () => {
+    opponents.importPokemon(poke["chi-yu"])
+    opponents.selectDefender("Chi-Yu")
+
+    const exportModal = team.export()
+
+    exportModal.contentIs(exportedPokemon)
+  })
+
   it("team", () => {
     team.importPokepaste(poke["pokepaste"])
 
-    const exportModal = team.export("Team 2")
+    const exportModal = team.exportTeam("Team 2")
 
     exportModal.contentIs(exportedTeam)
   })

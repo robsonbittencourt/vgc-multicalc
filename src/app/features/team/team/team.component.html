@@ -9,7 +9,7 @@
 
   <div class="pokemon-actions">
     <app-import-pokemon-button [show]="canImportPokemon()" [hidden]="!teamMemberOnEdit()" (pokemonImportedEvent)="pokemonImported($event)" />
-    <app-export-pokemon-button [show]="canExportPokemon()" [hidden]="!teamMemberOnEdit()" [pokemonId]="pokemonId()" data-cy="export-pokemon-from-team" />
+    <app-export-pokemon-button [show]="canExportPokemon()" [hidden]="!teamMemberOnEdit() && !targetOnEdit()" [pokemonId]="pokemonId()" data-cy="export-pokemon-from-team" />
 
     @if (canShowCombineButton()) {
       <div [hidden]="!teamMemberOnEdit()" class="combine-damage" (click)="selectSecondAttacker()">
