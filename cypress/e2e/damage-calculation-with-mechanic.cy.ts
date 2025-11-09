@@ -234,6 +234,25 @@ describe("Test calcs from moves with some mechanic", () => {
     })
   })
 
+  describe.only("Dragon Darts", () => {
+    beforeEach(() => {
+      leftPokemonBuild.importPokemon(poke["dragapult"])
+      rightPokemonBuild.importPokemon(poke["rillaboom"])
+    })
+
+    it("with 1 hit", () => {
+      leftPokemonBuild.hitsTaken(1)
+
+      leftDamageResult.damageIs(0, 35.2, 42, 73, 87)
+    })
+
+    it("with 2 hits", () => {
+      leftPokemonBuild.hitsTaken(2)
+
+      leftDamageResult.damageIs(0, 70.5, 84, 73, 87)
+    })
+  })
+
   describe("Zacian and Zamazenta boost", () => {
     it("Zacian should have +1 in attack", () => {
       leftPokemonBuild.importPokemon(poke["zacian"])

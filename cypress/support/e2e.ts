@@ -96,7 +96,8 @@ const pokeNames = [
   "weezing-galar-misty-surge",
   "indeedee-f",
   "miraidon",
-  "politoad"
+  "politoad",
+  "dragapult"
 ]
 
 before(() => {

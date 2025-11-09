@@ -10,9 +10,19 @@ export class Move {
   constructor(name: string, options: { alliesFainted?: string; hits?: string } = {}) {
     this.name = name
     this.possibleHits = this.moveHits(name)
-    this.hits = options.hits ?? this.possibleHits[this.possibleHits.length - 1]
+    this.hits = this.hitsValue(name, options)
     this.alliesFainted = options.alliesFainted ?? "0"
     this.bp = new MoveSmogon(Generations.get(9), name).bp
+  }
+
+  private hitsValue(name: string, options: any): string {
+    const hits = options.hits ?? this.possibleHits[this.possibleHits.length - 1]
+
+    if (name == "Dragon Darts") {
+      return options.hits ?? this.possibleHits[0]
+    }
+
+    return hits
   }
 
   private moveHits(move: string): string[] {
