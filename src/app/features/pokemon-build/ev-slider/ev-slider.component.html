@@ -50,7 +50,7 @@
         <div class="slider-pipe" [style.left]="thirdJumpPosition()"></div>
         <div class="tooltip-container" [style.left]="thirdJumpPosition()" matTooltip="Jump 3"></div>
 
-        @if (pokemon().jumps.length > 3) {
+        @if (jumps().length > 3) {
           <div class="slider-pipe" [style.left]="fourthJumpPosition()"></div>
           <div class="tooltip-container" [style.left]="fourthJumpPosition()" matTooltip="Jump 4"></div>
         }

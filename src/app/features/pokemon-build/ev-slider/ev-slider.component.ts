@@ -33,6 +33,7 @@ export class EvSliderComponent {
   iv = computed(() => this.pokemon().ivs[this.stat()])
   hpPercentage = computed(() => this.pokemon().hpPercentage)
   statModifier = computed(() => this.pokemon().boosts[this.stat()])
+  jumps = computed(() => this.pokemon().jumps)
 
   actualEvsQuantity = computed(() => {
     const STATS_KEYS: (keyof Stats)[] = ["hp", "atk", "def", "spa", "spd", "spe"]
@@ -327,11 +328,11 @@ export class EvSliderComponent {
   }
 
   private incrementsUntilJump(jump: number) {
-    if (this.pokemon().jumps[jump] == null) {
+    if (this.jumps()[jump] == null) {
       return 0
     }
 
-    const increments = (this.pokemon().jumps[jump]! - 4) / 8
+    const increments = (this.jumps()[jump]! - 4) / 8
 
     if (increments == 0) return 1
 
