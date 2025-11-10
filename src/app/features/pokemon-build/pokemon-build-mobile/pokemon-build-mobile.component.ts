@@ -57,7 +57,7 @@ export class PokemonBuildMobileComponent {
         const activatedPokemon = this.store.findPokemonById(id)
 
         this.modifiedAtk.set(getFinalAttack(activatedPokemon, activatedPokemon.move, this.fieldStore.field()))
-        this.modifiedDef.set(getFinalDefense(activatedPokemon, this.fieldStore.field(), false)) //Esses false tem que avaliar!!
+        this.modifiedDef.set(getFinalDefense(activatedPokemon, this.fieldStore.field(), false))
         this.modifiedSpa.set(getFinalSpecialAttack(activatedPokemon, activatedPokemon.move, this.fieldStore.field()))
         this.modifiedSpd.set(getFinalSpecialDefense(activatedPokemon, this.fieldStore.field(), !false))
         this.modifiedSpe.set(getFinalSpeed(activatedPokemon, this.fieldStore.field(), !false))

@@ -1,0 +1,8 @@
+<app-widget [title]="'Pokémon Probabilities'">
+  <p>{{ pokemon().name }}</p>
+  <img class="pokemon-image" src="assets/sprites/pokemon-sv/{{ pokemon().name }}.png" />
+  <p>{{ pokemon().activeMoveName }}</p>
+  <p>{{ pokemon().moveSet.activeMove.accuracy }}</p>
+  <p>{{ secondary() }}</p>
+  <p>{{ pokemon().moveSet.activeMove.target }}</p>
+</app-widget>

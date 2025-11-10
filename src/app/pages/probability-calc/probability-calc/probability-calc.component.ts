@@ -2,6 +2,7 @@ import { Component, computed, inject, signal } from "@angular/core"
 import { TeamComponent } from "@app/features/team/team/team.component"
 import { TeamsComponent } from "@app/features/team/teams/teams.component"
 import { GeneralProbabilityComponent } from "@app/pages/probability-calc/general-probability/general-probability.component"
+import { PokemonProbabilityComponent } from "@app/pages/probability-calc/pokemon-probability/pokemon-probability.component"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { Pokemon } from "@lib/model/pokemon"
 
@@ -9,7 +10,7 @@ import { Pokemon } from "@lib/model/pokemon"
   selector: "app-probability-calc",
   templateUrl: "./probability-calc.component.html",
   styleUrl: "./probability-calc.component.scss",
-  imports: [TeamComponent, TeamsComponent, GeneralProbabilityComponent]
+  imports: [TeamComponent, TeamsComponent, GeneralProbabilityComponent, PokemonProbabilityComponent]
 })
 export class ProbabilityCalcComponent {
   store = inject(CalculatorStore)

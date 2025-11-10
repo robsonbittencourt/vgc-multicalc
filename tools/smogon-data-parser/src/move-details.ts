@@ -925,7 +925,7 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     pp: 15,
     type: "Dark",
     description: "Sets a layer of Spikes on the opposing side.",
-    secondary: null,
+    secondary: {},
     target: "normal"
   },
   celebrate: {
@@ -6337,7 +6337,7 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     pp: 15,
     type: "Rock",
     description: "Sets Stealth Rock on the target's side.",
-    secondary: null,
+    secondary: {},
     target: "normal"
   },
   stoneedge: {
