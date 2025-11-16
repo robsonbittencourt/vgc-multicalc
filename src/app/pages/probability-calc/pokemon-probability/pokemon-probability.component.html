@@ -2,7 +2,22 @@
   <p>{{ pokemon().name }}</p>
   <img class="pokemon-image" src="assets/sprites/pokemon-sv/{{ pokemon().name }}.png" />
   <p>{{ pokemon().activeMoveName }}</p>
-  <p>{{ pokemon().moveSet.activeMove.accuracy }}</p>
+  <p>{{ accuracy() }}</p>
   <p>{{ secondary() }}</p>
   <p>{{ pokemon().moveSet.activeMove.target }}</p>
+
+  <p>1 time</p>
+  <p>Hit at least one {{ oneTime().hitAtLeastOne }}</p>
+  <p>Hit both {{ oneTime().hitBoth }}</p>
+  <p>Miss both {{ oneTime().missBoth }}</p>
+
+  <p>2 times</p>
+  <p>Hit at least one {{ twoTimes().hitAtLeastOne }}</p>
+  <p>Hit both {{ twoTimes().hitBoth }}</p>
+  <p>Miss both {{ twoTimes().missBoth }}</p>
+
+  <p>3 times</p>
+  <p>Hit at least one {{ threeTimes().hitAtLeastOne }}</p>
+  <p>Hit both {{ threeTimes().hitBoth }}</p>
+  <p>Miss both {{ threeTimes().missBoth }}</p>
 </app-widget>
