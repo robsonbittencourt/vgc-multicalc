@@ -270,7 +270,6 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "trailblaze",
       "uproar",
       "vacuumwave",
-      "double-edge",
       "counter",
       "seismictoss",
       "bellydrum",
@@ -427,8 +426,8 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "hypnosis",
       "flail",
       "howl",
-      "baby-dolleyes",
-      "moonblast"
+      "moonblast",
+      "babydolleyes"
     ],
     group: "Meta"
   },
@@ -862,7 +861,6 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "thunderpunch",
       "trailblaze",
       "uproar",
-      "double-edge",
       "counter",
       "seismictoss",
       "bellydrum",
@@ -1341,7 +1339,6 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "terablast",
       "thunderfang",
       "thrash",
-      "double-edge",
       "twister"
     ],
     group: "Meta"
@@ -3033,7 +3030,6 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "willowisp",
       "doublekick",
       "thrash",
-      "double-edge",
       "morningsun",
       "covet",
       "headsmash"
@@ -4549,7 +4545,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "zenheadbutt",
       "aquatail",
       "dragonrush",
-      "freeze-dry"
+      "freezedry"
     ],
     group: "Low usage"
   },
@@ -6730,7 +6726,6 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "weatherball",
       "doublekick",
       "flail",
-      "mud-slap",
       "detect",
       "wish",
       "yawn",
@@ -6881,7 +6876,6 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "venoshock",
       "willowisp",
       "sandattack",
-      "mud-slap",
       "fakeout",
       "belch"
     ],
@@ -7053,11 +7047,10 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "thrash",
       "throatchop",
       "trailblaze",
-      "double-edge",
       "bite",
       "fissure",
       "iciclecrash",
-      "freeze-dry"
+      "freezedry"
     ],
     group: "Low usage"
   },
@@ -7481,7 +7474,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "tackle",
       "terablast",
       "lastresort",
-      "baby-dolleyes"
+      "babydolleyes"
     ],
     group: "Low usage"
   },
@@ -7849,7 +7842,6 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "willowisp",
       "doublekick",
       "thrash",
-      "double-edge",
       "morningsun",
       "covet",
       "ragingfury"
@@ -9156,7 +9148,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "memento",
       "howl",
       "healingwish",
-      "baby-dolleyes"
+      "babydolleyes"
     ],
     group: "Low usage"
   },
@@ -9280,8 +9272,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "thief",
       "uproar",
       "uturn",
-      "whirlwind",
-      "double-edge"
+      "whirlwind"
     ],
     group: "Regular"
   },
@@ -9475,7 +9466,6 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "venoshock",
       "xscissor",
       "wingattack",
-      "double-edge",
       "counter",
       "feint",
       "crosspoison"
@@ -9607,8 +9597,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "thief",
       "torment",
       "uproar",
-      "uturn",
-      "double-edge"
+      "uturn"
     ],
     group: "Regular"
   },
@@ -9681,7 +9670,6 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "weatherball",
       "woodhammer",
       "stomp",
-      "double-edge",
       "leechseed",
       "growth"
     ],
@@ -9862,7 +9850,6 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "wingattack",
       "sandattack",
       "furyattack",
-      "double-edge",
       "astonish"
     ],
     group: "Regular"
@@ -9940,7 +9927,6 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "zenheadbutt",
       "doublekick",
       "flail",
-      "mud-slap",
       "detect",
       "wish",
       "yawn",
@@ -10304,11 +10290,11 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "waterpulse",
       "supersonic",
       "bubblebeam",
-      "self-destruct",
       "flail",
       "astonish",
       "aquatail",
-      "aquajet"
+      "aquajet",
+      "selfdestruct"
     ],
     group: "Regular"
   },
@@ -13082,8 +13068,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "uproar",
       "uturn",
       "voltswitch",
-      "wildcharge",
-      "baby-dolleyes"
+      "wildcharge"
     ],
     group: "Regular"
   },
@@ -15435,7 +15420,6 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "wildcharge",
       "yawn",
       "zenheadbutt",
-      "double-edge",
       "counter",
       "fissure"
     ],
@@ -15574,11 +15558,9 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "weatherball",
       "whirlpool",
       "stomp",
-      "double-edge",
       "bite",
       "counter",
       "sludge",
-      "mud-slap",
       "mirrorcoat",
       "ancientpower",
       "yawn",
@@ -16395,8 +16377,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "terablast",
       "thief",
       "throatchop",
-      "xscissor",
-      "mud-slap"
+      "xscissor"
     ],
     group: "Regular"
   },
@@ -16543,7 +16524,6 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "xscissor",
       "counter",
       "flail",
-      "mud-slap",
       "nightslash",
       "honeclaws"
     ],
@@ -16688,8 +16668,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "terablast",
       "weatherball",
       "willowisp",
-      "zenheadbutt",
-      "baby-dolleyes"
+      "zenheadbutt"
     ],
     group: "Regular"
   },
@@ -16753,8 +16732,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "takedown",
       "terablast",
       "weatherball",
-      "zenheadbutt",
-      "baby-dolleyes"
+      "zenheadbutt"
     ],
     group: "Regular"
   },
@@ -17603,8 +17581,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "thunderbolt",
       "trailblaze",
       "uturn",
-      "xscissor",
-      "double-edge"
+      "xscissor"
     ],
     group: "Regular"
   },
@@ -18051,8 +18028,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "thrash",
       "thunderfang",
       "wildcharge",
-      "willowisp",
-      "double-edge"
+      "willowisp"
     ],
     group: "Regular"
   },
@@ -18113,8 +18089,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "thrash",
       "thunderfang",
       "wildcharge",
-      "willowisp",
-      "double-edge"
+      "willowisp"
     ],
     group: "Regular"
   },
@@ -21236,7 +21211,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
   magikarp: {
     name: "Magikarp",
     abilities: ["swiftswim", "rattled"],
-    learnset: ["flail", "splash", "tackle"],
+    learnset: ["flail"],
     group: "Regular"
   },
   lapras: {
@@ -21309,8 +21284,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "waterpulse",
       "weatherball",
       "whirlpool",
-      "zenheadbutt",
-      "freeze-dry"
+      "zenheadbutt"
     ],
     group: "Regular"
   },
@@ -21361,8 +21335,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "trailblaze",
       "weatherball",
       "wish",
-      "yawn",
-      "mud-slap"
+      "yawn"
     ],
     group: "Regular"
   },
@@ -21430,7 +21403,6 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "whirlpool",
       "doublekick",
       "flail",
-      "mud-slap",
       "detect",
       "wish",
       "yawn",
@@ -21502,7 +21474,6 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "weatherball",
       "wildcharge",
       "flail",
-      "mud-slap",
       "detect",
       "wish",
       "yawn",
@@ -21573,7 +21544,6 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "willowisp",
       "doublekick",
       "flail",
-      "mud-slap",
       "detect",
       "wish",
       "yawn",
@@ -22890,8 +22860,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "trick",
       "uproar",
       "uturn",
-      "waterpulse",
-      "baby-dolleyes"
+      "waterpulse"
     ],
     group: "Regular"
   },
@@ -22964,8 +22933,8 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "focusenergy",
       "slash",
       "lastresort",
-      "baby-dolleyes",
-      "tidyup"
+      "tidyup",
+      "babydolleyes"
     ],
     group: "Regular"
   },
@@ -24277,8 +24246,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "uproar",
       "uturn",
       "whirlwind",
-      "wingattack",
-      "double-edge"
+      "wingattack"
     ],
     group: "Regular"
   },
@@ -24566,7 +24534,6 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "weatherball",
       "doublekick",
       "flail",
-      "mud-slap",
       "detect",
       "wish",
       "yawn",
@@ -25237,8 +25204,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "uturn",
       "venoshock",
       "wingattack",
-      "xscissor",
-      "double-edge"
+      "xscissor"
     ],
     group: "Regular"
   },
@@ -25491,8 +25457,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "waterfall",
       "watergun",
       "waterpulse",
-      "whirlpool",
-      "self-destruct"
+      "whirlpool"
     ],
     group: "Regular"
   },
@@ -25567,8 +25532,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "toxicspikes",
       "venoshock",
       "waterfall",
-      "waterpulse",
-      "self-destruct"
+      "waterpulse"
     ],
     group: "Regular"
   },
@@ -25644,8 +25608,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "throatchop",
       "trailblaze",
       "upperhand",
-      "vacuumwave",
-      "double-edge"
+      "vacuumwave"
     ],
     group: "Regular"
   },
@@ -25863,8 +25826,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "thunderpunch",
       "trailblaze",
       "uproar",
-      "yawn",
-      "double-edge"
+      "yawn"
     ],
     group: "Regular"
   },
@@ -25937,7 +25899,6 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "thunderpunch",
       "trailblaze",
       "uproar",
-      "double-edge",
       "counter",
       "seismictoss",
       "bellydrum",
@@ -26138,9 +26099,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "tackle",
       "takedown",
       "terablast",
-      "trailblaze",
-      "double-edge",
-      "freeze-dry"
+      "trailblaze"
     ],
     group: "Regular"
   },
@@ -26200,11 +26159,10 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "thrash",
       "throatchop",
       "trailblaze",
-      "double-edge",
       "bite",
       "fissure",
       "iciclecrash",
-      "freeze-dry"
+      "freezedry"
     ],
     group: "Regular"
   },
@@ -26274,8 +26232,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "trailblaze",
       "tripleaxel",
       "waterpulse",
-      "weatherball",
-      "freeze-dry"
+      "weatherball"
     ],
     group: "Regular"
   },
@@ -27629,9 +27586,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "waterpulse",
       "whirlpool",
       "wideguard",
-      "yawn",
-      "double-edge",
-      "mud-slap"
+      "yawn"
     ],
     group: "Regular"
   },
@@ -27693,11 +27648,9 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "waterpulse",
       "whirlpool",
       "stomp",
-      "double-edge",
       "bite",
       "counter",
       "sludge",
-      "mud-slap",
       "mirrorcoat",
       "ancientpower",
       "yawn",
@@ -29053,8 +29006,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "thunderwave",
       "voltswitch",
       "wideguard",
-      "zapcannon",
-      "double-edge"
+      "zapcannon"
     ],
     group: "Regular"
   },
@@ -29539,8 +29491,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "toxicspikes",
       "venoshock",
       "waterpulse",
-      "yawn",
-      "mud-slap"
+      "yawn"
     ],
     group: "Regular"
   },
@@ -29609,7 +29560,6 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "zenheadbutt",
       "smog",
       "acidarmor",
-      "mud-slap",
       "destinybond",
       "clearsmog",
       "stuffcheeks"
@@ -30775,8 +30725,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "watergun",
       "waterpulse",
       "whirlpool",
-      "xscissor",
-      "double-edge"
+      "xscissor"
     ],
     group: "Regular"
   },
@@ -30846,7 +30795,6 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "waterpulse",
       "whirlpool",
       "xscissor",
-      "double-edge",
       "slash",
       "ancientpower",
       "switcheroo",
@@ -31491,7 +31439,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
   beldum: {
     name: "Beldum",
     abilities: ["clearbody", "lightmetal"],
-    learnset: ["irondefense", "ironhead", "steelbeam", "tackle", "takedown", "terablast", "zenheadbutt"],
+    learnset: ["irondefense"],
     group: "Regular"
   },
   metang: {
@@ -32407,8 +32355,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "wideguard",
       "withdraw",
       "worryseed",
-      "zenheadbutt",
-      "double-edge"
+      "zenheadbutt"
     ],
     group: "Regular"
   },
@@ -32465,7 +32412,6 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "withdraw",
       "zenheadbutt",
       "thrash",
-      "double-edge",
       "growth",
       "stockpile",
       "spitup",
@@ -32551,7 +32497,6 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "woodhammer",
       "zenheadbutt",
       "thrash",
-      "double-edge",
       "growth",
       "stockpile",
       "spitup",
@@ -33082,8 +33027,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "uproar",
       "uturn",
       "whirlwind",
-      "wingattack",
-      "double-edge"
+      "wingattack"
     ],
     group: "Regular"
   },
@@ -33129,7 +33073,6 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "wingattack",
       "sandattack",
       "furyattack",
-      "double-edge",
       "astonish"
     ],
     group: "Regular"
@@ -33137,7 +33080,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
   kricketot: {
     name: "Kricketot",
     abilities: ["shedskin", "runaway"],
-    learnset: ["bugbite", "endeavor", "growl", "lunge", "skittersmack", "strugglebug", "tackle", "terablast"],
+    learnset: ["bugbite"],
     group: "Regular"
   },
   kricketune: {
@@ -33247,8 +33190,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "thunderwave",
       "trailblaze",
       "voltswitch",
-      "wildcharge",
-      "baby-dolleyes"
+      "wildcharge"
     ],
     group: "Regular"
   },
@@ -33306,7 +33248,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "howl",
       "shockwave",
       "nightslash",
-      "baby-dolleyes"
+      "babydolleyes"
     ],
     group: "Regular"
   },
@@ -33370,7 +33312,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "howl",
       "shockwave",
       "nightslash",
-      "baby-dolleyes"
+      "babydolleyes"
     ],
     group: "Regular"
   },
@@ -33662,7 +33604,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
   combee: {
     name: "Combee",
     abilities: ["honeygather", "hustle"],
-    learnset: ["bugbite", "bugbuzz", "endeavor", "gust", "lunge", "skittersmack", "sleeptalk", "strugglebug", "sweetscent", "terablast"],
+    learnset: ["bugbite"],
     group: "Regular"
   },
   vespiquen: {
@@ -33788,8 +33730,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "watergun",
       "waterpulse",
       "wavecrash",
-      "whirlpool",
-      "mud-slap"
+      "whirlpool"
     ],
     group: "Regular"
   },
@@ -33858,7 +33799,6 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "headbutt",
       "furyswipes",
       "slash",
-      "mud-slap",
       "furycutter",
       "aquaring"
     ],
@@ -34337,8 +34277,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "toxic",
       "toxicspikes",
       "trailblaze",
-      "venoshock",
-      "double-edge"
+      "venoshock"
     ],
     group: "Regular"
   },
@@ -34410,7 +34349,6 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "toxicspikes",
       "trailblaze",
       "venoshock",
-      "double-edge",
       "leer",
       "smog",
       "slash",
@@ -34638,8 +34576,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "terablast",
       "thrash",
       "thunderfang",
-      "twister",
-      "double-edge"
+      "twister"
     ],
     group: "Regular"
   },
@@ -34701,7 +34638,6 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "terablast",
       "thunderfang",
       "thrash",
-      "double-edge",
       "twister"
     ],
     group: "Regular"
@@ -34775,8 +34711,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "thunderpunch",
       "trailblaze",
       "uproar",
-      "zenheadbutt",
-      "double-edge"
+      "zenheadbutt"
     ],
     group: "Regular"
   },
@@ -35222,8 +35157,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "trailblaze",
       "waterpulse",
       "weatherball",
-      "woodhammer",
-      "double-edge"
+      "woodhammer"
     ],
     group: "Regular"
   },
@@ -35427,7 +35361,6 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "xscissor",
       "doublekick",
       "flail",
-      "mud-slap",
       "detect",
       "wish",
       "yawn",
@@ -35497,7 +35430,6 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "weatherball",
       "doublekick",
       "flail",
-      "mud-slap",
       "detect",
       "wish",
       "yawn",
@@ -35627,7 +35559,6 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "voltswitch",
       "wideguard",
       "zapcannon",
-      "double-edge",
       "rollout",
       "headsmash"
     ],
@@ -38226,8 +38157,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "thief",
       "thrash",
       "thunderfang",
-      "torment",
-      "double-edge"
+      "torment"
     ],
     group: "Regular"
   },
@@ -38297,7 +38227,6 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "thrash",
       "thunderfang",
       "torment",
-      "double-edge",
       "counter",
       "aquatail"
     ],
@@ -38380,7 +38309,6 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "throatchop",
       "thunderfang",
       "torment",
-      "double-edge",
       "counter",
       "aquatail"
     ],
@@ -39395,7 +39323,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
   tynamo: {
     name: "Tynamo",
     abilities: ["levitate"],
-    learnset: ["charge", "chargebeam", "knockoff", "spark", "tackle", "terablast", "thunderwave"],
+    learnset: ["charge"],
     group: "Regular"
   },
   eelektrik: {
@@ -42037,13 +41965,13 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
   scatterbug: {
     name: "Scatterbug",
     abilities: ["shielddust", "compoundeyes", "friendguard"],
-    learnset: ["bugbite", "poisonpowder", "pounce", "ragepowder", "stringshot", "strugglebug", "stunspore", "tackle", "terablast"],
+    learnset: ["bugbite"],
     group: "Regular"
   },
   spewpa: {
     name: "Spewpa",
     abilities: ["shedskin", "friendguard"],
-    learnset: ["bugbite", "harden", "irondefense", "poisonpowder", "pounce", "protect", "ragepowder", "stringshot", "strugglebug", "stunspore", "tackle", "terablast"],
+    learnset: ["bugbite"],
     group: "Regular"
   },
   litleo: {
@@ -45566,8 +45494,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "sunnyday",
       "superpower",
       "takedown",
-      "terablast",
-      "double-edge"
+      "terablast"
     ],
     group: "Regular"
   },
@@ -45622,7 +45549,6 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "superpower",
       "takedown",
       "terablast",
-      "double-edge",
       "fissure"
     ],
     group: "Regular"
@@ -45845,8 +45771,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "toxicspikes",
       "trailblaze",
       "venoshock",
-      "willowisp",
-      "mud-slap"
+      "willowisp"
     ],
     group: "Regular"
   },
@@ -46388,13 +46313,13 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
   cosmog: {
     name: "Cosmog",
     abilities: ["unaware"],
-    learnset: ["splash", "teleport"],
+    learnset: ["splash"],
     group: "Regular"
   },
   cosmoem: {
     name: "Cosmoem",
     abilities: ["sturdy"],
-    learnset: ["cosmicpower", "teleport"],
+    learnset: ["cosmicpower"],
     group: "Regular"
   },
   necrozma: {
@@ -47365,8 +47290,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "takedown",
       "temperflare",
       "terablast",
-      "willowisp",
-      "mud-slap"
+      "willowisp"
     ],
     group: "Regular"
   },
@@ -47424,7 +47348,6 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "terablast",
       "willowisp",
       "explosion",
-      "mud-slap",
       "block"
     ],
     group: "Regular"
@@ -47491,7 +47414,6 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "terablast",
       "willowisp",
       "explosion",
-      "mud-slap",
       "block"
     ],
     group: "Regular"
@@ -47499,7 +47421,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
   applin: {
     name: "Applin",
     abilities: ["ripen", "gluttony", "bulletproof"],
-    learnset: ["astonish", "defensecurl", "pounce", "recycle", "rollout", "suckerpunch", "terablast", "withdraw"],
+    learnset: ["astonish"],
     group: "Regular"
   },
   flapple: {
@@ -47666,8 +47588,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "substitute",
       "takedown",
       "terablast",
-      "wrap",
-      "mud-slap"
+      "wrap"
     ],
     group: "Regular"
   },
@@ -47723,7 +47644,6 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "thunderfang",
       "wrap",
       "zenheadbutt",
-      "mud-slap",
       "lastresort",
       "dragonrush",
       "belch"
@@ -47890,7 +47810,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
   toxel: {
     name: "Toxel",
     abilities: ["rattled", "static", "klutz"],
-    learnset: ["acid", "belch", "charm", "encore", "endeavor", "endure", "facade", "flail", "growl", "metalsound", "nuzzle", "protect", "rest", "sleeptalk", "substitute", "tearfullook", "terablast"],
+    learnset: ["acid"],
     group: "Regular"
   },
   toxtricity: {
@@ -48421,7 +48341,6 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "trailblaze",
       "uturn",
       "xscissor",
-      "double-edge",
       "flail",
       "covet",
       "nightslash"
@@ -48454,8 +48373,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "sweetkiss",
       "sweetscent",
       "tackle",
-      "terablast",
-      "baby-dolleyes"
+      "terablast"
     ],
     group: "Regular"
   },
@@ -48574,7 +48492,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
   snom: {
     name: "Snom",
     abilities: ["shielddust", "icescales"],
-    learnset: ["bugbite", "bugbuzz", "facade", "fairywind", "iciclespear", "icywind", "lunge", "mirrorcoat", "pounce", "powdersnow", "protect", "rest", "skittersmack", "sleeptalk", "strugglebug", "substitute", "terablast"],
+    learnset: ["bugbite"],
     group: "Regular"
   },
   stonjourner: {
@@ -48682,8 +48600,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "waterpulse",
       "weatherball",
       "whirlpool",
-      "zenheadbutt",
-      "double-edge"
+      "zenheadbutt"
     ],
     group: "Regular"
   },
@@ -48739,8 +48656,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "waterpulse",
       "weatherball",
       "whirlpool",
-      "zenheadbutt",
-      "double-edge"
+      "zenheadbutt"
     ],
     group: "Regular"
   },
@@ -48869,8 +48785,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "takedown",
       "terablast",
       "whirlwind",
-      "zenheadbutt",
-      "double-edge"
+      "zenheadbutt"
     ],
     group: "Regular"
   },
@@ -48932,7 +48847,6 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "zenheadbutt",
       "whirlwind",
       "slam",
-      "double-edge",
       "fissure",
       "defensecurl",
       "swagger",
@@ -52193,8 +52107,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "toxicspikes",
       "uproar",
       "venoshock",
-      "zenheadbutt",
-      "self-destruct"
+      "zenheadbutt"
     ],
     group: "Regular"
   },
@@ -52257,9 +52170,9 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "uproar",
       "venoshock",
       "zenheadbutt",
-      "self-destruct",
       "torment",
-      "partingshot"
+      "partingshot",
+      "selfdestruct"
     ],
     group: "Regular"
   },
@@ -52959,8 +52872,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "swordsdance",
       "tackle",
       "takedown",
-      "terablast",
-      "freeze-dry"
+      "terablast"
     ],
     group: "Regular"
   },
@@ -53006,20 +52918,20 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "terablast",
       "aquatail",
       "dragonrush",
-      "freeze-dry"
+      "freezedry"
     ],
     group: "Regular"
   },
   gimmighoul: {
     name: "Gimmighoul",
     abilities: ["rattled"],
-    learnset: ["astonish", "confuseray", "endure", "hex", "lightscreen", "nastyplot", "nightshade", "powergem", "protect", "reflect", "rest", "shadowball", "sleeptalk", "substitute", "tackle", "takedown", "terablast", "thief"],
+    learnset: ["astonish"],
     group: "Regular"
   },
   gimmighoulroaming: {
     name: "Gimmighoul-Roaming",
     abilities: ["runaway"],
-    learnset: ["astonish", "confuseray", "endure", "hex", "lightscreen", "nastyplot", "nightshade", "powergem", "protect", "reflect", "rest", "shadowball", "sleeptalk", "substitute", "tackle", "takedown", "terablast", "thief"],
+    learnset: ["astonish"],
     group: "Regular"
   },
   ironleaves: {
