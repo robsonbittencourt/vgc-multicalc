@@ -1,23 +1,57 @@
 <app-widget [title]="'Pokémon Probabilities'">
   <p>{{ pokemon().name }}</p>
   <img class="pokemon-image" src="assets/sprites/pokemon-sv/{{ pokemon().name }}.png" />
-  <p>{{ pokemon().activeMoveName }}</p>
-  <p>{{ accuracy() }}</p>
-  <p>{{ secondary() }}</p>
-  <p>{{ pokemon().moveSet.activeMove.target }}</p>
 
-  <p>1 time</p>
-  <p>Hit at least one {{ oneTime().hitAtLeastOne }}</p>
-  <p>Hit both {{ oneTime().hitBoth }}</p>
-  <p>Miss both {{ oneTime().missBoth }}</p>
+  <div class="probabilities">
+    <div>
+      <p>Move: {{ pokemon().activeMoveName }}</p>
+      <p>Accuracy: {{ accuracy() }}</p>
+      <p>Secondary effect: {{ secondary() }}</p>
+      <p>Target: {{ pokemon().moveSet.activeMove.target }}</p>
+    </div>
 
-  <p>2 times</p>
-  <p>Hit at least one {{ twoTimes().hitAtLeastOne }}</p>
-  <p>Hit both {{ twoTimes().hitBoth }}</p>
-  <p>Miss both {{ twoTimes().missBoth }}</p>
+    @if (target() == "allAdjacentFoes") {
+      <div>
+        <p>1 time</p>
+        <p>Hit at least one: {{ oneTime().hitAtLeastOne }}%</p>
+        <p>Hit both: {{ oneTime().hitBoth }}%</p>
+        <p>Miss both: {{ oneTime().missBoth }}%</p>
+      </div>
 
-  <p>3 times</p>
-  <p>Hit at least one {{ threeTimes().hitAtLeastOne }}</p>
-  <p>Hit both {{ threeTimes().hitBoth }}</p>
-  <p>Miss both {{ threeTimes().missBoth }}</p>
+      <div>
+        <p>2 times</p>
+        <p>Hit at least one: {{ twoTimes().hitAtLeastOne }}%</p>
+        <p>Hit both: {{ twoTimes().hitBoth }}%</p>
+        <p>Miss both: {{ twoTimes().missBoth }}%</p>
+      </div>
+
+      <div>
+        <p>3 times</p>
+        <p>Hit at least one: {{ threeTimes().hitAtLeastOne }}%</p>
+        <p>Hit both: {{ threeTimes().hitBoth }}%</p>
+        <p>Miss both: {{ threeTimes().missBoth }}%</p>
+      </div>
+    } @else {
+      <div>
+        <p>1 time</p>
+        <p>Hit all: {{ oneTimeSingleTarget().hitAllTurns }}%</p>
+        <p>Hit at least one: {{ oneTimeSingleTarget().hitAtLeastOne }}%</p>
+        <p>Miss all: {{ oneTimeSingleTarget().missAllTurns }}%</p>
+      </div>
+
+      <div>
+        <p>2 times</p>
+        <p>Hit all: {{ twoTimesSingleTarget().hitAllTurns }}%</p>
+        <p>Hit at least one: {{ twoTimesSingleTarget().hitAtLeastOne }}%</p>
+        <p>Miss all: {{ twoTimesSingleTarget().missAllTurns }}%</p>
+      </div>
+
+      <div>
+        <p>3 times</p>
+        <p>Hit all: {{ threeTimesSingleTarget().hitAllTurns }}%</p>
+        <p>Hit at least one: {{ threeTimesSingleTarget().hitAtLeastOne }}%</p>
+        <p>Miss all: {{ threeTimesSingleTarget().missAllTurns }}%</p>
+      </div>
+    }
+  </div>
 </app-widget>

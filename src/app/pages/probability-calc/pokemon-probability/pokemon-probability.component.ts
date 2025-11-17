@@ -16,13 +16,61 @@ export class PokemonProbabilityComponent {
   secondary = computed(() => JSON.stringify(this.pokemon().moveSet.activeMove.secondary))
 
   accuracy = computed(() => this.pokemon().moveSet.activeMove.accuracy)
+  target = computed(() => this.pokemon().moveSet.activeMove.target)
+
   percentualAccuracy = computed(() => this.accuracy() / 100)
+
+  oneTimeSingleTarget = computed(() => this.calculateSingleMoveProbabilities(this.percentualAccuracy(), 1))
+  twoTimesSingleTarget = computed(() => this.calculateSingleMoveProbabilities(this.percentualAccuracy(), 2))
+  threeTimesSingleTarget = computed(() => this.calculateSingleMoveProbabilities(this.percentualAccuracy(), 3))
 
   oneTime = computed(() => this.calculateSpreadMoveProbabilities(this.percentualAccuracy(), 1))
   twoTimes = computed(() => this.calculateSpreadMoveProbabilities(this.percentualAccuracy(), 2))
   threeTimes = computed(() => this.calculateSpreadMoveProbabilities(this.percentualAccuracy(), 3))
 
+  //transformar isso em um que volte 3 coisas
+  // acertar todos os turnos
+  // acertar pelo menos 1
+  // errar todos
+  // isso ja resolve a questão do fissure e deixa padrão
+  calculateSingleMoveProbabilities(accuracy: number, attempts: number): MoveSingleTargetProbabilities {
+    // Se não é single-target, não faz sentido calcular aqui
+    if (this.target() === "allAdjacentFoes") {
+      return {
+        hitAllTurns: "0",
+        hitAtLeastOne: "0",
+        missAllTurns: "0"
+      }
+    }
+
+    const pHit = accuracy
+    const pMiss = 1 - accuracy
+
+    // acertar todos
+    const hitAll = Math.pow(pHit, attempts)
+
+    // errar todos
+    const missAll = Math.pow(pMiss, attempts)
+
+    // acertar pelo menos 1
+    const hitAtLeastOne = 1 - missAll
+
+    return {
+      hitAllTurns: this.formatPercentageDynamic(hitAll),
+      hitAtLeastOne: this.formatPercentageDynamic(hitAtLeastOne),
+      missAllTurns: this.formatPercentageDynamic(missAll)
+    }
+  }
+
   calculateSpreadMoveProbabilities(accuracy: number, attempts: number): SpreadMoveProbabilities {
+    if (this.target() != "allAdjacentFoes") {
+      return {
+        hitBoth: "0",
+        hitAtLeastOne: "0",
+        missBoth: "0"
+      }
+    }
+
     const hitOne = accuracy
     const missOne = 1 - accuracy
 
@@ -71,6 +119,12 @@ export class PokemonProbabilityComponent {
 
     return s
   }
+}
+
+type MoveSingleTargetProbabilities = {
+  hitAllTurns: string
+  hitAtLeastOne: string
+  missAllTurns: string
 }
 
 type SpreadMoveProbabilities = {
