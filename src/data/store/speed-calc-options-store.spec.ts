@@ -22,7 +22,7 @@ describe("Speed Calc Options Store", () => {
 
       const options = store.options()
 
-      expect(options.regulation).toBe("H")
+      expect(options.regulation).toBe("F")
       expect(options.targetName).toBe("Pikachu")
       expect(options.speedModifier).toBe(-1)
       expect(options.speedDropActive).toBeTrue()
@@ -133,7 +133,7 @@ describe("Speed Calc Options Store", () => {
 
     it("should clear Target Name when Regulation is updated", () => {
       store.updateTargetName("Kyogre")
-      store.updateRegulation("H")
+      store.updateRegulation("F")
 
       expect(store.targetName()).toBe("")
     })

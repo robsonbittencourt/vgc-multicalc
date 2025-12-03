@@ -22,7 +22,7 @@ describe("User Data Mapper", () => {
         }
       ]
 
-      const result = buildUserData(speedCalcPokemon, speedCalcPokemon, speedCalcPokemon, teams, targets, "H")
+      const result = buildUserData(speedCalcPokemon, speedCalcPokemon, speedCalcPokemon, teams, targets, "F")
 
       expect(result.speedCalcPokemon.name).toBe("Pikachu")
       expect(result.speedCalcPokemon.nature).toBe("Timid")
@@ -59,7 +59,7 @@ describe("User Data Mapper", () => {
         }
       ]
 
-      const result = buildUserData(leftPokemon, leftPokemon, leftPokemon, teams, targets, "H")
+      const result = buildUserData(leftPokemon, leftPokemon, leftPokemon, teams, targets, "F")
 
       expect(result.leftPokemon.name).toBe("Pikachu")
       expect(result.leftPokemon.nature).toBe("Timid")
@@ -96,7 +96,7 @@ describe("User Data Mapper", () => {
         }
       ]
 
-      const result = buildUserData(rightPokemon, rightPokemon, rightPokemon, teams, targets, "H")
+      const result = buildUserData(rightPokemon, rightPokemon, rightPokemon, teams, targets, "F")
 
       expect(result.rightPokemon.name).toBe("Pikachu")
       expect(result.rightPokemon.nature).toBe("Timid")
@@ -146,7 +146,7 @@ describe("User Data Mapper", () => {
         }
       ]
 
-      const result = buildUserData(teamPokemonOne, teamPokemonOne, teamPokemonOne, teams, targets, "H")
+      const result = buildUserData(teamPokemonOne, teamPokemonOne, teamPokemonOne, teams, targets, "F")
 
       expect(result.teams[0].active).toBeTrue()
       expect(result.teams[0].name).toBe("Team 1")
@@ -183,7 +183,7 @@ describe("User Data Mapper", () => {
         }
       ]
 
-      const result = buildUserData(targetOne, targetOne, targetOne, teams, targets, "H")
+      const result = buildUserData(targetOne, targetOne, targetOne, teams, targets, "F")
 
       expect(result.targets.length).toBe(2)
       expect(result.targets[0].pokemon.name).toBe("Pikachu")

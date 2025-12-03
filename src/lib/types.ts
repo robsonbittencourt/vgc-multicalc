@@ -14,7 +14,7 @@ export type Weather = "Sand" | "Sun" | "Rain" | "Snow" | null
 
 export type StatusDescription = "Healthy" | "Sleep" | "Poison" | "Burn" | "Freeze" | "Paralysis"
 
-export type Regulation = "F" | "H" | "J"
+export type Regulation = "F" | "J"
 
 export type Jumps = [number, number, number, number | null]
 

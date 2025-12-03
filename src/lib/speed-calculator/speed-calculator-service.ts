@@ -3,7 +3,6 @@ import { SETDEX_SV } from "@data/movesets"
 import { pokemonByRegulation } from "@data/regulation-pokemon"
 import { SpeedData } from "@data/speed-data"
 import { SPEED_STATISTICS_REG_F } from "@data/speed-statistics-reg-f"
-import { SPEED_STATISTICS_REG_H } from "@data/speed-statistics-reg-h"
 import { SPEED_STATISTICS_REG_J } from "@data/speed-statistics-reg-j"
 import { ACTUAL, BOOSTER, MAX, MAX_BASE_SPEED_FOR_TR, MIN, MIN_IV_0, SCARF } from "@lib/constants"
 import { defaultPokemon } from "@lib/default-pokemon"
@@ -239,10 +238,6 @@ export class SpeedCalculatorService {
   retrieveSpeedStatistics(pokemonName: string, regulation: Regulation): SpeedData {
     if (regulation == "F") {
       return SPEED_STATISTICS_REG_F[pokemonName]
-    }
-
-    if (regulation == "H") {
-      return SPEED_STATISTICS_REG_H[pokemonName]
     }
 
     return SPEED_STATISTICS_REG_J[pokemonName]

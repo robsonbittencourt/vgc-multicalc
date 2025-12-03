@@ -25,7 +25,7 @@ export class SpeedListComponent {
 
   pokemonId = computed(() => this.store.team().activePokemon().id)
 
-  regulationsList: Regulation[] = ["F", "H", "J"]
+  regulationsList: Regulation[] = ["F", "J"]
 
   topUsageList: string[] = ["60", "100", "125", "All"]
 

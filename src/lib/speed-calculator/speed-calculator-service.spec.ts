@@ -86,7 +86,7 @@ describe("SpeedCalculatorService", () => {
       const pokemon = new Pokemon("Rillaboom", { evs: { spe: 100 } })
       const field = new Field()
       const pokemonEachSide = 30
-      const options = new SpeedCalculatorOptions({ targetName: "Tyranitar", regulation: "H" })
+      const options = new SpeedCalculatorOptions({ targetName: "Tyranitar", regulation: "F" })
 
       const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide, options)
 
@@ -550,18 +550,6 @@ describe("SpeedCalculatorService", () => {
 
       expect(speedDefinition[0].pokemonName).toEqual("Flutter Mane")
       expect(speedDefinition[0].value).toEqual(180)
-      expect(speedDefinition[0].description).toMatch(/\d{1,3}% Usage/)
-    })
-
-    it("should return meta speed description and Pokémon name from Regulation H", () => {
-      const pokemon = new Pokemon("Baxcalibur")
-      const field = new Field()
-      const regulation = "H"
-
-      const speedDefinition = service.statistics(pokemon, field, regulation)
-
-      expect(speedDefinition[0].pokemonName).toEqual("Baxcalibur")
-      expect(speedDefinition[0].value).toEqual(133)
       expect(speedDefinition[0].description).toMatch(/\d{1,3}% Usage/)
     })
 

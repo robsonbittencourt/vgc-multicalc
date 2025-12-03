@@ -41,7 +41,7 @@ export class TargetPokemonComponent {
   private exportPokeService = inject(ExportPokeService)
   private snackBar = inject(SnackbarService)
 
-  regulation = signal<Regulation>(this.store.targetMetaRegulation() ?? "H")
+  regulation = signal<Regulation>(this.store.targetMetaRegulation() ?? "F")
   rollLevelConfig = signal(RollLevelConfig.high())
 
   title = computed(() => (this.isAttacker() ? "Opponent Attackers" : "Opponent Defenders"))
@@ -52,7 +52,7 @@ export class TargetPokemonComponent {
 
   metaButtonLabel = computed(() => (this.haveMetaData() ? "Remove Meta" : "Add Meta"))
 
-  regulationsList: Regulation[] = ["F", "H", "J"]
+  regulationsList: Regulation[] = ["F", "J"]
 
   order = false
 
