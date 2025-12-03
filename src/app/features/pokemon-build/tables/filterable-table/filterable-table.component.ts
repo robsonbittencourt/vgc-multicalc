@@ -177,11 +177,13 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
   }
 
   @HostListener("document:keydown.escape", ["$event"])
-  onEscapeDown(event: KeyboardEvent) {
+  onEscapeDown(event: Event) {
+    const keyboardEvent = event as KeyboardEvent
+
     if (!this.haveFocus() && !this.isComponentFocused) return
 
     this.escapeWasPressed.emit()
-    event.preventDefault()
+    keyboardEvent.preventDefault()
   }
 
   selectEntry(entry: LinkedTableData<T>) {
