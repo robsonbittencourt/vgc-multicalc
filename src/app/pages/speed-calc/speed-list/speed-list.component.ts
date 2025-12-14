@@ -27,7 +27,7 @@ export class SpeedListComponent {
 
   regulationsList: Regulation[] = ["F", "J"]
 
-  topUsageList: string[] = ["60", "100", "125", "All"]
+  topUsageList: string[] = ["30", "60", "100", "125", "All"]
 
   speedCalculatorModes: string[] = SPEED_CALCULATOR_MODES
 
