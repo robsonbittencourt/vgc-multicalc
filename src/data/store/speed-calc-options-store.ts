@@ -49,7 +49,7 @@ export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }
       .sort()
   )
 
-  toogleIceWind(enabled: boolean) {
+  toogleIcyWind(enabled: boolean) {
     const speedModifier = enabled ? -1 : 0
     patchState(this, () => ({ speedModifier: speedModifier }))
     patchState(this, () => ({ speedDropActive: enabled }))

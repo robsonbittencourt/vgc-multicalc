@@ -16,7 +16,7 @@ describe("Speed Calc Options Store", () => {
 
   describe("Computed", () => {
     it("should return options", () => {
-      store.toogleIceWind(true)
+      store.toogleIcyWind(true)
       store.toogleParalyze(true)
       store.updateTargetName("Pikachu")
 
@@ -55,28 +55,28 @@ describe("Speed Calc Options Store", () => {
   })
 
   describe("Methods", () => {
-    it("should change Speed Modifier to -1 when Ice Wind is enabled", () => {
-      store.toogleIceWind(true)
+    it("should change Speed Modifier to -1 when Icy Wind is enabled", () => {
+      store.toogleIcyWind(true)
 
       expect(store.speedModifier()).toBe(-1)
     })
 
-    it("should change Speed Modifier to 0 when Ice Wind is disabled", () => {
-      store.toogleIceWind(true)
-      store.toogleIceWind(false)
+    it("should change Speed Modifier to 0 when Icy Wind is disabled", () => {
+      store.toogleIcyWind(true)
+      store.toogleIcyWind(false)
 
       expect(store.speedModifier()).toBe(0)
     })
 
-    it("should change Speed Drop Active to true when Ice Wind is enabled", () => {
-      store.toogleIceWind(true)
+    it("should change Speed Drop Active to true when Icy Wind is enabled", () => {
+      store.toogleIcyWind(true)
 
       expect(store.speedDropActive()).toBeTrue()
     })
 
-    it("should change Speed Drop Active to false when Ice Wind is disabled", () => {
-      store.toogleIceWind(true)
-      store.toogleIceWind(false)
+    it("should change Speed Drop Active to false when Icy Wind is disabled", () => {
+      store.toogleIcyWind(true)
+      store.toogleIcyWind(false)
 
       expect(store.speedDropActive()).toBeFalse()
     })

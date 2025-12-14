@@ -37,10 +37,10 @@ describe("Speed Calculator", () => {
       speedCalculator.speedInOrder()
     })
 
-    it("decrement speed of opponent Pokémon with Ice Wind", () => {
+    it("decrement speed of opponent Pokémon with Icy Wind", () => {
       team.importPokemon(poke["tyranitar"])
 
-      speedCalculator.iceWind()
+      speedCalculator.icyWind()
       cy.wait(300)
 
       speedCalculator.speedInOrder()
@@ -67,7 +67,7 @@ describe("Speed Calculator", () => {
     it("activate all opponent options at the same time", () => {
       team.importPokemon(poke["tyranitar"])
 
-      speedCalculator.iceWind()
+      speedCalculator.icyWind()
       speedCalculator.paralyzed()
       speedCalculator.choiceScarf()
       cy.wait(300)

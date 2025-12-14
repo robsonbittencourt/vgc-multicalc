@@ -3,8 +3,8 @@ export class SpeedCalculator {
     cy.get('[data-cy="speed-calc-spe-modifier"]').find('[data-cy="input-select"]').click().get("mat-option").contains(modifier).click()
   }
 
-  iceWind() {
-    cy.get(`[data-cy="speed-calc-ice-wind"] button`).click({ force: true })
+  icyWind() {
+    cy.get(`[data-cy="speed-calc-icy-wind"] button`).click({ force: true })
   }
 
   paralyzed() {
