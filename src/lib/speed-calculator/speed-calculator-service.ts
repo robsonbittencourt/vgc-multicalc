@@ -67,6 +67,7 @@ export class SpeedCalculatorService {
     return new SpeedDefinition(pokemon, speed, ACTUAL)
   }
 
+  // aqui é a treta
   private loadSpeedMeta(options: SpeedCalculatorOptions, field: Field): SpeedDefinition[] {
     const speedDefinitions: SpeedDefinition[] = []
 
@@ -207,7 +208,7 @@ export class SpeedCalculatorService {
   }
 
   maxBooster(pokemon: Pokemon, field: Field): SpeedDefinition {
-    const clonedPokemon = pokemon.clone({ ability: new Ability(pokemon.ability.name, true), nature: "Timid", evs: { spe: 252 } })
+    const clonedPokemon = pokemon.clone({ ability: new Ability(pokemon.ability.name, true), nature: "Timid", evs: { spe: 252 }, higherStat: "spe" })
 
     const speed = getFinalSpeed(clonedPokemon, field, false)
     const description = BOOSTER

@@ -37,7 +37,7 @@ export class Pokemon {
     this.teraType = options.teraType ?? DEFAULT_TERA_TYPE
     this.hpPercentage = options.hpPercentage ?? 100
     this.commanderActive = options.commanderActive ?? false
-    this.higherStat = higherStat(this.smogonPokemon)
+    this.higherStat = options.higherStat ?? higherStat(this.smogonPokemon)
     this.bonusBoosts = options.bonusBoosts ?? { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
     this.isAttacker = options.isAttacker ?? false
   }
@@ -315,7 +315,8 @@ export class Pokemon {
       boosts: options.boosts ?? this.boosts,
       bonusBoosts: options.bonusBoosts ?? this.bonusBoosts,
       status: options.status ?? this.status,
-      hpPercentage: options.hpPercentage ?? this.hpPercentage
+      hpPercentage: options.hpPercentage ?? this.hpPercentage,
+      higherStat: options.higherStat ?? this.higherStat
     })
   }
 
