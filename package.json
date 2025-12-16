@@ -1,6 +1,6 @@
 {
   "name": "vgc-multicalc",
-  "version": "1.8.3",
+  "version": "1.8.4",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -15,16 +15,16 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "21.0.3",
-    "@angular/cdk": "21.0.1",
-    "@angular/common": "21.0.3",
-    "@angular/compiler": "21.0.3",
-    "@angular/core": "21.0.3",
-    "@angular/forms": "21.0.3",
-    "@angular/material": "21.0.1",
-    "@angular/platform-browser": "21.0.3",
-    "@angular/platform-browser-dynamic": "21.0.3",
-    "@angular/router": "21.0.3",
+    "@angular/animations": "21.0.5",
+    "@angular/cdk": "21.0.3",
+    "@angular/common": "21.0.5",
+    "@angular/compiler": "21.0.5",
+    "@angular/core": "21.0.5",
+    "@angular/forms": "21.0.5",
+    "@angular/material": "21.0.3",
+    "@angular/platform-browser": "21.0.5",
+    "@angular/platform-browser-dynamic": "21.0.5",
+    "@angular/router": "21.0.5",
     "@ngrx/signals": "20.1.0",
     "@robsonbittencourt/calc": "0.10.4",
     "axios": "1.13.2",
@@ -35,16 +35,16 @@
     "uuid": "13.0.0"
   },
   "devDependencies": {
-    "@angular/build": "^21.0.2",
-    "@angular/cli": "21.0.2",
-    "@angular/compiler-cli": "21.0.3",
+    "@angular/build": "^21.0.3",
+    "@angular/cli": "21.0.3",
+    "@angular/compiler-cli": "21.0.5",
     "@types/jasmine": "5.1.13",
     "@types/uuid": "11.0.0",
     "angular-cli-ghpages": "2.0.3",
-    "angular-eslint": "21.0.1",
+    "angular-eslint": "21.1.0",
     "cypress": "15.7.1",
     "cypress-real-events": "1.15.0",
-    "eslint": "9.39.1",
+    "eslint": "9.39.2",
     "jasmine-core": "5.13.0",
     "karma": "6.4.4",
     "karma-chrome-launcher": "3.2.0",
@@ -53,7 +53,7 @@
     "karma-jasmine-html-reporter": "2.1.0",
     "prettier": "3.7.4",
     "typescript": "5.9.3",
-    "typescript-eslint": "8.48.1"
+    "typescript-eslint": "8.50.0"
   },
   "overrides": {
     "@ngrx/signals": {
