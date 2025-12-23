@@ -1,0 +1,51 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Build outputs
+dist/
+tmp/
+out-tsc/
+bazel-out/
+.angular/cache/
+
+# Test coverage
+coverage/
+*.lcov
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# IDE and editor files
+.idea/
+.vscode/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+.history/
+
+# System files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Large asset directories (optional - uncomment if indexing is slow)
+# src/assets/sprites/
+
+# Miscellaneous
+.sass-cache/
+connect.lock
+libpeerconnection.log
+testem.log
+typings/
+
+# Tools directory (if it contains generated files)
+tools/smogon-data-parser/node_modules/
