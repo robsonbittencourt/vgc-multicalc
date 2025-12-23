@@ -1,0 +1,132 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+
+:host ::ng-deep app-widget {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+:host ::ng-deep app-widget > .container.elevation {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+:host ::ng-deep app-widget .header {
+  flex-shrink: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  min-height: 14em;
+  overflow: auto;
+  justify-content: space-between;
+  gap: 2em;
+  align-items: flex-start;
+  margin-top: 1em;
+}
+
+.container:has(.empty-message) {
+  min-height: auto;
+  padding: 0.5em;
+}
+
+.empty-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 0 0 auto;
+  height: auto;
+  min-height: auto;
+  margin-top: 0;
+  padding: 1em 0;
+  color: var(--text-secondary);
+  font-size: 1.2em;
+}
+
+.empty-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.question-icon {
+  width: 4em;
+  height: auto;
+}
+
+.pokemon-container {
+  display: flex;
+  flex-shrink: 0;
+  width: 140px;
+  min-width: 140px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    min-width: 100%;
+    margin-bottom: 1em;
+  }
+}
+
+.pokemon-image img {
+  width: 10em;
+  height: auto;
+}
+
+.probability-card {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0;
+  min-width: 0;
+  gap: 1em;
+  background-color: var(--highlight);
+  padding: 1em;
+  box-sizing: border-box;
+
+  @media (max-width: 768px) {
+    flex: 1 1 100%;
+    min-width: 100%;
+  }
+}
+
+.title {
+  font-weight: 500;
+  font-size: 1.1em;
+}
+
+.probability-row {
+  display: flex;
+}
+
+.probability-row.header {
+  font-weight: 600;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+  padding-bottom: 0.25em;
+}
+
+.probability-row.header .cell {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.cell {
+  flex: 1;
+  text-align: center;
+  padding: 0.25em 0.5em;
+}
+
+.header .cell {
+  line-height: 1.5;
+  text-align: center;
+}

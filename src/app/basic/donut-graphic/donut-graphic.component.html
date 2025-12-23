@@ -1,0 +1,9 @@
+<div class="donut-wrapper">
+  <svg width="120" height="120" viewBox="0 0 120 120">
+    <circle class="track" cx="60" cy="60" [attr.r]="radius" stroke-width="12" fill="transparent"></circle>
+    <circle class="progress" cx="60" cy="60" [attr.r]="radius" stroke-width="12" fill="transparent" [attr.stroke]="color" [attr.stroke-dasharray]="circumference" [attr.stroke-dashoffset]="strokeDashoffset"></circle>
+    <text x="60" y="66" text-anchor="middle" class="score-text" data-cy="donut-score-text">
+      {{ score() }}
+    </text>
+  </svg>
+</div>

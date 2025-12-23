@@ -83,6 +83,59 @@ describe("Calculator Store", () => {
 
       expect(store.attackerId()).toBe("456")
     })
+
+    it("should load team member at index 0", () => {
+      expect(store.teamMember0()?.name).toBe("Miraidon")
+    })
+
+    it("should load team member at index 1", () => {
+      expect(store.teamMember1()?.name).toBe("Koraidon")
+    })
+
+    it("should load team member at index 2", () => {
+      expect(store.teamMember2()?.name).toBe("Rillaboom")
+    })
+
+    it("should load team member at index 3", () => {
+      expect(store.teamMember3()?.name).toBe("Incineroar")
+    })
+
+    it("should return null for team member at index 4 when team has less than 5 members", () => {
+      expect(store.teamMember4()).toBeNull()
+    })
+
+    it("should return null for team member at index 5 when team has less than 6 members", () => {
+      expect(store.teamMember5()).toBeNull()
+    })
+
+    it("should load team member at index 4 when team has 5 members", () => {
+      const teamX = new Team("123", true, "Team X", [
+        new TeamMember(new Pokemon("Pikachu", { id: "1" }), true),
+        new TeamMember(new Pokemon("Raichu", { id: "2" }), false),
+        new TeamMember(new Pokemon("Clefairy", { id: "3" }), false),
+        new TeamMember(new Pokemon("Clefable", { id: "4" }), false),
+        new TeamMember(new Pokemon("Jigglypuff", { id: "5" }), false)
+      ])
+
+      store.updateTeams([teamX])
+
+      expect(store.teamMember4()?.name).toBe("Jigglypuff")
+    })
+
+    it("should load team member at index 5 when team has 6 members", () => {
+      const teamX = new Team("123", true, "Team X", [
+        new TeamMember(new Pokemon("Pikachu", { id: "1" }), true),
+        new TeamMember(new Pokemon("Raichu", { id: "2" }), false),
+        new TeamMember(new Pokemon("Clefairy", { id: "3" }), false),
+        new TeamMember(new Pokemon("Clefable", { id: "4" }), false),
+        new TeamMember(new Pokemon("Jigglypuff", { id: "5" }), false),
+        new TeamMember(new Pokemon("Wigglytuff", { id: "6" }), false)
+      ])
+
+      store.updateTeams([teamX])
+
+      expect(store.teamMember5()?.name).toBe("Wigglytuff")
+    })
   })
 
   describe("methods", () => {

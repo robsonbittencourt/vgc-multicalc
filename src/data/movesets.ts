@@ -5058,7 +5058,7 @@ export const SETDEX_SV: Record<string, any> = {
       spd: 4,
       spe: 252
     },
-    moves: ["Earthquake", "Spikes", "Explosion", "Frustration"],
+    moves: ["Earthquake", "Spikes", "Explosion", "Double-Edge"],
     items: ["Glalitite"]
   },
   Glastrier: {

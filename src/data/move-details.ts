@@ -1,4 +1,4 @@
-import { PokemonType } from "@lib/types"
+import { MoveTarget, PokemonType, SecondaryEffect } from "@lib/types"
 
 export type MoveName = keyof typeof MOVE_DETAILS
 
@@ -10,6 +10,8 @@ export interface MoveDetail {
   pp: number
   type: PokemonType
   description: string
+  secondary: SecondaryEffect | null
+  target: MoveTarget
 }
 
 export const MOVE_DETAILS: Record<string, MoveDetail> = {
@@ -20,7 +22,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Absorb",
     pp: 25,
     type: "Grass",
-    description: "User recovers 50% of the damage dealt."
+    description: "User recovers 50% of the damage dealt.",
+    secondary: null,
+    target: "normal"
   },
   accelerock: {
     accuracy: 100,
@@ -29,7 +33,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Accelerock",
     pp: 20,
     type: "Rock",
-    description: "Usually goes first."
+    description: "Usually goes first.",
+    secondary: null,
+    target: "normal"
   },
   acid: {
     accuracy: 100,
@@ -38,7 +44,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Acid",
     pp: 30,
     type: "Poison",
-    description: "10% chance to lower the foe(s) Sp. Def by 1."
+    description: "10% chance to lower the foe(s) Sp. Def by 1.",
+    secondary: { chance: 10, boosts: { spd: -1 } },
+    target: "allAdjacentFoes"
   },
   acidarmor: {
     accuracy: true,
@@ -47,7 +55,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Acid Armor",
     pp: 20,
     type: "Poison",
-    description: "Raises the user's Defense by 2."
+    description: "Raises the user's Defense by 2.",
+    secondary: null,
+    target: "self"
   },
   acidspray: {
     accuracy: 100,
@@ -56,7 +66,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Acid Spray",
     pp: 20,
     type: "Poison",
-    description: "100% chance to lower the target's Sp. Def by 2."
+    description: "100% chance to lower the target's Sp. Def by 2.",
+    secondary: { chance: 100, boosts: { spd: -2 } },
+    target: "normal"
   },
   acrobatics: {
     accuracy: 100,
@@ -65,7 +77,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Acrobatics",
     pp: 15,
     type: "Flying",
-    description: "Power doubles if the user has no held item."
+    description: "Power doubles if the user has no held item.",
+    secondary: null,
+    target: "any"
   },
   acupressure: {
     accuracy: true,
@@ -74,7 +88,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Acupressure",
     pp: 30,
     type: "Normal",
-    description: "Raises a random stat of the user or an ally by 2."
+    description: "Raises a random stat of the user or an ally by 2.",
+    secondary: null,
+    target: "adjacentAllyOrSelf"
   },
   aerialace: {
     accuracy: true,
@@ -83,7 +99,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Aerial Ace",
     pp: 20,
     type: "Flying",
-    description: "This move does not check accuracy."
+    description: "This move does not check accuracy.",
+    secondary: null,
+    target: "any"
   },
   aeroblast: {
     accuracy: 95,
@@ -92,7 +110,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Aeroblast",
     pp: 5,
     type: "Flying",
-    description: "High critical hit ratio."
+    description: "High critical hit ratio.",
+    secondary: null,
+    target: "any"
   },
   afteryou: {
     accuracy: true,
@@ -101,7 +121,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "After You",
     pp: 15,
     type: "Normal",
-    description: "The target makes its move right after the user."
+    description: "The target makes its move right after the user.",
+    secondary: null,
+    target: "normal"
   },
   agility: {
     accuracy: true,
@@ -110,7 +132,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Agility",
     pp: 30,
     type: "Psychic",
-    description: "Raises the user's Speed by 2."
+    description: "Raises the user's Speed by 2.",
+    secondary: null,
+    target: "self"
   },
   aircutter: {
     accuracy: 95,
@@ -119,7 +143,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Air Cutter",
     pp: 25,
     type: "Flying",
-    description: "High critical hit ratio. Hits adjacent foes."
+    description: "High critical hit ratio. Hits adjacent foes.",
+    secondary: null,
+    target: "allAdjacentFoes"
   },
   airslash: {
     accuracy: 95,
@@ -128,7 +154,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Air Slash",
     pp: 15,
     type: "Flying",
-    description: "30% chance to make the target flinch."
+    description: "30% chance to make the target flinch.",
+    secondary: { chance: 30, volatileStatus: "flinch" },
+    target: "any"
   },
   alluringvoice: {
     accuracy: 100,
@@ -137,7 +165,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Alluring Voice",
     pp: 10,
     type: "Fairy",
-    description: "100% confuse target that had a stat rise this turn."
+    description: "100% confuse target that had a stat rise this turn.",
+    secondary: null,
+    target: "normal"
   },
   allyswitch: {
     accuracy: true,
@@ -146,7 +176,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Ally Switch",
     pp: 15,
     type: "Psychic",
-    description: "User and ally swap positions; using again can fail."
+    description: "User and ally swap positions; using again can fail.",
+    secondary: null,
+    target: "self"
   },
   amnesia: {
     accuracy: true,
@@ -155,7 +187,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Amnesia",
     pp: 20,
     type: "Psychic",
-    description: "Raises the user's Sp. Def by 2."
+    description: "Raises the user's Sp. Def by 2.",
+    secondary: null,
+    target: "self"
   },
   ancientpower: {
     accuracy: 100,
@@ -164,7 +198,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Ancient Power",
     pp: 5,
     type: "Rock",
-    description: "10% chance to raise all stats by 1 (not acc/eva)."
+    description: "10% chance to raise all stats by 1 (not acc/eva).",
+    secondary: null,
+    target: "normal"
   },
   appleacid: {
     accuracy: 100,
@@ -173,7 +209,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Apple Acid",
     pp: 10,
     type: "Grass",
-    description: "100% chance to lower the target's Sp. Def by 1."
+    description: "100% chance to lower the target's Sp. Def by 1.",
+    secondary: { chance: 10, boosts: { spd: -1 } },
+    target: "normal"
   },
   aquacutter: {
     accuracy: 100,
@@ -182,7 +220,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Aqua Cutter",
     pp: 20,
     type: "Water",
-    description: "High critical hit ratio."
+    description: "High critical hit ratio.",
+    secondary: { chance: 100, boosts: { spd: -1 } },
+    target: "normal"
   },
   aquajet: {
     accuracy: 100,
@@ -191,7 +231,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Aqua Jet",
     pp: 20,
     type: "Water",
-    description: "Usually goes first."
+    description: "Usually goes first.",
+    secondary: null,
+    target: "normal"
   },
   aquaring: {
     accuracy: true,
@@ -200,7 +242,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Aqua Ring",
     pp: 20,
     type: "Water",
-    description: "User recovers 1/16 max HP per turn."
+    description: "User recovers 1/16 max HP per turn.",
+    secondary: null,
+    target: "self"
   },
   aquastep: {
     accuracy: 100,
@@ -209,7 +253,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Aqua Step",
     pp: 10,
     type: "Water",
-    description: "100% chance to raise the user's Speed by 1."
+    description: "100% chance to raise the user's Speed by 1.",
+    secondary: null,
+    target: "normal"
   },
   aquatail: {
     accuracy: 90,
@@ -218,7 +264,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Aqua Tail",
     pp: 10,
     type: "Water",
-    description: "No additional effect."
+    description: "No additional effect.",
+    secondary: null,
+    target: "normal"
   },
   armthrust: {
     accuracy: 100,
@@ -227,7 +275,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Arm Thrust",
     pp: 20,
     type: "Fighting",
-    description: "Hits 2-5 times in one turn."
+    description: "Hits 2-5 times in one turn.",
+    secondary: null,
+    target: "normal"
   },
   armorcannon: {
     accuracy: 100,
@@ -236,7 +286,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Armor Cannon",
     pp: 5,
     type: "Fire",
-    description: "Lowers the user's Defense and Sp. Def by 1."
+    description: "Lowers the user's Defense and Sp. Def by 1.",
+    secondary: null,
+    target: "normal"
   },
   aromaticmist: {
     accuracy: true,
@@ -245,7 +297,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Aromatic Mist",
     pp: 20,
     type: "Fairy",
-    description: "Raises an ally's Sp. Def by 1."
+    description: "Raises an ally's Sp. Def by 1.",
+    secondary: null,
+    target: "adjacentAlly"
   },
   assurance: {
     accuracy: 100,
@@ -254,7 +308,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Assurance",
     pp: 10,
     type: "Dark",
-    description: "Power doubles if target was damaged this turn."
+    description: "Power doubles if target was damaged this turn.",
+    secondary: null,
+    target: "normal"
   },
   astonish: {
     accuracy: 100,
@@ -263,7 +319,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Astonish",
     pp: 15,
     type: "Ghost",
-    description: "30% chance to make the target flinch."
+    description: "30% chance to make the target flinch.",
+    secondary: { chance: 30, volatileStatus: "flinch" },
+    target: "normal"
   },
   astralbarrage: {
     accuracy: 100,
@@ -272,7 +330,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Astral Barrage",
     pp: 5,
     type: "Ghost",
-    description: "No additional effect. Hits adjacent foes."
+    description: "No additional effect. Hits adjacent foes.",
+    secondary: null,
+    target: "allAdjacentFoes"
   },
   attackorder: {
     accuracy: 100,
@@ -281,7 +341,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Attack Order",
     pp: 15,
     type: "Bug",
-    description: "High critical hit ratio."
+    description: "High critical hit ratio.",
+    secondary: null,
+    target: "normal"
   },
   attract: {
     accuracy: 100,
@@ -290,7 +352,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Attract",
     pp: 15,
     type: "Normal",
-    description: "A target of the opposite gender gets infatuated."
+    description: "A target of the opposite gender gets infatuated.",
+    secondary: null,
+    target: "normal"
   },
   aurasphere: {
     accuracy: true,
@@ -299,7 +363,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Aura Sphere",
     pp: 20,
     type: "Fighting",
-    description: "This move does not check accuracy."
+    description: "This move does not check accuracy.",
+    secondary: null,
+    target: "any"
   },
   aurawheel: {
     accuracy: 100,
@@ -308,7 +374,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Aura Wheel",
     pp: 10,
     type: "Electric",
-    description: "Morpeko: Electric; Hangry: Dark; 100% +1 Spe."
+    description: "Morpeko: Electric; Hangry: Dark; 100% +1 Spe.",
+    secondary: null,
+    target: "normal"
   },
   aurorabeam: {
     accuracy: 100,
@@ -317,7 +385,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Aurora Beam",
     pp: 20,
     type: "Ice",
-    description: "10% chance to lower the target's Attack by 1."
+    description: "10% chance to lower the target's Attack by 1.",
+    secondary: { chance: 10, boosts: { atk: -1 } },
+    target: "normal"
   },
   auroraveil: {
     accuracy: true,
@@ -326,7 +396,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Aurora Veil",
     pp: 20,
     type: "Ice",
-    description: "For 5 turns, damage to allies halved. Snow only."
+    description: "For 5 turns, damage to allies halved. Snow only.",
+    secondary: null,
+    target: "allySide"
   },
   avalanche: {
     accuracy: 100,
@@ -335,7 +407,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Avalanche",
     pp: 10,
     type: "Ice",
-    description: "Power doubles if user is damaged by the target."
+    description: "Power doubles if user is damaged by the target.",
+    secondary: null,
+    target: "normal"
   },
   axekick: {
     accuracy: 90,
@@ -344,7 +418,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Axe Kick",
     pp: 10,
     type: "Fighting",
-    description: "30% confusion. User loses 50% max HP if miss."
+    description: "30% confusion. User loses 50% max HP if miss.",
+    secondary: { chance: 30, volatileStatus: "confusion" },
+    target: "normal"
   },
   babydolleyes: {
     accuracy: 100,
@@ -353,7 +429,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Baby-Doll Eyes",
     pp: 30,
     type: "Fairy",
-    description: "Lowers the target's Attack by 1."
+    description: "Lowers the target's Attack by 1.",
+    secondary: null,
+    target: "normal"
   },
   banefulbunker: {
     accuracy: true,
@@ -362,7 +440,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Baneful Bunker",
     pp: 10,
     type: "Poison",
-    description: "Protects from moves. Contact: poison."
+    description: "Protects from moves. Contact: poison.",
+    secondary: null,
+    target: "self"
   },
   barbbarrage: {
     accuracy: 100,
@@ -371,7 +451,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Barb Barrage",
     pp: 10,
     type: "Poison",
-    description: "50% psn. 2x power if target already poisoned."
+    description: "50% psn. 2x power if target already poisoned.",
+    secondary: { chance: 50, status: "psn" },
+    target: "normal"
   },
   batonpass: {
     accuracy: true,
@@ -380,7 +462,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Baton Pass",
     pp: 40,
     type: "Normal",
-    description: "User switches, passing stat changes and more."
+    description: "User switches, passing stat changes and more.",
+    secondary: null,
+    target: "self"
   },
   beakblast: {
     accuracy: 100,
@@ -389,7 +473,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Beak Blast",
     pp: 15,
     type: "Flying",
-    description: "Burns on contact with the user before it moves."
+    description: "Burns on contact with the user before it moves.",
+    secondary: null,
+    target: "normal"
   },
   beatup: {
     accuracy: 100,
@@ -398,7 +484,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Beat Up",
     pp: 10,
     type: "Dark",
-    description: "All healthy allies aid in damaging the target."
+    description: "All healthy allies aid in damaging the target.",
+    secondary: null,
+    target: "normal"
   },
   behemothbash: {
     accuracy: 100,
@@ -407,7 +495,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Behemoth Bash",
     pp: 5,
     type: "Steel",
-    description: "No additional effect."
+    description: "No additional effect.",
+    secondary: null,
+    target: "normal"
   },
   behemothblade: {
     accuracy: 100,
@@ -416,7 +506,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Behemoth Blade",
     pp: 5,
     type: "Steel",
-    description: "No additional effect."
+    description: "No additional effect.",
+    secondary: null,
+    target: "normal"
   },
   belch: {
     accuracy: 90,
@@ -425,7 +517,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Belch",
     pp: 10,
     type: "Poison",
-    description: "Cannot be selected until the user eats a Berry."
+    description: "Cannot be selected until the user eats a Berry.",
+    secondary: null,
+    target: "normal"
   },
   bellydrum: {
     accuracy: true,
@@ -434,7 +528,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Belly Drum",
     pp: 10,
     type: "Normal",
-    description: "User loses 50% max HP. Maximizes Attack."
+    description: "User loses 50% max HP. Maximizes Attack.",
+    secondary: null,
+    target: "self"
   },
   bind: {
     accuracy: 85,
@@ -443,7 +539,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Bind",
     pp: 20,
     type: "Normal",
-    description: "Traps and damages the target for 4-5 turns."
+    description: "Traps and damages the target for 4-5 turns.",
+    secondary: null,
+    target: "normal"
   },
   bite: {
     accuracy: 100,
@@ -452,7 +550,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Bite",
     pp: 25,
     type: "Dark",
-    description: "30% chance to make the target flinch."
+    description: "30% chance to make the target flinch.",
+    secondary: { chance: 30, volatileStatus: "flinch" },
+    target: "normal"
   },
   bitterblade: {
     accuracy: 100,
@@ -461,7 +561,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Bitter Blade",
     pp: 10,
     type: "Fire",
-    description: "User recovers 50% of the damage dealt."
+    description: "User recovers 50% of the damage dealt.",
+    secondary: null,
+    target: "normal"
   },
   bittermalice: {
     accuracy: 100,
@@ -470,7 +572,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Bitter Malice",
     pp: 10,
     type: "Ghost",
-    description: "100% chance to lower the target's Attack by 1."
+    description: "100% chance to lower the target's Attack by 1.",
+    secondary: { chance: 100, boosts: { atk: -1 } },
+    target: "normal"
   },
   blastburn: {
     accuracy: 90,
@@ -479,7 +583,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Blast Burn",
     pp: 5,
     type: "Fire",
-    description: "User cannot move next turn."
+    description: "User cannot move next turn.",
+    secondary: null,
+    target: "normal"
   },
   blazekick: {
     accuracy: 90,
@@ -488,7 +594,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Blaze Kick",
     pp: 10,
     type: "Fire",
-    description: "High critical hit ratio. 10% chance to burn."
+    description: "High critical hit ratio. 10% chance to burn.",
+    secondary: { chance: 10, status: "brn" },
+    target: "normal"
   },
   blazingtorque: {
     accuracy: 100,
@@ -497,7 +605,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Blazing Torque",
     pp: 10,
     type: "Fire",
-    description: "30% chance to burn the target."
+    description: "30% chance to burn the target.",
+    secondary: { chance: 30, status: "brn" },
+    target: "normal"
   },
   bleakwindstorm: {
     accuracy: 80,
@@ -506,7 +616,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Bleakwind Storm",
     pp: 10,
     type: "Flying",
-    description: "30% to lower foe(s) Speed by 1. Rain: can't miss."
+    description: "30% to lower foe(s) Speed by 1. Rain: can't miss.",
+    secondary: { chance: 30, boosts: { spe: -1 } },
+    target: "allAdjacentFoes"
   },
   blizzard: {
     accuracy: 70,
@@ -515,7 +627,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Blizzard",
     pp: 5,
     type: "Ice",
-    description: "10% chance to freeze foe(s). Can't miss in Snow."
+    description: "10% chance to freeze foe(s). Can't miss in Snow.",
+    secondary: { chance: 10, status: "frz" },
+    target: "allAdjacentFoes"
   },
   block: {
     accuracy: true,
@@ -524,7 +638,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Block",
     pp: 5,
     type: "Normal",
-    description: "Prevents the target from switching out."
+    description: "Prevents the target from switching out.",
+    secondary: null,
+    target: "normal"
   },
   bloodmoon: {
     accuracy: 100,
@@ -533,7 +649,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Blood Moon",
     pp: 5,
     type: "Normal",
-    description: "Cannot be selected the turn after it's used."
+    description: "Cannot be selected the turn after it's used.",
+    secondary: null,
+    target: "normal"
   },
   blueflare: {
     accuracy: 85,
@@ -542,7 +660,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Blue Flare",
     pp: 5,
     type: "Fire",
-    description: "20% chance to burn the target."
+    description: "20% chance to burn the target.",
+    secondary: { chance: 20, status: "brn" },
+    target: "normal"
   },
   bodypress: {
     accuracy: 100,
@@ -551,7 +671,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Body Press",
     pp: 10,
     type: "Fighting",
-    description: "Uses user's Def stat as Atk in damage calculation."
+    description: "Uses user's Def stat as Atk in damage calculation.",
+    secondary: null,
+    target: "normal"
   },
   bodyslam: {
     accuracy: 100,
@@ -560,7 +682,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Body Slam",
     pp: 15,
     type: "Normal",
-    description: "30% chance to paralyze the target."
+    description: "30% chance to paralyze the target.",
+    secondary: { chance: 30, status: "par" },
+    target: "normal"
   },
   boltstrike: {
     accuracy: 85,
@@ -569,7 +693,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Bolt Strike",
     pp: 5,
     type: "Electric",
-    description: "20% chance to paralyze the target."
+    description: "20% chance to paralyze the target.",
+    secondary: { chance: 20, status: "par" },
+    target: "normal"
   },
   bonerush: {
     accuracy: 90,
@@ -578,7 +704,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Bone Rush",
     pp: 10,
     type: "Ground",
-    description: "Hits 2-5 times in one turn."
+    description: "Hits 2-5 times in one turn.",
+    secondary: null,
+    target: "normal"
   },
   boomburst: {
     accuracy: 100,
@@ -587,7 +715,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Boomburst",
     pp: 10,
     type: "Normal",
-    description: "No additional effect. Hits adjacent Pokemon."
+    description: "No additional effect. Hits adjacent Pokemon.",
+    secondary: null,
+    target: "allAdjacent"
   },
   bounce: {
     accuracy: 85,
@@ -596,7 +726,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Bounce",
     pp: 5,
     type: "Flying",
-    description: "Bounces turn 1. Hits turn 2. 30% paralyze."
+    description: "Bounces turn 1. Hits turn 2. 30% paralyze.",
+    secondary: { chance: 30, status: "par" },
+    target: "any"
   },
   branchpoke: {
     accuracy: 100,
@@ -605,7 +737,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Branch Poke",
     pp: 40,
     type: "Grass",
-    description: "No additional effect."
+    description: "No additional effect.",
+    secondary: null,
+    target: "normal"
   },
   bravebird: {
     accuracy: 100,
@@ -614,7 +748,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Brave Bird",
     pp: 15,
     type: "Flying",
-    description: "Has 33% recoil."
+    description: "Has 33% recoil.",
+    secondary: null,
+    target: "any"
   },
   breakingswipe: {
     accuracy: 100,
@@ -623,7 +759,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Breaking Swipe",
     pp: 15,
     type: "Dragon",
-    description: "100% chance to lower the foe(s) Attack by 1."
+    description: "100% chance to lower the foe(s) Attack by 1.",
+    secondary: { chance: 100, boosts: { atk: -1 } },
+    target: "allAdjacentFoes"
   },
   brickbreak: {
     accuracy: 100,
@@ -632,7 +770,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Brick Break",
     pp: 15,
     type: "Fighting",
-    description: "Destroys screens, unless the target is immune."
+    description: "Destroys screens, unless the target is immune.",
+    secondary: null,
+    target: "normal"
   },
   brine: {
     accuracy: 100,
@@ -641,7 +781,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Brine",
     pp: 10,
     type: "Water",
-    description: "Power doubles if the target's HP is 50% or less."
+    description: "Power doubles if the target's HP is 50% or less.",
+    secondary: null,
+    target: "normal"
   },
   brutalswing: {
     accuracy: 100,
@@ -650,7 +792,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Brutal Swing",
     pp: 20,
     type: "Dark",
-    description: "No additional effect. Hits adjacent Pokemon."
+    description: "No additional effect. Hits adjacent Pokemon.",
+    secondary: null,
+    target: "allAdjacent"
   },
   bubblebeam: {
     accuracy: 100,
@@ -659,7 +803,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Bubble Beam",
     pp: 20,
     type: "Water",
-    description: "10% chance to lower the target's Speed by 1."
+    description: "10% chance to lower the target's Speed by 1.",
+    secondary: { chance: 10, boosts: { spe: -1 } },
+    target: "normal"
   },
   bugbite: {
     accuracy: 100,
@@ -668,7 +814,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Bug Bite",
     pp: 20,
     type: "Bug",
-    description: "User steals and eats the target's Berry."
+    description: "User steals and eats the target's Berry.",
+    secondary: null,
+    target: "normal"
   },
   bugbuzz: {
     accuracy: 100,
@@ -677,7 +825,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Bug Buzz",
     pp: 10,
     type: "Bug",
-    description: "10% chance to lower the target's Sp. Def by 1."
+    description: "10% chance to lower the target's Sp. Def by 1.",
+    secondary: { chance: 10, boosts: { spd: -1 } },
+    target: "normal"
   },
   bulkup: {
     accuracy: true,
@@ -686,7 +836,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Bulk Up",
     pp: 20,
     type: "Fighting",
-    description: "Raises the user's Attack and Defense by 1."
+    description: "Raises the user's Attack and Defense by 1.",
+    secondary: null,
+    target: "self"
   },
   bulldoze: {
     accuracy: 100,
@@ -695,7 +847,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Bulldoze",
     pp: 20,
     type: "Ground",
-    description: "100% chance lower adjacent Pkmn Speed by 1."
+    description: "100% chance lower adjacent Pkmn Speed by 1.",
+    secondary: { chance: 100, boosts: { spe: -1 } },
+    target: "allAdjacent"
   },
   bulletpunch: {
     accuracy: 100,
@@ -704,7 +858,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Bullet Punch",
     pp: 30,
     type: "Steel",
-    description: "Usually goes first."
+    description: "Usually goes first.",
+    secondary: null,
+    target: "normal"
   },
   bulletseed: {
     accuracy: 100,
@@ -713,7 +869,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Bullet Seed",
     pp: 30,
     type: "Grass",
-    description: "Hits 2-5 times in one turn."
+    description: "Hits 2-5 times in one turn.",
+    secondary: null,
+    target: "normal"
   },
   burnup: {
     accuracy: 100,
@@ -722,7 +880,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Burn Up",
     pp: 5,
     type: "Fire",
-    description: "User's Fire type becomes typeless; must be Fire."
+    description: "User's Fire type becomes typeless; must be Fire.",
+    secondary: null,
+    target: "normal"
   },
   burningbulwark: {
     accuracy: true,
@@ -731,7 +891,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Burning Bulwark",
     pp: 10,
     type: "Fire",
-    description: "Protects from damaging attacks. Contact: burn."
+    description: "Protects from damaging attacks. Contact: burn.",
+    secondary: null,
+    target: "self"
   },
   burningjealousy: {
     accuracy: 100,
@@ -740,7 +902,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Burning Jealousy",
     pp: 5,
     type: "Fire",
-    description: "100% burns a target that had a stat rise this turn."
+    description: "100% burns a target that had a stat rise this turn.",
+    secondary: null,
+    target: "allAdjacentFoes"
   },
   calmmind: {
     accuracy: true,
@@ -749,7 +913,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Calm Mind",
     pp: 20,
     type: "Psychic",
-    description: "Raises the user's Sp. Atk and Sp. Def by 1."
+    description: "Raises the user's Sp. Atk and Sp. Def by 1.",
+    secondary: null,
+    target: "self"
   },
   ceaselessedge: {
     accuracy: 90,
@@ -758,7 +924,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Ceaseless Edge",
     pp: 15,
     type: "Dark",
-    description: "Sets a layer of Spikes on the opposing side."
+    description: "Sets a layer of Spikes on the opposing side.",
+    secondary: null,
+    target: "normal"
   },
   celebrate: {
     accuracy: true,
@@ -767,7 +935,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Celebrate",
     pp: 40,
     type: "Normal",
-    description: "No competitive use."
+    description: "No competitive use.",
+    secondary: null,
+    target: "self"
   },
   charge: {
     accuracy: true,
@@ -776,7 +946,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Charge",
     pp: 20,
     type: "Electric",
-    description: "+1 SpD, user's next Electric move 2x power."
+    description: "+1 SpD, user's next Electric move 2x power.",
+    secondary: null,
+    target: "self"
   },
   chargebeam: {
     accuracy: 90,
@@ -785,7 +957,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Charge Beam",
     pp: 10,
     type: "Electric",
-    description: "70% chance to raise the user's Sp. Atk by 1."
+    description: "70% chance to raise the user's Sp. Atk by 1.",
+    secondary: null,
+    target: "normal"
   },
   charm: {
     accuracy: 100,
@@ -794,7 +968,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Charm",
     pp: 20,
     type: "Fairy",
-    description: "Lowers the target's Attack by 2."
+    description: "Lowers the target's Attack by 2.",
+    secondary: null,
+    target: "normal"
   },
   chillingwater: {
     accuracy: 100,
@@ -803,7 +979,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Chilling Water",
     pp: 20,
     type: "Water",
-    description: "100% chance to lower the target's Attack by 1."
+    description: "100% chance to lower the target's Attack by 1.",
+    secondary: { chance: 100, boosts: { atk: -1 } },
+    target: "normal"
   },
   chillyreception: {
     accuracy: true,
@@ -812,7 +990,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Chilly Reception",
     pp: 10,
     type: "Ice",
-    description: "Starts Snow. User switches out."
+    description: "Starts Snow. User switches out.",
+    secondary: null,
+    target: "all"
   },
   chloroblast: {
     accuracy: 95,
@@ -821,7 +1001,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Chloroblast",
     pp: 5,
     type: "Grass",
-    description: "User loses 50% max HP."
+    description: "User loses 50% max HP.",
+    secondary: null,
+    target: "normal"
   },
   circlethrow: {
     accuracy: 90,
@@ -830,7 +1012,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Circle Throw",
     pp: 10,
     type: "Fighting",
-    description: "Forces the target to switch to a random ally."
+    description: "Forces the target to switch to a random ally.",
+    secondary: null,
+    target: "normal"
   },
   clangingscales: {
     accuracy: 100,
@@ -839,7 +1023,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Clanging Scales",
     pp: 5,
     type: "Dragon",
-    description: "Lowers the user's Defense by 1."
+    description: "Lowers the user's Defense by 1.",
+    secondary: null,
+    target: "allAdjacentFoes"
   },
   clangoroussoul: {
     accuracy: 100,
@@ -848,7 +1034,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Clangorous Soul",
     pp: 5,
     type: "Dragon",
-    description: "User loses 33% of its max HP. +1 to all stats."
+    description: "User loses 33% of its max HP. +1 to all stats.",
+    secondary: null,
+    target: "self"
   },
   clearsmog: {
     accuracy: true,
@@ -857,7 +1045,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Clear Smog",
     pp: 15,
     type: "Poison",
-    description: "Resets all of the target's stat stages to 0."
+    description: "Resets all of the target's stat stages to 0.",
+    secondary: null,
+    target: "normal"
   },
   closecombat: {
     accuracy: 100,
@@ -866,7 +1056,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Close Combat",
     pp: 5,
     type: "Fighting",
-    description: "Lowers the user's Defense and Sp. Def by 1."
+    description: "Lowers the user's Defense and Sp. Def by 1.",
+    secondary: null,
+    target: "normal"
   },
   coaching: {
     accuracy: true,
@@ -875,7 +1067,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Coaching",
     pp: 10,
     type: "Fighting",
-    description: "Raises an ally's Attack and Defense by 1."
+    description: "Raises an ally's Attack and Defense by 1.",
+    secondary: null,
+    target: "adjacentAlly"
   },
   coil: {
     accuracy: true,
@@ -884,7 +1078,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Coil",
     pp: 20,
     type: "Poison",
-    description: "Raises user's Attack, Defense, accuracy by 1."
+    description: "Raises user's Attack, Defense, accuracy by 1.",
+    secondary: null,
+    target: "self"
   },
   collisioncourse: {
     accuracy: 100,
@@ -893,7 +1089,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Collision Course",
     pp: 5,
     type: "Fighting",
-    description: "Deals 1.3333x damage with supereffective hits."
+    description: "Deals 1.3333x damage with supereffective hits.",
+    secondary: null,
+    target: "normal"
   },
   combattorque: {
     accuracy: 100,
@@ -902,7 +1100,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Combat Torque",
     pp: 10,
     type: "Fighting",
-    description: "30% chance to paralyze the target."
+    description: "30% chance to paralyze the target.",
+    secondary: { chance: 30, status: "par" },
+    target: "normal"
   },
   comeuppance: {
     accuracy: 100,
@@ -911,7 +1111,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Comeuppance",
     pp: 10,
     type: "Dark",
-    description: "If hit by an attack, returns 1.5x damage."
+    description: "If hit by an attack, returns 1.5x damage.",
+    secondary: null,
+    target: "scripted"
   },
   confide: {
     accuracy: true,
@@ -920,7 +1122,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Confide",
     pp: 20,
     type: "Normal",
-    description: "Lowers the target's Sp. Atk by 1."
+    description: "Lowers the target's Sp. Atk by 1.",
+    secondary: null,
+    target: "normal"
   },
   confuseray: {
     accuracy: 100,
@@ -929,7 +1133,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Confuse Ray",
     pp: 10,
     type: "Ghost",
-    description: "Confuses the target."
+    description: "Confuses the target.",
+    secondary: null,
+    target: "normal"
   },
   confusion: {
     accuracy: 100,
@@ -938,7 +1144,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Confusion",
     pp: 25,
     type: "Psychic",
-    description: "10% chance to confuse the target."
+    description: "10% chance to confuse the target.",
+    secondary: { chance: 10, volatileStatus: "confusion" },
+    target: "normal"
   },
   conversion: {
     accuracy: true,
@@ -947,7 +1155,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Conversion",
     pp: 30,
     type: "Normal",
-    description: "Changes user's type to match its first move."
+    description: "Changes user's type to match its first move.",
+    secondary: null,
+    target: "self"
   },
   conversion2: {
     accuracy: true,
@@ -956,7 +1166,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Conversion 2",
     pp: 30,
     type: "Normal",
-    description: "Changes user's type to resist target's last move."
+    description: "Changes user's type to resist target's last move.",
+    secondary: null,
+    target: "normal"
   },
   copycat: {
     accuracy: true,
@@ -965,7 +1177,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Copycat",
     pp: 20,
     type: "Normal",
-    description: "Uses the last move used in the battle."
+    description: "Uses the last move used in the battle.",
+    secondary: null,
+    target: "self"
   },
   corrosivegas: {
     accuracy: 100,
@@ -974,7 +1188,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Corrosive Gas",
     pp: 40,
     type: "Poison",
-    description: "Removes adjacent Pokemon's held items."
+    description: "Removes adjacent Pokemon's held items.",
+    secondary: null,
+    target: "allAdjacent"
   },
   cosmicpower: {
     accuracy: true,
@@ -983,7 +1199,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Cosmic Power",
     pp: 20,
     type: "Psychic",
-    description: "Raises the user's Defense and Sp. Def by 1."
+    description: "Raises the user's Defense and Sp. Def by 1.",
+    secondary: null,
+    target: "self"
   },
   cottonguard: {
     accuracy: true,
@@ -992,7 +1210,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Cotton Guard",
     pp: 10,
     type: "Grass",
-    description: "Raises the user's Defense by 3."
+    description: "Raises the user's Defense by 3.",
+    secondary: null,
+    target: "self"
   },
   cottonspore: {
     accuracy: 100,
@@ -1001,7 +1221,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Cotton Spore",
     pp: 40,
     type: "Grass",
-    description: "Lowers the target's Speed by 2."
+    description: "Lowers the target's Speed by 2.",
+    secondary: null,
+    target: "allAdjacentFoes"
   },
   counter: {
     accuracy: 100,
@@ -1010,7 +1232,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Counter",
     pp: 20,
     type: "Fighting",
-    description: "If hit by physical attack, returns double damage."
+    description: "If hit by physical attack, returns double damage.",
+    secondary: null,
+    target: "scripted"
   },
   courtchange: {
     accuracy: 100,
@@ -1019,7 +1243,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Court Change",
     pp: 10,
     type: "Normal",
-    description: "Swaps user's field effects with the opposing side."
+    description: "Swaps user's field effects with the opposing side.",
+    secondary: null,
+    target: "all"
   },
   covet: {
     accuracy: 100,
@@ -1028,7 +1254,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Covet",
     pp: 25,
     type: "Normal",
-    description: "If the user has no item, it steals the target's."
+    description: "If the user has no item, it steals the target's.",
+    secondary: null,
+    target: "normal"
   },
   crabhammer: {
     accuracy: 90,
@@ -1037,7 +1265,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Crabhammer",
     pp: 10,
     type: "Water",
-    description: "High critical hit ratio."
+    description: "High critical hit ratio.",
+    secondary: null,
+    target: "normal"
   },
   crosschop: {
     accuracy: 80,
@@ -1046,7 +1276,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Cross Chop",
     pp: 5,
     type: "Fighting",
-    description: "High critical hit ratio."
+    description: "High critical hit ratio.",
+    secondary: null,
+    target: "normal"
   },
   crosspoison: {
     accuracy: 100,
@@ -1055,7 +1287,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Cross Poison",
     pp: 20,
     type: "Poison",
-    description: "High critical hit ratio. 10% chance to poison."
+    description: "High critical hit ratio. 10% chance to poison.",
+    secondary: { chance: 10, status: "psn" },
+    target: "normal"
   },
   crunch: {
     accuracy: 100,
@@ -1064,7 +1298,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Crunch",
     pp: 15,
     type: "Dark",
-    description: "20% chance to lower the target's Defense by 1."
+    description: "20% chance to lower the target's Defense by 1.",
+    secondary: { chance: 20, boosts: { def: -1 } },
+    target: "normal"
   },
   crushclaw: {
     accuracy: 95,
@@ -1073,7 +1309,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Crush Claw",
     pp: 10,
     type: "Normal",
-    description: "50% chance to lower the target's Defense by 1."
+    description: "50% chance to lower the target's Defense by 1.",
+    secondary: { chance: 50, boosts: { def: -1 } },
+    target: "normal"
   },
   crushgrip: {
     accuracy: 100,
@@ -1082,7 +1320,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Crush Grip",
     pp: 5,
     type: "Normal",
-    description: "More power the more HP the target has left."
+    description: "More power the more HP the target has left.",
+    secondary: null,
+    target: "normal"
   },
   curse: {
     accuracy: true,
@@ -1091,7 +1331,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Curse",
     pp: 10,
     type: "Ghost",
-    description: "Curses if Ghost, else -1 Spe, +1 Atk, +1 Def."
+    description: "Curses if Ghost, else -1 Spe, +1 Atk, +1 Def.",
+    secondary: null,
+    target: "normal"
   },
   cut: {
     accuracy: 95,
@@ -1100,7 +1342,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Cut",
     pp: 30,
     type: "Normal",
-    description: "No additional effect."
+    description: "No additional effect.",
+    secondary: null,
+    target: "normal"
   },
   darkpulse: {
     accuracy: 100,
@@ -1109,7 +1353,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Dark Pulse",
     pp: 15,
     type: "Dark",
-    description: "20% chance to make the target flinch."
+    description: "20% chance to make the target flinch.",
+    secondary: { chance: 20, volatileStatus: "flinch" },
+    target: "any"
   },
   darkvoid: {
     accuracy: 50,
@@ -1118,7 +1364,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Dark Void",
     pp: 10,
     type: "Dark",
-    description: "Darkrai: Causes the foe(s) to fall asleep."
+    description: "Darkrai: Causes the foe(s) to fall asleep.",
+    secondary: null,
+    target: "allAdjacentFoes"
   },
   darkestlariat: {
     accuracy: 100,
@@ -1127,7 +1375,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Darkest Lariat",
     pp: 10,
     type: "Dark",
-    description: "Ignores the target's stat stage changes."
+    description: "Ignores the target's stat stage changes.",
+    secondary: null,
+    target: "normal"
   },
   dazzlinggleam: {
     accuracy: 100,
@@ -1136,7 +1386,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Dazzling Gleam",
     pp: 10,
     type: "Fairy",
-    description: "No additional effect. Hits adjacent foes."
+    description: "No additional effect. Hits adjacent foes.",
+    secondary: null,
+    target: "allAdjacentFoes"
   },
   decorate: {
     accuracy: true,
@@ -1145,7 +1397,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Decorate",
     pp: 15,
     type: "Fairy",
-    description: "Raises the target's Attack and Sp. Atk by 2."
+    description: "Raises the target's Attack and Sp. Atk by 2.",
+    secondary: null,
+    target: "normal"
   },
   defendorder: {
     accuracy: true,
@@ -1154,7 +1408,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Defend Order",
     pp: 10,
     type: "Bug",
-    description: "Raises the user's Defense and Sp. Def by 1."
+    description: "Raises the user's Defense and Sp. Def by 1.",
+    secondary: null,
+    target: "self"
   },
   defensecurl: {
     accuracy: true,
@@ -1163,7 +1419,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Defense Curl",
     pp: 40,
     type: "Normal",
-    description: "Raises the user's Defense by 1."
+    description: "Raises the user's Defense by 1.",
+    secondary: null,
+    target: "self"
   },
   defog: {
     accuracy: true,
@@ -1172,7 +1430,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Defog",
     pp: 15,
     type: "Flying",
-    description: "-1 evasion; ends user and target hazards/terrain."
+    description: "-1 evasion; ends user and target hazards/terrain.",
+    secondary: null,
+    target: "normal"
   },
   destinybond: {
     accuracy: true,
@@ -1181,7 +1441,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Destiny Bond",
     pp: 5,
     type: "Ghost",
-    description: "If an opponent knocks out the user, it also faints."
+    description: "If an opponent knocks out the user, it also faints.",
+    secondary: null,
+    target: "self"
   },
   detect: {
     accuracy: true,
@@ -1190,7 +1452,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Detect",
     pp: 5,
     type: "Fighting",
-    description: "Prevents moves from affecting the user this turn."
+    description: "Prevents moves from affecting the user this turn.",
+    secondary: null,
+    target: "self"
   },
   diamondstorm: {
     accuracy: 95,
@@ -1199,7 +1463,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Diamond Storm",
     pp: 5,
     type: "Rock",
-    description: "50% chance to raise user's Defense by 2."
+    description: "50% chance to raise user's Defense by 2.",
+    secondary: null,
+    target: "allAdjacentFoes"
   },
   dig: {
     accuracy: 100,
@@ -1208,7 +1474,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Dig",
     pp: 10,
     type: "Ground",
-    description: "Digs underground turn 1, strikes turn 2."
+    description: "Digs underground turn 1, strikes turn 2.",
+    secondary: null,
+    target: "normal"
   },
   direclaw: {
     accuracy: 100,
@@ -1217,7 +1485,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Dire Claw",
     pp: 15,
     type: "Poison",
-    description: "50% chance to sleep, poison, or paralyze target."
+    description: "50% chance to sleep, poison, or paralyze target.",
+    secondary: null,
+    target: "normal"
   },
   disable: {
     accuracy: 100,
@@ -1226,7 +1496,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Disable",
     pp: 20,
     type: "Normal",
-    description: "For 4 turns, disables the target's last move used."
+    description: "For 4 turns, disables the target's last move used.",
+    secondary: null,
+    target: "normal"
   },
   disarmingvoice: {
     accuracy: true,
@@ -1235,7 +1507,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Disarming Voice",
     pp: 15,
     type: "Fairy",
-    description: "This move does not check accuracy. Hits foes."
+    description: "This move does not check accuracy. Hits foes.",
+    secondary: null,
+    target: "allAdjacentFoes"
   },
   discharge: {
     accuracy: 100,
@@ -1244,7 +1518,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Discharge",
     pp: 15,
     type: "Electric",
-    description: "30% chance to paralyze adjacent Pokemon."
+    description: "30% chance to paralyze adjacent Pokemon.",
+    secondary: { chance: 30, status: "par" },
+    target: "allAdjacent"
   },
   dive: {
     accuracy: 100,
@@ -1253,7 +1529,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Dive",
     pp: 10,
     type: "Water",
-    description: "Dives underwater turn 1, strikes turn 2."
+    description: "Dives underwater turn 1, strikes turn 2.",
+    secondary: null,
+    target: "normal"
   },
   doodle: {
     accuracy: 100,
@@ -1262,7 +1540,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Doodle",
     pp: 10,
     type: "Normal",
-    description: "User and ally's Abilities become target's Ability."
+    description: "User and ally's Abilities become target's Ability.",
+    secondary: null,
+    target: "adjacentFoe"
   },
   doomdesire: {
     accuracy: 100,
@@ -1271,7 +1551,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Doom Desire",
     pp: 5,
     type: "Steel",
-    description: "Hits two turns after being used."
+    description: "Hits two turns after being used.",
+    secondary: null,
+    target: "normal"
   },
   doublehit: {
     accuracy: 90,
@@ -1280,7 +1562,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Double Hit",
     pp: 10,
     type: "Normal",
-    description: "Hits 2 times in one turn."
+    description: "Hits 2 times in one turn.",
+    secondary: null,
+    target: "normal"
   },
   doublekick: {
     accuracy: 100,
@@ -1289,7 +1573,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Double Kick",
     pp: 30,
     type: "Fighting",
-    description: "Hits 2 times in one turn."
+    description: "Hits 2 times in one turn.",
+    secondary: null,
+    target: "normal"
   },
   doubleshock: {
     accuracy: 100,
@@ -1298,7 +1584,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Double Shock",
     pp: 5,
     type: "Electric",
-    description: "User's Electric type: typeless; must be Electric."
+    description: "User's Electric type: typeless; must be Electric.",
+    secondary: null,
+    target: "normal"
   },
   doubleteam: {
     accuracy: true,
@@ -1307,7 +1595,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Double Team",
     pp: 15,
     type: "Normal",
-    description: "Raises the user's evasiveness by 1."
+    description: "Raises the user's evasiveness by 1.",
+    secondary: null,
+    target: "self"
   },
   doubleedge: {
     accuracy: 100,
@@ -1316,7 +1606,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Double-Edge",
     pp: 15,
     type: "Normal",
-    description: "Has 33% recoil."
+    description: "Has 33% recoil.",
+    secondary: null,
+    target: "normal"
   },
   dracometeor: {
     accuracy: 90,
@@ -1325,7 +1617,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Draco Meteor",
     pp: 5,
     type: "Dragon",
-    description: "Lowers the user's Sp. Atk by 2."
+    description: "Lowers the user's Sp. Atk by 2.",
+    secondary: null,
+    target: "normal"
   },
   dragonascent: {
     accuracy: 100,
@@ -1334,7 +1628,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Dragon Ascent",
     pp: 5,
     type: "Flying",
-    description: "Lowers the user's Defense and Sp. Def by 1."
+    description: "Lowers the user's Defense and Sp. Def by 1.",
+    secondary: null,
+    target: "any"
   },
   dragonbreath: {
     accuracy: 100,
@@ -1343,7 +1639,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Dragon Breath",
     pp: 20,
     type: "Dragon",
-    description: "30% chance to paralyze the target."
+    description: "30% chance to paralyze the target.",
+    secondary: { chance: 30, status: "par" },
+    target: "normal"
   },
   dragoncheer: {
     accuracy: true,
@@ -1352,7 +1650,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Dragon Cheer",
     pp: 15,
     type: "Dragon",
-    description: "Ally: Crit ratio +1, or +2 if ally is Dragon type."
+    description: "Ally: Crit ratio +1, or +2 if ally is Dragon type.",
+    secondary: null,
+    target: "adjacentAlly"
   },
   dragonclaw: {
     accuracy: 100,
@@ -1361,7 +1661,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Dragon Claw",
     pp: 15,
     type: "Dragon",
-    description: "No additional effect."
+    description: "No additional effect.",
+    secondary: null,
+    target: "normal"
   },
   dragondance: {
     accuracy: true,
@@ -1370,7 +1672,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Dragon Dance",
     pp: 20,
     type: "Dragon",
-    description: "Raises the user's Attack and Speed by 1."
+    description: "Raises the user's Attack and Speed by 1.",
+    secondary: null,
+    target: "self"
   },
   dragondarts: {
     accuracy: 100,
@@ -1379,7 +1683,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Dragon Darts",
     pp: 10,
     type: "Dragon",
-    description: "Hits twice. Doubles: Tries to hit each foe once."
+    description: "Hits twice. Doubles: Tries to hit each foe once.",
+    secondary: null,
+    target: "normal"
   },
   dragonenergy: {
     accuracy: 100,
@@ -1388,7 +1694,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Dragon Energy",
     pp: 5,
     type: "Dragon",
-    description: "Less power as user's HP decreases. Hits foe(s)."
+    description: "Less power as user's HP decreases. Hits foe(s).",
+    secondary: null,
+    target: "allAdjacentFoes"
   },
   dragonhammer: {
     accuracy: 100,
@@ -1397,7 +1705,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Dragon Hammer",
     pp: 15,
     type: "Dragon",
-    description: "No additional effect."
+    description: "No additional effect.",
+    secondary: null,
+    target: "normal"
   },
   dragonpulse: {
     accuracy: 100,
@@ -1406,7 +1716,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Dragon Pulse",
     pp: 10,
     type: "Dragon",
-    description: "No additional effect."
+    description: "No additional effect.",
+    secondary: null,
+    target: "any"
   },
   dragonrush: {
     accuracy: 75,
@@ -1415,7 +1727,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Dragon Rush",
     pp: 10,
     type: "Dragon",
-    description: "20% chance to make the target flinch."
+    description: "20% chance to make the target flinch.",
+    secondary: { chance: 20, volatileStatus: "flinch" },
+    target: "normal"
   },
   dragontail: {
     accuracy: 90,
@@ -1424,7 +1738,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Dragon Tail",
     pp: 10,
     type: "Dragon",
-    description: "Forces the target to switch to a random ally."
+    description: "Forces the target to switch to a random ally.",
+    secondary: null,
+    target: "normal"
   },
   drainpunch: {
     accuracy: 100,
@@ -1433,7 +1749,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Drain Punch",
     pp: 10,
     type: "Fighting",
-    description: "User recovers 50% of the damage dealt."
+    description: "User recovers 50% of the damage dealt.",
+    secondary: null,
+    target: "normal"
   },
   drainingkiss: {
     accuracy: 100,
@@ -1442,7 +1760,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Draining Kiss",
     pp: 10,
     type: "Fairy",
-    description: "User recovers 75% of the damage dealt."
+    description: "User recovers 75% of the damage dealt.",
+    secondary: null,
+    target: "normal"
   },
   dreameater: {
     accuracy: 100,
@@ -1451,7 +1771,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Dream Eater",
     pp: 15,
     type: "Psychic",
-    description: "User gains 1/2 HP inflicted. Sleeping target only."
+    description: "User gains 1/2 HP inflicted. Sleeping target only.",
+    secondary: null,
+    target: "normal"
   },
   drillpeck: {
     accuracy: 100,
@@ -1460,7 +1782,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Drill Peck",
     pp: 20,
     type: "Flying",
-    description: "No additional effect."
+    description: "No additional effect.",
+    secondary: null,
+    target: "any"
   },
   drillrun: {
     accuracy: 95,
@@ -1469,7 +1793,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Drill Run",
     pp: 10,
     type: "Ground",
-    description: "High critical hit ratio."
+    description: "High critical hit ratio.",
+    secondary: null,
+    target: "normal"
   },
   drumbeating: {
     accuracy: 100,
@@ -1478,7 +1804,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Drum Beating",
     pp: 10,
     type: "Grass",
-    description: "100% chance to lower the target's Speed by 1."
+    description: "100% chance to lower the target's Speed by 1.",
+    secondary: { chance: 100, boosts: { spe: -1 } },
+    target: "normal"
   },
   dualwingbeat: {
     accuracy: 90,
@@ -1487,7 +1815,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Dual Wingbeat",
     pp: 10,
     type: "Flying",
-    description: "Hits 2 times in one turn."
+    description: "Hits 2 times in one turn.",
+    secondary: null,
+    target: "normal"
   },
   dynamaxcannon: {
     accuracy: 100,
@@ -1496,7 +1826,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Dynamax Cannon",
     pp: 5,
     type: "Dragon",
-    description: "No additional effect."
+    description: "No additional effect.",
+    secondary: null,
+    target: "normal"
   },
   dynamicpunch: {
     accuracy: 50,
@@ -1505,7 +1837,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Dynamic Punch",
     pp: 5,
     type: "Fighting",
-    description: "100% chance to confuse the target."
+    description: "100% chance to confuse the target.",
+    secondary: { chance: 100, volatileStatus: "confusion" },
+    target: "normal"
   },
   earthpower: {
     accuracy: 100,
@@ -1514,7 +1848,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Earth Power",
     pp: 10,
     type: "Ground",
-    description: "10% chance to lower the target's Sp. Def by 1."
+    description: "10% chance to lower the target's Sp. Def by 1.",
+    secondary: { chance: 10, boosts: { spd: -1 } },
+    target: "normal"
   },
   earthquake: {
     accuracy: 100,
@@ -1523,7 +1859,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Earthquake",
     pp: 10,
     type: "Ground",
-    description: "Hits adjacent Pokemon. Double damage on Dig."
+    description: "Hits adjacent Pokemon. Double damage on Dig.",
+    secondary: null,
+    target: "allAdjacent"
   },
   echoedvoice: {
     accuracy: 100,
@@ -1532,7 +1870,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Echoed Voice",
     pp: 15,
     type: "Normal",
-    description: "Power increases when used on consecutive turns."
+    description: "Power increases when used on consecutive turns.",
+    secondary: null,
+    target: "normal"
   },
   eerieimpulse: {
     accuracy: 100,
@@ -1541,7 +1881,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Eerie Impulse",
     pp: 15,
     type: "Electric",
-    description: "Lowers the target's Sp. Atk by 2."
+    description: "Lowers the target's Sp. Atk by 2.",
+    secondary: null,
+    target: "normal"
   },
   eeriespell: {
     accuracy: 100,
@@ -1550,7 +1892,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Eerie Spell",
     pp: 5,
     type: "Psychic",
-    description: "Removes 3 PP from the target's last move."
+    description: "Removes 3 PP from the target's last move.",
+    secondary: null,
+    target: "normal"
   },
   electricterrain: {
     accuracy: true,
@@ -1559,7 +1903,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Electric Terrain",
     pp: 10,
     type: "Electric",
-    description: "5 turns. Grounded: +Electric power, can't sleep."
+    description: "5 turns. Grounded: +Electric power, can't sleep.",
+    secondary: null,
+    target: "all"
   },
   electroball: {
     accuracy: 100,
@@ -1568,7 +1914,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Electro Ball",
     pp: 10,
     type: "Electric",
-    description: "More power the faster the user is than the target."
+    description: "More power the faster the user is than the target.",
+    secondary: null,
+    target: "normal"
   },
   electrodrift: {
     accuracy: 100,
@@ -1577,7 +1925,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Electro Drift",
     pp: 5,
     type: "Electric",
-    description: "Deals 1.3333x damage with supereffective hits."
+    description: "Deals 1.3333x damage with supereffective hits.",
+    secondary: null,
+    target: "normal"
   },
   electroshot: {
     accuracy: 100,
@@ -1586,7 +1936,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Electro Shot",
     pp: 10,
     type: "Electric",
-    description: "Raises Sp. Atk by 1, hits turn 2. Rain: no charge."
+    description: "Raises Sp. Atk by 1, hits turn 2. Rain: no charge.",
+    secondary: null,
+    target: "normal"
   },
   electroweb: {
     accuracy: 95,
@@ -1595,7 +1947,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Electroweb",
     pp: 15,
     type: "Electric",
-    description: "100% chance to lower the foe(s) Speed by 1."
+    description: "100% chance to lower the foe(s) Speed by 1.",
+    secondary: { chance: 100, boosts: { spe: -1 } },
+    target: "allAdjacentFoes"
   },
   ember: {
     accuracy: 100,
@@ -1604,7 +1958,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Ember",
     pp: 25,
     type: "Fire",
-    description: "10% chance to burn the target."
+    description: "10% chance to burn the target.",
+    secondary: { chance: 10, status: "brn" },
+    target: "normal"
   },
   encore: {
     accuracy: 100,
@@ -1613,7 +1969,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Encore",
     pp: 5,
     type: "Normal",
-    description: "Target repeats its last move for its next 3 turns."
+    description: "Target repeats its last move for its next 3 turns.",
+    secondary: null,
+    target: "normal"
   },
   endeavor: {
     accuracy: 100,
@@ -1622,7 +1980,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Endeavor",
     pp: 5,
     type: "Normal",
-    description: "Lowers the target's HP to the user's HP."
+    description: "Lowers the target's HP to the user's HP.",
+    secondary: null,
+    target: "normal"
   },
   endure: {
     accuracy: true,
@@ -1631,7 +1991,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Endure",
     pp: 10,
     type: "Normal",
-    description: "User survives attacks this turn with at least 1 HP."
+    description: "User survives attacks this turn with at least 1 HP.",
+    secondary: null,
+    target: "self"
   },
   energyball: {
     accuracy: 100,
@@ -1640,7 +2002,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Energy Ball",
     pp: 10,
     type: "Grass",
-    description: "10% chance to lower the target's Sp. Def by 1."
+    description: "10% chance to lower the target's Sp. Def by 1.",
+    secondary: { chance: 10, boosts: { spd: -1 } },
+    target: "normal"
   },
   entrainment: {
     accuracy: 100,
@@ -1649,7 +2013,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Entrainment",
     pp: 15,
     type: "Normal",
-    description: "The target's Ability changes to match the user's."
+    description: "The target's Ability changes to match the user's.",
+    secondary: null,
+    target: "normal"
   },
   eruption: {
     accuracy: 100,
@@ -1658,7 +2024,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Eruption",
     pp: 5,
     type: "Fire",
-    description: "Less power as user's HP decreases. Hits foe(s)."
+    description: "Less power as user's HP decreases. Hits foe(s).",
+    secondary: null,
+    target: "allAdjacentFoes"
   },
   esperwing: {
     accuracy: 100,
@@ -1667,7 +2035,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Esper Wing",
     pp: 10,
     type: "Psychic",
-    description: "100% chance to raise user Speed by 1. High crit."
+    description: "100% chance to raise user Speed by 1. High crit.",
+    secondary: null,
+    target: "normal"
   },
   expandingforce: {
     accuracy: 100,
@@ -1676,7 +2046,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Expanding Force",
     pp: 10,
     type: "Psychic",
-    description: "User on Psychic Terrain: 1.5x power, hits foes."
+    description: "User on Psychic Terrain: 1.5x power, hits foes.",
+    secondary: null,
+    target: "normal"
   },
   explosion: {
     accuracy: 100,
@@ -1685,7 +2057,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Explosion",
     pp: 5,
     type: "Normal",
-    description: "Hits adjacent Pokemon. The user faints."
+    description: "Hits adjacent Pokemon. The user faints.",
+    secondary: null,
+    target: "allAdjacent"
   },
   extrasensory: {
     accuracy: 100,
@@ -1694,7 +2068,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Extrasensory",
     pp: 20,
     type: "Psychic",
-    description: "10% chance to make the target flinch."
+    description: "10% chance to make the target flinch.",
+    secondary: { chance: 10, volatileStatus: "flinch" },
+    target: "normal"
   },
   extremespeed: {
     accuracy: 100,
@@ -1703,7 +2079,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Extreme Speed",
     pp: 5,
     type: "Normal",
-    description: "Nearly always goes first."
+    description: "Nearly always goes first.",
+    secondary: null,
+    target: "normal"
   },
   facade: {
     accuracy: 100,
@@ -1712,7 +2090,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Facade",
     pp: 20,
     type: "Normal",
-    description: "Power doubles if user is burn/poison/paralyzed."
+    description: "Power doubles if user is burn/poison/paralyzed.",
+    secondary: null,
+    target: "normal"
   },
   fairylock: {
     accuracy: true,
@@ -1721,7 +2101,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Fairy Lock",
     pp: 10,
     type: "Fairy",
-    description: "Prevents all Pokemon from switching next turn."
+    description: "Prevents all Pokemon from switching next turn.",
+    secondary: null,
+    target: "all"
   },
   fairywind: {
     accuracy: 100,
@@ -1730,7 +2112,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Fairy Wind",
     pp: 30,
     type: "Fairy",
-    description: "No additional effect."
+    description: "No additional effect.",
+    secondary: null,
+    target: "normal"
   },
   fakeout: {
     accuracy: 100,
@@ -1739,7 +2123,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Fake Out",
     pp: 10,
     type: "Normal",
-    description: "Hits first. First turn out only. 100% flinch chance."
+    description: "Hits first. First turn out only. 100% flinch chance.",
+    secondary: { chance: 100, volatileStatus: "flinch" },
+    target: "normal"
   },
   faketears: {
     accuracy: 100,
@@ -1748,7 +2134,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Fake Tears",
     pp: 20,
     type: "Dark",
-    description: "Lowers the target's Sp. Def by 2."
+    description: "Lowers the target's Sp. Def by 2.",
+    secondary: null,
+    target: "normal"
   },
   falsesurrender: {
     accuracy: true,
@@ -1757,7 +2145,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "False Surrender",
     pp: 10,
     type: "Dark",
-    description: "This move does not check accuracy."
+    description: "This move does not check accuracy.",
+    secondary: null,
+    target: "normal"
   },
   falseswipe: {
     accuracy: 100,
@@ -1766,7 +2156,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "False Swipe",
     pp: 40,
     type: "Normal",
-    description: "Always leaves the target with at least 1 HP."
+    description: "Always leaves the target with at least 1 HP.",
+    secondary: null,
+    target: "normal"
   },
   featherdance: {
     accuracy: 100,
@@ -1775,7 +2167,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Feather Dance",
     pp: 15,
     type: "Flying",
-    description: "Lowers the target's Attack by 2."
+    description: "Lowers the target's Attack by 2.",
+    secondary: null,
+    target: "normal"
   },
   feint: {
     accuracy: 100,
@@ -1784,7 +2178,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Feint",
     pp: 10,
     type: "Normal",
-    description: "Nullifies Detect, Protect, and Quick/Wide Guard."
+    description: "Nullifies Detect, Protect, and Quick/Wide Guard.",
+    secondary: null,
+    target: "normal"
   },
   fellstinger: {
     accuracy: 100,
@@ -1793,7 +2189,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Fell Stinger",
     pp: 25,
     type: "Bug",
-    description: "Raises user's Attack by 3 if this KOes the target."
+    description: "Raises user's Attack by 3 if this KOes the target.",
+    secondary: null,
+    target: "normal"
   },
   ficklebeam: {
     accuracy: 100,
@@ -1802,7 +2200,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Fickle Beam",
     pp: 5,
     type: "Dragon",
-    description: "Has a 30% chance this move's power is doubled."
+    description: "Has a 30% chance this move's power is doubled.",
+    secondary: null,
+    target: "normal"
   },
   fierydance: {
     accuracy: 100,
@@ -1811,7 +2211,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Fiery Dance",
     pp: 10,
     type: "Fire",
-    description: "50% chance to raise the user's Sp. Atk by 1."
+    description: "50% chance to raise the user's Sp. Atk by 1.",
+    secondary: null,
+    target: "normal"
   },
   fierywrath: {
     accuracy: 100,
@@ -1820,7 +2222,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Fiery Wrath",
     pp: 10,
     type: "Dark",
-    description: "20% chance to make the foe(s) flinch."
+    description: "20% chance to make the foe(s) flinch.",
+    secondary: { chance: 20, volatileStatus: "flinch" },
+    target: "allAdjacentFoes"
   },
   filletaway: {
     accuracy: true,
@@ -1829,7 +2233,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Fillet Away",
     pp: 10,
     type: "Normal",
-    description: "+2 Attack, Sp. Atk, Speed for 1/2 user's max HP."
+    description: "+2 Attack, Sp. Atk, Speed for 1/2 user's max HP.",
+    secondary: null,
+    target: "self"
   },
   finalgambit: {
     accuracy: 100,
@@ -1838,7 +2244,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Final Gambit",
     pp: 5,
     type: "Fighting",
-    description: "Does damage equal to the user's HP. User faints."
+    description: "Does damage equal to the user's HP. User faints.",
+    secondary: null,
+    target: "normal"
   },
   fireblast: {
     accuracy: 85,
@@ -1847,7 +2255,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Fire Blast",
     pp: 5,
     type: "Fire",
-    description: "10% chance to burn the target."
+    description: "10% chance to burn the target.",
+    secondary: { chance: 10, status: "brn" },
+    target: "normal"
   },
   firefang: {
     accuracy: 95,
@@ -1856,7 +2266,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Fire Fang",
     pp: 15,
     type: "Fire",
-    description: "10% chance to burn. 10% chance to flinch."
+    description: "10% chance to burn. 10% chance to flinch.",
+    secondary: null,
+    target: "normal"
   },
   firelash: {
     accuracy: 100,
@@ -1865,7 +2277,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Fire Lash",
     pp: 15,
     type: "Fire",
-    description: "100% chance to lower the target's Defense by 1."
+    description: "100% chance to lower the target's Defense by 1.",
+    secondary: { chance: 100, boosts: { def: -1 } },
+    target: "normal"
   },
   firepledge: {
     accuracy: 100,
@@ -1874,7 +2288,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Fire Pledge",
     pp: 10,
     type: "Fire",
-    description: "Use with Grass or Water Pledge for added effect."
+    description: "Use with Grass or Water Pledge for added effect.",
+    secondary: null,
+    target: "normal"
   },
   firepunch: {
     accuracy: 100,
@@ -1883,7 +2299,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Fire Punch",
     pp: 15,
     type: "Fire",
-    description: "10% chance to burn the target."
+    description: "10% chance to burn the target.",
+    secondary: { chance: 10, status: "brn" },
+    target: "normal"
   },
   firespin: {
     accuracy: 85,
@@ -1892,7 +2310,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Fire Spin",
     pp: 15,
     type: "Fire",
-    description: "Traps and damages the target for 4-5 turns."
+    description: "Traps and damages the target for 4-5 turns.",
+    secondary: null,
+    target: "normal"
   },
   firstimpression: {
     accuracy: 100,
@@ -1901,7 +2321,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "First Impression",
     pp: 10,
     type: "Bug",
-    description: "Nearly always goes first. First turn out only."
+    description: "Nearly always goes first. First turn out only.",
+    secondary: null,
+    target: "normal"
   },
   fissure: {
     accuracy: 30,
@@ -1910,7 +2332,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Fissure",
     pp: 5,
     type: "Ground",
-    description: "OHKOs the target. Fails if user is a lower level."
+    description: "OHKOs the target. Fails if user is a lower level.",
+    secondary: null,
+    target: "normal"
   },
   flail: {
     accuracy: 100,
@@ -1919,7 +2343,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Flail",
     pp: 15,
     type: "Normal",
-    description: "More power the less HP the user has left."
+    description: "More power the less HP the user has left.",
+    secondary: null,
+    target: "normal"
   },
   flamecharge: {
     accuracy: 100,
@@ -1928,7 +2354,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Flame Charge",
     pp: 20,
     type: "Fire",
-    description: "100% chance to raise the user's Speed by 1."
+    description: "100% chance to raise the user's Speed by 1.",
+    secondary: null,
+    target: "normal"
   },
   flamewheel: {
     accuracy: 100,
@@ -1937,7 +2365,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Flame Wheel",
     pp: 25,
     type: "Fire",
-    description: "10% chance to burn the target. Thaws user."
+    description: "10% chance to burn the target. Thaws user.",
+    secondary: { chance: 10, status: "brn" },
+    target: "normal"
   },
   flamethrower: {
     accuracy: 100,
@@ -1946,7 +2376,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Flamethrower",
     pp: 15,
     type: "Fire",
-    description: "10% chance to burn the target."
+    description: "10% chance to burn the target.",
+    secondary: { chance: 10, status: "brn" },
+    target: "normal"
   },
   flareblitz: {
     accuracy: 100,
@@ -1955,7 +2387,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Flare Blitz",
     pp: 15,
     type: "Fire",
-    description: "Has 33% recoil. 10% chance to burn. Thaws user."
+    description: "Has 33% recoil. 10% chance to burn. Thaws user.",
+    secondary: { chance: 10, status: "brn" },
+    target: "normal"
   },
   flashcannon: {
     accuracy: 100,
@@ -1964,7 +2398,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Flash Cannon",
     pp: 10,
     type: "Steel",
-    description: "10% chance to lower the target's Sp. Def by 1."
+    description: "10% chance to lower the target's Sp. Def by 1.",
+    secondary: { chance: 10, boosts: { spd: -1 } },
+    target: "normal"
   },
   flatter: {
     accuracy: 100,
@@ -1973,7 +2409,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Flatter",
     pp: 15,
     type: "Dark",
-    description: "Raises the target's Sp. Atk by 1 and confuses it."
+    description: "Raises the target's Sp. Atk by 1 and confuses it.",
+    secondary: null,
+    target: "normal"
   },
   fleurcannon: {
     accuracy: 90,
@@ -1982,7 +2420,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Fleur Cannon",
     pp: 5,
     type: "Fairy",
-    description: "Lowers the user's Sp. Atk by 2."
+    description: "Lowers the user's Sp. Atk by 2.",
+    secondary: null,
+    target: "normal"
   },
   fling: {
     accuracy: 100,
@@ -1991,7 +2431,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Fling",
     pp: 10,
     type: "Dark",
-    description: "Flings the user's item at the target. Power varies."
+    description: "Flings the user's item at the target. Power varies.",
+    secondary: null,
+    target: "normal"
   },
   flipturn: {
     accuracy: 100,
@@ -2000,7 +2442,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Flip Turn",
     pp: 20,
     type: "Water",
-    description: "User switches out after damaging the target."
+    description: "User switches out after damaging the target.",
+    secondary: null,
+    target: "normal"
   },
   floralhealing: {
     accuracy: true,
@@ -2009,7 +2453,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Floral Healing",
     pp: 10,
     type: "Fairy",
-    description: "Heals the target by 50% of its max HP."
+    description: "Heals the target by 50% of its max HP.",
+    secondary: null,
+    target: "normal"
   },
   flowertrick: {
     accuracy: true,
@@ -2018,7 +2464,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Flower Trick",
     pp: 10,
     type: "Grass",
-    description: "Always results in a critical hit; no accuracy check."
+    description: "Always results in a critical hit; no accuracy check.",
+    secondary: null,
+    target: "normal"
   },
   fly: {
     accuracy: 95,
@@ -2027,7 +2475,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Fly",
     pp: 15,
     type: "Flying",
-    description: "Flies up on first turn, then strikes the next turn."
+    description: "Flies up on first turn, then strikes the next turn.",
+    secondary: null,
+    target: "any"
   },
   flyingpress: {
     accuracy: 95,
@@ -2036,7 +2486,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Flying Press",
     pp: 10,
     type: "Fighting",
-    description: "Combines Flying in its type effectiveness."
+    description: "Combines Flying in its type effectiveness.",
+    secondary: null,
+    target: "any"
   },
   focusblast: {
     accuracy: 70,
@@ -2045,7 +2497,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Focus Blast",
     pp: 5,
     type: "Fighting",
-    description: "10% chance to lower the target's Sp. Def by 1."
+    description: "10% chance to lower the target's Sp. Def by 1.",
+    secondary: { chance: 10, boosts: { spd: -1 } },
+    target: "normal"
   },
   focusenergy: {
     accuracy: true,
@@ -2054,7 +2508,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Focus Energy",
     pp: 30,
     type: "Normal",
-    description: "Raises the user's critical hit ratio by 2."
+    description: "Raises the user's critical hit ratio by 2.",
+    secondary: null,
+    target: "self"
   },
   focuspunch: {
     accuracy: 100,
@@ -2063,7 +2519,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Focus Punch",
     pp: 20,
     type: "Fighting",
-    description: "Fails if the user takes damage before it hits."
+    description: "Fails if the user takes damage before it hits.",
+    secondary: null,
+    target: "normal"
   },
   followme: {
     accuracy: true,
@@ -2072,7 +2530,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Follow Me",
     pp: 20,
     type: "Normal",
-    description: "The foes' moves target the user on the turn used."
+    description: "The foes' moves target the user on the turn used.",
+    secondary: null,
+    target: "self"
   },
   forcepalm: {
     accuracy: 100,
@@ -2081,7 +2541,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Force Palm",
     pp: 10,
     type: "Fighting",
-    description: "30% chance to paralyze the target."
+    description: "30% chance to paralyze the target.",
+    secondary: { chance: 30, status: "par" },
+    target: "normal"
   },
   forestscurse: {
     accuracy: 100,
@@ -2090,7 +2552,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Forest's Curse",
     pp: 20,
     type: "Grass",
-    description: "Adds Grass to the target's type(s)."
+    description: "Adds Grass to the target's type(s).",
+    secondary: null,
+    target: "normal"
   },
   foulplay: {
     accuracy: 100,
@@ -2099,7 +2563,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Foul Play",
     pp: 15,
     type: "Dark",
-    description: "Uses target's Attack stat in damage calculation."
+    description: "Uses target's Attack stat in damage calculation.",
+    secondary: null,
+    target: "normal"
   },
   freezeshock: {
     accuracy: 90,
@@ -2108,7 +2574,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Freeze Shock",
     pp: 5,
     type: "Ice",
-    description: "Charges turn 1. Hits turn 2. 30% paralyze."
+    description: "Charges turn 1. Hits turn 2. 30% paralyze.",
+    secondary: { chance: 30, status: "par" },
+    target: "normal"
   },
   freezedry: {
     accuracy: 100,
@@ -2117,7 +2585,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Freeze-Dry",
     pp: 20,
     type: "Ice",
-    description: "10% chance to freeze. Super effective on Water."
+    description: "10% chance to freeze. Super effective on Water.",
+    secondary: { chance: 10, status: "frz" },
+    target: "normal"
   },
   freezingglare: {
     accuracy: 100,
@@ -2126,7 +2596,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Freezing Glare",
     pp: 10,
     type: "Psychic",
-    description: "10% chance to freeze the target."
+    description: "10% chance to freeze the target.",
+    secondary: { chance: 10, status: "frz" },
+    target: "normal"
   },
   frenzyplant: {
     accuracy: 90,
@@ -2135,7 +2607,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Frenzy Plant",
     pp: 5,
     type: "Grass",
-    description: "User cannot move next turn."
+    description: "User cannot move next turn.",
+    secondary: null,
+    target: "normal"
   },
   frostbreath: {
     accuracy: 90,
@@ -2144,7 +2618,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Frost Breath",
     pp: 10,
     type: "Ice",
-    description: "Always results in a critical hit."
+    description: "Always results in a critical hit.",
+    secondary: null,
+    target: "normal"
   },
   furyattack: {
     accuracy: 85,
@@ -2153,7 +2629,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Fury Attack",
     pp: 20,
     type: "Normal",
-    description: "Hits 2-5 times in one turn."
+    description: "Hits 2-5 times in one turn.",
+    secondary: null,
+    target: "normal"
   },
   furycutter: {
     accuracy: 95,
@@ -2162,7 +2640,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Fury Cutter",
     pp: 20,
     type: "Bug",
-    description: "Power doubles with each hit, up to 160."
+    description: "Power doubles with each hit, up to 160.",
+    secondary: null,
+    target: "normal"
   },
   furyswipes: {
     accuracy: 80,
@@ -2171,7 +2651,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Fury Swipes",
     pp: 15,
     type: "Normal",
-    description: "Hits 2-5 times in one turn."
+    description: "Hits 2-5 times in one turn.",
+    secondary: null,
+    target: "normal"
   },
   fusionbolt: {
     accuracy: 100,
@@ -2180,7 +2662,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Fusion Bolt",
     pp: 5,
     type: "Electric",
-    description: "Power doubles if used after Fusion Flare this turn."
+    description: "Power doubles if used after Fusion Flare this turn.",
+    secondary: null,
+    target: "normal"
   },
   fusionflare: {
     accuracy: 100,
@@ -2189,7 +2673,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Fusion Flare",
     pp: 5,
     type: "Fire",
-    description: "Power doubles if used after Fusion Bolt this turn."
+    description: "Power doubles if used after Fusion Bolt this turn.",
+    secondary: null,
+    target: "normal"
   },
   futuresight: {
     accuracy: 100,
@@ -2198,7 +2684,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Future Sight",
     pp: 10,
     type: "Psychic",
-    description: "Hits two turns after being used."
+    description: "Hits two turns after being used.",
+    secondary: null,
+    target: "normal"
   },
   gastroacid: {
     accuracy: 100,
@@ -2207,7 +2695,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Gastro Acid",
     pp: 10,
     type: "Poison",
-    description: "Nullifies the target's Ability."
+    description: "Nullifies the target's Ability.",
+    secondary: { chance: 10, boosts: { spd: -1 } },
+    target: "normal"
   },
   gigadrain: {
     accuracy: 100,
@@ -2216,7 +2706,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Giga Drain",
     pp: 10,
     type: "Grass",
-    description: "User recovers 50% of the damage dealt."
+    description: "User recovers 50% of the damage dealt.",
+    secondary: null,
+    target: "normal"
   },
   gigaimpact: {
     accuracy: 90,
@@ -2225,7 +2717,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Giga Impact",
     pp: 5,
     type: "Normal",
-    description: "User cannot move next turn."
+    description: "User cannot move next turn.",
+    secondary: null,
+    target: "normal"
   },
   gigatonhammer: {
     accuracy: 100,
@@ -2234,7 +2728,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Gigaton Hammer",
     pp: 5,
     type: "Steel",
-    description: "Cannot be selected the turn after it's used."
+    description: "Cannot be selected the turn after it's used.",
+    secondary: null,
+    target: "normal"
   },
   glaciallance: {
     accuracy: 100,
@@ -2243,7 +2739,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Glacial Lance",
     pp: 5,
     type: "Ice",
-    description: "No additional effect. Hits adjacent foes."
+    description: "No additional effect. Hits adjacent foes.",
+    secondary: null,
+    target: "allAdjacentFoes"
   },
   glaciate: {
     accuracy: 95,
@@ -2252,7 +2750,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Glaciate",
     pp: 10,
     type: "Ice",
-    description: "100% chance to lower the foe(s) Speed by 1."
+    description: "100% chance to lower the foe(s) Speed by 1.",
+    secondary: { chance: 100, boosts: { spe: -1 } },
+    target: "allAdjacentFoes"
   },
   glaiverush: {
     accuracy: 100,
@@ -2261,7 +2761,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Glaive Rush",
     pp: 5,
     type: "Dragon",
-    description: "User takes sure-hit 2x damage until its next turn."
+    description: "User takes sure-hit 2x damage until its next turn.",
+    secondary: null,
+    target: "normal"
   },
   glare: {
     accuracy: 100,
@@ -2270,7 +2772,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Glare",
     pp: 30,
     type: "Normal",
-    description: "Paralyzes the target."
+    description: "Paralyzes the target.",
+    secondary: null,
+    target: "normal"
   },
   grassknot: {
     accuracy: 100,
@@ -2279,7 +2783,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Grass Knot",
     pp: 20,
     type: "Grass",
-    description: "More power the heavier the target."
+    description: "More power the heavier the target.",
+    secondary: null,
+    target: "normal"
   },
   grasspledge: {
     accuracy: 100,
@@ -2288,7 +2794,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Grass Pledge",
     pp: 10,
     type: "Grass",
-    description: "Use with Fire or Water Pledge for added effect."
+    description: "Use with Fire or Water Pledge for added effect.",
+    secondary: null,
+    target: "normal"
   },
   grassyglide: {
     accuracy: 100,
@@ -2297,7 +2805,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Grassy Glide",
     pp: 20,
     type: "Grass",
-    description: "User on Grassy Terrain: +1 priority."
+    description: "User on Grassy Terrain: +1 priority.",
+    secondary: null,
+    target: "normal"
   },
   grassyterrain: {
     accuracy: true,
@@ -2306,7 +2816,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Grassy Terrain",
     pp: 10,
     type: "Grass",
-    description: "5 turns. Grounded: +Grass power, +1/16 max HP."
+    description: "5 turns. Grounded: +Grass power, +1/16 max HP.",
+    secondary: null,
+    target: "all"
   },
   gravapple: {
     accuracy: 100,
@@ -2315,7 +2827,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Grav Apple",
     pp: 10,
     type: "Grass",
-    description: "Target: 100% -1 Def. During Gravity: 1.5x power."
+    description: "Target: 100% -1 Def. During Gravity: 1.5x power.",
+    secondary: { chance: 100, boosts: { def: -1 } },
+    target: "normal"
   },
   gravity: {
     accuracy: true,
@@ -2324,7 +2838,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Gravity",
     pp: 5,
     type: "Psychic",
-    description: "5 turns: no Ground immunities, 1.67x accuracy."
+    description: "5 turns: no Ground immunities, 1.67x accuracy.",
+    secondary: null,
+    target: "all"
   },
   growl: {
     accuracy: 100,
@@ -2333,7 +2849,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Growl",
     pp: 40,
     type: "Normal",
-    description: "Lowers the foe(s) Attack by 1."
+    description: "Lowers the foe(s) Attack by 1.",
+    secondary: null,
+    target: "allAdjacentFoes"
   },
   growth: {
     accuracy: true,
@@ -2342,7 +2860,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Growth",
     pp: 20,
     type: "Normal",
-    description: "Raises user's Attack and Sp. Atk by 1; 2 in Sun."
+    description: "Raises user's Attack and Sp. Atk by 1; 2 in Sun.",
+    secondary: null,
+    target: "self"
   },
   guardsplit: {
     accuracy: true,
@@ -2351,7 +2871,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Guard Split",
     pp: 10,
     type: "Psychic",
-    description: "Averages Defense and Sp. Def stats with target."
+    description: "Averages Defense and Sp. Def stats with target.",
+    secondary: null,
+    target: "normal"
   },
   guardswap: {
     accuracy: true,
@@ -2360,7 +2882,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Guard Swap",
     pp: 10,
     type: "Psychic",
-    description: "Swaps Defense and Sp. Def changes with target."
+    description: "Swaps Defense and Sp. Def changes with target.",
+    secondary: null,
+    target: "normal"
   },
   guillotine: {
     accuracy: 30,
@@ -2369,7 +2893,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Guillotine",
     pp: 5,
     type: "Normal",
-    description: "OHKOs the target. Fails if user is a lower level."
+    description: "OHKOs the target. Fails if user is a lower level.",
+    secondary: null,
+    target: "normal"
   },
   gunkshot: {
     accuracy: 80,
@@ -2378,7 +2904,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Gunk Shot",
     pp: 5,
     type: "Poison",
-    description: "30% chance to poison the target."
+    description: "30% chance to poison the target.",
+    secondary: { chance: 30, status: "psn" },
+    target: "normal"
   },
   gust: {
     accuracy: 100,
@@ -2387,7 +2915,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Gust",
     pp: 35,
     type: "Flying",
-    description: "Power doubles during Bounce, Fly, and Sky Drop."
+    description: "Power doubles during Bounce, Fly, and Sky Drop.",
+    secondary: null,
+    target: "any"
   },
   gyroball: {
     accuracy: 100,
@@ -2396,7 +2926,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Gyro Ball",
     pp: 5,
     type: "Steel",
-    description: "More power the slower the user than the target."
+    description: "More power the slower the user than the target.",
+    secondary: null,
+    target: "normal"
   },
   hammerarm: {
     accuracy: 90,
@@ -2405,7 +2937,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Hammer Arm",
     pp: 10,
     type: "Fighting",
-    description: "Lowers the user's Speed by 1."
+    description: "Lowers the user's Speed by 1.",
+    secondary: null,
+    target: "normal"
   },
   happyhour: {
     accuracy: true,
@@ -2414,7 +2948,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Happy Hour",
     pp: 30,
     type: "Normal",
-    description: "No competitive use."
+    description: "No competitive use.",
+    secondary: null,
+    target: "allySide"
   },
   hardpress: {
     accuracy: 100,
@@ -2423,7 +2959,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Hard Press",
     pp: 10,
     type: "Steel",
-    description: "More power the more HP the target has left."
+    description: "More power the more HP the target has left.",
+    secondary: null,
+    target: "normal"
   },
   harden: {
     accuracy: true,
@@ -2432,7 +2970,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Harden",
     pp: 30,
     type: "Normal",
-    description: "Raises the user's Defense by 1."
+    description: "Raises the user's Defense by 1.",
+    secondary: null,
+    target: "self"
   },
   haze: {
     accuracy: true,
@@ -2441,7 +2981,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Haze",
     pp: 30,
     type: "Ice",
-    description: "Eliminates all stat changes."
+    description: "Eliminates all stat changes.",
+    secondary: null,
+    target: "all"
   },
   headsmash: {
     accuracy: 80,
@@ -2450,7 +2992,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Head Smash",
     pp: 5,
     type: "Rock",
-    description: "Has 1/2 recoil."
+    description: "Has 1/2 recoil.",
+    secondary: null,
+    target: "normal"
   },
   headbutt: {
     accuracy: 100,
@@ -2459,7 +3003,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Headbutt",
     pp: 15,
     type: "Normal",
-    description: "30% chance to make the target flinch."
+    description: "30% chance to make the target flinch.",
+    secondary: { chance: 30, volatileStatus: "flinch" },
+    target: "normal"
   },
   headlongrush: {
     accuracy: 100,
@@ -2468,7 +3014,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Headlong Rush",
     pp: 5,
     type: "Ground",
-    description: "Lowers the user's Defense and Sp. Def by 1."
+    description: "Lowers the user's Defense and Sp. Def by 1.",
+    secondary: null,
+    target: "normal"
   },
   healbell: {
     accuracy: true,
@@ -2477,7 +3025,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Heal Bell",
     pp: 5,
     type: "Normal",
-    description: "Cures the user's party of all status conditions."
+    description: "Cures the user's party of all status conditions.",
+    secondary: null,
+    target: "allyTeam"
   },
   healpulse: {
     accuracy: true,
@@ -2486,7 +3036,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Heal Pulse",
     pp: 10,
     type: "Psychic",
-    description: "Heals the target by 50% of its max HP."
+    description: "Heals the target by 50% of its max HP.",
+    secondary: null,
+    target: "any"
   },
   healingwish: {
     accuracy: true,
@@ -2495,7 +3047,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Healing Wish",
     pp: 10,
     type: "Psychic",
-    description: "User faints. Next hurt Pokemon is fully healed."
+    description: "User faints. Next hurt Pokemon is fully healed.",
+    secondary: null,
+    target: "self"
   },
   heartswap: {
     accuracy: true,
@@ -2504,7 +3058,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Heart Swap",
     pp: 10,
     type: "Psychic",
-    description: "Swaps all stat changes with target."
+    description: "Swaps all stat changes with target.",
+    secondary: null,
+    target: "normal"
   },
   heatcrash: {
     accuracy: 100,
@@ -2513,7 +3069,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Heat Crash",
     pp: 10,
     type: "Fire",
-    description: "More power the heavier the user than the target."
+    description: "More power the heavier the user than the target.",
+    secondary: null,
+    target: "normal"
   },
   heatwave: {
     accuracy: 90,
@@ -2522,7 +3080,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Heat Wave",
     pp: 10,
     type: "Fire",
-    description: "10% chance to burn the foe(s)."
+    description: "10% chance to burn the foe(s).",
+    secondary: { chance: 10, status: "brn" },
+    target: "allAdjacentFoes"
   },
   heavyslam: {
     accuracy: 100,
@@ -2531,7 +3091,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Heavy Slam",
     pp: 10,
     type: "Steel",
-    description: "More power the heavier the user than the target."
+    description: "More power the heavier the user than the target.",
+    secondary: null,
+    target: "normal"
   },
   helpinghand: {
     accuracy: true,
@@ -2540,7 +3102,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Helping Hand",
     pp: 20,
     type: "Normal",
-    description: "One adjacent ally's move power is 1.5x this turn."
+    description: "One adjacent ally's move power is 1.5x this turn.",
+    secondary: null,
+    target: "adjacentAlly"
   },
   hex: {
     accuracy: 100,
@@ -2549,7 +3113,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Hex",
     pp: 10,
     type: "Ghost",
-    description: "Power doubles if the target has a status ailment."
+    description: "Power doubles if the target has a status ailment.",
+    secondary: null,
+    target: "normal"
   },
   highhorsepower: {
     accuracy: 95,
@@ -2558,7 +3124,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "High Horsepower",
     pp: 10,
     type: "Ground",
-    description: "No additional effect."
+    description: "No additional effect.",
+    secondary: null,
+    target: "normal"
   },
   highjumpkick: {
     accuracy: 90,
@@ -2567,7 +3135,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "High Jump Kick",
     pp: 10,
     type: "Fighting",
-    description: "User is hurt by 50% of its max HP if it misses."
+    description: "User is hurt by 50% of its max HP if it misses.",
+    secondary: null,
+    target: "normal"
   },
   holdback: {
     accuracy: 100,
@@ -2576,7 +3146,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Hold Back",
     pp: 40,
     type: "Normal",
-    description: "Always leaves the target with at least 1 HP."
+    description: "Always leaves the target with at least 1 HP.",
+    secondary: null,
+    target: "normal"
   },
   holdhands: {
     accuracy: true,
@@ -2585,7 +3157,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Hold Hands",
     pp: 40,
     type: "Normal",
-    description: "No competitive use."
+    description: "No competitive use.",
+    secondary: null,
+    target: "adjacentAlly"
   },
   honeclaws: {
     accuracy: true,
@@ -2594,7 +3168,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Hone Claws",
     pp: 15,
     type: "Dark",
-    description: "Raises the user's Attack and accuracy by 1."
+    description: "Raises the user's Attack and accuracy by 1.",
+    secondary: null,
+    target: "self"
   },
   hornattack: {
     accuracy: 100,
@@ -2603,7 +3179,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Horn Attack",
     pp: 25,
     type: "Normal",
-    description: "No additional effect."
+    description: "No additional effect.",
+    secondary: null,
+    target: "normal"
   },
   horndrill: {
     accuracy: 30,
@@ -2612,7 +3190,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Horn Drill",
     pp: 5,
     type: "Normal",
-    description: "OHKOs the target. Fails if user is a lower level."
+    description: "OHKOs the target. Fails if user is a lower level.",
+    secondary: null,
+    target: "normal"
   },
   hornleech: {
     accuracy: 100,
@@ -2621,7 +3201,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Horn Leech",
     pp: 10,
     type: "Grass",
-    description: "User recovers 50% of the damage dealt."
+    description: "User recovers 50% of the damage dealt.",
+    secondary: null,
+    target: "normal"
   },
   howl: {
     accuracy: true,
@@ -2630,7 +3212,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Howl",
     pp: 40,
     type: "Normal",
-    description: "Raises the user's and ally's Attack by 1."
+    description: "Raises the user's and ally's Attack by 1.",
+    secondary: null,
+    target: "allies"
   },
   hurricane: {
     accuracy: 70,
@@ -2639,7 +3223,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Hurricane",
     pp: 10,
     type: "Flying",
-    description: "30% chance to confuse target. Can't miss in rain."
+    description: "30% chance to confuse target. Can't miss in rain.",
+    secondary: { chance: 30, volatileStatus: "confusion" },
+    target: "any"
   },
   hydrocannon: {
     accuracy: 90,
@@ -2648,7 +3234,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Hydro Cannon",
     pp: 5,
     type: "Water",
-    description: "User cannot move next turn."
+    description: "User cannot move next turn.",
+    secondary: null,
+    target: "normal"
   },
   hydropump: {
     accuracy: 80,
@@ -2657,7 +3245,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Hydro Pump",
     pp: 5,
     type: "Water",
-    description: "No additional effect."
+    description: "No additional effect.",
+    secondary: null,
+    target: "normal"
   },
   hydrosteam: {
     accuracy: 100,
@@ -2666,7 +3256,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Hydro Steam",
     pp: 15,
     type: "Water",
-    description: "During Sunny Day: 1.5x damage instead of half."
+    description: "During Sunny Day: 1.5x damage instead of half.",
+    secondary: null,
+    target: "normal"
   },
   hyperbeam: {
     accuracy: 90,
@@ -2675,7 +3267,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Hyper Beam",
     pp: 5,
     type: "Normal",
-    description: "User cannot move next turn."
+    description: "User cannot move next turn.",
+    secondary: null,
+    target: "normal"
   },
   hyperdrill: {
     accuracy: 100,
@@ -2684,7 +3278,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Hyper Drill",
     pp: 5,
     type: "Normal",
-    description: "Bypasses protection without breaking it."
+    description: "Bypasses protection without breaking it.",
+    secondary: null,
+    target: "normal"
   },
   hypervoice: {
     accuracy: 100,
@@ -2693,7 +3289,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Hyper Voice",
     pp: 10,
     type: "Normal",
-    description: "No additional effect. Hits adjacent foes."
+    description: "No additional effect. Hits adjacent foes.",
+    secondary: null,
+    target: "allAdjacentFoes"
   },
   hyperspacefury: {
     accuracy: true,
@@ -2702,7 +3300,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Hyperspace Fury",
     pp: 5,
     type: "Dark",
-    description: "Hoopa-U: Lowers user's Def by 1; breaks protect."
+    description: "Hoopa-U: Lowers user's Def by 1; breaks protect.",
+    secondary: null,
+    target: "normal"
   },
   hyperspacehole: {
     accuracy: true,
@@ -2711,7 +3311,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Hyperspace Hole",
     pp: 5,
     type: "Psychic",
-    description: "Breaks the target's protection for this turn."
+    description: "Breaks the target's protection for this turn.",
+    secondary: null,
+    target: "normal"
   },
   hypnosis: {
     accuracy: 60,
@@ -2720,7 +3322,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Hypnosis",
     pp: 20,
     type: "Psychic",
-    description: "Causes the target to fall asleep."
+    description: "Causes the target to fall asleep.",
+    secondary: null,
+    target: "normal"
   },
   icebeam: {
     accuracy: 100,
@@ -2729,7 +3333,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Ice Beam",
     pp: 10,
     type: "Ice",
-    description: "10% chance to freeze the target."
+    description: "10% chance to freeze the target.",
+    secondary: { chance: 10, status: "frz" },
+    target: "normal"
   },
   iceburn: {
     accuracy: 90,
@@ -2738,7 +3344,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Ice Burn",
     pp: 5,
     type: "Ice",
-    description: "Charges turn 1. Hits turn 2. 30% burn."
+    description: "Charges turn 1. Hits turn 2. 30% burn.",
+    secondary: { chance: 30, status: "brn" },
+    target: "normal"
   },
   icefang: {
     accuracy: 95,
@@ -2747,7 +3355,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Ice Fang",
     pp: 15,
     type: "Ice",
-    description: "10% chance to freeze. 10% chance to flinch."
+    description: "10% chance to freeze. 10% chance to flinch.",
+    secondary: null,
+    target: "normal"
   },
   icehammer: {
     accuracy: 90,
@@ -2756,7 +3366,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Ice Hammer",
     pp: 10,
     type: "Ice",
-    description: "Lowers the user's Speed by 1."
+    description: "Lowers the user's Speed by 1.",
+    secondary: null,
+    target: "normal"
   },
   icepunch: {
     accuracy: 100,
@@ -2765,7 +3377,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Ice Punch",
     pp: 15,
     type: "Ice",
-    description: "10% chance to freeze the target."
+    description: "10% chance to freeze the target.",
+    secondary: { chance: 10, status: "frz" },
+    target: "normal"
   },
   iceshard: {
     accuracy: 100,
@@ -2774,7 +3388,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Ice Shard",
     pp: 30,
     type: "Ice",
-    description: "Usually goes first."
+    description: "Usually goes first.",
+    secondary: null,
+    target: "normal"
   },
   icespinner: {
     accuracy: 100,
@@ -2783,7 +3399,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Ice Spinner",
     pp: 15,
     type: "Ice",
-    description: "Ends the effects of terrain."
+    description: "Ends the effects of terrain.",
+    secondary: null,
+    target: "normal"
   },
   iciclecrash: {
     accuracy: 90,
@@ -2792,7 +3410,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Icicle Crash",
     pp: 10,
     type: "Ice",
-    description: "30% chance to make the target flinch."
+    description: "30% chance to make the target flinch.",
+    secondary: { chance: 30, volatileStatus: "flinch" },
+    target: "normal"
   },
   iciclespear: {
     accuracy: 100,
@@ -2801,7 +3421,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Icicle Spear",
     pp: 30,
     type: "Ice",
-    description: "Hits 2-5 times in one turn."
+    description: "Hits 2-5 times in one turn.",
+    secondary: null,
+    target: "normal"
   },
   icywind: {
     accuracy: 95,
@@ -2810,7 +3432,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Icy Wind",
     pp: 15,
     type: "Ice",
-    description: "100% chance to lower the foe(s) Speed by 1."
+    description: "100% chance to lower the foe(s) Speed by 1.",
+    secondary: { chance: 100, boosts: { spe: -1 } },
+    target: "allAdjacentFoes"
   },
   imprison: {
     accuracy: true,
@@ -2819,7 +3443,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Imprison",
     pp: 10,
     type: "Psychic",
-    description: "No foe can use any move known by the user."
+    description: "No foe can use any move known by the user.",
+    secondary: null,
+    target: "self"
   },
   incinerate: {
     accuracy: 100,
@@ -2828,7 +3454,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Incinerate",
     pp: 15,
     type: "Fire",
-    description: "Destroys the foe(s) Berry/Gem."
+    description: "Destroys the foe(s) Berry/Gem.",
+    secondary: null,
+    target: "allAdjacentFoes"
   },
   infernalparade: {
     accuracy: 100,
@@ -2837,7 +3465,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Infernal Parade",
     pp: 15,
     type: "Ghost",
-    description: "30% burn. 2x power if target is already statused."
+    description: "30% burn. 2x power if target is already statused.",
+    secondary: { chance: 30, status: "brn" },
+    target: "normal"
   },
   inferno: {
     accuracy: 50,
@@ -2846,7 +3476,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Inferno",
     pp: 5,
     type: "Fire",
-    description: "100% chance to burn the target."
+    description: "100% chance to burn the target.",
+    secondary: { chance: 100, status: "brn" },
+    target: "normal"
   },
   infestation: {
     accuracy: 100,
@@ -2855,7 +3487,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Infestation",
     pp: 20,
     type: "Bug",
-    description: "Traps and damages the target for 4-5 turns."
+    description: "Traps and damages the target for 4-5 turns.",
+    secondary: null,
+    target: "normal"
   },
   ingrain: {
     accuracy: true,
@@ -2864,7 +3498,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Ingrain",
     pp: 20,
     type: "Grass",
-    description: "Traps/grounds user; heals 1/16 max HP per turn."
+    description: "Traps/grounds user; heals 1/16 max HP per turn.",
+    secondary: null,
+    target: "self"
   },
   instruct: {
     accuracy: true,
@@ -2873,7 +3509,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Instruct",
     pp: 15,
     type: "Psychic",
-    description: "The target immediately uses its last used move."
+    description: "The target immediately uses its last used move.",
+    secondary: null,
+    target: "normal"
   },
   irondefense: {
     accuracy: true,
@@ -2882,7 +3520,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Iron Defense",
     pp: 15,
     type: "Steel",
-    description: "Raises the user's Defense by 2."
+    description: "Raises the user's Defense by 2.",
+    secondary: null,
+    target: "self"
   },
   ironhead: {
     accuracy: 100,
@@ -2891,7 +3531,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Iron Head",
     pp: 15,
     type: "Steel",
-    description: "30% chance to make the target flinch."
+    description: "30% chance to make the target flinch.",
+    secondary: { chance: 30, volatileStatus: "flinch" },
+    target: "normal"
   },
   irontail: {
     accuracy: 75,
@@ -2900,7 +3542,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Iron Tail",
     pp: 15,
     type: "Steel",
-    description: "30% chance to lower the target's Defense by 1."
+    description: "30% chance to lower the target's Defense by 1.",
+    secondary: { chance: 30, boosts: { def: -1 } },
+    target: "normal"
   },
   ivycudgel: {
     accuracy: 100,
@@ -2909,7 +3553,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Ivy Cudgel",
     pp: 10,
     type: "Grass",
-    description: "High critical hit ratio. Type depends on user's form."
+    description: "High critical hit ratio. Type depends on user's form.",
+    secondary: null,
+    target: "normal"
   },
   jawlock: {
     accuracy: 100,
@@ -2918,7 +3564,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Jaw Lock",
     pp: 10,
     type: "Dark",
-    description: "Prevents both user and target from switching out."
+    description: "Prevents both user and target from switching out.",
+    secondary: null,
+    target: "normal"
   },
   jetpunch: {
     accuracy: 100,
@@ -2927,7 +3575,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Jet Punch",
     pp: 15,
     type: "Water",
-    description: "Usually goes first."
+    description: "Usually goes first.",
+    secondary: null,
+    target: "normal"
   },
   judgment: {
     accuracy: 100,
@@ -2936,7 +3586,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Judgment",
     pp: 10,
     type: "Normal",
-    description: "Type varies based on the held Plate."
+    description: "Type varies based on the held Plate.",
+    secondary: null,
+    target: "normal"
   },
   junglehealing: {
     accuracy: true,
@@ -2945,7 +3597,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Jungle Healing",
     pp: 10,
     type: "Grass",
-    description: "User and allies: healed 1/4 max HP, status cured."
+    description: "User and allies: healed 1/4 max HP, status cured.",
+    secondary: null,
+    target: "allies"
   },
   knockoff: {
     accuracy: 100,
@@ -2954,7 +3608,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Knock Off",
     pp: 20,
     type: "Dark",
-    description: "1.5x damage if foe holds an item. Removes item."
+    description: "1.5x damage if foe holds an item. Removes item.",
+    secondary: null,
+    target: "normal"
   },
   kowtowcleave: {
     accuracy: true,
@@ -2963,7 +3619,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Kowtow Cleave",
     pp: 10,
     type: "Dark",
-    description: "This move does not check accuracy."
+    description: "This move does not check accuracy.",
+    secondary: null,
+    target: "normal"
   },
   lashout: {
     accuracy: 100,
@@ -2972,7 +3630,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Lash Out",
     pp: 5,
     type: "Dark",
-    description: "2x power if the user had a stat lowered this turn."
+    description: "2x power if the user had a stat lowered this turn.",
+    secondary: null,
+    target: "normal"
   },
   lastresort: {
     accuracy: 100,
@@ -2981,7 +3641,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Last Resort",
     pp: 5,
     type: "Normal",
-    description: "Fails unless each known move has been used."
+    description: "Fails unless each known move has been used.",
+    secondary: null,
+    target: "normal"
   },
   lastrespects: {
     accuracy: 100,
@@ -2990,7 +3652,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Last Respects",
     pp: 10,
     type: "Ghost",
-    description: "+50 power for each time a party member fainted."
+    description: "+50 power for each time a party member fainted.",
+    secondary: null,
+    target: "normal"
   },
   lavaplume: {
     accuracy: 100,
@@ -2999,7 +3663,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Lava Plume",
     pp: 15,
     type: "Fire",
-    description: "30% chance to burn adjacent Pokemon."
+    description: "30% chance to burn adjacent Pokemon.",
+    secondary: { chance: 30, status: "brn" },
+    target: "allAdjacent"
   },
   leafblade: {
     accuracy: 100,
@@ -3008,7 +3674,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Leaf Blade",
     pp: 15,
     type: "Grass",
-    description: "High critical hit ratio."
+    description: "High critical hit ratio.",
+    secondary: null,
+    target: "normal"
   },
   leafstorm: {
     accuracy: 90,
@@ -3017,7 +3685,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Leaf Storm",
     pp: 5,
     type: "Grass",
-    description: "Lowers the user's Sp. Atk by 2."
+    description: "Lowers the user's Sp. Atk by 2.",
+    secondary: null,
+    target: "normal"
   },
   leafage: {
     accuracy: 100,
@@ -3026,7 +3696,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Leafage",
     pp: 40,
     type: "Grass",
-    description: "No additional effect."
+    description: "No additional effect.",
+    secondary: null,
+    target: "normal"
   },
   leechlife: {
     accuracy: 100,
@@ -3035,7 +3707,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Leech Life",
     pp: 10,
     type: "Bug",
-    description: "User recovers 50% of the damage dealt."
+    description: "User recovers 50% of the damage dealt.",
+    secondary: null,
+    target: "normal"
   },
   leechseed: {
     accuracy: 90,
@@ -3044,7 +3718,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Leech Seed",
     pp: 10,
     type: "Grass",
-    description: "1/8 of target's HP is restored to user every turn."
+    description: "1/8 of target's HP is restored to user every turn.",
+    secondary: null,
+    target: "normal"
   },
   leer: {
     accuracy: 100,
@@ -3053,7 +3729,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Leer",
     pp: 30,
     type: "Normal",
-    description: "Lowers the foe(s) Defense by 1."
+    description: "Lowers the foe(s) Defense by 1.",
+    secondary: null,
+    target: "allAdjacentFoes"
   },
   lick: {
     accuracy: 100,
@@ -3062,7 +3740,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Lick",
     pp: 30,
     type: "Ghost",
-    description: "30% chance to paralyze the target."
+    description: "30% chance to paralyze the target.",
+    secondary: { chance: 30, status: "par" },
+    target: "normal"
   },
   lifedew: {
     accuracy: true,
@@ -3071,7 +3751,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Life Dew",
     pp: 10,
     type: "Water",
-    description: "Heals the user and its allies by 1/4 their max HP."
+    description: "Heals the user and its allies by 1/4 their max HP.",
+    secondary: null,
+    target: "allies"
   },
   lightscreen: {
     accuracy: true,
@@ -3080,7 +3762,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Light Screen",
     pp: 30,
     type: "Psychic",
-    description: "For 5 turns, special damage to allies is halved."
+    description: "For 5 turns, special damage to allies is halved.",
+    secondary: null,
+    target: "allySide"
   },
   liquidation: {
     accuracy: 100,
@@ -3089,7 +3773,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Liquidation",
     pp: 10,
     type: "Water",
-    description: "20% chance to lower the target's Defense by 1."
+    description: "20% chance to lower the target's Defense by 1.",
+    secondary: { chance: 20, boosts: { def: -1 } },
+    target: "normal"
   },
   lockon: {
     accuracy: true,
@@ -3098,7 +3784,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Lock-On",
     pp: 5,
     type: "Normal",
-    description: "User's next move will not miss the target."
+    description: "User's next move will not miss the target.",
+    secondary: null,
+    target: "normal"
   },
   lowkick: {
     accuracy: 100,
@@ -3107,7 +3795,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Low Kick",
     pp: 20,
     type: "Fighting",
-    description: "More power the heavier the target."
+    description: "More power the heavier the target.",
+    secondary: null,
+    target: "normal"
   },
   lowsweep: {
     accuracy: 100,
@@ -3116,7 +3806,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Low Sweep",
     pp: 20,
     type: "Fighting",
-    description: "100% chance to lower the target's Speed by 1."
+    description: "100% chance to lower the target's Speed by 1.",
+    secondary: { chance: 100, boosts: { spe: -1 } },
+    target: "normal"
   },
   luminacrash: {
     accuracy: 100,
@@ -3125,7 +3817,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Lumina Crash",
     pp: 10,
     type: "Psychic",
-    description: "100% chance to lower the target's Sp. Def by 2."
+    description: "100% chance to lower the target's Sp. Def by 2.",
+    secondary: { chance: 100, boosts: { spd: -2 } },
+    target: "normal"
   },
   lunarblessing: {
     accuracy: true,
@@ -3134,7 +3828,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Lunar Blessing",
     pp: 5,
     type: "Psychic",
-    description: "User and allies: healed 1/4 max HP, status cured."
+    description: "User and allies: healed 1/4 max HP, status cured.",
+    secondary: null,
+    target: "allies"
   },
   lunardance: {
     accuracy: true,
@@ -3143,7 +3839,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Lunar Dance",
     pp: 10,
     type: "Psychic",
-    description: "User faints. Next hurt Pkmn is cured, max HP/PP."
+    description: "User faints. Next hurt Pkmn is cured, max HP/PP.",
+    secondary: null,
+    target: "self"
   },
   lunge: {
     accuracy: 100,
@@ -3152,7 +3850,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Lunge",
     pp: 15,
     type: "Bug",
-    description: "100% chance to lower the target's Attack by 1."
+    description: "100% chance to lower the target's Attack by 1.",
+    secondary: { chance: 100, boosts: { atk: -1 } },
+    target: "normal"
   },
   lusterpurge: {
     accuracy: 100,
@@ -3161,7 +3861,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Luster Purge",
     pp: 5,
     type: "Psychic",
-    description: "50% chance to lower the target's Sp. Def by 1."
+    description: "50% chance to lower the target's Sp. Def by 1.",
+    secondary: { chance: 50, boosts: { spd: -1 } },
+    target: "normal"
   },
   machpunch: {
     accuracy: 100,
@@ -3170,7 +3872,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Mach Punch",
     pp: 30,
     type: "Fighting",
-    description: "Usually goes first."
+    description: "Usually goes first.",
+    secondary: null,
+    target: "normal"
   },
   magicpowder: {
     accuracy: 100,
@@ -3179,7 +3883,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Magic Powder",
     pp: 20,
     type: "Psychic",
-    description: "Changes the target's type to Psychic."
+    description: "Changes the target's type to Psychic.",
+    secondary: null,
+    target: "normal"
   },
   magicroom: {
     accuracy: true,
@@ -3188,7 +3894,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Magic Room",
     pp: 10,
     type: "Psychic",
-    description: "For 5 turns, all held items have no effect."
+    description: "For 5 turns, all held items have no effect.",
+    secondary: null,
+    target: "all"
   },
   magicalleaf: {
     accuracy: true,
@@ -3197,7 +3905,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Magical Leaf",
     pp: 20,
     type: "Grass",
-    description: "This move does not check accuracy."
+    description: "This move does not check accuracy.",
+    secondary: null,
+    target: "normal"
   },
   magmastorm: {
     accuracy: 75,
@@ -3206,7 +3916,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Magma Storm",
     pp: 5,
     type: "Fire",
-    description: "Traps and damages the target for 4-5 turns."
+    description: "Traps and damages the target for 4-5 turns.",
+    secondary: null,
+    target: "normal"
   },
   magnetrise: {
     accuracy: true,
@@ -3215,7 +3927,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Magnet Rise",
     pp: 10,
     type: "Electric",
-    description: "For 5 turns, the user has immunity to Ground."
+    description: "For 5 turns, the user has immunity to Ground.",
+    secondary: null,
+    target: "self"
   },
   magneticflux: {
     accuracy: true,
@@ -3224,7 +3938,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Magnetic Flux",
     pp: 20,
     type: "Electric",
-    description: "Raises Def, Sp. Def of allies with Plus/Minus by 1."
+    description: "Raises Def, Sp. Def of allies with Plus/Minus by 1.",
+    secondary: null,
+    target: "allySide"
   },
   makeitrain: {
     accuracy: 100,
@@ -3233,7 +3949,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Make It Rain",
     pp: 5,
     type: "Steel",
-    description: "Lowers the user's Sp. Atk by 1. Hits foe(s)."
+    description: "Lowers the user's Sp. Atk by 1. Hits foe(s).",
+    secondary: null,
+    target: "allAdjacentFoes"
   },
   malignantchain: {
     accuracy: 100,
@@ -3242,7 +3960,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Malignant Chain",
     pp: 5,
     type: "Poison",
-    description: "50% chance to badly poison the target."
+    description: "50% chance to badly poison the target.",
+    secondary: { chance: 50, status: "tox" },
+    target: "normal"
   },
   matchagotcha: {
     accuracy: 90,
@@ -3251,7 +3971,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Matcha Gotcha",
     pp: 15,
     type: "Grass",
-    description: "20% burn. Recovers 50% dmg dealt. Thaws foe(s)."
+    description: "20% burn. Recovers 50% dmg dealt. Thaws foe(s).",
+    secondary: { chance: 20, status: "brn" },
+    target: "allAdjacentFoes"
   },
   meanlook: {
     accuracy: true,
@@ -3260,7 +3982,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Mean Look",
     pp: 5,
     type: "Normal",
-    description: "Prevents the target from switching out."
+    description: "Prevents the target from switching out.",
+    secondary: null,
+    target: "normal"
   },
   megadrain: {
     accuracy: 100,
@@ -3269,7 +3993,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Mega Drain",
     pp: 15,
     type: "Grass",
-    description: "User recovers 50% of the damage dealt."
+    description: "User recovers 50% of the damage dealt.",
+    secondary: null,
+    target: "normal"
   },
   megakick: {
     accuracy: 75,
@@ -3278,7 +4004,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Mega Kick",
     pp: 5,
     type: "Normal",
-    description: "No additional effect."
+    description: "No additional effect.",
+    secondary: null,
+    target: "normal"
   },
   megapunch: {
     accuracy: 85,
@@ -3287,7 +4015,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Mega Punch",
     pp: 20,
     type: "Normal",
-    description: "No additional effect."
+    description: "No additional effect.",
+    secondary: null,
+    target: "normal"
   },
   megahorn: {
     accuracy: 85,
@@ -3296,7 +4026,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Megahorn",
     pp: 10,
     type: "Bug",
-    description: "No additional effect."
+    description: "No additional effect.",
+    secondary: null,
+    target: "normal"
   },
   memento: {
     accuracy: 100,
@@ -3305,7 +4037,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Memento",
     pp: 10,
     type: "Dark",
-    description: "Lowers target's Attack, Sp. Atk by 2. User faints."
+    description: "Lowers target's Attack, Sp. Atk by 2. User faints.",
+    secondary: null,
+    target: "normal"
   },
   metalburst: {
     accuracy: 100,
@@ -3314,7 +4048,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Metal Burst",
     pp: 10,
     type: "Steel",
-    description: "If hit by an attack, returns 1.5x damage."
+    description: "If hit by an attack, returns 1.5x damage.",
+    secondary: null,
+    target: "scripted"
   },
   metalclaw: {
     accuracy: 95,
@@ -3323,7 +4059,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Metal Claw",
     pp: 35,
     type: "Steel",
-    description: "10% chance to raise the user's Attack by 1."
+    description: "10% chance to raise the user's Attack by 1.",
+    secondary: null,
+    target: "normal"
   },
   metalsound: {
     accuracy: 85,
@@ -3332,7 +4070,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Metal Sound",
     pp: 40,
     type: "Steel",
-    description: "Lowers the target's Sp. Def by 2."
+    description: "Lowers the target's Sp. Def by 2.",
+    secondary: null,
+    target: "normal"
   },
   meteorbeam: {
     accuracy: 90,
@@ -3341,7 +4081,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Meteor Beam",
     pp: 10,
     type: "Rock",
-    description: "Raises user's Sp. Atk by 1 on turn 1. Hits turn 2."
+    description: "Raises user's Sp. Atk by 1 on turn 1. Hits turn 2.",
+    secondary: null,
+    target: "normal"
   },
   meteormash: {
     accuracy: 90,
@@ -3350,7 +4092,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Meteor Mash",
     pp: 10,
     type: "Steel",
-    description: "20% chance to raise the user's Attack by 1."
+    description: "20% chance to raise the user's Attack by 1.",
+    secondary: null,
+    target: "normal"
   },
   metronome: {
     accuracy: true,
@@ -3359,7 +4103,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Metronome",
     pp: 10,
     type: "Normal",
-    description: "Picks a random move."
+    description: "Picks a random move.",
+    secondary: null,
+    target: "self"
   },
   mightycleave: {
     accuracy: 100,
@@ -3368,7 +4114,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Mighty Cleave",
     pp: 5,
     type: "Rock",
-    description: "Bypasses protection without breaking it."
+    description: "Bypasses protection without breaking it.",
+    secondary: null,
+    target: "normal"
   },
   milkdrink: {
     accuracy: true,
@@ -3377,7 +4125,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Milk Drink",
     pp: 5,
     type: "Normal",
-    description: "Heals the user by 50% of its max HP."
+    description: "Heals the user by 50% of its max HP.",
+    secondary: null,
+    target: "self"
   },
   mimic: {
     accuracy: true,
@@ -3386,7 +4136,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Mimic",
     pp: 10,
     type: "Normal",
-    description: "The last move the target used replaces this one."
+    description: "The last move the target used replaces this one.",
+    secondary: null,
+    target: "normal"
   },
   minimize: {
     accuracy: true,
@@ -3395,7 +4147,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Minimize",
     pp: 10,
     type: "Normal",
-    description: "Raises the user's evasiveness by 2."
+    description: "Raises the user's evasiveness by 2.",
+    secondary: null,
+    target: "self"
   },
   mirrorcoat: {
     accuracy: 100,
@@ -3404,7 +4158,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Mirror Coat",
     pp: 20,
     type: "Psychic",
-    description: "If hit by special attack, returns double damage."
+    description: "If hit by special attack, returns double damage.",
+    secondary: null,
+    target: "scripted"
   },
   mist: {
     accuracy: true,
@@ -3413,7 +4169,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Mist",
     pp: 30,
     type: "Ice",
-    description: "For 5 turns, protects user's party from stat drops."
+    description: "For 5 turns, protects user's party from stat drops.",
+    secondary: null,
+    target: "allySide"
   },
   mistball: {
     accuracy: 100,
@@ -3422,7 +4180,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Mist Ball",
     pp: 5,
     type: "Psychic",
-    description: "50% chance to lower the target's Sp. Atk by 1."
+    description: "50% chance to lower the target's Sp. Atk by 1.",
+    secondary: { chance: 50, boosts: { spa: -1 } },
+    target: "normal"
   },
   mistyexplosion: {
     accuracy: 100,
@@ -3431,7 +4191,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Misty Explosion",
     pp: 5,
     type: "Fairy",
-    description: "User faints. User on Misty Terrain: 1.5x power."
+    description: "User faints. User on Misty Terrain: 1.5x power.",
+    secondary: null,
+    target: "allAdjacent"
   },
   mistyterrain: {
     accuracy: true,
@@ -3440,7 +4202,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Misty Terrain",
     pp: 10,
     type: "Fairy",
-    description: "5 turns. Can't status,-Dragon power vs grounded."
+    description: "5 turns. Can't status,-Dragon power vs grounded.",
+    secondary: null,
+    target: "all"
   },
   moonblast: {
     accuracy: 100,
@@ -3449,7 +4213,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Moonblast",
     pp: 15,
     type: "Fairy",
-    description: "30% chance to lower the target's Sp. Atk by 1."
+    description: "30% chance to lower the target's Sp. Atk by 1.",
+    secondary: { chance: 30, boosts: { spa: -1 } },
+    target: "normal"
   },
   moongeistbeam: {
     accuracy: 100,
@@ -3458,7 +4224,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Moongeist Beam",
     pp: 5,
     type: "Ghost",
-    description: "Ignores the Abilities of other Pokemon."
+    description: "Ignores the Abilities of other Pokemon.",
+    secondary: null,
+    target: "normal"
   },
   moonlight: {
     accuracy: true,
@@ -3467,7 +4235,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Moonlight",
     pp: 5,
     type: "Fairy",
-    description: "Heals the user by a weather-dependent amount."
+    description: "Heals the user by a weather-dependent amount.",
+    secondary: null,
+    target: "self"
   },
   morningsun: {
     accuracy: true,
@@ -3476,7 +4246,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Morning Sun",
     pp: 5,
     type: "Normal",
-    description: "Heals the user by a weather-dependent amount."
+    description: "Heals the user by a weather-dependent amount.",
+    secondary: null,
+    target: "self"
   },
   mortalspin: {
     accuracy: 100,
@@ -3485,7 +4257,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Mortal Spin",
     pp: 15,
     type: "Poison",
-    description: "Poisons foes, frees user from hazards/bind/leech."
+    description: "Poisons foes, frees user from hazards/bind/leech.",
+    secondary: { chance: 100, status: "psn" },
+    target: "allAdjacentFoes"
   },
   mountaingale: {
     accuracy: 85,
@@ -3494,7 +4268,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Mountain Gale",
     pp: 10,
     type: "Ice",
-    description: "30% chance to make the target flinch."
+    description: "30% chance to make the target flinch.",
+    secondary: { chance: 30, volatileStatus: "flinch" },
+    target: "normal"
   },
   mudshot: {
     accuracy: 95,
@@ -3503,7 +4279,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Mud Shot",
     pp: 15,
     type: "Ground",
-    description: "100% chance to lower the target's Speed by 1."
+    description: "100% chance to lower the target's Speed by 1.",
+    secondary: { chance: 100, boosts: { spe: -1 } },
+    target: "normal"
   },
   mudslap: {
     accuracy: 100,
@@ -3512,7 +4290,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Mud-Slap",
     pp: 10,
     type: "Ground",
-    description: "100% chance to lower the target's accuracy by 1."
+    description: "100% chance to lower the target's accuracy by 1.",
+    secondary: { chance: 100, boosts: { accuracy: -1 } },
+    target: "normal"
   },
   muddywater: {
     accuracy: 85,
@@ -3521,7 +4301,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Muddy Water",
     pp: 10,
     type: "Water",
-    description: "30% chance to lower the foe(s) accuracy by 1."
+    description: "30% chance to lower the foe(s) accuracy by 1.",
+    secondary: { chance: 30, boosts: { accuracy: -1 } },
+    target: "allAdjacentFoes"
   },
   mysticalfire: {
     accuracy: 100,
@@ -3530,7 +4312,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Mystical Fire",
     pp: 10,
     type: "Fire",
-    description: "100% chance to lower the target's Sp. Atk by 1."
+    description: "100% chance to lower the target's Sp. Atk by 1.",
+    secondary: { chance: 100, boosts: { spa: -1 } },
+    target: "normal"
   },
   mysticalpower: {
     accuracy: 90,
@@ -3539,7 +4323,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Mystical Power",
     pp: 10,
     type: "Psychic",
-    description: "100% chance to raise the user's Sp. Atk by 1."
+    description: "100% chance to raise the user's Sp. Atk by 1.",
+    secondary: null,
+    target: "normal"
   },
   nastyplot: {
     accuracy: true,
@@ -3548,7 +4334,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Nasty Plot",
     pp: 20,
     type: "Dark",
-    description: "Raises the user's Sp. Atk by 2."
+    description: "Raises the user's Sp. Atk by 2.",
+    secondary: null,
+    target: "self"
   },
   nightdaze: {
     accuracy: 95,
@@ -3557,7 +4345,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Night Daze",
     pp: 10,
     type: "Dark",
-    description: "40% chance to lower the target's accuracy by 1."
+    description: "40% chance to lower the target's accuracy by 1.",
+    secondary: { chance: 40, boosts: { accuracy: -1 } },
+    target: "normal"
   },
   nightshade: {
     accuracy: 100,
@@ -3566,7 +4356,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Night Shade",
     pp: 15,
     type: "Ghost",
-    description: "Does damage equal to the user's level."
+    description: "Does damage equal to the user's level.",
+    secondary: null,
+    target: "normal"
   },
   nightslash: {
     accuracy: 100,
@@ -3575,7 +4367,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Night Slash",
     pp: 15,
     type: "Dark",
-    description: "High critical hit ratio."
+    description: "High critical hit ratio.",
+    secondary: null,
+    target: "normal"
   },
   noretreat: {
     accuracy: true,
@@ -3584,7 +4378,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "No Retreat",
     pp: 5,
     type: "Fighting",
-    description: "Raises all stats by 1 (not acc/eva). Traps user."
+    description: "Raises all stats by 1 (not acc/eva). Traps user.",
+    secondary: null,
+    target: "self"
   },
   nobleroar: {
     accuracy: 100,
@@ -3593,7 +4389,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Noble Roar",
     pp: 30,
     type: "Normal",
-    description: "Lowers the target's Attack and Sp. Atk by 1."
+    description: "Lowers the target's Attack and Sp. Atk by 1.",
+    secondary: null,
+    target: "normal"
   },
   nuzzle: {
     accuracy: 100,
@@ -3602,7 +4400,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Nuzzle",
     pp: 20,
     type: "Electric",
-    description: "100% chance to paralyze the target."
+    description: "100% chance to paralyze the target.",
+    secondary: { chance: 100, status: "par" },
+    target: "normal"
   },
   orderup: {
     accuracy: 100,
@@ -3611,7 +4411,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Order Up",
     pp: 10,
     type: "Dragon",
-    description: "Curly|Droopy|Stretchy eaten: +1 Atk|Def|Spe."
+    description: "Curly|Droopy|Stretchy eaten: +1 Atk|Def|Spe.",
+    secondary: null,
+    target: "normal"
   },
   originpulse: {
     accuracy: 85,
@@ -3620,7 +4422,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Origin Pulse",
     pp: 10,
     type: "Water",
-    description: "No additional effect. Hits adjacent foes."
+    description: "No additional effect. Hits adjacent foes.",
+    secondary: null,
+    target: "allAdjacentFoes"
   },
   outrage: {
     accuracy: 100,
@@ -3629,7 +4433,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Outrage",
     pp: 10,
     type: "Dragon",
-    description: "Lasts 2-3 turns. Confuses the user afterwards."
+    description: "Lasts 2-3 turns. Confuses the user afterwards.",
+    secondary: null,
+    target: "randomNormal"
   },
   overdrive: {
     accuracy: 100,
@@ -3638,7 +4444,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Overdrive",
     pp: 10,
     type: "Electric",
-    description: "No additional effect. Hits foe(s)."
+    description: "No additional effect. Hits foe(s).",
+    secondary: null,
+    target: "allAdjacentFoes"
   },
   overheat: {
     accuracy: 90,
@@ -3647,7 +4455,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Overheat",
     pp: 5,
     type: "Fire",
-    description: "Lowers the user's Sp. Atk by 2."
+    description: "Lowers the user's Sp. Atk by 2.",
+    secondary: null,
+    target: "normal"
   },
   painsplit: {
     accuracy: true,
@@ -3656,7 +4466,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Pain Split",
     pp: 20,
     type: "Normal",
-    description: "Shares HP of user and target equally."
+    description: "Shares HP of user and target equally.",
+    secondary: null,
+    target: "normal"
   },
   paraboliccharge: {
     accuracy: 100,
@@ -3665,7 +4477,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Parabolic Charge",
     pp: 20,
     type: "Electric",
-    description: "User recovers 50% of the damage dealt."
+    description: "User recovers 50% of the damage dealt.",
+    secondary: null,
+    target: "allAdjacent"
   },
   partingshot: {
     accuracy: 100,
@@ -3674,7 +4488,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Parting Shot",
     pp: 20,
     type: "Dark",
-    description: "Lowers target's Atk, Sp. Atk by 1. User switches."
+    description: "Lowers target's Atk, Sp. Atk by 1. User switches.",
+    secondary: null,
+    target: "normal"
   },
   payday: {
     accuracy: 100,
@@ -3683,7 +4499,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Pay Day",
     pp: 20,
     type: "Normal",
-    description: "Scatters coins."
+    description: "Scatters coins.",
+    secondary: null,
+    target: "normal"
   },
   payback: {
     accuracy: 100,
@@ -3692,7 +4510,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Payback",
     pp: 10,
     type: "Dark",
-    description: "Power doubles if the user moves after the target."
+    description: "Power doubles if the user moves after the target.",
+    secondary: null,
+    target: "normal"
   },
   peck: {
     accuracy: 100,
@@ -3701,7 +4521,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Peck",
     pp: 35,
     type: "Flying",
-    description: "No additional effect."
+    description: "No additional effect.",
+    secondary: null,
+    target: "any"
   },
   perishsong: {
     accuracy: true,
@@ -3710,7 +4532,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Perish Song",
     pp: 5,
     type: "Normal",
-    description: "All active Pokemon will faint in 3 turns."
+    description: "All active Pokemon will faint in 3 turns.",
+    secondary: null,
+    target: "all"
   },
   petalblizzard: {
     accuracy: 100,
@@ -3719,7 +4543,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Petal Blizzard",
     pp: 15,
     type: "Grass",
-    description: "No additional effect. Hits adjacent Pokemon."
+    description: "No additional effect. Hits adjacent Pokemon.",
+    secondary: null,
+    target: "allAdjacent"
   },
   petaldance: {
     accuracy: 100,
@@ -3728,7 +4554,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Petal Dance",
     pp: 10,
     type: "Grass",
-    description: "Lasts 2-3 turns. Confuses the user afterwards."
+    description: "Lasts 2-3 turns. Confuses the user afterwards.",
+    secondary: null,
+    target: "randomNormal"
   },
   phantomforce: {
     accuracy: 100,
@@ -3737,7 +4565,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Phantom Force",
     pp: 10,
     type: "Ghost",
-    description: "Disappears turn 1. Hits turn 2. Breaks protection."
+    description: "Disappears turn 1. Hits turn 2. Breaks protection.",
+    secondary: null,
+    target: "normal"
   },
   photongeyser: {
     accuracy: 100,
@@ -3746,7 +4576,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Photon Geyser",
     pp: 5,
     type: "Psychic",
-    description: "Physical if user's Atk > Sp. Atk. Ignores Abilities."
+    description: "Physical if user's Atk > Sp. Atk. Ignores Abilities.",
+    secondary: null,
+    target: "normal"
   },
   pinmissile: {
     accuracy: 95,
@@ -3755,7 +4587,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Pin Missile",
     pp: 20,
     type: "Bug",
-    description: "Hits 2-5 times in one turn."
+    description: "Hits 2-5 times in one turn.",
+    secondary: null,
+    target: "normal"
   },
   playnice: {
     accuracy: true,
@@ -3764,7 +4598,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Play Nice",
     pp: 20,
     type: "Normal",
-    description: "Lowers the target's Attack by 1."
+    description: "Lowers the target's Attack by 1.",
+    secondary: null,
+    target: "normal"
   },
   playrough: {
     accuracy: 90,
@@ -3773,7 +4609,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Play Rough",
     pp: 10,
     type: "Fairy",
-    description: "10% chance to lower the target's Attack by 1."
+    description: "10% chance to lower the target's Attack by 1.",
+    secondary: { chance: 10, boosts: { atk: -1 } },
+    target: "normal"
   },
   pluck: {
     accuracy: 100,
@@ -3782,7 +4620,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Pluck",
     pp: 20,
     type: "Flying",
-    description: "User steals and eats the target's Berry."
+    description: "User steals and eats the target's Berry.",
+    secondary: null,
+    target: "any"
   },
   poisonfang: {
     accuracy: 100,
@@ -3791,7 +4631,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Poison Fang",
     pp: 15,
     type: "Poison",
-    description: "50% chance to badly poison the target."
+    description: "50% chance to badly poison the target.",
+    secondary: { chance: 50, status: "tox" },
+    target: "normal"
   },
   poisongas: {
     accuracy: 90,
@@ -3800,7 +4642,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Poison Gas",
     pp: 40,
     type: "Poison",
-    description: "Poisons the foe(s)."
+    description: "Poisons the foe(s).",
+    secondary: null,
+    target: "allAdjacentFoes"
   },
   poisonjab: {
     accuracy: 100,
@@ -3809,7 +4653,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Poison Jab",
     pp: 20,
     type: "Poison",
-    description: "30% chance to poison the target."
+    description: "30% chance to poison the target.",
+    secondary: { chance: 30, status: "psn" },
+    target: "normal"
   },
   poisonpowder: {
     accuracy: 75,
@@ -3818,7 +4664,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Poison Powder",
     pp: 35,
     type: "Poison",
-    description: "Poisons the target."
+    description: "Poisons the target.",
+    secondary: null,
+    target: "normal"
   },
   poisonsting: {
     accuracy: 100,
@@ -3827,7 +4675,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Poison Sting",
     pp: 35,
     type: "Poison",
-    description: "30% chance to poison the target."
+    description: "30% chance to poison the target.",
+    secondary: { chance: 30, status: "psn" },
+    target: "normal"
   },
   poisontail: {
     accuracy: 100,
@@ -3836,7 +4686,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Poison Tail",
     pp: 25,
     type: "Poison",
-    description: "High critical hit ratio. 10% chance to poison."
+    description: "High critical hit ratio. 10% chance to poison.",
+    secondary: { chance: 10, status: "psn" },
+    target: "normal"
   },
   pollenpuff: {
     accuracy: 100,
@@ -3845,7 +4697,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Pollen Puff",
     pp: 15,
     type: "Bug",
-    description: "If the target is an ally, heals 50% of its max HP."
+    description: "If the target is an ally, heals 50% of its max HP.",
+    secondary: null,
+    target: "normal"
   },
   poltergeist: {
     accuracy: 90,
@@ -3854,7 +4708,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Poltergeist",
     pp: 5,
     type: "Ghost",
-    description: "Fails if the target has no held item."
+    description: "Fails if the target has no held item.",
+    secondary: null,
+    target: "normal"
   },
   populationbomb: {
     accuracy: 90,
@@ -3863,7 +4719,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Population Bomb",
     pp: 10,
     type: "Normal",
-    description: "Hits 10 times. Each hit can miss."
+    description: "Hits 10 times. Each hit can miss.",
+    secondary: null,
+    target: "normal"
   },
   pounce: {
     accuracy: 100,
@@ -3872,7 +4730,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Pounce",
     pp: 20,
     type: "Bug",
-    description: "100% chance to lower the target's Speed by 1."
+    description: "100% chance to lower the target's Speed by 1.",
+    secondary: { chance: 100, boosts: { spe: -1 } },
+    target: "normal"
   },
   pound: {
     accuracy: 100,
@@ -3881,7 +4741,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Pound",
     pp: 35,
     type: "Normal",
-    description: "No additional effect."
+    description: "No additional effect.",
+    secondary: null,
+    target: "normal"
   },
   powdersnow: {
     accuracy: 100,
@@ -3890,7 +4752,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Powder Snow",
     pp: 25,
     type: "Ice",
-    description: "10% chance to freeze the foe(s)."
+    description: "10% chance to freeze the foe(s).",
+    secondary: { chance: 10, status: "frz" },
+    target: "allAdjacentFoes"
   },
   powergem: {
     accuracy: 100,
@@ -3899,7 +4763,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Power Gem",
     pp: 20,
     type: "Rock",
-    description: "No additional effect."
+    description: "No additional effect.",
+    secondary: null,
+    target: "normal"
   },
   powersplit: {
     accuracy: true,
@@ -3908,7 +4774,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Power Split",
     pp: 10,
     type: "Psychic",
-    description: "Averages Attack and Sp. Atk stats with target."
+    description: "Averages Attack and Sp. Atk stats with target.",
+    secondary: null,
+    target: "normal"
   },
   powerswap: {
     accuracy: true,
@@ -3917,7 +4785,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Power Swap",
     pp: 10,
     type: "Psychic",
-    description: "Swaps Attack and Sp. Atk stat stages with target."
+    description: "Swaps Attack and Sp. Atk stat stages with target.",
+    secondary: null,
+    target: "normal"
   },
   powertrick: {
     accuracy: true,
@@ -3926,7 +4796,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Power Trick",
     pp: 10,
     type: "Psychic",
-    description: "Switches user's Attack and Defense stats."
+    description: "Switches user's Attack and Defense stats.",
+    secondary: null,
+    target: "self"
   },
   powertrip: {
     accuracy: 100,
@@ -3935,7 +4807,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Power Trip",
     pp: 10,
     type: "Dark",
-    description: " + 20 power for each of the user's stat boosts."
+    description: " + 20 power for each of the user's stat boosts.",
+    secondary: null,
+    target: "normal"
   },
   powerwhip: {
     accuracy: 85,
@@ -3944,7 +4818,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Power Whip",
     pp: 10,
     type: "Grass",
-    description: "No additional effect."
+    description: "No additional effect.",
+    secondary: null,
+    target: "normal"
   },
   precipiceblades: {
     accuracy: 85,
@@ -3953,7 +4829,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Precipice Blades",
     pp: 10,
     type: "Ground",
-    description: "No additional effect. Hits adjacent foes."
+    description: "No additional effect. Hits adjacent foes.",
+    secondary: null,
+    target: "allAdjacentFoes"
   },
   present: {
     accuracy: 90,
@@ -3962,7 +4840,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Present",
     pp: 15,
     type: "Normal",
-    description: "40, 80, 120 power, or heals target 1/4 max HP."
+    description: "40, 80, 120 power, or heals target 1/4 max HP.",
+    secondary: null,
+    target: "normal"
   },
   prismaticlaser: {
     accuracy: 100,
@@ -3971,7 +4851,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Prismatic Laser",
     pp: 10,
     type: "Psychic",
-    description: "User cannot move next turn."
+    description: "User cannot move next turn.",
+    secondary: null,
+    target: "normal"
   },
   protect: {
     accuracy: true,
@@ -3980,7 +4862,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Protect",
     pp: 10,
     type: "Normal",
-    description: "Prevents moves from affecting the user this turn."
+    description: "Prevents moves from affecting the user this turn.",
+    secondary: null,
+    target: "self"
   },
   psybeam: {
     accuracy: 100,
@@ -3989,7 +4873,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Psybeam",
     pp: 20,
     type: "Psychic",
-    description: "10% chance to confuse the target."
+    description: "10% chance to confuse the target.",
+    secondary: { chance: 10, volatileStatus: "confusion" },
+    target: "normal"
   },
   psyblade: {
     accuracy: 100,
@@ -3998,7 +4884,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Psyblade",
     pp: 15,
     type: "Psychic",
-    description: "During Electric Terrain: 1.5x power."
+    description: "During Electric Terrain: 1.5x power.",
+    secondary: null,
+    target: "normal"
   },
   psychup: {
     accuracy: true,
@@ -4007,7 +4895,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Psych Up",
     pp: 10,
     type: "Normal",
-    description: "Copies the target's current stat stages."
+    description: "Copies the target's current stat stages.",
+    secondary: null,
+    target: "normal"
   },
   psychic: {
     accuracy: 100,
@@ -4016,7 +4906,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Psychic",
     pp: 10,
     type: "Psychic",
-    description: "10% chance to lower the target's Sp. Def by 1."
+    description: "10% chance to lower the target's Sp. Def by 1.",
+    secondary: { chance: 10, boosts: { spd: -1 } },
+    target: "normal"
   },
   psychicfangs: {
     accuracy: 100,
@@ -4025,7 +4917,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Psychic Fangs",
     pp: 10,
     type: "Psychic",
-    description: "Destroys screens, unless the target is immune."
+    description: "Destroys screens, unless the target is immune.",
+    secondary: null,
+    target: "normal"
   },
   psychicnoise: {
     accuracy: 100,
@@ -4034,7 +4928,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Psychic Noise",
     pp: 10,
     type: "Psychic",
-    description: "For 2 turns, the target is prevented from healing."
+    description: "For 2 turns, the target is prevented from healing.",
+    secondary: { chance: 100, volatileStatus: "healblock" },
+    target: "normal"
   },
   psychicterrain: {
     accuracy: true,
@@ -4043,7 +4939,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Psychic Terrain",
     pp: 10,
     type: "Psychic",
-    description: "5 turns. Grounded: +Psychic power, priority-safe."
+    description: "5 turns. Grounded: +Psychic power, priority-safe.",
+    secondary: null,
+    target: "all"
   },
   psychoboost: {
     accuracy: 90,
@@ -4052,7 +4950,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Psycho Boost",
     pp: 5,
     type: "Psychic",
-    description: "Lowers the user's Sp. Atk by 2."
+    description: "Lowers the user's Sp. Atk by 2.",
+    secondary: null,
+    target: "normal"
   },
   psychocut: {
     accuracy: 100,
@@ -4061,7 +4961,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Psycho Cut",
     pp: 20,
     type: "Psychic",
-    description: "High critical hit ratio."
+    description: "High critical hit ratio.",
+    secondary: null,
+    target: "normal"
   },
   psyshieldbash: {
     accuracy: 90,
@@ -4070,7 +4972,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Psyshield Bash",
     pp: 10,
     type: "Psychic",
-    description: "100% chance to raise the user's Defense by 1."
+    description: "100% chance to raise the user's Defense by 1.",
+    secondary: null,
+    target: "normal"
   },
   psyshock: {
     accuracy: 100,
@@ -4079,7 +4983,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Psyshock",
     pp: 10,
     type: "Psychic",
-    description: "Damages target based on Defense, not Sp. Def."
+    description: "Damages target based on Defense, not Sp. Def.",
+    secondary: null,
+    target: "normal"
   },
   psystrike: {
     accuracy: 100,
@@ -4088,7 +4994,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Psystrike",
     pp: 10,
     type: "Psychic",
-    description: "Damages target based on Defense, not Sp. Def."
+    description: "Damages target based on Defense, not Sp. Def.",
+    secondary: null,
+    target: "normal"
   },
   pyroball: {
     accuracy: 90,
@@ -4097,7 +5005,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Pyro Ball",
     pp: 5,
     type: "Fire",
-    description: "10% chance to burn the target. Thaws user."
+    description: "10% chance to burn the target. Thaws user.",
+    secondary: { chance: 10, status: "brn" },
+    target: "normal"
   },
   quash: {
     accuracy: 100,
@@ -4106,7 +5016,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Quash",
     pp: 15,
     type: "Dark",
-    description: "Forces the target to move last this turn."
+    description: "Forces the target to move last this turn.",
+    secondary: null,
+    target: "normal"
   },
   quickattack: {
     accuracy: 100,
@@ -4115,7 +5027,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Quick Attack",
     pp: 30,
     type: "Normal",
-    description: "Usually goes first."
+    description: "Usually goes first.",
+    secondary: null,
+    target: "normal"
   },
   quickguard: {
     accuracy: true,
@@ -4124,7 +5038,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Quick Guard",
     pp: 15,
     type: "Fighting",
-    description: "Protects allies from priority attacks this turn."
+    description: "Protects allies from priority attacks this turn.",
+    secondary: null,
+    target: "allySide"
   },
   quiverdance: {
     accuracy: true,
@@ -4133,7 +5049,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Quiver Dance",
     pp: 20,
     type: "Bug",
-    description: "Raises the user's Sp. Atk, Sp. Def, Speed by 1."
+    description: "Raises the user's Sp. Atk, Sp. Def, Speed by 1.",
+    secondary: null,
+    target: "self"
   },
   ragefist: {
     accuracy: 100,
@@ -4142,7 +5060,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Rage Fist",
     pp: 10,
     type: "Ghost",
-    description: "+50 power for each time user was hit. Max 6 hits."
+    description: "+50 power for each time user was hit. Max 6 hits.",
+    secondary: null,
+    target: "normal"
   },
   ragepowder: {
     accuracy: true,
@@ -4151,7 +5071,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Rage Powder",
     pp: 20,
     type: "Bug",
-    description: "The foes' moves target the user on the turn used."
+    description: "The foes' moves target the user on the turn used.",
+    secondary: null,
+    target: "self"
   },
   ragingbull: {
     accuracy: 100,
@@ -4160,7 +5082,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Raging Bull",
     pp: 10,
     type: "Normal",
-    description: "Destroys screens. Type depends on user's form."
+    description: "Destroys screens. Type depends on user's form.",
+    secondary: null,
+    target: "normal"
   },
   ragingfury: {
     accuracy: 100,
@@ -4169,7 +5093,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Raging Fury",
     pp: 10,
     type: "Fire",
-    description: "Lasts 2-3 turns. Confuses the user afterwards."
+    description: "Lasts 2-3 turns. Confuses the user afterwards.",
+    secondary: null,
+    target: "randomNormal"
   },
   raindance: {
     accuracy: true,
@@ -4178,7 +5104,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Rain Dance",
     pp: 5,
     type: "Water",
-    description: "For 5 turns, heavy rain powers Water moves."
+    description: "For 5 turns, heavy rain powers Water moves.",
+    secondary: null,
+    target: "all"
   },
   rapidspin: {
     accuracy: 100,
@@ -4187,7 +5115,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Rapid Spin",
     pp: 40,
     type: "Normal",
-    description: "Free user from hazards/bind/Leech Seed; +1 Spe."
+    description: "Free user from hazards/bind/Leech Seed; +1 Spe.",
+    secondary: null,
+    target: "normal"
   },
   razorleaf: {
     accuracy: 95,
@@ -4196,7 +5126,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Razor Leaf",
     pp: 25,
     type: "Grass",
-    description: "High critical hit ratio. Hits adjacent foes."
+    description: "High critical hit ratio. Hits adjacent foes.",
+    secondary: null,
+    target: "allAdjacentFoes"
   },
   razorshell: {
     accuracy: 95,
@@ -4205,7 +5137,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Razor Shell",
     pp: 10,
     type: "Water",
-    description: "50% chance to lower the target's Defense by 1."
+    description: "50% chance to lower the target's Defense by 1.",
+    secondary: { chance: 50, boosts: { def: -1 } },
+    target: "normal"
   },
   recover: {
     accuracy: true,
@@ -4214,7 +5148,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Recover",
     pp: 5,
     type: "Normal",
-    description: "Heals the user by 50% of its max HP."
+    description: "Heals the user by 50% of its max HP.",
+    secondary: null,
+    target: "self"
   },
   recycle: {
     accuracy: true,
@@ -4223,7 +5159,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Recycle",
     pp: 10,
     type: "Normal",
-    description: "Restores the item the user last used."
+    description: "Restores the item the user last used.",
+    secondary: null,
+    target: "self"
   },
   reflect: {
     accuracy: true,
@@ -4232,7 +5170,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Reflect",
     pp: 20,
     type: "Psychic",
-    description: "For 5 turns, physical damage to allies is halved."
+    description: "For 5 turns, physical damage to allies is halved.",
+    secondary: null,
+    target: "allySide"
   },
   reflecttype: {
     accuracy: true,
@@ -4241,7 +5181,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Reflect Type",
     pp: 15,
     type: "Normal",
-    description: "User becomes the same type as the target."
+    description: "User becomes the same type as the target.",
+    secondary: null,
+    target: "normal"
   },
   relicsong: {
     accuracy: 100,
@@ -4250,7 +5192,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Relic Song",
     pp: 10,
     type: "Normal",
-    description: "10% chance to sleep foe(s). Meloetta transforms."
+    description: "10% chance to sleep foe(s). Meloetta transforms.",
+    secondary: { chance: 10, status: "slp" },
+    target: "allAdjacentFoes"
   },
   rest: {
     accuracy: true,
@@ -4259,7 +5203,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Rest",
     pp: 5,
     type: "Psychic",
-    description: "User sleeps 2 turns and restores HP and status."
+    description: "User sleeps 2 turns and restores HP and status.",
+    secondary: null,
+    target: "self"
   },
   retaliate: {
     accuracy: 100,
@@ -4268,7 +5214,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Retaliate",
     pp: 5,
     type: "Normal",
-    description: "Power doubles if an ally fainted last turn."
+    description: "Power doubles if an ally fainted last turn.",
+    secondary: null,
+    target: "normal"
   },
   revelationdance: {
     accuracy: 100,
@@ -4277,7 +5225,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Revelation Dance",
     pp: 15,
     type: "Normal",
-    description: "Type varies based on the user's primary type."
+    description: "Type varies based on the user's primary type.",
+    secondary: null,
+    target: "normal"
   },
   reversal: {
     accuracy: 100,
@@ -4286,7 +5236,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Reversal",
     pp: 15,
     type: "Fighting",
-    description: "More power the less HP the user has left."
+    description: "More power the less HP the user has left.",
+    secondary: null,
+    target: "normal"
   },
   revivalblessing: {
     accuracy: true,
@@ -4295,7 +5247,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Revival Blessing",
     pp: 1,
     type: "Normal",
-    description: "Revives a fainted Pokemon to 50% HP."
+    description: "Revives a fainted Pokemon to 50% HP.",
+    secondary: null,
+    target: "self"
   },
   risingvoltage: {
     accuracy: 100,
@@ -4304,7 +5258,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Rising Voltage",
     pp: 20,
     type: "Electric",
-    description: "2x power if target is grounded in Electric Terrain."
+    description: "2x power if target is grounded in Electric Terrain.",
+    secondary: null,
+    target: "normal"
   },
   roar: {
     accuracy: true,
@@ -4313,7 +5269,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Roar",
     pp: 20,
     type: "Normal",
-    description: "Forces the target to switch to a random ally."
+    description: "Forces the target to switch to a random ally.",
+    secondary: null,
+    target: "normal"
   },
   roaroftime: {
     accuracy: 90,
@@ -4322,7 +5280,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Roar of Time",
     pp: 5,
     type: "Dragon",
-    description: "User cannot move next turn."
+    description: "User cannot move next turn.",
+    secondary: null,
+    target: "normal"
   },
   rockblast: {
     accuracy: 90,
@@ -4331,7 +5291,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Rock Blast",
     pp: 10,
     type: "Rock",
-    description: "Hits 2-5 times in one turn."
+    description: "Hits 2-5 times in one turn.",
+    secondary: null,
+    target: "normal"
   },
   rockpolish: {
     accuracy: true,
@@ -4340,7 +5302,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Rock Polish",
     pp: 20,
     type: "Rock",
-    description: "Raises the user's Speed by 2."
+    description: "Raises the user's Speed by 2.",
+    secondary: null,
+    target: "self"
   },
   rockslide: {
     accuracy: 90,
@@ -4349,7 +5313,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Rock Slide",
     pp: 10,
     type: "Rock",
-    description: "30% chance to make the foe(s) flinch."
+    description: "30% chance to make the foe(s) flinch.",
+    secondary: { chance: 30, volatileStatus: "flinch" },
+    target: "allAdjacentFoes"
   },
   rocksmash: {
     accuracy: 100,
@@ -4358,7 +5324,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Rock Smash",
     pp: 15,
     type: "Fighting",
-    description: "50% chance to lower the target's Defense by 1."
+    description: "50% chance to lower the target's Defense by 1.",
+    secondary: { chance: 50, boosts: { def: -1 } },
+    target: "normal"
   },
   rockthrow: {
     accuracy: 90,
@@ -4367,7 +5335,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Rock Throw",
     pp: 15,
     type: "Rock",
-    description: "No additional effect."
+    description: "No additional effect.",
+    secondary: null,
+    target: "normal"
   },
   rocktomb: {
     accuracy: 95,
@@ -4376,7 +5346,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Rock Tomb",
     pp: 15,
     type: "Rock",
-    description: "100% chance to lower the target's Speed by 1."
+    description: "100% chance to lower the target's Speed by 1.",
+    secondary: { chance: 100, boosts: { spe: -1 } },
+    target: "normal"
   },
   rockwrecker: {
     accuracy: 90,
@@ -4385,7 +5357,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Rock Wrecker",
     pp: 5,
     type: "Rock",
-    description: "User cannot move next turn."
+    description: "User cannot move next turn.",
+    secondary: null,
+    target: "normal"
   },
   roleplay: {
     accuracy: true,
@@ -4394,7 +5368,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Role Play",
     pp: 10,
     type: "Psychic",
-    description: "User replaces its Ability with the target's."
+    description: "User replaces its Ability with the target's.",
+    secondary: null,
+    target: "normal"
   },
   rollout: {
     accuracy: 90,
@@ -4403,7 +5379,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Rollout",
     pp: 20,
     type: "Rock",
-    description: "Power doubles with each hit. Repeats for 5 turns."
+    description: "Power doubles with each hit. Repeats for 5 turns.",
+    secondary: null,
+    target: "normal"
   },
   roost: {
     accuracy: true,
@@ -4412,7 +5390,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Roost",
     pp: 5,
     type: "Flying",
-    description: "Heals 50% HP. Flying-type removed 'til turn ends."
+    description: "Heals 50% HP. Flying-type removed 'til turn ends.",
+    secondary: null,
+    target: "self"
   },
   round: {
     accuracy: 100,
@@ -4421,7 +5401,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Round",
     pp: 15,
     type: "Normal",
-    description: "Power doubles if others used Round this turn."
+    description: "Power doubles if others used Round this turn.",
+    secondary: null,
+    target: "normal"
   },
   ruination: {
     accuracy: 90,
@@ -4430,7 +5412,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Ruination",
     pp: 10,
     type: "Dark",
-    description: "Does damage equal to 1/2 target's current HP."
+    description: "Does damage equal to 1/2 target's current HP.",
+    secondary: null,
+    target: "normal"
   },
   sacredfire: {
     accuracy: 95,
@@ -4439,7 +5423,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Sacred Fire",
     pp: 5,
     type: "Fire",
-    description: "50% chance to burn the target. Thaws user."
+    description: "50% chance to burn the target. Thaws user.",
+    secondary: { chance: 50, status: "brn" },
+    target: "normal"
   },
   sacredsword: {
     accuracy: 100,
@@ -4448,7 +5434,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Sacred Sword",
     pp: 15,
     type: "Fighting",
-    description: "Ignores the target's stat stage changes."
+    description: "Ignores the target's stat stage changes.",
+    secondary: null,
+    target: "normal"
   },
   safeguard: {
     accuracy: true,
@@ -4457,7 +5445,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Safeguard",
     pp: 25,
     type: "Normal",
-    description: "For 5 turns, protects user's party from status."
+    description: "For 5 turns, protects user's party from status.",
+    secondary: null,
+    target: "allySide"
   },
   saltcure: {
     accuracy: 100,
@@ -4466,7 +5456,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Salt Cure",
     pp: 15,
     type: "Rock",
-    description: "Deals 1/8 max HP each turn; 1/4 on Steel, Water."
+    description: "Deals 1/8 max HP each turn; 1/4 on Steel, Water.",
+    secondary: { chance: 100, volatileStatus: "saltcure" },
+    target: "normal"
   },
   sandattack: {
     accuracy: 100,
@@ -4475,7 +5467,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Sand Attack",
     pp: 15,
     type: "Ground",
-    description: "Lowers the target's accuracy by 1."
+    description: "Lowers the target's accuracy by 1.",
+    secondary: null,
+    target: "normal"
   },
   sandtomb: {
     accuracy: 85,
@@ -4484,7 +5478,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Sand Tomb",
     pp: 15,
     type: "Ground",
-    description: "Traps and damages the target for 4-5 turns."
+    description: "Traps and damages the target for 4-5 turns.",
+    secondary: null,
+    target: "normal"
   },
   sandsearstorm: {
     accuracy: 80,
@@ -4493,7 +5489,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Sandsear Storm",
     pp: 10,
     type: "Ground",
-    description: "20% chance to burn foe(s). Can't miss in rain."
+    description: "20% chance to burn foe(s). Can't miss in rain.",
+    secondary: { chance: 20, status: "brn" },
+    target: "allAdjacentFoes"
   },
   sandstorm: {
     accuracy: true,
@@ -4502,7 +5500,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Sandstorm",
     pp: 10,
     type: "Rock",
-    description: "For 5 turns, a sandstorm rages. Rock: 1.5x SpD."
+    description: "For 5 turns, a sandstorm rages. Rock: 1.5x SpD.",
+    secondary: null,
+    target: "all"
   },
   scald: {
     accuracy: 100,
@@ -4511,7 +5511,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Scald",
     pp: 15,
     type: "Water",
-    description: "30% chance to burn the target. Thaws target."
+    description: "30% chance to burn the target. Thaws target.",
+    secondary: { chance: 30, status: "brn" },
+    target: "normal"
   },
   scaleshot: {
     accuracy: 90,
@@ -4520,7 +5522,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Scale Shot",
     pp: 20,
     type: "Dragon",
-    description: "Hits 2-5 times. User: -1 Def, +1 Spe after last hit."
+    description: "Hits 2-5 times. User: -1 Def, +1 Spe after last hit.",
+    secondary: null,
+    target: "normal"
   },
   scaryface: {
     accuracy: 100,
@@ -4529,7 +5533,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Scary Face",
     pp: 10,
     type: "Normal",
-    description: "Lowers the target's Speed by 2."
+    description: "Lowers the target's Speed by 2.",
+    secondary: null,
+    target: "normal"
   },
   scorchingsands: {
     accuracy: 100,
@@ -4538,7 +5544,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Scorching Sands",
     pp: 10,
     type: "Ground",
-    description: "30% chance to burn the target. Thaws target."
+    description: "30% chance to burn the target. Thaws target.",
+    secondary: { chance: 30, status: "brn" },
+    target: "normal"
   },
   scratch: {
     accuracy: 100,
@@ -4547,7 +5555,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Scratch",
     pp: 35,
     type: "Normal",
-    description: "No additional effect."
+    description: "No additional effect.",
+    secondary: null,
+    target: "normal"
   },
   screech: {
     accuracy: 85,
@@ -4556,7 +5566,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Screech",
     pp: 40,
     type: "Normal",
-    description: "Lowers the target's Defense by 2."
+    description: "Lowers the target's Defense by 2.",
+    secondary: null,
+    target: "normal"
   },
   secretsword: {
     accuracy: 100,
@@ -4565,7 +5577,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Secret Sword",
     pp: 10,
     type: "Fighting",
-    description: "Damages target based on Defense, not Sp. Def."
+    description: "Damages target based on Defense, not Sp. Def.",
+    secondary: null,
+    target: "normal"
   },
   seedbomb: {
     accuracy: 100,
@@ -4574,7 +5588,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Seed Bomb",
     pp: 15,
     type: "Grass",
-    description: "No additional effect."
+    description: "No additional effect.",
+    secondary: null,
+    target: "normal"
   },
   seedflare: {
     accuracy: 85,
@@ -4583,7 +5599,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Seed Flare",
     pp: 5,
     type: "Grass",
-    description: "40% chance to lower the target's Sp. Def by 2."
+    description: "40% chance to lower the target's Sp. Def by 2.",
+    secondary: { chance: 40, boosts: { spd: -2 } },
+    target: "normal"
   },
   seismictoss: {
     accuracy: 100,
@@ -4592,7 +5610,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Seismic Toss",
     pp: 20,
     type: "Fighting",
-    description: "Does damage equal to the user's level."
+    description: "Does damage equal to the user's level.",
+    secondary: null,
+    target: "normal"
   },
   selfdestruct: {
     accuracy: 100,
@@ -4601,7 +5621,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Self-Destruct",
     pp: 5,
     type: "Normal",
-    description: "Hits adjacent Pokemon. The user faints."
+    description: "Hits adjacent Pokemon. The user faints.",
+    secondary: null,
+    target: "allAdjacent"
   },
   shadowball: {
     accuracy: 100,
@@ -4610,7 +5632,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Shadow Ball",
     pp: 15,
     type: "Ghost",
-    description: "20% chance to lower the target's Sp. Def by 1."
+    description: "20% chance to lower the target's Sp. Def by 1.",
+    secondary: { chance: 20, boosts: { spd: -1 } },
+    target: "normal"
   },
   shadowclaw: {
     accuracy: 100,
@@ -4619,7 +5643,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Shadow Claw",
     pp: 15,
     type: "Ghost",
-    description: "High critical hit ratio."
+    description: "High critical hit ratio.",
+    secondary: null,
+    target: "normal"
   },
   shadowforce: {
     accuracy: 100,
@@ -4628,7 +5654,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Shadow Force",
     pp: 5,
     type: "Ghost",
-    description: "Disappears turn 1. Hits turn 2. Breaks protection."
+    description: "Disappears turn 1. Hits turn 2. Breaks protection.",
+    secondary: null,
+    target: "normal"
   },
   shadowpunch: {
     accuracy: true,
@@ -4637,7 +5665,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Shadow Punch",
     pp: 20,
     type: "Ghost",
-    description: "This move does not check accuracy."
+    description: "This move does not check accuracy.",
+    secondary: null,
+    target: "normal"
   },
   shadowsneak: {
     accuracy: 100,
@@ -4646,7 +5676,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Shadow Sneak",
     pp: 30,
     type: "Ghost",
-    description: "Usually goes first."
+    description: "Usually goes first.",
+    secondary: null,
+    target: "normal"
   },
   shedtail: {
     accuracy: true,
@@ -4655,7 +5687,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Shed Tail",
     pp: 10,
     type: "Normal",
-    description: "User takes 1/2 its max HP to pass a substitute."
+    description: "User takes 1/2 its max HP to pass a substitute.",
+    secondary: null,
+    target: "self"
   },
   sheercold: {
     accuracy: 30,
@@ -4664,7 +5698,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Sheer Cold",
     pp: 5,
     type: "Ice",
-    description: "OHKOs non-Ice targets. Fails if user's lower level."
+    description: "OHKOs non-Ice targets. Fails if user's lower level.",
+    secondary: null,
+    target: "normal"
   },
   shellsidearm: {
     accuracy: 100,
@@ -4673,7 +5709,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Shell Side Arm",
     pp: 10,
     type: "Poison",
-    description: "20% psn. Physical+contact if it would be stronger."
+    description: "20% psn. Physical+contact if it would be stronger.",
+    secondary: { chance: 20, status: "psn" },
+    target: "normal"
   },
   shellsmash: {
     accuracy: true,
@@ -4682,7 +5720,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Shell Smash",
     pp: 15,
     type: "Normal",
-    description: "Lowers Def, SpD by 1; raises Atk, SpA, Spe by 2."
+    description: "Lowers Def, SpD by 1; raises Atk, SpA, Spe by 2.",
+    secondary: null,
+    target: "self"
   },
   shelter: {
     accuracy: true,
@@ -4691,7 +5731,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Shelter",
     pp: 10,
     type: "Steel",
-    description: "Raises the user's Defense by 2."
+    description: "Raises the user's Defense by 2.",
+    secondary: null,
+    target: "self"
   },
   shiftgear: {
     accuracy: true,
@@ -4700,7 +5742,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Shift Gear",
     pp: 10,
     type: "Steel",
-    description: "Raises the user's Speed by 2 and Attack by 1."
+    description: "Raises the user's Speed by 2 and Attack by 1.",
+    secondary: null,
+    target: "self"
   },
   shockwave: {
     accuracy: true,
@@ -4709,7 +5753,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Shock Wave",
     pp: 20,
     type: "Electric",
-    description: "This move does not check accuracy."
+    description: "This move does not check accuracy.",
+    secondary: null,
+    target: "normal"
   },
   shoreup: {
     accuracy: true,
@@ -4718,7 +5764,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Shore Up",
     pp: 5,
     type: "Ground",
-    description: "User restores 1/2 its max HP; 2/3 in Sandstorm."
+    description: "User restores 1/2 its max HP; 2/3 in Sandstorm.",
+    secondary: null,
+    target: "self"
   },
   silktrap: {
     accuracy: true,
@@ -4727,7 +5775,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Silk Trap",
     pp: 10,
     type: "Bug",
-    description: "Protects from damaging attacks. Contact: -1 Spe."
+    description: "Protects from damaging attacks. Contact: -1 Spe.",
+    secondary: null,
+    target: "self"
   },
   simplebeam: {
     accuracy: 100,
@@ -4736,7 +5786,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Simple Beam",
     pp: 15,
     type: "Normal",
-    description: "The target's Ability becomes Simple."
+    description: "The target's Ability becomes Simple.",
+    secondary: null,
+    target: "normal"
   },
   sing: {
     accuracy: 55,
@@ -4745,7 +5797,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Sing",
     pp: 15,
     type: "Normal",
-    description: "Causes the target to fall asleep."
+    description: "Causes the target to fall asleep.",
+    secondary: null,
+    target: "normal"
   },
   sketch: {
     accuracy: true,
@@ -4754,7 +5808,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Sketch",
     pp: 1,
     type: "Normal",
-    description: "Permanently copies the last move target used."
+    description: "Permanently copies the last move target used.",
+    secondary: null,
+    target: "normal"
   },
   skillswap: {
     accuracy: true,
@@ -4763,7 +5819,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Skill Swap",
     pp: 10,
     type: "Psychic",
-    description: "The user and the target trade Abilities."
+    description: "The user and the target trade Abilities.",
+    secondary: null,
+    target: "normal"
   },
   skittersmack: {
     accuracy: 90,
@@ -4772,7 +5830,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Skitter Smack",
     pp: 10,
     type: "Bug",
-    description: "100% chance to lower target's Sp. Atk by 1."
+    description: "100% chance to lower target's Sp. Atk by 1.",
+    secondary: { chance: 100, boosts: { spa: -1 } },
+    target: "normal"
   },
   skyattack: {
     accuracy: 90,
@@ -4781,7 +5841,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Sky Attack",
     pp: 5,
     type: "Flying",
-    description: "Charges, then hits turn 2. 30% flinch. High crit."
+    description: "Charges, then hits turn 2. 30% flinch. High crit.",
+    secondary: { chance: 30, volatileStatus: "flinch" },
+    target: "any"
   },
   slackoff: {
     accuracy: true,
@@ -4790,7 +5852,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Slack Off",
     pp: 5,
     type: "Normal",
-    description: "Heals the user by 50% of its max HP."
+    description: "Heals the user by 50% of its max HP.",
+    secondary: null,
+    target: "self"
   },
   slam: {
     accuracy: 75,
@@ -4799,7 +5863,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Slam",
     pp: 20,
     type: "Normal",
-    description: "No additional effect."
+    description: "No additional effect.",
+    secondary: null,
+    target: "normal"
   },
   slash: {
     accuracy: 100,
@@ -4808,7 +5874,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Slash",
     pp: 20,
     type: "Normal",
-    description: "High critical hit ratio."
+    description: "High critical hit ratio.",
+    secondary: null,
+    target: "normal"
   },
   sleeppowder: {
     accuracy: 75,
@@ -4817,7 +5885,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Sleep Powder",
     pp: 15,
     type: "Grass",
-    description: "Causes the target to fall asleep."
+    description: "Causes the target to fall asleep.",
+    secondary: null,
+    target: "normal"
   },
   sleeptalk: {
     accuracy: true,
@@ -4826,7 +5896,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Sleep Talk",
     pp: 10,
     type: "Normal",
-    description: "User must be asleep. Uses another known move."
+    description: "User must be asleep. Uses another known move.",
+    secondary: null,
+    target: "self"
   },
   sludge: {
     accuracy: 100,
@@ -4835,7 +5907,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Sludge",
     pp: 20,
     type: "Poison",
-    description: "30% chance to poison the target."
+    description: "30% chance to poison the target.",
+    secondary: { chance: 30, status: "psn" },
+    target: "normal"
   },
   sludgebomb: {
     accuracy: 100,
@@ -4844,7 +5918,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Sludge Bomb",
     pp: 10,
     type: "Poison",
-    description: "30% chance to poison the target."
+    description: "30% chance to poison the target.",
+    secondary: { chance: 30, status: "psn" },
+    target: "normal"
   },
   sludgewave: {
     accuracy: 100,
@@ -4853,7 +5929,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Sludge Wave",
     pp: 10,
     type: "Poison",
-    description: "10% chance to poison adjacent Pokemon."
+    description: "10% chance to poison adjacent Pokemon.",
+    secondary: { chance: 10, status: "psn" },
+    target: "allAdjacent"
   },
   smackdown: {
     accuracy: 100,
@@ -4862,7 +5940,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Smack Down",
     pp: 15,
     type: "Rock",
-    description: "Removes the target's Ground immunity."
+    description: "Removes the target's Ground immunity.",
+    secondary: null,
+    target: "normal"
   },
   smartstrike: {
     accuracy: true,
@@ -4871,7 +5951,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Smart Strike",
     pp: 10,
     type: "Steel",
-    description: "This move does not check accuracy."
+    description: "This move does not check accuracy.",
+    secondary: null,
+    target: "normal"
   },
   smog: {
     accuracy: 70,
@@ -4880,7 +5962,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Smog",
     pp: 20,
     type: "Poison",
-    description: "40% chance to poison the target."
+    description: "40% chance to poison the target.",
+    secondary: { chance: 40, status: "psn" },
+    target: "normal"
   },
   smokescreen: {
     accuracy: 100,
@@ -4889,7 +5973,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Smokescreen",
     pp: 20,
     type: "Normal",
-    description: "Lowers the target's accuracy by 1."
+    description: "Lowers the target's accuracy by 1.",
+    secondary: null,
+    target: "normal"
   },
   snarl: {
     accuracy: 95,
@@ -4898,7 +5984,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Snarl",
     pp: 15,
     type: "Dark",
-    description: "100% chance to lower the foe(s) Sp. Atk by 1."
+    description: "100% chance to lower the foe(s) Sp. Atk by 1.",
+    secondary: { chance: 100, boosts: { spa: -1 } },
+    target: "allAdjacentFoes"
   },
   snipeshot: {
     accuracy: 100,
@@ -4907,7 +5995,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Snipe Shot",
     pp: 15,
     type: "Water",
-    description: "High critical hit ratio. Cannot be redirected."
+    description: "High critical hit ratio. Cannot be redirected.",
+    secondary: null,
+    target: "normal"
   },
   snore: {
     accuracy: 100,
@@ -4916,7 +6006,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Snore",
     pp: 15,
     type: "Normal",
-    description: "User must be asleep. 30% chance to flinch target."
+    description: "User must be asleep. 30% chance to flinch target.",
+    secondary: { chance: 30, volatileStatus: "flinch" },
+    target: "normal"
   },
   snowscape: {
     accuracy: true,
@@ -4925,7 +6017,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Snowscape",
     pp: 10,
     type: "Ice",
-    description: "For 5 turns, snow falls. Ice: 1.5x Def."
+    description: "For 5 turns, snow falls. Ice: 1.5x Def.",
+    secondary: null,
+    target: "all"
   },
   soak: {
     accuracy: 100,
@@ -4934,7 +6028,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Soak",
     pp: 20,
     type: "Water",
-    description: "Changes the target's type to Water."
+    description: "Changes the target's type to Water.",
+    secondary: null,
+    target: "normal"
   },
   softboiled: {
     accuracy: true,
@@ -4943,7 +6039,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Soft-Boiled",
     pp: 5,
     type: "Normal",
-    description: "Heals the user by 50% of its max HP."
+    description: "Heals the user by 50% of its max HP.",
+    secondary: null,
+    target: "self"
   },
   solarbeam: {
     accuracy: 100,
@@ -4952,7 +6050,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Solar Beam",
     pp: 10,
     type: "Grass",
-    description: "Charges turn 1. Hits turn 2. No charge in sunlight."
+    description: "Charges turn 1. Hits turn 2. No charge in sunlight.",
+    secondary: null,
+    target: "normal"
   },
   solarblade: {
     accuracy: 100,
@@ -4961,7 +6061,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Solar Blade",
     pp: 10,
     type: "Grass",
-    description: "Charges turn 1. Hits turn 2. No charge in sunlight."
+    description: "Charges turn 1. Hits turn 2. No charge in sunlight.",
+    secondary: null,
+    target: "normal"
   },
   spacialrend: {
     accuracy: 95,
@@ -4970,7 +6072,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Spacial Rend",
     pp: 5,
     type: "Dragon",
-    description: "High critical hit ratio."
+    description: "High critical hit ratio.",
+    secondary: null,
+    target: "normal"
   },
   spark: {
     accuracy: 100,
@@ -4979,7 +6083,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Spark",
     pp: 20,
     type: "Electric",
-    description: "30% chance to paralyze the target."
+    description: "30% chance to paralyze the target.",
+    secondary: { chance: 30, status: "par" },
+    target: "normal"
   },
   sparklingaria: {
     accuracy: 100,
@@ -4988,7 +6094,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Sparkling Aria",
     pp: 10,
     type: "Water",
-    description: "The target is cured of its burn."
+    description: "The target is cured of its burn.",
+    secondary: { chance: 100, volatileStatus: "sparklingaria" },
+    target: "allAdjacent"
   },
   speedswap: {
     accuracy: true,
@@ -4997,7 +6105,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Speed Swap",
     pp: 10,
     type: "Psychic",
-    description: "Swaps Speed stat with target."
+    description: "Swaps Speed stat with target.",
+    secondary: null,
+    target: "normal"
   },
   spicyextract: {
     accuracy: true,
@@ -5006,7 +6116,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Spicy Extract",
     pp: 15,
     type: "Grass",
-    description: "Raises target's Atk by 2 and lowers its Def by 2."
+    description: "Raises target's Atk by 2 and lowers its Def by 2.",
+    secondary: null,
+    target: "normal"
   },
   spikes: {
     accuracy: true,
@@ -5015,7 +6127,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Spikes",
     pp: 20,
     type: "Ground",
-    description: "Hurts grounded foes on switch-in. Max 3 layers."
+    description: "Hurts grounded foes on switch-in. Max 3 layers.",
+    secondary: null,
+    target: "foeSide"
   },
   spikyshield: {
     accuracy: true,
@@ -5024,7 +6138,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Spiky Shield",
     pp: 10,
     type: "Grass",
-    description: "Protects from moves. Contact: loses 1/8 max HP."
+    description: "Protects from moves. Contact: loses 1/8 max HP.",
+    secondary: null,
+    target: "self"
   },
   spinout: {
     accuracy: 100,
@@ -5033,7 +6149,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Spin Out",
     pp: 5,
     type: "Steel",
-    description: "Lowers the user's Speed by 2."
+    description: "Lowers the user's Speed by 2.",
+    secondary: null,
+    target: "normal"
   },
   spiritbreak: {
     accuracy: 100,
@@ -5042,7 +6160,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Spirit Break",
     pp: 15,
     type: "Fairy",
-    description: "100% chance to lower the target's Sp. Atk by 1."
+    description: "100% chance to lower the target's Sp. Atk by 1.",
+    secondary: { chance: 100, boosts: { spa: -1 } },
+    target: "normal"
   },
   spiritshackle: {
     accuracy: 100,
@@ -5051,7 +6171,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Spirit Shackle",
     pp: 10,
     type: "Ghost",
-    description: "Prevents the target from switching out."
+    description: "Prevents the target from switching out.",
+    secondary: null,
+    target: "normal"
   },
   spitup: {
     accuracy: 100,
@@ -5060,7 +6182,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Spit Up",
     pp: 10,
     type: "Normal",
-    description: "More power with more uses of Stockpile."
+    description: "More power with more uses of Stockpile.",
+    secondary: null,
+    target: "normal"
   },
   spite: {
     accuracy: 100,
@@ -5069,7 +6193,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Spite",
     pp: 10,
     type: "Ghost",
-    description: "Lowers the PP of the target's last move by 4."
+    description: "Lowers the PP of the target's last move by 4.",
+    secondary: null,
+    target: "normal"
   },
   splash: {
     accuracy: true,
@@ -5078,7 +6204,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Splash",
     pp: 40,
     type: "Normal",
-    description: "No competitive use."
+    description: "No competitive use.",
+    secondary: null,
+    target: "self"
   },
   spore: {
     accuracy: 100,
@@ -5087,7 +6215,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Spore",
     pp: 15,
     type: "Grass",
-    description: "Causes the target to fall asleep."
+    description: "Causes the target to fall asleep.",
+    secondary: null,
+    target: "normal"
   },
   springtidestorm: {
     accuracy: 80,
@@ -5096,7 +6226,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Springtide Storm",
     pp: 5,
     type: "Fairy",
-    description: "30% chance to lower the foe(s) Attack by 1."
+    description: "30% chance to lower the foe(s) Attack by 1.",
+    secondary: { chance: 30, boosts: { atk: -1 } },
+    target: "allAdjacentFoes"
   },
   stealthrock: {
     accuracy: true,
@@ -5105,7 +6237,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Stealth Rock",
     pp: 20,
     type: "Rock",
-    description: "Hurts foes on switch-in. Factors Rock weakness."
+    description: "Hurts foes on switch-in. Factors Rock weakness.",
+    secondary: null,
+    target: "foeSide"
   },
   steameruption: {
     accuracy: 95,
@@ -5114,7 +6248,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Steam Eruption",
     pp: 5,
     type: "Water",
-    description: "30% chance to burn the target. Thaws target."
+    description: "30% chance to burn the target. Thaws target.",
+    secondary: { chance: 30, status: "brn" },
+    target: "normal"
   },
   steelbeam: {
     accuracy: 95,
@@ -5123,7 +6259,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Steel Beam",
     pp: 5,
     type: "Steel",
-    description: "User loses 50% max HP."
+    description: "User loses 50% max HP.",
+    secondary: null,
+    target: "normal"
   },
   steelroller: {
     accuracy: 100,
@@ -5132,7 +6270,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Steel Roller",
     pp: 5,
     type: "Steel",
-    description: "Fails if there is no terrain active. Ends the terrain."
+    description: "Fails if there is no terrain active. Ends the terrain.",
+    secondary: null,
+    target: "normal"
   },
   steelwing: {
     accuracy: 90,
@@ -5141,7 +6281,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Steel Wing",
     pp: 25,
     type: "Steel",
-    description: "10% chance to raise the user's Defense by 1."
+    description: "10% chance to raise the user's Defense by 1.",
+    secondary: null,
+    target: "normal"
   },
   stickyweb: {
     accuracy: true,
@@ -5150,7 +6292,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Sticky Web",
     pp: 20,
     type: "Bug",
-    description: "Lowers Speed of grounded foes by 1 on switch-in."
+    description: "Lowers Speed of grounded foes by 1 on switch-in.",
+    secondary: null,
+    target: "foeSide"
   },
   stockpile: {
     accuracy: true,
@@ -5159,7 +6303,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Stockpile",
     pp: 20,
     type: "Normal",
-    description: "Raises user's Defense, Sp. Def by 1. Max 3 uses."
+    description: "Raises user's Defense, Sp. Def by 1. Max 3 uses.",
+    secondary: null,
+    target: "self"
   },
   stomp: {
     accuracy: 100,
@@ -5168,7 +6314,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Stomp",
     pp: 20,
     type: "Normal",
-    description: "30% chance to make the target flinch."
+    description: "30% chance to make the target flinch.",
+    secondary: { chance: 30, volatileStatus: "flinch" },
+    target: "normal"
   },
   stompingtantrum: {
     accuracy: 100,
@@ -5177,7 +6325,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Stomping Tantrum",
     pp: 10,
     type: "Ground",
-    description: "Power doubles if the user's last move failed."
+    description: "Power doubles if the user's last move failed.",
+    secondary: null,
+    target: "normal"
   },
   stoneaxe: {
     accuracy: 90,
@@ -5186,7 +6336,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Stone Axe",
     pp: 15,
     type: "Rock",
-    description: "Sets Stealth Rock on the target's side."
+    description: "Sets Stealth Rock on the target's side.",
+    secondary: null,
+    target: "normal"
   },
   stoneedge: {
     accuracy: 80,
@@ -5195,7 +6347,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Stone Edge",
     pp: 5,
     type: "Rock",
-    description: "High critical hit ratio."
+    description: "High critical hit ratio.",
+    secondary: null,
+    target: "normal"
   },
   storedpower: {
     accuracy: 100,
@@ -5204,7 +6358,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Stored Power",
     pp: 10,
     type: "Psychic",
-    description: " + 20 power for each of the user's stat boosts."
+    description: " + 20 power for each of the user's stat boosts.",
+    secondary: null,
+    target: "normal"
   },
   strangesteam: {
     accuracy: 95,
@@ -5213,7 +6369,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Strange Steam",
     pp: 10,
     type: "Fairy",
-    description: "20% chance to confuse the target."
+    description: "20% chance to confuse the target.",
+    secondary: { chance: 20, volatileStatus: "confusion" },
+    target: "normal"
   },
   strength: {
     accuracy: 100,
@@ -5222,7 +6380,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Strength",
     pp: 15,
     type: "Normal",
-    description: "No additional effect."
+    description: "No additional effect.",
+    secondary: null,
+    target: "normal"
   },
   strengthsap: {
     accuracy: 100,
@@ -5231,7 +6391,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Strength Sap",
     pp: 10,
     type: "Grass",
-    description: "User heals HP=target's Atk stat. Lowers Atk by 1."
+    description: "User heals HP=target's Atk stat. Lowers Atk by 1.",
+    secondary: null,
+    target: "normal"
   },
   stringshot: {
     accuracy: 95,
@@ -5240,7 +6402,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "String Shot",
     pp: 40,
     type: "Bug",
-    description: "Lowers the foe(s) Speed by 2."
+    description: "Lowers the foe(s) Speed by 2.",
+    secondary: null,
+    target: "allAdjacentFoes"
   },
   struggle: {
     accuracy: true,
@@ -5249,7 +6413,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Struggle",
     pp: 1,
     type: "Normal",
-    description: "User loses 1/4 of its max HP."
+    description: "User loses 1/4 of its max HP.",
+    secondary: null,
+    target: "randomNormal"
   },
   strugglebug: {
     accuracy: 100,
@@ -5258,7 +6424,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Struggle Bug",
     pp: 20,
     type: "Bug",
-    description: "100% chance to lower the foe(s) Sp. Atk by 1."
+    description: "100% chance to lower the foe(s) Sp. Atk by 1.",
+    secondary: { chance: 100, boosts: { spa: -1 } },
+    target: "allAdjacentFoes"
   },
   stuffcheeks: {
     accuracy: true,
@@ -5267,7 +6435,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Stuff Cheeks",
     pp: 10,
     type: "Normal",
-    description: "Must hold Berry to use. User eats Berry, Def +2."
+    description: "Must hold Berry to use. User eats Berry, Def +2.",
+    secondary: null,
+    target: "self"
   },
   stunspore: {
     accuracy: 75,
@@ -5276,7 +6446,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Stun Spore",
     pp: 30,
     type: "Grass",
-    description: "Paralyzes the target."
+    description: "Paralyzes the target.",
+    secondary: null,
+    target: "normal"
   },
   substitute: {
     accuracy: true,
@@ -5285,7 +6457,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Substitute",
     pp: 10,
     type: "Normal",
-    description: "User takes 1/4 its max HP to put in a substitute."
+    description: "User takes 1/4 its max HP to put in a substitute.",
+    secondary: null,
+    target: "self"
   },
   suckerpunch: {
     accuracy: 100,
@@ -5294,7 +6468,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Sucker Punch",
     pp: 5,
     type: "Dark",
-    description: "Usually goes first. Fails if target is not attacking."
+    description: "Usually goes first. Fails if target is not attacking.",
+    secondary: null,
+    target: "normal"
   },
   sunnyday: {
     accuracy: true,
@@ -5303,7 +6479,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Sunny Day",
     pp: 5,
     type: "Fire",
-    description: "For 5 turns, intense sunlight powers Fire moves."
+    description: "For 5 turns, intense sunlight powers Fire moves.",
+    secondary: null,
+    target: "all"
   },
   sunsteelstrike: {
     accuracy: 100,
@@ -5312,7 +6490,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Sunsteel Strike",
     pp: 5,
     type: "Steel",
-    description: "Ignores the Abilities of other Pokemon."
+    description: "Ignores the Abilities of other Pokemon.",
+    secondary: null,
+    target: "normal"
   },
   superfang: {
     accuracy: 90,
@@ -5321,7 +6501,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Super Fang",
     pp: 10,
     type: "Normal",
-    description: "Does damage equal to 1/2 target's current HP."
+    description: "Does damage equal to 1/2 target's current HP.",
+    secondary: null,
+    target: "normal"
   },
   supercellslam: {
     accuracy: 95,
@@ -5330,7 +6512,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Supercell Slam",
     pp: 15,
     type: "Electric",
-    description: "User is hurt by 50% of its max HP if it misses."
+    description: "User is hurt by 50% of its max HP if it misses.",
+    secondary: null,
+    target: "normal"
   },
   superpower: {
     accuracy: 100,
@@ -5339,7 +6523,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Superpower",
     pp: 5,
     type: "Fighting",
-    description: "Lowers the user's Attack and Defense by 1."
+    description: "Lowers the user's Attack and Defense by 1.",
+    secondary: null,
+    target: "normal"
   },
   supersonic: {
     accuracy: 55,
@@ -5348,7 +6534,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Supersonic",
     pp: 20,
     type: "Normal",
-    description: "Causes the target to become confused."
+    description: "Causes the target to become confused.",
+    secondary: null,
+    target: "normal"
   },
   surf: {
     accuracy: 100,
@@ -5357,7 +6545,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Surf",
     pp: 15,
     type: "Water",
-    description: "Hits adjacent Pokemon. Double damage on Dive."
+    description: "Hits adjacent Pokemon. Double damage on Dive.",
+    secondary: null,
+    target: "allAdjacent"
   },
   surgingstrikes: {
     accuracy: 100,
@@ -5366,7 +6556,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Surging Strikes",
     pp: 5,
     type: "Water",
-    description: "Always results in a critical hit. Hits 3 times."
+    description: "Always results in a critical hit. Hits 3 times.",
+    secondary: null,
+    target: "normal"
   },
   swagger: {
     accuracy: 85,
@@ -5375,7 +6567,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Swagger",
     pp: 15,
     type: "Normal",
-    description: "Raises the target's Attack by 2 and confuses it."
+    description: "Raises the target's Attack by 2 and confuses it.",
+    secondary: null,
+    target: "normal"
   },
   swallow: {
     accuracy: true,
@@ -5384,7 +6578,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Swallow",
     pp: 10,
     type: "Normal",
-    description: "Heals the user based on uses of Stockpile."
+    description: "Heals the user based on uses of Stockpile.",
+    secondary: null,
+    target: "self"
   },
   sweetkiss: {
     accuracy: 75,
@@ -5393,7 +6589,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Sweet Kiss",
     pp: 10,
     type: "Fairy",
-    description: "Causes the target to become confused."
+    description: "Causes the target to become confused.",
+    secondary: null,
+    target: "normal"
   },
   sweetscent: {
     accuracy: 100,
@@ -5402,7 +6600,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Sweet Scent",
     pp: 20,
     type: "Normal",
-    description: "Lowers the foe(s) evasiveness by 2."
+    description: "Lowers the foe(s) evasiveness by 2.",
+    secondary: null,
+    target: "allAdjacentFoes"
   },
   swift: {
     accuracy: true,
@@ -5411,7 +6611,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Swift",
     pp: 20,
     type: "Normal",
-    description: "This move does not check accuracy. Hits foes."
+    description: "This move does not check accuracy. Hits foes.",
+    secondary: null,
+    target: "allAdjacentFoes"
   },
   switcheroo: {
     accuracy: 100,
@@ -5420,7 +6622,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Switcheroo",
     pp: 10,
     type: "Dark",
-    description: "User switches its held item with the target's."
+    description: "User switches its held item with the target's.",
+    secondary: null,
+    target: "normal"
   },
   swordsdance: {
     accuracy: true,
@@ -5429,7 +6633,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Swords Dance",
     pp: 20,
     type: "Normal",
-    description: "Raises the user's Attack by 2."
+    description: "Raises the user's Attack by 2.",
+    secondary: null,
+    target: "self"
   },
   synthesis: {
     accuracy: true,
@@ -5438,7 +6644,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Synthesis",
     pp: 5,
     type: "Grass",
-    description: "Heals the user by a weather-dependent amount."
+    description: "Heals the user by a weather-dependent amount.",
+    secondary: null,
+    target: "self"
   },
   syrupbomb: {
     accuracy: 85,
@@ -5447,7 +6655,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Syrup Bomb",
     pp: 10,
     type: "Grass",
-    description: "Target's Speed is lowered by 1 stage for 3 turns."
+    description: "Target's Speed is lowered by 1 stage for 3 turns.",
+    secondary: { chance: 100, volatileStatus: "syrupbomb" },
+    target: "normal"
   },
   tackle: {
     accuracy: 100,
@@ -5456,7 +6666,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Tackle",
     pp: 35,
     type: "Normal",
-    description: "No additional effect."
+    description: "No additional effect.",
+    secondary: null,
+    target: "normal"
   },
   tachyoncutter: {
     accuracy: true,
@@ -5465,7 +6677,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Tachyon Cutter",
     pp: 10,
     type: "Steel",
-    description: "Hits twice. This move does not check accuracy."
+    description: "Hits twice. This move does not check accuracy.",
+    secondary: null,
+    target: "normal"
   },
   tailglow: {
     accuracy: true,
@@ -5474,7 +6688,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Tail Glow",
     pp: 20,
     type: "Bug",
-    description: "Raises the user's Sp. Atk by 3."
+    description: "Raises the user's Sp. Atk by 3.",
+    secondary: null,
+    target: "self"
   },
   tailslap: {
     accuracy: 85,
@@ -5483,7 +6699,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Tail Slap",
     pp: 10,
     type: "Normal",
-    description: "Hits 2-5 times in one turn."
+    description: "Hits 2-5 times in one turn.",
+    secondary: null,
+    target: "normal"
   },
   tailwhip: {
     accuracy: 100,
@@ -5492,7 +6710,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Tail Whip",
     pp: 30,
     type: "Normal",
-    description: "Lowers the foe(s) Defense by 1."
+    description: "Lowers the foe(s) Defense by 1.",
+    secondary: null,
+    target: "allAdjacentFoes"
   },
   tailwind: {
     accuracy: true,
@@ -5501,7 +6721,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Tailwind",
     pp: 15,
     type: "Flying",
-    description: "For 4 turns, allies' Speed is doubled."
+    description: "For 4 turns, allies' Speed is doubled.",
+    secondary: null,
+    target: "allySide"
   },
   takedown: {
     accuracy: 85,
@@ -5510,7 +6732,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Take Down",
     pp: 20,
     type: "Normal",
-    description: "Has 1/4 recoil."
+    description: "Has 1/4 recoil.",
+    secondary: null,
+    target: "normal"
   },
   takeheart: {
     accuracy: true,
@@ -5519,7 +6743,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Take Heart",
     pp: 15,
     type: "Psychic",
-    description: "Cures user's status, raises Sp. Atk, Sp. Def by 1."
+    description: "Cures user's status, raises Sp. Atk, Sp. Def by 1.",
+    secondary: null,
+    target: "self"
   },
   tarshot: {
     accuracy: 100,
@@ -5528,7 +6754,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Tar Shot",
     pp: 15,
     type: "Rock",
-    description: "Target gets -1 Spe and becomes weaker to Fire."
+    description: "Target gets -1 Spe and becomes weaker to Fire.",
+    secondary: null,
+    target: "normal"
   },
   taunt: {
     accuracy: 100,
@@ -5537,7 +6765,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Taunt",
     pp: 20,
     type: "Dark",
-    description: "Target can't use status moves its next 3 turns."
+    description: "Target can't use status moves its next 3 turns.",
+    secondary: null,
+    target: "normal"
   },
   tearfullook: {
     accuracy: true,
@@ -5546,7 +6776,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Tearful Look",
     pp: 20,
     type: "Normal",
-    description: "Lowers the target's Attack and Sp. Atk by 1."
+    description: "Lowers the target's Attack and Sp. Atk by 1.",
+    secondary: null,
+    target: "normal"
   },
   teatime: {
     accuracy: true,
@@ -5555,7 +6787,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Teatime",
     pp: 10,
     type: "Normal",
-    description: "All active Pokemon consume held Berries."
+    description: "All active Pokemon consume held Berries.",
+    secondary: null,
+    target: "all"
   },
   teeterdance: {
     accuracy: 100,
@@ -5564,7 +6798,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Teeter Dance",
     pp: 20,
     type: "Normal",
-    description: "Confuses adjacent Pokemon."
+    description: "Confuses adjacent Pokemon.",
+    secondary: null,
+    target: "allAdjacent"
   },
   teleport: {
     accuracy: true,
@@ -5573,7 +6809,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Teleport",
     pp: 20,
     type: "Psychic",
-    description: "User switches out."
+    description: "User switches out.",
+    secondary: null,
+    target: "self"
   },
   temperflare: {
     accuracy: 100,
@@ -5582,7 +6820,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Temper Flare",
     pp: 10,
     type: "Fire",
-    description: "Power doubles if the user's last move failed."
+    description: "Power doubles if the user's last move failed.",
+    secondary: null,
+    target: "normal"
   },
   terablast: {
     accuracy: 100,
@@ -5591,7 +6831,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Tera Blast",
     pp: 10,
     type: "Normal",
-    description: "If Terastallized: Phys. if Atk > SpA, type = Tera."
+    description: "If Terastallized: Phys. if Atk > SpA, type = Tera.",
+    secondary: null,
+    target: "normal"
   },
   terastarstorm: {
     accuracy: 100,
@@ -5600,7 +6842,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Tera Starstorm",
     pp: 5,
     type: "Normal",
-    description: "Terapagos-Stellar: Stellar type, hits both foes."
+    description: "Terapagos-Stellar: Stellar type, hits both foes.",
+    secondary: null,
+    target: "normal"
   },
   terrainpulse: {
     accuracy: 100,
@@ -5609,7 +6853,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Terrain Pulse",
     pp: 10,
     type: "Normal",
-    description: "User on terrain: power doubles, type varies."
+    description: "User on terrain: power doubles, type varies.",
+    secondary: null,
+    target: "normal"
   },
   thief: {
     accuracy: 100,
@@ -5618,7 +6864,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Thief",
     pp: 25,
     type: "Dark",
-    description: "If the user has no item, it steals the target's."
+    description: "If the user has no item, it steals the target's.",
+    secondary: null,
+    target: "normal"
   },
   thrash: {
     accuracy: 100,
@@ -5627,7 +6875,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Thrash",
     pp: 10,
     type: "Normal",
-    description: "Lasts 2-3 turns. Confuses the user afterwards."
+    description: "Lasts 2-3 turns. Confuses the user afterwards.",
+    secondary: null,
+    target: "randomNormal"
   },
   throatchop: {
     accuracy: 100,
@@ -5636,7 +6886,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Throat Chop",
     pp: 15,
     type: "Dark",
-    description: "For 2 turns, the target cannot use sound moves."
+    description: "For 2 turns, the target cannot use sound moves.",
+    secondary: null,
+    target: "normal"
   },
   thunder: {
     accuracy: 70,
@@ -5645,7 +6897,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Thunder",
     pp: 10,
     type: "Electric",
-    description: "30% chance to paralyze. Can't miss in rain."
+    description: "30% chance to paralyze. Can't miss in rain.",
+    secondary: { chance: 30, status: "par" },
+    target: "normal"
   },
   thundercage: {
     accuracy: 90,
@@ -5654,7 +6908,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Thunder Cage",
     pp: 15,
     type: "Electric",
-    description: "Traps and damages the target for 4-5 turns."
+    description: "Traps and damages the target for 4-5 turns.",
+    secondary: null,
+    target: "normal"
   },
   thunderfang: {
     accuracy: 95,
@@ -5663,7 +6919,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Thunder Fang",
     pp: 15,
     type: "Electric",
-    description: "10% chance to paralyze. 10% chance to flinch."
+    description: "10% chance to paralyze. 10% chance to flinch.",
+    secondary: null,
+    target: "normal"
   },
   thunderpunch: {
     accuracy: 100,
@@ -5672,7 +6930,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Thunder Punch",
     pp: 15,
     type: "Electric",
-    description: "10% chance to paralyze the target."
+    description: "10% chance to paralyze the target.",
+    secondary: { chance: 10, status: "par" },
+    target: "normal"
   },
   thundershock: {
     accuracy: 100,
@@ -5681,7 +6941,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Thunder Shock",
     pp: 30,
     type: "Electric",
-    description: "10% chance to paralyze the target."
+    description: "10% chance to paralyze the target.",
+    secondary: { chance: 10, status: "par" },
+    target: "normal"
   },
   thunderwave: {
     accuracy: 90,
@@ -5690,7 +6952,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Thunder Wave",
     pp: 20,
     type: "Electric",
-    description: "Paralyzes the target."
+    description: "Paralyzes the target.",
+    secondary: null,
+    target: "normal"
   },
   thunderbolt: {
     accuracy: 100,
@@ -5699,7 +6963,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Thunderbolt",
     pp: 15,
     type: "Electric",
-    description: "10% chance to paralyze the target."
+    description: "10% chance to paralyze the target.",
+    secondary: { chance: 10, status: "par" },
+    target: "normal"
   },
   thunderclap: {
     accuracy: 100,
@@ -5708,7 +6974,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Thunderclap",
     pp: 5,
     type: "Electric",
-    description: "Usually goes first. Fails if target is not attacking."
+    description: "Usually goes first. Fails if target is not attacking.",
+    secondary: null,
+    target: "normal"
   },
   thunderouskick: {
     accuracy: 100,
@@ -5717,7 +6985,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Thunderous Kick",
     pp: 10,
     type: "Fighting",
-    description: "100% chance to lower the target's Defense by 1."
+    description: "100% chance to lower the target's Defense by 1.",
+    secondary: { chance: 100, boosts: { def: -1 } },
+    target: "normal"
   },
   tickle: {
     accuracy: 100,
@@ -5726,7 +6996,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Tickle",
     pp: 20,
     type: "Normal",
-    description: "Lowers the target's Attack and Defense by 1."
+    description: "Lowers the target's Attack and Defense by 1.",
+    secondary: null,
+    target: "normal"
   },
   tidyup: {
     accuracy: true,
@@ -5735,7 +7007,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Tidy Up",
     pp: 10,
     type: "Normal",
-    description: "User +1 Atk, Spe. Clears all substitutes/hazards."
+    description: "User +1 Atk, Spe. Clears all substitutes/hazards.",
+    secondary: null,
+    target: "self"
   },
   topsyturvy: {
     accuracy: true,
@@ -5744,7 +7018,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Topsy-Turvy",
     pp: 20,
     type: "Dark",
-    description: "Inverts the target's stat stages."
+    description: "Inverts the target's stat stages.",
+    secondary: null,
+    target: "normal"
   },
   torchsong: {
     accuracy: 100,
@@ -5753,7 +7029,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Torch Song",
     pp: 10,
     type: "Fire",
-    description: "100% chance to raise the user's Sp. Atk by 1."
+    description: "100% chance to raise the user's Sp. Atk by 1.",
+    secondary: null,
+    target: "normal"
   },
   torment: {
     accuracy: 100,
@@ -5762,7 +7040,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Torment",
     pp: 15,
     type: "Dark",
-    description: "Target can't select the same move twice in a row."
+    description: "Target can't select the same move twice in a row.",
+    secondary: null,
+    target: "normal"
   },
   toxic: {
     accuracy: 90,
@@ -5771,7 +7051,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Toxic",
     pp: 10,
     type: "Poison",
-    description: "Badly poisons the target. Poison types can't miss."
+    description: "Badly poisons the target. Poison types can't miss.",
+    secondary: null,
+    target: "normal"
   },
   toxicspikes: {
     accuracy: true,
@@ -5780,7 +7062,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Toxic Spikes",
     pp: 20,
     type: "Poison",
-    description: "Poisons grounded foes on switch-in. Max 2 layers."
+    description: "Poisons grounded foes on switch-in. Max 2 layers.",
+    secondary: null,
+    target: "foeSide"
   },
   toxicthread: {
     accuracy: 100,
@@ -5789,7 +7073,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Toxic Thread",
     pp: 20,
     type: "Poison",
-    description: "Lowers the target's Speed by 1 and poisons it."
+    description: "Lowers the target's Speed by 1 and poisons it.",
+    secondary: null,
+    target: "normal"
   },
   trailblaze: {
     accuracy: 100,
@@ -5798,7 +7084,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Trailblaze",
     pp: 20,
     type: "Grass",
-    description: "100% chance to raise the user's Speed by 1."
+    description: "100% chance to raise the user's Speed by 1.",
+    secondary: null,
+    target: "normal"
   },
   transform: {
     accuracy: true,
@@ -5807,7 +7095,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Transform",
     pp: 10,
     type: "Normal",
-    description: "Copies target's stats, moves, types, and Ability."
+    description: "Copies target's stats, moves, types, and Ability.",
+    secondary: null,
+    target: "normal"
   },
   triattack: {
     accuracy: 100,
@@ -5816,7 +7106,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Tri Attack",
     pp: 10,
     type: "Normal",
-    description: "20% chance to paralyze or burn or freeze target."
+    description: "20% chance to paralyze or burn or freeze target.",
+    secondary: null,
+    target: "normal"
   },
   trick: {
     accuracy: 100,
@@ -5825,7 +7117,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Trick",
     pp: 10,
     type: "Psychic",
-    description: "User switches its held item with the target's."
+    description: "User switches its held item with the target's.",
+    secondary: null,
+    target: "normal"
   },
   trickroom: {
     accuracy: true,
@@ -5834,7 +7128,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Trick Room",
     pp: 5,
     type: "Psychic",
-    description: "Goes last. For 5 turns, turn order is reversed."
+    description: "Goes last. For 5 turns, turn order is reversed.",
+    secondary: null,
+    target: "all"
   },
   triplearrows: {
     accuracy: 100,
@@ -5843,7 +7139,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Triple Arrows",
     pp: 10,
     type: "Fighting",
-    description: "High crit. Target: 50% -1 Defense, 30% flinch."
+    description: "High crit. Target: 50% -1 Defense, 30% flinch.",
+    secondary: null,
+    target: "normal"
   },
   tripleaxel: {
     accuracy: 90,
@@ -5852,7 +7150,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Triple Axel",
     pp: 10,
     type: "Ice",
-    description: "Hits 3 times. Each hit can miss, but power rises."
+    description: "Hits 3 times. Each hit can miss, but power rises.",
+    secondary: null,
+    target: "normal"
   },
   tripledive: {
     accuracy: 95,
@@ -5861,7 +7161,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Triple Dive",
     pp: 10,
     type: "Water",
-    description: "Hits 3 times."
+    description: "Hits 3 times.",
+    secondary: null,
+    target: "normal"
   },
   triplekick: {
     accuracy: 90,
@@ -5870,7 +7172,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Triple Kick",
     pp: 10,
     type: "Fighting",
-    description: "Hits 3 times. Each hit can miss, but power rises."
+    description: "Hits 3 times. Each hit can miss, but power rises.",
+    secondary: null,
+    target: "normal"
   },
   tropkick: {
     accuracy: 100,
@@ -5879,7 +7183,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Trop Kick",
     pp: 15,
     type: "Grass",
-    description: "100% chance to lower the target's Attack by 1."
+    description: "100% chance to lower the target's Attack by 1.",
+    secondary: { chance: 100, boosts: { atk: -1 } },
+    target: "normal"
   },
   twinbeam: {
     accuracy: 100,
@@ -5888,7 +7194,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Twin Beam",
     pp: 10,
     type: "Psychic",
-    description: "Hits 2 times in one turn."
+    description: "Hits 2 times in one turn.",
+    secondary: null,
+    target: "normal"
   },
   twister: {
     accuracy: 100,
@@ -5897,7 +7205,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Twister",
     pp: 20,
     type: "Dragon",
-    description: "20% chance to make the foe(s) flinch."
+    description: "20% chance to make the foe(s) flinch.",
+    secondary: { chance: 20, volatileStatus: "flinch" },
+    target: "allAdjacentFoes"
   },
   uturn: {
     accuracy: 100,
@@ -5906,7 +7216,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "U-turn",
     pp: 20,
     type: "Bug",
-    description: "User switches out after damaging the target."
+    description: "User switches out after damaging the target.",
+    secondary: null,
+    target: "normal"
   },
   upperhand: {
     accuracy: 100,
@@ -5915,7 +7227,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Upper Hand",
     pp: 15,
     type: "Fighting",
-    description: "100% flinch. Fails unless target using priority."
+    description: "100% flinch. Fails unless target using priority.",
+    secondary: { chance: 100, volatileStatus: "flinch" },
+    target: "normal"
   },
   uproar: {
     accuracy: 100,
@@ -5924,7 +7238,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Uproar",
     pp: 10,
     type: "Normal",
-    description: "Lasts 3 turns. Active Pokemon cannot fall asleep."
+    description: "Lasts 3 turns. Active Pokemon cannot fall asleep.",
+    secondary: null,
+    target: "randomNormal"
   },
   vacuumwave: {
     accuracy: 100,
@@ -5933,7 +7249,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Vacuum Wave",
     pp: 30,
     type: "Fighting",
-    description: "Usually goes first."
+    description: "Usually goes first.",
+    secondary: null,
+    target: "normal"
   },
   venoshock: {
     accuracy: 100,
@@ -5942,7 +7260,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Venoshock",
     pp: 10,
     type: "Poison",
-    description: "Power doubles if the target is poisoned."
+    description: "Power doubles if the target is poisoned.",
+    secondary: null,
+    target: "normal"
   },
   victorydance: {
     accuracy: true,
@@ -5951,7 +7271,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Victory Dance",
     pp: 10,
     type: "Fighting",
-    description: "Raises the user's Attack, Defense, Speed by 1."
+    description: "Raises the user's Attack, Defense, Speed by 1.",
+    secondary: null,
+    target: "self"
   },
   vinewhip: {
     accuracy: 100,
@@ -5960,7 +7282,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Vine Whip",
     pp: 25,
     type: "Grass",
-    description: "No additional effect."
+    description: "No additional effect.",
+    secondary: null,
+    target: "normal"
   },
   visegrip: {
     accuracy: 100,
@@ -5969,7 +7293,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Vise Grip",
     pp: 30,
     type: "Normal",
-    description: "No additional effect."
+    description: "No additional effect.",
+    secondary: null,
+    target: "normal"
   },
   voltswitch: {
     accuracy: 100,
@@ -5978,7 +7304,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Volt Switch",
     pp: 20,
     type: "Electric",
-    description: "User switches out after damaging the target."
+    description: "User switches out after damaging the target.",
+    secondary: null,
+    target: "normal"
   },
   volttackle: {
     accuracy: 100,
@@ -5987,7 +7315,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Volt Tackle",
     pp: 15,
     type: "Electric",
-    description: "Has 33% recoil. 10% chance to paralyze target."
+    description: "Has 33% recoil. 10% chance to paralyze target.",
+    secondary: { chance: 10, status: "par" },
+    target: "normal"
   },
   watergun: {
     accuracy: 100,
@@ -5996,7 +7326,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Water Gun",
     pp: 25,
     type: "Water",
-    description: "No additional effect."
+    description: "No additional effect.",
+    secondary: null,
+    target: "normal"
   },
   waterpledge: {
     accuracy: 100,
@@ -6005,7 +7337,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Water Pledge",
     pp: 10,
     type: "Water",
-    description: "Use with Grass or Fire Pledge for added effect."
+    description: "Use with Grass or Fire Pledge for added effect.",
+    secondary: null,
+    target: "normal"
   },
   waterpulse: {
     accuracy: 100,
@@ -6014,7 +7348,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Water Pulse",
     pp: 20,
     type: "Water",
-    description: "20% chance to confuse the target."
+    description: "20% chance to confuse the target.",
+    secondary: { chance: 20, volatileStatus: "confusion" },
+    target: "any"
   },
   watershuriken: {
     accuracy: 100,
@@ -6023,7 +7359,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Water Shuriken",
     pp: 20,
     type: "Water",
-    description: "Usually goes first. Hits 2-5 times in one turn."
+    description: "Usually goes first. Hits 2-5 times in one turn.",
+    secondary: null,
+    target: "normal"
   },
   waterspout: {
     accuracy: 100,
@@ -6032,7 +7370,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Water Spout",
     pp: 5,
     type: "Water",
-    description: "Less power as user's HP decreases. Hits foe(s)."
+    description: "Less power as user's HP decreases. Hits foe(s).",
+    secondary: null,
+    target: "allAdjacentFoes"
   },
   waterfall: {
     accuracy: 100,
@@ -6041,7 +7381,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Waterfall",
     pp: 15,
     type: "Water",
-    description: "20% chance to make the target flinch."
+    description: "20% chance to make the target flinch.",
+    secondary: { chance: 20, volatileStatus: "flinch" },
+    target: "normal"
   },
   wavecrash: {
     accuracy: 100,
@@ -6050,7 +7392,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Wave Crash",
     pp: 10,
     type: "Water",
-    description: "Has 33% recoil."
+    description: "Has 33% recoil.",
+    secondary: null,
+    target: "normal"
   },
   weatherball: {
     accuracy: 100,
@@ -6059,7 +7403,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Weather Ball",
     pp: 10,
     type: "Normal",
-    description: "Power doubles and type varies in each weather."
+    description: "Power doubles and type varies in each weather.",
+    secondary: null,
+    target: "normal"
   },
   whirlpool: {
     accuracy: 85,
@@ -6068,7 +7414,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Whirlpool",
     pp: 15,
     type: "Water",
-    description: "Traps and damages the target for 4-5 turns."
+    description: "Traps and damages the target for 4-5 turns.",
+    secondary: null,
+    target: "normal"
   },
   whirlwind: {
     accuracy: true,
@@ -6077,7 +7425,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Whirlwind",
     pp: 20,
     type: "Normal",
-    description: "Forces the target to switch to a random ally."
+    description: "Forces the target to switch to a random ally.",
+    secondary: null,
+    target: "normal"
   },
   wickedblow: {
     accuracy: 100,
@@ -6086,7 +7436,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Wicked Blow",
     pp: 5,
     type: "Dark",
-    description: "Always results in a critical hit."
+    description: "Always results in a critical hit.",
+    secondary: null,
+    target: "normal"
   },
   wideguard: {
     accuracy: true,
@@ -6095,7 +7447,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Wide Guard",
     pp: 10,
     type: "Rock",
-    description: "Protects allies from multi-target moves this turn."
+    description: "Protects allies from multi-target moves this turn.",
+    secondary: null,
+    target: "allySide"
   },
   wildcharge: {
     accuracy: 100,
@@ -6104,7 +7458,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Wild Charge",
     pp: 15,
     type: "Electric",
-    description: "Has 1/4 recoil."
+    description: "Has 1/4 recoil.",
+    secondary: null,
+    target: "normal"
   },
   wildboltstorm: {
     accuracy: 80,
@@ -6113,7 +7469,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Wildbolt Storm",
     pp: 10,
     type: "Electric",
-    description: "20% chance to paralyze foe(s). Rain: can't miss."
+    description: "20% chance to paralyze foe(s). Rain: can't miss.",
+    secondary: { chance: 20, status: "par" },
+    target: "allAdjacentFoes"
   },
   willowisp: {
     accuracy: 85,
@@ -6122,7 +7480,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Will-O-Wisp",
     pp: 15,
     type: "Fire",
-    description: "Burns the target."
+    description: "Burns the target.",
+    secondary: null,
+    target: "normal"
   },
   wingattack: {
     accuracy: 100,
@@ -6131,7 +7491,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Wing Attack",
     pp: 35,
     type: "Flying",
-    description: "No additional effect."
+    description: "No additional effect.",
+    secondary: null,
+    target: "any"
   },
   wish: {
     accuracy: true,
@@ -6140,7 +7502,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Wish",
     pp: 10,
     type: "Normal",
-    description: "Next turn, 50% of the user's max HP is restored."
+    description: "Next turn, 50% of the user's max HP is restored.",
+    secondary: null,
+    target: "self"
   },
   withdraw: {
     accuracy: true,
@@ -6149,7 +7513,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Withdraw",
     pp: 40,
     type: "Water",
-    description: "Raises the user's Defense by 1."
+    description: "Raises the user's Defense by 1.",
+    secondary: null,
+    target: "self"
   },
   wonderroom: {
     accuracy: true,
@@ -6158,7 +7524,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Wonder Room",
     pp: 10,
     type: "Psychic",
-    description: "For 5 turns, all Defense and Sp. Def stats switch."
+    description: "For 5 turns, all Defense and Sp. Def stats switch.",
+    secondary: null,
+    target: "all"
   },
   woodhammer: {
     accuracy: 100,
@@ -6167,7 +7535,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Wood Hammer",
     pp: 15,
     type: "Grass",
-    description: "Has 33% recoil."
+    description: "Has 33% recoil.",
+    secondary: null,
+    target: "normal"
   },
   workup: {
     accuracy: true,
@@ -6176,7 +7546,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Work Up",
     pp: 30,
     type: "Normal",
-    description: "Raises the user's Attack and Sp. Atk by 1."
+    description: "Raises the user's Attack and Sp. Atk by 1.",
+    secondary: null,
+    target: "self"
   },
   worryseed: {
     accuracy: 100,
@@ -6185,7 +7557,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Worry Seed",
     pp: 10,
     type: "Grass",
-    description: "The target's Ability becomes Insomnia."
+    description: "The target's Ability becomes Insomnia.",
+    secondary: null,
+    target: "normal"
   },
   wrap: {
     accuracy: 90,
@@ -6194,7 +7568,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Wrap",
     pp: 20,
     type: "Normal",
-    description: "Traps and damages the target for 4-5 turns."
+    description: "Traps and damages the target for 4-5 turns.",
+    secondary: null,
+    target: "normal"
   },
   xscissor: {
     accuracy: 100,
@@ -6203,7 +7579,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "X-Scissor",
     pp: 15,
     type: "Bug",
-    description: "No additional effect."
+    description: "No additional effect.",
+    secondary: null,
+    target: "normal"
   },
   yawn: {
     accuracy: true,
@@ -6212,7 +7590,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Yawn",
     pp: 10,
     type: "Normal",
-    description: "Puts the target to sleep after 1 turn."
+    description: "Puts the target to sleep after 1 turn.",
+    secondary: null,
+    target: "normal"
   },
   zapcannon: {
     accuracy: 50,
@@ -6221,7 +7601,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Zap Cannon",
     pp: 5,
     type: "Electric",
-    description: "100% chance to paralyze the target."
+    description: "100% chance to paralyze the target.",
+    secondary: { chance: 100, status: "par" },
+    target: "normal"
   },
   zenheadbutt: {
     accuracy: 90,
@@ -6230,7 +7612,9 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Zen Headbutt",
     pp: 15,
     type: "Psychic",
-    description: "20% chance to make the target flinch."
+    description: "20% chance to make the target flinch.",
+    secondary: { chance: 20, volatileStatus: "flinch" },
+    target: "normal"
   },
   zingzap: {
     accuracy: 100,
@@ -6239,6 +7623,8 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     name: "Zing Zap",
     pp: 10,
     type: "Electric",
-    description: "30% chance to make the target flinch."
+    description: "30% chance to make the target flinch.",
+    secondary: { chance: 30, volatileStatus: "flinch" },
+    target: "normal"
   }
 }

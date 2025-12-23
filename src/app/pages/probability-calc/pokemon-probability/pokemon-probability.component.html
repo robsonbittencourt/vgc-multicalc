@@ -1,0 +1,192 @@
+<app-widget [title]="'Pokémon Probabilities'">
+  @if (hasValidPokemon()) {
+    <div class="container">
+      <div class="pokemon-container">
+        <div>
+          <div class="pokemon-image">
+            <img src="assets/sprites/pokemon-sv/{{ pokemon().name }}.png" />
+          </div>
+          <div>
+            <h3>{{ pokemon().activeMoveName }}</h3>
+            <p>Accuracy: {{ accuracy() }}%</p>
+            @if (secondary()) {
+              <p>Secondary effect: {{ secondary() }}%</p>
+            }
+          </div>
+        </div>
+      </div>
+
+      @if (target() === "allAdjacentFoes") {
+        <div class="probability-card" data-cy="probability-card-spread-target">
+          <div class="probability-row header">
+            <div class="cell">Turns</div>
+            <div class="cell">
+              <div>Hit both</div>
+              <div>Every turn</div>
+            </div>
+            <div class="cell">
+              <div>Hit one+</div>
+              <div>Every turn</div>
+            </div>
+            <div class="cell">
+              <div>Miss both</div>
+              <div>At least once</div>
+            </div>
+            <div class="cell">
+              <div>Effect one+</div>
+              <div>At least once</div>
+            </div>
+            <div class="cell">
+              <div>Effect both</div>
+              <div>At least once</div>
+            </div>
+          </div>
+
+          <!-- Linhas de dados -->
+          <div class="probability-row" data-cy="probability-turn-1">
+            <div class="cell">1</div>
+            <div class="cell">{{ oneTime().hitBoth }}%</div>
+            <div class="cell">{{ oneTime().hitAtLeastOne }}%</div>
+            <div class="cell">{{ oneTime().missBoth }}%</div>
+            <div class="cell" data-cy="probability-cell-effect-one-plus-1">{{ oneTime().secondaryHitAtLeastOne }}%</div>
+            <div class="cell" data-cy="probability-cell-effect-both-1">{{ oneTime().secondaryHitBoth }}%</div>
+          </div>
+          <div class="probability-row" data-cy="probability-turn-2">
+            <div class="cell">2</div>
+            <div class="cell">{{ twoTimes().hitBoth }}%</div>
+            <div class="cell">{{ twoTimes().hitAtLeastOne }}%</div>
+            <div class="cell">{{ twoTimes().missBoth }}%</div>
+            <div class="cell" data-cy="probability-cell-effect-one-plus-2">{{ twoTimes().secondaryHitAtLeastOne }}%</div>
+            <div class="cell" data-cy="probability-cell-effect-both-2">{{ twoTimes().secondaryHitBoth }}%</div>
+          </div>
+          <div class="probability-row" data-cy="probability-turn-3">
+            <div class="cell">3</div>
+            <div class="cell">{{ threeTimes().hitBoth }}%</div>
+            <div class="cell">{{ threeTimes().hitAtLeastOne }}%</div>
+            <div class="cell">{{ threeTimes().missBoth }}%</div>
+            <div class="cell" data-cy="probability-cell-effect-one-plus-3">{{ threeTimes().secondaryHitAtLeastOne }}%</div>
+            <div class="cell" data-cy="probability-cell-effect-both-3">{{ threeTimes().secondaryHitBoth }}%</div>
+          </div>
+          <div class="probability-row" data-cy="probability-turn-4">
+            <div class="cell">4</div>
+            <div class="cell">{{ fourTimes().hitBoth }}%</div>
+            <div class="cell">{{ fourTimes().hitAtLeastOne }}%</div>
+            <div class="cell">{{ fourTimes().missBoth }}%</div>
+            <div class="cell" data-cy="probability-cell-effect-one-plus-4">{{ fourTimes().secondaryHitAtLeastOne }}%</div>
+            <div class="cell" data-cy="probability-cell-effect-both-4">{{ fourTimes().secondaryHitBoth }}%</div>
+          </div>
+          <div class="probability-row" data-cy="probability-turn-5">
+            <div class="cell">5</div>
+            <div class="cell">{{ fiveTimes().hitBoth }}%</div>
+            <div class="cell">{{ fiveTimes().hitAtLeastOne }}%</div>
+            <div class="cell">{{ fiveTimes().missBoth }}%</div>
+            <div class="cell" data-cy="probability-cell-effect-one-plus-5">{{ fiveTimes().secondaryHitAtLeastOne }}%</div>
+            <div class="cell" data-cy="probability-cell-effect-both-5">{{ fiveTimes().secondaryHitBoth }}%</div>
+          </div>
+        </div>
+      } @else {
+        <div class="probability-card" data-cy="probability-card-single-target">
+          <div class="probability-row header">
+            <div class="cell">Turns</div>
+
+            <div class="cell">
+              <div>Hit</div>
+              <div>Every turn</div>
+            </div>
+
+            <div class="cell">
+              <div>Hit</div>
+              <div>At least once</div>
+            </div>
+
+            <div class="cell">
+              <div>Miss</div>
+              <div>Every turn</div>
+            </div>
+
+            <div class="cell">
+              <div>Miss</div>
+              <div>At least once</div>
+            </div>
+
+            @if (hasSecondaryEffect()) {
+              <div class="cell">
+                <div>Effect</div>
+                <div>At least once</div>
+              </div>
+
+              <div class="cell">
+                <div>Effect</div>
+                <div>Every turn</div>
+              </div>
+            }
+          </div>
+
+          <!-- Linhas de dados -->
+          <div class="probability-row" data-cy="probability-turn-1">
+            <div class="cell">1</div>
+            <div class="cell">{{ oneTimeSingleTarget().hitAllTurns }}%</div>
+            <div class="cell">{{ oneTimeSingleTarget().hitAtLeastOne }}%</div>
+            <div class="cell">{{ oneTimeSingleTarget().missAllTurns }}%</div>
+            <div class="cell">{{ oneTimeSingleTarget().missAtLeastOne }}%</div>
+            @if (hasSecondaryEffect()) {
+              <div class="cell" data-cy="probability-cell-effect-at-least-once-1">{{ oneTimeSingleTarget().secondaryAtLeastOne }}%</div>
+              <div class="cell" data-cy="probability-cell-effect-all-turns-1">{{ oneTimeSingleTarget().secondaryAllTurns }}%</div>
+            }
+          </div>
+          <div class="probability-row" data-cy="probability-turn-2">
+            <div class="cell">2</div>
+            <div class="cell">{{ twoTimesSingleTarget().hitAllTurns }}%</div>
+            <div class="cell">{{ twoTimesSingleTarget().hitAtLeastOne }}%</div>
+            <div class="cell">{{ twoTimesSingleTarget().missAllTurns }}%</div>
+            <div class="cell">{{ twoTimesSingleTarget().missAtLeastOne }}%</div>
+            @if (hasSecondaryEffect()) {
+              <div class="cell" data-cy="probability-cell-effect-at-least-once-2">{{ twoTimesSingleTarget().secondaryAtLeastOne }}%</div>
+              <div class="cell" data-cy="probability-cell-effect-all-turns-2">{{ twoTimesSingleTarget().secondaryAllTurns }}%</div>
+            }
+          </div>
+          <div class="probability-row" data-cy="probability-turn-3">
+            <div class="cell">3</div>
+            <div class="cell">{{ threeTimesSingleTarget().hitAllTurns }}%</div>
+            <div class="cell">{{ threeTimesSingleTarget().hitAtLeastOne }}%</div>
+            <div class="cell">{{ threeTimesSingleTarget().missAllTurns }}%</div>
+            <div class="cell">{{ threeTimesSingleTarget().missAtLeastOne }}%</div>
+            @if (hasSecondaryEffect()) {
+              <div class="cell" data-cy="probability-cell-effect-at-least-once-3">{{ threeTimesSingleTarget().secondaryAtLeastOne }}%</div>
+              <div class="cell" data-cy="probability-cell-effect-all-turns-3">{{ threeTimesSingleTarget().secondaryAllTurns }}%</div>
+            }
+          </div>
+          <div class="probability-row" data-cy="probability-turn-4">
+            <div class="cell">4</div>
+            <div class="cell">{{ fourTimesSingleTarget().hitAllTurns }}%</div>
+            <div class="cell">{{ fourTimesSingleTarget().hitAtLeastOne }}%</div>
+            <div class="cell">{{ fourTimesSingleTarget().missAllTurns }}%</div>
+            <div class="cell">{{ fourTimesSingleTarget().missAtLeastOne }}%</div>
+            @if (hasSecondaryEffect()) {
+              <div class="cell" data-cy="probability-cell-effect-at-least-once-4">{{ fourTimesSingleTarget().secondaryAtLeastOne }}%</div>
+              <div class="cell" data-cy="probability-cell-effect-all-turns-4">{{ fourTimesSingleTarget().secondaryAllTurns }}%</div>
+            }
+          </div>
+          <div class="probability-row" data-cy="probability-turn-5">
+            <div class="cell">5</div>
+            <div class="cell">{{ fiveTimesSingleTarget().hitAllTurns }}%</div>
+            <div class="cell">{{ fiveTimesSingleTarget().hitAtLeastOne }}%</div>
+            <div class="cell">{{ fiveTimesSingleTarget().missAllTurns }}%</div>
+            <div class="cell">{{ fiveTimesSingleTarget().missAtLeastOne }}%</div>
+            @if (hasSecondaryEffect()) {
+              <div class="cell" data-cy="probability-cell-effect-at-least-once-5">{{ fiveTimesSingleTarget().secondaryAtLeastOne }}%</div>
+              <div class="cell" data-cy="probability-cell-effect-all-turns-5">{{ fiveTimesSingleTarget().secondaryAllTurns }}%</div>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  } @else {
+    <div class="empty-message" data-cy="pokemon-probability-empty-message">
+      <div class="empty-content">
+        <img class="question-icon" src="assets/icons/question.png" />
+        <span>Select a Pokémon</span>
+      </div>
+    </div>
+  }
+</app-widget>

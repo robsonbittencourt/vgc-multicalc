@@ -1,0 +1,19 @@
+<app-widget [title]="'General Probabilities'">
+  <div class="container">
+    <app-probability-card [title]="criticalHitCard.title" [headers]="criticalHitCard.headers" [rows]="criticalHitCard.rows" [cellWidths]="criticalHitCard.cellWidths" />
+
+    <app-probability-card [title]="protectCard.title" [headers]="protectCard.headers" [rows]="protectCard.rows" />
+
+    <app-probability-card [title]="turnsToSleepCard.title" [headers]="turnsToSleepCard.headers" [rows]="turnsToSleepCard.rows" />
+
+    <app-probability-card [title]="wakeUpFromSleepCard.title" [headers]="wakeUpFromSleepCard.headers" [rows]="wakeUpFromSleepCard.rows" />
+
+    <app-probability-card [title]="fullyParalyzedCard.title" [headers]="fullyParalyzedCard.headers" [rows]="fullyParalyzedCard.rows" />
+
+    <app-probability-card [title]="freezeCard.title" [headers]="freezeCard.headers" [rows]="freezeCard.rows" />
+
+    <app-probability-card [title]="snapOutOfConfusionCard.title" [headers]="snapOutOfConfusionCard.headers" [rows]="snapOutOfConfusionCard.rows" />
+
+    <app-probability-card [title]="multiHitMovesCard.title" [headers]="multiHitMovesCard.headers" [rows]="multiHitMovesCard.rows" />
+  </div>
+</app-widget>

@@ -1,0 +1,26 @@
+<app-widget [title]="'Team Consistency Score'">
+  @if (hasValidTeamMembers()) {
+    <div class="container">
+      <div class="team-score">
+        <app-donut-graphic [score]="teamScore()" data-cy="team-score-donut"></app-donut-graphic>
+      </div>
+      <div class="team-members">
+        @for (teamMember of store.team().teamMembers; track teamMember.pokemon.id; let i = $index) {
+          <div class="tab">
+            @if (scores()[i] !== null) {
+              <img class="pokemon-image-small" src="assets/sprites/pokemon-sv/{{ teamMember.pokemon.name }}.png" />
+              <label class="pokemon-score" [attr.data-cy]="'pokemon-score-' + i">{{ scores()[i] }}</label>
+            }
+          </div>
+        }
+      </div>
+    </div>
+  } @else {
+    <div class="empty-message" data-cy="team-probability-empty-message">
+      <div class="empty-content">
+        <img class="question-icon" src="assets/icons/question.png" />
+        <span>Select a Pokémon</span>
+      </div>
+    </div>
+  }
+</app-widget>

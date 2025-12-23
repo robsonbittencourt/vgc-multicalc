@@ -19,6 +19,15 @@ export type Regulation = "F" | "J"
 
 export type Jumps = [number, number, number, number | null]
 
+export type SecondaryEffect = {
+  chance: number
+  status?: string
+  volatileStatus?: string
+  boosts?: Partial<Record<keyof Stats | "accuracy", number>>
+}
+
+export type MoveTarget = "normal" | "allAdjacentFoes" | "self" | "any" | "adjacentAllyOrSelf" | "adjacentAlly" | "allySide" | "allAdjacent" | "all" | "allyTeam" | "adjacentFoe" | "scripted" | "allies" | "randomNormal" | "foeSide"
+
 export const PokemonTypes = ["Normal", "Fire", "Water", "Grass", "Electric", "Ice", "Fighting", "Poison", "Ground", "Flying", "Psychic", "Bug", "Rock", "Ghost", "Dragon", "Steel", "Dark", "Fairy"] as const
 
 export type PokemonType = (typeof PokemonTypes)[number]

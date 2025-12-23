@@ -7,7 +7,7 @@
   box-sizing: border-box;
   text-align: center;
   color: var(--text);
-  height: 100vh;
+  min-height: 100vh;
 }
 
 h1 {
@@ -36,4 +36,60 @@ iframe {
   width: 100%;
   height: 100%;
   border: none;
+}
+
+.section {
+  width: 100%;
+  max-width: 800px;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.section-title {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: var(--text);
+}
+
+.section-content {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+.section-content p {
+  margin: 1em 0;
+}
+
+.section-image {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  margin: 2rem 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.subsection {
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.subsection-title {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+
+.subsection-list {
+  text-align: left;
+  display: inline-block;
+  margin: 1em 0;
+  padding-left: 1.5em;
+}
+
+.subsection-list li {
+  margin: 0.5em 0;
 }

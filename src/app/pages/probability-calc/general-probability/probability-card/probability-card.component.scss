@@ -1,0 +1,31 @@
+.probability-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  background-color: var(--highlight);
+  padding: 1em;
+  box-sizing: border-box;
+  min-width: 0;
+  height: 100%;
+}
+
+.title {
+  font-weight: 500;
+  font-size: 1.1em;
+}
+
+.probability-row {
+  display: flex;
+}
+
+.probability-row.header {
+  font-weight: 600;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+  padding-bottom: 0.25em;
+}
+
+.cell {
+  flex: 1;
+  text-align: center;
+  padding: 0.25em 0.5em;
+}

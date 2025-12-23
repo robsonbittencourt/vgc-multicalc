@@ -107,7 +107,7 @@ describe("Ruins Ability Adjuster", () => {
     const move = new Move("Grassy Glide")
     const moveSmogon = new MoveSmogon(gen, move.name)
     const attacker = new SmogonPokemon(gen, "Rillaboom")
-    const secondAttacker = new Pokemon("Ting-Lu", { moveSet: new MoveSet(new Move("Ruination"), new Move("Throat Chop"), new Move("Stomping Tanrum"), new Move("Taunt")) })
+    const secondAttacker = new Pokemon("Ting-Lu", { moveSet: new MoveSet(new Move("Ruination"), new Move("Throat Chop"), new Move("Stomping Tantrum"), new Move("Taunt")) })
     const target = new SmogonPokemon(gen, "Flutter Mane")
     const fieldSmogon = new FieldSmogon()
 

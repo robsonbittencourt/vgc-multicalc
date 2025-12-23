@@ -1,0 +1,55 @@
+<app-widget [title]="'Combined Probability'">
+  <div class="container" data-cy="combined-probability-container">
+    <div class="options-container" data-cy="calculation-type-selector">
+      <div class="select-wrapper">
+        <app-input-select label="Expected" [value]="calculationTypeValue()" [allValues]="calculationTypeOptions" (valueChange)="onCalculationTypeChange($event)" data-cy="calculation-type-select" />
+      </div>
+    </div>
+    <div class="inputs-container">
+      <div class="probability-input-wrapper">
+        <div class="input-with-suffix">
+          <app-input label="Probability 1" [value]="probability1String()" (valueChange)="onInputChange(0, $event)" [attr.data-cy]="'probability-input-1'" />
+          @if (probabilities()[0] !== null && probabilities()[0] !== undefined) {
+            <span class="suffix">%</span>
+          }
+        </div>
+      </div>
+      <div class="probability-input-wrapper">
+        <div class="input-with-suffix">
+          <app-input label="Probability 2" [value]="probability2String()" (valueChange)="onInputChange(1, $event)" [attr.data-cy]="'probability-input-2'" />
+          @if (probabilities()[1] !== null && probabilities()[1] !== undefined) {
+            <span class="suffix">%</span>
+          }
+        </div>
+      </div>
+      <div class="probability-input-wrapper">
+        <div class="input-with-suffix">
+          <app-input label="Probability 3" [value]="probability3String()" (valueChange)="onInputChange(2, $event)" [attr.data-cy]="'probability-input-3'" />
+          @if (probabilities()[2] !== null && probabilities()[2] !== undefined) {
+            <span class="suffix">%</span>
+          }
+        </div>
+      </div>
+      <div class="probability-input-wrapper">
+        <div class="input-with-suffix">
+          <app-input label="Probability 4" [value]="probability4String()" (valueChange)="onInputChange(3, $event)" [attr.data-cy]="'probability-input-4'" />
+          @if (probabilities()[3] !== null && probabilities()[3] !== undefined) {
+            <span class="suffix">%</span>
+          }
+        </div>
+      </div>
+      <div class="probability-input-wrapper">
+        <div class="input-with-suffix">
+          <app-input label="Probability 5" [value]="probability5String()" (valueChange)="onInputChange(4, $event)" [attr.data-cy]="'probability-input-5'" />
+          @if (probabilities()[4] !== null && probabilities()[4] !== undefined) {
+            <span class="suffix">%</span>
+          }
+        </div>
+      </div>
+    </div>
+    <div class="result-container" data-cy="combined-probability-result">
+      <div class="result-label">Result:</div>
+      <div class="result-value">{{ result() }}%</div>
+    </div>
+  </div>
+</app-widget>

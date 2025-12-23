@@ -1,0 +1,21 @@
+<div class="probability-card">
+  <span class="title">{{ title() }}</span>
+
+  <div class="probability-row header">
+    @for (header of headers(); track $index) {
+      <div class="cell" [style.flex]="getCellFlex($index)">
+        {{ header }}
+      </div>
+    }
+  </div>
+
+  @for (row of rows(); track $index) {
+    <div class="probability-row">
+      @for (cell of row; track $index) {
+        <div class="cell" [style.flex]="getCellFlex($index)">
+          {{ cell }}
+        </div>
+      }
+    </div>
+  }
+</div>

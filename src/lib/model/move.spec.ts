@@ -23,7 +23,7 @@ describe("Move", () => {
   })
 
   it("should return correct possible hits for a multihit move", () => {
-    const move = new Move("Double Slap")
+    const move = new Move("Bullet Seed")
 
     expect(move.possibleHits).toEqual(["2", "3", "4", "5"])
   })

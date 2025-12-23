@@ -1,0 +1,98 @@
+:host ::ng-deep app-widget {
+  display: flex;
+  flex-direction: column;
+}
+
+:host ::ng-deep app-widget .header {
+  flex-shrink: 0;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  height: calc(8.5em + 0.5em);
+  min-height: calc(8.5em + 0.5em);
+  max-height: calc(8.5em + 0.5em);
+  margin-top: 0.5em;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.container:has(.empty-message) {
+  height: auto;
+  min-height: auto;
+  max-height: none;
+  padding: 0.5em;
+}
+
+.empty-message {
+  display: flex;
+  align-items: center;
+  height: auto;
+  min-height: auto;
+  margin-top: 0;
+  padding: 1em 0;
+  box-sizing: border-box;
+}
+
+.container {
+  justify-content: space-between;
+  gap: 1em;
+}
+
+.empty-message {
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  min-height: auto;
+  margin-top: 0;
+  padding: 1em 0;
+  color: var(--text-secondary);
+  font-size: 1.2em;
+}
+
+.empty-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.question-icon {
+  width: 4em;
+  height: auto;
+}
+
+.team-members {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  justify-content: space-around;
+}
+
+.tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  min-width: 8em;
+}
+
+.pokemon-score {
+  margin-top: 1em;
+  font-size: 1.3rem;
+}
+
+.team-score {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pokemon-image-small {
+  width: 5em;
+  height: auto;
+}

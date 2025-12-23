@@ -1,5 +1,6 @@
 import { Component, inject, OnInit } from "@angular/core"
 import { ActivatedRoute } from "@angular/router"
+import { ProbabilityCalcComponent } from "@app/pages/probability-calc/probability-calc/probability-calc.component"
 import { HeaderMobileComponent } from "@core/header-mobile/header-mobile.component"
 import { HeaderComponent } from "@core/header/header.component"
 import { CalculatorStore } from "@data/store/calculator-store"
@@ -18,7 +19,7 @@ import { SpeedCalculatorComponent } from "@pages/speed-calc/speed-calculator/spe
   selector: "app-main",
   templateUrl: "./main.component.html",
   styleUrls: ["./main.component.scss"],
-  imports: [HeaderComponent, SimpleCalcComponent, MultiCalcComponent, SpeedCalculatorComponent, HowToUseComponent, HeaderMobileComponent, SimpleCalcMobileComponent, SpeedCalculatorMobileComponent, HowToUseComponent]
+  imports: [HeaderComponent, SimpleCalcComponent, MultiCalcComponent, SpeedCalculatorComponent, ProbabilityCalcComponent, HowToUseComponent, HeaderMobileComponent, SimpleCalcMobileComponent, SpeedCalculatorMobileComponent, HowToUseComponent]
 })
 export class MainComponent implements OnInit {
   store = inject(CalculatorStore)

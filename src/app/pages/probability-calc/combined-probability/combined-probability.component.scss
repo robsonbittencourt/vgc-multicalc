@@ -1,0 +1,131 @@
+@use "variables.scss" as *;
+
+:host {
+  display: block;
+}
+
+:host ::ng-deep app-widget {
+  display: block;
+}
+
+:host ::ng-deep app-widget > .container.elevation {
+  display: flex;
+  flex-direction: column;
+}
+
+:host ::ng-deep app-widget .header {
+  flex-shrink: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2em;
+  padding: 1em 1em 0em 1em;
+  box-sizing: border-box;
+}
+
+.options-container {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.select-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 auto;
+  width: 8em;
+}
+
+.select-wrapper ::ng-deep .input-column {
+  gap: 0.2em;
+}
+
+.inputs-container {
+  display: flex;
+  flex-direction: row;
+  gap: 0.75em;
+  flex: 1;
+  min-width: 0;
+  flex-wrap: wrap;
+}
+
+.probability-input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
+  flex: 0 1 auto;
+  max-width: 7.5em;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.input-with-suffix {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.input-with-suffix ::ng-deep app-input {
+  min-width: 0;
+  max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  flex: 1 1 0;
+}
+
+.input-with-suffix ::ng-deep app-input .input-column {
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  flex: 1 1 0;
+}
+
+.input-with-suffix ::ng-deep app-input .input-column > input {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding-right: 24px;
+}
+
+.suffix {
+  position: absolute;
+  right: 6px;
+  top: calc(0.2em + 1em + 6px + 0.5em);
+  transform: translateY(-20%);
+  color: var(--text);
+  font-size: $font-size;
+  pointer-events: none;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+}
+
+.result-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25em;
+  padding: 0.5em 1em;
+  min-width: 7em;
+  flex-shrink: 0;
+}
+
+.result-label {
+  font-weight: 500;
+  color: var(--text-secondary);
+  font-size: 0.9em;
+}
+
+.result-value {
+  font-size: 1.8em;
+  font-weight: 600;
+  color: var(--text-strong);
+}

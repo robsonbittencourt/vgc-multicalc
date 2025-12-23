@@ -95,6 +95,20 @@ export class CalculatorStore extends signalStore(
   readonly targets = computed(() => stateToTargets(this.targetsState(), !this.teamIsAttacker()))
   readonly attackerId = computed(() => this.team().teamMembers.find(t => t.active && t.pokemon.id != this.secondAttackerId())!.pokemon.id)
 
+  private getTeamMemberAt(index: number): Pokemon | null {
+    const teamsState = this.teamsState()
+    const activeTeam = teamsState.find(t => t.active)
+    const memberState = activeTeam?.teamMembers[index]
+    return memberState ? stateToPokemon(memberState.pokemon, this.teamIsAttacker()) : null
+  }
+
+  readonly teamMember0 = computed(() => this.getTeamMemberAt(0))
+  readonly teamMember1 = computed(() => this.getTeamMemberAt(1))
+  readonly teamMember2 = computed(() => this.getTeamMemberAt(2))
+  readonly teamMember3 = computed(() => this.getTeamMemberAt(3))
+  readonly teamMember4 = computed(() => this.getTeamMemberAt(4))
+  readonly teamMember5 = computed(() => this.getTeamMemberAt(5))
+
   updateStateLockingLocalStorage(state: CalculatorState) {
     patchState(this, () => ({ ...state, updateLocalStorage: false }))
   }

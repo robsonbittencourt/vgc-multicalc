@@ -1,3 +1,4 @@
+import { MOVE_DETAILS } from "@data/move-details"
 import { Generations, MOVES, Move as MoveSmogon } from "@robsonbittencourt/calc"
 
 export class Move {
@@ -6,6 +7,9 @@ export class Move {
   readonly hits: string
   readonly alliesFainted: string
   readonly bp: number
+  readonly accuracy: number
+  readonly secondary: any
+  readonly target: string
 
   constructor(name: string, options: { alliesFainted?: string; hits?: string } = {}) {
     this.name = name
@@ -13,6 +17,19 @@ export class Move {
     this.hits = this.hitsValue(name, options)
     this.alliesFainted = options.alliesFainted ?? "0"
     this.bp = new MoveSmogon(Generations.get(9), name).bp
+
+    const moveName = name?.toLowerCase().replaceAll(" ", "").replaceAll("-", "").replaceAll("'", "")
+
+    if (!moveName) {
+      this.accuracy = 100
+      this.secondary = null
+      this.target = "normal"
+    } else {
+      const moveDetails = MOVE_DETAILS[moveName]
+      this.accuracy = moveDetails.accuracy === true ? 100 : moveDetails.accuracy
+      this.secondary = moveDetails.secondary
+      this.target = moveDetails.target
+    }
   }
 
   private hitsValue(name: string, options: any): string {
