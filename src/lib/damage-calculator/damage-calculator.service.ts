@@ -7,7 +7,8 @@ import { Move } from "@lib/model/move"
 import { Pokemon } from "@lib/model/pokemon"
 import { fromExisting } from "@lib/smogon/smogon-pokemon-builder"
 import { SpeedCalculatorService } from "@lib/speed-calculator/speed-calculator-service"
-import { calculate, Generations, Move as MoveSmogon, Result, StatID } from "@robsonbittencourt/calc"
+import { calculate, Generations, Move as MoveSmogon, Result, StatID, Pokemon as PokemonSmogon, Field as FieldSmogon } from "@robsonbittencourt/calc"
+import { Generation } from "@robsonbittencourt/calc/dist/data/interface"
 
 @Injectable({
   providedIn: "root"
@@ -65,7 +66,7 @@ export class DamageCalculatorService {
 
     this.adjusters.forEach(a => a.adjust(smogonAttacker, smogonTarget, move, moveSmogon, smogonField, secondAttacker, field))
 
-    const result = calculate(gen, smogonAttacker, smogonTarget, moveSmogon, smogonField)
+    const result = this.calculateDamage(gen, smogonAttacker, smogonTarget, moveSmogon, smogonField, moveSmogon)
 
     if (!result.damage) {
       result.damage = this.ZERO_RESULT_DAMAGE
@@ -76,6 +77,35 @@ export class DamageCalculatorService {
     }
 
     return result
+  }
+
+  private calculateDamage(gen: Generation, attacker: PokemonSmogon, target: PokemonSmogon, move: MoveSmogon, field: FieldSmogon, moveModel: MoveSmogon): Result {
+    if (moveModel.name === "Ruination") {
+      const halfHp = Math.floor(target.originalCurHP / 2)
+      const damage = Math.max(halfHp, 1)
+
+      const result = calculate(gen, attacker, target, move, field)
+      result.damage = damage
+
+      if (this.koChance(result) != "guaranteed OHKO") {
+        const originalDesc = result.desc.bind(result)
+        result.desc = () => {
+          const desc = originalDesc()
+          const ohkoIndex = desc.indexOf("-- guaranteed OHKO")
+          if (ohkoIndex === -1) {
+            const koIndex = desc.indexOf("--")
+            if (koIndex !== -1) {
+              return desc.substring(0, koIndex).trim()
+            }
+          }
+          return desc
+        }
+      }
+
+      return result
+    }
+
+    return calculate(gen, attacker, target, move, field)
   }
 
   combineDamageRolls(resultOne: Result, resultTwo: Result) {

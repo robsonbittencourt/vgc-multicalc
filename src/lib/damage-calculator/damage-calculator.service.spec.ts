@@ -320,4 +320,30 @@ describe("Damage Calculator Service", () => {
     expect(damageResult.description).toEqual("Annihilape Final Gambit vs. 0 HP Incineroar: 185-185 (108.8 - 108.8%) -- guaranteed OHKO")
     expect(damageResult.attackerRolls).toEqual([[185, 185, 185, 185, 185, 185, 185, 185, 185, 185, 185, 185, 185, 185, 185, 185]])
   })
+
+  it("should calculate damage of Ruination as half of defender HP rounded down", () => {
+    const attacker = new Pokemon("Wo-Chien", { moveSet: new MoveSet(new Move("Ruination"), new Move("Protect"), new Move("Leech Seed"), new Move("Pollen Puff")) })
+    const target = new Target(new Pokemon("Flutter Mane"))
+    const field = new Field()
+
+    const damageResult = service.calcDamage(attacker, target.pokemon, field)
+
+    expect(damageResult.move).toEqual("Ruination")
+    expect(damageResult.result).toEqual("50 - 50%")
+    expect(damageResult.koChance).toEqual("guaranteed 2HKO")
+    expect(damageResult.damage).toEqual(50)
+    expect(damageResult.description).toEqual("Wo-Chien Ruination vs. 0 HP Flutter Mane: 65-65 (50 - 50%)")
+    expect(damageResult.attackerRolls).toEqual([[65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65]])
+  })
+
+  it("should calculate damage of Ruination with minimum 1 damage", () => {
+    const attacker = new Pokemon("Wo-Chien", { moveSet: new MoveSet(new Move("Ruination"), new Move("Protect"), new Move("Leech Seed"), new Move("Pollen Puff")) })
+    const target = new Target(new Pokemon("Flutter Mane", { hpPercentage: 1 }))
+    const field = new Field()
+
+    const damageResult = service.calcDamage(attacker, target.pokemon, field)
+
+    expect(damageResult.koChance).toEqual("guaranteed OHKO")
+    expect(damageResult.attackerRolls).toEqual([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]])
+  })
 })
