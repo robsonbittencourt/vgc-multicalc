@@ -1,6 +1,7 @@
 import { provideZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
 import { CALC_ADJUSTERS, CalcAdjuster } from "@lib/damage-calculator/calc-adjuster/calc-adjuster"
+import { SPECIFIC_DAMAGE_CALCULATORS, SpecificDamageCalculator } from "@lib/damage-calculator/specific-damage-calculator/specific-damage-calculator"
 import { DamageCalculatorService } from "@lib/damage-calculator/damage-calculator.service"
 import { Field, FieldSide } from "@lib/model/field"
 import { Move } from "@lib/model/move"
@@ -13,16 +14,25 @@ describe("Damage Calculator Service", () => {
   let service: DamageCalculatorService
   let adjusterOneSpy: jasmine.SpyObj<CalcAdjuster>
   let adjusterTwoSpy: jasmine.SpyObj<CalcAdjuster>
+  let specificCalculatorSpy: jasmine.SpyObj<SpecificDamageCalculator>
 
   beforeEach(() => {
     adjusterOneSpy = jasmine.createSpyObj("AdjusterOne", ["adjust"])
     adjusterTwoSpy = jasmine.createSpyObj("AdjusterTwo", ["adjust"])
+    specificCalculatorSpy = jasmine.createSpyObj("SpecificCalculator", ["isApplicable", "calculate"])
 
     TestBed.configureTestingModule({
-      providers: [DamageCalculatorService, { provide: CALC_ADJUSTERS, useValue: adjusterOneSpy, multi: true }, { provide: CALC_ADJUSTERS, useValue: adjusterTwoSpy, multi: true }, provideZonelessChangeDetection()]
+      providers: [
+        DamageCalculatorService,
+        { provide: CALC_ADJUSTERS, useValue: adjusterOneSpy, multi: true },
+        { provide: CALC_ADJUSTERS, useValue: adjusterTwoSpy, multi: true },
+        { provide: SPECIFIC_DAMAGE_CALCULATORS, useValue: specificCalculatorSpy, multi: true },
+        provideZonelessChangeDetection()
+      ]
     })
 
     service = TestBed.inject(DamageCalculatorService)
+    specificCalculatorSpy.isApplicable.and.returnValue(false)
   })
 
   it("should calculate damage", () => {
@@ -321,29 +331,22 @@ describe("Damage Calculator Service", () => {
     expect(damageResult.attackerRolls).toEqual([[185, 185, 185, 185, 185, 185, 185, 185, 185, 185, 185, 185, 185, 185, 185, 185]])
   })
 
-  it("should calculate damage of Ruination as half of defender HP rounded down", () => {
-    const attacker = new Pokemon("Wo-Chien", { moveSet: new MoveSet(new Move("Ruination"), new Move("Protect"), new Move("Leech Seed"), new Move("Pollen Puff")) })
+  it("should use specific damage calculator when applicable", () => {
+    const ruinationMove = new Move("Ruination")
+    const attacker = new Pokemon("Wo-Chien", { moveSet: new MoveSet(new Move("Leech Seed"), new Move("Pollen Puff"), new Move("Protect"), ruinationMove, 4) })
     const target = new Target(new Pokemon("Flutter Mane"))
     const field = new Field()
 
+    specificCalculatorSpy.isApplicable.and.callFake((moveModel: MoveSmogon) => moveModel.name === "Ruination")
+    specificCalculatorSpy.calculate.and.callFake((target: SmogonPokemon, baseResult: any) => {
+      baseResult.damage = 65
+      return baseResult
+    })
+
     const damageResult = service.calcDamage(attacker, target.pokemon, field)
 
+    expect(specificCalculatorSpy.isApplicable).toHaveBeenCalled()
+    expect(specificCalculatorSpy.calculate).toHaveBeenCalledWith(jasmine.any(SmogonPokemon), jasmine.any(Object))
     expect(damageResult.move).toEqual("Ruination")
-    expect(damageResult.result).toEqual("50 - 50%")
-    expect(damageResult.koChance).toEqual("guaranteed 2HKO")
-    expect(damageResult.damage).toEqual(50)
-    expect(damageResult.description).toEqual("Wo-Chien Ruination vs. 0 HP Flutter Mane: 65-65 (50 - 50%)")
-    expect(damageResult.attackerRolls).toEqual([[65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65]])
-  })
-
-  it("should calculate damage of Ruination with minimum 1 damage", () => {
-    const attacker = new Pokemon("Wo-Chien", { moveSet: new MoveSet(new Move("Ruination"), new Move("Protect"), new Move("Leech Seed"), new Move("Pollen Puff")) })
-    const target = new Target(new Pokemon("Flutter Mane", { hpPercentage: 1 }))
-    const field = new Field()
-
-    const damageResult = service.calcDamage(attacker, target.pokemon, field)
-
-    expect(damageResult.koChance).toEqual("guaranteed OHKO")
-    expect(damageResult.attackerRolls).toEqual([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]])
   })
 })

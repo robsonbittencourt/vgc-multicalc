@@ -1,5 +1,6 @@
 import { inject, Injectable } from "@angular/core"
 import { CALC_ADJUSTERS } from "@lib/damage-calculator/calc-adjuster/calc-adjuster"
+import { SPECIFIC_DAMAGE_CALCULATORS } from "@lib/damage-calculator/specific-damage-calculator/specific-damage-calculator"
 import { DamageResult } from "@lib/damage-calculator/damage-result"
 import { FieldMapper } from "@lib/field-mapper"
 import { Field } from "@lib/model/field"
@@ -17,6 +18,7 @@ export class DamageCalculatorService {
   ZERO_RESULT_DAMAGE = Array(16).fill(0)
 
   adjusters = inject(CALC_ADJUSTERS)
+  specificDamageCalculators = inject(SPECIFIC_DAMAGE_CALCULATORS)
   fieldMapper = inject(FieldMapper)
   speedCalculator = inject(SpeedCalculatorService)
 
@@ -80,29 +82,11 @@ export class DamageCalculatorService {
   }
 
   private calculateDamage(gen: Generation, attacker: PokemonSmogon, target: PokemonSmogon, move: MoveSmogon, field: FieldSmogon, moveModel: MoveSmogon): Result {
-    if (moveModel.name === "Ruination") {
-      const halfHp = Math.floor(target.originalCurHP / 2)
-      const damage = Math.max(halfHp, 1)
+    const applicableCalculator = this.specificDamageCalculators.find(calculator => calculator.isApplicable(moveModel))
 
-      const result = calculate(gen, attacker, target, move, field)
-      result.damage = damage
-
-      if (this.koChance(result) != "guaranteed OHKO") {
-        const originalDesc = result.desc.bind(result)
-        result.desc = () => {
-          const desc = originalDesc()
-          const ohkoIndex = desc.indexOf("-- guaranteed OHKO")
-          if (ohkoIndex === -1) {
-            const koIndex = desc.indexOf("--")
-            if (koIndex !== -1) {
-              return desc.substring(0, koIndex).trim()
-            }
-          }
-          return desc
-        }
-      }
-
-      return result
+    if (applicableCalculator) {
+      const baseResult = calculate(gen, attacker, target, move, field)
+      return applicableCalculator.calculate(target, baseResult)
     }
 
     return calculate(gen, attacker, target, move, field)
