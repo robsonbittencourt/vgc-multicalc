@@ -1,0 +1,13 @@
+<app-team class="team" [pokemonId]="pokemonId()" />
+
+<div class="right-column">
+  <app-teams [allowSecondTeamSelection]="true" (secondTeamSelected)="onSecondTeamSelected($event)" />
+  <app-type-coverage-insights [secondTeam]="secondTeam()" />
+</div>
+
+@if (!isPokemonDefault()) {
+  <div class="coverage-tables">
+    <app-offensive-coverage [secondTeam]="secondTeam()" />
+    <app-defensive-coverage [secondTeam]="secondTeam()" />
+  </div>
+}

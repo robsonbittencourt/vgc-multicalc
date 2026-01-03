@@ -15,8 +15,14 @@
   gap: 1.3em;
 }
 
+.help-label {
+  font-size: 0.9rem;
+  opacity: 0.85;
+  white-space: nowrap;
+}
+
 .team-name-input {
-  width: 60%;
+  flex: 0 0 120px;
   margin-bottom: -1.5em;
 }
 

@@ -1,0 +1,184 @@
+:host ::ng-deep app-widget {
+  display: flex;
+  flex-direction: column;
+}
+
+:host ::ng-deep app-widget .header {
+  flex-shrink: 0;
+  min-height: 3em;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.8em;
+}
+
+:host ::ng-deep app-widget [right-header] {
+  display: flex;
+  align-items: center;
+}
+
+.toggles-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2em;
+}
+
+.tera-blast-label {
+  font-size: clamp(0.625em, 0.7vw, 0.875em);
+  color: var(--text);
+  font-weight: 400;
+}
+
+.table-container {
+  overflow-x: auto;
+  margin-top: 0.5em;
+}
+
+.coverage-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--highlight);
+}
+
+th,
+td {
+  padding: 0.6em 0.5em;
+  text-align: center;
+  border: 0.0625em solid rgba(0, 0, 0, 0.15);
+}
+
+tbody tr:nth-child(even) {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+tbody tr:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.pokemon-header {
+  font-weight: 600;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-bottom: 0.125em solid rgba(0, 0, 0, 0.2);
+  padding: 0.5em 0.5em;
+}
+
+.pokemon-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2em;
+}
+
+.pokemon-image-small {
+  width: 4em;
+  height: auto;
+}
+
+.tera-type-label {
+  font-size: clamp(0.625em, 0.7vw, 0.875em);
+  color: var(--text);
+  font-weight: 400;
+}
+
+.total-header {
+  font-weight: 600;
+  background-color: var(--highlight);
+  border-bottom: 0.125em solid rgba(0, 0, 0, 0.2);
+  border-left: 0.125em solid rgba(0, 0, 0, 0.2);
+  padding: 0.5em 0.5em;
+}
+
+.type-header {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-bottom: 0.125em solid rgba(0, 0, 0, 0.2);
+  padding: 0.5em 0.5em;
+}
+
+.type-cell {
+  text-align: left;
+  padding-left: 1em;
+  min-width: 6.25em;
+  border-right: 0.125em solid rgba(0, 0, 0, 0.2);
+}
+
+.type-cell .pokemon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+:host ::ng-deep .type-cell app-type-combo-box .container {
+  justify-content: left;
+}
+
+:host ::ng-deep .type-cell app-type-combo-box .pokemon-type {
+  width: auto;
+  min-width: 4.375em;
+  padding: 0.3em 0.5em;
+}
+
+.effectiveness-cell {
+  font-weight: 500;
+}
+
+.effectiveness-cell.resistance {
+  color: var(--effectiveness-weakness);
+  font-weight: 600;
+}
+
+.effectiveness-cell.immune {
+  background-color: #808080;
+  color: white;
+  font-weight: 600;
+}
+
+.effectiveness-cell.weakness {
+  color: var(--effectiveness-resistance);
+  font-weight: 600;
+}
+
+.effectiveness-cell.weakness-4x {
+  background-color: var(--effectiveness-weakness-4x-defensive-bg);
+  color: var(--effectiveness-weakness-4x-defensive-text);
+  font-weight: 600;
+}
+
+.total-cell {
+  font-weight: 600;
+}
+
+.total-cell.total-weak-0 {
+  background-color: var(--highlight);
+}
+
+.total-cell.total-weak-1 {
+  background-color: rgba(255, 193, 7, 0.3);
+}
+
+.total-cell.total-weak-2 {
+  background-color: rgba(255, 152, 0, 0.4);
+}
+
+.total-cell.total-weak-3 {
+  background-color: rgba(247, 63, 63, 0.35);
+}
+
+.total-cell.total-weak-4plus {
+  background-color: rgba(247, 63, 63, 0.5);
+}
+
+.total-cell.total-resist-0 {
+  background-color: var(--highlight);
+}
+
+.total-cell.total-resist-1-2 {
+  background-color: rgba(105, 233, 105, 0.25);
+}
+
+.total-cell.total-resist-3-4 {
+  background-color: rgba(105, 233, 105, 0.4);
+}
+
+.total-cell.total-resist-5plus {
+  background-color: rgba(105, 233, 105, 0.55);
+}

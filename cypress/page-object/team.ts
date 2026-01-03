@@ -62,6 +62,11 @@ export class Team {
     return new Team()
   }
 
+  selectSecondTeam(teamName: string) {
+    cy.get('[data-cy="team-box"]').filter(`:contains(${teamName})`).click({ ctrlKey: true, force: true })
+    return new Team()
+  }
+
   delete(teamName: string) {
     this.selectTeam(teamName)
     cy.get('[data-cy="delete-team-button"]').click({ force: true })

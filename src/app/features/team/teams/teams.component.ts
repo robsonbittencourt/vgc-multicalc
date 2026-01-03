@@ -1,5 +1,5 @@
 import { animate, style, transition, trigger } from "@angular/animations"
-import { Component, computed, effect, inject, OnInit, output, signal } from "@angular/core"
+import { Component, computed, effect, HostListener, inject, input, OnInit, output, signal } from "@angular/core"
 import { FormsModule } from "@angular/forms"
 import { MatButton } from "@angular/material/button"
 import { MatIcon } from "@angular/material/icon"
@@ -30,6 +30,10 @@ export class TeamsComponent implements OnInit {
   private snackBar = inject(SnackbarService)
 
   pokemonSelected = output<string>()
+  secondTeamSelected = output<Team | null>()
+  allowSecondTeamSelection = input<boolean>(false)
+
+  secondTeamId = signal<string | null>(null)
 
   currentPage = signal(0)
 
@@ -98,8 +102,31 @@ export class TeamsComponent implements OnInit {
   }
 
   activateTeam(team: Team) {
+    if (this.allowSecondTeamSelection() && this.secondTeamId() !== null) {
+      this.secondTeamId.set(null)
+      this.secondTeamSelected.emit(null)
+    }
     this.store.activateTeam(team.id)
     this.pokemonSelected.emit(team.activePokemon().id)
+  }
+
+  activateSecondTeam(team: Team) {
+    if (this.allowSecondTeamSelection() && !this.store.team().onlyHasDefaultPokemon()) {
+      this.secondTeamId.set(team.id)
+      this.secondTeamSelected.emit(team)
+    }
+  }
+
+  isSecondTeam(team: Team): boolean {
+    return this.allowSecondTeamSelection() && this.secondTeamId() === team.id
+  }
+
+  @HostListener("window:keydown", ["$event"])
+  onKeyDown(event: KeyboardEvent) {
+    if (event.key === "Escape" && this.allowSecondTeamSelection() && this.secondTeamId() !== null) {
+      this.secondTeamId.set(null)
+      this.secondTeamSelected.emit(null)
+    }
   }
 
   updateTeamName(event: Event) {

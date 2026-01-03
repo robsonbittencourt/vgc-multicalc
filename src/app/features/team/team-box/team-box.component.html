@@ -1,4 +1,4 @@
-<div class="team" [ngClass]="{ 'active-team': team().active }" (click)="activate()" data-cy="team-box">
+<div class="team" [ngClass]="{ 'active-team': team().active, 'second-team': isSecondTeam() }" (click)="activate($event)" data-cy="team-box">
   <label class="team-name-label">{{ team().name }}</label>
   <div class="team-pokemon-icons">
     @for (teamMember of team().teamMembers; track teamMember.pokemon.id) {

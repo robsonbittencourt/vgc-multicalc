@@ -1,0 +1,236 @@
+<app-widget [title]="'Insights'">
+  @if (hasValidTeamMembers()) {
+    <div class="insights-container" data-cy="type-coverage-insights-container">
+      <div class="insight-section" data-cy="insight-section-offensive">
+        <h3 class="section-title" data-cy="section-title-offensive">Offensive</h3>
+        <div class="offensive-content" data-cy="offensive-content">
+          @if (offensiveSuperEffectivePokemon().length > 0) {
+            <div class="pokemon-item-wrapper pokemon-row-1" data-cy="offensive-super-effective-pokemon-0">
+              <div class="pokemon-insight-card" [ngClass]="getPokemonCategory(offensiveSuperEffectivePokemon()[0].pokemon, true)" data-cy="pokemon-insight-card">
+                <img class="pokemon-icon" src="assets/sprites/pokemon-sv/{{ offensiveSuperEffectivePokemon()[0].pokemon.name }}.png" [alt]="offensiveSuperEffectivePokemon()[0].pokemon.name" data-cy="pokemon-icon" />
+              </div>
+              <div class="explanation-container" data-cy="explanation-container">
+                @if (getPokemonSuperEffectiveCount2x(offensiveSuperEffectivePokemon()[0].pokemon) > 0) {
+                  @if (getPokemonSuperEffectiveCount2x(offensiveSuperEffectivePokemon()[0].pokemon) === 1) {
+                    <span class="explanation" data-cy="explanation">{{ getPokemonSuperEffectiveCount2x(offensiveSuperEffectivePokemon()[0].pokemon) }} super effective</span>
+                  } @else {
+                    <span class="explanation" data-cy="explanation">{{ getPokemonSuperEffectiveCount2x(offensiveSuperEffectivePokemon()[0].pokemon) }} super effective</span>
+                  }
+                }
+                @if (getPokemonSuperEffectiveCount4x(offensiveSuperEffectivePokemon()[0].pokemon) > 0) {
+                  @if (getPokemonSuperEffectiveCount4x(offensiveSuperEffectivePokemon()[0].pokemon) === 1) {
+                    <span class="explanation" data-cy="explanation">{{ getPokemonSuperEffectiveCount4x(offensiveSuperEffectivePokemon()[0].pokemon) }} super effective x4</span>
+                  } @else {
+                    <span class="explanation" data-cy="explanation">{{ getPokemonSuperEffectiveCount4x(offensiveSuperEffectivePokemon()[0].pokemon) }} super effective x4</span>
+                  }
+                }
+              </div>
+            </div>
+          }
+          @if (offensiveSuperEffectivePokemon().length > 1) {
+            <div class="pokemon-item-wrapper pokemon-row-2" data-cy="offensive-super-effective-pokemon-1">
+              <div class="pokemon-insight-card" [ngClass]="getPokemonCategory(offensiveSuperEffectivePokemon()[1].pokemon, true)" data-cy="pokemon-insight-card">
+                <img class="pokemon-icon" src="assets/sprites/pokemon-sv/{{ offensiveSuperEffectivePokemon()[1].pokemon.name }}.png" [alt]="offensiveSuperEffectivePokemon()[1].pokemon.name" data-cy="pokemon-icon" />
+              </div>
+              <div class="explanation-container" data-cy="explanation-container">
+                @if (getPokemonSuperEffectiveCount2x(offensiveSuperEffectivePokemon()[1].pokemon) > 0) {
+                  @if (getPokemonSuperEffectiveCount2x(offensiveSuperEffectivePokemon()[1].pokemon) === 1) {
+                    <span class="explanation" data-cy="explanation">{{ getPokemonSuperEffectiveCount2x(offensiveSuperEffectivePokemon()[1].pokemon) }} super effective</span>
+                  } @else {
+                    <span class="explanation" data-cy="explanation">{{ getPokemonSuperEffectiveCount2x(offensiveSuperEffectivePokemon()[1].pokemon) }} super effective</span>
+                  }
+                }
+                @if (getPokemonSuperEffectiveCount4x(offensiveSuperEffectivePokemon()[1].pokemon) > 0) {
+                  @if (getPokemonSuperEffectiveCount4x(offensiveSuperEffectivePokemon()[1].pokemon) === 1) {
+                    <span class="explanation" data-cy="explanation">{{ getPokemonSuperEffectiveCount4x(offensiveSuperEffectivePokemon()[1].pokemon) }} super effective x4</span>
+                  } @else {
+                    <span class="explanation" data-cy="explanation">{{ getPokemonSuperEffectiveCount4x(offensiveSuperEffectivePokemon()[1].pokemon) }} super effective x4</span>
+                  }
+                }
+              </div>
+            </div>
+          }
+          @if (mostSuperEffectiveType() && !isAgainstTeam()) {
+            <div class="summary-super-effective" data-cy="summary-super-effective">
+              <div class="most-super-effective-type">
+                <span class="super-effective-label" data-cy="summary-super-effective-count">{{ mostSuperEffectiveType()!.count }} super effective to</span>
+                <app-type-combo-box [type1]="getTypeName(mostSuperEffectiveType()!.type)" [centralized]="true" />
+              </div>
+            </div>
+          }
+          @if (offensiveNotVeryEffectivePokemon().length > 0) {
+            <div class="pokemon-item-wrapper pokemon-row-3" data-cy="offensive-not-very-effective-pokemon-0">
+              <div class="pokemon-insight-card" [ngClass]="getPokemonCategory(offensiveNotVeryEffectivePokemon()[0].pokemon, true)" data-cy="pokemon-insight-card">
+                <img class="pokemon-icon" src="assets/sprites/pokemon-sv/{{ offensiveNotVeryEffectivePokemon()[0].pokemon.name }}.png" [alt]="offensiveNotVeryEffectivePokemon()[0].pokemon.name" data-cy="pokemon-icon" />
+              </div>
+              <span class="explanation" data-cy="explanation">{{ getPokemonExplanation(offensiveNotVeryEffectivePokemon()[0].pokemon, true) }}</span>
+            </div>
+          }
+          @if (offensiveNotVeryEffectivePokemon().length > 1) {
+            <div class="pokemon-item-wrapper pokemon-row-4" data-cy="offensive-not-very-effective-pokemon-1">
+              <div class="pokemon-insight-card" [ngClass]="getPokemonCategory(offensiveNotVeryEffectivePokemon()[1].pokemon, true)" data-cy="pokemon-insight-card">
+                <img class="pokemon-icon" src="assets/sprites/pokemon-sv/{{ offensiveNotVeryEffectivePokemon()[1].pokemon.name }}.png" [alt]="offensiveNotVeryEffectivePokemon()[1].pokemon.name" data-cy="pokemon-icon" />
+              </div>
+              <span class="explanation" data-cy="explanation">{{ getPokemonExplanation(offensiveNotVeryEffectivePokemon()[1].pokemon, true) }}</span>
+            </div>
+          }
+          @if (mostNotVeryEffectiveType() && !isAgainstTeam()) {
+            <div class="summary-not-very-effective" data-cy="summary-not-very-effective">
+              <div class="most-not-very-effective-type">
+                <span class="not-very-effective-label" data-cy="summary-not-very-effective-count">{{ mostNotVeryEffectiveType()!.count }} not very effective to</span>
+                <app-type-combo-box [type1]="getTypeName(mostNotVeryEffectiveType()!.type)" [centralized]="true" />
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="insight-section" data-cy="insight-section-defensive">
+        <h3 class="section-title" data-cy="section-title-defensive">Defensive</h3>
+        <div class="defensive-content" data-cy="defensive-content">
+          @if (defensivePositivePokemon().length > 0) {
+            <div class="pokemon-item-wrapper pokemon-row-1" data-cy="defensive-positive-pokemon-0">
+              <div class="pokemon-insight-card" [ngClass]="getPokemonCategory(defensivePositivePokemon()[0].pokemon, false)" data-cy="pokemon-insight-card">
+                <img class="pokemon-icon" src="assets/sprites/pokemon-sv/{{ defensivePositivePokemon()[0].pokemon.name }}.png" [alt]="defensivePositivePokemon()[0].pokemon.name" data-cy="pokemon-icon" />
+              </div>
+              <div class="explanation-container" data-cy="explanation-container">
+                @if (getPokemonImmuneCount(defensivePositivePokemon()[0].pokemon) > 0) {
+                  @if (getPokemonImmuneCount(defensivePositivePokemon()[0].pokemon) === 1) {
+                    <span class="explanation explanation-immune" data-cy="explanation">{{ getPokemonImmuneCount(defensivePositivePokemon()[0].pokemon) }} immunity</span>
+                  } @else {
+                    <span class="explanation explanation-immune" data-cy="explanation">{{ getPokemonImmuneCount(defensivePositivePokemon()[0].pokemon) }} immunities</span>
+                  }
+                  @if (getPokemonResistCount(defensivePositivePokemon()[0].pokemon) > 0) {
+                    @if (getPokemonResistCount(defensivePositivePokemon()[0].pokemon) === 1) {
+                      <span class="explanation" data-cy="explanation">{{ getPokemonResistCount(defensivePositivePokemon()[0].pokemon) }} resistance</span>
+                    } @else {
+                      <span class="explanation" data-cy="explanation">{{ getPokemonResistCount(defensivePositivePokemon()[0].pokemon) }} resistances</span>
+                    }
+                  }
+                } @else if (getPokemonResistCount(defensivePositivePokemon()[0].pokemon) > 0) {
+                  @if (getPokemonResistCount(defensivePositivePokemon()[0].pokemon) === 1) {
+                    <span class="explanation" data-cy="explanation">{{ getPokemonResistCount(defensivePositivePokemon()[0].pokemon) }} resistance</span>
+                  } @else {
+                    <span class="explanation" data-cy="explanation">{{ getPokemonResistCount(defensivePositivePokemon()[0].pokemon) }} resistances</span>
+                  }
+                }
+              </div>
+            </div>
+          }
+          @if (defensivePositivePokemon().length > 1) {
+            <div class="pokemon-item-wrapper pokemon-row-2" data-cy="defensive-positive-pokemon-1">
+              <div class="pokemon-insight-card" [ngClass]="getPokemonCategory(defensivePositivePokemon()[1].pokemon, false)" data-cy="pokemon-insight-card">
+                <img class="pokemon-icon" src="assets/sprites/pokemon-sv/{{ defensivePositivePokemon()[1].pokemon.name }}.png" [alt]="defensivePositivePokemon()[1].pokemon.name" data-cy="pokemon-icon" />
+              </div>
+              <div class="explanation-container" data-cy="explanation-container">
+                @if (getPokemonImmuneCount(defensivePositivePokemon()[1].pokemon) > 0) {
+                  @if (getPokemonImmuneCount(defensivePositivePokemon()[1].pokemon) === 1) {
+                    <span class="explanation explanation-immune" data-cy="explanation">{{ getPokemonImmuneCount(defensivePositivePokemon()[1].pokemon) }} immunity</span>
+                  } @else {
+                    <span class="explanation explanation-immune" data-cy="explanation">{{ getPokemonImmuneCount(defensivePositivePokemon()[1].pokemon) }} immunities</span>
+                  }
+                  @if (getPokemonResistCount(defensivePositivePokemon()[1].pokemon) > 0) {
+                    @if (getPokemonResistCount(defensivePositivePokemon()[1].pokemon) === 1) {
+                      <span class="explanation" data-cy="explanation">{{ getPokemonResistCount(defensivePositivePokemon()[1].pokemon) }} resistance</span>
+                    } @else {
+                      <span class="explanation" data-cy="explanation">{{ getPokemonResistCount(defensivePositivePokemon()[1].pokemon) }} resistances</span>
+                    }
+                  }
+                } @else if (getPokemonResistCount(defensivePositivePokemon()[1].pokemon) > 0) {
+                  @if (getPokemonResistCount(defensivePositivePokemon()[1].pokemon) === 1) {
+                    <span class="explanation" data-cy="explanation">{{ getPokemonResistCount(defensivePositivePokemon()[1].pokemon) }} resistance</span>
+                  } @else {
+                    <span class="explanation" data-cy="explanation">{{ getPokemonResistCount(defensivePositivePokemon()[1].pokemon) }} resistances</span>
+                  }
+                }
+              </div>
+            </div>
+          }
+          @if (mostResistanceType() && !isAgainstTeam()) {
+            <div class="summary-resistance" data-cy="summary-resistance">
+              <div class="most-resistance-type">
+                @if (mostResistanceType()!.count === 1) {
+                  <span class="resistance-label" data-cy="summary-resistance-count">{{ mostResistanceType()!.count }} resistance to</span>
+                } @else {
+                  <span class="resistance-label" data-cy="summary-resistance-count">{{ mostResistanceType()!.count }} resistances to</span>
+                }
+                <app-type-combo-box [type1]="getTypeName(mostResistanceType()!.type)" [centralized]="true" />
+              </div>
+            </div>
+          }
+          @if (defensiveWeakPokemon().length > 0) {
+            <div class="pokemon-item-wrapper pokemon-row-3" data-cy="defensive-weak-pokemon-0">
+              <div class="pokemon-insight-card" [ngClass]="getPokemonCategory(defensiveWeakPokemon()[0].pokemon, false, true)" data-cy="pokemon-insight-card">
+                <img class="pokemon-icon" src="assets/sprites/pokemon-sv/{{ defensiveWeakPokemon()[0].pokemon.name }}.png" [alt]="defensiveWeakPokemon()[0].pokemon.name" data-cy="pokemon-icon" />
+              </div>
+              <div class="explanation-container" data-cy="explanation-container">
+                @if (getPokemonWeakCount2x(defensiveWeakPokemon()[0].pokemon) > 0) {
+                  @if (getPokemonWeakCount2x(defensiveWeakPokemon()[0].pokemon) === 1) {
+                    <span class="explanation" data-cy="explanation">{{ getPokemonWeakCount2x(defensiveWeakPokemon()[0].pokemon) }} weakness</span>
+                  } @else {
+                    <span class="explanation" data-cy="explanation">{{ getPokemonWeakCount2x(defensiveWeakPokemon()[0].pokemon) }} weaknesses</span>
+                  }
+                }
+                @if (getPokemonWeakCount4x(defensiveWeakPokemon()[0].pokemon) > 0) {
+                  @if (getPokemonWeakCount4x(defensiveWeakPokemon()[0].pokemon) === 1) {
+                    <span class="explanation" data-cy="explanation">{{ getPokemonWeakCount4x(defensiveWeakPokemon()[0].pokemon) }} weakness x4</span>
+                  } @else {
+                    <span class="explanation" data-cy="explanation">{{ getPokemonWeakCount4x(defensiveWeakPokemon()[0].pokemon) }} weaknesses x4</span>
+                  }
+                }
+                @if (!isAgainstTeam() && getPokemonWeaknessesCoveredByTera(defensiveWeakPokemon()[0].pokemon) > 0) {
+                  <span class="explanation" data-cy="explanation">{{ getPokemonWeaknessesCoveredByTera(defensiveWeakPokemon()[0].pokemon) }} covered by tera</span>
+                }
+              </div>
+            </div>
+          }
+          @if (defensiveWeakPokemon().length > 1) {
+            <div class="pokemon-item-wrapper pokemon-row-4" data-cy="defensive-weak-pokemon-1">
+              <div class="pokemon-insight-card" [ngClass]="getPokemonCategory(defensiveWeakPokemon()[1].pokemon, false, true)" data-cy="pokemon-insight-card">
+                <img class="pokemon-icon" src="assets/sprites/pokemon-sv/{{ defensiveWeakPokemon()[1].pokemon.name }}.png" [alt]="defensiveWeakPokemon()[1].pokemon.name" data-cy="pokemon-icon" />
+              </div>
+              <div class="explanation-container" data-cy="explanation-container">
+                @if (getPokemonWeakCount2x(defensiveWeakPokemon()[1].pokemon) > 0) {
+                  @if (getPokemonWeakCount2x(defensiveWeakPokemon()[1].pokemon) === 1) {
+                    <span class="explanation" data-cy="explanation">{{ getPokemonWeakCount2x(defensiveWeakPokemon()[1].pokemon) }} weakness</span>
+                  } @else {
+                    <span class="explanation" data-cy="explanation">{{ getPokemonWeakCount2x(defensiveWeakPokemon()[1].pokemon) }} weaknesses</span>
+                  }
+                }
+                @if (getPokemonWeakCount4x(defensiveWeakPokemon()[1].pokemon) > 0) {
+                  @if (getPokemonWeakCount4x(defensiveWeakPokemon()[1].pokemon) === 1) {
+                    <span class="explanation" data-cy="explanation">{{ getPokemonWeakCount4x(defensiveWeakPokemon()[1].pokemon) }} weakness x4</span>
+                  } @else {
+                    <span class="explanation" data-cy="explanation">{{ getPokemonWeakCount4x(defensiveWeakPokemon()[1].pokemon) }} weaknesses x4</span>
+                  }
+                }
+                @if (!isAgainstTeam() && getPokemonWeaknessesCoveredByTera(defensiveWeakPokemon()[1].pokemon) > 0) {
+                  <span class="explanation" data-cy="explanation">{{ getPokemonWeaknessesCoveredByTera(defensiveWeakPokemon()[1].pokemon) }} covered by tera</span>
+                }
+              </div>
+            </div>
+          }
+          @if (mostWeaknessType() && !isAgainstTeam()) {
+            <div class="summary-weakness" data-cy="summary-weakness">
+              <div class="most-weakness-type">
+                @if (mostWeaknessType()!.count === 1) {
+                  <span class="weakness-label" data-cy="summary-weakness-count">{{ mostWeaknessType()!.count }} weakness to</span>
+                } @else {
+                  <span class="weakness-label" data-cy="summary-weakness-count">{{ mostWeaknessType()!.count }} weaknesses to</span>
+                }
+                <app-type-combo-box [type1]="getTypeName(mostWeaknessType()!.type)" [centralized]="true" />
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  } @else {
+    <div class="empty-message" data-cy="type-coverage-insights-empty-message">
+      <div class="empty-content">
+        <img class="question-icon" src="assets/icons/question.png" />
+        <span>Select a Team</span>
+      </div>
+    </div>
+  }
+</app-widget>

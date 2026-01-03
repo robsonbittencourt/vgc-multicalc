@@ -19,6 +19,9 @@
       <div class="menu-option" [ngClass]="{ 'active-menu-option': menuStore.probabilityCalcActivated() }" (click)="menuStore.enableProbabilityCalculator()" data-cy="probability-calc">
         <span>Probability Calc</span>
       </div>
+      <div class="menu-option" [ngClass]="{ 'active-menu-option': menuStore.typeCalcActivated() }" (click)="menuStore.enableTypeCalculator()" data-cy="type-calc">
+        <span>Type Calc</span>
+      </div>
     </div>
   </div>
   <div class="right-header">

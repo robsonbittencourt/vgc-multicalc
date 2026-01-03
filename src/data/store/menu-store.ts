@@ -7,6 +7,7 @@ type MenuState = {
   manyVsOneActivated: boolean
   speedCalculatorActivated: boolean
   probabilityCalcActivated: boolean
+  typeCalcActivated: boolean
   howToUseActivated: boolean
 }
 
@@ -16,6 +17,7 @@ const initialState: MenuState = {
   manyVsOneActivated: false,
   speedCalculatorActivated: false,
   probabilityCalcActivated: false,
+  typeCalcActivated: false,
   howToUseActivated: false
 }
 
@@ -39,6 +41,10 @@ export class MenuStore extends signalStore({ protectedState: false }, withState(
 
   enableProbabilityCalculator() {
     patchState(this, () => ({ ...this.allOptionsTurnedOff(), probabilityCalcActivated: true }))
+  }
+
+  enableTypeCalculator() {
+    patchState(this, () => ({ ...this.allOptionsTurnedOff(), typeCalcActivated: true }))
   }
 
   enableHowToUse() {

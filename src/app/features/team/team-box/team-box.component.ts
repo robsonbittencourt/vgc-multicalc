@@ -10,10 +10,19 @@ import { Team } from "@lib/model/team"
 })
 export class TeamBoxComponent {
   team = input.required<Team>()
+  isSecondTeam = input<boolean>(false)
+  allowSecondTeamSelection = input<boolean>(false)
 
   teamActivated = output<Team>()
+  secondTeamActivated = output<Team>()
 
-  activate() {
-    this.teamActivated.emit(this.team())
+  activate(event: MouseEvent) {
+    if ((event.ctrlKey || event.metaKey) && this.allowSecondTeamSelection()) {
+      if (!this.team().onlyHasDefaultPokemon()) {
+        this.secondTeamActivated.emit(this.team())
+      }
+    } else {
+      this.teamActivated.emit(this.team())
+    }
   }
 }

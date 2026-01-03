@@ -1,0 +1,107 @@
+<app-widget [title]="'Offensive Coverage'">
+  @if (isAgainstTeam()) {
+    <right-header>
+      <div class="toggles-container">
+        @if (teamHasTeraBlast()) {
+          <mat-slide-toggle [checked]="considerTeraBlast()" (change)="considerTeraBlast.set($event.checked)" [labelPosition]="'before'" data-cy="consider-tera-blast-toggle-offensive"> Tera Blast </mat-slide-toggle>
+        }
+        <mat-slide-toggle [checked]="considerTeraType()" (change)="considerTeraType.set($event.checked)" [labelPosition]="'before'" data-cy="consider-tera-type-toggle-offensive"> Tera Type </mat-slide-toggle>
+      </div>
+    </right-header>
+  }
+
+  @if (hasValidTeamMembers()) {
+    <div class="table-container" data-cy="offensive-coverage-table-container">
+      <table class="coverage-table" data-cy="offensive-coverage-table">
+        <thead>
+          <tr>
+            <th class="type-header"></th>
+            @if (isAgainstTeam() && transposedCoverageData()) {
+              @if (transposedCoverageData()!.length > 0) {
+                @for (typeItem of transposedCoverageData()![0].typeData; track typeItem.targetPokemon.id) {
+                  <th class="pokemon-header">
+                    <div class="pokemon-container">
+                      <img class="pokemon-image-small" src="assets/sprites/pokemon-sv/{{ typeItem.targetPokemon.name }}.png" [alt]="typeItem.targetPokemon.name" data-cy="pokemon-image-small" />
+                      @if (considerTeraType() && typeItem.targetPokemon.teraType) {
+                        <span class="tera-type-label">{{ typeItem.targetPokemon.teraType }}</span>
+                      }
+                    </div>
+                  </th>
+                }
+              }
+            } @else {
+              @if (coverageData().length > 0) {
+                @for (pokemonData of coverageData()[0].pokemonData; track pokemonData.pokemon.id) {
+                  <th class="pokemon-header" data-cy="pokemon-header">
+                    <div class="pokemon-container">
+                      <img class="pokemon-image-small" src="assets/sprites/pokemon-sv/{{ pokemonData.pokemon.name }}.png" [alt]="pokemonData.pokemon.name" data-cy="pokemon-image-small" />
+                      @if (considerTeraBlast() && hasTeraBlast(pokemonData.pokemon) && getPokemonTeraType(pokemonData.pokemon)) {
+                        <span class="tera-blast-label">Tera Blast {{ getPokemonTeraType(pokemonData.pokemon) }}</span>
+                      }
+                    </div>
+                  </th>
+                }
+              }
+            }
+            <th class="total-header" data-cy="total-header-not-very-effective">Not Very Effective</th>
+            <th class="total-header" data-cy="total-header-super-effective">Super Effective</th>
+          </tr>
+        </thead>
+        <tbody>
+          @if (isAgainstTeam() && transposedCoverageData()) {
+            @for (attackerRow of transposedCoverageData()!; track attackerRow.attacker.id) {
+              <tr>
+                <td class="type-cell">
+                  <div class="pokemon-container-horizontal">
+                    <img class="pokemon-image-small" src="assets/sprites/pokemon-sv/{{ attackerRow.attacker.name }}.png" [alt]="attackerRow.attacker.name" data-cy="pokemon-image-small" />
+                    @if (considerTeraBlast() && hasTeraBlast(attackerRow.attacker) && getPokemonTeraType(attackerRow.attacker)) {
+                      <span class="tera-blast-label">Tera Blast {{ getPokemonTeraType(attackerRow.attacker) }}</span>
+                    }
+                  </div>
+                </td>
+                @for (typeItem of attackerRow.typeData; track typeItem.targetPokemon.id) {
+                  <td class="effectiveness-cell" [ngClass]="getCellClass(typeItem.pokemonData?.effectiveness ?? 1)" data-cy="effectiveness-cell">
+                    @if (typeItem.pokemonData?.formatted) {
+                      {{ typeItem.pokemonData?.formatted }}
+                    }
+                  </td>
+                }
+                <td class="total-cell" [ngClass]="getNotVeryEffectiveClass(attackerRow.notVeryEffective)" data-cy="total-cell-not-very-effective">
+                  {{ attackerRow.notVeryEffective }}
+                </td>
+                <td class="total-cell" [ngClass]="getSuperEffectiveClass(attackerRow.superEffective)" data-cy="total-cell-super-effective">
+                  {{ attackerRow.superEffective }}
+                </td>
+              </tr>
+            }
+          } @else {
+            @for (row of coverageData(); track getRowKey(row)) {
+              @if (row) {
+                <tr>
+                  <td class="type-cell">
+                    @if (getRowType(row)) {
+                      <app-type-combo-box [type1]="getTypeName(getRowType(row)!)" [centralized]="true" [reduced]="true" />
+                    }
+                  </td>
+                  @for (pokemonData of row.pokemonData; track pokemonData.pokemon.id) {
+                    <td class="effectiveness-cell" [ngClass]="getCellClass(pokemonData.effectiveness)" data-cy="effectiveness-cell">
+                      @if (pokemonData.formatted) {
+                        {{ pokemonData.formatted }}
+                      }
+                    </td>
+                  }
+                  <td class="total-cell" [ngClass]="getNotVeryEffectiveClass(row.notVeryEffective)" data-cy="total-cell-not-very-effective">
+                    {{ row.notVeryEffective }}
+                  </td>
+                  <td class="total-cell" [ngClass]="getSuperEffectiveClass(row.superEffective)" data-cy="total-cell-super-effective">
+                    {{ row.superEffective }}
+                  </td>
+                </tr>
+              }
+            }
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</app-widget>

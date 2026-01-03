@@ -14,12 +14,25 @@ import { SimpleCalcMobileComponent } from "@pages/simple-calc/simple-calc-mobile
 import { SimpleCalcComponent } from "@pages/simple-calc/simple-calc/simple-calc.component"
 import { SpeedCalculatorMobileComponent } from "@pages/speed-calc/speed-calculator-mobile/speed-calculator-mobile.component"
 import { SpeedCalculatorComponent } from "@pages/speed-calc/speed-calculator/speed-calculator.component"
+import { TypeCalculatorComponent } from "@pages/type-calc/type-calculator/type-calculator.component"
 
 @Component({
   selector: "app-main",
   templateUrl: "./main.component.html",
   styleUrls: ["./main.component.scss"],
-  imports: [HeaderComponent, SimpleCalcComponent, MultiCalcComponent, SpeedCalculatorComponent, ProbabilityCalcComponent, HowToUseComponent, HeaderMobileComponent, SimpleCalcMobileComponent, SpeedCalculatorMobileComponent, HowToUseComponent]
+  imports: [
+    HeaderComponent,
+    SimpleCalcComponent,
+    MultiCalcComponent,
+    SpeedCalculatorComponent,
+    ProbabilityCalcComponent,
+    TypeCalculatorComponent,
+    HowToUseComponent,
+    HeaderMobileComponent,
+    SimpleCalcMobileComponent,
+    SpeedCalculatorMobileComponent,
+    HowToUseComponent
+  ]
 })
 export class MainComponent implements OnInit {
   store = inject(CalculatorStore)

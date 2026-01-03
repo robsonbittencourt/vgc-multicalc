@@ -196,6 +196,12 @@ export class PokemonBuild {
     this.container().find('[data-cy="tera-type"]').find('[data-cy="input-select"]').should("have.attr", "aria-disabled", "true")
   }
 
+  selectTeraType(teraType: string): PokemonBuild {
+    this.container().find('[data-cy="tera-type"]').find('[data-cy="input-select"]').click()
+    cy.get("mat-option").contains(teraType).click()
+    return this
+  }
+
   evsIs(hp: number, atk: number, def: number, spa: number, spd: number, spe: number) {
     cy.get(`[data-cy="stat-hp"]`).find('[data-cy="ev-value"]').should("have.value", hp)
     cy.get(`[data-cy="stat-atk"]`).find('[data-cy="ev-value"]').should("have.value", atk)

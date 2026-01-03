@@ -6,6 +6,9 @@
         <mat-form-field appearance="outline" class="team-name-input">
           <input type="text" matInput [ngModel]="store.team().name" (input)="updateTeamName($event)" data-cy="team-name" />
         </mat-form-field>
+        @if (allowSecondTeamSelection()) {
+          <label class="help-label" data-cy="multi-selection-help">Ctrl+Click to select a second team</label>
+        }
       </div>
       <div class="team-buttons">
         <app-import-pokemon-button [singlePokemon]="false" (pokemonImportedEvent)="pokemonImported($event)" />
@@ -20,7 +23,7 @@
 
       <div class="teams-boxes" [@fadeInAnimation]="currentPage()">
         @for (team of teamsCurrentPage(); track team.id) {
-          <app-team-box [team]="team" (teamActivated)="activateTeam($event)" />
+          <app-team-box [team]="team" [isSecondTeam]="isSecondTeam(team)" [allowSecondTeamSelection]="allowSecondTeamSelection()" (teamActivated)="activateTeam($event)" (secondTeamActivated)="activateSecondTeam($event)" />
         }
       </div>
 

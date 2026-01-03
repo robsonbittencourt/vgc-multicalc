@@ -23,6 +23,10 @@
     <app-probability-calc />
   }
 
+  @if (isDesktopDevice() && menuStore.typeCalcActivated()) {
+    <app-type-calculator />
+  }
+
   @if (isDesktopDevice() && menuStore.howToUseActivated()) {
     <app-how-to-use />
   }
