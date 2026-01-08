@@ -15,7 +15,7 @@ describe("Probability Calculator", () => {
     it("should display team score after importing a team", () => {
       team.importPokepaste(poke["pokepaste"])
 
-      teamScore.verifyTeamScore("89")
+      teamScore.verifyTeamScore("90")
     })
   })
 
@@ -23,12 +23,12 @@ describe("Probability Calculator", () => {
     it("should display individual Pokémon scores", () => {
       team.importPokepaste(poke["pokepaste"])
 
-      teamScore.verifyPokemonScore(0, "70")
+      teamScore.verifyPokemonScore(0, "75")
       teamScore.verifyPokemonScore(1, "100")
       teamScore.verifyPokemonScore(2, "100")
-      teamScore.verifyPokemonScore(3, "69")
+      teamScore.verifyPokemonScore(3, "71")
       teamScore.verifyPokemonScore(4, "100")
-      teamScore.verifyPokemonScore(5, "95")
+      teamScore.verifyPokemonScore(5, "96")
     })
   })
 

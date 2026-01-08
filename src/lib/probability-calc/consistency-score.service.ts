@@ -12,9 +12,9 @@ export class ConsistencyScoreService {
    * The calculation follows these steps:
    * 1. Logistic transformation: Converts accuracies (0-1) using a normalized logistic curve
    * 2. Exponential penalty: Applies an exponential penalty for moves with low accuracy
-   * 3. Harmonic mean: Calculates the harmonic mean of penalized values (more sensitive to low values)
+   * 3. Geometric mean: Calculates the geometric mean of penalized values (balances sensitivity to low values)
    * 4. Multi-imperfect penalty: Applies an additional penalty when there are multiple imperfect moves
-   * 5. Raw score: Multiplies the harmonic mean by the multi-imperfect penalty
+   * 5. Raw score: Multiplies the geometric mean by the multi-imperfect penalty
    * 6. Final scaling: Applies a power transformation to compress/scale the final score
    *
    * Adjustable variables to make the score more or less punitive:
@@ -56,13 +56,13 @@ export class ConsistencyScoreService {
     })
 
     const n = penalized.length
-    const sumInv = penalized.reduce((acc, x) => acc + 1 / x, 0)
-    const harmonicMean = n / sumInv
+    const safePenalized = penalized.map(p => Math.max(p, 0.0001))
+    const geometricMean = Math.exp(safePenalized.reduce((acc, x) => acc + Math.log(x), 0) / n)
 
     const imperfectCount = accValues.filter(a => a < 1).length
     const multiPenalty = Math.exp(-multiImperfectPenalty * Math.max(0, imperfectCount - 1))
 
-    const raw = 100 * harmonicMean * multiPenalty
+    const raw = 100 * geometricMean * multiPenalty
     const final = 100 * Math.pow(raw / 100, scaleExponent)
 
     return Math.round(Number(final.toFixed(4)))

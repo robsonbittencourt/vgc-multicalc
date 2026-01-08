@@ -44,7 +44,7 @@ describe("ConsistencyScoreService", () => {
 
       const result = service.consistencyScore(moveSet)
 
-      expect(result).toBe(57)
+      expect(result).toBe(77)
     })
 
     it("should return a lower score for moveSet with lower accuracy moves", () => {
@@ -56,7 +56,7 @@ describe("ConsistencyScoreService", () => {
       const lowScore = service.consistencyScore(lowAccuracyMoveSet)
 
       expect(highScore).toBe(100)
-      expect(lowScore).toBe(30)
+      expect(lowScore).toBe(33)
       expect(highScore).toBeGreaterThan(lowScore!)
     })
 
@@ -66,8 +66,8 @@ describe("ConsistencyScoreService", () => {
       const defaultScore = service.consistencyScore(moveSet)
       const steeperSlopeScore = service.consistencyScore(moveSet, 20, 0.85, 6, 0.16, 0.4)
 
-      expect(defaultScore).toBe(57)
-      expect(steeperSlopeScore).toBe(40)
+      expect(defaultScore).toBe(77)
+      expect(steeperSlopeScore).toBe(70)
       expect(steeperSlopeScore).not.toBe(defaultScore)
     })
 
@@ -77,8 +77,8 @@ describe("ConsistencyScoreService", () => {
       const defaultScore = service.consistencyScore(moveSet)
       const higherPenaltyScore = service.consistencyScore(moveSet, 10, 0.85, 12, 0.16, 0.4)
 
-      expect(defaultScore).toBe(30)
-      expect(higherPenaltyScore).toBe(16)
+      expect(defaultScore).toBe(33)
+      expect(higherPenaltyScore).toBe(19)
       expect(higherPenaltyScore).toBeLessThan(defaultScore!)
     })
 
@@ -90,8 +90,8 @@ describe("ConsistencyScoreService", () => {
       const singleScore = service.consistencyScore(singleImperfectMoveSet)
       const multipleScore = service.consistencyScore(multipleImperfectMoveSet)
 
-      expect(singleScore).toBe(57)
-      expect(multipleScore).toBe(30)
+      expect(singleScore).toBe(77)
+      expect(multipleScore).toBe(33)
       expect(multipleScore).toBeLessThan(singleScore!)
     })
 
@@ -101,8 +101,8 @@ describe("ConsistencyScoreService", () => {
       const defaultScore = service.consistencyScore(moveSet)
       const higherExponentScore = service.consistencyScore(moveSet, 10, 0.85, 6, 0.16, 0.8)
 
-      expect(defaultScore).toBe(57)
-      expect(higherExponentScore).toBe(32)
+      expect(defaultScore).toBe(77)
+      expect(higherExponentScore).toBe(59)
       expect(higherExponentScore).not.toBe(defaultScore)
     })
 
@@ -111,7 +111,7 @@ describe("ConsistencyScoreService", () => {
 
       const result = service.consistencyScore(moveSet)
 
-      expect(result).toBe(57)
+      expect(result).toBe(77)
       expect(Number.isInteger(result)).toBeTrue()
     })
 
@@ -121,8 +121,8 @@ describe("ConsistencyScoreService", () => {
       const lowerMidpointScore = service.consistencyScore(moveSet, 10, 0.7, 6, 0.16, 0.4)
       const higherMidpointScore = service.consistencyScore(moveSet, 10, 0.9, 6, 0.16, 0.4)
 
-      expect(lowerMidpointScore).toBe(70)
-      expect(higherMidpointScore).toBe(52)
+      expect(lowerMidpointScore).toBe(82)
+      expect(higherMidpointScore).toBe(75)
       expect(lowerMidpointScore).toBeGreaterThan(higherMidpointScore!)
     })
   })
@@ -158,7 +158,7 @@ describe("ConsistencyScoreService", () => {
 
       const result = service.teamConsistencyScore(team)
 
-      expect(result).toBe(64.8023)
+      expect(result).toBe(77.4994)
     })
 
     it("should apply alpha weight correctly", () => {
@@ -174,9 +174,9 @@ describe("ConsistencyScoreService", () => {
       const geometricScore = service.teamConsistencyScore(team, 0.0)
       const blendedScore = service.teamConsistencyScore(team, 0.6)
 
-      expect(arithmeticScore).toBe(65)
-      expect(geometricScore).toBe(54.7723)
-      expect(blendedScore).toBe(60.9089)
+      expect(arithmeticScore).toBe(66.5)
+      expect(geometricScore).toBe(57.4456)
+      expect(blendedScore).toBe(62.8783)
       expect(geometricScore).toBeLessThan(arithmeticScore)
       expect(blendedScore).toBeGreaterThan(geometricScore)
       expect(blendedScore).toBeLessThan(arithmeticScore)
@@ -193,7 +193,7 @@ describe("ConsistencyScoreService", () => {
 
       const result = service.teamConsistencyScore(team)
 
-      expect(result).toBe(57)
+      expect(result).toBe(77)
     })
 
     it("should return rounded score with 4 decimal precision", () => {
@@ -204,7 +204,7 @@ describe("ConsistencyScoreService", () => {
 
       const result = service.teamConsistencyScore(team)
 
-      expect(result).toBe(57)
+      expect(result).toBe(77)
       const decimalPlaces = (result.toString().split(".")[1] || "").length
       expect(decimalPlaces).toBeLessThanOrEqual(4)
     })
@@ -223,7 +223,7 @@ describe("ConsistencyScoreService", () => {
 
       const result = service.teamConsistencyScore(team)
 
-      expect(result).toBe(87.547)
+      expect(result).toBe(92.5336)
     })
   })
 })
