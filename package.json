@@ -1,6 +1,6 @@
 {
   "name": "vgc-multicalc",
-  "version": "1.10.0",
+  "version": "1.10.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -40,7 +40,7 @@
     "@angular/compiler-cli": "21.0.7",
     "@types/jasmine": "5.1.13",
     "@types/uuid": "11.0.0",
-    "angular-cli-ghpages": "3.0.1",
+    "angular-cli-ghpages": "3.0.2",
     "angular-eslint": "21.1.0",
     "cypress": "15.8.2",
     "cypress-real-events": "1.15.0",
