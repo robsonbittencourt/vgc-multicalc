@@ -2,6 +2,7 @@ import { CdkDragDrop, CdkDropList, CdkDropListGroup } from "@angular/cdk/drag-dr
 import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, inject, input, output, signal } from "@angular/core"
 import { MatButton } from "@angular/material/button"
 import { MatSlideToggle } from "@angular/material/slide-toggle"
+import { InputAutocompleteComponent } from "@app/basic/input-autocomplete/input-autocomplete.component"
 import { InputSelectComponent } from "@app/basic/input-select/input-select.component"
 import { WidgetComponent } from "@basic/widget/widget.component"
 import { pokemonByRegulation } from "@data/regulation-pokemon"
@@ -24,7 +25,7 @@ import { PokemonCardComponent } from "@pages/multi-calc/pokemon-card/pokemon-car
   selector: "app-target-pokemon",
   templateUrl: "./target-pokemon.component.html",
   styleUrls: ["./target-pokemon.component.scss"],
-  imports: [CdkDropList, CdkDropListGroup, MatButton, MatSlideToggle, WidgetComponent, InputSelectComponent, PokemonCardComponent, AddPokemonCardComponent, ImportPokemonButtonComponent, RollConfigComponent],
+  imports: [CdkDropList, CdkDropListGroup, MatButton, MatSlideToggle, WidgetComponent, InputSelectComponent, InputAutocompleteComponent, PokemonCardComponent, AddPokemonCardComponent, ImportPokemonButtonComponent, RollConfigComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class TargetPokemonComponent {
@@ -55,10 +56,18 @@ export class TargetPokemonComponent {
 
   filteredDamageResults = computed(() => (this.damageResults()
     .filter((damageResult) => this.isAttacker() ?
-      damageResult.attacker.name.toLocaleLowerCase().includes(this.cardsFilter().toLocaleLowerCase())
+      (damageResult.attacker.name.toLocaleLowerCase().includes(this.cardsFilter().toLocaleLowerCase())
+      ||
+      damageResult.secondAttacker?.name.toLocaleLowerCase().includes(this.cardsFilter().toLocaleLowerCase()))
     :
       damageResult.defender.name.toLocaleLowerCase().includes(this.cardsFilter().toLocaleLowerCase())
     ))
+  )
+
+  readonly pokemonNamesByReg = computed(() =>
+    pokemonByRegulation(this.regulation() as Regulation)
+      .map(s => s.name)
+      .sort()
   )
 
   regulationsList: Regulation[] = ["F", "J"]
@@ -166,14 +175,18 @@ export class TargetPokemonComponent {
     this.store.updateTargets(newTargets)
   }
 
-  updatePokemonCardsFilter(event: Event) {
-    const cardsFilter = ((event.target as HTMLInputElement).value)
+  updateCardsFilter(event: string) {
+    const cardsFilter = event
     this.cardsFilter.set(cardsFilter)
   }
 
   updateRegulation(event: string) {
     const regulation = event as Regulation
     this.regulation.set(regulation)
+  }
+
+  clearCardsFilter() {
+    this.cardsFilter.set("")
   }
 
   private findTarget(pokemonId: string): Target {
