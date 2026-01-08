@@ -1,6 +1,11 @@
 <app-widget [title]="title()" data-cy="opponent-widget">
   <right-header>
     <div class="buttons">
+      <label>Filter cards by Pokémon</label>
+      <mat-form-field appearance="outline" class="team-name-input">
+        <input type="text" matInput (input)="updatePokemonCardsFilter($event)" />
+      </mat-form-field>
+
       <app-roll-config (rollLevelChange)="rollLevelConfig.set($event)" />
 
       <mat-slide-toggle [checked]="order" (change)="toogleOrder()" [labelPosition]="'before'">Order by Damage</mat-slide-toggle>
@@ -18,7 +23,7 @@
   </right-header>
 
   <div class="target-pokemon" cdkDropListGroup>
-    @for (damageResult of damageResults(); track $index) {
+    @for (damageResult of filteredDamageResults(); track $index) {
       <app-pokemon-card
         cdkDropList
         cdkDropListOrientation="horizontal"

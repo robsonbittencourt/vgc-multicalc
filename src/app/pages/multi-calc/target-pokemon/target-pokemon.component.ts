@@ -43,6 +43,7 @@ export class TargetPokemonComponent {
 
   regulation = signal<Regulation>(this.store.targetMetaRegulation() ?? "F")
   rollLevelConfig = signal(RollLevelConfig.high())
+  cardsFilter = signal("")
 
   title = computed(() => (this.isAttacker() ? "Opponent Attackers" : "Opponent Defenders"))
 
@@ -51,6 +52,14 @@ export class TargetPokemonComponent {
   haveMetaData = computed(() => this.store.targetMetaRegulation() != undefined)
 
   metaButtonLabel = computed(() => (this.haveMetaData() ? "Remove Meta" : "Add Meta"))
+
+  filteredDamageResults = computed(() => (this.damageResults()
+    .filter((damageResult) => this.isAttacker() ?
+      damageResult.attacker.name.toLocaleLowerCase().includes(this.cardsFilter().toLocaleLowerCase())
+    :
+      damageResult.defender.name.toLocaleLowerCase().includes(this.cardsFilter().toLocaleLowerCase())
+    ))
+  )
 
   regulationsList: Regulation[] = ["F", "J"]
 
@@ -155,6 +164,11 @@ export class TargetPokemonComponent {
 
     const newTargets = [...this.targets().slice(0, index), target, secondTarget, ...this.targets().slice(index + 1)]
     this.store.updateTargets(newTargets)
+  }
+
+  updatePokemonCardsFilter(event: Event) {
+    const cardsFilter = ((event.target as HTMLInputElement).value)
+    this.cardsFilter.set(cardsFilter)
   }
 
   updateRegulation(event: string) {
