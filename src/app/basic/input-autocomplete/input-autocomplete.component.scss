@@ -54,4 +54,8 @@
   .input-row > input {
     font-size: $font-size-mobile;
   }
+
+  .input-column {
+    gap: 0.25em;
+  }
 }
