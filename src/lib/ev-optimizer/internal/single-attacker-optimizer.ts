@@ -46,7 +46,7 @@ export class SingleAttackerOptimizer {
     const initialDefender = defender.clone({ evs: { hp: initialSolution.hp, def: initialSolution.def, spd: initialSolution.spd } })
 
     const initialDamageProduct = isPhysical ? initialDefender.hp * initialDefender.def : initialDefender.hp * initialDefender.spd
-    const minDamageProduct = initialDamageProduct * 0.90
+    const minDamageProduct = initialDamageProduct * 0.9
 
     const hpValues = new Map<number, number>()
     const defSpdValues = new Map<number, number>()

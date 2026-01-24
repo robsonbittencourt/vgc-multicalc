@@ -1,4 +1,3 @@
-import { animate, style, transition, trigger } from "@angular/animations"
 import { CdkDrag, CdkDragHandle, CdkDragPlaceholder } from "@angular/cdk/drag-drop"
 import { Component, computed, inject, input, output } from "@angular/core"
 import { MatIcon } from "@angular/material/icon"
@@ -18,7 +17,6 @@ import { PokemonHpBadgeComponent } from "@pages/simple-calc/pokemon-hp-badge/pok
   selector: "app-pokemon-card",
   templateUrl: "./pokemon-card.component.html",
   styleUrls: ["./pokemon-card.component.scss"],
-  animations: [trigger("fadeIn", [transition(":enter", [style({ opacity: 0 }), animate("300ms ease-out", style({ opacity: 1 }))])])],
   imports: [CdkDrag, CdkDragPlaceholder, CdkDragHandle, MatIcon, MatTooltip, TatsugiriButtonComponent, TerastalButtonComponent, BoosterEnergyButtonComponent, PokemonHpBadgeComponent, PokemonComboBoxComponent, CopyButtonComponent]
 })
 export class PokemonCardComponent {

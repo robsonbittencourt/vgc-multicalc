@@ -137,7 +137,7 @@
 }
 
 @if (showEvsTable()) {
-  <div class="evs-titles" [ngStyle]="gridTemplateColumns()" [@fadeInOut]="shouldAnimate() ? 'in' : null">
+  <div class="evs-titles" [ngStyle]="gridTemplateColumns()" [animate.enter]="shouldAnimate() ? 'fade-in' : null">
     <label class="base-title">Base</label>
     <label class="modifier-title">Mod.</label>
     <label class="evs-title">EVs</label>
@@ -148,7 +148,7 @@
     }
   </div>
 
-  <div class="evs" [@fadeInOut]="shouldAnimate() ? 'in' : null">
+  <div class="evs" [animate.enter]="shouldAnimate() ? 'fade-in' : null">
     <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.hp" [modifiedStat]="pokemon().hp" [hasModifiedStat]="hasModifiedStat()" [isOptimized]="isHpOptimized()" data-cy="stat-hp" stat="hp" />
     <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.atk" [modifiedStat]="modifiedAtk()" [hasModifiedStat]="hasModifiedStat()" data-cy="stat-atk" stat="atk" />
     <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.def" [modifiedStat]="modifiedDef()" [hasModifiedStat]="hasModifiedStat()" [isOptimized]="isDefOptimized()" data-cy="stat-def" stat="def" />
@@ -167,7 +167,7 @@
     </div>
   </div>
 
-  <div class="nature" [@fadeInOut]="shouldAnimate() ? 'in' : null">
+  <div class="nature" [animate.enter]="shouldAnimate() ? 'fade-in' : null">
     <div class="combo-nature">
       <app-nature-combo-box [pokemonId]="pokemonId()" [leftLabel]="true" />
     </div>

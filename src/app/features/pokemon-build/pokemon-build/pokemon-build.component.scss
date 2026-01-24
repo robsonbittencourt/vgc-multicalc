@@ -186,3 +186,15 @@
   align-items: center;
   gap: 1em;
 }
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 200ms ease-in;
+}

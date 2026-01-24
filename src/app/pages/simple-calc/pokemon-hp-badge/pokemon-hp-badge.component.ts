@@ -1,4 +1,3 @@
-import { animate, style, transition, trigger } from "@angular/animations"
 import { NgStyle } from "@angular/common"
 import { Component, computed, ElementRef, input, signal, viewChild } from "@angular/core"
 import { Items } from "@data/items"
@@ -7,7 +6,6 @@ import { Items } from "@data/items"
   selector: "app-pokemon-hp-badge",
   templateUrl: "./pokemon-hp-badge.component.html",
   styleUrls: ["./pokemon-hp-badge.component.scss"],
-  animations: [trigger("fadeIn", [transition(":enter", [style({ opacity: 0 }), animate("300ms ease-out", style({ opacity: 1 }))])])],
   imports: [NgStyle]
 })
 export class PokemonHpBadgeComponent {

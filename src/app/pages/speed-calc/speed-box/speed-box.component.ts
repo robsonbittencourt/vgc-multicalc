@@ -1,24 +1,13 @@
-import { animate, style, transition, trigger } from "@angular/animations"
 import { NgClass } from "@angular/common"
 import { Component, computed, input, output } from "@angular/core"
 import { ACTUAL } from "@lib/constants"
 import { Pokemon } from "@lib/model/pokemon"
 import { SpeedDefinition } from "@lib/speed-calculator/speed-definition"
 
-const visible = { transform: "translateX(0)" }
-const timing = "500ms ease-in"
-
 @Component({
   selector: "app-speed-box",
   templateUrl: "./speed-box.component.html",
   styleUrls: ["./speed-box.component.scss"],
-  animations: [
-    trigger("openClose", [
-      transition(":enter", [style({ transform: "translateX({{ leaveEnd }})" }), animate(timing, style(visible))], {
-        params: { leaveEnd: "" }
-      })
-    ])
-  ],
   imports: [NgClass]
 })
 export class SpeedBoxComponent {
@@ -33,13 +22,13 @@ export class SpeedBoxComponent {
 
   animation = computed(() => {
     if (!this.speedChanged()) {
-      return "0"
+      return ""
     }
 
     if (this.speedIncreasing()) {
-      return "100%"
+      return "slide-in-right"
     } else {
-      return "-100%"
+      return "slide-in-left"
     }
   })
 }

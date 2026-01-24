@@ -49,3 +49,28 @@
     font-size: 1.2rem;
   }
 }
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.slide-in-left {
+  animation: slideInLeft 500ms ease-in;
+}
+
+.slide-in-right {
+  animation: slideInRight 500ms ease-in;
+}

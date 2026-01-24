@@ -1,4 +1,3 @@
-import { animate, style, transition, trigger } from "@angular/animations"
 import { ScrollingModule } from "@angular/cdk/scrolling"
 import { CommonModule } from "@angular/common"
 import { AfterViewInit, Component, computed, effect, ElementRef, HostListener, inject, input, output, signal, viewChild, viewChildren } from "@angular/core"
@@ -14,8 +13,7 @@ import { TableDataFilterService } from "./table-data-filter.service"
   standalone: true,
   imports: [CommonModule, ScrollingModule, MatTooltip, MatIcon, TypeComboBoxComponent, HiddenDirective],
   templateUrl: "./filterable-table.component.html",
-  styleUrls: ["./filterable-table.component.scss"],
-  animations: [trigger("fadeInOut", [transition(":enter", [style({ opacity: 0 }), animate("200ms ease-in", style({ opacity: 1 }))])])]
+  styleUrls: ["./filterable-table.component.scss"]
 })
 export class FilterableTableComponent<T extends Record<string, any>> implements AfterViewInit {
   filterService = inject(TableDataFilterService)

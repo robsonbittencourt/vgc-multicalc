@@ -1,4 +1,3 @@
-import { animate, style, transition, trigger } from "@angular/animations"
 import { NgClass, NgStyle } from "@angular/common"
 import { Component, computed, effect, inject, input, output, signal, viewChild } from "@angular/core"
 import { FormsModule } from "@angular/forms"
@@ -28,7 +27,6 @@ import { getFinalSpeed } from "@lib/smogon/stat-calculator/spe/modified-spe"
   selector: "app-pokemon-build",
   templateUrl: "./pokemon-build.component.html",
   styleUrls: ["./pokemon-build.component.scss"],
-  animations: [trigger("fadeInOut", [transition(":enter", [style({ opacity: 0 }), animate("200ms ease-in", style({ opacity: 1 }))])])],
   imports: [
     NgStyle,
     NgClass,

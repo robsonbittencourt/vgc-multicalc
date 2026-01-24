@@ -2,7 +2,7 @@
   @if (target().pokemon.isDefault) {
     <div class="body">
       <div class="card-right-side">
-        <div class="pokemon-image-container" [@fadeIn]>
+        <div class="pokemon-image-container" animate.enter="fade-in">
           <img src="assets/icons/question.png" />
           <app-pokemon-combo-box [pokemonId]="target().pokemon.id" autoFocus="true" data-cy="card-pokemon-select" />
         </div>
@@ -24,7 +24,7 @@
         }
       </div>
 
-      <div class="left-side" [@fadeIn]>
+      <div class="left-side" animate.enter="fade-in">
         @if (isDefaultAttacker()) {
           <div class="pokemon-image-container">
             <img src="assets/icons/question.png" />
@@ -50,7 +50,7 @@
         @if (isDefaultDefender()) {
           <div class="body">
             <div class="card-right-side">
-              <div class="pokemon-image-container" [@fadeIn]>
+              <div class="pokemon-image-container" animate.enter="fade-in">
                 <img src="assets/icons/question.png" />
                 Select a Pokémon
               </div>

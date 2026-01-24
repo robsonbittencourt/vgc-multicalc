@@ -6,7 +6,7 @@
   </div>
 
   <div class="speed-box-down" [ngClass]="{ actual: selected(), 'actual-label': isActual() }" (click)="pokemonSelected.emit(speedDefinition().pokemon)">
-    <div [@openClose]="{ value: 1, params: { leaveEnd: animation() } }" class="pokemon-image">
+    <div [animate.enter]="animation()" class="pokemon-image">
       <img src="assets/sprites/pokemon-sv/{{ speedDefinition().pokemonName }}.png" alt="{{ speedDefinition().pokemonName }}" data-cy="speed-box-pokemon" />
       @for (description of speedDefinition().description; track $index) {
         <label data-cy="speed-box-description">{{ description }}</label>

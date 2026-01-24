@@ -1,4 +1,3 @@
-import { animate, style, transition, trigger } from "@angular/animations"
 import { Component, computed, effect, HostListener, inject, input, OnInit, output, signal } from "@angular/core"
 import { FormsModule } from "@angular/forms"
 import { MatButton } from "@angular/material/button"
@@ -21,8 +20,7 @@ import { v4 as uuidv4 } from "uuid"
   selector: "app-teams",
   templateUrl: "./teams.component.html",
   styleUrls: ["./teams.component.scss"],
-  imports: [WidgetComponent, MatFormField, MatInput, FormsModule, MatButton, MatIcon, TeamBoxComponent, WidgetComponent, ImportPokemonButtonComponent, HiddenDirective],
-  animations: [trigger("fadeInAnimation", [transition(":increment", [style({ opacity: 0 }), animate("300ms ease-in", style({ opacity: 1 }))]), transition(":decrement", [style({ opacity: 0 }), animate("300ms ease-in", style({ opacity: 1 }))])])]
+  imports: [WidgetComponent, MatFormField, MatInput, FormsModule, MatButton, MatIcon, TeamBoxComponent, WidgetComponent, ImportPokemonButtonComponent, HiddenDirective]
 })
 export class TeamsComponent implements OnInit {
   store = inject(CalculatorStore)

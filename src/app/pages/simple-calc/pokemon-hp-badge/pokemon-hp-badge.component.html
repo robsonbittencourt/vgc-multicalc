@@ -6,7 +6,7 @@
       <span class="hp-value" data-cy="hp-value">{{ remainingHp() }}/{{ hpBase() }}</span>
     </div>
   </div>
-  <div class="pokemon-image" [@fadeIn]>
+  <div class="pokemon-image" animate.enter="fade-in">
     <img #pokemonImage src="assets/sprites/pokemon-sv/{{ spriteName() }}.png" (load)="onImageLoad()" [ngStyle]="getPokemonImageStyles(showImage())" />
 
     @if (remainingHp() === 0) {

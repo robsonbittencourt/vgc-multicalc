@@ -1,4 +1,4 @@
-<div tabindex="0" (focus)="onFocus()" (blur)="onBlur()" class="container" @fadeInOut>
+<div tabindex="0" (focus)="onFocus()" (blur)="onBlur()" class="container" animate.enter="fade-in">
   @if (activeFilters().length > 0) {
     <div class="filters-bar">
       <span class="filter-label">Filters:</span>
