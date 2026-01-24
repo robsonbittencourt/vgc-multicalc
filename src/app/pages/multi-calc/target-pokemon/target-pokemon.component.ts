@@ -105,7 +105,7 @@ export class TargetPokemonComponent {
   addPokemonToTargets() {
     const pokemon = defaultPokemon()
     const target = new Target(pokemon)
-    const deactivatedTargets = this.targets().map(t => new Target(t.pokemon))
+    const deactivatedTargets = this.targets().map(t => new Target(t.pokemon, t.secondPokemon))
     const targetsWithDefaultPokemon = deactivatedTargets.concat(target)
 
     this.store.updateTargets(targetsWithDefaultPokemon)
