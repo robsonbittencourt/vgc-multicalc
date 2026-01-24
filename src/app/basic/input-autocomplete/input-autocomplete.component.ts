@@ -85,7 +85,11 @@ export class InputAutocompleteComponent implements OnInit {
   }
 
   focus() {
-    this.autoCompleteInput()!.nativeElement.select()
+    const element = this.autoCompleteInput()!.nativeElement
+    setTimeout(() => {
+      element.focus()
+      element.click()
+    }, 0)
   }
 
   private adjustAllValuesInput(value: string[] | KeyValuePair[]): KeyValuePair[] {
