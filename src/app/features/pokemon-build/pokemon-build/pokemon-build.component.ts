@@ -7,6 +7,8 @@ import { MatCheckbox } from "@angular/material/checkbox"
 import { InputComponent } from "@basic/input/input.component"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { FieldStore } from "@data/store/field-store"
+import { MenuStore } from "@data/store/menu-store"
+import { Stats } from "@lib/types"
 import { AbilityComboBoxComponent } from "@features/pokemon-build/ability-combo-box/ability-combo-box.component"
 import { EvSliderComponent } from "@features/pokemon-build/ev-slider/ev-slider.component"
 import { MultiHitComboBoxComponent } from "@features/pokemon-build/multi-hit-combo-box/multi-hit-combo-box.component"
@@ -51,11 +53,21 @@ export class PokemonBuildComponent {
   pokemonId = input.required<string>()
   reverse = input<boolean>(false)
   hasFocus = input<boolean>(true)
+  optimizedEvs = input<Stats | null>(null)
+  optimizedNature = input<string | null>(null)
 
   selected = output()
+  optimizeRequested = output<{ updateNature: boolean }>()
+  optimizationApplied = output<void>()
+  optimizationDiscarded = output<void>()
 
   store = inject(CalculatorStore)
   fieldStore = inject(FieldStore)
+  menuStore = inject(MenuStore)
+
+  originalEvs = signal<Stats>({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
+  originalNature = signal<string>("")
+  updateNature = signal<boolean>(false)
 
   activeMoveIndex = signal<number | null>(null)
 
@@ -114,8 +126,42 @@ export class PokemonBuildComponent {
   })
 
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
+  currentEvs = computed(() => {
+    const pokemon = this.pokemon()
+    return { ...pokemon.evs }
+  })
+
+  hasNoSolution = computed(() => {
+    const optimized = this.optimizedEvs()
+
+    if (optimized === null) return false
+
+    return optimized.hp === 0 && optimized.def === 0 && optimized.spd === 0
+  })
+
   hasModifiedStat = computed(() => {
     return this.modifiedAtk() != this.pokemon().atk || this.modifiedDef() != this.pokemon().def || this.modifiedSpa() != this.pokemon().spa || this.modifiedSpd() != this.pokemon().spd || this.modifiedSpe() != this.pokemon().spe
+  })
+
+  isHpOptimized = computed(() => {
+    const optimized = this.optimizedEvs()
+    const noSolution = this.hasNoSolution()
+
+    return optimized !== null && optimized.hp !== 0 && !noSolution
+  })
+
+  isDefOptimized = computed(() => {
+    const optimized = this.optimizedEvs()
+    const noSolution = this.hasNoSolution()
+
+    return optimized !== null && optimized.def !== 0 && !noSolution
+  })
+
+  isSpdOptimized = computed(() => {
+    const optimized = this.optimizedEvs()
+    const noSolution = this.hasNoSolution()
+
+    return optimized !== null && optimized.spd !== 0 && !noSolution
   })
 
   pokemonInput = viewChild<InputComponent>("pokemonInput")
@@ -381,6 +427,34 @@ export class PokemonBuildComponent {
 
   clearEvs() {
     this.store.evs(this.pokemonId(), { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
+  }
+
+  optimizeEvs() {
+    const defender = this.store.findPokemonById(this.pokemonId())
+    this.originalEvs.set({ ...defender.evs })
+    this.originalNature.set(defender.nature)
+
+    this.optimizeRequested.emit({ updateNature: this.updateNature() })
+  }
+
+  applyOptimization() {
+    const optimized = this.optimizedEvs()
+
+    if (optimized) {
+      this.store.evs(this.pokemonId(), { ...optimized })
+    }
+
+    this.optimizationApplied.emit()
+  }
+
+  discardOptimization() {
+    const original = this.originalEvs()
+    this.store.evs(this.pokemonId(), original)
+
+    const originalNature = this.originalNature()
+    this.store.nature(this.pokemonId(), originalNature)
+
+    this.optimizationDiscarded.emit()
   }
 
   private clearBlurTimeout() {

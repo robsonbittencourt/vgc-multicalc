@@ -38,7 +38,7 @@
     </mat-form-field>
   </div>
 
-  <div class="ev-slider">
+  <div class="ev-slider" [ngClass]="{ optimized: isOptimized() }">
     <mat-slider class="mat-ev-slider" #slider [min]="calculateMin()" [max]="252" [step]="calculateEvStep()">
       @if (isStatWithBeneficialNature()) {
         <div class="slider-pipe" [style.left]="firstJumpPosition()"></div>

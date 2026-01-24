@@ -1,4 +1,4 @@
-import { NgStyle } from "@angular/common"
+import { NgClass, NgStyle } from "@angular/common"
 import { Component, computed, effect, inject, input, model, signal, viewChild } from "@angular/core"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { MatOption } from "@angular/material/core"
@@ -14,7 +14,7 @@ import { Stats } from "@lib/types"
   selector: "app-ev-slider",
   templateUrl: "./ev-slider.component.html",
   styleUrls: ["./ev-slider.component.scss"],
-  imports: [NgStyle, MatFormField, MatSuffix, ReactiveFormsModule, MatInput, FormsModule, MatSelect, MatOption, MatLabel, MatSlider, MatSliderThumb, MatTooltip]
+  imports: [NgClass, NgStyle, MatFormField, MatSuffix, ReactiveFormsModule, MatInput, FormsModule, MatSelect, MatOption, MatLabel, MatSlider, MatSliderThumb, MatTooltip]
 })
 export class EvSliderComponent {
   pokemonId = input.required<string>()
@@ -23,6 +23,7 @@ export class EvSliderComponent {
   reduced = input(false)
   modifiedStat = input(0)
   hasModifiedStat = input<boolean>()
+  isOptimized = input(false)
 
   store = inject(CalculatorStore)
 

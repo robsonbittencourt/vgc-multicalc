@@ -10,6 +10,7 @@ import { defaultPokemon } from "@lib/default-pokemon"
 import { Pokemon } from "@lib/model/pokemon"
 import { Team } from "@lib/model/team"
 import { TeamMember } from "@lib/model/team-member"
+import { Stats } from "@lib/types"
 import { v4 as uuidv4 } from "uuid"
 
 @Component({
@@ -24,8 +25,13 @@ export class TeamComponent {
 
   pokemonId = input.required<string>()
   isAttacker = input(false)
+  optimizedEvs = input<Stats | null>(null)
+  optimizedNature = input<string | null>(null)
 
   teamMemberSelected = output<string>()
+  optimizeRequested = output<{ updateNature: boolean }>()
+  optimizationApplied = output<void>()
+  optimizationDiscarded = output<void>()
 
   combineDamageActive = signal(false)
 

@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, signal } from "@angular/core"
+import { Component, computed, effect, inject, signal, viewChild } from "@angular/core"
 import { CopyButtonComponent } from "@basic/copy-button/copy-button.component"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { FieldStore } from "@data/store/field-store"
@@ -10,7 +10,10 @@ import { PokemonComboBoxComponent } from "@features/pokemon-build/pokemon-combo-
 import { PokemonTabComponent } from "@features/team/pokemon-tab/pokemon-tab.component"
 import { AutomaticFieldService } from "@lib/automatic-field-service"
 import { DamageCalculatorService } from "@lib/damage-calculator/damage-calculator.service"
+import { DefensiveEvOptimizerService } from "@lib/ev-optimizer/defensive-ev-optimizer.service"
 import { Pokemon } from "@lib/model/pokemon"
+import { Target } from "@lib/model/target"
+import { Stats } from "@lib/types"
 
 @Component({
   selector: "app-simple-calc-mobile",
@@ -23,11 +26,27 @@ export class SimpleCalcMobileComponent {
   fieldStore = inject(FieldStore)
   private damageCalculator = inject(DamageCalculatorService)
   private automaticFieldService = inject(AutomaticFieldService)
+  private defensiveEvOptimizer = inject(DefensiveEvOptimizerService)
+
+  pokemonBuildMobile = viewChild.required(PokemonBuildMobileComponent)
 
   attacker = signal(this.store.leftPokemon())
 
   leftIsAttacker = computed(() => this.attacker().id === this.store.leftPokemon().id)
   rightIsAttacker = computed(() => this.attacker().id === this.store.rightPokemon().id)
+
+  opponent = computed(() => {
+    if (this.leftIsAttacker()) {
+      return this.store.rightPokemon()
+    } else {
+      return this.store.leftPokemon()
+    }
+  })
+
+  optimizedEvs = signal<Stats | null>(null)
+  optimizedNature = signal<string | null>(null)
+  originalEvs = signal<Stats>({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
+  originalNature = signal<string>("")
 
   damageResult = computed(() => {
     if (this.leftIsAttacker()) {
@@ -60,10 +79,20 @@ export class SimpleCalcMobileComponent {
   }
 
   activateLeftPokemon() {
+    if (this.optimizedEvs() !== null) {
+      this.pokemonBuildMobile().discardOptimization()
+      return
+    }
+
     this.attacker.set(this.store.leftPokemon())
   }
 
   activateRightPokemon() {
+    if (this.optimizedEvs() !== null) {
+      this.pokemonBuildMobile().discardOptimization()
+      return
+    }
+
     this.attacker.set(this.store.rightPokemon())
   }
 
@@ -85,5 +114,40 @@ export class SimpleCalcMobileComponent {
       this.attacker.set(singlePokemon)
       this.store.changeRightPokemon(singlePokemon)
     }
+  }
+
+  handleOptimizeRequest(event: { updateNature: boolean }) {
+    const defender = this.attacker()
+    const attacker = this.opponent()
+    const field = this.fieldStore.field()
+
+    this.originalEvs.set({ ...defender.evs })
+    this.originalNature.set(defender.nature)
+
+    const result = this.defensiveEvOptimizer.optimize(defender, [new Target(attacker)], field, event.updateNature)
+
+    this.store.evs(defender.id, result.evs)
+
+    if (result.nature) {
+      this.store.nature(defender.id, result.nature)
+    }
+
+    this.optimizedEvs.set(result.evs)
+    this.optimizedNature.set(result.nature)
+  }
+
+  handleOptimizationApplied() {
+    this.optimizedEvs.set(null)
+    this.optimizedNature.set(null)
+  }
+
+  handleOptimizationDiscarded() {
+    this.optimizedEvs.set(null)
+    this.optimizedNature.set(null)
+  }
+
+  handleEvsCleared() {
+    this.optimizedEvs.set(null)
+    this.optimizedNature.set(null)
   }
 }

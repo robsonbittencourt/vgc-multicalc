@@ -1,11 +1,11 @@
 import { provideZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
-import { TypeCoverageService } from "./type-coverage.service"
+import { Move } from "@lib/model/move"
+import { MoveSet } from "@lib/model/moveset"
 import { Pokemon } from "@lib/model/pokemon"
 import { Team } from "@lib/model/team"
 import { TeamMember } from "@lib/model/team-member"
-import { MoveSet } from "@lib/model/moveset"
-import { Move } from "@lib/model/move"
+import { TypeCoverageService } from "./type-coverage.service"
 import { TypeEffectivenessService } from "./type-effectiveness.service"
 
 describe("TypeCoverageService", () => {

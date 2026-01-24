@@ -19,6 +19,8 @@ export type Regulation = "F" | "J"
 
 export type Jumps = [number, number, number, number | null]
 
+export type Category = "Physical" | "Special" | "Status"
+
 export type SecondaryEffect = {
   chance: number
   status?: string

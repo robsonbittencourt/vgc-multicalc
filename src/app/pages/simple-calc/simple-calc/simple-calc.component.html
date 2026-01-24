@@ -21,7 +21,15 @@
     <app-import-pokemon-button (pokemonImportedEvent)="leftPokemonImported($event)" />
     <app-export-pokemon-button [pokemonId]="store.leftPokemon().id" />
   </div>
-  <app-pokemon-build [pokemonId]="store.leftPokemon().id" [hasFocus]="activeSide() === 'left'" (selected)="activeSide.set('left')" />
+  <app-pokemon-build
+    [pokemonId]="store.leftPokemon().id"
+    [hasFocus]="activeSide() === 'left'"
+    [optimizedEvs]="leftOptimizedEvs()"
+    [optimizedNature]="leftOptimizedNature()"
+    (selected)="activeSide.set('left')"
+    (optimizeRequested)="handleLeftOptimizeRequest($event)"
+    (optimizationApplied)="handleLeftOptimizationApplied()"
+    (optimizationDiscarded)="handleLeftOptimizationDiscarded()" />
 </app-widget>
 
 <app-widget data-cy="right-pokemon">
@@ -29,7 +37,16 @@
     <app-import-pokemon-button (pokemonImportedEvent)="rightPokemonImported($event)" />
     <app-export-pokemon-button [pokemonId]="store.rightPokemon().id" />
   </div>
-  <app-pokemon-build [pokemonId]="store.rightPokemon().id" [hasFocus]="activeSide() === 'right'" [reverse]="true" (selected)="activeSide.set('right')" />
+  <app-pokemon-build
+    [pokemonId]="store.rightPokemon().id"
+    [hasFocus]="activeSide() === 'right'"
+    [reverse]="true"
+    [optimizedEvs]="rightOptimizedEvs()"
+    [optimizedNature]="rightOptimizedNature()"
+    (selected)="activeSide.set('right')"
+    (optimizeRequested)="handleRightOptimizeRequest($event)"
+    (optimizationApplied)="handleRightOptimizationApplied()"
+    (optimizationDiscarded)="handleRightOptimizationDiscarded()" />
 </app-widget>
 
 <app-field class="field" oneVsOne="true" />

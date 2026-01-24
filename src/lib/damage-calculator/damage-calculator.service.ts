@@ -54,6 +54,28 @@ export class DamageCalculatorService {
     return new DamageResult(firstBySpeed, target, firstBySpeed.move.name, firstResult.moveDesc(), koChance, maxPercentageDamage, damageDescription, firstRolls, secondBySpeed, secondRolls)
   }
 
+  calcDamageValue(attacker: Pokemon, target: Pokemon, field: Field): number {
+    const result = this.calculateResult(attacker, target, attacker.move, field, true)
+    const damageArrays = this.extractDamageSubArrays(result.damage as number[] | number[][])
+    const maxDamage = damageArrays.length > 1 ? damageArrays.map(rolls => rolls[15]).reduce((sum, roll) => sum + roll, 0) : damageArrays[0][15]
+
+    return maxDamage
+  }
+
+  calcDamageValueForTwoAttackers(attacker: Pokemon, secondAttacker: Pokemon, target: Pokemon, field: Field): number {
+    const firstResult = this.calculateResult(attacker, target, attacker.move, field, true, secondAttacker)
+    const firstDamageArrays = this.extractDamageSubArrays(firstResult.damage as number[] | number[][])
+    const firstMaxDamage = firstDamageArrays.length > 1 ? firstDamageArrays.map(rolls => rolls[15]).reduce((sum, roll) => sum + roll, 0) : firstDamageArrays[0][15]
+
+    const targetWithTakedDamage = this.applyDamageInTarget(firstResult, target)
+
+    const secondResult = this.calculateResult(secondAttacker, targetWithTakedDamage, secondAttacker.move, field, true, attacker)
+    const secondDamageArrays = this.extractDamageSubArrays(secondResult.damage as number[] | number[][])
+    const secondMaxDamage = secondDamageArrays.length > 1 ? secondDamageArrays.map(rolls => rolls[15]).reduce((sum, roll) => sum + roll, 0) : secondDamageArrays[0][15]
+
+    return firstMaxDamage + secondMaxDamage
+  }
+
   private calculateResult(attacker: Pokemon, target: Pokemon, move: Move, field: Field, rightIsDefender: boolean, secondAttacker?: Pokemon): Result {
     const gen = Generations.get(9)
     const smogonField = this.fieldMapper.toSmogon(field, rightIsDefender)

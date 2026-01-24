@@ -8,6 +8,8 @@ import { TeamsComponent } from "@features/team/teams/teams.component"
 import { AutomaticFieldService } from "@lib/automatic-field-service"
 import { DamageMultiCalcService } from "@lib/damage-calculator/damage-multi-calc.service"
 import { DamageResultOrderService } from "@lib/damage-calculator/damage-result-order.service"
+import { DefensiveEvOptimizerService } from "@lib/ev-optimizer/defensive-ev-optimizer.service"
+import { Stats } from "@lib/types"
 import { TargetPokemonComponent } from "@pages/multi-calc/target-pokemon/target-pokemon.component"
 
 @Component({
@@ -23,10 +25,16 @@ export class MultiCalcComponent implements OnInit {
   private fieldStore = inject(FieldStore)
   private damageCalculator = inject(DamageMultiCalcService)
   private automaticFieldService = inject(AutomaticFieldService)
+  private defensiveEvOptimizer = inject(DefensiveEvOptimizerService)
 
-  order = signal(false)
+  order = signal(true)
   pokemonOnEditId = signal<string>(this.store.team().activePokemon().id)
   pokemonOnEdit = computed(() => this.store.findPokemonById(this.pokemonOnEditId()))
+
+  optimizedEvs = signal<Stats | null>(null)
+  optimizedNature = signal<string | null>(null)
+  originalEvs = signal<Stats>({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
+  originalNature = signal<string>("")
 
   activeAttacker = computed(() => this.store.findPokemonById(this.store.attackerId()))
   activeSecondAttacker = computed(() => this.store.findNullablePokemonById(this.store.secondAttackerId()))
@@ -54,6 +62,23 @@ export class MultiCalcComponent implements OnInit {
         this.automaticFieldService.checkAutomaticField(this.activeAttacker(), firstPokemonChanged, this.activeSecondAttacker(), secondPokemonChanged)
       }
     })
+
+    effect(() => {
+      const optimized = this.optimizedEvs()
+      const current = this.pokemonOnEdit().evs
+      const optimizedNature = this.optimizedNature()
+      const currentNature = this.pokemonOnEdit().nature
+
+      if (optimized !== null) {
+        const evsChanged = optimized.hp !== current.hp || optimized.def !== current.def || optimized.spd !== current.spd
+        const natureChanged = optimizedNature !== null && optimizedNature !== currentNature
+
+        if (evsChanged || natureChanged) {
+          this.optimizedEvs.set(null)
+          this.optimizedNature.set(null)
+        }
+      }
+    })
   }
 
   ngOnInit() {
@@ -74,5 +99,39 @@ export class MultiCalcComponent implements OnInit {
   targetActivated(pokemonId: string) {
     this.pokemonOnEditId.set(pokemonId)
     this.teamComponent()?.scrollToPokemonSelector()
+  }
+
+  handleOptimizeRequest(event: { updateNature: boolean }) {
+    const defender = this.pokemonOnEdit()
+    const targets = this.store.targets()
+    const field = this.fieldStore.field()
+
+    if (targets.length === 0) {
+      return
+    }
+
+    this.originalEvs.set({ ...defender.evs })
+    this.originalNature.set(defender.nature)
+
+    const result = this.defensiveEvOptimizer.optimize(defender, targets, field, event.updateNature)
+
+    this.optimizedEvs.set(result.evs)
+    this.optimizedNature.set(result.nature)
+
+    this.store.evs(defender.id, result.evs)
+
+    if (result.nature) {
+      this.store.nature(defender.id, result.nature)
+    }
+  }
+
+  handleOptimizationApplied() {
+    this.optimizedEvs.set(null)
+    this.optimizedNature.set(null)
+  }
+
+  handleOptimizationDiscarded() {
+    this.optimizedEvs.set(null)
+    this.optimizedNature.set(null)
   }
 }

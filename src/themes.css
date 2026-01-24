@@ -34,6 +34,8 @@ body {
   --effectiveness-weakness-4x-text: light-dark(#1b5e20, #69e969);
   --effectiveness-weakness-4x-defensive-bg: light-dark(rgba(198, 40, 40, 0.4), rgba(247, 63, 63, 0.3));
   --effectiveness-weakness-4x-defensive-text: light-dark(#b71c1c, #f73f3f);
+
+  --optimized-evs-color: #ff9800;
 }
 
 .purple-theme {

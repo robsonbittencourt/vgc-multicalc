@@ -1,4 +1,5 @@
 import { MOVE_DETAILS } from "@data/move-details"
+import { Category } from "@lib/types"
 import { Generations, MOVES, Move as MoveSmogon } from "@robsonbittencourt/calc"
 
 export class Move {
@@ -10,13 +11,17 @@ export class Move {
   readonly accuracy: number
   readonly secondary: any
   readonly target: string
+  readonly category: Category
 
   constructor(name: string, options: { alliesFainted?: string; hits?: string } = {}) {
+    const smogonMove = new MoveSmogon(Generations.get(9), name)
+
     this.name = name
     this.possibleHits = this.moveHits(name)
     this.hits = this.hitsValue(name, options)
     this.alliesFainted = options.alliesFainted ?? "0"
-    this.bp = new MoveSmogon(Generations.get(9), name).bp
+    this.bp = smogonMove.bp
+    this.category = smogonMove.category
 
     const moveName = name?.toLowerCase().replaceAll(" ", "").replaceAll("-", "").replaceAll("'", "")
 

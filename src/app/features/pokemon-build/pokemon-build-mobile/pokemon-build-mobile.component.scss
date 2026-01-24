@@ -100,3 +100,33 @@
 ::ng-deep .mat-mdc-standard-chip .mdc-evolution-chip__text-label:not(:only-child) {
   padding-left: 12px;
 }
+
+.ev-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  margin: 1em 0.75em 0 0.75em;
+  align-items: center;
+
+  button {
+    flex-shrink: 0;
+  }
+
+  .optimize-options {
+    display: flex;
+    gap: 0.5em;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .no-solution {
+    display: flex;
+    gap: 0.5em;
+    align-items: center;
+
+    label {
+      color: var(--error);
+      font-weight: 500;
+    }
+  }
+}

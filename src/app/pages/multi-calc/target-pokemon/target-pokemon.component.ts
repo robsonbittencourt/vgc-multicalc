@@ -54,7 +54,7 @@ export class TargetPokemonComponent {
 
   regulationsList: Regulation[] = ["F", "J"]
 
-  order = false
+  order = true
 
   onMetaClick() {
     if (this.haveMetaData()) {

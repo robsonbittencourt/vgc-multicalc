@@ -1,4 +1,14 @@
-<app-team #teamComponent class="team" [pokemonId]="pokemonOnEditId()" [isAttacker]="menuStore.oneVsManyActivated()" (teamMemberSelected)="pokemonOnEditId.set($event)" />
+<app-team
+  #teamComponent
+  class="team"
+  [pokemonId]="pokemonOnEditId()"
+  [isAttacker]="menuStore.oneVsManyActivated()"
+  [optimizedEvs]="optimizedEvs()"
+  [optimizedNature]="optimizedNature()"
+  (teamMemberSelected)="pokemonOnEditId.set($event)"
+  (optimizeRequested)="handleOptimizeRequest($event)"
+  (optimizationApplied)="handleOptimizationApplied()"
+  (optimizationDiscarded)="handleOptimizationDiscarded()" />
 
 <app-teams (pokemonSelected)="pokemonOnEditId.set($event)" />
 <app-field />

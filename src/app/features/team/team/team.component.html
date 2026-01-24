@@ -30,5 +30,12 @@
     }
   </div>
 
-  <app-pokemon-build #pokemonBuild [pokemonId]="pokemonId()" />
+  <app-pokemon-build
+    #pokemonBuild
+    [pokemonId]="pokemonId()"
+    [optimizedEvs]="optimizedEvs()"
+    [optimizedNature]="optimizedNature()"
+    (optimizeRequested)="optimizeRequested.emit($event)"
+    (optimizationApplied)="optimizationApplied.emit()"
+    (optimizationDiscarded)="optimizationDiscarded.emit()" />
 </app-widget>

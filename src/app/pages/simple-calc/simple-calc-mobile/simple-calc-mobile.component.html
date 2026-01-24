@@ -19,5 +19,12 @@
   <app-copy-button [value]="damageResult().description" />
 </div>
 
-<app-pokemon-build-mobile [pokemonId]="attacker().id" />
+<app-pokemon-build-mobile
+  [pokemonId]="attacker().id"
+  [optimizedEvs]="optimizedEvs()"
+  [optimizedNature]="optimizedNature()"
+  (optimizeRequested)="handleOptimizeRequest($event)"
+  (optimizationApplied)="handleOptimizationApplied()"
+  (optimizationDiscarded)="handleOptimizationDiscarded()"
+  (evsCleared)="handleEvsCleared()" />
 <app-field class="field-card" />

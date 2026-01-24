@@ -1,3 +1,5 @@
+@use "@angular/material" as mat;
+
 .ev-slider-container {
   display: grid;
   grid-template-columns: 64px 64px 67px 64px 1fr 64px 40px;
@@ -55,6 +57,20 @@
 .mat-ev-slider {
   z-index: 0;
   width: 100%;
+}
+
+.ev-slider.optimized {
+  @include mat.slider-overrides(
+    (
+      active-track-color: var(--optimized-evs-color),
+      focus-handle-color: var(--optimized-evs-color),
+      handle-color: var(--optimized-evs-color)
+    )
+  );
+
+  .slider-pipe {
+    background-color: var(--optimized-evs-color);
+  }
 }
 
 .stat-value {

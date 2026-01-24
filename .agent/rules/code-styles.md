@@ -1,209 +1,42 @@
 ---
-alwaysApply: true
+trigger: always_on
 ---
-
-# VGC Multi Calc - Angular Project Rules
-
-## Project Overview
-This is an Angular 20.3.12 application for Pokémon VGC (Video Game Championships) damage and probability calculations. The project uses modern Angular patterns including signals, standalone components, and is zoneless.
-
-## Core Technologies
-- **Angular**: 20.3.12 (latest)
-- **State Management**: NgRx Signal Store (@ngrx/signals)
-- **Reactivity**: Angular Signals (zoneless application)
-- **UI Framework**: Angular Material
-- **Testing**: Cypress (E2E), Jasmine/Karma (Unit)
-- **TypeScript**: 5.9.3 with strict mode enabled
-
-## Project Structure
-
-```
-src/
-├── app/              # Angular components
-│   ├── core/        # Main/core components (header, main, not-found)
-│   ├── features/     # Feature-specific components
-│   ├── pages/        # Page-level components
-│   └── basic/        # Reusable utility components
-├── assets/           # Static assets (fonts, icons, sprites, media)
-├── data/             # Data files and stores
-│   └── store/        # NgRx Signal Store implementations
-└── lib/              # Domain logic and business rules
-```
-
-## Path Aliases (TypeScript)
-Always use path aliases instead of relative imports:
-- `@app/*` → `src/app/*`
-- `@basic/*` → `src/app/basic/*`
-- `@features/*` → `src/app/features/*`
-- `@pages/*` → `src/app/pages/*`
-- `@core/*` → `src/app/core/*`
-- `@data/*` → `src/data/*`
-- `@lib/*` → `src/lib/*`
-
-**Never use relative imports like `../` or `../../`** - use path aliases instead.
-
-## Angular Component Patterns
-
-### Standalone Components
-All components must be standalone:
-```typescript
-@Component({
-  selector: "app-example",
-  imports: [/* dependencies */],
-  templateUrl: "./example.component.html",
-  styleUrl: "./example.component.scss"
-})
-```
-
-### Signals for Reactivity
-- Use Angular Signals (`signal()`, `computed()`, `effect()`) for all reactive state
-- This is a **zoneless** application - do not rely on Zone.js
-- Use `input()` and `output()` for component communication
-- Use `model()` for two-way binding
-
-### Dependency Injection
-- Use `inject()` function instead of constructor injection:
-```typescript
-export class MyComponent {
-  store = inject(CalculatorStore)
-  service = inject(MyService)
-}
-```
-
-### Component Selectors
-- Component selectors: `app-*` prefix, kebab-case (e.g., `app-probability-calc`)
-- Directive selectors: `app` prefix, camelCase (e.g., `appDirective`)
-
-## State Management (NgRx Signal Store)
-
-### Store Pattern
-- All stores extend `signalStore` from `@ngrx/signals`
-- Use `withState()` for initial state
-- Use `withHooks()` for lifecycle hooks
-- Use `patchState()` to update state
-- Use `computed()` for derived state
-
-Example:
-```typescript
-export class MyStore extends signalStore(
-  { protectedState: false },
-  withState({ /* initial state */ }),
-  withHooks({ /* hooks */ })
-) {
-  // Methods that use patchState
-}
-```
-
-### Store Location
-- Stores are located in `src/data/store/`
-- Import stores using `@data/store/*` path alias
-
-## TypeScript Conventions
-
-### Strict Mode
-- TypeScript strict mode is enabled
-- Always provide explicit types
-- Use `any` only when absolutely necessary (ESLint allows it, but prefer proper types)
-- Use `Partial<>`, `Record<>`, and utility types appropriately
-
-### Type Definitions
-- Domain types are in `src/lib/types.ts`
-- Store-specific types are co-located with stores
-- Use descriptive type names
-
-### Naming Conventions
-- Classes: PascalCase (e.g., `CalculatorStore`)
-- Interfaces/Types: PascalCase (e.g., `PokemonState`)
-- Variables/Functions: camelCase (e.g., `activePokemon`)
-- Constants: UPPER_SNAKE_CASE (e.g., `MAX_TEAM_SIZE`)
-- Files: kebab-case (e.g., `calculator-store.ts`)
-
-## Code Organization
-
-### Imports Order
-1. Angular core imports
-2. Angular feature imports
-3. Third-party library imports
-4. Path alias imports (grouped by alias)
-5. Relative imports (avoid when possible)
-
-Example:
-```typescript
-import { Component, computed, inject } from "@angular/core"
-import { FormsModule } from "@angular/forms"
-import { signalStore, withState } from "@ngrx/signals"
-import { CalculatorStore } from "@data/store/calculator-store"
-import { Pokemon } from "@lib/model/pokemon"
-```
-
-### File Structure
-Each component should have:
-- `.ts` - Component class
-- `.html` - Template
-- `.scss` - Styles
-- `.spec.ts` - Unit tests (if applicable)
-
-## Styling
-
-### CSS Variables
-- Use CSS variables for theming: `var(--text)`, `var(--highlight)`, etc.
-- Defined in `src/themes.css` and `src/variables.scss`
-
-### SCSS Organization
-- Use SCSS for component styles
-- Follow BEM-like naming when appropriate
-- Use CSS custom properties for dynamic values
-
-## Testing
-
-- In tests that depends of a value, create with a random value and inform this. Avoid generic tests like expect x is greater than 0. I want to validate real values.
-
-### Unit Tests
-- Use Jasmine for unit tests
-- Test files: `*.spec.ts`
-- Location: Co-located with source files
-- Always use the Given/When/Then format. Without comments, just a space between the blocks.
-
-### E2E Tests
-- Use Cypress for E2E tests
-- Location: `cypress/e2e/`
-- Page objects: `cypress/page-object/`
-- Always try encapsulate page access in page objects. Avoid cy.get in tests directly.
-
-
-### Test Data Attributes
-- Use `data-cy` attributes for Cypress selectors
-- Example: `data-cy="team-score-donut"`
 
 ## ESLint Rules
 
 ### Import Restrictions
+
 - **Never use relative imports** (`../` or `../../`)
 - Use path aliases instead
 - ESLint will error on relative imports
 
 ### TypeScript Rules
+
 - `@typescript-eslint/no-explicit-any`: Off (but prefer proper types)
 - `@typescript-eslint/no-unused-vars`: Error (with exceptions for `_` prefix)
 - Unused variables starting with `_` are allowed
 
 ## Angular Material
+
 - Use Angular Material components when appropriate
 - Import only needed modules/components
 - Follow Material Design guidelines
 
 ## Domain Logic
+
 - Business logic belongs in `src/lib/`
 - Keep components focused on presentation
 - Use services for shared business logic
 - Domain models are in `src/lib/model/`
 
 ## Data Files
+
 - Static data (movesets, pokemon data, etc.) is in `src/data/`
 - These are TypeScript files exporting constants/objects
 - Keep data files organized by domain
 
 ## Assets
+
 - Images: `src/assets/`
   - Sprites: `src/assets/sprites/`
   - Icons: `src/assets/icons/`
@@ -214,13 +47,15 @@ Each component should have:
 ## Common Patterns
 
 ### Computed Properties
+
 ```typescript
-readonly activePokemon = computed(() => 
+readonly activePokemon = computed(() =>
   this.store.team().activePokemon()
 )
 ```
 
 ### Signal Updates
+
 ```typescript
 selectedPokemon = signal<Pokemon>(initialValue)
 // Update:
@@ -228,6 +63,7 @@ this.selectedPokemon.set(newValue)
 ```
 
 ### Store State Updates
+
 ```typescript
 updateState(newState: Partial<State>) {
   patchState(this, () => ({ ...this.state(), ...newState }))
@@ -246,6 +82,8 @@ updateState(newState: Partial<State>) {
 8. **Write tests** - Especially for business logic
 9. **Use ESLint** - Follow the configured rules
 10. **Keep stores simple** - Complex logic should be in services
+11. **Never use comments in the code unless if I ask**
+12. **Place private functions below where they are first used** - Private methods should be defined after the first public method that uses them
 
 ## When Creating New Features
 
@@ -261,7 +99,9 @@ updateState(newState: Partial<State>) {
 ## Code Formatting
 
 ### Prettier Configuration
+
 The project uses Prettier with the following configuration (`.prettierrc.yaml`):
+
 - `printWidth: 250` - Maximum line length
 - `arrowParens: "avoid"` - Avoid parentheses around single arrow function parameters
 - `bracketSameLine: true` - Put `>` of multi-line HTML/JSX elements on the same line
@@ -273,6 +113,7 @@ The project uses Prettier with the following configuration (`.prettierrc.yaml`):
 ### Formatting Rules
 
 #### Spacing Around Control Structures
+
 - **Always add blank lines around `if` statements** when they are not part of a chain
 - **Add blank line before `if` statements** when they come after variable declarations
 - **Add blank line after `if` statements** when they are followed by other statements (variables, returns, etc.)
@@ -280,6 +121,7 @@ The project uses Prettier with the following configuration (`.prettierrc.yaml`):
 - Multiple consecutive `if` statements should have blank lines between them when they are independent conditions
 
 Example - Correct spacing:
+
 ```typescript
 const multiplier = effectiveness1 * effectiveness2
 
@@ -294,6 +136,7 @@ return 1
 ```
 
 Example - If/else chains (no blank line needed between if and else):
+
 ```typescript
 if (this.typeEffectivenessService.isWeakness(finalEffectiveness)) {
   coverageType = "super-effective"
@@ -305,6 +148,7 @@ if (this.typeEffectivenessService.isWeakness(finalEffectiveness)) {
 ```
 
 Example - If block followed by return statement (blank line required):
+
 ```typescript
 getMoveType(row: DefensiveCoverageData | DefensiveCoverageByPokemonData): string | null {
   if (!this.isAgainstTeam()) {
@@ -317,6 +161,7 @@ getMoveType(row: DefensiveCoverageData | DefensiveCoverageByPokemonData): string
 ```
 
 Example - Variable declaration before if statement (blank line required):
+
 ```typescript
 secondTeamHasTeraBlast = computed(() => {
   const secondTeamValue = this.secondTeam()
@@ -334,6 +179,7 @@ secondTeamHasTeraBlast = computed(() => {
 ```
 
 Example - If block followed by variable and return (blank lines required):
+
 ```typescript
 getRowKey(row: DefensiveCoverageData | DefensiveCoverageByPokemonData): string {
   if (this.isAgainstTeam()) {
@@ -348,6 +194,7 @@ getRowKey(row: DefensiveCoverageData | DefensiveCoverageByPokemonData): string {
 ```
 
 Example - Multiple if statements followed by return (blank line before return):
+
 ```typescript
 getCellClass(effectiveness: TypeEffectiveness): string {
   if (effectiveness === 0) return "immune"
@@ -360,12 +207,14 @@ getCellClass(effectiveness: TypeEffectiveness): string {
 ```
 
 #### Function Formatting
+
 - **Always add blank line before `return` statements** unless it's a very simple function with only 2 lines (e.g., single variable declaration + return)
 - **Always add a blank line after a closing `}` of an `if` block** when followed by any statement (variable declaration, return, etc.)
 - **Add blank line between variable declarations and return statements** when they are not in the same logical block
 - Add blank lines between logical sections within functions
 
 Example:
+
 ```typescript
 formatEffectiveness(effectiveness: TypeEffectiveness): string {
   if (effectiveness === 0) return "immune"
@@ -380,6 +229,7 @@ formatEffectiveness(effectiveness: TypeEffectiveness): string {
 ```
 
 #### General Formatting Guidelines
+
 - Always run `npx prettier --write <file>` after making changes
 - Follow the existing code style in the project
 - When in doubt, check similar files in the codebase for formatting patterns
@@ -389,41 +239,8 @@ formatEffectiveness(effectiveness: TypeEffectiveness): string {
   - Return statements from preceding code (when not the only statement)
 
 ### Formatting Workflow
+
 1. Make code changes
 2. Run `npx prettier --write <file>` to format the file
 3. Verify formatting with `npm run formatter`
 4. Ensure all files follow the project's formatting style
-
-## Code Quality and Validation
-
-### Lint and Formatting Checks
-- **ALWAYS execute `npm run check` before finalizing any code changes**
-- `npm run check` runs both `npm run lint` (ESLint) and `npm run formatter` (Prettier)
-- Evaluate and fix ALL linting and formatting problems before considering code complete
-- Do not skip or ignore lint/formatting errors - they must be resolved
-- The `read_lints` tool only checks TypeScript errors, not ESLint rules - always use `npm run check` for complete validation
-- **Always apply Prettier formatting** to match the project's style before committing
-
-## Code Review Checklist
-
-- [ ] Uses path aliases (no relative imports)
-- [ ] Uses signals for reactivity
-- [ ] Standalone component
-- [ ] Proper TypeScript types
-- [ ] Follows naming conventions
-- [ ] Has appropriate tests
-- [ ] Uses `inject()` for DI
-- [ ] Follows project structure
-
-## Build Commands
-
-- **DO NOT run build commands** when only modifying CSS/SCSS files (`.css`, `.scss`, `.sass` files)
-- Only run build commands when modifying TypeScript (`.ts`), HTML (`.html`), or configuration files
-- CSS/SCSS changes are hot-reloaded by the development server and don't require a build
-- **DO NOT run lint commands**
-
-
-## File Modification Guidelines
-
-- When editing only stylesheets (`.css`, `.scss`), skip the build step
-- When editing TypeScript, HTML, or config files, run the build to verify compilation
