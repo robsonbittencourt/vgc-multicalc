@@ -203,6 +203,27 @@ describe("TypeCoverageService", () => {
     expect(waterRow!.pokemonData[0].effectiveness).toBe(0.5)
   })
 
+  it("should use original types when Tera Type is Stellar in getDefensiveCoverage", () => {
+    const pokemon = new Pokemon("Charizard", {
+      teraType: "Stellar"
+    })
+    const team = new Team("1", true, "Team", [new TeamMember(pokemon, true)])
+
+    const coverage = service.getDefensiveCoverage(team, true)
+
+    const waterRow = coverage.find(row => row.moveType === "Water")
+    expect(waterRow).toBeDefined()
+    expect(waterRow!.pokemonData[0].effectiveness).toBe(2)
+
+    const rockRow = coverage.find(row => row.moveType === "Rock")
+    expect(rockRow).toBeDefined()
+    expect(rockRow!.pokemonData[0].effectiveness).toBe(4)
+
+    const grassRow = coverage.find(row => row.moveType === "Grass")
+    expect(grassRow).toBeDefined()
+    expect(grassRow!.pokemonData[0].effectiveness).toBe(0.25)
+  })
+
   it("should identify immune coverage in getOffensiveCoverage", () => {
     const pokemon = new Pokemon("Alakazam", {
       moveSet: new MoveSet(new Move("Psychic"), new Move("Psyshock"), new Move("Future Sight"), new Move("Protect"))
@@ -464,6 +485,118 @@ describe("TypeCoverageService", () => {
       expect(["not-very-effective", "none"]).toContain(fireMoveData.coverageType)
     })
 
+    it("should use original types when target has Stellar Tera Type in getOffensiveCoverageAgainstTeam", () => {
+      const attacker = new Pokemon("Charizard", {
+        moveSet: new MoveSet(new Move("Flamethrower"), new Move("Air Slash"), new Move("Rock Slide"), new Move("Roost"))
+      })
+      const target = new Pokemon("Venusaur", {
+        teraType: "Stellar"
+      })
+      const team = new Team("1", true, "Team", [new TeamMember(attacker, true)])
+      const targetTeam = new Team("2", true, "Target Team", [new TeamMember(target, true)])
+
+      const coverage = service.getOffensiveCoverageAgainstTeam(team, targetTeam, true, false)
+
+      expect(coverage[0].targetPokemon.name).toBe("Venusaur")
+      expect(coverage[0].pokemonData[0].coverageType).toBe("super-effective")
+      expect(coverage[0].pokemonData[0].effectiveness).toBe(2)
+      expect(coverage[0].superEffective).toBe(1)
+    })
+
+    it("should apply 2x effectiveness when attacker has Stellar Tera type with Tera Blast and both are terastalized", () => {
+      const attacker = new Pokemon("Charizard", {
+        moveSet: new MoveSet(new Move("Tera Blast"), new Move("Air Slash"), new Move("Dragon Claw"), new Move("Roost")),
+        teraType: "Stellar",
+        teraTypeActive: true
+      })
+      const target = new Pokemon("Blastoise", {
+        teraType: "Water",
+        teraTypeActive: true
+      })
+      const team = new Team("1", true, "Team", [new TeamMember(attacker, true)])
+      const targetTeam = new Team("2", true, "Target Team", [new TeamMember(target, true)])
+
+      const coverage = service.getOffensiveCoverageAgainstTeam(team, targetTeam, true, false)
+
+      expect(coverage[0].pokemonData[0].coverageType).toBe("super-effective")
+      expect(coverage[0].pokemonData[0].effectiveness).toBe(2)
+      expect(coverage[0].superEffective).toBe(1)
+    })
+
+    it("should apply 2x effectiveness when attacker has Stellar Tera type with Tera Starstorm and both are terastalized", () => {
+      const attacker = new Pokemon("Terapagos-Stellar", {
+        moveSet: new MoveSet(new Move("Tera Starstorm"), new Move("Earth Power"), new Move("Calm Mind"), new Move("Protect")),
+        teraType: "Stellar",
+        teraTypeActive: true
+      })
+      const target = new Pokemon("Charizard", {
+        teraType: "Fire",
+        teraTypeActive: true
+      })
+      const team = new Team("1", true, "Team", [new TeamMember(attacker, true)])
+      const targetTeam = new Team("2", true, "Target Team", [new TeamMember(target, true)])
+
+      const coverage = service.getOffensiveCoverageAgainstTeam(team, targetTeam, true, false)
+
+      expect(coverage[0].pokemonData[0].coverageType).toBe("super-effective")
+      expect(coverage[0].pokemonData[0].effectiveness).toBe(2)
+      expect(coverage[0].superEffective).toBe(1)
+    })
+
+    it("should not apply 2x effectiveness when defender is not terastalized", () => {
+      const attacker = new Pokemon("Charizard", {
+        moveSet: new MoveSet(new Move("Tera Blast"), new Move("Air Slash"), new Move("Dragon Claw"), new Move("Roost")),
+        teraType: "Stellar",
+        teraTypeActive: true
+      })
+      const target = new Pokemon("Blastoise")
+      const team = new Team("1", true, "Team", [new TeamMember(attacker, true)])
+      const targetTeam = new Team("2", true, "Target Team", [new TeamMember(target, true)])
+
+      const coverage = service.getOffensiveCoverageAgainstTeam(team, targetTeam, false, false)
+
+      expect(coverage[0].pokemonData[0].coverageType).not.toBe("super-effective")
+      expect(coverage[0].pokemonData[0].effectiveness).not.toBe(2)
+    })
+
+    it("should not apply 2x effectiveness when attacker does not have Stellar Tera type", () => {
+      const attacker = new Pokemon("Charizard", {
+        moveSet: new MoveSet(new Move("Tera Blast"), new Move("Air Slash"), new Move("Dragon Claw"), new Move("Roost")),
+        teraType: "Fire",
+        teraTypeActive: true
+      })
+      const target = new Pokemon("Venusaur", {
+        teraType: "Grass",
+        teraTypeActive: true
+      })
+      const team = new Team("1", true, "Team", [new TeamMember(attacker, true)])
+      const targetTeam = new Team("2", true, "Target Team", [new TeamMember(target, true)])
+
+      const coverage = service.getOffensiveCoverageAgainstTeam(team, targetTeam, true, true)
+
+      expect(coverage[0].pokemonData[0].coverageType).toBe("super-effective")
+      expect(coverage[0].pokemonData[0].effectiveness).toBe(2)
+    })
+
+    it("should not apply 2x effectiveness when attacker has neither Tera Blast nor Tera Starstorm", () => {
+      const attacker = new Pokemon("Charizard", {
+        moveSet: new MoveSet(new Move("Flamethrower"), new Move("Air Slash"), new Move("Dragon Claw"), new Move("Roost")),
+        teraType: "Stellar",
+        teraTypeActive: true
+      })
+      const target = new Pokemon("Venusaur", {
+        teraType: "Grass",
+        teraTypeActive: true
+      })
+      const team = new Team("1", true, "Team", [new TeamMember(attacker, true)])
+      const targetTeam = new Team("2", true, "Target Team", [new TeamMember(target, true)])
+
+      const coverage = service.getOffensiveCoverageAgainstTeam(team, targetTeam, true, false)
+
+      expect(coverage[0].pokemonData[0].coverageType).toBe("super-effective")
+      expect(coverage[0].pokemonData[0].effectiveness).toBe(2)
+    })
+
     it("should consider Tera Blast when considerTeraBlast is true", () => {
       const attacker = new Pokemon("Charizard", {
         moveSet: new MoveSet(new Move("Tera Blast"), new Move("Air Slash"), new Move("Dragon Claw"), new Move("Roost")),
@@ -666,6 +799,114 @@ describe("TypeCoverageService", () => {
       const coverage = service.getDefensiveCoverageAgainstTeam(team, targetTeam, false, false)
 
       expect(coverage[0].totalWeak).toBeGreaterThanOrEqual(0)
+    })
+
+    it("should use original types when Tera Type is Stellar in getDefensiveCoverageAgainstTeam", () => {
+      const defender = new Pokemon("Charizard", {
+        teraType: "Stellar"
+      })
+      const attacker = new Pokemon("Blastoise", {
+        moveSet: new MoveSet(new Move("Hydro Pump"), new Move("Ice Beam"), new Move("Rock Slide"), new Move("Protect"))
+      })
+      const team = new Team("1", true, "Team", [new TeamMember(defender, true)])
+      const targetTeam = new Team("2", true, "Target Team", [new TeamMember(attacker, true)])
+
+      const coverage = service.getDefensiveCoverageAgainstTeam(team, targetTeam, true, false)
+
+      expect(coverage[0].totalWeak).toBe(1)
+
+      const charizardData = coverage[0].pokemonData[0]
+      expect(charizardData.pokemon.name).toBe("Charizard")
+      expect(charizardData.effectiveness).toBeGreaterThan(1)
+    })
+
+    it("should apply 2x effectiveness when attacker has Stellar Tera type with Tera Blast and both are terastalized in defensive coverage", () => {
+      const defender = new Pokemon("Blastoise", {
+        teraType: "Water",
+        teraTypeActive: true
+      })
+      const attacker = new Pokemon("Charizard", {
+        moveSet: new MoveSet(new Move("Tera Blast"), new Move("Air Slash"), new Move("Dragon Claw"), new Move("Roost")),
+        teraType: "Stellar",
+        teraTypeActive: true
+      })
+      const team = new Team("1", true, "Team", [new TeamMember(defender, true)])
+      const targetTeam = new Team("2", true, "Target Team", [new TeamMember(attacker, true)])
+
+      const coverage = service.getDefensiveCoverageAgainstTeam(team, targetTeam, true, false)
+
+      expect(coverage[0].pokemonData[0].effectiveness).toBe(2)
+      expect(coverage[0].totalWeak).toBe(1)
+    })
+
+    it("should apply 2x effectiveness when attacker has Stellar Tera type with Tera Starstorm and both are terastalized in defensive coverage", () => {
+      const defender = new Pokemon("Charizard", {
+        teraType: "Fire",
+        teraTypeActive: true
+      })
+      const attacker = new Pokemon("Terapagos-Stellar", {
+        moveSet: new MoveSet(new Move("Tera Starstorm"), new Move("Earth Power"), new Move("Calm Mind"), new Move("Protect")),
+        teraType: "Stellar",
+        teraTypeActive: true
+      })
+      const team = new Team("1", true, "Team", [new TeamMember(defender, true)])
+      const targetTeam = new Team("2", true, "Target Team", [new TeamMember(attacker, true)])
+
+      const coverage = service.getDefensiveCoverageAgainstTeam(team, targetTeam, true, false)
+
+      expect(coverage[0].pokemonData[0].effectiveness).toBe(2)
+      expect(coverage[0].totalWeak).toBe(1)
+    })
+
+    it("should not apply 2x effectiveness when defender is not terastalized in defensive coverage", () => {
+      const defender = new Pokemon("Blastoise")
+      const attacker = new Pokemon("Charizard", {
+        moveSet: new MoveSet(new Move("Tera Blast"), new Move("Air Slash"), new Move("Dragon Claw"), new Move("Roost")),
+        teraType: "Stellar",
+        teraTypeActive: true
+      })
+      const team = new Team("1", true, "Team", [new TeamMember(defender, true)])
+      const targetTeam = new Team("2", true, "Target Team", [new TeamMember(attacker, true)])
+
+      const coverage = service.getDefensiveCoverageAgainstTeam(team, targetTeam, false, false)
+
+      expect(coverage[0].pokemonData[0].effectiveness).not.toBe(2)
+    })
+
+    it("should not apply 2x effectiveness when attacker does not have Stellar Tera type in defensive coverage", () => {
+      const defender = new Pokemon("Venusaur", {
+        teraType: "Grass",
+        teraTypeActive: true
+      })
+      const attacker = new Pokemon("Charizard", {
+        moveSet: new MoveSet(new Move("Tera Blast"), new Move("Air Slash"), new Move("Dragon Claw"), new Move("Roost")),
+        teraType: "Fire",
+        teraTypeActive: true
+      })
+      const team = new Team("1", true, "Team", [new TeamMember(defender, true)])
+      const targetTeam = new Team("2", true, "Target Team", [new TeamMember(attacker, true)])
+
+      const coverage = service.getDefensiveCoverageAgainstTeam(team, targetTeam, true, false)
+
+      expect(coverage[0].pokemonData[0].effectiveness).toBe(2)
+    })
+
+    it("should not apply 2x effectiveness when attacker has neither Tera Blast nor Tera Starstorm in defensive coverage", () => {
+      const defender = new Pokemon("Venusaur", {
+        teraType: "Grass",
+        teraTypeActive: true
+      })
+      const attacker = new Pokemon("Charizard", {
+        moveSet: new MoveSet(new Move("Flamethrower"), new Move("Air Slash"), new Move("Dragon Claw"), new Move("Roost")),
+        teraType: "Stellar",
+        teraTypeActive: true
+      })
+      const team = new Team("1", true, "Team", [new TeamMember(defender, true)])
+      const targetTeam = new Team("2", true, "Target Team", [new TeamMember(attacker, true)])
+
+      const coverage = service.getDefensiveCoverageAgainstTeam(team, targetTeam, true, false)
+
+      expect(coverage[0].pokemonData[0].effectiveness).toBe(2)
     })
 
     it("should consider Tera Blast when considerTeraBlast is true", () => {

@@ -371,6 +371,10 @@ export class TypeEffectivenessService {
   }
 
   getEffectiveness(attackType: PokemonType, defenseType1: PokemonType, defenseType2?: PokemonType): TypeEffectiveness {
+    if ((attackType as string) === "Stellar") {
+      return 1
+    }
+
     const effectiveness1 = this.typeChart[attackType][defenseType1]
     const effectiveness2 = defenseType2 ? this.typeChart[attackType][defenseType2] : 1
 

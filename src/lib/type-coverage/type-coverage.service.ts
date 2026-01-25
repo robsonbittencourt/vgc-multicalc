@@ -85,7 +85,7 @@ export class TypeCoverageService {
 
         let finalEffectiveness: TypeEffectiveness
 
-        if (considerTeraType && pokemon.teraType) {
+        if (considerTeraType && pokemon.teraType && pokemon.teraType !== "Stellar") {
           const teraType = pokemon.teraType as PokemonType
           finalEffectiveness = this.typeEffectivenessService.getEffectiveness(moveType, teraType, undefined)
         } else {
@@ -198,7 +198,7 @@ export class TypeCoverageService {
         for (const moveType of moveTypes) {
           let effectiveness: TypeEffectiveness
 
-          if (considerTeraType && targetPokemon.teraType) {
+          if (considerTeraType && targetPokemon.teraType && targetPokemon.teraType !== "Stellar") {
             const teraType = targetPokemon.teraType as PokemonType
             effectiveness = this.typeEffectivenessService.getEffectiveness(moveType, teraType, undefined)
           } else {
@@ -214,7 +214,10 @@ export class TypeCoverageService {
         if (effectivenessValues.length > 0) {
           finalEffectiveness = this.getEffectivenessByHierarchy(effectivenessValues)
 
-          if (this.typeEffectivenessService.isWeakness(finalEffectiveness)) {
+          if (considerTeraType && pokemon.teraTypeActive && pokemon.teraType === "Stellar" && this.hasTeraBlastOrStarstorm(pokemon)) {
+            finalEffectiveness = 2
+            coverageType = "super-effective"
+          } else if (this.typeEffectivenessService.isWeakness(finalEffectiveness)) {
             coverageType = "super-effective"
           } else if (this.typeEffectivenessService.isResistance(finalEffectiveness) || this.typeEffectivenessService.isImmune(finalEffectiveness)) {
             if (this.typeEffectivenessService.isImmune(finalEffectiveness)) {
@@ -267,7 +270,7 @@ export class TypeCoverageService {
         const type2 = pokemon.type2 ? (pokemon.type2 as PokemonType) : undefined
 
         const effectivenessValues: TypeEffectiveness[] = movesWithBP.map(moveType => {
-          if (considerTeraType && pokemon.teraType) {
+          if (considerTeraType && pokemon.teraType && pokemon.teraType !== "Stellar") {
             const teraType = pokemon.teraType as PokemonType
             return this.typeEffectivenessService.getEffectiveness(moveType, teraType, undefined)
           }
@@ -283,7 +286,12 @@ export class TypeCoverageService {
           }
         }
 
-        const finalEffectiveness = this.getEffectivenessByHierarchy(effectivenessValues)
+        let finalEffectiveness = this.getEffectivenessByHierarchy(effectivenessValues)
+
+        if (considerTeraType && targetPokemon.teraTypeActive && targetPokemon.teraType === "Stellar" && this.hasTeraBlastOrStarstorm(targetPokemon)) {
+          finalEffectiveness = 2
+        }
+
         const formatted = this.typeEffectivenessService.formatEffectiveness(finalEffectiveness)
 
         return {
@@ -406,20 +414,24 @@ export class TypeCoverageService {
     return [pokemon.moveSet.move1, pokemon.moveSet.move2, pokemon.moveSet.move3, pokemon.moveSet.move4]
   }
 
+  private hasTeraBlastOrStarstorm(pokemon: Pokemon): boolean {
+    const moves = this.getMovesArray(pokemon)
+    return moves.some(move => move && (move.name === "Tera Blast" || move.name === "Tera Starstorm"))
+  }
+
   private getIvyCudgelType(pokemonName: string): PokemonType | null {
-    if (pokemonName === "Ogerpon") {
-      return "Grass"
-    }
     if (pokemonName === "Ogerpon-Cornerstone") {
       return "Rock"
     }
+
     if (pokemonName === "Ogerpon-Hearthflame") {
       return "Fire"
     }
+
     if (pokemonName === "Ogerpon-Wellspring") {
       return "Water"
     }
 
-    return null
+    return "Grass"
   }
 }

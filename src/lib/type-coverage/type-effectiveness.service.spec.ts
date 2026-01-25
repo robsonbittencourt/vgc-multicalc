@@ -1239,4 +1239,14 @@ describe("TypeEffectivenessService", () => {
 
     expect(effectiveness).toBe(4)
   })
+
+  it("should return 1x (neutral) effectiveness for Stellar attack type against any defense type", () => {
+    const effectiveness1 = service.getEffectiveness("Stellar" as any, "Fire")
+    const effectiveness2 = service.getEffectiveness("Stellar" as any, "Water", "Ground")
+    const effectiveness3 = service.getEffectiveness("Stellar" as any, "Dragon", "Fairy")
+
+    expect(effectiveness1).toBe(1)
+    expect(effectiveness2).toBe(1)
+    expect(effectiveness3).toBe(1)
+  })
 })

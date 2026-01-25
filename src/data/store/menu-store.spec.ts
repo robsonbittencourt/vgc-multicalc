@@ -19,6 +19,7 @@ describe("Menu Store", () => {
     expect(store.manyVsOneActivated()).toBeFalse()
     expect(store.speedCalculatorActivated()).toBeFalse()
     expect(store.probabilityCalcActivated()).toBeFalse()
+    expect(store.typeCalcActivated()).toBeFalse()
     expect(store.howToUseActivated()).toBeFalse()
   })
 
@@ -43,6 +44,7 @@ describe("Menu Store", () => {
     expect(store.manyVsOneActivated()).toBeFalse()
     expect(store.speedCalculatorActivated()).toBeFalse()
     expect(store.probabilityCalcActivated()).toBeFalse()
+    expect(store.typeCalcActivated()).toBeFalse()
     expect(store.howToUseActivated()).toBeFalse()
   })
 
@@ -54,6 +56,7 @@ describe("Menu Store", () => {
     expect(store.manyVsOneActivated()).toBeTrue()
     expect(store.speedCalculatorActivated()).toBeFalse()
     expect(store.probabilityCalcActivated()).toBeFalse()
+    expect(store.typeCalcActivated()).toBeFalse()
     expect(store.howToUseActivated()).toBeFalse()
   })
 
@@ -65,6 +68,7 @@ describe("Menu Store", () => {
     expect(store.manyVsOneActivated()).toBeFalse()
     expect(store.speedCalculatorActivated()).toBeTrue()
     expect(store.probabilityCalcActivated()).toBeFalse()
+    expect(store.typeCalcActivated()).toBeFalse()
     expect(store.howToUseActivated()).toBeFalse()
   })
 
@@ -76,6 +80,19 @@ describe("Menu Store", () => {
     expect(store.manyVsOneActivated()).toBeFalse()
     expect(store.speedCalculatorActivated()).toBeFalse()
     expect(store.probabilityCalcActivated()).toBeTrue()
+    expect(store.typeCalcActivated()).toBeFalse()
+    expect(store.howToUseActivated()).toBeFalse()
+  })
+
+  it("should enable only type calculator", () => {
+    store.enableTypeCalculator()
+
+    expect(store.oneVsOneActivated()).toBeFalse()
+    expect(store.oneVsManyActivated()).toBeFalse()
+    expect(store.manyVsOneActivated()).toBeFalse()
+    expect(store.speedCalculatorActivated()).toBeFalse()
+    expect(store.probabilityCalcActivated()).toBeFalse()
+    expect(store.typeCalcActivated()).toBeTrue()
     expect(store.howToUseActivated()).toBeFalse()
   })
 
@@ -87,6 +104,7 @@ describe("Menu Store", () => {
     expect(store.manyVsOneActivated()).toBeFalse()
     expect(store.speedCalculatorActivated()).toBeFalse()
     expect(store.probabilityCalcActivated()).toBeFalse()
+    expect(store.typeCalcActivated()).toBeFalse()
     expect(store.howToUseActivated()).toBeTrue()
   })
 })
