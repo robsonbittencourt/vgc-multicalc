@@ -62,14 +62,14 @@
 .ev-slider.optimized {
   @include mat.slider-overrides(
     (
-      active-track-color: var(--optimized-evs-color),
-      focus-handle-color: var(--optimized-evs-color),
-      handle-color: var(--optimized-evs-color)
+      active-track-color: var(--neutral-value),
+      focus-handle-color: var(--neutral-value),
+      handle-color: var(--neutral-value)
     )
   );
 
   .slider-pipe {
-    background-color: var(--optimized-evs-color);
+    background-color: var(--neutral-value);
   }
 }
 

@@ -1,11 +1,11 @@
 body {
-  --background: light-dark(#f0f4f9, #121212);
+  --background: light-dark(#e6e8eb, #121212);
   --widget-background: light-dark(#ffffff, #212121);
-  --widget-border: light-dark(#e5e7eb, #212121);
-  --text: light-dark(#615d66, white);
+  --widget-border: light-dark(#d1d5db, #212121);
+  --text: light-dark(#1f1f1f, white);
   --text-strong: light-dark(black, white);
   --primary-contrast: white;
-  --highlight-contrast: light-dark(#615d66, white);
+  --highlight-contrast: light-dark(#1f1f1f, white);
   --warn: #ba1a1a;
 
   --chip-color: light-dark(#dfdfe2, #212121);
@@ -28,14 +28,12 @@ body {
   --filterable-table-bottom-line: light-dark(#dfdfe2, #121212);
   --filterable-table-cell-header: light-dark(#8f8f8f, #bbb);
 
-  --effectiveness-resistance: light-dark(#c62828, #f73f3f);
-  --effectiveness-weakness: light-dark(#2e7d32, #69e969);
   --effectiveness-weakness-4x-bg: light-dark(rgba(46, 125, 50, 0.4), rgba(105, 233, 105, 0.3));
-  --effectiveness-weakness-4x-text: light-dark(#1b5e20, #69e969);
-  --effectiveness-weakness-4x-defensive-bg: light-dark(rgba(198, 40, 40, 0.4), rgba(247, 63, 63, 0.3));
-  --effectiveness-weakness-4x-defensive-text: light-dark(#b71c1c, #f73f3f);
+  --effectiveness-weakness-4x-defensive-bg: light-dark(rgba(198, 40, 40, 0.4), rgba(255, 82, 82, 0.15));
 
-  --optimized-evs-color: #ff9800;
+  --positive-value: light-dark(#2e7d32, #69e969);
+  --negative-value: light-dark(#c62828, #ff5252);
+  --neutral-value: light-dark(#e65100, #ffb74d);
 }
 
 .purple-theme {

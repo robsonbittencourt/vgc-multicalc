@@ -38,7 +38,7 @@ th,
 td {
   padding: 0.6em 0.5em;
   text-align: center;
-  border: 0.0625em solid rgba(0, 0, 0, 0.15);
+  border: 0.0625em solid light-dark(rgba(0, 0, 0, 0.15), rgba(255, 255, 255, 0.2));
 }
 
 tbody tr:nth-child(even) {
@@ -135,7 +135,7 @@ tbody tr:hover {
 }
 
 .effectiveness-cell.resistance {
-  color: var(--effectiveness-resistance);
+  color: var(--negative-value);
   font-weight: 600;
 }
 
@@ -146,13 +146,13 @@ tbody tr:hover {
 }
 
 .effectiveness-cell.weakness {
-  color: var(--effectiveness-weakness);
+  color: var(--positive-value);
   font-weight: 600;
 }
 
 .effectiveness-cell.weakness-4x {
   background-color: var(--effectiveness-weakness-4x-bg);
-  color: var(--effectiveness-weakness-4x-text);
+  color: var(--positive-value);
   font-weight: 600;
 }
 

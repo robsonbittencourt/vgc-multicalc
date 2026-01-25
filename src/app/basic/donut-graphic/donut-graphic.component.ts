@@ -18,8 +18,14 @@ export class DonutGraphicComponent {
   }
 
   get color() {
-    if (this.score() < 80) return "#d9534f"
-    if (this.score() < 100) return "#f0ad4e"
-    return "#5cb85c"
+    if (this.score() < 80) {
+      return "var(--negative-value)"
+    }
+
+    if (this.score() < 100) {
+      return "var(--neutral-value)"
+    }
+
+    return "var(--positive-value)"
   }
 }

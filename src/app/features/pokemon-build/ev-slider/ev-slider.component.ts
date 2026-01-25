@@ -253,11 +253,11 @@ export class EvSliderComponent {
 
   statValueStyle(): any {
     if (this.modifiedStat() > this.statValue()) {
-      return { color: "#69e969" }
+      return { color: "var(--positive-value)" }
     }
 
     if (this.modifiedStat() < this.statValue()) {
-      return { color: "#f73f3f" }
+      return { color: "var(--negative-value)" }
     }
 
     return ""
