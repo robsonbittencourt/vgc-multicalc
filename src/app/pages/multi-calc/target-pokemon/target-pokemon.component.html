@@ -1,6 +1,10 @@
 <app-widget [title]="title()" data-cy="opponent-widget">
   <right-header>
     <div class="buttons">
+      <app-input-autocomplete class="select-pokemon" label="Pokémon" leftLabel="true" [enableClear]="cardsFilter() !== ''"
+        [allValues]="pokemonNamesByReg()" [value]="cardsFilter()" (valueChange)="updateCardsFilter($event)" (cleared)="clearCardsFilter()"
+      />
+
       <app-roll-config (rollLevelChange)="rollLevelConfig.set($event)" />
 
       <mat-slide-toggle [checked]="order" (change)="toogleOrder()" [labelPosition]="'before'">Order by Damage</mat-slide-toggle>
@@ -8,10 +12,6 @@
       <div class="regulation-combo">
         <app-input-select label="Regulation" leftLabel="true" [allValues]="regulationsList" [disabled]="haveMetaData()" [value]="regulation()" (valueChange)="updateRegulation($event)" />
       </div>
-
-      <app-input-autocomplete class="select-pokemon" label="Pokémon" leftLabel="true" [enableClear]="cardsFilter() !== ''"
-        [allValues]="pokemonNamesByReg()" [value]="cardsFilter()" (valueChange)="updateCardsFilter($event)"
-        (cleared)="clearCardsFilter()" />
 
       <button mat-flat-button (click)="onMetaClick()" data-cy="add-meta-button">{{ metaButtonLabel() }}</button>
       <app-import-pokemon-button [singlePokemon]="false" (pokemonImportedEvent)="pokemonImported($event)" />
