@@ -101,6 +101,27 @@ describe("DefensiveEvOptimizerService", () => {
       expect(result.evs.spd).toBe(44)
     })
 
+    it("should optimize EVs prioritizing hp when possible", () => {
+      const defender = new Pokemon("Whimsicott", {
+        evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
+      })
+
+      const attacker = new Pokemon("Tornadus", {
+        nature: "Timid",
+        moveSet: new MoveSet(new Move("Bleakwind Storm"), new Move("Tailwind"), new Move("Protect"), new Move("Rain Dance")),
+        evs: { hp: 4, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 }
+      })
+
+      const field = new Field()
+
+      const targets = [new Target(attacker)]
+      const result = service.optimize(defender, targets, field)
+
+      expect(result.evs.hp).toBe(92)
+      expect(result.evs.def).toBe(0)
+      expect(result.evs.spd).toBe(196)
+    })
+
     it("should optimize EVs for multiple attackers", () => {
       const defender = new Pokemon("Scream Tail", {
         nature: "Timid",
@@ -312,9 +333,9 @@ describe("DefensiveEvOptimizerService", () => {
       const targets = [new Target(chiYu), new Target(tingLu), new Target(landorusTherian), new Target(torkoal), new Target(heatran), new Target(moltresGalar), new Target(archaludon), new Target(kingambit), new Target(dondozo)]
       const result = service.optimize(defender, targets, field)
 
-      expect(result.evs.hp).toBe(100)
+      expect(result.evs.hp).toBe(116)
       expect(result.evs.def).toBe(0)
-      expect(result.evs.spd).toBe(236)
+      expect(result.evs.spd).toBe(220)
     })
 
     it("should prioritize physical attackers when there are more chances to survive physical attacks", () => {
@@ -556,9 +577,9 @@ describe("DefensiveEvOptimizerService", () => {
       const targets = [new Target(urshifuRapidStrike, landorus), new Target(okidogi)]
       const result = service.optimize(defender, targets, field)
 
-      expect(result.evs.hp).toBe(132)
-      expect(result.evs.def).toBe(252)
-      expect(result.evs.spd).toBe(124)
+      expect(result.evs.hp).toBe(148)
+      expect(result.evs.def).toBe(236)
+      expect(result.evs.spd).toBe(108)
     })
 
     it("should optimize EVs for Gholdengo with multiple attackers including second special strongest optimization", () => {
@@ -852,9 +873,9 @@ describe("DefensiveEvOptimizerService", () => {
 
       const result = service.optimize(defender, targets, field)
 
-      expect(result.evs.hp).toBe(100)
+      expect(result.evs.hp).toBe(116)
       expect(result.evs.def).toBe(0)
-      expect(result.evs.spd).toBe(236)
+      expect(result.evs.spd).toBe(220)
     })
 
     it("should optimize EVs for Gholdengo when not surviving double attackers but surviving physical attacker", () => {

@@ -64,7 +64,12 @@ export class EvOptimizerUtils {
       }
     }
 
-    combinations.sort((a, b) => a.totalEvs - b.totalEvs)
+    combinations.sort((a, b) => {
+      if (a.totalEvs === b.totalEvs) {
+        return b.hp - a.hp
+      }
+      return a.totalEvs - b.totalEvs
+    })
 
     return combinations
   }
@@ -99,7 +104,12 @@ export class EvOptimizerUtils {
       }
     }
 
-    combinations.sort((a, b) => a.totalEvs - b.totalEvs)
+    combinations.sort((a, b) => {
+      if (a.totalEvs === b.totalEvs) {
+        return b.hp - a.hp
+      }
+      return a.totalEvs - b.totalEvs
+    })
 
     return combinations
   }
