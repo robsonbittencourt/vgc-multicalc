@@ -27,7 +27,21 @@ export class MovesTableComponent {
 
   movesData = computed(() => {
     const pokemonDetails = Object.values(POKEMON_DETAILS).find(p => p.name == this.pokemon().name)!
-    return [{ group: "Moves", data: this.getMoveDetails(pokemonDetails.learnset) }]
+    const metaMoves = this.getMoveDetails(pokemonDetails.metaMoves)
+    const allMoves = this.getMoveDetails(pokemonDetails.learnset)
+
+    const metaMoveNames = new Set(pokemonDetails.metaMoves)
+    const regularMoves = allMoves.filter(move => !metaMoveNames.has(move.name.toLowerCase().replace(/[^a-z0-9]/g, "")))
+
+    const groups = []
+
+    if (metaMoves.length > 0) {
+      groups.push({ group: "Meta", data: metaMoves })
+    }
+
+    groups.push({ group: "Moves", data: regularMoves })
+
+    return groups
   })
 
   actualMoves = computed(() => {

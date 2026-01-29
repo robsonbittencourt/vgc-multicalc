@@ -146,7 +146,7 @@ describe("Filtered Table behaviors", () => {
       build.inputPokemonAttackFour("Rs")
       cy.realPress("Tab").wait(100)
 
-      team.pokemonOnEditAttacksIs("Earth Power", "Rest", "Body Press", "Boomburst")
+      team.pokemonOnEditAttacksIs("Earth Power", "Rest", "Body Press", "High Horsepower")
     })
   })
 })
