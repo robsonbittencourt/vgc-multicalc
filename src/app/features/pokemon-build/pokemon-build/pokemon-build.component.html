@@ -176,6 +176,7 @@
       <div class="optimize-options">
         <button mat-flat-button (click)="optimizeEvs()" data-cy="optimize-evs">Optimize Bulk</button>
         <mat-checkbox [(ngModel)]="updateNature" data-cy="update-nature-checkbox">Update Nature</mat-checkbox>
+        <mat-checkbox [(ngModel)]="keepOffensiveEvs" data-cy="keep-offensive-evs-checkbox">Keep Offensive EVs</mat-checkbox>
       </div>
     }
     @if (optimizedEvs() && !hasNoSolution()) {

@@ -51,12 +51,13 @@ describe("SingleAttackerOptimizer", () => {
       const field = new Field()
       const result = service.optimizeForAttacker(attacker, defender, field)
 
-      expect(result.hp).toBeGreaterThan(0)
-      expect(result.def).toBeGreaterThan(0)
-      expect(result.spd).toBe(0)
-      expect(result.atk).toBe(0)
-      expect(result.spa).toBe(0)
-      expect(result.spe).toBe(0)
+      expect(result).not.toBeNull()
+      expect(result!.hp).toBeGreaterThan(0)
+      expect(result!.def).toBeGreaterThan(0)
+      expect(result!.spd).toBe(0)
+      expect(result!.atk).toBe(0)
+      expect(result!.spa).toBe(0)
+      expect(result!.spe).toBe(0)
     })
 
     it("should optimize EVs for special attacker", () => {
@@ -73,12 +74,13 @@ describe("SingleAttackerOptimizer", () => {
       const field = new Field()
       const result = service.optimizeForAttacker(attacker, defender, field)
 
-      expect(result.hp).toBeGreaterThan(0)
-      expect(result.spd).toBeGreaterThan(0)
-      expect(result.def).toBe(0)
-      expect(result.atk).toBe(0)
-      expect(result.spa).toBe(0)
-      expect(result.spe).toBe(0)
+      expect(result).not.toBeNull()
+      expect(result!.hp).toBeGreaterThan(0)
+      expect(result!.spd).toBeGreaterThan(0)
+      expect(result!.def).toBe(0)
+      expect(result!.atk).toBe(0)
+      expect(result!.spa).toBe(0)
+      expect(result!.spe).toBe(0)
     })
 
     it("should return valid EV values within limit", () => {
@@ -95,7 +97,8 @@ describe("SingleAttackerOptimizer", () => {
       const field = new Field()
       const result = service.optimizeForAttacker(attacker, defender, field)
 
-      expect(result.hp + result.def + result.spd).toBeLessThanOrEqual(508)
+      expect(result).not.toBeNull()
+      expect(result!.hp + result!.def + result!.spd).toBeLessThanOrEqual(508)
     })
   })
 
@@ -114,9 +117,10 @@ describe("SingleAttackerOptimizer", () => {
       const field = new Field()
       const result = service.findFirstValidSolution(attacker, defender, field, true)
 
-      expect(result.hp).toBeGreaterThanOrEqual(0)
-      expect(result.def).toBeGreaterThanOrEqual(0)
-      expect(result.spd).toBe(0)
+      expect(result).not.toBeNull()
+      expect(result!.hp).toBeGreaterThanOrEqual(0)
+      expect(result!.def).toBeGreaterThanOrEqual(0)
+      expect(result!.spd).toBe(0)
     })
 
     it("should find first valid solution for special attacker", () => {
@@ -133,9 +137,10 @@ describe("SingleAttackerOptimizer", () => {
       const field = new Field()
       const result = service.findFirstValidSolution(attacker, defender, field, false)
 
-      expect(result.hp).toBeGreaterThanOrEqual(0)
-      expect(result.spd).toBeGreaterThanOrEqual(0)
-      expect(result.def).toBe(0)
+      expect(result).not.toBeNull()
+      expect(result!.hp).toBeGreaterThanOrEqual(0)
+      expect(result!.spd).toBeGreaterThanOrEqual(0)
+      expect(result!.def).toBe(0)
     })
   })
 

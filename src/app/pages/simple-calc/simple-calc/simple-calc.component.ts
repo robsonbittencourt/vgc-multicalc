@@ -137,7 +137,7 @@ export class SimpleCalcComponent {
     return damageResults.find(result => result.move == moveName)!
   }
 
-  handleLeftOptimizeRequest(event: { updateNature: boolean }) {
+  handleLeftOptimizeRequest(event: { updateNature: boolean; keepOffensiveEvs: boolean }) {
     const defender = this.store.leftPokemon()
     const attacker = this.store.rightPokemon()
     const field = this.fieldStore.field()
@@ -145,7 +145,7 @@ export class SimpleCalcComponent {
     this.leftOriginalEvs.set({ ...defender.evs })
     this.leftOriginalNature.set(defender.nature)
 
-    const result = this.defensiveEvOptimizer.optimize(defender, [new Target(attacker)], field, event.updateNature)
+    const result = this.defensiveEvOptimizer.optimize(defender, [new Target(attacker)], field, event.updateNature, event.keepOffensiveEvs)
 
     this.leftOptimizedEvs.set(result.evs)
     this.leftOptimizedNature.set(result.nature)
@@ -157,7 +157,7 @@ export class SimpleCalcComponent {
     }
   }
 
-  handleRightOptimizeRequest(event: { updateNature: boolean }) {
+  handleRightOptimizeRequest(event: { updateNature: boolean; keepOffensiveEvs: boolean }) {
     const defender = this.store.rightPokemon()
     const attacker = this.store.leftPokemon()
     const field = this.fieldStore.field()
@@ -165,7 +165,7 @@ export class SimpleCalcComponent {
     this.rightOriginalEvs.set({ ...defender.evs })
     this.rightOriginalNature.set(defender.nature)
 
-    const result = this.defensiveEvOptimizer.optimize(defender, [new Target(attacker)], field, event.updateNature)
+    const result = this.defensiveEvOptimizer.optimize(defender, [new Target(attacker)], field, event.updateNature, event.keepOffensiveEvs)
 
     this.rightOptimizedEvs.set(result.evs)
     this.rightOptimizedNature.set(result.nature)

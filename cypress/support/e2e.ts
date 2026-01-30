@@ -97,7 +97,8 @@ const pokeNames = [
   "indeedee-f",
   "miraidon",
   "politoad",
-  "dragapult"
+  "dragapult",
+  "urshifu-rapid-strike"
 ]
 
 before(() => {

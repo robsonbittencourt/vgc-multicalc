@@ -101,7 +101,7 @@ export class MultiCalcComponent implements OnInit {
     this.teamComponent()?.scrollToPokemonSelector()
   }
 
-  handleOptimizeRequest(event: { updateNature: boolean }) {
+  handleOptimizeRequest(event: { updateNature: boolean; keepOffensiveEvs: boolean }) {
     const defender = this.pokemonOnEdit()
     const targets = this.store.targets()
     const field = this.fieldStore.field()
@@ -113,7 +113,7 @@ export class MultiCalcComponent implements OnInit {
     this.originalEvs.set({ ...defender.evs })
     this.originalNature.set(defender.nature)
 
-    const result = this.defensiveEvOptimizer.optimize(defender, targets, field, event.updateNature)
+    const result = this.defensiveEvOptimizer.optimize(defender, targets, field, event.updateNature, event.keepOffensiveEvs)
 
     this.optimizedEvs.set(result.evs)
     this.optimizedNature.set(result.nature)

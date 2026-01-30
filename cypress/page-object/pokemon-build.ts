@@ -243,6 +243,26 @@ export class PokemonBuild {
     return this
   }
 
+  atkEvs(atkEvs: number): PokemonBuild {
+    this.container().find(`[data-cy="stat-atk"]`).find('[data-cy="ev-value"]').clear().clear().type(atkEvs.toString(), { force: true }).blur()
+    return this
+  }
+
+  defEvs(defEvs: number): PokemonBuild {
+    this.container().find(`[data-cy="stat-def"]`).find('[data-cy="ev-value"]').clear().clear().type(defEvs.toString(), { force: true }).blur()
+    return this
+  }
+
+  spaEvs(spaEvs: number): PokemonBuild {
+    this.container().find(`[data-cy="stat-spa"]`).find('[data-cy="ev-value"]').clear().clear().type(spaEvs.toString(), { force: true }).blur()
+    return this
+  }
+
+  spdEvs(spdEvs: number): PokemonBuild {
+    this.container().find(`[data-cy="stat-spd"]`).find('[data-cy="ev-value"]').clear().clear().type(spdEvs.toString(), { force: true }).blur()
+    return this
+  }
+
   speedEvs(speedEvs: number): PokemonBuild {
     this.container().find(`[data-cy="stat-spe"]`).find('[data-cy="ev-value"]').clear().clear().type(speedEvs.toString(), { force: true }).blur()
     return this
@@ -270,6 +290,36 @@ export class PokemonBuild {
 
   clearEvs() {
     this.container().find('[data-cy="clear-evs"]').click({ force: true })
+  }
+
+  optimizeBulk() {
+    this.container().find('[data-cy="optimize-evs"]').click({ force: true })
+  }
+
+  toggleUpdateNature() {
+    this.container().find('[data-cy="update-nature-checkbox"] input').click({ force: true })
+  }
+
+  toggleKeepOffensiveEvs() {
+    this.container().find('[data-cy="keep-offensive-evs-checkbox"] input').click({ force: true })
+  }
+
+  applyOptimization() {
+    this.container().find('[data-cy="apply-optimization"]').click({ force: true })
+  }
+
+  discardOptimization() {
+    this.container().find('[data-cy="discard-optimization"]').click({ force: true })
+  }
+
+  inputEvs(hp: number, atk: number, def: number, spa: number, spd: number, spe: number): PokemonBuild {
+    if (hp > 0) this.container().find(`[data-cy="stat-hp"]`).find('[data-cy="ev-value"]').clear().type(hp.toString(), { force: true }).blur()
+    if (atk > 0) this.container().find(`[data-cy="stat-atk"]`).find('[data-cy="ev-value"]').clear().type(atk.toString(), { force: true }).blur()
+    if (def > 0) this.container().find(`[data-cy="stat-def"]`).find('[data-cy="ev-value"]').clear().type(def.toString(), { force: true }).blur()
+    if (spa > 0) this.container().find(`[data-cy="stat-spa"]`).find('[data-cy="ev-value"]').clear().type(spa.toString(), { force: true }).blur()
+    if (spd > 0) this.container().find(`[data-cy="stat-spd"]`).find('[data-cy="ev-value"]').clear().type(spd.toString(), { force: true }).blur()
+    if (spe > 0) this.container().find(`[data-cy="stat-spe"]`).find('[data-cy="ev-value"]').clear().type(spe.toString(), { force: true }).blur()
+    return this
   }
 
   delete(): PokemonBuild {

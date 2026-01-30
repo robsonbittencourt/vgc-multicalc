@@ -8,6 +8,11 @@ trigger: always_on
 
 # VGC Multi Calc - Angular Project Rules
 
+## Git Rules
+
+- **NEVER run git commands**: Do not run `git add`, `git commit`, `git push`, or any other git command.
+- **NEVER modify git state**: The user handles all version control. Do not attempt to manage the repository state.
+
 ## Project Overview
 
 This is an Angular 20.3.12 application for Pokémon VGC (Video Game Championships) damage and probability calculations. The project uses modern Angular patterns including signals, standalone components, and is zoneless.

@@ -17,18 +17,19 @@ export class DefensiveEvOptimizerService {
   private doubleAttackerOptimizer = inject(DoubleAttackerOptimizer)
   private solutionCombiner = inject(SolutionCombiner)
 
-  optimize(defender: Pokemon, targets: Target[], field: Field, updateNature = false): { evs: Stats; nature: string | null } {
+  optimize(defender: Pokemon, targets: Target[], field: Field, updateNature = false, keepOffensiveEvs = false): { evs: Stats; nature: string | null } {
     if (targets.length === 0) {
       return { evs: { ...defender.evs }, nature: null }
     }
 
+    const reservedEvs = keepOffensiveEvs ? { atk: defender.evs.atk, spa: defender.evs.spa, spe: defender.evs.spe } : undefined
+
     const targetsWithTwoAttackers = targets.filter(t => t.secondPokemon && !t.secondPokemon.isDefault && !t.pokemon.isDefault)
     const singleTargets = targets.filter(t => !t.secondPokemon || t.secondPokemon.isDefault || t.pokemon.isDefault)
-
     const attackers = singleTargets.map(t => t.pokemon).filter(p => !p.isDefault)
 
     if (targetsWithTwoAttackers.length === 0) {
-      return this.optimizeForSingleAttackers(defender, attackers, field, updateNature)
+      return this.optimizeForSingleAttackers(defender, attackers, field, updateNature, reservedEvs)
     }
 
     const strongestDoubleTarget = this.attackerSelector.findStrongestDoubleTarget(defender, targets, field)
@@ -74,10 +75,26 @@ export class DefensiveEvOptimizerService {
       physicalAttackers,
       specialAttackers
     )
+
+    if (!evs) {
+      if (reservedEvs) {
+        return { evs: { hp: 0, atk: reservedEvs.atk, def: 0, spa: reservedEvs.spa, spd: 0, spe: reservedEvs.spe }, nature: null }
+      }
+      return { evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: null }
+    }
+
+    if (reservedEvs) {
+      const totalEvs = evs.hp + evs.def + evs.spd + reservedEvs.atk + reservedEvs.spa + reservedEvs.spe
+      if (totalEvs > 508) {
+        return { evs: { hp: 0, atk: reservedEvs.atk, def: 0, spa: reservedEvs.spa, spd: 0, spe: reservedEvs.spe }, nature: null }
+      }
+      return { evs: { hp: evs.hp, atk: reservedEvs.atk, def: evs.def, spa: reservedEvs.spa, spd: evs.spd, spe: reservedEvs.spe }, nature: natureUsed }
+    }
+
     return { evs, nature: natureUsed }
   }
 
-  private optimizeForSingleAttackers(defender: Pokemon, attackers: Pokemon[], field: Field, updateNature = false): { evs: Stats; nature: string | null } {
+  private optimizeForSingleAttackers(defender: Pokemon, attackers: Pokemon[], field: Field, updateNature = false, reservedEvs?: { atk: number; spa: number; spe: number }): { evs: Stats; nature: string | null } {
     if (attackers.length === 0) {
       return { evs: { ...defender.evs }, nature: null }
     }
@@ -101,6 +118,22 @@ export class DefensiveEvOptimizerService {
     const specialOptimized = specialStrongest ? this.singleAttackerOptimizer.optimizeForAttacker(specialStrongest, defenderWithNature, field) : null
 
     const evs = this.solutionCombiner.combineSolutions(physicalOptimized, specialOptimized, priority.prioritizePhysical, defenderWithNature, field, physicalStrongest, specialStrongest, physicalAttackers, specialAttackers)
+
+    if (!evs) {
+      if (reservedEvs) {
+        return { evs: { hp: 0, atk: reservedEvs.atk, def: 0, spa: reservedEvs.spa, spd: 0, spe: reservedEvs.spe }, nature: null }
+      }
+      return { evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: null }
+    }
+
+    if (reservedEvs) {
+      const totalEvs = evs.hp + evs.def + evs.spd + reservedEvs.atk + reservedEvs.spa + reservedEvs.spe
+      if (totalEvs > 508) {
+        return { evs: { hp: 0, atk: reservedEvs.atk, def: 0, spa: reservedEvs.spa, spd: 0, spe: reservedEvs.spe }, nature: null }
+      }
+      return { evs: { hp: evs.hp, atk: reservedEvs.atk, def: evs.def, spa: reservedEvs.spa, spd: evs.spd, spe: reservedEvs.spe }, nature: natureUsed }
+    }
+
     return { evs, nature: natureUsed }
   }
 }

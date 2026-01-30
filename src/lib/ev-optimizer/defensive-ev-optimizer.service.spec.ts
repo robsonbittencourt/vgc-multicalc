@@ -916,5 +916,60 @@ describe("DefensiveEvOptimizerService", () => {
       expect(result.evs.def).toBe(244)
       expect(result.evs.spd).toBe(0)
     })
+
+    it("should return no solution when optimized EVs exceed budget with keepOffensiveEvs", () => {
+      const defender = new Pokemon("Urshifu-Rapid-Strike", {
+        nature: "Adamant",
+        evs: { hp: 0, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 }
+      })
+
+      const attacker = new Pokemon("Flutter Mane", {
+        nature: "Timid",
+        moveSet: new MoveSet(new Move("Moonblast"), new Move("Shadow Ball"), new Move("Icy Wind"), new Move("Protect")),
+        evs: { hp: 0, atk: 0, def: 0, spa: 252, spd: 4, spe: 252 }
+      })
+
+      const field = new Field()
+      const targets = [new Target(attacker)]
+      const result = service.optimize(defender, targets, field, false, true)
+
+      expect(result.evs.hp).toBe(0)
+      expect(result.evs.atk).toBe(252)
+      expect(result.evs.def).toBe(0)
+      expect(result.evs.spa).toBe(0)
+      expect(result.evs.spd).toBe(0)
+      expect(result.evs.spe).toBe(252)
+      expect(result.nature).toBeNull()
+    })
+
+    it("should return no solution with zero offensive EVs when keepOffensiveEvs is false", () => {
+      const defender = new Pokemon("Ting-Lu", {
+        nature: "Bold",
+        evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
+      })
+
+      const attacker = new Pokemon("Urshifu-Rapid-Strike", {
+        nature: "Adamant",
+        teraType: "Water",
+        teraTypeActive: true,
+        ability: new Ability("Unseen Fist"),
+        item: "Choice Band",
+        moveSet: new MoveSet(new Move("Surging Strikes"), new Move("Close Combat"), new Move("Aqua Jet"), new Move("Detect")),
+        evs: { hp: 4, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 },
+        boosts: { hp: 0, atk: 6, def: 0, spa: 0, spd: 0, spe: 0 }
+      })
+
+      const field = new Field()
+      const targets = [new Target(attacker)]
+      const result = service.optimize(defender, targets, field, false, false)
+
+      expect(result.evs.hp).toBe(0)
+      expect(result.evs.atk).toBe(0)
+      expect(result.evs.def).toBe(0)
+      expect(result.evs.spa).toBe(0)
+      expect(result.evs.spd).toBe(0)
+      expect(result.evs.spe).toBe(0)
+      expect(result.nature).toBeNull()
+    })
   })
 })

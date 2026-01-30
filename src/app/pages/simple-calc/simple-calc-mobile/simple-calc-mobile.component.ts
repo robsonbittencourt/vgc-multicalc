@@ -30,10 +30,10 @@ export class SimpleCalcMobileComponent {
 
   pokemonBuildMobile = viewChild.required(PokemonBuildMobileComponent)
 
-  attacker = signal(this.store.leftPokemon())
+  leftIsAttacker = signal(true)
+  rightIsAttacker = computed(() => !this.leftIsAttacker())
 
-  leftIsAttacker = computed(() => this.attacker().id === this.store.leftPokemon().id)
-  rightIsAttacker = computed(() => this.attacker().id === this.store.rightPokemon().id)
+  attacker = computed(() => (this.leftIsAttacker() ? this.store.leftPokemon() : this.store.rightPokemon()))
 
   opponent = computed(() => {
     if (this.leftIsAttacker()) {
@@ -84,7 +84,7 @@ export class SimpleCalcMobileComponent {
       return
     }
 
-    this.attacker.set(this.store.leftPokemon())
+    this.leftIsAttacker.set(true)
   }
 
   activateRightPokemon() {
@@ -93,30 +93,25 @@ export class SimpleCalcMobileComponent {
       return
     }
 
-    this.attacker.set(this.store.rightPokemon())
+    this.leftIsAttacker.set(false)
   }
 
   pokemonChanged() {
-    if (this.leftIsAttacker()) {
-      this.attacker.set(this.store.leftPokemon())
-    } else {
-      this.attacker.set(this.store.rightPokemon())
-    }
+    // leftIsAttacker already determines which Pokemon is active
+    // No need to set anything here since attacker is computed
   }
 
   importPokemon(pokemon: Pokemon | Pokemon[]) {
     const singlePokemon = pokemon as Pokemon
 
     if (this.leftIsAttacker()) {
-      this.attacker.set(singlePokemon)
       this.store.changeLeftPokemon(singlePokemon)
     } else {
-      this.attacker.set(singlePokemon)
       this.store.changeRightPokemon(singlePokemon)
     }
   }
 
-  handleOptimizeRequest(event: { updateNature: boolean }) {
+  handleOptimizeRequest(event: { updateNature: boolean; keepOffensiveEvs: boolean }) {
     const defender = this.attacker()
     const attacker = this.opponent()
     const field = this.fieldStore.field()
@@ -124,7 +119,7 @@ export class SimpleCalcMobileComponent {
     this.originalEvs.set({ ...defender.evs })
     this.originalNature.set(defender.nature)
 
-    const result = this.defensiveEvOptimizer.optimize(defender, [new Target(attacker)], field, event.updateNature)
+    const result = this.defensiveEvOptimizer.optimize(defender, [new Target(attacker)], field, event.updateNature, event.keepOffensiveEvs)
 
     this.store.evs(defender.id, result.evs)
 

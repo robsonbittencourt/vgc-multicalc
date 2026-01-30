@@ -112,11 +112,13 @@
     flex-shrink: 0;
   }
 
-  .optimize-options {
+  .checkbox-group {
     display: flex;
-    gap: 0.5em;
-    align-items: center;
+    gap: 1em;
+    width: 100%;
     flex-wrap: wrap;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
   }
 
   .no-solution {

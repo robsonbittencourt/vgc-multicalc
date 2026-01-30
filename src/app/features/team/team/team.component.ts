@@ -29,7 +29,7 @@ export class TeamComponent {
   optimizedNature = input<string | null>(null)
 
   teamMemberSelected = output<string>()
-  optimizeRequested = output<{ updateNature: boolean }>()
+  optimizeRequested = output<{ updateNature: boolean; keepOffensiveEvs: boolean }>()
   optimizationApplied = output<void>()
   optimizationDiscarded = output<void>()
 

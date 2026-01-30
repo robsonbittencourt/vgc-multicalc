@@ -50,7 +50,7 @@ export class PokemonBuildMobileComponent {
   optimizedNature = input<string | null>(null)
 
   pokemonChangedEvent = output<Pokemon>()
-  optimizeRequested = output<{ updateNature: boolean }>()
+  optimizeRequested = output<{ updateNature: boolean; keepOffensiveEvs: boolean }>()
   optimizationApplied = output<void>()
   optimizationDiscarded = output<void>()
   evsCleared = output<void>()
@@ -62,6 +62,7 @@ export class PokemonBuildMobileComponent {
   originalEvs = signal<Stats>({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
   originalNature = signal<string>("")
   updateNature = signal<boolean>(false)
+  keepOffensiveEvs = signal<boolean>(false)
 
   modifiedAtk = signal<number>(0)
   modifiedDef = signal<number>(0)
@@ -184,7 +185,7 @@ export class PokemonBuildMobileComponent {
     this.originalEvs.set({ ...defender.evs })
     this.originalNature.set(defender.nature)
 
-    this.optimizeRequested.emit({ updateNature: this.updateNature() })
+    this.optimizeRequested.emit({ updateNature: this.updateNature(), keepOffensiveEvs: this.keepOffensiveEvs() })
   }
 
   applyOptimization() {
