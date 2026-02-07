@@ -103,7 +103,7 @@ export class AttackerSelector {
         const survivesWithMin = this.survivalChecker.checkSurvival(attacker, defenderDefNoEv, field)
         const survivesWithMax = this.survivalChecker.checkSurvival(attacker, defenderDefMaxPhysical, field)
 
-        if (!survivesWithMin && survivesWithMax) {
+        if (survivesWithMax) {
           defNaturePhysicalSurvivingCount++
         }
 
@@ -119,7 +119,7 @@ export class AttackerSelector {
         const survivesWithMin = this.survivalChecker.checkSurvival(attacker, defenderDefNoEv, field)
         const survivesWithMax = this.survivalChecker.checkSurvival(attacker, defenderDefMaxSpecial, field)
 
-        if (!survivesWithMin && survivesWithMax) {
+        if (survivesWithMax) {
           defNatureSpecialSurvivingCount++
         }
 
@@ -139,7 +139,7 @@ export class AttackerSelector {
         const survivesWithMin = this.survivalChecker.checkSurvival(attacker, defenderSpdNoEv, field)
         const survivesWithMax = this.survivalChecker.checkSurvival(attacker, defenderSpdMaxPhysical, field)
 
-        if (!survivesWithMin && survivesWithMax) {
+        if (survivesWithMax) {
           spdNaturePhysicalSurvivingCount++
         }
 
@@ -155,7 +155,7 @@ export class AttackerSelector {
         const survivesWithMin = this.survivalChecker.checkSurvival(attacker, defenderSpdNoEv, field)
         const survivesWithMax = this.survivalChecker.checkSurvival(attacker, defenderSpdMaxSpecial, field)
 
-        if (!survivesWithMin && survivesWithMax) {
+        if (survivesWithMax) {
           spdNatureSpecialSurvivingCount++
         }
 
@@ -182,7 +182,38 @@ export class AttackerSelector {
       const { defNature, spdNature } = this.getDefensiveNatures(defender)
       const maxSurviving = Math.max(currentTotalSurviving, defNatureTotalSurviving, spdNatureTotalSurviving)
 
-      if (defNatureTotalSurviving === maxSurviving && defNatureTotalSurviving >= currentTotalSurviving) {
+      if (defNatureTotalSurviving === maxSurviving && spdNatureTotalSurviving === maxSurviving) {
+        const defMaxDamage = Math.max(defNaturePhysicalMaxDamage, defNatureSpecialMaxDamage)
+        const spdMaxDamage = Math.max(spdNaturePhysicalMaxDamage, spdNatureSpecialMaxDamage)
+
+        if (spdMaxDamage < defMaxDamage) {
+          natureUsed = spdNature
+          finalPhysicalSurvivingCount = spdNaturePhysicalSurvivingCount
+          finalSpecialSurvivingCount = spdNatureSpecialSurvivingCount
+          finalPhysicalStrongestAttacker = spdNaturePhysicalStrongestAttacker
+          finalSpecialStrongestAttacker = spdNatureSpecialStrongestAttacker
+        } else if (defMaxDamage < spdMaxDamage) {
+          natureUsed = defNature
+          finalPhysicalSurvivingCount = defNaturePhysicalSurvivingCount
+          finalSpecialSurvivingCount = defNatureSpecialSurvivingCount
+          finalPhysicalStrongestAttacker = defNaturePhysicalStrongestAttacker
+          finalSpecialStrongestAttacker = defNatureSpecialStrongestAttacker
+        } else {
+          if (spdNatureSpecialSurvivingCount > defNaturePhysicalSurvivingCount) {
+            natureUsed = spdNature
+            finalPhysicalSurvivingCount = spdNaturePhysicalSurvivingCount
+            finalSpecialSurvivingCount = spdNatureSpecialSurvivingCount
+            finalPhysicalStrongestAttacker = spdNaturePhysicalStrongestAttacker
+            finalSpecialStrongestAttacker = spdNatureSpecialStrongestAttacker
+          } else {
+            natureUsed = defNature
+            finalPhysicalSurvivingCount = defNaturePhysicalSurvivingCount
+            finalSpecialSurvivingCount = defNatureSpecialSurvivingCount
+            finalPhysicalStrongestAttacker = defNaturePhysicalStrongestAttacker
+            finalSpecialStrongestAttacker = defNatureSpecialStrongestAttacker
+          }
+        }
+      } else if (defNatureTotalSurviving === maxSurviving && defNatureTotalSurviving >= currentTotalSurviving) {
         natureUsed = defNature
         finalPhysicalSurvivingCount = defNaturePhysicalSurvivingCount
         finalSpecialSurvivingCount = defNatureSpecialSurvivingCount
@@ -197,20 +228,20 @@ export class AttackerSelector {
       }
     }
 
-    const prioritizePhysical = finalPhysicalSurvivingCount >= finalSpecialSurvivingCount
-
-    return {
-      prioritizePhysical,
+    const prioritization = {
+      prioritizePhysical: finalPhysicalSurvivingCount >= finalSpecialSurvivingCount,
       physicalStrongestAttacker: finalPhysicalStrongestAttacker,
       specialStrongestAttacker: finalSpecialStrongestAttacker,
       natureUsed
     }
+
+    return prioritization;
   }
 
   private getDefensiveNatures(defender: Pokemon): { defNature: string; spdNature: string } {
     const moves = [defender.moveSet.move1, defender.moveSet.move2, defender.moveSet.move3, defender.moveSet.move4]
 
-    const physicalMoves = moves.filter(move => move.category === "Physical").length
+    const physicalMoves = moves.filter(move => move.category === "Physical" && move.name !== "Struggle").length
     const specialMoves = moves.filter(move => move.category === "Special").length
 
     const hasMorePhysicalMoves = physicalMoves > specialMoves
