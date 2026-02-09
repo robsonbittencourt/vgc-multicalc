@@ -1,9 +1,11 @@
+import { MAX_SINGLE_STAT_EVS } from "./ev-optimizer-constants"
 import { inject, Injectable } from "@angular/core"
 import { Field } from "@lib/model/field"
 import { Pokemon } from "@lib/model/pokemon"
 import { Target } from "@lib/model/target"
 import { Category } from "@lib/types"
 import { SurvivalChecker } from "./survival-checker"
+import { DamageCalculatorService } from "@lib/damage-calculator/damage-calculator.service"
 
 export type AttackerPriorityResult = {
   prioritizePhysical: boolean
@@ -12,11 +14,29 @@ export type AttackerPriorityResult = {
   natureUsed: string | null
 }
 
+type SurvivalAnalysis = {
+  survivingCount: number
+  strongestAttacker: Pokemon | null
+  maxDamage: number
+}
+
+type NatureScenario = {
+  nature: string | null
+  physicalSurviving: number
+  specialSurviving: number
+  physicalStrongest: Pokemon | null
+  specialStrongest: Pokemon | null
+  physicalMaxDamage: number
+  specialMaxDamage: number
+  totalSurviving: number
+}
+
 @Injectable({
   providedIn: "root"
 })
 export class AttackerSelector {
   private survivalChecker = inject(SurvivalChecker)
+  private damageCalculator = inject(DamageCalculatorService)
 
   getPhysicalAttackers(attackers: Pokemon[]): Pokemon[] {
     return this.getAttackersByCategory(attackers, "Physical")
@@ -36,206 +56,136 @@ export class AttackerSelector {
 
   determinePriority(physicalAttackers: Pokemon[], specialAttackers: Pokemon[], defender: Pokemon, field: Field, updateNature = false): AttackerPriorityResult {
     const defenderWithNoEv = defender.clone({ evs: { hp: 0, def: 0, spd: 0 } })
-    const defenderWithMaxPhysical = defender.clone({ evs: { hp: 252, def: 252, spd: 0 } })
-    const defenderWithMaxSpecial = defender.clone({ evs: { hp: 252, def: 0, spd: 252 } })
+    const defenderWithMaxPhysical = defender.clone({ evs: { hp: MAX_SINGLE_STAT_EVS, def: MAX_SINGLE_STAT_EVS, spd: 0 } })
+    const defenderWithMaxSpecial = defender.clone({ evs: { hp: MAX_SINGLE_STAT_EVS, def: 0, spd: MAX_SINGLE_STAT_EVS } })
 
-    let physicalSurvivingCount = 0
-    let specialSurvivingCount = 0
-    let physicalStrongestAttacker: Pokemon | null = null
-    let specialStrongestAttacker: Pokemon | null = null
-    let physicalMaxDamage = 0
-    let specialMaxDamage = 0
+    const physicalAnalysis = this.analyzeSurvival(physicalAttackers, defenderWithNoEv, defenderWithMaxPhysical, field, true)
+    const specialAnalysis = this.analyzeSurvival(specialAttackers, defenderWithNoEv, defenderWithMaxSpecial, field, true)
 
-    for (const attacker of physicalAttackers) {
-      const survivesWithMin = this.survivalChecker.checkSurvival(attacker, defenderWithNoEv, field)
-      const survivesWithMax = this.survivalChecker.checkSurvival(attacker, defenderWithMaxPhysical, field)
-
-      if (!survivesWithMin && survivesWithMax) {
-        physicalSurvivingCount++
-      }
-
-      const damage = this.survivalChecker.calculateMaxDamage(attacker, defenderWithMaxPhysical, field)
-
-      if (damage < defenderWithMaxPhysical.hp && damage > physicalMaxDamage) {
-        physicalMaxDamage = damage
-        physicalStrongestAttacker = attacker
-      }
+    let bestScenario: NatureScenario = {
+      nature: null,
+      physicalSurviving: physicalAnalysis.survivingCount,
+      specialSurviving: specialAnalysis.survivingCount,
+      physicalStrongest: physicalAnalysis.strongestAttacker,
+      specialStrongest: specialAnalysis.strongestAttacker,
+      physicalMaxDamage: physicalAnalysis.maxDamage,
+      specialMaxDamage: specialAnalysis.maxDamage,
+      totalSurviving: physicalAnalysis.survivingCount + specialAnalysis.survivingCount
     }
-
-    for (const attacker of specialAttackers) {
-      const survivesWithMin = this.survivalChecker.checkSurvival(attacker, defenderWithNoEv, field)
-      const survivesWithMax = this.survivalChecker.checkSurvival(attacker, defenderWithMaxSpecial, field)
-
-      if (!survivesWithMin && survivesWithMax) {
-        specialSurvivingCount++
-      }
-
-      const damage = this.survivalChecker.calculateMaxDamage(attacker, defenderWithMaxSpecial, field)
-
-      if (damage < defenderWithMaxSpecial.hp && damage > specialMaxDamage) {
-        specialMaxDamage = damage
-        specialStrongestAttacker = attacker
-      }
-    }
-
-    let defNaturePhysicalSurvivingCount = 0
-    let defNatureSpecialSurvivingCount = 0
-    let defNaturePhysicalStrongestAttacker: Pokemon | null = null
-    let defNatureSpecialStrongestAttacker: Pokemon | null = null
-    let defNaturePhysicalMaxDamage = 0
-    let defNatureSpecialMaxDamage = 0
-
-    let spdNaturePhysicalSurvivingCount = 0
-    let spdNatureSpecialSurvivingCount = 0
-    let spdNaturePhysicalStrongestAttacker: Pokemon | null = null
-    let spdNatureSpecialStrongestAttacker: Pokemon | null = null
-    let spdNaturePhysicalMaxDamage = 0
-    let spdNatureSpecialMaxDamage = 0
 
     if (updateNature) {
       const { defNature, spdNature } = this.getDefensiveNatures(defender)
 
-      const defenderDefNoEv = defender.clone({ nature: defNature, evs: { hp: 0, def: 0, spd: 0 } })
-      const defenderDefMaxPhysical = defender.clone({ nature: defNature, evs: { hp: 252, def: 252, spd: 0 } })
-      const defenderDefMaxSpecial = defender.clone({ nature: defNature, evs: { hp: 252, def: 0, spd: 252 } })
+      const defenderDefMaxPhysical = defender.clone({ nature: defNature, evs: { hp: MAX_SINGLE_STAT_EVS, def: MAX_SINGLE_STAT_EVS, spd: 0 } })
+      const defenderDefMaxSpecial = defender.clone({ nature: defNature, evs: { hp: MAX_SINGLE_STAT_EVS, def: 0, spd: MAX_SINGLE_STAT_EVS } })
 
-      for (const attacker of physicalAttackers) {
-        const survivesWithMin = this.survivalChecker.checkSurvival(attacker, defenderDefNoEv, field)
-        const survivesWithMax = this.survivalChecker.checkSurvival(attacker, defenderDefMaxPhysical, field)
+      const defNaturePhysicalAnalysis = this.analyzeSurvival(physicalAttackers, null, defenderDefMaxPhysical, field, false)
+      const defNatureSpecialAnalysis = this.analyzeSurvival(specialAttackers, null, defenderDefMaxSpecial, field, false)
 
-        if (survivesWithMax) {
-          defNaturePhysicalSurvivingCount++
-        }
-
-        const damage = this.survivalChecker.calculateMaxDamage(attacker, defenderDefMaxPhysical, field)
-
-        if (damage < defenderDefMaxPhysical.hp && damage > defNaturePhysicalMaxDamage) {
-          defNaturePhysicalMaxDamage = damage
-          defNaturePhysicalStrongestAttacker = attacker
-        }
+      const defScenario: NatureScenario = {
+        nature: defNature,
+        physicalSurviving: defNaturePhysicalAnalysis.survivingCount,
+        specialSurviving: defNatureSpecialAnalysis.survivingCount,
+        physicalStrongest: defNaturePhysicalAnalysis.strongestAttacker,
+        specialStrongest: defNatureSpecialAnalysis.strongestAttacker,
+        physicalMaxDamage: defNaturePhysicalAnalysis.maxDamage,
+        specialMaxDamage: defNatureSpecialAnalysis.maxDamage,
+        totalSurviving: defNaturePhysicalAnalysis.survivingCount + defNatureSpecialAnalysis.survivingCount
       }
 
-      for (const attacker of specialAttackers) {
-        const survivesWithMin = this.survivalChecker.checkSurvival(attacker, defenderDefNoEv, field)
-        const survivesWithMax = this.survivalChecker.checkSurvival(attacker, defenderDefMaxSpecial, field)
+      const defenderSpdMaxPhysical = defender.clone({ nature: spdNature, evs: { hp: MAX_SINGLE_STAT_EVS, def: MAX_SINGLE_STAT_EVS, spd: 0 } })
+      const defenderSpdMaxSpecial = defender.clone({ nature: spdNature, evs: { hp: MAX_SINGLE_STAT_EVS, def: 0, spd: MAX_SINGLE_STAT_EVS } })
 
-        if (survivesWithMax) {
-          defNatureSpecialSurvivingCount++
-        }
+      const spdNaturePhysicalAnalysis = this.analyzeSurvival(physicalAttackers, null, defenderSpdMaxPhysical, field, false)
+      const spdNatureSpecialAnalysis = this.analyzeSurvival(specialAttackers, null, defenderSpdMaxSpecial, field, false)
 
-        const damage = this.survivalChecker.calculateMaxDamage(attacker, defenderDefMaxSpecial, field)
-
-        if (damage < defenderDefMaxSpecial.hp && damage > defNatureSpecialMaxDamage) {
-          defNatureSpecialMaxDamage = damage
-          defNatureSpecialStrongestAttacker = attacker
-        }
+      const spdScenario: NatureScenario = {
+        nature: spdNature,
+        physicalSurviving: spdNaturePhysicalAnalysis.survivingCount,
+        specialSurviving: spdNatureSpecialAnalysis.survivingCount,
+        physicalStrongest: spdNaturePhysicalAnalysis.strongestAttacker,
+        specialStrongest: spdNatureSpecialAnalysis.strongestAttacker,
+        physicalMaxDamage: spdNaturePhysicalAnalysis.maxDamage,
+        specialMaxDamage: spdNatureSpecialAnalysis.maxDamage,
+        totalSurviving: spdNaturePhysicalAnalysis.survivingCount + spdNatureSpecialAnalysis.survivingCount
       }
 
-      const defenderSpdNoEv = defender.clone({ nature: spdNature, evs: { hp: 0, def: 0, spd: 0 } })
-      const defenderSpdMaxPhysical = defender.clone({ nature: spdNature, evs: { hp: 252, def: 252, spd: 0 } })
-      const defenderSpdMaxSpecial = defender.clone({ nature: spdNature, evs: { hp: 252, def: 0, spd: 252 } })
+      bestScenario = this.selectBestScenario(bestScenario, defScenario, spdScenario, physicalAttackers.length, specialAttackers.length, defender.nature)
+    }
 
-      for (const attacker of physicalAttackers) {
-        const survivesWithMin = this.survivalChecker.checkSurvival(attacker, defenderSpdNoEv, field)
-        const survivesWithMax = this.survivalChecker.checkSurvival(attacker, defenderSpdMaxPhysical, field)
+    return {
+      prioritizePhysical: bestScenario.physicalSurviving >= bestScenario.specialSurviving,
+      physicalStrongestAttacker: bestScenario.physicalStrongest,
+      specialStrongestAttacker: bestScenario.specialStrongest,
+      natureUsed: bestScenario.nature
+    }
+  }
 
-        if (survivesWithMax) {
-          spdNaturePhysicalSurvivingCount++
-        }
+  private analyzeSurvival(attackers: Pokemon[], defenderMin: Pokemon | null, defenderMax: Pokemon, field: Field, checkMin: boolean): SurvivalAnalysis {
+    let survivingCount = 0
+    let strongestAttacker: Pokemon | null = null
+    let maxDamage = 0
 
-        const damage = this.survivalChecker.calculateMaxDamage(attacker, defenderSpdMaxPhysical, field)
+    for (const attacker of attackers) {
+      let survives = false
 
-        if (damage < defenderSpdMaxPhysical.hp && damage > spdNaturePhysicalMaxDamage) {
-          spdNaturePhysicalMaxDamage = damage
-          spdNaturePhysicalStrongestAttacker = attacker
-        }
+      if (checkMin && defenderMin) {
+        const survivesWithMin = this.survivalChecker.checkSurvival(attacker, defenderMin, field, 2)
+        const survivesWithMax = this.survivalChecker.checkSurvival(attacker, defenderMax, field, 2)
+        survives = !survivesWithMin && survivesWithMax
+      } else {
+        survives = this.survivalChecker.checkSurvival(attacker, defenderMax, field, 2)
       }
 
-      for (const attacker of specialAttackers) {
-        const survivesWithMin = this.survivalChecker.checkSurvival(attacker, defenderSpdNoEv, field)
-        const survivesWithMax = this.survivalChecker.checkSurvival(attacker, defenderSpdMaxSpecial, field)
+      if (survives) {
+        survivingCount++
+      }
 
-        if (survivesWithMax) {
-          spdNatureSpecialSurvivingCount++
-        }
+      const damage = this.damageCalculator.calcDamageValue(attacker, defenderMax, field)
 
-        const damage = this.survivalChecker.calculateMaxDamage(attacker, defenderSpdMaxSpecial, field)
-
-        if (damage < defenderSpdMaxSpecial.hp && damage > spdNatureSpecialMaxDamage) {
-          spdNatureSpecialMaxDamage = damage
-          spdNatureSpecialStrongestAttacker = attacker
-        }
+      if (damage < defenderMax.hp && damage > maxDamage) {
+        maxDamage = damage
+        strongestAttacker = attacker
       }
     }
 
-    const currentTotalSurviving = physicalSurvivingCount + specialSurvivingCount
-    const defNatureTotalSurviving = defNaturePhysicalSurvivingCount + defNatureSpecialSurvivingCount
-    const spdNatureTotalSurviving = spdNaturePhysicalSurvivingCount + spdNatureSpecialSurvivingCount
+    return { survivingCount, strongestAttacker, maxDamage }
+  }
 
-    let natureUsed: string | null = null
-    let finalPhysicalSurvivingCount = physicalSurvivingCount
-    let finalSpecialSurvivingCount = specialSurvivingCount
-    let finalPhysicalStrongestAttacker = physicalStrongestAttacker
-    let finalSpecialStrongestAttacker = specialStrongestAttacker
+  private selectBestScenario(current: NatureScenario, def: NatureScenario, spd: NatureScenario, physicalCount: number, specialCount: number, currentNature: string): NatureScenario {
+    const maxSurviving = Math.max(current.totalSurviving, def.totalSurviving, spd.totalSurviving)
 
-    if (updateNature) {
-      const { defNature, spdNature } = this.getDefensiveNatures(defender)
-      const maxSurviving = Math.max(currentTotalSurviving, defNatureTotalSurviving, spdNatureTotalSurviving)
+    if (maxSurviving === 0) {
+      return { ...current, nature: currentNature }
+    }
 
-      if (defNatureTotalSurviving === maxSurviving && spdNatureTotalSurviving === maxSurviving) {
-        const defMaxDamage = Math.max(defNaturePhysicalMaxDamage, defNatureSpecialMaxDamage)
-        const spdMaxDamage = Math.max(spdNaturePhysicalMaxDamage, spdNatureSpecialMaxDamage)
+    if (def.totalSurviving === maxSurviving && spd.totalSurviving === maxSurviving) {
+      const defMaxDamage = Math.max(def.physicalMaxDamage, def.specialMaxDamage)
+      const spdMaxDamage = Math.max(spd.physicalMaxDamage, spd.specialMaxDamage)
 
-        if (spdMaxDamage < defMaxDamage) {
-          natureUsed = spdNature
-          finalPhysicalSurvivingCount = spdNaturePhysicalSurvivingCount
-          finalSpecialSurvivingCount = spdNatureSpecialSurvivingCount
-          finalPhysicalStrongestAttacker = spdNaturePhysicalStrongestAttacker
-          finalSpecialStrongestAttacker = spdNatureSpecialStrongestAttacker
-        } else if (defMaxDamage < spdMaxDamage) {
-          natureUsed = defNature
-          finalPhysicalSurvivingCount = defNaturePhysicalSurvivingCount
-          finalSpecialSurvivingCount = defNatureSpecialSurvivingCount
-          finalPhysicalStrongestAttacker = defNaturePhysicalStrongestAttacker
-          finalSpecialStrongestAttacker = defNatureSpecialStrongestAttacker
-        } else {
-          if (spdNatureSpecialSurvivingCount > defNaturePhysicalSurvivingCount) {
-            natureUsed = spdNature
-            finalPhysicalSurvivingCount = spdNaturePhysicalSurvivingCount
-            finalSpecialSurvivingCount = spdNatureSpecialSurvivingCount
-            finalPhysicalStrongestAttacker = spdNaturePhysicalStrongestAttacker
-            finalSpecialStrongestAttacker = spdNatureSpecialStrongestAttacker
-          } else {
-            natureUsed = defNature
-            finalPhysicalSurvivingCount = defNaturePhysicalSurvivingCount
-            finalSpecialSurvivingCount = defNatureSpecialSurvivingCount
-            finalPhysicalStrongestAttacker = defNaturePhysicalStrongestAttacker
-            finalSpecialStrongestAttacker = defNatureSpecialStrongestAttacker
-          }
+      if (spdMaxDamage < defMaxDamage) {
+        return spd
+      } else if (defMaxDamage < spdMaxDamage) {
+        return def
+      } else {
+        const hasPhysicalAttackers = physicalCount > 0
+        const hasSpecialAttackers = specialCount > 0
+
+        if (!hasPhysicalAttackers && hasSpecialAttackers) {
+          return spd
+        } else if (hasPhysicalAttackers && !hasSpecialAttackers) {
+          return def
         }
-      } else if (defNatureTotalSurviving === maxSurviving && defNatureTotalSurviving >= currentTotalSurviving) {
-        natureUsed = defNature
-        finalPhysicalSurvivingCount = defNaturePhysicalSurvivingCount
-        finalSpecialSurvivingCount = defNatureSpecialSurvivingCount
-        finalPhysicalStrongestAttacker = defNaturePhysicalStrongestAttacker
-        finalSpecialStrongestAttacker = defNatureSpecialStrongestAttacker
-      } else if (spdNatureTotalSurviving === maxSurviving && spdNatureTotalSurviving >= currentTotalSurviving) {
-        natureUsed = spdNature
-        finalPhysicalSurvivingCount = spdNaturePhysicalSurvivingCount
-        finalSpecialSurvivingCount = spdNatureSpecialSurvivingCount
-        finalPhysicalStrongestAttacker = spdNaturePhysicalStrongestAttacker
-        finalSpecialStrongestAttacker = spdNatureSpecialStrongestAttacker
+
+        return spd.specialSurviving > def.physicalSurviving ? spd : def
       }
+    } else if (def.totalSurviving === maxSurviving && def.totalSurviving >= current.totalSurviving) {
+      return def
+    } else if (spd.totalSurviving === maxSurviving && spd.totalSurviving >= current.totalSurviving) {
+      return spd
     }
 
-    const prioritization = {
-      prioritizePhysical: finalPhysicalSurvivingCount >= finalSpecialSurvivingCount,
-      physicalStrongestAttacker: finalPhysicalStrongestAttacker,
-      specialStrongestAttacker: finalSpecialStrongestAttacker,
-      natureUsed
-    }
-
-    return prioritization;
+    return current
   }
 
   private getDefensiveNatures(defender: Pokemon): { defNature: string; spdNature: string } {
@@ -264,7 +214,7 @@ export class AttackerSelector {
     for (const attacker of attackers) {
       if (attacker === strongestAttacker) continue
 
-      const damage = this.survivalChecker.calculateMaxDamage(attacker, defenderWithMax, field)
+      const damage = this.damageCalculator.calcDamageValue(attacker, defenderWithMax, field)
 
       if (damage < defenderWithMax.hp && damage > secondMaxDamage) {
         secondMaxDamage = damage
@@ -286,7 +236,7 @@ export class AttackerSelector {
     for (const attacker of attackers) {
       if (attacker === strongestAttacker) continue
 
-      const damage = this.survivalChecker.calculateMaxDamage(attacker, defenderWithMax, field)
+      const damage = this.damageCalculator.calcDamageValue(attacker, defenderWithMax, field)
 
       if (damage < defenderWithMax.hp) {
         attackersWithDamage.push({ attacker, damage })
@@ -308,7 +258,7 @@ export class AttackerSelector {
       if (target.pokemon.isDefault) continue
 
       if (target.secondPokemon && !target.secondPokemon.isDefault) {
-        const combinedDamage = this.survivalChecker.calculateMaxCombinedDamage(target.pokemon, target.secondPokemon, defenderWithNoEv, field)
+        const combinedDamage = this.damageCalculator.calcDamageValueForTwoAttackers(target.pokemon, target.secondPokemon, defenderWithNoEv, field)
 
         if (combinedDamage > maxDamage) {
           maxDamage = combinedDamage

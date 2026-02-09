@@ -1,3 +1,4 @@
+import { MAX_TOTAL_EVS } from "./ev-optimizer-constants"
 import { Injectable } from "@angular/core"
 import { Stats } from "@lib/types"
 
@@ -43,7 +44,7 @@ export class EvOptimizerUtils {
     for (const hpEv of evIntervals) {
       const hp = hpValues.get(hpEv)!
       for (const secondaryEv of evIntervals) {
-        if (hpEv + secondaryEv > 508) continue
+        if (hpEv + secondaryEv > MAX_TOTAL_EVS) continue
 
         const secondaryValue = secondaryValues.get(secondaryEv)!
         const damageProduct = damageProductFn(hp, secondaryValue)
@@ -74,21 +75,41 @@ export class EvOptimizerUtils {
     return combinations
   }
 
-  generateThreeStatCombinations(evIntervals: number[], hpValues: Map<number, number>, defValues: Map<number, number>, spdValues: Map<number, number>, minDamageProduct: number): EvCombination[] {
+  generateThreeStatCombinations(
+    evIntervals: number[],
+    hpValues: Map<number, number>,
+    defValues: Map<number, number>,
+    spdValues: Map<number, number>,
+    minDamageProduct: number,
+    maxTotalEvs = MAX_TOTAL_EVS,
+    minDefEv = 0,
+    minSpdEv = 0,
+    initialHp = 0,
+    initialDef = 0,
+    initialSpd = 0
+  ): EvCombination[] {
     const combinations: EvCombination[] = []
 
     for (const hpEv of evIntervals) {
       const hp = hpValues.get(hpEv)!
       for (const defEv of evIntervals) {
+        if (defEv < minDefEv) continue
+
         const def = defValues.get(defEv)!
         for (const spdEv of evIntervals) {
-          if (hpEv + defEv + spdEv > 508) continue
+          if (spdEv < minSpdEv) continue
+
+          if (hpEv >= initialHp && defEv >= initialDef && spdEv >= initialSpd) continue
+
+          const totalEvs = hpEv + defEv + spdEv
+
+          if (totalEvs > maxTotalEvs) continue
+          if (totalEvs > MAX_TOTAL_EVS) continue
 
           const spd = spdValues.get(spdEv)!
           const damageProduct = hp * (def + spd)
 
           if (damageProduct >= minDamageProduct) {
-            const totalEvs = hpEv + defEv + spdEv
             combinations.push({
               hp: hpEv,
               atk: 0,

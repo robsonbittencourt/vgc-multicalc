@@ -2,11 +2,12 @@ import { inject, Injectable } from "@angular/core"
 import { Field } from "@lib/model/field"
 import { Pokemon } from "@lib/model/pokemon"
 import { Target } from "@lib/model/target"
-import { Stats } from "@lib/types"
+import { Stats, SurvivalThreshold } from "@lib/types"
 import { AttackerSelector } from "./internal/attacker-selector"
 import { DoubleAttackerOptimizer } from "./internal/double-attacker-optimizer"
 import { SingleAttackerOptimizer } from "./internal/single-attacker-optimizer"
 import { SolutionCombiner } from "./internal/solution-combiner"
+import { RefinementStage } from "./internal/refinement-stage"
 
 @Injectable({
   providedIn: "root"
@@ -16,8 +17,9 @@ export class DefensiveEvOptimizerService {
   private singleAttackerOptimizer = inject(SingleAttackerOptimizer)
   private doubleAttackerOptimizer = inject(DoubleAttackerOptimizer)
   private solutionCombiner = inject(SolutionCombiner)
+  private refinementStage = inject(RefinementStage)
 
-  optimize(defender: Pokemon, targets: Target[], field: Field, updateNature = false, keepOffensiveEvs = false): { evs: Stats; nature: string | null } {
+  optimize(defender: Pokemon, targets: Target[], field: Field, updateNature = false, keepOffensiveEvs = false, threshold: SurvivalThreshold = 2): { evs: Stats; nature: string | null } {
     if (targets.length === 0) {
       return { evs: { ...defender.evs }, nature: null }
     }
@@ -29,7 +31,7 @@ export class DefensiveEvOptimizerService {
     const attackers = singleTargets.map(t => t.pokemon).filter(p => !p.isDefault)
 
     if (targetsWithTwoAttackers.length === 0) {
-      return this.optimizeForSingleAttackers(defender, attackers, field, updateNature, reservedEvs)
+      return this.optimizeForSingleAttackers(defender, attackers, field, updateNature, reservedEvs, threshold)
     }
 
     const strongestDoubleTarget = this.attackerSelector.findStrongestDoubleTarget(defender, targets, field)
@@ -43,38 +45,54 @@ export class DefensiveEvOptimizerService {
     let specialOptimized: Stats | null = null
 
     let natureUsed: string | null = null
+    let priority: {
+      physicalStrongestAttacker: Pokemon | null
+      specialStrongestAttacker: Pokemon | null
+      natureUsed: string | null
+      prioritizePhysical: boolean
+    } | null = null
+
     if (physicalAttackers.length > 0 || specialAttackers.length > 0) {
-      const priority = this.attackerSelector.determinePriority(physicalAttackers, specialAttackers, defender, field, updateNature)
+      priority = this.attackerSelector.determinePriority(physicalAttackers, specialAttackers, defender, field, updateNature)
       physicalStrongest = priority.physicalStrongestAttacker
       specialStrongest = priority.specialStrongestAttacker
       natureUsed = priority.natureUsed
 
       const defenderWithNature = natureUsed ? defender.clone({ nature: natureUsed }) : defender
 
-      physicalOptimized = physicalStrongest ? this.singleAttackerOptimizer.optimizeForAttacker(physicalStrongest, defenderWithNature, field) : null
-      specialOptimized = specialStrongest ? this.singleAttackerOptimizer.optimizeForAttacker(specialStrongest, defenderWithNature, field) : null
+      physicalOptimized = physicalStrongest ? this.singleAttackerOptimizer.optimizeForAttacker(physicalStrongest, defenderWithNature, field, threshold) : null
+      specialOptimized = specialStrongest ? this.singleAttackerOptimizer.optimizeForAttacker(specialStrongest, defenderWithNature, field, threshold) : null
     }
 
     const defenderWithNature = natureUsed ? defender.clone({ nature: natureUsed }) : defender
 
     let doubleOptimized: Stats | null = null
     if (strongestDoubleTarget) {
-      doubleOptimized = this.doubleAttackerOptimizer.optimizeForTwoAttackers(strongestDoubleTarget.attacker1, strongestDoubleTarget.attacker2, defenderWithNature, field)
+      doubleOptimized = this.doubleAttackerOptimizer.optimizeForTwoAttackers(strongestDoubleTarget.attacker1, strongestDoubleTarget.attacker2, defenderWithNature, field, threshold)
     }
 
-    const evs = this.solutionCombiner.combineThreeSolutions(
-      physicalOptimized,
-      specialOptimized,
-      doubleOptimized,
-      defenderWithNature,
-      field,
-      physicalStrongest,
-      specialStrongest,
-      strongestDoubleTarget?.attacker1 ?? null,
-      strongestDoubleTarget?.attacker2 ?? null,
-      physicalAttackers,
-      specialAttackers
+    let evs: Stats | null = this.solutionCombiner.combineThreeSolutions(
+      { physicalSolution: physicalOptimized, specialSolution: specialOptimized, doubleSolution: doubleOptimized },
+      { defender: defenderWithNature, field, threshold },
+      { physicalAttacker: physicalStrongest, specialAttacker: specialStrongest, physicalAttackers, specialAttackers },
+      { attacker1: strongestDoubleTarget?.attacker1 ?? null, attacker2: strongestDoubleTarget?.attacker2 ?? null }
     )
+
+    if (evs && strongestDoubleTarget) {
+      const refinedEvs = this.refinementStage.refineForDoubleAttackers(evs, defenderWithNature, strongestDoubleTarget.attacker1, strongestDoubleTarget.attacker2, field, threshold)
+      if (refinedEvs) {
+        evs = refinedEvs
+      } else {
+        evs = this.solutionCombiner.combineSolutions(physicalOptimized, specialOptimized, priority?.prioritizePhysical ?? true, defenderWithNature, field, physicalStrongest, specialStrongest, physicalAttackers, specialAttackers, threshold)
+
+        if (evs) {
+          const strongestAttacker = physicalStrongest || specialStrongest
+          if (strongestAttacker) {
+            evs = this.refinementStage.refineForSingleAttacker(evs, defenderWithNature, strongestAttacker, field, threshold)
+          }
+        }
+      }
+    }
 
     if (!evs) {
       if (reservedEvs) {
@@ -94,7 +112,7 @@ export class DefensiveEvOptimizerService {
     return { evs, nature: natureUsed }
   }
 
-  private optimizeForSingleAttackers(defender: Pokemon, attackers: Pokemon[], field: Field, updateNature = false, reservedEvs?: { atk: number; spa: number; spe: number }): { evs: Stats; nature: string | null } {
+  private optimizeForSingleAttackers(defender: Pokemon, attackers: Pokemon[], field: Field, updateNature = false, reservedEvs?: { atk: number; spa: number; spe: number }, threshold: SurvivalThreshold = 2): { evs: Stats; nature: string | null } {
     if (attackers.length === 0) {
       return { evs: { ...defender.evs }, nature: null }
     }
@@ -112,18 +130,26 @@ export class DefensiveEvOptimizerService {
     const defenderWithNature = natureUsed ? defender.clone({ nature: natureUsed }) : defender
 
     const physicalStrongest = priority.physicalStrongestAttacker
-    const physicalOptimized = physicalStrongest ? this.singleAttackerOptimizer.optimizeForAttacker(physicalStrongest, defenderWithNature, field) : null
+    const physicalOptimized = physicalStrongest ? this.singleAttackerOptimizer.optimizeForAttacker(physicalStrongest, defenderWithNature, field, threshold) : null
 
     const specialStrongest = priority.specialStrongestAttacker
-    const specialOptimized = specialStrongest ? this.singleAttackerOptimizer.optimizeForAttacker(specialStrongest, defenderWithNature, field) : null
+    const specialOptimized = specialStrongest ? this.singleAttackerOptimizer.optimizeForAttacker(specialStrongest, defenderWithNature, field, threshold) : null
 
-    const evs = this.solutionCombiner.combineSolutions(physicalOptimized, specialOptimized, priority.prioritizePhysical, defenderWithNature, field, physicalStrongest, specialStrongest, physicalAttackers, specialAttackers)
+    let evs: Stats | null = this.solutionCombiner.combineSolutions(physicalOptimized, specialOptimized, priority.prioritizePhysical, defenderWithNature, field, physicalStrongest, specialStrongest, physicalAttackers, specialAttackers)
+
+    if (evs) {
+      const strongestAttacker = physicalStrongest || specialStrongest
+
+      if (strongestAttacker) {
+        evs = this.refinementStage.refineForSingleAttacker(evs, defenderWithNature, strongestAttacker, field, threshold)
+      }
+    }
 
     if (!evs) {
       if (reservedEvs) {
-        return { evs: { hp: 0, atk: reservedEvs.atk, def: 0, spa: reservedEvs.spa, spd: 0, spe: reservedEvs.spe }, nature: null }
+        return { evs: { hp: 0, atk: reservedEvs.atk, def: 0, spa: reservedEvs.spa, spd: 0, spe: reservedEvs.spe }, nature: natureUsed }
       }
-      return { evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: null }
+      return { evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: natureUsed }
     }
 
     if (reservedEvs) {

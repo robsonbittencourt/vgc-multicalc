@@ -9,7 +9,7 @@ import { AutomaticFieldService } from "@lib/automatic-field-service"
 import { DamageMultiCalcService } from "@lib/damage-calculator/damage-multi-calc.service"
 import { DamageResultOrderService } from "@lib/damage-calculator/damage-result-order.service"
 import { DefensiveEvOptimizerService } from "@lib/ev-optimizer/defensive-ev-optimizer.service"
-import { Stats } from "@lib/types"
+import { Stats, SurvivalThreshold } from "@lib/types"
 import { TargetPokemonComponent } from "@pages/multi-calc/target-pokemon/target-pokemon.component"
 
 @Component({
@@ -101,7 +101,7 @@ export class MultiCalcComponent implements OnInit {
     this.teamComponent()?.scrollToPokemonSelector()
   }
 
-  handleOptimizeRequest(event: { updateNature: boolean; keepOffensiveEvs: boolean }) {
+  handleOptimizeRequest(event: { updateNature: boolean; keepOffensiveEvs: boolean; survivalThreshold: SurvivalThreshold }) {
     const defender = this.pokemonOnEdit()
     const targets = this.store.targets()
     const field = this.fieldStore.field()
@@ -113,7 +113,7 @@ export class MultiCalcComponent implements OnInit {
     this.originalEvs.set({ ...defender.evs })
     this.originalNature.set(defender.nature)
 
-    const result = this.defensiveEvOptimizer.optimize(defender, targets, field, event.updateNature, event.keepOffensiveEvs)
+    const result = this.defensiveEvOptimizer.optimize(defender, targets, field, event.updateNature, event.keepOffensiveEvs, event.survivalThreshold)
 
     this.optimizedEvs.set(result.evs)
     this.optimizedNature.set(result.nature)

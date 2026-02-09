@@ -93,6 +93,7 @@
     <div class="checkbox-group">
       <mat-checkbox [(ngModel)]="updateNature" data-cy="update-nature-checkbox-mobile">Update Nature</mat-checkbox>
       <mat-checkbox [(ngModel)]="keepOffensiveEvs" data-cy="keep-offensive-evs-checkbox-mobile">Keep Offensive EVs</mat-checkbox>
+      <app-input-select [(value)]="survivalThreshold" [allValues]="thresholdOptions" />
     </div>
   }
   @if (optimizedEvs() && isOptimizationValid() && !hasNoSolution()) {

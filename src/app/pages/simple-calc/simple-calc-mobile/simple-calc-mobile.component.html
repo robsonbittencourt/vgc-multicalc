@@ -1,6 +1,6 @@
 <div class="pokes">
   <div class="pokemon-name">
-    <app-pokemon-combo-box [pokemonId]="attacker().id" (pokemonChanged)="pokemonChanged()" />
+    <app-pokemon-combo-box [pokemonId]="attacker().id" />
     <div class="import-export">
       <app-import-pokemon-button (pokemonImportedEvent)="importPokemon($event)" />
       <app-export-pokemon-button [pokemonId]="attacker().id" />

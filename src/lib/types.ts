@@ -4,6 +4,7 @@ import { Status } from "@lib/model/status"
 import { StatIDExceptHP } from "@robsonbittencourt/calc/src/data/interface"
 
 export type Stats = { hp: number; atk: number; def: number; spa: number; spd: number; spe: number }
+export type SurvivalThreshold = 2 | 3 | 4
 
 export type MovePosition = 1 | 2 | 3 | 4
 

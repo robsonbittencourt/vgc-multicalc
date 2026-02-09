@@ -10,7 +10,7 @@ import { higherStat } from "@lib/smogon/commom"
 import { fromScratch } from "@lib/smogon/smogon-pokemon-builder"
 import { Jumps, PokemonParameters, Stats } from "@lib/types"
 import { Pokemon as SmogonPokemon } from "@robsonbittencourt/calc"
-import { TypeName } from "@robsonbittencourt/calc/dist/data/interface"
+import { NatureName, TypeName } from "@robsonbittencourt/calc/dist/data/interface"
 import { StatID, StatIDExceptHP } from "@robsonbittencourt/calc/src/data/interface"
 import { v4 as uuidv4 } from "uuid"
 
@@ -371,5 +371,43 @@ export class Pokemon {
 
   private evToIncrementStat(stat: StatID, actualStatValue: number, ev: number) {
     return this.rawStatWithEv(stat, ev + 4) > actualStatValue ? 4 : 8
+  }
+
+  setEvs(evs: Stats) {
+    const currentEvs = this.smogonPokemon.evs
+    let hpChanged = false
+
+    for (const stat of Object.keys(evs) as StatID[]) {
+      if (currentEvs[stat] !== evs[stat]) {
+        currentEvs[stat] = evs[stat]
+        this.smogonPokemon.stats[stat] = (this.smogonPokemon as any).calcStat(this.smogonPokemon.gen, stat)
+        if (stat === "hp") hpChanged = true
+      }
+    }
+
+    if (hpChanged) {
+      this.smogonPokemon.originalCurHP = this.smogonPokemon.stats.hp
+    }
+  }
+
+  setNature(nature: string) {
+    this.smogonPokemon.nature = nature as NatureName
+    this.recalculateStats()
+  }
+
+  get stats(): Stats {
+    return this.smogonPokemon.stats
+  }
+
+  private recalculateStats() {
+    const stats: Stats = { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
+
+    for (const statName of Object.keys(stats)) {
+      const stat = statName as StatID
+      stats[stat] = (this.smogonPokemon as any).calcStat(this.smogonPokemon.gen, stat)
+    }
+
+    this.smogonPokemon.stats = stats
+    this.smogonPokemon.originalCurHP = stats.hp
   }
 }

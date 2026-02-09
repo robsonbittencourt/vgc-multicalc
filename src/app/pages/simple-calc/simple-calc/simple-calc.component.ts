@@ -14,7 +14,7 @@ import { DefensiveEvOptimizerService } from "@lib/ev-optimizer/defensive-ev-opti
 import { Move } from "@lib/model/move"
 import { Pokemon } from "@lib/model/pokemon"
 import { Target } from "@lib/model/target"
-import { Stats } from "@lib/types"
+import { Stats, SurvivalThreshold } from "@lib/types"
 import { DamageResultComponent } from "@pages/simple-calc/damage-result/damage-result.component"
 
 @Component({
@@ -137,7 +137,7 @@ export class SimpleCalcComponent {
     return damageResults.find(result => result.move == moveName)!
   }
 
-  handleLeftOptimizeRequest(event: { updateNature: boolean; keepOffensiveEvs: boolean }) {
+  handleLeftOptimizeRequest(event: { updateNature: boolean; keepOffensiveEvs: boolean; survivalThreshold: SurvivalThreshold }) {
     const defender = this.store.leftPokemon()
     const attacker = this.store.rightPokemon()
     const field = this.fieldStore.field()
@@ -145,7 +145,7 @@ export class SimpleCalcComponent {
     this.leftOriginalEvs.set({ ...defender.evs })
     this.leftOriginalNature.set(defender.nature)
 
-    const result = this.defensiveEvOptimizer.optimize(defender, [new Target(attacker)], field, event.updateNature, event.keepOffensiveEvs)
+    const result = this.defensiveEvOptimizer.optimize(defender, [new Target(attacker)], field, event.updateNature, event.keepOffensiveEvs, event.survivalThreshold)
 
     this.leftOptimizedEvs.set(result.evs)
     this.leftOptimizedNature.set(result.nature)
@@ -157,7 +157,7 @@ export class SimpleCalcComponent {
     }
   }
 
-  handleRightOptimizeRequest(event: { updateNature: boolean; keepOffensiveEvs: boolean }) {
+  handleRightOptimizeRequest(event: { updateNature: boolean; keepOffensiveEvs: boolean; survivalThreshold: SurvivalThreshold }) {
     const defender = this.store.rightPokemon()
     const attacker = this.store.leftPokemon()
     const field = this.fieldStore.field()
@@ -165,7 +165,7 @@ export class SimpleCalcComponent {
     this.rightOriginalEvs.set({ ...defender.evs })
     this.rightOriginalNature.set(defender.nature)
 
-    const result = this.defensiveEvOptimizer.optimize(defender, [new Target(attacker)], field, event.updateNature, event.keepOffensiveEvs)
+    const result = this.defensiveEvOptimizer.optimize(defender, [new Target(attacker)], field, event.updateNature, event.keepOffensiveEvs, event.survivalThreshold)
 
     this.rightOptimizedEvs.set(result.evs)
     this.rightOptimizedNature.set(result.nature)

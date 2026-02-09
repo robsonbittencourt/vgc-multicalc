@@ -54,6 +54,21 @@ export class DamageCalculatorService {
     return new DamageResult(firstBySpeed, target, firstBySpeed.move.name, firstResult.moveDesc(), koChance, maxPercentageDamage, damageDescription, firstRolls, secondBySpeed, secondRolls)
   }
 
+  koChanceForOneAttacker(attacker: Pokemon, target: Pokemon, field: Field): string {
+    const result = this.calculateResult(attacker, target, attacker.move, field, true)
+    return this.koChance(result)
+  }
+
+  koChanceForTwoAttackers(attacker: Pokemon, secondAttacker: Pokemon, target: Pokemon, field: Field): string {
+    const [firstBySpeed, secondBySpeed] = this.speedCalculator.orderPairBySpeed(attacker, secondAttacker, field)
+    const firstResult = this.calculateResult(firstBySpeed, target, firstBySpeed.move, field, true, secondBySpeed)
+    const targetWithTakedDamage = this.applyDamageInTarget(firstResult, target)
+    const secondResult = this.calculateResult(secondBySpeed, targetWithTakedDamage, secondBySpeed.move, field, true, firstBySpeed)
+    this.combineDamageRolls(firstResult, secondResult)
+    const result = this.koChance(firstResult)
+    return result
+  }
+
   calcDamageValue(attacker: Pokemon, target: Pokemon, field: Field): number {
     const result = this.calculateResult(attacker, target, attacker.move, field, true)
     const damageArrays = this.extractDamageSubArrays(result.damage as number[] | number[][])

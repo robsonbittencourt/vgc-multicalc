@@ -3,7 +3,6 @@
 .input-column {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   gap: 0.2em;
 }
 
@@ -12,6 +11,11 @@
   flex-direction: row;
   align-items: center;
   gap: 0.5em;
+
+  label {
+    margin: 0;
+    line-height: 1;
+  }
 }
 
 .input-column > mat-select,
@@ -31,6 +35,10 @@
     border-color 0.3s ease;
   color: var(--text);
   font-size: $font-size;
+}
+
+.input-row > mat-select {
+  margin-top: 0;
 }
 
 .focus {

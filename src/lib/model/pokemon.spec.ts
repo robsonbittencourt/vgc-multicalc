@@ -620,4 +620,66 @@ describe("Pokemon", () => {
       })
     })
   })
+
+  describe("Setters", () => {
+    it("should update EVs and recalculate stats correctly", () => {
+      // Garchomp lvl 50, Neutral Nature, 31 IVs
+      // Base Speed: 102
+      // EV 0 -> 122
+      // EV 252 -> 154
+      const pokemon = new Pokemon("Garchomp", { nature: "Hardy", evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 } })
+
+      expect(pokemon.stats.spe).toBe(122)
+
+      pokemon.setEvs({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 252 })
+
+      expect(pokemon.evs.spe).toBe(252)
+      expect(pokemon.stats.spe).toBe(154)
+    })
+
+    it("should update Nature and recalculate stats correctly", () => {
+      // Garchomp lvl 50, 31 IVs, 0 EVs
+      // Base Attack: 130
+      // Neutral (Hardy) -> 150
+      // Beneficial (Adamant) -> 165
+      // Hindering (Modest) -> 135
+      const pokemon = new Pokemon("Garchomp", { nature: "Hardy", evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 } })
+
+      expect(pokemon.stats.atk).toBe(150)
+
+      pokemon.setNature("Adamant")
+
+      expect(pokemon.nature).toBe("Adamant")
+      expect(pokemon.stats.atk).toBe(165)
+
+      pokemon.setNature("Modest")
+
+      expect(pokemon.nature).toBe("Modest")
+      expect(pokemon.stats.atk).toBe(135)
+    })
+
+    it("should update EVs and recalculate HP correctly (Shedinja case)", () => {
+      const pokemon = new Pokemon("Shedinja")
+
+      expect(pokemon.stats.hp).toBe(1)
+
+      pokemon.setEvs({ hp: 252, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
+
+      expect(pokemon.stats.hp).toBe(1)
+    })
+
+    it("should update EVs and recalculate HP correctly (General case)", () => {
+      // Garchomp lvl 50, 31 IVs
+      // Base HP: 108
+      // EV 0 -> 183
+      // EV 252 -> 215
+      const pokemon = new Pokemon("Garchomp", { evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 } })
+
+      expect(pokemon.stats.hp).toBe(183)
+
+      pokemon.setEvs({ hp: 252, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
+
+      expect(pokemon.stats.hp).toBe(215)
+    })
+  })
 })

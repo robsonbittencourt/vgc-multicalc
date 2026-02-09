@@ -5,6 +5,7 @@ import { MatCheckbox } from "@angular/material/checkbox"
 import { MatChipListbox, MatChipOption } from "@angular/material/chips"
 import { MatIcon } from "@angular/material/icon"
 import { InputAutocompleteComponent } from "@basic/input-autocomplete/input-autocomplete.component"
+import { InputSelectComponent } from "@basic/input-select/input-select.component"
 import { MOVE_DETAILS } from "@data/move-details"
 import { POKEMON_DETAILS } from "@data/pokemon-details"
 import { CalculatorStore } from "@data/store/calculator-store"
@@ -18,10 +19,10 @@ import { NatureComboBoxComponent } from "@features/pokemon-build/nature-combo-bo
 import { StatusComboBoxComponent } from "@features/pokemon-build/status-combo-box/status-combo-box.component"
 import { TeraComboBoxComponent } from "@features/pokemon-build/tera-combo-box/tera-combo-box.component"
 import { Pokemon } from "@lib/model/pokemon"
-import { Stats } from "@lib/types"
 import { getFinalAttack, getFinalSpecialAttack } from "@lib/smogon/stat-calculator/atk-spa/modified-atk-spa"
 import { getFinalDefense, getFinalSpecialDefense } from "@lib/smogon/stat-calculator/def-spd/modified-def-spd"
 import { getFinalSpeed } from "@lib/smogon/stat-calculator/spe/modified-spe"
+import { Stats, SurvivalThreshold } from "@lib/types"
 
 @Component({
   selector: "app-pokemon-build-mobile",
@@ -41,7 +42,8 @@ import { getFinalSpeed } from "@lib/smogon/stat-calculator/spe/modified-spe"
     MultiHitComboBoxComponent,
     StatusComboBoxComponent,
     ItemComboBoxComponent,
-    NatureComboBoxComponent
+    NatureComboBoxComponent,
+    InputSelectComponent
   ]
 })
 export class PokemonBuildMobileComponent {
@@ -50,7 +52,7 @@ export class PokemonBuildMobileComponent {
   optimizedNature = input<string | null>(null)
 
   pokemonChangedEvent = output<Pokemon>()
-  optimizeRequested = output<{ updateNature: boolean; keepOffensiveEvs: boolean }>()
+  optimizeRequested = output<{ updateNature: boolean; keepOffensiveEvs: boolean; survivalThreshold: SurvivalThreshold }>()
   optimizationApplied = output<void>()
   optimizationDiscarded = output<void>()
   evsCleared = output<void>()
@@ -63,6 +65,13 @@ export class PokemonBuildMobileComponent {
   originalNature = signal<string>("")
   updateNature = signal<boolean>(false)
   keepOffensiveEvs = signal<boolean>(false)
+  survivalThreshold = signal<string>("2")
+
+  thresholdOptions = [
+    { key: "2HKO", value: "2" },
+    { key: "3HKO", value: "3" },
+    { key: "4HKO", value: "4" }
+  ]
 
   modifiedAtk = signal<number>(0)
   modifiedDef = signal<number>(0)
@@ -185,7 +194,11 @@ export class PokemonBuildMobileComponent {
     this.originalEvs.set({ ...defender.evs })
     this.originalNature.set(defender.nature)
 
-    this.optimizeRequested.emit({ updateNature: this.updateNature(), keepOffensiveEvs: this.keepOffensiveEvs() })
+    this.optimizeRequested.emit({
+      updateNature: this.updateNature(),
+      keepOffensiveEvs: this.keepOffensiveEvs(),
+      survivalThreshold: Number(this.survivalThreshold()) as SurvivalThreshold
+    })
   }
 
   applyOptimization() {

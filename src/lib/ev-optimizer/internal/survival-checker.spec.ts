@@ -30,42 +30,6 @@ describe("SurvivalChecker", () => {
     expect(service).toBeTruthy()
   })
 
-  describe("calculateMaxDamage", () => {
-    it("should calculate max damage for physical attacker", () => {
-      const attacker = new Pokemon("Urshifu-Rapid-Strike", {
-        nature: "Adamant",
-        moveSet: new MoveSet(new Move("Surging Strikes"), new Move("Close Combat"), new Move("Aqua Jet"), new Move("Detect")),
-        evs: { hp: 4, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 }
-      })
-
-      const defender = new Pokemon("Flutter Mane", {
-        evs: { hp: 140, atk: 0, def: 236, spa: 0, spd: 0, spe: 0 }
-      })
-
-      const field = new Field()
-      const damage = service.calculateMaxDamage(attacker, defender, field)
-
-      expect(damage).toBeGreaterThan(0)
-    })
-
-    it("should calculate max damage for special attacker", () => {
-      const attacker = new Pokemon("Raging Bolt", {
-        nature: "Modest",
-        moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Thunderclap"), new Move("Draco Meteor"), new Move("Protect")),
-        evs: { hp: 0, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 }
-      })
-
-      const defender = new Pokemon("Vaporeon", {
-        evs: { hp: 12, atk: 0, def: 0, spa: 0, spd: 44, spe: 0 }
-      })
-
-      const field = new Field()
-      const damage = service.calculateMaxDamage(attacker, defender, field)
-
-      expect(damage).toBeGreaterThan(0)
-    })
-  })
-
   describe("checkSurvival", () => {
     it("should return true when defender survives", () => {
       const attacker = new Pokemon("Urshifu-Rapid-Strike", {
@@ -79,9 +43,9 @@ describe("SurvivalChecker", () => {
       })
 
       const field = new Field()
-      const survives = service.checkSurvival(attacker, defender, field)
+      const survives = service.checkSurvival(attacker, defender, field, 2)
 
-      expect(typeof survives).toBe("boolean")
+      expect(survives).toBe(true)
     })
 
     it("should return false when defender does not survive", () => {
@@ -96,39 +60,70 @@ describe("SurvivalChecker", () => {
       })
 
       const field = new Field()
-      const survives = service.checkSurvival(attacker, defender, field)
+      const survives = service.checkSurvival(attacker, defender, field, 2)
 
-      expect(typeof survives).toBe("boolean")
+      expect(survives).toBe(false)
     })
-  })
 
-  describe("calculateMaxCombinedDamage", () => {
-    it("should calculate combined damage for two attackers", () => {
-      const attacker1 = new Pokemon("Urshifu-Rapid-Strike", {
+    it("should consider threshold when checking survival with 2HKO", () => {
+      const attacker = new Pokemon("Urshifu-Rapid-Strike", {
         nature: "Adamant",
         moveSet: new MoveSet(new Move("Surging Strikes"), new Move("Close Combat"), new Move("Aqua Jet"), new Move("Detect")),
         evs: { hp: 4, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 }
       })
 
-      const attacker2 = new Pokemon("Flutter Mane", {
-        nature: "Modest",
-        moveSet: new MoveSet(new Move("Dazzling Gleam"), new Move("Icy Wind"), new Move("Protect"), new Move("Taunt")),
-        evs: { hp: 0, atk: 0, def: 0, spa: 252, spd: 4, spe: 44 }
-      })
-
-      const defender = new Pokemon("Gholdengo", {
-        evs: { hp: 148, atk: 0, def: 60, spa: 0, spd: 4, spe: 0 }
+      const defender = new Pokemon("Ursaluna", {
+        nature: "Impish",
+        evs: { hp: 140, atk: 0, def: 4, spa: 0, spd: 0, spe: 0 }
       })
 
       const field = new Field()
-      const damage = service.calculateMaxCombinedDamage(attacker1, attacker2, defender, field)
+      const survives = service.checkSurvival(attacker, defender, field, 2)
 
-      expect(damage).toBeGreaterThan(0)
+      expect(survives).toBe(true)
+    })
+
+    it("should consider threshold when checking survival with 3HKO", () => {
+      const attacker = new Pokemon("Urshifu-Rapid-Strike", {
+        nature: "Adamant",
+        teraType: "Water",
+        teraTypeActive: true,
+        moveSet: new MoveSet(new Move("Aqua Jet"), new Move("Close Combat"), new Move("Surging Strikes"), new Move("Detect")),
+        evs: { hp: 4, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 }
+      })
+
+      const defender = new Pokemon("Ursaluna", {
+        nature: "Impish",
+        evs: { hp: 0, atk: 0, def: 252, spa: 0, spd: 0, spe: 0 }
+      })
+
+      const field = new Field()
+      const survives = service.checkSurvival(attacker, defender, field, 3)
+
+      expect(survives).toBe(true)
+    })
+
+    it("should consider threshold when checking survival with 4HKO", () => {
+      const attacker = new Pokemon("Urshifu-Rapid-Strike", {
+        nature: "Adamant",
+        moveSet: new MoveSet(new Move("Aqua Jet"), new Move("Close Combat"), new Move("Surging Strikes"), new Move("Detect")),
+        evs: { hp: 4, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 }
+      })
+
+      const defender = new Pokemon("Ursaluna", {
+        nature: "Impish",
+        evs: { hp: 0, atk: 0, def: 172, spa: 0, spd: 0, spe: 0 }
+      })
+
+      const field = new Field()
+      const survives = service.checkSurvival(attacker, defender, field, 4)
+
+      expect(survives).toBe(true)
     })
   })
 
   describe("checkSurvivalAgainstTwoAttackers", () => {
-    it("should return true when defender survives both attackers", () => {
+    it("should return true when defender survives both attackers with 2HKO", () => {
       const attacker1 = new Pokemon("Urshifu-Rapid-Strike", {
         nature: "Adamant",
         moveSet: new MoveSet(new Move("Surging Strikes"), new Move("Close Combat"), new Move("Aqua Jet"), new Move("Detect")),
@@ -142,16 +137,16 @@ describe("SurvivalChecker", () => {
       })
 
       const defender = new Pokemon("Gholdengo", {
-        evs: { hp: 148, atk: 0, def: 60, spa: 0, spd: 4, spe: 0 }
+        evs: { hp: 76, atk: 0, def: 4, spa: 0, spd: 4, spe: 0 }
       })
 
       const field = new Field()
-      const survives = service.checkSurvivalAgainstTwoAttackers(attacker1, attacker2, defender, field)
+      const survives = service.checkSurvivalAgainstTwoAttackers(attacker1, attacker2, defender, field, 2)
 
-      expect(typeof survives).toBe("boolean")
+      expect(survives).toBe(true)
     })
 
-    it("should return false when defender does not survive both attackers", () => {
+    it("should return false when defender does not survive both attackers with 2HKO", () => {
       const attacker1 = new Pokemon("Urshifu-Rapid-Strike", {
         nature: "Adamant",
         moveSet: new MoveSet(new Move("Surging Strikes"), new Move("Close Combat"), new Move("Aqua Jet"), new Move("Detect")),
@@ -165,13 +160,105 @@ describe("SurvivalChecker", () => {
       })
 
       const defender = new Pokemon("Gholdengo", {
-        evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
+        evs: { hp: 76, atk: 0, def: 0, spa: 0, spd: 4, spe: 0 }
       })
 
       const field = new Field()
-      const survives = service.checkSurvivalAgainstTwoAttackers(attacker1, attacker2, defender, field)
+      const survives = service.checkSurvivalAgainstTwoAttackers(attacker1, attacker2, defender, field, 2)
 
-      expect(typeof survives).toBe("boolean")
+      expect(survives).toBe(false)
+    })
+
+    it("should return true when defender survives both attackers with 3HKO", () => {
+      const attacker1 = new Pokemon("Urshifu-Rapid-Strike", {
+        nature: "Adamant",
+        moveSet: new MoveSet(new Move("Aqua Jet"), new Move("Close Combat"), new Move("Surging Strikes"), new Move("Detect")),
+        evs: { hp: 4, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 }
+      })
+
+      const attacker2 = new Pokemon("Flutter Mane", {
+        nature: "Modest",
+        moveSet: new MoveSet(new Move("Dazzling Gleam"), new Move("Icy Wind"), new Move("Protect"), new Move("Taunt")),
+        evs: { hp: 0, atk: 0, def: 0, spa: 252, spd: 4, spe: 44 }
+      })
+
+      const defender = new Pokemon("Gholdengo", {
+        evs: { hp: 20, atk: 0, def: 20, spa: 0, spd: 4, spe: 0 }
+      })
+
+      const field = new Field()
+      const survives = service.checkSurvivalAgainstTwoAttackers(attacker1, attacker2, defender, field, 3)
+
+      expect(survives).toBe(true)
+    })
+
+    it("should return false when defender does not survive both attackers with 3HKO", () => {
+      const attacker1 = new Pokemon("Urshifu-Rapid-Strike", {
+        nature: "Adamant",
+        moveSet: new MoveSet(new Move("Aqua Jet"), new Move("Close Combat"), new Move("Surging Strikes"), new Move("Detect")),
+        evs: { hp: 4, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 }
+      })
+
+      const attacker2 = new Pokemon("Flutter Mane", {
+        nature: "Modest",
+        moveSet: new MoveSet(new Move("Dazzling Gleam"), new Move("Icy Wind"), new Move("Protect"), new Move("Taunt")),
+        evs: { hp: 0, atk: 0, def: 0, spa: 252, spd: 4, spe: 44 }
+      })
+
+      const defender = new Pokemon("Gholdengo", {
+        evs: { hp: 20, atk: 0, def: 12, spa: 0, spd: 4, spe: 0 }
+      })
+
+      const field = new Field()
+      const survives = service.checkSurvivalAgainstTwoAttackers(attacker1, attacker2, defender, field, 3)
+
+      expect(survives).toBe(false)
+    })
+
+    it("should return false when defender survives both attackers with 4HKO", () => {
+      const attacker1 = new Pokemon("Urshifu-Rapid-Strike", {
+        nature: "Adamant",
+        moveSet: new MoveSet(new Move("Aqua Jet"), new Move("Close Combat"), new Move("Surging Strikes"), new Move("Detect")),
+        evs: { hp: 4, atk: 0, def: 0, spa: 0, spd: 0, spe: 252 }
+      })
+
+      const attacker2 = new Pokemon("Flutter Mane", {
+        nature: "Modest",
+        moveSet: new MoveSet(new Move("Dazzling Gleam"), new Move("Icy Wind"), new Move("Protect"), new Move("Taunt")),
+        evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 4, spe: 44 }
+      })
+
+      const defender = new Pokemon("Gholdengo", {
+        evs: { hp: 244, atk: 0, def: 140, spa: 0, spd: 0, spe: 0 }
+      })
+
+      const field = new Field()
+      const survives = service.checkSurvivalAgainstTwoAttackers(attacker1, attacker2, defender, field, 4)
+
+      expect(survives).toBe(true)
+    })
+
+    it("should return false when defender does not survive both attackers with 4HKO", () => {
+      const attacker1 = new Pokemon("Urshifu-Rapid-Strike", {
+        nature: "Adamant",
+        moveSet: new MoveSet(new Move("Aqua Jet"), new Move("Close Combat"), new Move("Surging Strikes"), new Move("Detect")),
+        evs: { hp: 4, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 }
+      })
+
+      const attacker2 = new Pokemon("Flutter Mane", {
+        nature: "Modest",
+        moveSet: new MoveSet(new Move("Dazzling Gleam"), new Move("Icy Wind"), new Move("Protect"), new Move("Taunt")),
+        evs: { hp: 0, atk: 0, def: 0, spa: 252, spd: 4, spe: 44 }
+      })
+
+      const defender = new Pokemon("Gholdengo", {
+        evs: { hp: 20, atk: 0, def: 4, spa: 0, spd: 4, spe: 0 }
+      })
+
+      const field = new Field()
+      const survives = service.checkSurvivalAgainstTwoAttackers(attacker1, attacker2, defender, field, 4)
+
+      expect(survives).toBe(false)
     })
   })
 })

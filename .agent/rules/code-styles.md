@@ -72,18 +72,18 @@ updateState(newState: Partial<State>) {
 
 ## Best Practices
 
-1. **Always use path aliases** - Never use relative imports
-2. **Use signals for reactivity** - This is a zoneless app
-3. **Keep components focused** - Single responsibility
-4. **Use computed for derived state** - Avoid manual calculations in templates
-5. **Inject dependencies** - Use `inject()` function
-6. **Type everything** - Leverage TypeScript's type system
-7. **Follow naming conventions** - Consistency across the codebase
-8. **Write tests** - Especially for business logic
-9. **Use ESLint** - Follow the configured rules
-10. **Keep stores simple** - Complex logic should be in services
-11. **Never use comments in the code unless if I ask**
-12. **Place private functions below where they are first used** - Private methods should be defined after the first public method that uses them
+1. **NO COMMENTS**: Never use comments in the code unless explicitly asked. This includes strict prohibition of explaining logic.
+2. **Always use path aliases** - Never use relative imports
+3. **Use signals for reactivity** - This is a zoneless app
+4. **Keep components focused** - Single responsibility
+5. **Use computed for derived state** - Avoid manual calculations in templates
+6. **Inject dependencies** - Use `inject()` function
+7. **Type everything** - Leverage TypeScript's type system
+8. **Follow naming conventions** - Consistency across the codebase
+9. **Write tests** - Especially for business logic
+10. **Use ESLint** - Follow the configured rules
+11. **Keep stores simple** - Complex logic should be in services
+12. **Private functions placement** - Place private functions below where they are first used. Private methods should be defined after the first public method that uses them
 
 ## When Creating New Features
 

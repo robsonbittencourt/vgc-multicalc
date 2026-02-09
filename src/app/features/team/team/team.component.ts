@@ -10,7 +10,7 @@ import { defaultPokemon } from "@lib/default-pokemon"
 import { Pokemon } from "@lib/model/pokemon"
 import { Team } from "@lib/model/team"
 import { TeamMember } from "@lib/model/team-member"
-import { Stats } from "@lib/types"
+import { Stats, SurvivalThreshold } from "@lib/types"
 import { v4 as uuidv4 } from "uuid"
 
 @Component({
@@ -29,7 +29,7 @@ export class TeamComponent {
   optimizedNature = input<string | null>(null)
 
   teamMemberSelected = output<string>()
-  optimizeRequested = output<{ updateNature: boolean; keepOffensiveEvs: boolean }>()
+  optimizeRequested = output<{ updateNature: boolean; keepOffensiveEvs: boolean; survivalThreshold: SurvivalThreshold }>()
   optimizationApplied = output<void>()
   optimizationDiscarded = output<void>()
 

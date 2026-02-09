@@ -29,7 +29,7 @@ describe("SolutionCombiner", () => {
   })
 
   describe("combineSolutions", () => {
-    it("should return defender evs when both solutions are null", () => {
+    it("should return null when both solutions are null", () => {
       const defender = new Pokemon("Gholdengo", {
         evs: { hp: 100, atk: 0, def: 50, spa: 0, spd: 50, spe: 0 }
       })
@@ -37,7 +37,7 @@ describe("SolutionCombiner", () => {
       const field = new Field()
       const result = service.combineSolutions(null, null, true, defender, field, null, null, [], [])
 
-      expect(result).toEqual(defender.evs)
+      expect(result).toBeNull()
     })
 
     it("should return physical solution when special is null", () => {
@@ -49,9 +49,10 @@ describe("SolutionCombiner", () => {
       const field = new Field()
       const result = service.combineSolutions(physicalSolution, null, true, defender, field, null, null, [], [])
 
-      expect(result.hp).toBe(140)
-      expect(result.def).toBe(236)
-      expect(result.spd).toBe(0)
+      expect(result).not.toBeNull()
+      expect(result!.hp).toBe(140)
+      expect(result!.def).toBe(236)
+      expect(result!.spd).toBe(0)
     })
 
     it("should return special solution when physical is null", () => {
@@ -63,9 +64,10 @@ describe("SolutionCombiner", () => {
       const field = new Field()
       const result = service.combineSolutions(null, specialSolution, true, defender, field, null, null, [], [])
 
-      expect(result.hp).toBe(12)
-      expect(result.spd).toBe(44)
-      expect(result.def).toBe(0)
+      expect(result).not.toBeNull()
+      expect(result!.hp).toBe(12)
+      expect(result!.spd).toBe(44)
+      expect(result!.def).toBe(0)
     })
   })
 
@@ -77,7 +79,12 @@ describe("SolutionCombiner", () => {
 
       const doubleSolution = { hp: 148, atk: 0, def: 60, spa: 0, spd: 4, spe: 0 }
       const field = new Field()
-      const result = service.combineThreeSolutions(null, null, doubleSolution, defender, field, null, null, null, null)
+      const result = service.combineThreeSolutions(
+        { physicalSolution: null, specialSolution: null, doubleSolution },
+        { defender, field, threshold: 2 },
+        { physicalAttacker: null, specialAttacker: null, physicalAttackers: [], specialAttackers: [] },
+        { attacker1: null, attacker2: null }
+      )
 
       expect(result).toEqual(doubleSolution)
     })
@@ -90,7 +97,12 @@ describe("SolutionCombiner", () => {
       const physicalSolution = { hp: 140, atk: 0, def: 236, spa: 0, spd: 0, spe: 0 }
       const specialSolution = { hp: 12, atk: 0, def: 0, spa: 0, spd: 44, spe: 0 }
       const field = new Field()
-      const result = service.combineThreeSolutions(physicalSolution, specialSolution, null, defender, field, null, null, null, null)
+      const result = service.combineThreeSolutions(
+        { physicalSolution, specialSolution, doubleSolution: null },
+        { defender, field, threshold: 2 },
+        { physicalAttacker: null, specialAttacker: null, physicalAttackers: [], specialAttackers: [] },
+        { attacker1: null, attacker2: null }
+      )
 
       expect(result).toBeTruthy()
       expect(result.hp).toBeGreaterThanOrEqual(0)

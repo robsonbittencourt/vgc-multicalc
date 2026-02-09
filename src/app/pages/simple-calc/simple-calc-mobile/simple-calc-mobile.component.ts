@@ -13,7 +13,7 @@ import { DamageCalculatorService } from "@lib/damage-calculator/damage-calculato
 import { DefensiveEvOptimizerService } from "@lib/ev-optimizer/defensive-ev-optimizer.service"
 import { Pokemon } from "@lib/model/pokemon"
 import { Target } from "@lib/model/target"
-import { Stats } from "@lib/types"
+import { Stats, SurvivalThreshold } from "@lib/types"
 
 @Component({
   selector: "app-simple-calc-mobile",
@@ -96,11 +96,6 @@ export class SimpleCalcMobileComponent {
     this.leftIsAttacker.set(false)
   }
 
-  pokemonChanged() {
-    // leftIsAttacker already determines which Pokemon is active
-    // No need to set anything here since attacker is computed
-  }
-
   importPokemon(pokemon: Pokemon | Pokemon[]) {
     const singlePokemon = pokemon as Pokemon
 
@@ -111,7 +106,7 @@ export class SimpleCalcMobileComponent {
     }
   }
 
-  handleOptimizeRequest(event: { updateNature: boolean; keepOffensiveEvs: boolean }) {
+  handleOptimizeRequest(event: { updateNature: boolean; keepOffensiveEvs: boolean; survivalThreshold: SurvivalThreshold }) {
     const defender = this.attacker()
     const attacker = this.opponent()
     const field = this.fieldStore.field()
@@ -119,7 +114,7 @@ export class SimpleCalcMobileComponent {
     this.originalEvs.set({ ...defender.evs })
     this.originalNature.set(defender.nature)
 
-    const result = this.defensiveEvOptimizer.optimize(defender, [new Target(attacker)], field, event.updateNature, event.keepOffensiveEvs)
+    const result = this.defensiveEvOptimizer.optimize(defender, [new Target(attacker)], field, event.updateNature, event.keepOffensiveEvs, event.survivalThreshold)
 
     this.store.evs(defender.id, result.evs)
 

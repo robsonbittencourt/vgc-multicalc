@@ -1,5 +1,7 @@
 <div class="input-column" [ngClass]="{ 'input-row': leftLabel() }">
-  <label>{{ label() }}</label>
+  @if (label()) {
+    <label>{{ label() }}</label>
+  }
   <mat-select [value]="value()" [disabled]="disabled()" [hideSingleSelectionIndicator]="true" (openedChange)="selected.emit()" (selectionChange)="selectionChange($event)" [ngClass]="{ focus: haveFocus() }" data-cy="input-select">
     @for (value of allValues(); track value.key) {
       <mat-option [value]="value.value">{{ value.key }}</mat-option>
