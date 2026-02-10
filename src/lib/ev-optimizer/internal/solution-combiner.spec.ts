@@ -105,7 +105,7 @@ describe("SolutionCombiner", () => {
       )
 
       expect(result).toBeTruthy()
-      expect(result.hp).toBeGreaterThanOrEqual(0)
+      expect(result!.hp).toBeGreaterThanOrEqual(0)
     })
   })
 })

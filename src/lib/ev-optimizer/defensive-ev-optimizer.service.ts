@@ -8,6 +8,8 @@ import { DoubleAttackerOptimizer } from "./internal/double-attacker-optimizer"
 import { SingleAttackerOptimizer } from "./internal/single-attacker-optimizer"
 import { SolutionCombiner } from "./internal/solution-combiner"
 import { RefinementStage } from "./internal/refinement-stage"
+import { SurvivalChecker } from "./internal/survival-checker"
+import { OptimizationResult } from "./internal/ev-optimizer-types"
 
 @Injectable({
   providedIn: "root"
@@ -18,8 +20,9 @@ export class DefensiveEvOptimizerService {
   private doubleAttackerOptimizer = inject(DoubleAttackerOptimizer)
   private solutionCombiner = inject(SolutionCombiner)
   private refinementStage = inject(RefinementStage)
+  private survivalChecker = inject(SurvivalChecker)
 
-  optimize(defender: Pokemon, targets: Target[], field: Field, updateNature = false, keepOffensiveEvs = false, threshold: SurvivalThreshold = 2): { evs: Stats; nature: string | null } {
+  optimize(defender: Pokemon, targets: Target[], field: Field, updateNature = false, keepOffensiveEvs = false, threshold: SurvivalThreshold = 2): OptimizationResult {
     if (targets.length === 0) {
       return { evs: { ...defender.evs }, nature: null }
     }
@@ -95,16 +98,24 @@ export class DefensiveEvOptimizerService {
     }
 
     if (!evs) {
-      if (reservedEvs) {
-        return { evs: { hp: 0, atk: reservedEvs.atk, def: 0, spa: reservedEvs.spa, spd: 0, spe: reservedEvs.spe }, nature: null }
+      const defenderWithZeroDefensiveEvs = defenderWithNature.clone({ evs: { hp: 0, atk: defenderWithNature.evs.atk, def: 0, spa: defenderWithNature.evs.spa, spd: 0, spe: defenderWithNature.evs.spe } })
+      const survivesSingle = attackers.every(attacker => this.survivalChecker.checkSurvival(attacker, defenderWithZeroDefensiveEvs, field, threshold))
+      const survivesDouble = targetsWithTwoAttackers.every(target => this.survivalChecker.checkSurvivalAgainstTwoAttackers(target.pokemon, target.secondPokemon!, defenderWithZeroDefensiveEvs, field, threshold))
+
+      if (survivesSingle && survivesDouble) {
+        if (reservedEvs) {
+          return { evs: { hp: 0, atk: reservedEvs.atk, def: 0, spa: reservedEvs.spa, spd: 0, spe: reservedEvs.spe }, nature: natureUsed }
+        }
+        return { evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: natureUsed }
       }
-      return { evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: null }
+
+      return { evs: null, nature: null }
     }
 
     if (reservedEvs) {
       const totalEvs = evs.hp + evs.def + evs.spd + reservedEvs.atk + reservedEvs.spa + reservedEvs.spe
       if (totalEvs > 508) {
-        return { evs: { hp: 0, atk: reservedEvs.atk, def: 0, spa: reservedEvs.spa, spd: 0, spe: reservedEvs.spe }, nature: null }
+        return { evs: null, nature: null }
       }
       return { evs: { hp: evs.hp, atk: reservedEvs.atk, def: evs.def, spa: reservedEvs.spa, spd: evs.spd, spe: reservedEvs.spe }, nature: natureUsed }
     }
@@ -112,7 +123,7 @@ export class DefensiveEvOptimizerService {
     return { evs, nature: natureUsed }
   }
 
-  private optimizeForSingleAttackers(defender: Pokemon, attackers: Pokemon[], field: Field, updateNature = false, reservedEvs?: { atk: number; spa: number; spe: number }, threshold: SurvivalThreshold = 2): { evs: Stats; nature: string | null } {
+  private optimizeForSingleAttackers(defender: Pokemon, attackers: Pokemon[], field: Field, updateNature = false, reservedEvs?: { atk: number; spa: number; spe: number }, threshold: SurvivalThreshold = 2): OptimizationResult {
     if (attackers.length === 0) {
       return { evs: { ...defender.evs }, nature: null }
     }
@@ -132,8 +143,16 @@ export class DefensiveEvOptimizerService {
     const physicalStrongest = priority.physicalStrongestAttacker
     const physicalOptimized = physicalStrongest ? this.singleAttackerOptimizer.optimizeForAttacker(physicalStrongest, defenderWithNature, field, threshold) : null
 
+    if (physicalStrongest && !physicalOptimized) {
+      return { evs: null, nature: null }
+    }
+
     const specialStrongest = priority.specialStrongestAttacker
     const specialOptimized = specialStrongest ? this.singleAttackerOptimizer.optimizeForAttacker(specialStrongest, defenderWithNature, field, threshold) : null
+
+    if (specialStrongest && !specialOptimized) {
+      return { evs: null, nature: null }
+    }
 
     let evs: Stats | null = this.solutionCombiner.combineSolutions(physicalOptimized, specialOptimized, priority.prioritizePhysical, defenderWithNature, field, physicalStrongest, specialStrongest, physicalAttackers, specialAttackers)
 
@@ -146,16 +165,23 @@ export class DefensiveEvOptimizerService {
     }
 
     if (!evs) {
-      if (reservedEvs) {
-        return { evs: { hp: 0, atk: reservedEvs.atk, def: 0, spa: reservedEvs.spa, spd: 0, spe: reservedEvs.spe }, nature: natureUsed }
+      const defenderWithZeroDefensiveEvs = defenderWithNature.clone({ evs: { hp: 0, atk: defenderWithNature.evs.atk, def: 0, spa: defenderWithNature.evs.spa, spd: 0, spe: defenderWithNature.evs.spe } })
+      const alreadySurvivesAll = attackers.every(attacker => this.survivalChecker.checkSurvival(attacker, defenderWithZeroDefensiveEvs, field, threshold))
+
+      if (alreadySurvivesAll) {
+        if (reservedEvs) {
+          return { evs: { hp: 0, atk: reservedEvs.atk, def: 0, spa: reservedEvs.spa, spd: 0, spe: reservedEvs.spe }, nature: natureUsed }
+        }
+        return { evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: natureUsed }
       }
-      return { evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: natureUsed }
+
+      return { evs: null, nature: null }
     }
 
     if (reservedEvs) {
       const totalEvs = evs.hp + evs.def + evs.spd + reservedEvs.atk + reservedEvs.spa + reservedEvs.spe
       if (totalEvs > 508) {
-        return { evs: { hp: 0, atk: reservedEvs.atk, def: 0, spa: reservedEvs.spa, spd: 0, spe: reservedEvs.spe }, nature: null }
+        return { evs: null, nature: null }
       }
       return { evs: { hp: evs.hp, atk: reservedEvs.atk, def: evs.def, spa: reservedEvs.spa, spd: evs.spd, spe: reservedEvs.spe }, nature: natureUsed }
     }

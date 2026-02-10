@@ -18,7 +18,7 @@ export class SolutionCombiner {
   private singleAttackerOptimizer = inject(SingleAttackerOptimizer)
   private attackerSelector = inject(AttackerSelector)
 
-  combineThreeSolutions(solutions: SolutionSet, ctx: OptimizationContext, attackers: AttackerContext, doubleAttackers: DoubleAttackerContext): Stats {
+  combineThreeSolutions(solutions: SolutionSet, ctx: OptimizationContext, attackers: AttackerContext, doubleAttackers: DoubleAttackerContext): Stats | null {
     let { physicalSolution, specialSolution } = solutions
     const { doubleSolution } = solutions
     let { physicalAttacker, specialAttacker } = attackers
@@ -28,11 +28,7 @@ export class SolutionCombiner {
 
     if (!doubleSolution) {
       const prioritizePhysical = physicalSolution && specialSolution ? physicalSolution.hp >= specialSolution.hp : true
-      const result = this.combineSolutions(physicalSolution, specialSolution, prioritizePhysical, defender, field, physicalAttacker, specialAttacker, physicalAttackers, specialAttackers, threshold)
-      if (!result) {
-        return { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
-      }
-      return result
+      return this.combineSolutions(physicalSolution, specialSolution, prioritizePhysical, defender, field, physicalAttacker, specialAttacker, physicalAttackers, specialAttackers, threshold)
     }
 
     const testDefenderDouble = defender.clone({ evs: doubleSolution })

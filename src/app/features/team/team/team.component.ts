@@ -25,6 +25,7 @@ export class TeamComponent {
 
   pokemonId = input.required<string>()
   isAttacker = input(false)
+  optimizationStatus = input<"idle" | "success" | "no-solution" | "not-needed">("idle")
   optimizedEvs = input<Stats | null>(null)
   optimizedNature = input<string | null>(null)
 

@@ -172,7 +172,7 @@
       <app-nature-combo-box [pokemonId]="pokemonId()" [leftLabel]="true" />
     </div>
     <button mat-flat-button (click)="clearEvs()" data-cy="clear-evs">Clear EVs</button>
-    @if ((menuStore.manyVsOneActivated() || menuStore.oneVsOneActivated()) && !optimizedEvs()) {
+    @if ((menuStore.manyVsOneActivated() || menuStore.oneVsOneActivated()) && !optimizedEvs() && !hasNoSolution() && !isSolutionNotNeeded()) {
       <div class="optimize-options">
         <button mat-flat-button (click)="optimizeEvs()" data-cy="optimize-evs">Optimize Bulk</button>
         <mat-checkbox [(ngModel)]="updateNature" data-cy="update-nature-checkbox">Update Nature</mat-checkbox>
@@ -180,13 +180,19 @@
         <app-input-select [(value)]="survivalThreshold" [allValues]="thresholdOptions" />
       </div>
     }
-    @if (optimizedEvs() && !hasNoSolution()) {
+    @if (optimizedEvs() && !hasNoSolution() && !isSolutionNotNeeded()) {
       <button mat-flat-button (click)="applyOptimization()" data-cy="apply-optimization">Apply</button>
       <button mat-flat-button (click)="discardOptimization()" data-cy="discard-optimization">Discard</button>
     }
     @if (hasNoSolution()) {
       <div class="no-solution">
         <label>No solution found</label>
+        <button mat-flat-button (click)="discardOptimization()" data-cy="ok-no-solution">OK</button>
+      </div>
+    }
+    @if (isSolutionNotNeeded()) {
+      <div class="no-solution">
+        <label>No solution needed</label>
         <button mat-flat-button (click)="discardOptimization()" data-cy="ok-no-solution">OK</button>
       </div>
     }

@@ -48,6 +48,7 @@ import { Stats, SurvivalThreshold } from "@lib/types"
 })
 export class PokemonBuildMobileComponent {
   pokemonId = input.required<string>()
+  optimizationStatus = input<"idle" | "success" | "no-solution" | "not-needed">("idle")
   optimizedEvs = input<Stats | null>(null)
   optimizedNature = input<string | null>(null)
 
@@ -86,11 +87,11 @@ export class PokemonBuildMobileComponent {
   })
 
   hasNoSolution = computed(() => {
-    const optimized = this.optimizedEvs()
+    return this.optimizationStatus() === "no-solution"
+  })
 
-    if (optimized === null) return false
-
-    return optimized.hp === 0 && optimized.def === 0 && optimized.spd === 0
+  isSolutionNotNeeded = computed(() => {
+    return this.optimizationStatus() === "not-needed"
   })
 
   hasModifiedStat = computed(() => {

@@ -31,6 +31,7 @@ export class MultiCalcComponent implements OnInit {
   pokemonOnEditId = signal<string>(this.store.team().activePokemon().id)
   pokemonOnEdit = computed(() => this.store.findPokemonById(this.pokemonOnEditId()))
 
+  optimizationStatus = signal<"idle" | "success" | "no-solution" | "not-needed">("idle")
   optimizedEvs = signal<Stats | null>(null)
   optimizedNature = signal<string | null>(null)
   originalEvs = signal<Stats>({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
@@ -76,6 +77,7 @@ export class MultiCalcComponent implements OnInit {
         if (evsChanged || natureChanged) {
           this.optimizedEvs.set(null)
           this.optimizedNature.set(null)
+          this.optimizationStatus.set("idle")
         }
       }
     })
@@ -115,10 +117,21 @@ export class MultiCalcComponent implements OnInit {
 
     const result = this.defensiveEvOptimizer.optimize(defender, targets, field, event.updateNature, event.keepOffensiveEvs, event.survivalThreshold)
 
-    this.optimizedEvs.set(result.evs)
     this.optimizedNature.set(result.nature)
 
-    this.store.evs(defender.id, result.evs)
+    if (result.evs) {
+      if (result.evs.hp === 0 && result.evs.def === 0 && result.evs.spd === 0) {
+        this.optimizationStatus.set("not-needed")
+        this.optimizedEvs.set(null)
+      } else {
+        this.store.evs(defender.id, result.evs)
+        this.optimizationStatus.set("success")
+        this.optimizedEvs.set(result.evs)
+      }
+    } else {
+      this.optimizationStatus.set("no-solution")
+      this.optimizedEvs.set(null)
+    }
 
     if (result.nature) {
       this.store.nature(defender.id, result.nature)
@@ -128,10 +141,12 @@ export class MultiCalcComponent implements OnInit {
   handleOptimizationApplied() {
     this.optimizedEvs.set(null)
     this.optimizedNature.set(null)
+    this.optimizationStatus.set("idle")
   }
 
   handleOptimizationDiscarded() {
     this.optimizedEvs.set(null)
     this.optimizedNature.set(null)
+    this.optimizationStatus.set("idle")
   }
 }

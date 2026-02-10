@@ -25,3 +25,8 @@ export type SolutionSet = {
   specialSolution: Stats | null
   doubleSolution: Stats | null
 }
+
+export type OptimizationResult = {
+  evs: Stats | null
+  nature: string | null
+}

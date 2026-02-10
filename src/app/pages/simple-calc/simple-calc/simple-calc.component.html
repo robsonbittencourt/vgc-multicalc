@@ -27,6 +27,7 @@
     [optimizedEvs]="leftOptimizedEvs()"
     [optimizedNature]="leftOptimizedNature()"
     (selected)="activeSide.set('left')"
+    [optimizationStatus]="leftOptimizationStatus()"
     (optimizeRequested)="handleLeftOptimizeRequest($event)"
     (optimizationApplied)="handleLeftOptimizationApplied()"
     (optimizationDiscarded)="handleLeftOptimizationDiscarded()" />
@@ -44,6 +45,7 @@
     [optimizedEvs]="rightOptimizedEvs()"
     [optimizedNature]="rightOptimizedNature()"
     (selected)="activeSide.set('right')"
+    [optimizationStatus]="rightOptimizationStatus()"
     (optimizeRequested)="handleRightOptimizeRequest($event)"
     (optimizationApplied)="handleRightOptimizationApplied()"
     (optimizationDiscarded)="handleRightOptimizationDiscarded()" />

@@ -41,6 +41,9 @@ export class SimpleCalcComponent {
 
   activeSide = signal<"left" | "right">("left")
 
+  leftOptimizationStatus = signal<"idle" | "success" | "no-solution" | "not-needed">("idle")
+  rightOptimizationStatus = signal<"idle" | "success" | "no-solution" | "not-needed">("idle")
+
   leftOptimizedEvs = signal<Stats | null>(null)
   leftOptimizedNature = signal<string | null>(null)
   leftOriginalEvs = signal<Stats>({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
@@ -85,6 +88,7 @@ export class SimpleCalcComponent {
         if (evsChanged || natureChanged) {
           this.leftOptimizedEvs.set(null)
           this.leftOptimizedNature.set(null)
+          this.leftOptimizationStatus.set("idle")
         }
       }
     })
@@ -102,6 +106,7 @@ export class SimpleCalcComponent {
         if (evsChanged || natureChanged) {
           this.rightOptimizedEvs.set(null)
           this.rightOptimizedNature.set(null)
+          this.rightOptimizationStatus.set("idle")
         }
       }
     })
@@ -147,10 +152,21 @@ export class SimpleCalcComponent {
 
     const result = this.defensiveEvOptimizer.optimize(defender, [new Target(attacker)], field, event.updateNature, event.keepOffensiveEvs, event.survivalThreshold)
 
-    this.leftOptimizedEvs.set(result.evs)
     this.leftOptimizedNature.set(result.nature)
 
-    this.store.evs(defender.id, result.evs)
+    if (result.evs) {
+      if (result.evs.hp === 0 && result.evs.def === 0 && result.evs.spd === 0) {
+        this.leftOptimizationStatus.set("not-needed")
+        this.leftOptimizedEvs.set(null)
+      } else {
+        this.store.evs(defender.id, result.evs)
+        this.leftOptimizationStatus.set("success")
+        this.leftOptimizedEvs.set(result.evs)
+      }
+    } else {
+      this.leftOptimizationStatus.set("no-solution")
+      this.leftOptimizedEvs.set(null)
+    }
 
     if (result.nature) {
       this.store.nature(defender.id, result.nature)
@@ -167,10 +183,21 @@ export class SimpleCalcComponent {
 
     const result = this.defensiveEvOptimizer.optimize(defender, [new Target(attacker)], field, event.updateNature, event.keepOffensiveEvs, event.survivalThreshold)
 
-    this.rightOptimizedEvs.set(result.evs)
     this.rightOptimizedNature.set(result.nature)
 
-    this.store.evs(defender.id, result.evs)
+    if (result.evs) {
+      if (result.evs.hp === 0 && result.evs.def === 0 && result.evs.spd === 0) {
+        this.rightOptimizationStatus.set("not-needed")
+        this.rightOptimizedEvs.set(null)
+      } else {
+        this.store.evs(defender.id, result.evs)
+        this.rightOptimizationStatus.set("success")
+        this.rightOptimizedEvs.set(result.evs)
+      }
+    } else {
+      this.rightOptimizationStatus.set("no-solution")
+      this.rightOptimizedEvs.set(null)
+    }
 
     if (result.nature) {
       this.store.nature(defender.id, result.nature)
@@ -180,20 +207,24 @@ export class SimpleCalcComponent {
   handleLeftOptimizationApplied() {
     this.leftOptimizedEvs.set(null)
     this.leftOptimizedNature.set(null)
+    this.leftOptimizationStatus.set("idle")
   }
 
   handleLeftOptimizationDiscarded() {
     this.leftOptimizedEvs.set(null)
     this.leftOptimizedNature.set(null)
+    this.leftOptimizationStatus.set("idle")
   }
 
   handleRightOptimizationApplied() {
     this.rightOptimizedEvs.set(null)
     this.rightOptimizedNature.set(null)
+    this.rightOptimizationStatus.set("idle")
   }
 
   handleRightOptimizationDiscarded() {
     this.rightOptimizedEvs.set(null)
     this.rightOptimizedNature.set(null)
+    this.rightOptimizationStatus.set("idle")
   }
 }

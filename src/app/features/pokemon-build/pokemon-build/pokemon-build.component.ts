@@ -53,6 +53,7 @@ export class PokemonBuildComponent {
   pokemonId = input.required<string>()
   reverse = input<boolean>(false)
   hasFocus = input<boolean>(true)
+  optimizationStatus = input<"idle" | "success" | "no-solution" | "not-needed">("idle")
   optimizedEvs = input<Stats | null>(null)
   optimizedNature = input<string | null>(null)
 
@@ -140,11 +141,11 @@ export class PokemonBuildComponent {
   })
 
   hasNoSolution = computed(() => {
-    const optimized = this.optimizedEvs()
+    return this.optimizationStatus() === "no-solution"
+  })
 
-    if (optimized === null) return false
-
-    return optimized.hp === 0 && optimized.def === 0 && optimized.spd === 0
+  isSolutionNotNeeded = computed(() => {
+    return this.optimizationStatus() === "not-needed"
   })
 
   hasModifiedStat = computed(() => {

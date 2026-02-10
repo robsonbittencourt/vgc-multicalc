@@ -52,9 +52,9 @@ describe("DefensiveEvOptimizerService", () => {
         const targets = [new Target(attacker)]
         const result = service.optimize(defender, targets, field)
 
-        expect(result.evs.hp).toBe(140)
-        expect(result.evs.def).toBe(236)
-        expect(result.evs.spd).toBe(0)
+        expect(result.evs!.hp).toBe(140)
+        expect(result.evs!.def).toBe(236)
+        expect(result.evs!.spd).toBe(0)
       })
 
       it("should optimize EVs for single physical attacker againt Ting-Lu", () => {
@@ -76,9 +76,9 @@ describe("DefensiveEvOptimizerService", () => {
         const targets = [new Target(attacker)]
         const result = service.optimize(defender, targets, field)
 
-        expect(result.evs.hp).toBe(0)
-        expect(result.evs.def).toBe(180)
-        expect(result.evs.spd).toBe(0)
+        expect(result.evs!.hp).toBe(0)
+        expect(result.evs!.def).toBe(180)
+        expect(result.evs!.spd).toBe(0)
       })
 
       it("should optimize EVs for single special attacker", () => {
@@ -97,9 +97,9 @@ describe("DefensiveEvOptimizerService", () => {
         const targets = [new Target(attacker)]
         const result = service.optimize(defender, targets, field)
 
-        expect(result.evs.hp).toBe(12)
-        expect(result.evs.def).toBe(0)
-        expect(result.evs.spd).toBe(44)
+        expect(result.evs!.hp).toBe(12)
+        expect(result.evs!.def).toBe(0)
+        expect(result.evs!.spd).toBe(44)
       })
     })
 
@@ -120,9 +120,9 @@ describe("DefensiveEvOptimizerService", () => {
         const targets = [new Target(attacker)]
         const result = service.optimize(defender, targets, field)
 
-        expect(result.evs.hp).toBe(92)
-        expect(result.evs.def).toBe(0)
-        expect(result.evs.spd).toBe(196)
+        expect(result.evs!.hp).toBe(92)
+        expect(result.evs!.def).toBe(0)
+        expect(result.evs!.spd).toBe(196)
       })
 
       it("should prioritize special attackers when there are more chances to survive special attacks", () => {
@@ -221,9 +221,9 @@ describe("DefensiveEvOptimizerService", () => {
         const targets = [new Target(chiYu), new Target(tingLu), new Target(landorusTherian), new Target(torkoal), new Target(heatran), new Target(moltresGalar), new Target(archaludon), new Target(kingambit), new Target(dondozo)]
         const result = service.optimize(defender, targets, field)
 
-        expect(result.evs.hp).toBe(116)
-        expect(result.evs.def).toBe(0)
-        expect(result.evs.spd).toBe(228)
+        expect(result.evs!.hp).toBe(116)
+        expect(result.evs!.def).toBe(0)
+        expect(result.evs!.spd).toBe(228)
       })
 
       it("should prioritize physical attackers when there are more chances to survive physical attacks", () => {
@@ -322,9 +322,9 @@ describe("DefensiveEvOptimizerService", () => {
         const targets = [new Target(chiYu), new Target(tingLu), new Target(landorusTherian), new Target(torkoal), new Target(heatran), new Target(archaludon), new Target(kingambit), new Target(dondozo), new Target(roaringMoon)]
         const result = service.optimize(defender, targets, field)
 
-        expect(result.evs.hp).toBe(244)
-        expect(result.evs.def).toBe(252)
-        expect(result.evs.spd).toBe(0)
+        expect(result.evs!.hp).toBe(244)
+        expect(result.evs!.def).toBe(252)
+        expect(result.evs!.spd).toBe(0)
       })
     })
 
@@ -363,9 +363,9 @@ describe("DefensiveEvOptimizerService", () => {
         const targets = [new Target(calyrexShadow), new Target(urshifuRapidStrike)]
         const result = service.optimize(defender, targets, field)
 
-        expect(result.evs.hp).toBe(212)
-        expect(result.evs.def).toBe(116)
-        expect(result.evs.spd).toBe(0)
+        expect(result.evs!.hp).toBe(212)
+        expect(result.evs!.def).toBe(116)
+        expect(result.evs!.spd).toBe(0)
       })
 
       it("should optimize EVs for multiple attackers with Whimsicott", () => {
@@ -401,9 +401,9 @@ describe("DefensiveEvOptimizerService", () => {
         const targets = [new Target(calyrexShadow), new Target(zamazentaCrowned)]
         const result = service.optimize(defender, targets, field)
 
-        expect(result.evs.hp).toBe(244)
-        expect(result.evs.def).toBe(180)
-        expect(result.evs.spd).toBe(52)
+        expect(result.evs!.hp).toBe(244)
+        expect(result.evs!.def).toBe(180)
+        expect(result.evs!.spd).toBe(52)
       })
 
       it("should optimize EVs for multiple attackers with Gholdengo", () => {
@@ -439,9 +439,9 @@ describe("DefensiveEvOptimizerService", () => {
         const targets = [new Target(miraidon), new Target(incineroar)]
         const result = service.optimize(defender, targets, field)
 
-        expect(result.evs.hp).toBe(164)
-        expect(result.evs.def).toBe(28)
-        expect(result.evs.spd).toBe(12)
+        expect(result.evs!.hp).toBe(164)
+        expect(result.evs!.def).toBe(28)
+        expect(result.evs!.spd).toBe(12)
       })
 
       it("should optimize EVs for two simultaneous attackers (Urshifu-Rapid-Strike + Flutter Mane vs Gholdengo)", () => {
@@ -477,9 +477,9 @@ describe("DefensiveEvOptimizerService", () => {
 
         const result = service.optimize(defender, [target], field)
 
-        expect(result.evs.hp).toBe(148)
-        expect(result.evs.def).toBe(60)
-        expect(result.evs.spd).toBe(4)
+        expect(result.evs!.hp).toBe(148)
+        expect(result.evs!.def).toBe(60)
+        expect(result.evs!.spd).toBe(4)
       })
 
       it("should optimize EVs for Ting-Lu with double attackers and single attackers", () => {
@@ -534,9 +534,9 @@ describe("DefensiveEvOptimizerService", () => {
         const targets = [new Target(urshifuRapidStrike, landorus), new Target(gholdengo), new Target(chiYu)]
         const result = service.optimize(defender, targets, field)
 
-        expect(result.evs.hp).toBe(0)
-        expect(result.evs.def).toBe(0)
-        expect(result.evs.spd).toBe(140)
+        expect(result.evs!.hp).toBe(0)
+        expect(result.evs!.def).toBe(0)
+        expect(result.evs!.spd).toBe(140)
       })
 
       it("should optimize EVs for Ting-Lu in it's limit", () => {
@@ -582,9 +582,9 @@ describe("DefensiveEvOptimizerService", () => {
         const targets = [new Target(urshifuRapidStrike, landorus), new Target(okidogi)]
         const result = service.optimize(defender, targets, field)
 
-        expect(result.evs.hp).toBe(228)
-        expect(result.evs.def).toBe(188)
-        expect(result.evs.spd).toBe(52)
+        expect(result.evs!.hp).toBe(228)
+        expect(result.evs!.def).toBe(188)
+        expect(result.evs!.spd).toBe(52)
       })
 
       it("should optimize EVs for Gholdengo with multiple attackers including second special strongest optimization", () => {
@@ -675,9 +675,9 @@ describe("DefensiveEvOptimizerService", () => {
 
         const result = service.optimize(defender, targets, field)
 
-        expect(result.evs.hp).toBe(116)
-        expect(result.evs.def).toBe(244)
-        expect(result.evs.spd).toBe(148)
+        expect(result.evs!.hp).toBe(116)
+        expect(result.evs!.def).toBe(244)
+        expect(result.evs!.spd).toBe(148)
       })
 
       it("should optimize EVs for Gholdengo with multiple attackers including second physical strongest optimization", () => {
@@ -732,9 +732,9 @@ describe("DefensiveEvOptimizerService", () => {
 
         const result = service.optimize(defender, targets, field)
 
-        expect(result.evs.hp).toBe(164)
-        expect(result.evs.def).toBe(100)
-        expect(result.evs.spd).toBe(228)
+        expect(result.evs!.hp).toBe(164)
+        expect(result.evs!.def).toBe(100)
+        expect(result.evs!.spd).toBe(228)
       })
 
       it("should optimize EVs for Gholdengo without updating nature (keeping Bold)", () => {
@@ -780,9 +780,9 @@ describe("DefensiveEvOptimizerService", () => {
 
         const result = service.optimize(defender, targets, field)
 
-        expect(result.evs.hp).toBe(164)
-        expect(result.evs.def).toBe(212)
-        expect(result.evs.spd).toBe(0)
+        expect(result.evs!.hp).toBe(164)
+        expect(result.evs!.def).toBe(212)
+        expect(result.evs!.spd).toBe(0)
         expect(result.nature).toBeNull()
       })
 
@@ -825,9 +825,9 @@ describe("DefensiveEvOptimizerService", () => {
 
         const result = service.optimize(defender, targets, field)
 
-        expect(result.evs.hp).toBe(116)
-        expect(result.evs.def).toBe(0)
-        expect(result.evs.spd).toBe(228)
+        expect(result.evs!.hp).toBe(116)
+        expect(result.evs!.def).toBe(0)
+        expect(result.evs!.spd).toBe(228)
       })
 
       it("should optimize EVs for Gholdengo when not surviving double attackers but surviving physical attacker", () => {
@@ -864,9 +864,9 @@ describe("DefensiveEvOptimizerService", () => {
 
         const result = service.optimize(defender, targets, field)
 
-        expect(result.evs.hp).toBe(116)
-        expect(result.evs.def).toBe(244)
-        expect(result.evs.spd).toBe(0)
+        expect(result.evs!.hp).toBe(116)
+        expect(result.evs!.def).toBe(244)
+        expect(result.evs!.spd).toBe(0)
       })
     })
 
@@ -914,13 +914,13 @@ describe("DefensiveEvOptimizerService", () => {
 
         const result = service.optimize(defender, targets, field, true, false, 2)
 
-        expect(result.evs.hp).toBe(244)
-        expect(result.evs.def).toBe(0)
-        expect(result.evs.spd).toBe(252)
+        expect(result.evs!.hp).toBe(244)
+        expect(result.evs!.def).toBe(0)
+        expect(result.evs!.spd).toBe(252)
         expect(result.nature).toBe("Calm")
       })
 
-      it("should keep current nature when no solution is found with update nature enabled", () => {
+      it("should return null when no solution is found with update nature enabled", () => {
         const defender = new Pokemon("Gholdengo", {
           nature: "Modest",
           evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
@@ -940,13 +940,11 @@ describe("DefensiveEvOptimizerService", () => {
         const targets = [new Target(attacker)]
         const result = service.optimize(defender, targets, field, true)
 
-        expect(result.evs.hp).toBe(0)
-        expect(result.evs.def).toBe(0)
-        expect(result.evs.spd).toBe(0)
-        expect(result.nature).toBe("Modest")
+        expect(result.evs).toBeNull()
+        expect(result.nature).toBeNull()
       })
 
-      it("should return all evs with zero when it's not possible to find a solution even when the user pass evs as parameter", () => {
+      it("should return null when it's not possible to find a solution even when the user pass evs as parameter", () => {
         const defender = new Pokemon("Gholdengo", {
           nature: "Modest",
           evs: { hp: 252, atk: 0, def: 0, spa: 0, spd: 252, spe: 0 }
@@ -966,15 +964,13 @@ describe("DefensiveEvOptimizerService", () => {
         const targets = [new Target(attacker)]
         const result = service.optimize(defender, targets, field, true)
 
-        expect(result.evs.hp).toBe(0)
-        expect(result.evs.def).toBe(0)
-        expect(result.evs.spd).toBe(0)
-        expect(result.nature).toBe("Modest")
+        expect(result.evs).toBeNull()
+        expect(result.nature).toBeNull()
       })
     })
 
     describe("constraints", () => {
-      it("should return no solution when optimized EVs exceed budget with keepOffensiveEvs", () => {
+      it("should return null when optimized EVs exceed budget with keepOffensiveEvs", () => {
         const defender = new Pokemon("Urshifu-Rapid-Strike", {
           nature: "Adamant",
           evs: { hp: 0, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 }
@@ -990,16 +986,11 @@ describe("DefensiveEvOptimizerService", () => {
         const targets = [new Target(attacker)]
         const result = service.optimize(defender, targets, field, false, true, 2)
 
-        expect(result.evs.hp).toBe(0)
-        expect(result.evs.atk).toBe(252)
-        expect(result.evs.def).toBe(0)
-        expect(result.evs.spa).toBe(0)
-        expect(result.evs.spd).toBe(0)
-        expect(result.evs.spe).toBe(252)
+        expect(result.evs).toBeNull()
         expect(result.nature).toBeNull()
       })
 
-      it("should return no solution with zero offensive EVs when keepOffensiveEvs is false", () => {
+      it("should return null with zero offensive EVs when keepOffensiveEvs is false", () => {
         const defender = new Pokemon("Ting-Lu", {
           nature: "Bold",
           evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
@@ -1020,16 +1011,11 @@ describe("DefensiveEvOptimizerService", () => {
         const targets = [new Target(attacker)]
         const result = service.optimize(defender, targets, field)
 
-        expect(result.evs.hp).toBe(0)
-        expect(result.evs.atk).toBe(0)
-        expect(result.evs.def).toBe(0)
-        expect(result.evs.spa).toBe(0)
-        expect(result.evs.spd).toBe(0)
-        expect(result.evs.spe).toBe(0)
+        expect(result.evs).toBeNull()
         expect(result.nature).toBeNull()
       })
 
-      it("should return no solution", () => {
+      it("should return null when cannot survive", () => {
         const defender = new Pokemon("Gholdengo", {
           nature: "Bold",
           item: "Leftovers",
@@ -1057,9 +1043,8 @@ describe("DefensiveEvOptimizerService", () => {
 
         const result = service.optimize(defender, [target], field, false, false, 3)
 
-        expect(result.evs.hp).toBe(0)
-        expect(result.evs.def).toBe(0)
-        expect(result.evs.spd).toBe(0)
+        expect(result.evs).toBeNull()
+        expect(result.nature).toBeNull()
       })
     })
 
@@ -1082,9 +1067,9 @@ describe("DefensiveEvOptimizerService", () => {
           const targets = [new Target(attacker)]
           const result = service.optimize(defender, targets, field)
 
-          expect(result.evs.hp).toBe(140)
-          expect(result.evs.def).toBe(0)
-          expect(result.evs.spd).toBe(4)
+          expect(result.evs!.hp).toBe(140)
+          expect(result.evs!.def).toBe(0)
+          expect(result.evs!.spd).toBe(4)
         })
 
         it("should optimize EVs when have residual damage and 3HKO configured", () => {
@@ -1104,9 +1089,9 @@ describe("DefensiveEvOptimizerService", () => {
           const targets = [new Target(attacker)]
           const result = service.optimize(defender, targets, field, false, false, 3)
 
-          expect(result.evs.hp).toBe(180)
-          expect(result.evs.def).toBe(0)
-          expect(result.evs.spd).toBe(236)
+          expect(result.evs!.hp).toBe(180)
+          expect(result.evs!.def).toBe(0)
+          expect(result.evs!.spd).toBe(236)
         })
 
         it("should optimize EVs when have residual damage and 4HKO configured", () => {
@@ -1127,9 +1112,9 @@ describe("DefensiveEvOptimizerService", () => {
           const targets = [new Target(attacker)]
           const result = service.optimize(defender, targets, field, false, false, 4)
 
-          expect(result.evs.hp).toBe(204)
-          expect(result.evs.def).toBe(0)
-          expect(result.evs.spd).toBe(108)
+          expect(result.evs!.hp).toBe(204)
+          expect(result.evs!.def).toBe(0)
+          expect(result.evs!.spd).toBe(108)
         })
       })
 
@@ -1152,9 +1137,9 @@ describe("DefensiveEvOptimizerService", () => {
           const updateNature = true
           const result = service.optimize(defender, targets, field, updateNature)
 
-          expect(result.evs.hp).toBe(36)
-          expect(result.evs.def).toBe(0)
-          expect(result.evs.spd).toBe(0)
+          expect(result.evs!.hp).toBe(36)
+          expect(result.evs!.def).toBe(0)
+          expect(result.evs!.spd).toBe(0)
         })
 
         it("should optimize EVs when have residual damage and 3HKO configured and update nature", () => {
@@ -1175,9 +1160,9 @@ describe("DefensiveEvOptimizerService", () => {
           const updateNature = true
           const result = service.optimize(defender, targets, field, updateNature, false, 3)
 
-          expect(result.evs.hp).toBe(180)
-          expect(result.evs.def).toBe(0)
-          expect(result.evs.spd).toBe(148)
+          expect(result.evs!.hp).toBe(180)
+          expect(result.evs!.def).toBe(0)
+          expect(result.evs!.spd).toBe(148)
         })
 
         it("should optimize EVs when have residual damage and 4HKO configured and update nature", () => {
@@ -1199,9 +1184,9 @@ describe("DefensiveEvOptimizerService", () => {
           const updateNature = true
           const result = service.optimize(defender, targets, field, updateNature, false, 4)
 
-          expect(result.evs.hp).toBe(108)
-          expect(result.evs.def).toBe(0)
-          expect(result.evs.spd).toBe(92)
+          expect(result.evs!.hp).toBe(108)
+          expect(result.evs!.def).toBe(0)
+          expect(result.evs!.spd).toBe(92)
         })
       })
     })
@@ -1226,9 +1211,9 @@ describe("DefensiveEvOptimizerService", () => {
           const targets = [new Target(attacker)]
           const result = service.optimize(defender, targets, field, false, false, 3)
 
-          expect(result.evs.hp).toBe(84)
-          expect(result.evs.def).toBe(0)
-          expect(result.evs.spd).toBe(148)
+          expect(result.evs!.hp).toBe(84)
+          expect(result.evs!.def).toBe(0)
+          expect(result.evs!.spd).toBe(148)
         })
 
         it("should optimize EVs when have recovery and 3HKO configured and update nature", () => {
@@ -1250,9 +1235,9 @@ describe("DefensiveEvOptimizerService", () => {
           const updateNature = true
           const result = service.optimize(defender, targets, field, updateNature, false, 3)
 
-          expect(result.evs.hp).toBe(84)
-          expect(result.evs.def).toBe(0)
-          expect(result.evs.spd).toBe(68)
+          expect(result.evs!.hp).toBe(84)
+          expect(result.evs!.def).toBe(0)
+          expect(result.evs!.spd).toBe(68)
         })
       })
 
@@ -1276,9 +1261,9 @@ describe("DefensiveEvOptimizerService", () => {
           const targets = [new Target(attacker)]
           const result = service.optimize(defender, targets, field, false, false, 4)
 
-          expect(result.evs.hp).toBe(12)
-          expect(result.evs.def).toBe(0)
-          expect(result.evs.spd).toBe(12)
+          expect(result.evs!.hp).toBe(12)
+          expect(result.evs!.def).toBe(0)
+          expect(result.evs!.spd).toBe(12)
         })
 
         it("should optimize EVs when have recovery and 4HKO configured and update nature", () => {
@@ -1301,9 +1286,9 @@ describe("DefensiveEvOptimizerService", () => {
           const updateNature = true
           const result = service.optimize(defender, targets, field, updateNature, false, 4)
 
-          expect(result.evs.hp).toBe(132)
-          expect(result.evs.def).toBe(0)
-          expect(result.evs.spd).toBe(100)
+          expect(result.evs!.hp).toBe(132)
+          expect(result.evs!.def).toBe(0)
+          expect(result.evs!.spd).toBe(100)
         })
       })
     })
@@ -1337,9 +1322,9 @@ describe("DefensiveEvOptimizerService", () => {
 
         const result = service.optimize(defender, [target], field, false, false, 3)
 
-        expect(result.evs.hp).toBe(100)
-        expect(result.evs.def).toBe(252)
-        expect(result.evs.spd).toBe(0)
+        expect(result.evs!.hp).toBe(100)
+        expect(result.evs!.def).toBe(252)
+        expect(result.evs!.spd).toBe(0)
       })
 
       it("should optimize EVs for special attackers pair", () => {
@@ -1371,9 +1356,9 @@ describe("DefensiveEvOptimizerService", () => {
 
         const result = service.optimize(defender, [target], field, false, false, 3)
 
-        expect(result.evs.hp).toBe(108)
-        expect(result.evs.def).toBe(0)
-        expect(result.evs.spd).toBe(60)
+        expect(result.evs!.hp).toBe(108)
+        expect(result.evs!.def).toBe(0)
+        expect(result.evs!.spd).toBe(60)
       })
 
       it("should optimize EVs for mixed attackers pair", () => {
@@ -1404,9 +1389,49 @@ describe("DefensiveEvOptimizerService", () => {
 
         const result = service.optimize(defender, [target], field, false, false, 3)
 
-        expect(result.evs.hp).toBe(156)
-        expect(result.evs.def).toBe(68)
-        expect(result.evs.spd).toBe(148)
+        expect(result.evs!.hp).toBe(156)
+        expect(result.evs!.def).toBe(68)
+        expect(result.evs!.spd).toBe(148)
+      })
+    })
+    describe("optimization status", () => {
+      it("should return null EVs when no solution is found", () => {
+        const defender = new Pokemon("Sunkern", {
+          evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
+        })
+
+        const attacker = new Pokemon("Deoxys-Attack", {
+          nature: "Adamant",
+          item: "Choice Band",
+          moveSet: new MoveSet(new Move("Psycho Boost"), new Move(""), new Move(""), new Move("")),
+          evs: { hp: 0, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 }
+        })
+
+        const field = new Field()
+        const result = service.optimize(defender, [new Target(attacker)], field)
+
+        expect(result.evs).toBeNull()
+      })
+
+      it("should return zeroed EVs when no solution is needed (already survives)", () => {
+        const defender = new Pokemon("Blissey", {
+          evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
+        })
+
+        const attacker = new Pokemon("Pichu", {
+          moveSet: new MoveSet(new Move("Thunder Shock"), new Move(""), new Move(""), new Move("")),
+          evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
+        })
+
+        const field = new Field()
+        const result = service.optimize(defender, [new Target(attacker)], field)
+
+        expect(result.evs).not.toBeNull()
+        if (result.evs) {
+          expect(result.evs!.hp).toBe(0)
+          expect(result.evs!.def).toBe(0)
+          expect(result.evs!.spd).toBe(0)
+        }
       })
     })
   })

@@ -21,6 +21,7 @@
 
 <app-pokemon-build-mobile
   [pokemonId]="attacker().id"
+  [optimizationStatus]="optimizationStatus()"
   [optimizedEvs]="optimizedEvs()"
   [optimizedNature]="optimizedNature()"
   (optimizeRequested)="handleOptimizeRequest($event)"

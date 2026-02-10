@@ -5,6 +5,7 @@
   [isAttacker]="menuStore.oneVsManyActivated()"
   [optimizedEvs]="optimizedEvs()"
   [optimizedNature]="optimizedNature()"
+  [optimizationStatus]="optimizationStatus()"
   (teamMemberSelected)="pokemonOnEditId.set($event)"
   (optimizeRequested)="handleOptimizeRequest($event)"
   (optimizationApplied)="handleOptimizationApplied()"
