@@ -8,7 +8,7 @@ import { Move } from "@lib/model/move"
 import { Pokemon } from "@lib/model/pokemon"
 import { fromExisting } from "@lib/smogon/smogon-pokemon-builder"
 import { SpeedCalculatorService } from "@lib/speed-calculator/speed-calculator-service"
-import { calculate, Generations, Move as MoveSmogon, Result, StatID, Pokemon as PokemonSmogon, Field as FieldSmogon } from "@robsonbittencourt/calc"
+import { calculate, calculateMulti, Generations, Move as MoveSmogon, Result, MultiResult, StatID, Pokemon as PokemonSmogon, Field as FieldSmogon, getBerryRecovery } from "@robsonbittencourt/calc"
 import { Generation } from "@robsonbittencourt/calc/dist/data/interface"
 
 @Injectable({
@@ -24,34 +24,68 @@ export class DamageCalculatorService {
 
   calcDamage(attacker: Pokemon, target: Pokemon, field: Field): DamageResult {
     const result = this.calculateResult(attacker, target, attacker.move, field, true)
-    return new DamageResult(attacker, target, attacker.move.name, result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescription(result), result.damage)
+
+    return new DamageResult(attacker, target, attacker.move.name, result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescription(result), result.damage, undefined, undefined, result.berryHP)
   }
 
   calcDamageAllAttacks(attacker: Pokemon, target: Pokemon, field: Field, rightIsDefender: boolean): DamageResult[] {
     return attacker.moveSet.moves.map(move => {
       const result = this.calculateResult(attacker, target, move, field, rightIsDefender)
-      return new DamageResult(attacker, target, move.name, result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescription(result), result.damage)
+
+      return new DamageResult(attacker, target, move.name, result.moveDesc(), this.koChance(result), this.maxPercentageDamage(result), this.damageDescription(result), result.damage, undefined, undefined, result.berryHP)
     })
   }
 
   calcDamageForTwoAttackers(attacker: Pokemon, secondAttacker: Pokemon, target: Pokemon, field: Field): DamageResult {
-    const [firstBySpeed, secondBySpeed] = this.speedCalculator.orderPairBySpeed(attacker, secondAttacker, field)
+    const [firstAttacker, secondAttackerOrdered] = this.speedCalculator.orderPairBySpeed(attacker, secondAttacker, field)
 
-    const firstResult = this.calculateResult(firstBySpeed, target, firstBySpeed.move, field, true, secondBySpeed)
+    const prepOne = this.prepareCalculation(firstAttacker, target, firstAttacker.move, field, true, secondAttackerOrdered)
+    const prepTwo = this.prepareCalculation(secondAttackerOrdered, target, secondAttackerOrdered.move, field, true, firstAttacker)
 
-    const targetWithTakedDamage = this.applyDamageInTarget(firstResult, target)
+    const multiResult = calculateMulti(
+      Generations.get(9),
+      [prepOne.smogonAttacker, prepTwo.smogonAttacker],
+      prepOne.smogonTarget,
+      [prepOne.moveSmogon, prepTwo.moveSmogon],
+      prepOne.smogonField
+    )
 
-    const secondResult = this.calculateResult(secondBySpeed, targetWithTakedDamage, secondBySpeed.move, field, true, firstBySpeed)
+    const firstResult = multiResult.results[0]
+    const secondResult = multiResult.results[1]
 
-    const firstRolls = firstResult.damage
-    const secondRolls = secondResult.damage
-    this.combineDamageRolls(firstResult, secondResult)
+    if (!firstResult.damage) firstResult.damage = this.ZERO_RESULT_DAMAGE
+    if (!secondResult.damage) secondResult.damage = this.ZERO_RESULT_DAMAGE
 
-    const koChance = this.koChance(firstResult)
-    const maxPercentageDamage = this.maxPercentageDamage(firstResult)
-    const damageDescription = this.damageDescriptionWithTwo(firstResult, secondResult, target)
+    return new DamageResult(
+      firstAttacker,
+      target,
+      firstAttacker.move.name,
+      multiResult.resultString(),
+      multiResult.getHKO(),
+      multiResult.rangePercentage().max,
+      multiResult.desc(),
+      firstResult.damage,
+      secondAttackerOrdered,
+      secondResult.damage,
+      firstResult.berryHP
+    )
+  }
 
-    return new DamageResult(firstBySpeed, target, firstBySpeed.move.name, firstResult.moveDesc(), koChance, maxPercentageDamage, damageDescription, firstRolls, secondBySpeed, secondRolls)
+  private prepareCalculation(attacker: Pokemon, target: Pokemon, move: Move, field: Field, rightIsDefender: boolean, secondAttacker?: Pokemon) {
+    const gen = Generations.get(9)
+    const smogonField = this.fieldMapper.toSmogon(field, rightIsDefender)
+
+    const moveSmogon = new MoveSmogon(gen, move.name)
+    moveSmogon.isCrit = rightIsDefender ? field.attackerSide.isCriticalHit : field.defenderSide.isCriticalHit
+    moveSmogon.isStellarFirstUse = true
+    moveSmogon.hits = +move.hits
+
+    const smogonAttacker = fromExisting(attacker)
+    const smogonTarget = fromExisting(target)
+
+    this.adjusters.forEach(a => a.adjust(smogonAttacker, smogonTarget, move, moveSmogon, smogonField, secondAttacker, field))
+
+    return { gen, smogonAttacker, smogonTarget, moveSmogon, smogonField }
   }
 
   koChanceForOneAttacker(attacker: Pokemon, target: Pokemon, field: Field): string {
@@ -60,13 +94,7 @@ export class DamageCalculatorService {
   }
 
   koChanceForTwoAttackers(attacker: Pokemon, secondAttacker: Pokemon, target: Pokemon, field: Field): string {
-    const [firstBySpeed, secondBySpeed] = this.speedCalculator.orderPairBySpeed(attacker, secondAttacker, field)
-    const firstResult = this.calculateResult(firstBySpeed, target, firstBySpeed.move, field, true, secondBySpeed)
-    const targetWithTakedDamage = this.applyDamageInTarget(firstResult, target)
-    const secondResult = this.calculateResult(secondBySpeed, targetWithTakedDamage, secondBySpeed.move, field, true, firstBySpeed)
-    this.combineDamageRolls(firstResult, secondResult)
-    const result = this.koChance(firstResult)
-    return result
+    return this.calcDamageForTwoAttackers(attacker, secondAttacker, target, field).koChance
   }
 
   calcDamageValue(attacker: Pokemon, target: Pokemon, field: Field): number {
@@ -115,7 +143,24 @@ export class DamageCalculatorService {
       result.damage = Array(16).fill(result.damage)
     }
 
+    result.berryHP = this.calculateBerryRecovery(smogonAttacker, smogonTarget, gen, moveSmogon, result.damage as number[] | number[][])
+
     return result
+  }
+
+  private calculateBerryRecovery(attacker: PokemonSmogon, target: PokemonSmogon, gen: Generation, move: MoveSmogon, damage: number[] | number[][]): number | undefined {
+    const { recovery, threshold } = getBerryRecovery(attacker, target, gen, move)
+
+    if (recovery <= 0) return undefined
+
+    const damageArrays = this.extractDamageSubArrays(damage)
+    const maxDamage = damageArrays.length > 1 ? damageArrays.map(rolls => rolls[15]).reduce((sum, roll) => sum + roll, 0) : damageArrays[0][15]
+
+    if (target.originalCurHP - maxDamage <= threshold) {
+      return recovery
+    }
+
+    return undefined
   }
 
   private calculateDamage(gen: Generation, attacker: PokemonSmogon, target: PokemonSmogon, move: MoveSmogon, field: FieldSmogon, moveModel: MoveSmogon): Result {
@@ -139,7 +184,11 @@ export class DamageCalculatorService {
     resultTwo.damage = combinedDamage
   }
 
-  private extractDamageSubArrays(inputDamage: number[] | number[][]): number[][] {
+  private extractDamageSubArrays(inputDamage: number | number[] | number[][]): number[][] {
+    if (typeof inputDamage === "number") {
+      return [[inputDamage]]
+    }
+
     if (Array.isArray(inputDamage) && inputDamage.length > 0 && Array.isArray(inputDamage[0])) {
       return inputDamage as number[][]
     } else {
@@ -175,71 +224,5 @@ export class DamageCalculatorService {
     }
   }
 
-  private damageDescriptionWithTwo(resultOne: Result, resultTwo: Result, defender: Pokemon): string {
-    try {
-      const attackerDescription = resultOne.desc().substring(0, resultOne.desc().indexOf(" vs."))
-      const secondAttackerDescritption = resultTwo.desc().substring(0, resultTwo.desc().indexOf(" vs."))
-      const defenderDescription = resultOne.desc().substring(resultOne.desc().indexOf(" vs.") + 5)
 
-      const defenderBulk = this.mergeBulkStats(resultOne, resultTwo, defender)
-      const tera = resultOne.defender.teraType ? `Tera ${resultOne.defender.teraType} ` : ""
-      const defenderNameAndDamage = defenderDescription.substring(defenderDescription.indexOf(resultOne.defender.name))
-
-      return `${attackerDescription} AND ${secondAttackerDescritption} vs. ${defenderBulk} ${tera}${defenderNameAndDamage}`
-    } catch (error) {
-      return `${resultOne.attacker.name} ${resultOne.move.name} AND ${resultTwo.attacker.name} ${resultTwo.move.name} vs. ${resultOne.defender.name}: 0-0 (0 - 0%) -- possibly the worst move ever`
-    }
-  }
-
-  private mergeBulkStats(resultOne: Result, resultTwo: Result, defender: Pokemon): string {
-    const resultOneDefenderDesc = resultOne.desc().substring(resultOne.desc().indexOf(" vs.") + 5)
-    const resultTwoDefenderDesc = resultTwo.desc().substring(resultTwo.desc().indexOf(" vs.") + 5)
-
-    let output = `${resultOne.defender.evs.hp} HP`
-
-    output += this.modifyStat(defender, resultOneDefenderDesc, resultTwoDefenderDesc, "def", "Def")
-    output += this.modifyStat(defender, resultOneDefenderDesc, resultTwoDefenderDesc, "spd", "SpD")
-
-    if (resultOneDefenderDesc.includes(resultOne.defender.item!) || resultTwoDefenderDesc.includes(resultTwo.defender.item!)) {
-      output += ` ${resultOne.defender.item}`
-    }
-
-    return output
-  }
-
-  private modifyStat(defender: Pokemon, resultOneDefenderDesc: string, resultTwoDefenderDesc: string, stat: StatID, statText: string) {
-    let output = ""
-
-    if (resultOneDefenderDesc.includes(statText) || resultTwoDefenderDesc.includes(statText)) {
-      output += ` /`
-      output += this.boostByStat(defender, stat)
-      output += ` ${defender.evs[stat]}`
-      output += this.natureModifier(defender, stat)
-      output += ` ${statText}`
-    }
-
-    return output
-  }
-
-  private boostByStat(pokemon: Pokemon, stat: StatID): string {
-    if (pokemon.boosts[stat] && pokemon.boosts[stat] > 0) {
-      return ` +${pokemon.boosts[stat]}`
-    }
-
-    if (pokemon.boosts[stat] && pokemon.boosts[stat] < 0) {
-      return ` ${pokemon.boosts[stat]}`
-    }
-
-    return ""
-  }
-
-  private natureModifier(pokemon: Pokemon, stat: StatID) {
-    if (stat == "def" && ["Bold", "Impish", "Lax", "Relaxed"].includes(pokemon.nature)) return "+"
-    if (stat == "def" && ["Lonely", "Mild", "Gentle", "Hasty"].includes(pokemon.nature)) return "-"
-
-    if (stat == "spd" && ["Calm", "Gentle", "Careful", "Sassy"].includes(pokemon.nature)) return "+"
-    if (stat == "spd" && ["Naughty", "Lax", "Rash", "Naive"].includes(pokemon.nature)) return "-"
-
-    return ""
-  }
 }
