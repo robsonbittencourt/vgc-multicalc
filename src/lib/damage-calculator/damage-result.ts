@@ -13,6 +13,7 @@ export class DamageResult {
   readonly description: string
   readonly attackerRolls: number[][]
   readonly secondAttackerRolls?: number[][]
+  readonly berryHP?: number
 
   private totalRolls: number[]
 
@@ -28,7 +29,8 @@ export class DamageResult {
     description: string,
     attackerRolls: number | number[] | number[][],
     secondAttacker?: Pokemon,
-    secondAttackerRolls?: number | number[] | number[][]
+    secondAttackerRolls?: number | number[] | number[][],
+    berryHP?: number
   ) {
     this.id = attacker.id + defender.id
     this.attacker = attacker
@@ -42,18 +44,21 @@ export class DamageResult {
     this.attackerRolls = this.normalizeTo2DArray(attackerRolls)!
     this.secondAttackerRolls = this.normalizeTo2DArray(secondAttackerRolls)
     this.totalRolls = this.sumRolls(this.attackerRolls, this.secondAttackerRolls)
+    this.berryHP = berryHP
   }
 
   damageByRollConfig(config: RollLevelConfig): number {
+    const berryHP = this.berryHP ?? 0
+
     if (config.high) {
-      return this.totalRolls[15]
+      return this.totalRolls[15] - berryHP
     }
 
     if (config.medium) {
-      return this.totalRolls[7]
+      return this.totalRolls[7] - berryHP
     }
 
-    return this.totalRolls[0]
+    return this.totalRolls[0] - berryHP
   }
 
   private adjustResult(result: string): string {

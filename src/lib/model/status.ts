@@ -19,11 +19,11 @@ export class Status {
   static readonly PARALYSIS = new Status("par", "Paralysis")
 
   static byCode(code: string): Status {
-    return Status.values.find(condition => condition.code === code)!
+    return Status.values.find(condition => condition.code === code) ?? Status.HEALTHY
   }
 
   static byDescription(description: string): Status {
-    return Status.values.find(condition => condition.description === description)!
+    return Status.values.find(condition => condition.description === description) ?? Status.HEALTHY
   }
 
   static allDescriptions(): string[] {
