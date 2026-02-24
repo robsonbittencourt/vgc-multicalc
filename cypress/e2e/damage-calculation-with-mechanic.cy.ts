@@ -234,7 +234,7 @@ describe("Test calcs from moves with some mechanic", () => {
     })
   })
 
-  describe.only("Dragon Darts", () => {
+  describe("Dragon Darts", () => {
     beforeEach(() => {
       leftPokemonBuild.importPokemon(poke["dragapult"])
       rightPokemonBuild.importPokemon(poke["rillaboom"])

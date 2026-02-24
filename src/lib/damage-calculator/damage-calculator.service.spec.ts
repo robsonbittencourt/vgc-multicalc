@@ -367,63 +367,34 @@ describe("Damage Calculator Service", () => {
 
   it("should return berryHP when Sitrus Berry triggers", () => {
     const attacker = new Pokemon("Urshifu", { moveSet: new MoveSet(new Move("Close Combat"), new Move(""), new Move(""), new Move("")) })
-    const target = new Target(new Pokemon("Incineroar", { item: "Sitrus Berry", evs: { hp: 252 } }))
+    const target = new Target(new Pokemon("Incineroar", { item: "Sitrus Berry", nature: "Impish", evs: { hp: 252, def: 252 } }))
     const field = new Field()
 
     const damageResult = service.calcDamage(attacker, target.pokemon, field)
+
     expect(damageResult.berryHP).toEqual(50)
   })
 
   it("should trigger Sitrus Berry and affect second attacker damage (Water Spout)", () => {
-    // Attack 1: Brings target to ~53% HP (Choice Band Rock Smash). Sitrus triggers -> Back to ~78% HP.
     const attacker1 = new Pokemon("Urshifu", { item: "Choice Band", moveSet: new MoveSet(new Move("Rock Smash"), new Move(""), new Move(""), new Move("")) })
-    // Attack 2: Water Spout (Damage depends on current HP)
-    // If Sitrus is ignored, HP is 40%. Damage is low.
-    // If Sitrus is counted, HP is 65%. Damage is higher.
     const attacker2 = new Pokemon("Kyogre", { moveSet: new MoveSet(new Move("Water Spout"), new Move(""), new Move(""), new Move("")), evs: { spa: 252 }, nature: "Modest" })
 
-    // Target: Incineroar. HP 202.
-    // Close Combat ~120 damage (60%). Remaining 80 (40%).
-    // Sitrus (+50). New HP 130 (65%).
     const target = new Target(new Pokemon("Incineroar", { item: "Sitrus Berry", evs: { hp: 252 } }))
     const field = new Field()
 
     const result = service.calcDamageForTwoAttackers(attacker1, attacker2, target.pokemon, field)
 
-  // We inspect the second attacker's result to see if it used the healed HP.
-  // However, DamageResult merges them.
-  // We can check the description or the damage range if we calculate manually to compare.
-
-  // Manual calc for Kyogre at 40% (80 HP / 202): Base Power ~60.
-  // Manual calc for Kyogre at 65% (130 HP / 202): Base Power ~97.
-
-    // The damage difference should be significant.
-    // Let's print the description to verify what happened.
-    // Expectation: The description or internal logic should reflect the berry activation for the net result.
-    // But specific to this test, we want to fail if A2 damage is too low.
-
-    // For now, let's just log it and assert "after Sitrus Berry recovery" exists.
-    // The deeper issue is whether A2's damage values are correct.
-
     expect(result.description).toContain("after Sitrus Berry recovery")
   })
 
   it("should trigger Enigma Berry correctly with two attackers (Neutral -> Super Effective)", () => {
-    // Attack 1: Neutral (should NOT trigger Enigma)
-    const attacker1 = new Pokemon("Flutter Mane", { moveSet: new MoveSet(new Move("Moonblast"), new Move(""), new Move(""), new Move("")) }) // Fairy vs Fire -> Neutral (1x)
-    // Attack 2: Super Effective (should trigger Enigma)
-    const attacker2 = new Pokemon("Landorus-Therian", { moveSet: new MoveSet(new Move("Bulldoze"), new Move(""), new Move(""), new Move("")) }) // Ground vs Fire -> SE (2x)
+    const attacker1 = new Pokemon("Flutter Mane", { moveSet: new MoveSet(new Move("Moonblast"), new Move(""), new Move(""), new Move("")) })
+    const attacker2 = new Pokemon("Landorus-Therian", { moveSet: new MoveSet(new Move("Bulldoze"), new Move(""), new Move(""), new Move("")) })
 
-    const target = new Target(new Pokemon("Incineroar", { item: "Enigma Berry", evs: { hp: 252 } })) // Fire/Dark
+    const target = new Target(new Pokemon("Incineroar", { item: "Enigma Berry", evs: { hp: 252 } }))
     const field = new Field()
 
     const result = service.koChanceForTwoAttackers(attacker1, attacker2, target.pokemon, field)
-
-    // Logic:
-    // Moonblast hits. Neutral. Enigma checks SE. No trigger.
-    // Earth Power hits. SE. Enigma triggers (heals 25%).
-    // If logic thinks only about Attacker 1 (Moonblast), it sees Neutral for everything. Enigma never triggers.
-    // So if description/chance implies NO berry recovery, it's fail.
 
     expect(result).toContain("after Enigma Berry recovery")
   })

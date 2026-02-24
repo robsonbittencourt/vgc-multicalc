@@ -308,8 +308,16 @@ export class PokemonBuild {
     this.container().find('[data-cy="apply-optimization"]').click({ force: true })
   }
 
+  okNoSolution() {
+    this.container().find('[data-cy="ok-no-solution"]').click({ force: true })
+  }
+
   discardOptimization() {
     this.container().find('[data-cy="discard-optimization"]').click({ force: true })
+  }
+
+  selectSurvivalThreshold(threshold: "2HKO" | "3HKO" | "4HKO") {
+    this.container().find('[data-cy="survival-threshold-select"]').click().get("mat-option").contains(threshold).click()
   }
 
   inputEvs(hp: number, atk: number, def: number, spa: number, spd: number, spe: number): PokemonBuild {

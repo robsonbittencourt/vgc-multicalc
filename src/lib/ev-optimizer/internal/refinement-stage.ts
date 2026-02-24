@@ -21,7 +21,7 @@ export class RefinementStage {
     }
 
     const tempDefender = defender.clone({ evs: solution })
-    const survives = this.survivalChecker.checkSurvival(attacker, tempDefender, field, threshold, true)
+    const survives = this.survivalChecker.checkSurvival(attacker, tempDefender, field, threshold)
 
     if (survives) {
       const reducedSolution = this.reduceEvs(solution, tempDefender, field, threshold, attacker, null)
@@ -55,7 +55,7 @@ export class RefinementStage {
     }
 
     const tempDefender = defender.clone({ evs: solution })
-    const survives = this.survivalChecker.checkSurvivalAgainstTwoAttackers(attacker1, attacker2, tempDefender, field, threshold, true)
+    const survives = this.survivalChecker.checkSurvivalAgainstTwoAttackers(attacker1, attacker2, tempDefender, field, threshold)
 
     if (survives) {
       const reducedSolution = this.reduceEvs(solution, tempDefender, field, threshold, attacker1, attacker2)
@@ -240,9 +240,9 @@ export class RefinementStage {
 
   private checkSurvival(tempDefender: Pokemon, field: Field, threshold: SurvivalThreshold, attacker1: Pokemon, attacker2: Pokemon | null): boolean {
     if (attacker2) {
-      return this.survivalChecker.checkSurvivalAgainstTwoAttackers(attacker1, attacker2, tempDefender, field, threshold, true)
+      return this.survivalChecker.checkSurvivalAgainstTwoAttackers(attacker1, attacker2, tempDefender, field, threshold)
     }
 
-    return this.survivalChecker.checkSurvival(attacker1, tempDefender, field, threshold, true)
+    return this.survivalChecker.checkSurvival(attacker1, tempDefender, field, threshold)
   }
 }

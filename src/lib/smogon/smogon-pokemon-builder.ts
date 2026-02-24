@@ -1,8 +1,6 @@
-import { Items } from "@data/items"
 import { DEFAULT_TERA_TYPE, SELECT_POKEMON_LABEL } from "@lib/constants"
 import { Ability } from "@lib/model/ability"
 import { Pokemon } from "@lib/model/pokemon"
-import { Status } from "@lib/model/status"
 import { PokemonParameters } from "@lib/types"
 import { Generations, Pokemon as SmogonPokemon } from "@robsonbittencourt/calc"
 import { AbilityName, StatusName } from "@robsonbittencourt/calc/dist/data/interface"
@@ -34,7 +32,7 @@ export function fromScratch(pokemonName: string, options: PokemonParameters): Sm
     evs: options.evs,
     ivs: options.ivs,
     boosts: options.boosts,
-    level: 50,
+    level: 50
   })
 
   smogonPokemon.status = (options.status?.code as StatusName) ?? ""

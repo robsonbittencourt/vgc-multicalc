@@ -141,7 +141,7 @@ export class AttackerSelector {
         survivingCount++
       }
 
-      const damage = this.damageCalculator.calcDamageValue(attacker, defenderMax, field)
+      const damage = this.damageCalculator.calculateResult(attacker, defenderMax, attacker.move, field, true).maxDamageWithRemainingUntilTurn(1)
 
       if (damage < defenderMax.hp && damage > maxDamage) {
         maxDamage = damage
@@ -214,7 +214,7 @@ export class AttackerSelector {
     for (const attacker of attackers) {
       if (attacker === strongestAttacker) continue
 
-      const damage = this.damageCalculator.calcDamageValue(attacker, defenderWithMax, field)
+      const damage = this.damageCalculator.calculateResult(attacker, defenderWithMax, attacker.move, field, true).maxDamageWithRemainingUntilTurn(1)
 
       if (damage < defenderWithMax.hp && damage > secondMaxDamage) {
         secondMaxDamage = damage
@@ -236,7 +236,7 @@ export class AttackerSelector {
     for (const attacker of attackers) {
       if (attacker === strongestAttacker) continue
 
-      const damage = this.damageCalculator.calcDamageValue(attacker, defenderWithMax, field)
+      const damage = this.damageCalculator.calculateResult(attacker, defenderWithMax, attacker.move, field, true).maxDamageWithRemainingUntilTurn(1)
 
       if (damage < defenderWithMax.hp) {
         attackersWithDamage.push({ attacker, damage })
@@ -258,7 +258,8 @@ export class AttackerSelector {
       if (target.pokemon.isDefault) continue
 
       if (target.secondPokemon && !target.secondPokemon.isDefault) {
-        const combinedDamage = this.damageCalculator.calcDamageValueForTwoAttackers(target.pokemon, target.secondPokemon, defenderWithNoEv, field)
+        const multiResult = this.damageCalculator.calcDamageValueForTwoAttackers(target.pokemon, target.secondPokemon, defenderWithNoEv, field)
+        const combinedDamage = multiResult.maxDamageWithRemainingUntilTurn(1)
 
         if (combinedDamage > maxDamage) {
           maxDamage = combinedDamage

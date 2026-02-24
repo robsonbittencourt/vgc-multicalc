@@ -60,6 +60,33 @@ describe("EV Optimizer", () => {
 
     leftBuild.evsIs(0, 12, 0, 0, 0, 0)
   })
+
+  it("should optimize EVs for different survival thresholds (2HKO, 3HKO, 4HKO)", () => {
+    leftBuild.importPokemon(poke["flutter-mane"])
+    leftBuild.clearEvs()
+
+    rightBuild.importPokemon(poke["urshifu-rapid-strike"])
+    rightBuild.selectAttackThree()
+
+    leftBuild.optimizeBulk()
+    leftBuild.okNoSolution()
+
+    leftBuild.evsIs(0, 0, 0, 0, 0, 0)
+
+    leftBuild.clearEvs()
+    leftBuild.selectSurvivalThreshold("3HKO")
+    leftBuild.optimizeBulk()
+    leftBuild.applyOptimization()
+
+    leftBuild.evsIs(0, 0, 68, 0, 0, 0)
+
+    leftBuild.clearEvs()
+    leftBuild.selectSurvivalThreshold("4HKO")
+    leftBuild.optimizeBulk()
+    leftBuild.applyOptimization()
+
+    leftBuild.evsIs(212, 0, 228, 0, 0, 0)
+  })
 })
 
 describe("Multi Calc EV Optimizer", () => {

@@ -177,7 +177,7 @@ Relaxed Nature
 - Rage Powder
 - Protect
 
-Incineroar @ Sitrus Berry
+Incineroar @ Covert Cloak
 Ability: Intimidate
 Level: 50
 Tera Type: Grass
