@@ -3,6 +3,8 @@ import { Generations, Move as MoveSmogon, Pokemon as SmogonPokemon, Field as Fie
 import { NeutralizingGasAdjuster } from "./neutralizing-gas-adjuster"
 import { Field } from "@lib/model/field"
 import { AbilityName } from "@robsonbittencourt/calc/dist/data/interface"
+import { Ability } from "@lib/model/ability"
+import { Pokemon } from "@lib/model/pokemon"
 
 describe("Neutralizing Gas Adjuster", () => {
   const gen = Generations.get(9)
@@ -89,6 +91,36 @@ describe("Neutralizing Gas Adjuster", () => {
     new NeutralizingGasAdjuster().adjust(attacker, target, move, moveSmogon, smogonField, secondAttacker, field)
 
     expect(attacker.ability).toBe("Beads of Ruin" as AbilityName)
+    expect(target.ability).toBe("Imposter" as AbilityName)
+  })
+
+  it("Should remove ability when attacker has Neutralizing Gas", () => {
+    const move = new Move("Overheat")
+    const moveSmogon = new MoveSmogon(gen, move.name)
+    const attacker = new SmogonPokemon(gen, "Weezing", { ability: "Neutralizing Gas" })
+    const target = new SmogonPokemon(gen, "Koraidon")
+    const smogonField = new FieldSmogon()
+    const secondAttacker = undefined
+    const field = new Field({ isNeutralizingGas: false })
+
+    new NeutralizingGasAdjuster().adjust(attacker, target, move, moveSmogon, smogonField, secondAttacker, field)
+
+    expect(target.ability).toBe("Imposter" as AbilityName)
+  })
+
+  it("Should remove ability when second attacker has Neutralizing Gas", () => {
+    const move = new Move("Overheat")
+    const moveSmogon = new MoveSmogon(gen, move.name)
+    const attacker = new SmogonPokemon(gen, "Chi-Yu")
+    const target = new SmogonPokemon(gen, "Koraidon")
+    const smogonField = new FieldSmogon()
+    const secondAttacker = new Pokemon("Weezing", { ability: new Ability("Neutralizing Gas", true) })
+
+    const field = new Field({ isNeutralizingGas: false })
+
+    new NeutralizingGasAdjuster().adjust(attacker, target, move, moveSmogon, smogonField, secondAttacker, field)
+
+    expect(attacker.ability).toBe("Imposter" as AbilityName)
     expect(target.ability).toBe("Imposter" as AbilityName)
   })
 })

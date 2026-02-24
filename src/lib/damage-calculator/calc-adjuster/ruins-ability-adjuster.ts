@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core"
 import { CalcAdjuster } from "@lib/damage-calculator/calc-adjuster/calc-adjuster"
+import { Field } from "@lib/model/field"
 import { Move } from "@lib/model/move"
 import { Pokemon } from "@lib/model/pokemon"
 import { Field as FieldSmogon, Move as MoveSmogon, Pokemon as SmogonPokemon } from "@robsonbittencourt/calc"
@@ -8,7 +9,18 @@ import { Field as FieldSmogon, Move as MoveSmogon, Pokemon as SmogonPokemon } fr
   providedIn: "root"
 })
 export class RuinsAbilityAdjuster implements CalcAdjuster {
-  adjust(attacker: SmogonPokemon, target: SmogonPokemon, move: Move, moveSmogon: MoveSmogon, smogonField: FieldSmogon, secondAttacker?: Pokemon) {
+  adjust(attacker: SmogonPokemon, target: SmogonPokemon, move: Move, moveSmogon: MoveSmogon, smogonField: FieldSmogon, secondAttacker?: Pokemon, field?: Field) {
+    const isGasActive = field?.isNeutralizingGas || attacker.ability === "Neutralizing Gas" || target.ability === "Neutralizing Gas" || secondAttacker?.hasAbility("Neutralizing Gas")
+
+    if (isGasActive) {
+      smogonField.isTabletsOfRuin = false
+      smogonField.isSwordOfRuin = false
+      smogonField.isVesselOfRuin = false
+      smogonField.isBeadsOfRuin = false
+
+      return
+    }
+
     if (!secondAttacker) {
       return
     }

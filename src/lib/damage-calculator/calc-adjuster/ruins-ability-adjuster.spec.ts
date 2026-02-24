@@ -1,4 +1,6 @@
+import { Ability } from "@lib/model/ability"
 import { RuinsAbilityAdjuster } from "@lib/damage-calculator/calc-adjuster/ruins-ability-adjuster"
+import { Field } from "@lib/model/field"
 import { Move } from "@lib/model/move"
 import { MoveSet } from "@lib/model/moveset"
 import { Pokemon } from "@lib/model/pokemon"
@@ -149,5 +151,33 @@ describe("Ruins Ability Adjuster", () => {
     expect(fieldSmogon.isSwordOfRuin).toBe(false)
     expect(fieldSmogon.isVesselOfRuin).toBe(false)
     expect(fieldSmogon.isBeadsOfRuin).toBe(true)
+  })
+
+  it("should NOT turn on Sword of Ruin when attacker have this ability but Neutralizing Gas is active", () => {
+    const move = new Move("Icicle Crash")
+    const moveSmogon = new MoveSmogon(gen, move.name)
+    const attacker = new SmogonPokemon(gen, "Chien-Pao")
+    const secondAttacker = new Pokemon("Rillaboom", { moveSet: new MoveSet(new Move("Grassy Glide"), new Move("Fake Out"), new Move("Wood Hammer"), new Move("High Horsepower")) })
+    const target = new SmogonPokemon(gen, "Flutter Mane")
+    const fieldSmogon = new FieldSmogon()
+    const field = new Field({ isNeutralizingGas: true })
+
+    new RuinsAbilityAdjuster().adjust(attacker, target, move, moveSmogon, fieldSmogon, secondAttacker, field)
+
+    expect(fieldSmogon.isSwordOfRuin).toBe(false)
+  })
+
+  it("should NOT turn on Sword of Ruin when second attacker has Neutralizing Gas", () => {
+    const move = new Move("Icicle Crash")
+    const moveSmogon = new MoveSmogon(gen, move.name)
+    const attacker = new SmogonPokemon(gen, "Chien-Pao")
+    const secondAttacker = new Pokemon("Weezing", { ability: new Ability("Neutralizing Gas", true) })
+    const target = new SmogonPokemon(gen, "Flutter Mane")
+    const fieldSmogon = new FieldSmogon()
+    const field = new Field({ isNeutralizingGas: false })
+
+    new RuinsAbilityAdjuster().adjust(attacker, target, move, moveSmogon, fieldSmogon, secondAttacker, field)
+
+    expect(fieldSmogon.isSwordOfRuin).toBe(false)
   })
 })
