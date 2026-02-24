@@ -54,13 +54,13 @@ export class AttackerSelector {
     })
   }
 
-  determinePriority(physicalAttackers: Pokemon[], specialAttackers: Pokemon[], defender: Pokemon, field: Field, updateNature = false): AttackerPriorityResult {
+  determinePriority(physicalAttackers: Pokemon[], specialAttackers: Pokemon[], defender: Pokemon, field: Field, updateNature = false, rollIndex = 15): AttackerPriorityResult {
     const defenderWithNoEv = defender.clone({ evs: { hp: 0, def: 0, spd: 0 } })
     const defenderWithMaxPhysical = defender.clone({ evs: { hp: MAX_SINGLE_STAT_EVS, def: MAX_SINGLE_STAT_EVS, spd: 0 } })
     const defenderWithMaxSpecial = defender.clone({ evs: { hp: MAX_SINGLE_STAT_EVS, def: 0, spd: MAX_SINGLE_STAT_EVS } })
 
-    const physicalAnalysis = this.analyzeSurvival(physicalAttackers, defenderWithNoEv, defenderWithMaxPhysical, field, true)
-    const specialAnalysis = this.analyzeSurvival(specialAttackers, defenderWithNoEv, defenderWithMaxSpecial, field, true)
+    const physicalAnalysis = this.analyzeSurvival(physicalAttackers, defenderWithNoEv, defenderWithMaxPhysical, field, true, rollIndex)
+    const specialAnalysis = this.analyzeSurvival(specialAttackers, defenderWithNoEv, defenderWithMaxSpecial, field, true, rollIndex)
 
     let bestScenario: NatureScenario = {
       nature: null,
@@ -79,8 +79,8 @@ export class AttackerSelector {
       const defenderDefMaxPhysical = defender.clone({ nature: defNature, evs: { hp: MAX_SINGLE_STAT_EVS, def: MAX_SINGLE_STAT_EVS, spd: 0 } })
       const defenderDefMaxSpecial = defender.clone({ nature: defNature, evs: { hp: MAX_SINGLE_STAT_EVS, def: 0, spd: MAX_SINGLE_STAT_EVS } })
 
-      const defNaturePhysicalAnalysis = this.analyzeSurvival(physicalAttackers, null, defenderDefMaxPhysical, field, false)
-      const defNatureSpecialAnalysis = this.analyzeSurvival(specialAttackers, null, defenderDefMaxSpecial, field, false)
+      const defNaturePhysicalAnalysis = this.analyzeSurvival(physicalAttackers, null, defenderDefMaxPhysical, field, false, rollIndex)
+      const defNatureSpecialAnalysis = this.analyzeSurvival(specialAttackers, null, defenderDefMaxSpecial, field, false, rollIndex)
 
       const defScenario: NatureScenario = {
         nature: defNature,
@@ -96,8 +96,8 @@ export class AttackerSelector {
       const defenderSpdMaxPhysical = defender.clone({ nature: spdNature, evs: { hp: MAX_SINGLE_STAT_EVS, def: MAX_SINGLE_STAT_EVS, spd: 0 } })
       const defenderSpdMaxSpecial = defender.clone({ nature: spdNature, evs: { hp: MAX_SINGLE_STAT_EVS, def: 0, spd: MAX_SINGLE_STAT_EVS } })
 
-      const spdNaturePhysicalAnalysis = this.analyzeSurvival(physicalAttackers, null, defenderSpdMaxPhysical, field, false)
-      const spdNatureSpecialAnalysis = this.analyzeSurvival(specialAttackers, null, defenderSpdMaxSpecial, field, false)
+      const spdNaturePhysicalAnalysis = this.analyzeSurvival(physicalAttackers, null, defenderSpdMaxPhysical, field, false, rollIndex)
+      const spdNatureSpecialAnalysis = this.analyzeSurvival(specialAttackers, null, defenderSpdMaxSpecial, field, false, rollIndex)
 
       const spdScenario: NatureScenario = {
         nature: spdNature,
@@ -121,7 +121,7 @@ export class AttackerSelector {
     }
   }
 
-  private analyzeSurvival(attackers: Pokemon[], defenderMin: Pokemon | null, defenderMax: Pokemon, field: Field, checkMin: boolean): SurvivalAnalysis {
+  private analyzeSurvival(attackers: Pokemon[], defenderMin: Pokemon | null, defenderMax: Pokemon, field: Field, checkMin: boolean, rollIndex = 15): SurvivalAnalysis {
     let survivingCount = 0
     let strongestAttacker: Pokemon | null = null
     let maxDamage = 0
@@ -130,18 +130,18 @@ export class AttackerSelector {
       let survives = false
 
       if (checkMin && defenderMin) {
-        const survivesWithMin = this.survivalChecker.checkSurvival(attacker, defenderMin, field, 2)
-        const survivesWithMax = this.survivalChecker.checkSurvival(attacker, defenderMax, field, 2)
+        const survivesWithMin = this.survivalChecker.checkSurvival(attacker, defenderMin, field, 2, rollIndex)
+        const survivesWithMax = this.survivalChecker.checkSurvival(attacker, defenderMax, field, 2, rollIndex)
         survives = !survivesWithMin && survivesWithMax
       } else {
-        survives = this.survivalChecker.checkSurvival(attacker, defenderMax, field, 2)
+        survives = this.survivalChecker.checkSurvival(attacker, defenderMax, field, 2, rollIndex)
       }
 
       if (survives) {
         survivingCount++
       }
 
-      const damage = this.damageCalculator.calculateResult(attacker, defenderMax, attacker.move, field, true).maxDamageWithRemainingUntilTurn(1)
+      const damage = this.damageCalculator.calculateResult(attacker, defenderMax, attacker.move, field, true).damageWithRemainingUntilTurn(1, rollIndex)
 
       if (damage < defenderMax.hp && damage > maxDamage) {
         maxDamage = damage
@@ -202,7 +202,7 @@ export class AttackerSelector {
     }
   }
 
-  findSecondStrongestAttacker(attackers: Pokemon[], strongestAttacker: Pokemon | null, defender: Pokemon, field: Field, isPhysical: boolean): Pokemon | null {
+  findSecondStrongestAttacker(attackers: Pokemon[], strongestAttacker: Pokemon | null, defender: Pokemon, field: Field, isPhysical: boolean, rollIndex = 15): Pokemon | null {
     if (!strongestAttacker || attackers.length <= 1) {
       return null
     }
@@ -214,7 +214,7 @@ export class AttackerSelector {
     for (const attacker of attackers) {
       if (attacker === strongestAttacker) continue
 
-      const damage = this.damageCalculator.calculateResult(attacker, defenderWithMax, attacker.move, field, true).maxDamageWithRemainingUntilTurn(1)
+      const damage = this.damageCalculator.calculateResult(attacker, defenderWithMax, attacker.move, field, true).damageWithRemainingUntilTurn(1, rollIndex)
 
       if (damage < defenderWithMax.hp && damage > secondMaxDamage) {
         secondMaxDamage = damage
@@ -225,7 +225,7 @@ export class AttackerSelector {
     return secondStrongestAttacker
   }
 
-  findAllAttackersOrderedByStrength(attackers: Pokemon[], strongestAttacker: Pokemon | null, defender: Pokemon, field: Field, isPhysical: boolean): Pokemon[] {
+  findAllAttackersOrderedByStrength(attackers: Pokemon[], strongestAttacker: Pokemon | null, defender: Pokemon, field: Field, isPhysical: boolean, rollIndex = 15): Pokemon[] {
     if (!strongestAttacker || attackers.length <= 1) {
       return []
     }
@@ -236,7 +236,7 @@ export class AttackerSelector {
     for (const attacker of attackers) {
       if (attacker === strongestAttacker) continue
 
-      const damage = this.damageCalculator.calculateResult(attacker, defenderWithMax, attacker.move, field, true).maxDamageWithRemainingUntilTurn(1)
+      const damage = this.damageCalculator.calculateResult(attacker, defenderWithMax, attacker.move, field, true).damageWithRemainingUntilTurn(1, rollIndex)
 
       if (damage < defenderWithMax.hp) {
         attackersWithDamage.push({ attacker, damage })
@@ -248,7 +248,7 @@ export class AttackerSelector {
     return attackersWithDamage.map(item => item.attacker)
   }
 
-  findStrongestDoubleTarget(defender: Pokemon, targets: Target[], field: Field): { attacker1: Pokemon; attacker2: Pokemon; maxDamage: number } | null {
+  findStrongestDoubleTarget(defender: Pokemon, targets: Target[], field: Field, rollIndex = 15): { attacker1: Pokemon; attacker2: Pokemon; maxDamage: number } | null {
     const defenderWithNoEv = defender.clone({ evs: { hp: 0, def: 0, spd: 0 } })
     let strongestAttacker1: Pokemon | null = null
     let strongestAttacker2: Pokemon | null = null
@@ -259,7 +259,7 @@ export class AttackerSelector {
 
       if (target.secondPokemon && !target.secondPokemon.isDefault) {
         const multiResult = this.damageCalculator.calcDamageValueForTwoAttackers(target.pokemon, target.secondPokemon, defenderWithNoEv, field)
-        const combinedDamage = multiResult.maxDamageWithRemainingUntilTurn(1)
+        const combinedDamage = multiResult.damageWithRemainingUntilTurn(1, rollIndex)
 
         if (combinedDamage > maxDamage) {
           maxDamage = combinedDamage

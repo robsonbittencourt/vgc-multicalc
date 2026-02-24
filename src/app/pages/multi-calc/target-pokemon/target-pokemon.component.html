@@ -11,7 +11,7 @@
         (valueChange)="updateCardsFilter($event)"
         (cleared)="clearCardsFilter()" />
 
-      <app-roll-config (rollLevelChange)="rollLevelConfig.set($event)" />
+      <app-roll-config (rollLevelChange)="handleRollLevelChange($event)" />
 
       <mat-slide-toggle [checked]="order" (change)="toogleOrder()" [labelPosition]="'before'">Order by Damage</mat-slide-toggle>
 

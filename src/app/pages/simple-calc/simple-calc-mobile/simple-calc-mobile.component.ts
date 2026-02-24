@@ -115,7 +115,7 @@ export class SimpleCalcMobileComponent {
     this.originalEvs.set({ ...defender.evs })
     this.originalNature.set(defender.nature)
 
-    const result = this.defensiveEvOptimizer.optimize(defender, [new Target(attacker)], field, event.updateNature, event.keepOffensiveEvs, event.survivalThreshold)
+    const result = this.defensiveEvOptimizer.optimize(defender, [new Target(attacker)], field, event.updateNature, event.keepOffensiveEvs, event.survivalThreshold, 15)
 
     this.optimizedNature.set(result.nature)
 

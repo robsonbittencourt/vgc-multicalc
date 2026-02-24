@@ -2,10 +2,13 @@ import { poke } from "@cy-support/e2e"
 import { PokemonBuild } from "@page-object/pokemon-build"
 import { Opponent } from "@page-object/opponent"
 import { Team } from "@page-object/team"
+import { DamageResult } from "@page-object/damage-result"
 
 describe("EV Optimizer", () => {
   const leftBuild = new PokemonBuild("left-pokemon")
   const rightBuild = new PokemonBuild("right-pokemon")
+
+  const rightDamageResult = new DamageResult("right-damage-result")
 
   it("should optimize EVs for survival (Basic Optimization)", () => {
     leftBuild.importPokemon(poke["flutter-mane"])
@@ -86,6 +89,32 @@ describe("EV Optimizer", () => {
     leftBuild.applyOptimization()
 
     leftBuild.evsIs(212, 0, 228, 0, 0, 0)
+  })
+
+  it.only("should optimize EVs for different rolls", () => {
+    leftBuild.importPokemon(poke["flutter-mane"])
+    leftBuild.clearEvs()
+
+    rightBuild.importPokemon(poke["urshifu-rapid-strike"])
+
+    leftBuild.optimizeBulk()
+    leftBuild.applyOptimization()
+
+    leftBuild.evsIs(140, 0, 236, 0, 0, 0)
+
+    leftBuild.clearEvs()
+    rightDamageResult.withMediumRoll()
+    leftBuild.optimizeBulk()
+    leftBuild.applyOptimization()
+
+    leftBuild.evsIs(68, 0, 204, 0, 0, 0)
+
+    leftBuild.clearEvs()
+    rightDamageResult.withLowRoll()
+    leftBuild.optimizeBulk()
+    leftBuild.applyOptimization()
+
+    leftBuild.evsIs(68, 0, 132, 0, 0, 0)
   })
 })
 

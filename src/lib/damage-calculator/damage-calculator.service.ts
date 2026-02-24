@@ -10,12 +10,13 @@ import { fromExisting } from "@lib/smogon/smogon-pokemon-builder"
 import { SpeedCalculatorService } from "@lib/speed-calculator/speed-calculator-service"
 import { calculate, calculateMulti, extractDamageSubArrays, Generations, Move as MoveSmogon, Result, MultiResult, Pokemon as PokemonSmogon, Field as FieldSmogon } from "@robsonbittencourt/calc"
 import { Generation } from "@robsonbittencourt/calc/dist/data/interface"
+import { RollLevelConfig } from "./roll-level-config"
 
 @Injectable({
   providedIn: "root"
 })
 export class DamageCalculatorService {
-  ZERO_RESULT_DAMAGE = Array(16).fill(0)
+  ZERO_RESULT_DAMAGE = Array(RollLevelConfig.ROLLS_NUMBER).fill(0)
 
   adjusters = inject(CALC_ADJUSTERS)
   specificDamageCalculators = inject(SPECIFIC_DAMAGE_CALCULATORS)
@@ -135,7 +136,7 @@ export class DamageCalculatorService {
     }
 
     if (typeof result.damage === "number") {
-      result.damage = Array(16).fill(result.damage)
+      result.damage = Array(RollLevelConfig.ROLLS_NUMBER).fill(result.damage)
     }
 
     return result

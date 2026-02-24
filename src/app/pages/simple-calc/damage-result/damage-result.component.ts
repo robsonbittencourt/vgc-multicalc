@@ -39,9 +39,10 @@ export class DamageResultComponent {
   })
 
   rollIndexActive = computed(() => {
-    if (this.rollLevelConfig().high) return 15
-    if (this.rollLevelConfig().medium) return 7
-    return 0
+    if (this.rollLevelConfig().high) return RollLevelConfig.HIGH_ROLL_INDEX
+    if (this.rollLevelConfig().medium) return RollLevelConfig.MEDIUM_ROLL_INDEX
+
+    return RollLevelConfig.LOW_ROLL_INDEX
   })
 
   damageInflicted = computed(() => this.activeDamageResult().damageByRollConfig(this.rollLevelConfig()))

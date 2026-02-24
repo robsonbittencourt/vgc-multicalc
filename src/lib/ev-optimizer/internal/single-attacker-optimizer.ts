@@ -15,7 +15,7 @@ export class SingleAttackerOptimizer {
   private survivalChecker = inject(SurvivalChecker)
   private utils = inject(EvOptimizerUtils)
 
-  findFirstValidSolution(attacker: Pokemon, defender: Pokemon, field: Field, isPhysical: boolean, threshold: SurvivalThreshold = 2): Stats {
+  findFirstValidSolution(attacker: Pokemon, defender: Pokemon, field: Field, isPhysical: boolean, threshold: SurvivalThreshold = 2, rollIndex = 15): Stats {
     const evIntervals = this.evIntervalsCalculator.getEvIntervals()
 
     const tempDefender = defender.clone()
@@ -28,7 +28,7 @@ export class SingleAttackerOptimizer {
 
       tempDefender.setEvs(tempEvs)
 
-      return this.survivalChecker.checkSurvival(attacker, tempDefender, field, threshold)
+      return this.survivalChecker.checkSurvival(attacker, tempDefender, field, threshold, rollIndex)
     })
 
     const evValue = evIntervals[minEvIntervalIndex]
@@ -40,12 +40,12 @@ export class SingleAttackerOptimizer {
     }
   }
 
-  optimizeForAttacker(attacker: Pokemon, defender: Pokemon, field: Field, threshold: SurvivalThreshold = 2): Stats | null {
+  optimizeForAttacker(attacker: Pokemon, defender: Pokemon, field: Field, threshold: SurvivalThreshold = 2, rollIndex = 15): Stats | null {
     const isPhysical = attacker.moveSet.activeMove.category == "Physical"
-    const initialSolution = this.findFirstValidSolution(attacker, defender, field, isPhysical, threshold)
+    const initialSolution = this.findFirstValidSolution(attacker, defender, field, isPhysical, threshold, rollIndex)
 
     const initialDefender = defender.clone({ evs: { hp: initialSolution.hp, def: initialSolution.def, spd: initialSolution.spd } })
-    if (!this.survivalChecker.checkSurvival(attacker, initialDefender, field, threshold)) {
+    if (!this.survivalChecker.checkSurvival(attacker, initialDefender, field, threshold, rollIndex)) {
       return null
     }
 
@@ -84,7 +84,7 @@ export class SingleAttackerOptimizer {
       tempEvs.spd = combination.spd
       tempDefender.setEvs(tempEvs)
 
-      return this.survivalChecker.checkSurvival(attacker, tempDefender, field, threshold)
+      return this.survivalChecker.checkSurvival(attacker, tempDefender, field, threshold, rollIndex)
     })
 
     if (result) {
@@ -94,7 +94,7 @@ export class SingleAttackerOptimizer {
     return initialSolution
   }
 
-  findMinDefForPhysicalAttacker(hpEv: number, physicalAttacker: Pokemon | null, defender: Pokemon, field: Field, threshold: SurvivalThreshold = 2): number | null {
+  findMinDefForPhysicalAttacker(hpEv: number, physicalAttacker: Pokemon | null, defender: Pokemon, field: Field, threshold: SurvivalThreshold = 2, rollIndex = 15): number | null {
     if (!physicalAttacker) {
       return null
     }
@@ -109,7 +109,7 @@ export class SingleAttackerOptimizer {
       tempEvs.def = defEv
       tempDefender.setEvs(tempEvs)
 
-      if (this.survivalChecker.checkSurvival(physicalAttacker, tempDefender, field, threshold)) {
+      if (this.survivalChecker.checkSurvival(physicalAttacker, tempDefender, field, threshold, rollIndex)) {
         return defEv
       }
     }

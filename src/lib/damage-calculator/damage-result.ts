@@ -49,16 +49,7 @@ export class DamageResult {
 
   damageByRollConfig(config: RollLevelConfig): number {
     const berryHP = this.berryHP ?? 0
-
-    if (config.high) {
-      return this.totalRolls[15] - berryHP
-    }
-
-    if (config.medium) {
-      return this.totalRolls[7] - berryHP
-    }
-
-    return this.totalRolls[0] - berryHP
+    return this.totalRolls[config.toRollIndex()] - berryHP
   }
 
   private adjustResult(result: string): string {

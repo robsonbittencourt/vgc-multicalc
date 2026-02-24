@@ -6,6 +6,7 @@ export type OptimizationContext = {
   defender: Pokemon
   field: Field
   threshold: SurvivalThreshold
+  rollIndex: number
 }
 
 export type AttackerContext = {

@@ -36,6 +36,7 @@ export class TargetPokemonComponent {
   targetRemoved = output()
   targetsImported = output()
   orderChanged = output<boolean>()
+  rollLevelChange = output<RollLevelConfig>()
 
   store = inject(CalculatorStore)
   menuStore = inject(MenuStore)
@@ -191,6 +192,10 @@ export class TargetPokemonComponent {
 
   clearCardsFilter() {
     this.cardsFilter.set("")
+  }
+  handleRollLevelChange(rollLevel: RollLevelConfig) {
+    this.rollLevelConfig.set(rollLevel)
+    this.rollLevelChange.emit(rollLevel)
   }
 
   private findTarget(pokemonId: string): Target {

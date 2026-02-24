@@ -10,6 +10,7 @@ import { DamageMultiCalcService } from "@lib/damage-calculator/damage-multi-calc
 import { DamageResultOrderService } from "@lib/damage-calculator/damage-result-order.service"
 import { DefensiveEvOptimizerService } from "@lib/ev-optimizer/defensive-ev-optimizer.service"
 import { Stats, SurvivalThreshold } from "@lib/types"
+import { RollLevelConfig } from "@lib/damage-calculator/roll-level-config"
 import { TargetPokemonComponent } from "@pages/multi-calc/target-pokemon/target-pokemon.component"
 
 @Component({
@@ -42,6 +43,7 @@ export class MultiCalcComponent implements OnInit {
   damageResults = computed(() => this.damageCalculator.calculateDamageForAll(this.activeAttacker(), this.store.targets(), this.fieldStore.field(), this.order(), this.activeSecondAttacker()))
 
   teamComponent = viewChild<TeamComponent>("teamComponent")
+  rollLevelConfig = signal(RollLevelConfig.high())
 
   lastHandledPokemonNameFirst = ""
   lastHandledAbilityNameFirst = ""
@@ -115,7 +117,8 @@ export class MultiCalcComponent implements OnInit {
     this.originalEvs.set({ ...defender.evs })
     this.originalNature.set(defender.nature)
 
-    const result = this.defensiveEvOptimizer.optimize(defender, targets, field, event.updateNature, event.keepOffensiveEvs, event.survivalThreshold)
+    const rollIndex = this.rollLevelConfig().toRollIndex()
+    const result = this.defensiveEvOptimizer.optimize(defender, targets, field, event.updateNature, event.keepOffensiveEvs, event.survivalThreshold, rollIndex)
 
     this.optimizedNature.set(result.nature)
 

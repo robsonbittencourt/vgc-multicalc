@@ -10,27 +10,27 @@ import { Stats, SurvivalThreshold } from "@lib/types"
 export class SurvivalChecker {
   private damageCalculator = inject(DamageCalculatorService)
 
-  checkSurvival(attacker: Pokemon, defender: Pokemon, field: Field, threshold: SurvivalThreshold): boolean {
+  checkSurvival(attacker: Pokemon, defender: Pokemon, field: Field, threshold: SurvivalThreshold, rollIndex = 15): boolean {
     const result = this.damageCalculator.calculateResult(attacker, defender, attacker.move, field, true)
-    const maxDamage = result.maxDamageWithRemainingUntilTurn(threshold - 1)
+    const damage = result.damageWithRemainingUntilTurn(threshold - 1, rollIndex)
 
-    return maxDamage < defender.hp
+    return damage < defender.hp
   }
 
-  checkSurvivalAgainstTwoAttackers(attacker1: Pokemon, attacker2: Pokemon, defender: Pokemon, field: Field, threshold: SurvivalThreshold): boolean {
+  checkSurvivalAgainstTwoAttackers(attacker1: Pokemon, attacker2: Pokemon, defender: Pokemon, field: Field, threshold: SurvivalThreshold, rollIndex = 15): boolean {
     const multiResult = this.damageCalculator.calcDamageValueForTwoAttackers(attacker1, attacker2, defender, field)
-    const maxCombinedDamage = multiResult.maxDamageWithRemainingUntilTurn(threshold - 1)
+    const combinedDamage = multiResult.damageWithRemainingUntilTurn(threshold - 1, rollIndex)
 
-    return maxCombinedDamage < defender.hp
+    return combinedDamage < defender.hp
   }
 
-  checkSurvivalWithEvs(attacker: Pokemon, defender: Pokemon, evs: Partial<Stats>, field: Field, threshold: SurvivalThreshold): boolean {
+  checkSurvivalWithEvs(attacker: Pokemon, defender: Pokemon, evs: Partial<Stats>, field: Field, threshold: SurvivalThreshold, rollIndex = 15): boolean {
     const testDefender = defender.clone({ evs })
-    return this.checkSurvival(attacker, testDefender, field, threshold)
+    return this.checkSurvival(attacker, testDefender, field, threshold, rollIndex)
   }
 
-  checkSurvivalAgainstTwoAttackersWithEvs(attacker1: Pokemon, attacker2: Pokemon, defender: Pokemon, evs: Partial<Stats>, field: Field, threshold: SurvivalThreshold): boolean {
+  checkSurvivalAgainstTwoAttackersWithEvs(attacker1: Pokemon, attacker2: Pokemon, defender: Pokemon, evs: Partial<Stats>, field: Field, threshold: SurvivalThreshold, rollIndex = 15): boolean {
     const testDefender = defender.clone({ evs })
-    return this.checkSurvivalAgainstTwoAttackers(attacker1, attacker2, testDefender, field, threshold)
+    return this.checkSurvivalAgainstTwoAttackers(attacker1, attacker2, testDefender, field, threshold, rollIndex)
   }
 }

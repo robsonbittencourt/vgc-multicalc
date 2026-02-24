@@ -24,17 +24,17 @@ export class SolutionCombiner {
     let { physicalAttacker, specialAttacker } = attackers
     const { physicalAttackers, specialAttackers } = attackers
     const { attacker1: doubleAttacker1, attacker2: doubleAttacker2 } = doubleAttackers
-    const { defender, field, threshold } = ctx
+    const { defender, field, threshold, rollIndex } = ctx
 
     if (!doubleSolution) {
       const prioritizePhysical = physicalSolution && specialSolution ? physicalSolution.hp >= specialSolution.hp : true
-      return this.combineSolutions(physicalSolution, specialSolution, prioritizePhysical, defender, field, physicalAttacker, specialAttacker, physicalAttackers, specialAttackers, threshold)
+      return this.combineSolutions(physicalSolution, specialSolution, prioritizePhysical, defender, field, physicalAttacker, specialAttacker, physicalAttackers, specialAttackers, threshold, rollIndex)
     }
 
     const testDefenderDouble = defender.clone({ evs: doubleSolution })
 
     if (physicalSolution && physicalAttacker) {
-      const survivesPhysicalWithDouble = this.survivalChecker.checkSurvival(physicalAttacker, testDefenderDouble, field, threshold)
+      const survivesPhysicalWithDouble = this.survivalChecker.checkSurvival(physicalAttacker, testDefenderDouble, field, threshold, rollIndex)
 
       if (survivesPhysicalWithDouble) {
         physicalSolution = null
@@ -43,7 +43,7 @@ export class SolutionCombiner {
     }
 
     if (specialSolution && specialAttacker) {
-      const survivesSpecialWithDouble = this.survivalChecker.checkSurvival(specialAttacker, testDefenderDouble, field, threshold)
+      const survivesSpecialWithDouble = this.survivalChecker.checkSurvival(specialAttacker, testDefenderDouble, field, threshold, rollIndex)
 
       if (survivesSpecialWithDouble) {
         specialSolution = null
@@ -68,7 +68,8 @@ export class SolutionCombiner {
         doubleAttacker2,
         threshold,
         physicalAttackers,
-        specialAttackers
+        specialAttackers,
+        rollIndex
       )
 
       if (optimizedCombined) {
@@ -78,10 +79,10 @@ export class SolutionCombiner {
 
     if (physicalSolution && specialSolution) {
       const prioritizePhysical = physicalSolution.hp >= specialSolution.hp
-      const twoSolutionResult = this.combineSolutions(physicalSolution, specialSolution, prioritizePhysical, defender, field, physicalAttacker, specialAttacker, physicalAttackers, specialAttackers, threshold)
+      const twoSolutionResult = this.combineSolutions(physicalSolution, specialSolution, prioritizePhysical, defender, field, physicalAttacker, specialAttacker, physicalAttackers, specialAttackers, threshold, rollIndex)
 
       if (twoSolutionResult) {
-        const finalResult = this.tryAddDoubleSolution(twoSolutionResult, doubleSolution, defender, field, doubleAttacker1, doubleAttacker2, threshold)
+        const finalResult = this.tryAddDoubleSolution(twoSolutionResult, doubleSolution, defender, field, doubleAttacker1, doubleAttacker2, threshold, rollIndex)
         if (finalResult) {
           return finalResult
         }
@@ -89,11 +90,11 @@ export class SolutionCombiner {
     }
 
     if (physicalSolution && !specialSolution) {
-      return this.tryCombinePhysicalWithDouble(physicalSolution, doubleSolution, defender, field, physicalAttacker, doubleAttacker1, doubleAttacker2, threshold)
+      return this.tryCombinePhysicalWithDouble(physicalSolution, doubleSolution, defender, field, physicalAttacker, doubleAttacker1, doubleAttacker2, threshold, rollIndex)
     }
 
     if (specialSolution && !physicalSolution) {
-      return this.tryCombineSpecialWithDouble(specialSolution, doubleSolution, defender, field, specialAttacker, doubleAttacker1, doubleAttacker2, threshold)
+      return this.tryCombineSpecialWithDouble(specialSolution, doubleSolution, defender, field, specialAttacker, doubleAttacker1, doubleAttacker2, threshold, rollIndex)
     }
 
     return doubleSolution
@@ -109,7 +110,8 @@ export class SolutionCombiner {
     specialAttacker: Pokemon | null,
     physicalAttackers: Pokemon[],
     specialAttackers: Pokemon[],
-    threshold: SurvivalThreshold = 2
+    threshold: SurvivalThreshold = 2,
+    rollIndex = 15
   ): Stats | null {
     if (!physicalSolution && !specialSolution) {
       return null
@@ -123,7 +125,7 @@ export class SolutionCombiner {
       return { hp: physicalSolution.hp, atk: 0, def: physicalSolution.def, spa: 0, spd: 0, spe: 0 }
     }
 
-    const optimizedCombined = this.findOptimizedCombinedSolution(physicalSolution, specialSolution, null, defender, field, physicalAttacker, specialAttacker, null, null, threshold, physicalAttackers, specialAttackers)
+    const optimizedCombined = this.findOptimizedCombinedSolution(physicalSolution, specialSolution, null, defender, field, physicalAttacker, specialAttacker, null, null, threshold, physicalAttackers, specialAttackers, rollIndex)
 
     if (optimizedCombined) {
       return optimizedCombined
@@ -135,15 +137,15 @@ export class SolutionCombiner {
       const result = { hp: physicalSolution.hp, atk: 0, def: physicalSolution.def, spa: 0, spd: spdToApply, spe: 0 }
 
       if (physicalAttacker && specialAttacker) {
-        const survivesPhysical = this.survivalChecker.checkSurvivalWithEvs(physicalAttacker, defender, result, field, threshold)
-        const survivesSpecial = this.survivalChecker.checkSurvivalWithEvs(specialAttacker, defender, result, field, threshold)
+        const survivesPhysical = this.survivalChecker.checkSurvivalWithEvs(physicalAttacker, defender, result, field, threshold, rollIndex)
+        const survivesSpecial = this.survivalChecker.checkSurvivalWithEvs(specialAttacker, defender, result, field, threshold, rollIndex)
 
         if (survivesPhysical && survivesSpecial) {
           return result
         } else {
           if (!survivesSpecial) {
             const baseResult = { hp: physicalSolution.hp, atk: 0, def: physicalSolution.def, spa: 0, spd: 0, spe: 0 }
-            return this.tryOptimizeForSecondStrongest(baseResult, false, specialAttackers, specialAttacker, defender, field, threshold)
+            return this.tryOptimizeForSecondStrongest(baseResult, false, specialAttackers, specialAttacker, defender, field, threshold, rollIndex)
           }
         }
       }
@@ -151,26 +153,26 @@ export class SolutionCombiner {
       return result
     } else {
       const remainingEvs = MAX_TOTAL_EVS - specialSolution.hp - specialSolution.spd
-      const minDefNeeded = this.singleAttackerOptimizer.findMinDefForPhysicalAttacker(specialSolution.hp, physicalAttacker, defender, field, threshold)
+      const minDefNeeded = this.singleAttackerOptimizer.findMinDefForPhysicalAttacker(specialSolution.hp, physicalAttacker, defender, field, threshold, rollIndex)
 
       if (minDefNeeded === null) {
         const baseResult = { hp: specialSolution.hp, atk: 0, def: 0, spa: 0, spd: specialSolution.spd, spe: 0 }
-        return this.tryOptimizeForSecondStrongest(baseResult, true, physicalAttackers, physicalAttacker, defender, field, threshold)
+        return this.tryOptimizeForSecondStrongest(baseResult, true, physicalAttackers, physicalAttacker, defender, field, threshold, rollIndex)
       }
 
       const defToApply = Math.min(minDefNeeded, remainingEvs)
       const result = { hp: specialSolution.hp, atk: 0, def: defToApply, spa: 0, spd: specialSolution.spd, spe: 0 }
 
       if (physicalAttacker && specialAttacker) {
-        const survivesPhysical = this.survivalChecker.checkSurvivalWithEvs(physicalAttacker, defender, result, field, threshold)
-        const survivesSpecial = this.survivalChecker.checkSurvivalWithEvs(specialAttacker, defender, result, field, threshold)
+        const survivesPhysical = this.survivalChecker.checkSurvivalWithEvs(physicalAttacker, defender, result, field, threshold, rollIndex)
+        const survivesSpecial = this.survivalChecker.checkSurvivalWithEvs(specialAttacker, defender, result, field, threshold, rollIndex)
 
         if (survivesPhysical && survivesSpecial) {
           return result
         } else {
           if (!survivesPhysical) {
             const baseResult = { hp: specialSolution.hp, atk: 0, def: 0, spa: 0, spd: specialSolution.spd, spe: 0 }
-            return this.tryOptimizeForSecondStrongest(baseResult, true, physicalAttackers, physicalAttacker, defender, field, threshold)
+            return this.tryOptimizeForSecondStrongest(baseResult, true, physicalAttackers, physicalAttacker, defender, field, threshold, rollIndex)
           }
         }
       }
@@ -179,8 +181,8 @@ export class SolutionCombiner {
     }
   }
 
-  private tryOptimizeForSecondStrongest(baseResult: Stats, isPhysical: boolean, attackers: Pokemon[], strongestAttacker: Pokemon | null, defender: Pokemon, field: Field, threshold: SurvivalThreshold): Stats {
-    const orderedAttackers = this.attackerSelector.findAllAttackersOrderedByStrength(attackers, strongestAttacker, defender, field, isPhysical)
+  private tryOptimizeForSecondStrongest(baseResult: Stats, isPhysical: boolean, attackers: Pokemon[], strongestAttacker: Pokemon | null, defender: Pokemon, field: Field, threshold: SurvivalThreshold, rollIndex = 15): Stats {
+    const orderedAttackers = this.attackerSelector.findAllAttackersOrderedByStrength(attackers, strongestAttacker, defender, field, isPhysical, rollIndex)
 
     if (orderedAttackers.length === 0) {
       return baseResult
@@ -202,7 +204,7 @@ export class SolutionCombiner {
 
           const testResult = { ...baseResult, def: defEv }
 
-          if (this.survivalChecker.checkSurvivalWithEvs(attacker, defender, testResult, field, threshold)) {
+          if (this.survivalChecker.checkSurvivalWithEvs(attacker, defender, testResult, field, threshold, rollIndex)) {
             return testResult
           }
         }
@@ -212,7 +214,7 @@ export class SolutionCombiner {
 
           const testResult = { ...baseResult, spd: spdEv }
 
-          if (this.survivalChecker.checkSurvivalWithEvs(attacker, defender, testResult, field, threshold)) {
+          if (this.survivalChecker.checkSurvivalWithEvs(attacker, defender, testResult, field, threshold, rollIndex)) {
             return testResult
           }
         }
@@ -234,7 +236,8 @@ export class SolutionCombiner {
     doubleAttacker2: Pokemon | null,
     threshold: SurvivalThreshold,
     physicalAttackers: Pokemon[] = [],
-    specialAttackers: Pokemon[] = []
+    specialAttackers: Pokemon[] = [],
+    rollIndex = 15
   ): Stats | null {
     if (!physicalAttacker || !specialAttacker) {
       return null
@@ -250,10 +253,10 @@ export class SolutionCombiner {
       const hpEv = evIntervals[hpIndex]
       if (bestSolution && hpEv >= bestSolution.totalEvs) break
 
-      const minDefIndex = this.findMinStatIndex([physicalAttacker, ...physicalAttackers], defender, field, threshold, hpEv, "def", evIntervals, tempDefender)
+      const minDefIndex = this.findMinStatIndex([physicalAttacker, ...physicalAttackers], defender, field, threshold, hpEv, "def", evIntervals, tempDefender, rollIndex)
       if (minDefIndex === -1) continue
 
-      const minSpdIndex = this.findMinStatIndex([specialAttacker, ...specialAttackers], defender, field, threshold, hpEv, "spd", evIntervals, tempDefender)
+      const minSpdIndex = this.findMinStatIndex([specialAttacker, ...specialAttackers], defender, field, threshold, hpEv, "spd", evIntervals, tempDefender, rollIndex)
       if (minSpdIndex === -1) continue
 
       if (doubleSolution && doubleAttacker1 && doubleAttacker2) {
@@ -264,9 +267,9 @@ export class SolutionCombiner {
         if (totalEvs > MAX_TOTAL_EVS) continue
 
         const evs = { hp: hpEv, def: defEv, spd: spdEv }
-        const survivesPhysical = this.survivalChecker.checkSurvivalWithEvs(physicalAttacker, defender, evs, field, threshold)
-        const survivesSpecial = this.survivalChecker.checkSurvivalWithEvs(specialAttacker, defender, evs, field, threshold)
-        const survivesDouble = this.survivalChecker.checkSurvivalAgainstTwoAttackersWithEvs(doubleAttacker1, doubleAttacker2, defender, evs, field, threshold)
+        const survivesPhysical = this.survivalChecker.checkSurvivalWithEvs(physicalAttacker, defender, evs, field, threshold, rollIndex)
+        const survivesSpecial = this.survivalChecker.checkSurvivalWithEvs(specialAttacker, defender, evs, field, threshold, rollIndex)
+        const survivesDouble = this.survivalChecker.checkSurvivalAgainstTwoAttackersWithEvs(doubleAttacker1, doubleAttacker2, defender, evs, field, threshold, rollIndex)
 
         if (survivesPhysical && survivesSpecial && survivesDouble) {
           if (!bestSolution || totalEvs < bestSolution.totalEvs) {
@@ -282,8 +285,8 @@ export class SolutionCombiner {
 
         const evs = { hp: hpEv, def: defEv, spd: spdEv }
 
-        const survivesPhysical = this.survivalChecker.checkSurvivalWithEvs(physicalAttacker, defender, evs, field, threshold)
-        const survivesSpecial = this.survivalChecker.checkSurvivalWithEvs(specialAttacker, defender, evs, field, threshold)
+        const survivesPhysical = this.survivalChecker.checkSurvivalWithEvs(physicalAttacker, defender, evs, field, threshold, rollIndex)
+        const survivesSpecial = this.survivalChecker.checkSurvivalWithEvs(specialAttacker, defender, evs, field, threshold, rollIndex)
 
         if (survivesPhysical && survivesSpecial) {
           if (!bestSolution || totalEvs < bestSolution.totalEvs) {
@@ -300,7 +303,7 @@ export class SolutionCombiner {
     return null
   }
 
-  private findMinStatIndex(attackers: Pokemon[], defender: Pokemon, field: Field, threshold: SurvivalThreshold, hpEv: number, stat: "def" | "spd", evIntervals: number[], tempDefender: Pokemon): number {
+  private findMinStatIndex(attackers: Pokemon[], defender: Pokemon, field: Field, threshold: SurvivalThreshold, hpEv: number, stat: "def" | "spd", evIntervals: number[], tempDefender: Pokemon, rollIndex = 15): number {
     let low = 0
     let high = evIntervals.length - 1
     let result = -1
@@ -346,7 +349,7 @@ export class SolutionCombiner {
 
     tempDefender.setEvs(tempEvs)
 
-    if (!this.checkSurvivalAgainstAll(attackers, tempDefender, field, threshold)) {
+    if (!this.checkSurvivalAgainstAll(attackers, tempDefender, field, threshold, rollIndex)) {
       return -1
     }
 
@@ -357,7 +360,7 @@ export class SolutionCombiner {
       tempEvs[stat] = ev
       tempDefender.setEvs(tempEvs)
 
-      if (this.checkSurvivalAgainstAll(attackers, tempDefender, field, threshold)) {
+      if (this.checkSurvivalAgainstAll(attackers, tempDefender, field, threshold, rollIndex)) {
         result = mid
         high = mid - 1
       } else {
@@ -368,7 +371,7 @@ export class SolutionCombiner {
     return result
   }
 
-  tryAddDoubleSolution(currentSolution: Stats, doubleSolution: Stats, defender: Pokemon, field: Field, doubleAttacker1: Pokemon | null, doubleAttacker2: Pokemon | null, threshold: SurvivalThreshold): Stats | null {
+  tryAddDoubleSolution(currentSolution: Stats, doubleSolution: Stats, defender: Pokemon, field: Field, doubleAttacker1: Pokemon | null, doubleAttacker2: Pokemon | null, threshold: SurvivalThreshold, rollIndex = 15): Stats | null {
     if (!doubleAttacker1 || !doubleAttacker2) {
       return null
     }
@@ -378,7 +381,7 @@ export class SolutionCombiner {
     const remainingEvs = MAX_TOTAL_EVS - currentTotalEvs
 
     if (remainingEvs <= 0) {
-      if (this.survivalChecker.checkSurvivalAgainstTwoAttackersWithEvs(doubleAttacker1, doubleAttacker2, defender, currentSolution, field, threshold)) {
+      if (this.survivalChecker.checkSurvivalAgainstTwoAttackersWithEvs(doubleAttacker1, doubleAttacker2, defender, currentSolution, field, threshold, rollIndex)) {
         return currentSolution
       }
       return null
@@ -397,7 +400,7 @@ export class SolutionCombiner {
       for (const defEv of evIntervals) {
         if (bestSolution && hpEv + defEv >= bestSolution.totalEvs) break
 
-        const minSpdIndex = this.findMinStatIndexForDouble(doubleAttacker1, doubleAttacker2, defender, field, threshold, hpEv, "def", defEv, "spd", evIntervals, tempDefender)
+        const minSpdIndex = this.findMinStatIndexForDouble(doubleAttacker1, doubleAttacker2, defender, field, threshold, hpEv, "def", defEv, "spd", evIntervals, tempDefender, rollIndex)
 
         if (minSpdIndex !== -1) {
           const spdEv = evIntervals[minSpdIndex]
@@ -430,7 +433,8 @@ export class SolutionCombiner {
     fixedStatValue: number,
     statToOptimize: "def" | "spd",
     evIntervals: number[],
-    tempDefender: Pokemon
+    tempDefender: Pokemon,
+    rollIndex = 15
   ): number {
     let low = 0
     let high = evIntervals.length - 1
@@ -444,7 +448,7 @@ export class SolutionCombiner {
 
     tempDefender.setEvs(tempEvs)
 
-    if (!this.survivalChecker.checkSurvivalAgainstTwoAttackers(attacker1, attacker2, tempDefender, field, threshold)) {
+    if (!this.survivalChecker.checkSurvivalAgainstTwoAttackers(attacker1, attacker2, tempDefender, field, threshold, rollIndex)) {
       return -1
     }
 
@@ -455,7 +459,7 @@ export class SolutionCombiner {
       tempEvs[statToOptimize] = ev
       tempDefender.setEvs(tempEvs)
 
-      if (this.survivalChecker.checkSurvivalAgainstTwoAttackers(attacker1, attacker2, tempDefender, field, threshold)) {
+      if (this.survivalChecker.checkSurvivalAgainstTwoAttackers(attacker1, attacker2, tempDefender, field, threshold, rollIndex)) {
         result = mid
         high = mid - 1
       } else {
@@ -466,7 +470,17 @@ export class SolutionCombiner {
     return result
   }
 
-  tryCombinePhysicalWithDouble(physicalSolution: Stats, doubleSolution: Stats, defender: Pokemon, field: Field, physicalAttacker: Pokemon | null, doubleAttacker1: Pokemon | null, doubleAttacker2: Pokemon | null, threshold: SurvivalThreshold): Stats {
+  tryCombinePhysicalWithDouble(
+    physicalSolution: Stats,
+    doubleSolution: Stats,
+    defender: Pokemon,
+    field: Field,
+    physicalAttacker: Pokemon | null,
+    doubleAttacker1: Pokemon | null,
+    doubleAttacker2: Pokemon | null,
+    threshold: SurvivalThreshold,
+    rollIndex = 15
+  ): Stats {
     if (!physicalAttacker || !doubleAttacker1 || !doubleAttacker2) {
       return doubleSolution
     }
@@ -484,7 +498,7 @@ export class SolutionCombiner {
     for (const hpEv of evIntervals) {
       if (bestSolution && hpEv >= bestSolution.totalEvs) break
 
-      const minDefIndex = this.findMinStatIndex([physicalAttacker], defender, field, threshold, hpEv, "def", evIntervals, tempDefender)
+      const minDefIndex = this.findMinStatIndex([physicalAttacker], defender, field, threshold, hpEv, "def", evIntervals, tempDefender, rollIndex)
       if (minDefIndex === -1) continue
 
       for (let defIndex = minDefIndex; defIndex < evIntervals.length; defIndex++) {
@@ -492,7 +506,7 @@ export class SolutionCombiner {
         if (hpEv + defEv > MAX_TOTAL_EVS) break
         if (bestSolution && hpEv + defEv >= bestSolution.totalEvs) break
 
-        const minSpdIndex = this.findMinStatIndexForDouble(doubleAttacker1, doubleAttacker2, defender, field, threshold, hpEv, "def", defEv, "spd", evIntervals, tempDefender)
+        const minSpdIndex = this.findMinStatIndexForDouble(doubleAttacker1, doubleAttacker2, defender, field, threshold, hpEv, "def", defEv, "spd", evIntervals, tempDefender, rollIndex)
 
         if (minSpdIndex !== -1) {
           const spdEv = evIntervals[minSpdIndex]
@@ -514,7 +528,17 @@ export class SolutionCombiner {
     return { hp: physicalSolution.hp, atk: 0, def: physicalSolution.def, spa: 0, spd: 0, spe: 0 }
   }
 
-  tryCombineSpecialWithDouble(specialSolution: Stats, doubleSolution: Stats, defender: Pokemon, field: Field, specialAttacker: Pokemon | null, doubleAttacker1: Pokemon | null, doubleAttacker2: Pokemon | null, threshold: SurvivalThreshold): Stats {
+  tryCombineSpecialWithDouble(
+    specialSolution: Stats,
+    doubleSolution: Stats,
+    defender: Pokemon,
+    field: Field,
+    specialAttacker: Pokemon | null,
+    doubleAttacker1: Pokemon | null,
+    doubleAttacker2: Pokemon | null,
+    threshold: SurvivalThreshold,
+    rollIndex = 15
+  ): Stats {
     if (!specialAttacker || !doubleAttacker1 || !doubleAttacker2) {
       return doubleSolution
     }
@@ -532,7 +556,7 @@ export class SolutionCombiner {
     for (const hpEv of evIntervals) {
       if (bestSolution && hpEv >= bestSolution.totalEvs) break
 
-      const minSpdIndex = this.findMinStatIndex([specialAttacker], defender, field, threshold, hpEv, "spd", evIntervals, tempDefender)
+      const minSpdIndex = this.findMinStatIndex([specialAttacker], defender, field, threshold, hpEv, "spd", evIntervals, tempDefender, rollIndex)
       if (minSpdIndex === -1) continue
 
       for (let spdIndex = minSpdIndex; spdIndex < evIntervals.length; spdIndex++) {
@@ -540,7 +564,7 @@ export class SolutionCombiner {
         if (hpEv + spdEv > MAX_TOTAL_EVS) break
         if (bestSolution && hpEv + spdEv >= bestSolution.totalEvs) break
 
-        const minDefIndex = this.findMinStatIndexForDouble(doubleAttacker1, doubleAttacker2, defender, field, threshold, hpEv, "spd", spdEv, "def", evIntervals, tempDefender)
+        const minDefIndex = this.findMinStatIndexForDouble(doubleAttacker1, doubleAttacker2, defender, field, threshold, hpEv, "spd", spdEv, "def", evIntervals, tempDefender, rollIndex)
 
         if (minDefIndex !== -1) {
           const defEv = evIntervals[minDefIndex]
@@ -562,9 +586,9 @@ export class SolutionCombiner {
     return { hp: specialSolution.hp, atk: 0, def: 0, spa: 0, spd: specialSolution.spd, spe: 0 }
   }
 
-  private checkSurvivalAgainstAll(attackers: Pokemon[], defender: Pokemon, field: Field, threshold: SurvivalThreshold): boolean {
+  private checkSurvivalAgainstAll(attackers: Pokemon[], defender: Pokemon, field: Field, threshold: SurvivalThreshold, rollIndex = 15): boolean {
     for (const attacker of attackers) {
-      if (!this.survivalChecker.checkSurvival(attacker, defender, field, threshold)) {
+      if (!this.survivalChecker.checkSurvival(attacker, defender, field, threshold, rollIndex)) {
         return false
       }
     }

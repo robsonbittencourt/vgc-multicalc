@@ -21,22 +21,22 @@ export class DoubleAttackerOptimizer {
   private survivalChecker = inject(SurvivalChecker)
   private utils = inject(EvOptimizerUtils)
 
-  optimizeForTwoAttackers(attacker1: Pokemon, attacker2: Pokemon, defender: Pokemon, field: Field, threshold: SurvivalThreshold = 2): Stats {
+  optimizeForTwoAttackers(attacker1: Pokemon, attacker2: Pokemon, defender: Pokemon, field: Field, threshold: SurvivalThreshold = 2, rollIndex = 15): Stats {
     const attacker1IsPhysical = attacker1.moveSet.activeMove.category === "Physical"
     const attacker2IsPhysical = attacker2.moveSet.activeMove.category === "Physical"
 
     if (attacker1IsPhysical && attacker2IsPhysical) {
-      return this.optimizeForTwoPhysicalAttackers(attacker1, attacker2, defender, field, threshold)
+      return this.optimizeForTwoPhysicalAttackers(attacker1, attacker2, defender, field, threshold, rollIndex)
     } else if (!attacker1IsPhysical && !attacker2IsPhysical) {
-      return this.optimizeForTwoSpecialAttackers(attacker1, attacker2, defender, field, threshold)
+      return this.optimizeForTwoSpecialAttackers(attacker1, attacker2, defender, field, threshold, rollIndex)
     } else {
       const physicalAttacker = attacker1IsPhysical ? attacker1 : attacker2
       const specialAttacker = attacker1IsPhysical ? attacker2 : attacker1
-      return this.optimizeForMixedAttackers(physicalAttacker, specialAttacker, defender, field, threshold)
+      return this.optimizeForMixedAttackers(physicalAttacker, specialAttacker, defender, field, threshold, rollIndex)
     }
   }
 
-  private optimizeForTwoPhysicalAttackers(attacker1: Pokemon, attacker2: Pokemon, defender: Pokemon, field: Field, threshold: SurvivalThreshold): Stats {
+  private optimizeForTwoPhysicalAttackers(attacker1: Pokemon, attacker2: Pokemon, defender: Pokemon, field: Field, threshold: SurvivalThreshold, rollIndex: number): Stats {
     const evIntervals = this.evIntervalsCalculator.getEvIntervals()
 
     const tempDefender = defender.clone()
@@ -48,7 +48,7 @@ export class DoubleAttackerOptimizer {
       tempEvs.spd = 0
       tempDefender.setEvs(tempEvs)
 
-      return this.survivalChecker.checkSurvivalAgainstTwoAttackers(attacker1, attacker2, tempDefender, field, threshold)
+      return this.survivalChecker.checkSurvivalAgainstTwoAttackers(attacker1, attacker2, tempDefender, field, threshold, rollIndex)
     })
 
     const initialEv = evIntervals[minEvIntervalIndex]
@@ -58,7 +58,7 @@ export class DoubleAttackerOptimizer {
     tempEvs.spd = 0
     tempDefender.setEvs(tempEvs)
 
-    if (!this.survivalChecker.checkSurvivalAgainstTwoAttackers(attacker1, attacker2, tempDefender, field, threshold)) {
+    if (!this.survivalChecker.checkSurvivalAgainstTwoAttackers(attacker1, attacker2, tempDefender, field, threshold, rollIndex)) {
       return { hp: initialEv, atk: 0, def: initialEv, spa: 0, spd: 0, spe: 0 }
     }
 
@@ -92,7 +92,7 @@ export class DoubleAttackerOptimizer {
       tempEvs.spd = 0
       tempDefender.setEvs(tempEvs)
 
-      return this.survivalChecker.checkSurvivalAgainstTwoAttackers(attacker1, attacker2, tempDefender, field, threshold)
+      return this.survivalChecker.checkSurvivalAgainstTwoAttackers(attacker1, attacker2, tempDefender, field, threshold, rollIndex)
     })
 
     if (result) {
@@ -102,7 +102,7 @@ export class DoubleAttackerOptimizer {
     return { hp: initialEv, atk: 0, def: initialEv, spa: 0, spd: 0, spe: 0 }
   }
 
-  private optimizeForTwoSpecialAttackers(attacker1: Pokemon, attacker2: Pokemon, defender: Pokemon, field: Field, threshold: SurvivalThreshold): Stats {
+  private optimizeForTwoSpecialAttackers(attacker1: Pokemon, attacker2: Pokemon, defender: Pokemon, field: Field, threshold: SurvivalThreshold, rollIndex: number): Stats {
     const evIntervals = this.evIntervalsCalculator.getEvIntervals()
 
     const tempDefender = defender.clone()
@@ -114,7 +114,7 @@ export class DoubleAttackerOptimizer {
       tempEvs.spd = evValue
       tempDefender.setEvs(tempEvs)
 
-      return this.survivalChecker.checkSurvivalAgainstTwoAttackers(attacker1, attacker2, tempDefender, field, threshold)
+      return this.survivalChecker.checkSurvivalAgainstTwoAttackers(attacker1, attacker2, tempDefender, field, threshold, rollIndex)
     })
 
     const initialEv = evIntervals[minEvIntervalIndex]
@@ -124,7 +124,7 @@ export class DoubleAttackerOptimizer {
     tempEvs.spd = initialEv
     tempDefender.setEvs(tempEvs)
 
-    if (!this.survivalChecker.checkSurvivalAgainstTwoAttackers(attacker1, attacker2, tempDefender, field, threshold)) {
+    if (!this.survivalChecker.checkSurvivalAgainstTwoAttackers(attacker1, attacker2, tempDefender, field, threshold, rollIndex)) {
       return { hp: initialEv, atk: 0, def: 0, spa: 0, spd: initialEv, spe: 0 }
     }
 
@@ -158,7 +158,7 @@ export class DoubleAttackerOptimizer {
       tempEvs.spd = combination.spd
       tempDefender.setEvs(tempEvs)
 
-      return this.survivalChecker.checkSurvivalAgainstTwoAttackers(attacker1, attacker2, tempDefender, field, threshold)
+      return this.survivalChecker.checkSurvivalAgainstTwoAttackers(attacker1, attacker2, tempDefender, field, threshold, rollIndex)
     })
 
     if (result) {
@@ -168,7 +168,7 @@ export class DoubleAttackerOptimizer {
     return { hp: initialEv, atk: 0, def: 0, spa: 0, spd: initialEv, spe: 0 }
   }
 
-  private optimizeForMixedAttackers(physicalAttacker: Pokemon, specialAttacker: Pokemon, defender: Pokemon, field: Field, threshold: SurvivalThreshold): Stats {
+  private optimizeForMixedAttackers(physicalAttacker: Pokemon, specialAttacker: Pokemon, defender: Pokemon, field: Field, threshold: SurvivalThreshold, rollIndex: number): Stats {
     const evIntervals = this.evIntervalsCalculator.getEvIntervals()
 
     const tempDefender = defender.clone()
@@ -182,7 +182,7 @@ export class DoubleAttackerOptimizer {
       const mid = Math.floor((left + right) / 2)
       const hpEv = evIntervals[mid]
 
-      const result = this.checkMixedScenario(hpEv, evIntervals, tempDefender, physicalAttacker, specialAttacker, field, threshold, MAX_TOTAL_EVS)
+      const result = this.checkMixedScenario(hpEv, evIntervals, tempDefender, physicalAttacker, specialAttacker, field, threshold, MAX_TOTAL_EVS, rollIndex)
 
       if (result.isValid) {
         minHpIndex = mid
@@ -194,7 +194,7 @@ export class DoubleAttackerOptimizer {
 
     const initialHp = evIntervals[minHpIndex]
 
-    const finalResult = this.checkMixedScenario(initialHp, evIntervals, tempDefender, physicalAttacker, specialAttacker, field, threshold, MAX_TOTAL_EVS)
+    const finalResult = this.checkMixedScenario(initialHp, evIntervals, tempDefender, physicalAttacker, specialAttacker, field, threshold, MAX_TOTAL_EVS, rollIndex)
     const minDefEv = finalResult.minDef
     const minSpdEv = finalResult.minSpd
 
@@ -212,7 +212,7 @@ export class DoubleAttackerOptimizer {
         tempEvs.spd = spdEv
         tempDefender.setEvs(tempEvs)
 
-        if (this.survivalChecker.checkSurvivalAgainstTwoAttackers(physicalAttacker, specialAttacker, tempDefender, field, threshold)) {
+        if (this.survivalChecker.checkSurvivalAgainstTwoAttackers(physicalAttacker, specialAttacker, tempDefender, field, threshold, rollIndex)) {
           initialDef = defEv
           initialSpd = spdEv
           foundInitial = true
@@ -271,7 +271,7 @@ export class DoubleAttackerOptimizer {
       tempEvs.def = combination.def
       tempEvs.spd = combination.spd
       tempDefender.setEvs(tempEvs)
-      return this.survivalChecker.checkSurvivalAgainstTwoAttackers(physicalAttacker, specialAttacker, tempDefender, field, threshold)
+      return this.survivalChecker.checkSurvivalAgainstTwoAttackers(physicalAttacker, specialAttacker, tempDefender, field, threshold, rollIndex)
     })
 
     if (result) {
@@ -281,7 +281,7 @@ export class DoubleAttackerOptimizer {
     return { hp: initialHp, atk: 0, def: initialDef, spa: 0, spd: initialSpd, spe: 0 }
   }
 
-  private checkMixedScenario(hpEv: number, evIntervals: number[], tempDefender: Pokemon, physicalAttacker: Pokemon, specialAttacker: Pokemon, field: Field, threshold: SurvivalThreshold, maxTotalEvs: number): MixedScenarioResult {
+  private checkMixedScenario(hpEv: number, evIntervals: number[], tempDefender: Pokemon, physicalAttacker: Pokemon, specialAttacker: Pokemon, field: Field, threshold: SurvivalThreshold, maxTotalEvs: number, rollIndex: number): MixedScenarioResult {
     let minDefIndex = -1
     const tempEvs = { hp: hpEv, atk: tempDefender.evs.atk, def: 0, spa: tempDefender.evs.spa, spd: 0, spe: tempDefender.evs.spe }
 
@@ -293,7 +293,7 @@ export class DoubleAttackerOptimizer {
       tempEvs.spd = 0
       tempDefender.setEvs(tempEvs)
 
-      if (this.survivalChecker.checkSurvival(physicalAttacker, tempDefender, field, threshold)) {
+      if (this.survivalChecker.checkSurvival(physicalAttacker, tempDefender, field, threshold, rollIndex)) {
         minDefIndex = defIndex
         break
       }
@@ -311,7 +311,7 @@ export class DoubleAttackerOptimizer {
       tempEvs.spd = spdEv
       tempDefender.setEvs(tempEvs)
 
-      if (this.survivalChecker.checkSurvival(specialAttacker, tempDefender, field, threshold)) {
+      if (this.survivalChecker.checkSurvival(specialAttacker, tempDefender, field, threshold, rollIndex)) {
         minSpdIndex = spdIndex
         break
       }
@@ -329,7 +329,7 @@ export class DoubleAttackerOptimizer {
     tempEvs.spd = minSpd
     tempDefender.setEvs(tempEvs)
 
-    const testMinResult = this.survivalChecker.checkSurvivalAgainstTwoAttackers(physicalAttacker, specialAttacker, tempDefender, field, threshold)
+    const testMinResult = this.survivalChecker.checkSurvivalAgainstTwoAttackers(physicalAttacker, specialAttacker, tempDefender, field, threshold, rollIndex)
 
     if (testMinResult) return { isValid: true, minDef, minSpd }
 
@@ -341,7 +341,7 @@ export class DoubleAttackerOptimizer {
       tempEvs.spd = minSpd
       tempDefender.setEvs(tempEvs)
 
-      if (this.survivalChecker.checkSurvivalAgainstTwoAttackers(physicalAttacker, specialAttacker, tempDefender, field, threshold)) {
+      if (this.survivalChecker.checkSurvivalAgainstTwoAttackers(physicalAttacker, specialAttacker, tempDefender, field, threshold, rollIndex)) {
         return { isValid: true, minDef: defEv, minSpd }
       }
     }
@@ -354,7 +354,7 @@ export class DoubleAttackerOptimizer {
       tempEvs.spd = spdEv
       tempDefender.setEvs(tempEvs)
 
-      if (this.survivalChecker.checkSurvivalAgainstTwoAttackers(physicalAttacker, specialAttacker, tempDefender, field, threshold)) {
+      if (this.survivalChecker.checkSurvivalAgainstTwoAttackers(physicalAttacker, specialAttacker, tempDefender, field, threshold, rollIndex)) {
         return { isValid: true, minDef, minSpd: spdEv }
       }
     }
@@ -366,7 +366,7 @@ export class DoubleAttackerOptimizer {
         tempEvs.def = defEv
         tempEvs.spd = spdEv
         tempDefender.setEvs(tempEvs)
-        if (this.survivalChecker.checkSurvivalAgainstTwoAttackers(physicalAttacker, specialAttacker, tempDefender, field, threshold)) {
+        if (this.survivalChecker.checkSurvivalAgainstTwoAttackers(physicalAttacker, specialAttacker, tempDefender, field, threshold, rollIndex)) {
           return { isValid: true, minDef: defEv, minSpd: spdEv }
         }
       }
