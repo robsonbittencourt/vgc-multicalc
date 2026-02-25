@@ -4,6 +4,7 @@
   [opponentDamageResult]="rightDamageResult()"
   [opponentRollLevel]="rightRollLevel()"
   (moveSetChange)="leftMoveActivated($event)"
+  [(rollLevel)]="leftRollLevel"
   (rollLevelChange)="setLeftRollLevel($event)"
   data-cy="left-damage-result" />
 <app-damage-result
@@ -12,6 +13,7 @@
   [opponentDamageResult]="leftDamageResult()"
   [opponentRollLevel]="leftRollLevel()"
   (moveSetChange)="rightMoveActivated($event)"
+  [(rollLevel)]="rightRollLevel"
   (rollLevelChange)="setRightRollLevel($event)"
   [reverse]="true"
   data-cy="right-damage-result" />

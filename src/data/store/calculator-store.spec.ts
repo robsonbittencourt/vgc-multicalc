@@ -778,7 +778,10 @@ describe("Calculator Store", () => {
           secondAttackerId: "123",
           teamsState: teamsState,
           targetsState: targetsState,
-          targetMetaRegulation: "H" as Regulation
+          targetMetaRegulation: "H" as Regulation,
+          simpleCalcLeftRollLevel: "low",
+          simpleCalcRightRollLevel: "medium",
+          multiCalcRollLevel: "high"
         }
 
         store.updateStateLockingLocalStorage(state)
@@ -823,6 +826,24 @@ describe("Calculator Store", () => {
 
         const actualStorage = JSON.parse(localStorage.getItem("userData")!)
         expect(actualStorage.leftPokemon.name).toBe("Miraidon")
+      })
+
+      it("should update simpleCalcLeftRollLevel", () => {
+        store.updateSimpleCalcLeftRollLevel("low")
+
+        expect(store.simpleCalcLeftRollLevel()).toBe("low")
+      })
+
+      it("should update simpleCalcRightRollLevel", () => {
+        store.updateSimpleCalcRightRollLevel("medium")
+
+        expect(store.simpleCalcRightRollLevel()).toBe("medium")
+      })
+
+      it("should update multiCalcRollLevel", () => {
+        store.updateMultiCalcRollLevel("low")
+
+        expect(store.multiCalcRollLevel()).toBe("low")
       })
     })
   })

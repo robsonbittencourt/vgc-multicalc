@@ -32,4 +32,18 @@ export class RollLevelConfig {
 
     return RollLevelConfig.LOW_ROLL_INDEX
   }
+
+  toConfigString(): string {
+    if (this.high) return "high"
+    if (this.medium) return "medium"
+
+    return "low"
+  }
+
+  static fromConfigString(level: string): RollLevelConfig {
+    if (level === "medium") return RollLevelConfig.medium()
+    if (level === "low") return RollLevelConfig.low()
+
+    return RollLevelConfig.high()
+  }
 }

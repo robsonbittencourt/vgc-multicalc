@@ -1,4 +1,4 @@
-import { Component, output, signal } from "@angular/core"
+import { Component, model, output } from "@angular/core"
 import { MatButtonToggle, MatButtonToggleGroup } from "@angular/material/button-toggle"
 import { RollLevelConfig } from "@lib/damage-calculator/roll-level-config"
 
@@ -10,21 +10,20 @@ import { RollLevelConfig } from "@lib/damage-calculator/roll-level-config"
 })
 export class RollConfigComponent {
   rollLevelChange = output<RollLevelConfig>()
-
-  rollLevelConfig = signal(RollLevelConfig.high())
+  config = model<RollLevelConfig>(RollLevelConfig.high())
 
   activateHighRoll() {
-    this.rollLevelConfig.set(RollLevelConfig.high())
-    this.rollLevelChange.emit(this.rollLevelConfig())
+    this.config.set(RollLevelConfig.high())
+    this.rollLevelChange.emit(this.config())
   }
 
   activateMediumRoll() {
-    this.rollLevelConfig.set(RollLevelConfig.medium())
-    this.rollLevelChange.emit(this.rollLevelConfig())
+    this.config.set(RollLevelConfig.medium())
+    this.rollLevelChange.emit(this.config())
   }
 
   activateLowRoll() {
-    this.rollLevelConfig.set(RollLevelConfig.low())
-    this.rollLevelChange.emit(this.rollLevelConfig())
+    this.config.set(RollLevelConfig.low())
+    this.rollLevelChange.emit(this.config())
   }
 }

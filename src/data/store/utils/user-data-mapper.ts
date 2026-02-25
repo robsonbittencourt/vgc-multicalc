@@ -4,7 +4,17 @@ import { defaultPokemon } from "@lib/default-pokemon"
 import { Regulation } from "@lib/types"
 import { v4 as uuidv4 } from "uuid"
 
-export function buildUserData(speedCalcPokemon: PokemonState, leftPokemon: PokemonState, rightPokemon: PokemonState, teams: TeamState[], targets: TargetState[], targetMetaRegulation: Regulation | undefined) {
+export function buildUserData(
+  speedCalcPokemon: PokemonState,
+  leftPokemon: PokemonState,
+  rightPokemon: PokemonState,
+  teams: TeamState[],
+  targets: TargetState[],
+  targetMetaRegulation: Regulation | undefined,
+  simpleCalcLeftRollLevel: string,
+  simpleCalcRightRollLevel: string,
+  multiCalcRollLevel: string
+) {
   return {
     speedCalcPokemon: buildPokemonToUserData(speedCalcPokemon),
     leftPokemon: buildPokemonToUserData(leftPokemon),
@@ -33,7 +43,10 @@ export function buildUserData(speedCalcPokemon: PokemonState, leftPokemon: Pokem
           secondPokemon: t.secondPokemon && buildPokemonToUserData(t.secondPokemon)
         }
       }),
-    targetMetaRegulation: targetMetaRegulation
+    targetMetaRegulation: targetMetaRegulation,
+    simpleCalcLeftRollLevel: simpleCalcLeftRollLevel,
+    simpleCalcRightRollLevel: simpleCalcRightRollLevel,
+    multiCalcRollLevel: multiCalcRollLevel
   }
 }
 
@@ -46,7 +59,10 @@ export function buildState(userData: any): CalculatorState {
     secondAttackerId: "",
     teamsState: buildTeamState(userData.teams),
     targetsState: buildTargetsState(userData.targets),
-    targetMetaRegulation: userData.targetMetaRegulation as Regulation
+    targetMetaRegulation: userData.targetMetaRegulation as Regulation,
+    simpleCalcLeftRollLevel: userData.simpleCalcLeftRollLevel ?? "high",
+    simpleCalcRightRollLevel: userData.simpleCalcRightRollLevel ?? "high",
+    multiCalcRollLevel: userData.multiCalcRollLevel ?? "high"
   }
 }
 

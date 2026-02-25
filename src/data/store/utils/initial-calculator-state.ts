@@ -433,6 +433,9 @@ function defaultState() {
         }
       }
     ],
-    targetMetaRegulation: undefined
+    targetMetaRegulation: undefined,
+    simpleCalcLeftRollLevel: "high",
+    simpleCalcRightRollLevel: "high",
+    multiCalcRollLevel: "high"
   }
 }

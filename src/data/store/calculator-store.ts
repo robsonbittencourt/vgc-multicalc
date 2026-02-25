@@ -65,6 +65,9 @@ export type CalculatorState = {
   teamsState: TeamState[]
   targetsState: TargetState[]
   targetMetaRegulation: Regulation | undefined
+  simpleCalcLeftRollLevel: string
+  simpleCalcRightRollLevel: string
+  multiCalcRollLevel: string
 }
 
 @Injectable({ providedIn: "root" })
@@ -75,7 +78,17 @@ export class CalculatorStore extends signalStore(
     onInit() {
       effect(() => {
         if (store.updateLocalStorage()) {
-          const userData = buildUserData(store.speedCalcPokemonState(), store.leftPokemonState(), store.rightPokemonState(), store.teamsState(), store.targetsState(), store.targetMetaRegulation())
+          const userData = buildUserData(
+            store.speedCalcPokemonState(),
+            store.leftPokemonState(),
+            store.rightPokemonState(),
+            store.teamsState(),
+            store.targetsState(),
+            store.targetMetaRegulation(),
+            store.simpleCalcLeftRollLevel(),
+            store.simpleCalcRightRollLevel(),
+            store.multiCalcRollLevel()
+          )
           const actualStorage = JSON.parse(localStorage.getItem("userData")!)
 
           const mergedUserData = { ...actualStorage, ...userData }
@@ -383,6 +396,18 @@ export class CalculatorStore extends signalStore(
     patchState(this, () => ({ targetMetaRegulation }))
   }
 
+  updateSimpleCalcLeftRollLevel(simpleCalcLeftRollLevel: string) {
+    patchState(this, () => ({ simpleCalcLeftRollLevel }))
+  }
+
+  updateSimpleCalcRightRollLevel(simpleCalcRightRollLevel: string) {
+    patchState(this, () => ({ simpleCalcRightRollLevel }))
+  }
+
+  updateMultiCalcRollLevel(multiCalcRollLevel: string) {
+    patchState(this, () => ({ multiCalcRollLevel }))
+  }
+
   removeAllTargets() {
     patchState(this, () => ({ targetsState: [] }))
   }
@@ -427,7 +452,17 @@ export class CalculatorStore extends signalStore(
   }
 
   buildUserData() {
-    return buildUserData(this.speedCalcPokemonState(), this.leftPokemonState(), this.rightPokemonState(), this.teamsState(), this.targetsState(), this.targetMetaRegulation())
+    return buildUserData(
+      this.speedCalcPokemonState(),
+      this.leftPokemonState(),
+      this.rightPokemonState(),
+      this.teamsState(),
+      this.targetsState(),
+      this.targetMetaRegulation(),
+      this.simpleCalcLeftRollLevel(),
+      this.simpleCalcRightRollLevel(),
+      this.multiCalcRollLevel()
+    )
   }
 
   updateMove(pokemonId: string, move: string, index: number) {

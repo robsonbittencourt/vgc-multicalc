@@ -44,7 +44,7 @@ export class TargetPokemonComponent {
   private snackBar = inject(SnackbarService)
 
   regulation = signal<Regulation>(this.store.targetMetaRegulation() ?? "F")
-  rollLevelConfig = signal(RollLevelConfig.high())
+  rollLevelConfig = signal(RollLevelConfig.fromConfigString(this.store.multiCalcRollLevel()))
   cardsFilter = signal("")
 
   title = computed(() => (this.isAttacker() ? "Opponent Attackers" : "Opponent Defenders"))
@@ -196,6 +196,7 @@ export class TargetPokemonComponent {
   handleRollLevelChange(rollLevel: RollLevelConfig) {
     this.rollLevelConfig.set(rollLevel)
     this.rollLevelChange.emit(rollLevel)
+    this.store.updateMultiCalcRollLevel(rollLevel.toConfigString())
   }
 
   private findTarget(pokemonId: string): Target {

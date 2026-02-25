@@ -36,8 +36,8 @@ export class SimpleCalcComponent {
   leftDamageResult = computed(() => this.findResultByMove(this.leftDamageResults(), this.store.leftPokemon().activeMoveName))
   rightDamageResult = computed(() => this.findResultByMove(this.rightDamageResults(), this.store.rightPokemon().activeMoveName))
 
-  leftRollLevel = signal(RollLevelConfig.high())
-  rightRollLevel = signal(RollLevelConfig.high())
+  leftRollLevel = signal(RollLevelConfig.fromConfigString(this.store.simpleCalcLeftRollLevel()))
+  rightRollLevel = signal(RollLevelConfig.fromConfigString(this.store.simpleCalcRightRollLevel()))
 
   activeSide = signal<"left" | "right">("left")
 
@@ -124,10 +124,12 @@ export class SimpleCalcComponent {
 
   setLeftRollLevel(rollLevel: RollLevelConfig) {
     this.leftRollLevel.set(rollLevel)
+    this.store.updateSimpleCalcLeftRollLevel(rollLevel.toConfigString())
   }
 
   setRightRollLevel(rollLevel: RollLevelConfig) {
     this.rightRollLevel.set(rollLevel)
+    this.store.updateSimpleCalcRightRollLevel(rollLevel.toConfigString())
   }
 
   leftPokemonImported(pokemon: Pokemon | Pokemon[]) {

@@ -1,5 +1,5 @@
 import { NgClass, NgStyle } from "@angular/common"
-import { Component, computed, input, output, signal } from "@angular/core"
+import { Component, computed, input, model, output } from "@angular/core"
 import { MatChipListbox, MatChipListboxChange, MatChipOption } from "@angular/material/chips"
 import { CopyButtonComponent } from "@basic/copy-button/copy-button.component"
 import { WidgetComponent } from "@basic/widget/widget.component"
@@ -21,11 +21,10 @@ export class DamageResultComponent {
   opponentDamageResult = input.required<DamageResult>()
   opponentRollLevel = input.required<RollLevelConfig>()
   reverse = input(false)
+  rollLevel = model(RollLevelConfig.high())
 
   moveSetChange = output<string>()
   rollLevelChange = output<RollLevelConfig>()
-
-  rollLevelConfig = signal(RollLevelConfig.high())
 
   activeMoveName = computed(() => this.pokemon().activeMoveName)
 
@@ -39,13 +38,13 @@ export class DamageResultComponent {
   })
 
   rollIndexActive = computed(() => {
-    if (this.rollLevelConfig().high) return RollLevelConfig.HIGH_ROLL_INDEX
-    if (this.rollLevelConfig().medium) return RollLevelConfig.MEDIUM_ROLL_INDEX
+    if (this.rollLevel().high) return RollLevelConfig.HIGH_ROLL_INDEX
+    if (this.rollLevel().medium) return RollLevelConfig.MEDIUM_ROLL_INDEX
 
     return RollLevelConfig.LOW_ROLL_INDEX
   })
 
-  damageInflicted = computed(() => this.activeDamageResult().damageByRollConfig(this.rollLevelConfig()))
+  damageInflicted = computed(() => this.activeDamageResult().damageByRollConfig(this.rollLevel()))
   damageTaken = computed(() => this.opponentDamageResult().damageByRollConfig(this.opponentRollLevel()))
 
   moveSelected(event: MatChipListboxChange) {
@@ -57,7 +56,7 @@ export class DamageResultComponent {
   }
 
   rollLevelChanged(rollLevel: RollLevelConfig) {
-    this.rollLevelConfig.set(rollLevel)
+    this.rollLevel.set(rollLevel)
     this.rollLevelChange.emit(rollLevel)
   }
 }
