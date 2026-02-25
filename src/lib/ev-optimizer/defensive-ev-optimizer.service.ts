@@ -83,7 +83,7 @@ export class DefensiveEvOptimizerService {
     )
 
     if (evs && strongestDoubleTarget) {
-      const refinedEvs = this.refinementStage.refineForDoubleAttackers(evs, defenderWithNature, strongestDoubleTarget.attacker1, strongestDoubleTarget.attacker2, field, threshold, rollIndex)
+      const refinedEvs = this.refinementStage.refineForDoubleAttackers(evs, defenderWithNature, strongestDoubleTarget.attacker1, strongestDoubleTarget.attacker2, field, threshold, rollIndex, physicalStrongest, specialStrongest)
       if (refinedEvs) {
         evs = refinedEvs
       } else {

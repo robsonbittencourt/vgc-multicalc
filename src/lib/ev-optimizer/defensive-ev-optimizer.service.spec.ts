@@ -564,6 +564,174 @@ describe("DefensiveEvOptimizerService", () => {
         expect(result.evs!.spd).toBe(140)
       })
 
+      it("should optimize EVs for Flutter Mane against Landorus Earth Power/Moltres-Galar combined and Iron Hands/Rillaboom single", () => {
+        const defender = new Pokemon("Flutter Mane", {
+          nature: "Timid",
+          item: "Booster Energy",
+          ability: new Ability("Protosynthesis"),
+          teraType: "Fairy",
+          moveSet: new MoveSet(new Move("Moonblast"), new Move("Icy Wind"), new Move("Protect"), new Move("Taunt")),
+          evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
+        })
+
+        const landorus = new Pokemon("Landorus", {
+          nature: "Modest",
+          item: "Life Orb",
+          ability: new Ability("Sheer Force"),
+          teraType: "Poison",
+          moveSet: new MoveSet(new Move("Earth Power"), new Move("Sludge Bomb"), new Move("Protect"), new Move("Substitute")),
+          evs: { hp: 0, atk: 0, def: 0, spa: 252, spd: 0, spe: 0 }
+        })
+
+        const moltresGalar = new Pokemon("Moltres-Galar", {
+          nature: "Modest",
+          item: "Sitrus Berry",
+          ability: new Ability("Berserk"),
+          teraType: "Ghost",
+          moveSet: new MoveSet(new Move("Fiery Wrath"), new Move("Air Slash"), new Move("Snarl"), new Move("Protect")),
+          evs: { hp: 244, atk: 0, def: 156, spa: 84, spd: 4, spe: 20 }
+        })
+
+        const ironHands = new Pokemon("Iron Hands", {
+          nature: "Brave",
+          item: "Assault Vest",
+          ability: new Ability("Quark Drive"),
+          teraType: "Water",
+          moveSet: new MoveSet(new Move("Wild Charge"), new Move("Drain Punch"), new Move("Volt Switch"), new Move("Fake Out")),
+          evs: { hp: 84, atk: 156, def: 12, spa: 4, spd: 252, spe: 0 }
+        })
+
+        const rillaboom = new Pokemon("Rillaboom", {
+          nature: "Adamant",
+          item: "Assault Vest",
+          ability: new Ability("Grassy Surge"),
+          teraType: "Fire",
+          moveSet: new MoveSet(new Move("Wood Hammer"), new Move("U-turn"), new Move("Grassy Glide"), new Move("Fake Out")),
+          evs: { hp: 252, atk: 116, def: 4, spa: 0, spd: 60, spe: 76 }
+        })
+
+        const field = new Field()
+
+        const targets = [new Target(landorus, moltresGalar), new Target(ironHands), new Target(rillaboom)]
+        const result = service.optimize(defender, targets, field)
+
+        expect(result.evs!.hp).toBe(244)
+        expect(result.evs!.def).toBe(100)
+        expect(result.evs!.spd).toBe(20)
+      })
+
+      it("should optimize EVs for Flutter Mane against Landorus Sludge Bomb/Moltres-Galar combined and Iron Hands/Rillaboom single", () => {
+        const defender = new Pokemon("Flutter Mane", {
+          nature: "Timid",
+          item: "Booster Energy",
+          ability: new Ability("Protosynthesis"),
+          teraType: "Fairy",
+          moveSet: new MoveSet(new Move("Moonblast"), new Move("Icy Wind"), new Move("Protect"), new Move("Taunt")),
+          evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
+        })
+
+        const landorus = new Pokemon("Landorus", {
+          nature: "Modest",
+          item: "Life Orb",
+          ability: new Ability("Sheer Force"),
+          teraType: "Poison",
+          moveSet: new MoveSet(new Move("Sludge Bomb"), new Move("Earth Power"), new Move("Protect"), new Move("Substitute")),
+          evs: { hp: 0, atk: 0, def: 0, spa: 252, spd: 0, spe: 0 }
+        })
+
+        const moltresGalar = new Pokemon("Moltres-Galar", {
+          nature: "Modest",
+          item: "Sitrus Berry",
+          ability: new Ability("Berserk"),
+          teraType: "Ghost",
+          moveSet: new MoveSet(new Move("Fiery Wrath"), new Move("Air Slash"), new Move("Snarl"), new Move("Protect")),
+          evs: { hp: 244, atk: 0, def: 156, spa: 84, spd: 4, spe: 20 }
+        })
+
+        const ironHands = new Pokemon("Iron Hands", {
+          nature: "Brave",
+          item: "Assault Vest",
+          ability: new Ability("Quark Drive"),
+          teraType: "Water",
+          moveSet: new MoveSet(new Move("Wild Charge"), new Move("Drain Punch"), new Move("Volt Switch"), new Move("Fake Out")),
+          evs: { hp: 84, atk: 156, def: 12, spa: 4, spd: 252, spe: 0 }
+        })
+
+        const rillaboom = new Pokemon("Rillaboom", {
+          nature: "Adamant",
+          item: "Assault Vest",
+          ability: new Ability("Grassy Surge"),
+          teraType: "Fire",
+          moveSet: new MoveSet(new Move("Wood Hammer"), new Move("U-turn"), new Move("Grassy Glide"), new Move("Fake Out")),
+          evs: { hp: 252, atk: 116, def: 4, spa: 0, spd: 60, spe: 76 }
+        })
+
+        const field = new Field()
+
+        const targets = [new Target(landorus, moltresGalar), new Target(ironHands), new Target(rillaboom)]
+        const result = service.optimize(defender, targets, field)
+
+        expect(result.evs!.hp).toBe(28)
+        expect(result.evs!.def).toBe(244)
+        expect(result.evs!.spd).toBe(0)
+      })
+
+      it("should optimize EVs for Flutter Mane against Landorus Sludge Bomb/Moltres-Galar combined and Iron Hands/Rillaboom single in Grassy Terrain", () => {
+        const defender = new Pokemon("Flutter Mane", {
+          nature: "Timid",
+          item: "Booster Energy",
+          ability: new Ability("Protosynthesis"),
+          teraType: "Fairy",
+          moveSet: new MoveSet(new Move("Moonblast"), new Move("Icy Wind"), new Move("Protect"), new Move("Taunt")),
+          evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
+        })
+
+        const landorus = new Pokemon("Landorus", {
+          nature: "Modest",
+          item: "Life Orb",
+          ability: new Ability("Sheer Force"),
+          teraType: "Poison",
+          moveSet: new MoveSet(new Move("Sludge Bomb"), new Move("Earth Power"), new Move("Protect"), new Move("Substitute")),
+          evs: { hp: 0, atk: 0, def: 0, spa: 252, spd: 0, spe: 0 }
+        })
+
+        const moltresGalar = new Pokemon("Moltres-Galar", {
+          nature: "Modest",
+          item: "Sitrus Berry",
+          ability: new Ability("Berserk"),
+          teraType: "Ghost",
+          moveSet: new MoveSet(new Move("Fiery Wrath"), new Move("Air Slash"), new Move("Snarl"), new Move("Protect")),
+          evs: { hp: 244, atk: 0, def: 156, spa: 84, spd: 4, spe: 20 }
+        })
+
+        const ironHands = new Pokemon("Iron Hands", {
+          nature: "Brave",
+          item: "Assault Vest",
+          ability: new Ability("Quark Drive"),
+          teraType: "Water",
+          moveSet: new MoveSet(new Move("Wild Charge"), new Move("Drain Punch"), new Move("Volt Switch"), new Move("Fake Out")),
+          evs: { hp: 84, atk: 156, def: 12, spa: 4, spd: 252, spe: 0 }
+        })
+
+        const rillaboom = new Pokemon("Rillaboom", {
+          nature: "Adamant",
+          item: "Assault Vest",
+          ability: new Ability("Grassy Surge"),
+          teraType: "Fire",
+          moveSet: new MoveSet(new Move("Wood Hammer"), new Move("U-turn"), new Move("Grassy Glide"), new Move("Fake Out")),
+          evs: { hp: 252, atk: 116, def: 4, spa: 0, spd: 60, spe: 76 }
+        })
+
+        const field = new Field({ terrain: "Grassy" })
+
+        const targets = [new Target(landorus, moltresGalar), new Target(ironHands), new Target(rillaboom)]
+        const result = service.optimize(defender, targets, field)
+
+        expect(result.evs!.hp).toBe(4)
+        expect(result.evs!.def).toBe(132)
+        expect(result.evs!.spd).toBe(0)
+      })
+
       it("should optimize EVs for Ting-Lu in it's limit", () => {
         const defender = new Pokemon("Ting-Lu", {
           nature: "Bold",
