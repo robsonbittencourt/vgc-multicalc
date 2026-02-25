@@ -2,6 +2,7 @@ import { CdkDragDrop, CdkDropList, CdkDropListGroup } from "@angular/cdk/drag-dr
 import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, inject, input, output, signal } from "@angular/core"
 import { MatButton } from "@angular/material/button"
 import { MatSlideToggle } from "@angular/material/slide-toggle"
+import { InputAutocompleteComponent } from "@app/basic/input-autocomplete/input-autocomplete.component"
 import { InputSelectComponent } from "@app/basic/input-select/input-select.component"
 import { WidgetComponent } from "@basic/widget/widget.component"
 import { pokemonByRegulation } from "@data/regulation-pokemon"
@@ -24,7 +25,7 @@ import { PokemonCardComponent } from "@pages/multi-calc/pokemon-card/pokemon-car
   selector: "app-target-pokemon",
   templateUrl: "./target-pokemon.component.html",
   styleUrls: ["./target-pokemon.component.scss"],
-  imports: [CdkDropList, CdkDropListGroup, MatButton, MatSlideToggle, WidgetComponent, InputSelectComponent, PokemonCardComponent, AddPokemonCardComponent, ImportPokemonButtonComponent, RollConfigComponent],
+  imports: [CdkDropList, CdkDropListGroup, MatButton, MatSlideToggle, WidgetComponent, InputSelectComponent, InputAutocompleteComponent, PokemonCardComponent, AddPokemonCardComponent, ImportPokemonButtonComponent, RollConfigComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class TargetPokemonComponent {
@@ -43,6 +44,7 @@ export class TargetPokemonComponent {
 
   regulation = signal<Regulation>(this.store.targetMetaRegulation() ?? "F")
   rollLevelConfig = signal(RollLevelConfig.high())
+  cardsFilter = signal('')
 
   title = computed(() => (this.isAttacker() ? "Opponent Attackers" : "Opponent Defenders"))
 
@@ -51,6 +53,27 @@ export class TargetPokemonComponent {
   haveMetaData = computed(() => this.store.targetMetaRegulation() != undefined)
 
   metaButtonLabel = computed(() => (this.haveMetaData() ? "Remove Meta" : "Add Meta"))
+
+  filteredDamageResults = computed(() => {
+      const filter = this.cardsFilter().toLocaleLowerCase()
+
+      if (!filter) {
+        return this.damageResults()
+      }
+
+      if (this.isAttacker()) {
+        return this.damageResults().filter(result => result.attacker.name.toLocaleLowerCase().includes(filter) || result.secondAttacker?.name.toLocaleLowerCase().includes(filter))
+      }
+
+      return this.damageResults().filter(result => result.defender.name.toLocaleLowerCase().includes(filter))
+    }
+  )
+
+  readonly pokemonNamesByReg = computed(() =>
+    pokemonByRegulation(this.regulation() as Regulation)
+      .map(s => s.name)
+      .sort()
+  )
 
   regulationsList: Regulation[] = ["F", "J"]
 
@@ -157,9 +180,18 @@ export class TargetPokemonComponent {
     this.store.updateTargets(newTargets)
   }
 
+  updateCardsFilter(event: string) {
+    const cardsFilter = event
+    this.cardsFilter.set(cardsFilter)
+  }
+
   updateRegulation(event: string) {
     const regulation = event as Regulation
     this.regulation.set(regulation)
+  }
+
+  clearCardsFilter() {
+    this.cardsFilter.set("")
   }
 
   private findTarget(pokemonId: string): Target {
