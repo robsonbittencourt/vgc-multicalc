@@ -11,7 +11,7 @@ export const ITEM_DETAILS: Record<string, ItemDetail> = {
   none: {
     group: "Meta",
     name: "(none)",
-    description: "Without item",
+    description: "No Item",
     sprite: "question"
   },
   abilityshield: {
