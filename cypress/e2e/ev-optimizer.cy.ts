@@ -91,7 +91,7 @@ describe("EV Optimizer", () => {
     leftBuild.evsIs(212, 0, 228, 0, 0, 0)
   })
 
-  it.only("should optimize EVs for different rolls", () => {
+  it("should optimize EVs for different rolls", () => {
     leftBuild.importPokemon(poke["flutter-mane"])
     leftBuild.clearEvs()
 

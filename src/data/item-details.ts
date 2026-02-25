@@ -9,7 +9,7 @@ export interface ItemDetail {
 
 export const ITEM_DETAILS: Record<string, ItemDetail> = {
   none: {
-    group: "Items",
+    group: "Meta",
     name: "(none)",
     description: "Without item",
     sprite: "question"

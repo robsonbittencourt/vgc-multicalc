@@ -27,12 +27,17 @@ export class InputComponent {
 
   inputElement = viewChild<ElementRef>("inputRef")
 
+  emptyFallbackValue = input<string>()
+
   onClick(event: FocusEvent) {
     ;(event.target as HTMLInputElement).select()
     this.selected.emit()
   }
 
   onBlur() {
+    if (this.value() === "" && this.emptyFallbackValue() !== undefined) {
+      this.value.set(this.emptyFallbackValue()!)
+    }
     this.lostFocus.emit()
   }
 

@@ -98,6 +98,12 @@ export class PokemonBuild {
     return this
   }
 
+  cleanItem(): PokemonBuild {
+    this.closeTable()
+    ;(this.container().find('[data-cy="item"] input').click().clear() as any).realPress("Tab")
+    return this
+  }
+
   selectItemByFilter(filter: string, itemName: string): PokemonBuild {
     this.container().find('[data-cy="item"] input').click().type(filter)
     cy.get(`[data-cy="table-entry-${itemName}"]`).click({ force: true })

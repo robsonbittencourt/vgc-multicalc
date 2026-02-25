@@ -47,6 +47,7 @@
         (valueChange)="itemDataFilter.set($event)"
         (selected)="itemSelectorOnClick()"
         (lostFocus)="itemSelectorLostFocus()"
+        [emptyFallbackValue]="withoutItem"
         data-cy="item" />
     </div>
 

@@ -5,6 +5,7 @@ import { MatButton } from "@angular/material/button"
 import { MatCheckbox } from "@angular/material/checkbox"
 import { InputSelectComponent } from "@basic/input-select/input-select.component"
 import { InputComponent } from "@basic/input/input.component"
+import { Items } from "@data/items"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { FieldStore } from "@data/store/field-store"
 import { MenuStore } from "@data/store/menu-store"
@@ -182,6 +183,7 @@ export class PokemonBuildComponent {
 
   moveWasSelected = false
   blurTimeout: any = null
+  withoutItem = Items.instance.withoutItem()
 
   constructor() {
     queueMicrotask(() => this.shouldAnimate.set(true))

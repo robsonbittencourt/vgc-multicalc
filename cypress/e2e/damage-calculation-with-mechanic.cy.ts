@@ -407,4 +407,30 @@ describe("Test calcs from moves with some mechanic", () => {
       rightDamageResult.damageIs(2, 19.4, 22.8, 39, 46)
     })
   })
+
+  describe("Acrobatics", () => {
+    it("when Pokémon have item Acrobatics should have 55 bp", () => {
+      leftPokemonBuild.importPokemon(poke["roaring-moon-high-atk"]).selectAttackTwo()
+      rightPokemonBuild.importPokemon(poke["ting-lu"])
+
+      leftDamageResult.damageIs(1, 10.9, 13, 26, 31)
+      rightDamageResult.surviveWithThisHpAmmount(206)
+    })
+
+    it("when Pokémon does not have item Acrobatics should have 110 bp", () => {
+      leftPokemonBuild.importPokemon(poke["roaring-moon-high-atk"]).selectAttackTwo().selectItem("(none)")
+      rightPokemonBuild.importPokemon(poke["ting-lu"])
+
+      leftDamageResult.damageIs(1, 21.5, 25.7, 51, 61)
+      rightDamageResult.surviveWithThisHpAmmount(176)
+    })
+
+    it("should select none item when clean item field and press tab", () => {
+      leftPokemonBuild.importPokemon(poke["roaring-moon-high-atk"]).selectAttackTwo().cleanItem()
+      rightPokemonBuild.importPokemon(poke["ting-lu"])
+
+      leftDamageResult.damageIs(1, 21.5, 25.7, 51, 61)
+      rightDamageResult.surviveWithThisHpAmmount(176)
+    })
+  })
 })
