@@ -67,4 +67,50 @@ describe("Show stat modified", () => {
     leftPokemonBuild.statModifiedIs("def", "243")
     leftPokemonBuild.statModifiedIs("spd", "85")
   })
+
+  it("by Protosynthesis", () => {
+    leftPokemonBuild.importPokemon(poke["flutter-mane"])
+    rightPokemonBuild.importPokemon(poke["dondozo"])
+    field.sun()
+
+    leftPokemonBuild.statModifiedIs("spe", "270")
+
+    leftPokemonBuild.selectParadoxStat("Atk")
+    leftPokemonBuild.statModifiedIs("atk", "87")
+
+    leftPokemonBuild.selectParadoxStat("Def")
+    leftPokemonBuild.statModifiedIs("def", "111")
+
+    leftPokemonBuild.selectParadoxStat("Spa")
+    leftPokemonBuild.statModifiedIs("spa", "335")
+
+    leftPokemonBuild.selectParadoxStat("Spd")
+    leftPokemonBuild.statModifiedIs("spd", "202")
+
+    leftPokemonBuild.selectParadoxStat("Spe")
+    leftPokemonBuild.statModifiedIs("spe", "270")
+  })
+
+  it("by Quark Drive", () => {
+    leftPokemonBuild.importPokemon(poke["iron-moth-high-spa"])
+    rightPokemonBuild.importPokemon(poke["dondozo"])
+    field.eletricTerrain()
+
+    leftPokemonBuild.statModifiedIs("spa", "208")
+
+    leftPokemonBuild.selectParadoxStat("Atk")
+    leftPokemonBuild.statModifiedIs("atk", "117")
+
+    leftPokemonBuild.selectParadoxStat("Def")
+    leftPokemonBuild.statModifiedIs("def", "104")
+
+    leftPokemonBuild.selectParadoxStat("Spa")
+    leftPokemonBuild.statModifiedIs("spa", "208")
+
+    leftPokemonBuild.selectParadoxStat("Spd")
+    leftPokemonBuild.statModifiedIs("spd", "169")
+
+    leftPokemonBuild.selectParadoxStat("Spe")
+    leftPokemonBuild.statModifiedIs("spe", "195")
+  })
 })

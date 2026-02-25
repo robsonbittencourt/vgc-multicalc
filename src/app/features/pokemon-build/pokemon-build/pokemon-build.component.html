@@ -34,7 +34,7 @@
         data-cy="pokemon-select" />
     </div>
 
-    <div class="status-item" [ngStyle]="(reverse() && { order: 3 }) || null">
+    <div class="status-item" [ngClass]="{ 'status-item-compact': pokemon().ability.actionableAbility }" [ngStyle]="(reverse() && { order: 3 }) || null">
       <app-status-combo-box [pokemonId]="pokemonId()" [haveFocus]="statusHaveFocus()" (selected)="statusOnClick()" />
       <app-multi-hit-combo-box [pokemonId]="pokemonId()" [haveFocus]="multiHitHasFocus()" (selected)="multiHitOnClick()" />
       <app-input
@@ -50,7 +50,7 @@
         data-cy="item" />
     </div>
 
-    <div class="tera-type-ability" [ngStyle]="(reverse() && { order: 2 }) || null">
+    <div class="tera-type-ability" [ngClass]="{ 'tera-type-ability-expanded': pokemon().ability.actionableAbility }" [ngStyle]="(reverse() && { order: 2 }) || null">
       <app-tera-combo-box [pokemonId]="pokemonId()" [haveFocus]="teraHasFocus()" (selected)="teraOnClick()" />
       <app-type-combo-box [type1]="pokemon().type1" [type2]="pokemon().type2" [reverse]="reverse()" />
       <app-ability-combo-box

@@ -36,6 +36,7 @@ export type PokemonState = {
   ivs: Partial<Stats>
   hpPercentage: number
   automaticAbilityOn: boolean
+  higherStat?: string
 }
 
 export type TeamMemberState = {
@@ -131,6 +132,7 @@ export class CalculatorStore extends signalStore(
 
   ability(pokemonId: string, ability: string) {
     this.updatePokemonById(pokemonId, () => ({ ability }))
+    this.higherStat(pokemonId, undefined)
   }
 
   abilityOn(pokemonId: string, abilityOn: boolean) {
@@ -192,6 +194,10 @@ export class CalculatorStore extends signalStore(
 
   hpPercentage(pokemonId: string, hpPercentage: number) {
     this.updatePokemonById(pokemonId, () => ({ hpPercentage }))
+  }
+
+  higherStat(pokemonId: string, higherStat?: string) {
+    this.updatePokemonById(pokemonId, () => ({ higherStat }))
   }
 
   evs(pokemonId: string, evs: Partial<Stats>) {
@@ -450,6 +456,7 @@ export class CalculatorStore extends signalStore(
       this.activateMoveByPosition(pokemonId, 1)
     }
 
+    this.higherStat(pokemonId, undefined)
     this.commander(pokemonId, false)
     this.hpPercentage(pokemonId, 100)
     this.adjustBoosts(pokemonId, pokemonName)

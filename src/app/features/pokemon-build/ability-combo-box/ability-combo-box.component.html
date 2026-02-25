@@ -1,8 +1,5 @@
 @if (pokemon().ability.actionableAbility) {
   <div class="check">
-    @if (pokemon().isParadoxAbility && pokemon().ability.on) {
-      <span>+{{ pokemon().higherStat | titlecase }}</span>
-    }
     <mat-checkbox [ngModel]="pokemon().ability.on" (change)="toogleAbility($event)" [disabled]="abilityCheckDisabled()" data-cy="activate-ability" />
   </div>
 }
@@ -23,4 +20,8 @@
     (selected)="selected.emit()"
     (lostFocus)="lostFocus.emit($event)"
     data-cy="ability" />
+}
+
+@if (pokemon().isParadoxAbility && pokemon().ability.on) {
+  <app-input-select class="stat-select" label="+Stat" [value]="pokemon().higherStat" [allValues]="stats" (valueChange)="onHigherStatValueChange($event)" data-cy="paradox-stat-select" />
 }

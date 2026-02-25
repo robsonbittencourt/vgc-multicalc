@@ -5,6 +5,7 @@ import { PokemonParameters } from "@lib/types"
 import { Generations, Pokemon as SmogonPokemon } from "@robsonbittencourt/calc"
 import { AbilityName, StatusName } from "@robsonbittencourt/calc/dist/data/interface"
 import { TypeName } from "@robsonbittencourt/calc/src/data/interface"
+import { StatIDExceptHP } from "@robsonbittencourt/calc/src/data/interface"
 import { higherStat } from "./commom"
 
 export function fromExisting(pokemon: Pokemon): SmogonPokemon {
@@ -18,7 +19,8 @@ export function fromExisting(pokemon: Pokemon): SmogonPokemon {
     ivs: pokemon.ivs,
     boosts: pokemon.boosts,
     status: pokemon.status,
-    hpPercentage: pokemon.hpPercentage
+    hpPercentage: pokemon.hpPercentage,
+    higherStat: pokemon.higherStat
   })
 }
 
@@ -40,7 +42,7 @@ export function fromScratch(pokemonName: string, options: PokemonParameters): Sm
   if (options.ability) {
     smogonPokemon.ability = new Ability(options.ability.name).name as AbilityName
     smogonPokemon.abilityOn = options.ability.on
-    applyStatBoost(smogonPokemon, options.ability)
+    applyStatBoost(smogonPokemon, options.ability, options.higherStat)
   }
 
   const hpPercentage = options.hpPercentage ?? 100
@@ -49,9 +51,9 @@ export function fromScratch(pokemonName: string, options: PokemonParameters): Sm
   return smogonPokemon
 }
 
-function applyStatBoost(smogonPokemon: SmogonPokemon, ability: Ability) {
+function applyStatBoost(smogonPokemon: SmogonPokemon, ability: Ability, customHigherStat?: StatIDExceptHP) {
   if (ability.paradoxAbility && smogonPokemon.abilityOn) {
-    smogonPokemon.boostedStat = higherStat(smogonPokemon)
+    smogonPokemon.boostedStat = customHigherStat ?? higherStat(smogonPokemon)
   } else {
     smogonPokemon.boostedStat = undefined
   }

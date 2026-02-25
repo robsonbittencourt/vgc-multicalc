@@ -32,11 +32,19 @@
   justify-content: space-between;
 }
 
+.status-item-compact {
+  width: 13em;
+}
+
 .tera-type-ability {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   width: 15em;
+}
+
+.tera-type-ability-expanded {
+  width: 18em;
 }
 
 .moves {

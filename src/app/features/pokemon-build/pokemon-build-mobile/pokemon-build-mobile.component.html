@@ -66,9 +66,9 @@
     <app-status-combo-box [pokemonId]="pokemonId()" />
   </div>
 
-  <div class="combo-nature-ability">
-    <div class="combo-nature">
-      <app-nature-combo-box [pokemonId]="pokemonId()" />
+  <div class="combo-nature-ability" [ngClass]="{ 'combo-nature-ability-compact': pokemon().ability.actionableAbility }">
+    <div class="combo-nature" [ngClass]="{ 'combo-nature-compact': pokemon().ability.actionableAbility }">
+      <app-nature-combo-box [pokemonId]="pokemonId()" [isMobile]="true" />
     </div>
 
     <div class="combo-ability">

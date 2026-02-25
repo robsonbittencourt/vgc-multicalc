@@ -1,11 +1,13 @@
 :host {
   display: flex;
   align-items: flex-end;
-  gap: 1em;
+  gap: 1.2em;
+  width: 100%;
 }
 
 .input-select {
-  width: 100%;
+  flex: 1 1 0;
+  min-width: 0;
 }
 
 .check {
@@ -13,6 +15,23 @@
   flex-direction: column;
   align-items: center;
   gap: 0.25em;
-  width: 2em;
+  flex: 0 0 auto;
   margin-top: -1px;
+}
+
+.stat-select {
+  flex: 0 0 3.5em;
+  width: 3.5em;
+}
+
+@media only screen and (max-width: 1279px) {
+  :host {
+    gap: 0.5em;
+  }
+
+  .stat-select {
+    flex: 0 0 3.5em;
+    width: 3.5em;
+    margin-left: 1.5em;
+  }
 }

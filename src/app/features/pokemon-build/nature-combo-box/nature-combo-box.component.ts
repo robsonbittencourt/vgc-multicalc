@@ -12,10 +12,13 @@ import { CalculatorStore } from "@data/store/calculator-store"
 export class NatureComboBoxComponent {
   pokemonId = input.required<string>()
   leftLabel = input(false)
+  isMobile = input(false)
 
   store = inject(CalculatorStore)
 
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
 
-  allNatureNames = Natures.instance.natures
+  allNatureNames = computed(() => {
+    return this.pokemon().ability.actionableAbility && this.isMobile() ? Natures.instance.shortNatures : Natures.instance.natures
+  })
 }

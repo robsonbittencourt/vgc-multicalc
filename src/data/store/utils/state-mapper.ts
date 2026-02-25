@@ -8,6 +8,7 @@ import { Target } from "@lib/model/target"
 import { Team } from "@lib/model/team"
 import { TeamMember } from "@lib/model/team-member"
 import { MovePosition } from "@lib/types"
+import { StatIDExceptHP } from "@robsonbittencourt/calc/src/data/interface"
 
 export function stateToPokemon(state: PokemonState, isAttacker = false): Pokemon {
   const moveOne = new Move(state.moveSet[0].name, { alliesFainted: state.moveSet[0].alliesFainted, hits: state.moveSet[0].hits })
@@ -31,7 +32,8 @@ export function stateToPokemon(state: PokemonState, isAttacker = false): Pokemon
     evs: state.evs,
     ivs: state.ivs,
     hpPercentage: state.hpPercentage,
-    isAttacker: isAttacker
+    isAttacker: isAttacker,
+    higherStat: state.higherStat as StatIDExceptHP
   })
 }
 
@@ -59,7 +61,8 @@ export function pokemonToState(pokemon: Pokemon): PokemonState {
     evs: { hp: pokemon.evs.hp!, atk: pokemon.evs.atk!, def: pokemon.evs.def!, spa: pokemon.evs.spa!, spd: pokemon.evs.spd!, spe: pokemon.evs.spe! },
     ivs: { hp: pokemon.ivs.hp!, atk: pokemon.ivs.atk!, def: pokemon.ivs.def!, spa: pokemon.ivs.spa!, spd: pokemon.ivs.spd!, spe: pokemon.ivs.spe! },
     hpPercentage: pokemon.hpPercentage,
-    automaticAbilityOn: false
+    automaticAbilityOn: false,
+    higherStat: pokemon.higherStat
   }
 }
 

@@ -1,7 +1,7 @@
-import { TitleCasePipe } from "@angular/common"
 import { Component, computed, inject, input, output, viewChild } from "@angular/core"
 import { FormsModule } from "@angular/forms"
 import { MatCheckbox, MatCheckboxChange } from "@angular/material/checkbox"
+import { KeyValuePair } from "@basic/input-autocomplete/input-autocomplete.component"
 import { InputSelectComponent } from "@basic/input-select/input-select.component"
 import { InputComponent } from "@basic/input/input.component"
 import { CalculatorStore } from "@data/store/calculator-store"
@@ -12,7 +12,7 @@ import { TatsugiriButtonComponent } from "@features/buttons/tatsugiri-button/tat
   selector: "app-ability-combo-box",
   templateUrl: "./ability-combo-box.component.html",
   styleUrls: ["./ability-combo-box.component.scss"],
-  imports: [TitleCasePipe, FormsModule, MatCheckbox, InputComponent, InputSelectComponent, TatsugiriButtonComponent]
+  imports: [FormsModule, MatCheckbox, InputComponent, InputSelectComponent, TatsugiriButtonComponent]
 })
 export class AbilityComboBoxComponent {
   pokemonId = input.required<string>()
@@ -36,6 +36,14 @@ export class AbilityComboBoxComponent {
 
   availableAbilities = computed(() => this.pokemon().availableAbilities.map(a => a.name))
 
+  stats: KeyValuePair[] = [
+    { key: "Atk", value: "atk" },
+    { key: "Def", value: "def" },
+    { key: "Spa", value: "spa" },
+    { key: "Spd", value: "spd" },
+    { key: "Spe", value: "spe" }
+  ]
+
   abilityCheckDisabled = computed(() => {
     if (this.pokemon().hasAbility("Protosynthesis") && this.fieldStore.isWeatherSun()) return true
     if (this.pokemon().hasAbility("Quark Drive") && this.fieldStore.isTerrainElectric()) return true
@@ -51,5 +59,12 @@ export class AbilityComboBoxComponent {
 
   toogleAbility(event: MatCheckboxChange) {
     this.store.abilityOn(this.pokemonId(), event.checked)
+    if (event.checked) {
+      this.store.higherStat(this.pokemonId(), undefined)
+    }
+  }
+
+  onHigherStatValueChange(stat: string) {
+    this.store.higherStat(this.pokemonId(), stat)
   }
 }

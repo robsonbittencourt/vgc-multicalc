@@ -4,9 +4,11 @@ export class Natures {
   private static _instance: Natures
 
   natures: KeyValuePair[]
+  shortNatures: KeyValuePair[]
 
   private constructor() {
     this.natures = this.allNatures()
+    this.shortNatures = this.natures.map(n => ({ key: n.value, value: n.value }))
   }
 
   static get instance(): Natures {

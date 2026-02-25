@@ -87,10 +87,19 @@
   box-sizing: border-box;
 }
 
+.combo-nature-ability-compact {
+  gap: 2em;
+}
+
 .combo-nature,
 .combo-ability {
   flex: 1 1 0;
   min-width: 0;
+}
+
+.combo-nature-compact {
+  flex: 1 1 22%;
+  max-width: 22%;
 }
 
 ::ng-deep .mat-mdc-standard-chip .mdc-evolution-chip__graphic {

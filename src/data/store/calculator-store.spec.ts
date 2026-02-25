@@ -735,6 +735,25 @@ describe("Calculator Store", () => {
 
         expect(result.boosts).toEqual({ atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
       })
+
+      it("should reset previous higher stat state", () => {
+        store.higherStat(defaultId, "atk")
+
+        store.loadPokemonInfo(defaultId, "Flutter Mane")
+        const result = store.findPokemonById(defaultId)
+
+        expect(result.higherStat).toBe("spe")
+      })
+
+      it("should reset previous custom higher stat state when ability changes", () => {
+        store.loadPokemonInfo(defaultId, "Flutter Mane")
+        store.higherStat(defaultId, "atk")
+
+        store.ability(defaultId, "Intimidate")
+        const result = store.findPokemonById(defaultId)
+
+        expect(result.higherStat).toBe("spe")
+      })
     })
 
     describe("User data", () => {

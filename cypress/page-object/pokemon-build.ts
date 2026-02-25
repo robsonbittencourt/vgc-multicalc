@@ -152,6 +152,11 @@ export class PokemonBuild {
     return this
   }
 
+  selectParadoxStat(stat: string): PokemonBuild {
+    this.container().get('[data-cy="paradox-stat-select"]').click().get("mat-option").contains(stat).click({ force: true }).wait(100)
+    return this
+  }
+
   selectAbilityByFilter(filter: string, abilityName: string): PokemonBuild {
     this.container().find('[data-cy="ability"] input').click().type(filter)
     cy.get(`[data-cy="table-entry-${abilityName}"]`).click({ force: true })

@@ -75,6 +75,12 @@ describe("Pokemon", () => {
       expect(pokemon.higherStat).toBe("spe")
     })
 
+    it("should allow overriding the higher stat with higherStat", () => {
+      const pokemon = new Pokemon("Flutter Mane", { higherStat: "spe" })
+
+      expect(pokemon.higherStat).toBe("spe")
+    })
+
     it("should return the correct name when Pokémon is default", () => {
       const pokemon = new Pokemon("Togepi")
 

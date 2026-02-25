@@ -1,3 +1,4 @@
+import { NgClass } from "@angular/common"
 import { Component, computed, effect, inject, input, output, signal } from "@angular/core"
 import { FormsModule } from "@angular/forms"
 import { MatButton } from "@angular/material/button"
@@ -29,6 +30,7 @@ import { Stats, SurvivalThreshold } from "@lib/types"
   templateUrl: "./pokemon-build-mobile.component.html",
   styleUrls: ["./pokemon-build-mobile.component.scss"],
   imports: [
+    NgClass,
     MatChipListbox,
     MatChipOption,
     MatIcon,
