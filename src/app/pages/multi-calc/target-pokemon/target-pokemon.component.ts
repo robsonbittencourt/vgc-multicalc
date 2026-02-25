@@ -44,7 +44,7 @@ export class TargetPokemonComponent {
 
   regulation = signal<Regulation>(this.store.targetMetaRegulation() ?? "F")
   rollLevelConfig = signal(RollLevelConfig.high())
-  cardsFilter = signal('')
+  cardsFilter = signal("")
 
   title = computed(() => (this.isAttacker() ? "Opponent Attackers" : "Opponent Defenders"))
 
@@ -55,19 +55,18 @@ export class TargetPokemonComponent {
   metaButtonLabel = computed(() => (this.haveMetaData() ? "Remove Meta" : "Add Meta"))
 
   filteredDamageResults = computed(() => {
-      const filter = this.cardsFilter().toLocaleLowerCase()
+    const filter = this.cardsFilter().toLocaleLowerCase()
 
-      if (!filter) {
-        return this.damageResults()
-      }
-
-      if (this.isAttacker()) {
-        return this.damageResults().filter(result => result.attacker.name.toLocaleLowerCase().includes(filter) || result.secondAttacker?.name.toLocaleLowerCase().includes(filter))
-      }
-
-      return this.damageResults().filter(result => result.defender.name.toLocaleLowerCase().includes(filter))
+    if (!filter) {
+      return this.damageResults()
     }
-  )
+
+    if (this.isAttacker()) {
+      return this.damageResults().filter(result => result.attacker.name.toLocaleLowerCase().includes(filter) || result.secondAttacker?.name.toLocaleLowerCase().includes(filter))
+    }
+
+    return this.damageResults().filter(result => result.defender.name.toLocaleLowerCase().includes(filter))
+  })
 
   readonly pokemonNamesByReg = computed(() =>
     pokemonByRegulation(this.regulation() as Regulation)

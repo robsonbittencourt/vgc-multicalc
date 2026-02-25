@@ -1,9 +1,15 @@
 <app-widget [title]="title()" data-cy="opponent-widget">
   <right-header>
     <div class="buttons">
-      <app-input-autocomplete class="select-pokemon" label="Pokémon" leftLabel="true" [enableClear]="cardsFilter() !== ''"
-        [allValues]="pokemonNamesByReg()" [value]="cardsFilter()" (valueChange)="updateCardsFilter($event)" (cleared)="clearCardsFilter()"
-      />
+      <app-input-autocomplete
+        class="select-pokemon"
+        label="Pokémon"
+        leftLabel="true"
+        [enableClear]="cardsFilter() !== ''"
+        [allValues]="pokemonNamesByReg()"
+        [value]="cardsFilter()"
+        (valueChange)="updateCardsFilter($event)"
+        (cleared)="clearCardsFilter()" />
 
       <app-roll-config (rollLevelChange)="rollLevelConfig.set($event)" />
 
