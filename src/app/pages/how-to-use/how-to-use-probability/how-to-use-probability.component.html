@@ -1,0 +1,70 @@
+<app-how-to-use-subpage title="Probability Calculator" (back)="onBack()">
+  <p>
+    The Probability Calculator helps you understand how reliable your team is in battle by analyzing move accuracy and calculating various game probabilities. This tool is essential for making informed decisions about team composition and move
+    selection.
+  </p>
+
+  <div class="subsection">
+    <h3 class="subsection-title">Consistency Score</h3>
+    <figure class="section-figure">
+      <img class="section-image" src="assets/media/consistency-score.png" alt="Consistency Score interface" />
+      <figcaption>The Team Consistency Score dashboard showing individual reliability.</figcaption>
+    </figure>
+    <p>
+      The <span class="highlight-term">Consistency Score</span> measures how reliable your team is based on the accuracy of each Pokémon's moves. Each Pokémon receives an individual score from 0 to 100, which is then combined into an overall team
+      score.
+    </p>
+
+    <div class="callout">
+      <mat-icon>info</mat-icon>
+      <div class="callout-content">
+        <p>
+          <strong>Main purpose:</strong> The score is designed to be compared between teams - it helps you understand which team is more reliable overall. Higher scores indicate more reliable teams, making it easier to compare different team
+          compositions and identify which setup will perform more consistently in battle.
+        </p>
+      </div>
+    </div>
+
+    <p>
+      Moves with 100% accuracy contribute positively to the score, while less accurate moves reduce it. If a Pokémon has multiple inaccurate moves, it receives an additional penalty, as the overall moveset becomes less dependable. A single very
+      inaccurate move can significantly impact the score, reflecting real gameplay situations where unreliable moves can cost you matches.
+    </p>
+  </div>
+
+  <div class="subsection">
+    <h3 class="subsection-title">Move Probabilities</h3>
+    <figure class="section-figure">
+      <img class="section-image" src="assets/media/move-probabilities.png" alt="Move Probabilities interface" />
+      <figcaption>Detailed probability tables for individual moves over multiple turns.</figcaption>
+    </figure>
+    <p>For each move in your team, the calculator shows detailed probability tables that help you understand the probability of success across multiple turns. You can see:</p>
+
+    <ul class="subsection-list columns-2">
+      <li>Hit and miss probabilities</li>
+      <li>Chances of secondary effects</li>
+      <li>Probability over multiple turns</li>
+      <li>Spread vs single-target moves</li>
+    </ul>
+
+    <p>This information is crucial for planning your strategy, as it helps you understand the risks and rewards of using specific moves in different situations.</p>
+  </div>
+
+  <div class="subsection">
+    <h3 class="subsection-title">Reference Tables</h3>
+    <figure class="section-figure">
+      <img class="section-image" src="assets/media/reference-tables.png" alt="Reference Tables interface" />
+      <figcaption>Access key game mechanic statistics instantly.</figcaption>
+    </figure>
+    <p>The calculator also provides general probability tables for common game mechanics, including:</p>
+
+    <ul class="subsection-list columns-2">
+      <li>Critical hit chances</li>
+      <li>Protect success rates</li>
+      <li>Sleep & wake-up probabilities</li>
+      <li>Status effect distributions</li>
+      <li>Multi-hit move damage</li>
+    </ul>
+
+    <p>These reference tables are useful for strategic planning, helping you make informed decisions about when to use certain moves or abilities, and understanding the statistical probability of various game events occurring.</p>
+  </div>
+</app-how-to-use-subpage>

@@ -1,0 +1,59 @@
+<app-how-to-use-subpage title="EV Optimization" (back)="onBack()">
+  <p>
+    The EV Optimizer is a powerful tool designed to automatically calculate the <strong>absolute minimum number of HP, Defense, and Special Defense EVs</strong> required to survive specific attacks from your opponents. By mathematically minimizing
+    your defensive investments, you save valuable EVs that can be freely allocated into Speed or Offense.
+  </p>
+
+  <div class="subsection">
+    <h3 class="subsection-title">Optimization Strategy</h3>
+    <figure class="section-figure">
+      <img class="section-image" src="assets/media/cards/ev-optimizer.png" alt="EV Optimization preview" />
+      <figcaption>The EV Optimization tool calculating the most efficient spread.</figcaption>
+    </figure>
+    <p>
+      The optimizer groups your selected targets into Physical and Special threats. It then identifies the attacks that will deal the most damage and intelligently balances your HP, Defense, and Special Defense to find the most efficient combination.
+    </p>
+
+    <div class="callout">
+      <mat-icon>info</mat-icon>
+      <div class="callout-content">
+        <p>
+          <strong>Efficiency logic:</strong> The tool always prioritizes investing in the base stat that yields the most efficient total EV usage, guaranteeing you reach your survival targets while spending the least amount of total EVs possible.
+          When optimizing only two stats (e.g., HP and Defense) and two solutions require the exact same total amount of EVs, the optimizer prioritizes allocating EVs into HP.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="subsection">
+    <h3 class="subsection-title">Target Optimization</h3>
+    <p>The optimizer adapts its calculations based on the combat scenarios you configure against the opposing team:</p>
+
+    <ul class="subsection-list">
+      <li><strong>Single Attacker:</strong> Calculates the optimal bulk required to survive the attacks from a specific opposing Pokémon.</li>
+      <li>
+        <strong>Multiple Attackers (Team):</strong> When optimizing against an entire opposing team, the tool balances your defensive stats to guarantee survival against as many of the selected Pokémon as possible, prioritizing the hardest hitters.
+      </li>
+      <li>
+        <strong>Combined Attacks (Double Targeting):</strong> If two opponents are targeting your Pokémon in the same slot, the optimizer calculates the exact bulk needed to survive <em>both attacks hitting consecutively on the exact same turn</em>.
+      </li>
+    </ul>
+  </div>
+
+  <div class="subsection">
+    <h3 class="subsection-title">Advanced Options</h3>
+    <p>Fine-tune your optimization using the advanced configuration toggles:</p>
+
+    <ul class="subsection-list columns-2">
+      <li><strong>Update Nature:</strong> Allows the tool to automatically change your Pokémon's nature to a Defensive one (+Def/-Atk, +SpD/-Atk, etc.) if it proves mathematically more efficient and saves total EVs.</li>
+      <li><strong>Keep Offensive EVs:</strong> Locks your current Atk, SpA, and Spe EV inputs, forcing the optimizer to only use your remaining available EVs for bulk.</li>
+      <li>
+        <strong>2HKO Threshold:</strong> Calculates EVs to guarantee surviving 1 hit (never fainting in a single turn). It accurately considers the activation of damage-reducing or healing berries even during multi-hit attacks (like Surging Strikes).
+      </li>
+      <li>
+        <strong>3HKO & 4HKO Thresholds:</strong> Calculates EVs to guarantee surviving 2 or 3 consecutive hits, respectively. These calculations dynamically factor in passive recovery (like Leftovers or Grassy Terrain) and residual damage (like
+        Weather or Status conditions) applied between turns.
+      </li>
+    </ul>
+  </div>
+</app-how-to-use-subpage>

@@ -1,0 +1,219 @@
+.subpage-container {
+  padding: 1rem;
+  color: var(--text);
+  position: relative;
+
+  .back-nav {
+    position: fixed;
+    top: 6rem;
+    left: 2rem;
+    z-index: 100;
+
+    .back-button {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      color: var(--text);
+      transition: transform 0.2s ease;
+
+      &:hover {
+        transform: translateX(-4px);
+      }
+
+      mat-icon {
+        font-size: 1.5rem;
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+
+      span {
+        font-size: 1.1rem;
+        font-weight: 500;
+      }
+    }
+  }
+
+  @media (max-width: 1280px) {
+    .back-nav {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+    }
+  }
+
+  .header {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+
+    h2 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+  }
+
+  .content {
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 1.3rem;
+    line-height: 1.7;
+    text-align: left;
+
+    p {
+      margin-bottom: 1.5rem;
+      opacity: 0.9;
+    }
+
+    .subsection {
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+
+      .subsection-title {
+        font-family: "Outfit", sans-serif;
+        font-size: 2rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        letter-spacing: -0.02em;
+      }
+
+      .section-figure {
+        margin: 1.5rem 0 2.5rem;
+
+        .section-image {
+          width: 100%;
+          border-radius: 12px;
+          margin: 0;
+          box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+          border: 1px solid var(--widget-border);
+        }
+
+        figcaption {
+          margin-top: 0.75rem;
+          font-style: italic;
+          font-size: 1.1rem;
+          opacity: 0.7;
+          text-align: center;
+        }
+      }
+
+      .highlight-term {
+        font-weight: 600;
+      }
+
+      .callout {
+        display: flex;
+        gap: 1rem;
+        background-color: color-mix(in srgb, var(--primary) 8%, transparent);
+        border-left: 4px solid var(--primary);
+        padding: 1.25rem 1.5rem;
+        border-radius: 4px 12px 12px 4px;
+        margin: 2rem 0;
+
+        mat-icon {
+          color: var(--primary);
+          font-size: 1.8rem;
+          width: 1.8rem;
+          height: 1.8rem;
+        }
+
+        .callout-content {
+          flex: 1;
+          p {
+            margin: 0;
+            font-size: 1.2rem;
+            line-height: 1.6;
+          }
+        }
+      }
+
+      .subsection-list {
+        margin: 1.5rem 0;
+        padding-left: 0;
+        list-style: none;
+
+        &.columns-2 {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 0.5rem 2rem;
+        }
+
+        li {
+          margin-bottom: 0.6rem;
+          padding-left: 1.8rem;
+          position: relative;
+          opacity: 0.9;
+          font-size: 1.3rem;
+
+          &::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--text);
+            font-weight: bold;
+            font-size: 1.6rem;
+            line-height: 1.1;
+          }
+        }
+      }
+    }
+
+    .video-container {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      aspect-ratio: 16 / 9;
+
+      iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      }
+    }
+  }
+}
+
+@media (max-width: 800px) {
+  .subpage-container {
+    .back-nav .back-button {
+      mat-icon {
+        font-size: 2rem;
+        width: 2rem;
+        height: 2rem;
+      }
+      span {
+        font-size: 1.5rem;
+      }
+    }
+
+    .header h2 {
+      font-size: 2.2rem;
+      margin-top: 2rem;
+    }
+
+    .content {
+      font-size: 1.5rem;
+
+      .subsection {
+        .subsection-title {
+          font-size: 2rem;
+        }
+
+        .callout .callout-content p {
+          font-size: 1.4rem;
+        }
+
+        .subsection-list {
+          &.columns-2 {
+            grid-template-columns: 1fr;
+          }
+          li {
+            font-size: 1.5rem;
+          }
+        }
+      }
+    }
+  }
+}
