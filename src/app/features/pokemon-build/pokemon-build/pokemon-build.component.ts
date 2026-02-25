@@ -371,7 +371,7 @@ export class PokemonBuildComponent {
     this.selected.emit()
   }
 
-  async pokemonSelectorLostFocus() {
+  pokemonSelectorLostFocus() {
     this.blurTimeout = setTimeout(() => {
       if (this.pokemonDataFilter() != "") {
         this.store.loadPokemonInfo(this.pokemonId(), this.firstPokemonFromList())
@@ -380,12 +380,15 @@ export class PokemonBuildComponent {
     }, 200)
   }
 
-  async newPokemonSelectorLostFocus() {
-    await this.pokemonSelectorLostFocus()
-    if (this.pokemonDataFilter() != "") {
-      this.showDefaultView()
-      this.pokemonInput()?.blur()
-    }
+  newPokemonSelectorLostFocus() {
+    this.blurTimeout = setTimeout(() => {
+      if (this.pokemonDataFilter() != "") {
+        this.store.loadPokemonInfo(this.pokemonId(), this.firstPokemonFromList())
+        this.pokemonDataFilter.set("")
+        this.showDefaultView()
+        this.pokemonInput()?.blur()
+      }
+    }, 200)
   }
 
   private removeFocusFromAllFields() {

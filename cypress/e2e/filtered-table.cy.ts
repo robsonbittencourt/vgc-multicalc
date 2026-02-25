@@ -55,8 +55,8 @@ describe("Filtered Table behaviors", () => {
       build.delete()
 
       team.clickOnAdd()
-      team.addWithFilter("Sa", "Salamence")
-      team.pokemonOnEditNameIs("Salamence")
+      team.addWithFilter("oger", "Ogerpon-Cornerstone")
+      team.pokemonOnEditNameIs("Ogerpon-Cornerstone")
       build.delete()
     })
 
