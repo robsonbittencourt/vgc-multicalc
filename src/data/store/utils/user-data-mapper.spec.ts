@@ -33,7 +33,6 @@ describe("User Data Mapper", () => {
       expect(result.speedCalcPokemon.commanderActive).toBe(true)
       expect(result.speedCalcPokemon.teraType).toBe("Electric")
       expect(result.speedCalcPokemon.teraTypeActive).toBe(true)
-      expect(result.speedCalcPokemon.activeMove).toBe("Thunderbolt")
       expect(result.speedCalcPokemon.moveSet).toEqual(["Thunderbolt", "Quick Attack", "Volt Tackle", "Iron Tail"])
       expect(result.speedCalcPokemon.boosts).toEqual({ atk: -1, def: -2, spa: 1, spd: 2, spe: 3 })
       expect(result.speedCalcPokemon.bonusBoosts).toEqual({ atk: -1, def: 0, spa: 0, spd: 0, spe: 0 })
@@ -70,7 +69,6 @@ describe("User Data Mapper", () => {
       expect(result.leftPokemon.commanderActive).toBe(true)
       expect(result.leftPokemon.teraType).toBe("Electric")
       expect(result.leftPokemon.teraTypeActive).toBe(true)
-      expect(result.leftPokemon.activeMove).toBe("Thunderbolt")
       expect(result.leftPokemon.moveSet).toEqual(["Thunderbolt", "Quick Attack", "Volt Tackle", "Iron Tail"])
       expect(result.leftPokemon.boosts).toEqual({ atk: -1, def: -2, spa: 1, spd: 2, spe: 3 })
       expect(result.leftPokemon.bonusBoosts).toEqual({ atk: -1, def: 0, spa: 0, spd: 0, spe: 0 })
@@ -107,7 +105,6 @@ describe("User Data Mapper", () => {
       expect(result.rightPokemon.commanderActive).toBe(true)
       expect(result.rightPokemon.teraType).toBe("Electric")
       expect(result.rightPokemon.teraTypeActive).toBe(true)
-      expect(result.rightPokemon.activeMove).toBe("Thunderbolt")
       expect(result.rightPokemon.moveSet).toEqual(["Thunderbolt", "Quick Attack", "Volt Tackle", "Iron Tail"])
       expect(result.rightPokemon.boosts).toEqual({ atk: -1, def: -2, spa: 1, spd: 2, spe: 3 })
       expect(result.rightPokemon.bonusBoosts).toEqual({ atk: -1, def: 0, spa: 0, spd: 0, spe: 0 })
@@ -227,7 +224,7 @@ describe("User Data Mapper", () => {
       expect(result.speedCalcPokemonState.commanderActive).toBe(true)
       expect(result.speedCalcPokemonState.teraType).toBe("Electric")
       expect(result.speedCalcPokemonState.teraTypeActive).toBe(true)
-      expect(result.speedCalcPokemonState.activeMove).toBe("Thunderbolt")
+      expect(result.speedCalcPokemonState.activeMove).toBe(0)
       expect(result.speedCalcPokemonState.moveSet).toEqual([{ name: "Thunderbolt" }, { name: "Quick Attack" }, { name: "Volt Tackle" }, { name: "Iron Tail" }])
       expect(result.speedCalcPokemonState.boosts).toEqual({ atk: -1, def: -2, spa: 1, spd: 2, spe: 3 })
       expect(result.speedCalcPokemonState.bonusBoosts).toEqual({ atk: -1, def: 0, spa: 0, spd: 0, spe: 0 })
@@ -260,7 +257,7 @@ describe("User Data Mapper", () => {
       expect(result.speedCalcPokemonState.commanderActive).toBe(true)
       expect(result.speedCalcPokemonState.teraType).toBe("Electric")
       expect(result.speedCalcPokemonState.teraTypeActive).toBe(true)
-      expect(result.speedCalcPokemonState.activeMove).toBe("Thunderbolt")
+      expect(result.speedCalcPokemonState.activeMove).toBe(0)
       expect(result.speedCalcPokemonState.moveSet).toEqual([{ name: "Thunderbolt" }, { name: "Quick Attack" }, { name: "Volt Tackle" }, { name: "Iron Tail" }])
       expect(result.speedCalcPokemonState.boosts).toEqual({ atk: -1, def: -2, spa: 1, spd: 2, spe: 3 })
       expect(result.speedCalcPokemonState.bonusBoosts).toEqual({ atk: -1, def: 0, spa: 0, spd: 0, spe: 0 })
@@ -293,7 +290,7 @@ describe("User Data Mapper", () => {
       expect(result.leftPokemonState.commanderActive).toBe(true)
       expect(result.leftPokemonState.teraType).toBe("Electric")
       expect(result.leftPokemonState.teraTypeActive).toBe(true)
-      expect(result.leftPokemonState.activeMove).toBe("Thunderbolt")
+      expect(result.leftPokemonState.activeMove).toBe(0)
       expect(result.leftPokemonState.moveSet).toEqual([{ name: "Thunderbolt" }, { name: "Quick Attack" }, { name: "Volt Tackle" }, { name: "Iron Tail" }])
       expect(result.leftPokemonState.boosts).toEqual({ atk: -1, def: -2, spa: 1, spd: 2, spe: 3 })
       expect(result.speedCalcPokemonState.bonusBoosts).toEqual({ atk: -1, def: 0, spa: 0, spd: 0, spe: 0 })
@@ -326,7 +323,7 @@ describe("User Data Mapper", () => {
       expect(result.rightPokemonState.commanderActive).toBe(false)
       expect(result.rightPokemonState.teraType).toBe("Fire")
       expect(result.rightPokemonState.teraTypeActive).toBe(true)
-      expect(result.rightPokemonState.activeMove).toBe("Flamethrower")
+      expect(result.rightPokemonState.activeMove).toBe(0)
       expect(result.rightPokemonState.moveSet).toEqual([{ name: "Flamethrower" }, { name: "Scratch" }, { name: "Growl" }, { name: "Ember" }])
       expect(result.rightPokemonState.boosts).toEqual({ atk: 2, def: 3, spa: 4, spd: 5, spe: -2 })
       expect(result.rightPokemonState.bonusBoosts).toEqual({ atk: 0, def: 0, spa: 0, spd: 0, spe: -1 })
@@ -465,6 +462,19 @@ describe("User Data Mapper", () => {
       expect(result.simpleCalcRightRollLevel).toBe("high")
       expect(result.multiCalcRollLevel).toBe("high")
     })
+
+    it("should handle legacy data or missing activeMove by defaulting to 0", () => {
+      const userData = {
+        leftPokemon: { ...pikachuUserData, activeMove: "Thunderbolt" },
+        rightPokemon: charmanderUserData,
+        teams: [],
+        targets: []
+      }
+
+      const result: CalculatorState = buildState(userData)
+
+      expect(result.leftPokemonState.activeMove).toBe(0)
+    })
   })
 })
 
@@ -479,7 +489,7 @@ const pikachuState: PokemonState = {
   commanderActive: true,
   teraType: "Electric",
   teraTypeActive: true,
-  activeMove: "Thunderbolt",
+  activeMove: 0,
   moveSet: [{ name: "Thunderbolt" }, { name: "Quick Attack" }, { name: "Volt Tackle" }, { name: "Iron Tail" }],
   boosts: { atk: -1, def: -2, spa: 1, spd: 2, spe: 3 },
   bonusBoosts: { atk: -1, def: 0, spa: 0, spd: 0, spe: 0 },
@@ -500,7 +510,7 @@ const bulbasaurState: PokemonState = {
   commanderActive: false,
   teraType: "Grass",
   teraTypeActive: false,
-  activeMove: "Vine Whip",
+  activeMove: 0,
   moveSet: [{ name: "Vine Whip" }, { name: "Razor Leaf" }, { name: "Tackle" }, { name: "Growl" }],
   boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
   bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
@@ -521,7 +531,7 @@ const charmanderState: PokemonState = {
   commanderActive: false,
   teraType: "Fire",
   teraTypeActive: true,
-  activeMove: "Flamethrower",
+  activeMove: 0,
   moveSet: [{ name: "Flamethrower" }, { name: "Scratch" }, { name: "Growl" }, { name: "Ember" }],
   boosts: { atk: 2, def: 3, spa: 4, spd: 5, spe: -2 },
   bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
@@ -541,7 +551,6 @@ const pikachuUserData = {
   commanderActive: true,
   teraType: "Electric",
   teraTypeActive: true,
-  activeMove: "Thunderbolt",
   moveSet: ["Thunderbolt", "Quick Attack", "Volt Tackle", "Iron Tail"],
   boosts: { atk: -1, def: -2, spa: 1, spd: 2, spe: 3 },
   bonusBoosts: { atk: -1, def: 0, spa: 0, spd: 0, spe: 0 },
@@ -560,7 +569,6 @@ const bulbasaurUserData = {
   commanderActive: false,
   teraType: "Grass",
   teraTypeActive: false,
-  activeMove: "Vine Whip",
   moveSet: ["Vine Whip", "Razor Leaf", "Tackle", "Growl"],
   boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
   bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
@@ -579,7 +587,6 @@ const charmanderUserData = {
   commanderActive: false,
   teraType: "Fire",
   teraTypeActive: true,
-  activeMove: "Flamethrower",
   moveSet: ["Flamethrower", "Scratch", "Growl", "Ember"],
   boosts: { atk: 2, def: 3, spa: 4, spd: 5, spe: -2 },
   bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: -1 },

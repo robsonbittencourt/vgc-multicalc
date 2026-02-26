@@ -24,21 +24,25 @@ export class PokemonBuild {
 
   selectAttackOne(): PokemonBuild {
     this.container().find('[data-cy="attack1"] input').click({ force: true })
+    this.closeTable()
     return this
   }
 
   selectAttackTwo(): PokemonBuild {
     this.container().find('[data-cy="attack2"] input').click({ force: true })
+    this.closeTable()
     return this
   }
 
   selectAttackThree(): PokemonBuild {
     this.container().find('[data-cy="attack3"] input').click({ force: true })
+    this.closeTable()
     return this
   }
 
   selectAttackFour(): PokemonBuild {
     this.container().find('[data-cy="attack4"] input').click({ force: true })
+    this.closeTable()
     return this
   }
 

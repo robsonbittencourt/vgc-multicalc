@@ -3,7 +3,6 @@ import { SETDEX_SV } from "@data/movesets"
 import { initialCalculatorState } from "@data/store/utils/initial-calculator-state"
 import { pokemonToState, stateToPokemon, stateToTargets, stateToTeam, stateToTeams, targetToState, teamToState } from "@data/store/utils/state-mapper"
 import { buildUserData } from "@data/store/utils/user-data-mapper"
-import { Move } from "@lib/model/move"
 import { Pokemon } from "@lib/model/pokemon"
 import { Target } from "@lib/model/target"
 import { Team } from "@lib/model/team"
@@ -28,7 +27,7 @@ export type PokemonState = {
   commanderActive: boolean
   teraType: string
   teraTypeActive: boolean
-  activeMove: string
+  activeMove: number
   moveSet: MoveState[]
   boosts: Partial<Stats>
   bonusBoosts: Partial<Stats>
@@ -260,19 +259,13 @@ export class CalculatorStore extends signalStore(
     this.updateMove(pokemonId, moveFour, 3)
   }
 
-  activateMove(pokemonId: string, move: Move) {
-    this.updatePokemonById(pokemonId, state => {
-      if (!state.moveSet.find(m => m.name == move.name)) {
-        throw Error(`Move ${move.name} does not exist in actual Moveset`)
-      }
-
-      return { activeMove: move.name }
-    })
+  activateMove(pokemonId: string, index: number) {
+    this.updatePokemonById(pokemonId, () => ({ activeMove: index }))
   }
 
   activateMoveByPosition(pokemonId: string, position: number) {
     const adjustedPosition = Math.min(--position, 3)
-    this.updatePokemonById(pokemonId, state => ({ activeMove: state.moveSet[adjustedPosition].name }))
+    this.updatePokemonById(pokemonId, () => ({ activeMove: adjustedPosition }))
   }
 
   alliesFainted(pokemonId: string, alliesFainted: string, position: MovePosition) {
@@ -469,7 +462,7 @@ export class CalculatorStore extends signalStore(
     this.updatePokemonById(pokemonId, state => {
       const moveSet = [...state.moveSet]
       moveSet.splice(index, 1, { name: move })
-      return { activeMove: move, moveSet: moveSet }
+      return { activeMove: index, moveSet: moveSet }
     })
   }
 

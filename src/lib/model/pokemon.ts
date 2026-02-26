@@ -177,6 +177,14 @@ export class Pokemon {
     return this.moveSet.activeMove.name
   }
 
+  get activeMoveIndex() {
+    return this.moveSet.activeMovePosition - 1
+  }
+
+  get activeMovePosition() {
+    return this.moveSet.activeMovePosition
+  }
+
   get move1Name(): string {
     return this.moveSet.move1.name
   }

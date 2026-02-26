@@ -2,7 +2,6 @@ import { provideZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
 import { CalculatorStore, PokemonState, TargetState, TeamState } from "@data/store/calculator-store"
 import { Ability } from "@lib/model/ability"
-import { Move } from "@lib/model/move"
 import { Pokemon } from "@lib/model/pokemon"
 import { Status } from "@lib/model/status"
 import { Target } from "@lib/model/target"
@@ -328,13 +327,23 @@ describe("Calculator Store", () => {
 
       it("should activate Move", () => {
         store.moveOne(defaultId, "Earthquake")
-        store.activateMove(defaultId, new Move("Earthquake"))
+        store.activateMove(defaultId, 0)
 
         expect(store.team().activePokemon().activeMoveName).toBe("Earthquake")
+        expect(store.team().activePokemon().activeMoveIndex).toBe(0)
       })
 
-      it("should throw error when try activate Move that does not exist", () => {
-        expect(() => store.activateMove(defaultId, new Move("Earthquake"))).toThrow(new Error("Move Earthquake does not exist in actual Moveset"))
+      it("should activate moves independently even if they have the same name", () => {
+        store.moveOne(defaultId, "Thunderbolt")
+        store.moveTwo(defaultId, "Thunderbolt")
+
+        store.activateMove(defaultId, 0)
+        expect(store.team().activePokemon().activeMoveIndex).toBe(0)
+        expect(store.team().activePokemon().activeMovePosition).toBe(1)
+
+        store.activateMove(defaultId, 1)
+        expect(store.team().activePokemon().activeMoveIndex).toBe(1)
+        expect(store.team().activePokemon().activeMovePosition).toBe(2)
       })
 
       it("should activate first Move by position", () => {
@@ -860,7 +869,7 @@ const pikachuState: PokemonState = {
   commanderActive: false,
   teraType: "Electric",
   teraTypeActive: true,
-  activeMove: "Thunderbolt",
+  activeMove: 0,
   moveSet: [{ name: "Thunderbolt" }, { name: "Quick Attack" }, { name: "Volt Tackle" }, { name: "Iron Tail" }],
   boosts: { atk: -1, def: -2, spa: 1, spd: 2, spe: 3 },
   bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
@@ -881,7 +890,7 @@ const raichuState: PokemonState = {
   commanderActive: false,
   teraType: "Electric",
   teraTypeActive: true,
-  activeMove: "Thunderbolt",
+  activeMove: 0,
   moveSet: [{ name: "Thunderbolt" }, { name: "Quick Attack" }, { name: "Volt Tackle" }, { name: "Iron Tail" }],
   boosts: { atk: 0, def: 0, spa: 1, spd: 2, spe: 3 },
   bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },

@@ -46,7 +46,7 @@ describe("State Mapper", () => {
       expect(result.commanderActive).toBe(true)
       expect(result.teraType).toBe("Electric")
       expect(result.teraTypeActive).toBe(true)
-      expect(result.activeMove).toBe("Thunderbolt")
+      expect(result.activeMove).toBe(0)
 
       expect(result.moveSet[0].name).toBe("Thunderbolt")
       expect(result.moveSet[1].name).toBe("Quick Attack")
@@ -73,7 +73,7 @@ const pikachuState: PokemonState = {
   commanderActive: true,
   teraType: "Electric",
   teraTypeActive: true,
-  activeMove: "Thunderbolt",
+  activeMove: 0,
   moveSet: [{ name: "Thunderbolt" }, { name: "Quick Attack" }, { name: "Volt Tackle" }, { name: "Iron Tail" }],
   boosts: { atk: -1, def: -2, spa: 1, spd: 2, spe: 3 },
   bonusBoosts: { atk: -1, def: 0, spa: 0, spd: 0, spe: 0 },

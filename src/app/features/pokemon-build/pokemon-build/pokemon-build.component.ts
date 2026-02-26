@@ -225,8 +225,8 @@ export class PokemonBuildComponent {
     this.activeTable.set("evs")
   }
 
-  moveSelectorDisabled(move: string): boolean {
-    return !move || move == this.pokemon().activeMoveName
+  moveSelectorDisabled(index: number): boolean {
+    return this.pokemon().activeMoveIndex !== index
   }
 
   activateMove(position: number) {
@@ -280,7 +280,7 @@ export class PokemonBuildComponent {
     this.blurTimeout = setTimeout(() => {
       if (this.moveDataFilter() != "" && !this.moveWasSelected) {
         this.store.updateMove(this.pokemonId(), this.firstMoveFromList(), position - 1)
-        this.store.activateMoveByPosition(this.pokemonId(), position + 1)
+        this.store.activateMove(this.pokemonId(), position - 1)
       }
 
       this.moveDataFilter.set("")

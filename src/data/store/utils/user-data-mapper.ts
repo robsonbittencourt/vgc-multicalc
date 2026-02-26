@@ -80,7 +80,6 @@ function buildPokemonToUserData(pokemon: PokemonState) {
     status: pokemon.status,
     boosts: pokemon.boosts,
     bonusBoosts: pokemon.bonusBoosts,
-    activeMove: pokemon.activeMove,
     ivs: pokemon.ivs,
     moveSet: [pokemon.moveSet[0].name, pokemon.moveSet[1].name, pokemon.moveSet[2].name, pokemon.moveSet[3].name]
   }
@@ -102,7 +101,7 @@ function buildPokemonState(pokemon: any): PokemonState {
     commanderActive: pokemon.commanderActive,
     teraType: pokemon.teraType,
     teraTypeActive: pokemon.teraTypeActive,
-    activeMove: pokemon.moveSet[0],
+    activeMove: 0,
     moveSet: [{ name: pokemon.moveSet[0] }, { name: pokemon.moveSet[1] }, { name: pokemon.moveSet[2] }, { name: pokemon.moveSet[3] }],
     boosts: pokemon.boosts,
     bonusBoosts: pokemon.bonusBoosts,

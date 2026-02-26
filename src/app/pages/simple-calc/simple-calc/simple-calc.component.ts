@@ -11,7 +11,6 @@ import { DamageCalculatorService } from "@lib/damage-calculator/damage-calculato
 import { DamageResult } from "@lib/damage-calculator/damage-result"
 import { RollLevelConfig } from "@lib/damage-calculator/roll-level-config"
 import { DefensiveEvOptimizerService } from "@lib/ev-optimizer/defensive-ev-optimizer.service"
-import { Move } from "@lib/model/move"
 import { Pokemon } from "@lib/model/pokemon"
 import { Target } from "@lib/model/target"
 import { Stats, SurvivalThreshold } from "@lib/types"
@@ -33,8 +32,8 @@ export class SimpleCalcComponent {
   leftDamageResults = computed(() => this.damageCalculator.calcDamageAllAttacks(this.store.leftPokemon(), this.store.rightPokemon(), this.fieldStore.field(), true))
   rightDamageResults = computed(() => this.damageCalculator.calcDamageAllAttacks(this.store.rightPokemon(), this.store.leftPokemon(), this.fieldStore.field(), false))
 
-  leftDamageResult = computed(() => this.findResultByMove(this.leftDamageResults(), this.store.leftPokemon().activeMoveName))
-  rightDamageResult = computed(() => this.findResultByMove(this.rightDamageResults(), this.store.rightPokemon().activeMoveName))
+  leftDamageResult = computed(() => this.leftDamageResults()[this.store.leftPokemon().activeMoveIndex])
+  rightDamageResult = computed(() => this.rightDamageResults()[this.store.rightPokemon().activeMoveIndex])
 
   leftRollLevel = signal(RollLevelConfig.fromConfigString(this.store.simpleCalcLeftRollLevel()))
   rightRollLevel = signal(RollLevelConfig.fromConfigString(this.store.simpleCalcRightRollLevel()))
@@ -112,14 +111,12 @@ export class SimpleCalcComponent {
     })
   }
 
-  leftMoveActivated(move: string) {
-    const activatedMove = new Move(move)
-    this.store.activateMove(this.store.leftPokemon().id, activatedMove)
+  leftMoveActivated(index: number) {
+    this.store.activateMove(this.store.leftPokemon().id, index)
   }
 
-  rightMoveActivated(move: string) {
-    const activatedMove = new Move(move)
-    this.store.activateMove(this.store.rightPokemon().id, activatedMove)
+  rightMoveActivated(index: number) {
+    this.store.activateMove(this.store.rightPokemon().id, index)
   }
 
   setLeftRollLevel(rollLevel: RollLevelConfig) {
@@ -140,8 +137,8 @@ export class SimpleCalcComponent {
     this.store.changeRightPokemon(pokemon as Pokemon)
   }
 
-  private findResultByMove(damageResults: DamageResult[], moveName: string): DamageResult {
-    return damageResults.find(result => result.move == moveName)!
+  private findResultByIndex(damageResults: DamageResult[], index: number): DamageResult {
+    return damageResults[index]!
   }
 
   handleLeftOptimizeRequest(event: { updateNature: boolean; keepOffensiveEvs: boolean; survivalThreshold: SurvivalThreshold }) {
