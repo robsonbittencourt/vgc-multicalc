@@ -56,6 +56,38 @@
   margin: 1.5em 0.75em 0 0.75em;
 }
 
+.remaining-evs {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1em;
+}
+
+.remaining-info {
+  display: grid;
+  grid-template-columns: calc(62px - 0.5em) 64px;
+  grid-column-gap: 0.7em;
+}
+
+.remaining-label {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.remaining-value {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+}
+
+.remaining-buttons {
+  display: flex;
+  gap: 0.5em;
+  margin-left: auto;
+}
+
 .combo-options {
   display: flex;
   flex-wrap: wrap;

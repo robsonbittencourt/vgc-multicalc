@@ -59,6 +59,7 @@ export class PokemonBuildMobileComponent {
   optimizationApplied = output<void>()
   optimizationDiscarded = output<void>()
   evsCleared = output<void>()
+  MAX_EVS = 508
 
   store = inject(CalculatorStore)
   fieldStore = inject(FieldStore)

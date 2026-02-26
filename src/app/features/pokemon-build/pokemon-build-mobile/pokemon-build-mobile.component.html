@@ -84,21 +84,33 @@
   <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedSpa()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.spa" stat="spa" [reduced]="true" />
   <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedSpd()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.spd" [isOptimized]="isSpdOptimized()" stat="spd" [reduced]="true" />
   <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedSpe()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.spe" stat="spe" [reduced]="true" />
+
+  <div class="remaining-evs">
+    <div class="remaining-info">
+      <div class="remaining-label">Remaining:</div>
+      <div class="remaining-value" data-cy="remaining-evs-mobile">{{ MAX_EVS - pokemon().totalEvs }}</div>
+    </div>
+
+    <div class="remaining-buttons">
+      <button mat-flat-button (click)="clearEvs()" data-cy="clear-evs-mobile">Clear EVs</button>
+      @if ((menuStore.manyVsOneActivated() || menuStore.oneVsOneActivated()) && (!optimizedEvs() || !isOptimizationValid()) && !hasNoSolution() && !isSolutionNotNeeded()) {
+        <button mat-flat-button (click)="optimizeEvs()" data-cy="optimize-evs-mobile">Optimize Bulk</button>
+      }
+      @if (optimizedEvs() && isOptimizationValid() && !hasNoSolution() && !isSolutionNotNeeded()) {
+        <button mat-flat-button (click)="applyOptimization()" data-cy="apply-optimization-mobile">Apply</button>
+        <button mat-flat-button (click)="discardOptimization()" data-cy="discard-optimization-mobile">Discard</button>
+      }
+    </div>
+  </div>
 </div>
 
 <div class="ev-buttons">
-  <button mat-flat-button (click)="clearEvs()" data-cy="clear-evs-mobile">Clear EVs</button>
   @if ((menuStore.manyVsOneActivated() || menuStore.oneVsOneActivated()) && (!optimizedEvs() || !isOptimizationValid()) && !hasNoSolution() && !isSolutionNotNeeded()) {
-    <button mat-flat-button (click)="optimizeEvs()" data-cy="optimize-evs-mobile">Optimize Bulk</button>
     <div class="checkbox-group">
       <mat-checkbox [(ngModel)]="updateNature" data-cy="update-nature-checkbox-mobile">Update Nature</mat-checkbox>
       <mat-checkbox [(ngModel)]="keepOffensiveEvs" data-cy="keep-offensive-evs-checkbox-mobile">Keep Offensive EVs</mat-checkbox>
       <app-input-select [(value)]="survivalThreshold" [allValues]="thresholdOptions" />
     </div>
-  }
-  @if (optimizedEvs() && isOptimizationValid() && !hasNoSolution() && !isSolutionNotNeeded()) {
-    <button mat-flat-button (click)="applyOptimization()" data-cy="apply-optimization-mobile">Apply</button>
-    <button mat-flat-button (click)="discardOptimization()" data-cy="discard-optimization-mobile">Discard</button>
   }
 
   @if (hasNoSolution()) {
