@@ -1,5 +1,5 @@
 import { CdkDragDrop, CdkDropList, CdkDropListGroup } from "@angular/cdk/drag-drop"
-import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, inject, input, output, signal } from "@angular/core"
+import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, effect, inject, input, output, signal } from "@angular/core"
 import { MatButton } from "@angular/material/button"
 import { MatSlideToggle } from "@angular/material/slide-toggle"
 import { InputAutocompleteComponent } from "@app/basic/input-autocomplete/input-autocomplete.component"
@@ -45,6 +45,14 @@ export class TargetPokemonComponent {
 
   regulation = signal<Regulation>(this.store.targetMetaRegulation() ?? "F")
   rollLevelConfig = signal(RollLevelConfig.fromConfigString(this.store.multiCalcRollLevel()))
+
+  constructor() {
+    effect(() => {
+      const level = this.isAttacker() ? this.store.manyVsTeamRollLevel() : this.store.multiCalcRollLevel()
+      this.rollLevelConfig.set(RollLevelConfig.fromConfigString(level))
+    })
+  }
+
   cardsFilter = signal("")
 
   title = computed(() => (this.isAttacker() ? "Opponent Attackers" : "Opponent Defenders"))
@@ -196,7 +204,12 @@ export class TargetPokemonComponent {
   handleRollLevelChange(rollLevel: RollLevelConfig) {
     this.rollLevelConfig.set(rollLevel)
     this.rollLevelChange.emit(rollLevel)
-    this.store.updateMultiCalcRollLevel(rollLevel.toConfigString())
+
+    if (this.isAttacker()) {
+      this.store.updateManyVsTeamRollLevel(rollLevel.toConfigString())
+    } else {
+      this.store.updateMultiCalcRollLevel(rollLevel.toConfigString())
+    }
   }
 
   private findTarget(pokemonId: string): Target {

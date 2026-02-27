@@ -790,7 +790,8 @@ describe("Calculator Store", () => {
           targetMetaRegulation: "H" as Regulation,
           simpleCalcLeftRollLevel: "low",
           simpleCalcRightRollLevel: "medium",
-          multiCalcRollLevel: "high"
+          multiCalcRollLevel: "high",
+          manyVsTeamRollLevel: "low"
         }
 
         store.updateStateLockingLocalStorage(state)
@@ -853,6 +854,12 @@ describe("Calculator Store", () => {
         store.updateMultiCalcRollLevel("low")
 
         expect(store.multiCalcRollLevel()).toBe("low")
+      })
+
+      it("should update manyVsTeamRollLevel", () => {
+        store.updateManyVsTeamRollLevel("medium")
+
+        expect(store.manyVsTeamRollLevel()).toBe("medium")
       })
     })
   })

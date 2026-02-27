@@ -13,7 +13,8 @@ export function buildUserData(
   targetMetaRegulation: Regulation | undefined,
   simpleCalcLeftRollLevel: string,
   simpleCalcRightRollLevel: string,
-  multiCalcRollLevel: string
+  multiCalcRollLevel: string,
+  manyVsTeamRollLevel: string
 ) {
   return {
     speedCalcPokemon: buildPokemonToUserData(speedCalcPokemon),
@@ -46,7 +47,8 @@ export function buildUserData(
     targetMetaRegulation: targetMetaRegulation,
     simpleCalcLeftRollLevel: simpleCalcLeftRollLevel,
     simpleCalcRightRollLevel: simpleCalcRightRollLevel,
-    multiCalcRollLevel: multiCalcRollLevel
+    multiCalcRollLevel: multiCalcRollLevel,
+    manyVsTeamRollLevel: manyVsTeamRollLevel
   }
 }
 
@@ -62,7 +64,8 @@ export function buildState(userData: any): CalculatorState {
     targetMetaRegulation: userData.targetMetaRegulation as Regulation,
     simpleCalcLeftRollLevel: userData.simpleCalcLeftRollLevel ?? "high",
     simpleCalcRightRollLevel: userData.simpleCalcRightRollLevel ?? "high",
-    multiCalcRollLevel: userData.multiCalcRollLevel ?? "high"
+    multiCalcRollLevel: userData.multiCalcRollLevel ?? "high",
+    manyVsTeamRollLevel: userData.manyVsTeamRollLevel ?? "high"
   }
 }
 

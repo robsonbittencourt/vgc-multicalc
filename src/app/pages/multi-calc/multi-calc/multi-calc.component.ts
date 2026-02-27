@@ -43,7 +43,10 @@ export class MultiCalcComponent implements OnInit {
   damageResults = computed(() => this.damageCalculator.calculateDamageForAll(this.activeAttacker(), this.store.targets(), this.fieldStore.field(), this.order(), this.activeSecondAttacker()))
 
   teamComponent = viewChild<TeamComponent>("teamComponent")
-  rollLevelConfig = signal(RollLevelConfig.high())
+  rollLevelConfig = computed(() => {
+    const level = this.menuStore.manyVsOneActivated() ? this.store.manyVsTeamRollLevel() : this.store.multiCalcRollLevel()
+    return RollLevelConfig.fromConfigString(level)
+  })
 
   lastHandledPokemonNameFirst = ""
   lastHandledAbilityNameFirst = ""

@@ -436,6 +436,7 @@ function defaultState() {
     targetMetaRegulation: undefined,
     simpleCalcLeftRollLevel: "high",
     simpleCalcRightRollLevel: "high",
-    multiCalcRollLevel: "high"
+    multiCalcRollLevel: "high",
+    manyVsTeamRollLevel: "high"
   }
 }

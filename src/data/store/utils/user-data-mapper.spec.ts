@@ -22,7 +22,7 @@ describe("User Data Mapper", () => {
         }
       ]
 
-      const result = buildUserData(speedCalcPokemon, speedCalcPokemon, speedCalcPokemon, teams, targets, "F", "high", "medium", "low")
+      const result = buildUserData(speedCalcPokemon, speedCalcPokemon, speedCalcPokemon, teams, targets, "F", "high", "medium", "low", "high")
 
       expect(result.speedCalcPokemon.name).toBe("Pikachu")
       expect(result.speedCalcPokemon.nature).toBe("Timid")
@@ -58,7 +58,7 @@ describe("User Data Mapper", () => {
         }
       ]
 
-      const result = buildUserData(leftPokemon, leftPokemon, leftPokemon, teams, targets, "F", "high", "medium", "low")
+      const result = buildUserData(leftPokemon, leftPokemon, leftPokemon, teams, targets, "F", "high", "medium", "low", "high")
 
       expect(result.leftPokemon.name).toBe("Pikachu")
       expect(result.leftPokemon.nature).toBe("Timid")
@@ -94,7 +94,7 @@ describe("User Data Mapper", () => {
         }
       ]
 
-      const result = buildUserData(rightPokemon, rightPokemon, rightPokemon, teams, targets, "F", "high", "medium", "low")
+      const result = buildUserData(rightPokemon, rightPokemon, rightPokemon, teams, targets, "F", "high", "medium", "low", "high")
 
       expect(result.rightPokemon.name).toBe("Pikachu")
       expect(result.rightPokemon.nature).toBe("Timid")
@@ -143,7 +143,7 @@ describe("User Data Mapper", () => {
         }
       ]
 
-      const result = buildUserData(teamPokemonOne, teamPokemonOne, teamPokemonOne, teams, targets, "F", "high", "medium", "low")
+      const result = buildUserData(teamPokemonOne, teamPokemonOne, teamPokemonOne, teams, targets, "F", "high", "medium", "low", "high")
 
       expect(result.teams[0].active).toBeTrue()
       expect(result.teams[0].name).toBe("Team 1")
@@ -180,7 +180,7 @@ describe("User Data Mapper", () => {
         }
       ]
 
-      const result = buildUserData(targetOne, targetOne, targetOne, teams, targets, "F", "high", "medium", "low")
+      const result = buildUserData(targetOne, targetOne, targetOne, teams, targets, "F", "high", "medium", "low", "high")
 
       expect(result.targets.length).toBe(2)
       expect(result.targets[0].pokemon.name).toBe("Pikachu")
@@ -189,11 +189,12 @@ describe("User Data Mapper", () => {
     })
 
     it("should build user data for roll levels", () => {
-      const result = buildUserData(pikachuState, pikachuState, pikachuState, [], [], "F", "low", "medium", "high")
+      const result = buildUserData(pikachuState, pikachuState, pikachuState, [], [], "F", "low", "medium", "high", "medium")
 
       expect(result.simpleCalcLeftRollLevel).toBe("low")
       expect(result.simpleCalcRightRollLevel).toBe("medium")
       expect(result.multiCalcRollLevel).toBe("high")
+      expect(result.manyVsTeamRollLevel).toBe("medium")
     })
   })
 
@@ -446,6 +447,7 @@ describe("User Data Mapper", () => {
       expect(result.simpleCalcLeftRollLevel).toBe("medium")
       expect(result.simpleCalcRightRollLevel).toBe("low")
       expect(result.multiCalcRollLevel).toBe("high")
+      expect(result.manyVsTeamRollLevel).toBe("high")
     })
 
     it("should build default roll levels in CalculatorState when not present in user data", () => {

@@ -67,6 +67,7 @@ export type CalculatorState = {
   simpleCalcLeftRollLevel: string
   simpleCalcRightRollLevel: string
   multiCalcRollLevel: string
+  manyVsTeamRollLevel: string
 }
 
 @Injectable({ providedIn: "root" })
@@ -86,7 +87,8 @@ export class CalculatorStore extends signalStore(
             store.targetMetaRegulation(),
             store.simpleCalcLeftRollLevel(),
             store.simpleCalcRightRollLevel(),
-            store.multiCalcRollLevel()
+            store.multiCalcRollLevel(),
+            store.manyVsTeamRollLevel()
           )
           const actualStorage = JSON.parse(localStorage.getItem("userData")!)
 
@@ -401,6 +403,10 @@ export class CalculatorStore extends signalStore(
     patchState(this, () => ({ multiCalcRollLevel }))
   }
 
+  updateManyVsTeamRollLevel(manyVsTeamRollLevel: string) {
+    patchState(this, () => ({ manyVsTeamRollLevel }))
+  }
+
   removeAllTargets() {
     patchState(this, () => ({ targetsState: [] }))
   }
@@ -454,7 +460,8 @@ export class CalculatorStore extends signalStore(
       this.targetMetaRegulation(),
       this.simpleCalcLeftRollLevel(),
       this.simpleCalcRightRollLevel(),
-      this.multiCalcRollLevel()
+      this.multiCalcRollLevel(),
+      this.manyVsTeamRollLevel()
     )
   }
 
