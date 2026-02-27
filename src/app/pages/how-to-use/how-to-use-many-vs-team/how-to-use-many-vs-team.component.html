@@ -1,0 +1,46 @@
+<app-how-to-use-subpage title="Many vs Team" (back)="onBack()">
+  <p>The Many vs Team view is designed to evaluate your Pokémon's defensive durability against multiple threats. It reverses the perspective of the classic damage calc to see how your defensive core holds up against the meta.</p>
+
+  <div class="subsection">
+    <figure class="section-figure">
+      <img class="section-image" src="assets/media/how-to-use/many-vs-team/many-vs-team.png" alt="Many vs Team preview" />
+      <figcaption>Evaluating your Pokémon's defensive durability against multiple threats.</figcaption>
+    </figure>
+    <p>This view calculates multiple attackers (the "Many") against your specific Pokémon (the "Team").</p>
+
+    <ul class="subsection-list">
+      <li><strong>Defensive Benchmarking:</strong> Test how your Pokémon holds up against the most common offensive threats in the format.</li>
+      <li><strong>Combined Attackers:</strong> Simulate joint attacks from the opponent by adding a second attacker to a target, allowing you to test your Pokémon's survival against doubles pressure.</li>
+      <li><strong>Threat Prioritization:</strong> Quickly identify which opposing Pokémon are most dangerous to your specific defensive core.</li>
+    </ul>
+
+    <div class="callout">
+      <mat-icon>drag_indicator</mat-icon>
+      <div class="callout-content">
+        <p><strong>Combined Attackers (Drag & Drop):</strong> You can simulate a joint attack from the opponent by simply clicking and dragging one Pokémon card onto another in the list to combine their damage.</p>
+      </div>
+    </div>
+
+    <figure class="section-figure">
+      <img class="section-image" src="assets/media/how-to-use/many-vs-team/combined-attackers.png" alt="Drag and drop preview" />
+      <figcaption>Dragging attackers to combine damage and evaluate defensive survival against multiple hits.</figcaption>
+    </figure>
+  </div>
+
+  <div class="subsection">
+    <h3 class="subsection-title">Core Features</h3>
+    <div class="callout">
+      <mat-icon>calculate</mat-icon>
+      <div class="callout-content">
+        <p><strong>Mass Calculation:</strong> Every change you make to moves, items, or field conditions is instantly recalculated for every single target in the list, giving you immediate feedback on your tactical adjustments.</p>
+      </div>
+    </div>
+
+    <ul class="subsection-list columns-2">
+      <li><strong>Dynamic Reordering:</strong> Use the <strong>Order by Damage</strong> button to automatically sort attackers by the percentage of damage they deal. This helps you focus on the most dangerous threats first.</li>
+      <li><strong>Add Meta:</strong> Use the <strong>Add Meta</strong> button to instantly load common attackers and top offensive threats from the current competitive format.</li>
+      <li><strong>Roll Configuration:</strong> Standardize your defensive checks by selecting specific damage rolls. Toggle between Max, High, or Low rolls to see your Pokémon's survivability range.</li>
+      <li><strong>Quick Interaction:</strong> Click on any result in the list to open that specific matchup for fine-tuning or secondary calculation.</li>
+    </ul>
+  </div>
+</app-how-to-use-subpage>

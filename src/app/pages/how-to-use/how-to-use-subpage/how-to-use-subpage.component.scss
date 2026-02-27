@@ -81,9 +81,11 @@
         margin: 1.5rem 0 2.5rem;
 
         .section-image {
-          width: 100%;
+          max-width: 100%;
+          width: auto;
+          display: block;
+          margin: 0 auto;
           border-radius: 12px;
-          margin: 0;
           box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
           border: 1px solid var(--widget-border);
         }

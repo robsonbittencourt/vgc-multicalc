@@ -1,0 +1,83 @@
+<app-how-to-use-subpage title="Type Calc" (back)="onBack()">
+  <p>
+    The Type Calc is an essential tool for understanding the tactical relationship between your Pokémon and an opponent's team. It provides a comprehensive breakdown of <strong>Offensive Coverage</strong> and
+    <strong>Defensive Vulnerabilities</strong>, helping you identify exactly where your team excels and where it might be exposed.
+  </p>
+
+  <div class="subsection">
+    <h3 class="subsection-title">Matchup Analysis</h3>
+    <figure class="section-figure">
+      <img class="section-image" src="assets/media/how-to-use/type-calc/type-calc.png" alt="Type Calc preview" />
+      <figcaption>The Type Calc analyzing interactions against an opposing team.</figcaption>
+    </figure>
+    <p>
+      Unlike a simple type chart, this tool evaluates interactions based on specific matchups. By selecting or importing an opponent's team, you can see how your active Pokémon's types and entire movepool perform against their specific composition.
+    </p>
+
+    <div class="callout">
+      <mat-icon>info</mat-icon>
+      <div class="callout-content">
+        <p><strong>Dynamic Insights:</strong> The calc updates in real-time as you switch Pokémon or change movesets, allowing you to instantly test different coverage options for your team.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <mat-icon>mouse</mat-icon>
+      <div class="callout-content">
+        <p>
+          <strong>Advanced Selection:</strong> You can select a primary target team by clicking it normally. To analyze a <strong>second team</strong> simultaneously, hold the <strong>Ctrl key</strong> (or Cmd on Mac) while clicking on another team.
+          This combines the insights, helping you visualize your team's overall coverage against multiple threats at once.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="subsection">
+    <h3 class="subsection-title">Offensive Coverage</h3>
+    <p>This section analyzes your ability to deal significant damage across the type chart:</p>
+
+    <ul class="subsection-list">
+      <li><strong>Super Effective Coverage:</strong> Identifies which elemental types are weak to at least one of your team's current moves.</li>
+      <li><strong>Move Efficiency:</strong> Shows the effectiveness of your primary attacks against each specific type.</li>
+      <li><strong>Coverage Gaps:</strong> Helps you spot elemental types that your current team cannot hit for neutral or super-effective damage.</li>
+    </ul>
+
+    <figure class="section-figure">
+      <img class="section-image" src="assets/media/how-to-use/type-calc/offensive-coverage.png" alt="Offensive Coverage preview" />
+      <figcaption>Analyzing your team's offensive pressure across different types.</figcaption>
+    </figure>
+  </div>
+
+  <div class="subsection">
+    <h3 class="subsection-title">Defensive Coverage</h3>
+    <p>Understand your team's survivability by analyzing its defensive profile against all types:</p>
+
+    <ul class="subsection-list">
+      <li><strong>Incoming Threats:</strong> Lists which types deal super-effective damage to your active Pokémon or team members.</li>
+      <li><strong>Resistances & Immunities:</strong> Highlights your defensive strengths by showing which types you can safely switch into.</li>
+      <li><strong>Type Synergy:</strong> Evaluates how well your team's typings complement each other to cover shared weaknesses.</li>
+    </ul>
+
+    <figure class="section-figure">
+      <img class="section-image" src="assets/media/how-to-use/type-calc/defensive-coverage.png" alt="Defensive Coverage preview" />
+      <figcaption>Visualizing defensive vulnerabilities and shared resistances.</figcaption>
+    </figure>
+  </div>
+
+  <div class="subsection">
+    <h3 class="subsection-title">Coverage Insights</h3>
+    <p>Get a quick summary of the overall matchup:</p>
+
+    <ul class="subsection-list columns-2">
+      <li><strong>Weakness Summary:</strong> Aggregated data on your most frequent vulnerabilities.</li>
+      <li><strong>Resistance Summary:</strong> A count of how many hits you resist or are immune to across their team.</li>
+      <li><strong>Matchup Rating:</strong> A visual indicator of how favorable the overall type matchup is for your active Pokémon.</li>
+      <li><strong>Team Support:</strong> Suggestions on which teammates might best pair with your Pokémon to cover its specific defensive weaknesses.</li>
+    </ul>
+
+    <figure class="section-figure">
+      <img class="section-image" src="assets/media/how-to-use/type-calc/coverage-insights.png" alt="Coverage Insights preview" />
+      <figcaption>Summary of the overall matchup favorable and weak points.</figcaption>
+    </figure>
+  </div>
+</app-how-to-use-subpage>

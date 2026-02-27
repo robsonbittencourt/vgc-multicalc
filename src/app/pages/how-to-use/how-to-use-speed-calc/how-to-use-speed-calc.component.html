@@ -1,0 +1,72 @@
+<app-how-to-use-subpage title="Speed Calc" (back)="onBack()">
+  <p>
+    The Speed Calc is a precision tool designed to manage the most critical stat in VGC: <strong>Speed</strong>. It allows you to visualize exactly where your Pokémon stands in the initiative order against the entire opposing team and the broader
+    competitive meta.
+  </p>
+
+  <div class="subsection">
+    <h3 class="subsection-title">Speed Tiers</h3>
+    <figure class="section-figure">
+      <img class="section-image" src="assets/media/how-to-use/speed-calc/speed-calc-tiers.png" alt="Speed Calc preview" />
+      <figcaption>Visualizing speed tiers and turn order against the opposing team.</figcaption>
+    </figure>
+    <p>Turn order can decide the outcome of a match. This tool automatically calculates your Pokémon's effective speed, factoring in items, abilities, and field conditions, and compares it directly with the speed stats of your opponent's Pokémon.</p>
+
+    <div class="callout">
+      <mat-icon>timer</mat-icon>
+      <div class="callout-content">
+        <p>
+          <strong>Effective Speed:</strong> The calc doesn't just look at base stats; it applies multipliers from abilities (like Swift Swim or Quark Drive), items (like Choice Scarf), and status conditions (like Paralysis) to give you the exact
+          number used in-game.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="subsection">
+    <h3 class="subsection-title">Filters & Custom Benchmarks</h3>
+    <figure class="section-figure">
+      <img class="section-image" src="assets/media/how-to-use/speed-calc/speed-calc-filters.png" alt="Speed Calc filters preview" />
+      <figcaption>Filtering the speed tiers by Regulation, Meta threats, or specific Pokémon.</figcaption>
+    </figure>
+    <p>Customize your comparison list to focus on what matters most for your current match or team building session:</p>
+
+    <ul class="subsection-list">
+      <li><strong>By Regulation:</strong> Filter the speed list to only show Pokémon that are legal in the specific VGC Regulation you are playing.</li>
+      <li><strong>By Meta:</strong> Focus on the most frequent threats by showing only the top-tier Pokémon currently dominating the competitive scene.</li>
+      <li><strong>By Pokémon:</strong> Search for specific Pokémon to see exactly how your active member compares to their speed tiers across different builds.</li>
+    </ul>
+  </div>
+
+  <div class="subsection">
+    <h3 class="subsection-title">Dynamic Field Modifiers</h3>
+    <p>Speed is fluid and changes constantly during a battle. Use the integrated field controls to simulate various scenarios:</p>
+
+    <ul class="subsection-list">
+      <li><strong>Tailwind:</strong> Instantly see how doubling your speed (or your opponent's) flips the initiative.</li>
+      <li><strong>Trick Room:</strong> Reverses the speed list, highlighting which slow Pokémon will move first under this dimension.</li>
+      <li><strong>Icy Wind & Electroweb:</strong> Simulate speed drops to find the exact point where you outspeed a target after a reduction.</li>
+    </ul>
+
+    <figure class="section-figure">
+      <img class="section-image" src="assets/media/how-to-use/speed-calc/speed-calc-opponent-options.png" alt="Speed Calc field modifiers preview" />
+      <figcaption>Simulating field conditions like Icy Wind and Paralysis to see their impact on speed tiers.</figcaption>
+    </figure>
+  </div>
+
+  <div class="subsection">
+    <h3 class="subsection-title">Speed Insights</h3>
+    <figure class="section-figure">
+      <img class="section-image" src="assets/media/how-to-use/speed-calc/speed-calc-insights.png" alt="Speed Insights preview" />
+      <figcaption>Detailed breakdown of speed thresholds and required investments.</figcaption>
+    </figure>
+    <p>Beyond simple comparisons, the insights panel helps you optimize your EV spread:</p>
+
+    <ul class="subsection-list columns-2">
+      <li><strong>Outspeed Targets:</strong> Identifies which specific Pokémon you outspeed and which ones you trail.</li>
+      <li><strong>Investment Efficiency:</strong> Shows you exactly how many EVs are needed to reach specific speed benchmarks (e.g., "Outspeeding Max Speed Calyrex-S").</li>
+      <li><strong>Booster Energy Calc:</strong> Calculates the necessary investment to ensure Speed is your highest stat for Paradox Pokémon abilities.</li>
+      <li><strong>Choice Scarf Usage:</strong> Displays the percentage of players using Choice Scarf on specific Pokémon and the resulting speed tier they reach.</li>
+    </ul>
+  </div>
+</app-how-to-use-subpage>

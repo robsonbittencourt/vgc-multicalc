@@ -63,10 +63,14 @@
 
   .card-hero-image {
     width: 100%;
-    height: 180px;
-    object-fit: cover;
-    object-position: top;
+    height: auto;
+    max-height: 220px;
+    object-fit: contain;
+    object-position: center;
+    background-color: var(--widget-background);
     margin: 0;
+    display: block;
+    box-sizing: border-box;
     border-bottom: 1px solid var(--widget-border);
   }
 
@@ -122,10 +126,6 @@
   }
 
   .how-to-card {
-    .card-hero-image {
-      height: 140px;
-    }
-
     mat-card-header {
       padding: 1.25rem 1rem 0.5rem;
     }

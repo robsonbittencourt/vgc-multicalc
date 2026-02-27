@@ -1,0 +1,51 @@
+<app-how-to-use-subpage title="Team vs Many" (back)="onBack()">
+  <p>
+    The Team vs Many is designed to perform aggregate damage calculations, allowing you to visualize how one or more Pokémon from your team interact with a group of targets. It is the ultimate tool for evaluating broad team matchups against the meta.
+  </p>
+
+  <div class="subsection">
+    <figure class="section-figure">
+      <img class="section-image" src="assets/media/how-to-use/team-vs-many/team-vs-many.png" alt="Team vs Many preview" />
+      <figcaption>Analyzing your Pokémon's offensive potential against several targets.</figcaption>
+    </figure>
+    <p>In this view, you select one or two attackers from your team to face off against a list of multiple targets (usually the opposing team).</p>
+
+    <ul class="subsection-list">
+      <li><strong>Offensive Testing:</strong> See at a glance if your active Pokémon can 1HKO or 2HKO the entire opposing team.</li>
+      <li><strong>Double Targeting:</strong> Add a second attacker to simulate how two of your Pokémon combine their damage against each target.</li>
+      <li><strong>Coverage Analysis:</strong> Identify which targets your current offensive setup struggles to break through.</li>
+    </ul>
+
+    <div class="callout">
+      <mat-icon>group_add</mat-icon>
+      <div class="callout-content">
+        <p><strong>Combined Damage:</strong> You can simulate a joint attack by selecting two Pokémon from your team. Hold <strong>Ctrl</strong> while clicking the second Pokémon, or use the <strong>Combined Damage</strong> button in the UI.</p>
+      </div>
+    </div>
+
+    <figure class="section-figure">
+      <img class="section-image" src="assets/media/how-to-use/team-vs-many/team-vs-many-combined-damage.png" alt="Combined Damage preview" />
+      <figcaption>Simulating the total damage of two attackers against the target field.</figcaption>
+    </figure>
+  </div>
+
+  <div class="subsection">
+    <h3 class="subsection-title">Core Features</h3>
+    <div class="callout">
+      <mat-icon>calculate</mat-icon>
+      <div class="callout-content">
+        <p><strong>Mass Calculation:</strong> Every change you make to moves, items, or field conditions is instantly recalculated for every single target in the list, giving you immediate feedback on your tactical adjustments.</p>
+      </div>
+    </div>
+
+    <ul class="subsection-list columns-2">
+      <li>
+        <strong>Dynamic Reordering:</strong> Use the <strong>Order by Damage</strong> button to automatically sort targets by the percentage of damage they take. This brings the most relevant interactions, such as guaranteed KOs, to the top of the
+        list.
+      </li>
+      <li><strong>Add Meta:</strong> Use the <strong>Add Meta</strong> button to instantly load common teams and top threats from the current competitive format, saving you from manual entry.</li>
+      <li><strong>Roll Configuration:</strong> Customize your calculations by selecting specific damage rolls. You can toggle between different roll levels (like Max, High, or Low) to see how damage varies across all targets.</li>
+      <li><strong>Quick Interaction:</strong> Click on any result in the list to open that specific matchup for fine-tuning or secondary calculation.</li>
+    </ul>
+  </div>
+</app-how-to-use-subpage>

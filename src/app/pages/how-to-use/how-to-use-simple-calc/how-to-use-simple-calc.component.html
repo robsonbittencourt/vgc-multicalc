@@ -1,0 +1,56 @@
+<app-how-to-use-subpage title="One vs One" (back)="onBack()">
+  <p>The <strong>One vs One</strong> tool is the fundamental calculation mode for detailed Pokémon matchups. It provides a side-by-side comparison of two specific Pokémon, allowing you to analyze every variable of a single combat interaction.</p>
+
+  <div class="subsection">
+    <h3 class="subsection-title">Side-by-Side Analysis</h3>
+    <figure class="section-figure">
+      <img class="section-image" src="assets/media/how-to-use/one-vs-one/one-vs-one.png" alt="One vs One preview" />
+      <figcaption>Comparing damage results and Pokémon builds for both sides.</figcaption>
+    </figure>
+    <p>Unlike other modes, One vs One gives equal focus to both the attacker and the defender. This dual-view allows you to quickly see how much damage Pokémon A does to Pokémon B, and simultaneously how much Pokémon B deals back to Pokémon A.</p>
+
+    <div class="callout">
+      <mat-icon>compare_arrows</mat-icon>
+      <div class="callout-content">
+        <p><strong>Interactive Results:</strong> Change a move or an item on one side, and the damage results for both Pokémon are instantly updated to reflect the new state of the battle.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="subsection">
+    <h3 class="subsection-title">Damage & Rolls</h3>
+    <p>Get the exact probability of every hit:</p>
+
+    <ul class="subsection-list">
+      <li><strong>Roll Breakdown:</strong> View all 16 possible damage rolls to understand your chances of getting a Knock Out.</li>
+      <li><strong>KO Chances:</strong> Detailed percentages for 1HKO, 2HKO, and beyond, factoring in HP, Defense, and Item effects.</li>
+      <li><strong>Roll Selection:</strong> Toggle between Minimum, Maximum, and Average rolls to plan for the worst or best-case scenarios.</li>
+    </ul>
+  </div>
+
+  <div class="subsection">
+    <h3 class="subsection-title">Customization</h3>
+    <figure class="section-figure">
+      <img class="section-image" src="assets/media/how-to-use/one-vs-one/customization.png" alt="Pokemon Build preview" />
+      <figcaption>Fine-tuning every aspect of your Pokémon's stats and mechanics.</figcaption>
+    </figure>
+    <p>The build panels allow you to modify every detail of the combatants:</p>
+
+    <ul class="subsection-list columns-2">
+      <li><strong>Stat Management:</strong> Adjust EVs, IVs, and Level to see how tiny stat changes impact survival, with modified stats clearly presented.</li>
+      <li><strong>Abilities & Items:</strong> Toggle specific offensive and defensive triggers like Choice Band or Multiscale.</li>
+      <li><strong>Tera Types:</strong> Simulate the impact of Terastalization on both damage output and defensive resistances.</li>
+      <li><strong>Status & Modifiers:</strong> Apply Stat Drops or Status conditions (Burn, Paralysis) to see their effect on damage.</li>
+    </ul>
+  </div>
+
+  <div class="subsection">
+    <h3 class="subsection-title">Field</h3>
+    <p>The environment affects both Pokémon equally in this mode. Weather, Terrain, and active Screens are applied to both the left and right sides, ensuring your calculations always respect the current game state.</p>
+
+    <figure class="section-figure">
+      <img class="section-image" src="assets/media/how-to-use/one-vs-one/field.png" alt="Field Settings preview" />
+      <figcaption>Applying environmental factors that influence both Pokémon.</figcaption>
+    </figure>
+  </div>
+</app-how-to-use-subpage>

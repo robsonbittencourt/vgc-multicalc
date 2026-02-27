@@ -2,7 +2,7 @@
   @if (activePage() === "menu") {
     <div class="cards-grid">
       <mat-card class="how-to-card elevation" (click)="setActivePage('video')">
-        <img mat-card-image src="assets/media/cards/youtube-video.png" alt="Video cover image" class="card-hero-image" />
+        <img mat-card-image src="assets/media/how-to-use/menu/youtube-video.png" alt="Video cover image" class="card-hero-image" />
         <mat-card-header>
           <mat-card-title>Video Tutorial</mat-card-title>
         </mat-card-header>
@@ -11,23 +11,93 @@
         </mat-card-content>
       </mat-card>
 
-      <mat-card class="how-to-card elevation" (click)="setActivePage('probability')">
-        <img mat-card-image src="assets/media/cards/probability-calc.png" alt="Probability calculator preview" class="card-hero-image" />
+      <mat-card class="how-to-card elevation" (click)="setActivePage('simpleCalc')">
+        <img mat-card-image src="assets/media/how-to-use/menu/one-vs-one-card.png" alt="One vs One preview" class="card-hero-image" />
         <mat-card-header>
-          <mat-card-title>Probability Calculator</mat-card-title>
+          <mat-card-title>One vs One</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>The classic damage calc for detailed side-by-side analysis of specific Pokémon matchups.</p>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="how-to-card elevation" (click)="setActivePage('teamVsMany')">
+        <img mat-card-image src="assets/media/how-to-use/menu/team-vs-many-card.png" alt="Team vs Many preview" class="card-hero-image" />
+        <mat-card-header>
+          <mat-card-title>Team vs Many</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Analyze your Pokémon's offensive potential against several targets at once.</p>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="how-to-card elevation" (click)="setActivePage('manyVsTeam')">
+        <img mat-card-image src="assets/media/how-to-use/menu/many-vs-team-card.png" alt="Many vs Team preview" class="card-hero-image" />
+        <mat-card-header>
+          <mat-card-title>Many vs Team</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Evaluate your Pokémon's defensive durability against multiple threats.</p>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="how-to-card elevation" (click)="setActivePage('import')">
+        <img mat-card-image src="assets/media/how-to-use/menu/import-data.png" alt="Import Data preview" class="card-hero-image" />
+        <mat-card-header>
+          <mat-card-title>Import Data</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Learn how to quickly bring Pokémon and teams from Showdown and PokePaste into the tool.</p>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="how-to-card elevation" (click)="setActivePage('export')">
+        <img mat-card-image src="assets/media/how-to-use/menu/export-data.png" alt="Export & Share preview" class="card-hero-image" />
+        <mat-card-header>
+          <mat-card-title>Export Data</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Save your spreads in Showdown format or share your entire analysis with a single link.</p>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="how-to-card elevation" (click)="setActivePage('evOptimization')">
+        <img mat-card-image src="assets/media/how-to-use/menu/ev-optimizer.png" alt="EV Optimization preview" class="card-hero-image" />
+        <mat-card-header>
+          <mat-card-title>EV Optimization</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Learn how the tool calculates the absolute minimum defensive EVs to guarantee survival.</p>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="how-to-card elevation" (click)="setActivePage('speedCalc')">
+        <img mat-card-image src="assets/media/how-to-use/menu/speed-calc.png" alt="Speed Calc preview" class="card-hero-image" />
+        <mat-card-header>
+          <mat-card-title>Speed Calc</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Master the initiative order by visualizing speed tiers and effective speed modifiers like Tailwind and Trick Room.</p>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="how-to-card elevation" (click)="setActivePage('probability')">
+        <img mat-card-image src="assets/media/how-to-use/menu/probability-calc.png" alt="Probability Calc preview" class="card-hero-image" />
+        <mat-card-header>
+          <mat-card-title>Probability Calc</mat-card-title>
         </mat-card-header>
         <mat-card-content>
           <p>Learn how to use the Consistency Score and analyze move success probabilities for your team.</p>
         </mat-card-content>
       </mat-card>
 
-      <mat-card class="how-to-card elevation" (click)="setActivePage('evOptimization')">
-        <img mat-card-image src="assets/media/cards/probability-calc.png" alt="EV Optimization preview" class="card-hero-image" />
+      <mat-card class="how-to-card elevation" (click)="setActivePage('typeCalc')">
+        <img mat-card-image src="assets/media/how-to-use/menu/type-calc-card.png" alt="Type Calc preview" class="card-hero-image" />
         <mat-card-header>
-          <mat-card-title>EV Optimization</mat-card-title>
+          <mat-card-title>Type Calc</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <p>Learn how the tool calculates the absolute minimum defensive EVs to guarantee survival.</p>
+          <p>Analyze offensive and defensive type coverage against specific teams to identify your party's strengths and weaknesses.</p>
         </mat-card-content>
       </mat-card>
     </div>
@@ -37,5 +107,19 @@
     <app-how-to-use-probability (back)="setActivePage('menu')" />
   } @else if (activePage() === "evOptimization") {
     <app-how-to-use-ev-optimization (back)="setActivePage('menu')" />
+  } @else if (activePage() === "typeCalc") {
+    <app-how-to-use-type-calc (back)="setActivePage('menu')" />
+  } @else if (activePage() === "speedCalc") {
+    <app-how-to-use-speed-calc (back)="setActivePage('menu')" />
+  } @else if (activePage() === "teamVsMany") {
+    <app-how-to-use-team-vs-many (back)="setActivePage('menu')" />
+  } @else if (activePage() === "manyVsTeam") {
+    <app-how-to-use-many-vs-team (back)="setActivePage('menu')" />
+  } @else if (activePage() === "simpleCalc") {
+    <app-how-to-use-simple-calc (back)="setActivePage('menu')" />
+  } @else if (activePage() === "import") {
+    <app-how-to-use-import (back)="setActivePage('menu')" />
+  } @else if (activePage() === "export") {
+    <app-how-to-use-export (back)="setActivePage('menu')" />
   }
 </div>
