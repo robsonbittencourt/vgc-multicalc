@@ -12,6 +12,9 @@ import { HowToUseManyVsTeamComponent } from "./how-to-use-many-vs-team/how-to-us
 import { HowToUseSimpleCalcComponent } from "./how-to-use-simple-calc/how-to-use-simple-calc.component"
 import { HowToUseImportComponent } from "./how-to-use-import/how-to-use-import.component"
 import { HowToUseExportComponent } from "./how-to-use-export/how-to-use-export.component"
+import { FieldStore } from "@data/store/field-store"
+import { FIELD_CONTEXT } from "@data/store/tokens/field-context.token"
+import { AutomaticFieldService } from "@lib/automatic-field-service"
 
 @Component({
   selector: "app-how-to-use",
@@ -30,7 +33,8 @@ import { HowToUseExportComponent } from "./how-to-use-export/how-to-use-export.c
     HowToUseExportComponent
   ],
   templateUrl: "./how-to-use.component.html",
-  styleUrl: "./how-to-use.component.scss"
+  styleUrl: "./how-to-use.component.scss",
+  providers: [FieldStore, AutomaticFieldService, { provide: FIELD_CONTEXT, useValue: "how-to-use" }]
 })
 export class HowToUseComponent {
   private location = inject(PlatformLocation)

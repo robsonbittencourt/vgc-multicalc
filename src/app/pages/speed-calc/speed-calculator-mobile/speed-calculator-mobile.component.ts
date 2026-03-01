@@ -4,6 +4,7 @@ import { InputSelectComponent } from "@basic/input-select/input-select.component
 import { WidgetComponent } from "@basic/widget/widget.component"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { FieldStore } from "@data/store/field-store"
+import { FIELD_CONTEXT } from "@data/store/tokens/field-context.token"
 import { SpeedCalcOptionsStore } from "@data/store/speed-calc-options-store"
 import { FieldComponent } from "@features/field/field.component"
 import { AbilityComboBoxComponent } from "@features/pokemon-build/ability-combo-box/ability-combo-box.component"
@@ -41,7 +42,8 @@ import { NATURES } from "@robsonbittencourt/calc"
     SpeedInsightsComponent,
     WidgetComponent,
     OpponentOptionsComponent
-  ]
+  ],
+  providers: [FieldStore, AutomaticFieldService, { provide: FIELD_CONTEXT, useValue: "speed" }]
 })
 export class SpeedCalculatorMobileComponent implements OnInit {
   store = inject(CalculatorStore)

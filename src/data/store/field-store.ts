@@ -3,7 +3,9 @@ import { initialFieldState } from "@data/store/utils/initial-field-state"
 import { Field, FieldSide } from "@lib/model/field"
 import { GameType, Terrain, Weather } from "@lib/types"
 import { patchState, signalStore, withHooks, withState } from "@ngrx/signals"
+import { ActiveFieldService } from "./active-field.service"
 import { CalculatorStore } from "./calculator-store"
+import { FIELD_CONTEXT } from "./tokens/field-context.token"
 
 export type FieldState = {
   updateLocalStorage: boolean
@@ -29,12 +31,22 @@ export type FieldState = {
   automaticNeutralizingGasActivated: boolean
 }
 
-@Injectable({ providedIn: "root" })
+@Injectable()
 export class FieldStore extends signalStore(
   { protectedState: false },
-  withState(initialFieldState),
+  withState(() => initialFieldState(inject(FIELD_CONTEXT))),
   withHooks({
     onInit(store) {
+      const activeFieldService = inject(ActiveFieldService)
+      const context = inject(FIELD_CONTEXT)
+
+      activeFieldService.activeStore.set(store)
+
+      const initialData = activeFieldService.initialFieldData()
+      if (initialData) {
+        patchState(store, { ...initialData, updateLocalStorage: false })
+      }
+
       effect(() => {
         if (store.updateLocalStorage()) {
           const userData = JSON.parse(localStorage.getItem("userData")!)
@@ -55,7 +67,10 @@ export class FieldStore extends signalStore(
             defenderSide: store.defenderSide()
           }
 
-          localStorage.setItem("userData", JSON.stringify({ ...userData, field }))
+          const fields = userData?.fields ?? {}
+          fields[context] = field
+
+          localStorage.setItem("userData", JSON.stringify({ ...userData, fields }))
         }
       })
     }

@@ -2,9 +2,7 @@ import { inject, Injectable } from "@angular/core"
 import { FieldState, FieldStore } from "@data/store/field-store"
 import { Pokemon } from "./model/pokemon"
 
-@Injectable({
-  providedIn: "root"
-})
+@Injectable()
 export class AutomaticFieldService {
   fieldStore = inject(FieldStore)
 

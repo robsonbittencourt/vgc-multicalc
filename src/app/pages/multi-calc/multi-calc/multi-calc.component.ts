@@ -1,6 +1,7 @@
 import { Component, computed, effect, inject, OnInit, signal, viewChild } from "@angular/core"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { FieldStore } from "@data/store/field-store"
+import { FIELD_CONTEXT } from "@data/store/tokens/field-context.token"
 import { MenuStore } from "@data/store/menu-store"
 import { FieldComponent } from "@features/field/field.component"
 import { TeamComponent } from "@features/team/team/team.component"
@@ -17,7 +18,7 @@ import { TargetPokemonComponent } from "@pages/multi-calc/target-pokemon/target-
   selector: "app-multi-calc",
   templateUrl: "./multi-calc.component.html",
   styleUrls: ["./multi-calc.component.scss"],
-  providers: [DamageMultiCalcService, DamageResultOrderService],
+  providers: [DamageMultiCalcService, DamageResultOrderService, FieldStore, AutomaticFieldService, { provide: FIELD_CONTEXT, useValue: "multi" }],
   imports: [TeamComponent, TeamsComponent, FieldComponent, TargetPokemonComponent]
 })
 export class MultiCalcComponent implements OnInit {
