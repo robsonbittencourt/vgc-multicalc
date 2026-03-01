@@ -1,5 +1,7 @@
 import { Component, computed, effect, inject, signal } from "@angular/core"
 import { CalculatorStore } from "@data/store/calculator-store"
+import { FieldStore } from "@data/store/field-store"
+import { FIELD_CONTEXT } from "@data/store/tokens/field-context.token"
 import { FieldComponent } from "@features/field/field.component"
 import { TeamComponent } from "@features/team/team/team.component"
 import { TeamsComponent } from "@features/team/teams/teams.component"
@@ -12,7 +14,8 @@ import { SpeedListComponent } from "@pages/speed-calc/speed-list/speed-list.comp
   selector: "app-speed-calculator",
   templateUrl: "./speed-calculator.component.html",
   styleUrls: ["./speed-calculator.component.scss"],
-  imports: [TeamComponent, TeamsComponent, FieldComponent, SpeedListComponent, SpeedInsightsComponent]
+  imports: [TeamComponent, TeamsComponent, FieldComponent, SpeedListComponent, SpeedInsightsComponent],
+  providers: [FieldStore, AutomaticFieldService, { provide: FIELD_CONTEXT, useValue: "speed" }]
 })
 export class SpeedCalculatorComponent {
   store = inject(CalculatorStore)

@@ -4,7 +4,7 @@ import { ProbabilityCalcComponent } from "@app/pages/probability-calc/probabilit
 import { HeaderMobileComponent } from "@core/header-mobile/header-mobile.component"
 import { HeaderComponent } from "@core/header/header.component"
 import { CalculatorStore } from "@data/store/calculator-store"
-import { FieldStore } from "@data/store/field-store"
+import { ActiveFieldService } from "@data/store/active-field.service"
 import { MenuStore } from "@data/store/menu-store"
 import { buildState } from "@data/store/utils/user-data-mapper"
 import { DeviceDetectorService } from "@lib/device-detector.service"
@@ -37,7 +37,7 @@ import { TypeCalculatorComponent } from "@pages/type-calc/type-calculator/type-c
 export class MainComponent implements OnInit {
   store = inject(CalculatorStore)
   menuStore = inject(MenuStore)
-  fieldStore = inject(FieldStore)
+  activeFieldService = inject(ActiveFieldService)
   private activatedRoute = inject(ActivatedRoute)
   private deviceDetectorService = inject(DeviceDetectorService)
 
@@ -51,7 +51,7 @@ export class MainComponent implements OnInit {
       if (this.useUserData) {
         const state = buildState(userData?.data)
         this.store.updateStateLockingLocalStorage(state)
-        this.fieldStore.updateStateLockingLocalStorage(userData?.data.field)
+        this.activeFieldService.initialFieldData.set(userData?.data.field)
       }
     })
   }

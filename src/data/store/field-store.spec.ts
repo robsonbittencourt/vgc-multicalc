@@ -1,6 +1,8 @@
 import { provideZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
+import { ActiveFieldService } from "@data/store/active-field.service"
 import { FieldStore } from "@data/store/field-store"
+import { FIELD_CONTEXT } from "@data/store/tokens/field-context.token"
 import { FieldSide } from "@lib/model/field"
 import { GameType } from "@lib/types"
 
@@ -9,7 +11,7 @@ describe("Field Store", () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [provideZonelessChangeDetection()]
+      providers: [provideZonelessChangeDetection(), FieldStore, ActiveFieldService, { provide: FIELD_CONTEXT, useValue: "simple" }]
     })
 
     store = TestBed.inject(FieldStore)
@@ -968,7 +970,7 @@ describe("Field Store", () => {
       TestBed.tick()
 
       const actualStorage = JSON.parse(localStorage.getItem("userData")!)
-      expect(actualStorage.field.weather).toBe("Sun")
+      expect(actualStorage.fields.simple.weather).toBe("Sun")
     })
 
     it("should update local storage when state changes mantaining existent data", () => {
@@ -977,7 +979,7 @@ describe("Field Store", () => {
       TestBed.tick()
 
       const actualStorage = JSON.parse(localStorage.getItem("userData")!)
-      expect(actualStorage.field.isBeadsOfRuin).toBeFalse()
+      expect(actualStorage.fields.simple.isBeadsOfRuin).toBeFalse()
     })
   })
 })

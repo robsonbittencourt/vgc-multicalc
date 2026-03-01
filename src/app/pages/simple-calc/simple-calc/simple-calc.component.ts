@@ -2,6 +2,7 @@ import { Component, computed, effect, inject, signal } from "@angular/core"
 import { WidgetComponent } from "@basic/widget/widget.component"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { FieldStore } from "@data/store/field-store"
+import { FIELD_CONTEXT } from "@data/store/tokens/field-context.token"
 import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-button/export-pokemon-button.component"
 import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
 import { FieldComponent } from "@features/field/field.component"
@@ -20,7 +21,8 @@ import { DamageResultComponent } from "@pages/simple-calc/damage-result/damage-r
   selector: "app-simple-calc",
   templateUrl: "./simple-calc.component.html",
   styleUrls: ["./simple-calc.component.scss"],
-  imports: [WidgetComponent, DamageResultComponent, ImportPokemonButtonComponent, ExportPokemonButtonComponent, PokemonBuildComponent, FieldComponent]
+  imports: [WidgetComponent, DamageResultComponent, ImportPokemonButtonComponent, ExportPokemonButtonComponent, PokemonBuildComponent, FieldComponent],
+  providers: [FieldStore, AutomaticFieldService, { provide: FIELD_CONTEXT, useValue: "simple" }]
 })
 export class SimpleCalcComponent {
   store = inject(CalculatorStore)
