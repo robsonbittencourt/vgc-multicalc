@@ -3,6 +3,7 @@
   [selectedValues]="actualAbility()"
   [columns]="moveColumns"
   [dataFilter]="dataFilter()"
+  [initialValue]="pokemon().ability.name"
   [haveFocus]="haveFocus()"
   (entrySelected)="abilitySelected.emit($event)"
   (firstListEntry)="firstAbilityFromList.emit($event)"

@@ -1,4 +1,4 @@
-import { ScrollingModule } from "@angular/cdk/scrolling"
+import { CdkVirtualScrollViewport, ScrollingModule } from "@angular/cdk/scrolling"
 import { CommonModule } from "@angular/common"
 import { AfterViewInit, Component, computed, effect, ElementRef, HostListener, inject, input, output, signal, viewChild, viewChildren } from "@angular/core"
 import { MatIcon } from "@angular/material/icon"
@@ -23,13 +23,14 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
   columns = input.required<ColumnConfig<T>[]>()
   dataFilter = input.required<string>()
   haveFocus = input.required<boolean>()
+  initialValue = input<string>()
 
   entrySelected = output<string>()
   firstListEntry = output<string>()
   escapeWasPressed = output()
 
   rows = viewChildren("row", { read: ElementRef })
-  scroll = viewChild("scroll", { read: ElementRef })
+  scroll = viewChild(CdkVirtualScrollViewport)
 
   activeEntry = signal<LinkedTableData<T> | null>(null)
   currentView = signal<"table" | "filterList">("table")
@@ -108,20 +109,71 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
   isComponentFocused = false
   entryWasSelected = false
 
+  private initialScrollPerformed = false
+  private lastScrolledValue: any = null
+
   constructor() {
     effect(() => {
       if (this.dataFilter()) {
         this.activeEntry.set(null)
       }
     })
+
+    effect(() => {
+      if (!this.haveFocus()) {
+        this.initialScrollPerformed = false
+        this.lastScrolledValue = null
+      }
+    })
+
+    effect(() => {
+      const initial = this.initialValue()
+      const haveFocus = this.haveFocus()
+      const filter = this.dataFilter()
+
+      if (haveFocus && initial && filter === "") {
+        const data = this.viewData()
+        const index = data.findIndex(d => d.id === initial)
+
+        if (index !== -1) {
+          const valueChanged = this.lastScrolledValue !== initial
+          this.activeEntry.set(data[index])
+
+          if (!this.initialScrollPerformed || valueChanged) {
+            this.initialScrollPerformed = true
+            this.lastScrolledValue = initial
+
+            setTimeout(() => {
+              const viewport = this.scroll()
+              if (viewport) {
+                const itemSize = 45
+                const viewportHeight = viewport.elementRef.nativeElement.clientHeight
+                const centerOffset = index * itemSize - viewportHeight / 2 + itemSize / 2
+                viewport.scrollToOffset(centerOffset, "instant")
+              }
+            }, 0)
+          }
+        }
+      }
+    })
+
+    effect(() => {
+      if (this.haveFocus() && this.dataFilter() !== "") {
+        setTimeout(() => {
+          this.scroll()?.scrollToOffset(0, "instant")
+        }, 0)
+      }
+    })
   }
 
   ngAfterViewInit() {
-    const element = this.scroll()!.nativeElement
+    const element = this.scroll()?.elementRef.nativeElement
 
-    element.addEventListener("scroll", () => {
-      this.disableHoverTemporarily()
-    })
+    if (element) {
+      element.addEventListener("scroll", () => {
+        this.disableHoverTemporarily()
+      })
+    }
 
     document.addEventListener("mousemove", () => {
       if (!this.isHoverEnabled()) {

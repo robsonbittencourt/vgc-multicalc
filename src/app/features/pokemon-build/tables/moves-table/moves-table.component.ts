@@ -16,6 +16,7 @@ export class MovesTableComponent {
   pokemonId = input.required<string>()
   dataFilter = input.required<string>()
   haveFocus = input.required<boolean>()
+  moveIndex = input<number>(0)
 
   moveSelected = output<string>()
   firstMoveFromList = output<string>()
@@ -46,6 +47,12 @@ export class MovesTableComponent {
 
   actualMoves = computed(() => {
     return this.pokemon().moveSet.moves.map(m => m.name)
+  })
+
+  initialValue = computed(() => {
+    const moveIndex = this.moveIndex()
+    const moves = this.pokemon().moveSet.moves
+    return moves[moveIndex]?.name || ""
   })
 
   private getMoveDetails(learnset: MoveName[]): MoveDetail[] {

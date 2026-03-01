@@ -111,6 +111,13 @@ describe("Filtered Table behaviors", () => {
       cy.realPress("Tab")
 
       team.pokemonOnEditNameIs("Tyranitar")
+      build.tableEntryIsSelected("Assault Vest")
+
+      build.inputPokemonName("Pi")
+      cy.realPress("Tab")
+
+      team.pokemonOnEditNameIs("Pikachu")
+      build.tableEntryIsSelected("Light Ball")
     })
 
     it("Select a Item after filter and press tab", () => {

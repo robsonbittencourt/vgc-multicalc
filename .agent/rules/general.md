@@ -13,6 +13,10 @@ trigger: always_on
 - **NEVER run git commands**: Do not run `git add`, `git commit`, `git push`, or any other git command.
 - **NEVER modify git state**: The user handles all version control. Do not attempt to manage the repository state.
 
+## Agent Behavior
+
+- **Do NOT over-deliver**: Only implement what was explicitly requested by the user. If a helper method is requested, do not create new test cases or features unless specifically asked. Focus on the core request to avoid unnecessary changes and potential side effects.
+
 ## Project Overview
 
 This is an Angular 20.3.12 application for Pokémon VGC (Video Game Championships) damage and probability calculations. The project uses modern Angular patterns including signals, standalone components, and is zoneless.

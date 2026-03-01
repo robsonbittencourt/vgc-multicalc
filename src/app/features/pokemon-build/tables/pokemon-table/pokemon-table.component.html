@@ -3,6 +3,7 @@
   [selectedValues]="actualPokemon()"
   [columns]="pokemonColumns"
   [dataFilter]="dataFilter()"
+  [initialValue]="pokemon().name"
   [haveFocus]="haveFocus()"
   (entrySelected)="pokemonSelected.emit($event)"
   (firstListEntry)="firstPokemonFromList.emit($event)"

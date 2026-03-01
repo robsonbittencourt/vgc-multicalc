@@ -90,12 +90,16 @@
 .entries-section-title {
   font-size: 1.2em;
   font-weight: bold;
-  margin: 0.5em;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  margin: 0 0.5em;
 }
 
 .entry {
   border-bottom: 1px solid var(--filterable-table-bottom-line);
-  height: 2.5em;
+  height: 45px;
+  box-sizing: border-box;
   padding: 6px 8px;
   display: grid;
   align-items: center;

@@ -25,7 +25,7 @@
 
     <div class="entries-list">
       @if (hasResult()) {
-        <cdk-virtual-scroll-viewport itemSize="45" minBufferPx="300" maxBufferPx="600" [ngStyle]="panelStyle()" #scroll data-cy="scroll-viewport">
+        <cdk-virtual-scroll-viewport itemSize="45" minBufferPx="300" maxBufferPx="600" [ngStyle]="panelStyle()" data-cy="scroll-viewport">
           <div *cdkVirtualFor="let entry of viewData(); let index = index; trackBy: trackById">
             @if (entry.group) {
               <div class="entries-section-title">{{ entry.group }}</div>
