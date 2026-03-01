@@ -3,7 +3,7 @@ import { TestBed } from "@angular/core/testing"
 import { CALC_ADJUSTERS, CalcAdjuster } from "@lib/damage-calculator/calc-adjuster/calc-adjuster"
 import { SPECIFIC_DAMAGE_CALCULATORS, SpecificDamageCalculator } from "@lib/damage-calculator/specific-damage-calculator/specific-damage-calculator"
 import { DamageCalculatorService } from "@lib/damage-calculator/damage-calculator.service"
-import { Field } from "@lib/model/field"
+import { Field, FieldSide } from "@lib/model/field"
 import { Move } from "@lib/model/move"
 import { MoveSet } from "@lib/model/moveset"
 import { Pokemon } from "@lib/model/pokemon"
@@ -31,6 +31,27 @@ describe("SurvivalChecker", () => {
   })
 
   describe("checkSurvival", () => {
+    it("should consider rightIsDefender when swapping field sides", () => {
+      const attacker = new Pokemon("Groudon", {
+        nature: "Adamant",
+        moveSet: new MoveSet(new Move("Headlong Rush"), new Move("Struggle"), new Move("Struggle"), new Move("Struggle")),
+        evs: { hp: 0, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 }
+      })
+
+      const defender = new Pokemon("Flutter Mane", {
+        evs: { hp: 252, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
+      })
+
+      const field = new Field({
+        attackerSide: new FieldSide({ isReflect: true })
+      })
+
+      const survivesRight = service.checkSurvival(attacker, defender, field, 2, 15, true)
+      const survivesLeft = service.checkSurvival(attacker, defender, field, 2, 15, false)
+
+      expect(survivesRight).toBe(false)
+      expect(survivesLeft).toBe(true)
+    })
     it("should return true when defender survives", () => {
       const attacker = new Pokemon("Urshifu-Rapid-Strike", {
         nature: "Adamant",

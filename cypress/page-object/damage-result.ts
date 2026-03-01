@@ -86,6 +86,16 @@ export class DamageResult {
     return this
   }
 
+  afterLeechSeedRecovery() {
+    this.baseElement().contains("Leech Seed recovery")
+    return this
+  }
+
+  afterLeechSeedDamage() {
+    this.baseElement().contains("Leech Seed damage")
+    return this
+  }
+
   baseElement(): any {
     return cy.get(`[data-cy="${this.selector}"]`)
   }

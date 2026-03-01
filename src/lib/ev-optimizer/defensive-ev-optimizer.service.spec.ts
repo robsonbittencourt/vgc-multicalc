@@ -4,7 +4,7 @@ import { CALC_ADJUSTERS, CalcAdjuster } from "@lib/damage-calculator/calc-adjust
 import { SPECIFIC_DAMAGE_CALCULATORS, SpecificDamageCalculator } from "@lib/damage-calculator/specific-damage-calculator/specific-damage-calculator"
 import { DamageCalculatorService } from "@lib/damage-calculator/damage-calculator.service"
 import { Ability } from "@lib/model/ability"
-import { Field } from "@lib/model/field"
+import { Field, FieldSide } from "@lib/model/field"
 import { Move } from "@lib/model/move"
 import { MoveSet } from "@lib/model/moveset"
 import { Pokemon } from "@lib/model/pokemon"
@@ -1434,6 +1434,28 @@ describe("DefensiveEvOptimizerService", () => {
           expect(result.evs!.hp).toBe(20)
           expect(result.evs!.def).toBe(0)
           expect(result.evs!.spd).toBe(188)
+        })
+
+        it("should optimize EVs when have Leech Seed in defender side and 3HKO configured", () => {
+          const defender = new Pokemon("Flutter Mane", {
+            nature: "Bold",
+            evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
+          })
+
+          const attacker = new Pokemon("Urshifu-Rapid-Strike", {
+            nature: "Calm",
+            moveSet: new MoveSet(new Move("Aqua Jet"), new Move("Close Combat"), new Move("Surging Strikes"), new Move("Protect")),
+            evs: { hp: 0, atk: 252, def: 0, spa: 0, spd: 0, spe: 0 }
+          })
+
+          const field = new Field({ defenderSide: new FieldSide({ isSeeded: true }) })
+
+          const targets = [new Target(attacker)]
+          const result = service.optimize(defender, targets, field, false, false, 3)
+
+          expect(result.evs!.hp).toBe(4)
+          expect(result.evs!.def).toBe(52)
+          expect(result.evs!.spd).toBe(0)
         })
 
         it("should optimize EVs when have recovery and 3HKO configured and update nature", () => {

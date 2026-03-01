@@ -367,13 +367,22 @@ describe("Test the Field options on options with One vs One", () => {
       leftDamageResult.haveChanceOfToCause4HKO(99.9)
     })
 
-    it("With Leech Seed active", () => {
+    it("With Leech Seed active in attacker", () => {
+      leftPokemonBuild.importPokemon(poke["raichu-alola"])
+      rightPokemonBuild.importPokemon(poke["vaporeon"])
+
+      field.leechSeedAttacker()
+
+      leftDamageResult.haveChanceOfToCause2HKO(55.9).afterLeechSeedRecovery()
+    })
+
+    it("With Leech Seed active in defender", () => {
       leftPokemonBuild.importPokemon(poke["raichu-alola"])
       rightPokemonBuild.importPokemon(poke["vaporeon"])
 
       field.leechSeedDefender()
 
-      leftDamageResult.cause2HKO()
+      leftDamageResult.cause2HKO().afterLeechSeedDamage()
     })
 
     it("With Helping Hand active", () => {
@@ -680,12 +689,20 @@ describe("Test the Field options on options with Many Pokémon", () => {
     opponents.get("Incineroar").cause2HKO()
   })
 
-  it("With Leech Seed active", () => {
+  it("With Leech Seed active in attacker", () => {
+    team.importPokemon(poke["vaporeon"])
+
+    field.leechSeedAttacker()
+
+    opponents.get("Incineroar").haveChanceOfToCause2HKO(2).afterLeechSeedRecovery()
+  })
+
+  it("With Leech Seed active in defender", () => {
     team.importPokemon(poke["vaporeon"])
 
     field.leechSeedDefender()
 
-    opponents.get("Incineroar").cause2HKO()
+    opponents.get("Incineroar").cause2HKO().afterLeechSeedDamage()
   })
 
   it("With Neutralizing Gas active", () => {

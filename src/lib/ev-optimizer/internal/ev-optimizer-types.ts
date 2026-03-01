@@ -7,6 +7,7 @@ export type OptimizationContext = {
   field: Field
   threshold: SurvivalThreshold
   rollIndex: number
+  rightIsDefender: boolean
 }
 
 export type AttackerContext = {

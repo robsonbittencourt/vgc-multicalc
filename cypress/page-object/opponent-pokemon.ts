@@ -47,6 +47,16 @@ export class OpponentPokemon {
     return this
   }
 
+  afterLeechSeedRecovery(): OpponentPokemon {
+    this.contains("Leech Seed recovery")
+    return this
+  }
+
+  afterLeechSeedDamage(): OpponentPokemon {
+    this.contains("Leech Seed damage")
+    return this
+  }
+
   haveChanceOfToCauseOHKO(chance: number): OpponentPokemon {
     this.contains(`${chance}% chance to OHKO`)
     return this

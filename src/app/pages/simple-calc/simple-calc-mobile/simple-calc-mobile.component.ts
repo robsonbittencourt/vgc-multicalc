@@ -53,9 +53,9 @@ export class SimpleCalcMobileComponent {
 
   damageResult = computed(() => {
     if (this.leftIsAttacker()) {
-      return this.damageCalculator.calcDamage(this.store.leftPokemon(), this.store.rightPokemon(), this.fieldStore.field())
+      return this.damageCalculator.calcDamage(this.store.leftPokemon(), this.store.rightPokemon(), this.fieldStore.field(), true)
     } else {
-      return this.damageCalculator.calcDamage(this.store.rightPokemon(), this.store.leftPokemon(), this.fieldStore.field())
+      return this.damageCalculator.calcDamage(this.store.rightPokemon(), this.store.leftPokemon(), this.fieldStore.field(), false)
     }
   })
 
@@ -117,7 +117,7 @@ export class SimpleCalcMobileComponent {
     this.originalEvs.set({ ...defender.evs })
     this.originalNature.set(defender.nature)
 
-    const result = this.defensiveEvOptimizer.optimize(defender, [new Target(attacker)], field, event.updateNature, event.keepOffensiveEvs, event.survivalThreshold, 15)
+    const result = this.defensiveEvOptimizer.optimize(defender, [new Target(attacker)], field, event.updateNature, event.keepOffensiveEvs, event.survivalThreshold, 15, !this.leftIsAttacker())
 
     this.optimizedNature.set(result.nature)
 

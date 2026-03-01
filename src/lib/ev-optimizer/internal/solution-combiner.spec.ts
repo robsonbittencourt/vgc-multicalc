@@ -81,7 +81,7 @@ describe("SolutionCombiner", () => {
       const field = new Field()
       const result = service.combineThreeSolutions(
         { physicalSolution: null, specialSolution: null, doubleSolution },
-        { defender, field, threshold: 2, rollIndex: 15 },
+        { defender, field, threshold: 2, rollIndex: 15, rightIsDefender: true },
         { physicalAttacker: null, specialAttacker: null, physicalAttackers: [], specialAttackers: [] },
         { attacker1: null, attacker2: null }
       )
@@ -99,7 +99,7 @@ describe("SolutionCombiner", () => {
       const field = new Field()
       const result = service.combineThreeSolutions(
         { physicalSolution, specialSolution, doubleSolution: null },
-        { defender, field, threshold: 2, rollIndex: 15 },
+        { defender, field, threshold: 2, rollIndex: 15, rightIsDefender: true },
         { physicalAttacker: null, specialAttacker: null, physicalAttackers: [], specialAttackers: [] },
         { attacker1: null, attacker2: null }
       )

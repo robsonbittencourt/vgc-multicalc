@@ -23,8 +23,8 @@ export class DamageCalculatorService {
   fieldMapper = inject(FieldMapper)
   speedCalculator = inject(SpeedCalculatorService)
 
-  calcDamage(attacker: Pokemon, target: Pokemon, field: Field): DamageResult {
-    const result = this.calculateResult(attacker, target, attacker.move, field, true)
+  calcDamage(attacker: Pokemon, target: Pokemon, field: Field, rightIsDefender = true): DamageResult {
+    const result = this.calculateResult(attacker, target, attacker.move, field, rightIsDefender)
 
     return new DamageResult(
       attacker,
@@ -49,11 +49,11 @@ export class DamageCalculatorService {
     })
   }
 
-  calcDamageForTwoAttackers(attacker: Pokemon, secondAttacker: Pokemon, target: Pokemon, field: Field): DamageResult {
+  calcDamageForTwoAttackers(attacker: Pokemon, secondAttacker: Pokemon, target: Pokemon, field: Field, rightIsDefender = true): DamageResult {
     const [firstAttacker, secondAttackerOrdered] = this.speedCalculator.orderPairBySpeed(attacker, secondAttacker, field)
 
-    const prepOne = this.prepareCalculation(firstAttacker, target, firstAttacker.move, field, true, secondAttackerOrdered)
-    const prepTwo = this.prepareCalculation(secondAttackerOrdered, target, secondAttackerOrdered.move, field, true, firstAttacker)
+    const prepOne = this.prepareCalculation(firstAttacker, target, firstAttacker.move, field, rightIsDefender, secondAttackerOrdered)
+    const prepTwo = this.prepareCalculation(secondAttackerOrdered, target, secondAttackerOrdered.move, field, rightIsDefender, firstAttacker)
 
     const multiResult = calculateMulti(Generations.get(9), [prepOne.smogonAttacker, prepTwo.smogonAttacker], prepOne.smogonTarget, [prepOne.moveSmogon, prepTwo.moveSmogon], prepOne.smogonField)
 
@@ -95,20 +95,20 @@ export class DamageCalculatorService {
     return { gen, smogonAttacker, smogonTarget, moveSmogon, smogonField }
   }
 
-  koChanceForOneAttacker(attacker: Pokemon, target: Pokemon, field: Field): string {
-    const result = this.calculateResult(attacker, target, attacker.move, field, true)
+  koChanceForOneAttacker(attacker: Pokemon, target: Pokemon, field: Field, rightIsDefender = true): string {
+    const result = this.calculateResult(attacker, target, attacker.move, field, rightIsDefender)
     return this.koChance(result)
   }
 
-  koChanceForTwoAttackers(attacker: Pokemon, secondAttacker: Pokemon, target: Pokemon, field: Field): string {
-    return this.calcDamageForTwoAttackers(attacker, secondAttacker, target, field).koChance
+  koChanceForTwoAttackers(attacker: Pokemon, secondAttacker: Pokemon, target: Pokemon, field: Field, rightIsDefender = true): string {
+    return this.calcDamageForTwoAttackers(attacker, secondAttacker, target, field, rightIsDefender).koChance
   }
 
-  calcDamageValueForTwoAttackers(attacker: Pokemon, secondAttacker: Pokemon, target: Pokemon, field: Field): MultiResult {
+  calcDamageValueForTwoAttackers(attacker: Pokemon, secondAttacker: Pokemon, target: Pokemon, field: Field, rightIsDefender = true): MultiResult {
     const [firstAttacker, secondAttackerOrdered] = this.speedCalculator.orderPairBySpeed(attacker, secondAttacker, field)
 
-    const prepOne = this.prepareCalculation(firstAttacker, target, firstAttacker.move, field, true, secondAttackerOrdered)
-    const prepTwo = this.prepareCalculation(secondAttackerOrdered, target, secondAttackerOrdered.move, field, true, firstAttacker)
+    const prepOne = this.prepareCalculation(firstAttacker, target, firstAttacker.move, field, rightIsDefender, secondAttackerOrdered)
+    const prepTwo = this.prepareCalculation(secondAttackerOrdered, target, secondAttackerOrdered.move, field, rightIsDefender, firstAttacker)
 
     const multiResult = calculateMulti(Generations.get(9), [prepOne.smogonAttacker, prepTwo.smogonAttacker], prepOne.smogonTarget, [prepOne.moveSmogon, prepTwo.moveSmogon], prepOne.smogonField)
 

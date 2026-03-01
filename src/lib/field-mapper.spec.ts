@@ -72,8 +72,8 @@ describe("FieldMapper", () => {
 
     it("should mapping Field Attacker Side to Smogon Attacker Side when rightIsDefender is true", () => {
       const rightIsDefender = true
-      const attackerSide = new FieldSide({ isHelpingHand: true, isBattery: true, isPowerSpot: true, isTailwind: true })
-      const defenderSide = new FieldSide({ isHelpingHand: false, isBattery: false, isPowerSpot: false, isTailwind: false })
+      const attackerSide = new FieldSide({ isHelpingHand: true, isBattery: true, isPowerSpot: true, isTailwind: true, isSeeded: true })
+      const defenderSide = new FieldSide({ isHelpingHand: false, isBattery: false, isPowerSpot: false, isTailwind: false, isSeeded: false })
       const field = new Field({ attackerSide, defenderSide })
 
       const smogonField = mapper.toSmogon(field, rightIsDefender)
@@ -82,12 +82,13 @@ describe("FieldMapper", () => {
       expect(smogonField.attackerSide.isBattery).toEqual(true)
       expect(smogonField.attackerSide.isPowerSpot).toEqual(true)
       expect(smogonField.attackerSide.isTailwind).toEqual(true)
+      expect(smogonField.attackerSide.isSeeded).toEqual(true)
     })
 
     it("should mapping Field Defender Side to Smogon Attacker Side when rightIsDefender is false", () => {
       const rightIsDefender = false
-      const attackerSide = new FieldSide({ isHelpingHand: true, isBattery: true, isPowerSpot: true, isTailwind: true })
-      const defenderSide = new FieldSide({ isHelpingHand: false, isBattery: false, isPowerSpot: false, isTailwind: false })
+      const attackerSide = new FieldSide({ isHelpingHand: true, isBattery: true, isPowerSpot: true, isTailwind: true, isSeeded: true })
+      const defenderSide = new FieldSide({ isHelpingHand: false, isBattery: false, isPowerSpot: false, isTailwind: false, isSeeded: false })
       const field = new Field({ attackerSide, defenderSide })
 
       const smogonField = mapper.toSmogon(field, rightIsDefender)
@@ -96,6 +97,7 @@ describe("FieldMapper", () => {
       expect(smogonField.attackerSide.isBattery).toEqual(false)
       expect(smogonField.attackerSide.isPowerSpot).toEqual(false)
       expect(smogonField.attackerSide.isTailwind).toEqual(false)
+      expect(smogonField.attackerSide.isSeeded).toEqual(false)
     })
 
     it("should mapping Field Defender Side to Smogon Defender Side when rightIsDefender is true", () => {
