@@ -96,3 +96,18 @@
   width: 5em;
   height: auto;
 }
+
+.vgc-guide-link {
+  margin-top: 1em;
+  text-align: center;
+  font-size: 1em;
+
+  a {
+    color: var(--text);
+    text-decoration: underline;
+
+    &:hover {
+      filter: brightness(1.2);
+    }
+  }
+}
