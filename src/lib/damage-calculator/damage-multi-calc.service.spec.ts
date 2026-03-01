@@ -50,9 +50,9 @@ describe("DamageMultiCalcService", () => {
       const damageResult2 = damageResult(attacker, target2.pokemon)
       const damageResult3 = damageResult(attacker, target3.pokemon)
 
-      damageCalculatorSpy.calcDamage.withArgs(attacker, target1.pokemon, field).and.returnValue(damageResult1)
-      damageCalculatorSpy.calcDamage.withArgs(attacker, target2.pokemon, field).and.returnValue(damageResult2)
-      damageCalculatorSpy.calcDamage.withArgs(attacker, target3.pokemon, field).and.returnValue(damageResult3)
+      damageCalculatorSpy.calcDamage.withArgs(attacker, target1.pokemon, field, true).and.returnValue(damageResult1)
+      damageCalculatorSpy.calcDamage.withArgs(attacker, target2.pokemon, field, true).and.returnValue(damageResult2)
+      damageCalculatorSpy.calcDamage.withArgs(attacker, target3.pokemon, field, true).and.returnValue(damageResult3)
 
       damageOrderSpy.order.and.callFake(results => results)
 
@@ -78,8 +78,8 @@ describe("DamageMultiCalcService", () => {
       const damageResult1 = damageResult(attacker, target1.pokemon)
       const damageResult2 = damageResult(attacker, target2.pokemon)
 
-      damageCalculatorSpy.calcDamageForTwoAttackers.withArgs(attacker, secondAttacker, target1.pokemon, field).and.returnValue(damageResult1)
-      damageCalculatorSpy.calcDamageForTwoAttackers.withArgs(attacker, secondAttacker, target2.pokemon, field).and.returnValue(damageResult2)
+      damageCalculatorSpy.calcDamageForTwoAttackers.withArgs(attacker, secondAttacker, target1.pokemon, field, true).and.returnValue(damageResult1)
+      damageCalculatorSpy.calcDamageForTwoAttackers.withArgs(attacker, secondAttacker, target2.pokemon, field, true).and.returnValue(damageResult2)
 
       damageOrderSpy.order.and.callFake(results => results)
 
@@ -107,9 +107,9 @@ describe("DamageMultiCalcService", () => {
       const damageResult2 = damageResult(target2.pokemon, teamMember)
       const damageResult3 = damageResult(target3.pokemon, teamMember)
 
-      damageCalculatorSpy.calcDamage.withArgs(target1.pokemon, teamMember, field).and.returnValue(damageResult1)
-      damageCalculatorSpy.calcDamage.withArgs(target2.pokemon, teamMember, field).and.returnValue(damageResult2)
-      damageCalculatorSpy.calcDamage.withArgs(target3.pokemon, teamMember, field).and.returnValue(damageResult3)
+      damageCalculatorSpy.calcDamage.withArgs(target1.pokemon, teamMember, field, false).and.returnValue(damageResult1)
+      damageCalculatorSpy.calcDamage.withArgs(target2.pokemon, teamMember, field, false).and.returnValue(damageResult2)
+      damageCalculatorSpy.calcDamage.withArgs(target3.pokemon, teamMember, field, false).and.returnValue(damageResult3)
 
       damageOrderSpy.order.and.callFake(results => results)
 
@@ -134,9 +134,9 @@ describe("DamageMultiCalcService", () => {
       const damageResult1 = damageResult(target1.pokemon, teamMember, target1.secondPokemon)
       const damageResult2 = damageResult(target2.pokemon, teamMember)
 
-      damageCalculatorSpy.calcDamageForTwoAttackers.withArgs(target1.pokemon, target1.secondPokemon!, teamMember, field).and.returnValue(damageResult1)
-      damageCalculatorSpy.calcDamage.withArgs(target2.pokemon, teamMember, field).and.returnValue(damageResult2)
-      damageCalculatorSpy.calcDamageForTwoAttackers.withArgs(target1.pokemon, target1.secondPokemon!, teamMember, field).and.returnValue(damageResult1)
+      damageCalculatorSpy.calcDamageForTwoAttackers.withArgs(target1.pokemon, target1.secondPokemon!, teamMember, field, false).and.returnValue(damageResult1)
+      damageCalculatorSpy.calcDamage.withArgs(target2.pokemon, teamMember, field, false).and.returnValue(damageResult2)
+      damageCalculatorSpy.calcDamageForTwoAttackers.withArgs(target1.pokemon, target1.secondPokemon!, teamMember, field, false).and.returnValue(damageResult1)
 
       damageOrderSpy.order.and.callFake(results => results)
 
@@ -162,9 +162,9 @@ describe("DamageMultiCalcService", () => {
       const damageResult2 = damageResult(target2.pokemon, teamMember)
       const damageResult3 = damageResult(target3.pokemon, teamMember)
 
-      damageCalculatorSpy.calcDamage.withArgs(target1.pokemon, teamMember, field).and.returnValue(damageResult1)
-      damageCalculatorSpy.calcDamage.withArgs(target2.pokemon, teamMember, field).and.returnValue(damageResult2)
-      damageCalculatorSpy.calcDamage.withArgs(target3.pokemon, teamMember, field).and.returnValue(damageResult3)
+      damageCalculatorSpy.calcDamage.withArgs(target1.pokemon, teamMember, field, false).and.returnValue(damageResult1)
+      damageCalculatorSpy.calcDamage.withArgs(target2.pokemon, teamMember, field, false).and.returnValue(damageResult2)
+      damageCalculatorSpy.calcDamage.withArgs(target3.pokemon, teamMember, field, false).and.returnValue(damageResult3)
 
       service.calculateDamageForAll(teamMember, targets, new Field(), false)
 

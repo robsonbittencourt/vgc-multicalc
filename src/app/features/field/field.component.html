@@ -36,6 +36,7 @@
         @if (!oneVsOne()) {
           <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
             <mat-button-toggle [checked]="fieldStore.attackerSide().gameType === 'Singles'" (change)="fieldStore.toggleAttackerGameType()" data-cy="single-target-attacker">Single Target</mat-button-toggle>
+            <mat-button-toggle class="max-width" [checked]="fieldStore.attackerSide().isSeeded" (change)="fieldStore.toggleAttackerSeeded()" data-cy="leech-seed-attacker">Leech Seed</mat-button-toggle>
           </mat-button-toggle-group>
         }
 

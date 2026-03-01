@@ -151,7 +151,7 @@ export class SimpleCalcComponent {
     this.leftOriginalEvs.set({ ...defender.evs })
     this.leftOriginalNature.set(defender.nature)
 
-    const result = this.defensiveEvOptimizer.optimize(defender, [new Target(attacker)], field, event.updateNature, event.keepOffensiveEvs, event.survivalThreshold, this.rightRollLevel().toRollIndex())
+    const result = this.defensiveEvOptimizer.optimize(defender, [new Target(attacker)], field, event.updateNature, event.keepOffensiveEvs, event.survivalThreshold, this.rightRollLevel().toRollIndex(), false)
 
     this.leftOptimizedNature.set(result.nature)
 
@@ -182,7 +182,7 @@ export class SimpleCalcComponent {
     this.rightOriginalEvs.set({ ...defender.evs })
     this.rightOriginalNature.set(defender.nature)
 
-    const result = this.defensiveEvOptimizer.optimize(defender, [new Target(attacker)], field, event.updateNature, event.keepOffensiveEvs, event.survivalThreshold, this.leftRollLevel().toRollIndex())
+    const result = this.defensiveEvOptimizer.optimize(defender, [new Target(attacker)], field, event.updateNature, event.keepOffensiveEvs, event.survivalThreshold, this.leftRollLevel().toRollIndex(), true)
 
     this.rightOptimizedNature.set(result.nature)
 

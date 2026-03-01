@@ -26,17 +26,17 @@ export class DamageMultiCalcService {
 
   private calculateDamageOneVsMany(attacker: Pokemon, target: Target, field: Field, secondAttacker?: Pokemon): DamageResult {
     if (secondAttacker && attacker != secondAttacker) {
-      return this.damageCalculator.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
+      return this.damageCalculator.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field, true)
     } else {
-      return this.damageCalculator.calcDamage(attacker, target.pokemon, field)
+      return this.damageCalculator.calcDamage(attacker, target.pokemon, field, true)
     }
   }
 
   private calculateDamageManyVsOne(activeTeamMember: Pokemon, target: Target, field: Field): DamageResult {
     if (target.secondPokemon) {
-      return this.damageCalculator.calcDamageForTwoAttackers(target.pokemon, target.secondPokemon, activeTeamMember, field)
+      return this.damageCalculator.calcDamageForTwoAttackers(target.pokemon, target.secondPokemon, activeTeamMember, field, true)
     } else {
-      return this.damageCalculator.calcDamage(target.pokemon, activeTeamMember, field)
+      return this.damageCalculator.calcDamage(target.pokemon, activeTeamMember, field, true)
     }
   }
 }

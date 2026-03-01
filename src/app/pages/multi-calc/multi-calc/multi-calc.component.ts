@@ -122,7 +122,7 @@ export class MultiCalcComponent implements OnInit {
     this.originalNature.set(defender.nature)
 
     const rollIndex = this.rollLevelConfig().toRollIndex()
-    const result = this.defensiveEvOptimizer.optimize(defender, targets, field, event.updateNature, event.keepOffensiveEvs, event.survivalThreshold, rollIndex)
+    const result = this.defensiveEvOptimizer.optimize(defender, targets, field, event.updateNature, event.keepOffensiveEvs, event.survivalThreshold, rollIndex, true)
 
     this.optimizedNature.set(result.nature)
 

@@ -12,8 +12,8 @@ export class RefinementStage {
   private damageCalculator = inject(DamageCalculatorService)
   private survivalChecker = inject(SurvivalChecker)
 
-  refineForSingleAttacker(solution: Stats, defender: Pokemon, attacker: Pokemon, field: Field, threshold: SurvivalThreshold, rollIndex = 15): Stats | null {
-    const koChanceText = this.damageCalculator.koChanceForOneAttacker(attacker, defender, field)
+  refineForSingleAttacker(solution: Stats, defender: Pokemon, attacker: Pokemon, field: Field, threshold: SurvivalThreshold, rollIndex = 15, rightIsDefender = true): Stats | null {
+    const koChanceText = this.damageCalculator.koChanceForOneAttacker(attacker, defender, field, rightIsDefender)
     const shouldRefine = this.needsRefinement(koChanceText, threshold)
 
     if (!shouldRefine) {
@@ -21,25 +21,25 @@ export class RefinementStage {
     }
 
     const tempDefender = defender.clone({ evs: solution })
-    const survives = this.survivalChecker.checkSurvival(attacker, tempDefender, field, threshold, rollIndex)
+    const survives = this.survivalChecker.checkSurvival(attacker, tempDefender, field, threshold, rollIndex, rightIsDefender)
 
     if (survives) {
-      const reducedSolution = this.reduceEvs(solution, tempDefender, field, threshold, attacker, null, rollIndex)
-      return this.prioritizeHp(reducedSolution, tempDefender, field, threshold, attacker, null, rollIndex)
+      const reducedSolution = this.reduceEvs(solution, tempDefender, field, threshold, attacker, null, rollIndex, null, null, rightIsDefender)
+      return this.prioritizeHp(reducedSolution, tempDefender, field, threshold, attacker, null, rollIndex, null, null, rightIsDefender)
     }
 
     if (!survives && /after .+ damage/i.test(koChanceText)) {
-      const increasedSolution = this.increaseEvs(solution, tempDefender, field, threshold, attacker, null, rollIndex)
+      const increasedSolution = this.increaseEvs(solution, tempDefender, field, threshold, attacker, null, rollIndex, null, null, rightIsDefender)
 
       if (increasedSolution) {
-        const reducedSolution = this.reduceEvs(increasedSolution, tempDefender, field, threshold, attacker, null, rollIndex)
-        return this.prioritizeHp(reducedSolution, tempDefender, field, threshold, attacker, null, rollIndex)
+        const reducedSolution = this.reduceEvs(increasedSolution, tempDefender, field, threshold, attacker, null, rollIndex, null, null, rightIsDefender)
+        return this.prioritizeHp(reducedSolution, tempDefender, field, threshold, attacker, null, rollIndex, null, null, rightIsDefender)
       }
 
       return null
     }
 
-    return this.prioritizeHp(solution, tempDefender, field, threshold, attacker, null, rollIndex)
+    return this.prioritizeHp(solution, tempDefender, field, threshold, attacker, null, rollIndex, null, null, rightIsDefender)
   }
 
   refineForDoubleAttackers(
@@ -51,9 +51,10 @@ export class RefinementStage {
     threshold: SurvivalThreshold,
     rollIndex = 15,
     physicalStrongest: Pokemon | null = null,
-    specialStrongest: Pokemon | null = null
+    specialStrongest: Pokemon | null = null,
+    rightIsDefender = true
   ): Stats | null {
-    const koChanceText = this.damageCalculator.koChanceForTwoAttackers(attacker1, attacker2, defender, field)
+    const koChanceText = this.damageCalculator.koChanceForTwoAttackers(attacker1, attacker2, defender, field, rightIsDefender)
     const shouldRefine = this.needsRefinement(koChanceText, threshold)
 
     if (!shouldRefine) {
@@ -61,19 +62,19 @@ export class RefinementStage {
     }
 
     const tempDefender = defender.clone({ evs: solution })
-    const survives = this.checkSurvival(tempDefender, field, threshold, attacker1, attacker2, rollIndex, physicalStrongest, specialStrongest)
+    const survives = this.checkSurvival(tempDefender, field, threshold, attacker1, attacker2, rollIndex, physicalStrongest, specialStrongest, rightIsDefender)
 
     if (survives) {
-      const reducedSolution = this.reduceEvs(solution, tempDefender, field, threshold, attacker1, attacker2, rollIndex, physicalStrongest, specialStrongest)
-      return this.prioritizeHp(reducedSolution, tempDefender, field, threshold, attacker1, attacker2, rollIndex, physicalStrongest, specialStrongest)
+      const reducedSolution = this.reduceEvs(solution, tempDefender, field, threshold, attacker1, attacker2, rollIndex, physicalStrongest, specialStrongest, rightIsDefender)
+      return this.prioritizeHp(reducedSolution, tempDefender, field, threshold, attacker1, attacker2, rollIndex, physicalStrongest, specialStrongest, rightIsDefender)
     }
 
     if (!survives && /after .+ damage/i.test(koChanceText)) {
-      const increasedSolution = this.increaseEvs(solution, tempDefender, field, threshold, attacker1, attacker2, rollIndex, physicalStrongest, specialStrongest)
+      const increasedSolution = this.increaseEvs(solution, tempDefender, field, threshold, attacker1, attacker2, rollIndex, physicalStrongest, specialStrongest, rightIsDefender)
 
       if (increasedSolution) {
-        const reducedSolution = this.reduceEvs(increasedSolution, tempDefender, field, threshold, attacker1, attacker2, rollIndex, physicalStrongest, specialStrongest)
-        return this.prioritizeHp(reducedSolution, tempDefender, field, threshold, attacker1, attacker2, rollIndex, physicalStrongest, specialStrongest)
+        const reducedSolution = this.reduceEvs(increasedSolution, tempDefender, field, threshold, attacker1, attacker2, rollIndex, physicalStrongest, specialStrongest, rightIsDefender)
+        return this.prioritizeHp(reducedSolution, tempDefender, field, threshold, attacker1, attacker2, rollIndex, physicalStrongest, specialStrongest, rightIsDefender)
       }
 
       return null
@@ -83,7 +84,7 @@ export class RefinementStage {
       return null
     }
 
-    return this.prioritizeHp(solution, tempDefender, field, threshold, attacker1, attacker2, rollIndex, physicalStrongest, specialStrongest)
+    return this.prioritizeHp(solution, tempDefender, field, threshold, attacker1, attacker2, rollIndex, physicalStrongest, specialStrongest, rightIsDefender)
   }
 
   private needsRefinement(koChanceText: string, threshold: SurvivalThreshold): boolean {
@@ -106,7 +107,8 @@ export class RefinementStage {
     attacker2: Pokemon | null,
     rollIndex = 15,
     physicalStrongest: Pokemon | null = null,
-    specialStrongest: Pokemon | null = null
+    specialStrongest: Pokemon | null = null,
+    rightIsDefender = true
   ): Stats | null {
     const currentSolution = { ...solution }
     const needDef = attacker1.move.category === "Physical" || attacker2?.move.category === "Physical" || physicalStrongest !== null
@@ -123,7 +125,7 @@ export class RefinementStage {
           if (currentSolution.hp + 4 <= 252) {
             const testSolution = { ...currentSolution, hp: currentSolution.hp + 4 }
             tempDefender.setEvs(testSolution)
-            if (this.checkSurvival(tempDefender, field, threshold, attacker1, attacker2, rollIndex, physicalStrongest, specialStrongest)) {
+            if (this.checkSurvival(tempDefender, field, threshold, attacker1, attacker2, rollIndex, physicalStrongest, specialStrongest, rightIsDefender)) {
               return testSolution
             }
 
@@ -134,7 +136,7 @@ export class RefinementStage {
           if (needDef && currentSolution.def + 4 <= 252) {
             const testSolution = { ...currentSolution, def: currentSolution.def + 4 }
             tempDefender.setEvs(testSolution)
-            if (this.checkSurvival(tempDefender, field, threshold, attacker1, attacker2, rollIndex, physicalStrongest, specialStrongest)) {
+            if (this.checkSurvival(tempDefender, field, threshold, attacker1, attacker2, rollIndex, physicalStrongest, specialStrongest, rightIsDefender)) {
               return testSolution
             }
 
@@ -145,7 +147,7 @@ export class RefinementStage {
           if (needSpd && currentSolution.spd + 4 <= 252) {
             const testSolution = { ...currentSolution, spd: currentSolution.spd + 4 }
             tempDefender.setEvs(testSolution)
-            if (this.checkSurvival(tempDefender, field, threshold, attacker1, attacker2, rollIndex, physicalStrongest, specialStrongest)) {
+            if (this.checkSurvival(tempDefender, field, threshold, attacker1, attacker2, rollIndex, physicalStrongest, specialStrongest, rightIsDefender)) {
               return testSolution
             }
 
@@ -175,7 +177,8 @@ export class RefinementStage {
     attacker2: Pokemon | null,
     rollIndex = 15,
     physicalStrongest: Pokemon | null = null,
-    specialStrongest: Pokemon | null = null
+    specialStrongest: Pokemon | null = null,
+    rightIsDefender = true
   ): Stats {
     let currentSolution = { ...solution }
     let improved = true
@@ -186,7 +189,7 @@ export class RefinementStage {
       if (currentSolution.hp >= 4) {
         const testSolution = { ...currentSolution, hp: currentSolution.hp - 4 }
         tempDefender.setEvs(testSolution)
-        if (this.checkSurvival(tempDefender, field, threshold, attacker1, attacker2, rollIndex, physicalStrongest, specialStrongest)) {
+        if (this.checkSurvival(tempDefender, field, threshold, attacker1, attacker2, rollIndex, physicalStrongest, specialStrongest, rightIsDefender)) {
           currentSolution = testSolution
           improved = true
           continue
@@ -196,7 +199,7 @@ export class RefinementStage {
       if (currentSolution.def >= 4) {
         const testSolution = { ...currentSolution, def: currentSolution.def - 4 }
         tempDefender.setEvs(testSolution)
-        if (this.checkSurvival(tempDefender, field, threshold, attacker1, attacker2, rollIndex, physicalStrongest, specialStrongest)) {
+        if (this.checkSurvival(tempDefender, field, threshold, attacker1, attacker2, rollIndex, physicalStrongest, specialStrongest, rightIsDefender)) {
           currentSolution = testSolution
           improved = true
           continue
@@ -206,7 +209,7 @@ export class RefinementStage {
       if (currentSolution.spd >= 4) {
         const testSolution = { ...currentSolution, spd: currentSolution.spd - 4 }
         tempDefender.setEvs(testSolution)
-        if (this.checkSurvival(tempDefender, field, threshold, attacker1, attacker2, rollIndex, physicalStrongest, specialStrongest)) {
+        if (this.checkSurvival(tempDefender, field, threshold, attacker1, attacker2, rollIndex, physicalStrongest, specialStrongest, rightIsDefender)) {
           currentSolution = testSolution
           improved = true
           continue
@@ -226,7 +229,8 @@ export class RefinementStage {
     attacker2: Pokemon | null,
     rollIndex = 15,
     physicalStrongest: Pokemon | null = null,
-    specialStrongest: Pokemon | null = null
+    specialStrongest: Pokemon | null = null,
+    rightIsDefender = true
   ): Stats {
     const isPhysical1 = attacker1.move.category === "Physical"
     const isSpecial1 = attacker1.move.category === "Special"
@@ -266,20 +270,20 @@ export class RefinementStage {
       const candidateEvs = { ...solution, hp: hp, [defensiveStat]: statValue }
       tempDefender.setEvs(candidateEvs)
 
-      if (this.checkSurvival(tempDefender, field, threshold, attacker1, attacker2, rollIndex, physicalStrongest, specialStrongest)) {
-        return this.reduceEvs(candidateEvs, tempDefender, field, threshold, attacker1, attacker2, rollIndex, physicalStrongest, specialStrongest)
+      if (this.checkSurvival(tempDefender, field, threshold, attacker1, attacker2, rollIndex, physicalStrongest, specialStrongest, rightIsDefender)) {
+        return this.reduceEvs(candidateEvs, tempDefender, field, threshold, attacker1, attacker2, rollIndex, physicalStrongest, specialStrongest, rightIsDefender)
       }
     }
 
     return solution
   }
 
-  private checkSurvival(tempDefender: Pokemon, field: Field, threshold: SurvivalThreshold, attacker1: Pokemon, attacker2: Pokemon | null, rollIndex = 15, physicalStrongest: Pokemon | null = null, specialStrongest: Pokemon | null = null): boolean {
+  private checkSurvival(tempDefender: Pokemon, field: Field, threshold: SurvivalThreshold, attacker1: Pokemon, attacker2: Pokemon | null, rollIndex = 15, physicalStrongest: Pokemon | null = null, specialStrongest: Pokemon | null = null, rightIsDefender = true): boolean {
     let survives = false
     if (attacker2) {
-      survives = this.survivalChecker.checkSurvivalAgainstTwoAttackers(attacker1, attacker2, tempDefender, field, threshold, rollIndex)
+      survives = this.survivalChecker.checkSurvivalAgainstTwoAttackers(attacker1, attacker2, tempDefender, field, threshold, rollIndex, rightIsDefender)
     } else {
-      survives = this.survivalChecker.checkSurvival(attacker1, tempDefender, field, threshold, rollIndex)
+      survives = this.survivalChecker.checkSurvival(attacker1, tempDefender, field, threshold, rollIndex, rightIsDefender)
     }
 
     if (!survives) {
@@ -287,13 +291,13 @@ export class RefinementStage {
     }
 
     if (physicalStrongest) {
-      if (!this.survivalChecker.checkSurvival(physicalStrongest, tempDefender, field, threshold, rollIndex)) {
+      if (!this.survivalChecker.checkSurvival(physicalStrongest, tempDefender, field, threshold, rollIndex, rightIsDefender)) {
         return false
       }
     }
 
     if (specialStrongest) {
-      if (!this.survivalChecker.checkSurvival(specialStrongest, tempDefender, field, threshold, rollIndex)) {
+      if (!this.survivalChecker.checkSurvival(specialStrongest, tempDefender, field, threshold, rollIndex, rightIsDefender)) {
         return false
       }
     }
