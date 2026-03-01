@@ -68,7 +68,7 @@
       <label class="moves-label" [ngClass]="{ 'reversed-moves-label': reverse() }">Moves</label>
       <div class="moves" [ngClass]="{ 'reversed-moves': reverse() }">
         <div class="move" [ngClass]="{ 'move-row-active': !moveSelectorDisabled(0) }">
-          <mat-checkbox class="move-checkbox" [ngModel]="pokemon().activeMoveIndex === 0" (click)="moveSelectorOnClick(1)" data-cy="attack1" />
+          <mat-checkbox class="move-checkbox" [ngModel]="pokemon().activeMoveIndex === 0" (click)="selectMoveOnly(1)" data-cy="attack1" />
           <app-input
             #move1Input
             [value]="pokemon().moveSet.move1.name"
@@ -80,7 +80,7 @@
             data-cy="pokemon-attack-1" />
         </div>
         <div class="move" [ngClass]="{ 'move-row-active': !moveSelectorDisabled(1) }">
-          <mat-checkbox class="move-checkbox" [ngModel]="pokemon().activeMoveIndex === 1" (click)="moveSelectorOnClick(2)" data-cy="attack2" />
+          <mat-checkbox class="move-checkbox" [ngModel]="pokemon().activeMoveIndex === 1" (click)="selectMoveOnly(2)" data-cy="attack2" />
           <app-input
             #move2Input
             [value]="pokemon().moveSet.move2.name"
@@ -92,7 +92,7 @@
             data-cy="pokemon-attack-2" />
         </div>
         <div class="move" [ngClass]="{ 'move-row-active': !moveSelectorDisabled(2) }">
-          <mat-checkbox class="move-checkbox" [ngModel]="pokemon().activeMoveIndex === 2" (click)="moveSelectorOnClick(3)" data-cy="attack3" />
+          <mat-checkbox class="move-checkbox" [ngModel]="pokemon().activeMoveIndex === 2" (click)="selectMoveOnly(3)" data-cy="attack3" />
           <app-input
             #move3Input
             [value]="pokemon().moveSet.move3.name"
@@ -104,7 +104,7 @@
             data-cy="pokemon-attack-3" />
         </div>
         <div class="move" [ngClass]="{ 'move-row-active': !moveSelectorDisabled(3) }">
-          <mat-checkbox class="move-checkbox" [ngModel]="pokemon().activeMoveIndex === 3" (click)="moveSelectorOnClick(4)" data-cy="attack4" />
+          <mat-checkbox class="move-checkbox" [ngModel]="pokemon().activeMoveIndex === 3" (click)="selectMoveOnly(4)" data-cy="attack4" />
           <app-input
             #move4Input
             [value]="pokemon().moveSet.move4.name"

@@ -242,6 +242,11 @@ export class PokemonBuildComponent {
     this.selected.emit()
   }
 
+  selectMoveOnly(position: number) {
+    this.store.activateMoveByPosition(this.pokemonId(), position)
+    this.activeMoveIndex.set(position - 1)
+  }
+
   moveSelected(move: string) {
     this.clearBlurTimeout()
     this.moveWasSelected = true
