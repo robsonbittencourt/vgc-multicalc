@@ -131,7 +131,7 @@ export class Pokemon {
 
     const jumps = []
 
-    while (ev <= 252) {
+    while (ev < 252) {
       ev += this.evToIncrementStat(stat, actualStatValue, ev)
 
       const statValue = this.rawStatWithEv(stat, ev)
