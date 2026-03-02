@@ -22,7 +22,6 @@ export class PokemonBuild {
     return this
   }
 
-
   tableEntryIsSelected(name: string): PokemonBuild {
     cy.get(`[data-cy="table-entry-${name}"]`).should("have.class", "entry-active")
     return this
@@ -101,7 +100,6 @@ export class PokemonBuild {
     return this
   }
 
-
   selectItem(itemName: string): PokemonBuild {
     this.closeTable()
     this.container().find('[data-cy="item"] input').click()
@@ -120,7 +118,6 @@ export class PokemonBuild {
     cy.get(`[data-cy="table-entry-${itemName}"]`).click({ force: true })
     return this
   }
-
 
   inputPokemonItem(filter: string): PokemonBuild {
     this.container().find('[data-cy="item"] input').click({ force: true }).type(filter)
@@ -180,7 +177,6 @@ export class PokemonBuild {
     cy.get(`[data-cy="table-entry-${abilityName}"]`).click({ force: true })
     return this
   }
-
 
   inputPokemonAbility(filter: string): PokemonBuild {
     this.container().find('[data-cy="ability"] input').click({ force: true }).type(filter)

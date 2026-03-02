@@ -8,7 +8,7 @@ import { Move } from "@lib/model/move"
 import { Pokemon } from "@lib/model/pokemon"
 import { fromExisting } from "@lib/smogon/smogon-pokemon-builder"
 import { SpeedCalculatorService } from "@lib/speed-calculator/speed-calculator-service"
-import { calculate, calculateMulti, extractDamageSubArrays, Generations, Move as MoveSmogon, Result, MultiResult, Pokemon as PokemonSmogon, Field as FieldSmogon } from "@robsonbittencourt/calc"
+import { calculate, calculateMulti, Generations, Move as MoveSmogon, Result, MultiResult, Pokemon as PokemonSmogon, Field as FieldSmogon } from "@robsonbittencourt/calc"
 import { Generation } from "@robsonbittencourt/calc/dist/data/interface"
 import { RollLevelConfig } from "./roll-level-config"
 
@@ -151,16 +151,6 @@ export class DamageCalculatorService {
     }
 
     return calculate(gen, attacker, target, move, field)
-  }
-
-  combineDamageRolls(resultOne: Result, resultTwo: Result) {
-    const extractedDamageOne = extractDamageSubArrays(resultOne.damage)
-    const extractedDamageTwo = extractDamageSubArrays(resultTwo.damage)
-
-    const combinedDamage: number[][] = [...extractedDamageOne, ...extractedDamageTwo]
-
-    resultOne.damage = combinedDamage
-    resultTwo.damage = combinedDamage
   }
 
   private koChance(result: Result): string {

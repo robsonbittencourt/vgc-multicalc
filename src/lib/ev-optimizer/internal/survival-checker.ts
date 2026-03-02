@@ -1,6 +1,6 @@
 import { inject, Injectable } from "@angular/core"
 import { DamageCalculatorService } from "@lib/damage-calculator/damage-calculator.service"
-import { Field, FieldSide } from "@lib/model/field"
+import { Field } from "@lib/model/field"
 import { Pokemon } from "@lib/model/pokemon"
 import { Stats, SurvivalThreshold } from "@lib/types"
 

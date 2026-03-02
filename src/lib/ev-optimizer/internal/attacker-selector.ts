@@ -54,16 +54,7 @@ export class AttackerSelector {
     })
   }
 
-  determinePriority(
-    physicalAttackers: Pokemon[],
-    specialAttackers: Pokemon[],
-    defender: Pokemon,
-    field: Field,
-    updateNature = false,
-    threshold: SurvivalThreshold = 2,
-    rollIndex = 15,
-    rightIsDefender = true
-  ): AttackerPriorityResult {
+  determinePriority(physicalAttackers: Pokemon[], specialAttackers: Pokemon[], defender: Pokemon, field: Field, updateNature = false, threshold: SurvivalThreshold = 2, rollIndex = 15, rightIsDefender = true): AttackerPriorityResult {
     const defenderWithNoEv = defender.clone({ evs: { hp: 0, def: 0, spd: 0 } })
     const defenderWithMaxPhysical = defender.clone({ evs: { hp: MAX_SINGLE_STAT_EVS, def: MAX_SINGLE_STAT_EVS, spd: 0 } })
     const defenderWithMaxSpecial = defender.clone({ evs: { hp: MAX_SINGLE_STAT_EVS, def: 0, spd: MAX_SINGLE_STAT_EVS } })
@@ -130,16 +121,7 @@ export class AttackerSelector {
     }
   }
 
-  private analyzeSurvival(
-    attackers: Pokemon[],
-    defenderMin: Pokemon | null,
-    defenderMax: Pokemon,
-    field: Field,
-    checkMin: boolean,
-    threshold: SurvivalThreshold,
-    rollIndex = 15,
-    rightIsDefender = true
-  ): SurvivalAnalysis {
+  private analyzeSurvival(attackers: Pokemon[], defenderMin: Pokemon | null, defenderMax: Pokemon, field: Field, checkMin: boolean, threshold: SurvivalThreshold, rollIndex = 15, rightIsDefender = true): SurvivalAnalysis {
     let survivingCount = 0
     let strongestAttacker: Pokemon | null = null
     let maxDamage = 0

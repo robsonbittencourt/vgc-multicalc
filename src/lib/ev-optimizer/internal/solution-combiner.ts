@@ -374,7 +374,17 @@ export class SolutionCombiner {
     return result
   }
 
-  tryAddDoubleSolution(currentSolution: Stats, doubleSolution: Stats, defender: Pokemon, field: Field, doubleAttacker1: Pokemon | null, doubleAttacker2: Pokemon | null, threshold: SurvivalThreshold, rollIndex = 15, rightIsDefender = true): Stats | null {
+  tryAddDoubleSolution(
+    currentSolution: Stats,
+    doubleSolution: Stats,
+    defender: Pokemon,
+    field: Field,
+    doubleAttacker1: Pokemon | null,
+    doubleAttacker2: Pokemon | null,
+    threshold: SurvivalThreshold,
+    rollIndex = 15,
+    rightIsDefender = true
+  ): Stats | null {
     if (!doubleAttacker1 || !doubleAttacker2) {
       return null
     }

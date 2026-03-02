@@ -234,7 +234,6 @@ describe("Pokemon", () => {
       expect(pokemon.jumps).toEqual([20, 100, 180])
     })
 
-
     it("should return the IVs of the Pokemon", () => {
       const pokemon = new Pokemon("Charizard", { ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 } })
 

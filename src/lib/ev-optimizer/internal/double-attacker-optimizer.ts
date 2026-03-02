@@ -281,7 +281,18 @@ export class DoubleAttackerOptimizer {
     return { hp: initialHp, atk: 0, def: initialDef, spa: 0, spd: initialSpd, spe: 0 }
   }
 
-  private checkMixedScenario(hpEv: number, evIntervals: number[], tempDefender: Pokemon, physicalAttacker: Pokemon, specialAttacker: Pokemon, field: Field, threshold: SurvivalThreshold, maxTotalEvs: number, rollIndex: number, rightIsDefender = true): MixedScenarioResult {
+  private checkMixedScenario(
+    hpEv: number,
+    evIntervals: number[],
+    tempDefender: Pokemon,
+    physicalAttacker: Pokemon,
+    specialAttacker: Pokemon,
+    field: Field,
+    threshold: SurvivalThreshold,
+    maxTotalEvs: number,
+    rollIndex: number,
+    rightIsDefender = true
+  ): MixedScenarioResult {
     let minDefIndex = -1
     const tempEvs = { hp: hpEv, atk: tempDefender.evs.atk, def: 0, spa: tempDefender.evs.spa, spd: 0, spe: tempDefender.evs.spe }
 

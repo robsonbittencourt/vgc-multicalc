@@ -87,7 +87,20 @@ export class DefensiveEvOptimizerService {
       if (refinedEvs) {
         evs = refinedEvs
       } else {
-        evs = this.solutionCombiner.combineSolutions(physicalOptimized, specialOptimized, priority?.prioritizePhysical ?? true, defenderWithNature, field, physicalStrongest, specialStrongest, physicalAttackers, specialAttackers, threshold, rollIndex, rightIsDefender)
+        evs = this.solutionCombiner.combineSolutions(
+          physicalOptimized,
+          specialOptimized,
+          priority?.prioritizePhysical ?? true,
+          defenderWithNature,
+          field,
+          physicalStrongest,
+          specialStrongest,
+          physicalAttackers,
+          specialAttackers,
+          threshold,
+          rollIndex,
+          rightIsDefender
+        )
 
         if (evs) {
           const strongestAttacker = physicalStrongest || specialStrongest
@@ -164,7 +177,20 @@ export class DefensiveEvOptimizerService {
       return { evs: null, nature: null }
     }
 
-    let evs: Stats | null = this.solutionCombiner.combineSolutions(physicalOptimized, specialOptimized, priority.prioritizePhysical, defenderWithNature, field, physicalStrongest, specialStrongest, physicalAttackers, specialAttackers, threshold, rollIndex, rightIsDefender)
+    let evs: Stats | null = this.solutionCombiner.combineSolutions(
+      physicalOptimized,
+      specialOptimized,
+      priority.prioritizePhysical,
+      defenderWithNature,
+      field,
+      physicalStrongest,
+      specialStrongest,
+      physicalAttackers,
+      specialAttackers,
+      threshold,
+      rollIndex,
+      rightIsDefender
+    )
 
     if (evs) {
       const strongestAttacker = physicalStrongest || specialStrongest

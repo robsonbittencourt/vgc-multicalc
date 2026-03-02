@@ -278,7 +278,17 @@ export class RefinementStage {
     return solution
   }
 
-  private checkSurvival(tempDefender: Pokemon, field: Field, threshold: SurvivalThreshold, attacker1: Pokemon, attacker2: Pokemon | null, rollIndex = 15, physicalStrongest: Pokemon | null = null, specialStrongest: Pokemon | null = null, rightIsDefender = true): boolean {
+  private checkSurvival(
+    tempDefender: Pokemon,
+    field: Field,
+    threshold: SurvivalThreshold,
+    attacker1: Pokemon,
+    attacker2: Pokemon | null,
+    rollIndex = 15,
+    physicalStrongest: Pokemon | null = null,
+    specialStrongest: Pokemon | null = null,
+    rightIsDefender = true
+  ): boolean {
     let survives = false
     if (attacker2) {
       survives = this.survivalChecker.checkSurvivalAgainstTwoAttackers(attacker1, attacker2, tempDefender, field, threshold, rollIndex, rightIsDefender)
