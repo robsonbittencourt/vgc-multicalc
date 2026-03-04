@@ -53,9 +53,9 @@ export class SimpleCalcMobileComponent {
 
   damageResult = computed(() => {
     if (this.leftIsAttacker()) {
-      return this.damageCalculator.calcDamage(this.store.leftPokemon(), this.store.rightPokemon(), this.fieldStore.field(), true)
+      return this.damageCalculator.calcDamage(this.store.leftPokemon(), this.store.rightPokemon(), this.fieldStore.field())
     } else {
-      return this.damageCalculator.calcDamage(this.store.rightPokemon(), this.store.leftPokemon(), this.fieldStore.field(), false)
+      return this.damageCalculator.calcDamage(this.store.rightPokemon(), this.store.leftPokemon(), this.fieldStore.field())
     }
   })
 
