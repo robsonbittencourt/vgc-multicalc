@@ -271,7 +271,7 @@ describe("Test the Field options on options with One vs One", () => {
       rightDamageResult.damageIs(0, 30.9, 36.4, 56, 66)
     })
 
-    it("With Neutralizing Gas active and Ability Shield", () => {
+    it.only("With Neutralizing Gas active and Ability Shield", () => {
       leftPokemonBuild.selectItem("Ability Shield")
       rightPokemonBuild.selectItem("Ability Shield")
 

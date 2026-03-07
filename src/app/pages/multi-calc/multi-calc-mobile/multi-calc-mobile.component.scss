@@ -1,0 +1,148 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background);
+  height: 100dvh;
+  overflow: hidden;
+}
+
+.team-tabs {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0.25em 0.5em;
+  background-color: var(--background);
+  border-bottom: 1px solid var(--widget-border);
+  flex-shrink: 0;
+}
+
+.team-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25em;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.15s ease;
+  flex: 1;
+}
+
+.team-tab:hover {
+  background-color: var(--highlight);
+}
+
+.active-tab {
+  border-color: var(--primary);
+  background-color: var(--highlight);
+}
+
+.tab-sprite {
+  width: 4em;
+  height: 4em;
+  object-fit: contain;
+}
+
+.scrollable-content {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.attacker-build {
+  padding-bottom: 0.5em;
+}
+
+.attacker-name {
+  font-size: 0.8em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text);
+  padding: 0.5em 0.75em 0 0.75em;
+  opacity: 0.6;
+}
+
+.results-list {
+  border-top: 1px solid var(--widget-border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75em;
+  padding: 0.75em;
+}
+
+.result-card {
+  width: 100%;
+}
+
+.result-card app-pokemon-card {
+  display: block;
+  width: 100%;
+}
+
+.results-list ::ng-deep .pokemon-hp {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+  height: 5em;
+}
+
+.results-list ::ng-deep .hp-bar {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.results-list ::ng-deep .hp {
+  min-width: 40%;
+}
+
+.results-list ::ng-deep .fainted-icon {
+  left: 50% !important;
+  transform: translateX(-50%) scale(0.85) !important;
+}
+
+.results-list ::ng-deep .right-side {
+  flex: 1;
+  min-width: 0;
+}
+
+.results-list ::ng-deep .pokemon-image {
+  width: 4em;
+}
+
+.results-list ::ng-deep .vs-icon {
+  height: 2.5em;
+}
+
+.bottom-nav {
+  display: flex;
+  background-color: var(--background);
+  border-top: 1px solid var(--widget-border);
+  flex-shrink: 0;
+}
+
+.bottom-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding: 0.5em;
+  cursor: pointer;
+  gap: 0.1em;
+  font-size: 0.78em;
+  color: var(--text);
+  opacity: 0.5;
+  transition: opacity 0.15s ease;
+}
+
+.bottom-tab:hover {
+  opacity: 0.8;
+}
+
+.active-bottom-tab {
+  opacity: 1;
+  color: var(--primary);
+  border-top: 2px solid var(--primary);
+}

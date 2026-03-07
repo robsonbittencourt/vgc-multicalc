@@ -10,6 +10,7 @@ import { buildState } from "@data/store/utils/user-data-mapper"
 import { DeviceDetectorService } from "@lib/device-detector.service"
 import { HowToUseComponent } from "@pages/how-to-use/how-to-use.component"
 import { MultiCalcComponent } from "@pages/multi-calc/multi-calc/multi-calc.component"
+import { MultiCalcMobileComponent } from "@pages/multi-calc/multi-calc-mobile/multi-calc-mobile.component"
 import { SimpleCalcMobileComponent } from "@pages/simple-calc/simple-calc-mobile/simple-calc-mobile.component"
 import { SimpleCalcComponent } from "@pages/simple-calc/simple-calc/simple-calc.component"
 import { SpeedCalculatorMobileComponent } from "@pages/speed-calc/speed-calculator-mobile/speed-calculator-mobile.component"
@@ -30,6 +31,7 @@ import { TypeCalculatorComponent } from "@pages/type-calc/type-calculator/type-c
     HowToUseComponent,
     HeaderMobileComponent,
     SimpleCalcMobileComponent,
+    MultiCalcMobileComponent,
     SpeedCalculatorMobileComponent,
     HowToUseComponent
   ]

@@ -1,0 +1,33 @@
+<div class="team-tabs">
+  @for (member of teamMembers(); track member.pokemon.id) {
+    <div class="team-tab" [ngClass]="{ 'active-tab': activePokemonId() === member.pokemon.id }">
+      <img class="tab-sprite" src="assets/sprites/pokemon-sv/{{ member.pokemon.name }}.png" />
+    </div>
+  }
+</div>
+
+<div class="scrollable-content">
+  <div class="attacker-build">
+    <div class="attacker-name">{{ activeAttacker().displayNameWithoutSuffix }}</div>
+    <app-pokemon-build-mobile [pokemonId]="activePokemonId()" />
+  </div>
+
+  <div class="results-list" cdkDropListGroup>
+    @for (damageResult of damageResults(); track damageResult.id) {
+      <div class="result-card" cdkDropList cdkDropListOrientation="horizontal" [cdkDropListData]="damageResult.attacker.id">
+        <app-pokemon-card [damageResult]="damageResult" [rollLevelConfig]="rollLevelConfig" [isAttacker]="menuStore.manyVsOneActivated()" />
+      </div>
+    }
+  </div>
+</div>
+
+<div class="bottom-nav">
+  <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'teams' }" (click)="activeBottomTab.set('teams')">
+    <mat-icon>groups</mat-icon>
+    <span>Teams</span>
+  </div>
+  <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'field' }" (click)="activeBottomTab.set('field')">
+    <mat-icon>grass</mat-icon>
+    <span>Field</span>
+  </div>
+</div>
