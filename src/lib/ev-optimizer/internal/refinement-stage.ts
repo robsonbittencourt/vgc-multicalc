@@ -289,7 +289,7 @@ export class RefinementStage {
     specialStrongest: Pokemon | null = null,
     rightIsDefender = true
   ): boolean {
-    let survives = false
+    let survives: boolean
     if (attacker2) {
       survives = this.survivalChecker.checkSurvivalAgainstTwoAttackers(attacker1, attacker2, tempDefender, field, threshold, rollIndex, rightIsDefender)
     } else {

@@ -266,7 +266,7 @@ export class CalculatorStore extends signalStore(
   }
 
   activateMoveByPosition(pokemonId: string, position: number) {
-    const adjustedPosition = Math.min(--position, 3)
+    const adjustedPosition = Math.min(position - 1, 3)
     this.updatePokemonById(pokemonId, () => ({ activeMove: adjustedPosition }))
   }
 

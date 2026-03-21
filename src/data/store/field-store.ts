@@ -165,7 +165,7 @@ export class FieldStore extends signalStore(
 
   private toggleWeather(newWeather: Weather) {
     patchState(this, state => {
-      let weather: Weather | null = state.weather
+      let weather: Weather | null
       const automaticWeather: Weather | null = null
 
       if (state.automaticWeather) {
@@ -217,7 +217,7 @@ export class FieldStore extends signalStore(
 
   private toggleTerrain(newTerrain: Terrain) {
     patchState(this, state => {
-      let terrain: Terrain | null = state.terrain
+      let terrain: Terrain | null
       const automaticTerrain: Terrain | null = null
 
       if (state.automaticTerrain) {

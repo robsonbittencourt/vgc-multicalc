@@ -7,10 +7,10 @@ export class AutomaticFieldService {
   fieldStore = inject(FieldStore)
 
   checkAutomaticField(pokemon: Pokemon, firstChanged = true, secondPokemon: Pokemon | null = null, secondChanged = false) {
-    let first: Pokemon | null = null
-    let second: Pokemon | null = null
-    let firstFlag = false
-    let secondFlag = false
+    let first: Pokemon | null
+    let second: Pokemon | null
+    let firstFlag: boolean
+    let secondFlag: boolean
 
     if (firstChanged && secondPokemon) {
       first = secondPokemon

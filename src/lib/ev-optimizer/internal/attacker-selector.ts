@@ -127,7 +127,7 @@ export class AttackerSelector {
     let maxDamage = 0
 
     for (const attacker of attackers) {
-      let survives = false
+      let survives: boolean
 
       if (checkMin && defenderMin) {
         const survivesWithMin = this.survivalChecker.checkSurvival(attacker, defenderMin, field, threshold, rollIndex, rightIsDefender)

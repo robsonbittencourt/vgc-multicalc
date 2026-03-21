@@ -359,7 +359,7 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
       return
     }
 
-    let newActiveEntry = null
+    let newActiveEntry
     const previous = this.activeEntry()?.prev
 
     if (previous?.group != null) {
@@ -381,7 +381,7 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
       return
     }
 
-    let newActiveEntry = null
+    let newActiveEntry
     const next = this.activeEntry()?.next
 
     if (next?.group != null) {
