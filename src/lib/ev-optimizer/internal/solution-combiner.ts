@@ -275,7 +275,7 @@ export class SolutionCombiner {
         const survivesDouble = this.survivalChecker.checkSurvivalAgainstTwoAttackersWithEvs(doubleAttacker1, doubleAttacker2, defender, evs, field, threshold, rollIndex, rightIsDefender)
 
         if (survivesPhysical && survivesSpecial && survivesDouble) {
-          if (!bestSolution || totalEvs < bestSolution.totalEvs) {
+          if (!bestSolution || totalEvs < bestSolution.totalEvs || (totalEvs === bestSolution.totalEvs && hpEv > bestSolution.hp)) {
             bestSolution = { hp: hpEv, atk: 0, def: defEv, spa: 0, spd: spdEv, spe: 0, totalEvs }
           }
         }
@@ -292,7 +292,7 @@ export class SolutionCombiner {
         const survivesSpecial = this.survivalChecker.checkSurvivalWithEvs(specialAttacker, defender, evs, field, threshold, rollIndex, rightIsDefender)
 
         if (survivesPhysical && survivesSpecial) {
-          if (!bestSolution || totalEvs < bestSolution.totalEvs) {
+          if (!bestSolution || totalEvs < bestSolution.totalEvs || (totalEvs === bestSolution.totalEvs && hpEv > bestSolution.hp)) {
             bestSolution = { hp: hpEv, atk: 0, def: defEv, spa: 0, spd: spdEv, spe: 0, totalEvs }
           }
         }
@@ -420,7 +420,7 @@ export class SolutionCombiner {
           const totalEvs = hpEv + defEv + spdEv
 
           if (totalEvs <= MAX_TOTAL_EVS) {
-            if (!bestSolution || totalEvs < bestSolution.totalEvs) {
+            if (!bestSolution || totalEvs < bestSolution.totalEvs || (totalEvs === bestSolution.totalEvs && hpEv > bestSolution.hp)) {
               bestSolution = { hp: hpEv, atk: 0, def: defEv, spa: 0, spd: spdEv, spe: 0, totalEvs }
             }
           }
@@ -528,7 +528,7 @@ export class SolutionCombiner {
           const totalEvs = hpEv + defEv + spdEv
 
           if (totalEvs <= MAX_TOTAL_EVS) {
-            if (!bestSolution || totalEvs < bestSolution.totalEvs) {
+            if (!bestSolution || totalEvs < bestSolution.totalEvs || (totalEvs === bestSolution.totalEvs && hpEv > bestSolution.hp)) {
               bestSolution = { hp: hpEv, atk: 0, def: defEv, spa: 0, spd: spdEv, spe: 0, totalEvs }
             }
           }
@@ -587,7 +587,7 @@ export class SolutionCombiner {
           const totalEvs = hpEv + defEv + spdEv
 
           if (totalEvs <= MAX_TOTAL_EVS) {
-            if (!bestSolution || totalEvs < bestSolution.totalEvs) {
+            if (!bestSolution || totalEvs < bestSolution.totalEvs || (totalEvs === bestSolution.totalEvs && hpEv > bestSolution.hp)) {
               bestSolution = { hp: hpEv, atk: 0, def: defEv, spa: 0, spd: spdEv, spe: 0, totalEvs }
             }
           }

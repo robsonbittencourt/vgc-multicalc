@@ -464,9 +464,50 @@ describe("DefensiveEvOptimizerService", () => {
         const targets = [new Target(miraidon), new Target(incineroar)]
         const result = service.optimize(defender, targets, field)
 
-        expect(result.evs!.hp).toBe(164)
+        expect(result.evs!.hp).toBe(172)
         expect(result.evs!.def).toBe(28)
-        expect(result.evs!.spd).toBe(12)
+        expect(result.evs!.spd).toBe(4)
+      })
+
+      it("should optimize EVs for multiple attackers with 1 not survivable, 1 special attacker and 1 physical attacker", () => {
+        const defender = new Pokemon("Calyrex-Shadow", {
+          evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
+        })
+
+        const miraidon = new Pokemon("Miraidon", {
+          nature: "Timid",
+          item: "Choice Specs",
+          ability: new Ability("Hadron Engine"),
+          moveSet: new MoveSet(new Move("Draco Meteor"), new Move(""), new Move(""), new Move("")),
+          evs: { hp: 0, atk: 0, def: 0, spa: 252, spd: 0, spe: 0 }
+        })
+
+        const ragingBolt = new Pokemon("Raging Bolt", {
+          nature: "Modest",
+          item: "Booster Energy",
+          ability: new Ability("Protosynthesis", true),
+          teraType: "Electric",
+          teraTypeActive: true,
+          moveSet: new MoveSet(new Move("Thunderbolt"), new Move(""), new Move(""), new Move("")),
+          evs: { hp: 0, atk: 0, def: 0, spa: 252, spd: 0, spe: 0 }
+        })
+
+        const chienPao = new Pokemon("Chien-Pao", {
+          nature: "Adamant",
+          item: "Life Orb",
+          ability: new Ability("Sword of Ruin"),
+          moveSet: new MoveSet(new Move("Ice Spinner"), new Move(""), new Move(""), new Move("")),
+          evs: { hp: 0, atk: 252, def: 0, spa: 0, spd: 0, spe: 0 }
+        })
+
+        const field = new Field({ terrain: "Electric" })
+
+        const targets = [new Target(miraidon), new Target(ragingBolt), new Target(chienPao)]
+        const result = service.optimize(defender, targets, field)
+
+        expect(result.evs!.hp).toBe(108)
+        expect(result.evs!.def).toBe(0)
+        expect(result.evs!.spd).toBe(228)
       })
 
       it("should optimize EVs for two simultaneous attackers (Urshifu-Rapid-Strike + Flutter Mane vs Gholdengo)", () => {
@@ -925,9 +966,9 @@ describe("DefensiveEvOptimizerService", () => {
 
         const result = service.optimize(defender, targets, field)
 
-        expect(result.evs!.hp).toBe(148)
-        expect(result.evs!.def).toBe(116)
-        expect(result.evs!.spd).toBe(236)
+        expect(result.evs!.hp).toBe(244)
+        expect(result.evs!.def).toBe(52)
+        expect(result.evs!.spd).toBe(180)
       })
 
       it("should optimize EVs for Gholdengo without updating nature (keeping Bold)", () => {

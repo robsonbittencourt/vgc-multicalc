@@ -4,7 +4,7 @@ import { Field } from "@lib/model/field"
 import { Pokemon } from "@lib/model/pokemon"
 import { Target } from "@lib/model/target"
 import { Stats, SurvivalThreshold } from "@lib/types"
-import { AttackerSelector } from "./internal/attacker-selector"
+import { AttackerPriorityResult, AttackerSelector } from "./internal/attacker-selector"
 import { DoubleAttackerOptimizer } from "./internal/double-attacker-optimizer"
 import { SingleAttackerOptimizer } from "./internal/single-attacker-optimizer"
 import { SolutionCombiner } from "./internal/solution-combiner"
@@ -38,7 +38,7 @@ export class DefensiveEvOptimizerService {
       return this.optimizeForSingleAttackers(defender, attackers, field, updateNature, reservedEvs, threshold, rollIndex, rightIsDefender)
     }
 
-    const strongestDoubleTarget = this.attackerSelector.findStrongestDoubleTarget(defender, targets, field, rollIndex, rightIsDefender)
+    const strongestDoubleTarget = this.attackerSelector.findStrongestDoubleTarget(defender, targets, field, threshold, rollIndex, rightIsDefender)
 
     const physicalAttackers = this.attackerSelector.getPhysicalAttackers(attackers)
     const specialAttackers = this.attackerSelector.getSpecialAttackers(attackers)
@@ -49,12 +49,7 @@ export class DefensiveEvOptimizerService {
     let specialOptimized: Stats | null = null
 
     let natureUsed: string | null = null
-    let priority: {
-      physicalStrongestAttacker: Pokemon | null
-      specialStrongestAttacker: Pokemon | null
-      natureUsed: string | null
-      prioritizePhysical: boolean
-    } | null = null
+    let priority: AttackerPriorityResult | null = null
 
     if (physicalAttackers.length > 0 || specialAttackers.length > 0) {
       priority = this.attackerSelector.determinePriority(physicalAttackers, specialAttackers, defender, field, updateNature, threshold, rollIndex, rightIsDefender)
@@ -75,10 +70,13 @@ export class DefensiveEvOptimizerService {
       doubleOptimized = this.doubleAttackerOptimizer.optimizeForTwoAttackers(strongestDoubleTarget.attacker1, strongestDoubleTarget.attacker2, defenderWithNature, field, threshold, rollIndex, rightIsDefender)
     }
 
+    const physicalAttackersSurvivable = priority?.physicalSurvivable ?? []
+    const specialAttackersSurvivable = priority?.specialSurvivable ?? []
+
     let evs: Stats | null = this.solutionCombiner.combineThreeSolutions(
       { physicalSolution: physicalOptimized, specialSolution: specialOptimized, doubleSolution: doubleOptimized },
       { defender: defenderWithNature, field, threshold, rollIndex, rightIsDefender },
-      { physicalAttacker: physicalStrongest, specialAttacker: specialStrongest, physicalAttackers, specialAttackers },
+      { physicalAttacker: physicalStrongest, specialAttacker: specialStrongest, physicalAttackers: physicalAttackersSurvivable, specialAttackers: specialAttackersSurvivable },
       { attacker1: strongestDoubleTarget?.attacker1 ?? null, attacker2: strongestDoubleTarget?.attacker2 ?? null }
     )
 
@@ -95,8 +93,8 @@ export class DefensiveEvOptimizerService {
           field,
           physicalStrongest,
           specialStrongest,
-          physicalAttackers,
-          specialAttackers,
+          physicalAttackersSurvivable,
+          specialAttackersSurvivable,
           threshold,
           rollIndex,
           rightIsDefender
@@ -113,8 +111,16 @@ export class DefensiveEvOptimizerService {
 
     if (!evs) {
       const defenderWithZeroDefensiveEvs = defenderWithNature.clone({ evs: { hp: 0, atk: defenderWithNature.evs.atk, def: 0, spa: defenderWithNature.evs.spa, spd: 0, spe: defenderWithNature.evs.spe } })
-      const survivesSingle = attackers.every(attacker => this.survivalChecker.checkSurvival(attacker, defenderWithZeroDefensiveEvs, field, threshold, rollIndex, rightIsDefender))
-      const survivesDouble = targetsWithTwoAttackers.every(target => this.survivalChecker.checkSurvivalAgainstTwoAttackers(target.pokemon, target.secondPokemon!, defenderWithZeroDefensiveEvs, field, threshold, rollIndex, rightIsDefender))
+      
+      const survivableSingleAttackers = [...(priority?.physicalSurvivable ?? []), ...(priority?.specialSurvivable ?? [])]
+      const hasSurvivableDouble = strongestDoubleTarget !== null
+      
+      if (survivableSingleAttackers.length === 0 && !hasSurvivableDouble && (attackers.length > 0 || targetsWithTwoAttackers.length > 0)) {
+        return { evs: null, nature: null }
+      }
+
+      const survivesSingle = survivableSingleAttackers.every(attacker => this.survivalChecker.checkSurvival(attacker, defenderWithZeroDefensiveEvs, field, threshold, rollIndex, rightIsDefender))
+      const survivesDouble = strongestDoubleTarget ? this.survivalChecker.checkSurvivalAgainstTwoAttackers(strongestDoubleTarget.attacker1, strongestDoubleTarget.attacker2, defenderWithZeroDefensiveEvs, field, threshold, rollIndex, rightIsDefender) : true
 
       if (survivesSingle && survivesDouble) {
         if (reservedEvs) {
@@ -177,6 +183,9 @@ export class DefensiveEvOptimizerService {
       return { evs: null, nature: null }
     }
 
+    const physicalAttackersSurvivable = priority.physicalSurvivable
+    const specialAttackersSurvivable = priority.specialSurvivable
+
     let evs: Stats | null = this.solutionCombiner.combineSolutions(
       physicalOptimized,
       specialOptimized,
@@ -185,8 +194,8 @@ export class DefensiveEvOptimizerService {
       field,
       physicalStrongest,
       specialStrongest,
-      physicalAttackers,
-      specialAttackers,
+      physicalAttackersSurvivable,
+      specialAttackersSurvivable,
       threshold,
       rollIndex,
       rightIsDefender
@@ -202,7 +211,14 @@ export class DefensiveEvOptimizerService {
 
     if (!evs) {
       const defenderWithZeroDefensiveEvs = defenderWithNature.clone({ evs: { hp: 0, atk: defenderWithNature.evs.atk, def: 0, spa: defenderWithNature.evs.spa, spd: 0, spe: defenderWithNature.evs.spe } })
-      const alreadySurvivesAll = attackers.every(attacker => this.survivalChecker.checkSurvival(attacker, defenderWithZeroDefensiveEvs, field, threshold, rollIndex, rightIsDefender))
+      
+      const survivableSingleAttackers = [...physicalAttackersSurvivable, ...specialAttackersSurvivable]
+      
+      if (survivableSingleAttackers.length === 0 && attackers.length > 0) {
+        return { evs: null, nature: null }
+      }
+
+      const alreadySurvivesAll = survivableSingleAttackers.every(attacker => this.survivalChecker.checkSurvival(attacker, defenderWithZeroDefensiveEvs, field, threshold, rollIndex, rightIsDefender))
 
       if (alreadySurvivesAll) {
         if (reservedEvs) {

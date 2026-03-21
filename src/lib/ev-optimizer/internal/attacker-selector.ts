@@ -12,12 +12,15 @@ export type AttackerPriorityResult = {
   physicalStrongestAttacker: Pokemon | null
   specialStrongestAttacker: Pokemon | null
   natureUsed: string | null
+  physicalSurvivable: Pokemon[]
+  specialSurvivable: Pokemon[]
 }
 
 type SurvivalAnalysis = {
   survivingCount: number
   strongestAttacker: Pokemon | null
   maxDamage: number
+  survivableAttackers: Pokemon[]
 }
 
 type NatureScenario = {
@@ -29,6 +32,8 @@ type NatureScenario = {
   physicalMaxDamage: number
   specialMaxDamage: number
   totalSurviving: number
+  physicalSurvivable: Pokemon[]
+  specialSurvivable: Pokemon[]
 }
 
 @Injectable({
@@ -70,7 +75,9 @@ export class AttackerSelector {
       specialStrongest: specialAnalysis.strongestAttacker,
       physicalMaxDamage: physicalAnalysis.maxDamage,
       specialMaxDamage: specialAnalysis.maxDamage,
-      totalSurviving: physicalAnalysis.survivingCount + specialAnalysis.survivingCount
+      totalSurviving: physicalAnalysis.survivingCount + specialAnalysis.survivingCount,
+      physicalSurvivable: physicalAnalysis.survivableAttackers,
+      specialSurvivable: specialAnalysis.survivableAttackers
     }
 
     if (updateNature) {
@@ -90,7 +97,9 @@ export class AttackerSelector {
         specialStrongest: defNatureSpecialAnalysis.strongestAttacker,
         physicalMaxDamage: defNaturePhysicalAnalysis.maxDamage,
         specialMaxDamage: defNatureSpecialAnalysis.maxDamage,
-        totalSurviving: defNaturePhysicalAnalysis.survivingCount + defNatureSpecialAnalysis.survivingCount
+        totalSurviving: defNaturePhysicalAnalysis.survivingCount + defNatureSpecialAnalysis.survivingCount,
+        physicalSurvivable: defNaturePhysicalAnalysis.survivableAttackers,
+        specialSurvivable: defNatureSpecialAnalysis.survivableAttackers
       }
 
       const defenderSpdMaxPhysical = defender.clone({ nature: spdNature, evs: { hp: MAX_SINGLE_STAT_EVS, def: MAX_SINGLE_STAT_EVS, spd: 0 } })
@@ -107,7 +116,9 @@ export class AttackerSelector {
         specialStrongest: spdNatureSpecialAnalysis.strongestAttacker,
         physicalMaxDamage: spdNaturePhysicalAnalysis.maxDamage,
         specialMaxDamage: spdNatureSpecialAnalysis.maxDamage,
-        totalSurviving: spdNaturePhysicalAnalysis.survivingCount + spdNatureSpecialAnalysis.survivingCount
+        totalSurviving: spdNaturePhysicalAnalysis.survivingCount + spdNatureSpecialAnalysis.survivingCount,
+        physicalSurvivable: spdNaturePhysicalAnalysis.survivableAttackers,
+        specialSurvivable: spdNatureSpecialAnalysis.survivableAttackers
       }
 
       bestScenario = this.selectBestScenario(bestScenario, defScenario, spdScenario, physicalAttackers.length, specialAttackers.length, defender.nature)
@@ -117,7 +128,9 @@ export class AttackerSelector {
       prioritizePhysical: bestScenario.physicalSurviving >= bestScenario.specialSurviving,
       physicalStrongestAttacker: bestScenario.physicalStrongest,
       specialStrongestAttacker: bestScenario.specialStrongest,
-      natureUsed: bestScenario.nature
+      natureUsed: bestScenario.nature,
+      physicalSurvivable: bestScenario.physicalSurvivable,
+      specialSurvivable: bestScenario.specialSurvivable
     }
   }
 
@@ -125,6 +138,7 @@ export class AttackerSelector {
     let survivingCount = 0
     let strongestAttacker: Pokemon | null = null
     let maxDamage = 0
+    const survivableAttackers: Pokemon[] = []
 
     for (const attacker of attackers) {
       let survives: boolean
@@ -139,6 +153,7 @@ export class AttackerSelector {
 
       if (survives) {
         survivingCount++
+        survivableAttackers.push(attacker)
       }
 
       const damage = this.damageCalculator.calculateResult(attacker, defenderMax, attacker.move, field, rightIsDefender).damageWithRemainingUntilTurn(1, rollIndex)
@@ -149,7 +164,7 @@ export class AttackerSelector {
       }
     }
 
-    return { survivingCount, strongestAttacker, maxDamage }
+    return { survivingCount, strongestAttacker, maxDamage, survivableAttackers }
   }
 
   private selectBestScenario(current: NatureScenario, def: NatureScenario, spd: NatureScenario, physicalCount: number, specialCount: number, currentNature: string): NatureScenario {
@@ -248,8 +263,9 @@ export class AttackerSelector {
     return attackersWithDamage.map(item => item.attacker)
   }
 
-  findStrongestDoubleTarget(defender: Pokemon, targets: Target[], field: Field, rollIndex = 15, rightIsDefender = true): { attacker1: Pokemon; attacker2: Pokemon; maxDamage: number } | null {
+  findStrongestDoubleTarget(defender: Pokemon, targets: Target[], field: Field, threshold: SurvivalThreshold = 2, rollIndex = 15, rightIsDefender = true): { attacker1: Pokemon; attacker2: Pokemon; maxDamage: number } | null {
     const defenderWithNoEv = defender.clone({ evs: { hp: 0, def: 0, spd: 0 } })
+    const defenderWithMax = defender.clone({ evs: { hp: 252, def: 252, spd: 252 } })
     let strongestAttacker1: Pokemon | null = null
     let strongestAttacker2: Pokemon | null = null
     let maxDamage = 0
@@ -258,6 +274,9 @@ export class AttackerSelector {
       if (target.pokemon.isDefault) continue
 
       if (target.secondPokemon && !target.secondPokemon.isDefault) {
+        const survivesWithMax = this.survivalChecker.checkSurvivalAgainstTwoAttackers(target.pokemon, target.secondPokemon, defenderWithMax, field, threshold, rollIndex, rightIsDefender)
+        if (!survivesWithMax) continue
+
         const multiResult = this.damageCalculator.calcDamageValueForTwoAttackers(target.pokemon, target.secondPokemon, defenderWithNoEv, field, rightIsDefender)
         const combinedDamage = multiResult.damageWithRemainingUntilTurn(1, rollIndex)
 
