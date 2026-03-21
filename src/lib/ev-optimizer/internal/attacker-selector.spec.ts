@@ -170,7 +170,7 @@ describe("AttackerSelector", () => {
       const field = new Field()
       const result = service.determinePriority([physicalAttacker1], [], defender, field)
 
-      expect(result.physicalStrongestAttacker).toBeTruthy()
+      expect(result.physical.strongestAttacker).toBeTruthy()
     })
 
     it("should return strongest special attacker", () => {
@@ -187,7 +187,7 @@ describe("AttackerSelector", () => {
       const field = new Field()
       const result = service.determinePriority([], [specialAttacker], defender, field)
 
-      expect(result.specialStrongestAttacker).toBeTruthy()
+      expect(result.special.strongestAttacker).toBeTruthy()
     })
   })
 

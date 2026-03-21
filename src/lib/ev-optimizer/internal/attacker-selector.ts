@@ -9,31 +9,21 @@ import { DamageCalculatorService } from "@lib/damage-calculator/damage-calculato
 
 export type AttackerPriorityResult = {
   prioritizePhysical: boolean
-  physicalStrongestAttacker: Pokemon | null
-  specialStrongestAttacker: Pokemon | null
   natureUsed: string | null
-  physicalSurvivable: Pokemon[]
-  specialSurvivable: Pokemon[]
+  physical: SurvivalAnalysis
+  special: SurvivalAnalysis
 }
 
 type SurvivalAnalysis = {
-  survivingCount: number
+  survivableAttackers: Pokemon[]
   strongestAttacker: Pokemon | null
   maxDamage: number
-  survivableAttackers: Pokemon[]
 }
 
 type NatureScenario = {
   nature: string | null
-  physicalSurviving: number
-  specialSurviving: number
-  physicalStrongest: Pokemon | null
-  specialStrongest: Pokemon | null
-  physicalMaxDamage: number
-  specialMaxDamage: number
-  totalSurviving: number
-  physicalSurvivable: Pokemon[]
-  specialSurvivable: Pokemon[]
+  physical: SurvivalAnalysis
+  special: SurvivalAnalysis
 }
 
 @Injectable({
@@ -69,15 +59,8 @@ export class AttackerSelector {
 
     let bestScenario: NatureScenario = {
       nature: null,
-      physicalSurviving: physicalAnalysis.survivingCount,
-      specialSurviving: specialAnalysis.survivingCount,
-      physicalStrongest: physicalAnalysis.strongestAttacker,
-      specialStrongest: specialAnalysis.strongestAttacker,
-      physicalMaxDamage: physicalAnalysis.maxDamage,
-      specialMaxDamage: specialAnalysis.maxDamage,
-      totalSurviving: physicalAnalysis.survivingCount + specialAnalysis.survivingCount,
-      physicalSurvivable: physicalAnalysis.survivableAttackers,
-      specialSurvivable: specialAnalysis.survivableAttackers
+      physical: physicalAnalysis,
+      special: specialAnalysis
     }
 
     if (updateNature) {
@@ -91,15 +74,8 @@ export class AttackerSelector {
 
       const defScenario: NatureScenario = {
         nature: defNature,
-        physicalSurviving: defNaturePhysicalAnalysis.survivingCount,
-        specialSurviving: defNatureSpecialAnalysis.survivingCount,
-        physicalStrongest: defNaturePhysicalAnalysis.strongestAttacker,
-        specialStrongest: defNatureSpecialAnalysis.strongestAttacker,
-        physicalMaxDamage: defNaturePhysicalAnalysis.maxDamage,
-        specialMaxDamage: defNatureSpecialAnalysis.maxDamage,
-        totalSurviving: defNaturePhysicalAnalysis.survivingCount + defNatureSpecialAnalysis.survivingCount,
-        physicalSurvivable: defNaturePhysicalAnalysis.survivableAttackers,
-        specialSurvivable: defNatureSpecialAnalysis.survivableAttackers
+        physical: defNaturePhysicalAnalysis,
+        special: defNatureSpecialAnalysis
       }
 
       const defenderSpdMaxPhysical = defender.clone({ nature: spdNature, evs: { hp: MAX_SINGLE_STAT_EVS, def: MAX_SINGLE_STAT_EVS, spd: 0 } })
@@ -110,32 +86,22 @@ export class AttackerSelector {
 
       const spdScenario: NatureScenario = {
         nature: spdNature,
-        physicalSurviving: spdNaturePhysicalAnalysis.survivingCount,
-        specialSurviving: spdNatureSpecialAnalysis.survivingCount,
-        physicalStrongest: spdNaturePhysicalAnalysis.strongestAttacker,
-        specialStrongest: spdNatureSpecialAnalysis.strongestAttacker,
-        physicalMaxDamage: spdNaturePhysicalAnalysis.maxDamage,
-        specialMaxDamage: spdNatureSpecialAnalysis.maxDamage,
-        totalSurviving: spdNaturePhysicalAnalysis.survivingCount + spdNatureSpecialAnalysis.survivingCount,
-        physicalSurvivable: spdNaturePhysicalAnalysis.survivableAttackers,
-        specialSurvivable: spdNatureSpecialAnalysis.survivableAttackers
+        physical: spdNaturePhysicalAnalysis,
+        special: spdNatureSpecialAnalysis
       }
 
       bestScenario = this.selectBestScenario(bestScenario, defScenario, spdScenario, physicalAttackers.length, specialAttackers.length, defender.nature)
     }
 
     return {
-      prioritizePhysical: bestScenario.physicalSurviving >= bestScenario.specialSurviving,
-      physicalStrongestAttacker: bestScenario.physicalStrongest,
-      specialStrongestAttacker: bestScenario.specialStrongest,
+      prioritizePhysical: bestScenario.physical.survivableAttackers.length >= bestScenario.special.survivableAttackers.length,
       natureUsed: bestScenario.nature,
-      physicalSurvivable: bestScenario.physicalSurvivable,
-      specialSurvivable: bestScenario.specialSurvivable
+      physical: bestScenario.physical,
+      special: bestScenario.special
     }
   }
 
   private analyzeSurvival(attackers: Pokemon[], defenderMin: Pokemon | null, defenderMax: Pokemon, field: Field, checkMin: boolean, threshold: SurvivalThreshold, rollIndex = 15, rightIsDefender = true): SurvivalAnalysis {
-    let survivingCount = 0
     let strongestAttacker: Pokemon | null = null
     let maxDamage = 0
     const survivableAttackers: Pokemon[] = []
@@ -152,7 +118,6 @@ export class AttackerSelector {
       }
 
       if (survives) {
-        survivingCount++
         survivableAttackers.push(attacker)
       }
 
@@ -164,19 +129,22 @@ export class AttackerSelector {
       }
     }
 
-    return { survivingCount, strongestAttacker, maxDamage, survivableAttackers }
+    return { strongestAttacker, maxDamage, survivableAttackers }
   }
 
   private selectBestScenario(current: NatureScenario, def: NatureScenario, spd: NatureScenario, physicalCount: number, specialCount: number, currentNature: string): NatureScenario {
-    const maxSurviving = Math.max(current.totalSurviving, def.totalSurviving, spd.totalSurviving)
+    const currentTotal = this.getTotalSurviving(current)
+    const defTotal = this.getTotalSurviving(def)
+    const spdTotal = this.getTotalSurviving(spd)
+    const maxSurviving = Math.max(currentTotal, defTotal, spdTotal)
 
     if (maxSurviving === 0) {
       return { ...current, nature: currentNature }
     }
 
-    if (def.totalSurviving === maxSurviving && spd.totalSurviving === maxSurviving) {
-      const defMaxDamage = Math.max(def.physicalMaxDamage, def.specialMaxDamage)
-      const spdMaxDamage = Math.max(spd.physicalMaxDamage, spd.specialMaxDamage)
+    if (defTotal === maxSurviving && spdTotal === maxSurviving) {
+      const defMaxDamage = Math.max(def.physical.maxDamage, def.special.maxDamage)
+      const spdMaxDamage = Math.max(spd.physical.maxDamage, spd.special.maxDamage)
 
       if (spdMaxDamage < defMaxDamage) {
         return spd
@@ -192,15 +160,19 @@ export class AttackerSelector {
           return def
         }
 
-        return spd.specialSurviving > def.physicalSurviving ? spd : def
+        return spd.special.survivableAttackers.length > def.physical.survivableAttackers.length ? spd : def
       }
-    } else if (def.totalSurviving === maxSurviving && def.totalSurviving >= current.totalSurviving) {
+    } else if (defTotal === maxSurviving && defTotal >= currentTotal) {
       return def
-    } else if (spd.totalSurviving === maxSurviving && spd.totalSurviving >= current.totalSurviving) {
+    } else if (spdTotal === maxSurviving && spdTotal >= currentTotal) {
       return spd
     }
 
     return current
+  }
+
+  private getTotalSurviving(scenario: NatureScenario): number {
+    return scenario.physical.survivableAttackers.length + scenario.special.survivableAttackers.length
   }
 
   private getDefensiveNatures(defender: Pokemon): { defNature: string; spdNature: string } {
