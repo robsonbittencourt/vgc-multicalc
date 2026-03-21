@@ -10,7 +10,7 @@
   "license": "MIT",
   "type": "module",
   "devDependencies": {
-    "axios": "^1.13.5",
+    "axios": "^1.13.6",
     "chai": "^6.2.2",
     "mocha": "^11.7.5",
     "cheerio": "1.2.0",
