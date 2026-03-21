@@ -122,6 +122,29 @@ npm run test-watch
 
 ```
 
+### Performance Tests
+
+The performance tests are designed to measure the execution time of critical operations, such as EV optimization and damage calculation for multiple targets. To run these tests, use the following command:
+
+```bash
+npm run perf
+```
+
+### Linting and Formatting
+
+The project uses ESLint and Prettier to maintain code quality and consistent style. You can run the following commands to check and fix the code:
+
+```bash
+# Run ESLint (TypeScript and HTML)
+npm run lint
+
+# Check code formatting with Prettier
+npm run formatter
+
+# Run both lint and formatter checks
+npm run check
+```
+
 You can view the test coverage report by opening the file `/coverage/lcov-report/index.html`. The coverage report is also available on the [project's Sonar Cloud](https://sonarcloud.io/summary/overall?id=robsonbittencourt_vgc-multicalc&branch=main).
 
 ### E2E Tests
