@@ -314,37 +314,9 @@ export class SolutionCombiner {
     const maxEv = evIntervals[high]
     const tempEvs = { hp: hpEv, atk: defender.evs.atk, def: 0, spa: defender.evs.spa, spd: 0, spe: defender.evs.spe }
 
-    // Check with max EV first
     tempEvs[stat] = maxEv
     if (stat === "def") tempEvs.spd = 0
     else tempEvs.def = 0
-
-    // If checking def, spd must be 0? The original code did:
-    // ...hp: hpEv, [stat]: maxEv }
-    // It kept the other stat from defender.evs?
-    // Let's check original code:
-    // const maxDefender = defender.clone({ evs: { ...defender.evs, hp: hpEv, [stat]: maxEv } })
-    // It spreads defender.evs.
-    // In findOptimizedCombinedSolution, we see:
-    // const minDefIndex = this.findMinStatIndex(..., defender, ...)
-    // And defender comes from context.
-    // Wait, in findOptimizedCombinedSolution loop, we are checking survival against physical OR special attackers separately.
-    // If calculating minDefIndex for physical, we likely don't care about SpD.
-    // BUT the original code used ...defender.evs.
-    // If defender has 0 EVs initially (likely), then it's 0.
-    // Let's assume we can set the other defensive stat to 0 or keep it.
-    // To match exact behavior, we should respect what's passed in.
-    // However, looking at usage:
-    // minDefIndex is found considering ONLY physical attackers. Max Def, 0 SpD usually?
-    // Actually, `defender.evs` might have values?
-    // In `findOptimizedCombinedSolution`, `defender` is passed from `ctx`.
-    // We should safely implement `setEvs` to match `...defender.evs` + overrides.
-
-    // Actually, to be safe and efficient:
-    // We can just update the specific stats we are changing on tempDefender.
-    // tempDefender should already be a clone of defender when passed in, or we should set it to match defender state first?
-    // In the loop of findOptimizedCombinedSolution, we want to reuse the SAME object.
-    // So we should update it.
 
     tempEvs.def = defender.evs.def
     tempEvs.spd = defender.evs.spd
