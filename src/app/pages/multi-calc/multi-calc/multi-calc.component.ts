@@ -96,7 +96,7 @@ export class MultiCalcComponent implements OnInit {
 
   targetsImported() {
     if (this.store.findPokemonById(this.pokemonOnEditId()).isDefault) {
-      this.pokemonOnEditId.set(this.store.team().activePokemon().id)
+      this.updatePokemonOnEditId(this.store.team().activePokemon().id)
     }
   }
 
@@ -105,8 +105,16 @@ export class MultiCalcComponent implements OnInit {
   }
 
   targetActivated(pokemonId: string) {
-    this.pokemonOnEditId.set(pokemonId)
+    this.updatePokemonOnEditId(pokemonId)
     this.teamComponent()?.scrollToPokemonSelector()
+  }
+
+  updatePokemonOnEditId(pokemonId: string) {
+    if (this.optimizationStatus() !== "idle") {
+      this.handleOptimizationDiscarded()
+    }
+
+    this.pokemonOnEditId.set(pokemonId)
   }
 
   handleOptimizeRequest(event: { updateNature: boolean; keepOffensiveEvs: boolean; survivalThreshold: SurvivalThreshold }) {
@@ -152,6 +160,11 @@ export class MultiCalcComponent implements OnInit {
   }
 
   handleOptimizationDiscarded() {
+    if (this.optimizationStatus() !== "idle") {
+      this.store.evs(this.pokemonOnEditId(), this.originalEvs())
+      this.store.nature(this.pokemonOnEditId(), this.originalNature())
+    }
+
     this.optimizedEvs.set(null)
     this.optimizedNature.set(null)
     this.optimizationStatus.set("idle")

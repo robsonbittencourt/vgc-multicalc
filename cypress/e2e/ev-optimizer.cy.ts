@@ -137,4 +137,25 @@ describe("Multi Calc EV Optimizer", () => {
 
     pokemon.evsIs(140, 0, 236, 0, 0, 0)
   })
+
+  it("should discard optimization when switching between team members or targets", () => {
+    cy.get('[data-cy="many-vs-team"]').click({ force: true })
+    opponents.deleteAll()
+
+    team.importPokepaste(poke["flutter-mane"])
+    const flutterMane = team.selectPokemon("Flutter Mane")
+    flutterMane.clearEvs()
+    flutterMane.spaEvs(252)
+
+    opponents.importPokemon(poke["urshifu-rapid-strike"])
+
+    flutterMane.optimizeBulk()
+
+    flutterMane.evsIs(140, 0, 236, 0, 0, 0)
+
+    opponents.selectAttacker("Urshifu Rapid Strike")
+    team.selectPokemon("Flutter Mane")
+
+    flutterMane.evsIs(0, 0, 0, 252, 0, 0)
+  })
 })

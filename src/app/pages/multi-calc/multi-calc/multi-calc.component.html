@@ -6,12 +6,12 @@
   [optimizedEvs]="optimizedEvs()"
   [optimizedNature]="optimizedNature()"
   [optimizationStatus]="optimizationStatus()"
-  (teamMemberSelected)="pokemonOnEditId.set($event)"
+  (teamMemberSelected)="updatePokemonOnEditId($event)"
   (optimizeRequested)="handleOptimizeRequest($event)"
   (optimizationApplied)="handleOptimizationApplied()"
   (optimizationDiscarded)="handleOptimizationDiscarded()" />
 
-<app-teams (pokemonSelected)="pokemonOnEditId.set($event)" />
+<app-teams (pokemonSelected)="updatePokemonOnEditId($event)" />
 <app-field />
 
 <app-target-pokemon
@@ -19,6 +19,6 @@
   [damageResults]="damageResults()"
   [isAttacker]="menuStore.manyVsOneActivated()"
   (targetActivated)="targetActivated($event)"
-  (targetRemoved)="pokemonOnEditId.set(store.team().activePokemon().id)"
+  (targetRemoved)="updatePokemonOnEditId(store.team().activePokemon().id)"
   (targetsImported)="targetsImported()"
   (orderChanged)="orderChanged($event)" />
