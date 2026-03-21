@@ -316,6 +316,14 @@ export class PokemonBuild {
     this.container().find('[data-cy="optimize-evs"]').click({ force: true })
   }
 
+  optimizeBulkIsVisible() {
+    this.container().find('[data-cy="optimize-evs"]').should("be.visible")
+  }
+
+  optimizeBulkIsHidden() {
+    this.container().find('[data-cy="optimize-evs"]').should("not.exist")
+  }
+
   toggleUpdateNature() {
     this.container().find('[data-cy="update-nature-checkbox"] input').click({ force: true })
   }

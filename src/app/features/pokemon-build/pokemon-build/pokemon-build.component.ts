@@ -136,6 +136,7 @@ export class PokemonBuildComponent {
   })
 
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
+  isTeamMember = computed(() => this.store.team().teamMembers.some(member => member.pokemon.id === this.pokemonId()))
   currentEvs = computed(() => {
     const pokemon = this.pokemon()
     return { ...pokemon.evs }
