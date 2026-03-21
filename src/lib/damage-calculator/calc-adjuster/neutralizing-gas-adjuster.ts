@@ -10,7 +10,7 @@ import { AbilityName, ItemName } from "@robsonbittencourt/calc/dist/data/interfa
   providedIn: "root"
 })
 export class NeutralizingGasAdjuster implements CalcAdjuster {
-  adjust(attacker: SmogonPokemon, target: SmogonPokemon, move: Move, moveSmogon: MoveSmogon, smogonField: FieldSmogon, secondAttacker?: Pokemon, field?: Field): void {
+  adjust(attacker: SmogonPokemon, target: SmogonPokemon, _move: Move, _moveSmogon: MoveSmogon, _smogonField: FieldSmogon, secondAttacker?: Pokemon, field?: Field): void {
     const isGasActive = field?.isNeutralizingGas || attacker.ability === "Neutralizing Gas" || target.ability === "Neutralizing Gas" || secondAttacker?.hasAbility("Neutralizing Gas")
 
     if (!isGasActive) {

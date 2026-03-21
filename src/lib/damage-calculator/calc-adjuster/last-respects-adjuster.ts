@@ -7,7 +7,7 @@ import { Move as MoveSmogon, Pokemon as SmogonPokemon } from "@robsonbittencourt
   providedIn: "root"
 })
 export class LastRespectsAdjuster implements CalcAdjuster {
-  adjust(attacker: SmogonPokemon, target: SmogonPokemon, move: Move, moveSmogon: MoveSmogon) {
+  adjust(_attacker: SmogonPokemon, _target: SmogonPokemon, move: Move, moveSmogon: MoveSmogon) {
     if (move.name == "Last Respects") {
       const adjustedBasePower = 50 + 50 * +move.alliesFainted
       moveSmogon.overrides = { basePower: adjustedBasePower }

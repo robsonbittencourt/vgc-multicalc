@@ -7,7 +7,7 @@ import { Move as MoveSmogon, Pokemon as SmogonPokemon } from "@robsonbittencourt
   providedIn: "root"
 })
 export class RageFistAdjuster implements CalcAdjuster {
-  adjust(attacker: SmogonPokemon, target: SmogonPokemon, move: Move, moveSmogon: MoveSmogon) {
+  adjust(_attacker: SmogonPokemon, _target: SmogonPokemon, move: Move, moveSmogon: MoveSmogon) {
     if (move.name == "Rage Fist") {
       const adjustedBasePower = 50 + 50 * +move.hits
       moveSmogon.overrides = { basePower: adjustedBasePower }

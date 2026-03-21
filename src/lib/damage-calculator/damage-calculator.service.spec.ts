@@ -138,10 +138,6 @@ describe("Damage Calculator Service", () => {
     expect(damageResult.result).toEqual("72.3 - 87.6%")
     expect(damageResult.koChance).toEqual("guaranteed 2HKO")
     expect(damageResult.damage).toEqual(87.6)
-    // Max damage of Rillaboom Grassy Glide: ?
-    // Max damage of Bolt Thunderbolt: ?
-    // Let's assume total damage sum is correct (87.6%).
-    // Description order: Rillaboom AND Raging Bolt.
     expect(damageResult.description).toEqual("0 Atk Rillaboom Grassy Glide AND 0 SpA Raging Bolt Thunderbolt vs. 0 HP / 0 Def / 0 SpD Assault Vest Flutter Mane: 94-114 (72.3 - 87.6%) -- guaranteed 2HKO")
     expect(damageResult.attackerRolls).toEqual([[60, 61, 61, 63, 63, 64, 64, 66, 66, 67, 67, 69, 69, 70, 70, 72]])
     expect(damageResult.secondAttackerRolls).toEqual([[34, 36, 36, 36, 36, 37, 37, 37, 39, 39, 39, 39, 40, 40, 40, 42]])
@@ -343,7 +339,7 @@ describe("Damage Calculator Service", () => {
     const field = new Field()
 
     specificCalculatorSpy.isApplicable.and.callFake((moveModel: MoveSmogon) => moveModel.name === "Ruination")
-    specificCalculatorSpy.calculate.and.callFake((target: SmogonPokemon, baseResult: any) => {
+    specificCalculatorSpy.calculate.and.callFake((_target: SmogonPokemon, baseResult: any) => {
       baseResult.damage = 65
       return baseResult
     })

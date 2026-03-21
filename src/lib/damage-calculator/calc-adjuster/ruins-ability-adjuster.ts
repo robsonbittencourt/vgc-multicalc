@@ -9,7 +9,7 @@ import { Field as FieldSmogon, Move as MoveSmogon, Pokemon as SmogonPokemon } fr
   providedIn: "root"
 })
 export class RuinsAbilityAdjuster implements CalcAdjuster {
-  adjust(attacker: SmogonPokemon, target: SmogonPokemon, move: Move, moveSmogon: MoveSmogon, smogonField: FieldSmogon, secondAttacker?: Pokemon, field?: Field) {
+  adjust(attacker: SmogonPokemon, target: SmogonPokemon, _move: Move, _moveSmogon: MoveSmogon, smogonField: FieldSmogon, secondAttacker?: Pokemon, field?: Field) {
     const isGasActive = field?.isNeutralizingGas || attacker.ability === "Neutralizing Gas" || target.ability === "Neutralizing Gas" || secondAttacker?.hasAbility("Neutralizing Gas")
 
     if (isGasActive) {

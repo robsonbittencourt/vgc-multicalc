@@ -56,22 +56,7 @@ export class SolutionCombiner {
     }
 
     if (physicalSolution && specialSolution) {
-      const optimizedCombined = this.findOptimizedCombinedSolution(
-        physicalSolution,
-        specialSolution,
-        doubleSolution,
-        defender,
-        field,
-        physicalAttacker,
-        specialAttacker,
-        doubleAttacker1,
-        doubleAttacker2,
-        threshold,
-        physicalAttackers,
-        specialAttackers,
-        rollIndex,
-        ctx.rightIsDefender
-      )
+      const optimizedCombined = this.findOptimizedCombinedSolution(doubleSolution, defender, field, physicalAttacker, specialAttacker, doubleAttacker1, doubleAttacker2, threshold, physicalAttackers, specialAttackers, rollIndex, ctx.rightIsDefender)
 
       if (optimizedCombined) {
         return optimizedCombined
@@ -127,7 +112,7 @@ export class SolutionCombiner {
       return { hp: physicalSolution.hp, atk: 0, def: physicalSolution.def, spa: 0, spd: 0, spe: 0 }
     }
 
-    const optimizedCombined = this.findOptimizedCombinedSolution(physicalSolution, specialSolution, null, defender, field, physicalAttacker, specialAttacker, null, null, threshold, physicalAttackers, specialAttackers, rollIndex, rightIsDefender)
+    const optimizedCombined = this.findOptimizedCombinedSolution(null, defender, field, physicalAttacker, specialAttacker, null, null, threshold, physicalAttackers, specialAttackers, rollIndex, rightIsDefender)
 
     if (optimizedCombined) {
       return optimizedCombined
@@ -227,8 +212,6 @@ export class SolutionCombiner {
   }
 
   findOptimizedCombinedSolution(
-    physicalSolution: Stats,
-    specialSolution: Stats,
     doubleSolution: Stats | null,
     defender: Pokemon,
     field: Field,

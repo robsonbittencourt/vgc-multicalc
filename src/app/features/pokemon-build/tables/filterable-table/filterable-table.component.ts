@@ -469,7 +469,7 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
     return result
   }
 
-  trackById(index: number, entry: LinkedTableData<any>): string {
+  trackById(_index: number, entry: LinkedTableData<any>): string {
     return entry.id!
   }
 }
