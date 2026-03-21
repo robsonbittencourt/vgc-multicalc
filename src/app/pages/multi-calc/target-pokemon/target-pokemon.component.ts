@@ -43,7 +43,7 @@ export class TargetPokemonComponent {
   private exportPokeService = inject(ExportPokeService)
   private snackBar = inject(SnackbarService)
 
-  regulation = signal<Regulation>(this.store.targetMetaRegulation() ?? "F")
+  regulation = signal<Regulation>(this.store.targetMetaRegulation() ?? "I")
   rollLevelConfig = signal(RollLevelConfig.fromConfigString(this.store.multiCalcRollLevel()))
 
   constructor() {
@@ -83,7 +83,7 @@ export class TargetPokemonComponent {
       .sort()
   )
 
-  regulationsList: Regulation[] = ["F", "J"]
+  regulationsList: Regulation[] = ["I", "F"]
 
   order = true
 

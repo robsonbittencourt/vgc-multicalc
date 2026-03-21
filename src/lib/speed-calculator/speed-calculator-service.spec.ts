@@ -562,15 +562,15 @@ describe("SpeedCalculatorService", () => {
       expect(speedDefinition[0].description).toMatch(/\d{1,3}% Usage/)
     })
 
-    it("should return meta speed description and Pokémon name from Regulation J", () => {
-      const pokemon = new Pokemon("Arceus")
+    it("should return meta speed description and Pokémon name from Regulation I", () => {
+      const pokemon = new Pokemon("Koraidon")
       const field = new Field()
-      const regulation = "J"
+      const regulation = "I"
 
       const speedDefinition = service.statistics(pokemon, field, regulation)
 
-      expect(speedDefinition[0].pokemonName).toEqual("Arceus")
-      expect(speedDefinition[0].value).toEqual(140)
+      expect(speedDefinition[0].pokemonName).toEqual("Koraidon")
+      expect(speedDefinition[0].value).toEqual(187)
       expect(speedDefinition[0].description).toMatch(/\d{1,3}% Usage/)
     })
   })

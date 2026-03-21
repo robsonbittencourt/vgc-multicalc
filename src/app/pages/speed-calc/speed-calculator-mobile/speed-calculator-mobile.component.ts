@@ -4,8 +4,8 @@ import { InputSelectComponent } from "@basic/input-select/input-select.component
 import { WidgetComponent } from "@basic/widget/widget.component"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { FieldStore } from "@data/store/field-store"
-import { FIELD_CONTEXT } from "@data/store/tokens/field-context.token"
 import { SpeedCalcOptionsStore } from "@data/store/speed-calc-options-store"
+import { FIELD_CONTEXT } from "@data/store/tokens/field-context.token"
 import { FieldComponent } from "@features/field/field.component"
 import { AbilityComboBoxComponent } from "@features/pokemon-build/ability-combo-box/ability-combo-box.component"
 import { EvSliderComponent } from "@features/pokemon-build/ev-slider/ev-slider.component"
@@ -91,7 +91,7 @@ export class SpeedCalculatorMobileComponent implements OnInit {
 
   statusConditions = [Status.HEALTHY.description, Status.PARALYSIS.description]
 
-  regulationsList: Regulation[] = ["F", "J"]
+  regulationsList: Regulation[] = ["I", "F"]
 
   topUsageList: string[] = ["60", "100", "125", "All"]
 

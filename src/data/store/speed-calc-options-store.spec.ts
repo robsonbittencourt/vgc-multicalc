@@ -22,7 +22,7 @@ describe("Speed Calc Options Store", () => {
 
       const options = store.options()
 
-      expect(options.regulation).toBe("F")
+      expect(options.regulation).toBe("I")
       expect(options.targetName).toBe("Pikachu")
       expect(options.speedModifier).toBe(-1)
       expect(options.speedDropActive).toBeTrue()
@@ -31,7 +31,7 @@ describe("Speed Calc Options Store", () => {
     })
 
     it("should return Pokémon by Regulation", () => {
-      store.updateRegulation("J")
+      store.updateRegulation("I")
 
       const pokemonList = store.pokemonNamesByReg()
 

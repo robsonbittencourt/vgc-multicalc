@@ -6,7 +6,6 @@ import { fileURLToPath } from "url"
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-const POKEMON_DETAILS_PREFIX = "export const POKEMON_DETAILS: Record<string, SpeciesData> = "
 const LINE_SEPARATOR = "+----------------------------------------+"
 
 export async function extractMetaMoves(date, regulation) {
@@ -19,7 +18,7 @@ async function buildMetaMovesMap(date, regulation) {
 
   try {
     const year = date.substring(0, date.indexOf("-"))
-    const response = await axios.get(`https://www.smogon.com/stats/${date}/moveset/gen9vgc2026reg${regulation}bo3-1760.txt`)
+    const response = await axios.get(`https://www.smogon.com/stats/${date}/moveset/gen9vgc2025reg${regulation}bo3-1760.txt`)
     const pokemonDataList = parseSmogonMovesData(response.data)
 
     pokemonDataList.forEach(({ name, moves }) => {
