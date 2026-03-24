@@ -3,7 +3,7 @@ import { createSpeedStatisticsFile } from "./speed-statistics-class-generator.js
 import { topUsage } from "./top-usage.js"
 import { extractMetaMoves } from "./meta-moves-extractor.js"
 
-const date = "2025-09"
+const date = "2025-08"
 const regulation = "i"
 
 await topUsage(date, regulation)
