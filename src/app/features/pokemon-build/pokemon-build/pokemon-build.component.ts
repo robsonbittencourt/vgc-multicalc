@@ -118,6 +118,7 @@ export class PokemonBuildComponent {
   statusHaveFocus = signal(false)
   multiHitHasFocus = signal(false)
   teraHasFocus = signal(false)
+  moveWasTyped = signal(false)
 
   shouldAnimate = signal(false)
 
@@ -248,11 +249,17 @@ export class PokemonBuildComponent {
     this.activeMoveIndex.set(position - 1)
   }
 
+  onMoveValueChange(value: string) {
+    this.moveWasTyped.set(true)
+    this.moveDataFilter.set(value)
+  }
+
   moveSelected(move: string) {
     this.clearBlurTimeout()
     this.moveWasSelected = true
     this.setMoveSelectorFocus(this.activeMoveIndex()!)
     this.store.updateMove(this.pokemonId(), move, this.activeMoveIndex()!)
+    this.store.activateMove(this.pokemonId(), this.activeMoveIndex()!)
     this.moveDataFilter.set("")
 
     if (this.activeMoveIndex() == 3) {
@@ -283,14 +290,25 @@ export class PokemonBuildComponent {
   }
 
   moveSelectorLostFocus(position: number) {
+    const filter = this.moveDataFilter()
+    const firstMove = this.firstMoveFromList()
+
     this.blurTimeout = setTimeout(() => {
-      if (this.moveDataFilter() != "" && !this.moveWasSelected) {
-        this.store.updateMove(this.pokemonId(), this.firstMoveFromList(), position - 1)
-        this.store.activateMove(this.pokemonId(), position - 1)
+      if (!this.moveWasSelected && this.moveWasTyped()) {
+        if (filter === "") {
+          this.store.updateMove(this.pokemonId(), "", position - 1)
+        } else {
+          this.store.updateMove(this.pokemonId(), firstMove, position - 1)
+
+          if (this.activeMoveIndex() === position - 1) {
+            this.store.activateMove(this.pokemonId(), position - 1)
+          }
+        }
       }
 
       this.moveDataFilter.set("")
       this.moveWasSelected = false
+      this.moveWasTyped.set(false)
     }, 200)
   }
 

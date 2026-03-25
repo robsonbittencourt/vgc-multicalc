@@ -70,9 +70,11 @@ export class InputAutocompleteComponent implements OnInit {
 
   onBlur() {
     if (!this.formControl.value) {
-      this.formControl.setValue(this.value())
+      this.onValueSelected("")
     } else if (this.actualFilteredValues[0]) {
       this.onValueSelected(this.actualFilteredValues[0].value)
+    } else {
+      this.onValueSelected("")
     }
   }
 

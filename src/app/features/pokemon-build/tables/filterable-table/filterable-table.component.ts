@@ -54,6 +54,8 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
 
       if (result[0].data.length > 0) {
         this.firstListEntry.emit(result[0].data[0]["name"])
+      } else {
+        this.firstListEntry.emit("")
       }
 
       return result

@@ -73,7 +73,7 @@
             #move1Input
             [value]="pokemon().moveSet.move1.name"
             [haveFocus]="move1HasFocus()"
-            (valueChange)="moveDataFilter.set($event)"
+            (valueChange)="onMoveValueChange($event)"
             (selected)="moveSelectorOnClick(1)"
             (lostFocus)="moveSelectorLostFocus(1)"
             [tabIndex]="tabIndexMove1()"
@@ -85,7 +85,7 @@
             #move2Input
             [value]="pokemon().moveSet.move2.name"
             [haveFocus]="move2HasFocus()"
-            (valueChange)="moveDataFilter.set($event)"
+            (valueChange)="onMoveValueChange($event)"
             (selected)="moveSelectorOnClick(2)"
             (lostFocus)="moveSelectorLostFocus(2)"
             [tabIndex]="tabIndexMove2()"
@@ -97,7 +97,7 @@
             #move3Input
             [value]="pokemon().moveSet.move3.name"
             [haveFocus]="move3HasFocus()"
-            (valueChange)="moveDataFilter.set($event)"
+            (valueChange)="onMoveValueChange($event)"
             (selected)="moveSelectorOnClick(3)"
             (lostFocus)="moveSelectorLostFocus(3)"
             [tabIndex]="tabIndexMove3()"
@@ -109,7 +109,7 @@
             #move4Input
             [value]="pokemon().moveSet.move4.name"
             [haveFocus]="move4HasFocus()"
-            (valueChange)="moveDataFilter.set($event)"
+            (valueChange)="onMoveValueChange($event)"
             (selected)="moveSelectorOnClick(4)"
             (lostFocus)="moveSelectorLostFocus(4)"
             [tabIndex]="tabIndexMove4()"

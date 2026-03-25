@@ -100,6 +100,26 @@ export class PokemonBuild {
     return this
   }
 
+  typeAttack(position: number, moveName: string): PokemonBuild {
+    this.container().find(`[data-cy="pokemon-attack-${position}"] input`).click().clear().type(moveName)
+    return this
+  }
+
+  clearAttack(position: number): PokemonBuild {
+    this.container().find(`[data-cy="pokemon-attack-${position}"] input`).click().clear()
+    return this
+  }
+
+  tab(): PokemonBuild {
+    cy.realPress("Tab")
+    return this
+  }
+
+  clickOutside(): PokemonBuild {
+    cy.get("body").click(0, 0)
+    return this
+  }
+
   selectItem(itemName: string): PokemonBuild {
     this.closeTable()
     this.container().find('[data-cy="item"] input').click()
@@ -206,6 +226,10 @@ export class PokemonBuild {
 
   itemIs(itemName: string) {
     this.container().find('[data-cy="item"] input').invoke("val").should("eq", `${itemName}`)
+  }
+
+  attackIs(position: number, attackName: string) {
+    this.container().find(`[data-cy="pokemon-attack-${position}"] input`).invoke("val").should("eq", `${attackName}`)
   }
 
   itemIsDisabled() {

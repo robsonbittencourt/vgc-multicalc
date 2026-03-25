@@ -247,18 +247,22 @@ export class CalculatorStore extends signalStore(
 
   moveOne(pokemonId: string, moveOne: string) {
     this.updateMove(pokemonId, moveOne, 0)
+    this.activateMove(pokemonId, 0)
   }
 
   moveTwo(pokemonId: string, moveTwo: string) {
     this.updateMove(pokemonId, moveTwo, 1)
+    this.activateMove(pokemonId, 1)
   }
 
   moveThree(pokemonId: string, moveThree: string) {
     this.updateMove(pokemonId, moveThree, 2)
+    this.activateMove(pokemonId, 2)
   }
 
   moveFour(pokemonId: string, moveFour: string) {
     this.updateMove(pokemonId, moveFour, 3)
+    this.activateMove(pokemonId, 3)
   }
 
   activateMove(pokemonId: string, index: number) {
@@ -469,7 +473,7 @@ export class CalculatorStore extends signalStore(
     this.updatePokemonById(pokemonId, state => {
       const moveSet = [...state.moveSet]
       moveSet.splice(index, 1, { name: move })
-      return { activeMove: index, moveSet: moveSet }
+      return { moveSet: moveSet }
     })
   }
 

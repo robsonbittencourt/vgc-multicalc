@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 })
 export class InputComponent {
   value = model.required<string>()
+  inputElement = viewChild<ElementRef>("inputRef")
 
   label = input<string>()
 
@@ -24,8 +25,6 @@ export class InputComponent {
   selected = output()
 
   lostFocus = output()
-
-  inputElement = viewChild<ElementRef>("inputRef")
 
   emptyFallbackValue = input<string>()
 
@@ -43,6 +42,10 @@ export class InputComponent {
 
   onValueSelected(selectedValue: string) {
     this.value.set(selectedValue)
+  }
+
+  onInputChange(event: Event) {
+    this.value.set((event.target as HTMLInputElement).value)
   }
 
   blur() {

@@ -23,6 +23,42 @@ describe("Edit Pokémon", () => {
 
     leftPokemonBuild.evsIs(0, 0, 0, 0, 0, 0)
   })
+
+  describe.only("Moves Selection", () => {
+    beforeEach(() => {
+      leftPokemonBuild.importPokemon(poke["flutter-mane"])
+    })
+
+    it("should allow selecting a move using the mouse", () => {
+      leftPokemonBuild.changeAttackOneByFilter("Shadow Ball", "Shadow Ball")
+      leftPokemonBuild.attackIs(1, "Shadow Ball")
+    })
+
+    it("should auto-complete move when pressing Tab", () => {
+      leftPokemonBuild.typeAttack(1, "Moonb").tab()
+      leftPokemonBuild.attackIs(1, "Moonblast")
+    })
+
+    it("should clear an invalid move when pressing Tab", () => {
+      leftPokemonBuild.typeAttack(1, "invalidmove").tab()
+      leftPokemonBuild.attackIs(1, "")
+    })
+
+    it("should clear an invalid move when clicking outside", () => {
+      leftPokemonBuild.typeAttack(1, "invalidmove").clickOutside()
+      leftPokemonBuild.attackIs(1, "")
+    })
+
+    it("should clear the move when the input is emptied and Tabbed", () => {
+      leftPokemonBuild.clearAttack(1).tab()
+      leftPokemonBuild.attackIs(1, "")
+    })
+
+    it("should clear the move when the input is emptied and clicked outside", () => {
+      leftPokemonBuild.clearAttack(1).clickOutside()
+      leftPokemonBuild.attackIs(1, "")
+    })
+  })
 })
 
 describe("Terapagos Terastal", () => {
