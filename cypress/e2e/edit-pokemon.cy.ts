@@ -24,7 +24,7 @@ describe("Edit Pokémon", () => {
     leftPokemonBuild.evsIs(0, 0, 0, 0, 0, 0)
   })
 
-  describe.only("Moves Selection", () => {
+  describe("Moves Selection", () => {
     beforeEach(() => {
       leftPokemonBuild.importPokemon(poke["flutter-mane"])
     })

@@ -151,6 +151,36 @@ export class PokemonBuildComponent {
     return this.optimizationStatus() === "not-needed"
   })
 
+  isOptimizationSupported = computed(() => {
+    const isOneVsOne = this.menuStore.oneVsOneActivated()
+    const isManyVsOne = this.menuStore.manyVsOneActivated()
+    const isTeamMember = this.isTeamMember()
+
+    return isOneVsOne || (isManyVsOne && isTeamMember)
+  })
+
+  showOptimizeOptions = computed(() => {
+    if (!this.isOptimizationSupported()) return false
+
+    const isOptimizing = this.optimizedEvs() !== null
+    const noSolution = this.hasNoSolution()
+    const solutionNotNeeded = this.isSolutionNotNeeded()
+
+    return !(isOptimizing || noSolution || solutionNotNeeded)
+  })
+
+  showOptimizationSuccess = computed(() => {
+    return this.isOptimizationSupported() && this.optimizedEvs() !== null && !this.hasNoSolution() && !this.isSolutionNotNeeded()
+  })
+
+  showNoSolution = computed(() => {
+    return this.isOptimizationSupported() && this.hasNoSolution()
+  })
+
+  showSolutionNotNeeded = computed(() => {
+    return this.isOptimizationSupported() && this.isSolutionNotNeeded()
+  })
+
   hasModifiedStat = computed(() => {
     return this.modifiedAtk() != this.pokemon().atk || this.modifiedDef() != this.pokemon().def || this.modifiedSpa() != this.pokemon().spa || this.modifiedSpd() != this.pokemon().spd || this.modifiedSpe() != this.pokemon().spe
   })

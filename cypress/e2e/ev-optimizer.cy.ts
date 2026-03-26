@@ -159,7 +159,7 @@ describe("Multi Calc EV Optimizer", () => {
     flutterMane.evsIs(0, 0, 0, 252, 0, 0)
   })
 
-  it.only("should show Optimize Bulk button only for team members", () => {
+  it("should show Optimize Bulk button only for team members", () => {
     cy.get('[data-cy="many-vs-team"]').click({ force: true })
     opponents.deleteAll()
 
