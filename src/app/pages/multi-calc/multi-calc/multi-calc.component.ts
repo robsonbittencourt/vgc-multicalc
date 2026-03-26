@@ -5,7 +5,7 @@ import { FIELD_CONTEXT } from "@data/store/tokens/field-context.token"
 import { MenuStore } from "@data/store/menu-store"
 import { FieldComponent } from "@features/field/field.component"
 import { TeamComponent } from "@features/team/team/team.component"
-import { TeamsComponent } from "@features/team/teams/teams.component"
+import { TeamsDesktopComponent } from "@features/team/teams-desktop/teams-desktop.component"
 import { AutomaticFieldService } from "@lib/automatic-field-service"
 import { DamageMultiCalcService } from "@lib/damage-calculator/damage-multi-calc.service"
 import { DamageResultOrderService } from "@lib/damage-calculator/damage-result-order.service"
@@ -19,7 +19,7 @@ import { TargetPokemonComponent } from "@pages/multi-calc/target-pokemon/target-
   templateUrl: "./multi-calc.component.html",
   styleUrls: ["./multi-calc.component.scss"],
   providers: [DamageMultiCalcService, DamageResultOrderService, FieldStore, AutomaticFieldService, { provide: FIELD_CONTEXT, useValue: "multi" }],
-  imports: [TeamComponent, TeamsComponent, FieldComponent, TargetPokemonComponent]
+  imports: [TeamComponent, TeamsDesktopComponent, FieldComponent, TargetPokemonComponent]
 })
 export class MultiCalcComponent implements OnInit {
   store = inject(CalculatorStore)
@@ -29,7 +29,7 @@ export class MultiCalcComponent implements OnInit {
   private automaticFieldService = inject(AutomaticFieldService)
   private defensiveEvOptimizer = inject(DefensiveEvOptimizerService)
 
-  order = signal(true)
+  order = signal(false)
   pokemonOnEditId = signal<string>(this.store.team().activePokemon().id)
   pokemonOnEdit = computed(() => this.store.findPokemonById(this.pokemonOnEditId()))
 

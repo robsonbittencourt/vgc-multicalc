@@ -6,7 +6,9 @@ import { MoveSet } from "@lib/model/moveset"
 import { Pokemon } from "@lib/model/pokemon"
 import { Regulation } from "@lib/types"
 
-export function pokemonByRegulation(regulation: Regulation, quantity?: number): Pokemon[] {
+export const DEFAULT_META_QUANTITY = 33
+
+export function pokemonByRegulation(regulation: Regulation, quantity: number = DEFAULT_META_QUANTITY): Pokemon[] {
   return Object.keys(SETDEX_SV)
     .map(toPokemon)
     .filter(pokemon => filterBannedByRegulation(pokemon, regulation))

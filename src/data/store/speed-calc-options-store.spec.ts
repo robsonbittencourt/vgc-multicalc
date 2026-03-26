@@ -16,8 +16,8 @@ describe("Speed Calc Options Store", () => {
 
   describe("Computed", () => {
     it("should return options", () => {
-      store.toogleIcyWind(true)
-      store.toogleParalyze(true)
+      store.toggleIcyWind(true)
+      store.toggleParalyze(true)
       store.updateTargetName("Pikachu")
 
       const options = store.options()
@@ -56,53 +56,53 @@ describe("Speed Calc Options Store", () => {
 
   describe("Methods", () => {
     it("should change Speed Modifier to -1 when Icy Wind is enabled", () => {
-      store.toogleIcyWind(true)
+      store.toggleIcyWind(true)
 
       expect(store.speedModifier()).toBe(-1)
     })
 
     it("should change Speed Modifier to 0 when Icy Wind is disabled", () => {
-      store.toogleIcyWind(true)
-      store.toogleIcyWind(false)
+      store.toggleIcyWind(true)
+      store.toggleIcyWind(false)
 
       expect(store.speedModifier()).toBe(0)
     })
 
     it("should change Speed Drop Active to true when Icy Wind is enabled", () => {
-      store.toogleIcyWind(true)
+      store.toggleIcyWind(true)
 
       expect(store.speedDropActive()).toBeTrue()
     })
 
     it("should change Speed Drop Active to false when Icy Wind is disabled", () => {
-      store.toogleIcyWind(true)
-      store.toogleIcyWind(false)
+      store.toggleIcyWind(true)
+      store.toggleIcyWind(false)
 
       expect(store.speedDropActive()).toBeFalse()
     })
 
     it("should change Paralyzed Active to true when Paralyze is enabled", () => {
-      store.toogleParalyze(true)
+      store.toggleParalyze(true)
 
       expect(store.paralyzedActive()).toBeTrue()
     })
 
     it("should change Paralyzed Active to false when Paralyze is disabled", () => {
-      store.toogleParalyze(true)
-      store.toogleParalyze(false)
+      store.toggleParalyze(true)
+      store.toggleParalyze(false)
 
       expect(store.paralyzedActive()).toBeFalse()
     })
 
     it("should change Choice Scarf Active to true when enabled", () => {
-      store.toogleChoiceScarf(true)
+      store.toggleChoiceScarf(true)
 
       expect(store.choiceScarfActive()).toBeTrue()
     })
 
     it("should change Choice Scarf Active to false when disabled", () => {
-      store.toogleChoiceScarf(true)
-      store.toogleChoiceScarf(false)
+      store.toggleChoiceScarf(true)
+      store.toggleChoiceScarf(false)
 
       expect(store.choiceScarfActive()).toBeFalse()
     })

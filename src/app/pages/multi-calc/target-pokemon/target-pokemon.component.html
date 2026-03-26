@@ -13,7 +13,7 @@
 
       <app-roll-config [(config)]="rollLevelConfig" (rollLevelChange)="handleRollLevelChange($event)" />
 
-      <mat-slide-toggle [checked]="order" (change)="toogleOrder()" [labelPosition]="'before'">Order by Damage</mat-slide-toggle>
+      <mat-slide-toggle [checked]="order()" (change)="toggleOrder()" [labelPosition]="'before'">Order by Damage</mat-slide-toggle>
 
       <div class="regulation-combo">
         <app-input-select label="Regulation" leftLabel="true" [allValues]="regulationsList" [disabled]="haveMetaData()" [value]="regulation()" (valueChange)="updateRegulation($event)" />
@@ -28,7 +28,7 @@
   </right-header>
 
   <div class="target-pokemon" cdkDropListGroup>
-    @for (damageResult of filteredDamageResults(); track $index) {
+    @for (damageResult of filteredDamageResults(); track getExpansionKey(damageResult)) {
       <app-pokemon-card
         cdkDropList
         cdkDropListOrientation="horizontal"

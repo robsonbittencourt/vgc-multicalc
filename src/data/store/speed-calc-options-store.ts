@@ -49,17 +49,17 @@ export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }
       .sort()
   )
 
-  toogleIcyWind(enabled: boolean) {
+  toggleIcyWind(enabled: boolean) {
     const speedModifier = enabled ? -1 : 0
     patchState(this, () => ({ speedModifier: speedModifier }))
     patchState(this, () => ({ speedDropActive: enabled }))
   }
 
-  toogleParalyze(enabled: boolean) {
+  toggleParalyze(enabled: boolean) {
     patchState(this, () => ({ paralyzedActive: enabled }))
   }
 
-  toogleChoiceScarf(enabled: boolean) {
+  toggleChoiceScarf(enabled: boolean) {
     patchState(this, () => ({ choiceScarfActive: enabled }))
   }
 

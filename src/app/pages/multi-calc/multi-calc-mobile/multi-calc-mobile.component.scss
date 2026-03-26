@@ -1,0 +1,347 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background);
+  height: calc(100dvh - 4em);
+  overflow: hidden;
+}
+
+.mobile-calc-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.delete-pokemon {
+  display: flex;
+  align-items: center;
+  gap: 0.2em;
+  cursor: pointer;
+  color: var(--text);
+
+  .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  label {
+    cursor: pointer;
+  }
+}
+
+.scrollable-content {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 6em;
+}
+
+.attacker-build {
+  padding-bottom: 0.5em;
+}
+
+.attacker-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5em;
+  padding: 1em 0.75em 0 0.75em;
+}
+
+.attacker-header app-pokemon-combo-box {
+  flex: 0 1 10em;
+  max-width: 10em;
+  min-width: 0;
+}
+
+.attacker-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  flex-shrink: 0;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.results-list {
+  border-top: 1px solid var(--widget-border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75em;
+  padding: 0.75em;
+}
+
+.result-card {
+  width: 100%;
+}
+
+.result-card app-pokemon-card {
+  display: block;
+  width: 100%;
+}
+
+.results-list ::ng-deep .card {
+  touch-action: pan-y !important;
+  padding: 0.5em 0.75em;
+
+  .collapsed-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    .collapsed-description {
+      flex: 1;
+    }
+
+    &:has(.collapsed-description) {
+      justify-content: space-between;
+    }
+  }
+}
+
+.results-list ::ng-deep .right-side > .pointer {
+  flex-shrink: 0;
+}
+
+.results-list ::ng-deep .pokemon-hp {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+  height: 5em;
+  min-height: 5em;
+}
+
+.results-list ::ng-deep .hp-bar {
+  width: 7em;
+  box-sizing: border-box;
+}
+
+.results-list ::ng-deep .hp {
+  min-width: 40%;
+}
+
+.results-list ::ng-deep .fainted-icon {
+  left: 50% !important;
+  transform: translateX(-50%) scale(0.85) !important;
+}
+
+.results-list ::ng-deep .right-side {
+  flex: 1;
+  min-width: 0;
+}
+
+.results-list ::ng-deep .pokemon-image {
+  width: 4em;
+}
+
+.results-list ::ng-deep .pokemon-image-container img {
+  width: 4em;
+  height: auto;
+}
+
+.results-list ::ng-deep .vs-icon {
+  height: 2.5em;
+}
+
+.results-list ::ng-deep .middle-section-items {
+  flex: 1;
+  min-width: 0;
+}
+
+.results-list ::ng-deep .middle-section-buttons {
+  flex: 0 0 auto;
+  max-width: 6em;
+}
+
+.results-list ::ng-deep .middle-section-buttons .card-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.2em;
+}
+
+.results-list ::ng-deep .card-buttons-row {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.25em;
+}
+
+.results-list ::ng-deep .middle-section-buttons span {
+  word-break: break-word;
+  white-space: normal;
+}
+
+.results-list ::ng-deep app-add-pokemon-card {
+  display: block;
+  width: 100%;
+  height: 8.2em;
+  min-height: 8.2em;
+
+  .card {
+    padding: 0.5em 0.75em;
+    height: 100%;
+    box-sizing: border-box;
+  }
+}
+
+.targets-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75em;
+  margin-top: 0.5em;
+  padding: 0 0.75em 0 0.75em;
+
+  .row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75em;
+    align-items: stretch;
+    height: 2.5em;
+
+    .management-button {
+      display: flex; /* Ensure the component host is flex to stretch the internal button */
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.bottom-nav {
+  display: flex;
+  background-color: var(--background);
+  border-top: 1px solid var(--widget-border);
+  flex-shrink: 0;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4em;
+  z-index: 20;
+}
+
+.bottom-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding: 0.5em;
+  cursor: pointer;
+  gap: 0.1em;
+  font-size: 0.78em;
+  color: var(--text);
+  opacity: 0.5;
+  transition: opacity 0.15s ease;
+
+  mat-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    font-size: 24px; /* Ensure font icons have the same size */
+
+    &[svgIcon] {
+      transform: translateY(1px); /* Nudge custom SVG down to match font baseline look */
+    }
+  }
+}
+
+.bottom-tab:hover {
+  opacity: 0.8;
+}
+
+.active-bottom-tab {
+  opacity: 1;
+  color: var(--primary);
+  border-top: 2px solid var(--primary);
+}
+
+.field-tab {
+  padding: 1em 1em 6em 1em;
+
+  .settings-widget {
+    margin-bottom: 1.25em;
+    display: block;
+    height: auto;
+
+    ::ng-deep > .container {
+      height: auto;
+    }
+  }
+
+  .field-configs {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25em;
+    margin-top: 1em;
+
+    .roll-config-section {
+      display: flex;
+      flex-direction: column;
+    }
+
+    mat-slide-toggle {
+      width: 100%;
+      height: 2.5em;
+      display: flex;
+      align-items: center;
+
+      ::ng-deep .mdc-form-field {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row-reverse;
+        gap: 1rem;
+      }
+
+      ::ng-deep .mdc-label {
+        flex: 1;
+        font-size: 1em;
+        font-weight: 500;
+        color: var(--text);
+      }
+    }
+  }
+}
+
+.teams-tab {
+  padding: 0 0 6em 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.placeholder-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60dvh;
+  gap: 1em;
+  opacity: 0.5;
+
+  mat-icon {
+    font-size: 4em;
+    width: 4em;
+    height: 4em;
+  }
+
+  p {
+    font-size: 1.2em;
+    font-weight: 500;
+  }
+}

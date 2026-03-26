@@ -1,7 +1,7 @@
 <app-team class="team" [pokemonId]="pokemonId()" />
 
 <div class="right-column">
-  <app-teams [allowSecondTeamSelection]="true" (secondTeamSelected)="onSecondTeamSelected($event)" />
+  <app-teams-desktop [allowSecondTeamSelection]="true" (secondTeamSelected)="onSecondTeamSelected($event)" />
   <app-type-coverage-insights [secondTeam]="secondTeam()" />
 </div>
 

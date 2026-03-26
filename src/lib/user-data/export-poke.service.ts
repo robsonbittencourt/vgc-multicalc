@@ -54,33 +54,29 @@ export class ExportPokeService {
   }
 
   private evsDescriptionShowdown(pokemon: Pokemon): string {
-    let evsDescription = ""
+    const evs: string[] = []
 
-    if (pokemon.evs.hp && pokemon.evs.hp != 0) evsDescription += `${pokemon.evs.hp} HP / `
-    if (pokemon.evs.atk && pokemon.evs.atk != 0) evsDescription += `${pokemon.evs.atk} Atk / `
-    if (pokemon.evs.def && pokemon.evs.def != 0) evsDescription += `${pokemon.evs.def} Def / `
-    if (pokemon.evs.spa && pokemon.evs.spa != 0) evsDescription += `${pokemon.evs.spa} SpA / `
-    if (pokemon.evs.spd && pokemon.evs.spd != 0) evsDescription += `${pokemon.evs.spd} SpD / `
-    if (pokemon.evs.spe && pokemon.evs.spe != 0) evsDescription += `${pokemon.evs.spe} Spe / `
+    if (pokemon.evs.hp) evs.push(`${pokemon.evs.hp} HP`)
+    if (pokemon.evs.atk) evs.push(`${pokemon.evs.atk} Atk`)
+    if (pokemon.evs.def) evs.push(`${pokemon.evs.def} Def`)
+    if (pokemon.evs.spa) evs.push(`${pokemon.evs.spa} SpA`)
+    if (pokemon.evs.spd) evs.push(`${pokemon.evs.spd} SpD`)
+    if (pokemon.evs.spe) evs.push(`${pokemon.evs.spe} Spe`)
 
-    evsDescription = evsDescription.slice(0, -3)
-
-    return evsDescription
+    return evs.join(" / ")
   }
 
   private ivsDescriptionShowdown(pokemon: Pokemon): string {
-    let ivsDescription = ""
+    const ivs: string[] = []
 
-    if (pokemon.ivs.hp != 31) ivsDescription += `${pokemon.ivs.hp} HP / `
-    if (pokemon.ivs.atk != 31) ivsDescription += `${pokemon.ivs.atk} Atk / `
-    if (pokemon.ivs.def != 31) ivsDescription += `${pokemon.ivs.def} Def / `
-    if (pokemon.ivs.spa != 31) ivsDescription += `${pokemon.ivs.spa} SpA / `
-    if (pokemon.ivs.spd != 31) ivsDescription += `${pokemon.ivs.spd} SpD / `
-    if (pokemon.ivs.spe != 31) ivsDescription += `${pokemon.ivs.spe} Spe / `
+    if (pokemon.ivs.hp !== 31) ivs.push(`${pokemon.ivs.hp} HP`)
+    if (pokemon.ivs.atk !== 31) ivs.push(`${pokemon.ivs.atk} Atk`)
+    if (pokemon.ivs.def !== 31) ivs.push(`${pokemon.ivs.def} Def`)
+    if (pokemon.ivs.spa !== 31) ivs.push(`${pokemon.ivs.spa} SpA`)
+    if (pokemon.ivs.spd !== 31) ivs.push(`${pokemon.ivs.spd} SpD`)
+    if (pokemon.ivs.spe !== 31) ivs.push(`${pokemon.ivs.spe} Spe`)
 
-    ivsDescription = ivsDescription.slice(0, -3)
-
-    return ivsDescription
+    return ivs.join(" / ")
   }
 
   private openModal(title: string, content: string) {
@@ -91,6 +87,7 @@ export class ExportPokeService {
       },
       width: "40em",
       position: { top: "2em" },
+      autoFocus: false,
       scrollStrategy: new NoopScrollStrategy()
     })
   }

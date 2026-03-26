@@ -15,6 +15,7 @@ export class PokemonComboBoxComponent implements AfterViewInit {
   pokemonId = input.required<string>()
 
   autoFocus = input(false, { transform: booleanAttribute })
+  label = input<string>("Pokémon")
 
   pokemonChanged = output()
 
@@ -33,5 +34,9 @@ export class PokemonComboBoxComponent implements AfterViewInit {
   onValueManuallySelected(pokemonName: string) {
     this.store.loadPokemonInfo(this.pokemonId(), pokemonName)
     this.pokemonChanged.emit()
+  }
+
+  focus() {
+    this.autoCompleteInput()?.focus()
   }
 }

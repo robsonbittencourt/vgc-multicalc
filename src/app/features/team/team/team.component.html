@@ -1,8 +1,15 @@
 <app-widget [title]="'Your Team'" data-cy="your-team">
   <right-header>
     <div class="tabs">
-      @for (teamMember of store.team().teamMembers; track teamMember.pokemon.id) {
-        <app-pokemon-tab [pokemonId]="teamMember.pokemon.id" [active]="showTeamMemberActive(teamMember)" (tabActivated)="activatePokemon($event)" (secondTabActivated)="activateSecondPokemon($event)" />
+      @if (targetOnEdit()) {
+        <app-pokemon-tab [pokemonId]="pokemonId()" [active]="true" (tabActivated)="activatePokemon($event)" (secondTabActivated)="activateSecondPokemon($event)" />
+        <div class="close-tab" (click)="activatePokemon(store.team().activePokemon().id)">
+          <mat-icon>close</mat-icon>
+        </div>
+      } @else {
+        @for (teamMember of store.team().teamMembers; track teamMember.pokemon.id) {
+          <app-pokemon-tab [pokemonId]="teamMember.pokemon.id" [active]="showTeamMemberActive(teamMember)" (tabActivated)="activatePokemon($event)" (secondTabActivated)="activateSecondPokemon($event)" />
+        }
       }
     </div>
   </right-header>

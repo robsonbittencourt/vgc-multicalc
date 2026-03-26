@@ -84,6 +84,7 @@ updateState(newState: Partial<State>) {
 10. **Use ESLint** - Follow the configured rules
 11. **Keep stores simple** - Complex logic should be in services
 12. **Private functions placement** - Place private functions below where they are first used. Private methods should be defined after the first public method that uses them
+13. **Avoid `::ng-deep`** - Avoid using `::ng-deep` for styling. Use it ONLY when it's absolutely necessary to override internal component styles that cannot be accessed otherwise (e.g., Angular Material or shared components without style inputs).
 
 ## When Creating New Features
 

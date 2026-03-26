@@ -16,6 +16,7 @@ import { PokePasteParserService } from "@lib/user-data/poke-paste-parser.service
 })
 export class ImportPokemonButtonComponent {
   singlePokemon = input(true)
+  useIconStyle = input(false)
   show = input(true)
   hidden = input(false)
 
@@ -30,6 +31,7 @@ export class ImportPokemonButtonComponent {
     const dialogRef = this.dialog.open(ImportModalComponent, {
       data: { placeholder },
       position: { top: "2em" },
+      autoFocus: false,
       scrollStrategy: new NoopScrollStrategy()
     })
 

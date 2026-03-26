@@ -1,6 +1,6 @@
 import { Component, computed, inject, signal } from "@angular/core"
 import { TeamComponent } from "@app/features/team/team/team.component"
-import { TeamsComponent } from "@app/features/team/teams/teams.component"
+import { TeamsDesktopComponent } from "@features/team/teams-desktop/teams-desktop.component"
 import { CombinedProbabilityComponent } from "@app/pages/probability-calc/combined-probability/combined-probability.component"
 import { GeneralProbabilityComponent } from "@app/pages/probability-calc/general-probability/general-probability.component"
 import { PokemonProbabilityComponent } from "@app/pages/probability-calc/pokemon-probability/pokemon-probability.component"
@@ -15,7 +15,7 @@ import { Pokemon } from "@lib/model/pokemon"
   selector: "app-probability-calc",
   templateUrl: "./probability-calc.component.html",
   styleUrl: "./probability-calc.component.scss",
-  imports: [TeamComponent, TeamsComponent, GeneralProbabilityComponent, CombinedProbabilityComponent, PokemonProbabilityComponent, TeamProbabilityComponent],
+  imports: [TeamComponent, TeamsDesktopComponent, GeneralProbabilityComponent, CombinedProbabilityComponent, PokemonProbabilityComponent, TeamProbabilityComponent],
   providers: [FieldStore, AutomaticFieldService, { provide: FIELD_CONTEXT, useValue: "probability" }]
 })
 export class ProbabilityCalcComponent {

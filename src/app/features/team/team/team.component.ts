@@ -46,7 +46,7 @@ export class TeamComponent {
 
   teamMemberOnEdit = computed(() => this.pokemonOnEdit().equals(this.store.team().activePokemon()) || this.pokemonOnEdit().id === this.store.secondAttackerId())
 
-  targetOnEdit = computed(() => this.store.targets().some(t => t.pokemon.id === this.pokemonOnEdit().id))
+  targetOnEdit = computed(() => this.store.targets().some(t => t.pokemon.id === this.pokemonOnEdit().id || t.secondPokemon?.id === this.pokemonOnEdit().id))
 
   constructor() {
     effect(() => {

@@ -1,4 +1,8 @@
 .header {
+  height: 4em;
+  position: sticky;
+  top: 0;
+  z-index: 110;
   background-color: var(--background);
   transition:
     background-color 0.3s ease,
@@ -52,19 +56,123 @@
   border: 0;
 }
 
-.menu-content {
+.menu-panel {
+  position: fixed;
+  top: 4em;
+  left: auto;
+  right: 0;
   width: 15em;
-  margin-left: 1em;
+  bottom: 0;
+  background-color: var(--background);
+  z-index: 100;
+  overflow-y: auto;
+  border-left: 1px solid var(--widget-border);
+  border-bottom: 1px solid var(--widget-border);
+  animation: slideRight 0.2s ease;
+
+  &.no-footer {
+    bottom: 0;
+  }
+
+  &:not(.no-footer) {
+    bottom: 4em;
+  }
+}
+
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 95;
+  backdrop-filter: blur(2px);
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.menu-content {
+  padding: 1em 1.5em;
+  display: flex;
+  flex-direction: column;
 }
 
 .menu-title {
+  display: block;
   font-size: clamp(12px, 2vh, 18px);
+  font-weight: 600;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  opacity: 0.6;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.75em;
+}
+
+.menu-title:first-child {
+  margin-top: 0;
+}
+
+mat-divider {
+  margin: 0.75em 0;
+}
+
+.menu-item-button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0.85em 1em;
+  background: none;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1em;
+  color: var(--text);
+  text-align: left;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.menu-item-button:hover {
+  background-color: var(--highlight);
+  color: var(--highlight-contrast);
+}
+
+.active-menu-option {
+  background-color: var(--highlight);
+  color: var(--highlight-contrast);
+  font-weight: 500;
 }
 
 .menu-item {
   display: flex;
   align-items: center;
   gap: 1em;
+  padding: 0.45em 1em;
+  border-radius: 8px;
+  margin-bottom: 0.25em;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
 }
 
 .menu-item:hover {
@@ -76,11 +184,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 3em;
-  padding: 0.5em;
+  width: 2.5em;
+  padding: 0;
 }
 
 .pokemon-image {
-  height: 2em;
+  height: 1.8em;
   width: auto;
 }

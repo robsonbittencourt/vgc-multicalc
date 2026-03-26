@@ -5,46 +5,56 @@
     <span class="title">VGC Multi Calc</span>
   </div>
   <div class="right-header">
-    <button class="menu-icon" mat-icon-button [matMenuTriggerFor]="menu">
+    <button class="menu-icon" mat-icon-button (click)="toggleMenu()">
       <mat-icon>menu</mat-icon>
     </button>
-    <mat-menu #menu="matMenu">
-      <div class="menu-content">
-        <span class="menu-title">Pages</span>
-        <button mat-menu-item (click)="menuStore.enableOneVsOne()">
-          <span>Damage Calc</span>
-        </button>
-        <button mat-menu-item (click)="menuStore.enableSpeedCalculator()">
-          <span>Speed Calc</span>
-        </button>
-        <button mat-menu-item (click)="menuStore.enableHowToUse()">
-          <span>How to use</span>
-        </button>
-
-        <mat-divider></mat-divider>
-
-        <span class="menu-title">Themes</span>
-        @for (theme of themeService.getThemes(); track theme.name) {
-          <div class="menu-item" (click)="themeService.setTheme(theme.name)">
-            <div class="pokemon-image-container">
-              <img class="pokemon-image" src="assets/sprites/menu/{{ theme.pokemon }}.png" />
-            </div>
-            <span>{{ theme.name | titlecase }}</span>
-          </div>
-        }
-
-        <mat-divider></mat-divider>
-
-        <span class="menu-title">Colors</span>
-        @for (color of themeService.getColors(); track color.name) {
-          <div class="menu-item" (click)="themeService.setColor(color.name)">
-            <div class="pokemon-image-container">
-              <img class="pokemon-image" src="assets/sprites/menu/{{ color.pokemon }}.png" />
-            </div>
-            <span>{{ color.name | titlecase }}</span>
-          </div>
-        }
-      </div>
-    </mat-menu>
   </div>
 </div>
+
+@if (menuOpen()) {
+  <div class="menu-overlay" (click)="closeMenu()"></div>
+  <div class="menu-panel" [class.no-footer]="!hasFooter()">
+    <div class="menu-content">
+      <span class="menu-title">Pages</span>
+      <button class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.oneVsOneActivated() }" (click)="enableOneVsOne()">
+        <span>Damage Calc</span>
+      </button>
+      <button class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.oneVsManyActivated() }" (click)="enableOneVsMany()">
+        <span>Team vs Many</span>
+      </button>
+      <button class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.manyVsOneActivated() }" (click)="enableManyVsOne()">
+        <span>Many vs Team</span>
+      </button>
+      <button class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.speedCalculatorActivated() }" (click)="enableSpeedCalculator()">
+        <span>Speed Calc</span>
+      </button>
+      <button class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.howToUseActivated() }" (click)="enableHowToUse()">
+        <span>How to use</span>
+      </button>
+
+      <mat-divider></mat-divider>
+
+      <span class="menu-title">Themes</span>
+      @for (theme of themeService.getThemes(); track theme.name) {
+        <div class="menu-item" [ngClass]="{ 'active-menu-option': themeService.selectedTheme().name === theme.name }" (click)="themeService.setTheme(theme.name)">
+          <div class="pokemon-image-container">
+            <img class="pokemon-image" src="assets/sprites/menu/{{ theme.pokemon }}.png" />
+          </div>
+          <span>{{ theme.name | titlecase }}</span>
+        </div>
+      }
+
+      <mat-divider></mat-divider>
+
+      <span class="menu-title">Colors</span>
+      @for (color of themeService.getColors(); track color.name) {
+        <div class="menu-item" [ngClass]="{ 'active-menu-option': themeService.selectedColor().name === color.name }" (click)="themeService.setColor(color.name)">
+          <div class="pokemon-image-container">
+            <img class="pokemon-image" src="assets/sprites/menu/{{ color.pokemon }}.png" />
+          </div>
+          <span>{{ color.name | titlecase }}</span>
+        </div>
+      }
+    </div>
+  </div>
+}

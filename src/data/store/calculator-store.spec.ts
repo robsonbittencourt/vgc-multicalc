@@ -192,7 +192,7 @@ describe("Calculator Store", () => {
       it("should do nothing when try to apply Commander but Pokémon it is not Dondozo", () => {
         store.name(defaultId, "Pikachu")
 
-        store.toogleCommanderActive(defaultId)
+        store.toggleCommanderActive(defaultId)
 
         expect(store.team().activePokemon().commanderActive).toBeFalse()
         expect(store.team().activePokemon().boosts).toEqual({ atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
@@ -201,7 +201,7 @@ describe("Calculator Store", () => {
       it("should turn Pokémon Commander to true when it is false and apply +2 boosts", () => {
         store.name(defaultId, "Dondozo")
 
-        store.toogleCommanderActive(defaultId)
+        store.toggleCommanderActive(defaultId)
 
         expect(store.team().activePokemon().commanderActive).toBeTrue()
         expect(store.team().activePokemon().boosts).toEqual({ atk: 2, def: 2, spa: 2, spd: 2, spe: 2 })
@@ -209,10 +209,10 @@ describe("Calculator Store", () => {
 
       it("should turn Pokémon Commander to false when it is true and remove any boosts", () => {
         store.name(defaultId, "Dondozo")
-        store.toogleCommanderActive(defaultId)
+        store.toggleCommanderActive(defaultId)
         expect(store.team().activePokemon().commanderActive).toBeTrue()
 
-        store.toogleCommanderActive(defaultId)
+        store.toggleCommanderActive(defaultId)
         expect(store.team().activePokemon().commanderActive).toBeFalse()
         expect(store.team().activePokemon().boosts).toEqual({ atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
       })

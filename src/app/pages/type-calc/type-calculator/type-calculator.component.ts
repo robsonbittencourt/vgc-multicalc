@@ -1,6 +1,6 @@
 import { Component, computed, inject, signal } from "@angular/core"
 import { TeamComponent } from "@features/team/team/team.component"
-import { TeamsComponent } from "@features/team/teams/teams.component"
+import { TeamsDesktopComponent } from "@features/team/teams-desktop/teams-desktop.component"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { DefensiveCoverageComponent } from "@pages/type-calc/defensive-coverage/defensive-coverage.component"
 import { OffensiveCoverageComponent } from "@pages/type-calc/offensive-coverage/offensive-coverage.component"
@@ -14,7 +14,7 @@ import { AutomaticFieldService } from "@lib/automatic-field-service"
   selector: "app-type-calculator",
   templateUrl: "./type-calculator.component.html",
   styleUrl: "./type-calculator.component.scss",
-  imports: [TeamComponent, TeamsComponent, DefensiveCoverageComponent, OffensiveCoverageComponent, TypeCoverageInsightsComponent],
+  imports: [TeamComponent, TeamsDesktopComponent, DefensiveCoverageComponent, OffensiveCoverageComponent, TypeCoverageInsightsComponent],
   providers: [FieldStore, AutomaticFieldService, { provide: FIELD_CONTEXT, useValue: "type" }]
 })
 export class TypeCalculatorComponent {

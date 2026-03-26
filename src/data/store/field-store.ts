@@ -132,7 +132,7 @@ export class FieldStore extends signalStore(
 
   toggleSunWeather() {
     this.toggleWeather("Sun")
-    this.calculatorStore.toogleProtosynthesis(this.isWeatherSun())
+    this.calculatorStore.toggleProtosynthesis(this.isWeatherSun())
   }
 
   toggleAutomaticSunWeather() {
@@ -184,7 +184,7 @@ export class FieldStore extends signalStore(
 
   toggleElectricTerrain() {
     this.toggleTerrain("Electric")
-    this.calculatorStore.toogleQuarkDrive(this.isTerrainElectric())
+    this.calculatorStore.toggleQuarkDrive(this.isTerrainElectric())
   }
 
   toggleAutomaticElectricTerrain() {

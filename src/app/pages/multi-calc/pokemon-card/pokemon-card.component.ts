@@ -1,5 +1,5 @@
 import { CdkDrag, CdkDragHandle, CdkDragPlaceholder } from "@angular/cdk/drag-drop"
-import { Component, computed, inject, input, output } from "@angular/core"
+import { Component, computed, inject, input, model, output } from "@angular/core"
 import { MatIcon } from "@angular/material/icon"
 import { MatTooltip } from "@angular/material/tooltip"
 import { CopyButtonComponent } from "@basic/copy-button/copy-button.component"
@@ -26,13 +26,15 @@ export class PokemonCardComponent {
   damageResult = input.required<DamageResult>()
   isAttacker = input.required<boolean>()
   rollLevelConfig = input.required<RollLevelConfig>()
+  collapsible = input<boolean>(false)
 
   targetActivated = output<string>()
-  targetSelected = output<string>()
   targetRemoved = output()
   attackersSeparated = output<string>()
 
-  canDrag = computed(() => !this.isAttacker() || this.damageResult().secondAttacker)
+  expanded = model<boolean>(false)
+
+  canDrag = computed(() => !this.isAttacker() || !!this.damageResult().secondAttacker)
   damageTaken = computed(() => {
     if (this.isDefaultAttacker()) return 0
     return this.damageResult().damageByRollConfig(this.rollLevelConfig())
@@ -41,7 +43,37 @@ export class PokemonCardComponent {
   isDefaultAttacker = computed(() => this.damageResult().attacker.isDefault)
   isDefaultDefender = computed(() => this.damageResult().defender.isDefault)
 
+  collapsedDescription = computed(() => {
+    const firstMove = this.damageResult().move
+    const secondMove = this.damageResult().secondAttacker?.move.name
+    const moveName = secondMove ? `${firstMove} + ${secondMove}` : firstMove
+
+    const desc = this.damageResult().description
+    const colonIndex = desc.indexOf(": ")
+
+    if (colonIndex === -1) return `${moveName} - ${desc}`
+
+    const simplified = desc.substring(colonIndex + 2)
+    const koIndex = simplified.indexOf("--")
+
+    let result = simplified
+
+    if (koIndex !== -1) {
+      const extraInfoIndex = simplified.indexOf(" - ", koIndex + 2)
+      const afterIndex = simplified.indexOf(" after ", koIndex + 2)
+
+      const truncateAt = extraInfoIndex !== -1 && afterIndex !== -1 ? Math.min(extraInfoIndex, afterIndex) : extraInfoIndex !== -1 ? extraInfoIndex : afterIndex
+
+      if (truncateAt !== -1) {
+        result = simplified.substring(0, truncateAt)
+      }
+    }
+
+    return `${moveName} - ${result}`
+  })
+
   defender = computed(() => this.damageResult().defender)
+  pokemonOnCard = computed(() => this.defender())
 
   moveCardSelector = computed(() => `move-card-${this.damageResult().attacker.displayName}`)
   separateCardSelector = computed(() => `separate-opponent-${this.damageResult().attacker.displayName}`)
@@ -71,15 +103,8 @@ export class PokemonCardComponent {
     this.targetRemoved.emit()
   }
 
-  evsDescription(): string {
-    const pokemon = this.damageResult().defender
-    let evsDescription = ""
-
-    if (pokemon.evs.hp != 0) evsDescription += `hp: ${pokemon.evs.hp} `
-    if (pokemon.evs.def != 0) evsDescription += `def: ${pokemon.evs.def} `
-    if (pokemon.evs.spd != 0) evsDescription += `spd: ${pokemon.evs.spd} `
-
-    return evsDescription != "" ? `Bulk: ${evsDescription}` : "Bulk: --"
+  toggleExpanded() {
+    this.expanded.set(!this.expanded())
   }
 
   separateAttackers() {

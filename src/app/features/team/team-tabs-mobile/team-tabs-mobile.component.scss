@@ -1,0 +1,100 @@
+.team-tabs {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0.25em 0.5em;
+  background-color: var(--background);
+  border-bottom: 1px solid var(--widget-border);
+  flex-shrink: 0;
+  position: sticky;
+  top: 4em;
+  z-index: 20;
+}
+
+.team-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25em;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.15s ease;
+  flex: 1;
+  position: relative;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent !important;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .team-tab:hover {
+    background-color: var(--highlight);
+  }
+}
+
+.add-tab {
+  opacity: 0.4;
+  border: none !important;
+}
+
+.active-tab {
+  border-color: var(--primary);
+  background-color: var(--highlight);
+}
+
+.second-attacker {
+  border-color: var(--primary);
+  background-color: var(--highlight);
+}
+
+.combine-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background-color: var(--primary);
+  color: var(--background);
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+
+  mat-icon {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+  }
+}
+
+.close-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background-color: var(--warn);
+  color: white;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+
+  mat-icon {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+  }
+}
+
+.tab-sprite {
+  width: 4em;
+  height: 4em;
+  object-fit: contain;
+  pointer-events: none;
+}

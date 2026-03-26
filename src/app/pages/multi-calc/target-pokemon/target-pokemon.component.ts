@@ -63,6 +63,10 @@ export class TargetPokemonComponent {
 
   metaButtonLabel = computed(() => (this.haveMetaData() ? "Remove Meta" : "Add Meta"))
 
+  getExpansionKey(result: DamageResult): string {
+    return this.isAttacker() ? result.attacker.id : result.defender.id
+  }
+
   filteredDamageResults = computed(() => {
     const filter = this.cardsFilter().toLocaleLowerCase()
 
@@ -84,8 +88,7 @@ export class TargetPokemonComponent {
   )
 
   regulationsList: Regulation[] = ["I", "F"]
-
-  order = true
+  order = signal(true)
 
   onMetaClick() {
     if (this.haveMetaData()) {
@@ -97,7 +100,7 @@ export class TargetPokemonComponent {
       this.snackBar.open("Pokémon removed")
     } else {
       this.store.updateTargetMetaRegulation(this.regulation())
-      const metaPokemon = pokemonByRegulation(this.regulation(), 50)
+      const metaPokemon = pokemonByRegulation(this.regulation())
       this.pokemonImported(metaPokemon)
     }
   }
@@ -154,9 +157,9 @@ export class TargetPokemonComponent {
     this.targetActivated.emit(pokemonId)
   }
 
-  toogleOrder() {
-    this.order = !this.order
-    this.orderChanged.emit(this.order)
+  toggleOrder() {
+    this.order.update(o => !o)
+    this.orderChanged.emit(this.order())
   }
 
   drop(event: CdkDragDrop<string, any>) {
@@ -221,7 +224,7 @@ export class TargetPokemonComponent {
   }
 
   private targetsExcludingMetaData(): Target[] {
-    const metaLeft = pokemonByRegulation(this.store.targetMetaRegulation()!, 50)
+    const metaLeft = pokemonByRegulation(this.store.targetMetaRegulation()!)
 
     const newTargets = [...this.targets()]
       .reverse()

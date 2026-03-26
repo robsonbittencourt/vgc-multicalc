@@ -7,6 +7,8 @@
   background-color: var(--highlight);
   height: 100%;
   padding-top: 0.2em;
+  border: 3px solid transparent;
+  box-sizing: border-box;
 }
 
 .team-name-label {
@@ -25,9 +27,9 @@
 }
 
 .active-team {
-  box-shadow: inset 0px 0px 0px 3px var(--highlight-border);
+  border-color: var(--highlight-border);
 }
 
 .second-team {
-  box-shadow: inset 0px 0px 0px 3px #5cb85c;
+  border-color: #5cb85c;
 }

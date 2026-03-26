@@ -25,8 +25,8 @@ export class TatsugiriButtonComponent {
     })
   }
 
-  toogleCommanderAbility(event: Event) {
+  toggleCommanderAbility(event: Event) {
     event.stopPropagation()
-    this.store.toogleCommanderActive(this.pokemonId())
+    this.store.toggleCommanderActive(this.pokemonId())
   }
 }

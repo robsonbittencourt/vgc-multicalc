@@ -1,0 +1,30 @@
+<div class="mobile-teams-container">
+  <div class="mobile-teams-sticky-header">
+    <div class="team-management-header">
+      <label>Name</label>
+      <mat-form-field appearance="outline" class="team-name-input">
+        <input type="text" matInput [ngModel]="store.team().name" (input)="updateTeamName($event)" data-cy="team-name" />
+      </mat-form-field>
+    </div>
+
+    <div class="secondary-actions">
+      <button mat-flat-button color="primary" (click)="addNewTeam()" data-cy="add-team-button">Create</button>
+      <div class="spacer"></div>
+      <app-import-pokemon-button [singlePokemon]="false" [useIconStyle]="true" (pokemonImportedEvent)="pokemonImported($event)" />
+      <div class="export-team" [class.disabled]="store.team().onlyHasDefaultPokemon()" (click)="export()" data-cy="export-team-button">
+        <mat-icon class="icon">upload</mat-icon>
+        <label>Export</label>
+      </div>
+      <div class="delete-team" [class.disabled]="!canDelete()" (click)="deleteTeam()" data-cy="delete-team-button">
+        <mat-icon class="icon">delete</mat-icon>
+        <label>Delete</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="mobile-teams-grid">
+    @for (team of visibleTeams(); track team.id) {
+      <app-team-box [team]="team" [isSecondTeam]="isSecondTeam(team)" [allowSecondTeamSelection]="allowSecondTeamSelection()" (teamActivated)="activateTeam($event)" (secondTeamActivated)="activateSecondTeam($event)" />
+    }
+  </div>
+</div>

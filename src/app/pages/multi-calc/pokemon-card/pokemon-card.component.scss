@@ -9,6 +9,43 @@
   background-color: var(--highlight);
 }
 
+.is-collapsed {
+  gap: 0.5em;
+
+  .body {
+    align-items: flex-start;
+  }
+
+  .collapsed-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.5em;
+
+    @media (max-width: 600px) {
+      align-items: flex-start;
+    }
+  }
+
+  .collapsed-description {
+    color: var(--text);
+    flex: 1;
+    padding-right: 0.5em;
+  }
+}
+
+.has-collapsible {
+  .middle-section-items {
+    margin-left: 0.2em;
+  }
+
+  @media (max-width: 600px) {
+    .body {
+      width: 100%;
+    }
+  }
+}
+
 .combine-buttons {
   display: flex;
   align-items: center;
@@ -21,22 +58,36 @@
 
 .handle {
   cursor: move;
+  touch-action: pan-y;
 }
 
 .pointer {
   cursor: pointer;
+  touch-action: pan-y !important;
 }
 
 .body {
   display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.body-main {
+  display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
 .left-side {
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  @media (max-width: 600px) {
+    align-items: flex-start;
+  }
 }
 
 .left-pokemon {
@@ -44,18 +95,40 @@
   flex-direction: column;
   align-items: center;
   cursor: pointer;
+  touch-action: pan-y !important;
 }
 
 .pokemon-image {
   width: 7em;
   height: auto;
+
+  @media (max-width: 600px) {
+    width: 5em;
+  }
+}
+
+.card-right-side {
+  width: 100%;
 }
 
 .pokemon-image-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-left: -2em;
+  gap: 0.5em;
+  width: 100%;
+
+  app-pokemon-combo-box {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+.left-side .pokemon-image-container {
+  @media (max-width: 600px) {
+    width: auto;
+  }
 }
 
 .middle {
@@ -78,6 +151,7 @@
   flex-direction: row;
   align-items: flex-start;
   justify-content: space-between;
+  width: 100%;
 }
 
 .middle-section-items {
@@ -116,9 +190,33 @@
   align-items: flex-end;
   justify-content: space-between;
   height: 100%;
+  gap: 0.25rem;
+
+  @media (max-width: 600px) {
+    justify-content: flex-start;
+  }
+}
+
+.card:not(.has-collapsible) {
+  .right-side {
+    gap: 1em;
+  }
+
+  .middle-section-buttons {
+    flex-direction: row;
+    height: auto;
+    align-items: center;
+    gap: 0.25rem;
+  }
 }
 
 .card-buttons {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.card-buttons-row {
   display: flex;
   align-items: center;
 }
@@ -134,17 +232,4 @@
 
 .cdk-drag-animating {
   transition: transform 300ms cubic-bezier(0, 0, 0.2, 1);
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.fade-in {
-  animation: fadeIn 300ms ease-out;
 }

@@ -108,7 +108,10 @@ export class CalculatorStore extends signalStore(
   readonly team = computed(() => stateToTeam(this.teamsState().find(t => t.active)!, this.teamIsAttacker()))
   readonly teams = computed(() => stateToTeams(this.teamsState(), this.teamIsAttacker()))
   readonly targets = computed(() => stateToTargets(this.targetsState(), !this.teamIsAttacker()))
-  readonly attackerId = computed(() => this.team().teamMembers.find(t => t.active && t.pokemon.id != this.secondAttackerId())!.pokemon.id)
+  readonly attackerId = computed(() => {
+    const activeMember = this.team().teamMembers.find(t => t.active && t.pokemon.id != this.secondAttackerId())
+    return activeMember ? activeMember.pokemon.id : ""
+  })
 
   private getTeamMemberAt(index: number): Pokemon | null {
     const teamsState = this.teamsState()
@@ -153,11 +156,11 @@ export class CalculatorStore extends signalStore(
     this.updatePokemonById(pokemonId, () => ({ abilityOn }))
   }
 
-  toogleProtosynthesis(enabled: boolean) {
+  toggleProtosynthesis(enabled: boolean) {
     this.enableAllByAbility("Protosynthesis", enabled)
   }
 
-  toogleQuarkDrive(enabled: boolean) {
+  toggleQuarkDrive(enabled: boolean) {
     this.enableAllByAbility("Quark Drive", enabled)
   }
 
@@ -189,8 +192,9 @@ export class CalculatorStore extends signalStore(
     this.updatePokemonById(pokemonId, () => ({ commanderActive }))
   }
 
-  toogleCommanderActive(pokemonId: string) {
+  toggleCommanderActive(pokemonId: string) {
     const pokemon = this.findPokemonById(pokemonId)
+
     if (pokemon.name != "Dondozo") return
 
     const commanderActive = !pokemon.commanderActive
@@ -316,6 +320,8 @@ export class CalculatorStore extends signalStore(
       const updatedTeams = [...state.teamsState]
       const currentTeam = updatedTeams[activeTeamIndex]
 
+      if (currentTeam.teamMembers.length === 0) return { teamsState: updatedTeams }
+
       if (activatedIndex < 0 || activatedIndex >= currentTeam.teamMembers.length) {
         activatedIndex = 0
       }
@@ -329,6 +335,15 @@ export class CalculatorStore extends signalStore(
 
       return { teamsState: updatedTeams }
     })
+  }
+
+  activateTeamMemberByPokemonId(pokemonId: string) {
+    const activeTeam = this.teamsState().find(t => t.active)!
+    const index = activeTeam.teamMembers.findIndex(m => m.pokemon.id === pokemonId)
+
+    if (index !== -1) {
+      this.activateTeamMember(index)
+    }
   }
 
   addTeam(newTeam: Team) {
@@ -370,6 +385,34 @@ export class CalculatorStore extends signalStore(
 
       const updatedTeam = { ...state.teamsState[activeTeamIndex], name: teamName }
       updatedTeams[activeTeamIndex] = updatedTeam
+
+      return { teamsState: updatedTeams }
+    })
+  }
+
+  addTeamMember(pokemon: Pokemon) {
+    const activeTeamIndex = this.activeTeamIndex()
+
+    patchState(this, state => {
+      const updatedTeams = [...state.teamsState]
+      const currentTeam = updatedTeams[activeTeamIndex]
+      const updatedTeamMembers = [...currentTeam.teamMembers, { active: false, pokemon: pokemonToState(pokemon) }]
+
+      updatedTeams[activeTeamIndex] = { ...currentTeam, teamMembers: updatedTeamMembers }
+
+      return { teamsState: updatedTeams }
+    })
+  }
+
+  removeTeamMember(pokemonId: string) {
+    const activeTeamIndex = this.activeTeamIndex()
+
+    patchState(this, state => {
+      const updatedTeams = [...state.teamsState]
+      const currentTeam = updatedTeams[activeTeamIndex]
+      const updatedTeamMembers = currentTeam.teamMembers.filter(member => member.pokemon.id !== pokemonId)
+
+      updatedTeams[activeTeamIndex] = { ...currentTeam, teamMembers: updatedTeamMembers }
 
       return { teamsState: updatedTeams }
     })
@@ -426,6 +469,13 @@ export class CalculatorStore extends signalStore(
 
   changeRightPokemon(pokemon: Pokemon) {
     patchState(this, () => ({ rightPokemonState: pokemonToState(pokemon) }))
+  }
+
+  changePokemon(pokemonId: string, pokemon: Pokemon) {
+    this.updatePokemonById(pokemonId, () => {
+      const state = pokemonToState(pokemon)
+      return { ...state, id: pokemonId }
+    })
   }
 
   findPokemonById(pokemonId: string): Pokemon {

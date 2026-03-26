@@ -4,8 +4,8 @@
   </div>
 
   <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">
-    <mat-button-toggle [checked]="optionsStore.speedDropActive()" (change)="optionsStore.toogleIcyWind($event.source.checked)" data-cy="speed-calc-icy-wind">Icy Wind</mat-button-toggle>
-    <mat-button-toggle [checked]="optionsStore.paralyzedActive()" (change)="optionsStore.toogleParalyze($event.source.checked)" data-cy="speed-calc-paralyzed">Paralyzed</mat-button-toggle>
-    <mat-button-toggle [checked]="optionsStore.choiceScarfActive()" (change)="optionsStore.toogleChoiceScarf($event.source.checked)" data-cy="speed-calc-choice-scarf">Choice Scarf</mat-button-toggle>
+    <mat-button-toggle [checked]="optionsStore.speedDropActive()" (change)="optionsStore.toggleIcyWind($event.source.checked)" data-cy="speed-calc-icy-wind">Icy Wind</mat-button-toggle>
+    <mat-button-toggle [checked]="optionsStore.paralyzedActive()" (change)="optionsStore.toggleParalyze($event.source.checked)" data-cy="speed-calc-paralyzed">Paralyzed</mat-button-toggle>
+    <mat-button-toggle [checked]="optionsStore.choiceScarfActive()" (change)="optionsStore.toggleChoiceScarf($event.source.checked)" data-cy="speed-calc-choice-scarf">Choice Scarf</mat-button-toggle>
   </mat-button-toggle-group>
 </div>

@@ -4,7 +4,7 @@ import { FieldStore } from "@data/store/field-store"
 import { FIELD_CONTEXT } from "@data/store/tokens/field-context.token"
 import { FieldComponent } from "@features/field/field.component"
 import { TeamComponent } from "@features/team/team/team.component"
-import { TeamsComponent } from "@features/team/teams/teams.component"
+import { TeamsDesktopComponent } from "@features/team/teams-desktop/teams-desktop.component"
 import { AutomaticFieldService } from "@lib/automatic-field-service"
 import { Pokemon } from "@lib/model/pokemon"
 import { SpeedInsightsComponent } from "@pages/speed-calc/speed-insights/speed-insights.component"
@@ -14,7 +14,7 @@ import { SpeedListComponent } from "@pages/speed-calc/speed-list/speed-list.comp
   selector: "app-speed-calculator",
   templateUrl: "./speed-calculator.component.html",
   styleUrls: ["./speed-calculator.component.scss"],
-  imports: [TeamComponent, TeamsComponent, FieldComponent, SpeedListComponent, SpeedInsightsComponent],
+  imports: [TeamComponent, TeamsDesktopComponent, FieldComponent, SpeedListComponent, SpeedInsightsComponent],
   providers: [FieldStore, AutomaticFieldService, { provide: FIELD_CONTEXT, useValue: "speed" }]
 })
 export class SpeedCalculatorComponent {

@@ -1,6 +1,6 @@
 @if (pokemon().ability.actionableAbility) {
   <div class="check">
-    <mat-checkbox [ngModel]="pokemon().ability.on" (change)="toogleAbility($event)" [disabled]="abilityCheckDisabled()" data-cy="activate-ability" />
+    <mat-checkbox [ngModel]="pokemon().ability.on" (change)="toggleAbility($event)" [disabled]="abilityCheckDisabled()" data-cy="activate-ability" />
   </div>
 }
 

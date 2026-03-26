@@ -1,104 +1,157 @@
-<div class="card" cdkDrag cdkDragBoundary=".target-pokemon" [cdkDragDisabled]="canDrag()" [attr.data-cy]="'pokemon-card-' + target().pokemon.displayName">
+<div
+  class="card"
+  cdkDrag
+  [cdkDragDisabled]="canDrag()"
+  [cdkDragStartDelay]="{ touch: 300, mouse: 0 }"
+  [class.has-collapsible]="collapsible()"
+  [class.is-collapsed]="collapsible() && !expanded()"
+  [attr.data-cy]="'pokemon-card-' + target().pokemon.displayName">
   @if (target().pokemon.isDefault) {
     <div class="body">
       <div class="card-right-side">
-        <div class="pokemon-image-container" animate.enter="fade-in">
-          <img src="assets/icons/question.png" />
-          <app-pokemon-combo-box [pokemonId]="target().pokemon.id" autoFocus="true" data-cy="card-pokemon-select" />
+        <div class="pokemon-image-container">
+          <img class="pokemon-image" src="assets/icons/question.png" loading="lazy" decoding="async" />
+          <app-pokemon-combo-box [pokemonId]="target().pokemon.id" label="" [autoFocus]="true" data-cy="card-pokemon-select" />
         </div>
       </div>
     </div>
   } @else {
     <div class="body">
-      <div class="combine-buttons">
-        @if (isAttacker() && !isDefaultDefender()) {
-          @if (!damageResult().secondAttacker) {
-            <div class="handle" cdkDragHandle matTooltip="Combine" [matTooltipShowDelay]="500" [attr.data-cy]="moveCardSelector()">
-              <mat-icon>open_with</mat-icon>
+      <div class="body-main">
+        <div class="combine-buttons">
+          @if (isAttacker() && !isDefaultDefender()) {
+            @if (!damageResult().secondAttacker) {
+              <div class="handle" cdkDragHandle matTooltip="Combine" [matTooltipDisabled]="collapsible()" [matTooltipShowDelay]="500" [attr.data-cy]="moveCardSelector()">
+                <mat-icon>open_with</mat-icon>
+              </div>
+            } @else {
+              <div class="pointer" (click)="separateAttackers()" matTooltip="Separate" [matTooltipDisabled]="collapsible()" [matTooltipShowDelay]="500" [attr.data-cy]="separateCardSelector()">
+                <mat-icon>move_down</mat-icon>
+              </div>
+            }
+          }
+        </div>
+
+        <div class="left-side">
+          @if (isDefaultAttacker()) {
+            <div class="pokemon-image-container">
+              <img class="pokemon-image is-placeholder" src="assets/icons/question.png" loading="lazy" decoding="async" />
             </div>
           } @else {
-            <div class="pointer" (click)="separateAttackers()" matTooltip="Separate" [matTooltipShowDelay]="500" [attr.data-cy]="separateCardSelector()">
-              <mat-icon>move_down</mat-icon>
+            <div class="left-pokemon" (click)="activate(damageResult().attacker.id)" matTooltip="Edit" [matTooltipDisabled]="collapsible()" [matTooltipShowDelay]="500" [attr.data-cy]="attackerSelector()">
+              <img class="pokemon-image" src="assets/sprites/pokemon-sv/{{ damageResult().attacker.name }}.png" loading="lazy" decoding="async" />
             </div>
+            @if (damageResult().secondAttacker) {
+              <div class="left-pokemon" (click)="activate(damageResult().secondAttacker!.id)" matTooltip="Edit" [matTooltipDisabled]="collapsible()" [matTooltipShowDelay]="500" [attr.data-cy]="secondAttackerSelector()">
+                <img class="pokemon-image" src="assets/sprites/pokemon-sv/{{ damageResult().secondAttacker?.name }}.png" loading="lazy" decoding="async" />
+              </div>
+            }
           }
-        }
-      </div>
+        </div>
 
-      <div class="left-side" animate.enter="fade-in">
-        @if (isDefaultAttacker()) {
-          <div class="pokemon-image-container">
-            <img src="assets/icons/question.png" />
-            Select a Pokémon
-          </div>
-        } @else {
-          <div class="left-pokemon" (click)="activate(damageResult().attacker.id)" matTooltip="Edit" [matTooltipShowDelay]="500" [attr.data-cy]="attackerSelector()">
-            <img class="pokemon-image" src="assets/sprites/pokemon-sv/{{ damageResult().attacker.name }}.png" />
-          </div>
-          @if (damageResult().secondAttacker) {
-            <div class="left-pokemon" (click)="activate(damageResult().secondAttacker!.id)" matTooltip="Edit" [matTooltipShowDelay]="500" [attr.data-cy]="secondAttackerSelector()">
-              <img class="pokemon-image" src="assets/sprites/pokemon-sv/{{ damageResult().secondAttacker?.name }}.png" />
-            </div>
-          }
-        }
-      </div>
+        <div class="middle">
+          <img class="vs-icon" src="assets/icons/vs.png" loading="lazy" decoding="async" />
+        </div>
 
-      <div class="middle">
-        <img class="vs-icon" src="assets/icons/vs.png" />
-      </div>
-
-      <div class="right-side">
-        @if (isDefaultDefender()) {
-          <div class="body">
-            <div class="card-right-side">
-              <div class="pokemon-image-container" animate.enter="fade-in">
-                <img src="assets/icons/question.png" />
-                Select a Pokémon
+        <div class="right-side">
+          @if (isDefaultDefender()) {
+            <div class="body">
+              <div class="card-right-side">
+                <div class="pokemon-image-container">
+                  <img class="pokemon-image is-placeholder" src="assets/icons/question.png" />
+                </div>
               </div>
             </div>
-          </div>
-        } @else {
-          <div class="pointer" (click)="activate(defender().id)" matTooltip="Edit" [matTooltipShowDelay]="500" [attr.data-cy]="defenderSelector()">
-            <app-pokemon-hp-badge [name]="defender().displayNameWithoutSuffix" [actualHp]="defender().actualHp" [hpBase]="defender().hp" [spriteName]="defender().name" [item]="defender().item" [damageTaken]="damageTaken()" />
-          </div>
+          } @else {
+            <div class="pointer" (click)="activate(pokemonOnCard().id)" matTooltip="Edit" [matTooltipDisabled]="collapsible()" [matTooltipShowDelay]="500" [attr.data-cy]="defenderSelector()">
+              <app-pokemon-hp-badge
+                [name]="pokemonOnCard().displayNameWithoutSuffix"
+                [actualHp]="pokemonOnCard().actualHp"
+                [hpBase]="pokemonOnCard().hp"
+                [spriteName]="pokemonOnCard().name"
+                [item]="pokemonOnCard().item"
+                [damageTaken]="damageTaken()" />
+            </div>
+          }
 
-          <div class="middle-section">
-            <div class="middle-section-items">
-              <span>Nature: {{ defender().nature }}</span>
-              <span>Ability: {{ defender().ability.simpleName }}</span>
-              <span>Item: {{ defender().item }}</span>
-              <span
-                >Tera: {{ defender().teraType }}
-                @if (defender().teraTypeActive) {
-                  Active
+          @if (!isDefaultAttacker() && !isDefaultDefender() && (!collapsible() || expanded())) {
+            <div class="middle-section">
+              <div class="middle-section-items">
+                <span>Nature: {{ pokemonOnCard().nature }}</span>
+                <span>Ability: {{ pokemonOnCard().ability.simpleName }}</span>
+                <span>Item: {{ pokemonOnCard().item }}</span>
+                <span>
+                  Tera: {{ pokemonOnCard().teraType }}
+                  @if (pokemonOnCard().teraTypeActive) {
+                    Active
+                  }
+                </span>
+              </div>
+
+              <div class="middle-section-buttons">
+                @if (collapsible()) {
+                  <div class="card-buttons">
+                    <div class="card-buttons-row">
+                      <app-terastal-button [pokemonId]="pokemonOnCard().id" />
+
+                      <button class="icon-button" (click)="removePokemon($event)" data-cy="delete-opponent-pokemon">
+                        <img class="icon-trash" src="assets/icons/trash.png" loading="lazy" decoding="async" />
+                      </button>
+
+                      <button class="icon-button" (click)="toggleExpanded()">
+                        <mat-icon>expand_less</mat-icon>
+                      </button>
+                    </div>
+                    <div class="card-buttons-row status-icons">
+                      <app-tatsugiri-button [pokemonId]="pokemonOnCard().id" />
+                      <app-booster-energy-button [pokemonId]="pokemonOnCard().id" />
+                    </div>
+                  </div>
+                } @else {
+                  <div class="card-buttons">
+                    <app-tatsugiri-button [pokemonId]="pokemonOnCard().id" />
+                    <app-booster-energy-button [pokemonId]="pokemonOnCard().id" />
+                    <app-terastal-button [pokemonId]="pokemonOnCard().id" />
+                    <button class="icon-button" (click)="removePokemon($event)" data-cy="delete-opponent-pokemon">
+                      <img class="icon-trash" src="assets/icons/trash.png" loading="lazy" decoding="async" />
+                    </button>
+                  </div>
                 }
-              </span>
-            </div>
-
-            <div class="middle-section-buttons">
-              <div class="card-buttons">
-                <app-tatsugiri-button [pokemonId]="defender().id" />
-                <app-booster-energy-button [pokemonId]="defender().id" />
-                <app-terastal-button [pokemonId]="defender().id" />
-
-                <button class="icon-button" (click)="removePokemon($event)" data-cy="delete-opponent-pokemon">
-                  <img class="icon-trash" src="assets/icons/trash.png" />
-                </button>
               </div>
-
-              <span>{{ evsDescription() }}</span>
             </div>
-          </div>
-        }
+          }
+        </div>
       </div>
     </div>
 
-    @if (damageResult() && !isDefaultAttacker() && !isDefaultDefender()) {
-      <div class="footer">
-        <div class="damage-result">
-          {{ damageResult().description }}
-          <app-copy-button [value]="damageResult().description" />
+    @if (collapsible() && !expanded() && !isDefaultAttacker() && !isDefaultDefender()) {
+      <div class="collapsed-footer">
+        @if (damageResult()) {
+          <span class="collapsed-description">{{ collapsedDescription() }}</span>
+        }
+        <div class="card-buttons">
+          @if (!pokemonOnCard().isDefault) {
+            <app-terastal-button [pokemonId]="pokemonOnCard().id" />
+          }
+          <button class="icon-button" (click)="removePokemon($event)" data-cy="delete-opponent-pokemon">
+            <img class="icon-trash" src="assets/icons/trash.png" />
+          </button>
+          <button class="icon-button" (click)="toggleExpanded()">
+            <mat-icon>expand_more</mat-icon>
+          </button>
         </div>
       </div>
+    }
+
+    @if (damageResult() && !isDefaultAttacker() && !isDefaultDefender()) {
+      @if (!collapsible() || expanded()) {
+        <div class="footer">
+          <div class="damage-result">
+            {{ damageResult().description }}
+            <app-copy-button [value]="damageResult().description" />
+          </div>
+        </div>
+      }
     }
   }
 

@@ -57,7 +57,7 @@ export class AbilityComboBoxComponent {
     this.abilityInput()?.blur()
   }
 
-  toogleAbility(event: MatCheckboxChange) {
+  toggleAbility(event: MatCheckboxChange) {
     this.store.abilityOn(this.pokemonId(), event.checked)
     if (event.checked) {
       this.store.higherStat(this.pokemonId(), undefined)

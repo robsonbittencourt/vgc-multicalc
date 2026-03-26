@@ -64,3 +64,7 @@ trigger: always_on
 
 - When editing only stylesheets (`.css`, `.scss`), skip the build step
 - When editing TypeScript, HTML, or config files, run tests to verify behavior
+
+## Reactive Patterns
+
+- **Prefer events over effects**: Always prefer handling logic in response to UI events (e.g., `(click)`) rather than using `effect()` to watch state changes. Only use `effect()` when absolutely necessary for side effects that cannot be easily triggered by events.

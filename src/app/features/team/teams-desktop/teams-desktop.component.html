@@ -13,7 +13,7 @@
       <div class="team-buttons">
         <app-import-pokemon-button [singlePokemon]="false" (pokemonImportedEvent)="pokemonImported($event)" />
         <button mat-flat-button (click)="export()" [disabled]="store.team().onlyHasDefaultPokemon()" data-cy="export-team-button">Export</button>
-        <button mat-flat-button class="warn" (click)="deleteTeam()" [disabled]="store.team().onlyHasDefaultPokemon()" data-cy="delete-team-button">Delete</button>
+        <button mat-flat-button class="warn" (click)="deleteTeam()" data-cy="delete-team-button">Delete</button>
       </div>
     </div>
     <div class="teams-carousel">

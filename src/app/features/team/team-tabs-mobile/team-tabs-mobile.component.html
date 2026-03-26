@@ -1,0 +1,46 @@
+<div class="team-tabs">
+  @if (editingTarget()) {
+    <div class="team-tab active-tab target-tab" (click)="clearEditMode()">
+      <img class="tab-sprite" src="assets/sprites/pokemon-sv/{{ editingPokemon()!.name }}.png" />
+    </div>
+
+    <div class="team-tab add-tab" (click)="clearEditMode()">
+      <mat-icon>close</mat-icon>
+    </div>
+  } @else {
+    @if (shouldShowPokemonTabs()) {
+      @for (member of teamMembers(); track member.pokemon.id) {
+        @if (!member.pokemon.isDefault) {
+          <div
+            class="team-tab"
+            [ngClass]="{ 'active-tab': effectiveEditingId() === member.pokemon.id, 'second-attacker': isSecondAttacker(member.pokemon.id) }"
+            (click)="setActivePokemon(member.pokemon.id)"
+            (touchstart)="onTabTouchStart($event, member.pokemon.id)"
+            (touchend)="onTabTouchEnd()"
+            (touchcancel)="onTabTouchEnd()"
+            (contextmenu)="$event.preventDefault()">
+            <img class="tab-sprite" src="assets/sprites/pokemon-sv/{{ member.pokemon.name }}.png" />
+
+            @if (isSecondAttacker(member.pokemon.id)) {
+              <div class="combine-badge">
+                <mat-icon>link</mat-icon>
+              </div>
+            }
+
+            @if (pokemonOnEditId() === member.pokemon.id && pokemonOnEditId() !== activePokemonId()) {
+              <div class="close-badge" (click)="clearEditMode(); $event.stopPropagation()">
+                <mat-icon>close</mat-icon>
+              </div>
+            }
+          </div>
+        }
+      }
+    }
+
+    @if (nonDefaultMembersCount() < 6) {
+      <div class="team-tab add-tab" (click)="addMember()">
+        <mat-icon>add</mat-icon>
+      </div>
+    }
+  }
+</div>

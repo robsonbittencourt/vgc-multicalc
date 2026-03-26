@@ -40,4 +40,30 @@ export class HeaderComponent {
   copyUserDataLink() {
     navigator.clipboard.writeText(this.userDataLink)
   }
+
+  enableOneVsOne() {
+    this.menuStore.enableOneVsOne()
+    this.store.updateSecondAttacker("")
+  }
+
+  enableOneVsMany() {
+    this.menuStore.enableOneVsMany()
+  }
+
+  enableManyVsOne() {
+    this.menuStore.enableManyVsOne()
+    this.store.updateSecondAttacker("")
+  }
+
+  enableSpeedCalculator() {
+    this.menuStore.enableSpeedCalculator()
+  }
+
+  enableProbabilityCalculator() {
+    this.menuStore.enableProbabilityCalculator()
+  }
+
+  enableTypeCalculator() {
+    this.menuStore.enableTypeCalculator()
+  }
 }

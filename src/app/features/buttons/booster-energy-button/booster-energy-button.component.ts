@@ -24,7 +24,7 @@ export class BoosterEnergyButtonComponent {
     })
   }
 
-  toogleBoosterEnergy(event: Event) {
+  toggleBoosterEnergy(event: Event) {
     event.stopPropagation()
     this.store.abilityOn(this.pokemonId(), !this.pokemon().ability.on)
   }

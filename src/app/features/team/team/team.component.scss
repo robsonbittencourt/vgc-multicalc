@@ -30,3 +30,19 @@
   align-items: center;
   justify-content: center;
 }
+
+.close-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 4em;
+  height: 6em;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.15s ease;
+
+  &:hover {
+    opacity: 1;
+    background-color: var(--highlight);
+  }
+}
