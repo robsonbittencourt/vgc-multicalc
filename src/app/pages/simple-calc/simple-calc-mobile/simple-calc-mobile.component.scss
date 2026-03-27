@@ -1,52 +1,304 @@
 :host {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-direction: column;
   background-color: var(--background);
+  height: calc(100dvh - 4em);
+  overflow: hidden;
 }
 
-.pokes {
-  display: flex;
-  justify-content: space-between;
-}
-
-.pokemon-name {
+.mobile-calc-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 1em;
-  max-width: 35%;
-  margin-left: 0.75em;
+  height: 100%;
 }
 
-.import-export {
-  display: flex;
-  gap: 1em;
+.scrollable-content {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 6em;
 }
 
-.pokemon-tabs {
-  display: flex;
+.attacker-build {
+  padding-bottom: 0.5em;
 }
 
-.damage-result {
+.attacker-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  gap: 1em;
-  margin: 1.5em 0.75em 0em 0.75em;
-  font-weight: 500;
+  justify-content: space-between;
+  gap: 0.5em;
+  padding: 1em 0.75em 0 0.75em;
 }
 
-.damage-result-text {
+.attacker-header app-pokemon-combo-box {
+  flex: 0 1 10em;
+  max-width: 10em;
+  min-width: 0;
+}
+
+.attacker-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  flex-shrink: 0;
+}
+
+.results-list {
+  border-top: 1px solid var(--widget-border);
   display: flex;
   flex-direction: column;
+  gap: 0.75em;
+  padding: 0.75em;
 }
 
-.options {
+.result-card {
+  width: 100%;
+}
+
+.result-card app-pokemon-card {
+  display: block;
+  width: 100%;
+}
+
+.results-list ::ng-deep .card {
+  touch-action: pan-y !important;
+  padding: 0.5em 0.75em;
+
+  .collapsed-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    .collapsed-description {
+      flex: 1;
+    }
+
+    &:has(.collapsed-description) {
+      justify-content: space-between;
+    }
+  }
+}
+
+.results-list ::ng-deep .right-side > .pointer {
+  flex-shrink: 0;
+}
+
+.results-list ::ng-deep .pokemon-hp {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+  height: 5em;
+  min-height: 5em;
+}
+
+.results-list ::ng-deep .hp-bar {
+  width: 7em;
+  box-sizing: border-box;
+}
+
+.results-list ::ng-deep .hp {
+  min-width: 40%;
+}
+
+.results-list ::ng-deep .fainted-icon {
+  left: 50% !important;
+  transform: translateX(-50%) scale(0.85) !important;
+}
+
+.results-list ::ng-deep .right-side {
+  flex: 1;
+  min-width: 0;
+}
+
+.results-list ::ng-deep .pokemon-image {
+  width: 4em;
+}
+
+.results-list ::ng-deep .pokemon-image-container img {
+  width: 4em;
+  height: auto;
+}
+
+.results-list ::ng-deep .vs-icon {
+  height: 2.5em;
+}
+
+.results-list ::ng-deep .middle-section-items {
+  flex: 1;
+  min-width: 0;
+}
+
+.results-list ::ng-deep .middle-section-buttons {
+  flex: 0 0 auto;
+  max-width: 6em;
+}
+
+.results-list ::ng-deep .middle-section-buttons .card-buttons {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.2em;
 }
 
-.field-card {
-  margin-top: 1em;
-  padding: 0em 1em 1em 1em;
+.results-list ::ng-deep .card-buttons-row {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.25em;
+}
+
+.results-list ::ng-deep .middle-section-buttons span {
+  word-break: break-word;
+  white-space: normal;
+}
+
+.bottom-nav {
+  display: flex;
+  background-color: var(--background);
+  border-top: 1px solid var(--widget-border);
+  flex-shrink: 0;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4em;
+  z-index: 20;
+}
+
+.bottom-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding: 0.5em;
+  cursor: pointer;
+  gap: 0.1em;
+  font-size: 0.78em;
+  color: var(--text);
+  opacity: 0.5;
+  transition: opacity 0.15s ease;
+
+  mat-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    font-size: 24px;
+  }
+}
+
+.bottom-tab:hover {
+  opacity: 0.8;
+}
+
+.active-bottom-tab {
+  opacity: 1;
+  color: var(--primary);
+  border-top: 2px solid var(--primary);
+}
+
+.team-tabs {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0.25em 0.5em;
+  background-color: var(--background);
+  border-bottom: 1px solid var(--widget-border);
+  flex-shrink: 0;
+}
+
+.team-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25em;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.15s ease;
+  flex: 1;
+  position: relative;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent !important;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.active-tab {
+  border-color: var(--primary);
+  background-color: var(--highlight);
+}
+
+.tab-sprite {
+  width: 4em;
+  height: 4em;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.field-tab {
+  padding: 1em 1em 6em 1em;
+
+  .settings-widget {
+    margin-bottom: 1.25em;
+    display: block;
+    height: auto;
+
+    ::ng-deep > .container {
+      height: auto;
+    }
+  }
+
+  .field-configs {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25em;
+    margin-top: 1em;
+
+    .roll-config-section {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
+
+.footer {
+  padding: 0.5em 0.75em;
+  border-top: 1px solid var(--widget-border);
+
+  .damage-result {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5em;
+    font-size: 0.9em;
+    color: var(--text);
+  }
+}
+
+.role-widget {
+  ::ng-deep .header {
+    display: none !important;
+  }
+
+  ::ng-deep .container {
+    height: auto !important;
+    padding: 1em !important;
+  }
+}
+
+.button-group {
+  display: flex !important;
+  width: 100%;
+  gap: 0.25em;
+
+  mat-button-toggle {
+    flex: 1;
+    font-weight: 500 !important;
+  }
 }

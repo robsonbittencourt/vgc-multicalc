@@ -53,6 +53,7 @@ export class PokemonBuildMobileComponent {
   optimizationStatus = input<"idle" | "success" | "no-solution" | "not-needed">("idle")
   optimizedEvs = input<Stats | null>(null)
   optimizedNature = input<string | null>(null)
+  showOptimization = input<boolean>(true)
 
   pokemonChangedEvent = output<Pokemon>()
   optimizeRequested = output<{ updateNature: boolean; keepOffensiveEvs: boolean; survivalThreshold: SurvivalThreshold }>()

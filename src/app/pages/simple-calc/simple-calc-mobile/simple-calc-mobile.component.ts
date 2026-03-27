@@ -1,5 +1,4 @@
-import { Component, computed, effect, inject, signal, viewChild } from "@angular/core"
-import { CopyButtonComponent } from "@basic/copy-button/copy-button.component"
+import { Component, computed, effect, ElementRef, inject, signal, viewChild } from "@angular/core"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { FieldStore } from "@data/store/field-store"
 import { FIELD_CONTEXT } from "@data/store/tokens/field-context.token"
@@ -8,19 +7,37 @@ import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-b
 import { FieldComponent } from "@features/field/field.component"
 import { PokemonBuildMobileComponent } from "@features/pokemon-build/pokemon-build-mobile/pokemon-build-mobile.component"
 import { PokemonComboBoxComponent } from "@features/pokemon-build/pokemon-combo-box/pokemon-combo-box.component"
-import { PokemonTabComponent } from "@features/team/pokemon-tab/pokemon-tab.component"
+import { WidgetComponent } from "@basic/widget/widget.component"
 import { AutomaticFieldService } from "@lib/automatic-field-service"
 import { DamageCalculatorService } from "@lib/damage-calculator/damage-calculator.service"
+import { RollConfigComponent } from "@features/roll-config/roll-config.component"
+import { RollLevelConfig } from "@lib/damage-calculator/roll-level-config"
 import { DefensiveEvOptimizerService } from "@lib/ev-optimizer/defensive-ev-optimizer.service"
 import { Pokemon } from "@lib/model/pokemon"
 import { Target } from "@lib/model/target"
 import { Stats, SurvivalThreshold } from "@lib/types"
+import { PokemonCardComponent } from "@pages/multi-calc/pokemon-card/pokemon-card.component"
+import { NgClass } from "@angular/common"
+import { MatIcon } from "@angular/material/icon"
+import { MatButtonToggleModule } from "@angular/material/button-toggle"
 
 @Component({
   selector: "app-simple-calc-mobile",
   templateUrl: "./simple-calc-mobile.component.html",
   styleUrls: ["./simple-calc-mobile.component.scss"],
-  imports: [PokemonComboBoxComponent, PokemonTabComponent, PokemonBuildMobileComponent, FieldComponent, CopyButtonComponent, ImportPokemonButtonComponent, ExportPokemonButtonComponent],
+  imports: [
+    PokemonComboBoxComponent,
+    PokemonBuildMobileComponent,
+    FieldComponent,
+    ImportPokemonButtonComponent,
+    ExportPokemonButtonComponent,
+    PokemonCardComponent,
+    NgClass,
+    MatIcon,
+    MatButtonToggleModule,
+    RollConfigComponent,
+    WidgetComponent
+  ],
   providers: [FieldStore, AutomaticFieldService, { provide: FIELD_CONTEXT, useValue: "simple" }]
 })
 export class SimpleCalcMobileComponent {
@@ -32,18 +49,18 @@ export class SimpleCalcMobileComponent {
 
   pokemonBuildMobile = viewChild.required(PokemonBuildMobileComponent)
 
+  activeBottomTab = signal<"results" | "field">("results")
+  private scrollPositions = new Map<string, number>()
+  scrollContainer = viewChild<ElementRef<HTMLDivElement>>("scrollContainer")
+
+  activeSide = signal<"left" | "right">("left")
   leftIsAttacker = signal(true)
-  rightIsAttacker = computed(() => !this.leftIsAttacker())
 
-  attacker = computed(() => (this.leftIsAttacker() ? this.store.leftPokemon() : this.store.rightPokemon()))
+  currentPokemon = computed(() => (this.activeSide() === "left" ? this.store.leftPokemon() : this.store.rightPokemon()))
 
-  opponent = computed(() => {
-    if (this.leftIsAttacker()) {
-      return this.store.rightPokemon()
-    } else {
-      return this.store.leftPokemon()
-    }
-  })
+  isCurrentPokemonAttacker = computed(() => (this.activeSide() === "left" ? this.leftIsAttacker() : !this.leftIsAttacker()))
+
+  otherPokemon = computed(() => (this.activeSide() === "left" ? this.store.rightPokemon() : this.store.leftPokemon()))
 
   optimizationStatus = signal<"idle" | "success" | "no-solution" | "not-needed">("idle")
   optimizedEvs = signal<Stats | null>(null)
@@ -51,12 +68,26 @@ export class SimpleCalcMobileComponent {
   originalEvs = signal<Stats>({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
   originalNature = signal<string>("")
 
+  rollLevelConfig = signal(RollLevelConfig.fromConfigString(this.store.simpleCalcLeftRollLevel()))
+
   damageResult = computed(() => {
-    if (this.leftIsAttacker()) {
-      return this.damageCalculator.calcDamage(this.store.leftPokemon(), this.store.rightPokemon(), this.fieldStore.field())
-    } else {
-      return this.damageCalculator.calcDamage(this.store.rightPokemon(), this.store.leftPokemon(), this.fieldStore.field())
+    const current = this.currentPokemon()
+    const other = this.otherPokemon()
+    const field = this.fieldStore.field()
+
+    if (this.isCurrentPokemonAttacker()) {
+      return this.damageCalculator.calcDamage(current, other, field, this.leftIsAttacker())
     }
+
+    return this.damageCalculator.calcDamage(other, current, field, this.leftIsAttacker())
+  })
+
+  target = computed(() => {
+    if (this.isCurrentPokemonAttacker()) {
+      return new Target(this.otherPokemon())
+    }
+
+    return new Target(this.currentPokemon())
   })
 
   lastHandledLeftPokemonName = ""
@@ -65,6 +96,11 @@ export class SimpleCalcMobileComponent {
   lastHandledRightAbilityName = ""
 
   constructor() {
+    effect(() => {
+      const level = this.leftIsAttacker() ? this.store.simpleCalcLeftRollLevel() : this.store.simpleCalcRightRollLevel()
+      this.rollLevelConfig.set(RollLevelConfig.fromConfigString(level))
+    })
+
     effect(() => {
       const leftPokemonChanged = this.lastHandledLeftPokemonName != this.store.leftPokemon().name || this.lastHandledLeftAbilityName != this.store.leftPokemon().ability.name
       const rightPokemonChanged = this.lastHandledRightPokemonName != this.store.rightPokemon().name || this.lastHandledRightAbilityName != this.store.rightPokemon().ability.name
@@ -87,6 +123,7 @@ export class SimpleCalcMobileComponent {
       return
     }
 
+    this.activeSide.set("left")
     this.leftIsAttacker.set(true)
   }
 
@@ -96,13 +133,18 @@ export class SimpleCalcMobileComponent {
       return
     }
 
+    this.activeSide.set("right")
     this.leftIsAttacker.set(false)
+  }
+
+  toggleCurrentPokemonRole() {
+    this.leftIsAttacker.update(v => !v)
   }
 
   importPokemon(pokemon: Pokemon | Pokemon[]) {
     const singlePokemon = pokemon as Pokemon
 
-    if (this.leftIsAttacker()) {
+    if (this.activeSide() === "left") {
       this.store.changeLeftPokemon(singlePokemon)
     } else {
       this.store.changeRightPokemon(singlePokemon)
@@ -110,8 +152,8 @@ export class SimpleCalcMobileComponent {
   }
 
   handleOptimizeRequest(event: { updateNature: boolean; keepOffensiveEvs: boolean; survivalThreshold: SurvivalThreshold }) {
-    const defender = this.attacker()
-    const attacker = this.opponent()
+    const defender = this.currentPokemon()
+    const attacker = this.otherPokemon()
     const field = this.fieldStore.field()
 
     this.originalEvs.set({ ...defender.evs })
@@ -156,5 +198,33 @@ export class SimpleCalcMobileComponent {
     this.optimizedEvs.set(null)
     this.optimizedNature.set(null)
     this.optimizationStatus.set("idle")
+  }
+
+  switchTab(newTab: "results" | "field") {
+    const currentTab = this.activeBottomTab()
+    if (currentTab === newTab) return
+
+    const currentScroll = this.scrollContainer()?.nativeElement.scrollTop || 0
+    this.scrollPositions.set(currentTab, currentScroll)
+
+    this.activeBottomTab.set(newTab)
+
+    setTimeout(() => {
+      const targetScroll = this.scrollPositions.get(newTab) || 0
+      const container = this.scrollContainer()
+      if (container) {
+        container.nativeElement.scrollTo({ top: targetScroll, behavior: "instant" })
+      }
+    }, 0)
+  }
+
+  handleRollLevelChange(rollLevel: RollLevelConfig) {
+    this.rollLevelConfig.set(rollLevel)
+
+    if (this.activeSide() === "left") {
+      this.store.updateSimpleCalcLeftRollLevel(rollLevel.toConfigString())
+    } else {
+      this.store.updateSimpleCalcRightRollLevel(rollLevel.toConfigString())
+    }
   }
 }

@@ -10,7 +10,7 @@
     <div class="body">
       <div class="card-right-side">
         <div class="pokemon-image-container">
-          <img class="pokemon-image" src="assets/icons/question.png" loading="lazy" decoding="async" />
+          <img class="pokemon-image" src="assets/icons/question.png" />
           <app-pokemon-combo-box [pokemonId]="target().pokemon.id" label="" [autoFocus]="true" data-cy="card-pokemon-select" />
         </div>
       </div>
@@ -35,22 +35,22 @@
         <div class="left-side">
           @if (isDefaultAttacker()) {
             <div class="pokemon-image-container">
-              <img class="pokemon-image is-placeholder" src="assets/icons/question.png" loading="lazy" decoding="async" />
+              <img class="pokemon-image is-placeholder" src="assets/icons/question.png" />
             </div>
           } @else {
             <div class="left-pokemon" (click)="activate(damageResult().attacker.id)" matTooltip="Edit" [matTooltipDisabled]="collapsible()" [matTooltipShowDelay]="500" [attr.data-cy]="attackerSelector()">
-              <img class="pokemon-image" src="assets/sprites/pokemon-sv/{{ damageResult().attacker.name }}.png" loading="lazy" decoding="async" />
+              <img class="pokemon-image" src="assets/sprites/pokemon-sv/{{ damageResult().attacker.name }}.png" />
             </div>
             @if (damageResult().secondAttacker) {
               <div class="left-pokemon" (click)="activate(damageResult().secondAttacker!.id)" matTooltip="Edit" [matTooltipDisabled]="collapsible()" [matTooltipShowDelay]="500" [attr.data-cy]="secondAttackerSelector()">
-                <img class="pokemon-image" src="assets/sprites/pokemon-sv/{{ damageResult().secondAttacker?.name }}.png" loading="lazy" decoding="async" />
+                <img class="pokemon-image" src="assets/sprites/pokemon-sv/{{ damageResult().secondAttacker?.name }}.png" />
               </div>
             }
           }
         </div>
 
         <div class="middle">
-          <img class="vs-icon" src="assets/icons/vs.png" loading="lazy" decoding="async" />
+          <img class="vs-icon" src="assets/icons/vs.png" />
         </div>
 
         <div class="right-side">
@@ -94,9 +94,11 @@
                     <div class="card-buttons-row">
                       <app-terastal-button [pokemonId]="pokemonOnCard().id" />
 
-                      <button class="icon-button" (click)="removePokemon($event)" data-cy="delete-opponent-pokemon">
-                        <img class="icon-trash" src="assets/icons/trash.png" loading="lazy" decoding="async" />
-                      </button>
+                      @if (showDeleteButton()) {
+                        <button class="icon-button" (click)="removePokemon($event)" data-cy="delete-opponent-pokemon">
+                          <img class="icon-trash" src="assets/icons/trash.png" />
+                        </button>
+                      }
 
                       <button class="icon-button" (click)="toggleExpanded()">
                         <mat-icon>expand_less</mat-icon>
@@ -112,9 +114,11 @@
                     <app-tatsugiri-button [pokemonId]="pokemonOnCard().id" />
                     <app-booster-energy-button [pokemonId]="pokemonOnCard().id" />
                     <app-terastal-button [pokemonId]="pokemonOnCard().id" />
-                    <button class="icon-button" (click)="removePokemon($event)" data-cy="delete-opponent-pokemon">
-                      <img class="icon-trash" src="assets/icons/trash.png" loading="lazy" decoding="async" />
-                    </button>
+                    @if (showDeleteButton()) {
+                      <button class="icon-button" (click)="removePokemon($event)" data-cy="delete-opponent-pokemon">
+                        <img class="icon-trash" src="assets/icons/trash.png" />
+                      </button>
+                    }
                   </div>
                 }
               </div>
@@ -133,9 +137,11 @@
           @if (!pokemonOnCard().isDefault) {
             <app-terastal-button [pokemonId]="pokemonOnCard().id" />
           }
-          <button class="icon-button" (click)="removePokemon($event)" data-cy="delete-opponent-pokemon">
-            <img class="icon-trash" src="assets/icons/trash.png" />
-          </button>
+          @if (showDeleteButton()) {
+            <button class="icon-button" (click)="removePokemon($event)" data-cy="delete-opponent-pokemon">
+              <img class="icon-trash" src="assets/icons/trash.png" />
+            </button>
+          }
           <button class="icon-button" (click)="toggleExpanded()">
             <mat-icon>expand_more</mat-icon>
           </button>

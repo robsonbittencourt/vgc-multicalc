@@ -11,6 +11,7 @@ import { TerastalButtonComponent } from "@features/buttons/terastal-button/teras
 import { PokemonComboBoxComponent } from "@features/pokemon-build/pokemon-combo-box/pokemon-combo-box.component"
 import { DamageResult } from "@lib/damage-calculator/damage-result"
 import { RollLevelConfig } from "@lib/damage-calculator/roll-level-config"
+import { Target } from "@lib/model/target"
 import { PokemonHpBadgeComponent } from "@pages/simple-calc/pokemon-hp-badge/pokemon-hp-badge.component"
 
 @Component({
@@ -24,6 +25,7 @@ export class PokemonCardComponent {
   menuStore = inject(MenuStore)
 
   damageResult = input.required<DamageResult>()
+  targetInput = input<Target | undefined>(undefined, { alias: "target" })
   isAttacker = input.required<boolean>()
   rollLevelConfig = input.required<RollLevelConfig>()
   collapsible = input<boolean>(false)
@@ -32,6 +34,7 @@ export class PokemonCardComponent {
   targetRemoved = output()
   attackersSeparated = output<string>()
 
+  showDeleteButton = input<boolean>(true)
   expanded = model<boolean>(false)
 
   canDrag = computed(() => !this.isAttacker() || !!this.damageResult().secondAttacker)
@@ -82,6 +85,8 @@ export class PokemonCardComponent {
   secondAttackerSelector = computed(() => `select-second-attacker-${this.damageResult().secondAttacker?.displayName}`)
 
   target = computed(() => {
+    if (this.targetInput()) return this.targetInput()!
+
     if (this.menuStore.oneVsManyActivated()) {
       const pokemonId = this.damageResult().defender.id
       return this.store.targets().find(target => target.pokemon.id === pokemonId)!

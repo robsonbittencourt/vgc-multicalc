@@ -92,10 +92,10 @@
 
     <div class="remaining-buttons">
       <button mat-flat-button (click)="clearEvs()" data-cy="clear-evs-mobile">Clear EVs</button>
-      @if ((menuStore.manyVsOneActivated() || menuStore.oneVsOneActivated()) && (!optimizedEvs() || !isOptimizationValid()) && !hasNoSolution() && !isSolutionNotNeeded()) {
+      @if (showOptimization() && (menuStore.manyVsOneActivated() || menuStore.oneVsOneActivated()) && (!optimizedEvs() || !isOptimizationValid()) && !hasNoSolution() && !isSolutionNotNeeded()) {
         <button mat-flat-button (click)="optimizeEvs()" data-cy="optimize-evs-mobile">Optimize Bulk</button>
       }
-      @if (optimizedEvs() && isOptimizationValid() && !hasNoSolution() && !isSolutionNotNeeded()) {
+      @if (showOptimization() && optimizedEvs() && isOptimizationValid() && !hasNoSolution() && !isSolutionNotNeeded()) {
         <button mat-flat-button (click)="applyOptimization()" data-cy="apply-optimization-mobile">Apply</button>
         <button mat-flat-button (click)="discardOptimization()" data-cy="discard-optimization-mobile">Discard</button>
       }
@@ -103,7 +103,7 @@
   </div>
 </div>
 
-<div class="ev-buttons">
+<div class="ev-buttons" [hidden]="!showOptimization()">
   @if ((menuStore.manyVsOneActivated() || menuStore.oneVsOneActivated()) && (!optimizedEvs() || !isOptimizationValid()) && !hasNoSolution() && !isSolutionNotNeeded()) {
     <div class="checkbox-group">
       <mat-checkbox [(ngModel)]="updateNature" data-cy="update-nature-checkbox-mobile">Update Nature</mat-checkbox>

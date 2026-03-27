@@ -1,31 +1,66 @@
-<div class="pokes">
-  <div class="pokemon-name">
-    <app-pokemon-combo-box [pokemonId]="attacker().id" />
-    <div class="import-export">
-      <app-import-pokemon-button (pokemonImportedEvent)="importPokemon($event)" />
-      <app-export-pokemon-button [pokemonId]="attacker().id" />
+<div class="mobile-calc-container">
+  <div [hidden]="activeBottomTab() === 'field'">
+    <div class="team-tabs">
+      <div class="team-tab" [ngClass]="{ 'active-tab': activeSide() === 'left' }" (click)="activateLeftPokemon()">
+        <img class="tab-sprite" src="assets/sprites/pokemon-sv/{{ store.leftPokemon().name }}.png" />
+      </div>
+
+      <div class="team-tab" [ngClass]="{ 'active-tab': activeSide() === 'right' }" (click)="activateRightPokemon()">
+        <img class="tab-sprite" src="assets/sprites/pokemon-sv/{{ store.rightPokemon().name }}.png" />
+      </div>
     </div>
   </div>
-  <div class="pokemon-tabs">
-    <app-pokemon-tab [active]="leftIsAttacker()" [pokemonId]="store.leftPokemon().id" (tabActivated)="activateLeftPokemon()" />
-    <app-pokemon-tab [active]="rightIsAttacker()" [pokemonId]="store.rightPokemon().id" (tabActivated)="activateRightPokemon()" />
+
+  <div #scrollContainer class="scrollable-content" [class.field-tab]="activeBottomTab() === 'field'">
+    <div [hidden]="activeBottomTab() !== 'results'">
+      <div class="attacker-build">
+        <div class="attacker-header">
+          <app-pokemon-combo-box [pokemonId]="currentPokemon().id" label="" />
+
+          <div class="attacker-actions">
+            <app-import-pokemon-button (pokemonImportedEvent)="importPokemon($event)" />
+            <app-export-pokemon-button [pokemonId]="currentPokemon().id" />
+          </div>
+        </div>
+
+        <app-pokemon-build-mobile [pokemonId]="currentPokemon().id" [showOptimization]="!isCurrentPokemonAttacker()" [optimizedEvs]="optimizedEvs()" [optimizedNature]="optimizedNature()" [optimizationStatus]="optimizationStatus()" (optimizeRequested)="handleOptimizeRequest($event)" (optimizationApplied)="handleOptimizationApplied()" (optimizationDiscarded)="handleOptimizationDiscarded()" (evsCleared)="handleEvsCleared()" />
+      </div>
+
+      <div class="results-list">
+        <div class="result-card">
+          <app-pokemon-card [damageResult]="damageResult()" [target]="target()" [isAttacker]="false" [rollLevelConfig]="rollLevelConfig()" [collapsible]="false" [showDeleteButton]="false" [expanded]="true" />
+        </div>
+
+        <app-widget class="role-widget">
+          <mat-button-toggle-group class="button-group" [hideSingleSelectionIndicator]="true">
+            <mat-button-toggle [checked]="isCurrentPokemonAttacker()" (change)="toggleCurrentPokemonRole()">Attacker</mat-button-toggle>
+            <mat-button-toggle [checked]="!isCurrentPokemonAttacker()" (change)="toggleCurrentPokemonRole()">Defender</mat-button-toggle>
+          </mat-button-toggle-group>
+        </app-widget>
+      </div>
+    </div>
+
+    <div [hidden]="activeBottomTab() !== 'field'">
+      <app-widget class="settings-widget" [title]="'Settings'">
+        <div class="field-configs">
+          <div class="roll-config-section">
+            <app-roll-config [(config)]="rollLevelConfig" (rollLevelChange)="handleRollLevelChange($event)" />
+          </div>
+        </div>
+      </app-widget>
+      <app-field />
+    </div>
+  </div>
+
+  <div class="bottom-nav">
+    <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'results' }" (click)="switchTab('results')">
+      <mat-icon>calculate</mat-icon>
+      <span>Results</span>
+    </div>
+
+    <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'field' }" (click)="switchTab('field')">
+      <mat-icon>settings</mat-icon>
+      <span>Settings</span>
+    </div>
   </div>
 </div>
-
-<div class="damage-result">
-  <div class="damage-result-text">
-    <span>{{ damageResult().description }}</span>
-  </div>
-  <app-copy-button [value]="damageResult().description" />
-</div>
-
-<app-pokemon-build-mobile
-  [pokemonId]="attacker().id"
-  [optimizationStatus]="optimizationStatus()"
-  [optimizedEvs]="optimizedEvs()"
-  [optimizedNature]="optimizedNature()"
-  (optimizeRequested)="handleOptimizeRequest($event)"
-  (optimizationApplied)="handleOptimizationApplied()"
-  (optimizationDiscarded)="handleOptimizationDiscarded()"
-  (evsCleared)="handleEvsCleared()" />
-<app-field class="field-card" />
