@@ -39,3 +39,10 @@
 .focus {
   box-shadow: inset 0 0 0 1.8px white;
 }
+
+@media only screen and (max-width: 1279px) {
+  .input-column > input,
+  .input-row > input {
+    font-size: $font-size-mobile;
+  }
+}

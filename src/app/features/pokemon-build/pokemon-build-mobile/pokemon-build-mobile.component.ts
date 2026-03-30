@@ -1,24 +1,27 @@
 import { NgClass } from "@angular/common"
-import { Component, computed, effect, inject, input, output, signal } from "@angular/core"
+import { Component, computed, effect, inject, input, output, signal, ViewChild } from "@angular/core"
 import { FormsModule } from "@angular/forms"
 import { MatButton } from "@angular/material/button"
 import { MatCheckbox } from "@angular/material/checkbox"
-import { MatChipListbox, MatChipOption } from "@angular/material/chips"
 import { MatIcon } from "@angular/material/icon"
-import { InputAutocompleteComponent } from "@basic/input-autocomplete/input-autocomplete.component"
-import { InputSelectComponent } from "@basic/input-select/input-select.component"
-import { MOVE_DETAILS } from "@data/move-details"
-import { POKEMON_DETAILS } from "@data/pokemon-details"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { FieldStore } from "@data/store/field-store"
 import { MenuStore } from "@data/store/menu-store"
 import { AbilityComboBoxComponent } from "@features/pokemon-build/ability-combo-box/ability-combo-box.component"
 import { EvSliderComponent } from "@features/pokemon-build/ev-slider/ev-slider.component"
 import { ItemComboBoxComponent } from "@features/pokemon-build/item-combo-box/item-combo-box.component"
-import { MultiHitComboBoxComponent } from "@features/pokemon-build/multi-hit-combo-box/multi-hit-combo-box.component"
-import { NatureComboBoxComponent } from "@features/pokemon-build/nature-combo-box/nature-combo-box.component"
 import { StatusComboBoxComponent } from "@features/pokemon-build/status-combo-box/status-combo-box.component"
 import { TeraComboBoxComponent } from "@features/pokemon-build/tera-combo-box/tera-combo-box.component"
+import { PokemonMovesMobileComponent } from "@features/pokemon-build/pokemon-moves-mobile/pokemon-moves-mobile.component"
+import { InputSelectComponent } from "@basic/input-select/input-select.component"
+import { NatureComboBoxComponent } from "@features/pokemon-build/nature-combo-box/nature-combo-box.component"
+import { PokemonComboBoxComponent } from "@features/pokemon-build/pokemon-combo-box/pokemon-combo-box.component"
+import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
+import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-button/export-pokemon-button.component"
+import { TeamMember } from "@lib/model/team-member"
+import { Team } from "@lib/model/team"
+import { defaultPokemon } from "@lib/default-pokemon"
+import { ExportPokeService } from "@lib/user-data/export-poke.service"
 import { Pokemon } from "@lib/model/pokemon"
 import { getFinalAttack, getFinalSpecialAttack } from "@lib/smogon/stat-calculator/atk-spa/modified-atk-spa"
 import { getFinalDefense, getFinalSpecialDefense } from "@lib/smogon/stat-calculator/def-spd/modified-def-spd"
@@ -31,40 +34,46 @@ import { Stats, SurvivalThreshold } from "@lib/types"
   styleUrls: ["./pokemon-build-mobile.component.scss"],
   imports: [
     NgClass,
-    MatChipListbox,
-    MatChipOption,
-    MatIcon,
     MatButton,
     MatCheckbox,
+    MatIcon,
     FormsModule,
-    InputAutocompleteComponent,
     AbilityComboBoxComponent,
     EvSliderComponent,
     TeraComboBoxComponent,
-    MultiHitComboBoxComponent,
     StatusComboBoxComponent,
     ItemComboBoxComponent,
     NatureComboBoxComponent,
-    InputSelectComponent
+    InputSelectComponent,
+    PokemonMovesMobileComponent,
+    PokemonComboBoxComponent,
+    ImportPokemonButtonComponent,
+    ExportPokemonButtonComponent
   ]
 })
 export class PokemonBuildMobileComponent {
+  @ViewChild(PokemonComboBoxComponent) pokemonComboBox?: PokemonComboBoxComponent
   pokemonId = input.required<string>()
   optimizationStatus = input<"idle" | "success" | "no-solution" | "not-needed">("idle")
   optimizedEvs = input<Stats | null>(null)
   optimizedNature = input<string | null>(null)
   showOptimization = input<boolean>(true)
+  showHeader = input<boolean>(true)
+  showDelete = input<boolean>(true)
+  manageTeamState = input<boolean>(true)
 
-  pokemonChangedEvent = output<Pokemon>()
+  pokemonImportedEvent = output<Pokemon | Pokemon[]>()
   optimizeRequested = output<{ updateNature: boolean; keepOffensiveEvs: boolean; survivalThreshold: SurvivalThreshold }>()
   optimizationApplied = output<void>()
   optimizationDiscarded = output<void>()
   evsCleared = output<void>()
+  pokemonDeleted = output<string | null>()
   MAX_EVS = 508
 
   store = inject(CalculatorStore)
   fieldStore = inject(FieldStore)
   menuStore = inject(MenuStore)
+  private exportPokeService = inject(ExportPokeService)
 
   originalEvs = signal<Stats>({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
   originalNature = signal<string>("")
@@ -85,6 +94,18 @@ export class PokemonBuildMobileComponent {
   modifiedSpe = signal<number>(0)
 
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
+
+  teamMembers = computed(() => this.store.team().teamMembers)
+
+  teamMemberOnEdit = computed(() => {
+    const editId = this.pokemonId()
+
+    if (!editId) return false
+
+    return this.teamMembers().some(m => m.pokemon.id === editId)
+  })
+
+  canImportPokemon = computed(() => this.teamMembers().length < 6)
   currentEvs = computed(() => {
     const pokemon = this.pokemon()
     return { ...pokemon.evs }
@@ -139,13 +160,6 @@ export class PokemonBuildMobileComponent {
     return optimized !== null && optimized.spd !== 0 && isValid && !noSolution
   })
 
-  allMoveNames = computed(() => {
-    const pokemonDetails = Object.values(POKEMON_DETAILS).find(p => p.name == this.pokemon().name)!
-    return pokemonDetails.learnset.map(move => MOVE_DETAILS[move].name)
-  })
-
-  editAttacks = false
-
   constructor() {
     effect(() => {
       if (this.fieldStore.field()) {
@@ -159,34 +173,6 @@ export class PokemonBuildMobileComponent {
         this.modifiedSpe.set(getFinalSpeed(activatedPokemon, this.fieldStore.field(), !false))
       }
     })
-  }
-
-  activateMove1() {
-    this.activateMove(1)
-  }
-
-  activateMove2() {
-    this.activateMove(2)
-  }
-
-  activateMove3() {
-    this.activateMove(3)
-  }
-
-  activateMove4() {
-    this.activateMove(4)
-  }
-
-  private activateMove(position: number) {
-    this.store.activateMoveByPosition(this.pokemonId(), position)
-  }
-
-  editMoves() {
-    this.editAttacks = true
-  }
-
-  saveMoves() {
-    this.editAttacks = false
   }
 
   clearEvs() {
@@ -224,5 +210,54 @@ export class PokemonBuildMobileComponent {
     this.store.nature(this.pokemonId(), originalNature)
 
     this.optimizationDiscarded.emit()
+  }
+
+  focus() {
+    this.pokemonComboBox?.focus()
+  }
+
+  importPokemon(pokemon: Pokemon | Pokemon[]) {
+    if (this.manageTeamState()) {
+      if (Array.isArray(pokemon)) {
+        if (pokemon.length > 0) {
+          const teamMembers = pokemon.map((p, index) => new TeamMember(p, index === 0))
+          const newTeam = new Team(crypto.randomUUID(), true, "Imported Team", teamMembers)
+          this.store.replaceActiveTeam(newTeam)
+        }
+
+        return
+      }
+
+      if (this.canImportPokemon()) {
+        this.store.addTeamMember(pokemon)
+      }
+    }
+
+    this.pokemonImportedEvent.emit(pokemon)
+  }
+
+  removeActivePokemon() {
+    const idToRemove = this.pokemonId()
+    let nextId: string | null = null
+
+    if (!idToRemove) return
+
+    if (this.manageTeamState()) {
+      if (this.teamMembers().length > 1) {
+        nextId = this.teamMembers().find(m => m.pokemon.id !== idToRemove)?.pokemon.id || null
+
+        if (nextId) {
+          const nextIndex = this.teamMembers().findIndex(m => m.pokemon.id === nextId)
+          this.store.activateTeamMember(nextIndex)
+        }
+
+        this.store.removeTeamMember(idToRemove)
+      } else {
+        this.store.changePokemon(idToRemove, defaultPokemon())
+        nextId = idToRemove
+      }
+    }
+
+    this.pokemonDeleted.emit(nextId)
   }
 }

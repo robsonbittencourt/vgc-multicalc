@@ -25,7 +25,7 @@ export class PokemonCardComponent {
   menuStore = inject(MenuStore)
 
   damageResult = input.required<DamageResult>()
-  targetInput = input<Target | undefined>(undefined, { alias: "target" })
+  target = input<Target | undefined>(undefined)
   isAttacker = input.required<boolean>()
   rollLevelConfig = input.required<RollLevelConfig>()
   collapsible = input<boolean>(false)
@@ -88,7 +88,7 @@ export class PokemonCardComponent {
   showStatusIconsRow = computed(() => this.isDondozo() || this.pokemonOnCard().isParadoxAbility)
 
   effectiveTarget = computed(() => {
-    if (this.targetInput()) return this.targetInput()!
+    if (this.target()) return this.target()!
 
     if (this.menuStore.oneVsManyActivated()) {
       const pokemonId = this.damageResult().defender.id

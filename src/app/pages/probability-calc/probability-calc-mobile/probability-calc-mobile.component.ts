@@ -18,17 +18,7 @@ import { TeamProbabilityComponent } from "@app/pages/probability-calc/team-proba
   selector: "app-probability-calc-mobile",
   templateUrl: "./probability-calc-mobile.component.html",
   styleUrl: "./probability-calc-mobile.component.scss",
-  imports: [
-    NgClass,
-    MatIcon,
-    TeamTabsMobileComponent,
-    TeamsMobileComponent,
-    PokemonBuildMobileComponent,
-    GeneralProbabilityComponent,
-    CombinedProbabilityComponent,
-    PokemonProbabilityComponent,
-    TeamProbabilityComponent,
-  ],
+  imports: [NgClass, MatIcon, TeamTabsMobileComponent, TeamsMobileComponent, PokemonBuildMobileComponent, GeneralProbabilityComponent, CombinedProbabilityComponent, PokemonProbabilityComponent, TeamProbabilityComponent],
   providers: [FieldStore, AutomaticFieldService, { provide: FIELD_CONTEXT, useValue: "probability" }]
 })
 export class ProbabilityCalcMobileComponent {

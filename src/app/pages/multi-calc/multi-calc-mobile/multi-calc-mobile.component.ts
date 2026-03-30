@@ -25,8 +25,6 @@ import { PokemonComboBoxComponent } from "@features/pokemon-build/pokemon-combo-
 import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
 import { PokemonCardComponent } from "@pages/multi-calc/pokemon-card/pokemon-card.component"
 import { FieldComponent } from "@features/field/field.component"
-import { Team } from "@lib/model/team"
-import { TeamMember } from "@lib/model/team-member"
 import { Pokemon } from "@lib/model/pokemon"
 import { defaultPokemon } from "@lib/default-pokemon"
 import { Target } from "@lib/model/target"
@@ -169,7 +167,7 @@ export class MultiCalcMobileComponent {
       this.store.updateTargets(newTargets)
     } else {
       this.store.updateTargetMetaRegulation("I")
-      const metaPokemon = pokemonByRegulation("I")
+      const metaPokemon = pokemonByRegulation("I", 33)
       this.onTargetsImported(metaPokemon)
     }
   }
@@ -202,7 +200,9 @@ export class MultiCalcMobileComponent {
   }
 
   private targetsExcludingMetaData(): Target[] {
-    const metaLeft = pokemonByRegulation(this.store.targetMetaRegulation()!)
+    const metaLeft = pokemonByRegulation(this.store.targetMetaRegulation()!, 33)
+
+    console.log(metaLeft.length)
 
     const newTargets = [...this.store.targets()]
       .reverse()

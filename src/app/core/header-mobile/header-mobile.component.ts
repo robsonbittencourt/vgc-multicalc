@@ -45,7 +45,7 @@ export class HeaderMobileComponent implements OnDestroy {
     this.menuOpen.set(false)
   }
 
-  private updateMenuWithFeedback(itemId: string, action: () => void, shouldCloseMenu: boolean = true) {
+  private updateMenuWithFeedback(itemId: string, action: () => void, shouldCloseMenu = true) {
     this.pressedItemId.set(itemId)
 
     setTimeout(() => {

@@ -51,4 +51,8 @@
     font-size: $font-size-mobile;
     padding: 2px 10px 2px 10px;
   }
+
+  .input-row label {
+    white-space: nowrap;
+  }
 }

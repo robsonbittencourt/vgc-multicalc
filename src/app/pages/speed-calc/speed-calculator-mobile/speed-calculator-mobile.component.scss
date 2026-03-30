@@ -1,81 +1,280 @@
 @use "variables.scss" as *;
 
-.container {
+:host {
+  display: flex;
+  flex-direction: column;
   background-color: var(--background);
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease,
-    border-color 0.3s ease;
-  padding-bottom: 1em;
+  height: calc(100dvh - 4em);
+  overflow: hidden;
 }
 
-.pokemon-build {
+.mobile-calc-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.scrollable-content {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 6em;
+}
+
+.tab-active {
+  animation: tab-fade-in 0.2s ease-out;
+}
+
+.mobile-calc-container > app-team-tabs-mobile {
+  animation: tab-fade-in 0.2s ease-out;
+}
+
+@keyframes tab-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.attacker-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5em;
+  padding: 1em 0.75em 0 0.75em;
+  background-color: var(--background);
+}
+
+.attacker-header app-pokemon-combo-box {
+  flex: 0 1 10em;
+  max-width: 10em;
+  min-width: 0;
+}
+
+.attacker-actions {
   display: flex;
   align-items: center;
   gap: 0.5em;
-  background-color: var(--highlight);
-  padding: 0.75em 0.5em 0.75em 0.75em;
+  flex-shrink: 0;
 }
 
-.pokemon-build-sections {
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
-}
-
-.pokemon-build-section {
+.delete-pokemon {
   display: flex;
   align-items: center;
-  gap: 1.2em;
+  gap: 0.2em;
+  cursor: pointer;
+  color: var(--text);
+
+  .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  label {
+    cursor: pointer;
+  }
 }
 
-.combo-small {
-  width: 36%;
+.pokemon-build {
+  background-color: var(--highlight);
+  padding: 0.75em 2.5em 0.75em 0.75em;
+  margin-top: 1em;
+  overflow-x: hidden;
 }
 
-.combo-medium {
-  width: 38%;
+.pokemon-build-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2em;
+  row-gap: 1em;
+  padding-bottom: 1em;
 }
 
-.combo-large {
-  width: 50%;
+.combo-item {
+  flex: 1 0 7em;
+  min-width: 0;
+}
+
+.combo-status {
+  flex: 1 0 7em;
+  min-width: 0;
+  margin-left: -0.5em;
+}
+
+.combo-nature-ability {
+  display: flex;
+  gap: 2em;
+  width: 100%;
+  flex-wrap: nowrap;
+  box-sizing: border-box;
+}
+
+.combo-nature-ability-compact {
+  gap: 2em;
+}
+
+.combo-nature,
+.combo-ability {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.combo-nature-compact {
+  flex: 1 1 22%;
+  max-width: 22%;
 }
 
 .evs {
-  margin: 1.5em 1em 0 0.75em;
-}
-
-.pokemon-image {
-  width: 5em;
-  height: auto;
+  margin: 1.5em 1em 0.25em 0.75em;
 }
 
 .speed-scale {
   margin-top: 2em;
 }
 
-.card {
-  padding: 0em 1em 1em 1em;
+.insights-content {
+  padding: 0.75em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75em;
+}
+
+.settings-content {
+  padding: 1em 1em 6em 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25em;
+}
+
+.settings-card {
+  display: block;
 }
 
 .opponent-options {
   margin-top: 1em;
 }
 
-.options {
+.settings-section-title {
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.settings-section-title:first-child {
+  margin-top: 0;
+}
+
+.options-grid {
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
+  justify-content: space-between;
+  row-gap: 1.5em;
+  margin-top: 1em;
+  width: 100%;
+
+  /* Regulation and Mode */
+  & > :nth-child(odd) {
+    width: 44%;
+    min-width: 0;
+  }
+
+  /* Top Usage and Pokémon */
+  & > :nth-child(even) {
+    width: 52%;
+    min-width: 0;
+  }
+
+  /* Secure the Clear X button inside autocomplete */
+  app-input-autocomplete {
+    display: flex !important;
+    align-items: flex-end;
+    gap: 0.5em;
+  }
+
+  /* Enforce strict bounds on Material wrappers so long text doesn't destroy the container */
+  ::ng-deep {
+    .input-column {
+      flex: 1;
+      width: auto !important;
+      min-width: 0;
+
+      input,
+      mat-select {
+        width: 100% !important;
+        box-sizing: border-box;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+}
+
+.teams-tab {
+  padding: 0 0 6em 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.bottom-nav {
+  display: flex;
+  background-color: var(--background);
+  border-top: 1px solid var(--widget-border);
+  flex-shrink: 0;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4em;
+  z-index: 20;
+}
+
+.bottom-tab {
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2em;
-  margin-top: 1em;
-}
-
-.options > app-input-select {
   flex: 1;
+  padding: 0.5em;
+  cursor: pointer;
+  gap: 0.1em;
+  font-size: 0.78em;
+  color: var(--text);
+  opacity: 0.5;
+  transition: opacity 0.15s ease;
+
+  mat-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    font-size: 24px;
+
+    &[svgIcon] {
+      transform: translateY(1px);
+    }
+  }
 }
 
-.clear-button {
-  display: flex;
-  align-items: center;
+.bottom-tab:hover {
+  opacity: 0.8;
+}
+
+.bottom-tab:active {
+  transform: scale(0.95);
+  background-color: var(--highlight);
+  border-radius: 8px;
+}
+
+.active-bottom-tab {
+  opacity: 1;
+  color: var(--primary);
+  border-top: 2px solid var(--primary);
 }

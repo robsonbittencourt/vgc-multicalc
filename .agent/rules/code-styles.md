@@ -86,6 +86,13 @@ updateState(newState: Partial<State>) {
 12. **Private functions placement** - Place private functions below where they are first used. Private methods should be defined after the first public method that uses them
 13. **Avoid `::ng-deep`** - Avoid using `::ng-deep` for styling. Use it ONLY when it's absolutely necessary to override internal component styles that cannot be accessed otherwise (e.g., Angular Material or shared components without style inputs).
 
+## Shared Component Styling & Adaptation
+
+- **Avoid `::ng-deep` for Customization**: Prefer adding `input()` properties to shared components (e.g., `fontSize`, `padding`, `width`) to allow parent components to customize them declaratively. Use `::ng-deep` only as a last resort for third-party libraries.
+- **Localize Component Overrides**: When asked to modify a component for a specific screen, avoid global changes in the component's base SCSS or global variables. Apply styles specifically within the parent component or via the shared component's input properties.
+- **Desktop Parity for Mobile**: Always attempt to replicate the desktop layout's visual balance on mobile before introducing mobile-specific alignments or fixed-width columns. Centered desktop layouts often translate well to mobile without complex manual overrides.
+- **Font-Size Responsiveness**: Be aware that `clamp` functions in `variables.scss` can make mobile text much smaller than desktop. If the user expects consistency, prioritize using `$font-size-mobile` (14px) or explicit overrides to maintain readability.
+
 ## When Creating New Features
 
 1. Determine if it's a `page`, `feature`, or `basic` component

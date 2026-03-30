@@ -30,14 +30,7 @@
 
       <div class="results-list">
         <div class="result-card">
-          <app-pokemon-card
-            [damageResult]="damageResult()"
-            [target]="target()"
-            [rollLevelConfig]="rollLevelConfig()"
-            [isAttacker]="isCurrentPokemonAttacker()"
-            [collapsible]="false"
-            [expanded]="true"
-            (targetActivated)="activateRightPokemon()" />
+          <app-pokemon-card [damageResult]="damageResult()" [target]="target()" [rollLevelConfig]="rollLevelConfig()" [isAttacker]="isCurrentPokemonAttacker()" [collapsible]="false" [expanded]="true" (targetActivated)="activateRightPokemon()" />
         </div>
 
         <app-widget class="role-widget">

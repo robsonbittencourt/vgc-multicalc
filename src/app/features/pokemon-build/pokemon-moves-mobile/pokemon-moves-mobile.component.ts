@@ -5,7 +5,7 @@ import { InputAutocompleteComponent } from "@basic/input-autocomplete/input-auto
 import { MOVE_DETAILS } from "@data/move-details"
 import { POKEMON_DETAILS } from "@data/pokemon-details"
 import { CalculatorStore } from "@data/store/calculator-store"
-import { MultiHitComboBoxComponent } from "../multi-hit-combo-box/multi-hit-combo-box.component"
+import { MultiHitComboBoxComponent } from "@features/pokemon-build/multi-hit-combo-box/multi-hit-combo-box.component"
 
 @Component({
   selector: "app-pokemon-moves-mobile",

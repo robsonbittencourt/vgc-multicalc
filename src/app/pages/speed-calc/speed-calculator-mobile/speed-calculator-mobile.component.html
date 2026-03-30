@@ -1,50 +1,111 @@
-<div class="container">
-  <div class="pokemon-build">
-    <div class="pokemon-build-sections">
-      <div class="pokemon-build-section">
-        <app-pokemon-combo-box class="combo-large" [pokemonId]="pokemonId()" (pokemonChanged)="resetEvs()" />
-        <app-item-combo-box class="combo-large" [pokemonId]="pokemonId()" />
-        <app-status-combo-box class="combo-small" [pokemonId]="pokemonId()" [statusConditions]="statusConditions" />
-      </div>
-
-      <div class="pokemon-build-section">
-        <app-nature-combo-box class="combo-large" [pokemonId]="pokemonId()" />
-        <app-ability-combo-box class="combo-large" [pokemonId]="pokemonId()" [isMobile]="true" />
-      </div>
-    </div>
-    <img class="pokemon-image" src="assets/sprites/pokemon-sv/{{ pokemon().name }}.png" />
+<div class="mobile-calc-container">
+  <div [hidden]="activeBottomTab() === 'teams'" [class.tab-active]="activeBottomTab() !== 'teams'">
+    <app-team-tabs-mobile [(pokemonOnEditId)]="pokemonOnEditId" (memberAddedEvent)="focusPokemonComboBox()" />
   </div>
 
-  <div class="evs">
-    <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.spe" [modifiedStat]="modifiedSpe()" [hasModifiedStat]="hasModifiedStat()" stat="spe" [reduced]="true" />
+  <div #scrollContainer class="scrollable-content" [class.teams-tab]="activeBottomTab() === 'teams'">
+    @if ((activeBottomTab() === "main" || activeBottomTab() === "speed-insights") && pokemon()) {
+      <div class="attacker-header">
+        <app-pokemon-combo-box [pokemonId]="pokemonId()" label="" />
+        <div class="attacker-actions">
+          @if (canImportPokemon() && teamMemberOnEdit()) {
+            <app-import-pokemon-button (pokemonImportedEvent)="importPokemon($event)" />
+          }
+          <app-export-pokemon-button [pokemonId]="pokemonId()" />
+          @if (teamMemberOnEdit()) {
+            <div class="delete-pokemon" (click)="removeActivePokemon()" data-cy="delete-team-member-mobile">
+              <mat-icon class="icon">delete</mat-icon>
+              <label>Delete</label>
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+    <div [hidden]="activeBottomTab() !== 'main'" [class.tab-active]="activeBottomTab() === 'main'">
+      @if (!pokemon().isDefault) {
+        <div class="pokemon-build">
+          <div class="pokemon-build-options">
+            <div class="combo-item">
+              <app-item-combo-box [pokemonId]="pokemonId()" />
+            </div>
+
+            <div class="combo-status">
+              <app-status-combo-box [pokemonId]="pokemonId()" [statusConditions]="statusConditions" />
+            </div>
+          </div>
+
+          <div class="combo-nature-ability" [ngClass]="{ 'combo-nature-ability-compact': pokemon().ability.actionableAbility }">
+            <div class="combo-nature" [ngClass]="{ 'combo-nature-compact': pokemon().ability.actionableAbility }">
+              <app-nature-combo-box [pokemonId]="pokemonId()" [isMobile]="true" />
+            </div>
+
+            <div class="combo-ability">
+              <app-ability-combo-box [pokemonId]="pokemonId()" [isMobile]="true" />
+            </div>
+          </div>
+        </div>
+
+        <div class="evs">
+          <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.spe" [modifiedStat]="modifiedSpe()" [hasModifiedStat]="hasModifiedStat()" stat="spe" [reduced]="true" />
+        </div>
+
+        <app-speed-scale class="speed-scale" [pokemonId]="pokemon().id" [pokemonEachSide]="7" (pokemonSelected)="selectedPokemon.set($event)" />
+      }
+    </div>
+
+    <div [hidden]="activeBottomTab() !== 'speed-insights'" [class.tab-active]="activeBottomTab() === 'speed-insights'">
+      <div class="insights-content">
+        <app-speed-insights [pokemon]="selectedPokemon()" />
+      </div>
+    </div>
+
+    <div [hidden]="activeBottomTab() !== 'settings'" [class.tab-active]="activeBottomTab() === 'settings'">
+      <div class="settings-content">
+        <app-widget class="settings-card" title="Filters">
+          <div class="options-grid">
+            <app-input-select label="Regulation" [allValues]="regulationsList" [value]="optionsStore.regulation()" (valueChange)="updateRegulation($event)" />
+            <app-input-select label="Top Usage" [allValues]="topUsageList" [value]="optionsStore.topUsage()" (valueChange)="optionsStore.updateTopUsage($event)" />
+            <app-input-select label="Mode" [allValues]="speedCalculatorModes" [value]="optionsStore.mode()" (valueChange)="optionsStore.updateMode($event)" />
+            <app-input-autocomplete
+              label="Pokémon"
+              [allValues]="optionsStore.pokemonNamesByReg()"
+              [value]="optionsStore.targetName()"
+              (valueChange)="optionsStore.updateTargetName($event)"
+              [enableClear]="optionsStore.targetName() !== ''"
+              (cleared)="optionsStore.clearTargetName()" />
+          </div>
+        </app-widget>
+
+        <app-widget class="settings-card" title="Opponent Side">
+          <app-opponent-options class="opponent-options" />
+        </app-widget>
+
+        <app-field class="settings-card" onlySpeed="true" />
+      </div>
+    </div>
+
+    <div [hidden]="activeBottomTab() !== 'teams'" [class.tab-active]="activeBottomTab() === 'teams'">
+      <app-teams-mobile (pokemonSelected)="pokemonOnEditId.set($event)" (useTeam)="onTeamSelected($event)" />
+    </div>
   </div>
 
-  <app-speed-scale class="speed-scale" [pokemonId]="pokemon().id" [pokemonEachSide]="7" (pokemonSelected)="selectedPokemon.set($event)" />
-
-  <app-speed-insights class="card" [pokemon]="selectedPokemon()" />
-
-  <app-widget class="card" title="Opponent Side">
-    <app-opponent-options class="opponent-options" />
-  </app-widget>
-
-  <app-field class="card" onlySpeed="true" />
-
-  <app-widget class="card" title="Filters">
-    <div class="options">
-      <app-input-select label="Regulation" leftLabel="true" [allValues]="regulationsList" [value]="optionsStore.regulation()" (valueChange)="updateRegulation($event)" />
-      <app-input-select label="Top Usage" leftLabel="true" [allValues]="topUsageList" [value]="optionsStore.topUsage()" (valueChange)="optionsStore.updateTopUsage($event)" />
-      <app-input-select label="Mode" leftLabel="true" [allValues]="speedCalculatorModes" [value]="optionsStore.mode()" (valueChange)="optionsStore.updateMode($event)" />
+  <div class="bottom-nav">
+    <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'main' }" (click)="switchTab('main')">
+      <mat-icon>bolt</mat-icon>
+      <span>Speed</span>
     </div>
-
-    <div class="options">
-      <app-input-autocomplete
-        label="Pokémon"
-        leftLabel="true"
-        [allValues]="optionsStore.pokemonNamesByReg()"
-        [value]="optionsStore.targetName()"
-        (valueChange)="optionsStore.updateTargetName($event)"
-        [enableClear]="optionsStore.targetName() !== ''"
-        (cleared)="optionsStore.clearTargetName()" />
+    <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'speed-insights' }" (click)="switchTab('speed-insights')">
+      <mat-icon>analytics</mat-icon>
+      <span>Insights</span>
     </div>
-  </app-widget>
+    <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'teams' }" (click)="switchTab('teams')">
+      <mat-icon svgIcon="pokeball"></mat-icon>
+      <span>Teams</span>
+    </div>
+    <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'settings' }" (click)="switchTab('settings')">
+      <mat-icon>settings</mat-icon>
+      <span>Settings</span>
+    </div>
+  </div>
 </div>

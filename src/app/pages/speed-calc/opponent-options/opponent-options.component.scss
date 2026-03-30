@@ -14,3 +14,10 @@
   width: 12em;
   height: 2.5em;
 }
+
+@media only screen and (max-width: 1279px) {
+  .speed-modifier {
+    width: auto;
+    min-width: 12em;
+  }
+}
