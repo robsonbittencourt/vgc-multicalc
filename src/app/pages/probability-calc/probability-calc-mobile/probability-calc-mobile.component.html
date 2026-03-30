@@ -1,0 +1,48 @@
+<div class="mobile-calc-container">
+  <div [class.tab-active]="activeBottomTab() !== 'teams'">
+    <app-team-tabs-mobile [(pokemonOnEditId)]="pokemonOnEditId" />
+  </div>
+
+  <div #scrollContainer class="scrollable-content" [class.teams-tab]="activeBottomTab() === 'teams'">
+    <div [hidden]="activeBottomTab() !== 'general'" [class.tab-active]="activeBottomTab() === 'general'">
+      <app-general-probability />
+    </div>
+
+    <div [hidden]="activeBottomTab() !== 'detailed'" [class.tab-active]="activeBottomTab() === 'detailed'">
+      <app-team-probability />
+      <app-pokemon-probability [isMobile]="true" />
+      <app-combined-probability />
+    </div>
+
+    <div [hidden]="activeBottomTab() !== 'build'" [class.tab-active]="activeBottomTab() === 'build'">
+      <div class="attacker-build">
+        @if (effectiveEditingId() && !store.findPokemonById(effectiveEditingId()!).isDefault) {
+          <app-pokemon-build-mobile [pokemonId]="effectiveEditingId()!" (pokemonDeleted)="pokemonOnEditId.set($event)" />
+        }
+      </div>
+    </div>
+
+    <div [hidden]="activeBottomTab() !== 'teams'" [class.tab-active]="activeBottomTab() === 'teams'">
+      <app-teams-mobile (pokemonSelected)="pokemonOnEditId.set($event)" (useTeam)="onTeamSelected($event)" />
+    </div>
+  </div>
+
+  <div class="bottom-nav">
+    <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'detailed' }" (click)="switchTab('detailed')">
+      <mat-icon>analytics</mat-icon>
+      <span>Detailed</span>
+    </div>
+    <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'general' }" (click)="switchTab('general')">
+      <mat-icon>show_chart</mat-icon>
+      <span>General</span>
+    </div>
+    <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'build' }" (click)="switchTab('build')">
+      <mat-icon>edit</mat-icon>
+      <span>Build</span>
+    </div>
+    <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'teams' }" (click)="switchTab('teams')">
+      <mat-icon svgIcon="pokeball"></mat-icon>
+      <span>Teams</span>
+    </div>
+  </div>
+</div>

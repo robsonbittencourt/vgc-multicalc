@@ -8,6 +8,12 @@
   border-radius: 6px;
   color: #efffff;
   overflow: hidden;
+
+  @media (max-width: 600px) {
+    width: 100%;
+    height: 5em;
+    min-height: 5em;
+  }
 }
 
 .hp {
@@ -16,6 +22,10 @@
   justify-content: space-evenly;
   margin: 0.1em 0em 0.1em 1em;
   font-weight: 500;
+
+  @media (max-width: 600px) {
+    min-width: 40%;
+  }
 }
 
 .pokemon-name {
@@ -38,6 +48,10 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
+
+  @media (max-width: 600px) {
+    width: 7em;
+  }
 }
 
 .progress {
@@ -112,6 +126,11 @@
   font-size: 0.8em;
   font-weight: bold;
   box-shadow: inset 0px -2px 2px rgba(0, 0, 0, 0.3);
+
+  @media (max-width: 600px) {
+    left: 50% !important;
+    transform: translateX(-50%) scale(0.85) !important;
+  }
 }
 
 .pokeball-icon {

@@ -19,29 +19,23 @@
   padding-bottom: 6em;
 }
 
+.tab-active {
+  animation: tab-fade-in 0.2s ease-out;
+}
+
+@keyframes tab-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .attacker-build {
   padding-bottom: 0.5em;
-}
-
-.attacker-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5em;
-  padding: 1em 0.75em 0 0.75em;
-}
-
-.attacker-header app-pokemon-combo-box {
-  flex: 0 1 10em;
-  max-width: 10em;
-  min-width: 0;
-}
-
-.attacker-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.5em;
-  flex-shrink: 0;
 }
 
 .results-list {
@@ -62,9 +56,6 @@
 }
 
 .results-list ::ng-deep .card {
-  touch-action: pan-y !important;
-  padding: 0.5em 0.75em;
-
   .collapsed-footer {
     display: flex;
     justify-content: flex-end;
@@ -78,80 +69,6 @@
       justify-content: space-between;
     }
   }
-}
-
-.results-list ::ng-deep .right-side > .pointer {
-  flex-shrink: 0;
-}
-
-.results-list ::ng-deep .pokemon-hp {
-  width: 100%;
-  min-width: 0;
-  max-width: 100%;
-  box-sizing: border-box;
-  height: 5em;
-  min-height: 5em;
-}
-
-.results-list ::ng-deep .hp-bar {
-  width: 7em;
-  box-sizing: border-box;
-}
-
-.results-list ::ng-deep .hp {
-  min-width: 40%;
-}
-
-.results-list ::ng-deep .fainted-icon {
-  left: 50% !important;
-  transform: translateX(-50%) scale(0.85) !important;
-}
-
-.results-list ::ng-deep .right-side {
-  flex: 1;
-  min-width: 0;
-}
-
-.results-list ::ng-deep .pokemon-image {
-  width: 4em;
-}
-
-.results-list ::ng-deep .pokemon-image-container img {
-  width: 4em;
-  height: auto;
-}
-
-.results-list ::ng-deep .vs-icon {
-  height: 2.5em;
-}
-
-.results-list ::ng-deep .middle-section-items {
-  flex: 1;
-  min-width: 0;
-}
-
-.results-list ::ng-deep .middle-section-buttons {
-  flex: 0 0 auto;
-  max-width: 6em;
-}
-
-.results-list ::ng-deep .middle-section-buttons .card-buttons {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 0.2em;
-}
-
-.results-list ::ng-deep .card-buttons-row {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 0.25em;
-}
-
-.results-list ::ng-deep .middle-section-buttons span {
-  word-break: break-word;
-  white-space: normal;
 }
 
 .bottom-nav {
@@ -193,6 +110,12 @@
 
 .bottom-tab:hover {
   opacity: 0.8;
+}
+
+.bottom-tab:active {
+  transform: scale(0.95);
+  background-color: var(--highlight);
+  border-radius: 8px;
 }
 
 .active-bottom-tab {

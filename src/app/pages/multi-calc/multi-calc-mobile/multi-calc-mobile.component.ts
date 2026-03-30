@@ -1,4 +1,4 @@
-import { Component, computed, effect, ElementRef, inject, signal, ViewChild } from "@angular/core"
+import { Component, computed, effect, ElementRef, inject, signal, ViewChild, viewChild } from "@angular/core"
 import { NgClass } from "@angular/common"
 import { CdkDragDrop, CdkDropList, CdkDropListGroup } from "@angular/cdk/drag-drop"
 import { MatButton } from "@angular/material/button"
@@ -23,7 +23,6 @@ import { ExportPokeService } from "@lib/user-data/export-poke.service"
 import { PokemonBuildMobileComponent } from "@features/pokemon-build/pokemon-build-mobile/pokemon-build-mobile.component"
 import { PokemonComboBoxComponent } from "@features/pokemon-build/pokemon-combo-box/pokemon-combo-box.component"
 import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
-import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-button/export-pokemon-button.component"
 import { PokemonCardComponent } from "@pages/multi-calc/pokemon-card/pokemon-card.component"
 import { FieldComponent } from "@features/field/field.component"
 import { Team } from "@lib/model/team"
@@ -46,14 +45,14 @@ import { TeamsMobileComponent } from "@features/team/teams-mobile/teams-mobile.c
     CdkDropListGroup,
     PokemonBuildMobileComponent,
     PokemonComboBoxComponent,
-    ImportPokemonButtonComponent,
-    ExportPokemonButtonComponent,
     PokemonCardComponent,
     FieldComponent,
     AddPokemonCardComponent,
     TeamTabsMobileComponent,
     TeamsMobileComponent,
     MatButton,
+    MatIcon,
+    ImportPokemonButtonComponent,
     MatSlideToggle,
     RollConfigComponent,
     WidgetComponent
@@ -61,8 +60,9 @@ import { TeamsMobileComponent } from "@features/team/teams-mobile/teams-mobile.c
   providers: [FieldStore, AutomaticFieldService, DamageMultiCalcService, DamageResultOrderService, DefensiveEvOptimizerService, { provide: FIELD_CONTEXT, useValue: "multi" }]
 })
 export class MultiCalcMobileComponent {
-  @ViewChild(PokemonComboBoxComponent) pokemonComboBox?: PokemonComboBoxComponent
+  @ViewChild(PokemonBuildMobileComponent) pokemonBuildMobile?: PokemonBuildMobileComponent
   @ViewChild("scrollContainer") scrollContainer?: ElementRef<HTMLDivElement>
+  pokemonSelectComboBox = viewChild<PokemonComboBoxComponent>("pokemonSelectComboBox")
   store = inject(CalculatorStore)
   menuStore = inject(MenuStore)
   fieldStore = inject(FieldStore)
@@ -143,6 +143,13 @@ export class MultiCalcMobileComponent {
     return attacker !== null && !attacker.isDefault
   })
 
+  shouldShowPokemonSelect = computed(() => {
+    const editId = this.effectiveEditingId()
+    if (!editId) return false
+    const attacker = this.store.findPokemonById(editId)
+    return attacker !== null && attacker.isDefault && this.teamMemberOnEdit()
+  })
+
   selectPokemonActive = computed(() => {
     return this.store.targets().find(t => t.pokemon.isDefault) != null
   })
@@ -152,44 +159,6 @@ export class MultiCalcMobileComponent {
   haveMetaData = computed(() => this.store.targetMetaRegulation() != undefined)
 
   metaButtonLabel = computed(() => (this.haveMetaData() ? "Remove Meta" : "Add Meta"))
-
-  importPokemon(pokemon: Pokemon | Pokemon[]) {
-    if (Array.isArray(pokemon)) {
-      if (pokemon.length > 0) {
-        const teamMembers = pokemon.map((p, index) => new TeamMember(p, index === 0))
-        const newTeam = new Team(crypto.randomUUID(), true, "Imported Team", teamMembers)
-        this.store.replaceActiveTeam(newTeam)
-      }
-
-      return
-    }
-
-    if (this.canImportPokemon()) {
-      this.store.addTeamMember(pokemon)
-    }
-  }
-
-  removeActivePokemon() {
-    const idToRemove = this.activePokemonId()
-
-    if (!idToRemove) return
-
-    if (this.teamMembers().length > 1) {
-      const nextId = this.teamMembers().find(m => m.pokemon.id !== idToRemove)?.pokemon.id
-
-      if (nextId) {
-        const nextIndex = this.teamMembers().findIndex(m => m.pokemon.id === nextId)
-        this.store.activateTeamMember(nextIndex)
-        this.pokemonOnEditId.set(nextId)
-      }
-
-      this.store.removeTeamMember(idToRemove)
-    } else {
-      this.store.changePokemon(idToRemove, defaultPokemon())
-    }
-
-    this.pokemonOnEditId.set(this.activePokemonId())
-  }
 
   onMetaClick() {
     if (this.haveMetaData()) {
@@ -432,7 +401,8 @@ export class MultiCalcMobileComponent {
 
   focusPokemonComboBox() {
     setTimeout(() => {
-      this.pokemonComboBox?.focus()
+      this.pokemonBuildMobile?.focus()
+      this.pokemonSelectComboBox()?.focus()
     }, 50)
   }
 }

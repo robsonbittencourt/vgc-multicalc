@@ -156,9 +156,11 @@ mat-divider {
   color: var(--highlight-contrast);
 }
 
-.active-menu-option {
-  background-color: var(--highlight);
-  color: var(--highlight-contrast);
+.active-menu-option,
+.menu-item-button.pressed,
+.menu-item-button:active {
+  background-color: var(--highlight) !important;
+  color: var(--highlight-contrast) !important;
   font-weight: 500;
 }
 

@@ -16,19 +16,25 @@
   <div class="menu-panel" [class.no-footer]="!hasFooter()">
     <div class="menu-content">
       <span class="menu-title">Pages</span>
-      <button class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.oneVsOneActivated() }" (click)="enableOneVsOne()">
+      <button class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.oneVsOneActivated(), 'pressed': pressedItemId() === '1v1' }" (click)="enableOneVsOne()">
         <span>One vs One</span>
       </button>
-      <button class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.oneVsManyActivated() }" (click)="enableOneVsMany()">
+      <button class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.oneVsManyActivated(), 'pressed': pressedItemId() === '1vMany' }" (click)="enableOneVsMany()">
         <span>Team vs Many</span>
       </button>
-      <button class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.manyVsOneActivated() }" (click)="enableManyVsOne()">
+      <button class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.manyVsOneActivated(), 'pressed': pressedItemId() === 'Manyv1' }" (click)="enableManyVsOne()">
         <span>Many vs Team</span>
       </button>
-      <button class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.speedCalculatorActivated() }" (click)="enableSpeedCalculator()">
+      <button class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.speedCalculatorActivated(), 'pressed': pressedItemId() === 'speed' }" (click)="enableSpeedCalculator()">
         <span>Speed Calc</span>
       </button>
-      <button class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.howToUseActivated() }" (click)="enableHowToUse()">
+      <button class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.probabilityCalcActivated(), 'pressed': pressedItemId() === 'probability' }" (click)="enableProbabilityCalc()">
+        <span>Probability Calc</span>
+      </button>
+      <button class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.typeCalcActivated(), 'pressed': pressedItemId() === 'type' }" (click)="enableTypeCalculator()">
+        <span>Type Calc</span>
+      </button>
+      <button class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.howToUseActivated(), 'pressed': pressedItemId() === 'howToUse' }" (click)="enableHowToUse()">
         <span>How to use</span>
       </button>
 
@@ -36,7 +42,7 @@
 
       <span class="menu-title">Themes</span>
       @for (theme of themeService.getThemes(); track theme.name) {
-        <div class="menu-item" [ngClass]="{ 'active-menu-option': themeService.selectedTheme().name === theme.name }" (click)="themeService.setTheme(theme.name)">
+        <div class="menu-item" [ngClass]="{ 'active-menu-option': themeService.selectedTheme().name === theme.name, 'pressed': pressedItemId() === 'theme-' + theme.name }" (click)="setTheme(theme.name)">
           <div class="pokemon-image-container">
             <img class="pokemon-image" src="assets/sprites/menu/{{ theme.pokemon }}.png" />
           </div>
@@ -48,7 +54,7 @@
 
       <span class="menu-title">Colors</span>
       @for (color of themeService.getColors(); track color.name) {
-        <div class="menu-item" [ngClass]="{ 'active-menu-option': themeService.selectedColor().name === color.name }" (click)="themeService.setColor(color.name)">
+        <div class="menu-item" [ngClass]="{ 'active-menu-option': themeService.selectedColor().name === color.name, 'pressed': pressedItemId() === 'color-' + color.name }" (click)="setColor(color.name)">
           <div class="pokemon-image-container">
             <img class="pokemon-image" src="assets/sprites/menu/{{ color.pokemon }}.png" />
           </div>

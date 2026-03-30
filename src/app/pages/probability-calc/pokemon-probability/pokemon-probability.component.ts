@@ -1,17 +1,19 @@
-import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, inject } from "@angular/core"
+import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, inject, input } from "@angular/core"
 import { WidgetComponent } from "@app/basic/widget/widget.component"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { ConsistencyScoreService } from "@lib/probability-calc/consistency-score.service"
 import { MoveProbabilityService } from "@lib/probability-calc/move-probability.service"
+import { PokemonMovesMobileComponent } from "@features/pokemon-build/pokemon-moves-mobile/pokemon-moves-mobile.component"
 
 @Component({
   selector: "app-pokemon-probability",
-  imports: [WidgetComponent],
+  imports: [WidgetComponent, PokemonMovesMobileComponent],
   templateUrl: "./pokemon-probability.component.html",
   styleUrl: "./pokemon-probability.component.scss",
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class PokemonProbabilityComponent {
+  isMobile = input<boolean>(false)
   store = inject(CalculatorStore)
   moveProbabilityService = inject(MoveProbabilityService)
   consistencyScoreService = inject(ConsistencyScoreService)

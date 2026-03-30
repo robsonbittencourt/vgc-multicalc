@@ -1,0 +1,62 @@
+<div class="moves">
+  @if (editAttacks) {
+    <div class="edit-moves">
+      <div>
+        <div class="check-input-section-input">
+          <app-input-autocomplete [value]="pokemon().moveSet.move1.name" [allValues]="allMoveNames()" (valueChange)="store.moveOne(pokemonId(), $event)" />
+        </div>
+      </div>
+      <div>
+        <div class="check-input-section-input">
+          <app-input-autocomplete [value]="pokemon().moveSet.move2.name" [allValues]="allMoveNames()" (valueChange)="store.moveTwo(pokemonId(), $event)" />
+        </div>
+      </div>
+      <div>
+        <div class="check-input-section-input">
+          <app-input-autocomplete [value]="pokemon().moveSet.move3.name" [allValues]="allMoveNames()" (valueChange)="store.moveThree(pokemonId(), $event)" />
+        </div>
+      </div>
+      <div>
+        <div class="check-input-section-input">
+          <app-input-autocomplete [value]="pokemon().moveSet.move4.name" [allValues]="allMoveNames()" (valueChange)="store.moveFour(pokemonId(), $event)" />
+        </div>
+      </div>
+      <div class="save-button" (click)="saveMoves()"><mat-icon class="edit-icon">save</mat-icon>Save</div>
+    </div>
+  } @else {
+    <div class="no-edit-moves">
+      <mat-chip-listbox>
+        @if (pokemon().move1Name) {
+          <mat-chip-option (click)="activateMove1()" [selected]="pokemon().activeMovePosition === 1">{{ pokemon().move1Name }}</mat-chip-option>
+        }
+
+        @if (pokemon().move2Name) {
+          <mat-chip-option (click)="activateMove2()" [selected]="pokemon().activeMovePosition === 2">{{ pokemon().move2Name }}</mat-chip-option>
+        }
+
+        @if (pokemon().move3Name) {
+          <mat-chip-option (click)="activateMove3()" [selected]="pokemon().activeMovePosition === 3">{{ pokemon().move3Name }}</mat-chip-option>
+        }
+
+        @if (pokemon().move4Name) {
+          <mat-chip-option (click)="activateMove4()" [selected]="pokemon().activeMovePosition === 4">{{ pokemon().move4Name }}</mat-chip-option>
+        }
+
+        @if (showEdit()) {
+          <div class="edit-button-section">
+            <div (click)="editMoves()" class="edit-button"><mat-icon class="edit-icon">edit</mat-icon>Edit</div>
+            <div class="hits-input">
+              <app-multi-hit-combo-box [pokemonId]="pokemonId()" [leftLabel]="true" />
+            </div>
+          </div>
+        }
+      </mat-chip-listbox>
+
+      @if (!showEdit()) {
+        <div class="hits-input-only">
+          <app-multi-hit-combo-box [pokemonId]="pokemonId()" [leftLabel]="true" />
+        </div>
+      }
+    </div>
+  }
+</div>

@@ -9,6 +9,8 @@ import { Items } from "@data/items"
   imports: [NgStyle]
 })
 export class PokemonHpBadgeComponent {
+  static imageCache = new Map<string, { dataUrl: string; scale: number }>()
+
   _actualSpriteName: string
 
   name = input.required<string>()
@@ -54,11 +56,22 @@ export class PokemonHpBadgeComponent {
   onImageLoad() {
     if (this.spriteName() != this._actualSpriteName) {
       this._actualSpriteName = this.spriteName()
-      this.removeTransparentSpace()
 
-      setTimeout(() => {
-        this.showImage.set(true)
-      }, 0)
+      const cached = PokemonHpBadgeComponent.imageCache.get(this.spriteName())
+
+      if (cached) {
+        this.imageScale = cached.scale
+        this.pokemonImage()!.nativeElement.src = cached.dataUrl
+        setTimeout(() => {
+          this.showImage.set(true)
+        }, 0)
+      } else {
+        this.removeTransparentSpace()
+
+        setTimeout(() => {
+          this.showImage.set(true)
+        }, 0)
+      }
     }
   }
 
@@ -103,7 +116,7 @@ export class PokemonHpBadgeComponent {
         }
 
         const visibleHeight = bottom - top + 1
-        const visibleWidth = right - left - +1
+        const visibleWidth = right - left + 1
 
         const croppedData = ctx.getImageData(left, top, visibleWidth, visibleHeight)
 
@@ -114,7 +127,9 @@ export class PokemonHpBadgeComponent {
 
         ctx.putImageData(croppedData, 0, 0)
 
-        this.pokemonImage()!.nativeElement.src = canvas.toDataURL()
+        const dataUrl = canvas.toDataURL()
+        this.pokemonImage()!.nativeElement.src = dataUrl
+        PokemonHpBadgeComponent.imageCache.set(this.spriteName(), { dataUrl, scale: this.imageScale })
       }
     }
   }

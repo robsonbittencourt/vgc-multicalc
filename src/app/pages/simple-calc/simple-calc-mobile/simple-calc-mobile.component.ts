@@ -2,11 +2,8 @@ import { Component, computed, effect, ElementRef, inject, signal, viewChild } fr
 import { CalculatorStore } from "@data/store/calculator-store"
 import { FieldStore } from "@data/store/field-store"
 import { FIELD_CONTEXT } from "@data/store/tokens/field-context.token"
-import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-button/export-pokemon-button.component"
-import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
 import { FieldComponent } from "@features/field/field.component"
 import { PokemonBuildMobileComponent } from "@features/pokemon-build/pokemon-build-mobile/pokemon-build-mobile.component"
-import { PokemonComboBoxComponent } from "@features/pokemon-build/pokemon-combo-box/pokemon-combo-box.component"
 import { WidgetComponent } from "@basic/widget/widget.component"
 import { AutomaticFieldService } from "@lib/automatic-field-service"
 import { DamageCalculatorService } from "@lib/damage-calculator/damage-calculator.service"
@@ -25,19 +22,7 @@ import { MatButtonToggleModule } from "@angular/material/button-toggle"
   selector: "app-simple-calc-mobile",
   templateUrl: "./simple-calc-mobile.component.html",
   styleUrls: ["./simple-calc-mobile.component.scss"],
-  imports: [
-    PokemonComboBoxComponent,
-    PokemonBuildMobileComponent,
-    FieldComponent,
-    ImportPokemonButtonComponent,
-    ExportPokemonButtonComponent,
-    PokemonCardComponent,
-    NgClass,
-    MatIcon,
-    MatButtonToggleModule,
-    RollConfigComponent,
-    WidgetComponent
-  ],
+  imports: [PokemonBuildMobileComponent, FieldComponent, PokemonCardComponent, NgClass, MatIcon, MatButtonToggleModule, RollConfigComponent, WidgetComponent],
   providers: [FieldStore, AutomaticFieldService, { provide: FIELD_CONTEXT, useValue: "simple" }]
 })
 export class SimpleCalcMobileComponent {
@@ -142,7 +127,9 @@ export class SimpleCalcMobileComponent {
   }
 
   importPokemon(pokemon: Pokemon | Pokemon[]) {
-    const singlePokemon = pokemon as Pokemon
+    const singlePokemon = Array.isArray(pokemon) ? pokemon[0] : pokemon
+
+    if (!singlePokemon) return
 
     if (this.activeSide() === "left") {
       this.store.changeLeftPokemon(singlePokemon)

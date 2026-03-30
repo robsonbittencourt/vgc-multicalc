@@ -35,7 +35,7 @@ describe("ExportPokeService", () => {
 
     service.export("Title", pokemon)
 
-    expect(dialogSpy.open).toHaveBeenCalledWith(TeamExportModalComponent, { data: { title: "Title", content: pasteWithOnePokemon }, width: "40em", position: { top: "2em" }, scrollStrategy: jasmine.any(NoopScrollStrategy) })
+    expect(dialogSpy.open).toHaveBeenCalledWith(TeamExportModalComponent, { data: { title: "Title", content: pasteWithOnePokemon }, width: "40em", position: { top: "2em" }, autoFocus: false, scrollStrategy: jasmine.any(NoopScrollStrategy) })
   })
 
   it("should export a list of Pokémon", () => {
@@ -69,7 +69,7 @@ describe("ExportPokeService", () => {
 
     service.export("Title", pokemon1, pokemon2, pokemon3)
 
-    expect(dialogSpy.open).toHaveBeenCalledWith(TeamExportModalComponent, { data: { title: "Title", content: pasteWithThreePokemon }, width: "40em", position: { top: "2em" }, scrollStrategy: jasmine.any(NoopScrollStrategy) })
+    expect(dialogSpy.open).toHaveBeenCalledWith(TeamExportModalComponent, { data: { title: "Title", content: pasteWithThreePokemon }, width: "40em", position: { top: "2em" }, autoFocus: false, scrollStrategy: jasmine.any(NoopScrollStrategy) })
   })
 })
 

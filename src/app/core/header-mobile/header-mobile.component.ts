@@ -5,7 +5,7 @@ import { MatDivider } from "@angular/material/divider"
 import { MatIcon } from "@angular/material/icon"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { MenuStore } from "@data/store/menu-store"
-import { ThemeService } from "@lib/theme.service"
+import { Color, Theme, ThemeService } from "@lib/theme.service"
 
 @Component({
   selector: "app-header-mobile",
@@ -19,8 +19,9 @@ export class HeaderMobileComponent implements OnDestroy {
   themeService = inject(ThemeService)
 
   menuOpen = signal(false)
+  pressedItemId = signal<string | null>(null)
 
-  hasFooter = computed(() => this.menuStore.oneVsManyActivated() || this.menuStore.manyVsOneActivated())
+  hasFooter = computed(() => this.menuStore.oneVsManyActivated() || this.menuStore.manyVsOneActivated() || this.menuStore.probabilityCalcActivated() || this.menuStore.typeCalcActivated())
 
   constructor() {
     effect(() => {
@@ -44,30 +45,57 @@ export class HeaderMobileComponent implements OnDestroy {
     this.menuOpen.set(false)
   }
 
+  private updateMenuWithFeedback(itemId: string, action: () => void, shouldCloseMenu: boolean = true) {
+    this.pressedItemId.set(itemId)
+
+    setTimeout(() => {
+      action()
+      if (shouldCloseMenu) {
+        this.closeMenu()
+      }
+      this.pressedItemId.set(null)
+    }, 0)
+  }
+
   enableOneVsOne() {
-    this.menuStore.enableOneVsOne()
-    this.store.updateSecondAttacker("")
-    this.closeMenu()
+    this.updateMenuWithFeedback("1v1", () => {
+      this.menuStore.enableOneVsOne()
+      this.store.updateSecondAttacker("")
+    })
   }
 
   enableOneVsMany() {
-    this.menuStore.enableOneVsMany()
-    this.closeMenu()
+    this.updateMenuWithFeedback("1vMany", () => this.menuStore.enableOneVsMany())
   }
 
   enableManyVsOne() {
-    this.menuStore.enableManyVsOne()
-    this.store.updateSecondAttacker("")
-    this.closeMenu()
+    this.updateMenuWithFeedback("Manyv1", () => {
+      this.menuStore.enableManyVsOne()
+      this.store.updateSecondAttacker("")
+    })
   }
 
   enableSpeedCalculator() {
-    this.menuStore.enableSpeedCalculator()
-    this.closeMenu()
+    this.updateMenuWithFeedback("speed", () => this.menuStore.enableSpeedCalculator())
+  }
+
+  enableProbabilityCalc() {
+    this.updateMenuWithFeedback("probability", () => this.menuStore.enableProbabilityCalculator())
+  }
+
+  enableTypeCalculator() {
+    this.updateMenuWithFeedback("type", () => this.menuStore.enableTypeCalculator())
   }
 
   enableHowToUse() {
-    this.menuStore.enableHowToUse()
-    this.closeMenu()
+    this.updateMenuWithFeedback("howToUse", () => this.menuStore.enableHowToUse())
+  }
+
+  setTheme(themeName: Theme) {
+    this.updateMenuWithFeedback(`theme-${themeName}`, () => this.themeService.setTheme(themeName), false)
+  }
+
+  setColor(colorName: Color) {
+    this.updateMenuWithFeedback(`color-${colorName}`, () => this.themeService.setColor(colorName), false)
   }
 }

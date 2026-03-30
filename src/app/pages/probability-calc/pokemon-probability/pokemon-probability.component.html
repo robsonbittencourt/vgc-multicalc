@@ -2,11 +2,11 @@
   @if (hasValidPokemon()) {
     <div class="container">
       <div class="pokemon-container">
-        <div>
+        <div class="pokemon-header">
           <div class="pokemon-image">
             <img src="assets/sprites/pokemon-sv/{{ pokemon().name }}.png" />
           </div>
-          <div>
+          <div class="pokemon-move-info">
             <h3>{{ pokemon().activeMoveName }}</h3>
             <p>Accuracy: {{ accuracy() }}%</p>
             @if (secondary()) {
@@ -15,6 +15,12 @@
           </div>
         </div>
       </div>
+
+      @if (isMobile()) {
+        <div class="mobile-moves">
+          <app-pokemon-moves-mobile [pokemonId]="pokemon().id" [showEdit]="false" />
+        </div>
+      }
 
       @if (target() === "allAdjacentFoes") {
         <div class="probability-card" data-cy="probability-card-spread-target">

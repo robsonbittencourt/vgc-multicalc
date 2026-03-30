@@ -3,6 +3,10 @@
   flex-direction: column;
   height: 100%;
   min-height: 0;
+
+  @media (max-width: 768px) {
+    height: auto;
+  }
 }
 
 :host ::ng-deep app-widget {
@@ -10,12 +14,20 @@
   flex-direction: column;
   flex: 1;
   min-height: 0;
+
+  @media (max-width: 768px) {
+    flex: none;
+  }
 }
 
 :host ::ng-deep app-widget > .container.elevation {
   height: 100%;
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 768px) {
+    height: auto;
+  }
 }
 
 :host ::ng-deep app-widget .header {
@@ -27,11 +39,18 @@
   flex-direction: row;
   flex: 1;
   min-height: 14em;
-  overflow: auto;
   justify-content: space-between;
   gap: 2em;
   align-items: flex-start;
   margin-top: 1em;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 0.5em;
+    min-height: 0;
+    flex: none;
+    margin-top: 0.5em;
+  }
 }
 
 .container:has(.empty-message) {
@@ -72,14 +91,39 @@
 
   @media (max-width: 768px) {
     width: 100%;
-    min-width: 100%;
-    margin-bottom: 1em;
+    min-width: 0;
+  }
+}
+
+.pokemon-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+
+  @media (max-width: 768px) {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  h3 {
+    margin: 0 0 0.3em 0;
+    font-size: 1.1em;
+  }
+
+  p {
+    margin: 0.25em 0;
+    font-size: 0.9em;
   }
 }
 
 .pokemon-image img {
   width: 10em;
   height: auto;
+
+  @media (max-width: 768px) {
+    width: 7.5em;
+  }
 }
 
 .probability-card {
@@ -93,8 +137,42 @@
   box-sizing: border-box;
 
   @media (max-width: 768px) {
-    flex: 1 1 100%;
-    min-width: 100%;
+    width: 100%;
+    overflow-x: auto;
+    padding: 0.75em 0;
+    border-radius: 0;
+    flex: none;
+
+    &::-webkit-scrollbar {
+      height: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--text-secondary);
+      border-radius: 10px;
+    }
+
+    scrollbar-width: thin;
+    scrollbar-color: var(--text-secondary) rgba(0, 0, 0, 0.05);
+
+    .probability-row {
+      min-width: 100%;
+    }
+
+    .cell {
+      flex: 1 0 90px;
+      max-width: 130px;
+
+      &:first-child {
+        flex: 0 0 70px;
+        min-width: 70px;
+        text-align: center;
+      }
+    }
   }
 }
 
@@ -129,4 +207,9 @@
 .header .cell {
   line-height: 1.5;
   text-align: center;
+}
+
+.mobile-moves {
+  margin: 0.25em 0;
+  padding: 0;
 }

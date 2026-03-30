@@ -7,6 +7,11 @@
   box-sizing: border-box;
   height: 100%;
   background-color: var(--highlight);
+
+  @media (max-width: 600px) {
+    padding: 0.5em 0.75em;
+    touch-action: pan-y !important;
+  }
 }
 
 .is-collapsed {
@@ -38,22 +43,22 @@
   .middle-section-items {
     margin-left: 0.2em;
   }
-
-  @media (max-width: 600px) {
-    .body {
-      width: 100%;
-    }
-  }
 }
 
 .combine-buttons {
   display: flex;
   align-items: center;
   justify-content: center;
+  align-self: flex-start;
   margin-left: -0.5em;
   margin-top: -0.5em;
   width: 40px;
   height: 50px;
+
+  @media (max-width: 600px) {
+    width: 36px;
+    margin-top: 0;
+  }
 }
 
 .handle {
@@ -103,7 +108,7 @@
   height: auto;
 
   @media (max-width: 600px) {
-    width: 5em;
+    width: 4em;
   }
 }
 
@@ -134,6 +139,10 @@
 .middle {
   display: flex;
   align-items: center;
+
+  @media (max-width: 600px) {
+    margin-top: 0.75em;
+  }
 }
 
 .footer {
@@ -144,6 +153,16 @@
   display: flex;
   flex-direction: column;
   gap: 1em;
+
+  @media (max-width: 600px) {
+    flex: 1;
+    min-width: 0;
+    gap: 0.5em;
+
+    .pointer {
+      flex-shrink: 0;
+    }
+  }
 }
 
 .middle-section {
@@ -152,6 +171,10 @@
   align-items: flex-start;
   justify-content: space-between;
   width: 100%;
+
+  @media (max-width: 600px) {
+    gap: 0.5em;
+  }
 }
 
 .middle-section-items {
@@ -159,13 +182,19 @@
   flex-direction: column;
   margin-left: 1em;
   gap: 0.5em;
-}
 
-.bottom-section {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  justify-content: space-between;
+  @media (max-width: 600px) {
+    flex: 1;
+    min-width: 0;
+    font-size: 0.85em;
+    gap: 0.4em;
+    margin-left: 0.5em;
+    margin-bottom: 0.25em;
+
+    span {
+      white-space: nowrap;
+    }
+  }
 }
 
 .icon-button {
@@ -182,6 +211,10 @@
 .vs-icon {
   width: auto;
   height: 4em;
+
+  @media (max-width: 600px) {
+    height: 2.5em;
+  }
 }
 
 .middle-section-buttons {
@@ -193,13 +226,34 @@
   gap: 0.25rem;
 
   @media (max-width: 600px) {
-    justify-content: flex-start;
+    width: auto; /* Deixa ocupar apenas o que precisa no mobile */
+    flex: 0 0 auto;
+    max-width: 6em;
+    flex-direction: row;
+    height: auto;
+    align-items: center;
+    justify-content: flex-end;
+    margin-left: auto;
+
+    .card-buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.2em;
+    }
+
+    span {
+      word-break: break-word;
+      white-space: normal;
+    }
   }
 }
 
 .card:not(.has-collapsible) {
   .right-side {
-    gap: 1em;
+    @media (max-width: 600px) {
+      gap: 0.5em;
+    }
   }
 
   .middle-section-buttons {
@@ -207,6 +261,15 @@
     height: auto;
     align-items: center;
     gap: 0.25rem;
+
+    @media (max-width: 600px) {
+      justify-content: flex-end;
+
+      .card-buttons {
+        flex-direction: column;
+        align-items: flex-end;
+      }
+    }
   }
 }
 
@@ -219,6 +282,11 @@
 .card-buttons-row {
   display: flex;
   align-items: center;
+  gap: 0.25rem;
+
+  @media (max-width: 600px) {
+    justify-content: flex-end;
+  }
 }
 
 .damage-result {

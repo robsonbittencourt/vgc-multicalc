@@ -1,10 +1,9 @@
 <div class="mobile-calc-container">
-  <div [hidden]="activeBottomTab() === 'field'">
+  <div [hidden]="activeBottomTab() === 'field'" [class.tab-active]="activeBottomTab() !== 'field'">
     <div class="team-tabs">
       <div class="team-tab" [ngClass]="{ 'active-tab': activeSide() === 'left' }" (click)="activateLeftPokemon()">
         <img class="tab-sprite" src="assets/sprites/pokemon-sv/{{ store.leftPokemon().name }}.png" />
       </div>
-
       <div class="team-tab" [ngClass]="{ 'active-tab': activeSide() === 'right' }" (click)="activateRightPokemon()">
         <img class="tab-sprite" src="assets/sprites/pokemon-sv/{{ store.rightPokemon().name }}.png" />
       </div>
@@ -12,35 +11,45 @@
   </div>
 
   <div #scrollContainer class="scrollable-content" [class.field-tab]="activeBottomTab() === 'field'">
-    <div [hidden]="activeBottomTab() !== 'results'">
+    <div [hidden]="activeBottomTab() !== 'results'" [class.tab-active]="activeBottomTab() === 'results'">
       <div class="attacker-build">
-        <div class="attacker-header">
-          <app-pokemon-combo-box [pokemonId]="currentPokemon().id" label="" />
-
-          <div class="attacker-actions">
-            <app-import-pokemon-button (pokemonImportedEvent)="importPokemon($event)" />
-            <app-export-pokemon-button [pokemonId]="currentPokemon().id" />
-          </div>
-        </div>
-
-        <app-pokemon-build-mobile [pokemonId]="currentPokemon().id" [showOptimization]="!isCurrentPokemonAttacker()" [optimizedEvs]="optimizedEvs()" [optimizedNature]="optimizedNature()" [optimizationStatus]="optimizationStatus()" (optimizeRequested)="handleOptimizeRequest($event)" (optimizationApplied)="handleOptimizationApplied()" (optimizationDiscarded)="handleOptimizationDiscarded()" (evsCleared)="handleEvsCleared()" />
+        <app-pokemon-build-mobile
+          [pokemonId]="currentPokemon().id"
+          [showOptimization]="!isCurrentPokemonAttacker()"
+          [optimizedEvs]="optimizedEvs()"
+          [optimizedNature]="optimizedNature()"
+          [optimizationStatus]="optimizationStatus()"
+          [showDelete]="false"
+          [manageTeamState]="false"
+          (pokemonImportedEvent)="importPokemon($event)"
+          (optimizeRequested)="handleOptimizeRequest($event)"
+          (optimizationApplied)="handleOptimizationApplied()"
+          (optimizationDiscarded)="handleOptimizationDiscarded()"
+          (evsCleared)="handleEvsCleared()" />
       </div>
 
       <div class="results-list">
         <div class="result-card">
-          <app-pokemon-card [damageResult]="damageResult()" [target]="target()" [isAttacker]="false" [rollLevelConfig]="rollLevelConfig()" [collapsible]="false" [showDeleteButton]="false" [expanded]="true" />
+          <app-pokemon-card
+            [damageResult]="damageResult()"
+            [target]="target()"
+            [rollLevelConfig]="rollLevelConfig()"
+            [isAttacker]="isCurrentPokemonAttacker()"
+            [collapsible]="false"
+            [expanded]="true"
+            (targetActivated)="activateRightPokemon()" />
         </div>
 
         <app-widget class="role-widget">
-          <mat-button-toggle-group class="button-group" [hideSingleSelectionIndicator]="true">
-            <mat-button-toggle [checked]="isCurrentPokemonAttacker()" (change)="toggleCurrentPokemonRole()">Attacker</mat-button-toggle>
-            <mat-button-toggle [checked]="!isCurrentPokemonAttacker()" (change)="toggleCurrentPokemonRole()">Defender</mat-button-toggle>
+          <mat-button-toggle-group class="button-group" [value]="isCurrentPokemonAttacker() ? 'attacker' : 'defender'" (change)="toggleCurrentPokemonRole()">
+            <mat-button-toggle value="attacker">Attacker</mat-button-toggle>
+            <mat-button-toggle value="defender">Defender</mat-button-toggle>
           </mat-button-toggle-group>
         </app-widget>
       </div>
     </div>
 
-    <div [hidden]="activeBottomTab() !== 'field'">
+    <div [hidden]="activeBottomTab() !== 'field'" [class.tab-active]="activeBottomTab() === 'field'">
       <app-widget class="settings-widget" [title]="'Settings'">
         <div class="field-configs">
           <div class="roll-config-section">
@@ -57,7 +66,6 @@
       <mat-icon>calculate</mat-icon>
       <span>Results</span>
     </div>
-
     <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'field' }" (click)="switchTab('field')">
       <mat-icon>settings</mat-icon>
       <span>Settings</span>

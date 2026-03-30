@@ -18,10 +18,9 @@
   gap: 1em;
 
   @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: center;
-    gap: 2em;
-    padding-bottom: 1em;
+    gap: 0.5em;
+    padding: 0.5em;
+    justify-content: flex-start;
   }
 }
 
@@ -70,8 +69,14 @@
   align-items: center;
   flex: 1;
   justify-content: space-around;
-  flex-wrap: wrap;
-  gap: 1em;
+  gap: 0.5em;
+
+  @media (max-width: 768px) {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.2em;
+    padding-left: 0.5em;
+  }
 }
 
 .tab {
@@ -82,11 +87,21 @@
   margin-top: 1em;
   margin-bottom: 1em;
   min-width: 8em;
+
+  @media (max-width: 768px) {
+    min-width: 0;
+    margin: 0;
+  }
 }
 
 .pokemon-score {
   margin-top: 1em;
   font-size: 1.3rem;
+
+  @media (max-width: 768px) {
+    margin-top: 0.6em;
+    font-size: 1.1rem;
+  }
 }
 
 .team-score {
@@ -94,11 +109,24 @@
   align-items: center;
   justify-content: center;
   min-height: 120px;
+
+  @media (max-width: 768px) {
+    min-height: 96px;
+
+    ::ng-deep app-donut-graphic svg {
+      width: 96px !important;
+      height: 96px !important;
+    }
+  }
 }
 
 .pokemon-image-small {
   width: 5em;
   height: auto;
+
+  @media (max-width: 768px) {
+    width: 4em;
+  }
 }
 
 .vgc-guide-link {

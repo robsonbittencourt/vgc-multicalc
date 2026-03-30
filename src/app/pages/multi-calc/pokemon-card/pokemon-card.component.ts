@@ -84,7 +84,10 @@ export class PokemonCardComponent {
   attackerSelector = computed(() => `select-attacker-${this.damageResult().attacker.displayName}`)
   secondAttackerSelector = computed(() => `select-second-attacker-${this.damageResult().secondAttacker?.displayName}`)
 
-  target = computed(() => {
+  isDondozo = computed(() => this.pokemonOnCard().name.startsWith("Dondozo"))
+  showStatusIconsRow = computed(() => this.isDondozo() || this.pokemonOnCard().isParadoxAbility)
+
+  effectiveTarget = computed(() => {
     if (this.targetInput()) return this.targetInput()!
 
     if (this.menuStore.oneVsManyActivated()) {
@@ -102,7 +105,7 @@ export class PokemonCardComponent {
 
   removePokemon(event: Event) {
     event.stopPropagation()
-    const updatedTargets = this.store.targets().filter(target => target.pokemon.id != this.target().pokemon.id)
+    const updatedTargets = this.store.targets().filter(target => target.pokemon.id != this.effectiveTarget().pokemon.id)
 
     this.store.updateTargets(updatedTargets)
     this.targetRemoved.emit()

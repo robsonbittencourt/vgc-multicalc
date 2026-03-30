@@ -121,11 +121,74 @@
 .result-label {
   font-weight: 500;
   color: var(--text-secondary);
-  font-size: 0.9em;
+  font-size: 1em;
 }
 
 .result-value {
   font-size: 1.8em;
   font-weight: 600;
   color: var(--text-strong);
+}
+
+@media (max-width: 768px) {
+  .container {
+    display: grid;
+    grid-template-areas:
+      "options result"
+      "inputs inputs";
+    grid-template-columns: 110px 1fr;
+    align-items: center;
+    gap: 1em 1em;
+    padding: 1em 0 0.5em 0;
+  }
+
+  .options-container {
+    grid-area: options;
+    width: 8em;
+  }
+
+  .select-wrapper {
+    width: 100%;
+  }
+
+  .inputs-container {
+    grid-area: inputs;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1em;
+    width: 100%;
+    margin-top: 1em;
+  }
+
+  .probability-input-wrapper {
+    max-width: none;
+  }
+
+  .suffix {
+    font-size: $font-size-mobile;
+    top: calc(0.2em + 1em + 6px + 0.5em);
+  }
+
+  .result-container {
+    grid-area: result;
+    justify-self: end;
+    min-width: 0;
+    padding: 0;
+    margin: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.2em;
+    width: auto;
+    box-sizing: border-box;
+  }
+
+  .result-label {
+    font-size: 0.9em;
+    color: var(--text-secondary);
+  }
+
+  .result-value {
+    font-size: 1.8em;
+  }
 }

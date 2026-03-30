@@ -1,30 +1,16 @@
 <div class="mobile-calc-container">
-  <div [hidden]="activeBottomTab() !== 'results'">
+  <div [hidden]="activeBottomTab() !== 'results'" [class.tab-active]="activeBottomTab() === 'results'">
     <app-team-tabs-mobile [(pokemonOnEditId)]="pokemonOnEditId" (memberAddedEvent)="focusPokemonComboBox()" />
   </div>
 
   <div #scrollContainer class="scrollable-content" [class.teams-tab]="activeBottomTab() === 'teams'" [class.field-tab]="activeBottomTab() === 'field'">
-    <div [hidden]="activeBottomTab() !== 'results'">
+    <div [hidden]="activeBottomTab() !== 'results'" [class.tab-active]="activeBottomTab() === 'results'">
       <div class="attacker-build">
-        <div class="attacker-header">
-          @if (effectiveEditingId()) {
-            <app-pokemon-combo-box [pokemonId]="effectiveEditingId()!" label="" />
-          }
-          <div class="attacker-actions">
-            @if (canImportPokemon() && teamMemberOnEdit()) {
-              <app-import-pokemon-button (pokemonImportedEvent)="importPokemon($event)" />
-            }
-            @if (effectiveEditingId() && !store.findPokemonById(effectiveEditingId()!).isDefault) {
-              <app-export-pokemon-button [pokemonId]="effectiveEditingId()!" />
-              @if (teamMemberOnEdit()) {
-                <div class="delete-pokemon" (click)="removeActivePokemon()" data-cy="delete-team-member">
-                  <mat-icon class="icon">delete</mat-icon>
-                  <label>Delete</label>
-                </div>
-              }
-            }
+        @if (shouldShowPokemonSelect()) {
+          <div class="pokemon-select-only">
+            <app-pokemon-combo-box #pokemonSelectComboBox [pokemonId]="effectiveEditingId()!" />
           </div>
-        </div>
+        }
         @if (shouldShowBuild()) {
           <app-pokemon-build-mobile
             [pokemonId]="effectiveEditingId()!"
@@ -33,7 +19,8 @@
             [optimizedNature]="optimizedNature()"
             (optimizeRequested)="handleOptimizeRequest($event)"
             (optimizationApplied)="handleOptimizationApplied()"
-            (optimizationDiscarded)="handleOptimizationDiscarded()" />
+            (optimizationDiscarded)="handleOptimizationDiscarded()"
+            (pokemonDeleted)="pokemonOnEditId.set($event)" />
         }
       </div>
 
@@ -73,11 +60,11 @@
       </div>
     </div>
 
-    <div [hidden]="activeBottomTab() !== 'teams'">
+    <div [hidden]="activeBottomTab() !== 'teams'" [class.tab-active]="activeBottomTab() === 'teams'">
       <app-teams-mobile (pokemonSelected)="pokemonOnEditId.set($event)" (useTeam)="onTeamSelected($event)" />
     </div>
 
-    <div [hidden]="activeBottomTab() !== 'field'">
+    <div [hidden]="activeBottomTab() !== 'field'" [class.tab-active]="activeBottomTab() === 'field'">
       <app-widget class="settings-widget" [title]="'Settings'">
         <div class="field-configs">
           <div class="roll-config-section">

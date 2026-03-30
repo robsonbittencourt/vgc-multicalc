@@ -1,0 +1,118 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background);
+  height: calc(100dvh - 4em);
+  overflow: hidden;
+}
+
+.mobile-calc-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.scrollable-content {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 6em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75em;
+
+  & > * {
+    &:has(app-general-probability),
+    &:has(app-team-probability) {
+      margin-top: 0.75em;
+    }
+  }
+}
+
+.tab-active {
+  animation: tab-fade-in 0.2s ease-out;
+}
+
+.mobile-calc-container > app-team-tabs-mobile {
+  animation: tab-fade-in 0.2s ease-out;
+}
+
+@keyframes tab-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.bottom-nav {
+  display: flex;
+  background-color: var(--background);
+  border-top: 1px solid var(--widget-border);
+  flex-shrink: 0;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4em;
+  z-index: 20;
+}
+
+.bottom-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding: 0.5em;
+  cursor: pointer;
+  gap: 0.1em;
+  font-size: 0.78em;
+  color: var(--text);
+  opacity: 0.5;
+  transition: opacity 0.15s ease;
+
+  mat-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    font-size: 24px;
+
+    &[svgIcon] {
+      transform: translateY(1px);
+    }
+  }
+}
+
+.bottom-tab:hover {
+  opacity: 0.8;
+}
+
+.bottom-tab:active {
+  transform: scale(0.95);
+  background-color: var(--highlight);
+  border-radius: 8px;
+}
+
+.active-bottom-tab {
+  opacity: 1;
+  color: var(--primary);
+  border-top: 2px solid var(--primary);
+}
+
+::ng-deep {
+  app-general-probability,
+  app-combined-probability,
+  app-team-probability,
+  app-pokemon-probability {
+    display: block;
+    width: auto;
+    margin-bottom: 0.75em;
+    padding: 0 0.75em;
+  }
+}
