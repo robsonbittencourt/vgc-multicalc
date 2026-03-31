@@ -1,113 +1,27 @@
-:host {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  min-height: 0;
-}
-
-:host ::ng-deep app-widget {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  min-height: 0;
-}
-
-:host ::ng-deep app-widget .container {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  min-height: 0;
-}
-
-:host ::ng-deep app-widget .header {
-  flex-shrink: 0;
-  min-height: 2em;
-  display: flex;
-  align-items: center;
-}
-
-@media (max-width: 768px) {
-  :host,
-  :host ::ng-deep app-widget,
-  :host ::ng-deep app-widget .container {
-    height: auto;
-    min-height: auto;
-  }
-}
-
-.mobile-widgets-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75em;
-}
-
-.insights-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3.5em;
-  padding: 0.5em 0;
-  position: relative;
-  flex: 1;
-  min-height: 0;
-  align-content: start;
-
-  @media (max-width: 768px) {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5em;
-  }
-}
-
-.insights-container::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 0;
-  bottom: 0;
-  width: 0.0625em;
-  background-color: var(--text);
-  opacity: 0.3;
-  transform: translateX(-50%);
-  pointer-events: none;
-
-  @media (max-width: 768px) {
-    display: none;
-  }
-}
-
-.insight-section {
-  display: flex;
-  flex-direction: column;
-  gap: 0.8em;
-}
-
-.section-title {
-  color: var(--text);
-  margin: 0;
-}
-
 .offensive-content {
   display: grid;
   grid-template-columns: 1fr auto;
-  grid-template-rows: repeat(4, auto);
-  gap: 0.8em;
+  grid-template-rows: auto auto;
+  column-gap: 0.4em;
+  row-gap: 0.25em;
   align-items: center;
+  margin-top: 1em;
 
-  @media (max-width: 768px) {
-    gap: 0.4em;
+  &:has(.pokemon-row-3),
+  &:has(.pokemon-row-4) {
+    grid-template-rows: repeat(4, auto);
+    row-gap: 0.5em;
   }
 }
 
 .defensive-content {
   display: grid;
   grid-template-columns: 1fr auto;
-  grid-template-rows: repeat(4, auto);
-  gap: 0.8em;
+  grid-template-rows: repeat(5, auto);
+  column-gap: 0.4em;
+  row-gap: 0.5em;
   align-items: center;
-
-  @media (max-width: 768px) {
-    gap: 0.4em;
-  }
+  margin-top: 1em;
 }
 
 .pokemon-row-1 {
@@ -121,12 +35,12 @@
 }
 
 .pokemon-row-3 {
-  grid-row: 3;
+  grid-row: 4;
   grid-column: 1;
 }
 
 .pokemon-row-4 {
-  grid-row: 4;
+  grid-row: 5;
   grid-column: 1;
 }
 
@@ -141,34 +55,14 @@
 
 .summary-weakness,
 .summary-not-very-effective {
-  grid-row: 3 / 5;
+  grid-row: 4 / 6;
   grid-column: 2;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.defensive-separator-line {
-  grid-column: 1 / 3;
-  grid-row: 3;
-  height: 1px;
-  background-color: var(--widget-border);
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
-}
 
-@media (max-width: 768px) {
-  .pokemon-row-3 {
-    grid-row: 4;
-  }
-  .pokemon-row-4 {
-    grid-row: 5;
-  }
-  .summary-weakness,
-  .summary-not-very-effective {
-    grid-row: 4 / 6;
-  }
-}
 
 .most-super-effective-type,
 .most-not-very-effective-type,
@@ -179,17 +73,12 @@
   align-items: center;
   justify-content: center;
   gap: 0.3em;
-  min-width: 10em;
+  min-width: 8.5em;
   max-width: 13.75em;
   align-self: center;
   border-radius: 0.25em;
-  padding: 0.8em;
+  padding: 0.65em;
   background-color: var(--highlight);
-
-  @media (max-width: 768px) {
-    min-width: 8.5em;
-    padding: 0.65em;
-  }
 }
 
 :host ::ng-deep .most-super-effective-type app-type-combo-box .container,
@@ -296,13 +185,9 @@
 }
 
 .pokemon-icon {
-  width: 4em;
+  width: 3.5em;
   height: auto;
   display: block;
-
-  @media (max-width: 768px) {
-    width: 3.5em;
-  }
 }
 
 .empty-message {

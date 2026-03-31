@@ -17,6 +17,7 @@ import { SimpleCalcComponent } from "@pages/simple-calc/simple-calc/simple-calc.
 import { SpeedCalculatorMobileComponent } from "@pages/speed-calc/speed-calculator-mobile/speed-calculator-mobile.component"
 import { SpeedCalculatorComponent } from "@pages/speed-calc/speed-calculator/speed-calculator.component"
 import { TypeCalculatorComponent } from "@pages/type-calc/type-calculator/type-calculator.component"
+import { TypeCalcMobileComponent } from "@pages/type-calc/type-calc-mobile/type-calc-mobile.component"
 
 @Component({
   selector: "app-main",
@@ -35,7 +36,7 @@ import { TypeCalculatorComponent } from "@pages/type-calc/type-calculator/type-c
     MultiCalcMobileComponent,
     SpeedCalculatorMobileComponent,
     ProbabilityCalcMobileComponent,
-    HowToUseComponent
+    TypeCalcMobileComponent
   ]
 })
 export class MainComponent implements OnInit {

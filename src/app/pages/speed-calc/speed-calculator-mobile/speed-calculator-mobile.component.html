@@ -3,7 +3,7 @@
     <app-team-tabs-mobile [(pokemonOnEditId)]="pokemonOnEditId" (memberAddedEvent)="focusPokemonComboBox()" />
   </div>
 
-  <div #scrollContainer class="scrollable-content" [class.teams-tab]="activeBottomTab() === 'teams'">
+  <div #scrollContainer class="scrollable-content" [class.teams-tab]="activeBottomTab() === 'teams'" (scroll)="onScroll($event)">
     @if ((activeBottomTab() === "main" || activeBottomTab() === "speed-insights") && pokemon()) {
       <div class="attacker-header">
         <app-pokemon-combo-box [pokemonId]="pokemonId()" label="" />
@@ -61,7 +61,7 @@
     </div>
 
     <div [hidden]="activeBottomTab() !== 'settings'" [class.tab-active]="activeBottomTab() === 'settings'">
-      <div class="settings-content">
+      <div class="settings-content widget-list">
         <app-widget class="settings-card" title="Filters">
           <div class="options-grid">
             <app-input-select label="Regulation" [allValues]="regulationsList" [value]="optionsStore.regulation()" (valueChange)="updateRegulation($event)" />
@@ -90,7 +90,7 @@
     </div>
   </div>
 
-  <div class="bottom-nav">
+  <div class="bottom-nav" [class.hidden]="!showBottomNav()">
     <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'main' }" (click)="switchTab('main')">
       <mat-icon>bolt</mat-icon>
       <span>Speed</span>

@@ -10,7 +10,7 @@
     </div>
   </div>
 
-  <div #scrollContainer class="scrollable-content" [class.field-tab]="activeBottomTab() === 'field'">
+  <div #scrollContainer class="scrollable-content" [class.field-tab]="activeBottomTab() === 'field'" (scroll)="onScroll($event)">
     <div [hidden]="activeBottomTab() !== 'results'" [class.tab-active]="activeBottomTab() === 'results'">
       <div class="attacker-build">
         <app-pokemon-build-mobile
@@ -54,7 +54,7 @@
     </div>
   </div>
 
-  <div class="bottom-nav">
+  <div class="bottom-nav" [class.hidden]="!showBottomNav()">
     <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'results' }" (click)="switchTab('results')">
       <mat-icon>calculate</mat-icon>
       <span>Results</span>

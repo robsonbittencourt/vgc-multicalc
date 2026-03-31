@@ -1,4 +1,4 @@
-import { NgClass, NgTemplateOutlet } from "@angular/common"
+import { NgClass } from "@angular/common"
 import { Component, computed, inject, input } from "@angular/core"
 import { WidgetComponent } from "@basic/widget/widget.component"
 import { TypeComboBoxComponent } from "@features/pokemon-build/type-combo-box/type-combo-box.component"
@@ -10,17 +10,16 @@ import { PokemonType } from "@lib/types"
 import { TypeName } from "@robsonbittencourt/calc/dist/data/interface"
 
 @Component({
-  selector: "app-type-coverage-insights",
-  imports: [WidgetComponent, NgClass, TypeComboBoxComponent, NgTemplateOutlet],
-  templateUrl: "./type-coverage-insights.component.html",
-  styleUrl: "./type-coverage-insights.component.scss"
+  selector: "app-type-coverage-insights-mobile",
+  imports: [WidgetComponent, NgClass, TypeComboBoxComponent],
+  templateUrl: "./type-coverage-insights-mobile.component.html",
+  styleUrl: "./type-coverage-insights-mobile.component.scss"
 })
-export class TypeCoverageInsightsComponent {
+export class TypeCoverageInsightsMobileComponent {
   store = inject(CalculatorStore)
   insightsService = inject(TypeCoverageInsightsService)
 
   secondTeam = input<Team | null>(null)
-  isMobile = input<boolean>(false)
 
   team = computed(() => this.store.team())
 

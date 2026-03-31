@@ -3,7 +3,7 @@
     <app-team-tabs-mobile [(pokemonOnEditId)]="pokemonOnEditId" (memberAddedEvent)="focusPokemonComboBox()" />
   </div>
 
-  <div #scrollContainer class="scrollable-content" [class.teams-tab]="activeBottomTab() === 'teams'" [class.field-tab]="activeBottomTab() === 'field'">
+  <div #scrollContainer class="scrollable-content" [class.teams-tab]="activeBottomTab() === 'teams'" [class.field-tab]="activeBottomTab() === 'field'" (scroll)="onScroll($event)">
     <div [hidden]="activeBottomTab() !== 'results'" [class.tab-active]="activeBottomTab() === 'results'">
       <div class="attacker-build">
         @if (shouldShowPokemonSelect()) {
@@ -65,19 +65,21 @@
     </div>
 
     <div [hidden]="activeBottomTab() !== 'field'" [class.tab-active]="activeBottomTab() === 'field'">
-      <app-widget class="settings-widget" [title]="'Settings'">
-        <div class="field-configs">
-          <div class="roll-config-section">
-            <app-roll-config [(config)]="rollLevelConfig" (rollLevelChange)="handleRollLevelChange($event)" />
+      <div class="widget-list">
+        <app-widget class="settings-widget" [title]="'Settings'">
+          <div class="field-configs">
+            <div class="roll-config-section">
+              <app-roll-config [(config)]="rollLevelConfig" (rollLevelChange)="handleRollLevelChange($event)" />
+            </div>
+            <mat-slide-toggle [checked]="order()" (change)="toggleOrder()" [labelPosition]="'before'">Order by Damage</mat-slide-toggle>
           </div>
-          <mat-slide-toggle [checked]="order()" (change)="toggleOrder()" [labelPosition]="'before'">Order by Damage</mat-slide-toggle>
-        </div>
-      </app-widget>
-      <app-field />
+        </app-widget>
+        <app-field />
+      </div>
     </div>
   </div>
 
-  <div class="bottom-nav">
+  <div class="bottom-nav" [class.hidden]="!showBottomNav()">
     <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'results' }" (click)="switchTab('results')">
       <mat-icon>calculate</mat-icon>
       <span>Results</span>

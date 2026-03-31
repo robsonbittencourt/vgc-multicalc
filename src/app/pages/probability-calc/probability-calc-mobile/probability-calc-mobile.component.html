@@ -3,15 +3,19 @@
     <app-team-tabs-mobile [(pokemonOnEditId)]="pokemonOnEditId" />
   </div>
 
-  <div #scrollContainer class="scrollable-content" [class.teams-tab]="activeBottomTab() === 'teams'">
-    <div [hidden]="activeBottomTab() !== 'general'" [class.tab-active]="activeBottomTab() === 'general'">
-      <app-general-probability />
+  <div #scrollContainer class="scrollable-content" [class.teams-tab]="activeBottomTab() === 'teams'" (scroll)="onScroll($event)">
+    <div [hidden]="activeBottomTab() !== 'detailed'" [class.tab-active]="activeBottomTab() === 'detailed'">
+      <div class="mobile-widget-spacing">
+        <app-pokemon-probability />
+        <app-team-probability />
+      </div>
     </div>
 
-    <div [hidden]="activeBottomTab() !== 'detailed'" [class.tab-active]="activeBottomTab() === 'detailed'">
-      <app-team-probability />
-      <app-pokemon-probability [isMobile]="true" />
-      <app-combined-probability />
+    <div [hidden]="activeBottomTab() !== 'general'" [class.tab-active]="activeBottomTab() === 'general'">
+      <div class="mobile-widget-spacing">
+        <app-general-probability />
+        <app-combined-probability />
+      </div>
     </div>
 
     <div [hidden]="activeBottomTab() !== 'build'" [class.tab-active]="activeBottomTab() === 'build'">
@@ -23,11 +27,11 @@
     </div>
 
     <div [hidden]="activeBottomTab() !== 'teams'" [class.tab-active]="activeBottomTab() === 'teams'">
-      <app-teams-mobile (pokemonSelected)="pokemonOnEditId.set($event)" (useTeam)="onTeamSelected($event)" />
+      <app-teams-mobile [allowSecondTeamSelection]="false" (pokemonSelected)="pokemonOnEditId.set($event)" (useTeam)="onTeamSelected($event)" />
     </div>
   </div>
 
-  <div class="bottom-nav">
+  <div class="bottom-nav" [class.hidden]="!showBottomNav()">
     <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'detailed' }" (click)="switchTab('detailed')">
       <mat-icon>analytics</mat-icon>
       <span>Detailed</span>

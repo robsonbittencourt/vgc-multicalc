@@ -9,19 +9,19 @@ import { AutomaticFieldService } from "@lib/automatic-field-service"
 import { TeamTabsMobileComponent } from "@features/team/team-tabs-mobile/team-tabs-mobile.component"
 import { TeamsMobileComponent } from "@features/team/teams-mobile/teams-mobile.component"
 import { PokemonBuildMobileComponent } from "@features/pokemon-build/pokemon-build-mobile/pokemon-build-mobile.component"
-import { GeneralProbabilityComponent } from "@app/pages/probability-calc/general-probability/general-probability.component"
-import { CombinedProbabilityComponent } from "@app/pages/probability-calc/combined-probability/combined-probability.component"
-import { PokemonProbabilityComponent } from "@app/pages/probability-calc/pokemon-probability/pokemon-probability.component"
-import { TeamProbabilityComponent } from "@app/pages/probability-calc/team-probability/team-probability.component"
+import { TypeCoverageInsightsMobileComponent } from "@pages/type-calc/type-coverage-insights-mobile/type-coverage-insights-mobile.component"
+import { OffensiveCoverageMobileComponent } from "@pages/type-calc/offensive-coverage-mobile/offensive-coverage-mobile.component"
+import { DefensiveCoverageMobileComponent } from "@pages/type-calc/defensive-coverage-mobile/defensive-coverage-mobile.component"
+import { Team } from "@lib/model/team"
 
 @Component({
-  selector: "app-probability-calc-mobile",
-  templateUrl: "./probability-calc-mobile.component.html",
-  styleUrl: "./probability-calc-mobile.component.scss",
-  imports: [NgClass, MatIcon, TeamTabsMobileComponent, TeamsMobileComponent, PokemonBuildMobileComponent, GeneralProbabilityComponent, CombinedProbabilityComponent, PokemonProbabilityComponent, TeamProbabilityComponent],
-  providers: [FieldStore, AutomaticFieldService, { provide: FIELD_CONTEXT, useValue: "probability" }]
+  selector: "app-type-calc-mobile",
+  templateUrl: "./type-calc-mobile.component.html",
+  styleUrl: "./type-calc-mobile.component.scss",
+  imports: [NgClass, MatIcon, TeamTabsMobileComponent, TeamsMobileComponent, PokemonBuildMobileComponent, TypeCoverageInsightsMobileComponent, OffensiveCoverageMobileComponent, DefensiveCoverageMobileComponent],
+  providers: [FieldStore, AutomaticFieldService, { provide: FIELD_CONTEXT, useValue: "type" }]
 })
-export class ProbabilityCalcMobileComponent {
+export class TypeCalcMobileComponent {
   @ViewChild("scrollContainer") scrollContainer?: ElementRef<HTMLDivElement>
   store = inject(CalculatorStore)
 
@@ -31,11 +31,13 @@ export class ProbabilityCalcMobileComponent {
     iconRegistry.addSvgIcon("pokeball", sanitizer.bypassSecurityTrustResourceUrl("assets/icons/pokeball.svg"))
   }
 
-  activeBottomTab = signal<"general" | "detailed" | "teams" | "build">("detailed")
+  activeBottomTab = signal<"insights" | "coverage" | "teams" | "build">("coverage")
   showBottomNav = signal(true)
   private scrollPositions = new Map<string, number>()
   private lastScrollTop = 0
   pokemonOnEditId = signal<string | null>(null)
+
+  secondTeam = signal<Team | null>(null)
 
   activePokemonId = computed(() => {
     const members = this.store.team().teamMembers
@@ -46,9 +48,16 @@ export class ProbabilityCalcMobileComponent {
     return activeMember ? activeMember.pokemon.id : members[0].pokemon.id
   })
 
+  isPokemonDefault = computed(() => {
+    const id = this.effectiveEditingId()
+    if (!id) return true
+    const p = this.store.findPokemonById(id)
+    return p ? p.isDefault : true
+  })
+
   effectiveEditingId = computed(() => this.pokemonOnEditId() || this.activePokemonId())
 
-  switchTab(newTab: "general" | "detailed" | "teams" | "build") {
+  switchTab(newTab: "insights" | "coverage" | "teams" | "build") {
     const currentTab = this.activeBottomTab()
     if (currentTab === newTab) return
 
@@ -68,7 +77,11 @@ export class ProbabilityCalcMobileComponent {
 
   onTeamSelected(pokemonId: string) {
     this.pokemonOnEditId.set(pokemonId)
-    this.switchTab("detailed")
+    this.switchTab("insights")
+  }
+
+  onSecondTeamSelected(team: Team | null) {
+    this.secondTeam.set(team)
   }
 
   onScroll(event: Event) {

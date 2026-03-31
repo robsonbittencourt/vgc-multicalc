@@ -12,12 +12,12 @@ type MenuState = {
 }
 
 const initialState: MenuState = {
-  oneVsOneActivated: true,
+  oneVsOneActivated: false,
   oneVsManyActivated: false,
   manyVsOneActivated: false,
   speedCalculatorActivated: false,
   probabilityCalcActivated: false,
-  typeCalcActivated: false,
+  typeCalcActivated: true,
   howToUseActivated: false
 }
 

@@ -54,4 +54,8 @@
   @if (!isDesktopDevice() && menuStore.howToUseActivated()) {
     <app-how-to-use />
   }
+
+  @if (!isDesktopDevice() && menuStore.typeCalcActivated()) {
+    <app-type-calc-mobile />
+  }
 </div>

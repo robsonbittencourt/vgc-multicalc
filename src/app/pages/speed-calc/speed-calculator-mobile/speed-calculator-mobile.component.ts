@@ -71,7 +71,9 @@ export class SpeedCalculatorMobileComponent {
   private automaticFieldService = inject(AutomaticFieldService)
 
   activeBottomTab = signal<"main" | "speed-insights" | "settings" | "teams">("main")
+  showBottomNav = signal(true)
   private scrollPositions = new Map<string, number>()
+  private lastScrollTop = 0
   pokemonOnEditId = signal<string | null>(null)
 
   modifiedSpe = signal<number>(0)
@@ -157,6 +159,7 @@ export class SpeedCalculatorMobileComponent {
     this.scrollPositions.set(currentTab, currentScroll)
 
     this.activeBottomTab.set(newTab)
+    this.showBottomNav.set(true)
 
     setTimeout(() => {
       const targetScroll = this.scrollPositions.get(newTab) || 0
@@ -212,5 +215,18 @@ export class SpeedCalculatorMobileComponent {
     setTimeout(() => {
       this.pokemonComboBox()?.focus()
     }, 50)
+  }
+
+  onScroll(event: Event) {
+    const target = event.target as HTMLElement
+    const currentScroll = target.scrollTop
+
+    if (currentScroll > this.lastScrollTop && currentScroll > 50) {
+      this.showBottomNav.set(false)
+    } else if (currentScroll < this.lastScrollTop) {
+      this.showBottomNav.set(true)
+    }
+
+    this.lastScrollTop = currentScroll
   }
 }

@@ -278,3 +278,30 @@ body {
 .menu-open {
   overflow: hidden !important;
 }
+
+.widget-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75em;
+}
+
+.mobile-widget-spacing {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.75em !important;
+  padding: 0.75em !important;
+  padding-bottom: 0 !important;
+
+  > * {
+    display: block !important;
+    width: auto !important;
+  }
+}
+
+.bottom-nav {
+  transition: transform 0.3s ease-in-out !important;
+
+  &.hidden {
+    transform: translateY(100%) !important;
+  }
+}

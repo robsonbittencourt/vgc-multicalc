@@ -22,8 +22,8 @@
   gap: 0.75em;
 
   & > * {
-    &:has(app-general-probability),
-    &:has(app-team-probability) {
+    &:has(app-type-coverage-insights-mobile),
+    &:has(app-offensive-coverage-mobile) {
       margin-top: 0.75em;
     }
   }
@@ -105,11 +105,25 @@
   border-top: 2px solid var(--primary);
 }
 
+.empty-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: var(--text-darker);
+  font-size: 0.9em;
+  padding: 3em 1em;
+  font-weight: 500;
+  border-radius: 8px;
+  background-color: var(--widget-background);
+  border: 1px solid var(--widget-border);
+  margin: 0.75em;
+}
+
 ::ng-deep {
-  app-general-probability,
-  app-combined-probability,
-  app-team-probability,
-  app-pokemon-probability {
+  app-type-coverage-insights-mobile,
+  app-offensive-coverage-mobile,
+  app-defensive-coverage-mobile {
     display: block;
     width: auto;
     padding: 0 0.75em;
