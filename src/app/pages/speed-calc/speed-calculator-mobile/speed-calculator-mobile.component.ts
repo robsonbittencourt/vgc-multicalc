@@ -1,5 +1,5 @@
-import { Component, computed, effect, ElementRef, inject, signal, ViewChild } from "@angular/core"
 import { NgClass } from "@angular/common"
+import { Component, computed, effect, ElementRef, inject, signal, ViewChild } from "@angular/core"
 import { MatIcon, MatIconRegistry } from "@angular/material/icon"
 import { DomSanitizer } from "@angular/platform-browser"
 import { InputAutocompleteComponent } from "@basic/input-autocomplete/input-autocomplete.component"
@@ -10,9 +10,9 @@ import { FieldStore } from "@data/store/field-store"
 import { SpeedCalcOptionsStore } from "@data/store/speed-calc-options-store"
 import { FIELD_CONTEXT } from "@data/store/tokens/field-context.token"
 import { FieldComponent } from "@features/field/field.component"
+import { PokemonBuildMobileComponent } from "@features/pokemon-build/pokemon-build-mobile/pokemon-build-mobile.component"
 import { TeamTabsMobileComponent } from "@features/team/team-tabs-mobile/team-tabs-mobile.component"
 import { TeamsMobileComponent } from "@features/team/teams-mobile/teams-mobile.component"
-import { PokemonBuildMobileComponent } from "@features/pokemon-build/pokemon-build-mobile/pokemon-build-mobile.component"
 import { AutomaticFieldService } from "@lib/automatic-field-service"
 import { Pokemon } from "@lib/model/pokemon"
 import { getFinalSpeed } from "@lib/smogon/stat-calculator/spe/modified-spe"
@@ -124,7 +124,7 @@ export class SpeedCalculatorMobileComponent {
     })
   }
 
-  regulationsList: Regulation[] = ["I", "F"]
+  regulationsList: Regulation[] = ["I"]
 
   topUsageList: string[] = ["30", "60", "100", "125", "All"]
 

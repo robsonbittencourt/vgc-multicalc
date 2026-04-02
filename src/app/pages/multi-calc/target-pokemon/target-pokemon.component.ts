@@ -87,7 +87,7 @@ export class TargetPokemonComponent {
       .sort()
   )
 
-  regulationsList: Regulation[] = ["I", "F"]
+  regulationsList: Regulation[] = ["I"]
   order = signal(true)
 
   onMetaClick() {

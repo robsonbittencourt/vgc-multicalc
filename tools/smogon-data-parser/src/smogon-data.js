@@ -1,7 +1,7 @@
 import { Generations, Move } from "@robsonbittencourt/calc"
 import axios from "axios"
 
-const LINE_SEPARATOR = "+----------------------------------------+"
+export const LINE_SEPARATOR = "+----------------------------------------+"
 const POKEMON_QUANTITY = 64
 
 export async function smogonUsageList(date, reg) {
@@ -25,19 +25,27 @@ export async function getSmogonData(date, reg) {
 }
 
 export function parseSmogonData(data) {
-  const pokemon = data
-    .split(` ${LINE_SEPARATOR} \n ${LINE_SEPARATOR} `)
+  const pokemonBlocks = splitSmogonDataIntoBlocks(data)
+  return pokemonBlocks.map(p => parsePokemonData(p))
+}
+
+export function splitSmogonDataIntoBlocks(data) {
+  return data
+    .split(/\n\s*\+----------------------------------------\+\s*\n\s*\+----------------------------------------\+\s*\n/)
     .map(it => {
-      if (it.startsWith("+")) {
-        it += LINE_SEPARATOR
-        return it
-      } else {
-        return LINE_SEPARATOR + it
+      let cleaned = it.trim()
+
+      if (!cleaned.startsWith(LINE_SEPARATOR)) {
+        cleaned = LINE_SEPARATOR + "\n" + cleaned
       }
+
+      if (!cleaned.endsWith(LINE_SEPARATOR)) {
+        cleaned = cleaned + "\n" + LINE_SEPARATOR
+      }
+
+      return cleaned
     })
     .slice(0, POKEMON_QUANTITY)
-
-  return pokemon.map(p => parsePokemonData(p))
 }
 
 function parsePokemonData(data) {
@@ -55,12 +63,18 @@ function parsePokemonData(data) {
   return { name, teraType, ability, items, nature, evs, moves }
 }
 
-function extractSections(data) {
+export function extractSections(data) {
   return data
     .split(LINE_SEPARATOR)
-    .filter(it => it != "" && it != " ")
-    .map(it => it.replaceAll("| ", ""))
     .map(it => it.trim())
+    .filter(it => it !== "")
+    .map(it =>
+      it
+        .split("\n")
+        .map(line => line.replace(/^\|\s?/, "").replace(/\s?\|$/, ""))
+        .join("\n")
+        .trim()
+    )
 }
 
 function extractName(sections) {

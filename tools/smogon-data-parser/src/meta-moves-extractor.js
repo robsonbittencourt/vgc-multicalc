@@ -2,11 +2,10 @@ import axios from "axios"
 import fs from "fs"
 import path from "path"
 import { fileURLToPath } from "url"
+import { LINE_SEPARATOR, splitSmogonDataIntoBlocks, extractSections } from "./smogon-data.js"
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
-
-const LINE_SEPARATOR = "+----------------------------------------+"
 
 export async function extractMetaMoves(date, regulation) {
   const metaMovesMap = await buildMetaMovesMap(date, regulation)
@@ -18,7 +17,7 @@ async function buildMetaMovesMap(date, regulation) {
 
   try {
     const year = date.substring(0, date.indexOf("-"))
-    const response = await axios.get(`https://www.smogon.com/stats/${date}/moveset/gen9vgc2025reg${regulation}bo3-1760.txt`)
+    const response = await axios.get(`https://www.smogon.com/stats/${date}/moveset/gen9vgc${year}reg${regulation}bo3-1760.txt`)
     const pokemonDataList = parseSmogonMovesData(response.data)
 
     pokemonDataList.forEach(({ name, moves }) => {
@@ -34,20 +33,10 @@ async function buildMetaMovesMap(date, regulation) {
 }
 
 function parseSmogonMovesData(data) {
-  const pokemonBlocks = data.split(` ${LINE_SEPARATOR} \n ${LINE_SEPARATOR} `).map(it => {
-    if (it.startsWith("+")) {
-      return it + LINE_SEPARATOR
-    } else {
-      return LINE_SEPARATOR + it
-    }
-  })
+  const pokemonBlocks = splitSmogonDataIntoBlocks(data)
 
-  return pokemonBlocks.slice(0, 64).map(block => {
-    const sections = block
-      .split(LINE_SEPARATOR)
-      .filter(it => it != "" && it != " ")
-      .map(it => it.replaceAll("| ", ""))
-      .map(it => it.trim())
+  return pokemonBlocks.map(block => {
+    const sections = extractSections(block)
 
     const name = sections[0]
     const moves = extractAllMovesFromSection(sections[5])

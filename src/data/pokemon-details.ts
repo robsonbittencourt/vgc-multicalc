@@ -113,7 +113,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "trickroom",
       "wish"
     ],
-    metaMoves: ["dazzlinggleam", "icywind", "moonblast", "protect", "shadowball", "taunt"],
+    metaMoves: ["icywind", "moonblast", "protect", "shadowball", "taunt", "thunderwave"],
     group: "Meta"
   },
   urshifurapidstrike: {
@@ -269,7 +269,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "partingshot",
       "powertrip"
     ],
-    metaMoves: ["fakeout", "flareblitz", "helpinghand", "knockoff", "partingshot", "uturn"],
+    metaMoves: ["fakeout", "flareblitz", "helpinghand", "knockoff", "partingshot", "uturn", "willowisp"],
     group: "Meta"
   },
   ragingbolt: {
@@ -332,7 +332,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "wildcharge",
       "zapcannon"
     ],
-    metaMoves: ["dracometeor", "dragonpulse", "protect", "thunderbolt", "thunderclap"],
+    metaMoves: ["dracometeor", "dragonpulse", "protect", "snarl", "thunderbolt", "thunderclap"],
     group: "Meta"
   },
   landorus: {
@@ -394,7 +394,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "uturn",
       "weatherball"
     ],
-    metaMoves: ["earthpower", "protect", "sandsearstorm", "sludgebomb", "substitute", "taunt"],
+    metaMoves: ["earthpower", "protect", "sandsearstorm", "sludgebomb", "taunt"],
     group: "Meta"
   },
   rillaboom: {
@@ -527,7 +527,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "terablast",
       "throatchop"
     ],
-    metaMoves: ["crunch", "iceshard", "icespinner", "iciclecrash", "protect", "ruination", "suckerpunch", "taunt"],
+    metaMoves: ["crunch", "icespinner", "iciclecrash", "icywind", "protect", "ruination", "suckerpunch", "taunt"],
     group: "Meta"
   },
   ogerponwellspring: {
@@ -597,7 +597,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "woodhammer",
       "zenheadbutt"
     ],
-    metaMoves: ["followme", "hornleech", "ivycudgel", "spikyshield", "woodhammer"],
+    metaMoves: ["followme", "hornleech", "ivycudgel", "spikyshield", "taunt", "woodhammer"],
     group: "Meta"
   },
   ogerponhearthflame: {
@@ -732,7 +732,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "uturn",
       "weatherball"
     ],
-    metaMoves: ["bleakwindstorm", "protect", "tailwind", "taunt"],
+    metaMoves: ["bleakwindstorm", "protect", "raindance", "tailwind", "taunt"],
     group: "Meta"
   },
   amoonguss: {
@@ -854,7 +854,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "wickedblow",
       "zenheadbutt"
     ],
-    metaMoves: ["closecombat", "suckerpunch", "uturn", "wickedblow"],
+    metaMoves: ["closecombat", "detect", "suckerpunch", "uturn", "wickedblow"],
     group: "Meta"
   },
   farigiraf: {
@@ -942,7 +942,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "wish",
       "allyswitch"
     ],
-    metaMoves: ["foulplay", "helpinghand", "lowkick", "nastyplot", "psychic", "psychicnoise", "roar", "trickroom", "twinbeam"],
+    metaMoves: ["foulplay", "helpinghand", "psychic", "psychicnoise", "roar", "thunderwave", "trickroom"],
     group: "Meta"
   },
   gougingfire: {
@@ -1158,7 +1158,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "dragonbreath",
       "aquajet"
     ],
-    metaMoves: ["aerialace", "aquajet", "dragonclaw", "extremespeed", "lowkick", "outrage", "rockslide"],
+    metaMoves: ["aerialace", "aquajet", "dragonclaw", "extremespeed", "lowkick", "outrage"],
     group: "Meta"
   },
   indeedeef: {
@@ -1211,7 +1211,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "zenheadbutt",
       "extrasensory"
     ],
-    metaMoves: ["alluringvoice", "followme", "healpulse", "helpinghand", "psychic", "trickroom"],
+    metaMoves: ["alluringvoice", "dazzlinggleam", "followme", "helpinghand", "imprison", "protect", "psychic", "trickroom"],
     group: "Meta"
   },
   ironcrown: {
@@ -1411,7 +1411,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "whirlwind",
       "zenheadbutt"
     ],
-    metaMoves: ["bulldoze", "lashout", "protect", "rocktomb", "ruination", "sandtomb", "stompingtantrum", "stoneedge", "throatchop"],
+    metaMoves: ["bulldoze", "earthquake", "heavyslam", "lashout", "protect", "ruination", "sandtomb", "snarl", "stealthrock", "stompingtantrum", "stoneedge", "taunt", "throatchop"],
     group: "Meta"
   },
   chiyu: {
@@ -1584,7 +1584,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "weatherball",
       "willowisp"
     ],
-    metaMoves: ["extremespeed", "flareblitz", "protect", "sacredfire", "stompingtantrum", "stoneedge"],
+    metaMoves: ["extremespeed", "flareblitz", "protect", "sacredfire", "stompingtantrum"],
     group: "Meta"
   },
   roaringmoon: {
@@ -1660,7 +1660,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "xscissor",
       "zenheadbutt"
     ],
-    metaMoves: ["acrobatics", "knockoff", "protect", "tailwind"],
+    metaMoves: ["acrobatics", "breakingswipe", "knockoff", "protect", "tailwind"],
     group: "Meta"
   },
   dondozo: {
@@ -1714,7 +1714,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "yawn",
       "zenheadbutt"
     ],
-    metaMoves: ["bodypress", "earthquake", "fissure", "orderup", "protect", "substitute", "wavecrash"],
+    metaMoves: ["bodypress", "earthquake", "orderup", "protect", "wavecrash"],
     group: "Meta"
   },
   regidrago: {
@@ -1883,7 +1883,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "explosion",
       "memento"
     ],
-    metaMoves: ["mortalspin", "mudshot", "powergem", "spikyshield", "venoshock"],
+    metaMoves: [],
     group: "Meta"
   },
   torkoal: {
@@ -1951,7 +1951,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "yawn",
       "zenheadbutt"
     ],
-    metaMoves: ["earthpower", "eruption", "solarbeam", "weatherball"],
+    metaMoves: ["earthpower", "eruption", "heatwave", "protect", "solarbeam", "weatherball"],
     group: "Meta"
   },
   ursalunabloodmoon: {
@@ -2162,7 +2162,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "uproar",
       "withdraw"
     ],
-    metaMoves: ["curse", "matchagotcha", "protect", "ragepowder", "shadowball", "strengthsap", "trickroom"],
+    metaMoves: ["matchagotcha", "protect", "ragepowder", "shadowball", "strengthsap", "trickroom"],
     group: "Meta"
   },
   zapdosgalar: {
@@ -2290,7 +2290,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "woodhammer",
       "zenheadbutt"
     ],
-    metaMoves: ["followme", "grassyglide", "ivycudgel", "knockoff", "powerwhip", "spikyshield", "woodhammer"],
+    metaMoves: ["followme", "ivycudgel", "knockoff", "powerwhip", "spikyshield", "taunt"],
     group: "Meta"
   },
   ninetalesalola: {
@@ -2498,7 +2498,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "whirlwind",
       "wildcharge"
     ],
-    metaMoves: ["drainpunch", "fakeout", "lowkick", "voltswitch", "wildcharge"],
+    metaMoves: ["drainpunch", "fakeout", "heavyslam", "lowkick", "wildcharge"],
     group: "Meta"
   },
   tatsugiri: {
@@ -2542,7 +2542,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "waterpulse",
       "whirlpool"
     ],
-    metaMoves: ["dracometeor", "dragonpulse", "helpinghand", "hydropump", "icywind", "protect"],
+    metaMoves: ["dracometeor", "helpinghand", "icywind", "mirrorcoat", "muddywater", "protect"],
     group: "Meta"
   },
   articuno: {
@@ -2669,7 +2669,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "suckerpunch",
       "quickguard"
     ],
-    metaMoves: ["ironhead", "kowtowcleave", "protect", "suckerpunch", "swordsdance"],
+    metaMoves: ["ironhead", "kowtowcleave", "lowkick", "protect", "suckerpunch"],
     group: "Meta"
   },
   annihilape: {
@@ -2757,7 +2757,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "beatup",
       "nightslash"
     ],
-    metaMoves: ["closecombat", "coaching", "finalgambit", "ragefist", "shadowclaw", "uturn"],
+    metaMoves: ["closecombat", "coaching", "finalgambit", "shadowclaw"],
     group: "Meta"
   },
   heatran: {
@@ -2889,7 +2889,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "twister",
       "aquaring"
     ],
-    metaMoves: ["hurricane", "protect", "tailwind", "weatherball", "wideguard"],
+    metaMoves: ["helpinghand", "hurricane", "protect", "tailwind", "weatherball", "wideguard"],
     group: "Meta"
   },
   smeargle: {
@@ -3577,7 +3577,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "zenheadbutt",
       "zingzap"
     ],
-    metaMoves: ["decorate", "fakeout", "followme", "spikyshield", "spore", "wideguard"],
+    metaMoves: ["decorate", "fakeout", "followme", "ruination", "spikyshield", "spore"],
     group: "Meta"
   },
   archaludon: {
@@ -3843,7 +3843,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "yawn",
       "clearsmog"
     ],
-    metaMoves: ["earthpower", "hydropump", "icebeam", "muddywater", "terablast"],
+    metaMoves: [],
     group: "Meta"
   },
   whimsicott: {
@@ -3904,7 +3904,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "worryseed",
       "switcheroo"
     ],
-    metaMoves: ["encore", "faketears", "lightscreen", "moonblast", "tailwind", "taunt"],
+    metaMoves: ["encore", "faketears", "lightscreen", "moonblast", "tailwind"],
     group: "Meta"
   },
   corviknight: {
@@ -4041,7 +4041,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "woodhammer",
       "zenheadbutt"
     ],
-    metaMoves: ["bulletseed", "encore", "followme", "knockoff", "spikyshield", "taunt", "woodhammer"],
+    metaMoves: [],
     group: "Low usage"
   },
   grimmsnarl: {
@@ -4181,7 +4181,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "spitup",
       "swallow"
     ],
-    metaMoves: ["acidspray", "gunkshot", "playrough", "poisongas", "protect", "strangesteam", "taunt", "toxicspikes", "willowisp"],
+    metaMoves: ["dazzlinggleam", "poisongas", "protect", "strangesteam", "taunt", "toxicspikes", "willowisp"],
     group: "Low usage"
   },
   armarouge: {
@@ -4506,7 +4506,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "weatherball",
       "whirlpool"
     ],
-    metaMoves: ["aquajet", "dracometeor", "hydrosteam", "protect", "snarl", "weatherball"],
+    metaMoves: ["aquajet", "dracometeor", "flamethrower", "hydrosteam", "mudshot", "protect", "snarl", "weatherball"],
     group: "Low usage"
   },
   registeel: {
@@ -4656,7 +4656,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "wish",
       "zenheadbutt"
     ],
-    metaMoves: ["dazzlinggleam", "disable", "encore", "protect"],
+    metaMoves: [],
     group: "Low usage"
   },
   snorlax: {
@@ -4936,7 +4936,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "switcheroo",
       "afteryou"
     ],
-    metaMoves: ["feint", "followme", "helpinghand", "populationbomb", "protect", "taunt", "uturn"],
+    metaMoves: ["feint", "followme", "helpinghand", "taunt"],
     group: "Low usage"
   },
   ironbundle: {
@@ -4985,7 +4985,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "waterpulse",
       "whirlpool"
     ],
-    metaMoves: ["encore", "freezedry", "icebeam", "icywind", "protect", "raindance"],
+    metaMoves: ["encore", "freezedry", "icebeam", "icywind", "protect", "taunt"],
     group: "Low usage"
   },
   regigigas: {
@@ -5496,7 +5496,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "harden",
       "morningsun"
     ],
-    metaMoves: ["fierydance", "flamethrower", "gigadrain", "protect", "quiverdance", "strugglebug"],
+    metaMoves: ["fierydance", "flamethrower", "gigadrain", "protect", "quiverdance", "ragepowder", "strugglebug", "tailwind", "willowisp"],
     group: "Low usage"
   },
   regieleki: {
@@ -5746,7 +5746,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "doublehit",
       "quickguard"
     ],
-    metaMoves: ["closecombat", "direclaw", "fakeout", "gunkshot", "lowkick", "protect", "throatchop"],
+    metaMoves: ["closecombat", "direclaw", "fakeout", "feint", "gunkshot", "lowkick", "protect", "throatchop", "toxicspikes"],
     group: "Low usage"
   },
   metagross: {
@@ -7061,7 +7061,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "venoshock",
       "whirlwind"
     ],
-    metaMoves: ["acidspray", "dazzlinggleam", "flamethrower", "pounce", "protect", "toxicspikes"],
+    metaMoves: [],
     group: "Low usage"
   },
   sylveon: {
@@ -7352,7 +7352,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "wildcharge",
       "zenheadbutt"
     ],
-    metaMoves: ["highhorsepower", "icespinner", "ironhead", "knockoff", "protect", "rocktomb", "steelroller"],
+    metaMoves: ["highhorsepower", "ironhead", "knockoff", "protect", "rocktomb", "steelroller"],
     group: "Low usage"
   },
   wochien: {
@@ -7476,7 +7476,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "workup",
       "zenheadbutt"
     ],
-    metaMoves: ["airslash", "earthpower", "hurricane", "protect", "snarl", "tailwind", "taunt"],
+    metaMoves: ["hurricane", "protect", "snarl", "tailwind"],
     group: "Low usage"
   },
   greattusk: {
@@ -7702,7 +7702,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "wideguard",
       "quickguard"
     ],
-    metaMoves: [],
+    metaMoves: ["bodypress", "leechseed", "seedbomb", "spikyshield", "wideguard"],
     group: "Low usage"
   },
   articunogalar: {
@@ -12776,7 +12776,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "aquajet",
       "soak"
     ],
-    metaMoves: [],
+    metaMoves: ["aquajet", "icespinner", "liquidation", "playrough"],
     group: "Regular"
   },
   samurotthisui: {
@@ -13299,7 +13299,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "powersplit",
       "stickyweb"
     ],
-    metaMoves: [],
+    metaMoves: ["hydropump", "infestation", "liquidation", "protect", "skittersmack", "wideguard"],
     group: "Regular"
   },
   gliscor: {
@@ -14233,7 +14233,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "willowisp",
       "zenheadbutt"
     ],
-    metaMoves: ["astralbarrage", "drainingkiss", "encore", "nastyplot", "pollenpuff", "protect", "psychic", "substitute"],
+    metaMoves: ["astralbarrage", "encore", "nastyplot", "pollenpuff", "protect", "psychic", "substitute", "willowisp"],
     group: "Regular"
   },
   zamazentacrowned: {
@@ -14360,7 +14360,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "wildcharge",
       "zenheadbutt"
     ],
-    metaMoves: ["dazzlinggleam", "dracometeor", "electrodrift", "snarl", "voltswitch"],
+    metaMoves: ["dazzlinggleam", "dracometeor", "electrodrift", "protect", "snarl", "voltswitch"],
     group: "Regular"
   },
   calyrexice: {
@@ -14538,7 +14538,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "wildcharge",
       "zenheadbutt"
     ],
-    metaMoves: ["collisioncourse", "flamecharge", "flareblitz", "lowkick", "protect"],
+    metaMoves: ["closecombat", "collisioncourse", "flamecharge", "flareblitz", "lowkick", "protect"],
     group: "Regular"
   },
   lunala: {
@@ -14607,7 +14607,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "wideguard",
       "willowisp"
     ],
-    metaMoves: ["expandingforce", "meteorbeam", "moonblast", "moongeistbeam", "trickroom", "wideguard"],
+    metaMoves: ["meteorbeam", "moonblast", "moongeistbeam", "trickroom", "wideguard"],
     group: "Regular"
   },
   kyogre: {
@@ -14804,7 +14804,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "willowisp",
       "zenheadbutt"
     ],
-    metaMoves: ["heatcrash", "highhorsepower", "precipiceblades", "protect", "stoneedge"],
+    metaMoves: ["firepunch", "heatcrash", "helpinghand", "highhorsepower", "precipiceblades", "protect", "stoneedge"],
     group: "Regular"
   },
   zaciancrowned: {
@@ -14863,7 +14863,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "trailblaze",
       "wildcharge"
     ],
-    metaMoves: ["behemothblade", "playrough", "protect", "swordsdance"],
+    metaMoves: ["behemothblade", "playrough", "protect", "sacredsword", "swordsdance"],
     group: "Regular"
   },
   hooh: {
@@ -14933,7 +14933,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "willowisp",
       "zenheadbutt"
     ],
-    metaMoves: [],
+    metaMoves: ["bravebird", "protect", "sacredfire", "tailwind"],
     group: "Regular"
   },
   ironvaliant: {
@@ -15021,7 +15021,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "xscissor",
       "zenheadbutt"
     ],
-    metaMoves: ["aurasphere", "coaching", "dazzlinggleam", "disable", "knockoff", "protect", "spiritbreak"],
+    metaMoves: [],
     group: "Regular"
   },
   ditto: {
@@ -15327,7 +15327,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "dragonrush",
       "guardsplit"
     ],
-    metaMoves: [],
+    metaMoves: ["highhorsepower", "protect", "rockslide", "swordsdance"],
     group: "Regular"
   },
   pikachu: {
@@ -15553,7 +15553,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "tickle",
       "volttackle"
     ],
-    metaMoves: ["encore", "fakeout", "feint", "helpinghand", "nuzzle", "voltswitch"],
+    metaMoves: ["electroweb", "endeavor", "fakeout", "feint", "helpinghand", "nuzzle", "thunderbolt", "voltswitch"],
     group: "Regular"
   },
   enamorus: {
@@ -16713,7 +16713,7 @@ export const POKEMON_DETAILS: Record<string, SpeciesData> = {
       "swallow",
       "infestation"
     ],
-    metaMoves: [],
+    metaMoves: ["banefulbunker", "infestation", "toxic", "wideguard"],
     group: "Regular"
   },
   dialgaorigin: {

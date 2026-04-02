@@ -492,9 +492,9 @@ describe("Calculator Store", () => {
 
     describe("Update Targets", () => {
       it("should update target meta regulation", () => {
-        store.updateTargetMetaRegulation("F")
+        store.updateTargetMetaRegulation("I")
 
-        expect(store.targetMetaRegulation()).toBe("F")
+        expect(store.targetMetaRegulation()).toBe("I")
       })
 
       it("should remove all Targets", () => {
