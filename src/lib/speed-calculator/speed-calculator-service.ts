@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core"
 import { SETDEX_SV } from "@data/movesets"
 import { pokemonByRegulation } from "@data/regulation-pokemon"
 import { SpeedData } from "@data/speed-data"
-import { SPEED_STATISTICS_REG_F } from "@data/speed-statistics-reg-f"
 import { SPEED_STATISTICS_REG_I } from "@data/speed-statistics-reg-i"
 import { ACTUAL, BOOSTER, MAX, MAX_BASE_SPEED_FOR_TR, MIN, MIN_IV_0, SCARF } from "@lib/constants"
 import { defaultPokemon } from "@lib/default-pokemon"
@@ -236,11 +235,7 @@ export class SpeedCalculatorService {
     return speedDefinitions
   }
 
-  retrieveSpeedStatistics(pokemonName: string, regulation: Regulation): SpeedData {
-    if (regulation == "F") {
-      return SPEED_STATISTICS_REG_F[pokemonName]
-    }
-
+  retrieveSpeedStatistics(pokemonName: string, _regulation: Regulation): SpeedData {
     return SPEED_STATISTICS_REG_I[pokemonName]
   }
 
