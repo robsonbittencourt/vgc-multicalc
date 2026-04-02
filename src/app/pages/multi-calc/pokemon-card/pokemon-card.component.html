@@ -3,6 +3,9 @@
   cdkDrag
   [cdkDragDisabled]="canDrag()"
   [cdkDragStartDelay]="{ touch: 300, mouse: 0 }"
+  (cdkDragStarted)="dragStarted.emit($event)"
+  (cdkDragMoved)="dragMoved.emit($event)"
+  (cdkDragEnded)="dragEnded.emit($event)"
   [class.has-collapsible]="collapsible()"
   [class.is-collapsed]="collapsible() && !expanded()"
   [attr.data-cy]="'pokemon-card-' + effectiveTarget().pokemon.displayName">

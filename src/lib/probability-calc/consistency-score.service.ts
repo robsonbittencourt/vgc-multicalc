@@ -79,7 +79,10 @@ export class ConsistencyScoreService {
    * @returns Score from 0-100
    */
   teamConsistencyScore(team: Team, alpha = 0.6): number {
-    const scores = team.teamMembers.map(m => this.consistencyScore(m.pokemon.moveSet)).filter((s): s is number => s !== null)
+    const scores = team.teamMembers
+      .filter(m => !m.pokemon.isDefault)
+      .map(m => this.consistencyScore(m.pokemon.moveSet))
+      .filter((s): s is number => s !== null)
 
     if (scores.length === 0) return 0
 

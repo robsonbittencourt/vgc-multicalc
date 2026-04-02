@@ -47,7 +47,7 @@ export class TeamsDesktopComponent implements OnInit {
   }
 
   ngOnInit() {
-    const orderedTeams = this.store.teams().sort(this.teamsService.moveEmptyListsToEnd)
+    const orderedTeams = [...this.store.teams()].sort(this.teamsService.moveEmptyListsToEnd)
     const newTeams = this.teamsService.cleanTeamsInChunks(orderedTeams)
     this.store.updateTeams(newTeams)
     this.teamsService.ensureCorrectTeamCount()

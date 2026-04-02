@@ -121,11 +121,18 @@ export class TeamsService {
   }
 
   ensureCorrectTeamCount() {
-    const remainder = this.store.teams().length % 4
+    const teams = this.store.teams()
+    const remainder = teams.length % 4
+    let teamsToAdd = 0
 
     if (remainder !== 0) {
-      const teamsToAdd = 4 - remainder
-      const teamNumber = this.store.teams().length + 1
+      teamsToAdd = 4 - remainder
+    } else if (teams.filter(t => t.onlyHasDefaultPokemon()).length < 2) {
+      teamsToAdd = 4
+    }
+
+    if (teamsToAdd > 0) {
+      const teamNumber = teams.length + 1
 
       for (let index = 0; index < teamsToAdd; index++) {
         this.store.addTeam(new Team(uuidv4(), false, `Team ${teamNumber + index}`, [new TeamMember(defaultPokemon(), true)]))
@@ -150,9 +157,9 @@ export class TeamsService {
 
       const hasPrevChunk = i >= 4
       const prevChunk = hasPrevChunk ? result.slice(i - 4, i) : []
-      const prevHasNonDefault = prevChunk.some(team => team.onlyHasDefaultPokemon())
+      const prevHasDefault = prevChunk.some(team => team.onlyHasDefaultPokemon())
 
-      if (allDefault && (hasMoreAfterChunk || (hasPrevChunk && prevHasNonDefault))) {
+      if (allDefault && (hasMoreAfterChunk || (hasPrevChunk && prevHasDefault))) {
         result.splice(i, 4)
       } else {
         i += 4

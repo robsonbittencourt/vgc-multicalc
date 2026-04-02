@@ -171,6 +171,10 @@ export class Team {
     return new ExportModal()
   }
 
+  closeTab() {
+    cy.get('[data-cy="close-tab"]').click({ force: true })
+  }
+
   private extractPokemonName(pokemonData: string): string {
     const pokemonName = pokemonData.substring(0, pokemonData.indexOf(" @"))
 

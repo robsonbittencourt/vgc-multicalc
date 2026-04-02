@@ -40,97 +40,8 @@
   }
 }
 
-.attacker-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5em;
-  padding: 1em 0.75em 0 0.75em;
-  background-color: var(--background);
-}
-
-.attacker-header app-pokemon-combo-box {
-  flex: 0 1 10em;
-  max-width: 10em;
-  min-width: 0;
-}
-
-.attacker-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.5em;
-  flex-shrink: 0;
-}
-
-.delete-pokemon {
-  display: flex;
-  align-items: center;
-  gap: 0.2em;
-  cursor: pointer;
-  color: var(--text);
-
-  .icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  label {
-    cursor: pointer;
-  }
-}
-
-.pokemon-build {
-  background-color: var(--highlight);
-  padding: 0.75em 2.5em 0.75em 0.75em;
-  margin-top: 1em;
-  overflow-x: hidden;
-}
-
-.pokemon-build-options {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2em;
-  row-gap: 1em;
-  padding-bottom: 1em;
-}
-
-.combo-item {
-  flex: 1 0 7em;
-  min-width: 0;
-}
-
-.combo-status {
-  flex: 1 0 7em;
-  min-width: 0;
-  margin-left: -0.5em;
-}
-
-.combo-nature-ability {
-  display: flex;
-  gap: 2em;
-  width: 100%;
-  flex-wrap: nowrap;
-  box-sizing: border-box;
-}
-
-.combo-nature-ability-compact {
-  gap: 2em;
-}
-
-.combo-nature,
-.combo-ability {
-  flex: 1 1 0;
-  min-width: 0;
-}
-
-.combo-nature-compact {
-  flex: 1 1 22%;
-  max-width: 22%;
-}
-
-.evs {
-  margin: 1.5em 1em 0.25em 0.75em;
+.attacker-build {
+  padding-bottom: 0.5em;
 }
 
 .speed-scale {
@@ -146,7 +57,8 @@
 
 .settings-content {
   padding: 1em 1em 6em 1em;
-}.settings-card {
+}
+.settings-card {
   display: block;
 }
 
@@ -173,27 +85,22 @@
   row-gap: 1.5em;
   margin-top: 1em;
   width: 100%;
-
-  /* Regulation and Mode */
   & > :nth-child(odd) {
     width: 44%;
     min-width: 0;
   }
 
-  /* Top Usage and Pokémon */
   & > :nth-child(even) {
     width: 52%;
     min-width: 0;
   }
 
-  /* Secure the Clear X button inside autocomplete */
   app-input-autocomplete {
     display: flex !important;
     align-items: flex-end;
     gap: 0.5em;
   }
 
-  /* Enforce strict bounds on Material wrappers so long text doesn't destroy the container */
   ::ng-deep {
     .input-column {
       flex: 1;

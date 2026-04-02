@@ -1,12 +1,10 @@
 <div class="mobile-calc-container">
-  <div [class.tab-active]="activeBottomTab() !== 'teams'">
-    <app-team-tabs-mobile [(pokemonOnEditId)]="pokemonOnEditId" />
-  </div>
-
   <div #scrollContainer class="scrollable-content" [class.teams-tab]="activeBottomTab() === 'teams'" (scroll)="onScroll($event)">
     <div [hidden]="activeBottomTab() !== 'detailed'" [class.tab-active]="activeBottomTab() === 'detailed'">
+      <app-team-tabs-mobile [(pokemonOnEditId)]="pokemonOnEditId" (memberAddedEvent)="onMemberAdded()" />
+
       <div class="mobile-widget-spacing">
-        <app-pokemon-probability />
+        <app-pokemon-probability [pokemon]="lastNonDefaultPokemon()" />
         <app-team-probability />
       </div>
     </div>
@@ -19,8 +17,10 @@
     </div>
 
     <div [hidden]="activeBottomTab() !== 'build'" [class.tab-active]="activeBottomTab() === 'build'">
+      <app-team-tabs-mobile [(pokemonOnEditId)]="pokemonOnEditId" (memberAddedEvent)="onMemberAdded()" />
+
       <div class="attacker-build">
-        @if (effectiveEditingId() && !store.findPokemonById(effectiveEditingId()!).isDefault) {
+        @if (effectiveEditingId()) {
           <app-pokemon-build-mobile [pokemonId]="effectiveEditingId()!" (pokemonDeleted)="pokemonOnEditId.set($event)" />
         }
       </div>

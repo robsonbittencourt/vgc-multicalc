@@ -4,6 +4,7 @@ import { CalculatorStore } from "@data/store/calculator-store"
 import { ConsistencyScoreService } from "@lib/probability-calc/consistency-score.service"
 import { MoveProbabilityService } from "@lib/probability-calc/move-probability.service"
 import { PokemonMovesMobileComponent } from "@features/pokemon-build/pokemon-moves-mobile/pokemon-moves-mobile.component"
+import { Pokemon } from "@lib/model/pokemon"
 
 @Component({
   selector: "app-pokemon-probability",
@@ -14,17 +15,18 @@ import { PokemonMovesMobileComponent } from "@features/pokemon-build/pokemon-mov
 })
 export class PokemonProbabilityComponent {
   isMobile = input<boolean>(false)
+  pokemon = input<Pokemon | null>(null)
   store = inject(CalculatorStore)
   moveProbabilityService = inject(MoveProbabilityService)
   consistencyScoreService = inject(ConsistencyScoreService)
 
-  pokemon = computed(() => this.store.team().activePokemon())
-  move = computed(() => this.pokemon().moveSet.activeMove)
+  effectivePokemon = computed(() => this.pokemon() || this.store.team().activePokemon())
+  move = computed(() => this.effectivePokemon().moveSet.activeMove)
 
-  secondary = computed(() => JSON.stringify(this.pokemon().moveSet.activeMove.secondary?.chance))
+  secondary = computed(() => JSON.stringify(this.effectivePokemon().moveSet.activeMove.secondary?.chance))
 
-  accuracy = computed(() => this.pokemon().moveSet.activeMove.accuracy)
-  target = computed(() => this.pokemon().moveSet.activeMove.target)
+  accuracy = computed(() => this.effectivePokemon().moveSet.activeMove.accuracy)
+  target = computed(() => this.effectivePokemon().moveSet.activeMove.target)
 
   oneTimeSingleTarget = computed(() => this.moveProbabilityService.calculateSingleTargetProbabilities(this.move(), 1, this.target()))
   twoTimesSingleTarget = computed(() => this.moveProbabilityService.calculateSingleTargetProbabilities(this.move(), 2, this.target()))
@@ -40,10 +42,10 @@ export class PokemonProbabilityComponent {
 
   hasSecondaryEffect = computed(() => this.secondary())
 
-  hasValidPokemon = computed(() => !this.pokemon().isDefault)
+  hasValidPokemon = computed(() => !this.effectivePokemon().isDefault)
 
   score = computed(() => {
-    const result = this.consistencyScoreService.consistencyScore(this.pokemon().moveSet)
+    const result = this.consistencyScoreService.consistencyScore(this.effectivePokemon().moveSet)
     return result ? Math.round(result) : 0
   })
   teamScore = computed(() => Math.round(this.consistencyScoreService.teamConsistencyScore(this.store.team())))

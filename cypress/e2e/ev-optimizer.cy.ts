@@ -1,8 +1,8 @@
 import { poke } from "@cy-support/e2e"
-import { PokemonBuild } from "@page-object/pokemon-build"
-import { Opponent } from "@page-object/opponent"
-import { Team } from "@page-object/team"
 import { DamageResult } from "@page-object/damage-result"
+import { Opponent } from "@page-object/opponent"
+import { PokemonBuild } from "@page-object/pokemon-build"
+import { Team } from "@page-object/team"
 
 describe("EV Optimizer", () => {
   const leftBuild = new PokemonBuild("left-pokemon")
@@ -154,6 +154,7 @@ describe("Multi Calc EV Optimizer", () => {
     flutterMane.evsIs(140, 0, 236, 0, 0, 0)
 
     opponents.selectAttacker("Urshifu Rapid Strike")
+    team.closeTab()
     team.selectPokemon("Flutter Mane")
 
     flutterMane.evsIs(0, 0, 0, 252, 0, 0)
@@ -173,7 +174,7 @@ describe("Multi Calc EV Optimizer", () => {
 
     flutterMane.optimizeBulkIsHidden()
 
-    team.selectPokemon("Flutter Mane")
+    team.closeTab()
     flutterMane.optimizeBulkIsVisible()
   })
 })

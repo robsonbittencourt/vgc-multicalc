@@ -1,23 +1,17 @@
 <div class="mobile-calc-container">
-  <div [hidden]="activeBottomTab() !== 'results'" [class.tab-active]="activeBottomTab() === 'results'">
-    <app-team-tabs-mobile [(pokemonOnEditId)]="pokemonOnEditId" (memberAddedEvent)="focusPokemonComboBox()" />
-  </div>
-
-  <div #scrollContainer class="scrollable-content" [class.teams-tab]="activeBottomTab() === 'teams'" [class.field-tab]="activeBottomTab() === 'field'" (scroll)="onScroll($event)">
+  <div #scrollContainer cdkScrollable class="scrollable-content" [class.teams-tab]="activeBottomTab() === 'teams'" [class.field-tab]="activeBottomTab() === 'field'" (scroll)="onScroll($event)">
     <div [hidden]="activeBottomTab() !== 'results'" [class.tab-active]="activeBottomTab() === 'results'">
+      <app-team-tabs-mobile [(pokemonOnEditId)]="pokemonOnEditId" (memberAddedEvent)="focusPokemonComboBox()" />
+
       <div class="attacker-build">
-        @if (shouldShowPokemonSelect()) {
-          <div class="pokemon-select-only">
-            <app-pokemon-combo-box #pokemonSelectComboBox [pokemonId]="effectiveEditingId()!" />
-          </div>
-        }
         @if (shouldShowBuild()) {
           <app-pokemon-build-mobile
             [pokemonId]="effectiveEditingId()!"
             [optimizationStatus]="optimizationStatus()"
             [optimizedEvs]="optimizedEvs()"
             [optimizedNature]="optimizedNature()"
-            (optimizeRequested)="handleOptimizeRequest($event)"
+            [isRightSide]="isEditingTarget()"
+            (optimizationRequested)="handleOptimizeRequest($event)"
             (optimizationApplied)="handleOptimizationApplied()"
             (optimizationDiscarded)="handleOptimizationDiscarded()"
             (pokemonDeleted)="pokemonOnEditId.set($event)" />
@@ -39,6 +33,9 @@
               (expandedChange)="handleExpansionToggle(getExpansionKey(damageResult), $event)"
               (cdkDropListDropped)="drop($event)"
               (targetActivated)="activateOpponent($event)"
+              (dragStarted)="handleDragStarted()"
+              (dragMoved)="handleDragMoved($event)"
+              (dragEnded)="handleDragEnded()"
               (attackersSeparated)="separateAttackers($event)" />
           </div>
         }

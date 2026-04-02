@@ -3,7 +3,7 @@
     <div class="tabs">
       @if (targetOnEdit()) {
         <app-pokemon-tab [pokemonId]="pokemonId()" [active]="true" (tabActivated)="activatePokemon($event)" (secondTabActivated)="activateSecondPokemon($event)" />
-        <div class="close-tab" (click)="activatePokemon(store.team().activePokemon().id)">
+        <div class="close-tab" (click)="activatePokemon(store.team().activePokemon().id)" data-cy="close-tab">
           <mat-icon>close</mat-icon>
         </div>
       } @else {

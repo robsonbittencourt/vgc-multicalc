@@ -1,93 +1,79 @@
-@if (showHeader() && pokemon()) {
-  <div class="attacker-header">
-    <app-pokemon-combo-box [pokemonId]="pokemonId()" label="" />
-    <div class="attacker-actions">
-      @if (!manageTeamState() || (canImportPokemon() && teamMemberOnEdit())) {
-        <app-import-pokemon-button (pokemonImportedEvent)="importPokemon($event)" />
+@if (pokemon()) {
+  @if (!pokemon().isDefault) {
+    <app-pokemon-moves-mobile [pokemonId]="pokemonId()" />
+
+    <div class="combo-options">
+      <div class="combo-tera">
+        <app-tera-combo-box [pokemonId]="pokemonId()" />
+      </div>
+
+      <div class="combo-item">
+        <app-item-combo-box [pokemonId]="pokemonId()" />
+      </div>
+
+      <div class="combo-status">
+        <app-status-combo-box [pokemonId]="pokemonId()" />
+      </div>
+
+      <div class="combo-nature-ability" [ngClass]="{ 'combo-nature-ability-compact': pokemon().ability.actionableAbility }">
+        <div class="combo-nature" [ngClass]="{ 'combo-nature-compact': pokemon().ability.actionableAbility }">
+          <app-nature-combo-box [pokemonId]="pokemonId()" [isMobile]="true" />
+        </div>
+
+        <div class="combo-ability">
+          <app-ability-combo-box [pokemonId]="pokemonId()" [isMobile]="true" />
+        </div>
+      </div>
+    </div>
+
+    <div class="evs">
+      <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="pokemon().hp" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.hp" [isOptimized]="isHpOptimized()" stat="hp" [reduced]="true" />
+      <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedAtk()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.atk" stat="atk" [reduced]="true" />
+      <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedDef()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.def" [isOptimized]="isDefOptimized()" stat="def" [reduced]="true" />
+      <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedSpa()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.spa" stat="spa" [reduced]="true" />
+      <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedSpd()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.spd" [isOptimized]="isSpdOptimized()" stat="spd" [reduced]="true" />
+      <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedSpe()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.spe" stat="spe" [reduced]="true" />
+      <div class="remaining-evs">
+        <div class="remaining-info">
+          <div class="remaining-label">Remaining:</div>
+          <div class="remaining-value" data-cy="remaining-evs-mobile">{{ MAX_EVS - pokemon().totalEvs }}</div>
+        </div>
+
+        <div class="remaining-buttons">
+          <button mat-flat-button (click)="clearEvs()" data-cy="clear-evs-mobile">Clear EVs</button>
+          @if (showOptimization() && (menuStore.manyVsOneActivated() || menuStore.oneVsOneActivated()) && (!optimizedEvs() || !isOptimizationValid()) && !hasNoSolution() && !isSolutionNotNeeded()) {
+            <button mat-flat-button (click)="optimizeEvs()" data-cy="optimize-evs-mobile">Optimize Bulk</button>
+          }
+          @if (showOptimization() && optimizedEvs() && isOptimizationValid() && !hasNoSolution() && !isSolutionNotNeeded()) {
+            <button mat-flat-button (click)="applyOptimization()" data-cy="apply-optimization-mobile">Apply</button>
+            <button mat-flat-button (click)="discardOptimization()" data-cy="discard-optimization-mobile">Discard</button>
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="ev-buttons" [hidden]="!showOptimization()">
+      @if ((menuStore.manyVsOneActivated() || menuStore.oneVsOneActivated()) && (!optimizedEvs() || !isOptimizationValid()) && !hasNoSolution() && !isSolutionNotNeeded()) {
+        <div class="checkbox-group">
+          <mat-checkbox [(ngModel)]="updateNature" data-cy="update-nature-checkbox-mobile">Update Nature</mat-checkbox>
+          <mat-checkbox [(ngModel)]="keepOffensiveEvs" data-cy="keep-offensive-evs-checkbox-mobile">Keep Offensive EVs</mat-checkbox>
+          <app-input-select [(value)]="survivalThreshold" [allValues]="thresholdOptions" />
+        </div>
       }
-      <app-export-pokemon-button [pokemonId]="pokemonId()" />
-      @if (showDelete() && teamMemberOnEdit()) {
-        <div class="delete-pokemon" (click)="removeActivePokemon()" data-cy="delete-team-member-mobile">
-          <mat-icon class="icon">delete</mat-icon>
-          <label>Delete</label>
+
+      @if (hasNoSolution()) {
+        <div class="no-solution">
+          <label>No solution found</label>
+          <button mat-flat-button (click)="discardOptimization()" data-cy="ok-no-solution-mobile">OK</button>
+        </div>
+      }
+
+      @if (isSolutionNotNeeded()) {
+        <div class="no-solution">
+          <label>No solution needed</label>
+          <button mat-flat-button (click)="discardOptimization()" data-cy="ok-no-solution-mobile">OK</button>
         </div>
       }
     </div>
-  </div>
+  }
 }
-
-<app-pokemon-moves-mobile [pokemonId]="pokemonId()" />
-
-<div class="combo-options">
-  <div class="combo-tera">
-    <app-tera-combo-box [pokemonId]="pokemonId()" />
-  </div>
-
-  <div class="combo-item">
-    <app-item-combo-box [pokemonId]="pokemonId()" />
-  </div>
-
-  <div class="combo-status">
-    <app-status-combo-box [pokemonId]="pokemonId()" />
-  </div>
-
-  <div class="combo-nature-ability" [ngClass]="{ 'combo-nature-ability-compact': pokemon().ability.actionableAbility }">
-    <div class="combo-nature" [ngClass]="{ 'combo-nature-compact': pokemon().ability.actionableAbility }">
-      <app-nature-combo-box [pokemonId]="pokemonId()" [isMobile]="true" />
-    </div>
-
-    <div class="combo-ability">
-      <app-ability-combo-box [pokemonId]="pokemonId()" [isMobile]="true" />
-    </div>
-  </div>
-</div>
-
-<div class="evs">
-  <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="pokemon().hp" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.hp" [isOptimized]="isHpOptimized()" stat="hp" [reduced]="true" />
-  <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedAtk()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.atk" stat="atk" [reduced]="true" />
-  <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedDef()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.def" [isOptimized]="isDefOptimized()" stat="def" [reduced]="true" />
-  <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedSpa()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.spa" stat="spa" [reduced]="true" />
-  <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedSpd()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.spd" [isOptimized]="isSpdOptimized()" stat="spd" [reduced]="true" />
-  <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedSpe()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.spe" stat="spe" [reduced]="true" />
-  <div class="remaining-evs">
-    <div class="remaining-info">
-      <div class="remaining-label">Remaining:</div>
-      <div class="remaining-value" data-cy="remaining-evs-mobile">{{ MAX_EVS - pokemon().totalEvs }}</div>
-    </div>
-
-    <div class="remaining-buttons">
-      <button mat-flat-button (click)="clearEvs()" data-cy="clear-evs-mobile">Clear EVs</button>
-      @if (showOptimization() && (menuStore.manyVsOneActivated() || menuStore.oneVsOneActivated()) && (!optimizedEvs() || !isOptimizationValid()) && !hasNoSolution() && !isSolutionNotNeeded()) {
-        <button mat-flat-button (click)="optimizeEvs()" data-cy="optimize-evs-mobile">Optimize Bulk</button>
-      }
-      @if (showOptimization() && optimizedEvs() && isOptimizationValid() && !hasNoSolution() && !isSolutionNotNeeded()) {
-        <button mat-flat-button (click)="applyOptimization()" data-cy="apply-optimization-mobile">Apply</button>
-        <button mat-flat-button (click)="discardOptimization()" data-cy="discard-optimization-mobile">Discard</button>
-      }
-    </div>
-  </div>
-</div>
-
-<div class="ev-buttons" [hidden]="!showOptimization()">
-  @if ((menuStore.manyVsOneActivated() || menuStore.oneVsOneActivated()) && (!optimizedEvs() || !isOptimizationValid()) && !hasNoSolution() && !isSolutionNotNeeded()) {
-    <div class="checkbox-group">
-      <mat-checkbox [(ngModel)]="updateNature" data-cy="update-nature-checkbox-mobile">Update Nature</mat-checkbox>
-      <mat-checkbox [(ngModel)]="keepOffensiveEvs" data-cy="keep-offensive-evs-checkbox-mobile">Keep Offensive EVs</mat-checkbox>
-      <app-input-select [(value)]="survivalThreshold" [allValues]="thresholdOptions" />
-    </div>
-  }
-
-  @if (hasNoSolution()) {
-    <div class="no-solution">
-      <label>No solution found</label>
-      <button mat-flat-button (click)="discardOptimization()" data-cy="ok-no-solution-mobile">OK</button>
-    </div>
-  }
-
-  @if (isSolutionNotNeeded()) {
-    <div class="no-solution">
-      <label>No solution needed</label>
-      <button mat-flat-button (click)="discardOptimization()" data-cy="ok-no-solution-mobile">OK</button>
-    </div>
-  }
-</div>

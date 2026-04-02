@@ -1,4 +1,4 @@
-import { CdkDrag, CdkDragHandle, CdkDragPlaceholder } from "@angular/cdk/drag-drop"
+import { CdkDrag, CdkDragEnd, CdkDragHandle, CdkDragMove, CdkDragPlaceholder, CdkDragStart } from "@angular/cdk/drag-drop"
 import { Component, computed, inject, input, model, output } from "@angular/core"
 import { MatIcon } from "@angular/material/icon"
 import { MatTooltip } from "@angular/material/tooltip"
@@ -33,6 +33,9 @@ export class PokemonCardComponent {
   targetActivated = output<string>()
   targetRemoved = output()
   attackersSeparated = output<string>()
+  dragMoved = output<CdkDragMove>()
+  dragStarted = output<CdkDragStart>()
+  dragEnded = output<CdkDragEnd>()
 
   showDeleteButton = input<boolean>(true)
   expanded = model<boolean>(false)

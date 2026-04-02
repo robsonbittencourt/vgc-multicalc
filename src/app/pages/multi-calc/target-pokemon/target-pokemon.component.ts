@@ -100,7 +100,7 @@ export class TargetPokemonComponent {
       this.snackBar.open("Pokémon removed")
     } else {
       this.store.updateTargetMetaRegulation(this.regulation())
-      const metaPokemon = pokemonByRegulation(this.regulation())
+      const metaPokemon = pokemonByRegulation(this.regulation(), 50)
       this.pokemonImported(metaPokemon)
     }
   }

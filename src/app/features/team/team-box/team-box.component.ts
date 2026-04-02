@@ -16,7 +16,15 @@ export class TeamBoxComponent {
   teamActivated = output<Team>()
   secondTeamActivated = output<Team>()
 
+  private longPressTimeout: any
+  private preventNextClick = false
+
   activate(event: MouseEvent) {
+    if (this.preventNextClick) {
+      this.preventNextClick = false
+      return
+    }
+
     if ((event.ctrlKey || event.metaKey) && this.allowSecondTeamSelection()) {
       if (!this.team().onlyHasDefaultPokemon()) {
         this.secondTeamActivated.emit(this.team())
@@ -24,5 +32,22 @@ export class TeamBoxComponent {
     } else {
       this.teamActivated.emit(this.team())
     }
+  }
+
+  onLongPressStart(_event: TouchEvent) {
+    if (!this.allowSecondTeamSelection()) return
+
+    this.preventNextClick = false
+
+    this.longPressTimeout = setTimeout(() => {
+      if (!this.team().onlyHasDefaultPokemon()) {
+        this.preventNextClick = true
+        this.secondTeamActivated.emit(this.team())
+      }
+    }, 500)
+  }
+
+  onLongPressEnd() {
+    clearTimeout(this.longPressTimeout)
   }
 }
