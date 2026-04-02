@@ -4,10 +4,10 @@
       <div class="pokemon-container">
         <div class="pokemon-header">
           <div class="pokemon-image">
-            <img src="assets/sprites/pokemon-sv/{{ pokemon().name }}.png" />
+            <img src="assets/sprites/pokemon-sv/{{ effectivePokemon().name }}.png" />
           </div>
           <div class="pokemon-move-info">
-            <h3>{{ pokemon().activeMoveName }}</h3>
+            <h3>{{ effectivePokemon().activeMoveName }}</h3>
             <p>Accuracy: {{ accuracy() }}%</p>
             @if (secondary()) {
               <p>Secondary effect: {{ secondary() }}%</p>
@@ -18,7 +18,7 @@
 
       @if (isMobile()) {
         <div class="mobile-moves">
-          <app-pokemon-moves-mobile [pokemonId]="pokemon().id" [showEdit]="false" />
+          <app-pokemon-moves-mobile [pokemonId]="effectivePokemon().id" [showEdit]="false" />
         </div>
       }
 

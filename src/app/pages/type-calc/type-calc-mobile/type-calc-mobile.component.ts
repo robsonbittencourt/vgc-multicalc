@@ -23,6 +23,7 @@ import { Team } from "@lib/model/team"
 })
 export class TypeCalcMobileComponent {
   @ViewChild("scrollContainer") scrollContainer?: ElementRef<HTMLDivElement>
+  @ViewChild(TeamTabsMobileComponent) teamTabsMobile?: TeamTabsMobileComponent
   store = inject(CalculatorStore)
 
   constructor() {
@@ -48,11 +49,8 @@ export class TypeCalcMobileComponent {
     return activeMember ? activeMember.pokemon.id : members[0].pokemon.id
   })
 
-  isPokemonDefault = computed(() => {
-    const id = this.effectiveEditingId()
-    if (!id) return true
-    const p = this.store.findPokemonById(id)
-    return p ? p.isDefault : true
+  hasValidPokemon = computed(() => {
+    return this.store.team().teamMembers.some(m => !m.pokemon.isDefault)
   })
 
   effectiveEditingId = computed(() => this.pokemonOnEditId() || this.activePokemonId())
@@ -93,7 +91,14 @@ export class TypeCalcMobileComponent {
     } else if (currentScroll < this.lastScrollTop) {
       this.showBottomNav.set(true)
     }
-
     this.lastScrollTop = currentScroll
+  }
+
+  onMemberAdded() {
+    this.switchTab("build")
+
+    setTimeout(() => {
+      this.teamTabsMobile?.focus()
+    }, 100)
   }
 }

@@ -28,23 +28,7 @@ export class PokemonMovesMobileComponent {
     return pokemonDetails.learnset.map(move => MOVE_DETAILS[move].name)
   })
 
-  activateMove1() {
-    this.activateMove(1)
-  }
-
-  activateMove2() {
-    this.activateMove(2)
-  }
-
-  activateMove3() {
-    this.activateMove(3)
-  }
-
-  activateMove4() {
-    this.activateMove(4)
-  }
-
-  private activateMove(position: number) {
+  activateMove(position: number) {
     this.store.activateMoveByPosition(this.pokemonId(), position)
   }
 

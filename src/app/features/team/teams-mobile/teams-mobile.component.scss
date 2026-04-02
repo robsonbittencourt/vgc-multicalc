@@ -86,3 +86,24 @@
   height: 7em;
   flex-shrink: 0;
 }
+
+.second-team-tip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  font-size: 1em;
+  color: var(--text);
+  opacity: 0.7;
+  padding: 0 0 1.2em 0;
+  font-weight: 500;
+
+  mat-icon {
+    font-size: 1.25em;
+    width: 1.25em;
+    height: 1.25em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

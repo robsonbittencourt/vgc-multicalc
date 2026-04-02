@@ -12,24 +12,6 @@
   height: 100%;
 }
 
-.delete-pokemon {
-  display: flex;
-  align-items: center;
-  gap: 0.2em;
-  cursor: pointer;
-  color: var(--text);
-
-  .icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  label {
-    cursor: pointer;
-  }
-}
-
 .scrollable-content {
   flex: 1;
   overflow-y: auto;
@@ -39,36 +21,6 @@
 
 .attacker-build {
   padding-bottom: 0.5em;
-}
-
-.pokemon-select-only {
-  padding: 1em 0.75em 0 0.75em;
-
-  app-pokemon-combo-box {
-    display: block;
-    max-width: 10em;
-  }
-}
-
-.attacker-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5em;
-  padding: 1em 0.75em 0 0.75em;
-}
-
-.attacker-header app-pokemon-combo-box {
-  flex: 0 1 10em;
-  max-width: 10em;
-  min-width: 0;
-}
-
-.attacker-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.5em;
-  flex-shrink: 0;
 }
 
 @keyframes pulse {
@@ -155,7 +107,7 @@
     height: 2.5em;
 
     .management-button {
-      display: flex; /* Ensure the component host is flex to stretch the internal button */
+      display: flex;
       width: 100%;
       height: 100%;
     }
@@ -195,10 +147,10 @@
     justify-content: center;
     width: 24px;
     height: 24px;
-    font-size: 24px; /* Ensure font icons have the same size */
+    font-size: 24px;
 
     &[svgIcon] {
-      transform: translateY(1px); /* Nudge custom SVG down to match font baseline look */
+      transform: translateY(1px);
     }
   }
 }

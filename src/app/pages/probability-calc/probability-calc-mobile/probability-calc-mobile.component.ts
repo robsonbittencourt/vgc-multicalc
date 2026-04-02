@@ -1,4 +1,4 @@
-import { Component, computed, ElementRef, inject, signal, ViewChild } from "@angular/core"
+import { Component, computed, effect, ElementRef, inject, signal, ViewChild } from "@angular/core"
 import { NgClass } from "@angular/common"
 import { MatIcon, MatIconRegistry } from "@angular/material/icon"
 import { DomSanitizer } from "@angular/platform-browser"
@@ -13,6 +13,7 @@ import { GeneralProbabilityComponent } from "@app/pages/probability-calc/general
 import { CombinedProbabilityComponent } from "@app/pages/probability-calc/combined-probability/combined-probability.component"
 import { PokemonProbabilityComponent } from "@app/pages/probability-calc/pokemon-probability/pokemon-probability.component"
 import { TeamProbabilityComponent } from "@app/pages/probability-calc/team-probability/team-probability.component"
+import { Pokemon } from "@lib/model/pokemon"
 
 @Component({
   selector: "app-probability-calc-mobile",
@@ -23,12 +24,20 @@ import { TeamProbabilityComponent } from "@app/pages/probability-calc/team-proba
 })
 export class ProbabilityCalcMobileComponent {
   @ViewChild("scrollContainer") scrollContainer?: ElementRef<HTMLDivElement>
+  @ViewChild(TeamTabsMobileComponent) teamTabsMobile?: TeamTabsMobileComponent
   store = inject(CalculatorStore)
 
   constructor() {
     const iconRegistry = inject(MatIconRegistry)
     const sanitizer = inject(DomSanitizer)
     iconRegistry.addSvgIcon("pokeball", sanitizer.bypassSecurityTrustResourceUrl("assets/icons/pokeball.svg"))
+
+    effect(() => {
+      const current = this.store.findPokemonById(this.effectiveEditingId()!)
+      if (current && !current.isDefault) {
+        this.lastNonDefaultPokemon.set(current)
+      }
+    })
   }
 
   activeBottomTab = signal<"general" | "detailed" | "teams" | "build">("detailed")
@@ -36,6 +45,7 @@ export class ProbabilityCalcMobileComponent {
   private scrollPositions = new Map<string, number>()
   private lastScrollTop = 0
   pokemonOnEditId = signal<string | null>(null)
+  lastNonDefaultPokemon = signal<Pokemon>(this.store.team().activePokemon())
 
   activePokemonId = computed(() => {
     const members = this.store.team().teamMembers
@@ -82,5 +92,13 @@ export class ProbabilityCalcMobileComponent {
     }
 
     this.lastScrollTop = currentScroll
+  }
+
+  onMemberAdded() {
+    this.switchTab("build")
+
+    setTimeout(() => {
+      this.teamTabsMobile?.focus()
+    }, 100)
   }
 }

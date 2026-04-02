@@ -1,4 +1,15 @@
-<div class="team" [ngClass]="{ 'active-team': team().active, 'second-team': isSecondTeam() }" (click)="activate($event)" data-cy="team-box">
+<div
+  class="team"
+  [ngClass]="{ 'active-team': team().active, 'second-team': isSecondTeam() }"
+  (click)="activate($event)"
+  (touchstart)="onLongPressStart($event)"
+  (touchend)="onLongPressEnd()"
+  (touchcancel)="onLongPressEnd()"
+  (contextmenu)="$event.preventDefault()"
+  data-cy="team-box">
+  @if (isSecondTeam()) {
+    <div class="second-team-badge">2nd</div>
+  }
   <label class="team-name-label">{{ team().name }}</label>
   <div class="team-pokemon-icons">
     @for (teamMember of team().teamMembers; track teamMember.pokemon.id) {

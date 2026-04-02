@@ -1,19 +1,29 @@
-import { Component, computed, inject, model, output } from "@angular/core"
+import { Component, computed, inject, model, output, viewChild } from "@angular/core"
 import { NgClass } from "@angular/common"
 import { MatIcon } from "@angular/material/icon"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { MenuStore } from "@data/store/menu-store"
 import { defaultPokemon } from "@lib/default-pokemon"
+import { PokemonComboBoxComponent } from "@features/pokemon-build/pokemon-combo-box/pokemon-combo-box.component"
+import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
+import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-button/export-pokemon-button.component"
+import { Pokemon } from "@lib/model/pokemon"
+import { TeamMember } from "@lib/model/team-member"
+import { Team } from "@lib/model/team"
 
 @Component({
   selector: "app-team-tabs-mobile",
   templateUrl: "./team-tabs-mobile.component.html",
   styleUrls: ["./team-tabs-mobile.component.scss"],
-  imports: [MatIcon, NgClass]
+  imports: [MatIcon, NgClass, PokemonComboBoxComponent, ImportPokemonButtonComponent, ExportPokemonButtonComponent]
 })
 export class TeamTabsMobileComponent {
+  pokemonComboBox = viewChild(PokemonComboBoxComponent)
   pokemonOnEditId = model<string | null>(null)
+
   memberAddedEvent = output<void>()
+  pokemonImportedEvent = output<Pokemon | Pokemon[]>()
+  pokemonDeleted = output<string | null>()
 
   store = inject(CalculatorStore)
   menuStore = inject(MenuStore)
@@ -41,6 +51,24 @@ export class TeamTabsMobileComponent {
 
   nonDefaultMembersCount = computed(() => {
     return this.teamMembers().filter(m => !m.pokemon.isDefault).length
+  })
+
+  canImportPokemon = computed(() => this.teamMembers().length < 6)
+
+  isEditingDefault = computed(() => {
+    const id = this.effectiveEditingId()
+    if (!id) return false
+    const p = this.store.findPokemonById(id)
+    return p?.isDefault ?? false
+  })
+
+  hasDefaultMember = computed(() => this.teamMembers().some(m => m.pokemon.isDefault))
+
+  pokemon = computed(() => {
+    const id = this.effectiveEditingId()
+    if (!id) return null
+
+    return this.store.findPokemonById(id)
   })
 
   editingTarget = computed(() => {
@@ -144,5 +172,74 @@ export class TeamTabsMobileComponent {
 
   clearEditMode() {
     this.pokemonOnEditId.set(null)
+  }
+
+  focus() {
+    this.pokemonComboBox()?.focus()
+  }
+
+  importPokemon(pokemon: Pokemon | Pokemon[]) {
+    if (Array.isArray(pokemon)) {
+      if (pokemon.length > 0) {
+        const teamMembers = pokemon.map((p, index) => new TeamMember(p, index === 0))
+        const newTeam = new Team(crypto.randomUUID(), true, "Imported Team", teamMembers)
+        this.store.replaceActiveTeam(newTeam)
+      }
+
+      return
+    }
+
+    if (this.canImportPokemon()) {
+      this.store.addTeamMember(pokemon)
+    }
+
+    this.pokemonImportedEvent.emit(pokemon)
+  }
+
+  removeActivePokemon() {
+    const idToRemove = this.effectiveEditingId()
+
+    if (!idToRemove) return
+
+    const target = this.editingTarget()
+
+    if (target) {
+      const allTargets = this.store.targets()
+
+      if (allTargets.length > 1) {
+        const index = allTargets.findIndex(t => t.pokemon.id === idToRemove || t.secondPokemon?.id === idToRemove)
+        const nextIndex = index === 0 ? 1 : index - 1
+        const nextId = allTargets[nextIndex].pokemon.id
+
+        const newTargets = allTargets.filter(t => t.pokemon.id !== idToRemove && t.secondPokemon?.id !== idToRemove)
+        this.store.updateTargets(newTargets)
+        this.pokemonOnEditId.set(nextId)
+        this.pokemonDeleted.emit(nextId)
+      } else {
+        this.store.changePokemon(idToRemove, defaultPokemon())
+        this.pokemonDeleted.emit(idToRemove)
+      }
+
+      return
+    }
+
+    let nextId: string | null = null
+
+    if (this.teamMembers().length > 1) {
+      nextId = this.teamMembers().find(m => m.pokemon.id !== idToRemove)?.pokemon.id || null
+
+      if (nextId) {
+        const nextIndex = this.teamMembers().findIndex(m => m.pokemon.id === nextId)
+        this.store.activateTeamMember(nextIndex)
+      }
+
+      this.store.removeTeamMember(idToRemove)
+    } else {
+      this.store.changePokemon(idToRemove, defaultPokemon())
+      nextId = idToRemove
+    }
+
+    this.pokemonOnEditId.set(nextId)
+    this.pokemonDeleted.emit(nextId)
   }
 }

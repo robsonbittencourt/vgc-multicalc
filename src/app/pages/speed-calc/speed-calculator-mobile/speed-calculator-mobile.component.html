@@ -1,57 +1,15 @@
 <div class="mobile-calc-container">
-  <div [hidden]="activeBottomTab() === 'teams'" [class.tab-active]="activeBottomTab() !== 'teams'">
-    <app-team-tabs-mobile [(pokemonOnEditId)]="pokemonOnEditId" (memberAddedEvent)="focusPokemonComboBox()" />
-  </div>
-
   <div #scrollContainer class="scrollable-content" [class.teams-tab]="activeBottomTab() === 'teams'" (scroll)="onScroll($event)">
-    @if ((activeBottomTab() === "main" || activeBottomTab() === "speed-insights") && pokemon()) {
-      <div class="attacker-header">
-        <app-pokemon-combo-box [pokemonId]="pokemonId()" label="" />
-        <div class="attacker-actions">
-          @if (canImportPokemon() && teamMemberOnEdit()) {
-            <app-import-pokemon-button (pokemonImportedEvent)="importPokemon($event)" />
-          }
-          <app-export-pokemon-button [pokemonId]="pokemonId()" />
-          @if (teamMemberOnEdit()) {
-            <div class="delete-pokemon" (click)="removeActivePokemon()" data-cy="delete-team-member-mobile">
-              <mat-icon class="icon">delete</mat-icon>
-              <label>Delete</label>
-            </div>
-          }
-        </div>
-      </div>
-    }
-
     <div [hidden]="activeBottomTab() !== 'main'" [class.tab-active]="activeBottomTab() === 'main'">
-      @if (!pokemon().isDefault) {
-        <div class="pokemon-build">
-          <div class="pokemon-build-options">
-            <div class="combo-item">
-              <app-item-combo-box [pokemonId]="pokemonId()" />
-            </div>
+      <app-team-tabs-mobile [(pokemonOnEditId)]="pokemonOnEditId" (memberAddedEvent)="focusPokemonComboBox()" />
 
-            <div class="combo-status">
-              <app-status-combo-box [pokemonId]="pokemonId()" [statusConditions]="statusConditions" />
-            </div>
-          </div>
+      <div class="attacker-build">
+        @if (shouldShowBuild()) {
+          <app-pokemon-build-mobile [pokemonId]="effectiveEditingId()!" [showOptimization]="false" (pokemonDeleted)="pokemonOnEditId.set($event)" />
+        }
+      </div>
 
-          <div class="combo-nature-ability" [ngClass]="{ 'combo-nature-ability-compact': pokemon().ability.actionableAbility }">
-            <div class="combo-nature" [ngClass]="{ 'combo-nature-compact': pokemon().ability.actionableAbility }">
-              <app-nature-combo-box [pokemonId]="pokemonId()" [isMobile]="true" />
-            </div>
-
-            <div class="combo-ability">
-              <app-ability-combo-box [pokemonId]="pokemonId()" [isMobile]="true" />
-            </div>
-          </div>
-        </div>
-
-        <div class="evs">
-          <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.spe" [modifiedStat]="modifiedSpe()" [hasModifiedStat]="hasModifiedStat()" stat="spe" [reduced]="true" />
-        </div>
-
-        <app-speed-scale class="speed-scale" [pokemonId]="pokemon().id" [pokemonEachSide]="7" (pokemonSelected)="selectedPokemon.set($event)" />
-      }
+      <app-speed-scale class="speed-scale" [pokemonId]="lastNonDefaultPokemon().id" [pokemonEachSide]="7" (pokemonSelected)="selectedPokemon.set($event)" />
     </div>
 
     <div [hidden]="activeBottomTab() !== 'speed-insights'" [class.tab-active]="activeBottomTab() === 'speed-insights'">
@@ -96,7 +54,7 @@
       <span>Speed</span>
     </div>
     <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'speed-insights' }" (click)="switchTab('speed-insights')">
-      <mat-icon>analytics</mat-icon>
+      <mat-icon>insights</mat-icon>
       <span>Insights</span>
     </div>
     <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'teams' }" (click)="switchTab('teams')">

@@ -1,34 +1,26 @@
 <div class="mobile-calc-container">
-  <div [hidden]="activeBottomTab() !== 'build'" [class.tab-active]="activeBottomTab() === 'build'">
-    <app-team-tabs-mobile [(pokemonOnEditId)]="pokemonOnEditId" />
-  </div>
-
   <div #scrollContainer class="scrollable-content" [class.teams-tab]="activeBottomTab() === 'teams'" (scroll)="onScroll($event)">
     <div [hidden]="activeBottomTab() !== 'coverage'" [class.tab-active]="activeBottomTab() === 'coverage'">
-      @if (!isPokemonDefault()) {
-        <div class="widget-list">
-          <app-offensive-coverage-mobile [secondTeam]="secondTeam()" />
-          <app-defensive-coverage-mobile [secondTeam]="secondTeam()" />
-        </div>
-      } @else {
-        <div class="empty-state">Select a valid Pokémon to see its coverage</div>
-      }
+      <app-offensive-coverage-mobile [secondTeam]="secondTeam()" />
+      <app-defensive-coverage-mobile [secondTeam]="secondTeam()" />
     </div>
 
     <div [hidden]="activeBottomTab() !== 'insights'" [class.tab-active]="activeBottomTab() === 'insights'">
-      <app-type-coverage-insights-mobile [secondTeam]="secondTeam()" />
+      <app-type-coverage-insights-mobile />
     </div>
 
     <div [hidden]="activeBottomTab() !== 'build'" [class.tab-active]="activeBottomTab() === 'build'">
+      <app-team-tabs-mobile [(pokemonOnEditId)]="pokemonOnEditId" (memberAddedEvent)="onMemberAdded()" />
+
       <div class="attacker-build">
-        @if (effectiveEditingId() && !store.findPokemonById(effectiveEditingId()!).isDefault) {
-          <app-pokemon-build-mobile [pokemonId]="effectiveEditingId()!" (pokemonDeleted)="pokemonOnEditId.set($event)" />
+        @if (effectiveEditingId()) {
+          <app-pokemon-build-mobile [pokemonId]="effectiveEditingId()!" [showOptimization]="false" (pokemonDeleted)="pokemonOnEditId.set($event)" />
         }
       </div>
     </div>
 
     <div [hidden]="activeBottomTab() !== 'teams'" [class.tab-active]="activeBottomTab() === 'teams'">
-      <app-teams-mobile [allowSecondTeamSelection]="true" (secondTeamSelected)="onSecondTeamSelected($event)" (pokemonSelected)="pokemonOnEditId.set($event)" (useTeam)="onTeamSelected($event)" />
+      <app-teams-mobile [allowSecondTeamSelection]="true" (pokemonSelected)="pokemonOnEditId.set($event)" (useTeam)="onTeamSelected($event)" (secondTeamSelected)="onSecondTeamSelected($event)" />
     </div>
   </div>
 

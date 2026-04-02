@@ -12,17 +12,21 @@ import { RollLevelConfig } from "@lib/damage-calculator/roll-level-config"
 import { DefensiveEvOptimizerService } from "@lib/ev-optimizer/defensive-ev-optimizer.service"
 import { Pokemon } from "@lib/model/pokemon"
 import { Target } from "@lib/model/target"
-import { Stats, SurvivalThreshold } from "@lib/types"
+import { Stats } from "@lib/types"
 import { PokemonCardComponent } from "@pages/multi-calc/pokemon-card/pokemon-card.component"
 import { NgClass } from "@angular/common"
-import { MatIcon } from "@angular/material/icon"
+import { MatIcon, MatIconRegistry } from "@angular/material/icon"
+import { DomSanitizer } from "@angular/platform-browser"
 import { MatButtonToggleModule } from "@angular/material/button-toggle"
+import { PokemonComboBoxComponent } from "@features/pokemon-build/pokemon-combo-box/pokemon-combo-box.component"
+import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
+import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-button/export-pokemon-button.component"
 
 @Component({
   selector: "app-simple-calc-mobile",
   templateUrl: "./simple-calc-mobile.component.html",
   styleUrls: ["./simple-calc-mobile.component.scss"],
-  imports: [PokemonBuildMobileComponent, FieldComponent, PokemonCardComponent, NgClass, MatIcon, MatButtonToggleModule, RollConfigComponent, WidgetComponent],
+  imports: [PokemonBuildMobileComponent, PokemonComboBoxComponent, ImportPokemonButtonComponent, ExportPokemonButtonComponent, FieldComponent, PokemonCardComponent, NgClass, MatIcon, MatButtonToggleModule, RollConfigComponent, WidgetComponent],
   providers: [FieldStore, AutomaticFieldService, { provide: FIELD_CONTEXT, useValue: "simple" }]
 })
 export class SimpleCalcMobileComponent {
@@ -83,6 +87,10 @@ export class SimpleCalcMobileComponent {
   lastHandledRightAbilityName = ""
 
   constructor() {
+    const iconRegistry = inject(MatIconRegistry)
+    const sanitizer = inject(DomSanitizer)
+    iconRegistry.addSvgIcon("pokeball", sanitizer.bypassSecurityTrustResourceUrl("assets/icons/pokeball.svg"))
+
     effect(() => {
       const level = this.leftIsAttacker() ? this.store.simpleCalcLeftRollLevel() : this.store.simpleCalcRightRollLevel()
       this.rollLevelConfig.set(RollLevelConfig.fromConfigString(level))
@@ -140,7 +148,7 @@ export class SimpleCalcMobileComponent {
     }
   }
 
-  handleOptimizeRequest(event: { updateNature: boolean; keepOffensiveEvs: boolean; survivalThreshold: SurvivalThreshold }) {
+  handleOptimizeRequest(event: { updateNature: boolean; keepOffensiveEvs: boolean; survivalThreshold: number }) {
     const defender = this.currentPokemon()
     const attacker = this.otherPokemon()
     const field = this.fieldStore.field()
@@ -148,7 +156,8 @@ export class SimpleCalcMobileComponent {
     this.originalEvs.set({ ...defender.evs })
     this.originalNature.set(defender.nature)
 
-    const result = this.defensiveEvOptimizer.optimize(defender, [new Target(attacker)], field, event.updateNature, event.keepOffensiveEvs, event.survivalThreshold, 15, !this.leftIsAttacker())
+    const rollIndex = this.rollLevelConfig().toRollIndex()
+    const result = this.defensiveEvOptimizer.optimize(defender, [new Target(attacker)], field, event.updateNature, event.keepOffensiveEvs, event.survivalThreshold as any, rollIndex, !this.leftIsAttacker())
 
     this.optimizedNature.set(result.nature)
 

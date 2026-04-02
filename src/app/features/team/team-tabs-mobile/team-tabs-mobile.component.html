@@ -20,27 +20,40 @@
             (touchcancel)="onTabTouchEnd()"
             (contextmenu)="$event.preventDefault()">
             <img class="tab-sprite" src="assets/sprites/pokemon-sv/{{ member.pokemon.name }}.png" />
-
             @if (isSecondAttacker(member.pokemon.id)) {
               <div class="combine-badge">
-                <mat-icon>link</mat-icon>
-              </div>
-            }
-
-            @if (pokemonOnEditId() === member.pokemon.id && pokemonOnEditId() !== activePokemonId()) {
-              <div class="close-badge" (click)="clearEditMode(); $event.stopPropagation()">
-                <mat-icon>close</mat-icon>
+                <mat-icon>add</mat-icon>
               </div>
             }
           </div>
         }
       }
-    }
 
-    @if (nonDefaultMembersCount() < 6) {
-      <div class="team-tab add-tab" (click)="addMember()">
-        <mat-icon>add</mat-icon>
-      </div>
+      @if (canImportPokemon() || hasDefaultMember()) {
+        <div class="team-tab add-tab" [class.active-tab]="isEditingDefault()" (click)="addMember()">
+          <mat-icon>add</mat-icon>
+        </div>
+      }
     }
   }
 </div>
+
+@if (pokemon()) {
+  <div class="attacker-header">
+    <app-pokemon-combo-box [pokemonId]="effectiveEditingId()!" label="" />
+    <div class="attacker-actions">
+      @if (canImportPokemon() && !editingTarget()) {
+        <app-import-pokemon-button (pokemonImportedEvent)="importPokemon($event)" />
+      }
+      @if (!isEditingDefault()) {
+        <app-export-pokemon-button [pokemonId]="effectiveEditingId()!" />
+      }
+      @if (!editingTarget() && !isEditingDefault()) {
+        <div class="delete-pokemon" (click)="removeActivePokemon()" data-cy="delete-team-member-mobile">
+          <mat-icon class="icon">delete</mat-icon>
+          <label>Delete</label>
+        </div>
+      }
+    </div>
+  </div>
+}

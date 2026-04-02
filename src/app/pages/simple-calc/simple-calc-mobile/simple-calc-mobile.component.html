@@ -1,17 +1,23 @@
 <div class="mobile-calc-container">
-  <div [hidden]="activeBottomTab() === 'field'" [class.tab-active]="activeBottomTab() !== 'field'">
-    <div class="team-tabs">
-      <div class="team-tab" [ngClass]="{ 'active-tab': activeSide() === 'left' }" (click)="activateLeftPokemon()">
-        <img class="tab-sprite" src="assets/sprites/pokemon-sv/{{ store.leftPokemon().name }}.png" />
-      </div>
-      <div class="team-tab" [ngClass]="{ 'active-tab': activeSide() === 'right' }" (click)="activateRightPokemon()">
-        <img class="tab-sprite" src="assets/sprites/pokemon-sv/{{ store.rightPokemon().name }}.png" />
-      </div>
-    </div>
-  </div>
-
   <div #scrollContainer class="scrollable-content" [class.field-tab]="activeBottomTab() === 'field'" (scroll)="onScroll($event)">
     <div [hidden]="activeBottomTab() !== 'results'" [class.tab-active]="activeBottomTab() === 'results'">
+      <div class="team-tabs">
+        <div class="team-tab" [ngClass]="{ 'active-tab': activeSide() === 'left' }" (click)="activateLeftPokemon()">
+          <img class="tab-sprite" src="assets/sprites/pokemon-sv/{{ store.leftPokemon().name }}.png" />
+        </div>
+        <div class="team-tab" [ngClass]="{ 'active-tab': activeSide() === 'right' }" (click)="activateRightPokemon()">
+          <img class="tab-sprite" src="assets/sprites/pokemon-sv/{{ store.rightPokemon().name }}.png" />
+        </div>
+      </div>
+
+      <div class="attacker-header">
+        <app-pokemon-combo-box [pokemonId]="currentPokemon().id" label="" />
+        <div class="attacker-actions">
+          <app-import-pokemon-button (pokemonImportedEvent)="importPokemon($event)" />
+          <app-export-pokemon-button [pokemonId]="currentPokemon().id" />
+        </div>
+      </div>
+
       <div class="attacker-build">
         <app-pokemon-build-mobile
           [pokemonId]="currentPokemon().id"
@@ -21,8 +27,9 @@
           [optimizationStatus]="optimizationStatus()"
           [showDelete]="false"
           [manageTeamState]="false"
+          [isRightSide]="activeSide() === 'right'"
           (pokemonImportedEvent)="importPokemon($event)"
-          (optimizeRequested)="handleOptimizeRequest($event)"
+          (optimizationRequested)="handleOptimizeRequest($event)"
           (optimizationApplied)="handleOptimizationApplied()"
           (optimizationDiscarded)="handleOptimizationDiscarded()"
           (evsCleared)="handleEvsCleared()" />

@@ -1,4 +1,48 @@
+.attacker-header {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5em;
+  padding: 1em 0.75em 0.5em 0.75em;
+  background-color: var(--background);
+}
+
+.attacker-header app-pokemon-combo-box {
+  flex: 0 1 10em;
+  max-width: 10em;
+  min-width: 0;
+}
+
+.attacker-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  flex-shrink: 0;
+}
+
+.delete-pokemon {
+  display: flex;
+  align-items: center;
+  gap: 0.2em;
+  cursor: pointer;
+  color: var(--text);
+
+  .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  label {
+    cursor: pointer;
+  }
+}
+
 .team-tabs {
+  position: sticky;
+  top: 0;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -6,9 +50,7 @@
   background-color: var(--background);
   border-bottom: 1px solid var(--widget-border);
   flex-shrink: 0;
-  position: sticky;
-  top: 4em;
-  z-index: 20;
+  z-index: 50;
 }
 
 .team-tab {
@@ -22,6 +64,7 @@
   border: 2px solid transparent;
   transition: border-color 0.15s ease;
   flex: 1;
+  min-height: 4.5em;
   position: relative;
   -webkit-touch-callout: none;
   -webkit-tap-highlight-color: transparent !important;
@@ -36,8 +79,7 @@
 }
 
 .add-tab {
-  opacity: 0.4;
-  border: none !important;
+  opacity: 1;
 }
 
 .active-tab {

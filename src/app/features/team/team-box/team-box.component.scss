@@ -27,9 +27,23 @@
 }
 
 .active-team {
-  border-color: var(--highlight-border);
+  border-color: var(--primary);
 }
 
 .second-team {
   border-color: #5cb85c;
+  position: relative;
+}
+
+.second-team-badge {
+  position: absolute;
+  top: 0.15em;
+  right: 0.6em;
+  background-color: #5cb85c;
+  color: white;
+  font-size: 0.85em;
+  padding: 0.2em 0.5em;
+  border-radius: 4px;
+  font-weight: bold;
+  z-index: 2;
 }

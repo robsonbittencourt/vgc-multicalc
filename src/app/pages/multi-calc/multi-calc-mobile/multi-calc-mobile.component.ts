@@ -1,6 +1,7 @@
-import { Component, computed, effect, ElementRef, inject, signal, ViewChild, viewChild } from "@angular/core"
+import { Component, computed, effect, ElementRef, inject, signal, ViewChild } from "@angular/core"
 import { NgClass } from "@angular/common"
-import { CdkDragDrop, CdkDropList, CdkDropListGroup } from "@angular/cdk/drag-drop"
+import { CdkDragDrop, CdkDragMove, CdkDropList, CdkDropListGroup } from "@angular/cdk/drag-drop"
+import { ScrollingModule } from "@angular/cdk/scrolling"
 import { MatButton } from "@angular/material/button"
 import { MatIcon, MatIconRegistry } from "@angular/material/icon"
 import { MatSlideToggle } from "@angular/material/slide-toggle"
@@ -18,10 +19,9 @@ import { DamageResult } from "@lib/damage-calculator/damage-result"
 import { DamageResultOrderService } from "@lib/damage-calculator/damage-result-order.service"
 import { RollLevelConfig } from "@lib/damage-calculator/roll-level-config"
 import { DefensiveEvOptimizerService } from "@lib/ev-optimizer/defensive-ev-optimizer.service"
-import { Stats, SurvivalThreshold } from "@lib/types"
+import { Stats } from "@lib/types"
 import { ExportPokeService } from "@lib/user-data/export-poke.service"
 import { PokemonBuildMobileComponent } from "@features/pokemon-build/pokemon-build-mobile/pokemon-build-mobile.component"
-import { PokemonComboBoxComponent } from "@features/pokemon-build/pokemon-combo-box/pokemon-combo-box.component"
 import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
 import { PokemonCardComponent } from "@pages/multi-calc/pokemon-card/pokemon-card.component"
 import { FieldComponent } from "@features/field/field.component"
@@ -42,25 +42,23 @@ import { TeamsMobileComponent } from "@features/team/teams-mobile/teams-mobile.c
     CdkDropList,
     CdkDropListGroup,
     PokemonBuildMobileComponent,
-    PokemonComboBoxComponent,
+    TeamsMobileComponent,
     PokemonCardComponent,
     FieldComponent,
     AddPokemonCardComponent,
     TeamTabsMobileComponent,
-    TeamsMobileComponent,
     MatButton,
-    MatIcon,
     ImportPokemonButtonComponent,
     MatSlideToggle,
     RollConfigComponent,
-    WidgetComponent
+    WidgetComponent,
+    ScrollingModule
   ],
   providers: [FieldStore, AutomaticFieldService, DamageMultiCalcService, DamageResultOrderService, DefensiveEvOptimizerService, { provide: FIELD_CONTEXT, useValue: "multi" }]
 })
 export class MultiCalcMobileComponent {
-  @ViewChild(PokemonBuildMobileComponent) pokemonBuildMobile?: PokemonBuildMobileComponent
   @ViewChild("scrollContainer") scrollContainer?: ElementRef<HTMLDivElement>
-  pokemonSelectComboBox = viewChild<PokemonComboBoxComponent>("pokemonSelectComboBox")
+  @ViewChild(TeamTabsMobileComponent) teamTabsMobile?: TeamTabsMobileComponent
   store = inject(CalculatorStore)
   menuStore = inject(MenuStore)
   fieldStore = inject(FieldStore)
@@ -77,6 +75,15 @@ export class MultiCalcMobileComponent {
     effect(() => {
       const level = this.menuStore.manyVsOneActivated() ? this.store.manyVsTeamRollLevel() : this.store.multiCalcRollLevel()
       this.rollLevelConfig.set(RollLevelConfig.fromConfigString(level))
+    })
+
+    effect(() => {
+      this.menuStore.oneVsManyActivated()
+      this.menuStore.manyVsOneActivated()
+
+      if (this.scrollContainer) {
+        this.scrollContainer.nativeElement.scrollTo({ top: 0, behavior: "instant" })
+      }
     })
   }
 
@@ -126,6 +133,14 @@ export class MultiCalcMobileComponent {
     return this.teamMembers().some(m => m.pokemon.id === editId) || this.store.secondAttackerId() === editId
   })
 
+  isEditingTarget = computed(() => {
+    const editId = this.effectiveEditingId()
+
+    if (!editId) return false
+
+    return this.store.targets().some(t => t.pokemon.id === editId || t.secondPokemon?.id === editId)
+  })
+
   activePokemonId = computed(() => {
     const members = this.store.team().teamMembers
     if (members.length === 0) return null
@@ -153,8 +168,6 @@ export class MultiCalcMobileComponent {
   selectPokemonActive = computed(() => {
     return this.store.targets().find(t => t.pokemon.isDefault) != null
   })
-
-  canImportPokemon = computed(() => this.teamMembers().length < 6)
 
   haveMetaData = computed(() => this.store.targetMetaRegulation() != undefined)
 
@@ -204,8 +217,6 @@ export class MultiCalcMobileComponent {
   private targetsExcludingMetaData(): Target[] {
     const metaLeft = pokemonByRegulation(this.store.targetMetaRegulation()!, 33)
 
-    console.log(metaLeft.length)
-
     const newTargets = [...this.store.targets()]
       .reverse()
       .filter(target => {
@@ -227,7 +238,7 @@ export class MultiCalcMobileComponent {
     this.pokemonOnEditId.set(this.store.team().activePokemon().id)
   }
 
-  handleOptimizeRequest(event: { updateNature: boolean; keepOffensiveEvs: boolean; survivalThreshold: SurvivalThreshold }) {
+  handleOptimizeRequest(event: { updateNature: boolean; keepOffensiveEvs: boolean; survivalThreshold: number }) {
     const defender = this.store.findPokemonById(this.effectiveEditingId()!)
     const targets = this.store.targets()
     const field = this.fieldStore.field()
@@ -238,7 +249,7 @@ export class MultiCalcMobileComponent {
     this.originalNature.set(defender.nature)
 
     const rollIndex = this.rollLevelConfig().toRollIndex()
-    const result = this.defensiveEvOptimizer.optimize(defender, targets, field, event.updateNature, event.keepOffensiveEvs, event.survivalThreshold, rollIndex, false)
+    const result = this.defensiveEvOptimizer.optimize(defender, targets, field, event.updateNature, event.keepOffensiveEvs, event.survivalThreshold as any, rollIndex, false)
 
     this.optimizedNature.set(result.nature)
 
@@ -404,9 +415,8 @@ export class MultiCalcMobileComponent {
 
   focusPokemonComboBox() {
     setTimeout(() => {
-      this.pokemonBuildMobile?.focus()
-      this.pokemonSelectComboBox()?.focus()
-    }, 50)
+      this.teamTabsMobile?.focus()
+    }, 100)
   }
 
   onScroll(event: Event) {
@@ -420,5 +430,66 @@ export class MultiCalcMobileComponent {
     }
 
     this.lastScrollTop = currentScroll
+  }
+
+  handleDragStarted() {
+    this.cancelScroll()
+  }
+
+  handleDragMoved(event: CdkDragMove) {
+    const scrollContainer = this.scrollContainer?.nativeElement
+
+    if (!scrollContainer) return
+
+    const pointerY = event.pointerPosition.y
+    const containerRect = scrollContainer.getBoundingClientRect()
+    const threshold = 120
+
+    const distFromTop = pointerY - containerRect.top
+    const distFromBottom = containerRect.bottom - pointerY
+
+    if (distFromTop < threshold) {
+      const intensity = (threshold - distFromTop) / threshold
+      this.scrollVelocity = -Math.pow(intensity, 1.5) * 20
+      this.requestScroll()
+    } else if (distFromBottom < threshold) {
+      const intensity = (threshold - distFromBottom) / threshold
+      this.scrollVelocity = Math.pow(intensity, 1.5) * 20
+      this.requestScroll()
+    } else {
+      this.cancelScroll()
+    }
+  }
+
+  handleDragEnded() {
+    this.cancelScroll()
+  }
+
+  private scrollFrame: number | null = null
+  private scrollVelocity = 0
+
+  private requestScroll() {
+    if (this.scrollFrame !== null) return
+
+    const step = () => {
+      const container = this.scrollContainer?.nativeElement
+
+      if (container && this.scrollVelocity !== 0) {
+        container.scrollBy({ top: this.scrollVelocity, behavior: "auto" })
+        this.scrollFrame = requestAnimationFrame(step)
+      } else {
+        this.scrollFrame = null
+      }
+    }
+
+    this.scrollFrame = requestAnimationFrame(step)
+  }
+
+  private cancelScroll() {
+    if (this.scrollFrame !== null) {
+      cancelAnimationFrame(this.scrollFrame)
+      this.scrollFrame = null
+    }
+    this.scrollVelocity = 0
   }
 }
