@@ -64,23 +64,26 @@
 
       @if (boosterInsight() || scarfInsight()) {
         <p>Speed modifications:</p>
-      }
-      @if (boosterInsight()) {
-        <li>
-          {{ pokemonName() }} can reach <b>{{ boosterInsight()!.speed }}</b> Speed with its ability. <b>{{ boosterInsight()!.percentage }}%</b> of them use the item Booster Energy.
-          @if (boosterIsMoreUsed()) {
-            This makes it the most common item.
-          }
-        </li>
-      }
 
-      @if (scarfInsight()) {
-        <li>
-          {{ pokemonName() }} can reach <b>{{ scarfInsight()!.speed }}</b> Speed with Choice Scarf. <b>{{ scarfInsight()!.percentage }}%</b> of them use this item.
-          @if (choiceScarfIsMoreUsed()) {
-            This makes it the most common item.
+        <ul class="custom-list">
+          @if (boosterInsight()) {
+            <li>
+              {{ pokemonName() }} can reach <b>{{ boosterInsight()!.speed }}</b> Speed with its ability. <b>{{ boosterInsight()!.percentage }}%</b> of them use the item Booster Energy.
+              @if (boosterIsMoreUsed()) {
+                This makes it the most common item.
+              }
+            </li>
           }
-        </li>
+
+          @if (scarfInsight()) {
+            <li>
+              {{ pokemonName() }} can reach <b>{{ scarfInsight()!.speed }}</b> Speed with Choice Scarf. <b>{{ scarfInsight()!.percentage }}%</b> of them use this item.
+              @if (choiceScarfIsMoreUsed()) {
+                This makes it the most common item.
+              }
+            </li>
+          }
+        </ul>
       }
 
       <div class="note">
