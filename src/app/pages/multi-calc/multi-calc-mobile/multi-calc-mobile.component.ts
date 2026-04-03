@@ -351,13 +351,11 @@ export class MultiCalcMobileComponent {
 
     this.pokemonOnEditId.set(pokemonId)
 
-    if (window.innerWidth < 768) {
-      setTimeout(() => {
-        if (this.scrollContainer) {
-          this.scrollContainer.nativeElement.scrollTo({ top: 0, behavior: "smooth" })
-        }
-      }, 150)
-    }
+    setTimeout(() => {
+      if (this.scrollContainer) {
+        this.scrollContainer.nativeElement.scrollTo({ top: 0, behavior: "smooth" })
+      }
+    }, 150)
   }
 
   switchTab(newTab: "results" | "teams" | "field") {

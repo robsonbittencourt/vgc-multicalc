@@ -106,7 +106,12 @@ export class MultiCalcComponent implements OnInit {
 
   targetActivated(pokemonId: string) {
     this.updatePokemonOnEditId(pokemonId)
-    this.teamComponent()?.scrollToPokemonSelector()
+
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" })
+      document.documentElement.scrollTo({ top: 0, behavior: "smooth" })
+      document.body.scrollTo({ top: 0, behavior: "smooth" })
+    }, 150)
   }
 
   updatePokemonOnEditId(pokemonId: string) {
