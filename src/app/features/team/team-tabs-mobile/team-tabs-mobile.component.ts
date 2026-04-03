@@ -53,12 +53,15 @@ export class TeamTabsMobileComponent {
     return this.teamMembers().filter(m => !m.pokemon.isDefault).length
   })
 
-  canImportPokemon = computed(() => this.teamMembers().length < 6)
+  canImportPokemon = computed(() => this.teamMembers().length < 6 || this.hasDefaultMember())
 
   isEditingDefault = computed(() => {
     const id = this.effectiveEditingId()
+
     if (!id) return false
+
     const p = this.store.findPokemonById(id)
+
     return p?.isDefault ?? false
   })
 
@@ -190,7 +193,15 @@ export class TeamTabsMobileComponent {
     }
 
     if (this.canImportPokemon()) {
-      this.store.addTeamMember(pokemon)
+      const defaultMember = this.teamMembers().find(m => m.pokemon.isDefault)
+
+      if (defaultMember) {
+        this.store.changePokemon(defaultMember.pokemon.id, pokemon)
+        this.setActivePokemon(defaultMember.pokemon.id)
+      } else {
+        this.store.addTeamMember(pokemon)
+        this.setActivePokemon(pokemon.id)
+      }
     }
 
     this.pokemonImportedEvent.emit(pokemon)
