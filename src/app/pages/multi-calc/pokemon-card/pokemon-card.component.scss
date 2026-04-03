@@ -160,10 +160,13 @@
 }
 
 .middle {
+  flex: 1;
   display: flex;
   align-items: center;
+  justify-content: center;
 
   @media (max-width: 600px) {
+    flex: none;
     margin-top: 0.75em;
   }
 }
@@ -247,16 +250,16 @@
   justify-content: space-between;
   height: 100%;
   gap: 0.25rem;
+  margin-left: auto;
 
-  @media (max-width: 600px) {
-    width: auto; /* Deixa ocupar apenas o que precisa no mobile */
+  @media (max-width: 1280px) {
+    width: auto;
     flex: 0 0 auto;
     max-width: 6em;
     flex-direction: row;
     height: auto;
     align-items: center;
     justify-content: flex-end;
-    margin-left: auto;
 
     .card-buttons {
       display: flex;
@@ -285,7 +288,7 @@
     align-items: center;
     gap: 0.25rem;
 
-    @media (max-width: 600px) {
+    @media (max-width: 1280px) {
       justify-content: flex-end;
 
       .card-buttons {

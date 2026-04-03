@@ -9,6 +9,11 @@
   color: #efffff;
   overflow: hidden;
 
+  @media (max-width: 1280px) {
+    height: clamp(60px, 7vw, 90px);
+    width: clamp(245px, 42vw, 400px);
+  }
+
   @media (max-width: 600px) {
     width: 100%;
     height: 5em;
@@ -23,8 +28,14 @@
   margin: 0.1em 0em 0.1em 1em;
   font-weight: 500;
 
+  @media (max-width: 1280px) {
+    flex: 0 0 45%;
+    min-width: 0;
+  }
+
   @media (max-width: 600px) {
-    min-width: 40%;
+    flex: 1;
+    min-width: 0;
   }
 }
 
@@ -34,6 +45,11 @@
   font-weight: 800;
   margin: 0;
   padding: 0;
+
+  @media (max-width: 600px) {
+    font-size: 1.35em;
+    white-space: nowrap;
+  }
 }
 
 .hp-bar {
@@ -49,8 +65,9 @@
   align-items: center;
   justify-content: flex-end;
 
-  @media (max-width: 600px) {
-    width: 7em;
+  @media (max-width: 1280px) {
+    width: 90%;
+    height: 28%;
   }
 }
 
