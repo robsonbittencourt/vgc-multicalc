@@ -26,7 +26,21 @@ import { Stats } from "@lib/types"
   selector: "app-pokemon-build-mobile",
   templateUrl: "./pokemon-build-mobile.component.html",
   styleUrls: ["./pokemon-build-mobile.component.scss"],
-  imports: [NgClass, MatButton, MatCheckbox, FormsModule, AbilityComboBoxComponent, EvSliderComponent, TeraComboBoxComponent, StatusComboBoxComponent, ItemComboBoxComponent, NatureComboBoxComponent, InputSelectComponent, PokemonMovesMobileComponent, TypeComboBoxComponent]
+  imports: [
+    NgClass,
+    MatButton,
+    MatCheckbox,
+    FormsModule,
+    AbilityComboBoxComponent,
+    EvSliderComponent,
+    TeraComboBoxComponent,
+    StatusComboBoxComponent,
+    ItemComboBoxComponent,
+    NatureComboBoxComponent,
+    InputSelectComponent,
+    PokemonMovesMobileComponent,
+    TypeComboBoxComponent
+  ]
 })
 export class PokemonBuildMobileComponent {
   pokemonId = input.required<string>()

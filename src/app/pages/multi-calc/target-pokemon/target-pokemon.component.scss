@@ -26,6 +26,17 @@
   grid-row-gap: 1em;
 }
 
+.select-pokemon {
+  width: 18em;
+}
+
+.order-toggle {
+  align-self: center;
+}
+
 .regulation-combo {
   width: 10em;
+  display: flex;
+  align-items: center;
+  align-self: center;
 }

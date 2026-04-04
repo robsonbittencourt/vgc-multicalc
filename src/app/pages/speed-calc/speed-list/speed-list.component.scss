@@ -2,6 +2,12 @@
   display: flex;
   gap: 2em;
   margin-left: 3em;
+  margin-top: 1em;
+  align-items: end;
+}
+
+.title-box > * {
+  height: 2.5em;
 }
 
 .title {
@@ -29,6 +35,10 @@
 
 .speed-scale {
   margin-top: 1.5em;
+}
+
+.select-regulation {
+  width: 7em;
 }
 
 .select-usage {
