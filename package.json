@@ -1,6 +1,6 @@
 {
   "name": "vgc-multicalc",
-  "version": "1.13.1",
+  "version": "1.13.2",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -46,7 +46,7 @@
     "angular-eslint": "21.3.1",
     "cypress": "15.13.0",
     "cypress-real-events": "1.15.0",
-    "eslint": "10.1.0",
+    "eslint": "10.2.0",
     "jasmine-core": "5.13.0",
     "karma": "6.4.4",
     "karma-chrome-launcher": "3.2.0",
