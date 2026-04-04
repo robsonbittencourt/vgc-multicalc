@@ -3,19 +3,25 @@
     <app-pokemon-moves-mobile [pokemonId]="pokemonId()" />
 
     <div class="combo-options">
-      <div class="combo-tera">
-        <app-tera-combo-box [pokemonId]="pokemonId()" />
+      <div class="combo-row combo-row-tera-types">
+        <div class="combo-tera">
+          <app-tera-combo-box [pokemonId]="pokemonId()" />
+        </div>
+        <div class="combo-types">
+          <app-type-combo-box [type1]="pokemon().type1" [type2]="pokemon().type2" [centralized]="true" />
+        </div>
       </div>
 
-      <div class="combo-item">
-        <app-item-combo-box [pokemonId]="pokemonId()" />
+      <div class="combo-row">
+        <div class="combo-item">
+          <app-item-combo-box [pokemonId]="pokemonId()" />
+        </div>
+        <div class="combo-status">
+          <app-status-combo-box [pokemonId]="pokemonId()" />
+        </div>
       </div>
 
-      <div class="combo-status">
-        <app-status-combo-box [pokemonId]="pokemonId()" />
-      </div>
-
-      <div class="combo-nature-ability" [ngClass]="{ 'combo-nature-ability-compact': pokemon().ability.actionableAbility }">
+      <div class="combo-row">
         <div class="combo-nature" [ngClass]="{ 'combo-nature-compact': pokemon().ability.actionableAbility }">
           <app-nature-combo-box [pokemonId]="pokemonId()" [isMobile]="true" />
         </div>

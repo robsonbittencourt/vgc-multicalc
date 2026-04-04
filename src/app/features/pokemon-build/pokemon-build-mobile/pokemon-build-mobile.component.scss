@@ -83,36 +83,46 @@ app-pokemon-moves-mobile {
 
 .combo-options {
   display: flex;
-  flex-wrap: wrap;
-  gap: 2em;
-  row-gap: 1em;
-  padding: 0.75em 2.5em 0.75em 0.75em;
+  flex-direction: column;
+  gap: 1em;
+  padding: 0.75em;
+  margin: 1em;
   background-color: var(--highlight);
 }
 
+.combo-row {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+.combo-row-tera-types {
+  align-items: flex-end;
+}
+
 .combo-tera {
-  flex: 1 0 7em;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.combo-types {
+  flex: 1 1 0;
+  margin-bottom: 0.15em;
+}
+
+::ng-deep .combo-types app-type-combo-box .pokemon-type {
+  padding: 0.65em 0.5em;
+  font-size: 1rem;
 }
 
 .combo-item {
-  flex: 1 0 7em;
+  flex: 1 1 0;
+  min-width: 0;
 }
 
 .combo-status {
-  flex: 1 0 7em;
-  margin-left: -0.5em;
-}
-
-.combo-nature-ability {
-  display: flex;
-  gap: 2em;
-  width: 100%;
-  flex-wrap: nowrap;
-  box-sizing: border-box;
-}
-
-.combo-nature-ability-compact {
-  gap: 2em;
+  flex: 1 1 0;
+  min-width: 0;
 }
 
 .combo-nature,
@@ -122,8 +132,8 @@ app-pokemon-moves-mobile {
 }
 
 .combo-nature-compact {
-  flex: 1 1 22%;
-  max-width: 22%;
+  flex: 1 1 30%;
+  max-width: 30%;
 }
 
 ::ng-deep .mat-mdc-standard-chip .mdc-evolution-chip__graphic {

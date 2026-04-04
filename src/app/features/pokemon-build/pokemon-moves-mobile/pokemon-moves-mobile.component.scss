@@ -6,11 +6,14 @@
   padding: 0 1em;
 }
 
+.no-edit-moves {
+  padding: 0.2em 0.2em;
+}
+
 .edit-button-section {
   display: flex;
-  gap: 2em;
-  margin-left: 1.5em;
   align-items: center;
+  margin-left: 0.5em;
 }
 
 .edit-button,
@@ -18,6 +21,7 @@
   display: flex;
   align-items: center;
   cursor: pointer;
+  font-size: 12px;
 }
 
 .edit-icon {

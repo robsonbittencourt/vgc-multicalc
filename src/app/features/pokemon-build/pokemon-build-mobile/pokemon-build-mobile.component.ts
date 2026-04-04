@@ -19,13 +19,14 @@ import { getFinalSpeed } from "@lib/smogon/stat-calculator/spe/modified-spe"
 import { InputSelectComponent } from "@basic/input-select/input-select.component"
 import { KeyValuePair } from "@basic/input-autocomplete/input-autocomplete.component"
 import { PokemonMovesMobileComponent } from "@features/pokemon-build/pokemon-moves-mobile/pokemon-moves-mobile.component"
+import { TypeComboBoxComponent } from "@features/pokemon-build/type-combo-box/type-combo-box.component"
 import { Stats } from "@lib/types"
 
 @Component({
   selector: "app-pokemon-build-mobile",
   templateUrl: "./pokemon-build-mobile.component.html",
   styleUrls: ["./pokemon-build-mobile.component.scss"],
-  imports: [NgClass, MatButton, MatCheckbox, FormsModule, AbilityComboBoxComponent, EvSliderComponent, TeraComboBoxComponent, StatusComboBoxComponent, ItemComboBoxComponent, NatureComboBoxComponent, InputSelectComponent, PokemonMovesMobileComponent]
+  imports: [NgClass, MatButton, MatCheckbox, FormsModule, AbilityComboBoxComponent, EvSliderComponent, TeraComboBoxComponent, StatusComboBoxComponent, ItemComboBoxComponent, NatureComboBoxComponent, InputSelectComponent, PokemonMovesMobileComponent, TypeComboBoxComponent]
 })
 export class PokemonBuildMobileComponent {
   pokemonId = input.required<string>()
