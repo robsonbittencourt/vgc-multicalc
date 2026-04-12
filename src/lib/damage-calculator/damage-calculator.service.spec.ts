@@ -10,6 +10,7 @@ import { Pokemon } from "@lib/model/pokemon"
 import { Target } from "@lib/model/target"
 import { Field as FieldSmogon, Move as MoveSmogon, Pokemon as SmogonPokemon } from "@robsonbittencourt/calc"
 import { Ability } from "@lib/model/ability"
+import { CalculatorStore } from "@data/store/calculator-store"
 
 describe("Damage Calculator Service", () => {
   let service: DamageCalculatorService
@@ -28,6 +29,7 @@ describe("Damage Calculator Service", () => {
         { provide: CALC_ADJUSTERS, useValue: adjusterOneSpy, multi: true },
         { provide: CALC_ADJUSTERS, useValue: adjusterTwoSpy, multi: true },
         { provide: SPECIFIC_DAMAGE_CALCULATORS, useValue: specificCalculatorSpy, multi: true },
+        { provide: CalculatorStore, useValue: { useSpsMode: () => false, isChampions: () => false } },
         provideZonelessChangeDetection()
       ]
     })

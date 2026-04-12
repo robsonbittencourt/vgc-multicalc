@@ -182,6 +182,14 @@ mat-divider {
   color: var(--highlight-contrast);
 }
 
+.game-toggle {
+  width: 100%;
+
+  mat-button-toggle {
+    flex: 1;
+  }
+}
+
 .pokemon-image-container {
   display: flex;
   align-items: center;

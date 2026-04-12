@@ -1,7 +1,8 @@
-import { Component, inject } from "@angular/core"
+import { Component, computed, inject } from "@angular/core"
 import { MatButtonToggle, MatButtonToggleGroup } from "@angular/material/button-toggle"
 import { KeyValuePair } from "@basic/input-autocomplete/input-autocomplete.component"
 import { InputSelectComponent } from "@basic/input-select/input-select.component"
+import { CalculatorStore } from "@data/store/calculator-store"
 import { SpeedCalcOptionsStore } from "@data/store/speed-calc-options-store"
 
 @Component({
@@ -11,7 +12,10 @@ import { SpeedCalcOptionsStore } from "@data/store/speed-calc-options-store"
   styleUrl: "./opponent-options.component.scss"
 })
 export class OpponentOptionsComponent {
+  store = inject(CalculatorStore)
   optionsStore = inject(SpeedCalcOptionsStore)
+
+  showChoiceScarf = computed(() => this.store.game() !== "champions")
 
   statsModifiers: KeyValuePair[] = [
     { key: "+6", value: "6" },

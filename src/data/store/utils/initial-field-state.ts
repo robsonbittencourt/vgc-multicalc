@@ -1,12 +1,14 @@
 import { FieldState } from "@data/store/field-store"
+import { readUserData, readGameData } from "@data/store/utils/user-data-storage"
 import { FieldSide } from "@lib/model/field"
 
 export function initialFieldState(context: string): FieldState {
-  const userData = JSON.parse(localStorage.getItem("userData")!)
-  let fieldUserData = userData?.fields?.[context]
+  const game = readUserData()?.game ?? "champions"
+  const gameData = readGameData(game)
+  let fieldUserData = gameData?.fields?.[context]
 
-  if (context === "simple" && !fieldUserData && userData?.field) {
-    fieldUserData = userData.field
+  if (context === "simple" && !fieldUserData && gameData?.field) {
+    fieldUserData = gameData.field
   }
 
   if (fieldUserData && !fieldUserData.attackerSide?.gameType) {
@@ -20,7 +22,7 @@ export function initialFieldState(context: string): FieldState {
   return fieldUserData ? { ...defaultFieldState(), ...fieldUserData } : defaultFieldState()
 }
 
-function defaultFieldState(): FieldState {
+export function defaultFieldState(): FieldState {
   return {
     updateLocalStorage: true,
     weather: null,

@@ -1,25 +1,28 @@
-import { Component, computed, inject, input, output } from "@angular/core"
 import { NgClass } from "@angular/common"
+import { Component, computed, effect, inject, input, output, signal } from "@angular/core"
+import { FormsModule } from "@angular/forms"
 import { MatButton } from "@angular/material/button"
 import { MatCheckbox } from "@angular/material/checkbox"
-import { FormsModule } from "@angular/forms"
+import { MatSlideToggle } from "@angular/material/slide-toggle"
+import { KeyValuePair } from "@basic/input-autocomplete/input-autocomplete.component"
+import { InputSelectComponent } from "@basic/input-select/input-select.component"
 import { CalculatorStore } from "@data/store/calculator-store"
+import { FieldStore } from "@data/store/field-store"
 import { MenuStore } from "@data/store/menu-store"
-import { Pokemon } from "@lib/model/pokemon"
+import { spToEv, totalSpsFromEvs } from "@lib/utils/ev-sp-converter"
 import { AbilityComboBoxComponent } from "@features/pokemon-build/ability-combo-box/ability-combo-box.component"
 import { EvSliderComponent } from "@features/pokemon-build/ev-slider/ev-slider.component"
-import { TeraComboBoxComponent } from "@features/pokemon-build/tera-combo-box/tera-combo-box.component"
-import { StatusComboBoxComponent } from "@features/pokemon-build/status-combo-box/status-combo-box.component"
 import { ItemComboBoxComponent } from "@features/pokemon-build/item-combo-box/item-combo-box.component"
 import { NatureComboBoxComponent } from "@features/pokemon-build/nature-combo-box/nature-combo-box.component"
-import { FieldStore } from "@data/store/field-store"
+import { PokemonMovesMobileComponent } from "@features/pokemon-build/pokemon-moves-mobile/pokemon-moves-mobile.component"
+import { StatusComboBoxComponent } from "@features/pokemon-build/status-combo-box/status-combo-box.component"
+import { TeraComboBoxComponent } from "@features/pokemon-build/tera-combo-box/tera-combo-box.component"
+import { TypeComboBoxComponent } from "@features/pokemon-build/type-combo-box/type-combo-box.component"
+import { MegaStoneService } from "@features/pokemon-build/utils/mega-stone.service"
+import { Pokemon } from "@lib/model/pokemon"
 import { getFinalAttack, getFinalSpecialAttack } from "@lib/smogon/stat-calculator/atk-spa/modified-atk-spa"
 import { getFinalDefense, getFinalSpecialDefense } from "@lib/smogon/stat-calculator/def-spd/modified-def-spd"
 import { getFinalSpeed } from "@lib/smogon/stat-calculator/spe/modified-spe"
-import { InputSelectComponent } from "@basic/input-select/input-select.component"
-import { KeyValuePair } from "@basic/input-autocomplete/input-autocomplete.component"
-import { PokemonMovesMobileComponent } from "@features/pokemon-build/pokemon-moves-mobile/pokemon-moves-mobile.component"
-import { TypeComboBoxComponent } from "@features/pokemon-build/type-combo-box/type-combo-box.component"
 import { Stats } from "@lib/types"
 
 @Component({
@@ -30,6 +33,7 @@ import { Stats } from "@lib/types"
     NgClass,
     MatButton,
     MatCheckbox,
+    MatSlideToggle,
     FormsModule,
     AbilityComboBoxComponent,
     EvSliderComponent,
@@ -55,13 +59,43 @@ export class PokemonBuildMobileComponent {
   store = inject(CalculatorStore)
   menuStore = inject(MenuStore)
   fieldStore = inject(FieldStore)
+  megaStoneService = inject(MegaStoneService)
 
-  MAX_EVS = 508
+  isChampions = computed(() => this.store.isChampions)
+  showEvsSpsToggle = signal(false)
+  MAX_EVS = computed(() => (this.isChampions() ? 66 : 508))
+  evLabel = computed(() => {
+    if (this.store.isChampions() && this.store.useSpsMode()) {
+      return "SPs"
+    }
+    return "EVs"
+  })
+  remainingLabel = computed(() => "Remaining:")
+  remainingPoints = computed(() => {
+    const pokemon = this.pokemon()
+    if (this.store.isChampions()) {
+      const currentSps = totalSpsFromEvs(pokemon.evs)
+      const remainingSps = 66 - currentSps
+      if (this.store.useSpsMode()) {
+        return remainingSps
+      } else {
+        return spToEv(remainingSps)
+      }
+    }
+    return 508 - pokemon.totalEvs
+  })
+
   thresholdOptions: KeyValuePair[] = [
     { key: "2HKO", value: "2" },
     { key: "3HKO", value: "3" },
     { key: "4HKO", value: "4" }
   ]
+
+  constructor() {
+    effect(() => {
+      this.showEvsSpsToggle.set(this.store.isChampions())
+    })
+  }
 
   updateNature = true
   keepOffensiveEvs = true
@@ -162,6 +196,10 @@ export class PokemonBuildMobileComponent {
     this.evsChanged.emit()
   }
 
+  toggleSpsMode() {
+    this.store.toggleSpsMode()
+  }
+
   optimizeEvs() {
     this.optimizationRequested.emit({
       updateNature: this.updateNature,
@@ -184,5 +222,21 @@ export class PokemonBuildMobileComponent {
 
   removeActivePokemon() {
     this.pokemonDeleted.emit(null)
+  }
+
+  isMegaStone() {
+    return this.megaStoneService.isMegaStone(this.pokemon().item)
+  }
+
+  isMegaStoneCompatible() {
+    return this.megaStoneService.isMegaStoneCompatible(this.pokemon().name, this.pokemon().item)
+  }
+
+  getMegaStoneSprite() {
+    return this.megaStoneService.getMegaStoneSprite(this.pokemon().item)
+  }
+
+  toggleMega() {
+    this.megaStoneService.toggleMega(this.pokemonId(), this.pokemon().name, this.pokemon().item)
   }
 }

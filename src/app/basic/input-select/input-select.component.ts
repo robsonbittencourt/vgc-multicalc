@@ -1,11 +1,11 @@
 import { NgClass } from "@angular/common"
-import { booleanAttribute, Component, input, model, output } from "@angular/core"
-import { MatOption, MatSelect, MatSelectChange } from "@angular/material/select"
+import { booleanAttribute, Component, computed, input, model, output } from "@angular/core"
+import { MatOption, MatSelect, MatSelectChange, MatSelectTrigger } from "@angular/material/select"
 import { KeyValuePair } from "@basic/input-autocomplete/input-autocomplete.component"
 
 @Component({
   selector: "app-input-select",
-  imports: [NgClass, MatSelect, MatOption],
+  imports: [NgClass, MatSelect, MatOption, MatSelectTrigger],
   templateUrl: "./input-select.component.html",
   styleUrl: "./input-select.component.scss"
 })
@@ -18,8 +18,21 @@ export class InputSelectComponent {
   leftLabel = input(false, { transform: booleanAttribute })
   disabled = input(false)
   haveFocus = input(false)
+  displayMap = input<Record<string, string>>()
 
   selected = output()
+
+  displayLabel = computed(() => {
+    const currentValue = this.value()
+    const map = this.displayMap()
+
+    if (map && map[currentValue]) {
+      return map[currentValue]
+    }
+
+    const selectedItem = this.allValues().find(item => item.value === currentValue)
+    return selectedItem?.key ?? currentValue
+  })
 
   selectionChange(event: MatSelectChange) {
     this.value.set(event.value)

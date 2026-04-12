@@ -1486,7 +1486,7 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     pp: 15,
     type: "Poison",
     description: "50% chance to sleep, poison, or paralyze target.",
-    secondary: null,
+    secondary: { chance: 50 },
     target: "normal"
   },
   disable: {
@@ -1937,6 +1937,17 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     pp: 10,
     type: "Electric",
     description: "Raises Sp. Atk by 1, hits turn 2. Rain: no charge.",
+    secondary: null,
+    target: "normal"
+  },
+  electrify: {
+    accuracy: true,
+    basePower: 0,
+    category: "Status",
+    name: "Electrify",
+    pp: 20,
+    type: "Electric",
+    description: "The target's next move becomes Electric-type.",
     secondary: null,
     target: "normal"
   },
@@ -3612,6 +3623,17 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     secondary: null,
     target: "normal"
   },
+  kingsshield: {
+    accuracy: true,
+    basePower: 0,
+    category: "Status",
+    name: "King's Shield",
+    pp: 10,
+    type: "Steel",
+    description: "User is protected from most attacks. Lowers the attacker's Attack by 1 if it contacts.",
+    secondary: null,
+    target: "self"
+  },
   kowtowcleave: {
     accuracy: true,
     basePower: 85,
@@ -3765,6 +3787,17 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     description: "For 5 turns, special damage to allies is halved.",
     secondary: null,
     target: "allySide"
+  },
+  lightofruin: {
+    accuracy: 90,
+    basePower: 140,
+    category: "Special",
+    name: "Light of Ruin",
+    pp: 5,
+    type: "Fairy",
+    description: "User takes 50% recoil damage.",
+    secondary: null,
+    target: "normal"
   },
   liquidation: {
     accuracy: 100,
@@ -5988,6 +6021,17 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     secondary: { chance: 100, boosts: { spa: -1 } },
     target: "allAdjacentFoes"
   },
+  snaptrap: {
+    accuracy: 100,
+    basePower: 35,
+    category: "Physical",
+    name: "Snap Trap",
+    pp: 15,
+    type: "Grass",
+    description: "Traps and damages the target for 4-5 turns.",
+    secondary: null,
+    target: "normal"
+  },
   snipeshot: {
     accuracy: 100,
     basePower: 80,
@@ -6348,6 +6392,17 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     pp: 5,
     type: "Rock",
     description: "High critical hit ratio.",
+    secondary: null,
+    target: "normal"
+  },
+  stormthrow: {
+    accuracy: 100,
+    basePower: 60,
+    category: "Physical",
+    name: "Storm Throw",
+    pp: 10,
+    type: "Fighting",
+    description: "This move always lands a critical hit.",
     secondary: null,
     target: "normal"
   },
@@ -7118,6 +7173,17 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     pp: 10,
     type: "Psychic",
     description: "User switches its held item with the target's.",
+    secondary: null,
+    target: "normal"
+  },
+  trickortreat: {
+    accuracy: 100,
+    basePower: 0,
+    category: "Status",
+    name: "Trick-or-Treat",
+    pp: 20,
+    type: "Ghost",
+    description: "Adds Ghost to the target's type(s).",
     secondary: null,
     target: "normal"
   },

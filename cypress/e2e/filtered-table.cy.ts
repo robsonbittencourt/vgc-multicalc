@@ -1,3 +1,4 @@
+import { PokemonBuild } from "@page-object/pokemon-build"
 import { Team } from "@page-object/team"
 
 const team = new Team()
@@ -100,6 +101,31 @@ describe("Filtered Table behaviors", () => {
       build.changeAttackThreeByFilter("Ea", "Drum Beating")
       build.changeAttackFourByFilter("Ea", "Endeavor")
       team.pokemonOnEditAttacksIs("Earthquake", "Brick Break", "Drum Beating", "Endeavor")
+    })
+  })
+
+  describe("Mega Pokémon search in Champions mode", () => {
+    beforeEach(() => {
+      cy.contains("Champions").click({ force: true })
+    })
+
+    afterEach(() => {
+      cy.contains("SV").click({ force: true })
+    })
+
+    it("Given Champions mode, when searching 'Mega Dra', then lists Dragonite-Mega", () => {
+      const build = new PokemonBuild("your-team")
+      build.inputPokemonName("Mega Dra")
+
+      cy.get('[data-cy="table-entry-Dragonite-Mega"]').should("exist")
+      cy.get('[data-cy="table-entry-Garchomp-Mega"]').should("not.exist")
+    })
+
+    it("Given Champions mode, when selecting Dragonite-Mega via 'Mega Dra' search, then pokemon is set to Dragonite-Mega", () => {
+      const build = new PokemonBuild("your-team")
+      build.selectPokemonByFilter("Mega Dra", "Dragonite-Mega")
+
+      cy.get('[data-cy="pokemon-select"] input').should("have.value", "Dragonite-Mega")
     })
   })
 

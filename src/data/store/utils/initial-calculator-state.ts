@@ -1,6 +1,7 @@
 import { CalculatorState } from "@data/store/calculator-store"
 import { pokemonToState } from "@data/store/utils/state-mapper"
 import { buildState } from "@data/store/utils/user-data-mapper"
+import { readGameData, readUserData } from "@data/store/utils/user-data-storage"
 import { defaultPokemon } from "@lib/default-pokemon"
 import { Status } from "@lib/model/status"
 import { v4 as uuidv4 } from "uuid"
@@ -8,13 +9,429 @@ import { v4 as uuidv4 } from "uuid"
 const initialId = "0dc51a43-1de8-4213-9686-fb07f2507b06"
 
 export function initialCalculatorState(): CalculatorState {
-  const userData = JSON.parse(localStorage.getItem("userData")!)
-  return userData?.leftPokemon ? { ...defaultState(), ...buildState(userData) } : defaultState()
+  const game = readUserData()?.game ?? "champions"
+  const gameData = readGameData(game)
+  const defaults = game === "champions" ? defaultStateChampions() : defaultStateSV()
+  const useSpsMode = readUserData()?.useSpsMode ?? true
+  return gameData?.leftPokemon ? { ...defaults, ...buildState(gameData), game, useSpsMode } : { ...defaults, game, useSpsMode }
 }
 
-function defaultState() {
+export function defaultState() {
+  return defaultStateChampions()
+}
+
+export function defaultStateChampions() {
   return {
     updateLocalStorage: true,
+    game: "champions" as const,
+
+    speedCalcPokemonState: {
+      id: uuidv4(),
+      name: "Charizard",
+      nature: "Timid",
+      item: "Choice Scarf",
+      status: Status.HEALTHY.description,
+      ability: "Solar Power",
+      abilityOn: false,
+      commanderActive: false,
+      teraType: "Ghost",
+      teraTypeActive: false,
+      activeMove: 0,
+      moveSet: [{ name: "Flamethrower" }, { name: "Dragon Pulse" }, { name: "Focus Blast" }, { name: "Protect" }],
+      boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+      bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+      evs: { hp: 0, atk: 0, def: 4, spa: 252, spd: 0, spe: 252 },
+      ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
+      hpPercentage: 100,
+      automaticAbilityOn: false
+    },
+
+    leftPokemonState: {
+      id: uuidv4(),
+      name: "Charizard",
+      nature: "Timid",
+      item: "Choice Scarf",
+      status: Status.HEALTHY.description,
+      ability: "Solar Power",
+      abilityOn: false,
+      commanderActive: false,
+      teraType: "Ghost",
+      teraTypeActive: false,
+      activeMove: 0,
+      moveSet: [{ name: "Flamethrower" }, { name: "Dragon Pulse" }, { name: "Focus Blast" }, { name: "Protect" }],
+      boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+      bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+      evs: { hp: 0, atk: 0, def: 4, spa: 252, spd: 0, spe: 252 },
+      ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
+      hpPercentage: 100,
+      automaticAbilityOn: false
+    },
+
+    rightPokemonState: {
+      id: uuidv4(),
+      name: "Dragonite",
+      nature: "Adamant",
+      item: "Life Orb",
+      status: Status.HEALTHY.description,
+      ability: "Inner Focus",
+      abilityOn: false,
+      commanderActive: false,
+      teraType: "Normal",
+      teraTypeActive: false,
+      activeMove: 0,
+      moveSet: [{ name: "Outrage" }, { name: "Extreme Speed" }, { name: "Aqua Jet" }, { name: "Low Kick" }],
+      boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+      bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+      evs: { hp: 236, atk: 248, def: 0, spa: 0, spd: 20, spe: 0 },
+      ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
+      hpPercentage: 100,
+      automaticAbilityOn: false
+    },
+
+    secondAttackerId: "",
+
+    teamsState: [
+      {
+        id: uuidv4(),
+        active: true,
+        name: "Team 1",
+        teamMembers: [
+          {
+            active: true,
+            pokemon: {
+              id: initialId,
+              name: "Charizard",
+              nature: "Timid",
+              item: "Choice Scarf",
+              status: Status.HEALTHY.description,
+              ability: "Solar Power",
+              abilityOn: false,
+              commanderActive: false,
+              teraType: "Ghost",
+              teraTypeActive: false,
+              activeMove: 0,
+              moveSet: [{ name: "Flamethrower" }, { name: "Dragon Pulse" }, { name: "Focus Blast" }, { name: "Protect" }],
+              boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+              bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+              evs: { hp: 0, atk: 0, def: 4, spa: 252, spd: 0, spe: 252 },
+              ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
+              hpPercentage: 100,
+              automaticAbilityOn: false
+            }
+          },
+          {
+            active: false,
+            pokemon: {
+              id: uuidv4(),
+              name: "Dragonite",
+              nature: "Adamant",
+              item: "Life Orb",
+              status: Status.HEALTHY.description,
+              ability: "Inner Focus",
+              abilityOn: false,
+              commanderActive: false,
+              teraType: "Normal",
+              teraTypeActive: false,
+              activeMove: 0,
+              moveSet: [{ name: "Outrage" }, { name: "Extreme Speed" }, { name: "Aqua Jet" }, { name: "Low Kick" }],
+              boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+              bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+              evs: { hp: 236, atk: 248, def: 0, spa: 0, spd: 20, spe: 0 },
+              ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
+              hpPercentage: 100,
+              automaticAbilityOn: false
+            }
+          },
+          {
+            active: false,
+            pokemon: {
+              id: uuidv4(),
+              name: "Venusaur",
+              nature: "Calm",
+              item: "Black Sludge",
+              status: Status.HEALTHY.description,
+              ability: "Chlorophyll",
+              abilityOn: false,
+              commanderActive: false,
+              teraType: "Water",
+              teraTypeActive: false,
+              activeMove: 0,
+              moveSet: [{ name: "Sleep Powder" }, { name: "Giga Drain" }, { name: "Sludge Bomb" }, { name: "Synthesis" }],
+              boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+              bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+              evs: { hp: 248, atk: 0, def: 80, spa: 0, spd: 180, spe: 0 },
+              ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
+              hpPercentage: 100,
+              automaticAbilityOn: false
+            }
+          },
+          {
+            active: false,
+            pokemon: {
+              id: uuidv4(),
+              name: "Incineroar",
+              nature: "Adamant",
+              item: "Assault Vest",
+              status: Status.HEALTHY.description,
+              ability: "Intimidate",
+              abilityOn: false,
+              commanderActive: false,
+              teraType: "Bug",
+              teraTypeActive: false,
+              activeMove: 0,
+              moveSet: [{ name: "Flare Blitz" }, { name: "Close Combat" }, { name: "Fake Out" }, { name: "Parting Shot" }],
+              boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+              bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+              evs: { hp: 252, atk: 8, def: 60, spa: 0, spd: 60, spe: 124 },
+              ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
+              hpPercentage: 100,
+              automaticAbilityOn: false
+            }
+          }
+        ]
+      },
+      {
+        id: uuidv4(),
+        active: false,
+        name: "Team 2",
+        teamMembers: [{ active: true, pokemon: pokemonToState(defaultPokemon()) }]
+      },
+      {
+        id: uuidv4(),
+        active: false,
+        name: "Team 3",
+        teamMembers: [{ active: true, pokemon: pokemonToState(defaultPokemon()) }]
+      },
+      {
+        id: uuidv4(),
+        active: false,
+        name: "Team 4",
+        teamMembers: [{ active: true, pokemon: pokemonToState(defaultPokemon()) }]
+      }
+    ],
+
+    targetsState: [
+      {
+        active: false,
+        pokemon: {
+          id: uuidv4(),
+          name: "Blastoise",
+          nature: "Modest",
+          item: "Blastoisinite",
+          status: Status.HEALTHY.description,
+          ability: "Torrent",
+          abilityOn: false,
+          commanderActive: false,
+          teraType: "Water",
+          teraTypeActive: false,
+          activeMove: 0,
+          moveSet: [{ name: "Hydro Cannon" }, { name: "Ice Beam" }, { name: "Flash Cannon" }, { name: "Aura Sphere" }],
+          boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+          bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+          evs: { hp: 0, atk: 0, def: 4, spa: 252, spd: 0, spe: 252 },
+          ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
+          hpPercentage: 100,
+          automaticAbilityOn: false
+        }
+      },
+      {
+        active: false,
+        pokemon: {
+          id: uuidv4(),
+          name: "Arcanine",
+          nature: "Adamant",
+          item: "Choice Scarf",
+          status: Status.HEALTHY.description,
+          ability: "Intimidate",
+          abilityOn: false,
+          commanderActive: false,
+          teraType: "Fire",
+          teraTypeActive: false,
+          activeMove: 0,
+          moveSet: [{ name: "Flare Blitz" }, { name: "Wild Charge" }, { name: "Close Combat" }, { name: "Extreme Speed" }],
+          boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+          bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+          evs: { hp: 4, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 },
+          ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
+          hpPercentage: 100,
+          automaticAbilityOn: false
+        }
+      },
+      {
+        active: false,
+        pokemon: {
+          id: uuidv4(),
+          name: "Machamp",
+          nature: "Adamant",
+          item: "Choice Scarf",
+          status: Status.HEALTHY.description,
+          ability: "No Guard",
+          abilityOn: false,
+          commanderActive: false,
+          teraType: "Fighting",
+          teraTypeActive: false,
+          activeMove: 0,
+          moveSet: [{ name: "Dynamic Punch" }, { name: "Stone Edge" }, { name: "Bullet Punch" }, { name: "Earthquake" }],
+          boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+          bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+          evs: { hp: 4, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 },
+          ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
+          hpPercentage: 100,
+          automaticAbilityOn: false
+        }
+      },
+      {
+        active: false,
+        pokemon: {
+          id: uuidv4(),
+          name: "Alakazam",
+          nature: "Timid",
+          item: "Alakazite",
+          status: Status.HEALTHY.description,
+          ability: "Magic Bounce",
+          abilityOn: false,
+          commanderActive: false,
+          teraType: "Psychic",
+          teraTypeActive: false,
+          activeMove: 0,
+          moveSet: [{ name: "Psyshock" }, { name: "Focus Blast" }, { name: "Shadow Ball" }, { name: "Dazzling Gleam" }],
+          boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+          bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+          evs: { hp: 0, atk: 0, def: 4, spa: 252, spd: 0, spe: 252 },
+          ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
+          hpPercentage: 100,
+          automaticAbilityOn: false
+        }
+      },
+      {
+        active: false,
+        pokemon: {
+          id: uuidv4(),
+          name: "Venusaur",
+          nature: "Calm",
+          item: "Venusaurite",
+          status: Status.HEALTHY.description,
+          ability: "Chlorophyll",
+          abilityOn: false,
+          commanderActive: false,
+          teraType: "Water",
+          teraTypeActive: false,
+          activeMove: 0,
+          moveSet: [{ name: "Sleep Powder" }, { name: "Giga Drain" }, { name: "Sludge Bomb" }, { name: "Synthesis" }],
+          boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+          bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+          evs: { hp: 248, atk: 0, def: 80, spa: 0, spd: 180, spe: 0 },
+          ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
+          hpPercentage: 100,
+          automaticAbilityOn: false
+        }
+      },
+      {
+        active: false,
+        pokemon: {
+          id: uuidv4(),
+          name: "Aerodactyl",
+          nature: "Jolly",
+          item: "Aerodactylite",
+          status: Status.HEALTHY.description,
+          ability: "Rock Head",
+          abilityOn: false,
+          commanderActive: false,
+          teraType: "Flying",
+          teraTypeActive: false,
+          activeMove: 0,
+          moveSet: [{ name: "Earthquake" }, { name: "Stone Edge" }, { name: "Crunch" }, { name: "Extreme Speed" }],
+          boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+          bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+          evs: { hp: 4, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 },
+          ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
+          hpPercentage: 100,
+          automaticAbilityOn: false
+        }
+      },
+      {
+        active: false,
+        pokemon: {
+          id: uuidv4(),
+          name: "Snorlax",
+          nature: "Careful",
+          item: "Sitrus Berry",
+          status: Status.HEALTHY.description,
+          ability: "Thick Fat",
+          abilityOn: false,
+          commanderActive: false,
+          teraType: "Normal",
+          teraTypeActive: false,
+          activeMove: 0,
+          moveSet: [{ name: "Body Slam" }, { name: "Earthquake" }, { name: "Crunch" }, { name: "Curse" }],
+          boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+          bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+          evs: { hp: 252, atk: 108, def: 0, spa: 0, spd: 148, spe: 0 },
+          ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
+          hpPercentage: 100,
+          automaticAbilityOn: false
+        }
+      },
+      {
+        active: false,
+        pokemon: {
+          id: uuidv4(),
+          name: "Incineroar",
+          nature: "Adamant",
+          item: "Sitrus Berry",
+          status: Status.HEALTHY.description,
+          ability: "Intimidate",
+          abilityOn: false,
+          commanderActive: false,
+          teraType: "Bug",
+          teraTypeActive: false,
+          activeMove: 0,
+          moveSet: [{ name: "Flare Blitz" }, { name: "Knock Off" }, { name: "Fake Out" }, { name: "Parting Shot" }],
+          boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+          bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+          evs: { hp: 252, atk: 8, def: 60, spa: 0, spd: 60, spe: 124 },
+          ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
+          hpPercentage: 100,
+          automaticAbilityOn: false
+        }
+      },
+      {
+        active: false,
+        pokemon: {
+          id: uuidv4(),
+          name: "Charizard",
+          nature: "Timid",
+          item: "Choice Scarf",
+          status: Status.HEALTHY.description,
+          ability: "Solar Power",
+          abilityOn: false,
+          commanderActive: false,
+          teraType: "Ghost",
+          teraTypeActive: false,
+          activeMove: 0,
+          moveSet: [{ name: "Flamethrower" }, { name: "Dragon Pulse" }, { name: "Focus Blast" }, { name: "Protect" }],
+          boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+          bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+          evs: { hp: 0, atk: 0, def: 4, spa: 252, spd: 0, spe: 252 },
+          ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
+          hpPercentage: 100,
+          automaticAbilityOn: false
+        }
+      }
+    ],
+    targetMetaRegulation: undefined,
+    simpleCalcLeftRollLevel: "high",
+    simpleCalcRightRollLevel: "high",
+    multiCalcRollLevel: "high",
+    manyVsTeamRollLevel: "high",
+    useSpsMode: true
+  }
+}
+
+export function defaultStateSV() {
+  return {
+    updateLocalStorage: true,
+    game: "sv" as const,
 
     speedCalcPokemonState: {
       id: uuidv4(),
@@ -437,6 +854,7 @@ function defaultState() {
     simpleCalcLeftRollLevel: "high",
     simpleCalcRightRollLevel: "high",
     multiCalcRollLevel: "high",
-    manyVsTeamRollLevel: "high"
+    manyVsTeamRollLevel: "high",
+    useSpsMode: true
   }
 }

@@ -6,16 +6,19 @@ import { MoveSet } from "@lib/model/moveset"
 import { Pokemon } from "@lib/model/pokemon"
 import { Regulation } from "@lib/types"
 
-export function pokemonByRegulation(regulation: Regulation, quantity?: number): Pokemon[] {
-  return Object.keys(SETDEX_SV)
-    .map(toPokemon)
+export function pokemonByRegulation(regulation: Regulation, quantity?: number, setdex: Record<string, any> = SETDEX_SV): Pokemon[] {
+  const regulationList = topUsageByRegulation[regulation]
+
+  return Object.keys(setdex)
+    .map(key => toPokemon(key, setdex))
     .filter(pokemon => filterBannedByRegulation(pokemon, regulation))
+    .filter(pokemon => regulationList.includes(pokemon.displayNameWithoutSuffix))
     .sort((a, b) => sortByRegulationOrder(a, b, regulation))
     .slice(0, quantity)
 }
 
-export function toPokemon(key: string): Pokemon {
-  const poke = SETDEX_SV[key]
+export function toPokemon(key: string, setdex: Record<string, any> = SETDEX_SV): Pokemon {
+  const poke = setdex[key]
 
   return new Pokemon(key, {
     ability: new Ability(poke.ability),
@@ -33,8 +36,8 @@ function filterBannedByRegulation(pokemon: Pokemon, regulation: Regulation): boo
 
 function sortByRegulationOrder(pokemonA: Pokemon, pokemonB: Pokemon, regulation: Regulation): number {
   const order = topUsageByRegulation[regulation]
-  const indexA = order.indexOf(pokemonA.name)
-  const indexB = order.indexOf(pokemonB.name)
+  const indexA = order.indexOf(pokemonA.displayNameWithoutSuffix)
+  const indexB = order.indexOf(pokemonB.displayNameWithoutSuffix)
 
   const safeIndexA = indexA === -1 ? Infinity : indexA
   const safeIndexB = indexB === -1 ? Infinity : indexB
@@ -43,5 +46,6 @@ function sortByRegulationOrder(pokemonA: Pokemon, pokemonB: Pokemon, regulation:
 }
 
 const bannedByRegulation: Record<Regulation, string[]> = {
+  "M-A": [],
   I: ["Mew", "Jirachi", "Deoxys", "Phione", "Manaphy", "Darkrai", "Shaymin", "Arceus", "Keldeo", "Meloetta", "Diancie", "Hoopa", "Hoopa", "Volcanion", "Magearna", "Zarude", "Pecharunt"]
 }

@@ -84,19 +84,29 @@
                   <span>Nature: {{ pokemonOnCard().nature }}</span>
                   <span>Ability: {{ pokemonOnCard().ability.simpleName }}</span>
                   <span>Item: {{ pokemonOnCard().item }}</span>
-                  <span>
-                    Tera: {{ pokemonOnCard().teraType }}
-                    @if (pokemonOnCard().teraTypeActive) {
-                      Active
-                    }
-                  </span>
+                  @if (store.game() === "sv") {
+                    <span>
+                      Tera: {{ pokemonOnCard().teraType }}
+                      @if (pokemonOnCard().teraTypeActive) {
+                        Active
+                      }
+                    </span>
+                  }
                 </div>
               }
 
               <div class="middle-section-buttons">
                 <div class="card-buttons">
                   <div class="card-buttons-row">
-                    <app-terastal-button [pokemonId]="pokemonOnCard().id" />
+                    @if (store.game() === "sv") {
+                      <app-terastal-button [pokemonId]="pokemonOnCard().id" />
+                    }
+
+                    @if (isMegaStoneCompatible()) {
+                      <button class="icon-button mega-icon-button" [class.mega-active]="pokemonOnCard().name.includes('-Mega')" (click)="toggleMega()">
+                        <img class="mega-icon" [class.mega-active]="pokemonOnCard().name.includes('-Mega')" src="assets/sprites/items/{{ getMegaStoneSprite() }}.png" />
+                      </button>
+                    }
 
                     @if (showDeleteButton()) {
                       <button class="icon-button" (click)="removePokemon($event)" data-cy="delete-opponent-pokemon">

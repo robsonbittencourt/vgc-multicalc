@@ -1,1 +1,5 @@
-<app-input-select label="Nature" [leftLabel]="leftLabel()" [value]="pokemon().nature" [allValues]="allNatureNames()" (valueChange)="store.nature(pokemonId(), $event)" data-cy="nature" />
+@if (!isMobile()) {
+  <app-input-select label="Nature" [leftLabel]="leftLabel()" [value]="pokemon().nature" [allValues]="allNatureNames()" (valueChange)="store.nature(pokemonId(), $event)" data-cy="nature" />
+} @else {
+  <app-input-select label="Nature" [leftLabel]="leftLabel()" [value]="pokemon().nature" [allValues]="mobileNatureList()" [displayMap]="mobileNatureDisplayMap()" (valueChange)="store.nature(pokemonId(), $event)" data-cy="nature" />
+}

@@ -9,6 +9,7 @@ import { BoosterEnergyButtonComponent } from "@features/buttons/booster-energy-b
 import { TatsugiriButtonComponent } from "@features/buttons/tatsugiri-button/tatsugiri-button.component"
 import { TerastalButtonComponent } from "@features/buttons/terastal-button/terastal-button.component"
 import { PokemonComboBoxComponent } from "@features/pokemon-build/pokemon-combo-box/pokemon-combo-box.component"
+import { MegaStoneService } from "@features/pokemon-build/utils/mega-stone.service"
 import { DamageResult } from "@lib/damage-calculator/damage-result"
 import { RollLevelConfig } from "@lib/damage-calculator/roll-level-config"
 import { Target } from "@lib/model/target"
@@ -23,6 +24,7 @@ import { PokemonHpBadgeComponent } from "@pages/simple-calc/pokemon-hp-badge/pok
 export class PokemonCardComponent {
   store = inject(CalculatorStore)
   menuStore = inject(MenuStore)
+  megaStoneService = inject(MegaStoneService)
 
   damageResult = input.required<DamageResult>()
   target = input<Target | undefined>(undefined)
@@ -120,5 +122,17 @@ export class PokemonCardComponent {
 
   separateAttackers() {
     this.attackersSeparated.emit(this.damageResult().secondAttacker!.id)
+  }
+
+  isMegaStoneCompatible() {
+    return this.megaStoneService.isMegaStoneCompatible(this.pokemonOnCard().name, this.pokemonOnCard().item)
+  }
+
+  toggleMega() {
+    this.megaStoneService.toggleMega(this.pokemonOnCard().id, this.pokemonOnCard().name, this.pokemonOnCard().item)
+  }
+
+  getMegaStoneSprite() {
+    return this.megaStoneService.getMegaStoneSprite(this.pokemonOnCard().item)
   }
 }

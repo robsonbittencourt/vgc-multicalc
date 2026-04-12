@@ -1,17 +1,17 @@
 import { Component, computed, effect, inject, OnInit, signal, viewChild } from "@angular/core"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { FieldStore } from "@data/store/field-store"
-import { FIELD_CONTEXT } from "@data/store/tokens/field-context.token"
 import { MenuStore } from "@data/store/menu-store"
+import { FIELD_CONTEXT } from "@data/store/tokens/field-context.token"
 import { FieldComponent } from "@features/field/field.component"
 import { TeamComponent } from "@features/team/team/team.component"
 import { TeamsDesktopComponent } from "@features/team/teams-desktop/teams-desktop.component"
 import { AutomaticFieldService } from "@lib/automatic-field-service"
 import { DamageMultiCalcService } from "@lib/damage-calculator/damage-multi-calc.service"
 import { DamageResultOrderService } from "@lib/damage-calculator/damage-result-order.service"
+import { RollLevelConfig } from "@lib/damage-calculator/roll-level-config"
 import { DefensiveEvOptimizerService } from "@lib/ev-optimizer/defensive-ev-optimizer.service"
 import { Stats, SurvivalThreshold } from "@lib/types"
-import { RollLevelConfig } from "@lib/damage-calculator/roll-level-config"
 import { TargetPokemonComponent } from "@pages/multi-calc/target-pokemon/target-pokemon.component"
 
 @Component({
@@ -55,6 +55,13 @@ export class MultiCalcComponent implements OnInit {
   lastHandledAbilityNameSecond: string | undefined = undefined
 
   constructor() {
+    effect(() => {
+      const activeId = this.store.team().activePokemon().id
+      if (this.pokemonOnEditId() !== activeId && !this.store.findPokemonById(this.pokemonOnEditId())) {
+        this.pokemonOnEditId.set(activeId)
+      }
+    })
+
     effect(() => {
       const firstPokemonChanged = this.lastHandledPokemonNameFirst != this.activeAttacker().name || this.lastHandledAbilityNameFirst != this.activeAttacker().ability.name
       const secondPokemonChanged = this.lastHandledPokemonNameSecond != this.activeSecondAttacker()?.name || this.lastHandledAbilityNameSecond != this.activeSecondAttacker()?.ability.name

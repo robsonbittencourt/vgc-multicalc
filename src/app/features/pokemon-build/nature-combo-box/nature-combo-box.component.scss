@@ -1,0 +1,8 @@
+::ng-deep .nature-mobile-select .mdc-select__selected-text {
+  font-size: 0;
+}
+
+::ng-deep .nature-mobile-select .mdc-select__selected-text::before {
+  content: attr(data-nature);
+  font-size: 1rem;
+}

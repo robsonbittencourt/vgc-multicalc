@@ -9,6 +9,7 @@ import { MatSlider, MatSliderThumb } from "@angular/material/slider"
 import { MatTooltip } from "@angular/material/tooltip"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { Stats } from "@lib/types"
+import { evToSp, spToEv, totalSpsFromEvs } from "@lib/utils/ev-sp-converter"
 
 @Component({
   selector: "app-ev-slider",
@@ -35,14 +36,6 @@ export class EvSliderComponent {
   hpPercentage = computed(() => this.pokemon().hpPercentage)
   statModifier = computed(() => this.pokemon().boosts[this.stat()])
   jumps = computed(() => this.pokemon().jumps)
-
-  actualEvsQuantity = computed(() => {
-    const STATS_KEYS: (keyof Stats)[] = ["hp", "atk", "def", "spa", "spd", "spe"]
-
-    return STATS_KEYS.filter(stat => stat !== this.stat()).reduce((total, stat) => total + (this.pokemon().evs[stat] ?? 0), 0)
-  })
-
-  maxAvailableEv = computed(() => this.MAX_EVS - this.actualEvsQuantity())
 
   calculateMin = computed(() => {
     if (this.ev() == this.EV_ZERO || this.ev() == this.FIRST_EV) return 0
@@ -134,6 +127,9 @@ export class EvSliderComponent {
   width = signal(0)
   resizeObserver: ResizeObserver
 
+  showAsSps = computed(() => this.store.isChampions() && this.store.useSpsMode())
+  evToSp = evToSp
+
   constructor() {
     effect(() => {
       const slider = this.sliderElement()
@@ -152,10 +148,27 @@ export class EvSliderComponent {
     })
   }
 
-  MAX_EVS = 508
+  MAX_EVS_SV = 508
+  MAX_EVS_CHAMPIONS = 516
+  MAX_SPS_CHAMPIONS = 66
   EV_ZERO = 0
   FIRST_EV = 4
   EV_STEP = 8
+
+  actualEvsQuantity = computed(() => {
+    const STATS_KEYS: (keyof Stats)[] = ["hp", "atk", "def", "spa", "spd", "spe"]
+
+    return STATS_KEYS.filter(stat => stat !== this.stat()).reduce((total, stat) => total + (this.pokemon().evs[stat] ?? 0), 0)
+  })
+
+  maxAvailableEv = computed(() => {
+    if (this.store.isChampions()) {
+      const remainingSps = this.MAX_SPS_CHAMPIONS - (totalSpsFromEvs(this.pokemon().evs) - evToSp(this.pokemon().evs[this.stat()] ?? 0))
+      return spToEv(remainingSps)
+    }
+
+    return this.MAX_EVS_SV - this.actualEvsQuantity()
+  })
 
   statsModifiers = [
     { value: 6, viewValue: "+6" },
@@ -180,15 +193,34 @@ export class EvSliderComponent {
     this.store.hpPercentage(this.pokemonId(), +(event.target as HTMLInputElement).value)
   }
 
+  displayValueChanged(event: Event) {
+    const inputValue = +(event.target as HTMLInputElement).value
+    if (this.showAsSps()) {
+      const evValue = spToEv(inputValue)
+      this.ev.set(evValue)
+    } else {
+      this.ev.set(inputValue)
+    }
+    this.evChanged()
+  }
+
   evChanged() {
     const adjustedEv = this.adjustEv(this.ev())
     this.updateEv(adjustedEv)
   }
 
   beforeChangeEvValue() {
-    if (this.actualEvsQuantity() + this.ev() <= this.MAX_EVS) {
-      const adjustedEv = this.adjustEv(this.ev())
-      this.updateEv(adjustedEv)
+    if (this.store.isChampions()) {
+      const newTotalSps = totalSpsFromEvs({ ...this.pokemon().evs, [this.stat()]: this.ev() })
+      if (newTotalSps <= this.MAX_SPS_CHAMPIONS) {
+        const adjustedEv = this.adjustEv(this.ev())
+        this.updateEv(adjustedEv)
+      }
+    } else {
+      if (this.actualEvsQuantity() + this.ev() <= this.MAX_EVS_SV) {
+        const adjustedEv = this.adjustEv(this.ev())
+        this.updateEv(adjustedEv)
+      }
     }
   }
 
@@ -264,14 +296,30 @@ export class EvSliderComponent {
   }
 
   private evsExceed(): boolean {
+    if (this.store.isChampions()) {
+      const newTotalSps = totalSpsFromEvs({ ...this.pokemon().evs, [this.stat()]: this.ev() })
+      return newTotalSps > this.MAX_SPS_CHAMPIONS
+    }
+
     const moreThenFirstEv = this.maxAvailableEv() - this.ev() == this.FIRST_EV && this.ev() > this.FIRST_EV
-    const moreThenMax = this.actualEvsQuantity() + this.ev() >= this.MAX_EVS
+    const moreThenMax = this.actualEvsQuantity() + this.ev() >= this.MAX_EVS_SV
 
     return moreThenFirstEv || moreThenMax
   }
 
   private adjustEv(newEv: number): number {
-    if (this.actualEvsQuantity() + newEv <= this.MAX_EVS) {
+    if (this.store.isChampions()) {
+      const newTotalSps = totalSpsFromEvs({ ...this.pokemon().evs, [this.stat()]: newEv })
+      if (newTotalSps <= this.MAX_SPS_CHAMPIONS) {
+        return newEv
+      }
+
+      const currentEvs = { ...this.pokemon().evs }
+      const remainingSps = this.MAX_SPS_CHAMPIONS - (totalSpsFromEvs(currentEvs) - evToSp(this.pokemon().evs[this.stat()] ?? 0))
+      return spToEv(remainingSps)
+    }
+
+    if (this.actualEvsQuantity() + newEv <= this.MAX_EVS_SV) {
       return newEv
     }
 

@@ -44,6 +44,18 @@ module.exports = tseslint.config(
     }
   },
   {
+    files: ["**/cypress/support/**/*.ts"],
+    rules: {
+      "@typescript-eslint/no-namespace": "off"
+    }
+  },
+  {
+    files: ["**/cypress/support/**/*.ts"],
+    rules: {
+      "@typescript-eslint/no-namespace": "off"
+    }
+  },
+  {
     files: ["**/*.html"],
     extends: [...angular.configs.templateRecommended, ...angular.configs.templateAccessibility],
     rules: {

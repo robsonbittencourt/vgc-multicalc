@@ -3,7 +3,7 @@ import { ActivatedRoute } from "@angular/router"
 import { ProbabilityCalcComponent } from "@app/pages/probability-calc/probability-calc/probability-calc.component"
 import { HeaderMobileComponent } from "@core/header-mobile/header-mobile.component"
 import { HeaderComponent } from "@core/header/header.component"
-import { CalculatorStore } from "@data/store/calculator-store"
+import { CalculatorState, CalculatorStore } from "@data/store/calculator-store"
 import { ActiveFieldService } from "@data/store/active-field.service"
 import { MenuStore } from "@data/store/menu-store"
 import { buildState } from "@data/store/utils/user-data-mapper"
@@ -54,7 +54,7 @@ export class MainComponent implements OnInit {
       this.useUserData = this.activatedRoute.routeConfig?.path == "data/:userDataId"
 
       if (this.useUserData) {
-        const state = buildState(userData?.data)
+        const state = buildState(userData?.data) as CalculatorState
         this.store.updateStateLockingLocalStorage(state)
         this.activeFieldService.initialFieldData.set(userData?.data.field)
       }

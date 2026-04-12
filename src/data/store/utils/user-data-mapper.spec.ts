@@ -214,7 +214,7 @@ describe("User Data Mapper", () => {
         targets: [{ pokemon: charmanderUserData }]
       }
 
-      const result: CalculatorState = buildState(userData)
+      const result = buildState(userData) as CalculatorState
 
       expect(result.speedCalcPokemonState.name).toBe("Pikachu")
       expect(result.speedCalcPokemonState.nature).toBe("Timid")
@@ -247,7 +247,7 @@ describe("User Data Mapper", () => {
         targets: [{ pokemon: charmanderUserData }]
       }
 
-      const result: CalculatorState = buildState(userData)
+      const result = buildState(userData) as CalculatorState
 
       expect(result.speedCalcPokemonState.name).toBe("Pikachu")
       expect(result.speedCalcPokemonState.nature).toBe("Timid")
@@ -280,7 +280,7 @@ describe("User Data Mapper", () => {
         targets: [{ pokemon: charmanderUserData }]
       }
 
-      const result: CalculatorState = buildState(userData)
+      const result = buildState(userData) as CalculatorState
 
       expect(result.leftPokemonState.name).toBe("Pikachu")
       expect(result.leftPokemonState.nature).toBe("Timid")
@@ -313,7 +313,7 @@ describe("User Data Mapper", () => {
         targets: [{ pokemon: charmanderUserData }]
       }
 
-      const result: CalculatorState = buildState(userData)
+      const result = buildState(userData) as CalculatorState
 
       expect(result.rightPokemonState.name).toBe("Charmander")
       expect(result.rightPokemonState.nature).toBe("Adamant")
@@ -346,7 +346,7 @@ describe("User Data Mapper", () => {
         targets: [{ pokemon: charmanderUserData }]
       }
 
-      const result: CalculatorState = buildState(userData)
+      const result = buildState(userData) as CalculatorState
 
       expect(result.secondAttackerId).toBe("")
     })
@@ -370,7 +370,7 @@ describe("User Data Mapper", () => {
         targets: [{ pokemon: charmanderUserData }]
       }
 
-      const result: CalculatorState = buildState(userData)
+      const result = buildState(userData) as CalculatorState
 
       expect(result.teamsState[0].active).toBeTrue()
       expect(result.teamsState[0].name).toBe("Team 1")
@@ -397,7 +397,7 @@ describe("User Data Mapper", () => {
         targets: [{ pokemon: charmanderUserData }]
       }
 
-      const result: CalculatorState = buildState(userData)
+      const result = buildState(userData) as CalculatorState
 
       expect(result.teamsState[0].teamMembers.length).toBe(1)
       expect(result.teamsState[0].teamMembers[0].active).toBeTrue()
@@ -423,7 +423,7 @@ describe("User Data Mapper", () => {
         targets: [{ pokemon: bulbasaurUserData }, { pokemon: charmanderUserData, secondPokemon: pikachuUserData }]
       }
 
-      const result: CalculatorState = buildState(userData)
+      const result = buildState(userData) as CalculatorState
 
       expect(result.targetsState.length).toBe(2)
       expect(result.targetsState[0].pokemon.name).toBe("Bulbasaur")
@@ -442,7 +442,7 @@ describe("User Data Mapper", () => {
         multiCalcRollLevel: "high"
       }
 
-      const result: CalculatorState = buildState(userData)
+      const result = buildState(userData) as CalculatorState
 
       expect(result.simpleCalcLeftRollLevel).toBe("medium")
       expect(result.simpleCalcRightRollLevel).toBe("low")
@@ -458,7 +458,7 @@ describe("User Data Mapper", () => {
         targets: []
       }
 
-      const result: CalculatorState = buildState(userData)
+      const result = buildState(userData) as CalculatorState
 
       expect(result.simpleCalcLeftRollLevel).toBe("high")
       expect(result.simpleCalcRightRollLevel).toBe("high")
@@ -473,7 +473,7 @@ describe("User Data Mapper", () => {
         targets: []
       }
 
-      const result: CalculatorState = buildState(userData)
+      const result = buildState(userData) as CalculatorState
 
       expect(result.leftPokemonState.activeMove).toBe(0)
     })

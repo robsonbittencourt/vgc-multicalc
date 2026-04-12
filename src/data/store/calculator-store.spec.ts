@@ -14,14 +14,19 @@ describe("Calculator Store", () => {
   const defaultId = "0dc51a43-1de8-4213-9686-fb07f2507b06"
 
   beforeEach(() => {
+    localStorage.clear()
     TestBed.configureTestingModule({
-      providers: [provideZonelessChangeDetection()]
+      providers: [CalculatorStore, provideZonelessChangeDetection()]
     })
 
     store = TestBed.inject(CalculatorStore)
   })
 
   describe("computed", () => {
+    beforeEach(() => {
+      store.updateGame("sv")
+    })
+
     it("should load default Pokémon to Speed Calc", () => {
       expect(store.speedCalcPokemon().name).toBe("Miraidon")
     })
@@ -138,6 +143,10 @@ describe("Calculator Store", () => {
   })
 
   describe("methods", () => {
+    beforeEach(() => {
+      store.updateGame("sv")
+    })
+
     describe("Update Pokémon", () => {
       it("should update Pokémon name", () => {
         store.name(defaultId, "Pikachu")
@@ -673,27 +682,27 @@ describe("Calculator Store", () => {
 
     describe("Load Pokémon Info", () => {
       it("should load Pokémon information using it name", () => {
-        store.loadPokemonInfo(defaultId, "Spinarak")
+        store.loadPokemonInfo(defaultId, "Incineroar")
         const result = store.findPokemonById(defaultId)
 
-        expect(result.name).toBe("Spinarak")
-        expect(result.nature).toBe("Careful")
-        expect(result.item).toBe("Eviolite")
-        expect(result.ability.name).toBe("Insomnia")
-        expect(result.teraType).toBe("Dark")
+        expect(result.name).toBe("Incineroar")
+        expect(result.nature).toBe("Adamant")
+        expect(result.item).toBe("Assault Vest")
+        expect(result.ability.name).toBe("Intimidate")
+        expect(result.teraType).toBe("Bug")
         expect(result.teraTypeActive).toBeFalse()
-        expect(result.evs).toEqual({ hp: 252, atk: 0, def: 252, spa: 0, spd: 4, spe: 0 })
-        expect(result.move1Name).toBe("Foul Play")
-        expect(result.move2Name).toBe("Leech Life")
-        expect(result.move3Name).toBe("Knock Off")
-        expect(result.move4Name).toBe("Shadow Sneak")
-        expect(result.activeMoveName).toBe("Foul Play")
+        expect(result.evs).toEqual({ hp: 252, atk: 8, def: 60, spa: 0, spd: 60, spe: 124 })
+        expect(result.move1Name).toBe("Flare Blitz")
+        expect(result.move2Name).toBe("Knock Off")
+        expect(result.move3Name).toBe("Fake Out")
+        expect(result.move4Name).toBe("Parting Shot")
+        expect(result.activeMoveName).toBe("Flare Blitz")
       })
 
       it("should reset previous commander state", () => {
         store.commander(defaultId, true)
 
-        store.loadPokemonInfo(defaultId, "Spinarak")
+        store.loadPokemonInfo(defaultId, "Incineroar")
         const result = store.findPokemonById(defaultId)
 
         expect(result.commanderActive).toBeFalse()
@@ -702,7 +711,7 @@ describe("Calculator Store", () => {
       it("should reset previous hp percentage state", () => {
         store.hpPercentage(defaultId, 50)
 
-        store.loadPokemonInfo(defaultId, "Spinarak")
+        store.loadPokemonInfo(defaultId, "Incineroar")
         const result = store.findPokemonById(defaultId)
 
         expect(result.hpPercentage).toBe(100)
@@ -739,7 +748,7 @@ describe("Calculator Store", () => {
       it("should reset previous stats boosts state", () => {
         store.boosts(defaultId, { atk: 1, def: 2, spa: 3, spd: 4, spe: 5 })
 
-        store.loadPokemonInfo(defaultId, "Spinarak")
+        store.loadPokemonInfo(defaultId, "Incineroar")
         const result = store.findPokemonById(defaultId)
 
         expect(result.boosts).toEqual({ atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
@@ -767,20 +776,23 @@ describe("Calculator Store", () => {
 
     describe("User data", () => {
       beforeEach(() => {
-        const store: Record<string, string | null> = {}
+        const mockStorage: Record<string, string | null> = {}
 
         spyOn(localStorage, "getItem").and.callFake((key: string): string | null => {
-          return store[key] || null
+          return mockStorage[key] || null
         })
 
         spyOn(localStorage, "setItem").and.callFake((key: string, value: string): void => {
-          store[key] = value
+          mockStorage[key] = value
         })
+
+        store.updateGame("champions")
       })
 
       it("should update state locking local storage", () => {
         const state = {
           updateLocalStorage: true,
+          game: "sv" as const,
           speedCalcPokemonState: pikachuState,
           leftPokemonState: pikachuState,
           rightPokemonState: pikachuState,
@@ -791,7 +803,8 @@ describe("Calculator Store", () => {
           simpleCalcLeftRollLevel: "low",
           simpleCalcRightRollLevel: "medium",
           multiCalcRollLevel: "high",
-          manyVsTeamRollLevel: "low"
+          manyVsTeamRollLevel: "low",
+          useSpsMode: false
         }
 
         store.updateStateLockingLocalStorage(state)
@@ -803,21 +816,21 @@ describe("Calculator Store", () => {
       it("should build user data using state", () => {
         const result = store.buildUserData()
 
-        expect(result.speedCalcPokemon.name).toBe("Miraidon")
-        expect(result.leftPokemon.name).toBe("Miraidon")
-        expect(result.rightPokemon.name).toBe("Koraidon")
+        expect(result.speedCalcPokemon.name).toBe("Charizard")
+        expect(result.leftPokemon.name).toBe("Charizard")
+        expect(result.rightPokemon.name).toBe("Dragonite")
 
         expect(result.teams.length).toBe(4)
         expect(result.teams[0].active).toBeTrue()
         expect(result.teams[0].name).toBe("Team 1")
         expect(result.teams[0].teamMembers[0].active).toBeTrue()
-        expect(result.teams[0].teamMembers[0].pokemon.name).toBe("Miraidon")
+        expect(result.teams[0].teamMembers[0].pokemon.name).toBe("Charizard")
         expect(result.teams[0].teamMembers[1].active).toBeFalse()
-        expect(result.teams[0].teamMembers[1].pokemon.name).toBe("Koraidon")
+        expect(result.teams[0].teamMembers[1].pokemon.name).toBe("Dragonite")
 
-        expect(result.targets.length).toBe(10)
-        expect(result.targets[0].pokemon.name).toBe("Urshifu-Rapid-Strike")
-        expect(result.targets[1].pokemon.name).toBe("Incineroar")
+        expect(result.targets.length).toBe(9)
+        expect(result.targets[0].pokemon.name).toBe("Blastoise")
+        expect(result.targets[1].pokemon.name).toBe("Arcanine")
       })
 
       it("should update local storage when state changes", () => {
@@ -826,7 +839,7 @@ describe("Calculator Store", () => {
         TestBed.tick()
 
         const actualStorage = JSON.parse(localStorage.getItem("userData")!)
-        expect(actualStorage.teams[0].teamMembers[0].pokemon.name).toBe("Pikachu")
+        expect(actualStorage.champions.teams[0].teamMembers[0].pokemon.name).toBe("Pikachu")
       })
 
       it("should update local storage when state changes mantaining existent data", () => {
@@ -835,7 +848,7 @@ describe("Calculator Store", () => {
         TestBed.tick()
 
         const actualStorage = JSON.parse(localStorage.getItem("userData")!)
-        expect(actualStorage.leftPokemon.name).toBe("Miraidon")
+        expect(actualStorage.champions.leftPokemon.name).toBe("Charizard")
       })
 
       it("should update simpleCalcLeftRollLevel", () => {

@@ -37,22 +37,31 @@
     <div class="status-item" [ngClass]="{ 'status-item-compact': pokemon().ability.actionableAbility }" [ngStyle]="(reverse() && { order: 3 }) || null">
       <app-status-combo-box [pokemonId]="pokemonId()" [haveFocus]="statusHaveFocus()" (selected)="statusOnClick()" />
       <app-multi-hit-combo-box [pokemonId]="pokemonId()" [haveFocus]="multiHitHasFocus()" (selected)="multiHitOnClick()" />
-      <app-input
-        #itemInput
-        label="Item"
-        [value]="pokemon().item"
-        [disabled]="isItemDisabled()"
-        [haveFocus]="itemHasFocus()"
-        [tabIndex]="itemTabIndex()"
-        (valueChange)="itemDataFilter.set($event)"
-        (selected)="itemSelectorOnClick()"
-        (lostFocus)="itemSelectorLostFocus()"
-        [emptyFallbackValue]="withoutItem"
-        data-cy="item" />
+      <div class="item-with-mega">
+        @if (isMegaStoneCompatible()) {
+          <div class="mega-icon-wrapper">
+            <img class="mega-icon" [ngClass]="{ 'mega-active': pokemon().name.includes('-Mega') }" src="assets/sprites/items/{{ getMegaStoneSprite() }}.png" (click)="toggleMega()" />
+          </div>
+        }
+        <app-input
+          #itemInput
+          label="Item"
+          [value]="pokemon().item"
+          [disabled]="isItemDisabled()"
+          [haveFocus]="itemHasFocus()"
+          [tabIndex]="itemTabIndex()"
+          (valueChange)="itemDataFilter.set($event)"
+          (selected)="itemSelectorOnClick()"
+          (lostFocus)="itemSelectorLostFocus()"
+          [emptyFallbackValue]="withoutItem"
+          data-cy="item" />
+      </div>
     </div>
 
-    <div class="tera-type-ability" [ngClass]="{ 'tera-type-ability-expanded': pokemon().ability.actionableAbility }" [ngStyle]="(reverse() && { order: 2 }) || null">
-      <app-tera-combo-box [pokemonId]="pokemonId()" [haveFocus]="teraHasFocus()" (selected)="teraOnClick()" />
+    <div class="tera-type-ability" [ngClass]="{ 'tera-type-ability-expanded': pokemon().ability.actionableAbility, 'tera-type-ability-no-tera': store.game() === 'champions' }" [ngStyle]="(reverse() && { order: 2 }) || null">
+      @if (store.game() === "sv") {
+        <app-tera-combo-box [pokemonId]="pokemonId()" [haveFocus]="teraHasFocus()" (selected)="teraOnClick()" />
+      }
       <app-type-combo-box [type1]="pokemon().type1" [type2]="pokemon().type2" [reverse]="reverse()" />
       <app-ability-combo-box
         #abilityInput
@@ -141,7 +150,7 @@
   <div class="evs-titles" [ngStyle]="gridTemplateColumns()" [animate.enter]="shouldAnimate() ? 'fade-in' : null">
     <label class="base-title">Base</label>
     <label class="modifier-title">Mod.</label>
-    <label class="evs-title">EVs</label>
+    <label class="evs-title">{{ evLabel() }}</label>
     <label class="ivs-title">IVs</label>
     <label class="stats-title">Stat</label>
     @if (this.hasModifiedStat()) {
@@ -161,10 +170,14 @@
       <label class="bst-label">BST</label>
       <label class="bst-value-label">{{ pokemon().bst }}</label>
 
-      <label class="remaining-label">Remaining:</label>
+      <label class="remaining-label">{{ remainingLabel() }}</label>
       <div class="remaining-evs-value">
-        <label data-cy="remaining-evs">{{ MAX_EVS - pokemon().totalEvs }}</label>
+        <label data-cy="remaining-evs">{{ remainingPoints() }}</label>
       </div>
+
+      @if (showEvsSpsToggle()) {
+        <mat-slide-toggle [checked]="store.useSpsMode()" (change)="toggleSpsMode()" [labelPosition]="'before'" data-cy="evs-sps-toggle">SP</mat-slide-toggle>
+      }
     </div>
   </div>
 

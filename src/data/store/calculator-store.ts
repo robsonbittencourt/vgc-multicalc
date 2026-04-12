@@ -1,8 +1,10 @@
 import { computed, effect, inject, Injectable } from "@angular/core"
 import { SETDEX_SV } from "@data/movesets"
-import { initialCalculatorState } from "@data/store/utils/initial-calculator-state"
+import { SETDEX_CHAMPIONS } from "@data/movesets-champions"
+import { initialCalculatorState, defaultStateChampions, defaultStateSV } from "@data/store/utils/initial-calculator-state"
 import { pokemonToState, stateToPokemon, stateToTargets, stateToTeam, stateToTeams, targetToState, teamToState } from "@data/store/utils/state-mapper"
-import { buildUserData } from "@data/store/utils/user-data-mapper"
+import { buildUserData, buildState } from "@data/store/utils/user-data-mapper"
+import { readGameData, writeGameData, writeTopLevel } from "@data/store/utils/user-data-storage"
 import { Pokemon } from "@lib/model/pokemon"
 import { Target } from "@lib/model/target"
 import { Team } from "@lib/model/team"
@@ -55,8 +57,11 @@ export type TargetState = {
   secondPokemon?: PokemonState
 }
 
+export type Game = "sv" | "champions"
+
 export type CalculatorState = {
   updateLocalStorage: boolean
+  game: Game
   speedCalcPokemonState: PokemonState
   leftPokemonState: PokemonState
   rightPokemonState: PokemonState
@@ -68,6 +73,7 @@ export type CalculatorState = {
   simpleCalcRightRollLevel: string
   multiCalcRollLevel: string
   manyVsTeamRollLevel: string
+  useSpsMode: boolean
 }
 
 @Injectable({ providedIn: "root" })
@@ -78,7 +84,7 @@ export class CalculatorStore extends signalStore(
     onInit() {
       effect(() => {
         if (store.updateLocalStorage()) {
-          const userData = buildUserData(
+          const gameData = buildUserData(
             store.speedCalcPokemonState(),
             store.leftPokemonState(),
             store.rightPokemonState(),
@@ -90,11 +96,13 @@ export class CalculatorStore extends signalStore(
             store.multiCalcRollLevel(),
             store.manyVsTeamRollLevel()
           )
-          const actualStorage = JSON.parse(localStorage.getItem("userData")!)
-
-          const mergedUserData = { ...actualStorage, ...userData }
-          localStorage.setItem("userData", JSON.stringify(mergedUserData))
+          const game = store.game()
+          writeGameData(game, gameData)
         }
+      })
+
+      effect(() => {
+        writeTopLevel({ useSpsMode: store.useSpsMode() })
       })
     }
   }))
@@ -102,12 +110,12 @@ export class CalculatorStore extends signalStore(
   private menuStore = inject(MenuStore)
   private teamIsAttacker = computed(() => this.menuStore.oneVsManyActivated())
 
-  readonly speedCalcPokemon = computed(() => stateToPokemon(this.speedCalcPokemonState()))
-  readonly leftPokemon = computed(() => stateToPokemon(this.leftPokemonState(), true))
-  readonly rightPokemon = computed(() => stateToPokemon(this.rightPokemonState()))
-  readonly team = computed(() => stateToTeam(this.teamsState().find(t => t.active)!, this.teamIsAttacker()))
-  readonly teams = computed(() => stateToTeams(this.teamsState(), this.teamIsAttacker()))
-  readonly targets = computed(() => stateToTargets(this.targetsState(), !this.teamIsAttacker()))
+  readonly speedCalcPokemon = computed(() => stateToPokemon(this.speedCalcPokemonState(), false, this.game()))
+  readonly leftPokemon = computed(() => stateToPokemon(this.leftPokemonState(), true, this.game()))
+  readonly rightPokemon = computed(() => stateToPokemon(this.rightPokemonState(), false, this.game()))
+  readonly team = computed(() => stateToTeam(this.teamsState().find(t => t.active)!, this.teamIsAttacker(), this.game()))
+  readonly teams = computed(() => stateToTeams(this.teamsState(), this.teamIsAttacker(), this.game()))
+  readonly targets = computed(() => stateToTargets(this.targetsState(), !this.teamIsAttacker(), this.game()))
   readonly attackerId = computed(() => {
     const activeMember = this.team().teamMembers.find(t => t.active && t.pokemon.id != this.secondAttackerId())
     return activeMember ? activeMember.pokemon.id : ""
@@ -117,7 +125,7 @@ export class CalculatorStore extends signalStore(
     const teamsState = this.teamsState()
     const activeTeam = teamsState.find(t => t.active)
     const memberState = activeTeam?.teamMembers[index]
-    return memberState ? stateToPokemon(memberState.pokemon, this.teamIsAttacker()) : null
+    return memberState ? stateToPokemon(memberState.pokemon, this.teamIsAttacker(), this.game()) : null
   }
 
   readonly teamMember0 = computed(() => this.getTeamMemberAt(0))
@@ -127,8 +135,20 @@ export class CalculatorStore extends signalStore(
   readonly teamMember4 = computed(() => this.getTeamMemberAt(4))
   readonly teamMember5 = computed(() => this.getTeamMemberAt(5))
 
+  readonly isChampions = computed(() => this.game() === "champions")
+  readonly activeSetdex = computed(() => (this.game() === "champions" ? SETDEX_CHAMPIONS : SETDEX_SV))
+
   updateStateLockingLocalStorage(state: CalculatorState) {
     patchState(this, () => ({ ...state, updateLocalStorage: false }))
+  }
+
+  updateGame(game: Game) {
+    const targetGameData = readGameData(game)
+    const defaults = game === "champions" ? defaultStateChampions() : defaultStateSV()
+    const newState = targetGameData?.leftPokemon ? { ...defaults, ...buildState(targetGameData), game } : { ...defaults, game }
+
+    writeTopLevel({ game })
+    patchState(this, () => ({ ...newState, updateLocalStorage: true }))
   }
 
   name(pokemonId: string, name: string) {
@@ -162,6 +182,10 @@ export class CalculatorStore extends signalStore(
 
   toggleQuarkDrive(enabled: boolean) {
     this.enableAllByAbility("Quark Drive", enabled)
+  }
+
+  toggleSpsMode() {
+    patchState(this, state => ({ useSpsMode: !state.useSpsMode }))
   }
 
   private enableAllByAbility(abilityName: string, enabled: boolean) {
@@ -483,25 +507,25 @@ export class CalculatorStore extends signalStore(
   }
 
   findNullablePokemonById(pokemonId: string): Pokemon | undefined {
-    if (this.speedCalcPokemonState().id == pokemonId) return stateToPokemon(this.speedCalcPokemonState(), false)
+    if (this.speedCalcPokemonState().id == pokemonId) return stateToPokemon(this.speedCalcPokemonState(), false, this.game())
 
-    if (this.leftPokemonState().id == pokemonId) return stateToPokemon(this.leftPokemonState(), true)
+    if (this.leftPokemonState().id == pokemonId) return stateToPokemon(this.leftPokemonState(), true, this.game())
 
-    if (this.rightPokemonState().id == pokemonId) return stateToPokemon(this.rightPokemonState(), false)
+    if (this.rightPokemonState().id == pokemonId) return stateToPokemon(this.rightPokemonState(), false, this.game())
 
     const pokemonFromTeam = this.teamsState()
       .find(team => team.teamMembers.some(member => member.pokemon.id === pokemonId))
       ?.teamMembers.find(member => member.pokemon.id === pokemonId)?.pokemon
 
-    if (pokemonFromTeam) return stateToPokemon(pokemonFromTeam, this.teamIsAttacker())
+    if (pokemonFromTeam) return stateToPokemon(pokemonFromTeam, this.teamIsAttacker(), this.game())
 
     const pokemonFromTargets = this.targetsState().find(target => target.pokemon.id == pokemonId)
 
-    if (pokemonFromTargets) return stateToPokemon(pokemonFromTargets.pokemon, !this.teamIsAttacker())
+    if (pokemonFromTargets) return stateToPokemon(pokemonFromTargets.pokemon, !this.teamIsAttacker(), this.game())
 
     const secondPokemonFromTargets = this.targetsState().find(target => target.secondPokemon?.id == pokemonId)
 
-    return secondPokemonFromTargets ? stateToPokemon(secondPokemonFromTargets.secondPokemon!, !this.teamIsAttacker()) : undefined
+    return secondPokemonFromTargets ? stateToPokemon(secondPokemonFromTargets.secondPokemon!, !this.teamIsAttacker(), this.game()) : undefined
   }
 
   buildUserData() {
@@ -528,7 +552,7 @@ export class CalculatorStore extends signalStore(
   }
 
   loadPokemonInfo(pokemonId: string, pokemonName: string) {
-    const poke = SETDEX_SV[pokemonName]
+    const poke = this.activeSetdex()[pokemonName]
 
     if (poke) {
       this.name(pokemonId, pokemonName)

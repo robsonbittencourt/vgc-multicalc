@@ -27,6 +27,7 @@ export class SpeedCalculatorComponent {
   pokemonOnEdit = computed(() => this.store.findPokemonById(this.pokemonId()))
 
   isPokemonDefault = computed(() => this.store.team().activePokemon().isDefault)
+  isChampions = computed(() => this.store.game() === "champions")
 
   lastHandledPokemonName = ""
   lastHandledAbilityName = ""

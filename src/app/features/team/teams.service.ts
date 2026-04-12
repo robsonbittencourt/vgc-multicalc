@@ -36,7 +36,8 @@ export class TeamsService {
 
   export(team: Team) {
     const pokemon = team.teamMembers.map(tm => tm.pokemon)
-    this.exportPokeService.export(team.name, ...pokemon)
+    const shouldUseSps = this.store.isChampions()
+    this.exportPokeService.export(team.name, pokemon, shouldUseSps)
   }
 
   addNewTeam() {

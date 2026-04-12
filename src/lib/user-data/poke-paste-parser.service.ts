@@ -1,9 +1,11 @@
-import { Injectable } from "@angular/core"
+import { Injectable, inject } from "@angular/core"
+import { CalculatorStore } from "@data/store/calculator-store"
 import { Ability } from "@lib/model/ability"
 import { Move } from "@lib/model/move"
 import { MoveSet } from "@lib/model/moveset"
 import { Pokemon } from "@lib/model/pokemon"
 import { Stats } from "@lib/types"
+import { spToEv } from "@lib/utils/ev-sp-converter"
 import axios from "axios"
 import { Koffing } from "koffing"
 
@@ -11,6 +13,7 @@ import { Koffing } from "koffing"
   providedIn: "root"
 })
 export class PokePasteParserService {
+  private store = inject(CalculatorStore)
   async parse(input: string): Promise<Pokemon[]> {
     if (input.startsWith("http")) {
       return await this.parseFromPokePaste(input)
@@ -31,7 +34,19 @@ export class PokePasteParserService {
     return pokemonList.map((poke: any) => {
       const name = this.adjustName(poke.name)
       const ivs = { hp: poke.ivs?.hp ?? 31, atk: poke.ivs?.atk ?? 31, def: poke.ivs?.def ?? 31, spa: poke.ivs?.spa ?? 31, spd: poke.ivs?.spd ?? 31, spe: poke.ivs?.spe ?? 31 }
-      const evs = { hp: poke.evs?.hp ?? 0, atk: poke.evs?.atk ?? 0, def: poke.evs?.def ?? 0, spa: poke.evs?.spa ?? 0, spd: poke.evs?.spd ?? 0, spe: poke.evs?.spe ?? 0 }
+      let evs = { hp: poke.evs?.hp ?? 0, atk: poke.evs?.atk ?? 0, def: poke.evs?.def ?? 0, spa: poke.evs?.spa ?? 0, spd: poke.evs?.spd ?? 0, spe: poke.evs?.spe ?? 0 }
+
+      if (this.store.isChampions() && this.store.useSpsMode()) {
+        evs = {
+          hp: spToEv(evs.hp),
+          atk: spToEv(evs.atk),
+          def: spToEv(evs.def),
+          spa: spToEv(evs.spa),
+          spd: spToEv(evs.spd),
+          spe: spToEv(evs.spe)
+        }
+      }
+
       const moveSet = new MoveSet(new Move(poke.moves[0] ?? ""), new Move(poke.moves[1] ?? ""), new Move(poke.moves[2] ?? ""), new Move(poke.moves[3] ?? ""))
       const boosts = this.buildBoosts(poke)
 

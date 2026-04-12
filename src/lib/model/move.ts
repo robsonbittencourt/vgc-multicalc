@@ -1,4 +1,5 @@
 import { MOVE_DETAILS } from "@data/move-details"
+import { MOVE_DETAILS_CHAMPIONS } from "@data/move-details-champions"
 import { Category } from "@lib/types"
 import { Generations, MOVES, Move as MoveSmogon } from "@robsonbittencourt/calc"
 
@@ -13,8 +14,9 @@ export class Move {
   readonly target: string
   readonly category: Category
 
-  constructor(name: string, options: { alliesFainted?: string; hits?: string } = {}) {
-    const smogonMove = new MoveSmogon(Generations.get(9), name)
+  constructor(name: string, options: { alliesFainted?: string; hits?: string; game?: string } = {}) {
+    const gen = options.game === "champions" ? Generations.get(10) : Generations.get(9)
+    const smogonMove = new MoveSmogon(gen, name)
 
     this.name = name
     this.possibleHits = this.moveHits(name)
@@ -30,7 +32,16 @@ export class Move {
       this.secondary = null
       this.target = "normal"
     } else {
-      const moveDetails = MOVE_DETAILS[moveName]
+      let moveDetails = MOVE_DETAILS[moveName]
+
+      if (!moveDetails) {
+        throw new Error(`Move details not found for: ${name}`)
+      }
+
+      if (options.game === "champions" && MOVE_DETAILS_CHAMPIONS[moveName]) {
+        moveDetails = { ...moveDetails, ...MOVE_DETAILS_CHAMPIONS[moveName] }
+      }
+
       this.accuracy = moveDetails.accuracy === true ? 100 : moveDetails.accuracy
       this.secondary = moveDetails.secondary
       this.target = moveDetails.target

@@ -110,5 +110,12 @@ before(() => {
 })
 
 beforeEach(() => {
-  cy.visit("http://localhost:4200/")
+  cy.visit("http://localhost:4200/", {
+    onBeforeLoad(win) {
+      const rawData = win.localStorage.getItem("userData")
+      const userData = rawData ? JSON.parse(rawData) : {}
+      userData.game = "sv"
+      win.localStorage.setItem("userData", JSON.stringify(userData))
+    }
+  })
 })

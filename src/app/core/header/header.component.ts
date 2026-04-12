@@ -1,6 +1,7 @@
 import { NgClass, TitleCasePipe } from "@angular/common"
 import { Component, inject } from "@angular/core"
 import { MatButton } from "@angular/material/button"
+import { MatButtonToggle, MatButtonToggleChange, MatButtonToggleGroup } from "@angular/material/button-toggle"
 import { MatDivider } from "@angular/material/divider"
 import { MatIcon } from "@angular/material/icon"
 import { MatMenu, MatMenuTrigger } from "@angular/material/menu"
@@ -17,7 +18,7 @@ import { v4 as uuidv4 } from "uuid"
   selector: "app-header",
   templateUrl: "./header.component.html",
   styleUrls: ["./header.component.scss"],
-  imports: [NgClass, MatIcon, MatButton, MatMenu, MatMenuTrigger, MatDivider, TitleCasePipe, CopyButtonComponent]
+  imports: [NgClass, MatIcon, MatButton, MatButtonToggleGroup, MatButtonToggle, MatMenu, MatMenuTrigger, MatDivider, TitleCasePipe, CopyButtonComponent]
 })
 export class HeaderComponent {
   store = inject(CalculatorStore)
@@ -65,5 +66,9 @@ export class HeaderComponent {
 
   enableTypeCalculator() {
     this.menuStore.enableTypeCalculator()
+  }
+
+  onGameChange(event: MatButtonToggleChange) {
+    this.store.updateGame(event.value)
   }
 }

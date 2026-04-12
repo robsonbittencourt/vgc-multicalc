@@ -78,11 +78,38 @@ export class TableDataFilterService<T extends Record<string, any>> {
     if (!values) return []
 
     const filterValue = this.normalizeValue(value)
+    const megaPartialFilter = this.buildMegaPartialFilter(value)
 
-    const startsWithMatch = values.filter(v => this.normalizeValue(v["name"]).startsWith(filterValue))
-    const containsMatch = values.filter(v => !this.normalizeValue(v["name"]).startsWith(filterValue) && this.normalizeValue(v["name"]).includes(filterValue))
+    const matchesFilter = (name: string) => {
+      const normalizedName = this.normalizeValue(name)
+
+      if (megaPartialFilter) {
+        const isMega = normalizedName.endsWith("-mega")
+        const matchesPartial = megaPartialFilter === "" || normalizedName.includes(megaPartialFilter)
+
+        if (isMega && matchesPartial) return "startsWith"
+        return null
+      }
+
+      if (normalizedName.startsWith(filterValue)) return "startsWith"
+      if (normalizedName.includes(filterValue)) return "contains"
+
+      return null
+    }
+
+    const startsWithMatch = values.filter(v => matchesFilter(v["name"]) === "startsWith")
+    const containsMatch = values.filter(v => matchesFilter(v["name"]) === "contains")
 
     return [...startsWithMatch, ...containsMatch]
+  }
+
+  private buildMegaPartialFilter(value: string): string | null {
+    const trimmed = value.trim()
+
+    if (!trimmed.match(/^mega(\s.*)?$/i)) return null
+
+    const megaMatch = trimmed.match(/^mega\s+(.+)$/i)
+    return megaMatch ? this.normalizeValue(megaMatch[1]) : ""
   }
 
   private normalizeValue(value: string): string {

@@ -44,7 +44,7 @@ describe("Probability Calculator", () => {
       singleTargetCard.verifyTurn2SingleTarget("81", "99", "1.0", "19")
       singleTargetCard.verifyTurn3SingleTarget("72.9", "99.9", "0.10", "27.1")
       singleTargetCard.verifyTurn4SingleTarget("65.6", "100", "0.010", "34.4")
-      singleTargetCard.verifyTurn5SingleTarget("59", "100", "0.010", "41")
+      singleTargetCard.verifyTurn5SingleTarget("59", "100", "0.001", "41")
     })
 
     it("should display Effect columns for Single Target move with secondary effect", () => {

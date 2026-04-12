@@ -3,12 +3,14 @@ import { Component, computed, effect, inject, input, output, signal, viewChild }
 import { FormsModule } from "@angular/forms"
 import { MatButton } from "@angular/material/button"
 import { MatCheckbox } from "@angular/material/checkbox"
+import { MatSlideToggle } from "@angular/material/slide-toggle"
 import { InputSelectComponent } from "@basic/input-select/input-select.component"
 import { InputComponent } from "@basic/input/input.component"
 import { Items } from "@data/items"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { FieldStore } from "@data/store/field-store"
 import { MenuStore } from "@data/store/menu-store"
+import { spToEv, totalSpsFromEvs } from "@lib/utils/ev-sp-converter"
 import { AbilityComboBoxComponent } from "@features/pokemon-build/ability-combo-box/ability-combo-box.component"
 import { EvSliderComponent } from "@features/pokemon-build/ev-slider/ev-slider.component"
 import { MultiHitComboBoxComponent } from "@features/pokemon-build/multi-hit-combo-box/multi-hit-combo-box.component"
@@ -20,6 +22,7 @@ import { MovesTableComponent } from "@features/pokemon-build/tables/moves-table/
 import { PokemonTableComponent } from "@features/pokemon-build/tables/pokemon-table/pokemon-table.component"
 import { TeraComboBoxComponent } from "@features/pokemon-build/tera-combo-box/tera-combo-box.component"
 import { TypeComboBoxComponent } from "@features/pokemon-build/type-combo-box/type-combo-box.component"
+import { MegaStoneService } from "@features/pokemon-build/utils/mega-stone.service"
 import { getFinalAttack, getFinalSpecialAttack } from "@lib/smogon/stat-calculator/atk-spa/modified-atk-spa"
 import { getFinalDefense, getFinalSpecialDefense } from "@lib/smogon/stat-calculator/def-spd/modified-def-spd"
 import { getFinalSpeed } from "@lib/smogon/stat-calculator/spe/modified-spe"
@@ -34,6 +37,7 @@ import { Stats, SurvivalThreshold } from "@lib/types"
     NgClass,
     MatButton,
     MatCheckbox,
+    MatSlideToggle,
     FormsModule,
     AbilityComboBoxComponent,
     EvSliderComponent,
@@ -67,6 +71,7 @@ export class PokemonBuildComponent {
   store = inject(CalculatorStore)
   fieldStore = inject(FieldStore)
   menuStore = inject(MenuStore)
+  megaStoneService = inject(MegaStoneService)
 
   originalEvs = signal<Stats>({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
   originalNature = signal<string>("")
@@ -144,6 +149,30 @@ export class PokemonBuildComponent {
     return { ...pokemon.evs }
   })
 
+  isChampions = computed(() => this.store.isChampions)
+  showEvsSpsToggle = signal(false)
+  MAX_EVS = computed(() => (this.isChampions() ? 66 : 508))
+  evLabel = computed(() => {
+    if (this.store.isChampions() && this.store.useSpsMode()) {
+      return "SPs"
+    }
+    return "EVs"
+  })
+  remainingLabel = computed(() => "Remaining:")
+  remainingPoints = computed(() => {
+    const pokemon = this.pokemon()
+    if (this.store.isChampions()) {
+      const currentSps = totalSpsFromEvs(pokemon.evs)
+      const remainingSps = 66 - currentSps
+      if (this.store.useSpsMode()) {
+        return remainingSps
+      } else {
+        return spToEv(remainingSps)
+      }
+    }
+    return 508 - pokemon.totalEvs
+  })
+
   hasNoSolution = computed(() => {
     return this.optimizationStatus() === "no-solution"
   })
@@ -212,14 +241,19 @@ export class PokemonBuildComponent {
   abilityInput = viewChild<InputComponent>("abilityInput")
   move4Input = viewChild<InputComponent>("move4Input")
 
-  MAX_EVS = 508
-
   moveWasSelected = false
   blurTimeout: any = null
   withoutItem = Items.instance.withoutItem()
 
   constructor() {
-    queueMicrotask(() => this.shouldAnimate.set(true))
+    queueMicrotask(() => {
+      this.shouldAnimate.set(true)
+      this.showEvsSpsToggle.set(this.store.isChampions())
+    })
+
+    effect(() => {
+      this.showEvsSpsToggle.set(this.store.isChampions())
+    })
 
     effect(() => {
       if (!this.showMovesTable() && !this.showAbilitiesTable() && !this.showItemsTable() && !this.showPokemonTable()) {
@@ -251,6 +285,10 @@ export class PokemonBuildComponent {
 
   scrollToPokemonSelector() {
     this.pokemonInput()?.scrollTo()
+  }
+
+  toggleSpsMode() {
+    this.store.toggleSpsMode()
   }
 
   showDefaultView() {
@@ -479,7 +517,27 @@ export class PokemonBuildComponent {
 
   isItemDisabled() {
     const ogerponForms = ["Ogerpon-Wellspring", "Ogerpon-Hearthflame", "Ogerpon-Cornerstone"]
-    return ogerponForms.includes(this.pokemon().name)
+    return ogerponForms.includes(this.pokemon().name) || this.pokemon().name.includes("-Mega")
+  }
+
+  hasMegaForm() {
+    return this.megaStoneService.hasMegaForm(this.pokemon().name, this.pokemon().item)
+  }
+
+  toggleMega() {
+    this.megaStoneService.toggleMega(this.pokemonId(), this.pokemon().name, this.pokemon().item)
+  }
+
+  isMegaStone() {
+    return this.megaStoneService.isMegaStone(this.pokemon().item)
+  }
+
+  isMegaStoneCompatible() {
+    return this.megaStoneService.isMegaStoneCompatible(this.pokemon().name, this.pokemon().item)
+  }
+
+  getMegaStoneSprite() {
+    return this.megaStoneService.getMegaStoneSprite(this.pokemon().item)
   }
 
   isTeraDisabled() {

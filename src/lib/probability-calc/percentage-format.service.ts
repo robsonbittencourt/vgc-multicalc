@@ -11,13 +11,13 @@ export class PercentageFormatService {
       return "0"
     }
 
-    if (Math.abs(value - 0.01) < 0.0001) {
+    if (Math.abs(percent - 1) < 0.01) {
       return "1.0"
     }
-    if (Math.abs(value - 0.001) < 0.0001) {
+    if (Math.abs(percent - 0.1) < 0.01) {
       return "0.10"
     }
-    if (Math.abs(value - 0.0001) < 0.0001) {
+    if (Math.abs(percent - 0.01) < 0.001) {
       return "0.010"
     }
 

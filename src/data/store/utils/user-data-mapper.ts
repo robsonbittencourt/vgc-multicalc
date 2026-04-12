@@ -52,7 +52,7 @@ export function buildUserData(
   }
 }
 
-export function buildState(userData: any): CalculatorState {
+export function buildState(userData: any): Partial<CalculatorState> {
   return {
     updateLocalStorage: true,
     speedCalcPokemonState: userData.speedCalcPokemon ? buildPokemonState(userData.speedCalcPokemon) : buildPokemonState(userData.leftPokemon),
