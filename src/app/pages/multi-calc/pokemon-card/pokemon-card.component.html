@@ -84,19 +84,23 @@
                   <span>Nature: {{ pokemonOnCard().nature }}</span>
                   <span>Ability: {{ pokemonOnCard().ability.simpleName }}</span>
                   <span>Item: {{ pokemonOnCard().item }}</span>
-                  <span>
-                    Tera: {{ pokemonOnCard().teraType }}
-                    @if (pokemonOnCard().teraTypeActive) {
-                      Active
-                    }
-                  </span>
+                  @if (store.game() === "sv") {
+                    <span>
+                      Tera: {{ pokemonOnCard().teraType }}
+                      @if (pokemonOnCard().teraTypeActive) {
+                        Active
+                      }
+                    </span>
+                  }
                 </div>
               }
 
               <div class="middle-section-buttons">
                 <div class="card-buttons">
                   <div class="card-buttons-row">
-                    <app-terastal-button [pokemonId]="pokemonOnCard().id" />
+                    @if (store.game() === "sv") {
+                      <app-terastal-button [pokemonId]="pokemonOnCard().id" />
+                    }
 
                     @if (showDeleteButton()) {
                       <button class="icon-button" (click)="removePokemon($event)" data-cy="delete-opponent-pokemon">

@@ -258,6 +258,10 @@ export const ABILITY_DETAILS: Record<string, AbilityDetail> = {
     name: "Fluffy",
     description: "This Pokemon takes 1/2 damage from contact moves, 2x damage from Fire moves."
   },
+  forecast: {
+    name: "Forecast",
+    description: "Castform's type changes to the current weather condition's type, except Sandstorm."
+  },
   forewarn: {
     name: "Forewarn",
     description: "On switch-in, this Pokemon is alerted to the foes' move with the highest power."
@@ -510,6 +514,10 @@ export const ABILITY_DETAILS: Record<string, AbilityDetail> = {
     name: "Mind's Eye",
     description: "Fighting, Normal moves hit Ghost. Accuracy can't be lowered, ignores evasiveness."
   },
+  mimicry: {
+    name: "Mimicry",
+    description: "This Pokemon's types change to match the Terrain. Type reverts when Terrain ends."
+  },
   minus: {
     name: "Minus",
     description: "If an active ally has this Ability or the Plus Ability, this Pokemon's Sp. Atk is 1.5x."
@@ -545,6 +553,10 @@ export const ABILITY_DETAILS: Record<string, AbilityDetail> = {
   multitype: {
     name: "Multitype",
     description: "If this Pokemon is an Arceus, its type changes to match its held Plate."
+  },
+  mummy: {
+    name: "Mummy",
+    description: "Pokemon making contact with this Pokemon have their Ability changed to Mummy."
   },
   myceliummight: {
     name: "Mycelium Might",
@@ -754,6 +766,10 @@ export const ABILITY_DETAILS: Record<string, AbilityDetail> = {
     name: "Scrappy",
     description: "Fighting, Normal moves hit Ghost. Immune to Intimidate."
   },
+  screencleaner: {
+    name: "Screen Cleaner",
+    description: "On switch-in, the effects of Aurora Veil, Light Screen, and Reflect end for both sides."
+  },
   seedsower: {
     name: "Seed Sower",
     description: "When this Pokemon is hit by an attack, the effect of Grassy Terrain begins."
@@ -857,6 +873,10 @@ export const ABILITY_DETAILS: Record<string, AbilityDetail> = {
   stamina: {
     name: "Stamina",
     description: "This Pokemon's Defense is raised by 1 stage after it is damaged by a move."
+  },
+  stancechange: {
+    name: "Stance Change",
+    description: "If Aegislash, changes Forme to Blade before attacks and Shield before King's Shield."
   },
   static: {
     name: "Static",
@@ -1054,6 +1074,10 @@ export const ABILITY_DETAILS: Record<string, AbilityDetail> = {
     name: "Volt Absorb",
     description: "This Pokemon heals 1/4 of its max HP when hit by Electric moves; Electric immunity."
   },
+  wanderingspirit: {
+    name: "Wandering Spirit",
+    description: "Pokemon making contact with this Pokemon have their Ability swapped with this one."
+  },
   waterabsorb: {
     name: "Water Absorb",
     description: "This Pokemon heals 1/4 of its max HP when hit by Water moves; Water immunity."
@@ -1097,5 +1121,41 @@ export const ABILITY_DETAILS: Record<string, AbilityDetail> = {
   zerotohero: {
     name: "Zero to Hero",
     description: "If this Pokemon is a Palafin in Zero Form, switching out has it change to Hero Form."
+  },
+  aerilate: {
+    name: "Aerilate",
+    description: "This Pokemon's Normal-type moves become Flying-type and have 1.3x power."
+  },
+  dragonize: {
+    name: "Dragonize",
+    description: "This Pokemon's type becomes Dragon."
+  },
+  fairyaura: {
+    name: "Fairy Aura",
+    description: "Fairy-type moves used by this Pokemon and its allies have 1.33x power."
+  },
+  innardsout: {
+    name: "Innards Out",
+    description: "If this Pokemon is KOed by a physical attack, the attacker loses HP equal to this Pokemon's HP remaining."
+  },
+  parentalbond: {
+    name: "Parental Bond",
+    description: "This Pokemon uses its move twice in one turn (second hit does 25% damage)."
+  },
+  piercingdrill: {
+    name: "Piercing Drill",
+    description: "This Pokemon's moves ignore other Pokemon's stat changes and abilities."
+  },
+  refrigerate: {
+    name: "Refrigerate",
+    description: "This Pokemon's Normal-type moves become Ice-type and have 1.3x power."
+  },
+  megasol: {
+    name: "Mega Sol",
+    description: "This Pokemon's Solar Power ability is always active, even in non-sunny weather."
+  },
+  spicyspray: {
+    name: "Spicy Spray",
+    description: "When this Pokemon enters, its Attack and Sp. Atk are each raised 1 stage."
   }
 }

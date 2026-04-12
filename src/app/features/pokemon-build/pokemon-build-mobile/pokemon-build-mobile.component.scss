@@ -96,8 +96,12 @@ app-pokemon-moves-mobile {
   gap: 1em;
 }
 
-.combo-row-tera-types {
-  align-items: flex-end;
+.combo-row-tera {
+  align-items: center;
+}
+
+.combo-row-types {
+  align-items: center;
 }
 
 .combo-tera {
@@ -110,9 +114,73 @@ app-pokemon-moves-mobile {
   margin-bottom: 0.15em;
 }
 
+.combo-types-inline {
+  align-self: flex-end;
+  margin-bottom: 0.2em;
+}
+
+.combo-types-full {
+  flex: 1 1 0;
+  width: 100%;
+}
+
 ::ng-deep .combo-types app-type-combo-box .pokemon-type {
   padding: 0.65em 0.5em;
   font-size: 1rem;
+}
+
+.combo-item-with-mega {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.mega-icon-wrapper-mobile {
+  display: flex;
+  align-items: flex-end;
+  cursor: pointer;
+}
+
+.mega-icon-mobile {
+  width: 2.2em;
+  height: auto;
+  cursor: pointer;
+  opacity: 0.85;
+  flex-shrink: 0;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  margin-top: 1.4em;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &.mega-active {
+    opacity: 1;
+    box-shadow:
+      0 0 6px color-mix(in srgb, var(--primary) 80%, white),
+      0 0 12px color-mix(in srgb, var(--primary) 70%, white),
+      0 0 18px var(--primary),
+      inset 0 0 6px color-mix(in srgb, var(--primary) 50%, white);
+  }
+
+  @media (prefers-color-scheme: light) {
+    &.mega-active {
+      opacity: 1;
+      box-shadow:
+        0 0 4px color-mix(in srgb, var(--primary) 60%, black),
+        0 0 8px color-mix(in srgb, var(--primary) 50%, black),
+        0 0 12px var(--primary),
+        inset 0 0 4px color-mix(in srgb, var(--primary) 30%, white);
+    }
+  }
+}
+
+.combo-item-with-mega app-item-combo-box {
+  flex: 1;
+  min-width: 0;
 }
 
 .combo-item {

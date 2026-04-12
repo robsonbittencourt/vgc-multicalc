@@ -16,7 +16,6 @@ import { TeamsMobileComponent } from "@features/team/teams-mobile/teams-mobile.c
 import { AutomaticFieldService } from "@lib/automatic-field-service"
 import { Pokemon } from "@lib/model/pokemon"
 import { getFinalSpeed } from "@lib/smogon/stat-calculator/spe/modified-spe"
-import { SPEED_CALCULATOR_MODES } from "@lib/speed-calculator/speed-calculator-mode"
 import { Regulation } from "@lib/types"
 import { OpponentOptionsComponent } from "@pages/speed-calc/opponent-options/opponent-options.component"
 import { SpeedInsightsComponent } from "@pages/speed-calc/speed-insights/speed-insights.component"
@@ -124,11 +123,7 @@ export class SpeedCalculatorMobileComponent {
     })
   }
 
-  regulationsList: Regulation[] = ["I"]
-
   topUsageList: string[] = ["30", "60", "100", "125", "All"]
-
-  speedCalculatorModes: string[] = SPEED_CALCULATOR_MODES
 
   updateRegulation(regulation: string) {
     this.optionsStore.updateRegulation(regulation as Regulation)

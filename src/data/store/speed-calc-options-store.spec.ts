@@ -1,5 +1,7 @@
-import { provideZonelessChangeDetection } from "@angular/core"
+import { provideZonelessChangeDetection, signal } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
+import { SETDEX_SV } from "@data/movesets"
+import { CalculatorStore } from "@data/store/calculator-store"
 import { SpeedCalcOptionsStore } from "@data/store/speed-calc-options-store"
 import { SpeedCalculatorMode } from "@lib/speed-calculator/speed-calculator-mode"
 
@@ -8,7 +10,17 @@ describe("Speed Calc Options Store", () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [provideZonelessChangeDetection()]
+      providers: [
+        provideZonelessChangeDetection(),
+        SpeedCalcOptionsStore,
+        {
+          provide: CalculatorStore,
+          useValue: {
+            game: signal("sv"),
+            activeSetdex: signal(SETDEX_SV)
+          }
+        }
+      ]
     })
 
     store = TestBed.inject(SpeedCalcOptionsStore)

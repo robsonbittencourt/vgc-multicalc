@@ -20,6 +20,7 @@ import { MovesTableComponent } from "@features/pokemon-build/tables/moves-table/
 import { PokemonTableComponent } from "@features/pokemon-build/tables/pokemon-table/pokemon-table.component"
 import { TeraComboBoxComponent } from "@features/pokemon-build/tera-combo-box/tera-combo-box.component"
 import { TypeComboBoxComponent } from "@features/pokemon-build/type-combo-box/type-combo-box.component"
+import { MegaStoneService } from "@features/pokemon-build/utils/mega-stone.service"
 import { getFinalAttack, getFinalSpecialAttack } from "@lib/smogon/stat-calculator/atk-spa/modified-atk-spa"
 import { getFinalDefense, getFinalSpecialDefense } from "@lib/smogon/stat-calculator/def-spd/modified-def-spd"
 import { getFinalSpeed } from "@lib/smogon/stat-calculator/spe/modified-spe"
@@ -67,6 +68,7 @@ export class PokemonBuildComponent {
   store = inject(CalculatorStore)
   fieldStore = inject(FieldStore)
   menuStore = inject(MenuStore)
+  megaStoneService = inject(MegaStoneService)
 
   originalEvs = signal<Stats>({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
   originalNature = signal<string>("")
@@ -479,7 +481,27 @@ export class PokemonBuildComponent {
 
   isItemDisabled() {
     const ogerponForms = ["Ogerpon-Wellspring", "Ogerpon-Hearthflame", "Ogerpon-Cornerstone"]
-    return ogerponForms.includes(this.pokemon().name)
+    return ogerponForms.includes(this.pokemon().name) || this.pokemon().name.includes("-Mega")
+  }
+
+  hasMegaForm() {
+    return this.megaStoneService.hasMegaForm(this.pokemon().name, this.pokemon().item)
+  }
+
+  toggleMega() {
+    this.megaStoneService.toggleMega(this.pokemonId(), this.pokemon().name, this.pokemon().item)
+  }
+
+  isMegaStone() {
+    return this.megaStoneService.isMegaStone(this.pokemon().item)
+  }
+
+  isMegaStoneCompatible() {
+    return this.megaStoneService.isMegaStoneCompatible(this.pokemon().name, this.pokemon().item)
+  }
+
+  getMegaStoneSprite() {
+    return this.megaStoneService.getMegaStoneSprite(this.pokemon().item)
   }
 
   isTeraDisabled() {

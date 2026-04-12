@@ -1,6 +1,7 @@
 import { ABILITY_DETAILS } from "@data/abiliity-details"
 import { Items } from "@data/items"
 import { POKEMON_DETAILS } from "@data/pokemon-details"
+import { POKEMON_DETAILS_CHAMPIONS } from "@data/pokemon-details-champions"
 import { DEFAULT_TERA_TYPE, SELECT_POKEMON_LABEL } from "@lib/constants"
 import { Ability } from "@lib/model/ability"
 import { Move } from "@lib/model/move"
@@ -284,8 +285,14 @@ export class Pokemon {
       return [ABILITY_DETAILS[`embodyaspect${form}`]]
     }
 
-    const pokemonDetails = Object.values(POKEMON_DETAILS).find(p => p.name == this.name)!
-    return pokemonDetails.abilities.map(ability => ABILITY_DETAILS[ability])
+    const pokemonDetails = Object.values(POKEMON_DETAILS).find(p => p.name == this.name) || Object.values(POKEMON_DETAILS_CHAMPIONS).find(p => p.name == this.name)
+    const abilities = pokemonDetails
+      ? pokemonDetails.abilities.map(ability => {
+          return ABILITY_DETAILS[ability]
+        })
+      : []
+
+    return abilities
   }
 
   get rawStats(): Partial<Stats> {

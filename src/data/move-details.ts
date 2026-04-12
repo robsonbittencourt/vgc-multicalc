@@ -7121,6 +7121,17 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     secondary: null,
     target: "normal"
   },
+  trickortreat: {
+    accuracy: 100,
+    basePower: 0,
+    category: "Status",
+    name: "Trick-or-Treat",
+    pp: 20,
+    type: "Ghost",
+    description: "Adds Ghost to the target's type(s).",
+    secondary: null,
+    target: "normal"
+  },
   trickroom: {
     accuracy: true,
     basePower: 0,

@@ -1,5 +1,5 @@
 <app-widget [title]="'Defensive Coverage'">
-  @if (isAgainstTeam()) {
+  @if (isAgainstTeam() && !store.isChampions()) {
     <right-header>
       <div class="toggles-container">
         @if (secondTeamHasTeraBlast()) {
@@ -8,7 +8,7 @@
         <mat-slide-toggle [checked]="considerTeraType()" (change)="considerTeraType.set($event.checked)" [labelPosition]="'before'" data-cy="consider-tera-type-toggle"> Tera Type </mat-slide-toggle>
       </div>
     </right-header>
-  } @else {
+  } @else if (!store.isChampions()) {
     <right-header>
       <mat-slide-toggle [checked]="considerTeraType()" (change)="considerTeraType.set($event.checked)" [labelPosition]="'before'" data-cy="consider-tera-type-toggle"> Tera Type </mat-slide-toggle>
     </right-header>

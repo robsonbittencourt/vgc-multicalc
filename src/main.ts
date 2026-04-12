@@ -12,6 +12,9 @@ import { RuinsAbilityAdjuster } from "@lib/damage-calculator/calc-adjuster/ruins
 import { ZacianZamazentaAdjuster } from "@lib/damage-calculator/calc-adjuster/zacian-zamazenta-adjuster"
 import { SPECIFIC_DAMAGE_CALCULATORS } from "@lib/damage-calculator/specific-damage-calculator/specific-damage-calculator"
 import { RuinationCalculator } from "@lib/damage-calculator/specific-damage-calculator/ruination-calculator"
+import { migrateUserData } from "@data/store/utils/migrate-user-data"
+
+migrateUserData()
 
 bootstrapApplication(AppComponent, {
   providers: [

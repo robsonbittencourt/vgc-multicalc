@@ -1,8 +1,9 @@
-import { Injectable } from "@angular/core"
-import { SETDEX_SV } from "@data/movesets"
+import { inject, Injectable } from "@angular/core"
 import { pokemonByRegulation } from "@data/regulation-pokemon"
 import { SpeedData } from "@data/speed-data"
 import { SPEED_STATISTICS_REG_I } from "@data/speed-statistics-reg-i"
+import { SPEED_STATISTICS_REG_MA } from "@data/speed-statistics-reg-ma"
+import { CalculatorStore } from "@data/store/calculator-store"
 import { ACTUAL, BOOSTER, MAX, MAX_BASE_SPEED_FOR_TR, MIN, MIN_IV_0, SCARF } from "@lib/constants"
 import { defaultPokemon } from "@lib/default-pokemon"
 import { Ability } from "@lib/model/ability"
@@ -21,6 +22,17 @@ import { Generations, Pokemon as SmogonPokemon } from "@robsonbittencourt/calc"
   providedIn: "root"
 })
 export class SpeedCalculatorService {
+  private store = inject(CalculatorStore)
+
+  private get setdex() {
+    return this.store.activeSetdex()
+  }
+
+  private readonly statisticsByRegulation: Record<string, Record<string, SpeedData>> = {
+    "M-A": SPEED_STATISTICS_REG_MA,
+    I: SPEED_STATISTICS_REG_I
+  }
+
   orderedPokemon(pokemon: Pokemon, field: Field, pokemonEachSide: number, options: SpeedCalculatorOptions = new SpeedCalculatorOptions()): SpeedDefinition[] {
     let speedDefinitions: SpeedDefinition[] = [this.buildActual(pokemon, field, options), ...this.loadSpeedMeta(options, field)]
 
@@ -66,12 +78,11 @@ export class SpeedCalculatorService {
     return new SpeedDefinition(pokemon, speed, ACTUAL)
   }
 
-  // aqui é a treta
   private loadSpeedMeta(options: SpeedCalculatorOptions, field: Field): SpeedDefinition[] {
     const speedDefinitions: SpeedDefinition[] = []
 
     const quantity = options.targetName.length > 0 ? undefined : options.topUsage
-    const pokemon = pokemonByRegulation(options.regulation, quantity)
+    const pokemon = pokemonByRegulation(options.regulation, quantity, this.setdex)
 
     pokemon.forEach(p => {
       const pokemon = this.adjustPokemonByOptions(p, options)
@@ -89,11 +100,11 @@ export class SpeedCalculatorService {
       speedDefinitions.push(this.minSpeed(pokemon, field))
       speedDefinitions.push(this.maxSpeed(pokemon, field))
 
-      if (this.isTrickRoomPokemon(pokemon)) {
+      if (this.isTrickRoomPokemon(pokemon) && this.store.game() !== "champions") {
         speedDefinitions.push(this.minSpeedIvZero(pokemon, field))
       }
 
-      if (this.hasChoiceScarf(pokemon)) {
+      if (this.hasChoiceScarf(pokemon) && this.store.game() !== "champions") {
         speedDefinitions.push(this.maxScarf(pokemon, field))
       }
 
@@ -116,7 +127,7 @@ export class SpeedCalculatorService {
   }
 
   private hasChoiceScarf(pokemon: Pokemon): boolean {
-    return pokemon.item == "Choice Scarf" || SETDEX_SV[pokemon.name].items.includes("Choice Scarf")
+    return pokemon.item == "Choice Scarf" || this.setdex[pokemon.name]?.items.includes("Choice Scarf")
   }
 
   private limitQuantity(speedDefinitions: SpeedDefinition[], pokemonEachSide: number): SpeedDefinition[] {
@@ -235,8 +246,8 @@ export class SpeedCalculatorService {
     return speedDefinitions
   }
 
-  retrieveSpeedStatistics(pokemonName: string, _regulation: Regulation): SpeedData {
-    return SPEED_STATISTICS_REG_I[pokemonName]
+  retrieveSpeedStatistics(pokemonName: string, regulation: Regulation): SpeedData {
+    return this.statisticsByRegulation[regulation][pokemonName]
   }
 
   private isTrickRoomPokemon(pokemon: Pokemon): boolean {

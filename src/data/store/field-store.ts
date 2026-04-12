@@ -1,5 +1,6 @@
 import { computed, effect, inject, Injectable } from "@angular/core"
-import { initialFieldState } from "@data/store/utils/initial-field-state"
+import { initialFieldState, defaultFieldState } from "@data/store/utils/initial-field-state"
+import { readGameData, writeGameData } from "@data/store/utils/user-data-storage"
 import { Field, FieldSide } from "@lib/model/field"
 import { GameType, Terrain, Weather } from "@lib/types"
 import { patchState, signalStore, withHooks, withState } from "@ngrx/signals"
@@ -39,6 +40,7 @@ export class FieldStore extends signalStore(
     onInit(store) {
       const activeFieldService = inject(ActiveFieldService)
       const context = inject(FIELD_CONTEXT)
+      const calculatorStore = inject(CalculatorStore)
 
       activeFieldService.activeStore.set(store)
 
@@ -49,7 +51,8 @@ export class FieldStore extends signalStore(
 
       effect(() => {
         if (store.updateLocalStorage()) {
-          const userData = JSON.parse(localStorage.getItem("userData")!)
+          const game = calculatorStore.game()
+          const gameData = readGameData(game) ?? {}
           const field = {
             updateLocalStorage: store.updateLocalStorage(),
             weather: store.weather(),
@@ -67,16 +70,68 @@ export class FieldStore extends signalStore(
             defenderSide: store.defenderSide()
           }
 
-          const fields = userData?.fields ?? {}
+          const fields = gameData.fields ?? {}
           fields[context] = field
 
-          localStorage.setItem("userData", JSON.stringify({ ...userData, fields }))
+          writeGameData(game, { ...gameData, fields })
         }
       })
     }
   })
 ) {
   calculatorStore = inject(CalculatorStore)
+
+  constructor() {
+    super()
+
+    let previousGame: string | null = null
+    const context = inject(FIELD_CONTEXT)
+
+    effect(() => {
+      const game = this.calculatorStore.game()
+      if (previousGame !== null && previousGame !== game) {
+        const gameData = readGameData(game)
+        const fieldData = gameData?.fields?.[context]
+        const resolved = fieldData ? { ...defaultFieldState(), ...fieldData } : defaultFieldState()
+        patchState(this, () => ({ ...resolved, updateLocalStorage: true }))
+      }
+      previousGame = game
+    })
+
+    effect(() => {
+      const game = this.calculatorStore.game()
+
+      if (game !== "champions") return
+
+      const updates: Partial<FieldState> = {}
+
+      if (this.isNeutralizingGas()) {
+        updates.isNeutralizingGas = false
+      }
+
+      const attackerSide = this.attackerSide()
+      const defenderSide = this.defenderSide()
+
+      if (attackerSide.isBattery || attackerSide.isPowerSpot) {
+        updates.attackerSide = { ...attackerSide, isBattery: false, isPowerSpot: false }
+      }
+
+      if (defenderSide.isBattery || defenderSide.isPowerSpot) {
+        updates.defenderSide = { ...defenderSide, isBattery: false, isPowerSpot: false }
+      }
+
+      if (this.isTabletsOfRuin() || this.isSwordOfRuin() || this.isVesselOfRuin() || this.isBeadsOfRuin()) {
+        updates.isTabletsOfRuin = false
+        updates.isSwordOfRuin = false
+        updates.isVesselOfRuin = false
+        updates.isBeadsOfRuin = false
+      }
+
+      if (Object.keys(updates).length > 0) {
+        patchState(this, () => updates)
+      }
+    })
+  }
 
   readonly field = computed(
     () =>

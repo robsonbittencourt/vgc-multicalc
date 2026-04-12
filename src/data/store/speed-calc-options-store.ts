@@ -1,8 +1,10 @@
-import { computed, Injectable } from "@angular/core"
+import { computed, effect, inject, Injectable } from "@angular/core"
 import { pokemonByRegulation } from "@data/regulation-pokemon"
+import { CalculatorStore } from "@data/store/calculator-store"
 import { SpeedCalculatorMode } from "@lib/speed-calculator/speed-calculator-mode"
 import { SpeedCalculatorOptions } from "@lib/speed-calculator/speed-calculator-options"
 import { Regulation } from "@lib/types"
+import { SPEED_CALCULATOR_MODES } from "@lib/speed-calculator/speed-calculator-mode"
 import { patchState, signalStore, withState } from "@ngrx/signals"
 
 type SpeedCalcOptionsState = {
@@ -29,6 +31,35 @@ const initialState: SpeedCalcOptionsState = {
 
 @Injectable({ providedIn: "root" })
 export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }, withState(initialState)) {
+  private calculatorStore = inject(CalculatorStore)
+
+  constructor() {
+    super()
+
+    effect(() => {
+      const game = this.calculatorStore.game()
+      const newRegulation = game === "champions" ? "M-A" : "I"
+      if (this.regulation() !== newRegulation) {
+        patchState(this, () => ({ regulation: newRegulation as Regulation }))
+      }
+    })
+
+    effect(() => {
+      const game = this.calculatorStore.game()
+      const mode = this.mode()
+      if (game === "champions" && (mode === SpeedCalculatorMode.StatsAndMeta || mode === SpeedCalculatorMode.Meta)) {
+        patchState(this, () => ({ mode: SpeedCalculatorMode.Stats }))
+      }
+    })
+
+    effect(() => {
+      const game = this.calculatorStore.game()
+      if (game === "champions" && this.choiceScarfActive()) {
+        patchState(this, () => ({ choiceScarfActive: false }))
+      }
+    })
+  }
+
   readonly options = computed(
     () =>
       new SpeedCalculatorOptions({
@@ -43,11 +74,22 @@ export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }
       })
   )
 
-  readonly pokemonNamesByReg = computed(() =>
-    pokemonByRegulation(this.regulation() as Regulation)
+  readonly regulationsList = computed(() => {
+    return this.calculatorStore.game() === "champions" ? ["M-A"] : ["I"]
+  })
+
+  readonly availableModes = computed(() => {
+    if (this.calculatorStore.game() === "champions") {
+      return ["Stats", "Base"]
+    }
+    return SPEED_CALCULATOR_MODES
+  })
+
+  readonly pokemonNamesByReg = computed(() => {
+    return pokemonByRegulation(this.regulation() as Regulation, undefined, this.calculatorStore.activeSetdex())
       .map(s => s.name)
       .sort()
-  )
+  })
 
   toggleIcyWind(enabled: boolean) {
     const speedModifier = enabled ? -1 : 0

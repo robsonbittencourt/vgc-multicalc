@@ -24,11 +24,13 @@ export class AbilitiesTableComponent {
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
 
   abilitiesData = computed(() => {
-    return [{ group: "Abilities", data: this.pokemon().availableAbilities }]
+    const abilities = this.pokemon().availableAbilities
+    return [{ group: "Abilities", data: abilities }]
   })
 
   actualAbility = computed(() => {
-    return [this.pokemon().ability.name]
+    const abilityName = this.pokemon().ability.name
+    return [abilityName]
   })
 
   moveColumns: ColumnConfig<AbilityDetail>[] = [

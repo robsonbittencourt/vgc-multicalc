@@ -1,6 +1,7 @@
 import { Component, computed, inject, input, output } from "@angular/core"
 import { MOVE_DETAILS, MoveDetail, MoveName } from "@data/move-details"
 import { POKEMON_DETAILS } from "@data/pokemon-details"
+import { POKEMON_DETAILS_CHAMPIONS } from "@data/pokemon-details-champions"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { FilterableTableComponent } from "@features/pokemon-build/tables/filterable-table/filterable-table.component"
 import { ColumnConfig } from "@features/pokemon-build/tables/filterable-table/filtered-table-types"
@@ -27,7 +28,8 @@ export class MovesTableComponent {
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
 
   movesData = computed(() => {
-    const pokemonDetails = Object.values(POKEMON_DETAILS).find(p => p.name == this.pokemon().name)!
+    const details = this.store.game() === "champions" ? POKEMON_DETAILS_CHAMPIONS : POKEMON_DETAILS
+    const pokemonDetails = Object.values(details).find(p => p.name == this.pokemon().name)!
     const metaMoves = this.getMoveDetails(pokemonDetails.metaMoves)
     const allMoves = this.getMoveDetails(pokemonDetails.learnset)
 

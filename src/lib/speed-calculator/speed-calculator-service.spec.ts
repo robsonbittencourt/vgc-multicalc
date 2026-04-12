@@ -10,9 +10,11 @@ import { Status } from "@lib/model/status"
 import { SpeedCalculatorMode } from "@lib/speed-calculator/speed-calculator-mode"
 import { SpeedCalculatorOptions } from "@lib/speed-calculator/speed-calculator-options"
 import { SpeedCalculatorService } from "@lib/speed-calculator/speed-calculator-service"
+import { CalculatorStore } from "@data/store/calculator-store"
 
 describe("SpeedCalculatorService", () => {
   let service: SpeedCalculatorService
+  let store: CalculatorStore
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -20,6 +22,8 @@ describe("SpeedCalculatorService", () => {
     })
 
     service = TestBed.inject(SpeedCalculatorService)
+    store = TestBed.inject(CalculatorStore)
+    store.updateGame("sv")
   })
 
   describe("Test order methods", () => {

@@ -31,6 +31,11 @@ export class Move {
       this.target = "normal"
     } else {
       const moveDetails = MOVE_DETAILS[moveName]
+
+      if (!moveDetails) {
+        throw new Error(`Move details not found for: ${name}`)
+      }
+
       this.accuracy = moveDetails.accuracy === true ? 100 : moveDetails.accuracy
       this.secondary = moveDetails.secondary
       this.target = moveDetails.target

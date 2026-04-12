@@ -5,6 +5,8 @@ import { MatSlideToggle } from "@angular/material/slide-toggle"
 import { InputAutocompleteComponent } from "@app/basic/input-autocomplete/input-autocomplete.component"
 import { InputSelectComponent } from "@app/basic/input-select/input-select.component"
 import { WidgetComponent } from "@basic/widget/widget.component"
+import { SETDEX_CHAMPIONS } from "@data/movesets-champions"
+import { SETDEX_SV } from "@data/movesets"
 import { pokemonByRegulation } from "@data/regulation-pokemon"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { MenuStore } from "@data/store/menu-store"
@@ -81,13 +83,18 @@ export class TargetPokemonComponent {
     return this.damageResults().filter(result => result.defender.name.toLocaleLowerCase().includes(filter))
   })
 
+  private get setdex() {
+    return this.store.game() === "champions" ? SETDEX_CHAMPIONS : SETDEX_SV
+  }
+
   readonly pokemonNamesByReg = computed(() =>
-    pokemonByRegulation(this.regulation() as Regulation)
+    pokemonByRegulation(this.regulation() as Regulation, undefined, this.store.game() === "champions" ? SETDEX_CHAMPIONS : SETDEX_SV)
       .map(s => s.name)
       .sort()
   )
 
-  regulationsList: Regulation[] = ["I"]
+  readonly regulationsList = computed(() => (this.store.game() === "champions" ? ["M-A"] : ["I"]))
+
   order = signal(true)
 
   onMetaClick() {
@@ -100,7 +107,7 @@ export class TargetPokemonComponent {
       this.snackBar.open("Pokémon removed")
     } else {
       this.store.updateTargetMetaRegulation(this.regulation())
-      const metaPokemon = pokemonByRegulation(this.regulation(), 50)
+      const metaPokemon = pokemonByRegulation(this.regulation(), 50, this.setdex)
       this.pokemonImported(metaPokemon)
     }
   }
@@ -224,7 +231,7 @@ export class TargetPokemonComponent {
   }
 
   private targetsExcludingMetaData(): Target[] {
-    const metaLeft = pokemonByRegulation(this.store.targetMetaRegulation()!)
+    const metaLeft = pokemonByRegulation(this.store.targetMetaRegulation()!, undefined, this.setdex)
 
     const newTargets = [...this.targets()]
       .reverse()

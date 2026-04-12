@@ -1,6 +1,7 @@
 import { Component, computed, inject, input, output } from "@angular/core"
 import { ABILITY_DETAILS } from "@data/abiliity-details"
 import { POKEMON_DETAILS, PokemonDetail } from "@data/pokemon-details"
+import { POKEMON_DETAILS_CHAMPIONS } from "@data/pokemon-details-champions"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { FilterableTableComponent } from "@features/pokemon-build/tables/filterable-table/filterable-table.component"
 import { ColumnConfig, TableData } from "@features/pokemon-build/tables/filterable-table/filtered-table-types"
@@ -29,7 +30,7 @@ export class PokemonTableComponent {
     return [this.pokemon().name]
   })
 
-  pokemonData = this.buildGroupedPokemonData()
+  pokemonData = computed(() => this.buildGroupedPokemonData())
 
   pokemonColumns: ColumnConfig<PokemonDetail>[] = [
     new ColumnConfig<PokemonDetail>({
@@ -52,9 +53,16 @@ export class PokemonTableComponent {
   ]
 
   buildGroupedPokemonData(): TableData<PokemonDetail>[] {
-    const allPokemon = Object.values(POKEMON_DETAILS).map(p => {
+    const details = this.store.game() === "champions" ? POKEMON_DETAILS_CHAMPIONS : POKEMON_DETAILS
+    const allPokemon = Object.values(details).map(p => {
       const pokemon = new Pokemon(p.name)
-      const abilities = p.abilities.map(ability => ABILITY_DETAILS[ability].name)
+      const abilities = p.abilities.map(ability => {
+        if (!ABILITY_DETAILS[ability]) {
+          console.error(`Missing ability "${ability}" for pokemon "${p.name}"`)
+          return "Unknown"
+        }
+        return ABILITY_DETAILS[ability].name
+      })
 
       return {
         name: pokemon.name,

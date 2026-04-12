@@ -40,6 +40,14 @@
 
       <mat-divider></mat-divider>
 
+      <span class="menu-title">Game</span>
+      <mat-button-toggle-group [value]="store.game()" (change)="onGameChange($event)" class="game-toggle">
+        <mat-button-toggle value="sv">SV</mat-button-toggle>
+        <mat-button-toggle value="champions">Champions</mat-button-toggle>
+      </mat-button-toggle-group>
+
+      <mat-divider></mat-divider>
+
       <span class="menu-title">Themes</span>
       @for (theme of themeService.getThemes(); track theme.name) {
         <div class="menu-item" [ngClass]="{ 'active-menu-option': themeService.selectedTheme().name === theme.name, pressed: pressedItemId() === 'theme-' + theme.name }" (click)="setTheme(theme.name)">

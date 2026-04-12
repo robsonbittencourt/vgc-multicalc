@@ -1,5 +1,6 @@
 import { Component, computed, inject, input, output } from "@angular/core"
 import { ITEM_DETAILS, ItemDetail } from "@data/item-details"
+import { AVAILABLE_ITEMS } from "@data/available-items"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { FilterableTableComponent } from "@features/pokemon-build//tables/filterable-table/filterable-table.component"
 import { ColumnConfig, TableData } from "@features/pokemon-build/tables/filterable-table/filtered-table-types"
@@ -48,7 +49,11 @@ export class ItemsTableComponent {
   ]
 
   groupItemsByGroup(): TableData<ItemDetail>[] {
-    const allItems = Object.values(ITEM_DETAILS)
+    const game = this.store.game()
+    const availableItemNames = AVAILABLE_ITEMS[game]
+    const allItems = Object.entries(ITEM_DETAILS)
+      .filter(([key]) => availableItemNames.includes(key))
+      .map(([, value]) => value)
 
     const groupedData = allItems.reduce(
       (acc, item) => {
@@ -76,6 +81,6 @@ export class ItemsTableComponent {
       result.find(data => data.group == "Useless items") as TableData<ItemDetail>
     ]
 
-    return orderedResult
+    return orderedResult.filter(g => g !== undefined)
   }
 }

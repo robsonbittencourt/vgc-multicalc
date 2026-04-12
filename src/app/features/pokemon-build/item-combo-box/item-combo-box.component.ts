@@ -1,6 +1,7 @@
 import { Component, computed, inject, input } from "@angular/core"
 import { InputAutocompleteComponent } from "@basic/input-autocomplete/input-autocomplete.component"
-import { Items } from "@data/items"
+import { AVAILABLE_ITEMS } from "@data/available-items"
+import { ITEM_DETAILS } from "@data/item-details"
 import { CalculatorStore } from "@data/store/calculator-store"
 
 @Component({
@@ -16,10 +17,17 @@ export class ItemComboBoxComponent {
 
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
 
-  allItemsNames = Items.instance.items
+  allItemsNames = computed(() => {
+    const game = this.store.game()
+    const availableItemKeys = AVAILABLE_ITEMS[game]
+    return availableItemKeys.map(key => {
+      const itemDetail = ITEM_DETAILS[key]
+      return itemDetail?.name || key
+    })
+  })
 
   isItemDisabled() {
     const ogerponForms = ["Ogerpon-Wellspring", "Ogerpon-Hearthflame", "Ogerpon-Cornerstone"]
-    return ogerponForms.includes(this.pokemon().name)
+    return ogerponForms.includes(this.pokemon().name) || this.pokemon().name.includes("-Mega")
   }
 }

@@ -5,6 +5,7 @@ export interface ItemDetail {
   name: string
   description: string
   sprite: string
+  isMegaStone?: boolean
 }
 
 export const ITEM_DETAILS: Record<string, ItemDetail> = {
@@ -1004,6 +1005,104 @@ export const ITEM_DETAILS: Record<string, ItemDetail> = {
     description: "Holder's Poison-type attacks have 1.2x power. Judgment is Poison type.",
     sprite: "toxic-plate"
   },
+  aerodactylite: {
+    group: "Pokémon specific items",
+    name: "Aerodactylite",
+    description: "If held by an Aerodactyl, this item allows it to Mega Evolve in battle.",
+    sprite: "aerodactylite",
+    isMegaStone: true
+  },
+  alakazite: {
+    group: "Pokémon specific items",
+    name: "Alakazite",
+    description: "If held by an Alakazam, this item allows it to Mega Evolve in battle.",
+    sprite: "alakazite",
+    isMegaStone: true
+  },
+  beedrillite: {
+    group: "Pokémon specific items",
+    name: "Beedrillite",
+    description: "If held by a Beedrill, this item allows it to Mega Evolve in battle.",
+    sprite: "beedrillite",
+    isMegaStone: true
+  },
+  blastoisinite: {
+    group: "Pokémon specific items",
+    name: "Blastoisinite",
+    description: "If held by a Blastoise, this item allows it to Mega Evolve in battle.",
+    sprite: "blastoisinite",
+    isMegaStone: true
+  },
+  charizarditex: {
+    group: "Pokémon specific items",
+    name: "Charizardite X",
+    description: "If held by a Charizard, this item allows it to Mega Evolve into Mega Charizard X in battle.",
+    sprite: "charizardite-x",
+    isMegaStone: true
+  },
+  charizarditey: {
+    group: "Pokémon specific items",
+    name: "Charizardite Y",
+    description: "If held by a Charizard, this item allows it to Mega Evolve into Mega Charizard Y in battle.",
+    sprite: "charizardite-y",
+    isMegaStone: true
+  },
+  chandelurite: {
+    group: "Pokémon specific items",
+    name: "Chandelurite",
+    description: "If held by a Chandelure, this item allows it to Mega Evolve in battle.",
+    sprite: "chandelurite",
+    isMegaStone: true
+  },
+  chimechite: {
+    group: "Pokémon specific items",
+    name: "Chimechite",
+    description: "If held by a Chimecho, this item allows it to Mega Evolve in battle.",
+    sprite: "chimechite",
+    isMegaStone: true
+  },
+  clefablite: {
+    group: "Pokémon specific items",
+    name: "Clefablite",
+    description: "If held by a Clefable, this item allows it to Mega Evolve in battle.",
+    sprite: "clefablite",
+    isMegaStone: true
+  },
+  gengarite: {
+    group: "Pokémon specific items",
+    name: "Gengarite",
+    description: "If held by a Gengar, this item allows it to Mega Evolve in battle.",
+    sprite: "gengarite",
+    isMegaStone: true
+  },
+  pidgeotite: {
+    group: "Pokémon specific items",
+    name: "Pidgeotite",
+    description: "If held by a Pidgeot, this item allows it to Mega Evolve in battle.",
+    sprite: "pidgeotite",
+    isMegaStone: true
+  },
+  slowbronite: {
+    group: "Pokémon specific items",
+    name: "Slowbronite",
+    description: "If held by a Slowbro, this item allows it to Mega Evolve in battle.",
+    sprite: "slowbronite",
+    isMegaStone: true
+  },
+  tyranitarite: {
+    group: "Pokémon specific items",
+    name: "Tyranitarite",
+    description: "If held by a Tyranitar, this item allows it to Mega Evolve in battle.",
+    sprite: "toxic-plate",
+    isMegaStone: true
+  },
+  venusaurite: {
+    group: "Pokémon specific items",
+    name: "Venusaurite",
+    description: "If held by a Venusaur, this item allows it to Mega Evolve in battle.",
+    sprite: "venusaurite",
+    isMegaStone: true
+  },
   twistedspoon: {
     group: "Items",
     name: "Twisted Spoon",
@@ -1075,5 +1174,334 @@ export const ITEM_DETAILS: Record<string, ItemDetail> = {
     name: "Zoom Lens",
     description: "The accuracy of attacks by the holder is 1.2x if it moves after its target.",
     sprite: "zoom-lens"
+  },
+  abomasite: {
+    group: "Pokémon specific items",
+    name: "Abomasite",
+    description: "If held by an Abomasnow, this item allows it to Mega Evolve in battle.",
+    sprite: "abomasite",
+    isMegaStone: true
+  },
+  absolite: {
+    group: "Pokémon specific items",
+    name: "Absolite",
+    description: "If held by an Absol, this item allows it to Mega Evolve in battle.",
+    sprite: "absolite",
+    isMegaStone: true
+  },
+  aggronite: {
+    group: "Pokémon specific items",
+    name: "Aggronite",
+    description: "If held by an Aggron, this item allows it to Mega Evolve in battle.",
+    sprite: "aggronite",
+    isMegaStone: true
+  },
+  altarianite: {
+    group: "Pokémon specific items",
+    name: "Altarianite",
+    description: "If held by an Altaria, this item allows it to Mega Evolve in battle.",
+    sprite: "altarianite",
+    isMegaStone: true
+  },
+  ampharosite: {
+    group: "Pokémon specific items",
+    name: "Ampharosite",
+    description: "If held by an Ampharos, this item allows it to Mega Evolve in battle.",
+    sprite: "ampharosite",
+    isMegaStone: true
+  },
+  audinite: {
+    group: "Pokémon specific items",
+    name: "Audinite",
+    description: "If held by an Audino, this item allows it to Mega Evolve in battle.",
+    sprite: "audinite",
+    isMegaStone: true
+  },
+  banettite: {
+    group: "Pokémon specific items",
+    name: "Banettite",
+    description: "If held by a Banette, this item allows it to Mega Evolve in battle.",
+    sprite: "banettite",
+    isMegaStone: true
+  },
+  blazikenite: {
+    group: "Pokémon specific items",
+    name: "Blazikenite",
+    description: "If held by a Blaziken, this item allows it to Mega Evolve in battle.",
+    sprite: "blazikenite",
+    isMegaStone: true
+  },
+  cameruptite: {
+    group: "Pokémon specific items",
+    name: "Cameruptite",
+    description: "If held by a Camerupt, this item allows it to Mega Evolve in battle.",
+    sprite: "cameruptite",
+    isMegaStone: true
+  },
+  crabominite: {
+    group: "Pokémon specific items",
+    name: "Crabominite",
+    description: "If held by a Crabominable, this item allows it to Mega Evolve in battle.",
+    sprite: "crabominite",
+    isMegaStone: true
+  },
+  delphoxite: {
+    group: "Pokémon specific items",
+    name: "Delphoxite",
+    description: "If held by a Delphox, this item allows it to Mega Evolve in battle.",
+    sprite: "delphoxite",
+    isMegaStone: true
+  },
+  dragoninite: {
+    group: "Pokémon specific items",
+    name: "Dragoninite",
+    description: "If held by a Dragonite, this item allows it to Mega Evolve in battle.",
+    sprite: "dragoninite",
+    isMegaStone: true
+  },
+  drampanite: {
+    group: "Pokémon specific items",
+    name: "Drampanite",
+    description: "If held by a Drampa, this item allows it to Mega Evolve in battle.",
+    sprite: "drampanite",
+    isMegaStone: true
+  },
+  drampite: {
+    group: "Pokémon specific items",
+    name: "Drampite",
+    description: "If held by a Drampa, this item allows it to Mega Evolve in battle.",
+    sprite: "drampite",
+    isMegaStone: true
+  },
+  emboarite: {
+    group: "Pokémon specific items",
+    name: "Emboarite",
+    description: "If held by an Emboar, this item allows it to Mega Evolve in battle.",
+    sprite: "emboarite",
+    isMegaStone: true
+  },
+  excadrite: {
+    group: "Pokémon specific items",
+    name: "Excadrite",
+    description: "If held by an Excadrill, this item allows it to Mega Evolve in battle.",
+    sprite: "excadrite",
+    isMegaStone: true
+  },
+  feraligite: {
+    group: "Pokémon specific items",
+    name: "Feraligite",
+    description: "If held by a Feraligatr, this item allows it to Mega Evolve in battle.",
+    sprite: "feraligite",
+    isMegaStone: true
+  },
+  floettite: {
+    group: "Pokémon specific items",
+    name: "Floettite",
+    description: "If held by a Floette, this item allows it to Mega Evolve in battle.",
+    sprite: "floettite",
+    isMegaStone: true
+  },
+  froslassite: {
+    group: "Pokémon specific items",
+    name: "Froslassite",
+    description: "If held by a Froslass, this item allows it to Mega Evolve in battle.",
+    sprite: "froslassite",
+    isMegaStone: true
+  },
+  galladite: {
+    group: "Pokémon specific items",
+    name: "Galladite",
+    description: "If held by a Gallade, this item allows it to Mega Evolve in battle.",
+    sprite: "galladite",
+    isMegaStone: true
+  },
+  garchompite: {
+    group: "Pokémon specific items",
+    name: "Garchompite",
+    description: "If held by a Garchomp, this item allows it to Mega Evolve in battle.",
+    sprite: "garchompite",
+    isMegaStone: true
+  },
+  gardevoirite: {
+    group: "Pokémon specific items",
+    name: "Gardevoirite",
+    description: "If held by a Gardevoir, this item allows it to Mega Evolve in battle.",
+    sprite: "gardevoirite",
+    isMegaStone: true
+  },
+  glalitite: {
+    group: "Pokémon specific items",
+    name: "Glalitite",
+    description: "If held by a Glalie, this item allows it to Mega Evolve in battle.",
+    sprite: "glalitite",
+    isMegaStone: true
+  },
+  glimmoranite: {
+    group: "Pokémon specific items",
+    name: "Glimmoranite",
+    description: "If held by a Glimmora, this item allows it to Mega Evolve in battle.",
+    sprite: "glimmoranite",
+    isMegaStone: true
+  },
+  golurkite: {
+    group: "Pokémon specific items",
+    name: "Golurkite",
+    description: "If held by a Golurk, this item allows it to Mega Evolve in battle.",
+    sprite: "golurkite",
+    isMegaStone: true
+  },
+  greninjite: {
+    group: "Pokémon specific items",
+    name: "Greninjite",
+    description: "If held by a Greninja, this item allows it to Mega Evolve in battle.",
+    sprite: "greninjite",
+    isMegaStone: true
+  },
+  gyaradosite: {
+    group: "Pokémon specific items",
+    name: "Gyaradosite",
+    description: "If held by a Gyarados, this item allows it to Mega Evolve in battle.",
+    sprite: "gyaradosite",
+    isMegaStone: true
+  },
+  hawluchanite: {
+    group: "Pokémon specific items",
+    name: "Hawluchanite",
+    description: "If held by a Hawlucha, this item allows it to Mega Evolve in battle.",
+    sprite: "hawluchanite",
+    isMegaStone: true
+  },
+  heracronite: {
+    group: "Pokémon specific items",
+    name: "Heracronite",
+    description: "If held by a Heracross, this item allows it to Mega Evolve in battle.",
+    sprite: "heracronite",
+    isMegaStone: true
+  },
+  houndoominite: {
+    group: "Pokémon specific items",
+    name: "Houndoominite",
+    description: "If held by a Houndoom, this item allows it to Mega Evolve in battle.",
+    sprite: "houndoominite",
+    isMegaStone: true
+  },
+  kangaskhanite: {
+    group: "Pokémon specific items",
+    name: "Kangaskhanite",
+    description: "If held by a Kangaskhan, this item allows it to Mega Evolve in battle.",
+    sprite: "kangaskhanite",
+    isMegaStone: true
+  },
+  lopunnite: {
+    group: "Pokémon specific items",
+    name: "Lopunnite",
+    description: "If held by a Lopunny, this item allows it to Mega Evolve in battle.",
+    sprite: "lopunnite",
+    isMegaStone: true
+  },
+  lucarionite: {
+    group: "Pokémon specific items",
+    name: "Lucarionite",
+    description: "If held by a Lucario, this item allows it to Mega Evolve in battle.",
+    sprite: "lucarionite",
+    isMegaStone: true
+  },
+  manectite: {
+    group: "Pokémon specific items",
+    name: "Manectite",
+    description: "If held by a Manectric, this item allows it to Mega Evolve in battle.",
+    sprite: "manectite",
+    isMegaStone: true
+  },
+  medichamite: {
+    group: "Pokémon specific items",
+    name: "Medichamite",
+    description: "If held by a Medicham, this item allows it to Mega Evolve in battle.",
+    sprite: "medichamite",
+    isMegaStone: true
+  },
+  meganiumite: {
+    group: "Pokémon specific items",
+    name: "Meganiumite",
+    description: "If held by a Meganium, this item allows it to Mega Evolve in battle.",
+    sprite: "meganiumite",
+    isMegaStone: true
+  },
+  meowsticite: {
+    group: "Pokémon specific items",
+    name: "Meowsticite",
+    description: "If held by a Meowstic, this item allows it to Mega Evolve in battle.",
+    sprite: "meowsticite",
+    isMegaStone: true
+  },
+  pinsirite: {
+    group: "Pokémon specific items",
+    name: "Pinsirite",
+    description: "If held by a Pinsir, this item allows it to Mega Evolve in battle.",
+    sprite: "pinsirite",
+    isMegaStone: true
+  },
+  sablenite: {
+    group: "Pokémon specific items",
+    name: "Sablenite",
+    description: "If held by a Sableye, this item allows it to Mega Evolve in battle.",
+    sprite: "sablenite",
+    isMegaStone: true
+  },
+  scizorite: {
+    group: "Pokémon specific items",
+    name: "Scizorite",
+    description: "If held by a Scizor, this item allows it to Mega Evolve in battle.",
+    sprite: "scizorite",
+    isMegaStone: true
+  },
+  scovillainite: {
+    group: "Pokémon specific items",
+    name: "Scovillainite",
+    description: "If held by a Scovillain, this item allows it to Mega Evolve in battle.",
+    sprite: "scovillainite",
+    isMegaStone: true
+  },
+  sharpedonite: {
+    group: "Pokémon specific items",
+    name: "Sharpedonite",
+    description: "If held by a Sharpedo, this item allows it to Mega Evolve in battle.",
+    sprite: "sharpedonite",
+    isMegaStone: true
+  },
+  skarmorite: {
+    group: "Pokémon specific items",
+    name: "Skarmorite",
+    description: "If held by a Skarmory, this item allows it to Mega Evolve in battle.",
+    sprite: "skarmorite",
+    isMegaStone: true
+  },
+  starminite: {
+    group: "Pokémon specific items",
+    name: "Starminite",
+    description: "If held by a Starmie, this item allows it to Mega Evolve in battle.",
+    sprite: "starminite",
+    isMegaStone: true
+  },
+  steelixite: {
+    group: "Pokémon specific items",
+    name: "Steelixite",
+    description: "If held by a Steelix, this item allows it to Mega Evolve in battle.",
+    sprite: "steelixite",
+    isMegaStone: true
+  },
+  swampertite: {
+    group: "Pokémon specific items",
+    name: "Swampertite",
+    description: "If held by a Swampert, this item allows it to Mega Evolve in battle.",
+    sprite: "swampertite",
+    isMegaStone: true
+  },
+  victreebelite: {
+    group: "Pokémon specific items",
+    name: "Victreebelite",
+    description: "If held by a Victreebel, this item allows it to Mega Evolve in battle.",
+    sprite: "victreebelite",
+    isMegaStone: true
   }
 }

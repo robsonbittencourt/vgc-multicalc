@@ -41,9 +41,13 @@ describe("initialFieldState", () => {
 
   it('sets gameType to "Doubles" if missing in attackerSide and defenderSide', () => {
     const stored = {
-      field: {
-        attackerSide: {},
-        defenderSide: {}
+      champions: {
+        fields: {
+          simple: {
+            attackerSide: {},
+            defenderSide: {}
+          }
+        }
       }
     }
     spyOn(localStorage, "getItem").and.callFake(() => JSON.stringify(stored))
@@ -56,9 +60,13 @@ describe("initialFieldState", () => {
 
   it("keeps existing gameType values if already defined", () => {
     const stored = {
-      field: {
-        attackerSide: { gameType: "Singles" },
-        defenderSide: { gameType: "Doubles" }
+      champions: {
+        fields: {
+          simple: {
+            attackerSide: { gameType: "Singles" },
+            defenderSide: { gameType: "Doubles" }
+          }
+        }
       }
     }
     spyOn(localStorage, "getItem").and.callFake(() => JSON.stringify(stored))
@@ -71,7 +79,7 @@ describe("initialFieldState", () => {
 
   it("migrates old field data to 'simple' context if new structure is missing", () => {
     const oldField = { weather: "Sun" as Weather }
-    const stored = { field: oldField }
+    const stored = { champions: { field: oldField } }
     spyOn(localStorage, "getItem").and.callFake(() => JSON.stringify(stored))
 
     const result = initialFieldState("simple")
@@ -80,7 +88,7 @@ describe("initialFieldState", () => {
 
   it("does not migrate old field data for non-simple context", () => {
     const oldField = { weather: "Sun" as Weather }
-    const stored = { field: oldField }
+    const stored = { champions: { field: oldField } }
     spyOn(localStorage, "getItem").and.callFake(() => JSON.stringify(stored))
 
     const result = initialFieldState("multi")
@@ -89,8 +97,10 @@ describe("initialFieldState", () => {
 
   it("loads data from context-specific 'fields' object in localStorage", () => {
     const stored = {
-      fields: {
-        multi: { weather: "Rain" as Weather }
+      champions: {
+        fields: {
+          multi: { weather: "Rain" as Weather }
+        }
       }
     }
     spyOn(localStorage, "getItem").and.callFake(() => JSON.stringify(stored))

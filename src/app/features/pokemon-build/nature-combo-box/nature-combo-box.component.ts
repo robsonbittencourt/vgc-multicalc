@@ -1,4 +1,4 @@
-import { Component, computed, inject, input } from "@angular/core"
+import { Component, computed, inject, input, signal } from "@angular/core"
 import { InputSelectComponent } from "@basic/input-select/input-select.component"
 import { Natures } from "@data/natures"
 import { CalculatorStore } from "@data/store/calculator-store"
@@ -17,8 +17,26 @@ export class NatureComboBoxComponent {
   store = inject(CalculatorStore)
 
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
+  selectedNature = signal<string>("")
 
   allNatureNames = computed(() => {
-    return this.pokemon().ability.actionableAbility && this.isMobile() ? Natures.instance.shortNatures : Natures.instance.natures
+    return Natures.instance.natures
   })
+
+  mobileNatureList = computed(() => {
+    return Natures.instance.natures
+  })
+
+  mobileNatureDisplayMap = computed(() => {
+    const map: Record<string, string> = {}
+    Natures.instance.natures.forEach(nature => {
+      map[nature.value] = nature.value
+    })
+    return map
+  })
+
+  handleNatureChange(value: string) {
+    this.selectedNature.set(value)
+    this.store.nature(this.pokemonId(), value)
+  }
 }

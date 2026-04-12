@@ -1,25 +1,26 @@
-import { Component, computed, inject, input, output } from "@angular/core"
 import { NgClass } from "@angular/common"
+import { Component, computed, inject, input, output } from "@angular/core"
+import { FormsModule } from "@angular/forms"
 import { MatButton } from "@angular/material/button"
 import { MatCheckbox } from "@angular/material/checkbox"
-import { FormsModule } from "@angular/forms"
+import { KeyValuePair } from "@basic/input-autocomplete/input-autocomplete.component"
+import { InputSelectComponent } from "@basic/input-select/input-select.component"
 import { CalculatorStore } from "@data/store/calculator-store"
+import { FieldStore } from "@data/store/field-store"
 import { MenuStore } from "@data/store/menu-store"
-import { Pokemon } from "@lib/model/pokemon"
 import { AbilityComboBoxComponent } from "@features/pokemon-build/ability-combo-box/ability-combo-box.component"
 import { EvSliderComponent } from "@features/pokemon-build/ev-slider/ev-slider.component"
-import { TeraComboBoxComponent } from "@features/pokemon-build/tera-combo-box/tera-combo-box.component"
-import { StatusComboBoxComponent } from "@features/pokemon-build/status-combo-box/status-combo-box.component"
 import { ItemComboBoxComponent } from "@features/pokemon-build/item-combo-box/item-combo-box.component"
 import { NatureComboBoxComponent } from "@features/pokemon-build/nature-combo-box/nature-combo-box.component"
-import { FieldStore } from "@data/store/field-store"
+import { PokemonMovesMobileComponent } from "@features/pokemon-build/pokemon-moves-mobile/pokemon-moves-mobile.component"
+import { StatusComboBoxComponent } from "@features/pokemon-build/status-combo-box/status-combo-box.component"
+import { TeraComboBoxComponent } from "@features/pokemon-build/tera-combo-box/tera-combo-box.component"
+import { TypeComboBoxComponent } from "@features/pokemon-build/type-combo-box/type-combo-box.component"
+import { MegaStoneService } from "@features/pokemon-build/utils/mega-stone.service"
+import { Pokemon } from "@lib/model/pokemon"
 import { getFinalAttack, getFinalSpecialAttack } from "@lib/smogon/stat-calculator/atk-spa/modified-atk-spa"
 import { getFinalDefense, getFinalSpecialDefense } from "@lib/smogon/stat-calculator/def-spd/modified-def-spd"
 import { getFinalSpeed } from "@lib/smogon/stat-calculator/spe/modified-spe"
-import { InputSelectComponent } from "@basic/input-select/input-select.component"
-import { KeyValuePair } from "@basic/input-autocomplete/input-autocomplete.component"
-import { PokemonMovesMobileComponent } from "@features/pokemon-build/pokemon-moves-mobile/pokemon-moves-mobile.component"
-import { TypeComboBoxComponent } from "@features/pokemon-build/type-combo-box/type-combo-box.component"
 import { Stats } from "@lib/types"
 
 @Component({
@@ -55,6 +56,7 @@ export class PokemonBuildMobileComponent {
   store = inject(CalculatorStore)
   menuStore = inject(MenuStore)
   fieldStore = inject(FieldStore)
+  megaStoneService = inject(MegaStoneService)
 
   MAX_EVS = 508
   thresholdOptions: KeyValuePair[] = [
@@ -184,5 +186,21 @@ export class PokemonBuildMobileComponent {
 
   removeActivePokemon() {
     this.pokemonDeleted.emit(null)
+  }
+
+  isMegaStone() {
+    return this.megaStoneService.isMegaStone(this.pokemon().item)
+  }
+
+  isMegaStoneCompatible() {
+    return this.megaStoneService.isMegaStoneCompatible(this.pokemon().name, this.pokemon().item)
+  }
+
+  getMegaStoneSprite() {
+    return this.megaStoneService.getMegaStoneSprite(this.pokemon().item)
+  }
+
+  toggleMega() {
+    this.megaStoneService.toggleMega(this.pokemonId(), this.pokemon().name, this.pokemon().item)
   }
 }

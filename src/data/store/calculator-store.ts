@@ -1,8 +1,10 @@
 import { computed, effect, inject, Injectable } from "@angular/core"
 import { SETDEX_SV } from "@data/movesets"
-import { initialCalculatorState } from "@data/store/utils/initial-calculator-state"
+import { SETDEX_CHAMPIONS } from "@data/movesets-champions"
+import { initialCalculatorState, defaultStateChampions, defaultStateSV } from "@data/store/utils/initial-calculator-state"
 import { pokemonToState, stateToPokemon, stateToTargets, stateToTeam, stateToTeams, targetToState, teamToState } from "@data/store/utils/state-mapper"
-import { buildUserData } from "@data/store/utils/user-data-mapper"
+import { buildUserData, buildState } from "@data/store/utils/user-data-mapper"
+import { readGameData, writeGameData, writeTopLevel } from "@data/store/utils/user-data-storage"
 import { Pokemon } from "@lib/model/pokemon"
 import { Target } from "@lib/model/target"
 import { Team } from "@lib/model/team"
@@ -55,8 +57,11 @@ export type TargetState = {
   secondPokemon?: PokemonState
 }
 
+export type Game = "sv" | "champions"
+
 export type CalculatorState = {
   updateLocalStorage: boolean
+  game: Game
   speedCalcPokemonState: PokemonState
   leftPokemonState: PokemonState
   rightPokemonState: PokemonState
@@ -78,7 +83,7 @@ export class CalculatorStore extends signalStore(
     onInit() {
       effect(() => {
         if (store.updateLocalStorage()) {
-          const userData = buildUserData(
+          const gameData = buildUserData(
             store.speedCalcPokemonState(),
             store.leftPokemonState(),
             store.rightPokemonState(),
@@ -90,10 +95,8 @@ export class CalculatorStore extends signalStore(
             store.multiCalcRollLevel(),
             store.manyVsTeamRollLevel()
           )
-          const actualStorage = JSON.parse(localStorage.getItem("userData")!)
-
-          const mergedUserData = { ...actualStorage, ...userData }
-          localStorage.setItem("userData", JSON.stringify(mergedUserData))
+          const game = store.game()
+          writeGameData(game, gameData)
         }
       })
     }
@@ -127,8 +130,20 @@ export class CalculatorStore extends signalStore(
   readonly teamMember4 = computed(() => this.getTeamMemberAt(4))
   readonly teamMember5 = computed(() => this.getTeamMemberAt(5))
 
+  readonly isChampions = computed(() => this.game() === "champions")
+  readonly activeSetdex = computed(() => (this.game() === "champions" ? SETDEX_CHAMPIONS : SETDEX_SV))
+
   updateStateLockingLocalStorage(state: CalculatorState) {
     patchState(this, () => ({ ...state, updateLocalStorage: false }))
+  }
+
+  updateGame(game: Game) {
+    const targetGameData = readGameData(game)
+    const defaults = game === "champions" ? defaultStateChampions() : defaultStateSV()
+    const newState = targetGameData?.leftPokemon ? { ...defaults, ...buildState(targetGameData), game } : { ...defaults, game }
+
+    writeTopLevel({ game })
+    patchState(this, () => ({ ...newState, updateLocalStorage: true }))
   }
 
   name(pokemonId: string, name: string) {
@@ -528,7 +543,7 @@ export class CalculatorStore extends signalStore(
   }
 
   loadPokemonInfo(pokemonId: string, pokemonName: string) {
-    const poke = SETDEX_SV[pokemonName]
+    const poke = this.activeSetdex()[pokemonName]
 
     if (poke) {
       this.name(pokemonId, pokemonName)

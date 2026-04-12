@@ -38,7 +38,10 @@ export class TeamComponent {
 
   pokemonBuild = viewChild<PokemonBuildComponent>("pokemonBuild")
 
-  pokemonOnEdit = computed(() => this.store.findPokemonById(this.pokemonId()))
+  pokemonOnEdit = computed(() => {
+    const pokemon = this.store.findPokemonById(this.pokemonId())
+    return pokemon || this.store.team().activePokemon()
+  })
 
   canImportPokemon = computed(() => !this.store.team().isFull())
 

@@ -7,6 +7,8 @@ import { MatIcon, MatIconRegistry } from "@angular/material/icon"
 import { MatSlideToggle } from "@angular/material/slide-toggle"
 import { DomSanitizer } from "@angular/platform-browser"
 import { WidgetComponent } from "@basic/widget/widget.component"
+import { SETDEX_CHAMPIONS } from "@data/movesets-champions"
+import { SETDEX_SV } from "@data/movesets"
 import { pokemonByRegulation } from "@data/regulation-pokemon"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { FieldStore } from "@data/store/field-store"
@@ -85,6 +87,11 @@ export class MultiCalcMobileComponent {
         this.scrollContainer.nativeElement.scrollTo({ top: 0, behavior: "instant" })
       }
     })
+
+    effect(() => {
+      this.store.game()
+      this.pokemonOnEditId.set(null)
+    })
   }
 
   activeBottomTab = signal<"results" | "teams" | "field">("results")
@@ -154,15 +161,15 @@ export class MultiCalcMobileComponent {
   shouldShowBuild = computed(() => {
     const editId = this.effectiveEditingId()
     if (!editId) return false
-    const attacker = this.store.findPokemonById(editId)
-    return attacker !== null && !attacker.isDefault
+    const attacker = this.store.findNullablePokemonById(editId)
+    return attacker !== undefined && !attacker.isDefault
   })
 
   shouldShowPokemonSelect = computed(() => {
     const editId = this.effectiveEditingId()
     if (!editId) return false
-    const attacker = this.store.findPokemonById(editId)
-    return attacker !== null && attacker.isDefault && this.teamMemberOnEdit()
+    const attacker = this.store.findNullablePokemonById(editId)
+    return attacker !== undefined && attacker.isDefault && this.teamMemberOnEdit()
   })
 
   selectPokemonActive = computed(() => {
@@ -182,7 +189,8 @@ export class MultiCalcMobileComponent {
       this.store.updateTargets(newTargets)
     } else {
       this.store.updateTargetMetaRegulation("I")
-      const metaPokemon = pokemonByRegulation("I", 33)
+      const setdex = this.store.game() === "champions" ? SETDEX_CHAMPIONS : SETDEX_SV
+      const metaPokemon = pokemonByRegulation("I", 33, setdex)
       this.onTargetsImported(metaPokemon)
     }
   }
@@ -215,7 +223,8 @@ export class MultiCalcMobileComponent {
   }
 
   private targetsExcludingMetaData(): Target[] {
-    const metaLeft = pokemonByRegulation(this.store.targetMetaRegulation()!, 33)
+    const setdex = this.store.game() === "champions" ? SETDEX_CHAMPIONS : SETDEX_SV
+    const metaLeft = pokemonByRegulation(this.store.targetMetaRegulation()!, 33, setdex)
 
     const newTargets = [...this.store.targets()]
       .reverse()

@@ -1,9 +1,10 @@
 import { NgClass, TitleCasePipe } from "@angular/common"
 import { Component, computed, effect, inject, OnDestroy, signal } from "@angular/core"
 import { MatIconButton } from "@angular/material/button"
+import { MatButtonToggle, MatButtonToggleChange, MatButtonToggleGroup } from "@angular/material/button-toggle"
 import { MatDivider } from "@angular/material/divider"
 import { MatIcon } from "@angular/material/icon"
-import { CalculatorStore } from "@data/store/calculator-store"
+import { CalculatorStore, Game } from "@data/store/calculator-store"
 import { MenuStore } from "@data/store/menu-store"
 import { Color, Theme, ThemeService } from "@lib/theme.service"
 
@@ -11,7 +12,7 @@ import { Color, Theme, ThemeService } from "@lib/theme.service"
   selector: "app-header-mobile",
   templateUrl: "./header-mobile.component.html",
   styleUrls: ["./header-mobile.component.scss"],
-  imports: [NgClass, MatIconButton, MatIcon, MatDivider, TitleCasePipe]
+  imports: [NgClass, MatIconButton, MatIcon, MatButtonToggleGroup, MatButtonToggle, MatDivider, TitleCasePipe]
 })
 export class HeaderMobileComponent implements OnDestroy {
   store = inject(CalculatorStore)
@@ -97,5 +98,9 @@ export class HeaderMobileComponent implements OnDestroy {
 
   setColor(colorName: Color) {
     this.updateMenuWithFeedback(`color-${colorName}`, () => this.themeService.setColor(colorName), false)
+  }
+
+  onGameChange(event: MatButtonToggleChange) {
+    this.store.updateGame(event.value as Game)
   }
 }
