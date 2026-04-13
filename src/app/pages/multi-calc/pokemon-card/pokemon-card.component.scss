@@ -234,6 +234,49 @@
   height: 1.6em;
 }
 
+.mega-icon-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: none;
+  border: 0;
+
+  .mega-icon {
+    width: 2.5em;
+    height: 2.5em;
+    cursor: pointer;
+    opacity: 0.85;
+    flex-shrink: 0;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &.mega-active {
+      opacity: 1;
+      box-shadow:
+        0 0 6px color-mix(in srgb, var(--primary) 80%, white),
+        0 0 12px color-mix(in srgb, var(--primary) 70%, white),
+        0 0 18px var(--primary),
+        inset 0 0 6px color-mix(in srgb, var(--primary) 50%, white);
+    }
+
+    @media (prefers-color-scheme: light) {
+      &.mega-active {
+        opacity: 1;
+        box-shadow:
+          0 0 4px color-mix(in srgb, var(--primary) 60%, black),
+          0 0 8px color-mix(in srgb, var(--primary) 50%, black),
+          0 0 12px var(--primary),
+          inset 0 0 4px color-mix(in srgb, var(--primary) 30%, white);
+      }
+    }
+  }
+}
+
 .vs-icon {
   width: auto;
   height: 4em;
