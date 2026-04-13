@@ -10,6 +10,8 @@ import { fromExisting } from "@lib/smogon/smogon-pokemon-builder"
 import { SpeedCalculatorService } from "@lib/speed-calculator/speed-calculator-service"
 import { calculate, calculateMulti, Generations, Move as MoveSmogon, Result, MultiResult, Pokemon as PokemonSmogon, Field as FieldSmogon } from "@robsonbittencourt/calc"
 import { Generation } from "@robsonbittencourt/calc/dist/data/interface"
+import { CalculatorStore } from "@data/store/calculator-store"
+import { evToSp } from "@lib/utils/ev-sp-converter"
 import { RollLevelConfig } from "./roll-level-config"
 
 @Injectable({
@@ -22,6 +24,7 @@ export class DamageCalculatorService {
   specificDamageCalculators = inject(SPECIFIC_DAMAGE_CALCULATORS)
   fieldMapper = inject(FieldMapper)
   speedCalculator = inject(SpeedCalculatorService)
+  calculatorStore = inject(CalculatorStore)
 
   calcDamage(attacker: Pokemon, target: Pokemon, field: Field, rightIsDefender = true): DamageResult {
     const result = this.calculateResult(attacker, target, attacker.move, field, rightIsDefender)
@@ -70,7 +73,7 @@ export class DamageCalculatorService {
       multiResult.resultString(),
       multiResult.getHKO(),
       multiResult.rangePercentage().max,
-      multiResult.desc(),
+      this.formatDescription(multiResult.desc()),
       firstResult.damage,
       secondAttackerOrdered,
       secondResult.damage,
@@ -167,9 +170,19 @@ export class DamageCalculatorService {
 
   private damageDescription(result: Result): string {
     try {
-      return result.desc()
+      return this.formatDescription(result.desc())
     } catch (error) {
-      return `${result.attacker.name} ${result.move.name} vs. ${result.defender.name}: 0-0 (0 - 0%) -- possibly the worst move ever`
+      return this.formatDescription(`${result.attacker.name} ${result.move.name} vs. ${result.defender.name}: 0-0 (0 - 0%) -- possibly the worst move ever`)
     }
+  }
+
+  private formatDescription(description: string): string {
+    if (this.calculatorStore.useSpsMode()) {
+      return description.replace(/\b(\d+)([\+\-]?)\s+(HP|Atk|Def|SpA|SpD|Spe)\b/g, (match, ev, nature, stat) => {
+        return `${evToSp(+ev)}${nature} ${stat}`
+      })
+    }
+
+    return description
   }
 }

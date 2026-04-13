@@ -67,7 +67,7 @@ describe("ExportPokeService", () => {
       ivs: { hp: 1, atk: 2, def: 3, spa: 4, spd: 5, spe: 6 }
     })
 
-    service.export("Title", pokemon1, pokemon2, pokemon3)
+    service.export("Title", [pokemon1, pokemon2, pokemon3])
 
     expect(dialogSpy.open).toHaveBeenCalledWith(TeamExportModalComponent, { data: { title: "Title", content: pasteWithThreePokemon }, width: "40em", position: { top: "2em" }, autoFocus: false, scrollStrategy: jasmine.any(NoopScrollStrategy) })
   })

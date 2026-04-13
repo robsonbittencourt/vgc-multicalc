@@ -803,7 +803,8 @@ describe("Calculator Store", () => {
           simpleCalcLeftRollLevel: "low",
           simpleCalcRightRollLevel: "medium",
           multiCalcRollLevel: "high",
-          manyVsTeamRollLevel: "low"
+          manyVsTeamRollLevel: "low",
+          useSpsMode: false
         }
 
         store.updateStateLockingLocalStorage(state)
