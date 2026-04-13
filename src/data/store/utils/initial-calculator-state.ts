@@ -12,7 +12,8 @@ export function initialCalculatorState(): CalculatorState {
   const game = readUserData()?.game ?? "champions"
   const gameData = readGameData(game)
   const defaults = game === "champions" ? defaultStateChampions() : defaultStateSV()
-  return gameData?.leftPokemon ? { ...defaults, ...buildState(gameData), game } : { ...defaults, game }
+  const useSpsMode = readUserData()?.useSpsMode ?? true
+  return gameData?.leftPokemon ? { ...defaults, ...buildState(gameData), game, useSpsMode } : { ...defaults, game, useSpsMode }
 }
 
 export function defaultState() {
@@ -422,7 +423,8 @@ export function defaultStateChampions() {
     simpleCalcLeftRollLevel: "high",
     simpleCalcRightRollLevel: "high",
     multiCalcRollLevel: "high",
-    manyVsTeamRollLevel: "high"
+    manyVsTeamRollLevel: "high",
+    useSpsMode: true
   }
 }
 
@@ -852,6 +854,7 @@ export function defaultStateSV() {
     simpleCalcLeftRollLevel: "high",
     simpleCalcRightRollLevel: "high",
     multiCalcRollLevel: "high",
-    manyVsTeamRollLevel: "high"
+    manyVsTeamRollLevel: "high",
+    useSpsMode: true
   }
 }

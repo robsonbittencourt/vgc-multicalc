@@ -25,7 +25,6 @@ export class EvSliderComponent {
   modifiedStat = input(0)
   hasModifiedStat = input<boolean>()
   isOptimized = input(false)
-  useSpsMode = input(false)
 
   store = inject(CalculatorStore)
 
@@ -128,7 +127,7 @@ export class EvSliderComponent {
   width = signal(0)
   resizeObserver: ResizeObserver
 
-  showAsSps = computed(() => this.store.isChampions() && this.useSpsMode())
+  showAsSps = computed(() => this.store.isChampions() && this.store.useSpsMode())
   evToSp = evToSp
 
   constructor() {

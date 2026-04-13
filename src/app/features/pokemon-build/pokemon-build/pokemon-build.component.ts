@@ -151,10 +151,9 @@ export class PokemonBuildComponent {
 
   isChampions = computed(() => this.store.isChampions)
   showEvsSpsToggle = signal(false)
-  useSpsMode = signal(true)
   MAX_EVS = computed(() => (this.isChampions() ? 66 : 508))
   evLabel = computed(() => {
-    if (this.store.isChampions() && this.useSpsMode()) {
+    if (this.store.isChampions() && this.store.useSpsMode()) {
       return "SPs"
     }
     return "EVs"
@@ -165,7 +164,7 @@ export class PokemonBuildComponent {
     if (this.store.isChampions()) {
       const currentSps = totalSpsFromEvs(pokemon.evs)
       const remainingSps = 66 - currentSps
-      if (this.useSpsMode()) {
+      if (this.store.useSpsMode()) {
         return remainingSps
       } else {
         return spToEv(remainingSps)
@@ -286,6 +285,10 @@ export class PokemonBuildComponent {
 
   scrollToPokemonSelector() {
     this.pokemonInput()?.scrollTo()
+  }
+
+  toggleSpsMode() {
+    this.store.toggleSpsMode()
   }
 
   showDefaultView() {

@@ -219,7 +219,8 @@ export class MultiCalcMobileComponent {
 
   exportPokemon() {
     const pokemon = this.store.targets().flatMap(t => (t.secondPokemon ? [t.pokemon, t.secondPokemon] : [t.pokemon]))
-    this.exportPokeService.export("Opponent Pokémon", ...pokemon)
+    const shouldUseSps = this.store.isChampions()
+    this.exportPokeService.export("Opponent Pokémon", pokemon, shouldUseSps)
   }
 
   private targetsExcludingMetaData(): Target[] {

@@ -159,12 +159,12 @@
   </div>
 
   <div class="evs" [animate.enter]="shouldAnimate() ? 'fade-in' : null">
-    <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.hp" [modifiedStat]="pokemon().hp" [hasModifiedStat]="hasModifiedStat()" [isOptimized]="isHpOptimized()" [useSpsMode]="useSpsMode()" data-cy="stat-hp" stat="hp" />
-    <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.atk" [modifiedStat]="modifiedAtk()" [hasModifiedStat]="hasModifiedStat()" [useSpsMode]="useSpsMode()" data-cy="stat-atk" stat="atk" />
-    <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.def" [modifiedStat]="modifiedDef()" [hasModifiedStat]="hasModifiedStat()" [isOptimized]="isDefOptimized()" [useSpsMode]="useSpsMode()" data-cy="stat-def" stat="def" />
-    <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.spa" [modifiedStat]="modifiedSpa()" [hasModifiedStat]="hasModifiedStat()" [useSpsMode]="useSpsMode()" data-cy="stat-spa" stat="spa" />
-    <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.spd" [modifiedStat]="modifiedSpd()" [hasModifiedStat]="hasModifiedStat()" [isOptimized]="isSpdOptimized()" [useSpsMode]="useSpsMode()" data-cy="stat-spd" stat="spd" />
-    <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.spe" [modifiedStat]="modifiedSpe()" [hasModifiedStat]="hasModifiedStat()" [useSpsMode]="useSpsMode()" data-cy="stat-spe" stat="spe" />
+    <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.hp" [modifiedStat]="pokemon().hp" [hasModifiedStat]="hasModifiedStat()" [isOptimized]="isHpOptimized()" data-cy="stat-hp" stat="hp" />
+    <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.atk" [modifiedStat]="modifiedAtk()" [hasModifiedStat]="hasModifiedStat()" data-cy="stat-atk" stat="atk" />
+    <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.def" [modifiedStat]="modifiedDef()" [hasModifiedStat]="hasModifiedStat()" [isOptimized]="isDefOptimized()" data-cy="stat-def" stat="def" />
+    <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.spa" [modifiedStat]="modifiedSpa()" [hasModifiedStat]="hasModifiedStat()" data-cy="stat-spa" stat="spa" />
+    <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.spd" [modifiedStat]="modifiedSpd()" [hasModifiedStat]="hasModifiedStat()" [isOptimized]="isSpdOptimized()" data-cy="stat-spd" stat="spd" />
+    <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.spe" [modifiedStat]="modifiedSpe()" [hasModifiedStat]="hasModifiedStat()" data-cy="stat-spe" stat="spe" />
 
     <div class="remaining-evs">
       <label class="bst-label">BST</label>
@@ -176,7 +176,7 @@
       </div>
 
       @if (showEvsSpsToggle()) {
-        <mat-slide-toggle [(ngModel)]="useSpsMode" [labelPosition]="'before'" data-cy="evs-sps-toggle">SP</mat-slide-toggle>
+        <mat-slide-toggle [checked]="store.useSpsMode()" (change)="toggleSpsMode()" [labelPosition]="'before'" data-cy="evs-sps-toggle">SP</mat-slide-toggle>
       }
     </div>
   </div>

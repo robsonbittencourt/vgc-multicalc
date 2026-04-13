@@ -140,7 +140,8 @@ export class TargetPokemonComponent {
 
   exportPokemon() {
     const pokemon = this.targets().flatMap(t => (t.secondPokemon ? [t.pokemon, t.secondPokemon] : [t.pokemon]))
-    this.exportPokeService.export("Opponent Pokémon", ...pokemon)
+    const shouldUseSps = this.store.isChampions()
+    this.exportPokeService.export("Opponent Pokémon", pokemon, shouldUseSps)
   }
 
   addPokemonToTargets() {

@@ -3,6 +3,7 @@ import { inject, Injectable } from "@angular/core"
 import { MatDialog } from "@angular/material/dialog"
 import { TeamExportModalComponent } from "@features/export-modal/export-modal.component"
 import { Pokemon } from "@lib/model/pokemon"
+import { evToSp } from "@lib/utils/ev-sp-converter"
 import dedent from "dedent"
 
 @Injectable({
@@ -11,27 +12,44 @@ import dedent from "dedent"
 export class ExportPokeService {
   private dialog = inject(MatDialog)
 
-  export(title: string, ...pokemon: Pokemon[]) {
+  export(title: string, pokemon: Pokemon[], useSpsMode?: boolean): void
+  export(title: string, pokemon: Pokemon, useSpsMode?: boolean): void
+  export(title: string, ...args: any[]): void {
     let result = ""
+    let pokemonArray: Pokemon[] = []
+    let useSps = false
 
-    pokemon.forEach(p => {
+    if (args.length > 0) {
+      if (Array.isArray(args[0])) {
+        pokemonArray = args[0]
+        useSps = args[1] ?? false
+      } else if (args[0] instanceof Pokemon || (args[0] && typeof args[0] === "object" && "name" in args[0])) {
+        pokemonArray = [args[0]]
+        useSps = args[1] ?? false
+      } else {
+        pokemonArray = args.filter(arg => arg instanceof Pokemon || (arg && typeof arg === "object" && "name" in arg))
+        useSps = args[args.length - 1] === true
+      }
+    }
+
+    pokemonArray.forEach(p => {
       if (!p.isDefault) {
-        result += this.parse(p) + "\n"
+        result += this.parse(p, useSps) + "\n"
       }
     })
 
     this.openModal(title, result)
   }
 
-  private parse(pokemon: Pokemon): string {
+  private parse(pokemon: Pokemon, useSpsMode: boolean = false): string {
     let text = dedent`
       ${pokemon.name} @ ${pokemon.item}
       Ability: ${pokemon.ability.name}
       Level: ${pokemon.level}
-      Tera Type: ${pokemon.teraType}\n      
+      Tera Type: ${pokemon.teraType}\n
     `
 
-    const evsDescription = this.evsDescriptionShowdown(pokemon)
+    const evsDescription = useSpsMode ? this.spsDescriptionShowdown(pokemon) : this.evsDescriptionShowdown(pokemon)
     if (evsDescription.length > 0) {
       text += `EVs: ${evsDescription}\n`
     }
@@ -64,6 +82,25 @@ export class ExportPokeService {
     if (pokemon.evs.spe) evs.push(`${pokemon.evs.spe} Spe`)
 
     return evs.join(" / ")
+  }
+
+  private spsDescriptionShowdown(pokemon: Pokemon): string {
+    const sps: string[] = []
+
+    const hpSps = evToSp(pokemon.evs.hp)
+    if (hpSps) sps.push(`${hpSps} HP`)
+    const atkSps = evToSp(pokemon.evs.atk)
+    if (atkSps) sps.push(`${atkSps} Atk`)
+    const defSps = evToSp(pokemon.evs.def)
+    if (defSps) sps.push(`${defSps} Def`)
+    const spaSps = evToSp(pokemon.evs.spa)
+    if (spaSps) sps.push(`${spaSps} SpA`)
+    const spdSps = evToSp(pokemon.evs.spd)
+    if (spdSps) sps.push(`${spdSps} SpD`)
+    const speSps = evToSp(pokemon.evs.spe)
+    if (speSps) sps.push(`${speSps} Spe`)
+
+    return sps.join(" / ")
   }
 
   private ivsDescriptionShowdown(pokemon: Pokemon): string {

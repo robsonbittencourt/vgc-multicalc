@@ -73,6 +73,7 @@ export type CalculatorState = {
   simpleCalcRightRollLevel: string
   multiCalcRollLevel: string
   manyVsTeamRollLevel: string
+  useSpsMode: boolean
 }
 
 @Injectable({ providedIn: "root" })
@@ -98,6 +99,10 @@ export class CalculatorStore extends signalStore(
           const game = store.game()
           writeGameData(game, gameData)
         }
+      })
+
+      effect(() => {
+        writeTopLevel({ useSpsMode: store.useSpsMode() })
       })
     }
   }))
@@ -177,6 +182,10 @@ export class CalculatorStore extends signalStore(
 
   toggleQuarkDrive(enabled: boolean) {
     this.enableAllByAbility("Quark Drive", enabled)
+  }
+
+  toggleSpsMode() {
+    patchState(this, state => ({ useSpsMode: !state.useSpsMode }))
   }
 
   private enableAllByAbility(abilityName: string, enabled: boolean) {
