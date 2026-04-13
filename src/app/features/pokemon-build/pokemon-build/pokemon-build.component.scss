@@ -203,9 +203,10 @@
 
 .remaining-evs {
   display: grid;
-  grid-template-columns: 64px 64px 80px 38px;
+  grid-template-columns: 64px 64px 80px 38px auto;
   grid-column-gap: 1.5em;
   margin: 0.5em 0em 1em 0em;
+  align-items: center;
 }
 
 .remaining-evs-value {

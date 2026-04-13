@@ -68,17 +68,21 @@
     </div>
 
     <div class="evs">
-      <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="pokemon().hp" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.hp" [isOptimized]="isHpOptimized()" stat="hp" [reduced]="true" />
-      <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedAtk()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.atk" stat="atk" [reduced]="true" />
-      <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedDef()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.def" [isOptimized]="isDefOptimized()" stat="def" [reduced]="true" />
-      <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedSpa()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.spa" stat="spa" [reduced]="true" />
-      <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedSpd()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.spd" [isOptimized]="isSpdOptimized()" stat="spd" [reduced]="true" />
-      <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedSpe()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.spe" stat="spe" [reduced]="true" />
+      <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="pokemon().hp" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.hp" [isOptimized]="isHpOptimized()" [useSpsMode]="useSpsMode()" stat="hp" [reduced]="true" />
+      <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedAtk()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.atk" [useSpsMode]="useSpsMode()" stat="atk" [reduced]="true" />
+      <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedDef()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.def" [isOptimized]="isDefOptimized()" [useSpsMode]="useSpsMode()" stat="def" [reduced]="true" />
+      <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedSpa()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.spa" [useSpsMode]="useSpsMode()" stat="spa" [reduced]="true" />
+      <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedSpd()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.spd" [isOptimized]="isSpdOptimized()" [useSpsMode]="useSpsMode()" stat="spd" [reduced]="true" />
+      <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedSpe()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.spe" [useSpsMode]="useSpsMode()" stat="spe" [reduced]="true" />
       <div class="remaining-evs">
         <div class="remaining-info">
-          <div class="remaining-label">Remaining:</div>
-          <div class="remaining-value" data-cy="remaining-evs-mobile">{{ MAX_EVS - pokemon().totalEvs }}</div>
+          <div class="remaining-label">{{ remainingLabel() }}</div>
+          <div class="remaining-value" data-cy="remaining-evs-mobile">{{ remainingPoints() }}</div>
         </div>
+
+        @if (showEvsSpsToggle()) {
+          <mat-slide-toggle [(ngModel)]="useSpsMode" [labelPosition]="'before'" data-cy="evs-sps-toggle-mobile">SP</mat-slide-toggle>
+        }
 
         <div class="remaining-buttons">
           <button mat-flat-button (click)="clearEvs()" data-cy="clear-evs-mobile">Clear EVs</button>

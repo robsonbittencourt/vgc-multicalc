@@ -34,7 +34,11 @@
       @if (reduced()) {
         <mat-label>{{ statNameAcronym() }}</mat-label>
       }
-      <input class="ev-value-input" type="number" min="0" max="252" matInput [(ngModel)]="ev" (change)="evChanged()" data-cy="ev-value" />
+      @if (showAsSps()) {
+        <input class="ev-value-input" type="number" [min]="0" [max]="66" matInput [ngModel]="evToSp(ev())" (change)="displayValueChanged($event)" data-cy="ev-value" />
+      } @else {
+        <input class="ev-value-input" type="number" [min]="0" [max]="252" matInput [ngModel]="ev()" (change)="displayValueChanged($event)" data-cy="ev-value" />
+      }
     </mat-form-field>
   </div>
 

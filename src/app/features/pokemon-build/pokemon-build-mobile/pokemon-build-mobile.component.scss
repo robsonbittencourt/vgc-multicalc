@@ -54,6 +54,8 @@ app-pokemon-moves-mobile {
   justify-content: space-between;
   align-items: center;
   margin-top: 1em;
+  flex-wrap: wrap;
+  gap: 0.5em;
 }
 
 .remaining-info {
