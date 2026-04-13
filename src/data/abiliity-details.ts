@@ -1128,7 +1128,7 @@ export const ABILITY_DETAILS: Record<string, AbilityDetail> = {
   },
   dragonize: {
     name: "Dragonize",
-    description: "This Pokemon's type becomes Dragon."
+    description: "The Pokémon's Normal-type moves become Dragon-type moves and their power is boosted by 20%."
   },
   fairyaura: {
     name: "Fairy Aura",

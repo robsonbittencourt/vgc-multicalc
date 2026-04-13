@@ -735,7 +735,7 @@ export const SETDEX_CHAMPIONS: Record<string, any> = {
     items: ["Sitrus Berry"]
   },
   "Feraligatr-Mega": {
-    ability: "Sheer Force",
+    ability: "Dragonize",
     nature: "Adamant",
     teraType: "",
     evs: {
