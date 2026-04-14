@@ -14,7 +14,7 @@
         <app-pokemon-combo-box [pokemonId]="currentPokemon().id" label="" />
         <div class="attacker-actions">
           <app-import-pokemon-button (pokemonImportedEvent)="importPokemon($event)" />
-          <app-export-pokemon-button [pokemonId]="currentPokemon().id" [useSpsMode]="store.useSpsMode()" />
+          <app-export-pokemon-button [pokemonId]="currentPokemon().id" />
         </div>
       </div>
 

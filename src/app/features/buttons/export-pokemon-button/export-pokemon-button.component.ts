@@ -13,7 +13,6 @@ export class ExportPokemonButtonComponent {
   pokemonId = input.required<string>()
   show = input(true)
   hidden = input(false)
-  useSpsMode = input(false)
 
   store = inject(CalculatorStore)
 
@@ -22,7 +21,6 @@ export class ExportPokemonButtonComponent {
   private exportPokeService = inject(ExportPokeService)
 
   exportPokemon() {
-    const shouldUseSps = this.store.isChampions() && this.useSpsMode()
-    this.exportPokeService.export(this.pokemon().name, this.pokemon(), shouldUseSps)
+    this.exportPokeService.export(this.pokemon().name, this.pokemon(), this.store.isChampions() && this.store.useSpsMode())
   }
 }
