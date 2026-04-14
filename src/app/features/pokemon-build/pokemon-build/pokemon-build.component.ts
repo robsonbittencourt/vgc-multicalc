@@ -545,11 +545,11 @@ export class PokemonBuildComponent {
   }
 
   gridTemplateColumns(): any {
-    if (this.hasModifiedStat()) {
-      return { "grid-template-columns": "64px 64px 67px 64px 1fr 64px 40px 30px" }
+    if (this.store.isChampions()) {
+      return { "grid-template-columns": this.hasModifiedStat() ? "64px 64px 67px 64px 1fr 64px 30px" : "64px 64px 67px 64px 1fr 64px" }
     }
 
-    return { "grid-template-columns": "64px 64px 67px 64px 1fr 64px 40px" }
+    return { "grid-template-columns": this.hasModifiedStat() ? "64px 64px 67px 64px 1fr 64px 40px 30px" : "64px 64px 67px 64px 1fr 64px 40px" }
   }
 
   clearEvs() {

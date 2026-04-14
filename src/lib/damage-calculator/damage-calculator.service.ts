@@ -94,8 +94,9 @@ export class DamageCalculatorService {
     moveSmogon.isStellarFirstUse = true
     moveSmogon.hits = +move.hits
 
-    const smogonAttacker = fromExisting(attacker)
-    const smogonTarget = fromExisting(target)
+    const forceMaxIvs = this.calculatorStore.isChampions()
+    const smogonAttacker = fromExisting(attacker, forceMaxIvs)
+    const smogonTarget = fromExisting(target, forceMaxIvs)
 
     this.adjusters.forEach(a => a.adjust(smogonAttacker, smogonTarget, move, moveSmogon, smogonField, secondAttacker, field))
 
@@ -131,8 +132,9 @@ export class DamageCalculatorService {
     moveSmogon.isStellarFirstUse = true
     moveSmogon.hits = +move.hits
 
-    const smogonAttacker = fromExisting(attacker)
-    const smogonTarget = fromExisting(target)
+    const forceMaxIvs = this.calculatorStore.isChampions()
+    const smogonAttacker = fromExisting(attacker, forceMaxIvs)
+    const smogonTarget = fromExisting(target, forceMaxIvs)
 
     this.adjusters.forEach(a => a.adjust(smogonAttacker, smogonTarget, move, moveSmogon, smogonField, secondAttacker, field))
 

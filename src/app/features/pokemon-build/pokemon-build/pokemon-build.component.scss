@@ -189,10 +189,18 @@
   justify-content: center;
 }
 
+.stats-title-champions {
+  grid-column: 6 / 7;
+}
+
 .mod-title {
   grid-column: 8 / 9;
   display: flex;
   justify-content: center;
+}
+
+.mod-title-champions {
+  grid-column: 7 / 8;
 }
 
 .evs {

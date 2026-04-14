@@ -151,10 +151,12 @@
     <label class="base-title">Base</label>
     <label class="modifier-title">Mod.</label>
     <label class="evs-title">{{ evLabel() }}</label>
-    <label class="ivs-title">IVs</label>
-    <label class="stats-title">Stat</label>
+    @if (!store.isChampions()) {
+      <label class="ivs-title">IVs</label>
+    }
+    <label class="stats-title" [ngClass]="{ 'stats-title-champions': store.isChampions() }">Stat</label>
     @if (this.hasModifiedStat()) {
-      <label class="mod-title">Mod</label>
+      <label class="mod-title" [ngClass]="{ 'mod-title-champions': store.isChampions() }">Mod</label>
     }
   </div>
 

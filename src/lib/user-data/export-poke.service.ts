@@ -2,6 +2,7 @@ import { NoopScrollStrategy } from "@angular/cdk/overlay"
 import { inject, Injectable } from "@angular/core"
 import { MatDialog } from "@angular/material/dialog"
 import { TeamExportModalComponent } from "@features/export-modal/export-modal.component"
+import { CalculatorStore } from "@data/store/calculator-store"
 import { Pokemon } from "@lib/model/pokemon"
 import { evToSp } from "@lib/utils/ev-sp-converter"
 import dedent from "dedent"
@@ -11,6 +12,7 @@ import dedent from "dedent"
 })
 export class ExportPokeService {
   private dialog = inject(MatDialog)
+  private store = inject(CalculatorStore)
 
   export(title: string, pokemon: Pokemon[], useSpsMode?: boolean): void
   export(title: string, pokemon: Pokemon, useSpsMode?: boolean): void
@@ -45,9 +47,12 @@ export class ExportPokeService {
     let text = dedent`
       ${pokemon.name} @ ${pokemon.item}
       Ability: ${pokemon.ability.name}
-      Level: ${pokemon.level}
-      Tera Type: ${pokemon.teraType}\n
+      Level: ${pokemon.level}\n
     `
+
+    if (!this.store.isChampions()) {
+      text += `Tera Type: ${pokemon.teraType}\n`
+    }
 
     const evsDescription = useSpsMode ? this.spsDescriptionShowdown(pokemon) : this.evsDescriptionShowdown(pokemon)
     if (evsDescription.length > 0) {
@@ -56,9 +61,11 @@ export class ExportPokeService {
 
     text += `${pokemon.nature} Nature\n`
 
-    const ivsDescription = this.ivsDescriptionShowdown(pokemon)
-    if (ivsDescription.length > 0) {
-      text += `IVs: ${ivsDescription}\n`
+    if (!this.store.isChampions()) {
+      const ivsDescription = this.ivsDescriptionShowdown(pokemon)
+      if (ivsDescription.length > 0) {
+        text += `IVs: ${ivsDescription}\n`
+      }
     }
 
     text += dedent`

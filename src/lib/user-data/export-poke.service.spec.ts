@@ -3,6 +3,7 @@ import { provideZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
 import { MatDialog } from "@angular/material/dialog"
 import { TeamExportModalComponent } from "@features/export-modal/export-modal.component"
+import { CalculatorStore } from "@data/store/calculator-store"
 import { Ability } from "@lib/model/ability"
 import { Move } from "@lib/model/move"
 import { MoveSet } from "@lib/model/moveset"
@@ -12,12 +13,13 @@ import { ExportPokeService } from "@lib/user-data/export-poke.service"
 describe("ExportPokeService", () => {
   let service: ExportPokeService
   let dialogSpy: jasmine.SpyObj<MatDialog>
+  const storeMock = { isChampions: () => false }
 
   beforeEach(() => {
     dialogSpy = jasmine.createSpyObj("MatDialog", ["open"])
 
     TestBed.configureTestingModule({
-      providers: [ExportPokeService, { provide: MatDialog, useValue: dialogSpy }, provideZonelessChangeDetection()]
+      providers: [ExportPokeService, { provide: MatDialog, useValue: dialogSpy }, { provide: CalculatorStore, useValue: storeMock }, provideZonelessChangeDetection()]
     })
 
     service = TestBed.inject(ExportPokeService)

@@ -73,11 +73,13 @@
     </mat-slider>
   </div>
 
-  <div class="ev-value">
-    <mat-form-field appearance="outline" class="mat-ev-field">
-      <input class="ev-value-input" type="number" min="0" max="31" matInput [ngModel]="iv()" (input)="ivChanged($event)" data-cy="iv-value" />
-    </mat-form-field>
-  </div>
+  @if (!store.isChampions()) {
+    <div class="ev-value">
+      <mat-form-field appearance="outline" class="mat-ev-field">
+        <input class="ev-value-input" type="number" min="0" max="31" matInput [ngModel]="iv()" (input)="ivChanged($event)" data-cy="iv-value" />
+      </mat-form-field>
+    </div>
+  }
 
   <div class="stat-value">
     <label>{{ natureModifier() }}{{ statValue() }}</label>

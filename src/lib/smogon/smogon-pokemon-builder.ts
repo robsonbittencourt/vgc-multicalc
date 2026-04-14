@@ -8,7 +8,9 @@ import { TypeName } from "@robsonbittencourt/calc/src/data/interface"
 import { StatIDExceptHP } from "@robsonbittencourt/calc/src/data/interface"
 import { higherStat } from "./commom"
 
-export function fromExisting(pokemon: Pokemon): SmogonPokemon {
+export function fromExisting(pokemon: Pokemon, forceMaxIvs = false): SmogonPokemon {
+  const MAX_IVS = { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 }
+
   return fromScratch(pokemon.name, {
     nature: pokemon.nature,
     item: pokemon.item,
@@ -16,7 +18,7 @@ export function fromExisting(pokemon: Pokemon): SmogonPokemon {
     teraType: pokemon.teraType,
     teraTypeActive: pokemon.teraTypeActive,
     evs: pokemon.evs,
-    ivs: pokemon.ivs,
+    ivs: forceMaxIvs ? MAX_IVS : pokemon.ivs,
     boosts: pokemon.boosts,
     status: pokemon.status,
     hpPercentage: pokemon.hpPercentage,
