@@ -123,6 +123,13 @@ export class PokemonBuildMobileComponent {
     return this.teamMembers().some(m => m.pokemon.id === editId)
   })
 
+  isOptimizationSupported = computed(() => {
+    const isOneVsOne = this.menuStore.oneVsOneActivated()
+    const isManyVsOne = this.menuStore.manyVsOneActivated()
+
+    return isOneVsOne || (isManyVsOne && this.teamMemberOnEdit())
+  })
+
   currentEvs = computed(() => {
     const pokemon = this.pokemon()
     return { ...pokemon.evs }
@@ -163,20 +170,20 @@ export class PokemonBuildMobileComponent {
     }
   }
 
-  isHpOptimized = computed(() => this.isStatOptimized("hp"))
-  isDefOptimized = computed(() => this.isStatOptimized("def"))
-  isSpdOptimized = computed(() => this.isStatOptimized("spd"))
+  isHpOptimized = computed(() => {
+    const optimized = this.optimizedEvs()
+    return optimized !== null && optimized.hp !== 0 && !this.hasNoSolution()
+  })
 
-  isStatOptimized(stat: keyof Stats): boolean {
-    const optimizedEvs = this.optimizedEvs()
-    const pokemon = this.pokemon()
+  isDefOptimized = computed(() => {
+    const optimized = this.optimizedEvs()
+    return optimized !== null && optimized.def !== 0 && !this.hasNoSolution()
+  })
 
-    if (this.optimizationStatus() !== "success" || !optimizedEvs) {
-      return false
-    }
-
-    return optimizedEvs[stat] !== pokemon.evs[stat]
-  }
+  isSpdOptimized = computed(() => {
+    const optimized = this.optimizedEvs()
+    return optimized !== null && optimized.spd !== 0 && !this.hasNoSolution()
+  })
 
   isOptimizationValid = computed(() => {
     const optimizedEvs = this.optimizedEvs()
@@ -194,6 +201,10 @@ export class PokemonBuildMobileComponent {
   clearEvs() {
     this.store.evs(this.pokemonId(), { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
     this.evsChanged.emit()
+
+    if (this.optimizationStatus() === "success") {
+      this.optimizationDiscarded.emit()
+    }
   }
 
   toggleSpsMode() {

@@ -187,6 +187,11 @@ export class SimpleCalcMobileComponent {
   }
 
   handleOptimizationDiscarded() {
+    if (this.optimizationStatus() !== "idle") {
+      this.store.evs(this.currentPokemon().id, this.originalEvs())
+      this.store.nature(this.currentPokemon().id, this.originalNature())
+    }
+
     this.optimizedEvs.set(null)
     this.optimizedNature.set(null)
     this.optimizationStatus.set("idle")

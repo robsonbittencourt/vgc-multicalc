@@ -86,7 +86,7 @@
 
         <div class="remaining-buttons">
           <button mat-flat-button (click)="clearEvs()" data-cy="clear-evs-mobile">Clear EVs</button>
-          @if (showOptimization() && (menuStore.manyVsOneActivated() || menuStore.oneVsOneActivated()) && (!optimizedEvs() || !isOptimizationValid()) && !hasNoSolution() && !isSolutionNotNeeded()) {
+          @if (showOptimization() && isOptimizationSupported() && (!optimizedEvs() || !isOptimizationValid()) && !hasNoSolution() && !isSolutionNotNeeded()) {
             <button mat-flat-button (click)="optimizeEvs()" data-cy="optimize-evs-mobile">Optimize Bulk</button>
           }
           @if (showOptimization() && optimizedEvs() && isOptimizationValid() && !hasNoSolution() && !isSolutionNotNeeded()) {
@@ -98,7 +98,7 @@
     </div>
 
     <div class="ev-buttons" [hidden]="!showOptimization()">
-      @if ((menuStore.manyVsOneActivated() || menuStore.oneVsOneActivated()) && (!optimizedEvs() || !isOptimizationValid()) && !hasNoSolution() && !isSolutionNotNeeded()) {
+      @if (isOptimizationSupported() && (!optimizedEvs() || !isOptimizationValid()) && !hasNoSolution() && !isSolutionNotNeeded()) {
         <div class="checkbox-group">
           <mat-checkbox [(ngModel)]="updateNature" data-cy="update-nature-checkbox-mobile">Update Nature</mat-checkbox>
           <mat-checkbox [(ngModel)]="keepOffensiveEvs" data-cy="keep-offensive-evs-checkbox-mobile">Keep Offensive EVs</mat-checkbox>
