@@ -4,9 +4,13 @@ import { MatIconButton } from "@angular/material/button"
 import { MatButtonToggle, MatButtonToggleChange, MatButtonToggleGroup } from "@angular/material/button-toggle"
 import { MatDivider } from "@angular/material/divider"
 import { MatIcon } from "@angular/material/icon"
+import { ActiveFieldService } from "@data/store/active-field.service"
 import { CalculatorStore, Game } from "@data/store/calculator-store"
 import { MenuStore } from "@data/store/menu-store"
+import { SnackbarService } from "@lib/snackbar.service"
 import { Color, Theme, ThemeService } from "@lib/theme.service"
+import axios from "axios"
+import { v4 as uuidv4 } from "uuid"
 
 @Component({
   selector: "app-header-mobile",
@@ -18,6 +22,8 @@ export class HeaderMobileComponent implements OnDestroy {
   store = inject(CalculatorStore)
   menuStore = inject(MenuStore)
   themeService = inject(ThemeService)
+  activeFieldService = inject(ActiveFieldService)
+  private snackBar = inject(SnackbarService)
 
   menuOpen = signal(false)
   pressedItemId = signal<string | null>(null)
@@ -98,6 +104,31 @@ export class HeaderMobileComponent implements OnDestroy {
 
   setColor(colorName: Color) {
     this.updateMenuWithFeedback(`color-${colorName}`, () => this.themeService.setColor(colorName), false)
+  }
+
+  async shareCalcs() {
+    const id = uuidv4()
+    const activeStore = this.activeFieldService.activeStore()
+    const activeField = typeof activeStore?.field === "function" ? activeStore.field() : null
+    const userData = { ...this.store.buildUserData(), field: activeField ? { ...activeField } : null }
+    axios.put(`https://l7enx1vgm7.execute-api.us-east-1.amazonaws.com/v1/vgc-multi-calc/${id}`, userData)
+    const link = `https://vgcmulticalc.com/data/${id}`
+
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: "VGC Multi Calc", url: link })
+        return
+      } catch (_) {
+        // share cancelled or failed, fall through to clipboard
+      }
+    }
+
+    try {
+      await navigator.clipboard.writeText(link)
+      this.snackBar.open("Link copied to clipboard!")
+    } catch {
+      this.snackBar.open(link)
+    }
   }
 
   onGameChange(event: MatButtonToggleChange) {
