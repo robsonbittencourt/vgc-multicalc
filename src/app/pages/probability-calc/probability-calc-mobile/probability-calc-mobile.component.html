@@ -4,7 +4,7 @@
       <app-team-tabs-mobile [(pokemonOnEditId)]="pokemonOnEditId" (memberAddedEvent)="onMemberAdded()" />
 
       <div class="mobile-widget-spacing">
-        <app-pokemon-probability [pokemon]="lastNonDefaultPokemon()" />
+        <app-pokemon-probability [pokemon]="lastNonDefaultPokemon()" [isMobile]="true" />
         <app-team-probability />
       </div>
     </div>
