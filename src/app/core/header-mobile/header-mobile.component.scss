@@ -221,6 +221,17 @@ mat-divider {
   opacity: 0.85;
 }
 
+.kofi-link {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5em;
+
+  img {
+    height: 2.2em;
+    border: 0;
+  }
+}
+
 .share-link {
   display: flex;
   align-items: center;
