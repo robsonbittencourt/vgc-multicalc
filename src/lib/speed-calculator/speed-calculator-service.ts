@@ -193,6 +193,15 @@ export class SpeedCalculatorService {
   }
 
   minSpeed(pokemon: Pokemon, field: Field): SpeedDefinition {
+    const isChampions = this.store.game() === "champions"
+    const isTrickRoomPoke = this.isTrickRoomPokemon(pokemon)
+
+    if (isChampions && isTrickRoomPoke) {
+      const clonedPokemon = pokemon.clone({ item: "Leftovers", nature: "Brave", evs: { spe: 0 }, ivs: { spe: 31 } })
+      const speed = getFinalSpeed(clonedPokemon, field, false)
+      return new SpeedDefinition(clonedPokemon, speed, MIN, "Nature -")
+    }
+
     const clonedPokemon = pokemon.clone({ item: "Leftovers", nature: "Bashful", evs: { spe: 0 }, ivs: { spe: 31 } })
 
     const speed = getFinalSpeed(clonedPokemon, field, false)
