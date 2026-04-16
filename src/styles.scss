@@ -231,7 +231,8 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   font-size: $font-size;
   color: var(--text);
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
   scrollbar-width: none;
 }
 
