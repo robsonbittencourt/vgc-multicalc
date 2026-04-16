@@ -70,7 +70,7 @@ export class PokemonBuildMobileComponent {
     }
     return "EVs"
   })
-  remainingLabel = computed(() => "Remaining:")
+  remainingLabel = computed(() => "Remaining")
   remainingPoints = computed(() => {
     const pokemon = this.pokemon()
     if (this.store.isChampions()) {

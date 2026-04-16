@@ -75,14 +75,17 @@
       <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedSpd()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.spd" [isOptimized]="isSpdOptimized()" stat="spd" [reduced]="true" />
       <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedSpe()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.spe" stat="spe" [reduced]="true" />
       <div class="remaining-evs">
+        @if (showEvsSpsToggle()) {
+          <div class="sps-toggle">
+            <div class="remaining-label">SP</div>
+            <mat-slide-toggle [checked]="store.useSpsMode()" (change)="toggleSpsMode()" data-cy="evs-sps-toggle-mobile" />
+          </div>
+        }
+
         <div class="remaining-info">
           <div class="remaining-label">{{ remainingLabel() }}</div>
           <div class="remaining-value" data-cy="remaining-evs-mobile">{{ remainingPoints() }}</div>
         </div>
-
-        @if (showEvsSpsToggle()) {
-          <mat-slide-toggle [checked]="store.useSpsMode()" (change)="toggleSpsMode()" [labelPosition]="'before'" data-cy="evs-sps-toggle-mobile">SP</mat-slide-toggle>
-        }
 
         <div class="remaining-buttons">
           <button mat-flat-button (click)="clearEvs()" data-cy="clear-evs-mobile">Clear EVs</button>
