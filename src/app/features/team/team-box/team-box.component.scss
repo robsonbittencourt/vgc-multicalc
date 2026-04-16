@@ -3,12 +3,32 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: relative;
   border-radius: 4px;
   background-color: var(--highlight);
   height: 100%;
   padding-top: 0.2em;
   border: 3px solid transparent;
   box-sizing: border-box;
+  &:has(.drag-handle:active) {
+    animation: drag-ready 0.4s ease 0.15s forwards;
+  }
+}
+
+@keyframes drag-ready {
+  0% {
+    border-color: transparent;
+  }
+  100% {
+    border-color: var(--primary);
+  }
+}
+
+.team-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 .team-name-label {
@@ -19,6 +39,7 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
+  width: 100%;
 }
 
 .pokemon-image img {
@@ -30,20 +51,40 @@
   border-color: var(--primary);
 }
 
-.second-team {
-  border-color: #5cb85c;
-  position: relative;
+.has-second-team {
+  justify-content: flex-start;
+  padding: 0.4em 0;
+  gap: 0.2em;
 }
 
-.second-team-badge {
+.team-divider {
+  width: 90%;
+  height: 1px;
+  background-color: var(--text);
+  opacity: 0.2;
+  flex-shrink: 0;
+}
+
+.second-team-row {
+  opacity: 0.75;
+}
+
+.drag-handle {
   position: absolute;
-  top: 0.15em;
-  right: 0.6em;
-  background-color: #5cb85c;
-  color: white;
-  font-size: 0.85em;
-  padding: 0.2em 0.5em;
-  border-radius: 4px;
-  font-weight: bold;
+  top: 0;
+  left: 0;
+  cursor: grab;
+  color: var(--text);
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   z-index: 2;
+  padding: 0.2em 0.4em;
+
+  mat-icon {
+    font-size: 1.6em;
+    width: 1.6em;
+    height: 1.6em;
+  }
 }

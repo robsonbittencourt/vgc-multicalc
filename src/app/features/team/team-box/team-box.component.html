@@ -1,23 +1,53 @@
 <div
   class="team"
-  [ngClass]="{ 'active-team': team().active, 'second-team': isSecondTeam() }"
+  [ngClass]="{ 'active-team': team().active, 'has-second-team': secondTeam() }"
+  [class.draggable]="useDragSelection() && !team().onlyHasDefaultPokemon()"
+  cdkDrag
+  cdkDragPreviewContainer="parent"
+  [cdkDragDisabled]="!useDragSelection() || team().onlyHasDefaultPokemon()"
+  [cdkDragStartDelay]="{ touch: 0, mouse: 0 }"
+  (cdkDragEnded)="onDragEnded($event)"
   (click)="activate($event)"
-  (touchstart)="onLongPressStart($event)"
-  (touchend)="onLongPressEnd()"
-  (touchcancel)="onLongPressEnd()"
-  (contextmenu)="$event.preventDefault()"
-  data-cy="team-box">
-  @if (isSecondTeam()) {
-    <div class="second-team-badge">2nd</div>
-  }
-  <label class="team-name-label">{{ team().name }}</label>
-  <div class="team-pokemon-icons">
-    @for (teamMember of team().teamMembers; track teamMember.pokemon.id) {
-      <div class="pokemon-image">
-        @if (!teamMember.pokemon.isDefault) {
-          <img src="assets/sprites/pokemon-sv/{{ teamMember.pokemon.name }}.png" />
-        }
+  data-cy="team-box"
+  [attr.data-team-id]="team().id">
+  @if (useDragSelection() && !team().onlyHasDefaultPokemon()) {
+    @if (secondTeam()) {
+      <div class="drag-handle" (click)="separateTeams($event)">
+        <mat-icon>move_down</mat-icon>
+      </div>
+    } @else {
+      <div class="drag-handle" cdkDragHandle>
+        <mat-icon>open_with</mat-icon>
       </div>
     }
+  }
+
+  <div class="team-row">
+    <label class="team-name-label">{{ team().name }}</label>
+    <div class="team-pokemon-icons">
+      @for (teamMember of team().teamMembers; track teamMember.pokemon.id) {
+        <div class="pokemon-image">
+          @if (!teamMember.pokemon.isDefault) {
+            <img src="assets/sprites/pokemon-sv/{{ teamMember.pokemon.name }}.png" />
+          }
+        </div>
+      }
+    </div>
   </div>
+
+  @if (secondTeam()) {
+    <div class="team-divider"></div>
+    <div class="team-row second-team-row">
+      <label class="team-name-label">{{ secondTeam()!.name }}</label>
+      <div class="team-pokemon-icons">
+        @for (teamMember of secondTeam()!.teamMembers; track teamMember.pokemon.id) {
+          <div class="pokemon-image">
+            @if (!teamMember.pokemon.isDefault) {
+              <img src="assets/sprites/pokemon-sv/{{ teamMember.pokemon.name }}.png" />
+            }
+          </div>
+        }
+      </div>
+    </div>
+  }
 </div>

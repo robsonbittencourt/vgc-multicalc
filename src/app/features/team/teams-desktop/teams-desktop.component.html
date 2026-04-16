@@ -23,7 +23,7 @@
 
       <div class="teams-boxes">
         @for (team of teamsCurrentPage(); track team.id) {
-          <app-team-box animate.enter="fade-in" [team]="team" [isSecondTeam]="isSecondTeam(team)" [allowSecondTeamSelection]="allowSecondTeamSelection()" (teamActivated)="activateTeam($event)" (secondTeamActivated)="activateSecondTeam($event)" />
+          <app-team-box animate.enter="fade-in" [team]="team" [secondTeam]="secondTeamFor(team)" [allowSecondTeamSelection]="allowSecondTeamSelection()" (teamActivated)="activateTeam($event)" (secondTeamActivated)="activateSecondTeam($event)" />
         }
       </div>
 

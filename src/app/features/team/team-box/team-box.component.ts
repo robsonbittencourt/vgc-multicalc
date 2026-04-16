@@ -1,30 +1,27 @@
 import { NgClass } from "@angular/common"
 import { Component, input, output } from "@angular/core"
+import { CdkDrag, CdkDragEnd, CdkDragHandle } from "@angular/cdk/drag-drop"
+import { MatIcon } from "@angular/material/icon"
 import { Team } from "@lib/model/team"
 
 @Component({
   selector: "app-team-box",
   templateUrl: "./team-box.component.html",
   styleUrls: ["./team-box.component.scss"],
-  imports: [NgClass]
+  imports: [NgClass, CdkDrag, CdkDragHandle, MatIcon]
 })
 export class TeamBoxComponent {
   team = input.required<Team>()
-  isSecondTeam = input<boolean>(false)
+  secondTeam = input<Team | null>(null)
   allowSecondTeamSelection = input<boolean>(false)
+  useDragSelection = input<boolean>(false)
 
   teamActivated = output<Team>()
   secondTeamActivated = output<Team>()
-
-  private longPressTimeout: any
-  private preventNextClick = false
+  secondTeamSeparated = output()
+  dragEnded = output<CdkDragEnd>()
 
   activate(event: MouseEvent) {
-    if (this.preventNextClick) {
-      this.preventNextClick = false
-      return
-    }
-
     if ((event.ctrlKey || event.metaKey) && this.allowSecondTeamSelection()) {
       if (!this.team().onlyHasDefaultPokemon()) {
         this.secondTeamActivated.emit(this.team())
@@ -34,20 +31,13 @@ export class TeamBoxComponent {
     }
   }
 
-  onLongPressStart(_event: TouchEvent) {
-    if (!this.allowSecondTeamSelection()) return
-
-    this.preventNextClick = false
-
-    this.longPressTimeout = setTimeout(() => {
-      if (!this.team().onlyHasDefaultPokemon()) {
-        this.preventNextClick = true
-        this.secondTeamActivated.emit(this.team())
-      }
-    }, 500)
+  separateTeams(event: MouseEvent) {
+    event.stopPropagation()
+    this.secondTeamSeparated.emit()
   }
 
-  onLongPressEnd() {
-    clearTimeout(this.longPressTimeout)
+  onDragEnded(event: CdkDragEnd) {
+    event.source.reset()
+    this.dragEnded.emit(event)
   }
 }

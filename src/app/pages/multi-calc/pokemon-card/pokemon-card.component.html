@@ -21,14 +21,14 @@
   } @else {
     <div class="body">
       <div class="body-main">
-        <div class="combine-buttons">
+        <div class="combine-spacer">
           @if (!menuStore.oneVsOneActivated() && isAttacker() && !isDefaultDefender()) {
             @if (!damageResult().secondAttacker) {
               <div class="handle" cdkDragHandle matTooltip="Combine" [matTooltipDisabled]="collapsible()" [matTooltipShowDelay]="500" [attr.data-cy]="moveCardSelector()">
                 <mat-icon>open_with</mat-icon>
               </div>
             } @else {
-              <div class="pointer" (click)="separateAttackers()" matTooltip="Separate" [matTooltipDisabled]="collapsible()" [matTooltipShowDelay]="500" [attr.data-cy]="separateCardSelector()">
+              <div class="handle" (click)="separateAttackers()" matTooltip="Separate" [matTooltipDisabled]="collapsible()" [matTooltipShowDelay]="500" [attr.data-cy]="separateCardSelector()">
                 <mat-icon>move_down</mat-icon>
               </div>
             }

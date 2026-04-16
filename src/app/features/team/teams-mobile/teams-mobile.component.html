@@ -24,14 +24,22 @@
 
   @if (allowSecondTeamSelection()) {
     <div class="second-team-tip">
-      <mat-icon>touch_app</mat-icon>
-      <span>Long press to select a second team</span>
+      <mat-icon>open_with</mat-icon>
+      <span>Drag a team onto another to select a second team</span>
     </div>
   }
 
   <div class="mobile-teams-grid">
     @for (team of visibleTeams(); track team.id) {
-      <app-team-box [team]="team" [isSecondTeam]="isSecondTeam(team)" [allowSecondTeamSelection]="allowSecondTeamSelection()" (teamActivated)="activateTeam($event)" (secondTeamActivated)="activateSecondTeam($event)" />
+      <app-team-box
+        [team]="team"
+        [secondTeam]="secondTeamFor(team)"
+        [allowSecondTeamSelection]="allowSecondTeamSelection()"
+        [useDragSelection]="allowSecondTeamSelection()"
+        (teamActivated)="activateTeam($event)"
+        (secondTeamActivated)="activateSecondTeam($event)"
+        (dragEnded)="onTeamDragEnded($event, team)"
+        (secondTeamSeparated)="separateSecondTeam()" />
     }
   </div>
 </div>

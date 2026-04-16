@@ -87,8 +87,16 @@ export class TeamsDesktopComponent implements OnInit {
     }
   }
 
-  isSecondTeam(team: Team): boolean {
-    return this.allowSecondTeamSelection() && this.secondTeamId() === team.id
+  secondTeamFor(team: Team): Team | null {
+    if (!this.allowSecondTeamSelection()) return null
+
+    if (!team.active) return null
+
+    const id = this.secondTeamId()
+
+    if (!id) return null
+
+    return this.store.teams().find(t => t.id === id) ?? null
   }
 
   updateTeamName(event: Event) {

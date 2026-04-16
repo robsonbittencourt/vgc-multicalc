@@ -8,10 +8,24 @@
   height: 100%;
   background-color: var(--highlight);
   position: relative;
+  transition: box-shadow 0.2s ease;
+
+  &:has(.handle:active) {
+    animation: drag-ready 0.4s ease 0.15s forwards;
+  }
 
   @media (max-width: 600px) {
     padding: 0.5em 0.75em;
     touch-action: pan-y !important;
+  }
+}
+
+@keyframes drag-ready {
+  0% {
+    box-shadow: none;
+  }
+  100% {
+    box-shadow: 0 0 0 3px var(--primary);
   }
 }
 
@@ -46,52 +60,29 @@
   }
 }
 
-.combine-buttons {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  align-self: flex-start;
-  margin-left: -0.5em;
-  margin-top: -0.5em;
-  width: 40px;
-  height: 50px;
-
-  @media (max-width: 600px) {
-    width: 36px;
-    margin-top: 0;
-  }
+.combine-spacer {
+  width: 28px;
+  flex-shrink: 0;
 }
 
 .handle {
-  cursor: move;
+  position: absolute;
+  top: 0.6em;
+  left: 0.3em;
+  cursor: grab;
+  color: var(--text);
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  padding: 0.2em 0.4em;
   touch-action: pan-y !important;
-
-  @media (max-width: 600px) {
-    &::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      width: 48px;
-      z-index: 10;
-      touch-action: pan-y !important;
-    }
-
-    mat-icon {
-      font-size: 28px;
-      width: 28px;
-      height: 28px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+  mat-icon {
+    font-size: 1.6em;
+    width: 1.6em;
+    height: 1.6em;
   }
-}
-
-.pointer {
-  cursor: pointer;
-  touch-action: pan-y !important;
 }
 
 .body {

@@ -219,6 +219,10 @@ app-ability-combo-box {
   opacity: 0.5;
 }
 
+.cdk-drag-preview {
+  z-index: 1000 !important;
+}
+
 html,
 body {
   height: 100%;
