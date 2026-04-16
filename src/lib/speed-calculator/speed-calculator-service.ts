@@ -82,7 +82,8 @@ export class SpeedCalculatorService {
     const speedDefinitions: SpeedDefinition[] = []
 
     const quantity = options.targetName.length > 0 ? undefined : options.topUsage
-    const pokemon = pokemonByRegulation(options.regulation, quantity, this.setdex)
+    const includeAllPokemon = options._topUsage === "All"
+    const pokemon = pokemonByRegulation(options.regulation, quantity, this.setdex, includeAllPokemon)
 
     pokemon.forEach(p => {
       const pokemon = this.adjustPokemonByOptions(p, options)

@@ -6,15 +6,20 @@ import { MoveSet } from "@lib/model/moveset"
 import { Pokemon } from "@lib/model/pokemon"
 import { Regulation } from "@lib/types"
 
-export function pokemonByRegulation(regulation: Regulation, quantity?: number, setdex: Record<string, any> = SETDEX_SV): Pokemon[] {
+export function pokemonByRegulation(regulation: Regulation, quantity?: number, setdex: Record<string, any> = SETDEX_SV, includeAllPokemon = false): Pokemon[] {
   const regulationList = topUsageByRegulation[regulation]
 
-  return Object.keys(setdex)
+  let result = Object.keys(setdex)
     .map(key => toPokemon(key, setdex))
     .filter(pokemon => filterBannedByRegulation(pokemon, regulation))
-    .filter(pokemon => regulationList.includes(pokemon.displayNameWithoutSuffix))
-    .sort((a, b) => sortByRegulationOrder(a, b, regulation))
-    .slice(0, quantity)
+
+  if (!includeAllPokemon) {
+    result = result.filter(pokemon => regulationList.includes(pokemon.displayNameWithoutSuffix)).sort((a, b) => sortByRegulationOrder(a, b, regulation))
+  } else {
+    result = result.sort((a, b) => a.displayNameWithoutSuffix.localeCompare(b.displayNameWithoutSuffix))
+  }
+
+  return result.slice(0, quantity)
 }
 
 export function toPokemon(key: string, setdex: Record<string, any> = SETDEX_SV): Pokemon {
