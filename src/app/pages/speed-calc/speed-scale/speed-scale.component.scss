@@ -22,11 +22,13 @@
   }
 
   .speed-box:nth-child(-n + 5),
-  .speed-box:nth-child(n + 11):nth-child(-n + 15) {
+  .speed-box:nth-child(n + 11):nth-child(-n + 15),
+  .speed-box:nth-child(n + 21):nth-child(-n + 25) {
     height: 10.5em;
   }
 
-  .speed-box:nth-child(n + 6):nth-child(-n + 10) {
+  .speed-box:nth-child(n + 6):nth-child(-n + 10),
+  .speed-box:nth-child(n + 16):nth-child(-n + 20) {
     height: 11em;
   }
 }

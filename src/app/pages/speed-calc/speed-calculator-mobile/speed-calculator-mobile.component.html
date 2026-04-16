@@ -9,7 +9,7 @@
         }
       </div>
 
-      <app-speed-scale class="speed-scale" [pokemonId]="lastNonDefaultPokemon().id" [pokemonEachSide]="7" (pokemonSelected)="selectedPokemon.set($event)" />
+      <app-speed-scale class="speed-scale" [pokemonId]="lastNonDefaultPokemon().id" [pokemonEachSide]="12" (pokemonSelected)="selectedPokemon.set($event)" />
     </div>
 
     @if (store.game() !== "champions") {
