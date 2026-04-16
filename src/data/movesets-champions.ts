@@ -3297,6 +3297,36 @@ export const SETDEX_CHAMPIONS: Record<string, any> = {
     moves: ["Close Combat", "Psychic Fangs", "Rock Slide", "Protect"],
     items: ["Focus Sash"]
   },
+  "Lycanroc-Midnight": {
+    ability: "No Guard",
+    nature: "Jolly",
+    teraType: "",
+    evs: {
+      hp: 0,
+      atk: 252,
+      def: 0,
+      spa: 0,
+      spd: 4,
+      spe: 252
+    },
+    moves: ["Stone Edge", "Close Combat", "Sucker Punch", "Outrage"],
+    items: ["Choice Scarf"]
+  },
+  "Lycanroc-Dusk": {
+    ability: "Tough Claws",
+    nature: "Jolly",
+    teraType: "",
+    evs: {
+      hp: 0,
+      atk: 252,
+      def: 0,
+      spa: 0,
+      spd: 4,
+      spe: 252
+    },
+    moves: ["Stone Edge", "Close Combat", "Psychic Fangs", "Outrage"],
+    items: ["Choice Scarf"]
+  },
   Toxapex: {
     ability: "Regenerator",
     nature: "Bold",
