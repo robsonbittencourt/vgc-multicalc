@@ -10,10 +10,11 @@
   padding: 0.2em 0.2em;
 }
 
-.edit-button-section {
+.chips-row {
   display: flex;
   align-items: center;
-  margin-left: 0.5em;
+  flex-wrap: wrap;
+  gap: 0.5em;
 }
 
 .edit-button,
@@ -22,16 +23,17 @@
   align-items: center;
   cursor: pointer;
   font-size: 12px;
+  padding-top: 0.4em;
 }
 
 .edit-icon {
-  margin-top: 0.3em;
   font-size: 18px;
+  margin-top: 2px;
 }
 
 .hits-input {
-  margin-top: 0.5em;
-  width: 50%;
+  width: 45%;
+  margin-left: auto;
 }
 
 .check-input-section-input {
@@ -42,9 +44,13 @@
 .hits-input-only {
   display: flex;
   align-items: center;
-  margin-top: 0.5em;
-  width: 50%;
-  padding-left: 2em;
+  justify-content: flex-end;
+  margin-top: 0.8em;
+  width: 100%;
+
+  app-multi-hit-combo-box {
+    width: 45%;
+  }
 }
 
 ::ng-deep .mat-mdc-standard-chip {

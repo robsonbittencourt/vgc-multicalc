@@ -25,32 +25,35 @@
     </div>
   } @else {
     <div class="no-edit-moves">
-      <mat-chip-listbox>
-        @if (pokemon().move1Name) {
-          <mat-chip-option (click)="activateMove(1)" [selected]="pokemon().activeMovePosition === 1">{{ pokemon().move1Name }}</mat-chip-option>
-        }
+      <div class="chips-row">
+        <mat-chip-listbox>
+          @if (pokemon().move1Name) {
+            <mat-chip-option (click)="activateMove(1)" [selected]="pokemon().activeMovePosition === 1">{{ pokemon().move1Name }}</mat-chip-option>
+          }
 
-        @if (pokemon().move2Name) {
-          <mat-chip-option (click)="activateMove(2)" [selected]="pokemon().activeMovePosition === 2">{{ pokemon().move2Name }}</mat-chip-option>
-        }
+          @if (pokemon().move2Name) {
+            <mat-chip-option (click)="activateMove(2)" [selected]="pokemon().activeMovePosition === 2">{{ pokemon().move2Name }}</mat-chip-option>
+          }
 
-        @if (pokemon().move3Name) {
-          <mat-chip-option (click)="activateMove(3)" [selected]="pokemon().activeMovePosition === 3">{{ pokemon().move3Name }}</mat-chip-option>
-        }
+          @if (pokemon().move3Name) {
+            <mat-chip-option (click)="activateMove(3)" [selected]="pokemon().activeMovePosition === 3">{{ pokemon().move3Name }}</mat-chip-option>
+          }
 
-        @if (pokemon().move4Name) {
-          <mat-chip-option (click)="activateMove(4)" [selected]="pokemon().activeMovePosition === 4">{{ pokemon().move4Name }}</mat-chip-option>
-        }
+          @if (pokemon().move4Name) {
+            <mat-chip-option (click)="activateMove(4)" [selected]="pokemon().activeMovePosition === 4">{{ pokemon().move4Name }}</mat-chip-option>
+          }
+        </mat-chip-listbox>
 
         @if (showEdit()) {
-          <div class="edit-button-section">
-            <div (click)="editMoves()" class="edit-button"><mat-icon class="edit-icon">edit</mat-icon>Edit</div>
-            <div class="hits-input">
-              <app-multi-hit-combo-box [pokemonId]="pokemonId()" [leftLabel]="true" />
-            </div>
-          </div>
+          <div (click)="editMoves()" class="edit-button"><mat-icon class="edit-icon">edit</mat-icon>Edit</div>
         }
-      </mat-chip-listbox>
+      </div>
+
+      @if (showEdit()) {
+        <div class="hits-input-only">
+          <app-multi-hit-combo-box [pokemonId]="pokemonId()" [leftLabel]="true" />
+        </div>
+      }
 
       @if (!showEdit()) {
         <div class="hits-input-only">
