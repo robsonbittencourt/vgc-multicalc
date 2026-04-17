@@ -67,10 +67,10 @@ export class SimpleCalcMobileComponent {
     const field = this.fieldStore.field()
 
     if (this.isCurrentPokemonAttacker()) {
-      return this.damageCalculator.calcDamage(current, other, field, this.leftIsAttacker())
+      return this.damageCalculator.calcDamage(current, other, field)
     }
 
-    return this.damageCalculator.calcDamage(other, current, field, this.leftIsAttacker())
+    return this.damageCalculator.calcDamage(other, current, field)
   })
 
   target = computed(() => {
@@ -157,7 +157,7 @@ export class SimpleCalcMobileComponent {
     this.originalNature.set(defender.nature)
 
     const rollIndex = this.rollLevelConfig().toRollIndex()
-    const result = this.defensiveEvOptimizer.optimize(defender, [new Target(attacker)], field, event.updateNature, event.keepOffensiveEvs, event.survivalThreshold as any, rollIndex, !this.leftIsAttacker())
+    const result = this.defensiveEvOptimizer.optimize(defender, [new Target(attacker)], field, event.updateNature, event.keepOffensiveEvs, event.survivalThreshold as any, rollIndex)
 
     this.optimizedNature.set(result.nature)
 
