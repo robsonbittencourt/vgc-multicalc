@@ -1,5 +1,5 @@
 <div class="mobile-calc-container">
-  <div #scrollContainer class="scrollable-content" [class.teams-tab]="activeBottomTab() === 'teams'" (scroll)="onScroll($event)">
+  <div #scrollContainer class="scrollable-content" [class.teams-tab]="activeBottomTab() === 'teams'">
     <div [hidden]="activeBottomTab() !== 'main'" [class.tab-active]="activeBottomTab() === 'main'">
       <app-team-tabs-mobile [(pokemonOnEditId)]="pokemonOnEditId" (memberAddedEvent)="focusPokemonComboBox()" />
 
@@ -50,7 +50,7 @@
     </div>
   </div>
 
-  <div class="bottom-nav" [class.hidden]="!showBottomNav()">
+  <div class="bottom-nav">
     <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'main' }" (click)="switchTab('main')">
       <mat-icon>bolt</mat-icon>
       <span>Speed</span>

@@ -1,5 +1,5 @@
 <div class="mobile-calc-container">
-  <div #scrollContainer class="scrollable-content" [class.field-tab]="activeBottomTab() === 'field'" (scroll)="onScroll($event)">
+  <div #scrollContainer class="scrollable-content" [class.field-tab]="activeBottomTab() === 'field'">
     <div [hidden]="activeBottomTab() !== 'results'" [class.tab-active]="activeBottomTab() === 'results'">
       <div class="team-tabs">
         <div class="team-tab" [ngClass]="{ 'active-tab': activeSide() === 'left' }" (click)="activateLeftPokemon()">
@@ -61,7 +61,7 @@
     </div>
   </div>
 
-  <div class="bottom-nav" [class.hidden]="!showBottomNav()">
+  <div class="bottom-nav">
     <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'results' }" (click)="switchTab('results')">
       <mat-icon>calculate</mat-icon>
       <span>Results</span>

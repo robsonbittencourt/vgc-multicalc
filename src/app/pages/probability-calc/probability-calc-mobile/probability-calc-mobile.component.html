@@ -1,5 +1,5 @@
 <div class="mobile-calc-container">
-  <div #scrollContainer class="scrollable-content" [class.teams-tab]="activeBottomTab() === 'teams'" (scroll)="onScroll($event)">
+  <div #scrollContainer class="scrollable-content" [class.teams-tab]="activeBottomTab() === 'teams'">
     <div [hidden]="activeBottomTab() !== 'detailed'" [class.tab-active]="activeBottomTab() === 'detailed'">
       <app-team-tabs-mobile [(pokemonOnEditId)]="pokemonOnEditId" (memberAddedEvent)="onMemberAdded()" />
 
@@ -31,7 +31,7 @@
     </div>
   </div>
 
-  <div class="bottom-nav" [class.hidden]="!showBottomNav()">
+  <div class="bottom-nav">
     <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'detailed' }" (click)="switchTab('detailed')">
       <mat-icon>analytics</mat-icon>
       <span>Detailed</span>

@@ -41,9 +41,7 @@ export class ProbabilityCalcMobileComponent {
   }
 
   activeBottomTab = signal<"general" | "detailed" | "teams" | "build">("detailed")
-  showBottomNav = signal(true)
   private scrollPositions = new Map<string, number>()
-  private lastScrollTop = 0
   pokemonOnEditId = signal<string | null>(null)
   lastNonDefaultPokemon = signal<Pokemon>(this.store.team().activePokemon())
 
@@ -66,7 +64,6 @@ export class ProbabilityCalcMobileComponent {
     this.scrollPositions.set(currentTab, currentScroll)
 
     this.activeBottomTab.set(newTab)
-    this.showBottomNav.set(true)
 
     setTimeout(() => {
       const targetScroll = this.scrollPositions.get(newTab) || 0
@@ -79,19 +76,6 @@ export class ProbabilityCalcMobileComponent {
   onTeamSelected(pokemonId: string) {
     this.pokemonOnEditId.set(pokemonId)
     this.switchTab("detailed")
-  }
-
-  onScroll(event: Event) {
-    const target = event.target as HTMLElement
-    const currentScroll = target.scrollTop
-
-    if (currentScroll > this.lastScrollTop && currentScroll > 50) {
-      this.showBottomNav.set(false)
-    } else if (currentScroll < this.lastScrollTop) {
-      this.showBottomNav.set(true)
-    }
-
-    this.lastScrollTop = currentScroll
   }
 
   onMemberAdded() {
