@@ -1,0 +1,9 @@
+@if (isPalafin()) {
+  <div class="container" (click)="toggleForm($event)" [matTooltipShowDelay]="1000" [matTooltip]="isHeroForm() ? 'Switch to Zero Form' : 'Switch to Hero Form'" data-cy="palafin-form-toggle">
+    @if (isHeroForm()) {
+      <img class="icon-palafin" src="assets/icons/palafin.png" />
+    } @else {
+      <img class="icon-palafin" src="assets/icons/palafin-hero.png" />
+    }
+  </div>
+}

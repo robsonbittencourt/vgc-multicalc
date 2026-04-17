@@ -3927,6 +3927,21 @@ export const SETDEX_CHAMPIONS: Record<string, any> = {
     moves: ["Wave Crash", "Jet Punch", "Protect", "Bulk Up"],
     items: ["Mystic Water", "Choice Scarf", "Leftovers"]
   },
+  "Palafin-Hero": {
+    ability: "Zero to Hero",
+    nature: "Adamant",
+    teraType: "",
+    evs: {
+      hp: 252,
+      atk: 252,
+      def: 0,
+      spa: 0,
+      spd: 4,
+      spe: 0
+    },
+    moves: ["Jet Punch", "Wave Crash", "Protect", "Haze"],
+    items: ["Mystic Water"]
+  },
   Orthworm: {
     ability: "Earth Eater",
     nature: "Calm",
