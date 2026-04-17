@@ -132,6 +132,44 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+  release:
+    name: Release
+    runs-on: ubuntu-24.04
+    if: github.ref == 'refs/heads/main'
+    needs: deploy
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Generate release notes
+        id: notes
+        run: |
+          chmod +x release-notes-generator.sh
+          NOTES=$(./release-notes-generator.sh)
+          echo "RELEASE_NOTES<<EOF" >> $GITHUB_OUTPUT
+          echo "$NOTES" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Get current tag
+        id: tag
+        run: echo "TAG=$(git tag --sort=-creatordate | head -n 1)" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if ! gh release view ${{ steps.tag.outputs.TAG }} > /dev/null 2>&1; then
+            gh release create ${{ steps.tag.outputs.TAG }} \
+              --title "${{ steps.tag.outputs.TAG }}" \
+              --notes "${{ steps.notes.outputs.RELEASE_NOTES }}" \
+              --latest
+          fi
+
   sonarqube:
     name: SonarQube
     runs-on: ubuntu-24.04
