@@ -1068,6 +1068,13 @@ export const ITEM_DETAILS: Record<string, ItemDetail> = {
     sprite: "clefablite",
     isMegaStone: true
   },
+  chesnaughtite: {
+    group: "Pokémon specific items",
+    name: "Chesnaughtite",
+    description: "If held by a Chesnaught, this item allows it to Mega Evolve in battle.",
+    sprite: "chesnaughtite",
+    isMegaStone: true
+  },
   gengarite: {
     group: "Pokémon specific items",
     name: "Gengarite",

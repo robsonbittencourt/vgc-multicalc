@@ -14,6 +14,7 @@ export const MEGA_STONE_TO_POKEMON_NAME: Record<string, string> = {
   cameruptite: "Camerupt",
   charizarditex: "Charizard",
   charizarditey: "Charizard",
+  chesnaughtite: "Chesnaught",
   chandelurite: "Chandelure",
   chimechite: "Chimecho",
   clefablite: "Clefable",

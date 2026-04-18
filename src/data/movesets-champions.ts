@@ -2635,7 +2635,7 @@ export const SETDEX_CHAMPIONS: Record<string, any> = {
       spe: 0
     },
     moves: ["Body Press", "Wide Guard", "Spiky Shield", "Leech Seed"],
-    items: ["Sitrus Berry"]
+    items: ["Chesnaughtite"]
   },
   Delphox: {
     ability: "Blaze",
