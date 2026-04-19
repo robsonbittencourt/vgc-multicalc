@@ -989,6 +989,21 @@ export const SETDEX_CHAMPIONS: Record<string, any> = {
     moves: ["Scald", "Thunder Wave", "Chilly Reception", "Slack Off"],
     items: ["Sitrus Berry"]
   },
+  "Slowking-Galar": {
+    ability: "Curious Medicine",
+    nature: "Quiet",
+    teraType: "",
+    evs: {
+      hp: 252,
+      atk: 0,
+      def: 4,
+      spa: 252,
+      spd: 0,
+      spe: 0
+    },
+    moves: ["Sludge Bomb", "Psychic", "Trick Room", "Chilly Reception"],
+    items: ["Sitrus Berry"]
+  },
   Forretress: {
     ability: "Sturdy",
     nature: "Relaxed",
