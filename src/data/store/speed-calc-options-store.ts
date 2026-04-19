@@ -19,10 +19,10 @@ type SpeedCalcOptionsState = {
 }
 
 const initialState: SpeedCalcOptionsState = {
-  topUsage: "60",
+  topUsage: "All",
   regulation: "I",
   targetName: "",
-  mode: SpeedCalculatorMode.StatsAndMeta,
+  mode: SpeedCalculatorMode.Base,
   speedModifier: 0,
   speedDropActive: false,
   paralyzedActive: false,

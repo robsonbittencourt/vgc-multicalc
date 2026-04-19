@@ -77,8 +77,9 @@ describe("SpeedCalculatorService", () => {
       const pokemon = new Pokemon("Torkoal")
       const field = new Field()
       const pokemonEachSide = 30
+      const options = new SpeedCalculatorOptions({ topUsage: "60" })
 
-      const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide)
+      const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide, options)
 
       const actualIndex = inRange.findIndex(p => p.pokemonName == "Torkoal" && p.description.includes(ACTUAL))
       expect(actualIndex).toBe(30)

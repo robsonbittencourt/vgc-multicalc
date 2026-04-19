@@ -10,6 +10,8 @@ const speedCalculator = new SpeedCalculator()
 describe("Speed Calculator", () => {
   beforeEach(() => {
     cy.get('[data-cy="speed-calculator"]').click({ force: true })
+    speedCalculator.topUsage("60")
+    speedCalculator.mode("Stats and Meta")
   })
 
   context("Validate all Speed Tier", () => {

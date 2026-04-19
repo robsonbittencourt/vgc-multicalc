@@ -36,4 +36,12 @@ export class SpeedCalculator {
       expect(speeds).to.deep.equal(sorted)
     })
   }
+
+  topUsage(usage: "30" | "60" | "100" | "125" | "All") {
+    cy.get('[data-cy="speed-calc-top-usage"]').find('[data-cy="input-select"]').click().get("mat-option").contains(usage).click()
+  }
+
+  mode(mode: "Stats and Meta" | "Stats" | "Meta" | "Base") {
+    cy.get('[data-cy="speed-calc-mode"]').find('[data-cy="input-select"]').click().get("mat-option").contains(mode).click()
+  }
 }
