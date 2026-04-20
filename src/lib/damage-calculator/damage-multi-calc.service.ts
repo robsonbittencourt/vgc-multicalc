@@ -36,7 +36,8 @@ export class DamageMultiCalcService {
     if (target.secondPokemon) {
       return this.damageCalculator.calcDamageForTwoAttackers(target.pokemon, target.secondPokemon, activeTeamMember, field, true)
     } else {
-      return this.damageCalculator.calcDamage(target.pokemon, activeTeamMember, field, true)
+      const allResults = this.damageCalculator.calcDamageAllAttacks(target.pokemon, activeTeamMember, field, true)
+      return allResults.reduce((best, current) => (current.damage > best.damage ? current : best))
     }
   }
 }
