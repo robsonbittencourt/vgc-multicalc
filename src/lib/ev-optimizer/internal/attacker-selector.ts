@@ -16,6 +16,7 @@ export type AttackerPriorityResult = {
 
 type SurvivalAnalysis = {
   survivableAttackers: Pokemon[]
+  impossibleAttackers: Pokemon[]
   strongestAttacker: Pokemon | null
   maxDamage: number
 }
@@ -105,20 +106,25 @@ export class AttackerSelector {
     let strongestAttacker: Pokemon | null = null
     let maxDamage = 0
     const survivableAttackers: Pokemon[] = []
+    const impossibleAttackers: Pokemon[] = []
 
     for (const attacker of attackers) {
       let survives: boolean
+      let survivesWithMax: boolean
 
       if (checkMin && defenderMin) {
         const survivesWithMin = this.survivalChecker.checkSurvival(attacker, defenderMin, field, threshold, rollIndex, rightIsDefender)
-        const survivesWithMax = this.survivalChecker.checkSurvival(attacker, defenderMax, field, threshold, rollIndex, rightIsDefender)
+        survivesWithMax = this.survivalChecker.checkSurvival(attacker, defenderMax, field, threshold, rollIndex, rightIsDefender)
         survives = !survivesWithMin && survivesWithMax
       } else {
-        survives = this.survivalChecker.checkSurvival(attacker, defenderMax, field, threshold, rollIndex, rightIsDefender)
+        survivesWithMax = this.survivalChecker.checkSurvival(attacker, defenderMax, field, threshold, rollIndex, rightIsDefender)
+        survives = survivesWithMax
       }
 
       if (survives) {
         survivableAttackers.push(attacker)
+      } else if (!survivesWithMax) {
+        impossibleAttackers.push(attacker)
       }
 
       const damage = this.damageCalculator.calculateResult(attacker, defenderMax, attacker.move, field, rightIsDefender).damageWithRemainingUntilTurn(1, rollIndex)
@@ -129,7 +135,7 @@ export class AttackerSelector {
       }
     }
 
-    return { strongestAttacker, maxDamage, survivableAttackers }
+    return { strongestAttacker, maxDamage, survivableAttackers, impossibleAttackers }
   }
 
   private selectBestScenario(current: NatureScenario, def: NatureScenario, spd: NatureScenario, physicalCount: number, specialCount: number, currentNature: string): NatureScenario {

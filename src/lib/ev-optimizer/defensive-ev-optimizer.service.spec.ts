@@ -1527,6 +1527,44 @@ describe("DefensiveEvOptimizerService", () => {
         expect(result.evs).toBeNull()
       })
 
+      it("should return null EVs when one attacker is impossible to survive even if others need no EVs", () => {
+        const defender = new Pokemon("Tyranitar-Mega", {
+          nature: "Bold",
+          item: "Tyranitarite"
+        })
+
+        const sneasler = new Pokemon("Sneasler", {
+          nature: "Adamant",
+          item: "Electric Seed",
+          ability: new Ability("Unburden"),
+          moveSet: new MoveSet(new Move("Close Combat"), new Move(""), new Move(""), new Move("")),
+          evs: { hp: 228, atk: 156, def: 4, spd: 4, spe: 116 }
+        })
+
+        const basculegion = new Pokemon("Basculegion", {
+          nature: "Adamant",
+          item: "Sitrus Berry",
+          ability: new Ability("Swift Swim"),
+          moveSet: new MoveSet(new Move("Wave Crash"), new Move(""), new Move(""), new Move("")),
+          evs: { hp: 100, atk: 252, def: 28, spd: 20, spe: 108 }
+        })
+
+        const rotomMow = new Pokemon("Rotom-Mow", {
+          nature: "Timid",
+          item: "Choice Scarf",
+          ability: new Ability("Levitate"),
+          moveSet: new MoveSet(new Move("Leaf Storm"), new Move(""), new Move(""), new Move("")),
+          evs: { spa: 252, spd: 4, spe: 252 }
+        })
+
+        const targets = [new Target(sneasler), new Target(basculegion), new Target(rotomMow)]
+        const field = new Field({ weather: "Sand" })
+
+        const result = service.optimize(defender, targets, field)
+
+        expect(result.evs).toBeNull()
+      })
+
       it("should return zeroed EVs when no solution is needed (already survives)", () => {
         const defender = new Pokemon("Blissey")
 

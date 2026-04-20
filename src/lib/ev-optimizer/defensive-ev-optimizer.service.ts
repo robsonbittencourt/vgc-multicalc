@@ -223,12 +223,24 @@ export class DefensiveEvOptimizerService {
       const alreadySurvivesAll = survivableSingleAttackers.every(attacker => this.survivalChecker.checkSurvival(attacker, defenderWithZeroDefensiveEvs, field, threshold, rollIndex, rightIsDefender))
 
       if (alreadySurvivesAll) {
+        const hasImpossible = priority.physical.impossibleAttackers.length > 0 || priority.special.impossibleAttackers.length > 0
+
+        if (hasImpossible) {
+          return { evs: null, nature: null }
+        }
+
         if (reservedEvs) {
           return { evs: { hp: 0, atk: reservedEvs.atk, def: 0, spa: reservedEvs.spa, spd: 0, spe: reservedEvs.spe }, nature: natureUsed }
         }
         return { evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: natureUsed }
       }
 
+      return { evs: null, nature: null }
+    }
+
+    const hasImpossible = priority.physical.impossibleAttackers.length > 0 || priority.special.impossibleAttackers.length > 0
+
+    if (hasImpossible && evs.hp === 0 && evs.def === 0 && evs.spd === 0) {
       return { evs: null, nature: null }
     }
 
