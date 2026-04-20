@@ -44,6 +44,9 @@
           <app-add-pokemon-card (pokemonAddedToTeam)="addPokemonToTargets()" />
 
           <div class="targets-actions">
+            <div class="row full">
+              <button mat-flat-button class="management-button" (click)="exportCalcs()" data-cy="export-calcs-button">Export Calcs</button>
+            </div>
             <div class="row">
               <button mat-flat-button class="management-button" (click)="onMetaClick()" data-cy="add-meta-button">{{ metaButtonLabel() }}</button>
               <button mat-flat-button class="warn management-button" (click)="removeAll()" data-cy="delete-opponent-pokemon-button">Delete all</button>

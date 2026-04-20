@@ -1,6 +1,8 @@
+import { NoopScrollStrategy } from "@angular/cdk/overlay"
 import { CdkDragDrop, CdkDropList, CdkDropListGroup } from "@angular/cdk/drag-drop"
 import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, effect, inject, input, output, signal } from "@angular/core"
 import { MatButton } from "@angular/material/button"
+import { MatDialog } from "@angular/material/dialog"
 import { MatSlideToggle } from "@angular/material/slide-toggle"
 import { InputAutocompleteComponent } from "@app/basic/input-autocomplete/input-autocomplete.component"
 import { InputSelectComponent } from "@app/basic/input-select/input-select.component"
@@ -12,6 +14,7 @@ import { CalculatorStore } from "@data/store/calculator-store"
 import { MenuStore } from "@data/store/menu-store"
 import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
 import { RollConfigComponent } from "@features/roll-config/roll-config.component"
+import { TeamExportModalComponent } from "@features/export-modal/export-modal.component"
 import { DamageResult } from "@lib/damage-calculator/damage-result"
 import { RollLevelConfig } from "@lib/damage-calculator/roll-level-config"
 import { defaultPokemon } from "@lib/default-pokemon"
@@ -43,6 +46,7 @@ export class TargetPokemonComponent {
   store = inject(CalculatorStore)
   menuStore = inject(MenuStore)
   private exportPokeService = inject(ExportPokeService)
+  private dialog = inject(MatDialog)
   private snackBar = inject(SnackbarService)
 
   regulation = signal<Regulation>(this.store.targetMetaRegulation() ?? "I")
@@ -142,6 +146,20 @@ export class TargetPokemonComponent {
     const pokemon = this.targets().flatMap(t => (t.secondPokemon ? [t.pokemon, t.secondPokemon] : [t.pokemon]))
     const shouldUseSps = this.store.isChampions() && this.store.useSpsMode()
     this.exportPokeService.export("Opponent Pokémon", pokemon, shouldUseSps)
+  }
+
+  exportCalcs() {
+    const content = this.filteredDamageResults()
+      .map(r => r.description)
+      .join("\n\n")
+
+    this.dialog.open(TeamExportModalComponent, {
+      data: { title: "Calc Results", content },
+      width: "40em",
+      position: { top: "2em" },
+      autoFocus: false,
+      scrollStrategy: new NoopScrollStrategy()
+    })
   }
 
   addPokemonToTargets() {

@@ -106,6 +106,10 @@
     align-items: stretch;
     height: 2.5em;
 
+    &.full {
+      grid-template-columns: 1fr;
+    }
+
     .management-button {
       display: flex;
       width: 100%;

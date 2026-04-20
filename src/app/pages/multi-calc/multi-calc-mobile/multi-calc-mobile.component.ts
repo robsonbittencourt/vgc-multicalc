@@ -1,8 +1,10 @@
+import { NoopScrollStrategy } from "@angular/cdk/overlay"
 import { Component, computed, effect, ElementRef, inject, signal, ViewChild } from "@angular/core"
 import { NgClass } from "@angular/common"
 import { CdkDragDrop, CdkDragMove, CdkDropList, CdkDropListGroup } from "@angular/cdk/drag-drop"
 import { ScrollingModule } from "@angular/cdk/scrolling"
 import { MatButton } from "@angular/material/button"
+import { MatDialog } from "@angular/material/dialog"
 import { MatIcon, MatIconRegistry } from "@angular/material/icon"
 import { MatSlideToggle } from "@angular/material/slide-toggle"
 import { DomSanitizer } from "@angular/platform-browser"
@@ -22,6 +24,7 @@ import { DamageResultOrderService } from "@lib/damage-calculator/damage-result-o
 import { RollLevelConfig } from "@lib/damage-calculator/roll-level-config"
 import { DefensiveEvOptimizerService } from "@lib/ev-optimizer/defensive-ev-optimizer.service"
 import { Stats } from "@lib/types"
+import { TeamExportModalComponent } from "@features/export-modal/export-modal.component"
 import { ExportPokeService } from "@lib/user-data/export-poke.service"
 import { PokemonBuildMobileComponent } from "@features/pokemon-build/pokemon-build-mobile/pokemon-build-mobile.component"
 import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
@@ -68,6 +71,7 @@ export class MultiCalcMobileComponent {
   private damageCalculator = inject(DamageMultiCalcService)
   private defensiveEvOptimizer = inject(DefensiveEvOptimizerService)
   private exportPokeService = inject(ExportPokeService)
+  private dialog = inject(MatDialog)
 
   constructor() {
     const iconRegistry = inject(MatIconRegistry)
@@ -221,6 +225,20 @@ export class MultiCalcMobileComponent {
     const pokemon = this.store.targets().flatMap(t => (t.secondPokemon ? [t.pokemon, t.secondPokemon] : [t.pokemon]))
     const shouldUseSps = this.store.isChampions() && this.store.useSpsMode()
     this.exportPokeService.export("Opponent Pokémon", pokemon, shouldUseSps)
+  }
+
+  exportCalcs() {
+    const content = this.damageResults()
+      .map(r => r.description)
+      .join("\n\n")
+
+    this.dialog.open(TeamExportModalComponent, {
+      data: { title: "Calc Results", content },
+      width: "40em",
+      position: { top: "2em" },
+      autoFocus: false,
+      scrollStrategy: new NoopScrollStrategy()
+    })
   }
 
   private targetsExcludingMetaData(): Target[] {

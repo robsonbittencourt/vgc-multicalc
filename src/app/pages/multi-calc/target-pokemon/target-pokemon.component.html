@@ -19,6 +19,7 @@
         <app-input-select label="Regulation" leftLabel="true" [allValues]="regulationsList()" [disabled]="haveMetaData()" [value]="regulation()" (valueChange)="updateRegulation($event)" />
       </div>
 
+      <button mat-flat-button (click)="exportCalcs()" data-cy="export-calcs-button">Export Calcs</button>
       <button mat-flat-button (click)="onMetaClick()" data-cy="add-meta-button">{{ metaButtonLabel() }}</button>
       <app-import-pokemon-button [singlePokemon]="false" (pokemonImportedEvent)="pokemonImported($event)" />
 
