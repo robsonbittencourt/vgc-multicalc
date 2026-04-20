@@ -31,7 +31,8 @@ export class HeaderComponent {
 
   uploadData() {
     const id = uuidv4()
-    const activeField = this.activeFieldService.activeStore()?.field()
+    const activeStore = this.activeFieldService.activeStore()
+    const activeField = typeof activeStore?.field === "function" ? activeStore.field() : null
     const userData = { ...this.store.buildUserData(), field: activeField ? { ...activeField } : null }
     axios.put(`https://l7enx1vgm7.execute-api.us-east-1.amazonaws.com/v1/vgc-multi-calc/${id}`, userData)
     this.userDataLink = `https://vgcmulticalc.com/data/${id}`
