@@ -96,6 +96,18 @@ export class MultiCalcMobileComponent {
       this.store.game()
       this.pokemonOnEditId.set(null)
     })
+
+    if (this.menuStore.manyVsOneActivated()) {
+      this.store.targets().forEach((target: Target) => {
+        if (!target.pokemon.isDefault && !target.secondPokemon) {
+          const attacker = this.activeAttacker()
+
+          if (attacker) {
+            this.damageCalculator.activateBestMoveForTarget(target.pokemon, attacker, this.fieldStore.field())
+          }
+        }
+      })
+    }
   }
 
   activeBottomTab = signal<"results" | "teams" | "field">("results")

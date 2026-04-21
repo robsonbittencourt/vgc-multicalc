@@ -11,6 +11,7 @@ import { DamageMultiCalcService } from "@lib/damage-calculator/damage-multi-calc
 import { DamageResultOrderService } from "@lib/damage-calculator/damage-result-order.service"
 import { RollLevelConfig } from "@lib/damage-calculator/roll-level-config"
 import { DefensiveEvOptimizerService } from "@lib/ev-optimizer/defensive-ev-optimizer.service"
+import { Target } from "@lib/model/target"
 import { Stats, SurvivalThreshold } from "@lib/types"
 import { TargetPokemonComponent } from "@pages/multi-calc/target-pokemon/target-pokemon.component"
 
@@ -99,6 +100,14 @@ export class MultiCalcComponent implements OnInit {
   ngOnInit() {
     this.store.updateSecondAttacker("")
     this.store.activateTeamMember(this.store.team().activePokemonIndex())
+
+    if (this.menuStore.manyVsOneActivated()) {
+      this.store.targets().forEach((target: Target) => {
+        if (!target.pokemon.isDefault && !target.secondPokemon) {
+          this.damageCalculator.activateBestMoveForTarget(target.pokemon, this.activeAttacker(), this.fieldStore.field())
+        }
+      })
+    }
   }
 
   targetsImported() {
