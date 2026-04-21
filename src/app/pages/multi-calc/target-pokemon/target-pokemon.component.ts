@@ -99,7 +99,7 @@ export class TargetPokemonComponent {
 
   readonly regulationsList = computed(() => (this.store.game() === "champions" ? ["M-A"] : ["I"]))
 
-  order = signal(true)
+  order = signal(false)
 
   onMetaClick() {
     if (this.haveMetaData()) {
