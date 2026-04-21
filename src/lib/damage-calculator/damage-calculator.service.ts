@@ -183,7 +183,7 @@ export class DamageCalculatorService {
   }
 
   private formatDescription(description: string): string {
-    if (this.calculatorStore.useSpsMode()) {
+    if (this.calculatorStore.isChampions() && this.calculatorStore.useSpsMode()) {
       return description.replace(/\b(\d+)([+-]?)\s+(HP|Atk|Def|SpA|SpD|Spe)\b/g, (_match, ev, nature, stat) => {
         return `${evToSp(+ev)}${nature} ${stat}`
       })

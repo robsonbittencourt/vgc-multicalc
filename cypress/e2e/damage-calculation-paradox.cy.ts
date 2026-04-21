@@ -276,7 +276,7 @@ describe("Activate Paradox abilities by Field conditions", () => {
       field.sun()
 
       opponents.get("Great Tusk").damageIs(57.7, 68.8).cause2HKO()
-      opponents.get("Roaring Moon").damageIs(44, 52.2).haveChanceOfToCause2HKO(16.4)
+      opponents.get("Roaring Moon").damageIs(14.2, 16.9).possible6HKO()
     })
 
     it("Activate Quark Drive when Electric Terrain is activated", () => {

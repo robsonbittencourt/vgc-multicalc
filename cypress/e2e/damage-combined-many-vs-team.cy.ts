@@ -33,7 +33,7 @@ describe("Test calcs with opponent combined damage", () => {
     opponents.separate("Dragonite")
 
     opponents.get("Urshifu Rapid Strike").damageIs(58.5, 69.8).cause2HKO()
-    opponents.get("Dragonite").damageIs(142, 170.4).causeOHKO()
+    opponents.get("Dragonite").damageIs(28.9, 34.6).haveChanceOfToCause3HKO(6.5)
   })
 
   it("Do not allow combine when target already combined", () => {

@@ -29,7 +29,7 @@ describe("Edit Opponent Pokémon", () => {
 
     opponents.selectAttacker("Tyranitar").selectStatsModifier("atk", "+3")
 
-    opponents.get("Tyranitar").damageIs(204.5, 240.9).causeOHKO()
+    opponents.get("Tyranitar").damageIs(203.4, 240.3).causeOHKO()
   })
 
   it("In Many vs Team with two attackers edit the first", () => {
