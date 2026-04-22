@@ -2620,7 +2620,7 @@ export const SETDEX_CHAMPIONS: Record<string, any> = {
       spe: 12
     },
     moves: ["Flamethrower", "Struggle Bug", "Protect", "Quiver Dance"],
-    items: ["Electric Seed", "Sitrus Berry", "Leftovers", "Sitrus Berry"]
+    items: ["Sitrus Berry", "Sitrus Berry", "Leftovers", "Sitrus Berry"]
   },
   Chesnaught: {
     ability: "Bulletproof",
@@ -2635,7 +2635,7 @@ export const SETDEX_CHAMPIONS: Record<string, any> = {
       spe: 60
     },
     moves: ["Body Press", "Wide Guard", "Spiky Shield", "Leech Seed"],
-    items: ["Electric Seed", "Leftovers"]
+    items: ["Sitrus Berry", "Leftovers"]
   },
   "Chesnaught-Mega": {
     ability: "Bulletproof",
@@ -3385,7 +3385,7 @@ export const SETDEX_CHAMPIONS: Record<string, any> = {
       spe: 0
     },
     moves: ["Liquidation", "Infestation", "Wide Guard", "Protect"],
-    items: ["Sitrus Berry", "Mystic Water", "Electric Seed", "Leftovers"]
+    items: ["Sitrus Berry", "Mystic Water", "Sitrus Berry", "Leftovers"]
   },
   Salazzle: {
     ability: "Corrosion",
@@ -3745,7 +3745,7 @@ export const SETDEX_CHAMPIONS: Record<string, any> = {
       spe: 116
     },
     moves: ["Close Combat", "Dire Claw", "Throat Chop", "Fake Out"],
-    items: ["Electric Seed", "Focus Sash"]
+    items: ["Sitrus Berry", "Focus Sash"]
   },
   Meowscarada: {
     ability: "Protean",
@@ -3910,7 +3910,7 @@ export const SETDEX_CHAMPIONS: Record<string, any> = {
       spe: 140
     },
     moves: ["Psychic", "Stored Power", "Protect", "Calm Mind"],
-    items: ["Grassy Seed", "Sitrus Berry"]
+    items: ["Sitrus Berry", "Sitrus Berry"]
   },
   Tinkaton: {
     ability: "Mold Breaker",
@@ -4015,7 +4015,7 @@ export const SETDEX_CHAMPIONS: Record<string, any> = {
       spe: 0
     },
     moves: ["Foul Play", "Psychic", "Trick Room", "Helping Hand"],
-    items: ["Electric Seed", "Sitrus Berry", "Sitrus Berry"]
+    items: ["Sitrus Berry", "Sitrus Berry", "Sitrus Berry"]
   },
   Kingambit: {
     ability: "Defiant",

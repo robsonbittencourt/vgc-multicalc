@@ -3,6 +3,7 @@ import { TestBed } from "@angular/core/testing"
 import { CALC_ADJUSTERS, CalcAdjuster } from "@lib/damage-calculator/calc-adjuster/calc-adjuster"
 import { SPECIFIC_DAMAGE_CALCULATORS, SpecificDamageCalculator } from "@lib/damage-calculator/specific-damage-calculator/specific-damage-calculator"
 import { DamageCalculatorService } from "@lib/damage-calculator/damage-calculator.service"
+import { CalculatorStore } from "@data/store/calculator-store"
 import { Field, FieldSide } from "@lib/model/field"
 import { Move } from "@lib/model/move"
 import { MoveSet } from "@lib/model/moveset"
@@ -19,7 +20,14 @@ describe("SurvivalChecker", () => {
     specificCalculatorSpy = jasmine.createSpyObj("SpecificCalculator", ["isApplicable", "calculate"])
 
     TestBed.configureTestingModule({
-      providers: [SurvivalChecker, DamageCalculatorService, { provide: CALC_ADJUSTERS, useValue: adjusterSpy, multi: true }, { provide: SPECIFIC_DAMAGE_CALCULATORS, useValue: specificCalculatorSpy, multi: true }, provideZonelessChangeDetection()]
+      providers: [
+        SurvivalChecker,
+        DamageCalculatorService,
+        { provide: CALC_ADJUSTERS, useValue: adjusterSpy, multi: true },
+        { provide: SPECIFIC_DAMAGE_CALCULATORS, useValue: specificCalculatorSpy, multi: true },
+        { provide: CalculatorStore, useValue: { useSpsMode: () => false, isChampions: () => false } },
+        provideZonelessChangeDetection()
+      ]
     })
 
     service = TestBed.inject(SurvivalChecker)

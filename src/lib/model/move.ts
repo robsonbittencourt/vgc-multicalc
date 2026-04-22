@@ -15,7 +15,7 @@ export class Move {
   readonly category: Category
 
   constructor(name: string, options: { alliesFainted?: string; hits?: string; game?: string } = {}) {
-    const gen = options.game === "champions" ? Generations.get(10) : Generations.get(9)
+    const gen = options.game === "champions" ? Generations.get(0) : Generations.get(9)
     const smogonMove = new MoveSmogon(gen, name)
 
     this.name = name

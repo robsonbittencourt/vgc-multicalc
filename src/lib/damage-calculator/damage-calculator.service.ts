@@ -53,7 +53,7 @@ export class DamageCalculatorService {
   }
 
   private get gen() {
-    return Generations.get(this.calculatorStore.isChampions() ? 10 : 9)
+    return Generations.get(this.calculatorStore.isChampions() ? 0 : 9)
   }
 
   calcDamageForTwoAttackers(attacker: Pokemon, secondAttacker: Pokemon, target: Pokemon, field: Field, rightIsDefender = true): DamageResult {

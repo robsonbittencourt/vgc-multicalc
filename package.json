@@ -27,7 +27,7 @@
     "@angular/platform-browser-dynamic": "21.2.9",
     "@angular/router": "21.2.9",
     "@ngrx/signals": "21.1.0",
-    "@robsonbittencourt/calc": "0.11.3",
+    "@robsonbittencourt/calc": "0.11.4",
     "axios": "1.15.1",
     "dedent": "1.7.2",
     "koffing": "1.0.0",
