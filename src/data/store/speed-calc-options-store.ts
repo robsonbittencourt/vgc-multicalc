@@ -86,7 +86,8 @@ export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }
   })
 
   readonly pokemonNamesByReg = computed(() => {
-    return pokemonByRegulation(this.regulation() as Regulation, undefined, this.calculatorStore.activeSetdex())
+    const includeAll = this.topUsage() === "All"
+    return pokemonByRegulation(this.regulation() as Regulation, undefined, this.calculatorStore.activeSetdex(), includeAll)
       .map(s => s.name)
       .sort()
   })
