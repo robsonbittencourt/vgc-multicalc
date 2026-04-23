@@ -81,7 +81,8 @@ const abilityPreserveMap: Record<string, (keyof FieldState)[]> = {
   "Sword of Ruin": ["automaticSwordOfRuinActivated"],
   "Tablets of Ruin": ["automaticTabletsOfRuinActivated"],
   "Vessel of Ruin": ["automaticVesselOfRuinActivated"],
-  "Neutralizing Gas": ["automaticNeutralizingGasActivated"]
+  "Neutralizing Gas": ["automaticNeutralizingGasActivated"],
+  "Fairy Aura": ["automaticFairyAuraActivated"]
 }
 
 const abilityActions: Record<string, (store: FieldStore) => void> = {
@@ -99,5 +100,6 @@ const abilityActions: Record<string, (store: FieldStore) => void> = {
   "Sword of Ruin": store => store.toggleAutomaticSwordOfRuin(),
   "Tablets of Ruin": store => store.toggleAutomaticTabletsOfRuin(),
   "Vessel of Ruin": store => store.toggleAutomaticVesselOfRuin(),
-  "Neutralizing Gas": store => store.toggleAutomaticNeutralizingGas()
+  "Neutralizing Gas": store => store.toggleAutomaticNeutralizingGas(),
+  "Fairy Aura": store => store.toggleAutomaticFairyAura()
 }

@@ -45,7 +45,7 @@
           <mat-button-toggle [checked]="fieldStore.attackerSide().isCriticalHit" (change)="fieldStore.toggleAttackerCriticalHit()" data-cy="critical-hit-attacker">Critical Hit</mat-button-toggle>
         </mat-button-toggle-group>
 
-        @if (showNonChampionsOptions()) {
+        @if (!isChampions()) {
           <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
             <mat-button-toggle [checked]="fieldStore.attackerSide().isBattery" (change)="fieldStore.toggleAttackerBattery()" data-cy="battery-attacker">Battery</mat-button-toggle>
             <mat-button-toggle [checked]="fieldStore.attackerSide().isPowerSpot" (change)="fieldStore.toggleAttackerPowerSpot()" data-cy="power-spot-attacker">Power Spot</mat-button-toggle>
@@ -61,7 +61,7 @@
       <div class="field-subtitle">
         <label>Both</label>
       </div>
-      @if (!onlySpeed() && showNonChampionsOptions()) {
+      @if (!onlySpeed() && !isChampions()) {
         <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">
           <mat-button-toggle [checked]="fieldStore.tabletsOfRuinActivated()" (change)="fieldStore.toggleTabletsOfRuin()" data-cy="tablets-of-ruin">Tablets of Ruin (-atk)</mat-button-toggle>
           <mat-button-toggle [checked]="fieldStore.swordOfRuinActivated()" (change)="fieldStore.toggleSwordOfRuin()" data-cy="sword-of-ruin">Sword of Ruin (-def)</mat-button-toggle>
@@ -105,9 +105,14 @@
         </mat-button-toggle-group>
       </div>
 
-      @if (showNonChampionsOptions()) {
+      @if (!isChampions()) {
         <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">
           <mat-button-toggle [checked]="fieldStore.neutralizingGasActivated()" (change)="fieldStore.toggleNeutralizingGas()" data-cy="neutralizing-gas">Neutralizing Gas</mat-button-toggle>
+        </mat-button-toggle-group>
+      }
+      @if (isChampions() && !onlySpeed()) {
+        <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">
+          <mat-button-toggle [checked]="fieldStore.fairyAuraActivated()" (change)="fieldStore.toggleFairyAura()" data-cy="fairy-aura">Fairy Aura</mat-button-toggle>
         </mat-button-toggle-group>
       }
     </div>
@@ -153,7 +158,7 @@
           <mat-button-toggle [checked]="fieldStore.defenderSide().isCriticalHit" (change)="fieldStore.toggleDefenderCriticalHit()" data-cy="critical-hit-defender">Critical Hit</mat-button-toggle>
         </mat-button-toggle-group>
 
-        @if (showNonChampionsOptions()) {
+        @if (!isChampions()) {
           <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
             <mat-button-toggle [checked]="fieldStore.defenderSide().isBattery" (change)="fieldStore.toggleDefenderBattery()" data-cy="battery-defender">Battery</mat-button-toggle>
             <mat-button-toggle [checked]="fieldStore.defenderSide().isPowerSpot" (change)="fieldStore.toggleDefenderPowerSpot()" data-cy="power-spot-defender">Power Spot</mat-button-toggle>

@@ -1,6 +1,7 @@
 import { poke } from "@cy-support/e2e"
 import { DamageResult } from "@page-object/damage-result"
 import { Field } from "@page-object/field"
+import { Header } from "@page-object/header"
 import { Opponent } from "@page-object/opponent"
 import { PokemonBuild } from "@page-object/pokemon-build"
 import { Team } from "@page-object/team"
@@ -14,6 +15,7 @@ const rightPokemonBuild = new PokemonBuild("right-pokemon")
 const team = new Team()
 const field = new Field()
 const opponents = new Opponent()
+const header = new Header()
 
 describe("Test the Field options on options with One vs One", () => {
   beforeEach(() => {
@@ -153,6 +155,17 @@ describe("Test the Field options on options with One vs One", () => {
 
       leftDamageResult.damageIs(0, 144.7, 170.8, 343, 405)
       rightDamageResult.damageIs(0, 16, 18.7, 29, 34)
+    })
+
+    it("With Fairy Aura active", () => {
+      header.selectChampions()
+
+      leftPokemonBuild.importPokemon(poke["hatterene"]).selectAttackTwo()
+      rightPokemonBuild.importPokemon(poke["dragonite"])
+
+      field.fairyAura()
+
+      leftDamageResult.damageIs(1, 51.7, 60.9, 102, 120)
     })
 
     it("With Sun active", () => {

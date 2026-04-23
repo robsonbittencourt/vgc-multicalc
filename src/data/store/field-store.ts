@@ -21,6 +21,7 @@ export type FieldState = {
   isGravity: boolean
   isTrickRoom: boolean
   isNeutralizingGas: boolean
+  isFairyAura: boolean
   attackerSide: FieldSide
   defenderSide: FieldSide
   automaticWeather: Weather
@@ -30,6 +31,7 @@ export type FieldState = {
   automaticTabletsOfRuinActivated: boolean
   automaticVesselOfRuinActivated: boolean
   automaticNeutralizingGasActivated: boolean
+  automaticFairyAuraActivated: boolean
 }
 
 @Injectable()
@@ -66,6 +68,7 @@ export class FieldStore extends signalStore(
             isGravity: store.isGravity(),
             isTrickRoom: store.isTrickRoom(),
             isNeutralizingGas: store.isNeutralizingGas(),
+            isFairyAura: store.isFairyAura(),
             attackerSide: store.attackerSide(),
             defenderSide: store.defenderSide()
           }
@@ -101,30 +104,12 @@ export class FieldStore extends signalStore(
     effect(() => {
       const game = this.calculatorStore.game()
 
-      if (game !== "champions") return
+      if (game === "champions") return
 
       const updates: Partial<FieldState> = {}
 
-      if (this.isNeutralizingGas()) {
-        updates.isNeutralizingGas = false
-      }
-
-      const attackerSide = this.attackerSide()
-      const defenderSide = this.defenderSide()
-
-      if (attackerSide.isBattery || attackerSide.isPowerSpot) {
-        updates.attackerSide = { ...attackerSide, isBattery: false, isPowerSpot: false }
-      }
-
-      if (defenderSide.isBattery || defenderSide.isPowerSpot) {
-        updates.defenderSide = { ...defenderSide, isBattery: false, isPowerSpot: false }
-      }
-
-      if (this.isTabletsOfRuin() || this.isSwordOfRuin() || this.isVesselOfRuin() || this.isBeadsOfRuin()) {
-        updates.isTabletsOfRuin = false
-        updates.isSwordOfRuin = false
-        updates.isVesselOfRuin = false
-        updates.isBeadsOfRuin = false
+      if (this.isFairyAura()) {
+        updates.isFairyAura = false
       }
 
       if (Object.keys(updates).length > 0) {
@@ -147,6 +132,7 @@ export class FieldStore extends signalStore(
         isGravity: this.isGravity(),
         isTrickRoom: this.isTrickRoom(),
         isNeutralizingGas: this.neutralizingGasActivated(),
+        isFairyAura: this.fairyAuraActivated(),
         attackerSide: this.attackerSide(),
         defenderSide: this.defenderSide()
       })
@@ -169,6 +155,8 @@ export class FieldStore extends signalStore(
 
   readonly neutralizingGasActivated = computed(() => this.automaticNeutralizingGasActivated() || this.isNeutralizingGas())
 
+  readonly fairyAuraActivated = computed(() => this.automaticFairyAuraActivated() || this.isFairyAura())
+
   updateStateLockingLocalStorage(field: Field) {
     patchState(this, { ...field, updateLocalStorage: false })
   }
@@ -181,7 +169,8 @@ export class FieldStore extends signalStore(
       automaticSwordOfRuinActivated: except.includes("automaticSwordOfRuinActivated") ? state.automaticSwordOfRuinActivated : false,
       automaticTabletsOfRuinActivated: except.includes("automaticTabletsOfRuinActivated") ? state.automaticTabletsOfRuinActivated : false,
       automaticVesselOfRuinActivated: except.includes("automaticVesselOfRuinActivated") ? state.automaticVesselOfRuinActivated : false,
-      automaticNeutralizingGasActivated: except.includes("automaticNeutralizingGasActivated") ? state.automaticNeutralizingGasActivated : false
+      automaticNeutralizingGasActivated: except.includes("automaticNeutralizingGasActivated") ? state.automaticNeutralizingGasActivated : false,
+      automaticFairyAuraActivated: except.includes("automaticFairyAuraActivated") ? state.automaticFairyAuraActivated : false
     }))
   }
 
@@ -393,6 +382,10 @@ export class FieldStore extends signalStore(
     patchState(this, _state => ({ automaticNeutralizingGasActivated: true }))
   }
 
+  toggleAutomaticFairyAura() {
+    patchState(this, _state => ({ automaticFairyAuraActivated: true }))
+  }
+
   toggleAttackerGameType() {
     patchState(this, state => ({ attackerSide: { ...state.attackerSide, gameType: state.attackerSide.gameType == "Doubles" ? "Singles" : ("Doubles" as GameType) } }))
   }
@@ -511,5 +504,17 @@ export class FieldStore extends signalStore(
 
   toggleDefenderStealthRock() {
     patchState(this, state => ({ defenderSide: { ...state.defenderSide, isSR: !state.defenderSide.isSR } }))
+  }
+
+  toggleFairyAura() {
+    if (this.automaticFairyAuraActivated()) {
+      patchState(this, _state => ({ automaticFairyAuraActivated: false }))
+
+      if (this.isFairyAura()) {
+        patchState(this, state => ({ isFairyAura: !state.isFairyAura }))
+      }
+    } else {
+      patchState(this, state => ({ isFairyAura: !state.isFairyAura }))
+    }
   }
 }

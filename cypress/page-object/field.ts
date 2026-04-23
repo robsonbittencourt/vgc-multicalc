@@ -187,6 +187,10 @@ export class Field {
     this.clickOnButton("neutralizing-gas")
   }
 
+  fairyAura() {
+    this.clickOnButton("fairy-aura")
+  }
+
   isActiveOption(selector: string) {
     cy.get(`[data-cy=${selector}]`).should("have.class", "mat-button-toggle-checked")
   }

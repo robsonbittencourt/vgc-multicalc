@@ -73,6 +73,7 @@ const pokeNames = [
   "porygon2",
   "basculegion",
   "annihilape",
+  "floette-mega",
   "ting-lu",
   "ting-lu-speed",
   "zacian",

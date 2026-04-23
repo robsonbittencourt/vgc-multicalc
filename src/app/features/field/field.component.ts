@@ -17,5 +17,5 @@ export class FieldComponent {
   store = inject(CalculatorStore)
   fieldStore = inject(FieldStore)
 
-  showNonChampionsOptions = computed(() => this.store.game() !== "champions")
+  isChampions = computed(() => this.store.game() === "champions")
 }

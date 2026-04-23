@@ -1,5 +1,6 @@
 import { poke } from "@cy-support/e2e"
 import { Field } from "@page-object/field"
+import { Header } from "@page-object/header"
 import { PokemonBuild } from "@page-object/pokemon-build"
 import { Team } from "@page-object/team"
 
@@ -7,6 +8,7 @@ const leftPokemonBuild = new PokemonBuild("left-pokemon")
 const rightPokemonBuild = new PokemonBuild("right-pokemon")
 const field = new Field()
 const team = new Team()
+const header = new Header()
 
 describe("Automatic field option by abilities", () => {
   it("Should activate Rain when Drizzle is selected", () => {
@@ -462,6 +464,14 @@ describe("Interactions between automatic field and user selection", () => {
     leftPokemonBuild.importPokemon(poke["dragonite"])
 
     field.isActiveOption("neutralizing-gas")
+  })
+
+  it("Should activate Fairy Aura when Floette-Mega is selected", () => {
+    header.selectChampions()
+
+    leftPokemonBuild.importPokemon(poke["floette-mega"])
+
+    field.isActiveOption("fairy-aura")
   })
 
   it("Should select the change of rigth Pokémon when two Pokémon activate different weathers", () => {

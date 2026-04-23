@@ -16,6 +16,7 @@ export class FieldMapper {
     smogonField.isMagicRoom = field.isMagicRoom
     smogonField.isWonderRoom = field.isWonderRoom
     smogonField.isGravity = field.isGravity
+    smogonField.isFairyAura = field.isFairyAura
 
     if (rightIsDefender) {
       smogonField.gameType = field.attackerSide.gameType

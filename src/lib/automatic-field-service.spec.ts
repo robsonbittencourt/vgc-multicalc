@@ -27,6 +27,7 @@ class MockFieldStore {
   toggleAutomaticVesselOfRuin = jasmine.createSpy("toggleAutomaticVesselOfRuin")
 
   toggleAutomaticNeutralizingGas = jasmine.createSpy("toggleAutomaticNeutralizingGas")
+  toggleAutomaticFairyAura = jasmine.createSpy("toggleAutomaticFairyAura")
 }
 
 describe("AutomaticFieldService", () => {
@@ -174,6 +175,15 @@ describe("AutomaticFieldService", () => {
 
     expect(store.cleanAutomaticOptions).toHaveBeenCalledWith(["automaticNeutralizingGasActivated"])
     expect(store.toggleAutomaticNeutralizingGas).toHaveBeenCalled()
+  })
+
+  it("should activate Fairy Aura and preserve automaticFairyAuraActivated", () => {
+    const pokemon = new Pokemon("Floette-Mega", { ability: new Ability("Fairy Aura") })
+
+    service.checkAutomaticField(pokemon)
+
+    expect(store.cleanAutomaticOptions).toHaveBeenCalledWith(["automaticFairyAuraActivated"])
+    expect(store.toggleAutomaticFairyAura).toHaveBeenCalled()
   })
 
   it("should not activate ability if Neutralizing Gas is active", () => {

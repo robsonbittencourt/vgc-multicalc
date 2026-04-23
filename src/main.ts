@@ -4,6 +4,7 @@ import { provideAnimations } from "@angular/platform-browser/animations"
 import { AppRoutingModule } from "@app/app-routing.module"
 import { AppComponent } from "@app/app.component"
 import { CALC_ADJUSTERS } from "@lib/damage-calculator/calc-adjuster/calc-adjuster"
+import { FairyAuraAdjuster } from "@lib/damage-calculator/calc-adjuster/fairy-aura-adjuster"
 import { LastRespectsAdjuster } from "@lib/damage-calculator/calc-adjuster/last-respects-adjuster"
 import { NeutralizingGasAdjuster } from "@lib/damage-calculator/calc-adjuster/neutralizing-gas-adjuster"
 import { OgerponAdjuster } from "@lib/damage-calculator/calc-adjuster/ogerpon-adjuster"
@@ -22,6 +23,7 @@ bootstrapApplication(AppComponent, {
     provideAnimations(),
     provideZonelessChangeDetection(),
     { provide: CALC_ADJUSTERS, useClass: RuinsAbilityAdjuster, multi: true },
+    { provide: CALC_ADJUSTERS, useClass: FairyAuraAdjuster, multi: true },
     { provide: CALC_ADJUSTERS, useClass: LastRespectsAdjuster, multi: true },
     { provide: CALC_ADJUSTERS, useClass: RageFistAdjuster, multi: true },
     { provide: CALC_ADJUSTERS, useClass: ZacianZamazentaAdjuster, multi: true },

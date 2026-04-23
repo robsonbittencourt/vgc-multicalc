@@ -36,6 +36,7 @@ export function defaultFieldState(): FieldState {
     isGravity: false,
     isTrickRoom: false,
     isNeutralizingGas: false,
+    isFairyAura: false,
     attackerSide: new FieldSide(),
     defenderSide: new FieldSide(),
     automaticWeather: null,
@@ -44,6 +45,7 @@ export function defaultFieldState(): FieldState {
     automaticSwordOfRuinActivated: false,
     automaticTabletsOfRuinActivated: false,
     automaticVesselOfRuinActivated: false,
-    automaticNeutralizingGasActivated: false
+    automaticNeutralizingGasActivated: false,
+    automaticFairyAuraActivated: false
   }
 }

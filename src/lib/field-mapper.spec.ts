@@ -26,7 +26,8 @@ describe("FieldMapper", () => {
         isMagicRoom: false,
         isWonderRoom: true,
         isGravity: false,
-        isTrickRoom: true
+        isTrickRoom: true,
+        isFairyAura: false
       })
 
       const smogonField = mapper.toSmogon(field)
@@ -41,6 +42,7 @@ describe("FieldMapper", () => {
       expect(smogonField.isMagicRoom).toEqual(false)
       expect(smogonField.isWonderRoom).toEqual(true)
       expect(smogonField.isGravity).toEqual(false)
+      expect(smogonField.isFairyAura).toEqual(false)
     })
 
     it("should mapping Field to Smogon Field with another configs turned on", () => {
@@ -54,7 +56,8 @@ describe("FieldMapper", () => {
         isMagicRoom: true,
         isWonderRoom: false,
         isGravity: true,
-        isTrickRoom: false
+        isTrickRoom: false,
+        isFairyAura: true
       })
 
       const smogonField = mapper.toSmogon(field)
@@ -68,6 +71,7 @@ describe("FieldMapper", () => {
       expect(smogonField.isMagicRoom).toEqual(true)
       expect(smogonField.isWonderRoom).toEqual(false)
       expect(smogonField.isGravity).toEqual(true)
+      expect(smogonField.isFairyAura).toEqual(true)
     })
 
     it("should mapping Field Attacker Side to Smogon Attacker Side when rightIsDefender is true", () => {

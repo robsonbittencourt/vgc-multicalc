@@ -1132,7 +1132,7 @@ export const ABILITY_DETAILS: Record<string, AbilityDetail> = {
   },
   fairyaura: {
     name: "Fairy Aura",
-    description: "Fairy-type moves used by this Pokemon and its allies have 1.33x power."
+    description: "All Pokemon's Fairy-type moves have 1.33x power."
   },
   innardsout: {
     name: "Innards Out",
