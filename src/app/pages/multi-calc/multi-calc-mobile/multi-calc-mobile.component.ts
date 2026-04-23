@@ -69,6 +69,7 @@ export class MultiCalcMobileComponent {
   fieldStore = inject(FieldStore)
 
   private damageCalculator = inject(DamageMultiCalcService)
+  private automaticFieldService = inject(AutomaticFieldService)
   private defensiveEvOptimizer = inject(DefensiveEvOptimizerService)
   private exportPokeService = inject(ExportPokeService)
   private dialog = inject(MatDialog)
@@ -97,6 +98,24 @@ export class MultiCalcMobileComponent {
       this.pokemonOnEditId.set(null)
     })
 
+    effect(() => {
+      const attacker = this.activeAttacker()
+      const secondAttacker = this.secondAttacker()
+
+      const firstPokemonChanged = this.lastHandledPokemonNameFirst != attacker?.name || this.lastHandledAbilityNameFirst != attacker?.ability.name
+      const secondPokemonChanged = this.lastHandledPokemonNameSecond != secondAttacker?.name || this.lastHandledAbilityNameSecond != secondAttacker?.ability.name
+
+      if (attacker && (firstPokemonChanged || secondPokemonChanged)) {
+        this.lastHandledPokemonNameFirst = attacker.name
+        this.lastHandledAbilityNameFirst = attacker.ability.name
+
+        this.lastHandledPokemonNameSecond = secondAttacker?.name
+        this.lastHandledAbilityNameSecond = secondAttacker?.ability.name
+
+        this.automaticFieldService.checkAutomaticField(attacker, firstPokemonChanged, secondAttacker, secondPokemonChanged)
+      }
+    })
+
     if (this.menuStore.manyVsOneActivated()) {
       this.store.targets().forEach((target: Target) => {
         if (!target.pokemon.isDefault && !target.secondPokemon) {
@@ -115,6 +134,11 @@ export class MultiCalcMobileComponent {
   private scrollPositions = new Map<string, number>()
   private lastScrollTop = 0
   pokemonOnEditId = signal<string | null>(null)
+
+  lastHandledPokemonNameFirst = ""
+  lastHandledAbilityNameFirst = ""
+  lastHandledPokemonNameSecond: string | undefined = undefined
+  lastHandledAbilityNameSecond: string | undefined = undefined
   expandedDefenderIds = signal<Set<string>>(new Set())
 
   effectiveEditingId = computed(() => this.pokemonOnEditId() || this.activePokemonId())
