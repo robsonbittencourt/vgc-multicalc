@@ -88,6 +88,8 @@ export class MultiCalcMobileComponent {
       this.menuStore.oneVsManyActivated()
       this.menuStore.manyVsOneActivated()
 
+      this.activeBottomTab.set("results")
+
       if (this.scrollContainer) {
         this.scrollContainer.nativeElement.scrollTo({ top: 0, behavior: "instant" })
       }
