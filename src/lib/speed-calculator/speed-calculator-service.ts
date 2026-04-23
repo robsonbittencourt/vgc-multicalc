@@ -83,7 +83,7 @@ export class SpeedCalculatorService {
 
     const quantity = options.targetName.length > 0 ? undefined : options.topUsage
     const includeAllPokemon = options._topUsage === "All"
-    const pokemon = pokemonByRegulation(options.regulation, quantity, this.setdex, includeAllPokemon)
+    const pokemon = pokemonByRegulation(options.regulation, quantity, this.setdex, includeAllPokemon, this.store.isChampions())
 
     pokemon.forEach(p => {
       const pokemon = this.adjustPokemonByOptions(p, options)

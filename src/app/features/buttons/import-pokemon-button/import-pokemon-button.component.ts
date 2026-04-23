@@ -52,7 +52,7 @@ export class ImportPokemonButtonComponent {
         const allZero = Object.values(p.evs).every(ev => ev === 0)
 
         if (allZero) {
-          const pokeMetaData = toPokemon(p.name)
+          const pokeMetaData = toPokemon(p.name, this.store.activeSetdex(), this.store.isChampions())
           return p.clone({ nature: pokeMetaData.nature, evs: pokeMetaData.evs })
         }
 

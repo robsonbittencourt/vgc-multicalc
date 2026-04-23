@@ -17,7 +17,8 @@ describe("Speed Calc Options Store", () => {
           provide: CalculatorStore,
           useValue: {
             game: signal("sv"),
-            activeSetdex: signal(SETDEX_SV)
+            activeSetdex: signal(SETDEX_SV),
+            isChampions: signal(false)
           }
         }
       ]

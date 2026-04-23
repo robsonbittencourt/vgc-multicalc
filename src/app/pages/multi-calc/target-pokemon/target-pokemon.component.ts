@@ -92,7 +92,7 @@ export class TargetPokemonComponent {
   }
 
   readonly pokemonNamesByReg = computed(() =>
-    pokemonByRegulation(this.regulation() as Regulation, undefined, this.store.game() === "champions" ? SETDEX_CHAMPIONS : SETDEX_SV)
+    pokemonByRegulation(this.regulation() as Regulation, undefined, this.store.game() === "champions" ? SETDEX_CHAMPIONS : SETDEX_SV, false, this.store.isChampions())
       .map(s => s.name)
       .sort()
   )
@@ -111,7 +111,7 @@ export class TargetPokemonComponent {
       this.snackBar.open("Pokémon removed")
     } else {
       this.store.updateTargetMetaRegulation(this.regulation())
-      const metaPokemon = pokemonByRegulation(this.regulation(), 50, this.setdex)
+      const metaPokemon = pokemonByRegulation(this.regulation(), 50, this.setdex, false, this.store.isChampions())
       this.pokemonImported(metaPokemon)
     }
   }
@@ -250,7 +250,7 @@ export class TargetPokemonComponent {
   }
 
   private targetsExcludingMetaData(): Target[] {
-    const metaLeft = pokemonByRegulation(this.store.targetMetaRegulation()!, undefined, this.setdex)
+    const metaLeft = pokemonByRegulation(this.store.targetMetaRegulation()!, undefined, this.setdex, false, this.store.isChampions())
 
     const newTargets = [...this.targets()]
       .reverse()

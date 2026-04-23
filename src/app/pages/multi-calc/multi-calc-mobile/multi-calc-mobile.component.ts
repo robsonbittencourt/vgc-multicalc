@@ -206,7 +206,7 @@ export class MultiCalcMobileComponent {
     } else {
       this.store.updateTargetMetaRegulation("I")
       const setdex = this.store.game() === "champions" ? SETDEX_CHAMPIONS : SETDEX_SV
-      const metaPokemon = pokemonByRegulation("I", 33, setdex)
+      const metaPokemon = pokemonByRegulation("I", 33, setdex, false, this.store.isChampions())
       this.onTargetsImported(metaPokemon)
     }
   }
@@ -255,7 +255,7 @@ export class MultiCalcMobileComponent {
 
   private targetsExcludingMetaData(): Target[] {
     const setdex = this.store.game() === "champions" ? SETDEX_CHAMPIONS : SETDEX_SV
-    const metaLeft = pokemonByRegulation(this.store.targetMetaRegulation()!, 33, setdex)
+    const metaLeft = pokemonByRegulation(this.store.targetMetaRegulation()!, 33, setdex, false, this.store.isChampions())
 
     const newTargets = [...this.store.targets()]
       .reverse()
