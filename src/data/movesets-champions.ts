@@ -2759,7 +2759,7 @@ export const SETDEX_CHAMPIONS: Record<string, any> = {
     moves: ["Sleep Powder", "Hurricane", "Rage Powder", "Protect"],
     items: ["Focus Sash"]
   },
-  Floette: {
+  "Floette-Eternal": {
     ability: "Flower Veil",
     nature: "Calm",
     teraType: "",

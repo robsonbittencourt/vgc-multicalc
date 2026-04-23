@@ -9973,8 +9973,8 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     metaMoves: [],
     group: "Regular"
   },
-  floette: {
-    name: "Floette",
+  "floette-eternal": {
+    name: "Floette-Eternal",
     abilities: ["flowerveil", "symbiosis"],
     learnset: [
       "alluringvoice",

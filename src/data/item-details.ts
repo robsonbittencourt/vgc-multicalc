@@ -1297,7 +1297,7 @@ export const ITEM_DETAILS: Record<string, ItemDetail> = {
   floettite: {
     group: "Pokémon specific items",
     name: "Floettite",
-    description: "If held by a Floette, this item allows it to Mega Evolve in battle.",
+    description: "If held by a Floette-Eternal, this item allows it to Mega Evolve in battle.",
     sprite: "floettite",
     isMegaStone: true
   },

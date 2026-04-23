@@ -57,6 +57,11 @@ export class PokePasteParserService {
       const onlyName = pokemonName.substring(0, pokemonName.indexOf("-"))
 
       if (this.pokemonWithAlternativeForm().includes(onlyName)) {
+        const setdex = this.store.activeSetdex()
+        const fullNameExists = setdex[pokemonName]
+        if (fullNameExists) {
+          return pokemonName
+        }
         return onlyName
       }
     }

@@ -2,6 +2,7 @@ import { CalculatorState } from "@data/store/calculator-store"
 import { pokemonToState } from "@data/store/utils/state-mapper"
 import { buildState } from "@data/store/utils/user-data-mapper"
 import { readGameData, readUserData } from "@data/store/utils/user-data-storage"
+import { fixInvalidPokemon } from "@data/store/utils/migrate-user-data"
 import { defaultPokemon } from "@lib/default-pokemon"
 import { Status } from "@lib/model/status"
 import { v4 as uuidv4 } from "uuid"
@@ -9,6 +10,7 @@ import { v4 as uuidv4 } from "uuid"
 const initialId = "0dc51a43-1de8-4213-9686-fb07f2507b06"
 
 export function initialCalculatorState(): CalculatorState {
+  fixInvalidPokemon()
   const game = readUserData()?.game ?? "champions"
   const gameData = readGameData(game)
   const defaults = game === "champions" ? defaultStateChampions() : defaultStateSV()

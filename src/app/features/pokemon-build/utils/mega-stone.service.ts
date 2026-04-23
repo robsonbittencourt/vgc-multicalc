@@ -1,6 +1,6 @@
 import { inject, Injectable } from "@angular/core"
 import { ITEM_DETAILS } from "@data/item-details"
-import { getBasePokemonNameFromItem } from "@features/pokemon-build/utils/mega-stone-mapping"
+import { getBasePokemonNameFromItem, MEGA_FORM_MAPPING, MEGA_FORM_REVERSE_MAPPING } from "@features/pokemon-build/utils/mega-stone-mapping"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { Pokemon } from "@lib/model/pokemon"
 
@@ -24,18 +24,20 @@ export class MegaStoneService {
 
     if (!itemBaseName) return false
 
-    const currentBaseName = pokemonName.replace(/-Mega-[A-Z]?$/, "").replace(/-Mega$/, "")
-    const baseNameMatches = currentBaseName === itemBaseName || currentBaseName.startsWith(itemBaseName + "-")
+    const reverseMappedName = MEGA_FORM_REVERSE_MAPPING[pokemonName] || pokemonName
+    const baseFormName = reverseMappedName.replace(/-Mega-[A-Z]?$/, "").replace(/-Mega$/, "")
+    const baseNameMatches = baseFormName === itemBaseName || baseFormName.startsWith(itemBaseName + "-")
 
     if (!baseNameMatches) return false
 
     const megaStoneLetter = this.extractMegaStoneLetter(item)
+    const expectedMegaForm = MEGA_FORM_MAPPING[itemBaseName] ?? (megaStoneLetter ? `${baseFormName}-Mega-${megaStoneLetter}` : `${baseFormName}-Mega`)
 
     if (megaStoneLetter) {
-      return pokemonName === currentBaseName || pokemonName === `${currentBaseName}-Mega-${megaStoneLetter}`
+      return pokemonName === baseFormName || pokemonName === expectedMegaForm
     }
 
-    return pokemonName === currentBaseName || pokemonName === `${currentBaseName}-Mega`
+    return pokemonName === baseFormName || pokemonName === expectedMegaForm
   }
 
   hasMegaForm(pokemonName: string, item: string): boolean {
@@ -51,7 +53,7 @@ export class MegaStoneService {
     const currentAbility = pokemon.ability.name
 
     if (isMega) {
-      const baseName = currentName.replace(/-Mega-[A-Z]$/, "").replace(/-Mega$/, "")
+      const baseName = MEGA_FORM_REVERSE_MAPPING[currentName] || currentName.replace(/-Mega-[A-Z]$/, "").replace(/-Mega$/, "")
       const previousAbility = this.previousAbilityByPokemonId.get(pokemonId)
       this.previousAbilityByPokemonId.delete(pokemonId)
       this.store.name(pokemonId, baseName)
@@ -64,7 +66,7 @@ export class MegaStoneService {
     } else {
       this.previousAbilityByPokemonId.set(pokemonId, currentAbility)
       const megaStoneLetter = this.extractMegaStoneLetter(currentItem)
-      const newName = megaStoneLetter ? currentName + "-Mega-" + megaStoneLetter : currentName + "-Mega"
+      const newName = MEGA_FORM_MAPPING[currentName] ?? (megaStoneLetter ? currentName + "-Mega-" + megaStoneLetter : currentName + "-Mega")
 
       this.store.name(pokemonId, newName)
       this.setAbilityForMegaForm(pokemonId, newName)
