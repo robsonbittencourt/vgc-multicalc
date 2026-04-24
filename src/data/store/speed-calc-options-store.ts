@@ -22,7 +22,7 @@ const initialState: SpeedCalcOptionsState = {
   topUsage: "60",
   regulation: "I",
   targetName: "",
-  mode: SpeedCalculatorMode.Base,
+  mode: SpeedCalculatorMode.Stats,
   speedModifier: 0,
   speedDropActive: false,
   paralyzedActive: false,
