@@ -782,6 +782,37 @@ describe("PokePasteParserService", () => {
       expect(result[0].name).toBe("Zacian-Crowned")
     })
 
+    it("should accept Aegislash-Shield form from pokepaste", async () => {
+      const mockKoffingResult = {
+        toJson: () =>
+          JSON.stringify({
+            teams: [
+              {
+                pokemon: [
+                  {
+                    name: "Aegislash-Shield",
+                    ability: "Stance Change",
+                    nature: "Quiet",
+                    item: "Leftovers",
+                    teraType: "Steel",
+                    moves: ["Shadow Ball", "Flash Cannon", "Wide Guard", "King's Shield"],
+                    evs: { hp: 32, atk: 0, def: 1, spa: 32, spd: 1, spe: 0 },
+                    ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 }
+                  }
+                ]
+              }
+            ]
+          })
+      }
+
+      koffingParseSpy.and.returnValue(mockKoffingResult)
+
+      const result = await service.parse("poke-paste text")
+
+      expect(result.length).toBe(1)
+      expect(result[0].name).toBe("Aegislash-Shield")
+    })
+
     it("should keep full name for Pokémon without hyphen", async () => {
       const randomMove1 = "Fake Out"
       const randomMove2 = "Knock Off"

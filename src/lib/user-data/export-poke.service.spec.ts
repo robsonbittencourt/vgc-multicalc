@@ -40,6 +40,30 @@ describe("ExportPokeService", () => {
     expect(dialogSpy.open).toHaveBeenCalledWith(TeamExportModalComponent, { data: { title: "Title", content: pasteWithOnePokemon }, width: "40em", position: { top: "2em" }, autoFocus: false, scrollStrategy: jasmine.any(NoopScrollStrategy) })
   })
 
+  it("should export Aegislash forms as Aegislash", () => {
+    const pokemonShield = new Pokemon("Aegislash-Shield", {
+      ability: new Ability("Stance Change"),
+      nature: "Quiet",
+      item: "Leftovers",
+      teraType: "Steel",
+      moveSet: new MoveSet(new Move("Shadow Ball"), new Move("Flash Cannon"), new Move("Wide Guard"), new Move("King's Shield")),
+      evs: { hp: 32, atk: 0, def: 1, spa: 32, spd: 1, spe: 0 }
+    })
+
+    const pokemonBlade = new Pokemon("Aegislash-Blade", {
+      ability: new Ability("Stance Change"),
+      nature: "Quiet",
+      item: "Leftovers",
+      teraType: "Steel",
+      moveSet: new MoveSet(new Move("Shadow Ball"), new Move("Flash Cannon"), new Move("Wide Guard"), new Move("King's Shield")),
+      evs: { hp: 32, atk: 0, def: 1, spa: 32, spd: 1, spe: 0 }
+    })
+
+    service.export("Title", [pokemonShield, pokemonBlade])
+
+    expect(dialogSpy.open).toHaveBeenCalledWith(TeamExportModalComponent, { data: { title: "Title", content: pasteWithAegislashBoth }, width: "40em", position: { top: "2em" }, autoFocus: false, scrollStrategy: jasmine.any(NoopScrollStrategy) })
+  })
+
   it("should export a list of Pokémon", () => {
     const pokemon1 = new Pokemon("Rillaboom", {
       ability: new Ability("Grassy Surge"),
@@ -74,6 +98,30 @@ describe("ExportPokeService", () => {
     expect(dialogSpy.open).toHaveBeenCalledWith(TeamExportModalComponent, { data: { title: "Title", content: pasteWithThreePokemon }, width: "40em", position: { top: "2em" }, autoFocus: false, scrollStrategy: jasmine.any(NoopScrollStrategy) })
   })
 })
+
+const pasteWithAegislashBoth = `Aegislash @ Leftovers
+Ability: Stance Change
+Level: 50
+Tera Type: Steel
+EVs: 32 HP / 1 Def / 32 SpA / 1 SpD
+Quiet Nature
+- Shadow Ball
+- Flash Cannon
+- Wide Guard
+- King's Shield
+
+Aegislash @ Leftovers
+Ability: Stance Change
+Level: 50
+Tera Type: Steel
+EVs: 32 HP / 1 Def / 32 SpA / 1 SpD
+Quiet Nature
+- Shadow Ball
+- Flash Cannon
+- Wide Guard
+- King's Shield
+
+`
 
 const pasteWithOnePokemon = `Rillaboom @ Assault Vest
 Ability: Grassy Surge

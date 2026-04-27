@@ -7,6 +7,7 @@ import { AbilityName, StatusName } from "@robsonbittencourt/calc/dist/data/inter
 import { TypeName } from "@robsonbittencourt/calc/src/data/interface"
 import { StatIDExceptHP } from "@robsonbittencourt/calc/src/data/interface"
 import { higherStat } from "./commom"
+import { normalizePokemonNameForCalc } from "./pokemon-name-normalizer"
 
 export function fromExisting(pokemon: Pokemon, forceMaxIvs = false): SmogonPokemon {
   const MAX_IVS = { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 }
@@ -27,7 +28,8 @@ export function fromExisting(pokemon: Pokemon, forceMaxIvs = false): SmogonPokem
 }
 
 export function fromScratch(pokemonName: string, options: PokemonParameters): SmogonPokemon {
-  const adjustedName = pokemonName == SELECT_POKEMON_LABEL ? "Togepi" : pokemonName
+  let adjustedName = pokemonName == SELECT_POKEMON_LABEL ? "Togepi" : pokemonName
+  adjustedName = normalizePokemonNameForCalc(adjustedName)
 
   const smogonPokemon = new SmogonPokemon(Generations.get(9), adjustedName, {
     nature: options.nature ?? "Hardy",

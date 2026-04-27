@@ -5,6 +5,7 @@ import { TeamExportModalComponent } from "@features/export-modal/export-modal.co
 import { CalculatorStore } from "@data/store/calculator-store"
 import { Pokemon } from "@lib/model/pokemon"
 import { evToSp } from "@lib/utils/ev-sp-converter"
+import { normalizePokemonNameForExport } from "@lib/smogon/pokemon-name-normalizer"
 import dedent from "dedent"
 
 @Injectable({
@@ -45,7 +46,7 @@ export class ExportPokeService {
 
   private parse(pokemon: Pokemon, useSpsMode = false): string {
     let text = dedent`
-      ${pokemon.name} @ ${pokemon.item}
+      ${normalizePokemonNameForExport(pokemon.name)} @ ${pokemon.item}
       Ability: ${pokemon.ability.name}
       Level: ${pokemon.level}\n
     `

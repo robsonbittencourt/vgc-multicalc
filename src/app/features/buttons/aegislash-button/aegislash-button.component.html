@@ -1,0 +1,9 @@
+@if (isAegislash()) {
+  <div class="container" (click)="toggleForm($event)" [matTooltipShowDelay]="1000" [matTooltip]="isBladeForm() ? 'Switch to Shield Form' : 'Switch to Blade Form'" data-cy="aegislash-form-toggle">
+    @if (isBladeForm()) {
+      <img class="icon-aegislash" src="assets/sprites/pokemon-home/Aegislash-Shield.png" />
+    } @else {
+      <img class="icon-aegislash" src="assets/sprites/pokemon-home/Aegislash-Blade.png" />
+    }
+  </div>
+}

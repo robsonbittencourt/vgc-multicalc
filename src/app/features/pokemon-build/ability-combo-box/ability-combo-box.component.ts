@@ -8,12 +8,13 @@ import { CalculatorStore } from "@data/store/calculator-store"
 import { FieldStore } from "@data/store/field-store"
 import { TatsugiriButtonComponent } from "@features/buttons/tatsugiri-button/tatsugiri-button.component"
 import { PalafinButtonComponent } from "@features/buttons/palafin-button/palafin-button.component"
+import { AegislashButtonComponent } from "@features/buttons/aegislash-button/aegislash-button.component"
 
 @Component({
   selector: "app-ability-combo-box",
   templateUrl: "./ability-combo-box.component.html",
   styleUrls: ["./ability-combo-box.component.scss"],
-  imports: [FormsModule, MatCheckbox, InputComponent, InputSelectComponent, TatsugiriButtonComponent, PalafinButtonComponent]
+  imports: [FormsModule, MatCheckbox, InputComponent, InputSelectComponent, TatsugiriButtonComponent, PalafinButtonComponent, AegislashButtonComponent]
 })
 export class AbilityComboBoxComponent {
   pokemonId = input.required<string>()
