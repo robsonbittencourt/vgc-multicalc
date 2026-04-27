@@ -18,7 +18,7 @@ export class Move {
     const gen = options.game === "champions" ? Generations.get(0) : Generations.get(9)
     const smogonMove = new MoveSmogon(gen, name)
 
-    this.name = name
+    this.name = name ?? ""
     this.possibleHits = this.moveHits(name)
     this.hits = this.hitsValue(name, options)
     this.alliesFainted = options.alliesFainted ?? "0"

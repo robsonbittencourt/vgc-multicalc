@@ -69,12 +69,8 @@ export class ExportPokeService {
       }
     }
 
-    text += dedent`
-      - ${pokemon.move1Name}
-      - ${pokemon.move2Name}
-      - ${pokemon.move3Name}
-      - ${pokemon.move4Name}\n
-    `
+    const moves = [pokemon.move1Name, pokemon.move2Name, pokemon.move3Name, pokemon.move4Name].filter(move => move && move !== "undefined" && move !== "")
+    text += moves.map(move => `- ${move}`).join("\n") + "\n"
 
     return text
   }

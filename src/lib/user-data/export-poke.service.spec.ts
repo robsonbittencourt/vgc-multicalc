@@ -64,6 +64,21 @@ describe("ExportPokeService", () => {
     expect(dialogSpy.open).toHaveBeenCalledWith(TeamExportModalComponent, { data: { title: "Title", content: pasteWithAegislashBoth }, width: "40em", position: { top: "2em" }, autoFocus: false, scrollStrategy: jasmine.any(NoopScrollStrategy) })
   })
 
+  it("should export a Pokémon with less than 4 moves without undefined lines", () => {
+    const pokemon = new Pokemon("Ditto", {
+      ability: new Ability("Limber"),
+      nature: "Hardy",
+      item: "Assault Vest",
+      teraType: "Normal",
+      moveSet: new MoveSet(new Move("Transform"), new Move(""), new Move(""), new Move("")),
+      ivs: { hp: 31, atk: 30, def: 31, spa: 31, spd: 31, spe: 31 }
+    })
+
+    service.export("Title", pokemon)
+
+    expect(dialogSpy.open).toHaveBeenCalledWith(TeamExportModalComponent, { data: { title: "Title", content: pasteWithOneMove }, width: "40em", position: { top: "2em" }, autoFocus: false, scrollStrategy: jasmine.any(NoopScrollStrategy) })
+  })
+
   it("should export a list of Pokémon", () => {
     const pokemon1 = new Pokemon("Rillaboom", {
       ability: new Ability("Grassy Surge"),
@@ -98,6 +113,16 @@ describe("ExportPokeService", () => {
     expect(dialogSpy.open).toHaveBeenCalledWith(TeamExportModalComponent, { data: { title: "Title", content: pasteWithThreePokemon }, width: "40em", position: { top: "2em" }, autoFocus: false, scrollStrategy: jasmine.any(NoopScrollStrategy) })
   })
 })
+
+const pasteWithOneMove = `Ditto @ Assault Vest
+Ability: Limber
+Level: 50
+Tera Type: Normal
+Hardy Nature
+IVs: 30 Atk
+- Transform
+
+`
 
 const pasteWithAegislashBoth = `Aegislash @ Leftovers
 Ability: Stance Change
