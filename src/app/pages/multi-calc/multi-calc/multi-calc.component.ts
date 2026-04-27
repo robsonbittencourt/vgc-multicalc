@@ -54,6 +54,7 @@ export class MultiCalcComponent implements OnInit {
   lastHandledAbilityNameFirst = ""
   lastHandledPokemonNameSecond: string | undefined = undefined
   lastHandledAbilityNameSecond: string | undefined = undefined
+  lastHandledTargetOnEditName = ""
 
   constructor() {
     effect(() => {
@@ -75,7 +76,29 @@ export class MultiCalcComponent implements OnInit {
         this.lastHandledAbilityNameSecond = this.activeSecondAttacker()?.ability.name
 
         this.automaticFieldService.checkAutomaticField(this.activeAttacker(), firstPokemonChanged, this.activeSecondAttacker(), secondPokemonChanged)
+
+        if (this.menuStore.manyVsOneActivated()) {
+          this.store.targets().forEach((target: Target) => {
+            if (!target.pokemon.isDefault && !target.secondPokemon) {
+              this.damageCalculator.activateBestMoveForTarget(target.pokemon, this.activeAttacker(), this.fieldStore.field())
+            }
+          })
+        }
       }
+    })
+
+    effect(() => {
+      const target = this.pokemonOnEdit()
+
+      if (this.menuStore.manyVsOneActivated() && !target.isDefault && this.lastHandledTargetOnEditName !== target.name) {
+        const isTarget = this.store.targets().some(t => t.pokemon.id === target.id)
+
+        if (isTarget) {
+          this.damageCalculator.activateBestMoveForTarget(target, this.activeAttacker(), this.fieldStore.field())
+        }
+      }
+
+      this.lastHandledTargetOnEditName = target.name
     })
 
     effect(() => {
@@ -113,6 +136,14 @@ export class MultiCalcComponent implements OnInit {
   targetsImported() {
     if (this.store.findPokemonById(this.pokemonOnEditId()).isDefault) {
       this.updatePokemonOnEditId(this.store.team().activePokemon().id)
+    }
+
+    if (this.menuStore.manyVsOneActivated()) {
+      this.store.targets().forEach((target: Target) => {
+        if (!target.pokemon.isDefault && !target.secondPokemon) {
+          this.damageCalculator.activateBestMoveForTarget(target.pokemon, this.activeAttacker(), this.fieldStore.field())
+        }
+      })
     }
   }
 

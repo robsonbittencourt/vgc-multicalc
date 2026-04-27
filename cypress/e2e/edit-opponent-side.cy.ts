@@ -29,7 +29,7 @@ describe("Edit Opponent Pokémon", () => {
 
     opponents.selectAttacker("Tyranitar").selectStatsModifier("atk", "+3")
 
-    opponents.get("Tyranitar").damageIs(203.4, 240.3).causeOHKO()
+    opponents.get("Tyranitar").damageIs(204.5, 240.9).causeOHKO()
   })
 
   it("In Many vs Team with two attackers edit the first", () => {
@@ -41,7 +41,7 @@ describe("Edit Opponent Pokémon", () => {
 
     opponents.selectAttacker("Flutter Mane").selectStatsModifier("spa", "+3")
 
-    opponents.get("Flutter Mane").damageIs(204.5, 242).causeOHKO()
+    opponents.get("Flutter Mane").damageIs(264.7, 313.6).causeOHKO()
   })
 
   it("In Many vs Team with two attackers edit the second", () => {
@@ -53,7 +53,7 @@ describe("Edit Opponent Pokémon", () => {
 
     opponents.selectSecondAttacker("Tyranitar").selectStatsModifier("atk", "+1")
 
-    opponents.get("Flutter Mane").damageIs(172.1, 203.4).causeOHKO()
+    opponents.get("Flutter Mane").damageIs(197.7, 234).causeOHKO()
   })
 })
 

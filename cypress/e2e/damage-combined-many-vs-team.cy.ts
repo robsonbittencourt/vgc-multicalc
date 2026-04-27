@@ -24,23 +24,23 @@ describe("Test calcs with opponent combined damage", () => {
     opponents.combine("Urshifu Rapid Strike", "Dragonite")
     opponents.combine("Rillaboom", "Incineroar")
 
-    opponents.get("Dragonite").damageIs(87.5, 104.5).haveChanceOfToCauseOHKO(17.2)
+    opponents.get("Dragonite").damageIs(200.5, 240.3).causeOHKO()
     opponents.get("Incineroar").damageIs(66.4, 79.5).cause2HKO()
   })
 
   it("Calculate damage after separate two opponent Pokémon", () => {
     opponents.combine("Urshifu Rapid Strike", "Dragonite")
-    opponents.separate("Dragonite")
+    opponents.separate("Urshifu Rapid Strike")
 
     opponents.get("Urshifu Rapid Strike").damageIs(58.5, 69.8).cause2HKO()
-    opponents.get("Dragonite").damageIs(28.9, 34.6).haveChanceOfToCause3HKO(6.5)
+    opponents.get("Dragonite").damageIs(142, 170.4).causeOHKO()
   })
 
   it("Do not allow combine when target already combined", () => {
     opponents.combine("Urshifu Rapid Strike", "Dragonite")
     opponents.combine("Rillaboom", "Dragonite")
 
-    opponents.get("Dragonite").damageIs(87.5, 104.5).haveChanceOfToCauseOHKO(17.2)
+    opponents.get("Dragonite").damageIs(200.5, 240.3).causeOHKO()
     opponents.get("Rillaboom").damageIs(30.6, 36.9).haveChanceOfToCause3HKO(72.3)
   })
 })

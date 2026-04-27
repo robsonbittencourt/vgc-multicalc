@@ -131,13 +131,13 @@ export class TargetPokemonComponent {
       newTargets.push(new Target(pokemon))
     }
 
-    this.targetsImported.emit()
-
     const allTargets = this.targets()
       .filter(t => !t.pokemon.isDefault)
       .concat(newTargets)
 
     this.store.updateTargets(allTargets)
+
+    this.targetsImported.emit()
 
     this.snackBar.open("Pokémon imported")
   }

@@ -115,6 +115,14 @@ export class MultiCalcMobileComponent {
         this.lastHandledAbilityNameSecond = secondAttacker?.ability.name
 
         this.automaticFieldService.checkAutomaticField(attacker, firstPokemonChanged, secondAttacker, secondPokemonChanged)
+
+        if (this.menuStore.manyVsOneActivated()) {
+          this.store.targets().forEach((target: Target) => {
+            if (!target.pokemon.isDefault && !target.secondPokemon) {
+              this.damageCalculator.activateBestMoveForTarget(target.pokemon, attacker, this.fieldStore.field())
+            }
+          })
+        }
       }
     })
 
