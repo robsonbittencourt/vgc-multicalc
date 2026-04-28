@@ -1,11 +1,11 @@
 import { computed, effect, inject, Injectable } from "@angular/core"
 import { initialFieldState, defaultFieldState } from "@data/store/utils/initial-field-state"
-import { readGameData, writeGameData } from "@data/store/utils/user-data-storage"
+import { clearGameFields, readGameData, writeGameData } from "@data/store/utils/user-data-storage"
 import { Field, FieldSide } from "@lib/model/field"
 import { GameType, Terrain, Weather } from "@lib/types"
 import { patchState, signalStore, withHooks, withState } from "@ngrx/signals"
 import { ActiveFieldService } from "./active-field.service"
-import { CalculatorStore } from "./calculator-store"
+import { CalculatorStore, Game } from "./calculator-store"
 import { FIELD_CONTEXT } from "./tokens/field-context.token"
 
 export type FieldState = {
@@ -88,15 +88,12 @@ export class FieldStore extends signalStore(
     super()
 
     let previousGame: string | null = null
-    const context = inject(FIELD_CONTEXT)
 
     effect(() => {
       const game = this.calculatorStore.game()
       if (previousGame !== null && previousGame !== game) {
-        const gameData = readGameData(game)
-        const fieldData = gameData?.fields?.[context]
-        const resolved = fieldData ? { ...defaultFieldState(), ...fieldData } : defaultFieldState()
-        patchState(this, () => ({ ...resolved, updateLocalStorage: true }))
+        clearGameFields(previousGame as Game)
+        patchState(this, () => ({ ...defaultFieldState(), updateLocalStorage: true }))
       }
       previousGame = game
     })

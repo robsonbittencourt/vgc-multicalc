@@ -16,6 +16,14 @@ export function writeGameData(game: Game, gameData: object) {
   localStorage.setItem("userData", JSON.stringify(userData))
 }
 
+export function clearGameFields(game: Game) {
+  const userData = readUserData() ?? {}
+  if (userData[game]) {
+    delete userData[game].fields
+    localStorage.setItem("userData", JSON.stringify(userData))
+  }
+}
+
 export function writeTopLevel(patch: object) {
   const userData = readUserData() ?? {}
   Object.assign(userData, patch)
