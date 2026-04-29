@@ -89,21 +89,6 @@ generate_changes_link() {
   echo -e ""
 }
 
-generate_commit_templates() {
-  local commits=$1
-
-  while IFS=" " read -r sha_resumido sha commit_message; do
-    echo "### $(remove_commit_scope "$commit_message")"
-    commit_description=$(get_commit_description $sha_resumido)
-
-    if [ -n "$commit_description" ]; then
-      echo "${commit_description}"
-    fi
-    
-    echo -e ""
-  done <<< "$commits"
-}
-
 remove_commit_scope() {
   echo "$1" | sed 's/^.*: //'
 }
@@ -115,5 +100,3 @@ commits=$(get_commits_between_tags ${tags[0]} ${tags[1]})
 generate_release_notes "$commits"
 
 generate_changes_link ${tags[0]} ${tags[1]}
-
-generate_commit_templates "$commits"
