@@ -31,7 +31,7 @@ export class MegaStoneService {
     if (!baseNameMatches) return false
 
     const megaStoneLetter = this.extractMegaStoneLetter(item)
-    const expectedMegaForm = MEGA_FORM_MAPPING[itemBaseName] ?? (megaStoneLetter ? `${baseFormName}-Mega-${megaStoneLetter}` : `${baseFormName}-Mega`)
+    const expectedMegaForm = MEGA_FORM_MAPPING[baseFormName] ?? MEGA_FORM_MAPPING[itemBaseName] ?? (megaStoneLetter ? `${baseFormName}-Mega-${megaStoneLetter}` : `${baseFormName}-Mega`)
 
     if (megaStoneLetter) {
       return pokemonName === baseFormName || pokemonName === expectedMegaForm

@@ -2847,7 +2847,7 @@ export const SETDEX_CHAMPIONS: Record<string, any> = {
       spe: 1
     },
     moves: ["Stored Power", "Charge Beam", "Psych Up", "Rest"],
-    items: ["Chesto Berry"]
+    items: ["Meowsticite"]
   },
   "Meowstic-F": {
     ability: "Competitive",
@@ -2862,7 +2862,7 @@ export const SETDEX_CHAMPIONS: Record<string, any> = {
       spe: 1
     },
     moves: ["Expanding Force", "Imprison", "Trick Room", "Charge Beam"],
-    items: ["Twisted Spoon"]
+    items: ["Meowsticite"]
   },
   "Meowstic-M-Mega": {
     ability: "Prankster",

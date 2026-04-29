@@ -63,11 +63,15 @@ export const MEGA_STONE_TO_POKEMON_NAME: Record<string, string> = {
 }
 
 export const MEGA_FORM_MAPPING: Record<string, string> = {
-  "Floette-Eternal": "Floette-Mega"
+  "Floette-Eternal": "Floette-Mega",
+  Meowstic: "Meowstic-M-Mega",
+  "Meowstic-F": "Meowstic-F-Mega"
 }
 
 export const MEGA_FORM_REVERSE_MAPPING: Record<string, string> = {
-  "Floette-Mega": "Floette-Eternal"
+  "Floette-Mega": "Floette-Eternal",
+  "Meowstic-M-Mega": "Meowstic",
+  "Meowstic-F-Mega": "Meowstic-F"
 }
 
 export function getMegaEvolutionName(pokemonName: string, megaStoneLetter: string | null): string {
