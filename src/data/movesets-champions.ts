@@ -2865,7 +2865,7 @@ export const SETDEX_CHAMPIONS: Record<string, any> = {
     items: ["Meowsticite"]
   },
   "Meowstic-M-Mega": {
-    ability: "Prankster",
+    ability: "Trace",
     nature: "Modest",
     teraType: "",
     evs: {
@@ -2880,7 +2880,7 @@ export const SETDEX_CHAMPIONS: Record<string, any> = {
     items: ["Meowsticite"]
   },
   "Meowstic-F-Mega": {
-    ability: "Competitive",
+    ability: "Trace",
     nature: "Modest",
     teraType: "",
     evs: {
