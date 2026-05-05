@@ -1,6 +1,9 @@
+import { createMovesetsFile } from "./moveset-class-generator.js"
+import { createSpeedStatisticsFile } from "./speed-statistics-class-generator.js"
 import { extractMetaMoves } from "./meta-moves-extractor.js"
+import { topUsage } from "./top-usage.js"
 
-const date = "2026-03"
+const date = "2026-04"
 const regulation = "i"
 
 await topUsage(date, regulation)

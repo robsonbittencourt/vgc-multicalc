@@ -95,7 +95,7 @@ describe("SpeedCalculatorService", () => {
 
       const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide, options)
 
-      expect(inRange.length).toEqual(5)
+      expect(inRange.length).toEqual(4)
 
       for (let index = 0; index < inRange.length; index++) {
         const actual = inRange[index]
