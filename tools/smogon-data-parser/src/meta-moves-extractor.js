@@ -2,48 +2,66 @@ import axios from "axios"
 import fs from "fs"
 import path from "path"
 import { fileURLToPath } from "url"
-import { LINE_SEPARATOR, splitSmogonDataIntoBlocks, extractSections } from "./smogon-data.js"
+import { splitSmogonDataIntoBlocks, extractSections } from "./smogon-data.js"
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 export async function extractMetaMoves(date, regulation) {
-  const metaMovesMap = await buildMetaMovesMap(date, regulation)
-  updatePokemonDetailsWithMetaMoves(metaMovesMap, regulation)
+  const metaDataMap = await buildMetaDataMap(date, regulation)
+  updatePokemonDetailsWithMetaData(metaDataMap, regulation)
 }
 
-async function buildMetaMovesMap(date, regulation) {
-  const metaMovesMap = new Map()
+async function buildMetaDataMap(date, regulation) {
+  const metaDataMap = new Map()
 
   try {
     const year = date.substring(0, date.indexOf("-"))
     const format = regulation.toUpperCase() === "MA" ? "championsvgc" : "vgc"
     const response = await axios.get(`https://www.smogon.com/stats/${date}/moveset/gen9${format}${year}reg${regulation.toLowerCase()}bo3-1760.txt`)
-    const pokemonDataList = parseSmogonMovesData(response.data)
+    const pokemonDataList = parseSmogonMetaData(response.data)
 
-    pokemonDataList.forEach(({ name, moves }) => {
+    pokemonDataList.forEach(({ name, moves, items }) => {
       const pokemonKey = name.toLowerCase().replace(/[^a-z0-9]/g, "")
       const normalizedMoves = moves.map(move => move.toLowerCase().replace(/[^a-z0-9]/g, "")).sort()
-      metaMovesMap.set(pokemonKey, normalizedMoves)
+      const normalizedItems = items.map(item => item.toLowerCase().replace(/[^a-z0-9]/g, "")).sort()
+      metaDataMap.set(pokemonKey, { moves: normalizedMoves, items: normalizedItems })
     })
   } catch (error) {
     console.error("❌ Error fetching Smogon data:", error.message)
   }
 
-  return metaMovesMap
+  return metaDataMap
 }
 
-function parseSmogonMovesData(data) {
+function parseSmogonMetaData(data) {
   const pokemonBlocks = splitSmogonDataIntoBlocks(data)
 
   return pokemonBlocks.map(block => {
     const sections = extractSections(block)
 
     const name = sections[0]
+    const items = extractAllItemsFromSection(sections[3])
     const moves = extractAllMovesFromSection(sections[5])
 
-    return { name, moves }
+    return { name, items, moves }
   })
+}
+
+function extractAllItemsFromSection(itemsSection) {
+  if (!itemsSection) return []
+
+  const allItems = itemsSection
+    .split("\n")
+    .map(it =>
+      it
+        .replaceAll(/[0-9]+/g, "")
+        .replace(".%", "")
+        .trim()
+    )
+    .filter(it => it != "Items" && it != "Other" && it != "")
+
+  return allItems
 }
 
 function extractAllMovesFromSection(movesSection) {
@@ -62,7 +80,7 @@ function extractAllMovesFromSection(movesSection) {
   return allMoves
 }
 
-function updatePokemonDetailsWithMetaMoves(metaMovesMap, regulation) {
+function updatePokemonDetailsWithMetaData(metaDataMap, regulation) {
   const isChampions = regulation.toUpperCase() === "MA"
   const fileName = isChampions ? "pokemon-details-champions.ts" : "pokemon-details.ts"
   const exportName = isChampions ? "POKEMON_DETAILS_CHAMPIONS" : "POKEMON_DETAILS"
@@ -108,7 +126,7 @@ function updatePokemonDetailsWithMetaMoves(metaMovesMap, regulation) {
   try {
     const sanitized = objectString
       .replace(/(\n\s+)([a-zA-Z0-9\-]+):\s*{/g, '$1"$2": {')
-      .replace(/(\n\s+)(name|abilities|learnset|metaMoves|group):/g, '$1"$2":')
+      .replace(/(\n\s+)(name|abilities|learnset|metaMoves|metaItems|group):/g, '$1"$2":')
       .replace(/:\s*\[/g, ": [")
       .replace(/,\s*}/g, "}")
       .replace(/,\s*\]/g, "]")
@@ -120,13 +138,14 @@ function updatePokemonDetailsWithMetaMoves(metaMovesMap, regulation) {
 
   const updatedDetails = Object.entries(pokemonDetails).map(([key, value]) => {
     const pokemonKey = value.name.toLowerCase().replace(/[^a-z0-9]/g, "")
-    const metaMoves = metaMovesMap.get(pokemonKey) || []
+    const metaData = metaDataMap.get(pokemonKey) || { moves: [], items: [] }
 
     return [
       key,
       {
         ...value,
-        metaMoves: metaMoves
+        metaMoves: metaData.moves,
+        metaItems: metaData.items
       }
     ]
   })
@@ -143,7 +162,7 @@ export const ${exportName}: Record<string, SpeciesData> = ${serializeObject(upda
 `
 
   fs.writeFileSync(pokemonDetailsPath, newContent.trim() + "\n")
-  console.log(`✅ ${fileName} updated with metaMoves successfully`)
+  console.log(`✅ ${fileName} updated with metaMoves and metaItems successfully`)
 }
 
 function serializeObject(obj, indent = 2) {

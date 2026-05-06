@@ -149,7 +149,7 @@ describe("Filtered Table behaviors", () => {
     it("Select a Item after filter and press tab", () => {
       const build = team.selectPokemon("Rillaboom")
 
-      build.inputPokemonItem("Ch")
+      build.inputPokemonItem("Cho")
       cy.realPress("Tab")
 
       team.pokemonOnEditItemIs("Choice Band")
