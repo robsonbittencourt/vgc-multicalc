@@ -5,14 +5,20 @@ const POKEMON_QUANTITY = 125
 const MOVESET_MODULE_PREFIX = `import { Regulation } from "@lib/types"
 
 export const topUsageByRegulation: Record<Regulation, string[]> = {\n  `
+const OUTPUT_FILE = "src/data/top-usage-regulation.ts"
 
 export async function topUsage(date, regulation) {
   const usageListReg = await usageList(date, regulation)
-  const usageLists = [usageListReg]
 
-  const fileContent = buildFileContent(usageLists)
+  let fileContent = ""
+  if (fs.existsSync(OUTPUT_FILE)) {
+    fileContent = fs.readFileSync(OUTPUT_FILE, "utf-8")
+    fileContent = updateRegulationEntry(fileContent, regulation, usageListReg)
+  } else {
+    fileContent = buildFileContent([usageListReg])
+  }
 
-  fs.writeFileSync("src/data/top-usage-regulation.ts", fileContent)
+  fs.writeFileSync(OUTPUT_FILE, fileContent)
 }
 
 async function usageList(date, regulation) {
@@ -23,19 +29,14 @@ async function usageList(date, regulation) {
 
   const startIndex = 5
 
-  for (let i = startIndex; i < POKEMON_QUANTITY; i++) {
+  for (let i = startIndex; i < startIndex + POKEMON_QUANTITY; i++) {
     const line = lines[i]
     if (!line.startsWith("|")) break
 
     const columns = line.split("|").map(col => col.trim())
-
     const pokemonName = columns[2]
     if (pokemonName) {
-      if (pokemonName == "Terapagos") {
-        pokemonNames.push("Terapagos-Terastal")
-      } else {
-        pokemonNames.push(pokemonName)
-      }
+      pokemonNames.push(pokemonName)
     }
   }
 
@@ -44,6 +45,26 @@ async function usageList(date, regulation) {
   ]`
 
   return regulationUsageList
+}
+
+function updateRegulationEntry(fileContent, regulation, usageListReg) {
+  const regex = new RegExp(`("${regulation.toUpperCase()}"\\s*:\\s*\\[)[\\s\\S]*?(\\])`, "")
+
+  if (regex.test(fileContent)) {
+    const pokemonList = extractPokemonList(usageListReg)
+    return fileContent.replace(regex, `$1\n    ${pokemonList.join(",\n    ")}\n  $2`)
+  }
+
+  return fileContent
+}
+
+function extractPokemonList(usageListReg) {
+  const match = usageListReg.match(/\[\s*([^\]]*)\s*\]/)
+  if (!match) return []
+  return match[1]
+    .split(",\n    ")
+    .map(p => p.trim())
+    .filter(Boolean)
 }
 
 function buildFileContent(usageLists) {

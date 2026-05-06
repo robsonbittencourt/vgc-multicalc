@@ -1,23 +1,28 @@
 import fs from "fs"
 import { getSmogonData } from "./smogon-data.js"
 
-const MOVESET_MODULE_PREFIX = "export const SETDEX_SV: Record<string, any> = "
+const MOVESET_MODULE_PREFIX_SV = "export const SETDEX_SV: Record<string, any> = "
+const MOVESET_MODULE_PREFIX_CHAMPIONS = "export const SETDEX_CHAMPIONS: Record<string, any> = "
 
 export async function createMovesetsFile(date, regulation) {
   const regGData = await getSmogonData(date, regulation)
 
   const smogonData = getUniquePokemons(regGData)
 
-  writeInMovesetsFile(smogonData)
+  writeInMovesetsFile(smogonData, regulation)
 }
 
-function writeInMovesetsFile(smogonData) {
-  const updatedMovesets = updateMovesets(smogonData)
+function writeInMovesetsFile(smogonData, regulation) {
+  const isChampions = regulation.toUpperCase() === "MA"
+  const outputFile = isChampions ? "src/data/movesets-champions.ts" : "src/data/movesets.ts"
+  const modulePrefix = isChampions ? MOVESET_MODULE_PREFIX_CHAMPIONS : MOVESET_MODULE_PREFIX_SV
 
-  let classContent = `${MOVESET_MODULE_PREFIX}${updatedMovesets}
+  const updatedMovesets = updateMovesets(smogonData, outputFile)
+
+  let classContent = `${modulePrefix}${updatedMovesets}
 `
 
-  fs.writeFileSync("src/data/movesets.ts", classContent)
+  fs.writeFileSync(outputFile, classContent)
 }
 
 function getUniquePokemons(...pokemonArrays) {
@@ -32,17 +37,22 @@ function getUniquePokemons(...pokemonArrays) {
   return Array.from(pokemonMap.values())
 }
 
-function readMovesets() {
-  const data = fs.readFileSync("src/data/movesets.ts", "utf8")
-  const rawJson = data.substring(MOVESET_MODULE_PREFIX.length)
+function readMovesets(filePath) {
+  if (!fs.existsSync(filePath)) {
+    return {}
+  }
+
+  const data = fs.readFileSync(filePath, "utf8")
+  const modulePrefix = filePath.includes("champions") ? MOVESET_MODULE_PREFIX_CHAMPIONS : MOVESET_MODULE_PREFIX_SV
+  const rawJson = data.substring(modulePrefix.length)
   const jsonWithQuotes = rawJson.replace(/([\p{L}\p{M}0-9_]+):/gu, '"$1":')
   const jsonContent = JSON.parse(jsonWithQuotes)
 
   return jsonContent
 }
 
-function updateMovesets(newData) {
-  const actualMovesets = readMovesets()
+function updateMovesets(newData, filePath) {
+  const actualMovesets = readMovesets(filePath)
   const updatedJson = { ...actualMovesets }
 
   newData.forEach(pokemon => {

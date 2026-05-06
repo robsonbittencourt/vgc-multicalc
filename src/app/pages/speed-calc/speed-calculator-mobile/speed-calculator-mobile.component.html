@@ -12,13 +12,11 @@
       <app-speed-scale class="speed-scale" [pokemonId]="lastNonDefaultPokemon().id" [pokemonEachSide]="12" (pokemonSelected)="selectedPokemon.set($event)" />
     </div>
 
-    @if (store.game() !== "champions") {
-      <div [hidden]="activeBottomTab() !== 'speed-insights'" [class.tab-active]="activeBottomTab() === 'speed-insights'">
-        <div class="insights-content">
-          <app-speed-insights [pokemon]="selectedPokemon()" />
-        </div>
+    <div [hidden]="activeBottomTab() !== 'speed-insights'" [class.tab-active]="activeBottomTab() === 'speed-insights'">
+      <div class="insights-content">
+        <app-speed-insights [pokemon]="selectedPokemon()" />
       </div>
-    }
+    </div>
 
     <div [hidden]="activeBottomTab() !== 'settings'" [class.tab-active]="activeBottomTab() === 'settings'">
       <div class="settings-content widget-list">
@@ -55,12 +53,10 @@
       <mat-icon>bolt</mat-icon>
       <span>Speed</span>
     </div>
-    @if (store.game() !== "champions") {
-      <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'speed-insights' }" (click)="switchTab('speed-insights')">
-        <mat-icon>insights</mat-icon>
-        <span>Insights</span>
-      </div>
-    }
+    <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'speed-insights' }" (click)="switchTab('speed-insights')">
+      <mat-icon>insights</mat-icon>
+      <span>Insights</span>
+    </div>
     <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'teams' }" (click)="switchTab('teams')">
       <mat-icon svgIcon="pokeball"></mat-icon>
       <span>Teams</span>

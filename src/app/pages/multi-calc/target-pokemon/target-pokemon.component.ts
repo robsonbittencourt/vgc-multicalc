@@ -97,7 +97,7 @@ export class TargetPokemonComponent {
       .sort()
   )
 
-  readonly regulationsList = computed(() => (this.store.game() === "champions" ? ["M-A"] : ["I"]))
+  readonly regulationsList = computed(() => (this.store.game() === "champions" ? ["MA"] : ["I"]))
 
   order = signal(false)
 

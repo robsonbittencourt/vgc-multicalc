@@ -9,22 +9,28 @@
           >Base: <b>{{ base() }}</b></span
         >
         @if (isTrSpeed()) {
-          <span
-            >Negative Nature, EV 0, IV 0: <b>{{ minWithIvZero() }}</b></span
-          >
+          @if (isChampions()) {
+            <span
+              >Negative Nature, {{ minSpLabel() }}: <b>{{ minWithNegativeNature() }}</b></span
+            >
+          } @else {
+            <span
+              >Negative Nature, {{ minSpLabel() }}, IV 0: <b>{{ minWithIvZero() }}</b></span
+            >
+          }
         }
         <span
           >Neutral Nature: <b>{{ min() }}</b> to <b>{{ max() }}</b></span
         >
         <span
-          >Positive Nature, EV 252: <b>{{ maxWithNature() }}</b></span
+          >Positive Nature, {{ maxSpLabel() }}: <b>{{ maxWithNature() }}</b></span
         >
       </div>
       <img src="assets/sprites/pokemon-sv/{{ pokemonName() }}.png" alt="{{ pokemonName() }}" />
     </div>
 
     @if (usageInsights().length > 0) {
-      <p>In the Regulation {{ regulation() }} metagame, excluding external Speed modifications (e.g., Paradox Abilities, Choice Scarf):</p>
+      <p>In the Regulation {{ regulation() }} metagame, excluding external Speed modifications (e.g., Abilities, Choice Scarf):</p>
 
       <ul class="custom-list">
         <li>
@@ -32,7 +38,7 @@
           @if (firstInsightIsMoreUsed()) {
             This is the <b>most common</b> Speed.
           }
-          @if (firstInsightHasNegativeNature()) {
+          @if (firstInsightHasNegativeNature() && !isChampions()) {
             This insight assumes speed IV is zero.
           }
         </li>
@@ -43,7 +49,7 @@
             @if (secondInsightIsMoreUsed()) {
               This is the <b>most common</b> Speed.
             }
-            @if (secondInsightHasNegativeNature()) {
+            @if (secondInsightHasNegativeNature() && !isChampions()) {
               This insight assumes speed IV is zero.
             }
           </li>
@@ -55,7 +61,7 @@
             @if (thirdInsightIsMoreUsed()) {
               This is the <b>most common</b> Speed.
             }
-            @if (thirdInsightHasNegativeNature()) {
+            @if (thirdInsightHasNegativeNature() && !isChampions()) {
               This insight assumes speed IV is zero.
             }
           </li>

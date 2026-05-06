@@ -7,7 +7,8 @@ const POKEMON_QUANTITY = 64
 export async function smogonUsageList(date, reg) {
   try {
     const year = date.substring(0, date.indexOf("-"))
-    return await axios.get(`https://www.smogon.com/stats/${date}/gen9vgc${year}reg${reg}bo3-1760.txt`)
+    const format = reg.toUpperCase() === "MA" ? "championsvgc" : "vgc"
+    return await axios.get(`https://www.smogon.com/stats/${date}/gen9${format}${year}reg${reg.toLowerCase()}bo3-1760.txt`)
   } catch (error) {
     console.error(error)
   }
@@ -16,7 +17,8 @@ export async function smogonUsageList(date, reg) {
 export async function getSmogonData(date, reg) {
   try {
     const year = date.substring(0, date.indexOf("-"))
-    const response = await axios.get(`https://www.smogon.com/stats/${date}/moveset/gen9vgc${year}reg${reg}bo3-1760.txt`)
+    const format = reg.toUpperCase() === "MA" ? "championsvgc" : "vgc"
+    const response = await axios.get(`https://www.smogon.com/stats/${date}/moveset/gen9${format}${year}reg${reg.toLowerCase()}bo3-1760.txt`)
     const parsedSmogonData = parseSmogonData(response.data)
     return parsedSmogonData
   } catch (error) {
@@ -60,7 +62,7 @@ function parsePokemonData(data) {
   const moves = extractMoves(sections)
   const teraType = extractTeraType(sections)
 
-  return { name, teraType, ability, items, nature, evs, moves }
+  return { name, teraType: teraType || "", ability, items, nature, evs, moves }
 }
 
 export function extractSections(data) {
@@ -152,15 +154,22 @@ function extractMoves(sections) {
 }
 
 function extractTeraType(sections) {
-  const teraType = sections[6]
+  const teraSection = sections[6]
+
+  if (!teraSection || teraSection.includes("Teammates")) {
+    return ""
+  }
+
+  const teraType = teraSection
     .split("\n")
     .map(it =>
       it
         .replaceAll(/[0-9]+/g, "")
         .replace(".%", "")
+        .replace(" -", "")
         .trim()
     )
-    .filter(it => it != "Tera Types" && it != "Other")
+    .filter(it => it && it != "Tera Types" && it != "Other" && it != "Nothing")
 
-  return teraType[0]
+  return teraType[0] ?? ""
 }

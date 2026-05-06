@@ -22,7 +22,7 @@ const initialState: SpeedCalcOptionsState = {
   topUsage: "60",
   regulation: "I",
   targetName: "",
-  mode: SpeedCalculatorMode.Stats,
+  mode: SpeedCalculatorMode.StatsAndMeta,
   speedModifier: 0,
   speedDropActive: false,
   paralyzedActive: false,
@@ -38,17 +38,9 @@ export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }
 
     effect(() => {
       const game = this.calculatorStore.game()
-      const newRegulation = game === "champions" ? "M-A" : "I"
+      const newRegulation = game === "champions" ? "MA" : "I"
       if (this.regulation() !== newRegulation) {
         patchState(this, () => ({ regulation: newRegulation as Regulation }))
-      }
-    })
-
-    effect(() => {
-      const game = this.calculatorStore.game()
-      const mode = this.mode()
-      if (game === "champions" && (mode === SpeedCalculatorMode.StatsAndMeta || mode === SpeedCalculatorMode.Meta)) {
-        patchState(this, () => ({ mode: SpeedCalculatorMode.Stats }))
       }
     })
 
@@ -75,15 +67,10 @@ export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }
   )
 
   readonly regulationsList = computed(() => {
-    return this.calculatorStore.game() === "champions" ? ["M-A"] : ["I"]
+    return this.calculatorStore.game() === "champions" ? ["MA"] : ["I"]
   })
 
-  readonly availableModes = computed(() => {
-    if (this.calculatorStore.game() === "champions") {
-      return ["Stats", "Base"]
-    }
-    return SPEED_CALCULATOR_MODES
-  })
+  readonly availableModes = computed(() => SPEED_CALCULATOR_MODES)
 
   readonly pokemonNamesByReg = computed(() => {
     const includeAll = this.topUsage() === "All"

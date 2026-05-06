@@ -57,7 +57,10 @@ export class ItemsTableComponent {
 
     const groupedData = allItems.reduce(
       (acc, item) => {
-        const groupName = item.group
+        const isMetaItem = metaItems.length > 0 && this.isMetaItem(item, metaItemSet)
+        const isFallbackItemNotInMeta = metaItems.length > 0 && !isMetaItem && item.group === "Meta"
+
+        const groupName = isMetaItem ? "Meta" : isFallbackItemNotInMeta ? "Items" : item.group
 
         if (!acc[groupName]) {
           acc[groupName] = []

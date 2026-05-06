@@ -1,81 +1,7 @@
 import fs from "fs"
 import path from "path"
 
-const pokemonDetailsPath = path.resolve("src/data/pokemon-details.ts")
 const topUsagePath = path.resolve("src/data/top-usage-regulation.ts")
-
-const pokemonFileContent = fs.readFileSync(pokemonDetailsPath, "utf-8")
-const topUsageContent = fs.readFileSync(topUsagePath, "utf-8")
-
-const topMatch = topUsageContent.match(/F:\s*\[((?:.|\n)*?)\]/m)
-if (!topMatch) {
-  console.error("❌ Não foi possível extrair a lista do top usage.")
-  process.exit(1)
-}
-
-const topNames = topMatch[1].split(",").map(name => name.trim().replace(/["']/g, ""))
-
-const startIndex = pokemonFileContent.indexOf("export const POKEMON_DETAILS")
-if (startIndex === -1) {
-  console.error("❌ Não foi possível encontrar POKEMON_DETAILS.")
-  process.exit(1)
-}
-
-const preContent = pokemonFileContent.slice(0, startIndex)
-const rest = pokemonFileContent.slice(startIndex)
-
-const matchStart = rest.match(/=\s*{/)
-if (!matchStart) {
-  console.error("❌ Não foi possível encontrar o início do objeto.")
-  process.exit(1)
-}
-
-const braceIndex = rest.indexOf("{", matchStart.index)
-let open = 0
-let endIndex = -1
-
-for (let i = braceIndex; i < rest.length; i++) {
-  if (rest[i] === "{") open++
-  else if (rest[i] === "}") open--
-  if (open === 0) {
-    endIndex = i
-    break
-  }
-}
-
-if (endIndex === -1) {
-  console.error("❌ Não foi possível encontrar o final do objeto.")
-  process.exit(1)
-}
-
-const objectString = rest.slice(braceIndex, endIndex + 1)
-
-let pokemonDetails
-try {
-  pokemonDetails = eval("(" + objectString + ")")
-} catch (e) {
-  console.error("❌ Erro ao interpretar POKEMON_DETAILS:", e.message)
-  process.exit(1)
-}
-
-const updatedDetails = {}
-const originalOrder = Object.entries(pokemonDetails)
-
-const byName = Object.fromEntries(originalOrder.map(([k, v]) => [v.name.toLowerCase(), [k, v]]))
-
-const topKeysOrdered = topNames.map(n => byName[n.toLowerCase()]).filter(Boolean)
-
-const usedKeys = new Set(topKeysOrdered.map(([k]) => k))
-
-const remainingKeys = originalOrder.filter(([k]) => !usedKeys.has(k))
-
-const finalOrder = [...topKeysOrdered, ...remainingKeys].map(([key, value]) => {
-  const index = topNames.findIndex(n => n.toLowerCase() === value.name.toLowerCase())
-  let group = "Regular"
-  if (index >= 0 && index < 50) group = "Meta"
-  else if (index >= 50) group = "Low usage"
-  return [key, { ...value, group }]
-})
 
 function serializeObject(obj, indent = 2) {
   const pad = lvl => " ".repeat(lvl * indent)
@@ -95,26 +21,110 @@ function serializeObject(obj, indent = 2) {
   }
 
   function serialize(obj, lvl = 1) {
-    const entries = Object.entries(obj).map(([key, val]) => {
-      const formatted = `${pad(lvl)}${key}: ${formatValue(val, lvl)}`
-      return formatted
+    const entries = Object.entries(obj)
+    const formatted = entries.map(([key, val], idx) => {
+      const isLast = idx === entries.length - 1
+      const comma = isLast ? "" : ","
+      const quotedKey = key.includes("-") ? `"${key}"` : key
+      return `${pad(lvl)}${quotedKey}: ${formatValue(val, lvl)}${comma}`
     })
-    return `{\n${entries.join(",\n")}\n${pad(lvl - 1)}}`
+    return `{\n${formatted.join("\n")}\n${pad(lvl - 1)}}`
   }
 
   return serialize(Object.fromEntries(obj), 1)
 }
 
-const headerLines = preContent
-  .trim()
-  .split("\n")
-  .filter(line => !line.includes("POKEMON_DETAILS"))
-const header = headerLines.join("\n")
+export async function pokemonDetailsGroup(regulation = "i") {
+  const isChampions = regulation.toLowerCase() === "ma"
+  const pokemonDetailsPath = path.resolve(isChampions ? "src/data/pokemon-details-champions.ts" : "src/data/pokemon-details.ts")
+  const pokemonFileContent = fs.readFileSync(pokemonDetailsPath, "utf-8")
+  const topUsageContent = fs.readFileSync(topUsagePath, "utf-8")
 
-const newContent = `${header}
+  const regulationKey = isChampions ? "MA" : "I"
+  let topMatch = topUsageContent.match(new RegExp(`${regulationKey}:\\s*\\[([\\s\\S]*?)\\]`, "m"))
+  if (!topMatch) {
+    console.error(`❌ Não foi possível extrair a lista do top usage ${regulationKey}.`)
+    process.exit(1)
+  }
 
-export const POKEMON_DETAILS: Record<string, SpeciesData> = ${serializeObject(finalOrder)}
+  const topNames = topMatch[1].split(",").map(name => name.trim().replace(/["']/g, ""))
+
+  const startIndex = pokemonFileContent.indexOf("export const POKEMON_DETAILS")
+  if (startIndex === -1) {
+    console.error("❌ Não foi possível encontrar POKEMON_DETAILS.")
+    process.exit(1)
+  }
+
+  const preContent = pokemonFileContent.slice(0, startIndex)
+  const rest = pokemonFileContent.slice(startIndex)
+
+  const matchStart = rest.match(/=\s*{/)
+  if (!matchStart) {
+    console.error("❌ Não foi possível encontrar o início do objeto.")
+    process.exit(1)
+  }
+
+  const braceIndex = rest.indexOf("{", matchStart.index)
+  let open = 0
+  let endIndex = -1
+
+  for (let i = braceIndex; i < rest.length; i++) {
+    if (rest[i] === "{") open++
+    else if (rest[i] === "}") open--
+    if (open === 0) {
+      endIndex = i
+      break
+    }
+  }
+
+  if (endIndex === -1) {
+    console.error("❌ Não foi possível encontrar o final do objeto.")
+    process.exit(1)
+  }
+
+  const objectString = rest.slice(braceIndex, endIndex + 1)
+
+  let pokemonDetails
+  try {
+    const sanitized = objectString
+      .replace(/(\n\s+)([a-zA-Z0-9\-]+):\s*{/g, '$1"$2": {')
+      .replace(/(\n\s+)(name|abilities|learnset|metaMoves|group):/g, '$1"$2":')
+      .replace(/:\s*\[/g, ": [")
+      .replace(/,\s*}/g, "}")
+      .replace(/,\s*\]/g, "]")
+    pokemonDetails = JSON.parse(sanitized)
+  } catch (e) {
+    console.error("❌ Erro ao interpretar POKEMON_DETAILS:", e.message)
+    process.exit(1)
+  }
+
+  const originalOrder = Object.entries(pokemonDetails)
+
+  const byName = Object.fromEntries(originalOrder.map(([k, v]) => [v.name.toLowerCase(), [k, v]]))
+
+  const topKeysOrdered = topNames.map(n => byName[n.toLowerCase()]).filter(Boolean)
+
+  const usedKeys = new Set(topKeysOrdered.map(([k]) => k))
+
+  const remainingKeys = originalOrder.filter(([k]) => !usedKeys.has(k))
+
+  const finalOrder = [...topKeysOrdered, ...remainingKeys].map(([key, value]) => {
+    const index = topNames.findIndex(n => n.toLowerCase() === value.name.toLowerCase())
+    let group = "Regular"
+    if (index >= 0 && index < 50) group = "Meta"
+    else if (index >= 50) group = "Low usage"
+    return [key, { ...value, group }]
+  })
+
+  let header = preContent.trimEnd()
+  header = header.replace(/private constructor\(\)\s*{[\s\S]*?}/, "private constructor() {\n    this.allPokemonNames = Object.values(POKEMON_DETAILS).map(p => p.name)\n  }")
+
+  const constName = isChampions ? "POKEMON_DETAILS_CHAMPIONS" : "POKEMON_DETAILS"
+  const newContent = `${header}
+
+export const ${constName}: Record<string, SpeciesData> = ${serializeObject(finalOrder)}
 `
 
-fs.writeFileSync(pokemonDetailsPath, newContent.trim() + "\n")
-console.log("✅ 'pokemon-details.ts' atualizado com sucesso com 'group' e ordem do top usage.")
+  fs.writeFileSync(pokemonDetailsPath, newContent.trim() + "\n")
+  console.log(`✅ '${path.basename(pokemonDetailsPath)}' atualizado com sucesso com 'group' e ordem do top usage ${regulationKey}.`)
+}

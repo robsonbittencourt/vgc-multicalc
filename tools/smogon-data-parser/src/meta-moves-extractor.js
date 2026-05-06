@@ -9,7 +9,7 @@ const __dirname = path.dirname(__filename)
 
 export async function extractMetaMoves(date, regulation) {
   const metaMovesMap = await buildMetaMovesMap(date, regulation)
-  updatePokemonDetailsWithMetaMoves(metaMovesMap)
+  updatePokemonDetailsWithMetaMoves(metaMovesMap, regulation)
 }
 
 async function buildMetaMovesMap(date, regulation) {
@@ -17,7 +17,8 @@ async function buildMetaMovesMap(date, regulation) {
 
   try {
     const year = date.substring(0, date.indexOf("-"))
-    const response = await axios.get(`https://www.smogon.com/stats/${date}/moveset/gen9vgc${year}reg${regulation}bo3-1760.txt`)
+    const format = regulation.toUpperCase() === "MA" ? "championsvgc" : "vgc"
+    const response = await axios.get(`https://www.smogon.com/stats/${date}/moveset/gen9${format}${year}reg${regulation.toLowerCase()}bo3-1760.txt`)
     const pokemonDataList = parseSmogonMovesData(response.data)
 
     pokemonDataList.forEach(({ name, moves }) => {
@@ -61,13 +62,16 @@ function extractAllMovesFromSection(movesSection) {
   return allMoves
 }
 
-function updatePokemonDetailsWithMetaMoves(metaMovesMap) {
-  const pokemonDetailsPath = path.resolve(__dirname, "../../../src/data/pokemon-details.ts")
+function updatePokemonDetailsWithMetaMoves(metaMovesMap, regulation) {
+  const isChampions = regulation.toUpperCase() === "MA"
+  const fileName = isChampions ? "pokemon-details-champions.ts" : "pokemon-details.ts"
+  const exportName = isChampions ? "POKEMON_DETAILS_CHAMPIONS" : "POKEMON_DETAILS"
+  const pokemonDetailsPath = path.resolve(__dirname, `../../../src/data/${fileName}`)
   const fileContent = fs.readFileSync(pokemonDetailsPath, "utf-8")
 
-  const startIndex = fileContent.indexOf("export const POKEMON_DETAILS")
+  const startIndex = fileContent.indexOf(`export const ${exportName}`)
   if (startIndex === -1) {
-    console.error("❌ Could not find POKEMON_DETAILS in file")
+    console.error(`❌ Could not find ${exportName} in file`)
     process.exit(1)
   }
 
@@ -102,7 +106,13 @@ function updatePokemonDetailsWithMetaMoves(metaMovesMap) {
 
   let pokemonDetails
   try {
-    pokemonDetails = eval("(" + objectString + ")")
+    const sanitized = objectString
+      .replace(/(\n\s+)([a-zA-Z0-9\-]+):\s*{/g, '$1"$2": {')
+      .replace(/(\n\s+)(name|abilities|learnset|metaMoves|group):/g, '$1"$2":')
+      .replace(/:\s*\[/g, ": [")
+      .replace(/,\s*}/g, "}")
+      .replace(/,\s*\]/g, "]")
+    pokemonDetails = JSON.parse(sanitized)
   } catch (e) {
     console.error("❌ Error parsing POKEMON_DETAILS:", e.message)
     process.exit(1)
@@ -129,11 +139,11 @@ function updatePokemonDetailsWithMetaMoves(metaMovesMap) {
 
   const newContent = `${header}
 
-export const POKEMON_DETAILS: Record<string, SpeciesData> = ${serializeObject(updatedDetails)}
+export const ${exportName}: Record<string, SpeciesData> = ${serializeObject(updatedDetails)}
 `
 
   fs.writeFileSync(pokemonDetailsPath, newContent.trim() + "\n")
-  console.log("✅ pokemon-details.ts updated with metaMoves successfully")
+  console.log(`✅ ${fileName} updated with metaMoves successfully`)
 }
 
 function serializeObject(obj, indent = 2) {
@@ -154,11 +164,14 @@ function serializeObject(obj, indent = 2) {
   }
 
   function serialize(obj, lvl = 1) {
-    const entries = Object.entries(obj).map(([key, val]) => {
-      const formatted = `${pad(lvl)}${key}: ${formatValue(val, lvl)}`
-      return formatted
+    const entries = Object.entries(obj)
+    const formatted = entries.map(([key, val], idx) => {
+      const isLast = idx === entries.length - 1
+      const comma = isLast ? "" : ","
+      const quotedKey = key.includes("-") ? `"${key}"` : key
+      return `${pad(lvl)}${quotedKey}: ${formatValue(val, lvl)}${comma}`
     })
-    return `{\n${entries.join(",\n")}\n${pad(lvl - 1)}}`
+    return `{\n${formatted.join("\n")}\n${pad(lvl - 1)}}`
   }
 
   return serialize(Object.fromEntries(obj), 1)

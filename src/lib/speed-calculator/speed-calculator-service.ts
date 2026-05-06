@@ -29,7 +29,7 @@ export class SpeedCalculatorService {
   }
 
   private readonly statisticsByRegulation: Record<string, Record<string, SpeedData>> = {
-    "M-A": SPEED_STATISTICS_REG_MA,
+    MA: SPEED_STATISTICS_REG_MA,
     I: SPEED_STATISTICS_REG_I
   }
 

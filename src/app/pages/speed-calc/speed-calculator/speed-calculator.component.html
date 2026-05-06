@@ -4,10 +4,8 @@
 <app-field onlySpeed="true" />
 
 @if (!isPokemonDefault()) {
-  <div class="speed-list" [class.hide-insights]="isChampions()">
+  <div class="speed-list">
     <app-speed-list (pokemonSelected)="selectedPokemon.set($event)" />
-    @if (!isChampions()) {
-      <app-speed-insights [pokemon]="selectedPokemon()" />
-    }
+    <app-speed-insights [pokemon]="selectedPokemon()" />
   </div>
 }
