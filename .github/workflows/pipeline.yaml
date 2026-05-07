@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+      - pipeline
   pull_request:
     branches:
       - "**"
@@ -93,85 +94,85 @@ jobs:
           browser: chrome
           quiet: true
 
-  deploy:
-    name: Deploy
-    runs-on: ubuntu-24.04
-    if: github.ref == 'refs/heads/main'
-    needs: e2e-tests
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6.0.2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v6.4.0
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: "npm"
-
-      - name: Install dependencies
-        run: npm ci && npm install -g @angular/cli
-
-      - name: Deploy
-        run: ng deploy --cname=vgcmulticalc.com --name="robsonbittencourt" --email=robson.luizv@gmail.com
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  release:
-    name: Release
-    runs-on: ubuntu-24.04
-    if: github.ref == 'refs/heads/main'
-    needs: deploy
-    permissions:
-      contents: write
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v6.0.2
-        with:
-          fetch-depth: 0
-
-      - name: Generate release notes
-        id: notes
-        run: |
-          chmod +x release-notes-generator.sh
-          NOTES=$(./release-notes-generator.sh)
-          echo "RELEASE_NOTES<<EOF" >> $GITHUB_OUTPUT
-          echo "$NOTES" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
-
-      - name: Get current tag
-        id: tag
-        run: echo "TAG=$(git tag --sort=-creatordate | head -n 1)" >> $GITHUB_OUTPUT
-
-      - name: Create GitHub Release
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          if ! gh release view ${{ steps.tag.outputs.TAG }} > /dev/null 2>&1; then
-            gh release create ${{ steps.tag.outputs.TAG }} \
-              --title "${{ steps.tag.outputs.TAG }}" \
-              --notes "${{ steps.notes.outputs.RELEASE_NOTES }}" \
-              --latest
-          fi
-
-  sonarqube:
-    name: SonarQube
-    runs-on: ubuntu-24.04
-    if: github.ref == 'refs/heads/main'
-    needs: deploy
-
-    steps:
-      - uses: actions/checkout@v6.0.2
-        with:
-          fetch-depth: 0
-
-      - name: Download Coverage Reports
-        uses: actions/download-artifact@v8.0.1
-        with:
-          name: coverage-reports
-
-      - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@v8.0.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+# deploy:
+#   name: Deploy
+#   runs-on: ubuntu-24.04
+#   if: github.ref == 'refs/heads/main'
+#   needs: e2e-tests
+#   steps:
+#     - name: Checkout repository
+#       uses: actions/checkout@v6.0.2
+#
+#     - name: Setup Node.js
+#       uses: actions/setup-node@v6.4.0
+#       with:
+#         node-version: ${{ env.NODE_VERSION }}
+#         cache: "npm"
+#
+#     - name: Install dependencies
+#       run: npm ci && npm install -g @angular/cli
+#
+#     - name: Deploy
+#       run: ng deploy --cname=vgcmulticalc.com --name="robsonbittencourt" --email=robson.luizv@gmail.com
+#       env:
+#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#
+# release:
+#   name: Release
+#   runs-on: ubuntu-24.04
+#   if: github.ref == 'refs/heads/main'
+#   needs: deploy
+#   permissions:
+#     contents: write
+#
+#   steps:
+#     - name: Checkout
+#       uses: actions/checkout@v6.0.2
+#       with:
+#         fetch-depth: 0
+#
+#     - name: Generate release notes
+#       id: notes
+#       run: |
+#         chmod +x release-notes-generator.sh
+#         NOTES=$(./release-notes-generator.sh)
+#         echo "RELEASE_NOTES<<EOF" >> $GITHUB_OUTPUT
+#         echo "$NOTES" >> $GITHUB_OUTPUT
+#         echo "EOF" >> $GITHUB_OUTPUT
+#
+#     - name: Get current tag
+#       id: tag
+#       run: echo "TAG=$(git tag --sort=-creatordate | head -n 1)" >> $GITHUB_OUTPUT
+#
+#     - name: Create GitHub Release
+#       env:
+#         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#       run: |
+#         if ! gh release view ${{ steps.tag.outputs.TAG }} > /dev/null 2>&1; then
+#           gh release create ${{ steps.tag.outputs.TAG }} \
+#             --title "${{ steps.tag.outputs.TAG }}" \
+#             --notes "${{ steps.notes.outputs.RELEASE_NOTES }}" \
+#             --latest
+#         fi
+#
+# sonarqube:
+#   name: SonarQube
+#   runs-on: ubuntu-24.04
+#   if: github.ref == 'refs/heads/main'
+#   needs: deploy
+#
+#   steps:
+#     - uses: actions/checkout@v6.0.2
+#       with:
+#         fetch-depth: 0
+#
+#     - name: Download Coverage Reports
+#       uses: actions/download-artifact@v8.0.1
+#       with:
+#         name: coverage-reports
+#
+#     - name: SonarQube Scan
+#       uses: SonarSource/sonarqube-scan-action@v8.0.0
+#       env:
+#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
