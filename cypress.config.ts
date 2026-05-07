@@ -5,6 +5,7 @@ export default defineConfig({
     viewportHeight: 1080,
     viewportWidth: 1920,
     experimentalRunAllSpecs: true,
-    screenshotOnRunFailure: false
+    screenshotOnRunFailure: false,
+    allowCypressEnv: false
   }
 })
