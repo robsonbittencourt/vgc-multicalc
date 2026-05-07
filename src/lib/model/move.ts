@@ -8,13 +8,14 @@ export class Move {
   readonly possibleHits: string[]
   readonly hits: string
   readonly alliesFainted: string
+  readonly lastMoveFailed: boolean
   readonly bp: number
   readonly accuracy: number
   readonly secondary: any
   readonly target: string
   readonly category: Category
 
-  constructor(name: string, options: { alliesFainted?: string; hits?: string; game?: string } = {}) {
+  constructor(name: string, options: { alliesFainted?: string; hits?: string; lastMoveFailed?: boolean; game?: string } = {}) {
     const gen = options.game === "champions" ? Generations.get(0) : Generations.get(9)
     const smogonMove = new MoveSmogon(gen, name)
 
@@ -22,6 +23,7 @@ export class Move {
     this.possibleHits = this.moveHits(name)
     this.hits = this.hitsValue(name, options)
     this.alliesFainted = options.alliesFainted ?? "0"
+    this.lastMoveFailed = options.lastMoveFailed ?? false
     this.bp = smogonMove.bp
     this.category = smogonMove.category
 

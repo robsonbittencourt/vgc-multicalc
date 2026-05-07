@@ -11,10 +11,10 @@ import { MovePosition } from "@lib/types"
 import { StatIDExceptHP } from "@robsonbittencourt/calc/src/data/interface"
 
 export function stateToPokemon(state: PokemonState, isAttacker = false, game?: string): Pokemon {
-  const moveOne = new Move(state.moveSet[0].name, { alliesFainted: state.moveSet[0].alliesFainted, hits: state.moveSet[0].hits, game })
-  const moveTwo = new Move(state.moveSet[1].name, { alliesFainted: state.moveSet[1].alliesFainted, hits: state.moveSet[1].hits, game })
-  const moveThree = new Move(state.moveSet[2].name, { alliesFainted: state.moveSet[2].alliesFainted, hits: state.moveSet[2].hits, game })
-  const moveFour = new Move(state.moveSet[3].name, { alliesFainted: state.moveSet[3].alliesFainted, hits: state.moveSet[3].hits, game })
+  const moveOne = new Move(state.moveSet[0].name, { alliesFainted: state.moveSet[0].alliesFainted, hits: state.moveSet[0].hits, lastMoveFailed: state.moveSet[0].lastMoveFailed, game })
+  const moveTwo = new Move(state.moveSet[1].name, { alliesFainted: state.moveSet[1].alliesFainted, hits: state.moveSet[1].hits, lastMoveFailed: state.moveSet[1].lastMoveFailed, game })
+  const moveThree = new Move(state.moveSet[2].name, { alliesFainted: state.moveSet[2].alliesFainted, hits: state.moveSet[2].hits, lastMoveFailed: state.moveSet[2].lastMoveFailed, game })
+  const moveFour = new Move(state.moveSet[3].name, { alliesFainted: state.moveSet[3].alliesFainted, hits: state.moveSet[3].hits, lastMoveFailed: state.moveSet[3].lastMoveFailed, game })
   const activeMovePosition = (state.activeMove + 1) as MovePosition
 
   return new Pokemon(state.name, {
@@ -51,10 +51,10 @@ export function pokemonToState(pokemon: Pokemon): PokemonState {
     teraTypeActive: pokemon.teraTypeActive,
     activeMove: pokemon.moveSet.activeMovePosition - 1,
     moveSet: [
-      { name: pokemon.move1Name, alliesFainted: pokemon.moveSet.move1.alliesFainted, hits: pokemon.moveSet.move1.hits },
-      { name: pokemon.move2Name, alliesFainted: pokemon.moveSet.move2.alliesFainted, hits: pokemon.moveSet.move2.hits },
-      { name: pokemon.move3Name, alliesFainted: pokemon.moveSet.move3.alliesFainted, hits: pokemon.moveSet.move3.hits },
-      { name: pokemon.move4Name, alliesFainted: pokemon.moveSet.move4.alliesFainted, hits: pokemon.moveSet.move4.hits }
+      { name: pokemon.move1Name, alliesFainted: pokemon.moveSet.move1.alliesFainted, hits: pokemon.moveSet.move1.hits, lastMoveFailed: pokemon.moveSet.move1.lastMoveFailed },
+      { name: pokemon.move2Name, alliesFainted: pokemon.moveSet.move2.alliesFainted, hits: pokemon.moveSet.move2.hits, lastMoveFailed: pokemon.moveSet.move2.lastMoveFailed },
+      { name: pokemon.move3Name, alliesFainted: pokemon.moveSet.move3.alliesFainted, hits: pokemon.moveSet.move3.hits, lastMoveFailed: pokemon.moveSet.move3.lastMoveFailed },
+      { name: pokemon.move4Name, alliesFainted: pokemon.moveSet.move4.alliesFainted, hits: pokemon.moveSet.move4.hits, lastMoveFailed: pokemon.moveSet.move4.lastMoveFailed }
     ],
     boosts: pokemon.boosts,
     bonusBoosts: pokemon.bonusBoosts,

@@ -1,10 +1,12 @@
 import { Component, computed, inject, input, output } from "@angular/core"
+import { FormsModule } from "@angular/forms"
+import { MatCheckbox, MatCheckboxChange } from "@angular/material/checkbox"
 import { InputAutocompleteComponent } from "@basic/input-autocomplete/input-autocomplete.component"
 import { CalculatorStore } from "@data/store/calculator-store"
 
 @Component({
   selector: "app-multi-hit-combo-box",
-  imports: [InputAutocompleteComponent],
+  imports: [FormsModule, MatCheckbox, InputAutocompleteComponent],
   templateUrl: "./multi-hit-combo-box.component.html",
   styleUrl: "./multi-hit-combo-box.component.scss"
 })
@@ -30,5 +32,10 @@ export class MultiHitComboBoxComponent {
   hitsChanged(event: string) {
     const activeMovePosition = this.pokemon().moveSet.activeMovePosition
     this.store.hits(this.pokemonId(), event, activeMovePosition)
+  }
+
+  lastMoveFailedChanged(event: MatCheckboxChange) {
+    const activeMovePosition = this.pokemon().moveSet.activeMovePosition
+    this.store.lastMoveFailed(this.pokemonId(), event.checked, activeMovePosition)
   }
 }

@@ -9,6 +9,7 @@ import { LastRespectsAdjuster } from "@lib/damage-calculator/calc-adjuster/last-
 import { NeutralizingGasAdjuster } from "@lib/damage-calculator/calc-adjuster/neutralizing-gas-adjuster"
 import { OgerponAdjuster } from "@lib/damage-calculator/calc-adjuster/ogerpon-adjuster"
 import { RageFistAdjuster } from "@lib/damage-calculator/calc-adjuster/rage-fist-adjuster"
+import { StompingTantrumAdjuster } from "@lib/damage-calculator/calc-adjuster/stomping-tantrum-adjuster"
 import { RuinsAbilityAdjuster } from "@lib/damage-calculator/calc-adjuster/ruins-ability-adjuster"
 import { ZacianZamazentaAdjuster } from "@lib/damage-calculator/calc-adjuster/zacian-zamazenta-adjuster"
 import { SPECIFIC_DAMAGE_CALCULATORS } from "@lib/damage-calculator/specific-damage-calculator/specific-damage-calculator"
@@ -26,6 +27,7 @@ bootstrapApplication(AppComponent, {
     { provide: CALC_ADJUSTERS, useClass: FairyAuraAdjuster, multi: true },
     { provide: CALC_ADJUSTERS, useClass: LastRespectsAdjuster, multi: true },
     { provide: CALC_ADJUSTERS, useClass: RageFistAdjuster, multi: true },
+    { provide: CALC_ADJUSTERS, useClass: StompingTantrumAdjuster, multi: true },
     { provide: CALC_ADJUSTERS, useClass: ZacianZamazentaAdjuster, multi: true },
     { provide: CALC_ADJUSTERS, useClass: NeutralizingGasAdjuster, multi: true },
     { provide: CALC_ADJUSTERS, useClass: OgerponAdjuster, multi: true },

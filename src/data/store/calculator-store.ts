@@ -17,6 +17,7 @@ export type MoveState = {
   name: string
   alliesFainted?: string
   hits?: string
+  lastMoveFailed?: boolean
 }
 
 export type PokemonState = {
@@ -317,6 +318,15 @@ export class CalculatorStore extends signalStore(
       const moveSet = [...state.moveSet]
       const arrayPosition = position - 1
       moveSet.splice(arrayPosition, 1, { ...moveSet[arrayPosition], hits: hits })
+      return { moveSet: moveSet }
+    })
+  }
+
+  lastMoveFailed(pokemonId: string, lastMoveFailed: boolean, position: MovePosition) {
+    this.updatePokemonById(pokemonId, state => {
+      const moveSet = [...state.moveSet]
+      const arrayPosition = position - 1
+      moveSet.splice(arrayPosition, 1, { ...moveSet[arrayPosition], lastMoveFailed: lastMoveFailed })
       return { moveSet: moveSet }
     })
   }
