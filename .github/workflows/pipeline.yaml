@@ -7,27 +7,13 @@ on:
     branches:
       - "**"
 
+env:
+  NODE_VERSION: "24.15.0"
+
 jobs:
-  install-dependencies:
-    name: Install Dependencies
-    runs-on: ubuntu-24.04
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6.0.2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v6.4.0
-        with:
-          node-version: "24.15.0"
-          cache: "npm"
-
-      - name: Install dependencies
-        run: npm ci
-
   build:
     name: Build
     runs-on: ubuntu-24.04
-    needs: install-dependencies
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6.0.2
@@ -35,7 +21,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6.4.0
         with:
-          node-version: "24.15.0"
+          node-version: ${{ env.NODE_VERSION }}
           cache: "npm"
 
       - name: Install dependencies
@@ -47,7 +33,6 @@ jobs:
   unit-tests:
     name: Unit Tests
     runs-on: ubuntu-24.04
-    needs: install-dependencies
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6.0.2
@@ -55,7 +40,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6.4.0
         with:
-          node-version: "24.15.0"
+          node-version: ${{ env.NODE_VERSION }}
           cache: "npm"
 
       - name: Install dependencies
@@ -73,7 +58,6 @@ jobs:
   lint:
     name: Lint
     runs-on: ubuntu-24.04
-    needs: install-dependencies
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6.0.2
@@ -81,7 +65,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6.4.0
         with:
-          node-version: "24.15.0"
+          node-version: ${{ env.NODE_VERSION }}
           cache: "npm"
 
       - name: Install dependencies
@@ -121,7 +105,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6.4.0
         with:
-          node-version: "24.15.0"
+          node-version: ${{ env.NODE_VERSION }}
           cache: "npm"
 
       - name: Install dependencies
@@ -177,7 +161,7 @@ jobs:
     needs: deploy
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6.0.2
         with:
           fetch-depth: 0
 
