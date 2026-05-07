@@ -189,6 +189,49 @@ describe("Damage Calculator Service", () => {
     expect(adjusterTwoSpy.adjust).toHaveBeenCalledWith(jasmine.any(SmogonPokemon), jasmine.any(SmogonPokemon), activeMove, jasmine.any(MoveSmogon), jasmine.any(FieldSmogon), undefined, jasmine.any(Field))
   })
 
+  it("should inject adjusted BP in description when adjuster sets override", () => {
+    adjusterOneSpy.adjust.and.callFake((_a, _t, _m, moveSmogon: MoveSmogon) => {
+      moveSmogon.bp = 150
+      moveSmogon.overrides = { basePower: 150 }
+    })
+
+    const attacker = new Pokemon("Garchomp", { moveSet: new MoveSet(new Move("Stomping Tantrum"), new Move("Earthquake"), new Move("Dragon Claw"), new Move("Protect")) })
+    const target = new Target(new Pokemon("Flutter Mane"))
+    const field = new Field()
+
+    const damageResult = service.calcDamage(attacker, target.pokemon, field)
+
+    expect(damageResult.description).toContain("Stomping Tantrum (150 BP)")
+  })
+
+  it("should not inject adjusted BP when adjuster does not set override", () => {
+    const attacker = new Pokemon("Garchomp", { moveSet: new MoveSet(new Move("Stomping Tantrum"), new Move("Earthquake"), new Move("Dragon Claw"), new Move("Protect")) })
+    const target = new Target(new Pokemon("Flutter Mane"))
+    const field = new Field()
+
+    const damageResult = service.calcDamage(attacker, target.pokemon, field)
+
+    expect(damageResult.description).not.toContain("BP)")
+  })
+
+  it("should inject adjusted BP in description for both attackers when both have overrides", () => {
+    adjusterOneSpy.adjust.and.callFake((_a, _t, move, moveSmogon: MoveSmogon) => {
+      if (move.name === "Stomping Tantrum") {
+        moveSmogon.bp = 150
+        moveSmogon.overrides = { basePower: 150 }
+      }
+    })
+
+    const attacker = new Pokemon("Garchomp", { moveSet: new MoveSet(new Move("Stomping Tantrum"), new Move("Earthquake"), new Move("Dragon Claw"), new Move("Protect")) })
+    const secondAttacker = new Pokemon("Garchomp", { moveSet: new MoveSet(new Move("Stomping Tantrum"), new Move("Earthquake"), new Move("Dragon Claw"), new Move("Protect")) })
+    const target = new Target(new Pokemon("Venusaur"))
+    const field = new Field()
+
+    const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
+
+    expect(damageResult.description.match(/Stomping Tantrum \(150 BP\)/g)?.length).toBe(2)
+  })
+
   it("should adjust inputs before calculation when have second attacker", () => {
     const activeMove = new Move("Grassy Glide")
     const attacker = new Pokemon("Raging Bolt", { moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Thunderclap"), new Move("Draco Meteor"), new Move("Protect")) })

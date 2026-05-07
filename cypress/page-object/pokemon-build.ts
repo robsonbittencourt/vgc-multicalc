@@ -324,6 +324,10 @@ export class PokemonBuild {
     this.container().find(`[data-cy="hits-taken"]`).click().get("mat-option").contains(hitsTaken.toString()).click()
   }
 
+  lastMoveFailed() {
+    this.container().find(`[data-cy="last-move-failed"]`).click()
+  }
+
   importPokemon(pokemonData: string): PokemonBuild {
     this.closeTable()
     this.container().find('[data-cy="import-pokemon"]').click({ force: true })

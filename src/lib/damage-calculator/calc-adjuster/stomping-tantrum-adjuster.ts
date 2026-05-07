@@ -9,6 +9,7 @@ import { Move as MoveSmogon, Pokemon as SmogonPokemon } from "@robsonbittencourt
 export class StompingTantrumAdjuster implements CalcAdjuster {
   adjust(_attacker: SmogonPokemon, _target: SmogonPokemon, move: Move, moveSmogon: MoveSmogon) {
     if (move.name == "Stomping Tantrum" && move.lastMoveFailed) {
+      moveSmogon.bp = 150
       moveSmogon.overrides = { basePower: 150 }
     }
   }

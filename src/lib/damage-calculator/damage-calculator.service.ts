@@ -77,7 +77,7 @@ export class DamageCalculatorService {
       multiResult.resultString(),
       multiResult.getHKO(),
       multiResult.rangePercentage().max,
-      this.formatDescription(multiResult.desc()),
+      this.injectAdjustedBp(this.injectAdjustedBp(this.formatDescription(multiResult.desc()), prepOne.moveSmogon), prepTwo.moveSmogon),
       firstResult.damage,
       secondAttackerOrdered,
       secondResult.damage,
@@ -176,10 +176,22 @@ export class DamageCalculatorService {
 
   private damageDescription(result: Result): string {
     try {
-      return this.formatDescription(result.desc())
+      return this.injectAdjustedBp(this.formatDescription(result.desc()), result.move)
     } catch (error) {
       return this.formatDescription(`${result.attacker.name} ${result.move.name} vs. ${result.defender.name}: 0-0 (0 - 0%) -- possibly the worst move ever`)
     }
+  }
+
+  private injectAdjustedBp(description: string, move: MoveSmogon): string {
+    const adjustedBp = move.overrides?.basePower
+
+    if (adjustedBp === undefined) return description
+
+    const replacement = `${move.name} (${adjustedBp} BP)`
+
+    if (description.includes(replacement)) return description
+
+    return description.replaceAll(move.name, replacement)
   }
 
   private formatDescription(description: string): string {

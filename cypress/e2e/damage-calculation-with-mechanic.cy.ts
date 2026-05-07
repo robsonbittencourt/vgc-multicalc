@@ -234,6 +234,23 @@ describe("Test calcs from moves with some mechanic", () => {
     })
   })
 
+  describe("Stomping Tantrum", () => {
+    beforeEach(() => {
+      leftPokemonBuild.importPokemon(poke["ting-lu"]).selectAttackTwo()
+      rightPokemonBuild.importPokemon(poke["rillaboom"])
+    })
+
+    it("with last move not failed", () => {
+      leftDamageResult.damageIs(1, 14.4, 17.3, 30, 36)
+    })
+
+    it("with last move failed", () => {
+      leftPokemonBuild.lastMoveFailed()
+
+      leftDamageResult.damageIs(1, 29.4, 34.7, 61, 72)
+    })
+  })
+
   describe("Dragon Darts", () => {
     beforeEach(() => {
       leftPokemonBuild.importPokemon(poke["dragapult"])
