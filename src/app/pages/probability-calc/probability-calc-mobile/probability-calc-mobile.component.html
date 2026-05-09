@@ -3,10 +3,14 @@
     <div [hidden]="activeBottomTab() !== 'detailed'" [class.tab-active]="activeBottomTab() === 'detailed'">
       <app-team-tabs-mobile [(pokemonOnEditId)]="pokemonOnEditId" (memberAddedEvent)="onMemberAdded()" />
 
-      <div class="mobile-widget-spacing">
-        <app-pokemon-probability [pokemon]="lastNonDefaultPokemon()" [isMobile]="true" />
-        <app-team-probability />
-      </div>
+      @if (!activeTabPokemonIsDefault()) {
+        <div class="mobile-widget-spacing">
+          <app-pokemon-probability [pokemon]="lastNonDefaultPokemon()" [isMobile]="true" />
+          <app-team-probability />
+        </div>
+      } @else {
+        <div class="empty-insights">Select a Pokémon</div>
+      }
     </div>
 
     <div [hidden]="activeBottomTab() !== 'general'" [class.tab-active]="activeBottomTab() === 'general'">
@@ -19,11 +23,13 @@
     <div [hidden]="activeBottomTab() !== 'build'" [class.tab-active]="activeBottomTab() === 'build'">
       <app-team-tabs-mobile [(pokemonOnEditId)]="pokemonOnEditId" (memberAddedEvent)="onMemberAdded()" />
 
-      <div class="attacker-build">
-        @if (effectiveEditingId()) {
+      @if (!activeTabPokemonIsDefault()) {
+        <div class="attacker-build">
           <app-pokemon-build-mobile [pokemonId]="effectiveEditingId()!" (pokemonDeleted)="pokemonOnEditId.set($event)" />
-        }
-      </div>
+        </div>
+      } @else {
+        <div class="empty-insights">Select a Pokémon</div>
+      }
     </div>
 
     <div [hidden]="activeBottomTab() !== 'teams'" [class.tab-active]="activeBottomTab() === 'teams'">

@@ -9,13 +9,22 @@
         }
       </div>
 
-      <app-speed-scale class="speed-scale" [pokemonId]="lastNonDefaultPokemon().id" [pokemonEachSide]="12" (pokemonSelected)="selectedPokemon.set($event)" />
+      @if (!pokemon().isDefault) {
+        <app-speed-scale class="speed-scale" [pokemonId]="lastNonDefaultPokemon().id" [pokemonEachSide]="12" (pokemonSelected)="selectedPokemon.set($event)" />
+      } @else {
+        <div class="empty-insights">Select a Pokémon</div>
+      }
     </div>
 
     <div [hidden]="activeBottomTab() !== 'speed-insights'" [class.tab-active]="activeBottomTab() === 'speed-insights'">
-      <div class="insights-content">
-        <app-speed-insights [pokemon]="selectedPokemon()" />
-      </div>
+      <app-team-tabs-mobile [(pokemonOnEditId)]="pokemonOnEditId" (memberAddedEvent)="focusPokemonComboBox()" />
+      @if (!pokemon().isDefault) {
+        <div class="insights-content">
+          <app-speed-insights [pokemon]="pokemon()" />
+        </div>
+      } @else {
+        <div class="empty-insights">Select a Pokémon</div>
+      }
     </div>
 
     <div [hidden]="activeBottomTab() !== 'settings'" [class.tab-active]="activeBottomTab() === 'settings'">

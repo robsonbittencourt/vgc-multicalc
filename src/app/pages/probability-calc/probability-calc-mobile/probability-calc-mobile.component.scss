@@ -33,6 +33,15 @@
   animation: tab-fade-in 0.2s ease-out;
 }
 
+.empty-insights {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+  color: var(--text);
+  opacity: 0.6;
+}
+
 .mobile-calc-container > app-team-tabs-mobile {
   animation: tab-fade-in 0.2s ease-out;
 }

@@ -1,4 +1,4 @@
-import { Component, computed, effect, ElementRef, inject, signal, ViewChild } from "@angular/core"
+import { Component, computed, effect, ElementRef, inject, QueryList, signal, ViewChild, ViewChildren } from "@angular/core"
 import { NgClass } from "@angular/common"
 import { MatIcon, MatIconRegistry } from "@angular/material/icon"
 import { DomSanitizer } from "@angular/platform-browser"
@@ -24,7 +24,7 @@ import { Pokemon } from "@lib/model/pokemon"
 })
 export class ProbabilityCalcMobileComponent {
   @ViewChild("scrollContainer") scrollContainer?: ElementRef<HTMLDivElement>
-  @ViewChild(TeamTabsMobileComponent) teamTabsMobile?: TeamTabsMobileComponent
+  @ViewChildren(TeamTabsMobileComponent) teamTabsMobileList?: QueryList<TeamTabsMobileComponent>
   store = inject(CalculatorStore)
 
   constructor() {
@@ -56,6 +56,12 @@ export class ProbabilityCalcMobileComponent {
 
   effectiveEditingId = computed(() => this.pokemonOnEditId() || this.activePokemonId())
 
+  activeTabPokemonIsDefault = computed(() => {
+    const id = this.effectiveEditingId()
+    if (!id) return true
+    return this.store.findPokemonById(id)?.isDefault ?? true
+  })
+
   switchTab(newTab: "general" | "detailed" | "teams" | "build") {
     const currentTab = this.activeBottomTab()
     if (currentTab === newTab) return
@@ -79,10 +85,13 @@ export class ProbabilityCalcMobileComponent {
   }
 
   onMemberAdded() {
-    this.switchTab("build")
+    const tabIndexByName: Record<string, number> = { detailed: 0, build: 1 }
+    const tabIndex = tabIndexByName[this.activeBottomTab()]
+
+    if (tabIndex === undefined) return
 
     setTimeout(() => {
-      this.teamTabsMobile?.focus()
+      this.teamTabsMobileList?.get(tabIndex)?.focus()
     }, 100)
   }
 }

@@ -1,5 +1,5 @@
 import { NgClass } from "@angular/common"
-import { Component, computed, effect, ElementRef, inject, signal, ViewChild } from "@angular/core"
+import { Component, computed, effect, ElementRef, inject, QueryList, signal, ViewChild, ViewChildren } from "@angular/core"
 import { MatIcon, MatIconRegistry } from "@angular/material/icon"
 import { DomSanitizer } from "@angular/platform-browser"
 import { InputAutocompleteComponent } from "@basic/input-autocomplete/input-autocomplete.component"
@@ -43,7 +43,7 @@ import { SpeedScaleComponent } from "@pages/speed-calc/speed-scale/speed-scale.c
 })
 export class SpeedCalculatorMobileComponent {
   @ViewChild("scrollContainer") scrollContainer?: ElementRef<HTMLDivElement>
-  @ViewChild(TeamTabsMobileComponent) teamTabsMobile?: TeamTabsMobileComponent
+  @ViewChildren(TeamTabsMobileComponent) teamTabsMobileList?: QueryList<TeamTabsMobileComponent>
 
   store = inject(CalculatorStore)
   fieldStore = inject(FieldStore)
@@ -150,8 +150,13 @@ export class SpeedCalculatorMobileComponent {
   }
 
   focusPokemonComboBox() {
+    const tabIndexByName: Record<string, number> = { main: 0, "speed-insights": 1 }
+    const tabIndex = tabIndexByName[this.activeBottomTab()]
+
+    if (tabIndex === undefined) return
+
     setTimeout(() => {
-      this.teamTabsMobile?.focus()
+      this.teamTabsMobileList?.get(tabIndex)?.focus()
     }, 50)
   }
 }
