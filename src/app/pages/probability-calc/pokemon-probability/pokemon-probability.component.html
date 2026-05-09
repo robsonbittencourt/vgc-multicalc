@@ -4,7 +4,7 @@
       <div class="pokemon-container">
         <div class="pokemon-header">
           <div class="pokemon-image">
-            <img src="assets/sprites/pokemon-sv/{{ effectivePokemon().name }}.png" />
+            <img [src]="spriteService.path(effectivePokemon().name)" />
           </div>
           <div class="pokemon-move-info">
             <h3>{{ effectivePokemon().activeMoveName }}</h3>

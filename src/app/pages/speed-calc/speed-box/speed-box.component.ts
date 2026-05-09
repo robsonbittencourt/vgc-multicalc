@@ -1,5 +1,6 @@
+import { SpriteService } from "@data/sprite.service"
 import { NgClass } from "@angular/common"
-import { Component, computed, input, output } from "@angular/core"
+import { Component, computed, inject, input, output } from "@angular/core"
 import { ACTUAL } from "@lib/constants"
 import { Pokemon } from "@lib/model/pokemon"
 import { SpeedDefinition } from "@lib/speed-calculator/speed-definition"
@@ -11,6 +12,7 @@ import { SpeedDefinition } from "@lib/speed-calculator/speed-definition"
   imports: [NgClass]
 })
 export class SpeedBoxComponent {
+  spriteService = inject(SpriteService)
   speedDefinition = input.required<SpeedDefinition>()
   speedChanged = input.required<boolean>()
   speedIncreasing = input.required<boolean>()

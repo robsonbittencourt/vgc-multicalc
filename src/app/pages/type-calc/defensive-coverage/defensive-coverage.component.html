@@ -24,7 +24,7 @@
               @for (pokemonData of coverageData()[0].pokemonData; track pokemonData.pokemon.id) {
                 <th class="pokemon-header" data-cy="pokemon-header">
                   <div class="pokemon-container">
-                    <img class="pokemon-image-small" src="assets/sprites/pokemon-sv/{{ pokemonData.pokemon.name }}.png" [alt]="pokemonData.pokemon.name" data-cy="pokemon-image-small" />
+                    <img class="pokemon-image-small" [src]="spriteService.path(pokemonData.pokemon.name)" [alt]="pokemonData.pokemon.name" data-cy="pokemon-image-small" />
                     @if (considerTeraType() && pokemonData.pokemon.teraType) {
                       <span class="tera-type-label">{{ pokemonData.pokemon.teraType }}</span>
                     }
@@ -44,7 +44,7 @@
                   @if (isAgainstTeam()) {
                     @if (getTargetPokemon(row)) {
                       <div class="pokemon-container">
-                        <img class="pokemon-image-small" src="assets/sprites/pokemon-sv/{{ getTargetPokemon(row)!.name }}.png" [alt]="getTargetPokemon(row)!.name" data-cy="pokemon-image-small" />
+                        <img class="pokemon-image-small" [src]="spriteService.path(getTargetPokemon(row)!.name)" [alt]="getTargetPokemon(row)!.name" data-cy="pokemon-image-small" />
                         @if (considerTeraBlast() && hasTeraBlast(getTargetPokemon(row)!) && getPokemonTeraType(getTargetPokemon(row)!)) {
                           <span class="tera-blast-label">Tera Blast {{ getPokemonTeraType(getTargetPokemon(row)!) }}</span>
                         }

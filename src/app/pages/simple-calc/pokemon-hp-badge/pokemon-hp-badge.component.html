@@ -7,7 +7,7 @@
     </div>
   </div>
   <div class="pokemon-image" animate.enter="fade-in">
-    <img #pokemonImage src="assets/sprites/pokemon-sv/{{ spriteName() }}.png" (load)="onImageLoad()" [ngStyle]="getPokemonImageStyles(showImage())" />
+    <img #pokemonImage [src]="spritePath()" (load)="onImageLoad()" [ngStyle]="getPokemonImageStyles(showImage())" />
 
     @if (remainingHp() === 0) {
       <div class="fainted-icon" data-cy="fainted-badge">

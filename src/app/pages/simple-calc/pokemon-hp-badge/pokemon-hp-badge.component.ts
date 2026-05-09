@@ -11,12 +11,12 @@ import { Items } from "@data/items"
 export class PokemonHpBadgeComponent {
   static imageCache = new Map<string, { dataUrl: string; scale: number }>()
 
-  _actualSpriteName: string
+  _actualSpritePath: string
 
   name = input.required<string>()
   hpBase = input.required<number>()
   actualHp = input.required<number>()
-  spriteName = input.required<string>()
+  spritePath = input.required<string>()
   damageTaken = input.required<number>()
   item = input.required({ transform: (value: string) => value.toLowerCase().replaceAll(" ", "-") })
 
@@ -54,10 +54,10 @@ export class PokemonHpBadgeComponent {
   imageScale = 1.2
 
   onImageLoad() {
-    if (this.spriteName() != this._actualSpriteName) {
-      this._actualSpriteName = this.spriteName()
+    if (this.spritePath() != this._actualSpritePath) {
+      this._actualSpritePath = this.spritePath()
 
-      const cached = PokemonHpBadgeComponent.imageCache.get(this.spriteName())
+      const cached = PokemonHpBadgeComponent.imageCache.get(this.spritePath())
 
       if (cached) {
         this.imageScale = cached.scale
@@ -129,7 +129,7 @@ export class PokemonHpBadgeComponent {
 
         const dataUrl = canvas.toDataURL()
         this.pokemonImage()!.nativeElement.src = dataUrl
-        PokemonHpBadgeComponent.imageCache.set(this.spriteName(), { dataUrl, scale: this.imageScale })
+        PokemonHpBadgeComponent.imageCache.set(this.spritePath(), { dataUrl, scale: this.imageScale })
       }
     }
   }

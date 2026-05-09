@@ -1,3 +1,4 @@
+import { SpriteService } from "@data/sprite.service"
 import { NgClass } from "@angular/common"
 import { Component, computed, inject, input, output } from "@angular/core"
 import { MatIcon } from "@angular/material/icon"
@@ -10,6 +11,7 @@ import { CalculatorStore } from "@data/store/calculator-store"
   imports: [NgClass, MatIcon]
 })
 export class PokemonTabComponent {
+  spriteService = inject(SpriteService)
   pokemonId = input.required<string>()
   active = input.required<boolean>()
 

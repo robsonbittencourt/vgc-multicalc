@@ -1,5 +1,6 @@
+import { SpriteService } from "@data/sprite.service"
 import { NgClass } from "@angular/common"
-import { Component, input, output } from "@angular/core"
+import { Component, inject, input, output } from "@angular/core"
 import { CdkDrag, CdkDragEnd, CdkDragHandle } from "@angular/cdk/drag-drop"
 import { MatIcon } from "@angular/material/icon"
 import { Team } from "@lib/model/team"
@@ -11,6 +12,7 @@ import { Team } from "@lib/model/team"
   imports: [NgClass, CdkDrag, CdkDragHandle, MatIcon]
 })
 export class TeamBoxComponent {
+  spriteService = inject(SpriteService)
   team = input.required<Team>()
   secondTeam = input<Team | null>(null)
   allowSecondTeamSelection = input<boolean>(false)

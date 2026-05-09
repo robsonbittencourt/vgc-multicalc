@@ -1,3 +1,4 @@
+import { SpriteService } from "@data/sprite.service"
 import { CdkDrag, CdkDragEnd, CdkDragHandle, CdkDragMove, CdkDragPlaceholder, CdkDragStart } from "@angular/cdk/drag-drop"
 import { Component, computed, inject, input, model, output } from "@angular/core"
 import { MatIcon } from "@angular/material/icon"
@@ -36,6 +37,7 @@ import { PokemonHpBadgeComponent } from "@pages/simple-calc/pokemon-hp-badge/pok
   ]
 })
 export class PokemonCardComponent {
+  spriteService = inject(SpriteService)
   store = inject(CalculatorStore)
   menuStore = inject(MenuStore)
   megaStoneService = inject(MegaStoneService)
@@ -65,9 +67,8 @@ export class PokemonCardComponent {
   isDefaultAttacker = computed(() => this.damageResult().attacker.isDefault)
   isDefaultDefender = computed(() => this.damageResult().defender.isDefault)
 
-  spriteFolder = computed(() => (this.store.game() === "champions" ? "pokemon-champions" : "pokemon-sv"))
-  attackerSpritePath = computed(() => `assets/sprites/${this.spriteFolder()}/${this.damageResult().attacker.name}.png`)
-  secondAttackerSpritePath = computed(() => `assets/sprites/${this.spriteFolder()}/${this.damageResult().secondAttacker?.name}.png`)
+  attackerSpritePath = computed(() => this.spriteService.path(this.damageResult().attacker.name))
+  secondAttackerSpritePath = computed(() => this.spriteService.path(this.damageResult().secondAttacker?.name ?? ""))
 
   collapsedDescription = computed(() => {
     const firstMove = this.damageResult().move

@@ -28,7 +28,7 @@
       @for (teamMember of team().teamMembers; track teamMember.pokemon.id) {
         <div class="pokemon-image">
           @if (!teamMember.pokemon.isDefault) {
-            <img src="assets/sprites/pokemon-sv/{{ teamMember.pokemon.name }}.png" />
+            <img [src]="spriteService.path(teamMember.pokemon.name)" />
           }
         </div>
       }
@@ -43,7 +43,7 @@
         @for (teamMember of secondTeam()!.teamMembers; track teamMember.pokemon.id) {
           <div class="pokemon-image">
             @if (!teamMember.pokemon.isDefault) {
-              <img src="assets/sprites/pokemon-sv/{{ teamMember.pokemon.name }}.png" />
+              <img [src]="spriteService.path(teamMember.pokemon.name)" />
             }
           </div>
         }

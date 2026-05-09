@@ -1,3 +1,4 @@
+import { SpriteService } from "@data/sprite.service"
 import { NgClass } from "@angular/common"
 import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, inject, input, signal } from "@angular/core"
 import { MatSlideToggle } from "@angular/material/slide-toggle"
@@ -18,6 +19,7 @@ import { TypeName } from "@robsonbittencourt/calc/dist/data/interface"
   styleUrl: "./offensive-coverage-mobile.component.scss"
 })
 export class OffensiveCoverageMobileComponent {
+  spriteService = inject(SpriteService)
   store = inject(CalculatorStore)
   typeCoverageService = inject(TypeCoverageService)
 

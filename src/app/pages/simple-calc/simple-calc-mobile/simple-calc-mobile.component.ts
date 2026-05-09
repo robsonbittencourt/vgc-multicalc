@@ -1,3 +1,4 @@
+import { SpriteService } from "@data/sprite.service"
 import { Component, computed, effect, ElementRef, inject, signal, viewChild } from "@angular/core"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { FieldStore } from "@data/store/field-store"
@@ -30,6 +31,7 @@ import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-b
   providers: [FieldStore, AutomaticFieldService, { provide: FIELD_CONTEXT, useValue: "simple" }]
 })
 export class SimpleCalcMobileComponent {
+  spriteService = inject(SpriteService)
   store = inject(CalculatorStore)
   fieldStore = inject(FieldStore)
   private damageCalculator = inject(DamageCalculatorService)

@@ -1,3 +1,4 @@
+import { SpriteService } from "@data/sprite.service"
 import { NgClass, NgTemplateOutlet } from "@angular/common"
 import { Component, computed, inject, input } from "@angular/core"
 import { WidgetComponent } from "@basic/widget/widget.component"
@@ -16,6 +17,7 @@ import { TypeName } from "@robsonbittencourt/calc/dist/data/interface"
   styleUrl: "./type-coverage-insights.component.scss"
 })
 export class TypeCoverageInsightsComponent {
+  spriteService = inject(SpriteService)
   store = inject(CalculatorStore)
   insightsService = inject(TypeCoverageInsightsService)
 

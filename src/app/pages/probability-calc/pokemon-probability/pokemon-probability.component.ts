@@ -1,3 +1,4 @@
+import { SpriteService } from "@data/sprite.service"
 import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, inject, input } from "@angular/core"
 import { WidgetComponent } from "@app/basic/widget/widget.component"
 import { CalculatorStore } from "@data/store/calculator-store"
@@ -14,6 +15,7 @@ import { Pokemon } from "@lib/model/pokemon"
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class PokemonProbabilityComponent {
+  spriteService = inject(SpriteService)
   isMobile = input<boolean>(false)
   pokemon = input<Pokemon | null>(null)
   store = inject(CalculatorStore)

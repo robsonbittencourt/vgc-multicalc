@@ -37,6 +37,7 @@ export class SpeedScaleComponent implements OnInit {
   speedOrderIncrease: boolean
 
   timeoutId: any
+  private lastGame = this.store.game()
 
   constructor() {
     effect(() => {
@@ -50,6 +51,18 @@ export class SpeedScaleComponent implements OnInit {
 
   calculateSpeedRange(pokemon: Pokemon, options: SpeedScaleOptions, field: Field) {
     clearTimeout(this.timeoutId)
+
+    const currentGame = this.store.game()
+    const gameChanged = currentGame !== this.lastGame
+
+    if (gameChanged) {
+      this.lastGame = currentGame
+      const range = this.speedCalculatorService.orderedPokemon(pokemon, field, this.pokemonEachSide(), options)
+      this.inSpeedRange.set(range)
+      this.verifyChanges(range)
+      this.setPokemonSelected(this.pokemon())
+      return
+    }
 
     this.timeoutId = setTimeout(() => {
       const range = this.speedCalculatorService.orderedPokemon(pokemon, field, this.pokemonEachSide(), options)

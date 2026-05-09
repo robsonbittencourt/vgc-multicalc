@@ -82,7 +82,7 @@
                   [name]="pokemonOnCard().displayNameWithoutSuffix"
                   [actualHp]="pokemonOnCard().actualHp"
                   [hpBase]="pokemonOnCard().hp"
-                  [spriteName]="pokemonOnCard().name"
+                  [spritePath]="spriteService.path(pokemonOnCard().name)"
                   [item]="pokemonOnCard().item"
                   [damageTaken]="damageTaken()" />
               }

@@ -5,7 +5,7 @@
         @if (offensiveSuperEffectivePokemon().length > 0) {
           <div class="pokemon-item-wrapper pokemon-row-1" data-cy="offensive-super-effective-pokemon-0">
             <div class="pokemon-insight-card" [ngClass]="getPokemonCategory(offensiveSuperEffectivePokemon()[0].pokemon, true)" data-cy="pokemon-insight-card">
-              <img class="pokemon-icon" src="assets/sprites/pokemon-sv/{{ offensiveSuperEffectivePokemon()[0].pokemon.name }}.png" [alt]="offensiveSuperEffectivePokemon()[0].pokemon.name" data-cy="pokemon-icon" />
+              <img class="pokemon-icon" [src]="spriteService.path(offensiveSuperEffectivePokemon()[0].pokemon.name)" [alt]="offensiveSuperEffectivePokemon()[0].pokemon.name" data-cy="pokemon-icon" />
             </div>
             <div class="explanation-container" data-cy="explanation-container">
               @if (getPokemonSuperEffectiveCount2x(offensiveSuperEffectivePokemon()[0].pokemon) > 0) {
@@ -28,7 +28,7 @@
         @if (offensiveSuperEffectivePokemon().length > 1) {
           <div class="pokemon-item-wrapper pokemon-row-2" data-cy="offensive-super-effective-pokemon-1">
             <div class="pokemon-insight-card" [ngClass]="getPokemonCategory(offensiveSuperEffectivePokemon()[1].pokemon, true)" data-cy="pokemon-insight-card">
-              <img class="pokemon-icon" src="assets/sprites/pokemon-sv/{{ offensiveSuperEffectivePokemon()[1].pokemon.name }}.png" [alt]="offensiveSuperEffectivePokemon()[1].pokemon.name" data-cy="pokemon-icon" />
+              <img class="pokemon-icon" [src]="spriteService.path(offensiveSuperEffectivePokemon()[1].pokemon.name)" [alt]="offensiveSuperEffectivePokemon()[1].pokemon.name" data-cy="pokemon-icon" />
             </div>
             <div class="explanation-container" data-cy="explanation-container">
               @if (getPokemonSuperEffectiveCount2x(offensiveSuperEffectivePokemon()[1].pokemon) > 0) {
@@ -59,7 +59,7 @@
         @if (offensiveNotVeryEffectivePokemon().length > 0) {
           <div class="pokemon-item-wrapper pokemon-row-3" data-cy="offensive-not-very-effective-pokemon-0">
             <div class="pokemon-insight-card" [ngClass]="getPokemonCategory(offensiveNotVeryEffectivePokemon()[0].pokemon, true)" data-cy="pokemon-insight-card">
-              <img class="pokemon-icon" src="assets/sprites/pokemon-sv/{{ offensiveNotVeryEffectivePokemon()[0].pokemon.name }}.png" [alt]="offensiveNotVeryEffectivePokemon()[0].pokemon.name" data-cy="pokemon-icon" />
+              <img class="pokemon-icon" [src]="spriteService.path(offensiveNotVeryEffectivePokemon()[0].pokemon.name)" [alt]="offensiveNotVeryEffectivePokemon()[0].pokemon.name" data-cy="pokemon-icon" />
             </div>
             <span class="explanation" data-cy="explanation">{{ getPokemonExplanation(offensiveNotVeryEffectivePokemon()[0].pokemon, true) }}</span>
           </div>
@@ -67,7 +67,7 @@
         @if (offensiveNotVeryEffectivePokemon().length > 1) {
           <div class="pokemon-item-wrapper pokemon-row-4" data-cy="offensive-not-very-effective-pokemon-1">
             <div class="pokemon-insight-card" [ngClass]="getPokemonCategory(offensiveNotVeryEffectivePokemon()[1].pokemon, true)" data-cy="pokemon-insight-card">
-              <img class="pokemon-icon" src="assets/sprites/pokemon-sv/{{ offensiveNotVeryEffectivePokemon()[1].pokemon.name }}.png" [alt]="offensiveNotVeryEffectivePokemon()[1].pokemon.name" data-cy="pokemon-icon" />
+              <img class="pokemon-icon" [src]="spriteService.path(offensiveNotVeryEffectivePokemon()[1].pokemon.name)" [alt]="offensiveNotVeryEffectivePokemon()[1].pokemon.name" data-cy="pokemon-icon" />
             </div>
             <span class="explanation" data-cy="explanation">{{ getPokemonExplanation(offensiveNotVeryEffectivePokemon()[1].pokemon, true) }}</span>
           </div>
@@ -88,7 +88,7 @@
         @if (defensivePositivePokemon().length > 0) {
           <div class="pokemon-item-wrapper pokemon-row-1" data-cy="defensive-positive-pokemon-0">
             <div class="pokemon-insight-card" [ngClass]="getPokemonCategory(defensivePositivePokemon()[0].pokemon, false)" data-cy="pokemon-insight-card">
-              <img class="pokemon-icon" src="assets/sprites/pokemon-sv/{{ defensivePositivePokemon()[0].pokemon.name }}.png" [alt]="defensivePositivePokemon()[0].pokemon.name" data-cy="pokemon-icon" />
+              <img class="pokemon-icon" [src]="spriteService.path(defensivePositivePokemon()[0].pokemon.name)" [alt]="defensivePositivePokemon()[0].pokemon.name" data-cy="pokemon-icon" />
             </div>
             <div class="explanation-container" data-cy="explanation-container">
               @if (getPokemonImmuneCount(defensivePositivePokemon()[0].pokemon) > 0) {
@@ -117,7 +117,7 @@
         @if (defensivePositivePokemon().length > 1) {
           <div class="pokemon-item-wrapper pokemon-row-2" data-cy="defensive-positive-pokemon-1">
             <div class="pokemon-insight-card" [ngClass]="getPokemonCategory(defensivePositivePokemon()[1].pokemon, false)" data-cy="pokemon-insight-card">
-              <img class="pokemon-icon" src="assets/sprites/pokemon-sv/{{ defensivePositivePokemon()[1].pokemon.name }}.png" [alt]="defensivePositivePokemon()[1].pokemon.name" data-cy="pokemon-icon" />
+              <img class="pokemon-icon" [src]="spriteService.path(defensivePositivePokemon()[1].pokemon.name)" [alt]="defensivePositivePokemon()[1].pokemon.name" data-cy="pokemon-icon" />
             </div>
             <div class="explanation-container" data-cy="explanation-container">
               @if (getPokemonImmuneCount(defensivePositivePokemon()[1].pokemon) > 0) {
@@ -159,7 +159,7 @@
         @if (defensiveWeakPokemon().length > 0) {
           <div class="pokemon-item-wrapper pokemon-row-3" data-cy="defensive-weak-pokemon-0">
             <div class="pokemon-insight-card" [ngClass]="getPokemonCategory(defensiveWeakPokemon()[0].pokemon, false, true)" data-cy="pokemon-insight-card">
-              <img class="pokemon-icon" src="assets/sprites/pokemon-sv/{{ defensiveWeakPokemon()[0].pokemon.name }}.png" [alt]="defensiveWeakPokemon()[0].pokemon.name" data-cy="pokemon-icon" />
+              <img class="pokemon-icon" [src]="spriteService.path(defensiveWeakPokemon()[0].pokemon.name)" [alt]="defensiveWeakPokemon()[0].pokemon.name" data-cy="pokemon-icon" />
             </div>
             <div class="explanation-container" data-cy="explanation-container">
               @if (getPokemonWeakCount2x(defensiveWeakPokemon()[0].pokemon) > 0) {
@@ -185,7 +185,7 @@
         @if (defensiveWeakPokemon().length > 1) {
           <div class="pokemon-item-wrapper pokemon-row-4" data-cy="defensive-weak-pokemon-1">
             <div class="pokemon-insight-card" [ngClass]="getPokemonCategory(defensiveWeakPokemon()[1].pokemon, false, true)" data-cy="pokemon-insight-card">
-              <img class="pokemon-icon" src="assets/sprites/pokemon-sv/{{ defensiveWeakPokemon()[1].pokemon.name }}.png" [alt]="defensiveWeakPokemon()[1].pokemon.name" data-cy="pokemon-icon" />
+              <img class="pokemon-icon" [src]="spriteService.path(defensiveWeakPokemon()[1].pokemon.name)" [alt]="defensiveWeakPokemon()[1].pokemon.name" data-cy="pokemon-icon" />
             </div>
             <div class="explanation-container" data-cy="explanation-container">
               @if (getPokemonWeakCount2x(defensiveWeakPokemon()[1].pokemon) > 0) {

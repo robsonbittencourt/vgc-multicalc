@@ -1,7 +1,7 @@
 <div class="team-tabs">
   @if (editingTarget()) {
     <div class="team-tab active-tab target-tab" (click)="clearEditMode()">
-      <img class="tab-sprite" src="assets/sprites/pokemon-sv/{{ editingPokemon()!.name }}.png" />
+      <img class="tab-sprite" [src]="spriteService.path(editingPokemon()!.name)" />
     </div>
 
     <div class="team-tab add-tab" (click)="clearEditMode()">
@@ -19,7 +19,7 @@
             (touchend)="onTabTouchEnd()"
             (touchcancel)="onTabTouchEnd()"
             (contextmenu)="$event.preventDefault()">
-            <img class="tab-sprite" src="assets/sprites/pokemon-sv/{{ member.pokemon.name }}.png" />
+            <img class="tab-sprite" [src]="spriteService.path(member.pokemon.name)" />
             @if (isSecondAttacker(member.pokemon.id)) {
               <div class="combine-badge">
                 <mat-icon>add</mat-icon>

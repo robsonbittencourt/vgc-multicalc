@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from "uuid"
+import { SpriteService } from "@data/sprite.service"
 import { Component, computed, inject, model, output, viewChild } from "@angular/core"
 import { NgClass } from "@angular/common"
 import { MatIcon } from "@angular/material/icon"
@@ -19,6 +20,7 @@ import { Team } from "@lib/model/team"
   imports: [MatIcon, NgClass, PokemonComboBoxComponent, ImportPokemonButtonComponent, ExportPokemonButtonComponent]
 })
 export class TeamTabsMobileComponent {
+  spriteService = inject(SpriteService)
   pokemonComboBox = viewChild(PokemonComboBoxComponent)
   pokemonOnEditId = model<string | null>(null)
 

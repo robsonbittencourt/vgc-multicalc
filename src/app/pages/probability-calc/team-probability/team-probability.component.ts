@@ -1,3 +1,4 @@
+import { SpriteService } from "@data/sprite.service"
 import { Component, computed, inject } from "@angular/core"
 import { DonutGraphicComponent } from "@app/basic/donut-graphic/donut-graphic.component"
 import { WidgetComponent } from "@app/basic/widget/widget.component"
@@ -11,6 +12,7 @@ import { ConsistencyScoreService } from "@lib/probability-calc/consistency-score
   styleUrl: "./team-probability.component.scss"
 })
 export class TeamProbabilityComponent {
+  spriteService = inject(SpriteService)
   store = inject(CalculatorStore)
   consistencyScoreService = inject(ConsistencyScoreService)
 

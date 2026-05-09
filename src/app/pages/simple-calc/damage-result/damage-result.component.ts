@@ -1,3 +1,4 @@
+import { SpriteService } from "@data/sprite.service"
 import { NgClass, NgStyle } from "@angular/common"
 import { Component, computed, inject, input, model, output } from "@angular/core"
 import { MatChipListbox, MatChipOption } from "@angular/material/chips"
@@ -18,6 +19,7 @@ import { PokemonHpBadgeComponent } from "@pages/simple-calc/pokemon-hp-badge/pok
   imports: [NgStyle, NgClass, MatChipListbox, MatChipOption, WidgetComponent, PokemonHpBadgeComponent, ChampionsHpBadgeComponent, CopyButtonComponent, RollConfigComponent]
 })
 export class DamageResultComponent {
+  spriteService = inject(SpriteService)
   store = inject(CalculatorStore)
   pokemon = input.required<Pokemon>()
   damageResults = input.required<DamageResult[]>()

@@ -4,7 +4,7 @@
       @if (store.isChampions()) {
         <app-champions-hp-badge [name]="pokemon().displayNameWithoutSuffix" [actualHp]="pokemon().actualHp" [hpBase]="pokemon().hp" [spriteName]="pokemon().name" [item]="pokemon().item" [damageTaken]="damageTaken()" [status]="pokemon().status" />
       } @else {
-        <app-pokemon-hp-badge [name]="pokemon().displayNameWithoutSuffix" [actualHp]="pokemon().actualHp" [hpBase]="pokemon().hp" [spriteName]="pokemon().name" [item]="pokemon().item" [damageTaken]="damageTaken()" />
+        <app-pokemon-hp-badge [name]="pokemon().displayNameWithoutSuffix" [actualHp]="pokemon().actualHp" [hpBase]="pokemon().hp" [spritePath]="spriteService.path(pokemon().name)" [item]="pokemon().item" [damageTaken]="damageTaken()" />
       }
 
       <app-roll-config [(config)]="rollLevel" (rollLevelChange)="rollLevelChanged($event)" />
