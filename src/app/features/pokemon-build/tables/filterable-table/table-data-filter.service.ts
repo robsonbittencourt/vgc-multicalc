@@ -78,42 +78,39 @@ export class TableDataFilterService<T extends Record<string, any>> {
     if (!values) return []
 
     const filterValue = this.normalizeValue(value)
-    const megaPartialFilter = this.buildMegaPartialFilter(value)
 
-    const matchesFilter = (name: string) => {
-      const normalizedName = this.normalizeValue(name)
-
-      if (megaPartialFilter) {
-        const isMega = normalizedName.endsWith("-mega")
-        const matchesPartial = megaPartialFilter === "" || normalizedName.includes(megaPartialFilter)
-
-        if (isMega && matchesPartial) return "startsWith"
-        return null
-      }
-
-      if (normalizedName.startsWith(filterValue)) return "startsWith"
-      if (normalizedName.includes(filterValue)) return "contains"
-
-      return null
-    }
-
-    const startsWithMatch = values.filter(v => matchesFilter(v["name"]) === "startsWith")
-    const containsMatch = values.filter(v => matchesFilter(v["name"]) === "contains")
-
-    return [...startsWithMatch, ...containsMatch]
+    return values.filter(v => this.matchesFilterValue(v["name"], filterValue))
   }
 
-  private buildMegaPartialFilter(value: string): string | null {
-    const trimmed = value.trim()
+  private matchesFilterValue(name: string, filterValue: string): boolean {
+    const normalizedName = this.normalizeValue(name)
 
-    if (!trimmed.match(/^mega(\s.*)?$/i)) return null
+    if (normalizedName.startsWith(filterValue)) return true
 
-    const megaMatch = trimmed.match(/^mega\s+(.+)$/i)
-    return megaMatch ? this.normalizeValue(megaMatch[1]) : ""
+    if (normalizedName.includes("-mega")) {
+      const baseName = normalizedName.replace(/-mega.*$/, "")
+      const megaAliases = this.buildMegaAliases(normalizedName, baseName)
+
+      if (megaAliases.some(alias => alias.startsWith(filterValue))) return true
+    }
+
+    return false
+  }
+
+  private buildMegaAliases(normalizedName: string, baseName: string): string[] {
+    const afterBase = normalizedName.slice(baseName.length + 1)
+    const variant = afterBase.replace(/^mega-?/, "")
+
+    const megaBase = "mega-" + baseName
+    const nameBase = baseName + "-mega"
+
+    if (!variant) return [megaBase, nameBase]
+
+    return [megaBase + "-" + variant, nameBase + "-" + variant, megaBase, nameBase]
   }
 
   private normalizeValue(value: string): string {
-    return value.toLowerCase().replace(/\s/g, "")
+    return value.toLowerCase().replace(/\s+/g, "-")
   }
 
   private orderData(dataToProcess: T[], column: keyof T | null, direction: "asc" | "desc" | null) {

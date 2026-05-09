@@ -97,9 +97,9 @@ describe("Filtered Table behaviors", () => {
       const build = team.selectPokemon("Rillaboom")
 
       build.changeAttackOneByFilter("Ea", "Earthquake")
-      build.changeAttackTwoByFilter("Ea", "Brick Break")
-      build.changeAttackThreeByFilter("Ea", "Drum Beating")
-      build.changeAttackFourByFilter("Ea", "Endeavor")
+      build.changeAttackTwoByFilter("Br", "Brick Break")
+      build.changeAttackThreeByFilter("Dr", "Drum Beating")
+      build.changeAttackFourByFilter("En", "Endeavor")
       team.pokemonOnEditAttacksIs("Earthquake", "Brick Break", "Drum Beating", "Endeavor")
     })
   })
@@ -173,10 +173,10 @@ describe("Filtered Table behaviors", () => {
       build.inputPokemonAttackTwo("Re")
       cy.realPress("Tab").wait(100)
 
-      build.inputPokemonAttackThree("Es")
+      build.inputPokemonAttackThree("Bo")
       cy.realPress("Tab").wait(100)
 
-      build.inputPokemonAttackFour("Rs")
+      build.inputPokemonAttackFour("Boo")
       cy.realPress("Tab").wait(100)
 
       team.pokemonOnEditAttacksIs("Earth Power", "Rest", "Body Press", "Boomburst")
