@@ -31,17 +31,17 @@ export const SETDEX_CHAMPIONS: Record<string, any> = {
   },
   Charizard: {
     ability: "Solar Power",
-    nature: "Modest",
+    nature: "Timid",
     teraType: "",
     evs: {
-      hp: 20,
+      hp: 2,
       atk: 0,
       def: 0,
-      spa: 25,
+      spa: 32,
       spd: 0,
-      spe: 21
+      spe: 32
     },
-    moves: ["Heat Wave", "Solar Beam", "Weather Ball", "Protect"],
+    moves: ["Solar Beam", "Heat Wave", "Weather Ball", "Protect"],
     items: ["Charizardite Y"]
   },
   "Charizard-Mega-X": {
@@ -76,17 +76,17 @@ export const SETDEX_CHAMPIONS: Record<string, any> = {
   },
   Blastoise: {
     ability: "Rain Dish",
-    nature: "Modest",
+    nature: "Quiet",
     teraType: "",
     evs: {
-      hp: 29,
+      hp: 32,
       atk: 0,
       def: 0,
       spa: 32,
-      spd: 0,
-      spe: 5
+      spd: 2,
+      spe: 0
     },
-    moves: ["Water Spout", "Water Pulse", "Dark Pulse", "Fake Out"],
+    moves: ["Water Spout", "Dark Pulse", "Aura Sphere", "Protect"],
     items: ["Blastoisinite"]
   },
   "Blastoise-Mega": {
@@ -439,14 +439,14 @@ export const SETDEX_CHAMPIONS: Record<string, any> = {
     nature: "Timid",
     teraType: "",
     evs: {
-      hp: 1,
+      hp: 2,
       atk: 0,
-      def: 1,
+      def: 0,
       spa: 32,
       spd: 0,
       spe: 32
     },
-    moves: ["Shadow Ball", "Sludge Bomb", "Disable", "Protect"],
+    moves: ["Sludge Bomb", "Shadow Ball", "Protect", "Perish Song"],
     items: ["Gengarite"]
   },
   "Gengar-Mega": {
@@ -466,17 +466,17 @@ export const SETDEX_CHAMPIONS: Record<string, any> = {
   },
   Kangaskhan: {
     ability: "Scrappy",
-    nature: "Adamant",
+    nature: "Brave",
     teraType: "",
     evs: {
-      hp: 2,
+      hp: 28,
       atk: 32,
-      def: 0,
+      def: 1,
       spa: 0,
-      spd: 0,
-      spe: 32
+      spd: 5,
+      spe: 0
     },
-    moves: ["Fake Out", "Double-Edge", "Sucker Punch", "Drain Punch"],
+    moves: ["Double-Edge", "Drain Punch", "Sucker Punch", "Fake Out"],
     items: ["Kangaskhanite"]
   },
   "Kangaskhan-Mega": {
@@ -496,17 +496,17 @@ export const SETDEX_CHAMPIONS: Record<string, any> = {
   },
   Starmie: {
     ability: "Natural Cure",
-    nature: "Adamant",
+    nature: "Jolly",
     teraType: "",
     evs: {
-      hp: 0,
+      hp: 2,
       atk: 32,
-      def: 2,
+      def: 0,
       spa: 0,
       spd: 0,
       spe: 32
     },
-    moves: ["Liquidation", "Psycho Cut", "Protect", "Ice Spinner"],
+    moves: ["Liquidation", "Zen Headbutt", "Aqua Jet", "Protect"],
     items: ["Starminite"]
   },
   "Starmie-Mega": {
@@ -616,15 +616,15 @@ export const SETDEX_CHAMPIONS: Record<string, any> = {
   },
   Gyarados: {
     ability: "Intimidate",
-    nature: "Adamant",
+    nature: "Jolly",
     teraType: "",
     evs: {
-      hp: 1,
+      hp: 4,
       atk: 32,
-      def: 1,
+      def: 0,
       spa: 0,
       spd: 0,
-      spe: 32
+      spe: 30
     },
     moves: ["Waterfall", "Crunch", "Protect", "Dragon Dance"],
     items: ["Gyaradosite"]
@@ -751,30 +751,30 @@ export const SETDEX_CHAMPIONS: Record<string, any> = {
   },
   Dragonite: {
     ability: "Multiscale",
-    nature: "Adamant",
+    nature: "Modest",
     teraType: "",
     evs: {
-      hp: 32,
-      atk: 32,
-      def: 2,
-      spa: 0,
+      hp: 2,
+      atk: 0,
+      def: 0,
+      spa: 32,
       spd: 0,
-      spe: 0
+      spe: 32
     },
-    moves: ["Extreme Speed", "Dragon Claw", "Low Kick", "Protect"],
-    items: ["Dragon Fang", "Lum Berry", "White Herb"]
+    moves: ["Hurricane", "Dragon Pulse", "Protect", "Tailwind"],
+    items: ["Dragoninite"]
   },
   "Dragonite-Mega": {
     ability: "Multiscale",
-    nature: "Brave",
+    nature: "Modest",
     teraType: "",
     evs: {
-      hp: 32,
-      atk: 32,
+      hp: 2,
+      atk: 0,
       def: 0,
-      spa: 2,
+      spa: 32,
       spd: 0,
-      spe: 0
+      spe: 32
     },
     moves: ["Hurricane", "Dragon Pulse", "Protect", "Tailwind"],
     items: ["Dragoninite"]
@@ -784,14 +784,14 @@ export const SETDEX_CHAMPIONS: Record<string, any> = {
     nature: "Modest",
     teraType: "",
     evs: {
-      hp: 32,
+      hp: 31,
       atk: 0,
       def: 0,
-      spa: 32,
+      spa: 27,
       spd: 0,
-      spe: 2
+      spe: 8
     },
-    moves: ["Solar Beam", "Dazzling Gleam", "Protect", "Weather Ball"],
+    moves: ["Solar Beam", "Dazzling Gleam", "Weather Ball", "Protect"],
     items: ["Meganiumite"]
   },
   "Meganium-Mega": {
@@ -1058,10 +1058,10 @@ export const SETDEX_CHAMPIONS: Record<string, any> = {
       atk: 32,
       def: 0,
       spa: 0,
-      spd: 1,
-      spe: 1
+      spd: 2,
+      spe: 0
     },
-    moves: ["Bug Bite", "Bullet Punch", "Swords Dance", "Protect"],
+    moves: ["Bug Bite", "Bullet Punch", "Protect", "Swords Dance"],
     items: ["Scizorite"]
   },
   "Scizor-Mega": {
@@ -1171,18 +1171,18 @@ export const SETDEX_CHAMPIONS: Record<string, any> = {
   },
   Tyranitar: {
     ability: "Sand Stream",
-    nature: "Jolly",
+    nature: "Adamant",
     teraType: "",
     evs: {
-      hp: 2,
-      atk: 32,
-      def: 0,
+      hp: 32,
+      atk: 28,
+      def: 1,
       spa: 0,
-      spd: 0,
-      spe: 32
+      spd: 1,
+      spe: 4
     },
     moves: ["Rock Slide", "Knock Off", "Protect", "Low Kick"],
-    items: ["Choice Scarf", "Focus Sash", "Chople Berry", "Passho Berry", "Lum Berry", "Hard Stone"]
+    items: ["Tyranitarite"]
   },
   "Tyranitar-Mega": {
     ability: "Sand Stream",
@@ -1216,17 +1216,17 @@ export const SETDEX_CHAMPIONS: Record<string, any> = {
   },
   Gardevoir: {
     ability: "Telepathy",
-    nature: "Timid",
+    nature: "Modest",
     teraType: "",
     evs: {
-      hp: 0,
+      hp: 32,
       atk: 0,
-      def: 2,
-      spa: 32,
-      spd: 0,
-      spe: 32
+      def: 7,
+      spa: 25,
+      spd: 2,
+      spe: 0
     },
-    moves: ["Moonblast", "Dazzling Gleam", "Psychic", "Icy Wind"],
+    moves: ["Hyper Voice", "Psyshock", "Protect", "Trick Room"],
     items: ["Gardevoirite"]
   },
   "Gardevoir-Mega": {
@@ -1736,7 +1736,7 @@ export const SETDEX_CHAMPIONS: Record<string, any> = {
       spd: 0,
       spe: 32
     },
-    moves: ["Protect", "Close Combat", "Triple Axel", "Fake Out"],
+    moves: ["Close Combat", "Fake Out", "Triple Axel", "Protect"],
     items: ["Lopunnite"]
   },
   "Lopunny-Mega": {
@@ -2011,17 +2011,17 @@ export const SETDEX_CHAMPIONS: Record<string, any> = {
   },
   Froslass: {
     ability: "Snow Cloak",
-    nature: "Timid",
+    nature: "Modest",
     teraType: "",
     evs: {
-      hp: 2,
+      hp: 12,
       atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
+      def: 1,
+      spa: 20,
+      spd: 1,
       spe: 32
     },
-    moves: ["Blizzard", "Shadow Ball", "Aurora Veil", "Protect"],
+    moves: ["Blizzard", "Shadow Ball", "Protect", "Aurora Veil"],
     items: ["Froslassite"]
   },
   "Froslass-Mega": {
@@ -2659,14 +2659,14 @@ export const SETDEX_CHAMPIONS: Record<string, any> = {
     nature: "Timid",
     teraType: "",
     evs: {
-      hp: 9,
+      hp: 1,
       atk: 0,
-      def: 23,
-      spa: 5,
+      def: 1,
+      spa: 32,
       spd: 0,
-      spe: 29
+      spe: 32
     },
-    moves: ["Heat Wave", "Psychic", "Encore", "Protect"],
+    moves: ["Heat Wave", "Psychic", "Protect", "Encore"],
     items: ["Delphoxite"]
   },
   "Delphox-Mega": {
@@ -2761,17 +2761,17 @@ export const SETDEX_CHAMPIONS: Record<string, any> = {
   },
   "Floette-Eternal": {
     ability: "Flower Veil",
-    nature: "Calm",
+    nature: "Bold",
     teraType: "",
     evs: {
       hp: 32,
       atk: 0,
-      def: 1,
-      spa: 32,
-      spd: 0,
-      spe: 1
+      def: 32,
+      spa: 1,
+      spd: 1,
+      spe: 0
     },
-    moves: ["Moonblast", "Dazzling Gleam", "Calm Mind", "Protect"],
+    moves: ["Moonblast", "Dazzling Gleam", "Protect", "Calm Mind"],
     items: ["Floettite"]
   },
   "Floette-Mega": {
@@ -3871,17 +3871,17 @@ export const SETDEX_CHAMPIONS: Record<string, any> = {
   },
   Scovillain: {
     ability: "Moody",
-    nature: "Relaxed",
+    nature: "Calm",
     teraType: "",
     evs: {
       hp: 32,
       atk: 0,
-      def: 10,
+      def: 19,
       spa: 0,
-      spd: 24,
+      spd: 15,
       spe: 0
     },
-    moves: ["Overheat", "Leaf Storm", "Rage Powder", "Protect"],
+    moves: ["Overheat", "Rage Powder", "Protect", "Leech Seed"],
     items: ["Scovillainite"]
   },
   "Scovillain-Mega": {
@@ -3986,7 +3986,7 @@ export const SETDEX_CHAMPIONS: Record<string, any> = {
       spd: 0,
       spe: 32
     },
-    moves: ["Power Gem", "Sludge Bomb", "Earth Power", "Spiky Shield"],
+    moves: ["Sludge Bomb", "Earth Power", "Power Gem", "Spiky Shield"],
     items: ["Glimmoranite"]
   },
   "Glimmora-Mega": {

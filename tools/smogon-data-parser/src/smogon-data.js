@@ -62,7 +62,9 @@ function parsePokemonData(data) {
   const moves = extractMoves(sections)
   const teraType = extractTeraType(sections)
 
-  return { name, teraType: teraType || "", ability, items, nature, evs, moves }
+  const alternateSpreads = spreads.slice(1)
+
+  return { name, teraType: teraType || "", ability, items, nature, alternateSpreads, evs, moves }
 }
 
 export function extractSections(data) {
@@ -111,23 +113,28 @@ function extractItems(sections) {
   return items
 }
 
+function parseSpread(raw) {
+  const nature = raw.substring(0, raw.indexOf(":"))
+  const rawEvs = raw.substring(raw.indexOf(":") + 1).split("/")
+  const evs = { hp: Number(rawEvs[0]), atk: Number(rawEvs[1]), def: Number(rawEvs[2]), spa: Number(rawEvs[3]), spd: Number(rawEvs[4]), spe: Number(rawEvs[5]) }
+  return { nature, evs }
+}
+
 function extractSpreads(sections) {
   return sections[4]
     .split("\n")
     .map(it => it.trim())
     .map(it => it.substring(0, it.indexOf(" ")))
     .filter(it => it != "" && it != "Other")
+    .map(parseSpread)
 }
 
 function extractNature(spreads) {
-  return spreads[0].substring(0, spreads[0].indexOf(":"))
+  return spreads[0].nature
 }
 
 function extractEvs(spreads) {
-  const rawEvs = spreads[0].substring(spreads[0].indexOf(":") + 1).split("/")
-  const evs = { hp: Number(rawEvs[0]), atk: Number(rawEvs[1]), def: Number(rawEvs[2]), spa: Number(rawEvs[3]), spd: Number(rawEvs[4]), spe: Number(rawEvs[5]) }
-
-  return evs
+  return spreads[0].evs
 }
 
 function extractMoves(sections) {

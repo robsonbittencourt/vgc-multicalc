@@ -1,5 +1,47 @@
 import fs from "fs"
+import { Generations } from "@robsonbittencourt/calc"
 import { getSmogonData } from "./smogon-data.js"
+
+const gen = Generations.get(9)
+const movesByName = new Map([...gen.moves].map(m => [m.name, m]))
+const naturesByName = new Map([...gen.natures].map(n => [n.name, n]))
+
+function getMoveCategory(moveName) {
+  if (!moveName) return null
+  return movesByName.get(moveName)?.category ?? null
+}
+
+function getNatureEffect(natureName) {
+  if (!natureName) return { plus: null, minus: null }
+  const nature = naturesByName.get(natureName)
+  return { plus: nature?.plus ?? null, minus: nature?.minus ?? null }
+}
+
+function isNatureCompatible(natureName, dominantCategory) {
+  const { plus, minus } = getNatureEffect(natureName)
+  if (dominantCategory === "Physical") {
+    return minus !== "atk" && plus !== "spa"
+  }
+  if (dominantCategory === "Special") {
+    return minus !== "spa" && plus !== "atk"
+  }
+  return true
+}
+
+function adjustSpread(nature, evs, alternateSpreads, moves) {
+  const categories = moves.map(getMoveCategory).filter(c => c === "Physical" || c === "Special")
+  const physicalCount = categories.filter(c => c === "Physical").length
+  const specialCount = categories.filter(c => c === "Special").length
+
+  if (physicalCount === specialCount) return { nature, evs }
+
+  const dominantCategory = physicalCount > specialCount ? "Physical" : "Special"
+
+  if (isNatureCompatible(nature, dominantCategory)) return { nature, evs }
+
+  const compatible = alternateSpreads.find(s => isNatureCompatible(s.nature, dominantCategory))
+  return compatible ?? { nature, evs }
+}
 
 const MOVESET_MODULE_PREFIX_SV = "export const SETDEX_SV: Record<string, any> = "
 const MOVESET_MODULE_PREFIX_CHAMPIONS = "export const SETDEX_CHAMPIONS: Record<string, any> = "
@@ -51,17 +93,73 @@ function readMovesets(filePath) {
   return jsonContent
 }
 
+const MEGA_BASE_OVERRIDES = {
+  "Floette-Mega": "Floette-Eternal"
+}
+
+function getBaseName(megaName) {
+  if (MEGA_BASE_OVERRIDES[megaName]) return MEGA_BASE_OVERRIDES[megaName]
+  return megaName.replace(/-Mega(-[XY])?$/, "")
+}
+
+function isMega(name) {
+  return name.includes("-Mega")
+}
+
 function updateMovesets(newData, filePath) {
   const actualMovesets = readMovesets(filePath)
   const updatedJson = { ...actualMovesets }
+  const megaBaseNames = new Set()
+  const processedBaseNames = new Set()
+  const newDataByName = new Map(newData.map(p => [p.name, p]))
 
   newData.forEach(pokemon => {
-    const { name, ...rest } = pokemon
+    const { name, alternateSpreads, ...rest } = pokemon
+    const { nature, evs } = adjustSpread(rest.nature, rest.evs, alternateSpreads, rest.moves)
+    const entry = { ...rest, nature, evs }
+
+    if (isMega(name)) {
+      if (updatedJson[name]) {
+        updatedJson[name] = { ...updatedJson[name], ...entry }
+      } else {
+        updatedJson[name] = entry
+      }
+
+      const baseName = getBaseName(name)
+
+      if (!megaBaseNames.has(baseName)) {
+        megaBaseNames.add(baseName)
+
+        if (!processedBaseNames.has(baseName)) {
+          const baseData = newDataByName.get(baseName)
+          const existingAbility = updatedJson[baseName]?.ability
+          const baseAbility = baseData?.ability ?? existingAbility
+          const baseEntry = {
+            ...(baseAbility ? { ability: baseAbility } : {}),
+            nature: entry.nature,
+            teraType: entry.teraType,
+            evs: entry.evs,
+            moves: entry.moves,
+            items: entry.items
+          }
+
+          updatedJson[baseName] = baseEntry
+        }
+      }
+
+      return
+    }
+
+    if (megaBaseNames.has(name)) {
+      return
+    }
+
+    processedBaseNames.add(name)
 
     if (updatedJson[name]) {
-      updatedJson[name] = { ...updatedJson[name], ...rest }
+      updatedJson[name] = { ...updatedJson[name], ...entry }
     } else {
-      updatedJson[name] = rest
+      updatedJson[name] = entry
     }
   })
 
