@@ -49,7 +49,7 @@ export class TargetPokemonComponent {
   private dialog = inject(MatDialog)
   private snackBar = inject(SnackbarService)
 
-  regulation = signal<Regulation>(this.store.targetMetaRegulation() ?? "I")
+  regulation = signal<Regulation>(this.store.targetMetaRegulation() ?? (this.store.game() === "champions" ? "MA" : "I"))
   rollLevelConfig = signal(RollLevelConfig.fromConfigString(this.store.multiCalcRollLevel()))
 
   constructor() {

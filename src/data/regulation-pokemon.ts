@@ -73,6 +73,7 @@ function filterMegaPairs(pokemons: Pokemon[], quantity: number): Pokemon[] {
       const baseVersion = pokemons.find(p => p.name === currentBaseName)
       if (baseVersion && !result.some(p => p.name === currentBaseName)) {
         result.push(baseVersion)
+        count += 1
       }
     }
 
@@ -82,7 +83,10 @@ function filterMegaPairs(pokemons: Pokemon[], quantity: number): Pokemon[] {
     }
 
     if (next && currentBaseName === nextBaseName) {
-      result.push(next)
+      if (!result.some(p => p.name === next.name)) {
+        result.push(next)
+        count += 1
+      }
       i += 2
     } else {
       i += 1
