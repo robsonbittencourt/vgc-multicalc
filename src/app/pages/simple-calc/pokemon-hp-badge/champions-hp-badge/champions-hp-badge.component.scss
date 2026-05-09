@@ -1,0 +1,61 @@
+:host {
+  display: block;
+}
+
+.hud-container {
+  position: relative;
+  width: clamp(245px, 19vw, 385px);
+  height: auto;
+  filter: drop-shadow(0px 6px 4px rgba(0, 0, 0, 0.4));
+
+  @media (max-width: 1280px) {
+    width: clamp(245px, 42vw, 400px);
+  }
+
+  @media (max-width: 600px) {
+    width: 100%;
+  }
+}
+
+.hud-frame {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.hud-frame path {
+  shape-rendering: geometricPrecision;
+}
+
+.fainted-bg-overlay {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+
+  &.fainted-bg {
+    opacity: 1;
+  }
+}
+
+@keyframes fainted-pop {
+  0% {
+    opacity: 0.3;
+    transform: translate(120px, 29.3px) scale(0.5);
+  }
+  60% {
+    opacity: 0.9;
+    transform: translate(120px, 29.3px) scale(1.3);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(120px, 29.3px) scale(1);
+  }
+}
+
+.fainted-icon {
+  animation: fainted-pop 0.4s ease-out forwards;
+  transform-origin: 0px 0px;
+}
+
+.pokemon-image-loader {
+  display: none;
+}

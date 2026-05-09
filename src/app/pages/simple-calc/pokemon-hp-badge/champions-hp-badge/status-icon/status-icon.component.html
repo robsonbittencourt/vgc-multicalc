@@ -1,0 +1,31 @@
+<svg:circle cx="0" cy="0" r="24" fill="#0e115e" stroke="white" stroke-width="3.6" />
+<svg:rect x="-26" y="-4.3" width="4.5" height="6.5" fill="#263130" />
+<svg:rect x="21.5" y="-4.3" width="4.5" height="6.5" fill="#263130" />
+@if (status() === Status.PARALYSIS) {
+  <svg:path d="M 9.625,-10.825 L 1,-16 L -8,0 L -1,4 L -4,15 L 8,0 L 4.1,-1 Z" fill="#f9dd2d" stroke="#f9dd2d" stroke-width="2" stroke-linejoin="round" shape-rendering="geometricPrecision" />
+}
+@if (status() === Status.SLEEP) {
+  <svg:text x="-12" y="4" font-family="Arial Black, sans-serif" font-weight="900" font-size="23" fill="#89c2fd" stroke="#89c2fd" stroke-width="0.6">Z</svg:text>
+  <svg:text x="1" y="8" font-family="Arial Black, sans-serif" font-weight="900" font-size="16" fill="#89c2fd" stroke="#89c2fd" stroke-width="0.6">Z</svg:text>
+}
+@if (status() === Status.BURN) {
+  <svg:path d="M -4,-17 Q 3,-10 3,-3 Q 8,-8 13,-7 Q 12,-3 10,-3 Q 13,1 12,6 Q 11,13 3,16 Q -6,17 -10,10 Q -12,2 -7,-3 Q -2,-9 -4,-17 Z" fill="#ff6b1a" shape-rendering="geometricPrecision" />
+  <svg:path d="M -3,-1 Q 1,3 1,8 Q 3,6 4,8 Q 5,11 3,13 Q 2,16 -2,16 Q -7,15 -7,9 Q -7,4 -3,-1 Z" fill="#0e115e" shape-rendering="geometricPrecision" />
+}
+@if (status() === Status.FREEZE) {
+  <svg:g fill="#1be5fe">
+    <svg:polygon points="0,-10.5 9.09,-5.25 9.09,5.25 0,10.5 -9.09,5.25 -9.09,-5.25" />
+    <svg:g transform="rotate(0)"><svg:polygon points="0,-18 3.5,-13.5 0,-10.5 -3.5,-13.5" /></svg:g>
+    <svg:g transform="rotate(60)"><svg:polygon points="0,-18 3.5,-13.5 0,-10.5 -3.5,-13.5" /></svg:g>
+    <svg:g transform="rotate(120)"><svg:polygon points="0,-18 3.5,-13.5 0,-10.5 -3.5,-13.5" /></svg:g>
+    <svg:g transform="rotate(180)"><svg:polygon points="0,-18 3.5,-13.5 0,-10.5 -3.5,-13.5" /></svg:g>
+    <svg:g transform="rotate(240)"><svg:polygon points="0,-18 3.5,-13.5 0,-10.5 -3.5,-13.5" /></svg:g>
+    <svg:g transform="rotate(300)"><svg:polygon points="0,-18 3.5,-13.5 0,-10.5 -3.5,-13.5" /></svg:g>
+  </svg:g>
+  <svg:path d="M 0.94,-5.24 L -5.08,-1.02 L -5.08,2.06" fill="none" stroke="#0e115e" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round" shape-rendering="geometricPrecision" />
+}
+@if (status() === Status.POISON) {
+  <svg:circle cx="-5.5" cy="-11" r="4.2" fill="#9b59b6" />
+  <svg:circle cx="7" cy="-2" r="2.6" fill="#9b59b6" />
+  <svg:path d="M -13,12 Q -13,7 -10,7 L -4,7 Q -4,3 0,3 Q 4,3 4,7 L 10,7 Q 13,7 13,12 Z" fill="#9b59b6" shape-rendering="geometricPrecision" />
+}

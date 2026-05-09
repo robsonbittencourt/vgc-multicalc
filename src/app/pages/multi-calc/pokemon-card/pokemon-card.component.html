@@ -42,11 +42,11 @@
             </div>
           } @else {
             <div class="left-pokemon" (click)="activate(damageResult().attacker.id)" matTooltip="Edit" [matTooltipDisabled]="collapsible()" [matTooltipShowDelay]="500" [attr.data-cy]="attackerSelector()">
-              <img class="pokemon-image" src="assets/sprites/pokemon-sv/{{ damageResult().attacker.name }}.png" />
+              <img class="pokemon-image" [src]="attackerSpritePath()" />
             </div>
             @if (damageResult().secondAttacker) {
               <div class="left-pokemon" (click)="activate(damageResult().secondAttacker!.id)" matTooltip="Edit" [matTooltipDisabled]="collapsible()" [matTooltipShowDelay]="500" [attr.data-cy]="secondAttackerSelector()">
-                <img class="pokemon-image" src="assets/sprites/pokemon-sv/{{ damageResult().secondAttacker?.name }}.png" />
+                <img class="pokemon-image" [src]="secondAttackerSpritePath()" />
               </div>
             }
           }
@@ -67,13 +67,25 @@
             </div>
           } @else {
             <div class="pointer" (click)="activate(pokemonOnCard().id)" matTooltip="Edit" [matTooltipDisabled]="collapsible()" [matTooltipShowDelay]="500" [attr.data-cy]="defenderSelector()">
-              <app-pokemon-hp-badge
-                [name]="pokemonOnCard().displayNameWithoutSuffix"
-                [actualHp]="pokemonOnCard().actualHp"
-                [hpBase]="pokemonOnCard().hp"
-                [spriteName]="pokemonOnCard().name"
-                [item]="pokemonOnCard().item"
-                [damageTaken]="damageTaken()" />
+              @if (store.isChampions()) {
+                <app-champions-hp-badge
+                  [name]="pokemonOnCard().displayNameWithoutSuffix"
+                  [actualHp]="pokemonOnCard().actualHp"
+                  [hpBase]="pokemonOnCard().hp"
+                  [spriteName]="pokemonOnCard().name"
+                  [item]="pokemonOnCard().item"
+                  [damageTaken]="damageTaken()"
+                  [isOpponent]="!isAttacker()"
+                  [status]="pokemonOnCard().status" />
+              } @else {
+                <app-pokemon-hp-badge
+                  [name]="pokemonOnCard().displayNameWithoutSuffix"
+                  [actualHp]="pokemonOnCard().actualHp"
+                  [hpBase]="pokemonOnCard().hp"
+                  [spriteName]="pokemonOnCard().name"
+                  [item]="pokemonOnCard().item"
+                  [damageTaken]="damageTaken()" />
+              }
             </div>
           }
 

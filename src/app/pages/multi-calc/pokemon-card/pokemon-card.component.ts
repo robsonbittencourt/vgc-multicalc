@@ -13,13 +13,27 @@ import { MegaStoneService } from "@features/pokemon-build/utils/mega-stone.servi
 import { DamageResult } from "@lib/damage-calculator/damage-result"
 import { RollLevelConfig } from "@lib/damage-calculator/roll-level-config"
 import { Target } from "@lib/model/target"
+import { ChampionsHpBadgeComponent } from "@pages/simple-calc/pokemon-hp-badge/champions-hp-badge/champions-hp-badge.component"
 import { PokemonHpBadgeComponent } from "@pages/simple-calc/pokemon-hp-badge/pokemon-hp-badge.component"
 
 @Component({
   selector: "app-pokemon-card",
   templateUrl: "./pokemon-card.component.html",
   styleUrls: ["./pokemon-card.component.scss"],
-  imports: [CdkDrag, CdkDragPlaceholder, CdkDragHandle, MatIcon, MatTooltip, TatsugiriButtonComponent, TerastalButtonComponent, BoosterEnergyButtonComponent, PokemonHpBadgeComponent, PokemonComboBoxComponent, CopyButtonComponent]
+  imports: [
+    CdkDrag,
+    CdkDragPlaceholder,
+    CdkDragHandle,
+    MatIcon,
+    MatTooltip,
+    TatsugiriButtonComponent,
+    TerastalButtonComponent,
+    BoosterEnergyButtonComponent,
+    PokemonHpBadgeComponent,
+    ChampionsHpBadgeComponent,
+    PokemonComboBoxComponent,
+    CopyButtonComponent
+  ]
 })
 export class PokemonCardComponent {
   store = inject(CalculatorStore)
@@ -50,6 +64,10 @@ export class PokemonCardComponent {
 
   isDefaultAttacker = computed(() => this.damageResult().attacker.isDefault)
   isDefaultDefender = computed(() => this.damageResult().defender.isDefault)
+
+  spriteFolder = computed(() => (this.store.game() === "champions" ? "pokemon-champions" : "pokemon-sv"))
+  attackerSpritePath = computed(() => `assets/sprites/${this.spriteFolder()}/${this.damageResult().attacker.name}.png`)
+  secondAttackerSpritePath = computed(() => `assets/sprites/${this.spriteFolder()}/${this.damageResult().secondAttacker?.name}.png`)
 
   collapsedDescription = computed(() => {
     const firstMove = this.damageResult().move
