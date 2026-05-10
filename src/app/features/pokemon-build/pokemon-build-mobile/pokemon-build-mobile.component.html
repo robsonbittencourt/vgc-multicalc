@@ -1,6 +1,8 @@
 @if (pokemon()) {
   @if (!pokemon().isDefault) {
-    <app-pokemon-moves-mobile [pokemonId]="pokemonId()" />
+    @if (!onlySpeed()) {
+      <app-pokemon-moves-mobile [pokemonId]="pokemonId()" />
+    }
 
     <div class="combo-options">
       @if (store.game() === "sv") {
@@ -68,36 +70,40 @@
     </div>
 
     <div class="evs">
-      <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="pokemon().hp" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.hp" [isOptimized]="isHpOptimized()" stat="hp" [reduced]="true" />
-      <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedAtk()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.atk" stat="atk" [reduced]="true" />
-      <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedDef()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.def" [isOptimized]="isDefOptimized()" stat="def" [reduced]="true" />
-      <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedSpa()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.spa" stat="spa" [reduced]="true" />
-      <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedSpd()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.spd" [isOptimized]="isSpdOptimized()" stat="spd" [reduced]="true" />
+      @if (!onlySpeed()) {
+        <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="pokemon().hp" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.hp" [isOptimized]="isHpOptimized()" stat="hp" [reduced]="true" />
+        <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedAtk()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.atk" stat="atk" [reduced]="true" />
+        <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedDef()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.def" [isOptimized]="isDefOptimized()" stat="def" [reduced]="true" />
+        <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedSpa()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.spa" stat="spa" [reduced]="true" />
+        <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedSpd()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.spd" [isOptimized]="isSpdOptimized()" stat="spd" [reduced]="true" />
+      }
       <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedSpe()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.spe" stat="spe" [reduced]="true" />
-      <div class="remaining-evs">
-        @if (showEvsSpsToggle()) {
-          <div class="sps-toggle">
-            <div class="remaining-label">SP</div>
-            <mat-slide-toggle [checked]="store.useSpsMode()" (change)="toggleSpsMode()" data-cy="evs-sps-toggle-mobile" />
+      @if (!onlySpeed()) {
+        <div class="remaining-evs">
+          @if (showEvsSpsToggle()) {
+            <div class="sps-toggle">
+              <div class="remaining-label">SP</div>
+              <mat-slide-toggle [checked]="store.useSpsMode()" (change)="toggleSpsMode()" data-cy="evs-sps-toggle-mobile" />
+            </div>
+          }
+
+          <div class="remaining-info">
+            <div class="remaining-label">{{ remainingLabel() }}</div>
+            <div class="remaining-value" data-cy="remaining-evs-mobile">{{ remainingPoints() }}</div>
           </div>
-        }
 
-        <div class="remaining-info">
-          <div class="remaining-label">{{ remainingLabel() }}</div>
-          <div class="remaining-value" data-cy="remaining-evs-mobile">{{ remainingPoints() }}</div>
+          <div class="remaining-buttons">
+            <button mat-flat-button (click)="clearEvs()" data-cy="clear-evs-mobile">Clear EVs</button>
+            @if (showOptimization() && isOptimizationSupported() && (!optimizedEvs() || !isOptimizationValid()) && !hasNoSolution() && !isSolutionNotNeeded()) {
+              <button mat-flat-button (click)="optimizeEvs()" data-cy="optimize-evs-mobile">Optimize Bulk</button>
+            }
+            @if (showOptimization() && optimizedEvs() && isOptimizationValid() && !hasNoSolution() && !isSolutionNotNeeded()) {
+              <button mat-flat-button (click)="applyOptimization()" data-cy="apply-optimization-mobile">Apply</button>
+              <button mat-flat-button (click)="discardOptimization()" data-cy="discard-optimization-mobile">Discard</button>
+            }
+          </div>
         </div>
-
-        <div class="remaining-buttons">
-          <button mat-flat-button (click)="clearEvs()" data-cy="clear-evs-mobile">Clear EVs</button>
-          @if (showOptimization() && isOptimizationSupported() && (!optimizedEvs() || !isOptimizationValid()) && !hasNoSolution() && !isSolutionNotNeeded()) {
-            <button mat-flat-button (click)="optimizeEvs()" data-cy="optimize-evs-mobile">Optimize Bulk</button>
-          }
-          @if (showOptimization() && optimizedEvs() && isOptimizationValid() && !hasNoSolution() && !isSolutionNotNeeded()) {
-            <button mat-flat-button (click)="applyOptimization()" data-cy="apply-optimization-mobile">Apply</button>
-            <button mat-flat-button (click)="discardOptimization()" data-cy="discard-optimization-mobile">Discard</button>
-          }
-        </div>
-      </div>
+      }
     </div>
 
     <div class="ev-buttons" [hidden]="!showOptimization()">

@@ -502,6 +502,16 @@ export class CalculatorStore extends signalStore(
     patchState(this, () => ({ leftPokemonState: pokemonToState(pokemon) }))
   }
 
+  loadSpeedCalcPokemonFrom(sourcePokemonId: string) {
+    const source = this.findNullablePokemonById(sourcePokemonId)
+    if (!source) return
+
+    const scratchId = this.speedCalcPokemonState().id
+    const sourceState = pokemonToState(source)
+    const evsOnlySpe = { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
+    patchState(this, () => ({ speedCalcPokemonState: { ...sourceState, id: scratchId, evs: evsOnlySpe } }))
+  }
+
   changeRightPokemon(pokemon: Pokemon) {
     patchState(this, () => ({ rightPokemonState: pokemonToState(pokemon) }))
   }

@@ -1,23 +1,23 @@
 <div class="mobile-calc-container">
   <div #scrollContainer class="scrollable-content" [class.teams-tab]="activeBottomTab() === 'teams'">
     <div [hidden]="activeBottomTab() !== 'main'" [class.tab-active]="activeBottomTab() === 'main'">
-      <app-team-tabs-mobile [(pokemonOnEditId)]="pokemonOnEditId" (memberAddedEvent)="focusPokemonComboBox()" />
+      <app-team-tabs-mobile [pokemonOnEditId]="pokemonOnEditId()" (pokemonOnEditIdChange)="onPokemonOnEditIdChange($event)" (memberAddedEvent)="focusPokemonComboBox()" />
 
       <div class="attacker-build">
         @if (shouldShowBuild()) {
-          <app-pokemon-build-mobile [pokemonId]="effectiveEditingId()!" [showOptimization]="false" (pokemonDeleted)="pokemonOnEditId.set($event)" />
+          <app-pokemon-build-mobile [pokemonId]="speedCalcPokemonId()" [showOptimization]="false" [onlySpeed]="true" (pokemonDeleted)="pokemonOnEditId.set($event)" />
         }
       </div>
 
       @if (!pokemon().isDefault) {
-        <app-speed-scale class="speed-scale" [pokemonId]="lastNonDefaultPokemon().id" [pokemonEachSide]="12" (pokemonSelected)="selectedPokemon.set($event)" />
+        <app-speed-scale class="speed-scale" [pokemonId]="speedCalcPokemonId()" [pokemonEachSide]="12" (pokemonSelected)="selectedPokemon.set($event)" />
       } @else {
         <div class="empty-insights">Select a Pokémon</div>
       }
     </div>
 
     <div [hidden]="activeBottomTab() !== 'speed-insights'" [class.tab-active]="activeBottomTab() === 'speed-insights'">
-      <app-team-tabs-mobile [(pokemonOnEditId)]="pokemonOnEditId" (memberAddedEvent)="focusPokemonComboBox()" />
+      <app-team-tabs-mobile [pokemonOnEditId]="pokemonOnEditId()" (pokemonOnEditIdChange)="onPokemonOnEditIdChange($event)" (memberAddedEvent)="focusPokemonComboBox()" />
       @if (!pokemon().isDefault) {
         <div class="insights-content">
           <app-speed-insights [pokemon]="pokemon()" />

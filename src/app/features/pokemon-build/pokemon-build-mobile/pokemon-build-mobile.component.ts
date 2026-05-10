@@ -55,6 +55,7 @@ export class PokemonBuildMobileComponent {
   showDelete = input<boolean>(true)
   manageTeamState = input<boolean>(true)
   isRightSide = input<boolean>(false)
+  onlySpeed = input<boolean>(false)
 
   store = inject(CalculatorStore)
   menuStore = inject(MenuStore)

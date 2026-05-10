@@ -57,14 +57,12 @@ export class SpeedCalculatorMobileComponent {
   modifiedSpe = signal<number>(0)
 
   selectedPokemon = signal<Pokemon>(this.store.team().activePokemon())
-  lastNonDefaultPokemon = signal<Pokemon>(this.store.team().activePokemon())
 
   effectiveEditingId = computed(() => this.pokemonOnEditId() || this.activePokemonId())
 
-  pokemon = computed(() => {
-    const id = this.effectiveEditingId()
-    return id ? this.store.findPokemonById(id) : this.store.team().activePokemon()
-  })
+  speedCalcPokemonId = computed(() => this.store.speedCalcPokemon().id)
+
+  pokemon = computed(() => this.store.speedCalcPokemon())
 
   teamMembers = computed(() => this.store.team().teamMembers)
 
@@ -82,8 +80,8 @@ export class SpeedCalculatorMobileComponent {
     const editId = this.effectiveEditingId()
     if (!editId) return false
 
-    const attacker = this.store.findPokemonById(editId)
-    return attacker !== null && !attacker.isDefault
+    const source = this.store.findNullablePokemonById(editId)
+    return !!source && !source.isDefault
   })
 
   lastHandledPokemonName = ""
@@ -93,6 +91,9 @@ export class SpeedCalculatorMobileComponent {
     const iconRegistry = inject(MatIconRegistry)
     const sanitizer = inject(DomSanitizer)
     iconRegistry.addSvgIcon("pokeball", sanitizer.bypassSecurityTrustResourceUrl("assets/icons/pokeball.svg"))
+
+    const initialSourceId = this.effectiveEditingId()
+    if (initialSourceId) this.store.loadSpeedCalcPokemonFrom(initialSourceId)
 
     effect(() => {
       if (this.fieldStore.field()) {
@@ -110,13 +111,6 @@ export class SpeedCalculatorMobileComponent {
         this.lastHandledAbilityName = this.pokemon().ability.name
 
         this.automaticFieldService.checkAutomaticField(this.pokemon(), pokemonChanged)
-      }
-    })
-
-    effect(() => {
-      const current = this.pokemon()
-      if (!current.isDefault) {
-        this.lastNonDefaultPokemon.set(current)
       }
     })
   }
@@ -146,7 +140,13 @@ export class SpeedCalculatorMobileComponent {
 
   onTeamSelected(pokemonId: string) {
     this.pokemonOnEditId.set(pokemonId)
+    this.store.loadSpeedCalcPokemonFrom(pokemonId)
     this.switchTab("main")
+  }
+
+  onPokemonOnEditIdChange(pokemonId: string | null) {
+    this.pokemonOnEditId.set(pokemonId)
+    if (pokemonId) this.store.loadSpeedCalcPokemonFrom(pokemonId)
   }
 
   focusPokemonComboBox() {
