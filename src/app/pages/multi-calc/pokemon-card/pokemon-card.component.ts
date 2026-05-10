@@ -6,6 +6,7 @@ import { MatTooltip } from "@angular/material/tooltip"
 import { CopyButtonComponent } from "@basic/copy-button/copy-button.component"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { MenuStore } from "@data/store/menu-store"
+import { AegislashButtonComponent } from "@features/buttons/aegislash-button/aegislash-button.component"
 import { BoosterEnergyButtonComponent } from "@features/buttons/booster-energy-button/booster-energy-button.component"
 import { TatsugiriButtonComponent } from "@features/buttons/tatsugiri-button/tatsugiri-button.component"
 import { TerastalButtonComponent } from "@features/buttons/terastal-button/terastal-button.component"
@@ -29,6 +30,7 @@ import { PokemonHpBadgeComponent } from "@pages/simple-calc/pokemon-hp-badge/pok
     MatTooltip,
     TatsugiriButtonComponent,
     TerastalButtonComponent,
+    AegislashButtonComponent,
     BoosterEnergyButtonComponent,
     PokemonHpBadgeComponent,
     ChampionsHpBadgeComponent,
