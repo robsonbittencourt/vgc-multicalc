@@ -56,7 +56,7 @@
           <img class="vs-icon" src="assets/icons/vs.png" />
         </div>
 
-        <div class="right-side">
+        <div class="right-side" [class.is-champions]="store.isChampions()">
           @if (isDefaultDefender()) {
             <div class="body">
               <div class="card-right-side">
@@ -109,6 +109,13 @@
 
               <div class="middle-section-buttons">
                 <div class="card-buttons">
+                  @if ((!collapsible() || expanded()) && showStatusIconsRow()) {
+                    <div class="card-buttons-row status-icons">
+                      <app-tatsugiri-button [pokemonId]="pokemonOnCard().id" />
+                      <app-booster-energy-button [pokemonId]="pokemonOnCard().id" />
+                    </div>
+                  }
+
                   <div class="card-buttons-row">
                     @if (store.game() === "sv") {
                       <app-terastal-button [pokemonId]="pokemonOnCard().id" />
@@ -132,13 +139,6 @@
                       </button>
                     }
                   </div>
-
-                  @if ((!collapsible() || expanded()) && showStatusIconsRow()) {
-                    <div class="card-buttons-row status-icons">
-                      <app-tatsugiri-button [pokemonId]="pokemonOnCard().id" />
-                      <app-booster-energy-button [pokemonId]="pokemonOnCard().id" />
-                    </div>
-                  }
                 </div>
               </div>
             </div>

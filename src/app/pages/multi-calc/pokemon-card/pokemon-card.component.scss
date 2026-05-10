@@ -54,12 +54,6 @@
   }
 }
 
-.has-collapsible {
-  .middle-section-items {
-    margin-left: 0.2em;
-  }
-}
-
 .combine-spacer {
   width: 28px;
   flex-shrink: 0;
@@ -168,13 +162,24 @@
 }
 
 .right-side {
+  --badge-width: clamp(245px, 100cqi, 340px);
+
   display: flex;
   flex-direction: column;
+  align-items: flex-end;
   gap: 1em;
+  flex: 1 1 385px;
+  min-width: 0;
+  container-type: inline-size;
+
+  &.is-champions {
+    --badge-width: clamp(245px, 100cqi, 385px);
+    --badge-inset-left: calc(var(--badge-width) * 0.05);
+  }
 
   @media (max-width: 600px) {
     flex: 1;
-    min-width: 0;
+    align-items: stretch;
     gap: 0.5em;
 
     .pointer {
@@ -188,9 +193,12 @@
   flex-direction: row;
   align-items: flex-start;
   justify-content: space-between;
-  width: 100%;
+  width: var(--badge-width);
+  padding-left: var(--badge-inset-left, 0);
+  box-sizing: border-box;
 
   @media (max-width: 600px) {
+    width: 100%;
     gap: 0.5em;
   }
 }
@@ -198,7 +206,6 @@
 .middle-section-items {
   display: flex;
   flex-direction: column;
-  margin-left: 1em;
   gap: 0.5em;
 
   @media (max-width: 600px) {
@@ -290,7 +297,7 @@
   @media (max-width: 1280px) {
     width: auto;
     flex: 0 0 auto;
-    max-width: 6em;
+    max-width: none;
     flex-direction: row;
     height: auto;
     align-items: center;
@@ -298,9 +305,11 @@
 
     .card-buttons {
       display: flex;
-      flex-direction: column;
-      align-items: flex-end;
+      flex-direction: row;
+      align-items: center;
       gap: 0.2em;
+      flex-wrap: wrap;
+      justify-content: flex-end;
     }
 
     span {
@@ -327,8 +336,10 @@
       justify-content: flex-end;
 
       .card-buttons {
-        flex-direction: column;
-        align-items: flex-end;
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: flex-end;
       }
     }
   }

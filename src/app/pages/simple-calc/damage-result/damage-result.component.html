@@ -1,6 +1,6 @@
 <app-widget>
   <div class="damage-result" [ngStyle]="(reverse() && { 'grid-template-columns': '0.5fr 1fr' }) || null">
-    <div class="hp-badge" [ngStyle]="(reverse() && { 'align-items': 'flex-end', 'justify-self': 'end' }) || null">
+    <div class="hp-badge" [ngStyle]="(reverse() && { 'align-items': 'flex-end' }) || null">
       @if (store.isChampions()) {
         <app-champions-hp-badge [name]="pokemon().displayNameWithoutSuffix" [actualHp]="pokemon().actualHp" [hpBase]="pokemon().hp" [spriteName]="pokemon().name" [item]="pokemon().item" [damageTaken]="damageTaken()" [status]="pokemon().status" />
       } @else {

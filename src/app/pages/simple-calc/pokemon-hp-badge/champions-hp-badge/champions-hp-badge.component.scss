@@ -1,16 +1,13 @@
 :host {
   display: block;
+  --badge-width: clamp(245px, 100cqi, 385px);
 }
 
 .hud-container {
   position: relative;
-  width: clamp(245px, 19vw, 385px);
+  width: var(--badge-width);
   height: auto;
   filter: drop-shadow(0px 6px 4px rgba(0, 0, 0, 0.4));
-
-  @media (max-width: 1280px) {
-    width: clamp(245px, 42vw, 400px);
-  }
 
   @media (max-width: 600px) {
     width: 100%;
