@@ -12,7 +12,10 @@ import { Pokemon } from "@lib/model/pokemon"
   imports: [WidgetComponent, PokemonMovesMobileComponent],
   templateUrl: "./pokemon-probability.component.html",
   styleUrl: "./pokemon-probability.component.scss",
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  host: {
+    "[class.mobile]": "isMobile()"
+  }
 })
 export class PokemonProbabilityComponent {
   spriteService = inject(SpriteService)
