@@ -1,6 +1,6 @@
 import { NoopScrollStrategy } from "@angular/cdk/overlay"
 import { CdkDragDrop, CdkDropList, CdkDropListGroup } from "@angular/cdk/drag-drop"
-import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, effect, inject, input, output, signal } from "@angular/core"
+import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, effect, inject, input, linkedSignal, output, signal } from "@angular/core"
 import { MatButton } from "@angular/material/button"
 import { MatDialog } from "@angular/material/dialog"
 import { MatSlideToggle } from "@angular/material/slide-toggle"
@@ -49,7 +49,7 @@ export class TargetPokemonComponent {
   private dialog = inject(MatDialog)
   private snackBar = inject(SnackbarService)
 
-  regulation = signal<Regulation>(this.store.targetMetaRegulation() ?? (this.store.game() === "champions" ? "MA" : "I"))
+  regulation = linkedSignal<Regulation>(() => this.store.targetMetaRegulation() ?? (this.store.game() === "champions" ? "MA" : "I"))
   rollLevelConfig = signal(RollLevelConfig.fromConfigString(this.store.multiCalcRollLevel()))
 
   constructor() {
@@ -230,6 +230,7 @@ export class TargetPokemonComponent {
   clearCardsFilter() {
     this.cardsFilter.set("")
   }
+
   handleRollLevelChange(rollLevel: RollLevelConfig) {
     this.rollLevelConfig.set(rollLevel)
     this.rollLevelChange.emit(rollLevel)

@@ -95,14 +95,14 @@
 .targets-actions {
   display: flex;
   flex-direction: column;
-  gap: 0.75em;
+  gap: 1.5em;
   margin-top: 0.5em;
   padding: 0 0.75em 0 0.75em;
 
   .row {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 0.75em;
+    gap: 1.5em;
     align-items: stretch;
     height: 2.5em;
 

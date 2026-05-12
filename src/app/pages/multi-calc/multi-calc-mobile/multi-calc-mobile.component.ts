@@ -1,5 +1,5 @@
 import { NoopScrollStrategy } from "@angular/cdk/overlay"
-import { Component, computed, effect, ElementRef, inject, signal, ViewChild } from "@angular/core"
+import { Component, computed, effect, ElementRef, inject, linkedSignal, signal, ViewChild } from "@angular/core"
 import { NgClass } from "@angular/common"
 import { CdkDragDrop, CdkDragMove, CdkDropList, CdkDropListGroup } from "@angular/cdk/drag-drop"
 import { ScrollingModule } from "@angular/cdk/scrolling"
@@ -8,6 +8,7 @@ import { MatDialog } from "@angular/material/dialog"
 import { MatIcon, MatIconRegistry } from "@angular/material/icon"
 import { MatSlideToggle } from "@angular/material/slide-toggle"
 import { DomSanitizer } from "@angular/platform-browser"
+import { InputSelectComponent } from "@app/basic/input-select/input-select.component"
 import { WidgetComponent } from "@basic/widget/widget.component"
 import { SETDEX_CHAMPIONS } from "@data/movesets-champions"
 import { SETDEX_SV } from "@data/movesets"
@@ -23,7 +24,7 @@ import { DamageResult } from "@lib/damage-calculator/damage-result"
 import { DamageResultOrderService } from "@lib/damage-calculator/damage-result-order.service"
 import { RollLevelConfig } from "@lib/damage-calculator/roll-level-config"
 import { DefensiveEvOptimizerService } from "@lib/ev-optimizer/defensive-ev-optimizer.service"
-import { Stats } from "@lib/types"
+import { Regulation, Stats } from "@lib/types"
 import { TeamExportModalComponent } from "@features/export-modal/export-modal.component"
 import { ExportPokeService } from "@lib/user-data/export-poke.service"
 import { PokemonBuildMobileComponent } from "@features/pokemon-build/pokemon-build-mobile/pokemon-build-mobile.component"
@@ -54,6 +55,7 @@ import { TeamsMobileComponent } from "@features/team/teams-mobile/teams-mobile.c
     TeamTabsMobileComponent,
     MatButton,
     ImportPokemonButtonComponent,
+    InputSelectComponent,
     MatSlideToggle,
     RollConfigComponent,
     WidgetComponent,
@@ -153,6 +155,8 @@ export class MultiCalcMobileComponent {
 
   effectiveEditingId = computed(() => this.pokemonOnEditId() || this.activePokemonId())
 
+  regulation = linkedSignal<Regulation>(() => this.store.targetMetaRegulation() ?? (this.store.game() === "champions" ? "MA" : "I"))
+  regulationsList = computed(() => (this.store.game() === "champions" ? ["MA"] : ["I"]))
   rollLevelConfig = signal(RollLevelConfig.fromConfigString(this.store.multiCalcRollLevel()))
   order = signal(false)
 
@@ -238,9 +242,9 @@ export class MultiCalcMobileComponent {
       this.activateTeamMember()
       this.store.updateTargets(newTargets)
     } else {
-      this.store.updateTargetMetaRegulation("I")
+      this.store.updateTargetMetaRegulation(this.regulation())
       const setdex = this.store.game() === "champions" ? SETDEX_CHAMPIONS : SETDEX_SV
-      const metaPokemon = pokemonByRegulation("I", 33, setdex, false, this.store.isChampions())
+      const metaPokemon = pokemonByRegulation(this.regulation(), 33, setdex, false, this.store.isChampions())
       this.onTargetsImported(metaPokemon)
     }
   }

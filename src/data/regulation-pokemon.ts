@@ -16,11 +16,6 @@ export function pokemonByRegulation(regulation: Regulation, quantity?: number, s
 
   if (!includeAllPokemon) {
     result = result.filter(pokemon => regulationList.includes(pokemon.name)).sort((a, b) => sortByRegulationOrder(a, b, regulation))
-
-    if (quantity) {
-      result = filterMegaPairs(result, quantity)
-      return result
-    }
   } else {
     result = result.sort((a, b) => a.displayNameWithoutSuffix.localeCompare(b.displayNameWithoutSuffix))
   }
@@ -54,46 +49,6 @@ function sortByRegulationOrder(pokemonA: Pokemon, pokemonB: Pokemon, regulation:
   const safeIndexB = indexB === -1 ? Infinity : indexB
 
   return safeIndexA - safeIndexB
-}
-
-function filterMegaPairs(pokemons: Pokemon[], quantity: number): Pokemon[] {
-  const result: Pokemon[] = []
-  let count = 0
-  let i = 0
-
-  while (count < quantity && i < pokemons.length) {
-    const current = pokemons[i]
-    const next = pokemons[i + 1]
-
-    const currentBaseName = current.name.split("-Mega")[0]
-    const nextBaseName = next?.name.split("-Mega")[0] ?? null
-    const currentIsMega = current.name.includes("-Mega")
-
-    if (currentIsMega) {
-      const baseVersion = pokemons.find(p => p.name === currentBaseName)
-      if (baseVersion && !result.some(p => p.name === currentBaseName)) {
-        result.push(baseVersion)
-        count += 1
-      }
-    }
-
-    if (!result.some(p => p.name === current.name)) {
-      result.push(current)
-      count += 1
-    }
-
-    if (next && currentBaseName === nextBaseName) {
-      if (!result.some(p => p.name === next.name)) {
-        result.push(next)
-        count += 1
-      }
-      i += 2
-    } else {
-      i += 1
-    }
-  }
-
-  return result
 }
 
 const bannedByRegulation: Record<Regulation, string[]> = {

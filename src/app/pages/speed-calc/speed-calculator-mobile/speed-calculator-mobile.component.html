@@ -31,7 +31,7 @@
       <div class="settings-content widget-list">
         <app-widget class="settings-card" title="Filters">
           <div class="options-grid">
-            <app-input-select label="Regulation" [allValues]="optionsStore.regulationsList()" [value]="optionsStore.regulation()" (valueChange)="updateRegulation($event)" />
+            <app-input-select label="Regulation" [allValues]="optionsStore.regulationsList()" [disabled]="true" [value]="optionsStore.regulation()" (valueChange)="updateRegulation($event)" />
             <app-input-select label="Top Usage" [allValues]="topUsageList" [value]="optionsStore.topUsage()" (valueChange)="optionsStore.updateTopUsage($event)" />
             <app-input-select label="Mode" [allValues]="optionsStore.availableModes()" [value]="optionsStore.mode()" (valueChange)="optionsStore.updateMode($event)" />
             <app-input-autocomplete

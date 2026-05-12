@@ -44,16 +44,19 @@
           <app-add-pokemon-card (pokemonAddedToTeam)="addPokemonToTargets()" />
 
           <div class="targets-actions">
+            <div class="row">
+              <app-input-select label="Regulation" leftLabel="true" [allValues]="regulationsList()" [disabled]="true" [value]="regulation()" />
+              <button mat-flat-button class="management-button" (click)="onMetaClick()" data-cy="add-meta-button">{{ metaButtonLabel() }}</button>
+            </div>
             <div class="row full">
               <button mat-flat-button class="management-button" (click)="exportCalcs()" data-cy="export-calcs-button">Export Calcs</button>
             </div>
             <div class="row">
-              <button mat-flat-button class="management-button" (click)="onMetaClick()" data-cy="add-meta-button">{{ metaButtonLabel() }}</button>
-              <button mat-flat-button class="warn management-button" (click)="removeAll()" data-cy="delete-opponent-pokemon-button">Delete all</button>
-            </div>
-            <div class="row">
               <app-import-pokemon-button class="management-button" [singlePokemon]="false" (pokemonImportedEvent)="onTargetsImported($event)" />
               <button mat-flat-button class="management-button" (click)="exportPokemon()" data-cy="export-opponent-pokemon-button">Export</button>
+            </div>
+            <div class="row full last-row">
+              <button mat-flat-button class="warn management-button" (click)="removeAll()" data-cy="delete-opponent-pokemon-button">Delete all</button>
             </div>
           </div>
         }
