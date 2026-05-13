@@ -1,27 +1,31 @@
 import { provideZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
 import { CALC_ADJUSTERS, CalcAdjuster } from "@lib/damage-calculator/calc-adjuster/calc-adjuster"
-import { SPECIFIC_DAMAGE_CALCULATORS, SpecificDamageCalculator } from "@lib/damage-calculator/specific-damage-calculator/specific-damage-calculator"
 import { DamageCalculatorService } from "@lib/damage-calculator/damage-calculator.service"
+import { CalculatorStore } from "@data/store/calculator-store"
 import { Field } from "@lib/model/field"
 import { Pokemon } from "@lib/model/pokemon"
+import { SurvivalChecker } from "./survival-checker"
 import { SolutionCombiner } from "./solution-combiner"
 
 describe("SolutionCombiner", () => {
   let service: SolutionCombiner
-  let adjusterSpy: jasmine.SpyObj<CalcAdjuster>
-  let specificCalculatorSpy: jasmine.SpyObj<SpecificDamageCalculator>
 
   beforeEach(() => {
-    adjusterSpy = jasmine.createSpyObj("Adjuster", ["adjust"])
-    specificCalculatorSpy = jasmine.createSpyObj("SpecificCalculator", ["isApplicable", "calculate"])
+    const adjusterSpy = jasmine.createSpyObj<CalcAdjuster>("Adjuster", ["adjust"])
 
     TestBed.configureTestingModule({
-      providers: [SolutionCombiner, DamageCalculatorService, { provide: CALC_ADJUSTERS, useValue: adjusterSpy, multi: true }, { provide: SPECIFIC_DAMAGE_CALCULATORS, useValue: specificCalculatorSpy, multi: true }, provideZonelessChangeDetection()]
+      providers: [
+        SolutionCombiner,
+        SurvivalChecker,
+        DamageCalculatorService,
+        { provide: CALC_ADJUSTERS, useValue: adjusterSpy, multi: true },
+        { provide: CalculatorStore, useValue: { useSpsMode: () => false, isChampions: () => false } },
+        provideZonelessChangeDetection()
+      ]
     })
 
     service = TestBed.inject(SolutionCombiner)
-    specificCalculatorSpy.isApplicable.and.returnValue(false)
   })
 
   it("should be created", () => {

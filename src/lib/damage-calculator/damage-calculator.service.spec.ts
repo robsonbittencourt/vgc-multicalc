@@ -1,7 +1,6 @@
 import { provideZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
 import { CALC_ADJUSTERS, CalcAdjuster } from "@lib/damage-calculator/calc-adjuster/calc-adjuster"
-import { SPECIFIC_DAMAGE_CALCULATORS, SpecificDamageCalculator } from "@lib/damage-calculator/specific-damage-calculator/specific-damage-calculator"
 import { DamageCalculatorService } from "@lib/damage-calculator/damage-calculator.service"
 import { Field, FieldSide } from "@lib/model/field"
 import { Move } from "@lib/model/move"
@@ -16,26 +15,22 @@ describe("Damage Calculator Service", () => {
   let service: DamageCalculatorService
   let adjusterOneSpy: jasmine.SpyObj<CalcAdjuster>
   let adjusterTwoSpy: jasmine.SpyObj<CalcAdjuster>
-  let specificCalculatorSpy: jasmine.SpyObj<SpecificDamageCalculator>
 
   beforeEach(() => {
     adjusterOneSpy = jasmine.createSpyObj("AdjusterOne", ["adjust"])
     adjusterTwoSpy = jasmine.createSpyObj("AdjusterTwo", ["adjust"])
-    specificCalculatorSpy = jasmine.createSpyObj("SpecificCalculator", ["isApplicable", "calculate"])
 
     TestBed.configureTestingModule({
       providers: [
         DamageCalculatorService,
         { provide: CALC_ADJUSTERS, useValue: adjusterOneSpy, multi: true },
         { provide: CALC_ADJUSTERS, useValue: adjusterTwoSpy, multi: true },
-        { provide: SPECIFIC_DAMAGE_CALCULATORS, useValue: specificCalculatorSpy, multi: true },
         { provide: CalculatorStore, useValue: { useSpsMode: () => false, isChampions: () => false } },
         provideZonelessChangeDetection()
       ]
     })
 
     service = TestBed.inject(DamageCalculatorService)
-    specificCalculatorSpy.isApplicable.and.returnValue(false)
   })
 
   it("should calculate damage", () => {
@@ -377,23 +372,16 @@ describe("Damage Calculator Service", () => {
     expect(damageResult.attackerRolls).toEqual([[185, 185, 185, 185, 185, 185, 185, 185, 185, 185, 185, 185, 185, 185, 185, 185]])
   })
 
-  it("should use specific damage calculator when applicable", () => {
-    const ruinationMove = new Move("Ruination")
-    const attacker = new Pokemon("Wo-Chien", { moveSet: new MoveSet(new Move("Leech Seed"), new Move("Pollen Puff"), new Move("Protect"), ruinationMove, 4) })
+  it("should calculate Ruination damage as half of the target current HP", () => {
+    const attacker = new Pokemon("Wo-Chien", { moveSet: new MoveSet(new Move("Ruination"), new Move("Leech Seed"), new Move("Pollen Puff"), new Move("Protect")) })
     const target = new Target(new Pokemon("Flutter Mane"))
     const field = new Field()
 
-    specificCalculatorSpy.isApplicable.and.callFake((moveModel: MoveSmogon) => moveModel.name === "Ruination")
-    specificCalculatorSpy.calculate.and.callFake((_target: SmogonPokemon, baseResult: any) => {
-      baseResult.damage = 65
-      return baseResult
-    })
-
     const damageResult = service.calcDamage(attacker, target.pokemon, field)
 
-    expect(specificCalculatorSpy.isApplicable).toHaveBeenCalled()
-    expect(specificCalculatorSpy.calculate).toHaveBeenCalledWith(jasmine.any(SmogonPokemon), jasmine.any(Object))
     expect(damageResult.move).toEqual("Ruination")
+    expect(damageResult.damage).toEqual(50)
+    expect(damageResult.attackerRolls).toEqual([[65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65]])
   })
 
   it("should consider berry in damage calculation", () => {

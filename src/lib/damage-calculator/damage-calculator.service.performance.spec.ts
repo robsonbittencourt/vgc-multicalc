@@ -16,8 +16,6 @@ import { OgerponAdjuster } from "@lib/damage-calculator/calc-adjuster/ogerpon-ad
 import { RageFistAdjuster } from "@lib/damage-calculator/calc-adjuster/rage-fist-adjuster"
 import { RuinsAbilityAdjuster } from "@lib/damage-calculator/calc-adjuster/ruins-ability-adjuster"
 import { ZacianZamazentaAdjuster } from "@lib/damage-calculator/calc-adjuster/zacian-zamazenta-adjuster"
-import { SPECIFIC_DAMAGE_CALCULATORS } from "@lib/damage-calculator/specific-damage-calculator/specific-damage-calculator"
-import { RuinationCalculator } from "@lib/damage-calculator/specific-damage-calculator/ruination-calculator"
 
 function expectPerformance<T>(fn: () => T, maxDurationMs: number, description?: string): T {
   const startTime = performance.now()
@@ -46,7 +44,6 @@ describe("DamageCalculatorService - Performance", () => {
         { provide: CALC_ADJUSTERS, useClass: ZacianZamazentaAdjuster, multi: true },
         { provide: CALC_ADJUSTERS, useClass: NeutralizingGasAdjuster, multi: true },
         { provide: CALC_ADJUSTERS, useClass: OgerponAdjuster, multi: true },
-        { provide: SPECIFIC_DAMAGE_CALCULATORS, useClass: RuinationCalculator, multi: true },
         provideZonelessChangeDetection()
       ]
     })

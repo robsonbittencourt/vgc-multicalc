@@ -12,8 +12,6 @@ import { RageFistAdjuster } from "@lib/damage-calculator/calc-adjuster/rage-fist
 import { StompingTantrumAdjuster } from "@lib/damage-calculator/calc-adjuster/stomping-tantrum-adjuster"
 import { RuinsAbilityAdjuster } from "@lib/damage-calculator/calc-adjuster/ruins-ability-adjuster"
 import { ZacianZamazentaAdjuster } from "@lib/damage-calculator/calc-adjuster/zacian-zamazenta-adjuster"
-import { SPECIFIC_DAMAGE_CALCULATORS } from "@lib/damage-calculator/specific-damage-calculator/specific-damage-calculator"
-import { RuinationCalculator } from "@lib/damage-calculator/specific-damage-calculator/ruination-calculator"
 import { migrateUserData } from "@data/store/utils/migrate-user-data"
 
 migrateUserData()
@@ -30,7 +28,6 @@ bootstrapApplication(AppComponent, {
     { provide: CALC_ADJUSTERS, useClass: StompingTantrumAdjuster, multi: true },
     { provide: CALC_ADJUSTERS, useClass: ZacianZamazentaAdjuster, multi: true },
     { provide: CALC_ADJUSTERS, useClass: NeutralizingGasAdjuster, multi: true },
-    { provide: CALC_ADJUSTERS, useClass: OgerponAdjuster, multi: true },
-    { provide: SPECIFIC_DAMAGE_CALCULATORS, useClass: RuinationCalculator, multi: true }
+    { provide: CALC_ADJUSTERS, useClass: OgerponAdjuster, multi: true }
   ]
 }).catch(err => console.error(err))

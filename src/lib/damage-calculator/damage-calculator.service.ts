@@ -1,6 +1,5 @@
 import { inject, Injectable } from "@angular/core"
 import { CALC_ADJUSTERS } from "@lib/damage-calculator/calc-adjuster/calc-adjuster"
-import { SPECIFIC_DAMAGE_CALCULATORS } from "@lib/damage-calculator/specific-damage-calculator/specific-damage-calculator"
 import { DamageResult } from "@lib/damage-calculator/damage-result"
 import { FieldMapper } from "@lib/field-mapper"
 import { Field } from "@lib/model/field"
@@ -21,7 +20,6 @@ export class DamageCalculatorService {
   ZERO_RESULT_DAMAGE = Array(RollLevelConfig.ROLLS_NUMBER).fill(0)
 
   adjusters = inject(CALC_ADJUSTERS)
-  specificDamageCalculators = inject(SPECIFIC_DAMAGE_CALCULATORS)
   fieldMapper = inject(FieldMapper)
   speedCalculator = inject(SpeedCalculatorService)
   calculatorStore = inject(CalculatorStore)
@@ -69,6 +67,9 @@ export class DamageCalculatorService {
 
     if (!firstResult.damage) firstResult.damage = this.ZERO_RESULT_DAMAGE
     if (!secondResult.damage) secondResult.damage = this.ZERO_RESULT_DAMAGE
+
+    if (typeof firstResult.damage === "number") firstResult.damage = Array(RollLevelConfig.ROLLS_NUMBER).fill(firstResult.damage)
+    if (typeof secondResult.damage === "number") secondResult.damage = Array(RollLevelConfig.ROLLS_NUMBER).fill(secondResult.damage)
 
     return new DamageResult(
       firstAttacker,
@@ -138,7 +139,7 @@ export class DamageCalculatorService {
 
     this.adjusters.forEach(a => a.adjust(smogonAttacker, smogonTarget, move, moveSmogon, smogonField, secondAttacker, field))
 
-    const result = this.calculateDamage(gen, smogonAttacker, smogonTarget, moveSmogon, smogonField, moveSmogon)
+    const result = calculate(gen, smogonAttacker, smogonTarget, moveSmogon, smogonField)
 
     if (!result.damage) {
       result.damage = this.ZERO_RESULT_DAMAGE
@@ -149,17 +150,6 @@ export class DamageCalculatorService {
     }
 
     return result
-  }
-
-  private calculateDamage(gen: Generation, attacker: PokemonSmogon, target: PokemonSmogon, move: MoveSmogon, field: FieldSmogon, moveModel: MoveSmogon): Result {
-    const applicableCalculator = this.specificDamageCalculators.find(calculator => calculator.isApplicable(moveModel))
-
-    if (applicableCalculator) {
-      const baseResult = calculate(gen, attacker, target, move, field)
-      return applicableCalculator.calculate(target, baseResult)
-    }
-
-    return calculate(gen, attacker, target, move, field)
   }
 
   private koChance(result: Result): string {

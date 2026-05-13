@@ -1,7 +1,6 @@
 import { provideZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
 import { CALC_ADJUSTERS, CalcAdjuster } from "@lib/damage-calculator/calc-adjuster/calc-adjuster"
-import { SPECIFIC_DAMAGE_CALCULATORS, SpecificDamageCalculator } from "@lib/damage-calculator/specific-damage-calculator/specific-damage-calculator"
 import { DamageCalculatorService } from "@lib/damage-calculator/damage-calculator.service"
 import { Ability } from "@lib/model/ability"
 import { Field } from "@lib/model/field"
@@ -26,24 +25,15 @@ function expectPerformance<T>(fn: () => T, maxDurationMs: number, description?: 
 describe("DefensiveEvOptimizerService - Performance", () => {
   let service: DefensiveEvOptimizerService
   let adjusterSpy: jasmine.SpyObj<CalcAdjuster>
-  let specificCalculatorSpy: jasmine.SpyObj<SpecificDamageCalculator>
 
   beforeEach(() => {
     adjusterSpy = jasmine.createSpyObj("Adjuster", ["adjust"])
-    specificCalculatorSpy = jasmine.createSpyObj("SpecificCalculator", ["isApplicable", "calculate"])
 
     TestBed.configureTestingModule({
-      providers: [
-        DefensiveEvOptimizerService,
-        DamageCalculatorService,
-        { provide: CALC_ADJUSTERS, useValue: adjusterSpy, multi: true },
-        { provide: SPECIFIC_DAMAGE_CALCULATORS, useValue: specificCalculatorSpy, multi: true },
-        provideZonelessChangeDetection()
-      ]
+      providers: [DefensiveEvOptimizerService, DamageCalculatorService, { provide: CALC_ADJUSTERS, useValue: adjusterSpy, multi: true }, provideZonelessChangeDetection()]
     })
 
     service = TestBed.inject(DefensiveEvOptimizerService)
-    specificCalculatorSpy.isApplicable.and.returnValue(false)
   })
 
   it("should optimize EVs for Ting-Lu in it's limit", () => {
