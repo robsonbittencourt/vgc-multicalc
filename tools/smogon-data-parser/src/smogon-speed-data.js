@@ -25,7 +25,7 @@ export async function smogonSpeedData(date, reg) {
 
   const results = allPokemonInJson
     .map(pokemon => {
-      const data = response.data.data[pokemon]
+      const data = mergeWithMegaIfBase(pokemon, response.data.data)
       return generateStatistics(pokemon, data, date, reg)
     })
     .filter(result => result !== null)
@@ -42,6 +42,33 @@ export async function smogonSpeedData(date, reg) {
     })
 
   return results
+}
+
+function mergeWithMegaIfBase(pokemonName, allData) {
+  const data = allData[pokemonName]
+
+  if (!data) return data
+  if (pokemonName.includes("-Mega")) return data
+
+  const megaNames = Object.keys(allData).filter(name => name === `${pokemonName}-Mega` || name.startsWith(`${pokemonName}-Mega-`))
+
+  if (megaNames.length === 0) return data
+
+  const mergedSpreads = { ...data.Spreads }
+  let mergedRawCount = data["Raw count"]
+
+  megaNames.forEach(megaName => {
+    const megaData = allData[megaName]
+    if (!megaData) return
+
+    mergedRawCount += megaData["Raw count"]
+
+    for (const spread in megaData.Spreads) {
+      mergedSpreads[spread] = (mergedSpreads[spread] ?? 0) + megaData.Spreads[spread]
+    }
+  })
+
+  return { ...data, Spreads: mergedSpreads, "Raw count": mergedRawCount }
 }
 
 function generateStatistics(pokemon, data, date, reg) {

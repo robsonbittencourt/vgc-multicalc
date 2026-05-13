@@ -45,15 +45,15 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     minSpeedWithIvZero: 96,
     minSpeedWithNegativeNature: 109,
     maxSpeedWithNature: 169,
-    choiceScarfPercentage: 27,
+    choiceScarfPercentage: 26,
     choiceScarfIsMoreUsed: true,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 125, percentile: 31, percentage: 16, speedEv: 25, nature: "Adamant" },
+      { type: "usage", speed: 125, percentile: 32, percentage: 15, speedEv: 25, nature: "Adamant" },
       { type: "usage", speed: 126, percentile: 55, percentage: 24, speedEv: 32, nature: "Adamant" },
       { type: "usage", speed: 138, percentile: 100, percentage: 43, speedEv: 32, nature: "Jolly" },
-      { type: "scarf", speed: 253, percentile: 100, percentage: 27, speedEv: 252, nature: "" }
+      { type: "scarf", speed: 253, percentile: 100, percentage: 26, speedEv: 252, nature: "" }
     ]
   },
   Sinistcha: {
@@ -121,7 +121,7 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
-    statistics: [{ type: "usage", speed: 169, percentile: 100, percentage: 90, speedEv: 32, nature: "Jolly" }]
+    statistics: [{ type: "usage", speed: 169, percentile: 100, percentage: 83, speedEv: 32, nature: "Jolly" }]
   },
   "Floette-Mega": {
     referenceDate: "2026-04",
@@ -436,8 +436,9 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 104, percentile: 77, percentage: 56, speedEv: 32, nature: "Modest" },
-      { type: "usage", speed: 114, percentile: 100, percentage: 21, speedEv: 32, nature: "Timid" }
+      { type: "usage", speed: 100, percentile: 21, percentage: 19, speedEv: 2, nature: "Modest" },
+      { type: "usage", speed: 104, percentile: 83, percentage: 40, speedEv: 32, nature: "Modest" },
+      { type: "usage", speed: 114, percentile: 100, percentage: 15, speedEv: 32, nature: "Timid" }
     ]
   },
   "Kommo-o": {
@@ -501,14 +502,14 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     minSpeedWithIvZero: 83,
     minSpeedWithNegativeNature: 97,
     maxSpeedWithNature: 154,
-    choiceScarfPercentage: 6,
+    choiceScarfPercentage: 5,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 112, percentile: 76, percentage: 68, speedEv: 32, nature: "Adamant" },
-      { type: "usage", speed: 123, percentile: 100, percentage: 23, speedEv: 32, nature: "Jolly" },
-      { type: "scarf", speed: 231, percentile: 100, percentage: 6, speedEv: 252, nature: "" }
+      { type: "usage", speed: 112, percentile: 71, percentage: 62, speedEv: 32, nature: "Adamant" },
+      { type: "usage", speed: 123, percentile: 100, percentage: 27, speedEv: 32, nature: "Jolly" },
+      { type: "scarf", speed: 231, percentile: 100, percentage: 5, speedEv: 252, nature: "" }
     ]
   },
   "Gardevoir-Mega": {
@@ -637,14 +638,15 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     minSpeedWithIvZero: 59,
     minSpeedWithNegativeNature: 72,
     maxSpeedWithNature: 124,
-    choiceScarfPercentage: 23,
+    choiceScarfPercentage: 8,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 81, percentile: 46, percentage: 38, speedEv: 0, nature: "Adamant" },
-      { type: "usage", speed: 93, percentile: 100, percentage: 22, speedEv: 32, nature: "Jolly" },
-      { type: "scarf", speed: 186, percentile: 100, percentage: 23, speedEv: 252, nature: "" }
+      { type: "usage", speed: 81, percentile: 40, percentage: 34, speedEv: 0, nature: "Adamant" },
+      { type: "usage", speed: 82, percentile: 53, percentage: 12, speedEv: 8, nature: "Adamant" },
+      { type: "usage", speed: 93, percentile: 100, percentage: 13, speedEv: 32, nature: "Jolly" },
+      { type: "scarf", speed: 186, percentile: 100, percentage: 8, speedEv: 252, nature: "" }
     ]
   },
   Primarina: {
@@ -715,8 +717,8 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 63, percentile: 16, percentage: 16, speedEv: 0, nature: "Sassy" },
-      { type: "usage", speed: 70, percentile: 89, percentage: 73, speedEv: 0, nature: "Careful" }
+      { type: "usage", speed: 63, percentile: 18, percentage: 18, speedEv: 0, nature: "Sassy" },
+      { type: "usage", speed: 70, percentile: 90, percentage: 72, speedEv: 0, nature: "Careful" }
     ]
   },
   "Rotom-Heat": {
@@ -822,7 +824,7 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
-    statistics: [{ type: "usage", speed: 80, percentile: 95, percentage: 87, speedEv: 0, nature: "Bold" }]
+    statistics: [{ type: "usage", speed: 80, percentile: 93, percentage: 85, speedEv: 0, nature: "Bold" }]
   },
   Dragonite: {
     referenceDate: "2026-04",
@@ -832,14 +834,14 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     minSpeedWithIvZero: 76,
     minSpeedWithNegativeNature: 90,
     maxSpeedWithNature: 145,
-    choiceScarfPercentage: 3,
+    choiceScarfPercentage: 1,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 100, percentile: 23, percentage: 21, speedEv: 2, nature: "Adamant" },
-      { type: "usage", speed: 102, percentile: 42, percentage: 14, speedEv: 13, nature: "Adamant" },
-      { type: "usage", speed: 104, percentile: 89, percentage: 43, speedEv: 32, nature: "Adamant" }
+      { type: "usage", speed: 100, percentile: 20, percentage: 18, speedEv: 2, nature: "Modest" },
+      { type: "usage", speed: 102, percentile: 42, percentage: 12, speedEv: 13, nature: "Adamant" },
+      { type: "usage", speed: 104, percentile: 86, percentage: 38, speedEv: 32, nature: "Modest" }
     ]
   },
   Hydreigon: {
@@ -1099,14 +1101,14 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     minSpeedWithIvZero: 77,
     minSpeedWithNegativeNature: 90,
     maxSpeedWithNature: 146,
-    choiceScarfPercentage: 2,
+    choiceScarfPercentage: 1,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 101, percentile: 34, percentage: 34, speedEv: 2, nature: "Adamant" },
-      { type: "usage", speed: 102, percentile: 51, percentage: 16, speedEv: 11, nature: "Impish" },
-      { type: "usage", speed: 103, percentile: 65, percentage: 14, speedEv: 12, nature: "Careful" }
+      { type: "usage", speed: 101, percentile: 25, percentage: 24, speedEv: 2, nature: "Adamant" },
+      { type: "usage", speed: 105, percentile: 70, percentage: 16, speedEv: 32, nature: "Adamant" },
+      { type: "usage", speed: 115, percentile: 100, percentage: 20, speedEv: 32, nature: "Jolly" }
     ]
   },
   Meowscarada: {
@@ -1259,13 +1261,13 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     minSpeedWithIvZero: 63,
     minSpeedWithNegativeNature: 76,
     maxSpeedWithNature: 128,
-    choiceScarfPercentage: 1,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 85, percentile: 70, percentage: 64, speedEv: 0, nature: "Adamant" },
-      { type: "usage", speed: 86, percentile: 83, percentage: 13, speedEv: 10, nature: "Adamant" }
+      { type: "usage", speed: 85, percentile: 67, percentage: 64, speedEv: 0, nature: "Adamant" },
+      { type: "usage", speed: 86, percentile: 85, percentage: 18, speedEv: 6, nature: "Adamant" }
     ]
   },
   "Lopunny-Mega": {
@@ -1403,14 +1405,15 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     minSpeedWithIvZero: 76,
     minSpeedWithNegativeNature: 90,
     maxSpeedWithNature: 145,
-    choiceScarfPercentage: 78,
+    choiceScarfPercentage: 14,
     choiceScarfIsMoreUsed: true,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 104, percentile: 46, percentage: 28, speedEv: 32, nature: "Modest" },
-      { type: "usage", speed: 114, percentile: 100, percentage: 45, speedEv: 32, nature: "Timid" },
-      { type: "scarf", speed: 217, percentile: 100, percentage: 78, speedEv: 252, nature: "" }
+      { type: "usage", speed: 100, percentile: 42, percentage: 36, speedEv: 0, nature: "Modest" },
+      { type: "usage", speed: 101, percentile: 57, percentage: 15, speedEv: 4, nature: "Modest" },
+      { type: "usage", speed: 114, percentile: 100, percentage: 19, speedEv: 32, nature: "Timid" },
+      { type: "scarf", speed: 217, percentile: 100, percentage: 14, speedEv: 252, nature: "" }
     ]
   },
   Meowstic: {
@@ -1628,15 +1631,15 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     minSpeedWithIvZero: 76,
     minSpeedWithNegativeNature: 90,
     maxSpeedWithNature: 145,
-    choiceScarfPercentage: 14,
+    choiceScarfPercentage: 8,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 90, percentile: 32, percentage: 32, speedEv: 0, nature: "Brave" },
-      { type: "usage", speed: 100, percentile: 58, percentage: 26, speedEv: 1, nature: "Adamant" },
-      { type: "usage", speed: 114, percentile: 100, percentage: 22, speedEv: 32, nature: "Jolly" },
-      { type: "scarf", speed: 217, percentile: 100, percentage: 14, speedEv: 252, nature: "" }
+      { type: "usage", speed: 90, percentile: 21, percentage: 21, speedEv: 0, nature: "Brave" },
+      { type: "usage", speed: 100, percentile: 38, percentage: 18, speedEv: 0, nature: "Adamant" },
+      { type: "usage", speed: 114, percentile: 100, percentage: 31, speedEv: 32, nature: "Jolly" },
+      { type: "scarf", speed: 217, percentile: 100, percentage: 8, speedEv: 252, nature: "" }
     ]
   },
   "Chandelure-Mega": {
@@ -1764,14 +1767,13 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     minSpeedWithIvZero: 103,
     minSpeedWithNegativeNature: 117,
     maxSpeedWithNature: 178,
-    choiceScarfPercentage: 22,
+    choiceScarfPercentage: 1,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 134, percentile: 29, percentage: 24, speedEv: 32, nature: "Modest" },
-      { type: "usage", speed: 147, percentile: 100, percentage: 68, speedEv: 32, nature: "Timid" },
-      { type: "scarf", speed: 267, percentile: 100, percentage: 22, speedEv: 252, nature: "" }
+      { type: "usage", speed: 146, percentile: 47, percentage: 21, speedEv: 23, nature: "Timid" },
+      { type: "usage", speed: 147, percentile: 100, percentage: 53, speedEv: 32, nature: "Timid" }
     ]
   },
   "Gallade-Mega": {
@@ -1851,15 +1853,13 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     minSpeedWithIvZero: 81,
     minSpeedWithNegativeNature: 95,
     maxSpeedWithNature: 151,
-    choiceScarfPercentage: 10,
+    choiceScarfPercentage: 2,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 106, percentile: 16, percentage: 14, speedEv: 0, nature: "Modest" },
-      { type: "usage", speed: 110, percentile: 44, percentage: 20, speedEv: 32, nature: "Modest" },
-      { type: "usage", speed: 121, percentile: 100, percentage: 53, speedEv: 32, nature: "Timid" },
-      { type: "scarf", speed: 226, percentile: 100, percentage: 10, speedEv: 252, nature: "" }
+      { type: "usage", speed: 110, percentile: 40, percentage: 19, speedEv: 32, nature: "Modest" },
+      { type: "usage", speed: 121, percentile: 100, percentage: 57, speedEv: 32, nature: "Timid" }
     ]
   },
   "Goodra-Hisui": {
@@ -1923,13 +1923,14 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     minSpeedWithIvZero: 85,
     minSpeedWithNegativeNature: 99,
     maxSpeedWithNature: 156,
-    choiceScarfPercentage: 1,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 110, percentile: 65, percentage: 54, speedEv: 2, nature: "Adamant" },
-      { type: "usage", speed: 111, percentile: 76, percentage: 11, speedEv: 4, nature: "Adamant" }
+      { type: "usage", speed: 110, percentile: 41, percentage: 34, speedEv: 2, nature: "Adamant" },
+      { type: "usage", speed: 111, percentile: 56, percentage: 15, speedEv: 5, nature: "Adamant" },
+      { type: "usage", speed: 125, percentile: 100, percentage: 13, speedEv: 32, nature: "Jolly" }
     ]
   },
   "Beedrill-Mega": {
@@ -2043,13 +2044,13 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     minSpeedWithIvZero: 112,
     minSpeedWithNegativeNature: 126,
     maxSpeedWithNature: 189,
-    choiceScarfPercentage: 4,
+    choiceScarfPercentage: 2,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 144, percentile: 17, percentage: 12, speedEv: 32, nature: "Modest" },
-      { type: "usage", speed: 158, percentile: 100, percentage: 80, speedEv: 32, nature: "Timid" }
+      { type: "usage", speed: 144, percentile: 28, percentage: 23, speedEv: 32, nature: "Modest" },
+      { type: "usage", speed: 158, percentile: 100, percentage: 68, speedEv: 32, nature: "Timid" }
     ]
   },
   "Basculegion-F": {
@@ -2273,15 +2274,15 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     minSpeedWithIvZero: 76,
     minSpeedWithNegativeNature: 90,
     maxSpeedWithNature: 145,
-    choiceScarfPercentage: 34,
+    choiceScarfPercentage: 11,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 101, percentile: 42, percentage: 16, speedEv: 8, nature: "Modest" },
-      { type: "usage", speed: 104, percentile: 63, percentage: 17, speedEv: 32, nature: "Modest" },
-      { type: "usage", speed: 114, percentile: 100, percentage: 34, speedEv: 32, nature: "Timid" },
-      { type: "scarf", speed: 217, percentile: 100, percentage: 34, speedEv: 252, nature: "" }
+      { type: "usage", speed: 90, percentile: 15, percentage: 15, speedEv: 0, nature: "Quiet" },
+      { type: "usage", speed: 100, percentile: 42, percentage: 27, speedEv: 2, nature: "Modest" },
+      { type: "usage", speed: 114, percentile: 100, percentage: 23, speedEv: 32, nature: "Timid" },
+      { type: "scarf", speed: 217, percentile: 100, percentage: 11, speedEv: 252, nature: "" }
     ]
   },
   "Samurott-Hisui": {
@@ -2342,14 +2343,15 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     minSpeedWithIvZero: 114,
     minSpeedWithNegativeNature: 127,
     maxSpeedWithNature: 191,
-    choiceScarfPercentage: 37,
+    choiceScarfPercentage: 8,
     choiceScarfIsMoreUsed: true,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 146, percentile: 44, percentage: 37, speedEv: 32, nature: "Modest" },
-      { type: "usage", speed: 160, percentile: 100, percentage: 51, speedEv: 32, nature: "Timid" },
-      { type: "scarf", speed: 286, percentile: 100, percentage: 37, speedEv: 252, nature: "" }
+      { type: "usage", speed: 146, percentile: 32, percentage: 26, speedEv: 32, nature: "Modest" },
+      { type: "usage", speed: 159, percentile: 47, percentage: 13, speedEv: 26, nature: "Timid" },
+      { type: "usage", speed: 160, percentile: 100, percentage: 53, speedEv: 32, nature: "Timid" },
+      { type: "scarf", speed: 286, percentile: 100, percentage: 8, speedEv: 252, nature: "" }
     ]
   },
   Blastoise: {
@@ -2360,14 +2362,14 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     minSpeedWithIvZero: 74,
     minSpeedWithNegativeNature: 88,
     maxSpeedWithNature: 143,
-    choiceScarfPercentage: 4,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 88, percentile: 14, percentage: 14, speedEv: 0, nature: "Relaxed" },
-      { type: "usage", speed: 98, percentile: 55, percentage: 41, speedEv: 0, nature: "Careful" },
-      { type: "usage", speed: 100, percentile: 80, percentage: 17, speedEv: 18, nature: "Modest" }
+      { type: "usage", speed: 88, percentile: 21, percentage: 21, speedEv: 0, nature: "Quiet" },
+      { type: "usage", speed: 98, percentile: 44, percentage: 22, speedEv: 0, nature: "Modest" },
+      { type: "usage", speed: 99, percentile: 60, percentage: 17, speedEv: 5, nature: "Modest" }
     ]
   },
   Toxicroak: {
@@ -2522,14 +2524,14 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     minSpeedWithIvZero: 85,
     minSpeedWithNegativeNature: 99,
     maxSpeedWithNature: 156,
-    choiceScarfPercentage: 36,
+    choiceScarfPercentage: 5,
     choiceScarfIsMoreUsed: true,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 114, percentile: 47, percentage: 33, speedEv: 32, nature: "Adamant" },
-      { type: "usage", speed: 125, percentile: 100, percentage: 48, speedEv: 32, nature: "Jolly" },
-      { type: "scarf", speed: 234, percentile: 100, percentage: 36, speedEv: 252, nature: "" }
+      { type: "usage", speed: 114, percentile: 40, percentage: 26, speedEv: 32, nature: "Adamant" },
+      { type: "usage", speed: 125, percentile: 100, percentage: 52, speedEv: 32, nature: "Jolly" },
+      { type: "scarf", speed: 234, percentile: 100, percentage: 5, speedEv: 252, nature: "" }
     ]
   },
   "Tauros-Paldea-Blaze": {
@@ -2562,7 +2564,11 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
-    statistics: [{ type: "usage", speed: 100, percentile: 65, percentage: 63, speedEv: 0, nature: "Calm" }]
+    statistics: [
+      { type: "usage", speed: 100, percentile: 50, percentage: 46, speedEv: 0, nature: "Calm" },
+      { type: "usage", speed: 101, percentile: 65, percentage: 15, speedEv: 9, nature: "Modest" },
+      { type: "usage", speed: 114, percentile: 100, percentage: 11, speedEv: 32, nature: "Timid" }
+    ]
   },
   "Victreebel-Mega": {
     referenceDate: "2026-04",
@@ -2729,13 +2735,13 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     minSpeedWithIvZero: 36,
     minSpeedWithNegativeNature: 50,
     maxSpeedWithNature: 96,
-    choiceScarfPercentage: 1,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 50, percentile: 51, percentage: 51, speedEv: 0, nature: "Quiet" },
-      { type: "usage", speed: 56, percentile: 97, percentage: 45, speedEv: 0, nature: "Modest" }
+      { type: "usage", speed: 50, percentile: 61, percentage: 61, speedEv: 0, nature: "Quiet" },
+      { type: "usage", speed: 56, percentile: 97, percentage: 36, speedEv: 0, nature: "Modest" }
     ]
   },
   "Pinsir-Mega": {
@@ -2990,14 +2996,13 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     minSpeedWithIvZero: 58,
     minSpeedWithNegativeNature: 72,
     maxSpeedWithNature: 123,
-    choiceScarfPercentage: 5,
+    choiceScarfPercentage: 1,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 72, percentile: 39, percentage: 39, speedEv: 0, nature: "Quiet" },
-      { type: "usage", speed: 80, percentile: 86, percentage: 46, speedEv: 0, nature: "Calm" },
-      { type: "scarf", speed: 184, percentile: 100, percentage: 5, speedEv: 252, nature: "" }
+      { type: "usage", speed: 72, percentile: 61, percentage: 61, speedEv: 0, nature: "Quiet" },
+      { type: "usage", speed: 80, percentile: 95, percentage: 34, speedEv: 0, nature: "Modest" }
     ]
   },
   "Audino-Mega": {
@@ -3048,8 +3053,8 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 45, percentile: 71, percentage: 71, speedEv: 0, nature: "Quiet" },
-      { type: "usage", speed: 50, percentile: 100, percentage: 28, speedEv: 0, nature: "Bold" }
+      { type: "usage", speed: 45, percentile: 64, percentage: 64, speedEv: 0, nature: "Quiet" },
+      { type: "usage", speed: 50, percentile: 99, percentage: 35, speedEv: 0, nature: "Modest" }
     ]
   },
   Aurorus: {
@@ -3130,13 +3135,13 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     minSpeedWithIvZero: 110,
     minSpeedWithNegativeNature: 124,
     maxSpeedWithNature: 187,
-    choiceScarfPercentage: 2,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 142, percentile: 54, percentage: 36, speedEv: 32, nature: "Adamant" },
-      { type: "usage", speed: 156, percentile: 100, percentage: 39, speedEv: 32, nature: "Jolly" }
+      { type: "usage", speed: 142, percentile: 33, percentage: 23, speedEv: 32, nature: "Adamant" },
+      { type: "usage", speed: 156, percentile: 100, percentage: 59, speedEv: 32, nature: "Jolly" }
     ]
   },
   Lycanroc: {
@@ -3272,13 +3277,13 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     minSpeedWithIvZero: 49,
     minSpeedWithNegativeNature: 63,
     maxSpeedWithNature: 112,
-    choiceScarfPercentage: 4,
+    choiceScarfPercentage: 2,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 63, percentile: 18, percentage: 18, speedEv: 8, nature: "Relaxed" },
-      { type: "usage", speed: 70, percentile: 92, percentage: 73, speedEv: 0, nature: "Bold" }
+      { type: "usage", speed: 63, percentile: 35, percentage: 35, speedEv: 0, nature: "Quiet" },
+      { type: "usage", speed: 70, percentile: 94, percentage: 59, speedEv: 0, nature: "Bold" }
     ]
   },
   Spiritomb: {
@@ -3413,15 +3418,14 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     minSpeedWithIvZero: 76,
     minSpeedWithNegativeNature: 90,
     maxSpeedWithNature: 145,
-    choiceScarfPercentage: 7,
+    choiceScarfPercentage: 3,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 100, percentile: 40, percentage: 25, speedEv: 0, nature: "Adamant" },
-      { type: "usage", speed: 104, percentile: 66, percentage: 23, speedEv: 32, nature: "Adamant" },
-      { type: "usage", speed: 114, percentile: 100, percentage: 27, speedEv: 32, nature: "Jolly" },
-      { type: "scarf", speed: 217, percentile: 100, percentage: 7, speedEv: 252, nature: "" }
+      { type: "usage", speed: 100, percentile: 26, percentage: 16, speedEv: 0, nature: "Adamant" },
+      { type: "usage", speed: 104, percentile: 50, percentage: 22, speedEv: 32, nature: "Adamant" },
+      { type: "usage", speed: 114, percentile: 100, percentage: 44, speedEv: 32, nature: "Jolly" }
     ]
   },
   Bastiodon: {
@@ -3484,14 +3488,14 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     minSpeedWithIvZero: 72,
     minSpeedWithNegativeNature: 85,
     maxSpeedWithNature: 139,
-    choiceScarfPercentage: 2,
+    choiceScarfPercentage: 1,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 95, percentile: 26, percentage: 19, speedEv: 0, nature: "Careful" },
-      { type: "usage", speed: 99, percentile: 80, percentage: 50, speedEv: 32, nature: "Adamant" },
-      { type: "usage", speed: 108, percentile: 100, percentage: 17, speedEv: 32, nature: "Jolly" }
+      { type: "usage", speed: 95, percentile: 18, percentage: 14, speedEv: 0, nature: "Lonely" },
+      { type: "usage", speed: 99, percentile: 58, percentage: 35, speedEv: 32, nature: "Adamant" },
+      { type: "usage", speed: 108, percentile: 100, percentage: 37, speedEv: 32, nature: "Jolly" }
     ]
   },
   Chesnaught: {
@@ -3502,13 +3506,13 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     minSpeedWithIvZero: 62,
     minSpeedWithNegativeNature: 75,
     maxSpeedWithNature: 127,
-    choiceScarfPercentage: 2,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 75, percentile: 27, percentage: 27, speedEv: 0, nature: "Relaxed" },
-      { type: "usage", speed: 84, percentile: 86, percentage: 60, speedEv: 0, nature: "Careful" }
+      { type: "usage", speed: 75, percentile: 34, percentage: 34, speedEv: 0, nature: "Relaxed" },
+      { type: "usage", speed: 84, percentile: 93, percentage: 59, speedEv: 0, nature: "Careful" }
     ]
   },
   Roserade: {
@@ -3628,13 +3632,13 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     minSpeedWithIvZero: 49,
     minSpeedWithNegativeNature: 63,
     maxSpeedWithNature: 112,
-    choiceScarfPercentage: 4,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 63, percentile: 23, percentage: 23, speedEv: 0, nature: "Brave" },
-      { type: "usage", speed: 70, percentile: 94, percentage: 71, speedEv: 0, nature: "Adamant" }
+      { type: "usage", speed: 63, percentile: 29, percentage: 29, speedEv: 0, nature: "Sassy" },
+      { type: "usage", speed: 70, percentile: 96, percentage: 66, speedEv: 0, nature: "Careful" }
     ]
   },
   Scovillain: {
@@ -3645,16 +3649,11 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     minSpeedWithIvZero: 72,
     minSpeedWithNegativeNature: 85,
     maxSpeedWithNature: 139,
-    choiceScarfPercentage: 5,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 95, percentile: 32, percentage: 23, speedEv: 0, nature: "Calm" },
-      { type: "usage", speed: 99, percentile: 70, percentage: 29, speedEv: 32, nature: "Modest" },
-      { type: "usage", speed: 108, percentile: 100, percentage: 29, speedEv: 32, nature: "Timid" },
-      { type: "scarf", speed: 208, percentile: 100, percentage: 5, speedEv: 252, nature: "" }
-    ]
+    statistics: [{ type: "usage", speed: 95, percentile: 88, percentage: 82, speedEv: 0, nature: "Calm" }]
   },
   "Meowstic-F-Mega": {
     referenceDate: "2026-04",
@@ -3678,14 +3677,13 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     minSpeedWithIvZero: 103,
     minSpeedWithNegativeNature: 117,
     maxSpeedWithNature: 178,
-    choiceScarfPercentage: 9,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 134, percentile: 22, percentage: 11, speedEv: 32, nature: "Hardy" },
-      { type: "usage", speed: 147, percentile: 100, percentage: 68, speedEv: 32, nature: "Timid" },
-      { type: "scarf", speed: 267, percentile: 100, percentage: 9, speedEv: 252, nature: "" }
+      { type: "usage", speed: 134, percentile: 46, percentage: 35, speedEv: 32, nature: "Modest" },
+      { type: "usage", speed: 147, percentile: 100, percentage: 44, speedEv: 32, nature: "Timid" }
     ]
   },
   Skarmory: {
@@ -3700,7 +3698,11 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
-    statistics: [{ type: "usage", speed: 90, percentile: 68, percentage: 67, speedEv: 0, nature: "Careful" }]
+    statistics: [
+      { type: "usage", speed: 90, percentile: 15, percentage: 14, speedEv: 0, nature: "Careful" },
+      { type: "usage", speed: 102, percentile: 62, percentage: 17, speedEv: 25, nature: "Jolly" },
+      { type: "usage", speed: 103, percentile: 100, percentage: 38, speedEv: 32, nature: "Jolly" }
+    ]
   },
   Typhlosion: {
     referenceDate: "2026-04",
@@ -3781,14 +3783,14 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     minSpeedWithIvZero: 94,
     minSpeedWithNegativeNature: 108,
     maxSpeedWithNature: 167,
-    choiceScarfPercentage: 43,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: true,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 124, percentile: 60, percentage: 40, speedEv: 32, nature: "Modest" },
-      { type: "usage", speed: 136, percentile: 100, percentage: 31, speedEv: 32, nature: "Timid" },
-      { type: "scarf", speed: 250, percentile: 100, percentage: 43, speedEv: 252, nature: "" }
+      { type: "usage", speed: 122, percentile: 29, percentage: 20, speedEv: 13, nature: "Modest" },
+      { type: "usage", speed: 124, percentile: 63, percentage: 22, speedEv: 32, nature: "Modest" },
+      { type: "usage", speed: 136, percentile: 100, percentage: 33, speedEv: 32, nature: "Timid" }
     ]
   },
   Flapple: {
@@ -3886,14 +3888,13 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     minSpeedWithIvZero: 108,
     minSpeedWithNegativeNature: 121,
     maxSpeedWithNature: 183,
-    choiceScarfPercentage: 25,
+    choiceScarfPercentage: 1,
     choiceScarfIsMoreUsed: true,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 139, percentile: 53, percentage: 35, speedEv: 32, nature: "Modest" },
-      { type: "usage", speed: 152, percentile: 100, percentage: 45, speedEv: 32, nature: "Timid" },
-      { type: "scarf", speed: 274, percentile: 100, percentage: 25, speedEv: 252, nature: "" }
+      { type: "usage", speed: 139, percentile: 49, percentage: 40, speedEv: 32, nature: "Adamant" },
+      { type: "usage", speed: 152, percentile: 100, percentage: 45, speedEv: 32, nature: "Jolly" }
     ]
   },
   Diggersby: {
@@ -3972,14 +3973,14 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     minSpeedWithIvZero: 54,
     minSpeedWithNegativeNature: 67,
     maxSpeedWithNature: 117,
-    choiceScarfPercentage: 7,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 67, percentile: 38, percentage: 38, speedEv: 0, nature: "Brave" },
-      { type: "usage", speed: 75, percentile: 87, percentage: 49, speedEv: 0, nature: "Adamant" },
-      { type: "scarf", speed: 175, percentile: 100, percentage: 7, speedEv: 252, nature: "" }
+      { type: "usage", speed: 67, percentile: 52, percentage: 52, speedEv: 0, nature: "Brave" },
+      { type: "usage", speed: 75, percentile: 79, percentage: 27, speedEv: 0, nature: "Adamant" },
+      { type: "usage", speed: 76, percentile: 95, percentage: 16, speedEv: 5, nature: "Adamant" }
     ]
   },
   Polteageist: {
@@ -4008,13 +4009,13 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     minSpeedWithIvZero: 54,
     minSpeedWithNegativeNature: 67,
     maxSpeedWithNature: 117,
-    choiceScarfPercentage: 4,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 67, percentile: 53, percentage: 53, speedEv: 0, nature: "Sassy" },
-      { type: "usage", speed: 75, percentile: 86, percentage: 33, speedEv: 0, nature: "Hardy" }
+      { type: "usage", speed: 67, percentile: 57, percentage: 57, speedEv: 0, nature: "Quiet" },
+      { type: "usage", speed: 75, percentile: 91, percentage: 33, speedEv: 0, nature: "Modest" }
     ]
   },
   Morpeko: {
@@ -4044,16 +4045,11 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     minSpeedWithIvZero: 98,
     minSpeedWithNegativeNature: 111,
     maxSpeedWithNature: 171,
-    choiceScarfPercentage: 12,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
-    statistics: [
-      { type: "usage", speed: 124, percentile: 23, percentage: 18, speedEv: 0, nature: "Modest" },
-      { type: "usage", speed: 128, percentile: 57, percentage: 29, speedEv: 32, nature: "Modest" },
-      { type: "usage", speed: 140, percentile: 100, percentage: 35, speedEv: 32, nature: "Timid" },
-      { type: "scarf", speed: 256, percentile: 100, percentage: 12, speedEv: 252, nature: "" }
-    ]
+    statistics: [{ type: "usage", speed: 140, percentile: 100, percentage: 86, speedEv: 32, nature: "Timid" }]
   },
   Manectric: {
     referenceDate: "2026-04",
@@ -4063,15 +4059,13 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     minSpeedWithIvZero: 99,
     minSpeedWithNegativeNature: 112,
     maxSpeedWithNature: 172,
-    choiceScarfPercentage: 33,
+    choiceScarfPercentage: 2,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 127, percentile: 18, percentage: 11, speedEv: 19, nature: "Modest" },
-      { type: "usage", speed: 129, percentile: 35, percentage: 15, speedEv: 32, nature: "Modest" },
-      { type: "usage", speed: 141, percentile: 100, percentage: 59, speedEv: 32, nature: "Timid" },
-      { type: "scarf", speed: 258, percentile: 100, percentage: 33, speedEv: 252, nature: "" }
+      { type: "usage", speed: 129, percentile: 15, percentage: 11, speedEv: 32, nature: "Modest" },
+      { type: "usage", speed: 141, percentile: 100, percentage: 82, speedEv: 32, nature: "Timid" }
     ]
   },
   Crabominable: {
@@ -4082,13 +4076,13 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     minSpeedWithIvZero: 43,
     minSpeedWithNegativeNature: 56,
     maxSpeedWithNature: 104,
-    choiceScarfPercentage: 2,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 56, percentile: 33, percentage: 33, speedEv: 0, nature: "Brave" },
-      { type: "usage", speed: 63, percentile: 97, percentage: 63, speedEv: 0, nature: "Adamant" }
+      { type: "usage", speed: 56, percentile: 74, percentage: 74, speedEv: 0, nature: "Brave" },
+      { type: "usage", speed: 63, percentile: 98, percentage: 24, speedEv: 0, nature: "Adamant" }
     ]
   },
   Toucannon: {
@@ -4122,8 +4116,8 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 54, percentile: 56, percentage: 56, speedEv: 0, nature: "Brave" },
-      { type: "usage", speed: 60, percentile: 96, percentage: 39, speedEv: 0, nature: "Modest" }
+      { type: "usage", speed: 54, percentile: 79, percentage: 79, speedEv: 0, nature: "Quiet" },
+      { type: "usage", speed: 60, percentile: 98, percentage: 19, speedEv: 0, nature: "Modest" }
     ]
   },
   Chimecho: {
@@ -4139,8 +4133,8 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 76, percentile: 15, percentage: 15, speedEv: 0, nature: "Relaxed" },
-      { type: "usage", speed: 85, percentile: 95, percentage: 80, speedEv: 0, nature: "Calm" }
+      { type: "usage", speed: 76, percentile: 36, percentage: 36, speedEv: 0, nature: "Quiet" },
+      { type: "usage", speed: 85, percentile: 91, percentage: 55, speedEv: 0, nature: "Modest" }
     ]
   },
   Heracross: {
@@ -4151,14 +4145,14 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     minSpeedWithIvZero: 81,
     minSpeedWithNegativeNature: 94,
     maxSpeedWithNature: 150,
-    choiceScarfPercentage: 30,
+    choiceScarfPercentage: 3,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 109, percentile: 49, percentage: 41, speedEv: 32, nature: "Naughty" },
-      { type: "usage", speed: 119, percentile: 100, percentage: 49, speedEv: 32, nature: "Jolly" },
-      { type: "scarf", speed: 225, percentile: 100, percentage: 30, speedEv: 252, nature: "" }
+      { type: "usage", speed: 105, percentile: 38, percentage: 25, speedEv: 0, nature: "Adamant" },
+      { type: "usage", speed: 107, percentile: 62, percentage: 15, speedEv: 18, nature: "Adamant" },
+      { type: "usage", speed: 109, percentile: 85, percentage: 17, speedEv: 32, nature: "Adamant" }
     ]
   },
   Zoroark: {
@@ -4187,13 +4181,13 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     minSpeedWithIvZero: 31,
     minSpeedWithNegativeNature: 45,
     maxSpeedWithNature: 90,
-    choiceScarfPercentage: 2,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 45, percentile: 46, percentage: 46, speedEv: 0, nature: "Sassy" },
-      { type: "usage", speed: 50, percentile: 97, percentage: 52, speedEv: 0, nature: "Adamant" }
+      { type: "usage", speed: 45, percentile: 63, percentage: 63, speedEv: 0, nature: "Brave" },
+      { type: "usage", speed: 50, percentile: 99, percentage: 35, speedEv: 0, nature: "Adamant" }
     ]
   },
   "Rotom-Fan": {
@@ -4276,13 +4270,13 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     minSpeedWithIvZero: 90,
     minSpeedWithNegativeNature: 103,
     maxSpeedWithNature: 161,
-    choiceScarfPercentage: 2,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 119, percentile: 89, percentage: 76, speedEv: 32, nature: "Adamant" },
-      { type: "usage", speed: 130, percentile: 100, percentage: 11, speedEv: 32, nature: "Jolly" }
+      { type: "usage", speed: 119, percentile: 80, percentage: 56, speedEv: 32, nature: "Adamant" },
+      { type: "usage", speed: 130, percentile: 100, percentage: 18, speedEv: 32, nature: "Jolly" }
     ]
   },
   "Lycanroc-Midnight": {
@@ -4311,15 +4305,14 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     minSpeedWithIvZero: 63,
     minSpeedWithNegativeNature: 76,
     maxSpeedWithNature: 128,
-    choiceScarfPercentage: 16,
+    choiceScarfPercentage: 2,
     choiceScarfIsMoreUsed: true,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 76, percentile: 25, percentage: 25, speedEv: 0, nature: "Brave" },
-      { type: "usage", speed: 85, percentile: 77, percentage: 52, speedEv: 3, nature: "Hardy" },
-      { type: "usage", speed: 97, percentile: 100, percentage: 14, speedEv: 32, nature: "Jolly" },
-      { type: "scarf", speed: 192, percentile: 100, percentage: 16, speedEv: 252, nature: "" }
+      { type: "usage", speed: 76, percentile: 15, percentage: 15, speedEv: 0, nature: "Brave" },
+      { type: "usage", speed: 85, percentile: 72, percentage: 56, speedEv: 0, nature: "Adamant" },
+      { type: "usage", speed: 86, percentile: 83, percentage: 12, speedEv: 8, nature: "Adamant" }
     ]
   },
   Glalie: {
@@ -4330,15 +4323,14 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     minSpeedWithIvZero: 76,
     minSpeedWithNegativeNature: 90,
     maxSpeedWithNature: 145,
-    choiceScarfPercentage: 8,
+    choiceScarfPercentage: 2,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 100, percentile: 26, percentage: 24, speedEv: 0, nature: "Calm" },
-      { type: "usage", speed: 104, percentile: 52, percentage: 15, speedEv: 32, nature: "Adamant" },
-      { type: "usage", speed: 114, percentile: 100, percentage: 44, speedEv: 32, nature: "Jolly" },
-      { type: "scarf", speed: 217, percentile: 100, percentage: 8, speedEv: 252, nature: "" }
+      { type: "usage", speed: 100, percentile: 27, percentage: 15, speedEv: 0, nature: "Calm" },
+      { type: "usage", speed: 104, percentile: 63, percentage: 26, speedEv: 32, nature: "Adamant" },
+      { type: "usage", speed: 114, percentile: 100, percentage: 34, speedEv: 32, nature: "Jolly" }
     ]
   },
   Tauros: {
@@ -4386,15 +4378,14 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     minSpeedWithIvZero: 74,
     minSpeedWithNegativeNature: 88,
     maxSpeedWithNature: 143,
-    choiceScarfPercentage: 9,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 98, percentile: 40, percentage: 26, speedEv: 0, nature: "Hardy" },
-      { type: "usage", speed: 100, percentile: 66, percentage: 25, speedEv: 12, nature: "Adamant" },
-      { type: "usage", speed: 102, percentile: 93, percentage: 21, speedEv: 32, nature: "Adamant" },
-      { type: "scarf", speed: 214, percentile: 100, percentage: 9, speedEv: 252, nature: "" }
+      { type: "usage", speed: 98, percentile: 35, percentage: 28, speedEv: 0, nature: "Adamant" },
+      { type: "usage", speed: 100, percentile: 56, percentage: 17, speedEv: 14, nature: "Adamant" },
+      { type: "usage", speed: 102, percentile: 86, percentage: 26, speedEv: 32, nature: "Adamant" }
     ]
   },
   Flareon: {
@@ -4446,9 +4437,8 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 81, percentile: 13, percentage: 13, speedEv: 0, nature: "Relaxed" },
-      { type: "usage", speed: 94, percentile: 79, percentage: 48, speedEv: 32, nature: "Modest" },
-      { type: "usage", speed: 103, percentile: 100, percentage: 18, speedEv: 32, nature: "Jolly" }
+      { type: "usage", speed: 81, percentile: 13, percentage: 13, speedEv: 0, nature: "Quiet" },
+      { type: "usage", speed: 90, percentile: 62, percentage: 48, speedEv: 0, nature: "Rash" }
     ]
   },
   Lopunny: {
@@ -4459,15 +4449,13 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     minSpeedWithIvZero: 99,
     minSpeedWithNegativeNature: 112,
     maxSpeedWithNature: 172,
-    choiceScarfPercentage: 8,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 129, percentile: 17, percentage: 15, speedEv: 32, nature: "Hardy" },
-      { type: "usage", speed: 140, percentile: 34, percentage: 16, speedEv: 21, nature: "Jolly" },
-      { type: "usage", speed: 141, percentile: 100, percentage: 66, speedEv: 32, nature: "Jolly" },
-      { type: "scarf", speed: 258, percentile: 100, percentage: 8, speedEv: 252, nature: "" }
+      { type: "usage", speed: 129, percentile: 19, percentage: 16, speedEv: 32, nature: "Adamant" },
+      { type: "usage", speed: 141, percentile: 100, percentage: 78, speedEv: 32, nature: "Jolly" }
     ]
   },
   "Tauros-Paldea-Combat": {
@@ -4585,15 +4573,13 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     minSpeedWithIvZero: 72,
     minSpeedWithNegativeNature: 85,
     maxSpeedWithNature: 139,
-    choiceScarfPercentage: 7,
+    choiceScarfPercentage: 0,
     choiceScarfIsMoreUsed: false,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 97, percentile: 39, percentage: 39, speedEv: 16, nature: "Hardy" },
-      { type: "usage", speed: 99, percentile: 58, percentage: 19, speedEv: 32, nature: "Adamant" },
-      { type: "usage", speed: 108, percentile: 100, percentage: 39, speedEv: 32, nature: "Jolly" },
-      { type: "scarf", speed: 208, percentile: 100, percentage: 7, speedEv: 252, nature: "" }
+      { type: "usage", speed: 99, percentile: 32, percentage: 28, speedEv: 32, nature: "Adamant" },
+      { type: "usage", speed: 108, percentile: 100, percentage: 63, speedEv: 32, nature: "Jolly" }
     ]
   },
   "Stunfisk-Galar": {
@@ -4645,8 +4631,9 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 100, percentile: 77, percentage: 67, speedEv: 0, nature: "Bold" },
-      { type: "usage", speed: 110, percentile: 100, percentage: 20, speedEv: 2, nature: "Timid" }
+      { type: "usage", speed: 100, percentile: 42, percentage: 38, speedEv: 2, nature: "Modest" },
+      { type: "usage", speed: 101, percentile: 60, percentage: 18, speedEv: 7, nature: "Modest" },
+      { type: "usage", speed: 102, percentile: 72, percentage: 13, speedEv: 12, nature: "Modest" }
     ]
   },
   Pinsir: {
@@ -4657,15 +4644,13 @@ export const SPEED_STATISTICS_REG_MA: Record<string, SpeedData> = {
     minSpeedWithIvZero: 81,
     minSpeedWithNegativeNature: 94,
     maxSpeedWithNature: 150,
-    choiceScarfPercentage: 59,
+    choiceScarfPercentage: 3,
     choiceScarfIsMoreUsed: true,
     boosterEnergyPercentage: 0,
     boosterEnergyIsMoreUsed: false,
     statistics: [
-      { type: "usage", speed: 109, percentile: 29, percentage: 16, speedEv: 32, nature: "Adamant" },
-      { type: "usage", speed: 115, percentile: 41, percentage: 12, speedEv: 0, nature: "Jolly" },
-      { type: "usage", speed: 119, percentile: 100, percentage: 59, speedEv: 32, nature: "Jolly" },
-      { type: "scarf", speed: 225, percentile: 100, percentage: 59, speedEv: 252, nature: "" }
+      { type: "usage", speed: 109, percentile: 40, percentage: 20, speedEv: 32, nature: "Adamant" },
+      { type: "usage", speed: 119, percentile: 100, percentage: 53, speedEv: 32, nature: "Jolly" }
     ]
   },
   "Meowstic-F": {
