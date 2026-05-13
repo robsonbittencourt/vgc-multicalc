@@ -36,6 +36,7 @@ export function defaultFieldState(): FieldState {
     isGravity: false,
     isTrickRoom: false,
     isNeutralizingGas: false,
+    isUnnerve: false,
     isFairyAura: false,
     attackerSide: new FieldSide(),
     defenderSide: new FieldSide(),

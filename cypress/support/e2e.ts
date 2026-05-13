@@ -81,6 +81,7 @@ const pokeNames = [
   "zamazenta",
   "zamazenta-crowned",
   "farigiraf",
+  "farigiraf-colbur-berry",
   "ogerpon",
   "ogerpon-cornerstone",
   "ogerpon-hearthflame",

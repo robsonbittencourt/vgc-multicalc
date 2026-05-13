@@ -593,6 +593,19 @@ describe("Field Store", () => {
       expect(store.field().isNeutralizingGas).toBeFalse()
     })
 
+    it("should change Unnerve to true when it is false", () => {
+      store.toggleUnnerve()
+
+      expect(store.field().isUnnerve).toBeTrue()
+    })
+
+    it("should change Unnerve to false when it is true", () => {
+      store.toggleUnnerve()
+      store.toggleUnnerve()
+
+      expect(store.field().isUnnerve).toBeFalse()
+    })
+
     it("should change Fairy Aura to true when it is false", () => {
       store.toggleFairyAura()
 
@@ -982,6 +995,7 @@ describe("Field Store", () => {
         isGravity: false,
         isTrickRoom: false,
         isNeutralizingGas: false,
+        isUnnerve: false,
         isFairyAura: false,
         attackerSide: new FieldSide({ gameType: "Doubles" as GameType, isHelpingHand: false, isBattery: false, isPowerSpot: false, isTailwind: false, isCriticalHit: false }),
         defenderSide: new FieldSide({ gameType: "Singles" as GameType, isTailwind: false, isReflect: false, isLightScreen: false, isAuroraVeil: false, isFriendGuard: false, spikes: 0, isSR: false, isSeeded: false, isCriticalHit: true })

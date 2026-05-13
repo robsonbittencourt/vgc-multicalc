@@ -107,11 +107,13 @@
 
       @if (!isChampions()) {
         <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">
+          <mat-button-toggle [checked]="fieldStore.isUnnerve()" (change)="fieldStore.toggleUnnerve()" data-cy="unnerve">Unnerve</mat-button-toggle>
           <mat-button-toggle [checked]="fieldStore.neutralizingGasActivated()" (change)="fieldStore.toggleNeutralizingGas()" data-cy="neutralizing-gas">Neutralizing Gas</mat-button-toggle>
         </mat-button-toggle-group>
       }
       @if (isChampions() && !onlySpeed()) {
         <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">
+          <mat-button-toggle [checked]="fieldStore.isUnnerve()" (change)="fieldStore.toggleUnnerve()" data-cy="unnerve">Unnerve</mat-button-toggle>
           <mat-button-toggle [checked]="fieldStore.fairyAuraActivated()" (change)="fieldStore.toggleFairyAura()" data-cy="fairy-aura">Fairy Aura</mat-button-toggle>
         </mat-button-toggle-group>
       }

@@ -427,4 +427,44 @@ describe("Damage Calculator Service", () => {
 
     expect(result).toContain("after Enigma Berry recovery")
   })
+
+  it("should apply Colbur Berry damage reduction when Unnerve is off", () => {
+    const attacker = new Pokemon("Tyranitar-Mega", { evs: { spa: 0 }, moveSet: new MoveSet(new Move("Dark Pulse"), new Move(""), new Move(""), new Move("")) })
+    const target = new Target(new Pokemon("Farigiraf", { item: "Colbur Berry", evs: { hp: 29, spd: 11 } }))
+    const field = new Field({ isUnnerve: false })
+
+    const damageResult = service.calcDamage(attacker, target.pokemon, field)
+
+    expect(damageResult.description).toContain("Colbur Berry")
+  })
+
+  it("should NOT apply Colbur Berry damage reduction when Unnerve is on", () => {
+    const attacker = new Pokemon("Tyranitar-Mega", { evs: { spa: 0 }, moveSet: new MoveSet(new Move("Dark Pulse"), new Move(""), new Move(""), new Move("")) })
+    const target = new Target(new Pokemon("Farigiraf", { item: "Colbur Berry", evs: { hp: 29, spd: 11 } }))
+    const field = new Field({ isUnnerve: true })
+
+    const damageResult = service.calcDamage(attacker, target.pokemon, field)
+
+    expect(damageResult.description).not.toContain("Colbur Berry")
+  })
+
+  it("should apply Sitrus Berry recovery when Unnerve is off", () => {
+    const attacker = new Pokemon("Urshifu", { moveSet: new MoveSet(new Move("Close Combat"), new Move(""), new Move(""), new Move("")) })
+    const target = new Target(new Pokemon("Incineroar", { item: "Sitrus Berry", nature: "Impish", evs: { hp: 252, def: 252 } }))
+    const field = new Field({ isUnnerve: false })
+
+    const damageResult = service.calcDamage(attacker, target.pokemon, field)
+
+    expect(damageResult.berryHP).toBeGreaterThan(0)
+  })
+
+  it("should NOT apply Sitrus Berry recovery when Unnerve is on", () => {
+    const attacker = new Pokemon("Urshifu", { moveSet: new MoveSet(new Move("Close Combat"), new Move(""), new Move(""), new Move("")) })
+    const target = new Target(new Pokemon("Incineroar", { item: "Sitrus Berry", nature: "Impish", evs: { hp: 252, def: 252 } }))
+    const field = new Field({ isUnnerve: true })
+
+    const damageResult = service.calcDamage(attacker, target.pokemon, field)
+
+    expect(damageResult.berryHP).toEqual(0)
+  })
 })

@@ -21,6 +21,7 @@ export type FieldState = {
   isGravity: boolean
   isTrickRoom: boolean
   isNeutralizingGas: boolean
+  isUnnerve: boolean
   isFairyAura: boolean
   attackerSide: FieldSide
   defenderSide: FieldSide
@@ -68,6 +69,7 @@ export class FieldStore extends signalStore(
             isGravity: store.isGravity(),
             isTrickRoom: store.isTrickRoom(),
             isNeutralizingGas: store.isNeutralizingGas(),
+            isUnnerve: store.isUnnerve(),
             isFairyAura: store.isFairyAura(),
             attackerSide: store.attackerSide(),
             defenderSide: store.defenderSide()
@@ -129,6 +131,7 @@ export class FieldStore extends signalStore(
         isGravity: this.isGravity(),
         isTrickRoom: this.isTrickRoom(),
         isNeutralizingGas: this.neutralizingGasActivated(),
+        isUnnerve: this.isUnnerve(),
         isFairyAura: this.fairyAuraActivated(),
         attackerSide: this.attackerSide(),
         defenderSide: this.defenderSide()
@@ -501,6 +504,10 @@ export class FieldStore extends signalStore(
 
   toggleDefenderStealthRock() {
     patchState(this, state => ({ defenderSide: { ...state.defenderSide, isSR: !state.defenderSide.isSR } }))
+  }
+
+  toggleUnnerve() {
+    patchState(this, state => ({ isUnnerve: !state.isUnnerve }))
   }
 
   toggleFairyAura() {

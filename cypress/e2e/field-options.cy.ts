@@ -293,6 +293,22 @@ describe("Test the Field options on options with One vs One", () => {
       leftDamageResult.damageIs(0, 160.9, 190.2, 330, 390)
       rightDamageResult.damageIs(0, 40.8, 48, 74, 87)
     })
+
+    it("Colbur Berry should reduce damage without Unnerve", () => {
+      leftPokemonBuild.importPokemon(poke["tyranitar"]).selectAttackFour()
+      rightPokemonBuild.importPokemon(poke["farigiraf-colbur-berry"])
+
+      leftDamageResult.descriptionContains("Colbur Berry")
+    })
+
+    it("Colbur Berry should NOT reduce damage with Unnerve active", () => {
+      leftPokemonBuild.importPokemon(poke["tyranitar"]).selectAttackFour()
+      rightPokemonBuild.importPokemon(poke["farigiraf-colbur-berry"])
+
+      field.unnerve()
+
+      leftDamageResult.descriptionNotContains("Colbur Berry")
+    })
   })
 
   describe("Right side", () => {

@@ -183,6 +183,10 @@ export class Field {
     this.clickOnButton("leech-seed-defender")
   }
 
+  unnerve() {
+    this.clickOnButton("unnerve")
+  }
+
   neutralizingGas() {
     this.clickOnButton("neutralizing-gas")
   }

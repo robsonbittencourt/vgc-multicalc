@@ -96,6 +96,16 @@ export class DamageResult {
     return this
   }
 
+  descriptionContains(text: string) {
+    this.baseElement().find('[data-cy="move-damage-description"]').should("contain.text", text)
+    return this
+  }
+
+  descriptionNotContains(text: string) {
+    this.baseElement().find('[data-cy="move-damage-description"]').should("not.contain.text", text)
+    return this
+  }
+
   baseElement(): any {
     return cy.get(`[data-cy="${this.selector}"]`)
   }
