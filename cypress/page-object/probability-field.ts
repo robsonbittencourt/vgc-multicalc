@@ -14,4 +14,8 @@ export class ProbabilityField {
   toggleSnow() {
     cy.get('[data-cy="probability-field-weather-snow"]').click()
   }
+
+  toggleGravity() {
+    cy.get('[data-cy="probability-field-gravity"]').click()
+  }
 }

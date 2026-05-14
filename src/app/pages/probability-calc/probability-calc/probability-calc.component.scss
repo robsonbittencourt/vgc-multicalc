@@ -26,12 +26,18 @@
   gap: 1em;
   min-height: 0;
   min-width: 0;
+  align-self: start;
 }
 
 .field-score-row {
-  display: grid;
-  grid-template-columns: 1fr min-content;
+  display: flex;
+  flex-direction: column;
   gap: 1em;
+
+  app-probability-field,
+  app-team-probability {
+    height: auto;
+  }
 }
 
 .full-width {

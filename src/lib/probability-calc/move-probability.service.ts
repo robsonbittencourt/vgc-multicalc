@@ -113,15 +113,11 @@ export class MoveProbabilityService {
       return 1
     }
 
-    if (weather === "Sun" && sunAccuracy50.includes(moveName)) {
-      return 0.5
-    }
-
     if (moveName === "Toxic" && (attacker.type1 === "Poison" || attacker.type2 === "Poison")) {
       return 1
     }
 
-    let accuracy = move.accuracy / 100
+    let accuracy = weather === "Sun" && sunAccuracy50.includes(moveName) ? 0.5 : move.accuracy / 100
 
     if (ability === "Compound Eyes") {
       accuracy *= 5325 / 4096
@@ -135,7 +131,11 @@ export class MoveProbabilityService {
       accuracy *= 3277 / 4096
     }
 
-    return Math.min(accuracy, 1)
+    if (field.isGravity) {
+      accuracy *= 6840 / 4096
+    }
+
+    return Math.floor(Math.min(accuracy, 1) * 100) / 100
   }
 
   private createEmptySingleTargetProbabilities(): SingleTargetProbabilities {

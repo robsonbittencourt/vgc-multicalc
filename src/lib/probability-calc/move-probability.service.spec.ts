@@ -285,7 +285,7 @@ describe("MoveProbabilityService", () => {
 
       const result = service.effectiveAccuracy(move, compoundEyesAttacker, field)
 
-      expect(result).toBeCloseTo(0.75 * (5325 / 4096), 5)
+      expect(result).toBe(0.97)
     })
 
     it("should boost accuracy with Victory Star", () => {
@@ -294,7 +294,7 @@ describe("MoveProbabilityService", () => {
 
       const result = service.effectiveAccuracy(move, victoryStarAttacker, field)
 
-      expect(result).toBeCloseTo(0.75 * (4506 / 4096), 5)
+      expect(result).toBe(0.82)
     })
 
     it("should reduce accuracy with Hustle for Physical moves", () => {
@@ -303,7 +303,7 @@ describe("MoveProbabilityService", () => {
 
       const result = service.effectiveAccuracy(move, hustleAttacker, field)
 
-      expect(result).toBeCloseTo(0.75 * (3277 / 4096), 5)
+      expect(result).toBe(0.6)
     })
 
     it("should not reduce accuracy with Hustle for Special moves", () => {
@@ -329,7 +329,34 @@ describe("MoveProbabilityService", () => {
 
       const result = service.effectiveAccuracy(move, attacker, field)
 
-      expect(result).toBeCloseTo(0.7, 5)
+      expect(result).toBe(0.7)
+    })
+
+    it("should boost accuracy with Gravity", () => {
+      const move = new Move("Iron Tail")
+      const gravityField = new Field({ isGravity: true })
+
+      const result = service.effectiveAccuracy(move, attacker, gravityField)
+
+      expect(result).toBe(1)
+    })
+
+    it("should cap accuracy at 1 with Gravity", () => {
+      const move = new Move("Thunderbolt")
+      const gravityField = new Field({ isGravity: true })
+
+      const result = service.effectiveAccuracy(move, attacker, gravityField)
+
+      expect(result).toBe(1)
+    })
+
+    it("should boost accuracy with Gravity with other impacts", () => {
+      const move = new Move("Hurricane")
+      const sunField = new Field({ weather: "Sun", isGravity: true })
+
+      const result = service.effectiveAccuracy(move, attacker, sunField)
+
+      expect(result).toBe(0.83)
     })
   })
 })

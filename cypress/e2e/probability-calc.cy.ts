@@ -1,4 +1,5 @@
 import { poke } from "@cy-support/e2e"
+import { PokemonProbability } from "@page-object/pokemon-probability"
 import { ProbabilityCard } from "@page-object/probability-card"
 import { ProbabilityField } from "@page-object/probability-field"
 import { Team } from "@page-object/team"
@@ -7,6 +8,7 @@ import { TeamScore } from "@page-object/team-score"
 const team = new Team()
 const teamScore = new TeamScore()
 const probabilityField = new ProbabilityField()
+const pokemonProbability = new PokemonProbability()
 
 describe("Probability Calculator", () => {
   beforeEach(() => {
@@ -110,7 +112,7 @@ describe("Probability Calculator", () => {
       const pokemonBuild = team.selectPokemon("Tornadus")
       pokemonBuild.selectAttackOne()
 
-      cy.get('[data-cy="pokemon-probability-accuracy"]').should("contain", "Accuracy: 80%")
+      pokemonProbability.verifyAccuracy("80")
 
       const spreadTargetCard = new ProbabilityCard("spread-target")
 
@@ -125,7 +127,7 @@ describe("Probability Calculator", () => {
 
       probabilityField.toggleRain()
 
-      cy.get('[data-cy="pokemon-probability-accuracy"]').should("contain", "Accuracy: 100%")
+      pokemonProbability.verifyAccuracy("100")
 
       const spreadTargetCard = new ProbabilityCard("spread-target")
 
@@ -141,7 +143,7 @@ describe("Probability Calculator", () => {
       probabilityField.toggleRain()
       probabilityField.toggleRain()
 
-      cy.get('[data-cy="pokemon-probability-accuracy"]').should("contain", "Accuracy: 80%")
+      pokemonProbability.verifyAccuracy("80")
     })
 
     it("should reduce Thunder accuracy to 50% when Sun is set", () => {
@@ -151,11 +153,27 @@ describe("Probability Calculator", () => {
 
       probabilityField.toggleSun()
 
-      cy.get('[data-cy="pokemon-probability-accuracy"]').should("contain", "Accuracy: 50%")
+      pokemonProbability.verifyAccuracy("50")
 
       const singleTargetCard = new ProbabilityCard("single-target")
 
       singleTargetCard.verifyTurn1SingleTarget("50", "50", "50", "50")
+    })
+
+    it("should boost Sleep Powder accuracy to 100% with Gravity", () => {
+      team.importPokemon(poke["jumpluff"])
+      const pokemonBuild = team.selectPokemon("Jumpluff")
+      pokemonBuild.selectAttackOne()
+
+      pokemonProbability.verifyAccuracy("75")
+
+      probabilityField.toggleGravity()
+
+      pokemonProbability.verifyAccuracy("100")
+
+      const singleTargetCard = new ProbabilityCard("single-target")
+
+      singleTargetCard.verifyTurn1SingleTarget("100", "100", "0", "0")
     })
 
     it("should make Blizzard always hit when Snow is set", () => {
@@ -163,11 +181,11 @@ describe("Probability Calculator", () => {
       const pokemonBuild = team.selectPokemon("Ninetales")
       pokemonBuild.selectAttackOne()
 
-      cy.get('[data-cy="pokemon-probability-accuracy"]').should("contain", "Accuracy: 70%")
+      pokemonProbability.verifyAccuracy("70")
 
       probabilityField.toggleSnow()
 
-      cy.get('[data-cy="pokemon-probability-accuracy"]').should("contain", "Accuracy: 100%")
+      pokemonProbability.verifyAccuracy("100")
 
       const spreadTargetCard = new ProbabilityCard("spread-target")
 
