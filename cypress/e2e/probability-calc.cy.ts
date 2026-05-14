@@ -1,10 +1,12 @@
 import { poke } from "@cy-support/e2e"
 import { ProbabilityCard } from "@page-object/probability-card"
+import { ProbabilityField } from "@page-object/probability-field"
 import { Team } from "@page-object/team"
 import { TeamScore } from "@page-object/team-score"
 
 const team = new Team()
 const teamScore = new TeamScore()
+const probabilityField = new ProbabilityField()
 
 describe("Probability Calculator", () => {
   beforeEach(() => {
@@ -99,6 +101,77 @@ describe("Probability Calculator", () => {
       spreadTargetCard.verifyEffectBoth(3, "3")
       spreadTargetCard.verifyEffectBoth(4, "3.9")
       spreadTargetCard.verifyEffectBoth(5, "4.9")
+    })
+  })
+
+  describe("Field Weather", () => {
+    it("should show base accuracy for Bleakwind Storm without weather", () => {
+      team.importPokemon(poke["tornadus"])
+      const pokemonBuild = team.selectPokemon("Tornadus")
+      pokemonBuild.selectAttackOne()
+
+      cy.get('[data-cy="pokemon-probability-accuracy"]').should("contain", "Accuracy: 80%")
+
+      const spreadTargetCard = new ProbabilityCard("spread-target")
+
+      spreadTargetCard.verifyTurn1SpreadTarget("64", "96", "4")
+      spreadTargetCard.verifyTurn2SpreadTarget("41", "92.2", "7.8")
+    })
+
+    it("should update accuracy and probabilities for Bleakwind Storm when Rain is set", () => {
+      team.importPokemon(poke["tornadus"])
+      const pokemonBuild = team.selectPokemon("Tornadus")
+      pokemonBuild.selectAttackOne()
+
+      probabilityField.toggleRain()
+
+      cy.get('[data-cy="pokemon-probability-accuracy"]').should("contain", "Accuracy: 100%")
+
+      const spreadTargetCard = new ProbabilityCard("spread-target")
+
+      spreadTargetCard.verifyTurn1SpreadTarget("100", "100", "0")
+      spreadTargetCard.verifyTurn2SpreadTarget("100", "100", "0")
+    })
+
+    it("should restore base accuracy when Rain is toggled off", () => {
+      team.importPokemon(poke["tornadus"])
+      const pokemonBuild = team.selectPokemon("Tornadus")
+      pokemonBuild.selectAttackOne()
+
+      probabilityField.toggleRain()
+      probabilityField.toggleRain()
+
+      cy.get('[data-cy="pokemon-probability-accuracy"]').should("contain", "Accuracy: 80%")
+    })
+
+    it("should reduce Thunder accuracy to 50% when Sun is set", () => {
+      team.importPokemon(poke["kyogre"])
+      const pokemonBuild = team.selectPokemon("Kyogre")
+      pokemonBuild.selectAttackFour()
+
+      probabilityField.toggleSun()
+
+      cy.get('[data-cy="pokemon-probability-accuracy"]').should("contain", "Accuracy: 50%")
+
+      const singleTargetCard = new ProbabilityCard("single-target")
+
+      singleTargetCard.verifyTurn1SingleTarget("50", "50", "50", "50")
+    })
+
+    it("should make Blizzard always hit when Snow is set", () => {
+      team.importPokemon(poke["ninetales-alola"])
+      const pokemonBuild = team.selectPokemon("Ninetales")
+      pokemonBuild.selectAttackOne()
+
+      cy.get('[data-cy="pokemon-probability-accuracy"]').should("contain", "Accuracy: 70%")
+
+      probabilityField.toggleSnow()
+
+      cy.get('[data-cy="pokemon-probability-accuracy"]').should("contain", "Accuracy: 100%")
+
+      const spreadTargetCard = new ProbabilityCard("spread-target")
+
+      spreadTargetCard.verifyTurn1SpreadTarget("100", "100", "0")
     })
   })
 

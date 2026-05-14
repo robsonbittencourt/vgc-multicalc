@@ -4,6 +4,7 @@ import { TeamsDesktopComponent } from "@features/team/teams-desktop/teams-deskto
 import { CombinedProbabilityComponent } from "@app/pages/probability-calc/combined-probability/combined-probability.component"
 import { GeneralProbabilityComponent } from "@app/pages/probability-calc/general-probability/general-probability.component"
 import { PokemonProbabilityComponent } from "@app/pages/probability-calc/pokemon-probability/pokemon-probability.component"
+import { ProbabilityFieldComponent } from "@app/pages/probability-calc/probability-field/probability-field.component"
 import { TeamProbabilityComponent } from "@app/pages/probability-calc/team-probability/team-probability.component"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { FieldStore } from "@data/store/field-store"
@@ -15,7 +16,7 @@ import { Pokemon } from "@lib/model/pokemon"
   selector: "app-probability-calc",
   templateUrl: "./probability-calc.component.html",
   styleUrl: "./probability-calc.component.scss",
-  imports: [TeamComponent, TeamsDesktopComponent, GeneralProbabilityComponent, CombinedProbabilityComponent, PokemonProbabilityComponent, TeamProbabilityComponent],
+  imports: [TeamComponent, TeamsDesktopComponent, GeneralProbabilityComponent, CombinedProbabilityComponent, PokemonProbabilityComponent, ProbabilityFieldComponent, TeamProbabilityComponent],
   providers: [FieldStore, AutomaticFieldService, { provide: FIELD_CONTEXT, useValue: "probability" }]
 })
 export class ProbabilityCalcComponent {

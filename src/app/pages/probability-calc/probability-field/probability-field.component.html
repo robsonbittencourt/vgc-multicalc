@@ -1,0 +1,8 @@
+<app-widget [title]="'Field'">
+  <div class="weather-buttons">
+    <mat-button-toggle data-cy="probability-field-weather-sun" [checked]="fieldStore.isWeatherSun()" (change)="fieldStore.toggleSunWeather()">Sun</mat-button-toggle>
+    <mat-button-toggle data-cy="probability-field-weather-rain" [checked]="fieldStore.isWeatherRain()" (change)="fieldStore.toggleRainWeather()">Rain</mat-button-toggle>
+    <mat-button-toggle data-cy="probability-field-weather-sand" [checked]="fieldStore.isWeatherSand()" (change)="fieldStore.toggleSandWeather()">Sand</mat-button-toggle>
+    <mat-button-toggle data-cy="probability-field-weather-snow" [checked]="fieldStore.isWeatherSnow()" (change)="fieldStore.toggleSnowWeather()">Snow</mat-button-toggle>
+  </div>
+</app-widget>

@@ -8,7 +8,7 @@
           </div>
           <div class="pokemon-move-info">
             <h3>{{ effectivePokemon().activeMoveName }}</h3>
-            <p>Accuracy: {{ accuracy() }}%</p>
+            <p data-cy="pokemon-probability-accuracy">Accuracy: {{ accuracy() }}%</p>
             @if (secondary()) {
               <p>Secondary effect: {{ secondary() }}%</p>
             }

@@ -25,6 +25,13 @@
   flex-direction: column;
   gap: 1em;
   min-height: 0;
+  min-width: 0;
+}
+
+.field-score-row {
+  display: grid;
+  grid-template-columns: 1fr min-content;
+  gap: 1em;
 }
 
 .full-width {

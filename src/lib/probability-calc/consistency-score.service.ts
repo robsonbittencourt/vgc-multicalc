@@ -1,51 +1,21 @@
-import { Injectable } from "@angular/core"
-import { MoveSet } from "@lib/model/moveset"
+import { Injectable, inject } from "@angular/core"
+import { Field } from "@lib/model/field"
+import { Pokemon } from "@lib/model/pokemon"
 import { Team } from "@lib/model/team"
+import { MoveProbabilityService } from "./move-probability.service"
 
 @Injectable({
   providedIn: "root"
 })
 export class ConsistencyScoreService {
-  /**
-   * Calculates the consistency score of a MoveSet based on the accuracy of its moves.
-   *
-   * The calculation follows these steps:
-   * 1. Logistic transformation: Converts accuracies (0-1) using a normalized logistic curve
-   * 2. Exponential penalty: Applies an exponential penalty for moves with low accuracy
-   * 3. Geometric mean: Calculates the geometric mean of penalized values (balances sensitivity to low values)
-   * 4. Multi-imperfect penalty: Applies an additional penalty when there are multiple imperfect moves
-   * 5. Raw score: Multiplies the geometric mean by the multi-imperfect penalty
-   * 6. Final scaling: Applies a power transformation to compress/scale the final score
-   *
-   * Adjustable variables to make the score more or less punitive:
-   *
-   * @param logisticSlope (default: 10) - Controls the slope of the logistic curve.
-   *   Higher values = steeper transition between high/low scores = more punitive
-   *   Lower values = smoother transition = less punitive
-   *
-   * @param logisticMidpoint (default: 0.85) - Midpoint of the logistic curve (reference accuracy).
-   *   Lower values = curve shifted left = more punitive (requires higher accuracy)
-   *   Higher values = curve shifted right = less punitive (accepts lower accuracy)
-   *
-   * @param lowAccuracyPenalty (default: 6) - Intensity of the exponential penalty for low accuracy.
-   *   Higher values = more severe penalty for moves with low accuracy = more punitive
-   *   Lower values = gentler penalty = less punitive
-   *
-   * @param multiImperfectPenalty (default: 0.16) - Penalty for having multiple imperfect moves.
-   *   Higher values = more severe penalty when there are multiple moves with accuracy < 100% = more punitive
-   *   Lower values = gentler penalty = less punitive
-   *
-   * @param scaleExponent (default: 0.4) - Exponent of the final power transformation.
-   *   Lower values = compresses high scores more = more punitive (reduced difference between scores)
-   *   Higher values = maintains more difference between scores = less punitive
-   *
-   * @returns Score from 0-100 or null if the moveSet contains only Struggle
-   */
-  consistencyScore(moveSet: MoveSet, logisticSlope = 10, logisticMidpoint = 0.85, lowAccuracyPenalty = 6, multiImperfectPenalty = 0.16, scaleExponent = 0.4): number | null {
+  private moveProbabilityService = inject(MoveProbabilityService)
+
+  consistencyScore(pokemon: Pokemon, field: Field, logisticSlope = 10, logisticMidpoint = 0.85, lowAccuracyPenalty = 6, multiImperfectPenalty = 0.16, scaleExponent = 0.4): number | null {
+    const moveSet = pokemon.moveSet
+
     if (moveSet.activeMove.name == "Struggle") return null
 
-    const accuracies = moveSet.moves.map(m => m.accuracy)
-    const accValues = accuracies.map(a => a / 100)
+    const accValues = moveSet.moves.map(m => this.moveProbabilityService.effectiveAccuracy(m, pokemon, field))
 
     const logisticAt1 = 1 / (1 + Math.exp(-logisticSlope * (1 - logisticMidpoint)))
     const logisticValues = accValues.map(a => 1 / (1 + Math.exp(-logisticSlope * (a - logisticMidpoint))) / logisticAt1)
@@ -68,20 +38,10 @@ export class ConsistencyScoreService {
     return Math.round(Number(final.toFixed(4)))
   }
 
-  /**
-   * Calculates the consistency score of the entire team using a combination of arithmetic and geometric means.
-   *
-   * @param team - The complete team
-   * @param alpha - Weight of the blend between arithmetic and geometric means (default: 0.6).
-   *   Higher values = more weight on arithmetic mean (less punitive for unbalanced teams)
-   *   Lower values = more weight on geometric mean (more punitive for unbalanced teams)
-   *
-   * @returns Score from 0-100
-   */
-  teamConsistencyScore(team: Team, alpha = 0.6): number {
+  teamConsistencyScore(team: Team, field: Field, alpha = 0.6): number {
     const scores = team.teamMembers
       .filter(m => !m.pokemon.isDefault)
-      .map(m => this.consistencyScore(m.pokemon.moveSet))
+      .map(m => this.consistencyScore(m.pokemon, field))
       .filter((s): s is number => s !== null)
 
     if (scores.length === 0) return 0

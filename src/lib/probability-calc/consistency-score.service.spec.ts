@@ -1,5 +1,6 @@
 import { provideZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
+import { Field } from "@lib/model/field"
 import { Move } from "@lib/model/move"
 import { MoveSet } from "@lib/model/moveset"
 import { Pokemon } from "@lib/model/pokemon"
@@ -9,6 +10,7 @@ import { ConsistencyScoreService } from "./consistency-score.service"
 
 describe("ConsistencyScoreService", () => {
   let service: ConsistencyScoreService
+  let field: Field
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -16,6 +18,7 @@ describe("ConsistencyScoreService", () => {
     })
 
     service = TestBed.inject(ConsistencyScoreService)
+    field = new Field()
   })
 
   it("should be created", () => {
@@ -24,36 +27,35 @@ describe("ConsistencyScoreService", () => {
 
   describe("consistencyScore", () => {
     it("should return null when moveSet contains only Struggle", () => {
-      const moveSet = new MoveSet(new Move("Struggle"), new Move("Struggle"), new Move("Struggle"), new Move("Struggle"))
+      const pokemon = new Pokemon("Pikachu", { moveSet: new MoveSet(new Move("Struggle"), new Move("Struggle"), new Move("Struggle"), new Move("Struggle")) })
 
-      const result = service.consistencyScore(moveSet)
+      const result = service.consistencyScore(pokemon, field)
 
       expect(result).toBeNull()
     })
 
     it("should return a score for moveSet with 100% accuracy moves", () => {
-      const moveSet = new MoveSet(new Move("Thunderbolt"), new Move("Quick Attack"), new Move("Volt Switch"), new Move("Protect"))
+      const pokemon = new Pokemon("Pikachu", { moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Quick Attack"), new Move("Volt Switch"), new Move("Protect")) })
 
-      const result = service.consistencyScore(moveSet)
+      const result = service.consistencyScore(pokemon, field)
 
       expect(result).toBe(100)
     })
 
     it("should return a score for moveSet with mixed accuracy moves", () => {
-      const moveSet = new MoveSet(new Move("Thunderbolt"), new Move("Quick Attack"), new Move("Iron Tail"), new Move("Electro Ball"))
+      const pokemon = new Pokemon("Pikachu", { moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Quick Attack"), new Move("Iron Tail"), new Move("Electro Ball")) })
 
-      const result = service.consistencyScore(moveSet)
+      const result = service.consistencyScore(pokemon, field)
 
       expect(result).toBe(77)
     })
 
     it("should return a lower score for moveSet with lower accuracy moves", () => {
-      const highAccuracyMoveSet = new MoveSet(new Move("Thunderbolt"), new Move("Quick Attack"), new Move("Volt Switch"), new Move("Protect"))
+      const highAccuracyPokemon = new Pokemon("Pikachu", { moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Quick Attack"), new Move("Volt Switch"), new Move("Protect")) })
+      const lowAccuracyPokemon = new Pokemon("Pikachu", { moveSet: new MoveSet(new Move("Iron Tail"), new Move("Focus Blast"), new Move("Fire Blast"), new Move("Hydro Pump")) })
 
-      const lowAccuracyMoveSet = new MoveSet(new Move("Iron Tail"), new Move("Focus Blast"), new Move("Fire Blast"), new Move("Hydro Pump"))
-
-      const highScore = service.consistencyScore(highAccuracyMoveSet)
-      const lowScore = service.consistencyScore(lowAccuracyMoveSet)
+      const highScore = service.consistencyScore(highAccuracyPokemon, field)
+      const lowScore = service.consistencyScore(lowAccuracyPokemon, field)
 
       expect(highScore).toBe(100)
       expect(lowScore).toBe(33)
@@ -61,10 +63,10 @@ describe("ConsistencyScoreService", () => {
     })
 
     it("should apply logistic transformation correctly", () => {
-      const moveSet = new MoveSet(new Move("Thunderbolt"), new Move("Quick Attack"), new Move("Iron Tail"), new Move("Electro Ball"))
+      const pokemon = new Pokemon("Pikachu", { moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Quick Attack"), new Move("Iron Tail"), new Move("Electro Ball")) })
 
-      const defaultScore = service.consistencyScore(moveSet)
-      const steeperSlopeScore = service.consistencyScore(moveSet, 20, 0.85, 6, 0.16, 0.4)
+      const defaultScore = service.consistencyScore(pokemon, field)
+      const steeperSlopeScore = service.consistencyScore(pokemon, field, 20, 0.85, 6, 0.16, 0.4)
 
       expect(defaultScore).toBe(77)
       expect(steeperSlopeScore).toBe(70)
@@ -72,10 +74,10 @@ describe("ConsistencyScoreService", () => {
     })
 
     it("should apply low accuracy penalty correctly", () => {
-      const moveSet = new MoveSet(new Move("Iron Tail"), new Move("Focus Blast"), new Move("Fire Blast"), new Move("Hydro Pump"))
+      const pokemon = new Pokemon("Pikachu", { moveSet: new MoveSet(new Move("Iron Tail"), new Move("Focus Blast"), new Move("Fire Blast"), new Move("Hydro Pump")) })
 
-      const defaultScore = service.consistencyScore(moveSet)
-      const higherPenaltyScore = service.consistencyScore(moveSet, 10, 0.85, 12, 0.16, 0.4)
+      const defaultScore = service.consistencyScore(pokemon, field)
+      const higherPenaltyScore = service.consistencyScore(pokemon, field, 10, 0.85, 12, 0.16, 0.4)
 
       expect(defaultScore).toBe(33)
       expect(higherPenaltyScore).toBe(19)
@@ -83,12 +85,11 @@ describe("ConsistencyScoreService", () => {
     })
 
     it("should apply multi-imperfect penalty correctly", () => {
-      const singleImperfectMoveSet = new MoveSet(new Move("Thunderbolt"), new Move("Quick Attack"), new Move("Volt Switch"), new Move("Iron Tail"))
+      const singleImperfectPokemon = new Pokemon("Pikachu", { moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Quick Attack"), new Move("Volt Switch"), new Move("Iron Tail")) })
+      const multipleImperfectPokemon = new Pokemon("Pikachu", { moveSet: new MoveSet(new Move("Iron Tail"), new Move("Focus Blast"), new Move("Fire Blast"), new Move("Hydro Pump")) })
 
-      const multipleImperfectMoveSet = new MoveSet(new Move("Iron Tail"), new Move("Focus Blast"), new Move("Fire Blast"), new Move("Hydro Pump"))
-
-      const singleScore = service.consistencyScore(singleImperfectMoveSet)
-      const multipleScore = service.consistencyScore(multipleImperfectMoveSet)
+      const singleScore = service.consistencyScore(singleImperfectPokemon, field)
+      const multipleScore = service.consistencyScore(multipleImperfectPokemon, field)
 
       expect(singleScore).toBe(77)
       expect(multipleScore).toBe(33)
@@ -96,10 +97,10 @@ describe("ConsistencyScoreService", () => {
     })
 
     it("should apply scale exponent correctly", () => {
-      const moveSet = new MoveSet(new Move("Thunderbolt"), new Move("Quick Attack"), new Move("Iron Tail"), new Move("Electro Ball"))
+      const pokemon = new Pokemon("Pikachu", { moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Quick Attack"), new Move("Iron Tail"), new Move("Electro Ball")) })
 
-      const defaultScore = service.consistencyScore(moveSet)
-      const higherExponentScore = service.consistencyScore(moveSet, 10, 0.85, 6, 0.16, 0.8)
+      const defaultScore = service.consistencyScore(pokemon, field)
+      const higherExponentScore = service.consistencyScore(pokemon, field, 10, 0.85, 6, 0.16, 0.8)
 
       expect(defaultScore).toBe(77)
       expect(higherExponentScore).toBe(59)
@@ -107,19 +108,19 @@ describe("ConsistencyScoreService", () => {
     })
 
     it("should return rounded score with 4 decimal precision", () => {
-      const moveSet = new MoveSet(new Move("Thunderbolt"), new Move("Quick Attack"), new Move("Iron Tail"), new Move("Electro Ball"))
+      const pokemon = new Pokemon("Pikachu", { moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Quick Attack"), new Move("Iron Tail"), new Move("Electro Ball")) })
 
-      const result = service.consistencyScore(moveSet)
+      const result = service.consistencyScore(pokemon, field)
 
       expect(result).toBe(77)
       expect(Number.isInteger(result)).toBeTrue()
     })
 
     it("should handle different logistic midpoints", () => {
-      const moveSet = new MoveSet(new Move("Thunderbolt"), new Move("Quick Attack"), new Move("Iron Tail"), new Move("Electro Ball"))
+      const pokemon = new Pokemon("Pikachu", { moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Quick Attack"), new Move("Iron Tail"), new Move("Electro Ball")) })
 
-      const lowerMidpointScore = service.consistencyScore(moveSet, 10, 0.7, 6, 0.16, 0.4)
-      const higherMidpointScore = service.consistencyScore(moveSet, 10, 0.9, 6, 0.16, 0.4)
+      const lowerMidpointScore = service.consistencyScore(pokemon, field, 10, 0.7, 6, 0.16, 0.4)
+      const higherMidpointScore = service.consistencyScore(pokemon, field, 10, 0.9, 6, 0.16, 0.4)
 
       expect(lowerMidpointScore).toBe(82)
       expect(higherMidpointScore).toBe(75)
@@ -131,7 +132,7 @@ describe("ConsistencyScoreService", () => {
     it("should return 0 for empty team", () => {
       const team = new Team("test-id", true, "Test Team", [])
 
-      const result = service.teamConsistencyScore(team)
+      const result = service.teamConsistencyScore(team, field)
 
       expect(result).toBe(0)
     })
@@ -142,7 +143,7 @@ describe("ConsistencyScoreService", () => {
       })
       const team = new Team("test-id", true, "Test Team", [new TeamMember(pokemon1, true)])
 
-      const result = service.teamConsistencyScore(team)
+      const result = service.teamConsistencyScore(team, field)
 
       expect(result).toBe(0)
     })
@@ -156,7 +157,7 @@ describe("ConsistencyScoreService", () => {
       })
       const team = new Team("test-id", true, "Test Team", [new TeamMember(pokemon1, true), new TeamMember(pokemon2, false)])
 
-      const result = service.teamConsistencyScore(team)
+      const result = service.teamConsistencyScore(team, field)
 
       expect(result).toBe(77.4994)
     })
@@ -170,9 +171,9 @@ describe("ConsistencyScoreService", () => {
       })
       const team = new Team("test-id", true, "Test Team", [new TeamMember(pokemon1, true), new TeamMember(pokemon2, false)])
 
-      const arithmeticScore = service.teamConsistencyScore(team, 1.0)
-      const geometricScore = service.teamConsistencyScore(team, 0.0)
-      const blendedScore = service.teamConsistencyScore(team, 0.6)
+      const arithmeticScore = service.teamConsistencyScore(team, field, 1.0)
+      const geometricScore = service.teamConsistencyScore(team, field, 0.0)
+      const blendedScore = service.teamConsistencyScore(team, field, 0.6)
 
       expect(arithmeticScore).toBe(66.5)
       expect(geometricScore).toBe(57.4456)
@@ -191,7 +192,7 @@ describe("ConsistencyScoreService", () => {
       })
       const team = new Team("test-id", true, "Test Team", [new TeamMember(pokemon1, true), new TeamMember(pokemon2, false)])
 
-      const result = service.teamConsistencyScore(team)
+      const result = service.teamConsistencyScore(team, field)
 
       expect(result).toBe(77)
     })
@@ -202,7 +203,7 @@ describe("ConsistencyScoreService", () => {
       })
       const team = new Team("test-id", true, "Test Team", [new TeamMember(pokemon1, true)])
 
-      const result = service.teamConsistencyScore(team)
+      const result = service.teamConsistencyScore(team, field)
 
       expect(result).toBe(77)
       const decimalPlaces = (result.toString().split(".")[1] || "").length
@@ -221,7 +222,7 @@ describe("ConsistencyScoreService", () => {
       })
       const team = new Team("test-id", true, "Test Team", [new TeamMember(pokemon1, true), new TeamMember(pokemon2, false), new TeamMember(pokemon3, false)])
 
-      const result = service.teamConsistencyScore(team)
+      const result = service.teamConsistencyScore(team, field)
 
       expect(result).toBe(92.5336)
     })

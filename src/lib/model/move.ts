@@ -44,7 +44,7 @@ export class Move {
         moveDetails = { ...moveDetails, ...MOVE_DETAILS_CHAMPIONS[moveName] }
       }
 
-      this.accuracy = moveDetails.accuracy === true ? 100 : moveDetails.accuracy
+      this.accuracy = !moveDetails.accuracy || moveDetails.accuracy === true ? 100 : moveDetails.accuracy
       this.secondary = moveDetails.secondary
       this.target = moveDetails.target
     }

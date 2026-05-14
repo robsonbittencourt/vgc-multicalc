@@ -13,13 +13,14 @@ import { GeneralProbabilityComponent } from "@app/pages/probability-calc/general
 import { CombinedProbabilityComponent } from "@app/pages/probability-calc/combined-probability/combined-probability.component"
 import { PokemonProbabilityComponent } from "@app/pages/probability-calc/pokemon-probability/pokemon-probability.component"
 import { TeamProbabilityComponent } from "@app/pages/probability-calc/team-probability/team-probability.component"
+import { ProbabilityFieldComponent } from "@app/pages/probability-calc/probability-field/probability-field.component"
 import { Pokemon } from "@lib/model/pokemon"
 
 @Component({
   selector: "app-probability-calc-mobile",
   templateUrl: "./probability-calc-mobile.component.html",
   styleUrl: "./probability-calc-mobile.component.scss",
-  imports: [NgClass, MatIcon, TeamTabsMobileComponent, TeamsMobileComponent, PokemonBuildMobileComponent, GeneralProbabilityComponent, CombinedProbabilityComponent, PokemonProbabilityComponent, TeamProbabilityComponent],
+  imports: [NgClass, MatIcon, TeamTabsMobileComponent, TeamsMobileComponent, PokemonBuildMobileComponent, GeneralProbabilityComponent, CombinedProbabilityComponent, PokemonProbabilityComponent, TeamProbabilityComponent, ProbabilityFieldComponent],
   providers: [FieldStore, AutomaticFieldService, { provide: FIELD_CONTEXT, useValue: "probability" }]
 })
 export class ProbabilityCalcMobileComponent {

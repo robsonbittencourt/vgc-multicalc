@@ -7,6 +7,7 @@
         <div class="mobile-widget-spacing">
           <app-pokemon-probability [pokemon]="lastNonDefaultPokemon()" [isMobile]="true" />
           <app-team-probability />
+          <app-probability-field [horizontal]="true" />
         </div>
       } @else {
         <div class="empty-insights">Select a Pokémon</div>

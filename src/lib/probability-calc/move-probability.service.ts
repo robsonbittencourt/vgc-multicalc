@@ -1,5 +1,7 @@
 import { Injectable, inject } from "@angular/core"
+import { Field } from "@lib/model/field"
 import { Move } from "@lib/model/move"
+import { Pokemon } from "@lib/model/pokemon"
 import { PercentageFormatService } from "./percentage-format.service"
 
 export interface SingleTargetProbabilities {
@@ -25,12 +27,12 @@ export interface SpreadTargetProbabilities {
 export class MoveProbabilityService {
   private percentageFormatService = inject(PercentageFormatService)
 
-  calculateSingleTargetProbabilities(move: Move, attempts: number, target: string): SingleTargetProbabilities {
+  calculateSingleTargetProbabilities(move: Move, attempts: number, target: string, attacker: Pokemon, field: Field): SingleTargetProbabilities {
     if (target === "allAdjacentFoes") {
       return this.createEmptySingleTargetProbabilities()
     }
 
-    const accuracyProbability = move.accuracy / 100
+    const accuracyProbability = this.effectiveAccuracy(move, attacker, field)
     const missProbability = 1 - accuracyProbability
 
     const hitAllTurnsProbability = Math.pow(accuracyProbability, attempts)
@@ -55,12 +57,12 @@ export class MoveProbabilityService {
     }
   }
 
-  calculateSpreadTargetProbabilities(move: Move, attempts: number, target: string): SpreadTargetProbabilities {
+  calculateSpreadTargetProbabilities(move: Move, attempts: number, target: string, attacker: Pokemon, field: Field): SpreadTargetProbabilities {
     if (target !== "allAdjacentFoes") {
       return this.createEmptySpreadTargetProbabilities()
     }
 
-    const accuracyProbability = move.accuracy / 100
+    const accuracyProbability = this.effectiveAccuracy(move, attacker, field)
     const missProbability = 1 - accuracyProbability
 
     const hitBothSingleTurn = accuracyProbability * accuracyProbability
@@ -88,6 +90,52 @@ export class MoveProbabilityService {
       secondaryHitBoth: this.percentageFormatService.formatPercentage(secondaryHitBothAtLeastOnce),
       secondaryHitAtLeastOne: this.percentageFormatService.formatPercentage(secondaryHitAtLeastOneAtLeastOnce)
     }
+  }
+
+  effectiveAccuracy(move: Move, attacker: Pokemon, field: Field): number {
+    const weather = field.weather
+    const moveName = move.name
+    const ability = attacker.ability.name
+
+    if (ability === "No Guard") {
+      return 1
+    }
+
+    const rainAlwaysHit = ["Hurricane", "Thunder", "Bleakwind Storm", "Sandsear Storm", "Wildbolt Storm"]
+    const snowAlwaysHit = ["Blizzard"]
+    const sunAccuracy50 = ["Hurricane", "Thunder"]
+
+    if (weather === "Rain" && rainAlwaysHit.includes(moveName)) {
+      return 1
+    }
+
+    if (weather === "Snow" && snowAlwaysHit.includes(moveName)) {
+      return 1
+    }
+
+    if (weather === "Sun" && sunAccuracy50.includes(moveName)) {
+      return 0.5
+    }
+
+    if (moveName === "Toxic" && (attacker.type1 === "Poison" || attacker.type2 === "Poison")) {
+      return 1
+    }
+
+    let accuracy = move.accuracy / 100
+
+    if (ability === "Compound Eyes") {
+      accuracy *= 5325 / 4096
+    }
+
+    if (ability === "Victory Star") {
+      accuracy *= 4506 / 4096
+    }
+
+    if (ability === "Hustle" && move.category === "Physical") {
+      accuracy *= 3277 / 4096
+    }
+
+    return Math.min(accuracy, 1)
   }
 
   private createEmptySingleTargetProbabilities(): SingleTargetProbabilities {
