@@ -1,0 +1,27 @@
+:host {
+  display: contents;
+}
+
+.table-container {
+  background-color: var(--widget-background);
+  padding-bottom: 1em;
+}
+
+.abilities-close-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0.75em;
+  background-color: var(--background);
+}
+
+.close-table-button {
+  display: flex;
+  align-items: center;
+  gap: 0.2em;
+  cursor: pointer;
+
+  &:hover > * {
+    font-weight: 500;
+  }
+}

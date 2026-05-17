@@ -60,87 +60,20 @@
   }
 }
 
-.pokemon-table-container {
-  background-color: var(--widget-background);
-  padding-bottom: 1em;
-
-  .table-open & {
-    flex: 1;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-
-    app-pokemon-table {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-  }
-}
-
-.moves-table-container {
-  background-color: var(--widget-background);
-  padding-bottom: 1em;
-
-  .table-open & {
-    flex: 1;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-
-    app-moves-table {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-  }
-}
-
-.abilities-table-header {
+.table-open ::ng-deep .table-container {
+  flex: 1;
+  overflow: hidden;
   display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding: 0.75em;
-  background-color: var(--background);
-}
+  flex-direction: column;
 
-.abilities-table-container {
-  background-color: var(--widget-background);
-  padding-bottom: 1em;
-
-  .table-open & {
+  app-pokemon-table,
+  app-moves-table,
+  app-abilities-table,
+  app-items-table {
     flex: 1;
-    overflow: hidden;
     display: flex;
     flex-direction: column;
-
-    app-abilities-table {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-  }
-}
-
-.items-table-container {
-  background-color: var(--widget-background);
-  padding-bottom: 1em;
-
-  .table-open & {
-    flex: 1;
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
-
-    app-items-table {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
   }
 }
 

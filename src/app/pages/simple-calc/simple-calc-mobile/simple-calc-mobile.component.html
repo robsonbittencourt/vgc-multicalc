@@ -1,6 +1,6 @@
 <div class="mobile-calc-container">
-  <div #scrollContainer class="scrollable-content" [class.field-tab]="activeBottomTab() === 'field'" [class.table-open]="showPokemonTable() || showMovesTable() || showAbilitiesTable() || showItemsTable()">
-    <div [hidden]="activeBottomTab() !== 'results'" [class.tab-active]="activeBottomTab() === 'results'" [class.table-open]="showPokemonTable() || showMovesTable() || showAbilitiesTable() || showItemsTable()">
+  <div #scrollContainer class="scrollable-content" [class.field-tab]="activeBottomTab() === 'field'" [class.table-open]="overlay.isAnyOpen()">
+    <div [hidden]="activeBottomTab() !== 'results'" [class.tab-active]="activeBottomTab() === 'results'" [class.table-open]="overlay.isAnyOpen()">
       <div class="team-tabs">
         <div class="team-tab" [ngClass]="{ 'active-tab': activeSide() === 'left' }" (click)="activateLeftPokemon()">
           <img class="tab-sprite" [src]="spriteService.path(store.leftPokemon().name)" />
@@ -10,10 +10,10 @@
         </div>
       </div>
 
-      <div class="attacker-header" [hidden]="showMovesTable() || showAbilitiesTable() || showItemsTable()">
+      <div class="attacker-header" [hidden]="overlay.kind() === 'moves' || overlay.kind() === 'abilities' || overlay.kind() === 'items'">
         <input #pokemonInput class="pokemon-input" [value]="inputDisplay()" (mousedown)="onPokemonMouseDown($event)" (click)="onPokemonClick()" (input)="onPokemonInput($any($event.target).value)" data-cy="pokemon-select" />
         <div class="attacker-actions">
-          @if (showPokemonTable()) {
+          @if (overlay.kind() === "pokemon") {
             <div class="close-table-button" (click)="onClosePokemonTable()">
               <mat-icon>close</mat-icon>
               <label>Close</label>
@@ -25,7 +25,7 @@
         </div>
       </div>
 
-      <div class="attacker-header" [hidden]="!showItemsTable()">
+      <div class="attacker-header" [hidden]="overlay.kind() !== 'items'">
         <input #itemInput class="pokemon-input" [value]="currentPokemon().item" (mousedown)="onItemMouseDown($event)" (click)="onItemClick()" (input)="onItemInput($any($event.target).value)" data-cy="item-select" />
         <div class="attacker-actions">
           <div class="close-table-button" (click)="onCloseItemsTable()">
@@ -45,11 +45,11 @@
           [showDelete]="false"
           [manageTeamState]="false"
           [isRightSide]="activeSide() === 'right'"
-          [hideEvs]="showPokemonTable() || showMovesTable() || showAbilitiesTable() || showItemsTable()"
-          [hideMoves]="showPokemonTable() || showAbilitiesTable() || showItemsTable()"
-          [editingMoves]="showMovesTable()"
-          [editingAbility]="showAbilitiesTable()"
-          [editingItem]="showItemsTable()"
+          [hideEvs]="overlay.isAnyOpen()"
+          [hideMoves]="overlay.kind() === 'pokemon' || overlay.kind() === 'abilities' || overlay.kind() === 'items'"
+          [editingMoves]="overlay.kind() === 'moves'"
+          [editingAbility]="overlay.kind() === 'abilities'"
+          [editingItem]="overlay.kind() === 'items'"
           (pokemonImportedEvent)="importPokemon($event)"
           (optimizationRequested)="handleOptimizeRequest($event)"
           (optimizationApplied)="handleOptimizationApplied()"
@@ -60,67 +60,10 @@
           (editAbilityRequested)="openAbilitiesTable()"
           (editItemRequested)="openItemsTable()" />
 
-        @if (showPokemonTable()) {
-          <div class="pokemon-table-container">
-            <app-pokemon-table
-              [pokemonId]="currentPokemon().id"
-              [dataFilter]="pokemonDataFilter()"
-              [haveFocus]="true"
-              [isMobile]="true"
-              (pokemonSelected)="onPokemonSelected($event)"
-              (firstPokemonFromList)="firstPokemonFromList.set($event)"
-              (escapeWasPressed)="onClosePokemonTable()" />
-          </div>
-        }
-
-        @if (showMovesTable()) {
-          <div class="moves-table-container">
-            <app-moves-table
-              [pokemonId]="currentPokemon().id"
-              [dataFilter]="moveDataFilter()"
-              [haveFocus]="true"
-              [isMobile]="true"
-              [moveIndex]="activeMoveIndex()"
-              (moveSelected)="onMoveSelected($event)"
-              (firstMoveFromList)="firstMoveFromList.set($event)"
-              (escapeWasPressed)="onCloseMovesTable()" />
-          </div>
-        }
-
-        @if (showAbilitiesTable()) {
-          <div class="abilities-table-header">
-            <div class="close-table-button" (click)="onCloseAbilitiesTable()">
-              <mat-icon>close</mat-icon>
-              <label>Close</label>
-            </div>
-          </div>
-          <div class="abilities-table-container">
-            <app-abilities-table
-              [pokemonId]="currentPokemon().id"
-              [dataFilter]="abilityDataFilter()"
-              [haveFocus]="true"
-              [isMobile]="true"
-              (abilitySelected)="onAbilitySelected($event)"
-              (firstAbilityFromList)="firstAbilityFromList.set($event)"
-              (escapeWasPressed)="onCloseAbilitiesTable()" />
-          </div>
-        }
-
-        @if (showItemsTable()) {
-          <div class="items-table-container">
-            <app-items-table
-              [pokemonId]="currentPokemon().id"
-              [dataFilter]="itemDataFilter()"
-              [haveFocus]="true"
-              [isMobile]="true"
-              (itemSelected)="onItemSelected($event)"
-              (firstItemFromList)="firstItemFromList.set($event)"
-              (escapeWasPressed)="onCloseItemsTable()" />
-          </div>
-        }
+        <app-mobile-table-overlay [pokemonId]="currentPokemon().id" [moveIndex]="activeMoveIndex()" (select)="onTableSelect($event)" />
       </div>
 
-      <div class="results-list" [hidden]="showPokemonTable() || showMovesTable() || showAbilitiesTable() || showItemsTable()">
+      <div class="results-list" [hidden]="overlay.isAnyOpen()">
         <div class="result-card">
           <app-pokemon-card [damageResult]="damageResult()" [target]="target()" [rollLevelConfig]="rollLevelConfig()" [isAttacker]="isCurrentPokemonAttacker()" [collapsible]="false" [expanded]="true" (targetActivated)="activateRightPokemon()" />
         </div>

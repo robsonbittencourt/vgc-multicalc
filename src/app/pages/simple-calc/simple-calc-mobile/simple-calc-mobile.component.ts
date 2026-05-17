@@ -19,39 +19,23 @@ import { NgClass } from "@angular/common"
 import { MatIcon, MatIconRegistry } from "@angular/material/icon"
 import { DomSanitizer } from "@angular/platform-browser"
 import { MatButtonToggleModule } from "@angular/material/button-toggle"
-import { PokemonTableComponent } from "@features/pokemon-build/tables/pokemon-table/pokemon-table.component"
-import { MovesTableComponent } from "@features/pokemon-build/tables/moves-table/moves-table.component"
-import { AbilitiesTableComponent } from "@features/pokemon-build/tables/abilities-table/abilities-table.component"
-import { ItemsTableComponent } from "@features/pokemon-build/tables/items-table/items-table.component"
 import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
 import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-button/export-pokemon-button.component"
+import { MobileTableOverlayComponent } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.component"
+import { MobileTableOverlayService, TableSelectEvent } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.service"
 
 @Component({
   selector: "app-simple-calc-mobile",
   templateUrl: "./simple-calc-mobile.component.html",
   styleUrls: ["./simple-calc-mobile.component.scss"],
-  imports: [
-    PokemonBuildMobileComponent,
-    PokemonTableComponent,
-    MovesTableComponent,
-    AbilitiesTableComponent,
-    ItemsTableComponent,
-    ImportPokemonButtonComponent,
-    ExportPokemonButtonComponent,
-    FieldComponent,
-    PokemonCardComponent,
-    NgClass,
-    MatIcon,
-    MatButtonToggleModule,
-    RollConfigComponent,
-    WidgetComponent
-  ],
-  providers: [FieldStore, AutomaticFieldService, { provide: FIELD_CONTEXT, useValue: "simple" }]
+  imports: [PokemonBuildMobileComponent, MobileTableOverlayComponent, ImportPokemonButtonComponent, ExportPokemonButtonComponent, FieldComponent, PokemonCardComponent, NgClass, MatIcon, MatButtonToggleModule, RollConfigComponent, WidgetComponent],
+  providers: [FieldStore, AutomaticFieldService, MobileTableOverlayService, { provide: FIELD_CONTEXT, useValue: "simple" }]
 })
 export class SimpleCalcMobileComponent {
   spriteService = inject(SpriteService)
   store = inject(CalculatorStore)
   fieldStore = inject(FieldStore)
+  overlay = inject(MobileTableOverlayService)
   private damageCalculator = inject(DamageCalculatorService)
   private automaticFieldService = inject(AutomaticFieldService)
   private defensiveEvOptimizer = inject(DefensiveEvOptimizerService)
@@ -62,18 +46,6 @@ export class SimpleCalcMobileComponent {
   scrollContainer = viewChild<ElementRef<HTMLDivElement>>("scrollContainer")
 
   activeBottomTab = signal<"results" | "field">("results")
-  showPokemonTable = signal(false)
-  pokemonDataFilter = signal<string>("")
-  firstPokemonFromList = signal<string>("")
-  showMovesTable = signal(false)
-  moveDataFilter = signal<string>("")
-  firstMoveFromList = signal<string>("")
-  showAbilitiesTable = signal(false)
-  abilityDataFilter = signal<string>("")
-  firstAbilityFromList = signal<string>("")
-  showItemsTable = signal(false)
-  itemDataFilter = signal<string>("")
-  firstItemFromList = signal<string>("")
   private scrollPositions = new Map<string, number>()
 
   inputDisplay = computed(() => this.currentPokemon().name)
@@ -241,10 +213,10 @@ export class SimpleCalcMobileComponent {
   private justOpenedTable = false
 
   onPokemonMouseDown(event: MouseEvent) {
-    if (!this.showPokemonTable()) {
+    if (!this.overlay.isAnyOpen()) {
       event.preventDefault()
       this.justOpenedTable = true
-      this.showPokemonTable.set(true)
+      this.overlay.open("pokemon")
     }
   }
 
@@ -257,66 +229,60 @@ export class SimpleCalcMobileComponent {
     const input = this.pokemonInput()?.nativeElement
     if (input) {
       input.value = ""
-      this.pokemonDataFilter.set("")
+      this.overlay.setFilter("")
     }
   }
 
   onPokemonInput(value: string) {
-    this.pokemonDataFilter.set(value)
+    this.overlay.setFilter(value)
   }
 
   onPokemonSelected(name: string) {
     this.store.loadPokemonInfo(this.currentPokemon().id, name)
-    this.pokemonDataFilter.set("")
-    this.showPokemonTable.set(false)
+    this.overlay.close()
     this.pokemonInput()?.nativeElement.blur()
   }
 
   onClosePokemonTable() {
-    this.pokemonDataFilter.set("")
-    this.showPokemonTable.set(false)
+    this.overlay.close()
     this.pokemonInput()?.nativeElement.blur()
   }
 
   openMovesTable() {
-    this.showMovesTable.set(true)
+    this.overlay.open("moves")
   }
 
   onMoveSelected(move: string) {
     const index = Math.max(0, this.currentPokemon().activeMoveIndex)
     this.store.updateMove(this.currentPokemon().id, move, index)
-    this.moveDataFilter.set("")
   }
 
   onCloseMovesTable() {
-    this.moveDataFilter.set("")
-    this.showMovesTable.set(false)
+    this.overlay.close()
   }
 
   openAbilitiesTable() {
-    this.showAbilitiesTable.set(true)
+    this.overlay.open("abilities")
   }
 
   onAbilitySelected(ability: string) {
     this.store.ability(this.currentPokemon().id, ability)
-    this.abilityDataFilter.set("")
-    this.showAbilitiesTable.set(false)
+    this.overlay.close()
   }
 
   onCloseAbilitiesTable() {
-    this.abilityDataFilter.set("")
-    this.showAbilitiesTable.set(false)
+    this.overlay.close()
   }
 
   openItemsTable() {
-    this.showItemsTable.set(true)
+    this.overlay.open("items")
   }
 
   onItemMouseDown(event: MouseEvent) {
-    if (!this.showItemsTable()) {
+    if (!this.overlay.isAnyOpen()) {
       event.preventDefault()
       this.justOpenedTable = true
-      this.showItemsTable.set(true)
+      this.overlay.open("items")
     }
   }
 
@@ -329,25 +295,40 @@ export class SimpleCalcMobileComponent {
     const input = this.itemInput()?.nativeElement
     if (input) {
       input.value = ""
-      this.itemDataFilter.set("")
+      this.overlay.setFilter("")
     }
   }
 
   onItemInput(value: string) {
-    this.itemDataFilter.set(value)
+    this.overlay.setFilter(value)
   }
 
   onItemSelected(name: string) {
     this.store.item(this.currentPokemon().id, name)
-    this.itemDataFilter.set("")
-    this.showItemsTable.set(false)
+    this.overlay.close()
     this.itemInput()?.nativeElement.blur()
   }
 
   onCloseItemsTable() {
-    this.itemDataFilter.set("")
-    this.showItemsTable.set(false)
+    this.overlay.close()
     this.itemInput()?.nativeElement.blur()
+  }
+
+  onTableSelect(event: TableSelectEvent) {
+    switch (event.kind) {
+      case "pokemon":
+        this.onPokemonSelected(event.value)
+        break
+      case "moves":
+        this.onMoveSelected(event.value)
+        break
+      case "abilities":
+        this.onAbilitySelected(event.value)
+        break
+      case "items":
+        this.onItemSelected(event.value)
+        break
+    }
   }
 
   switchTab(newTab: "results" | "field") {
