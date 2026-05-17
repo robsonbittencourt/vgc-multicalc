@@ -56,6 +56,9 @@ export class PokemonBuildMobileComponent {
   manageTeamState = input<boolean>(true)
   isRightSide = input<boolean>(false)
   onlySpeed = input<boolean>(false)
+  hideEvs = input<boolean>(false)
+  hideMoves = input<boolean>(false)
+  editingMoves = input<boolean>(false)
 
   store = inject(CalculatorStore)
   menuStore = inject(MenuStore)
@@ -105,6 +108,8 @@ export class PokemonBuildMobileComponent {
   pokemonImportedEvent = output<Pokemon | Pokemon[]>()
   pokemonDeleted = output<string | null>()
   evsChanged = output<void>()
+  editMovesRequested = output()
+  closeMovesRequested = output()
   optimizationRequested = output<{ updateNature: boolean; keepOffensiveEvs: boolean; survivalThreshold: number }>()
   optimizationApplied = output<void>()
   optimizationDiscarded = output<void>()

@@ -19,7 +19,8 @@ import { NgClass } from "@angular/common"
 import { MatIcon, MatIconRegistry } from "@angular/material/icon"
 import { DomSanitizer } from "@angular/platform-browser"
 import { MatButtonToggleModule } from "@angular/material/button-toggle"
-import { PokemonComboBoxComponent } from "@features/pokemon-build/pokemon-combo-box/pokemon-combo-box.component"
+import { PokemonTableComponent } from "@features/pokemon-build/tables/pokemon-table/pokemon-table.component"
+import { MovesTableComponent } from "@features/pokemon-build/tables/moves-table/moves-table.component"
 import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
 import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-button/export-pokemon-button.component"
 
@@ -27,7 +28,20 @@ import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-b
   selector: "app-simple-calc-mobile",
   templateUrl: "./simple-calc-mobile.component.html",
   styleUrls: ["./simple-calc-mobile.component.scss"],
-  imports: [PokemonBuildMobileComponent, PokemonComboBoxComponent, ImportPokemonButtonComponent, ExportPokemonButtonComponent, FieldComponent, PokemonCardComponent, NgClass, MatIcon, MatButtonToggleModule, RollConfigComponent, WidgetComponent],
+  imports: [
+    PokemonBuildMobileComponent,
+    PokemonTableComponent,
+    MovesTableComponent,
+    ImportPokemonButtonComponent,
+    ExportPokemonButtonComponent,
+    FieldComponent,
+    PokemonCardComponent,
+    NgClass,
+    MatIcon,
+    MatButtonToggleModule,
+    RollConfigComponent,
+    WidgetComponent
+  ],
   providers: [FieldStore, AutomaticFieldService, { provide: FIELD_CONTEXT, useValue: "simple" }]
 })
 export class SimpleCalcMobileComponent {
@@ -39,15 +53,25 @@ export class SimpleCalcMobileComponent {
   private defensiveEvOptimizer = inject(DefensiveEvOptimizerService)
 
   pokemonBuildMobile = viewChild.required(PokemonBuildMobileComponent)
+  pokemonInput = viewChild<ElementRef<HTMLInputElement>>("pokemonInput")
+  scrollContainer = viewChild<ElementRef<HTMLDivElement>>("scrollContainer")
 
   activeBottomTab = signal<"results" | "field">("results")
+  showPokemonTable = signal(false)
+  pokemonDataFilter = signal<string>("")
+  firstPokemonFromList = signal<string>("")
+  showMovesTable = signal(false)
+  moveDataFilter = signal<string>("")
+  firstMoveFromList = signal<string>("")
   private scrollPositions = new Map<string, number>()
-  scrollContainer = viewChild<ElementRef<HTMLDivElement>>("scrollContainer")
+
+  inputDisplay = computed(() => this.currentPokemon().name)
 
   activeSide = signal<"left" | "right">("left")
   leftIsAttacker = signal(true)
 
   currentPokemon = computed(() => (this.activeSide() === "left" ? this.store.leftPokemon() : this.store.rightPokemon()))
+  activeMoveIndex = computed(() => Math.max(0, this.currentPokemon().activeMoveIndex))
 
   isCurrentPokemonAttacker = computed(() => (this.activeSide() === "left" ? this.leftIsAttacker() : !this.leftIsAttacker()))
 
@@ -201,6 +225,61 @@ export class SimpleCalcMobileComponent {
     this.optimizedEvs.set(null)
     this.optimizedNature.set(null)
     this.optimizationStatus.set("idle")
+  }
+
+  private justOpenedTable = false
+
+  onPokemonMouseDown(event: MouseEvent) {
+    if (!this.showPokemonTable()) {
+      event.preventDefault()
+      this.justOpenedTable = true
+      this.showPokemonTable.set(true)
+    }
+  }
+
+  onPokemonClick() {
+    if (this.justOpenedTable) {
+      this.justOpenedTable = false
+      return
+    }
+
+    const input = this.pokemonInput()?.nativeElement
+    if (input) {
+      input.value = ""
+      this.pokemonDataFilter.set("")
+    }
+  }
+
+  onPokemonInput(value: string) {
+    this.pokemonDataFilter.set(value)
+  }
+
+  onPokemonSelected(name: string) {
+    this.store.loadPokemonInfo(this.currentPokemon().id, name)
+    this.pokemonDataFilter.set("")
+    this.showPokemonTable.set(false)
+    this.pokemonInput()?.nativeElement.blur()
+  }
+
+  onClosePokemonTable() {
+    this.pokemonDataFilter.set("")
+    this.showPokemonTable.set(false)
+    this.pokemonInput()?.nativeElement.blur()
+  }
+
+  openMovesTable() {
+    this.showMovesTable.set(true)
+  }
+
+  onMoveSelected(move: string) {
+    const index = Math.max(0, this.currentPokemon().activeMoveIndex)
+    this.store.updateMove(this.currentPokemon().id, move, index)
+    this.moveDataFilter.set("")
+  }
+
+  onCloseMovesTable() {
+    this.moveDataFilter.set("")
+    this.showMovesTable.set(false)
   }
 
   switchTab(newTab: "results" | "field") {

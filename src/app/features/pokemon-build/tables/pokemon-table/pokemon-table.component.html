@@ -5,6 +5,7 @@
   [dataFilter]="dataFilter()"
   [initialValue]="pokemon().name"
   [haveFocus]="haveFocus()"
+  [isMobile]="isMobile()"
   (entrySelected)="pokemonSelected.emit($event)"
   (firstListEntry)="firstPokemonFromList.emit($event)"
   (escapeWasPressed)="escapeWasPressed.emit()" />

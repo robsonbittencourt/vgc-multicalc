@@ -5,6 +5,7 @@
   [columns]="moveColumns"
   [dataFilter]="dataFilter()"
   [initialValue]="initialValue()"
+  [isMobile]="isMobile()"
   (entrySelected)="moveSelected.emit($event)"
   (firstListEntry)="firstMoveFromList.emit($event)"
   (escapeWasPressed)="escapeWasPressed.emit()" />

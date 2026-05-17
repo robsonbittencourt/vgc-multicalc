@@ -7,7 +7,7 @@
 }
 
 .no-edit-moves {
-  padding: 0.2em 0.2em;
+  padding: 0 0.2em;
 }
 
 .chips-row {
@@ -29,6 +29,17 @@
 .edit-icon {
   font-size: 18px;
   margin-top: 2px;
+}
+
+.close-button {
+  margin-left: auto;
+  font-size: inherit;
+  padding-top: 0;
+
+  .edit-icon {
+    font-size: 24px;
+    margin-top: 0;
+  }
 }
 
 .hits-input {

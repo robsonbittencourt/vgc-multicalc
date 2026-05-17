@@ -1,6 +1,6 @@
 <div class="mobile-calc-container">
-  <div #scrollContainer class="scrollable-content" [class.field-tab]="activeBottomTab() === 'field'">
-    <div [hidden]="activeBottomTab() !== 'results'" [class.tab-active]="activeBottomTab() === 'results'">
+  <div #scrollContainer class="scrollable-content" [class.field-tab]="activeBottomTab() === 'field'" [class.table-open]="showPokemonTable() || showMovesTable()">
+    <div [hidden]="activeBottomTab() !== 'results'" [class.tab-active]="activeBottomTab() === 'results'" [class.table-open]="showPokemonTable() || showMovesTable()">
       <div class="team-tabs">
         <div class="team-tab" [ngClass]="{ 'active-tab': activeSide() === 'left' }" (click)="activateLeftPokemon()">
           <img class="tab-sprite" [src]="spriteService.path(store.leftPokemon().name)" />
@@ -10,11 +10,18 @@
         </div>
       </div>
 
-      <div class="attacker-header">
-        <app-pokemon-combo-box [pokemonId]="currentPokemon().id" label="" />
+      <div class="attacker-header" [hidden]="showMovesTable()">
+        <input #pokemonInput class="pokemon-input" [value]="inputDisplay()" (mousedown)="onPokemonMouseDown($event)" (click)="onPokemonClick()" (input)="onPokemonInput($any($event.target).value)" data-cy="pokemon-select" />
         <div class="attacker-actions">
-          <app-import-pokemon-button (pokemonImportedEvent)="importPokemon($event)" />
-          <app-export-pokemon-button [pokemonId]="currentPokemon().id" />
+          @if (showPokemonTable()) {
+            <div class="close-table-button" (click)="onClosePokemonTable()">
+              <mat-icon>close</mat-icon>
+              <label>Close</label>
+            </div>
+          } @else {
+            <app-import-pokemon-button (pokemonImportedEvent)="importPokemon($event)" />
+            <app-export-pokemon-button [pokemonId]="currentPokemon().id" />
+          }
         </div>
       </div>
 
@@ -28,14 +35,46 @@
           [showDelete]="false"
           [manageTeamState]="false"
           [isRightSide]="activeSide() === 'right'"
+          [hideEvs]="showPokemonTable() || showMovesTable()"
+          [hideMoves]="showPokemonTable()"
+          [editingMoves]="showMovesTable()"
           (pokemonImportedEvent)="importPokemon($event)"
           (optimizationRequested)="handleOptimizeRequest($event)"
           (optimizationApplied)="handleOptimizationApplied()"
           (optimizationDiscarded)="handleOptimizationDiscarded()"
-          (evsCleared)="handleEvsCleared()" />
+          (evsCleared)="handleEvsCleared()"
+          (editMovesRequested)="openMovesTable()"
+          (closeMovesRequested)="onCloseMovesTable()" />
+
+        @if (showPokemonTable()) {
+          <div class="pokemon-table-container">
+            <app-pokemon-table
+              [pokemonId]="currentPokemon().id"
+              [dataFilter]="pokemonDataFilter()"
+              [haveFocus]="true"
+              [isMobile]="true"
+              (pokemonSelected)="onPokemonSelected($event)"
+              (firstPokemonFromList)="firstPokemonFromList.set($event)"
+              (escapeWasPressed)="onClosePokemonTable()" />
+          </div>
+        }
+
+        @if (showMovesTable()) {
+          <div class="moves-table-container">
+            <app-moves-table
+              [pokemonId]="currentPokemon().id"
+              [dataFilter]="moveDataFilter()"
+              [haveFocus]="true"
+              [isMobile]="true"
+              [moveIndex]="activeMoveIndex()"
+              (moveSelected)="onMoveSelected($event)"
+              (firstMoveFromList)="firstMoveFromList.set($event)"
+              (escapeWasPressed)="onCloseMovesTable()" />
+          </div>
+        }
       </div>
 
-      <div class="results-list">
+      <div class="results-list" [hidden]="showPokemonTable() || showMovesTable()">
         <div class="result-card">
           <app-pokemon-card [damageResult]="damageResult()" [target]="target()" [rollLevelConfig]="rollLevelConfig()" [isAttacker]="isCurrentPokemonAttacker()" [collapsible]="false" [expanded]="true" (targetActivated)="activateRightPokemon()" />
         </div>

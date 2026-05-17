@@ -34,6 +34,7 @@ export class ColumnConfig<T> {
   showHeaderInCell = false
   alignLeft = false
   width?: string
+  freezeOnMobile = false
 
   constructor(init: Omit<Partial<ColumnConfig<T>>, "id">) {
     Object.assign(this, init)

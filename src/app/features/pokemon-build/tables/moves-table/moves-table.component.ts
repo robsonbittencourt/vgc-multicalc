@@ -19,6 +19,7 @@ export class MovesTableComponent {
   dataFilter = input.required<string>()
   haveFocus = input.required<boolean>()
   moveIndex = input<number>(0)
+  isMobile = input<boolean>(false)
 
   moveSelected = output<string>()
   firstMoveFromList = output<string>()
@@ -76,16 +77,7 @@ export class MovesTableComponent {
   }
 
   moveColumns: ColumnConfig<MoveDetail>[] = [
-    new ColumnConfig<MoveDetail>({ field: "name", header: "Name", sortable: true, alignLeft: true, width: "medium" }),
-    new ColumnConfig<MoveDetail>({
-      field: "type",
-      header: "Type",
-      description: "Type",
-      filterable: true,
-      isPokemonType: true,
-      filterValues: [...PokemonTypes],
-      width: "medium"
-    }),
+    new ColumnConfig<MoveDetail>({ field: "name", header: "Name", sortable: true, alignLeft: true, width: "medium", freezeOnMobile: true }),
     new ColumnConfig<MoveDetail>({
       field: "category",
       header: "Cat",
