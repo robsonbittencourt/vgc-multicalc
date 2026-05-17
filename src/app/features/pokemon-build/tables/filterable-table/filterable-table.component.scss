@@ -154,7 +154,7 @@
   box-sizing: border-box;
   padding: 6px 8px;
   display: grid;
-  align-items: center;
+  align-items: stretch;
   transition:
     box-shadow 0.3s ease,
     background-color 0.3s ease;
@@ -174,7 +174,7 @@
     background-color: var(--filterable-table-selected-line);
   }
 
-  .entry-cell {
+  .frozen-cell {
     background-color: var(--filterable-table-selected-line);
   }
 }
@@ -333,6 +333,10 @@
 .scroll-area.mobile .entry {
   height: auto;
   min-height: 45px;
+  padding: 0;
+}
+
+.scroll-area.mobile .entry-cell {
   padding: 10px 8px;
 }
 

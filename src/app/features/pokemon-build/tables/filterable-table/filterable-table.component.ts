@@ -154,7 +154,7 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
             setTimeout(() => {
               const viewport = this.scroll()
               if (viewport) {
-                const itemSize = 45
+                const itemSize = this.itemSize()
                 const viewportHeight = viewport.elementRef.nativeElement.clientHeight
                 const centerOffset = index * itemSize - viewportHeight / 2 + itemSize / 2
                 viewport.scrollToOffset(centerOffset, "instant")
