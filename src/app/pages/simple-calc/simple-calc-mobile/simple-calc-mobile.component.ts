@@ -21,6 +21,7 @@ import { DomSanitizer } from "@angular/platform-browser"
 import { MatButtonToggleModule } from "@angular/material/button-toggle"
 import { PokemonTableComponent } from "@features/pokemon-build/tables/pokemon-table/pokemon-table.component"
 import { MovesTableComponent } from "@features/pokemon-build/tables/moves-table/moves-table.component"
+import { AbilitiesTableComponent } from "@features/pokemon-build/tables/abilities-table/abilities-table.component"
 import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
 import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-button/export-pokemon-button.component"
 
@@ -32,6 +33,7 @@ import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-b
     PokemonBuildMobileComponent,
     PokemonTableComponent,
     MovesTableComponent,
+    AbilitiesTableComponent,
     ImportPokemonButtonComponent,
     ExportPokemonButtonComponent,
     FieldComponent,
@@ -63,6 +65,9 @@ export class SimpleCalcMobileComponent {
   showMovesTable = signal(false)
   moveDataFilter = signal<string>("")
   firstMoveFromList = signal<string>("")
+  showAbilitiesTable = signal(false)
+  abilityDataFilter = signal<string>("")
+  firstAbilityFromList = signal<string>("")
   private scrollPositions = new Map<string, number>()
 
   inputDisplay = computed(() => this.currentPokemon().name)
@@ -280,6 +285,21 @@ export class SimpleCalcMobileComponent {
   onCloseMovesTable() {
     this.moveDataFilter.set("")
     this.showMovesTable.set(false)
+  }
+
+  openAbilitiesTable() {
+    this.showAbilitiesTable.set(true)
+  }
+
+  onAbilitySelected(ability: string) {
+    this.store.ability(this.currentPokemon().id, ability)
+    this.abilityDataFilter.set("")
+    this.showAbilitiesTable.set(false)
+  }
+
+  onCloseAbilitiesTable() {
+    this.abilityDataFilter.set("")
+    this.showAbilitiesTable.set(false)
   }
 
   switchTab(newTab: "results" | "field") {

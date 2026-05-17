@@ -25,7 +25,7 @@
               <div class="header-cell" (click)="escapeWasPressed.emit()" matTooltip="Close or use Esc" [matTooltipShowDelay]="1000"><span class="close-button-desktop">X</span></div>
             </div>
           }
-          <cdk-virtual-scroll-viewport itemSize="45" minBufferPx="300" maxBufferPx="600" [ngStyle]="panelStyle()" data-cy="scroll-viewport">
+          <cdk-virtual-scroll-viewport [itemSize]="itemSize()" minBufferPx="300" maxBufferPx="600" [ngStyle]="panelStyle()" data-cy="scroll-viewport">
             @if (isMobile() && dataFilter() === "") {
               <div #tableHeader class="table-header" [ngStyle]="{ 'grid-template-columns': gridTemplateColumnsSize() }">
                 @for (column of columns(); track column.id) {

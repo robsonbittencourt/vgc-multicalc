@@ -59,6 +59,7 @@ export class PokemonBuildMobileComponent {
   hideEvs = input<boolean>(false)
   hideMoves = input<boolean>(false)
   editingMoves = input<boolean>(false)
+  editingAbility = input<boolean>(false)
 
   store = inject(CalculatorStore)
   menuStore = inject(MenuStore)
@@ -110,6 +111,7 @@ export class PokemonBuildMobileComponent {
   evsChanged = output<void>()
   editMovesRequested = output()
   closeMovesRequested = output()
+  editAbilityRequested = output()
   optimizationRequested = output<{ updateNature: boolean; keepOffensiveEvs: boolean; survivalThreshold: number }>()
   optimizationApplied = output<void>()
   optimizationDiscarded = output<void>()

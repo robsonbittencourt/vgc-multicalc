@@ -330,6 +330,12 @@
   margin-top: 2em;
 }
 
+.scroll-area.mobile .entry {
+  height: auto;
+  min-height: 45px;
+  padding: 10px 8px;
+}
+
 .scroll-area.mobile .cdk-virtual-scroll-viewport {
   overflow-x: auto;
   overscroll-behavior-x: none;

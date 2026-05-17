@@ -26,6 +26,7 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
   haveFocus = input.required<boolean>()
   initialValue = input<string>()
   isMobile = input<boolean>(false)
+  itemSize = input<number>(45)
 
   entrySelected = output<string>()
   firstListEntry = output<string>()
@@ -101,6 +102,8 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
             return "9em"
           case "large":
             return "15em"
+          case "fill":
+            return "1fr"
           default:
             return this.isMobile() ? "18em" : "auto"
         }

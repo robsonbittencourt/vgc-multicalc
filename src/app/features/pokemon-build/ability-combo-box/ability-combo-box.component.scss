@@ -24,6 +24,16 @@
   width: 3.5em;
 }
 
+.ability-mobile-trigger {
+  flex: 1 1 0;
+  min-width: 0;
+  cursor: pointer;
+
+  app-input-select {
+    pointer-events: none;
+  }
+}
+
 @media only screen and (max-width: 1279px) {
   :host {
     gap: 0.5em;

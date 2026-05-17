@@ -36,7 +36,7 @@
             </div>
 
             <div class="combo-ability">
-              <app-ability-combo-box [pokemonId]="pokemonId()" [isMobile]="true" />
+              <app-ability-combo-box [pokemonId]="pokemonId()" [isMobile]="true" (openAbilityTableRequested)="editAbilityRequested.emit()" />
             </div>
           </div>
         } @else {
@@ -50,7 +50,7 @@
               <app-item-combo-box [pokemonId]="pokemonId()" />
             </div>
             <div class="combo-ability">
-              <app-ability-combo-box [pokemonId]="pokemonId()" [isMobile]="true" />
+              <app-ability-combo-box [pokemonId]="pokemonId()" [isMobile]="true" (openAbilityTableRequested)="editAbilityRequested.emit()" />
             </div>
           </div>
 
