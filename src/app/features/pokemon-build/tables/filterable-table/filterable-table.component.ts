@@ -97,7 +97,7 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
           case "verysmall":
             return "2.5em"
           case "small":
-            return "6em"
+            return this.isMobile() ? "4em" : "6em"
           case "medium":
             return "9em"
           case "large":

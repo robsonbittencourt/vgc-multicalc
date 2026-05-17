@@ -23,7 +23,9 @@
                   <img class="mega-icon-mobile" [ngClass]="{ 'mega-active': pokemon().name.includes('-Mega') }" src="assets/sprites/items/{{ getMegaStoneSprite() }}.png" (click)="toggleMega()" />
                 </div>
               }
-              <app-item-combo-box [pokemonId]="pokemonId()" />
+              <div class="item-mobile-trigger" (click)="editItemRequested.emit()">
+                <app-input-select label="Item" [value]="pokemon().item" [allValues]="[pokemon().item]" />
+              </div>
             </div>
             <div class="combo-status">
               <app-status-combo-box [pokemonId]="pokemonId()" />
@@ -47,7 +49,9 @@
                   <img class="mega-icon-mobile" [ngClass]="{ 'mega-active': pokemon().name.includes('-Mega') }" src="assets/sprites/items/{{ getMegaStoneSprite() }}.png" (click)="toggleMega()" />
                 </div>
               }
-              <app-item-combo-box [pokemonId]="pokemonId()" />
+              <div class="item-mobile-trigger" (click)="editItemRequested.emit()">
+                <app-input-select label="Item" [value]="pokemon().item" [allValues]="[pokemon().item]" />
+              </div>
             </div>
             <div class="combo-ability">
               <app-ability-combo-box [pokemonId]="pokemonId()" [isMobile]="true" (openAbilityTableRequested)="editAbilityRequested.emit()" />

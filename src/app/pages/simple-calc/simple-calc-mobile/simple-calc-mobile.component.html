@@ -1,6 +1,6 @@
 <div class="mobile-calc-container">
-  <div #scrollContainer class="scrollable-content" [class.field-tab]="activeBottomTab() === 'field'" [class.table-open]="showPokemonTable() || showMovesTable() || showAbilitiesTable()">
-    <div [hidden]="activeBottomTab() !== 'results'" [class.tab-active]="activeBottomTab() === 'results'" [class.table-open]="showPokemonTable() || showMovesTable() || showAbilitiesTable()">
+  <div #scrollContainer class="scrollable-content" [class.field-tab]="activeBottomTab() === 'field'" [class.table-open]="showPokemonTable() || showMovesTable() || showAbilitiesTable() || showItemsTable()">
+    <div [hidden]="activeBottomTab() !== 'results'" [class.tab-active]="activeBottomTab() === 'results'" [class.table-open]="showPokemonTable() || showMovesTable() || showAbilitiesTable() || showItemsTable()">
       <div class="team-tabs">
         <div class="team-tab" [ngClass]="{ 'active-tab': activeSide() === 'left' }" (click)="activateLeftPokemon()">
           <img class="tab-sprite" [src]="spriteService.path(store.leftPokemon().name)" />
@@ -10,7 +10,7 @@
         </div>
       </div>
 
-      <div class="attacker-header" [hidden]="showMovesTable() || showAbilitiesTable()">
+      <div class="attacker-header" [hidden]="showMovesTable() || showAbilitiesTable() || showItemsTable()">
         <input #pokemonInput class="pokemon-input" [value]="inputDisplay()" (mousedown)="onPokemonMouseDown($event)" (click)="onPokemonClick()" (input)="onPokemonInput($any($event.target).value)" data-cy="pokemon-select" />
         <div class="attacker-actions">
           @if (showPokemonTable()) {
@@ -25,6 +25,16 @@
         </div>
       </div>
 
+      <div class="attacker-header" [hidden]="!showItemsTable()">
+        <input #itemInput class="pokemon-input" [value]="currentPokemon().item" (mousedown)="onItemMouseDown($event)" (click)="onItemClick()" (input)="onItemInput($any($event.target).value)" data-cy="item-select" />
+        <div class="attacker-actions">
+          <div class="close-table-button" (click)="onCloseItemsTable()">
+            <mat-icon>close</mat-icon>
+            <label>Close</label>
+          </div>
+        </div>
+      </div>
+
       <div class="attacker-build">
         <app-pokemon-build-mobile
           [pokemonId]="currentPokemon().id"
@@ -35,10 +45,11 @@
           [showDelete]="false"
           [manageTeamState]="false"
           [isRightSide]="activeSide() === 'right'"
-          [hideEvs]="showPokemonTable() || showMovesTable() || showAbilitiesTable()"
-          [hideMoves]="showPokemonTable() || showAbilitiesTable()"
+          [hideEvs]="showPokemonTable() || showMovesTable() || showAbilitiesTable() || showItemsTable()"
+          [hideMoves]="showPokemonTable() || showAbilitiesTable() || showItemsTable()"
           [editingMoves]="showMovesTable()"
           [editingAbility]="showAbilitiesTable()"
+          [editingItem]="showItemsTable()"
           (pokemonImportedEvent)="importPokemon($event)"
           (optimizationRequested)="handleOptimizeRequest($event)"
           (optimizationApplied)="handleOptimizationApplied()"
@@ -46,7 +57,8 @@
           (evsCleared)="handleEvsCleared()"
           (editMovesRequested)="openMovesTable()"
           (closeMovesRequested)="onCloseMovesTable()"
-          (editAbilityRequested)="openAbilitiesTable()" />
+          (editAbilityRequested)="openAbilitiesTable()"
+          (editItemRequested)="openItemsTable()" />
 
         @if (showPokemonTable()) {
           <div class="pokemon-table-container">
@@ -93,9 +105,22 @@
               (escapeWasPressed)="onCloseAbilitiesTable()" />
           </div>
         }
+
+        @if (showItemsTable()) {
+          <div class="items-table-container">
+            <app-items-table
+              [pokemonId]="currentPokemon().id"
+              [dataFilter]="itemDataFilter()"
+              [haveFocus]="true"
+              [isMobile]="true"
+              (itemSelected)="onItemSelected($event)"
+              (firstItemFromList)="firstItemFromList.set($event)"
+              (escapeWasPressed)="onCloseItemsTable()" />
+          </div>
+        }
       </div>
 
-      <div class="results-list" [hidden]="showPokemonTable() || showMovesTable() || showAbilitiesTable()">
+      <div class="results-list" [hidden]="showPokemonTable() || showMovesTable() || showAbilitiesTable() || showItemsTable()">
         <div class="result-card">
           <app-pokemon-card [damageResult]="damageResult()" [target]="target()" [rollLevelConfig]="rollLevelConfig()" [isAttacker]="isCurrentPokemonAttacker()" [collapsible]="false" [expanded]="true" (targetActivated)="activateRightPokemon()" />
         </div>

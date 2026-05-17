@@ -22,6 +22,7 @@ import { MatButtonToggleModule } from "@angular/material/button-toggle"
 import { PokemonTableComponent } from "@features/pokemon-build/tables/pokemon-table/pokemon-table.component"
 import { MovesTableComponent } from "@features/pokemon-build/tables/moves-table/moves-table.component"
 import { AbilitiesTableComponent } from "@features/pokemon-build/tables/abilities-table/abilities-table.component"
+import { ItemsTableComponent } from "@features/pokemon-build/tables/items-table/items-table.component"
 import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
 import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-button/export-pokemon-button.component"
 
@@ -34,6 +35,7 @@ import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-b
     PokemonTableComponent,
     MovesTableComponent,
     AbilitiesTableComponent,
+    ItemsTableComponent,
     ImportPokemonButtonComponent,
     ExportPokemonButtonComponent,
     FieldComponent,
@@ -56,6 +58,7 @@ export class SimpleCalcMobileComponent {
 
   pokemonBuildMobile = viewChild.required(PokemonBuildMobileComponent)
   pokemonInput = viewChild<ElementRef<HTMLInputElement>>("pokemonInput")
+  itemInput = viewChild<ElementRef<HTMLInputElement>>("itemInput")
   scrollContainer = viewChild<ElementRef<HTMLDivElement>>("scrollContainer")
 
   activeBottomTab = signal<"results" | "field">("results")
@@ -68,6 +71,9 @@ export class SimpleCalcMobileComponent {
   showAbilitiesTable = signal(false)
   abilityDataFilter = signal<string>("")
   firstAbilityFromList = signal<string>("")
+  showItemsTable = signal(false)
+  itemDataFilter = signal<string>("")
+  firstItemFromList = signal<string>("")
   private scrollPositions = new Map<string, number>()
 
   inputDisplay = computed(() => this.currentPokemon().name)
@@ -300,6 +306,48 @@ export class SimpleCalcMobileComponent {
   onCloseAbilitiesTable() {
     this.abilityDataFilter.set("")
     this.showAbilitiesTable.set(false)
+  }
+
+  openItemsTable() {
+    this.showItemsTable.set(true)
+  }
+
+  onItemMouseDown(event: MouseEvent) {
+    if (!this.showItemsTable()) {
+      event.preventDefault()
+      this.justOpenedTable = true
+      this.showItemsTable.set(true)
+    }
+  }
+
+  onItemClick() {
+    if (this.justOpenedTable) {
+      this.justOpenedTable = false
+      return
+    }
+
+    const input = this.itemInput()?.nativeElement
+    if (input) {
+      input.value = ""
+      this.itemDataFilter.set("")
+    }
+  }
+
+  onItemInput(value: string) {
+    this.itemDataFilter.set(value)
+  }
+
+  onItemSelected(name: string) {
+    this.store.item(this.currentPokemon().id, name)
+    this.itemDataFilter.set("")
+    this.showItemsTable.set(false)
+    this.itemInput()?.nativeElement.blur()
+  }
+
+  onCloseItemsTable() {
+    this.itemDataFilter.set("")
+    this.showItemsTable.set(false)
+    this.itemInput()?.nativeElement.blur()
   }
 
   switchTab(newTab: "results" | "field") {
