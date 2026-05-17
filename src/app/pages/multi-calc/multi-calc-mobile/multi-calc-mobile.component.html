@@ -1,7 +1,38 @@
 <div class="mobile-calc-container">
-  <div #scrollContainer cdkScrollable class="scrollable-content" [class.teams-tab]="activeBottomTab() === 'teams'" [class.field-tab]="activeBottomTab() === 'field'" (scroll)="onScroll($event)">
-    <div [hidden]="activeBottomTab() !== 'results'" [class.tab-active]="activeBottomTab() === 'results'">
-      <app-team-tabs-mobile [(pokemonOnEditId)]="pokemonOnEditId" (memberAddedEvent)="focusPokemonComboBox()" />
+  <div #scrollContainer cdkScrollable class="scrollable-content" [class.teams-tab]="activeBottomTab() === 'teams'" [class.field-tab]="activeBottomTab() === 'field'" [class.table-open]="overlay.isAnyOpen()" (scroll)="onScroll($event)">
+    <div [hidden]="activeBottomTab() !== 'results'" [class.tab-active]="activeBottomTab() === 'results'" [class.table-open]="overlay.isAnyOpen()">
+      <div [hidden]="overlay.isAnyOpen()">
+        <app-team-tabs-mobile [(pokemonOnEditId)]="pokemonOnEditId" [useExternalHeader]="true" (memberAddedEvent)="focusPokemonComboBox()" />
+      </div>
+
+      @if (editingPokemon()) {
+        <div class="attacker-header" [hidden]="overlay.kind() === 'moves' || overlay.kind() === 'abilities' || overlay.kind() === 'items'">
+          <input #pokemonInput class="pokemon-input" [value]="editingPokemonName()" (mousedown)="onPokemonMouseDown($event)" (click)="onPokemonClick()" (input)="onPokemonInput($any($event.target).value)" data-cy="pokemon-select" />
+          <div class="attacker-actions">
+            @if (overlay.kind() === "pokemon") {
+              <div class="close-table-button" (click)="onClosePokemonTable()">
+                <mat-icon>close</mat-icon>
+                <label>Close</label>
+              </div>
+            } @else {
+              <app-import-pokemon-button (pokemonImportedEvent)="onHeaderImport($event)" />
+              @if (!editingPokemon()!.isDefault) {
+                <app-export-pokemon-button [pokemonId]="effectiveEditingId()!" />
+              }
+            }
+          </div>
+        </div>
+
+        <div class="attacker-header" [hidden]="overlay.kind() !== 'items'">
+          <input #itemInput class="pokemon-input" [value]="editingPokemonItem()" (mousedown)="onItemMouseDown($event)" (click)="onItemClick()" (input)="onItemInput($any($event.target).value)" data-cy="item-select" />
+          <div class="attacker-actions">
+            <div class="close-table-button" (click)="onCloseItemsTable()">
+              <mat-icon>close</mat-icon>
+              <label>Close</label>
+            </div>
+          </div>
+        </div>
+      }
 
       <div class="attacker-build">
         @if (shouldShowBuild()) {
@@ -11,14 +42,27 @@
             [optimizedEvs]="optimizedEvs()"
             [optimizedNature]="optimizedNature()"
             [isRightSide]="isEditingTarget()"
+            [hideEvs]="overlay.isAnyOpen()"
+            [hideMoves]="overlay.kind() === 'pokemon' || overlay.kind() === 'abilities' || overlay.kind() === 'items'"
+            [editingMoves]="overlay.kind() === 'moves'"
+            [editingAbility]="overlay.kind() === 'abilities'"
+            [editingItem]="overlay.kind() === 'items'"
             (optimizationRequested)="handleOptimizeRequest($event)"
             (optimizationApplied)="handleOptimizationApplied()"
             (optimizationDiscarded)="handleOptimizationDiscarded()"
+            (editMovesRequested)="openMovesTable()"
+            (closeMovesRequested)="onCloseMovesTable()"
+            (editAbilityRequested)="openAbilitiesTable()"
+            (editItemRequested)="openItemsTable()"
             (pokemonDeleted)="pokemonOnEditId.set($event)" />
+        }
+
+        @if (effectiveEditingId()) {
+          <app-mobile-table-overlay [pokemonId]="effectiveEditingId()!" [moveIndex]="editingMoveIndex()" (select)="onTableSelect($event)" />
         }
       </div>
 
-      <div class="results-list" cdkDropListGroup>
+      <div class="results-list" cdkDropListGroup [hidden]="overlay.isAnyOpen()">
         @for (damageResult of damageResults(); track getExpansionKey(damageResult)) {
           <div class="result-card">
             <app-pokemon-card
@@ -82,7 +126,7 @@
     </div>
   </div>
 
-  <div class="bottom-nav" [class.hidden]="!showBottomNav()">
+  <div class="bottom-nav" [class.hidden]="!showBottomNav() || overlay.isAnyOpen()">
     <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'results' }" (click)="switchTab('results')">
       <mat-icon>calculate</mat-icon>
       <span>Results</span>

@@ -38,7 +38,7 @@
   }
 </div>
 
-@if (pokemon()) {
+@if (pokemon() && !useExternalHeader()) {
   <div class="attacker-header">
     <app-pokemon-combo-box [pokemonId]="effectiveEditingId()!" label="" />
     <div class="attacker-actions">

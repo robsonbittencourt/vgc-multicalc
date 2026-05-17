@@ -37,6 +37,10 @@ import { Target } from "@lib/model/target"
 import { AddPokemonCardComponent } from "@pages/multi-calc/add-pokemon-card/add-pokemon-card.component"
 import { TeamTabsMobileComponent } from "@features/team/team-tabs-mobile/team-tabs-mobile.component"
 import { TeamsMobileComponent } from "@features/team/teams-mobile/teams-mobile.component"
+import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-button/export-pokemon-button.component"
+import { MobileTableOverlayComponent } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.component"
+import { MobileTableOverlayService, TableSelectEvent } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.service"
+import { SpriteService } from "@data/sprite.service"
 
 @Component({
   selector: "app-multi-calc-mobile",
@@ -55,20 +59,26 @@ import { TeamsMobileComponent } from "@features/team/teams-mobile/teams-mobile.c
     TeamTabsMobileComponent,
     MatButton,
     ImportPokemonButtonComponent,
+    ExportPokemonButtonComponent,
+    MobileTableOverlayComponent,
     InputSelectComponent,
     MatSlideToggle,
     RollConfigComponent,
     WidgetComponent,
     ScrollingModule
   ],
-  providers: [FieldStore, AutomaticFieldService, DamageMultiCalcService, DamageResultOrderService, DefensiveEvOptimizerService, { provide: FIELD_CONTEXT, useValue: "multi" }]
+  providers: [FieldStore, AutomaticFieldService, DamageMultiCalcService, DamageResultOrderService, DefensiveEvOptimizerService, MobileTableOverlayService, { provide: FIELD_CONTEXT, useValue: "multi" }]
 })
 export class MultiCalcMobileComponent {
   @ViewChild("scrollContainer") scrollContainer?: ElementRef<HTMLDivElement>
+  @ViewChild("pokemonInput") pokemonInput?: ElementRef<HTMLInputElement>
+  @ViewChild("itemInput") itemInput?: ElementRef<HTMLInputElement>
   @ViewChild(TeamTabsMobileComponent) teamTabsMobile?: TeamTabsMobileComponent
   store = inject(CalculatorStore)
   menuStore = inject(MenuStore)
   fieldStore = inject(FieldStore)
+  overlay = inject(MobileTableOverlayService)
+  spriteService = inject(SpriteService)
 
   private damageCalculator = inject(DamageMultiCalcService)
   private automaticFieldService = inject(AutomaticFieldService)
@@ -100,6 +110,26 @@ export class MultiCalcMobileComponent {
     effect(() => {
       this.store.game()
       this.pokemonOnEditId.set(null)
+    })
+
+    effect(() => {
+      const id = this.effectiveEditingId()
+      const pokemon = this.editingPokemon()
+
+      if (!id || !pokemon) {
+        this.lastAutoOpenedId = null
+        return
+      }
+
+      if (pokemon.isDefault && this.lastAutoOpenedId !== id) {
+        this.lastAutoOpenedId = id
+
+        if (!this.overlay.isAnyOpen()) {
+          this.overlay.open("pokemon")
+        }
+      } else if (!pokemon.isDefault) {
+        this.lastAutoOpenedId = null
+      }
     })
 
     effect(() => {
@@ -154,6 +184,15 @@ export class MultiCalcMobileComponent {
   expandedDefenderIds = signal<Set<string>>(new Set())
 
   effectiveEditingId = computed(() => this.pokemonOnEditId() || this.activePokemonId())
+
+  editingPokemon = computed(() => {
+    const id = this.effectiveEditingId()
+    return id ? this.store.findNullablePokemonById(id) : undefined
+  })
+
+  editingPokemonName = computed(() => this.editingPokemon()?.name ?? "")
+  editingPokemonItem = computed(() => this.editingPokemon()?.item ?? "")
+  editingMoveIndex = computed(() => Math.max(0, this.editingPokemon()?.activeMoveIndex ?? 0))
 
   regulation = linkedSignal<Regulation>(() => this.store.targetMetaRegulation() ?? (this.store.game() === "champions" ? "MA" : "I"))
   regulationsList = computed(() => (this.store.game() === "champions" ? ["MA"] : ["I"]))
@@ -365,6 +404,150 @@ export class MultiCalcMobileComponent {
     this.optimizedEvs.set(null)
     this.optimizedNature.set(null)
     this.optimizationStatus.set("idle")
+  }
+
+  private justOpenedTable = false
+  private lastAutoOpenedId: string | null = null
+
+  onPokemonMouseDown(event: MouseEvent) {
+    if (!this.overlay.isAnyOpen()) {
+      event.preventDefault()
+      this.justOpenedTable = true
+      this.overlay.open("pokemon")
+    }
+  }
+
+  onPokemonClick() {
+    if (this.justOpenedTable) {
+      this.justOpenedTable = false
+      return
+    }
+
+    if (this.pokemonInput) {
+      this.pokemonInput.nativeElement.value = ""
+      this.overlay.setFilter("")
+    }
+  }
+
+  onPokemonInput(value: string) {
+    this.overlay.setFilter(value)
+  }
+
+  onPokemonSelected(name: string) {
+    const id = this.effectiveEditingId()
+    if (!id) return
+    this.store.loadPokemonInfo(id, name)
+    this.overlay.close()
+    this.pokemonInput?.nativeElement.blur()
+  }
+
+  onClosePokemonTable() {
+    this.overlay.close()
+    this.pokemonInput?.nativeElement.blur()
+  }
+
+  openMovesTable() {
+    this.overlay.open("moves")
+  }
+
+  onMoveSelected(move: string) {
+    const id = this.effectiveEditingId()
+    if (!id) return
+    const index = this.editingMoveIndex()
+    this.store.updateMove(id, move, index)
+  }
+
+  onCloseMovesTable() {
+    this.overlay.close()
+  }
+
+  openAbilitiesTable() {
+    this.overlay.open("abilities")
+  }
+
+  onAbilitySelected(ability: string) {
+    const id = this.effectiveEditingId()
+    if (!id) return
+    this.store.ability(id, ability)
+    this.overlay.close()
+  }
+
+  openItemsTable() {
+    this.overlay.open("items")
+  }
+
+  onItemMouseDown(event: MouseEvent) {
+    if (!this.overlay.isAnyOpen()) {
+      event.preventDefault()
+      this.justOpenedTable = true
+      this.overlay.open("items")
+    }
+  }
+
+  onItemClick() {
+    if (this.justOpenedTable) {
+      this.justOpenedTable = false
+      return
+    }
+
+    if (this.itemInput) {
+      this.itemInput.nativeElement.value = ""
+      this.overlay.setFilter("")
+    }
+  }
+
+  onItemInput(value: string) {
+    this.overlay.setFilter(value)
+  }
+
+  onItemSelected(name: string) {
+    const id = this.effectiveEditingId()
+    if (!id) return
+    this.store.item(id, name)
+    this.overlay.close()
+    this.itemInput?.nativeElement.blur()
+  }
+
+  onCloseItemsTable() {
+    this.overlay.close()
+    this.itemInput?.nativeElement.blur()
+  }
+
+  onHeaderImport(pokemon: Pokemon | Pokemon[]) {
+    const singlePokemon = Array.isArray(pokemon) ? pokemon[0] : pokemon
+
+    if (!singlePokemon) return
+
+    const id = this.effectiveEditingId()
+    if (!id) return
+
+    if (this.isEditingTarget()) {
+      const targets = this.store.targets().map(t => {
+        if (t.pokemon.id === id) return new Target(singlePokemon, t.secondPokemon)
+        if (t.secondPokemon?.id === id) return new Target(t.pokemon, singlePokemon)
+        return t
+      })
+      this.store.updateTargets(targets)
+    } else {
+      this.store.changePokemon(id, singlePokemon)
+    }
+  }
+
+  onTableSelect(event: TableSelectEvent) {
+    switch (event.kind) {
+      case "pokemon":
+        this.onPokemonSelected(event.value)
+        break
+      case "moves":
+        this.onMoveSelected(event.value)
+        break
+      case "abilities":
+        this.onAbilitySelected(event.value)
+        break
+      case "items":
+        this.onItemSelected(event.value)
+        break
+    }
   }
 
   addPokemonToTargets() {
