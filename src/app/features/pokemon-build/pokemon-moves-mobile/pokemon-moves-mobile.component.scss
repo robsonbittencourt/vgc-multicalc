@@ -12,9 +12,14 @@
 
 .chips-row {
   display: flex;
-  align-items: center;
-  flex-wrap: wrap;
+  align-items: flex-start;
+  flex-wrap: nowrap;
   gap: 0.5em;
+
+  mat-chip-listbox {
+    flex: 1 1 0;
+    min-width: 0;
+  }
 }
 
 .edit-button,
@@ -24,6 +29,7 @@
   cursor: pointer;
   font-size: 12px;
   padding-top: 0.4em;
+  flex: 0 0 auto;
 }
 
 .edit-icon {
