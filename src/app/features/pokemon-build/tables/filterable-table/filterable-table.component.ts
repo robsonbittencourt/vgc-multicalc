@@ -144,13 +144,15 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
         const index = data.findIndex(d => d.id === initial)
 
         if (index !== -1) {
-          const valueChanged = this.lastScrolledValue !== initial
           this.activeEntry.set(data[index])
 
-          if (!this.initialScrollPerformed || valueChanged) {
-            this.initialScrollPerformed = true
-            this.lastScrolledValue = initial
+          const wasSelected = this.entryWasSelected
+          this.entryWasSelected = false
+          const shouldScroll = !wasSelected && (!this.initialScrollPerformed || this.lastScrolledValue !== initial)
+          this.initialScrollPerformed = true
+          this.lastScrolledValue = initial
 
+          if (shouldScroll) {
             setTimeout(() => {
               const viewport = this.scroll()
               if (viewport) {
