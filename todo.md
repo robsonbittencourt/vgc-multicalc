@@ -1,4 +1,10 @@
+Alinhamento do botão close com moves
+
+Os separadores de tabela as vezes quebram (itens)
+
+
 ver moveset do Salazze ta invalido para importar
+
 
 Não ta carregando os itens corretos conforme meta daquele poke
 
