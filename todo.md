@@ -1,3 +1,5 @@
+Os titulos do header devem congelar
+
 Alinhamento do botão close com moves
 
 Os separadores de tabela as vezes quebram (itens)
