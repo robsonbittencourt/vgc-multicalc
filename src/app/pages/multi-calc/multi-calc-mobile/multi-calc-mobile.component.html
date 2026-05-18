@@ -18,6 +18,11 @@
               <app-import-pokemon-button (pokemonImportedEvent)="onHeaderImport($event)" />
               @if (!editingPokemon()!.isDefault) {
                 <app-export-pokemon-button [pokemonId]="effectiveEditingId()!" />
+
+                <div class="delete-pokemon" (click)="deleteEditingPokemon()" data-cy="delete-team-member-mobile">
+                  <mat-icon class="icon">delete</mat-icon>
+                  <label>Delete</label>
+                </div>
               }
             }
           </div>

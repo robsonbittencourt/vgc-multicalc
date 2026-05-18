@@ -513,6 +513,10 @@ export class MultiCalcMobileComponent {
     this.itemInput?.nativeElement.blur()
   }
 
+  deleteEditingPokemon() {
+    this.teamTabsMobile?.removeActivePokemon()
+  }
+
   onHeaderImport(pokemon: Pokemon | Pokemon[]) {
     const singlePokemon = Array.isArray(pokemon) ? pokemon[0] : pokemon
 
