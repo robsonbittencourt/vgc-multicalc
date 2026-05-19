@@ -140,14 +140,21 @@
   margin: 0 0.5em;
 }
 
+.entries-section-title-row {
+  display: grid;
+  align-items: stretch;
+}
+
 .entries-section-title-frozen {
-  position: sticky;
-  left: 0;
-  width: 100%;
   white-space: nowrap;
   background-color: var(--widget-background);
   margin: 0;
   padding-left: 0.5em;
+  justify-content: flex-start;
+}
+
+.entries-section-title-row .frozen-cell {
+  overflow: visible;
 }
 
 .entry {

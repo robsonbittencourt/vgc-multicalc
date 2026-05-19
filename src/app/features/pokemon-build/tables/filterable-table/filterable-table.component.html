@@ -42,7 +42,13 @@
             }
             <div *cdkVirtualFor="let entry of viewData(); let index = index; trackBy: trackById">
               @if (entry.group) {
-                <div class="entries-section-title" [ngClass]="{ 'entries-section-title-frozen': isMobile() }">{{ entry.group }}</div>
+                @if (isMobile()) {
+                  <div class="entries-section-title-row" [ngStyle]="{ 'grid-template-columns': gridTemplateColumnsSize() }">
+                    <div class="entries-section-title entries-section-title-frozen frozen-cell">{{ entry.group }}</div>
+                  </div>
+                } @else {
+                  <div class="entries-section-title">{{ entry.group }}</div>
+                }
               } @else {
                 <div class="entry" [ngStyle]="{ 'grid-template-columns': gridTemplateColumnsSize() }" [ngClass]="getEntryClass(entry)" (click)="selectEntry(entry)" #row [attr.data-cy]="entryDataCy(entry)">
                   @for (column of columns(); track column.id) {
