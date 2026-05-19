@@ -245,6 +245,12 @@ export class SimpleCalcMobileComponent {
 
   onClosePokemonTable() {
     this.overlay.close()
+    const input = this.pokemonInput()?.nativeElement
+
+    if (input) {
+      input.value = this.inputDisplay()
+    }
+
     this.pokemonInput()?.nativeElement.blur()
   }
 

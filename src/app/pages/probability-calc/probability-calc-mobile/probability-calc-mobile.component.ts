@@ -164,6 +164,11 @@ export class ProbabilityCalcMobileComponent {
 
   onClosePokemonTable() {
     this.overlay.close()
+
+    if (this.pokemonInput) {
+      this.pokemonInput.nativeElement.value = this.editingPokemonName()
+    }
+
     this.pokemonInput?.nativeElement.blur()
   }
 

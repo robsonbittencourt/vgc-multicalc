@@ -198,7 +198,13 @@ export class SpeedCalculatorMobileComponent {
 
   onClosePokemonTable() {
     this.overlay.close()
-    this.activePokemonInputEl()?.blur()
+    const input = this.activePokemonInputEl()
+
+    if (input) {
+      input.value = this.editingPokemonName()
+    }
+
+    input?.blur()
   }
 
   openAbilitiesTable() {
