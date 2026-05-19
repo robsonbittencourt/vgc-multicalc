@@ -143,7 +143,8 @@
 .entries-section-title-frozen {
   position: sticky;
   left: 0;
-  width: 6em;
+  width: 100%;
+  white-space: nowrap;
   background-color: var(--widget-background);
   margin: 0;
   padding-left: 0.5em;
