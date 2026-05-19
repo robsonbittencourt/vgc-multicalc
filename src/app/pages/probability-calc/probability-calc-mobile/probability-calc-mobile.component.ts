@@ -43,7 +43,7 @@ import { Pokemon } from "@lib/model/pokemon"
 })
 export class ProbabilityCalcMobileComponent {
   @ViewChild("scrollContainer") scrollContainer?: ElementRef<HTMLDivElement>
-  @ViewChild("pokemonInput") pokemonInput?: ElementRef<HTMLInputElement>
+  @ViewChildren("pokemonInput") pokemonInputs?: QueryList<ElementRef<HTMLInputElement>>
   @ViewChild("itemInput") itemInput?: ElementRef<HTMLInputElement>
   @ViewChildren(TeamTabsMobileComponent) teamTabsMobileList?: QueryList<TeamTabsMobileComponent>
   store = inject(CalculatorStore)
@@ -138,14 +138,20 @@ export class ProbabilityCalcMobileComponent {
     }
   }
 
+  private visiblePokemonInput(): HTMLInputElement | undefined {
+    return this.pokemonInputs?.toArray().find(ref => ref.nativeElement.offsetParent !== null)?.nativeElement
+  }
+
   onPokemonClick() {
     if (this.justOpenedTable) {
       this.justOpenedTable = false
       return
     }
 
-    if (this.pokemonInput) {
-      this.pokemonInput.nativeElement.value = ""
+    const input = this.visiblePokemonInput()
+
+    if (input) {
+      input.value = ""
       this.overlay.setFilter("")
     }
   }
@@ -159,17 +165,18 @@ export class ProbabilityCalcMobileComponent {
     if (!id) return
     this.store.loadPokemonInfo(id, name)
     this.overlay.close()
-    this.pokemonInput?.nativeElement.blur()
+    this.visiblePokemonInput()?.blur()
   }
 
   onClosePokemonTable() {
     this.overlay.close()
+    const input = this.visiblePokemonInput()
 
-    if (this.pokemonInput) {
-      this.pokemonInput.nativeElement.value = this.editingPokemonName()
+    if (input) {
+      input.value = this.editingPokemonName()
     }
 
-    this.pokemonInput?.nativeElement.blur()
+    input?.blur()
   }
 
   openMovesTable() {
