@@ -74,7 +74,8 @@
 }
 
 .scroll-area.mobile .table-header {
-  padding-right: 8px;
+  padding-left: 0;
+  padding-right: 0;
   position: sticky;
   top: 0;
   z-index: 2;
@@ -206,8 +207,6 @@
   background-color: var(--filterable-table-header);
   left: 0;
   z-index: 3;
-  margin-left: -8px;
-  padding-left: 8px;
 }
 
 .entry:hover .frozen-cell {
@@ -346,6 +345,10 @@
 
 .scroll-area.mobile .entry-cell {
   padding: 10px 8px;
+}
+
+.scroll-area.mobile .header-cell {
+  padding: 0 8px;
 }
 
 .scroll-area.mobile .cdk-virtual-scroll-viewport {
