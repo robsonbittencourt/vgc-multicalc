@@ -6,7 +6,7 @@
   [initialValue]="pokemon().ability.name"
   [haveFocus]="haveFocus()"
   [isMobile]="isMobile()"
-  [itemSize]="isMobile() ? 90 : 45"
+  [itemSize]="isMobile() ? 65 : 45"
   (entrySelected)="abilitySelected.emit($event)"
   (firstListEntry)="firstAbilityFromList.emit($event)"
   (escapeWasPressed)="escapeWasPressed.emit()" />

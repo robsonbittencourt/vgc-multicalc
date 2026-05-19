@@ -6,7 +6,7 @@
   [dataFilter]="dataFilter()"
   [initialValue]="initialValue()"
   [isMobile]="isMobile()"
-  [itemSize]="isMobile() ? 49 : 45"
+  [itemSize]="isMobile() ? 65 : 45"
   (entrySelected)="moveSelected.emit($event)"
   (firstListEntry)="firstMoveFromList.emit($event)"
   (escapeWasPressed)="escapeWasPressed.emit()" />
