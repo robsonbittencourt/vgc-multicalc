@@ -89,12 +89,12 @@
 }
 
 .header-cell {
-  transition: all 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out;
   display: flex;
   justify-content: center;
 }
 
-.header-cell.sortable {
+.header-cell.sortable:not(.frozen-cell) {
   user-select: none;
   position: relative;
 
@@ -204,6 +204,10 @@
 
 .table-header .frozen-cell {
   background-color: var(--filterable-table-header);
+  left: 0;
+  z-index: 3;
+  margin-left: -8px;
+  padding-left: 8px;
 }
 
 .entry:hover .frozen-cell {
