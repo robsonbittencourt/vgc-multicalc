@@ -96,6 +96,19 @@ export class SpeedCalculatorMobileComponent {
     if (initialSourceId) this.store.loadSpeedCalcPokemonFrom(initialSourceId)
 
     effect(() => {
+      const sourceId = this.effectiveEditingId()
+      if (!sourceId) return
+
+      const sourcePokemon = this.store.findNullablePokemonById(sourceId)
+      if (!sourcePokemon) return
+
+      const currentScratch = this.store.speedCalcPokemon()
+      if (sourcePokemon.isDefault !== currentScratch.isDefault || sourcePokemon.name !== currentScratch.name || sourcePokemon.ability.name !== currentScratch.ability.name) {
+        this.store.loadSpeedCalcPokemonFrom(sourceId)
+      }
+    })
+
+    effect(() => {
       if (this.fieldStore.field()) {
         const activatedPokemon = this.pokemon()
 
@@ -154,6 +167,9 @@ export class SpeedCalculatorMobileComponent {
     const tabIndex = tabIndexByName[this.activeBottomTab()]
 
     if (tabIndex === undefined) return
+
+    const editId = this.effectiveEditingId()
+    if (editId) this.store.loadSpeedCalcPokemonFrom(editId)
 
     setTimeout(() => {
       this.teamTabsMobileList?.get(tabIndex)?.focus()
