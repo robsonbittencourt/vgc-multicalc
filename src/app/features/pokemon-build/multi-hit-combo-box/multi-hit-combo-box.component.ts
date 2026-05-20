@@ -22,7 +22,7 @@ export class MultiHitComboBoxComponent {
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
   multiHitLabel = computed(() => (this.pokemon().activeMoveName !== "Rage Fist" ? "Hits" : "Hits Taken"))
 
-  alliesFainted = ["0", "1", "2", "3", "4", "5", "6", "7"]
+  alliesFainted = computed(() => (this.pokemon().ability.name === "Supreme Overlord" ? ["0", "1", "2", "3", "4", "5"] : ["0", "1", "2", "3", "4", "5", "6", "7"]))
 
   alliesFaintedChanged(event: string) {
     const activeMovePosition = this.pokemon().moveSet.activeMovePosition

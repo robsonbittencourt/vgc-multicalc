@@ -8,6 +8,7 @@ import { FairyAuraAdjuster } from "@lib/damage-calculator/calc-adjuster/fairy-au
 import { LastRespectsAdjuster } from "@lib/damage-calculator/calc-adjuster/last-respects-adjuster"
 import { NeutralizingGasAdjuster } from "@lib/damage-calculator/calc-adjuster/neutralizing-gas-adjuster"
 import { OgerponAdjuster } from "@lib/damage-calculator/calc-adjuster/ogerpon-adjuster"
+import { SupremeOverlordAdjuster } from "@lib/damage-calculator/calc-adjuster/supreme-overlord-adjuster"
 import { RageFistAdjuster } from "@lib/damage-calculator/calc-adjuster/rage-fist-adjuster"
 import { StompingTantrumAdjuster } from "@lib/damage-calculator/calc-adjuster/stomping-tantrum-adjuster"
 import { RuinsAbilityAdjuster } from "@lib/damage-calculator/calc-adjuster/ruins-ability-adjuster"
@@ -28,6 +29,7 @@ bootstrapApplication(AppComponent, {
     { provide: CALC_ADJUSTERS, useClass: StompingTantrumAdjuster, multi: true },
     { provide: CALC_ADJUSTERS, useClass: ZacianZamazentaAdjuster, multi: true },
     { provide: CALC_ADJUSTERS, useClass: NeutralizingGasAdjuster, multi: true },
-    { provide: CALC_ADJUSTERS, useClass: OgerponAdjuster, multi: true }
+    { provide: CALC_ADJUSTERS, useClass: OgerponAdjuster, multi: true },
+    { provide: CALC_ADJUSTERS, useClass: SupremeOverlordAdjuster, multi: true }
   ]
 }).catch(err => console.error(err))
