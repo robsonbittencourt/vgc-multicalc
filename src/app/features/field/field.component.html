@@ -17,6 +17,9 @@
 
         <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
           <mat-button-toggle [checked]="fieldStore.attackerSide().gameType === 'Singles'" (change)="fieldStore.toggleAttackerGameType()" data-cy="single-target-attacker">Single Target</mat-button-toggle>
+          @if (isChampions()) {
+            <mat-button-toggle [checked]="fieldStore.isAttackerProtected()" (change)="fieldStore.toggleAttackerProtected()" data-cy="protected-attacker">Protected</mat-button-toggle>
+          }
           <mat-button-toggle [checked]="fieldStore.attackerSide().isFriendGuard" (change)="fieldStore.toggleAttackerFriendGuard()" data-cy="friend-guard-attacker">Friend Guard</mat-button-toggle>
         </mat-button-toggle-group>
 
@@ -138,6 +141,9 @@
             <mat-button-toggle [checked]="fieldStore.defenderSide().gameType === 'Singles'" (change)="fieldStore.toggleDefenderGameType()" data-cy="single-target-defender">Single Target</mat-button-toggle>
           }
 
+          @if (isChampions()) {
+            <mat-button-toggle [checked]="fieldStore.isDefenderProtected()" (change)="fieldStore.toggleDefenderProtected()" data-cy="protected-defender">Protected</mat-button-toggle>
+          }
           <mat-button-toggle [checked]="fieldStore.defenderSide().isFriendGuard" (change)="fieldStore.toggleDefenderFriendGuard()" data-cy="friend-guard-defender">Friend Guard</mat-button-toggle>
         </mat-button-toggle-group>
 

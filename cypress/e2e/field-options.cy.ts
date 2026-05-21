@@ -118,6 +118,24 @@ describe("Test the Field options on options with One vs One", () => {
 
       leftDamageResult.damageIs(2, 8.7, 10.7, 18, 22)
     })
+
+    it("With Protected active - regular move is blocked", () => {
+      header.selectChampions()
+
+      field.protectedAttacker()
+
+      rightDamageResult.damageIs(0, 0, 0, 0, 0)
+    })
+
+    it("With Protected active - Piercing Drill move causes 25% damage", () => {
+      header.selectChampions()
+
+      rightPokemonBuild.importPokemon(poke["excadrill-mega"])
+
+      field.protectedAttacker()
+
+      rightDamageResult.damageIs(0, 8.4, 10.4, 13, 16)
+    })
   })
 
   describe("Both sides", () => {
@@ -458,6 +476,24 @@ describe("Test the Field options on options with One vs One", () => {
 
       rightDamageResult.damageIs(2, 10.3, 12.5, 14, 17)
     })
+
+    it("With Protected active - regular move is blocked", () => {
+      header.selectChampions()
+
+      field.protectedDefender()
+
+      leftDamageResult.damageIs(0, 0, 0, 0, 0)
+    })
+
+    it("With Protected active - Piercing Drill move causes 25% damage", () => {
+      header.selectChampions()
+
+      leftPokemonBuild.importPokemon(poke["excadrill-mega"])
+
+      field.protectedDefender()
+
+      leftDamageResult.damageIs(0, 11.7, 14.2, 23, 28)
+    })
   })
 })
 
@@ -675,6 +711,26 @@ describe("Test the Field options on options with Many Pokémon", () => {
     field.friendGuardDefender()
 
     opponents.get("Incineroar").damageIs(36.3, 43.2)
+  })
+
+  it("With Protected active - regular move is blocked", () => {
+    header.selectChampions()
+
+    team.importPokemon(poke["vaporeon"])
+
+    field.protectedDefender()
+
+    opponents.get("Incineroar").damageIs(0, 0)
+  })
+
+  it("With Protected active - Piercing Drill move causes 25% damage", () => {
+    header.selectChampions()
+
+    team.importPokemon(poke["excadrill-mega"])
+
+    field.protectedDefender()
+
+    opponents.get("Incineroar").damageIs(5.4, 6.4)
   })
 
   it("With Tailwind in defender side active", () => {

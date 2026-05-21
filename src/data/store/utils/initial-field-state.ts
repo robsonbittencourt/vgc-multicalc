@@ -38,6 +38,8 @@ export function defaultFieldState(): FieldState {
     isNeutralizingGas: false,
     isUnnerve: false,
     isFairyAura: false,
+    isAttackerProtected: false,
+    isDefenderProtected: false,
     attackerSide: new FieldSide(),
     defenderSide: new FieldSide(),
     automaticWeather: null,

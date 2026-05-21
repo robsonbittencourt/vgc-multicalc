@@ -27,7 +27,9 @@ describe("initialFieldState", () => {
     automaticTabletsOfRuinActivated: false,
     automaticVesselOfRuinActivated: false,
     automaticNeutralizingGasActivated: false,
-    automaticFairyAuraActivated: false
+    automaticFairyAuraActivated: false,
+    isAttackerProtected: false,
+    isDefenderProtected: false
   }
 
   afterEach(() => {

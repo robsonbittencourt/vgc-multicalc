@@ -23,6 +23,8 @@ export type FieldState = {
   isNeutralizingGas: boolean
   isUnnerve: boolean
   isFairyAura: boolean
+  isAttackerProtected: boolean
+  isDefenderProtected: boolean
   attackerSide: FieldSide
   defenderSide: FieldSide
   automaticWeather: Weather
@@ -111,6 +113,14 @@ export class FieldStore extends signalStore(
         updates.isFairyAura = false
       }
 
+      if (this.isAttackerProtected()) {
+        updates.isAttackerProtected = false
+      }
+
+      if (this.isDefenderProtected()) {
+        updates.isDefenderProtected = false
+      }
+
       if (Object.keys(updates).length > 0) {
         patchState(this, () => updates)
       }
@@ -133,8 +143,8 @@ export class FieldStore extends signalStore(
         isNeutralizingGas: this.neutralizingGasActivated(),
         isUnnerve: this.isUnnerve(),
         isFairyAura: this.fairyAuraActivated(),
-        attackerSide: this.attackerSide(),
-        defenderSide: this.defenderSide()
+        attackerSide: new FieldSide({ ...this.attackerSide(), isProtected: this.isAttackerProtected() }),
+        defenderSide: new FieldSide({ ...this.defenderSide(), isProtected: this.isDefenderProtected() })
       })
   )
 
@@ -520,5 +530,13 @@ export class FieldStore extends signalStore(
     } else {
       patchState(this, state => ({ isFairyAura: !state.isFairyAura }))
     }
+  }
+
+  toggleAttackerProtected() {
+    patchState(this, state => ({ isAttackerProtected: !state.isAttackerProtected }))
+  }
+
+  toggleDefenderProtected() {
+    patchState(this, state => ({ isDefenderProtected: !state.isDefenderProtected }))
   }
 }

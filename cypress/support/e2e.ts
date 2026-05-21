@@ -90,6 +90,7 @@ const pokeNames = [
   "jumpluff",
   "kingdra",
   "excadrill",
+  "excadrill-mega",
   "beartic",
   "raichu-alola",
   "ninetales-alola",

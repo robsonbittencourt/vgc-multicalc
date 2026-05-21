@@ -53,6 +53,7 @@ export class FieldMapper {
     smogonSide.spikes = fieldSide.spikes
     smogonSide.isSR = fieldSide.isSR
     smogonSide.isSeeded = fieldSide.isSeeded
+    smogonSide.isProtected = fieldSide.isProtected
 
     return smogonSide
   }

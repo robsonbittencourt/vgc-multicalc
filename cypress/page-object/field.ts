@@ -143,6 +143,14 @@ export class Field {
     this.clickOnButton("friend-guard-defender")
   }
 
+  protectedAttacker() {
+    this.clickOnButton("protected-attacker")
+  }
+
+  protectedDefender() {
+    this.clickOnButton("protected-defender")
+  }
+
   threeSpikesAttacker() {
     this.clickOnButton("three-spikes-attacker")
   }

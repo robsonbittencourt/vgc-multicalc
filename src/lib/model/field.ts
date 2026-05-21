@@ -68,6 +68,7 @@ export class FieldSide {
   readonly spikes: number
   readonly isSR: boolean
   readonly isSeeded: boolean
+  readonly isProtected: boolean
 
   constructor(
     options: {
@@ -84,6 +85,7 @@ export class FieldSide {
       spikes?: number
       isSR?: boolean
       isSeeded?: boolean
+      isProtected?: boolean
     } = {}
   ) {
     this.gameType = options.gameType ?? "Doubles"
@@ -99,5 +101,6 @@ export class FieldSide {
     this.spikes = options.spikes ?? 0
     this.isSR = options.isSR ?? false
     this.isSeeded = options.isSeeded ?? false
+    this.isProtected = options.isProtected ?? false
   }
 }
