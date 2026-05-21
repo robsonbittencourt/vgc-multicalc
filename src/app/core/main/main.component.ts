@@ -1,4 +1,5 @@
 import { Component, inject, OnInit } from "@angular/core"
+import { Meta } from "@angular/platform-browser"
 import { ActivatedRoute } from "@angular/router"
 import { ProbabilityCalcComponent } from "@app/pages/probability-calc/probability-calc/probability-calc.component"
 import { HeaderMobileComponent } from "@core/header-mobile/header-mobile.component"
@@ -45,6 +46,7 @@ export class MainComponent implements OnInit {
   activeFieldService = inject(ActiveFieldService)
   private activatedRoute = inject(ActivatedRoute)
   private deviceDetectorService = inject(DeviceDetectorService)
+  private meta = inject(Meta)
 
   userDataLink: string
   useUserData = false
@@ -54,6 +56,7 @@ export class MainComponent implements OnInit {
       this.useUserData = this.activatedRoute.routeConfig?.path == "data/:userDataId"
 
       if (this.useUserData) {
+        this.meta.addTag({ name: "robots", content: "noindex, follow" })
         const state = buildState(userData?.data) as CalculatorState
         this.store.updateStateLockingLocalStorage(state)
         this.activeFieldService.initialFieldData.set(userData?.data.field)
