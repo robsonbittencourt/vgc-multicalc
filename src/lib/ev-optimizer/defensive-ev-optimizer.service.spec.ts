@@ -95,6 +95,29 @@ describe("DefensiveEvOptimizerService", () => {
         expect(result.evs!.spd).toBe(44)
       })
 
+      it("should optimize EVs for Empoleon with Shuca Berry against Garchomp Earthquake", () => {
+        const defender = new Pokemon("Empoleon", {
+          nature: "Bold",
+          item: "Shuca Berry"
+        })
+
+        const attacker = new Pokemon("Garchomp", {
+          nature: "Jolly",
+          item: "Choice Scarf",
+          moveSet: new MoveSet(new Move("Earthquake"), new Move(""), new Move(""), new Move("")),
+          evs: { hp: 2, atk: 32, spe: 32 }
+        })
+
+        const targets = [new Target(attacker)]
+        const field = new Field()
+
+        const result = service.optimize(defender, targets, field, false, false, 3)
+
+        expect(result.evs!.hp).toBeGreaterThan(25)
+        expect(result.evs!.def).toBeGreaterThan(28)
+        expect(result.evs!.spd).toBe(0)
+      })
+
       it("should optimize EVs for Incineroar with Sitrus Berry against Urshifu-Rapid-Strike Surging Strikes", () => {
         const defender = new Pokemon("Incineroar", {
           nature: "Impish",
