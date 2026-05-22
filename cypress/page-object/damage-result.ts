@@ -43,7 +43,7 @@ export class DamageResult {
   }
 
   withPokemonIcon(iconName: string) {
-    this.baseElement().find(`[src="assets/sprites/items/${iconName}.png"]`)
+    this.baseElement().find(`[src="assets/sprites/items/${iconName}.webp"]`)
   }
 
   causeOHKO() {

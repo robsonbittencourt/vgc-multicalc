@@ -125,7 +125,7 @@
 
                     @if (isMegaStoneCompatible()) {
                       <button class="icon-button mega-icon-button" [class.mega-active]="pokemonOnCard().name.includes('-Mega')" (click)="toggleMega()">
-                        <img class="mega-icon" [class.mega-active]="pokemonOnCard().name.includes('-Mega')" src="assets/sprites/items/{{ getMegaStoneSprite() }}.png" width="120" height="120" loading="lazy" />
+                        <img class="mega-icon" [class.mega-active]="pokemonOnCard().name.includes('-Mega')" src="assets/sprites/items/{{ getMegaStoneSprite() }}.webp" width="120" height="120" loading="lazy" />
                       </button>
                     }
 

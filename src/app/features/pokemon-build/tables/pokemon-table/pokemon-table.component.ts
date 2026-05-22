@@ -36,7 +36,7 @@ export class PokemonTableComponent {
     new ColumnConfig<PokemonDetail>({
       field: "name",
       isImageColumn: true,
-      displayFn: (item: PokemonDetail) => `assets/sprites/pokemon-home/${item.name}.png`,
+      displayFn: (item: PokemonDetail) => `assets/sprites/pokemon-home/${item.name}.webp`,
       alignLeft: true,
       width: "small"
     }),

@@ -36,7 +36,7 @@ export class ItemsTableComponent {
     new ColumnConfig<ItemDetail>({
       field: "sprite",
       isImageColumn: true,
-      displayFn: (item: ItemDetail) => `assets/sprites/items/${item.name.toLowerCase().replace(" ", "-")}.png`,
+      displayFn: (item: ItemDetail) => `assets/sprites/items/${item.name.toLowerCase().replace(" ", "-")}.webp`,
       alignLeft: true,
       width: "small"
     }),
