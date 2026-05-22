@@ -63,7 +63,7 @@
 
     <path d="M 425,20 L 485,20 L 465,105 L 394,105 Z" fill="#263130" [attr.clip-path]="'url(#' + uid + '-hudClip)'" />
     @if (canShowItemImage()) {
-      <image [attr.href]="'assets/sprites/items/' + item() + '.png'" x="411" y="31" width="56" height="56" preserveAspectRatio="xMidYMid meet" [attr.clip-path]="'url(#' + uid + '-hudClip)'" />
+      <image [attr.href]="'assets/sprites/items/' + item() + '.webp'" x="411" y="31" width="56" height="56" preserveAspectRatio="xMidYMid meet" [attr.clip-path]="'url(#' + uid + '-hudClip)'" />
     }
 
     <path d="M 166,105 L 438,105 L 427,141 L 154,141 Z" fill="rgba(0,0,0,0.35)" />
@@ -114,6 +114,6 @@
   </svg>
 
   <div class="pokemon-image-loader">
-    <img #pokemonImage [src]="'assets/sprites/pokemon-champions/' + spriteName() + '.png'" width="128" height="128" (load)="onImageLoad()" />
+    <img #pokemonImage [src]="'assets/sprites/pokemon-champions/' + spriteName() + '.webp'" width="128" height="128" (load)="onImageLoad()" />
   </div>
 </div>

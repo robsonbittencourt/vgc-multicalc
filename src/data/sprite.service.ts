@@ -7,6 +7,6 @@ export class SpriteService {
 
   path(name: string): string {
     const folder = this.store.isChampions() ? "pokemon-champions" : "pokemon-sv"
-    return `assets/sprites/${folder}/${name}.png`
+    return `assets/sprites/${folder}/${name}.webp`
   }
 }
