@@ -1,5 +1,54 @@
 <div class="container">
   @if (activePage() === "menu") {
+    <section class="faq-section">
+      <h2 class="faq-title">Frequently Asked Questions</h2>
+
+      <div class="faq-item">
+        <h3>What is VGC Multi Calc?</h3>
+        <p>
+          VGC Multi Calc is a free Pokémon damage calculator built for VGC and Pokémon Champions Doubles. Unlike traditional calculators, it lets you calculate damage against multiple Pokémon at once — so you can evaluate your entire team's offensive
+          and defensive matchups in a single view.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h3>How does the multi-target damage calculation work?</h3>
+        <p>
+          In Team vs Many mode, you pick one attacker and calculate its damage rolls against several targets simultaneously. In Many vs Team mode, you pick one defender and see how much damage multiple attackers deal to it. Both modes show damage
+          ranges, KO chance, OHKO and 2HKO probabilities for each matchup.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h3>How do EVs and Natures affect damage in VGC?</h3>
+        <p>
+          EVs (Effort Values) and Natures directly modify a Pokémon's stats. Offensive EVs increase damage output while defensive EVs determine whether your Pokémon survives key hits. VGC Multi Calc lets you adjust EVs and Natures in real time to see
+          the exact damage rolls and KO chance for any matchup.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h3>What is the difference between OHKO and 2HKO?</h3>
+        <p>
+          OHKO (One-Hit KO) means a move deals enough damage to knock out the target in a single hit. 2HKO (Two-Hit KO) means two hits are required. VGC Multi Calc shows the full damage roll distribution and the probability of achieving an OHKO or
+          2HKO for each spread.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h3>How does the Speed Calculator work?</h3>
+        <p>
+          The Speed Calculator compares the effective Speed stats of multiple Pokémon after applying Nature, EVs and modifiers like Tailwind or Trick Room. It shows speed tiers so you can determine which Pokémon moves first in VGC and Pokémon
+          Champions Doubles matches.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Does VGC Multi Calc support Pokémon Champions?</h3>
+        <p>Yes. VGC Multi Calc fully supports Pokémon Champions, including its Regulations and all available Pokémon, moves, abilities and items. You can switch between game modes directly in the calculator.</p>
+      </div>
+    </section>
+
     <div class="cards-grid">
       <mat-card class="how-to-card elevation" (click)="setActivePage('video')">
         <img mat-card-image src="assets/media/how-to-use/menu/youtube-video.png" alt="Video cover image" class="card-hero-image" />

@@ -11,6 +11,7 @@ import { CalculatorStore } from "@data/store/calculator-store"
 import { MenuStore } from "@data/store/menu-store"
 import { SnackbarService } from "@lib/snackbar.service"
 import { ThemeService } from "@lib/theme.service"
+import { Router } from "@angular/router"
 import axios from "axios"
 import { v4 as uuidv4 } from "uuid"
 
@@ -26,6 +27,7 @@ export class HeaderComponent {
   menuStore = inject(MenuStore)
   themeService = inject(ThemeService)
   private snackBar = inject(SnackbarService)
+  private router = inject(Router)
 
   userDataLink: string
 
@@ -44,29 +46,33 @@ export class HeaderComponent {
   }
 
   enableOneVsOne() {
-    this.menuStore.enableOneVsOne()
+    this.router.navigate(["one-vs-one"])
     this.store.updateSecondAttacker("")
   }
 
   enableOneVsMany() {
-    this.menuStore.enableOneVsMany()
+    this.router.navigate(["team-vs-many"])
   }
 
   enableManyVsOne() {
-    this.menuStore.enableManyVsOne()
+    this.router.navigate(["many-vs-team"])
     this.store.updateSecondAttacker("")
   }
 
   enableSpeedCalculator() {
-    this.menuStore.enableSpeedCalculator()
+    this.router.navigate(["speed-calc"])
   }
 
   enableProbabilityCalculator() {
-    this.menuStore.enableProbabilityCalculator()
+    this.router.navigate(["probability-calc"])
   }
 
   enableTypeCalculator() {
-    this.menuStore.enableTypeCalculator()
+    this.router.navigate(["type-calc"])
+  }
+
+  enableHowToUse() {
+    this.router.navigate(["how-to-use"])
   }
 
   onGameChange(event: MatButtonToggleChange) {

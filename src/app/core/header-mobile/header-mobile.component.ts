@@ -1,5 +1,6 @@
 import { NgClass, TitleCasePipe } from "@angular/common"
 import { Component, computed, effect, inject, OnDestroy, signal } from "@angular/core"
+import { Router } from "@angular/router"
 import { MatIconButton } from "@angular/material/button"
 import { MatButtonToggle, MatButtonToggleChange, MatButtonToggleGroup } from "@angular/material/button-toggle"
 import { MatDivider } from "@angular/material/divider"
@@ -24,6 +25,7 @@ export class HeaderMobileComponent implements OnDestroy {
   themeService = inject(ThemeService)
   activeFieldService = inject(ActiveFieldService)
   private snackBar = inject(SnackbarService)
+  private router = inject(Router)
 
   menuOpen = signal(false)
   pressedItemId = signal<string | null>(null)
@@ -66,36 +68,36 @@ export class HeaderMobileComponent implements OnDestroy {
 
   enableOneVsOne() {
     this.updateMenuWithFeedback("1v1", () => {
-      this.menuStore.enableOneVsOne()
+      this.router.navigate(["one-vs-one"])
       this.store.updateSecondAttacker("")
     })
   }
 
   enableOneVsMany() {
-    this.updateMenuWithFeedback("1vMany", () => this.menuStore.enableOneVsMany())
+    this.updateMenuWithFeedback("1vMany", () => this.router.navigate(["team-vs-many"]))
   }
 
   enableManyVsOne() {
     this.updateMenuWithFeedback("Manyv1", () => {
-      this.menuStore.enableManyVsOne()
+      this.router.navigate(["many-vs-team"])
       this.store.updateSecondAttacker("")
     })
   }
 
   enableSpeedCalculator() {
-    this.updateMenuWithFeedback("speed", () => this.menuStore.enableSpeedCalculator())
+    this.updateMenuWithFeedback("speed", () => this.router.navigate(["speed-calc"]))
   }
 
   enableProbabilityCalc() {
-    this.updateMenuWithFeedback("probability", () => this.menuStore.enableProbabilityCalculator())
+    this.updateMenuWithFeedback("probability", () => this.router.navigate(["probability-calc"]))
   }
 
   enableTypeCalculator() {
-    this.updateMenuWithFeedback("type", () => this.menuStore.enableTypeCalculator())
+    this.updateMenuWithFeedback("type", () => this.router.navigate(["type-calc"]))
   }
 
   enableHowToUse() {
-    this.updateMenuWithFeedback("howToUse", () => this.menuStore.enableHowToUse())
+    this.updateMenuWithFeedback("howToUse", () => this.router.navigate(["how-to-use"]))
   }
 
   setTheme(themeName: Theme) {

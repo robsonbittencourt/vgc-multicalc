@@ -12,6 +12,44 @@
   min-height: 50vh;
 }
 
+.faq-section {
+  width: 100%;
+  max-width: 900px;
+  margin-bottom: 3rem;
+  text-align: left;
+}
+
+.faq-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: var(--text);
+}
+
+.faq-item {
+  border-bottom: 1px solid var(--widget-border);
+  padding: 1.25rem 0;
+
+  h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem;
+    color: var(--text);
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    opacity: 0.85;
+    color: var(--text);
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
 .cards-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));

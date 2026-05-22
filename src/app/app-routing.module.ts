@@ -6,6 +6,13 @@ import { NotFoundPageComponent } from "./core/not-found-page/not-found-page.comp
 
 const appRoutes: Routes = [
   { path: "", component: MainComponent },
+  { path: "one-vs-one", component: MainComponent, data: { tool: "oneVsOne" } },
+  { path: "team-vs-many", component: MainComponent, data: { tool: "oneVsMany" } },
+  { path: "many-vs-team", component: MainComponent, data: { tool: "manyVsOne" } },
+  { path: "speed-calc", component: MainComponent, data: { tool: "speed" } },
+  { path: "type-calc", component: MainComponent, data: { tool: "type" } },
+  { path: "probability-calc", component: MainComponent, data: { tool: "probability" } },
+  { path: "how-to-use", component: MainComponent, data: { tool: "howToUse" } },
   { path: "data/:userDataId", component: MainComponent, resolve: { userData: UserDataResolver } },
   { path: "**", component: NotFoundPageComponent }
 ]
