@@ -1,5 +1,3 @@
-import { v4 as uuidv4 } from "uuid"
-
 export interface TableData<T> {
   group: string
   data: T[]
@@ -21,7 +19,7 @@ export interface ActiveFilter {
 }
 
 export class ColumnConfig<T> {
-  id: string = uuidv4()
+  id: string = crypto.randomUUID()
   field: keyof T
   header?: string
   description?: string

@@ -2,7 +2,6 @@ import { CalculatorState, PokemonState, TargetState, TeamMemberState, TeamState 
 import { SELECT_POKEMON_LABEL } from "@lib/constants"
 import { defaultPokemon } from "@lib/default-pokemon"
 import { Regulation } from "@lib/types"
-import { v4 as uuidv4 } from "uuid"
 
 export function buildUserData(
   speedCalcPokemon: PokemonState,
@@ -94,7 +93,7 @@ function buildPokemonState(pokemon: any): PokemonState {
   const abilityOn = isDefault ? pokemon.ability.on : pokemon.abilityOn
 
   return {
-    id: uuidv4(),
+    id: crypto.randomUUID(),
     name: pokemon.name,
     nature: pokemon.nature,
     item: pokemon.item,
@@ -118,7 +117,7 @@ function buildPokemonState(pokemon: any): PokemonState {
 function buildTeamState(teams: any): TeamState[] {
   return teams.map((team: any, index: number) => {
     return {
-      id: uuidv4(),
+      id: crypto.randomUUID(),
       active: index == 0,
       name: team.name,
       teamMembers: buildTeamMemberState(team.teamMembers)

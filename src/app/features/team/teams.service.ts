@@ -6,7 +6,6 @@ import { TeamMember } from "@lib/model/team-member"
 import { Pokemon } from "@lib/model/pokemon"
 import { SnackbarService } from "@lib/snackbar.service"
 import { ExportPokeService } from "@lib/user-data/export-poke.service"
-import { v4 as uuidv4 } from "uuid"
 
 @Injectable({
   providedIn: "root"
@@ -47,7 +46,7 @@ export class TeamsService {
     if (lastTeam && lastTeam.onlyHasDefaultPokemon()) {
       this.activateTeam(lastTeam)
     } else {
-      const newTeam = new Team(uuidv4(), false, `Team ${teams.length + 1}`, [new TeamMember(defaultPokemon(), true)])
+      const newTeam = new Team(crypto.randomUUID(), false, `Team ${teams.length + 1}`, [new TeamMember(defaultPokemon(), true)])
       this.store.addTeam(newTeam)
       this.activateTeam(newTeam)
     }
@@ -62,7 +61,7 @@ export class TeamsService {
       const newTeams = allTeams.filter(t => t.id !== activeTeamId)
 
       if (newTeams.length === 0) {
-        const newTeam = new Team(uuidv4(), true, `Team ${newTeams.length + 1}`, [new TeamMember(defaultPokemon(), true)])
+        const newTeam = new Team(crypto.randomUUID(), true, `Team ${newTeams.length + 1}`, [new TeamMember(defaultPokemon(), true)])
         this.store.updateTeams([newTeam])
       } else {
         this.store.updateTeams(newTeams)
@@ -73,7 +72,7 @@ export class TeamsService {
       const pokemon = defaultPokemon()
       const activeIndex = this.store.teams().findIndex(t => t.active)
       const inactiveTeams = this.store.teams().filter(t => !t.active)
-      const newTeam = new Team(uuidv4(), true, `Team ${activeIndex + 1}`, [new TeamMember(pokemon, true)])
+      const newTeam = new Team(crypto.randomUUID(), true, `Team ${activeIndex + 1}`, [new TeamMember(pokemon, true)])
       inactiveTeams.splice(activeIndex, 0, newTeam)
 
       this.store.updateTeams(inactiveTeams)
@@ -101,12 +100,12 @@ export class TeamsService {
     }
 
     if (isMobile) {
-      const newTeam = new Team(uuidv4(), false, `Team ${this.store.teams().length + 1}`, teamMembers)
+      const newTeam = new Team(crypto.randomUUID(), false, `Team ${this.store.teams().length + 1}`, teamMembers)
       this.store.addTeam(newTeam)
       this.activateTeam(newTeam)
     } else {
       const teamSlotToImport = this.store.teams().find(t => t.onlyHasDefaultPokemon())!
-      const teamToImport = new Team(uuidv4(), teamSlotToImport.active, teamSlotToImport.name, teamMembers)
+      const teamToImport = new Team(crypto.randomUUID(), teamSlotToImport.active, teamSlotToImport.name, teamMembers)
       this.store.replaceTeam(teamToImport, teamSlotToImport.id)
       this.activateTeam(teamToImport)
     }
@@ -136,7 +135,7 @@ export class TeamsService {
       const teamNumber = teams.length + 1
 
       for (let index = 0; index < teamsToAdd; index++) {
-        this.store.addTeam(new Team(uuidv4(), false, `Team ${teamNumber + index}`, [new TeamMember(defaultPokemon(), true)]))
+        this.store.addTeam(new Team(crypto.randomUUID(), false, `Team ${teamNumber + index}`, [new TeamMember(defaultPokemon(), true)]))
       }
     }
   }

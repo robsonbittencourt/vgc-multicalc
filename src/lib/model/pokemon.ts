@@ -13,8 +13,6 @@ import { Jumps, PokemonParameters, Stats } from "@lib/types"
 import { Pokemon as SmogonPokemon } from "@robsonbittencourt/calc"
 import { NatureName, TypeName } from "@robsonbittencourt/calc/dist/data/interface"
 import { StatID, StatIDExceptHP } from "@robsonbittencourt/calc/src/data/interface"
-import { v4 as uuidv4 } from "uuid"
-
 export class Pokemon {
   readonly id: string
   readonly moveSet: MoveSet
@@ -32,7 +30,7 @@ export class Pokemon {
     const adjustedName = name == SELECT_POKEMON_LABEL ? "Togepi" : name
     this.smogonPokemon = fromScratch(adjustedName, options)
 
-    this.id = options.id ?? uuidv4()
+    this.id = options.id ?? crypto.randomUUID()
     this.moveSet = options.moveSet ?? new MoveSet(new Move("Struggle"), new Move("Struggle"), new Move("Struggle"), new Move("Struggle"))
     this.ability = new Ability(this.smogonPokemon.ability as string, this.smogonPokemon.abilityOn)
     this.teraType = options.teraType ?? DEFAULT_TERA_TYPE

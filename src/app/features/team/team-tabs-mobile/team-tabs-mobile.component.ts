@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from "uuid"
 import { SpriteService } from "@data/sprite.service"
 import { Component, computed, inject, model, output, viewChild } from "@angular/core"
 import { NgClass } from "@angular/common"
@@ -188,7 +187,7 @@ export class TeamTabsMobileComponent {
     if (Array.isArray(pokemon)) {
       if (pokemon.length > 0) {
         const teamMembers = pokemon.map((p, index) => new TeamMember(p, index === 0))
-        const newTeam = new Team(uuidv4(), true, "Imported Team", teamMembers)
+        const newTeam = new Team(crypto.randomUUID(), true, "Imported Team", teamMembers)
         this.store.replaceActiveTeam(newTeam)
       }
 

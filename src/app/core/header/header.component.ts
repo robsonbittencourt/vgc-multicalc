@@ -12,7 +12,6 @@ import { MenuStore } from "@data/store/menu-store"
 import { SnackbarService } from "@lib/snackbar.service"
 import { ThemeService } from "@lib/theme.service"
 import { Router } from "@angular/router"
-import { v4 as uuidv4 } from "uuid"
 
 @Component({
   selector: "app-header",
@@ -31,7 +30,7 @@ export class HeaderComponent {
   userDataLink: string
 
   uploadData() {
-    const id = uuidv4()
+    const id = crypto.randomUUID()
     const activeStore = this.activeFieldService.activeStore()
     const activeField = typeof activeStore?.field === "function" ? activeStore.field() : null
     const userData = { ...this.store.buildUserData(), field: activeField ? { ...activeField } : null }
