@@ -2,6 +2,7 @@ import { importProvidersFrom, provideZonelessChangeDetection } from "@angular/co
 import { provideHttpClient, withFetch } from "@angular/common/http"
 import { bootstrapApplication } from "@angular/platform-browser"
 import { provideAnimations } from "@angular/platform-browser/animations"
+import { provideServiceWorker } from "@angular/service-worker"
 import { AppRoutingModule } from "@app/app-routing.module"
 import { AppComponent } from "@app/app.component"
 import { CALC_ADJUSTERS } from "@lib/damage-calculator/calc-adjuster/calc-adjuster"
@@ -32,7 +33,11 @@ bootstrapApplication(AppComponent, {
     { provide: CALC_ADJUSTERS, useClass: ZacianZamazentaAdjuster, multi: true },
     { provide: CALC_ADJUSTERS, useClass: NeutralizingGasAdjuster, multi: true },
     { provide: CALC_ADJUSTERS, useClass: OgerponAdjuster, multi: true },
-    { provide: CALC_ADJUSTERS, useClass: SupremeOverlordAdjuster, multi: true }
+    { provide: CALC_ADJUSTERS, useClass: SupremeOverlordAdjuster, multi: true },
+    provideServiceWorker("ngsw-worker.js", {
+      enabled: window.location.hostname !== "localhost",
+      registrationStrategy: "registerWhenStable:30000"
+    })
   ]
 })
   .then(() => {
