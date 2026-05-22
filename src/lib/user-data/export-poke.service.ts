@@ -6,8 +6,6 @@ import { CalculatorStore } from "@data/store/calculator-store"
 import { Pokemon } from "@lib/model/pokemon"
 import { evToSp } from "@lib/utils/ev-sp-converter"
 import { normalizePokemonNameForExport } from "@lib/smogon/pokemon-name-normalizer"
-import dedent from "dedent"
-
 @Injectable({
   providedIn: "root"
 })
@@ -15,10 +13,9 @@ export class ExportPokeService {
   private dialog = inject(MatDialog)
   private store = inject(CalculatorStore)
 
-  export(title: string, pokemon: Pokemon[], useSpsMode?: boolean): void
-  export(title: string, pokemon: Pokemon, useSpsMode?: boolean): void
-  export(title: string, ...args: any[]): void {
-    let result = ""
+  export(title: string, pokemon: Pokemon[], useSpsMode?: boolean): Promise<void>
+  export(title: string, pokemon: Pokemon, useSpsMode?: boolean): Promise<void>
+  async export(title: string, ...args: any[]): Promise<void> {
     let pokemonArray: Pokemon[] = []
     let useSps = false
 
@@ -35,16 +32,13 @@ export class ExportPokeService {
       }
     }
 
-    pokemonArray.forEach(p => {
-      if (!p.isDefault) {
-        result += this.parse(p, useSps) + "\n"
-      }
-    })
-
-    this.openModal(title, result)
+    const toExport = pokemonArray.filter(p => !p.isDefault)
+    const results = await Promise.all(toExport.map(p => this.parse(p, useSps)))
+    this.openModal(title, results.map(r => r + "\n").join(""))
   }
 
-  private parse(pokemon: Pokemon, useSpsMode = false): string {
+  private async parse(pokemon: Pokemon, useSpsMode = false): Promise<string> {
+    const { default: dedent } = await import("dedent")
     let text = dedent`
       ${normalizePokemonNameForExport(pokemon.name)} @ ${pokemon.item}
       Ability: ${pokemon.ability.name}
