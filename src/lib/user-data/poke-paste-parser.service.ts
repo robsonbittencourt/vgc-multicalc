@@ -6,7 +6,6 @@ import { MoveSet } from "@lib/model/moveset"
 import { Pokemon } from "@lib/model/pokemon"
 import { Stats } from "@lib/types"
 import { spToEv } from "@lib/utils/ev-sp-converter"
-import axios from "axios"
 import { Koffing } from "koffing"
 
 @Injectable({
@@ -24,8 +23,9 @@ export class PokePasteParserService {
   }
 
   private async parseFromPokePaste(pokePasteLink: string): Promise<Pokemon[]> {
-    const res = await axios.get(`${pokePasteLink}/raw`)
-    return this.parseFromText(res.data)
+    const res = await fetch(`${pokePasteLink}/raw`)
+    const text = await res.text()
+    return this.parseFromText(text)
   }
 
   private parseFromText(teamInTextFormat: string): Pokemon[] {

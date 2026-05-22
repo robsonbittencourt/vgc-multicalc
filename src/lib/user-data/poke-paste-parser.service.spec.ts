@@ -1,7 +1,6 @@
 import { provideZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
 import { PokePasteParserService } from "@lib/user-data/poke-paste-parser.service"
-import axios from "axios"
 import { Koffing } from "koffing"
 
 describe("PokePasteParserService", () => {
@@ -271,12 +270,12 @@ describe("PokePasteParserService", () => {
         })
     }
 
-    spyOn(axios, "get").and.returnValue(Promise.resolve({ data: mockPokePasteText }))
+    spyOn(window, "fetch").and.returnValue(Promise.resolve(new Response(mockPokePasteText)))
     koffingParseSpy.and.returnValue(mockKoffingResult)
 
     const result = await service.parse("https://pokepast.es/12345")
 
-    expect(axios.get).toHaveBeenCalledWith("https://pokepast.es/12345/raw")
+    expect(window.fetch).toHaveBeenCalledWith("https://pokepast.es/12345/raw")
     expect(result.length).toBe(1)
     expect(result[0].name).toBe("Urshifu-Rapid-Strike")
     expect(result[0].move1Name).toBe(randomMove1)

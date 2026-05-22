@@ -30,7 +30,6 @@
     "@angular/ssr": "21.2.12",
     "@ngrx/signals": "21.1.0",
     "@robsonbittencourt/calc": "^0.11.12",
-    "axios": "1.16.1",
     "dedent": "1.7.2",
     "koffing": "1.0.0",
     "rxjs": "7.8.2",
