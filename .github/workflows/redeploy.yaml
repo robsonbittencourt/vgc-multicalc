@@ -1,0 +1,32 @@
+name: Deploy Main Branch
+on:
+  workflow_dispatch:
+
+env:
+  NODE_VERSION: "24.15.0"
+
+jobs:
+  deploy:
+    name: Deploy Main Branch
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6.0.2
+        with:
+          ref: main
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6.4.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci && npm install -g @angular/cli
+
+      - name: Deploy
+        run: ng deploy --cname=vgcmulticalc.com --name="robsonbittencourt" --email=robson.luizv@gmail.com
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

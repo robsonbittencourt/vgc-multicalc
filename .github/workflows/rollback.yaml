@@ -1,0 +1,29 @@
+name: Rollback
+on:
+  workflow_dispatch:
+    inputs:
+      commits_to_revert:
+        description: "Number of deploys to revert"
+        required: false
+        default: "1"
+
+jobs:
+  rollback:
+    name: Rollback
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout gh-pages branch
+        uses: actions/checkout@v6.0.2
+        with:
+          ref: gh-pages
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Revert to previous version
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git reset --hard HEAD~${{ github.event.inputs.commits_to_revert }}
+          git push --force
