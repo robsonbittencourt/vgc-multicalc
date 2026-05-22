@@ -13,7 +13,7 @@
     <div class="body">
       <div class="card-right-side">
         <div class="pokemon-image-container">
-          <img class="pokemon-image" src="assets/icons/question.png" />
+          <img class="pokemon-image" src="assets/icons/question.png" width="120" height="120" loading="lazy" />
           <app-pokemon-combo-box [pokemonId]="effectiveTarget().pokemon.id" label="" [autoFocus]="true" data-cy="card-pokemon-select" />
         </div>
       </div>
@@ -38,22 +38,22 @@
         <div class="left-side">
           @if (isDefaultAttacker()) {
             <div class="pokemon-image-container">
-              <img class="pokemon-image is-placeholder" src="assets/icons/question.png" />
+              <img class="pokemon-image is-placeholder" src="assets/icons/question.png" width="120" height="120" loading="lazy" />
             </div>
           } @else {
             <div class="left-pokemon" (click)="activate(damageResult().attacker.id)" matTooltip="Edit" [matTooltipDisabled]="collapsible()" [matTooltipShowDelay]="500" [attr.data-cy]="attackerSelector()">
-              <img class="pokemon-image" [src]="attackerSpritePath()" />
+              <img class="pokemon-image" [src]="attackerSpritePath()" width="256" height="256" loading="lazy" />
             </div>
             @if (damageResult().secondAttacker) {
               <div class="left-pokemon" (click)="activate(damageResult().secondAttacker!.id)" matTooltip="Edit" [matTooltipDisabled]="collapsible()" [matTooltipShowDelay]="500" [attr.data-cy]="secondAttackerSelector()">
-                <img class="pokemon-image" [src]="secondAttackerSpritePath()" />
+                <img class="pokemon-image" [src]="secondAttackerSpritePath()" width="256" height="256" loading="lazy" />
               </div>
             }
           }
         </div>
 
         <div class="middle">
-          <img class="vs-icon" src="assets/icons/vs.png" />
+          <img class="vs-icon" src="assets/icons/vs.png" width="70" height="70" loading="lazy" />
         </div>
 
         <div class="right-side" [class.is-champions]="store.isChampions()">
@@ -61,7 +61,7 @@
             <div class="body">
               <div class="card-right-side">
                 <div class="pokemon-image-container">
-                  <img class="pokemon-image is-placeholder" src="assets/icons/question.png" />
+                  <img class="pokemon-image is-placeholder" src="assets/icons/question.png" width="120" height="120" loading="lazy" />
                 </div>
               </div>
             </div>
@@ -125,13 +125,13 @@
 
                     @if (isMegaStoneCompatible()) {
                       <button class="icon-button mega-icon-button" [class.mega-active]="pokemonOnCard().name.includes('-Mega')" (click)="toggleMega()">
-                        <img class="mega-icon" [class.mega-active]="pokemonOnCard().name.includes('-Mega')" src="assets/sprites/items/{{ getMegaStoneSprite() }}.png" />
+                        <img class="mega-icon" [class.mega-active]="pokemonOnCard().name.includes('-Mega')" src="assets/sprites/items/{{ getMegaStoneSprite() }}.png" width="120" height="120" loading="lazy" />
                       </button>
                     }
 
                     @if (showDeleteButton()) {
                       <button class="icon-button" (click)="removePokemon($event)" data-cy="delete-opponent-pokemon">
-                        <img class="icon-trash" src="assets/icons/trash.png" />
+                        <img class="icon-trash" src="assets/icons/trash.png" width="25" height="25" loading="lazy" />
                       </button>
                     }
 

@@ -21,7 +21,7 @@
                 @for (typeItem of transposedCoverageData()![0].typeData; track typeItem.targetPokemon.id) {
                   <th class="pokemon-header">
                     <div class="pokemon-container">
-                      <img class="pokemon-image-small" [src]="spriteService.path(typeItem.targetPokemon.name)" [alt]="typeItem.targetPokemon.name" data-cy="pokemon-image-small" />
+                      <img class="pokemon-image-small" [src]="spriteService.path(typeItem.targetPokemon.name)" [alt]="typeItem.targetPokemon.name" width="256" height="256" loading="lazy" data-cy="pokemon-image-small" />
                       @if (considerTeraType() && typeItem.targetPokemon.teraType) {
                         <span class="tera-type-label">{{ typeItem.targetPokemon.teraType }}</span>
                       }
@@ -34,7 +34,7 @@
                 @for (pokemonData of coverageData()[0].pokemonData; track pokemonData.pokemon.id) {
                   <th class="pokemon-header" data-cy="pokemon-header">
                     <div class="pokemon-container">
-                      <img class="pokemon-image-small" [src]="spriteService.path(pokemonData.pokemon.name)" [alt]="pokemonData.pokemon.name" data-cy="pokemon-image-small" />
+                      <img class="pokemon-image-small" [src]="spriteService.path(pokemonData.pokemon.name)" [alt]="pokemonData.pokemon.name" width="256" height="256" loading="lazy" data-cy="pokemon-image-small" />
                       @if (considerTeraBlast() && hasTeraBlast(pokemonData.pokemon) && getPokemonTeraType(pokemonData.pokemon)) {
                         <span class="tera-blast-label">Tera Blast {{ getPokemonTeraType(pokemonData.pokemon) }}</span>
                       }
@@ -53,7 +53,7 @@
               <tr>
                 <td class="type-cell">
                   <div class="pokemon-container-horizontal">
-                    <img class="pokemon-image-small" [src]="spriteService.path(attackerRow.attacker.name)" [alt]="attackerRow.attacker.name" data-cy="pokemon-image-small" />
+                    <img class="pokemon-image-small" [src]="spriteService.path(attackerRow.attacker.name)" [alt]="attackerRow.attacker.name" width="256" height="256" loading="lazy" data-cy="pokemon-image-small" />
                     @if (considerTeraBlast() && hasTeraBlast(attackerRow.attacker) && getPokemonTeraType(attackerRow.attacker)) {
                       <span class="tera-blast-label">Tera Blast {{ getPokemonTeraType(attackerRow.attacker) }}</span>
                     }

@@ -1,7 +1,7 @@
 <div class="header">
   <div class="left-header">
-    <img class="slowking-icon" src="assets/icons/slowking.png" />
-    <img class="icon" src="assets/icons/calc-72x72.png" />
+    <img class="slowking-icon" src="assets/icons/slowking.png" width="96" height="96" />
+    <img class="icon" src="assets/icons/calc-72x72.png" width="72" height="72" />
     <span class="title">VGC Multi Calc</span>
   </div>
   <div class="right-header">
@@ -52,7 +52,7 @@
       @for (theme of themeService.getThemes(); track theme.name) {
         <div class="menu-item" [ngClass]="{ 'active-menu-option': themeService.selectedTheme().name === theme.name, pressed: pressedItemId() === 'theme-' + theme.name }" (click)="setTheme(theme.name)">
           <div class="pokemon-image-container">
-            <img class="pokemon-image" src="assets/sprites/menu/{{ theme.pokemon }}.png" />
+            <img class="pokemon-image" src="assets/sprites/menu/{{ theme.pokemon }}.png" width="192" height="200" loading="lazy" />
           </div>
           <span>{{ theme.name | titlecase }}</span>
         </div>
@@ -64,7 +64,7 @@
       @for (color of themeService.getColors(); track color.name) {
         <div class="menu-item" [ngClass]="{ 'active-menu-option': themeService.selectedColor().name === color.name, pressed: pressedItemId() === 'color-' + color.name }" (click)="setColor(color.name)">
           <div class="pokemon-image-container">
-            <img class="pokemon-image" src="assets/sprites/menu/{{ color.pokemon }}.png" />
+            <img class="pokemon-image" src="assets/sprites/menu/{{ color.pokemon }}.png" width="192" height="200" loading="lazy" />
           </div>
           <span>{{ color.name | titlecase }}</span>
         </div>

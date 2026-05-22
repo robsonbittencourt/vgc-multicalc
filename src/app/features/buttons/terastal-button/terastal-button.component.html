@@ -1,7 +1,7 @@
 <div (click)="terastalyzePokemon($event)" matTooltip="Terastal" [matTooltipShowDelay]="1000" data-cy="terastal-button">
   @if (pokemon().teraTypeActive) {
-    <img class="icon-tera" src="assets/icons/tera-icon.png" data-cy="terastal-activated" />
+    <img class="icon-tera" src="assets/icons/tera-icon.png" width="50" height="44" loading="lazy" data-cy="terastal-activated" />
   } @else {
-    <img class="icon-tera" src="assets/icons/tera-icon-gray.png" data-cy="terastal-deactivated" />
+    <img class="icon-tera" src="assets/icons/tera-icon-gray.png" width="50" height="44" loading="lazy" data-cy="terastal-deactivated" />
   }
 </div>

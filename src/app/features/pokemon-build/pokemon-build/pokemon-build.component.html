@@ -2,7 +2,7 @@
   <div class="data">
     <div class="pokemon-image-container">
       <div class="pokemon-image question-image">
-        <img src="assets/icons/question.png" />
+        <img src="assets/icons/question.png" width="120" height="120" loading="lazy" />
       </div>
 
       <app-input
@@ -20,7 +20,7 @@
   <div class="data">
     <div class="pokemon-image-container" [ngStyle]="(reverse() && { order: 4 }) || null">
       <div class="pokemon-image">
-        <img src="assets/sprites/pokemon-home/{{ pokemon().name }}.png" />
+        <img src="assets/sprites/pokemon-home/{{ pokemon().name }}.png" width="256" height="256" loading="lazy" />
       </div>
 
       <app-input
@@ -40,7 +40,7 @@
       <div class="item-with-mega">
         @if (isMegaStoneCompatible()) {
           <div class="mega-icon-wrapper">
-            <img class="mega-icon" [ngClass]="{ 'mega-active': pokemon().name.includes('-Mega') }" src="assets/sprites/items/{{ getMegaStoneSprite() }}.png" (click)="toggleMega()" />
+            <img class="mega-icon" [ngClass]="{ 'mega-active': pokemon().name.includes('-Mega') }" src="assets/sprites/items/{{ getMegaStoneSprite() }}.png" width="120" height="120" loading="lazy" (click)="toggleMega()" />
           </div>
         }
         <app-input

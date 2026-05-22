@@ -19,7 +19,7 @@
           <div class="combo-item-with-mega">
             @if (isMegaStoneCompatible()) {
               <div class="mega-icon-wrapper-mobile">
-                <img class="mega-icon-mobile" [ngClass]="{ 'mega-active': pokemon().name.includes('-Mega') }" src="assets/sprites/items/{{ getMegaStoneSprite() }}.png" (click)="toggleMega()" />
+                <img class="mega-icon-mobile" [ngClass]="{ 'mega-active': pokemon().name.includes('-Mega') }" src="assets/sprites/items/{{ getMegaStoneSprite() }}.png" width="120" height="120" loading="lazy" (click)="toggleMega()" />
               </div>
             }
             <app-item-combo-box [pokemonId]="pokemonId()" />
@@ -43,7 +43,7 @@
           <div class="combo-item-with-mega">
             @if (isMegaStoneCompatible()) {
               <div class="mega-icon-wrapper-mobile">
-                <img class="mega-icon-mobile" [ngClass]="{ 'mega-active': pokemon().name.includes('-Mega') }" src="assets/sprites/items/{{ getMegaStoneSprite() }}.png" (click)="toggleMega()" />
+                <img class="mega-icon-mobile" [ngClass]="{ 'mega-active': pokemon().name.includes('-Mega') }" src="assets/sprites/items/{{ getMegaStoneSprite() }}.png" width="120" height="120" loading="lazy" (click)="toggleMega()" />
               </div>
             }
             <app-item-combo-box [pokemonId]="pokemonId()" />

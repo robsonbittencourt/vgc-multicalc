@@ -26,7 +26,7 @@
           >Positive Nature, {{ maxSpLabel() }}: <b>{{ maxWithNature() }}</b></span
         >
       </div>
-      <img [src]="spriteService.path(pokemonName())" [alt]="pokemonName()" />
+      <img [src]="spriteService.path(pokemonName())" [alt]="pokemonName()" width="256" height="256" loading="lazy" />
     </div>
 
     @if (usageInsights().length > 0) {

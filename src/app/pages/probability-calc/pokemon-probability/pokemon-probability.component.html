@@ -4,7 +4,7 @@
       <div class="pokemon-container">
         <div class="pokemon-header">
           <div class="pokemon-image">
-            <img [src]="spriteService.path(effectivePokemon().name)" />
+            <img [src]="spriteService.path(effectivePokemon().name)" width="256" height="256" loading="lazy" />
           </div>
           <div class="pokemon-move-info">
             <h3>{{ effectivePokemon().activeMoveName }}</h3>
@@ -190,7 +190,7 @@
   } @else {
     <div class="empty-message" data-cy="pokemon-probability-empty-message">
       <div class="empty-content">
-        <img class="question-icon" src="assets/icons/question.png" />
+        <img class="question-icon" src="assets/icons/question.png" width="120" height="120" loading="lazy" />
         <span>Select a Pokémon</span>
       </div>
     </div>
