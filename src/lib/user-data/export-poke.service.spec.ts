@@ -25,7 +25,7 @@ describe("ExportPokeService", () => {
     service = TestBed.inject(ExportPokeService)
   })
 
-  it("should export a Pokémon", () => {
+  it("should export a Pokémon", async () => {
     const pokemon = new Pokemon("Rillaboom", {
       ability: new Ability("Grassy Surge"),
       nature: "Adamant",
@@ -35,12 +35,12 @@ describe("ExportPokeService", () => {
       evs: { hp: 140, atk: 116, def: 4, spa: 0, spd: 84, spe: 164 }
     })
 
-    service.export("Title", pokemon)
+    await service.export("Title", pokemon)
 
     expect(dialogSpy.open).toHaveBeenCalledWith(TeamExportModalComponent, { data: { title: "Title", content: pasteWithOnePokemon }, width: "40em", position: { top: "2em" }, autoFocus: false, scrollStrategy: jasmine.any(NoopScrollStrategy) })
   })
 
-  it("should export Aegislash forms as Aegislash", () => {
+  it("should export Aegislash forms as Aegislash", async () => {
     const pokemonShield = new Pokemon("Aegislash-Shield", {
       ability: new Ability("Stance Change"),
       nature: "Quiet",
@@ -59,12 +59,12 @@ describe("ExportPokeService", () => {
       evs: { hp: 32, atk: 0, def: 1, spa: 32, spd: 1, spe: 0 }
     })
 
-    service.export("Title", [pokemonShield, pokemonBlade])
+    await service.export("Title", [pokemonShield, pokemonBlade])
 
     expect(dialogSpy.open).toHaveBeenCalledWith(TeamExportModalComponent, { data: { title: "Title", content: pasteWithAegislashBoth }, width: "40em", position: { top: "2em" }, autoFocus: false, scrollStrategy: jasmine.any(NoopScrollStrategy) })
   })
 
-  it("should export a Pokémon with less than 4 moves without undefined lines", () => {
+  it("should export a Pokémon with less than 4 moves without undefined lines", async () => {
     const pokemon = new Pokemon("Ditto", {
       ability: new Ability("Limber"),
       nature: "Hardy",
@@ -74,12 +74,12 @@ describe("ExportPokeService", () => {
       ivs: { hp: 31, atk: 30, def: 31, spa: 31, spd: 31, spe: 31 }
     })
 
-    service.export("Title", pokemon)
+    await service.export("Title", pokemon)
 
     expect(dialogSpy.open).toHaveBeenCalledWith(TeamExportModalComponent, { data: { title: "Title", content: pasteWithOneMove }, width: "40em", position: { top: "2em" }, autoFocus: false, scrollStrategy: jasmine.any(NoopScrollStrategy) })
   })
 
-  it("should export a list of Pokémon", () => {
+  it("should export a list of Pokémon", async () => {
     const pokemon1 = new Pokemon("Rillaboom", {
       ability: new Ability("Grassy Surge"),
       nature: "Adamant",
@@ -108,7 +108,7 @@ describe("ExportPokeService", () => {
       ivs: { hp: 1, atk: 2, def: 3, spa: 4, spd: 5, spe: 6 }
     })
 
-    service.export("Title", [pokemon1, pokemon2, pokemon3])
+    await service.export("Title", [pokemon1, pokemon2, pokemon3])
 
     expect(dialogSpy.open).toHaveBeenCalledWith(TeamExportModalComponent, { data: { title: "Title", content: pasteWithThreePokemon }, width: "40em", position: { top: "2em" }, autoFocus: false, scrollStrategy: jasmine.any(NoopScrollStrategy) })
   })

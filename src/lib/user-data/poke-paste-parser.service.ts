@@ -6,7 +6,6 @@ import { MoveSet } from "@lib/model/moveset"
 import { Pokemon } from "@lib/model/pokemon"
 import { Stats } from "@lib/types"
 import { spToEv } from "@lib/utils/ev-sp-converter"
-import { Koffing } from "koffing"
 
 @Injectable({
   providedIn: "root"
@@ -28,7 +27,8 @@ export class PokePasteParserService {
     return this.parseFromText(text)
   }
 
-  private parseFromText(teamInTextFormat: string): Pokemon[] {
+  private async parseFromText(teamInTextFormat: string): Promise<Pokemon[]> {
+    const { Koffing } = await import("koffing")
     const parsedTeam = Koffing.parse(teamInTextFormat)
     const pokemonList = JSON.parse(parsedTeam.toJson()).teams[0].pokemon
 
