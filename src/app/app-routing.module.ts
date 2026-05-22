@@ -1,19 +1,18 @@
 import { NgModule } from "@angular/core"
 import { RouterModule, Routes } from "@angular/router"
 import { UserDataResolver } from "@lib/user-data/user-data-resolver"
-import { MainComponent } from "./core/main/main.component"
 import { NotFoundPageComponent } from "./core/not-found-page/not-found-page.component"
 
 const appRoutes: Routes = [
-  { path: "", component: MainComponent },
-  { path: "one-vs-one", component: MainComponent, data: { tool: "oneVsOne" } },
-  { path: "team-vs-many", component: MainComponent, data: { tool: "oneVsMany" } },
-  { path: "many-vs-team", component: MainComponent, data: { tool: "manyVsOne" } },
-  { path: "speed-calc", component: MainComponent, data: { tool: "speed" } },
-  { path: "type-calc", component: MainComponent, data: { tool: "type" } },
-  { path: "probability-calc", component: MainComponent, data: { tool: "probability" } },
-  { path: "how-to-use", component: MainComponent, data: { tool: "howToUse" } },
-  { path: "data/:userDataId", component: MainComponent, resolve: { userData: UserDataResolver } },
+  { path: "", loadComponent: () => import("@core/routes/home-route.component").then(m => m.HomeRouteComponent) },
+  { path: "one-vs-one", loadComponent: () => import("@core/routes/one-vs-one-route.component").then(m => m.OneVsOneRouteComponent) },
+  { path: "team-vs-many", loadComponent: () => import("@core/routes/team-vs-many-route.component").then(m => m.TeamVsManyRouteComponent) },
+  { path: "many-vs-team", loadComponent: () => import("@core/routes/many-vs-team-route.component").then(m => m.ManyVsTeamRouteComponent) },
+  { path: "speed-calc", loadComponent: () => import("@core/routes/speed-calc-route.component").then(m => m.SpeedCalcRouteComponent) },
+  { path: "type-calc", loadComponent: () => import("@core/routes/type-calc-route.component").then(m => m.TypeCalcRouteComponent) },
+  { path: "probability-calc", loadComponent: () => import("@core/routes/probability-calc-route.component").then(m => m.ProbabilityCalcRouteComponent) },
+  { path: "how-to-use", loadComponent: () => import("@core/routes/how-to-use-route.component").then(m => m.HowToUseRouteComponent) },
+  { path: "data/:userDataId", loadComponent: () => import("@core/routes/user-data-route.component").then(m => m.UserDataRouteComponent), resolve: { userData: UserDataResolver } },
   { path: "404", component: NotFoundPageComponent },
   { path: "**", component: NotFoundPageComponent }
 ]
