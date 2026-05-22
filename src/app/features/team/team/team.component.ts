@@ -11,6 +11,7 @@ import { Pokemon } from "@lib/model/pokemon"
 import { Team } from "@lib/model/team"
 import { TeamMember } from "@lib/model/team-member"
 import { Stats, SurvivalThreshold } from "@lib/types"
+import { uuid } from "@lib/utils/uuid"
 
 @Component({
   selector: "app-team",
@@ -54,7 +55,7 @@ export class TeamComponent {
     effect(() => {
       if (!this.store.team().hasDefaultPokemon() && !this.store.team().isFull()) {
         const teamMembers = [...this.store.team().teamMembers, new TeamMember(defaultPokemon(), false)]
-        const team = new Team(crypto.randomUUID(), this.store.team().active, this.store.team().name, teamMembers)
+        const team = new Team(uuid(), this.store.team().active, this.store.team().name, teamMembers)
 
         this.store.replaceActiveTeam(team)
       }
@@ -138,7 +139,7 @@ export class TeamComponent {
     }
 
     const teamMembers = [new TeamMember(inactiveMembers[0].pokemon, true), ...inactiveMembers.slice(1)]
-    const team = new Team(crypto.randomUUID(), this.store.team().active, this.store.team().name, teamMembers)
+    const team = new Team(uuid(), this.store.team().active, this.store.team().name, teamMembers)
 
     this.store.replaceActiveTeam(team)
     this.teamMemberSelected.emit(team.activePokemon().id)

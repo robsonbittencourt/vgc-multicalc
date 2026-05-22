@@ -5,6 +5,7 @@ import { readGameData, readUserData } from "@data/store/utils/user-data-storage"
 import { fixInvalidPokemon } from "@data/store/utils/migrate-user-data"
 import { defaultPokemon } from "@lib/default-pokemon"
 import { Status } from "@lib/model/status"
+import { uuid } from "@lib/utils/uuid"
 
 const initialId = "0dc51a43-1de8-4213-9686-fb07f2507b06"
 
@@ -27,7 +28,7 @@ export function defaultStateChampions() {
     game: "champions" as const,
 
     speedCalcPokemonState: {
-      id: crypto.randomUUID(),
+      id: uuid(),
       name: "Charizard",
       nature: "Timid",
       item: "Choice Scarf",
@@ -48,7 +49,7 @@ export function defaultStateChampions() {
     },
 
     leftPokemonState: {
-      id: crypto.randomUUID(),
+      id: uuid(),
       name: "Charizard",
       nature: "Timid",
       item: "Choice Scarf",
@@ -69,7 +70,7 @@ export function defaultStateChampions() {
     },
 
     rightPokemonState: {
-      id: crypto.randomUUID(),
+      id: uuid(),
       name: "Dragonite",
       nature: "Adamant",
       item: "Life Orb",
@@ -93,7 +94,7 @@ export function defaultStateChampions() {
 
     teamsState: [
       {
-        id: crypto.randomUUID(),
+        id: uuid(),
         active: true,
         name: "Team 1",
         teamMembers: [
@@ -123,7 +124,7 @@ export function defaultStateChampions() {
           {
             active: false,
             pokemon: {
-              id: crypto.randomUUID(),
+              id: uuid(),
               name: "Dragonite",
               nature: "Adamant",
               item: "Life Orb",
@@ -146,7 +147,7 @@ export function defaultStateChampions() {
           {
             active: false,
             pokemon: {
-              id: crypto.randomUUID(),
+              id: uuid(),
               name: "Venusaur",
               nature: "Calm",
               item: "Black Sludge",
@@ -169,7 +170,7 @@ export function defaultStateChampions() {
           {
             active: false,
             pokemon: {
-              id: crypto.randomUUID(),
+              id: uuid(),
               name: "Incineroar",
               nature: "Adamant",
               item: "Sitrus Berry",
@@ -192,19 +193,19 @@ export function defaultStateChampions() {
         ]
       },
       {
-        id: crypto.randomUUID(),
+        id: uuid(),
         active: false,
         name: "Team 2",
         teamMembers: [{ active: true, pokemon: pokemonToState(defaultPokemon()) }]
       },
       {
-        id: crypto.randomUUID(),
+        id: uuid(),
         active: false,
         name: "Team 3",
         teamMembers: [{ active: true, pokemon: pokemonToState(defaultPokemon()) }]
       },
       {
-        id: crypto.randomUUID(),
+        id: uuid(),
         active: false,
         name: "Team 4",
         teamMembers: [{ active: true, pokemon: pokemonToState(defaultPokemon()) }]
@@ -215,7 +216,7 @@ export function defaultStateChampions() {
       {
         active: false,
         pokemon: {
-          id: crypto.randomUUID(),
+          id: uuid(),
           name: "Blastoise",
           nature: "Modest",
           item: "Blastoisinite",
@@ -238,7 +239,7 @@ export function defaultStateChampions() {
       {
         active: false,
         pokemon: {
-          id: crypto.randomUUID(),
+          id: uuid(),
           name: "Arcanine",
           nature: "Adamant",
           item: "Choice Scarf",
@@ -261,7 +262,7 @@ export function defaultStateChampions() {
       {
         active: false,
         pokemon: {
-          id: crypto.randomUUID(),
+          id: uuid(),
           name: "Machamp",
           nature: "Adamant",
           item: "Choice Scarf",
@@ -284,7 +285,7 @@ export function defaultStateChampions() {
       {
         active: false,
         pokemon: {
-          id: crypto.randomUUID(),
+          id: uuid(),
           name: "Alakazam",
           nature: "Timid",
           item: "Alakazite",
@@ -307,7 +308,7 @@ export function defaultStateChampions() {
       {
         active: false,
         pokemon: {
-          id: crypto.randomUUID(),
+          id: uuid(),
           name: "Venusaur",
           nature: "Calm",
           item: "Venusaurite",
@@ -330,7 +331,7 @@ export function defaultStateChampions() {
       {
         active: false,
         pokemon: {
-          id: crypto.randomUUID(),
+          id: uuid(),
           name: "Aerodactyl",
           nature: "Jolly",
           item: "Aerodactylite",
@@ -353,7 +354,7 @@ export function defaultStateChampions() {
       {
         active: false,
         pokemon: {
-          id: crypto.randomUUID(),
+          id: uuid(),
           name: "Snorlax",
           nature: "Careful",
           item: "Sitrus Berry",
@@ -376,7 +377,7 @@ export function defaultStateChampions() {
       {
         active: false,
         pokemon: {
-          id: crypto.randomUUID(),
+          id: uuid(),
           name: "Incineroar",
           nature: "Adamant",
           item: "Sitrus Berry",
@@ -399,7 +400,7 @@ export function defaultStateChampions() {
       {
         active: false,
         pokemon: {
-          id: crypto.randomUUID(),
+          id: uuid(),
           name: "Charizard",
           nature: "Timid",
           item: "Choice Scarf",
@@ -435,7 +436,7 @@ export function defaultStateSV() {
     game: "sv" as const,
 
     speedCalcPokemonState: {
-      id: crypto.randomUUID(),
+      id: uuid(),
       name: "Miraidon",
       nature: "Modest",
       item: "Choice Specs",
@@ -456,7 +457,7 @@ export function defaultStateSV() {
     },
 
     leftPokemonState: {
-      id: crypto.randomUUID(),
+      id: uuid(),
       name: "Miraidon",
       nature: "Modest",
       item: "Choice Specs",
@@ -477,7 +478,7 @@ export function defaultStateSV() {
     },
 
     rightPokemonState: {
-      id: crypto.randomUUID(),
+      id: uuid(),
       name: "Koraidon",
       nature: "Adamant",
       item: "Clear Amulet",
@@ -501,7 +502,7 @@ export function defaultStateSV() {
 
     teamsState: [
       {
-        id: crypto.randomUUID(),
+        id: uuid(),
         active: true,
         name: "Team 1",
         teamMembers: [
@@ -531,7 +532,7 @@ export function defaultStateSV() {
           {
             active: false,
             pokemon: {
-              id: crypto.randomUUID(),
+              id: uuid(),
               name: "Koraidon",
               nature: "Adamant",
               item: "Clear Amulet",
@@ -554,7 +555,7 @@ export function defaultStateSV() {
           {
             active: false,
             pokemon: {
-              id: crypto.randomUUID(),
+              id: uuid(),
               name: "Rillaboom",
               nature: "Adamant",
               item: "Assault Vest",
@@ -577,7 +578,7 @@ export function defaultStateSV() {
           {
             active: false,
             pokemon: {
-              id: crypto.randomUUID(),
+              id: uuid(),
               name: "Incineroar",
               nature: "Impish",
               item: "Rocky Helmet",
@@ -600,19 +601,19 @@ export function defaultStateSV() {
         ]
       },
       {
-        id: crypto.randomUUID(),
+        id: uuid(),
         active: false,
         name: "Team 2",
         teamMembers: [{ active: true, pokemon: pokemonToState(defaultPokemon()) }]
       },
       {
-        id: crypto.randomUUID(),
+        id: uuid(),
         active: false,
         name: "Team 3",
         teamMembers: [{ active: true, pokemon: pokemonToState(defaultPokemon()) }]
       },
       {
-        id: crypto.randomUUID(),
+        id: uuid(),
         active: false,
         name: "Team 4",
         teamMembers: [{ active: true, pokemon: pokemonToState(defaultPokemon()) }]
@@ -623,7 +624,7 @@ export function defaultStateSV() {
       {
         active: false,
         pokemon: {
-          id: crypto.randomUUID(),
+          id: uuid(),
           name: "Urshifu-Rapid-Strike",
           nature: "Adamant",
           item: "Focus Sash",
@@ -646,7 +647,7 @@ export function defaultStateSV() {
       {
         active: false,
         pokemon: {
-          id: crypto.randomUUID(),
+          id: uuid(),
           name: "Incineroar",
           nature: "Impish",
           item: "Rocky Helmet",
@@ -669,7 +670,7 @@ export function defaultStateSV() {
       {
         active: false,
         pokemon: {
-          id: crypto.randomUUID(),
+          id: uuid(),
           name: "Rillaboom",
           nature: "Adamant",
           item: "Assault Vest",
@@ -692,7 +693,7 @@ export function defaultStateSV() {
       {
         active: false,
         pokemon: {
-          id: crypto.randomUUID(),
+          id: uuid(),
           name: "Amoonguss",
           nature: "Bold",
           item: "Rocky Helmet",
@@ -715,7 +716,7 @@ export function defaultStateSV() {
       {
         active: false,
         pokemon: {
-          id: crypto.randomUUID(),
+          id: uuid(),
           name: "Flutter Mane",
           nature: "Timid",
           item: "Booster Energy",
@@ -738,7 +739,7 @@ export function defaultStateSV() {
       {
         active: false,
         pokemon: {
-          id: crypto.randomUUID(),
+          id: uuid(),
           name: "Calyrex-Shadow",
           nature: "Timid",
           item: "Life Orb",
@@ -761,7 +762,7 @@ export function defaultStateSV() {
       {
         active: false,
         pokemon: {
-          id: crypto.randomUUID(),
+          id: uuid(),
           name: "Calyrex-Ice",
           nature: "Adamant",
           item: "Clear Amulet",
@@ -784,7 +785,7 @@ export function defaultStateSV() {
       {
         active: false,
         pokemon: {
-          id: crypto.randomUUID(),
+          id: uuid(),
           name: "Miraidon",
           nature: "Modest",
           item: "Choice Specs",
@@ -807,7 +808,7 @@ export function defaultStateSV() {
       {
         active: false,
         pokemon: {
-          id: crypto.randomUUID(),
+          id: uuid(),
           name: "Zamazenta-Crowned",
           nature: "Impish",
           item: "Rusted Shield",
@@ -830,7 +831,7 @@ export function defaultStateSV() {
       {
         active: false,
         pokemon: {
-          id: crypto.randomUUID(),
+          id: uuid(),
           name: "Terapagos-Terastal",
           nature: "Modest",
           item: "Leftovers",

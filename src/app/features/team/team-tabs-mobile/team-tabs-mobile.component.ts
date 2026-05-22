@@ -11,6 +11,7 @@ import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-b
 import { Pokemon } from "@lib/model/pokemon"
 import { TeamMember } from "@lib/model/team-member"
 import { Team } from "@lib/model/team"
+import { uuid } from "@lib/utils/uuid"
 
 @Component({
   selector: "app-team-tabs-mobile",
@@ -187,7 +188,7 @@ export class TeamTabsMobileComponent {
     if (Array.isArray(pokemon)) {
       if (pokemon.length > 0) {
         const teamMembers = pokemon.map((p, index) => new TeamMember(p, index === 0))
-        const newTeam = new Team(crypto.randomUUID(), true, "Imported Team", teamMembers)
+        const newTeam = new Team(uuid(), true, "Imported Team", teamMembers)
         this.store.replaceActiveTeam(newTeam)
       }
 

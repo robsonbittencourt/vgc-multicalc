@@ -10,6 +10,7 @@ import { CalculatorStore, Game } from "@data/store/calculator-store"
 import { MenuStore } from "@data/store/menu-store"
 import { SnackbarService } from "@lib/snackbar.service"
 import { Color, Theme, ThemeService } from "@lib/theme.service"
+import { uuid } from "@lib/utils/uuid"
 
 @Component({
   selector: "app-header-mobile",
@@ -111,7 +112,7 @@ export class HeaderMobileComponent implements OnDestroy {
   }
 
   async shareCalcs() {
-    const id = crypto.randomUUID()
+    const id = uuid()
     const activeStore = this.activeFieldService.activeStore()
     const activeField = typeof activeStore?.field === "function" ? activeStore.field() : null
     const userData = { ...this.store.buildUserData(), field: activeField ? { ...activeField } : null }
