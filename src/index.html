@@ -6,6 +6,15 @@
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0" />
     <meta name="description" content="Free Pokémon damage calculator for VGC and Pokémon Champions. Calculate damage against multiple Pokémon at once (multi-target), with IVs/EVs, abilities and full move support." />
+    <meta property="og:title" content="Pokémon Damage Calculator - Multi Calc - VGC Champions" />
+    <meta property="og:description" content="Free Pokémon damage calculator for VGC and Pokémon Champions. Calculate damage against multiple Pokémon at once (multi-target), with IVs/EVs, abilities and full move support." />
+    <meta property="og:url" content="https://vgcmulticalc.com/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://vgcmulticalc.com/assets/icons/calc-512x512.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Pokémon Damage Calculator - Multi Calc - VGC Champions" />
+    <meta name="twitter:description" content="Free Pokémon damage calculator for VGC and Pokémon Champions. Calculate damage against multiple Pokémon at once (multi-target), with IVs/EVs, abilities and full move support." />
+    <meta name="twitter:image" content="https://vgcmulticalc.com/assets/icons/calc-512x512.png" />
     <meta name="google-site-verification" content="IgzHmHjAGAdqb-eRfNND3mpM4LzBbEmDS2RBi7B5Wds" />
     <script type="application/ld+json">
       {
@@ -94,7 +103,7 @@
       }
     </style>
     <script>
-      (function () {
+      ;(function () {
         try {
           var raw = localStorage.getItem("userData")
           var theme = raw ? JSON.parse(raw)?.themeData?.theme : null
@@ -108,7 +117,7 @@
   <body class="mat-typography">
     <div id="app-splash" aria-hidden="true"></div>
     <script>
-      (function () {
+      ;(function () {
         var theme = document.documentElement.dataset.splashTheme
         if (theme) {
           document.getElementById("app-splash").classList.add(theme)
@@ -116,13 +125,13 @@
       })()
     </script>
     <app-root>
-      <div style="display:none">
+      <div style="display: none">
         <h1>Pokémon Damage Calculator</h1>
         <p>The free multi-target Pokémon damage calculator for VGC and Pokémon Champions. Calculate damage rolls, KO chance, OHKO and 2HKO probabilities against multiple Pokémon at once, with full support for EVs, Natures, abilities and items.</p>
         <h2>Multi-Target Damage Calculator</h2>
         <h2>Speed Calculator</h2>
         <h2>Probability Calculator</h2>
-        <h2>Type Calculator</h2>        
+        <h2>Type Calculator</h2>
       </div>
     </app-root>
   </body>

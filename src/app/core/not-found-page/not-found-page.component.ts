@@ -1,4 +1,5 @@
-import { Component } from "@angular/core"
+import { Component, inject, OnInit } from "@angular/core"
+import { Meta, Title } from "@angular/platform-browser"
 import { RouterLink } from "@angular/router"
 
 @Component({
@@ -7,4 +8,12 @@ import { RouterLink } from "@angular/router"
   styleUrls: ["./not-found-page.component.scss"],
   imports: [RouterLink]
 })
-export class NotFoundPageComponent {}
+export class NotFoundPageComponent implements OnInit {
+  private meta = inject(Meta)
+  private title = inject(Title)
+
+  ngOnInit() {
+    this.title.setTitle("Page Not Found - VGC Multi Calc")
+    this.meta.updateTag({ name: "robots", content: "noindex, follow" })
+  }
+}

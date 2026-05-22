@@ -6,3 +6,4 @@
 /type-calc
 /probability-calc
 /how-to-use
+/404

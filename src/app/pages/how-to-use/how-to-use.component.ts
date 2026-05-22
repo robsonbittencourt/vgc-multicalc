@@ -1,6 +1,5 @@
-import { Component, inject, OnInit, signal } from "@angular/core"
-import { PlatformLocation } from "@angular/common"
-import { Meta, Title } from "@angular/platform-browser"
+import { Component, inject, OnDestroy, OnInit, signal } from "@angular/core"
+import { DOCUMENT, PlatformLocation } from "@angular/common"
 import { MatCardModule } from "@angular/material/card"
 import { MatIconModule } from "@angular/material/icon"
 import { HowToUseProbabilityComponent } from "./how-to-use-probability/how-to-use-probability.component"
@@ -37,10 +36,9 @@ import { AutomaticFieldService } from "@lib/automatic-field-service"
   styleUrl: "./how-to-use.component.scss",
   providers: [FieldStore, AutomaticFieldService, { provide: FIELD_CONTEXT, useValue: "how-to-use" }]
 })
-export class HowToUseComponent implements OnInit {
+export class HowToUseComponent implements OnInit, OnDestroy {
   private location = inject(PlatformLocation)
-  private meta = inject(Meta)
-  private title = inject(Title)
+  private document = inject(DOCUMENT)
 
   activePage = signal<"menu" | "video" | "probability" | "evOptimization" | "typeCalc" | "speedCalc" | "teamVsMany" | "manyVsTeam" | "simpleCalc" | "import" | "export">("menu")
 
@@ -106,12 +104,19 @@ export class HowToUseComponent implements OnInit {
       ]
     }
 
-    if (typeof document === "undefined") return
+    const existing = this.document.getElementById("faq-schema")
 
-    const script = document.createElement("script")
+    if (existing) return
+
+    const script = this.document.createElement("script")
+    script.id = "faq-schema"
     script.type = "application/ld+json"
     script.text = JSON.stringify(faqSchema)
-    document.head.appendChild(script)
+    this.document.head.appendChild(script)
+  }
+
+  ngOnDestroy() {
+    this.document.getElementById("faq-schema")?.remove()
   }
 
   setActivePage(page: "menu" | "video" | "probability" | "evOptimization" | "typeCalc" | "speedCalc" | "teamVsMany" | "manyVsTeam" | "simpleCalc" | "import" | "export") {

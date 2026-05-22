@@ -16,22 +16,26 @@ import { RuinsAbilityAdjuster } from "@lib/damage-calculator/calc-adjuster/ruins
 import { ZacianZamazentaAdjuster } from "@lib/damage-calculator/calc-adjuster/zacian-zamazenta-adjuster"
 
 const bootstrap = (context?: BootstrapContext) =>
-  bootstrapApplication(AppComponent, {
-    providers: [
-      importProvidersFrom(AppRoutingModule),
-      provideZonelessChangeDetection(),
-      provideHttpClient(withFetch()),
-      provideServerRendering(),
-      { provide: CALC_ADJUSTERS, useClass: RuinsAbilityAdjuster, multi: true },
-      { provide: CALC_ADJUSTERS, useClass: FairyAuraAdjuster, multi: true },
-      { provide: CALC_ADJUSTERS, useClass: LastRespectsAdjuster, multi: true },
-      { provide: CALC_ADJUSTERS, useClass: RageFistAdjuster, multi: true },
-      { provide: CALC_ADJUSTERS, useClass: StompingTantrumAdjuster, multi: true },
-      { provide: CALC_ADJUSTERS, useClass: ZacianZamazentaAdjuster, multi: true },
-      { provide: CALC_ADJUSTERS, useClass: NeutralizingGasAdjuster, multi: true },
-      { provide: CALC_ADJUSTERS, useClass: OgerponAdjuster, multi: true },
-      { provide: CALC_ADJUSTERS, useClass: SupremeOverlordAdjuster, multi: true }
-    ]
-  }, context)
+  bootstrapApplication(
+    AppComponent,
+    {
+      providers: [
+        importProvidersFrom(AppRoutingModule),
+        provideZonelessChangeDetection(),
+        provideHttpClient(withFetch()),
+        provideServerRendering(),
+        { provide: CALC_ADJUSTERS, useClass: RuinsAbilityAdjuster, multi: true },
+        { provide: CALC_ADJUSTERS, useClass: FairyAuraAdjuster, multi: true },
+        { provide: CALC_ADJUSTERS, useClass: LastRespectsAdjuster, multi: true },
+        { provide: CALC_ADJUSTERS, useClass: RageFistAdjuster, multi: true },
+        { provide: CALC_ADJUSTERS, useClass: StompingTantrumAdjuster, multi: true },
+        { provide: CALC_ADJUSTERS, useClass: ZacianZamazentaAdjuster, multi: true },
+        { provide: CALC_ADJUSTERS, useClass: NeutralizingGasAdjuster, multi: true },
+        { provide: CALC_ADJUSTERS, useClass: OgerponAdjuster, multi: true },
+        { provide: CALC_ADJUSTERS, useClass: SupremeOverlordAdjuster, multi: true }
+      ]
+    },
+    context
+  )
 
 export default bootstrap

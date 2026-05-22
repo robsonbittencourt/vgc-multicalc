@@ -14,6 +14,7 @@ const appRoutes: Routes = [
   { path: "probability-calc", component: MainComponent, data: { tool: "probability" } },
   { path: "how-to-use", component: MainComponent, data: { tool: "howToUse" } },
   { path: "data/:userDataId", component: MainComponent, resolve: { userData: UserDataResolver } },
+  { path: "404", component: NotFoundPageComponent },
   { path: "**", component: NotFoundPageComponent }
 ]
 

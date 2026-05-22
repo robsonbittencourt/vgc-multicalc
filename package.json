@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build && cp dist/browser/404/index.html dist/browser/404.html && node scripts/update-sitemap.mjs",
     "watch": "ng build --watch --configuration development",
     "test": "ng test --code-coverage --watch=false --exclude='**/*.performance.spec.ts'",
     "test-watch": "ng test --code-coverage --exclude='**/*.performance.spec.ts'",
