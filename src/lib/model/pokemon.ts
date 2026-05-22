@@ -3,6 +3,7 @@ import { Items } from "@data/items"
 import { POKEMON_DETAILS } from "@data/pokemon-details"
 import { POKEMON_DETAILS_CHAMPIONS } from "@data/pokemon-details-champions"
 import { DEFAULT_TERA_TYPE, SELECT_POKEMON_LABEL } from "@lib/constants"
+import { uuid } from "@lib/utils/uuid"
 import { Ability } from "@lib/model/ability"
 import { Move } from "@lib/model/move"
 import { MoveSet } from "@lib/model/moveset"
@@ -30,7 +31,7 @@ export class Pokemon {
     const adjustedName = name == SELECT_POKEMON_LABEL ? "Togepi" : name
     this.smogonPokemon = fromScratch(adjustedName, options)
 
-    this.id = options.id ?? crypto.randomUUID()
+    this.id = options.id ?? uuid()
     this.moveSet = options.moveSet ?? new MoveSet(new Move("Struggle"), new Move("Struggle"), new Move("Struggle"), new Move("Struggle"))
     this.ability = new Ability(this.smogonPokemon.ability as string, this.smogonPokemon.abilityOn)
     this.teraType = options.teraType ?? DEFAULT_TERA_TYPE

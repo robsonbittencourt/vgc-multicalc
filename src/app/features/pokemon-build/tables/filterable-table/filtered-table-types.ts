@@ -13,13 +13,15 @@ export interface LinkedTableData<T> {
   prev: LinkedTableData<T> | null
 }
 
+import { uuid } from "@lib/utils/uuid"
+
 export interface ActiveFilter {
   field: string
   value: any
 }
 
 export class ColumnConfig<T> {
-  id: string = crypto.randomUUID()
+  id: string = uuid()
   field: keyof T
   header?: string
   description?: string

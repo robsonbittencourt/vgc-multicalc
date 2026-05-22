@@ -3,6 +3,7 @@ import { Items } from "@data/items"
 import { Status } from "@lib/model/status"
 import { FaintedIconComponent } from "@pages/simple-calc/pokemon-hp-badge/champions-hp-badge/fainted-icon/fainted-icon.component"
 import { StatusIconComponent } from "@pages/simple-calc/pokemon-hp-badge/champions-hp-badge/status-icon/status-icon.component"
+import { uuid } from "@lib/utils/uuid"
 
 @Component({
   selector: "app-champions-hp-badge",
@@ -13,7 +14,7 @@ import { StatusIconComponent } from "@pages/simple-calc/pokemon-hp-badge/champio
 export class ChampionsHpBadgeComponent {
   static imageCache = new Map<string, string>()
 
-  readonly uid = crypto.randomUUID()
+  readonly uid = uuid()
   readonly hudPath = "M 85,25 L 460,25 C 472,25 478,28 475,38 L 460,84 C 458,90 450,92 445,92 L 152,92 L 143,125 C 139,135 123,150 110,150 C 105,150 55,150 22,150 C 14,150 10,146 10,138 L 43.9,44.75 C 50,30 65,25 85,25 Z"
   _actualSpriteName: string | undefined
 

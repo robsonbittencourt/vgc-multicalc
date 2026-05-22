@@ -1,4 +1,5 @@
 import { Pokemon } from "@lib/model/pokemon"
+import { uuid } from "@lib/utils/uuid"
 
 export class SpeedDefinition {
   id: string
@@ -7,7 +8,7 @@ export class SpeedDefinition {
   description: string[]
 
   constructor(pokemon: Pokemon, speed: number, ...description: string[]) {
-    this.id = crypto.randomUUID()
+    this.id = uuid()
     this.pokemon = pokemon
     this.value = speed
     this.description = description
