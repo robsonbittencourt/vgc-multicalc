@@ -34,6 +34,8 @@ export class HeaderMobileComponent implements OnDestroy {
 
   constructor() {
     effect(() => {
+      if (typeof document === "undefined") return
+
       if (this.menuOpen()) {
         document.body.classList.add("menu-open")
       } else {
@@ -43,6 +45,8 @@ export class HeaderMobileComponent implements OnDestroy {
   }
 
   ngOnDestroy() {
+    if (typeof document === "undefined") return
+
     document.body.classList.remove("menu-open")
   }
 

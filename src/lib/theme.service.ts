@@ -45,6 +45,8 @@ export class ThemeService {
   }
 
   private applyTheme() {
+    if (typeof document === "undefined") return
+
     const colorScheme = this.store.theme() === "system" ? "light dark" : this.store.theme()
     document.body.style.colorScheme = colorScheme
   }
@@ -68,6 +70,8 @@ export class ThemeService {
   }
 
   private applyCollor() {
+    if (typeof document === "undefined") return
+
     document.body.className = `${this.store.color()}-theme`
   }
 }

@@ -84,8 +84,8 @@ export class SpeedCalculatorMobileComponent {
     return !!source && !source.isDefault
   })
 
-  lastHandledPokemonName = ""
-  lastHandledAbilityName = ""
+  lastHandledPokemonName = "\0"
+  lastHandledAbilityName = "\0"
 
   constructor() {
     const iconRegistry = inject(MatIconRegistry)

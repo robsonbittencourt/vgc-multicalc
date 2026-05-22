@@ -15,6 +15,7 @@ export class ThemeStore extends signalStore(
   withHooks(store => ({
     onInit() {
       effect(() => {
+        if (typeof localStorage === "undefined") return
         const userData = JSON.parse(localStorage.getItem("userData")!)
         const themeData = {
           theme: store.theme(),

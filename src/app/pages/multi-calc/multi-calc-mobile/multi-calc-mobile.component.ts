@@ -147,8 +147,8 @@ export class MultiCalcMobileComponent {
   private lastScrollTop = 0
   pokemonOnEditId = signal<string | null>(null)
 
-  lastHandledPokemonNameFirst = ""
-  lastHandledAbilityNameFirst = ""
+  lastHandledPokemonNameFirst = "\0"
+  lastHandledAbilityNameFirst = "\0"
   lastHandledPokemonNameSecond: string | undefined = undefined
   lastHandledAbilityNameSecond: string | undefined = undefined
   expandedDefenderIds = signal<Set<string>>(new Set())

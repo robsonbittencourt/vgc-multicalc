@@ -1,0 +1,8 @@
+/
+/one-vs-one
+/team-vs-many
+/many-vs-team
+/speed-calc
+/type-calc
+/probability-calc
+/how-to-use

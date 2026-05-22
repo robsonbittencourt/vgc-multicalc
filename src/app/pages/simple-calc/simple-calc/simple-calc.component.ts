@@ -55,10 +55,10 @@ export class SimpleCalcComponent {
   rightOriginalEvs = signal<Stats>({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
   rightOriginalNature = signal<string>("")
 
-  lastHandledLeftPokemonName = ""
-  lastHandledLeftAbilityName = ""
-  lastHandledRightPokemonName = ""
-  lastHandledRightAbilityName = ""
+  lastHandledLeftPokemonName = "\0"
+  lastHandledLeftAbilityName = "\0"
+  lastHandledRightPokemonName = "\0"
+  lastHandledRightAbilityName = "\0"
 
   constructor() {
     effect(() => {

@@ -106,6 +106,8 @@ export class HowToUseComponent implements OnInit {
       ]
     }
 
+    if (typeof document === "undefined") return
+
     const script = document.createElement("script")
     script.type = "application/ld+json"
     script.text = JSON.stringify(faqSchema)

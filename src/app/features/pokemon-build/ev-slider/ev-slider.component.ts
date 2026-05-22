@@ -132,6 +132,8 @@ export class EvSliderComponent {
 
   constructor() {
     effect(() => {
+      if (typeof ResizeObserver === "undefined") return
+
       const slider = this.sliderElement()
 
       if (slider) {

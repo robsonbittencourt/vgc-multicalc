@@ -1,4 +1,5 @@
 import { importProvidersFrom, provideZonelessChangeDetection } from "@angular/core"
+import { provideHttpClient, withFetch } from "@angular/common/http"
 import { bootstrapApplication } from "@angular/platform-browser"
 import { provideAnimations } from "@angular/platform-browser/animations"
 import { AppRoutingModule } from "@app/app-routing.module"
@@ -22,6 +23,7 @@ bootstrapApplication(AppComponent, {
     importProvidersFrom(AppRoutingModule),
     provideAnimations(),
     provideZonelessChangeDetection(),
+    provideHttpClient(withFetch()),
     { provide: CALC_ADJUSTERS, useClass: RuinsAbilityAdjuster, multi: true },
     { provide: CALC_ADJUSTERS, useClass: FairyAuraAdjuster, multi: true },
     { provide: CALC_ADJUSTERS, useClass: LastRespectsAdjuster, multi: true },
@@ -32,4 +34,9 @@ bootstrapApplication(AppComponent, {
     { provide: CALC_ADJUSTERS, useClass: OgerponAdjuster, multi: true },
     { provide: CALC_ADJUSTERS, useClass: SupremeOverlordAdjuster, multi: true }
   ]
-}).catch(err => console.error(err))
+})
+  .then(() => {
+    const splash = document.getElementById("app-splash")
+    splash?.remove()
+  })
+  .catch(err => console.error(err))

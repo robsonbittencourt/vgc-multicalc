@@ -50,8 +50,8 @@ export class MultiCalcComponent implements OnInit {
     return RollLevelConfig.fromConfigString(level)
   })
 
-  lastHandledPokemonNameFirst = ""
-  lastHandledAbilityNameFirst = ""
+  lastHandledPokemonNameFirst = "\0"
+  lastHandledAbilityNameFirst = "\0"
   lastHandledPokemonNameSecond: string | undefined = undefined
   lastHandledAbilityNameSecond: string | undefined = undefined
   lastHandledTargetOnEditName = ""

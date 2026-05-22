@@ -11,6 +11,7 @@ function replacePokemonName(obj: any, oldName: string, newName: string): void {
 }
 
 export function migrateUserData() {
+  if (typeof localStorage === "undefined") return
   const raw = localStorage.getItem("userData")
   if (!raw) return
 
@@ -30,6 +31,7 @@ export function migrateUserData() {
 }
 
 export function fixInvalidPokemon() {
+  if (typeof localStorage === "undefined") return
   const raw = localStorage.getItem("userData")
   if (!raw) return
 

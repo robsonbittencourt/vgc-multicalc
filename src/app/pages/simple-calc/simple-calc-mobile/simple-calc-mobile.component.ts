@@ -81,10 +81,10 @@ export class SimpleCalcMobileComponent {
     return new Target(this.currentPokemon())
   })
 
-  lastHandledLeftPokemonName = ""
-  lastHandledLeftAbilityName = ""
-  lastHandledRightPokemonName = ""
-  lastHandledRightAbilityName = ""
+  lastHandledLeftPokemonName = "\0"
+  lastHandledLeftAbilityName = "\0"
+  lastHandledRightPokemonName = "\0"
+  lastHandledRightAbilityName = "\0"
 
   constructor() {
     const iconRegistry = inject(MatIconRegistry)

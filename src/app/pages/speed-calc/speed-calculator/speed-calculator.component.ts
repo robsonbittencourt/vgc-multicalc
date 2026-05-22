@@ -29,8 +29,8 @@ export class SpeedCalculatorComponent {
   isPokemonDefault = computed(() => this.store.team().activePokemon().isDefault)
   isChampions = computed(() => this.store.game() === "champions")
 
-  lastHandledPokemonName = ""
-  lastHandledAbilityName = ""
+  lastHandledPokemonName = "\0"
+  lastHandledAbilityName = "\0"
   lastHandledGame = ""
 
   constructor() {
