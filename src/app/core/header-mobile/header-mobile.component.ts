@@ -10,7 +10,6 @@ import { CalculatorStore, Game } from "@data/store/calculator-store"
 import { MenuStore } from "@data/store/menu-store"
 import { SnackbarService } from "@lib/snackbar.service"
 import { Color, Theme, ThemeService } from "@lib/theme.service"
-import axios from "axios"
 import { v4 as uuidv4 } from "uuid"
 
 @Component({
@@ -117,7 +116,10 @@ export class HeaderMobileComponent implements OnDestroy {
     const activeStore = this.activeFieldService.activeStore()
     const activeField = typeof activeStore?.field === "function" ? activeStore.field() : null
     const userData = { ...this.store.buildUserData(), field: activeField ? { ...activeField } : null }
-    axios.put(`https://l7enx1vgm7.execute-api.us-east-1.amazonaws.com/v1/vgc-multi-calc/${id}`, userData)
+    fetch(`https://l7enx1vgm7.execute-api.us-east-1.amazonaws.com/v1/vgc-multi-calc/${id}`, {
+      method: "PUT",
+      body: JSON.stringify(userData)
+    })
     const link = `https://vgcmulticalc.com/data/${id}`
 
     if (navigator.share) {
