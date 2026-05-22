@@ -1,5 +1,6 @@
-import { Component } from "@angular/core"
+import { Component, inject, OnInit } from "@angular/core"
 import { RouterOutlet } from "@angular/router"
+import { AppUpdateService } from "@lib/app-update.service"
 
 @Component({
   selector: "app-root",
@@ -7,4 +8,10 @@ import { RouterOutlet } from "@angular/router"
   styleUrls: ["./app.component.scss"],
   imports: [RouterOutlet]
 })
-export class AppComponent {}
+export class AppComponent implements OnInit {
+  private appUpdateService = inject(AppUpdateService)
+
+  ngOnInit() {
+    this.appUpdateService.init()
+  }
+}

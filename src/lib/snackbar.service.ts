@@ -10,4 +10,9 @@ export class SnackbarService {
   open(message: string) {
     this._snackBar.open(message, "", { duration: 4000, panelClass: "center", verticalPosition: "bottom" })
   }
+
+  openWithAction(message: string, action: string, callback: () => void) {
+    const ref = this._snackBar.open(message, action, { panelClass: "center", verticalPosition: "bottom" })
+    ref.onAction().subscribe(callback)
+  }
 }
