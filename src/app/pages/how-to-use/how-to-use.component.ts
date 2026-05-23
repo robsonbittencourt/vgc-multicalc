@@ -1,54 +1,53 @@
-import { Component, inject, OnDestroy, OnInit, signal } from "@angular/core"
-import { DOCUMENT, PlatformLocation } from "@angular/common"
+import { Component, inject, OnDestroy, OnInit } from "@angular/core"
+import { DOCUMENT } from "@angular/common"
+import { RouterLink } from "@angular/router"
+import { Meta, Title } from "@angular/platform-browser"
 import { MatCardModule } from "@angular/material/card"
 import { MatIconModule } from "@angular/material/icon"
-import { HowToUseProbabilityComponent } from "./how-to-use-probability/how-to-use-probability.component"
-import { HowToUseVideoComponent } from "./how-to-use-video/how-to-use-video.component"
-import { HowToUseEvOptimizationComponent } from "./how-to-use-ev-optimization/how-to-use-ev-optimization.component"
-import { HowToUseTypeCalcComponent } from "./how-to-use-type-calc/how-to-use-type-calc.component"
-import { HowToUseSpeedCalcComponent } from "./how-to-use-speed-calc/how-to-use-speed-calc.component"
-import { HowToUseTeamVsManyComponent } from "./how-to-use-team-vs-many/how-to-use-team-vs-many.component"
-import { HowToUseManyVsTeamComponent } from "./how-to-use-many-vs-team/how-to-use-many-vs-team.component"
-import { HowToUseSimpleCalcComponent } from "./how-to-use-simple-calc/how-to-use-simple-calc.component"
-import { HowToUseImportComponent } from "./how-to-use-import/how-to-use-import.component"
-import { HowToUseExportComponent } from "./how-to-use-export/how-to-use-export.component"
 import { FieldStore } from "@data/store/field-store"
 import { FIELD_CONTEXT } from "@data/store/tokens/field-context.token"
 import { AutomaticFieldService } from "@lib/automatic-field-service"
 
+const TITLE = "Pokémon Damage Calculator - How to Use - VGC Champions"
+const DESCRIPTION = "Learn how to use VGC Multi Calc: multi-target damage calculation, EV optimization, speed tiers, type coverage and damage probability for VGC and Pokémon Champions."
+const OG_IMAGE = "https://vgcmulticalc.com/assets/icons/calc-512x512.png"
+const URL = "https://vgcmulticalc.com/how-to-use"
+
 @Component({
   selector: "app-how-to-use",
-  imports: [
-    MatCardModule,
-    MatIconModule,
-    HowToUseVideoComponent,
-    HowToUseProbabilityComponent,
-    HowToUseEvOptimizationComponent,
-    HowToUseTypeCalcComponent,
-    HowToUseSpeedCalcComponent,
-    HowToUseTeamVsManyComponent,
-    HowToUseManyVsTeamComponent,
-    HowToUseSimpleCalcComponent,
-    HowToUseImportComponent,
-    HowToUseExportComponent
-  ],
+  imports: [MatCardModule, MatIconModule, RouterLink],
   templateUrl: "./how-to-use.component.html",
   styleUrl: "./how-to-use.component.scss",
   providers: [FieldStore, AutomaticFieldService, { provide: FIELD_CONTEXT, useValue: "how-to-use" }]
 })
 export class HowToUseComponent implements OnInit, OnDestroy {
-  private location = inject(PlatformLocation)
   private document = inject(DOCUMENT)
-
-  activePage = signal<"menu" | "video" | "probability" | "evOptimization" | "typeCalc" | "speedCalc" | "teamVsMany" | "manyVsTeam" | "simpleCalc" | "import" | "export">("menu")
-
-  constructor() {
-    this.location.onPopState(() => {
-      this.activePage.set("menu")
-    })
-  }
+  private meta = inject(Meta)
+  private title = inject(Title)
 
   ngOnInit() {
+    this.title.setTitle(TITLE)
+    this.meta.updateTag({ name: "description", content: DESCRIPTION })
+    this.meta.updateTag({ property: "og:title", content: TITLE })
+    this.meta.updateTag({ property: "og:description", content: DESCRIPTION })
+    this.meta.updateTag({ property: "og:url", content: URL })
+    this.meta.updateTag({ property: "og:type", content: "website" })
+    this.meta.updateTag({ property: "og:image", content: OG_IMAGE })
+    this.meta.updateTag({ name: "twitter:card", content: "summary_large_image" })
+    this.meta.updateTag({ name: "twitter:title", content: TITLE })
+    this.meta.updateTag({ name: "twitter:description", content: DESCRIPTION })
+    this.meta.updateTag({ name: "twitter:image", content: OG_IMAGE })
+
+    let canonical = this.document.querySelector<HTMLLinkElement>('link[rel="canonical"]')
+
+    if (!canonical) {
+      canonical = this.document.createElement("link")
+      canonical.setAttribute("rel", "canonical")
+      this.document.head.appendChild(canonical)
+    }
+
+    canonical.setAttribute("href", URL)
+
     const faqSchema = {
       "@context": "https://schema.org",
       "@type": "FAQPage",
@@ -117,16 +116,5 @@ export class HowToUseComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.document.getElementById("faq-schema")?.remove()
-  }
-
-  setActivePage(page: "menu" | "video" | "probability" | "evOptimization" | "typeCalc" | "speedCalc" | "teamVsMany" | "manyVsTeam" | "simpleCalc" | "import" | "export") {
-    if (page !== "menu") {
-      this.location.pushState(null, "", "")
-    } else if (this.activePage() !== "menu") {
-      window.history.back()
-      return
-    }
-
-    this.activePage.set(page)
   }
 }

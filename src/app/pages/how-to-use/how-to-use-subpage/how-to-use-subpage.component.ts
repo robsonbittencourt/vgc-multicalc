@@ -1,4 +1,6 @@
-import { Component, input, output, ViewEncapsulation } from "@angular/core"
+import { DOCUMENT } from "@angular/common"
+import { Component, inject, input, OnInit, ViewEncapsulation } from "@angular/core"
+import { Router } from "@angular/router"
 import { MatIconModule } from "@angular/material/icon"
 
 @Component({
@@ -26,11 +28,18 @@ import { MatIconModule } from "@angular/material/icon"
   styleUrl: "./how-to-use-subpage.component.scss",
   encapsulation: ViewEncapsulation.None
 })
-export class HowToUseSubpageComponent {
+export class HowToUseSubpageComponent implements OnInit {
+  private router = inject(Router)
+  private document = inject(DOCUMENT)
+
   title = input.required<string>()
-  back = output<void>()
+
+  ngOnInit() {
+    this.document.body.scrollTo({ top: 0, behavior: "instant" })
+    this.document.documentElement.scrollTo({ top: 0, behavior: "instant" })
+  }
 
   onBack() {
-    this.back.emit()
+    this.router.navigate(["/how-to-use"])
   }
 }

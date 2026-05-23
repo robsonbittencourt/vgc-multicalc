@@ -1,174 +1,152 @@
 <div class="container">
-  @if (activePage() === "menu") {
-    <section class="faq-section">
-      <h2 class="faq-title">Frequently Asked Questions</h2>
+  <section class="faq-section">
+    <h2 class="faq-title">Frequently Asked Questions</h2>
 
-      <div class="faq-item">
-        <h3>What is VGC Multi Calc?</h3>
-        <p>
-          VGC Multi Calc is a free Pokémon damage calculator built for VGC and Pokémon Champions Doubles. Unlike traditional calculators, it lets you calculate damage against multiple Pokémon at once — so you can evaluate your entire team's offensive
-          and defensive matchups in a single view.
-        </p>
-      </div>
-
-      <div class="faq-item">
-        <h3>How does the multi-target damage calculation work?</h3>
-        <p>
-          In Team vs Many mode, you pick one attacker and calculate its damage rolls against several targets simultaneously. In Many vs Team mode, you pick one defender and see how much damage multiple attackers deal to it. Both modes show damage
-          ranges, KO chance, OHKO and 2HKO probabilities for each matchup.
-        </p>
-      </div>
-
-      <div class="faq-item">
-        <h3>How do EVs and Natures affect damage in VGC?</h3>
-        <p>
-          EVs (Effort Values) and Natures directly modify a Pokémon's stats. Offensive EVs increase damage output while defensive EVs determine whether your Pokémon survives key hits. VGC Multi Calc lets you adjust EVs and Natures in real time to see
-          the exact damage rolls and KO chance for any matchup.
-        </p>
-      </div>
-
-      <div class="faq-item">
-        <h3>What is the difference between OHKO and 2HKO?</h3>
-        <p>
-          OHKO (One-Hit KO) means a move deals enough damage to knock out the target in a single hit. 2HKO (Two-Hit KO) means two hits are required. VGC Multi Calc shows the full damage roll distribution and the probability of achieving an OHKO or
-          2HKO for each spread.
-        </p>
-      </div>
-
-      <div class="faq-item">
-        <h3>How does the Speed Calculator work?</h3>
-        <p>
-          The Speed Calculator compares the effective Speed stats of multiple Pokémon after applying Nature, EVs and modifiers like Tailwind or Trick Room. It shows speed tiers so you can determine which Pokémon moves first in VGC and Pokémon
-          Champions Doubles matches.
-        </p>
-      </div>
-
-      <div class="faq-item">
-        <h3>Does VGC Multi Calc support Pokémon Champions?</h3>
-        <p>Yes. VGC Multi Calc fully supports Pokémon Champions, including its Regulations and all available Pokémon, moves, abilities and items. You can switch between game modes directly in the calculator.</p>
-      </div>
-    </section>
-
-    <div class="cards-grid">
-      <mat-card class="how-to-card elevation" (click)="setActivePage('video')">
-        <img mat-card-image src="assets/media/how-to-use/menu/youtube-video.png" alt="Video cover image" class="card-hero-image" width="799" height="369" loading="lazy" />
-        <mat-card-header>
-          <mat-card-title>Video Tutorial</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <p>Comprehensive video covering VGC Multi Calc features from basic functions to advanced tools.</p>
-        </mat-card-content>
-      </mat-card>
-
-      <mat-card class="how-to-card elevation" (click)="setActivePage('simpleCalc')">
-        <img mat-card-image src="assets/media/how-to-use/menu/one-vs-one-card.png" alt="One vs One preview" class="card-hero-image" width="1881" height="884" loading="lazy" />
-        <mat-card-header>
-          <mat-card-title>One vs One</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <p>The classic damage calc for detailed side-by-side analysis of specific Pokémon matchups.</p>
-        </mat-card-content>
-      </mat-card>
-
-      <mat-card class="how-to-card elevation" (click)="setActivePage('teamVsMany')">
-        <img mat-card-image src="assets/media/how-to-use/menu/team-vs-many-card.png" alt="Team vs Many preview" class="card-hero-image" width="446" height="188" loading="lazy" />
-        <mat-card-header>
-          <mat-card-title>Team vs Many</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <p>Analyze your Pokémon's offensive potential against several targets at once.</p>
-        </mat-card-content>
-      </mat-card>
-
-      <mat-card class="how-to-card elevation" (click)="setActivePage('manyVsTeam')">
-        <img mat-card-image src="assets/media/how-to-use/menu/many-vs-team-card.png" alt="Many vs Team preview" class="card-hero-image" width="446" height="188" loading="lazy" />
-        <mat-card-header>
-          <mat-card-title>Many vs Team</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <p>Evaluate your Pokémon's defensive durability against multiple threats.</p>
-        </mat-card-content>
-      </mat-card>
-
-      <mat-card class="how-to-card elevation" (click)="setActivePage('import')">
-        <img mat-card-image src="assets/media/how-to-use/menu/import-data.png" alt="Import Data preview" class="card-hero-image" width="1867" height="1711" loading="lazy" />
-        <mat-card-header>
-          <mat-card-title>Import Data</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <p>Learn how to quickly bring Pokémon and teams from Showdown and PokePaste into the tool.</p>
-        </mat-card-content>
-      </mat-card>
-
-      <mat-card class="how-to-card elevation" (click)="setActivePage('export')">
-        <img mat-card-image src="assets/media/how-to-use/menu/export-data.png" alt="Export & Share preview" class="card-hero-image" width="893" height="783" loading="lazy" />
-        <mat-card-header>
-          <mat-card-title>Export Data</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <p>Save your spreads in Showdown format or share your entire analysis with a single link.</p>
-        </mat-card-content>
-      </mat-card>
-
-      <mat-card class="how-to-card elevation" (click)="setActivePage('evOptimization')">
-        <img mat-card-image src="assets/media/how-to-use/menu/ev-optimizer.png" alt="EV Optimization preview" class="card-hero-image" width="919" height="590" loading="lazy" />
-        <mat-card-header>
-          <mat-card-title>EV Optimization</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <p>Learn how the tool calculates the absolute minimum defensive EVs to guarantee survival.</p>
-        </mat-card-content>
-      </mat-card>
-
-      <mat-card class="how-to-card elevation" (click)="setActivePage('speedCalc')">
-        <img mat-card-image src="assets/media/how-to-use/menu/speed-calc.png" alt="Speed Calc preview" class="card-hero-image" width="892" height="544" loading="lazy" />
-        <mat-card-header>
-          <mat-card-title>Speed Calc</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <p>Master the initiative order by visualizing speed tiers and effective speed modifiers like Tailwind and Trick Room.</p>
-        </mat-card-content>
-      </mat-card>
-
-      <mat-card class="how-to-card elevation" (click)="setActivePage('probability')">
-        <img mat-card-image src="assets/media/how-to-use/menu/probability-calc.png" alt="Probability Calc preview" class="card-hero-image" width="540" height="274" loading="lazy" />
-        <mat-card-header>
-          <mat-card-title>Probability Calc</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <p>Learn how to use the Consistency Score and analyze move success probabilities for your team.</p>
-        </mat-card-content>
-      </mat-card>
-
-      <mat-card class="how-to-card elevation" (click)="setActivePage('typeCalc')">
-        <img mat-card-image src="assets/media/how-to-use/menu/type-calc-card.png" alt="Type Calc preview" class="card-hero-image" width="919" height="538" loading="lazy" />
-        <mat-card-header>
-          <mat-card-title>Type Calc</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <p>Analyze offensive and defensive type coverage against specific teams to identify your party's strengths and weaknesses.</p>
-        </mat-card-content>
-      </mat-card>
+    <div class="faq-item">
+      <h3>What is VGC Multi Calc?</h3>
+      <p>
+        VGC Multi Calc is a free Pokémon damage calculator built for VGC and Pokémon Champions Doubles. Unlike traditional calculators, it lets you calculate damage against multiple Pokémon at once — so you can evaluate your entire team's offensive
+        and defensive matchups in a single view.
+      </p>
     </div>
-  } @else if (activePage() === "video") {
-    <app-how-to-use-video (back)="setActivePage('menu')" />
-  } @else if (activePage() === "probability") {
-    <app-how-to-use-probability (back)="setActivePage('menu')" />
-  } @else if (activePage() === "evOptimization") {
-    <app-how-to-use-ev-optimization (back)="setActivePage('menu')" />
-  } @else if (activePage() === "typeCalc") {
-    <app-how-to-use-type-calc (back)="setActivePage('menu')" />
-  } @else if (activePage() === "speedCalc") {
-    <app-how-to-use-speed-calc (back)="setActivePage('menu')" />
-  } @else if (activePage() === "teamVsMany") {
-    <app-how-to-use-team-vs-many (back)="setActivePage('menu')" />
-  } @else if (activePage() === "manyVsTeam") {
-    <app-how-to-use-many-vs-team (back)="setActivePage('menu')" />
-  } @else if (activePage() === "simpleCalc") {
-    <app-how-to-use-simple-calc (back)="setActivePage('menu')" />
-  } @else if (activePage() === "import") {
-    <app-how-to-use-import (back)="setActivePage('menu')" />
-  } @else if (activePage() === "export") {
-    <app-how-to-use-export (back)="setActivePage('menu')" />
-  }
+
+    <div class="faq-item">
+      <h3>How does the multi-target damage calculation work?</h3>
+      <p>
+        In Team vs Many mode, you pick one attacker and calculate its damage rolls against several targets simultaneously. In Many vs Team mode, you pick one defender and see how much damage multiple attackers deal to it. Both modes show damage
+        ranges, KO chance, OHKO and 2HKO probabilities for each matchup.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <h3>How do EVs and Natures affect damage in VGC?</h3>
+      <p>
+        EVs (Effort Values) and Natures directly modify a Pokémon's stats. Offensive EVs increase damage output while defensive EVs determine whether your Pokémon survives key hits. VGC Multi Calc lets you adjust EVs and Natures in real time to see
+        the exact damage rolls and KO chance for any matchup.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <h3>What is the difference between OHKO and 2HKO?</h3>
+      <p>
+        OHKO (One-Hit KO) means a move deals enough damage to knock out the target in a single hit. 2HKO (Two-Hit KO) means two hits are required. VGC Multi Calc shows the full damage roll distribution and the probability of achieving an OHKO or 2HKO
+        for each spread.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <h3>How does the Speed Calculator work?</h3>
+      <p>
+        The Speed Calculator compares the effective Speed stats of multiple Pokémon after applying Nature, EVs and modifiers like Tailwind or Trick Room. It shows speed tiers so you can determine which Pokémon moves first in VGC and Pokémon Champions
+        Doubles matches.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Does VGC Multi Calc support Pokémon Champions?</h3>
+      <p>Yes. VGC Multi Calc fully supports Pokémon Champions, including its Regulations and all available Pokémon, moves, abilities and items. You can switch between game modes directly in the calculator.</p>
+    </div>
+  </section>
+
+  <div class="cards-grid">
+    <mat-card class="how-to-card elevation" routerLink="video">
+      <img mat-card-image src="assets/media/how-to-use/menu/youtube-video.png" alt="Video cover image" class="card-hero-image" width="799" height="369" loading="lazy" />
+      <mat-card-header>
+        <mat-card-title>Video Tutorial</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Comprehensive video covering VGC Multi Calc features from basic functions to advanced tools.</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="how-to-card elevation" routerLink="one-vs-one">
+      <img mat-card-image src="assets/media/how-to-use/menu/one-vs-one-card.png" alt="One vs One preview" class="card-hero-image" width="1881" height="884" loading="lazy" />
+      <mat-card-header>
+        <mat-card-title>One vs One</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>The classic damage calc for detailed side-by-side analysis of specific Pokémon matchups.</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="how-to-card elevation" routerLink="team-vs-many">
+      <img mat-card-image src="assets/media/how-to-use/menu/team-vs-many-card.png" alt="Team vs Many preview" class="card-hero-image" width="446" height="188" loading="lazy" />
+      <mat-card-header>
+        <mat-card-title>Team vs Many</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Analyze your Pokémon's offensive potential against several targets at once.</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="how-to-card elevation" routerLink="many-vs-team">
+      <img mat-card-image src="assets/media/how-to-use/menu/many-vs-team-card.png" alt="Many vs Team preview" class="card-hero-image" width="446" height="188" loading="lazy" />
+      <mat-card-header>
+        <mat-card-title>Many vs Team</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Evaluate your Pokémon's defensive durability against multiple threats.</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="how-to-card elevation" routerLink="import-data">
+      <img mat-card-image src="assets/media/how-to-use/menu/import-data.png" alt="Import Data preview" class="card-hero-image" width="1867" height="1711" loading="lazy" />
+      <mat-card-header>
+        <mat-card-title>Import Data</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Learn how to quickly bring Pokémon and teams from Showdown and PokePaste into the tool.</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="how-to-card elevation" routerLink="export-data">
+      <img mat-card-image src="assets/media/how-to-use/menu/export-data.png" alt="Export & Share preview" class="card-hero-image" width="893" height="783" loading="lazy" />
+      <mat-card-header>
+        <mat-card-title>Export Data</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Save your spreads in Showdown format or share your entire analysis with a single link.</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="how-to-card elevation" routerLink="ev-optimization">
+      <img mat-card-image src="assets/media/how-to-use/menu/ev-optimizer.png" alt="EV Optimization preview" class="card-hero-image" width="919" height="590" loading="lazy" />
+      <mat-card-header>
+        <mat-card-title>EV Optimization</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Learn how the tool calculates the absolute minimum defensive EVs to guarantee survival.</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="how-to-card elevation" routerLink="speed-calc">
+      <img mat-card-image src="assets/media/how-to-use/menu/speed-calc.png" alt="Speed Calc preview" class="card-hero-image" width="892" height="544" loading="lazy" />
+      <mat-card-header>
+        <mat-card-title>Speed Calc</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Master the initiative order by visualizing speed tiers and effective speed modifiers like Tailwind and Trick Room.</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="how-to-card elevation" routerLink="probability-calc">
+      <img mat-card-image src="assets/media/how-to-use/menu/probability-calc.png" alt="Probability Calc preview" class="card-hero-image" width="540" height="274" loading="lazy" />
+      <mat-card-header>
+        <mat-card-title>Probability Calc</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Learn how to use the Consistency Score and analyze move success probabilities for your team.</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="how-to-card elevation" routerLink="type-calc">
+      <img mat-card-image src="assets/media/how-to-use/menu/type-calc-card.png" alt="Type Calc preview" class="card-hero-image" width="919" height="538" loading="lazy" />
+      <mat-card-header>
+        <mat-card-title>Type Calc</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Analyze offensive and defensive type coverage against specific teams to identify your party's strengths and weaknesses.</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>
