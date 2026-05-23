@@ -7,8 +7,9 @@ import { HeaderMobileComponent } from "@core/header-mobile/header-mobile.compone
 import { HeaderComponent } from "@core/header/header.component"
 import { MenuStore } from "@data/store/menu-store"
 import { DeviceDetectorService } from "@lib/device-detector.service"
+import { JsonLdService } from "@lib/json-ld.service"
 
-const TITLE = "Pokémon Damage Calculator - Speed Calc - VGC Champions"
+const TITLE = "Pokémon Speed Calculator for VGC & Champions — Speed Tiers"
 const DESCRIPTION = "Free Pokémon speed calculator for VGC and Pokémon Champions. Compare speed tiers, Tailwind, Trick Room and nature modifiers to master initiative order."
 const OG_IMAGE = "https://vgcmulticalc.com/assets/icons/calc-512x512.png"
 const URL = "https://vgcmulticalc.com/speed-calc"
@@ -35,12 +36,21 @@ export class SpeedCalcRouteComponent implements OnInit {
   private meta = inject(Meta)
   private title = inject(Title)
   private document = inject(DOCUMENT)
+  private jsonLd = inject(JsonLdService)
 
   ngOnInit() {
     this.menuStore.enableSpeedCalculator()
     this.title.setTitle(TITLE)
     this.meta.updateTag({ name: "description", content: DESCRIPTION })
     this.updateSocialTags()
+    this.jsonLd.set("breadcrumb", {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://vgcmulticalc.com/" },
+        { "@type": "ListItem", position: 2, name: "Speed Calculator", item: URL }
+      ]
+    })
   }
 
   isDesktop(): boolean {

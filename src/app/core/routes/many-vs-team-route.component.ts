@@ -7,8 +7,9 @@ import { HeaderMobileComponent } from "@core/header-mobile/header-mobile.compone
 import { HeaderComponent } from "@core/header/header.component"
 import { MenuStore } from "@data/store/menu-store"
 import { DeviceDetectorService } from "@lib/device-detector.service"
+import { JsonLdService } from "@lib/json-ld.service"
 
-const TITLE = "Pokémon Damage Calculator - Many vs Team - VGC Champions"
+const TITLE = "Pokémon Damage Calculator — Many vs Team for VGC & Champions"
 const DESCRIPTION = "Calculate how much damage multiple Pokémon deal to a single target. Evaluate defensive durability across your entire team for VGC and Pokémon Champions."
 const OG_IMAGE = "https://vgcmulticalc.com/assets/icons/calc-512x512.png"
 const URL = "https://vgcmulticalc.com/many-vs-team"
@@ -35,12 +36,21 @@ export class ManyVsTeamRouteComponent implements OnInit {
   private meta = inject(Meta)
   private title = inject(Title)
   private document = inject(DOCUMENT)
+  private jsonLd = inject(JsonLdService)
 
   ngOnInit() {
     this.menuStore.enableManyVsOne()
     this.title.setTitle(TITLE)
     this.meta.updateTag({ name: "description", content: DESCRIPTION })
     this.updateSocialTags()
+    this.jsonLd.set("breadcrumb", {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://vgcmulticalc.com/" },
+        { "@type": "ListItem", position: 2, name: "Many vs Team", item: URL }
+      ]
+    })
   }
 
   isDesktop(): boolean {

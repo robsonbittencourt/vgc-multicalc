@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from "@angular/core"
+import { afterNextRender, Component, inject, OnInit } from "@angular/core"
 import { RouterOutlet } from "@angular/router"
 import { AppUpdateService } from "@lib/app-update.service"
 
@@ -10,6 +10,12 @@ import { AppUpdateService } from "@lib/app-update.service"
 })
 export class AppComponent implements OnInit {
   private appUpdateService = inject(AppUpdateService)
+
+  constructor() {
+    afterNextRender(() => {
+      document.getElementById("app-splash")?.remove()
+    })
+  }
 
   ngOnInit() {
     this.appUpdateService.init()

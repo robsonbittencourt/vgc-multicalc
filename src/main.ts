@@ -39,9 +39,4 @@ bootstrapApplication(AppComponent, {
       registrationStrategy: "registerWhenStable:30000"
     })
   ]
-})
-  .then(() => {
-    const splash = document.getElementById("app-splash")
-    splash?.remove()
-  })
-  .catch(err => console.error(err))
+}).catch(err => console.error(err))
