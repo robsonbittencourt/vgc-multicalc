@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Performance Changelog — VGC Multicalc</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f1117; color: #ffffff; line-height: 1.6; padding: 2rem; max-width: 860px; }
+  h1 { font-size: 1.5rem; font-weight: 700; color: #f8fafc; margin-bottom: 0.25rem; }
+  .subtitle { font-size: 0.8rem; color: #475569; margin-bottom: 2.5rem; }
+  .subtitle a { color: #7dd3fc; text-decoration: none; }
+
+  .day { margin-bottom: 2.5rem; }
+  .day-header { display: flex; align-items: baseline; gap: 0.75rem; margin-bottom: 1rem; }
+  .day-date { font-size: 1.05rem; font-weight: 800; color: #f8fafc; }
+  .day-meta { font-size: 0.75rem; color: #475569; }
+
+  .entry { display: flex; gap: 0.6rem; align-items: baseline; margin-bottom: 0.45rem; padding-left: 0.25rem; }
+  .tag { flex-shrink: 0; display: inline-block; padding: 0.05rem 0.4rem; border-radius: 999px; font-size: 0.68rem; font-weight: 700; }
+  .tag-done     { background: #14532d; color: #4ade80; }
+  .tag-partial  { background: #451a03; color: #fbbf24; }
+  .tag-skip     { background: #1e293b; color: #64748b; }
+  .entry p { font-size: 0.875rem; color: #94a3b8; }
+  .entry p strong { color: #cbd5e1; }
+  .delta { font-weight: 600; color: #4ade80; }
+  code { background: #1e293b; color: #7dd3fc; padding: 0.05rem 0.3rem; border-radius: 4px; font-size: 0.78rem; }
+</style>
+</head>
+<body>
+
+<h1>Performance Changelog — VGC Multicalc</h1>
+<p class="subtitle">High-level history of performance work. See <a href="2026-05-22.html">latest audit report</a> for full metrics.</p>
+
+<div class="day">
+  <div class="day-header">
+    <span class="day-date">2026-05-22</span>
+    <span class="day-meta">branch: seo · commit: 2abe850b</span>
+  </div>
+
+  <div class="entry">
+    <span class="tag tag-done">done</span>
+    <p><strong>Route-level lazy loading</strong> — replaced the single monolithic entry component with 9 dedicated route components. Initial bundle dropped from <span class="delta">4.04 MB → 398 KB (−90%)</span>. LCP improved across all routes: −44% on home, −57% on speed-calc, −59% on type-calc, −48% on probability-calc. All routes moved from Poor to Good.</p>
+  </div>
+
+  <div class="entry">
+    <span class="tag tag-done">done</span>
+    <p><strong>Removed <code>axios</code> in favor of native <code>fetch</code></strong> — eliminated ~30–50 KB from the initial bundle.</p>
+  </div>
+
+  <div class="entry">
+    <span class="tag tag-done">done</span>
+    <p><strong>Replaced <code>uuid</code> with <code>crypto.randomUUID()</code></strong> — eliminated ~5–10 KB from the initial bundle.</p>
+  </div>
+
+  <div class="entry">
+    <span class="tag tag-done">done</span>
+    <p><strong>Service Worker added</strong> — sprites cached lazily, app shell prefetched. Repeat visits now load from cache.</p>
+  </div>
+
+  <div class="entry">
+    <span class="tag tag-done">done</span>
+    <p><strong>Removed <code>loading="lazy"</code> from LCP image</strong> — small FCP improvement (−100ms), TBT −20ms, CLS zeroed out in Lighthouse.</p>
+  </div>
+
+  <div class="entry">
+    <span class="tag tag-done">done</span>
+    <p><strong>Full performance audit</strong> — Lighthouse mobile + DevTools Trace across 7 VGC routes and 2 competitors (Smogon, Nerd of Now). Final Lighthouse score: <span class="delta">86</span> (Smogon: 71, NCP: 51).</p>
+  </div>
+
+  <div class="entry">
+    <span class="tag tag-partial">partial</span>
+    <p><strong>Replaced <code>mat-slider</code> with native <code>input[type=range]</code></strong> — measured gains: LCP −34%, Render Delay −43%, RecalcStyles −349ms. Reverted because EV jump markers became misaligned (native input width differs from MatSlider host by ~16px). Work is ready to resume once the ResizeObserver calibration is fixed.</p>
+  </div>
+
+  <div class="entry">
+    <span class="tag tag-skip">skipped</span>
+    <p><strong>Attempted to tree-shake <code>@robsonbittencourt/calc</code></strong> — built a VGC-only entrypoint loading only gen 0 and gen 9 data. Minified bundle grew +18 KB instead of shrinking. esbuild compresses the lib's incremental patch chain more efficiently than standalone JSON. Reverted.</p>
+  </div>
+
+</div>
+
+</body>
+</html>
