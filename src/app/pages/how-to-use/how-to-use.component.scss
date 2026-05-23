@@ -61,7 +61,7 @@
   padding: 1.25rem 0;
 
   h3 {
-    font-size: 1.1rem;
+    font-size: 1.25rem;
     font-weight: 600;
     margin: 0 0 0.5rem;
     color: var(--text);
@@ -69,7 +69,7 @@
 
   p {
     margin: 0;
-    font-size: 0.95rem;
+    font-size: 1.1rem;
     line-height: 1.6;
     opacity: 0.85;
     color: var(--text);
@@ -188,6 +188,20 @@
 }
 
 @media (max-width: 600px) {
+  .faq-title {
+    font-size: 1.5rem;
+  }
+
+  .faq-item {
+    h3 {
+      font-size: 1.6rem;
+    }
+
+    p {
+      font-size: 1.4rem;
+    }
+  }
+
   .cards-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
