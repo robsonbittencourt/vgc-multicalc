@@ -7,8 +7,9 @@ import { HeaderMobileComponent } from "@core/header-mobile/header-mobile.compone
 import { HeaderComponent } from "@core/header/header.component"
 import { MenuStore } from "@data/store/menu-store"
 import { DeviceDetectorService } from "@lib/device-detector.service"
+import { JsonLdService } from "@lib/json-ld.service"
 
-const TITLE = "Pokémon Damage Calculator - One vs One - VGC Champions"
+const TITLE = "Pokémon Damage Calculator — One vs One for VGC & Champions"
 const DESCRIPTION = "Classic one-on-one Pokémon damage calculator for VGC and Pokémon Champions. Detailed side-by-side analysis with EVs, Natures, abilities and damage rolls."
 const OG_IMAGE = "https://vgcmulticalc.com/assets/icons/calc-512x512.png"
 const URL = "https://vgcmulticalc.com/one-vs-one"
@@ -35,12 +36,21 @@ export class OneVsOneRouteComponent implements OnInit {
   private meta = inject(Meta)
   private title = inject(Title)
   private document = inject(DOCUMENT)
+  private jsonLd = inject(JsonLdService)
 
   ngOnInit() {
     this.menuStore.enableOneVsOne()
     this.title.setTitle(TITLE)
     this.meta.updateTag({ name: "description", content: DESCRIPTION })
     this.updateSocialTags()
+    this.jsonLd.set("breadcrumb", {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://vgcmulticalc.com/" },
+        { "@type": "ListItem", position: 2, name: "One vs One", item: URL }
+      ]
+    })
   }
 
   isDesktop(): boolean {

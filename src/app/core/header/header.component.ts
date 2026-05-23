@@ -5,6 +5,7 @@ import { MatButtonToggle, MatButtonToggleChange, MatButtonToggleGroup } from "@a
 import { MatDivider } from "@angular/material/divider"
 import { MatIcon } from "@angular/material/icon"
 import { MatMenu, MatMenuTrigger } from "@angular/material/menu"
+import { RouterLink } from "@angular/router"
 import { CopyButtonComponent } from "@app/basic/copy-button/copy-button.component"
 import { ActiveFieldService } from "@data/store/active-field.service"
 import { CalculatorStore } from "@data/store/calculator-store"
@@ -18,7 +19,7 @@ import { uuid } from "@lib/utils/uuid"
   selector: "app-header",
   templateUrl: "./header.component.html",
   styleUrls: ["./header.component.scss"],
-  imports: [NgClass, MatIcon, MatButton, MatButtonToggleGroup, MatButtonToggle, MatMenu, MatMenuTrigger, MatDivider, TitleCasePipe, CopyButtonComponent]
+  imports: [NgClass, MatIcon, MatButton, MatButtonToggleGroup, MatButtonToggle, MatMenu, MatMenuTrigger, MatDivider, TitleCasePipe, CopyButtonComponent, RouterLink]
 })
 export class HeaderComponent {
   store = inject(CalculatorStore)
@@ -47,30 +48,12 @@ export class HeaderComponent {
     navigator.clipboard.writeText(this.userDataLink)
   }
 
-  enableOneVsOne() {
-    this.router.navigate(["one-vs-one"])
+  onOneVsOneClick() {
     this.store.updateSecondAttacker("")
   }
 
-  enableOneVsMany() {
-    this.router.navigate(["team-vs-many"])
-  }
-
-  enableManyVsOne() {
-    this.router.navigate(["many-vs-team"])
+  onManyVsTeamClick() {
     this.store.updateSecondAttacker("")
-  }
-
-  enableSpeedCalculator() {
-    this.router.navigate(["speed-calc"])
-  }
-
-  enableProbabilityCalculator() {
-    this.router.navigate(["probability-calc"])
-  }
-
-  enableTypeCalculator() {
-    this.router.navigate(["type-calc"])
   }
 
   enableHowToUse() {

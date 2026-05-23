@@ -2,27 +2,27 @@
   <div class="left-header">
     <img class="slowking-icon" src="assets/icons/slowking.png" width="96" height="96" />
     <img class="icon" src="assets/icons/calc-72x72.png" width="72" height="72" />
-    <span class="title">VGC Multi Calc</span>
-    <div class="menu">
-      <div class="menu-option" [ngClass]="{ 'active-menu-option': menuStore.oneVsOneActivated() }" (click)="enableOneVsOne()" data-cy="one-vs-one">
+    <h1 class="title">VGC Multi Calc</h1>
+    <nav class="menu">
+      <a class="menu-option" [routerLink]="['/one-vs-one']" [ngClass]="{ 'active-menu-option': menuStore.oneVsOneActivated() }" (click)="onOneVsOneClick()" data-cy="one-vs-one">
         <span>One vs One</span>
-      </div>
-      <div class="menu-option" [ngClass]="{ 'active-menu-option': menuStore.oneVsManyActivated() }" (click)="enableOneVsMany()" data-cy="team-vs-many">
+      </a>
+      <a class="menu-option" [routerLink]="['/team-vs-many']" [ngClass]="{ 'active-menu-option': menuStore.oneVsManyActivated() }" data-cy="team-vs-many">
         <span>Team vs Many</span>
-      </div>
-      <div class="menu-option" [ngClass]="{ 'active-menu-option': menuStore.manyVsOneActivated() }" (click)="enableManyVsOne()" data-cy="many-vs-team">
+      </a>
+      <a class="menu-option" [routerLink]="['/many-vs-team']" [ngClass]="{ 'active-menu-option': menuStore.manyVsOneActivated() }" (click)="onManyVsTeamClick()" data-cy="many-vs-team">
         <span>Many vs Team</span>
-      </div>
-      <div class="menu-option" [ngClass]="{ 'active-menu-option': menuStore.speedCalculatorActivated() }" (click)="enableSpeedCalculator()" data-cy="speed-calculator">
+      </a>
+      <a class="menu-option" [routerLink]="['/speed-calc']" [ngClass]="{ 'active-menu-option': menuStore.speedCalculatorActivated() }" data-cy="speed-calculator">
         <span>Speed Calc</span>
-      </div>
-      <div class="menu-option" [ngClass]="{ 'active-menu-option': menuStore.probabilityCalcActivated() }" (click)="enableProbabilityCalculator()" data-cy="probability-calc">
+      </a>
+      <a class="menu-option" [routerLink]="['/probability-calc']" [ngClass]="{ 'active-menu-option': menuStore.probabilityCalcActivated() }" data-cy="probability-calc">
         <span>Probability Calc</span>
-      </div>
-      <div class="menu-option" [ngClass]="{ 'active-menu-option': menuStore.typeCalcActivated() }" (click)="enableTypeCalculator()" data-cy="type-calc">
+      </a>
+      <a class="menu-option" [routerLink]="['/type-calc']" [ngClass]="{ 'active-menu-option': menuStore.typeCalcActivated() }" data-cy="type-calc">
         <span>Type Calc</span>
-      </div>
-    </div>
+      </a>
+    </nav>
   </div>
   <div class="right-header">
     @if (userDataLink) {

@@ -39,7 +39,8 @@
 .title {
   color: var(--text-strong);
   font-weight: 500;
-  margin-left: 1em;
+  font-size: 1rem;
+  margin: 0 0 0 1em;
 }
 
 .menu {
@@ -59,6 +60,8 @@
   padding: 0.5em;
   align-items: center;
   height: 75%;
+  color: inherit;
+  text-decoration: none;
 }
 
 .menu-option:hover {
