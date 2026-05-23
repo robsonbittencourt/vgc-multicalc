@@ -1,5 +1,5 @@
 import { NgClass } from "@angular/common"
-import { Component, computed, effect, ElementRef, inject, QueryList, signal, ViewChild, ViewChildren } from "@angular/core"
+import { Component, computed, effect, ElementRef, inject, OnDestroy, QueryList, signal, ViewChild, ViewChildren } from "@angular/core"
 import { MatIcon, MatIconRegistry } from "@angular/material/icon"
 import { DomSanitizer } from "@angular/platform-browser"
 import { InputAutocompleteComponent } from "@basic/input-autocomplete/input-autocomplete.component"
@@ -17,6 +17,7 @@ import { AutomaticFieldService } from "@lib/automatic-field-service"
 import { Pokemon } from "@lib/model/pokemon"
 import { getFinalSpeed } from "@lib/smogon/stat-calculator/spe/modified-spe"
 import { Regulation } from "@lib/types"
+import { BackNavigationService } from "@lib/back-navigation.service"
 import { OpponentOptionsComponent } from "@pages/speed-calc/opponent-options/opponent-options.component"
 import { SpeedInsightsComponent } from "@pages/speed-calc/speed-insights/speed-insights.component"
 import { SpeedScaleComponent } from "@pages/speed-calc/speed-scale/speed-scale.component"
@@ -41,7 +42,7 @@ import { SpeedScaleComponent } from "@pages/speed-calc/speed-scale/speed-scale.c
   ],
   providers: [FieldStore, AutomaticFieldService, { provide: FIELD_CONTEXT, useValue: "speed" }]
 })
-export class SpeedCalculatorMobileComponent {
+export class SpeedCalculatorMobileComponent implements OnDestroy {
   @ViewChild("scrollContainer") scrollContainer?: ElementRef<HTMLDivElement>
   @ViewChildren(TeamTabsMobileComponent) teamTabsMobileList?: QueryList<TeamTabsMobileComponent>
 
@@ -49,6 +50,7 @@ export class SpeedCalculatorMobileComponent {
   fieldStore = inject(FieldStore)
   optionsStore = inject(SpeedCalcOptionsStore)
   private automaticFieldService = inject(AutomaticFieldService)
+  private backNavigation = inject(BackNavigationService)
 
   activeBottomTab = signal<"main" | "speed-insights" | "settings" | "teams">("main")
   private scrollPositions = new Map<string, number>()
@@ -91,6 +93,7 @@ export class SpeedCalculatorMobileComponent {
     const iconRegistry = inject(MatIconRegistry)
     const sanitizer = inject(DomSanitizer)
     iconRegistry.addSvgIcon("pokeball", sanitizer.bypassSecurityTrustResourceUrl("assets/icons/pokeball.svg"))
+    this.backNavigation.register(() => this.activeBottomTab.set("main"))
 
     const initialSourceId = this.effectiveEditingId()
     if (initialSourceId) this.store.loadSpeedCalcPokemonFrom(initialSourceId)
@@ -134,6 +137,10 @@ export class SpeedCalculatorMobileComponent {
     this.optionsStore.updateRegulation(regulation as Regulation)
   }
 
+  ngOnDestroy() {
+    this.backNavigation.unregister()
+  }
+
   switchTab(newTab: "main" | "speed-insights" | "settings" | "teams") {
     const currentTab = this.activeBottomTab()
     if (currentTab === newTab) return
@@ -142,6 +149,12 @@ export class SpeedCalculatorMobileComponent {
     this.scrollPositions.set(currentTab, currentScroll)
 
     this.activeBottomTab.set(newTab)
+
+    if (newTab === "main") {
+      this.backNavigation.pop()
+    } else {
+      this.backNavigation.push()
+    }
 
     setTimeout(() => {
       const targetScroll = this.scrollPositions.get(newTab) || 0

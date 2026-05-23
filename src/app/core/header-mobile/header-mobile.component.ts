@@ -11,6 +11,7 @@ import { MenuStore } from "@data/store/menu-store"
 import { SnackbarService } from "@lib/snackbar.service"
 import { Color, Theme, ThemeService } from "@lib/theme.service"
 import { uuid } from "@lib/utils/uuid"
+import { PwaInstallService } from "@lib/pwa-install.service"
 
 @Component({
   selector: "app-header-mobile",
@@ -23,6 +24,7 @@ export class HeaderMobileComponent implements OnDestroy {
   menuStore = inject(MenuStore)
   themeService = inject(ThemeService)
   activeFieldService = inject(ActiveFieldService)
+  pwaInstall = inject(PwaInstallService)
   private snackBar = inject(SnackbarService)
   private router = inject(Router)
 

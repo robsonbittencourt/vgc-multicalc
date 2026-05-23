@@ -1,5 +1,5 @@
 import { SpriteService } from "@data/sprite.service"
-import { Component, computed, effect, ElementRef, inject, signal, viewChild } from "@angular/core"
+import { Component, computed, effect, ElementRef, inject, OnDestroy, signal, viewChild } from "@angular/core"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { FieldStore } from "@data/store/field-store"
 import { FIELD_CONTEXT } from "@data/store/tokens/field-context.token"
@@ -11,6 +11,7 @@ import { DamageCalculatorService } from "@lib/damage-calculator/damage-calculato
 import { RollConfigComponent } from "@features/roll-config/roll-config.component"
 import { RollLevelConfig } from "@lib/damage-calculator/roll-level-config"
 import { DefensiveEvOptimizerService } from "@lib/ev-optimizer/defensive-ev-optimizer.service"
+import { BackNavigationService } from "@lib/back-navigation.service"
 import { Pokemon } from "@lib/model/pokemon"
 import { Target } from "@lib/model/target"
 import { Stats } from "@lib/types"
@@ -30,13 +31,14 @@ import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-b
   imports: [PokemonBuildMobileComponent, PokemonComboBoxComponent, ImportPokemonButtonComponent, ExportPokemonButtonComponent, FieldComponent, PokemonCardComponent, NgClass, MatIcon, MatButtonToggleModule, RollConfigComponent, WidgetComponent],
   providers: [FieldStore, AutomaticFieldService, { provide: FIELD_CONTEXT, useValue: "simple" }]
 })
-export class SimpleCalcMobileComponent {
+export class SimpleCalcMobileComponent implements OnDestroy {
   spriteService = inject(SpriteService)
   store = inject(CalculatorStore)
   fieldStore = inject(FieldStore)
   private damageCalculator = inject(DamageCalculatorService)
   private automaticFieldService = inject(AutomaticFieldService)
   private defensiveEvOptimizer = inject(DefensiveEvOptimizerService)
+  private backNavigation = inject(BackNavigationService)
 
   pokemonBuildMobile = viewChild.required(PokemonBuildMobileComponent)
 
@@ -90,6 +92,7 @@ export class SimpleCalcMobileComponent {
     const iconRegistry = inject(MatIconRegistry)
     const sanitizer = inject(DomSanitizer)
     iconRegistry.addSvgIcon("pokeball", sanitizer.bypassSecurityTrustResourceUrl("assets/icons/pokeball.svg"))
+    this.backNavigation.register(() => this.activeBottomTab.set("results"))
 
     effect(() => {
       const level = this.leftIsAttacker() ? this.store.simpleCalcLeftRollLevel() : this.store.simpleCalcRightRollLevel()
@@ -203,6 +206,10 @@ export class SimpleCalcMobileComponent {
     this.optimizationStatus.set("idle")
   }
 
+  ngOnDestroy() {
+    this.backNavigation.unregister()
+  }
+
   switchTab(newTab: "results" | "field") {
     const currentTab = this.activeBottomTab()
     if (currentTab === newTab) return
@@ -211,6 +218,12 @@ export class SimpleCalcMobileComponent {
     this.scrollPositions.set(currentTab, currentScroll)
 
     this.activeBottomTab.set(newTab)
+
+    if (newTab === "results") {
+      this.backNavigation.pop()
+    } else {
+      this.backNavigation.push()
+    }
 
     setTimeout(() => {
       const targetScroll = this.scrollPositions.get(newTab) || 0
