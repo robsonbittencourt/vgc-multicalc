@@ -15,6 +15,11 @@
   <div class="menu-overlay" (click)="closeMenu()"></div>
   <div class="menu-panel" [class.no-footer]="!hasFooter()">
     <div class="menu-content">
+      @if (pwaInstall.canInstall()) {
+        <button class="share-button" (click)="pwaInstall.install()">Install app</button>
+        <mat-divider></mat-divider>
+      }
+
       <span class="menu-title">Pages</span>
       <button class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.oneVsOneActivated(), pressed: pressedItemId() === '1v1' }" (click)="enableOneVsOne()">
         <span>One vs One</span>

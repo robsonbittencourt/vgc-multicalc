@@ -1,5 +1,5 @@
 import { NoopScrollStrategy } from "@angular/cdk/overlay"
-import { Component, computed, effect, ElementRef, inject, linkedSignal, signal, ViewChild } from "@angular/core"
+import { Component, computed, effect, ElementRef, inject, linkedSignal, OnDestroy, signal, ViewChild } from "@angular/core"
 import { NgClass } from "@angular/common"
 import { CdkDragDrop, CdkDragMove, CdkDropList, CdkDropListGroup } from "@angular/cdk/drag-drop"
 import { ScrollingModule } from "@angular/cdk/scrolling"
@@ -34,6 +34,7 @@ import { FieldComponent } from "@features/field/field.component"
 import { Pokemon } from "@lib/model/pokemon"
 import { defaultPokemon } from "@lib/default-pokemon"
 import { Target } from "@lib/model/target"
+import { BackNavigationService } from "@lib/back-navigation.service"
 import { AddPokemonCardComponent } from "@pages/multi-calc/add-pokemon-card/add-pokemon-card.component"
 import { TeamTabsMobileComponent } from "@features/team/team-tabs-mobile/team-tabs-mobile.component"
 import { TeamsMobileComponent } from "@features/team/teams-mobile/teams-mobile.component"
@@ -63,7 +64,7 @@ import { TeamsMobileComponent } from "@features/team/teams-mobile/teams-mobile.c
   ],
   providers: [FieldStore, AutomaticFieldService, DamageMultiCalcService, DamageResultOrderService, DefensiveEvOptimizerService, { provide: FIELD_CONTEXT, useValue: "multi" }]
 })
-export class MultiCalcMobileComponent {
+export class MultiCalcMobileComponent implements OnDestroy {
   @ViewChild("scrollContainer") scrollContainer?: ElementRef<HTMLDivElement>
   @ViewChild(TeamTabsMobileComponent) teamTabsMobile?: TeamTabsMobileComponent
   store = inject(CalculatorStore)
@@ -75,11 +76,13 @@ export class MultiCalcMobileComponent {
   private defensiveEvOptimizer = inject(DefensiveEvOptimizerService)
   private exportPokeService = inject(ExportPokeService)
   private dialog = inject(MatDialog)
+  private backNavigation = inject(BackNavigationService)
 
   constructor() {
     const iconRegistry = inject(MatIconRegistry)
     const sanitizer = inject(DomSanitizer)
     iconRegistry.addSvgIcon("pokeball", sanitizer.bypassSecurityTrustResourceUrl("assets/icons/pokeball.svg"))
+    this.backNavigation.register(() => this.activeBottomTab.set("results"))
 
     effect(() => {
       const level = this.menuStore.manyVsOneActivated() ? this.store.manyVsTeamRollLevel() : this.store.multiCalcRollLevel()
@@ -436,6 +439,10 @@ export class MultiCalcMobileComponent {
     }, 150)
   }
 
+  ngOnDestroy() {
+    this.backNavigation.unregister()
+  }
+
   switchTab(newTab: "results" | "teams" | "field") {
     const currentTab = this.activeBottomTab()
     if (currentTab === newTab) return
@@ -445,6 +452,12 @@ export class MultiCalcMobileComponent {
 
     this.activeBottomTab.set(newTab)
     this.showBottomNav.set(true)
+
+    if (newTab === "results") {
+      this.backNavigation.pop()
+    } else {
+      this.backNavigation.push()
+    }
 
     setTimeout(() => {
       const targetScroll = this.scrollPositions.get(newTab) || 0
