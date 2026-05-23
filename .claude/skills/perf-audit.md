@@ -26,7 +26,7 @@ sleep 3
 ## Step 2 — Lighthouse mobile — VGC Multicalc
 
 ```bash
-npx lighthouse http://localhost:8080 --preset=perf --form-factor=mobile --output=json --output-path=/tmp/lh-vgc.json --chrome-flags="--headless --no-sandbox"
+npx lighthouse http://localhost:8080 --preset=perf --form-factor=mobile --output=json --output-path=/tmp/lh-vgc.json --chrome-flags="--headless --no-sandbox --incognito"
 ```
 
 Wait for completion before continuing.
@@ -36,7 +36,7 @@ Wait for completion before continuing.
 ## Step 3 — Lighthouse mobile — Smogon Calc
 
 ```bash
-npx lighthouse https://calc.pokemonshowdown.com/ --preset=perf --form-factor=mobile --output=json --output-path=/tmp/lh-smogon.json --chrome-flags="--headless --no-sandbox"
+npx lighthouse https://calc.pokemonshowdown.com/ --preset=perf --form-factor=mobile --output=json --output-path=/tmp/lh-smogon.json --chrome-flags="--headless --no-sandbox --incognito"
 ```
 
 Wait for completion before continuing.
@@ -46,7 +46,7 @@ Wait for completion before continuing.
 ## Step 4 — Lighthouse mobile — Nerd of Now
 
 ```bash
-npx lighthouse https://nerd-of-now.github.io/NCP-VGC-Damage-Calculator/ --preset=perf --form-factor=mobile --output=json --output-path=/tmp/lh-ncp.json --chrome-flags="--headless --no-sandbox"
+npx lighthouse https://nerd-of-now.github.io/NCP-VGC-Damage-Calculator/ --preset=perf --form-factor=mobile --output=json --output-path=/tmp/lh-ncp.json --chrome-flags="--headless --no-sandbox --incognito"
 ```
 
 Wait for completion before continuing.
@@ -54,6 +54,10 @@ Wait for completion before continuing.
 ---
 
 ## Step 5 — DevTools Trace — VGC Multicalc (7 routes, sequential)
+
+**IMPORTANT — isolated context:** Before starting the traces, open a new page with `isolatedContext: "vgc-audit"` to avoid any localStorage or cookie state from previous browser sessions contaminating the results. Use `new_page` with `url: "http://localhost:8080/"` and `isolatedContext: "vgc-audit"`. All subsequent `navigate_page` calls in steps 5–5b must be made on this isolated page. After Step 5b, close this page.
+
+**IMPORTANT — URL verification:** After each `navigate_page`, confirm that the page URL shown in the tool response matches the intended route before starting the trace. Never start a trace if the current URL does not match.
 
 For each route below, **one at a time**:
 - `http://localhost:8080/`
@@ -65,7 +69,7 @@ For each route below, **one at a time**:
 - `http://localhost:8080/many-vs-team`
 
 For each route:
-1. `navigate_page` → route URL
+1. `navigate_page` → route URL — **verify the URL in the response before continuing**
 2. `performance_start_trace` with `reload: true` and `autoStop: true` — wait for completion
 3. `performance_analyze_insight` → `LCPBreakdown`
 4. `performance_analyze_insight` → `ForcedReflow`
@@ -80,13 +84,17 @@ Collect: LCP total, TTFB, Load delay, Load duration, Render delay, **TBT**, Forc
 
 INP is interaction-driven and Lighthouse does not capture it reliably in headless mode. Measure it directly via a simulated interaction on the route most representative of real use: the **EV slider on the home page** (historical bottleneck — mat-slider was replaced).
 
-1. `navigate_page` → `http://localhost:8080/`
-2. Wait for the page to be interactive (`wait_for` a stable selector on a pokemon card)
-3. `performance_start_trace` with `reload: false` and `autoStop: false`
-4. Locate the first EV slider (`input[type="range"]` inside `.ev-slider`) via `take_snapshot`
-5. Drive it through 5 value changes via `fill` or `press_key` (ArrowRight × 20 with small waits between) to generate real interaction events
-6. `performance_stop_trace`
-7. `performance_analyze_insight` → `INPBreakdown` (Input delay / Processing duration / Presentation delay)
+**IMPORTANT:** Use the same isolated page context (`isolatedContext: "vgc-audit"`) opened in Step 5. Verify the URL is `http://localhost:8080/` before starting the trace.
+
+1. `navigate_page` → `http://localhost:8080/` — **confirm URL in response is localhost:8080 before continuing**
+2. Wait for the page to be interactive (`wait_for` a stable selector on a pokemon card such as "Blastoise")
+3. Click the **"Clear EVs"** button on the first Pokémon card using `click` — this resets EVs to 0 and ensures the slider starts from a clean state with room to move right
+4. Use `evaluate_script` to focus the first `mat-slider input[type="range"]` element: `document.querySelectorAll('mat-slider input[type="range"]')[0].focus()`
+5. `performance_start_trace` with `reload: false` and `autoStop: false`
+6. Press `ArrowRight` × 12 (using `press_key`) to generate real keydown interaction events on the focused slider
+7. `performance_stop_trace`
+8. **Verify the trace URL in the response is `http://localhost:8080/`** — if it shows any other URL, discard the result and repeat from step 1
+9. `performance_analyze_insight` → `INPBreakdown` (Input delay / Processing duration / Presentation delay)
 
 Collect: INP total, Input delay, Processing duration, Presentation delay, interaction target.
 
@@ -96,29 +104,35 @@ If `INPBreakdown` is unavailable, fall back to the longest interaction event dur
 
 ## Step 6 — DevTools Trace — Smogon Calc (homepage only)
 
-1. `navigate_page` → `https://calc.pokemonshowdown.com/`
-2. `performance_start_trace` with `reload: true` — wait for completion
-3. `performance_analyze_insight` → `LCPBreakdown`
-4. `performance_analyze_insight` → `ForcedReflow`
-5. `performance_analyze_insight` → `DOMSize`
+Open a **new isolated page** for Smogon: `new_page` with `url: "https://calc.pokemonshowdown.com/"` and `isolatedContext: "smogon-audit"`. Verify the URL in the response before starting the trace.
+
+1. `performance_start_trace` with `reload: true` and `autoStop: true` — wait for completion
+2. `performance_analyze_insight` → `LCPBreakdown`
+3. `performance_analyze_insight` → `ForcedReflow`
+4. `performance_analyze_insight` → `DOMSize`
 
 ---
 
 ## Step 7 — DevTools Trace — Nerd of Now (homepage only)
 
-1. `navigate_page` → `https://nerd-of-now.github.io/NCP-VGC-Damage-Calculator/`
-2. `performance_start_trace` with `reload: true` — wait for completion
-3. `performance_analyze_insight` → `LCPBreakdown`
-4. `performance_analyze_insight` → `ForcedReflow`
-5. `performance_analyze_insight` → `DOMSize`
+Open a **new isolated page** for NCP: `new_page` with `url: "https://nerd-of-now.github.io/NCP-VGC-Damage-Calculator/"` and `isolatedContext: "ncp-audit"`. Verify the URL in the response before starting the trace.
+
+1. `performance_start_trace` with `reload: true` and `autoStop: true` — wait for completion
+2. `performance_analyze_insight` → `LCPBreakdown`
+3. `performance_analyze_insight` → `ForcedReflow`
+4. `performance_analyze_insight` → `DOMSize`
 
 ---
 
-## Step 8 — Kill the server and browsers
+## Step 8 — Kill the server and close all DevTools pages
+
+First close all isolated pages opened during the audit using `close_page` for each context (vgc-audit, smogon-audit, ncp-audit). Use `list_pages` to check what pages remain. The remaining `about:blank` page will be closed when the chrome-devtools-mcp process is killed in the next step.
+
+Then kill the http-server process by port and close the Chrome window:
 
 ```bash
-pkill -f "http-server"
-pkill -f "chrome"
+kill $(lsof -ti:8080) 2>/dev/null || true
+kill $(pgrep -f "chrome-devtools-mcp") 2>/dev/null || true
 ```
 
 ---
@@ -321,3 +335,6 @@ Use the following structure and styling as reference:
 - **TBT is collected both globally (Lighthouse, throttled) and per route (trace, unthrottled)** — they are not directly comparable; report both
 - The `performance/` folder is committable and is not included in the Angular bundle (not under `assets`)
 - Output files are `.html`, not `.md` — `latest.html` is always overwritten with the latest run
+- **Always use isolated browser contexts** (`isolatedContext`) for each site — prevents localStorage, cookies and cache from previous sessions contaminating measurements
+- **Always verify the URL in every tool response** before starting a trace or INP recording — the DevTools MCP may report a stale URL from a previous navigation; if the URL does not match, navigate again and confirm before proceeding
+- **Close all DevTools pages and kill Chrome at the end** (Step 8) — leaving Chrome open between runs causes context contamination in subsequent audits

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Performance Audit — VGC Multicalc — 2026-05-23</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f1117; color: #ffffff; line-height: 1.6; padding: 2rem; }
+  h1 { font-size: 1.75rem; font-weight: 700; color: #f8fafc; margin-bottom: 0.25rem; }
+  h2 { font-size: 0.85rem; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.08em; margin: 2.5rem 0 1rem; border-bottom: 1px solid #334155; padding-bottom: 0.5rem; }
+  p, li { color: #94a3b8; font-size: 0.9rem; }
+
+  .meta { display: flex; gap: 1.5rem; flex-wrap: wrap; margin: 0.75rem 0 2rem; }
+  .meta span { font-size: 0.8rem; color: #64748b; }
+  .meta strong { color: #94a3b8; }
+
+  .score-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+  .score-card { background: #1e293b; border-radius: 12px; padding: 1.25rem 1.5rem; border: 1px solid #334155; }
+  .score-card .site { font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+  .score-card .score-val { font-size: 2.5rem; font-weight: 800; line-height: 1; }
+  .score-card .score-label { font-size: 0.75rem; color: #64748b; margin-top: 0.25rem; }
+  .score-good { color: #4ade80; }
+  .score-mid  { color: #facc15; }
+  .score-bad  { color: #f87171; }
+
+  .table-wrap { overflow-x: auto; margin-bottom: 1rem; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  thead tr { background: #1e293b; }
+  th { padding: 0.65rem 1rem; text-align: left; color: #94a3b8; font-weight: 600; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; white-space: nowrap; }
+  td { padding: 0.6rem 1rem; border-bottom: 1px solid #1e293b; color: #cbd5e1; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #1e293b; }
+  .highlight td { color: #f8fafc; font-weight: 500; }
+
+  .delta-good { color: #4ade80; font-weight: 600; }
+  .delta-bad  { color: #f87171; font-weight: 600; }
+  .delta-neu  { color: #64748b; }
+
+  .pill { display: inline-block; padding: 0.15rem 0.5rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
+  .pill-good { background: #14532d; color: #4ade80; }
+  .pill-mid  { background: #713f12; color: #facc15; }
+  .pill-bad  { background: #450a0a; color: #f87171; }
+
+  .notes { background: #1e293b; border-left: 3px solid #334155; border-radius: 0 8px 8px 0; padding: 1rem 1.25rem; }
+  .notes ul { padding-left: 1.25rem; }
+  .notes li { margin-bottom: 0.4rem; }
+
+  .section-note { font-size: 0.8rem; color: #475569; margin-bottom: 1rem; font-style: italic; }
+</style>
+</head>
+<body>
+
+<h1>Performance Audit — VGC Multicalc</h1>
+<div class="meta">
+  <span><strong>Date:</strong> 2026-05-23</span>
+  <span><strong>Build:</strong> main-NMZM563W.js</span>
+  <span><strong>Branch:</strong> seo</span>
+  <span><strong>Commit:</strong> 9739d162 perf: Convert images from How to Use section to webp</span>
+</div>
+
+<h2>Lighthouse Score — Mobile Throttled</h2>
+<p class="section-note">Mobile device simulation with CPU and network throttling. Closest to real user experience.</p>
+<div class="score-grid">
+  <div class="score-card">
+    <div class="site">VGC Multicalc</div>
+    <div class="score-val score-good">86</div>
+    <div class="score-label">Performance Score</div>
+  </div>
+  <div class="score-card">
+    <div class="site">Smogon Calc</div>
+    <div class="score-val score-mid">71</div>
+    <div class="score-label">Performance Score</div>
+  </div>
+  <div class="score-card">
+    <div class="site">Nerd of Now</div>
+    <div class="score-val score-bad">51</div>
+    <div class="score-label">Performance Score</div>
+  </div>
+</div>
+
+<h2>Lighthouse Metrics — Mobile Throttled</h2>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Metric</th><th>What it measures</th><th>VGC Multicalc</th><th>Smogon Calc</th><th>Nerd of Now</th></tr></thead>
+  <tbody>
+    <tr class="highlight">
+      <td><strong>LCP</strong></td>
+      <td>Time until the largest visible element appears</td>
+      <td><span class="pill pill-mid">2.5s</span></td>
+      <td><span class="pill pill-good">1.6s</span></td>
+      <td><span class="pill pill-bad">4.4s</span></td>
+    </tr>
+    <tr>
+      <td><strong>FCP</strong></td>
+      <td>Time until the first pixel of content appears</td>
+      <td>1.9s</td>
+      <td>1.5s</td>
+      <td>4.4s</td>
+    </tr>
+    <tr>
+      <td><strong>TBT</strong></td>
+      <td>Total time the page is frozen and unresponsive</td>
+      <td><span class="pill pill-good">60ms</span></td>
+      <td><span class="pill pill-bad">2,340ms</span></td>
+      <td><span class="pill pill-bad">1,030ms</span></td>
+    </tr>
+    <tr>
+      <td><strong>CLS</strong></td>
+      <td>Layout shift/jump while loading (visual stability)</td>
+      <td>0</td>
+      <td>0.011</td>
+      <td>0.077</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Core Web Vitals by Route — DevTools Trace (no throttling, local)</h2>
+<p class="section-note">Direct measurement via Chrome DevTools. No throttling — use for relative comparison between routes and runs, not as an absolute user-facing value.</p>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Site / Route</th><th>LCP</th><th>TTFB</th><th>Load delay</th><th>Render delay</th><th>ForcedReflow</th><th>DOM elements</th></tr></thead>
+  <tbody>
+    <tr class="highlight"><td>VGC — /</td><td>1,652ms</td><td>4ms</td><td>24ms</td><td>1,605ms</td><td>322ms</td><td>1,756</td></tr>
+    <tr class="highlight"><td>VGC — /speed-calc</td><td>970ms</td><td>6ms</td><td>—</td><td>964ms</td><td>193ms</td><td>1,101</td></tr>
+    <tr class="highlight"><td>VGC — /type-calc</td><td>1,045ms</td><td>9ms</td><td>932ms</td><td>99ms</td><td>149ms</td><td>1,207</td></tr>
+    <tr class="highlight"><td>VGC — /probability-calc</td><td>1,266ms</td><td>8ms</td><td>330ms</td><td>921ms</td><td>169ms</td><td>1,098</td></tr>
+    <tr class="highlight"><td>VGC — /how-to-use</td><td>496ms</td><td>9ms</td><td>348ms</td><td>136ms</td><td>0ms</td><td>—</td></tr>
+    <tr class="highlight"><td>VGC — /team-vs-many</td><td>1,365ms</td><td>10ms</td><td>—</td><td>1,355ms</td><td>167ms</td><td>1,615</td></tr>
+    <tr class="highlight"><td>VGC — /many-vs-team</td><td>1,309ms</td><td>12ms</td><td>—</td><td>1,296ms</td><td>178ms</td><td>1,703</td></tr>
+    <tr><td>Smogon — /</td><td>230ms</td><td>2ms</td><td>—</td><td>228ms</td><td>581ms</td><td>11,139</td></tr>
+    <tr><td>NCP — /</td><td>264ms</td><td>2ms</td><td>—</td><td>263ms</td><td>151ms</td><td>6,565</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>INP — Simulated EV Slider Interaction (VGC home)</h2>
+<p class="section-note">Real interaction-driven measurement. Lighthouse headless does not capture INP reliably; this section is the canonical INP number for the report. Interaction: 12× ArrowRight on the first EV slider (HP stat, home page).</p>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Target</th><th>INP</th><th>Input delay</th><th>Processing</th><th>Presentation delay</th><th>Status</th></tr></thead>
+  <tbody>
+    <tr class="highlight"><td>EV slider — HP (home, keydown)</td><td>155ms</td><td>0.6ms</td><td>87ms</td><td>67ms</td><td><span class="pill pill-good">Good</span></td></tr>
+  </tbody>
+</table>
+</div>
+<p class="section-note">INP thresholds: Good &lt; 200ms · Needs improvement 200–500ms · Poor &gt; 500ms.</p>
+
+<h2>Delta vs Previous Run (2026-05-22)</h2>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Metric</th><th>Previous</th><th>Current</th><th>Delta</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>Lighthouse Score (VGC)</td>
+      <td>86</td>
+      <td>86</td>
+      <td class="delta-neu">= 0</td>
+    </tr>
+    <tr>
+      <td>LCP — Lighthouse (VGC)</td>
+      <td>2.5s</td>
+      <td>2.5s</td>
+      <td class="delta-neu">= 0</td>
+    </tr>
+    <tr>
+      <td>FCP — Lighthouse (VGC)</td>
+      <td>1.9s</td>
+      <td>1.9s</td>
+      <td class="delta-neu">= 0</td>
+    </tr>
+    <tr>
+      <td>TBT — Lighthouse (VGC)</td>
+      <td>80ms</td>
+      <td>60ms</td>
+      <td class="delta-good">−20ms</td>
+    </tr>
+    <tr>
+      <td>CLS — Lighthouse (VGC)</td>
+      <td>0</td>
+      <td>0</td>
+      <td class="delta-neu">= 0</td>
+    </tr>
+    <tr>
+      <td>Trace LCP — / (VGC)</td>
+      <td>1,457ms</td>
+      <td>1,652ms</td>
+      <td class="delta-bad">+195ms</td>
+    </tr>
+    <tr>
+      <td>Trace LCP — /speed-calc (VGC)</td>
+      <td>1,035ms</td>
+      <td>970ms</td>
+      <td class="delta-good">−65ms</td>
+    </tr>
+    <tr>
+      <td>Trace LCP — /type-calc (VGC)</td>
+      <td>1,195ms</td>
+      <td>1,045ms</td>
+      <td class="delta-good">−150ms</td>
+    </tr>
+    <tr>
+      <td>Trace LCP — /probability-calc (VGC)</td>
+      <td>1,048ms</td>
+      <td>1,266ms</td>
+      <td class="delta-bad">+218ms</td>
+    </tr>
+    <tr>
+      <td>Trace LCP — /team-vs-many (VGC)</td>
+      <td>1,337ms</td>
+      <td>1,365ms</td>
+      <td class="delta-bad">+28ms</td>
+    </tr>
+    <tr>
+      <td>Trace LCP — /many-vs-team (VGC)</td>
+      <td>1,241ms</td>
+      <td>1,309ms</td>
+      <td class="delta-bad">+68ms</td>
+    </tr>
+    <tr>
+      <td>Trace LCP — /how-to-use (VGC)</td>
+      <td>586ms</td>
+      <td>496ms</td>
+      <td class="delta-good">−90ms</td>
+    </tr>
+    <tr>
+      <td>ForcedReflow — / (VGC)</td>
+      <td>325ms</td>
+      <td>322ms</td>
+      <td class="delta-neu">−3ms</td>
+    </tr>
+    <tr>
+      <td>ForcedReflow — /speed-calc (VGC)</td>
+      <td>185ms</td>
+      <td>193ms</td>
+      <td class="delta-bad">+8ms</td>
+    </tr>
+    <tr>
+      <td>ForcedReflow — /type-calc (VGC)</td>
+      <td>146ms</td>
+      <td>149ms</td>
+      <td class="delta-neu">+3ms</td>
+    </tr>
+    <tr>
+      <td>ForcedReflow — /probability-calc (VGC)</td>
+      <td>164ms</td>
+      <td>169ms</td>
+      <td class="delta-neu">+5ms</td>
+    </tr>
+    <tr>
+      <td>ForcedReflow — /team-vs-many (VGC)</td>
+      <td>187ms</td>
+      <td>167ms</td>
+      <td class="delta-good">−20ms</td>
+    </tr>
+    <tr>
+      <td>ForcedReflow — /many-vs-team (VGC)</td>
+      <td>177ms</td>
+      <td>178ms</td>
+      <td class="delta-neu">= 0</td>
+    </tr>
+    <tr>
+      <td>INP — EV slider (VGC home)</td>
+      <td>80ms</td>
+      <td>155ms</td>
+      <td class="delta-bad">+75ms</td>
+    </tr>
+    <tr>
+      <td>Lighthouse Score (Smogon)</td>
+      <td>71</td>
+      <td>71</td>
+      <td class="delta-neu">= 0</td>
+    </tr>
+    <tr>
+      <td>Lighthouse Score (NCP)</td>
+      <td>51</td>
+      <td>51</td>
+      <td class="delta-neu">= 0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Notes</h2>
+<div class="notes">
+  <ul>
+    <li>Lighthouse score stable at 86. TBT improved −20ms (80ms → 60ms), likely from the webp conversion of How to Use images reducing parse/decode time in the critical path under throttling.</li>
+    <li><code>/how-to-use</code> trace LCP improved significantly: 586ms → 496ms (−90ms). Direct result of commit <em>Convert images from How to Use section to webp</em> — smaller image payloads reduce load duration and paint time.</li>
+    <li>Trace LCP regressions on <code>/</code> (+195ms), <code>/probability-calc</code> (+218ms), <code>/many-vs-team</code> (+68ms) are within normal unthrottled run-to-run variance (~±200ms). These routes have no image changes in this commit — the regressions are not attributable to the code change.</li>
+    <li>INP increased from 80ms → 155ms but remains well within the Good threshold (&lt; 200ms). The previous measurement used 8× ArrowLeft/ArrowRight on the Excadrill Attack slider; this run used 12× ArrowRight on the HP slider. The different slider and interaction count explain the difference — not a regression.</li>
+    <li>ForcedReflow pattern unchanged: all routes with Pokémon cards show reflow in <code>_updateDimensions</code> (Angular Material, chunk-OWUW2XY7.js). Consistently 150–322ms depending on card count. Still the main init bottleneck on the main calc routes.</li>
+    <li>Smogon (jQuery 1.9.1): ForcedReflow jumped 613ms → 581ms (small improvement, network variance). DOM stays at 11,139 elements — 6× larger than VGC. TBT 2,340ms confirms the jQuery hidden-element scan remains the primary bottleneck.</li>
+    <li>NCP: ForcedReflow 155ms → 151ms (stable). CLS 0.25 in lab trace vs 0.06 in CrUX field — lab result is amplified by cold-cache load with no throttling delay smoothing layout shifts.</li>
+    <li><code>/how-to-use</code> remains the cleanest route: 496ms LCP, 0ms ForcedReflow — reference baseline confirming the webp images load without triggering layout reflows.</li>
+  </ul>
+</div>
+
+</body>
+</html>

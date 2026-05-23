@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Performance Audit — VGC Multicalc — 2026-05-21 — Prod vs Local</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f1117; color: #ffffff; line-height: 1.6; padding: 2rem; }
+  h1 { font-size: 1.75rem; font-weight: 700; color: #f8fafc; margin-bottom: 0.25rem; }
+  h2 { font-size: 0.85rem; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.08em; margin: 2.5rem 0 1rem; border-bottom: 1px solid #334155; padding-bottom: 0.5rem; }
+  p, li { color: #94a3b8; font-size: 0.9rem; }
+
+  .meta { display: flex; gap: 1.5rem; flex-wrap: wrap; margin: 0.75rem 0 2rem; }
+  .meta span { font-size: 0.8rem; color: #64748b; }
+  .meta strong { color: #94a3b8; }
+
+  .score-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+  .score-card { background: #1e293b; border-radius: 12px; padding: 1.25rem 1.5rem; border: 1px solid #334155; }
+  .score-card .site { font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+  .score-card .score-val { font-size: 2.5rem; font-weight: 800; line-height: 1; }
+  .score-card .score-label { font-size: 0.75rem; color: #64748b; margin-top: 0.25rem; }
+  .score-good { color: #4ade80; }
+  .score-mid  { color: #facc15; }
+  .score-bad  { color: #f87171; }
+
+  .table-wrap { overflow-x: auto; margin-bottom: 1rem; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  thead tr { background: #1e293b; }
+  th { padding: 0.65rem 1rem; text-align: left; color: #94a3b8; font-weight: 600; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; white-space: nowrap; }
+  td { padding: 0.6rem 1rem; border-bottom: 1px solid #1e293b; color: #cbd5e1; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #1e293b; }
+  .highlight td { color: #f8fafc; font-weight: 500; }
+
+  .delta-good { color: #4ade80; font-weight: 600; }
+  .delta-bad  { color: #f87171; font-weight: 600; }
+  .delta-neu  { color: #64748b; }
+
+  .pill { display: inline-block; padding: 0.15rem 0.5rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
+  .pill-good { background: #14532d; color: #4ade80; }
+  .pill-mid  { background: #713f12; color: #facc15; }
+  .pill-bad  { background: #450a0a; color: #f87171; }
+
+  .notes { background: #1e293b; border-left: 3px solid #334155; border-radius: 0 8px 8px 0; padding: 1rem 1.25rem; }
+  .notes ul { padding-left: 1.25rem; }
+  .notes li { margin-bottom: 0.4rem; }
+
+  .section-note { font-size: 0.8rem; color: #475569; margin-bottom: 1rem; font-style: italic; }
+
+  .badge { display: inline-block; padding: 0.1rem 0.45rem; border-radius: 6px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; margin-left: 0.4rem; vertical-align: middle; }
+  .badge-prod { background: #1e3a5f; color: #60a5fa; }
+  .badge-local { background: #1a3a2a; color: #4ade80; }
+</style>
+</head>
+<body>
+
+<h1>Performance Audit — VGC Multicalc <span class="badge badge-prod">Production</span> vs <span class="badge badge-local">Local</span></h1>
+<div class="meta">
+  <span><strong>Date:</strong> 2026-05-21</span>
+  <span><strong>Production:</strong> vgcmulticalc.com (main-OFFYJDRF.js)</span>
+  <span><strong>Local build:</strong> main-NMZM563W.js</span>
+  <span><strong>Local branch:</strong> seo — 9739d162 perf: Convert images from How to Use section to webp</span>
+</div>
+
+<h2>Lighthouse Score — Mobile Throttled</h2>
+<p class="section-note">Mobile device simulation with CPU and network throttling. Closest to real user experience on mobile networks.</p>
+<div class="score-grid">
+  <div class="score-card">
+    <div class="site">Production <span class="badge badge-prod">vgcmulticalc.com</span></div>
+    <div class="score-val score-mid">57</div>
+    <div class="score-label">Performance Score</div>
+  </div>
+  <div class="score-card">
+    <div class="site">Local Build <span class="badge badge-local">seo branch</span></div>
+    <div class="score-val score-good">86</div>
+    <div class="score-label">Performance Score</div>
+  </div>
+</div>
+
+<h2>Lighthouse Metrics — Mobile Throttled</h2>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Metric</th><th>What it measures</th><th>Production</th><th>Local Build</th><th>Delta (local vs prod)</th></tr></thead>
+  <tbody>
+    <tr class="highlight">
+      <td><strong>LCP</strong></td>
+      <td>Time until the largest visible element appears</td>
+      <td><span class="pill pill-bad">9.1s</span></td>
+      <td><span class="pill pill-mid">2.5s</span></td>
+      <td class="delta-good">−6.6s</td>
+    </tr>
+    <tr>
+      <td><strong>FCP</strong></td>
+      <td>Time until the first pixel of content appears</td>
+      <td><span class="pill pill-bad">8.7s</span></td>
+      <td>1.9s</td>
+      <td class="delta-good">−6.8s</td>
+    </tr>
+    <tr>
+      <td><strong>TBT</strong></td>
+      <td>Total time the page is frozen and unresponsive</td>
+      <td><span class="pill pill-good">0ms</span></td>
+      <td><span class="pill pill-good">60ms</span></td>
+      <td class="delta-bad">+60ms</td>
+    </tr>
+    <tr>
+      <td><strong>CLS</strong></td>
+      <td>Layout shift/jump while loading (visual stability)</td>
+      <td>0.001</td>
+      <td>0</td>
+      <td class="delta-good">−0.001</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Core Web Vitals — DevTools Trace / (homepage, no throttling)</h2>
+<p class="section-note">Direct measurement via Chrome DevTools with no CPU/network throttling. Use for relative comparison between environments, not as an absolute user-facing value. Production measured live from vgcmulticalc.com; local measured from localhost:8080.</p>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Environment</th><th>LCP</th><th>TTFB</th><th>Load delay</th><th>Load duration</th><th>Render delay</th><th>ForcedReflow</th><th>DOM elements</th></tr></thead>
+  <tbody>
+    <tr><td>Production — /</td><td>1,582ms</td><td>2ms</td><td>1,341ms</td><td>1ms</td><td>238ms</td><td>395ms</td><td>1,751</td></tr>
+    <tr class="highlight"><td>Local build — /</td><td>1,652ms</td><td>4ms</td><td>24ms</td><td>—</td><td>1,605ms</td><td>322ms</td><td>1,756</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>CrUX Field Data — Production (real users, p75)</h2>
+<p class="section-note">Chrome User Experience Report: aggregated real-user metrics for vgcmulticalc.com at the 75th percentile. Not available for local builds.</p>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Metric</th><th>Value (p75)</th><th>Status</th><th>Notes</th></tr></thead>
+  <tbody>
+    <tr><td><strong>LCP</strong></td><td>1,961ms</td><td><span class="pill pill-good">Good</span></td><td>Field LCP is substantially better than Lighthouse throttled (9.1s) — real users are on faster networks</td></tr>
+    <tr><td><strong>INP</strong></td><td>205ms</td><td><span class="pill pill-mid">Needs improvement</span></td><td>Real-user interaction latency crossing the 200ms threshold — worth monitoring</td></tr>
+    <tr><td><strong>CLS</strong></td><td>0.01</td><td><span class="pill pill-good">Good</span></td><td>Stable layout in the field</td></tr>
+    <tr><td><strong>TTFB</strong> (field)</td><td>374ms</td><td>—</td><td>Server + CDN latency for real users; local trace TTFB is 2ms (no network)</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>INP — Local Build — Simulated EV Slider Interaction (VGC home)</h2>
+<p class="section-note">Real interaction-driven measurement on local build. Production INP is available from CrUX field data above (205ms p75). Lighthouse headless does not capture INP reliably.</p>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Target</th><th>INP</th><th>Input delay</th><th>Processing</th><th>Presentation delay</th><th>Status</th></tr></thead>
+  <tbody>
+    <tr class="highlight"><td>EV slider — HP (home, keydown) — Local</td><td>155ms</td><td>0.6ms</td><td>87ms</td><td>67ms</td><td><span class="pill pill-good">Good</span></td></tr>
+    <tr><td>Production — CrUX field p75</td><td>205ms</td><td>—</td><td>—</td><td>—</td><td><span class="pill pill-mid">Needs improvement</span></td></tr>
+  </tbody>
+</table>
+</div>
+<p class="section-note">INP thresholds: Good &lt; 200ms · Needs improvement 200–500ms · Poor &gt; 500ms.</p>
+
+<h2>Delta Summary — Local Build vs Production</h2>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Metric</th><th>Production</th><th>Local Build</th><th>Delta (local vs prod)</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>Lighthouse Score</td>
+      <td>57</td>
+      <td>86</td>
+      <td class="delta-good">+29</td>
+    </tr>
+    <tr>
+      <td>LCP — Lighthouse (throttled)</td>
+      <td>9.1s</td>
+      <td>2.5s</td>
+      <td class="delta-good">−6.6s</td>
+    </tr>
+    <tr>
+      <td>FCP — Lighthouse (throttled)</td>
+      <td>8.7s</td>
+      <td>1.9s</td>
+      <td class="delta-good">−6.8s</td>
+    </tr>
+    <tr>
+      <td>TBT — Lighthouse (throttled)</td>
+      <td>0ms</td>
+      <td>60ms</td>
+      <td class="delta-bad">+60ms</td>
+    </tr>
+    <tr>
+      <td>CLS — Lighthouse</td>
+      <td>0.001</td>
+      <td>0</td>
+      <td class="delta-good">−0.001</td>
+    </tr>
+    <tr>
+      <td>Trace LCP — / (unthrottled)</td>
+      <td>1,582ms</td>
+      <td>1,652ms</td>
+      <td class="delta-bad">+70ms</td>
+    </tr>
+    <tr>
+      <td>Trace TTFB — /</td>
+      <td>2ms</td>
+      <td>4ms</td>
+      <td class="delta-neu">+2ms (negligible — both local)</td>
+    </tr>
+    <tr>
+      <td>Trace Load delay — /</td>
+      <td>1,341ms</td>
+      <td>24ms</td>
+      <td class="delta-good">−1,317ms</td>
+    </tr>
+    <tr>
+      <td>Trace Render delay — /</td>
+      <td>238ms</td>
+      <td>1,605ms</td>
+      <td class="delta-bad">+1,367ms</td>
+    </tr>
+    <tr>
+      <td>ForcedReflow — /</td>
+      <td>395ms</td>
+      <td>322ms</td>
+      <td class="delta-good">−73ms</td>
+    </tr>
+    <tr>
+      <td>DOM elements — /</td>
+      <td>1,751</td>
+      <td>1,756</td>
+      <td class="delta-neu">+5 (negligible)</td>
+    </tr>
+    <tr>
+      <td>INP (local lab / prod CrUX p75)</td>
+      <td>205ms (CrUX)</td>
+      <td>155ms (lab)</td>
+      <td class="delta-good">−50ms</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Notes</h2>
+<div class="notes">
+  <ul>
+    <li>Lighthouse score delta is substantial: production scores 57 vs local 86 (+29 points). The primary driver is LCP/FCP: production registers 9.1s/8.7s under mobile throttling vs 2.5s/1.9s for the local build. This gap is expected — the local build includes all SEO-branch optimizations (webp images, preload hints, etc.) not yet deployed to production.</li>
+    <li>The Lighthouse throttled LCP difference (9.1s prod vs 2.5s local) should not be confused with the unthrottled trace (1,582ms prod vs 1,652ms local). Throttled Lighthouse simulates a slow mobile network; the trace runs on the local machine with no network throttling — they measure different conditions. The production trace LCP of 1,582ms is measured from a local machine loading the live site, so it reflects developer network speed, not real-user conditions.</li>
+    <li>CrUX field LCP for production (1,961ms p75) is far better than the Lighthouse throttled result (9.1s) — real users are on faster connections. The throttled Lighthouse result is a stress-test, not a typical-user scenario.</li>
+    <li>Production TBT is 0ms in Lighthouse, while local build shows 60ms. Both are within the "Good" threshold (&lt;200ms). The 60ms local TBT likely comes from the additional Angular initialization overhead introduced by new features in the SEO branch. Not a concern.</li>
+    <li>Trace load delay is dramatically different: production shows 1,341ms load delay (image download from CDN), while local shows only 24ms (localhost). This is expected — local assets are served instantly, while production assets traverse the network. Render delay is the inverse: local spends 1,605ms in render (Angular initialization dominates after fast asset load), while production spends only 238ms in render after the long load delay.</li>
+    <li>ForcedReflow is 395ms in production vs 322ms in local build. Both originate from the same <code>_updateDimensions</code> Angular Material call (mat-slider). The local build's improvement (−73ms) is consistent with the webp image conversion reducing layout recalculation scope.</li>
+    <li>Production INP (CrUX p75: 205ms) crosses the Needs Improvement threshold. The local lab measurement (155ms) stays in Good. This is worth tracking post-deploy — the CrUX value aggregates all real interactions, while the lab value measures only the EV slider keydown specifically.</li>
+    <li>DOM size is virtually identical (1,751 prod vs 1,756 local) — the SEO-branch changes did not add meaningful DOM nodes.</li>
+  </ul>
+</div>
+
+</body>
+</html>
