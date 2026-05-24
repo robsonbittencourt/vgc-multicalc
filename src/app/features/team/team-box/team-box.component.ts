@@ -1,18 +1,17 @@
-import { SpriteService } from "@data/sprite.service"
 import { NgClass } from "@angular/common"
-import { Component, inject, input, output } from "@angular/core"
+import { Component, input, output } from "@angular/core"
 import { CdkDrag, CdkDragEnd, CdkDragHandle } from "@angular/cdk/drag-drop"
 import { MatIcon } from "@angular/material/icon"
+import { PokemonSpriteComponent } from "@basic/pokemon-sprite/pokemon-sprite.component"
 import { Team } from "@lib/model/team"
 
 @Component({
   selector: "app-team-box",
   templateUrl: "./team-box.component.html",
   styleUrls: ["./team-box.component.scss"],
-  imports: [NgClass, CdkDrag, CdkDragHandle, MatIcon]
+  imports: [NgClass, CdkDrag, CdkDragHandle, MatIcon, PokemonSpriteComponent]
 })
 export class TeamBoxComponent {
-  spriteService = inject(SpriteService)
   team = input.required<Team>()
   secondTeam = input<Team | null>(null)
   allowSecondTeamSelection = input<boolean>(false)

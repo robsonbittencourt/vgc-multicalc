@@ -1,4 +1,5 @@
-import { Component, computed, effect, inject, input, linkedSignal, OnInit, output, signal } from "@angular/core"
+import { Component, computed, effect, inject, input, linkedSignal, OnInit, output, PLATFORM_ID, signal } from "@angular/core"
+import { isPlatformBrowser } from "@angular/common"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { FieldStore } from "@data/store/field-store"
 import { SpeedCalcOptionsStore } from "@data/store/speed-calc-options-store"
@@ -38,9 +39,11 @@ export class SpeedScaleComponent implements OnInit {
 
   timeoutId: any
   private lastGame = this.store.game()
+  private platformId = inject(PLATFORM_ID)
 
   constructor() {
     effect(() => {
+      if (!isPlatformBrowser(this.platformId)) return
       this.calculateSpeedRange(this.pokemon(), this.optionsStore.options(), this.fieldStore.field())
     })
   }

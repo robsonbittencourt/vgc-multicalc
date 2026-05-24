@@ -1,6 +1,6 @@
-import { SpriteService } from "@data/sprite.service"
 import { Component, computed, inject, input } from "@angular/core"
 import { WidgetComponent } from "@basic/widget/widget.component"
+import { PokemonSpriteComponent } from "@basic/pokemon-sprite/pokemon-sprite.component"
 import { SpeedStatistic } from "@data/speed-data"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { SpeedCalcOptionsStore } from "@data/store/speed-calc-options-store"
@@ -10,12 +10,11 @@ import { SpeedCalculatorService } from "@lib/speed-calculator/speed-calculator-s
 
 @Component({
   selector: "app-speed-insights",
-  imports: [WidgetComponent],
+  imports: [WidgetComponent, PokemonSpriteComponent],
   templateUrl: "./speed-insights.component.html",
   styleUrl: "./speed-insights.component.scss"
 })
 export class SpeedInsightsComponent {
-  spriteService = inject(SpriteService)
   optionsStore = inject(SpeedCalcOptionsStore)
   calculatorStore = inject(CalculatorStore)
   speedCalculatorService = inject(SpeedCalculatorService)

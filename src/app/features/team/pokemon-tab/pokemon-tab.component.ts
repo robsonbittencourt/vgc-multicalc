@@ -1,17 +1,16 @@
-import { SpriteService } from "@data/sprite.service"
 import { NgClass } from "@angular/common"
 import { Component, computed, inject, input, output } from "@angular/core"
 import { MatIcon } from "@angular/material/icon"
+import { PokemonSpriteComponent } from "@basic/pokemon-sprite/pokemon-sprite.component"
 import { CalculatorStore } from "@data/store/calculator-store"
 
 @Component({
   selector: "app-pokemon-tab",
   templateUrl: "./pokemon-tab.component.html",
   styleUrls: ["./pokemon-tab.component.scss"],
-  imports: [NgClass, MatIcon]
+  imports: [NgClass, MatIcon, PokemonSpriteComponent]
 })
 export class PokemonTabComponent {
-  spriteService = inject(SpriteService)
   pokemonId = input.required<string>()
   active = input.required<boolean>()
 

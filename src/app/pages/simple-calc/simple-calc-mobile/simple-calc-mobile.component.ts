@@ -1,5 +1,5 @@
-import { SpriteService } from "@data/sprite.service"
 import { Component, computed, effect, ElementRef, inject, OnDestroy, signal, viewChild } from "@angular/core"
+import { PokemonSpriteComponent } from "@basic/pokemon-sprite/pokemon-sprite.component"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { FieldStore } from "@data/store/field-store"
 import { FIELD_CONTEXT } from "@data/store/tokens/field-context.token"
@@ -28,11 +28,23 @@ import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-b
   selector: "app-simple-calc-mobile",
   templateUrl: "./simple-calc-mobile.component.html",
   styleUrls: ["./simple-calc-mobile.component.scss"],
-  imports: [PokemonBuildMobileComponent, PokemonComboBoxComponent, ImportPokemonButtonComponent, ExportPokemonButtonComponent, FieldComponent, PokemonCardComponent, NgClass, MatIcon, MatButtonToggleModule, RollConfigComponent, WidgetComponent],
+  imports: [
+    PokemonBuildMobileComponent,
+    PokemonComboBoxComponent,
+    ImportPokemonButtonComponent,
+    ExportPokemonButtonComponent,
+    FieldComponent,
+    PokemonCardComponent,
+    NgClass,
+    MatIcon,
+    MatButtonToggleModule,
+    RollConfigComponent,
+    WidgetComponent,
+    PokemonSpriteComponent
+  ],
   providers: [FieldStore, AutomaticFieldService, { provide: FIELD_CONTEXT, useValue: "simple" }]
 })
 export class SimpleCalcMobileComponent implements OnDestroy {
-  spriteService = inject(SpriteService)
   store = inject(CalculatorStore)
   fieldStore = inject(FieldStore)
   private damageCalculator = inject(DamageCalculatorService)

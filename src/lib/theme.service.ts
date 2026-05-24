@@ -47,8 +47,25 @@ export class ThemeService {
   private applyTheme() {
     if (typeof document === "undefined") return
 
-    const colorScheme = this.store.theme() === "system" ? "light dark" : this.store.theme()
+    const theme = this.store.theme()
+    const colorScheme = theme === "system" ? "light dark" : theme
     document.body.style.colorScheme = colorScheme
+
+    const allMetas = Array.from(document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]'))
+    const [light, dark] = allMetas
+
+    if (!light || !dark) return
+
+    if (theme === "dark") {
+      light.setAttribute("media", "not all")
+      dark.removeAttribute("media")
+    } else if (theme === "light") {
+      light.removeAttribute("media")
+      dark.setAttribute("media", "not all")
+    } else {
+      light.setAttribute("media", "(prefers-color-scheme: light)")
+      dark.setAttribute("media", "(prefers-color-scheme: dark)")
+    }
   }
 
   colors: AppColor[] = [

@@ -1,0 +1,5 @@
+@if (showFallback()) {
+  <span class="pokemon-name-fallback" [style.width]="size()" [style.height]="size()">{{ name() }}</span>
+} @else {
+  <img [src]="src()" [alt]="name()" [style.width]="size()" [style.height]="size()" width="256" height="256" loading="lazy" />
+}

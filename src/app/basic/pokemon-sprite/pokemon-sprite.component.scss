@@ -1,0 +1,12 @@
+img {
+  display: block;
+}
+
+.pokemon-name-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 0.75em;
+  flex-shrink: 0;
+}
