@@ -1,7 +1,7 @@
-import { SpriteService } from "@data/sprite.service"
 import { NgClass } from "@angular/common"
 import { Component, computed, inject, input } from "@angular/core"
 import { WidgetComponent } from "@basic/widget/widget.component"
+import { PokemonSpriteComponent } from "@basic/pokemon-sprite/pokemon-sprite.component"
 import { TypeComboBoxComponent } from "@features/pokemon-build/type-combo-box/type-combo-box.component"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { TypeCoverageInsightsService, PokemonInsight } from "@lib/type-coverage/type-coverage-insights.service"
@@ -12,12 +12,11 @@ import { TypeName } from "@robsonbittencourt/calc/dist/data/interface"
 
 @Component({
   selector: "app-type-coverage-insights-mobile",
-  imports: [WidgetComponent, NgClass, TypeComboBoxComponent],
+  imports: [WidgetComponent, NgClass, TypeComboBoxComponent, PokemonSpriteComponent],
   templateUrl: "./type-coverage-insights-mobile.component.html",
   styleUrl: "./type-coverage-insights-mobile.component.scss"
 })
 export class TypeCoverageInsightsMobileComponent {
-  spriteService = inject(SpriteService)
   store = inject(CalculatorStore)
   insightsService = inject(TypeCoverageInsightsService)
 

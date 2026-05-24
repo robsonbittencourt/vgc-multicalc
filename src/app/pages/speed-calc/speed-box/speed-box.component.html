@@ -7,7 +7,7 @@
 
   <div class="speed-box-down" [ngClass]="{ actual: selected(), 'actual-label': isActual() }" (click)="pokemonSelected.emit(speedDefinition().pokemon)">
     <div [animate.enter]="animation()" class="pokemon-image">
-      <img [src]="spriteService.path(speedDefinition().pokemonName)" [alt]="speedDefinition().pokemonName" width="256" height="256" loading="lazy" data-cy="speed-box-pokemon" />
+      <app-pokemon-sprite [name]="speedDefinition().pokemonName" size="5.5em" data-cy="speed-box-pokemon" />
       @for (description of speedDefinition().description; track $index) {
         <label data-cy="speed-box-description">{{ description }}</label>
       }

@@ -1,8 +1,8 @@
-import { SpriteService } from "@data/sprite.service"
 import { NgClass } from "@angular/common"
 import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, inject, input, signal } from "@angular/core"
 import { MatSlideToggle } from "@angular/material/slide-toggle"
 import { WidgetComponent } from "@app/basic/widget/widget.component"
+import { PokemonSpriteComponent } from "@basic/pokemon-sprite/pokemon-sprite.component"
 import { TypeComboBoxComponent } from "@features/pokemon-build/type-combo-box/type-combo-box.component"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { TypeCoverageService, DefensiveCoverageData, DefensiveCoverageByPokemonData } from "@lib/type-coverage/type-coverage.service"
@@ -13,13 +13,12 @@ import { TypeName } from "@robsonbittencourt/calc/dist/data/interface"
 
 @Component({
   selector: "app-defensive-coverage-mobile",
-  imports: [WidgetComponent, TypeComboBoxComponent, NgClass, MatSlideToggle],
+  imports: [WidgetComponent, TypeComboBoxComponent, NgClass, MatSlideToggle, PokemonSpriteComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: "./defensive-coverage-mobile.component.html",
   styleUrl: "./defensive-coverage-mobile.component.scss"
 })
 export class DefensiveCoverageMobileComponent {
-  spriteService = inject(SpriteService)
   store = inject(CalculatorStore)
   typeCoverageService = inject(TypeCoverageService)
 

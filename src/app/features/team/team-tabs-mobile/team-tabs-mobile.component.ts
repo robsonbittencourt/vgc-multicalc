@@ -1,5 +1,5 @@
-import { SpriteService } from "@data/sprite.service"
 import { Component, computed, inject, model, output, viewChild } from "@angular/core"
+import { PokemonSpriteComponent } from "@basic/pokemon-sprite/pokemon-sprite.component"
 import { NgClass } from "@angular/common"
 import { MatIcon } from "@angular/material/icon"
 import { CalculatorStore } from "@data/store/calculator-store"
@@ -17,10 +17,9 @@ import { uuid } from "@lib/utils/uuid"
   selector: "app-team-tabs-mobile",
   templateUrl: "./team-tabs-mobile.component.html",
   styleUrls: ["./team-tabs-mobile.component.scss"],
-  imports: [MatIcon, NgClass, PokemonComboBoxComponent, ImportPokemonButtonComponent, ExportPokemonButtonComponent]
+  imports: [MatIcon, NgClass, PokemonComboBoxComponent, ImportPokemonButtonComponent, ExportPokemonButtonComponent, PokemonSpriteComponent]
 })
 export class TeamTabsMobileComponent {
-  spriteService = inject(SpriteService)
   pokemonComboBox = viewChild(PokemonComboBoxComponent)
   pokemonOnEditId = model<string | null>(null)
 

@@ -3,10 +3,10 @@
     <div [hidden]="activeBottomTab() !== 'results'" [class.tab-active]="activeBottomTab() === 'results'">
       <div class="team-tabs">
         <div class="team-tab" [ngClass]="{ 'active-tab': activeSide() === 'left' }" (click)="activateLeftPokemon()">
-          <img class="tab-sprite" [src]="spriteService.path(store.leftPokemon().name)" width="256" height="256" loading="lazy" />
+          <app-pokemon-sprite [name]="store.leftPokemon().name" />
         </div>
         <div class="team-tab" [ngClass]="{ 'active-tab': activeSide() === 'right' }" (click)="activateRightPokemon()">
-          <img class="tab-sprite" [src]="spriteService.path(store.rightPokemon().name)" width="256" height="256" loading="lazy" />
+          <app-pokemon-sprite [name]="store.rightPokemon().name" />
         </div>
       </div>
 

@@ -4,6 +4,7 @@ import { Component, computed, inject, input, model, output } from "@angular/core
 import { MatIcon } from "@angular/material/icon"
 import { MatTooltip } from "@angular/material/tooltip"
 import { CopyButtonComponent } from "@basic/copy-button/copy-button.component"
+import { PokemonSpriteComponent } from "@basic/pokemon-sprite/pokemon-sprite.component"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { MenuStore } from "@data/store/menu-store"
 import { AegislashButtonComponent } from "@features/buttons/aegislash-button/aegislash-button.component"
@@ -35,7 +36,8 @@ import { PokemonHpBadgeComponent } from "@pages/simple-calc/pokemon-hp-badge/pok
     PokemonHpBadgeComponent,
     ChampionsHpBadgeComponent,
     PokemonComboBoxComponent,
-    CopyButtonComponent
+    CopyButtonComponent,
+    PokemonSpriteComponent
   ]
 })
 export class PokemonCardComponent {
@@ -68,9 +70,6 @@ export class PokemonCardComponent {
 
   isDefaultAttacker = computed(() => this.damageResult().attacker.isDefault)
   isDefaultDefender = computed(() => this.damageResult().defender.isDefault)
-
-  attackerSpritePath = computed(() => this.spriteService.path(this.damageResult().attacker.name))
-  secondAttackerSpritePath = computed(() => this.spriteService.path(this.damageResult().secondAttacker?.name ?? ""))
 
   collapsedDescription = computed(() => {
     const firstMove = this.damageResult().move

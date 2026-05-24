@@ -16,7 +16,7 @@ export class SpeedCalculator {
   }
 
   speedTierIs(position: number, pokemon: string, speed: number, description: string) {
-    cy.get('[data-cy="speed-box"]').eq(position).find('[data-cy="speed-box-pokemon"]').should("have.attr", "alt", pokemon)
+    cy.get('[data-cy="speed-box"]').eq(position).find('[data-cy="speed-box-pokemon"]').find("img").should("have.attr", "alt", pokemon)
     cy.get('[data-cy="speed-box"]').eq(position).find('[data-cy="speed-box-value"]').should("have.text", speed)
     cy.get('[data-cy="speed-box"]').eq(position).find('[data-cy="speed-box-description"]').should("include.text", description)
   }

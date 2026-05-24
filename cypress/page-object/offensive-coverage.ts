@@ -12,7 +12,7 @@ export class OffensiveCoverage {
   }
 
   verifyPokemonHeaderContains(pokemonName: string) {
-    this.container().find('[data-cy="pokemon-header"]').find('[data-cy="pokemon-image-small"]').should("have.attr", "alt", pokemonName)
+    this.container().find('[data-cy="pokemon-header"]').find('[data-cy="pokemon-image-small"]').find("img").should("have.attr", "alt", pokemonName)
   }
 
   verifyPokemonHeadersCount(expectedCount: number) {

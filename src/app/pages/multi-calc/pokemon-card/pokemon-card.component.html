@@ -42,11 +42,11 @@
             </div>
           } @else {
             <div class="left-pokemon" (click)="activate(damageResult().attacker.id)" matTooltip="Edit" [matTooltipDisabled]="collapsible()" [matTooltipShowDelay]="500" [attr.data-cy]="attackerSelector()">
-              <img class="pokemon-image" [src]="attackerSpritePath()" width="256" height="256" />
+              <app-pokemon-sprite class="pokemon-image" [name]="damageResult().attacker.name" />
             </div>
             @if (damageResult().secondAttacker) {
               <div class="left-pokemon" (click)="activate(damageResult().secondAttacker!.id)" matTooltip="Edit" [matTooltipDisabled]="collapsible()" [matTooltipShowDelay]="500" [attr.data-cy]="secondAttackerSelector()">
-                <img class="pokemon-image" [src]="secondAttackerSpritePath()" width="256" height="256" loading="lazy" />
+                <app-pokemon-sprite class="pokemon-image" [name]="damageResult().secondAttacker!.name" />
               </div>
             }
           }

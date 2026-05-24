@@ -2,7 +2,7 @@
   @if (pokemon().isDefault) {
     <mat-icon data-cy="add-team-member-tab">add</mat-icon>
   } @else {
-    <img class="pokemon-image-small" [src]="spriteService.path(pokemon().name)" width="256" height="256" loading="lazy" />
+    <app-pokemon-sprite [name]="pokemon().name" size="5em" />
     <label class="tab-label">{{ pokemon().displayNameWithoutSuffix }}</label>
   }
 </div>

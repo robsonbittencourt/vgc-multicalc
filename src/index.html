@@ -66,6 +66,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="VGC Multi Calc" />
     <link rel="apple-touch-icon" href="assets/icons/calc-192x192.png" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#e6e8eb" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#121212" />
     <style>
       #app-splash {
         position: fixed;
@@ -114,6 +116,17 @@
           var theme = raw ? JSON.parse(raw)?.themeData?.theme : null
           if (theme === "light" || theme === "dark") {
             document.documentElement.dataset.splashTheme = theme
+          }
+
+          var lightMeta = document.querySelector('meta[name="theme-color"][media="(prefers-color-scheme: light)"]')
+          var darkMeta = document.querySelector('meta[name="theme-color"][media="(prefers-color-scheme: dark)"]')
+
+          if (theme === "dark") {
+            if (lightMeta) lightMeta.setAttribute("media", "not all")
+            if (darkMeta) darkMeta.removeAttribute("media")
+          } else if (theme === "light") {
+            if (lightMeta) lightMeta.removeAttribute("media")
+            if (darkMeta) darkMeta.setAttribute("media", "not all")
           }
         } catch (_) {}
       })()

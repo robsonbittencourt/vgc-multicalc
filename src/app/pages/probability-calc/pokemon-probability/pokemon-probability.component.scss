@@ -117,14 +117,6 @@
   align-items: center;
 }
 
-.pokemon-image img {
-  width: 10em;
-  height: auto;
-}
-
-:host(.mobile) .pokemon-image img {
-  width: 7.5em;
-}
 
 .probability-card {
   display: flex;

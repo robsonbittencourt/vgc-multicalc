@@ -31,6 +31,7 @@ export class ChampionsHpBadgeComponent {
   pokemonImage = viewChild<ElementRef>("pokemonImage")
 
   spriteDataUrl = signal("")
+  itemImageError = signal(false)
 
   remainingHp = computed(() => {
     const hp = this.actualHp() - this.damageTaken()
@@ -82,6 +83,10 @@ export class ChampionsHpBadgeComponent {
 
   protected readonly Status = Status
 
+  onImageError() {
+    this.spriteDataUrl.set("")
+  }
+
   onImageLoad() {
     if (this.spriteName() != this._actualSpriteName) {
       this._actualSpriteName = this.spriteName()
@@ -98,7 +103,17 @@ export class ChampionsHpBadgeComponent {
     }
   }
 
+  hasValidItem = computed(() => this.item() != Items.instance.withoutItem() && this.item() !== "nothing")
+
   canShowItemImage(): boolean {
-    return this.item() != Items.instance.withoutItem() && this.item() !== "nothing"
+    return this.hasValidItem() && !this.itemImageError()
+  }
+
+  onItemImageError() {
+    this.itemImageError.set(true)
+  }
+
+  onItemImageLoad() {
+    this.itemImageError.set(false)
   }
 }

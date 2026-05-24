@@ -114,6 +114,9 @@
   </svg>
 
   <div class="pokemon-image-loader">
-    <img #pokemonImage [src]="'assets/sprites/pokemon-champions/' + spriteName() + '.webp'" width="128" height="128" (load)="onImageLoad()" />
+    <img #pokemonImage [src]="'assets/sprites/pokemon-champions/' + spriteName() + '.webp'" width="128" height="128" (load)="onImageLoad()" (error)="onImageError()" />
+    @if (hasValidItem()) {
+      <img [src]="'assets/sprites/items/' + item() + '.webp'" width="1" height="1" (load)="onItemImageLoad()" (error)="onItemImageError()" />
+    }
   </div>
 </div>

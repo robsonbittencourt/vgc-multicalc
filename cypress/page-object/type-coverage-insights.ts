@@ -82,42 +82,42 @@ export class TypeCoverageInsights {
   }
 
   verifyOffensiveSuperEffectiveCount2x(pokemonIndex: number, pokemonName: string, expectedCount: number) {
-    this.container().find(`[data-cy="offensive-super-effective-pokemon-${pokemonIndex}"]`).find('[data-cy="pokemon-icon"]').should("have.attr", "alt", pokemonName)
+    this.container().find(`[data-cy="offensive-super-effective-pokemon-${pokemonIndex}"]`).find('[data-cy="pokemon-icon"]').find("img").should("have.attr", "alt", pokemonName)
     this.container().find(`[data-cy="offensive-super-effective-pokemon-${pokemonIndex}"]`).find('[data-cy="explanation"]').contains("super effective").should("contain", expectedCount.toString())
   }
 
   verifyOffensiveSuperEffectiveCount4x(pokemonIndex: number, pokemonName: string, expectedCount: number) {
-    this.container().find(`[data-cy="offensive-super-effective-pokemon-${pokemonIndex}"]`).find('[data-cy="pokemon-icon"]').should("have.attr", "alt", pokemonName)
+    this.container().find(`[data-cy="offensive-super-effective-pokemon-${pokemonIndex}"]`).find('[data-cy="pokemon-icon"]').find("img").should("have.attr", "alt", pokemonName)
     this.container().find(`[data-cy="offensive-super-effective-pokemon-${pokemonIndex}"]`).find('[data-cy="explanation"]').contains("super effective x4").should("contain", expectedCount.toString())
   }
 
   verifyOffensiveNotVeryEffectiveCount(pokemonIndex: number, pokemonName: string, expectedCount: number) {
-    this.container().find(`[data-cy="offensive-not-very-effective-pokemon-${pokemonIndex}"]`).find('[data-cy="pokemon-icon"]').should("have.attr", "alt", pokemonName)
+    this.container().find(`[data-cy="offensive-not-very-effective-pokemon-${pokemonIndex}"]`).find('[data-cy="pokemon-icon"]').find("img").should("have.attr", "alt", pokemonName)
     this.container().find(`[data-cy="offensive-not-very-effective-pokemon-${pokemonIndex}"]`).find('[data-cy="explanation"]').should("contain", expectedCount.toString())
   }
 
   verifyDefensiveResistCount(pokemonIndex: number, pokemonName: string, expectedCount: number) {
-    this.container().find(`[data-cy="defensive-positive-pokemon-${pokemonIndex}"]`).find('[data-cy="pokemon-icon"]').should("have.attr", "alt", pokemonName)
+    this.container().find(`[data-cy="defensive-positive-pokemon-${pokemonIndex}"]`).find('[data-cy="pokemon-icon"]').find("img").should("have.attr", "alt", pokemonName)
     this.container().find(`[data-cy="defensive-positive-pokemon-${pokemonIndex}"]`).find('[data-cy="explanation"]').contains("resistance").should("contain", expectedCount.toString())
   }
 
   verifyDefensiveImmuneCount(pokemonIndex: number, pokemonName: string, expectedCount: number) {
-    this.container().find(`[data-cy="defensive-positive-pokemon-${pokemonIndex}"]`).find('[data-cy="pokemon-icon"]').should("have.attr", "alt", pokemonName)
+    this.container().find(`[data-cy="defensive-positive-pokemon-${pokemonIndex}"]`).find('[data-cy="pokemon-icon"]').find("img").should("have.attr", "alt", pokemonName)
     this.container().find(`[data-cy="defensive-positive-pokemon-${pokemonIndex}"]`).find('[data-cy="explanation"]').contains("immunity").should("contain", expectedCount.toString())
   }
 
   verifyDefensiveWeakCount2x(pokemonIndex: number, pokemonName: string, expectedCount: number) {
-    this.container().find(`[data-cy="defensive-weak-pokemon-${pokemonIndex}"]`).find('[data-cy="pokemon-icon"]').should("have.attr", "alt", pokemonName)
+    this.container().find(`[data-cy="defensive-weak-pokemon-${pokemonIndex}"]`).find('[data-cy="pokemon-icon"]').find("img").should("have.attr", "alt", pokemonName)
     this.container().find(`[data-cy="defensive-weak-pokemon-${pokemonIndex}"]`).find('[data-cy="explanation"]').contains("weakness").should("contain", expectedCount.toString())
   }
 
   verifyDefensiveWeakCount4x(pokemonIndex: number, pokemonName: string, expectedCount: number) {
-    this.container().find(`[data-cy="defensive-weak-pokemon-${pokemonIndex}"]`).find('[data-cy="pokemon-icon"]').should("have.attr", "alt", pokemonName)
+    this.container().find(`[data-cy="defensive-weak-pokemon-${pokemonIndex}"]`).find('[data-cy="pokemon-icon"]').find("img").should("have.attr", "alt", pokemonName)
     this.container().find(`[data-cy="defensive-weak-pokemon-${pokemonIndex}"]`).find('[data-cy="explanation"]').contains("weakness x4").should("contain", expectedCount.toString())
   }
 
   verifyDefensiveWeaknessesCoveredByTera(pokemonIndex: number, pokemonName: string, expectedCount: number) {
-    this.container().find(`[data-cy="defensive-weak-pokemon-${pokemonIndex}"]`).find('[data-cy="pokemon-icon"]').should("have.attr", "alt", pokemonName)
+    this.container().find(`[data-cy="defensive-weak-pokemon-${pokemonIndex}"]`).find('[data-cy="pokemon-icon"]').find("img").should("have.attr", "alt", pokemonName)
     this.container().find(`[data-cy="defensive-weak-pokemon-${pokemonIndex}"]`).find('[data-cy="explanation"]').contains("covered by tera").should("contain", expectedCount.toString())
   }
 

@@ -4,7 +4,7 @@
       <div class="pokemon-container">
         <div class="pokemon-header">
           <div class="pokemon-image">
-            <img [src]="spriteService.path(effectivePokemon().name)" width="256" height="256" loading="lazy" />
+            <app-pokemon-sprite [name]="effectivePokemon().name" [size]="isMobile() ? '7.5em' : '10em'" />
           </div>
           <div class="pokemon-move-info">
             <h3>{{ effectivePokemon().activeMoveName }}</h3>
@@ -48,7 +48,6 @@
             </div>
           </div>
 
-          <!-- Linhas de dados -->
           <div class="probability-row" data-cy="probability-turn-1">
             <div class="cell">1</div>
             <div class="cell">{{ oneTime().hitBoth }}%</div>
@@ -128,7 +127,6 @@
             }
           </div>
 
-          <!-- Linhas de dados -->
           <div class="probability-row" data-cy="probability-turn-1">
             <div class="cell">1</div>
             <div class="cell">{{ oneTimeSingleTarget().hitAllTurns }}%</div>
