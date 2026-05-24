@@ -9,7 +9,7 @@ import { MenuStore } from "@data/store/menu-store"
 import { DeviceDetectorService } from "@lib/device-detector.service"
 import { JsonLdService } from "@lib/json-ld.service"
 
-const TITLE = "Pokémon Damage Calculator — One vs One for VGC & Champions"
+const TITLE = "Pokémon Damage Calculator — One vs One"
 const DESCRIPTION = "Classic one-on-one Pokémon damage calculator for VGC and Pokémon Champions. Detailed side-by-side analysis with EVs, Natures, abilities and damage rolls."
 const OG_IMAGE = "https://vgcmulticalc.com/assets/icons/calc-512x512.png"
 const URL = "https://vgcmulticalc.com/one-vs-one"

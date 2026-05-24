@@ -9,8 +9,8 @@ import { MenuStore } from "@data/store/menu-store"
 import { DeviceDetectorService } from "@lib/device-detector.service"
 import { JsonLdService } from "@lib/json-ld.service"
 
-const TITLE = "Pokémon KO Probability Calculator — OHKO & 2HKO for VGC"
-const DESCRIPTION = "Free Pokémon damage probability calculator for VGC and Pokémon Champions. Calculate KO chance, OHKO and 2HKO probabilities across all damage rolls."
+const TITLE = "Pokémon Move Probability Calculator"
+const DESCRIPTION = "Pokémon probability calculator for VGC and Pokémon Champions. Analyze move accuracy, consistency score, secondary effects, and game mechanic probabilities across multiple turns."
 const OG_IMAGE = "https://vgcmulticalc.com/assets/icons/calc-512x512.png"
 const URL = "https://vgcmulticalc.com/probability-calc"
 

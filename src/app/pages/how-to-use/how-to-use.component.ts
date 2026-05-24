@@ -81,7 +81,7 @@ export class HowToUseComponent implements OnInit, OnDestroy {
           name: "What is the difference between OHKO and 2HKO?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "OHKO (One-Hit KO) means a move deals enough damage to knock out the target in a single hit. 2HKO (Two-Hit KO) means two hits are required. VGC Multi Calc shows the full damage roll distribution and the probability of achieving an OHKO or 2HKO for each spread."
+            text: "OHKO (One-Hit KO) means a move deals enough damage to knock out the target in a single hit. 2HKO (Two-Hit KO) means two hits are required. VGC Multi Calc shows the full damage roll distribution and the KO chance for each spread in the Damage Calculator."
           }
         },
         {

@@ -296,6 +296,7 @@ describe("Test the Field options on options with One vs One", () => {
     })
 
     it("With Neutralizing Gas active", () => {
+      cy.wait(500)
       field.neutralizingGas()
 
       leftDamageResult.damageIs(0, 181.4, 213.6, 372, 438)
