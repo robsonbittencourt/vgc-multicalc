@@ -9,7 +9,7 @@ import { MenuStore } from "@data/store/menu-store"
 import { DeviceDetectorService } from "@lib/device-detector.service"
 import { JsonLdService } from "@lib/json-ld.service"
 
-const TITLE = "Pokémon Damage Calculator — Many vs Team for VGC & Champions"
+const TITLE = "Pokémon Damage Calculator — Many vs Team"
 const DESCRIPTION = "Calculate how much damage multiple Pokémon deal to a single target. Evaluate defensive durability across your entire team for VGC and Pokémon Champions."
 const OG_IMAGE = "https://vgcmulticalc.com/assets/icons/calc-512x512.png"
 const URL = "https://vgcmulticalc.com/many-vs-team"

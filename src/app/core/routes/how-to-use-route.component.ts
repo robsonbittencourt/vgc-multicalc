@@ -7,7 +7,7 @@ import { MenuStore } from "@data/store/menu-store"
 import { DeviceDetectorService } from "@lib/device-detector.service"
 import { JsonLdService } from "@lib/json-ld.service"
 
-const TITLE = "How to Use VGC Multi Calc — Guide & Features"
+const TITLE = "How to Use — Guide & Features"
 const DESCRIPTION = "Learn how to use VGC Multi Calc: multi-target damage calculation, EV optimization, speed tiers, type coverage and damage probability for VGC and Pokémon Champions."
 
 @Component({
@@ -85,7 +85,7 @@ export class HowToUseRouteComponent implements OnInit {
           name: "How does the Probability Calculator work?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "The Probability Calculator analyzes the full damage roll distribution for a matchup and shows the exact chance of achieving each outcome — OHKO, 2HKO or survival — across all 16 possible damage rolls. It also provides a Consistency Score to help you evaluate how reliable a KO is in practice."
+            text: "The Probability Calculator helps you understand how reliable your team is in battle. It analyzes move accuracy and calculates a Consistency Score for each Pokémon and the overall team. It also shows hit and miss probabilities, secondary effect chances, and reference tables for common game mechanics like critical hits, Protect, sleep, and status effects across multiple turns."
           }
         },
         {
