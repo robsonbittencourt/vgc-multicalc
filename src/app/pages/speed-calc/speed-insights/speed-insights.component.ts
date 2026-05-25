@@ -20,6 +20,7 @@ export class SpeedInsightsComponent {
   speedCalculatorService = inject(SpeedCalculatorService)
 
   pokemon = input.required<Pokemon>()
+  isMobile = input<boolean>(false)
 
   pokemonName = computed(() => this.pokemon().name)
   regulation = computed(() => this.optionsStore.regulation())

@@ -1,6 +1,8 @@
 <app-widget title="Speed Insights">
   <div class="container">
-    <p>Select a Pokémon from Speed List to see insights about metagame.</p>
+    @if (!isMobile()) {
+      <p>Select a Pokémon from Speed List to see insights about metagame.</p>
+    }
 
     <div class="card">
       <div class="speed-values">

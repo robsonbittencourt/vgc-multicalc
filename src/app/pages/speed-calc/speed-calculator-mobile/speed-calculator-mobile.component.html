@@ -104,7 +104,7 @@
       <div [hidden]="overlay.isAnyOpen()">
         @if (!pokemon().isDefault) {
           <div class="insights-content">
-            <app-speed-insights [pokemon]="pokemon()" />
+            <app-speed-insights [pokemon]="pokemon()" [isMobile]="true" />
           </div>
         } @else {
           <div class="empty-insights">Select a Pokémon</div>
