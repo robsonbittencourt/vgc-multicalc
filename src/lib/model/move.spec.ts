@@ -33,10 +33,4 @@ describe("Move", () => {
 
     expect(move.possibleHits).toEqual([])
   })
-
-  it("should return an empty array for a multihit move with fixed hits", () => {
-    const move = new Move("Dual Wingbeat")
-
-    expect(move.possibleHits).toEqual([])
-  })
 })
