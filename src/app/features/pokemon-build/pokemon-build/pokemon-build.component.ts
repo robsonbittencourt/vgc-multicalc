@@ -280,6 +280,7 @@ export class PokemonBuildComponent {
   }
 
   focusPokemonSelector() {
+    this.pokemonHasFocus.set(true)
     this.pokemonInput()?.focus()
   }
 

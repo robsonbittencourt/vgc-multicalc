@@ -37,23 +37,3 @@
     }
   }
 </div>
-
-@if (pokemon()) {
-  <div class="attacker-header">
-    <app-pokemon-combo-box [pokemonId]="effectiveEditingId()!" label="" />
-    <div class="attacker-actions">
-      @if (canImportPokemon() && !editingTarget()) {
-        <app-import-pokemon-button (pokemonImportedEvent)="importPokemon($event)" />
-      }
-      @if (!isEditingDefault()) {
-        <app-export-pokemon-button [pokemonId]="effectiveEditingId()!" />
-      }
-      @if (!editingTarget() && !isEditingDefault()) {
-        <div class="delete-pokemon" (click)="removeActivePokemon()" data-cy="delete-team-member-mobile">
-          <mat-icon class="icon">delete</mat-icon>
-          <label>Delete</label>
-        </div>
-      }
-    </div>
-  </div>
-}

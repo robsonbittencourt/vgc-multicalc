@@ -27,6 +27,96 @@
       margin-top: 0.75em;
     }
   }
+
+  &.table-open {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 0;
+  }
+}
+
+.scrollable-content.table-open > div.table-open {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+}
+
+.attacker-header {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5em;
+  padding: 1em 0.75em 0.5em 0.75em;
+  background-color: var(--background);
+}
+
+.pokemon-input {
+  flex: 0 1 10em;
+  max-width: 10em;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 6px;
+  border: 1px solid rgb(133, 129, 129);
+  border-radius: 3px;
+  outline: none;
+  background-color: var(--widget-background);
+  color: var(--text);
+  font-size: 14px;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.attacker-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  flex-shrink: 0;
+}
+
+.close-table-button {
+  display: flex;
+  align-items: center;
+  gap: 0.2em;
+  cursor: pointer;
+
+  &:hover > * {
+    font-weight: 500;
+  }
+}
+
+.attacker-build {
+  padding-bottom: 0.5em;
+
+  .table-open & {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding-bottom: 0;
+  }
+}
+
+.table-open ::ng-deep .table-container {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  app-pokemon-table,
+  app-moves-table,
+  app-abilities-table,
+  app-items-table {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
 }
 
 .tab-active {
@@ -123,5 +213,23 @@
     display: block;
     width: auto;
     padding: 0 0.75em;
+  }
+}
+
+.delete-pokemon {
+  display: flex;
+  align-items: center;
+  gap: 0.2em;
+  cursor: pointer;
+  color: var(--text);
+
+  .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  label {
+    cursor: pointer;
   }
 }

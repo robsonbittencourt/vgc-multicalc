@@ -1,30 +1,21 @@
-import { Component, computed, inject, model, output, viewChild } from "@angular/core"
+import { Component, computed, inject, model, output } from "@angular/core"
 import { PokemonSpriteComponent } from "@basic/pokemon-sprite/pokemon-sprite.component"
 import { NgClass } from "@angular/common"
 import { MatIcon } from "@angular/material/icon"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { MenuStore } from "@data/store/menu-store"
 import { defaultPokemon } from "@lib/default-pokemon"
-import { PokemonComboBoxComponent } from "@features/pokemon-build/pokemon-combo-box/pokemon-combo-box.component"
-import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
-import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-button/export-pokemon-button.component"
-import { Pokemon } from "@lib/model/pokemon"
-import { TeamMember } from "@lib/model/team-member"
-import { Team } from "@lib/model/team"
-import { uuid } from "@lib/utils/uuid"
 
 @Component({
   selector: "app-team-tabs-mobile",
   templateUrl: "./team-tabs-mobile.component.html",
   styleUrls: ["./team-tabs-mobile.component.scss"],
-  imports: [MatIcon, NgClass, PokemonComboBoxComponent, ImportPokemonButtonComponent, ExportPokemonButtonComponent, PokemonSpriteComponent]
+  imports: [MatIcon, NgClass, PokemonSpriteComponent]
 })
 export class TeamTabsMobileComponent {
-  pokemonComboBox = viewChild(PokemonComboBoxComponent)
   pokemonOnEditId = model<string | null>(null)
 
   memberAddedEvent = output<void>()
-  pokemonImportedEvent = output<Pokemon | Pokemon[]>()
   pokemonDeleted = output<string | null>()
 
   store = inject(CalculatorStore)
@@ -68,13 +59,6 @@ export class TeamTabsMobileComponent {
   })
 
   hasDefaultMember = computed(() => this.teamMembers().some(m => m.pokemon.isDefault))
-
-  pokemon = computed(() => {
-    const id = this.effectiveEditingId()
-    if (!id) return null
-
-    return this.store.findPokemonById(id)
-  })
 
   editingTarget = computed(() => {
     const editId = this.pokemonOnEditId()
@@ -177,36 +161,6 @@ export class TeamTabsMobileComponent {
 
   clearEditMode() {
     this.pokemonOnEditId.set(null)
-  }
-
-  focus() {
-    this.pokemonComboBox()?.focus()
-  }
-
-  importPokemon(pokemon: Pokemon | Pokemon[]) {
-    if (Array.isArray(pokemon)) {
-      if (pokemon.length > 0) {
-        const teamMembers = pokemon.map((p, index) => new TeamMember(p, index === 0))
-        const newTeam = new Team(uuid(), true, "Imported Team", teamMembers)
-        this.store.replaceActiveTeam(newTeam)
-      }
-
-      return
-    }
-
-    if (this.canImportPokemon()) {
-      const defaultMember = this.teamMembers().find(m => m.pokemon.isDefault)
-
-      if (defaultMember) {
-        this.store.changePokemon(defaultMember.pokemon.id, pokemon)
-        this.setActivePokemon(defaultMember.pokemon.id)
-      } else {
-        this.store.addTeamMember(pokemon)
-        this.setActivePokemon(pokemon.id)
-      }
-    }
-
-    this.pokemonImportedEvent.emit(pokemon)
   }
 
   removeActivePokemon() {

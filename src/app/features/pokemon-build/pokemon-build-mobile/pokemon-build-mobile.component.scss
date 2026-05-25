@@ -188,9 +188,19 @@ app-pokemon-moves-mobile {
   }
 }
 
-.combo-item-with-mega app-item-combo-box {
+.combo-item-with-mega .item-mobile-trigger {
   flex: 1;
   min-width: 0;
+}
+
+.item-mobile-trigger {
+  flex: 1 1 0;
+  min-width: 0;
+  cursor: pointer;
+
+  app-input-select {
+    pointer-events: none;
+  }
 }
 
 .combo-item {

@@ -1,4 +1,4 @@
-import { Component, computed, ElementRef, inject, OnDestroy, signal, ViewChild } from "@angular/core"
+import { Component, computed, ElementRef, inject, OnDestroy, signal, ViewChild, ViewChildren, QueryList } from "@angular/core"
 import { NgClass } from "@angular/common"
 import { MatIcon, MatIconRegistry } from "@angular/material/icon"
 import { DomSanitizer } from "@angular/platform-browser"
@@ -13,20 +13,40 @@ import { PokemonBuildMobileComponent } from "@features/pokemon-build/pokemon-bui
 import { TypeCoverageInsightsMobileComponent } from "@pages/type-calc/type-coverage-insights-mobile/type-coverage-insights-mobile.component"
 import { OffensiveCoverageMobileComponent } from "@pages/type-calc/offensive-coverage-mobile/offensive-coverage-mobile.component"
 import { DefensiveCoverageMobileComponent } from "@pages/type-calc/defensive-coverage-mobile/defensive-coverage-mobile.component"
+import { MobileTableOverlayComponent } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.component"
+import { MobileTableOverlayService, TableSelectEvent } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.service"
+import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
+import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-button/export-pokemon-button.component"
 import { Team } from "@lib/model/team"
+import { Pokemon } from "@lib/model/pokemon"
 
 @Component({
   selector: "app-type-calc-mobile",
   templateUrl: "./type-calc-mobile.component.html",
   styleUrl: "./type-calc-mobile.component.scss",
-  imports: [NgClass, MatIcon, TeamTabsMobileComponent, TeamsMobileComponent, PokemonBuildMobileComponent, TypeCoverageInsightsMobileComponent, OffensiveCoverageMobileComponent, DefensiveCoverageMobileComponent],
-  providers: [FieldStore, AutomaticFieldService, { provide: FIELD_CONTEXT, useValue: "type" }]
+  imports: [
+    NgClass,
+    MatIcon,
+    TeamTabsMobileComponent,
+    TeamsMobileComponent,
+    PokemonBuildMobileComponent,
+    TypeCoverageInsightsMobileComponent,
+    OffensiveCoverageMobileComponent,
+    DefensiveCoverageMobileComponent,
+    MobileTableOverlayComponent,
+    ImportPokemonButtonComponent,
+    ExportPokemonButtonComponent
+  ],
+  providers: [FieldStore, AutomaticFieldService, MobileTableOverlayService, { provide: FIELD_CONTEXT, useValue: "type" }]
 })
 export class TypeCalcMobileComponent implements OnDestroy {
   @ViewChild("scrollContainer") scrollContainer?: ElementRef<HTMLDivElement>
-  @ViewChild(TeamTabsMobileComponent) teamTabsMobile?: TeamTabsMobileComponent
+  @ViewChild("pokemonInput") pokemonInput?: ElementRef<HTMLInputElement>
+  @ViewChild("itemInput") itemInput?: ElementRef<HTMLInputElement>
+  @ViewChildren(TeamTabsMobileComponent) teamTabsMobileList?: QueryList<TeamTabsMobileComponent>
   store = inject(CalculatorStore)
   private backNavigation = inject(BackNavigationService)
+  overlay = inject(MobileTableOverlayService)
 
   constructor() {
     const iconRegistry = inject(MatIconRegistry)
@@ -38,7 +58,6 @@ export class TypeCalcMobileComponent implements OnDestroy {
   activeBottomTab = signal<"insights" | "coverage" | "teams" | "build">("coverage")
   private scrollPositions = new Map<string, number>()
   pokemonOnEditId = signal<string | null>(null)
-
   secondTeam = signal<Team | null>(null)
 
   activePokemonId = computed(() => {
@@ -60,9 +79,20 @@ export class TypeCalcMobileComponent implements OnDestroy {
     this.backNavigation.unregister()
   }
 
+  editingPokemon = computed(() => {
+    const id = this.effectiveEditingId()
+    return id ? this.store.findNullablePokemonById(id) : undefined
+  })
+
+  editingPokemonName = computed(() => this.editingPokemon()?.name ?? "")
+  editingPokemonItem = computed(() => this.editingPokemon()?.item ?? "")
+  editingMoveIndex = computed(() => Math.max(0, this.editingPokemon()?.activeMoveIndex ?? 0))
+
   switchTab(newTab: "insights" | "coverage" | "teams" | "build") {
     const currentTab = this.activeBottomTab()
     if (currentTab === newTab) return
+
+    this.overlay.close()
 
     const currentScroll = this.scrollContainer?.nativeElement.scrollTop || 0
     this.scrollPositions.set(currentTab, currentScroll)
@@ -71,7 +101,7 @@ export class TypeCalcMobileComponent implements OnDestroy {
 
     if (newTab === "coverage") {
       this.backNavigation.pop()
-    } else {
+    } else if (currentTab === "coverage") {
       this.backNavigation.push()
     }
 
@@ -88,15 +118,159 @@ export class TypeCalcMobileComponent implements OnDestroy {
     this.switchTab("insights")
   }
 
+  onNewTeamCreated(pokemonId: string) {
+    this.pokemonOnEditId.set(pokemonId)
+    this.switchTab("build")
+  }
+
   onSecondTeamSelected(team: Team | null) {
     this.secondTeam.set(team)
   }
 
   onMemberAdded() {
     this.switchTab("build")
+    this.overlay.open("pokemon")
+  }
 
-    setTimeout(() => {
-      this.teamTabsMobile?.focus()
-    }, 100)
+  deleteEditingPokemon() {
+    this.teamTabsMobileList?.get(0)?.removeActivePokemon()
+  }
+
+  private justOpenedTable = false
+
+  onPokemonMouseDown(event: MouseEvent) {
+    if (!this.overlay.isAnyOpen()) {
+      event.preventDefault()
+      this.justOpenedTable = true
+      this.overlay.open("pokemon")
+    }
+  }
+
+  onPokemonClick() {
+    if (this.justOpenedTable) {
+      this.justOpenedTable = false
+      return
+    }
+
+    if (this.pokemonInput) {
+      this.pokemonInput.nativeElement.value = ""
+      this.overlay.setFilter("")
+    }
+  }
+
+  onPokemonInput(value: string) {
+    this.overlay.setFilter(value)
+  }
+
+  onPokemonSelected(name: string) {
+    const id = this.effectiveEditingId()
+    if (!id) return
+    this.store.loadPokemonInfo(id, name)
+    this.overlay.close()
+    this.pokemonInput?.nativeElement.blur()
+  }
+
+  onClosePokemonTable() {
+    this.overlay.close()
+
+    if (this.pokemonInput) {
+      this.pokemonInput.nativeElement.value = this.editingPokemonName()
+    }
+
+    this.pokemonInput?.nativeElement.blur()
+  }
+
+  openMovesTable() {
+    this.overlay.open("moves")
+  }
+
+  onMoveSelected(move: string) {
+    const id = this.effectiveEditingId()
+    if (!id) return
+    const index = this.editingMoveIndex()
+    this.store.updateMove(id, move, index)
+  }
+
+  onCloseMovesTable() {
+    this.overlay.close()
+  }
+
+  openAbilitiesTable() {
+    this.overlay.open("abilities")
+  }
+
+  onAbilitySelected(ability: string) {
+    const id = this.effectiveEditingId()
+    if (!id) return
+    this.store.ability(id, ability)
+    this.overlay.close()
+  }
+
+  openItemsTable() {
+    this.overlay.open("items")
+  }
+
+  onItemMouseDown(event: MouseEvent) {
+    if (!this.overlay.isAnyOpen()) {
+      event.preventDefault()
+      this.justOpenedTable = true
+      this.overlay.open("items")
+    }
+  }
+
+  onItemClick() {
+    if (this.justOpenedTable) {
+      this.justOpenedTable = false
+      return
+    }
+
+    if (this.itemInput) {
+      this.itemInput.nativeElement.value = ""
+      this.overlay.setFilter("")
+    }
+  }
+
+  onItemInput(value: string) {
+    this.overlay.setFilter(value)
+  }
+
+  onItemSelected(name: string) {
+    const id = this.effectiveEditingId()
+    if (!id) return
+    this.store.item(id, name)
+    this.overlay.close()
+    this.itemInput?.nativeElement.blur()
+  }
+
+  onCloseItemsTable() {
+    this.overlay.close()
+    this.itemInput?.nativeElement.blur()
+  }
+
+  onHeaderImport(pokemon: Pokemon | Pokemon[]) {
+    const singlePokemon = Array.isArray(pokemon) ? pokemon[0] : pokemon
+    if (!singlePokemon) return
+
+    const id = this.effectiveEditingId()
+    if (!id) return
+
+    this.store.changePokemon(id, singlePokemon)
+  }
+
+  onTableSelect(event: TableSelectEvent) {
+    switch (event.kind) {
+      case "pokemon":
+        this.onPokemonSelected(event.value)
+        break
+      case "moves":
+        this.onMoveSelected(event.value)
+        break
+      case "abilities":
+        this.onAbilitySelected(event.value)
+        break
+      case "items":
+        this.onItemSelected(event.value)
+        break
+    }
   }
 }

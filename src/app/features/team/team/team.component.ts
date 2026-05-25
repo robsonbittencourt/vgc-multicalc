@@ -66,6 +66,10 @@ export class TeamComponent {
     this.pokemonBuild()?.scrollToPokemonSelector()
   }
 
+  focusPokemonSelector() {
+    this.pokemonBuild()?.focusPokemonSelector()
+  }
+
   activatePokemon(pokemonId: string) {
     if (this.combineDamageActive()) {
       this.selectedPokemon(pokemonId)

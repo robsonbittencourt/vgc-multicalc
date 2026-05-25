@@ -45,6 +45,7 @@ export class MultiCalcComponent implements OnInit {
   damageResults = computed(() => this.damageCalculator.calculateDamageForAll(this.activeAttacker(), this.store.targets(), this.fieldStore.field(), this.order(), this.activeSecondAttacker()))
 
   teamComponent = viewChild<TeamComponent>("teamComponent")
+
   rollLevelConfig = computed(() => {
     const level = this.menuStore.manyVsOneActivated() ? this.store.manyVsTeamRollLevel() : this.store.multiCalcRollLevel()
     return RollLevelConfig.fromConfigString(level)
@@ -158,6 +159,17 @@ export class MultiCalcComponent implements OnInit {
       window.scrollTo({ top: 0, behavior: "smooth" })
       document.documentElement.scrollTo({ top: 0, behavior: "smooth" })
       document.body.scrollTo({ top: 0, behavior: "smooth" })
+    }, 150)
+  }
+
+  onPokemonAddedToTargets(pokemonId: string) {
+    this.updatePokemonOnEditId(pokemonId)
+
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" })
+      document.documentElement.scrollTo({ top: 0, behavior: "smooth" })
+      document.body.scrollTo({ top: 0, behavior: "smooth" })
+      this.teamComponent()?.focusPokemonSelector()
     }, 150)
   }
 

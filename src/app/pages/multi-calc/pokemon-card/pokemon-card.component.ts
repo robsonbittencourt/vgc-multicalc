@@ -11,7 +11,6 @@ import { AegislashButtonComponent } from "@features/buttons/aegislash-button/aeg
 import { BoosterEnergyButtonComponent } from "@features/buttons/booster-energy-button/booster-energy-button.component"
 import { TatsugiriButtonComponent } from "@features/buttons/tatsugiri-button/tatsugiri-button.component"
 import { TerastalButtonComponent } from "@features/buttons/terastal-button/terastal-button.component"
-import { PokemonComboBoxComponent } from "@features/pokemon-build/pokemon-combo-box/pokemon-combo-box.component"
 import { MegaStoneService } from "@features/pokemon-build/utils/mega-stone.service"
 import { DamageResult } from "@lib/damage-calculator/damage-result"
 import { RollLevelConfig } from "@lib/damage-calculator/roll-level-config"
@@ -35,7 +34,6 @@ import { PokemonHpBadgeComponent } from "@pages/simple-calc/pokemon-hp-badge/pok
     BoosterEnergyButtonComponent,
     PokemonHpBadgeComponent,
     ChampionsHpBadgeComponent,
-    PokemonComboBoxComponent,
     CopyButtonComponent,
     PokemonSpriteComponent
   ]

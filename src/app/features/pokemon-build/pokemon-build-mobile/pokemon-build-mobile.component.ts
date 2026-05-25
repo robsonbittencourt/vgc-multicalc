@@ -12,7 +12,6 @@ import { MenuStore } from "@data/store/menu-store"
 import { spToEv, totalSpsFromEvs } from "@lib/utils/ev-sp-converter"
 import { AbilityComboBoxComponent } from "@features/pokemon-build/ability-combo-box/ability-combo-box.component"
 import { EvSliderComponent } from "@features/pokemon-build/ev-slider/ev-slider.component"
-import { ItemComboBoxComponent } from "@features/pokemon-build/item-combo-box/item-combo-box.component"
 import { NatureComboBoxComponent } from "@features/pokemon-build/nature-combo-box/nature-combo-box.component"
 import { PokemonMovesMobileComponent } from "@features/pokemon-build/pokemon-moves-mobile/pokemon-moves-mobile.component"
 import { StatusComboBoxComponent } from "@features/pokemon-build/status-combo-box/status-combo-box.component"
@@ -39,7 +38,6 @@ import { Stats } from "@lib/types"
     EvSliderComponent,
     TeraComboBoxComponent,
     StatusComboBoxComponent,
-    ItemComboBoxComponent,
     NatureComboBoxComponent,
     InputSelectComponent,
     PokemonMovesMobileComponent,
@@ -56,6 +54,11 @@ export class PokemonBuildMobileComponent {
   manageTeamState = input<boolean>(true)
   isRightSide = input<boolean>(false)
   onlySpeed = input<boolean>(false)
+  hideEvs = input<boolean>(false)
+  hideMoves = input<boolean>(false)
+  editingMoves = input<boolean>(false)
+  editingAbility = input<boolean>(false)
+  editingItem = input<boolean>(false)
 
   store = inject(CalculatorStore)
   menuStore = inject(MenuStore)
@@ -105,6 +108,10 @@ export class PokemonBuildMobileComponent {
   pokemonImportedEvent = output<Pokemon | Pokemon[]>()
   pokemonDeleted = output<string | null>()
   evsChanged = output<void>()
+  editMovesRequested = output()
+  closeMovesRequested = output()
+  editAbilityRequested = output()
+  editItemRequested = output()
   optimizationRequested = output<{ updateNature: boolean; keepOffensiveEvs: boolean; survivalThreshold: number }>()
   optimizationApplied = output<void>()
   optimizationDiscarded = output<void>()

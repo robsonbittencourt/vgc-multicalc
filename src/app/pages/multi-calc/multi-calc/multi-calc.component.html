@@ -19,6 +19,7 @@
   [damageResults]="damageResults()"
   [isAttacker]="menuStore.manyVsOneActivated()"
   (targetActivated)="targetActivated($event)"
+  (pokemonAddedToTargets)="onPokemonAddedToTargets($event)"
   (targetRemoved)="updatePokemonOnEditId(store.team().activePokemon().id)"
   (targetsImported)="targetsImported()"
   (orderChanged)="orderChanged($event)" />

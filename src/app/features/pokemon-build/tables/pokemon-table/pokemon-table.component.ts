@@ -17,6 +17,7 @@ export class PokemonTableComponent {
   pokemonId = input.required<string>()
   dataFilter = input.required<string>()
   haveFocus = input.required<boolean>()
+  isMobile = input<boolean>(false)
 
   pokemonSelected = output<string>()
   firstPokemonFromList = output<string>()
@@ -38,7 +39,8 @@ export class PokemonTableComponent {
       isImageColumn: true,
       displayFn: (item: PokemonDetail) => `assets/sprites/pokemon-home/${item.name}.webp`,
       alignLeft: true,
-      width: "small"
+      width: "small",
+      freezeOnMobile: true
     }),
     new ColumnConfig<PokemonDetail>({ field: "name", header: "Name", sortable: true, alignLeft: true, width: "medium" }),
     new ColumnConfig<PokemonDetail>({ field: "types", header: "Types", isPokemonType: true, width: "medium" }),

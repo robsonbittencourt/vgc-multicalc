@@ -6,16 +6,26 @@ export class BackNavigationService {
   private platformId = inject(PLATFORM_ID)
 
   private onBack: (() => void) | null = null
-  private isNonDefault = false
+  private callbackStack: (() => void)[] = []
+  private isPoppingProgrammatically = false
 
   constructor() {
     if (!isPlatformBrowser(this.platformId)) return
 
     window.addEventListener("popstate", () => {
-      if (this.isNonDefault) {
-        this.isNonDefault = false
-        this.onBack?.()
+      if (this.isPoppingProgrammatically) {
+        this.isPoppingProgrammatically = false
+        return
+      }
 
+      if (this.callbackStack.length > 0) {
+        const callback = this.callbackStack.pop()!
+        callback()
+        return
+      }
+
+      if (this.onBack) {
+        this.onBack()
         return
       }
 
@@ -27,25 +37,24 @@ export class BackNavigationService {
 
   register(onBack: () => void) {
     this.onBack = onBack
-    this.isNonDefault = false
+    this.callbackStack = []
   }
 
-  push() {
-    if (!this.isNonDefault) {
-      history.pushState({ vgcPhantom: true }, "")
-      this.isNonDefault = true
-    }
+  push(onBack?: () => void) {
+    history.pushState({ vgcPhantom: true }, "")
+    this.callbackStack.push(onBack ?? (() => this.onBack?.()))
   }
 
   pop() {
-    if (this.isNonDefault) {
-      this.isNonDefault = false
+    if (this.callbackStack.length > 0) {
+      this.callbackStack.pop()
+      this.isPoppingProgrammatically = true
       history.back()
     }
   }
 
   unregister() {
     this.onBack = null
-    this.isNonDefault = false
+    this.callbackStack = []
   }
 }

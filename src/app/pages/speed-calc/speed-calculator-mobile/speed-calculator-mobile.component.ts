@@ -21,6 +21,10 @@ import { BackNavigationService } from "@lib/back-navigation.service"
 import { OpponentOptionsComponent } from "@pages/speed-calc/opponent-options/opponent-options.component"
 import { SpeedInsightsComponent } from "@pages/speed-calc/speed-insights/speed-insights.component"
 import { SpeedScaleComponent } from "@pages/speed-calc/speed-scale/speed-scale.component"
+import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
+import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-button/export-pokemon-button.component"
+import { MobileTableOverlayComponent } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.component"
+import { MobileTableOverlayService, TableSelectEvent } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.service"
 
 @Component({
   selector: "app-speed-calculator-mobile",
@@ -38,17 +42,24 @@ import { SpeedScaleComponent } from "@pages/speed-calc/speed-scale/speed-scale.c
     WidgetComponent,
     OpponentOptionsComponent,
     TeamTabsMobileComponent,
-    TeamsMobileComponent
+    TeamsMobileComponent,
+    ImportPokemonButtonComponent,
+    ExportPokemonButtonComponent,
+    MobileTableOverlayComponent
   ],
-  providers: [FieldStore, AutomaticFieldService, { provide: FIELD_CONTEXT, useValue: "speed" }]
+  providers: [FieldStore, AutomaticFieldService, MobileTableOverlayService, { provide: FIELD_CONTEXT, useValue: "speed" }]
 })
 export class SpeedCalculatorMobileComponent implements OnDestroy {
   @ViewChild("scrollContainer") scrollContainer?: ElementRef<HTMLDivElement>
+  @ViewChild("pokemonInput") pokemonInput?: ElementRef<HTMLInputElement>
+  @ViewChild("pokemonInputInsights") pokemonInputInsights?: ElementRef<HTMLInputElement>
+  @ViewChild("itemInput") itemInput?: ElementRef<HTMLInputElement>
   @ViewChildren(TeamTabsMobileComponent) teamTabsMobileList?: QueryList<TeamTabsMobileComponent>
 
   store = inject(CalculatorStore)
   fieldStore = inject(FieldStore)
   optionsStore = inject(SpeedCalcOptionsStore)
+  overlay = inject(MobileTableOverlayService)
   private automaticFieldService = inject(AutomaticFieldService)
   private backNavigation = inject(BackNavigationService)
 
@@ -61,6 +72,14 @@ export class SpeedCalculatorMobileComponent implements OnDestroy {
   selectedPokemon = signal<Pokemon>(this.store.team().activePokemon())
 
   effectiveEditingId = computed(() => this.pokemonOnEditId() || this.activePokemonId())
+
+  editingPokemon = computed(() => {
+    const id = this.effectiveEditingId()
+    return id ? this.store.findNullablePokemonById(id) : undefined
+  })
+
+  editingPokemonName = computed(() => this.editingPokemon()?.name ?? "")
+  editingPokemonItem = computed(() => this.editingPokemon()?.item ?? "")
 
   speedCalcPokemonId = computed(() => this.store.speedCalcPokemon().id)
 
@@ -131,6 +150,143 @@ export class SpeedCalculatorMobileComponent implements OnDestroy {
     })
   }
 
+  private justOpenedTable = false
+
+  private activePokemonInputEl(): HTMLInputElement | undefined {
+    return this.activeBottomTab() === "speed-insights" ? this.pokemonInputInsights?.nativeElement : this.pokemonInput?.nativeElement
+  }
+
+  onPokemonMouseDown(event: MouseEvent) {
+    if (!this.overlay.isAnyOpen()) {
+      event.preventDefault()
+      this.justOpenedTable = true
+      this.overlay.open("pokemon")
+    }
+  }
+
+  onPokemonClick() {
+    if (this.justOpenedTable) {
+      this.justOpenedTable = false
+      return
+    }
+
+    const input = this.activePokemonInputEl()
+
+    if (input) {
+      input.value = ""
+      this.overlay.setFilter("")
+    }
+  }
+
+  onPokemonInput(value: string) {
+    this.overlay.setFilter(value)
+  }
+
+  onPokemonSelected(name: string) {
+    const id = this.effectiveEditingId()
+    if (!id) return
+    this.store.loadPokemonInfo(id, name)
+    this.store.loadSpeedCalcPokemonFrom(id)
+    this.overlay.close()
+    this.activePokemonInputEl()?.blur()
+  }
+
+  onClosePokemonTable() {
+    this.overlay.close()
+    const input = this.activePokemonInputEl()
+
+    if (input) {
+      input.value = this.editingPokemonName()
+    }
+
+    input?.blur()
+  }
+
+  openAbilitiesTable() {
+    this.overlay.open("abilities")
+  }
+
+  onAbilitySelected(ability: string) {
+    const id = this.effectiveEditingId()
+    if (!id) return
+    this.store.ability(id, ability)
+    this.store.loadSpeedCalcPokemonFrom(id)
+    this.overlay.close()
+  }
+
+  openItemsTable() {
+    this.overlay.open("items")
+  }
+
+  onItemMouseDown(event: MouseEvent) {
+    if (!this.overlay.isAnyOpen()) {
+      event.preventDefault()
+      this.justOpenedTable = true
+      this.overlay.open("items")
+    }
+  }
+
+  onItemClick() {
+    if (this.justOpenedTable) {
+      this.justOpenedTable = false
+      return
+    }
+
+    if (this.itemInput) {
+      this.itemInput.nativeElement.value = ""
+      this.overlay.setFilter("")
+    }
+  }
+
+  onItemInput(value: string) {
+    this.overlay.setFilter(value)
+  }
+
+  onItemSelected(name: string) {
+    const id = this.effectiveEditingId()
+    if (!id) return
+    this.store.item(id, name)
+    this.store.loadSpeedCalcPokemonFrom(id)
+    this.overlay.close()
+    this.itemInput?.nativeElement.blur()
+  }
+
+  onCloseItemsTable() {
+    this.overlay.close()
+    this.itemInput?.nativeElement.blur()
+  }
+
+  onTableSelect(event: TableSelectEvent) {
+    switch (event.kind) {
+      case "pokemon":
+        this.onPokemonSelected(event.value)
+        break
+      case "abilities":
+        this.onAbilitySelected(event.value)
+        break
+      case "items":
+        this.onItemSelected(event.value)
+        break
+    }
+  }
+
+  onHeaderImport(pokemon: Pokemon | Pokemon[]) {
+    const singlePokemon = Array.isArray(pokemon) ? pokemon[0] : pokemon
+
+    if (!singlePokemon) return
+
+    const id = this.effectiveEditingId()
+    if (!id) return
+
+    this.store.changePokemon(id, singlePokemon)
+    this.store.loadSpeedCalcPokemonFrom(id)
+  }
+
+  deleteEditingPokemon() {
+    const activeTabIndex = this.activeBottomTab() === "speed-insights" ? 1 : 0
+    this.teamTabsMobileList?.get(activeTabIndex)?.removeActivePokemon()
+  }
+
   topUsageList: string[] = ["30", "60", "100", "125", "All"]
 
   updateRegulation(regulation: string) {
@@ -152,7 +308,7 @@ export class SpeedCalculatorMobileComponent implements OnDestroy {
 
     if (newTab === "main") {
       this.backNavigation.pop()
-    } else {
+    } else if (currentTab === "main") {
       this.backNavigation.push()
     }
 
@@ -176,16 +332,8 @@ export class SpeedCalculatorMobileComponent implements OnDestroy {
   }
 
   focusPokemonComboBox() {
-    const tabIndexByName: Record<string, number> = { main: 0, "speed-insights": 1 }
-    const tabIndex = tabIndexByName[this.activeBottomTab()]
-
-    if (tabIndex === undefined) return
-
     const editId = this.effectiveEditingId()
     if (editId) this.store.loadSpeedCalcPokemonFrom(editId)
-
-    setTimeout(() => {
-      this.teamTabsMobileList?.get(tabIndex)?.focus()
-    }, 50)
+    this.overlay.open("pokemon")
   }
 }

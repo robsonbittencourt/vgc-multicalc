@@ -13,7 +13,8 @@ import { TableDataFilterService } from "./table-data-filter.service"
   standalone: true,
   imports: [CommonModule, ScrollingModule, MatTooltip, MatIcon, TypeComboBoxComponent, HiddenDirective],
   templateUrl: "./filterable-table.component.html",
-  styleUrls: ["./filterable-table.component.scss"]
+  styleUrls: ["./filterable-table.component.scss"],
+  host: { "[class.mobile]": "isMobile()" }
 })
 export class FilterableTableComponent<T extends Record<string, any>> implements AfterViewInit {
   filterService = inject(TableDataFilterService)
@@ -24,6 +25,8 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
   dataFilter = input.required<string>()
   haveFocus = input.required<boolean>()
   initialValue = input<string>()
+  isMobile = input<boolean>(false)
+  itemSize = input<number>(45)
 
   entrySelected = output<string>()
   firstListEntry = output<string>()
@@ -31,6 +34,7 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
 
   rows = viewChildren("row", { read: ElementRef })
   scroll = viewChild(CdkVirtualScrollViewport)
+  tableHeader = viewChild<ElementRef>("tableHeader")
 
   activeEntry = signal<LinkedTableData<T> | null>(null)
   currentView = signal<"table" | "filterList">("table")
@@ -44,7 +48,7 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
   isHoverEnabled = signal(true)
 
   tableHeight = computed(() => (this.expanded() ? "600px" : "300px"))
-  showExpandIcon = computed(() => this.currentView() === "table" && this.viewData().length > 6)
+  showExpandIcon = computed(() => !this.isMobile() && this.currentView() === "table" && this.viewData().length > 6)
 
   filteredAndSortedData = computed(() => {
     const data = this.data()
@@ -93,13 +97,15 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
           case "verysmall":
             return "2.5em"
           case "small":
-            return "6em"
+            return this.isMobile() ? "4em" : "6em"
           case "medium":
             return "9em"
           case "large":
             return "15em"
+          case "fill":
+            return "1fr"
           default:
-            return "auto"
+            return this.isMobile() ? "18em" : "auto"
         }
       })
       .join(" ")
@@ -138,17 +144,19 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
         const index = data.findIndex(d => d.id === initial)
 
         if (index !== -1) {
-          const valueChanged = this.lastScrolledValue !== initial
           this.activeEntry.set(data[index])
 
-          if (!this.initialScrollPerformed || valueChanged) {
-            this.initialScrollPerformed = true
-            this.lastScrolledValue = initial
+          const wasSelected = this.entryWasSelected
+          this.entryWasSelected = false
+          const shouldScroll = !wasSelected && (!this.initialScrollPerformed || this.lastScrolledValue !== initial)
+          this.initialScrollPerformed = true
+          this.lastScrolledValue = initial
 
+          if (shouldScroll) {
             setTimeout(() => {
               const viewport = this.scroll()
               if (viewport) {
-                const itemSize = 45
+                const itemSize = this.itemSize()
                 const viewportHeight = viewport.elementRef.nativeElement.clientHeight
                 const centerOffset = index * itemSize - viewportHeight / 2 + itemSize / 2
                 viewport.scrollToOffset(centerOffset, "instant")
@@ -166,15 +174,48 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
         }, 0)
       }
     })
+
+    effect(() => {
+      const currentName = this.activeEntry()?.data?.["name"]
+      if (!currentName) return
+
+      const updated = this.viewData().find(e => e.data?.["name"] === currentName)
+      if (updated && updated.id !== this.activeEntry()?.id) {
+        this.activeEntry.set(updated)
+      }
+    })
+
+    effect(() => {
+      if (!this.isMobile()) return
+
+      const header = this.tableHeader()?.nativeElement
+      const viewport = this.scroll()?.elementRef.nativeElement
+      if (!header || !viewport) return
+
+      queueMicrotask(() => {
+        if (header.parentElement !== viewport) {
+          viewport.insertBefore(header, viewport.firstChild)
+        }
+
+        const contentWrapper = viewport.querySelector(".cdk-virtual-scroll-content-wrapper") as HTMLElement
+        if (contentWrapper) {
+          contentWrapper.style.marginTop = header.offsetHeight + "px"
+        }
+      })
+    })
   }
 
   ngAfterViewInit() {
     const element = this.scroll()?.elementRef.nativeElement
 
     if (element) {
-      element.addEventListener("scroll", () => {
-        this.disableHoverTemporarily()
-      })
+      element.addEventListener(
+        "scroll",
+        () => {
+          this.disableHoverTemporarily()
+        },
+        { passive: true }
+      )
     }
 
     document.addEventListener("mousemove", () => {
@@ -331,11 +372,17 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
   }
 
   panelStyle() {
-    const expandedHeight = "630px"
-    const defaultHeight = this.activeFilters().length > 0 ? "22em" : "24em"
+    if (!this.isMobile()) {
+      const expandedHeight = "630px"
+      const defaultHeight = this.activeFilters().length > 0 ? "22em" : "24em"
+
+      return {
+        height: this.expanded() ? expandedHeight : defaultHeight
+      }
+    }
 
     return {
-      height: this.expanded() ? expandedHeight : defaultHeight
+      height: "100%"
     }
   }
 

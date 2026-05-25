@@ -1,14 +1,37 @@
 <div class="mobile-calc-container">
-  <div #scrollContainer class="scrollable-content" [class.teams-tab]="activeBottomTab() === 'teams'">
-    <div [hidden]="activeBottomTab() !== 'detailed'" [class.tab-active]="activeBottomTab() === 'detailed'">
-      <app-team-tabs-mobile [(pokemonOnEditId)]="pokemonOnEditId" (memberAddedEvent)="onMemberAdded()" />
+  <div #scrollContainer class="scrollable-content" [class.teams-tab]="activeBottomTab() === 'teams'" [class.table-open]="overlay.isAnyOpen()">
+    <div [hidden]="activeBottomTab() !== 'detailed'" [class.tab-active]="activeBottomTab() === 'detailed'" [class.table-open]="overlay.isAnyOpen()">
+      <div [hidden]="overlay.isAnyOpen()">
+        <app-team-tabs-mobile [(pokemonOnEditId)]="pokemonOnEditId" (memberAddedEvent)="onMemberAdded()" />
+      </div>
 
       @if (!activeTabPokemonIsDefault()) {
-        <div class="mobile-widget-spacing">
-          <app-pokemon-probability [pokemon]="lastNonDefaultPokemon()" [isMobile]="true" />
-          <app-team-probability />
-          <app-probability-field [horizontal]="true" />
+        <div class="attacker-header">
+          <input #pokemonInput class="pokemon-input" [value]="editingPokemonName()" (mousedown)="onPokemonMouseDown($event)" (click)="onPokemonClick()" (input)="onPokemonInput($any($event.target).value)" data-cy="pokemon-select" />
+          <div class="attacker-actions">
+            @if (overlay.kind() === "pokemon") {
+              <div class="close-table-button" (click)="onClosePokemonTable()">
+                <mat-icon>close</mat-icon>
+                <label>Close</label>
+              </div>
+            } @else {
+              <app-import-pokemon-button (pokemonImportedEvent)="onHeaderImport($event)" />
+              <app-export-pokemon-button [pokemonId]="effectiveEditingId()!" />
+            }
+          </div>
         </div>
+
+        <div class="attacker-build">
+          <app-mobile-table-overlay [pokemonId]="effectiveEditingId()!" (tableSelect)="onTableSelect($event)" />
+        </div>
+
+        @if (!overlay.isAnyOpen()) {
+          <div class="mobile-widget-spacing">
+            <app-pokemon-probability [pokemon]="lastNonDefaultPokemon()" [isMobile]="true" />
+            <app-team-probability />
+            <app-probability-field [horizontal]="true" />
+          </div>
+        }
       } @else {
         <div class="empty-insights">Select a Pokémon</div>
       }
@@ -21,20 +44,70 @@
       </div>
     </div>
 
-    <div [hidden]="activeBottomTab() !== 'build'" [class.tab-active]="activeBottomTab() === 'build'">
-      <app-team-tabs-mobile [(pokemonOnEditId)]="pokemonOnEditId" (memberAddedEvent)="onMemberAdded()" />
+    <div [hidden]="activeBottomTab() !== 'build'" [class.tab-active]="activeBottomTab() === 'build'" [class.table-open]="overlay.isAnyOpen()">
+      <div [hidden]="overlay.isAnyOpen()">
+        <app-team-tabs-mobile [(pokemonOnEditId)]="pokemonOnEditId" (memberAddedEvent)="onMemberAdded()" />
+      </div>
 
-      @if (!activeTabPokemonIsDefault()) {
-        <div class="attacker-build">
-          <app-pokemon-build-mobile [pokemonId]="effectiveEditingId()!" (pokemonDeleted)="pokemonOnEditId.set($event)" />
+      @if (effectiveEditingId()) {
+        <div class="attacker-header" [hidden]="overlay.kind() === 'moves' || overlay.kind() === 'abilities' || overlay.kind() === 'items'">
+          <input #pokemonInput class="pokemon-input" [value]="editingPokemonName()" (mousedown)="onPokemonMouseDown($event)" (click)="onPokemonClick()" (input)="onPokemonInput($any($event.target).value)" data-cy="pokemon-select" />
+          <div class="attacker-actions">
+            @if (overlay.kind() === "pokemon") {
+              <div class="close-table-button" (click)="onClosePokemonTable()">
+                <mat-icon>close</mat-icon>
+                <label>Close</label>
+              </div>
+            } @else {
+              <app-import-pokemon-button (pokemonImportedEvent)="onHeaderImport($event)" />
+              @if (!activeTabPokemonIsDefault()) {
+                <app-export-pokemon-button [pokemonId]="effectiveEditingId()!" />
+                <div class="delete-pokemon" (click)="deleteEditingPokemon()" data-cy="delete-team-member-mobile">
+                  <mat-icon class="icon">delete</mat-icon>
+                  <label>Delete</label>
+                </div>
+              }
+            }
+          </div>
         </div>
-      } @else {
-        <div class="empty-insights">Select a Pokémon</div>
+
+        <div class="attacker-header" [hidden]="overlay.kind() !== 'items'">
+          <input #itemInput class="pokemon-input" [value]="editingPokemonItem()" (mousedown)="onItemMouseDown($event)" (click)="onItemClick()" (input)="onItemInput($any($event.target).value)" data-cy="item-select" />
+          <div class="attacker-actions">
+            <div class="close-table-button" (click)="onCloseItemsTable()">
+              <mat-icon>close</mat-icon>
+              <label>Close</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="attacker-build">
+          <app-mobile-table-overlay [pokemonId]="effectiveEditingId()!" [moveIndex]="editingMoveIndex()" (tableSelect)="onTableSelect($event)" />
+
+          @if (!activeTabPokemonIsDefault()) {
+            <app-pokemon-build-mobile
+              [pokemonId]="effectiveEditingId()!"
+              [hideEvs]="overlay.isAnyOpen()"
+              [hideMoves]="overlay.kind() === 'pokemon' || overlay.kind() === 'abilities' || overlay.kind() === 'items'"
+              [editingMoves]="overlay.kind() === 'moves'"
+              [editingAbility]="overlay.kind() === 'abilities'"
+              [editingItem]="overlay.kind() === 'items'"
+              (pokemonDeleted)="pokemonOnEditId.set($event)"
+              (editMovesRequested)="openMovesTable()"
+              (closeMovesRequested)="onCloseMovesTable()"
+              (editAbilityRequested)="openAbilitiesTable()"
+              (editItemRequested)="openItemsTable()" />
+          }
+        </div>
+
+        @if (activeTabPokemonIsDefault()) {
+          <div class="empty-insights" [hidden]="overlay.isAnyOpen()">Select a Pokémon</div>
+        }
       }
     </div>
 
     <div [hidden]="activeBottomTab() !== 'teams'" [class.tab-active]="activeBottomTab() === 'teams'">
-      <app-teams-mobile [allowSecondTeamSelection]="false" (pokemonSelected)="pokemonOnEditId.set($event)" (useTeam)="onTeamSelected($event)" />
+      <app-teams-mobile [allowSecondTeamSelection]="false" (pokemonSelected)="pokemonOnEditId.set($event)" (useTeam)="onNewTeamCreated($event)" />
     </div>
   </div>
 

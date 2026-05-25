@@ -6,7 +6,6 @@ import { POKEMON_DETAILS_CHAMPIONS } from "@data/pokemon-details-champions"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { FilterableTableComponent } from "@features/pokemon-build/tables/filterable-table/filterable-table.component"
 import { ColumnConfig } from "@features/pokemon-build/tables/filterable-table/filtered-table-types"
-import { PokemonTypes } from "@lib/types"
 
 @Component({
   selector: "app-moves-table",
@@ -19,6 +18,7 @@ export class MovesTableComponent {
   dataFilter = input.required<string>()
   haveFocus = input.required<boolean>()
   moveIndex = input<number>(0)
+  isMobile = input<boolean>(false)
 
   moveSelected = output<string>()
   firstMoveFromList = output<string>()
@@ -76,16 +76,7 @@ export class MovesTableComponent {
   }
 
   moveColumns: ColumnConfig<MoveDetail>[] = [
-    new ColumnConfig<MoveDetail>({ field: "name", header: "Name", sortable: true, alignLeft: true, width: "medium" }),
-    new ColumnConfig<MoveDetail>({
-      field: "type",
-      header: "Type",
-      description: "Type",
-      filterable: true,
-      isPokemonType: true,
-      filterValues: [...PokemonTypes],
-      width: "medium"
-    }),
+    new ColumnConfig<MoveDetail>({ field: "name", header: "Name", sortable: true, alignLeft: true, width: "medium", freezeOnMobile: true }),
     new ColumnConfig<MoveDetail>({
       field: "category",
       header: "Cat",

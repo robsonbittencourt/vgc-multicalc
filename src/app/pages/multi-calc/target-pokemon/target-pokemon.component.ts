@@ -38,6 +38,7 @@ export class TargetPokemonComponent {
   isAttacker = input.required<boolean>()
 
   targetActivated = output<string>()
+  pokemonAddedToTargets = output<string>()
   targetRemoved = output()
   targetsImported = output()
   orderChanged = output<boolean>()
@@ -169,7 +170,7 @@ export class TargetPokemonComponent {
     const targetsWithDefaultPokemon = deactivatedTargets.concat(target)
 
     this.store.updateTargets(targetsWithDefaultPokemon)
-    this.targetActivated.emit(pokemon.id)
+    this.pokemonAddedToTargets.emit(pokemon.id)
   }
 
   selectPokemonActive(): boolean {

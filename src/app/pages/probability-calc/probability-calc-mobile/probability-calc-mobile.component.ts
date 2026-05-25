@@ -15,20 +15,41 @@ import { CombinedProbabilityComponent } from "@app/pages/probability-calc/combin
 import { PokemonProbabilityComponent } from "@app/pages/probability-calc/pokemon-probability/pokemon-probability.component"
 import { TeamProbabilityComponent } from "@app/pages/probability-calc/team-probability/team-probability.component"
 import { ProbabilityFieldComponent } from "@app/pages/probability-calc/probability-field/probability-field.component"
+import { MobileTableOverlayComponent } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.component"
+import { MobileTableOverlayService, TableSelectEvent } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.service"
+import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
+import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-button/export-pokemon-button.component"
 import { Pokemon } from "@lib/model/pokemon"
 
 @Component({
   selector: "app-probability-calc-mobile",
   templateUrl: "./probability-calc-mobile.component.html",
   styleUrl: "./probability-calc-mobile.component.scss",
-  imports: [NgClass, MatIcon, TeamTabsMobileComponent, TeamsMobileComponent, PokemonBuildMobileComponent, GeneralProbabilityComponent, CombinedProbabilityComponent, PokemonProbabilityComponent, TeamProbabilityComponent, ProbabilityFieldComponent],
-  providers: [FieldStore, AutomaticFieldService, { provide: FIELD_CONTEXT, useValue: "probability" }]
+  imports: [
+    NgClass,
+    MatIcon,
+    TeamTabsMobileComponent,
+    TeamsMobileComponent,
+    PokemonBuildMobileComponent,
+    GeneralProbabilityComponent,
+    CombinedProbabilityComponent,
+    PokemonProbabilityComponent,
+    TeamProbabilityComponent,
+    ProbabilityFieldComponent,
+    MobileTableOverlayComponent,
+    ImportPokemonButtonComponent,
+    ExportPokemonButtonComponent
+  ],
+  providers: [FieldStore, AutomaticFieldService, MobileTableOverlayService, { provide: FIELD_CONTEXT, useValue: "probability" }]
 })
 export class ProbabilityCalcMobileComponent implements OnDestroy {
   @ViewChild("scrollContainer") scrollContainer?: ElementRef<HTMLDivElement>
+  @ViewChildren("pokemonInput") pokemonInputs?: QueryList<ElementRef<HTMLInputElement>>
+  @ViewChild("itemInput") itemInput?: ElementRef<HTMLInputElement>
   @ViewChildren(TeamTabsMobileComponent) teamTabsMobileList?: QueryList<TeamTabsMobileComponent>
   store = inject(CalculatorStore)
   private backNavigation = inject(BackNavigationService)
+  overlay = inject(MobileTableOverlayService)
 
   constructor() {
     const iconRegistry = inject(MatIconRegistry)
@@ -70,9 +91,20 @@ export class ProbabilityCalcMobileComponent implements OnDestroy {
     this.backNavigation.unregister()
   }
 
+  editingPokemon = computed(() => {
+    const id = this.effectiveEditingId()
+    return id ? this.store.findNullablePokemonById(id) : undefined
+  })
+
+  editingPokemonName = computed(() => this.editingPokemon()?.name ?? "")
+  editingPokemonItem = computed(() => this.editingPokemon()?.item ?? "")
+  editingMoveIndex = computed(() => Math.max(0, this.editingPokemon()?.activeMoveIndex ?? 0))
+
   switchTab(newTab: "general" | "detailed" | "teams" | "build") {
     const currentTab = this.activeBottomTab()
     if (currentTab === newTab) return
+
+    this.overlay.close()
 
     const currentScroll = this.scrollContainer?.nativeElement.scrollTop || 0
     this.scrollPositions.set(currentTab, currentScroll)
@@ -81,7 +113,7 @@ export class ProbabilityCalcMobileComponent implements OnDestroy {
 
     if (newTab === "detailed") {
       this.backNavigation.pop()
-    } else {
+    } else if (currentTab === "detailed") {
       this.backNavigation.push()
     }
 
@@ -98,14 +130,162 @@ export class ProbabilityCalcMobileComponent implements OnDestroy {
     this.switchTab("detailed")
   }
 
+  onNewTeamCreated(pokemonId: string) {
+    this.pokemonOnEditId.set(pokemonId)
+    this.switchTab("build")
+  }
+
   onMemberAdded() {
-    const tabIndexByName: Record<string, number> = { detailed: 0, build: 1 }
-    const tabIndex = tabIndexByName[this.activeBottomTab()]
+    this.switchTab("build")
+    this.overlay.open("pokemon")
+  }
 
-    if (tabIndex === undefined) return
+  deleteEditingPokemon() {
+    this.teamTabsMobileList?.get(1)?.removeActivePokemon()
+  }
 
-    setTimeout(() => {
-      this.teamTabsMobileList?.get(tabIndex)?.focus()
-    }, 100)
+  private justOpenedTable = false
+
+  onPokemonMouseDown(event: MouseEvent) {
+    if (!this.overlay.isAnyOpen()) {
+      event.preventDefault()
+      this.justOpenedTable = true
+      this.overlay.open("pokemon")
+    }
+  }
+
+  private visiblePokemonInput(): HTMLInputElement | undefined {
+    return this.pokemonInputs?.toArray().find(ref => ref.nativeElement.offsetParent !== null)?.nativeElement
+  }
+
+  onPokemonClick() {
+    if (this.justOpenedTable) {
+      this.justOpenedTable = false
+      return
+    }
+
+    const input = this.visiblePokemonInput()
+
+    if (input) {
+      input.value = ""
+      this.overlay.setFilter("")
+    }
+  }
+
+  onPokemonInput(value: string) {
+    this.overlay.setFilter(value)
+  }
+
+  onPokemonSelected(name: string) {
+    const id = this.effectiveEditingId()
+    if (!id) return
+    this.store.loadPokemonInfo(id, name)
+    this.overlay.close()
+    this.visiblePokemonInput()?.blur()
+  }
+
+  onClosePokemonTable() {
+    this.overlay.close()
+    const input = this.visiblePokemonInput()
+
+    if (input) {
+      input.value = this.editingPokemonName()
+    }
+
+    input?.blur()
+  }
+
+  openMovesTable() {
+    this.overlay.open("moves")
+  }
+
+  onMoveSelected(move: string) {
+    const id = this.effectiveEditingId()
+    if (!id) return
+    const index = this.editingMoveIndex()
+    this.store.updateMove(id, move, index)
+  }
+
+  onCloseMovesTable() {
+    this.overlay.close()
+  }
+
+  openAbilitiesTable() {
+    this.overlay.open("abilities")
+  }
+
+  onAbilitySelected(ability: string) {
+    const id = this.effectiveEditingId()
+    if (!id) return
+    this.store.ability(id, ability)
+    this.overlay.close()
+  }
+
+  openItemsTable() {
+    this.overlay.open("items")
+  }
+
+  onItemMouseDown(event: MouseEvent) {
+    if (!this.overlay.isAnyOpen()) {
+      event.preventDefault()
+      this.justOpenedTable = true
+      this.overlay.open("items")
+    }
+  }
+
+  onItemClick() {
+    if (this.justOpenedTable) {
+      this.justOpenedTable = false
+      return
+    }
+
+    if (this.itemInput) {
+      this.itemInput.nativeElement.value = ""
+      this.overlay.setFilter("")
+    }
+  }
+
+  onItemInput(value: string) {
+    this.overlay.setFilter(value)
+  }
+
+  onItemSelected(name: string) {
+    const id = this.effectiveEditingId()
+    if (!id) return
+    this.store.item(id, name)
+    this.overlay.close()
+    this.itemInput?.nativeElement.blur()
+  }
+
+  onCloseItemsTable() {
+    this.overlay.close()
+    this.itemInput?.nativeElement.blur()
+  }
+
+  onHeaderImport(pokemon: Pokemon | Pokemon[]) {
+    const singlePokemon = Array.isArray(pokemon) ? pokemon[0] : pokemon
+    if (!singlePokemon) return
+
+    const id = this.effectiveEditingId()
+    if (!id) return
+
+    this.store.changePokemon(id, singlePokemon)
+  }
+
+  onTableSelect(event: TableSelectEvent) {
+    switch (event.kind) {
+      case "pokemon":
+        this.onPokemonSelected(event.value)
+        break
+      case "moves":
+        this.onMoveSelected(event.value)
+        break
+      case "abilities":
+        this.onAbilitySelected(event.value)
+        break
+      case "items":
+        this.onItemSelected(event.value)
+        break
+    }
   }
 }
