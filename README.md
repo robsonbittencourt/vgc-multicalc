@@ -43,7 +43,7 @@ npm install -g @angular/cli
 
 ```
 git clone https://github.com/robsonbittencourt/vgc-multicalc.git
-cd vgc-multi-calc
+cd vgc-multicalc
 ```
 
 - Install dependencies:
