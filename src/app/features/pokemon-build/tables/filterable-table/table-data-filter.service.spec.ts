@@ -274,7 +274,10 @@ describe("TableDataFilterService", () => {
           ]
         }
       ]
-      columns = [new ColumnConfig<ItemWithStats>({ field: "type", filterable: true }), new ColumnConfig<ItemWithStats>({ field: "power", filterable: true })]
+      columns = [
+        new ColumnConfig<ItemWithStats>({ field: "type", filterable: true }),
+        new ColumnConfig<ItemWithStats>({ field: "power", filterable: true })
+      ]
     })
 
     it("Given no active filters, When filtering, Then returns all items preserving groups", () => {

@@ -79,10 +79,13 @@ export class TableDataFilterService<T extends Record<string, any>> {
 
     const filterValue = this.normalizeValue(value)
 
-    return values.filter(v => this.matchesFilterValue(v["name"], filterValue))
+    const priority = values.filter(v => this.matchesStartsWith(v["name"], filterValue))
+    const secondary = values.filter(v => !this.matchesStartsWith(v["name"], filterValue) && this.matchesContains(v["name"], filterValue))
+
+    return [...priority, ...secondary]
   }
 
-  private matchesFilterValue(name: string, filterValue: string): boolean {
+  private matchesStartsWith(name: string, filterValue: string): boolean {
     const normalizedName = this.normalizeValue(name)
 
     if (normalizedName.startsWith(filterValue)) return true
@@ -95,6 +98,12 @@ export class TableDataFilterService<T extends Record<string, any>> {
     }
 
     return false
+  }
+
+  private matchesContains(name: string, filterValue: string): boolean {
+    const normalizedName = this.normalizeValue(name)
+
+    return normalizedName.includes(filterValue)
   }
 
   private buildMegaAliases(normalizedName: string, baseName: string): string[] {
