@@ -1,6 +1,6 @@
 <div class="mobile-calc-container">
-  <div #scrollContainer class="scrollable-content" [class.field-tab]="activeBottomTab() === 'field'">
-    <div [hidden]="activeBottomTab() !== 'results'" [class.tab-active]="activeBottomTab() === 'results'">
+  <div #scrollContainer class="scrollable-content" [class.field-tab]="activeBottomTab() === 'field'" [class.table-open]="overlay.isAnyOpen()">
+    <div [hidden]="activeBottomTab() !== 'results'" [class.tab-active]="activeBottomTab() === 'results'" [class.table-open]="overlay.isAnyOpen()">
       <div class="team-tabs">
         <div class="team-tab" [ngClass]="{ 'active-tab': activeSide() === 'left' }" (click)="activateLeftPokemon()">
           <img class="tab-sprite" [src]="spriteService.path(store.leftPokemon().name)" />
@@ -10,11 +10,28 @@
         </div>
       </div>
 
-      <div class="attacker-header">
-        <app-pokemon-combo-box [pokemonId]="currentPokemon().id" label="" />
+      <div class="attacker-header" [hidden]="overlay.kind() === 'moves' || overlay.kind() === 'abilities' || overlay.kind() === 'items'">
+        <input #pokemonInput class="pokemon-input" [value]="inputDisplay()" (mousedown)="onPokemonMouseDown($event)" (click)="onPokemonClick()" (input)="onPokemonInput($any($event.target).value)" data-cy="pokemon-select" />
         <div class="attacker-actions">
-          <app-import-pokemon-button (pokemonImportedEvent)="importPokemon($event)" />
-          <app-export-pokemon-button [pokemonId]="currentPokemon().id" />
+          @if (overlay.kind() === "pokemon") {
+            <div class="close-table-button" (click)="onClosePokemonTable()">
+              <mat-icon>close</mat-icon>
+              <label>Close</label>
+            </div>
+          } @else {
+            <app-import-pokemon-button (pokemonImportedEvent)="importPokemon($event)" />
+            <app-export-pokemon-button [pokemonId]="currentPokemon().id" />
+          }
+        </div>
+      </div>
+
+      <div class="attacker-header" [hidden]="overlay.kind() !== 'items'">
+        <input #itemInput class="pokemon-input" [value]="currentPokemon().item" (mousedown)="onItemMouseDown($event)" (click)="onItemClick()" (input)="onItemInput($any($event.target).value)" data-cy="item-select" />
+        <div class="attacker-actions">
+          <div class="close-table-button" (click)="onCloseItemsTable()">
+            <mat-icon>close</mat-icon>
+            <label>Close</label>
+          </div>
         </div>
       </div>
 
@@ -28,14 +45,25 @@
           [showDelete]="false"
           [manageTeamState]="false"
           [isRightSide]="activeSide() === 'right'"
+          [hideEvs]="overlay.isAnyOpen()"
+          [hideMoves]="overlay.kind() === 'pokemon' || overlay.kind() === 'abilities' || overlay.kind() === 'items'"
+          [editingMoves]="overlay.kind() === 'moves'"
+          [editingAbility]="overlay.kind() === 'abilities'"
+          [editingItem]="overlay.kind() === 'items'"
           (pokemonImportedEvent)="importPokemon($event)"
           (optimizationRequested)="handleOptimizeRequest($event)"
           (optimizationApplied)="handleOptimizationApplied()"
           (optimizationDiscarded)="handleOptimizationDiscarded()"
-          (evsCleared)="handleEvsCleared()" />
+          (evsCleared)="handleEvsCleared()"
+          (editMovesRequested)="openMovesTable()"
+          (closeMovesRequested)="onCloseMovesTable()"
+          (editAbilityRequested)="openAbilitiesTable()"
+          (editItemRequested)="openItemsTable()" />
+
+        <app-mobile-table-overlay [pokemonId]="currentPokemon().id" [moveIndex]="activeMoveIndex()" (select)="onTableSelect($event)" />
       </div>
 
-      <div class="results-list">
+      <div class="results-list" [hidden]="overlay.isAnyOpen()">
         <div class="result-card">
           <app-pokemon-card [damageResult]="damageResult()" [target]="target()" [rollLevelConfig]="rollLevelConfig()" [isAttacker]="isCurrentPokemonAttacker()" [collapsible]="false" [expanded]="true" (targetActivated)="activateRightPokemon()" />
         </div>

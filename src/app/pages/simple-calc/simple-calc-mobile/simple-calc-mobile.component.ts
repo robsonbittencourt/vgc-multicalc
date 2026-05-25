@@ -19,35 +19,42 @@ import { NgClass } from "@angular/common"
 import { MatIcon, MatIconRegistry } from "@angular/material/icon"
 import { DomSanitizer } from "@angular/platform-browser"
 import { MatButtonToggleModule } from "@angular/material/button-toggle"
-import { PokemonComboBoxComponent } from "@features/pokemon-build/pokemon-combo-box/pokemon-combo-box.component"
 import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
 import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-button/export-pokemon-button.component"
+import { MobileTableOverlayComponent } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.component"
+import { MobileTableOverlayService, TableSelectEvent } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.service"
 
 @Component({
   selector: "app-simple-calc-mobile",
   templateUrl: "./simple-calc-mobile.component.html",
   styleUrls: ["./simple-calc-mobile.component.scss"],
-  imports: [PokemonBuildMobileComponent, PokemonComboBoxComponent, ImportPokemonButtonComponent, ExportPokemonButtonComponent, FieldComponent, PokemonCardComponent, NgClass, MatIcon, MatButtonToggleModule, RollConfigComponent, WidgetComponent],
-  providers: [FieldStore, AutomaticFieldService, { provide: FIELD_CONTEXT, useValue: "simple" }]
+  imports: [PokemonBuildMobileComponent, MobileTableOverlayComponent, ImportPokemonButtonComponent, ExportPokemonButtonComponent, FieldComponent, PokemonCardComponent, NgClass, MatIcon, MatButtonToggleModule, RollConfigComponent, WidgetComponent],
+  providers: [FieldStore, AutomaticFieldService, MobileTableOverlayService, { provide: FIELD_CONTEXT, useValue: "simple" }]
 })
 export class SimpleCalcMobileComponent {
   spriteService = inject(SpriteService)
   store = inject(CalculatorStore)
   fieldStore = inject(FieldStore)
+  overlay = inject(MobileTableOverlayService)
   private damageCalculator = inject(DamageCalculatorService)
   private automaticFieldService = inject(AutomaticFieldService)
   private defensiveEvOptimizer = inject(DefensiveEvOptimizerService)
 
   pokemonBuildMobile = viewChild.required(PokemonBuildMobileComponent)
+  pokemonInput = viewChild<ElementRef<HTMLInputElement>>("pokemonInput")
+  itemInput = viewChild<ElementRef<HTMLInputElement>>("itemInput")
+  scrollContainer = viewChild<ElementRef<HTMLDivElement>>("scrollContainer")
 
   activeBottomTab = signal<"results" | "field">("results")
   private scrollPositions = new Map<string, number>()
-  scrollContainer = viewChild<ElementRef<HTMLDivElement>>("scrollContainer")
+
+  inputDisplay = computed(() => this.currentPokemon().name)
 
   activeSide = signal<"left" | "right">("left")
   leftIsAttacker = signal(true)
 
   currentPokemon = computed(() => (this.activeSide() === "left" ? this.store.leftPokemon() : this.store.rightPokemon()))
+  activeMoveIndex = computed(() => Math.max(0, this.currentPokemon().activeMoveIndex))
 
   isCurrentPokemonAttacker = computed(() => (this.activeSide() === "left" ? this.leftIsAttacker() : !this.leftIsAttacker()))
 
@@ -201,6 +208,133 @@ export class SimpleCalcMobileComponent {
     this.optimizedEvs.set(null)
     this.optimizedNature.set(null)
     this.optimizationStatus.set("idle")
+  }
+
+  private justOpenedTable = false
+
+  onPokemonMouseDown(event: MouseEvent) {
+    if (!this.overlay.isAnyOpen()) {
+      event.preventDefault()
+      this.justOpenedTable = true
+      this.overlay.open("pokemon")
+    }
+  }
+
+  onPokemonClick() {
+    if (this.justOpenedTable) {
+      this.justOpenedTable = false
+      return
+    }
+
+    const input = this.pokemonInput()?.nativeElement
+    if (input) {
+      input.value = ""
+      this.overlay.setFilter("")
+    }
+  }
+
+  onPokemonInput(value: string) {
+    this.overlay.setFilter(value)
+  }
+
+  onPokemonSelected(name: string) {
+    this.store.loadPokemonInfo(this.currentPokemon().id, name)
+    this.overlay.close()
+    this.pokemonInput()?.nativeElement.blur()
+  }
+
+  onClosePokemonTable() {
+    this.overlay.close()
+    const input = this.pokemonInput()?.nativeElement
+
+    if (input) {
+      input.value = this.inputDisplay()
+    }
+
+    this.pokemonInput()?.nativeElement.blur()
+  }
+
+  openMovesTable() {
+    this.overlay.open("moves")
+  }
+
+  onMoveSelected(move: string) {
+    const index = Math.max(0, this.currentPokemon().activeMoveIndex)
+    this.store.updateMove(this.currentPokemon().id, move, index)
+  }
+
+  onCloseMovesTable() {
+    this.overlay.close()
+  }
+
+  openAbilitiesTable() {
+    this.overlay.open("abilities")
+  }
+
+  onAbilitySelected(ability: string) {
+    this.store.ability(this.currentPokemon().id, ability)
+    this.overlay.close()
+  }
+
+  onCloseAbilitiesTable() {
+    this.overlay.close()
+  }
+
+  openItemsTable() {
+    this.overlay.open("items")
+  }
+
+  onItemMouseDown(event: MouseEvent) {
+    if (!this.overlay.isAnyOpen()) {
+      event.preventDefault()
+      this.justOpenedTable = true
+      this.overlay.open("items")
+    }
+  }
+
+  onItemClick() {
+    if (this.justOpenedTable) {
+      this.justOpenedTable = false
+      return
+    }
+
+    const input = this.itemInput()?.nativeElement
+    if (input) {
+      input.value = ""
+      this.overlay.setFilter("")
+    }
+  }
+
+  onItemInput(value: string) {
+    this.overlay.setFilter(value)
+  }
+
+  onItemSelected(name: string) {
+    this.store.item(this.currentPokemon().id, name)
+    this.overlay.close()
+    this.itemInput()?.nativeElement.blur()
+  }
+
+  onCloseItemsTable() {
+    this.overlay.close()
+    this.itemInput()?.nativeElement.blur()
+  }
+
+  onTableSelect(event: TableSelectEvent) {
+    switch (event.kind) {
+      case "pokemon":
+        this.onPokemonSelected(event.value)
+        break
+      case "moves":
+        this.onMoveSelected(event.value)
+        break
+      case "abilities":
+        this.onAbilitySelected(event.value)
+        break
+      case "items":
+        this.onItemSelected(event.value)
+        break
+    }
   }
 
   switchTab(newTab: "results" | "field") {

@@ -17,6 +17,7 @@ export class ItemsTableComponent {
   pokemonId = input.required<string>()
   dataFilter = input.required<string>()
   haveFocus = input.required<boolean>()
+  isMobile = input<boolean>(false)
 
   itemSelected = output<string>()
   firstItemFromList = output<string>()
@@ -45,9 +46,10 @@ export class ItemsTableComponent {
       header: "Name",
       sortable: true,
       alignLeft: true,
-      width: "medium"
+      width: "medium",
+      freezeOnMobile: true
     }),
-    new ColumnConfig<ItemDetail>({ field: "description", header: "Description", description: "Description", alignLeft: true })
+    new ColumnConfig<ItemDetail>({ field: "description", header: "Description", description: "Description", alignLeft: true, width: "fill" })
   ]
 
   groupItemsByGroup(): TableData<ItemDetail>[] {

@@ -1,133 +1,139 @@
 @if (pokemon()) {
   @if (!pokemon().isDefault) {
-    @if (!onlySpeed()) {
-      <app-pokemon-moves-mobile [pokemonId]="pokemonId()" />
+    @if (!onlySpeed() && !hideMoves()) {
+      <app-pokemon-moves-mobile [pokemonId]="pokemonId()" [editingMoves]="editingMoves()" (editMovesRequested)="editMovesRequested.emit()" (closeMovesRequested)="closeMovesRequested.emit()" />
     }
 
-    <div class="combo-options">
-      @if (store.game() === "sv") {
-        <div class="combo-row">
-          <div class="combo-tera">
-            <app-tera-combo-box [pokemonId]="pokemonId()" />
-          </div>
-          <div class="combo-types combo-types-inline">
-            <app-type-combo-box [type1]="pokemon().type1" [type2]="pokemon().type2" [centralized]="true" />
-          </div>
-        </div>
-
-        <div class="combo-row">
-          <div class="combo-item-with-mega">
-            @if (isMegaStoneCompatible()) {
-              <div class="mega-icon-wrapper-mobile">
-                <img class="mega-icon-mobile" [ngClass]="{ 'mega-active': pokemon().name.includes('-Mega') }" src="assets/sprites/items/{{ getMegaStoneSprite() }}.png" (click)="toggleMega()" />
-              </div>
-            }
-            <app-item-combo-box [pokemonId]="pokemonId()" />
-          </div>
-          <div class="combo-status">
-            <app-status-combo-box [pokemonId]="pokemonId()" />
-          </div>
-        </div>
-
-        <div class="combo-row">
-          <div class="combo-nature" [ngClass]="{ 'combo-nature-compact': pokemon().ability.actionableAbility }">
-            <app-nature-combo-box [pokemonId]="pokemonId()" [isMobile]="true" />
-          </div>
-
-          <div class="combo-ability">
-            <app-ability-combo-box [pokemonId]="pokemonId()" [isMobile]="true" />
-          </div>
-        </div>
-      } @else {
-        <div class="combo-row">
-          <div class="combo-item-with-mega">
-            @if (isMegaStoneCompatible()) {
-              <div class="mega-icon-wrapper-mobile">
-                <img class="mega-icon-mobile" [ngClass]="{ 'mega-active': pokemon().name.includes('-Mega') }" src="assets/sprites/items/{{ getMegaStoneSprite() }}.png" (click)="toggleMega()" />
-              </div>
-            }
-            <app-item-combo-box [pokemonId]="pokemonId()" />
-          </div>
-          <div class="combo-ability">
-            <app-ability-combo-box [pokemonId]="pokemonId()" [isMobile]="true" />
-          </div>
-        </div>
-
-        <div class="combo-row">
-          <div class="combo-nature" [ngClass]="{ 'combo-nature-compact': pokemon().ability.actionableAbility }">
-            <app-nature-combo-box [pokemonId]="pokemonId()" [isMobile]="true" />
-          </div>
-
-          <div class="combo-status">
-            <app-status-combo-box [pokemonId]="pokemonId()" />
-          </div>
-
-          <div class="combo-types combo-types-inline">
-            <app-type-combo-box [type1]="pokemon().type1" [type2]="pokemon().type2" [centralized]="true" />
-          </div>
-        </div>
-      }
-    </div>
-
-    <div class="evs">
-      @if (!onlySpeed()) {
-        <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="pokemon().hp" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.hp" [isOptimized]="isHpOptimized()" stat="hp" [reduced]="true" />
-        <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedAtk()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.atk" stat="atk" [reduced]="true" />
-        <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedDef()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.def" [isOptimized]="isDefOptimized()" stat="def" [reduced]="true" />
-        <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedSpa()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.spa" stat="spa" [reduced]="true" />
-        <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedSpd()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.spd" [isOptimized]="isSpdOptimized()" stat="spd" [reduced]="true" />
-      }
-      <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedSpe()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.spe" stat="spe" [reduced]="true" />
-      @if (!onlySpeed()) {
-        <div class="remaining-evs">
-          @if (showEvsSpsToggle()) {
-            <div class="sps-toggle">
-              <div class="remaining-label">SP</div>
-              <mat-slide-toggle [checked]="store.useSpsMode()" (change)="toggleSpsMode()" data-cy="evs-sps-toggle-mobile" />
+    @if (!hideEvs()) {
+      <div class="combo-options">
+        @if (store.game() === "sv") {
+          <div class="combo-row">
+            <div class="combo-tera">
+              <app-tera-combo-box [pokemonId]="pokemonId()" />
             </div>
-          }
-
-          <div class="remaining-info">
-            <div class="remaining-label">{{ remainingLabel() }}</div>
-            <div class="remaining-value" data-cy="remaining-evs-mobile">{{ remainingPoints() }}</div>
+            <div class="combo-types combo-types-inline">
+              <app-type-combo-box [type1]="pokemon().type1" [type2]="pokemon().type2" [centralized]="true" />
+            </div>
           </div>
 
-          <div class="remaining-buttons">
-            <button mat-flat-button (click)="clearEvs()" data-cy="clear-evs-mobile">Clear EVs</button>
-            @if (showOptimization() && isOptimizationSupported() && (!optimizedEvs() || !isOptimizationValid()) && !hasNoSolution() && !isSolutionNotNeeded()) {
-              <button mat-flat-button (click)="optimizeEvs()" data-cy="optimize-evs-mobile">Optimize Bulk</button>
-            }
-            @if (showOptimization() && optimizedEvs() && isOptimizationValid() && !hasNoSolution() && !isSolutionNotNeeded()) {
-              <button mat-flat-button (click)="applyOptimization()" data-cy="apply-optimization-mobile">Apply</button>
-              <button mat-flat-button (click)="discardOptimization()" data-cy="discard-optimization-mobile">Discard</button>
-            }
+          <div class="combo-row">
+            <div class="combo-item-with-mega">
+              @if (isMegaStoneCompatible()) {
+                <div class="mega-icon-wrapper-mobile">
+                  <img class="mega-icon-mobile" [ngClass]="{ 'mega-active': pokemon().name.includes('-Mega') }" src="assets/sprites/items/{{ getMegaStoneSprite() }}.png" (click)="toggleMega()" />
+                </div>
+              }
+              <div class="item-mobile-trigger" (click)="editItemRequested.emit()">
+                <app-input-select label="Item" [value]="pokemon().item" [allValues]="[pokemon().item]" />
+              </div>
+            </div>
+            <div class="combo-status">
+              <app-status-combo-box [pokemonId]="pokemonId()" />
+            </div>
           </div>
-        </div>
-      }
-    </div>
 
-    <div class="ev-buttons" [hidden]="!showOptimization()">
-      @if (isOptimizationSupported() && (!optimizedEvs() || !isOptimizationValid()) && !hasNoSolution() && !isSolutionNotNeeded()) {
-        <div class="checkbox-group">
-          <mat-checkbox [(ngModel)]="updateNature" data-cy="update-nature-checkbox-mobile">Update Nature</mat-checkbox>
-          <mat-checkbox [(ngModel)]="keepOffensiveEvs" data-cy="keep-offensive-evs-checkbox-mobile">Keep Offensive EVs</mat-checkbox>
-          <app-input-select class="threshold-select" [(value)]="survivalThreshold" [allValues]="thresholdOptions" />
-        </div>
-      }
+          <div class="combo-row">
+            <div class="combo-nature" [ngClass]="{ 'combo-nature-compact': pokemon().ability.actionableAbility }">
+              <app-nature-combo-box [pokemonId]="pokemonId()" [isMobile]="true" />
+            </div>
 
-      @if (hasNoSolution()) {
-        <div class="no-solution">
-          <label>No solution found</label>
-          <button mat-flat-button (click)="discardOptimization()" data-cy="ok-no-solution-mobile">OK</button>
-        </div>
-      }
+            <div class="combo-ability">
+              <app-ability-combo-box [pokemonId]="pokemonId()" [isMobile]="true" (openAbilityTableRequested)="editAbilityRequested.emit()" />
+            </div>
+          </div>
+        } @else {
+          <div class="combo-row">
+            <div class="combo-item-with-mega">
+              @if (isMegaStoneCompatible()) {
+                <div class="mega-icon-wrapper-mobile">
+                  <img class="mega-icon-mobile" [ngClass]="{ 'mega-active': pokemon().name.includes('-Mega') }" src="assets/sprites/items/{{ getMegaStoneSprite() }}.png" (click)="toggleMega()" />
+                </div>
+              }
+              <div class="item-mobile-trigger" (click)="editItemRequested.emit()">
+                <app-input-select label="Item" [value]="pokemon().item" [allValues]="[pokemon().item]" />
+              </div>
+            </div>
+            <div class="combo-ability">
+              <app-ability-combo-box [pokemonId]="pokemonId()" [isMobile]="true" (openAbilityTableRequested)="editAbilityRequested.emit()" />
+            </div>
+          </div>
 
-      @if (isSolutionNotNeeded()) {
-        <div class="no-solution">
-          <label>No solution needed</label>
-          <button mat-flat-button (click)="discardOptimization()" data-cy="ok-no-solution-mobile">OK</button>
-        </div>
-      }
-    </div>
+          <div class="combo-row">
+            <div class="combo-nature" [ngClass]="{ 'combo-nature-compact': pokemon().ability.actionableAbility }">
+              <app-nature-combo-box [pokemonId]="pokemonId()" [isMobile]="true" />
+            </div>
+
+            <div class="combo-status">
+              <app-status-combo-box [pokemonId]="pokemonId()" />
+            </div>
+
+            <div class="combo-types combo-types-inline">
+              <app-type-combo-box [type1]="pokemon().type1" [type2]="pokemon().type2" [centralized]="true" />
+            </div>
+          </div>
+        }
+      </div>
+
+      <div class="evs">
+        @if (!onlySpeed()) {
+          <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="pokemon().hp" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.hp" [isOptimized]="isHpOptimized()" stat="hp" [reduced]="true" />
+          <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedAtk()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.atk" stat="atk" [reduced]="true" />
+          <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedDef()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.def" [isOptimized]="isDefOptimized()" stat="def" [reduced]="true" />
+          <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedSpa()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.spa" stat="spa" [reduced]="true" />
+          <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedSpd()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.spd" [isOptimized]="isSpdOptimized()" stat="spd" [reduced]="true" />
+        }
+        <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedSpe()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.spe" stat="spe" [reduced]="true" />
+        @if (!onlySpeed()) {
+          <div class="remaining-evs">
+            @if (showEvsSpsToggle()) {
+              <div class="sps-toggle">
+                <div class="remaining-label">SP</div>
+                <mat-slide-toggle [checked]="store.useSpsMode()" (change)="toggleSpsMode()" data-cy="evs-sps-toggle-mobile" />
+              </div>
+            }
+
+            <div class="remaining-info">
+              <div class="remaining-label">{{ remainingLabel() }}</div>
+              <div class="remaining-value" data-cy="remaining-evs-mobile">{{ remainingPoints() }}</div>
+            </div>
+
+            <div class="remaining-buttons">
+              <button mat-flat-button (click)="clearEvs()" data-cy="clear-evs-mobile">Clear EVs</button>
+              @if (showOptimization() && isOptimizationSupported() && (!optimizedEvs() || !isOptimizationValid()) && !hasNoSolution() && !isSolutionNotNeeded()) {
+                <button mat-flat-button (click)="optimizeEvs()" data-cy="optimize-evs-mobile">Optimize Bulk</button>
+              }
+              @if (showOptimization() && optimizedEvs() && isOptimizationValid() && !hasNoSolution() && !isSolutionNotNeeded()) {
+                <button mat-flat-button (click)="applyOptimization()" data-cy="apply-optimization-mobile">Apply</button>
+                <button mat-flat-button (click)="discardOptimization()" data-cy="discard-optimization-mobile">Discard</button>
+              }
+            </div>
+          </div>
+        }
+      </div>
+
+      <div class="ev-buttons" [hidden]="!showOptimization()">
+        @if (isOptimizationSupported() && (!optimizedEvs() || !isOptimizationValid()) && !hasNoSolution() && !isSolutionNotNeeded()) {
+          <div class="checkbox-group">
+            <mat-checkbox [(ngModel)]="updateNature" data-cy="update-nature-checkbox-mobile">Update Nature</mat-checkbox>
+            <mat-checkbox [(ngModel)]="keepOffensiveEvs" data-cy="keep-offensive-evs-checkbox-mobile">Keep Offensive EVs</mat-checkbox>
+            <app-input-select class="threshold-select" [(value)]="survivalThreshold" [allValues]="thresholdOptions" />
+          </div>
+        }
+
+        @if (hasNoSolution()) {
+          <div class="no-solution">
+            <label>No solution found</label>
+            <button mat-flat-button (click)="discardOptimization()" data-cy="ok-no-solution-mobile">OK</button>
+          </div>
+        }
+
+        @if (isSolutionNotNeeded()) {
+          <div class="no-solution">
+            <label>No solution needed</label>
+            <button mat-flat-button (click)="discardOptimization()" data-cy="ok-no-solution-mobile">OK</button>
+          </div>
+        }
+      </div>
+    }
   }
 }

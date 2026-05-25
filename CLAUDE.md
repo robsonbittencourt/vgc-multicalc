@@ -58,7 +58,19 @@ Covers when to run prettier, lint, tests, and build commands.
 5. **No comments** unless explicitly requested
 6. **Type everything** with TypeScript strict mode
 
-## When in Doubt
+## Debugging CSS/Layout Issues
+
+When the user reports a visual bug:
+
+1. **Inspect before theorizing.** Ask the user to run a small DevTools snippet that dumps `getComputedStyle` of the suspect element. Do this BEFORE proposing any structural change. Most CSS bugs are one rule being overridden, not a fundamental design flaw.
+
+2. **Suspect specificity first.** When a property "doesn't apply", grep for other selectors targeting the same element. A more specific selector overriding a base rule is the #1 cause of "CSS not working".
+
+3. **One change at a time.** If a fix doesn't work, revert it before trying the next idea. Never stack speculative fixes — they compound and obscure the real cause.
+
+4. **Match solution size to bug size.** A frozen column should be ~5 lines of CSS. If you find yourself adding JS listeners, viewChildren, effects, or template restructures to fix a CSS issue, stop and re-diagnose.
+
+5. **Don't propose structural changes early.** Moving DOM, adding wrappers, or splitting components is a last resort, not a first instinct. Exhaust CSS-only options first.
 
 Refer to the original rule files:
 

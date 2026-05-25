@@ -14,6 +14,7 @@ export class AbilitiesTableComponent {
   pokemonId = input.required<string>()
   dataFilter = input.required<string>()
   haveFocus = input.required<boolean>()
+  isMobile = input<boolean>(false)
 
   abilitySelected = output<string>()
   firstAbilityFromList = output<string>()
@@ -34,7 +35,7 @@ export class AbilitiesTableComponent {
   })
 
   moveColumns: ColumnConfig<AbilityDetail>[] = [
-    new ColumnConfig<AbilityDetail>({ field: "name", header: "Name", sortable: true, alignLeft: true, width: "medium" }),
-    new ColumnConfig<AbilityDetail>({ field: "description", header: "Description", description: "Description", alignLeft: true })
+    new ColumnConfig<AbilityDetail>({ field: "name", header: "Name", sortable: true, alignLeft: true, width: "medium", freezeOnMobile: true }),
+    new ColumnConfig<AbilityDetail>({ field: "description", header: "Description", description: "Description", alignLeft: true, width: "fill" })
   ]
 }

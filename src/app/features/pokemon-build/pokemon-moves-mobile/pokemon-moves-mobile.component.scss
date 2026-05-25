@@ -7,14 +7,19 @@
 }
 
 .no-edit-moves {
-  padding: 0.2em 0.2em;
+  padding: 0 0.2em;
 }
 
 .chips-row {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 0.5em;
+
+  mat-chip-listbox {
+    flex: 1 1 0;
+    min-width: 0;
+  }
 }
 
 .edit-button,
@@ -24,11 +29,23 @@
   cursor: pointer;
   font-size: 12px;
   padding-top: 0.4em;
+  flex: 0 0 auto;
 }
 
 .edit-icon {
   font-size: 18px;
   margin-top: 2px;
+}
+
+.close-button {
+  margin-left: auto;
+  font-size: inherit;
+  padding-top: 0;
+
+  .edit-icon {
+    font-size: 24px;
+    margin-top: 0;
+  }
 }
 
 .hits-input {

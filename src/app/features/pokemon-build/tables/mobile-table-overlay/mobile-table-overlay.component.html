@@ -1,0 +1,29 @@
+@if (overlay.kind() === "pokemon") {
+  <div class="table-container">
+    <app-pokemon-table [pokemonId]="pokemonId()" [dataFilter]="overlay.currentFilter()" [haveFocus]="true" [isMobile]="true" (pokemonSelected)="onPokemonSelected($event)" (escapeWasPressed)="close()" />
+  </div>
+}
+
+@if (overlay.kind() === "moves") {
+  <div class="table-container">
+    <app-moves-table [pokemonId]="pokemonId()" [dataFilter]="overlay.currentFilter()" [haveFocus]="true" [isMobile]="true" [moveIndex]="moveIndex()" (moveSelected)="onMoveSelected($event)" (escapeWasPressed)="close()" />
+  </div>
+}
+
+@if (overlay.kind() === "abilities") {
+  <div class="abilities-close-header">
+    <div class="close-table-button" (click)="close()">
+      <mat-icon>close</mat-icon>
+      <label>Close</label>
+    </div>
+  </div>
+  <div class="table-container">
+    <app-abilities-table [pokemonId]="pokemonId()" [dataFilter]="overlay.currentFilter()" [haveFocus]="true" [isMobile]="true" (abilitySelected)="onAbilitySelected($event)" (escapeWasPressed)="close()" />
+  </div>
+}
+
+@if (overlay.kind() === "items") {
+  <div class="table-container">
+    <app-items-table [pokemonId]="pokemonId()" [dataFilter]="overlay.currentFilter()" [haveFocus]="true" [isMobile]="true" (itemSelected)="onItemSelected($event)" (escapeWasPressed)="close()" />
+  </div>
+}

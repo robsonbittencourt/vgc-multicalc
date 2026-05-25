@@ -31,6 +31,8 @@ export class AbilityComboBoxComponent {
 
   valueChange = output<string>()
 
+  openAbilityTableRequested = output()
+
   store = inject(CalculatorStore)
   fieldStore = inject(FieldStore)
 

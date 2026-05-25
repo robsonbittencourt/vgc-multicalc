@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from "uuid"
 import { SpriteService } from "@data/sprite.service"
-import { Component, computed, inject, model, output, viewChild } from "@angular/core"
+import { booleanAttribute, Component, computed, inject, input, model, output, viewChild } from "@angular/core"
 import { NgClass } from "@angular/common"
 import { MatIcon } from "@angular/material/icon"
 import { CalculatorStore } from "@data/store/calculator-store"
@@ -23,6 +23,7 @@ export class TeamTabsMobileComponent {
   spriteService = inject(SpriteService)
   pokemonComboBox = viewChild(PokemonComboBoxComponent)
   pokemonOnEditId = model<string | null>(null)
+  useExternalHeader = input(false, { transform: booleanAttribute })
 
   memberAddedEvent = output<void>()
   pokemonImportedEvent = output<Pokemon | Pokemon[]>()
