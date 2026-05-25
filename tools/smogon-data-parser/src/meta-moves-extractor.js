@@ -80,12 +80,44 @@ function extractAllMovesFromSection(movesSection) {
   return allMoves
 }
 
+function loadMovesets(regulation) {
+  const isChampions = regulation.toUpperCase() === "MA"
+  const movesetFile = isChampions ? "movesets-champions.ts" : "movesets.ts"
+  const movesetPath = path.resolve(__dirname, `../../../src/data/${movesetFile}`)
+  const content = fs.readFileSync(movesetPath, "utf-8")
+
+  const startIndex = content.indexOf("{")
+  const endIndex = content.lastIndexOf("}")
+  const objectString = content.slice(startIndex, endIndex + 1)
+
+  return eval(`(${objectString})`)
+}
+
+function getMegaStoneItemsForBase(baseName, movesets) {
+  const megaKeys = Object.keys(movesets).filter(key => key.startsWith(`${baseName}-Mega`))
+  const megaStones = new Set()
+
+  for (const key of megaKeys) {
+    const items = movesets[key]?.items || []
+    for (const item of items) {
+      const normalized = item.toLowerCase().replace(/[^a-z0-9]/g, "")
+      if (normalized.endsWith("ite") || normalized.endsWith("itex") || normalized.endsWith("itey")) {
+        megaStones.add(normalized)
+      }
+    }
+  }
+
+  return [...megaStones].sort()
+}
+
 function updatePokemonDetailsWithMetaData(metaDataMap, regulation) {
   const isChampions = regulation.toUpperCase() === "MA"
   const fileName = isChampions ? "pokemon-details-champions.ts" : "pokemon-details.ts"
   const exportName = isChampions ? "POKEMON_DETAILS_CHAMPIONS" : "POKEMON_DETAILS"
   const pokemonDetailsPath = path.resolve(__dirname, `../../../src/data/${fileName}`)
   const fileContent = fs.readFileSync(pokemonDetailsPath, "utf-8")
+
+  const movesets = loadMovesets(regulation)
 
   const startIndex = fileContent.indexOf(`export const ${exportName}`)
   if (startIndex === -1) {
@@ -140,12 +172,21 @@ function updatePokemonDetailsWithMetaData(metaDataMap, regulation) {
     const pokemonKey = value.name.toLowerCase().replace(/[^a-z0-9]/g, "")
     const metaData = metaDataMap.get(pokemonKey) || { moves: [], items: [] }
 
+    let metaItems = metaData.items
+    if (metaItems.length === 0) {
+      const megaStones = getMegaStoneItemsForBase(value.name, movesets)
+      if (megaStones.length > 0) {
+        console.log(`ℹ️  ${value.name}: no Smogon items found, using mega stones from movesets: [${megaStones.join(", ")}]`)
+        metaItems = megaStones
+      }
+    }
+
     return [
       key,
       {
         ...value,
         metaMoves: metaData.moves,
-        metaItems: metaData.items
+        metaItems
       }
     ]
   })

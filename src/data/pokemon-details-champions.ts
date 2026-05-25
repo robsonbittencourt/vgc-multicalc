@@ -4734,7 +4734,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Low usage",
-    metaItems: []
+    metaItems: ["scizorite"]
   },
   garchompmega: {
     name: "Garchomp-Mega",
@@ -5013,7 +5013,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Low usage",
-    metaItems: []
+    metaItems: ["gyaradosite"]
   },
   orthworm: {
     name: "Orthworm",
@@ -5527,7 +5527,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Low usage",
-    metaItems: []
+    metaItems: ["gardevoirite"]
   },
   crabominablemega: {
     name: "Crabominable-Mega",
@@ -5766,7 +5766,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Low usage",
-    metaItems: []
+    metaItems: ["glimmoranite"]
   },
   espathra: {
     name: "Espathra",
@@ -6768,7 +6768,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Low usage",
-    metaItems: []
+    metaItems: ["galladite"]
   },
   araquanid: {
     name: "Araquanid",
@@ -6976,7 +6976,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Low usage",
-    metaItems: []
+    metaItems: ["kangaskhanite"]
   },
   gengar: {
     name: "Gengar",
@@ -7061,7 +7061,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Low usage",
-    metaItems: []
+    metaItems: ["gengarite"]
   },
   heracrossmega: {
     name: "Heracross-Mega",
@@ -7384,7 +7384,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Low usage",
-    metaItems: []
+    metaItems: ["blastoisinite"]
   },
   skeledirge: {
     name: "Skeledirge",
@@ -8798,7 +8798,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Low usage",
-    metaItems: []
+    metaItems: ["chandelurite"]
   },
   gliscor: {
     name: "Gliscor",
@@ -9158,7 +9158,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Regular",
-    metaItems: []
+    metaItems: ["charizarditex", "charizarditey"]
   },
   froslass: {
     name: "Froslass",
@@ -9235,7 +9235,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Regular",
-    metaItems: []
+    metaItems: ["froslassite"]
   },
   delphox: {
     name: "Delphox",
@@ -9316,7 +9316,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Regular",
-    metaItems: []
+    metaItems: ["delphoxite"]
   },
   meganium: {
     name: "Meganium",
@@ -9386,7 +9386,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Regular",
-    metaItems: []
+    metaItems: ["meganiumite"]
   },
   starmie: {
     name: "Starmie",
@@ -9457,7 +9457,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Regular",
-    metaItems: []
+    metaItems: ["starminite"]
   },
   drampa: {
     name: "Drampa",
@@ -9532,7 +9532,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Regular",
-    metaItems: []
+    metaItems: ["drampanite"]
   },
   aggron: {
     name: "Aggron",
@@ -9624,7 +9624,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Regular",
-    metaItems: []
+    metaItems: ["aggronite"]
   },
   chesnaught: {
     name: "Chesnaught",
@@ -9720,7 +9720,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Regular",
-    metaItems: []
+    metaItems: ["chesnaughtite"]
   },
   lucario: {
     name: "Lucario",
@@ -9812,7 +9812,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Regular",
-    metaItems: []
+    metaItems: ["lucarionite"]
   },
   hawlucha: {
     name: "Hawlucha",
@@ -9895,7 +9895,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Regular",
-    metaItems: []
+    metaItems: ["hawluchanite"]
   },
   manectric: {
     name: "Manectric",
@@ -9953,7 +9953,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Regular",
-    metaItems: []
+    metaItems: ["manectite"]
   },
   greninja: {
     name: "Greninja",
@@ -10026,7 +10026,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Regular",
-    metaItems: []
+    metaItems: ["greninjite"]
   },
   beedrill: {
     name: "Beedrill",
@@ -10088,7 +10088,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Regular",
-    metaItems: []
+    metaItems: ["beedrillite"]
   },
   beedrillmega: {
     name: "Beedrill-Mega",
@@ -10210,7 +10210,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Regular",
-    metaItems: []
+    metaItems: ["skarmorite"]
   },
   altaria: {
     name: "Altaria",
@@ -10284,7 +10284,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Regular",
-    metaItems: []
+    metaItems: ["altarianite"]
   },
   golurk: {
     name: "Golurk",
@@ -10371,7 +10371,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Regular",
-    metaItems: []
+    metaItems: ["golurkite"]
   },
   sableyemega: {
     name: "Sableye-Mega",
@@ -10606,7 +10606,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Regular",
-    metaItems: []
+    metaItems: ["alakazite"]
   },
   alakazammega: {
     name: "Alakazam-Mega",
@@ -10866,7 +10866,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Regular",
-    metaItems: []
+    metaItems: ["feraligite"]
   },
   lopunny: {
     name: "Lopunny",
@@ -10951,7 +10951,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Regular",
-    metaItems: []
+    metaItems: ["lopunnite"]
   },
   victreebel: {
     name: "Victreebel",
@@ -11018,7 +11018,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Regular",
-    metaItems: []
+    metaItems: ["victreebelite"]
   },
   victreebelmega: {
     name: "Victreebel-Mega",
@@ -11245,7 +11245,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Regular",
-    metaItems: []
+    metaItems: ["absolite"]
   },
   absolmega: {
     name: "Absol-Mega",
@@ -11400,7 +11400,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Regular",
-    metaItems: []
+    metaItems: ["steelixite"]
   },
   abomasnow: {
     name: "Abomasnow",
@@ -11474,7 +11474,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Regular",
-    metaItems: []
+    metaItems: ["abomasite"]
   },
   abomasnowmega: {
     name: "Abomasnow-Mega",
@@ -11700,7 +11700,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Regular",
-    metaItems: []
+    metaItems: ["emboarite"]
   },
   emboarmega: {
     name: "Emboar-Mega",
@@ -12012,7 +12012,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Regular",
-    metaItems: []
+    metaItems: ["heracronite"]
   },
   hippowdon: {
     name: "Hippowdon",
@@ -12649,7 +12649,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Regular",
-    metaItems: []
+    metaItems: ["pidgeotite"]
   },
   pidgeotmega: {
     name: "Pidgeot-Mega",
@@ -12955,7 +12955,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Regular",
-    metaItems: []
+    metaItems: ["slowbronite"]
   },
   slowbrogalar: {
     name: "Slowbro-Galar",
@@ -13119,7 +13119,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Regular",
-    metaItems: []
+    metaItems: ["pinsirite"]
   },
   pinsirmega: {
     name: "Pinsir-Mega",
@@ -13595,7 +13595,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Regular",
-    metaItems: []
+    metaItems: ["ampharosite"]
   },
   espeon: {
     name: "Espeon",
@@ -13934,7 +13934,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Regular",
-    metaItems: []
+    metaItems: ["houndoominite"]
   },
   houndoommega: {
     name: "Houndoom-Mega",
@@ -14096,7 +14096,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Regular",
-    metaItems: []
+    metaItems: ["medichamite"]
   },
   medichammega: {
     name: "Medicham-Mega",
@@ -14248,7 +14248,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Regular",
-    metaItems: []
+    metaItems: ["sharpedonite"]
   },
   sharpedomega: {
     name: "Sharpedo-Mega",
@@ -14390,7 +14390,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Regular",
-    metaItems: []
+    metaItems: ["cameruptite"]
   },
   castform: {
     name: "Castform",
@@ -14511,7 +14511,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Regular",
-    metaItems: []
+    metaItems: ["banettite"]
   },
   banettemega: {
     name: "Banette-Mega",
@@ -14660,7 +14660,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Regular",
-    metaItems: []
+    metaItems: ["chimechite"]
   },
   chimechomega: {
     name: "Chimecho-Mega",
@@ -14797,7 +14797,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Regular",
-    metaItems: []
+    metaItems: ["glalitite"]
   },
   glaliemega: {
     name: "Glalie-Mega",
@@ -16029,7 +16029,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Regular",
-    metaItems: []
+    metaItems: ["audinite"]
   },
   audinomega: {
     name: "Audino-Mega",
@@ -16994,7 +16994,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Regular",
-    metaItems: []
+    metaItems: ["meowsticite"]
   },
   "Meowstic-M-Mega": {
     name: "Meowstic-M-Mega",
@@ -18211,7 +18211,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Regular",
-    metaItems: []
+    metaItems: ["crabominite"]
   },
   lycanroc: {
     name: "Lycanroc",
@@ -19433,7 +19433,7 @@ export const POKEMON_DETAILS_CHAMPIONS: Record<string, SpeciesData> = {
     ],
     metaMoves: [],
     group: "Regular",
-    metaItems: []
+    metaItems: ["scovillainite"]
   },
   palafinhero: {
     name: "Palafin-Hero",

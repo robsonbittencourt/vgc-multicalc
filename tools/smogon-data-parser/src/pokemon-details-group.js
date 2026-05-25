@@ -88,7 +88,7 @@ export async function pokemonDetailsGroup(regulation = "i") {
   try {
     const sanitized = objectString
       .replace(/(\n\s+)([a-zA-Z0-9\-]+):\s*{/g, '$1"$2": {')
-      .replace(/(\n\s+)(name|abilities|learnset|metaMoves|group):/g, '$1"$2":')
+      .replace(/(\n\s+)(name|abilities|learnset|metaMoves|metaItems|group):/g, '$1"$2":')
       .replace(/:\s*\[/g, ": [")
       .replace(/,\s*}/g, "}")
       .replace(/,\s*\]/g, "]")
