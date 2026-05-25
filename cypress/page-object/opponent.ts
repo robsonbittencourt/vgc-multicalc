@@ -26,7 +26,8 @@ export class Opponent {
 
   add(pokemonName: string): PokemonBuild {
     cy.get('[data-cy="add-opponent-pokemon"]').click({ force: true })
-    cy.get('[data-cy="card-pokemon-select"] input').clear().type(pokemonName, { force: true }).type("{downArrow}").type("{enter}")
+    const pokemonBuild = new PokemonBuild("your-team")
+    pokemonBuild.selectPokemon(pokemonName)
     return new PokemonBuild("your-team")
   }
 

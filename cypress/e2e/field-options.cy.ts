@@ -493,7 +493,7 @@ describe("Test the Field options on options with One vs One", () => {
 
       field.protectedDefender()
 
-      leftDamageResult.damageIs(0, 11.7, 14.2, 23, 28)
+      leftDamageResult.damageIs(0, 6.6, 8.4, 11, 14)
     })
   })
 })
@@ -731,7 +731,7 @@ describe("Test the Field options on options with Many Pokémon", () => {
 
     field.protectedDefender()
 
-    opponents.get("Incineroar").damageIs(5.4, 6.4)
+    opponents.get("Incineroar").damageIs(6.8, 8)
   })
 
   it("With Tailwind in defender side active", () => {
