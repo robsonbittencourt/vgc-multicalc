@@ -130,7 +130,7 @@ export class ImportPokemonButtonComponent {
     }
 
     if (pokemon.item && pokemon.item !== "") {
-      const itemNameNormalized = pokemon.item.toLowerCase().replace(/ /g, "")
+      const itemNameNormalized = pokemon.item.toLowerCase().replace(/ /g, "").replace(/'/g, "")
       if (!validItemsForMode.includes(itemNameNormalized)) {
         cleanedPokemon = cleanedPokemon.clone({ item: "" })
         hadInvalidItem = true
