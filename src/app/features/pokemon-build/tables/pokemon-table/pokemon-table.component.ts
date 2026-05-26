@@ -36,8 +36,8 @@ export class PokemonTableComponent {
   pokemonColumns: ColumnConfig<PokemonDetail>[] = [
     new ColumnConfig<PokemonDetail>({
       field: "name",
-      isImageColumn: true,
-      displayFn: (item: PokemonDetail) => `assets/sprites/pokemon-home/${item.name}.webp`,
+      isPokemonImageColumn: true,
+      displayFn: (item: PokemonDetail) => item.name,
       alignLeft: true,
       width: "small",
       freezeOnMobile: true

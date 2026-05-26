@@ -182,10 +182,8 @@
   background-color: rgba(105, 233, 105, 0.15);
 }
 
-.pokemon-icon {
-  width: 3.5em;
-  height: auto;
-  display: block;
+app-pokemon-sprite {
+  --sprite-size: var(--sprite-xs);
 }
 
 .empty-message {

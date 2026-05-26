@@ -3,10 +3,18 @@
   flex-direction: column;
   height: 100%;
   min-height: 0;
+
+  app-pokemon-sprite {
+    --sprite-size: var(--sprite-xl);
+  }
 }
 
 :host(.mobile) {
   height: auto;
+
+  app-pokemon-sprite {
+    --sprite-size: var(--sprite-lg);
+  }
 }
 
 :host ::ng-deep app-widget {

@@ -21,9 +21,8 @@
   gap: 0.5em;
 }
 
-.pokemon-image img {
-  width: 5.5em;
-  height: auto;
+.pokemon-image app-pokemon-sprite {
+  --sprite-size: var(--sprite-md);
 }
 
 .actual {
@@ -35,9 +34,8 @@
 }
 
 @media only screen and (max-width: 1279px) {
-  .pokemon-image img {
-    width: 5em;
-    height: 5em;
+  .pokemon-image app-pokemon-sprite {
+    --sprite-size: var(--sprite-md);
   }
 
   .speed-box-up {

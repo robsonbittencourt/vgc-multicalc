@@ -1,6 +1,7 @@
-import { isPlatformBrowser } from "@angular/common"
-import { Component, computed, effect, inject, input, PLATFORM_ID, signal } from "@angular/core"
+import { afterNextRender, Component, computed, effect, inject, signal, input } from "@angular/core"
 import { SpriteService } from "@data/sprite.service"
+import { CalculatorStore } from "@data/store/calculator-store"
+import { NetworkStatusService } from "@lib/network-status.service"
 
 @Component({
   standalone: true,
@@ -10,26 +11,34 @@ import { SpriteService } from "@data/sprite.service"
 })
 export class PokemonSpriteComponent {
   private spriteService = inject(SpriteService)
-  private platformId = inject(PLATFORM_ID)
+  private networkStatus = inject(NetworkStatusService)
+  private store = inject(CalculatorStore)
 
   name = input.required<string>()
-  size = input<string>("4em")
+  hideFallback = input<boolean>(false)
 
   src = computed(() => this.spriteService.path(this.name()))
+  intrinsicSize = computed(() => (this.store.isChampions() ? 128 : 256))
   showFallback = signal(false)
 
+  private hydrated = signal(false)
+
   constructor() {
-    effect(async () => {
-      if (!isPlatformBrowser(this.platformId)) return
+    afterNextRender(() => this.hydrated.set(true))
 
-      if (!navigator.onLine) {
-        const cached = await caches.match(this.src())
+    effect(() => {
+      if (!this.hydrated()) return
 
-        this.showFallback.set(!cached)
+      if (this.networkStatus.isOnline()) {
+        this.showFallback.set(false)
         return
       }
 
-      this.showFallback.set(false)
+      const currentSrc = this.src()
+      caches.match(currentSrc).then(cached => {
+        if (currentSrc !== this.src()) return
+        this.showFallback.set(!cached)
+      })
     })
   }
 }

@@ -1,5 +1,7 @@
 @if (showFallback()) {
-  <span class="pokemon-name-fallback" [style.width]="size()" [style.height]="size()">{{ name() }}</span>
+  @if (!hideFallback()) {
+    <span class="pokemon-name-fallback">{{ name() }}</span>
+  }
 } @else {
-  <img [src]="src()" [alt]="name()" [style.width]="size()" [style.height]="size()" width="256" height="256" loading="lazy" />
+  <img [src]="src()" [alt]="name()" [attr.width]="intrinsicSize()" [attr.height]="intrinsicSize()" loading="lazy" />
 }

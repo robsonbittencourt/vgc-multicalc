@@ -89,6 +89,10 @@
   margin-bottom: 1em;
   min-width: 0;
 
+  app-pokemon-sprite {
+    --sprite-size: var(--sprite-md);
+  }
+
   @media (max-width: 768px) {
     min-width: 0;
     margin: 0;

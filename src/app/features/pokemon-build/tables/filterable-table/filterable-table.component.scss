@@ -236,6 +236,10 @@
   height: auto;
 }
 
+app-pokemon-sprite.image-icon {
+  --sprite-size: var(--sprite-sm);
+}
+
 .type-column {
   width: 100%;
 }

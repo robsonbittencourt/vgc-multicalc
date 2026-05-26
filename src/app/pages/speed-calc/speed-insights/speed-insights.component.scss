@@ -23,9 +23,8 @@
   background-color: var(--highlight);
 }
 
-.card img {
-  width: 6em;
-  height: 6em;
+.card app-pokemon-sprite {
+  --sprite-size: var(--sprite-lg);
 }
 
 .speed-values {

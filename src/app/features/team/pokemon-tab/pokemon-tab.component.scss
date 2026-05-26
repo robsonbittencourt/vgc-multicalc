@@ -6,6 +6,10 @@
   box-sizing: border-box;
   min-width: 8em;
   height: 6em;
+
+  app-pokemon-sprite {
+    --sprite-size: var(--sprite-md);
+  }
 }
 
 .tab:hover {

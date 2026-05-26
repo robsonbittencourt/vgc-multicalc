@@ -53,7 +53,11 @@
                 <div class="entry" [ngStyle]="{ 'grid-template-columns': gridTemplateColumnsSize() }" [ngClass]="getEntryClass(entry)" (click)="selectEntry(entry)" #row [attr.data-cy]="entryDataCy(entry)">
                   @for (column of columns(); track column.id) {
                     <div class="entry-cell" [ngClass]="{ 'frozen-cell': isMobile() && column.freezeOnMobile }">
-                      @if (column.isImageColumn) {
+                      @if (column.isPokemonImageColumn) {
+                        <div class="image-column" [ngClass]="{ 'column-value-left': column.alignLeft }">
+                          <app-pokemon-sprite class="image-icon" [name]="column.displayFn ? column.displayFn(entry.data) : entry.data[column.field]" [hideFallback]="true" />
+                        </div>
+                      } @else if (column.isImageColumn) {
                         <div class="image-column" [ngClass]="{ 'column-value-left': column.alignLeft }">
                           <img class="image-icon" [src]="column.displayFn ? column.displayFn(entry.data) : entry.data[column.field]" />
                         </div>

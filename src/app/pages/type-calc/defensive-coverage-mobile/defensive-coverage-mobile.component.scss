@@ -64,9 +64,8 @@ tbody tr:hover {
   gap: 0.2em;
 }
 
-.pokemon-image-small {
-  width: 4em;
-  height: auto;
+app-pokemon-sprite {
+  --sprite-size: var(--sprite-sm);
 }
 
 .tera-type-label {

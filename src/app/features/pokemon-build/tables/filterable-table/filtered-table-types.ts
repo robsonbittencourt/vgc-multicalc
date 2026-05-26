@@ -29,6 +29,7 @@ export class ColumnConfig<T> {
   filterable = false
   displayFn?: (item: T) => string | number | boolean | any
   isImageColumn = false
+  isPokemonImageColumn = false
   isPokemonType = false
   filterValues?: string[]
   showHeaderInCell = false

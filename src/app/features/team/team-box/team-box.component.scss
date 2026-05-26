@@ -43,9 +43,8 @@
   width: 100%;
 }
 
-.pokemon-image img {
-  width: 4em;
-  height: auto;
+.pokemon-image app-pokemon-sprite {
+  --sprite-size: var(--sprite-sm);
 }
 
 .active-team {

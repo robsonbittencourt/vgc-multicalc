@@ -2,6 +2,14 @@
 
 @use "variables.scss" as *;
 
+:root {
+  --sprite-xs: 3.5em;
+  --sprite-sm: 4em;
+  --sprite-md: 5em;
+  --sprite-lg: 7em;
+  --sprite-xl: 10em;
+}
+
 @font-face {
   font-family: "Roboto";
   font-style: normal;

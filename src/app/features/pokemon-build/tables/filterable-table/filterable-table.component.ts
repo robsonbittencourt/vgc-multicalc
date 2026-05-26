@@ -4,6 +4,7 @@ import { AfterViewInit, Component, computed, effect, ElementRef, HostListener, i
 import { MatIcon } from "@angular/material/icon"
 import { MatTooltip } from "@angular/material/tooltip"
 import { HiddenDirective } from "@basic/hidden-keepiing/hidden.directive"
+import { PokemonSpriteComponent } from "@basic/pokemon-sprite/pokemon-sprite.component"
 import { TypeComboBoxComponent } from "@features/pokemon-build/type-combo-box/type-combo-box.component"
 import { ActiveFilter, ColumnConfig, LinkedTableData, TableData } from "./filtered-table-types"
 import { TableDataFilterService } from "./table-data-filter.service"
@@ -11,7 +12,7 @@ import { TableDataFilterService } from "./table-data-filter.service"
 @Component({
   selector: "app-filterable-table",
   standalone: true,
-  imports: [CommonModule, ScrollingModule, MatTooltip, MatIcon, TypeComboBoxComponent, HiddenDirective],
+  imports: [CommonModule, ScrollingModule, MatTooltip, MatIcon, TypeComboBoxComponent, HiddenDirective, PokemonSpriteComponent],
   templateUrl: "./filterable-table.component.html",
   styleUrls: ["./filterable-table.component.scss"],
   host: { "[class.mobile]": "isMobile()" }
