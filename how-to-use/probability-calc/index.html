@@ -1,0 +1,342 @@
+<!DOCTYPE html><html lang="en" data-beasties-container><head>
+    <meta charset="utf-8">
+    <title>Probability Calc - How to Use - VGC Multi Calc</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0">
+    <meta name="description" content="Use the Probability Calc and Consistency Score to analyze move accuracy and reliability in VGC and Pokémon Champions.">
+    <meta property="og:title" content="Probability Calc - How to Use - VGC Multi Calc">
+    <meta property="og:description" content="Use the Probability Calc and Consistency Score to analyze move accuracy and reliability in VGC and Pokémon Champions.">
+    <meta property="og:url" content="https://vgcmulticalc.com/how-to-use/probability-calc">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://vgcmulticalc.com/assets/icons/calc-512x512.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Probability Calc - How to Use - VGC Multi Calc">
+    <meta name="twitter:description" content="Use the Probability Calc and Consistency Score to analyze move accuracy and reliability in VGC and Pokémon Champions.">
+    <meta name="twitter:image" content="https://vgcmulticalc.com/assets/icons/calc-512x512.png">
+    <meta name="google-site-verification" content="IgzHmHjAGAdqb-eRfNND3mpM4LzBbEmDS2RBi7B5Wds">
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "VGC Multi Calc",
+        "url": "https://vgcmulticalc.com/"
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "VGC Multi Calc",
+        "url": "https://vgcmulticalc.com/",
+        "applicationCategory": "GameApplication",
+        "operatingSystem": "Web",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "description": "Pokémon damage calculator with multi-target support — no ads, no signup. Calculate KO chance, damage rolls and 2HKO probability for VGC and Pokémon Champions teams instantly.",
+        "featureList": "Multi-target damage calculation, One vs One damage calculator, Speed calculator, KO probability calculator, Type effectiveness calculator, EV optimization, VGC 2026 support, Pokémon Champions support, Field conditions, Abilities and items"
+      }
+    </script>
+    <script>
+      if (window.location.hostname !== "localhost") {
+        const script = document.createElement("script")
+        script.src = "https://www.googletagmanager.com/gtag/js?id=G-1BZW6NLXJ1"
+        script.async = true
+        document.head.appendChild(script)
+
+        script.onload = function () {
+          window.dataLayer = window.dataLayer || []
+          function gtag() {
+            dataLayer.push(arguments)
+          }
+          gtag("js", new Date())
+          gtag("config", "G-1BZW6NLXJ1")
+        }
+      }
+    </script>
+    <link rel="icon" href="assets/icons/calc-72x72.png">
+    <link rel="canonical" href="https://vgcmulticalc.com/how-to-use/probability-calc">
+    <link rel="preload" href="assets/fonts/roboto-v51-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link href="/manifest.json" rel="manifest">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="VGC Multi Calc">
+    <link rel="apple-touch-icon" href="assets/icons/calc-192x192.png">
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#e6e8eb">
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#121212">
+    <style>
+      #app-splash {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #e6e8eb;
+      }
+
+      #app-splash.dark {
+        background: #121212;
+      }
+
+      #app-splash:not(.light):not(.dark) {
+        background: #e6e8eb;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        #app-splash:not(.light):not(.dark) {
+          background: #121212;
+        }
+      }
+
+      #app-splash::after {
+        content: "";
+        width: 48px;
+        height: 48px;
+        border: 4px solid rgba(127, 127, 127, 0.25);
+        border-top-color: #7a5cff;
+        border-radius: 50%;
+        animation: app-splash-spin 0.9s linear infinite;
+      }
+
+      @keyframes app-splash-spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+    <script>
+      ;(function () {
+        try {
+          var raw = localStorage.getItem("userData")
+          var theme = raw ? JSON.parse(raw)?.themeData?.theme : null
+          if (theme === "light" || theme === "dark") {
+            document.documentElement.dataset.splashTheme = theme
+          }
+
+          var lightMeta = document.querySelector('meta[name="theme-color"][media="(prefers-color-scheme: light)"]')
+          var darkMeta = document.querySelector('meta[name="theme-color"][media="(prefers-color-scheme: dark)"]')
+
+          if (theme === "dark") {
+            if (lightMeta) lightMeta.setAttribute("media", "not all")
+            if (darkMeta) darkMeta.removeAttribute("media")
+          } else if (theme === "light") {
+            if (lightMeta) lightMeta.removeAttribute("media")
+            if (darkMeta) darkMeta.setAttribute("media", "not all")
+          }
+        } catch (_) {}
+      })()
+    </script>
+  <style>:root{--sprite-xs: 3.5em;--sprite-sm: 4em;--sprite-md: 5em;--sprite-lg: 7em;--sprite-xl: 10em}@font-face{font-family:Roboto;font-style:normal;font-weight:300;font-display:swap;src:url("./media/roboto-v51-latin-300-ZNJYGCVX.woff2") format("woff2")}@font-face{font-family:Roboto;font-style:normal;font-weight:400;font-display:swap;src:url("./media/roboto-v51-latin-regular-LOX3CHMS.woff2") format("woff2")}@font-face{font-family:Roboto;font-style:normal;font-weight:500;font-display:swap;src:url("./media/roboto-v51-latin-500-D6YDQ3CR.woff2") format("woff2")}@font-face{font-family:Material Icons;font-style:normal;font-weight:400;font-display:block;src:url("./media/material-icons-v145-latin-regular-LEZCGFVT.woff2") format("woff2")}.material-icons{font-family:Material Icons;font-weight:400;font-style:normal;font-size:24px;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-smoothing:antialiased}html{--mat-checkbox-touch-target-display: none;--mat-checkbox-state-layer-size: 28px;--mat-chip-container-height: 24px;--mat-expansion-header-collapsed-state-height: 36px;--mat-expansion-header-expanded-state-height: 48px;--mat-fab-small-touch-target-display: ;--mat-fab-touch-target-display: none;--mat-button-filled-touch-target-display: none;--mat-button-filled-container-height: 28px;--mat-button-outlined-container-height: 28px;--mat-button-outlined-touch-target-display: none;--mat-button-protected-touch-target-display: none;--mat-button-protected-container-height: 28px;--mat-button-text-touch-target-display: none;--mat-button-text-container-height: 28px;--mat-button-tonal-container-height: 28px;--mat-button-tonal-touch-target-display: none;--mat-form-field-container-height: 36px;--mat-form-field-filled-label-display: none;--mat-form-field-container-vertical-padding: 6px;--mat-form-field-filled-with-label-container-padding-top: 6px;--mat-form-field-filled-with-label-container-padding-bottom: 6px;--mat-icon-button-touch-target-display: none;--mat-icon-button-state-layer-size: 24px;--mat-list-list-item-leading-icon-start-space: 4px;--mat-list-list-item-leading-icon-end-space: 4px;--mat-list-list-item-one-line-container-height: 24px;--mat-list-list-item-two-line-container-height: 48px;--mat-list-list-item-three-line-container-height: 56px;--mat-paginator-container-size: 40px;--mat-paginator-form-field-container-height: 36px;--mat-paginator-form-field-container-vertical-padding: 6px;--mat-paginator-touch-target-display: none;--mat-radio-touch-target-display: none;--mat-radio-state-layer-size: 28px;--mat-tab-container-height: 32px;--mat-select-arrow-transform: none;--mat-button-toggle-height: 24px;--mat-stepper-header-height: 42px;--mat-table-header-container-height: 40px;--mat-table-footer-container-height: 36px;--mat-table-row-item-container-height: 36px;--mat-toolbar-standard-height: 52px;--mat-toolbar-mobile-height: 44px;--mat-tree-node-min-height: 28px;--mat-sys-corner-extra-large: 28px;--mat-sys-corner-extra-large-top: 28px 28px 0 0;--mat-sys-corner-extra-small: 4px;--mat-sys-corner-extra-small-top: 4px 4px 0 0;--mat-sys-corner-full: 9999px;--mat-sys-corner-large: 16px;--mat-sys-corner-large-end: 0 16px 16px 0;--mat-sys-corner-large-start: 16px 0 0 16px;--mat-sys-corner-large-top: 16px 16px 0 0;--mat-sys-corner-medium: 12px;--mat-sys-corner-none: 0;--mat-sys-corner-small: 8px;--mat-sys-dragged-state-layer-opacity: .16;--mat-sys-focus-state-layer-opacity: .12;--mat-sys-hover-state-layer-opacity: .08;--mat-sys-pressed-state-layer-opacity: .12}body{--mat-button-filled-container-shape: 4px;--mat-button-filled-container-height: 2.5em;--mat-button-filled-horizontal-padding: 1.5rem;--mat-button-filled-label-text-color: var(--primary-contrast);--mat-button-toggle-height: 3em;--mat-button-toggle-shape: 4px;--mat-button-toggle-divider-color: #dfdfe2;--mat-button-toggle-selected-state-background-color: #dfdfe2;--mat-button-toggle-text-color: var(--text);--mat-button-toggle-label-text-size: clamp(10px, .7vw, 14px);--mat-form-field-container-text-size: clamp(10px, .7vw, 14px);--mat-form-field-outlined-outline-color: #a0a0a3;--mat-form-field-outlined-input-text-color: var(--text);--mat-form-field-container-height: 2.5em;--mat-form-field-container-vertical-padding: .7em;--mat-autocomplete-background-color: var(--widget-background);--mat-select-panel-background-color: var(--widget-background);--mat-select-trigger-text-size: clamp(10px, .7vw, 14px);--mat-select-trigger-text-weight: 400;--mat-slider-handle-height: 1.5em;--mat-slider-handle-width: 1.5em;--mat-slider-inactive-track-color: var(--primary);--mat-chip-container-height: 2em;--mat-chip-container-shape-radius: 20px;--mat-chip-elevated-selected-container-color: var(--primary);--mat-chip-elevated-container-color: var(--chip-color);--mat-chip-selected-label-text-color: var(--primary-contrast);--mat-chip-outline-color: white;--mat-chip-focus-outline-color: white;--mat-checkbox-disabled-selected-icon-color: var(--primary);--mat-checkbox-unselected-icon-color: var(--text);--mat-checkbox-disabled-selected-checkmark-color: var(--checkmark-color);--mat-checkbox-selected-checkmark-color: var(--checkmark-color);--mat-dialog-container-shape: square;--mat-dialog-container-color: var(--highlight);--mat-dialog-subhead-color: var(--text);--mat-dialog-subhead-size: 1.2rem;--mat-dialog-subhead-weight: 500;--mat-card-title-text-size: 1.3em;--mat-card-title-text-weight: 500;--mat-card-title-text-line-height: 1.7em;--mat-card-subtitle-text-line-height: 1.7em;--mat-card-subtitle-text-weight: 400;--mat-menu-container-color: var(--widget-background);--mat-menu-item-spacing: 2px;--mat-menu-divider-top-spacing: 2em;--mat-menu-divider-bottom-spacing: 1em;--mat-button-toggle-height: 2.5em;--mat-slide-toggle-track-height: 2em;--mat-slide-toggle-label-text-color: var(--text);--mat-slide-toggle-handle-surface-color: var(--primary);--mat-slide-toggle-selected-hover-handle-color: white;--mat-slide-toggle-selected-handle-color: white;--mat-slide-toggle-selected-focus-handle-color: white;--mat-slide-toggle-selected-pressed-handle-color: white;--mat-slide-toggle-unselected-hover-handle-color: var(--highlight);--mat-slide-toggle-unselected-handle-color: var(--highlight);--mat-slide-toggle-unselected-focus-handle-color: var(--highlight);--mat-slide-toggle-unselected-pressed-handle-color: var(--highlight);--mat-snack-bar-container-color: var(--highlight);--mat-snack-bar-supporting-text-color: var(--text-strong)}.mat-icon{font-size:1.8em}html,body{height:100%;margin:0;background-color:var(--background);transition:background-color .3s ease,color .3s ease,border-color .3s ease;font-family:Roboto,Helvetica Neue,sans-serif;font-size:clamp(10px,.7vw,14px);color:var(--text);overflow-x:hidden;overflow-y:auto;scrollbar-width:none}@media only screen and (max-width:1279px){body{--mat-form-field-container-text-size: 14px;--mat-button-toggle-label-text-size: 14px}body{font-size:14px}}body{--background: light-dark(#e6e8eb, #121212);--widget-background: light-dark(#ffffff, #212121);--widget-border: light-dark(#d1d5db, #212121);--text: light-dark(#1f1f1f, white);--text-strong: light-dark(black, white);--primary-contrast: white;--highlight-contrast: light-dark(#1f1f1f, white);--warn: #ba1a1a;--chip-color: light-dark(#dfdfe2, #212121);--checkmark-color: light-dark(white, #cbc4cf);--mat-sys-primary: var(--primary);--mat-sys-on-primary: light-dark(#ffffff, #3f008d);--mat-sys-secondary-container: var(--highlight);--mat-sys-on-secondary-container: #22123f;--mat-sys-surface: var(--background);--mat-sys-on-surface: light-dark(#1c1b1c, white);--mat-sys-on-surface-variant: light-dark(#49464b, white);--mat-option-label-text-color: var(--text);--mat-option-selected-state-label-text-color: var(--text);--filterable-table-header: light-dark(#eaeaec, #36393f);--filterable-table-active-line: light-dark(#f4f4f5, #2e2e2e);--filterable-table-selected-line: light-dark(#dfdfe2, #676e79);--filterable-table-bottom-line: light-dark(#dfdfe2, #121212);--filterable-table-cell-header: light-dark(#8f8f8f, #bbb);--effectiveness-weakness-4x-bg: light-dark(rgba(46, 125, 50, .4), rgba(105, 233, 105, .3));--effectiveness-weakness-4x-defensive-bg: light-dark(rgba(198, 40, 40, .4), rgba(255, 82, 82, .15));--positive-value: light-dark(#2e7d32, #69e969);--negative-value: light-dark(#c62828, #ff5252);--neutral-value: light-dark(#e65100, #ffb74d)}
+</style><link rel="stylesheet" href="styles-OVDIM7KF.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles-OVDIM7KF.css"></noscript><style ng-app-id="ng">.container[_ngcontent-ng-c2515665134]{max-width:1920px;margin:0 auto;min-width:1280px;min-height:800px}@media only screen and (max-width:1279px){.container[_ngcontent-ng-c2515665134]{min-width:auto;min-height:auto}}</style><script id="breadcrumb" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://vgcmulticalc.com/"},{"@type":"ListItem","position":2,"name":"How to Use","item":"https://vgcmulticalc.com/how-to-use"}]}</script><script id="faq" type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is VGC Multi Calc?","acceptedAnswer":{"@type":"Answer","text":"VGC Multi Calc is a free Pokémon damage calculator built for VGC and Pokémon Champions Doubles. Unlike traditional calculators, it lets you calculate damage against multiple Pokémon at once — so you can evaluate your entire team's offensive and defensive matchups in a single view."}},{"@type":"Question","name":"How does the multi-target damage calculation work?","acceptedAnswer":{"@type":"Answer","text":"In Team vs Many mode, you pick one attacker and calculate its damage rolls against several targets simultaneously. In Many vs Team mode, you pick one defender and see how much damage multiple attackers deal to it. Both modes show damage ranges, KO chance, OHKO and 2HKO probabilities for each matchup."}},{"@type":"Question","name":"How do EVs and Natures affect damage in VGC?","acceptedAnswer":{"@type":"Answer","text":"EVs (Effort Values) and Natures directly modify a Pokémon's stats. Offensive EVs increase damage output while defensive EVs determine whether your Pokémon survives key hits. VGC Multi Calc lets you adjust EVs and Natures in real time to see the exact damage rolls and KO chance for any matchup."}},{"@type":"Question","name":"How does the Speed Calculator work?","acceptedAnswer":{"@type":"Answer","text":"The Speed Calculator compares the effective Speed stats of multiple Pokémon after applying Nature, EVs and modifiers like Tailwind or Trick Room. It shows speed tiers so you can determine which Pokémon moves first in VGC and Pokémon Champions Doubles matches."}},{"@type":"Question","name":"How does the Probability Calculator work?","acceptedAnswer":{"@type":"Answer","text":"The Probability Calculator helps you understand how reliable your team is in battle. It analyzes move accuracy and calculates a Consistency Score for each Pokémon and the overall team. It also shows hit and miss probabilities, secondary effect chances, and reference tables for common game mechanics like critical hits, Protect, sleep, and status effects across multiple turns."}},{"@type":"Question","name":"What does the Type Calculator do?","acceptedAnswer":{"@type":"Answer","text":"The Type Calculator evaluates offensive and defensive type coverage for your entire team at once. It shows which types your team hits super-effectively, which types threaten your Pokémon, and highlights coverage gaps so you can build a more balanced team for VGC and Pokémon Champions."}}]}</script><style ng-app-id="ng">.header[_ngcontent-ng-c2103277764]{height:4em;position:sticky;top:0;z-index:110;background-color:var(--background);transition:background-color .3s ease,color .3s ease,border-color .3s ease;display:flex;justify-content:space-between;border-bottom:1px;border-color:var(--background);border-width:1px;border-style:solid;padding-left:2.5em;padding-right:0;margin-bottom:0;margin-left:-2.5em}.left-header[_ngcontent-ng-c2103277764]{display:flex;align-items:center}.right-header[_ngcontent-ng-c2103277764]{display:flex;align-items:center;column-gap:1em;margin-right:1.5em}.slowking-icon[_ngcontent-ng-c2103277764]{height:4em;width:auto}.icon[_ngcontent-ng-c2103277764]{height:2.5em;width:auto}.title[_ngcontent-ng-c2103277764]{font-size:clamp(12px,2vh,18px);font-weight:500;margin:0 0 0 1em}.menu-icon[_ngcontent-ng-c2103277764]{height:1.5em;font-size:1em;vertical-align:middle;background:none;border:0}.menu-panel[_ngcontent-ng-c2103277764]{position:fixed;inset:4em 0 0 auto;width:15em;background-color:var(--background);z-index:100;overflow-y:auto;border-left:1px solid var(--widget-border);border-bottom:1px solid var(--widget-border);animation:_ngcontent-ng-c2103277764_slideRight .2s ease}.menu-panel.no-footer[_ngcontent-ng-c2103277764]{bottom:0}.menu-panel[_ngcontent-ng-c2103277764]:not(.no-footer){bottom:4em}.menu-overlay[_ngcontent-ng-c2103277764]{position:fixed;inset:0;background-color:#0006;z-index:95;-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);animation:_ngcontent-ng-c2103277764_fadeIn .2s ease}@keyframes _ngcontent-ng-c2103277764_fadeIn{0%{opacity:0}to{opacity:1}}@keyframes _ngcontent-ng-c2103277764_slideRight{0%{opacity:0;transform:translate(20px)}to{opacity:1;transform:translate(0)}}.menu-content[_ngcontent-ng-c2103277764]{padding:1em 1.5em;display:flex;flex-direction:column}.menu-title[_ngcontent-ng-c2103277764]{display:block;font-size:clamp(12px,2vh,18px);font-weight:600;margin-top:1em;margin-bottom:.5em;opacity:.6;text-transform:uppercase;letter-spacing:.05em;font-size:.75em}.menu-title[_ngcontent-ng-c2103277764]:first-child{margin-top:0}mat-divider[_ngcontent-ng-c2103277764]{margin:.75em 0}.menu-item-button[_ngcontent-ng-c2103277764]{display:flex;align-items:center;width:100%;padding:.85em 1em;background:none;border:none;border-radius:8px;cursor:pointer;font-size:1em;color:var(--text);text-align:left;transition:background-color .15s ease,color .15s ease}.menu-item-button[_ngcontent-ng-c2103277764]:hover{background-color:var(--highlight);color:var(--highlight-contrast)}.active-menu-option[_ngcontent-ng-c2103277764], .menu-item-button.pressed[_ngcontent-ng-c2103277764], .menu-item-button[_ngcontent-ng-c2103277764]:active{background-color:var(--highlight)!important;color:var(--highlight-contrast)!important;font-weight:500}.menu-item[_ngcontent-ng-c2103277764]{display:flex;align-items:center;gap:1em;padding:.45em 1em;border-radius:8px;margin-bottom:.25em;cursor:pointer;transition:background-color .15s ease,color .15s ease}.menu-item[_ngcontent-ng-c2103277764]:hover{background-color:var(--highlight);color:var(--highlight-contrast)}.game-toggle[_ngcontent-ng-c2103277764]{width:100%}.game-toggle[_ngcontent-ng-c2103277764]   mat-button-toggle[_ngcontent-ng-c2103277764]{flex:1}.pokemon-image-container[_ngcontent-ng-c2103277764]{display:flex;align-items:center;justify-content:center;width:2.5em;padding:0}.pokemon-image[_ngcontent-ng-c2103277764]{height:1.8em;width:auto}.share-button[_ngcontent-ng-c2103277764]{width:100%;padding:.85em 1em;background-color:var(--primary);color:var(--primary-contrast);border:none;border-radius:8px;cursor:pointer;font-size:1em;font-weight:500;margin-top:.5em;transition:opacity .15s ease}.share-button[_ngcontent-ng-c2103277764]:hover{opacity:.85}.kofi-link[_ngcontent-ng-c2103277764]{display:flex;justify-content:center;margin-top:1.5em}.kofi-link[_ngcontent-ng-c2103277764]   img[_ngcontent-ng-c2103277764]{height:2.2em;width:auto;border:0}.share-link[_ngcontent-ng-c2103277764]{display:flex;align-items:center;gap:.75em;margin-top:.75em}</style><style ng-app-id="ng">.mat-mdc-icon-button {
+  -webkit-user-select: none;
+  user-select: none;
+  display: inline-block;
+  position: relative;
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  fill: currentColor;
+  text-decoration: none;
+  cursor: pointer;
+  z-index: 0;
+  overflow: visible;
+  border-radius: var(--mat-icon-button-container-shape, var(--mat-sys-corner-full, 50%));
+  flex-shrink: 0;
+  text-align: center;
+  width: var(--mat-icon-button-state-layer-size, 40px);
+  height: var(--mat-icon-button-state-layer-size, 40px);
+  padding: calc(calc(var(--mat-icon-button-state-layer-size, 40px) - var(--mat-icon-button-icon-size, 24px)) / 2);
+  font-size: var(--mat-icon-button-icon-size, 24px);
+  color: var(--mat-icon-button-icon-color, var(--mat-sys-on-surface-variant));
+  -webkit-tap-highlight-color: transparent;
+}
+.mat-mdc-icon-button .mat-mdc-button-ripple,
+.mat-mdc-icon-button .mat-mdc-button-persistent-ripple,
+.mat-mdc-icon-button .mat-mdc-button-persistent-ripple::before {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  pointer-events: none;
+  border-radius: inherit;
+}
+.mat-mdc-icon-button .mat-mdc-button-ripple {
+  overflow: hidden;
+}
+.mat-mdc-icon-button .mat-mdc-button-persistent-ripple::before {
+  content: "";
+  opacity: 0;
+}
+.mat-mdc-icon-button .mdc-button__label,
+.mat-mdc-icon-button .mat-icon {
+  z-index: 1;
+  position: relative;
+}
+.mat-mdc-icon-button .mat-focus-indicator {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  border-radius: inherit;
+}
+.mat-mdc-icon-button:focus-visible > .mat-focus-indicator::before {
+  content: "";
+  border-radius: inherit;
+}
+.mat-mdc-icon-button .mat-ripple-element {
+  background-color: var(--mat-icon-button-ripple-color, color-mix(in srgb, var(--mat-sys-on-surface-variant) calc(var(--mat-sys-pressed-state-layer-opacity) * 100%), transparent));
+}
+.mat-mdc-icon-button .mat-mdc-button-persistent-ripple::before {
+  background-color: var(--mat-icon-button-state-layer-color, var(--mat-sys-on-surface-variant));
+}
+.mat-mdc-icon-button.mat-mdc-button-disabled .mat-mdc-button-persistent-ripple::before {
+  background-color: var(--mat-icon-button-disabled-state-layer-color, var(--mat-sys-on-surface-variant));
+}
+.mat-mdc-icon-button:hover > .mat-mdc-button-persistent-ripple::before {
+  opacity: var(--mat-icon-button-hover-state-layer-opacity, var(--mat-sys-hover-state-layer-opacity));
+}
+.mat-mdc-icon-button.cdk-program-focused > .mat-mdc-button-persistent-ripple::before, .mat-mdc-icon-button.cdk-keyboard-focused > .mat-mdc-button-persistent-ripple::before, .mat-mdc-icon-button.mat-mdc-button-disabled-interactive:focus > .mat-mdc-button-persistent-ripple::before {
+  opacity: var(--mat-icon-button-focus-state-layer-opacity, var(--mat-sys-focus-state-layer-opacity));
+}
+.mat-mdc-icon-button:active > .mat-mdc-button-persistent-ripple::before {
+  opacity: var(--mat-icon-button-pressed-state-layer-opacity, var(--mat-sys-pressed-state-layer-opacity));
+}
+.mat-mdc-icon-button .mat-mdc-button-touch-target {
+  position: absolute;
+  top: 50%;
+  height: var(--mat-icon-button-touch-target-size, 48px);
+  display: var(--mat-icon-button-touch-target-display, block);
+  left: 50%;
+  width: var(--mat-icon-button-touch-target-size, 48px);
+  transform: translate(-50%, -50%);
+}
+.mat-mdc-icon-button._mat-animation-noopable {
+  transition: none !important;
+  animation: none !important;
+}
+.mat-mdc-icon-button[disabled], .mat-mdc-icon-button.mat-mdc-button-disabled {
+  cursor: default;
+  pointer-events: none;
+  color: var(--mat-icon-button-disabled-icon-color, color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent));
+}
+.mat-mdc-icon-button.mat-mdc-button-disabled-interactive {
+  pointer-events: auto;
+}
+.mat-mdc-icon-button img,
+.mat-mdc-icon-button svg {
+  width: var(--mat-icon-button-icon-size, 24px);
+  height: var(--mat-icon-button-icon-size, 24px);
+  vertical-align: baseline;
+}
+.mat-mdc-icon-button .mat-mdc-button-persistent-ripple {
+  border-radius: var(--mat-icon-button-container-shape, var(--mat-sys-corner-full, 50%));
+}
+.mat-mdc-icon-button[hidden] {
+  display: none;
+}
+.mat-mdc-icon-button.mat-unthemed:not(.mdc-ripple-upgraded):focus::before, .mat-mdc-icon-button.mat-primary:not(.mdc-ripple-upgraded):focus::before, .mat-mdc-icon-button.mat-accent:not(.mdc-ripple-upgraded):focus::before, .mat-mdc-icon-button.mat-warn:not(.mdc-ripple-upgraded):focus::before {
+  background: transparent;
+  opacity: 1;
+}
+</style><style ng-app-id="ng">@media (forced-colors: active) {
+  .mat-mdc-button:not(.mdc-button--outlined),
+  .mat-mdc-unelevated-button:not(.mdc-button--outlined),
+  .mat-mdc-raised-button:not(.mdc-button--outlined),
+  .mat-mdc-outlined-button:not(.mdc-button--outlined),
+  .mat-mdc-button-base.mat-tonal-button,
+  .mat-mdc-icon-button.mat-mdc-icon-button,
+  .mat-mdc-outlined-button .mdc-button__ripple {
+    outline: solid 1px;
+  }
+}
+</style><style ng-app-id="ng">.mat-focus-indicator {
+  position: relative;
+}
+.mat-focus-indicator::before {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  box-sizing: border-box;
+  pointer-events: none;
+  display: var(--mat-focus-indicator-display, none);
+  border-width: var(--mat-focus-indicator-border-width, 3px);
+  border-style: var(--mat-focus-indicator-border-style, solid);
+  border-color: var(--mat-focus-indicator-border-color, transparent);
+  border-radius: var(--mat-focus-indicator-border-radius, 4px);
+}
+.mat-focus-indicator:focus-visible::before {
+  content: "";
+}
+
+@media (forced-colors: active) {
+  html {
+    --mat-focus-indicator-display: block;
+  }
+}
+</style><style ng-app-id="ng">mat-icon, mat-icon.mat-primary, mat-icon.mat-accent, mat-icon.mat-warn {
+  color: var(--mat-icon-color, inherit);
+}
+
+.mat-icon {
+  -webkit-user-select: none;
+  user-select: none;
+  background-repeat: no-repeat;
+  display: inline-block;
+  fill: currentColor;
+  height: 24px;
+  width: 24px;
+  overflow: hidden;
+}
+.mat-icon.mat-icon-inline {
+  font-size: inherit;
+  height: inherit;
+  line-height: inherit;
+  width: inherit;
+}
+.mat-icon.mat-ligature-font[fontIcon]::before {
+  content: attr(fontIcon);
+}
+
+[dir=rtl] .mat-icon-rtl-mirror {
+  transform: scale(-1, 1);
+}
+
+.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon,
+.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon {
+  display: block;
+}
+.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon-button .mat-icon,
+.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon-button .mat-icon {
+  margin: auto;
+}
+</style><style ng-app-id="ng">@charset "UTF-8";.subpage-container{padding:1rem;color:var(--text);position:relative}.subpage-container .back-nav{position:fixed;top:6rem;left:2rem;z-index:100}.subpage-container .back-nav .back-button{display:flex;align-items:center;gap:.5rem;cursor:pointer;color:var(--text);transition:transform .2s ease}.subpage-container .back-nav .back-button:hover{transform:translate(-4px)}.subpage-container .back-nav .back-button mat-icon{font-size:1.5rem;width:1.5rem;height:1.5rem}.subpage-container .back-nav .back-button span{font-size:1.1rem;font-weight:500}@media(max-width:1280px){.subpage-container .back-nav{position:absolute;top:1rem;left:1rem}}.subpage-container .header{display:flex;justify-content:center;margin-bottom:2rem}.subpage-container .header h2{margin:0;font-size:1.8rem}.subpage-container .content{max-width:800px;margin:0 auto;font-size:1.3rem;line-height:1.7;text-align:left}.subpage-container .content p{margin-bottom:1.5rem;opacity:.9}.subpage-container .content .subsection{margin-top:2rem;margin-bottom:2rem}.subpage-container .content .subsection .subsection-title{font-family:Outfit,sans-serif;font-size:2rem;font-weight:600;margin-bottom:.5rem;letter-spacing:-.02em}.subpage-container .content .subsection .section-figure{margin:1.5rem 0 2.5rem}.subpage-container .content .subsection .section-figure .section-image{max-width:100%;height:auto;display:block;margin:0 auto;border-radius:12px;box-shadow:0 8px 30px #0000004d;border:1px solid var(--widget-border)}.subpage-container .content .subsection .section-figure figcaption{margin-top:.75rem;font-style:italic;font-size:1.1rem;opacity:.7;text-align:center}.subpage-container .content .subsection .highlight-term{font-weight:600}.subpage-container .content .subsection .callout{display:flex;gap:1rem;background-color:color-mix(in srgb,var(--primary) 8%,transparent);border-left:4px solid var(--primary);padding:1.25rem 1.5rem;border-radius:4px 12px 12px 4px;margin:2rem 0}.subpage-container .content .subsection .callout mat-icon{color:var(--primary);font-size:1.8rem;width:1.8rem;height:1.8rem}.subpage-container .content .subsection .callout .callout-content{flex:1}.subpage-container .content .subsection .callout .callout-content p{margin:0;font-size:1.2rem;line-height:1.6}.subpage-container .content .subsection .subsection-list{margin:1.5rem 0;padding-left:0;list-style:none}.subpage-container .content .subsection .subsection-list.columns-2{display:grid;grid-template-columns:1fr 1fr;gap:.5rem 2rem}.subpage-container .content .subsection .subsection-list li{margin-bottom:.6rem;padding-left:1.8rem;position:relative;opacity:.9;font-size:1.3rem}.subpage-container .content .subsection .subsection-list li:before{content:"\2022";position:absolute;left:0;color:var(--text);font-weight:700;font-size:1.6rem;line-height:1.1}.subpage-container .content .video-container{width:100%;max-width:900px;margin:0 auto;aspect-ratio:16/9}.subpage-container .content .video-container iframe{width:100%;height:100%;border:none;border-radius:12px;box-shadow:0 4px 20px #0003}@media(max-width:800px){.subpage-container .back-nav .back-button mat-icon{font-size:2rem;width:2rem;height:2rem}.subpage-container .back-nav .back-button span{font-size:1.5rem}.subpage-container .header h2{font-size:2.2rem;margin-top:2rem}.subpage-container .content{font-size:1.5rem}.subpage-container .content .subsection .subsection-title{font-size:2rem}.subpage-container .content .subsection .callout .callout-content p{font-size:1.4rem}.subpage-container .content .subsection .subsection-list.columns-2{grid-template-columns:1fr}.subpage-container .content .subsection .subsection-list li{font-size:1.5rem}}
+</style></head>
+  <body class="mat-typography">
+    <div id="app-splash" aria-hidden="true"></div>
+    <script>
+      ;(function () {
+        var theme = document.documentElement.dataset.splashTheme
+        if (theme) {
+          document.getElementById("app-splash").classList.add(theme)
+        }
+      })()
+    </script>
+    <app-root ng-version="21.2.14" ng-server-context="ssg"><div class="container"><router-outlet></router-outlet><app-how-to-use-route _nghost-ng-c2515665134><div _ngcontent-ng-c2515665134 class="container"><!----><app-header-mobile _ngcontent-ng-c2515665134 _nghost-ng-c2103277764><div _ngcontent-ng-c2103277764 class="header"><div _ngcontent-ng-c2103277764 class="left-header"><img _ngcontent-ng-c2103277764 src="assets/icons/slowking.png" width="96" height="96" class="slowking-icon"><img _ngcontent-ng-c2103277764 src="assets/icons/calc-72x72.png" width="72" height="72" class="icon"><h1 _ngcontent-ng-c2103277764 class="title">VGC Multi Calc</h1></div><div _ngcontent-ng-c2103277764 class="right-header"><button _ngcontent-ng-c2103277764 mat-icon-button class="mdc-icon-button mat-mdc-icon-button mat-mdc-button-base menu-icon mat-unthemed" mat-ripple-loader-uninitialized mat-ripple-loader-class-name="mat-mdc-button-ripple" mat-ripple-loader-centered><span class="mat-mdc-button-persistent-ripple mdc-icon-button__ripple"></span><mat-icon _ngcontent-ng-c2103277764 role="img" class="mat-icon notranslate material-icons mat-ligature-font mat-icon-no-color" aria-hidden="true" data-mat-icon-type="font">menu</mat-icon><span class="mat-focus-indicator"></span><span class="mat-mdc-button-touch-target"></span></button></div></div><!----></app-header-mobile><!----><router-outlet _ngcontent-ng-c2515665134></router-outlet><app-how-to-use-probability><app-how-to-use-subpage title="Probability Calc"><div class="subpage-container"><div class="back-nav"><div class="back-button"><mat-icon role="img" class="mat-icon notranslate" aria-hidden="true">arrow_back_ios_new</mat-icon><span>Back</span></div></div><div class="header"><h2></h2></div><div class="content"><p> The Probability Calc helps you understand how reliable your team is in battle by analyzing move accuracy and calculating various game probabilities. This tool is essential for making informed decisions about team composition and move selection. </p><div class="subsection"><h3 class="subsection-title">Consistency Score</h3><figure class="section-figure"><img src="assets/media/how-to-use/probability-calc/consistency-score.webp" alt="Consistency Score interface" width="953" height="183" loading="lazy" class="section-image"><figcaption>The Team Consistency Score dashboard showing individual reliability.</figcaption></figure><p> The <span class="highlight-term">Consistency Score</span> measures how reliable your team is based on the accuracy of each Pokémon's moves. Each Pokémon receives an individual score from 0 to 100, which is then combined into an overall team score. </p><div class="callout"><mat-icon role="img" class="mat-icon notranslate" aria-hidden="true">info</mat-icon><div class="callout-content"><p><strong>Main purpose:</strong> The score is designed to be compared between teams - it helps you understand which team is more reliable overall. Higher scores indicate more reliable teams, making it easier to compare different team compositions and identify which setup will perform more consistently in battle. </p></div></div><p> Moves with 100% accuracy contribute positively to the score, while less accurate moves reduce it. If a Pokémon has multiple inaccurate moves, it receives an additional penalty, as the overall moveset becomes less dependable. A single very inaccurate move can significantly impact the score, reflecting real gameplay situations where unreliable moves can cost you matches. </p></div><div class="subsection"><h3 class="subsection-title">Move Probabilities</h3><figure class="section-figure"><img src="assets/media/how-to-use/probability-calc/move-probabilities.webp" alt="Move Probabilities interface" width="939" height="323" loading="lazy" class="section-image"><figcaption>Detailed probability tables for individual moves over multiple turns.</figcaption></figure><p>For each move in your team, the calc shows detailed probability tables that help you understand the probability of success across multiple turns. You can see:</p><ul class="subsection-list columns-2"><li>Hit and miss probabilities</li><li>Chances of secondary effects</li><li>Probability over multiple turns</li><li>Spread vs single-target moves</li></ul><p>This information is crucial for planning your strategy, as it helps you understand the risks and rewards of using specific moves in different situations.</p></div><div class="subsection"><h3 class="subsection-title">Reference Tables</h3><figure class="section-figure"><img src="assets/media/how-to-use/probability-calc/reference-tables.webp" alt="Reference Tables interface" width="933" height="300" loading="lazy" class="section-image"><figcaption>Access key game mechanic statistics instantly.</figcaption></figure><p>The calc also provides general probability tables for common game mechanics, including:</p><ul class="subsection-list columns-2"><li>Critical hit chances</li><li>Protect success rates</li><li>Sleep &amp; wake-up probabilities</li><li>Status effect distributions</li><li>Multi-hit move damage</li></ul><p>These reference tables are useful for strategic planning, helping you make informed decisions about when to use certain moves or abilities, and understanding the statistical probability of various game events occurring.</p></div></div></div></app-how-to-use-subpage></app-how-to-use-probability><!----></div></app-how-to-use-route><!----></div></app-root>
+  <link rel="modulepreload" href="chunk-TSOA533U.js"><link rel="modulepreload" href="chunk-JLWHZRNN.js"><link rel="modulepreload" href="chunk-X6G7TNBZ.js"><link rel="modulepreload" href="chunk-RFBHEKMW.js"><link rel="modulepreload" href="chunk-GWFVT6QT.js"><link rel="modulepreload" href="chunk-C6Q5SG76.js"><script src="main-J4TWNIZ5.js" type="module"></script>
+<link rel="modulepreload" href="chunk-AHA5OCEL.js">
+<link rel="modulepreload" href="chunk-3XTGIPJQ.js">
+<link rel="modulepreload" href="chunk-GTB7DJHL.js">
+<link rel="modulepreload" href="chunk-TPJ5ETQM.js">
+<link rel="modulepreload" href="chunk-SV34CIVT.js">
+
+
+<div class="cdk-live-announcer-element cdk-visually-hidden" aria-atomic="true" aria-live="polite" id="cdk-live-announcer-2"></div></body></html>

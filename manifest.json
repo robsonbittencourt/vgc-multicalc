@@ -1,10 +1,46 @@
 {
   "name": "VGC Multi Calc",
   "short_name": "VGC Multi Calc",
+  "id": "/",
+  "scope": "/",
   "start_url": "/",
   "display": "standalone",
+  "lang": "en",
+  "dir": "ltr",
+  "orientation": "portrait-primary",
+  "description": "Damage calculator and team tools for Pokémon VGC",
   "background_color": "#ded2f0",
   "theme_color": "#ded2f0",
+  "screenshots": [
+    {
+      "src": "/assets/screenshots/mobile.webp",
+      "sizes": "428x784",
+      "type": "image/webp",
+      "form_factor": "narrow"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Team vs Many",
+      "url": "/team-vs-many",
+      "icons": [{ "src": "/assets/icons/calc-96x96.png", "sizes": "96x96", "type": "image/png" }]
+    },
+    {
+      "name": "Speed Calc",
+      "url": "/speed-calc",
+      "icons": [{ "src": "/assets/icons/calc-96x96.png", "sizes": "96x96", "type": "image/png" }]
+    },
+    {
+      "name": "Type Calc",
+      "url": "/type-calc",
+      "icons": [{ "src": "/assets/icons/calc-96x96.png", "sizes": "96x96", "type": "image/png" }]
+    },
+    {
+      "name": "Probability Calc",
+      "url": "/probability-calc",
+      "icons": [{ "src": "/assets/icons/calc-96x96.png", "sizes": "96x96", "type": "image/png" }]
+    }
+  ],
   "icons": [
     {
       "src": "/assets/icons/calc-72x72.png",
@@ -34,7 +70,14 @@
     {
       "src": "/assets/icons/calc-192x192.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "192x192",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icons/calc-192x192-maskable.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "maskable"
     },
     {
       "src": "/assets/icons/calc-384x384.png",
@@ -44,7 +87,14 @@
     {
       "src": "/assets/icons/calc-512x512.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "512x512",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icons/calc-512x512-maskable.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
     }
   ]
 }
