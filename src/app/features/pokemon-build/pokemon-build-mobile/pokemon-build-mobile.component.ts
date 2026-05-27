@@ -46,6 +46,7 @@ import { Stats } from "@lib/types"
 })
 export class PokemonBuildMobileComponent {
   pokemonId = input.required<string>()
+  realPokemonId = input<string | null>(null)
   optimizationStatus = input<"idle" | "success" | "no-solution" | "not-needed">("idle")
   optimizedEvs = input<Stats | null>(null)
   optimizedNature = input<string | null>(null)
@@ -117,6 +118,8 @@ export class PokemonBuildMobileComponent {
   optimizationDiscarded = output<void>()
 
   teamMembers = computed(() => this.store.team().teamMembers)
+
+  effectiveRealId = computed(() => this.realPokemonId() ?? this.pokemonId())
 
   pokemon = computed(() => {
     const id = this.pokemonId()
@@ -256,6 +259,6 @@ export class PokemonBuildMobileComponent {
   }
 
   toggleMega() {
-    this.megaStoneService.toggleMega(this.pokemonId(), this.pokemon().name, this.pokemon().item)
+    this.megaStoneService.toggleMega(this.effectiveRealId(), this.pokemon().name, this.pokemon().item)
   }
 }

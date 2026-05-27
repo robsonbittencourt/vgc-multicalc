@@ -43,6 +43,7 @@
         @if (shouldShowBuild()) {
           <app-pokemon-build-mobile
             [pokemonId]="speedCalcPokemonId()"
+            [realPokemonId]="effectiveEditingId()"
             [showOptimization]="false"
             [onlySpeed]="true"
             [hideEvs]="overlay.isAnyOpen()"
