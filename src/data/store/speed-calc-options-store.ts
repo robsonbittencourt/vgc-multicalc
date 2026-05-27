@@ -36,16 +36,15 @@ export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }
   constructor() {
     super()
 
-    effect(() => {
-      const game = this.calculatorStore.game()
-      const newRegulation = game === "champions" ? "MA" : "I"
-      if (this.regulation() !== newRegulation) {
-        patchState(this, () => ({ regulation: newRegulation as Regulation }))
-      }
-    })
+    const initialRegulation = (this.calculatorStore.game() === "champions" ? "MA" : "I") as Regulation
+    patchState(this, () => ({ regulation: initialRegulation }))
 
     effect(() => {
       const game = this.calculatorStore.game()
+      const newRegulation = (game === "champions" ? "MA" : "I") as Regulation
+
+      patchState(this, () => ({ regulation: newRegulation }))
+
       if (game === "champions" && this.choiceScarfActive()) {
         patchState(this, () => ({ choiceScarfActive: false }))
       }
@@ -56,7 +55,7 @@ export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }
     () =>
       new SpeedCalculatorOptions({
         topUsage: this.topUsage(),
-        regulation: this.regulation() as Regulation,
+        regulation: this.regulation(),
         targetName: this.targetName(),
         mode: this.mode(),
         speedModifier: this.speedModifier(),
