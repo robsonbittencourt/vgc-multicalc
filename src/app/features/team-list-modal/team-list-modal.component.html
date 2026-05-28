@@ -1,0 +1,42 @@
+<div>
+  <h2 mat-dialog-title>Team List</h2>
+  <mat-dialog-content>
+    <p class="optional-hint">All fields are optional.</p>
+    <div class="form-grid">
+      <app-input [label]="'Player Name'" [(value)]="playerName" />
+      <app-input [label]="'Trainer Name in Game'" [(value)]="trainerName" />
+      <app-input [label]="'Player ID'" [(value)]="playerId" />
+      <app-input [label]="'Battle Team Number / Name'" [(value)]="battleTeamName" />
+
+      <div class="input-column">
+        <label>Date of Birth</label>
+        <input type="text" [placeholder]="datePlaceholder" maxlength="10" [value]="dateOfBirth()" (input)="maskDate($event)" />
+      </div>
+
+      <app-input [label]="'Switch Profile Name'" [(value)]="switchProfileName" />
+      <app-input [label]="'Support ID'" [(value)]="supportId" />
+
+      <div class="age-division">
+        <label class="division-label">Age Division</label>
+        <mat-radio-group [ngModel]="playerInfo().ageDivision" (ngModelChange)="update('ageDivision', $event)">
+          <mat-radio-button value="Juniors">Juniors</mat-radio-button>
+          <mat-radio-button value="Seniors">Seniors</mat-radio-button>
+          <mat-radio-button value="Masters">Masters</mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+      <div class="age-division">
+        <label class="division-label">Pages</label>
+        <mat-radio-group [ngModel]="playerInfo().pageSelection" (ngModelChange)="update('pageSelection', $event)">
+          <mat-radio-button value="Staff">Staff</mat-radio-button>
+          <mat-radio-button value="OTS">OTS</mat-radio-button>
+          <mat-radio-button value="Both">Both</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-flat-button mat-dialog-close>Cancel</button>
+    <button mat-flat-button cdkFocusInitial (click)="export()">Export</button>
+  </mat-dialog-actions>
+</div>

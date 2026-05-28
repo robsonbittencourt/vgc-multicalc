@@ -5,6 +5,10 @@
       <mat-form-field appearance="outline" class="team-name-input">
         <input type="text" matInput [ngModel]="store.team().name" (input)="updateTeamName($event)" data-cy="team-name" />
       </mat-form-field>
+      <div class="export-team" [class.disabled]="store.team().onlyHasDefaultPokemon()" (click)="exportPdf()" data-cy="export-pdf-button">
+        <mat-icon class="icon">picture_as_pdf</mat-icon>
+        <label>Team List</label>
+      </div>
     </div>
 
     <div class="secondary-actions">

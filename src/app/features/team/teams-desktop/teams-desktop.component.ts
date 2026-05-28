@@ -108,6 +108,10 @@ export class TeamsDesktopComponent implements OnInit {
     this.teamsService.export(this.store.team())
   }
 
+  exportPdf() {
+    this.teamsService.exportPdf(this.store.team())
+  }
+
   deleteTeam() {
     const activePokemonId = this.teamsService.deleteTeam(false)
     this.pokemonSelected.emit(activePokemonId)

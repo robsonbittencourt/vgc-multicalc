@@ -40,6 +40,18 @@ export class MegaStoneService {
     return pokemonName === baseFormName || pokemonName === expectedMegaForm
   }
 
+  getBaseFormAbility(pokemonId: string): string | null {
+    return this.previousAbilityByPokemonId.get(pokemonId) ?? null
+  }
+
+  getBaseName(megaName: string): string {
+    return MEGA_FORM_REVERSE_MAPPING[megaName] ?? megaName.replace(/-Mega-[A-Z]$/, "").replace(/-Mega$/, "")
+  }
+
+  isMega(pokemonName: string): boolean {
+    return pokemonName.includes("-Mega-") || pokemonName.endsWith("-Mega")
+  }
+
   hasMegaForm(pokemonName: string, item: string): boolean {
     return this.isMegaStone(item) || pokemonName.includes("-Mega")
   }

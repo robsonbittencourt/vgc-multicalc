@@ -6,6 +6,7 @@ import { TeamMember } from "@lib/model/team-member"
 import { Pokemon } from "@lib/model/pokemon"
 import { SnackbarService } from "@lib/snackbar.service"
 import { ExportPokeService } from "@lib/user-data/export-poke.service"
+import { PdfExportService } from "@lib/user-data/pdf-export.service"
 import { uuid } from "@lib/utils/uuid"
 
 @Injectable({
@@ -14,6 +15,7 @@ import { uuid } from "@lib/utils/uuid"
 export class TeamsService {
   private store = inject(CalculatorStore)
   private exportPokeService = inject(ExportPokeService)
+  private pdfExportService = inject(PdfExportService)
   private snackBar = inject(SnackbarService)
 
   activateTeam(team: Team) {
@@ -38,6 +40,10 @@ export class TeamsService {
     const pokemon = team.teamMembers.map(tm => tm.pokemon)
     const shouldUseSps = this.store.isChampions() && this.store.useSpsMode()
     this.exportPokeService.export(team.name, pokemon, shouldUseSps)
+  }
+
+  exportPdf(team: Team) {
+    this.pdfExportService.export(team)
   }
 
   addNewTeam() {
