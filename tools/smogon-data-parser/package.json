@@ -10,10 +10,10 @@
   "license": "MIT",
   "type": "module",
   "devDependencies": {
-    "axios": "^1.15.1",
+    "axios": "^1.16.1",
     "chai": "^6.2.2",
-    "mocha": "^11.7.5",
+    "mocha": "^11.7.6",
     "cheerio": "1.2.0",
-    "@robsonbittencourt/calc": "0.11.3"
+    "@robsonbittencourt/calc": "0.11.13"
   }
 }
