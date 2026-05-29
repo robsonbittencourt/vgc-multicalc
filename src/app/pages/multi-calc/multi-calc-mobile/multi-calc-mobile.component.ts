@@ -548,6 +548,8 @@ export class MultiCalcMobileComponent implements OnDestroy {
     const targetsWithDefaultPokemon = deactivatedTargets.concat(target)
 
     this.store.updateTargets(targetsWithDefaultPokemon)
+    this.pokemonOnEditId.set(pokemon.id)
+    this.overlay.open("pokemon")
   }
 
   drop(event: CdkDragDrop<string, any>) {
