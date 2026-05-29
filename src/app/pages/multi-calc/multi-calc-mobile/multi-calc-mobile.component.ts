@@ -426,6 +426,13 @@ export class MultiCalcMobileComponent implements OnDestroy {
   onClosePokemonTable() {
     this.overlay.close()
 
+    const editingPokemon = this.editingPokemon()
+
+    if (editingPokemon?.isDefault && this.isEditingTarget()) {
+      this.store.updateTargets(this.store.targets().filter(t => t.pokemon.id !== editingPokemon.id))
+      this.activateTeamMember()
+    }
+
     if (this.pokemonInput) {
       this.pokemonInput.nativeElement.value = this.editingPokemonName()
     }
