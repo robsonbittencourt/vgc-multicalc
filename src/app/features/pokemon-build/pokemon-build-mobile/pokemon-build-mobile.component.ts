@@ -146,8 +146,17 @@ export class PokemonBuildMobileComponent {
     return { ...pokemon.evs }
   })
 
+  modifiedHp = computed(() => Math.floor((this.pokemon().hp * this.pokemon().hpPercentage) / 100))
+
   hasModifiedStat = computed(() => {
-    return this.modifiedAtk() != this.pokemon().atk || this.modifiedDef() != this.pokemon().def || this.modifiedSpa() != this.pokemon().spa || this.modifiedSpd() != this.pokemon().spd || this.modifiedSpe() != this.pokemon().spe
+    return (
+      this.modifiedHp() != this.pokemon().hp ||
+      this.modifiedAtk() != this.pokemon().atk ||
+      this.modifiedDef() != this.pokemon().def ||
+      this.modifiedSpa() != this.pokemon().spa ||
+      this.modifiedSpd() != this.pokemon().spd ||
+      this.modifiedSpe() != this.pokemon().spe
+    )
   })
 
   modifiedAtk = computed(() => getFinalAttack(this.pokemon(), this.pokemon().move, this.fieldStore.field()))

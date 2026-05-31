@@ -76,7 +76,7 @@
 
       <div class="evs">
         @if (!onlySpeed()) {
-          <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="pokemon().hp" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.hp" [isOptimized]="isHpOptimized()" stat="hp" [reduced]="true" />
+          <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedHp()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.hp" [isOptimized]="isHpOptimized()" stat="hp" [reduced]="true" />
           <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedAtk()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.atk" stat="atk" [reduced]="true" />
           <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedDef()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.def" [isOptimized]="isDefOptimized()" stat="def" [reduced]="true" />
           <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedSpa()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.spa" stat="spa" [reduced]="true" />

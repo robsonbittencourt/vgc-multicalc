@@ -302,6 +302,10 @@ export class EvSliderComponent {
     }
 
     if (this.modifiedStat() < this.statValue()) {
+      if (this.stat() === "hp") {
+        return { color: "var(--hp-reduced-value)" }
+      }
+
       return { color: "var(--negative-value)" }
     }
 

@@ -161,7 +161,7 @@
   </div>
 
   <div class="evs" [animate.enter]="shouldAnimate() ? 'fade-in' : null">
-    <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.hp" [modifiedStat]="pokemon().hp" [hasModifiedStat]="hasModifiedStat()" [isOptimized]="isHpOptimized()" data-cy="stat-hp" stat="hp" />
+    <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.hp" [modifiedStat]="modifiedHp()" [hasModifiedStat]="hasModifiedStat()" [isOptimized]="isHpOptimized()" data-cy="stat-hp" stat="hp" />
     <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.atk" [modifiedStat]="modifiedAtk()" [hasModifiedStat]="hasModifiedStat()" data-cy="stat-atk" stat="atk" />
     <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.def" [modifiedStat]="modifiedDef()" [hasModifiedStat]="hasModifiedStat()" [isOptimized]="isDefOptimized()" data-cy="stat-def" stat="def" />
     <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.spa" [modifiedStat]="modifiedSpa()" [hasModifiedStat]="hasModifiedStat()" data-cy="stat-spa" stat="spa" />

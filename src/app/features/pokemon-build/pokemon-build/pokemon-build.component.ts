@@ -211,8 +211,17 @@ export class PokemonBuildComponent {
     return this.isOptimizationSupported() && this.isSolutionNotNeeded()
   })
 
+  modifiedHp = computed(() => Math.floor((this.pokemon().hp * this.pokemon().hpPercentage) / 100))
+
   hasModifiedStat = computed(() => {
-    return this.modifiedAtk() != this.pokemon().atk || this.modifiedDef() != this.pokemon().def || this.modifiedSpa() != this.pokemon().spa || this.modifiedSpd() != this.pokemon().spd || this.modifiedSpe() != this.pokemon().spe
+    return (
+      this.modifiedHp() != this.pokemon().hp ||
+      this.modifiedAtk() != this.pokemon().atk ||
+      this.modifiedDef() != this.pokemon().def ||
+      this.modifiedSpa() != this.pokemon().spa ||
+      this.modifiedSpd() != this.pokemon().spd ||
+      this.modifiedSpe() != this.pokemon().spe
+    )
   })
 
   isHpOptimized = computed(() => {

@@ -34,6 +34,7 @@ body {
   --positive-value: light-dark(#2e7d32, #69e969);
   --negative-value: light-dark(#c62828, #ff5252);
   --neutral-value: light-dark(#e65100, #ffb74d);
+  --hp-reduced-value: light-dark(#1565c0, #64b5f6);
 }
 
 .purple-theme {
