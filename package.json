@@ -1,6 +1,6 @@
 {
   "name": "vgc-multicalc",
-  "version": "1.16.5",
+  "version": "1.16.6",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -56,7 +56,7 @@
     "karma-jasmine-html-reporter": "2.2.0",
     "prettier": "3.8.3",
     "typescript": "5.9.3",
-    "typescript-eslint": "8.60.0"
+    "typescript-eslint": "8.60.1"
   },
   "overrides": {
     "@ngrx/signals": {
