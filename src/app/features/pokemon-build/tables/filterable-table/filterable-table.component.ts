@@ -97,14 +97,18 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
         switch (col.width) {
           case "verysmall":
             return "2.5em"
+          case "tinysmall":
+            return "4em"
           case "small":
             return this.isMobile() ? "4em" : "6em"
+          case "semimedium":
+            return "7em"
           case "medium":
             return "9em"
           case "large":
             return "15em"
           case "fill":
-            return "1fr"
+            return this.isMobile() ? "18em" : "1fr"
           default:
             return this.isMobile() ? "18em" : "auto"
         }

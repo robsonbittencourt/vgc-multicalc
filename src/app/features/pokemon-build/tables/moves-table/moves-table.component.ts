@@ -6,6 +6,7 @@ import { POKEMON_DETAILS_CHAMPIONS } from "@data/pokemon-details-champions"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { FilterableTableComponent } from "@features/pokemon-build/tables/filterable-table/filterable-table.component"
 import { ColumnConfig } from "@features/pokemon-build/tables/filterable-table/filtered-table-types"
+import { PokemonTypes } from "@lib/types"
 
 @Component({
   selector: "app-moves-table",
@@ -86,7 +87,16 @@ export class MovesTableComponent {
         isImageColumn: true,
         displayFn: (item: MoveDetail) => `assets/icons/${item.category.toLowerCase()}.png`,
         filterValues: ["Physical", "Special", "Status"],
-        width: "small"
+        width: "verysmall"
+      }),
+      new ColumnConfig<MoveDetail>({
+        field: "type",
+        header: "Type",
+        description: "Move type",
+        filterable: true,
+        isPokemonType: true,
+        filterValues: [...PokemonTypes],
+        width: "semimedium"
       }),
       new ColumnConfig<MoveDetail>({
         field: "basePower",
@@ -94,7 +104,7 @@ export class MovesTableComponent {
         description: "Base Power",
         sortable: true,
         showHeaderInCell: true,
-        width: "small"
+        width: "verysmall"
       }),
       new ColumnConfig<MoveDetail>({
         field: "accuracy",
@@ -111,7 +121,7 @@ export class MovesTableComponent {
         description: "PP",
         sortable: true,
         showHeaderInCell: true,
-        width: "small"
+        width: "verysmall"
       })
     ]
 
@@ -124,12 +134,12 @@ export class MovesTableComponent {
           displayFn: (item: MoveDetail) => this.targetsHit(item),
           tooltipFn: (item: MoveDetail) => (item.target === "allAdjacent" ? "Also hits your ally" : ""),
           showHeaderInCell: true,
-          width: "small"
+          width: "tinysmall"
         })
       )
     }
 
-    columns.push(new ColumnConfig<MoveDetail>({ field: "description", header: "Description", description: "Description", alignLeft: true }))
+    columns.push(new ColumnConfig<MoveDetail>({ field: "description", header: "Description", description: "Description", alignLeft: true, width: "fill" }))
 
     return columns
   })

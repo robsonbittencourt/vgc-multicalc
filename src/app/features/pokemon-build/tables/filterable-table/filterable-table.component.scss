@@ -64,6 +64,7 @@
 
 .table-header {
   display: grid;
+  column-gap: 1em;
   background-color: var(--filterable-table-header);
   padding: 10px 8px;
   border-radius: 5px;
@@ -163,6 +164,7 @@
   box-sizing: border-box;
   padding: 6px 8px;
   display: grid;
+  column-gap: 1em;
   align-items: stretch;
   transition:
     box-shadow 0.3s ease,
