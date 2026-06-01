@@ -8,6 +8,8 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 export async function extractMetaMoves(date, regulation) {
+  console.log(`⏳ [extractMetaMoves] Extracting meta moves and items for ${date} / ${regulation.toUpperCase()}...`)
+
   const metaDataMap = await buildMetaDataMap(date, regulation)
   updatePokemonDetailsWithMetaData(metaDataMap, regulation)
 }
@@ -28,7 +30,7 @@ async function buildMetaDataMap(date, regulation) {
       metaDataMap.set(pokemonKey, { moves: normalizedMoves, items: normalizedItems })
     })
   } catch (error) {
-    console.error("❌ Error fetching Smogon data:", error.message)
+    throw new Error(`[extractMetaMoves] Failed to fetch Smogon data: ${error.message}`)
   }
 
   return metaDataMap
@@ -121,8 +123,7 @@ function updatePokemonDetailsWithMetaData(metaDataMap, regulation) {
 
   const startIndex = fileContent.indexOf(`export const ${exportName}`)
   if (startIndex === -1) {
-    console.error(`❌ Could not find ${exportName} in file`)
-    process.exit(1)
+    throw new Error(`[extractMetaMoves] Could not find ${exportName} in file`)
   }
 
   const preContent = fileContent.slice(0, startIndex)
@@ -130,8 +131,7 @@ function updatePokemonDetailsWithMetaData(metaDataMap, regulation) {
 
   const matchStart = rest.match(/=\s*{/)
   if (!matchStart) {
-    console.error("❌ Could not find object start")
-    process.exit(1)
+    throw new Error("[extractMetaMoves] Could not find object start")
   }
 
   const braceIndex = rest.indexOf("{", matchStart.index)
@@ -148,8 +148,7 @@ function updatePokemonDetailsWithMetaData(metaDataMap, regulation) {
   }
 
   if (endIndex === -1) {
-    console.error("❌ Could not find object end")
-    process.exit(1)
+    throw new Error("[extractMetaMoves] Could not find object end")
   }
 
   const objectString = rest.slice(braceIndex, endIndex + 1)
@@ -164,8 +163,7 @@ function updatePokemonDetailsWithMetaData(metaDataMap, regulation) {
       .replace(/,\s*\]/g, "]")
     pokemonDetails = JSON.parse(sanitized)
   } catch (e) {
-    console.error("❌ Error parsing POKEMON_DETAILS:", e.message)
-    process.exit(1)
+    throw new Error(`[extractMetaMoves] Failed to parse POKEMON_DETAILS: ${e.message}`)
   }
 
   const updatedDetails = Object.entries(pokemonDetails).map(([key, value]) => {
@@ -176,7 +174,6 @@ function updatePokemonDetailsWithMetaData(metaDataMap, regulation) {
     if (metaItems.length === 0) {
       const megaStones = getMegaStoneItemsForBase(value.name, movesets)
       if (megaStones.length > 0) {
-        console.log(`ℹ️  ${value.name}: no Smogon items found, using mega stones from movesets: [${megaStones.join(", ")}]`)
         metaItems = megaStones
       }
     }
@@ -203,7 +200,7 @@ export const ${exportName}: Record<string, SpeciesData> = ${serializeObject(upda
 `
 
   fs.writeFileSync(pokemonDetailsPath, newContent.trim() + "\n")
-  console.log(`✅ ${fileName} updated with metaMoves and metaItems successfully`)
+  console.log(`✅ [extractMetaMoves] '${fileName}' updated successfully`)
 }
 
 function serializeObject(obj, indent = 2) {

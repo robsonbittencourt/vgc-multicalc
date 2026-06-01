@@ -8,6 +8,8 @@ export const topUsageByRegulation: Record<Regulation, string[]> = {\n  `
 const OUTPUT_FILE = "src/data/top-usage-regulation.ts"
 
 export async function topUsage(date, regulation) {
+  console.log("⏳ [topUsage] Generating top usage list...")
+
   const usageListReg = await usageList(date, regulation)
 
   let fileContent = ""
@@ -19,6 +21,8 @@ export async function topUsage(date, regulation) {
   }
 
   fs.writeFileSync(OUTPUT_FILE, fileContent)
+
+  console.log(`✅ [topUsage] '${OUTPUT_FILE}' updated successfully`)
 }
 
 async function usageList(date, regulation) {
@@ -48,7 +52,7 @@ async function usageList(date, regulation) {
 }
 
 function updateRegulationEntry(fileContent, regulation, usageListReg) {
-  const regex = new RegExp(`("${regulation.toUpperCase()}"\\s*:\\s*\\[)[\\s\\S]*?(\\])`, "")
+  const regex = new RegExp(`(${regulation.toUpperCase()}\\s*:\\s*\\[)[\\s\\S]*?(\\])`, "")
 
   if (regex.test(fileContent)) {
     const pokemonList = extractPokemonList(usageListReg)

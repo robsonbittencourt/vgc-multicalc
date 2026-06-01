@@ -37,13 +37,16 @@ function serializeObject(obj, indent = 2) {
 export async function pokemonDetailsGroup(regulation = "i") {
   const isChampions = regulation.toLowerCase() === "ma"
   const pokemonDetailsPath = path.resolve(isChampions ? "src/data/pokemon-details-champions.ts" : "src/data/pokemon-details.ts")
+
+  console.log(`⏳ [pokemonDetailsGroup] Updating group and order for regulation ${regulation.toUpperCase()}...`)
+
   const pokemonFileContent = fs.readFileSync(pokemonDetailsPath, "utf-8")
   const topUsageContent = fs.readFileSync(topUsagePath, "utf-8")
 
   const regulationKey = isChampions ? "MA" : "I"
   let topMatch = topUsageContent.match(new RegExp(`${regulationKey}:\\s*\\[([\\s\\S]*?)\\]`, "m"))
   if (!topMatch) {
-    console.error(`❌ Não foi possível extrair a lista do top usage ${regulationKey}.`)
+    console.error(`❌ [pokemonDetailsGroup] Could not extract top usage list for ${regulationKey}.`)
     process.exit(1)
   }
 
@@ -51,7 +54,7 @@ export async function pokemonDetailsGroup(regulation = "i") {
 
   const startIndex = pokemonFileContent.indexOf("export const POKEMON_DETAILS")
   if (startIndex === -1) {
-    console.error("❌ Não foi possível encontrar POKEMON_DETAILS.")
+    console.error("❌ [pokemonDetailsGroup] Could not find POKEMON_DETAILS export.")
     process.exit(1)
   }
 
@@ -60,7 +63,7 @@ export async function pokemonDetailsGroup(regulation = "i") {
 
   const matchStart = rest.match(/=\s*{/)
   if (!matchStart) {
-    console.error("❌ Não foi possível encontrar o início do objeto.")
+    console.error("❌ [pokemonDetailsGroup] Could not find object start.")
     process.exit(1)
   }
 
@@ -78,7 +81,7 @@ export async function pokemonDetailsGroup(regulation = "i") {
   }
 
   if (endIndex === -1) {
-    console.error("❌ Não foi possível encontrar o final do objeto.")
+    console.error("❌ [pokemonDetailsGroup] Could not find object end.")
     process.exit(1)
   }
 
@@ -94,7 +97,7 @@ export async function pokemonDetailsGroup(regulation = "i") {
       .replace(/,\s*\]/g, "]")
     pokemonDetails = JSON.parse(sanitized)
   } catch (e) {
-    console.error("❌ Erro ao interpretar POKEMON_DETAILS:", e.message)
+    console.error("❌ [pokemonDetailsGroup] Failed to parse POKEMON_DETAILS:", e.message)
     process.exit(1)
   }
 
@@ -126,5 +129,5 @@ export const ${constName}: Record<string, SpeciesData> = ${serializeObject(final
 `
 
   fs.writeFileSync(pokemonDetailsPath, newContent.trim() + "\n")
-  console.log(`✅ '${path.basename(pokemonDetailsPath)}' atualizado com sucesso com 'group' e ordem do top usage ${regulationKey}.`)
+  console.log(`✅ [pokemonDetailsGroup] '${path.basename(pokemonDetailsPath)}' updated successfully`)
 }

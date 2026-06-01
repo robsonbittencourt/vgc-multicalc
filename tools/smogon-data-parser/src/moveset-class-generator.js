@@ -47,11 +47,21 @@ const MOVESET_MODULE_PREFIX_SV = "export const SETDEX_SV: Record<string, any> = 
 const MOVESET_MODULE_PREFIX_CHAMPIONS = "export const SETDEX_CHAMPIONS: Record<string, any> = "
 
 export async function createMovesetsFile(date, regulation) {
+  console.log(`⏳ [createMovesetsFile] Fetching moveset data for ${date} / ${regulation.toUpperCase()}...`)
+
   const regGData = await getSmogonData(date, regulation)
+
+  if (!regGData) {
+    throw new Error(`Failed to fetch Smogon moveset data for ${date} / ${regulation}`)
+  }
 
   const smogonData = getUniquePokemons(regGData)
 
   writeInMovesetsFile(smogonData, regulation)
+
+  const isChampions = regulation.toUpperCase() === "MA"
+  const outputFile = isChampions ? "src/data/movesets-champions.ts" : "src/data/movesets.ts"
+  console.log(`✅ [createMovesetsFile] '${outputFile}' updated successfully`)
 }
 
 function writeInMovesetsFile(smogonData, regulation) {
@@ -134,13 +144,14 @@ function updateMovesets(newData, filePath) {
           const baseData = newDataByName.get(baseName)
           const existingAbility = updatedJson[baseName]?.ability
           const baseAbility = baseData?.ability ?? existingAbility
+          const baseSource = baseData ? { ...baseData, ...adjustSpread(baseData.nature, baseData.evs, baseData.alternateSpreads, baseData.moves) } : entry
           const baseEntry = {
             ...(baseAbility ? { ability: baseAbility } : {}),
-            nature: entry.nature,
-            teraType: entry.teraType,
-            evs: entry.evs,
-            moves: entry.moves,
-            items: entry.items
+            nature: baseSource.nature,
+            teraType: baseSource.teraType,
+            evs: baseSource.evs,
+            moves: baseSource.moves,
+            items: baseSource.items
           }
 
           updatedJson[baseName] = baseEntry

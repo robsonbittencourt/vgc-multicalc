@@ -2,7 +2,15 @@ import fs from "fs"
 import { smogonSpeedData } from "./smogon-speed-data.js"
 
 export async function createSpeedStatisticsFile(date, regulation) {
+  const outputFile = `src/data/speed-statistics-reg-${regulation}.ts`
+
+  console.log(`⏳ [createSpeedStatisticsFile] Fetching speed statistics for ${date} / ${regulation.toUpperCase()}...`)
+
   const speedStatistics = await smogonSpeedData(date, regulation)
+
+  if (!speedStatistics) {
+    throw new Error(`Failed to fetch speed statistics data for ${date} / ${regulation}`)
+  }
 
   let fileContent = ""
 
@@ -10,7 +18,9 @@ export async function createSpeedStatisticsFile(date, regulation) {
     fileContent += `  "${Object.keys(s)[0]}": ${JSON.stringify(Object.values(s)[0])},\n`
   })
 
-  fs.writeFileSync(`src/data/speed-statistics-reg-${regulation}.ts`, createClassContent(fileContent, regulation))
+  fs.writeFileSync(outputFile, createClassContent(fileContent, regulation))
+
+  console.log(`✅ [createSpeedStatisticsFile] '${outputFile}' updated successfully`)
 }
 
 function createClassContent(speedStatistics, regulation) {
