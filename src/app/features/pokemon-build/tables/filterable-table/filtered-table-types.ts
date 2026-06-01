@@ -28,6 +28,7 @@ export class ColumnConfig<T> {
   sortable = false
   filterable = false
   displayFn?: (item: T) => string | number | boolean | any
+  tooltipFn?: (item: T) => string
   isImageColumn = false
   isPokemonImageColumn = false
   isPokemonType = false

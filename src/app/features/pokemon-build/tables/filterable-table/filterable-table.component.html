@@ -95,6 +95,9 @@
                           }
                           <div class="column-value" [ngClass]="{ 'column-value-left': column.alignLeft }">
                             {{ column.displayFn ? column.displayFn(entry.data) : entry.data[column.field] }}
+                            @if (column.tooltipFn && column.tooltipFn(entry.data)) {
+                              <mat-icon class="cell-warning-icon" [matTooltip]="column.tooltipFn(entry.data)!" matTooltipPosition="above" [matTooltipShowDelay]="300">warning</mat-icon>
+                            }
                           </div>
                         </div>
                       }

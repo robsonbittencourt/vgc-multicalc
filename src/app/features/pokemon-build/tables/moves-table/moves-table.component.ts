@@ -75,43 +75,74 @@ export class MovesTableComponent {
     return details
   }
 
-  moveColumns: ColumnConfig<MoveDetail>[] = [
-    new ColumnConfig<MoveDetail>({ field: "name", header: "Name", sortable: true, alignLeft: true, width: "medium", freezeOnMobile: true }),
-    new ColumnConfig<MoveDetail>({
-      field: "category",
-      header: "Cat",
-      description: "Move category",
-      filterable: true,
-      isImageColumn: true,
-      displayFn: (item: MoveDetail) => `assets/icons/${item.category.toLowerCase()}.png`,
-      filterValues: ["Physical", "Special", "Status"],
-      width: "small"
-    }),
-    new ColumnConfig<MoveDetail>({
-      field: "basePower",
-      header: "BP",
-      description: "Base Power",
-      sortable: true,
-      showHeaderInCell: true,
-      width: "small"
-    }),
-    new ColumnConfig<MoveDetail>({
-      field: "accuracy",
-      header: "Acc",
-      description: "Accuracy",
-      sortable: true,
-      displayFn: (item: MoveDetail) => (typeof item.accuracy === "number" ? `${item.accuracy}%` : "-"),
-      showHeaderInCell: true,
-      width: "verysmall"
-    }),
-    new ColumnConfig<MoveDetail>({
-      field: "pp",
-      header: "PP",
-      description: "PP",
-      sortable: true,
-      showHeaderInCell: true,
-      width: "small"
-    }),
-    new ColumnConfig<MoveDetail>({ field: "description", header: "Description", description: "Description", alignLeft: true })
-  ]
+  moveColumns = computed<ColumnConfig<MoveDetail>[]>(() => {
+    const columns: ColumnConfig<MoveDetail>[] = [
+      new ColumnConfig<MoveDetail>({ field: "name", header: "Name", sortable: true, alignLeft: true, width: "medium", freezeOnMobile: true }),
+      new ColumnConfig<MoveDetail>({
+        field: "category",
+        header: "Cat",
+        description: "Move category",
+        filterable: true,
+        isImageColumn: true,
+        displayFn: (item: MoveDetail) => `assets/icons/${item.category.toLowerCase()}.png`,
+        filterValues: ["Physical", "Special", "Status"],
+        width: "small"
+      }),
+      new ColumnConfig<MoveDetail>({
+        field: "basePower",
+        header: "BP",
+        description: "Base Power",
+        sortable: true,
+        showHeaderInCell: true,
+        width: "small"
+      }),
+      new ColumnConfig<MoveDetail>({
+        field: "accuracy",
+        header: "Acc",
+        description: "Accuracy",
+        sortable: true,
+        displayFn: (item: MoveDetail) => (typeof item.accuracy === "number" ? `${item.accuracy}%` : "-"),
+        showHeaderInCell: true,
+        width: "verysmall"
+      }),
+      new ColumnConfig<MoveDetail>({
+        field: "pp",
+        header: "PP",
+        description: "PP",
+        sortable: true,
+        showHeaderInCell: true,
+        width: "small"
+      })
+    ]
+
+    if (this.store.game() === "champions") {
+      columns.push(
+        new ColumnConfig<MoveDetail>({
+          field: "target",
+          header: "Targets",
+          description: "Opponents hit",
+          displayFn: (item: MoveDetail) => this.targetsHit(item),
+          tooltipFn: (item: MoveDetail) => (item.target === "allAdjacent" ? "Also hits your ally" : ""),
+          showHeaderInCell: true,
+          width: "small"
+        })
+      )
+    }
+
+    columns.push(new ColumnConfig<MoveDetail>({ field: "description", header: "Description", description: "Description", alignLeft: true }))
+
+    return columns
+  })
+
+  private targetsHit(move: MoveDetail): string {
+    if (move.target === "allAdjacentFoes" || move.target === "allAdjacent") {
+      return "2"
+    }
+
+    if (move.target === "self" || move.target === "adjacentAlly" || move.target === "adjacentAllyOrSelf" || move.target === "allySide" || move.target === "allyTeam" || move.target === "allies" || move.target === "foeSide" || move.target === "all") {
+      return "-"
+    }
+
+    return "1"
+  }
 }
