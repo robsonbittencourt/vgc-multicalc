@@ -1,0 +1,16 @@
+@if (visible()) {
+  <div class="overlay">
+    <div class="popup">
+      <h2 class="title">{{ title() }}</h2>
+      <ul class="messages">
+        @for (msg of messages(); track msg) {
+          <li>{{ msg }}</li>
+        }
+      </ul>
+      <div class="actions">
+        <button mat-button disableRipple (click)="close()" class="close-button">Close</button>
+        <button mat-flat-button disableRipple (click)="dismissForever()">Don't show again</button>
+      </div>
+    </div>
+  </div>
+}

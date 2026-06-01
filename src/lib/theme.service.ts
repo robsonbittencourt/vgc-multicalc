@@ -1,4 +1,4 @@
-import { computed, inject, Injectable } from "@angular/core"
+import { computed, inject, Injectable, signal } from "@angular/core"
 import { ThemeStore } from "@data/store/theme-store"
 
 export type Theme = "light" | "dark" | "system"
@@ -24,9 +24,12 @@ export class ThemeService {
   selectedTheme = computed(() => this.themes.find(theme => theme.name === this.store.theme())!)
   selectedColor = computed(() => this.colors.find(color => color.name === this.store.color())!)
 
+  applied = signal(false)
+
   constructor() {
     this.applyTheme()
     this.applyCollor()
+    this.applied.set(true)
   }
 
   themes: AppTheme[] = [
