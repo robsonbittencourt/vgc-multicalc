@@ -2,6 +2,7 @@ import { afterNextRender, Component, inject, OnInit, signal } from "@angular/cor
 import { NavigationEnd, Router, RouterOutlet } from "@angular/router"
 import { AnnouncementPopupComponent } from "@basic/announcement-popup/announcement-popup.component"
 import { AppUpdateService } from "@lib/app-update.service"
+import { ChunkErrorRecoveryService } from "@lib/chunk-error-recovery.service"
 import { ThemeService } from "@lib/theme.service"
 import { filter, take } from "rxjs"
 
@@ -13,6 +14,7 @@ import { filter, take } from "rxjs"
 })
 export class AppComponent implements OnInit {
   private appUpdateService = inject(AppUpdateService)
+  private chunkErrorRecoveryService = inject(ChunkErrorRecoveryService)
   private themeService = inject(ThemeService)
   private router = inject(Router)
 
@@ -29,11 +31,14 @@ export class AppComponent implements OnInit {
         take(1)
       )
       .subscribe(() => {
+        this.chunkErrorRecoveryService.markRecovered()
+
         if (this.themeService.applied()) this.appReady.set(true)
       })
   }
 
   ngOnInit() {
     this.appUpdateService.init()
+    this.chunkErrorRecoveryService.init()
   }
 }
