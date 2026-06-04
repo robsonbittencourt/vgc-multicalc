@@ -1306,6 +1306,16 @@ describe("TypeEffectivenessService", () => {
     it("should return 0 (immune) for Fire with Well-Baked Body", () => {
       expect(service.getEffectiveness("Fire", "Normal", undefined, "Well-Baked Body")).toBe(0)
     })
+
+    it("should return 0 (immune) for Ground with Earth Eater", () => {
+      expect(service.getEffectiveness("Ground", "Normal", undefined, "Earth Eater")).toBe(0)
+      expect(service.getEffectiveness("Ground", "Fire", "Steel", "Earth Eater")).toBe(0)
+    })
+
+    it("should not affect non-Ground moves with Earth Eater", () => {
+      expect(service.getEffectiveness("Water", "Fire", undefined, "Earth Eater")).toBe(2)
+      expect(service.getEffectiveness("Ice", "Ground", undefined, "Earth Eater")).toBe(2)
+    })
   })
 
   describe("Wonder Guard", () => {
