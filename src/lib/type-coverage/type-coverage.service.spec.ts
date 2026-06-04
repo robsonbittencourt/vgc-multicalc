@@ -1,5 +1,6 @@
 import { provideZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
+import { Ability } from "@lib/model/ability"
 import { Move } from "@lib/model/move"
 import { MoveSet } from "@lib/model/moveset"
 import { Pokemon } from "@lib/model/pokemon"
@@ -1219,6 +1220,138 @@ describe("TypeCoverageService", () => {
       const result = service.getCellClass(effectiveness)
 
       expect(result).toBe("weakness-4x")
+    })
+  })
+
+  describe("ability type immunities in getDefensiveCoverage", () => {
+    it("should return immune to Ground for pokemon with Levitate", () => {
+      const rotom = new Pokemon("Rotom-Wash", { ability: new Ability("Levitate") })
+      const team = new Team("1", true, "Team", [new TeamMember(rotom, true)])
+
+      const coverage = service.getDefensiveCoverage(team)
+
+      const groundRow = coverage.find(row => row.moveType === "Ground")
+      expect(groundRow!.pokemonData[0].effectiveness).toBe(0)
+      expect(groundRow!.totalResist).toBe(1)
+    })
+
+    it("should return immune to Ground for pokemon with Levitate even when tera is active", () => {
+      const rotom = new Pokemon("Rotom-Wash", { ability: new Ability("Levitate"), teraType: "Water" })
+      const team = new Team("1", true, "Team", [new TeamMember(rotom, true)])
+
+      const coverage = service.getDefensiveCoverage(team, true)
+
+      const groundRow = coverage.find(row => row.moveType === "Ground")
+      expect(groundRow!.pokemonData[0].effectiveness).toBe(0)
+    })
+
+    it("should return immune to Fire for pokemon with Flash Fire", () => {
+      const heatran = new Pokemon("Heatran", { ability: new Ability("Flash Fire") })
+      const team = new Team("1", true, "Team", [new TeamMember(heatran, true)])
+
+      const coverage = service.getDefensiveCoverage(team)
+
+      const fireRow = coverage.find(row => row.moveType === "Fire")
+      expect(fireRow!.pokemonData[0].effectiveness).toBe(0)
+      expect(fireRow!.totalResist).toBe(1)
+    })
+
+    it("should return immune to Electric for pokemon with Volt Absorb", () => {
+      const jolteon = new Pokemon("Jolteon", { ability: new Ability("Volt Absorb") })
+      const team = new Team("1", true, "Team", [new TeamMember(jolteon, true)])
+
+      const coverage = service.getDefensiveCoverage(team)
+
+      const electricRow = coverage.find(row => row.moveType === "Electric")
+      expect(electricRow!.pokemonData[0].effectiveness).toBe(0)
+    })
+
+    it("should return immune to Water for pokemon with Water Absorb", () => {
+      const vaporeon = new Pokemon("Vaporeon", { ability: new Ability("Water Absorb") })
+      const team = new Team("1", true, "Team", [new TeamMember(vaporeon, true)])
+
+      const coverage = service.getDefensiveCoverage(team)
+
+      const waterRow = coverage.find(row => row.moveType === "Water")
+      expect(waterRow!.pokemonData[0].effectiveness).toBe(0)
+    })
+
+    it("should return immune to Grass for pokemon with Sap Sipper", () => {
+      const azumarill = new Pokemon("Azumarill", { ability: new Ability("Sap Sipper") })
+      const team = new Team("1", true, "Team", [new TeamMember(azumarill, true)])
+
+      const coverage = service.getDefensiveCoverage(team)
+
+      const grassRow = coverage.find(row => row.moveType === "Grass")
+      expect(grassRow!.pokemonData[0].effectiveness).toBe(0)
+    })
+
+    it("should halve Fire and Ice damage for pokemon with Thick Fat", () => {
+      const snorlax = new Pokemon("Snorlax", { ability: new Ability("Thick Fat") })
+      const team = new Team("1", true, "Team", [new TeamMember(snorlax, true)])
+
+      const coverage = service.getDefensiveCoverage(team)
+
+      const fireRow = coverage.find(row => row.moveType === "Fire")
+      expect(fireRow!.pokemonData[0].effectiveness).toBe(0.5)
+
+      const iceRow = coverage.find(row => row.moveType === "Ice")
+      expect(iceRow!.pokemonData[0].effectiveness).toBe(0.5)
+    })
+  })
+
+  describe("ability type immunities in getDefensiveCoverageAgainstTeam", () => {
+    it("should return immune to Ground for pokemon with Levitate", () => {
+      const rotom = new Pokemon("Rotom-Wash", { ability: new Ability("Levitate") })
+      const attacker = new Pokemon("Garchomp", {
+        moveSet: new MoveSet(new Move("Earthquake"), new Move("Earthquake"), new Move("Earthquake"), new Move("Earthquake"))
+      })
+      const team = new Team("1", true, "Team", [new TeamMember(rotom, true)])
+      const targetTeam = new Team("2", true, "Target Team", [new TeamMember(attacker, true)])
+
+      const coverage = service.getDefensiveCoverageAgainstTeam(team, targetTeam)
+
+      expect(coverage[0].pokemonData[0].effectiveness).toBe(0)
+      expect(coverage[0].totalResist).toBe(1)
+    })
+
+    it("should return immune to Ground for pokemon with Levitate even when tera is active", () => {
+      const rotom = new Pokemon("Rotom-Wash", { ability: new Ability("Levitate"), teraType: "Steel" })
+      const attacker = new Pokemon("Garchomp", {
+        moveSet: new MoveSet(new Move("Earthquake"), new Move("Earthquake"), new Move("Earthquake"), new Move("Earthquake"))
+      })
+      const team = new Team("1", true, "Team", [new TeamMember(rotom, true)])
+      const targetTeam = new Team("2", true, "Target Team", [new TeamMember(attacker, true)])
+
+      const coverage = service.getDefensiveCoverageAgainstTeam(team, targetTeam, true)
+
+      expect(coverage[0].pokemonData[0].effectiveness).toBe(0)
+    })
+
+    it("should return immune to Fire for pokemon with Flash Fire", () => {
+      const heatran = new Pokemon("Heatran", { ability: new Ability("Flash Fire") })
+      const attacker = new Pokemon("Charizard", {
+        moveSet: new MoveSet(new Move("Flamethrower"), new Move("Flamethrower"), new Move("Flamethrower"), new Move("Flamethrower"))
+      })
+      const team = new Team("1", true, "Team", [new TeamMember(heatran, true)])
+      const targetTeam = new Team("2", true, "Target Team", [new TeamMember(attacker, true)])
+
+      const coverage = service.getDefensiveCoverageAgainstTeam(team, targetTeam)
+
+      expect(coverage[0].pokemonData[0].effectiveness).toBe(0)
+    })
+
+    it("should halve Fire damage for pokemon with Thick Fat", () => {
+      const snorlax = new Pokemon("Snorlax", { ability: new Ability("Thick Fat") })
+      const attacker = new Pokemon("Charizard", {
+        moveSet: new MoveSet(new Move("Flamethrower"), new Move("Flamethrower"), new Move("Flamethrower"), new Move("Flamethrower"))
+      })
+      const team = new Team("1", true, "Team", [new TeamMember(snorlax, true)])
+      const targetTeam = new Team("2", true, "Target Team", [new TeamMember(attacker, true)])
+
+      const coverage = service.getDefensiveCoverageAgainstTeam(team, targetTeam)
+
+      expect(coverage[0].pokemonData[0].effectiveness).toBe(0.5)
     })
   })
 

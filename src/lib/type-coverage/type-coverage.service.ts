@@ -3,7 +3,7 @@ import { MOVE_DETAILS } from "@data/move-details"
 import { Pokemon } from "@lib/model/pokemon"
 import { Team } from "@lib/model/team"
 import { PokemonType, PokemonTypes } from "@lib/types"
-import { TypeEffectiveness, TypeEffectivenessService } from "./type-effectiveness.service"
+import { AbilityName, TypeEffectiveness, TypeEffectivenessService } from "./type-effectiveness.service"
 
 export interface DefensiveCoverageData {
   moveType: PokemonType
@@ -87,9 +87,9 @@ export class TypeCoverageService {
 
         if (considerTeraType && pokemon.teraType && pokemon.teraType !== "Stellar") {
           const teraType = pokemon.teraType as PokemonType
-          finalEffectiveness = this.typeEffectivenessService.getEffectiveness(moveType, teraType, undefined)
+          finalEffectiveness = this.typeEffectivenessService.getEffectiveness(moveType, teraType, undefined, this.getAbilityName(pokemon))
         } else {
-          finalEffectiveness = this.typeEffectivenessService.getEffectiveness(moveType, type1, type2)
+          finalEffectiveness = this.typeEffectivenessService.getEffectiveness(moveType, type1, type2, this.getAbilityName(pokemon))
         }
 
         const formatted = this.typeEffectivenessService.formatEffectiveness(finalEffectiveness)
@@ -200,9 +200,9 @@ export class TypeCoverageService {
 
           if (considerTeraType && targetPokemon.teraType && targetPokemon.teraType !== "Stellar") {
             const teraType = targetPokemon.teraType as PokemonType
-            effectiveness = this.typeEffectivenessService.getEffectiveness(moveType, teraType, undefined)
+            effectiveness = this.typeEffectivenessService.getEffectiveness(moveType, teraType, undefined, this.getAbilityName(targetPokemon))
           } else {
-            effectiveness = this.typeEffectivenessService.getEffectiveness(moveType, type1, type2)
+            effectiveness = this.typeEffectivenessService.getEffectiveness(moveType, type1, type2, this.getAbilityName(targetPokemon))
           }
 
           effectivenessValues.push(effectiveness)
@@ -272,10 +272,10 @@ export class TypeCoverageService {
         const effectivenessValues: TypeEffectiveness[] = movesWithBP.map(moveType => {
           if (considerTeraType && pokemon.teraType && pokemon.teraType !== "Stellar") {
             const teraType = pokemon.teraType as PokemonType
-            return this.typeEffectivenessService.getEffectiveness(moveType, teraType, undefined)
+            return this.typeEffectivenessService.getEffectiveness(moveType, teraType, undefined, this.getAbilityName(pokemon))
           }
 
-          return this.typeEffectivenessService.getEffectiveness(moveType, type1, type2)
+          return this.typeEffectivenessService.getEffectiveness(moveType, type1, type2, this.getAbilityName(pokemon))
         })
 
         if (effectivenessValues.length === 0) {
@@ -433,5 +433,9 @@ export class TypeCoverageService {
     }
 
     return "Grass"
+  }
+
+  private getAbilityName(pokemon: Pokemon): AbilityName | undefined {
+    return pokemon.ability.name as AbilityName | undefined
   }
 }

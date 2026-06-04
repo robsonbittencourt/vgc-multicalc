@@ -3,6 +3,27 @@ import { PokemonType } from "@lib/types"
 
 export type TypeEffectiveness = 0 | 0.25 | 0.5 | 1 | 2 | 4
 
+export type AbilityName = "Levitate" | "Flash Fire" | "Volt Absorb" | "Water Absorb" | "Motor Drive" | "Lightning Rod" | "Storm Drain" | "Sap Sipper" | "Dry Skin" | "Well-Baked Body" | "Wonder Guard" | "Thick Fat" | "Heatproof" | "Water Bubble"
+
+const ABILITY_IMMUNITIES: Partial<Record<AbilityName, PokemonType>> = {
+  Levitate: "Ground",
+  "Flash Fire": "Fire",
+  "Volt Absorb": "Electric",
+  "Water Absorb": "Water",
+  "Motor Drive": "Electric",
+  "Lightning Rod": "Electric",
+  "Storm Drain": "Water",
+  "Sap Sipper": "Grass",
+  "Dry Skin": "Water",
+  "Well-Baked Body": "Fire"
+}
+
+const ABILITY_RESISTANCES: Partial<Record<AbilityName, PokemonType[]>> = {
+  "Thick Fat": ["Fire", "Ice"],
+  Heatproof: ["Fire"],
+  "Water Bubble": ["Fire"]
+}
+
 @Injectable({
   providedIn: "root"
 })
@@ -370,9 +391,36 @@ export class TypeEffectivenessService {
     }
   }
 
-  getEffectiveness(attackType: PokemonType, defenseType1: PokemonType, defenseType2?: PokemonType): TypeEffectiveness {
+  getEffectiveness(attackType: PokemonType, defenseType1: PokemonType, defenseType2?: PokemonType, ability?: AbilityName): TypeEffectiveness {
     if ((attackType as string) === "Stellar") {
       return 1
+    }
+
+    if (ability) {
+      const immuneType = ABILITY_IMMUNITIES[ability]
+
+      if (immuneType && immuneType === attackType) {
+        return 0
+      }
+
+      if (ability === "Wonder Guard") {
+        const base = this.getEffectiveness(attackType, defenseType1, defenseType2)
+        return base === 2 || base === 4 ? base : 0
+      }
+
+      const resistedTypes = ABILITY_RESISTANCES[ability]
+
+      if (resistedTypes?.includes(attackType)) {
+        const base = this.getEffectiveness(attackType, defenseType1, defenseType2)
+        const halved = base * 0.5
+
+        if (halved === 0.25) return 0.25
+        if (halved === 0.5) return 0.5
+        if (halved === 1) return 1
+        if (halved === 2) return 2
+
+        return 0
+      }
     }
 
     const effectiveness1 = this.typeChart[attackType][defenseType1]

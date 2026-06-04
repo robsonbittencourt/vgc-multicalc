@@ -1249,4 +1249,124 @@ describe("TypeEffectivenessService", () => {
     expect(effectiveness2).toBe(1)
     expect(effectiveness3).toBe(1)
   })
+
+  describe("ability immunities", () => {
+    it("should return 0 (immune) for Ground against any type with Levitate", () => {
+      expect(service.getEffectiveness("Ground", "Normal", undefined, "Levitate")).toBe(0)
+      expect(service.getEffectiveness("Ground", "Fire", undefined, "Levitate")).toBe(0)
+      expect(service.getEffectiveness("Ground", "Electric", "Steel", "Levitate")).toBe(0)
+    })
+
+    it("should not affect non-Ground moves with Levitate", () => {
+      expect(service.getEffectiveness("Fire", "Grass", undefined, "Levitate")).toBe(2)
+      expect(service.getEffectiveness("Water", "Fire", undefined, "Levitate")).toBe(2)
+    })
+
+    it("should return 0 (immune) for Fire with Flash Fire", () => {
+      expect(service.getEffectiveness("Fire", "Grass", undefined, "Flash Fire")).toBe(0)
+      expect(service.getEffectiveness("Fire", "Fire", undefined, "Flash Fire")).toBe(0)
+      expect(service.getEffectiveness("Fire", "Water", "Rock", "Flash Fire")).toBe(0)
+    })
+
+    it("should not affect non-Fire moves with Flash Fire", () => {
+      expect(service.getEffectiveness("Water", "Fire", undefined, "Flash Fire")).toBe(2)
+    })
+
+    it("should return 0 (immune) for Electric with Volt Absorb", () => {
+      expect(service.getEffectiveness("Electric", "Water", undefined, "Volt Absorb")).toBe(0)
+      expect(service.getEffectiveness("Electric", "Flying", undefined, "Volt Absorb")).toBe(0)
+    })
+
+    it("should return 0 (immune) for Water with Water Absorb", () => {
+      expect(service.getEffectiveness("Water", "Fire", undefined, "Water Absorb")).toBe(0)
+      expect(service.getEffectiveness("Water", "Ground", undefined, "Water Absorb")).toBe(0)
+    })
+
+    it("should return 0 (immune) for Electric with Motor Drive", () => {
+      expect(service.getEffectiveness("Electric", "Normal", undefined, "Motor Drive")).toBe(0)
+    })
+
+    it("should return 0 (immune) for Electric with Lightning Rod", () => {
+      expect(service.getEffectiveness("Electric", "Normal", undefined, "Lightning Rod")).toBe(0)
+    })
+
+    it("should return 0 (immune) for Water with Storm Drain", () => {
+      expect(service.getEffectiveness("Water", "Normal", undefined, "Storm Drain")).toBe(0)
+    })
+
+    it("should return 0 (immune) for Grass with Sap Sipper", () => {
+      expect(service.getEffectiveness("Grass", "Normal", undefined, "Sap Sipper")).toBe(0)
+      expect(service.getEffectiveness("Grass", "Fire", "Ground", "Sap Sipper")).toBe(0)
+    })
+
+    it("should return 0 (immune) for Water with Dry Skin", () => {
+      expect(service.getEffectiveness("Water", "Normal", undefined, "Dry Skin")).toBe(0)
+    })
+
+    it("should return 0 (immune) for Fire with Well-Baked Body", () => {
+      expect(service.getEffectiveness("Fire", "Normal", undefined, "Well-Baked Body")).toBe(0)
+    })
+  })
+
+  describe("Wonder Guard", () => {
+    it("should return 0 for non-super-effective moves", () => {
+      expect(service.getEffectiveness("Normal", "Ghost", undefined, "Wonder Guard")).toBe(0)
+      expect(service.getEffectiveness("Fire", "Ghost", undefined, "Wonder Guard")).toBe(0)
+      expect(service.getEffectiveness("Water", "Ghost", undefined, "Wonder Guard")).toBe(0)
+    })
+
+    it("should return 2x for super-effective moves", () => {
+      expect(service.getEffectiveness("Ghost", "Ghost", undefined, "Wonder Guard")).toBe(2)
+      expect(service.getEffectiveness("Dark", "Ghost", undefined, "Wonder Guard")).toBe(2)
+    })
+
+    it("should return 4x for 4x super-effective moves", () => {
+      expect(service.getEffectiveness("Ghost", "Psychic", "Ghost", "Wonder Guard")).toBe(4)
+    })
+
+    it("should return 0 for neutral moves", () => {
+      expect(service.getEffectiveness("Water", "Normal", undefined, "Wonder Guard")).toBe(0)
+    })
+  })
+
+  describe("ability resistances", () => {
+    it("should halve Fire damage with Thick Fat", () => {
+      expect(service.getEffectiveness("Fire", "Normal", undefined, "Thick Fat")).toBe(0.5)
+      expect(service.getEffectiveness("Fire", "Grass", undefined, "Thick Fat")).toBe(1)
+      expect(service.getEffectiveness("Fire", "Fire", undefined, "Thick Fat")).toBe(0.25)
+      expect(service.getEffectiveness("Fire", "Water", undefined, "Thick Fat")).toBe(0.25)
+    })
+
+    it("should halve Ice damage with Thick Fat", () => {
+      expect(service.getEffectiveness("Ice", "Normal", undefined, "Thick Fat")).toBe(0.5)
+      expect(service.getEffectiveness("Ice", "Grass", undefined, "Thick Fat")).toBe(1)
+      expect(service.getEffectiveness("Ice", "Ice", undefined, "Thick Fat")).toBe(0.25)
+    })
+
+    it("should not affect non-Fire/Ice moves with Thick Fat", () => {
+      expect(service.getEffectiveness("Water", "Fire", undefined, "Thick Fat")).toBe(2)
+      expect(service.getEffectiveness("Electric", "Water", undefined, "Thick Fat")).toBe(2)
+    })
+
+    it("should halve Fire damage with Heatproof", () => {
+      expect(service.getEffectiveness("Fire", "Normal", undefined, "Heatproof")).toBe(0.5)
+      expect(service.getEffectiveness("Fire", "Grass", undefined, "Heatproof")).toBe(1)
+      expect(service.getEffectiveness("Fire", "Water", undefined, "Heatproof")).toBe(0.25)
+    })
+
+    it("should not affect non-Fire moves with Heatproof", () => {
+      expect(service.getEffectiveness("Water", "Fire", undefined, "Heatproof")).toBe(2)
+      expect(service.getEffectiveness("Ice", "Grass", undefined, "Heatproof")).toBe(2)
+    })
+
+    it("should halve Fire damage with Water Bubble", () => {
+      expect(service.getEffectiveness("Fire", "Normal", undefined, "Water Bubble")).toBe(0.5)
+      expect(service.getEffectiveness("Fire", "Grass", undefined, "Water Bubble")).toBe(1)
+      expect(service.getEffectiveness("Fire", "Water", undefined, "Water Bubble")).toBe(0.25)
+    })
+
+    it("should not affect non-Fire moves with Water Bubble", () => {
+      expect(service.getEffectiveness("Water", "Fire", undefined, "Water Bubble")).toBe(2)
+    })
+  })
 })
