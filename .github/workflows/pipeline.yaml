@@ -110,12 +110,19 @@ jobs:
           cache: "npm"
 
       - name: Install dependencies
-        run: npm ci && npm install -g @angular/cli
+        run: npm ci
 
-      - name: Deploy
-        run: ng deploy --cname=vgcmulticalc.com --name="robsonbittencourt" --email=robson.luizv@gmail.com
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build project
+        run: npm run build
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist/browser
+          cname: vgcmulticalc.com
+          user_name: robsonbittencourt
+          user_email: robson.luizv@gmail.com
 
   release:
     name: Release

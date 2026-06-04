@@ -118,13 +118,7 @@
             "karmaConfig": "karma.conf.js"
           }
         },
-        "deploy": {
-          "builder": "angular-cli-ghpages:deploy",
-          "options": {
-            "dir": "dist/browser"
-          }
-        },
-        "lint": {
+"lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
             "lintFilePatterns": ["src/**/*.ts", "src/**/*.html", "cypress"]
