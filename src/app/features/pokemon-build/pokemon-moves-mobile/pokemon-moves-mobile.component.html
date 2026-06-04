@@ -1,7 +1,7 @@
 <div class="moves">
   <div class="no-edit-moves">
     <div class="chips-row">
-      <mat-chip-listbox>
+      <mat-chip-listbox aria-label="Moves">
         @if (pokemon().move1Name) {
           <mat-chip-option (click)="activateMove(1)" [selected]="pokemon().activeMovePosition === 1">{{ pokemon().move1Name }}</mat-chip-option>
         }

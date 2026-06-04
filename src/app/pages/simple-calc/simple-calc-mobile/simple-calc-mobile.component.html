@@ -13,7 +13,7 @@
       </div>
 
       <div class="attacker-header" [hidden]="overlay.kind() === 'moves' || overlay.kind() === 'abilities' || overlay.kind() === 'items'">
-        <input #pokemonInput class="pokemon-input" [value]="inputDisplay()" (mousedown)="onPokemonMouseDown($event)" (click)="onPokemonClick()" (input)="onPokemonInput($any($event.target).value)" data-cy="pokemon-select" />
+        <input #pokemonInput class="pokemon-input" [value]="inputDisplay()" (mousedown)="onPokemonMouseDown($event)" (click)="onPokemonClick()" (input)="onPokemonInput($any($event.target).value)" data-cy="pokemon-select" aria-label="Pokémon" />
         <div class="attacker-actions">
           @if (overlay.kind() === "pokemon") {
             <div class="close-table-button" (click)="onClosePokemonTable()">
@@ -28,7 +28,7 @@
       </div>
 
       <div class="attacker-header" [hidden]="overlay.kind() !== 'items'">
-        <input #itemInput class="pokemon-input" [value]="currentPokemon().item" (mousedown)="onItemMouseDown($event)" (click)="onItemClick()" (input)="onItemInput($any($event.target).value)" data-cy="item-select" />
+        <input #itemInput class="pokemon-input" [value]="currentPokemon().item" (mousedown)="onItemMouseDown($event)" (click)="onItemClick()" (input)="onItemInput($any($event.target).value)" data-cy="item-select" aria-label="Item" />
         <div class="attacker-actions">
           <div class="close-table-button" (click)="onCloseItemsTable()">
             <mat-icon>close</mat-icon>

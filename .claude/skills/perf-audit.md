@@ -1,171 +1,119 @@
 ---
-description: Runs a full performance audit of VGC Multicalc (Lighthouse + DevTools trace) and saves the result as an HTML report in performance/
+description: Runs a full performance audit of VGC Multicalc (Lighthouse desktop + DevTools trace) and saves the result as an HTML report in performance/
 ---
 
 # /perf-audit
 
-Runs a full performance audit of VGC Multicalc and saves the result in `performance/`.
+Runs a full Lighthouse mobile audit (homepage only) for VGC Multicalc, Smogon Calc, and Nerd of Now. Generates an HTML report with side-by-side score donuts and detailed improvement items for VGC only.
 
-**IMPORTANT:** All steps must be executed **sequentially**, never in parallel. Running Lighthouse or traces simultaneously stresses the CPU and distorts results.
-
----
-
-## Step 1 — Clean build and server
-
-Delete `dist/` to ensure no stale files. Then build and start the server with cache disabled (`-c-1`):
-
-```bash
-rm -rf dist
-npm run build
-npx http-server dist/browser -p 8080 -g -c-1 --silent &
-sleep 3
-```
+**IMPORTANT:** All steps must be executed **sequentially**, never in parallel. Running Lighthouse simultaneously stresses the CPU and distorts results.
 
 ---
 
-## Step 2 — Lighthouse mobile — VGC Multicalc
+## Step 1 — Lighthouse mobile — VGC Multicalc
 
 ```bash
-npx lighthouse http://localhost:8080 --preset=perf --form-factor=mobile --output=json --output-path=/tmp/lh-vgc.json --chrome-flags="--headless --no-sandbox --incognito"
+npx lighthouse https://vgcmulticalc.com --form-factor=mobile --only-categories=performance,accessibility,best-practices,seo --output=json --output-path=/tmp/lh-vgc.json --chrome-flags="--headless --no-sandbox --incognito"
 ```
 
 Wait for completion before continuing.
 
 ---
 
-## Step 3 — Lighthouse mobile — Smogon Calc
+## Step 2 — Lighthouse mobile — Smogon Calc
 
 ```bash
-npx lighthouse https://calc.pokemonshowdown.com/ --preset=perf --form-factor=mobile --output=json --output-path=/tmp/lh-smogon.json --chrome-flags="--headless --no-sandbox --incognito"
+npx lighthouse https://calc.pokemonshowdown.com/ --form-factor=mobile --only-categories=performance,accessibility,best-practices,seo --output=json --output-path=/tmp/lh-smogon.json --chrome-flags="--headless --no-sandbox --incognito"
 ```
 
 Wait for completion before continuing.
 
 ---
 
-## Step 4 — Lighthouse mobile — Nerd of Now
+## Step 3 — Lighthouse mobile — Nerd of Now
 
 ```bash
-npx lighthouse https://nerd-of-now.github.io/NCP-VGC-Damage-Calculator/ --preset=perf --form-factor=mobile --output=json --output-path=/tmp/lh-ncp.json --chrome-flags="--headless --no-sandbox --incognito"
+npx lighthouse https://nerd-of-now.github.io/NCP-VGC-Damage-Calculator/ --form-factor=mobile --only-categories=performance,accessibility,best-practices,seo --output=json --output-path=/tmp/lh-ncp.json --chrome-flags="--headless --no-sandbox --incognito"
 ```
 
 Wait for completion before continuing.
 
 ---
 
-## Step 5 — DevTools Trace — VGC Multicalc (7 routes, sequential)
-
-**IMPORTANT — isolated context:** Before starting the traces, open a new page with `isolatedContext: "vgc-audit"` to avoid any localStorage or cookie state from previous browser sessions contaminating the results. Use `new_page` with `url: "http://localhost:8080/"` and `isolatedContext: "vgc-audit"`. All subsequent `navigate_page` calls in steps 5–5b must be made on this isolated page. After Step 5b, close this page.
-
-**IMPORTANT — URL verification:** After each `navigate_page`, confirm that the page URL shown in the tool response matches the intended route before starting the trace. Never start a trace if the current URL does not match.
-
-For each route below, **one at a time**:
-
-- `http://localhost:8080/`
-- `http://localhost:8080/speed-calc`
-- `http://localhost:8080/type-calc`
-- `http://localhost:8080/probability-calc`
-- `http://localhost:8080/how-to-use`
-- `http://localhost:8080/team-vs-many`
-- `http://localhost:8080/many-vs-team`
-
-For each route:
-
-1. `navigate_page` → route URL — **verify the URL in the response before continuing**
-2. `performance_start_trace` with `reload: true` and `autoStop: true` — wait for completion
-3. `performance_analyze_insight` → `LCPBreakdown`
-4. `performance_analyze_insight` → `ForcedReflow`
-5. `performance_analyze_insight` → `DOMSize`
-6. From the same trace, also capture **TBT** (Total Blocking Time) — sum of long-task blocking time between FCP and TTI. Available in the trace summary; if not surfaced by an insight, extract from the trace metadata.
-
-Collect: LCP total, TTFB, Load delay, Load duration, Render delay, **TBT**, ForcedReflow total time (0ms if no issues), DOM total elements (n/a if no issues).
-
----
-
-## Step 5b — INP measurement on key interaction (VGC home)
-
-INP is interaction-driven and Lighthouse does not capture it reliably in headless mode. Measure it directly via a simulated interaction on the route most representative of real use: the **EV slider on the home page** (historical bottleneck — mat-slider was replaced).
-
-**IMPORTANT:** Use the same isolated page context (`isolatedContext: "vgc-audit"`) opened in Step 5. Verify the URL is `http://localhost:8080/` before starting the trace.
-
-1. `navigate_page` → `http://localhost:8080/` — **confirm URL in response is localhost:8080 before continuing**
-2. Wait for the page to be interactive (`wait_for` a stable selector on a pokemon card such as "Blastoise")
-3. Click the **"Clear EVs"** button on the first Pokémon card using `click` — this resets EVs to 0 and ensures the slider starts from a clean state with room to move right
-4. Use `evaluate_script` to focus the first `mat-slider input[type="range"]` element: `document.querySelectorAll('mat-slider input[type="range"]')[0].focus()`
-5. `performance_start_trace` with `reload: false` and `autoStop: false`
-6. Press `ArrowRight` × 12 (using `press_key`) to generate real keydown interaction events on the focused slider
-7. `performance_stop_trace`
-8. **Verify the trace URL in the response is `http://localhost:8080/`** — if it shows any other URL, discard the result and repeat from step 1
-9. `performance_analyze_insight` → `INPBreakdown` (Input delay / Processing duration / Presentation delay)
-
-Collect: INP total, Input delay, Processing duration, Presentation delay, interaction target.
-
-If `INPBreakdown` is unavailable, fall back to the longest interaction event duration reported in the trace summary and note it as "approx INP".
-
----
-
-## Step 6 — DevTools Trace — Smogon Calc (homepage only)
-
-Open a **new isolated page** for Smogon: `new_page` with `url: "https://calc.pokemonshowdown.com/"` and `isolatedContext: "smogon-audit"`. Verify the URL in the response before starting the trace.
-
-1. `performance_start_trace` with `reload: true` and `autoStop: true` — wait for completion
-2. `performance_analyze_insight` → `LCPBreakdown`
-3. `performance_analyze_insight` → `ForcedReflow`
-4. `performance_analyze_insight` → `DOMSize`
-
----
-
-## Step 7 — DevTools Trace — Nerd of Now (homepage only)
-
-Open a **new isolated page** for NCP: `new_page` with `url: "https://nerd-of-now.github.io/NCP-VGC-Damage-Calculator/"` and `isolatedContext: "ncp-audit"`. Verify the URL in the response before starting the trace.
-
-1. `performance_start_trace` with `reload: true` and `autoStop: true` — wait for completion
-2. `performance_analyze_insight` → `LCPBreakdown`
-3. `performance_analyze_insight` → `ForcedReflow`
-4. `performance_analyze_insight` → `DOMSize`
-
----
-
-## Step 8 — Kill the server and close all DevTools pages
-
-First close all isolated pages opened during the audit using `close_page` for each context (vgc-audit, smogon-audit, ncp-audit). Use `list_pages` to check what pages remain. The remaining `about:blank` page will be closed when the chrome-devtools-mcp process is killed in the next step.
-
-Then kill the http-server process by port and close the Chrome window:
-
-```bash
-kill $(lsof -ti:8080) 2>/dev/null || true
-kill $(pgrep -f "chrome-devtools-mcp") 2>/dev/null || true
-```
-
----
-
-## Step 9 — Extract Lighthouse data
+## Step 4 — Extract data and generate the report
 
 ```bash
 python3 -c "
-import json
-vgc  = json.load(open('/tmp/lh-vgc.json'))
-smg  = json.load(open('/tmp/lh-smogon.json'))
-ncp  = json.load(open('/tmp/lh-ncp.json'))
-sites = [('VGC', vgc), ('Smogon', smg), ('NCP', ncp)]
-metrics = ['first-contentful-paint','largest-contentful-paint','total-blocking-time','cumulative-layout-shift']
+import json, sys
+
+def load(path):
+    with open(path) as f:
+        return json.load(f)
+
+vgc   = load('/tmp/lh-vgc.json')
+smg   = load('/tmp/lh-smogon.json')
+ncp   = load('/tmp/lh-ncp.json')
+
+def score(d, cat):
+    s = d['categories'].get(cat, {}).get('score')
+    return round(s * 100) if s is not None else 'N/A'
+
+def val(d, audit):
+    a = d['audits'].get(audit, {})
+    return a.get('displayValue', 'N/A')
+
+def num_val(d, audit):
+    a = d['audits'].get(audit, {})
+    return a.get('numericValue')
+
+sites = [
+    ('VGC Multicalc', vgc),
+    ('Smogon Calc', smg),
+    ('Nerd of Now', ncp),
+]
+
+cats = ['performance', 'accessibility', 'best-practices', 'seo']
+
+print('=== SCORES ===')
 for name, d in sites:
-    score = round(d['categories']['performance']['score']*100)
-    print(f'{name} score: {score}')
-    for m in metrics:
-        print(f'  {m}: {d[\"audits\"][m][\"displayValue\"]}')
+    scores = {c: score(d, c) for c in cats}
+    print(f'{name}: {scores}')
+
+print()
+print('=== VGC METRICS ===')
+for m in ['first-contentful-paint','largest-contentful-paint','total-blocking-time','cumulative-layout-shift','speed-index','interactive']:
+    print(f'{m}: {val(vgc, m)}')
+
+print()
+print('=== VGC OPPORTUNITIES (score < 1) ===')
+for k, a in vgc['audits'].items():
+    if a.get('score') is not None and a['score'] < 1 and a.get('details', {}).get('type') == 'opportunity':
+        savings = a.get('details', {}).get('overallSavingsMs')
+        desc = a.get('title', k)
+        display = a.get('displayValue', '')
+        print(f'  [{round(a[\"score\"]*100)}] {desc} | {display}' + (f' | savings: {round(savings)}ms' if savings else ''))
+
+print()
+print('=== VGC DIAGNOSTICS (score < 1, not opportunity) ===')
+for k, a in vgc['audits'].items():
+    if a.get('score') is not None and a['score'] < 1 and a.get('details', {}).get('type') != 'opportunity' and a.get('details'):
+        desc = a.get('title', k)
+        display = a.get('displayValue', '')
+        print(f'  [{round(a[\"score\"]*100)}] {desc} | {display}')
 "
 ```
 
----
-
-## Step 10 — Read previous report (if exists)
-
-Find the most recent file in `performance/` (by date in filename) and extract VGC Multicalc Lighthouse and Trace data from it to calculate deltas. If no previous file exists, skip the delta section.
+Capture the full output — you will use it to fill the HTML report template in Step 7.
 
 ---
 
-## Step 11 — Generate the report
+## Step 5 — Read previous report (if exists)
+
+Find the most recent file in `performance/` (by date in filename) and extract VGC Multicalc score and key metrics from it to calculate deltas. If no previous file exists, skip the delta section.
+
+---
+
+## Step 6 — Generate the report
 
 Create `performance/YYYY-MM-DD.html` (current date). If a file with that date already exists, add suffix `-2`, `-3`, etc.
 
@@ -173,11 +121,82 @@ Create `performance/YYYY-MM-DD.html` (current date). If a file with that date al
 
 ## Report format
 
-Output must be a **standalone HTML file** that opens correctly in a browser without a server (no external JS/CSS dependencies — use inline styles only).
+Output must be a **standalone HTML file** that opens correctly in a browser without a server (no external JS/CSS dependencies — all styles and scripts inline).
 
 The report must be written entirely in **English**.
 
-Use the following structure and styling as reference:
+### Layout overview
+
+```
+┌─────────────────────────────────────────────────────────┐
+│  Performance Audit — VGC Multicalc — YYYY-MM-DD         │
+│  Date · Branch · Commit                                 │
+├──────────────────┬──────────────────┬───────────────────┤
+│  VGC Multicalc   │  Smogon Calc     │  Nerd of Now      │
+│  ◯96  ◯70  ◯96  │  ◯xx  ◯xx  ◯xx  │  ◯xx  ◯xx  ◯xx   │
+│  ◯92             │  ◯xx             │  ◯xx              │
+│  Perf Acc BP SEO │                  │                   │
+├─────────────────────────────────────────────────────────┤
+│  Key Metrics — VGC Multicalc                            │
+│  FCP · LCP · TBT · CLS · Speed Index · TTI             │
+├─────────────────────────────────────────────────────────┤
+│  Opportunities   (only VGC, items with score < 1)       │
+│  Diagnostics     (only VGC, items with score < 1)       │
+├─────────────────────────────────────────────────────────┤
+│  Delta vs previous run                                  │
+└─────────────────────────────────────────────────────────┘
+```
+
+### Score donuts
+
+Each site column shows 4 SVG donut charts (Performance, Accessibility, Best Practices, SEO). Use inline SVG — no canvas, no external libs.
+
+Donut spec:
+
+- Circle: r=40, cx=50, cy=50, viewBox="0 0 100 100"
+- Track (background ring): stroke-width=10, color #334155
+- Arc (score ring): stroke-width=10, stroke-dasharray computed from score (circumference = 2π×40 ≈ 251.2), stroke-dashoffset = circumference × (1 - score/100), stroke-linecap=round
+- Score number centered in the donut, font-size 22px, font-weight 700
+- Label below the donut, font-size 11px, color #94a3b8
+- Color: ≥90 → #4ade80, ≥50 → #facc15, <50 → #f87171 (applies to both arc and number)
+- Transform: rotate(-90deg) on the arc circle so it starts at the top
+
+Each site column has its site name as a header above the 4 donuts. The 4 donuts are arranged in a 2×2 grid inside the column.
+
+### Key Metrics table (VGC only)
+
+A simple table with columns: Metric | Value | Status (pill). Show FCP, LCP, TBT, CLS, Speed Index, TTI. Use pill colors:
+
+- FCP: good <1.8s, mid <3s
+- LCP: good <2.5s, mid <4s
+- TBT: good <200ms, mid <600ms
+- CLS: good <0.1, mid <0.25
+- Speed Index: good <3.4s, mid <5.8s
+- TTI: good <3.8s, mid <7.3s
+
+### Opportunities section (VGC only)
+
+List each opportunity audit where score < 1. Each item shows:
+
+- Title
+- Estimated savings (if available) as a badge
+- Display value
+
+Style: same dark card as the Chrome report — each item is a row with a warning icon (▲ for score=0, ◯ for score>0), title, and savings badge on the right.
+
+### Diagnostics section (VGC only)
+
+Same style as Opportunities. List each diagnostic audit where score < 1 and type is not "opportunity".
+
+### Delta vs previous run
+
+Table: Metric | Previous | Current | Delta. Include: Performance score, LCP, TBT, CLS. Delta colored green if improved, red if regressed.
+
+If no previous data, show a note instead.
+
+---
+
+### Full HTML template
 
 ```html
 <!DOCTYPE html>
@@ -187,7 +206,6 @@ Use the following structure and styling as reference:
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Performance Audit — VGC Multicalc — YYYY-MM-DD</title>
     <style>
-      /* Reset & base */
       *,
       *::before,
       *::after {
@@ -201,15 +219,17 @@ Use the following structure and styling as reference:
         color: #ffffff;
         line-height: 1.6;
         padding: 2rem;
+        max-width: 1100px;
+        margin: 0 auto;
       }
       h1 {
-        font-size: 1.75rem;
+        font-size: 1.6rem;
         font-weight: 700;
         color: #f8fafc;
         margin-bottom: 0.25rem;
       }
       h2 {
-        font-size: 0.85rem;
+        font-size: 0.75rem;
         font-weight: 600;
         color: #94a3b8;
         text-transform: uppercase;
@@ -218,18 +238,11 @@ Use the following structure and styling as reference:
         border-bottom: 1px solid #334155;
         padding-bottom: 0.5rem;
       }
-      p,
-      li {
-        color: #94a3b8;
-        font-size: 0.9rem;
-      }
-
-      /* Header meta */
       .meta {
         display: flex;
         gap: 1.5rem;
         flex-wrap: wrap;
-        margin: 0.75rem 0 2rem;
+        margin: 0.5rem 0 2rem;
       }
       .meta span {
         font-size: 0.8rem;
@@ -239,47 +252,103 @@ Use the following structure and styling as reference:
         color: #94a3b8;
       }
 
-      /* Score cards */
-      .score-grid {
+      /* Score comparison grid */
+      .score-comparison {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 1rem;
-        margin-bottom: 1.5rem;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
       }
-      .score-card {
+      .site-column {
         background: #1e293b;
         border-radius: 12px;
-        padding: 1.25rem 1.5rem;
         border: 1px solid #334155;
+        padding: 1.25rem;
       }
-      .score-card .site {
-        font-size: 0.75rem;
-        color: #64748b;
+      .site-column.highlight {
+        border-color: #4ade80;
+      }
+      .site-name {
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: #94a3b8;
         text-transform: uppercase;
-        letter-spacing: 0.05em;
-        margin-bottom: 0.5rem;
+        letter-spacing: 0.08em;
+        margin-bottom: 1rem;
+        text-align: center;
       }
-      .score-card .score-val {
-        font-size: 2.5rem;
-        font-weight: 800;
-        line-height: 1;
+      .donuts-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
       }
-      .score-card .score-label {
-        font-size: 0.75rem;
+      .donut-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.25rem;
+      }
+      .donut-label {
+        font-size: 0.65rem;
         color: #64748b;
-        margin-top: 0.25rem;
-      }
-      .score-good {
-        color: #4ade80;
-      }
-      .score-mid {
-        color: #facc15;
-      }
-      .score-bad {
-        color: #f87171;
+        text-align: center;
+        letter-spacing: 0.03em;
       }
 
-      /* Tables */
+      /* Audit items (Opportunities & Diagnostics) */
+      .audit-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+      }
+      .audit-item {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.65rem 1rem;
+        background: #0f1117;
+        border-bottom: 1px solid #1e293b;
+      }
+      .audit-item:first-child {
+        border-radius: 8px 8px 0 0;
+      }
+      .audit-item:last-child {
+        border-radius: 0 0 8px 8px;
+        border-bottom: none;
+      }
+      .audit-item:only-child {
+        border-radius: 8px;
+      }
+      .audit-icon {
+        font-size: 0.75rem;
+        flex-shrink: 0;
+      }
+      .audit-icon.warn {
+        color: #f87171;
+      }
+      .audit-icon.info {
+        color: #94a3b8;
+      }
+      .audit-title {
+        font-size: 0.85rem;
+        color: #cbd5e1;
+        flex: 1;
+      }
+      .audit-display {
+        font-size: 0.8rem;
+        color: #64748b;
+      }
+      .savings-badge {
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: #fb923c;
+        background: #431407;
+        border-radius: 999px;
+        padding: 0.15rem 0.5rem;
+        white-space: nowrap;
+      }
+
+      /* Metrics table */
       .table-wrap {
         overflow-x: auto;
         margin-bottom: 1rem;
@@ -293,7 +362,7 @@ Use the following structure and styling as reference:
         background: #1e293b;
       }
       th {
-        padding: 0.65rem 1rem;
+        padding: 0.6rem 1rem;
         text-align: left;
         color: #94a3b8;
         font-weight: 600;
@@ -310,33 +379,13 @@ Use the following structure and styling as reference:
       tr:last-child td {
         border-bottom: none;
       }
-      tr:hover td {
-        background: #1e293b;
-      }
-      .highlight td {
-        color: #f8fafc;
-        font-weight: 500;
-      }
 
-      /* Delta badges */
-      .delta-good {
-        color: #4ade80;
-        font-weight: 600;
-      }
-      .delta-bad {
-        color: #f87171;
-        font-weight: 600;
-      }
-      .delta-neu {
-        color: #64748b;
-      }
-
-      /* Metric pill */
+      /* Pills */
       .pill {
         display: inline-block;
         padding: 0.15rem 0.5rem;
         border-radius: 999px;
-        font-size: 0.75rem;
+        font-size: 0.72rem;
         font-weight: 600;
       }
       .pill-good {
@@ -352,26 +401,30 @@ Use the following structure and styling as reference:
         color: #f87171;
       }
 
-      /* Notes */
-      .notes {
-        background: #1e293b;
-        border-left: 3px solid #334155;
-        border-radius: 0 8px 8px 0;
-        padding: 1rem 1.25rem;
+      /* Delta */
+      .delta-good {
+        color: #4ade80;
+        font-weight: 600;
       }
-      .notes ul {
-        padding-left: 1.25rem;
+      .delta-bad {
+        color: #f87171;
+        font-weight: 600;
       }
-      .notes li {
-        margin-bottom: 0.4rem;
+      .delta-neu {
+        color: #64748b;
       }
 
-      /* Section note */
       .section-note {
-        font-size: 0.8rem;
+        font-size: 0.78rem;
         color: #475569;
         margin-bottom: 1rem;
         font-style: italic;
+      }
+      .empty-note {
+        font-size: 0.85rem;
+        color: #475569;
+        padding: 1rem;
+        text-align: center;
       }
     </style>
   </head>
@@ -379,136 +432,64 @@ Use the following structure and styling as reference:
     <h1>Performance Audit — VGC Multicalc</h1>
     <div class="meta">
       <span><strong>Date:</strong> YYYY-MM-DD</span>
-      <span><strong>Build:</strong> main-XXXXXXXX.js</span>
       <span><strong>Branch:</strong> branch-name</span>
-      <span><strong>Commit:</strong> abc1234 commit message</span>
+      <span><strong>Commit:</strong> abc1234 — commit message</span>
+      <span><strong>Mode:</strong> Lighthouse Mobile · Throttled</span>
     </div>
 
-    <h2>Lighthouse Score — Mobile Throttled</h2>
-    <p class="section-note">Mobile device simulation with CPU and network throttling. Closest to real user experience.</p>
-    <div class="score-grid">
-      <!-- one card per site, score colored by value: >=90 good, >=50 mid, <50 bad -->
-      <div class="score-card">
-        <div class="site">VGC Multicalc</div>
-        <div class="score-val score-good">85</div>
-        <div class="score-label">Performance Score</div>
+    <h2>Lighthouse Scores</h2>
+    <div class="score-comparison">
+      <!-- Repeat for each site. VGC column gets class "highlight" -->
+      <div class="site-column highlight">
+        <div class="site-name">VGC Multicalc</div>
+        <div class="donuts-grid">
+          <!-- 4 donuts: Performance, Accessibility, Best Practices, SEO -->
+          <!-- Use inline SVG per spec above -->
+        </div>
       </div>
-      <!-- ... Smogon, NCP -->
+      <div class="site-column">
+        <div class="site-name">Smogon Calc</div>
+        <div class="donuts-grid"><!-- donuts --></div>
+      </div>
+      <div class="site-column">
+        <div class="site-name">Nerd of Now</div>
+        <div class="donuts-grid"><!-- donuts --></div>
+      </div>
     </div>
 
-    <h2>Lighthouse Metrics — Mobile Throttled</h2>
+    <h2>Key Metrics — VGC Multicalc</h2>
+    <p class="section-note">Desktop, no throttling. Thresholds follow Core Web Vitals and Lighthouse desktop targets.</p>
     <div class="table-wrap">
       <table>
         <thead>
           <tr>
             <th>Metric</th>
-            <th>What it measures</th>
-            <th>VGC Multicalc</th>
-            <th>Smogon Calc</th>
-            <th>Nerd of Now</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>LCP</td>
-            <td>Time until the largest visible element appears</td>
-            <td>Xs</td>
-            <td>Xs</td>
-            <td>Xs</td>
-          </tr>
-          <tr>
-            <td>FCP</td>
-            <td>Time until the first pixel of content appears</td>
-            <td>Xs</td>
-            <td>Xs</td>
-            <td>Xs</td>
-          </tr>
-          <tr>
-            <td>TBT</td>
-            <td>Total time the page is frozen and unresponsive</td>
-            <td>Xms</td>
-            <td>Xms</td>
-            <td>Xms</td>
-          </tr>
-          <tr>
-            <td>CLS</td>
-            <td>Layout shift/jump while loading (visual stability)</td>
-            <td>X</td>
-            <td>X</td>
-            <td>X</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <h2>Core Web Vitals by Route — DevTools Trace (no throttling, local)</h2>
-    <p class="section-note">Direct measurement via Chrome DevTools. No throttling — use for relative comparison between routes and runs, not as an absolute user-facing value.</p>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Site / Route</th>
-            <th>LCP</th>
-            <th>TTFB</th>
-            <th>Load delay</th>
-            <th>Render delay</th>
-            <th>TBT</th>
-            <th>ForcedReflow</th>
-            <th>DOM elements</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- VGC routes -->
-          <tr class="highlight">
-            <td>VGC — /</td>
-            <td>702ms</td>
-            ...
-          </tr>
-          <!-- Smogon and NCP homepages -->
-          <tr>
-            <td>Smogon — /</td>
-            <td>Xms</td>
-            ...
-          </tr>
-          <tr>
-            <td>NCP — /</td>
-            <td>Xms</td>
-            ...
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <h2>INP — Simulated EV Slider Interaction (VGC home)</h2>
-    <p class="section-note">Real interaction-driven measurement. Lighthouse headless does not capture INP reliably; this section is the canonical INP number for the report.</p>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Target</th>
-            <th>INP</th>
-            <th>Input delay</th>
-            <th>Processing</th>
-            <th>Presentation delay</th>
+            <th>Description</th>
+            <th>Value</th>
             <th>Status</th>
           </tr>
         </thead>
         <tbody>
-          <tr class="highlight">
-            <td>EV slider (home)</td>
-            <td>Xms</td>
-            <td>Xms</td>
-            <td>Xms</td>
-            <td>Xms</td>
-            <td><span class="pill pill-good">Good</span></td>
-          </tr>
+          <!-- One row per metric with pill status -->
         </tbody>
       </table>
     </div>
-    <p class="section-note">INP thresholds: Good &lt; 200ms · Needs improvement 200–500ms · Poor &gt; 500ms.</p>
+
+    <h2>Opportunities — VGC Multicalc</h2>
+    <p class="section-note">Audits where improvements would directly reduce load time.</p>
+    <div class="audit-list">
+      <!-- One .audit-item per opportunity with score < 1 -->
+      <!-- Icon: ▲ (warn) for score=0, ◯ (info) for 0<score<1 -->
+    </div>
+
+    <h2>Diagnostics — VGC Multicalc</h2>
+    <p class="section-note">Additional information about page performance that does not directly map to a metric.</p>
+    <div class="audit-list">
+      <!-- One .audit-item per diagnostic with score < 1 -->
+    </div>
 
     <h2>Delta vs Previous Run</h2>
-    <!-- If first run: show a note "First run — no previous data." -->
+    <!-- Note: "First run — no previous data." if no prior file -->
     <div class="table-wrap">
       <table>
         <thead>
@@ -520,22 +501,9 @@ Use the following structure and styling as reference:
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Score</td>
-            <td>X</td>
-            <td>X</td>
-            <td class="delta-good">+X</td>
-          </tr>
-          <!-- ... -->
+          <!-- Score, LCP, TBT, CLS -->
         </tbody>
       </table>
-    </div>
-
-    <h2>Notes</h2>
-    <div class="notes">
-      <ul>
-        <li>Observations about regressions, improvements, anomalies, or relevant context.</li>
-      </ul>
     </div>
   </body>
 </html>
@@ -546,14 +514,9 @@ Use the following structure and styling as reference:
 ## Important notes
 
 - All steps are **sequential** — wait for each one to finish before starting the next
-- Always build with `npm run build` (production), never `ng serve`
-- Server must be on port 8080 with `-g` (gzip) and `-c-1` (no cache)
-- Lighthouse headless inflates Speed Index and TTI — do not include them in the report
-- DevTools trace has no throttling: use for relative comparison between routes and runs, not as absolute values
-- **INP is measured via real interaction (Step 5b), not Lighthouse** — headless Lighthouse cannot generate the interaction events INP requires
-- **TBT is collected both globally (Lighthouse, throttled) and per route (trace, unthrottled)** — they are not directly comparable; report both
+- `--form-factor=mobile --only-categories=performance,accessibility,best-practices,seo` runs all 4 categories with mobile CPU/network throttling — matches what Google PageSpeed Insights and Core Web Vitals measure. Do NOT use `--preset=perf` as it omits accessibility/best-practices/seo.
+- Always audit the production URL `https://vgcmulticalc.com` — no local build needed
 - The `performance/` folder is committable and is not included in the Angular bundle (not under `assets`)
-- Output files are `.html`, not `.md` — `latest.html` is always overwritten with the latest run
-- **Always use isolated browser contexts** (`isolatedContext`) for each site — prevents localStorage, cookies and cache from previous sessions contaminating measurements
-- **Always verify the URL in every tool response** before starting a trace or INP recording — the DevTools MCP may report a stale URL from a previous navigation; if the URL does not match, navigate again and confirm before proceeding
-- **Close all DevTools pages and kill Chrome at the end** (Step 8) — leaving Chrome open between runs causes context contamination in subsequent audits
+- Output files are `.html` — if a file with today's date exists, suffix with `-2`, `-3`, etc.
+- **Never run Cypress tests** — user handles E2E testing
+- Delta section compares against the most recent previous `.html` file in `performance/` — parse the previous file to extract the VGC scores/metrics embedded in it

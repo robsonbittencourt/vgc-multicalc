@@ -53,7 +53,7 @@
         </div>
 
         <div class="middle">
-          <img class="vs-icon" src="assets/icons/vs.png" width="70" height="70" loading="lazy" />
+          <img class="vs-icon" src="assets/icons/vs.png" width="70" height="70" loading="lazy" alt="" />
         </div>
 
         <div class="right-side" [class.is-champions]="store.isChampions()">
@@ -124,14 +124,14 @@
                     <app-aegislash-button [pokemonId]="pokemonOnCard().id" />
 
                     @if (isMegaStoneCompatible()) {
-                      <button class="icon-button mega-icon-button" [class.mega-active]="pokemonOnCard().name.includes('-Mega')" (click)="toggleMega()">
-                        <img class="mega-icon" [class.mega-active]="pokemonOnCard().name.includes('-Mega')" src="assets/sprites/items/{{ getMegaStoneSprite() }}.webp" width="120" height="120" loading="lazy" />
+                      <button class="icon-button mega-icon-button" [class.mega-active]="pokemonOnCard().name.includes('-Mega')" (click)="toggleMega()" aria-label="Toggle Mega Evolution">
+                        <img class="mega-icon" [class.mega-active]="pokemonOnCard().name.includes('-Mega')" src="assets/sprites/items/{{ getMegaStoneSprite() }}.webp" width="120" height="120" loading="lazy" alt="Mega Stone" />
                       </button>
                     }
 
                     @if (showDeleteButton()) {
-                      <button class="icon-button" (click)="removePokemon($event)" data-cy="delete-opponent-pokemon">
-                        <img class="icon-trash" src="assets/icons/trash.png" width="25" height="25" loading="lazy" />
+                      <button class="icon-button" (click)="removePokemon($event)" data-cy="delete-opponent-pokemon" aria-label="Remove Pokémon">
+                        <img class="icon-trash" src="assets/icons/trash.png" width="25" height="25" loading="lazy" alt="" />
                       </button>
                     }
 

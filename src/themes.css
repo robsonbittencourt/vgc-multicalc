@@ -3,6 +3,7 @@ body {
   --widget-background: light-dark(#ffffff, #212121);
   --widget-border: light-dark(#d1d5db, #212121);
   --text: light-dark(#1f1f1f, white);
+  --text-muted: light-dark(rgba(31, 31, 31, 0.65), rgba(255, 255, 255, 0.6));
   --text-strong: light-dark(black, white);
   --primary-contrast: white;
   --highlight-contrast: light-dark(#1f1f1f, white);

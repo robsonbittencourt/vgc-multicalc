@@ -16,7 +16,7 @@
           <span matTextSuffix>%</span>
         }
 
-        <input class="ev-value-input" type="number" min="0" max="100" matInput (input)="hpPercentageChanged($event)" [ngModel]="hpPercentage()" data-cy="hp-percentage-value" />
+        <input class="ev-value-input" type="number" min="0" max="100" matInput (input)="hpPercentageChanged($event)" [ngModel]="hpPercentage()" data-cy="hp-percentage-value" aria-label="HP %" />
       </mat-form-field>
     } @else {
       <mat-form-field appearance="outline" class="mat-ev-stat-modifier">
@@ -61,6 +61,7 @@
       }
       <input
         matSliderThumb
+        [attr.aria-label]="statName() + ' EVs'"
         [(ngModel)]="ev"
         (input)="beforeChangeEvValue()"
         (change)="evChanged()"

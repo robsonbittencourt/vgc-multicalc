@@ -20,7 +20,15 @@
             <div class="combo-item-with-mega">
               @if (isMegaStoneCompatible()) {
                 <div class="mega-icon-wrapper-mobile">
-                  <img class="mega-icon-mobile" [ngClass]="{ 'mega-active': pokemon().name.includes('-Mega') }" src="assets/sprites/items/{{ getMegaStoneSprite() }}.webp" width="120" height="120" loading="lazy" (click)="toggleMega()" />
+                  <img
+                    class="mega-icon-mobile"
+                    [ngClass]="{ 'mega-active': pokemon().name.includes('-Mega') }"
+                    src="assets/sprites/items/{{ getMegaStoneSprite() }}.webp"
+                    width="120"
+                    height="120"
+                    loading="lazy"
+                    (click)="toggleMega()"
+                    alt="Mega Stone" />
                 </div>
               }
               <div class="item-mobile-trigger" (click)="editItemRequested.emit()">
@@ -46,7 +54,15 @@
             <div class="combo-item-with-mega">
               @if (isMegaStoneCompatible()) {
                 <div class="mega-icon-wrapper-mobile">
-                  <img class="mega-icon-mobile" [ngClass]="{ 'mega-active': pokemon().name.includes('-Mega') }" src="assets/sprites/items/{{ getMegaStoneSprite() }}.webp" width="120" height="120" loading="lazy" (click)="toggleMega()" />
+                  <img
+                    class="mega-icon-mobile"
+                    [ngClass]="{ 'mega-active': pokemon().name.includes('-Mega') }"
+                    src="assets/sprites/items/{{ getMegaStoneSprite() }}.webp"
+                    width="120"
+                    height="120"
+                    loading="lazy"
+                    (click)="toggleMega()"
+                    alt="Mega Stone" />
                 </div>
               }
               <div class="item-mobile-trigger" (click)="editItemRequested.emit()">

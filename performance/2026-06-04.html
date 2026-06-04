@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Performance Audit — VGC Multicalc — 2026-06-04</title>
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: #0f1117;
+        color: #ffffff;
+        line-height: 1.6;
+        padding: 2rem;
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+      h1 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: #f8fafc;
+        margin-bottom: 0.25rem;
+      }
+      h2 {
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #94a3b8;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin: 2.5rem 0 1rem;
+        border-bottom: 1px solid #334155;
+        padding-bottom: 0.5rem;
+      }
+      .meta {
+        display: flex;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        margin: 0.5rem 0 2rem;
+      }
+      .meta span {
+        font-size: 0.8rem;
+        color: #64748b;
+      }
+      .meta strong {
+        color: #94a3b8;
+      }
+
+      .score-comparison {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+      }
+      .site-column {
+        background: #1e293b;
+        border-radius: 12px;
+        border: 1px solid #334155;
+        padding: 1.25rem;
+      }
+      .site-column.highlight {
+        border-color: #4ade80;
+      }
+      .site-name {
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: #94a3b8;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-bottom: 1.25rem;
+        text-align: center;
+      }
+      .donuts-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+      .donut-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.3rem;
+      }
+      .donut-label {
+        font-size: 0.62rem;
+        color: #64748b;
+        text-align: center;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+      }
+
+      .table-wrap {
+        overflow-x: auto;
+        margin-bottom: 1rem;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.85rem;
+      }
+      thead tr {
+        background: #1e293b;
+      }
+      th {
+        padding: 0.6rem 1rem;
+        text-align: left;
+        color: #94a3b8;
+        font-weight: 600;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        white-space: nowrap;
+      }
+      td {
+        padding: 0.6rem 1rem;
+        border-bottom: 1px solid #1e293b;
+        color: #cbd5e1;
+      }
+      tr:last-child td {
+        border-bottom: none;
+      }
+
+      .pill {
+        display: inline-block;
+        padding: 0.15rem 0.5rem;
+        border-radius: 999px;
+        font-size: 0.72rem;
+        font-weight: 600;
+      }
+      .pill-good {
+        background: #14532d;
+        color: #4ade80;
+      }
+      .pill-mid {
+        background: #713f12;
+        color: #facc15;
+      }
+      .pill-bad {
+        background: #450a0a;
+        color: #f87171;
+      }
+
+      .audit-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+      }
+      .audit-item {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.65rem 1rem;
+        background: #0f1117;
+        border-bottom: 1px solid #1e293b;
+      }
+      .audit-item:first-child {
+        border-radius: 8px 8px 0 0;
+      }
+      .audit-item:last-child {
+        border-radius: 0 0 8px 8px;
+        border-bottom: none;
+      }
+      .audit-item:only-child {
+        border-radius: 8px;
+      }
+      .audit-icon {
+        font-size: 0.8rem;
+        flex-shrink: 0;
+        width: 1rem;
+        text-align: center;
+      }
+      .audit-icon.warn {
+        color: #f87171;
+      }
+      .audit-icon.info {
+        color: #94a3b8;
+      }
+      .audit-title {
+        font-size: 0.85rem;
+        color: #cbd5e1;
+        flex: 1;
+      }
+      .audit-display {
+        font-size: 0.8rem;
+        color: #64748b;
+        margin-right: 0.5rem;
+      }
+      .savings-badge {
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: #fb923c;
+        background: #431407;
+        border-radius: 999px;
+        padding: 0.15rem 0.6rem;
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+
+      .delta-good {
+        color: #4ade80;
+        font-weight: 600;
+      }
+      .delta-bad {
+        color: #f87171;
+        font-weight: 600;
+      }
+      .delta-neu {
+        color: #64748b;
+      }
+
+      .section-note {
+        font-size: 0.78rem;
+        color: #475569;
+        margin-bottom: 1rem;
+        font-style: italic;
+      }
+      .prev-note {
+        background: #1e293b;
+        border-left: 3px solid #334155;
+        border-radius: 0 8px 8px 0;
+        padding: 0.75rem 1rem;
+        font-size: 0.8rem;
+        color: #64748b;
+        margin-bottom: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Performance Audit — VGC Multicalc</h1>
+    <div class="meta">
+      <span><strong>Date:</strong> 2026-06-04</span>
+      <span><strong>Branch:</strong> main</span>
+      <span><strong>Commit:</strong> 44599906 — chore: update version</span>
+      <span><strong>Mode:</strong> Lighthouse Mobile · Throttled</span>
+    </div>
+
+    <h2>Lighthouse Scores</h2>
+    <div class="score-comparison">
+      <!-- VGC Multicalc -->
+      <div class="site-column highlight">
+        <div class="site-name">VGC Multicalc</div>
+        <div class="donuts-grid">
+          <!-- Performance: 49 — yellow -->
+          <div class="donut-wrap">
+            <svg viewBox="0 0 100 100" width="80" height="80">
+              <circle cx="50" cy="50" r="40" fill="none" stroke="#334155" stroke-width="10" />
+              <circle cx="50" cy="50" r="40" fill="none" stroke="#facc15" stroke-width="10" stroke-dasharray="251.2" stroke-dashoffset="128.1" stroke-linecap="round" transform="rotate(-90 50 50)" />
+              <text x="50" y="56" text-anchor="middle" font-size="22" font-weight="700" fill="#facc15" font-family="-apple-system,sans-serif">49</text>
+            </svg>
+            <div class="donut-label">Performance</div>
+          </div>
+          <!-- Accessibility: 73 — yellow -->
+          <div class="donut-wrap">
+            <svg viewBox="0 0 100 100" width="80" height="80">
+              <circle cx="50" cy="50" r="40" fill="none" stroke="#334155" stroke-width="10" />
+              <circle cx="50" cy="50" r="40" fill="none" stroke="#facc15" stroke-width="10" stroke-dasharray="251.2" stroke-dashoffset="67.8" stroke-linecap="round" transform="rotate(-90 50 50)" />
+              <text x="50" y="56" text-anchor="middle" font-size="22" font-weight="700" fill="#facc15" font-family="-apple-system,sans-serif">73</text>
+            </svg>
+            <div class="donut-label">Accessibility</div>
+          </div>
+          <!-- Best Practices: 100 — green -->
+          <div class="donut-wrap">
+            <svg viewBox="0 0 100 100" width="80" height="80">
+              <circle cx="50" cy="50" r="40" fill="none" stroke="#334155" stroke-width="10" />
+              <circle cx="50" cy="50" r="40" fill="none" stroke="#4ade80" stroke-width="10" stroke-dasharray="251.2" stroke-dashoffset="0" stroke-linecap="round" transform="rotate(-90 50 50)" />
+              <text x="50" y="56" text-anchor="middle" font-size="22" font-weight="700" fill="#4ade80" font-family="-apple-system,sans-serif">100</text>
+            </svg>
+            <div class="donut-label">Best Practices</div>
+          </div>
+          <!-- SEO: 92 — green -->
+          <div class="donut-wrap">
+            <svg viewBox="0 0 100 100" width="80" height="80">
+              <circle cx="50" cy="50" r="40" fill="none" stroke="#334155" stroke-width="10" />
+              <circle cx="50" cy="50" r="40" fill="none" stroke="#4ade80" stroke-width="10" stroke-dasharray="251.2" stroke-dashoffset="20.1" stroke-linecap="round" transform="rotate(-90 50 50)" />
+              <text x="50" y="56" text-anchor="middle" font-size="22" font-weight="700" fill="#4ade80" font-family="-apple-system,sans-serif">92</text>
+            </svg>
+            <div class="donut-label">SEO</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Smogon Calc -->
+      <div class="site-column">
+        <div class="site-name">Smogon Calc</div>
+        <div class="donuts-grid">
+          <!-- Performance: 43 — yellow -->
+          <div class="donut-wrap">
+            <svg viewBox="0 0 100 100" width="80" height="80">
+              <circle cx="50" cy="50" r="40" fill="none" stroke="#334155" stroke-width="10" />
+              <circle cx="50" cy="50" r="40" fill="none" stroke="#facc15" stroke-width="10" stroke-dasharray="251.2" stroke-dashoffset="143.2" stroke-linecap="round" transform="rotate(-90 50 50)" />
+              <text x="50" y="56" text-anchor="middle" font-size="22" font-weight="700" fill="#facc15" font-family="-apple-system,sans-serif">43</text>
+            </svg>
+            <div class="donut-label">Performance</div>
+          </div>
+          <!-- Accessibility: 85 — yellow -->
+          <div class="donut-wrap">
+            <svg viewBox="0 0 100 100" width="80" height="80">
+              <circle cx="50" cy="50" r="40" fill="none" stroke="#334155" stroke-width="10" />
+              <circle cx="50" cy="50" r="40" fill="none" stroke="#facc15" stroke-width="10" stroke-dasharray="251.2" stroke-dashoffset="37.7" stroke-linecap="round" transform="rotate(-90 50 50)" />
+              <text x="50" y="56" text-anchor="middle" font-size="22" font-weight="700" fill="#facc15" font-family="-apple-system,sans-serif">85</text>
+            </svg>
+            <div class="donut-label">Accessibility</div>
+          </div>
+          <!-- Best Practices: 100 — green -->
+          <div class="donut-wrap">
+            <svg viewBox="0 0 100 100" width="80" height="80">
+              <circle cx="50" cy="50" r="40" fill="none" stroke="#334155" stroke-width="10" />
+              <circle cx="50" cy="50" r="40" fill="none" stroke="#4ade80" stroke-width="10" stroke-dasharray="251.2" stroke-dashoffset="0" stroke-linecap="round" transform="rotate(-90 50 50)" />
+              <text x="50" y="56" text-anchor="middle" font-size="22" font-weight="700" fill="#4ade80" font-family="-apple-system,sans-serif">100</text>
+            </svg>
+            <div class="donut-label">Best Practices</div>
+          </div>
+          <!-- SEO: 82 — yellow -->
+          <div class="donut-wrap">
+            <svg viewBox="0 0 100 100" width="80" height="80">
+              <circle cx="50" cy="50" r="40" fill="none" stroke="#334155" stroke-width="10" />
+              <circle cx="50" cy="50" r="40" fill="none" stroke="#facc15" stroke-width="10" stroke-dasharray="251.2" stroke-dashoffset="45.2" stroke-linecap="round" transform="rotate(-90 50 50)" />
+              <text x="50" y="56" text-anchor="middle" font-size="22" font-weight="700" fill="#facc15" font-family="-apple-system,sans-serif">82</text>
+            </svg>
+            <div class="donut-label">SEO</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Nerd of Now -->
+      <div class="site-column">
+        <div class="site-name">Nerd of Now</div>
+        <div class="donuts-grid">
+          <!-- Performance: 64 — yellow -->
+          <div class="donut-wrap">
+            <svg viewBox="0 0 100 100" width="80" height="80">
+              <circle cx="50" cy="50" r="40" fill="none" stroke="#334155" stroke-width="10" />
+              <circle cx="50" cy="50" r="40" fill="none" stroke="#facc15" stroke-width="10" stroke-dasharray="251.2" stroke-dashoffset="90.4" stroke-linecap="round" transform="rotate(-90 50 50)" />
+              <text x="50" y="56" text-anchor="middle" font-size="22" font-weight="700" fill="#facc15" font-family="-apple-system,sans-serif">64</text>
+            </svg>
+            <div class="donut-label">Performance</div>
+          </div>
+          <!-- Accessibility: 69 — yellow -->
+          <div class="donut-wrap">
+            <svg viewBox="0 0 100 100" width="80" height="80">
+              <circle cx="50" cy="50" r="40" fill="none" stroke="#334155" stroke-width="10" />
+              <circle cx="50" cy="50" r="40" fill="none" stroke="#facc15" stroke-width="10" stroke-dasharray="251.2" stroke-dashoffset="77.9" stroke-linecap="round" transform="rotate(-90 50 50)" />
+              <text x="50" y="56" text-anchor="middle" font-size="22" font-weight="700" fill="#facc15" font-family="-apple-system,sans-serif">69</text>
+            </svg>
+            <div class="donut-label">Accessibility</div>
+          </div>
+          <!-- Best Practices: 100 — green -->
+          <div class="donut-wrap">
+            <svg viewBox="0 0 100 100" width="80" height="80">
+              <circle cx="50" cy="50" r="40" fill="none" stroke="#334155" stroke-width="10" />
+              <circle cx="50" cy="50" r="40" fill="none" stroke="#4ade80" stroke-width="10" stroke-dasharray="251.2" stroke-dashoffset="0" stroke-linecap="round" transform="rotate(-90 50 50)" />
+              <text x="50" y="56" text-anchor="middle" font-size="22" font-weight="700" fill="#4ade80" font-family="-apple-system,sans-serif">100</text>
+            </svg>
+            <div class="donut-label">Best Practices</div>
+          </div>
+          <!-- SEO: 82 — yellow -->
+          <div class="donut-wrap">
+            <svg viewBox="0 0 100 100" width="80" height="80">
+              <circle cx="50" cy="50" r="40" fill="none" stroke="#334155" stroke-width="10" />
+              <circle cx="50" cy="50" r="40" fill="none" stroke="#facc15" stroke-width="10" stroke-dasharray="251.2" stroke-dashoffset="45.2" stroke-linecap="round" transform="rotate(-90 50 50)" />
+              <text x="50" y="56" text-anchor="middle" font-size="22" font-weight="700" fill="#facc15" font-family="-apple-system,sans-serif">82</text>
+            </svg>
+            <div class="donut-label">SEO</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h2>Key Metrics — VGC Multicalc</h2>
+    <p class="section-note">Mobile with throttling. Thresholds follow Core Web Vitals and Lighthouse mobile targets.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Description</th>
+            <th>Value</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>FCP</td>
+            <td>Time until the first pixel of content appears</td>
+            <td>4.2 s</td>
+            <td><span class="pill pill-bad">Poor</span></td>
+          </tr>
+          <tr>
+            <td>LCP</td>
+            <td>Time until the largest visible element appears</td>
+            <td>8.0 s</td>
+            <td><span class="pill pill-bad">Poor</span></td>
+          </tr>
+          <tr>
+            <td>TBT</td>
+            <td>Total time the page is frozen and unresponsive</td>
+            <td>630 ms</td>
+            <td><span class="pill pill-mid">Needs improvement</span></td>
+          </tr>
+          <tr>
+            <td>CLS</td>
+            <td>Layout shift while loading (visual stability)</td>
+            <td>0</td>
+            <td><span class="pill pill-good">Good</span></td>
+          </tr>
+          <tr>
+            <td>Speed Index</td>
+            <td>How quickly content is visually displayed</td>
+            <td>4.3 s</td>
+            <td><span class="pill pill-mid">Needs improvement</span></td>
+          </tr>
+          <tr>
+            <td>TTI</td>
+            <td>Time until the page is fully interactive</td>
+            <td>8.0 s</td>
+            <td><span class="pill pill-bad">Poor</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Opportunities — VGC Multicalc</h2>
+    <p class="section-note">Audits where improvements would directly reduce load time.</p>
+    <div class="audit-list">
+      <div class="audit-item">
+        <span class="audit-icon warn">▲</span>
+        <span class="audit-title">Reduce unused JavaScript</span>
+        <span class="audit-display">Est savings of 175 KiB</span>
+        <span class="savings-badge">− 900 ms</span>
+      </div>
+    </div>
+
+    <h2>Diagnostics — VGC Multicalc</h2>
+    <p class="section-note">Additional information about page performance that does not directly map to a metric.</p>
+    <div class="audit-list">
+      <div class="audit-item">
+        <span class="audit-icon warn">▲</span>
+        <span class="audit-title">Minimize main-thread work</span>
+        <span class="audit-display">2.9 s</span>
+      </div>
+      <div class="audit-item">
+        <span class="audit-icon warn">▲</span>
+        <span class="audit-title">Use efficient cache lifetimes</span>
+        <span class="audit-display">Est savings of 861 KiB</span>
+      </div>
+      <div class="audit-item">
+        <span class="audit-icon warn">▲</span>
+        <span class="audit-title">Font display</span>
+        <span class="audit-display">Est savings of 170 ms</span>
+      </div>
+      <div class="audit-item">
+        <span class="audit-icon warn">▲</span>
+        <span class="audit-title">Forced reflow</span>
+        <span class="audit-display"></span>
+      </div>
+      <div class="audit-item">
+        <span class="audit-icon warn">▲</span>
+        <span class="audit-title">LCP breakdown</span>
+        <span class="audit-display"></span>
+      </div>
+      <div class="audit-item">
+        <span class="audit-icon warn">▲</span>
+        <span class="audit-title">Network dependency tree</span>
+        <span class="audit-display"></span>
+      </div>
+      <div class="audit-item">
+        <span class="audit-icon warn">▲</span>
+        <span class="audit-title">Missing source maps for large first-party JavaScript</span>
+        <span class="audit-display"></span>
+      </div>
+      <div class="audit-item">
+        <span class="audit-icon warn">▲</span>
+        <span class="audit-title">ARIA input fields do not have accessible names</span>
+        <span class="audit-display"></span>
+      </div>
+      <div class="audit-item">
+        <span class="audit-icon warn">▲</span>
+        <span class="audit-title">Buttons do not have an accessible name</span>
+        <span class="audit-display"></span>
+      </div>
+      <div class="audit-item">
+        <span class="audit-icon warn">▲</span>
+        <span class="audit-title">Background and foreground colors do not have a sufficient contrast ratio</span>
+        <span class="audit-display"></span>
+      </div>
+      <div class="audit-item">
+        <span class="audit-icon warn">▲</span>
+        <span class="audit-title">Image elements do not have <code>[alt]</code> attributes</span>
+        <span class="audit-display"></span>
+      </div>
+      <div class="audit-item">
+        <span class="audit-icon warn">▲</span>
+        <span class="audit-title">Form elements do not have associated labels</span>
+        <span class="audit-display"></span>
+      </div>
+      <div class="audit-item">
+        <span class="audit-icon warn">▲</span>
+        <span class="audit-title">Document does not have a main landmark</span>
+        <span class="audit-display"></span>
+      </div>
+      <div class="audit-item">
+        <span class="audit-icon warn">▲</span>
+        <span class="audit-title"><code>[user-scalable="no"]</code> is used in the viewport meta or <code>[maximum-scale]</code> is less than 5</span>
+        <span class="audit-display"></span>
+      </div>
+    </div>
+
+    <h2>Delta vs Previous Run</h2>
+    <div class="prev-note">Previous run: 2026-05-27 · Mobile throttled · Performance score: <strong>67</strong> · LCP: <strong>9.1 s</strong> · TBT: <strong>280 ms</strong></div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Previous</th>
+            <th>Current</th>
+            <th>Delta</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Performance score</td>
+            <td>67</td>
+            <td>49</td>
+            <td class="delta-bad">−18</td>
+          </tr>
+          <tr>
+            <td>LCP</td>
+            <td>9.1 s</td>
+            <td>8.0 s</td>
+            <td class="delta-good">−1.1 s</td>
+          </tr>
+          <tr>
+            <td>TBT</td>
+            <td>280 ms</td>
+            <td>630 ms</td>
+            <td class="delta-bad">+350 ms</td>
+          </tr>
+          <tr>
+            <td>CLS</td>
+            <td>—</td>
+            <td>0</td>
+            <td class="delta-neu">—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
