@@ -1,15 +1,16 @@
 import { provideZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
 import { ThemeStore } from "@data/store/theme-store"
+import { MockOf } from "@lib/test-utils"
 import { Color, Theme, ThemeService } from "./theme.service"
 
 describe("ThemeService", () => {
   let service: ThemeService
 
-  let storeSpy: any
+  let storeSpy: MockOf<ThemeStore>
 
   beforeEach(() => {
-    storeSpy = jasmine.createSpyObj("ThemeStore", ["theme", "color", "updateTheme", "updateColor"])
+    storeSpy = { theme: vi.fn(), color: vi.fn(), updateTheme: vi.fn(), updateColor: vi.fn() } as unknown as MockOf<ThemeStore>
 
     TestBed.configureTestingModule({
       providers: [ThemeService, { provide: ThemeStore, useValue: storeSpy }, provideZonelessChangeDetection()]
@@ -34,7 +35,7 @@ describe("ThemeService", () => {
 
   it("should set and apply theme", () => {
     const theme: Theme = "dark"
-    storeSpy.theme.and.returnValue(theme)
+    storeSpy.theme.mockReturnValue(theme)
 
     service.setTheme(theme)
 
@@ -44,7 +45,7 @@ describe("ThemeService", () => {
 
   it("should set and apply color", () => {
     const color: Color = "blue"
-    storeSpy.color.and.returnValue(color)
+    storeSpy.color.mockReturnValue(color)
 
     service.setColor(color)
 
@@ -53,7 +54,7 @@ describe("ThemeService", () => {
   })
 
   it("should apply system theme correctly", () => {
-    storeSpy.theme.and.returnValue("system")
+    storeSpy.theme.mockReturnValue("system")
 
     service.setTheme("system")
 
@@ -61,7 +62,7 @@ describe("ThemeService", () => {
   })
 
   it("should return the selected theme", () => {
-    storeSpy.theme.and.returnValue("dark")
+    storeSpy.theme.mockReturnValue("dark")
 
     const selectedTheme = service.selectedTheme()
 
@@ -71,7 +72,7 @@ describe("ThemeService", () => {
   })
 
   it("should return the selected color", () => {
-    storeSpy.color.and.returnValue("blue")
+    storeSpy.color.mockReturnValue("blue")
 
     const selectedColor = service.selectedColor()
 

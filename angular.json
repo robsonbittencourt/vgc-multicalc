@@ -108,17 +108,16 @@
           }
         },
         "test": {
-          "builder": "@angular/build:karma",
+          "builder": "@angular/build:unit-test",
           "options": {
             "tsConfig": "tsconfig.spec.json",
-            "assets": ["src/assets"],
-            "styles": ["src/styles.scss", "src/themes.css"],
-            "scripts": [],
-            "browsers": "ChromeHeadless",
-            "karmaConfig": "karma.conf.js"
+            "runner": "vitest",
+            "runnerConfig": "vitest.config.ts",
+            "coverage": true,
+            "coverageReporters": ["lcov", "text-summary"]
           }
         },
-"lint": {
+        "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
             "lintFilePatterns": ["src/**/*.ts", "src/**/*.html", "cypress"]

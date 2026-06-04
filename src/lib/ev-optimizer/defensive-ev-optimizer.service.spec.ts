@@ -11,13 +11,14 @@ import { Pokemon } from "@lib/model/pokemon"
 import { Target } from "@lib/model/target"
 import { DefensiveEvOptimizerService } from "./defensive-ev-optimizer.service"
 import { Status } from "@lib/model/status"
+import { MockOf } from "@lib/test-utils"
 
 describe("DefensiveEvOptimizerService", () => {
   let service: DefensiveEvOptimizerService
-  let adjusterSpy: jasmine.SpyObj<CalcAdjuster>
+  let adjusterSpy: MockOf<CalcAdjuster>
 
   beforeEach(() => {
-    adjusterSpy = jasmine.createSpyObj("Adjuster", ["adjust"])
+    adjusterSpy = { adjust: vi.fn() } as unknown as MockOf<CalcAdjuster>
 
     TestBed.configureTestingModule({
       providers: [

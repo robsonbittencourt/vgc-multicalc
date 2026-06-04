@@ -9,14 +9,15 @@ import { Move } from "@lib/model/move"
 import { MoveSet } from "@lib/model/moveset"
 import { Pokemon } from "@lib/model/pokemon"
 import { ExportPokeService } from "@lib/user-data/export-poke.service"
+import { MockOf } from "@lib/test-utils"
 
 describe("ExportPokeService", () => {
   let service: ExportPokeService
-  let dialogSpy: jasmine.SpyObj<MatDialog>
+  let dialogSpy: MockOf<MatDialog>
   const storeMock = { isChampions: () => false }
 
   beforeEach(() => {
-    dialogSpy = jasmine.createSpyObj("MatDialog", ["open"])
+    dialogSpy = { open: vi.fn() } as unknown as MockOf<MatDialog>
 
     TestBed.configureTestingModule({
       providers: [ExportPokeService, { provide: MatDialog, useValue: dialogSpy }, { provide: CalculatorStore, useValue: storeMock }, provideZonelessChangeDetection()]
@@ -37,7 +38,7 @@ describe("ExportPokeService", () => {
 
     await service.export("Title", pokemon)
 
-    expect(dialogSpy.open).toHaveBeenCalledWith(TeamExportModalComponent, { data: { title: "Title", content: pasteWithOnePokemon }, width: "40em", position: { top: "2em" }, autoFocus: false, scrollStrategy: jasmine.any(NoopScrollStrategy) })
+    expect(dialogSpy.open).toHaveBeenCalledWith(TeamExportModalComponent, { data: { title: "Title", content: pasteWithOnePokemon }, width: "40em", position: { top: "2em" }, autoFocus: false, scrollStrategy: expect.any(NoopScrollStrategy) })
   })
 
   it("should export Aegislash forms as Aegislash", async () => {
@@ -61,7 +62,7 @@ describe("ExportPokeService", () => {
 
     await service.export("Title", [pokemonShield, pokemonBlade])
 
-    expect(dialogSpy.open).toHaveBeenCalledWith(TeamExportModalComponent, { data: { title: "Title", content: pasteWithAegislashBoth }, width: "40em", position: { top: "2em" }, autoFocus: false, scrollStrategy: jasmine.any(NoopScrollStrategy) })
+    expect(dialogSpy.open).toHaveBeenCalledWith(TeamExportModalComponent, { data: { title: "Title", content: pasteWithAegislashBoth }, width: "40em", position: { top: "2em" }, autoFocus: false, scrollStrategy: expect.any(NoopScrollStrategy) })
   })
 
   it("should export a Pokémon with less than 4 moves without undefined lines", async () => {
@@ -76,7 +77,7 @@ describe("ExportPokeService", () => {
 
     await service.export("Title", pokemon)
 
-    expect(dialogSpy.open).toHaveBeenCalledWith(TeamExportModalComponent, { data: { title: "Title", content: pasteWithOneMove }, width: "40em", position: { top: "2em" }, autoFocus: false, scrollStrategy: jasmine.any(NoopScrollStrategy) })
+    expect(dialogSpy.open).toHaveBeenCalledWith(TeamExportModalComponent, { data: { title: "Title", content: pasteWithOneMove }, width: "40em", position: { top: "2em" }, autoFocus: false, scrollStrategy: expect.any(NoopScrollStrategy) })
   })
 
   it("should export a list of Pokémon", async () => {
@@ -110,7 +111,7 @@ describe("ExportPokeService", () => {
 
     await service.export("Title", [pokemon1, pokemon2, pokemon3])
 
-    expect(dialogSpy.open).toHaveBeenCalledWith(TeamExportModalComponent, { data: { title: "Title", content: pasteWithThreePokemon }, width: "40em", position: { top: "2em" }, autoFocus: false, scrollStrategy: jasmine.any(NoopScrollStrategy) })
+    expect(dialogSpy.open).toHaveBeenCalledWith(TeamExportModalComponent, { data: { title: "Title", content: pasteWithThreePokemon }, width: "40em", position: { top: "2em" }, autoFocus: false, scrollStrategy: expect.any(NoopScrollStrategy) })
   })
 })
 

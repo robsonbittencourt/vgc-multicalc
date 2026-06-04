@@ -35,11 +35,11 @@ describe("Theme Store", () => {
     beforeEach(() => {
       const store: Record<string, string | null> = {}
 
-      spyOn(localStorage, "getItem").and.callFake((key: string): string | null => {
+      vi.spyOn(localStorage, "getItem").mockImplementation((key: string): string | null => {
         return store[key] || null
       })
 
-      spyOn(localStorage, "setItem").and.callFake((key: string, value: string): void => {
+      vi.spyOn(localStorage, "setItem").mockImplementation((key: string, value: string): void => {
         store[key] = value
       })
     })

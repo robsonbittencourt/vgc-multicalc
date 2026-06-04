@@ -56,15 +56,15 @@ describe("Calculator Store", () => {
 
       expect(store.teams()[1].name).toBe("Team 2")
       expect(store.teams()[1].teamMembers.length).toBe(1)
-      expect(store.teams()[1].teamMembers[0].pokemon.isDefault).toBeTrue()
+      expect(store.teams()[1].teamMembers[0].pokemon.isDefault).toBe(true)
 
       expect(store.teams()[2].name).toBe("Team 3")
       expect(store.teams()[2].teamMembers.length).toBe(1)
-      expect(store.teams()[2].teamMembers[0].pokemon.isDefault).toBeTrue()
+      expect(store.teams()[2].teamMembers[0].pokemon.isDefault).toBe(true)
 
       expect(store.teams()[3].name).toBe("Team 4")
       expect(store.teams()[3].teamMembers.length).toBe(1)
-      expect(store.teams()[3].teamMembers[0].pokemon.isDefault).toBeTrue()
+      expect(store.teams()[3].teamMembers[0].pokemon.isDefault).toBe(true)
     })
 
     it("should load some Targets as default", () => {
@@ -181,7 +181,7 @@ describe("Calculator Store", () => {
       it("should update Pokémon ability on", () => {
         store.abilityOn(defaultId, true)
 
-        expect(store.team().activePokemon().ability.on).toBeTrue()
+        expect(store.team().activePokemon().ability.on).toBe(true)
       })
 
       it("should update Commander Active to true", () => {
@@ -203,7 +203,7 @@ describe("Calculator Store", () => {
 
         store.toggleCommanderActive(defaultId)
 
-        expect(store.team().activePokemon().commanderActive).toBeFalse()
+        expect(store.team().activePokemon().commanderActive).toBe(false)
         expect(store.team().activePokemon().boosts).toEqual({ atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
       })
 
@@ -212,17 +212,17 @@ describe("Calculator Store", () => {
 
         store.toggleCommanderActive(defaultId)
 
-        expect(store.team().activePokemon().commanderActive).toBeTrue()
+        expect(store.team().activePokemon().commanderActive).toBe(true)
         expect(store.team().activePokemon().boosts).toEqual({ atk: 2, def: 2, spa: 2, spd: 2, spe: 2 })
       })
 
       it("should turn Pokémon Commander to false when it is true and remove any boosts", () => {
         store.name(defaultId, "Dondozo")
         store.toggleCommanderActive(defaultId)
-        expect(store.team().activePokemon().commanderActive).toBeTrue()
+        expect(store.team().activePokemon().commanderActive).toBe(true)
 
         store.toggleCommanderActive(defaultId)
-        expect(store.team().activePokemon().commanderActive).toBeFalse()
+        expect(store.team().activePokemon().commanderActive).toBe(false)
         expect(store.team().activePokemon().boosts).toEqual({ atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
       })
 
@@ -237,7 +237,7 @@ describe("Calculator Store", () => {
 
         store.teraTypeActive(defaultId, true)
 
-        expect(store.team().activePokemon().teraTypeActive).toBeTrue()
+        expect(store.team().activePokemon().teraTypeActive).toBe(true)
       })
 
       it("should update Pokémon Tera Type active to false", () => {
@@ -245,7 +245,7 @@ describe("Calculator Store", () => {
 
         store.teraTypeActive(defaultId, false)
 
-        expect(store.team().activePokemon().teraTypeActive).toBeFalse()
+        expect(store.team().activePokemon().teraTypeActive).toBe(false)
       })
 
       it("should update Pokémon Hp Percentage", () => {
@@ -390,10 +390,10 @@ describe("Calculator Store", () => {
       it("should update active Team Members", () => {
         store.updateTeamMembersActive(true, false, true, false, true, false)
 
-        expect(store.team().teamMembers[0].active).toBeTrue()
-        expect(store.team().teamMembers[1].active).toBeFalse()
-        expect(store.team().teamMembers[2].active).toBeTrue()
-        expect(store.team().teamMembers[3].active).toBeFalse()
+        expect(store.team().teamMembers[0].active).toBe(true)
+        expect(store.team().teamMembers[1].active).toBe(false)
+        expect(store.team().teamMembers[2].active).toBe(true)
+        expect(store.team().teamMembers[3].active).toBe(false)
       })
 
       it("should activate Team Member", () => {
@@ -401,10 +401,10 @@ describe("Calculator Store", () => {
 
         store.activateTeamMember(2)
 
-        expect(store.team().teamMembers[0].active).toBeFalse()
-        expect(store.team().teamMembers[1].active).toBeFalse()
-        expect(store.team().teamMembers[2].active).toBeTrue()
-        expect(store.team().teamMembers[3].active).toBeFalse()
+        expect(store.team().teamMembers[0].active).toBe(false)
+        expect(store.team().teamMembers[1].active).toBe(false)
+        expect(store.team().teamMembers[2].active).toBe(true)
+        expect(store.team().teamMembers[3].active).toBe(false)
       })
 
       it("should activate first Team Member if index is negative", () => {
@@ -412,10 +412,10 @@ describe("Calculator Store", () => {
 
         store.activateTeamMember(-2)
 
-        expect(store.team().teamMembers[0].active).toBeTrue()
-        expect(store.team().teamMembers[1].active).toBeFalse()
-        expect(store.team().teamMembers[2].active).toBeFalse()
-        expect(store.team().teamMembers[3].active).toBeFalse()
+        expect(store.team().teamMembers[0].active).toBe(true)
+        expect(store.team().teamMembers[1].active).toBe(false)
+        expect(store.team().teamMembers[2].active).toBe(false)
+        expect(store.team().teamMembers[3].active).toBe(false)
       })
 
       it("should activate first Team Member if index is out of bounds", () => {
@@ -423,10 +423,10 @@ describe("Calculator Store", () => {
 
         store.activateTeamMember(5)
 
-        expect(store.team().teamMembers[0].active).toBeTrue()
-        expect(store.team().teamMembers[1].active).toBeFalse()
-        expect(store.team().teamMembers[2].active).toBeFalse()
-        expect(store.team().teamMembers[3].active).toBeFalse()
+        expect(store.team().teamMembers[0].active).toBe(true)
+        expect(store.team().teamMembers[1].active).toBe(false)
+        expect(store.team().teamMembers[2].active).toBe(false)
+        expect(store.team().teamMembers[3].active).toBe(false)
       })
 
       it("should add Team", () => {
@@ -494,8 +494,8 @@ describe("Calculator Store", () => {
 
         store.activateTeam("456")
 
-        expect(store.teams()[0].active).toBeFalse()
-        expect(store.teams()[1].active).toBeTrue()
+        expect(store.teams()[0].active).toBe(false)
+        expect(store.teams()[1].active).toBe(true)
       })
     })
 
@@ -690,7 +690,7 @@ describe("Calculator Store", () => {
         expect(result.item).toBe("Assault Vest")
         expect(result.ability.name).toBe("Intimidate")
         expect(result.teraType).toBe("Bug")
-        expect(result.teraTypeActive).toBeFalse()
+        expect(result.teraTypeActive).toBe(false)
         expect(result.evs).toEqual({ hp: 244, atk: 0, def: 244, spa: 0, spd: 20, spe: 0 })
         expect(result.move1Name).toBe("Flare Blitz")
         expect(result.move2Name).toBe("Knock Off")
@@ -705,7 +705,7 @@ describe("Calculator Store", () => {
         store.loadPokemonInfo(defaultId, "Incineroar")
         const result = store.findPokemonById(defaultId)
 
-        expect(result.commanderActive).toBeFalse()
+        expect(result.commanderActive).toBe(false)
       })
 
       it("should reset previous hp percentage state", () => {
@@ -778,11 +778,11 @@ describe("Calculator Store", () => {
       beforeEach(() => {
         const mockStorage: Record<string, string | null> = {}
 
-        spyOn(localStorage, "getItem").and.callFake((key: string): string | null => {
+        vi.spyOn(localStorage, "getItem").mockImplementation((key: string): string | null => {
           return mockStorage[key] || null
         })
 
-        spyOn(localStorage, "setItem").and.callFake((key: string, value: string): void => {
+        vi.spyOn(localStorage, "setItem").mockImplementation((key: string, value: string): void => {
           mockStorage[key] = value
         })
 
@@ -810,7 +810,7 @@ describe("Calculator Store", () => {
         store.updateStateLockingLocalStorage(state)
 
         expect(store.secondAttackerId()).toBe("123")
-        expect(store.updateLocalStorage()).toBeFalse()
+        expect(store.updateLocalStorage()).toBe(false)
       })
 
       it("should build user data using state", () => {
@@ -821,11 +821,11 @@ describe("Calculator Store", () => {
         expect(result.rightPokemon.name).toBe("Dragonite")
 
         expect(result.teams.length).toBe(4)
-        expect(result.teams[0].active).toBeTrue()
+        expect(result.teams[0].active).toBe(true)
         expect(result.teams[0].name).toBe("Team 1")
-        expect(result.teams[0].teamMembers[0].active).toBeTrue()
+        expect(result.teams[0].teamMembers[0].active).toBe(true)
         expect(result.teams[0].teamMembers[0].pokemon.name).toBe("Charizard")
-        expect(result.teams[0].teamMembers[1].active).toBeFalse()
+        expect(result.teams[0].teamMembers[1].active).toBe(false)
         expect(result.teams[0].teamMembers[1].pokemon.name).toBe("Dragonite")
 
         expect(result.targets.length).toBe(9)

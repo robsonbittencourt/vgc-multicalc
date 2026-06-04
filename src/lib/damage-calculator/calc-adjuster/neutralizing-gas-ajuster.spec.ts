@@ -38,11 +38,11 @@ describe("Neutralizing Gas Adjuster", () => {
     new NeutralizingGasAdjuster().adjust(attacker, target, move, moveSmogon, smogonField, secondAttacker, field)
 
     expect(attacker.ability).toBe("Imposter" as AbilityName)
-    expect(attacker.abilityOn).toBeFalse()
+    expect(attacker.abilityOn).toBe(false)
     expect(attacker.boostedStat).toBeUndefined()
 
     expect(target.ability).toBe("Imposter" as AbilityName)
-    expect(target.abilityOn).toBeFalse()
+    expect(target.abilityOn).toBe(false)
     expect(target.boostedStat).toBeUndefined()
   })
 

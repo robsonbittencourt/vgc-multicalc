@@ -24,7 +24,7 @@ function expectPerformance<T>(fn: () => T, maxDurationMs: number, description?: 
 
   const msg = description ? `${description} took ${duration.toFixed(2)}ms (max: ${maxDurationMs}ms)` : `Operation took ${duration.toFixed(2)}ms (max: ${maxDurationMs}ms)`
 
-  expect(duration).withContext(msg).toBeLessThan(maxDurationMs)
+  expect(duration, msg).toBeLessThan(maxDurationMs)
 
   return result
 }

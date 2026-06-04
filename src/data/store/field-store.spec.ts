@@ -39,57 +39,57 @@ describe("Field Store", () => {
 
       const field = store.field()
 
-      expect(field.isGravity).toBeFalse()
+      expect(field.isGravity).toBe(false)
       expect(field.weather).toBe("Sun")
-      expect(field.isTabletsOfRuin).toBeTrue()
+      expect(field.isTabletsOfRuin).toBe(true)
     })
 
     it("should return if is Weather Sun", () => {
       store.toggleSunWeather()
 
-      expect(store.isWeatherSun()).toBeTrue()
+      expect(store.isWeatherSun()).toBe(true)
     })
 
     it("should return if is automatic Weather Sun", () => {
       store.toggleAutomaticSunWeather()
 
-      expect(store.isWeatherSun()).toBeTrue()
+      expect(store.isWeatherSun()).toBe(true)
     })
 
     it("should return if is Weather Rain", () => {
       store.toggleRainWeather()
 
-      expect(store.isWeatherRain()).toBeTrue()
+      expect(store.isWeatherRain()).toBe(true)
     })
 
     it("should return if is automatic Weather Rain", () => {
       store.toggleAutomaticRainWeather()
 
-      expect(store.isWeatherRain()).toBeTrue()
+      expect(store.isWeatherRain()).toBe(true)
     })
 
     it("should return if is Weather Sand", () => {
       store.toggleSandWeather()
 
-      expect(store.isWeatherSand()).toBeTrue()
+      expect(store.isWeatherSand()).toBe(true)
     })
 
     it("should return if is automatic Weather Sand", () => {
       store.toggleAutomaticSandWeather()
 
-      expect(store.isWeatherSand()).toBeTrue()
+      expect(store.isWeatherSand()).toBe(true)
     })
 
     it("should return if is Weather Snow", () => {
       store.toggleSnowWeather()
 
-      expect(store.isWeatherSnow()).toBeTrue()
+      expect(store.isWeatherSnow()).toBe(true)
     })
 
     it("should return if is automatic Weather Snow", () => {
       store.toggleAutomaticSnowWeather()
 
-      expect(store.isWeatherSnow()).toBeTrue()
+      expect(store.isWeatherSnow()).toBe(true)
     })
 
     it("should return if is Weather Sun when come back from automatic to the same previous weather", () => {
@@ -99,7 +99,7 @@ describe("Field Store", () => {
 
       store.toggleSunWeather()
 
-      expect(store.isWeatherSun()).toBeTrue()
+      expect(store.isWeatherSun()).toBe(true)
     })
 
     it("should return if is Weather Sun when come back from automatic to the Sun previous weather", () => {
@@ -109,56 +109,56 @@ describe("Field Store", () => {
 
       store.toggleSunWeather()
 
-      expect(store.isWeatherSun()).toBeTrue()
-      expect(store.isWeatherRain()).toBeFalse()
+      expect(store.isWeatherSun()).toBe(true)
+      expect(store.isWeatherRain()).toBe(false)
     })
 
     it("should return if is Electric Terrain", () => {
       store.toggleElectricTerrain()
 
-      expect(store.isTerrainElectric()).toBeTrue()
+      expect(store.isTerrainElectric()).toBe(true)
     })
 
     it("should return if is automatic Electric Terrain", () => {
       store.toggleAutomaticElectricTerrain()
 
-      expect(store.isTerrainElectric()).toBeTrue()
+      expect(store.isTerrainElectric()).toBe(true)
     })
 
     it("should return if is Grassy Terrain", () => {
       store.toggleGrassyTerrain()
 
-      expect(store.isTerrainGrassy()).toBeTrue()
+      expect(store.isTerrainGrassy()).toBe(true)
     })
 
     it("should return if is automatic Grassy Terrain", () => {
       store.toggleAutomaticGrassyTerrain()
 
-      expect(store.isTerrainGrassy()).toBeTrue()
+      expect(store.isTerrainGrassy()).toBe(true)
     })
 
     it("should return if is Psychic Terrain", () => {
       store.togglePsychicTerrain()
 
-      expect(store.isTerrainPsychic()).toBeTrue()
+      expect(store.isTerrainPsychic()).toBe(true)
     })
 
     it("should return if is automatic Psychic Terrain", () => {
       store.toggleAutomaticPsychicTerrain()
 
-      expect(store.isTerrainPsychic()).toBeTrue()
+      expect(store.isTerrainPsychic()).toBe(true)
     })
 
     it("should return if is Misty Terrain", () => {
       store.toggleMistyTerrain()
 
-      expect(store.isTerrainMisty()).toBeTrue()
+      expect(store.isTerrainMisty()).toBe(true)
     })
 
     it("should return if is automatic Misty Terrain", () => {
       store.toggleAutomaticMistyTerrain()
 
-      expect(store.isTerrainMisty()).toBeTrue()
+      expect(store.isTerrainMisty()).toBe(true)
     })
 
     it("should return if is Terrain Electric when come back from automatic to the same previous weather", () => {
@@ -168,7 +168,7 @@ describe("Field Store", () => {
 
       store.toggleElectricTerrain()
 
-      expect(store.isTerrainElectric()).toBeTrue()
+      expect(store.isTerrainElectric()).toBe(true)
     })
 
     it("should return if is Terrain Electric when come back from automatic to the Electric previous weather", () => {
@@ -178,8 +178,8 @@ describe("Field Store", () => {
 
       store.toggleElectricTerrain()
 
-      expect(store.isTerrainElectric()).toBeTrue()
-      expect(store.isTerrainGrassy()).toBeFalse()
+      expect(store.isTerrainElectric()).toBe(true)
+      expect(store.isTerrainGrassy()).toBe(false)
     })
   })
 
@@ -373,20 +373,20 @@ describe("Field Store", () => {
     it("should change Beads Of Ruin to true when it is false", () => {
       store.toggleBeadsOfRuin()
 
-      expect(store.field().isBeadsOfRuin).toBeTrue()
+      expect(store.field().isBeadsOfRuin).toBe(true)
     })
 
     it("should change Beads Of Ruin to false when it is true", () => {
       store.toggleBeadsOfRuin()
       store.toggleBeadsOfRuin()
 
-      expect(store.field().isBeadsOfRuin).toBeFalse()
+      expect(store.field().isBeadsOfRuin).toBe(false)
     })
 
     it("should change automatic Beads Of Ruin to true when it is false", () => {
       store.toggleAutomaticBeadsOfRuin()
 
-      expect(store.field().isBeadsOfRuin).toBeTrue()
+      expect(store.field().isBeadsOfRuin).toBe(true)
     })
 
     it("should change Beads Of Ruin to false when it is true in automatic and normal value", () => {
@@ -396,26 +396,26 @@ describe("Field Store", () => {
 
       store.toggleBeadsOfRuin()
 
-      expect(store.field().isBeadsOfRuin).toBeFalse()
+      expect(store.field().isBeadsOfRuin).toBe(false)
     })
 
     it("should change Sword Of Ruin to true when it is false", () => {
       store.toggleSwordOfRuin()
 
-      expect(store.field().isSwordOfRuin).toBeTrue()
+      expect(store.field().isSwordOfRuin).toBe(true)
     })
 
     it("should change Sword Of Ruin to false when it is true", () => {
       store.toggleSwordOfRuin()
       store.toggleSwordOfRuin()
 
-      expect(store.field().isSwordOfRuin).toBeFalse()
+      expect(store.field().isSwordOfRuin).toBe(false)
     })
 
     it("should change automatic Sword Of Ruin to true when it is false", () => {
       store.toggleAutomaticSwordOfRuin()
 
-      expect(store.field().isSwordOfRuin).toBeTrue()
+      expect(store.field().isSwordOfRuin).toBe(true)
     })
 
     it("should change Sword Of Ruin to false when it is true in automatic and normal value", () => {
@@ -425,26 +425,26 @@ describe("Field Store", () => {
 
       store.toggleSwordOfRuin()
 
-      expect(store.field().isSwordOfRuin).toBeFalse()
+      expect(store.field().isSwordOfRuin).toBe(false)
     })
 
     it("should change Tablets Of Ruin to true when it is false", () => {
       store.toggleTabletsOfRuin()
 
-      expect(store.field().isTabletsOfRuin).toBeTrue()
+      expect(store.field().isTabletsOfRuin).toBe(true)
     })
 
     it("should change Tablets Of Ruin to false when it is true", () => {
       store.toggleTabletsOfRuin()
       store.toggleTabletsOfRuin()
 
-      expect(store.field().isTabletsOfRuin).toBeFalse()
+      expect(store.field().isTabletsOfRuin).toBe(false)
     })
 
     it("should change automatic Tablets Of Ruin to true when it is false", () => {
       store.toggleAutomaticTabletsOfRuin()
 
-      expect(store.field().isTabletsOfRuin).toBeTrue()
+      expect(store.field().isTabletsOfRuin).toBe(true)
     })
 
     it("should change Tablets Of Ruin to false when it is true in automatic and normal value", () => {
@@ -454,26 +454,26 @@ describe("Field Store", () => {
 
       store.toggleTabletsOfRuin()
 
-      expect(store.field().isTabletsOfRuin).toBeFalse()
+      expect(store.field().isTabletsOfRuin).toBe(false)
     })
 
     it("should change Vessel Of Ruin to true when it is false", () => {
       store.toggleVesselOfRuin()
 
-      expect(store.field().isVesselOfRuin).toBeTrue()
+      expect(store.field().isVesselOfRuin).toBe(true)
     })
 
     it("should change Vessel Of Ruin to false when it is true", () => {
       store.toggleVesselOfRuin()
       store.toggleVesselOfRuin()
 
-      expect(store.field().isVesselOfRuin).toBeFalse()
+      expect(store.field().isVesselOfRuin).toBe(false)
     })
 
     it("should change automatic Vessel Of Ruin to true when it is false", () => {
       store.toggleAutomaticVesselOfRuin()
 
-      expect(store.field().isVesselOfRuin).toBeTrue()
+      expect(store.field().isVesselOfRuin).toBe(true)
     })
 
     it("should change Vessel Of Ruin to false when it is true in automatic and normal value", () => {
@@ -483,104 +483,104 @@ describe("Field Store", () => {
 
       store.toggleVesselOfRuin()
 
-      expect(store.field().isVesselOfRuin).toBeFalse()
+      expect(store.field().isVesselOfRuin).toBe(false)
     })
 
     it("should change Magic Room to true when it is false", () => {
       store.toggleMagicRoom()
 
-      expect(store.field().isMagicRoom).toBeTrue()
+      expect(store.field().isMagicRoom).toBe(true)
     })
 
     it("should change Magic Room to false when it is true", () => {
       store.toggleMagicRoom()
       store.toggleMagicRoom()
 
-      expect(store.field().isMagicRoom).toBeFalse()
+      expect(store.field().isMagicRoom).toBe(false)
     })
 
     it("should change Wonder Room to true when it is false", () => {
       store.toggleWonderRoom()
 
-      expect(store.field().isWonderRoom).toBeTrue()
+      expect(store.field().isWonderRoom).toBe(true)
     })
 
     it("should change Wonder Room to false when it is true", () => {
       store.toggleWonderRoom()
       store.toggleWonderRoom()
 
-      expect(store.field().isWonderRoom).toBeFalse()
+      expect(store.field().isWonderRoom).toBe(false)
     })
 
     it("should change Gravity to true when it is false", () => {
       store.toggleGravity()
 
-      expect(store.field().isGravity).toBeTrue()
+      expect(store.field().isGravity).toBe(true)
     })
 
     it("should change Gravity to false when it is true", () => {
       store.toggleGravity()
       store.toggleGravity()
 
-      expect(store.field().isGravity).toBeFalse()
+      expect(store.field().isGravity).toBe(false)
     })
 
     it("should change Trick Room to true when it is false", () => {
       store.toggleTrickRoom()
 
-      expect(store.field().isTrickRoom).toBeTrue()
+      expect(store.field().isTrickRoom).toBe(true)
     })
 
     it("should change Trick Room to false when it is true", () => {
       store.toggleTrickRoom()
       store.toggleTrickRoom()
 
-      expect(store.field().isTrickRoom).toBeFalse()
+      expect(store.field().isTrickRoom).toBe(false)
     })
 
     it("should change attacker Critical Hit to true when it is false", () => {
       store.toggleAttackerCriticalHit()
 
-      expect(store.field().attackerSide.isCriticalHit).toBeTrue()
+      expect(store.field().attackerSide.isCriticalHit).toBe(true)
     })
 
     it("should change attacker Critical Hit to false when it is true", () => {
       store.toggleAttackerCriticalHit()
       store.toggleAttackerCriticalHit()
 
-      expect(store.field().attackerSide.isCriticalHit).toBeFalse()
+      expect(store.field().attackerSide.isCriticalHit).toBe(false)
     })
 
     it("should change defender Critical Hit to true when it is false", () => {
       store.toggleDefenderCriticalHit()
 
-      expect(store.field().defenderSide.isCriticalHit).toBeTrue()
+      expect(store.field().defenderSide.isCriticalHit).toBe(true)
     })
 
     it("should change defender Critical Hit to false when it is true", () => {
       store.toggleDefenderCriticalHit()
       store.toggleDefenderCriticalHit()
 
-      expect(store.field().defenderSide.isCriticalHit).toBeFalse()
+      expect(store.field().defenderSide.isCriticalHit).toBe(false)
     })
 
     it("should change Neutralizing Gas to true when it is false", () => {
       store.toggleNeutralizingGas()
 
-      expect(store.field().isNeutralizingGas).toBeTrue()
+      expect(store.field().isNeutralizingGas).toBe(true)
     })
 
     it("should change Neutralizing Gas to false when it is true", () => {
       store.toggleNeutralizingGas()
       store.toggleNeutralizingGas()
 
-      expect(store.field().isNeutralizingGas).toBeFalse()
+      expect(store.field().isNeutralizingGas).toBe(false)
     })
 
     it("should change Automatic Neutralizing Gas to true when it is false", () => {
       store.toggleAutomaticNeutralizingGas()
 
-      expect(store.field().isNeutralizingGas).toBeTrue()
+      expect(store.field().isNeutralizingGas).toBe(true)
     })
 
     it("should change Neutralizing Gas to false when it is true in automatic and normal value", () => {
@@ -590,241 +590,241 @@ describe("Field Store", () => {
 
       store.toggleNeutralizingGas()
 
-      expect(store.field().isNeutralizingGas).toBeFalse()
+      expect(store.field().isNeutralizingGas).toBe(false)
     })
 
     it("should change Unnerve to true when it is false", () => {
       store.toggleUnnerve()
 
-      expect(store.field().isUnnerve).toBeTrue()
+      expect(store.field().isUnnerve).toBe(true)
     })
 
     it("should change Unnerve to false when it is true", () => {
       store.toggleUnnerve()
       store.toggleUnnerve()
 
-      expect(store.field().isUnnerve).toBeFalse()
+      expect(store.field().isUnnerve).toBe(false)
     })
 
     it("should change Fairy Aura to true when it is false", () => {
       store.toggleFairyAura()
 
-      expect(store.field().isFairyAura).toBeTrue()
+      expect(store.field().isFairyAura).toBe(true)
     })
 
     it("should change Fairy Aura to false when it is true", () => {
       store.toggleFairyAura()
       store.toggleFairyAura()
 
-      expect(store.field().isFairyAura).toBeFalse()
+      expect(store.field().isFairyAura).toBe(false)
     })
 
     it("should change attacker Helping Hand to true when it is false", () => {
       store.toggleAttackerHelpingHand()
 
-      expect(store.field().attackerSide.isHelpingHand).toBeTrue()
+      expect(store.field().attackerSide.isHelpingHand).toBe(true)
     })
 
     it("should change attacker Helping Hand to false when it is true", () => {
       store.toggleAttackerHelpingHand()
       store.toggleAttackerHelpingHand()
 
-      expect(store.field().attackerSide.isHelpingHand).toBeFalse()
+      expect(store.field().attackerSide.isHelpingHand).toBe(false)
     })
 
     it("should change defender Helping Hand to true when it is false", () => {
       store.toggleDefenderHelpingHand()
 
-      expect(store.field().defenderSide.isHelpingHand).toBeTrue()
+      expect(store.field().defenderSide.isHelpingHand).toBe(true)
     })
 
     it("should change defender Helping Hand to false when it is true", () => {
       store.toggleDefenderHelpingHand()
       store.toggleDefenderHelpingHand()
 
-      expect(store.field().defenderSide.isHelpingHand).toBeFalse()
+      expect(store.field().defenderSide.isHelpingHand).toBe(false)
     })
 
     it("should change attacker Battery to true when it is false", () => {
       store.toggleAttackerBattery()
 
-      expect(store.field().attackerSide.isBattery).toBeTrue()
+      expect(store.field().attackerSide.isBattery).toBe(true)
     })
 
     it("should change attacker Battery to false when it is true", () => {
       store.toggleAttackerBattery()
       store.toggleAttackerBattery()
 
-      expect(store.field().attackerSide.isBattery).toBeFalse()
+      expect(store.field().attackerSide.isBattery).toBe(false)
     })
 
     it("should change defender Battery to true when it is false", () => {
       store.toggleDefenderBattery()
 
-      expect(store.field().defenderSide.isBattery).toBeTrue()
+      expect(store.field().defenderSide.isBattery).toBe(true)
     })
 
     it("should change defender Battery to false when it is true", () => {
       store.toggleDefenderBattery()
       store.toggleDefenderBattery()
 
-      expect(store.field().defenderSide.isBattery).toBeFalse()
+      expect(store.field().defenderSide.isBattery).toBe(false)
     })
 
     it("should change attacker Power Spot to true when it is false", () => {
       store.toggleAttackerPowerSpot()
 
-      expect(store.field().attackerSide.isPowerSpot).toBeTrue()
+      expect(store.field().attackerSide.isPowerSpot).toBe(true)
     })
 
     it("should change attacker Power Spot to false when it is true", () => {
       store.toggleAttackerPowerSpot()
       store.toggleAttackerPowerSpot()
 
-      expect(store.field().attackerSide.isPowerSpot).toBeFalse()
+      expect(store.field().attackerSide.isPowerSpot).toBe(false)
     })
 
     it("should change defender Power Spot to true when it is false", () => {
       store.toggleDefenderPowerSpot()
 
-      expect(store.field().defenderSide.isPowerSpot).toBeTrue()
+      expect(store.field().defenderSide.isPowerSpot).toBe(true)
     })
 
     it("should change defender Power Spot to false when it is true", () => {
       store.toggleDefenderPowerSpot()
       store.toggleDefenderPowerSpot()
 
-      expect(store.field().defenderSide.isPowerSpot).toBeFalse()
+      expect(store.field().defenderSide.isPowerSpot).toBe(false)
     })
 
     it("should change Attacker Tailwind to true when it is false", () => {
       store.toggleAttackerTailwind()
 
-      expect(store.field().attackerSide.isTailwind).toBeTrue()
+      expect(store.field().attackerSide.isTailwind).toBe(true)
     })
 
     it("should change Attacker Tailwind to false when it is true", () => {
       store.toggleAttackerTailwind()
       store.toggleAttackerTailwind()
 
-      expect(store.field().attackerSide.isTailwind).toBeFalse()
+      expect(store.field().attackerSide.isTailwind).toBe(false)
     })
 
     it("should change Defender Tailwind to true when it is false", () => {
       store.toggleDefenderTailwind()
 
-      expect(store.field().defenderSide.isTailwind).toBeTrue()
+      expect(store.field().defenderSide.isTailwind).toBe(true)
     })
 
     it("should change Defender Tailwind to false when it is true", () => {
       store.toggleDefenderTailwind()
       store.toggleDefenderTailwind()
 
-      expect(store.field().defenderSide.isTailwind).toBeFalse()
+      expect(store.field().defenderSide.isTailwind).toBe(false)
     })
 
     it("should change attacker Reflect to true when it is false", () => {
       store.toggleAttackerReflect()
 
-      expect(store.field().attackerSide.isReflect).toBeTrue()
+      expect(store.field().attackerSide.isReflect).toBe(true)
     })
 
     it("should change attacker Reflect to false when it is true", () => {
       store.toggleAttackerReflect()
       store.toggleAttackerReflect()
 
-      expect(store.field().attackerSide.isReflect).toBeFalse()
+      expect(store.field().attackerSide.isReflect).toBe(false)
     })
 
     it("should change defender Reflect to true when it is false", () => {
       store.toggleDefenderReflect()
 
-      expect(store.field().defenderSide.isReflect).toBeTrue()
+      expect(store.field().defenderSide.isReflect).toBe(true)
     })
 
     it("should change defender Reflect to false when it is true", () => {
       store.toggleDefenderReflect()
       store.toggleDefenderReflect()
 
-      expect(store.field().defenderSide.isReflect).toBeFalse()
+      expect(store.field().defenderSide.isReflect).toBe(false)
     })
 
     it("should change attacker Light Screen to true when it is false", () => {
       store.toggleAttackerLightScreen()
 
-      expect(store.field().attackerSide.isLightScreen).toBeTrue()
+      expect(store.field().attackerSide.isLightScreen).toBe(true)
     })
 
     it("should change attacker Light Screen to false when it is true", () => {
       store.toggleAttackerLightScreen()
       store.toggleAttackerLightScreen()
 
-      expect(store.field().attackerSide.isLightScreen).toBeFalse()
+      expect(store.field().attackerSide.isLightScreen).toBe(false)
     })
 
     it("should change defender Light Screen to true when it is false", () => {
       store.toggleDefenderLightScreen()
 
-      expect(store.field().defenderSide.isLightScreen).toBeTrue()
+      expect(store.field().defenderSide.isLightScreen).toBe(true)
     })
 
     it("should change defender Light Screen to false when it is true", () => {
       store.toggleDefenderLightScreen()
       store.toggleDefenderLightScreen()
 
-      expect(store.field().defenderSide.isLightScreen).toBeFalse()
+      expect(store.field().defenderSide.isLightScreen).toBe(false)
     })
 
     it("should change attacker Aurora Veil to true when it is false", () => {
       store.toggleAttackerAuroraVeil()
 
-      expect(store.field().attackerSide.isAuroraVeil).toBeTrue()
+      expect(store.field().attackerSide.isAuroraVeil).toBe(true)
     })
 
     it("should change attacker Aurora Veil to false when it is true", () => {
       store.toggleAttackerAuroraVeil()
       store.toggleAttackerAuroraVeil()
 
-      expect(store.field().attackerSide.isAuroraVeil).toBeFalse()
+      expect(store.field().attackerSide.isAuroraVeil).toBe(false)
     })
 
     it("should change defender Aurora Veil to true when it is false", () => {
       store.toggleDefenderAuroraVeil()
 
-      expect(store.field().defenderSide.isAuroraVeil).toBeTrue()
+      expect(store.field().defenderSide.isAuroraVeil).toBe(true)
     })
 
     it("should change defender Aurora Veil to false when it is true", () => {
       store.toggleDefenderAuroraVeil()
       store.toggleDefenderAuroraVeil()
 
-      expect(store.field().defenderSide.isAuroraVeil).toBeFalse()
+      expect(store.field().defenderSide.isAuroraVeil).toBe(false)
     })
 
     it("should change attacker Friend Guard to true when it is false", () => {
       store.toggleAttackerFriendGuard()
 
-      expect(store.field().attackerSide.isFriendGuard).toBeTrue()
+      expect(store.field().attackerSide.isFriendGuard).toBe(true)
     })
 
     it("should change attacker Friend Guard to false when it is true", () => {
       store.toggleAttackerFriendGuard()
       store.toggleAttackerFriendGuard()
 
-      expect(store.field().attackerSide.isFriendGuard).toBeFalse()
+      expect(store.field().attackerSide.isFriendGuard).toBe(false)
     })
 
     it("should change Defender Friend Guard to true when it is false", () => {
       store.toggleDefenderFriendGuard()
 
-      expect(store.field().defenderSide.isFriendGuard).toBeTrue()
+      expect(store.field().defenderSide.isFriendGuard).toBe(true)
     })
 
     it("should change Defender Friend Guard to false when it is true", () => {
       store.toggleDefenderFriendGuard()
       store.toggleDefenderFriendGuard()
 
-      expect(store.field().defenderSide.isFriendGuard).toBeFalse()
+      expect(store.field().defenderSide.isFriendGuard).toBe(false)
     })
 
     it("should change attacker Spikes to 0", () => {
@@ -878,53 +878,53 @@ describe("Field Store", () => {
     it("should change attacker Seeded to true when it is false", () => {
       store.toggleAttackerSeeded()
 
-      expect(store.field().attackerSide.isSeeded).toBeTrue()
+      expect(store.field().attackerSide.isSeeded).toBe(true)
     })
 
     it("should change attacker Seeded to false when it is true", () => {
       store.toggleAttackerSeeded()
       store.toggleAttackerSeeded()
 
-      expect(store.field().attackerSide.isSeeded).toBeFalse()
+      expect(store.field().attackerSide.isSeeded).toBe(false)
     })
 
     it("should change defender Seeded to true when it is false", () => {
       store.toggleDefenderSeeded()
 
-      expect(store.field().defenderSide.isSeeded).toBeTrue()
+      expect(store.field().defenderSide.isSeeded).toBe(true)
     })
 
     it("should change defender Seeded to false when it is true", () => {
       store.toggleDefenderSeeded()
       store.toggleDefenderSeeded()
 
-      expect(store.field().defenderSide.isSeeded).toBeFalse()
+      expect(store.field().defenderSide.isSeeded).toBe(false)
     })
 
     it("should change attacker Stealth Rock to true when it is false", () => {
       store.toggleAttackerStealthRock()
 
-      expect(store.field().attackerSide.isSR).toBeTrue()
+      expect(store.field().attackerSide.isSR).toBe(true)
     })
 
     it("should change attacker Stealth Rock to false when it is true", () => {
       store.toggleAttackerStealthRock()
       store.toggleAttackerStealthRock()
 
-      expect(store.field().attackerSide.isSR).toBeFalse()
+      expect(store.field().attackerSide.isSR).toBe(false)
     })
 
     it("should change defender Stealth Rock to true when it is false", () => {
       store.toggleDefenderStealthRock()
 
-      expect(store.field().defenderSide.isSR).toBeTrue()
+      expect(store.field().defenderSide.isSR).toBe(true)
     })
 
     it("should change defender Stealth Rock to false when it is true", () => {
       store.toggleDefenderStealthRock()
       store.toggleDefenderStealthRock()
 
-      expect(store.field().defenderSide.isSR).toBeFalse()
+      expect(store.field().defenderSide.isSR).toBe(false)
     })
 
     it("should clean automatic options", () => {
@@ -938,13 +938,13 @@ describe("Field Store", () => {
 
       store.cleanAutomaticOptions()
 
-      expect(store.field().weather == "Sun").toBeFalse()
-      expect(store.field().terrain == "Electric").toBeFalse()
-      expect(store.field().isBeadsOfRuin).toBeFalse()
-      expect(store.field().isSwordOfRuin).toBeFalse()
-      expect(store.field().isTabletsOfRuin).toBeFalse()
-      expect(store.field().isVesselOfRuin).toBeFalse()
-      expect(store.field().isNeutralizingGas).toBeFalse()
+      expect(store.field().weather == "Sun").toBe(false)
+      expect(store.field().terrain == "Electric").toBe(false)
+      expect(store.field().isBeadsOfRuin).toBe(false)
+      expect(store.field().isSwordOfRuin).toBe(false)
+      expect(store.field().isTabletsOfRuin).toBe(false)
+      expect(store.field().isVesselOfRuin).toBe(false)
+      expect(store.field().isNeutralizingGas).toBe(false)
     })
 
     it("should not clean automatic options with exceptions", () => {
@@ -958,13 +958,13 @@ describe("Field Store", () => {
 
       store.cleanAutomaticOptions(["automaticWeather", "automaticTerrain", "automaticBeadsOfRuinActivated", "automaticSwordOfRuinActivated", "automaticTabletsOfRuinActivated", "automaticVesselOfRuinActivated", "automaticNeutralizingGasActivated"])
 
-      expect(store.field().weather == "Sun").toBeTrue()
-      expect(store.field().terrain == "Electric").toBeTrue()
-      expect(store.field().isBeadsOfRuin).toBeTrue()
-      expect(store.field().isSwordOfRuin).toBeTrue()
-      expect(store.field().isTabletsOfRuin).toBeTrue()
-      expect(store.field().isVesselOfRuin).toBeTrue()
-      expect(store.field().isNeutralizingGas).toBeTrue()
+      expect(store.field().weather == "Sun").toBe(true)
+      expect(store.field().terrain == "Electric").toBe(true)
+      expect(store.field().isBeadsOfRuin).toBe(true)
+      expect(store.field().isSwordOfRuin).toBe(true)
+      expect(store.field().isTabletsOfRuin).toBe(true)
+      expect(store.field().isVesselOfRuin).toBe(true)
+      expect(store.field().isNeutralizingGas).toBe(true)
     })
   })
 
@@ -972,11 +972,11 @@ describe("Field Store", () => {
     beforeEach(() => {
       const store: Record<string, string | null> = {}
 
-      spyOn(localStorage, "getItem").and.callFake((key: string): string | null => {
+      vi.spyOn(localStorage, "getItem").mockImplementation((key: string): string | null => {
         return store[key] || null
       })
 
-      spyOn(localStorage, "setItem").and.callFake((key: string, value: string): void => {
+      vi.spyOn(localStorage, "setItem").mockImplementation((key: string, value: string): void => {
         store[key] = value
       })
     })
@@ -1003,8 +1003,8 @@ describe("Field Store", () => {
 
       store.updateStateLockingLocalStorage(state)
 
-      expect(store.field().isBeadsOfRuin).toBeTrue()
-      expect(store.updateLocalStorage()).toBeFalse()
+      expect(store.field().isBeadsOfRuin).toBe(true)
+      expect(store.updateLocalStorage()).toBe(false)
     })
 
     it("should update local storage when state changes", () => {
@@ -1022,7 +1022,7 @@ describe("Field Store", () => {
       TestBed.tick()
 
       const actualStorage = JSON.parse(localStorage.getItem("userData")!)
-      expect(actualStorage.sv.fields.simple.isBeadsOfRuin).toBeFalse()
+      expect(actualStorage.sv.fields.simple.isBeadsOfRuin).toBe(false)
     })
   })
 })

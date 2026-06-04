@@ -38,9 +38,9 @@ describe("Speed Calc Options Store", () => {
       expect(options.regulation).toBe("I")
       expect(options.targetName).toBe("Pikachu")
       expect(options.speedModifier).toBe(-1)
-      expect(options.speedDropActive).toBeTrue()
-      expect(options.paralyzedActive).toBeTrue()
-      expect(options.choiceScarfActive).toBeFalse()
+      expect(options.speedDropActive).toBe(true)
+      expect(options.paralyzedActive).toBe(true)
+      expect(options.choiceScarfActive).toBe(false)
     })
 
     it("should return Pokémon by Regulation", () => {
@@ -48,7 +48,7 @@ describe("Speed Calc Options Store", () => {
 
       const pokemonList = store.pokemonNamesByReg()
 
-      expect(pokemonList.includes("Kyogre")).toBeTrue()
+      expect(pokemonList.includes("Kyogre")).toBe(true)
     })
 
     it("should order Pokémon of Regulation", () => {
@@ -84,40 +84,40 @@ describe("Speed Calc Options Store", () => {
     it("should change Speed Drop Active to true when Icy Wind is enabled", () => {
       store.toggleIcyWind(true)
 
-      expect(store.speedDropActive()).toBeTrue()
+      expect(store.speedDropActive()).toBe(true)
     })
 
     it("should change Speed Drop Active to false when Icy Wind is disabled", () => {
       store.toggleIcyWind(true)
       store.toggleIcyWind(false)
 
-      expect(store.speedDropActive()).toBeFalse()
+      expect(store.speedDropActive()).toBe(false)
     })
 
     it("should change Paralyzed Active to true when Paralyze is enabled", () => {
       store.toggleParalyze(true)
 
-      expect(store.paralyzedActive()).toBeTrue()
+      expect(store.paralyzedActive()).toBe(true)
     })
 
     it("should change Paralyzed Active to false when Paralyze is disabled", () => {
       store.toggleParalyze(true)
       store.toggleParalyze(false)
 
-      expect(store.paralyzedActive()).toBeFalse()
+      expect(store.paralyzedActive()).toBe(false)
     })
 
     it("should change Choice Scarf Active to true when enabled", () => {
       store.toggleChoiceScarf(true)
 
-      expect(store.choiceScarfActive()).toBeTrue()
+      expect(store.choiceScarfActive()).toBe(true)
     })
 
     it("should change Choice Scarf Active to false when disabled", () => {
       store.toggleChoiceScarf(true)
       store.toggleChoiceScarf(false)
 
-      expect(store.choiceScarfActive()).toBeFalse()
+      expect(store.choiceScarfActive()).toBe(false)
     })
 
     it("should update Speed Modifier when it is changed", () => {

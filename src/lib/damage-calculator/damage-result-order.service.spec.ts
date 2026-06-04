@@ -6,16 +6,17 @@ import { DamageResult } from "@lib/damage-calculator/damage-result"
 import { DamageResultOrderService } from "@lib/damage-calculator/damage-result-order.service"
 import { Pokemon } from "@lib/model/pokemon"
 import { Target } from "@lib/model/target"
+import { MockOf } from "@lib/test-utils"
 
 describe("DamageResultOrderService", () => {
   let service: DamageResultOrderService
 
-  let storeSpy: any
-  let menuStoreSpy: any
+  let storeSpy: MockOf<CalculatorStore>
+  let menuStoreSpy: MockOf<MenuStore>
 
   beforeEach(() => {
-    storeSpy = jasmine.createSpyObj("CalculatorStore", ["targets"])
-    menuStoreSpy = jasmine.createSpyObj("MenuStore", ["oneVsManyActivated", "manyVsOneActivated"])
+    storeSpy = { targets: vi.fn() } as unknown as MockOf<CalculatorStore>
+    menuStoreSpy = { oneVsManyActivated: vi.fn(), manyVsOneActivated: vi.fn() } as unknown as MockOf<MenuStore>
 
     TestBed.configureTestingModule({
       providers: [DamageResultOrderService, { provide: CalculatorStore, useValue: storeSpy }, { provide: MenuStore, useValue: menuStoreSpy }, provideZonelessChangeDetection()]
@@ -30,8 +31,8 @@ describe("DamageResultOrderService", () => {
       const target2 = new Target(new Pokemon("Iron Bundle"))
       const target3 = new Target(new Pokemon("Roaring Moon"))
 
-      menuStoreSpy.oneVsManyActivated.and.returnValue(true)
-      storeSpy.targets.and.returnValue([target1, target2, target3])
+      menuStoreSpy.oneVsManyActivated.mockReturnValue(true)
+      storeSpy.targets.mockReturnValue([target1, target2, target3])
 
       const damageResult1 = damageResult(attacker, target1.pokemon, 50)
       const damageResult2 = damageResult(attacker, target2.pokemon, 20)
@@ -56,8 +57,8 @@ describe("DamageResultOrderService", () => {
       const target2 = new Target(new Pokemon("Iron Bundle"))
       const target3 = new Target(new Pokemon("Roaring Moon"))
 
-      menuStoreSpy.oneVsManyActivated.and.returnValue(true)
-      storeSpy.targets.and.returnValue([target1, target2, target3])
+      menuStoreSpy.oneVsManyActivated.mockReturnValue(true)
+      storeSpy.targets.mockReturnValue([target1, target2, target3])
 
       const damageResult1 = damageResult(attacker, target1.pokemon, 50)
       const damageResult2 = damageResult(attacker, target2.pokemon, 20)
@@ -79,8 +80,8 @@ describe("DamageResultOrderService", () => {
       const target2 = new Target(new Pokemon("Togepi"))
       const target3 = new Target(new Pokemon("Roaring Moon"))
 
-      menuStoreSpy.oneVsManyActivated.and.returnValue(true)
-      storeSpy.targets.and.returnValue([target1, target2, target3])
+      menuStoreSpy.oneVsManyActivated.mockReturnValue(true)
+      storeSpy.targets.mockReturnValue([target1, target2, target3])
 
       const damageResult1 = damageResult(attacker, target1.pokemon, 20)
       const damageResult2 = damageResult(attacker, target2.pokemon, 50)
@@ -102,9 +103,9 @@ describe("DamageResultOrderService", () => {
       const target2 = new Target(new Pokemon("Iron Bundle"))
       const target3 = new Target(new Pokemon("Roaring Moon"))
 
-      menuStoreSpy.oneVsManyActivated.and.returnValue(false)
-      menuStoreSpy.manyVsOneActivated.and.returnValue(true)
-      storeSpy.targets.and.returnValue([target1, target2, target3])
+      menuStoreSpy.oneVsManyActivated.mockReturnValue(false)
+      menuStoreSpy.manyVsOneActivated.mockReturnValue(true)
+      storeSpy.targets.mockReturnValue([target1, target2, target3])
 
       const damageResult1 = damageResult(target1.pokemon, attacker, 50)
       const damageResult2 = damageResult(target2.pokemon, attacker, 20)
@@ -126,9 +127,9 @@ describe("DamageResultOrderService", () => {
       const target2 = new Target(new Pokemon("Togepi"))
       const target3 = new Target(new Pokemon("Roaring Moon"))
 
-      menuStoreSpy.oneVsManyActivated.and.returnValue(false)
-      menuStoreSpy.manyVsOneActivated.and.returnValue(true)
-      storeSpy.targets.and.returnValue([target1, target2, target3])
+      menuStoreSpy.oneVsManyActivated.mockReturnValue(false)
+      menuStoreSpy.manyVsOneActivated.mockReturnValue(true)
+      storeSpy.targets.mockReturnValue([target1, target2, target3])
 
       const damageResult1 = damageResult(target1.pokemon, attacker, 20)
       const damageResult2 = damageResult(target2.pokemon, attacker, 50)
@@ -153,8 +154,8 @@ describe("DamageResultOrderService", () => {
       const target3 = new Target(new Pokemon("Roaring Moon", { teraTypeActive: false }))
       const target3WithTera = new Target(new Pokemon("Roaring Moon", { teraTypeActive: true }))
 
-      menuStoreSpy.oneVsManyActivated.and.returnValue(true)
-      storeSpy.targets.and.returnValues([target1, target2, target3], [target1, target2, target3], [target1, target2, target3WithTera], [target1, target2, target3WithTera])
+      menuStoreSpy.oneVsManyActivated.mockReturnValue(true)
+      storeSpy.targets.mockReturnValueOnce([target1, target2, target3]).mockReturnValueOnce([target1, target2, target3]).mockReturnValueOnce([target1, target2, target3WithTera]).mockReturnValueOnce([target1, target2, target3WithTera])
 
       const damageResult1 = damageResult(attacker, target1.pokemon, 50)
       const damageResult2 = damageResult(attacker, target2.pokemon, 20)
@@ -177,15 +178,14 @@ describe("DamageResultOrderService", () => {
       const target3 = new Target(new Pokemon("Dondozo", { commanderActive: false }))
       const target3WithCommander = new Target(new Pokemon("Dondozo", { commanderActive: true }))
 
-      menuStoreSpy.oneVsManyActivated.and.returnValue(true)
-      storeSpy.targets.and.returnValues(
-        [target1, target2, target3],
-        [target1, target2, target3],
-        [target1, target2, target3],
-        [target1, target2, target3WithCommander],
-        [target1, target2, target3WithCommander],
-        [target1, target2, target3WithCommander]
-      )
+      menuStoreSpy.oneVsManyActivated.mockReturnValue(true)
+      storeSpy.targets
+        .mockReturnValueOnce([target1, target2, target3])
+        .mockReturnValueOnce([target1, target2, target3])
+        .mockReturnValueOnce([target1, target2, target3])
+        .mockReturnValueOnce([target1, target2, target3WithCommander])
+        .mockReturnValueOnce([target1, target2, target3WithCommander])
+        .mockReturnValueOnce([target1, target2, target3WithCommander])
 
       const damageResult1 = damageResult(attacker, target1.pokemon, 50)
       const damageResult2 = damageResult(attacker, target2.pokemon, 20)

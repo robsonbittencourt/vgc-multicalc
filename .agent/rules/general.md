@@ -13,6 +13,10 @@ trigger: always_on
 - **NEVER run git commands**: Do not run `git add`, `git commit`, `git push`, or any other git command.
 - **NEVER modify git state**: The user handles all version control. Do not attempt to manage the repository state.
 
+## Dependencies
+
+- **Always use exact versions** in `package.json`: never use `^` or `~` prefixes. Pin to the exact version currently installed (check `package-lock.json` for the resolved version).
+
 ## Agent Behavior
 
 - **Do NOT over-deliver**: Only implement what was explicitly requested by the user. If a helper method is requested, do not create new test cases or features unless specifically asked. Focus on the core request to avoid unnecessary changes and potential side effects.
@@ -27,7 +31,7 @@ This is an Angular 20.3.12 application for Pokémon VGC (Video Game Championship
 - **State Management**: NgRx Signal Store (@ngrx/signals)
 - **Reactivity**: Angular Signals (zoneless application)
 - **UI Framework**: Angular Material
-- **Testing**: Cypress (E2E), Jasmine/Karma (Unit)
+- **Testing**: Cypress (E2E), Vitest (Unit)
 - **TypeScript**: 5.9.3 with strict mode enabled
 
 ## Project Structure
@@ -199,7 +203,7 @@ Each component should have:
 
 ### Unit Tests
 
-- Use Jasmine for unit tests
+- Use Vitest for unit tests
 - Test files: `*.spec.ts`
 - Location: Co-located with source files
 - Always use the Given/When/Then format. Without comments, just a space between the blocks.

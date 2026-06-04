@@ -31,7 +31,7 @@ trigger: always_on
   - Variable renaming (without logic change)
 - Tests are critical to validate behavior is preserved when logic changes
 - Available test commands:
-  - `npm run test` - Unit tests (Jasmine/Karma) with coverage, no watch
+  - `npm run test` - Unit tests (Vitest) with coverage, no watch
   - `npm run test-watch` - Unit tests in watch mode
 - Do NOT skip tests when making logic changes - they catch regressions
 - **NEVER run Cypress tests (`npm run e2e-test` or `npx cypress run`)**. The user handles all E2E testing locally. You must only run unit tests.

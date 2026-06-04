@@ -8,18 +8,19 @@ import { DamageResultOrderService } from "@lib/damage-calculator/damage-result-o
 import { Field } from "@lib/model/field"
 import { Pokemon } from "@lib/model/pokemon"
 import { Target } from "@lib/model/target"
+import { MockOf, withArgs } from "@lib/test-utils"
 
 describe("DamageMultiCalcService", () => {
   let service: DamageMultiCalcService
 
-  let menuStoreSpy: any
-  let damageCalculatorSpy: jasmine.SpyObj<DamageCalculatorService>
-  let damageOrderSpy: jasmine.SpyObj<DamageResultOrderService>
+  let menuStoreSpy: MockOf<MenuStore>
+  let damageCalculatorSpy: MockOf<DamageCalculatorService>
+  let damageOrderSpy: MockOf<DamageResultOrderService>
 
   beforeEach(() => {
-    menuStoreSpy = jasmine.createSpyObj("MenuStore", ["oneVsManyActivated"])
-    damageCalculatorSpy = jasmine.createSpyObj("DamageCalculatorService", ["calcDamage", "calcDamageForTwoAttackers", "calcDamageAllAttacks"])
-    damageOrderSpy = jasmine.createSpyObj("DamageResultOrderService", ["order"])
+    menuStoreSpy = { oneVsManyActivated: vi.fn() } as unknown as MockOf<MenuStore>
+    damageCalculatorSpy = { calcDamage: vi.fn(), calcDamageForTwoAttackers: vi.fn(), calcDamageAllAttacks: vi.fn() } as unknown as MockOf<DamageCalculatorService>
+    damageOrderSpy = { order: vi.fn() } as unknown as MockOf<DamageResultOrderService>
 
     TestBed.configureTestingModule({
       providers: [
@@ -36,7 +37,7 @@ describe("DamageMultiCalcService", () => {
 
   describe("one vs many", () => {
     it("should calculate damage for one vs many with one attacker", () => {
-      menuStoreSpy.oneVsManyActivated.and.returnValue(true)
+      menuStoreSpy.oneVsManyActivated.mockReturnValue(true)
 
       const field = new Field()
       const attacker = new Pokemon("Raging Bolt")
@@ -50,11 +51,11 @@ describe("DamageMultiCalcService", () => {
       const damageResult2 = damageResult(attacker, target2.pokemon)
       const damageResult3 = damageResult(attacker, target3.pokemon)
 
-      damageCalculatorSpy.calcDamage.withArgs(attacker, target1.pokemon, field, true).and.returnValue(damageResult1)
-      damageCalculatorSpy.calcDamage.withArgs(attacker, target2.pokemon, field, true).and.returnValue(damageResult2)
-      damageCalculatorSpy.calcDamage.withArgs(attacker, target3.pokemon, field, true).and.returnValue(damageResult3)
+      withArgs(damageCalculatorSpy.calcDamage).calledWith(attacker, target1.pokemon, field, true).returns(damageResult1)
+      withArgs(damageCalculatorSpy.calcDamage).calledWith(attacker, target2.pokemon, field, true).returns(damageResult2)
+      withArgs(damageCalculatorSpy.calcDamage).calledWith(attacker, target3.pokemon, field, true).returns(damageResult3)
 
-      damageOrderSpy.order.and.callFake(results => results)
+      damageOrderSpy.order.mockImplementation(results => results)
 
       const result = service.calculateDamageForAll(attacker, targets, new Field(), true)
 
@@ -65,7 +66,7 @@ describe("DamageMultiCalcService", () => {
     })
 
     it("should calculate damage for one vs many with two attackers", () => {
-      menuStoreSpy.oneVsManyActivated.and.returnValue(true)
+      menuStoreSpy.oneVsManyActivated.mockReturnValue(true)
 
       const field = new Field()
       const attacker = new Pokemon("Raging Bolt")
@@ -78,10 +79,10 @@ describe("DamageMultiCalcService", () => {
       const damageResult1 = damageResult(attacker, target1.pokemon)
       const damageResult2 = damageResult(attacker, target2.pokemon)
 
-      damageCalculatorSpy.calcDamageForTwoAttackers.withArgs(attacker, secondAttacker, target1.pokemon, field, true).and.returnValue(damageResult1)
-      damageCalculatorSpy.calcDamageForTwoAttackers.withArgs(attacker, secondAttacker, target2.pokemon, field, true).and.returnValue(damageResult2)
+      withArgs(damageCalculatorSpy.calcDamageForTwoAttackers).calledWith(attacker, secondAttacker, target1.pokemon, field, true).returns(damageResult1)
+      withArgs(damageCalculatorSpy.calcDamageForTwoAttackers).calledWith(attacker, secondAttacker, target2.pokemon, field, true).returns(damageResult2)
 
-      damageOrderSpy.order.and.callFake(results => results)
+      damageOrderSpy.order.mockImplementation(results => results)
 
       const result = service.calculateDamageForAll(attacker, targets, new Field(), true, secondAttacker)
 
@@ -93,7 +94,7 @@ describe("DamageMultiCalcService", () => {
 
   describe("many vs one", () => {
     it("should calculate damage for many vs one with one attacker", () => {
-      menuStoreSpy.oneVsManyActivated.and.returnValue(false)
+      menuStoreSpy.oneVsManyActivated.mockReturnValue(false)
 
       const field = new Field()
       const teamMember = new Pokemon("Raging Bolt")
@@ -107,11 +108,11 @@ describe("DamageMultiCalcService", () => {
       const damageResult2 = damageResult(target2.pokemon, teamMember)
       const damageResult3 = damageResult(target3.pokemon, teamMember)
 
-      damageCalculatorSpy.calcDamage.withArgs(target1.pokemon, teamMember, field, true).and.returnValue(damageResult1)
-      damageCalculatorSpy.calcDamage.withArgs(target2.pokemon, teamMember, field, true).and.returnValue(damageResult2)
-      damageCalculatorSpy.calcDamage.withArgs(target3.pokemon, teamMember, field, true).and.returnValue(damageResult3)
+      withArgs(damageCalculatorSpy.calcDamage).calledWith(target1.pokemon, teamMember, field, true).returns(damageResult1)
+      withArgs(damageCalculatorSpy.calcDamage).calledWith(target2.pokemon, teamMember, field, true).returns(damageResult2)
+      withArgs(damageCalculatorSpy.calcDamage).calledWith(target3.pokemon, teamMember, field, true).returns(damageResult3)
 
-      damageOrderSpy.order.and.callFake(results => results)
+      damageOrderSpy.order.mockImplementation(results => results)
 
       const result = service.calculateDamageForAll(teamMember, targets, new Field(), true)
 
@@ -122,7 +123,7 @@ describe("DamageMultiCalcService", () => {
     })
 
     it("should calculate damage for many vs one with two attackers", () => {
-      menuStoreSpy.oneVsManyActivated.and.returnValue(false)
+      menuStoreSpy.oneVsManyActivated.mockReturnValue(false)
 
       const field = new Field()
       const teamMember = new Pokemon("Raging Bolt")
@@ -134,10 +135,10 @@ describe("DamageMultiCalcService", () => {
       const damageResult1 = damageResult(target1.pokemon, teamMember, target1.secondPokemon)
       const damageResult2 = damageResult(target2.pokemon, teamMember)
 
-      damageCalculatorSpy.calcDamageForTwoAttackers.withArgs(target1.pokemon, target1.secondPokemon!, teamMember, field, true).and.returnValue(damageResult1)
-      damageCalculatorSpy.calcDamage.withArgs(target2.pokemon, teamMember, field, true).and.returnValue(damageResult2)
+      withArgs(damageCalculatorSpy.calcDamageForTwoAttackers).calledWith(target1.pokemon, target1.secondPokemon!, teamMember, field, true).returns(damageResult1)
+      withArgs(damageCalculatorSpy.calcDamage).calledWith(target2.pokemon, teamMember, field, true).returns(damageResult2)
 
-      damageOrderSpy.order.and.callFake(results => results)
+      damageOrderSpy.order.mockImplementation(results => results)
 
       const result = service.calculateDamageForAll(teamMember, targets, new Field(), true)
 
@@ -147,7 +148,7 @@ describe("DamageMultiCalcService", () => {
     })
 
     it("should calculate damage without order the results", () => {
-      menuStoreSpy.oneVsManyActivated.and.returnValue(false)
+      menuStoreSpy.oneVsManyActivated.mockReturnValue(false)
 
       const field = new Field()
       const teamMember = new Pokemon("Raging Bolt")
@@ -161,9 +162,9 @@ describe("DamageMultiCalcService", () => {
       const damageResult2 = damageResult(target2.pokemon, teamMember)
       const damageResult3 = damageResult(target3.pokemon, teamMember)
 
-      damageCalculatorSpy.calcDamage.withArgs(target1.pokemon, teamMember, field, true).and.returnValue(damageResult1)
-      damageCalculatorSpy.calcDamage.withArgs(target2.pokemon, teamMember, field, true).and.returnValue(damageResult2)
-      damageCalculatorSpy.calcDamage.withArgs(target3.pokemon, teamMember, field, true).and.returnValue(damageResult3)
+      withArgs(damageCalculatorSpy.calcDamage).calledWith(target1.pokemon, teamMember, field, true).returns(damageResult1)
+      withArgs(damageCalculatorSpy.calcDamage).calledWith(target2.pokemon, teamMember, field, true).returns(damageResult2)
+      withArgs(damageCalculatorSpy.calcDamage).calledWith(target3.pokemon, teamMember, field, true).returns(damageResult3)
 
       service.calculateDamageForAll(teamMember, targets, new Field(), false)
 

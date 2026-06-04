@@ -185,7 +185,7 @@ describe("SpeedCalculatorService", () => {
       const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide, options)
 
       inRange.forEach(r => {
-        expect(r.description.includes("Base")).toBeTrue()
+        expect(r.description.includes("Base")).toBe(true)
       })
     })
   })
@@ -365,7 +365,7 @@ describe("SpeedCalculatorService", () => {
       const speedDefinition = service.minSpeed(pokemon, field)
 
       expect(speedDefinition.pokemonName).toEqual("Flutter Mane")
-      expect(speedDefinition.description.includes(MIN)).toBeTrue()
+      expect(speedDefinition.description.includes(MIN)).toBe(true)
     })
 
     it("should return min speed of Raging Bolt", () => {
@@ -440,7 +440,7 @@ describe("SpeedCalculatorService", () => {
       const speedDefinition = service.maxSpeed(pokemon, field)
 
       expect(speedDefinition.pokemonName).toEqual("Flutter Mane")
-      expect(speedDefinition.description.includes(MAX)).toBeTrue()
+      expect(speedDefinition.description.includes(MAX)).toBe(true)
     })
 
     it("should return max speed of Raging Bolt", () => {
@@ -564,7 +564,7 @@ describe("SpeedCalculatorService", () => {
 
       expect(speedDefinition[0].pokemonName).toEqual("Flutter Mane")
       expect(speedDefinition[0].value).toEqual(204)
-      expect(speedDefinition[0].description).toMatch(/\d{1,3}% Usage/)
+      expect(speedDefinition[0].description.some((d: string) => /\d{1,3}% Usage/.test(d))).toBe(true)
     })
 
     it("should return meta speed description and Pokémon name from Regulation I", () => {
@@ -576,7 +576,7 @@ describe("SpeedCalculatorService", () => {
 
       expect(speedDefinition[0].pokemonName).toEqual("Koraidon")
       expect(speedDefinition[0].value).toEqual(187)
-      expect(speedDefinition[0].description).toMatch(/\d{1,3}% Usage/)
+      expect(speedDefinition[0].description.some((d: string) => /\d{1,3}% Usage/.test(d))).toBe(true)
     })
   })
 })

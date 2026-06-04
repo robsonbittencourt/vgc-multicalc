@@ -5,6 +5,7 @@ import { DamageCalculatorService } from "@lib/damage-calculator/damage-calculato
 import { CalculatorStore } from "@data/store/calculator-store"
 import { Field } from "@lib/model/field"
 import { Pokemon } from "@lib/model/pokemon"
+import { MockOf } from "@lib/test-utils"
 import { SurvivalChecker } from "./survival-checker"
 import { SolutionCombiner } from "./solution-combiner"
 
@@ -12,7 +13,7 @@ describe("SolutionCombiner", () => {
   let service: SolutionCombiner
 
   beforeEach(() => {
-    const adjusterSpy = jasmine.createSpyObj<CalcAdjuster>("Adjuster", ["adjust"])
+    const adjusterSpy: MockOf<CalcAdjuster> = { adjust: vi.fn() } as unknown as MockOf<CalcAdjuster>
 
     TestBed.configureTestingModule({
       providers: [

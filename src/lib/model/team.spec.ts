@@ -23,7 +23,7 @@ describe("Team", () => {
 
     const result = team.isFull()
 
-    expect(result).toBeTrue()
+    expect(result).toBe(true)
   })
 
   it("should return that Team is not full when has less than six Team Members", () => {
@@ -37,7 +37,7 @@ describe("Team", () => {
 
     const result = team.isFull()
 
-    expect(result).toBeFalse()
+    expect(result).toBe(false)
   })
 
   it("should return true when Team has a default Pokémon", () => {
@@ -45,7 +45,7 @@ describe("Team", () => {
 
     const result = team.hasDefaultPokemon()
 
-    expect(result).toBeTrue()
+    expect(result).toBe(true)
   })
 
   it("should return false when Team has a default Pokémon", () => {
@@ -53,7 +53,7 @@ describe("Team", () => {
 
     const result = team.hasDefaultPokemon()
 
-    expect(result).toBeFalse()
+    expect(result).toBe(false)
   })
 
   it("should return true when Team has only a default Pokémon", () => {
@@ -61,7 +61,7 @@ describe("Team", () => {
 
     const result = team.onlyHasDefaultPokemon()
 
-    expect(result).toBeTrue()
+    expect(result).toBe(true)
   })
 
   it("should return false when Team has another Pokémon beside the default one", () => {
@@ -69,7 +69,7 @@ describe("Team", () => {
 
     const result = team.onlyHasDefaultPokemon()
 
-    expect(result).toBeFalse()
+    expect(result).toBe(false)
   })
 
   it("should return active team member index", () => {

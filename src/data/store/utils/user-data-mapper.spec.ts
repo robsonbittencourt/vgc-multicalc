@@ -145,12 +145,12 @@ describe("User Data Mapper", () => {
 
       const result = buildUserData(teamPokemonOne, teamPokemonOne, teamPokemonOne, teams, targets, "I", "high", "medium", "low", "high")
 
-      expect(result.teams[0].active).toBeTrue()
+      expect(result.teams[0].active).toBe(true)
       expect(result.teams[0].name).toBe("Team 1")
       expect(result.teams[0].teamMembers[0].pokemon.name).toBe("Pikachu")
       expect(result.teams[0].teamMembers[1].pokemon.name).toBe("Bulbasaur")
 
-      expect(result.teams[1].active).toBeFalse()
+      expect(result.teams[1].active).toBe(false)
       expect(result.teams[1].name).toBe("Team 2")
       expect(result.teams[1].teamMembers[0].pokemon.name).toBe("Bulbasaur")
       expect(result.teams[1].teamMembers[1].pokemon.name).toBe("Pikachu")
@@ -372,14 +372,14 @@ describe("User Data Mapper", () => {
 
       const result = buildState(userData) as CalculatorState
 
-      expect(result.teamsState[0].active).toBeTrue()
+      expect(result.teamsState[0].active).toBe(true)
       expect(result.teamsState[0].name).toBe("Team 1")
-      expect(result.teamsState[0].teamMembers[0].active).toBeTrue()
+      expect(result.teamsState[0].teamMembers[0].active).toBe(true)
       expect(result.teamsState[0].teamMembers[0].pokemon.name).toBe("Bulbasaur")
 
-      expect(result.teamsState[1].active).toBeFalse()
+      expect(result.teamsState[1].active).toBe(false)
       expect(result.teamsState[1].name).toBe("Team 2")
-      expect(result.teamsState[1].teamMembers[0].active).toBeTrue()
+      expect(result.teamsState[1].teamMembers[0].active).toBe(true)
       expect(result.teamsState[1].teamMembers[0].pokemon.name).toBe("Charmander")
     })
 
@@ -400,7 +400,7 @@ describe("User Data Mapper", () => {
       const result = buildState(userData) as CalculatorState
 
       expect(result.teamsState[0].teamMembers.length).toBe(1)
-      expect(result.teamsState[0].teamMembers[0].active).toBeTrue()
+      expect(result.teamsState[0].teamMembers[0].active).toBe(true)
       expect(result.teamsState[0].teamMembers[0].pokemon.ability).toBe("Hustle")
     })
 

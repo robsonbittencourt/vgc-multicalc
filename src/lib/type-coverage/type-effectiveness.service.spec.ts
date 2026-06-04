@@ -63,23 +63,23 @@ describe("TypeEffectivenessService", () => {
   })
 
   it("should identify weaknesses correctly", () => {
-    expect(service.isWeakness(2)).toBeTrue()
-    expect(service.isWeakness(4)).toBeTrue()
-    expect(service.isWeakness(1)).toBeFalse()
-    expect(service.isWeakness(0.5)).toBeFalse()
+    expect(service.isWeakness(2)).toBe(true)
+    expect(service.isWeakness(4)).toBe(true)
+    expect(service.isWeakness(1)).toBe(false)
+    expect(service.isWeakness(0.5)).toBe(false)
   })
 
   it("should identify resistances correctly", () => {
-    expect(service.isResistance(0.25)).toBeTrue()
-    expect(service.isResistance(0.5)).toBeTrue()
-    expect(service.isResistance(1)).toBeFalse()
-    expect(service.isResistance(2)).toBeFalse()
+    expect(service.isResistance(0.25)).toBe(true)
+    expect(service.isResistance(0.5)).toBe(true)
+    expect(service.isResistance(1)).toBe(false)
+    expect(service.isResistance(2)).toBe(false)
   })
 
   it("should identify immunities correctly", () => {
-    expect(service.isImmune(0)).toBeTrue()
-    expect(service.isImmune(1)).toBeFalse()
-    expect(service.isImmune(2)).toBeFalse()
+    expect(service.isImmune(0)).toBe(true)
+    expect(service.isImmune(1)).toBe(false)
+    expect(service.isImmune(2)).toBe(false)
   })
 
   it("should return 2x effectiveness for Water against Fire", () => {

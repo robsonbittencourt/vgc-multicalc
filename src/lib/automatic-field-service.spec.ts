@@ -8,26 +8,26 @@ import { Pokemon } from "./model/pokemon"
 class MockFieldStore {
   state: Partial<FieldState> = {}
 
-  cleanAutomaticOptions = jasmine.createSpy("cleanAutomaticOptions")
-  neutralizingGasActivated = jasmine.createSpy("neutralizingGasActivated").and.returnValue(false)
+  cleanAutomaticOptions = vi.fn()
+  neutralizingGasActivated = vi.fn().mockReturnValue(false)
 
-  toggleAutomaticSunWeather = jasmine.createSpy("toggleAutomaticSunWeather")
-  toggleAutomaticRainWeather = jasmine.createSpy("toggleAutomaticRainWeather")
-  toggleAutomaticSnowWeather = jasmine.createSpy("toggleAutomaticSnowWeather")
-  toggleAutomaticSandWeather = jasmine.createSpy("toggleAutomaticSandWeather")
+  toggleAutomaticSunWeather = vi.fn()
+  toggleAutomaticRainWeather = vi.fn()
+  toggleAutomaticSnowWeather = vi.fn()
+  toggleAutomaticSandWeather = vi.fn()
 
-  toggleAutomaticElectricTerrain = jasmine.createSpy("toggleAutomaticElectricTerrain")
-  toggleAutomaticGrassyTerrain = jasmine.createSpy("toggleAutomaticGrassyTerrain")
-  toggleAutomaticPsychicTerrain = jasmine.createSpy("toggleAutomaticPsychicTerrain")
-  toggleAutomaticMistyTerrain = jasmine.createSpy("toggleAutomaticMistyTerrain")
+  toggleAutomaticElectricTerrain = vi.fn()
+  toggleAutomaticGrassyTerrain = vi.fn()
+  toggleAutomaticPsychicTerrain = vi.fn()
+  toggleAutomaticMistyTerrain = vi.fn()
 
-  toggleAutomaticBeadsOfRuin = jasmine.createSpy("toggleAutomaticBeadsOfRuin")
-  toggleAutomaticSwordOfRuin = jasmine.createSpy("toggleAutomaticSwordOfRuin")
-  toggleAutomaticTabletsOfRuin = jasmine.createSpy("toggleAutomaticTabletsOfRuin")
-  toggleAutomaticVesselOfRuin = jasmine.createSpy("toggleAutomaticVesselOfRuin")
+  toggleAutomaticBeadsOfRuin = vi.fn()
+  toggleAutomaticSwordOfRuin = vi.fn()
+  toggleAutomaticTabletsOfRuin = vi.fn()
+  toggleAutomaticVesselOfRuin = vi.fn()
 
-  toggleAutomaticNeutralizingGas = jasmine.createSpy("toggleAutomaticNeutralizingGas")
-  toggleAutomaticFairyAura = jasmine.createSpy("toggleAutomaticFairyAura")
+  toggleAutomaticNeutralizingGas = vi.fn()
+  toggleAutomaticFairyAura = vi.fn()
 }
 
 describe("AutomaticFieldService", () => {
@@ -187,7 +187,7 @@ describe("AutomaticFieldService", () => {
   })
 
   it("should not activate ability if Neutralizing Gas is active", () => {
-    store.neutralizingGasActivated.and.returnValue(true)
+    store.neutralizingGasActivated.mockReturnValue(true)
 
     const pokemon = new Pokemon("Torkoal", { ability: new Ability("Drought") })
 
@@ -198,7 +198,7 @@ describe("AutomaticFieldService", () => {
   })
 
   it("should execute first Pokemon ability and skip second if second is affected by Neutralizing Gas", () => {
-    store.neutralizingGasActivated.and.returnValue(true)
+    store.neutralizingGasActivated.mockReturnValue(true)
 
     const firstPokemon = new Pokemon("Torkoal", { item: "Ability Shield", ability: new Ability("Drought") })
     const secondPokemon = new Pokemon("Pincurchin", { ability: new Ability("Electric Surge") })
@@ -219,7 +219,7 @@ describe("AutomaticFieldService", () => {
     expect(store.cleanAutomaticOptions).toHaveBeenCalledWith(["automaticNeutralizingGasActivated"])
     expect(store.toggleAutomaticNeutralizingGas).toHaveBeenCalled()
 
-    store.neutralizingGasActivated.and.returnValue(false)
+    store.neutralizingGasActivated.mockReturnValue(false)
 
     service.checkAutomaticField(droughtPokemon)
 

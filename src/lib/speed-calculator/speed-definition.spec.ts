@@ -9,7 +9,7 @@ describe("SpeedDefinition", () => {
 
     const isEqual = definitionOne.equals(definitionTwo)
 
-    expect(isEqual).toBeTrue()
+    expect(isEqual).toBe(true)
   })
 
   it("should return false when Pokémon is not the same", () => {
@@ -18,7 +18,7 @@ describe("SpeedDefinition", () => {
 
     const isEqual = definitionOne.equals(definitionTwo)
 
-    expect(isEqual).toBeFalse()
+    expect(isEqual).toBe(false)
   })
 
   it("should return false when speed is not the same", () => {
@@ -27,7 +27,7 @@ describe("SpeedDefinition", () => {
 
     const isEqual = definitionOne.equals(definitionTwo)
 
-    expect(isEqual).toBeFalse()
+    expect(isEqual).toBe(false)
   })
 
   it("should return false when description is not the same", () => {
@@ -36,7 +36,7 @@ describe("SpeedDefinition", () => {
 
     const isEqual = definitionOne.equals(definitionTwo)
 
-    expect(isEqual).toBeFalse()
+    expect(isEqual).toBe(false)
   })
 
   it("should return false when description does not have the same size", () => {
@@ -45,6 +45,6 @@ describe("SpeedDefinition", () => {
 
     const isEqual = definitionOne.equals(definitionTwo)
 
-    expect(isEqual).toBeFalse()
+    expect(isEqual).toBe(false)
   })
 })

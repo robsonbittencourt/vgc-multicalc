@@ -37,8 +37,6 @@ describe("initialFieldState", () => {
   })
 
   it("returns defaultFieldState when localStorage is empty", () => {
-    spyOn(localStorage, "getItem").and.callFake(() => null)
-
     const result = initialFieldState("simple")
 
     expect(result).toEqual(mockDefault)
@@ -55,7 +53,7 @@ describe("initialFieldState", () => {
         }
       }
     }
-    spyOn(localStorage, "getItem").and.callFake(() => JSON.stringify(stored))
+    localStorage.setItem("userData", JSON.stringify(stored))
 
     const result = initialFieldState("simple")
 
@@ -74,7 +72,7 @@ describe("initialFieldState", () => {
         }
       }
     }
-    spyOn(localStorage, "getItem").and.callFake(() => JSON.stringify(stored))
+    localStorage.setItem("userData", JSON.stringify(stored))
 
     const result = initialFieldState("simple")
 
@@ -85,7 +83,7 @@ describe("initialFieldState", () => {
   it("migrates old field data to 'simple' context if new structure is missing", () => {
     const oldField = { weather: "Sun" as Weather }
     const stored = { champions: { field: oldField } }
-    spyOn(localStorage, "getItem").and.callFake(() => JSON.stringify(stored))
+    localStorage.setItem("userData", JSON.stringify(stored))
 
     const result = initialFieldState("simple")
     expect(result.weather).toBe("Sun")
@@ -94,7 +92,7 @@ describe("initialFieldState", () => {
   it("does not migrate old field data for non-simple context", () => {
     const oldField = { weather: "Sun" as Weather }
     const stored = { champions: { field: oldField } }
-    spyOn(localStorage, "getItem").and.callFake(() => JSON.stringify(stored))
+    localStorage.setItem("userData", JSON.stringify(stored))
 
     const result = initialFieldState("multi")
     expect(result.weather).toBeNull()
@@ -108,7 +106,7 @@ describe("initialFieldState", () => {
         }
       }
     }
-    spyOn(localStorage, "getItem").and.callFake(() => JSON.stringify(stored))
+    localStorage.setItem("userData", JSON.stringify(stored))
 
     const result = initialFieldState("multi")
     expect(result.weather).toBe("Rain")

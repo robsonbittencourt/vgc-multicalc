@@ -5,7 +5,7 @@ import { Koffing } from "koffing"
 
 describe("PokePasteParserService", () => {
   let service: PokePasteParserService
-  let koffingParseSpy: jasmine.Spy
+  let koffingParseSpy: ReturnType<typeof vi.spyOn>
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -13,7 +13,7 @@ describe("PokePasteParserService", () => {
     })
 
     service = TestBed.inject(PokePasteParserService)
-    koffingParseSpy = spyOn(Koffing, "parse")
+    koffingParseSpy = vi.spyOn(Koffing, "parse")
   })
 
   it("should parse a poke-paste with all 4 moves", async () => {
@@ -44,7 +44,7 @@ describe("PokePasteParserService", () => {
         })
     }
 
-    koffingParseSpy.and.returnValue(mockKoffingResult)
+    koffingParseSpy.mockReturnValue(mockKoffingResult)
 
     const result = await service.parse("poke-paste text")
 
@@ -81,7 +81,7 @@ describe("PokePasteParserService", () => {
         })
     }
 
-    koffingParseSpy.and.returnValue(mockKoffingResult)
+    koffingParseSpy.mockReturnValue(mockKoffingResult)
 
     const result = await service.parse("poke-paste text")
 
@@ -116,7 +116,7 @@ describe("PokePasteParserService", () => {
         })
     }
 
-    koffingParseSpy.and.returnValue(mockKoffingResult)
+    koffingParseSpy.mockReturnValue(mockKoffingResult)
 
     const result = await service.parse("poke-paste text")
 
@@ -154,7 +154,7 @@ describe("PokePasteParserService", () => {
         })
     }
 
-    koffingParseSpy.and.returnValue(mockKoffingResult)
+    koffingParseSpy.mockReturnValue(mockKoffingResult)
 
     const result = await service.parse("poke-paste text")
 
@@ -193,7 +193,7 @@ describe("PokePasteParserService", () => {
         })
     }
 
-    koffingParseSpy.and.returnValue(mockKoffingResult)
+    koffingParseSpy.mockReturnValue(mockKoffingResult)
 
     const result = await service.parse("poke-paste text")
 
@@ -231,7 +231,7 @@ describe("PokePasteParserService", () => {
         })
     }
 
-    koffingParseSpy.and.returnValue(mockKoffingResult)
+    koffingParseSpy.mockReturnValue(mockKoffingResult)
 
     const result = await service.parse("poke-paste text")
 
@@ -270,8 +270,8 @@ describe("PokePasteParserService", () => {
         })
     }
 
-    spyOn(window, "fetch").and.returnValue(Promise.resolve(new Response(mockPokePasteText)))
-    koffingParseSpy.and.returnValue(mockKoffingResult)
+    vi.spyOn(window, "fetch").mockReturnValue(Promise.resolve(new Response(mockPokePasteText)))
+    koffingParseSpy.mockReturnValue(mockKoffingResult)
 
     const result = await service.parse("https://pokepast.es/12345")
 
@@ -323,7 +323,7 @@ describe("PokePasteParserService", () => {
         })
     }
 
-    koffingParseSpy.and.returnValue(mockKoffingResult)
+    koffingParseSpy.mockReturnValue(mockKoffingResult)
 
     const result = await service.parse("poke-paste text")
 
@@ -369,7 +369,7 @@ describe("PokePasteParserService", () => {
           })
       }
 
-      koffingParseSpy.and.returnValue(mockKoffingResult)
+      koffingParseSpy.mockReturnValue(mockKoffingResult)
 
       const result = await service.parse("poke-paste text")
 
@@ -406,7 +406,7 @@ describe("PokePasteParserService", () => {
           })
       }
 
-      koffingParseSpy.and.returnValue(mockKoffingResult)
+      koffingParseSpy.mockReturnValue(mockKoffingResult)
 
       const result = await service.parse("poke-paste text")
 
@@ -443,7 +443,7 @@ describe("PokePasteParserService", () => {
           })
       }
 
-      koffingParseSpy.and.returnValue(mockKoffingResult)
+      koffingParseSpy.mockReturnValue(mockKoffingResult)
 
       const result = await service.parse("poke-paste text")
 
@@ -480,7 +480,7 @@ describe("PokePasteParserService", () => {
           })
       }
 
-      koffingParseSpy.and.returnValue(mockKoffingResult)
+      koffingParseSpy.mockReturnValue(mockKoffingResult)
 
       const result = await service.parse("poke-paste text")
 
@@ -517,7 +517,7 @@ describe("PokePasteParserService", () => {
           })
       }
 
-      koffingParseSpy.and.returnValue(mockKoffingResult)
+      koffingParseSpy.mockReturnValue(mockKoffingResult)
 
       const result = await service.parse("poke-paste text")
 
@@ -554,7 +554,7 @@ describe("PokePasteParserService", () => {
           })
       }
 
-      koffingParseSpy.and.returnValue(mockKoffingResult)
+      koffingParseSpy.mockReturnValue(mockKoffingResult)
 
       const result = await service.parse("poke-paste text")
 
@@ -593,7 +593,7 @@ describe("PokePasteParserService", () => {
           })
       }
 
-      koffingParseSpy.and.returnValue(mockKoffingResult)
+      koffingParseSpy.mockReturnValue(mockKoffingResult)
 
       const result = await service.parse("poke-paste text")
 
@@ -629,7 +629,7 @@ describe("PokePasteParserService", () => {
           })
       }
 
-      koffingParseSpy.and.returnValue(mockKoffingResult)
+      koffingParseSpy.mockReturnValue(mockKoffingResult)
 
       const result = await service.parse("poke-paste text")
 
@@ -665,7 +665,7 @@ describe("PokePasteParserService", () => {
           })
       }
 
-      koffingParseSpy.and.returnValue(mockKoffingResult)
+      koffingParseSpy.mockReturnValue(mockKoffingResult)
 
       const result = await service.parse("poke-paste text")
 
@@ -701,7 +701,7 @@ describe("PokePasteParserService", () => {
           })
       }
 
-      koffingParseSpy.and.returnValue(mockKoffingResult)
+      koffingParseSpy.mockReturnValue(mockKoffingResult)
 
       const result = await service.parse("poke-paste text")
 
@@ -737,7 +737,7 @@ describe("PokePasteParserService", () => {
           })
       }
 
-      koffingParseSpy.and.returnValue(mockKoffingResult)
+      koffingParseSpy.mockReturnValue(mockKoffingResult)
 
       const result = await service.parse("poke-paste text")
 
@@ -773,7 +773,7 @@ describe("PokePasteParserService", () => {
           })
       }
 
-      koffingParseSpy.and.returnValue(mockKoffingResult)
+      koffingParseSpy.mockReturnValue(mockKoffingResult)
 
       const result = await service.parse("poke-paste text")
 
@@ -804,7 +804,7 @@ describe("PokePasteParserService", () => {
           })
       }
 
-      koffingParseSpy.and.returnValue(mockKoffingResult)
+      koffingParseSpy.mockReturnValue(mockKoffingResult)
 
       const result = await service.parse("poke-paste text")
 
@@ -840,7 +840,7 @@ describe("PokePasteParserService", () => {
           })
       }
 
-      koffingParseSpy.and.returnValue(mockKoffingResult)
+      koffingParseSpy.mockReturnValue(mockKoffingResult)
 
       const result = await service.parse("poke-paste text")
 
@@ -876,7 +876,7 @@ describe("PokePasteParserService", () => {
           })
       }
 
-      koffingParseSpy.and.returnValue(mockKoffingResult)
+      koffingParseSpy.mockReturnValue(mockKoffingResult)
 
       const result = await service.parse("poke-paste text")
 
@@ -912,7 +912,7 @@ describe("PokePasteParserService", () => {
           })
       }
 
-      koffingParseSpy.and.returnValue(mockKoffingResult)
+      koffingParseSpy.mockReturnValue(mockKoffingResult)
 
       const result = await service.parse("poke-paste text")
 

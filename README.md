@@ -111,7 +111,7 @@ The project includes both unit test and E2E test suites.
 
 ### Unit Tests
 
-The unit tests are executed using [Jasmine](https://jasmine.github.io) and [Karma](https://karma-runner.github.io). To run all the tests, use the following commands:
+The unit tests are executed using [Vitest](https://vitest.dev). To run all the tests, use the following commands:
 
 ```
 # Single run

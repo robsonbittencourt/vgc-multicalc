@@ -9,16 +9,17 @@ import { Pokemon } from "@lib/model/pokemon"
 import { Target } from "@lib/model/target"
 import { Field as FieldSmogon, Move as MoveSmogon, Pokemon as SmogonPokemon } from "@robsonbittencourt/calc"
 import { Ability } from "@lib/model/ability"
+import { MockOf } from "@lib/test-utils"
 import { CalculatorStore } from "@data/store/calculator-store"
 
 describe("Damage Calculator Service", () => {
   let service: DamageCalculatorService
-  let adjusterOneSpy: jasmine.SpyObj<CalcAdjuster>
-  let adjusterTwoSpy: jasmine.SpyObj<CalcAdjuster>
+  let adjusterOneSpy: MockOf<CalcAdjuster>
+  let adjusterTwoSpy: MockOf<CalcAdjuster>
 
   beforeEach(() => {
-    adjusterOneSpy = jasmine.createSpyObj("AdjusterOne", ["adjust"])
-    adjusterTwoSpy = jasmine.createSpyObj("AdjusterTwo", ["adjust"])
+    adjusterOneSpy = { adjust: vi.fn() } as unknown as MockOf<CalcAdjuster>
+    adjusterTwoSpy = { adjust: vi.fn() } as unknown as MockOf<CalcAdjuster>
 
     TestBed.configureTestingModule({
       providers: [
@@ -180,12 +181,12 @@ describe("Damage Calculator Service", () => {
 
     service.calcDamage(attacker, target.pokemon, field)
 
-    expect(adjusterOneSpy.adjust).toHaveBeenCalledWith(jasmine.any(SmogonPokemon), jasmine.any(SmogonPokemon), activeMove, jasmine.any(MoveSmogon), jasmine.any(FieldSmogon), undefined, jasmine.any(Field))
-    expect(adjusterTwoSpy.adjust).toHaveBeenCalledWith(jasmine.any(SmogonPokemon), jasmine.any(SmogonPokemon), activeMove, jasmine.any(MoveSmogon), jasmine.any(FieldSmogon), undefined, jasmine.any(Field))
+    expect(adjusterOneSpy.adjust).toHaveBeenCalledWith(expect.any(SmogonPokemon), expect.any(SmogonPokemon), activeMove, expect.any(MoveSmogon), expect.any(FieldSmogon), undefined, expect.any(Field))
+    expect(adjusterTwoSpy.adjust).toHaveBeenCalledWith(expect.any(SmogonPokemon), expect.any(SmogonPokemon), activeMove, expect.any(MoveSmogon), expect.any(FieldSmogon), undefined, expect.any(Field))
   })
 
   it("should inject adjusted BP in description when adjuster sets override", () => {
-    adjusterOneSpy.adjust.and.callFake((_a, _t, _m, moveSmogon: MoveSmogon) => {
+    adjusterOneSpy.adjust.mockImplementation((_a, _t, _m, moveSmogon) => {
       moveSmogon.bp = 150
       moveSmogon.overrides = { basePower: 150 }
     })
@@ -210,7 +211,7 @@ describe("Damage Calculator Service", () => {
   })
 
   it("should inject adjusted BP in description for both attackers when both have overrides", () => {
-    adjusterOneSpy.adjust.and.callFake((_a, _t, move, moveSmogon: MoveSmogon) => {
+    adjusterOneSpy.adjust.mockImplementation((_a, _t, move, moveSmogon) => {
       if (move.name === "Stomping Tantrum") {
         moveSmogon.bp = 150
         moveSmogon.overrides = { basePower: 150 }
@@ -237,8 +238,8 @@ describe("Damage Calculator Service", () => {
 
     service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
 
-    expect(adjusterOneSpy.adjust).toHaveBeenCalledWith(jasmine.any(SmogonPokemon), jasmine.any(SmogonPokemon), activeMove, jasmine.any(MoveSmogon), jasmine.any(FieldSmogon), attacker, jasmine.any(Field))
-    expect(adjusterTwoSpy.adjust).toHaveBeenCalledWith(jasmine.any(SmogonPokemon), jasmine.any(SmogonPokemon), activeMove, jasmine.any(MoveSmogon), jasmine.any(FieldSmogon), attacker, jasmine.any(Field))
+    expect(adjusterOneSpy.adjust).toHaveBeenCalledWith(expect.any(SmogonPokemon), expect.any(SmogonPokemon), activeMove, expect.any(MoveSmogon), expect.any(FieldSmogon), attacker, expect.any(Field))
+    expect(adjusterTwoSpy.adjust).toHaveBeenCalledWith(expect.any(SmogonPokemon), expect.any(SmogonPokemon), activeMove, expect.any(MoveSmogon), expect.any(FieldSmogon), attacker, expect.any(Field))
   })
 
   it("should calculate damage to two attackers one with multi hit move", () => {

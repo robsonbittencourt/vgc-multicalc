@@ -7,14 +7,15 @@ import { Field, FieldSide } from "@lib/model/field"
 import { Move } from "@lib/model/move"
 import { MoveSet } from "@lib/model/moveset"
 import { Pokemon } from "@lib/model/pokemon"
+import { MockOf } from "@lib/test-utils"
 import { SurvivalChecker } from "./survival-checker"
 
 describe("SurvivalChecker", () => {
   let service: SurvivalChecker
-  let adjusterSpy: jasmine.SpyObj<CalcAdjuster>
+  let adjusterSpy: MockOf<CalcAdjuster>
 
   beforeEach(() => {
-    adjusterSpy = jasmine.createSpyObj("Adjuster", ["adjust"])
+    adjusterSpy = { adjust: vi.fn() } as unknown as MockOf<CalcAdjuster>
 
     TestBed.configureTestingModule({
       providers: [

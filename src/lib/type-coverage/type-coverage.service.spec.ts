@@ -286,7 +286,7 @@ describe("TypeCoverageService", () => {
 
   it("should return 1 when no conditions are met in getEffectivenessByHierarchyForOffensive", () => {
     const typeEffectivenessService = TestBed.inject(TypeEffectivenessService)
-    spyOn(typeEffectivenessService, "getEffectiveness").and.returnValue(1.5 as any)
+    vi.spyOn(typeEffectivenessService, "getEffectiveness").mockReturnValue(1.5 as any)
 
     const pokemon = new Pokemon("Charizard", {
       moveSet: new MoveSet(new Move("Flamethrower"), new Move("Air Slash"), new Move("Dragon Claw"), new Move("Roost"))
@@ -1025,7 +1025,7 @@ describe("TypeCoverageService", () => {
 
     it("should return 1 when no conditions are met in getEffectivenessByHierarchy", () => {
       const typeEffectivenessService = TestBed.inject(TypeEffectivenessService)
-      spyOn(typeEffectivenessService, "getEffectiveness").and.returnValue(1.5 as any)
+      vi.spyOn(typeEffectivenessService, "getEffectiveness").mockReturnValue(1.5 as any)
 
       const defender = new Pokemon("Charizard")
       const attacker = new Pokemon("Venusaur", {

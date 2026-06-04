@@ -113,7 +113,7 @@ describe("ConsistencyScoreService", () => {
       const result = service.consistencyScore(pokemon, field)
 
       expect(result).toBe(77)
-      expect(Number.isInteger(result)).toBeTrue()
+      expect(Number.isInteger(result)).toBe(true)
     })
 
     it("should handle different logistic midpoints", () => {

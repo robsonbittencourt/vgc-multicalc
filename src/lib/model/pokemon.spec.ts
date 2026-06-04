@@ -10,16 +10,16 @@ describe("Pokemon", () => {
     it("should initialize with default values when no options are provided", () => {
       const pokemon = new Pokemon(SELECT_POKEMON_LABEL)
 
-      expect(pokemon.id.length > 0).toBeTrue()
+      expect(pokemon.id.length > 0).toBe(true)
       expect(pokemon.moveSet.moves.length).toBe(4)
       expect(pokemon.moveSet.moves[0].name).toBe("Struggle")
       expect(pokemon.nature).toBe("Hardy")
       expect(pokemon.item).toBe("(none)")
       expect(pokemon.ability.name).toBe("Hustle")
-      expect(pokemon.ability.on).toBeFalse()
+      expect(pokemon.ability.on).toBe(false)
       expect(pokemon.teraType).toBe(DEFAULT_TERA_TYPE)
       expect(pokemon.hpPercentage).toBe(100)
-      expect(pokemon.commanderActive).toBeFalse()
+      expect(pokemon.commanderActive).toBe(false)
     })
 
     it("should initialize with provided options", () => {
@@ -40,7 +40,7 @@ describe("Pokemon", () => {
       expect(pokemon.ability.name).toBe("Levitate")
       expect(pokemon.teraType).toBe("Electric")
       expect(pokemon.hpPercentage).toBe(50)
-      expect(pokemon.commanderActive).toBeTrue()
+      expect(pokemon.commanderActive).toBe(true)
     })
   })
 
@@ -255,13 +255,13 @@ describe("Pokemon", () => {
     it("should return Tera Type Active as true if Tera Type is active", () => {
       const pokemon = new Pokemon("Charizard", { teraType: "Fire", teraTypeActive: true })
 
-      expect(pokemon.teraTypeActive).toBeTrue()
+      expect(pokemon.teraTypeActive).toBe(true)
     })
 
     it("should return Tera Type Active as true if Pokémon is Terapagados Stellar", () => {
       const pokemon = new Pokemon("Terapagos-Stellar")
 
-      expect(pokemon.teraTypeActive).toBeTrue()
+      expect(pokemon.teraTypeActive).toBe(true)
     })
 
     describe("Move", () => {
@@ -395,19 +395,19 @@ describe("Pokemon", () => {
       it("should return true when do not have Ability Shield and is a Ability affected by Neutralizing Gas", () => {
         const pokemon = new Pokemon("Chien-Pao")
 
-        expect(pokemon.isAffectedByNeutralizingGas).toBeTrue()
+        expect(pokemon.isAffectedByNeutralizingGas).toBe(true)
       })
 
       it("should return false when have Ability Shield", () => {
         const pokemon = new Pokemon("Chien-Pao", { item: "Ability Shield" })
 
-        expect(pokemon.isAffectedByNeutralizingGas).toBeFalse()
+        expect(pokemon.isAffectedByNeutralizingGas).toBe(false)
       })
 
       it("should return false when do not have Ability Shield and is a Ability not affected by Neutralizing Gas", () => {
         const pokemon = new Pokemon("Terapagos")
 
-        expect(pokemon.isAffectedByNeutralizingGas).toBeFalse()
+        expect(pokemon.isAffectedByNeutralizingGas).toBe(false)
       })
     })
 
@@ -501,55 +501,55 @@ describe("Pokemon", () => {
       it("should return true when Pokémon has Protosynthesis ability", () => {
         const pokemon = new Pokemon("Flutter Mane")
 
-        expect(pokemon.isParadoxAbility).toBeTrue()
+        expect(pokemon.isParadoxAbility).toBe(true)
       })
 
       it("should return true when Pokémon has Quark Drive ability", () => {
         const pokemon = new Pokemon("Iron Hands")
 
-        expect(pokemon.isParadoxAbility).toBeTrue()
+        expect(pokemon.isParadoxAbility).toBe(true)
       })
 
       it("should return false when Pokémon does not have Paradox ability", () => {
         const pokemon = new Pokemon("Tyranitar")
 
-        expect(pokemon.isParadoxAbility).toBeFalse()
+        expect(pokemon.isParadoxAbility).toBe(false)
       })
 
       it('should return true for isDefault when name is "Togepi"', () => {
         const pokemon = new Pokemon("Togepi")
 
-        expect(pokemon.isDefault).toBeTrue()
+        expect(pokemon.isDefault).toBe(true)
       })
 
       it('should return false for isDefault when name is not "Togepi"', () => {
         const pokemon = new Pokemon("Charizard")
 
-        expect(pokemon.isDefault).toBeFalse()
+        expect(pokemon.isDefault).toBe(false)
       })
 
       it('should return true for isOgerpon when name starts with "Ogerpon"', () => {
         const pokemon = new Pokemon("Ogerpon-Wellspring")
 
-        expect(pokemon.isOgerpon).toBeTrue()
+        expect(pokemon.isOgerpon).toBe(true)
       })
 
       it('should return false for isOgerpon when name does not start with "Ogerpon"', () => {
         const pokemon = new Pokemon("Pikachu")
 
-        expect(pokemon.isOgerpon).toBeFalse()
+        expect(pokemon.isOgerpon).toBe(false)
       })
 
       it('should return true for isTerapagosForm when name starts with "Terapagos"', () => {
         const pokemon = new Pokemon("Terapagos-Terastal")
 
-        expect(pokemon.isTerapagosForm).toBeTrue()
+        expect(pokemon.isTerapagosForm).toBe(true)
       })
 
       it('should return false for isTerapagosForm when name does not start with "Terapagos"', () => {
         const pokemon = new Pokemon("Snorlax")
 
-        expect(pokemon.isTerapagosForm).toBeFalse()
+        expect(pokemon.isTerapagosForm).toBe(false)
       })
     })
   })
@@ -601,7 +601,7 @@ describe("Pokemon", () => {
 
         const result = pokemon1.equals(pokemon2)
 
-        expect(result).toBeTrue()
+        expect(result).toBe(true)
       })
 
       it("should return false if two Pokemon objects have different names", () => {
@@ -610,7 +610,7 @@ describe("Pokemon", () => {
 
         const result = pokemon1.equals(pokemon2)
 
-        expect(result).toBeFalse()
+        expect(result).toBe(false)
       })
 
       it("should return false if two Pokemon objects have different abilities", () => {
@@ -619,7 +619,7 @@ describe("Pokemon", () => {
 
         const result = pokemon1.equals(pokemon2)
 
-        expect(result).toBeFalse()
+        expect(result).toBe(false)
       })
 
       it("should return false if two Pokemon objects have different EVs", () => {
@@ -628,7 +628,7 @@ describe("Pokemon", () => {
 
         const result = pokemon1.equals(pokemon2)
 
-        expect(result).toBeFalse()
+        expect(result).toBe(false)
       })
     })
   })
