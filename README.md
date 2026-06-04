@@ -18,23 +18,23 @@ In addition to calculations, it allows team building and has the ability to impo
 
 To run this project locally, ensure you have the following tools installed:
 
-- Node.js v22
+- Node.js v24
 
 ```
 # Install nvm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
 
-# Install Node.js v22
-nvm install 22
+# Install Node.js v24
+nvm install 24
 
-# Configure Node.js v22 to use
-nvm use 22
+# Configure Node.js v24 to use
+nvm use 24
 ```
 
 - Angular CLI
 
 ```
-npm install -g @angular/cli
+npm install -g @angular/cli@22
 ```
 
 ### Installation

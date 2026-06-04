@@ -1,5 +1,5 @@
-import { DOCUMENT } from "@angular/common"
-import { Component, inject, input, OnInit, ViewEncapsulation } from "@angular/core"
+import { DOCUMENT, isPlatformBrowser } from "@angular/common"
+import { Component, inject, input, OnInit, PLATFORM_ID, ViewEncapsulation } from "@angular/core"
 import { Router } from "@angular/router"
 import { MatIconModule } from "@angular/material/icon"
 
@@ -31,10 +31,13 @@ import { MatIconModule } from "@angular/material/icon"
 export class HowToUseSubpageComponent implements OnInit {
   private router = inject(Router)
   private document = inject(DOCUMENT)
+  private platformId = inject(PLATFORM_ID)
 
   title = input.required<string>()
 
   ngOnInit() {
+    if (!isPlatformBrowser(this.platformId)) return
+
     this.document.body.scrollTo({ top: 0, behavior: "instant" })
     this.document.documentElement.scrollTo({ top: 0, behavior: "instant" })
   }

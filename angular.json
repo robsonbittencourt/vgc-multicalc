@@ -52,6 +52,9 @@
             "tsConfig": "tsconfig.app.json",
             "assets": ["src/manifest.json", "src/assets", "src/robots.txt", "src/sitemap.xml", { "glob": "**/*", "input": "src/.well-known", "output": ".well-known" }],
             "styles": ["src/styles.scss", "src/themes.css"],
+            "stylePreprocessorOptions": {
+              "includePaths": ["src"]
+            },
             "scripts": [],
             "allowedCommonJsDependencies": ["@robsonbittencourt/calc"],
             "browser": "src/main.ts",

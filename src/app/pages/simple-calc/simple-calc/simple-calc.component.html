@@ -5,7 +5,6 @@
   [opponentRollLevel]="rightRollLevel()"
   (moveSetChange)="leftMoveActivated($event)"
   [(rollLevel)]="leftRollLevel"
-  (rollLevelChange)="setLeftRollLevel($event)"
   data-cy="left-damage-result" />
 <app-damage-result
   [pokemon]="store.rightPokemon()"
@@ -14,7 +13,6 @@
   [opponentRollLevel]="leftRollLevel()"
   (moveSetChange)="rightMoveActivated($event)"
   [(rollLevel)]="rightRollLevel"
-  (rollLevelChange)="setRightRollLevel($event)"
   [reverse]="true"
   data-cy="right-damage-result" />
 

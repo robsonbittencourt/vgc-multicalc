@@ -29,7 +29,6 @@ export class DamageResultComponent {
   rollLevel = model(RollLevelConfig.high())
 
   moveSetChange = output<number>()
-  rollLevelChange = output<RollLevelConfig>()
 
   activeMoveIndex = computed(() => this.pokemon().activeMoveIndex)
 
@@ -59,6 +58,5 @@ export class DamageResultComponent {
 
   rollLevelChanged(rollLevel: RollLevelConfig) {
     this.rollLevel.set(rollLevel)
-    this.rollLevelChange.emit(rollLevel)
   }
 }
