@@ -15,11 +15,13 @@ import { TeamTabsMobileComponent } from "@features/team/team-tabs-mobile/team-ta
 import { TeamsMobileComponent } from "@features/team/teams-mobile/teams-mobile.component"
 import { AutomaticFieldService } from "@lib/automatic-field-service"
 import { Pokemon } from "@lib/model/pokemon"
+import { SnackbarService } from "@lib/snackbar.service"
 import { getFinalSpeed } from "@lib/smogon/stat-calculator/spe/modified-spe"
 import { Regulation } from "@lib/types"
 import { BackNavigationService } from "@lib/back-navigation.service"
 import { OpponentOptionsComponent } from "@pages/speed-calc/opponent-options/opponent-options.component"
 import { SpeedInsightsComponent } from "@pages/speed-calc/speed-insights/speed-insights.component"
+import { SpeedMatchService } from "@pages/speed-calc/speed-match.service"
 import { SpeedScaleComponent } from "@pages/speed-calc/speed-scale/speed-scale.component"
 import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
 import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-button/export-pokemon-button.component"
@@ -62,6 +64,8 @@ export class SpeedCalculatorMobileComponent implements OnDestroy {
   overlay = inject(MobileTableOverlayService)
   private automaticFieldService = inject(AutomaticFieldService)
   private backNavigation = inject(BackNavigationService)
+  private speedMatch = inject(SpeedMatchService)
+  private snackbar = inject(SnackbarService)
 
   activeBottomTab = signal<"main" | "speed-insights" | "settings" | "teams">("main")
   private scrollPositions = new Map<string, number>()
@@ -318,6 +322,16 @@ export class SpeedCalculatorMobileComponent implements OnDestroy {
         this.scrollContainer.nativeElement.scrollTo({ top: targetScroll, behavior: "instant" })
       }
     }, 0)
+  }
+
+  onSpeedTierSelected(pokemon: Pokemon) {
+    this.selectedPokemon.set(pokemon)
+
+    const outcome = this.speedMatch.matchSpeed(this.speedCalcPokemonId(), pokemon, this.fieldStore.field())
+
+    if (outcome.message) {
+      this.snackbar.open(outcome.message)
+    }
   }
 
   onTeamSelected(pokemonId: string) {
