@@ -57,7 +57,7 @@
       @for (theme of themeService.getThemes(); track theme.name) {
         <div class="menu-item" [ngClass]="{ 'active-menu-option': themeService.selectedTheme().name === theme.name, pressed: pressedItemId() === 'theme-' + theme.name }" (click)="setTheme(theme.name)">
           <div class="pokemon-image-container">
-            <img class="pokemon-image" src="assets/sprites/menu/{{ theme.pokemon }}.webp" width="192" height="200" loading="lazy" />
+            <img class="pokemon-image" src="assets/sprites/menu/{{ theme.pokemon }}.webp" width="192" height="200" loading="lazy" alt="" />
           </div>
           <span>{{ theme.name | titlecase }}</span>
         </div>
@@ -69,7 +69,7 @@
       @for (color of themeService.getColors(); track color.name) {
         <div class="menu-item" [ngClass]="{ 'active-menu-option': themeService.selectedColor().name === color.name, pressed: pressedItemId() === 'color-' + color.name }" (click)="setColor(color.name)">
           <div class="pokemon-image-container">
-            <img class="pokemon-image" src="assets/sprites/menu/{{ color.pokemon }}.webp" width="192" height="200" loading="lazy" />
+            <img class="pokemon-image" src="assets/sprites/menu/{{ color.pokemon }}.webp" width="192" height="200" loading="lazy" alt="" />
           </div>
           <span>{{ color.name | titlecase }}</span>
         </div>

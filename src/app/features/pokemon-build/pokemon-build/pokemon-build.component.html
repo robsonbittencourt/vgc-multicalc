@@ -2,7 +2,7 @@
   <div class="data">
     <div class="pokemon-image-container">
       <div class="pokemon-image question-image">
-        <img src="assets/icons/question.png" width="120" height="120" loading="lazy" />
+        <img src="assets/icons/question.png" width="120" height="120" loading="lazy" alt="" />
       </div>
 
       <app-input
@@ -13,6 +13,7 @@
         (selected)="pokemonSelectorOnClick()"
         (lostFocus)="newPokemonSelectorLostFocus()"
         [tabIndex]="pokemonTabIndex()"
+        ariaLabel="Pokémon"
         data-cy="pokemon-select" />
     </div>
   </div>
@@ -20,7 +21,7 @@
   <div class="data">
     <div class="pokemon-image-container" [ngStyle]="(reverse() && { order: 4 }) || null">
       <div class="pokemon-image">
-        <img src="assets/sprites/pokemon-home/{{ pokemon().name }}.webp" width="256" height="256" loading="lazy" />
+        <img src="assets/sprites/pokemon-home/{{ pokemon().name }}.webp" width="256" height="256" loading="lazy" [alt]="pokemon().name" />
       </div>
 
       <app-input
@@ -31,6 +32,7 @@
         (selected)="pokemonSelectorOnClick()"
         (lostFocus)="pokemonSelectorLostFocus()"
         [tabIndex]="pokemonTabIndex()"
+        ariaLabel="Pokémon"
         data-cy="pokemon-select" />
     </div>
 
@@ -40,7 +42,7 @@
       <div class="item-with-mega">
         @if (isMegaStoneCompatible()) {
           <div class="mega-icon-wrapper">
-            <img class="mega-icon" [ngClass]="{ 'mega-active': pokemon().name.includes('-Mega') }" src="assets/sprites/items/{{ getMegaStoneSprite() }}.webp" width="120" height="120" loading="lazy" (click)="toggleMega()" />
+            <img class="mega-icon" [ngClass]="{ 'mega-active': pokemon().name.includes('-Mega') }" src="assets/sprites/items/{{ getMegaStoneSprite() }}.webp" width="120" height="120" loading="lazy" (click)="toggleMega()" alt="Mega Stone" />
           </div>
         }
         <app-input
@@ -77,7 +79,7 @@
       <label class="moves-label" [ngClass]="{ 'reversed-moves-label': reverse() }">Moves</label>
       <div class="moves" [ngClass]="{ 'reversed-moves': reverse() }">
         <div class="move" [ngClass]="{ 'move-row-active': !moveSelectorDisabled(0) }">
-          <mat-checkbox class="move-checkbox" [ngModel]="pokemon().activeMoveIndex === 0" (click)="selectMoveOnly(1)" data-cy="attack1" />
+          <mat-checkbox class="move-checkbox" [ngModel]="pokemon().activeMoveIndex === 0" (click)="selectMoveOnly(1)" data-cy="attack1" aria-label="Select move 1 as active" />
           <app-input
             #move1Input
             [value]="pokemon().moveSet.move1.name"
@@ -86,10 +88,11 @@
             (selected)="moveSelectorOnClick(1)"
             (lostFocus)="moveSelectorLostFocus(1)"
             [tabIndex]="tabIndexMove1()"
+            ariaLabel="Move 1"
             data-cy="pokemon-attack-1" />
         </div>
         <div class="move" [ngClass]="{ 'move-row-active': !moveSelectorDisabled(1) }">
-          <mat-checkbox class="move-checkbox" [ngModel]="pokemon().activeMoveIndex === 1" (click)="selectMoveOnly(2)" data-cy="attack2" />
+          <mat-checkbox class="move-checkbox" [ngModel]="pokemon().activeMoveIndex === 1" (click)="selectMoveOnly(2)" data-cy="attack2" aria-label="Select move 2 as active" />
           <app-input
             #move2Input
             [value]="pokemon().moveSet.move2.name"
@@ -98,10 +101,11 @@
             (selected)="moveSelectorOnClick(2)"
             (lostFocus)="moveSelectorLostFocus(2)"
             [tabIndex]="tabIndexMove2()"
+            ariaLabel="Move 2"
             data-cy="pokemon-attack-2" />
         </div>
         <div class="move" [ngClass]="{ 'move-row-active': !moveSelectorDisabled(2) }">
-          <mat-checkbox class="move-checkbox" [ngModel]="pokemon().activeMoveIndex === 2" (click)="selectMoveOnly(3)" data-cy="attack3" />
+          <mat-checkbox class="move-checkbox" [ngModel]="pokemon().activeMoveIndex === 2" (click)="selectMoveOnly(3)" data-cy="attack3" aria-label="Select move 3 as active" />
           <app-input
             #move3Input
             [value]="pokemon().moveSet.move3.name"
@@ -110,10 +114,11 @@
             (selected)="moveSelectorOnClick(3)"
             (lostFocus)="moveSelectorLostFocus(3)"
             [tabIndex]="tabIndexMove3()"
+            ariaLabel="Move 3"
             data-cy="pokemon-attack-3" />
         </div>
         <div class="move" [ngClass]="{ 'move-row-active': !moveSelectorDisabled(3) }">
-          <mat-checkbox class="move-checkbox" [ngModel]="pokemon().activeMoveIndex === 3" (click)="selectMoveOnly(4)" data-cy="attack4" />
+          <mat-checkbox class="move-checkbox" [ngModel]="pokemon().activeMoveIndex === 3" (click)="selectMoveOnly(4)" data-cy="attack4" aria-label="Select move 4 as active" />
           <app-input
             #move4Input
             [value]="pokemon().moveSet.move4.name"
@@ -122,6 +127,7 @@
             (selected)="moveSelectorOnClick(4)"
             (lostFocus)="moveSelectorLostFocus(4)"
             [tabIndex]="tabIndexMove4()"
+            ariaLabel="Move 4"
             data-cy="pokemon-attack-4" />
         </div>
       </div>

@@ -7,7 +7,7 @@
     </div>
   </div>
   <div class="pokemon-image" animate.enter="fade-in">
-    <img #pokemonImage [src]="spritePath()" width="256" height="256" (load)="onImageLoad()" [ngStyle]="getPokemonImageStyles(showImage())" />
+    <img #pokemonImage [src]="spritePath()" width="256" height="256" (load)="onImageLoad()" [ngStyle]="getPokemonImageStyles(showImage())" [alt]="name()" />
 
     @if (remainingHp() === 0) {
       <div class="fainted-icon" data-cy="fainted-badge">
@@ -26,7 +26,7 @@
   <div class="level-item">
     <span class="level">Lv. 50</span>
     @if (canShowItemImage()) {
-      <img src="assets/sprites/items/{{ item() }}.webp" class="icon-image" width="120" height="120" loading="lazy" />
+      <img src="assets/sprites/items/{{ item() }}.webp" class="icon-image" width="120" height="120" loading="lazy" alt="" />
     }
   </div>
   <div class="triangle"></div>

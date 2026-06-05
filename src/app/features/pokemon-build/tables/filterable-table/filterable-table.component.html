@@ -59,7 +59,7 @@
                         </div>
                       } @else if (column.isImageColumn) {
                         <div class="image-column" [ngClass]="{ 'column-value-left': column.alignLeft }">
-                          <img class="image-icon" [src]="column.displayFn ? column.displayFn(entry.data) : entry.data[column.field]" />
+                          <img class="image-icon" [src]="column.displayFn ? column.displayFn(entry.data) : entry.data[column.field]" alt="" />
                         </div>
                       } @else if (column.isPokemonType) {
                         <div class="type-column">

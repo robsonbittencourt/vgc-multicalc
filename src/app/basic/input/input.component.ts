@@ -14,6 +14,8 @@ export class InputComponent {
 
   label = input<string>()
 
+  ariaLabel = input<string>()
+
   leftLabel = input(false, { transform: booleanAttribute })
 
   disabled = input(false)

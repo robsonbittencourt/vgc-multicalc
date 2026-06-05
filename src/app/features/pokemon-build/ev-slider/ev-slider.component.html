@@ -35,9 +35,9 @@
         <mat-label>{{ statNameAcronym() }}</mat-label>
       }
       @if (showAsSps()) {
-        <input class="ev-value-input" type="number" [min]="0" [max]="66" matInput [ngModel]="evToSp(ev())" (change)="displayValueChanged($event)" data-cy="ev-value" />
+        <input class="ev-value-input" type="number" [min]="0" [max]="66" matInput [ngModel]="evToSp(ev())" (change)="displayValueChanged($event)" data-cy="ev-value" [attr.aria-label]="statName() + ' SP'" />
       } @else {
-        <input class="ev-value-input" type="number" [min]="0" [max]="252" matInput [ngModel]="ev()" (change)="displayValueChanged($event)" data-cy="ev-value" />
+        <input class="ev-value-input" type="number" [min]="0" [max]="252" matInput [ngModel]="ev()" (change)="displayValueChanged($event)" data-cy="ev-value" [attr.aria-label]="statName() + ' EVs'" />
       }
     </mat-form-field>
   </div>
@@ -77,7 +77,7 @@
   @if (!store.isChampions()) {
     <div class="ev-value">
       <mat-form-field appearance="outline" class="mat-ev-field">
-        <input class="ev-value-input" type="number" min="0" max="31" matInput [ngModel]="iv()" (input)="ivChanged($event)" data-cy="iv-value" />
+        <input class="ev-value-input" type="number" min="0" max="31" matInput [ngModel]="iv()" (input)="ivChanged($event)" data-cy="iv-value" [attr.aria-label]="statName() + ' IVs'" />
       </mat-form-field>
     </div>
   }

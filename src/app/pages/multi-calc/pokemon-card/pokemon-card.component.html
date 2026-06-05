@@ -13,7 +13,7 @@
     <div class="body">
       <div class="card-right-side">
         <div class="pokemon-image-container">
-          <img class="pokemon-image" src="assets/icons/question.png" width="120" height="120" loading="lazy" />
+          <img class="pokemon-image" src="assets/icons/question.png" width="120" height="120" loading="lazy" alt="" />
           <label>Select a Pokémon</label>
         </div>
       </div>
@@ -38,7 +38,7 @@
         <div class="left-side">
           @if (isDefaultAttacker()) {
             <div class="pokemon-image-container">
-              <img class="pokemon-image is-placeholder" src="assets/icons/question.png" width="120" height="120" loading="lazy" />
+              <img class="pokemon-image is-placeholder" src="assets/icons/question.png" width="120" height="120" loading="lazy" alt="" />
             </div>
           } @else {
             <div class="left-pokemon" (click)="activate(damageResult().attacker.id)" matTooltip="Edit" [matTooltipDisabled]="collapsible()" [matTooltipShowDelay]="500" [attr.data-cy]="attackerSelector()">
@@ -61,7 +61,7 @@
             <div class="body">
               <div class="card-right-side">
                 <div class="pokemon-image-container">
-                  <img class="pokemon-image is-placeholder" src="assets/icons/question.png" width="120" height="120" loading="lazy" />
+                  <img class="pokemon-image is-placeholder" src="assets/icons/question.png" width="120" height="120" loading="lazy" alt="" />
                 </div>
               </div>
             </div>
