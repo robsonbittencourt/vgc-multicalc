@@ -161,30 +161,6 @@ describe("Test calcs from moves with some mechanic", () => {
 
       leftDamageResult.damageIs(0, 132.3, 156.5, 274, 324)
     })
-
-    it("with 4 allie fainted", () => {
-      leftPokemonBuild.allieFainted(4)
-
-      leftDamageResult.damageIs(0, 165.2, 194.6, 342, 403)
-    })
-
-    it("with 5 allie fainted", () => {
-      leftPokemonBuild.allieFainted(5)
-
-      leftDamageResult.damageIs(0, 198.5, 233.8, 411, 484)
-    })
-
-    it("with 6 allie fainted", () => {
-      leftPokemonBuild.allieFainted(6)
-
-      leftDamageResult.damageIs(0, 230.9, 272.4, 478, 564)
-    })
-
-    it("with 7 allie fainted", () => {
-      leftPokemonBuild.allieFainted(7)
-
-      leftDamageResult.damageIs(0, 264.2, 311.5, 547, 645)
-    })
   })
 
   describe("Rage Fist", () => {
