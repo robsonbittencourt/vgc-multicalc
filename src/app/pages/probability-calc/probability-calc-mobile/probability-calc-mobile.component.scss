@@ -189,3 +189,45 @@
     cursor: pointer;
   }
 }
+
+.bottom-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding: 0.5em;
+  cursor: pointer;
+  gap: 0.1em;
+  font-size: 0.78em;
+  color: var(--text-muted);
+  transition: color 0.15s ease;
+
+  mat-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    font-size: 24px;
+
+    &[svgIcon] {
+      transform: translateY(1px);
+    }
+  }
+}
+
+.bottom-tab:hover {
+  color: var(--text);
+}
+
+.bottom-tab:active {
+  transform: scale(0.95);
+  background-color: var(--highlight);
+  border-radius: 8px;
+}
+
+.active-bottom-tab {
+  color: var(--text);
+  border-top: 2px solid var(--text);
+}
