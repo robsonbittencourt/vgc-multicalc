@@ -7,8 +7,10 @@ import { TeamComponent } from "@features/team/team/team.component"
 import { TeamsDesktopComponent } from "@features/team/teams-desktop/teams-desktop.component"
 import { AutomaticFieldService } from "@lib/automatic-field-service"
 import { Pokemon } from "@lib/model/pokemon"
+import { SnackbarService } from "@lib/snackbar.service"
 import { SpeedInsightsComponent } from "@pages/speed-calc/speed-insights/speed-insights.component"
 import { SpeedListComponent } from "@pages/speed-calc/speed-list/speed-list.component"
+import { SpeedMatchService } from "@pages/speed-calc/speed-match.service"
 
 @Component({
   selector: "app-speed-calculator",
@@ -20,6 +22,9 @@ import { SpeedListComponent } from "@pages/speed-calc/speed-list/speed-list.comp
 export class SpeedCalculatorComponent {
   store = inject(CalculatorStore)
   private automaticFieldService = inject(AutomaticFieldService)
+  private fieldStore = inject(FieldStore)
+  private speedMatch = inject(SpeedMatchService)
+  private snackbar = inject(SnackbarService)
 
   selectedPokemon = signal<Pokemon>(this.store.team().activePokemon())
 
@@ -53,5 +58,15 @@ export class SpeedCalculatorComponent {
         this.selectedPokemon.set(this.store.team().activePokemon())
       }
     })
+  }
+
+  onPokemonSelected(pokemon: Pokemon) {
+    this.selectedPokemon.set(pokemon)
+
+    const outcome = this.speedMatch.matchSpeed(this.pokemonId(), pokemon, this.fieldStore.field())
+
+    if (outcome.message) {
+      this.snackbar.open(outcome.message)
+    }
   }
 }

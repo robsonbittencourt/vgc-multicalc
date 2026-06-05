@@ -70,7 +70,7 @@
 
       <div [hidden]="overlay.isAnyOpen()">
         @if (!pokemon().isDefault) {
-          <app-speed-scale class="speed-scale" [pokemonId]="speedCalcPokemonId()" [pokemonEachSide]="12" (pokemonSelected)="selectedPokemon.set($event)" />
+          <app-speed-scale class="speed-scale" [pokemonId]="speedCalcPokemonId()" [pokemonEachSide]="12" (pokemonSelected)="onSpeedTierSelected($event)" />
         } @else {
           <div class="empty-insights">Select a Pokémon</div>
         }
