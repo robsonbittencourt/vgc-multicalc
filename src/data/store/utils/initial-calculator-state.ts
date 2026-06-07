@@ -1,7 +1,7 @@
 import { CalculatorState } from "@data/store/calculator-store"
 import { pokemonToState } from "@data/store/utils/state-mapper"
 import { buildState } from "@data/store/utils/user-data-mapper"
-import { readGameData, readUserData } from "@data/store/utils/user-data-storage"
+import { readCustomSets, readGameData, readUserData } from "@data/store/utils/user-data-storage"
 import { fixInvalidPokemon } from "@data/store/utils/migrate-user-data"
 import { defaultPokemon } from "@lib/default-pokemon"
 import { Status } from "@lib/model/status"
@@ -15,7 +15,9 @@ export function initialCalculatorState(): CalculatorState {
   const gameData = readGameData(game)
   const defaults = game === "champions" ? defaultStateChampions() : defaultStateSV()
   const useSpsMode = readUserData()?.useSpsMode ?? true
-  return gameData?.leftPokemon ? { ...defaults, ...buildState(gameData), game, useSpsMode } : { ...defaults, game, useSpsMode }
+  const customSetsState = game === "champions" ? readCustomSets() : []
+  const base = gameData?.leftPokemon ? { ...defaults, ...buildState(gameData), game, useSpsMode } : { ...defaults, game, useSpsMode }
+  return { ...base, customSetsState, activeSetId: null, activeSetPokemonId: null, activeSetDirty: false, isEditingCustomSet: false }
 }
 
 export function defaultState() {
@@ -426,7 +428,12 @@ export function defaultStateChampions() {
     simpleCalcRightRollLevel: "high",
     multiCalcRollLevel: "high",
     manyVsTeamRollLevel: "high",
-    useSpsMode: true
+    useSpsMode: true,
+    customSetsState: [],
+    activeSetId: null,
+    activeSetPokemonId: null,
+    activeSetDirty: false,
+    isEditingCustomSet: false
   }
 }
 
@@ -857,6 +864,11 @@ export function defaultStateSV() {
     simpleCalcRightRollLevel: "high",
     multiCalcRollLevel: "high",
     manyVsTeamRollLevel: "high",
-    useSpsMode: true
+    useSpsMode: true,
+    customSetsState: [],
+    activeSetId: null,
+    activeSetPokemonId: null,
+    activeSetDirty: false,
+    isEditingCustomSet: false
   }
 }

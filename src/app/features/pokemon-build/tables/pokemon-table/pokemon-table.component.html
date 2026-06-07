@@ -3,10 +3,74 @@
   [selectedValues]="actualPokemon()"
   [columns]="pokemonColumns"
   [dataFilter]="dataFilter()"
-  [initialValue]="pokemon().name"
+  [initialValue]="initialEntryId()"
   [haveFocus]="haveFocus()"
   [isMobile]="isMobile()"
   [itemSize]="isMobile() ? 65 : 45"
   (entrySelected)="pokemonSelected.emit($event)"
   (firstListEntry)="firstPokemonFromList.emit($event)"
-  (escapeWasPressed)="escapeWasPressed.emit()" />
+  (escapeWasPressed)="escapeWasPressed.emit()"
+  (subRowSelected)="selectCustomSet($event)">
+  @if (store.isChampions()) {
+    <ng-template #subRowTemplate let-set let-entry="entry" let-navActive="navActive">
+      <div
+        class="custom-set-row"
+        [class.entry-active]="navActive || (entry.id === store.activeSetId() && store.activeSetPokemonId() === pokemonId())"
+        [attr.data-cy]="'custom-set-row-' + set.id"
+        (click)="selectCustomSet(set)"
+        (touchstart)="onCustomSetTouchStart($event, set.id)"
+        (touchmove)="onCustomSetTouchMove($event)"
+        (touchend)="onCustomSetTouchEnd($event)"
+        (touchcancel)="onCustomSetTouchEnd($event)"
+        (contextmenu)="$event.preventDefault()">
+        <div class="custom-set-indent">
+          <app-pokemon-sprite class="custom-set-sprite" [name]="set.basePokemonName" [hideFallback]="true" />
+        </div>
+        <div class="custom-set-name" [attr.data-cy]="'custom-set-name-' + set.id">{{ set.setName }}</div>
+        <div class="custom-set-body">
+          <div class="custom-set-details">
+            <span>{{ set.state.item }}</span>
+            <span>{{ set.state.ability }}</span>
+            <span class="no-separator">{{ set.state.moveSet[0]?.name }} / {{ set.state.moveSet[1]?.name }} / {{ set.state.moveSet[2]?.name }} / {{ set.state.moveSet[3]?.name }}</span>
+          </div>
+          <div class="custom-set-evs">
+            @if (setStats(set)) {
+              <span>{{ setStats(set) }}</span>
+            }
+            <span>{{ set.state.nature }}</span>
+          </div>
+        </div>
+        @if (!isMobile()) {
+          <div class="custom-set-actions" (click)="$event.stopPropagation()">
+            <button class="action-btn" [attr.data-cy]="'edit-custom-set-' + set.id" (click)="tableActionTriggered.emit(); customSetEditRequested.emit(set)" title="Edit">✎</button>
+            <button class="action-btn" [attr.data-cy]="'duplicate-custom-set-' + set.id" (click)="tableActionTriggered.emit(); store.duplicateCustomSet(set.id)" title="Duplicate">⧉</button>
+            <button class="action-btn delete-btn" [attr.data-cy]="'delete-custom-set-' + set.id" (click)="tableActionTriggered.emit(); store.removeCustomSet(set.id)" title="Delete">✕</button>
+          </div>
+        }
+      </div>
+    </ng-template>
+  }
+</app-filterable-table>
+
+@if (customSetActionId()) {
+  <div class="action-menu-backdrop" (click)="closeCustomSetActionMenu()">
+    <div class="action-menu-box" (click)="$event.stopPropagation()">
+      <div class="action-menu-grabber"></div>
+      @if (customSetActionSet(); as set) {
+        <div class="action-menu-title">{{ set.basePokemonName }} - {{ set.setName }}</div>
+      }
+      <button class="action-menu-item" [attr.data-cy]="'edit-custom-set-menu-' + customSetActionId()" (click)="editFromCustomSetMenu()">
+        <mat-icon>edit</mat-icon>
+        <span>Edit</span>
+      </button>
+      <button class="action-menu-item" [attr.data-cy]="'duplicate-custom-set-menu-' + customSetActionId()" (click)="duplicateFromCustomSetMenu()">
+        <mat-icon>content_copy</mat-icon>
+        <span>Duplicate</span>
+      </button>
+      <button class="action-menu-item delete" [attr.data-cy]="'delete-custom-set-menu-' + customSetActionId()" (click)="deleteFromCustomSetMenu()">
+        <mat-icon>delete</mat-icon>
+        <span>Delete</span>
+      </button>
+    </div>
+  </div>
+}

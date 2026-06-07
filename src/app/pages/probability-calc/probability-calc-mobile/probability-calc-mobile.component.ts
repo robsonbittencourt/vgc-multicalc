@@ -18,6 +18,7 @@ import { ProbabilityFieldComponent } from "@app/pages/probability-calc/probabili
 import { MobileTableOverlayComponent } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.component"
 import { MobileTableOverlayService, TableSelectEvent } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.service"
 import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
+import { SaveSetButtonComponent } from "@features/buttons/save-set-button/save-set-button.component"
 import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-button/export-pokemon-button.component"
 import { Pokemon } from "@lib/model/pokemon"
 
@@ -38,6 +39,7 @@ import { Pokemon } from "@lib/model/pokemon"
     ProbabilityFieldComponent,
     MobileTableOverlayComponent,
     ImportPokemonButtonComponent,
+    SaveSetButtonComponent,
     ExportPokemonButtonComponent
   ],
   providers: [FieldStore, AutomaticFieldService, MobileTableOverlayService, { provide: FIELD_CONTEXT, useValue: "probability" }]
@@ -46,7 +48,6 @@ export class ProbabilityCalcMobileComponent implements OnDestroy {
   @ViewChild("scrollContainer") scrollContainer?: ElementRef<HTMLDivElement>
   @ViewChildren("pokemonInput") pokemonInputs?: QueryList<ElementRef<HTMLInputElement>>
   @ViewChild("itemInput") itemInput?: ElementRef<HTMLInputElement>
-  @ViewChildren(TeamTabsMobileComponent) teamTabsMobileList?: QueryList<TeamTabsMobileComponent>
   store = inject(CalculatorStore)
   private backNavigation = inject(BackNavigationService)
   overlay = inject(MobileTableOverlayService)
@@ -138,10 +139,6 @@ export class ProbabilityCalcMobileComponent implements OnDestroy {
   onMemberAdded() {
     this.switchTab("build")
     this.overlay.open("pokemon")
-  }
-
-  deleteEditingPokemon() {
-    this.teamTabsMobileList?.get(1)?.removeActivePokemon()
   }
 
   private justOpenedTable = false

@@ -1,3 +1,4 @@
+import type { CustomSet } from "@data/store/custom-set"
 import type { Game } from "@data/store/calculator-store"
 
 export function readUserData() {
@@ -32,4 +33,13 @@ export function writeTopLevel(patch: object) {
   const userData = readUserData() ?? {}
   Object.assign(userData, patch)
   localStorage.setItem("userData", JSON.stringify(userData))
+}
+
+export function readCustomSets(): CustomSet[] {
+  const gameData = readGameData("champions")
+  return gameData?.customSets ?? []
+}
+
+export function writeCustomSets(customSets: CustomSet[]) {
+  writeGameData("champions", { customSets })
 }

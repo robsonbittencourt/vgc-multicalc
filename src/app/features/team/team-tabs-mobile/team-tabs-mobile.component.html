@@ -1,5 +1,13 @@
 <div class="team-tabs">
-  @if (editingTarget()) {
+  @if (store.isEditingCustomSet()) {
+    <div class="team-tab active-tab target-tab">
+      <app-pokemon-sprite [name]="editingCustomSetPokemon()!.name" />
+    </div>
+
+    <div class="team-tab add-tab" (click)="exitCustomSetEditMode()">
+      <mat-icon>close</mat-icon>
+    </div>
+  } @else if (editingTarget()) {
     <div class="team-tab active-tab target-tab" (click)="clearEditMode()">
       <app-pokemon-sprite [name]="editingPokemon()!.name" />
     </div>
@@ -37,3 +45,24 @@
     }
   }
 </div>
+
+@if (actionMenuPokemonId()) {
+  <div class="action-menu-backdrop" (click)="closeActionMenu()">
+    <div class="action-menu-box" (click)="$event.stopPropagation()">
+      <div class="action-menu-grabber"></div>
+      <button class="action-menu-item" data-cy="duplicate-from-team-menu" [disabled]="!canDuplicate()" (click)="duplicateFromActionMenu()">
+        <mat-icon>content_copy</mat-icon>
+        <div class="action-menu-item-content">
+          <span>Duplicate</span>
+          @if (!canDuplicate()) {
+            <span class="action-menu-item-hint">Team is full</span>
+          }
+        </div>
+      </button>
+      <button class="action-menu-item delete" data-cy="delete-from-team-menu" (click)="deleteFromActionMenu()">
+        <mat-icon>delete</mat-icon>
+        <span>Delete</span>
+      </button>
+    </div>
+  </div>
+}

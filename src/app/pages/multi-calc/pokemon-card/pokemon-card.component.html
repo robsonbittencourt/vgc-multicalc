@@ -49,6 +49,12 @@
                 <app-pokemon-sprite class="pokemon-image" [name]="damageResult().secondAttacker!.name" />
               </div>
             }
+            @if (matchingCustomSetAttacker()) {
+              <span class="attacker-set-label">Set: {{ matchingCustomSetAttacker()!.setName }}</span>
+            }
+            @if (matchingCustomSetSecondAttacker()) {
+              <span class="attacker-set-label">Set: {{ matchingCustomSetSecondAttacker()!.setName }}</span>
+            }
           }
         </div>
 
@@ -143,6 +149,10 @@
                   </div>
                 </div>
               </div>
+
+              @if (matchingCustomSet()) {
+                <span class="custom-set-label">Set: {{ matchingCustomSet()!.setName }}</span>
+              }
             </div>
           }
         </div>

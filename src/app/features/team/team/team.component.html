@@ -1,7 +1,12 @@
 <app-widget [title]="'Your Team'" data-cy="your-team">
   <right-header>
     <div class="tabs">
-      @if (targetOnEdit()) {
+      @if (isEditingCustomSet()) {
+        <app-pokemon-tab [pokemonId]="pokemonId()" [active]="true" (tabActivated)="activatePokemon($event)" (secondTabActivated)="activateSecondPokemon($event)" />
+        <div class="close-tab" (click)="exitCustomSetEditMode()" data-cy="close-edit-custom-set-tab">
+          <mat-icon>close</mat-icon>
+        </div>
+      } @else if (targetOnEdit()) {
         <app-pokemon-tab [pokemonId]="pokemonId()" [active]="true" (tabActivated)="activatePokemon($event)" (secondTabActivated)="activateSecondPokemon($event)" />
         <div class="close-tab" (click)="activatePokemon(store.team().activePokemon().id)" data-cy="close-tab">
           <mat-icon>close</mat-icon>
@@ -15,11 +20,12 @@
   </right-header>
 
   <div class="pokemon-actions">
+    <app-save-set-button [pokemonId]="pokemonId()" [showMatchingSet]="true" (openPokemonTable)="openBuildPokemonTable()" />
     <app-import-pokemon-button [show]="canImportPokemon()" [hidden]="!teamMemberOnEdit()" (pokemonImportedEvent)="pokemonImported($event)" />
     <app-export-pokemon-button [show]="canExportPokemon()" [hidden]="!teamMemberOnEdit() && !targetOnEdit()" [pokemonId]="pokemonId()" data-cy="export-pokemon-from-team" />
 
     @if (canShowCombineButton()) {
-      <div [hidden]="!teamMemberOnEdit()" class="combine-damage" (click)="selectSecondAttacker()">
+      <div [hidden]="!teamMemberOnEdit() || isEditingCustomSet()" class="combine-damage" (click)="selectSecondAttacker()">
         @if (combineDamageActive()) {
           <mat-icon class="icon" data-cy="disable-damage-combined-button">add_circle</mat-icon>
         } @else {
@@ -30,7 +36,7 @@
     }
 
     @if (canShowDeleteButton()) {
-      <div [hidden]="!teamMemberOnEdit()" class="delete-pokemon" (click)="removePokemon()" data-cy="delete-from-team-button">
+      <div [hidden]="!teamMemberOnEdit() || isEditingCustomSet()" class="delete-pokemon" (click)="removePokemon()" data-cy="delete-from-team-button">
         <mat-icon class="icon">delete</mat-icon>
         <label>Delete</label>
       </div>

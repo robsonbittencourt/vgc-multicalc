@@ -8,6 +8,7 @@ import { InputSelectComponent } from "@basic/input-select/input-select.component
 import { InputComponent } from "@basic/input/input.component"
 import { Items } from "@data/items"
 import { CalculatorStore } from "@data/store/calculator-store"
+import { CustomSet } from "@data/store/custom-set"
 import { FieldStore } from "@data/store/field-store"
 import { MenuStore } from "@data/store/menu-store"
 import { spToEv, totalSpsFromEvs } from "@lib/utils/ev-sp-converter"
@@ -150,6 +151,7 @@ export class PokemonBuildComponent {
   })
 
   isChampions = computed(() => this.store.isChampions)
+
   showEvsSpsToggle = signal(false)
   MAX_EVS = computed(() => (this.isChampions() ? 66 : 508))
   evLabel = computed(() => {
@@ -291,6 +293,13 @@ export class PokemonBuildComponent {
   focusPokemonSelector() {
     this.pokemonHasFocus.set(true)
     this.pokemonInput()?.focus()
+  }
+
+  openPokemonTable() {
+    this.removeFocusFromAllFields()
+    this.pokemonHasFocus.set(true)
+    this.activeTable.set("pokemon")
+    this.selected.emit()
   }
 
   scrollToPokemonSelector() {
@@ -467,6 +476,11 @@ export class PokemonBuildComponent {
     this.pokemonInput()?.blur()
   }
 
+  onCustomSetEditRequested(set: CustomSet) {
+    this.store.enterCustomSetEditMode(this.pokemonId(), set.id)
+    this.showDefaultView()
+  }
+
   pokemonSelectorOnClick() {
     this.removeFocusFromAllFields()
     this.pokemonHasFocus.set(true)
@@ -598,7 +612,7 @@ export class PokemonBuildComponent {
     this.optimizationDiscarded.emit()
   }
 
-  private clearBlurTimeout() {
+  clearBlurTimeout() {
     if (this.blurTimeout) {
       clearTimeout(this.blurTimeout)
       this.blurTimeout = null

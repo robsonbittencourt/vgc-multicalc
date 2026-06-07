@@ -97,6 +97,8 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-self: stretch;
+  position: relative;
 
   @media (max-width: 600px) {
     align-items: flex-start;
@@ -160,6 +162,43 @@ app-pokemon-sprite.pokemon-image {
   border-top: 1px solid var(--highlight-contrast);
 }
 
+.custom-set-label {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+@media (max-width: 600px) {
+  .custom-set-label {
+    font-size: 0.85em;
+    bottom: 0.2em;
+  }
+
+  .is-collapsed .custom-set-label {
+    bottom: -1.6em;
+  }
+
+  .card.is-collapsed {
+    padding-bottom: 1em;
+  }
+
+  .card.is-collapsed:has(.custom-set-label) {
+    .collapsed-footer {
+      margin-top: 1.8em;
+    }
+  }
+}
+
+.attacker-set-label {
+  position: absolute;
+  top: 0;
+  left: -28px;
+  max-width: 180px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .right-side {
   --badge-width: clamp(245px, 100cqi, 340px);
 
@@ -192,6 +231,7 @@ app-pokemon-sprite.pokemon-image {
   flex-direction: row;
   align-items: flex-start;
   justify-content: space-between;
+  position: relative;
   width: var(--badge-width);
   padding-left: var(--badge-inset-left, 0);
   box-sizing: border-box;

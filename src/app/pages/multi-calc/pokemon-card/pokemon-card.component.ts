@@ -6,6 +6,7 @@ import { MatTooltip } from "@angular/material/tooltip"
 import { CopyButtonComponent } from "@basic/copy-button/copy-button.component"
 import { PokemonSpriteComponent } from "@basic/pokemon-sprite/pokemon-sprite.component"
 import { CalculatorStore } from "@data/store/calculator-store"
+import { CustomSet } from "@data/store/custom-set"
 import { MenuStore } from "@data/store/menu-store"
 import { AegislashButtonComponent } from "@features/buttons/aegislash-button/aegislash-button.component"
 import { BoosterEnergyButtonComponent } from "@features/buttons/booster-energy-button/booster-energy-button.component"
@@ -13,6 +14,7 @@ import { TatsugiriButtonComponent } from "@features/buttons/tatsugiri-button/tat
 import { TerastalButtonComponent } from "@features/buttons/terastal-button/terastal-button.component"
 import { MegaStoneService } from "@features/pokemon-build/utils/mega-stone.service"
 import { DamageResult } from "@lib/damage-calculator/damage-result"
+import { Pokemon } from "@lib/model/pokemon"
 import { RollLevelConfig } from "@lib/damage-calculator/roll-level-config"
 import { Target } from "@lib/model/target"
 import { ChampionsHpBadgeComponent } from "@pages/simple-calc/pokemon-hp-badge/champions-hp-badge/champions-hp-badge.component"
@@ -106,6 +108,38 @@ export class PokemonCardComponent {
   defenderSelector = computed(() => `select-defender-${this.defender().displayName}`)
   attackerSelector = computed(() => `select-attacker-${this.damageResult().attacker.displayName}`)
   secondAttackerSelector = computed(() => `select-second-attacker-${this.damageResult().secondAttacker?.displayName}`)
+
+  matchingCustomSet = computed<CustomSet | undefined>(() => this.findMatchingCustomSet(this.pokemonOnCard()))
+  matchingCustomSetAttacker = computed<CustomSet | undefined>(() => this.findMatchingCustomSet(this.damageResult().attacker))
+  matchingCustomSetSecondAttacker = computed<CustomSet | undefined>(() => {
+    const second = this.damageResult().secondAttacker
+    return second ? this.findMatchingCustomSet(second) : undefined
+  })
+
+  private findMatchingCustomSet(pokemon: Pokemon): CustomSet | undefined {
+    const sets = this.store.customSetsByPokemon().get(pokemon.name)
+
+    if (!sets?.length) return undefined
+
+    return sets.find(
+      set =>
+        set.state.nature === pokemon.nature &&
+        set.state.item === pokemon.item &&
+        set.state.ability === pokemon.ability.name &&
+        set.state.teraType === pokemon.teraType &&
+        set.state.teraTypeActive === pokemon.teraTypeActive &&
+        (set.state.evs.hp ?? 0) === pokemon.evs.hp &&
+        (set.state.evs.atk ?? 0) === pokemon.evs.atk &&
+        (set.state.evs.def ?? 0) === pokemon.evs.def &&
+        (set.state.evs.spa ?? 0) === pokemon.evs.spa &&
+        (set.state.evs.spd ?? 0) === pokemon.evs.spd &&
+        (set.state.evs.spe ?? 0) === pokemon.evs.spe &&
+        set.state.moveSet[0]?.name === pokemon.move1Name &&
+        set.state.moveSet[1]?.name === pokemon.move2Name &&
+        set.state.moveSet[2]?.name === pokemon.move3Name &&
+        set.state.moveSet[3]?.name === pokemon.move4Name
+    )
+  }
 
   isDondozo = computed(() => this.pokemonOnCard().name.startsWith("Dondozo"))
   showStatusIconsRow = computed(() => this.isDondozo() || this.pokemonOnCard().isParadoxAbility)

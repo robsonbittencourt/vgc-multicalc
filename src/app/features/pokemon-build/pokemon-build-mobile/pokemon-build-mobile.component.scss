@@ -42,6 +42,11 @@ app-pokemon-moves-mobile {
   margin: 1em 0.75em 0.4em 0.75em;
 }
 
+app-save-set-button {
+  display: block;
+  margin: 1em 0.75em 0 0.75em;
+}
+
 .evs {
   display: grid;
   grid-template-columns: minmax(0, 1fr);

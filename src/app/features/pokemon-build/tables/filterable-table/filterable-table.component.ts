@@ -1,6 +1,6 @@
 import { CdkVirtualScrollViewport, ScrollingModule } from "@angular/cdk/scrolling"
 import { CommonModule } from "@angular/common"
-import { AfterViewInit, Component, computed, effect, ElementRef, HostListener, inject, input, output, signal, viewChild, viewChildren } from "@angular/core"
+import { AfterViewInit, Component, ContentChild, computed, effect, ElementRef, HostListener, inject, input, output, signal, viewChild, viewChildren } from "@angular/core"
 import { MatIcon } from "@angular/material/icon"
 import { MatTooltip } from "@angular/material/tooltip"
 import { HiddenDirective } from "@basic/hidden-keepiing/hidden.directive"
@@ -8,6 +8,7 @@ import { PokemonSpriteComponent } from "@basic/pokemon-sprite/pokemon-sprite.com
 import { TypeComboBoxComponent } from "@features/pokemon-build/type-combo-box/type-combo-box.component"
 import { ActiveFilter, ColumnConfig, LinkedTableData, TableData } from "./filtered-table-types"
 import { TableDataFilterService } from "./table-data-filter.service"
+import { TemplateRef } from "@angular/core"
 
 @Component({
   selector: "app-filterable-table",
@@ -32,10 +33,13 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
   entrySelected = output<string>()
   firstListEntry = output<string>()
   escapeWasPressed = output()
+  subRowSelected = output<any>()
 
   rows = viewChildren("row", { read: ElementRef })
   scroll = viewChild(CdkVirtualScrollViewport)
   tableHeader = viewChild<ElementRef>("tableHeader")
+
+  @ContentChild("subRowTemplate") subRowTemplate?: TemplateRef<any>
 
   activeEntry = signal<LinkedTableData<T> | null>(null)
   currentView = signal<"table" | "filterList">("table")
@@ -136,6 +140,7 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
       if (!this.haveFocus()) {
         this.initialScrollPerformed = false
         this.lastScrolledValue = null
+        this.activeEntry.set(null)
       }
     })
 
@@ -288,7 +293,12 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
     this.entryWasSelected = true
     this.isComponentFocused = true
     this.activeEntry.set(entry)
-    this.entrySelected.emit(entry.data!["name"])
+
+    if (entry.isSubRow) {
+      this.subRowSelected.emit(entry.subRowData)
+    } else {
+      this.entrySelected.emit(entry.data!["name"])
+    }
   }
 
   toggleSort(columnField: keyof T): void {
@@ -394,11 +404,18 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
   getEntryClass(entry: LinkedTableData<T>): Record<string, boolean> {
     return {
       "entry-active": entry.id === this.activeEntry()?.id || entry.selected,
-      "disable-hover": !this.isHoverEnabled()
+      "disable-hover": !this.isHoverEnabled(),
+      "sub-row": !!entry.isSubRow
     }
   }
 
+  isEntryActive(entry: LinkedTableData<T>): boolean {
+    return entry.id === this.activeEntry()?.id
+  }
+
   entryDataCy(entry: LinkedTableData<T>): string {
+    if (entry.isSubRow) return `table-entry-${entry.id}`
+
     return `table-entry-${entry.data!["name"]}`
   }
 
@@ -449,11 +466,14 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
   }
 
   private handleEnter() {
-    if (this.activeEntry() == null) {
-      return
-    }
+    const active = this.activeEntry()
+    if (active == null) return
 
-    this.entrySelected.emit(this.activeEntry()?.data!["name"])
+    if (active.isSubRow) {
+      this.subRowSelected.emit(active.subRowData)
+    } else {
+      this.entrySelected.emit(active.data!["name"])
+    }
   }
 
   private scrollToActiveEntry(id: string) {
@@ -468,7 +488,7 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
     })
   }
 
-  private transformTableData<T extends { name: string; active: boolean; selected: boolean }>(tableDataList: TableData<T>[]): LinkedTableData<T> | null {
+  private transformTableData<T extends { name: string; active: boolean; selected: boolean; subRows?: any[] }>(tableDataList: TableData<T>[]): LinkedTableData<T> | null {
     const nodes: LinkedTableData<T>[] = []
 
     for (const tableData of tableDataList) {
@@ -494,6 +514,22 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
           next: null,
           prev: null
         })
+
+        if (entry.subRows) {
+          for (const subRow of entry.subRows) {
+            nodes.push({
+              id: subRow.id,
+              group: null,
+              data: null,
+              active: false,
+              selected: false,
+              next: null,
+              prev: null,
+              isSubRow: true,
+              subRowData: subRow
+            })
+          }
+        }
       }
     }
 
@@ -516,7 +552,9 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
         active: current.active,
         selected: current.selected,
         next: current.next ? current.next : null,
-        prev: current.prev ? current.prev : null
+        prev: current.prev ? current.prev : null,
+        isSubRow: current.isSubRow,
+        subRowData: current.subRowData
       })
       current = current.next
     }

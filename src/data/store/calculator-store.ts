@@ -1,11 +1,13 @@
 import { computed, effect, inject, Injectable } from "@angular/core"
 import { SETDEX_SV } from "@data/movesets"
 import { SETDEX_CHAMPIONS } from "@data/movesets-champions"
+import { CustomSet } from "@data/store/custom-set"
 import { initialCalculatorState, defaultStateChampions, defaultStateSV } from "@data/store/utils/initial-calculator-state"
 import { pokemonToState, stateToPokemon, stateToTargets, stateToTeam, stateToTeams, targetToState, teamToState } from "@data/store/utils/state-mapper"
 import { buildUserData, buildState } from "@data/store/utils/user-data-mapper"
-import { readGameData, writeGameData, writeTopLevel } from "@data/store/utils/user-data-storage"
+import { readGameData, writeCustomSets, writeGameData, writeTopLevel } from "@data/store/utils/user-data-storage"
 import { spToEv } from "@lib/utils/ev-sp-converter"
+import { uuid } from "@lib/utils/uuid"
 import { Pokemon } from "@lib/model/pokemon"
 import { Target } from "@lib/model/target"
 import { Team } from "@lib/model/team"
@@ -76,6 +78,11 @@ export type CalculatorState = {
   multiCalcRollLevel: string
   manyVsTeamRollLevel: string
   useSpsMode: boolean
+  customSetsState: CustomSet[]
+  activeSetId: string | null
+  activeSetPokemonId: string | null
+  activeSetDirty: boolean
+  isEditingCustomSet: boolean
 }
 
 @Injectable({ providedIn: "root" })
@@ -105,6 +112,12 @@ export class CalculatorStore extends signalStore(
 
       effect(() => {
         writeTopLevel({ useSpsMode: store.useSpsMode() })
+      })
+
+      effect(() => {
+        if (store.game() === "champions") {
+          writeCustomSets(store.customSetsState())
+        }
       })
     }
   }))
@@ -140,6 +153,116 @@ export class CalculatorStore extends signalStore(
   readonly isChampions = computed(() => this.game() === "champions")
   readonly activeSetdex = computed(() => (this.game() === "champions" ? SETDEX_CHAMPIONS : SETDEX_SV))
 
+  readonly customSetsByPokemon = computed(() => {
+    const map = new Map<string, CustomSet[]>()
+
+    for (const set of this.customSetsState()) {
+      const existing = map.get(set.basePokemonName) ?? []
+      map.set(set.basePokemonName, [...existing, set])
+    }
+
+    return map
+  })
+
+  addCustomSet(pokemonId: string, setName: string) {
+    const pokemonState = this.findPokemonStateById(pokemonId)
+    if (!pokemonState) return
+
+    const newSet: CustomSet = {
+      id: uuid(),
+      setName,
+      basePokemonName: pokemonState.name,
+      createdAt: Date.now(),
+      state: { ...pokemonState }
+    }
+
+    patchState(this, state => ({ customSetsState: [...state.customSetsState, newSet], activeSetId: newSet.id, activeSetPokemonId: pokemonId, isEditingCustomSet: true }))
+  }
+
+  removeCustomSet(setId: string) {
+    patchState(this, state => ({
+      customSetsState: state.customSetsState.filter(s => s.id !== setId),
+      activeSetId: state.activeSetId === setId ? null : state.activeSetId
+    }))
+  }
+
+  selectCustomSet(pokemonId: string, setId: string) {
+    const set = this.customSetsState().find(s => s.id === setId)
+    if (!set) return
+
+    this.updatePokemonById(pokemonId, () => ({ ...set.state, id: pokemonId }))
+    patchState(this, () => ({ activeSetId: null, activeSetPokemonId: null, activeSetDirty: false, isEditingCustomSet: false }))
+  }
+
+  enterCustomSetEditMode(pokemonId: string, setId: string) {
+    const set = this.customSetsState().find(s => s.id === setId)
+    if (!set) return
+
+    this.updatePokemonById(pokemonId, () => ({ ...set.state, id: pokemonId }))
+    patchState(this, () => ({ activeSetId: setId, activeSetPokemonId: pokemonId, activeSetDirty: false, isEditingCustomSet: true }))
+  }
+
+  exitCustomSetEditMode() {
+    const setId = this.activeSetId()
+    const pokemonId = this.activeSetPokemonId()
+
+    if (setId && pokemonId) {
+      const pokemonState = this.findPokemonStateById(pokemonId)
+
+      if (pokemonState) {
+        patchState(this, state => ({
+          customSetsState: state.customSetsState.map(s => (s.id === setId ? { ...s, state: { ...pokemonState } } : s)),
+          activeSetDirty: false
+        }))
+      }
+    }
+
+    patchState(this, () => ({ activeSetId: null, activeSetPokemonId: null, activeSetDirty: false, isEditingCustomSet: false }))
+  }
+
+  clearActiveSet() {
+    patchState(this, () => ({ activeSetId: null, activeSetPokemonId: null, activeSetDirty: false, isEditingCustomSet: false }))
+  }
+
+  updateActiveSet(setName: string) {
+    const setId = this.activeSetId()
+    const pokemonId = this.activeSetPokemonId()
+    if (!setId || !pokemonId) return
+
+    const pokemonState = this.findPokemonStateById(pokemonId)
+    if (!pokemonState) return
+
+    patchState(this, state => ({
+      customSetsState: state.customSetsState.map(s => (s.id === setId ? { ...s, setName, state: { ...pokemonState } } : s)),
+      activeSetDirty: false
+    }))
+  }
+
+  readonly activeSetHasChanges = computed(() => this.activeSetDirty())
+
+  updateActiveSetName(setName: string) {
+    const setId = this.activeSetId()
+    if (!setId) return
+
+    patchState(this, state => ({
+      customSetsState: state.customSetsState.map(s => (s.id === setId ? { ...s, setName } : s))
+    }))
+  }
+
+  duplicateCustomSet(setId: string) {
+    const original = this.customSetsState().find(s => s.id === setId)
+    if (!original) return
+
+    const copy: CustomSet = {
+      ...original,
+      id: uuid(),
+      setName: `${original.setName} (copy)`,
+      createdAt: Date.now()
+    }
+
+    patchState(this, state => ({ customSetsState: [...state.customSetsState, copy] }))
+  }
+
   updateStateLockingLocalStorage(state: CalculatorState) {
     patchState(this, () => ({ ...state, updateLocalStorage: false }))
   }
@@ -148,9 +271,10 @@ export class CalculatorStore extends signalStore(
     const targetGameData = readGameData(game)
     const defaults = game === "champions" ? defaultStateChampions() : defaultStateSV()
     const newState = targetGameData?.leftPokemon ? { ...defaults, ...buildState(targetGameData), game } : { ...defaults, game }
+    const customSetsState = this.customSetsState()
 
     writeTopLevel({ game })
-    patchState(this, () => ({ ...newState, updateLocalStorage: true }))
+    patchState(this, () => ({ ...newState, customSetsState, updateLocalStorage: true }))
   }
 
   name(pokemonId: string, name: string) {
@@ -573,6 +697,10 @@ export class CalculatorStore extends signalStore(
   }
 
   loadPokemonInfo(pokemonId: string, pokemonName: string) {
+    if (this.activeSetPokemonId() === pokemonId) {
+      this.clearActiveSet()
+    }
+
     const poke = this.activeSetdex()[pokemonName]
 
     if (poke) {
@@ -632,7 +760,29 @@ export class CalculatorStore extends signalStore(
     return this.targets().findIndex(target => target.pokemon.id == pokemonId || target.secondPokemon?.id == pokemonId)
   }
 
+  findPokemonStateById(pokemonId: string): PokemonState | undefined {
+    if (this.speedCalcPokemonState().id === pokemonId) return this.speedCalcPokemonState()
+    if (this.leftPokemonState().id === pokemonId) return this.leftPokemonState()
+    if (this.rightPokemonState().id === pokemonId) return this.rightPokemonState()
+
+    const fromTeam = this.teamsState()
+      .flatMap(t => t.teamMembers)
+      .find(m => m.pokemon.id === pokemonId)
+
+    if (fromTeam) return fromTeam.pokemon
+
+    const fromTarget = this.targetsState().find(t => t.pokemon.id === pokemonId)
+    if (fromTarget) return fromTarget.pokemon
+
+    const fromSecond = this.targetsState().find(t => t.secondPokemon?.id === pokemonId)
+    return fromSecond?.secondPokemon
+  }
+
   private updatePokemonById(pokemonId: string, updateFn: (pokemon: PokemonState) => Partial<PokemonState>) {
+    if (this.activeSetPokemonId() === pokemonId && this.activeSetId()) {
+      patchState(this, () => ({ activeSetDirty: true }))
+    }
+
     const activeTeamIndex = this.teamIndexWithPokemon(pokemonId)
 
     if (this.speedCalcPokemonState().id == pokemonId) {

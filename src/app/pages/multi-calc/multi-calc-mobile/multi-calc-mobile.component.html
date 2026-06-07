@@ -23,18 +23,22 @@
                 <label>Close</label>
               </div>
             } @else {
-              <app-import-pokemon-button (pokemonImportedEvent)="onHeaderImport($event)" />
+              <app-save-set-button [pokemonId]="effectiveEditingId()!" displayMode="button" (openPokemonTable)="overlay.open('pokemon')" />
+              @if (!store.isEditingCustomSet()) {
+                <app-import-pokemon-button (pokemonImportedEvent)="onHeaderImport($event)" />
+              }
               @if (!editingPokemon()!.isDefault) {
                 <app-export-pokemon-button [pokemonId]="effectiveEditingId()!" />
-
-                <div class="delete-pokemon" (click)="deleteEditingPokemon()" data-cy="delete-team-member-mobile">
-                  <mat-icon class="icon">delete</mat-icon>
-                  <label>Delete</label>
-                </div>
               }
             }
           </div>
         </div>
+
+        @if (!overlay.isAnyOpen()) {
+          <div class="set-name-row">
+            <app-save-set-button [pokemonId]="effectiveEditingId()!" displayMode="name" [showMatchingSet]="true" (openPokemonTable)="overlay.open('pokemon')" />
+          </div>
+        }
 
         <div class="attacker-header" [hidden]="overlay.kind() !== 'items'">
           <input #itemInput class="pokemon-input" [value]="editingPokemonItem()" (mousedown)="onItemMouseDown($event)" (click)="onItemClick()" (input)="onItemInput($any($event.target).value)" data-cy="item-select" aria-label="Item" />
@@ -71,7 +75,7 @@
         }
 
         @if (effectiveEditingId()) {
-          <app-mobile-table-overlay [pokemonId]="effectiveEditingId()!" [moveIndex]="editingMoveIndex()" (tableSelect)="onTableSelect($event)" />
+          <app-mobile-table-overlay [pokemonId]="effectiveEditingId()!" [moveIndex]="editingMoveIndex()" (tableSelect)="onTableSelect($event)" (customSetEditRequested)="onCustomSetEditRequested($event)" />
         }
       </div>
 

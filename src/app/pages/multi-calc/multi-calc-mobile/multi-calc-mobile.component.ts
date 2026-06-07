@@ -14,6 +14,7 @@ import { SETDEX_CHAMPIONS } from "@data/movesets-champions"
 import { SETDEX_SV } from "@data/movesets"
 import { pokemonByRegulation } from "@data/regulation-pokemon"
 import { CalculatorStore } from "@data/store/calculator-store"
+import { CustomSet } from "@data/store/custom-set"
 import { FieldStore } from "@data/store/field-store"
 import { FIELD_CONTEXT } from "@data/store/tokens/field-context.token"
 import { MenuStore } from "@data/store/menu-store"
@@ -29,6 +30,7 @@ import { TeamExportModalComponent } from "@features/export-modal/export-modal.co
 import { ExportPokeService } from "@lib/user-data/export-poke.service"
 import { PokemonBuildMobileComponent } from "@features/pokemon-build/pokemon-build-mobile/pokemon-build-mobile.component"
 import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
+import { SaveSetButtonComponent } from "@features/buttons/save-set-button/save-set-button.component"
 import { PokemonCardComponent } from "@pages/multi-calc/pokemon-card/pokemon-card.component"
 import { FieldComponent } from "@features/field/field.component"
 import { Pokemon } from "@lib/model/pokemon"
@@ -60,6 +62,7 @@ import { SpriteService } from "@data/sprite.service"
     TeamTabsMobileComponent,
     MatButton,
     ImportPokemonButtonComponent,
+    SaveSetButtonComponent,
     ExportPokemonButtonComponent,
     MobileTableOverlayComponent,
     InputSelectComponent,
@@ -74,7 +77,6 @@ export class MultiCalcMobileComponent implements OnDestroy {
   @ViewChild("scrollContainer") scrollContainer?: ElementRef<HTMLDivElement>
   @ViewChild("pokemonInput") pokemonInput?: ElementRef<HTMLInputElement>
   @ViewChild("itemInput") itemInput?: ElementRef<HTMLInputElement>
-  @ViewChild(TeamTabsMobileComponent) teamTabsMobile?: TeamTabsMobileComponent
   store = inject(CalculatorStore)
   menuStore = inject(MenuStore)
   fieldStore = inject(FieldStore)
@@ -507,10 +509,6 @@ export class MultiCalcMobileComponent implements OnDestroy {
     this.itemInput?.nativeElement.blur()
   }
 
-  deleteEditingPokemon() {
-    this.teamTabsMobile?.removeActivePokemon()
-  }
-
   onHeaderImport(pokemon: Pokemon | Pokemon[]) {
     const singlePokemon = Array.isArray(pokemon) ? pokemon[0] : pokemon
 
@@ -529,6 +527,13 @@ export class MultiCalcMobileComponent implements OnDestroy {
     } else {
       this.store.changePokemon(id, singlePokemon)
     }
+  }
+
+  onCustomSetEditRequested(set: CustomSet) {
+    const id = this.effectiveEditingId()
+    if (!id) return
+
+    this.store.enterCustomSetEditMode(id, set.id)
   }
 
   onTableSelect(event: TableSelectEvent) {

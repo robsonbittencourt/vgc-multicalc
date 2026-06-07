@@ -90,7 +90,7 @@
         }
       </div>
 
-      <div class="evs">
+      <div class="evs" (touchstart)="blurActiveInput()">
         @if (!onlySpeed()) {
           <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedHp()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.hp" [isOptimized]="isHpOptimized()" stat="hp" [reduced]="true" />
           <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedAtk()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.atk" stat="atk" [reduced]="true" />

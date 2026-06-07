@@ -1,10 +1,11 @@
-import { Component, computed, effect, inject, signal } from "@angular/core"
+import { Component, computed, effect, inject, signal, viewChild } from "@angular/core"
 import { WidgetComponent } from "@basic/widget/widget.component"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { FieldStore } from "@data/store/field-store"
 import { FIELD_CONTEXT } from "@data/store/tokens/field-context.token"
 import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-button/export-pokemon-button.component"
 import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
+import { SaveSetButtonComponent } from "@features/buttons/save-set-button/save-set-button.component"
 import { FieldComponent } from "@features/field/field.component"
 import { PokemonBuildComponent } from "@features/pokemon-build/pokemon-build/pokemon-build.component"
 import { AutomaticFieldService } from "@lib/automatic-field-service"
@@ -21,7 +22,7 @@ import { DamageResultComponent } from "@pages/simple-calc/damage-result/damage-r
   selector: "app-simple-calc",
   templateUrl: "./simple-calc.component.html",
   styleUrls: ["./simple-calc.component.scss"],
-  imports: [WidgetComponent, DamageResultComponent, ImportPokemonButtonComponent, ExportPokemonButtonComponent, PokemonBuildComponent, FieldComponent],
+  imports: [WidgetComponent, DamageResultComponent, ImportPokemonButtonComponent, ExportPokemonButtonComponent, SaveSetButtonComponent, PokemonBuildComponent, FieldComponent],
   providers: [FieldStore, AutomaticFieldService, { provide: FIELD_CONTEXT, useValue: "simple" }]
 })
 export class SimpleCalcComponent {
@@ -39,6 +40,9 @@ export class SimpleCalcComponent {
 
   leftRollLevel = signal(RollLevelConfig.fromConfigString(this.store.simpleCalcLeftRollLevel()))
   rightRollLevel = signal(RollLevelConfig.fromConfigString(this.store.simpleCalcRightRollLevel()))
+
+  leftPokemonBuild = viewChild<PokemonBuildComponent>("leftPokemonBuild")
+  rightPokemonBuild = viewChild<PokemonBuildComponent>("rightPokemonBuild")
 
   activeSide = signal<"left" | "right">("left")
 
@@ -137,6 +141,16 @@ export class SimpleCalcComponent {
 
   rightPokemonImported(pokemon: Pokemon | Pokemon[]) {
     this.store.changeRightPokemon(pokemon as Pokemon)
+  }
+
+  openLeftPokemonTable() {
+    this.activeSide.set("left")
+    setTimeout(() => this.leftPokemonBuild()?.openPokemonTable())
+  }
+
+  openRightPokemonTable() {
+    this.activeSide.set("right")
+    setTimeout(() => this.rightPokemonBuild()?.openPokemonTable())
   }
 
   private findResultByIndex(damageResults: DamageResult[], index: number): DamageResult {

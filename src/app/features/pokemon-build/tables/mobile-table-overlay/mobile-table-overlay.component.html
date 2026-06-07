@@ -1,6 +1,14 @@
 @if (overlay.kind() === "pokemon") {
   <div class="table-container">
-    <app-pokemon-table [pokemonId]="pokemonId()" [dataFilter]="overlay.currentFilter()" [haveFocus]="true" [isMobile]="true" (pokemonSelected)="onPokemonSelected($event)" (escapeWasPressed)="close()" />
+    <app-pokemon-table
+      [pokemonId]="pokemonId()"
+      [dataFilter]="overlay.currentFilter()"
+      [haveFocus]="true"
+      [isMobile]="true"
+      (pokemonSelected)="onPokemonSelected($event)"
+      (customSetSelected)="onCustomSetSelected()"
+      (customSetEditRequested)="onCustomSetEditRequested($event)"
+      (escapeWasPressed)="close()" />
   </div>
 }
 

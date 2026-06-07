@@ -1,0 +1,20 @@
+@if (show()) {
+  @if (isLinked() && isEditMode() && showNameBlock()) {
+    <div class="save-set-wrapper">
+      <label class="set-name-label">Set Name</label>
+      <input #setNameInput data-cy="set-name-input" class="set-name-input" type="text" [value]="activeSetName() ?? ''" [readonly]="!isEditMode()" (input)="onSetNameChange($any($event.target).value)" />
+    </div>
+  } @else if (!isEditMode() && matchingSet() && showNameBlock()) {
+    <div class="save-set-wrapper">
+      <label class="set-name-label">Set Name:</label>
+      <span class="set-name-display" data-cy="set-name-display">{{ matchingSet()!.setName }}</span>
+    </div>
+  } @else if (!isEditMode() && showSaveButton()) {
+    <div class="save-set-wrapper">
+      <div class="save-set" data-cy="save-set-button" (click)="saveSet()">
+        <mat-icon class="icon">bookmark_add</mat-icon>
+        <label>Save set</label>
+      </div>
+    </div>
+  }
+}

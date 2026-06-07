@@ -1,5 +1,5 @@
 import { NgClass } from "@angular/common"
-import { Component, computed, effect, ElementRef, inject, OnDestroy, QueryList, signal, ViewChild, ViewChildren } from "@angular/core"
+import { Component, computed, effect, ElementRef, inject, OnDestroy, signal, ViewChild } from "@angular/core"
 import { MatIcon, MatIconRegistry } from "@angular/material/icon"
 import { DomSanitizer } from "@angular/platform-browser"
 import { InputAutocompleteComponent } from "@basic/input-autocomplete/input-autocomplete.component"
@@ -56,7 +56,6 @@ export class SpeedCalculatorMobileComponent implements OnDestroy {
   @ViewChild("pokemonInput") pokemonInput?: ElementRef<HTMLInputElement>
   @ViewChild("pokemonInputInsights") pokemonInputInsights?: ElementRef<HTMLInputElement>
   @ViewChild("itemInput") itemInput?: ElementRef<HTMLInputElement>
-  @ViewChildren(TeamTabsMobileComponent) teamTabsMobileList?: QueryList<TeamTabsMobileComponent>
 
   store = inject(CalculatorStore)
   fieldStore = inject(FieldStore)
@@ -284,11 +283,6 @@ export class SpeedCalculatorMobileComponent implements OnDestroy {
 
     this.store.changePokemon(id, singlePokemon)
     this.store.loadSpeedCalcPokemonFrom(id)
-  }
-
-  deleteEditingPokemon() {
-    const activeTabIndex = this.activeBottomTab() === "speed-insights" ? 1 : 0
-    this.teamTabsMobileList?.get(activeTabIndex)?.removeActivePokemon()
   }
 
   topUsageList: string[] = ["30", "60", "100", "125", "All"]
