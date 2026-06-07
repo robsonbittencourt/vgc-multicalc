@@ -17,6 +17,11 @@ export class PokemonBuild {
     return this
   }
 
+  openPokemonTable(): PokemonBuild {
+    this.container().find('[data-cy="pokemon-select"] input').click({ force: true })
+    return this
+  }
+
   inputPokemonName(filter: string): PokemonBuild {
     this.container().find('[data-cy="pokemon-select"] input').click({ force: true }).type(filter)
     return this

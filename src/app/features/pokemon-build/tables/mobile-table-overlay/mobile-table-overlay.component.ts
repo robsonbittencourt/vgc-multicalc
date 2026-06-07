@@ -5,6 +5,7 @@ import { MovesTableComponent } from "@features/pokemon-build/tables/moves-table/
 import { PokemonTableComponent } from "@features/pokemon-build/tables/pokemon-table/pokemon-table.component"
 import { MatIcon } from "@angular/material/icon"
 import { MobileTableOverlayService, TableSelectEvent } from "./mobile-table-overlay.service"
+import { CustomSet } from "@data/store/custom-set"
 
 @Component({
   selector: "app-mobile-table-overlay",
@@ -18,6 +19,7 @@ export class MobileTableOverlayComponent {
 
   tableSelect = output<TableSelectEvent>()
   overlayClose = output<void>()
+  customSetEditRequested = output<CustomSet>()
 
   overlay = inject(MobileTableOverlayService)
 
@@ -35,6 +37,15 @@ export class MobileTableOverlayComponent {
 
   onItemSelected(name: string) {
     this.tableSelect.emit({ kind: "items", value: name })
+  }
+
+  onCustomSetSelected() {
+    this.close()
+  }
+
+  onCustomSetEditRequested(set: CustomSet) {
+    this.customSetEditRequested.emit(set)
+    this.close()
   }
 
   close() {

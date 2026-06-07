@@ -1,6 +1,7 @@
 import { Component, computed, effect, ElementRef, inject, OnDestroy, signal, viewChild } from "@angular/core"
 import { PokemonSpriteComponent } from "@basic/pokemon-sprite/pokemon-sprite.component"
 import { CalculatorStore } from "@data/store/calculator-store"
+import { CustomSet } from "@data/store/custom-set"
 import { FieldStore } from "@data/store/field-store"
 import { FIELD_CONTEXT } from "@data/store/tokens/field-context.token"
 import { FieldComponent } from "@features/field/field.component"
@@ -22,6 +23,7 @@ import { DomSanitizer } from "@angular/platform-browser"
 import { MatButtonToggleModule } from "@angular/material/button-toggle"
 import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
 import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-button/export-pokemon-button.component"
+import { SaveSetButtonComponent } from "@features/buttons/save-set-button/save-set-button.component"
 import { MobileTableOverlayComponent } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.component"
 import { MobileTableOverlayService, TableSelectEvent } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.service"
 
@@ -34,6 +36,7 @@ import { MobileTableOverlayService, TableSelectEvent } from "@features/pokemon-b
     MobileTableOverlayComponent,
     ImportPokemonButtonComponent,
     ExportPokemonButtonComponent,
+    SaveSetButtonComponent,
     FieldComponent,
     PokemonCardComponent,
     NgClass,
@@ -337,6 +340,15 @@ export class SimpleCalcMobileComponent implements OnDestroy {
   onCloseItemsTable() {
     this.overlay.close()
     this.itemInput()?.nativeElement.blur()
+  }
+
+  onCustomSetEditRequested(set: CustomSet) {
+    this.store.enterCustomSetEditMode(this.currentPokemon().id, set.id)
+    this.overlay.close()
+  }
+
+  exitCustomSetEditMode() {
+    this.store.exitCustomSetEditMode()
   }
 
   onTableSelect(event: TableSelectEvent) {

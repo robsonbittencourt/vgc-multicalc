@@ -23,7 +23,9 @@
                 <label>Close</label>
               </div>
             } @else {
-              <app-import-pokemon-button (pokemonImportedEvent)="onHeaderImport($event)" />
+              @if (!store.isEditingCustomSet()) {
+                <app-import-pokemon-button (pokemonImportedEvent)="onHeaderImport($event)" />
+              }
               <app-export-pokemon-button [pokemonId]="effectiveEditingId()!" />
             }
           </div>
@@ -75,13 +77,12 @@
                 <label>Close</label>
               </div>
             } @else {
-              <app-import-pokemon-button (pokemonImportedEvent)="onHeaderImport($event)" />
+              <app-save-set-button [pokemonId]="effectiveEditingId()!" displayMode="button" (openPokemonTable)="overlay.open('pokemon')" />
+              @if (!store.isEditingCustomSet()) {
+                <app-import-pokemon-button (pokemonImportedEvent)="onHeaderImport($event)" />
+              }
               @if (!activeTabPokemonIsDefault()) {
                 <app-export-pokemon-button [pokemonId]="effectiveEditingId()!" />
-                <div class="delete-pokemon" (click)="deleteEditingPokemon()" data-cy="delete-team-member-mobile">
-                  <mat-icon class="icon">delete</mat-icon>
-                  <label>Delete</label>
-                </div>
               }
             }
           </div>
@@ -96,6 +97,12 @@
             </div>
           </div>
         </div>
+
+        @if (!overlay.isAnyOpen()) {
+          <div class="set-name-row">
+            <app-save-set-button [pokemonId]="effectiveEditingId()!" displayMode="name" [showMatchingSet]="true" (openPokemonTable)="overlay.open('pokemon')" />
+          </div>
+        }
 
         <div class="attacker-build">
           <app-mobile-table-overlay [pokemonId]="effectiveEditingId()!" [moveIndex]="editingMoveIndex()" (tableSelect)="onTableSelect($event)" />

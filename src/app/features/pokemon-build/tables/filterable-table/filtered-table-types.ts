@@ -11,6 +11,8 @@ export interface LinkedTableData<T> {
   selected: boolean
   next: LinkedTableData<T> | null
   prev: LinkedTableData<T> | null
+  isSubRow?: boolean
+  subRowData?: any
 }
 
 import { uuid } from "@lib/utils/uuid"

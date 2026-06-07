@@ -20,6 +20,16 @@
     </div>
   } @else {
     <div class="body">
+      @if (!isDefaultAttacker() && (matchingCustomSetAttacker() || matchingCustomSetSecondAttacker())) {
+        <span class="attacker-set-label">
+          Set:
+          @if (matchingCustomSetAttacker() && matchingCustomSetSecondAttacker()) {
+            {{ matchingCustomSetAttacker()!.setName }} - {{ matchingCustomSetSecondAttacker()!.setName }}
+          } @else {
+            {{ (matchingCustomSetAttacker() ?? matchingCustomSetSecondAttacker())!.setName }}
+          }
+        </span>
+      }
       <div class="body-main">
         <div class="combine-spacer">
           @if (!menuStore.oneVsOneActivated() && isAttacker() && !isDefaultDefender()) {
@@ -143,6 +153,10 @@
                   </div>
                 </div>
               </div>
+
+              @if (matchingCustomSet()) {
+                <span class="custom-set-label">Set: {{ matchingCustomSet()!.setName }}</span>
+              }
             </div>
           }
         </div>

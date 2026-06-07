@@ -4,6 +4,7 @@ import { WidgetComponent } from "@basic/widget/widget.component"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-button/export-pokemon-button.component"
 import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
+import { SaveSetButtonComponent } from "@features/buttons/save-set-button/save-set-button.component"
 import { PokemonBuildComponent } from "@features/pokemon-build/pokemon-build/pokemon-build.component"
 import { PokemonTabComponent } from "@features/team/pokemon-tab/pokemon-tab.component"
 import { defaultPokemon } from "@lib/default-pokemon"
@@ -18,7 +19,7 @@ import { uuid } from "@lib/utils/uuid"
   templateUrl: "./team.component.html",
   styleUrls: ["./team.component.scss"],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  imports: [MatIcon, WidgetComponent, PokemonTabComponent, ImportPokemonButtonComponent, ExportPokemonButtonComponent, PokemonBuildComponent]
+  imports: [MatIcon, WidgetComponent, PokemonTabComponent, ImportPokemonButtonComponent, ExportPokemonButtonComponent, SaveSetButtonComponent, PokemonBuildComponent]
 })
 export class TeamComponent {
   store = inject(CalculatorStore)
@@ -36,6 +37,10 @@ export class TeamComponent {
 
   combineDamageActive = signal(false)
 
+  openBuildPokemonTable() {
+    this.pokemonBuild()?.openPokemonTable()
+  }
+
   pokemonBuild = viewChild<PokemonBuildComponent>("pokemonBuild")
 
   pokemonOnEdit = computed(() => {
@@ -50,6 +55,12 @@ export class TeamComponent {
   teamMemberOnEdit = computed(() => this.pokemonOnEdit().equals(this.store.team().activePokemon()) || this.pokemonOnEdit().id === this.store.secondAttackerId())
 
   targetOnEdit = computed(() => this.store.targets().some(t => t.pokemon.id === this.pokemonOnEdit().id || t.secondPokemon?.id === this.pokemonOnEdit().id))
+
+  isEditingCustomSet = computed(() => this.store.isEditingCustomSet())
+
+  exitCustomSetEditMode() {
+    this.store.exitCustomSetEditMode()
+  }
 
   constructor() {
     effect(() => {
@@ -71,6 +82,8 @@ export class TeamComponent {
   }
 
   activatePokemon(pokemonId: string) {
+    this.store.clearActiveSet()
+
     if (this.combineDamageActive()) {
       this.selectedPokemon(pokemonId)
     } else {

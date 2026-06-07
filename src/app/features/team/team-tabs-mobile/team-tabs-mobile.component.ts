@@ -1,4 +1,4 @@
-import { Component, computed, inject, model, output } from "@angular/core"
+import { Component, computed, inject, model, output, signal } from "@angular/core"
 import { PokemonSpriteComponent } from "@basic/pokemon-sprite/pokemon-sprite.component"
 import { NgClass } from "@angular/common"
 import { MatIcon } from "@angular/material/icon"
@@ -20,6 +20,8 @@ export class TeamTabsMobileComponent {
 
   store = inject(CalculatorStore)
   menuStore = inject(MenuStore)
+
+  actionMenuPokemonId = signal<string | null>(null)
 
   private longPressTimeout: any
   private preventNextClick = false
@@ -47,6 +49,8 @@ export class TeamTabsMobileComponent {
   })
 
   canImportPokemon = computed(() => this.teamMembers().length < 6 || this.hasDefaultMember())
+
+  canDuplicate = computed(() => this.teamMembers().filter(m => !m.pokemon.isDefault).length < 6)
 
   isEditingDefault = computed(() => {
     const id = this.effectiveEditingId()
@@ -76,13 +80,22 @@ export class TeamTabsMobileComponent {
     return this.store.findPokemonById(editId)
   })
 
+  editingCustomSetPokemon = computed(() => {
+    const pokemonId = this.store.activeSetPokemonId()
+    if (!pokemonId) return null
+    return this.store.findPokemonById(pokemonId)
+  })
+
+  exitCustomSetEditMode() {
+    this.store.exitCustomSetEditMode()
+    this.pokemonOnEditId.set(null)
+  }
+
   isSecondAttacker(pokemonId: string): boolean {
     return this.menuStore.oneVsManyActivated() && this.store.secondAttackerId() === pokemonId
   }
 
   onTabTouchStart(_event: TouchEvent, pokemonId: string) {
-    if (!this.menuStore.oneVsManyActivated()) return
-
     this.preventNextClick = false
 
     this.longPressTimeout = setTimeout(() => {
@@ -98,12 +111,42 @@ export class TeamTabsMobileComponent {
 
         this.store.updateSecondAttacker(pokemonId)
         this.store.updateTeamMembersActive(actives[0], actives[1], actives[2], actives[3], actives[4], actives[5])
+
+        return
       }
+
+      this.actionMenuPokemonId.set(pokemonId)
     }, 500)
   }
 
   onTabTouchEnd() {
     clearTimeout(this.longPressTimeout)
+  }
+
+  closeActionMenu() {
+    this.actionMenuPokemonId.set(null)
+  }
+
+  deleteFromActionMenu() {
+    const id = this.actionMenuPokemonId()
+
+    if (id) {
+      this.pokemonOnEditId.set(id)
+      this.removeActivePokemon()
+    }
+
+    this.closeActionMenu()
+  }
+
+  duplicateFromActionMenu() {
+    const id = this.actionMenuPokemonId()
+
+    if (id && this.canDuplicate()) {
+      const source = this.store.findPokemonById(id)
+      this.store.addTeamMember(source.clone())
+    }
+
+    this.closeActionMenu()
   }
 
   setActivePokemon(pokemonId: string) {
@@ -135,6 +178,10 @@ export class TeamTabsMobileComponent {
       }
 
       this.pokemonOnEditId.set(pokemonId)
+
+      if (this.store.activeSetPokemonId() !== pokemonId) {
+        this.store.clearActiveSet()
+      }
     }
   }
 

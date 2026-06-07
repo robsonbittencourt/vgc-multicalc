@@ -228,7 +228,10 @@
     [haveFocus]="tableWasActive()"
     (escapeWasPressed)="showDefaultView()"
     (pokemonSelected)="pokemonSelected($event)"
-    (firstPokemonFromList)="firstPokemonFromList.set($event)" />
+    (firstPokemonFromList)="firstPokemonFromList.set($event)"
+    (customSetSelected)="showDefaultView()"
+    (customSetEditRequested)="onCustomSetEditRequested($event)"
+    (tableActionTriggered)="clearBlurTimeout()" />
 }
 
 @if (showItemsTable()) {

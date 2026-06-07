@@ -804,7 +804,12 @@ describe("Calculator Store", () => {
           simpleCalcRightRollLevel: "medium",
           multiCalcRollLevel: "high",
           manyVsTeamRollLevel: "low",
-          useSpsMode: false
+          useSpsMode: false,
+          customSetsState: [],
+          activeSetId: null,
+          activeSetPokemonId: null,
+          activeSetDirty: false,
+          isEditingCustomSet: false
         }
 
         store.updateStateLockingLocalStorage(state)
@@ -874,6 +879,155 @@ describe("Calculator Store", () => {
 
         expect(store.manyVsTeamRollLevel()).toBe("medium")
       })
+    })
+  })
+
+  describe("custom sets", () => {
+    beforeEach(() => {
+      store.updateGame("champions")
+    })
+
+    it("should start with no custom sets", () => {
+      expect(store.customSetsState().length).toBe(0)
+    })
+
+    it("should add a custom set from a slot", () => {
+      const pokemonId = store.leftPokemonState().id
+
+      store.addCustomSet(pokemonId, "Sun Sweeper")
+
+      expect(store.customSetsState().length).toBe(1)
+      expect(store.customSetsState()[0].setName).toBe("Sun Sweeper")
+      expect(store.customSetsState()[0].basePokemonName).toBe(store.leftPokemonState().name)
+    })
+
+    it("should not add a set when pokemonId is invalid", () => {
+      store.addCustomSet("invalid-id", "Test")
+
+      expect(store.customSetsState().length).toBe(0)
+    })
+
+    it("should remove a custom set by id", () => {
+      const pokemonId = store.leftPokemonState().id
+      store.addCustomSet(pokemonId, "Set A")
+      store.addCustomSet(pokemonId, "Set B")
+      const idToRemove = store.customSetsState()[0].id
+
+      store.removeCustomSet(idToRemove)
+
+      expect(store.customSetsState().length).toBe(1)
+      expect(store.customSetsState()[0].setName).toBe("Set B")
+    })
+
+    it("should duplicate a custom set", () => {
+      const pokemonId = store.leftPokemonState().id
+      store.addCustomSet(pokemonId, "Original")
+      const originalId = store.customSetsState()[0].id
+
+      store.duplicateCustomSet(originalId)
+
+      expect(store.customSetsState().length).toBe(2)
+      expect(store.customSetsState()[1].setName).toBe("Original (copy)")
+      expect(store.customSetsState()[1].id).not.toBe(originalId)
+    })
+
+    it("should group custom sets by pokemon name in customSetsByPokemon", () => {
+      const leftId = store.leftPokemonState().id
+      const rightId = store.rightPokemonState().id
+      store.addCustomSet(leftId, "Set 1")
+      store.addCustomSet(leftId, "Set 2")
+      store.addCustomSet(rightId, "Set 3")
+
+      const map = store.customSetsByPokemon()
+      const leftName = store.leftPokemonState().name
+      const rightName = store.rightPokemonState().name
+
+      expect(map.get(leftName)?.length).toBe(2)
+      expect(map.get(rightName)?.length).toBe(1)
+    })
+
+    it("should persist custom sets to localStorage", () => {
+      const pokemonId = store.leftPokemonState().id
+      store.addCustomSet(pokemonId, "Persisted Set")
+
+      TestBed.tick()
+
+      const actualStorage = JSON.parse(localStorage.getItem("userData")!)
+      expect(actualStorage.champions.customSets.length).toBe(1)
+      expect(actualStorage.champions.customSets[0].setName).toBe("Persisted Set")
+    })
+
+    it("should clear activeSetId when removing the active set", () => {
+      const pokemonId = store.leftPokemonState().id
+      store.addCustomSet(pokemonId, "Active Set")
+      const setId = store.customSetsState()[0].id
+      store.selectCustomSet(pokemonId, setId)
+
+      store.removeCustomSet(setId)
+
+      expect(store.activeSetId()).toBeNull()
+    })
+
+    it("should set activeSetId and activeSetPokemonId when selecting a set", () => {
+      const pokemonId = store.leftPokemonState().id
+      store.addCustomSet(pokemonId, "My Set")
+      const setId = store.customSetsState()[0].id
+
+      store.enterCustomSetEditMode(pokemonId, setId)
+
+      expect(store.activeSetId()).toBe(setId)
+      expect(store.activeSetPokemonId()).toBe(pokemonId)
+    })
+
+    it("should load the set state into the slot when selecting a set", () => {
+      const pokemonId = store.leftPokemonState().id
+      store.name(pokemonId, "Koraidon")
+      store.addCustomSet(pokemonId, "My Set")
+      const setId = store.customSetsState()[0].id
+      store.name(pokemonId, "Miraidon")
+
+      store.selectCustomSet(pokemonId, setId)
+
+      expect(store.leftPokemonState().name).toBe("Koraidon")
+    })
+
+    it("should clear the active set binding via clearActiveSet", () => {
+      const pokemonId = store.leftPokemonState().id
+      store.addCustomSet(pokemonId, "My Set")
+      const setId = store.customSetsState()[0].id
+      store.selectCustomSet(pokemonId, setId)
+
+      store.clearActiveSet()
+
+      expect(store.activeSetId()).toBeNull()
+      expect(store.activeSetPokemonId()).toBeNull()
+    })
+
+    it("should not auto-save edits into any set after clearActiveSet", () => {
+      const pokemonId = store.leftPokemonState().id
+      store.name(pokemonId, "Koraidon")
+      store.addCustomSet(pokemonId, "My Set")
+      const setId = store.customSetsState()[0].id
+      store.selectCustomSet(pokemonId, setId)
+      store.clearActiveSet()
+
+      store.item(pokemonId, "Choice Band")
+
+      TestBed.tick()
+
+      const savedSet = store.customSetsState().find(s => s.id === setId)!
+      expect(savedSet.state.item).not.toBe("Choice Band")
+    })
+
+    it("should rename the active set via updateActiveSetName", () => {
+      const pokemonId = store.leftPokemonState().id
+      store.addCustomSet(pokemonId, "My Set")
+      const setId = store.customSetsState()[0].id
+      store.enterCustomSetEditMode(pokemonId, setId)
+
+      store.updateActiveSetName("Sun Sweeper")
+
+      expect(store.customSetsState().find(s => s.id === setId)!.setName).toBe("Sun Sweeper")
     })
   })
 })

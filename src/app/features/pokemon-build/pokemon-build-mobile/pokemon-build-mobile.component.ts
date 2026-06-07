@@ -270,4 +270,9 @@ export class PokemonBuildMobileComponent {
   toggleMega() {
     this.megaStoneService.toggleMega(this.effectiveRealId(), this.pokemon().name, this.pokemon().item)
   }
+
+  blurActiveInput() {
+    const active = document.activeElement as HTMLElement | null
+    active?.blur()
+  }
 }

@@ -94,6 +94,16 @@
   background-color: var(--background);
 }
 
+.set-name-row {
+  display: flex;
+  background-color: var(--background);
+
+  app-save-set-button:has(.save-set-wrapper) {
+    display: flex;
+    padding: 0.5em 0.75em 0.5em 0.75em;
+  }
+}
+
 .pokemon-input {
   flex: 0 1 10em;
   max-width: 10em;

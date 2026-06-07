@@ -347,7 +347,11 @@ export class Pokemon {
       this.smogonPokemon.evs.def === toCompare.smogonPokemon.evs.def &&
       this.smogonPokemon.evs.spa === toCompare.smogonPokemon.evs.spa &&
       this.smogonPokemon.evs.spd === toCompare.smogonPokemon.evs.spd &&
-      this.smogonPokemon.evs.spe === toCompare.smogonPokemon.evs.spe
+      this.smogonPokemon.evs.spe === toCompare.smogonPokemon.evs.spe &&
+      this.move1Name === toCompare.move1Name &&
+      this.move2Name === toCompare.move2Name &&
+      this.move3Name === toCompare.move3Name &&
+      this.move4Name === toCompare.move4Name
     )
   }
 

@@ -3,12 +3,21 @@
     <div [hidden]="activeBottomTab() !== 'results'" [class.tab-active]="activeBottomTab() === 'results'" [class.table-open]="overlay.isAnyOpen()">
       <div [hidden]="overlay.isAnyOpen()">
         <div class="team-tabs">
-          <div class="team-tab" [ngClass]="{ 'active-tab': activeSide() === 'left' }" (click)="activateLeftPokemon()">
-            <app-pokemon-sprite [name]="store.leftPokemon().name" />
-          </div>
-          <div class="team-tab" [ngClass]="{ 'active-tab': activeSide() === 'right' }" (click)="activateRightPokemon()">
-            <app-pokemon-sprite [name]="store.rightPokemon().name" />
-          </div>
+          @if (store.isEditingCustomSet()) {
+            <div class="team-tab active-tab">
+              <app-pokemon-sprite [name]="currentPokemon().name" />
+            </div>
+            <div class="team-tab add-tab" (click)="exitCustomSetEditMode()">
+              <mat-icon>close</mat-icon>
+            </div>
+          } @else {
+            <div class="team-tab" [ngClass]="{ 'active-tab': activeSide() === 'left' }" (click)="activateLeftPokemon()">
+              <app-pokemon-sprite [name]="store.leftPokemon().name" />
+            </div>
+            <div class="team-tab" [ngClass]="{ 'active-tab': activeSide() === 'right' }" (click)="activateRightPokemon()">
+              <app-pokemon-sprite [name]="store.rightPokemon().name" />
+            </div>
+          }
         </div>
       </div>
 
@@ -21,11 +30,20 @@
               <label>Close</label>
             </div>
           } @else {
-            <app-import-pokemon-button (pokemonImportedEvent)="importPokemon($event)" />
+            <app-save-set-button [pokemonId]="currentPokemon().id" displayMode="button" (openPokemonTable)="overlay.open('pokemon')" />
+            @if (!store.isEditingCustomSet()) {
+              <app-import-pokemon-button (pokemonImportedEvent)="importPokemon($event)" />
+            }
             <app-export-pokemon-button [pokemonId]="currentPokemon().id" />
           }
         </div>
       </div>
+
+      @if (!overlay.isAnyOpen()) {
+        <div class="set-name-row">
+          <app-save-set-button [pokemonId]="currentPokemon().id" displayMode="name" [showMatchingSet]="true" (openPokemonTable)="overlay.open('pokemon')" />
+        </div>
+      }
 
       <div class="attacker-header" [hidden]="overlay.kind() !== 'items'">
         <input #itemInput class="pokemon-input" [value]="currentPokemon().item" (mousedown)="onItemMouseDown($event)" (click)="onItemClick()" (input)="onItemInput($any($event.target).value)" data-cy="item-select" aria-label="Item" />
@@ -62,7 +80,7 @@
           (editAbilityRequested)="openAbilitiesTable()"
           (editItemRequested)="openItemsTable()" />
 
-        <app-mobile-table-overlay [pokemonId]="currentPokemon().id" [moveIndex]="activeMoveIndex()" (tableSelect)="onTableSelect($event)" />
+        <app-mobile-table-overlay [pokemonId]="currentPokemon().id" [moveIndex]="activeMoveIndex()" (tableSelect)="onTableSelect($event)" (customSetEditRequested)="onCustomSetEditRequested($event)" />
       </div>
 
       <div class="results-list" [hidden]="overlay.isAnyOpen()">

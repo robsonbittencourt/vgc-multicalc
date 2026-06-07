@@ -20,6 +20,8 @@ const header = new Header()
 describe("Test the Field options on options with One vs One", () => {
   beforeEach(() => {
     cy.get('[data-cy="one-vs-one"]').click({ force: true })
+    cy.location("pathname").should("eq", "/one-vs-one")
+    cy.get('[data-cy="right-damage-result"]').should("exist")
   })
 
   describe("Left side", () => {
