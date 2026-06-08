@@ -3,8 +3,7 @@
   inset: 0;
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
-  align-items: flex-start;
-  padding-top: 20em;
+  align-items: center;
   justify-content: center;
   z-index: 1000;
 }
@@ -14,8 +13,8 @@
   border: 1px solid var(--widget-border);
   border-radius: 8px;
   padding: 2em;
-  max-width: 480px;
-  width: 90%;
+  max-width: min(760px, 90%);
+
   display: flex;
   flex-direction: column;
   gap: 1em;
@@ -43,6 +42,11 @@
   justify-content: flex-end;
   align-items: center;
   gap: 0.5em;
+}
+
+.preview-image {
+  width: 100%;
+  border-radius: 4px;
 }
 
 .close-button {

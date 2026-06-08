@@ -13,6 +13,7 @@ export class AnnouncementPopupComponent implements OnInit {
   title = input.required<string>()
   messages = input.required<string[]>()
   version = input.required<string>()
+  image = input<string>()
 
   visible = signal(false)
 
