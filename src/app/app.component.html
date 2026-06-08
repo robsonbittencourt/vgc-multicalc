@@ -5,6 +5,10 @@
 @if (appReady()) {
   <app-announcement-popup
     title="What's new in Multi Calc!"
-    [messages]="['Usage statistics updated with Showdown data from 2026-05.', 'IMPORTANT!! SV mode will be discontinued on June 15th and all data from that mode will be removed. Please export your Pokémon and teams using the Export functions.']"
-    version="2026-06-01" />
+    [messages]="[
+      'Custom Sets: save your own Pokémon sets and access them directly in the calculator.',
+      'IMPORTANT!! SV mode will be discontinued on June 15th and all data from that mode will be removed. Please export your Pokémon and teams using the Export functions.'
+    ]"
+    image="assets/media/custom-set.png"
+    version="2026-06-08" />
 }

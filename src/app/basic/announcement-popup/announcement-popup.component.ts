@@ -13,11 +13,14 @@ export class AnnouncementPopupComponent implements OnInit {
   title = input.required<string>()
   messages = input.required<string[]>()
   version = input.required<string>()
+  image = input<string>()
 
   visible = signal(false)
 
   ngOnInit() {
     if (typeof localStorage === "undefined") return
+
+    if (localStorage.getItem("announcementBypass") === "true") return
 
     this.visible.set(localStorage.getItem(STORAGE_KEY) !== this.version())
   }

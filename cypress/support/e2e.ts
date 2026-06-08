@@ -119,7 +119,7 @@ beforeEach(() => {
       const userData = rawData ? JSON.parse(rawData) : {}
       userData.game = "sv"
       win.localStorage.setItem("userData", JSON.stringify(userData))
-      win.localStorage.setItem("announcementDismissed", "2026-06-01")
+      win.localStorage.setItem("announcementBypass", "true")
     }
   })
 })
