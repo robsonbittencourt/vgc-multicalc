@@ -19,13 +19,9 @@
   padding-bottom: 6em;
   display: flex;
   flex-direction: column;
-  gap: 0.75em;
 
-  & > * {
-    &:has(app-general-probability),
-    &:has(app-team-probability) {
-      margin-top: 0.75em;
-    }
+  & > *:has(app-general-probability) {
+    margin-top: 0.75em;
   }
 
   &.table-open {
