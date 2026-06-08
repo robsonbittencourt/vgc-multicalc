@@ -200,6 +200,8 @@ export class TargetPokemonComponent {
       const activeIndex = this.findTargetIndex(previousContainer.data)
       const active = this.targets()[activeIndex]
 
+      if (target.pokemon.isDefault || active.pokemon.isDefault) return
+
       target.secondPokemon = active.pokemon
 
       const newTargets = [...this.targets().slice(0, activeIndex), ...this.targets().slice(activeIndex + 1)]

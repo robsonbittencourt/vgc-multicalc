@@ -85,7 +85,14 @@ export class TeamComponent {
     this.store.clearActiveSet()
 
     if (this.combineDamageActive()) {
-      this.selectedPokemon(pokemonId)
+      const pokemon = this.store.findPokemonById(pokemonId)
+      const attacker = this.store.findNullablePokemonById(this.store.attackerId())
+
+      if (pokemon?.isDefault || attacker?.isDefault) {
+        this.selectedPokemonRemovingSecond(pokemonId)
+      } else {
+        this.selectedPokemon(pokemonId)
+      }
     } else {
       this.selectedPokemonRemovingSecond(pokemonId)
     }
@@ -102,6 +109,11 @@ export class TeamComponent {
   }
 
   activateSecondPokemon(pokemonId: string) {
+    const pokemon = this.store.findPokemonById(pokemonId)
+    const attacker = this.store.findNullablePokemonById(this.store.attackerId())
+
+    if (pokemon?.isDefault || attacker?.isDefault) return
+
     if (this.isAttacker()) {
       this.selectedPokemon(pokemonId)
     } else {

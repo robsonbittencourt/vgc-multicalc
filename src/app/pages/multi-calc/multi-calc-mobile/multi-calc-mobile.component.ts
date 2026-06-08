@@ -578,6 +578,8 @@ export class MultiCalcMobileComponent implements OnDestroy {
       const activeIndex = this.findTargetIndex(previousContainer.data)
       const active = this.store.targets()[activeIndex]
 
+      if (target.pokemon.isDefault || active.pokemon.isDefault) return
+
       target.secondPokemon = active.pokemon
 
       const newTargets = [...this.store.targets().slice(0, activeIndex), ...this.store.targets().slice(activeIndex + 1)]

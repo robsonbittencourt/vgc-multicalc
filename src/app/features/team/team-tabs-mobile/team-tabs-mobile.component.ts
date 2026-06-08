@@ -102,15 +102,21 @@ export class TeamTabsMobileComponent {
       this.preventNextClick = true
 
       if (this.menuStore.oneVsManyActivated() && pokemonId !== this.activePokemonId()) {
-        const members = this.teamMembers()
-        const actives = [false, false, false, false, false, false]
+        const activePokeId = this.activePokemonId() ?? ""
+        const activePokemon = this.store.findNullablePokemonById(activePokeId)
+        const targetPokemon = this.store.findPokemonById(pokemonId)
 
-        members.forEach((m, i) => {
-          if (i < 6) actives[i] = m.pokemon.id === this.activePokemonId() || m.pokemon.id === pokemonId
-        })
+        if (!activePokemon?.isDefault && !targetPokemon?.isDefault) {
+          const members = this.teamMembers()
+          const actives = [false, false, false, false, false, false]
 
-        this.store.updateSecondAttacker(pokemonId)
-        this.store.updateTeamMembersActive(actives[0], actives[1], actives[2], actives[3], actives[4], actives[5])
+          members.forEach((m, i) => {
+            if (i < 6) actives[i] = m.pokemon.id === activePokeId || m.pokemon.id === pokemonId
+          })
+
+          this.store.updateSecondAttacker(pokemonId)
+          this.store.updateTeamMembersActive(actives[0], actives[1], actives[2], actives[3], actives[4], actives[5])
+        }
 
         return
       }
@@ -190,6 +196,7 @@ export class TeamTabsMobileComponent {
     const firstDefaultIndex = members.findIndex(m => m.pokemon.isDefault)
 
     if (firstDefaultIndex !== -1) {
+      this.store.updateSecondAttacker("")
       this.store.activateTeamMember(firstDefaultIndex)
       this.pokemonOnEditId.set(members[firstDefaultIndex].pokemon.id)
       this.memberAddedEvent.emit()
