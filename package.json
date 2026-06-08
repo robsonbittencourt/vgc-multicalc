@@ -1,6 +1,6 @@
 {
   "name": "vgc-multicalc",
-  "version": "1.17.0",
+  "version": "1.17.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -29,7 +29,7 @@
     "@angular/router": "22.0.0",
     "@angular/service-worker": "22.0.0",
     "@angular/ssr": "22.0.0",
-    "@ngrx/signals": "21.1.0",
+    "@ngrx/signals": "21.1.1",
     "@robsonbittencourt/calc": "0.11.13",
     "dedent": "1.7.2",
     "koffing": "1.0.0",
@@ -51,7 +51,7 @@
     "jsdom": "29.1.1",
     "prettier": "3.8.3",
     "typescript": "6.0.3",
-    "typescript-eslint": "8.60.1",
+    "typescript-eslint": "8.61.0",
     "vitest": "4.1.8"
   },
   "overrides": {
