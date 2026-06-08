@@ -1,6 +1,6 @@
 {
   "name": "vgc-multicalc",
-  "version": "1.16.10",
+  "version": "1.17.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -10,7 +10,7 @@
     "test-watch": "ng test --coverage --exclude='**/*.performance.spec.ts'",
     "perf": "ng test --include='**/*.performance.spec.ts' --watch=false",
     "e2e-test": "npx cypress run --quiet; exit_code=$?; if [ $exit_code -eq 0 ]; then echo '✅ Tests PASSED successfully!\n'; else echo '❌ Tests FAILED.\n'; fi; exit $exit_code",
-    "lint": "eslint \"src/**/*.ts\"",
+    "lint": "ng lint",
     "formatter": "npx prettier . --check",
     "check": "npm run lint && npm run formatter"
   },
@@ -43,7 +43,7 @@
     "@angular/compiler-cli": "22.0.0",
     "@eslint/js": "10.0.1",
     "@vitest/coverage-v8": "4.1.8",
-    "angular-eslint": "21.4.0",
+    "angular-eslint": "22.0.0",
     "cypress": "15.16.0",
     "cypress-real-events": "1.15.0",
     "eslint": "10.4.1",
