@@ -3,7 +3,9 @@ import { Component, computed, effect, inject, input, output, signal, viewChild }
 import { FormsModule } from "@angular/forms"
 import { MatButton } from "@angular/material/button"
 import { MatCheckbox } from "@angular/material/checkbox"
+import { MatIcon } from "@angular/material/icon"
 import { MatSlideToggle } from "@angular/material/slide-toggle"
+import { MatTooltip } from "@angular/material/tooltip"
 import { InputSelectComponent } from "@basic/input-select/input-select.component"
 import { InputComponent } from "@basic/input/input.component"
 import { Items } from "@data/items"
@@ -38,7 +40,9 @@ import { Stats, SurvivalThreshold } from "@lib/types"
     NgClass,
     MatButton,
     MatCheckbox,
+    MatIcon,
     MatSlideToggle,
+    MatTooltip,
     FormsModule,
     AbilityComboBoxComponent,
     EvSliderComponent,
@@ -145,6 +149,7 @@ export class PokemonBuildComponent {
 
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
   isTeamMember = computed(() => this.store.team().teamMembers.some(member => member.pokemon.id === this.pokemonId()))
+  hasDuplicateItem = computed(() => this.isTeamMember() && this.store.duplicateItemPokemonIds().has(this.pokemonId()))
   currentEvs = computed(() => {
     const pokemon = this.pokemon()
     return { ...pokemon.evs }

@@ -3,7 +3,9 @@ import { Component, computed, effect, inject, input, output, signal } from "@ang
 import { FormsModule } from "@angular/forms"
 import { MatButton } from "@angular/material/button"
 import { MatCheckbox } from "@angular/material/checkbox"
+import { MatIcon } from "@angular/material/icon"
 import { MatSlideToggle } from "@angular/material/slide-toggle"
+import { MatTooltip } from "@angular/material/tooltip"
 import { KeyValuePair } from "@basic/input-autocomplete/input-autocomplete.component"
 import { InputSelectComponent } from "@basic/input-select/input-select.component"
 import { CalculatorStore } from "@data/store/calculator-store"
@@ -32,7 +34,9 @@ import { Stats } from "@lib/types"
     NgClass,
     MatButton,
     MatCheckbox,
+    MatIcon,
     MatSlideToggle,
+    MatTooltip,
     FormsModule,
     AbilityComboBoxComponent,
     EvSliderComponent,
@@ -133,6 +137,8 @@ export class PokemonBuildMobileComponent {
 
     return this.teamMembers().some(m => m.pokemon.id === editId)
   })
+
+  hasDuplicateItem = computed(() => this.teamMemberOnEdit() && this.store.duplicateItemPokemonIds().has(this.effectiveRealId()))
 
   isOptimizationSupported = computed(() => {
     const isOneVsOne = this.menuStore.oneVsOneActivated()

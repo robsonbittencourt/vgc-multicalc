@@ -204,6 +204,13 @@ body {
       supporting-text-color: var(--text-strong)
     )
   );
+
+  @include mat.tooltip-overrides(
+    (
+      container-color: var(--highlight),
+      supporting-text-color: var(--text-strong)
+    )
+  );
 }
 
 app-header,
