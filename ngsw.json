@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1780938987659,
+  "timestamp": 1780966065151,
   "index": "/index.csr.html",
   "assetGroups": [
     {
@@ -54,7 +54,7 @@
         "/chunk-ZKMCYHQN.js",
         "/chunk-ZMEN2Y7T.js",
         "/index.html",
-        "/main-IUAXL2RQ.js",
+        "/main-UQUI66CV.js",
         "/manifest.json",
         "/styles-DZULTP5R.css"
       ],
@@ -107,6 +107,7 @@
         "/assets/icons/trash.png",
         "/assets/icons/twitter.svg",
         "/assets/icons/vs.png",
+        "/assets/media/custom-set.png",
         "/assets/media/how-to-use/ev-optimization/ev-optimizer-options.webp",
         "/assets/media/how-to-use/export/export-single.webp",
         "/assets/media/how-to-use/export/export-team.webp",
@@ -2610,6 +2611,7 @@
     "/assets/icons/trash.png": "b032c15ee7c47ebf21d381c193113ecf60e97840",
     "/assets/icons/twitter.svg": "725d1d2112de20511aa94128b93a7b6ed01a2b58",
     "/assets/icons/vs.png": "155f0d381df16a81f080fabc50f3f33d1d27b576",
+    "/assets/media/custom-set.png": "eed79a78bfb90a2c5eb47d0e0959462362a2e1b8",
     "/assets/media/how-to-use/ev-optimization/ev-optimizer-options.webp": "12ce16a57bc3b32e820ec0b175cef1d690986ea8",
     "/assets/media/how-to-use/export/export-single.webp": "55db818712bc37bc6ab5ec231b6467e21b2eba6a",
     "/assets/media/how-to-use/export/export-team.webp": "d877fdfdd14c379ebdd31a7db07fe9e1599f38bc",
@@ -5110,8 +5112,8 @@
     "/chunk-ZJ3M3GD5.js": "2f2d2be733ea2a45e67e78fc0b47c09ef4fb6a9b",
     "/chunk-ZKMCYHQN.js": "0a53b98dd9500bc867cb53f0663a631f8d6138a0",
     "/chunk-ZMEN2Y7T.js": "3c6c1b57864874ee40c79be6c92f49b58fd0f77d",
-    "/index.html": "ac27d19e33251f0c251ba30389f6feb58abb8d9c",
-    "/main-IUAXL2RQ.js": "52dcd2a181676bb0c2983a1c9a9161091f60f745",
+    "/index.html": "49a3ab71d61ad1f053f38f5cbce7688b2be56f1e",
+    "/main-UQUI66CV.js": "9b8b75c4acc61872a37e7c740d082dce65a3782b",
     "/manifest.json": "995db2c2164654ced40c5397e1094277afd97e92",
     "/styles-DZULTP5R.css": "23cbc6a08f8bf0cdd56df1f08fdad53ac1b9e8e0"
   },
