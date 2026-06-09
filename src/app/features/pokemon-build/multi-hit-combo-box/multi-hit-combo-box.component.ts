@@ -1,12 +1,14 @@
+import { NgClass } from "@angular/common"
 import { Component, computed, inject, input, output } from "@angular/core"
 import { FormsModule } from "@angular/forms"
+import { MatButtonToggle, MatButtonToggleGroup } from "@angular/material/button-toggle"
 import { MatCheckbox, MatCheckboxChange } from "@angular/material/checkbox"
 import { InputAutocompleteComponent } from "@basic/input-autocomplete/input-autocomplete.component"
 import { CalculatorStore } from "@data/store/calculator-store"
 
 @Component({
   selector: "app-multi-hit-combo-box",
-  imports: [FormsModule, MatCheckbox, InputAutocompleteComponent],
+  imports: [FormsModule, NgClass, MatCheckbox, MatButtonToggle, MatButtonToggleGroup, InputAutocompleteComponent],
   templateUrl: "./multi-hit-combo-box.component.html",
   styleUrl: "./multi-hit-combo-box.component.scss"
 })
@@ -22,11 +24,16 @@ export class MultiHitComboBoxComponent {
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
   multiHitLabel = computed(() => (this.pokemon().activeMoveName !== "Rage Fist" ? "Hits" : "Hits Taken"))
 
-  alliesFainted = computed(() => (this.pokemon().ability.name === "Supreme Overlord" ? ["0", "1", "2", "3", "4", "5"] : ["0", "1", "2", "3", "4", "5", "6", "7"]))
+  alliesFainted = ["0", "1", "2", "3"]
 
   alliesFaintedChanged(event: string) {
     const activeMovePosition = this.pokemon().moveSet.activeMovePosition
     this.store.alliesFainted(this.pokemonId(), event, activeMovePosition)
+  }
+
+  alliesFaintedSelected(value: string) {
+    this.alliesFaintedChanged(value)
+    this.selected.emit()
   }
 
   hitsChanged(event: string) {

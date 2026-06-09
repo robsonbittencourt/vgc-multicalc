@@ -202,10 +202,22 @@ app-save-set-button {
   flex: 1 1 0;
   min-width: 0;
   cursor: pointer;
+  position: relative;
 
   app-input-select {
     pointer-events: none;
   }
+}
+
+.duplicate-item-warning-mobile {
+  position: absolute;
+  top: 0.1em;
+  right: 0.1em;
+  font-size: 1.2em;
+  width: 1.2em;
+  height: 1.2em;
+  color: #e0a800;
+  cursor: help;
 }
 
 .combo-item {

@@ -4,5 +4,18 @@
   } @else {
     <app-pokemon-sprite [name]="pokemon().name" />
     <label class="tab-label">{{ pokemon().displayNameWithoutSuffix }}</label>
+    @if (hasDuplicateItem()) {
+      <mat-icon
+        #duplicateTooltip="matTooltip"
+        class="duplicate-item-warning"
+        matTooltip="This Pokémon is using an item already used by another Pokémon"
+        matTooltipPosition="above"
+        [matTooltipShowDelay]="0"
+        [matTooltipHideDelay]="2000"
+        (click)="$event.stopPropagation(); duplicateTooltip.show()"
+        data-cy="duplicate-item-warning"
+        >warning</mat-icon
+      >
+    }
   }
 </div>

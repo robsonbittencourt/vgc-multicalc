@@ -71,6 +71,16 @@
   min-width: 0;
 }
 
+.duplicate-item-warning {
+  align-self: flex-end;
+  font-size: 1.4em;
+  width: 1.4em;
+  max-height: 1.4em;
+  color: #e0a800;
+  cursor: help;
+  flex-shrink: 0;
+}
+
 .pokemon-image img:not(.mega-icon) {
   width: 8em;
   height: auto;

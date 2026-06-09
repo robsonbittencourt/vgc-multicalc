@@ -33,6 +33,19 @@
               }
               <div class="item-mobile-trigger" (click)="editItemRequested.emit()">
                 <app-input-select label="Item" [value]="pokemon().item" [allValues]="[pokemon().item]" />
+                @if (hasDuplicateItem()) {
+                  <mat-icon
+                    #duplicateTooltipSv="matTooltip"
+                    class="duplicate-item-warning-mobile"
+                    matTooltip="This item is already used by another team member"
+                    matTooltipPosition="above"
+                    [matTooltipShowDelay]="0"
+                    [matTooltipHideDelay]="2000"
+                    (click)="$event.stopPropagation(); duplicateTooltipSv.show()"
+                    data-cy="duplicate-item-warning"
+                    >warning</mat-icon
+                  >
+                }
               </div>
             </div>
             <div class="combo-status">
@@ -67,6 +80,19 @@
               }
               <div class="item-mobile-trigger" (click)="editItemRequested.emit()">
                 <app-input-select label="Item" [value]="pokemon().item" [allValues]="[pokemon().item]" />
+                @if (hasDuplicateItem()) {
+                  <mat-icon
+                    #duplicateTooltipChampions="matTooltip"
+                    class="duplicate-item-warning-mobile"
+                    matTooltip="This item is already used by another team member"
+                    matTooltipPosition="above"
+                    [matTooltipShowDelay]="0"
+                    [matTooltipHideDelay]="2000"
+                    (click)="$event.stopPropagation(); duplicateTooltipChampions.show()"
+                    data-cy="duplicate-item-warning"
+                    >warning</mat-icon
+                  >
+                }
               </div>
             </div>
             <div class="combo-ability">

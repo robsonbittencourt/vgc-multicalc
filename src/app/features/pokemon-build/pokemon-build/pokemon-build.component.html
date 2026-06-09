@@ -57,6 +57,9 @@
           (lostFocus)="itemSelectorLostFocus()"
           [emptyFallbackValue]="withoutItem"
           data-cy="item" />
+        @if (hasDuplicateItem()) {
+          <mat-icon class="duplicate-item-warning" matTooltip="This item is already used by another team member" matTooltipPosition="above" [matTooltipShowDelay]="300" data-cy="duplicate-item-warning">warning</mat-icon>
+        }
       </div>
     </div>
 

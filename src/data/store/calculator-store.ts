@@ -1,4 +1,5 @@
 import { computed, effect, inject, Injectable } from "@angular/core"
+import { Items } from "@data/items"
 import { SETDEX_SV } from "@data/movesets"
 import { SETDEX_CHAMPIONS } from "@data/movesets-champions"
 import { CustomSet } from "@data/store/custom-set"
@@ -262,6 +263,28 @@ export class CalculatorStore extends signalStore(
 
     patchState(this, state => ({ customSetsState: [...state.customSetsState, copy] }))
   }
+
+  readonly duplicateItemPokemonIds = computed(() => {
+    const withoutItem = Items.instance.withoutItem()
+    const eligible = this.team().teamMembers.filter(member => !member.pokemon.isDefault && member.pokemon.item !== withoutItem)
+    const itemToIds = new Map<string, string[]>()
+
+    for (const member of eligible) {
+      const ids = itemToIds.get(member.pokemon.item) ?? []
+      ids.push(member.pokemon.id)
+      itemToIds.set(member.pokemon.item, ids)
+    }
+
+    const duplicates = new Set<string>()
+
+    for (const ids of itemToIds.values()) {
+      if (ids.length >= 2) {
+        ids.forEach(id => duplicates.add(id))
+      }
+    }
+
+    return duplicates
+  })
 
   updateStateLockingLocalStorage(state: CalculatorState) {
     patchState(this, () => ({ ...state, updateLocalStorage: false }))

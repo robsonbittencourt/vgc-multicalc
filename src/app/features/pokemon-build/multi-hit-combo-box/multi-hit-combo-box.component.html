@@ -1,13 +1,14 @@
 @if (pokemon().activeMoveName === "Last Respects" || pokemon().ability.name === "Supreme Overlord") {
-  <app-input-autocomplete
-    label="Allies Fainted"
-    [leftLabel]="leftLabel()"
-    [value]="pokemon().moveSet.activeMove.alliesFainted"
-    [allValues]="alliesFainted()"
-    [haveFocus]="haveFocus()"
-    (selected)="selected.emit()"
-    (valueChange)="alliesFaintedChanged($event)"
-    data-cy="allies-fainted" />
+  <div class="allies-fainted" [ngClass]="{ 'allies-fainted-row': leftLabel() }">
+    <label>Allies Fainted</label>
+    <mat-button-toggle-group class="allies-fainted-group" [hideSingleSelectionIndicator]="true" [ngClass]="{ focus: haveFocus() }" data-cy="allies-fainted">
+      @for (value of alliesFainted; track value) {
+        <mat-button-toggle [checked]="value === pokemon().moveSet.activeMove.alliesFainted" (change)="alliesFaintedSelected(value)" [attr.data-cy]="'allies-fainted-' + value">
+          {{ value }}
+        </mat-button-toggle>
+      }
+    </mat-button-toggle-group>
+  </div>
 }
 
 @if (pokemon().activeMoveName === "Stomping Tantrum") {

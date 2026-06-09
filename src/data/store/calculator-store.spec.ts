@@ -140,6 +140,96 @@ describe("Calculator Store", () => {
 
       expect(store.teamMember5()?.name).toBe("Wigglytuff")
     })
+
+    describe("duplicateItemPokemonIds", () => {
+      it("should return empty Set when default team has no duplicate items", () => {
+        const duplicates = store.duplicateItemPokemonIds()
+
+        expect(duplicates.size).toBe(0)
+      })
+
+      it("should mark both Pokémon ids when two team members share the same item", () => {
+        const id0 = store.team().teamMembers[0].pokemon.id
+        const id1 = store.team().teamMembers[1].pokemon.id
+
+        store.item(id0, "Leftovers")
+        store.item(id1, "Leftovers")
+
+        const duplicates = store.duplicateItemPokemonIds()
+
+        expect(duplicates.size).toBe(2)
+        expect(duplicates.has(id0)).toBe(true)
+        expect(duplicates.has(id1)).toBe(true)
+      })
+
+      it("should mark all three Pokémon ids when three team members share the same item", () => {
+        const id0 = store.team().teamMembers[0].pokemon.id
+        const id1 = store.team().teamMembers[1].pokemon.id
+        const id2 = store.team().teamMembers[2].pokemon.id
+
+        store.item(id0, "Leftovers")
+        store.item(id1, "Leftovers")
+        store.item(id2, "Leftovers")
+
+        const duplicates = store.duplicateItemPokemonIds()
+
+        expect(duplicates.size).toBe(3)
+        expect(duplicates.has(id0)).toBe(true)
+        expect(duplicates.has(id1)).toBe(true)
+        expect(duplicates.has(id2)).toBe(true)
+      })
+
+      it("should ignore Pokémon without item even when multiple team members share '(none)'", () => {
+        const id0 = store.team().teamMembers[0].pokemon.id
+        const id1 = store.team().teamMembers[1].pokemon.id
+
+        store.item(id0, "(none)")
+        store.item(id1, "(none)")
+
+        const duplicates = store.duplicateItemPokemonIds()
+
+        expect(duplicates.size).toBe(0)
+      })
+
+      it("should ignore the placeholder default Pokémon (Togepi) when computing duplicates", () => {
+        store.activateTeam(store.teams()[1].id)
+        const placeholderId = store.team().teamMembers[0].pokemon.id
+
+        store.item(placeholderId, "Leftovers")
+
+        const duplicates = store.duplicateItemPokemonIds()
+
+        expect(duplicates.size).toBe(0)
+      })
+
+      it("should recompute when an item changes and resolves a previous duplicate", () => {
+        const id0 = store.team().teamMembers[0].pokemon.id
+        const id1 = store.team().teamMembers[1].pokemon.id
+
+        store.item(id0, "Leftovers")
+        store.item(id1, "Leftovers")
+        expect(store.duplicateItemPokemonIds().size).toBe(2)
+
+        store.item(id1, "Sitrus Berry")
+
+        expect(store.duplicateItemPokemonIds().size).toBe(0)
+      })
+
+      it("should not consider Pokémon from inactive teams when computing duplicates", () => {
+        const activeId = store.team().teamMembers[0].pokemon.id
+        const inactiveTeamId = store.teams()[1].id
+
+        store.item(activeId, "Leftovers")
+        store.activateTeam(inactiveTeamId)
+        const inactiveMemberId = store.team().teamMembers[0].pokemon.id
+        store.item(inactiveMemberId, "Leftovers")
+        store.activateTeam(store.teams()[0].id)
+
+        const duplicates = store.duplicateItemPokemonIds()
+
+        expect(duplicates.size).toBe(0)
+      })
+    })
   })
 
   describe("methods", () => {

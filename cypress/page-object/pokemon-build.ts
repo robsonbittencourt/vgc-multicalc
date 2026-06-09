@@ -322,7 +322,7 @@ export class PokemonBuild {
   }
 
   allieFainted(alliesFainted: number) {
-    this.container().find(`[data-cy="allies-fainted"]`).click().get("mat-option").contains(alliesFainted.toString()).click()
+    this.container().find(`[data-cy="allies-fainted-${alliesFainted}"]`).click()
   }
 
   hitsTaken(hitsTaken: number) {
