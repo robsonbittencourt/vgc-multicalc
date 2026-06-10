@@ -1,6 +1,6 @@
 {
   "name": "vgc-multicalc",
-  "version": "1.17.1",
+  "version": "1.18.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -44,12 +44,12 @@
     "@eslint/js": "10.0.1",
     "@vitest/coverage-v8": "4.1.8",
     "angular-eslint": "22.0.0",
-    "cypress": "15.16.0",
+    "cypress": "15.17.0",
     "cypress-real-events": "1.15.0",
     "eslint": "10.4.1",
     "istanbul-lib-instrument": "6.0.3",
     "jsdom": "29.1.1",
-    "prettier": "3.8.3",
+    "prettier": "3.8.4",
     "typescript": "6.0.3",
     "typescript-eslint": "8.61.0",
     "vitest": "4.1.8"
