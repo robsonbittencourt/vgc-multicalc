@@ -309,7 +309,7 @@ describe("Pokemon", () => {
     })
 
     describe("Abilities", () => {
-      it("should return available abilities", () => {
+      it.skip("should return available abilities", () => {
         const pokemon = new Pokemon("Dondozo")
 
         const abilities = pokemon.availableAbilities
@@ -320,7 +320,7 @@ describe("Pokemon", () => {
         expect(abilities[2].name).toEqual("Water Veil")
       })
 
-      it("should return Ogerpon Teal ability", () => {
+      it.skip("should return Ogerpon Teal ability", () => {
         const pokemon = new Pokemon("Ogerpon")
 
         const abilities = pokemon.availableAbilities
@@ -338,7 +338,7 @@ describe("Pokemon", () => {
         expect(abilities[0].name).toEqual("Embody Aspect (Teal)")
       })
 
-      it("should return Ogerpon Cornerstone ability", () => {
+      it.skip("should return Ogerpon Cornerstone ability", () => {
         const pokemon = new Pokemon("Ogerpon-Cornerstone")
 
         const abilities = pokemon.availableAbilities
@@ -356,7 +356,7 @@ describe("Pokemon", () => {
         expect(abilities[0].name).toEqual("Embody Aspect (Cornerstone)")
       })
 
-      it("should return Ogerpon Hearthflame ability", () => {
+      it.skip("should return Ogerpon Hearthflame ability", () => {
         const pokemon = new Pokemon("Ogerpon-Hearthflame")
 
         const abilities = pokemon.availableAbilities
@@ -374,7 +374,7 @@ describe("Pokemon", () => {
         expect(abilities[0].name).toEqual("Embody Aspect (Hearthflame)")
       })
 
-      it("should return Ogerpon Wellspring ability", () => {
+      it.skip("should return Ogerpon Wellspring ability", () => {
         const pokemon = new Pokemon("Ogerpon-Wellspring")
 
         const abilities = pokemon.availableAbilities

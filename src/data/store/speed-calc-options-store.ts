@@ -1,11 +1,11 @@
-import { computed, effect, inject, Injectable } from "@angular/core"
+import { computed, inject, Injectable } from "@angular/core"
 import { pokemonByRegulation } from "@data/regulation-pokemon"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { SpeedCalculatorMode } from "@lib/speed-calculator/speed-calculator-mode"
 import { SpeedCalculatorOptions } from "@lib/speed-calculator/speed-calculator-options"
-import { Regulation } from "@lib/types"
 import { SPEED_CALCULATOR_MODES } from "@lib/speed-calculator/speed-calculator-mode"
 import { patchState, signalStore, withState } from "@ngrx/signals"
+import { Regulation } from "@lib/types"
 
 type SpeedCalcOptionsState = {
   topUsage: string
@@ -15,18 +15,16 @@ type SpeedCalcOptionsState = {
   speedModifier: number
   speedDropActive: boolean
   paralyzedActive: boolean
-  choiceScarfActive: boolean
 }
 
 const initialState: SpeedCalcOptionsState = {
   topUsage: "60",
-  regulation: "I",
+  regulation: "MA",
   targetName: "",
   mode: SpeedCalculatorMode.StatsAndMeta,
   speedModifier: 0,
   speedDropActive: false,
-  paralyzedActive: false,
-  choiceScarfActive: false
+  paralyzedActive: false
 }
 
 @Injectable({ providedIn: "root" })
@@ -35,20 +33,6 @@ export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }
 
   constructor() {
     super()
-
-    const initialRegulation = (this.calculatorStore.game() === "champions" ? "MA" : "I") as Regulation
-    patchState(this, () => ({ regulation: initialRegulation }))
-
-    effect(() => {
-      const game = this.calculatorStore.game()
-      const newRegulation = (game === "champions" ? "MA" : "I") as Regulation
-
-      patchState(this, () => ({ regulation: newRegulation }))
-
-      if (game === "champions" && this.choiceScarfActive()) {
-        patchState(this, () => ({ choiceScarfActive: false }))
-      }
-    })
   }
 
   readonly options = computed(
@@ -60,20 +44,17 @@ export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }
         mode: this.mode(),
         speedModifier: this.speedModifier(),
         speedDropActive: this.speedDropActive(),
-        paralyzedActive: this.paralyzedActive(),
-        choiceScarfActive: this.choiceScarfActive()
+        paralyzedActive: this.paralyzedActive()
       })
   )
 
-  readonly regulationsList = computed(() => {
-    return this.calculatorStore.game() === "champions" ? ["MA"] : ["I"]
-  })
+  readonly regulationsList = computed(() => ["MA"])
 
   readonly availableModes = computed(() => SPEED_CALCULATOR_MODES)
 
   readonly pokemonNamesByReg = computed(() => {
     const includeAll = this.topUsage() === "All"
-    return pokemonByRegulation(this.regulation() as Regulation, undefined, this.calculatorStore.activeSetdex(), includeAll, this.calculatorStore.isChampions())
+    return pokemonByRegulation(this.regulation() as Regulation, undefined, this.calculatorStore.activeSetdex, includeAll)
       .map(s => s.name)
       .sort()
   })
@@ -86,10 +67,6 @@ export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }
 
   toggleParalyze(enabled: boolean) {
     patchState(this, () => ({ paralyzedActive: enabled }))
-  }
-
-  toggleChoiceScarf(enabled: boolean) {
-    patchState(this, () => ({ choiceScarfActive: enabled }))
   }
 
   updateSpeedModifier(speedModifier: number) {

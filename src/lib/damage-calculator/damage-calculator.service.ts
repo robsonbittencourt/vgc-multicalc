@@ -50,7 +50,7 @@ export class DamageCalculatorService {
   }
 
   private get gen() {
-    return Generations.get(this.calculatorStore.isChampions() ? 0 : 9)
+    return Generations.get(0)
   }
 
   calcDamageForTwoAttackers(attacker: Pokemon, secondAttacker: Pokemon, target: Pokemon, field: Field, rightIsDefender = true): DamageResult {
@@ -94,7 +94,7 @@ export class DamageCalculatorService {
     moveSmogon.isStellarFirstUse = true
     moveSmogon.hits = +move.hits
 
-    const forceMaxIvs = this.calculatorStore.isChampions()
+    const forceMaxIvs = true
     const smogonAttacker = fromExisting(attacker, forceMaxIvs)
     const smogonTarget = fromExisting(target, forceMaxIvs)
 
@@ -132,7 +132,7 @@ export class DamageCalculatorService {
     moveSmogon.isStellarFirstUse = true
     moveSmogon.hits = +move.hits
 
-    const forceMaxIvs = this.calculatorStore.isChampions()
+    const forceMaxIvs = true
     const smogonAttacker = fromExisting(attacker, forceMaxIvs)
     const smogonTarget = fromExisting(target, forceMaxIvs)
 
@@ -184,7 +184,7 @@ export class DamageCalculatorService {
   }
 
   private formatDescription(description: string): string {
-    if (this.calculatorStore.isChampions() && this.calculatorStore.useSpsMode()) {
+    if (this.calculatorStore.useSpsMode()) {
       return description.replace(/\b(\d+)([+-]?)\s+(HP|Atk|Def|SpA|SpD|Spe)\b/g, (_match, ev, nature, stat) => {
         return `${evToSp(+ev)}${nature} ${stat}`
       })

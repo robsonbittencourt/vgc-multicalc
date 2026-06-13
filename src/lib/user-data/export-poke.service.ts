@@ -45,23 +45,12 @@ export class ExportPokeService {
       Level: ${pokemon.level}\n
     `
 
-    if (!this.store.isChampions()) {
-      text += `Tera Type: ${pokemon.teraType}\n`
-    }
-
     const evsDescription = useSpsMode ? this.spsDescriptionShowdown(pokemon) : this.evsDescriptionShowdown(pokemon)
     if (evsDescription.length > 0) {
       text += `EVs: ${evsDescription}\n`
     }
 
     text += `${pokemon.nature} Nature\n`
-
-    if (!this.store.isChampions()) {
-      const ivsDescription = this.ivsDescriptionShowdown(pokemon)
-      if (ivsDescription.length > 0) {
-        text += `IVs: ${ivsDescription}\n`
-      }
-    }
 
     const moves = [pokemon.move1Name, pokemon.move2Name, pokemon.move3Name, pokemon.move4Name].filter(move => move && move !== "undefined" && move !== "")
     text += moves.map(move => `- ${move}`).join("\n") + "\n"

@@ -15,8 +15,8 @@ export class Move {
   readonly target: string
   readonly category: Category
 
-  constructor(name: string, options: { alliesFainted?: string; hits?: string; lastMoveFailed?: boolean; game?: string } = {}) {
-    const gen = options.game === "champions" ? Generations.get(0) : Generations.get(9)
+  constructor(name: string, options: { alliesFainted?: string; hits?: string; lastMoveFailed?: boolean } = {}) {
+    const gen = Generations.get(0)
     const smogonMove = new MoveSmogon(gen, name)
 
     this.name = name ?? ""
@@ -40,7 +40,7 @@ export class Move {
         throw new Error(`Move details not found for: ${name}`)
       }
 
-      if (options.game === "champions" && MOVE_DETAILS_CHAMPIONS[moveName]) {
+      if (MOVE_DETAILS_CHAMPIONS[moveName]) {
         moveDetails = { ...moveDetails, ...MOVE_DETAILS_CHAMPIONS[moveName] }
       }
 

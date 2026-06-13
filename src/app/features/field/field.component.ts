@@ -1,7 +1,6 @@
-import { booleanAttribute, Component, computed, inject, input } from "@angular/core"
+import { booleanAttribute, Component, inject, input } from "@angular/core"
 import { MatButtonToggle, MatButtonToggleGroup } from "@angular/material/button-toggle"
 import { WidgetComponent } from "@basic/widget/widget.component"
-import { CalculatorStore } from "@data/store/calculator-store"
 import { FieldStore } from "@data/store/field-store"
 
 @Component({
@@ -14,8 +13,5 @@ export class FieldComponent {
   onlySpeed = input(false, { transform: booleanAttribute })
   oneVsOne = input(false, { transform: booleanAttribute })
 
-  store = inject(CalculatorStore)
   fieldStore = inject(FieldStore)
-
-  isChampions = computed(() => this.store.game() === "champions")
 }

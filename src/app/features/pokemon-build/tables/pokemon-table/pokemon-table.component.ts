@@ -1,7 +1,6 @@
 import { Component, computed, inject, input, output, signal } from "@angular/core"
 import { ABILITY_DETAILS } from "@data/abiliity-details"
 import { POKEMON_DETAILS, PokemonDetail } from "@data/pokemon-details"
-import { POKEMON_DETAILS_CHAMPIONS } from "@data/pokemon-details-champions"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { CustomSet } from "@data/store/custom-set"
 import { FilterableTableComponent } from "@features/pokemon-build/tables/filterable-table/filterable-table.component"
@@ -123,7 +122,7 @@ export class PokemonTableComponent {
   setStats(set: CustomSet): string {
     const labels: Record<keyof Stats, string> = { hp: "HP", atk: "Atk", def: "Def", spa: "SpA", spd: "SpD", spe: "Spe" }
     const stats: (keyof Stats)[] = ["hp", "atk", "def", "spa", "spd", "spe"]
-    const useSps = this.store.isChampions() && this.store.useSpsMode()
+    const useSps = this.store.useSpsMode()
 
     return stats
       .map(stat => ({ stat, value: useSps ? evToSp(set.state.evs[stat] ?? 0) : (set.state.evs[stat] ?? 0) }))
@@ -176,7 +175,7 @@ export class PokemonTableComponent {
   ]
 
   buildGroupedPokemonData(): TableData<PokemonDetail & { subRows?: CustomSet[] }>[] {
-    const details = this.store.game() === "champions" ? POKEMON_DETAILS_CHAMPIONS : POKEMON_DETAILS
+    const details = POKEMON_DETAILS
     const customSetsByPokemon = this.store.customSetsByPokemon()
     const allPokemon = Object.values(details).map(p => {
       const pokemon = new Pokemon(p.name)

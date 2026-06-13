@@ -2,11 +2,10 @@ import { NgClass, TitleCasePipe } from "@angular/common"
 import { Component, computed, effect, inject, OnDestroy, signal } from "@angular/core"
 import { Router } from "@angular/router"
 import { MatIconButton } from "@angular/material/button"
-import { MatButtonToggle, MatButtonToggleChange, MatButtonToggleGroup } from "@angular/material/button-toggle"
 import { MatDivider } from "@angular/material/divider"
 import { MatIcon } from "@angular/material/icon"
 import { ActiveFieldService } from "@data/store/active-field.service"
-import { CalculatorStore, Game } from "@data/store/calculator-store"
+import { CalculatorStore } from "@data/store/calculator-store"
 import { MenuStore } from "@data/store/menu-store"
 import { SnackbarService } from "@lib/snackbar.service"
 import { Color, Theme, ThemeService } from "@lib/theme.service"
@@ -17,7 +16,7 @@ import { PwaInstallService } from "@lib/pwa-install.service"
   selector: "app-header-mobile",
   templateUrl: "./header-mobile.component.html",
   styleUrls: ["./header-mobile.component.scss"],
-  imports: [NgClass, MatIconButton, MatIcon, MatButtonToggleGroup, MatButtonToggle, MatDivider, TitleCasePipe]
+  imports: [NgClass, MatIconButton, MatIcon, MatDivider, TitleCasePipe]
 })
 export class HeaderMobileComponent implements OnDestroy {
   store = inject(CalculatorStore)
@@ -139,9 +138,5 @@ export class HeaderMobileComponent implements OnDestroy {
     } catch {
       this.snackBar.open(link)
     }
-  }
-
-  onGameChange(event: MatButtonToggleChange) {
-    this.store.updateGame(event.value as Game)
   }
 }

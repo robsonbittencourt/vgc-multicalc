@@ -21,7 +21,7 @@ export class SaveSetButtonComponent {
 
   updateSuccess = signal(false)
 
-  show = computed(() => this.store.isChampions())
+  show = signal(true)
 
   showSaveButton = computed(() => this.displayMode() !== "name")
 

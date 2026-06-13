@@ -155,12 +155,10 @@ export class PokemonBuildComponent {
     return { ...pokemon.evs }
   })
 
-  isChampions = computed(() => this.store.isChampions)
-
-  showEvsSpsToggle = signal(false)
-  MAX_EVS = computed(() => (this.isChampions() ? 66 : 508))
+  showEvsSpsToggle = signal(true)
+  MAX_EVS = 66
   evLabel = computed(() => {
-    if (this.store.isChampions() && this.store.useSpsMode()) {
+    if (this.store.useSpsMode()) {
       return "SPs"
     }
     return "EVs"
@@ -168,16 +166,14 @@ export class PokemonBuildComponent {
   remainingLabel = computed(() => "Remaining:")
   remainingPoints = computed(() => {
     const pokemon = this.pokemon()
-    if (this.store.isChampions()) {
-      const currentSps = totalSpsFromEvs(pokemon.evs)
-      const remainingSps = 66 - currentSps
-      if (this.store.useSpsMode()) {
-        return remainingSps
-      } else {
-        return spToEv(remainingSps)
-      }
+    const currentSps = totalSpsFromEvs(pokemon.evs)
+    const remainingSps = 66 - currentSps
+
+    if (this.store.useSpsMode()) {
+      return remainingSps
+    } else {
+      return spToEv(remainingSps)
     }
-    return 508 - pokemon.totalEvs
   })
 
   hasNoSolution = computed(() => {
@@ -264,11 +260,6 @@ export class PokemonBuildComponent {
   constructor() {
     queueMicrotask(() => {
       this.shouldAnimate.set(true)
-      this.showEvsSpsToggle.set(this.store.isChampions())
-    })
-
-    effect(() => {
-      this.showEvsSpsToggle.set(this.store.isChampions())
     })
 
     effect(() => {
@@ -574,11 +565,7 @@ export class PokemonBuildComponent {
   }
 
   gridTemplateColumns(): any {
-    if (this.store.isChampions()) {
-      return { "grid-template-columns": this.hasModifiedStat() ? "64px 64px 67px 64px 1fr 64px 30px" : "64px 64px 67px 64px 1fr 64px" }
-    }
-
-    return { "grid-template-columns": this.hasModifiedStat() ? "64px 64px 67px 64px 1fr 64px 40px 30px" : "64px 64px 67px 64px 1fr 64px 40px" }
+    return { "grid-template-columns": this.hasModifiedStat() ? "64px 64px 67px 64px 1fr 64px 30px" : "64px 64px 67px 64px 1fr 64px" }
   }
 
   clearEvs() {

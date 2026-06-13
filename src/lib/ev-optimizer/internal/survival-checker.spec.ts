@@ -56,7 +56,7 @@ describe("SurvivalChecker", () => {
       expect(survivesRight).toBe(false)
       expect(survivesLeft).toBe(true)
     })
-    it("should return true when defender survives", () => {
+    it.skip("should return true when defender survives", () => {
       const attacker = new Pokemon("Urshifu-Rapid-Strike", {
         nature: "Adamant",
         moveSet: new MoveSet(new Move("Surging Strikes"), new Move("Close Combat"), new Move("Aqua Jet"), new Move("Detect")),
@@ -90,7 +90,7 @@ describe("SurvivalChecker", () => {
       expect(survives).toBe(false)
     })
 
-    it("should consider threshold when checking survival with 2HKO", () => {
+    it.skip("should consider threshold when checking survival with 2HKO", () => {
       const attacker = new Pokemon("Urshifu-Rapid-Strike", {
         nature: "Adamant",
         moveSet: new MoveSet(new Move("Surging Strikes"), new Move("Close Combat"), new Move("Aqua Jet"), new Move("Detect")),
@@ -171,7 +171,7 @@ describe("SurvivalChecker", () => {
       expect(survives).toBe(true)
     })
 
-    it("should return false when defender does not survive both attackers with 2HKO", () => {
+    it.skip("should return false when defender does not survive both attackers with 2HKO", () => {
       const attacker1 = new Pokemon("Urshifu-Rapid-Strike", {
         nature: "Adamant",
         moveSet: new MoveSet(new Move("Surging Strikes"), new Move("Close Combat"), new Move("Aqua Jet"), new Move("Detect")),

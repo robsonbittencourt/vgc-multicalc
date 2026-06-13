@@ -5,7 +5,6 @@ import { MatDialog } from "@angular/material/dialog"
 import { MatIcon } from "@angular/material/icon"
 import { AVAILABLE_ITEMS } from "@data/available-items"
 import { POKEMON_DETAILS } from "@data/pokemon-details"
-import { POKEMON_DETAILS_CHAMPIONS } from "@data/pokemon-details-champions"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { toPokemon } from "@data/regulation-pokemon"
 import { ImportModalComponent } from "@features/import-modal/import-modal.component"
@@ -52,14 +51,14 @@ export class ImportPokemonButtonComponent {
         const allZero = Object.values(p.evs).every(ev => ev === 0)
 
         if (allZero) {
-          const pokeMetaData = toPokemon(p.name, this.store.activeSetdex(), this.store.isChampions())
+          const pokeMetaData = toPokemon(p.name, this.store.activeSetdex)
           return p.clone({ nature: pokeMetaData.nature, evs: pokeMetaData.evs })
         }
 
         return p
       })
 
-      const validSetdex = this.store.activeSetdex()
+      const validSetdex = this.store.activeSetdex
       const validList = processedList.filter(p => p.name in validSetdex)
       const removedCount = processedList.length - validList.length
 
@@ -68,8 +67,8 @@ export class ImportPokemonButtonComponent {
         return
       }
 
-      const activeDetails = this.store.isChampions() ? POKEMON_DETAILS_CHAMPIONS : POKEMON_DETAILS
-      const validItemsForMode = this.store.isChampions() ? AVAILABLE_ITEMS["champions"] : AVAILABLE_ITEMS["sv"]
+      const activeDetails = POKEMON_DETAILS
+      const validItemsForMode = AVAILABLE_ITEMS["champions"]
       const validatedList: { pokemon: Pokemon; hadInvalidMoves: boolean; hadInvalidItem: boolean }[] = validList.map(p => this.validateAndClean(p, activeDetails, validItemsForMode))
 
       const hadInvalidMoves = validatedList.some(v => v.hadInvalidMoves)

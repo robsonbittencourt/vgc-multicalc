@@ -1,4 +1,3 @@
-import { SpriteService } from "@data/sprite.service"
 import { CdkDrag, CdkDragEnd, CdkDragHandle, CdkDragMove, CdkDragPlaceholder, CdkDragStart } from "@angular/cdk/drag-drop"
 import { Component, computed, inject, input, model, output } from "@angular/core"
 import { MatIcon } from "@angular/material/icon"
@@ -18,7 +17,6 @@ import { Pokemon } from "@lib/model/pokemon"
 import { RollLevelConfig } from "@lib/damage-calculator/roll-level-config"
 import { Target } from "@lib/model/target"
 import { ChampionsHpBadgeComponent } from "@pages/simple-calc/pokemon-hp-badge/champions-hp-badge/champions-hp-badge.component"
-import { PokemonHpBadgeComponent } from "@pages/simple-calc/pokemon-hp-badge/pokemon-hp-badge.component"
 
 @Component({
   selector: "app-pokemon-card",
@@ -34,14 +32,12 @@ import { PokemonHpBadgeComponent } from "@pages/simple-calc/pokemon-hp-badge/pok
     TerastalButtonComponent,
     AegislashButtonComponent,
     BoosterEnergyButtonComponent,
-    PokemonHpBadgeComponent,
     ChampionsHpBadgeComponent,
     CopyButtonComponent,
     PokemonSpriteComponent
   ]
 })
 export class PokemonCardComponent {
-  spriteService = inject(SpriteService)
   store = inject(CalculatorStore)
   menuStore = inject(MenuStore)
   megaStoneService = inject(MegaStoneService)

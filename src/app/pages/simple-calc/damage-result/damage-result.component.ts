@@ -1,26 +1,21 @@
-import { SpriteService } from "@data/sprite.service"
 import { NgClass, NgStyle } from "@angular/common"
-import { Component, computed, inject, input, model, output } from "@angular/core"
+import { Component, computed, input, model, output } from "@angular/core"
 import { MatChipListbox, MatChipOption } from "@angular/material/chips"
 import { CopyButtonComponent } from "@basic/copy-button/copy-button.component"
 import { WidgetComponent } from "@basic/widget/widget.component"
-import { CalculatorStore } from "@data/store/calculator-store"
 import { RollConfigComponent } from "@features/roll-config/roll-config.component"
 import { DamageResult } from "@lib/damage-calculator/damage-result"
 import { RollLevelConfig } from "@lib/damage-calculator/roll-level-config"
 import { Pokemon } from "@lib/model/pokemon"
 import { ChampionsHpBadgeComponent } from "@pages/simple-calc/pokemon-hp-badge/champions-hp-badge/champions-hp-badge.component"
-import { PokemonHpBadgeComponent } from "@pages/simple-calc/pokemon-hp-badge/pokemon-hp-badge.component"
 
 @Component({
   selector: "app-damage-result",
   templateUrl: "./damage-result.component.html",
   styleUrls: ["./damage-result.component.scss"],
-  imports: [NgStyle, NgClass, MatChipListbox, MatChipOption, WidgetComponent, PokemonHpBadgeComponent, ChampionsHpBadgeComponent, CopyButtonComponent, RollConfigComponent]
+  imports: [NgStyle, NgClass, MatChipListbox, MatChipOption, WidgetComponent, ChampionsHpBadgeComponent, CopyButtonComponent, RollConfigComponent]
 })
 export class DamageResultComponent {
-  spriteService = inject(SpriteService)
-  store = inject(CalculatorStore)
   pokemon = input.required<Pokemon>()
   damageResults = input.required<DamageResult[]>()
   opponentDamageResult = input.required<DamageResult>()

@@ -29,10 +29,6 @@
       <app-copy-button [value]="userDataLink" />
       <a target="_blank" [href]="userDataLink">Link</a>
     }
-    <mat-button-toggle-group [value]="store.game()" (change)="onGameChange($event)">
-      <mat-button-toggle value="sv">SV</mat-button-toggle>
-      <mat-button-toggle value="champions">Champions</mat-button-toggle>
-    </mat-button-toggle-group>
     <button mat-flat-button color="link" (click)="uploadData()">Share your calcs</button>
     <button mat-flat-button color="link" (click)="enableHowToUse()">How to use</button>
     <a target="_blank" href="https://twitter.com/rluizv" aria-label="Twitter"><img class="icon" src="assets/icons/twitter.svg" width="30" height="30" alt="Twitter" /></a>

@@ -4,116 +4,61 @@
       <app-pokemon-moves-mobile [pokemonId]="pokemonId()" [editingMoves]="editingMoves()" (editMovesRequested)="editMovesRequested.emit()" (closeMovesRequested)="closeMovesRequested.emit()" />
     }
 
+    @if (false) {
+      <app-tera-combo-box [pokemonId]="effectiveRealId()" />
+    }
     @if (!hideEvs()) {
       <div class="combo-options">
-        @if (store.game() === "sv") {
-          <div class="combo-row">
-            <div class="combo-tera">
-              <app-tera-combo-box [pokemonId]="effectiveRealId()" />
-            </div>
-            <div class="combo-types combo-types-inline">
-              <app-type-combo-box [type1]="pokemon().type1" [type2]="pokemon().type2" [centralized]="true" />
-            </div>
-          </div>
-
-          <div class="combo-row">
-            <div class="combo-item-with-mega">
-              @if (isMegaStoneCompatible()) {
-                <div class="mega-icon-wrapper-mobile">
-                  <img
-                    class="mega-icon-mobile"
-                    [ngClass]="{ 'mega-active': pokemon().name.includes('-Mega') }"
-                    src="assets/sprites/items/{{ getMegaStoneSprite() }}.webp"
-                    width="120"
-                    height="120"
-                    loading="lazy"
-                    (click)="toggleMega()"
-                    alt="Mega Stone" />
-                </div>
-              }
-              <div class="item-mobile-trigger" (click)="editItemRequested.emit()">
-                <app-input-select label="Item" [value]="pokemon().item" [allValues]="[pokemon().item]" />
-                @if (hasDuplicateItem()) {
-                  <mat-icon
-                    #duplicateTooltipSv="matTooltip"
-                    class="duplicate-item-warning-mobile"
-                    matTooltip="This item is already used by another team member"
-                    matTooltipPosition="above"
-                    [matTooltipShowDelay]="0"
-                    [matTooltipHideDelay]="2000"
-                    (click)="$event.stopPropagation(); duplicateTooltipSv.show()"
-                    data-cy="duplicate-item-warning"
-                    >warning</mat-icon
-                  >
-                }
+        <div class="combo-row">
+          <div class="combo-item-with-mega">
+            @if (isMegaStoneCompatible()) {
+              <div class="mega-icon-wrapper-mobile">
+                <img
+                  class="mega-icon-mobile"
+                  [ngClass]="{ 'mega-active': pokemon().name.includes('-Mega') }"
+                  src="assets/sprites/items/{{ getMegaStoneSprite() }}.webp"
+                  width="120"
+                  height="120"
+                  loading="lazy"
+                  (click)="toggleMega()"
+                  alt="Mega Stone" />
               </div>
-            </div>
-            <div class="combo-status">
-              <app-status-combo-box [pokemonId]="effectiveRealId()" />
-            </div>
-          </div>
-
-          <div class="combo-row">
-            <div class="combo-nature" [ngClass]="{ 'combo-nature-compact': pokemon().ability.actionableAbility }">
-              <app-nature-combo-box [pokemonId]="effectiveRealId()" [isMobile]="true" />
-            </div>
-
-            <div class="combo-ability">
-              <app-ability-combo-box [pokemonId]="effectiveRealId()" [isMobile]="true" (openAbilityTableRequested)="editAbilityRequested.emit()" />
-            </div>
-          </div>
-        } @else {
-          <div class="combo-row">
-            <div class="combo-item-with-mega">
-              @if (isMegaStoneCompatible()) {
-                <div class="mega-icon-wrapper-mobile">
-                  <img
-                    class="mega-icon-mobile"
-                    [ngClass]="{ 'mega-active': pokemon().name.includes('-Mega') }"
-                    src="assets/sprites/items/{{ getMegaStoneSprite() }}.webp"
-                    width="120"
-                    height="120"
-                    loading="lazy"
-                    (click)="toggleMega()"
-                    alt="Mega Stone" />
-                </div>
+            }
+            <div class="item-mobile-trigger" (click)="editItemRequested.emit()">
+              <app-input-select label="Item" [value]="pokemon().item" [allValues]="[pokemon().item]" />
+              @if (hasDuplicateItem()) {
+                <mat-icon
+                  #duplicateTooltipChampions="matTooltip"
+                  class="duplicate-item-warning-mobile"
+                  matTooltip="This item is already used by another team member"
+                  matTooltipPosition="above"
+                  [matTooltipShowDelay]="0"
+                  [matTooltipHideDelay]="2000"
+                  (click)="$event.stopPropagation(); duplicateTooltipChampions.show()"
+                  data-cy="duplicate-item-warning"
+                  >warning</mat-icon
+                >
               }
-              <div class="item-mobile-trigger" (click)="editItemRequested.emit()">
-                <app-input-select label="Item" [value]="pokemon().item" [allValues]="[pokemon().item]" />
-                @if (hasDuplicateItem()) {
-                  <mat-icon
-                    #duplicateTooltipChampions="matTooltip"
-                    class="duplicate-item-warning-mobile"
-                    matTooltip="This item is already used by another team member"
-                    matTooltipPosition="above"
-                    [matTooltipShowDelay]="0"
-                    [matTooltipHideDelay]="2000"
-                    (click)="$event.stopPropagation(); duplicateTooltipChampions.show()"
-                    data-cy="duplicate-item-warning"
-                    >warning</mat-icon
-                  >
-                }
-              </div>
-            </div>
-            <div class="combo-ability">
-              <app-ability-combo-box [pokemonId]="effectiveRealId()" [isMobile]="true" (openAbilityTableRequested)="editAbilityRequested.emit()" />
             </div>
           </div>
-
-          <div class="combo-row">
-            <div class="combo-nature" [ngClass]="{ 'combo-nature-compact': pokemon().ability.actionableAbility }">
-              <app-nature-combo-box [pokemonId]="effectiveRealId()" [isMobile]="true" />
-            </div>
-
-            <div class="combo-status">
-              <app-status-combo-box [pokemonId]="effectiveRealId()" />
-            </div>
-
-            <div class="combo-types combo-types-inline">
-              <app-type-combo-box [type1]="pokemon().type1" [type2]="pokemon().type2" [centralized]="true" />
-            </div>
+          <div class="combo-ability">
+            <app-ability-combo-box [pokemonId]="effectiveRealId()" [isMobile]="true" (openAbilityTableRequested)="editAbilityRequested.emit()" />
           </div>
-        }
+        </div>
+
+        <div class="combo-row">
+          <div class="combo-nature" [ngClass]="{ 'combo-nature-compact': pokemon().ability.actionableAbility }">
+            <app-nature-combo-box [pokemonId]="effectiveRealId()" [isMobile]="true" />
+          </div>
+
+          <div class="combo-status">
+            <app-status-combo-box [pokemonId]="effectiveRealId()" />
+          </div>
+
+          <div class="combo-types combo-types-inline">
+            <app-type-combo-box [type1]="pokemon().type1" [type2]="pokemon().type2" [centralized]="true" />
+          </div>
+        </div>
       </div>
 
       <div class="evs" (touchstart)="blurActiveInput()">

@@ -4,22 +4,13 @@
 
     <app-probability-card [title]="protectCard.title" [headers]="protectCard.headers" [rows]="protectCard.rows" />
 
-    <app-probability-card
-      [title]="isChampions() ? turnsToSleepCardChampions.title : turnsToSleepCardSV.title"
-      [headers]="isChampions() ? turnsToSleepCardChampions.headers : turnsToSleepCardSV.headers"
-      [rows]="isChampions() ? turnsToSleepCardChampions.rows : turnsToSleepCardSV.rows" />
+    <app-probability-card [title]="turnsToSleepCardChampions.title" [headers]="turnsToSleepCardChampions.headers" [rows]="turnsToSleepCardChampions.rows" />
 
-    <app-probability-card
-      [title]="isChampions() ? wakeUpFromSleepCardChampions.title : wakeUpFromSleepCardSV.title"
-      [headers]="isChampions() ? wakeUpFromSleepCardChampions.headers : wakeUpFromSleepCardSV.headers"
-      [rows]="isChampions() ? wakeUpFromSleepCardChampions.rows : wakeUpFromSleepCardSV.rows" />
+    <app-probability-card [title]="wakeUpFromSleepCardChampions.title" [headers]="wakeUpFromSleepCardChampions.headers" [rows]="wakeUpFromSleepCardChampions.rows" />
 
-    <app-probability-card
-      [title]="isChampions() ? fullyParalyzedCardChampions.title : fullyParalyzedCardSV.title"
-      [headers]="isChampions() ? fullyParalyzedCardChampions.headers : fullyParalyzedCardSV.headers"
-      [rows]="isChampions() ? fullyParalyzedCardChampions.rows : fullyParalyzedCardSV.rows" />
+    <app-probability-card [title]="fullyParalyzedCardChampions.title" [headers]="fullyParalyzedCardChampions.headers" [rows]="fullyParalyzedCardChampions.rows" />
 
-    <app-probability-card [title]="isChampions() ? freezeCardChampions.title : freezeCardSV.title" [headers]="isChampions() ? freezeCardChampions.headers : freezeCardSV.headers" [rows]="isChampions() ? freezeCardChampions.rows : freezeCardSV.rows" />
+    <app-probability-card [title]="freezeCardChampions.title" [headers]="freezeCardChampions.headers" [rows]="freezeCardChampions.rows" />
 
     <app-probability-card [title]="snapOutOfConfusionCard.title" [headers]="snapOutOfConfusionCard.headers" [rows]="snapOutOfConfusionCard.rows" />
 

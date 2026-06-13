@@ -38,7 +38,7 @@ export class TeamsService {
 
   export(team: Team) {
     const pokemon = team.teamMembers.map(tm => tm.pokemon)
-    const shouldUseSps = this.store.isChampions() && this.store.useSpsMode()
+    const shouldUseSps = this.store.useSpsMode()
     this.exportPokeService.export(team.name, pokemon, shouldUseSps)
   }
 

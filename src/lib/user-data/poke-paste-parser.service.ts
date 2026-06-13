@@ -34,14 +34,12 @@ export class PokePasteParserService {
 
     return pokemonList.map((poke: any) => {
       const name = this.adjustName(poke.name)
-      const ivs = this.store.isChampions()
-        ? { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 }
-        : { hp: poke.ivs?.hp ?? 31, atk: poke.ivs?.atk ?? 31, def: poke.ivs?.def ?? 31, spa: poke.ivs?.spa ?? 31, spd: poke.ivs?.spd ?? 31, spe: poke.ivs?.spe ?? 31 }
+      const ivs = { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 }
       let evs = { hp: poke.evs?.hp ?? 0, atk: poke.evs?.atk ?? 0, def: poke.evs?.def ?? 0, spa: poke.evs?.spa ?? 0, spd: poke.evs?.spd ?? 0, spe: poke.evs?.spe ?? 0 }
 
       const totalEvs = evs.hp + evs.atk + evs.def + evs.spa + evs.spd + evs.spe
 
-      if (this.store.isChampions() && totalEvs <= 66) {
+      if (totalEvs <= 66) {
         evs = { hp: spToEv(evs.hp), atk: spToEv(evs.atk), def: spToEv(evs.def), spa: spToEv(evs.spa), spd: spToEv(evs.spd), spe: spToEv(evs.spe) }
       }
 
@@ -57,7 +55,7 @@ export class PokePasteParserService {
       const onlyName = pokemonName.substring(0, pokemonName.indexOf("-"))
 
       if (this.pokemonWithAlternativeForm().includes(onlyName)) {
-        const setdex = this.store.activeSetdex()
+        const setdex = this.store.activeSetdex
         const fullNameExists = setdex[pokemonName]
         if (fullNameExists) {
           return pokemonName

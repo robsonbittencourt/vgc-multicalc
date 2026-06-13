@@ -11,7 +11,6 @@ import { DomSanitizer } from "@angular/platform-browser"
 import { InputSelectComponent } from "@app/basic/input-select/input-select.component"
 import { WidgetComponent } from "@basic/widget/widget.component"
 import { SETDEX_CHAMPIONS } from "@data/movesets-champions"
-import { SETDEX_SV } from "@data/movesets"
 import { pokemonByRegulation } from "@data/regulation-pokemon"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { CustomSet } from "@data/store/custom-set"
@@ -113,11 +112,6 @@ export class MultiCalcMobileComponent implements OnDestroy {
     })
 
     effect(() => {
-      this.store.game()
-      this.pokemonOnEditId.set(null)
-    })
-
-    effect(() => {
       const attacker = this.activeAttacker()
       const secondAttacker = this.secondAttacker()
 
@@ -179,8 +173,8 @@ export class MultiCalcMobileComponent implements OnDestroy {
   editingPokemonItem = computed(() => this.editingPokemon()?.item ?? "")
   editingMoveIndex = computed(() => Math.max(0, this.editingPokemon()?.activeMoveIndex ?? 0))
 
-  regulation = linkedSignal<Regulation>(() => this.store.targetMetaRegulation() ?? (this.store.game() === "champions" ? "MA" : "I"))
-  regulationsList = computed(() => (this.store.game() === "champions" ? ["MA"] : ["I"]))
+  regulation = linkedSignal<Regulation>(() => this.store.targetMetaRegulation() ?? "MA")
+  regulationsList = signal(["MA"])
   rollLevelConfig = signal(RollLevelConfig.fromConfigString(this.store.multiCalcRollLevel()))
   order = signal(false)
 
@@ -267,8 +261,8 @@ export class MultiCalcMobileComponent implements OnDestroy {
       this.store.updateTargets(newTargets)
     } else {
       this.store.updateTargetMetaRegulation(this.regulation())
-      const setdex = this.store.game() === "champions" ? SETDEX_CHAMPIONS : SETDEX_SV
-      const metaPokemon = pokemonByRegulation(this.regulation(), 33, setdex, false, this.store.isChampions())
+      const setdex = SETDEX_CHAMPIONS
+      const metaPokemon = pokemonByRegulation(this.regulation(), 33, setdex, false)
       this.onTargetsImported(metaPokemon)
     }
   }
@@ -297,7 +291,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
 
   exportPokemon() {
     const pokemon = this.store.targets().flatMap(t => (t.secondPokemon ? [t.pokemon, t.secondPokemon] : [t.pokemon]))
-    const shouldUseSps = this.store.isChampions() && this.store.useSpsMode()
+    const shouldUseSps = this.store.useSpsMode()
     this.exportPokeService.export("Opponent Pokémon", pokemon, shouldUseSps)
   }
 
@@ -316,8 +310,8 @@ export class MultiCalcMobileComponent implements OnDestroy {
   }
 
   private targetsExcludingMetaData(): Target[] {
-    const setdex = this.store.game() === "champions" ? SETDEX_CHAMPIONS : SETDEX_SV
-    const metaLeft = pokemonByRegulation(this.store.targetMetaRegulation()!, 33, setdex, false, this.store.isChampions())
+    const setdex = SETDEX_CHAMPIONS
+    const metaLeft = pokemonByRegulation(this.store.targetMetaRegulation()!, 33, setdex, false)
 
     const newTargets = [...this.store.targets()]
       .reverse()
