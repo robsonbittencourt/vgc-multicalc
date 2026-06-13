@@ -26,6 +26,7 @@ import { PokemonTableComponent } from "@features/pokemon-build/tables/pokemon-ta
 import { TeraComboBoxComponent } from "@features/pokemon-build/tera-combo-box/tera-combo-box.component"
 import { TypeComboBoxComponent } from "@features/pokemon-build/type-combo-box/type-combo-box.component"
 import { MegaStoneService } from "@features/pokemon-build/utils/mega-stone.service"
+import { FEATURES } from "@lib/feature-flags"
 import { getFinalAttack, getFinalSpecialAttack } from "@lib/smogon/stat-calculator/atk-spa/modified-atk-spa"
 import { getFinalDefense, getFinalSpecialDefense } from "@lib/smogon/stat-calculator/def-spd/modified-def-spd"
 import { getFinalSpeed } from "@lib/smogon/stat-calculator/spe/modified-spe"
@@ -60,6 +61,8 @@ import { Stats, SurvivalThreshold } from "@lib/types"
   ]
 })
 export class PokemonBuildComponent {
+  features = FEATURES
+
   pokemonId = input.required<string>()
   reverse = input<boolean>(false)
   hasFocus = input<boolean>(true)

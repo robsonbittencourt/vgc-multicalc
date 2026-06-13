@@ -13,6 +13,7 @@ import { TatsugiriButtonComponent } from "@features/buttons/tatsugiri-button/tat
 import { TerastalButtonComponent } from "@features/buttons/terastal-button/terastal-button.component"
 import { MegaStoneService } from "@features/pokemon-build/utils/mega-stone.service"
 import { DamageResult } from "@lib/damage-calculator/damage-result"
+import { FEATURES } from "@lib/feature-flags"
 import { Pokemon } from "@lib/model/pokemon"
 import { RollLevelConfig } from "@lib/damage-calculator/roll-level-config"
 import { Target } from "@lib/model/target"
@@ -41,6 +42,8 @@ export class PokemonCardComponent {
   store = inject(CalculatorStore)
   menuStore = inject(MenuStore)
   megaStoneService = inject(MegaStoneService)
+
+  features = FEATURES
 
   damageResult = input.required<DamageResult>()
   target = input<Target | undefined>(undefined)

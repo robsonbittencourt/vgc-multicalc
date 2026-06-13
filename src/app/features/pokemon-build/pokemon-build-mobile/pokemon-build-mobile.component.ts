@@ -20,6 +20,7 @@ import { StatusComboBoxComponent } from "@features/pokemon-build/status-combo-bo
 import { TeraComboBoxComponent } from "@features/pokemon-build/tera-combo-box/tera-combo-box.component"
 import { TypeComboBoxComponent } from "@features/pokemon-build/type-combo-box/type-combo-box.component"
 import { MegaStoneService } from "@features/pokemon-build/utils/mega-stone.service"
+import { FEATURES } from "@lib/feature-flags"
 import { Pokemon } from "@lib/model/pokemon"
 import { getFinalAttack, getFinalSpecialAttack } from "@lib/smogon/stat-calculator/atk-spa/modified-atk-spa"
 import { getFinalDefense, getFinalSpecialDefense } from "@lib/smogon/stat-calculator/def-spd/modified-def-spd"
@@ -49,6 +50,8 @@ import { Stats } from "@lib/types"
   ]
 })
 export class PokemonBuildMobileComponent {
+  features = FEATURES
+
   pokemonId = input.required<string>()
   realPokemonId = input<string | null>(null)
   optimizationStatus = input<"idle" | "success" | "no-solution" | "not-needed">("idle")

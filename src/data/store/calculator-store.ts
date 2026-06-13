@@ -1,4 +1,4 @@
-import { computed, effect, inject, Injectable, signal } from "@angular/core"
+import { computed, effect, inject, Injectable } from "@angular/core"
 import { Items } from "@data/items"
 import { SETDEX_CHAMPIONS } from "@data/movesets-champions"
 import { CustomSet } from "@data/store/custom-set"
@@ -147,7 +147,6 @@ export class CalculatorStore extends signalStore(
   readonly teamMember4 = computed(() => this.getTeamMemberAt(4))
   readonly teamMember5 = computed(() => this.getTeamMemberAt(5))
 
-  readonly isChampions = signal(true)
   readonly activeSetdex = SETDEX_CHAMPIONS
 
   readonly customSetsByPokemon = computed(() => {

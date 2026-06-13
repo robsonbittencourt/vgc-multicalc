@@ -4,7 +4,7 @@
       <app-pokemon-moves-mobile [pokemonId]="pokemonId()" [editingMoves]="editingMoves()" (editMovesRequested)="editMovesRequested.emit()" (closeMovesRequested)="closeMovesRequested.emit()" />
     }
 
-    @if (false) {
+    @if (features.teraType) {
       <app-tera-combo-box [pokemonId]="effectiveRealId()" />
     }
     @if (!hideEvs()) {
