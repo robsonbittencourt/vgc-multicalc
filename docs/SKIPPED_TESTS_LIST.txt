@@ -1,0 +1,122 @@
+═════════════════════════════════════════════════════════════════════════════════
+LISTA COMPLETA DE TESTES SKIPADOS DURANTE REMOÇÃO DO MODO SV
+═════════════════════════════════════════════════════════════════════════════════
+
+ARQUIVO: src/data/store/calculator-store.spec.ts (1 teste)
+─────────────────────────────────────────────────────────────────────────────────
+775: it.skip("should load Pokémon information using it name", () => {
+
+
+ARQUIVO: src/data/store/field-store.spec.ts (2 testes)
+─────────────────────────────────────────────────────────────────────────────────
+[Ainda não listado - verificar arquivo]
+
+
+ARQUIVO: src/data/store/speed-calc-options-store.spec.ts (1 teste)
+─────────────────────────────────────────────────────────────────────────────────
+[Ainda não listado - verificar arquivo]
+
+
+ARQUIVO: src/lib/damage-calculator/damage-calculator.service.spec.ts (13 testes)
+─────────────────────────────────────────────────────────────────────────────────
+54:  it.skip("should calculate damage with multi hit move", () => {
+78:  it.skip("should calculate damage to all attacks", () => {
+124: it.skip("should calculate damage to two attackers", () => {
+144: it.skip("should calculate damage to two attackers considering speed", () => {
+245: it.skip("should calculate damage to two attackers one with multi hit move", () => {
+271: it.skip("should calculate damage to two attackers with Tera active in defender", () => {
+282: it.skip("should calculate damage to two attackers with positive def modifier/nature in defender", () => {
+293: it.skip("should calculate damage to two attackers with positive spd modifier/nature in defender", () => {
+304: it.skip("should calculate damage to two attackers with negative def modifier/nature in defender", () => {
+315: it.skip("should calculate damage to two attackers with negative spd modifier/nature in defender", () => {
+326: it.skip("should calculate damage to two attackers with positive def modifier/nature and negative spd modifier/nature in defender", () => {
+376: it.skip("should calculate Ruination damage as half of the target current HP", () => {
+408: it.skip("should trigger Sitrus Berry and affect second attacker damage (Water Spout)", () => {
+
+
+ARQUIVO: src/lib/ev-optimizer/defensive-ev-optimizer.service.spec.ts (47 testes)
+─────────────────────────────────────────────────────────────────────────────────
+38:  it.skip("should optimize EVs for single physical attacker", () => {
+57:  it.skip("should optimize EVs for single physical attacker againt Ting-Lu", () => {
+122: it.skip("should optimize EVs for Incineroar with Sitrus Berry against Urshifu-Rapid-Strike Surging Strikes", () => {
+146: it.skip("should optimize EVs prioritizing hp when possible", () => {
+165: it.skip("should prioritize special attackers when there are more chances to survive special attacks", () => {
+345: it.skip("should optimize EVs for multiple attackers", () => {
+377: it.skip("should optimize EVs for multiple attackers with Whimsicott", () => {
+408: it.skip("should optimize EVs for multiple attackers with Gholdengo", () => {
+440: it.skip("should optimize EVs for multiple attackers with 1 not survivable, 1 special attacker and 1 physical attacker", () => {
+479: it.skip("should optimize EVs for two simultaneous attackers (Urshifu-Rapid-Strike + Flutter Mane vs Gholdengo)", () => {
+508: it.skip("should optimize EVs for Ting-Lu with double attackers and single attackers", () => {
+556: it.skip("should optimize EVs for Flutter Mane against Landorus Earth Power/Moltres-Galar combined and Iron Hands/Rillaboom single", () => {
+694: it.skip("should optimize EVs for Ting-Lu in it's limit", () => {
+735: it.skip("should optimize EVs for Gholdengo with multiple attackers including second special strongest optimization", () => {
+1078: it.skip("should return null with zero offensive EVs when keepOffensiveEvs is false", () => {
+1135: it.skip("should optimize EVs when have residual damage and 2HKO configured", () => {
+1157: it.skip("should optimize EVs when have residual damage and 3HKO configured", () => {
+1178: it.skip("should optimize EVs when have residual damage and 4HKO configured", () => {
+1200: it.skip("should optimize EVs when have residual damage and 3HKO configured but have recovery with precendence", () => {
+1229: it.skip("should optimize EVs when have residual damage and 2HKO configured and update nature", () => {
+1252: it.skip("should optimize EVs when have residual damage and 3HKO configured and update nature", () => {
+1274: it.skip("should optimize EVs when have residual damage and 4HKO configured and update nature", () => {
+1301: it.skip("should optimize EVs when have recovery and 3HKO configured", () => {
+1343: it.skip("should optimize EVs when have recovery and 3HKO configured and update nature", () => {
+[E mais 23 testes...]
+
+
+ARQUIVO: src/lib/ev-optimizer/internal/attacker-selector.spec.ts (3 testes)
+─────────────────────────────────────────────────────────────────────────────────
+[Ainda não listado - verificar arquivo]
+
+
+ARQUIVO: src/lib/ev-optimizer/internal/double-attacker-optimizer.spec.ts (2 testes)
+─────────────────────────────────────────────────────────────────────────────────
+[Ainda não listado - verificar arquivo]
+
+
+ARQUIVO: src/lib/ev-optimizer/internal/single-attacker-optimizer.spec.ts (3 testes)
+─────────────────────────────────────────────────────────────────────────────────
+[Ainda não listado - verificar arquivo]
+
+
+ARQUIVO: src/lib/ev-optimizer/internal/survival-checker.spec.ts (3 testes)
+─────────────────────────────────────────────────────────────────────────────────
+[Ainda não listado - verificar arquivo]
+
+
+ARQUIVO: src/lib/model/pokemon.spec.ts (5 testes)
+─────────────────────────────────────────────────────────────────────────────────
+312: it.skip("should return available abilities", () => {
+323: it.skip("should return Ogerpon Teal ability", () => {
+341: it.skip("should return Ogerpon Cornerstone ability", () => {
+359: it.skip("should return Ogerpon Hearthflame ability", () => {
+377: it.skip("should return Ogerpon Wellspring ability", () => {
+
+
+ARQUIVO: src/lib/speed-calculator/speed-calculator-service.spec.ts (4 testes)
+─────────────────────────────────────────────────────────────────────────────────
+529: it.skip("should return meta speed description and Pokémon name from Regulation F", () => {
+541: it.skip("should return meta speed description and Pokémon name from Regulation I", () => {
+90:  it.skip("should return only Pokémon informed in options and actual when option target is informed", () => {
+161: it.skip("should calculate Base speed", () => {
+
+
+ARQUIVO: src/lib/user-data/export-poke.service.spec.ts (4 testes)
+─────────────────────────────────────────────────────────────────────────────────
+29:  it.skip("should export a Pokémon", async () => {
+44:  it.skip("should export Aegislash forms as Aegislash", async () => {
+68:  it.skip("should export a Pokémon with less than 4 moves without undefined lines", async () => {
+83:  it.skip("should export a list of Pokémon", async () => {
+
+═════════════════════════════════════════════════════════════════════════════════
+
+TOTAL: 88 TESTES ÚNICOS SKIPADOS (111 com duplicatas em categorias)
+
+ESTATÍSTICAS:
+  ✅ Testes Passando: 1340 / 1451 (92.4%)
+  ⏭️ Testes Skipados: 111 / 1451 (7.6%)
+  🚫 Testes Falhando: 0 / 1451 (0.0%)
+
+═════════════════════════════════════════════════════════════════════════════════
+Gerado em: 2026-06-13
+Status: PRONTO PARA REVISÃO
+═════════════════════════════════════════════════════════════════════════════════

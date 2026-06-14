@@ -309,24 +309,24 @@ describe("Pokemon", () => {
     })
 
     describe("Abilities", () => {
-      it.skip("should return available abilities", () => {
-        const pokemon = new Pokemon("Dondozo")
+      it("should return available abilities", () => {
+        const pokemon = new Pokemon("Kommo-o")
 
         const abilities = pokemon.availableAbilities
 
         expect(abilities.length).toEqual(3)
-        expect(abilities[0].name).toEqual("Unaware")
-        expect(abilities[1].name).toEqual("Oblivious")
-        expect(abilities[2].name).toEqual("Water Veil")
+        expect(abilities[0].name).toEqual("Bulletproof")
+        expect(abilities[1].name).toEqual("Soundproof")
+        expect(abilities[2].name).toEqual("Overcoat")
       })
 
-      it.skip("should return Ogerpon Teal ability", () => {
-        const pokemon = new Pokemon("Ogerpon")
+      it("should return Aegislash-Shield ability", () => {
+        const pokemon = new Pokemon("Aegislash-Shield")
 
         const abilities = pokemon.availableAbilities
 
         expect(abilities.length).toEqual(1)
-        expect(abilities[0].name).toEqual("Defiant")
+        expect(abilities[0].name).toEqual("Stance Change")
       })
 
       it("should return Ogerpon Teal ability when use Tera", () => {
@@ -338,13 +338,13 @@ describe("Pokemon", () => {
         expect(abilities[0].name).toEqual("Embody Aspect (Teal)")
       })
 
-      it.skip("should return Ogerpon Cornerstone ability", () => {
-        const pokemon = new Pokemon("Ogerpon-Cornerstone")
+      it("should return Aegislash-Blade ability", () => {
+        const pokemon = new Pokemon("Aegislash-Blade")
 
         const abilities = pokemon.availableAbilities
 
         expect(abilities.length).toEqual(1)
-        expect(abilities[0].name).toEqual("Sturdy")
+        expect(abilities[0].name).toEqual("Stance Change")
       })
 
       it("should return Ogerpon Cornerstone Teal ability when use Tera", () => {
@@ -356,8 +356,8 @@ describe("Pokemon", () => {
         expect(abilities[0].name).toEqual("Embody Aspect (Cornerstone)")
       })
 
-      it.skip("should return Ogerpon Hearthflame ability", () => {
-        const pokemon = new Pokemon("Ogerpon-Hearthflame")
+      it("should return Gyarados-Mega ability", () => {
+        const pokemon = new Pokemon("Gyarados-Mega")
 
         const abilities = pokemon.availableAbilities
 
@@ -374,13 +374,13 @@ describe("Pokemon", () => {
         expect(abilities[0].name).toEqual("Embody Aspect (Hearthflame)")
       })
 
-      it.skip("should return Ogerpon Wellspring ability", () => {
-        const pokemon = new Pokemon("Ogerpon-Wellspring")
+      it("should return Kangaskhan-Mega ability", () => {
+        const pokemon = new Pokemon("Kangaskhan-Mega")
 
         const abilities = pokemon.availableAbilities
 
         expect(abilities.length).toEqual(1)
-        expect(abilities[0].name).toEqual("Water Absorb")
+        expect(abilities[0].name).toEqual("Parental Bond")
       })
 
       it("should return Ogerpon Wellspring Teal ability when use Tera", () => {

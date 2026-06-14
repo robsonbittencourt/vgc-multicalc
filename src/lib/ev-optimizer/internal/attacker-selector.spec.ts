@@ -37,14 +37,14 @@ describe("AttackerSelector", () => {
   })
 
   describe("getPhysicalAttackers", () => {
-    it.skip("should return only physical attackers", () => {
-      const physicalAttacker = new Pokemon("Urshifu-Rapid-Strike", {
-        moveSet: new MoveSet(new Move("Surging Strikes"), new Move("Close Combat"), new Move("Aqua Jet"), new Move("Detect")),
+    it("should return only physical attackers", () => {
+      const physicalAttacker = new Pokemon("Lopunny-Mega", {
+        moveSet: new MoveSet(new Move("Triple Axel"), new Move("Close Combat"), new Move("Quick Attack"), new Move("Detect")),
         evs: { hp: 4, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 }
       })
 
-      const specialAttacker = new Pokemon("Raging Bolt", {
-        moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Thunderclap"), new Move("Draco Meteor"), new Move("Protect")),
+      const specialAttacker = new Pokemon("Chandelure-Mega", {
+        moveSet: new MoveSet(new Move("Shadow Ball"), new Move("Heat Wave"), new Move("Energy Ball"), new Move("Protect")),
         evs: { hp: 0, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 }
       })
 
@@ -55,9 +55,9 @@ describe("AttackerSelector", () => {
       expect(result[0]).toBe(physicalAttacker)
     })
 
-    it.skip("should filter out default pokemon", () => {
-      const physicalAttacker = new Pokemon("Urshifu-Rapid-Strike", {
-        moveSet: new MoveSet(new Move("Surging Strikes"), new Move("Close Combat"), new Move("Aqua Jet"), new Move("Detect")),
+    it("should filter out default pokemon", () => {
+      const physicalAttacker = new Pokemon("Lopunny-Mega", {
+        moveSet: new MoveSet(new Move("Triple Axel"), new Move("Close Combat"), new Move("Quick Attack"), new Move("Detect")),
         evs: { hp: 4, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 }
       })
 
@@ -71,8 +71,8 @@ describe("AttackerSelector", () => {
     })
 
     it("should return empty array when no physical attackers", () => {
-      const specialAttacker = new Pokemon("Raging Bolt", {
-        moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Thunderclap"), new Move("Draco Meteor"), new Move("Protect")),
+      const specialAttacker = new Pokemon("Chandelure", {
+        moveSet: new MoveSet(new Move("Shadow Ball"), new Move("Heat Wave"), new Move("Energy Ball"), new Move("Protect")),
         evs: { hp: 0, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 }
       })
 
@@ -85,13 +85,13 @@ describe("AttackerSelector", () => {
 
   describe("getSpecialAttackers", () => {
     it("should return only special attackers", () => {
-      const physicalAttacker = new Pokemon("Urshifu-Rapid-Strike", {
-        moveSet: new MoveSet(new Move("Surging Strikes"), new Move("Close Combat"), new Move("Aqua Jet"), new Move("Detect")),
+      const physicalAttacker = new Pokemon("Garchomp", {
+        moveSet: new MoveSet(new Move("Earthquake"), new Move("Dragon Claw"), new Move("Rock Slide"), new Move("Protect")),
         evs: { hp: 4, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 }
       })
 
-      const specialAttacker = new Pokemon("Raging Bolt", {
-        moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Thunderclap"), new Move("Draco Meteor"), new Move("Protect")),
+      const specialAttacker = new Pokemon("Chandelure", {
+        moveSet: new MoveSet(new Move("Shadow Ball"), new Move("Heat Wave"), new Move("Energy Ball"), new Move("Protect")),
         evs: { hp: 0, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 }
       })
 
@@ -103,8 +103,8 @@ describe("AttackerSelector", () => {
     })
 
     it("should filter out default pokemon", () => {
-      const specialAttacker = new Pokemon("Raging Bolt", {
-        moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Thunderclap"), new Move("Draco Meteor"), new Move("Protect")),
+      const specialAttacker = new Pokemon("Chandelure", {
+        moveSet: new MoveSet(new Move("Shadow Ball"), new Move("Heat Wave"), new Move("Energy Ball"), new Move("Protect")),
         evs: { hp: 0, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 }
       })
 
@@ -118,8 +118,8 @@ describe("AttackerSelector", () => {
     })
 
     it("should return empty array when no special attackers", () => {
-      const physicalAttacker = new Pokemon("Urshifu-Rapid-Strike", {
-        moveSet: new MoveSet(new Move("Surging Strikes"), new Move("Close Combat"), new Move("Aqua Jet"), new Move("Detect")),
+      const physicalAttacker = new Pokemon("Garchomp", {
+        moveSet: new MoveSet(new Move("Earthquake"), new Move("Dragon Claw"), new Move("Rock Slide"), new Move("Protect")),
         evs: { hp: 4, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 }
       })
 
@@ -132,25 +132,25 @@ describe("AttackerSelector", () => {
 
   describe("determinePriority", () => {
     it("should prioritize physical when more physical attackers can survive", () => {
-      const defender = new Pokemon("Gholdengo", {
+      const defender = new Pokemon("Dragonite", {
         evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
       })
 
-      const physicalAttacker1 = new Pokemon("Urshifu-Rapid-Strike", {
+      const physicalAttacker1 = new Pokemon("Garchomp", {
         nature: "Adamant",
-        moveSet: new MoveSet(new Move("Surging Strikes"), new Move("Close Combat"), new Move("Aqua Jet"), new Move("Detect")),
+        moveSet: new MoveSet(new Move("Earthquake"), new Move("Dragon Claw"), new Move("Rock Slide"), new Move("Protect")),
         evs: { hp: 4, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 }
       })
 
-      const physicalAttacker2 = new Pokemon("Landorus-Therian", {
+      const physicalAttacker2 = new Pokemon("Excadrill", {
         nature: "Adamant",
-        moveSet: new MoveSet(new Move("Earthquake"), new Move("Stomping Tantrum"), new Move("Rock Slide"), new Move("U-turn")),
+        moveSet: new MoveSet(new Move("Earthquake"), new Move("Iron Head"), new Move("Rock Slide"), new Move("Protect")),
         evs: { hp: 148, atk: 116, def: 4, spa: 0, spd: 124, spe: 116 }
       })
 
-      const specialAttacker = new Pokemon("Raging Bolt", {
+      const specialAttacker = new Pokemon("Chandelure", {
         nature: "Modest",
-        moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Thunderclap"), new Move("Draco Meteor"), new Move("Protect")),
+        moveSet: new MoveSet(new Move("Shadow Ball"), new Move("Heat Wave"), new Move("Energy Ball"), new Move("Protect")),
         evs: { hp: 0, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 }
       })
 
@@ -160,14 +160,14 @@ describe("AttackerSelector", () => {
       expect(result.prioritizePhysical).toBe(true)
     })
 
-    it.skip("should return strongest physical attacker", () => {
-      const defender = new Pokemon("Gholdengo", {
+    it("should return strongest physical attacker", () => {
+      const defender = new Pokemon("Gardevoir-Mega", {
         evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
       })
 
-      const physicalAttacker1 = new Pokemon("Urshifu-Rapid-Strike", {
+      const physicalAttacker1 = new Pokemon("Lopunny-Mega", {
         nature: "Adamant",
-        moveSet: new MoveSet(new Move("Surging Strikes"), new Move("Close Combat"), new Move("Aqua Jet"), new Move("Detect")),
+        moveSet: new MoveSet(new Move("Triple Axel"), new Move("Close Combat"), new Move("Quick Attack"), new Move("Detect")),
         evs: { hp: 4, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 }
       })
 
@@ -178,13 +178,13 @@ describe("AttackerSelector", () => {
     })
 
     it("should return strongest special attacker", () => {
-      const defender = new Pokemon("Gholdengo", {
+      const defender = new Pokemon("Dragonite", {
         evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
       })
 
-      const specialAttacker = new Pokemon("Raging Bolt", {
+      const specialAttacker = new Pokemon("Chandelure", {
         nature: "Modest",
-        moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Thunderclap"), new Move("Draco Meteor"), new Move("Protect")),
+        moveSet: new MoveSet(new Move("Shadow Ball"), new Move("Heat Wave"), new Move("Energy Ball"), new Move("Protect")),
         evs: { hp: 0, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 }
       })
 
@@ -197,19 +197,19 @@ describe("AttackerSelector", () => {
 
   describe("findStrongestDoubleTarget", () => {
     it("should find strongest double target", () => {
-      const defender = new Pokemon("Gholdengo", {
+      const defender = new Pokemon("Dragonite", {
         evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
       })
 
-      const attacker1 = new Pokemon("Urshifu-Rapid-Strike", {
+      const attacker1 = new Pokemon("Garchomp", {
         nature: "Adamant",
-        moveSet: new MoveSet(new Move("Surging Strikes"), new Move("Close Combat"), new Move("Aqua Jet"), new Move("Detect")),
+        moveSet: new MoveSet(new Move("Earthquake"), new Move("Dragon Claw"), new Move("Rock Slide"), new Move("Protect")),
         evs: { hp: 4, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 }
       })
 
-      const attacker2 = new Pokemon("Flutter Mane", {
+      const attacker2 = new Pokemon("Gardevoir-Mega", {
         nature: "Modest",
-        moveSet: new MoveSet(new Move("Dazzling Gleam"), new Move("Icy Wind"), new Move("Protect"), new Move("Taunt")),
+        moveSet: new MoveSet(new Move("Dazzling Gleam"), new Move("Psychic"), new Move("Protect"), new Move("Helping Hand")),
         evs: { hp: 0, atk: 0, def: 0, spa: 252, spd: 4, spe: 44 }
       })
 
@@ -225,12 +225,12 @@ describe("AttackerSelector", () => {
     })
 
     it("should return null when no double targets", () => {
-      const defender = new Pokemon("Gholdengo", {
+      const defender = new Pokemon("Dragonite", {
         evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
       })
 
-      const attacker = new Pokemon("Urshifu-Rapid-Strike", {
-        moveSet: new MoveSet(new Move("Surging Strikes"), new Move("Close Combat"), new Move("Aqua Jet"), new Move("Detect")),
+      const attacker = new Pokemon("Garchomp", {
+        moveSet: new MoveSet(new Move("Earthquake"), new Move("Dragon Claw"), new Move("Rock Slide"), new Move("Protect")),
         evs: { hp: 4, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 }
       })
 
@@ -243,7 +243,7 @@ describe("AttackerSelector", () => {
     })
 
     it("should filter out default pokemon", () => {
-      const defender = new Pokemon("Gholdengo", {
+      const defender = new Pokemon("Dragonite", {
         evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
       })
 
@@ -257,6 +257,4 @@ describe("AttackerSelector", () => {
       expect(result).toBeNull()
     })
   })
-
-  // TODO(remove-sv): testes marcados `.skip` na remoção do modo SV (Fase C2). Acoplados a dados/valores de SV (Gen 9). Migrar p/ Champions (Gen 0).
 })

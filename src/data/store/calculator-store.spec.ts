@@ -772,22 +772,22 @@ describe("Calculator Store", () => {
     })
 
     describe("Load Pokémon Info", () => {
-      it.skip("should load Pokémon information using it name", () => {
-        store.loadPokemonInfo(defaultId, "Incineroar")
+      it("should load Pokémon information using it name", () => {
+        store.loadPokemonInfo(defaultId, "Kangaskhan-Mega")
         const result = store.findPokemonById(defaultId)
 
-        expect(result.name).toBe("Incineroar")
-        expect(result.nature).toBe("Impish")
-        expect(result.item).toBe("Assault Vest")
-        expect(result.ability.name).toBe("Intimidate")
-        expect(result.teraType).toBe("Bug")
+        expect(result.name).toBe("Kangaskhan-Mega")
+        expect(result.nature).toBe("Adamant")
+        expect(result.item).toBe("Kangaskhanite")
+        expect(result.ability.name).toBe("Parental Bond")
+        expect(result.teraType).toBe("")
         expect(result.teraTypeActive).toBe(false)
-        expect(result.evs).toEqual({ hp: 244, atk: 0, def: 244, spa: 0, spd: 20, spe: 0 })
-        expect(result.move1Name).toBe("Flare Blitz")
-        expect(result.move2Name).toBe("Knock Off")
+        expect(result.evs).toEqual({ hp: 52, atk: 236, def: 0, spa: 0, spd: 12, spe: 212 })
+        expect(result.move1Name).toBe("Double-Edge")
+        expect(result.move2Name).toBe("Ice Punch")
         expect(result.move3Name).toBe("Fake Out")
-        expect(result.move4Name).toBe("Parting Shot")
-        expect(result.activeMoveName).toBe("Flare Blitz")
+        expect(result.move4Name).toBe("Low Kick")
+        expect(result.activeMoveName).toBe("Double-Edge")
       })
 
       it("should reset previous commander state", () => {

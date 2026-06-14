@@ -42,12 +42,12 @@ describe("Speed Calc Options Store", () => {
       expect(options.paralyzedActive).toBe(true)
     })
 
-    it.skip("should return Pokémon by Regulation", () => {
+    it("should return Pokémon by Regulation", () => {
       store.updateRegulation("MA")
 
       const pokemonList = store.pokemonNamesByReg()
 
-      expect(pokemonList.includes("Kyogre")).toBe(true)
+      expect(pokemonList.includes("Kommo-o")).toBe(true)
     })
 
     it("should order Pokémon of Regulation", () => {
@@ -151,5 +151,3 @@ describe("Speed Calc Options Store", () => {
     })
   })
 })
-
-// TODO(remove-sv): testes marcados `.skip` na remoção do modo SV (Fase C3). Acoplados a dados de Regulation I (SV). Migrar p/ Champions (MA) depois.

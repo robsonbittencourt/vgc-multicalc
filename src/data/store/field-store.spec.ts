@@ -1007,24 +1007,22 @@ describe("Field Store", () => {
       expect(store.updateLocalStorage()).toBe(false)
     })
 
-    it.skip("should update local storage when state changes", () => {
-      // TODO: migrate to userData.champions — was checking userData.sv.fields
+    it("should update local storage when state changes", () => {
       store.toggleSunWeather()
 
       TestBed.tick()
 
       const actualStorage = JSON.parse(localStorage.getItem("userData")!)
-      expect(actualStorage.sv.fields.simple.weather).toBe("Sun")
+      expect(actualStorage.champions.fields.simple.weather).toBe("Sun")
     })
 
-    it.skip("should update local storage when state changes mantaining existent data", () => {
-      // TODO: migrate to userData.champions — was checking userData.sv.fields
+    it("should update local storage when state changes mantaining existent data", () => {
       store.toggleSunWeather()
 
       TestBed.tick()
 
       const actualStorage = JSON.parse(localStorage.getItem("userData")!)
-      expect(actualStorage.sv.fields.simple.isBeadsOfRuin).toBe(false)
+      expect(actualStorage.champions.fields.simple.isBeadsOfRuin).toBe(false)
     })
   })
 })

@@ -27,7 +27,7 @@ describe("SpeedCalculatorService", () => {
   })
 
   describe("Test order methods", () => {
-    it.skip("should return a list of Pokémon with at least more than two", () => {
+    it("should return a list of Pokémon with at least more than two", () => {
       const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
       const field = new Field()
       const pokemonEachSide = 30
@@ -38,7 +38,7 @@ describe("SpeedCalculatorService", () => {
       expect(inRange.length).toBeGreaterThan(2)
     })
 
-    it.skip("should return Pokémon in speed range ordered", () => {
+    it("should return Pokémon in speed range ordered", () => {
       const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
       const field = new Field()
       const pokemonEachSide = 30
@@ -56,7 +56,7 @@ describe("SpeedCalculatorService", () => {
       }
     })
 
-    it.skip("should return Pokémon in speed range ordered with default options", () => {
+    it("should return Pokémon in speed range ordered with default options", () => {
       const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
       const field = new Field()
       const pokemonEachSide = 30
@@ -73,7 +73,7 @@ describe("SpeedCalculatorService", () => {
       }
     })
 
-    it.skip("should fill left side with empty Speed Definitions of actual until have pokemonEachSide value", () => {
+    it("should fill left side with empty Speed Definitions of actual until have pokemonEachSide value", () => {
       const pokemon = new Pokemon("Torkoal")
       const field = new Field()
       const pokemonEachSide = 30
@@ -87,11 +87,11 @@ describe("SpeedCalculatorService", () => {
       expect(inRange[0].pokemonName).toEqual("Select a Pokémon")
     })
 
-    it.skip("should return only Pokémon informed in options and actual when option target is informed", () => {
-      const pokemon = new Pokemon("Rillaboom", { evs: { spe: 100 } })
+    it("should return only Pokémon informed in options and actual when option target is informed", () => {
+      const pokemon = new Pokemon("Lopunny-Mega", { evs: { spe: 100 } })
       const field = new Field()
       const pokemonEachSide = 30
-      const options = new SpeedCalculatorOptions({ targetName: "Tyranitar", regulation: "MA" })
+      const options = new SpeedCalculatorOptions({ targetName: "Lopunny-Mega", regulation: "MA" })
 
       const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide, options)
 
@@ -107,7 +107,7 @@ describe("SpeedCalculatorService", () => {
       }
     })
 
-    it.skip("should return Pokémon in speed range ordered when Paralyzed option was activated", () => {
+    it("should return Pokémon in speed range ordered when Paralyzed option was activated", () => {
       const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
       const field = new Field()
       const pokemonEachSide = 30
@@ -125,7 +125,7 @@ describe("SpeedCalculatorService", () => {
       }
     })
 
-    it.skip("should return Pokémon in speed range reverse ordered when Trick Room was activated", () => {
+    it("should return Pokémon in speed range reverse ordered when Trick Room was activated", () => {
       const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
       const field = new Field({ isTrickRoom: true })
       const pokemonEachSide = 30
@@ -142,7 +142,7 @@ describe("SpeedCalculatorService", () => {
       }
     })
 
-    it.skip("should merge Meta and Atual description when speed are equals", () => {
+    it("should merge Meta and Atual description when speed are equals", () => {
       const pokemon = new Pokemon("Urshifu", { nature: "Adamant", evs: { spe: 252 } })
       const field = new Field()
       const pokemonEachSide = 30
@@ -158,8 +158,8 @@ describe("SpeedCalculatorService", () => {
   })
 
   describe("Test filter options", () => {
-    it.skip("should calculate Base speed", () => {
-      const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
+    it("should calculate Base speed", () => {
+      const pokemon = new Pokemon("Lopunny-Mega", { evs: { spe: 100 } })
       const field = new Field()
       const pokemonEachSide = 10
       const options = new SpeedCalculatorOptions({ mode: SpeedCalculatorMode.Base, regulation: "MA" })
@@ -526,46 +526,28 @@ describe("SpeedCalculatorService", () => {
   })
 
   describe("statistics", () => {
-    it.skip("should return meta speed description and Pokémon name from Regulation F", () => {
-      const pokemon = new Pokemon("Flutter Mane")
+    it("should return meta speed description and Pokémon name from Regulation MA", () => {
+      const pokemon = new Pokemon("Lopunny-Mega")
       const field = new Field()
       const regulation = "MA"
 
       const speedDefinition = service.statistics(pokemon, field, regulation)
 
-      expect(speedDefinition[0].pokemonName).toEqual("Flutter Mane")
-      expect(speedDefinition[0].value).toEqual(204)
+      expect(speedDefinition[0].pokemonName).toEqual("Lopunny-Mega")
+      expect(speedDefinition[0].value).toEqual(174)
       expect(speedDefinition[0].description.some((d: string) => /\d{1,3}% Usage/.test(d))).toBe(true)
     })
 
-    it.skip("should return meta speed description and Pokémon name from Regulation I", () => {
-      const pokemon = new Pokemon("Koraidon")
+    it("should return meta speed description and Pokémon name for slow Pokémon from Regulation MA", () => {
+      const pokemon = new Pokemon("Tyranitar-Mega")
       const field = new Field()
       const regulation = "MA"
 
       const speedDefinition = service.statistics(pokemon, field, regulation)
 
-      expect(speedDefinition[0].pokemonName).toEqual("Koraidon")
-      expect(speedDefinition[0].value).toEqual(187)
+      expect(speedDefinition[0].pokemonName).toEqual("Tyranitar-Mega")
+      expect(speedDefinition[0].value).toEqual(91)
       expect(speedDefinition[0].description.some((d: string) => /\d{1,3}% Usage/.test(d))).toBe(true)
     })
   })
-
-  // TODO(remove-sv): migrar para Champions os 10 testes abaixo, marcados com `.skip` durante a remoção do modo SV (Fase C1).
-  // Eles dependiam de dados SV (regulation "I"/"F" e Pokémon do meta SV) que não existem mais em `statisticsByRegulation` (só "MA").
-  // Reescrever usando regulation "MA", Pokémon válidos do dataset MA e valores esperados derivados do serviço/dataset (não "ajustar até passar"):
-  //   describe("Test order methods"):
-  //     - should return a list of Pokémon with at least more than two
-  //     - should return Pokémon in speed range ordered
-  //     - should return Pokémon in speed range ordered with default options
-  //     - should fill left side with empty Speed Definitions of actual until have pokemonEachSide value
-  //     - should return only Pokémon informed in options and actual when option target is informed
-  //     - should return Pokémon in speed range ordered when Paralyzed option was activated
-  //     - should return Pokémon in speed range reverse ordered when Trick Room was activated
-  //     - should merge Meta and Atual description when speed are equals
-  //   describe("Test filter options"):
-  //     - should calculate Base speed
-  //   describe("statistics"):
-  //     - should return meta speed description and Pokémon name from Regulation F
-  //     - should return meta speed description and Pokémon name from Regulation I
 })

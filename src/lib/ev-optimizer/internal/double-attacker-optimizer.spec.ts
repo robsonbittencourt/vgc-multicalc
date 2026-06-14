@@ -28,20 +28,20 @@ describe("DoubleAttackerOptimizer", () => {
   })
 
   describe("optimizeForTwoAttackers", () => {
-    it.skip("should optimize for two physical attackers", () => {
-      const defender = new Pokemon("Gholdengo", {
+    it("should optimize for two physical attackers", () => {
+      const defender = new Pokemon("Gardevoir-Mega", {
         evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
       })
 
-      const attacker1 = new Pokemon("Urshifu-Rapid-Strike", {
+      const attacker1 = new Pokemon("Lopunny-Mega", {
         nature: "Adamant",
-        moveSet: new MoveSet(new Move("Surging Strikes"), new Move("Close Combat"), new Move("Aqua Jet"), new Move("Detect")),
+        moveSet: new MoveSet(new Move("Triple Axel"), new Move("Close Combat"), new Move("Quick Attack"), new Move("Detect")),
         evs: { hp: 4, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 }
       })
 
-      const attacker2 = new Pokemon("Landorus-Therian", {
+      const attacker2 = new Pokemon("Garchomp-Mega", {
         nature: "Adamant",
-        moveSet: new MoveSet(new Move("Earthquake"), new Move("Stomping Tantrum"), new Move("Rock Slide"), new Move("U-turn")),
+        moveSet: new MoveSet(new Move("Earthquake"), new Move("Dragon Claw"), new Move("Rock Slide"), new Move("Protect")),
         evs: { hp: 148, atk: 116, def: 4, spa: 0, spd: 124, spe: 116 }
       })
 
@@ -54,19 +54,19 @@ describe("DoubleAttackerOptimizer", () => {
     })
 
     it("should optimize for two special attackers", () => {
-      const defender = new Pokemon("Gholdengo", {
+      const defender = new Pokemon("Dragonite", {
         evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
       })
 
-      const attacker1 = new Pokemon("Raging Bolt", {
+      const attacker1 = new Pokemon("Chandelure-Mega", {
         nature: "Modest",
-        moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Thunderclap"), new Move("Draco Meteor"), new Move("Protect")),
+        moveSet: new MoveSet(new Move("Shadow Ball"), new Move("Heat Wave"), new Move("Energy Ball"), new Move("Protect")),
         evs: { hp: 0, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 }
       })
 
-      const attacker2 = new Pokemon("Flutter Mane", {
+      const attacker2 = new Pokemon("Gardevoir-Mega", {
         nature: "Modest",
-        moveSet: new MoveSet(new Move("Dazzling Gleam"), new Move("Icy Wind"), new Move("Protect"), new Move("Taunt")),
+        moveSet: new MoveSet(new Move("Dazzling Gleam"), new Move("Psychic"), new Move("Protect"), new Move("Helping Hand")),
         evs: { hp: 0, atk: 0, def: 0, spa: 252, spd: 4, spe: 44 }
       })
 
@@ -82,20 +82,20 @@ describe("DoubleAttackerOptimizer", () => {
       expect(result.hp + result.spd + result.def).toBeLessThanOrEqual(508)
     })
 
-    it.skip("should optimize for mixed attackers", () => {
-      const defender = new Pokemon("Gholdengo", {
+    it("should optimize for mixed attackers", () => {
+      const defender = new Pokemon("Gardevoir-Mega", {
         evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
       })
 
-      const physicalAttacker = new Pokemon("Urshifu-Rapid-Strike", {
+      const physicalAttacker = new Pokemon("Heracross-Mega", {
         nature: "Adamant",
-        moveSet: new MoveSet(new Move("Surging Strikes"), new Move("Close Combat"), new Move("Aqua Jet"), new Move("Detect")),
+        moveSet: new MoveSet(new Move("Close Combat"), new Move("Pin Missile"), new Move("Rock Blast"), new Move("Protect")),
         evs: { hp: 4, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 }
       })
 
-      const specialAttacker = new Pokemon("Flutter Mane", {
+      const specialAttacker = new Pokemon("Gengar-Mega", {
         nature: "Modest",
-        moveSet: new MoveSet(new Move("Dazzling Gleam"), new Move("Icy Wind"), new Move("Protect"), new Move("Taunt")),
+        moveSet: new MoveSet(new Move("Shadow Ball"), new Move("Sludge Bomb"), new Move("Focus Blast"), new Move("Protect")),
         evs: { hp: 0, atk: 0, def: 0, spa: 252, spd: 4, spe: 44 }
       })
 
@@ -108,19 +108,19 @@ describe("DoubleAttackerOptimizer", () => {
     })
 
     it("should return valid EV values within limit", () => {
-      const defender = new Pokemon("Gholdengo", {
+      const defender = new Pokemon("Dragonite", {
         evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
       })
 
-      const attacker1 = new Pokemon("Urshifu-Rapid-Strike", {
+      const attacker1 = new Pokemon("Garchomp", {
         nature: "Adamant",
-        moveSet: new MoveSet(new Move("Surging Strikes"), new Move("Close Combat"), new Move("Aqua Jet"), new Move("Detect")),
+        moveSet: new MoveSet(new Move("Earthquake"), new Move("Dragon Claw"), new Move("Rock Slide"), new Move("Protect")),
         evs: { hp: 4, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 }
       })
 
-      const attacker2 = new Pokemon("Flutter Mane", {
+      const attacker2 = new Pokemon("Chandelure-Mega", {
         nature: "Modest",
-        moveSet: new MoveSet(new Move("Dazzling Gleam"), new Move("Icy Wind"), new Move("Protect"), new Move("Taunt")),
+        moveSet: new MoveSet(new Move("Shadow Ball"), new Move("Heat Wave"), new Move("Energy Ball"), new Move("Protect")),
         evs: { hp: 0, atk: 0, def: 0, spa: 252, spd: 4, spe: 44 }
       })
 
@@ -130,6 +130,4 @@ describe("DoubleAttackerOptimizer", () => {
       expect(result.hp + result.def + result.spd).toBeLessThanOrEqual(508)
     })
   })
-
-  // TODO(remove-sv): testes marcados `.skip` na remoção do modo SV (Fase C2). Acoplados a dados/valores de SV (Gen 9). Migrar p/ Champions (Gen 0).
 })

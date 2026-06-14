@@ -36,13 +36,13 @@ describe("SurvivalChecker", () => {
 
   describe("checkSurvival", () => {
     it("should consider rightIsDefender when swapping field sides", () => {
-      const attacker = new Pokemon("Groudon", {
+      const attacker = new Pokemon("Excadrill", {
         nature: "Adamant",
-        moveSet: new MoveSet(new Move("Headlong Rush"), new Move("Struggle"), new Move("Struggle"), new Move("Struggle")),
+        moveSet: new MoveSet(new Move("Iron Head"), new Move("Earthquake"), new Move("Rock Slide"), new Move("Protect")),
         evs: { hp: 0, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 }
       })
 
-      const defender = new Pokemon("Flutter Mane", {
+      const defender = new Pokemon("Gardevoir-Mega", {
         evs: { hp: 252, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
       })
 
@@ -56,15 +56,15 @@ describe("SurvivalChecker", () => {
       expect(survivesRight).toBe(false)
       expect(survivesLeft).toBe(true)
     })
-    it.skip("should return true when defender survives", () => {
-      const attacker = new Pokemon("Urshifu-Rapid-Strike", {
+    it("should return true when defender survives", () => {
+      const attacker = new Pokemon("Lopunny-Mega", {
         nature: "Adamant",
-        moveSet: new MoveSet(new Move("Surging Strikes"), new Move("Close Combat"), new Move("Aqua Jet"), new Move("Detect")),
+        moveSet: new MoveSet(new Move("Triple Axel"), new Move("Close Combat"), new Move("Quick Attack"), new Move("Detect")),
         evs: { hp: 4, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 }
       })
 
-      const defender = new Pokemon("Flutter Mane", {
-        evs: { hp: 140, atk: 0, def: 236, spa: 0, spd: 0, spe: 0 }
+      const defender = new Pokemon("Kangaskhan-Mega", {
+        evs: { hp: 252, atk: 0, def: 252, spa: 0, spd: 0, spe: 0 }
       })
 
       const field = new Field()
@@ -74,13 +74,13 @@ describe("SurvivalChecker", () => {
     })
 
     it("should return false when defender does not survive", () => {
-      const attacker = new Pokemon("Urshifu-Rapid-Strike", {
+      const attacker = new Pokemon("Lopunny-Mega", {
         nature: "Adamant",
-        moveSet: new MoveSet(new Move("Surging Strikes"), new Move("Close Combat"), new Move("Aqua Jet"), new Move("Detect")),
+        moveSet: new MoveSet(new Move("Close Combat"), new Move("Triple Axel"), new Move("Quick Attack"), new Move("Detect")),
         evs: { hp: 4, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 }
       })
 
-      const defender = new Pokemon("Flutter Mane", {
+      const defender = new Pokemon("Ninetales-Alola", {
         evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
       })
 
@@ -90,16 +90,16 @@ describe("SurvivalChecker", () => {
       expect(survives).toBe(false)
     })
 
-    it.skip("should consider threshold when checking survival with 2HKO", () => {
-      const attacker = new Pokemon("Urshifu-Rapid-Strike", {
+    it("should consider threshold when checking survival with 2HKO", () => {
+      const attacker = new Pokemon("Heracross-Mega", {
         nature: "Adamant",
-        moveSet: new MoveSet(new Move("Surging Strikes"), new Move("Close Combat"), new Move("Aqua Jet"), new Move("Detect")),
+        moveSet: new MoveSet(new Move("Close Combat"), new Move("Pin Missile"), new Move("Rock Blast"), new Move("Protect")),
         evs: { hp: 4, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 }
       })
 
-      const defender = new Pokemon("Ursaluna", {
+      const defender = new Pokemon("Steelix-Mega", {
         nature: "Impish",
-        evs: { hp: 140, atk: 0, def: 4, spa: 0, spd: 0, spe: 0 }
+        evs: { hp: 252, atk: 0, def: 4, spa: 0, spd: 0, spe: 0 }
       })
 
       const field = new Field()
@@ -109,15 +109,13 @@ describe("SurvivalChecker", () => {
     })
 
     it("should consider threshold when checking survival with 3HKO", () => {
-      const attacker = new Pokemon("Urshifu-Rapid-Strike", {
+      const attacker = new Pokemon("Excadrill", {
         nature: "Adamant",
-        teraType: "Water",
-        teraTypeActive: true,
-        moveSet: new MoveSet(new Move("Aqua Jet"), new Move("Close Combat"), new Move("Surging Strikes"), new Move("Detect")),
+        moveSet: new MoveSet(new Move("Rock Slide"), new Move("Earthquake"), new Move("Iron Head"), new Move("Protect")),
         evs: { hp: 4, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 }
       })
 
-      const defender = new Pokemon("Ursaluna", {
+      const defender = new Pokemon("Steelix-Mega", {
         nature: "Impish",
         evs: { hp: 0, atk: 0, def: 252, spa: 0, spd: 0, spe: 0 }
       })
@@ -129,13 +127,13 @@ describe("SurvivalChecker", () => {
     })
 
     it("should consider threshold when checking survival with 4HKO", () => {
-      const attacker = new Pokemon("Urshifu-Rapid-Strike", {
+      const attacker = new Pokemon("Excadrill", {
         nature: "Adamant",
-        moveSet: new MoveSet(new Move("Aqua Jet"), new Move("Close Combat"), new Move("Surging Strikes"), new Move("Detect")),
+        moveSet: new MoveSet(new Move("Rock Slide"), new Move("Earthquake"), new Move("Iron Head"), new Move("Protect")),
         evs: { hp: 4, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 }
       })
 
-      const defender = new Pokemon("Ursaluna", {
+      const defender = new Pokemon("Steelix-Mega", {
         nature: "Impish",
         evs: { hp: 0, atk: 0, def: 172, spa: 0, spd: 0, spe: 0 }
       })
@@ -149,20 +147,20 @@ describe("SurvivalChecker", () => {
 
   describe("checkSurvivalAgainstTwoAttackers", () => {
     it("should return true when defender survives both attackers with 2HKO", () => {
-      const attacker1 = new Pokemon("Urshifu-Rapid-Strike", {
+      const attacker1 = new Pokemon("Lopunny-Mega", {
         nature: "Adamant",
-        moveSet: new MoveSet(new Move("Surging Strikes"), new Move("Close Combat"), new Move("Aqua Jet"), new Move("Detect")),
+        moveSet: new MoveSet(new Move("Triple Axel"), new Move("Close Combat"), new Move("Quick Attack"), new Move("Detect")),
         evs: { hp: 4, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 }
       })
 
-      const attacker2 = new Pokemon("Flutter Mane", {
+      const attacker2 = new Pokemon("Chandelure", {
         nature: "Modest",
-        moveSet: new MoveSet(new Move("Dazzling Gleam"), new Move("Icy Wind"), new Move("Protect"), new Move("Taunt")),
+        moveSet: new MoveSet(new Move("Shadow Ball"), new Move("Heat Wave"), new Move("Energy Ball"), new Move("Protect")),
         evs: { hp: 0, atk: 0, def: 0, spa: 252, spd: 4, spe: 44 }
       })
 
-      const defender = new Pokemon("Gholdengo", {
-        evs: { hp: 76, atk: 0, def: 4, spa: 0, spd: 4, spe: 0 }
+      const defender = new Pokemon("Kangaskhan-Mega", {
+        evs: { hp: 252, atk: 0, def: 252, spa: 0, spd: 4, spe: 0 }
       })
 
       const field = new Field()
@@ -171,21 +169,21 @@ describe("SurvivalChecker", () => {
       expect(survives).toBe(true)
     })
 
-    it.skip("should return false when defender does not survive both attackers with 2HKO", () => {
-      const attacker1 = new Pokemon("Urshifu-Rapid-Strike", {
+    it("should return false when defender does not survive both attackers with 2HKO", () => {
+      const attacker1 = new Pokemon("Lopunny-Mega", {
         nature: "Adamant",
-        moveSet: new MoveSet(new Move("Surging Strikes"), new Move("Close Combat"), new Move("Aqua Jet"), new Move("Detect")),
+        moveSet: new MoveSet(new Move("Triple Axel"), new Move("Close Combat"), new Move("Quick Attack"), new Move("Detect")),
         evs: { hp: 4, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 }
       })
 
-      const attacker2 = new Pokemon("Flutter Mane", {
+      const attacker2 = new Pokemon("Gengar-Mega", {
         nature: "Modest",
-        moveSet: new MoveSet(new Move("Dazzling Gleam"), new Move("Icy Wind"), new Move("Protect"), new Move("Taunt")),
+        moveSet: new MoveSet(new Move("Shadow Ball"), new Move("Sludge Bomb"), new Move("Focus Blast"), new Move("Protect")),
         evs: { hp: 0, atk: 0, def: 0, spa: 252, spd: 4, spe: 44 }
       })
 
-      const defender = new Pokemon("Gholdengo", {
-        evs: { hp: 76, atk: 0, def: 0, spa: 0, spd: 4, spe: 0 }
+      const defender = new Pokemon("Gardevoir-Mega", {
+        evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 4, spe: 0 }
       })
 
       const field = new Field()
@@ -195,20 +193,21 @@ describe("SurvivalChecker", () => {
     })
 
     it("should return true when defender survives both attackers with 3HKO", () => {
-      const attacker1 = new Pokemon("Urshifu-Rapid-Strike", {
+      const attacker1 = new Pokemon("Excadrill", {
         nature: "Adamant",
-        moveSet: new MoveSet(new Move("Aqua Jet"), new Move("Close Combat"), new Move("Surging Strikes"), new Move("Detect")),
+        moveSet: new MoveSet(new Move("Rock Slide"), new Move("Earthquake"), new Move("Iron Head"), new Move("Protect")),
         evs: { hp: 4, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 }
       })
 
-      const attacker2 = new Pokemon("Flutter Mane", {
+      const attacker2 = new Pokemon("Gardevoir-Mega", {
         nature: "Modest",
-        moveSet: new MoveSet(new Move("Dazzling Gleam"), new Move("Icy Wind"), new Move("Protect"), new Move("Taunt")),
+        moveSet: new MoveSet(new Move("Dazzling Gleam"), new Move("Psychic"), new Move("Protect"), new Move("Helping Hand")),
         evs: { hp: 0, atk: 0, def: 0, spa: 252, spd: 4, spe: 44 }
       })
 
-      const defender = new Pokemon("Gholdengo", {
-        evs: { hp: 20, atk: 0, def: 20, spa: 0, spd: 4, spe: 0 }
+      const defender = new Pokemon("Steelix-Mega", {
+        nature: "Impish",
+        evs: { hp: 252, atk: 0, def: 252, spa: 0, spd: 4, spe: 0 }
       })
 
       const field = new Field()
@@ -218,19 +217,19 @@ describe("SurvivalChecker", () => {
     })
 
     it("should return false when defender does not survive both attackers with 3HKO", () => {
-      const attacker1 = new Pokemon("Urshifu-Rapid-Strike", {
+      const attacker1 = new Pokemon("Excadrill", {
         nature: "Adamant",
-        moveSet: new MoveSet(new Move("Aqua Jet"), new Move("Close Combat"), new Move("Surging Strikes"), new Move("Detect")),
+        moveSet: new MoveSet(new Move("Rock Slide"), new Move("Earthquake"), new Move("Iron Head"), new Move("Protect")),
         evs: { hp: 4, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 }
       })
 
-      const attacker2 = new Pokemon("Flutter Mane", {
+      const attacker2 = new Pokemon("Gardevoir-Mega", {
         nature: "Modest",
-        moveSet: new MoveSet(new Move("Dazzling Gleam"), new Move("Icy Wind"), new Move("Protect"), new Move("Taunt")),
+        moveSet: new MoveSet(new Move("Dazzling Gleam"), new Move("Psychic"), new Move("Protect"), new Move("Helping Hand")),
         evs: { hp: 0, atk: 0, def: 0, spa: 252, spd: 4, spe: 44 }
       })
 
-      const defender = new Pokemon("Gholdengo", {
+      const defender = new Pokemon("Dragonite", {
         evs: { hp: 20, atk: 0, def: 12, spa: 0, spd: 4, spe: 0 }
       })
 
@@ -241,19 +240,20 @@ describe("SurvivalChecker", () => {
     })
 
     it("should return false when defender survives both attackers with 4HKO", () => {
-      const attacker1 = new Pokemon("Urshifu-Rapid-Strike", {
+      const attacker1 = new Pokemon("Excadrill", {
         nature: "Adamant",
-        moveSet: new MoveSet(new Move("Aqua Jet"), new Move("Close Combat"), new Move("Surging Strikes"), new Move("Detect")),
+        moveSet: new MoveSet(new Move("Rock Slide"), new Move("Earthquake"), new Move("Iron Head"), new Move("Protect")),
         evs: { hp: 4, atk: 0, def: 0, spa: 0, spd: 0, spe: 252 }
       })
 
-      const attacker2 = new Pokemon("Flutter Mane", {
+      const attacker2 = new Pokemon("Gardevoir-Mega", {
         nature: "Modest",
-        moveSet: new MoveSet(new Move("Dazzling Gleam"), new Move("Icy Wind"), new Move("Protect"), new Move("Taunt")),
+        moveSet: new MoveSet(new Move("Dazzling Gleam"), new Move("Psychic"), new Move("Protect"), new Move("Helping Hand")),
         evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 4, spe: 44 }
       })
 
-      const defender = new Pokemon("Gholdengo", {
+      const defender = new Pokemon("Steelix-Mega", {
+        nature: "Impish",
         evs: { hp: 244, atk: 0, def: 140, spa: 0, spd: 0, spe: 0 }
       })
 
@@ -264,19 +264,19 @@ describe("SurvivalChecker", () => {
     })
 
     it("should return false when defender does not survive both attackers with 4HKO", () => {
-      const attacker1 = new Pokemon("Urshifu-Rapid-Strike", {
+      const attacker1 = new Pokemon("Excadrill", {
         nature: "Adamant",
-        moveSet: new MoveSet(new Move("Aqua Jet"), new Move("Close Combat"), new Move("Surging Strikes"), new Move("Detect")),
+        moveSet: new MoveSet(new Move("Rock Slide"), new Move("Earthquake"), new Move("Iron Head"), new Move("Protect")),
         evs: { hp: 4, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 }
       })
 
-      const attacker2 = new Pokemon("Flutter Mane", {
+      const attacker2 = new Pokemon("Gardevoir-Mega", {
         nature: "Modest",
-        moveSet: new MoveSet(new Move("Dazzling Gleam"), new Move("Icy Wind"), new Move("Protect"), new Move("Taunt")),
+        moveSet: new MoveSet(new Move("Dazzling Gleam"), new Move("Psychic"), new Move("Protect"), new Move("Helping Hand")),
         evs: { hp: 0, atk: 0, def: 0, spa: 252, spd: 4, spe: 44 }
       })
 
-      const defender = new Pokemon("Gholdengo", {
+      const defender = new Pokemon("Dragonite", {
         evs: { hp: 20, atk: 0, def: 4, spa: 0, spd: 4, spe: 0 }
       })
 
