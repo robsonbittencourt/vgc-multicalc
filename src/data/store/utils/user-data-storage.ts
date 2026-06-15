@@ -7,6 +7,12 @@ export function readUserData() {
   return raw ? JSON.parse(raw) : null
 }
 
+export function readGameOverride(): Game | null {
+  if (typeof localStorage === "undefined") return null
+  const value = localStorage.getItem("gameOverride")
+  return value === "sv" || value === "champions" ? value : null
+}
+
 export function readGameData(game: Game) {
   const userData = readUserData()
   return userData?.[game] ?? null

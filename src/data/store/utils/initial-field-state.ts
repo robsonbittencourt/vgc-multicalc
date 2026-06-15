@@ -1,9 +1,9 @@
 import { FieldState } from "@data/store/field-store"
-import { readUserData, readGameData } from "@data/store/utils/user-data-storage"
+import { readGameData, readGameOverride } from "@data/store/utils/user-data-storage"
 import { FieldSide } from "@lib/model/field"
 
 export function initialFieldState(context: string): FieldState {
-  const game = readUserData()?.game ?? "champions"
+  const game = readGameOverride() ?? "champions"
   const gameData = readGameData(game)
   let fieldUserData = gameData?.fields?.[context]
 

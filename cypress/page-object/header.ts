@@ -1,11 +1,15 @@
 export class Header {
   selectChampions() {
-    cy.contains("mat-button-toggle", "Champions").find("button").click({ force: true })
-    cy.contains("mat-button-toggle", "Champions").should("have.class", "mat-button-toggle-checked")
+    cy.window().then(win => {
+      win.localStorage.setItem("gameOverride", "champions")
+    })
+    cy.reload()
   }
 
   selectSv() {
-    cy.contains("mat-button-toggle", "SV").find("button").click({ force: true })
-    cy.contains("mat-button-toggle", "SV").should("have.class", "mat-button-toggle-checked")
+    cy.window().then(win => {
+      win.localStorage.setItem("gameOverride", "sv")
+    })
+    cy.reload()
   }
 }

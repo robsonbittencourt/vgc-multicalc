@@ -1,7 +1,9 @@
+import { Header } from "@page-object/header"
 import { PokemonBuild } from "@page-object/pokemon-build"
 import { Team } from "@page-object/team"
 
 const team = new Team()
+const header = new Header()
 
 describe("Filtered Table behaviors", () => {
   beforeEach(() => {
@@ -106,11 +108,11 @@ describe("Filtered Table behaviors", () => {
 
   describe("Mega Pokémon search in Champions mode", () => {
     beforeEach(() => {
-      cy.contains("Champions").click({ force: true })
+      header.selectChampions()
     })
 
     afterEach(() => {
-      cy.contains("SV").click({ force: true })
+      header.selectSv()
     })
 
     it("Given Champions mode, when searching 'Mega Dra', then lists Dragonite-Mega", () => {
