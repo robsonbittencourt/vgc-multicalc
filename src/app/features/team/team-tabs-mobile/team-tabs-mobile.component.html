@@ -46,6 +46,17 @@
   }
 </div>
 
+@if (showCombineHint()) {
+  <div class="combine-hint" (click)="dismissCombineHint()">
+    <div class="combine-hint-arrow"></div>
+    <div class="combine-hint-content">
+      <mat-icon class="combine-hint-icon">touch_app</mat-icon>
+      <span class="combine-hint-text">Hold a Pokémon to attack with two at once</span>
+      <button class="combine-hint-dismiss" (click)="$event.stopPropagation(); dismissCombineHint()">Got it</button>
+    </div>
+  </div>
+}
+
 @if (actionMenuPokemonId()) {
   <div class="action-menu-backdrop" (click)="closeActionMenu()">
     <div class="action-menu-box" (click)="$event.stopPropagation()">

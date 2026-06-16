@@ -6,6 +6,8 @@ import { CalculatorStore } from "@data/store/calculator-store"
 import { MenuStore } from "@data/store/menu-store"
 import { defaultPokemon } from "@lib/default-pokemon"
 
+const COMBINE_HINT_KEY = "combineAttackersHintDismissed"
+
 @Component({
   selector: "app-team-tabs-mobile",
   templateUrl: "./team-tabs-mobile.component.html",
@@ -23,10 +25,16 @@ export class TeamTabsMobileComponent {
 
   actionMenuPokemonId = signal<string | null>(null)
 
+  private combineHintDismissed = signal(this.readCombineHintDismissed())
+
   private longPressTimeout: any
   private preventNextClick = false
 
   teamMembers = computed(() => this.store.team().teamMembers)
+
+  showCombineHint = computed(() => {
+    return this.menuStore.oneVsManyActivated() && this.nonDefaultMembersCount() >= 2 && this.store.secondAttackerId() === "" && !this.combineHintDismissed()
+  })
 
   effectiveEditingId = computed(() => this.pokemonOnEditId() || this.activePokemonId())
 
@@ -116,6 +124,7 @@ export class TeamTabsMobileComponent {
 
           this.store.updateSecondAttacker(pokemonId)
           this.store.updateTeamMembersActive(actives[0], actives[1], actives[2], actives[3], actives[4], actives[5])
+          this.dismissCombineHint()
         }
 
         return
@@ -127,6 +136,20 @@ export class TeamTabsMobileComponent {
 
   onTabTouchEnd() {
     clearTimeout(this.longPressTimeout)
+  }
+
+  dismissCombineHint() {
+    this.combineHintDismissed.set(true)
+
+    if (typeof localStorage !== "undefined") {
+      localStorage.setItem(COMBINE_HINT_KEY, "true")
+    }
+  }
+
+  private readCombineHintDismissed(): boolean {
+    if (typeof localStorage === "undefined") return false
+
+    return localStorage.getItem(COMBINE_HINT_KEY) === "true"
   }
 
   closeActionMenu() {
