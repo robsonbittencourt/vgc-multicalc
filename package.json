@@ -1,6 +1,6 @@
 {
   "name": "vgc-multicalc",
-  "version": "1.18.1",
+  "version": "1.18.2",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -51,7 +51,7 @@
     "jsdom": "29.1.1",
     "prettier": "3.8.4",
     "typescript": "6.0.3",
-    "typescript-eslint": "8.61.0",
+    "typescript-eslint": "8.61.1",
     "vitest": "4.1.9"
   },
   "overrides": {
