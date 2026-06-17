@@ -27,15 +27,15 @@ export class SpeedInsightsComponent {
   speedInsights = computed(() => this.speedCalculatorService.retrieveSpeedStatistics(this.pokemonName(), this.regulation()))
   isChampions = computed(() => this.calculatorStore.game() === "champions")
 
-  referenceDate = computed(() => this.speedInsights().referenceDate)
-  base = computed(() => this.speedInsights().baseSpeed)
-  min = computed(() => this.speedInsights().minSpeed)
-  max = computed(() => this.speedInsights().maxSpeed)
-  minWithIvZero = computed(() => this.speedInsights().minSpeedWithIvZero)
-  minWithNegativeNature = computed(() => this.speedInsights().minSpeedWithNegativeNature)
-  maxWithNature = computed(() => this.speedInsights().maxSpeedWithNature)
+  referenceDate = computed(() => this.speedInsights()?.referenceDate)
+  base = computed(() => this.speedInsights()?.baseSpeed)
+  min = computed(() => this.speedInsights()?.minSpeed)
+  max = computed(() => this.speedInsights()?.maxSpeed)
+  minWithIvZero = computed(() => this.speedInsights()?.minSpeedWithIvZero)
+  minWithNegativeNature = computed(() => this.speedInsights()?.minSpeedWithNegativeNature)
+  maxWithNature = computed(() => this.speedInsights()?.maxSpeedWithNature)
 
-  isTrSpeed = computed(() => this.speedInsights().baseSpeed <= MAX_BASE_SPEED_FOR_TR)
+  isTrSpeed = computed(() => (this.speedInsights()?.baseSpeed ?? 999) <= MAX_BASE_SPEED_FOR_TR)
 
   useSpsMode = computed(() => this.calculatorStore.useSpsMode())
   minSpLabel = computed(() => {
@@ -47,7 +47,7 @@ export class SpeedInsightsComponent {
     return "EV 252"
   })
 
-  usageInsights = computed(() => this.speedInsights().statistics.filter(insight => insight.type === "usage"))
+  usageInsights = computed(() => this.speedInsights()?.statistics.filter(insight => insight.type === "usage") ?? [])
   firstInsight = computed(() => this.usageInsights()[0])
   secondInsight = computed(() => this.usageInsights()[1])
   thirdInsight = computed(() => this.usageInsights()[2])
@@ -60,11 +60,11 @@ export class SpeedInsightsComponent {
   secondInsightHasNegativeNature = computed(() => NEGATIVE_SPEED_NATURES.includes(this.secondInsight()?.nature ?? ""))
   thirdInsightHasNegativeNature = computed(() => NEGATIVE_SPEED_NATURES.includes(this.thirdInsight()?.nature ?? ""))
 
-  boosterInsight = computed(() => this.speedInsights().statistics.find(insight => insight.type === "booster"))
-  scarfInsight = computed(() => this.speedInsights().statistics.find(insight => insight.type === "scarf"))
+  boosterInsight = computed(() => this.speedInsights()?.statistics.find(insight => insight.type === "booster"))
+  scarfInsight = computed(() => this.speedInsights()?.statistics.find(insight => insight.type === "scarf"))
 
-  boosterIsMoreUsed = computed(() => this.speedInsights().boosterEnergyIsMoreUsed)
-  choiceScarfIsMoreUsed = computed(() => this.speedInsights().choiceScarfIsMoreUsed)
+  boosterIsMoreUsed = computed(() => this.speedInsights()?.boosterEnergyIsMoreUsed)
+  choiceScarfIsMoreUsed = computed(() => this.speedInsights()?.choiceScarfIsMoreUsed)
 
   isMoreUsed(insights: SpeedStatistic[], position: 0 | 1 | 2): boolean {
     if (insights.length <= position) return false

@@ -4,6 +4,7 @@ import { PokemonType } from "@lib/types"
 export type TypeEffectiveness = 0 | 0.25 | 0.5 | 1 | 2 | 4
 
 export type AbilityName =
+  | "Eelevate"
   | "Levitate"
   | "Flash Fire"
   | "Volt Absorb"
@@ -21,6 +22,7 @@ export type AbilityName =
   | "Earth Eater"
 
 const ABILITY_IMMUNITIES: Partial<Record<AbilityName, PokemonType>> = {
+  Eelevate: "Ground",
   Levitate: "Ground",
   "Flash Fire": "Fire",
   "Volt Absorb": "Electric",

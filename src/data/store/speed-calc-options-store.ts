@@ -3,6 +3,7 @@ import { pokemonByRegulation } from "@data/regulation-pokemon"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { SpeedCalculatorMode } from "@lib/speed-calculator/speed-calculator-mode"
 import { SpeedCalculatorOptions } from "@lib/speed-calculator/speed-calculator-options"
+import { SpeedCalculatorService } from "@lib/speed-calculator/speed-calculator-service"
 import { Regulation } from "@lib/types"
 import { SPEED_CALCULATOR_MODES } from "@lib/speed-calculator/speed-calculator-mode"
 import { patchState, signalStore, withState } from "@ngrx/signals"
@@ -32,18 +33,21 @@ const initialState: SpeedCalcOptionsState = {
 @Injectable({ providedIn: "root" })
 export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }, withState(initialState)) {
   private calculatorStore = inject(CalculatorStore)
+  private speedCalculatorService = inject(SpeedCalculatorService)
 
   constructor() {
     super()
 
-    const initialRegulation = (this.calculatorStore.game() === "champions" ? "MA" : "I") as Regulation
-    patchState(this, () => ({ regulation: initialRegulation }))
+    const initialRegulation = (this.calculatorStore.game() === "champions" ? "MB" : "I") as Regulation
+    const initialMode = this.speedCalculatorService.hasStatisticsForRegulation(initialRegulation) ? SpeedCalculatorMode.StatsAndMeta : SpeedCalculatorMode.Stats
+    patchState(this, () => ({ regulation: initialRegulation, mode: initialMode }))
 
     effect(() => {
       const game = this.calculatorStore.game()
-      const newRegulation = (game === "champions" ? "MA" : "I") as Regulation
+      const newRegulation = (game === "champions" ? "MB" : "I") as Regulation
+      const newMode = this.speedCalculatorService.hasStatisticsForRegulation(newRegulation) ? SpeedCalculatorMode.StatsAndMeta : SpeedCalculatorMode.Stats
 
-      patchState(this, () => ({ regulation: newRegulation }))
+      patchState(this, () => ({ regulation: newRegulation, mode: newMode }))
 
       if (game === "champions" && this.choiceScarfActive()) {
         patchState(this, () => ({ choiceScarfActive: false }))
@@ -66,10 +70,16 @@ export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }
   )
 
   readonly regulationsList = computed(() => {
-    return this.calculatorStore.game() === "champions" ? ["MA"] : ["I"]
+    return this.calculatorStore.game() === "champions" ? ["MB", "MA"] : ["I"]
   })
 
-  readonly availableModes = computed(() => SPEED_CALCULATOR_MODES)
+  readonly availableModes = computed(() => {
+    if (!this.speedCalculatorService.hasStatisticsForRegulation(this.regulation())) {
+      return SPEED_CALCULATOR_MODES.filter(m => m !== SpeedCalculatorMode.StatsAndMeta && m !== SpeedCalculatorMode.Meta)
+    }
+
+    return SPEED_CALCULATOR_MODES
+  })
 
   readonly pokemonNamesByReg = computed(() => {
     const includeAll = this.topUsage() === "All"
@@ -97,7 +107,10 @@ export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }
   }
 
   updateRegulation(regulation: Regulation) {
-    patchState(this, () => ({ regulation }))
+    const hasStatistics = this.speedCalculatorService.hasStatisticsForRegulation(regulation)
+    const currentModeNeedsStatistics = this.mode() === SpeedCalculatorMode.StatsAndMeta || this.mode() === SpeedCalculatorMode.Meta
+
+    patchState(this, () => ({ regulation, ...(!hasStatistics && currentModeNeedsStatistics ? { mode: SpeedCalculatorMode.Stats } : {}) }))
     this.clearTargetName()
   }
 

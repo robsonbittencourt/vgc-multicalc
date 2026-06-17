@@ -1413,6 +1413,27 @@ export const ITEM_DETAILS: Record<string, ItemDetail> = {
     sprite: "manectite",
     isMegaStone: true
   },
+  mawilite: {
+    group: "Pokémon specific items",
+    name: "Mawilite",
+    description: "If held by a Mawile, this item allows it to Mega Evolve in battle.",
+    sprite: "mawilite",
+    isMegaStone: true
+  },
+  barbaracite: {
+    group: "Pokémon specific items",
+    name: "Barbaracite",
+    description: "If held by a Barbaracle, this item allows it to Mega Evolve in battle.",
+    sprite: "barbaracite",
+    isMegaStone: true
+  },
+  scolipite: {
+    group: "Pokémon specific items",
+    name: "Scolipite",
+    description: "If held by a Scolipede, this item allows it to Mega Evolve in battle.",
+    sprite: "scolipite",
+    isMegaStone: true
+  },
   medichamite: {
     group: "Pokémon specific items",
     name: "Medichamite",
@@ -1434,6 +1455,13 @@ export const ITEM_DETAILS: Record<string, ItemDetail> = {
     sprite: "meowsticite",
     isMegaStone: true
   },
+  metagrossite: {
+    group: "Pokémon specific items",
+    name: "Metagrossite",
+    description: "If held by a Metagross, this item allows it to Mega Evolve in battle.",
+    sprite: "metagrossite",
+    isMegaStone: true
+  },
   pinsirite: {
     group: "Pokémon specific items",
     name: "Pinsirite",
@@ -1453,6 +1481,13 @@ export const ITEM_DETAILS: Record<string, ItemDetail> = {
     name: "Scizorite",
     description: "If held by a Scizor, this item allows it to Mega Evolve in battle.",
     sprite: "scizorite",
+    isMegaStone: true
+  },
+  sceptilite: {
+    group: "Pokémon specific items",
+    name: "Sceptilite",
+    description: "If held by a Sceptile, this item allows it to Mega Evolve in battle.",
+    sprite: "sceptilite",
     isMegaStone: true
   },
   scovillainite: {
@@ -1502,6 +1537,69 @@ export const ITEM_DETAILS: Record<string, ItemDetail> = {
     name: "Victreebelite",
     description: "If held by a Victreebel, this item allows it to Mega Evolve in battle.",
     sprite: "victreebelite",
+    isMegaStone: true
+  },
+  dragalgite: {
+    group: "Pokémon specific items",
+    name: "Dragalgite",
+    description: "If held by a Dragalge, this item allows it to Mega Evolve in battle.",
+    sprite: "dragalgite",
+    isMegaStone: true
+  },
+  eelektrossite: {
+    group: "Pokémon specific items",
+    name: "Eelektrossite",
+    description: "If held by a Eelektross, this item allows it to Mega Evolve in battle.",
+    sprite: "eelektrossite",
+    isMegaStone: true
+  },
+  falinksite: {
+    group: "Pokémon specific items",
+    name: "Falinksite",
+    description: "If held by a Falinks, this item allows it to Mega Evolve in battle.",
+    sprite: "falinksite",
+    isMegaStone: true
+  },
+  malamarite: {
+    group: "Pokémon specific items",
+    name: "Malamarite",
+    description: "If held by a Malamar, this item allows it to Mega Evolve in battle.",
+    sprite: "malamarite",
+    isMegaStone: true
+  },
+  pyroarite: {
+    group: "Pokémon specific items",
+    name: "Pyroarite",
+    description: "If held by a Pyroar, this item allows it to Mega Evolve in battle.",
+    sprite: "pyroarite",
+    isMegaStone: true
+  },
+  scraftinite: {
+    group: "Pokémon specific items",
+    name: "Scraftinite",
+    description: "If held by a Scrafty, this item allows it to Mega Evolve in battle.",
+    sprite: "scraftinite",
+    isMegaStone: true
+  },
+  staraptite: {
+    group: "Pokémon specific items",
+    name: "Staraptite",
+    description: "If held by a Staraptor, this item allows it to Mega Evolve in battle.",
+    sprite: "staraptite",
+    isMegaStone: true
+  },
+  raichunitex: {
+    group: "Pokémon specific items",
+    name: "Raichunite X",
+    description: "If held by a Raichu, this item allows it to Mega Evolve into Raichu-Mega-X in battle.",
+    sprite: "raichunite-x",
+    isMegaStone: true
+  },
+  raichunitey: {
+    group: "Pokémon specific items",
+    name: "Raichunite Y",
+    description: "If held by a Raichu, this item allows it to Mega Evolve into Raichu-Mega-Y in battle.",
+    sprite: "raichunite-y",
     isMegaStone: true
   }
 }

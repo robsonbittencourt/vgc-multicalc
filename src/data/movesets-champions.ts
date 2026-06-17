@@ -207,7 +207,7 @@ export const SETDEX_CHAMPIONS: Record<string, any> = {
       spe: 32
     },
     moves: ["Thunderbolt", "Encore", "Nuzzle", "Fake Out"],
-    items: ["Focus Sash"]
+    items: ["Raichunite X", "Focus Sash"]
   },
   "Raichu-Alola": {
     ability: "Surge Surfer",
@@ -223,6 +223,36 @@ export const SETDEX_CHAMPIONS: Record<string, any> = {
     },
     moves: ["Thunderbolt", "Surf", "Volt Switch", "Helping Hand"],
     items: ["Sitrus Berry"]
+  },
+  "Raichu-Mega-X": {
+    ability: "Electric Surge",
+    nature: "Adamant",
+    teraType: "",
+    evs: {
+      hp: 0,
+      atk: 32,
+      def: 1,
+      spa: 0,
+      spd: 1,
+      spe: 30
+    },
+    moves: ["Thunderbolt", "Focus Blast", "Drain Punch", "Protect"],
+    items: ["Raichunite X"]
+  },
+  "Raichu-Mega-Y": {
+    ability: "No Guard",
+    nature: "Modest",
+    teraType: "",
+    evs: {
+      hp: 0,
+      atk: 0,
+      def: 1,
+      spa: 32,
+      spd: 1,
+      spe: 30
+    },
+    moves: ["Thunderbolt", "Dazzling Gleam", "Psychic", "Protect"],
+    items: ["Raichunite Y"]
   },
   Clefable: {
     ability: "Unaware",
@@ -4093,5 +4123,545 @@ export const SETDEX_CHAMPIONS: Record<string, any> = {
       spe: 32
     },
     moves: ["Close Combat", "Poltergeist", "Shadow Sneak", "King's Shield"]
+  },
+  Annihilape: {
+    teraType: "",
+    ability: "Vital Spirit",
+    items: ["Leftovers", "Sitrus Berry"],
+    nature: "Adamant",
+    evs: {
+      hp: 32,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 0
+    },
+    moves: ["Rage Fist", "Close Combat", "Bulk Up", "Protect"]
+  },
+  Blaziken: {
+    ability: "Blaze",
+    nature: "Timid",
+    teraType: "Fire",
+    evs: {
+      hp: 0,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 1,
+      spe: 32
+    },
+    moves: ["Heat Wave", "Aura Sphere", "Coaching", "Protect"],
+    items: ["Blazikenite", "Focus Sash"]
+  },
+  Dragalge: {
+    ability: "Poison Point",
+    nature: "Bold",
+    teraType: "Steel",
+    evs: {
+      hp: 32,
+      atk: 0,
+      def: 25,
+      spa: 0,
+      spd: 0,
+      spe: 7
+    },
+    moves: ["Sludge Bomb", "Draco Meteor", "Toxic Spikes", "Flip Turn"],
+    items: ["Dragalgite", "Leftovers"]
+  },
+  Eelektross: {
+    ability: "Levitate",
+    nature: "Sassy",
+    teraType: "Steel",
+    evs: {
+      hp: 32,
+      atk: 0,
+      def: 1,
+      spa: 0,
+      spd: 32,
+      spe: 0
+    },
+    moves: ["Knock Off", "U-turn", "Discharge", "Dragon Tail"],
+    items: ["Eelektrossite", "Leftovers"]
+  },
+  Falinks: {
+    ability: "Battle Armor",
+    nature: "Jolly",
+    teraType: "Steel",
+    evs: {
+      hp: 0,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 1,
+      spe: 32
+    },
+    moves: ["Close Combat", "Knock Off", "No Retreat", "Iron Head"],
+    items: ["Falinksite", "Life Orb"]
+  },
+  Gholdengo: {
+    ability: "Good as Gold",
+    nature: "Modest",
+    teraType: "Dragon",
+    evs: {
+      hp: 1,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Make It Rain", "Shadow Ball", "Protect", "Nasty Plot"],
+    items: ["Life Orb", "Metal Coat", "Wise Glasses"]
+  },
+  Grimmsnarl: {
+    ability: "Prankster",
+    nature: "Careful",
+    teraType: "Ghost",
+    evs: {
+      hp: 30,
+      atk: 0,
+      def: 20,
+      spa: 0,
+      spd: 15,
+      spe: 0
+    },
+    moves: ["Spirit Break", "Taunt", "Light Screen", "Reflect"],
+    items: ["Light Clay", "Sitrus Berry"]
+  },
+  Houndstone: {
+    ability: "Sand Rush",
+    nature: "Adamant",
+    teraType: "Ghost",
+    evs: {
+      hp: 32,
+      atk: 0,
+      def: 32,
+      spa: 0,
+      spd: 1,
+      spe: 0
+    },
+    moves: ["Last Respects", "Protect", "Shadow Sneak", "Psychic Fangs"],
+    items: ["Focus Sash"]
+  },
+  Malamar: {
+    ability: "Contrary",
+    nature: "Adamant",
+    teraType: "Fire",
+    evs: {
+      hp: 32,
+      atk: 9,
+      def: 24,
+      spa: 0,
+      spd: 0,
+      spe: 0
+    },
+    moves: ["Superpower", "Knock Off", "Topsy-Turvy", "Trick Room"],
+    items: ["Malamarite", "Sitrus Berry"]
+  },
+  Metagross: {
+    ability: "Clear Body",
+    nature: "Adamant",
+    teraType: "Flying",
+    evs: {
+      hp: 32,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 1,
+      spe: 0
+    },
+    moves: ["Bullet Punch", "Iron Head", "Stomping Tantrum", "Psychic Fangs"],
+    items: ["Metagrossite", "Sitrus Berry"]
+  },
+  Overqwil: {
+    ability: "Poison Point",
+    nature: "Adamant",
+    teraType: "Ghost",
+    evs: {
+      hp: 32,
+      atk: 0,
+      def: 32,
+      spa: 0,
+      spd: 1,
+      spe: 0
+    },
+    moves: ["Gunk Shot", "Throat Chop", "Icy Wind", "Acid Spray"],
+    items: ["Leftovers", "Sitrus Berry"]
+  },
+  Pyroar: {
+    ability: "Rivalry",
+    nature: "Timid",
+    teraType: "Fairy",
+    evs: {
+      hp: 1,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Overheat", "Hyper Voice", "Tera Blast", "Heat Wave"],
+    items: ["Life Orb", "Wise Glasses"]
+  },
+  Qwilfish: {
+    ability: "Poison Point",
+    nature: "Impish",
+    teraType: "Ground",
+    evs: {
+      hp: 32,
+      atk: 0,
+      def: 30,
+      spa: 0,
+      spd: 0,
+      spe: 2
+    },
+    moves: ["Spikes", "Barb Barrage", "Flip Turn", "Pain Split"],
+    items: ["Leftovers", "Sitrus Berry"]
+  },
+  Sceptile: {
+    ability: "Overgrow",
+    nature: "Adamant",
+    teraType: "Flying",
+    evs: {
+      hp: 17,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 15
+    },
+    moves: ["Swords Dance", "Leaf Blade", "Acrobatics", "Earthquake"],
+    items: ["Sceptilite", "Focus Sash"]
+  },
+  Scrafty: {
+    ability: "Shed Skin",
+    nature: "Brave",
+    teraType: "Fire",
+    evs: {
+      hp: 32,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 1,
+      spe: 0
+    },
+    moves: ["Knock Off", "Close Combat", "Ice Punch", "Brick Break"],
+    items: ["Scraftinite", "Sitrus Berry"]
+  },
+  Staraptor: {
+    ability: "Intimidate",
+    nature: "Jolly",
+    teraType: "Flying",
+    evs: {
+      hp: 1,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Brave Bird", "Tailwind", "Endure", "Endeavor"],
+    items: ["Staraptite", "Sharp Beak"]
+  },
+  Swampert: {
+    ability: "Torrent",
+    nature: "Impish",
+    teraType: "Ghost",
+    evs: {
+      hp: 32,
+      atk: 0,
+      def: 32,
+      spa: 0,
+      spd: 1,
+      spe: 0
+    },
+    moves: ["Stealth Rock", "Earthquake", "Knock Off", "Flip Turn"],
+    items: ["Swampertite", "Leftovers"]
+  },
+  Vileplume: {
+    ability: "Chlorophyll",
+    nature: "Bold",
+    teraType: "Fairy",
+    evs: {
+      hp: 32,
+      atk: 0,
+      def: 32,
+      spa: 0,
+      spd: 1,
+      spe: 0
+    },
+    moves: ["Sludge Wave", "Giga Drain", "Strength Sap", "Leech Seed"],
+    items: ["Leftovers"]
+  },
+  Barbaracle: {
+    ability: "Tough Claws",
+    nature: "Adamant",
+    teraType: "",
+    evs: {
+      hp: 1,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Shell Smash", "Stone Edge", "Liquidation", "Protect"],
+    items: ["Barbaracite", "White Herb", "Focus Sash"]
+  },
+  Mawile: {
+    ability: "Hyper Cutter",
+    nature: "Adamant",
+    teraType: "",
+    evs: {
+      hp: 32,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 0
+    },
+    moves: ["Play Rough", "Iron Head", "Sucker Punch", "Protect"],
+    items: ["Mawilite", "Sitrus Berry", "Leftovers"]
+  },
+  Musharna: {
+    ability: "Forewarn",
+    nature: "Sassy",
+    teraType: "",
+    evs: {
+      hp: 32,
+      atk: 0,
+      def: 16,
+      spa: 0,
+      spd: 16,
+      spe: 0
+    },
+    moves: ["Trick Room", "Psychic", "Moonblast", "Helping Hand"],
+    items: ["Sitrus Berry", "Leftovers"]
+  },
+  Scolipede: {
+    ability: "Poison Point",
+    nature: "Jolly",
+    teraType: "",
+    evs: {
+      hp: 0,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Megahorn", "Poison Jab", "Swords Dance", "Protect"],
+    items: ["Focus Sash", "Leftovers"]
+  },
+  "Mawile-Mega": {
+    ability: "Huge Power",
+    nature: "Adamant",
+    teraType: "",
+    evs: {
+      hp: 32,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 0
+    },
+    moves: ["Play Rough", "Iron Head", "Sucker Punch", "Protect"],
+    items: ["Mawilite"]
+  },
+  "Blaziken-Mega": {
+    ability: "Speed Boost",
+    nature: "Jolly",
+    teraType: "",
+    evs: {
+      hp: 0,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 1,
+      spe: 32
+    },
+    moves: ["Close Combat", "Flare Blitz", "Swords Dance", "Protect"],
+    items: ["Blazikenite"]
+  },
+  "Metagross-Mega": {
+    ability: "Tough Claws",
+    nature: "Adamant",
+    teraType: "",
+    evs: {
+      hp: 32,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 1,
+      spe: 0
+    },
+    moves: ["Meteor Mash", "Bullet Punch", "Zen Headbutt", "Protect"],
+    items: ["Metagrossite"]
+  },
+  "Sceptile-Mega": {
+    ability: "Lightning Rod",
+    nature: "Timid",
+    teraType: "",
+    evs: {
+      hp: 0,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 1,
+      spe: 32
+    },
+    moves: ["Leaf Storm", "Dragon Pulse", "Energy Ball", "Protect"],
+    items: ["Sceptilite"]
+  },
+  "Swampert-Mega": {
+    ability: "Swift Swim",
+    nature: "Adamant",
+    teraType: "",
+    evs: {
+      hp: 32,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 1,
+      spe: 0
+    },
+    moves: ["Waterfall", "Earthquake", "Ice Punch", "Protect"],
+    items: ["Swampertite"]
+  },
+  "Barbaracle-Mega": {
+    ability: "Tough Claws",
+    nature: "Adamant",
+    teraType: "",
+    evs: {
+      hp: 1,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Shell Smash", "Stone Edge", "Liquidation", "Protect"],
+    items: ["Barbaracite"]
+  },
+  "Scolipede-Mega": {
+    ability: "Shell Armor",
+    nature: "Jolly",
+    teraType: "",
+    evs: {
+      hp: 0,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Megahorn", "Poison Jab", "Swords Dance", "Protect"],
+    items: ["Scolipite"]
+  },
+  "Dragalge-Mega": {
+    ability: "Regenerator",
+    nature: "Modest",
+    teraType: "",
+    evs: {
+      hp: 1,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 1,
+      spe: 32
+    },
+    moves: ["Dragon Pulse", "Sludge Bomb", "Hydro Pump", "Protect"],
+    items: ["Dragalgite"]
+  },
+  "Eelektross-Mega": {
+    ability: "Eelevate",
+    nature: "Adamant",
+    teraType: "",
+    evs: {
+      hp: 32,
+      atk: 32,
+      def: 1,
+      spa: 0,
+      spd: 1,
+      spe: 0
+    },
+    moves: ["Close Combat", "Wild Charge", "Crunch", "Protect"],
+    items: ["Eelektrossite"]
+  },
+  "Falinks-Mega": {
+    ability: "Defiant",
+    nature: "Adamant",
+    teraType: "",
+    evs: {
+      hp: 1,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 1,
+      spe: 32
+    },
+    moves: ["Close Combat", "Coaching", "Iron Head", "Protect"],
+    items: ["Falinksite"]
+  },
+  "Malamar-Mega": {
+    ability: "Contrary",
+    nature: "Quiet",
+    teraType: "",
+    evs: {
+      hp: 32,
+      atk: 0,
+      def: 1,
+      spa: 32,
+      spd: 1,
+      spe: 0
+    },
+    moves: ["Dark Pulse", "Psychic", "Thunderbolt", "Protect"],
+    items: ["Malamarite"]
+  },
+  "Pyroar-Mega": {
+    ability: "Fire Mane",
+    nature: "Timid",
+    teraType: "",
+    evs: {
+      hp: 0,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Flare Blitz", "Hyper Voice", "Psychic Fangs", "Protect"],
+    items: ["Pyroarite"]
+  },
+  "Scrafty-Mega": {
+    ability: "Intimidate",
+    nature: "Adamant",
+    teraType: "",
+    evs: {
+      hp: 32,
+      atk: 32,
+      def: 1,
+      spa: 0,
+      spd: 1,
+      spe: 0
+    },
+    moves: ["Close Combat", "Crunch", "Ice Punch", "Protect"],
+    items: ["Scraftinite"]
+  },
+  "Staraptor-Mega": {
+    ability: "Contrary",
+    nature: "Adamant",
+    teraType: "",
+    evs: {
+      hp: 1,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 1,
+      spe: 32
+    },
+    moves: ["Brave Bird", "Close Combat", "Tailwind", "Protect"],
+    items: ["Staraptite"]
   }
 }

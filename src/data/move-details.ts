@@ -3976,13 +3976,13 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     target: "allySide"
   },
   makeitrain: {
-    accuracy: 100,
+    accuracy: 95,
     basePower: 120,
     category: "Special",
     name: "Make It Rain",
     pp: 5,
     type: "Steel",
-    description: "Lowers the user's Sp. Atk by 1. Hits foe(s).",
+    description: "Lowers the user's Sp. Atk by 2. Hits foe(s).",
     secondary: null,
     target: "allAdjacentFoes"
   },

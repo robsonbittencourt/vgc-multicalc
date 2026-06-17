@@ -3,6 +3,7 @@ import { pokemonByRegulation } from "@data/regulation-pokemon"
 import { SpeedData } from "@data/speed-data"
 import { SPEED_STATISTICS_REG_I } from "@data/speed-statistics-reg-i"
 import { SPEED_STATISTICS_REG_MA } from "@data/speed-statistics-reg-ma"
+import { SPEED_STATISTICS_REG_MB } from "@data/speed-statistics-reg-mb"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { ACTUAL, BOOSTER, MAX, MAX_BASE_SPEED_FOR_TR, MIN, MIN_IV_0, SCARF } from "@lib/constants"
 import { defaultPokemon } from "@lib/default-pokemon"
@@ -30,6 +31,7 @@ export class SpeedCalculatorService {
 
   private readonly statisticsByRegulation: Record<string, Record<string, SpeedData>> = {
     MA: SPEED_STATISTICS_REG_MA,
+    MB: SPEED_STATISTICS_REG_MB,
     I: SPEED_STATISTICS_REG_I
   }
 
@@ -258,6 +260,10 @@ export class SpeedCalculatorService {
 
   retrieveSpeedStatistics(pokemonName: string, regulation: Regulation): SpeedData {
     return this.statisticsByRegulation[regulation][pokemonName]
+  }
+
+  hasStatisticsForRegulation(regulation: Regulation): boolean {
+    return Object.values(this.statisticsByRegulation[regulation] ?? {}).some(data => data.statistics.length > 0)
   }
 
   private isTrickRoomPokemon(pokemon: Pokemon): boolean {

@@ -1157,5 +1157,13 @@ export const ABILITY_DETAILS: Record<string, AbilityDetail> = {
   spicyspray: {
     name: "Spicy Spray",
     description: "When this Pokemon enters, its Attack and Sp. Atk are each raised 1 stage."
+  },
+  firemane: {
+    name: "Fire Mane",
+    description: "This Pokemon's Fire-type moves have their power multiplied by 1.5."
+  },
+  eelevate: {
+    name: "Eelevate",
+    description: "This Pokemon is immune to Ground-type moves, Spikes, Toxic Spikes, and Sticky Web. When it knocks out a target, its highest stat is raised 1 stage."
   }
 }

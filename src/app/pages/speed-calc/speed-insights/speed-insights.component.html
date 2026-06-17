@@ -4,32 +4,34 @@
       <p>Select a Pokémon from Speed List to see insights about metagame.</p>
     }
 
-    <div class="card">
-      <div class="speed-values">
-        <span class="pokemon-name">{{ pokemonName() }}</span>
-        <span
-          >Base: <b>{{ base() }}</b></span
-        >
-        @if (isTrSpeed()) {
-          @if (isChampions()) {
-            <span
-              >Negative Nature, {{ minSpLabel() }}: <b>{{ minWithNegativeNature() }}</b></span
-            >
-          } @else {
-            <span
-              >Negative Nature, {{ minSpLabel() }}, IV 0: <b>{{ minWithIvZero() }}</b></span
-            >
+    @if (speedInsights()) {
+      <div class="card">
+        <div class="speed-values">
+          <span class="pokemon-name">{{ pokemonName() }}</span>
+          <span
+            >Base: <b>{{ base() }}</b></span
+          >
+          @if (isTrSpeed()) {
+            @if (isChampions()) {
+              <span
+                >Negative Nature, {{ minSpLabel() }}: <b>{{ minWithNegativeNature() }}</b></span
+              >
+            } @else {
+              <span
+                >Negative Nature, {{ minSpLabel() }}, IV 0: <b>{{ minWithIvZero() }}</b></span
+              >
+            }
           }
-        }
-        <span
-          >Neutral Nature: <b>{{ min() }}</b> to <b>{{ max() }}</b></span
-        >
-        <span
-          >Positive Nature, {{ maxSpLabel() }}: <b>{{ maxWithNature() }}</b></span
-        >
+          <span
+            >Neutral Nature: <b>{{ min() }}</b> to <b>{{ max() }}</b></span
+          >
+          <span
+            >Positive Nature, {{ maxSpLabel() }}: <b>{{ maxWithNature() }}</b></span
+          >
+        </div>
+        <app-pokemon-sprite [name]="pokemonName()" />
       </div>
-      <app-pokemon-sprite [name]="pokemonName()" />
-    </div>
+    }
 
     @if (usageInsights().length > 0) {
       <p>In the Regulation {{ regulation() }} metagame, excluding external Speed modifications (e.g., Abilities, Choice Scarf):</p>
