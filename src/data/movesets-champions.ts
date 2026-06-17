@@ -4301,7 +4301,7 @@ export const SETDEX_CHAMPIONS: Record<string, any> = {
       spd: 0,
       spe: 32
     },
-    moves: ["Overheat", "Hyper Voice", "Tera Blast", "Heat Wave"],
+    moves: ["Overheat", "Hyper Voice", "Heat Wave", "Protect"],
     items: ["Life Orb", "Wise Glasses"]
   },
   Qwilfish: {
