@@ -1710,7 +1710,7 @@ export const SETDEX_CHAMPIONS: Record<string, any> = {
     moves: ["Wild Charge", "Volt Switch", "Snarl", "Protect"]
   },
   Roserade: {
-    ability: "Dry Skin",
+    ability: "Natural Cure",
     nature: "Modest",
     teraType: "",
     evs: {
@@ -2430,7 +2430,7 @@ export const SETDEX_CHAMPIONS: Record<string, any> = {
     items: ["Sitrus Berry"]
   },
   Garbodor: {
-    ability: "Sticky Hold",
+    ability: "Stench",
     nature: "Modest",
     teraType: "",
     evs: {
@@ -2970,7 +2970,7 @@ export const SETDEX_CHAMPIONS: Record<string, any> = {
     items: ["Sitrus Berry"]
   },
   Slurpuff: {
-    ability: "Aroma Veil",
+    ability: "Sweet Veil",
     nature: "Modest",
     teraType: "",
     evs: {
