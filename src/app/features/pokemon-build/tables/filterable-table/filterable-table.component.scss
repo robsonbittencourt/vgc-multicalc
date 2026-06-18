@@ -382,6 +382,7 @@ app-pokemon-sprite.image-icon {
   overflow-x: auto;
   overscroll-behavior-x: none;
   flex: 1;
+  padding-bottom: 4em;
 }
 
 :host(.mobile) .cdk-virtual-scroll-viewport::-webkit-scrollbar {
