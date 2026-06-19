@@ -6,7 +6,7 @@
         label="Pokémon"
         leftLabel="true"
         [enableClear]="cardsFilter() !== ''"
-        [allValues]="pokemonNamesByReg()"
+        [allValues]="targetPokemonNames()"
         [value]="cardsFilter()"
         (valueChange)="updateCardsFilter($event)"
         (cleared)="clearCardsFilter()" />
