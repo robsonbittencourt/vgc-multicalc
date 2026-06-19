@@ -93,7 +93,7 @@ export class TargetPokemonComponent {
   }
 
   readonly pokemonNamesByReg = computed(() =>
-    pokemonByRegulation(this.regulation() as Regulation, undefined, this.store.game() === "champions" ? SETDEX_CHAMPIONS : SETDEX_SV, false, this.store.isChampions())
+    pokemonByRegulation(this.regulation() as Regulation, undefined, this.store.game() === "champions" ? SETDEX_CHAMPIONS : SETDEX_SV, true, this.store.isChampions())
       .map(s => s.name)
       .sort()
   )
