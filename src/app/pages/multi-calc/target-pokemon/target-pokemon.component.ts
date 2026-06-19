@@ -92,11 +92,11 @@ export class TargetPokemonComponent {
     return this.store.game() === "champions" ? SETDEX_CHAMPIONS : SETDEX_SV
   }
 
-  readonly pokemonNamesByReg = computed(() =>
-    pokemonByRegulation(this.regulation() as Regulation, undefined, this.store.game() === "champions" ? SETDEX_CHAMPIONS : SETDEX_SV, true, this.store.isChampions())
-      .map(s => s.name)
-      .sort()
-  )
+  readonly targetPokemonNames = computed(() => {
+    const names = this.damageResults().flatMap(result => (this.isAttacker() ? [result.attacker.name, result.secondAttacker?.name] : [result.defender.name]))
+
+    return [...new Set(names.filter((name): name is string => !!name))].sort()
+  })
 
   readonly regulationsList = computed(() => (this.store.game() === "champions" ? ["MA"] : ["I"]))
 
