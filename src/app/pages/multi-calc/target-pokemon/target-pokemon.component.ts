@@ -98,7 +98,7 @@ export class TargetPokemonComponent {
     return [...new Set(names.filter((name): name is string => !!name))].sort()
   })
 
-  readonly regulationsList = computed(() => (this.store.game() === "champions" ? ["MA"] : ["I"]))
+  readonly regulationsList = computed(() => (this.store.game() === "champions" ? ["MA", "MB"] : ["I"]))
 
   order = signal(false)
 
@@ -112,7 +112,7 @@ export class TargetPokemonComponent {
       this.snackBar.open("Pokémon removed")
     } else {
       this.store.updateTargetMetaRegulation(this.regulation())
-      const metaPokemon = pokemonByRegulation(this.regulation(), 50, this.setdex, false, this.store.isChampions())
+      const metaPokemon = pokemonByRegulation(this.regulation(), 60, this.setdex, false, this.store.isChampions())
       this.pokemonImported(metaPokemon)
     }
   }

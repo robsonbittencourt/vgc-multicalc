@@ -180,7 +180,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
   editingMoveIndex = computed(() => Math.max(0, this.editingPokemon()?.activeMoveIndex ?? 0))
 
   regulation = linkedSignal<Regulation>(() => this.store.targetMetaRegulation() ?? (this.store.game() === "champions" ? "MA" : "I"))
-  regulationsList = computed(() => (this.store.game() === "champions" ? ["MA"] : ["I"]))
+  regulationsList = computed(() => (this.store.game() === "champions" ? ["MA", "MB"] : ["I"]))
   rollLevelConfig = signal(RollLevelConfig.fromConfigString(this.store.multiCalcRollLevel()))
   order = signal(false)
 
@@ -268,9 +268,16 @@ export class MultiCalcMobileComponent implements OnDestroy {
     } else {
       this.store.updateTargetMetaRegulation(this.regulation())
       const setdex = this.store.game() === "champions" ? SETDEX_CHAMPIONS : SETDEX_SV
-      const metaPokemon = pokemonByRegulation(this.regulation(), 33, setdex, false, this.store.isChampions())
+      const metaPokemon = pokemonByRegulation(this.regulation(), 60, setdex, false, this.store.isChampions())
+
+      console.log(this.regulation())
       this.onTargetsImported(metaPokemon)
     }
+  }
+
+  updateRegulation(event: string) {
+    const regulation = event as Regulation
+    this.regulation.set(regulation)
   }
 
   removeAll() {

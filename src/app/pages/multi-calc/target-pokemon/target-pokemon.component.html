@@ -16,7 +16,7 @@
       <mat-slide-toggle class="order-toggle" [checked]="order()" (change)="toggleOrder()" [labelPosition]="'before'">Order by Damage</mat-slide-toggle>
 
       <div class="regulation-combo">
-        <app-input-select label="Regulation" leftLabel="true" [allValues]="regulationsList()" [disabled]="true" [value]="regulation()" (valueChange)="updateRegulation($event)" />
+        <app-input-select label="Regulation" leftLabel="true" [allValues]="regulationsList()" [value]="regulation()" (valueChange)="updateRegulation($event)" />
       </div>
 
       <button mat-flat-button (click)="onMetaClick()" data-cy="add-meta-button">{{ metaButtonLabel() }}</button>

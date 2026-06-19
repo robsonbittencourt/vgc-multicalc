@@ -387,7 +387,7 @@ describe("Import from Meta", () => {
 
     opponent.addMeta()
 
-    opponent.lengthIs(60)
+    opponent.lengthIs(70)
   })
 
   it("should delete Pokémon from Meta and keep the previously existing one", () => {

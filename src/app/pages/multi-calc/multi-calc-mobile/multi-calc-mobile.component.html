@@ -106,7 +106,7 @@
 
           <div class="targets-actions">
             <div class="row">
-              <app-input-select label="Regulation" leftLabel="true" [allValues]="regulationsList()" [disabled]="true" [value]="regulation()" />
+              <app-input-select label="Regulation" leftLabel="true" [allValues]="regulationsList()" [value]="regulation()" (valueChange)="updateRegulation($event)" />
               <button mat-flat-button class="management-button" (click)="onMetaClick()" data-cy="add-meta-button">{{ metaButtonLabel() }}</button>
             </div>
             <div class="row full">
