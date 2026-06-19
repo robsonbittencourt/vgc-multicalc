@@ -30,7 +30,7 @@
     "@angular/service-worker": "22.0.1",
     "@angular/ssr": "22.0.1",
     "@ngrx/signals": "21.1.1",
-    "@robsonbittencourt/calc": "0.11.15",
+    "@robsonbittencourt/calc": "0.11.16",
     "dedent": "1.7.2",
     "koffing": "1.0.0",
     "pdf-lib": "1.17.1",
