@@ -8,6 +8,7 @@ const header = new Header()
 describe("Filtered Table behaviors", () => {
   beforeEach(() => {
     cy.get('[data-cy="team-vs-many"]').click({ force: true })
+    cy.location("pathname").should("eq", "/team-vs-many")
   })
 
   describe("Filter and select", () => {

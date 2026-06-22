@@ -1,7 +1,7 @@
 import { Field } from "@lib/model/field"
 import { Pokemon } from "@lib/model/pokemon"
-import { Pokemon as SmogonPokemon, StatID } from "@robsonbittencourt/calc"
-import { StatIDExceptHP } from "@robsonbittencourt/calc/src/data/interface"
+import { Pokemon as CalcPokemon } from "@calc"
+import { StatID, StatIDExceptHP } from "@calc"
 
 export function getModifiedStat(stat: number, mod: number): number {
   const numerator = 0
@@ -27,12 +27,12 @@ export function getModifiedStat(stat: number, mod: number): number {
   return stat
 }
 
-export function higherStat(smogonPokemon: SmogonPokemon): StatIDExceptHP {
+export function higherStat(calcPokemon: CalcPokemon): StatIDExceptHP {
   let bestStat: StatID = "atk"
 
   for (const stat of ["def", "spa", "spd", "spe"] as StatIDExceptHP[]) {
-    const actual = getModifiedStat(smogonPokemon.rawStats[stat], smogonPokemon.boosts[stat])
-    const best = getModifiedStat(smogonPokemon.rawStats[bestStat], smogonPokemon.boosts[bestStat])
+    const actual = getModifiedStat(calcPokemon.rawStats[stat], calcPokemon.boosts[stat])
+    const best = getModifiedStat(calcPokemon.rawStats[bestStat], calcPokemon.boosts[bestStat])
 
     if (actual > best) {
       bestStat = stat

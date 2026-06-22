@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core"
 import { Field, FieldSide } from "@lib/model/field"
-import { Side, Field as SmogonField } from "@robsonbittencourt/calc"
-import { Terrain as SmogonTerrain, Weather as SmogonWeather } from "@robsonbittencourt/calc/src/data/interface"
+import { Side, Field as SmogonField } from "@calc"
+import { Terrain as SmogonTerrain, Weather as SmogonWeather } from "@calc"
 
 @Injectable({ providedIn: "root" })
 export class FieldMapper {

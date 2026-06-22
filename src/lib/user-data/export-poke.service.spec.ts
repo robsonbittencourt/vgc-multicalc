@@ -120,7 +120,6 @@ Ability: Limber
 Level: 50
 Tera Type: Normal
 Hardy Nature
-IVs: 30 Atk
 - Transform
 
 `
@@ -190,7 +189,6 @@ Level: 50
 Tera Type: Stellar
 EVs: 4 HP / 252 Atk / 252 Spe
 Adamant Nature
-IVs: 1 HP / 2 Atk / 3 Def / 4 SpA / 5 SpD / 6 Spe
 - Surging Strikes
 - Close Combat
 - Aqua Jet

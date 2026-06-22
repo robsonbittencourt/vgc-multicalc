@@ -2,14 +2,12 @@ import { DEFAULT_TERA_TYPE, SELECT_POKEMON_LABEL } from "@lib/constants"
 import { Ability } from "@lib/model/ability"
 import { Pokemon } from "@lib/model/pokemon"
 import { PokemonParameters } from "@lib/types"
-import { Generations, Pokemon as SmogonPokemon } from "@robsonbittencourt/calc"
-import { AbilityName, StatusName } from "@robsonbittencourt/calc/dist/data/interface"
-import { TypeName } from "@robsonbittencourt/calc/src/data/interface"
-import { StatIDExceptHP } from "@robsonbittencourt/calc/src/data/interface"
+import { AbilityName, ItemName, NatureName, StatIDExceptHP, StatusName, TypeName } from "@calc"
+import { Pokemon as CalcPokemon } from "@calc"
 import { higherStat } from "./commom"
 import { normalizePokemonNameForCalc } from "./pokemon-name-normalizer"
 
-export function fromExisting(pokemon: Pokemon, forceMaxIvs = false): SmogonPokemon {
+export function fromExisting(pokemon: Pokemon, forceMaxIvs = false): CalcPokemon {
   const MAX_IVS = { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 }
 
   return fromScratch(pokemon.name, {
@@ -27,38 +25,36 @@ export function fromExisting(pokemon: Pokemon, forceMaxIvs = false): SmogonPokem
   })
 }
 
-export function fromScratch(pokemonName: string, options: PokemonParameters): SmogonPokemon {
+export function fromScratch(pokemonName: string, options: PokemonParameters): CalcPokemon {
   let adjustedName = pokemonName == SELECT_POKEMON_LABEL ? "Togepi" : pokemonName
   adjustedName = normalizePokemonNameForCalc(adjustedName)
 
-  const smogonPokemon = new SmogonPokemon(Generations.get(9), adjustedName, {
-    nature: options.nature ?? "Hardy",
-    item: options.item && options.item !== "(none)" ? options.item : undefined,
+  const calcPokemon = new CalcPokemon(adjustedName, {
+    nature: (options.nature ?? "Hardy") as NatureName,
+    item: options.item && options.item !== "(none)" ? (options.item as ItemName) : undefined,
     teraType: adjustedName == "Terapagos-Stellar" || options.teraTypeActive ? ((options.teraType as TypeName) ?? DEFAULT_TERA_TYPE) : undefined,
     evs: options.evs,
-    ivs: options.ivs,
-    boosts: options.boosts,
-    level: 50
+    boosts: options.boosts
   })
 
-  smogonPokemon.status = (options.status?.code as StatusName) ?? ""
+  calcPokemon.status = (options.status?.code as StatusName) ?? ""
 
   if (options.ability) {
-    smogonPokemon.ability = new Ability(options.ability.name).name as AbilityName
-    smogonPokemon.abilityOn = options.ability.on
-    applyStatBoost(smogonPokemon, options.ability, options.higherStat)
+    calcPokemon.ability = new Ability(options.ability.name).name as AbilityName
+    calcPokemon.abilityOn = options.ability.on
+    applyStatBoost(calcPokemon, options.ability, options.higherStat)
   }
 
   const hpPercentage = options.hpPercentage ?? 100
-  smogonPokemon.originalCurHP = Math.round((smogonPokemon.maxHP() * hpPercentage) / 100)
+  calcPokemon.originalCurrrentHp = Math.round((calcPokemon.maxHp() * hpPercentage) / 100)
 
-  return smogonPokemon
+  return calcPokemon
 }
 
-function applyStatBoost(smogonPokemon: SmogonPokemon, ability: Ability, customHigherStat?: StatIDExceptHP) {
-  if (ability.paradoxAbility && smogonPokemon.abilityOn) {
-    smogonPokemon.boostedStat = customHigherStat ?? higherStat(smogonPokemon)
+function applyStatBoost(calcPokemon: CalcPokemon, ability: Ability, customHigherStat?: StatIDExceptHP) {
+  if (ability.paradoxAbility && calcPokemon.abilityOn) {
+    calcPokemon.boostedStat = customHigherStat ?? higherStat(calcPokemon)
   } else {
-    smogonPokemon.boostedStat = undefined
+    calcPokemon.boostedStat = undefined
   }
 }

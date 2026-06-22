@@ -8,7 +8,7 @@ import { Target } from "@lib/model/target"
 import { Team } from "@lib/model/team"
 import { TeamMember } from "@lib/model/team-member"
 import { MovePosition } from "@lib/types"
-import { StatIDExceptHP } from "@robsonbittencourt/calc/src/data/interface"
+import { StatIDExceptHP } from "@calc"
 
 export function stateToPokemon(state: PokemonState, isAttacker = false, game?: string): Pokemon {
   const moveOne = new Move(state.moveSet[0].name, { alliesFainted: state.moveSet[0].alliesFainted, hits: state.moveSet[0].hits, lastMoveFailed: state.moveSet[0].lastMoveFailed, game })

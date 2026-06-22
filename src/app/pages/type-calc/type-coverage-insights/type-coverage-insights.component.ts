@@ -8,7 +8,7 @@ import { TypeCoverageInsightsService, PokemonInsight } from "@lib/type-coverage/
 import { Pokemon } from "@lib/model/pokemon"
 import { Team } from "@lib/model/team"
 import { PokemonType } from "@lib/types"
-import { TypeName } from "@robsonbittencourt/calc/dist/data/interface"
+import { TypeName } from "@calc"
 
 @Component({
   selector: "app-type-coverage-insights",

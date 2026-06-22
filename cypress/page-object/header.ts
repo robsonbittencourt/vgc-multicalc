@@ -3,13 +3,19 @@ export class Header {
     cy.window().then(win => {
       win.localStorage.setItem("gameOverride", "champions")
     })
-    cy.reload()
+    this.reloadCurrentRoute()
   }
 
   selectSv() {
     cy.window().then(win => {
       win.localStorage.setItem("gameOverride", "sv")
     })
-    cy.reload()
+    this.reloadCurrentRoute()
+  }
+
+  private reloadCurrentRoute() {
+    cy.location("pathname").then(pathname => {
+      cy.visit(`http://localhost:4200${pathname}`)
+    })
   }
 }
