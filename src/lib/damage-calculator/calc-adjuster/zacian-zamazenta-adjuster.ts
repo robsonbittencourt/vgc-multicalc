@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core"
 import { CalcAdjuster } from "@lib/damage-calculator/calc-adjuster/calc-adjuster"
-import { Pokemon as SmogonPokemon } from "@robsonbittencourt/calc"
-import { AbilityName } from "@robsonbittencourt/calc/dist/data/interface"
+import { Pokemon as SmogonPokemon } from "@calc"
+import { AbilityName } from "@calc"
 
 @Injectable({
   providedIn: "root"

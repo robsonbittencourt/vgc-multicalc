@@ -9,7 +9,8 @@
       "@pages/*": ["./src/app/pages/*"],
       "@core/*": ["./src/app/core/*"],
       "@data/*": ["./src/data/*"],
-      "@lib/*": ["./src/lib/*"]
+      "@lib/*": ["./src/lib/*"],
+      "@calc": ["./src/lib/calc/index.ts"]
     },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,

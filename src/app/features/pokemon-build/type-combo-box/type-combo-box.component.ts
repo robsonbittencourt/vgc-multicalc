@@ -1,6 +1,6 @@
 import { NgStyle } from "@angular/common"
 import { Component, input } from "@angular/core"
-import { TypeName } from "@robsonbittencourt/calc/dist/data/interface"
+import { TypeName } from "@calc"
 
 @Component({
   selector: "app-type-combo-box",

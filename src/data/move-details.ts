@@ -12,6 +12,7 @@ export interface MoveDetail {
   description: string
   secondary: SecondaryEffect | null
   target: MoveTarget
+  multihit?: number | [number, number]
 }
 
 export const MOVE_DETAILS: Record<string, MoveDetail> = {
@@ -277,7 +278,8 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     type: "Fighting",
     description: "Hits 2-5 times in one turn.",
     secondary: null,
-    target: "normal"
+    target: "normal",
+    multihit: [2, 5]
   },
   armorcannon: {
     accuracy: 100,
@@ -706,7 +708,8 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     type: "Ground",
     description: "Hits 2-5 times in one turn.",
     secondary: null,
-    target: "normal"
+    target: "normal",
+    multihit: [2, 5]
   },
   boomburst: {
     accuracy: 100,
@@ -871,7 +874,8 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     type: "Grass",
     description: "Hits 2-5 times in one turn.",
     secondary: null,
-    target: "normal"
+    target: "normal",
+    multihit: [2, 5]
   },
   burnup: {
     accuracy: 100,
@@ -1564,7 +1568,8 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     type: "Normal",
     description: "Hits 2 times in one turn.",
     secondary: null,
-    target: "normal"
+    target: "normal",
+    multihit: [1, 2]
   },
   doublekick: {
     accuracy: 100,
@@ -1575,7 +1580,8 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     type: "Fighting",
     description: "Hits 2 times in one turn.",
     secondary: null,
-    target: "normal"
+    target: "normal",
+    multihit: 2
   },
   doubleshock: {
     accuracy: 100,
@@ -1685,7 +1691,8 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     type: "Dragon",
     description: "Hits twice. Doubles: Tries to hit each foe once.",
     secondary: null,
-    target: "normal"
+    target: "normal",
+    multihit: [1, 2]
   },
   dragonenergy: {
     accuracy: 100,
@@ -1817,7 +1824,8 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     type: "Flying",
     description: "Hits 2 times in one turn.",
     secondary: null,
-    target: "normal"
+    target: "normal",
+    multihit: [1, 2]
   },
   dynamaxcannon: {
     accuracy: 100,
@@ -2642,7 +2650,8 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     type: "Normal",
     description: "Hits 2-5 times in one turn.",
     secondary: null,
-    target: "normal"
+    target: "normal",
+    multihit: [2, 5]
   },
   furycutter: {
     accuracy: 95,
@@ -2664,7 +2673,8 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     type: "Normal",
     description: "Hits 2-5 times in one turn.",
     secondary: null,
-    target: "normal"
+    target: "normal",
+    multihit: [2, 5]
   },
   fusionbolt: {
     accuracy: 100,
@@ -3434,7 +3444,8 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     type: "Ice",
     description: "Hits 2-5 times in one turn.",
     secondary: null,
-    target: "normal"
+    target: "normal",
+    multihit: [2, 5]
   },
   icywind: {
     accuracy: 95,
@@ -4622,7 +4633,8 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     type: "Bug",
     description: "Hits 2-5 times in one turn.",
     secondary: null,
-    target: "normal"
+    target: "normal",
+    multihit: [2, 5]
   },
   playnice: {
     accuracy: true,
@@ -4754,7 +4766,8 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     type: "Normal",
     description: "Hits 10 times. Each hit can miss.",
     secondary: null,
-    target: "normal"
+    target: "normal",
+    multihit: 10
   },
   pounce: {
     accuracy: 100,
@@ -5326,7 +5339,8 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     type: "Rock",
     description: "Hits 2-5 times in one turn.",
     secondary: null,
-    target: "normal"
+    target: "normal",
+    multihit: [2, 5]
   },
   rockpolish: {
     accuracy: true,
@@ -5557,7 +5571,8 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     type: "Dragon",
     description: "Hits 2-5 times. User: -1 Def, +1 Spe after last hit.",
     secondary: null,
-    target: "normal"
+    target: "normal",
+    multihit: [2, 5]
   },
   scaryface: {
     accuracy: 100,
@@ -6613,7 +6628,8 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     type: "Water",
     description: "Always results in a critical hit. Hits 3 times.",
     secondary: null,
-    target: "normal"
+    target: "normal",
+    multihit: [1, 3]
   },
   swagger: {
     accuracy: 85,
@@ -6734,7 +6750,8 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     type: "Steel",
     description: "Hits twice. This move does not check accuracy.",
     secondary: null,
-    target: "normal"
+    target: "normal",
+    multihit: [1, 2]
   },
   tailglow: {
     accuracy: true,
@@ -6756,7 +6773,8 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     type: "Normal",
     description: "Hits 2-5 times in one turn.",
     secondary: null,
-    target: "normal"
+    target: "normal",
+    multihit: [2, 5]
   },
   tailwhip: {
     accuracy: 100,
@@ -7218,7 +7236,8 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     type: "Ice",
     description: "Hits 3 times. Each hit can miss, but power rises.",
     secondary: null,
-    target: "normal"
+    target: "normal",
+    multihit: [1, 3]
   },
   tripledive: {
     accuracy: 95,
@@ -7229,7 +7248,8 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     type: "Water",
     description: "Hits 3 times.",
     secondary: null,
-    target: "normal"
+    target: "normal",
+    multihit: [1, 3]
   },
   triplekick: {
     accuracy: 90,
@@ -7240,7 +7260,8 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     type: "Fighting",
     description: "Hits 3 times. Each hit can miss, but power rises.",
     secondary: null,
-    target: "normal"
+    target: "normal",
+    multihit: 3
   },
   tropkick: {
     accuracy: 100,
@@ -7262,7 +7283,8 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     type: "Psychic",
     description: "Hits 2 times in one turn.",
     secondary: null,
-    target: "normal"
+    target: "normal",
+    multihit: [1, 2]
   },
   twister: {
     accuracy: 100,
@@ -7427,7 +7449,8 @@ export const MOVE_DETAILS: Record<string, MoveDetail> = {
     type: "Water",
     description: "Usually goes first. Hits 2-5 times in one turn.",
     secondary: null,
-    target: "normal"
+    target: "normal",
+    multihit: [2, 5]
   },
   waterspout: {
     accuracy: 100,

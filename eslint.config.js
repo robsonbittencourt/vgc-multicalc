@@ -38,6 +38,25 @@ module.exports = tseslint.config(
       "no-restricted-imports": [
         "error",
         {
+          patterns: [
+            {
+              group: ["../*"]
+            },
+            {
+              group: ["@lib/calc/*"],
+              message: "Import from the calc public API (@calc) instead of reaching into @lib/calc internals."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    files: ["src/lib/calc/**/*.ts"],
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        {
           patterns: ["../*"]
         }
       ]

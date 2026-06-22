@@ -28,7 +28,7 @@ describe("State Mapper", () => {
       expect(result.boosts).toEqual({ atk: -1, def: -2, spa: 1, spd: 2, spe: 3 })
       expect(result.bonusBoosts).toEqual({ atk: -1, def: 0, spa: 0, spd: 0, spe: 0 })
       expect(result.evs).toEqual({ hp: 4, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 })
-      expect(result.ivs).toEqual({ hp: 26, atk: 27, def: 28, spa: 29, spd: 30, spe: 31 })
+      expect(result.ivs).toEqual({ hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 })
     })
   })
 
@@ -56,7 +56,7 @@ describe("State Mapper", () => {
       expect(result.boosts).toEqual({ atk: -1, def: -2, spa: 1, spd: 2, spe: 3 })
       expect(result.bonusBoosts).toEqual({ atk: -1, def: 0, spa: 0, spd: 0, spe: 0 })
       expect(result.evs).toEqual({ hp: 4, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 })
-      expect(result.ivs).toEqual({ hp: 26, atk: 27, def: 28, spa: 29, spd: 30, spe: 31 })
+      expect(result.ivs).toEqual({ hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 })
       expect(result.hpPercentage).toBe(100)
     })
   })

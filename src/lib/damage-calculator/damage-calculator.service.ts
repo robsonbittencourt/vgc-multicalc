@@ -7,7 +7,7 @@ import { Move } from "@lib/model/move"
 import { Pokemon } from "@lib/model/pokemon"
 import { fromExisting } from "@lib/smogon/smogon-pokemon-builder"
 import { SpeedCalculatorService } from "@lib/speed-calculator/speed-calculator-service"
-import { calculate, calculateMulti, Generations, Move as MoveSmogon, Result, MultiResult } from "@robsonbittencourt/calc"
+import { calculate, calculateMulti, Move as MoveSmogon, Result, MultiResult } from "@calc"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { evToSp } from "@lib/utils/ev-sp-converter"
 import { RollLevelConfig } from "./roll-level-config"
@@ -49,17 +49,13 @@ export class DamageCalculatorService {
     })
   }
 
-  private get gen() {
-    return Generations.get(this.calculatorStore.isChampions() ? 0 : 9)
-  }
-
   calcDamageForTwoAttackers(attacker: Pokemon, secondAttacker: Pokemon, target: Pokemon, field: Field, rightIsDefender = true): DamageResult {
     const [firstAttacker, secondAttackerOrdered] = this.speedCalculator.orderPairBySpeed(attacker, secondAttacker, field)
 
     const prepOne = this.prepareCalculation(firstAttacker, target, firstAttacker.move, field, rightIsDefender, secondAttackerOrdered)
     const prepTwo = this.prepareCalculation(secondAttackerOrdered, target, secondAttackerOrdered.move, field, rightIsDefender, firstAttacker)
 
-    const multiResult = calculateMulti(this.gen, [prepOne.smogonAttacker, prepTwo.smogonAttacker], prepOne.smogonTarget, [prepOne.moveSmogon, prepTwo.moveSmogon], prepOne.smogonField)
+    const multiResult = calculateMulti([prepOne.smogonAttacker, prepTwo.smogonAttacker], prepOne.smogonTarget, [prepOne.moveSmogon, prepTwo.moveSmogon], prepOne.smogonField)
 
     const firstResult = multiResult.results[0]
     const secondResult = multiResult.results[1]
@@ -77,7 +73,7 @@ export class DamageCalculatorService {
       multiResult.resultString(),
       multiResult.getHKO(),
       multiResult.rangePercentage().max,
-      this.injectAdjustedBp(this.injectAdjustedBp(this.formatDescription(multiResult.desc()), prepOne.moveSmogon), prepTwo.moveSmogon),
+      this.injectAdjustedBp(this.injectAdjustedBp(this.formatDescription(multiResult.description()), prepOne.moveSmogon), prepTwo.moveSmogon),
       firstResult.damage,
       secondAttackerOrdered,
       secondResult.damage,
@@ -86,10 +82,9 @@ export class DamageCalculatorService {
   }
 
   private prepareCalculation(attacker: Pokemon, target: Pokemon, move: Move, field: Field, rightIsDefender: boolean, secondAttacker?: Pokemon) {
-    const gen = this.gen
     const smogonField = this.fieldMapper.toSmogon(field, rightIsDefender)
 
-    const moveSmogon = new MoveSmogon(gen, move.name)
+    const moveSmogon = new MoveSmogon(move.name)
     moveSmogon.isCrit = rightIsDefender ? field.attackerSide.isCriticalHit : field.defenderSide.isCriticalHit
     moveSmogon.isStellarFirstUse = true
     moveSmogon.hits = +move.hits
@@ -100,7 +95,7 @@ export class DamageCalculatorService {
 
     this.adjusters.forEach(a => a.adjust(smogonAttacker, smogonTarget, move, moveSmogon, smogonField, secondAttacker, field))
 
-    return { gen, smogonAttacker, smogonTarget, moveSmogon, smogonField }
+    return { smogonAttacker, smogonTarget, moveSmogon, smogonField }
   }
 
   koChanceForOneAttacker(attacker: Pokemon, target: Pokemon, field: Field, rightIsDefender = true): string {
@@ -118,16 +113,15 @@ export class DamageCalculatorService {
     const prepOne = this.prepareCalculation(firstAttacker, target, firstAttacker.move, field, rightIsDefender, secondAttackerOrdered)
     const prepTwo = this.prepareCalculation(secondAttackerOrdered, target, secondAttackerOrdered.move, field, rightIsDefender, firstAttacker)
 
-    const multiResult = calculateMulti(this.gen, [prepOne.smogonAttacker, prepTwo.smogonAttacker], prepOne.smogonTarget, [prepOne.moveSmogon, prepTwo.moveSmogon], prepOne.smogonField)
+    const multiResult = calculateMulti([prepOne.smogonAttacker, prepTwo.smogonAttacker], prepOne.smogonTarget, [prepOne.moveSmogon, prepTwo.moveSmogon], prepOne.smogonField)
 
     return multiResult
   }
 
   calculateResult(attacker: Pokemon, target: Pokemon, move: Move, field: Field, rightIsDefender: boolean, secondAttacker?: Pokemon): Result {
-    const gen = this.gen
     const smogonField = this.fieldMapper.toSmogon(field, rightIsDefender)
 
-    const moveSmogon = new MoveSmogon(gen, move.name)
+    const moveSmogon = new MoveSmogon(move.name)
     moveSmogon.isCrit = rightIsDefender ? field.attackerSide.isCriticalHit : field.defenderSide.isCriticalHit
     moveSmogon.isStellarFirstUse = true
     moveSmogon.hits = +move.hits
@@ -138,7 +132,7 @@ export class DamageCalculatorService {
 
     this.adjusters.forEach(a => a.adjust(smogonAttacker, smogonTarget, move, moveSmogon, smogonField, secondAttacker, field))
 
-    const result = calculate(gen, smogonAttacker, smogonTarget, moveSmogon, smogonField)
+    const result = calculate(smogonAttacker, smogonTarget, moveSmogon, smogonField)
 
     if (!result.damage) {
       result.damage = this.ZERO_RESULT_DAMAGE
@@ -165,13 +159,13 @@ export class DamageCalculatorService {
 
   private damageDescription(result: Result): string {
     try {
-      return this.injectAdjustedBp(this.formatDescription(result.desc()), result.move)
+      return this.injectAdjustedBp(this.formatDescription(result.description()), result.move)
     } catch (error) {
       return this.formatDescription(`${result.attacker.name} ${result.move.name} vs. ${result.defender.name}: 0-0 (0 - 0%) -- possibly the worst move ever`)
     }
   }
 
-  private injectAdjustedBp(description: string, move: MoveSmogon): string {
+  private injectAdjustedBp(description: string, move: { name: string; overrides?: { basePower?: number } }): string {
     const adjustedBp = move.overrides?.basePower
 
     if (adjustedBp === undefined) return description

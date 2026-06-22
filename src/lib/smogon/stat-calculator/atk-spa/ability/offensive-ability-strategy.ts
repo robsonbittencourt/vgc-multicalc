@@ -1,6 +1,6 @@
 import { Field } from "@lib/model/field"
+import { Move } from "@lib/model/move"
 import { Pokemon } from "@lib/model/pokemon"
-import { Move } from "@robsonbittencourt/calc"
 import { Blaze } from "./blaze"
 import { DragonsMaw } from "./dragons-maw"
 import { FlashFire } from "./flash-fire"

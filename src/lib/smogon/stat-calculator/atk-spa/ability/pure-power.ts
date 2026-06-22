@@ -1,6 +1,6 @@
 import { Field } from "@lib/model/field"
 import { Pokemon } from "@lib/model/pokemon"
-import { Move } from "@robsonbittencourt/calc"
+import { Move } from "@lib/model/move"
 import { OffensiveAbilityStrategy } from "./offensive-ability-strategy"
 
 export class PurePower implements OffensiveAbilityStrategy {

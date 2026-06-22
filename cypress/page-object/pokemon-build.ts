@@ -317,10 +317,6 @@ export class PokemonBuild {
     return this
   }
 
-  speedIvs(speedIvs: number) {
-    this.container().find(`[data-cy="stat-spe"]`).find('[data-cy="iv-value"]').clear().clear().type(speedIvs.toString(), { force: true }).blur()
-  }
-
   allieFainted(alliesFainted: number) {
     this.container().find(`[data-cy="allies-fainted-${alliesFainted}"]`).click()
   }

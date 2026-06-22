@@ -4,7 +4,7 @@ import { SpeedData } from "@data/speed-data"
 import { SPEED_STATISTICS_REG_I } from "@data/speed-statistics-reg-i"
 import { SPEED_STATISTICS_REG_MB } from "@data/speed-statistics-reg-mb"
 import { CalculatorStore } from "@data/store/calculator-store"
-import { ACTUAL, BOOSTER, MAX, MAX_BASE_SPEED_FOR_TR, MIN, MIN_IV_0, OPPONENT, SCARF, SPEED_TIE, YOUR_TEAM } from "@lib/constants"
+import { ACTUAL, BOOSTER, MAX, MAX_BASE_SPEED_FOR_TR, MIN, OPPONENT, SCARF, SPEED_TIE, YOUR_TEAM } from "@lib/constants"
 import { defaultPokemon } from "@lib/default-pokemon"
 import { Ability } from "@lib/model/ability"
 import { Field } from "@lib/model/field"
@@ -16,7 +16,7 @@ import { SpeedCalculatorMode } from "@lib/speed-calculator/speed-calculator-mode
 import { SpeedCalculatorOptions } from "@lib/speed-calculator/speed-calculator-options"
 import { SpeedDefinition } from "@lib/speed-calculator/speed-definition"
 import { Regulation } from "@lib/types"
-import { Generations, Pokemon as SmogonPokemon } from "@robsonbittencourt/calc"
+import { getSpecies } from "@calc"
 
 @Injectable({
   providedIn: "root"
@@ -152,10 +152,6 @@ export class SpeedCalculatorService {
       speedDefinitions.push(this.minSpeed(pokemon, field))
       speedDefinitions.push(this.maxSpeed(pokemon, field))
 
-      if (this.isTrickRoomPokemon(pokemon) && this.store.game() !== "champions") {
-        speedDefinitions.push(this.minSpeedIvZero(pokemon, field))
-      }
-
       if (this.hasChoiceScarf(pokemon) && this.store.game() !== "champions") {
         speedDefinitions.push(this.maxScarf(pokemon, field))
       }
@@ -245,14 +241,6 @@ export class SpeedCalculatorService {
     return pokemon.clone({ id: pokemon.id, boosts, status, item, ability: new Ability(abilityName) })
   }
 
-  minSpeedIvZero(pokemon: Pokemon, field: Field): SpeedDefinition {
-    const clonedPokemon = pokemon.clone({ item: "Leftovers", nature: "Brave", evs: { spe: 0 }, ivs: { spe: 0 } })
-
-    const speed = getFinalSpeed(clonedPokemon, field, false)
-
-    return new SpeedDefinition(clonedPokemon, speed, MIN_IV_0)
-  }
-
   minSpeed(pokemon: Pokemon, field: Field): SpeedDefinition {
     const isChampions = this.store.game() === "champions"
     const isTrickRoomPoke = this.isTrickRoomPokemon(pokemon)
@@ -325,7 +313,7 @@ export class SpeedCalculatorService {
   }
 
   private isTrickRoomPokemon(pokemon: Pokemon): boolean {
-    return new SmogonPokemon(Generations.get(9), pokemon.name).species.baseStats.spe <= MAX_BASE_SPEED_FOR_TR
+    return (getSpecies(pokemon.name)?.baseStats.spe ?? 999) <= MAX_BASE_SPEED_FOR_TR
   }
 
   private isBoosterSpeedPokemon(pokemon: Pokemon): boolean {

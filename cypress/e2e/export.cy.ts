@@ -58,7 +58,6 @@ Level: 50
 Tera Type: Water
 EVs: 44 HP / 252 Atk / 12 Def / 32 SpA / 124 SpD / 40 Spe
 Timid Nature
-IVs: 30 Atk / 29 Def / 28 SpA / 27 SpD / 0 Spe
 - Overheat
 - Heat Wave
 - Dark Pulse
@@ -70,7 +69,6 @@ Level: 50
 Tera Type: Grass
 EVs: 252 SpA / 4 SpD / 252 Spe
 Modest Nature
-IVs: 0 Atk
 - Draco Meteor
 - Muddy Water
 - Endure
@@ -104,7 +102,6 @@ Level: 50
 Tera Type: Water
 EVs: 132 HP / 252 Def / 124 Spe
 Timid Nature
-IVs: 0 Atk
 - Overheat
 - Heat Wave
 - Dark Pulse
@@ -127,7 +124,6 @@ Level: 50
 Tera Type: Fairy
 EVs: 116 HP / 116 Def / 68 SpA / 4 SpD / 204 Spe
 Modest Nature
-IVs: 0 Atk
 - Moonblast
 - Dazzling Gleam
 - Icy Wind

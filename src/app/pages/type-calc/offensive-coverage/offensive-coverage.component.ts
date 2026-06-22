@@ -9,7 +9,7 @@ import { TypeCoverageService, OffensiveCoverageData, OffensiveCoverageAgainstTea
 import { TypeEffectiveness } from "@lib/type-coverage/type-effectiveness.service"
 import { Team } from "@lib/model/team"
 import { Pokemon } from "@lib/model/pokemon"
-import { TypeName } from "@robsonbittencourt/calc/dist/data/interface"
+import { TypeName } from "@calc"
 
 @Component({
   selector: "app-offensive-coverage",

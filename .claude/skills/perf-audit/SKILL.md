@@ -1,4 +1,5 @@
 ---
+name: perf-audit
 description: Runs a full performance audit of VGC Multicalc (Lighthouse desktop + DevTools trace) and saves the result as an HTML report in performance/
 ---
 

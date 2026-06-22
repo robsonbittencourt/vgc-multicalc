@@ -48,58 +48,68 @@ export class ImportPokemonButtonComponent {
     dialogRef.afterClosed().subscribe(async result => {
       if (!result) return
 
-      const { name: teamName, pokemon: parsedList } = await this.pokePasteService.parseTeam(result)
-      const processedList = parsedList.map(p => {
-        const allZero = Object.values(p.evs).every(ev => ev === 0)
-
-        if (allZero) {
-          const pokeMetaData = toPokemon(p.name, this.store.activeSetdex(), this.store.isChampions())
-          return p.clone({ nature: pokeMetaData.nature, evs: pokeMetaData.evs })
-        }
-
-        return p
-      })
-
-      const validSetdex = this.store.activeSetdex()
-      const validList = processedList.filter(p => p.name in validSetdex)
-      const removedCount = processedList.length - validList.length
-
-      if (validList.length === 0) {
-        this.snackBar.open("No valid Pokémon for the current mode")
-        return
+      try {
+        await this.handleImport(result)
+      } catch {
+        this.snackBar.open("Could not import the Pokémon")
       }
-
-      const activeDetails = this.store.isChampions() ? POKEMON_DETAILS_CHAMPIONS : POKEMON_DETAILS
-      const validItemsForMode = this.store.isChampions() ? AVAILABLE_ITEMS["champions"] : AVAILABLE_ITEMS["sv"]
-      const validatedList: { pokemon: Pokemon; hadInvalidMoves: boolean; hadInvalidItem: boolean }[] = validList.map(p => this.validateAndClean(p, activeDetails, validItemsForMode))
-
-      const hadInvalidMoves = validatedList.some(v => v.hadInvalidMoves)
-      const hadInvalidItems = validatedList.some(v => v.hadInvalidItem)
-      const finalList = validatedList.map(v => v.pokemon)
-
-      const messages: string[] = []
-      if (removedCount > 0) {
-        messages.push(`${removedCount} Pokémon ${removedCount === 1 ? "was" : "were"} invalid for the current mode and removed`)
-      }
-      if (hadInvalidMoves) {
-        messages.push("Some moves were invalid for the current mode and removed")
-      }
-      if (hadInvalidItems) {
-        messages.push("Some items were invalid for the current mode and removed")
-      }
-
-      if (messages.length > 0) {
-        this.snackBar.open(messages.join(". "))
-      }
-
-      const output = this.singlePokemon() ? finalList[0] : finalList
-
-      if (teamName) {
-        this.teamNameImportedEvent.emit(teamName)
-      }
-
-      this.pokemonImportedEvent.emit(output)
     })
+  }
+
+  private async handleImport(result: string) {
+    const { name: teamName, pokemon: parsedList } = await this.pokePasteService.parseTeam(result)
+    const processedList = parsedList.map(p => {
+      const allZero = Object.values(p.evs).every(ev => ev === 0)
+
+      if (allZero) {
+        const pokeMetaData = toPokemon(p.name, this.store.activeSetdex(), this.store.isChampions())
+        return p.clone({ nature: pokeMetaData.nature, evs: pokeMetaData.evs })
+      }
+
+      return p
+    })
+
+    const validSetdex = this.store.activeSetdex()
+    const validList = processedList.filter(p => p.name in validSetdex)
+    const removedCount = processedList.length - validList.length
+
+    if (validList.length === 0) {
+      this.snackBar.open("No valid Pokémon for the current mode")
+      return
+    }
+
+    const activeDetails = this.store.isChampions() ? POKEMON_DETAILS_CHAMPIONS : POKEMON_DETAILS
+    const validItemsForMode = this.store.isChampions() ? AVAILABLE_ITEMS["champions"] : AVAILABLE_ITEMS["sv"]
+    const validatedList: { pokemon: Pokemon; hadInvalidMoves: boolean; hadInvalidItem: boolean }[] = validList.map(p => this.validateAndClean(p, activeDetails, validItemsForMode))
+
+    const hadInvalidMoves = validatedList.some(v => v.hadInvalidMoves)
+    const hadInvalidItems = validatedList.some(v => v.hadInvalidItem)
+    const finalList = validatedList.map(v => v.pokemon)
+
+    const messages: string[] = []
+    if (removedCount > 0) {
+      messages.push(`${removedCount} Pokémon ${removedCount === 1 ? "was" : "were"} invalid for the current mode and removed`)
+    }
+    if (hadInvalidMoves) {
+      messages.push("Some moves were invalid for the current mode and removed")
+    }
+    if (hadInvalidItems) {
+      messages.push("Some items were invalid for the current mode and removed")
+    }
+
+    if (messages.length > 0) {
+      this.snackBar.open(messages.join(". "))
+    } else {
+      this.snackBar.open("Pokémon imported")
+    }
+
+    const output = this.singlePokemon() ? finalList[0] : finalList
+
+    if (teamName) {
+      this.teamNameImportedEvent.emit(teamName)
+    }
+
+    this.pokemonImportedEvent.emit(output)
   }
 
   private validateAndClean(pokemon: Pokemon, activeDetails: Record<string, any>, validItemsForMode: string[]): { pokemon: Pokemon; hadInvalidMoves: boolean; hadInvalidItem: boolean } {
