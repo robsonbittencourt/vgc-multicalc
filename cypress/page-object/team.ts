@@ -123,15 +123,6 @@ export class Team {
     cy.get(`[data-cy="stat-spe"]`).find('[data-cy="ev-value"]').should("have.value", spe)
   }
 
-  pokemonOnEditIvsIs(hp: number, atk: number, def: number, spa: number, spd: number, spe: number) {
-    cy.get(`[data-cy="stat-hp"]`).find('[data-cy="iv-value"]').should("have.value", hp)
-    cy.get(`[data-cy="stat-atk"]`).find('[data-cy="iv-value"]').should("have.value", atk)
-    cy.get(`[data-cy="stat-def"]`).find('[data-cy="iv-value"]').should("have.value", def)
-    cy.get(`[data-cy="stat-spa"]`).find('[data-cy="iv-value"]').should("have.value", spa)
-    cy.get(`[data-cy="stat-spd"]`).find('[data-cy="iv-value"]').should("have.value", spd)
-    cy.get(`[data-cy="stat-spe"]`).find('[data-cy="iv-value"]').should("have.value", spe)
-  }
-
   haveSomeEvs() {
     cy.get(`[data-cy="remaining-evs"]`).should("not.have.value", 508)
   }

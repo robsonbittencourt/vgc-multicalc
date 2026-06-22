@@ -3,7 +3,7 @@ import { CalcAdjuster } from "@lib/damage-calculator/calc-adjuster/calc-adjuster
 import { Move } from "@lib/model/move"
 import { Field } from "@lib/model/field"
 import { Pokemon } from "@lib/model/pokemon"
-import { Field as FieldSmogon, Move as MoveSmogon, Pokemon as SmogonPokemon } from "@robsonbittencourt/calc"
+import { Field as FieldSmogon, Move as MoveSmogon, Pokemon as SmogonPokemon } from "@calc"
 
 @Injectable({
   providedIn: "root"

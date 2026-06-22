@@ -3,7 +3,7 @@ import { Field, FieldSide } from "@lib/model/field"
 import { Pokemon } from "@lib/model/pokemon"
 import { Status } from "@lib/model/status"
 import { higherStat } from "@lib/smogon/commom"
-import { Generations, Pokemon as SmogonPokemon } from "@robsonbittencourt/calc"
+import { Pokemon as SmogonPokemon } from "@calc"
 import { getFinalSpeed } from "./modified-spe"
 
 describe("SmogonFunctions", () => {
@@ -277,7 +277,7 @@ describe("SmogonFunctions", () => {
   describe("higherStat", () => {
     describe("specific modifications", () => {
       it("should return the atk stat when this is the highest stat considering nature", () => {
-        const pokemon = new SmogonPokemon(Generations.get(9), "Mew", { nature: "Adamant" })
+        const pokemon = new SmogonPokemon("Mew", { nature: "Adamant" })
 
         const result = higherStat(pokemon)
 
@@ -285,7 +285,7 @@ describe("SmogonFunctions", () => {
       })
 
       it("should return the atk stat when this is the highest stat considering evs", () => {
-        const pokemon = new SmogonPokemon(Generations.get(9), "Mew", { evs: { atk: 100 } })
+        const pokemon = new SmogonPokemon("Mew", { evs: { atk: 100 } })
 
         const result = higherStat(pokemon)
 
@@ -293,7 +293,7 @@ describe("SmogonFunctions", () => {
       })
 
       it("should return the atk stat when this is the highest stat considering boosts", () => {
-        const pokemon = new SmogonPokemon(Generations.get(9), "Mew", { boosts: { atk: 1 } })
+        const pokemon = new SmogonPokemon("Mew", { boosts: { atk: 1 } })
 
         const result = higherStat(pokemon)
 
@@ -303,7 +303,7 @@ describe("SmogonFunctions", () => {
 
     describe("another stats", () => {
       it("should return the def stat when this is the highest stat", () => {
-        const pokemon = new SmogonPokemon(Generations.get(9), "Mew", { evs: { def: 100 } })
+        const pokemon = new SmogonPokemon("Mew", { evs: { def: 100 } })
 
         const result = higherStat(pokemon)
 
@@ -311,7 +311,7 @@ describe("SmogonFunctions", () => {
       })
 
       it("should return the spa stat when this is the highest stat", () => {
-        const pokemon = new SmogonPokemon(Generations.get(9), "Mew", { evs: { spa: 100 } })
+        const pokemon = new SmogonPokemon("Mew", { evs: { spa: 100 } })
 
         const result = higherStat(pokemon)
 
@@ -319,7 +319,7 @@ describe("SmogonFunctions", () => {
       })
 
       it("should return the spd stat when this is the highest stat", () => {
-        const pokemon = new SmogonPokemon(Generations.get(9), "Mew", { evs: { spd: 100 } })
+        const pokemon = new SmogonPokemon("Mew", { evs: { spd: 100 } })
 
         const result = higherStat(pokemon)
 
@@ -327,7 +327,7 @@ describe("SmogonFunctions", () => {
       })
 
       it("should return the spe stat when this is the highest stat", () => {
-        const pokemon = new SmogonPokemon(Generations.get(9), "Mew", { evs: { spe: 100 } })
+        const pokemon = new SmogonPokemon("Mew", { evs: { spe: 100 } })
 
         const result = higherStat(pokemon)
 
@@ -337,7 +337,7 @@ describe("SmogonFunctions", () => {
 
     describe("itens", () => {
       it("should not considering item effect and return the spe as the highest stat", () => {
-        const pokemon = new SmogonPokemon(Generations.get(9), "Mew", { item: "Iron Ball", evs: { spe: 4 } })
+        const pokemon = new SmogonPokemon("Mew", { item: "Iron Ball", evs: { spe: 4 } })
 
         const result = higherStat(pokemon)
 

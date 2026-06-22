@@ -1,7 +1,35 @@
 import { MOVE_DETAILS } from "@data/move-details"
 import { MOVE_DETAILS_CHAMPIONS } from "@data/move-details-champions"
-import { Category } from "@lib/types"
-import { Generations, MOVES, Move as MoveSmogon } from "@robsonbittencourt/calc"
+import { Category, PokemonType, SecondaryEffect } from "@lib/types"
+
+interface MoveOptions {
+  alliesFainted?: string
+  hits?: string
+  lastMoveFailed?: boolean
+  game?: string
+}
+
+interface MoveDetailsResolved {
+  bp: number
+  category: Category
+  type: PokemonType
+  accuracy: number
+  secondary: SecondaryEffect | null
+  target: string
+}
+
+const EMPTY_MOVE_DEFAULTS: MoveDetailsResolved = {
+  bp: 0,
+  category: "Status",
+  type: "Normal",
+  accuracy: 100,
+  secondary: null,
+  target: "normal"
+}
+
+function moveKey(name: string): string {
+  return name?.toLowerCase().replaceAll(" ", "").replaceAll("-", "").replaceAll("'", "")
+}
 
 export class Move {
   readonly name: string
@@ -11,46 +39,52 @@ export class Move {
   readonly lastMoveFailed: boolean
   readonly bp: number
   readonly accuracy: number
-  readonly secondary: any
+  readonly secondary: SecondaryEffect | null
   readonly target: string
   readonly category: Category
+  readonly type: PokemonType
 
-  constructor(name: string, options: { alliesFainted?: string; hits?: string; lastMoveFailed?: boolean; game?: string } = {}) {
-    const gen = options.game === "champions" ? Generations.get(0) : Generations.get(9)
-    const smogonMove = new MoveSmogon(gen, name)
-
+  constructor(name: string, options: MoveOptions = {}) {
     this.name = name ?? ""
     this.possibleHits = this.moveHits(name)
     this.hits = this.hitsValue(name, options)
     this.alliesFainted = options.alliesFainted ?? "0"
     this.lastMoveFailed = options.lastMoveFailed ?? false
-    this.bp = smogonMove.bp
-    this.category = smogonMove.category
 
-    const moveName = name?.toLowerCase().replaceAll(" ", "").replaceAll("-", "").replaceAll("'", "")
+    const resolved = this.resolveDetails(name, options.game)
 
-    if (!moveName) {
-      this.accuracy = 100
-      this.secondary = null
-      this.target = "normal"
-    } else {
-      let moveDetails = MOVE_DETAILS[moveName]
+    this.bp = resolved.bp
+    this.category = resolved.category
+    this.type = resolved.type
+    this.accuracy = resolved.accuracy
+    this.secondary = resolved.secondary
+    this.target = resolved.target
+  }
 
-      if (!moveDetails) {
-        throw new Error(`Move details not found for: ${name}`)
-      }
+  hasType(type: PokemonType): boolean {
+    return this.type === type
+  }
 
-      if (options.game === "champions" && MOVE_DETAILS_CHAMPIONS[moveName]) {
-        moveDetails = { ...moveDetails, ...MOVE_DETAILS_CHAMPIONS[moveName] }
-      }
+  private resolveDetails(name: string, game?: string): MoveDetailsResolved {
+    const moveName = moveKey(name)
+    const baseDetails = moveName ? MOVE_DETAILS[moveName] : undefined
+    const moveDetails = baseDetails && game === "champions" && MOVE_DETAILS_CHAMPIONS[moveName] ? { ...baseDetails, ...MOVE_DETAILS_CHAMPIONS[moveName] } : baseDetails
 
-      this.accuracy = !moveDetails.accuracy || moveDetails.accuracy === true ? 100 : moveDetails.accuracy
-      this.secondary = moveDetails.secondary
-      this.target = moveDetails.target
+    if (!moveDetails) {
+      return { ...EMPTY_MOVE_DEFAULTS }
+    }
+
+    return {
+      bp: moveDetails.basePower,
+      category: moveDetails.category,
+      type: moveDetails.type,
+      accuracy: !moveDetails.accuracy || moveDetails.accuracy === true ? 100 : moveDetails.accuracy,
+      secondary: moveDetails.secondary,
+      target: moveDetails.target
     }
   }
 
-  private hitsValue(name: string, options: any): string {
+  private hitsValue(name: string, options: MoveOptions): string {
     const hits = options.hits ?? this.possibleHits[this.possibleHits.length - 1]
 
     if (name == "Dragon Darts") {
@@ -69,7 +103,7 @@ export class Move {
       return ["6", "5", "4", "3", "2", "1", "0"]
     }
 
-    const multihit = MOVES[9][move]?.multihit
+    const multihit = MOVE_DETAILS[moveKey(move)]?.multihit
 
     if (!multihit) return []
 

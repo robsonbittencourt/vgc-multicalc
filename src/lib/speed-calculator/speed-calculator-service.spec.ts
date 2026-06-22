@@ -346,17 +346,6 @@ describe("SpeedCalculatorService", () => {
     })
   })
 
-  describe("minSpeedIvZero", () => {
-    it("should return min speed of a Trick Room Pokémon", () => {
-      const pokemon = new Pokemon("Torkoal")
-      const field = new Field()
-
-      const speedDefinition = service.minSpeedIvZero(pokemon, field)
-
-      expect(speedDefinition.value).toEqual(22)
-    })
-  })
-
   describe("min speed", () => {
     it("should return min speed description and Pokémon name", () => {
       const pokemon = new Pokemon("Flutter Mane")

@@ -1,7 +1,7 @@
 import { Ability } from "@lib/model/ability"
 import { MoveSet } from "@lib/model/moveset"
 import { Status } from "@lib/model/status"
-import { StatIDExceptHP } from "@robsonbittencourt/calc/src/data/interface"
+import { StatIDExceptHP } from "@calc"
 
 export type Stats = { hp: number; atk: number; def: number; spa: number; spd: number; spe: number }
 export type SurvivalThreshold = 2 | 3 | 4

@@ -33,4 +33,13 @@ describe("Move", () => {
 
     expect(move.possibleHits).toEqual([])
   })
+
+  it("should not throw and fall back to neutral values for an unknown move", () => {
+    const move = new Move("Not A Real Move")
+
+    expect(move.name).toBe("Not A Real Move")
+    expect(move.bp).toBe(0)
+    expect(move.category).toBe("Status")
+    expect(move.type).toBe("Normal")
+  })
 })

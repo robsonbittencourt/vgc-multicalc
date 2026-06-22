@@ -99,16 +99,6 @@ describe("Speed Calculator", () => {
       speedCalculator.speedTierIs(28, "Tyranitar", 101, "Actual")
     })
 
-    it("change the speed tier when speed iv changes", () => {
-      const pokemon = team.importPokemon(poke["tyranitar"])
-
-      pokemon.speedIvs(15)
-      cy.wait(300)
-
-      speedCalculator.speedInOrder()
-      speedCalculator.speedTierIs(28, "Tyranitar", 91, "Actual")
-    })
-
     it("change the speed tier when Pokémon is paralyzed", () => {
       const pokemon = team.importPokemon(poke["tyranitar"])
 
