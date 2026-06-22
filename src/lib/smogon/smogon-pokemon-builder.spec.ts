@@ -5,7 +5,7 @@ import { MoveSet } from "@lib/model/moveset"
 import { Pokemon } from "@lib/model/pokemon"
 import { Status } from "@lib/model/status"
 import { PokemonParameters } from "@lib/types"
-import { AbilityName, ItemName } from "@robsonbittencourt/calc/src/data/interface"
+import { AbilityName, ItemName } from "@calc"
 import { fromExisting, fromScratch } from "./smogon-pokemon-builder"
 
 describe("SmogonPokemonBuilder", () => {
@@ -39,7 +39,7 @@ describe("SmogonPokemonBuilder", () => {
     expect(smogonPokemon.ivs).toEqual({ hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 })
     expect(smogonPokemon.boosts).toEqual({ hp: 0, atk: 1, def: 1, spa: 1, spd: 1, spe: 1 })
     expect(smogonPokemon.status).toBe("par")
-    expect(smogonPokemon.originalCurHP).toBe(Math.round((smogonPokemon.maxHP() * 50) / 100))
+    expect(smogonPokemon.originalCurrrentHp).toBe(Math.round((smogonPokemon.maxHp() * 50) / 100))
   })
 
   it("should create a SmogonPokemon from scratch with default values", () => {
@@ -53,7 +53,7 @@ describe("SmogonPokemonBuilder", () => {
     expect(smogonPokemon.ivs).toEqual({ hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 })
     expect(smogonPokemon.boosts).toEqual({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
     expect(smogonPokemon.status).toBe("")
-    expect(smogonPokemon.originalCurHP).toBe(smogonPokemon.maxHP())
+    expect(smogonPokemon.originalCurrrentHp).toBe(smogonPokemon.maxHp())
   })
 
   it("should create a SmogonPokemon from scratch with provided values", () => {
@@ -80,6 +80,6 @@ describe("SmogonPokemonBuilder", () => {
     expect(smogonPokemon.ivs).toEqual({ hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 })
     expect(smogonPokemon.boosts).toEqual({ hp: 0, atk: 1, def: 1, spa: 1, spd: 1, spe: 1 })
     expect(smogonPokemon.status).toBe("par")
-    expect(smogonPokemon.originalCurHP).toBe(Math.round((smogonPokemon.maxHP() * 50) / 100))
+    expect(smogonPokemon.originalCurrrentHp).toBe(Math.round((smogonPokemon.maxHp() * 50) / 100))
   })
 })

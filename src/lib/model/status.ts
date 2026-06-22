@@ -1,5 +1,5 @@
 import { StatusDescription } from "@lib/types"
-import { StatusName } from "@robsonbittencourt/calc/src/data/interface"
+import { StatusName } from "@calc"
 
 export class Status {
   private static readonly values: Status[] = []

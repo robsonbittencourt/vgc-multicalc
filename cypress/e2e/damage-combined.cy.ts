@@ -161,7 +161,7 @@ describe("Combined Damage with Ruin abilities", () => {
     team.selectTeamMember("Chi-Yu").combineDamage()
     team.selectTeamMember("Tornadus")
 
-    opponents.get("Urshifu Rapid Strike").damageIs(221.7, 261.7).causeOHKO()
+    opponents.get("Urshifu Rapid Strike").damageIs(222.2, 261.7).causeOHKO()
   })
 
   it("Calculate damage with two Pokémon, one without Beads of Ruin and with ability", () => {
@@ -171,7 +171,7 @@ describe("Combined Damage with Ruin abilities", () => {
     team.selectTeamMember("Tornadus").combineDamage()
     team.selectTeamMember("Chi-Yu")
 
-    opponents.get("Urshifu Rapid Strike").damageIs(221.7, 261.7).causeOHKO()
+    opponents.get("Urshifu Rapid Strike").damageIs(222.2, 261.7).causeOHKO()
   })
 
   it("Calculate damage with two Pokémon, one with Tablets of Ruin and another with Sword of Ruin", () => {
@@ -191,7 +191,7 @@ describe("Combined Damage with Ruin abilities", () => {
     team.selectTeamMember("Ting-Lu").combineDamage()
     team.selectTeamMember("Chi-Yu")
 
-    opponents.get("Urshifu Rapid Strike").damageIs(74.8, 89.1).cause2HKO()
+    opponents.get("Urshifu Rapid Strike").damageIs(75.4, 89.1).cause2HKO()
   })
 })
 
@@ -230,7 +230,7 @@ describe("Combined Damage against reduce damage abilities", () => {
 
     team.selectPokemon("Blaziken").selectAttackThree()
 
-    opponents.get("Dragonite").damageIs(62.2, 74.2).cause2HKO()
+    opponents.get("Dragonite").damageIs(62.8, 74.2).cause2HKO()
   })
 
   it("two Pokémon against one with Multiscale considering Ability in speed calculation", () => {

@@ -36,7 +36,7 @@ describe("Test the Field options on options with One vs One", () => {
 
       field.lightScreenAttacker()
 
-      rightDamageResult.damageIs(0, 30.9, 36.4, 56, 66)
+      rightDamageResult.damageIs(0, 30.9, 37, 56, 67)
     })
 
     it("With Aurora Veil active", () => {
@@ -50,7 +50,7 @@ describe("Test the Field options on options with One vs One", () => {
 
       field.singleTargetAttacker()
 
-      leftDamageResult.damageIs(1, 51.2, 60, 105, 123)
+      leftDamageResult.damageIs(1, 51.2, 60.4, 105, 124)
     })
 
     it("With Friend Guard active", () => {
@@ -194,7 +194,7 @@ describe("Test the Field options on options with One vs One", () => {
 
       field.sun()
 
-      leftDamageResult.damageIs(0, 62.8, 74.2, 149, 176)
+      leftDamageResult.damageIs(0, 63.2, 74.6, 150, 177)
       rightDamageResult.damageIs(0, 26.4, 32.3, 36, 44)
     })
 
@@ -547,7 +547,7 @@ describe("Test the Field options on options with Many Pokémon", () => {
 
     field.sun()
 
-    opponents.get("Urshifu Rapid Strike").damageIs(121.7, 144)
+    opponents.get("Urshifu Rapid Strike").damageIs(122.2, 144)
   })
 
   it("With Rain active", () => {

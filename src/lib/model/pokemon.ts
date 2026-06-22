@@ -11,9 +11,9 @@ import { Status } from "@lib/model/status"
 import { higherStat } from "@lib/smogon/commom"
 import { fromScratch } from "@lib/smogon/smogon-pokemon-builder"
 import { Jumps, PokemonParameters, Stats } from "@lib/types"
-import { Pokemon as SmogonPokemon } from "@robsonbittencourt/calc"
-import { NatureName, TypeName } from "@robsonbittencourt/calc/dist/data/interface"
-import { StatID, StatIDExceptHP } from "@robsonbittencourt/calc/src/data/interface"
+import { Pokemon as SmogonPokemon } from "@calc"
+import { NatureName, TypeName } from "@calc"
+import { StatID, StatIDExceptHP } from "@calc"
 export class Pokemon {
   readonly id: string
   readonly moveSet: MoveSet
@@ -206,7 +206,7 @@ export class Pokemon {
   }
 
   get actualHp(): number {
-    return this.smogonPokemon.curHP()
+    return this.smogonPokemon.currrentHp()
   }
 
   get baseHp(): number {
@@ -399,13 +399,14 @@ export class Pokemon {
     for (const stat of Object.keys(evs) as StatID[]) {
       if (currentEvs[stat] !== evs[stat]) {
         currentEvs[stat] = evs[stat]
-        this.smogonPokemon.stats[stat] = (this.smogonPokemon as any).calcStat(this.smogonPokemon.gen, stat)
         if (stat === "hp") hpChanged = true
       }
     }
 
+    this.smogonPokemon.recalculateStats()
+
     if (hpChanged) {
-      this.smogonPokemon.originalCurHP = this.smogonPokemon.stats.hp
+      this.smogonPokemon.originalCurrrentHp = this.smogonPokemon.stats.hp
     }
   }
 
@@ -419,14 +420,7 @@ export class Pokemon {
   }
 
   private recalculateStats() {
-    const stats: Stats = { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
-
-    for (const statName of Object.keys(stats)) {
-      const stat = statName as StatID
-      stats[stat] = (this.smogonPokemon as any).calcStat(this.smogonPokemon.gen, stat)
-    }
-
-    this.smogonPokemon.stats = stats
-    this.smogonPokemon.originalCurHP = stats.hp
+    this.smogonPokemon.recalculateStats()
+    this.smogonPokemon.originalCurrrentHp = this.smogonPokemon.stats.hp
   }
 }
