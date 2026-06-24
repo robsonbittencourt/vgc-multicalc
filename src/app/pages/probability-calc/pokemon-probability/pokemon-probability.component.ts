@@ -47,6 +47,8 @@ export class PokemonProbabilityComponent {
   fourTimes = computed(() => this.moveProbabilityService.calculateSpreadTargetProbabilities(this.move(), 4, this.target(), this.effectivePokemon(), this.field()))
   fiveTimes = computed(() => this.moveProbabilityService.calculateSpreadTargetProbabilities(this.move(), 5, this.target(), this.effectivePokemon(), this.field()))
 
+  multiHitProbabilities = computed(() => this.moveProbabilityService.calculateMultiHitProbabilities(this.move(), this.effectivePokemon(), this.field()))
+
   hasSecondaryEffect = computed(() => this.secondary())
 
   hasValidPokemon = computed(() => !this.effectivePokemon().isDefault)

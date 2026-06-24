@@ -285,7 +285,16 @@ describe("MoveProbabilityService", () => {
 
       const result = service.effectiveAccuracy(move, compoundEyesAttacker, field)
 
-      expect(result).toBe(0.97)
+      expect(result).toBe(0.98)
+    })
+
+    it("should boost accuracy with Wide Lens", () => {
+      const move = new Move("Play Rough")
+      const wideLensAttacker = new Pokemon("Garchomp", { item: "Wide Lens" })
+
+      const result = service.effectiveAccuracy(move, wideLensAttacker, field)
+
+      expect(result).toBe(0.99)
     })
 
     it("should boost accuracy with Victory Star", () => {
@@ -294,7 +303,7 @@ describe("MoveProbabilityService", () => {
 
       const result = service.effectiveAccuracy(move, victoryStarAttacker, field)
 
-      expect(result).toBe(0.82)
+      expect(result).toBe(0.83)
     })
 
     it("should reduce accuracy with Hustle for Physical moves", () => {

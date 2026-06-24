@@ -6,6 +6,7 @@ import { Generations, MOVES, Move as MoveSmogon } from "@robsonbittencourt/calc"
 export class Move {
   readonly name: string
   readonly possibleHits: string[]
+  readonly multiaccuracy: boolean
   readonly hits: string
   readonly alliesFainted: string
   readonly lastMoveFailed: boolean
@@ -21,6 +22,7 @@ export class Move {
 
     this.name = name ?? ""
     this.possibleHits = this.moveHits(name)
+    this.multiaccuracy = MOVES[9][name]?.multiaccuracy ?? false
     this.hits = this.hitsValue(name, options)
     this.alliesFainted = options.alliesFainted ?? "0"
     this.lastMoveFailed = options.lastMoveFailed ?? false

@@ -12,6 +12,13 @@
             @if (secondary()) {
               <p>Secondary effect: {{ secondary() }}%</p>
             }
+            @if (multiHitProbabilities().length) {
+              <div class="multi-hit" data-cy="pokemon-probability-multi-hit">
+                @for (hitProbability of multiHitProbabilities(); track hitProbability.hits) {
+                  <p>{{ hitProbability.hits }} hits: {{ hitProbability.chance }}%</p>
+                }
+              </div>
+            }
           </div>
         </div>
       </div>

@@ -13,6 +13,11 @@ export interface SingleTargetProbabilities {
   secondaryAtLeastOne: string
 }
 
+export interface MultiHitProbability {
+  hits: number
+  chance: string
+}
+
 export interface SpreadTargetProbabilities {
   hitBoth: string
   hitAtLeastOne: string
@@ -92,6 +97,36 @@ export class MoveProbabilityService {
     }
   }
 
+  calculateMultiHitProbabilities(move: Move, attacker: Pokemon, field: Field): MultiHitProbability[] {
+    if (!move.multiaccuracy) {
+      return []
+    }
+
+    const hitCounts = move.possibleHits.map(hits => Number(hits))
+
+    if (hitCounts.length <= 1 || hitCounts.some(hits => hits <= 0)) {
+      return []
+    }
+
+    const accuracyProbability = this.effectiveAccuracy(move, attacker, field)
+    const singleAccuracyCheck = attacker.hasItem("Loaded Dice") || attacker.ability.name === "Skill Link"
+
+    if (accuracyProbability >= 1) {
+      return []
+    }
+
+    const minHits = hitCounts[0]
+    const maxHits = hitCounts[hitCounts.length - 1]
+    const middleHits = hitCounts[Math.floor((hitCounts.length - 1) / 2)]
+
+    const distinctHits = [...new Set([minHits, middleHits, maxHits])]
+
+    return distinctHits.map(hits => ({
+      hits,
+      chance: this.percentageFormatService.formatPercentage(singleAccuracyCheck ? 1 : Math.pow(accuracyProbability, hits))
+    }))
+  }
+
   effectiveAccuracy(move: Move, attacker: Pokemon, field: Field): number {
     const weather = field.weather
     const moveName = move.name
@@ -117,25 +152,35 @@ export class MoveProbabilityService {
       return 1
     }
 
-    let accuracy = weather === "Sun" && sunAccuracy50.includes(moveName) ? 0.5 : move.accuracy / 100
+    let accuracy = weather === "Sun" && sunAccuracy50.includes(moveName) ? 50 : move.accuracy
 
     if (ability === "Compound Eyes") {
-      accuracy *= 5325 / 4096
+      accuracy = this.modify(accuracy, 5325, 4096)
     }
 
     if (ability === "Victory Star") {
-      accuracy *= 4506 / 4096
+      accuracy = this.modify(accuracy, 4506, 4096)
     }
 
     if (ability === "Hustle" && move.category === "Physical") {
-      accuracy *= 3277 / 4096
+      accuracy = this.modify(accuracy, 3277, 4096)
     }
 
     if (field.isGravity) {
-      accuracy *= 6840 / 4096
+      accuracy = this.modify(accuracy, 6840, 4096)
     }
 
-    return Math.floor(Math.min(accuracy, 1) * 100) / 100
+    if (attacker.hasItem("Wide Lens")) {
+      accuracy = this.modify(accuracy, 4505, 4096)
+    }
+
+    return Math.min(accuracy, 100) / 100
+  }
+
+  private modify(value: number, numerator: number, denominator: number): number {
+    const modifier = Math.trunc((numerator * 4096) / denominator)
+
+    return Math.trunc((Math.trunc(value * modifier) + 2048 - 1) / 4096)
   }
 
   private createEmptySingleTargetProbabilities(): SingleTargetProbabilities {
