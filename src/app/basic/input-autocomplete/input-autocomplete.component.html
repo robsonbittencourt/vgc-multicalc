@@ -1,8 +1,13 @@
 <div class="input-column" [ngClass]="{ 'input-row': leftLabel() }">
   @if (label()) {
-    <label>{{ label() }}</label>
+    <label [style.width]="labelWidth()">{{ label() }}</label>
   }
-  <input type="text" #autoCompleteInput [formControl]="formControl" [matAutocomplete]="autoPokemon" (click)="onClick()" (blur)="onBlur()" />
+  <div class="input-with-clear" [style.width]="inputWidth()">
+    <input type="text" #autoCompleteInput [formControl]="formControl" [matAutocomplete]="autoPokemon" (click)="onClick()" (blur)="onBlur()" />
+    @if (leftLabel() && enableClear()) {
+      <mat-icon (click)="cleared.emit()">clear</mat-icon>
+    }
+  </div>
   <mat-autocomplete #autoPokemon="matAutocomplete" hideSingleSelectionIndicator="true" (opened)="selected.emit()" (optionSelected)="onValueSelected($event.option.value)" [ngClass]="{ focus: haveFocus() }">
     @for (value of filteredValues | async; track value.key) {
       <mat-option [value]="value.value" (mousedown)="$event.preventDefault()">
@@ -11,6 +16,6 @@
     }
   </mat-autocomplete>
 </div>
-@if (enableClear()) {
+@if (!leftLabel() && enableClear()) {
   <mat-icon (click)="cleared.emit()">clear</mat-icon>
 }

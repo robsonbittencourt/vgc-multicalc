@@ -1,0 +1,12 @@
+.description {
+  margin: 0 0 1em;
+  color: var(--text);
+}
+
+.regulation-group {
+  display: inline-flex;
+}
+
+.regulation-group mat-button-toggle {
+  width: 8em;
+}

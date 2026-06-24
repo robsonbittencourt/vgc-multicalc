@@ -1,23 +1,9 @@
 <app-widget [title]="title()" data-cy="opponent-widget">
   <right-header>
     <div class="buttons">
-      <app-input-autocomplete
-        class="select-pokemon"
-        label="Pokémon"
-        leftLabel="true"
-        [enableClear]="cardsFilter() !== ''"
-        [allValues]="targetPokemonNames()"
-        [value]="cardsFilter()"
-        (valueChange)="updateCardsFilter($event)"
-        (cleared)="clearCardsFilter()" />
-
       <app-roll-config [(config)]="rollLevelConfig" (rollLevelChange)="handleRollLevelChange($event)" />
 
       <mat-slide-toggle class="order-toggle" [checked]="order()" (change)="toggleOrder()" [labelPosition]="'before'">Order by Damage</mat-slide-toggle>
-
-      <div class="regulation-combo">
-        <app-input-select label="Regulation" leftLabel="true" [allValues]="regulationsList()" [value]="regulation()" (valueChange)="updateRegulation($event)" />
-      </div>
 
       <button mat-flat-button (click)="onMetaClick()" data-cy="add-meta-button">{{ metaButtonLabel() }}</button>
 
@@ -27,6 +13,48 @@
       <button mat-flat-button class="warn" (click)="removeAll()" data-cy="delete-opponent-pokemon-button">Delete all</button>
     </div>
   </right-header>
+
+  <div class="filters">
+    <span class="filters-label">Filters</span>
+
+    <app-input-autocomplete
+      class="select-pokemon-filter"
+      data-cy="pokemon-filter"
+      label="Pokémon"
+      leftLabel="true"
+      [disabled]="!pokemonFilterEnabled()"
+      [enableClear]="cardsFilter() !== ''"
+      [allValues]="targetPokemonNames()"
+      [value]="cardsFilter()"
+      (valueChange)="updateCardsFilter($event)"
+      (cleared)="clearCardsFilter()" />
+
+    <app-input-autocomplete
+      class="select-pokemon-fixed"
+      data-cy="set-filter"
+      label="Set"
+      leftLabel="true"
+      inputWidth="18em"
+      [disabled]="!setFilterEnabled()"
+      [enableClear]="setFilter() !== ''"
+      [allValues]="availableSetNames()"
+      [value]="setFilter()"
+      (valueChange)="updateSetFilter($event)"
+      (cleared)="clearSetFilter()" />
+
+    <app-input-autocomplete
+      class="select-pokemon-fixed"
+      data-cy="team-filter"
+      label="Team"
+      leftLabel="true"
+      inputWidth="18em"
+      [disabled]="!teamFilterEnabled()"
+      [enableClear]="teamFilter() !== ''"
+      [allValues]="teamNames()"
+      [value]="teamFilter()"
+      (valueChange)="updateTeamFilter($event)"
+      (cleared)="clearTeamFilter()" />
+  </div>
 
   <div class="target-pokemon" cdkDropListGroup>
     @for (damageResult of filteredDamageResults(); track getExpansionKey(damageResult)) {

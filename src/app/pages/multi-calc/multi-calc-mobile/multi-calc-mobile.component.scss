@@ -160,6 +160,29 @@
   }
 }
 
+.opponents-title {
+  margin: 0.75em 0 0;
+  font-size: 1.1em;
+  font-weight: 700;
+  color: var(--text-strong);
+}
+
+.opponents-subtitle {
+  margin: 0.5em 0 0;
+  font-size: 0.85em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+}
+
+.opponent-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1em;
+  margin-bottom: 0.75em;
+}
+
 .results-list {
   border-top: 1px solid var(--widget-border);
   display: flex;

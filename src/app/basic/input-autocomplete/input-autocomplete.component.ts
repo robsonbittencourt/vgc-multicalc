@@ -16,6 +16,9 @@ export interface KeyValuePair {
   selector: "app-input-autocomplete",
   templateUrl: "./input-autocomplete.component.html",
   styleUrls: ["./input-autocomplete.component.scss"],
+  host: {
+    "[class.left-label]": "leftLabel()"
+  },
   imports: [FormsModule, ReactiveFormsModule, MatAutocompleteTrigger, MatAutocomplete, MatOption, MatIcon, AsyncPipe, NgClass]
 })
 export class InputAutocompleteComponent implements OnInit {
@@ -28,6 +31,10 @@ export class InputAutocompleteComponent implements OnInit {
   label = input<string>()
 
   leftLabel = input(false, { transform: booleanAttribute })
+
+  inputWidth = input<string>()
+
+  labelWidth = input<string>()
 
   disabled = input(false)
 

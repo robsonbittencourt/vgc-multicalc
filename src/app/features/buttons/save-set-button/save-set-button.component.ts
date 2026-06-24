@@ -1,7 +1,8 @@
 import { Component, computed, effect, ElementRef, inject, input, output, signal, viewChild } from "@angular/core"
 import { MatIcon } from "@angular/material/icon"
-import { CalculatorStore, PokemonState } from "@data/store/calculator-store"
+import { CalculatorStore } from "@data/store/calculator-store"
 import { CustomSet } from "@data/store/custom-set"
+import { setsMatch } from "@data/store/utils/sets-match"
 
 @Component({
   selector: "app-save-set-button",
@@ -36,7 +37,7 @@ export class SaveSetButtonComponent {
     if (!p) return null
 
     const sets = this.store.customSetsByPokemon().get(p.name) ?? []
-    return sets.find(s => this.setsMatch(s.state, p)) ?? null
+    return sets.find(s => setsMatch(s.state, p)) ?? null
   })
 
   savedSetName = computed(() => {
@@ -108,25 +109,5 @@ export class SaveSetButtonComponent {
     this.localSetName.set(null)
     this.updateSuccess.set(true)
     setTimeout(() => this.updateSuccess.set(false), 1000)
-  }
-
-  private setsMatch(saved: PokemonState, current: PokemonState): boolean {
-    if (saved.nature !== current.nature) return false
-    if (saved.item !== current.item) return false
-    if (saved.ability !== current.ability) return false
-    if (saved.teraType !== current.teraType) return false
-
-    const statKeys = ["hp", "atk", "def", "spa", "spd", "spe"] as const
-
-    for (const key of statKeys) {
-      if ((saved.evs[key] ?? 0) !== (current.evs[key] ?? 0)) return false
-      if ((saved.ivs[key] ?? 31) !== (current.ivs[key] ?? 31)) return false
-    }
-
-    for (let i = 0; i < 4; i++) {
-      if ((saved.moveSet[i]?.name ?? "") !== (current.moveSet[i]?.name ?? "")) return false
-    }
-
-    return true
   }
 }

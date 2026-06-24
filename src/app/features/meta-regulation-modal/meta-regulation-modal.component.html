@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>Add Meta</h2>
+<mat-dialog-content>
+  <p class="description">Choose the regulation to load the most used Pokémon as opponents.</p>
+  <mat-button-toggle-group class="regulation-group" [hideSingleSelectionIndicator]="true" [value]="regulation()" (change)="regulation.set($event.value)">
+    @for (reg of data.regulations; track reg) {
+      <mat-button-toggle [value]="reg">{{ reg }}</mat-button-toggle>
+    }
+  </mat-button-toggle-group>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-flat-button mat-dialog-close>Cancel</button>
+  <button mat-flat-button cdkFocusInitial (click)="confirm()" data-cy="confirm-meta-regulation">Add</button>
+</mat-dialog-actions>

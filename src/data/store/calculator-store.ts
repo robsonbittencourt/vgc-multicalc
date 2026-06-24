@@ -1,4 +1,4 @@
-import { computed, effect, inject, Injectable } from "@angular/core"
+import { computed, effect, inject, Injectable, signal } from "@angular/core"
 import { Items } from "@data/items"
 import { SETDEX_SV } from "@data/movesets"
 import { SETDEX_CHAMPIONS } from "@data/movesets-champions"
@@ -126,12 +126,15 @@ export class CalculatorStore extends signalStore(
   private menuStore = inject(MenuStore)
   private teamIsAttacker = computed(() => this.menuStore.oneVsManyActivated())
 
+  readonly teamFilterTargets = signal<Target[] | null>(null)
+
   readonly speedCalcPokemon = computed(() => stateToPokemon(this.speedCalcPokemonState(), false, this.game()))
   readonly leftPokemon = computed(() => stateToPokemon(this.leftPokemonState(), true, this.game()))
   readonly rightPokemon = computed(() => stateToPokemon(this.rightPokemonState(), false, this.game()))
   readonly team = computed(() => stateToTeam(this.teamsState().find(t => t.active)!, this.teamIsAttacker(), this.game()))
   readonly teams = computed(() => stateToTeams(this.teamsState(), this.teamIsAttacker(), this.game()))
   readonly targets = computed(() => stateToTargets(this.targetsState(), !this.teamIsAttacker(), this.game()))
+  readonly displayedTargets = computed(() => this.teamFilterTargets() ?? this.targets())
   readonly attackerId = computed(() => {
     const activeMember = this.team().teamMembers.find(t => t.active && t.pokemon.id != this.secondAttackerId())
     return activeMember ? activeMember.pokemon.id : ""
@@ -643,6 +646,14 @@ export class CalculatorStore extends signalStore(
   updateTargets(targets: Target[]) {
     const targetsState = targets.map(target => targetToState(target))
     patchState(this, () => ({ targetsState: targetsState }))
+  }
+
+  setTeamFilter(targets: Target[]) {
+    this.teamFilterTargets.set(targets)
+  }
+
+  clearTeamFilter() {
+    this.teamFilterTargets.set(null)
   }
 
   changeLeftPokemon(pokemon: Pokemon) {

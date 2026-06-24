@@ -86,4 +86,27 @@ export class Opponent {
   lengthIs(length: number) {
     cy.get('[data-cy^="select-defender-"]').should("have.length", length)
   }
+
+  filterBySet(setLabel: string) {
+    cy.get('[data-cy="set-filter"]').find("input").click({ force: true }).type(setLabel)
+    cy.get("mat-option").contains(setLabel).click({ force: true })
+  }
+
+  clearSetFilter() {
+    cy.get('[data-cy="set-filter"]').find("mat-icon").click({ force: true })
+  }
+
+  filterByTeam(teamName: string) {
+    cy.get('[data-cy="team-filter"]').find("input").click({ force: true }).type(teamName)
+    cy.get("mat-option").contains(teamName).click({ force: true })
+  }
+
+  clearTeamFilter() {
+    cy.get('[data-cy="team-filter"]').find("mat-icon").click({ force: true })
+  }
+
+  teamFilterOptions(): Cypress.Chainable {
+    cy.get('[data-cy="team-filter"]').find("input").click({ force: true })
+    return cy.get("mat-option")
+  }
 }

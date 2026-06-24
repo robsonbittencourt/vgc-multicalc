@@ -7,6 +7,18 @@
   width: 100%;
 }
 
+:host.left-label {
+  align-items: center;
+  gap: 0.4em;
+}
+
+:host.left-label > mat-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
 .input-column {
   display: flex;
   flex-direction: column;
@@ -19,20 +31,34 @@
   flex-direction: row;
   align-items: center;
   gap: 0.5em;
+  width: 100%;
 }
 
 .input-row label {
   white-space: nowrap;
+  flex: none;
 }
 
-.input-row > input {
-  width: auto;
-  flex: 1;
-}
-
-.input-column > input,
-.input-row > input {
+.input-with-clear {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.4em;
   width: 100%;
+  min-width: 0;
+}
+
+.input-with-clear > mat-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  cursor: pointer;
+}
+
+.input-with-clear > input {
+  flex: 1;
+  min-width: 0;
   box-sizing: border-box;
   padding: 6px;
   border: 1px solid rgb(133, 129, 129);
@@ -53,8 +79,7 @@
 }
 
 @media only screen and (max-width: 1279px) {
-  .input-column > input,
-  .input-row > input {
+  .input-with-clear > input {
     font-size: $font-size-mobile;
   }
 

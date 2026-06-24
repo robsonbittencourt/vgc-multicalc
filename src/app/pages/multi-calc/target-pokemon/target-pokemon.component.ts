@@ -5,16 +5,18 @@ import { MatButton } from "@angular/material/button"
 import { MatDialog } from "@angular/material/dialog"
 import { MatSlideToggle } from "@angular/material/slide-toggle"
 import { InputAutocompleteComponent } from "@app/basic/input-autocomplete/input-autocomplete.component"
-import { InputSelectComponent } from "@app/basic/input-select/input-select.component"
 import { WidgetComponent } from "@basic/widget/widget.component"
 import { SETDEX_CHAMPIONS } from "@data/movesets-champions"
 import { SETDEX_SV } from "@data/movesets"
 import { pokemonByRegulation } from "@data/regulation-pokemon"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { MenuStore } from "@data/store/menu-store"
+import { pokemonToState } from "@data/store/utils/state-mapper"
+import { setsMatch } from "@data/store/utils/sets-match"
 import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
 import { RollConfigComponent } from "@features/roll-config/roll-config.component"
 import { TeamExportModalComponent } from "@features/export-modal/export-modal.component"
+import { MetaRegulationModalComponent } from "@features/meta-regulation-modal/meta-regulation-modal.component"
 import { DamageResult } from "@lib/damage-calculator/damage-result"
 import { RollLevelConfig } from "@lib/damage-calculator/roll-level-config"
 import { defaultPokemon } from "@lib/default-pokemon"
@@ -30,7 +32,7 @@ import { PokemonCardComponent } from "@pages/multi-calc/pokemon-card/pokemon-car
   selector: "app-target-pokemon",
   templateUrl: "./target-pokemon.component.html",
   styleUrls: ["./target-pokemon.component.scss"],
-  imports: [CdkDropList, CdkDropListGroup, MatButton, MatSlideToggle, WidgetComponent, InputSelectComponent, InputAutocompleteComponent, PokemonCardComponent, AddPokemonCardComponent, ImportPokemonButtonComponent, RollConfigComponent],
+  imports: [CdkDropList, CdkDropListGroup, MatButton, MatSlideToggle, WidgetComponent, InputAutocompleteComponent, PokemonCardComponent, AddPokemonCardComponent, ImportPokemonButtonComponent, RollConfigComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class TargetPokemonComponent {
@@ -50,7 +52,7 @@ export class TargetPokemonComponent {
   private dialog = inject(MatDialog)
   private snackBar = inject(SnackbarService)
 
-  regulation = linkedSignal<Regulation>(() => this.store.targetMetaRegulation() ?? (this.store.game() === "champions" ? "MA" : "I"))
+  regulation = linkedSignal<Regulation>(() => this.store.targetMetaRegulation() ?? (this.store.game() === "champions" ? "MB" : "I"))
   rollLevelConfig = signal(RollLevelConfig.fromConfigString(this.store.multiCalcRollLevel()))
 
   constructor() {
@@ -61,6 +63,8 @@ export class TargetPokemonComponent {
   }
 
   cardsFilter = signal("")
+  setFilter = signal("")
+  teamFilter = signal("")
 
   title = computed(() => (this.isAttacker() ? "Opponent Attackers" : "Opponent Defenders"))
 
@@ -74,18 +78,55 @@ export class TargetPokemonComponent {
     return this.isAttacker() ? result.attacker.id : result.defender.id
   }
 
+  private cardPokemons(result: DamageResult): Pokemon[] {
+    if (this.isAttacker()) {
+      return result.secondAttacker ? [result.attacker, result.secondAttacker] : [result.attacker]
+    }
+
+    return [result.defender]
+  }
+
+  readonly setNameByPokemonId = computed(() => {
+    const customSets = this.store.customSetsByPokemon()
+    const map = new Map<string, string>()
+
+    for (const result of this.damageResults()) {
+      for (const pokemon of this.cardPokemons(result)) {
+        const sets = customSets.get(pokemon.name) ?? []
+        const state = pokemonToState(pokemon)
+        const matched = sets.find(s => setsMatch(s.state, state))
+
+        if (matched) {
+          map.set(pokemon.id, `${pokemon.name} - ${matched.setName}`)
+        }
+      }
+    }
+
+    return map
+  })
+
+  readonly availableSetNames = computed(() => [...new Set(this.setNameByPokemonId().values())].sort())
+
   filteredDamageResults = computed(() => {
     const filter = this.cardsFilter().toLocaleLowerCase()
+    const setFilter = this.setFilter()
 
-    if (!filter) {
-      return this.damageResults()
+    let results = this.damageResults()
+
+    if (filter) {
+      if (this.isAttacker()) {
+        results = results.filter(result => result.attacker.name.toLocaleLowerCase().includes(filter) || result.secondAttacker?.name.toLocaleLowerCase().includes(filter))
+      } else {
+        results = results.filter(result => result.defender.name.toLocaleLowerCase().includes(filter))
+      }
     }
 
-    if (this.isAttacker()) {
-      return this.damageResults().filter(result => result.attacker.name.toLocaleLowerCase().includes(filter) || result.secondAttacker?.name.toLocaleLowerCase().includes(filter))
+    if (setFilter) {
+      const setNameById = this.setNameByPokemonId()
+      results = results.filter(result => this.cardPokemons(result).some(pokemon => setNameById.get(pokemon.id) === setFilter))
     }
 
-    return this.damageResults().filter(result => result.defender.name.toLocaleLowerCase().includes(filter))
+    return results
   })
 
   private get setdex() {
@@ -98,7 +139,7 @@ export class TargetPokemonComponent {
     return [...new Set(names.filter((name): name is string => !!name))].sort()
   })
 
-  readonly regulationsList = computed(() => (this.store.game() === "champions" ? ["MA", "MB"] : ["I"]))
+  readonly regulationsList = computed(() => (this.store.game() === "champions" ? ["MB"] : ["I"]))
 
   order = signal(false)
 
@@ -110,11 +151,38 @@ export class TargetPokemonComponent {
       this.activateTeamMember()
       this.store.updateTargets(newTargets)
       this.snackBar.open("Pokémon removed")
-    } else {
-      this.store.updateTargetMetaRegulation(this.regulation())
-      const metaPokemon = pokemonByRegulation(this.regulation(), 60, this.setdex, false, this.store.isChampions())
-      this.pokemonImported(metaPokemon)
+
+      return
     }
+
+    const regulations = this.regulationsList()
+
+    if (regulations.length <= 1) {
+      this.applyMeta(regulations[0] as Regulation)
+
+      return
+    }
+
+    const dialogRef = this.dialog.open(MetaRegulationModalComponent, {
+      data: { regulations, selected: this.regulation() },
+      width: "32em",
+      position: { top: "2em" },
+      autoFocus: false,
+      scrollStrategy: new NoopScrollStrategy()
+    })
+
+    dialogRef.afterClosed().subscribe(regulation => {
+      if (regulation) {
+        this.applyMeta(regulation as Regulation)
+      }
+    })
+  }
+
+  private applyMeta(regulation: Regulation) {
+    this.regulation.set(regulation)
+    this.store.updateTargetMetaRegulation(regulation)
+    const metaPokemon = pokemonByRegulation(regulation, 60, this.setdex, false, this.store.isChampions())
+    this.pokemonImported(metaPokemon)
   }
 
   removeAll() {
@@ -225,13 +293,47 @@ export class TargetPokemonComponent {
     this.cardsFilter.set(cardsFilter)
   }
 
-  updateRegulation(event: string) {
-    const regulation = event as Regulation
-    this.regulation.set(regulation)
-  }
-
   clearCardsFilter() {
     this.cardsFilter.set("")
+  }
+
+  readonly teamNames = computed(() =>
+    this.store
+      .teams()
+      .filter(t => t.teamMembers.some(m => !m.pokemon.isDefault))
+      .map(t => t.name)
+  )
+
+  readonly pokemonFilterEnabled = computed(() => this.setFilter() === "" && this.teamFilter() === "")
+  readonly setFilterEnabled = computed(() => this.cardsFilter() === "" && this.teamFilter() === "")
+  readonly teamFilterEnabled = computed(() => this.cardsFilter() === "" && this.setFilter() === "")
+
+  updateSetFilter(event: string) {
+    this.setFilter.set(event)
+  }
+
+  clearSetFilter() {
+    this.setFilter.set("")
+  }
+
+  updateTeamFilter(event: string) {
+    if (!event) {
+      this.clearTeamFilter()
+      return
+    }
+
+    this.teamFilter.set(event)
+
+    const team = this.store.teams().find(t => t.name === event)
+    if (!team) return
+
+    const teamTargets = team.teamMembers.filter(member => !member.pokemon.isDefault).map(member => new Target(member.pokemon))
+    this.store.setTeamFilter(teamTargets)
+  }
+
+  clearTeamFilter() {
+    this.teamFilter.set("")
+    this.store.clearTeamFilter()
   }
 
   handleRollLevelChange(rollLevel: RollLevelConfig) {

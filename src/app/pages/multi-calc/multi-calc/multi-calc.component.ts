@@ -42,7 +42,7 @@ export class MultiCalcComponent implements OnInit {
 
   activeAttacker = computed(() => this.store.findPokemonById(this.store.attackerId()))
   activeSecondAttacker = computed(() => this.store.findNullablePokemonById(this.store.secondAttackerId()))
-  damageResults = computed(() => this.damageCalculator.calculateDamageForAll(this.activeAttacker(), this.store.targets(), this.fieldStore.field(), this.order(), this.activeSecondAttacker()))
+  damageResults = computed(() => this.damageCalculator.calculateDamageForAll(this.activeAttacker(), this.store.displayedTargets(), this.fieldStore.field(), this.order(), this.activeSecondAttacker()))
 
   teamComponent = viewChild<TeamComponent>("teamComponent")
 

@@ -8,13 +8,15 @@ import { MatDialog } from "@angular/material/dialog"
 import { MatIcon, MatIconRegistry } from "@angular/material/icon"
 import { MatSlideToggle } from "@angular/material/slide-toggle"
 import { DomSanitizer } from "@angular/platform-browser"
-import { InputSelectComponent } from "@app/basic/input-select/input-select.component"
+import { InputAutocompleteComponent } from "@app/basic/input-autocomplete/input-autocomplete.component"
 import { WidgetComponent } from "@basic/widget/widget.component"
 import { SETDEX_CHAMPIONS } from "@data/movesets-champions"
 import { SETDEX_SV } from "@data/movesets"
 import { pokemonByRegulation } from "@data/regulation-pokemon"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { CustomSet } from "@data/store/custom-set"
+import { pokemonToState } from "@data/store/utils/state-mapper"
+import { setsMatch } from "@data/store/utils/sets-match"
 import { FieldStore } from "@data/store/field-store"
 import { FIELD_CONTEXT } from "@data/store/tokens/field-context.token"
 import { MenuStore } from "@data/store/menu-store"
@@ -27,6 +29,7 @@ import { RollLevelConfig } from "@lib/damage-calculator/roll-level-config"
 import { DefensiveEvOptimizerService } from "@lib/ev-optimizer/defensive-ev-optimizer.service"
 import { Regulation, Stats } from "@lib/types"
 import { TeamExportModalComponent } from "@features/export-modal/export-modal.component"
+import { MetaRegulationModalComponent } from "@features/meta-regulation-modal/meta-regulation-modal.component"
 import { ExportPokeService } from "@lib/user-data/export-poke.service"
 import { PokemonBuildMobileComponent } from "@features/pokemon-build/pokemon-build-mobile/pokemon-build-mobile.component"
 import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
@@ -65,7 +68,7 @@ import { SpriteService } from "@data/sprite.service"
     SaveSetButtonComponent,
     ExportPokemonButtonComponent,
     MobileTableOverlayComponent,
-    InputSelectComponent,
+    InputAutocompleteComponent,
     MatSlideToggle,
     RollConfigComponent,
     WidgetComponent,
@@ -179,8 +182,8 @@ export class MultiCalcMobileComponent implements OnDestroy {
   editingPokemonItem = computed(() => this.editingPokemon()?.item ?? "")
   editingMoveIndex = computed(() => Math.max(0, this.editingPokemon()?.activeMoveIndex ?? 0))
 
-  regulation = linkedSignal<Regulation>(() => this.store.targetMetaRegulation() ?? (this.store.game() === "champions" ? "MA" : "I"))
-  regulationsList = computed(() => (this.store.game() === "champions" ? ["MA", "MB"] : ["I"]))
+  regulation = linkedSignal<Regulation>(() => this.store.targetMetaRegulation() ?? (this.store.game() === "champions" ? "MB" : "I"))
+  regulationsList = computed(() => (this.store.game() === "champions" ? ["MB"] : ["I"]))
   rollLevelConfig = signal(RollLevelConfig.fromConfigString(this.store.multiCalcRollLevel()))
   order = signal(false)
 
@@ -205,8 +208,118 @@ export class MultiCalcMobileComponent implements OnDestroy {
 
     if (!attacker) return []
 
-    return this.damageCalculator.calculateDamageForAll(attacker, this.store.targets(), this.fieldStore.field(), this.order(), this.secondAttacker())
+    return this.damageCalculator.calculateDamageForAll(attacker, this.store.displayedTargets(), this.fieldStore.field(), this.order(), this.secondAttacker())
   })
+
+  cardsFilter = signal("")
+  setFilter = signal("")
+  teamFilter = signal("")
+
+  private isAttacker = computed(() => this.menuStore.manyVsOneActivated())
+
+  private cardPokemons(result: DamageResult): Pokemon[] {
+    if (this.isAttacker()) {
+      return result.secondAttacker ? [result.attacker, result.secondAttacker] : [result.attacker]
+    }
+
+    return [result.defender]
+  }
+
+  readonly setNameByPokemonId = computed(() => {
+    const customSets = this.store.customSetsByPokemon()
+    const map = new Map<string, string>()
+
+    for (const result of this.damageResults()) {
+      for (const pokemon of this.cardPokemons(result)) {
+        const sets = customSets.get(pokemon.name) ?? []
+        const state = pokemonToState(pokemon)
+        const matched = sets.find(s => setsMatch(s.state, state))
+
+        if (matched) {
+          map.set(pokemon.id, `${pokemon.name} - ${matched.setName}`)
+        }
+      }
+    }
+
+    return map
+  })
+
+  readonly availableSetNames = computed(() => [...new Set(this.setNameByPokemonId().values())].sort())
+
+  readonly teamNames = computed(() =>
+    this.store
+      .teams()
+      .filter(t => t.teamMembers.some(m => !m.pokemon.isDefault))
+      .map(t => t.name)
+  )
+
+  readonly targetPokemonNames = computed(() => {
+    const names = this.damageResults().flatMap(result => (this.isAttacker() ? [result.attacker.name, result.secondAttacker?.name] : [result.defender.name]))
+
+    return [...new Set(names.filter((name): name is string => !!name))].sort()
+  })
+
+  filteredDamageResults = computed(() => {
+    const filter = this.cardsFilter().toLocaleLowerCase()
+    const setFilter = this.setFilter()
+
+    let results = this.damageResults()
+
+    if (filter) {
+      if (this.isAttacker()) {
+        results = results.filter(result => result.attacker.name.toLocaleLowerCase().includes(filter) || result.secondAttacker?.name.toLocaleLowerCase().includes(filter))
+      } else {
+        results = results.filter(result => result.defender.name.toLocaleLowerCase().includes(filter))
+      }
+    }
+
+    if (setFilter) {
+      const setNameById = this.setNameByPokemonId()
+      results = results.filter(result => this.cardPokemons(result).some(pokemon => setNameById.get(pokemon.id) === setFilter))
+    }
+
+    return results
+  })
+
+  readonly pokemonFilterEnabled = computed(() => this.setFilter() === "" && this.teamFilter() === "")
+  readonly setFilterEnabled = computed(() => this.cardsFilter() === "" && this.teamFilter() === "")
+  readonly teamFilterEnabled = computed(() => this.cardsFilter() === "" && this.setFilter() === "")
+
+  updateCardsFilter(event: string) {
+    this.cardsFilter.set(event)
+  }
+
+  clearCardsFilter() {
+    this.cardsFilter.set("")
+  }
+
+  updateSetFilter(event: string) {
+    this.setFilter.set(event)
+  }
+
+  clearSetFilter() {
+    this.setFilter.set("")
+  }
+
+  updateTeamFilter(event: string) {
+    if (!event) {
+      this.clearTeamFilter()
+      return
+    }
+
+    this.teamFilter.set(event)
+
+    const team = this.store.teams().find(t => t.name === event)
+    if (!team) return
+
+    const teamTargets = team.teamMembers.filter(member => !member.pokemon.isDefault).map(member => new Target(member.pokemon))
+    this.store.setTeamFilter(teamTargets)
+  }
+
+  clearTeamFilter() {
+    this.teamFilter.set("")
+    this.store.clearTeamFilter()
+  }
 
   teamMembers = computed(() => this.store.team().teamMembers)
 
@@ -265,19 +378,39 @@ export class MultiCalcMobileComponent implements OnDestroy {
       this.store.updateTargetMetaRegulation(undefined)
       this.activateTeamMember()
       this.store.updateTargets(newTargets)
-    } else {
-      this.store.updateTargetMetaRegulation(this.regulation())
-      const setdex = this.store.game() === "champions" ? SETDEX_CHAMPIONS : SETDEX_SV
-      const metaPokemon = pokemonByRegulation(this.regulation(), 60, setdex, false, this.store.isChampions())
 
-      console.log(this.regulation())
-      this.onTargetsImported(metaPokemon)
+      return
     }
+
+    const regulations = this.regulationsList()
+
+    if (regulations.length <= 1) {
+      this.applyMeta(regulations[0] as Regulation)
+
+      return
+    }
+
+    const dialogRef = this.dialog.open(MetaRegulationModalComponent, {
+      data: { regulations, selected: this.regulation() },
+      width: "32em",
+      position: { top: "2em" },
+      autoFocus: false,
+      scrollStrategy: new NoopScrollStrategy()
+    })
+
+    dialogRef.afterClosed().subscribe(regulation => {
+      if (regulation) {
+        this.applyMeta(regulation as Regulation)
+      }
+    })
   }
 
-  updateRegulation(event: string) {
-    const regulation = event as Regulation
+  private applyMeta(regulation: Regulation) {
     this.regulation.set(regulation)
+    this.store.updateTargetMetaRegulation(regulation)
+    const setdex = this.store.game() === "champions" ? SETDEX_CHAMPIONS : SETDEX_SV
+    const metaPokemon = pokemonByRegulation(regulation, 60, setdex, false, this.store.isChampions())
+    this.onTargetsImported(metaPokemon)
   }
 
   removeAll() {
@@ -324,7 +457,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
 
   private targetsExcludingMetaData(): Target[] {
     const setdex = this.store.game() === "champions" ? SETDEX_CHAMPIONS : SETDEX_SV
-    const metaLeft = pokemonByRegulation(this.store.targetMetaRegulation()!, 33, setdex, false, this.store.isChampions())
+    const metaLeft = pokemonByRegulation(this.store.targetMetaRegulation()!, undefined, setdex, false, this.store.isChampions())
 
     const newTargets = [...this.store.targets()]
       .reverse()

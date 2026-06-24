@@ -17,6 +17,13 @@
   gap: 0.5em;
 }
 
+.filters {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  margin-top: 1em;
+}
+
 .target-pokemon {
   margin-top: 1em;
   display: grid;
@@ -26,17 +33,19 @@
   grid-row-gap: 1em;
 }
 
-.select-pokemon {
-  width: 18em;
+.filters-label {
+  font-weight: 600;
+  color: var(--text-strong);
+}
+
+.select-pokemon-fixed {
+  width: auto;
+}
+
+.select-pokemon-filter {
+  width: 17em;
 }
 
 .order-toggle {
-  align-self: center;
-}
-
-.regulation-combo {
-  width: 10em;
-  display: flex;
-  align-items: center;
   align-self: center;
 }

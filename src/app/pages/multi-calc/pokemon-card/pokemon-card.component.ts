@@ -149,10 +149,10 @@ export class PokemonCardComponent {
 
     if (this.menuStore.oneVsManyActivated()) {
       const pokemonId = this.damageResult().defender.id
-      return this.store.targets().find(target => target.pokemon.id === pokemonId)!
+      return this.store.displayedTargets().find(target => target.pokemon.id === pokemonId)!
     } else {
       const pokemonId = this.damageResult().attacker.id
-      return this.store.targets().find(target => target.pokemon.id === pokemonId || target.secondPokemon?.id === pokemonId)!
+      return this.store.displayedTargets().find(target => target.pokemon.id === pokemonId || target.secondPokemon?.id === pokemonId)!
     }
   })
 

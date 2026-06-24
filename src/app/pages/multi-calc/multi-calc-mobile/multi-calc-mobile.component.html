@@ -80,7 +80,11 @@
       </div>
 
       <div class="results-list" cdkDropListGroup [hidden]="overlay.isAnyOpen()">
-        @for (damageResult of damageResults(); track getExpansionKey(damageResult)) {
+        @if (!selectPokemonActive()) {
+          <h2 class="opponents-title">Opponents</h2>
+        }
+
+        @for (damageResult of filteredDamageResults(); track getExpansionKey(damageResult)) {
           <div class="result-card">
             <app-pokemon-card
               cdkDropList
@@ -104,9 +108,50 @@
         @if (!selectPokemonActive()) {
           <app-add-pokemon-card (pokemonAddedToTeam)="addPokemonToTargets()" />
 
+          <h3 class="opponents-subtitle">Filters</h3>
+
+          <div class="opponent-filters">
+            <app-input-autocomplete
+              data-cy="pokemon-filter"
+              label="Pokémon"
+              leftLabel="true"
+              labelWidth="4.5em"
+              [disabled]="!pokemonFilterEnabled()"
+              [enableClear]="cardsFilter() !== ''"
+              [allValues]="targetPokemonNames()"
+              [value]="cardsFilter()"
+              (valueChange)="updateCardsFilter($event)"
+              (cleared)="clearCardsFilter()" />
+
+            <app-input-autocomplete
+              data-cy="set-filter"
+              label="Set"
+              leftLabel="true"
+              labelWidth="4.5em"
+              [disabled]="!setFilterEnabled()"
+              [enableClear]="setFilter() !== ''"
+              [allValues]="availableSetNames()"
+              [value]="setFilter()"
+              (valueChange)="updateSetFilter($event)"
+              (cleared)="clearSetFilter()" />
+
+            <app-input-autocomplete
+              data-cy="team-filter"
+              label="Team"
+              leftLabel="true"
+              labelWidth="4.5em"
+              [disabled]="!teamFilterEnabled()"
+              [enableClear]="teamFilter() !== ''"
+              [allValues]="teamNames()"
+              [value]="teamFilter()"
+              (valueChange)="updateTeamFilter($event)"
+              (cleared)="clearTeamFilter()" />
+          </div>
+
+          <h3 class="opponents-subtitle">Management</h3>
+
           <div class="targets-actions">
-            <div class="row">
-              <app-input-select label="Regulation" leftLabel="true" [allValues]="regulationsList()" [value]="regulation()" (valueChange)="updateRegulation($event)" />
+            <div class="row full">
               <button mat-flat-button class="management-button" (click)="onMetaClick()" data-cy="add-meta-button">{{ metaButtonLabel() }}</button>
             </div>
             <div class="row full">
