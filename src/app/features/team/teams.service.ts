@@ -92,7 +92,7 @@ export class TeamsService {
     return this.store.team().activePokemon().id
   }
 
-  pokemonImported(pokemon: Pokemon | Pokemon[], isMobile: boolean) {
+  pokemonImported(pokemon: Pokemon | Pokemon[], isMobile: boolean, teamName?: string) {
     const pokemonList = Array.isArray(pokemon) ? pokemon : [pokemon]
     const teamMembers: TeamMember[] = []
 
@@ -107,12 +107,14 @@ export class TeamsService {
     }
 
     if (isMobile) {
-      const newTeam = new Team(uuid(), false, `Team ${this.store.teams().length + 1}`, teamMembers)
+      const name = teamName || `Team ${this.store.teams().length + 1}`
+      const newTeam = new Team(uuid(), false, name, teamMembers)
       this.store.addTeam(newTeam)
       this.activateTeam(newTeam)
     } else {
       const teamSlotToImport = this.store.teams().find(t => t.onlyHasDefaultPokemon())!
-      const teamToImport = new Team(uuid(), teamSlotToImport.active, teamSlotToImport.name, teamMembers)
+      const name = teamName || teamSlotToImport.name
+      const teamToImport = new Team(uuid(), teamSlotToImport.active, name, teamMembers)
       this.store.replaceTeam(teamToImport, teamSlotToImport.id)
       this.activateTeam(teamToImport)
     }

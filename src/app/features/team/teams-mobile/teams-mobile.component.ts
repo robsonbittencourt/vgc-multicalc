@@ -54,8 +54,15 @@ export class TeamsMobileComponent {
     return this.store.teams().filter(t => t.id !== secondTeamId)
   })
 
+  importedTeamName?: string
+
+  teamNameImported(name: string) {
+    this.importedTeamName = name
+  }
+
   pokemonImported(pokemon: Pokemon | Pokemon[]) {
-    const result = this.teamsService.pokemonImported(pokemon, true)
+    const result = this.teamsService.pokemonImported(pokemon, true, this.importedTeamName)
+    this.importedTeamName = undefined
     this.pokemonSelected.emit(result.activePokemonId)
   }
 

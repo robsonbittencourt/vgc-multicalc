@@ -14,7 +14,7 @@
     <div class="secondary-actions">
       <button mat-flat-button color="primary" (click)="addNewTeam()" data-cy="add-team-button">Create</button>
       <div class="spacer"></div>
-      <app-import-pokemon-button [singlePokemon]="false" [useIconStyle]="true" (pokemonImportedEvent)="pokemonImported($event)" />
+      <app-import-pokemon-button [singlePokemon]="false" [useIconStyle]="true" (teamNameImportedEvent)="teamNameImported($event)" (pokemonImportedEvent)="pokemonImported($event)" />
       <div class="export-team" [class.disabled]="store.team().onlyHasDefaultPokemon()" (click)="export()" data-cy="export-team-button">
         <mat-icon class="icon">upload</mat-icon>
         <label>Export</label>

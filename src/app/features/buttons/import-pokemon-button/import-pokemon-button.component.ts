@@ -28,6 +28,7 @@ export class ImportPokemonButtonComponent {
   hidden = input(false)
 
   pokemonImportedEvent = output<Pokemon | Pokemon[]>()
+  teamNameImportedEvent = output<string>()
 
   private dialog = inject(MatDialog)
   private pokePasteService = inject(PokePasteParserService)
@@ -47,7 +48,7 @@ export class ImportPokemonButtonComponent {
     dialogRef.afterClosed().subscribe(async result => {
       if (!result) return
 
-      const parsedList = await this.pokePasteService.parse(result)
+      const { name: teamName, pokemon: parsedList } = await this.pokePasteService.parseTeam(result)
       const processedList = parsedList.map(p => {
         const allZero = Object.values(p.evs).every(ev => ev === 0)
 
@@ -92,6 +93,10 @@ export class ImportPokemonButtonComponent {
       }
 
       const output = this.singlePokemon() ? finalList[0] : finalList
+
+      if (teamName) {
+        this.teamNameImportedEvent.emit(teamName)
+      }
 
       this.pokemonImportedEvent.emit(output)
     })

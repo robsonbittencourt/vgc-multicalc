@@ -152,6 +152,7 @@ export class Team {
   importPokepaste(pokepaste: string) {
     cy.get('[data-cy="teams-widget"]').find('[data-cy="import-pokemon"]').click()
     new ImportModal().import(pokepaste)
+    cy.get('[data-cy="team-box"].active-team').find("app-pokemon-sprite").should("exist")
   }
 
   export(): ExportModal {

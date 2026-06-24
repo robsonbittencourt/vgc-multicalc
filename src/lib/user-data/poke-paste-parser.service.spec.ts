@@ -270,18 +270,82 @@ describe("PokePasteParserService", () => {
         })
     }
 
-    vi.spyOn(window, "fetch").mockReturnValue(Promise.resolve(new Response(mockPokePasteText)))
+    vi.spyOn(window, "fetch").mockReturnValue(Promise.resolve(new Response(JSON.stringify({ title: "My Team", paste: mockPokePasteText }))))
     koffingParseSpy.mockReturnValue(mockKoffingResult)
 
     const result = await service.parse("https://pokepast.es/12345")
 
-    expect(window.fetch).toHaveBeenCalledWith("https://pokepast.es/12345/raw")
+    expect(window.fetch).toHaveBeenCalledWith("https://pokepast.es/12345/json")
     expect(result.length).toBe(1)
     expect(result[0].name).toBe("Urshifu-Rapid-Strike")
     expect(result[0].move1Name).toBe(randomMove1)
     expect(result[0].move2Name).toBe(randomMove2)
     expect(result[0].move3Name).toBe(randomMove3)
     expect(result[0].move4Name).toBe(randomMove4)
+  })
+
+  it("should not use Koffing's default Untitled name", async () => {
+    const mockKoffingResult = {
+      toJson: () =>
+        JSON.stringify({
+          teams: [
+            {
+              name: "Untitled",
+              pokemon: [
+                {
+                  name: "Incineroar",
+                  ability: "Intimidate",
+                  nature: "Adamant",
+                  item: "Sitrus Berry",
+                  teraType: "Grass",
+                  moves: ["Fake Out", "", "", ""],
+                  evs: { hp: 252, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+                  ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 }
+                }
+              ]
+            }
+          ]
+        })
+    }
+
+    koffingParseSpy.mockReturnValue(mockKoffingResult)
+
+    const result = await service.parseTeam("poke-paste text")
+
+    expect(result.name).toBe("")
+  })
+
+  it("should use the team title from PokePaste json", async () => {
+    const mockKoffingResult = {
+      toJson: () =>
+        JSON.stringify({
+          teams: [
+            {
+              pokemon: [
+                {
+                  name: "Incineroar",
+                  ability: "Intimidate",
+                  nature: "Adamant",
+                  item: "Sitrus Berry",
+                  teraType: "Grass",
+                  moves: ["Fake Out", "", "", ""],
+                  evs: { hp: 252, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+                  ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 }
+                }
+              ]
+            }
+          ]
+        })
+    }
+
+    vi.spyOn(window, "fetch").mockReturnValue(Promise.resolve(new Response(JSON.stringify({ title: "World Champion Team", paste: "paste text" }))))
+    koffingParseSpy.mockReturnValue(mockKoffingResult)
+
+    const result = await service.parseTeam("https://pokepast.es/12345")
+
+    expect(window.fetch).toHaveBeenCalledWith("https://pokepast.es/12345/json")
+    expect(result.name).toBe("World Champion Team")
+    expect(result.pokemon[0].name).toBe("Incineroar")
   })
 
   it("should parse multiple Pokémon with different move counts", async () => {

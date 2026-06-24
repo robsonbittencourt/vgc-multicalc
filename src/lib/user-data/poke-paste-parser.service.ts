@@ -14,6 +14,12 @@ export class PokePasteParserService {
   private store = inject(CalculatorStore)
 
   async parse(input: string): Promise<Pokemon[]> {
+    const { pokemon } = await this.parseTeam(input)
+
+    return pokemon
+  }
+
+  async parseTeam(input: string): Promise<{ name: string; pokemon: Pokemon[] }> {
     if (input.startsWith("http")) {
       return await this.parseFromPokePaste(input)
     } else {
@@ -21,18 +27,22 @@ export class PokePasteParserService {
     }
   }
 
-  private async parseFromPokePaste(pokePasteLink: string): Promise<Pokemon[]> {
-    const res = await fetch(`${pokePasteLink}/raw`)
-    const text = await res.text()
-    return this.parseFromText(text)
+  private async parseFromPokePaste(pokePasteLink: string): Promise<{ name: string; pokemon: Pokemon[] }> {
+    const res = await fetch(`${pokePasteLink}/json`)
+    const data = await res.json()
+    const parsed = await this.parseFromText(data.paste)
+
+    return { name: data.title || parsed.name, pokemon: parsed.pokemon }
   }
 
-  private async parseFromText(teamInTextFormat: string): Promise<Pokemon[]> {
+  private async parseFromText(teamInTextFormat: string): Promise<{ name: string; pokemon: Pokemon[] }> {
     const { Koffing } = await import("koffing")
     const parsedTeam = Koffing.parse(teamInTextFormat)
-    const pokemonList = JSON.parse(parsedTeam.toJson()).teams[0].pokemon
+    const team = JSON.parse(parsedTeam.toJson()).teams[0]
+    const teamName = team.name && team.name !== "Untitled" ? team.name : ""
+    const pokemonList = team.pokemon
 
-    return pokemonList.map((poke: any) => {
+    const pokemon = pokemonList.map((poke: any) => {
       const name = this.adjustName(poke.name)
       const ivs = this.store.isChampions()
         ? { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 }
@@ -50,6 +60,8 @@ export class PokePasteParserService {
 
       return new Pokemon(name, { ability: new Ability(poke.ability, false), nature: poke.nature, item: poke.item, teraType: poke.teraType, evs, moveSet, boosts, ivs })
     })
+
+    return { name: teamName, pokemon }
   }
 
   adjustName(pokemonName: string): string {

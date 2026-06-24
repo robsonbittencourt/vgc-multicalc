@@ -63,8 +63,15 @@ export class TeamsDesktopComponent implements OnInit {
     this.activateFirstTeamByPage()
   }
 
+  importedTeamName?: string
+
+  teamNameImported(name: string) {
+    this.importedTeamName = name
+  }
+
   pokemonImported(pokemon: Pokemon | Pokemon[]) {
-    const result = this.teamsService.pokemonImported(pokemon, false)
+    const result = this.teamsService.pokemonImported(pokemon, false, this.importedTeamName)
+    this.importedTeamName = undefined
     this.currentPage.set(Math.floor(result.teamIndex / 4))
     this.pokemonSelected.emit(result.activePokemonId)
   }
