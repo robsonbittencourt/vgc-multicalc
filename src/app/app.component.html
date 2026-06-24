@@ -3,5 +3,11 @@
 </main>
 
 @if (appReady()) {
-  <app-announcement-popup title="Regulation M-B Now Available!" [messages]="['Regulation M-B is now fully available with all new Pokémon and Mega Evolutions.']" image="assets/media/reg-mb.png" version="2026-06-17" />
+  <app-announcement-popup
+    title="What's New!"
+    [items]="[
+      { text: 'Probability Calc now considers Wide Lens and abilities for more accurate odds.', image: 'assets/media/new-probabilities.png' },
+      { text: 'Opponent side filters are reorganized with new filtering options, including Set and Team, based on the sets and teams you previously added.', image: 'assets/media/new-filters.png' }
+    ]"
+    version="2026-06-24" />
 }

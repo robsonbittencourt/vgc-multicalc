@@ -2,14 +2,12 @@
   <div class="overlay">
     <div class="popup">
       <h2 class="title">{{ title() }}</h2>
-      @if (image()) {
-        <img class="preview-image" [src]="image()" alt="Feature preview" />
-      }
-      <ul class="messages">
-        @for (msg of messages(); track msg) {
-          <li>{{ msg }}</li>
+      @for (item of items(); track item.text) {
+        <p class="message">{{ item.text }}</p>
+        @if (item.image) {
+          <img class="preview-image" [src]="item.image" alt="Feature preview" />
         }
-      </ul>
+      }
       <div class="actions">
         <button mat-button disableRipple (click)="close()" class="close-button">Close</button>
         <button mat-flat-button disableRipple (click)="dismissForever()">Don't show again</button>

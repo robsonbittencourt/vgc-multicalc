@@ -3,6 +3,11 @@ import { MatButton } from "@angular/material/button"
 
 const STORAGE_KEY = "announcementDismissed"
 
+export interface AnnouncementItem {
+  text: string
+  image?: string
+}
+
 @Component({
   selector: "app-announcement-popup",
   templateUrl: "./announcement-popup.component.html",
@@ -11,9 +16,8 @@ const STORAGE_KEY = "announcementDismissed"
 })
 export class AnnouncementPopupComponent implements OnInit {
   title = input.required<string>()
-  messages = input.required<string[]>()
+  items = input.required<AnnouncementItem[]>()
   version = input.required<string>()
-  image = input<string>()
 
   visible = signal(false)
 

@@ -27,13 +27,9 @@
   margin: 0;
 }
 
-.messages {
+.message {
   color: var(--text);
   margin: 0;
-  padding-left: 1.25em;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5em;
   line-height: 1.5;
 }
 
@@ -45,7 +41,9 @@
 }
 
 .preview-image {
-  width: 100%;
+  max-width: 100%;
+  max-height: 280px;
+  align-self: center;
   border-radius: 4px;
 }
 
