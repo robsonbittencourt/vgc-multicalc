@@ -112,10 +112,6 @@ describe("Filtered Table behaviors", () => {
       header.selectChampions()
     })
 
-    afterEach(() => {
-      header.selectSv()
-    })
-
     it("Given Champions mode, when searching 'Mega Dra', then lists Dragonite-Mega", () => {
       const build = new PokemonBuild("your-team")
       build.inputPokemonName("Mega Dra")

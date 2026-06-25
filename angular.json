@@ -50,7 +50,7 @@
             },
             "index": "src/index.html",
             "tsConfig": "tsconfig.app.json",
-            "assets": ["src/manifest.json", "src/assets", "src/robots.txt", "src/sitemap.xml", { "glob": "**/*", "input": "src/.well-known", "output": ".well-known" }],
+            "assets": ["src/manifest.json", "src/assets", "src/robots.txt", "src/sitemap.xml"],
             "styles": ["src/styles.scss", "src/themes.css"],
             "stylePreprocessorOptions": {
               "includePaths": ["src"]

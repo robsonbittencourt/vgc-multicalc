@@ -5,6 +5,7 @@ import { ChangeDetectionStrategy, Component, input } from "@angular/core"
   selector: "svg:g[app-champions-fainted-icon]",
   templateUrl: "./fainted-icon.component.html",
   host: {
+    "data-cy": "fainted-badge",
     "[class.fainted-icon]": "animate()"
   },
   changeDetection: ChangeDetectionStrategy.OnPush

@@ -252,6 +252,7 @@ export class PokemonBuild {
   }
 
   evsIs(hp: number, atk: number, def: number, spa: number, spd: number, spe: number) {
+    this.ensureEvMode()
     cy.get(`[data-cy="stat-hp"]`).find('[data-cy="ev-value"]').should("have.value", hp)
     cy.get(`[data-cy="stat-atk"]`).find('[data-cy="ev-value"]').should("have.value", atk)
     cy.get(`[data-cy="stat-def"]`).find('[data-cy="ev-value"]').should("have.value", def)
@@ -338,7 +339,20 @@ export class PokemonBuild {
   }
 
   clearEvs() {
+    this.ensureEvMode()
     this.container().find('[data-cy="clear-evs"]').click({ force: true })
+  }
+
+  ensureEvMode(): PokemonBuild {
+    cy.get('[data-cy="evs-sps-toggle"] button')
+      .first()
+      .then($toggle => {
+        if ($toggle.attr("aria-checked") === "true") {
+          cy.wrap($toggle).click({ force: true })
+        }
+      })
+
+    return this
   }
 
   optimizeBulk() {

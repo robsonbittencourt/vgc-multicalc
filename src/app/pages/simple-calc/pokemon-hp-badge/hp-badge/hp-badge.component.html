@@ -79,36 +79,38 @@
       <g app-champions-fainted-icon [animate]="shouldAnimateFainted()" transform="translate(120, 29.3)"></g>
     }
 
-    <text
-      x="360"
-      y="153"
-      text-anchor="end"
-      font-family="Arial Black, sans-serif"
-      font-weight="900"
-      font-size="45"
-      font-style="italic"
-      fill="white"
-      stroke="#0e115e"
-      stroke-width="5"
-      paint-order="stroke"
-      transform="translate(368, 153) skewX(-8) translate(-367, -153)">
-      {{ remainingHp() }}
-    </text>
-    <text
-      x="427"
-      y="153"
-      text-anchor="end"
-      font-family="Arial Black, sans-serif"
-      font-weight="900"
-      font-size="30"
-      font-style="italic"
-      fill="white"
-      stroke="#0e115e"
-      stroke-width="5"
-      paint-order="stroke"
-      transform="translate(420, 153) skewX(-8) translate(-420, -153)">
-      /{{ hpBase() }}
-    </text>
+    <g data-cy="hp-value">
+      <text
+        x="360"
+        y="153"
+        text-anchor="end"
+        font-family="Arial Black, sans-serif"
+        font-weight="900"
+        font-size="45"
+        font-style="italic"
+        fill="white"
+        stroke="#0e115e"
+        stroke-width="5"
+        paint-order="stroke"
+        transform="translate(368, 153) skewX(-8) translate(-367, -153)">
+        {{ remainingHp() }}
+      </text>
+      <text
+        x="427"
+        y="153"
+        text-anchor="end"
+        font-family="Arial Black, sans-serif"
+        font-weight="900"
+        font-size="30"
+        font-style="italic"
+        fill="white"
+        stroke="#0e115e"
+        stroke-width="5"
+        paint-order="stroke"
+        transform="translate(420, 153) skewX(-8) translate(-420, -153)">
+        /{{ hpBase() }}
+      </text>
+    </g>
 
     <image [attr.href]="spriteDataUrl()" x="16" y="28" width="120" height="120" preserveAspectRatio="xMidYMid meet" />
   </svg>

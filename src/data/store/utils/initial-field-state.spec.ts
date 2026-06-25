@@ -32,7 +32,7 @@ describe("initialFieldState", () => {
     isDefenderProtected: false
   }
 
-  afterEach(() => {
+  beforeEach(() => {
     localStorage.clear()
   })
 

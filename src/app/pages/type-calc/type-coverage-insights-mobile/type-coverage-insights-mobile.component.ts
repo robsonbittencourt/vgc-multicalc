@@ -4,6 +4,7 @@ import { WidgetComponent } from "@basic/widget/widget.component"
 import { PokemonSpriteComponent } from "@basic/pokemon-sprite/pokemon-sprite.component"
 import { TypeComboBoxComponent } from "@features/pokemon-build/type-combo-box/type-combo-box.component"
 import { CalculatorStore } from "@data/store/calculator-store"
+import { FEATURES } from "@lib/feature-flags"
 import { TypeCoverageInsightsService, PokemonInsight } from "@lib/type-coverage/type-coverage-insights.service"
 import { Pokemon } from "@lib/model/pokemon"
 import { Team } from "@lib/model/team"
@@ -18,6 +19,7 @@ import { TypeName } from "@calc"
 })
 export class TypeCoverageInsightsMobileComponent {
   store = inject(CalculatorStore)
+  features = FEATURES
   insightsService = inject(TypeCoverageInsightsService)
 
   secondTeam = input<Team | null>(null)

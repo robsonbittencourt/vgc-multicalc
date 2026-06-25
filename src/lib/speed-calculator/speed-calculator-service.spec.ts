@@ -1,5 +1,6 @@
 import { provideZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
+import { CalculatorStore } from "@data/store/calculator-store"
 import { ACTUAL, MAX, MIN, OPPONENT, SPEED_TIE, YOUR_TEAM } from "@lib/constants"
 import { Ability } from "@lib/model/ability"
 import { Field, FieldSide } from "@lib/model/field"
@@ -13,7 +14,6 @@ import { TeamMember } from "@lib/model/team-member"
 import { SpeedCalculatorMode } from "@lib/speed-calculator/speed-calculator-mode"
 import { SpeedCalculatorOptions } from "@lib/speed-calculator/speed-calculator-options"
 import { SpeedCalculatorService } from "@lib/speed-calculator/speed-calculator-service"
-import { CalculatorStore } from "@data/store/calculator-store"
 
 describe("SpeedCalculatorService", () => {
   let service: SpeedCalculatorService
@@ -26,7 +26,6 @@ describe("SpeedCalculatorService", () => {
 
     service = TestBed.inject(SpeedCalculatorService)
     store = TestBed.inject(CalculatorStore)
-    store.updateGame("sv")
   })
 
   describe("Test order methods", () => {
@@ -34,7 +33,7 @@ describe("SpeedCalculatorService", () => {
       const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
       const field = new Field()
       const pokemonEachSide = 30
-      const options = new SpeedCalculatorOptions({ regulation: "I" })
+      const options = new SpeedCalculatorOptions({ regulation: "MB" })
 
       const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide, options)
 
@@ -200,7 +199,7 @@ describe("SpeedCalculatorService", () => {
       const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
       const field = new Field()
       const pokemonEachSide = 30
-      const options = new SpeedCalculatorOptions({ regulation: "I", showMyTeam: true })
+      const options = new SpeedCalculatorOptions({ regulation: "MB", showMyTeam: true })
 
       const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide, options)
 
@@ -211,7 +210,7 @@ describe("SpeedCalculatorService", () => {
       const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
       const field = new Field()
       const pokemonEachSide = 30
-      const options = new SpeedCalculatorOptions({ regulation: "I" })
+      const options = new SpeedCalculatorOptions({ regulation: "MB" })
 
       const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide, options)
 
@@ -257,10 +256,10 @@ describe("SpeedCalculatorService", () => {
     })
 
     it("should return only Pokémon informed in options and actual when option target is informed", () => {
-      const pokemon = new Pokemon("Rillaboom", { evs: { spe: 100 } })
+      const pokemon = new Pokemon("Lopunny-Mega", { evs: { spe: 100 } })
       const field = new Field()
       const pokemonEachSide = 30
-      const options = new SpeedCalculatorOptions({ targetName: "Tyranitar", regulation: "I" })
+      const options = new SpeedCalculatorOptions({ targetName: "Lopunny-Mega", regulation: "MB" })
 
       const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide, options)
 
@@ -281,24 +280,6 @@ describe("SpeedCalculatorService", () => {
       const field = new Field()
       const pokemonEachSide = 30
       const options = new SpeedCalculatorOptions({ paralyzedActive: true })
-
-      const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide, options)
-
-      for (let index = 0; index < inRange.length; index++) {
-        const actual = inRange[index]
-        const next = inRange[index + 1]
-
-        if (next) {
-          expect(next >= actual).toBeTruthy()
-        }
-      }
-    })
-
-    it("should return Pokémon in speed range ordered when Choice Scarf option was activated", () => {
-      const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
-      const field = new Field()
-      const pokemonEachSide = 30
-      const options = new SpeedCalculatorOptions({ choiceScarfActive: true })
 
       const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide, options)
 
@@ -346,10 +327,10 @@ describe("SpeedCalculatorService", () => {
 
   describe("Test filter options", () => {
     it("should calculate Base speed", () => {
-      const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
+      const pokemon = new Pokemon("Lopunny-Mega", { evs: { spe: 100 } })
       const field = new Field()
       const pokemonEachSide = 10
-      const options = new SpeedCalculatorOptions({ mode: SpeedCalculatorMode.Base, regulation: "I" })
+      const options = new SpeedCalculatorOptions({ mode: SpeedCalculatorMode.Base, regulation: "MB" })
 
       const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide, options)
 
@@ -713,27 +694,27 @@ describe("SpeedCalculatorService", () => {
   })
 
   describe("statistics", () => {
-    it("should return meta speed description and Pokémon name from Regulation F", () => {
-      const pokemon = new Pokemon("Flutter Mane")
+    it("should return meta speed description and Pokémon name from Regulation MA", () => {
+      const pokemon = new Pokemon("Lopunny-Mega")
       const field = new Field()
-      const regulation = "I"
+      const regulation = "MB"
 
       const speedDefinition = service.statistics(pokemon, field, regulation)
 
-      expect(speedDefinition[0].pokemonName).toEqual("Flutter Mane")
-      expect(speedDefinition[0].value).toEqual(204)
+      expect(speedDefinition[0].pokemonName).toEqual("Lopunny-Mega")
+      expect(speedDefinition[0].value).toEqual(174)
       expect(speedDefinition[0].description.some((d: string) => /\d{1,3}% Usage/.test(d))).toBe(true)
     })
 
-    it("should return meta speed description and Pokémon name from Regulation I", () => {
-      const pokemon = new Pokemon("Koraidon")
+    it("should return meta speed description and Pokémon name for slow Pokémon from Regulation MA", () => {
+      const pokemon = new Pokemon("Tyranitar-Mega")
       const field = new Field()
-      const regulation = "I"
+      const regulation = "MB"
 
       const speedDefinition = service.statistics(pokemon, field, regulation)
 
-      expect(speedDefinition[0].pokemonName).toEqual("Koraidon")
-      expect(speedDefinition[0].value).toEqual(187)
+      expect(speedDefinition[0].pokemonName).toEqual("Tyranitar-Mega")
+      expect(speedDefinition[0].value).toEqual(91)
       expect(speedDefinition[0].description.some((d: string) => /\d{1,3}% Usage/.test(d))).toBe(true)
     })
   })

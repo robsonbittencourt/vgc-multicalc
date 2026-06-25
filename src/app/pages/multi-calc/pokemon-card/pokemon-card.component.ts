@@ -1,4 +1,3 @@
-import { SpriteService } from "@data/sprite.service"
 import { CdkDrag, CdkDragEnd, CdkDragHandle, CdkDragMove, CdkDragPlaceholder, CdkDragStart } from "@angular/cdk/drag-drop"
 import { Component, computed, inject, input, model, output } from "@angular/core"
 import { MatIcon } from "@angular/material/icon"
@@ -14,37 +13,24 @@ import { TatsugiriButtonComponent } from "@features/buttons/tatsugiri-button/tat
 import { TerastalButtonComponent } from "@features/buttons/terastal-button/terastal-button.component"
 import { MegaStoneService } from "@features/pokemon-build/utils/mega-stone.service"
 import { DamageResult } from "@lib/damage-calculator/damage-result"
+import { FEATURES } from "@lib/feature-flags"
 import { Pokemon } from "@lib/model/pokemon"
 import { RollLevelConfig } from "@lib/damage-calculator/roll-level-config"
 import { Target } from "@lib/model/target"
-import { ChampionsHpBadgeComponent } from "@pages/simple-calc/pokemon-hp-badge/champions-hp-badge/champions-hp-badge.component"
-import { PokemonHpBadgeComponent } from "@pages/simple-calc/pokemon-hp-badge/pokemon-hp-badge.component"
+import { HpBadgeComponent } from "@pages/simple-calc/pokemon-hp-badge/hp-badge/hp-badge.component"
 
 @Component({
   selector: "app-pokemon-card",
   templateUrl: "./pokemon-card.component.html",
   styleUrls: ["./pokemon-card.component.scss"],
-  imports: [
-    CdkDrag,
-    CdkDragPlaceholder,
-    CdkDragHandle,
-    MatIcon,
-    MatTooltip,
-    TatsugiriButtonComponent,
-    TerastalButtonComponent,
-    AegislashButtonComponent,
-    BoosterEnergyButtonComponent,
-    PokemonHpBadgeComponent,
-    ChampionsHpBadgeComponent,
-    CopyButtonComponent,
-    PokemonSpriteComponent
-  ]
+  imports: [CdkDrag, CdkDragPlaceholder, CdkDragHandle, MatIcon, MatTooltip, TatsugiriButtonComponent, TerastalButtonComponent, AegislashButtonComponent, BoosterEnergyButtonComponent, HpBadgeComponent, CopyButtonComponent, PokemonSpriteComponent]
 })
 export class PokemonCardComponent {
-  spriteService = inject(SpriteService)
   store = inject(CalculatorStore)
   menuStore = inject(MenuStore)
   megaStoneService = inject(MegaStoneService)
+
+  features = FEATURES
 
   damageResult = input.required<DamageResult>()
   target = input<Target | undefined>(undefined)

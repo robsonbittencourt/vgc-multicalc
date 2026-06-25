@@ -1,17 +1,17 @@
 import { Component, computed, effect, ElementRef, input, signal, viewChild } from "@angular/core"
 import { Items } from "@data/items"
 import { Status } from "@lib/model/status"
-import { FaintedIconComponent } from "@pages/simple-calc/pokemon-hp-badge/champions-hp-badge/fainted-icon/fainted-icon.component"
-import { StatusIconComponent } from "@pages/simple-calc/pokemon-hp-badge/champions-hp-badge/status-icon/status-icon.component"
+import { FaintedIconComponent } from "@pages/simple-calc/pokemon-hp-badge/hp-badge/fainted-icon/fainted-icon.component"
+import { StatusIconComponent } from "@pages/simple-calc/pokemon-hp-badge/hp-badge/status-icon/status-icon.component"
 import { uuid } from "@lib/utils/uuid"
 
 @Component({
-  selector: "app-champions-hp-badge",
-  templateUrl: "./champions-hp-badge.component.html",
-  styleUrls: ["./champions-hp-badge.component.scss"],
+  selector: "app-hp-badge",
+  templateUrl: "./hp-badge.component.html",
+  styleUrls: ["./hp-badge.component.scss"],
   imports: [StatusIconComponent, FaintedIconComponent]
 })
-export class ChampionsHpBadgeComponent {
+export class HpBadgeComponent {
   static imageCache = new Map<string, string>()
 
   readonly uid = uuid()
@@ -91,14 +91,14 @@ export class ChampionsHpBadgeComponent {
     if (this.spriteName() != this._actualSpriteName) {
       this._actualSpriteName = this.spriteName()
 
-      const cached = ChampionsHpBadgeComponent.imageCache.get(this.spriteName())
+      const cached = HpBadgeComponent.imageCache.get(this.spriteName())
 
       if (cached) {
         this.spriteDataUrl.set(cached)
       } else {
         const src = this.pokemonImage()!.nativeElement.src
         this.spriteDataUrl.set(src)
-        ChampionsHpBadgeComponent.imageCache.set(this.spriteName(), src)
+        HpBadgeComponent.imageCache.set(this.spriteName(), src)
       }
     }
   }

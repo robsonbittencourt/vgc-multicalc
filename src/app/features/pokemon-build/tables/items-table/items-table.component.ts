@@ -1,8 +1,7 @@
 import { Component, computed, inject, input, output } from "@angular/core"
 import { ITEM_DETAILS, ItemDetail } from "@data/item-details"
-import { AVAILABLE_ITEMS } from "@data/available-items"
+import { availableItemNames } from "@data/available-items"
 import { POKEMON_DETAILS } from "@data/pokemon-details"
-import { POKEMON_DETAILS_CHAMPIONS } from "@data/pokemon-details-champions"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { FilterableTableComponent } from "@features/pokemon-build//tables/filterable-table/filterable-table.component"
 import { ColumnConfig, TableData } from "@features/pokemon-build/tables/filterable-table/filtered-table-types"
@@ -53,14 +52,13 @@ export class ItemsTableComponent {
   ]
 
   groupItemsByGroup(): TableData<ItemDetail>[] {
-    const game = this.store.game()
     const currentPokemon = this.pokemon()
     const pokemonDetails = this.getPokemonDetails(currentPokemon.name)
     const metaItems = pokemonDetails?.metaItems || []
 
-    const availableItemNames = AVAILABLE_ITEMS[game]
+    const availableNames = availableItemNames()
     const allItems = Object.entries(ITEM_DETAILS)
-      .filter(([key]) => availableItemNames.includes(key))
+      .filter(([key]) => availableNames.includes(key))
       .map(([, value]) => value)
 
     const metaItemSet = new Set(metaItems.map(item => item.toLowerCase().replace(/[^a-z0-9]/g, "")))
@@ -98,7 +96,7 @@ export class ItemsTableComponent {
   }
 
   private getPokemonDetails(pokemonName: string) {
-    const details = this.store.game() === "champions" ? POKEMON_DETAILS_CHAMPIONS : POKEMON_DETAILS
+    const details = POKEMON_DETAILS
     return Object.values(details).find(p => p.name === pokemonName)
   }
 

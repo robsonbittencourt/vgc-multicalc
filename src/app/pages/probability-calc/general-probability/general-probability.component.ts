@@ -1,7 +1,6 @@
-import { Component, inject } from "@angular/core"
+import { Component } from "@angular/core"
 import { WidgetComponent } from "@app/basic/widget/widget.component"
 import { ProbabilityCardComponent } from "./probability-card/probability-card.component"
-import { CalculatorStore } from "@data/store/calculator-store"
 
 @Component({
   selector: "app-general-probability",
@@ -10,9 +9,6 @@ import { CalculatorStore } from "@data/store/calculator-store"
   styleUrl: "./general-probability.component.scss"
 })
 export class GeneralProbabilityComponent {
-  private calculatorStore = inject(CalculatorStore)
-  isChampions = this.calculatorStore.isChampions
-
   criticalHitCard = {
     title: "Critical hit",
     headers: ["Turns", "One of your", "One of opponent", "One of four"],
@@ -38,17 +34,7 @@ export class GeneralProbabilityComponent {
     ]
   }
 
-  turnsToSleepCardSV = {
-    title: "Turns to sleep",
-    headers: ["Turns", "Chance"],
-    rows: [
-      ["1 turn", "33%"],
-      ["2 turns", "33%"],
-      ["3 turns", "33%"]
-    ]
-  }
-
-  turnsToSleepCardChampions = {
+  turnsToSleepCard = {
     title: "Turns to sleep",
     headers: ["Turns", "Chance"],
     rows: [
@@ -58,18 +44,7 @@ export class GeneralProbabilityComponent {
     ]
   }
 
-  wakeUpFromSleepCardSV = {
-    title: "Wake up from sleep",
-    headers: ["Condition", "Chance to wake up"],
-    rows: [
-      ["If is turn 1 after sleep", "0%"],
-      ["If is turn 2 after sleep", "33%"],
-      ["If is turn 3 after sleep", "50%"],
-      ["If is turn 4 after sleep", "100%"]
-    ]
-  }
-
-  wakeUpFromSleepCardChampions = {
+  wakeUpFromSleepCard = {
     title: "Wake up from sleep",
     headers: ["Condition", "Chance to wake up"],
     rows: [
@@ -79,19 +54,7 @@ export class GeneralProbabilityComponent {
     ]
   }
 
-  fullyParalyzedCardSV = {
-    title: "Fully paralyzed",
-    headers: ["Turns", "1x", "2x", "3x", "4x", "5x"],
-    rows: [
-      ["1", "25%", "-", "-", "-", "-"],
-      ["2", "44%", "6%", "-", "-", "-"],
-      ["3", "58%", "14%", "2%", "-", "-"],
-      ["4", "68%", "21%", "5%", "0.39%", "-"],
-      ["5", "76%", "26%", "9%", "1.5%", "0.10%"]
-    ]
-  }
-
-  fullyParalyzedCardChampions = {
+  fullyParalyzedCard = {
     title: "Fully paralyzed",
     headers: ["Turns", "1x", "2x", "3x", "4x", "5x"],
     rows: [
@@ -103,19 +66,7 @@ export class GeneralProbabilityComponent {
     ]
   }
 
-  freezeCardSV = {
-    title: "Freeze",
-    headers: ["Duration", "Chance to thaw", "Chance to freeze"],
-    rows: [
-      ["1 turn", "20%", "80%"],
-      ["2 turns", "36%", "64%"],
-      ["3 turns", "49%", "51%"],
-      ["4 turns", "59%", "41%"],
-      ["5 turns", "67%", "33%"]
-    ]
-  }
-
-  freezeCardChampions = {
+  freezeCard = {
     title: "Freeze",
     headers: ["Duration", "Chance to thaw", "Chance to freeze"],
     rows: [

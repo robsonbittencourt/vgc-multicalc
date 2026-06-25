@@ -1,6 +1,6 @@
 import { provideZonelessChangeDetection, signal } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
-import { SETDEX_SV } from "@data/movesets"
+import { SETDEX_CHAMPIONS } from "@data/movesets-champions"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { SpeedCalcOptionsStore } from "@data/store/speed-calc-options-store"
 import { Pokemon } from "@lib/model/pokemon"
@@ -17,9 +17,7 @@ describe("Speed Calc Options Store", () => {
         {
           provide: CalculatorStore,
           useValue: {
-            game: signal("sv"),
-            activeSetdex: signal(SETDEX_SV),
-            isChampions: signal(false),
+            activeSetdex: SETDEX_CHAMPIONS,
             teams: signal([
               { id: "team-1", name: "My Team", teamMembers: [{ pokemon: new Pokemon("Incineroar") }, { pokemon: new Pokemon("Rillaboom") }] },
               { id: "team-2", name: "Single Team", teamMembers: [{ pokemon: new Pokemon("Incineroar") }] },
@@ -42,24 +40,23 @@ describe("Speed Calc Options Store", () => {
 
       const options = store.options()
 
-      expect(options.regulation).toBe("I")
+      expect(options.regulation).toBe("MB")
       expect(options.targetName).toBe("Pikachu")
       expect(options.speedModifier).toBe(-1)
       expect(options.speedDropActive).toBe(true)
       expect(options.paralyzedActive).toBe(true)
-      expect(options.choiceScarfActive).toBe(false)
     })
 
     it("should return Pokémon by Regulation", () => {
-      store.updateRegulation("I")
+      store.updateRegulation("MB")
 
       const pokemonList = store.pokemonNamesByReg()
 
-      expect(pokemonList.includes("Kyogre")).toBe(true)
+      expect(pokemonList.includes("Kommo-o")).toBe(true)
     })
 
     it("should order Pokémon of Regulation", () => {
-      store.updateRegulation("I")
+      store.updateRegulation("MB")
 
       const pokemonList = store.pokemonNamesByReg()
 
@@ -114,19 +111,6 @@ describe("Speed Calc Options Store", () => {
       expect(store.paralyzedActive()).toBe(false)
     })
 
-    it("should change Choice Scarf Active to true when enabled", () => {
-      store.toggleChoiceScarf(true)
-
-      expect(store.choiceScarfActive()).toBe(true)
-    })
-
-    it("should change Choice Scarf Active to false when disabled", () => {
-      store.toggleChoiceScarf(true)
-      store.toggleChoiceScarf(false)
-
-      expect(store.choiceScarfActive()).toBe(false)
-    })
-
     it("should update Speed Modifier when it is changed", () => {
       store.updateSpeedModifier(5)
 
@@ -134,9 +118,9 @@ describe("Speed Calc Options Store", () => {
     })
 
     it("should update Regulation when it is changed", () => {
-      store.updateRegulation("I")
+      store.updateRegulation("MB")
 
-      expect(store.regulation()).toBe("I")
+      expect(store.regulation()).toBe("MB")
     })
 
     it("should update Top Usage when it is changed", () => {
@@ -153,7 +137,7 @@ describe("Speed Calc Options Store", () => {
 
     it("should clear Target Name when Regulation is updated", () => {
       store.updateTargetName("Kyogre")
-      store.updateRegulation("I")
+      store.updateRegulation("MB")
 
       expect(store.targetName()).toBe("")
     })

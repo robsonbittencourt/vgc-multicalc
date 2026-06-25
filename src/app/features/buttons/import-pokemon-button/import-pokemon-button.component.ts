@@ -3,8 +3,7 @@ import { Component, inject, input, output } from "@angular/core"
 import { MatButton } from "@angular/material/button"
 import { MatDialog } from "@angular/material/dialog"
 import { MatIcon } from "@angular/material/icon"
-import { AVAILABLE_ITEMS } from "@data/available-items"
-import { POKEMON_DETAILS } from "@data/pokemon-details"
+import { availableItemNames } from "@data/available-items"
 import { POKEMON_DETAILS_CHAMPIONS } from "@data/pokemon-details-champions"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { toPokemon } from "@data/regulation-pokemon"
@@ -46,30 +45,30 @@ export class ImportPokemonButtonComponent {
     })
 
     dialogRef.afterClosed().subscribe(async result => {
-      if (!result) return
+      if (!result?.content) return
 
       try {
-        await this.handleImport(result)
+        await this.handleImport(result.content, result.useSpsMode)
       } catch {
         this.snackBar.open("Could not import the Pokémon")
       }
     })
   }
 
-  private async handleImport(result: string) {
-    const { name: teamName, pokemon: parsedList } = await this.pokePasteService.parseTeam(result)
+  private async handleImport(content: string, useSpsMode: boolean) {
+    const { name: teamName, pokemon: parsedList } = await this.pokePasteService.parseTeam(content, useSpsMode)
     const processedList = parsedList.map(p => {
       const allZero = Object.values(p.evs).every(ev => ev === 0)
 
       if (allZero) {
-        const pokeMetaData = toPokemon(p.name, this.store.activeSetdex(), this.store.isChampions())
+        const pokeMetaData = toPokemon(p.name, this.store.activeSetdex)
         return p.clone({ nature: pokeMetaData.nature, evs: pokeMetaData.evs })
       }
 
       return p
     })
 
-    const validSetdex = this.store.activeSetdex()
+    const validSetdex = this.store.activeSetdex
     const validList = processedList.filter(p => p.name in validSetdex)
     const removedCount = processedList.length - validList.length
 
@@ -78,8 +77,8 @@ export class ImportPokemonButtonComponent {
       return
     }
 
-    const activeDetails = this.store.isChampions() ? POKEMON_DETAILS_CHAMPIONS : POKEMON_DETAILS
-    const validItemsForMode = this.store.isChampions() ? AVAILABLE_ITEMS["champions"] : AVAILABLE_ITEMS["sv"]
+    const activeDetails = POKEMON_DETAILS_CHAMPIONS
+    const validItemsForMode = availableItemNames()
     const validatedList: { pokemon: Pokemon; hadInvalidMoves: boolean; hadInvalidItem: boolean }[] = validList.map(p => this.validateAndClean(p, activeDetails, validItemsForMode))
 
     const hadInvalidMoves = validatedList.some(v => v.hadInvalidMoves)

@@ -112,11 +112,24 @@ before(() => {
   })
 })
 
+const allFeaturesEnabled = {
+  teraType: true,
+  battery: true,
+  powerSpot: true,
+  tabletsOfRuin: true,
+  swordOfRuin: true,
+  vesselOfRuin: true,
+  beadsOfRuin: true,
+  neutralizingGas: true,
+  allowAllPokes: true,
+  allItems: true
+}
+
 beforeEach(() => {
   cy.visit("http://localhost:4200/", {
     onBeforeLoad(win) {
-      win.localStorage.setItem("gameOverride", "sv")
       win.localStorage.setItem("announcementBypass", "true")
+      win.localStorage.setItem("featureFlags", JSON.stringify(allFeaturesEnabled))
     }
   })
 })

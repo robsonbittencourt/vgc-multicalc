@@ -32,11 +32,9 @@ export class SpeedCalculatorComponent {
   pokemonOnEdit = computed(() => this.store.findPokemonById(this.pokemonId()))
 
   isPokemonDefault = computed(() => this.store.team().activePokemon().isDefault)
-  isChampions = computed(() => this.store.game() === "champions")
 
   lastHandledPokemonName = "\0"
   lastHandledAbilityName = "\0"
-  lastHandledGame = ""
 
   constructor() {
     effect(() => {
@@ -47,15 +45,6 @@ export class SpeedCalculatorComponent {
         this.lastHandledAbilityName = this.pokemonOnEdit().ability.name
 
         this.automaticFieldService.checkAutomaticField(this.pokemonOnEdit())
-      }
-    })
-
-    effect(() => {
-      const game = this.store.game()
-
-      if (game !== this.lastHandledGame) {
-        this.lastHandledGame = game
-        this.selectedPokemon.set(this.store.team().activePokemon())
       }
     })
   }

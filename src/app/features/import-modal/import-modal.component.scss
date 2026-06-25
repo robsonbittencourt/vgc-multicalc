@@ -4,3 +4,10 @@
   padding-left: 0.5em;
   background-color: var(--widget-background);
 }
+
+.import-sps-toggle {
+  margin-right: auto;
+  padding: 0.25em 0.75em;
+  border-radius: 2em;
+  background-color: light-dark(transparent, var(--widget-background));
+}

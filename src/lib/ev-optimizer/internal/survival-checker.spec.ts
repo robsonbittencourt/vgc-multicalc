@@ -18,13 +18,7 @@ describe("SurvivalChecker", () => {
     adjusterSpy = { adjust: vi.fn() } as unknown as MockOf<CalcAdjuster>
 
     TestBed.configureTestingModule({
-      providers: [
-        SurvivalChecker,
-        DamageCalculatorService,
-        { provide: CALC_ADJUSTERS, useValue: adjusterSpy, multi: true },
-        { provide: CalculatorStore, useValue: { useSpsMode: () => false, isChampions: () => false } },
-        provideZonelessChangeDetection()
-      ]
+      providers: [SurvivalChecker, DamageCalculatorService, { provide: CALC_ADJUSTERS, useValue: adjusterSpy, multi: true }, { provide: CalculatorStore, useValue: { useSpsMode: () => false } }, provideZonelessChangeDetection()]
     })
 
     service = TestBed.inject(SurvivalChecker)
