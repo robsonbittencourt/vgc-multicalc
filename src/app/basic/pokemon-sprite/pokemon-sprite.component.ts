@@ -1,6 +1,5 @@
 import { afterNextRender, Component, computed, effect, inject, signal, input } from "@angular/core"
 import { SpriteService } from "@data/sprite.service"
-import { CalculatorStore } from "@data/store/calculator-store"
 import { NetworkStatusService } from "@lib/network-status.service"
 
 @Component({
@@ -12,13 +11,12 @@ import { NetworkStatusService } from "@lib/network-status.service"
 export class PokemonSpriteComponent {
   private spriteService = inject(SpriteService)
   private networkStatus = inject(NetworkStatusService)
-  private store = inject(CalculatorStore)
 
   name = input.required<string>()
   hideFallback = input<boolean>(false)
 
   src = computed(() => this.spriteService.path(this.name()))
-  intrinsicSize = computed(() => (this.store.isChampions() ? 128 : 256))
+  intrinsicSize = 128
   showFallback = signal(false)
 
   private hydrated = signal(false)
@@ -40,5 +38,9 @@ export class PokemonSpriteComponent {
         this.showFallback.set(!cached)
       })
     })
+  }
+
+  onError() {
+    this.showFallback.set(true)
   }
 }

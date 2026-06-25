@@ -21,6 +21,6 @@ export class ExportPokemonButtonComponent {
   private exportPokeService = inject(ExportPokeService)
 
   exportPokemon() {
-    this.exportPokeService.export(this.pokemon().name, this.pokemon(), this.store.isChampions() && this.store.useSpsMode())
+    this.exportPokeService.export(this.pokemon().name, this.pokemon(), this.store.useSpsMode())
   }
 }

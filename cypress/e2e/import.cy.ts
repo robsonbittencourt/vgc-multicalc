@@ -337,19 +337,19 @@ describe("Import Pokepaste", () => {
 
 describe("Import from Meta", () => {
   it("should import most usage Pokémon from Meta", () => {
-    opponent.lengthIs(10)
+    opponent.lengthIs(9)
 
     opponent.addMeta()
 
-    opponent.lengthIs(70)
+    opponent.lengthIs(69)
   })
 
   it("should delete Pokémon from Meta and keep the previously existing one", () => {
-    opponent.lengthIs(10)
+    opponent.lengthIs(9)
 
     opponent.addMeta()
     opponent.addMeta()
 
-    opponent.lengthIs(10)
+    opponent.lengthIs(9)
   })
 })

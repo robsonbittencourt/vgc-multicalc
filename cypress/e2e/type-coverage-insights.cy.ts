@@ -43,19 +43,19 @@ describe("Type Coverage Insights", () => {
       team.importPokemon(poke["tyranitar"])
 
       insights.verifyOffensiveSuperEffectiveCount2x(0, "Tyranitar", 13)
-      insights.verifyOffensiveSuperEffectiveCount2x(1, "Koraidon", 7)
+      insights.verifyOffensiveSuperEffectiveCount2x(1, "Charizard", 7)
     })
 
     it("should display not very effective Pokémon when available", () => {
       team.importPokemon(poke["tyranitar"])
 
-      insights.verifyOffensiveNotVeryEffectiveCount(0, "Rillaboom", 1)
+      insights.verifyOffensiveNotVeryEffectiveCount(0, "Venusaur", 2)
     })
 
     it("should display most super effective type when not against team", () => {
       team.importPokemon(poke["tyranitar"])
 
-      insights.verifySummarySuperEffectiveCount(3, "Grass")
+      insights.verifySummarySuperEffectiveCount(5, "Grass")
     })
 
     it("should display most not very effective type when not against team", () => {
@@ -72,7 +72,7 @@ describe("Type Coverage Insights", () => {
     it("should display positive defensive Pokémon when available", () => {
       team.importPokemon(poke["tyranitar"])
 
-      insights.verifyDefensiveResistCount(0, "Koraidon", 7)
+      insights.verifyDefensiveResistCount(0, "Charizard", 6)
       insights.verifyDefensiveImmuneCount(1, "Incineroar", 1)
       insights.verifyDefensiveResistCount(1, "Incineroar", 6)
     })
@@ -84,9 +84,8 @@ describe("Type Coverage Insights", () => {
       insights.verifyDefensiveWeakCount4x(0, "Tyranitar", 1)
       insights.verifyDefensiveWeaknessesCoveredByTera(0, "Tyranitar", 7)
 
-      insights.verifyDefensiveWeakCount2x(1, "Koraidon", 4)
-      insights.verifyDefensiveWeakCount4x(1, "Koraidon", 1)
-      insights.verifyDefensiveWeaknessesCoveredByTera(1, "Koraidon", 5)
+      insights.verifyDefensiveWeakCount2x(1, "Dragonite", 3)
+      insights.verifyDefensiveWeakCount4x(1, "Dragonite", 1)
     })
 
     it("should display most resistance type when not against team", () => {
@@ -98,7 +97,7 @@ describe("Type Coverage Insights", () => {
     it("should display most weakness type when not against team", () => {
       team.importPokemon(poke["tyranitar"])
 
-      insights.verifySummaryWeaknessCount(3, "Ice")
+      insights.verifySummaryWeaknessCount(3, "Water")
     })
   })
 
@@ -123,7 +122,7 @@ describe("Type Coverage Insights", () => {
 
       team.selectSecondTeam("Team 1")
 
-      insights.verifyOffensiveSuperEffectiveCount2x(0, "Tyranitar", 4)
+      insights.verifyOffensiveSuperEffectiveCount2x(0, "Tyranitar", 2)
       insights.verifyDefensiveResistCount(0, "Tyranitar", 1)
     })
 

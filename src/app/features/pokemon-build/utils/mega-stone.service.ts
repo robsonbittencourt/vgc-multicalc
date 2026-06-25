@@ -106,7 +106,7 @@ export class MegaStoneService {
   }
 
   private getAbilityFromMoveset(pokemonName: string): string | null {
-    const setdex = this.store.activeSetdex()
+    const setdex = this.store.activeSetdex
 
     for (const dexKey in setdex) {
       if (dexKey === pokemonName) {

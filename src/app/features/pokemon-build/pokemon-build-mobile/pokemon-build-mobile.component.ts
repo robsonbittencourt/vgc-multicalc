@@ -1,5 +1,5 @@
 import { NgClass } from "@angular/common"
-import { Component, computed, effect, inject, input, output, signal } from "@angular/core"
+import { Component, computed, inject, input, output, signal } from "@angular/core"
 import { FormsModule } from "@angular/forms"
 import { MatButton } from "@angular/material/button"
 import { MatCheckbox } from "@angular/material/checkbox"
@@ -20,6 +20,7 @@ import { StatusComboBoxComponent } from "@features/pokemon-build/status-combo-bo
 import { TeraComboBoxComponent } from "@features/pokemon-build/tera-combo-box/tera-combo-box.component"
 import { TypeComboBoxComponent } from "@features/pokemon-build/type-combo-box/type-combo-box.component"
 import { MegaStoneService } from "@features/pokemon-build/utils/mega-stone.service"
+import { FEATURES } from "@lib/feature-flags"
 import { Pokemon } from "@lib/model/pokemon"
 import { getFinalAttack, getFinalSpecialAttack } from "@lib/smogon/stat-calculator/atk-spa/modified-atk-spa"
 import { getFinalDefense, getFinalSpecialDefense } from "@lib/smogon/stat-calculator/def-spd/modified-def-spd"
@@ -49,6 +50,8 @@ import { Stats } from "@lib/types"
   ]
 })
 export class PokemonBuildMobileComponent {
+  features = FEATURES
+
   pokemonId = input.required<string>()
   realPokemonId = input<string | null>(null)
   optimizationStatus = input<"idle" | "success" | "no-solution" | "not-needed">("idle")
@@ -71,11 +74,10 @@ export class PokemonBuildMobileComponent {
   fieldStore = inject(FieldStore)
   megaStoneService = inject(MegaStoneService)
 
-  isChampions = computed(() => this.store.isChampions)
-  showEvsSpsToggle = signal(false)
-  MAX_EVS = computed(() => (this.isChampions() ? 66 : 508))
+  showEvsSpsToggle = signal(true)
+  MAX_EVS = 66
   evLabel = computed(() => {
-    if (this.store.isChampions() && this.store.useSpsMode()) {
+    if (this.store.useSpsMode()) {
       return "SPs"
     }
     return "EVs"
@@ -83,16 +85,14 @@ export class PokemonBuildMobileComponent {
   remainingLabel = computed(() => "Remaining")
   remainingPoints = computed(() => {
     const pokemon = this.pokemon()
-    if (this.store.isChampions()) {
-      const currentSps = totalSpsFromEvs(pokemon.evs)
-      const remainingSps = 66 - currentSps
-      if (this.store.useSpsMode()) {
-        return remainingSps
-      } else {
-        return spToEv(remainingSps)
-      }
+    const currentSps = totalSpsFromEvs(pokemon.evs)
+    const remainingSps = 66 - currentSps
+
+    if (this.store.useSpsMode()) {
+      return remainingSps
+    } else {
+      return spToEv(remainingSps)
     }
-    return 508 - pokemon.totalEvs
   })
 
   thresholdOptions: KeyValuePair[] = [
@@ -100,12 +100,6 @@ export class PokemonBuildMobileComponent {
     { key: "3HKO", value: "3" },
     { key: "4HKO", value: "4" }
   ]
-
-  constructor() {
-    effect(() => {
-      this.showEvsSpsToggle.set(this.store.isChampions())
-    })
-  }
 
   updateNature = true
   keepOffensiveEvs = true

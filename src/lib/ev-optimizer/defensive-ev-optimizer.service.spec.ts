@@ -21,13 +21,7 @@ describe("DefensiveEvOptimizerService", () => {
     adjusterSpy = { adjust: vi.fn() } as unknown as MockOf<CalcAdjuster>
 
     TestBed.configureTestingModule({
-      providers: [
-        DefensiveEvOptimizerService,
-        DamageCalculatorService,
-        { provide: CALC_ADJUSTERS, useValue: adjusterSpy, multi: true },
-        { provide: CalculatorStore, useValue: { useSpsMode: () => false, isChampions: () => false } },
-        provideZonelessChangeDetection()
-      ]
+      providers: [DefensiveEvOptimizerService, DamageCalculatorService, { provide: CALC_ADJUSTERS, useValue: adjusterSpy, multi: true }, { provide: CalculatorStore, useValue: { useSpsMode: () => false } }, provideZonelessChangeDetection()]
     })
 
     service = TestBed.inject(DefensiveEvOptimizerService)

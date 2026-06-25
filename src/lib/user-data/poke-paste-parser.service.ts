@@ -13,26 +13,26 @@ import { spToEv } from "@lib/utils/ev-sp-converter"
 export class PokePasteParserService {
   private store = inject(CalculatorStore)
 
-  async parse(input: string): Promise<Pokemon[]> {
-    const { pokemon } = await this.parseTeam(input)
+  async parse(input: string, useSpsMode = true): Promise<Pokemon[]> {
+    const { pokemon } = await this.parseTeam(input, useSpsMode)
 
     return pokemon
   }
 
-  async parseTeam(input: string): Promise<{ name: string; pokemon: Pokemon[] }> {
+  async parseTeam(input: string, useSpsMode = true): Promise<{ name: string; pokemon: Pokemon[] }> {
     if (input.startsWith("http") && input.includes("vrpastes.com")) {
       return await this.parseFromVrPaste(input)
     } else if (input.startsWith("http")) {
-      return await this.parseFromPokePaste(input)
+      return await this.parseFromPokePaste(input, useSpsMode)
     } else {
-      return this.parseFromText(input)
+      return this.parseFromText(input, useSpsMode)
     }
   }
 
-  private async parseFromPokePaste(pokePasteLink: string): Promise<{ name: string; pokemon: Pokemon[] }> {
+  private async parseFromPokePaste(pokePasteLink: string, useSpsMode: boolean): Promise<{ name: string; pokemon: Pokemon[] }> {
     const res = await fetch(`${pokePasteLink}/json`)
     const data = await res.json()
-    const parsed = await this.parseFromText(data.paste)
+    const parsed = await this.parseFromText(data.paste, useSpsMode)
 
     return { name: data.title || parsed.name, pokemon: parsed.pokemon }
   }
@@ -55,7 +55,7 @@ export class PokePasteParserService {
     return { name: data.title || "", pokemon }
   }
 
-  private async parseFromText(teamInTextFormat: string): Promise<{ name: string; pokemon: Pokemon[] }> {
+  private async parseFromText(teamInTextFormat: string, useSpsMode: boolean): Promise<{ name: string; pokemon: Pokemon[] }> {
     const { Koffing } = await import("koffing")
     const parsedTeam = Koffing.parse(teamInTextFormat)
     const team = JSON.parse(parsedTeam.toJson()).teams[0]
@@ -64,14 +64,10 @@ export class PokePasteParserService {
 
     const pokemon = pokemonList.map((poke: any) => {
       const name = this.adjustName(poke.name)
-      const ivs = this.store.isChampions()
-        ? { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 }
-        : { hp: poke.ivs?.hp ?? 31, atk: poke.ivs?.atk ?? 31, def: poke.ivs?.def ?? 31, spa: poke.ivs?.spa ?? 31, spd: poke.ivs?.spd ?? 31, spe: poke.ivs?.spe ?? 31 }
+      const ivs = { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 }
       let evs = { hp: poke.evs?.hp ?? 0, atk: poke.evs?.atk ?? 0, def: poke.evs?.def ?? 0, spa: poke.evs?.spa ?? 0, spd: poke.evs?.spd ?? 0, spe: poke.evs?.spe ?? 0 }
 
-      const totalEvs = evs.hp + evs.atk + evs.def + evs.spa + evs.spd + evs.spe
-
-      if (this.store.isChampions() && totalEvs <= 66) {
+      if (useSpsMode) {
         evs = { hp: spToEv(evs.hp), atk: spToEv(evs.atk), def: spToEv(evs.def), spa: spToEv(evs.spa), spd: spToEv(evs.spd), spe: spToEv(evs.spe) }
       }
 
@@ -89,7 +85,7 @@ export class PokePasteParserService {
       const onlyName = pokemonName.substring(0, pokemonName.indexOf("-"))
 
       if (this.pokemonWithAlternativeForm().includes(onlyName)) {
-        const setdex = this.store.activeSetdex()
+        const setdex = this.store.activeSetdex
         const fullNameExists = setdex[pokemonName]
         if (fullNameExists) {
           return pokemonName

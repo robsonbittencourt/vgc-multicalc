@@ -12,15 +12,9 @@
             >Base: <b>{{ base() }}</b></span
           >
           @if (isTrSpeed()) {
-            @if (isChampions()) {
-              <span
-                >Negative Nature, {{ minSpLabel() }}: <b>{{ minWithNegativeNature() }}</b></span
-              >
-            } @else {
-              <span
-                >Negative Nature, {{ minSpLabel() }}, IV 0: <b>{{ minWithIvZero() }}</b></span
-              >
-            }
+            <span
+              >Negative Nature, {{ minSpLabel() }}: <b>{{ minWithNegativeNature() }}</b></span
+            >
           }
           <span
             >Neutral Nature: <b>{{ min() }}</b> to <b>{{ max() }}</b></span
@@ -42,9 +36,6 @@
           @if (firstInsightIsMoreUsed()) {
             This is the <b>most common</b> Speed.
           }
-          @if (firstInsightHasNegativeNature() && !isChampions()) {
-            This insight assumes speed IV is zero.
-          }
         </li>
 
         @if (secondInsight()) {
@@ -52,9 +43,6 @@
             <b>{{ secondInsight().speed }}</b> Speed is used by <b>{{ secondInsight().percentage }}%</b> of {{ pokemonName() }} and outspeeds or ties with <b>{{ secondInsight().percentile }}%</b>.
             @if (secondInsightIsMoreUsed()) {
               This is the <b>most common</b> Speed.
-            }
-            @if (secondInsightHasNegativeNature() && !isChampions()) {
-              This insight assumes speed IV is zero.
             }
           </li>
         }
@@ -64,9 +52,6 @@
             <b>{{ thirdInsight().speed }}</b> Speed is used by <b>{{ thirdInsight().percentage }}%</b>, and ensures outspeeding or tying with <b>{{ thirdInsight().percentile }}%</b> of {{ pokemonName() }}.
             @if (thirdInsightIsMoreUsed()) {
               This is the <b>most common</b> Speed.
-            }
-            @if (thirdInsightHasNegativeNature() && !isChampions()) {
-              This insight assumes speed IV is zero.
             }
           </li>
         }

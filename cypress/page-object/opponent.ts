@@ -59,14 +59,14 @@ export class Opponent {
     cy.get('[data-cy="add-meta-button"]').click({ force: true })
   }
 
-  importPokemon(pokemonData: string) {
+  importPokemon(pokemonData: string, useEvs = true) {
     cy.get('[data-cy="opponent-widget"]').find('[data-cy="import-pokemon"]').click()
-    new ImportModal().import(pokemonData)
+    new ImportModal().import(pokemonData, useEvs)
   }
 
-  importPokepaste(pokepaste: string) {
+  importPokepaste(pokepaste: string, useEvs = true) {
     cy.get('[data-cy="import-pokepaste-to-team"]').click({ force: true })
-    new ImportModal().import(pokepaste)
+    new ImportModal().import(pokepaste, useEvs)
   }
 
   export(): ExportModal {

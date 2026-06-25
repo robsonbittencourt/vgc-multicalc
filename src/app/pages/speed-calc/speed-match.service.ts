@@ -6,7 +6,6 @@ import { getFinalSpeed } from "@lib/smogon/stat-calculator/spe/modified-spe"
 import { SpeedEvOptimizer } from "@lib/speed-calculator/speed-ev-optimizer"
 import { evToSp, spToEv, totalSpsFromEvs } from "@lib/utils/ev-sp-converter"
 
-const MAX_TOTAL_EVS = 508
 const MAX_TOTAL_SPS = 66
 
 export type SpeedMatchOutcome = {
@@ -59,16 +58,10 @@ export class SpeedMatchService {
   }
 
   private budgetPlan(pokemon: Pokemon, neededEv: number): BudgetPlan {
-    if (this.store.isChampions()) {
-      const neededSps = this.ceilSps(neededEv)
-      const freeSps = MAX_TOTAL_SPS - (totalSpsFromEvs(pokemon.evs) - evToSp(pokemon.evs.spe))
+    const neededSps = this.ceilSps(neededEv)
+    const freeSps = MAX_TOTAL_SPS - (totalSpsFromEvs(pokemon.evs) - evToSp(pokemon.evs.spe))
 
-      return { fits: neededSps <= freeSps, needed: neededSps, free: freeSps, unit: "SP", speedEv: spToEv(neededSps) }
-    }
-
-    const freeEvs = MAX_TOTAL_EVS - (pokemon.totalEvs - pokemon.evs.spe)
-
-    return { fits: neededEv <= freeEvs, needed: neededEv, free: freeEvs, unit: "EVs", speedEv: neededEv }
+    return { fits: neededSps <= freeSps, needed: neededSps, free: freeSps, unit: "SP", speedEv: spToEv(neededSps) }
   }
 
   private ceilSps(ev: number): number {

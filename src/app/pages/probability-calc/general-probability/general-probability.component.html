@@ -4,22 +4,13 @@
 
     <app-probability-card [title]="protectCard.title" [headers]="protectCard.headers" [rows]="protectCard.rows" />
 
-    <app-probability-card
-      [title]="isChampions() ? turnsToSleepCardChampions.title : turnsToSleepCardSV.title"
-      [headers]="isChampions() ? turnsToSleepCardChampions.headers : turnsToSleepCardSV.headers"
-      [rows]="isChampions() ? turnsToSleepCardChampions.rows : turnsToSleepCardSV.rows" />
+    <app-probability-card [title]="turnsToSleepCard.title" [headers]="turnsToSleepCard.headers" [rows]="turnsToSleepCard.rows" />
 
-    <app-probability-card
-      [title]="isChampions() ? wakeUpFromSleepCardChampions.title : wakeUpFromSleepCardSV.title"
-      [headers]="isChampions() ? wakeUpFromSleepCardChampions.headers : wakeUpFromSleepCardSV.headers"
-      [rows]="isChampions() ? wakeUpFromSleepCardChampions.rows : wakeUpFromSleepCardSV.rows" />
+    <app-probability-card [title]="wakeUpFromSleepCard.title" [headers]="wakeUpFromSleepCard.headers" [rows]="wakeUpFromSleepCard.rows" />
 
-    <app-probability-card
-      [title]="isChampions() ? fullyParalyzedCardChampions.title : fullyParalyzedCardSV.title"
-      [headers]="isChampions() ? fullyParalyzedCardChampions.headers : fullyParalyzedCardSV.headers"
-      [rows]="isChampions() ? fullyParalyzedCardChampions.rows : fullyParalyzedCardSV.rows" />
+    <app-probability-card [title]="fullyParalyzedCard.title" [headers]="fullyParalyzedCard.headers" [rows]="fullyParalyzedCard.rows" />
 
-    <app-probability-card [title]="isChampions() ? freezeCardChampions.title : freezeCardSV.title" [headers]="isChampions() ? freezeCardChampions.headers : freezeCardSV.headers" [rows]="isChampions() ? freezeCardChampions.rows : freezeCardSV.rows" />
+    <app-probability-card [title]="freezeCard.title" [headers]="freezeCard.headers" [rows]="freezeCard.rows" />
 
     <app-probability-card [title]="snapOutOfConfusionCard.title" [headers]="snapOutOfConfusionCard.headers" [rows]="snapOutOfConfusionCard.rows" />
 

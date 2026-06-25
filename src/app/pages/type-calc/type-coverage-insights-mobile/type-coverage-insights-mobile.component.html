@@ -176,7 +176,7 @@
                   <span class="explanation" data-cy="explanation">{{ getPokemonWeakCount4x(defensiveWeakPokemon()[0].pokemon) }} weaknesses x4</span>
                 }
               }
-              @if (!isAgainstTeam() && !store.isChampions() && getPokemonWeaknessesCoveredByTera(defensiveWeakPokemon()[0].pokemon) > 0) {
+              @if (!isAgainstTeam() && features.teraType && getPokemonWeaknessesCoveredByTera(defensiveWeakPokemon()[0].pokemon) > 0) {
                 <span class="explanation" data-cy="explanation">{{ getPokemonWeaknessesCoveredByTera(defensiveWeakPokemon()[0].pokemon) }} covered by tera</span>
               }
             </div>
@@ -202,7 +202,7 @@
                   <span class="explanation" data-cy="explanation">{{ getPokemonWeakCount4x(defensiveWeakPokemon()[1].pokemon) }} weaknesses x4</span>
                 }
               }
-              @if (!isAgainstTeam() && !store.isChampions() && getPokemonWeaknessesCoveredByTera(defensiveWeakPokemon()[1].pokemon) > 0) {
+              @if (!isAgainstTeam() && features.teraType && getPokemonWeaknessesCoveredByTera(defensiveWeakPokemon()[1].pokemon) > 0) {
                 <span class="explanation" data-cy="explanation">{{ getPokemonWeaknessesCoveredByTera(defensiveWeakPokemon()[1].pokemon) }} covered by tera</span>
               }
             </div>

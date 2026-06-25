@@ -1,5 +1,5 @@
 <app-widget [title]="'Offensive Coverage'">
-  @if (isAgainstTeam() && !store.isChampions()) {
+  @if (isAgainstTeam() && features.teraType) {
     <right-header>
       <div class="toggles-container">
         @if (teamHasTeraBlast()) {

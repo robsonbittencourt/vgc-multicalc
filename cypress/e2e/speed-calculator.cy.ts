@@ -59,21 +59,11 @@ describe("Speed Calculator", () => {
       speedCalculator.speedInOrder()
     })
 
-    it("increment speed of opponent Pokémon with Choice Scarf", () => {
-      team.importPokemon(poke["tyranitar"])
-
-      speedCalculator.choiceScarf()
-      cy.wait(300)
-
-      speedCalculator.speedInOrder()
-    })
-
     it("activate all opponent options at the same time", () => {
       team.importPokemon(poke["tyranitar"])
 
       speedCalculator.icyWind()
       speedCalculator.paralyzed()
-      speedCalculator.choiceScarf()
       cy.wait(300)
 
       speedCalculator.speedInOrder()
@@ -302,8 +292,12 @@ describe("Speed Calculator filtering by team", () => {
   })
 
   it("shows the selected team Pokémon with the Opponent description", () => {
-    speedCalculator.pokemonBoxHasDescription("Miraidon", "Opponent")
-    speedCalculator.pokemonBoxHasDescription("Koraidon", "Opponent")
+    speedCalculator.pokemonBoxHasDescription("Incineroar", "Opponent")
+    speedCalculator.pokemonBoxHasDescription("Dragonite", "Opponent")
+    speedCalculator.pokemonBoxHasDescription("Venusaur", "Opponent")
+    speedCalculator.pokemonBoxHasDescription("Charizard", "Opponent")
+    speedCalculator.pokemonBoxHasDescription("Koraidon", "Yours")
+    speedCalculator.pokemonBoxHasDescription("Miraidon", "Yours")
   })
 
   it("does not show the Actual description when a team filter is selected", () => {
