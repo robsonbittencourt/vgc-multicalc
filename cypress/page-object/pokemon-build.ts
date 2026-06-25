@@ -252,6 +252,7 @@ export class PokemonBuild {
   }
 
   evsIs(hp: number, atk: number, def: number, spa: number, spd: number, spe: number) {
+    this.ensureEvMode()
     cy.get(`[data-cy="stat-hp"]`).find('[data-cy="ev-value"]').should("have.value", hp)
     cy.get(`[data-cy="stat-atk"]`).find('[data-cy="ev-value"]').should("have.value", atk)
     cy.get(`[data-cy="stat-def"]`).find('[data-cy="ev-value"]').should("have.value", def)
@@ -313,6 +314,7 @@ export class PokemonBuild {
   }
 
   speedEvs(speedEvs: number): PokemonBuild {
+    this.ensureEvMode()
     this.container().find(`[data-cy="stat-spe"]`).find('[data-cy="ev-value"]').clear().clear().type(speedEvs.toString(), { force: true }).blur()
     return this
   }
@@ -329,16 +331,29 @@ export class PokemonBuild {
     this.container().find(`[data-cy="last-move-failed"]`).click()
   }
 
-  importPokemon(pokemonData: string): PokemonBuild {
+  importPokemon(pokemonData: string, useEvs = true): PokemonBuild {
     this.closeTable()
     this.container().find('[data-cy="import-pokemon"]').click({ force: true })
-    new ImportModal().import(pokemonData)
+    new ImportModal().import(pokemonData, useEvs)
 
     return this
   }
 
   clearEvs() {
+    this.ensureEvMode()
     this.container().find('[data-cy="clear-evs"]').click({ force: true })
+  }
+
+  ensureEvMode(): PokemonBuild {
+    cy.get('[data-cy="evs-sps-toggle"] button')
+      .first()
+      .then($toggle => {
+        if ($toggle.attr("aria-checked") === "true") {
+          cy.wrap($toggle).click({ force: true })
+        }
+      })
+
+    return this
   }
 
   optimizeBulk() {

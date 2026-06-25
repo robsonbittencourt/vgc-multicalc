@@ -89,9 +89,8 @@ export class DamageCalculatorService {
     moveSmogon.isStellarFirstUse = true
     moveSmogon.hits = +move.hits
 
-    const forceMaxIvs = this.calculatorStore.isChampions()
-    const smogonAttacker = fromExisting(attacker, forceMaxIvs)
-    const smogonTarget = fromExisting(target, forceMaxIvs)
+    const smogonAttacker = fromExisting(attacker, true)
+    const smogonTarget = fromExisting(target, true)
 
     this.adjusters.forEach(a => a.adjust(smogonAttacker, smogonTarget, move, moveSmogon, smogonField, secondAttacker, field))
 
@@ -126,9 +125,8 @@ export class DamageCalculatorService {
     moveSmogon.isStellarFirstUse = true
     moveSmogon.hits = +move.hits
 
-    const forceMaxIvs = this.calculatorStore.isChampions()
-    const smogonAttacker = fromExisting(attacker, forceMaxIvs)
-    const smogonTarget = fromExisting(target, forceMaxIvs)
+    const smogonAttacker = fromExisting(attacker, true)
+    const smogonTarget = fromExisting(target, true)
 
     this.adjusters.forEach(a => a.adjust(smogonAttacker, smogonTarget, move, moveSmogon, smogonField, secondAttacker, field))
 
@@ -178,7 +176,7 @@ export class DamageCalculatorService {
   }
 
   private formatDescription(description: string): string {
-    if (this.calculatorStore.isChampions() && this.calculatorStore.useSpsMode()) {
+    if (this.calculatorStore.useSpsMode()) {
       return description.replace(/\b(\d+)([+-]?)\s+(HP|Atk|Def|SpA|SpD|Spe)\b/g, (_match, ev, nature, stat) => {
         return `${evToSp(+ev)}${nature} ${stat}`
       })

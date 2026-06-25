@@ -26,6 +26,7 @@ import { PokemonTableComponent } from "@features/pokemon-build/tables/pokemon-ta
 import { TeraComboBoxComponent } from "@features/pokemon-build/tera-combo-box/tera-combo-box.component"
 import { TypeComboBoxComponent } from "@features/pokemon-build/type-combo-box/type-combo-box.component"
 import { MegaStoneService } from "@features/pokemon-build/utils/mega-stone.service"
+import { FEATURES } from "@lib/feature-flags"
 import { getFinalAttack, getFinalSpecialAttack } from "@lib/smogon/stat-calculator/atk-spa/modified-atk-spa"
 import { getFinalDefense, getFinalSpecialDefense } from "@lib/smogon/stat-calculator/def-spd/modified-def-spd"
 import { getFinalSpeed } from "@lib/smogon/stat-calculator/spe/modified-spe"
@@ -60,6 +61,8 @@ import { Stats, SurvivalThreshold } from "@lib/types"
   ]
 })
 export class PokemonBuildComponent {
+  features = FEATURES
+
   pokemonId = input.required<string>()
   reverse = input<boolean>(false)
   hasFocus = input<boolean>(true)
@@ -155,12 +158,10 @@ export class PokemonBuildComponent {
     return { ...pokemon.evs }
   })
 
-  isChampions = computed(() => this.store.isChampions)
-
-  showEvsSpsToggle = signal(false)
-  MAX_EVS = computed(() => (this.isChampions() ? 66 : 508))
+  showEvsSpsToggle = signal(true)
+  MAX_EVS = 66
   evLabel = computed(() => {
-    if (this.store.isChampions() && this.store.useSpsMode()) {
+    if (this.store.useSpsMode()) {
       return "SPs"
     }
     return "EVs"
@@ -168,16 +169,14 @@ export class PokemonBuildComponent {
   remainingLabel = computed(() => "Remaining:")
   remainingPoints = computed(() => {
     const pokemon = this.pokemon()
-    if (this.store.isChampions()) {
-      const currentSps = totalSpsFromEvs(pokemon.evs)
-      const remainingSps = 66 - currentSps
-      if (this.store.useSpsMode()) {
-        return remainingSps
-      } else {
-        return spToEv(remainingSps)
-      }
+    const currentSps = totalSpsFromEvs(pokemon.evs)
+    const remainingSps = 66 - currentSps
+
+    if (this.store.useSpsMode()) {
+      return remainingSps
+    } else {
+      return spToEv(remainingSps)
     }
-    return 508 - pokemon.totalEvs
   })
 
   hasNoSolution = computed(() => {
@@ -264,11 +263,6 @@ export class PokemonBuildComponent {
   constructor() {
     queueMicrotask(() => {
       this.shouldAnimate.set(true)
-      this.showEvsSpsToggle.set(this.store.isChampions())
-    })
-
-    effect(() => {
-      this.showEvsSpsToggle.set(this.store.isChampions())
     })
 
     effect(() => {
@@ -574,11 +568,7 @@ export class PokemonBuildComponent {
   }
 
   gridTemplateColumns(): any {
-    if (this.store.isChampions()) {
-      return { "grid-template-columns": this.hasModifiedStat() ? "64px 64px 67px 64px 1fr 64px 30px" : "64px 64px 67px 64px 1fr 64px" }
-    }
-
-    return { "grid-template-columns": this.hasModifiedStat() ? "64px 64px 67px 64px 1fr 64px 40px 30px" : "64px 64px 67px 64px 1fr 64px 40px" }
+    return { "grid-template-columns": this.hasModifiedStat() ? "64px 64px 67px 64px 1fr 64px 30px" : "64px 64px 67px 64px 1fr 64px" }
   }
 
   clearEvs() {
@@ -615,12 +605,5 @@ export class PokemonBuildComponent {
     this.store.nature(this.pokemonId(), originalNature)
 
     this.optimizationDiscarded.emit()
-  }
-
-  clearBlurTimeout() {
-    if (this.blurTimeout) {
-      clearTimeout(this.blurTimeout)
-      this.blurTimeout = null
-    }
   }
 }

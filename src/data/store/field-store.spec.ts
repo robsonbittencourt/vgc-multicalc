@@ -1,4 +1,4 @@
-import { provideZonelessChangeDetection, signal } from "@angular/core"
+import { provideZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
 import { ActiveFieldService } from "@data/store/active-field.service"
 import { FieldStore } from "@data/store/field-store"
@@ -20,7 +20,6 @@ describe("Field Store", () => {
         {
           provide: CalculatorStore,
           useValue: {
-            game: signal("sv"),
             toggleProtosynthesis: () => void 0,
             toggleQuarkDrive: () => void 0
           }
@@ -1013,7 +1012,7 @@ describe("Field Store", () => {
       TestBed.tick()
 
       const actualStorage = JSON.parse(localStorage.getItem("userData")!)
-      expect(actualStorage.sv.fields.simple.weather).toBe("Sun")
+      expect(actualStorage.champions.fields.simple.weather).toBe("Sun")
     })
 
     it("should update local storage when state changes mantaining existent data", () => {
@@ -1022,7 +1021,7 @@ describe("Field Store", () => {
       TestBed.tick()
 
       const actualStorage = JSON.parse(localStorage.getItem("userData")!)
-      expect(actualStorage.sv.fields.simple.isBeadsOfRuin).toBe(false)
+      expect(actualStorage.champions.fields.simple.isBeadsOfRuin).toBe(false)
     })
   })
 })

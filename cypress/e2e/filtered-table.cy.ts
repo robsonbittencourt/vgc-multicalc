@@ -1,9 +1,7 @@
-import { Header } from "@page-object/header"
 import { PokemonBuild } from "@page-object/pokemon-build"
 import { Team } from "@page-object/team"
 
 const team = new Team()
-const header = new Header()
 
 describe("Filtered Table behaviors", () => {
   beforeEach(() => {
@@ -65,7 +63,7 @@ describe("Filtered Table behaviors", () => {
     })
 
     it("Select a Item in the middle of the list after filter", () => {
-      const build = team.selectPokemon("Miraidon")
+      const build = team.selectPokemon("Charizard")
 
       build.selectItemByFilter("Ch", "Choice Scarf")
       team.pokemonOnEditItemIs("Choice Scarf")
@@ -87,36 +85,28 @@ describe("Filtered Table behaviors", () => {
     })
 
     it("Select a Ability in the middle of the list after filter", () => {
-      const build = team.selectPokemon("Rillaboom")
+      const build = team.selectPokemon("Dragonite")
 
-      build.selectAbilityByFilter("Ov", "Overgrow")
-      team.pokemonOnEditAbilityIs("Overgrow")
+      build.selectAbilityByFilter("In", "Inner Focus")
+      team.pokemonOnEditAbilityIs("Inner Focus")
 
-      build.selectAbilityByFilter("Gr", "Grassy Surge")
-      team.pokemonOnEditAbilityIs("Grassy Surge")
+      build.selectAbilityByFilter("Mu", "Multiscale")
+      team.pokemonOnEditAbilityIs("Multiscale")
     })
 
     it("Select a Move in the middle of the list after filter", () => {
-      const build = team.selectPokemon("Rillaboom")
+      const build = team.selectPokemon("Dragonite")
 
       build.changeAttackOneByFilter("Ea", "Earthquake")
       build.changeAttackTwoByFilter("Br", "Brick Break")
-      build.changeAttackThreeByFilter("Dr", "Drum Beating")
-      build.changeAttackFourByFilter("En", "Endeavor")
-      team.pokemonOnEditAttacksIs("Earthquake", "Brick Break", "Drum Beating", "Endeavor")
+      build.changeAttackThreeByFilter("Di", "Dive")
+      build.changeAttackFourByFilter("En", "Endure")
+      team.pokemonOnEditAttacksIs("Earthquake", "Brick Break", "Dive", "Endure")
     })
   })
 
-  describe("Mega Pokémon search in Champions mode", () => {
-    beforeEach(() => {
-      header.selectChampions()
-    })
-
-    afterEach(() => {
-      header.selectSv()
-    })
-
-    it("Given Champions mode, when searching 'Mega Dra', then lists Dragonite-Mega", () => {
+  describe("Mega Pokémon search", () => {
+    it("when searching 'Mega Dra', then lists Dragonite-Mega", () => {
       const build = new PokemonBuild("your-team")
       build.inputPokemonName("Mega Dra")
 
@@ -124,7 +114,7 @@ describe("Filtered Table behaviors", () => {
       cy.get('[data-cy="table-entry-Garchomp-Mega"]').should("not.exist")
     })
 
-    it("Given Champions mode, when selecting Dragonite-Mega via 'Mega Dra' search, then pokemon is set to Dragonite-Mega", () => {
+    it("when selecting Dragonite-Mega via 'Mega Dra' search, then pokemon is set to Dragonite-Mega", () => {
       const build = new PokemonBuild("your-team")
       build.selectPokemonByFilter("Mega Dra", "Dragonite-Mega")
 
@@ -134,15 +124,15 @@ describe("Filtered Table behaviors", () => {
 
   describe("Select first after filter and press tab", () => {
     it("Select a Pokémon after filter and press tab", () => {
-      const build = team.selectPokemon("Rillaboom")
+      const build = team.selectPokemon("Charizard")
 
       build.inputPokemonName("Ty")
       cy.realPress("Tab")
 
-      team.pokemonOnEditNameIs("Tyranitar")
-      build.tableEntryIsSelected("Assault Vest")
+      team.pokemonOnEditNameIs("Tyranitar-Mega")
+      build.tableEntryIsSelected("Tyranitarite")
 
-      build.inputPokemonName("Pi")
+      build.inputPokemonName("Pik")
       cy.realPress("Tab")
 
       team.pokemonOnEditNameIs("Pikachu")
@@ -150,7 +140,7 @@ describe("Filtered Table behaviors", () => {
     })
 
     it("Select a Item after filter and press tab", () => {
-      const build = team.selectPokemon("Rillaboom")
+      const build = team.selectPokemon("Dragonite")
 
       build.inputPokemonItem("Cho")
       cy.realPress("Tab")
@@ -159,30 +149,31 @@ describe("Filtered Table behaviors", () => {
     })
 
     it("Select a Ability after filter and press tab", () => {
-      const build = team.selectPokemon("Rillaboom")
+      const build = team.selectPokemon("Dragonite")
 
-      build.inputPokemonAbility("Ov")
+      build.inputPokemonAbility("In")
       cy.realPress("Tab")
 
-      team.pokemonOnEditAbilityIs("Overgrow")
+      team.pokemonOnEditAbilityIs("Inner Focus")
     })
 
     it("Select a Move after filter and press tab", () => {
-      const build = team.selectPokemon("Rillaboom")
+      const build = team.selectPokemon("Dragonite")
 
       build.inputPokemonAttackOne("Ea")
       cy.realPress("Tab").wait(100)
 
-      build.inputPokemonAttackTwo("Re")
+      build.inputPokemonAttackTwo("Bri")
       cy.realPress("Tab").wait(100)
 
-      build.inputPokemonAttackThree("Bo")
+      build.inputPokemonAttackThree("Di")
       cy.realPress("Tab").wait(100)
 
-      build.inputPokemonAttackFour("Boo")
+      build.inputPokemonAttackFour("En")
       cy.realPress("Tab").wait(100)
 
-      team.pokemonOnEditAttacksIs("Earth Power", "Rest", "Body Press", "Boomburst")
+      team.pokemonOnEditAttacksIs("Earthquake", "Brick Break", "Dive", "Endure")
+      team.pokemonOnEditAttacksIs("Earthquake", "Brick Break", "Dive", "Endure")
     })
   })
 })

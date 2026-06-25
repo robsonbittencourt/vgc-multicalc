@@ -11,10 +11,6 @@ export class SpeedCalculator {
     cy.get(`[data-cy="speed-calc-paralyzed"] button`).click({ force: true })
   }
 
-  choiceScarf() {
-    cy.get(`[data-cy="speed-calc-choice-scarf"] button`).click({ force: true })
-  }
-
   speedTierIs(position: number, pokemon: string, speed: number, description: string) {
     cy.get('[data-cy="speed-box"]').eq(position).find('[data-cy="speed-box-pokemon"]').find("img").should("have.attr", "alt", pokemon)
     cy.get('[data-cy="speed-box"]').eq(position).find('[data-cy="speed-box-value"]').should("have.text", speed)

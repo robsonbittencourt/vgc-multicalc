@@ -18,13 +18,7 @@ describe("SingleAttackerOptimizer", () => {
     adjusterSpy = { adjust: vi.fn() } as unknown as MockOf<CalcAdjuster>
 
     TestBed.configureTestingModule({
-      providers: [
-        SingleAttackerOptimizer,
-        DamageCalculatorService,
-        { provide: CALC_ADJUSTERS, useValue: adjusterSpy, multi: true },
-        { provide: CalculatorStore, useValue: { useSpsMode: () => false, isChampions: () => false } },
-        provideZonelessChangeDetection()
-      ]
+      providers: [SingleAttackerOptimizer, DamageCalculatorService, { provide: CALC_ADJUSTERS, useValue: adjusterSpy, multi: true }, { provide: CalculatorStore, useValue: { useSpsMode: () => false } }, provideZonelessChangeDetection()]
     })
 
     service = TestBed.inject(SingleAttackerOptimizer)

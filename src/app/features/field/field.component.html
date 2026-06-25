@@ -17,9 +17,7 @@
 
         <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
           <mat-button-toggle [checked]="fieldStore.attackerSide().gameType === 'Singles'" (change)="fieldStore.toggleAttackerGameType()" data-cy="single-target-attacker">Single Target</mat-button-toggle>
-          @if (isChampions()) {
-            <mat-button-toggle [checked]="fieldStore.isAttackerProtected()" (change)="fieldStore.toggleAttackerProtected()" data-cy="protected-attacker">Protected</mat-button-toggle>
-          }
+          <mat-button-toggle [checked]="fieldStore.isAttackerProtected()" (change)="fieldStore.toggleAttackerProtected()" data-cy="protected-attacker">Protected</mat-button-toggle>
           <mat-button-toggle [checked]="fieldStore.attackerSide().isFriendGuard" (change)="fieldStore.toggleAttackerFriendGuard()" data-cy="friend-guard-attacker">Friend Guard</mat-button-toggle>
         </mat-button-toggle-group>
 
@@ -48,10 +46,14 @@
           <mat-button-toggle [checked]="fieldStore.attackerSide().isCriticalHit" (change)="fieldStore.toggleAttackerCriticalHit()" data-cy="critical-hit-attacker">Critical Hit</mat-button-toggle>
         </mat-button-toggle-group>
 
-        @if (!isChampions()) {
+        @if (features.battery || features.powerSpot) {
           <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
-            <mat-button-toggle [checked]="fieldStore.attackerSide().isBattery" (change)="fieldStore.toggleAttackerBattery()" data-cy="battery-attacker">Battery</mat-button-toggle>
-            <mat-button-toggle [checked]="fieldStore.attackerSide().isPowerSpot" (change)="fieldStore.toggleAttackerPowerSpot()" data-cy="power-spot-attacker">Power Spot</mat-button-toggle>
+            @if (features.battery) {
+              <mat-button-toggle [checked]="fieldStore.attackerSide().isBattery" (change)="fieldStore.toggleAttackerBattery()" data-cy="battery-attacker">Battery</mat-button-toggle>
+            }
+            @if (features.powerSpot) {
+              <mat-button-toggle [checked]="fieldStore.attackerSide().isPowerSpot" (change)="fieldStore.toggleAttackerPowerSpot()" data-cy="power-spot-attacker">Power Spot</mat-button-toggle>
+            }
           </mat-button-toggle-group>
         }
       }
@@ -64,18 +66,6 @@
       <div class="field-subtitle">
         <label>Both</label>
       </div>
-      @if (!onlySpeed() && !isChampions()) {
-        <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">
-          <mat-button-toggle [checked]="fieldStore.tabletsOfRuinActivated()" (change)="fieldStore.toggleTabletsOfRuin()" data-cy="tablets-of-ruin">Tablets of Ruin (-atk)</mat-button-toggle>
-          <mat-button-toggle [checked]="fieldStore.swordOfRuinActivated()" (change)="fieldStore.toggleSwordOfRuin()" data-cy="sword-of-ruin">Sword of Ruin (-def)</mat-button-toggle>
-        </mat-button-toggle-group>
-
-        <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
-          <mat-button-toggle [checked]="fieldStore.vesselOfRuinActivated()" (change)="fieldStore.toggleVesselOfRuin()" data-cy="vessel-of-ruin">Vessel of Ruin (-spa)</mat-button-toggle>
-          <mat-button-toggle [checked]="fieldStore.beadsOfRuinActivated()" (change)="fieldStore.toggleBeadsOfRuin()" data-cy="beads-of-ruin">Beads of Ruin (-spd)</mat-button-toggle>
-        </mat-button-toggle-group>
-      }
-
       <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
         <mat-button-toggle [checked]="fieldStore.isWeatherSun()" (change)="fieldStore.toggleSunWeather()" data-cy="sun">Sun</mat-button-toggle>
         <mat-button-toggle [checked]="fieldStore.isWeatherRain()" (change)="fieldStore.toggleRainWeather()" data-cy="rain">Rain</mat-button-toggle>
@@ -108,16 +98,38 @@
         </mat-button-toggle-group>
       </div>
 
-      @if (!isChampions()) {
+      @if (!onlySpeed() && (features.tabletsOfRuin || features.swordOfRuin)) {
         <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">
-          <mat-button-toggle [checked]="fieldStore.isUnnerve()" (change)="fieldStore.toggleUnnerve()" data-cy="unnerve">Unnerve</mat-button-toggle>
-          <mat-button-toggle [checked]="fieldStore.neutralizingGasActivated()" (change)="fieldStore.toggleNeutralizingGas()" data-cy="neutralizing-gas">Neutralizing Gas</mat-button-toggle>
+          @if (features.tabletsOfRuin) {
+            <mat-button-toggle [checked]="fieldStore.tabletsOfRuinActivated()" (change)="fieldStore.toggleTabletsOfRuin()" data-cy="tablets-of-ruin">Tablets of Ruin (-atk)</mat-button-toggle>
+          }
+          @if (features.swordOfRuin) {
+            <mat-button-toggle [checked]="fieldStore.swordOfRuinActivated()" (change)="fieldStore.toggleSwordOfRuin()" data-cy="sword-of-ruin">Sword of Ruin (-def)</mat-button-toggle>
+          }
         </mat-button-toggle-group>
       }
-      @if (isChampions() && !onlySpeed()) {
+
+      @if (!onlySpeed() && (features.vesselOfRuin || features.beadsOfRuin)) {
+        <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
+          @if (features.vesselOfRuin) {
+            <mat-button-toggle [checked]="fieldStore.vesselOfRuinActivated()" (change)="fieldStore.toggleVesselOfRuin()" data-cy="vessel-of-ruin">Vessel of Ruin (-spa)</mat-button-toggle>
+          }
+          @if (features.beadsOfRuin) {
+            <mat-button-toggle [checked]="fieldStore.beadsOfRuinActivated()" (change)="fieldStore.toggleBeadsOfRuin()" data-cy="beads-of-ruin">Beads of Ruin (-spd)</mat-button-toggle>
+          }
+        </mat-button-toggle-group>
+      }
+
+      @if (!onlySpeed()) {
         <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">
           <mat-button-toggle [checked]="fieldStore.isUnnerve()" (change)="fieldStore.toggleUnnerve()" data-cy="unnerve">Unnerve</mat-button-toggle>
           <mat-button-toggle [checked]="fieldStore.fairyAuraActivated()" (change)="fieldStore.toggleFairyAura()" data-cy="fairy-aura">Fairy Aura</mat-button-toggle>
+        </mat-button-toggle-group>
+      }
+
+      @if (features.neutralizingGas) {
+        <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">
+          <mat-button-toggle [checked]="fieldStore.neutralizingGasActivated()" (change)="fieldStore.toggleNeutralizingGas()" data-cy="neutralizing-gas">Neutralizing Gas</mat-button-toggle>
         </mat-button-toggle-group>
       }
     </div>
@@ -141,9 +153,7 @@
             <mat-button-toggle [checked]="fieldStore.defenderSide().gameType === 'Singles'" (change)="fieldStore.toggleDefenderGameType()" data-cy="single-target-defender">Single Target</mat-button-toggle>
           }
 
-          @if (isChampions()) {
-            <mat-button-toggle [checked]="fieldStore.isDefenderProtected()" (change)="fieldStore.toggleDefenderProtected()" data-cy="protected-defender">Protected</mat-button-toggle>
-          }
+          <mat-button-toggle [checked]="fieldStore.isDefenderProtected()" (change)="fieldStore.toggleDefenderProtected()" data-cy="protected-defender">Protected</mat-button-toggle>
           <mat-button-toggle [checked]="fieldStore.defenderSide().isFriendGuard" (change)="fieldStore.toggleDefenderFriendGuard()" data-cy="friend-guard-defender">Friend Guard</mat-button-toggle>
         </mat-button-toggle-group>
 
@@ -158,6 +168,17 @@
           <mat-button-toggle class="max-width" [checked]="fieldStore.defenderSide().isSR" (change)="fieldStore.toggleDefenderStealthRock()" data-cy="stealth-rock-defender">Stealth Rock</mat-button-toggle>
           <mat-button-toggle class="max-width" [checked]="fieldStore.defenderSide().isSeeded" (change)="fieldStore.toggleDefenderSeeded()" data-cy="leech-seed-defender">Leech Seed</mat-button-toggle>
         </mat-button-toggle-group>
+
+        @if (features.battery || features.powerSpot) {
+          <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
+            @if (features.battery) {
+              <mat-button-toggle [checked]="fieldStore.defenderSide().isBattery" (change)="fieldStore.toggleDefenderBattery()" data-cy="battery-defender">Battery</mat-button-toggle>
+            }
+            @if (features.powerSpot) {
+              <mat-button-toggle [checked]="fieldStore.defenderSide().isPowerSpot" (change)="fieldStore.toggleDefenderPowerSpot()" data-cy="power-spot-defender">Power Spot</mat-button-toggle>
+            }
+          </mat-button-toggle-group>
+        }
       }
 
       @if (!onlySpeed() && oneVsOne()) {
@@ -165,13 +186,6 @@
           <mat-button-toggle [checked]="fieldStore.defenderSide().isHelpingHand" (change)="fieldStore.toggleDefenderHelpingHand()" data-cy="helping-hand-defender">Helping Hand</mat-button-toggle>
           <mat-button-toggle [checked]="fieldStore.defenderSide().isCriticalHit" (change)="fieldStore.toggleDefenderCriticalHit()" data-cy="critical-hit-defender">Critical Hit</mat-button-toggle>
         </mat-button-toggle-group>
-
-        @if (!isChampions()) {
-          <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
-            <mat-button-toggle [checked]="fieldStore.defenderSide().isBattery" (change)="fieldStore.toggleDefenderBattery()" data-cy="battery-defender">Battery</mat-button-toggle>
-            <mat-button-toggle [checked]="fieldStore.defenderSide().isPowerSpot" (change)="fieldStore.toggleDefenderPowerSpot()" data-cy="power-spot-defender">Power Spot</mat-button-toggle>
-          </mat-button-toggle-group>
-        }
       }
 
       <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">

@@ -1,7 +1,6 @@
 import { ABILITY_DETAILS } from "@data/abiliity-details"
 import { Items } from "@data/items"
 import { POKEMON_DETAILS } from "@data/pokemon-details"
-import { POKEMON_DETAILS_CHAMPIONS } from "@data/pokemon-details-champions"
 import { DEFAULT_TERA_TYPE, SELECT_POKEMON_LABEL } from "@lib/constants"
 import { uuid } from "@lib/utils/uuid"
 import { Ability } from "@lib/model/ability"
@@ -284,7 +283,7 @@ export class Pokemon {
       return [ABILITY_DETAILS[`embodyaspect${form}`]]
     }
 
-    const pokemonDetails = Object.values(POKEMON_DETAILS).find(p => p.name == this.name) || Object.values(POKEMON_DETAILS_CHAMPIONS).find(p => p.name == this.name)
+    const pokemonDetails = Object.values(POKEMON_DETAILS).find(p => p.name == this.name)
     const abilities = pokemonDetails
       ? pokemonDetails.abilities.map(ability => {
           return ABILITY_DETAILS[ability]

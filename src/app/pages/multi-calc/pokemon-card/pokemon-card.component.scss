@@ -209,7 +209,8 @@ app-pokemon-sprite.pokemon-image {
 }
 
 .right-side {
-  --badge-width: clamp(245px, 100cqi, 340px);
+  --badge-width: clamp(245px, 100cqi, 385px);
+  --badge-inset-left: calc(var(--badge-width) * 0.05);
 
   display: flex;
   flex-direction: column;
@@ -218,11 +219,6 @@ app-pokemon-sprite.pokemon-image {
   flex: 1 1 385px;
   min-width: 0;
   container-type: inline-size;
-
-  &.is-champions {
-    --badge-width: clamp(245px, 100cqi, 385px);
-    --badge-inset-left: calc(var(--badge-width) * 0.05);
-  }
 
   @media (max-width: 600px) {
     flex: 1;

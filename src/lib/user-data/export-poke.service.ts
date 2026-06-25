@@ -3,6 +3,7 @@ import { inject, Injectable } from "@angular/core"
 import { MatDialog } from "@angular/material/dialog"
 import { TeamExportModalComponent } from "@features/export-modal/export-modal.component"
 import { CalculatorStore } from "@data/store/calculator-store"
+import { FEATURES } from "@lib/feature-flags"
 import { Pokemon } from "@lib/model/pokemon"
 import { evToSp } from "@lib/utils/ev-sp-converter"
 import { normalizePokemonNameForExport } from "@lib/smogon/pokemon-name-normalizer"
@@ -45,7 +46,7 @@ export class ExportPokeService {
       Level: ${pokemon.level}\n
     `
 
-    if (!this.store.isChampions()) {
+    if (FEATURES.teraType) {
       text += `Tera Type: ${pokemon.teraType}\n`
     }
 
@@ -55,13 +56,6 @@ export class ExportPokeService {
     }
 
     text += `${pokemon.nature} Nature\n`
-
-    if (!this.store.isChampions()) {
-      const ivsDescription = this.ivsDescriptionShowdown(pokemon)
-      if (ivsDescription.length > 0) {
-        text += `IVs: ${ivsDescription}\n`
-      }
-    }
 
     const moves = [pokemon.move1Name, pokemon.move2Name, pokemon.move3Name, pokemon.move4Name].filter(move => move && move !== "undefined" && move !== "")
     text += moves.map(move => `- ${move}`).join("\n") + "\n"
@@ -99,19 +93,6 @@ export class ExportPokeService {
     if (speSps) sps.push(`${speSps} Spe`)
 
     return sps.join(" / ")
-  }
-
-  private ivsDescriptionShowdown(pokemon: Pokemon): string {
-    const ivs: string[] = []
-
-    if (pokemon.ivs.hp !== 31) ivs.push(`${pokemon.ivs.hp} HP`)
-    if (pokemon.ivs.atk !== 31) ivs.push(`${pokemon.ivs.atk} Atk`)
-    if (pokemon.ivs.def !== 31) ivs.push(`${pokemon.ivs.def} Def`)
-    if (pokemon.ivs.spa !== 31) ivs.push(`${pokemon.ivs.spa} SpA`)
-    if (pokemon.ivs.spd !== 31) ivs.push(`${pokemon.ivs.spd} SpD`)
-    if (pokemon.ivs.spe !== 31) ivs.push(`${pokemon.ivs.spe} Spe`)
-
-    return ivs.join(" / ")
   }
 
   private openModal(title: string, content: string) {

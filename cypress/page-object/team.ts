@@ -96,11 +96,13 @@ export class Team {
     cy.get('[data-cy="ability"] input').should("have.value", abilityName)
   }
 
-  pokemonOnEditIs(pokemonName: string, ability: string, teraType: string, item: string, nature?: string) {
+  pokemonOnEditIs(pokemonName: string, ability: string, teraType: string | undefined, item: string, nature?: string) {
     cy.get("body").type("{esc}")
     this.pokemonOnEditNameIs(pokemonName)
     cy.get('[data-cy="ability"] input').should("have.value", ability)
-    cy.get('[data-cy="tera-type"]').contains(teraType)
+    if (teraType) {
+      cy.get('[data-cy="tera-type"]').contains(teraType)
+    }
     cy.get('[data-cy="item"] input').should("have.value", item)
     if (nature) {
       cy.get('[data-cy="nature"]').contains(nature)
@@ -115,6 +117,7 @@ export class Team {
   }
 
   pokemonOnEditEvsIs(hp: number, atk: number, def: number, spa: number, spd: number, spe: number) {
+    new PokemonBuild("your-team").ensureEvMode()
     cy.get(`[data-cy="stat-hp"]`).find('[data-cy="ev-value"]').should("have.value", hp)
     cy.get(`[data-cy="stat-atk"]`).find('[data-cy="ev-value"]').should("have.value", atk)
     cy.get(`[data-cy="stat-def"]`).find('[data-cy="ev-value"]').should("have.value", def)
@@ -131,8 +134,8 @@ export class Team {
     cy.get('[data-cy="nature"]').should("not.contain", nature)
   }
 
-  importPokemon(pokemonData: string): PokemonBuild {
-    new PokemonBuild("your-team").importPokemon(pokemonData)
+  importPokemon(pokemonData: string, useEvs = true): PokemonBuild {
+    new PokemonBuild("your-team").importPokemon(pokemonData, useEvs)
 
     const pokemonName = this.extractPokemonName(pokemonData)
     this.selectPokemon(pokemonName)
@@ -140,9 +143,9 @@ export class Team {
     return new PokemonBuild("your-team")
   }
 
-  importPokepaste(pokepaste: string) {
+  importPokepaste(pokepaste: string, useEvs = true) {
     cy.get('[data-cy="teams-widget"]').find('[data-cy="import-pokemon"]').click()
-    new ImportModal().import(pokepaste)
+    new ImportModal().import(pokepaste, useEvs)
     cy.get('[data-cy="team-box"].active-team').find("app-pokemon-sprite").should("exist")
   }
 

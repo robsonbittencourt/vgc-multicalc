@@ -25,7 +25,7 @@ describe("Test calcs with opponent combined damage", () => {
     opponents.combine("Rillaboom", "Incineroar")
 
     opponents.get("Dragonite").damageIs(200.5, 240.3).causeOHKO()
-    opponents.get("Incineroar").damageIs(66.4, 79.5).cause2HKO()
+    opponents.get("Incineroar").damageIs(52.8, 63).cause2HKO()
   })
 
   it("Calculate damage after separate two opponent Pokémon", () => {

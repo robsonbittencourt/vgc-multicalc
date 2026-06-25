@@ -16,14 +16,7 @@ describe("SolutionCombiner", () => {
     const adjusterSpy: MockOf<CalcAdjuster> = { adjust: vi.fn() } as unknown as MockOf<CalcAdjuster>
 
     TestBed.configureTestingModule({
-      providers: [
-        SolutionCombiner,
-        SurvivalChecker,
-        DamageCalculatorService,
-        { provide: CALC_ADJUSTERS, useValue: adjusterSpy, multi: true },
-        { provide: CalculatorStore, useValue: { useSpsMode: () => false, isChampions: () => false } },
-        provideZonelessChangeDetection()
-      ]
+      providers: [SolutionCombiner, SurvivalChecker, DamageCalculatorService, { provide: CALC_ADJUSTERS, useValue: adjusterSpy, multi: true }, { provide: CalculatorStore, useValue: { useSpsMode: () => false } }, provideZonelessChangeDetection()]
     })
 
     service = TestBed.inject(SolutionCombiner)

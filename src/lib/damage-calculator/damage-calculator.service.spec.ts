@@ -26,7 +26,7 @@ describe("Damage Calculator Service", () => {
         DamageCalculatorService,
         { provide: CALC_ADJUSTERS, useValue: adjusterOneSpy, multi: true },
         { provide: CALC_ADJUSTERS, useValue: adjusterTwoSpy, multi: true },
-        { provide: CalculatorStore, useValue: { useSpsMode: () => false, isChampions: () => false } },
+        { provide: CalculatorStore, useValue: { useSpsMode: () => false } },
         provideZonelessChangeDetection()
       ]
     })

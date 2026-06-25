@@ -1,10 +1,9 @@
 import { FieldState } from "@data/store/field-store"
-import { readGameData, readGameOverride } from "@data/store/utils/user-data-storage"
+import { readGameData } from "@data/store/utils/user-data-storage"
 import { FieldSide } from "@lib/model/field"
 
 export function initialFieldState(context: string): FieldState {
-  const game = readGameOverride() ?? "champions"
-  const gameData = readGameData(game)
+  const gameData = readGameData()
   let fieldUserData = gameData?.fields?.[context]
 
   if (context === "simple" && !fieldUserData && gameData?.field) {

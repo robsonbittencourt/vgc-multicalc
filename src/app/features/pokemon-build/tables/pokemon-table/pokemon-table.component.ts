@@ -1,7 +1,7 @@
 import { Component, computed, inject, input, output, signal } from "@angular/core"
 import { ABILITY_DETAILS } from "@data/abiliity-details"
 import { POKEMON_DETAILS, PokemonDetail } from "@data/pokemon-details"
-import { POKEMON_DETAILS_CHAMPIONS } from "@data/pokemon-details-champions"
+import { topUsageByRegulation } from "@data/top-usage-regulation"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { CustomSet } from "@data/store/custom-set"
 import { FilterableTableComponent } from "@features/pokemon-build/tables/filterable-table/filterable-table.component"
@@ -11,6 +11,7 @@ import { PokemonSpriteComponent } from "@basic/pokemon-sprite/pokemon-sprite.com
 import { MatIcon } from "@angular/material/icon"
 import { Stats } from "@lib/types"
 import { evToSp } from "@lib/utils/ev-sp-converter"
+import { FEATURES } from "@lib/feature-flags"
 
 @Component({
   selector: "app-pokemon-table",
@@ -123,7 +124,7 @@ export class PokemonTableComponent {
   setStats(set: CustomSet): string {
     const labels: Record<keyof Stats, string> = { hp: "HP", atk: "Atk", def: "Def", spa: "SpA", spd: "SpD", spe: "Spe" }
     const stats: (keyof Stats)[] = ["hp", "atk", "def", "spa", "spd", "spe"]
-    const useSps = this.store.isChampions() && this.store.useSpsMode()
+    const useSps = this.store.useSpsMode()
 
     return stats
       .map(stat => ({ stat, value: useSps ? evToSp(set.state.evs[stat] ?? 0) : (set.state.evs[stat] ?? 0) }))
@@ -176,35 +177,38 @@ export class PokemonTableComponent {
   ]
 
   buildGroupedPokemonData(): TableData<PokemonDetail & { subRows?: CustomSet[] }>[] {
-    const details = this.store.game() === "champions" ? POKEMON_DETAILS_CHAMPIONS : POKEMON_DETAILS
+    const details = POKEMON_DETAILS
     const customSetsByPokemon = this.store.customSetsByPokemon()
-    const allPokemon = Object.values(details).map(p => {
-      const pokemon = new Pokemon(p.name)
-      const abilities = p.abilities.map(ability => {
-        if (!ABILITY_DETAILS[ability]) {
-          console.error(`Missing ability "${ability}" for pokemon "${p.name}"`)
-          return "Unknown"
-        }
-        return ABILITY_DETAILS[ability].name
+    const availableNames = new Set(topUsageByRegulation["MB"])
+    const allPokemon = Object.values(details)
+      .filter(p => FEATURES.allowAllPokes || availableNames.has(p.name))
+      .map(p => {
+        const pokemon = new Pokemon(p.name)
+        const abilities = p.abilities.map(ability => {
+          if (!ABILITY_DETAILS[ability]) {
+            console.error(`Missing ability "${ability}" for pokemon "${p.name}"`)
+            return "Unknown"
+          }
+          return ABILITY_DETAILS[ability].name
+        })
+
+        const subRows = customSetsByPokemon.get(pokemon.name)
+
+        return {
+          name: pokemon.name,
+          types: [pokemon.type1, pokemon.type2],
+          abilities: abilities,
+          hp: pokemon.baseHp,
+          atk: pokemon.baseAtk,
+          def: pokemon.baseDef,
+          spa: pokemon.baseSpa,
+          spd: pokemon.baseSpd,
+          spe: pokemon.baseSpe,
+          bst: pokemon.bst,
+          group: p.group,
+          ...(subRows ? { subRows } : {})
+        } as PokemonDetail & { subRows?: CustomSet[] }
       })
-
-      const subRows = customSetsByPokemon.get(pokemon.name)
-
-      return {
-        name: pokemon.name,
-        types: [pokemon.type1, pokemon.type2],
-        abilities: abilities,
-        hp: pokemon.baseHp,
-        atk: pokemon.baseAtk,
-        def: pokemon.baseDef,
-        spa: pokemon.baseSpa,
-        spd: pokemon.baseSpd,
-        spe: pokemon.baseSpe,
-        bst: pokemon.bst,
-        group: p.group,
-        ...(subRows ? { subRows } : {})
-      } as PokemonDetail & { subRows?: CustomSet[] }
-    })
 
     const groupedData = allPokemon.reduce(
       (acc, pokemon) => {
@@ -226,7 +230,8 @@ export class PokemonTableComponent {
     }))
 
     type PokemonTableData = TableData<PokemonDetail & { subRows?: CustomSet[] }>
-    const orderedResult: PokemonTableData[] = [result.find(data => data.group == "Meta") as PokemonTableData, result.find(data => data.group == "Low usage") as PokemonTableData, result.find(data => data.group == "Regular") as PokemonTableData]
+    const groupOrder: PokemonDetail["group"][] = ["Meta", "Low usage", "Regular"]
+    const orderedResult = groupOrder.map(groupName => result.find(data => data.group == groupName)).filter((data): data is PokemonTableData => data !== undefined)
 
     return orderedResult
   }

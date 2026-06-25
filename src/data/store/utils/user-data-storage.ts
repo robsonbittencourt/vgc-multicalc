@@ -1,5 +1,4 @@
 import type { CustomSet } from "@data/store/custom-set"
-import type { Game } from "@data/store/calculator-store"
 
 export function readUserData() {
   if (typeof localStorage === "undefined") return null
@@ -7,31 +6,16 @@ export function readUserData() {
   return raw ? JSON.parse(raw) : null
 }
 
-export function readGameOverride(): Game | null {
-  if (typeof localStorage === "undefined") return null
-  const value = localStorage.getItem("gameOverride")
-  return value === "sv" || value === "champions" ? value : null
-}
-
-export function readGameData(game: Game) {
+export function readGameData() {
   const userData = readUserData()
-  return userData?.[game] ?? null
+  return userData?.["champions"] ?? null
 }
 
-export function writeGameData(game: Game, gameData: object) {
+export function writeGameData(gameData: object) {
   if (typeof localStorage === "undefined") return
   const userData = readUserData() ?? {}
-  userData[game] = { ...userData[game], ...gameData }
+  userData["champions"] = { ...userData["champions"], ...gameData }
   localStorage.setItem("userData", JSON.stringify(userData))
-}
-
-export function clearGameFields(game: Game) {
-  if (typeof localStorage === "undefined") return
-  const userData = readUserData() ?? {}
-  if (userData[game]) {
-    delete userData[game].fields
-    localStorage.setItem("userData", JSON.stringify(userData))
-  }
 }
 
 export function writeTopLevel(patch: object) {
@@ -42,10 +26,10 @@ export function writeTopLevel(patch: object) {
 }
 
 export function readCustomSets(): CustomSet[] {
-  const gameData = readGameData("champions")
+  const gameData = readGameData()
   return gameData?.customSets ?? []
 }
 
 export function writeCustomSets(customSets: CustomSet[]) {
-  writeGameData("champions", { customSets })
+  writeGameData({ customSets })
 }

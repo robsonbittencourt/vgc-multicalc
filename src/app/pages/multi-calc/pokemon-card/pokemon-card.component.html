@@ -66,7 +66,7 @@
           <img class="vs-icon" src="assets/icons/vs.png" width="70" height="70" loading="lazy" alt="" />
         </div>
 
-        <div class="right-side" [class.is-champions]="store.isChampions()">
+        <div class="right-side">
           @if (isDefaultDefender()) {
             <div class="body">
               <div class="card-right-side">
@@ -77,25 +77,15 @@
             </div>
           } @else {
             <div class="pointer" (click)="activate(pokemonOnCard().id)" matTooltip="Edit" [matTooltipDisabled]="collapsible()" [matTooltipShowDelay]="500" [attr.data-cy]="defenderSelector()">
-              @if (store.isChampions()) {
-                <app-champions-hp-badge
-                  [name]="pokemonOnCard().displayNameWithoutSuffix"
-                  [actualHp]="pokemonOnCard().actualHp"
-                  [hpBase]="pokemonOnCard().hp"
-                  [spriteName]="pokemonOnCard().name"
-                  [item]="pokemonOnCard().item"
-                  [damageTaken]="damageTaken()"
-                  [isOpponent]="!isAttacker()"
-                  [status]="pokemonOnCard().status" />
-              } @else {
-                <app-pokemon-hp-badge
-                  [name]="pokemonOnCard().displayNameWithoutSuffix"
-                  [actualHp]="pokemonOnCard().actualHp"
-                  [hpBase]="pokemonOnCard().hp"
-                  [spritePath]="spriteService.path(pokemonOnCard().name)"
-                  [item]="pokemonOnCard().item"
-                  [damageTaken]="damageTaken()" />
-              }
+              <app-hp-badge
+                [name]="pokemonOnCard().displayNameWithoutSuffix"
+                [actualHp]="pokemonOnCard().actualHp"
+                [hpBase]="pokemonOnCard().hp"
+                [spriteName]="pokemonOnCard().name"
+                [item]="pokemonOnCard().item"
+                [damageTaken]="damageTaken()"
+                [isOpponent]="!isAttacker()"
+                [status]="pokemonOnCard().status" />
             </div>
           }
 
@@ -106,7 +96,7 @@
                   <span>Nature: {{ pokemonOnCard().nature }}</span>
                   <span>Ability: {{ pokemonOnCard().ability.simpleName }}</span>
                   <span>Item: {{ pokemonOnCard().item }}</span>
-                  @if (store.game() === "sv") {
+                  @if (features.teraType) {
                     <span>
                       Tera: {{ pokemonOnCard().teraType }}
                       @if (pokemonOnCard().teraTypeActive) {
@@ -127,10 +117,9 @@
                   }
 
                   <div class="card-buttons-row">
-                    @if (store.game() === "sv") {
+                    @if (features.teraType) {
                       <app-terastal-button [pokemonId]="pokemonOnCard().id" />
                     }
-
                     <app-aegislash-button [pokemonId]="pokemonOnCard().id" />
 
                     @if (isMegaStoneCompatible()) {

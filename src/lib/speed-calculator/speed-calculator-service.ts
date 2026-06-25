@@ -1,10 +1,9 @@
 import { inject, Injectable } from "@angular/core"
 import { pokemonByRegulation } from "@data/regulation-pokemon"
 import { SpeedData } from "@data/speed-data"
-import { SPEED_STATISTICS_REG_I } from "@data/speed-statistics-reg-i"
 import { SPEED_STATISTICS_REG_MB } from "@data/speed-statistics-reg-mb"
 import { CalculatorStore } from "@data/store/calculator-store"
-import { ACTUAL, BOOSTER, MAX, MAX_BASE_SPEED_FOR_TR, MIN, OPPONENT, SCARF, SPEED_TIE, YOUR_TEAM } from "@lib/constants"
+import { ACTUAL, BOOSTER, MAX, MAX_BASE_SPEED_FOR_TR, MIN, OPPONENT, SPEED_TIE, YOUR_TEAM } from "@lib/constants"
 import { defaultPokemon } from "@lib/default-pokemon"
 import { Ability } from "@lib/model/ability"
 import { Field } from "@lib/model/field"
@@ -25,12 +24,11 @@ export class SpeedCalculatorService {
   private store = inject(CalculatorStore)
 
   private get setdex() {
-    return this.store.activeSetdex()
+    return this.store.activeSetdex
   }
 
   private readonly statisticsByRegulation: Record<string, Record<string, SpeedData>> = {
-    MB: SPEED_STATISTICS_REG_MB,
-    I: SPEED_STATISTICS_REG_I
+    MB: SPEED_STATISTICS_REG_MB
   }
 
   orderedPokemon(pokemon: Pokemon, field: Field, pokemonEachSide: number, options: SpeedCalculatorOptions = new SpeedCalculatorOptions(), opponentsNoPaddingThreshold = 0): SpeedDefinition[] {
@@ -101,7 +99,7 @@ export class SpeedCalculatorService {
 
     const quantity = options.targetName.length > 0 ? undefined : options.topUsage
     const includeAllPokemon = options._topUsage === "All"
-    const pokemon = pokemonByRegulation(options.regulation, quantity, this.setdex, includeAllPokemon, this.store.isChampions())
+    const pokemon = pokemonByRegulation(options.regulation, quantity, this.setdex, includeAllPokemon)
 
     pokemon.forEach(p => {
       const pokemon = this.adjustPokemonByOptions(p, options)
@@ -152,10 +150,6 @@ export class SpeedCalculatorService {
       speedDefinitions.push(this.minSpeed(pokemon, field))
       speedDefinitions.push(this.maxSpeed(pokemon, field))
 
-      if (this.hasChoiceScarf(pokemon) && this.store.game() !== "champions") {
-        speedDefinitions.push(this.maxScarf(pokemon, field))
-      }
-
       if (this.isBoosterSpeedPokemon(pokemon)) {
         speedDefinitions.push(this.maxBooster(pokemon, field))
       }
@@ -172,10 +166,6 @@ export class SpeedCalculatorService {
     if (options.mode == SpeedCalculatorMode.Base) {
       speedDefinitions.push(new SpeedDefinition(pokemon, pokemon.baseSpe, "Base"))
     }
-  }
-
-  private hasChoiceScarf(pokemon: Pokemon): boolean {
-    return pokemon.item == "Choice Scarf" || this.setdex[pokemon.name]?.items.includes("Choice Scarf")
   }
 
   private limitQuantity(speedDefinitions: SpeedDefinition[], pokemonEachSide: number): SpeedDefinition[] {
@@ -232,7 +222,7 @@ export class SpeedCalculatorService {
   private adjustPokemonByOptions(pokemon: Pokemon, options: SpeedCalculatorOptions): Pokemon {
     const boosts = { ...pokemon.boosts, spe: options.speedModifier }
     const status = options.paralyzedActive ? Status.PARALYSIS : pokemon.status
-    const item = options.choiceScarfActive ? "Choice Scarf" : pokemon.item
+    const item = pokemon.item
 
     const speedAbilities = ["Swift Swim", "Sand Rush", "Surge Surfer", "Chlorophyll", "Slush Rush"]
     const matchedAbility = speedAbilities.find(ability => pokemon.availableAbilities.some(a => a.name === ability))
@@ -242,10 +232,9 @@ export class SpeedCalculatorService {
   }
 
   minSpeed(pokemon: Pokemon, field: Field): SpeedDefinition {
-    const isChampions = this.store.game() === "champions"
     const isTrickRoomPoke = this.isTrickRoomPokemon(pokemon)
 
-    if (isChampions && isTrickRoomPoke) {
+    if (isTrickRoomPoke) {
       const clonedPokemon = pokemon.clone({ item: "Leftovers", nature: "Brave", evs: { spe: 0 }, ivs: { spe: 31 } })
       const speed = getFinalSpeed(clonedPokemon, field, false)
       return new SpeedDefinition(clonedPokemon, speed, MIN, "Nature -")
@@ -264,15 +253,6 @@ export class SpeedCalculatorService {
     const speed = getFinalSpeed(clonedPokemon, field, false)
 
     return new SpeedDefinition(clonedPokemon, speed, MAX)
-  }
-
-  maxScarf(pokemon: Pokemon, field: Field): SpeedDefinition {
-    const clonedPokemon = pokemon.clone({ nature: "Timid", item: "Choice Scarf", evs: { spe: 252 } })
-
-    const speed = getFinalSpeed(clonedPokemon, field, false)
-    const description = SCARF
-
-    return new SpeedDefinition(pokemon, speed, description)
   }
 
   maxBooster(pokemon: Pokemon, field: Field): SpeedDefinition {

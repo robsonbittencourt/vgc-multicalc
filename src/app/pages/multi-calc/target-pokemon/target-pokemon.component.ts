@@ -7,7 +7,6 @@ import { MatSlideToggle } from "@angular/material/slide-toggle"
 import { InputAutocompleteComponent } from "@app/basic/input-autocomplete/input-autocomplete.component"
 import { WidgetComponent } from "@basic/widget/widget.component"
 import { SETDEX_CHAMPIONS } from "@data/movesets-champions"
-import { SETDEX_SV } from "@data/movesets"
 import { pokemonByRegulation } from "@data/regulation-pokemon"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { MenuStore } from "@data/store/menu-store"
@@ -24,6 +23,7 @@ import { Pokemon } from "@lib/model/pokemon"
 import { Target } from "@lib/model/target"
 import { SnackbarService } from "@lib/snackbar.service"
 import { Regulation } from "@lib/types"
+import { FEATURES } from "@lib/feature-flags"
 import { ExportPokeService } from "@lib/user-data/export-poke.service"
 import { AddPokemonCardComponent } from "@pages/multi-calc/add-pokemon-card/add-pokemon-card.component"
 import { PokemonCardComponent } from "@pages/multi-calc/pokemon-card/pokemon-card.component"
@@ -51,7 +51,7 @@ export class TargetPokemonComponent {
   private dialog = inject(MatDialog)
   private snackBar = inject(SnackbarService)
 
-  regulation = linkedSignal<Regulation>(() => this.store.targetMetaRegulation() ?? (this.store.game() === "champions" ? "MB" : "I"))
+  regulation = linkedSignal<Regulation>(() => this.store.targetMetaRegulation() ?? "MB")
   rollLevelConfig = signal(RollLevelConfig.fromConfigString(this.store.multiCalcRollLevel()))
 
   constructor() {
@@ -136,7 +136,7 @@ export class TargetPokemonComponent {
   })
 
   private get setdex() {
-    return this.store.game() === "champions" ? SETDEX_CHAMPIONS : SETDEX_SV
+    return SETDEX_CHAMPIONS
   }
 
   readonly targetPokemonNames = computed(() => {
@@ -145,7 +145,7 @@ export class TargetPokemonComponent {
     return [...new Set(names.filter((name): name is string => !!name))].sort()
   })
 
-  readonly regulationsList = computed(() => (this.store.game() === "champions" ? ["MB"] : ["I"]))
+  readonly regulationsList = signal(["MB"])
 
   onMetaClick() {
     if (this.haveMetaData()) {
@@ -185,7 +185,7 @@ export class TargetPokemonComponent {
   private applyMeta(regulation: Regulation) {
     this.regulation.set(regulation)
     this.store.updateTargetMetaRegulation(regulation)
-    const metaPokemon = pokemonByRegulation(regulation, 60, this.setdex, false, this.store.isChampions())
+    const metaPokemon = pokemonByRegulation(regulation, 60, this.setdex, false)
     this.pokemonImported(metaPokemon)
   }
 
@@ -217,7 +217,7 @@ export class TargetPokemonComponent {
 
   exportPokemon() {
     const pokemon = this.targets().flatMap(t => (t.secondPokemon ? [t.pokemon, t.secondPokemon] : [t.pokemon]))
-    const shouldUseSps = this.store.isChampions() && this.store.useSpsMode()
+    const shouldUseSps = this.store.useSpsMode()
     this.exportPokeService.export("Opponent Pokémon", pokemon, shouldUseSps)
   }
 
@@ -356,7 +356,7 @@ export class TargetPokemonComponent {
   }
 
   private targetsExcludingMetaData(): Target[] {
-    const metaLeft = pokemonByRegulation(this.store.targetMetaRegulation()!, undefined, this.setdex, false, this.store.isChampions())
+    const metaLeft = pokemonByRegulation(this.store.targetMetaRegulation()!, undefined, this.setdex, FEATURES.allowAllPokes)
 
     const newTargets = [...this.targets()]
       .reverse()

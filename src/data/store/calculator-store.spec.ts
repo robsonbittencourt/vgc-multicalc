@@ -23,24 +23,20 @@ describe("Calculator Store", () => {
   })
 
   describe("computed", () => {
-    beforeEach(() => {
-      store.updateGame("sv")
-    })
-
     it("should load default left Pokémon", () => {
-      expect(store.leftPokemon().name).toBe("Miraidon")
+      expect(store.leftPokemon().name).toBe("Charizard")
     })
 
     it("should load default right Pokémon", () => {
-      expect(store.rightPokemon().name).toBe("Koraidon")
+      expect(store.rightPokemon().name).toBe("Dragonite")
     })
 
     it("should load Team 1 as default", () => {
       expect(store.team().name).toBe("Team 1")
       expect(store.team().teamMembers.length).toBe(4)
-      expect(store.team().teamMembers[0].pokemon.name).toBe("Miraidon")
-      expect(store.team().teamMembers[1].pokemon.name).toBe("Koraidon")
-      expect(store.team().teamMembers[2].pokemon.name).toBe("Rillaboom")
+      expect(store.team().teamMembers[0].pokemon.name).toBe("Charizard")
+      expect(store.team().teamMembers[1].pokemon.name).toBe("Dragonite")
+      expect(store.team().teamMembers[2].pokemon.name).toBe("Venusaur")
       expect(store.team().teamMembers[3].pokemon.name).toBe("Incineroar")
     })
 
@@ -64,11 +60,11 @@ describe("Calculator Store", () => {
     })
 
     it("should load some Targets as default", () => {
-      expect(store.targets().length).toBe(10)
-      expect(store.targets()[0].pokemon.name).toBe("Urshifu-Rapid-Strike")
-      expect(store.targets()[1].pokemon.name).toBe("Incineroar")
-      expect(store.targets()[2].pokemon.name).toBe("Rillaboom")
-      expect(store.targets()[3].pokemon.name).toBe("Amoonguss")
+      expect(store.targets().length).toBe(9)
+      expect(store.targets()[0].pokemon.name).toBe("Blastoise")
+      expect(store.targets()[1].pokemon.name).toBe("Arcanine")
+      expect(store.targets()[2].pokemon.name).toBe("Machamp")
+      expect(store.targets()[3].pokemon.name).toBe("Alakazam")
     })
 
     it("should load active Pokémon from active Team as attacker", () => {
@@ -85,15 +81,15 @@ describe("Calculator Store", () => {
     })
 
     it("should load team member at index 0", () => {
-      expect(store.teamMember0()?.name).toBe("Miraidon")
+      expect(store.teamMember0()?.name).toBe("Charizard")
     })
 
     it("should load team member at index 1", () => {
-      expect(store.teamMember1()?.name).toBe("Koraidon")
+      expect(store.teamMember1()?.name).toBe("Dragonite")
     })
 
     it("should load team member at index 2", () => {
-      expect(store.teamMember2()?.name).toBe("Rillaboom")
+      expect(store.teamMember2()?.name).toBe("Venusaur")
     })
 
     it("should load team member at index 3", () => {
@@ -206,7 +202,7 @@ describe("Calculator Store", () => {
         store.item(id1, "Leftovers")
         expect(store.duplicateItemPokemonIds().size).toBe(2)
 
-        store.item(id1, "Sitrus Berry")
+        store.item(id1, "Life Orb")
 
         expect(store.duplicateItemPokemonIds().size).toBe(0)
       })
@@ -229,10 +225,6 @@ describe("Calculator Store", () => {
   })
 
   describe("methods", () => {
-    beforeEach(() => {
-      store.updateGame("sv")
-    })
-
     describe("Update Pokémon", () => {
       it("should update Pokémon name", () => {
         store.name(defaultId, "Pikachu")
@@ -587,9 +579,9 @@ describe("Calculator Store", () => {
 
     describe("Update Targets", () => {
       it("should update target meta regulation", () => {
-        store.updateTargetMetaRegulation("I")
+        store.updateTargetMetaRegulation("MB")
 
-        expect(store.targetMetaRegulation()).toBe("I")
+        expect(store.targetMetaRegulation()).toBe("MB")
       })
 
       it("should remove all Targets", () => {
@@ -751,21 +743,21 @@ describe("Calculator Store", () => {
 
     describe("Load Pokémon Info", () => {
       it("should load Pokémon information using it name", () => {
-        store.loadPokemonInfo(defaultId, "Incineroar")
+        store.loadPokemonInfo(defaultId, "Kangaskhan-Mega")
         const result = store.findPokemonById(defaultId)
 
-        expect(result.name).toBe("Incineroar")
-        expect(result.nature).toBe("Impish")
-        expect(result.item).toBe("Assault Vest")
-        expect(result.ability.name).toBe("Intimidate")
-        expect(result.teraType).toBe("Bug")
+        expect(result.name).toBe("Kangaskhan-Mega")
+        expect(result.nature).toBe("Adamant")
+        expect(result.item).toBe("Kangaskhanite")
+        expect(result.ability.name).toBe("Parental Bond")
+        expect(result.teraType).toBe("")
         expect(result.teraTypeActive).toBe(false)
-        expect(result.evs).toEqual({ hp: 244, atk: 0, def: 244, spa: 0, spd: 20, spe: 0 })
-        expect(result.move1Name).toBe("Flare Blitz")
-        expect(result.move2Name).toBe("Knock Off")
+        expect(result.evs).toEqual({ hp: 164, atk: 252, def: 4, spa: 0, spd: 4, spe: 84 })
+        expect(result.move1Name).toBe("Double-Edge")
+        expect(result.move2Name).toBe("Ice Punch")
         expect(result.move3Name).toBe("Fake Out")
-        expect(result.move4Name).toBe("Parting Shot")
-        expect(result.activeMoveName).toBe("Flare Blitz")
+        expect(result.move4Name).toBe("Low Kick")
+        expect(result.activeMoveName).toBe("Double-Edge")
       })
 
       it("should reset previous commander state", () => {
@@ -854,14 +846,11 @@ describe("Calculator Store", () => {
         vi.spyOn(localStorage, "setItem").mockImplementation((key: string, value: string): void => {
           mockStorage[key] = value
         })
-
-        store.updateGame("champions")
       })
 
       it("should update state locking local storage", () => {
         const state = {
           updateLocalStorage: true,
-          game: "sv" as const,
           leftPokemonState: pikachuState,
           rightPokemonState: pikachuState,
           secondAttackerId: "123",
@@ -950,10 +939,6 @@ describe("Calculator Store", () => {
   })
 
   describe("custom sets", () => {
-    beforeEach(() => {
-      store.updateGame("champions")
-    })
-
     it("should start with no custom sets", () => {
       expect(store.customSetsState().length).toBe(0)
     })

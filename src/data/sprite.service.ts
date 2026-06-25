@@ -1,12 +1,8 @@
-import { inject, Injectable } from "@angular/core"
-import { CalculatorStore } from "@data/store/calculator-store"
+import { Injectable } from "@angular/core"
 
 @Injectable({ providedIn: "root" })
 export class SpriteService {
-  private store = inject(CalculatorStore)
-
   path(name: string): string {
-    const folder = this.store.isChampions() ? "pokemon-champions" : "pokemon-sv"
-    return `assets/sprites/${folder}/${name}.webp`
+    return `assets/sprites/pokemon-champions/${name}.webp`
   }
 }

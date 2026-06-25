@@ -2,7 +2,6 @@ import { Component, computed, inject, input, output } from "@angular/core"
 import { MOVE_DETAILS, MoveDetail, MoveName } from "@data/move-details"
 import { MOVE_DETAILS_CHAMPIONS } from "@data/move-details-champions"
 import { POKEMON_DETAILS } from "@data/pokemon-details"
-import { POKEMON_DETAILS_CHAMPIONS } from "@data/pokemon-details-champions"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { FilterableTableComponent } from "@features/pokemon-build/tables/filterable-table/filterable-table.component"
 import { ColumnConfig } from "@features/pokemon-build/tables/filterable-table/filtered-table-types"
@@ -30,7 +29,7 @@ export class MovesTableComponent {
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
 
   movesData = computed(() => {
-    const details = this.store.game() === "champions" ? POKEMON_DETAILS_CHAMPIONS : POKEMON_DETAILS
+    const details = POKEMON_DETAILS
     const pokemonDetails = Object.values(details).find(p => p.name == this.pokemon().name)!
     const metaMoves = this.getMoveDetails(pokemonDetails.metaMoves)
     const allMoves = this.getMoveDetails(pokemonDetails.learnset)
@@ -60,13 +59,11 @@ export class MovesTableComponent {
   })
 
   private getMoveDetails(learnset: MoveName[]): MoveDetail[] {
-    const isChampions = this.store.game() === "champions"
-
     const details = learnset
       .map(move => {
         const moveDetail = MOVE_DETAILS[move]
         if (moveDetail) {
-          const championsOverride = isChampions ? MOVE_DETAILS_CHAMPIONS[move] : undefined
+          const championsOverride = MOVE_DETAILS_CHAMPIONS[move]
           return { move, ...moveDetail, ...championsOverride }
         }
         return null
@@ -125,19 +122,17 @@ export class MovesTableComponent {
       })
     ]
 
-    if (this.store.game() === "champions") {
-      columns.push(
-        new ColumnConfig<MoveDetail>({
-          field: "target",
-          header: "Targets",
-          description: "Opponents hit",
-          displayFn: (item: MoveDetail) => this.targetsHit(item),
-          tooltipFn: (item: MoveDetail) => (item.target === "allAdjacent" ? "Also hits your ally" : ""),
-          showHeaderInCell: true,
-          width: "tinysmall"
-        })
-      )
-    }
+    columns.push(
+      new ColumnConfig<MoveDetail>({
+        field: "target",
+        header: "Targets",
+        description: "Opponents hit",
+        displayFn: (item: MoveDetail) => this.targetsHit(item),
+        tooltipFn: (item: MoveDetail) => (item.target === "allAdjacent" ? "Also hits your ally" : ""),
+        showHeaderInCell: true,
+        width: "tinysmall"
+      })
+    )
 
     columns.push(new ColumnConfig<MoveDetail>({ field: "description", header: "Description", description: "Description", alignLeft: true, width: "fill" }))
 

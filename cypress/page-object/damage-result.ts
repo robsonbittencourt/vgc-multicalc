@@ -35,11 +35,11 @@ export class DamageResult {
   }
 
   surviveWithThisHpAmmount(hp: number) {
-    this.baseElement().find('[data-cy="hp-value"]').contains(`${hp}/`)
+    this.baseElement().find('[data-cy="hp-value"] text').first().should("contain.text", `${hp}`)
   }
 
   withMaxHpValue(hp: number) {
-    this.baseElement().find('[data-cy="hp-value"]').contains(`/${hp}`)
+    this.baseElement().find('[data-cy="hp-value"] text').last().should("contain.text", `/${hp}`)
   }
 
   withPokemonIcon(iconName: string) {

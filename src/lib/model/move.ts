@@ -1,12 +1,12 @@
 import { MOVE_DETAILS } from "@data/move-details"
 import { MOVE_DETAILS_CHAMPIONS } from "@data/move-details-champions"
 import { Category, PokemonType, SecondaryEffect } from "@lib/types"
+import { getMove } from "@calc"
 
 interface MoveOptions {
   alliesFainted?: string
   hits?: string
   lastMoveFailed?: boolean
-  game?: string
 }
 
 interface MoveDetailsResolved {
@@ -48,12 +48,12 @@ export class Move {
   constructor(name: string, options: MoveOptions = {}) {
     this.name = name ?? ""
     this.possibleHits = this.moveHits(name)
-    this.multiaccuracy = MOVES[9][name]?.multiaccuracy ?? false
+    this.multiaccuracy = getMove(name)?.multiaccuracy ?? false
     this.hits = this.hitsValue(name, options)
     this.alliesFainted = options.alliesFainted ?? "0"
     this.lastMoveFailed = options.lastMoveFailed ?? false
 
-    const resolved = this.resolveDetails(name, options.game)
+    const resolved = this.resolveDetails(name)
 
     this.bp = resolved.bp
     this.category = resolved.category
@@ -67,10 +67,10 @@ export class Move {
     return this.type === type
   }
 
-  private resolveDetails(name: string, game?: string): MoveDetailsResolved {
+  private resolveDetails(name: string): MoveDetailsResolved {
     const moveName = moveKey(name)
     const baseDetails = moveName ? MOVE_DETAILS[moveName] : undefined
-    const moveDetails = baseDetails && game === "champions" && MOVE_DETAILS_CHAMPIONS[moveName] ? { ...baseDetails, ...MOVE_DETAILS_CHAMPIONS[moveName] } : baseDetails
+    const moveDetails = baseDetails && MOVE_DETAILS_CHAMPIONS[moveName] ? { ...baseDetails, ...MOVE_DETAILS_CHAMPIONS[moveName] } : baseDetails
 
     if (!moveDetails) {
       return { ...EMPTY_MOVE_DEFAULTS }

@@ -1,7 +1,6 @@
 import { poke } from "@cy-support/e2e"
 import { DamageResult } from "@page-object/damage-result"
 import { Field } from "@page-object/field"
-import { Header } from "@page-object/header"
 import { Opponent } from "@page-object/opponent"
 import { PokemonBuild } from "@page-object/pokemon-build"
 import { Team } from "@page-object/team"
@@ -15,7 +14,6 @@ const rightPokemonBuild = new PokemonBuild("right-pokemon")
 const team = new Team()
 const field = new Field()
 const opponents = new Opponent()
-const header = new Header()
 
 describe("Test the Field options on options with One vs One", () => {
   beforeEach(() => {
@@ -26,9 +24,11 @@ describe("Test the Field options on options with One vs One", () => {
 
   describe("Left side", () => {
     it("With Reflect active", () => {
+      rightPokemonBuild.importPokemon(poke["baxcalibur"])
+
       field.reflectAttacker()
 
-      rightDamageResult.damageIs(0, 27, 32, 49, 58)
+      rightDamageResult.damageIs(0, 71.8, 84.9, 22, 26)
     })
 
     it("With Light Screen active", () => {
@@ -36,13 +36,13 @@ describe("Test the Field options on options with One vs One", () => {
 
       field.lightScreenAttacker()
 
-      rightDamageResult.damageIs(0, 30.9, 37, 56, 67)
+      rightDamageResult.damageIs(0, 47.7, 56.8, 73, 87)
     })
 
     it("With Aurora Veil active", () => {
       field.auroraVeilAttacker()
 
-      rightDamageResult.damageIs(0, 27, 32, 49, 58)
+      rightDamageResult.damageIs(0, 35.2, 41.8, 54, 64)
     })
 
     it("With Single Target active", () => {
@@ -50,25 +50,25 @@ describe("Test the Field options on options with One vs One", () => {
 
       field.singleTargetAttacker()
 
-      leftDamageResult.damageIs(1, 51.2, 60.4, 105, 124)
+      leftDamageResult.damageIs(1, 21, 25.3, 35, 42)
     })
 
     it("With Friend Guard active", () => {
       field.friendGuardAttacker()
 
-      rightDamageResult.damageIs(0, 30.3, 35.9, 55, 65)
+      rightDamageResult.damageIs(0, 39.8, 47, 61, 72)
     })
 
     it("With One Spikes active", () => {
       field.oneSpikesAttacker()
 
-      rightDamageResult.haveChanceOfToCause2HKO(66.8)
+      rightDamageResult.cause2HKO()
     })
 
     it("With Two Spikes active", () => {
       field.twoSpikesAttacker()
 
-      rightDamageResult.haveChanceOfToCause2HKO(97.7)
+      rightDamageResult.cause2HKO()
     })
 
     it("With Three Spikes active", () => {
@@ -80,7 +80,7 @@ describe("Test the Field options on options with One vs One", () => {
     it("With Stealth Rock active", () => {
       field.stealthRockAttacker()
 
-      rightDamageResult.haveChanceOfToCause2HKO(66.8)
+      rightDamageResult.causeOHKO()
     })
 
     it("With Leech Seed active", () => {
@@ -92,25 +92,25 @@ describe("Test the Field options on options with One vs One", () => {
     it("With Helping Hand active", () => {
       field.helpingHandAttacker()
 
-      leftDamageResult.damageIs(0, 360.9, 425.3, 740, 872)
+      leftDamageResult.damageIs(0, 5.4, 6.6, 9, 11)
     })
 
     it("With Critical active", () => {
       field.criticalHitAttacker()
 
-      leftDamageResult.damageIs(0, 360.9, 425.3, 740, 872)
+      leftDamageResult.damageIs(0, 5.4, 6.6, 9, 11)
     })
 
     it("With Battery active", () => {
       field.batteryAttacker()
 
-      leftDamageResult.damageIs(0, 313.1, 368.7, 642, 756)
+      leftDamageResult.damageIs(0, 4.8, 5.4, 8, 9)
     })
 
     it("With Power Spot active", () => {
       field.powerSpotAttacker()
 
-      leftDamageResult.damageIs(0, 313.1, 368.7, 642, 756)
+      leftDamageResult.damageIs(0, 4.8, 5.4, 8, 9)
     })
 
     it("With Tailwind active", () => {
@@ -118,25 +118,21 @@ describe("Test the Field options on options with One vs One", () => {
 
       field.tailwindAttacker()
 
-      leftDamageResult.damageIs(2, 8.7, 10.7, 18, 22)
+      leftDamageResult.damageIs(2, 4.2, 5.4, 7, 9)
     })
 
     it("With Protected active - regular move is blocked", () => {
-      header.selectChampions()
-
       field.protectedAttacker()
 
       rightDamageResult.damageIs(0, 0, 0, 0, 0)
     })
 
     it("With Protected active - Piercing Drill move causes 25% damage", () => {
-      header.selectChampions()
-
       rightPokemonBuild.importPokemon(poke["excadrill-mega"])
 
       field.protectedAttacker()
 
-      rightDamageResult.damageIs(0, 8.4, 10.4, 13, 16)
+      rightDamageResult.damageIs(0, 7.8, 9.1, 12, 14)
     })
   })
 
@@ -146,8 +142,8 @@ describe("Test the Field options on options with One vs One", () => {
 
       field.tabletsOfRuin()
 
-      leftDamageResult.damageIs(0, 87.8, 107.3, 36, 44)
-      rightDamageResult.damageIs(0, 63.1, 74.7, 120, 142)
+      leftDamageResult.damageIs(0, 227.7, 271, 42, 50)
+      rightDamageResult.damageIs(0, 41.5, 49.4, 79, 94)
     })
 
     it("With Sword of Ruin active", () => {
@@ -155,8 +151,8 @@ describe("Test the Field options on options with One vs One", () => {
 
       field.swordOfRuin()
 
-      leftDamageResult.damageIs(0, 151.2, 180.4, 62, 74)
-      rightDamageResult.damageIs(0, 11.5, 131.5, 212, 250)
+      leftDamageResult.damageIs(0, 390.3, 466.2, 72, 86)
+      rightDamageResult.damageIs(0, 41.5, 49.4, 79, 94)
     })
 
     it("With Vessel of Ruin active", () => {
@@ -164,8 +160,8 @@ describe("Test the Field options on options with One vs One", () => {
 
       field.vesselOfRuin()
 
-      leftDamageResult.damageIs(0, 81.4, 96.2, 193, 228)
-      rightDamageResult.damageIs(0, 8.8, 10.4, 16, 19)
+      leftDamageResult.damageIs(0, 32.9, 39.6, 78, 94)
+      rightDamageResult.damageIs(0, 54.9, 66.6, 84, 102)
     })
 
     it("With Beads of Ruin active", () => {
@@ -173,13 +169,11 @@ describe("Test the Field options on options with One vs One", () => {
 
       field.beadsOfRuin()
 
-      leftDamageResult.damageIs(0, 144.7, 170.8, 343, 405)
-      rightDamageResult.damageIs(0, 16, 18.7, 29, 34)
+      leftDamageResult.damageIs(0, 58.2, 69.1, 138, 164)
+      rightDamageResult.damageIs(0, 98, 115, 150, 176)
     })
 
     it("With Fairy Aura active", () => {
-      header.selectChampions()
-
       leftPokemonBuild.importPokemon(poke["hatterene"]).selectAttackTwo()
       rightPokemonBuild.importPokemon(poke["dragonite"])
 
@@ -263,8 +257,8 @@ describe("Test the Field options on options with One vs One", () => {
 
       field.mistyTerrain()
 
-      leftDamageResult.damageIs(0, 110.5, 130.5, 210, 248)
-      rightDamageResult.damageIs(1, 67.4, 80.6, 122, 146)
+      leftDamageResult.damageIs(0, 14.7, 17.3, 28, 33)
+      rightDamageResult.damageIs(1, 98, 115.6, 150, 177)
     })
 
     it("With Gravity active", () => {
@@ -298,21 +292,19 @@ describe("Test the Field options on options with One vs One", () => {
     })
 
     it("With Neutralizing Gas active", () => {
+      leftPokemonBuild.importPokemon(poke["chi-yu"])
       cy.wait(500)
       field.neutralizingGas()
 
-      leftDamageResult.damageIs(0, 181.4, 213.6, 372, 438)
-      rightDamageResult.damageIs(0, 30.9, 36.4, 56, 66)
+      leftDamageResult.damageIs(0, 43.3, 51.8, 72, 86)
     })
 
     it("With Neutralizing Gas active and Ability Shield", () => {
-      leftPokemonBuild.selectItem("Ability Shield")
-      rightPokemonBuild.selectItem("Ability Shield")
+      leftPokemonBuild.importPokemon(poke["chi-yu"]).selectItem("Ability Shield")
 
       field.neutralizingGas()
 
-      leftDamageResult.damageIs(0, 160.9, 190.2, 330, 390)
-      rightDamageResult.damageIs(0, 40.8, 48, 74, 87)
+      leftDamageResult.damageIs(0, 39.1, 46.3, 65, 77)
     })
 
     it("Colbur Berry should reduce damage without Unnerve", () => {
@@ -481,21 +473,17 @@ describe("Test the Field options on options with One vs One", () => {
     })
 
     it("With Protected active - regular move is blocked", () => {
-      header.selectChampions()
-
       field.protectedDefender()
 
       leftDamageResult.damageIs(0, 0, 0, 0, 0)
     })
 
     it("With Protected active - Piercing Drill move causes 25% damage", () => {
-      header.selectChampions()
-
       leftPokemonBuild.importPokemon(poke["excadrill-mega"])
 
       field.protectedDefender()
 
-      leftDamageResult.damageIs(0, 6.6, 8.4, 11, 14)
+      leftDamageResult.damageIs(0, 6, 7.2, 10, 12)
     })
   })
 })
@@ -717,8 +705,6 @@ describe("Test the Field options on options with Many Pokémon", () => {
   })
 
   it("With Protected active - regular move is blocked", () => {
-    header.selectChampions()
-
     team.importPokemon(poke["vaporeon"])
 
     field.protectedDefender()
@@ -727,13 +713,11 @@ describe("Test the Field options on options with Many Pokémon", () => {
   })
 
   it("With Protected active - Piercing Drill move causes 25% damage", () => {
-    header.selectChampions()
-
     team.importPokemon(poke["excadrill-mega"])
 
     field.protectedDefender()
 
-    opponents.get("Incineroar").damageIs(6.8, 8)
+    opponents.get("Incineroar").damageIs(4.4, 4.9)
   })
 
   it("With Tailwind in defender side active", () => {

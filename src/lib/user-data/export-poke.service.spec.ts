@@ -14,7 +14,7 @@ import { MockOf } from "@lib/test-utils"
 describe("ExportPokeService", () => {
   let service: ExportPokeService
   let dialogSpy: MockOf<MatDialog>
-  const storeMock = { isChampions: () => false }
+  const storeMock = {}
 
   beforeEach(() => {
     dialogSpy = { open: vi.fn() } as unknown as MockOf<MatDialog>
@@ -118,7 +118,6 @@ describe("ExportPokeService", () => {
 const pasteWithOneMove = `Ditto @ Assault Vest
 Ability: Limber
 Level: 50
-Tera Type: Normal
 Hardy Nature
 - Transform
 
@@ -127,7 +126,6 @@ Hardy Nature
 const pasteWithAegislashBoth = `Aegislash @ Leftovers
 Ability: Stance Change
 Level: 50
-Tera Type: Steel
 EVs: 32 HP / 1 Def / 32 SpA / 1 SpD
 Quiet Nature
 - Shadow Ball
@@ -138,7 +136,6 @@ Quiet Nature
 Aegislash @ Leftovers
 Ability: Stance Change
 Level: 50
-Tera Type: Steel
 EVs: 32 HP / 1 Def / 32 SpA / 1 SpD
 Quiet Nature
 - Shadow Ball
@@ -151,7 +148,6 @@ Quiet Nature
 const pasteWithOnePokemon = `Rillaboom @ Assault Vest
 Ability: Grassy Surge
 Level: 50
-Tera Type: Fire
 EVs: 140 HP / 116 Atk / 4 Def / 84 SpD / 164 Spe
 Adamant Nature
 - Fake Out
@@ -164,7 +160,6 @@ Adamant Nature
 const pasteWithThreePokemon = `Rillaboom @ Assault Vest
 Ability: Grassy Surge
 Level: 50
-Tera Type: Fire
 EVs: 196 HP / 196 Atk / 4 Def / 12 SpD / 100 Spe
 Adamant Nature
 - Fake Out
@@ -175,7 +170,6 @@ Adamant Nature
 Incineroar @ Safety Goggles
 Ability: Intimidate
 Level: 50
-Tera Type: Ghost
 EVs: 244 HP / 4 Def / 20 SpA / 4 SpD / 252 Spe
 Jolly Nature
 - Fake Out
@@ -186,7 +180,6 @@ Jolly Nature
 Urshifu-Rapid-Strike @ Focus Sash
 Ability: Unseen Fist
 Level: 50
-Tera Type: Stellar
 EVs: 4 HP / 252 Atk / 252 Spe
 Adamant Nature
 - Surging Strikes

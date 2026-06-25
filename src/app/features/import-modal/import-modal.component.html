@@ -4,7 +4,8 @@
     <textarea class="import-textarea" [placeholder]="placeholder" [(ngModel)]="content" data-cy="import-paste-textarea"></textarea>
   </mat-dialog-content>
   <mat-dialog-actions align="end">
+    <mat-slide-toggle class="import-sps-toggle" [(ngModel)]="useSpsMode" [labelPosition]="'before'" data-cy="import-evs-sps-toggle">SP</mat-slide-toggle>
     <button mat-flat-button mat-dialog-close>Cancel</button>
-    <button mat-flat-button [mat-dialog-close]="content" [disabled]="!content" data-cy="confirm-import">Import</button>
+    <button mat-flat-button [mat-dialog-close]="result" [disabled]="!content" data-cy="confirm-import">Import</button>
   </mat-dialog-actions>
 </div>

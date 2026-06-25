@@ -11,7 +11,6 @@ import { DomSanitizer } from "@angular/platform-browser"
 import { InputAutocompleteComponent } from "@app/basic/input-autocomplete/input-autocomplete.component"
 import { WidgetComponent } from "@basic/widget/widget.component"
 import { SETDEX_CHAMPIONS } from "@data/movesets-champions"
-import { SETDEX_SV } from "@data/movesets"
 import { pokemonByRegulation } from "@data/regulation-pokemon"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { CustomSet } from "@data/store/custom-set"
@@ -41,6 +40,7 @@ import { defaultPokemon } from "@lib/default-pokemon"
 import { Target } from "@lib/model/target"
 import { BackNavigationService } from "@lib/back-navigation.service"
 import { AddPokemonCardComponent } from "@pages/multi-calc/add-pokemon-card/add-pokemon-card.component"
+import { FEATURES } from "@lib/feature-flags"
 import { TeamTabsMobileComponent } from "@features/team/team-tabs-mobile/team-tabs-mobile.component"
 import { TeamsMobileComponent } from "@features/team/teams-mobile/teams-mobile.component"
 import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-button/export-pokemon-button.component"
@@ -118,11 +118,6 @@ export class MultiCalcMobileComponent implements OnDestroy {
     })
 
     effect(() => {
-      this.store.game()
-      this.pokemonOnEditId.set(null)
-    })
-
-    effect(() => {
       const attacker = this.activeAttacker()
       const secondAttacker = this.secondAttacker()
 
@@ -184,8 +179,8 @@ export class MultiCalcMobileComponent implements OnDestroy {
   editingPokemonItem = computed(() => this.editingPokemon()?.item ?? "")
   editingMoveIndex = computed(() => Math.max(0, this.editingPokemon()?.activeMoveIndex ?? 0))
 
-  regulation = linkedSignal<Regulation>(() => this.store.targetMetaRegulation() ?? (this.store.game() === "champions" ? "MB" : "I"))
-  regulationsList = computed(() => (this.store.game() === "champions" ? ["MB"] : ["I"]))
+  regulation = linkedSignal<Regulation>(() => this.store.targetMetaRegulation() ?? "MB")
+  regulationsList = signal(["MB"])
   rollLevelConfig = signal(RollLevelConfig.fromConfigString(this.store.multiCalcRollLevel()))
 
   optimizationStatus = signal<"idle" | "success" | "no-solution" | "not-needed">("idle")
@@ -417,8 +412,8 @@ export class MultiCalcMobileComponent implements OnDestroy {
   private applyMeta(regulation: Regulation) {
     this.regulation.set(regulation)
     this.store.updateTargetMetaRegulation(regulation)
-    const setdex = this.store.game() === "champions" ? SETDEX_CHAMPIONS : SETDEX_SV
-    const metaPokemon = pokemonByRegulation(regulation, 60, setdex, false, this.store.isChampions())
+    const setdex = SETDEX_CHAMPIONS
+    const metaPokemon = pokemonByRegulation(regulation, 60, setdex, false)
     this.onTargetsImported(metaPokemon)
   }
 
@@ -458,7 +453,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
 
   exportPokemon() {
     const pokemon = this.store.targets().flatMap(t => (t.secondPokemon ? [t.pokemon, t.secondPokemon] : [t.pokemon]))
-    const shouldUseSps = this.store.isChampions() && this.store.useSpsMode()
+    const shouldUseSps = this.store.useSpsMode()
     this.exportPokeService.export("Opponent Pokémon", pokemon, shouldUseSps)
   }
 
@@ -477,8 +472,8 @@ export class MultiCalcMobileComponent implements OnDestroy {
   }
 
   private targetsExcludingMetaData(): Target[] {
-    const setdex = this.store.game() === "champions" ? SETDEX_CHAMPIONS : SETDEX_SV
-    const metaLeft = pokemonByRegulation(this.store.targetMetaRegulation()!, undefined, setdex, false, this.store.isChampions())
+    const setdex = SETDEX_CHAMPIONS
+    const metaLeft = pokemonByRegulation(this.store.targetMetaRegulation()!, undefined, setdex, FEATURES.allowAllPokes)
 
     const newTargets = [...this.store.targets()]
       .reverse()

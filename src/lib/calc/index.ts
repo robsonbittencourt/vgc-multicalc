@@ -13,7 +13,7 @@ export { Pokemon } from "./model/pokemon"
 export { toID } from "./engine/data-util"
 export { MultiResult } from "./model/multi-result"
 export { Result } from "./model/result"
-export { getSpecies, getType } from "./data/stores"
+export { getMove, getSpecies, getType } from "./data/stores"
 export { EV_ITEMS, getBerryResistType } from "./model/items"
 export type { AbilityName, ItemName, NatureName, StatID, StatIDExceptHP, StatusName, Terrain, TypeName, Weather, GameType, Gender, SpeciesName, MoveName } from "./model/types"
 
