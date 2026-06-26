@@ -5,11 +5,6 @@
   align-items: center;
   gap: 0.5em;
 
-  &:has(.set-name-input),
-  &:has(.set-name-display) {
-    padding-top: 0.5em;
-  }
-
   [mat-flat-button] {
     margin-bottom: 1px;
     width: 8em;
@@ -48,7 +43,6 @@
 }
 
 .set-name-label {
-  padding-left: 1em;
   color: var(--text);
   white-space: nowrap;
 }
