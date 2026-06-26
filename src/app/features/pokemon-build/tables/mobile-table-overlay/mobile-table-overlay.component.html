@@ -13,6 +13,9 @@
 }
 
 @if (overlay.kind() === "moves") {
+  <div class="search-header">
+    <input class="search-input" [value]="overlay.currentFilter()" (input)="overlay.setFilter($any($event.target).value)" data-cy="move-search" aria-label="Search move" placeholder="Search move" />
+  </div>
   <div class="table-container">
     <app-moves-table [pokemonId]="pokemonId()" [dataFilter]="overlay.currentFilter()" [haveFocus]="true" [isMobile]="true" [moveIndex]="moveIndex()" (moveSelected)="onMoveSelected($event)" (escapeWasPressed)="close()" />
   </div>

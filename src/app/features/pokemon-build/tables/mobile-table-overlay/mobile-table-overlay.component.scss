@@ -15,6 +15,32 @@
   background-color: var(--background);
 }
 
+.search-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5em;
+  padding: 0.75em;
+  background-color: var(--background);
+}
+
+.search-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 6px;
+  border: 1px solid rgb(133, 129, 129);
+  border-radius: 3px;
+  outline: none;
+  background-color: var(--widget-background);
+  color: var(--text);
+  font-size: 14px;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
+}
+
 .close-table-button {
   display: flex;
   align-items: center;
