@@ -128,6 +128,7 @@
               label="Set"
               leftLabel="true"
               labelWidth="4.5em"
+              [emitOnType]="true"
               [disabled]="!setFilterEnabled()"
               [enableClear]="setFilter() !== ''"
               [allValues]="availableSetNames()"
