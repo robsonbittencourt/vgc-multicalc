@@ -38,6 +38,29 @@ describe("Opponent Set filter", () => {
     opponents.exists("Archaludon")
     opponents.exists("Aerodactyl")
   })
+
+  it("Filter opponents by set substring, showing every Pokémon sharing the tag", () => {
+    team.add("Archaludon")
+    customSet.saveSet()
+    customSet.renameSet("Bulky Offense")
+    customSet.exitEditMode()
+
+    team.add("Tyranitar")
+    customSet.saveSet()
+    customSet.renameSet("Bulky Offense")
+    customSet.exitEditMode()
+
+    opponents.deleteAll()
+    opponents.add("Archaludon")
+    opponents.add("Tyranitar")
+    opponents.add("Aerodactyl")
+
+    opponents.typeSetFilter("Bulky Offense")
+
+    opponents.exists("Archaludon")
+    opponents.exists("Tyranitar")
+    opponents.doesNotExists("Aerodactyl")
+  })
 })
 
 describe("Opponent Team filter", () => {

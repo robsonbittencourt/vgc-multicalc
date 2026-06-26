@@ -35,6 +35,7 @@
       label="Set"
       leftLabel="true"
       inputWidth="18em"
+      [emitOnType]="true"
       [disabled]="!setFilterEnabled()"
       [enableClear]="setFilter() !== ''"
       [allValues]="availableSetNames()"

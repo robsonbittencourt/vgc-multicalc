@@ -122,8 +122,15 @@ export class TargetPokemonComponent {
     }
 
     if (setFilter) {
+      const normalizedSetFilter = setFilter.toLocaleLowerCase()
       const setNameById = this.setNameByPokemonId()
-      results = results.filter(result => this.cardPokemons(result).some(pokemon => setNameById.get(pokemon.id) === setFilter))
+      results = results.filter(result =>
+        this.cardPokemons(result).some(pokemon => {
+          const setName = setNameById.get(pokemon.id)
+
+          return setName != undefined && setName.toLocaleLowerCase().includes(normalizedSetFilter)
+        })
+      )
     }
 
     return results

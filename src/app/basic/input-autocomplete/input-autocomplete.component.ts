@@ -5,7 +5,7 @@ import { MatAutocomplete, MatAutocompleteTrigger } from "@angular/material/autoc
 import { MatOption } from "@angular/material/core"
 import { MatIcon } from "@angular/material/icon"
 import { Observable } from "rxjs"
-import { map, startWith } from "rxjs/operators"
+import { debounceTime, map, startWith } from "rxjs/operators"
 
 export interface KeyValuePair {
   key: string
@@ -42,6 +42,8 @@ export class InputAutocompleteComponent implements OnInit {
 
   haveFocus = input(false)
 
+  emitOnType = input(false)
+
   cleared = output()
 
   selected = output()
@@ -69,13 +71,25 @@ export class InputAutocompleteComponent implements OnInit {
     this.filteredValues.subscribe(x => {
       this.actualFilteredValues = x
     })
+
+    if (this.emitOnType()) {
+      this.formControl.valueChanges.pipe(debounceTime(150)).subscribe(value => this.value.set(value ?? ""))
+    }
   }
 
   onClick() {
+    if (this.emitOnType()) return
+
     this.formControl.setValue("")
   }
 
   onBlur() {
+    if (this.emitOnType()) {
+      this.value.set(this.formControl.value ?? "")
+
+      return
+    }
+
     if (!this.formControl.value) {
       this.onValueSelected("")
     } else if (this.actualFilteredValues[0]) {

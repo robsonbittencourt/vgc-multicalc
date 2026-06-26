@@ -92,6 +92,10 @@ export class Opponent {
     cy.get("mat-option").contains(setLabel).click({ force: true })
   }
 
+  typeSetFilter(text: string) {
+    cy.get('[data-cy="set-filter"]').find("input").click({ force: true }).type(text)
+  }
+
   clearSetFilter() {
     cy.get('[data-cy="set-filter"]').find("mat-icon").click({ force: true })
   }
