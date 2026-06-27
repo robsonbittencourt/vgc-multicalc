@@ -30,7 +30,6 @@ export class MultiCalcComponent implements OnInit {
   private automaticFieldService = inject(AutomaticFieldService)
   private defensiveEvOptimizer = inject(DefensiveEvOptimizerService)
 
-  order = signal(false)
   pokemonOnEditId = signal<string>(this.store.team().activePokemon().id)
   pokemonOnEdit = computed(() => this.store.findPokemonById(this.pokemonOnEditId()))
 
@@ -42,7 +41,7 @@ export class MultiCalcComponent implements OnInit {
 
   activeAttacker = computed(() => this.store.findPokemonById(this.store.attackerId()))
   activeSecondAttacker = computed(() => this.store.findNullablePokemonById(this.store.secondAttackerId()))
-  damageResults = computed(() => this.damageCalculator.calculateDamageForAll(this.activeAttacker(), this.store.displayedTargets(), this.fieldStore.field(), this.order(), this.activeSecondAttacker()))
+  damageResults = computed(() => this.damageCalculator.calculateDamageForAll(this.activeAttacker(), this.store.displayedTargets(), this.fieldStore.field(), this.menuStore.orderByDamage(), this.activeSecondAttacker()))
 
   teamComponent = viewChild<TeamComponent>("teamComponent")
 
@@ -146,10 +145,6 @@ export class MultiCalcComponent implements OnInit {
         }
       })
     }
-  }
-
-  orderChanged(order: boolean) {
-    this.order.set(order)
   }
 
   targetActivated(pokemonId: string) {

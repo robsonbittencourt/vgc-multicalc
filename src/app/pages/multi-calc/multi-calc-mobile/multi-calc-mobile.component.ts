@@ -185,7 +185,6 @@ export class MultiCalcMobileComponent implements OnDestroy {
   regulation = linkedSignal<Regulation>(() => this.store.targetMetaRegulation() ?? (this.store.game() === "champions" ? "MB" : "I"))
   regulationsList = computed(() => (this.store.game() === "champions" ? ["MB"] : ["I"]))
   rollLevelConfig = signal(RollLevelConfig.fromConfigString(this.store.multiCalcRollLevel()))
-  order = signal(false)
 
   optimizationStatus = signal<"idle" | "success" | "no-solution" | "not-needed">("idle")
   optimizedEvs = signal<Stats | null>(null)
@@ -208,7 +207,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
 
     if (!attacker) return []
 
-    return this.damageCalculator.calculateDamageForAll(attacker, this.store.displayedTargets(), this.fieldStore.field(), this.order(), this.secondAttacker())
+    return this.damageCalculator.calculateDamageForAll(attacker, this.store.displayedTargets(), this.fieldStore.field(), this.menuStore.orderByDamage(), this.secondAttacker())
   })
 
   cardsFilter = signal("")
@@ -844,10 +843,6 @@ export class MultiCalcMobileComponent implements OnDestroy {
     } else {
       this.store.updateMultiCalcRollLevel(rollLevel.toConfigString())
     }
-  }
-
-  toggleOrder() {
-    this.order.update(o => !o)
   }
 
   focusPokemonComboBox() {

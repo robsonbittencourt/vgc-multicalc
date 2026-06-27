@@ -107,4 +107,23 @@ describe("Menu Store", () => {
     expect(store.typeCalcActivated()).toBe(false)
     expect(store.howToUseActivated()).toBe(true)
   })
+
+  it("should toggle order by damage without changing navigation", () => {
+    store.enableOneVsMany()
+
+    store.toggleOrderByDamage()
+
+    expect(store.orderByDamage()).toBe(true)
+    expect(store.oneVsManyActivated()).toBe(true)
+  })
+
+  it("should keep order by damage and best move when navigation changes", () => {
+    store.toggleOrderByDamage()
+    store.toggleOneVsManyBestMove()
+
+    store.enableManyVsOne()
+
+    expect(store.orderByDamage()).toBe(true)
+    expect(store.oneVsManyBestMoveActivated()).toBe(true)
+  })
 })

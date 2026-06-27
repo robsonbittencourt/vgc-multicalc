@@ -1,5 +1,6 @@
-import { Injectable } from "@angular/core"
-import { patchState, signalStore, withState } from "@ngrx/signals"
+import { effect, Injectable } from "@angular/core"
+import { initialMenuState } from "@data/store/utils/initial-menu-state"
+import { patchState, signalStore, withHooks, withState } from "@ngrx/signals"
 
 type MenuState = {
   oneVsOneActivated: boolean
@@ -10,21 +11,43 @@ type MenuState = {
   typeCalcActivated: boolean
   howToUseActivated: boolean
   oneVsManyBestMoveActivated: boolean
+  orderByDamage: boolean
 }
 
-const initialState: MenuState = {
+const navigationState = {
   oneVsOneActivated: true,
   oneVsManyActivated: false,
   manyVsOneActivated: false,
   speedCalculatorActivated: false,
   probabilityCalcActivated: false,
   typeCalcActivated: false,
-  howToUseActivated: false,
-  oneVsManyBestMoveActivated: false
+  howToUseActivated: false
+}
+
+const initialState: MenuState = {
+  ...navigationState,
+  ...initialMenuState()
 }
 
 @Injectable({ providedIn: "root" })
-export class MenuStore extends signalStore({ protectedState: false }, withState(initialState)) {
+export class MenuStore extends signalStore(
+  { protectedState: false },
+  withState(initialState),
+  withHooks(store => ({
+    onInit() {
+      effect(() => {
+        if (typeof localStorage === "undefined") return
+        const userData = JSON.parse(localStorage.getItem("userData")!)
+        const menuData = {
+          orderByDamage: store.orderByDamage(),
+          oneVsManyBestMoveActivated: store.oneVsManyBestMoveActivated()
+        }
+
+        localStorage.setItem("userData", JSON.stringify({ ...userData, menuData }))
+      })
+    }
+  }))
+) {
   enableOneVsOne() {
     patchState(this, () => ({ ...this.allOptionsTurnedOff(), oneVsOneActivated: true }))
   }
@@ -57,7 +80,11 @@ export class MenuStore extends signalStore({ protectedState: false }, withState(
     patchState(this, state => ({ oneVsManyBestMoveActivated: !state.oneVsManyBestMoveActivated }))
   }
 
+  toggleOrderByDamage() {
+    patchState(this, state => ({ orderByDamage: !state.orderByDamage }))
+  }
+
   private allOptionsTurnedOff() {
-    return Object.fromEntries(Object.keys(initialState).map(key => [key, false])) as MenuState
+    return Object.fromEntries(Object.keys(navigationState).map(key => [key, false])) as MenuState
   }
 }

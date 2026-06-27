@@ -43,7 +43,6 @@ export class TargetPokemonComponent {
   pokemonAddedToTargets = output<string>()
   targetRemoved = output()
   targetsImported = output()
-  orderChanged = output<boolean>()
   rollLevelChange = output<RollLevelConfig>()
 
   store = inject(CalculatorStore)
@@ -147,8 +146,6 @@ export class TargetPokemonComponent {
   })
 
   readonly regulationsList = computed(() => (this.store.game() === "champions" ? ["MB"] : ["I"]))
-
-  order = signal(false)
 
   onMetaClick() {
     if (this.haveMetaData()) {
@@ -257,11 +254,6 @@ export class TargetPokemonComponent {
     this.store.updateTargets(withoutDefaultPokemon)
 
     this.targetActivated.emit(pokemonId)
-  }
-
-  toggleOrder() {
-    this.order.update(o => !o)
-    this.orderChanged.emit(this.order())
   }
 
   drop(event: CdkDragDrop<string, any>) {
