@@ -288,6 +288,8 @@ export class MultiCalcMobileComponent implements OnDestroy {
     return results
   })
 
+  readonly anyFilterActive = computed(() => this.cardsFilter() !== "" || this.setFilter() !== "" || this.teamFilter() !== "")
+
   readonly pokemonFilterEnabled = computed(() => this.setFilter() === "" && this.teamFilter() === "")
   readonly setFilterEnabled = computed(() => this.cardsFilter() === "" && this.teamFilter() === "")
   readonly teamFilterEnabled = computed(() => this.cardsFilter() === "" && this.setFilter() === "")

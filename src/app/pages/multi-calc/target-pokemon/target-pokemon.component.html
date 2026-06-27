@@ -72,7 +72,7 @@
         (attackersSeparated)="separateAttackers($event)" />
     }
 
-    @if (!selectPokemonActive()) {
+    @if (!selectPokemonActive() && !anyFilterActive()) {
       <app-add-pokemon-card (pokemonAddedToTeam)="addPokemonToTargets()" />
     }
   </div>

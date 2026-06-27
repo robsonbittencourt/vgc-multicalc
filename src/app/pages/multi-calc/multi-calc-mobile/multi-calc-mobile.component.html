@@ -106,7 +106,9 @@
         }
 
         @if (!selectPokemonActive()) {
-          <app-add-pokemon-card (pokemonAddedToTeam)="addPokemonToTargets()" />
+          @if (!anyFilterActive()) {
+            <app-add-pokemon-card (pokemonAddedToTeam)="addPokemonToTargets()" />
+          }
 
           <h3 class="opponents-subtitle">Filters</h3>
 
