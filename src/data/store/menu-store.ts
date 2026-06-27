@@ -9,6 +9,7 @@ type MenuState = {
   probabilityCalcActivated: boolean
   typeCalcActivated: boolean
   howToUseActivated: boolean
+  oneVsManyBestMoveActivated: boolean
 }
 
 const initialState: MenuState = {
@@ -18,7 +19,8 @@ const initialState: MenuState = {
   speedCalculatorActivated: false,
   probabilityCalcActivated: false,
   typeCalcActivated: false,
-  howToUseActivated: false
+  howToUseActivated: false,
+  oneVsManyBestMoveActivated: false
 }
 
 @Injectable({ providedIn: "root" })
@@ -49,6 +51,10 @@ export class MenuStore extends signalStore({ protectedState: false }, withState(
 
   enableHowToUse() {
     patchState(this, () => ({ ...this.allOptionsTurnedOff(), howToUseActivated: true }))
+  }
+
+  toggleOneVsManyBestMove() {
+    patchState(this, state => ({ oneVsManyBestMoveActivated: !state.oneVsManyBestMoveActivated }))
   }
 
   private allOptionsTurnedOff() {

@@ -442,6 +442,18 @@ export class MultiCalcMobileComponent implements OnDestroy {
       .concat(newTargets)
 
     this.store.updateTargets(allTargets)
+
+    if (this.menuStore.manyVsOneActivated()) {
+      const attacker = this.activeAttacker()
+
+      if (attacker) {
+        allTargets.forEach((target: Target) => {
+          if (!target.pokemon.isDefault && !target.secondPokemon) {
+            this.damageCalculator.activateBestMoveForTarget(target.pokemon, attacker, this.fieldStore.field())
+          }
+        })
+      }
+    }
   }
 
   exportPokemon() {

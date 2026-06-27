@@ -5,6 +5,10 @@
 
       <mat-slide-toggle class="order-toggle" [checked]="order()" (change)="toggleOrder()" [labelPosition]="'before'">Order by Damage</mat-slide-toggle>
 
+      @if (!isAttacker()) {
+        <mat-slide-toggle class="order-toggle" [checked]="menuStore.oneVsManyBestMoveActivated()" (change)="menuStore.toggleOneVsManyBestMove()" [labelPosition]="'before'">Best Move</mat-slide-toggle>
+      }
+
       <button mat-flat-button (click)="onMetaClick()" data-cy="add-meta-button">{{ metaButtonLabel() }}</button>
 
       <button mat-flat-button (click)="exportCalcs()" data-cy="export-calcs-button">Export Calcs</button>

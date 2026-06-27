@@ -183,7 +183,12 @@
             <div class="roll-config-section">
               <app-roll-config [(config)]="rollLevelConfig" (rollLevelChange)="handleRollLevelChange($event)" />
             </div>
-            <mat-slide-toggle [checked]="order()" (change)="toggleOrder()" [labelPosition]="'before'">Order by Damage</mat-slide-toggle>
+            <div class="toggles">
+              <mat-slide-toggle [checked]="order()" (change)="toggleOrder()" [labelPosition]="'before'">Order by Damage</mat-slide-toggle>
+              @if (menuStore.oneVsManyActivated()) {
+                <mat-slide-toggle [checked]="menuStore.oneVsManyBestMoveActivated()" (change)="menuStore.toggleOneVsManyBestMove()" [labelPosition]="'before'">Best Move</mat-slide-toggle>
+              }
+            </div>
           </div>
         </app-widget>
         <app-field />

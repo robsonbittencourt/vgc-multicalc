@@ -295,6 +295,17 @@
       flex-direction: column;
     }
 
+    .toggles {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25em;
+
+      mat-slide-toggle {
+        width: auto;
+        flex: 1;
+      }
+    }
+
     mat-slide-toggle {
       width: 100%;
       height: 2.5em;

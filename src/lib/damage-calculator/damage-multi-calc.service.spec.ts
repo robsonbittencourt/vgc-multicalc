@@ -18,7 +18,7 @@ describe("DamageMultiCalcService", () => {
   let damageOrderSpy: MockOf<DamageResultOrderService>
 
   beforeEach(() => {
-    menuStoreSpy = { oneVsManyActivated: vi.fn() } as unknown as MockOf<MenuStore>
+    menuStoreSpy = { oneVsManyActivated: vi.fn(), oneVsManyBestMoveActivated: vi.fn() } as unknown as MockOf<MenuStore>
     damageCalculatorSpy = { calcDamage: vi.fn(), calcDamageForTwoAttackers: vi.fn(), calcDamageAllAttacks: vi.fn() } as unknown as MockOf<DamageCalculatorService>
     damageOrderSpy = { order: vi.fn() } as unknown as MockOf<DamageResultOrderService>
 
