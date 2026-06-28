@@ -3179,6 +3179,51 @@ export const SETDEX_CHAMPIONS: Record<string, any> = {
     moves: ["Shadow Ball", "Seed Bomb", "Protect", "Trick-or-Treat"],
     items: ["Sitrus Berry"]
   },
+  "Gourgeist-Small": {
+    ability: "Frisk",
+    nature: "Adamant",
+    teraType: "",
+    evs: {
+      hp: 32,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 2
+    },
+    moves: ["Shadow Ball", "Seed Bomb", "Protect", "Trick-or-Treat"],
+    items: ["Sitrus Berry"]
+  },
+  "Gourgeist-Large": {
+    ability: "Frisk",
+    nature: "Adamant",
+    teraType: "",
+    evs: {
+      hp: 32,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 2
+    },
+    moves: ["Shadow Ball", "Seed Bomb", "Protect", "Trick-or-Treat"],
+    items: ["Sitrus Berry"]
+  },
+  "Gourgeist-Super": {
+    ability: "Frisk",
+    nature: "Adamant",
+    teraType: "",
+    evs: {
+      hp: 32,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 2
+    },
+    moves: ["Shadow Ball", "Seed Bomb", "Protect", "Trick-or-Treat"],
+    items: ["Sitrus Berry"]
+  },
   Avalugg: {
     ability: "Sturdy",
     nature: "Impish",
