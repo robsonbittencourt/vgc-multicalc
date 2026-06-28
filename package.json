@@ -1,6 +1,6 @@
 {
   "name": "vgc-multicalc",
-  "version": "1.18.12",
+  "version": "1.18.13",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
