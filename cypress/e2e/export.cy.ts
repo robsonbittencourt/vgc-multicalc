@@ -1,5 +1,6 @@
 import { poke } from "@cy-support/e2e"
 import { Opponent } from "@page-object/opponent"
+import { PokemonBuild } from "@page-object/pokemon-build"
 import { Team } from "@page-object/team"
 
 const team = new Team()
@@ -19,6 +20,7 @@ describe("Export", () => {
 
   it("Pokémon from team", () => {
     team.importPokemon(poke["chi-yu"])
+    new PokemonBuild("your-team").ensureEvMode()
 
     const exportModal = team.exportPokemon("Chi-Yu")
 
@@ -28,6 +30,7 @@ describe("Export", () => {
   it("Pokémon from opponent", () => {
     opponents.importPokemon(poke["chi-yu"])
     opponents.selectDefender("Chi-Yu")
+    new PokemonBuild("your-team").ensureEvMode()
 
     const exportModal = team.export()
 
@@ -36,6 +39,7 @@ describe("Export", () => {
 
   it("team", () => {
     team.importPokepaste(poke["pokepaste"])
+    new PokemonBuild("your-team").ensureEvMode()
 
     const exportModal = team.exportTeam("Team 2")
 
@@ -45,6 +49,7 @@ describe("Export", () => {
   it("opponent Pokémon", () => {
     team.delete("Team 1")
     team.importPokepaste(poke["default-team"])
+    new PokemonBuild("your-team").ensureEvMode()
 
     const exportModal = opponents.export()
 
@@ -173,13 +178,13 @@ Relaxed Nature
 - Rage Powder
 - Protect
 
-Incineroar @ Covert Cloak
+Incineroar @ Lum Berry
 Ability: Intimidate
 Level: 50
 Tera Type: Grass
 EVs: 244 HP / 12 Atk / 76 Def / 100 SpD / 76 Spe
 Impish Nature
-- Knock Off
+- Flare Blitz
 - Fake Out
 - Parting Shot
 - Will-O-Wisp

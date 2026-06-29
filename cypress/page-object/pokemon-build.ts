@@ -330,10 +330,10 @@ export class PokemonBuild {
     this.container().find(`[data-cy="last-move-failed"]`).click()
   }
 
-  importPokemon(pokemonData: string): PokemonBuild {
+  importPokemon(pokemonData: string, useEvs = true): PokemonBuild {
     this.closeTable()
     this.container().find('[data-cy="import-pokemon"]').click({ force: true })
-    new ImportModal().import(pokemonData)
+    new ImportModal().import(pokemonData, useEvs)
 
     return this
   }

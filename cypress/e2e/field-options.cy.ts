@@ -1,7 +1,6 @@
 import { poke } from "@cy-support/e2e"
 import { DamageResult } from "@page-object/damage-result"
 import { Field } from "@page-object/field"
-import { Header } from "@page-object/header"
 import { Opponent } from "@page-object/opponent"
 import { PokemonBuild } from "@page-object/pokemon-build"
 import { Team } from "@page-object/team"
@@ -15,7 +14,6 @@ const rightPokemonBuild = new PokemonBuild("right-pokemon")
 const team = new Team()
 const field = new Field()
 const opponents = new Opponent()
-const header = new Header()
 
 describe("Test the Field options on options with One vs One", () => {
   beforeEach(() => {
@@ -122,7 +120,6 @@ describe("Test the Field options on options with One vs One", () => {
     })
 
     it("With Protected active - regular move is blocked", () => {
-      header.selectChampions()
 
       field.protectedAttacker()
 
@@ -130,7 +127,6 @@ describe("Test the Field options on options with One vs One", () => {
     })
 
     it("With Protected active - Piercing Drill move causes 25% damage", () => {
-      header.selectChampions()
 
       rightPokemonBuild.importPokemon(poke["excadrill-mega"])
 
@@ -178,7 +174,6 @@ describe("Test the Field options on options with One vs One", () => {
     })
 
     it("With Fairy Aura active", () => {
-      header.selectChampions()
 
       leftPokemonBuild.importPokemon(poke["hatterene"]).selectAttackTwo()
       rightPokemonBuild.importPokemon(poke["dragonite"])
@@ -481,7 +476,6 @@ describe("Test the Field options on options with One vs One", () => {
     })
 
     it("With Protected active - regular move is blocked", () => {
-      header.selectChampions()
 
       field.protectedDefender()
 
@@ -489,7 +483,6 @@ describe("Test the Field options on options with One vs One", () => {
     })
 
     it("With Protected active - Piercing Drill move causes 25% damage", () => {
-      header.selectChampions()
 
       leftPokemonBuild.importPokemon(poke["excadrill-mega"])
 
@@ -717,7 +710,6 @@ describe("Test the Field options on options with Many Pokémon", () => {
   })
 
   it("With Protected active - regular move is blocked", () => {
-    header.selectChampions()
 
     team.importPokemon(poke["vaporeon"])
 
@@ -727,7 +719,6 @@ describe("Test the Field options on options with Many Pokémon", () => {
   })
 
   it("With Protected active - Piercing Drill move causes 25% damage", () => {
-    header.selectChampions()
 
     team.importPokemon(poke["excadrill-mega"])
 

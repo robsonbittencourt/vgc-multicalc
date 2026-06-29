@@ -1,7 +1,11 @@
 export class ImportModal {
-  import(pokemonData: string) {
+  import(pokemonData: string, useEvs = true) {
     cy.get('[data-cy="import-paste-textarea"]').type(pokemonData, { force: true, delay: 0 })
-    this.useEvMode()
+
+    if (useEvs) {
+      this.useEvMode()
+    }
+
     cy.get('[data-cy="confirm-import"]').click({ force: true })
     cy.get('[data-cy="import-paste-textarea"]').should("not.exist")
     cy.get(".mat-mdc-snack-bar-label").should("be.visible")

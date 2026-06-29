@@ -1,15 +1,12 @@
 import { CustomSet } from "@page-object/custom-set"
 import { Opponent } from "@page-object/opponent"
 import { Team } from "@page-object/team"
-import { Header } from "@page-object/header"
 
-const header = new Header()
 const team = new Team()
 const opponents = new Opponent()
 const customSet = new CustomSet()
 
 beforeEach(() => {
-  header.selectChampions()
   cy.get('[data-cy="team-vs-many"]').click({ force: true })
   team.delete("Team 1")
 })
