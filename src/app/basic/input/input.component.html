@@ -5,10 +5,11 @@
     type="text"
     [value]="value()"
     (input)="onInputChange($event)"
-    [disabled]="disabled()"
+    [readonly]="disabled()"
+    [attr.aria-disabled]="disabled()"
     (blur)="onBlur()"
     (focus)="onClick($event)"
     [tabindex]="tabIndex()"
-    [ngClass]="{ focus: haveFocus() }"
+    [ngClass]="{ focus: haveFocus(), 'input-disabled': disabled() }"
     [attr.aria-label]="ariaLabel() || label()" />
 </div>

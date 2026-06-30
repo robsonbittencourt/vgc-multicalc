@@ -30,7 +30,6 @@ export class PokemonTableComponent {
   escapeWasPressed = output()
   customSetSelected = output<CustomSet>()
   customSetEditRequested = output<CustomSet>()
-  tableActionTriggered = output()
 
   store = inject(CalculatorStore)
 
@@ -83,7 +82,6 @@ export class PokemonTableComponent {
     const id = this.customSetActionId()
 
     if (id) {
-      this.tableActionTriggered.emit()
       this.store.removeCustomSet(id)
     }
 
@@ -94,7 +92,6 @@ export class PokemonTableComponent {
     const id = this.customSetActionId()
 
     if (id) {
-      this.tableActionTriggered.emit()
       this.store.duplicateCustomSet(id)
     }
 
@@ -108,7 +105,6 @@ export class PokemonTableComponent {
       const set = this.store.customSetsState().find(s => s.id === id)
 
       if (set) {
-        this.tableActionTriggered.emit()
         this.customSetEditRequested.emit(set)
       }
     }

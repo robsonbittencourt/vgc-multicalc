@@ -238,7 +238,7 @@ export class PokemonBuild {
   }
 
   itemIsDisabled() {
-    this.container().find('[data-cy="item"] input').should("be.disabled")
+    this.container().find('[data-cy="item"] input').should("have.attr", "aria-disabled", "true")
   }
 
   teraIsDisabled() {

@@ -289,6 +289,11 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
     keyboardEvent.preventDefault()
   }
 
+  onEntryMouseDown(event: MouseEvent, entry: LinkedTableData<T>) {
+    event.preventDefault()
+    this.selectEntry(entry)
+  }
+
   selectEntry(entry: LinkedTableData<T>) {
     this.entryWasSelected = true
     this.isComponentFocused = true
