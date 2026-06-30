@@ -40,10 +40,10 @@
         </div>
       </div>
       @if (!isMobile()) {
-        <div class="custom-set-actions" (click)="$event.stopPropagation()">
-          <button class="action-btn" [attr.data-cy]="'edit-custom-set-' + set.id" (click)="tableActionTriggered.emit(); customSetEditRequested.emit(set)" title="Edit">✎</button>
-          <button class="action-btn" [attr.data-cy]="'duplicate-custom-set-' + set.id" (click)="tableActionTriggered.emit(); store.duplicateCustomSet(set.id)" title="Duplicate">⧉</button>
-          <button class="action-btn delete-btn" [attr.data-cy]="'delete-custom-set-' + set.id" (click)="tableActionTriggered.emit(); store.removeCustomSet(set.id)" title="Delete">✕</button>
+        <div class="custom-set-actions" (mousedown)="$event.preventDefault()" (click)="$event.stopPropagation()">
+          <button class="action-btn" [attr.data-cy]="'edit-custom-set-' + set.id" (click)="customSetEditRequested.emit(set)" title="Edit">✎</button>
+          <button class="action-btn" [attr.data-cy]="'duplicate-custom-set-' + set.id" (click)="store.duplicateCustomSet(set.id)" title="Duplicate">⧉</button>
+          <button class="action-btn delete-btn" [attr.data-cy]="'delete-custom-set-' + set.id" (click)="store.removeCustomSet(set.id)" title="Delete">✕</button>
         </div>
       }
     </div>

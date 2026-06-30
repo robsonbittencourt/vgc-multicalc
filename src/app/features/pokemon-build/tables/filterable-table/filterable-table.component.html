@@ -52,7 +52,7 @@
               } @else if (entry.isSubRow && subRowTemplate) {
                 <ng-container [ngTemplateOutlet]="subRowTemplate" [ngTemplateOutletContext]="{ $implicit: entry.subRowData, entry: entry, navActive: isEntryActive(entry) }" />
               } @else if (!entry.isSubRow && entry.data) {
-                <div class="entry" [ngStyle]="{ 'grid-template-columns': gridTemplateColumnsSize() }" [ngClass]="getEntryClass(entry)" (click)="selectEntry(entry)" #row [attr.data-cy]="entryDataCy(entry)">
+                <div class="entry" [ngStyle]="{ 'grid-template-columns': gridTemplateColumnsSize() }" [ngClass]="getEntryClass(entry)" (mousedown)="onEntryMouseDown($event, entry)" #row [attr.data-cy]="entryDataCy(entry)">
                   @for (column of columns(); track column.id) {
                     <div class="entry-cell" [ngClass]="{ 'frozen-cell': isMobile() && column.freezeOnMobile }">
                       @if (column.isPokemonImageColumn) {
