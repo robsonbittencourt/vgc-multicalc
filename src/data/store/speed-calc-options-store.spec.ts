@@ -3,6 +3,7 @@ import { TestBed } from "@angular/core/testing"
 import { SETDEX_SV } from "@data/movesets"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { SpeedCalcOptionsStore } from "@data/store/speed-calc-options-store"
+import { Pokemon } from "@lib/model/pokemon"
 import { SpeedCalculatorMode } from "@lib/speed-calculator/speed-calculator-mode"
 
 describe("Speed Calc Options Store", () => {
@@ -18,7 +19,9 @@ describe("Speed Calc Options Store", () => {
           useValue: {
             game: signal("sv"),
             activeSetdex: signal(SETDEX_SV),
-            isChampions: signal(false)
+            isChampions: signal(false),
+            teams: signal([{ id: "team-1", name: "My Team", teamMembers: [{ pokemon: new Pokemon("Incineroar") }, { pokemon: new Pokemon("Rillaboom") }] }]),
+            targets: signal([{ pokemon: new Pokemon("Chi-Yu") }, { pokemon: new Pokemon("Urshifu") }])
           }
         }
       ]
@@ -162,6 +165,76 @@ describe("Speed Calc Options Store", () => {
       store.clearTargetName()
 
       expect(store.targetName()).toBe("")
+    })
+  })
+
+  describe("Filter", () => {
+    it("should list regulations, opponents and teams as filter options", () => {
+      const options = store.filterOptions()
+
+      expect(options).toEqual(["Reg M-A", "Reg M-B", "Opponents", "My Team"])
+    })
+
+    it("should set opponents filter when Opponents is selected", () => {
+      store.updateFilter("Opponents")
+
+      expect(store.filterType()).toBe("opponents")
+      expect(store.selectedFilter()).toBe("Opponents")
+    })
+
+    it("should set team filter when a team is selected", () => {
+      store.updateFilter("My Team")
+
+      expect(store.filterType()).toBe("team")
+      expect(store.teamId()).toBe("team-1")
+      expect(store.selectedFilter()).toBe("My Team")
+    })
+
+    it("should set regulation filter when a regulation is selected", () => {
+      store.updateFilter("Reg M-A")
+
+      expect(store.filterType()).toBe("regulation")
+      expect(store.regulation()).toBe("MA")
+      expect(store.selectedFilter()).toBe("Reg M-A")
+    })
+
+    it("should show Top Usage only for regulation filter", () => {
+      store.updateFilter("Reg M-B")
+      expect(store.showTopUsage()).toBe(true)
+
+      store.updateFilter("Opponents")
+      expect(store.showTopUsage()).toBe(false)
+    })
+
+    it("should have My Team option active by default", () => {
+      expect(store.showMyTeam()).toBe(true)
+    })
+
+    it("should toggle My Team option", () => {
+      store.toggleShowMyTeam(false)
+      expect(store.showMyTeam()).toBe(false)
+
+      store.toggleShowMyTeam(true)
+      expect(store.showMyTeam()).toBe(true)
+    })
+
+    it("should clear Target Name when filter is changed", () => {
+      store.updateTargetName("Kyogre")
+      store.updateFilter("Opponents")
+
+      expect(store.targetName()).toBe("")
+    })
+
+    it("should list opponent Pokémon names when Opponents filter is selected", () => {
+      store.updateFilter("Opponents")
+
+      expect(store.pokemonNamesByReg()).toEqual(["Chi-Yu", "Urshifu"])
+    })
+
+    it("should list team Pokémon names when a team is selected", () => {
+      store.updateFilter("My Team")
+
+      expect(store.pokemonNamesByReg()).toEqual(["Incineroar", "Rillaboom"])
     })
   })
 })

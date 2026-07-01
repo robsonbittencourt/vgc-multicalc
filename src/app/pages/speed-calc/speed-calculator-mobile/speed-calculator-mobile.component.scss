@@ -218,6 +218,15 @@
     min-width: 0;
   }
 
+  & > .filter-full-width.filter-full-width {
+    width: 100%;
+  }
+
+  .my-whole-team-toggle {
+    align-self: end;
+    padding-bottom: 0.2em;
+  }
+
   app-input-autocomplete {
     display: flex !important;
     align-items: flex-end;

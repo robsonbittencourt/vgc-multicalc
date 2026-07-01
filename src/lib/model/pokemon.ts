@@ -318,6 +318,7 @@ export class Pokemon {
 
   clone(options: PokemonParameters = {}): Pokemon {
     return new Pokemon(this.name, {
+      id: options.id,
       ability: options.ability ?? this.ability,
       nature: options.nature ?? this.nature,
       item: options.item ?? this.item,

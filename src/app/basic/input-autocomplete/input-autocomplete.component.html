@@ -4,7 +4,7 @@
   }
   <div class="input-with-clear" [style.width]="inputWidth()">
     <input type="text" #autoCompleteInput [formControl]="formControl" [matAutocomplete]="autoPokemon" (click)="onClick()" (blur)="onBlur()" />
-    @if (leftLabel() && enableClear()) {
+    @if (enableClear()) {
       <mat-icon (click)="cleared.emit()">clear</mat-icon>
     }
   </div>
@@ -16,6 +16,3 @@
     }
   </mat-autocomplete>
 </div>
-@if (!leftLabel() && enableClear()) {
-  <mat-icon (click)="cleared.emit()">clear</mat-icon>
-}

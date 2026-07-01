@@ -1,8 +1,10 @@
 <app-widget [title]="'Speed List'">
   <left-header>
     <div class="title-box">
-      <app-input-select class="select-regulation" label="Regulation" [allValues]="optionsStore.regulationsList()" [value]="optionsStore.regulation()" (valueChange)="updateRegulation($event)" />
-      <app-input-select class="select-usage" label="Top Usage" data-cy="speed-calc-top-usage" [allValues]="topUsageList" [value]="optionsStore.topUsage()" (valueChange)="optionsStore.updateTopUsage($event)" />
+      <app-input-select class="select-filter" label="Filter" data-cy="speed-calc-filter" [allValues]="optionsStore.filterOptions()" [value]="optionsStore.selectedFilter()" (valueChange)="optionsStore.updateFilter($event)" />
+      @if (optionsStore.showTopUsage()) {
+        <app-input-select class="select-usage" label="Top Usage" data-cy="speed-calc-top-usage" [allValues]="topUsageList" [value]="optionsStore.topUsage()" (valueChange)="optionsStore.updateTopUsage($event)" />
+      }
       <app-input-select class="select-mode" label="Mode" data-cy="speed-calc-mode" [allValues]="optionsStore.availableModes()" [value]="optionsStore.mode()" (valueChange)="optionsStore.updateMode($event)" />
       <app-input-autocomplete
         class="select-pokemon"
@@ -12,13 +14,13 @@
         [value]="optionsStore.targetName()"
         (valueChange)="optionsStore.updateTargetName($event)"
         (cleared)="optionsStore.clearTargetName()" />
+      <mat-slide-toggle class="show-my-team" data-cy="speed-calc-show-my-team" [checked]="optionsStore.showMyTeam()" (change)="optionsStore.toggleShowMyTeam($event.checked)" [labelPosition]="'before'"> My Whole Team </mat-slide-toggle>
     </div>
   </left-header>
   <right-header>
     <div class="header-buttons-section">
       <div class="header-buttons-text">
-        <span class="title">Options to opponent side</span>
-        <span>Use Your Team and Field section for more options</span>
+        <span class="title">Opponent side</span>
       </div>
 
       <app-opponent-options />
@@ -26,6 +28,6 @@
   </right-header>
 
   <div class="speed-scale">
-    <app-speed-scale [pokemonId]="pokemonId()" [pokemonEachSide]="28" (pokemonSelected)="pokemonSelected.emit($event)" />
+    <app-speed-scale [pokemonId]="pokemonId()" [pokemonEachSide]="28" [opponentsNoPaddingThreshold]="19" (pokemonSelected)="pokemonSelected.emit($event)" />
   </div>
 </app-widget>

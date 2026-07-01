@@ -1,6 +1,6 @@
 <div class="options">
   <div class="speed-modifier">
-    <app-input-select label="Speed Modifier" leftLabel="true" [value]="optionsStore.speedModifier().toString()" [allValues]="statsModifiers" (valueChange)="updateSpeedModifier($event)" data-cy="speed-calc-spe-modifier" />
+    <app-input-select label="Speed Modifier" [value]="optionsStore.speedModifier().toString()" [allValues]="statsModifiers" (valueChange)="updateSpeedModifier($event)" data-cy="speed-calc-spe-modifier" />
   </div>
 
   <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">

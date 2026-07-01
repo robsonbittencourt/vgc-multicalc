@@ -1,12 +1,15 @@
 import { provideZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
-import { ACTUAL, MAX, MIN } from "@lib/constants"
+import { ACTUAL, MAX, MIN, OPPONENT, SPEED_TIE, YOUR_TEAM } from "@lib/constants"
 import { Ability } from "@lib/model/ability"
-import { Field } from "@lib/model/field"
+import { Field, FieldSide } from "@lib/model/field"
 import { Move } from "@lib/model/move"
 import { MoveSet } from "@lib/model/moveset"
 import { Pokemon } from "@lib/model/pokemon"
 import { Status } from "@lib/model/status"
+import { Target } from "@lib/model/target"
+import { Team } from "@lib/model/team"
+import { TeamMember } from "@lib/model/team-member"
 import { SpeedCalculatorMode } from "@lib/speed-calculator/speed-calculator-mode"
 import { SpeedCalculatorOptions } from "@lib/speed-calculator/speed-calculator-options"
 import { SpeedCalculatorService } from "@lib/speed-calculator/speed-calculator-service"
@@ -32,6 +35,172 @@ describe("SpeedCalculatorService", () => {
       const field = new Field()
       const pokemonEachSide = 30
       const options = new SpeedCalculatorOptions({ regulation: "I" })
+
+      const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide, options)
+
+      expect(inRange.length).toBeGreaterThan(2)
+    })
+
+    it("should return only opponents when opponents filter is selected", () => {
+      store.updateTargets([new Target(new Pokemon("Flutter Mane", { evs: { spe: 252 }, nature: "Timid" }))])
+
+      const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
+      const field = new Field()
+      const pokemonEachSide = 30
+      const options = new SpeedCalculatorOptions({ filterType: "opponents" })
+
+      const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide, options)
+
+      const opponents = inRange.filter(s => s.description.includes(OPPONENT))
+      expect(opponents.length).toBe(1)
+      expect(opponents[0].pokemonName).toBe("Flutter Mane")
+      expect(inRange.some(s => s.description.includes(MIN) || s.description.includes(MAX))).toBe(false)
+
+      const actual = inRange.find(s => s.description.includes(ACTUAL))!
+      expect(actual.description).toContain(YOUR_TEAM)
+    })
+
+    it("should mark Speed Tie when two equal opponents have the same speed", () => {
+      const flutterMane = new Pokemon("Flutter Mane", { evs: { spe: 252 }, nature: "Timid" })
+      store.updateTargets([new Target(flutterMane), new Target(flutterMane.clone())])
+
+      const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
+      const field = new Field()
+      const pokemonEachSide = 30
+      const options = new SpeedCalculatorOptions({ filterType: "opponents" })
+
+      const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide, options)
+
+      const opponents = inRange.filter(s => s.pokemonName === "Flutter Mane")
+      expect(opponents.length).toBe(1)
+      expect(opponents[0].description).toEqual([OPPONENT, SPEED_TIE])
+    })
+
+    it("should keep Your Team and Opponent descriptions when they speed tie", () => {
+      const flutterMane = new Pokemon("Flutter Mane", { evs: { spe: 252 }, nature: "Timid" })
+      store.updateTargets([new Target(flutterMane)])
+      store.updateTeams([new Team("team-1", true, "My Team", [new TeamMember(flutterMane.clone(), true)])])
+
+      const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
+      const field = new Field()
+      const pokemonEachSide = 30
+      const options = new SpeedCalculatorOptions({ filterType: "opponents", showMyTeam: true })
+
+      const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide, options)
+
+      const flutter = inRange.filter(s => s.pokemonName === "Flutter Mane")
+      expect(flutter.length).toBe(1)
+      expect(flutter[0].description).toEqual([YOUR_TEAM, OPPONENT, SPEED_TIE])
+    })
+
+    it("should not apply opponent side modifiers to my team pokemon", () => {
+      const rillaboom = new Pokemon("Rillaboom", { evs: { spe: 252 }, nature: "Jolly" })
+      store.updateTeams([new Team("team-1", true, "My Team", [new TeamMember(rillaboom, true)])])
+
+      const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
+      const field = new Field()
+      const pokemonEachSide = 30
+      const withoutModifier = new SpeedCalculatorOptions({ filterType: "opponents", showMyTeam: true })
+      const withModifier = new SpeedCalculatorOptions({ filterType: "opponents", showMyTeam: true, speedModifier: -1 })
+
+      const baseline = service.orderedPokemon(pokemon, field, pokemonEachSide, withoutModifier).find(s => s.description.includes(YOUR_TEAM) && s.pokemonName === "Rillaboom")!
+      const modified = service.orderedPokemon(pokemon, field, pokemonEachSide, withModifier).find(s => s.description.includes(YOUR_TEAM) && s.pokemonName === "Rillaboom")!
+
+      expect(modified.value).toBe(baseline.value)
+    })
+
+    it("should apply attacker side field effects to my team pokemon", () => {
+      const rillaboom = new Pokemon("Rillaboom", { evs: { spe: 252 }, nature: "Jolly" })
+      store.updateTeams([new Team("team-1", true, "My Team", [new TeamMember(rillaboom, true)])])
+
+      const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
+      const pokemonEachSide = 30
+      const options = new SpeedCalculatorOptions({ filterType: "opponents", showMyTeam: true })
+
+      const noTailwind = service.orderedPokemon(pokemon, new Field(), pokemonEachSide, options).find(s => s.description.includes(YOUR_TEAM) && s.pokemonName === "Rillaboom")!
+      const tailwindField = new Field({ attackerSide: new FieldSide({ isTailwind: true }) })
+      const withTailwind = service.orderedPokemon(pokemon, tailwindField, pokemonEachSide, options).find(s => s.description.includes(YOUR_TEAM) && s.pokemonName === "Rillaboom")!
+
+      expect(withTailwind.value).toBe(noTailwind.value * 2)
+    })
+
+    it("should not mark Speed Tie when the same pokemon is the actual and in the team", () => {
+      const flutterMane = new Pokemon("Flutter Mane", { id: "same-id", evs: { spe: 252 }, nature: "Timid" })
+      store.updateTeams([new Team("team-1", true, "My Team", [new TeamMember(flutterMane, true)])])
+
+      const field = new Field()
+      const pokemonEachSide = 30
+      const options = new SpeedCalculatorOptions({ filterType: "team", teamId: "team-1" })
+
+      const inRange = service.orderedPokemon(flutterMane, field, pokemonEachSide, options)
+
+      const flutter = inRange.filter(s => s.pokemonName === "Flutter Mane")
+      expect(flutter.length).toBe(1)
+      expect(flutter[0].description).not.toContain(SPEED_TIE)
+    })
+
+    it("should not duplicate the team pokemon in Base mode", () => {
+      const flutterMane = new Pokemon("Flutter Mane", { id: "same-id", evs: { spe: 252 }, nature: "Timid" })
+      store.updateTeams([new Team("team-1", true, "My Team", [new TeamMember(flutterMane, true)])])
+
+      const field = new Field()
+      const pokemonEachSide = 30
+      const options = new SpeedCalculatorOptions({ filterType: "team", teamId: "team-1", mode: SpeedCalculatorMode.Base })
+
+      const inRange = service.orderedPokemon(flutterMane, field, pokemonEachSide, options)
+
+      const flutter = inRange.filter(s => s.pokemonName === "Flutter Mane")
+      expect(flutter.length).toBe(1)
+      expect(flutter[0].value).toBe(flutterMane.baseSpe)
+    })
+
+    it("should not mark Speed Tie in Base mode", () => {
+      const flutterMane = new Pokemon("Flutter Mane", { evs: { spe: 252 }, nature: "Timid" })
+      store.updateTargets([new Target(flutterMane), new Target(flutterMane.clone())])
+
+      const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
+      const field = new Field()
+      const pokemonEachSide = 30
+      const options = new SpeedCalculatorOptions({ filterType: "opponents", mode: SpeedCalculatorMode.Base })
+
+      const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide, options)
+
+      const flutter = inRange.filter(s => s.pokemonName === "Flutter Mane")
+      expect(flutter[0].description).not.toContain(SPEED_TIE)
+    })
+
+    it("should not add empty padding for opponents below the no padding threshold", () => {
+      store.updateTargets([new Target(new Pokemon("Flutter Mane", { evs: { spe: 252 }, nature: "Timid" }))])
+
+      const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
+      const field = new Field()
+      const pokemonEachSide = 30
+      const options = new SpeedCalculatorOptions({ filterType: "opponents" })
+
+      const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide, options, 19)
+
+      expect(inRange.some(s => s.pokemon.isDefault)).toBe(false)
+      expect(inRange.length).toBe(2)
+    })
+
+    it("should add empty padding for opponents at or above the no padding threshold", () => {
+      store.updateTargets([new Target(new Pokemon("Flutter Mane", { evs: { spe: 252 }, nature: "Timid" }))])
+
+      const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
+      const field = new Field()
+      const pokemonEachSide = 30
+      const options = new SpeedCalculatorOptions({ filterType: "opponents" })
+
+      const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide, options, 1)
+
+      expect(inRange.some(s => s.pokemon.isDefault)).toBe(true)
+    })
+
+    it("should not fail when showing my team", () => {
+      const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
+      const field = new Field()
+      const pokemonEachSide = 30
+      const options = new SpeedCalculatorOptions({ regulation: "I", showMyTeam: true })
 
       const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide, options)
 

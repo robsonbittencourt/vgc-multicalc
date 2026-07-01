@@ -1,7 +1,7 @@
 .title-box {
   display: flex;
-  gap: 2em;
-  margin-left: 3em;
+  gap: 1.5em;
+  margin-left: 1.5em;
   margin-top: 1em;
   align-items: end;
 }
@@ -18,7 +18,7 @@
 
 .header-buttons-section {
   display: flex;
-  align-items: center;
+  align-items: end;
   gap: 1em;
 }
 
@@ -26,6 +26,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.5em;
+  padding-bottom: 0.3em;
 }
 
 .speed-modifier {
@@ -37,16 +38,24 @@
   margin-top: 1.5em;
 }
 
-.select-regulation {
-  width: 7em;
+.select-filter {
+  width: 16em;
 }
 
 .select-usage {
-  width: 8em;
+  width: 6em;
 }
 
 .select-mode {
   width: 11em;
+}
+
+.show-my-team {
+  white-space: nowrap;
+  height: auto;
+  align-self: end;
+  position: relative;
+  top: 0.3em;
 }
 
 .select-pokemon {

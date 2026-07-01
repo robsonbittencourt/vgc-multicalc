@@ -5,14 +5,13 @@
 .options {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: end;
   justify-content: left;
   gap: 0.5em;
 }
 
 .speed-modifier {
   width: 12em;
-  height: 2.5em;
 }
 
 @media only screen and (max-width: 1279px) {

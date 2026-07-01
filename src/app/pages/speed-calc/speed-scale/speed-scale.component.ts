@@ -20,6 +20,7 @@ import { SpeedBoxComponent } from "@pages/speed-calc/speed-box/speed-box.compone
 export class SpeedScaleComponent implements OnInit {
   pokemonId = input.required<string>()
   pokemonEachSide = input.required<number>()
+  opponentsNoPaddingThreshold = input<number>(0)
 
   pokemonSelected = output<Pokemon>()
 
@@ -27,6 +28,9 @@ export class SpeedScaleComponent implements OnInit {
   fieldStore = inject(FieldStore)
   optionsStore = inject(SpeedCalcOptionsStore)
   private speedCalculatorService = inject(SpeedCalculatorService)
+
+  hideActualDescription = computed(() => this.optionsStore.filterType() === "opponents" || this.optionsStore.filterType() === "team")
+  highlightMyTeam = computed(() => this.optionsStore.showMyTeam())
 
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
   inSpeedRange = signal<SpeedDefinition[]>([])
@@ -60,7 +64,7 @@ export class SpeedScaleComponent implements OnInit {
 
     if (gameChanged) {
       this.lastGame = currentGame
-      const range = this.speedCalculatorService.orderedPokemon(pokemon, field, this.pokemonEachSide(), options)
+      const range = this.speedCalculatorService.orderedPokemon(pokemon, field, this.pokemonEachSide(), options, this.opponentsNoPaddingThreshold())
       this.inSpeedRange.set(range)
       this.verifyChanges(range)
       this.setPokemonSelected(this.pokemon())
@@ -68,7 +72,7 @@ export class SpeedScaleComponent implements OnInit {
     }
 
     this.timeoutId = setTimeout(() => {
-      const range = this.speedCalculatorService.orderedPokemon(pokemon, field, this.pokemonEachSide(), options)
+      const range = this.speedCalculatorService.orderedPokemon(pokemon, field, this.pokemonEachSide(), options, this.opponentsNoPaddingThreshold())
       this.inSpeedRange.set(range)
 
       this.verifyChanges(range)

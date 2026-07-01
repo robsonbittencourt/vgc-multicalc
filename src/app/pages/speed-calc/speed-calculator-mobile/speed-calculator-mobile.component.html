@@ -65,7 +65,7 @@
 
       <div [hidden]="overlay.isAnyOpen()">
         @if (!pokemon().isDefault) {
-          <app-speed-scale class="speed-scale" [pokemonId]="speedCalcPokemonId()" [pokemonEachSide]="12" (pokemonSelected)="onSpeedTierSelected($event)" />
+          <app-speed-scale class="speed-scale" [pokemonId]="speedCalcPokemonId()" [pokemonEachSide]="12" [opponentsNoPaddingThreshold]="5" (pokemonSelected)="onSpeedTierSelected($event)" />
         } @else {
           <div class="empty-insights">Select a Pokémon</div>
         }
@@ -123,8 +123,10 @@
       <div class="settings-content widget-list">
         <app-widget class="settings-card" title="Filters">
           <div class="options-grid">
-            <app-input-select label="Regulation" [allValues]="optionsStore.regulationsList()" [value]="optionsStore.regulation()" (valueChange)="updateRegulation($event)" />
-            <app-input-select label="Top Usage" [allValues]="topUsageList" [value]="optionsStore.topUsage()" (valueChange)="optionsStore.updateTopUsage($event)" />
+            <app-input-select class="filter-full-width" label="Filter" [allValues]="optionsStore.filterOptions()" [value]="optionsStore.selectedFilter()" (valueChange)="optionsStore.updateFilter($event)" />
+            @if (optionsStore.showTopUsage()) {
+              <app-input-select label="Top Usage" [allValues]="topUsageList" [value]="optionsStore.topUsage()" (valueChange)="optionsStore.updateTopUsage($event)" />
+            }
             <app-input-select label="Mode" [allValues]="optionsStore.availableModes()" [value]="optionsStore.mode()" (valueChange)="optionsStore.updateMode($event)" />
             <app-input-autocomplete
               label="Pokémon"
@@ -133,6 +135,7 @@
               (valueChange)="optionsStore.updateTargetName($event)"
               [enableClear]="optionsStore.targetName() !== ''"
               (cleared)="optionsStore.clearTargetName()" />
+            <mat-slide-toggle class="my-whole-team-toggle" [checked]="optionsStore.showMyTeam()" (change)="optionsStore.toggleShowMyTeam($event.checked)" [labelPosition]="'before'"> My Whole Team </mat-slide-toggle>
           </div>
         </app-widget>
 

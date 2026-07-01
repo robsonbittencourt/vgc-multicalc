@@ -1,11 +1,13 @@
 import { poke } from "@cy-support/e2e"
 import { Field } from "@page-object/field"
+import { Opponent } from "@page-object/opponent"
 import { SpeedCalculator } from "@page-object/speed-calculator"
 import { Team } from "@page-object/team"
 
 const team = new Team()
 const field = new Field()
 const speedCalculator = new SpeedCalculator()
+const opponents = new Opponent()
 
 describe("Speed Calculator", () => {
   beforeEach(() => {
@@ -151,6 +153,34 @@ describe("Speed Calculator", () => {
     })
   })
 
+  context("Validate My Whole Team", () => {
+    it("shows my team Pokémon with the Your description by default", () => {
+      team.importPokemon(poke["tyranitar"])
+      cy.wait(300)
+
+      speedCalculator.pokemonBoxHasDescription("Tyranitar", "Your")
+    })
+
+    it("removes my team Pokémon from the list when the toggle is turned off", () => {
+      team.importPokemon(poke["tyranitar"])
+      cy.wait(300)
+
+      speedCalculator.toggleMyWholeTeam()
+      cy.wait(300)
+
+      speedCalculator.pokemonBoxHasNoDescription("Tyranitar", "Your")
+    })
+  })
+
+  context("Validate Filter", () => {
+    it("hides Top Usage when Opponents filter is selected", () => {
+      speedCalculator.filter("Opponents")
+      cy.wait(300)
+
+      cy.get('[data-cy="speed-calc-top-usage"]').should("not.exist")
+    })
+  })
+
   describe("Field influence", () => {
     it("change the speed tier when Attacker Tailwind was activated", () => {
       team.importPokemon(poke["tyranitar"])
@@ -247,5 +277,46 @@ describe("Speed Calculator", () => {
 
       speedCalculator.speedTierIs(28, "Raichu-Alola", 260, "Actual")
     })
+  })
+})
+
+describe("Speed Calculator with opponent side", () => {
+  beforeEach(() => {
+    cy.get('[data-cy="team-vs-many"]').click({ force: true })
+    opponents.importPokemon(poke["default-opponents"])
+
+    cy.get('[data-cy="speed-calculator"]').click({ force: true })
+    speedCalculator.filter("Opponents")
+    cy.wait(300)
+  })
+
+  it("shows the opponent side Pokémon with the Opponent description", () => {
+    speedCalculator.pokemonBoxHasDescription("Urshifu-Rapid-Strike", "Opponent")
+    speedCalculator.pokemonBoxHasDescription("Calyrex-Shadow", "Opponent")
+    speedCalculator.pokemonBoxHasDescription("Incineroar", "Opponent")
+  })
+
+  it("does not show the Actual description when Opponents filter is selected", () => {
+    speedCalculator.pokemonBoxHasNoDescription("Chien-Pao", "Actual")
+  })
+})
+
+describe("Speed Calculator filtering by team", () => {
+  beforeEach(() => {
+    cy.get('[data-cy="team-vs-many"]').click({ force: true })
+    team.importPokepaste(poke["default-team"])
+
+    cy.get('[data-cy="speed-calculator"]').click({ force: true })
+    speedCalculator.filter("Team 1")
+    cy.wait(300)
+  })
+
+  it("shows the selected team Pokémon with the Opponent description", () => {
+    speedCalculator.pokemonBoxHasDescription("Miraidon", "Opponent")
+    speedCalculator.pokemonBoxHasDescription("Koraidon", "Opponent")
+  })
+
+  it("does not show the Actual description when a team filter is selected", () => {
+    speedCalculator.pokemonBoxHasNoDescription("Miraidon", "Actual")
   })
 })

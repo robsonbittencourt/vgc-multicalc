@@ -1,6 +1,7 @@
 import { NgClass } from "@angular/common"
 import { Component, computed, effect, ElementRef, inject, OnDestroy, signal, ViewChild } from "@angular/core"
 import { MatIcon, MatIconRegistry } from "@angular/material/icon"
+import { MatSlideToggle } from "@angular/material/slide-toggle"
 import { DomSanitizer } from "@angular/platform-browser"
 import { InputAutocompleteComponent } from "@basic/input-autocomplete/input-autocomplete.component"
 import { InputSelectComponent } from "@basic/input-select/input-select.component"
@@ -17,7 +18,6 @@ import { AutomaticFieldService } from "@lib/automatic-field-service"
 import { Pokemon } from "@lib/model/pokemon"
 import { SnackbarService } from "@lib/snackbar.service"
 import { getFinalSpeed } from "@lib/smogon/stat-calculator/spe/modified-spe"
-import { Regulation } from "@lib/types"
 import { BackNavigationService } from "@lib/back-navigation.service"
 import { OpponentOptionsComponent } from "@pages/speed-calc/opponent-options/opponent-options.component"
 import { SpeedInsightsComponent } from "@pages/speed-calc/speed-insights/speed-insights.component"
@@ -47,7 +47,8 @@ import { MobileTableOverlayService, TableSelectEvent } from "@features/pokemon-b
     TeamsMobileComponent,
     ImportPokemonButtonComponent,
     ExportPokemonButtonComponent,
-    MobileTableOverlayComponent
+    MobileTableOverlayComponent,
+    MatSlideToggle
   ],
   providers: [FieldStore, AutomaticFieldService, MobileTableOverlayService, { provide: FIELD_CONTEXT, useValue: "speed" }]
 })
@@ -286,10 +287,6 @@ export class SpeedCalculatorMobileComponent implements OnDestroy {
   }
 
   topUsageList: string[] = ["30", "60", "100", "125", "All"]
-
-  updateRegulation(regulation: string) {
-    this.optionsStore.updateRegulation(regulation as Regulation)
-  }
 
   ngOnDestroy() {
     this.backNavigation.unregister()

@@ -5,7 +5,7 @@ import { SPEED_STATISTICS_REG_I } from "@data/speed-statistics-reg-i"
 import { SPEED_STATISTICS_REG_MA } from "@data/speed-statistics-reg-ma"
 import { SPEED_STATISTICS_REG_MB } from "@data/speed-statistics-reg-mb"
 import { CalculatorStore } from "@data/store/calculator-store"
-import { ACTUAL, BOOSTER, MAX, MAX_BASE_SPEED_FOR_TR, MIN, MIN_IV_0, SCARF } from "@lib/constants"
+import { ACTUAL, BOOSTER, MAX, MAX_BASE_SPEED_FOR_TR, MIN, MIN_IV_0, OPPONENT, SCARF, SPEED_TIE, YOUR_TEAM } from "@lib/constants"
 import { defaultPokemon } from "@lib/default-pokemon"
 import { Ability } from "@lib/model/ability"
 import { Field } from "@lib/model/field"
@@ -35,8 +35,8 @@ export class SpeedCalculatorService {
     I: SPEED_STATISTICS_REG_I
   }
 
-  orderedPokemon(pokemon: Pokemon, field: Field, pokemonEachSide: number, options: SpeedCalculatorOptions = new SpeedCalculatorOptions()): SpeedDefinition[] {
-    let speedDefinitions: SpeedDefinition[] = [this.buildActual(pokemon, field, options), ...this.loadSpeedMeta(options, field)]
+  orderedPokemon(pokemon: Pokemon, field: Field, pokemonEachSide: number, options: SpeedCalculatorOptions = new SpeedCalculatorOptions(), opponentsNoPaddingThreshold = 0): SpeedDefinition[] {
+    let speedDefinitions: SpeedDefinition[] = [this.buildActual(pokemon, field, options), ...this.loadMyTeam(options, field), ...this.loadSpeedMeta(options, field)]
 
     if (options.targetName.length > 0) {
       speedDefinitions = speedDefinitions.filter(s => s.pokemonName == options.targetName || this.isActual(s))
@@ -44,13 +44,21 @@ export class SpeedCalculatorService {
 
     this.order(speedDefinitions, field.isTrickRoom)
 
-    speedDefinitions = this.mergeByDescription(speedDefinitions)
+    speedDefinitions = this.mergeByDescription(speedDefinitions, options)
 
-    if (options.targetName.length == 0) {
+    if (options.targetName.length == 0 && this.shouldLimitQuantity(options, speedDefinitions, opponentsNoPaddingThreshold)) {
       speedDefinitions = this.limitQuantity(speedDefinitions, pokemonEachSide)
     }
 
     return speedDefinitions
+  }
+
+  private shouldLimitQuantity(options: SpeedCalculatorOptions, speedDefinitions: SpeedDefinition[], opponentsNoPaddingThreshold: number): boolean {
+    if (options.filterType === "team") return false
+
+    if (options.filterType === "opponents" && speedDefinitions.length < opponentsNoPaddingThreshold) return false
+
+    return true
   }
 
   orderPairBySpeed(pokemonOne: Pokemon, pokemonTwo: Pokemon, field: Field): [Pokemon, Pokemon] {
@@ -71,16 +79,26 @@ export class SpeedCalculatorService {
   }
 
   private buildActual(pokemon: Pokemon, field: Field, options: SpeedCalculatorOptions): SpeedDefinition {
+    const descriptions = options.filterType === "opponents" || options.filterType === "team" ? [ACTUAL, YOUR_TEAM] : [ACTUAL]
+
     if (options.mode == SpeedCalculatorMode.Base) {
-      return new SpeedDefinition(pokemon, pokemon.baseSpe, ACTUAL)
+      return new SpeedDefinition(pokemon, pokemon.baseSpe, ...descriptions)
     }
 
     const speed = getFinalSpeed(pokemon, field, true)
 
-    return new SpeedDefinition(pokemon, speed, ACTUAL)
+    return new SpeedDefinition(pokemon, speed, ...descriptions)
   }
 
   private loadSpeedMeta(options: SpeedCalculatorOptions, field: Field): SpeedDefinition[] {
+    if (options.filterType === "opponents") {
+      return this.loadActualSpeeds(this.opponentPokemon(), field, options, OPPONENT)
+    }
+
+    if (options.filterType === "team") {
+      return this.loadActualSpeeds(this.teamPokemon(options.teamId), field, options, OPPONENT)
+    }
+
     const speedDefinitions: SpeedDefinition[] = []
 
     const quantity = options.targetName.length > 0 ? undefined : options.topUsage
@@ -96,6 +114,39 @@ export class SpeedCalculatorService {
     })
 
     return speedDefinitions
+  }
+
+  private loadMyTeam(options: SpeedCalculatorOptions, field: Field): SpeedDefinition[] {
+    if (!options.showMyTeam) return []
+
+    return this.loadActualSpeeds(this.myTeamPokemon(), field, options, YOUR_TEAM, false, true)
+  }
+
+  private loadActualSpeeds(pokemon: Pokemon[], field: Field, options: SpeedCalculatorOptions, description: string, applyModifiers = true, isAttacker = false): SpeedDefinition[] {
+    return pokemon.map(p => {
+      const adjusted = applyModifiers ? this.adjustPokemonByOptions(p, options) : p
+      const speed = options.mode == SpeedCalculatorMode.Base ? adjusted.baseSpe : getFinalSpeed(adjusted, field, isAttacker)
+      return new SpeedDefinition(adjusted, speed, description)
+    })
+  }
+
+  private opponentPokemon(): Pokemon[] {
+    return this.store
+      .targets()
+      .flatMap(t => [t.pokemon, t.secondPokemon])
+      .filter((p): p is Pokemon => p != null && !p.isDefault)
+  }
+
+  private teamPokemon(teamId: string): Pokemon[] {
+    const team = this.store.teams().find(t => t.id === teamId)
+    return team ? team.teamMembers.map(m => m.pokemon).filter(p => !p.isDefault) : []
+  }
+
+  private myTeamPokemon(): Pokemon[] {
+    return this.store
+      .team()
+      .teamMembers.map(m => m.pokemon)
+      .filter(p => !p.isDefault)
   }
 
   private loadStats(pokemon: Pokemon, field: Field, speedDefinitions: SpeedDefinition[], options: SpeedCalculatorOptions) {
@@ -159,16 +210,25 @@ export class SpeedCalculatorService {
     speedDefinitions.sort((a, b) => (isTrickRoom ? b.value - a.value : a.value - b.value))
   }
 
-  private mergeByDescription(speedDefinitions: SpeedDefinition[]): SpeedDefinition[] {
+  private mergeByDescription(speedDefinitions: SpeedDefinition[], options: SpeedCalculatorOptions): SpeedDefinition[] {
     const merged: Record<string, SpeedDefinition> = {}
+    const marksSpeedTie = (options.filterType === "opponents" || options.filterType === "team") && options.mode != SpeedCalculatorMode.Base
+
+    const mergedPokemonId: Record<string, string> = {}
 
     speedDefinitions.forEach(sd => {
       const key = `${sd.pokemon.name}-${sd.value}`
 
       if (!merged[key]) {
         merged[key] = new SpeedDefinition(sd.pokemon, sd.value, ...sd.description)
+        mergedPokemonId[key] = sd.pokemon.id
       } else {
-        merged[key].description.push(...sd.description)
+        const descriptionsToAdd = sd.description.filter(d => !merged[key].description.includes(d))
+        merged[key].description.push(...descriptionsToAdd)
+
+        const isSpeedTie = sd.pokemon.id !== mergedPokemonId[key]
+
+        if (marksSpeedTie && isSpeedTie && !merged[key].description.includes(SPEED_TIE)) merged[key].description.push(SPEED_TIE)
       }
     })
 
@@ -184,7 +244,7 @@ export class SpeedCalculatorService {
     const matchedAbility = speedAbilities.find(ability => pokemon.availableAbilities.some(a => a.name === ability))
     const abilityName = matchedAbility ? matchedAbility : pokemon.ability.name
 
-    return pokemon.clone({ boosts, status, item, ability: new Ability(abilityName) })
+    return pokemon.clone({ id: pokemon.id, boosts, status, item, ability: new Ability(abilityName) })
   }
 
   minSpeedIvZero(pokemon: Pokemon, field: Field): SpeedDefinition {

@@ -18,6 +18,8 @@ export type StatusDescription = "Healthy" | "Sleep" | "Poison" | "Burn" | "Freez
 
 export type Regulation = "I" | "MA" | "MB"
 
+export type SpeedFilterType = "regulation" | "opponents" | "team"
+
 export type Jumps = [number, number, number, number | null]
 
 export type Category = "Physical" | "Special" | "Status"

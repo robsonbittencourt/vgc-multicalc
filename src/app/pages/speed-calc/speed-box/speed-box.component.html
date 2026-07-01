@@ -5,10 +5,10 @@
     <label data-cy="speed-box-value">{{ speedDefinition().value }}</label>
   </div>
 
-  <div class="speed-box-down" [ngClass]="{ actual: selected(), 'actual-label': isActual() }" (click)="pokemonSelected.emit(speedDefinition().pokemon)">
+  <div class="speed-box-down" [ngClass]="{ actual: highlighted(), 'actual-label': isActual() }" (click)="pokemonSelected.emit(speedDefinition().pokemon)">
     <div [animate.enter]="animation()" class="pokemon-image">
       <app-pokemon-sprite [name]="speedDefinition().pokemonName" data-cy="speed-box-pokemon" />
-      @for (description of speedDefinition().description; track $index) {
+      @for (description of descriptions(); track $index) {
         <label data-cy="speed-box-description">{{ description }}</label>
       }
     </div>
