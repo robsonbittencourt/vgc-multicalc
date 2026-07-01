@@ -7,8 +7,7 @@ const POKEMON_QUANTITY = 64
 export async function smogonUsageList(date, reg) {
   try {
     const year = date.substring(0, date.indexOf("-"))
-    const format = reg.toUpperCase() === "MA" ? "championsvgc" : "vgc"
-    return await axios.get(`https://www.smogon.com/stats/${date}/gen9${format}${year}reg${reg.toLowerCase()}bo3-1760.txt`)
+    return await axios.get(`https://www.smogon.com/stats/${date}/gen9championsvgc${year}reg${reg.toLowerCase()}bo3-1760.txt`)
   } catch (error) {
     console.error(error)
   }
@@ -17,8 +16,7 @@ export async function smogonUsageList(date, reg) {
 export async function getSmogonData(date, reg) {
   try {
     const year = date.substring(0, date.indexOf("-"))
-    const format = reg.toUpperCase() === "MA" ? "championsvgc" : "vgc"
-    const response = await axios.get(`https://www.smogon.com/stats/${date}/moveset/gen9${format}${year}reg${reg.toLowerCase()}bo3-1760.txt`)
+    const response = await axios.get(`https://www.smogon.com/stats/${date}/moveset/gen9championsvgc${year}reg${reg.toLowerCase()}bo3-1760.txt`)
     const parsedSmogonData = parseSmogonData(response.data)
     return parsedSmogonData
   } catch (error) {

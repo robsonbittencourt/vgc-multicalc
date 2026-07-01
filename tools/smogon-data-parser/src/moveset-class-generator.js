@@ -57,17 +57,15 @@ export async function createMovesetsFile(date, regulation) {
 
   const smogonData = getUniquePokemons(regGData)
 
-  writeInMovesetsFile(smogonData, regulation)
+  writeInMovesetsFile(smogonData)
 
-  const isChampions = regulation.toUpperCase() === "MA"
-  const outputFile = isChampions ? "src/data/movesets-champions.ts" : "src/data/movesets.ts"
+  const outputFile = "src/data/movesets-champions.ts"
   console.log(`✅ [createMovesetsFile] '${outputFile}' updated successfully`)
 }
 
-function writeInMovesetsFile(smogonData, regulation) {
-  const isChampions = regulation.toUpperCase() === "MA"
-  const outputFile = isChampions ? "src/data/movesets-champions.ts" : "src/data/movesets.ts"
-  const modulePrefix = isChampions ? MOVESET_MODULE_PREFIX_CHAMPIONS : MOVESET_MODULE_PREFIX_SV
+function writeInMovesetsFile(smogonData) {
+  const outputFile = "src/data/movesets-champions.ts"
+  const modulePrefix = MOVESET_MODULE_PREFIX_CHAMPIONS
 
   const updatedMovesets = updateMovesets(smogonData, outputFile)
 

@@ -35,15 +35,14 @@ function serializeObject(obj, indent = 2) {
 }
 
 export async function pokemonDetailsGroup(regulation = "i") {
-  const isChampions = regulation.toLowerCase() === "ma"
-  const pokemonDetailsPath = path.resolve(isChampions ? "src/data/pokemon-details-champions.ts" : "src/data/pokemon-details.ts")
+  const pokemonDetailsPath = path.resolve("src/data/pokemon-details-champions.ts")
 
   console.log(`⏳ [pokemonDetailsGroup] Updating group and order for regulation ${regulation.toUpperCase()}...`)
 
   const pokemonFileContent = fs.readFileSync(pokemonDetailsPath, "utf-8")
   const topUsageContent = fs.readFileSync(topUsagePath, "utf-8")
 
-  const regulationKey = isChampions ? "MA" : "I"
+  const regulationKey = regulation.toUpperCase()
   let topMatch = topUsageContent.match(new RegExp(`${regulationKey}:\\s*\\[([\\s\\S]*?)\\]`, "m"))
   if (!topMatch) {
     console.error(`❌ [pokemonDetailsGroup] Could not extract top usage list for ${regulationKey}.`)
@@ -122,7 +121,7 @@ export async function pokemonDetailsGroup(regulation = "i") {
   let header = preContent.trimEnd()
   header = header.replace(/private constructor\(\)\s*{[\s\S]*?}/, "private constructor() {\n    this.allPokemonNames = Object.values(POKEMON_DETAILS).map(p => p.name)\n  }")
 
-  const constName = isChampions ? "POKEMON_DETAILS_CHAMPIONS" : "POKEMON_DETAILS"
+  const constName = "POKEMON_DETAILS_CHAMPIONS"
   const newContent = `${header}
 
 export const ${constName}: Record<string, SpeciesData> = ${serializeObject(finalOrder)}

@@ -11,7 +11,7 @@ export async function extractMetaMoves(date, regulation) {
   console.log(`⏳ [extractMetaMoves] Extracting meta moves and items for ${date} / ${regulation.toUpperCase()}...`)
 
   const metaDataMap = await buildMetaDataMap(date, regulation)
-  updatePokemonDetailsWithMetaData(metaDataMap, regulation)
+  updatePokemonDetailsWithMetaData(metaDataMap)
 }
 
 async function buildMetaDataMap(date, regulation) {
@@ -19,8 +19,7 @@ async function buildMetaDataMap(date, regulation) {
 
   try {
     const year = date.substring(0, date.indexOf("-"))
-    const format = regulation.toUpperCase() === "MA" ? "championsvgc" : "vgc"
-    const response = await axios.get(`https://www.smogon.com/stats/${date}/moveset/gen9${format}${year}reg${regulation.toLowerCase()}bo3-1760.txt`)
+    const response = await axios.get(`https://www.smogon.com/stats/${date}/moveset/gen9championsvgc${year}reg${regulation.toLowerCase()}bo3-1760.txt`)
     const pokemonDataList = parseSmogonMetaData(response.data)
 
     pokemonDataList.forEach(({ name, moves, items }) => {
@@ -82,9 +81,8 @@ function extractAllMovesFromSection(movesSection) {
   return allMoves
 }
 
-function loadMovesets(regulation) {
-  const isChampions = regulation.toUpperCase() === "MA"
-  const movesetFile = isChampions ? "movesets-champions.ts" : "movesets.ts"
+function loadMovesets() {
+  const movesetFile = "movesets-champions.ts"
   const movesetPath = path.resolve(__dirname, `../../../src/data/${movesetFile}`)
   const content = fs.readFileSync(movesetPath, "utf-8")
 
@@ -112,14 +110,13 @@ function getMegaStoneItemsForBase(baseName, movesets) {
   return [...megaStones].sort()
 }
 
-function updatePokemonDetailsWithMetaData(metaDataMap, regulation) {
-  const isChampions = regulation.toUpperCase() === "MA"
-  const fileName = isChampions ? "pokemon-details-champions.ts" : "pokemon-details.ts"
-  const exportName = isChampions ? "POKEMON_DETAILS_CHAMPIONS" : "POKEMON_DETAILS"
+function updatePokemonDetailsWithMetaData(metaDataMap) {
+  const fileName = "pokemon-details-champions.ts"
+  const exportName = "POKEMON_DETAILS_CHAMPIONS"
   const pokemonDetailsPath = path.resolve(__dirname, `../../../src/data/${fileName}`)
   const fileContent = fs.readFileSync(pokemonDetailsPath, "utf-8")
 
-  const movesets = loadMovesets(regulation)
+  const movesets = loadMovesets()
 
   const startIndex = fileContent.indexOf(`export const ${exportName}`)
   if (startIndex === -1) {

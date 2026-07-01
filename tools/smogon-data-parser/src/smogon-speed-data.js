@@ -16,8 +16,7 @@ function getOutputName(pokemonName) {
 
 export async function smogonSpeedData(date, reg) {
   const year = date.substring(0, date.indexOf("-"))
-  const format = reg.toUpperCase() === "MA" ? "championsvgc" : "vgc"
-  const url = `https://www.smogon.com/stats/${date}/chaos/gen9${format}${year}reg${reg.toLowerCase()}bo3-0.json`
+  const url = `https://www.smogon.com/stats/${date}/chaos/gen9championsvgc${year}reg${reg.toLowerCase()}bo3-0.json`
 
   const response = await axios.get(url)
 
@@ -208,7 +207,7 @@ function aggregateSpeedSpreads(pokemon, spreads, reg) {
     const speedEv = key.split(":")[1].split("/")[5]
     const count = orderedSpreads[key]
 
-    const speed = calculateSpeedValue(pokemon, nature, speedEv, reg)
+    const speed = calculateSpeedValue(pokemon, nature, speedEv)
 
     if (speedSpreads[speed]) {
       speedSpreads[speed].count += count
@@ -220,10 +219,8 @@ function aggregateSpeedSpreads(pokemon, spreads, reg) {
   return speedSpreads
 }
 
-function calculateSpeedValue(pokemon, nature, speedEv, reg) {
-  const negativeSpeedNatures = ["Brave", "Quiet", "Relaxed", "Sassy"]
-  const isChampions = reg.toUpperCase() === "MA"
-  const ivs = isChampions ? { spe: 31 } : negativeSpeedNatures.includes(nature) ? { spe: 0 } : { spe: 31 }
+function calculateSpeedValue(pokemon, nature, speedEv) {
+  const ivs = { spe: 31 }
 
   return new Pokemon(Generations.get(9), pokemon, { level: 50, nature, evs: { spe: speedEv }, ivs }).stats.spe
 }
