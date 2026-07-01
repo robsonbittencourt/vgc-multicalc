@@ -20,7 +20,11 @@ describe("Speed Calc Options Store", () => {
             game: signal("sv"),
             activeSetdex: signal(SETDEX_SV),
             isChampions: signal(false),
-            teams: signal([{ id: "team-1", name: "My Team", teamMembers: [{ pokemon: new Pokemon("Incineroar") }, { pokemon: new Pokemon("Rillaboom") }] }]),
+            teams: signal([
+              { id: "team-1", name: "My Team", teamMembers: [{ pokemon: new Pokemon("Incineroar") }, { pokemon: new Pokemon("Rillaboom") }] },
+              { id: "team-2", name: "Single Team", teamMembers: [{ pokemon: new Pokemon("Incineroar") }] },
+              { id: "team-3", name: "Empty Team", teamMembers: [{ pokemon: new Pokemon("Togepi") }] }
+            ]),
             targets: signal([{ pokemon: new Pokemon("Chi-Yu") }, { pokemon: new Pokemon("Urshifu") }])
           }
         }
@@ -169,10 +173,16 @@ describe("Speed Calc Options Store", () => {
   })
 
   describe("Filter", () => {
-    it("should list regulations, opponents and teams as filter options", () => {
+    it("should list regulations, opponents and teams with at least one Pokémon as filter options", () => {
       const options = store.filterOptions()
 
-      expect(options).toEqual(["Reg M-B", "Opponents", "My Team"])
+      expect(options).toEqual(["Reg M-B", "Opponents", "My Team", "Single Team"])
+    })
+
+    it("should not list teams without any non-default Pokémon", () => {
+      const options = store.filterOptions()
+
+      expect(options).not.toContain("Empty Team")
     })
 
     it("should set opponents filter when Opponents is selected", () => {

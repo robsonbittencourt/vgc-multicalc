@@ -85,7 +85,11 @@ export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }
   )
 
   readonly filterOptions = computed(() => {
-    const teamNames = this.calculatorStore.teams().map(t => t.name)
+    const teamNames = this.calculatorStore
+      .teams()
+      .filter(t => t.teamMembers.some(m => !m.pokemon.isDefault))
+      .map(t => t.name)
+
     return [...Object.keys(REGULATION_FILTER_LABELS), OPPONENTS_FILTER_LABEL, ...teamNames]
   })
 
