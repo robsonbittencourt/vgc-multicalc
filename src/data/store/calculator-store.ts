@@ -126,7 +126,7 @@ export class CalculatorStore extends signalStore(
   private menuStore = inject(MenuStore)
   private teamIsAttacker = computed(() => this.menuStore.oneVsManyActivated())
 
-  readonly teamFilterTargets = signal<Target[] | null>(null)
+  readonly teamFilterId = signal<string | null>(null)
 
   readonly speedCalcPokemon = computed(() => stateToPokemon(this.speedCalcPokemonState(), false, this.game()))
   readonly leftPokemon = computed(() => stateToPokemon(this.leftPokemonState(), true, this.game()))
@@ -134,6 +134,18 @@ export class CalculatorStore extends signalStore(
   readonly team = computed(() => stateToTeam(this.teamsState().find(t => t.active)!, this.teamIsAttacker(), this.game()))
   readonly teams = computed(() => stateToTeams(this.teamsState(), this.teamIsAttacker(), this.game()))
   readonly targets = computed(() => stateToTargets(this.targetsState(), !this.teamIsAttacker(), this.game()))
+  readonly teamFilterTargets = computed(() => {
+    const teamId = this.teamFilterId()
+
+    if (!teamId) return null
+
+    const team = this.teams().find(t => t.id === teamId)
+
+    if (!team) return null
+
+    return team.teamMembers.filter(member => !member.pokemon.isDefault).map(member => new Target(member.pokemon))
+  })
+
   readonly displayedTargets = computed(() => this.teamFilterTargets() ?? this.targets())
   readonly attackerId = computed(() => {
     const activeMember = this.team().teamMembers.find(t => t.active && t.pokemon.id != this.secondAttackerId())
@@ -648,12 +660,12 @@ export class CalculatorStore extends signalStore(
     patchState(this, () => ({ targetsState: targetsState }))
   }
 
-  setTeamFilter(targets: Target[]) {
-    this.teamFilterTargets.set(targets)
+  setTeamFilter(teamId: string) {
+    this.teamFilterId.set(teamId)
   }
 
   clearTeamFilter() {
-    this.teamFilterTargets.set(null)
+    this.teamFilterId.set(null)
   }
 
   changeLeftPokemon(pokemon: Pokemon) {

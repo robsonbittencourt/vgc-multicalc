@@ -320,8 +320,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
     const team = this.store.teams().find(t => t.name === event)
     if (!team) return
 
-    const teamTargets = team.teamMembers.filter(member => !member.pokemon.isDefault).map(member => new Target(member.pokemon))
-    this.store.setTeamFilter(teamTargets)
+    this.store.setTeamFilter(team.id)
   }
 
   clearTeamFilter() {
