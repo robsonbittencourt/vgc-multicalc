@@ -52,7 +52,6 @@ function sortByRegulationOrder(pokemonA: Pokemon, pokemonB: Pokemon, regulation:
 }
 
 const bannedByRegulation: Record<Regulation, string[]> = {
-  MA: [],
   MB: [],
   I: ["Mew", "Jirachi", "Deoxys", "Phione", "Manaphy", "Darkrai", "Shaymin", "Arceus", "Keldeo", "Meloetta", "Diancie", "Hoopa", "Hoopa", "Volcanion", "Magearna", "Zarude", "Pecharunt"]
 }

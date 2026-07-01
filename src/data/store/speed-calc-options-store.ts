@@ -9,7 +9,6 @@ import { SPEED_CALCULATOR_MODES } from "@lib/speed-calculator/speed-calculator-m
 import { patchState, signalStore, withState } from "@ngrx/signals"
 
 const REGULATION_FILTER_LABELS: Record<string, Regulation> = {
-  "Reg M-A": "MA",
   "Reg M-B": "MB"
 }
 
@@ -103,7 +102,7 @@ export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }
   readonly showTopUsage = computed(() => this.filterType() === "regulation")
 
   readonly regulationsList = computed(() => {
-    return this.calculatorStore.game() === "champions" ? ["MB", "MA"] : ["I"]
+    return this.calculatorStore.game() === "champions" ? ["MB"] : ["I"]
   })
 
   readonly availableModes = computed(() => {

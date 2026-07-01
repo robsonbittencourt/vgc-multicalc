@@ -172,7 +172,7 @@ describe("Speed Calc Options Store", () => {
     it("should list regulations, opponents and teams as filter options", () => {
       const options = store.filterOptions()
 
-      expect(options).toEqual(["Reg M-A", "Reg M-B", "Opponents", "My Team"])
+      expect(options).toEqual(["Reg M-B", "Opponents", "My Team"])
     })
 
     it("should set opponents filter when Opponents is selected", () => {
@@ -191,11 +191,11 @@ describe("Speed Calc Options Store", () => {
     })
 
     it("should set regulation filter when a regulation is selected", () => {
-      store.updateFilter("Reg M-A")
+      store.updateFilter("Reg M-B")
 
       expect(store.filterType()).toBe("regulation")
-      expect(store.regulation()).toBe("MA")
-      expect(store.selectedFilter()).toBe("Reg M-A")
+      expect(store.regulation()).toBe("MB")
+      expect(store.selectedFilter()).toBe("Reg M-B")
     })
 
     it("should show Top Usage only for regulation filter", () => {

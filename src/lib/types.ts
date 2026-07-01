@@ -16,7 +16,7 @@ export type Weather = "Sand" | "Sun" | "Rain" | "Snow" | null
 
 export type StatusDescription = "Healthy" | "Sleep" | "Poison" | "Burn" | "Freeze" | "Paralysis"
 
-export type Regulation = "I" | "MA" | "MB"
+export type Regulation = "I" | "MB"
 
 export type SpeedFilterType = "regulation" | "opponents" | "team"
 
