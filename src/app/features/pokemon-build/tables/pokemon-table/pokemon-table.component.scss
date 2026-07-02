@@ -148,6 +148,10 @@
     .custom-set-body {
       margin-left: -0.8em;
     }
+
+    .custom-set-actions {
+      padding-right: 0.5em;
+    }
   }
 
   .action-btn {
@@ -168,6 +172,12 @@
     &.delete-btn:hover {
       background-color: var(--error, #d32f2f);
       border-color: var(--error, #d32f2f);
+    }
+
+    @media (min-width: 769px) {
+      padding: 0.4em 0.8em;
+      font-size: 1.5em;
+      line-height: 1;
     }
   }
 }
