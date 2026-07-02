@@ -158,7 +158,7 @@ export class TeamsService {
   cleanTeamsInChunks(teams: Team[]): Team[] {
     const result = [...teams]
 
-    for (let i = 0; i <= result.length - 4; ) {
+    for (let i = 0; i <= result.length - 4;) {
       const chunk = result.slice(i, i + 4)
       const allDefault = chunk.every(team => team.onlyHasDefaultPokemon())
 

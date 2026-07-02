@@ -131,7 +131,13 @@ export class CalculatorStore extends signalStore(
   readonly speedCalcPokemon = computed(() => stateToPokemon(this.speedCalcPokemonState(), false, this.game()))
   readonly leftPokemon = computed(() => stateToPokemon(this.leftPokemonState(), true, this.game()))
   readonly rightPokemon = computed(() => stateToPokemon(this.rightPokemonState(), false, this.game()))
-  readonly team = computed(() => stateToTeam(this.teamsState().find(t => t.active)!, this.teamIsAttacker(), this.game()))
+  readonly team = computed(() =>
+    stateToTeam(
+      this.teamsState().find(t => t.active)!,
+      this.teamIsAttacker(),
+      this.game()
+    )
+  )
   readonly teams = computed(() => stateToTeams(this.teamsState(), this.teamIsAttacker(), this.game()))
   readonly targets = computed(() => stateToTargets(this.targetsState(), !this.teamIsAttacker(), this.game()))
   readonly teamFilterTargets = computed(() => {

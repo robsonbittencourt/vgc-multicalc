@@ -4,22 +4,7 @@ import { PokemonType } from "@lib/types"
 export type TypeEffectiveness = 0 | 0.25 | 0.5 | 1 | 2 | 4
 
 export type AbilityName =
-  | "Eelevate"
-  | "Levitate"
-  | "Flash Fire"
-  | "Volt Absorb"
-  | "Water Absorb"
-  | "Motor Drive"
-  | "Lightning Rod"
-  | "Storm Drain"
-  | "Sap Sipper"
-  | "Dry Skin"
-  | "Well-Baked Body"
-  | "Wonder Guard"
-  | "Thick Fat"
-  | "Heatproof"
-  | "Water Bubble"
-  | "Earth Eater"
+  "Eelevate" | "Levitate" | "Flash Fire" | "Volt Absorb" | "Water Absorb" | "Motor Drive" | "Lightning Rod" | "Storm Drain" | "Sap Sipper" | "Dry Skin" | "Well-Baked Body" | "Wonder Guard" | "Thick Fat" | "Heatproof" | "Water Bubble" | "Earth Eater"
 
 const ABILITY_IMMUNITIES: Partial<Record<AbilityName, PokemonType>> = {
   Eelevate: "Ground",

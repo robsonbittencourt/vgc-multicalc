@@ -114,15 +114,7 @@ export class MyComponent {
 Example:
 
 ```typescript
-export class MyStore extends signalStore(
-  { protectedState: false },
-  withState({
-    /* initial state */
-  }),
-  withHooks({
-    /* hooks */
-  })
-) {
+export class MyStore extends signalStore({ protectedState: false }, withState({/* initial state */}), withHooks({/* hooks */})) {
   // Methods that use patchState
 }
 ```
