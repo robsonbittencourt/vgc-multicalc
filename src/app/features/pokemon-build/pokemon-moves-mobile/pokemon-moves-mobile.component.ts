@@ -13,6 +13,7 @@ import { MultiHitComboBoxComponent } from "@features/pokemon-build/multi-hit-com
 export class PokemonMovesMobileComponent {
   pokemonId = input.required<string>()
   showEdit = input<boolean>(true)
+  showHits = input<boolean>(true)
   editingMoves = input<boolean>(false)
 
   editMovesRequested = output()
@@ -21,6 +22,8 @@ export class PokemonMovesMobileComponent {
   store = inject(CalculatorStore)
 
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
+
+  hasPossibleHits = computed(() => this.showHits() && this.pokemon().moveSet.activeMove.possibleHits.length > 0)
 
   activateMove(position: number) {
     this.store.activateMoveByPosition(this.pokemonId(), position)
