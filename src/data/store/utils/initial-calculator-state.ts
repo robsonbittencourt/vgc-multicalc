@@ -29,27 +29,6 @@ export function defaultStateChampions() {
     updateLocalStorage: true,
     game: "champions" as const,
 
-    speedCalcPokemonState: {
-      id: uuid(),
-      name: "Charizard",
-      nature: "Timid",
-      item: "Charizardite Y",
-      status: Status.HEALTHY.description,
-      ability: "Solar Power",
-      abilityOn: false,
-      commanderActive: false,
-      teraType: "",
-      teraTypeActive: false,
-      activeMove: 0,
-      moveSet: [{ name: "Solar Beam" }, { name: "Heat Wave" }, { name: "Weather Ball" }, { name: "Protect" }],
-      boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
-      bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
-      evs: { hp: 2, atk: 0, def: 0, spa: 32, spd: 0, spe: 32 },
-      ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
-      hpPercentage: 100,
-      automaticAbilityOn: false
-    },
-
     leftPokemonState: {
       id: uuid(),
       name: "Charizard",
@@ -441,27 +420,6 @@ export function defaultStateSV() {
   return {
     updateLocalStorage: true,
     game: "sv" as const,
-
-    speedCalcPokemonState: {
-      id: uuid(),
-      name: "Miraidon",
-      nature: "Modest",
-      item: "Choice Specs",
-      status: Status.HEALTHY.description,
-      ability: "Hadron Engine",
-      abilityOn: false,
-      commanderActive: false,
-      teraType: "Fairy",
-      teraTypeActive: false,
-      activeMove: 0,
-      moveSet: [{ name: "Draco Meteor" }, { name: "Electro Drift" }, { name: "Dazzling Gleam" }, { name: "Volt Switch" }],
-      boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
-      bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
-      evs: { hp: 44, atk: 0, def: 4, spa: 244, spd: 12, spe: 204 },
-      ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
-      hpPercentage: 100,
-      automaticAbilityOn: false
-    },
 
     leftPokemonState: {
       id: uuid(),

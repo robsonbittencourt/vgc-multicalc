@@ -4,42 +4,6 @@ import { Status } from "@lib/model/status"
 
 describe("User Data Mapper", () => {
   describe("buildUserData", () => {
-    it("should build user data for speedCalcPokemon", () => {
-      const speedCalcPokemon = pikachuState
-
-      const teams: TeamState[] = [
-        {
-          id: "123",
-          active: true,
-          name: "Team 1",
-          teamMembers: [{ active: true, pokemon: speedCalcPokemon }]
-        }
-      ]
-
-      const targets: TargetState[] = [
-        {
-          pokemon: speedCalcPokemon
-        }
-      ]
-
-      const result = buildUserData(speedCalcPokemon, speedCalcPokemon, speedCalcPokemon, teams, targets, "I", "high", "medium", "low", "high")
-
-      expect(result.speedCalcPokemon.name).toBe("Pikachu")
-      expect(result.speedCalcPokemon.nature).toBe("Timid")
-      expect(result.speedCalcPokemon.item).toBe("Light Ball")
-      expect(result.speedCalcPokemon.status).toBe(Status.HEALTHY.description)
-      expect(result.speedCalcPokemon.ability).toBe("Static")
-      expect(result.speedCalcPokemon.abilityOn).toBe(false)
-      expect(result.speedCalcPokemon.commanderActive).toBe(true)
-      expect(result.speedCalcPokemon.teraType).toBe("Electric")
-      expect(result.speedCalcPokemon.teraTypeActive).toBe(true)
-      expect(result.speedCalcPokemon.moveSet).toEqual(["Thunderbolt", "Quick Attack", "Volt Tackle", "Iron Tail"])
-      expect(result.speedCalcPokemon.boosts).toEqual({ atk: -1, def: -2, spa: 1, spd: 2, spe: 3 })
-      expect(result.speedCalcPokemon.bonusBoosts).toEqual({ atk: -1, def: 0, spa: 0, spd: 0, spe: 0 })
-      expect(result.speedCalcPokemon.evs).toEqual({ hp: 4, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 })
-      expect(result.speedCalcPokemon.ivs).toEqual({ hp: 26, atk: 27, def: 28, spa: 29, spd: 30, spe: 31 })
-    })
-
     it("should build user data for leftPokemon", () => {
       const leftPokemon = pikachuState
 
@@ -58,7 +22,7 @@ describe("User Data Mapper", () => {
         }
       ]
 
-      const result = buildUserData(leftPokemon, leftPokemon, leftPokemon, teams, targets, "I", "high", "medium", "low", "high")
+      const result = buildUserData(leftPokemon, leftPokemon, teams, targets, "I", "high", "medium", "low", "high")
 
       expect(result.leftPokemon.name).toBe("Pikachu")
       expect(result.leftPokemon.nature).toBe("Timid")
@@ -94,7 +58,7 @@ describe("User Data Mapper", () => {
         }
       ]
 
-      const result = buildUserData(rightPokemon, rightPokemon, rightPokemon, teams, targets, "I", "high", "medium", "low", "high")
+      const result = buildUserData(rightPokemon, rightPokemon, teams, targets, "I", "high", "medium", "low", "high")
 
       expect(result.rightPokemon.name).toBe("Pikachu")
       expect(result.rightPokemon.nature).toBe("Timid")
@@ -143,7 +107,7 @@ describe("User Data Mapper", () => {
         }
       ]
 
-      const result = buildUserData(teamPokemonOne, teamPokemonOne, teamPokemonOne, teams, targets, "I", "high", "medium", "low", "high")
+      const result = buildUserData(teamPokemonOne, teamPokemonOne, teams, targets, "I", "high", "medium", "low", "high")
 
       expect(result.teams[0].active).toBe(true)
       expect(result.teams[0].name).toBe("Team 1")
@@ -180,7 +144,7 @@ describe("User Data Mapper", () => {
         }
       ]
 
-      const result = buildUserData(targetOne, targetOne, targetOne, teams, targets, "I", "high", "medium", "low", "high")
+      const result = buildUserData(targetOne, targetOne, teams, targets, "I", "high", "medium", "low", "high")
 
       expect(result.targets.length).toBe(2)
       expect(result.targets[0].pokemon.name).toBe("Pikachu")
@@ -189,7 +153,7 @@ describe("User Data Mapper", () => {
     })
 
     it("should build user data for roll levels", () => {
-      const result = buildUserData(pikachuState, pikachuState, pikachuState, [], [], "I", "low", "medium", "high", "medium")
+      const result = buildUserData(pikachuState, pikachuState, [], [], "I", "low", "medium", "high", "medium")
 
       expect(result.simpleCalcLeftRollLevel).toBe("low")
       expect(result.simpleCalcRightRollLevel).toBe("medium")
@@ -199,73 +163,6 @@ describe("User Data Mapper", () => {
   })
 
   describe("buildState", () => {
-    it("should build a speedCalcPokemonState in CalculatorState from user data", () => {
-      const userData = {
-        speedCalcPokemon: pikachuUserData,
-        leftPokemon: bulbasaurUserData,
-        rightPokemon: charmanderUserData,
-        teams: [
-          {
-            name: "Team 1",
-            active: true,
-            teamMembers: [{ active: true, pokemon: bulbasaurUserData }]
-          }
-        ],
-        targets: [{ pokemon: charmanderUserData }]
-      }
-
-      const result = buildState(userData) as CalculatorState
-
-      expect(result.speedCalcPokemonState.name).toBe("Pikachu")
-      expect(result.speedCalcPokemonState.nature).toBe("Timid")
-      expect(result.speedCalcPokemonState.item).toBe("Light Ball")
-      expect(result.speedCalcPokemonState.status).toBe(Status.HEALTHY.description)
-      expect(result.speedCalcPokemonState.ability).toBe("Static")
-      expect(result.speedCalcPokemonState.abilityOn).toBe(false)
-      expect(result.speedCalcPokemonState.commanderActive).toBe(true)
-      expect(result.speedCalcPokemonState.teraType).toBe("Electric")
-      expect(result.speedCalcPokemonState.teraTypeActive).toBe(true)
-      expect(result.speedCalcPokemonState.activeMove).toBe(0)
-      expect(result.speedCalcPokemonState.moveSet).toEqual([{ name: "Thunderbolt" }, { name: "Quick Attack" }, { name: "Volt Tackle" }, { name: "Iron Tail" }])
-      expect(result.speedCalcPokemonState.boosts).toEqual({ atk: -1, def: -2, spa: 1, spd: 2, spe: 3 })
-      expect(result.speedCalcPokemonState.bonusBoosts).toEqual({ atk: -1, def: 0, spa: 0, spd: 0, spe: 0 })
-      expect(result.speedCalcPokemonState.evs).toEqual({ hp: 4, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 })
-      expect(result.speedCalcPokemonState.ivs).toEqual({ hp: 26, atk: 27, def: 28, spa: 29, spd: 30, spe: 31 })
-    })
-
-    it("should build a speedCalcPokemonState in CalculatorState using left Pokémon when speedCalcPokemon is not present in the user data", () => {
-      const userData = {
-        leftPokemon: pikachuUserData,
-        rightPokemon: charmanderUserData,
-        teams: [
-          {
-            name: "Team 1",
-            active: true,
-            teamMembers: [{ active: true, pokemon: bulbasaurUserData }]
-          }
-        ],
-        targets: [{ pokemon: charmanderUserData }]
-      }
-
-      const result = buildState(userData) as CalculatorState
-
-      expect(result.speedCalcPokemonState.name).toBe("Pikachu")
-      expect(result.speedCalcPokemonState.nature).toBe("Timid")
-      expect(result.speedCalcPokemonState.item).toBe("Light Ball")
-      expect(result.speedCalcPokemonState.status).toBe(Status.HEALTHY.description)
-      expect(result.speedCalcPokemonState.ability).toBe("Static")
-      expect(result.speedCalcPokemonState.abilityOn).toBe(false)
-      expect(result.speedCalcPokemonState.commanderActive).toBe(true)
-      expect(result.speedCalcPokemonState.teraType).toBe("Electric")
-      expect(result.speedCalcPokemonState.teraTypeActive).toBe(true)
-      expect(result.speedCalcPokemonState.activeMove).toBe(0)
-      expect(result.speedCalcPokemonState.moveSet).toEqual([{ name: "Thunderbolt" }, { name: "Quick Attack" }, { name: "Volt Tackle" }, { name: "Iron Tail" }])
-      expect(result.speedCalcPokemonState.boosts).toEqual({ atk: -1, def: -2, spa: 1, spd: 2, spe: 3 })
-      expect(result.speedCalcPokemonState.bonusBoosts).toEqual({ atk: -1, def: 0, spa: 0, spd: 0, spe: 0 })
-      expect(result.speedCalcPokemonState.evs).toEqual({ hp: 4, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 })
-      expect(result.speedCalcPokemonState.ivs).toEqual({ hp: 26, atk: 27, def: 28, spa: 29, spd: 30, spe: 31 })
-    })
-
     it("should build a leftPokemonState in CalculatorState from user data", () => {
       const userData = {
         leftPokemon: pikachuUserData,
@@ -294,7 +191,7 @@ describe("User Data Mapper", () => {
       expect(result.leftPokemonState.activeMove).toBe(0)
       expect(result.leftPokemonState.moveSet).toEqual([{ name: "Thunderbolt" }, { name: "Quick Attack" }, { name: "Volt Tackle" }, { name: "Iron Tail" }])
       expect(result.leftPokemonState.boosts).toEqual({ atk: -1, def: -2, spa: 1, spd: 2, spe: 3 })
-      expect(result.speedCalcPokemonState.bonusBoosts).toEqual({ atk: -1, def: 0, spa: 0, spd: 0, spe: 0 })
+      expect(result.leftPokemonState.bonusBoosts).toEqual({ atk: -1, def: 0, spa: 0, spd: 0, spe: 0 })
       expect(result.leftPokemonState.evs).toEqual({ hp: 4, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 })
       expect(result.leftPokemonState.ivs).toEqual({ hp: 26, atk: 27, def: 28, spa: 29, spd: 30, spe: 31 })
     })

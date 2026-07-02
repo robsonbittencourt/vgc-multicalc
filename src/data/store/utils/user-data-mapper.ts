@@ -5,7 +5,6 @@ import { Regulation } from "@lib/types"
 import { uuid } from "@lib/utils/uuid"
 
 export function buildUserData(
-  speedCalcPokemon: PokemonState,
   leftPokemon: PokemonState,
   rightPokemon: PokemonState,
   teams: TeamState[],
@@ -17,7 +16,6 @@ export function buildUserData(
   manyVsTeamRollLevel: string
 ) {
   return {
-    speedCalcPokemon: buildPokemonToUserData(speedCalcPokemon),
     leftPokemon: buildPokemonToUserData(leftPokemon),
     rightPokemon: buildPokemonToUserData(rightPokemon),
     teams: teams.map(team => {
@@ -55,7 +53,6 @@ export function buildUserData(
 export function buildState(userData: any): Partial<CalculatorState> {
   return {
     updateLocalStorage: true,
-    speedCalcPokemonState: userData.speedCalcPokemon ? buildPokemonState(userData.speedCalcPokemon) : buildPokemonState(userData.leftPokemon),
     leftPokemonState: buildPokemonState(userData.leftPokemon),
     rightPokemonState: buildPokemonState(userData.rightPokemon),
     secondAttackerId: "",

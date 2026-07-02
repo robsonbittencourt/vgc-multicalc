@@ -60,6 +60,7 @@ export class PokemonBuildMobileComponent {
   isRightSide = input<boolean>(false)
   onlySpeed = input<boolean>(false)
   hideEvs = input<boolean>(false)
+  hideEvsSpsToggleAndClear = input<boolean>(false)
   hideMoves = input<boolean>(false)
   editingMoves = input<boolean>(false)
   editingAbility = input<boolean>(false)

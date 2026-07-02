@@ -125,7 +125,7 @@
           <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedSpd()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.spd" [isOptimized]="isSpdOptimized()" stat="spd" [reduced]="true" />
         }
         <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedSpe()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.spe" stat="spe" [reduced]="true" />
-        @if (!onlySpeed()) {
+        @if (!onlySpeed() && !hideEvsSpsToggleAndClear()) {
           <div class="remaining-evs">
             @if (showEvsSpsToggle()) {
               <div class="sps-toggle">

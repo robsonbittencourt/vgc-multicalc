@@ -45,11 +45,11 @@
       <div class="attacker-build">
         @if (shouldShowBuild()) {
           <app-pokemon-build-mobile
-            [pokemonId]="speedCalcPokemonId()"
-            [realPokemonId]="effectiveEditingId()"
+            [pokemonId]="effectiveEditingId()!"
             [showOptimization]="false"
-            [onlySpeed]="true"
+            [onlySpeed]="false"
             [hideEvs]="overlay.isAnyOpen()"
+            [hideEvsSpsToggleAndClear]="true"
             [hideMoves]="overlay.kind() === 'pokemon' || overlay.kind() === 'abilities' || overlay.kind() === 'items'"
             [editingAbility]="overlay.kind() === 'abilities'"
             [editingItem]="overlay.kind() === 'items'"
@@ -65,7 +65,7 @@
 
       <div [hidden]="overlay.isAnyOpen()">
         @if (!pokemon().isDefault) {
-          <app-speed-scale class="speed-scale" [pokemonId]="speedCalcPokemonId()" [pokemonEachSide]="12" [opponentsNoPaddingThreshold]="5" (pokemonSelected)="onSpeedTierSelected($event)" />
+          <app-speed-scale class="speed-scale" [pokemonId]="effectiveEditingId()!" [pokemonEachSide]="12" [opponentsNoPaddingThreshold]="5" (pokemonSelected)="onSpeedTierSelected($event)" />
         } @else {
           <div class="empty-insights">Select a Pokémon</div>
         }

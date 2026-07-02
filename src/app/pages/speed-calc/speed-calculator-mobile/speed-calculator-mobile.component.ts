@@ -85,9 +85,7 @@ export class SpeedCalculatorMobileComponent implements OnDestroy {
   editingPokemonName = computed(() => this.editingPokemon()?.name ?? "")
   editingPokemonItem = computed(() => this.editingPokemon()?.item ?? "")
 
-  speedCalcPokemonId = computed(() => this.store.speedCalcPokemon().id)
-
-  pokemon = computed(() => this.store.speedCalcPokemon())
+  pokemon = computed(() => this.editingPokemon() ?? this.store.team().activePokemon())
 
   teamMembers = computed(() => this.store.team().teamMembers)
 
@@ -117,22 +115,6 @@ export class SpeedCalculatorMobileComponent implements OnDestroy {
     const sanitizer = inject(DomSanitizer)
     iconRegistry.addSvgIcon("pokeball", sanitizer.bypassSecurityTrustResourceUrl("assets/icons/pokeball.svg"))
     this.backNavigation.register(() => this.activeBottomTab.set("main"))
-
-    const initialSourceId = this.effectiveEditingId()
-    if (initialSourceId) this.store.loadSpeedCalcPokemonFrom(initialSourceId)
-
-    effect(() => {
-      const sourceId = this.effectiveEditingId()
-      if (!sourceId) return
-
-      const sourcePokemon = this.store.findNullablePokemonById(sourceId)
-      if (!sourcePokemon) return
-
-      const currentScratch = this.store.speedCalcPokemon()
-      if (sourcePokemon.isDefault !== currentScratch.isDefault || sourcePokemon.name !== currentScratch.name || sourcePokemon.ability.name !== currentScratch.ability.name || sourcePokemon.nature !== currentScratch.nature) {
-        this.store.loadSpeedCalcPokemonFrom(sourceId)
-      }
-    })
 
     effect(() => {
       if (this.fieldStore.field()) {
@@ -190,7 +172,6 @@ export class SpeedCalculatorMobileComponent implements OnDestroy {
     const id = this.effectiveEditingId()
     if (!id) return
     this.store.loadPokemonInfo(id, name)
-    this.store.loadSpeedCalcPokemonFrom(id)
     this.overlay.close()
     this.activePokemonInputEl()?.blur()
   }
@@ -214,7 +195,6 @@ export class SpeedCalculatorMobileComponent implements OnDestroy {
     const id = this.effectiveEditingId()
     if (!id) return
     this.store.ability(id, ability)
-    this.store.loadSpeedCalcPokemonFrom(id)
     this.overlay.close()
   }
 
@@ -250,7 +230,6 @@ export class SpeedCalculatorMobileComponent implements OnDestroy {
     const id = this.effectiveEditingId()
     if (!id) return
     this.store.item(id, name)
-    this.store.loadSpeedCalcPokemonFrom(id)
     this.overlay.close()
     this.itemInput?.nativeElement.blur()
   }
@@ -283,7 +262,6 @@ export class SpeedCalculatorMobileComponent implements OnDestroy {
     if (!id) return
 
     this.store.changePokemon(id, singlePokemon)
-    this.store.loadSpeedCalcPokemonFrom(id)
   }
 
   topUsageList: string[] = ["30", "60", "100", "125", "All"]
@@ -318,7 +296,7 @@ export class SpeedCalculatorMobileComponent implements OnDestroy {
   onSpeedTierSelected(pokemon: Pokemon) {
     this.selectedPokemon.set(pokemon)
 
-    const outcome = this.speedMatch.matchSpeed(this.speedCalcPokemonId(), pokemon, this.fieldStore.field())
+    const outcome = this.speedMatch.matchSpeed(this.effectiveEditingId()!, pokemon, this.fieldStore.field())
 
     if (outcome.message) {
       this.snackbar.open(outcome.message)
@@ -327,18 +305,14 @@ export class SpeedCalculatorMobileComponent implements OnDestroy {
 
   onTeamSelected(pokemonId: string) {
     this.pokemonOnEditId.set(pokemonId)
-    this.store.loadSpeedCalcPokemonFrom(pokemonId)
     this.switchTab("main")
   }
 
   onPokemonOnEditIdChange(pokemonId: string | null) {
     this.pokemonOnEditId.set(pokemonId)
-    if (pokemonId) this.store.loadSpeedCalcPokemonFrom(pokemonId)
   }
 
   focusPokemonComboBox() {
-    const editId = this.effectiveEditingId()
-    if (editId) this.store.loadSpeedCalcPokemonFrom(editId)
     this.overlay.open("pokemon")
   }
 }

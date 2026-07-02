@@ -67,7 +67,6 @@ export type Game = "sv" | "champions"
 export type CalculatorState = {
   updateLocalStorage: boolean
   game: Game
-  speedCalcPokemonState: PokemonState
   leftPokemonState: PokemonState
   rightPokemonState: PokemonState
   secondAttackerId: string
@@ -95,7 +94,6 @@ export class CalculatorStore extends signalStore(
       effect(() => {
         if (store.updateLocalStorage()) {
           const gameData = buildUserData(
-            store.speedCalcPokemonState(),
             store.leftPokemonState(),
             store.rightPokemonState(),
             store.teamsState(),
@@ -128,7 +126,6 @@ export class CalculatorStore extends signalStore(
 
   readonly teamFilterId = signal<string | null>(null)
 
-  readonly speedCalcPokemon = computed(() => stateToPokemon(this.speedCalcPokemonState(), false, this.game()))
   readonly leftPokemon = computed(() => stateToPokemon(this.leftPokemonState(), true, this.game()))
   readonly rightPokemon = computed(() => stateToPokemon(this.rightPokemonState(), false, this.game()))
   readonly team = computed(() =>
@@ -375,7 +372,7 @@ export class CalculatorStore extends signalStore(
 
     const fromTarget = this.targetsState().map(target => target.pokemon)
 
-    let allPokemon = [this.leftPokemonState(), this.rightPokemonState(), this.speedCalcPokemonState()]
+    let allPokemon = [this.leftPokemonState(), this.rightPokemonState()]
     allPokemon = allPokemon.concat(fromTeams)
     allPokemon = allPokemon.concat(fromTarget)
 
@@ -678,16 +675,6 @@ export class CalculatorStore extends signalStore(
     patchState(this, () => ({ leftPokemonState: pokemonToState(pokemon) }))
   }
 
-  loadSpeedCalcPokemonFrom(sourcePokemonId: string) {
-    const source = this.findNullablePokemonById(sourcePokemonId)
-    if (!source) return
-
-    const scratchId = this.speedCalcPokemonState().id
-    const sourceState = pokemonToState(source)
-    const evsOnlySpe = { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
-    patchState(this, () => ({ speedCalcPokemonState: { ...sourceState, id: scratchId, evs: evsOnlySpe } }))
-  }
-
   changeRightPokemon(pokemon: Pokemon) {
     patchState(this, () => ({ rightPokemonState: pokemonToState(pokemon) }))
   }
@@ -704,8 +691,6 @@ export class CalculatorStore extends signalStore(
   }
 
   findNullablePokemonById(pokemonId: string): Pokemon | undefined {
-    if (this.speedCalcPokemonState().id == pokemonId) return stateToPokemon(this.speedCalcPokemonState(), false, this.game())
-
     if (this.leftPokemonState().id == pokemonId) return stateToPokemon(this.leftPokemonState(), true, this.game())
 
     if (this.rightPokemonState().id == pokemonId) return stateToPokemon(this.rightPokemonState(), false, this.game())
@@ -727,7 +712,6 @@ export class CalculatorStore extends signalStore(
 
   buildUserData() {
     return buildUserData(
-      this.speedCalcPokemonState(),
       this.leftPokemonState(),
       this.rightPokemonState(),
       this.teamsState(),
@@ -813,7 +797,6 @@ export class CalculatorStore extends signalStore(
   }
 
   findPokemonStateById(pokemonId: string): PokemonState | undefined {
-    if (this.speedCalcPokemonState().id === pokemonId) return this.speedCalcPokemonState()
     if (this.leftPokemonState().id === pokemonId) return this.leftPokemonState()
     if (this.rightPokemonState().id === pokemonId) return this.rightPokemonState()
 
@@ -837,9 +820,7 @@ export class CalculatorStore extends signalStore(
 
     const activeTeamIndex = this.teamIndexWithPokemon(pokemonId)
 
-    if (this.speedCalcPokemonState().id == pokemonId) {
-      this.updateSpeedCalcPokemon(updateFn)
-    } else if (this.leftPokemonState().id == pokemonId) {
+    if (this.leftPokemonState().id == pokemonId) {
       this.updateLeftPokemon(updateFn)
     } else if (this.rightPokemonState().id == pokemonId) {
       this.updateRightPokemon(updateFn)
@@ -848,13 +829,6 @@ export class CalculatorStore extends signalStore(
     } else {
       this.updateTarget(pokemonId, updateFn)
     }
-  }
-
-  private updateSpeedCalcPokemon(updateFn: (pokemon: PokemonState) => Partial<PokemonState>) {
-    patchState(this, state => {
-      const updatedPokemon = { ...state.speedCalcPokemonState, ...updateFn(state.speedCalcPokemonState) }
-      return { speedCalcPokemonState: updatedPokemon }
-    })
   }
 
   private updateLeftPokemon(updateFn: (pokemon: PokemonState) => Partial<PokemonState>) {

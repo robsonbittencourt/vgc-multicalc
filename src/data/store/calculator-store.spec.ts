@@ -27,10 +27,6 @@ describe("Calculator Store", () => {
       store.updateGame("sv")
     })
 
-    it("should load default Pokémon to Speed Calc", () => {
-      expect(store.speedCalcPokemon().name).toBe("Miraidon")
-    })
-
     it("should load default left Pokémon", () => {
       expect(store.leftPokemon().name).toBe("Miraidon")
     })
@@ -638,14 +634,6 @@ describe("Calculator Store", () => {
         expect(store.rightPokemon().name).toBe("Raichu")
       })
 
-      it("should update Speed Calc Pokémon by id", () => {
-        const id = store.speedCalcPokemon().id
-
-        store.name(id, "Pikachu")
-
-        expect(store.speedCalcPokemon().name).toBe("Pikachu")
-      })
-
       it("should update left Pokémon by id", () => {
         const id = store.leftPokemon().id
 
@@ -684,15 +672,6 @@ describe("Calculator Store", () => {
     })
 
     describe("Find Pokémon by id", () => {
-      it("should find Pokémon by id when searched Pokémon is Speed Calc Pokémon", () => {
-        const speedCalcPokemonId = store.speedCalcPokemon().id
-        const speedCalcPokemonName = store.speedCalcPokemon().name
-
-        const result = store.findPokemonById(speedCalcPokemonId)
-
-        expect(result.name).toBe(speedCalcPokemonName)
-      })
-
       it("should find Pokémon by id when searched Pokémon is left Pokémon", () => {
         const leftPokemonId = store.leftPokemon().id
         const leftPokemonName = store.leftPokemon().name
@@ -883,7 +862,6 @@ describe("Calculator Store", () => {
         const state = {
           updateLocalStorage: true,
           game: "sv" as const,
-          speedCalcPokemonState: pikachuState,
           leftPokemonState: pikachuState,
           rightPokemonState: pikachuState,
           secondAttackerId: "123",
@@ -911,7 +889,6 @@ describe("Calculator Store", () => {
       it("should build user data using state", () => {
         const result = store.buildUserData()
 
-        expect(result.speedCalcPokemon.name).toBe("Charizard")
         expect(result.leftPokemon.name).toBe("Charizard")
         expect(result.rightPokemon.name).toBe("Dragonite")
 
