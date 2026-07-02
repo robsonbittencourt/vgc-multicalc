@@ -11,6 +11,7 @@ import { TeamBoxComponent } from "@features/team/team-box/team-box.component"
 import { Pokemon } from "@lib/model/pokemon"
 import { Team } from "@lib/model/team"
 import { TeamsService } from "@features/team/teams.service"
+import { SnackbarService } from "@lib/snackbar.service"
 
 @Component({
   selector: "app-teams-mobile",
@@ -21,6 +22,7 @@ import { TeamsService } from "@features/team/teams.service"
 export class TeamsMobileComponent {
   store = inject(CalculatorStore)
   private teamsService = inject(TeamsService)
+  private snackbar = inject(SnackbarService)
 
   pokemonSelected = output<string>()
   useTeam = output<string>()
@@ -64,6 +66,16 @@ export class TeamsMobileComponent {
     const result = this.teamsService.pokemonImported(pokemon, true, this.importedTeamName)
     this.importedTeamName = undefined
     this.pokemonSelected.emit(result.activePokemonId)
+    this.scrollToActiveTeam()
+    this.snackbar.open("Team imported")
+  }
+
+  private scrollToActiveTeam() {
+    const activeTeamId = this.store.team().id
+
+    requestAnimationFrame(() => {
+      document.querySelector(`[data-team-id="${activeTeamId}"]`)?.scrollIntoView({ behavior: "smooth", block: "nearest" })
+    })
   }
 
   activateTeam(team: Team) {
