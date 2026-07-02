@@ -129,7 +129,7 @@ export class SpeedCalculatorMobileComponent implements OnDestroy {
       if (!sourcePokemon) return
 
       const currentScratch = this.store.speedCalcPokemon()
-      if (sourcePokemon.isDefault !== currentScratch.isDefault || sourcePokemon.name !== currentScratch.name || sourcePokemon.ability.name !== currentScratch.ability.name) {
+      if (sourcePokemon.isDefault !== currentScratch.isDefault || sourcePokemon.name !== currentScratch.name || sourcePokemon.ability.name !== currentScratch.ability.name || sourcePokemon.nature !== currentScratch.nature) {
         this.store.loadSpeedCalcPokemonFrom(sourceId)
       }
     })
