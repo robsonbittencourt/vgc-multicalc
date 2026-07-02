@@ -697,6 +697,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
     if (!id) return
 
     this.store.enterCustomSetEditMode(id, set.id)
+    this.overlay.close()
   }
 
   onTableSelect(event: TableSelectEvent) {
