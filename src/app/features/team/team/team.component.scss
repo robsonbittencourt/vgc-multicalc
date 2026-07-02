@@ -17,14 +17,16 @@
 }
 
 .delete-pokemon,
-.combine-damage {
+.combine-damage,
+.duplicate-pokemon {
   display: flex;
   align-items: center;
   gap: 0.2em;
 }
 
 .delete-pokemon:hover,
-.combine-damage:hover > * {
+.combine-damage:hover > *,
+.duplicate-pokemon:hover {
   cursor: pointer;
   font-weight: 500;
 }

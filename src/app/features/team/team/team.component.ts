@@ -14,6 +14,7 @@ import { TeamMember } from "@lib/model/team-member"
 import { SnackbarService } from "@lib/snackbar.service"
 import { Stats, SurvivalThreshold } from "@lib/types"
 import { uuid } from "@lib/utils/uuid"
+import { DeviceDetectorService } from "@lib/device-detector.service"
 
 @Component({
   selector: "app-team",
@@ -25,6 +26,7 @@ import { uuid } from "@lib/utils/uuid"
 export class TeamComponent {
   store = inject(CalculatorStore)
   private snackbar = inject(SnackbarService)
+  deviceDetectorService = inject(DeviceDetectorService)
 
   pokemonId = input.required<string>()
   isAttacker = input(false)
@@ -51,6 +53,8 @@ export class TeamComponent {
   })
 
   canImportPokemon = computed(() => !this.store.team().isFull())
+
+  canDuplicatePokemon = computed(() => this.deviceDetectorService.isDesktop() && this.teamMemberOnEdit() && !this.pokemonOnEdit().isDefault && !this.store.team().isFull())
 
   canExportPokemon = computed(() => !this.pokemonOnEdit().isDefault)
 
@@ -157,6 +161,26 @@ export class TeamComponent {
 
   canShowDeleteButton(): boolean {
     return !this.pokemonOnEdit().isDefault
+  }
+
+  duplicatePokemon() {
+    const actualTeam = this.store.team()
+    const newTeamMember = new TeamMember(this.pokemonOnEdit().clone(), false)
+
+    const newTeamMembers = [...actualTeam.teamMembers]
+    const indexToInsert = newTeamMembers.length - 1
+    const removeDefaultPokemon = newTeamMembers.length == 6
+
+    if (removeDefaultPokemon) {
+      newTeamMembers.splice(indexToInsert, 1, newTeamMember)
+    } else {
+      newTeamMembers.splice(indexToInsert, 0, newTeamMember)
+    }
+
+    const newTeam = new Team(actualTeam.id, actualTeam.active, actualTeam.name, newTeamMembers)
+
+    this.store.replaceActiveTeam(newTeam)
+    this.snackbar.open("Pokemon duplicated")
   }
 
   removePokemon() {

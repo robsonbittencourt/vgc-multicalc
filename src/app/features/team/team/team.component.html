@@ -21,6 +21,14 @@
 
   <div class="pokemon-actions">
     <app-save-set-button [pokemonId]="pokemonId()" [showMatchingSet]="true" (openPokemonTable)="openBuildPokemonTable()" />
+
+    @if (canDuplicatePokemon()) {
+      <div class="duplicate-pokemon" (click)="duplicatePokemon()" data-cy="duplicate-pokemon-button">
+        <mat-icon class="icon">content_copy</mat-icon>
+        <label>Duplicate</label>
+      </div>
+    }
+
     <app-import-pokemon-button [show]="canImportPokemon()" [hidden]="!teamMemberOnEdit()" (pokemonImportedEvent)="pokemonImported($event)" />
     <app-export-pokemon-button [show]="canExportPokemon()" [hidden]="!teamMemberOnEdit() && !targetOnEdit()" [pokemonId]="pokemonId()" data-cy="export-pokemon-from-team" />
 
