@@ -58,11 +58,10 @@ function parsePokemonData(data) {
   const nature = extractNature(spreads)
   const evs = extractEvs(spreads)
   const moves = extractMoves(sections)
-  const teraType = extractTeraType(sections)
 
   const alternateSpreads = spreads.slice(1)
 
-  return { name, teraType: teraType || "", ability, items, nature, alternateSpreads, evs, moves }
+  return { name, teraType: "", ability, items, nature, alternateSpreads, evs, moves }
 }
 
 export function extractSections(data) {
@@ -156,25 +155,4 @@ function extractMoves(sections) {
     .map(m => new Move(Generations.get(9), m))
     .sort((a, b) => b.bp - a.bp)
     .map(m => m.name)
-}
-
-function extractTeraType(sections) {
-  const teraSection = sections[6]
-
-  if (!teraSection || teraSection.includes("Teammates")) {
-    return ""
-  }
-
-  const teraType = teraSection
-    .split("\n")
-    .map(it =>
-      it
-        .replaceAll(/[0-9]+/g, "")
-        .replace(".%", "")
-        .replace(" -", "")
-        .trim()
-    )
-    .filter(it => it && it != "Tera Types" && it != "Other" && it != "Nothing")
-
-  return teraType[0] ?? ""
 }

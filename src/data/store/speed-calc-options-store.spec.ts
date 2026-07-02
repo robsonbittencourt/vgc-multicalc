@@ -1,6 +1,6 @@
 import { provideZonelessChangeDetection, signal } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
-import { SETDEX_CHAMPIONS } from "@data/movesets-champions"
+import { MOVESETS } from "@data/movesets"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { SpeedCalcOptionsStore } from "@data/store/speed-calc-options-store"
 import { Pokemon } from "@lib/model/pokemon"
@@ -17,7 +17,7 @@ describe("Speed Calc Options Store", () => {
         {
           provide: CalculatorStore,
           useValue: {
-            activeSetdex: SETDEX_CHAMPIONS,
+            activeSetdex: MOVESETS,
             teams: signal([
               { id: "team-1", name: "My Team", teamMembers: [{ pokemon: new Pokemon("Incineroar") }, { pokemon: new Pokemon("Rillaboom") }] },
               { id: "team-2", name: "Single Team", teamMembers: [{ pokemon: new Pokemon("Incineroar") }] },

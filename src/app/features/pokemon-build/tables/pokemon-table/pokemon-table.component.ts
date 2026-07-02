@@ -1,7 +1,7 @@
 import { Component, computed, inject, input, output, signal } from "@angular/core"
 import { ABILITY_DETAILS } from "@data/abiliity-details"
 import { POKEMON_DETAILS, PokemonDetail } from "@data/pokemon-details"
-import { topUsageByRegulation } from "@data/top-usage-regulation"
+import { topUsageByRegulation } from "@configuration/top-usage-regulation"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { CustomSet } from "@data/store/custom-set"
 import { FilterableTableComponent } from "@features/pokemon-build/tables/filterable-table/filterable-table.component"
@@ -206,6 +206,8 @@ export class PokemonTableComponent {
         } as PokemonDetail & { subRows?: CustomSet[] }
       })
 
+    const topUsageOrder = topUsageByRegulation["MB"]
+
     const groupedData = allPokemon.reduce(
       (acc, pokemon) => {
         const groupName = pokemon.group
@@ -219,6 +221,19 @@ export class PokemonTableComponent {
       },
       {} as Record<PokemonDetail["group"], (PokemonDetail & { subRows?: CustomSet[] })[]>
     )
+
+    for (const groupName of Object.keys(groupedData) as PokemonDetail["group"][]) {
+      groupedData[groupName].sort((a, b) => {
+        const indexA = topUsageOrder.indexOf(a.name)
+        const indexB = topUsageOrder.indexOf(b.name)
+
+        if (indexA === -1 && indexB === -1) return a.name.localeCompare(b.name)
+        if (indexA === -1) return 1
+        if (indexB === -1) return -1
+
+        return indexA - indexB
+      })
+    }
 
     const result = Object.keys(groupedData).map(groupName => ({
       group: groupName as PokemonDetail["group"],

@@ -1,6 +1,7 @@
 import fs from "fs"
 import { Generations } from "@robsonbittencourt/calc"
 import { getSmogonData } from "./smogon-data.js"
+import { POKEDEX_NUMBERS } from "./pokedex-numbers.js"
 
 const gen = Generations.get(9)
 const movesByName = new Map([...gen.moves].map(m => [m.name, m]))
@@ -43,8 +44,7 @@ function adjustSpread(nature, evs, alternateSpreads, moves) {
   return compatible ?? { nature, evs }
 }
 
-const MOVESET_MODULE_PREFIX_SV = "export const SETDEX_SV: Record<string, any> = "
-const MOVESET_MODULE_PREFIX_CHAMPIONS = "export const SETDEX_CHAMPIONS: Record<string, any> = "
+const MOVESET_MODULE_PREFIX = "export const MOVESETS: Record<string, any> = "
 
 export async function createMovesetsFile(date, regulation) {
   console.log(`⏳ [createMovesetsFile] Fetching moveset data for ${date} / ${regulation.toUpperCase()}...`)
@@ -59,13 +59,13 @@ export async function createMovesetsFile(date, regulation) {
 
   writeInMovesetsFile(smogonData)
 
-  const outputFile = "src/data/movesets-champions.ts"
+  const outputFile = "src/data/movesets.ts"
   console.log(`✅ [createMovesetsFile] '${outputFile}' updated successfully`)
 }
 
 function writeInMovesetsFile(smogonData) {
-  const outputFile = "src/data/movesets-champions.ts"
-  const modulePrefix = MOVESET_MODULE_PREFIX_CHAMPIONS
+  const outputFile = "src/data/movesets.ts"
+  const modulePrefix = MOVESET_MODULE_PREFIX
 
   const updatedMovesets = updateMovesets(smogonData, outputFile)
 
@@ -93,8 +93,7 @@ function readMovesets(filePath) {
   }
 
   const data = fs.readFileSync(filePath, "utf8")
-  const modulePrefix = filePath.includes("champions") ? MOVESET_MODULE_PREFIX_CHAMPIONS : MOVESET_MODULE_PREFIX_SV
-  const rawJson = data.substring(modulePrefix.length)
+  const rawJson = data.substring(MOVESET_MODULE_PREFIX.length)
   const jsonWithQuotes = rawJson.replace(/([\p{L}\p{M}0-9_]+):/gu, '"$1":')
   const jsonContent = JSON.parse(jsonWithQuotes)
 
@@ -172,7 +171,37 @@ function updateMovesets(newData, filePath) {
     }
   })
 
-  return stringifyWithoutQuotes(updatedJson)
+  const orderedJson = orderByPokedexNumber(updatedJson)
+
+  return stringifyWithoutQuotes(orderedJson)
+}
+
+const NAME_ALIASES = {
+  "Aegislash-Shield": "Aegislash"
+}
+
+function orderByPokedexNumber(jsonObject) {
+  const keys = Object.keys(jsonObject)
+
+  const numberFor = key => {
+    const lookupName = NAME_ALIASES[key] ?? key
+    return POKEDEX_NUMBERS[lookupName] ?? Infinity
+  }
+
+  const sortedKeys = [...keys].sort((a, b) => {
+    const numA = numberFor(a)
+    const numB = numberFor(b)
+
+    if (numA !== numB) return numA - numB
+    return a.localeCompare(b)
+  })
+
+  const result = {}
+  for (const key of sortedKeys) {
+    result[key] = jsonObject[key]
+  }
+
+  return result
 }
 
 function stringifyWithoutQuotes(jsonObject) {

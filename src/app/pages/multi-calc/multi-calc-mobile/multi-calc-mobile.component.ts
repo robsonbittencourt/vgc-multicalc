@@ -10,7 +10,7 @@ import { MatSlideToggle } from "@angular/material/slide-toggle"
 import { DomSanitizer } from "@angular/platform-browser"
 import { InputAutocompleteComponent } from "@app/basic/input-autocomplete/input-autocomplete.component"
 import { WidgetComponent } from "@basic/widget/widget.component"
-import { SETDEX_CHAMPIONS } from "@data/movesets-champions"
+import { MOVESETS } from "@data/movesets"
 import { pokemonByRegulation } from "@data/regulation-pokemon"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { CustomSet } from "@data/store/custom-set"
@@ -412,7 +412,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
   private applyMeta(regulation: Regulation) {
     this.regulation.set(regulation)
     this.store.updateTargetMetaRegulation(regulation)
-    const setdex = SETDEX_CHAMPIONS
+    const setdex = MOVESETS
     const metaPokemon = pokemonByRegulation(regulation, 60, setdex, false)
     this.onTargetsImported(metaPokemon)
   }
@@ -472,7 +472,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
   }
 
   private targetsExcludingMetaData(): Target[] {
-    const setdex = SETDEX_CHAMPIONS
+    const setdex = MOVESETS
     const metaLeft = pokemonByRegulation(this.store.targetMetaRegulation()!, undefined, setdex, FEATURES.allowAllPokes)
 
     const newTargets = [...this.store.targets()]

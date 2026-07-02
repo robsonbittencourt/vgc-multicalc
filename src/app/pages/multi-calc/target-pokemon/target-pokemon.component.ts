@@ -6,7 +6,7 @@ import { MatDialog } from "@angular/material/dialog"
 import { MatSlideToggle } from "@angular/material/slide-toggle"
 import { InputAutocompleteComponent } from "@app/basic/input-autocomplete/input-autocomplete.component"
 import { WidgetComponent } from "@basic/widget/widget.component"
-import { SETDEX_CHAMPIONS } from "@data/movesets-champions"
+import { MOVESETS } from "@data/movesets"
 import { pokemonByRegulation } from "@data/regulation-pokemon"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { MenuStore } from "@data/store/menu-store"
@@ -136,7 +136,7 @@ export class TargetPokemonComponent {
   })
 
   private get setdex() {
-    return SETDEX_CHAMPIONS
+    return MOVESETS
   }
 
   readonly targetPokemonNames = computed(() => {

@@ -3,6 +3,7 @@ import { createSpeedStatisticsFile } from "./speed-statistics-class-generator.js
 import { extractMetaMoves } from "./meta-moves-extractor.js"
 import { topUsage } from "./top-usage.js"
 import { pokemonDetailsGroup } from "./pokemon-details-group.js"
+import { formatGeneratedFiles } from "./format-generated-files.js"
 
 const date = "2026-06"
 const regulation = "mb"
@@ -12,7 +13,8 @@ const steps = [
   { name: "pokemonDetailsGroup", run: () => pokemonDetailsGroup(regulation) },
   { name: "createMovesetsFile", run: () => createMovesetsFile(date, regulation) },
   { name: "createSpeedStatisticsFile", run: () => createSpeedStatisticsFile(date, regulation) },
-  { name: "extractMetaMoves", run: () => extractMetaMoves(date, regulation) }
+  { name: "extractMetaMoves", run: () => extractMetaMoves(date, regulation) },
+  { name: "formatGeneratedFiles", run: () => formatGeneratedFiles(regulation) }
 ]
 
 console.log(`🚀 Starting parser for date ${date} and regulation ${regulation.toUpperCase()}`)

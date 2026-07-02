@@ -1,6 +1,5 @@
 import { Component, computed, inject, input, output } from "@angular/core"
 import { MOVE_DETAILS, MoveDetail, MoveName } from "@data/move-details"
-import { MOVE_DETAILS_CHAMPIONS } from "@data/move-details-champions"
 import { POKEMON_DETAILS } from "@data/pokemon-details"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { FilterableTableComponent } from "@features/pokemon-build/tables/filterable-table/filterable-table.component"
@@ -63,8 +62,7 @@ export class MovesTableComponent {
       .map(move => {
         const moveDetail = MOVE_DETAILS[move]
         if (moveDetail) {
-          const championsOverride = MOVE_DETAILS_CHAMPIONS[move]
-          return { move, ...moveDetail, ...championsOverride }
+          return { move, ...moveDetail }
         }
         return null
       })

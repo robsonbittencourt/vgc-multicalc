@@ -1,6 +1,6 @@
 import { Component, computed, inject, input, output } from "@angular/core"
 import { ITEM_DETAILS, ItemDetail } from "@data/item-details"
-import { availableItemNames } from "@data/available-items"
+import { availableItemNames } from "@configuration/available-items"
 import { POKEMON_DETAILS } from "@data/pokemon-details"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { FilterableTableComponent } from "@features/pokemon-build//tables/filterable-table/filterable-table.component"

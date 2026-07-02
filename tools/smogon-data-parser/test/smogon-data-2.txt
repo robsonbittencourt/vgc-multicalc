@@ -1,175 +1,175 @@
- +----------------------------------------+ 
- | Urshifu-Rapid-Strike                   | 
- +----------------------------------------+ 
- | Raw count: 233132                      | 
- | Avg. weight: 0.0526795871657           | 
- | Viability Ceiling: 89                  | 
- +----------------------------------------+ 
- | Abilities                              | 
- | Unseen Fist 100.000%                   | 
- +----------------------------------------+ 
- | Items                                  | 
- | Focus Sash 35.943%                     | 
- | Choice Scarf 33.403%                   | 
- | Mystic Water 15.303%                   | 
- | Choice Band  6.699%                    | 
- | Safety Goggles  4.062%                 | 
- | Other  4.591%                          | 
- +----------------------------------------+ 
- | Spreads                                | 
- | Adamant:4/252/0/0/0/252 29.769%        | 
- | Adamant:0/252/0/0/4/252 10.531%        | 
- | Adamant:12/236/4/0/4/252  4.125%       | 
- | Adamant:0/252/4/0/0/252  4.057%        | 
- | Jolly:4/252/0/0/0/252  3.798%          | 
- | Adamant:4/236/4/0/12/252  3.665%       | 
- | Other 44.056%                          | 
- +----------------------------------------+ 
- | Moves                                  | 
- | Surging Strikes 99.999%                | 
- | Close Combat 95.817%                   | 
- | Aqua Jet 72.755%                       | 
- | U-turn 40.146%                         | 
- | Detect 33.450%                         | 
- | Protect 26.255%                        | 
- | Coaching 12.444%                       | 
- | Other 19.134%                          | 
- +----------------------------------------+ 
- | Tera Types                             | 
- | Stellar 44.026%                        | 
- | Water 30.578%                          | 
- | Grass 13.732%                          | 
- | Poison  5.391%                         | 
- | Ghost  4.678%                          | 
- | Other  1.595%                          | 
- +----------------------------------------+ 
- | Teammates                              | 
- | Rillaboom 55.895%                      | 
- | Incineroar 43.327%                     | 
- | Raging Bolt 41.868%                    | 
- | Calyrex-Shadow 35.462%                 | 
- | Amoonguss 24.194%                      | 
- | Calyrex-Ice 23.986%                    | 
- | Farigiraf 21.242%                      | 
- | Ogerpon-Hearthflame 17.499%            | 
- | Chien-Pao 14.882%                      | 
- | Tornadus 13.131%                       | 
- | Iron Hands 12.375%                     | 
- +----------------------------------------+ 
- | Checks and Counters                    | 
- +----------------------------------------+ 
- +----------------------------------------+ 
- | Rillaboom                              | 
- +----------------------------------------+ 
- | Raw count: 220794                      | 
- | Avg. weight: 0.0453372908615           | 
- | Viability Ceiling: 89                  | 
- +----------------------------------------+ 
- | Abilities                              | 
- | Grassy Surge 99.906%                   | 
- | Overgrow  0.094%                       | 
- +----------------------------------------+ 
- | Items                                  | 
- | Assault Vest 89.360%                   | 
- | Miracle Seed  6.582%                   | 
- | Other  4.059%                          | 
- +----------------------------------------+ 
- | Spreads                                | 
- | Adamant:236/116/4/0/76/76  4.198%      | 
- | Adamant:252/116/4/0/76/60  3.587%      | 
- | Adamant:204/116/4/0/76/108  3.320%     | 
- | Adamant:236/36/4/0/148/84  3.108%      | 
- | Adamant:236/36/4/0/172/60  2.474%      | 
- | Adamant:236/148/4/0/44/76  2.278%      | 
- | Other 81.034%                          | 
- +----------------------------------------+ 
- | Moves                                  | 
- | Grassy Glide 99.982%                   | 
- | Wood Hammer 98.499%                    | 
- | Fake Out 97.315%                       | 
- | U-turn 92.501%                         | 
- | Other 11.703%                          | 
- +----------------------------------------+ 
- | Tera Types                             | 
- | Fire 57.050%                           | 
- | Grass 23.233%                          | 
- | Water 11.247%                          | 
- | Poison  4.301%                         | 
- | Other  4.169%                          | 
- +----------------------------------------+ 
- | Teammates                              | 
- | Urshifu-Rapid-Strike 68.572%           | 
- | Incineroar 47.284%                     | 
- | Raging Bolt 46.468%                    | 
- | Calyrex-Shadow 42.864%                 | 
- | Amoonguss 19.213%                      | 
- | Flutter Mane 18.584%                   | 
- | Calyrex-Ice 17.555%                    | 
- | Clefairy 16.328%                       | 
- | Farigiraf 15.250%                      | 
- | Chien-Pao 14.107%                      | 
- | Ogerpon-Hearthflame 14.061%            | 
- +----------------------------------------+ 
- | Checks and Counters                    | 
- | Tatsugiri 54.690 (78.73±6.01)          |
- |	 (28.0% KOed / 50.7% switched out)    | 
- +----------------------------------------+ 
- +----------------------------------------+ 
- | Incineroar                             | 
- +----------------------------------------+ 
- | Raw count: 65979                       | 
- | Avg. weight: 0.0507402455738           | 
- | Viability Ceiling: 88                  | 
- +----------------------------------------+ 
- | Abilities                              | 
- | Intimidate 100.000%                    | 
- | Blaze  0.000%                          | 
- +----------------------------------------+ 
- | Items                                  | 
- | Safety Goggles 55.121%                 | 
- | Rocky Helmet 33.704%                   | 
- | Assault Vest  4.786%                   | 
- | Covert Cloak  3.165%                   | 
- | Other  3.224%                          | 
- +----------------------------------------+ 
- | Spreads                                | 
- | Impish:252/4/188/0/60/4  7.873%        | 
- | Impish:252/0/116/0/140/0  6.835%       | 
- | Careful:244/4/140/0/76/44  5.003%      | 
- | Careful:244/4/100/0/76/84  4.751%      | 
- | Impish:244/4/164/0/76/20  3.662%       | 
- | Impish:244/0/188/0/76/0  3.290%        | 
- | Other 68.586%                          | 
- +----------------------------------------+ 
- | Moves                                  | 
- | Fake Out 99.997%                       | 
- | Knock Off 97.417%                      | 
- | Parting Shot 91.985%                   | 
- | Will-O-Wisp 51.975%                    | 
- | Flare Blitz 23.750%                    | 
- | Taunt 19.853%                          | 
- | Other 15.023%                          | 
- +----------------------------------------+ 
- | Tera Types                             | 
- | Ghost 61.082%                          | 
- | Water 17.122%                          | 
- | Grass 11.667%                          | 
- | Dragon  4.880%                         | 
- | Fairy  2.785%                          | 
- | Other  2.464%                          | 
- +----------------------------------------+ 
- | Teammates                              | 
- | Urshifu-Rapid-Strike 76.274%           | 
- | Rillaboom 59.112%                      | 
- | Raging Bolt 40.095%                    | 
- | Calyrex-Shadow 32.309%                 | 
- | Amoonguss 29.146%                      | 
- | Terapagos 27.611%                      | 
- | Flutter Mane 21.332%                   | 
- | Calyrex-Ice 17.335%                    | 
- | Ogerpon-Hearthflame 17.002%            | 
- | Clefairy 16.845%                       | 
- | Iron Hands 13.728%                     | 
- +----------------------------------------+ 
- | Checks and Counters                    | 
- +----------------------------------------+  
++----------------------------------------+
+| Urshifu-Rapid-Strike                   |
++----------------------------------------+
+| Raw count: 233132                      |
+| Avg. weight: 0.0526795871657           |
+| Viability Ceiling: 89                  |
++----------------------------------------+
+| Abilities                              |
+| Unseen Fist 100.000%                   |
++----------------------------------------+
+| Items                                  |
+| Focus Sash 35.943%                     |
+| Choice Scarf 33.403%                   |
+| Mystic Water 15.303%                   |
+| Choice Band  6.699%                    |
+| Safety Goggles  4.062%                 |
+| Other  4.591%                          |
++----------------------------------------+
+| Spreads                                |
+| Adamant:4/252/0/0/0/252 29.769%        |
+| Adamant:0/252/0/0/4/252 10.531%        |
+| Adamant:12/236/4/0/4/252  4.125%       |
+| Adamant:0/252/4/0/0/252  4.057%        |
+| Jolly:4/252/0/0/0/252  3.798%          |
+| Adamant:4/236/4/0/12/252  3.665%       |
+| Other 44.056%                          |
++----------------------------------------+
+| Moves                                  |
+| Surging Strikes 99.999%                |
+| Close Combat 95.817%                   |
+| Aqua Jet 72.755%                       |
+| U-turn 40.146%                         |
+| Detect 33.450%                         |
+| Protect 26.255%                        |
+| Coaching 12.444%                       |
+| Other 19.134%                          |
++----------------------------------------+
+| Tera Types                             |
+| Stellar 44.026%                        |
+| Water 30.578%                          |
+| Grass 13.732%                          |
+| Poison  5.391%                         |
+| Ghost  4.678%                          |
+| Other  1.595%                          |
++----------------------------------------+
+| Teammates                              |
+| Rillaboom 55.895%                      |
+| Incineroar 43.327%                     |
+| Raging Bolt 41.868%                    |
+| Calyrex-Shadow 35.462%                 |
+| Amoonguss 24.194%                      |
+| Calyrex-Ice 23.986%                    |
+| Farigiraf 21.242%                      |
+| Ogerpon-Hearthflame 17.499%            |
+| Chien-Pao 14.882%                      |
+| Tornadus 13.131%                       |
+| Iron Hands 12.375%                     |
++----------------------------------------+
+| Checks and Counters                    |
++----------------------------------------+
++----------------------------------------+
+| Rillaboom                              |
++----------------------------------------+
+| Raw count: 220794                      |
+| Avg. weight: 0.0453372908615           |
+| Viability Ceiling: 89                  |
++----------------------------------------+
+| Abilities                              |
+| Grassy Surge 99.906%                   |
+| Overgrow  0.094%                       |
++----------------------------------------+
+| Items                                  |
+| Assault Vest 89.360%                   |
+| Miracle Seed  6.582%                   |
+| Other  4.059%                          |
++----------------------------------------+
+| Spreads                                |
+| Adamant:236/116/4/0/76/76  4.198%      |
+| Adamant:252/116/4/0/76/60  3.587%      |
+| Adamant:204/116/4/0/76/108  3.320%     |
+| Adamant:236/36/4/0/148/84  3.108%      |
+| Adamant:236/36/4/0/172/60  2.474%      |
+| Adamant:236/148/4/0/44/76  2.278%      |
+| Other 81.034%                          |
++----------------------------------------+
+| Moves                                  |
+| Grassy Glide 99.982%                   |
+| Wood Hammer 98.499%                    |
+| Fake Out 97.315%                       |
+| U-turn 92.501%                         |
+| Other 11.703%                          |
++----------------------------------------+
+| Tera Types                             |
+| Fire 57.050%                           |
+| Grass 23.233%                          |
+| Water 11.247%                          |
+| Poison  4.301%                         |
+| Other  4.169%                          |
++----------------------------------------+
+| Teammates                              |
+| Urshifu-Rapid-Strike 68.572%           |
+| Incineroar 47.284%                     |
+| Raging Bolt 46.468%                    |
+| Calyrex-Shadow 42.864%                 |
+| Amoonguss 19.213%                      |
+| Flutter Mane 18.584%                   |
+| Calyrex-Ice 17.555%                    |
+| Clefairy 16.328%                       |
+| Farigiraf 15.250%                      |
+| Chien-Pao 14.107%                      |
+| Ogerpon-Hearthflame 14.061%            |
++----------------------------------------+
+| Checks and Counters                    |
+| Tatsugiri 54.690 (78.73±6.01)          |
+|	 (28.0% KOed / 50.7% switched out)    |
++----------------------------------------+
++----------------------------------------+
+| Incineroar                             |
++----------------------------------------+
+| Raw count: 65979                       |
+| Avg. weight: 0.0507402455738           |
+| Viability Ceiling: 88                  |
++----------------------------------------+
+| Abilities                              |
+| Intimidate 100.000%                    |
+| Blaze  0.000%                          |
++----------------------------------------+
+| Items                                  |
+| Safety Goggles 55.121%                 |
+| Rocky Helmet 33.704%                   |
+| Assault Vest  4.786%                   |
+| Covert Cloak  3.165%                   |
+| Other  3.224%                          |
++----------------------------------------+
+| Spreads                                |
+| Impish:252/4/188/0/60/4  7.873%        |
+| Impish:252/0/116/0/140/0  6.835%       |
+| Careful:244/4/140/0/76/44  5.003%      |
+| Careful:244/4/100/0/76/84  4.751%      |
+| Impish:244/4/164/0/76/20  3.662%       |
+| Impish:244/0/188/0/76/0  3.290%        |
+| Other 68.586%                          |
++----------------------------------------+
+| Moves                                  |
+| Fake Out 99.997%                       |
+| Knock Off 97.417%                      |
+| Parting Shot 91.985%                   |
+| Will-O-Wisp 51.975%                    |
+| Flare Blitz 23.750%                    |
+| Taunt 19.853%                          |
+| Other 15.023%                          |
++----------------------------------------+
+| Tera Types                             |
+| Ghost 61.082%                          |
+| Water 17.122%                          |
+| Grass 11.667%                          |
+| Dragon  4.880%                         |
+| Fairy  2.785%                          |
+| Other  2.464%                          |
++----------------------------------------+
+| Teammates                              |
+| Urshifu-Rapid-Strike 76.274%           |
+| Rillaboom 59.112%                      |
+| Raging Bolt 40.095%                    |
+| Calyrex-Shadow 32.309%                 |
+| Amoonguss 29.146%                      |
+| Terapagos 27.611%                      |
+| Flutter Mane 21.332%                   |
+| Calyrex-Ice 17.335%                    |
+| Ogerpon-Hearthflame 17.002%            |
+| Clefairy 16.845%                       |
+| Iron Hands 13.728%                     |
++----------------------------------------+
+| Checks and Counters                    |
++----------------------------------------+

@@ -1,5 +1,4 @@
 import { MOVE_DETAILS } from "@data/move-details"
-import { MOVE_DETAILS_CHAMPIONS } from "@data/move-details-champions"
 import { Category, PokemonType, SecondaryEffect } from "@lib/types"
 import { getMove } from "@calc"
 
@@ -69,8 +68,7 @@ export class Move {
 
   private resolveDetails(name: string): MoveDetailsResolved {
     const moveName = moveKey(name)
-    const baseDetails = moveName ? MOVE_DETAILS[moveName] : undefined
-    const moveDetails = baseDetails && MOVE_DETAILS_CHAMPIONS[moveName] ? { ...baseDetails, ...MOVE_DETAILS_CHAMPIONS[moveName] } : baseDetails
+    const moveDetails = moveName ? MOVE_DETAILS[moveName] : undefined
 
     if (!moveDetails) {
       return { ...EMPTY_MOVE_DEFAULTS }

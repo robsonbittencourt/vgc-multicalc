@@ -1,5 +1,4 @@
 import { ABILITY_DETAILS } from "@data/abiliity-details"
-import { Items } from "@data/items"
 import { POKEMON_DETAILS } from "@data/pokemon-details"
 import { DEFAULT_TERA_TYPE, SELECT_POKEMON_LABEL } from "@lib/constants"
 import { uuid } from "@lib/utils/uuid"
@@ -107,7 +106,7 @@ export class Pokemon {
 
   get item(): string {
     if (!this.smogonPokemon.item) {
-      return Items.instance.withoutItem()
+      return "(none)"
     }
 
     return this.smogonPokemon.item as string
