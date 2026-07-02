@@ -628,6 +628,102 @@ describe("PokePasteParserService", () => {
     })
   })
 
+  describe("parseFromVrPaste", () => {
+    it("should parse a vrpastes.com URL fetching from the backend API", async () => {
+      const mockResponse = {
+        title: "My VR Team",
+        teams: [
+          {
+            species: "Incineroar",
+            ability: "Intimidate",
+            nature: "Careful",
+            item: "Sitrus Berry",
+            moves: ["Fake Out", "Knock Off", "Flare Blitz", "Parting Shot"],
+            evs: { hp: 252, def: 4, spd: 252 }
+          }
+        ]
+      }
+
+      vi.spyOn(window, "fetch").mockReturnValue(Promise.resolve(new Response(JSON.stringify(mockResponse))))
+
+      const result = await service.parseTeam("https://www.vrpastes.com/XJuCYyTS")
+
+      expect(window.fetch).toHaveBeenCalledWith("https://vrpaste-backend.vercel.app/api/paste/XJuCYyTS?lang=english")
+      expect(result.name).toBe("My VR Team")
+      expect(result.pokemon.length).toBe(1)
+      expect(result.pokemon[0].name).toBe("Incineroar")
+      expect(result.pokemon[0].move1Name).toBe("Fake Out")
+      expect(result.pokemon[0].move2Name).toBe("Knock Off")
+      expect(result.pokemon[0].move3Name).toBe("Flare Blitz")
+      expect(result.pokemon[0].move4Name).toBe("Parting Shot")
+      expect(result.pokemon[0].evs).toEqual({ hp: 252, atk: 0, def: 4, spa: 0, spd: 252, spe: 0 })
+      expect(result.pokemon[0].ivs).toEqual({ hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 })
+    })
+
+    it("should use default zero EVs when Pokémon has no evs field", async () => {
+      const mockResponse = {
+        title: "Untitled Team",
+        teams: [
+          {
+            species: "Dragalge",
+            ability: "Poison Point",
+            nature: "Bold",
+            item: "Dragalgite",
+            moves: ["Sludge Bomb", "Icy Wind", "Dragon Tail", "Toxic"]
+          }
+        ]
+      }
+
+      vi.spyOn(window, "fetch").mockReturnValue(Promise.resolve(new Response(JSON.stringify(mockResponse))))
+
+      const result = await service.parseTeam("https://www.vrpastes.com/oZbJ92WN")
+
+      expect(result.pokemon[0].evs).toEqual({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
+    })
+
+    it("should set atk boost to 1 for Zacian-Crowned from vrpastes", async () => {
+      const mockResponse = {
+        title: "Restricted Team",
+        teams: [
+          {
+            species: "Zacian-Crowned",
+            ability: "Intrepid Sword",
+            nature: "Adamant",
+            item: "Rusted Sword",
+            moves: ["Behemoth Blade", "Sacred Sword", "Tera Blast", "Protect"],
+            evs: { hp: 252, atk: 252, spe: 4 }
+          }
+        ]
+      }
+
+      vi.spyOn(window, "fetch").mockReturnValue(Promise.resolve(new Response(JSON.stringify(mockResponse))))
+
+      const result = await service.parseTeam("https://www.vrpastes.com/abc123")
+
+      expect(result.pokemon[0].boosts).toEqual({ atk: 1, def: 0, spa: 0, spd: 0, spe: 0 })
+    })
+
+    it("should use empty name when title is not present", async () => {
+      const mockResponse = {
+        teams: [
+          {
+            species: "Incineroar",
+            ability: "Intimidate",
+            nature: "Careful",
+            item: "Sitrus Berry",
+            moves: ["Fake Out", "Knock Off", "Flare Blitz", "Parting Shot"]
+          }
+        ]
+      }
+
+      vi.spyOn(window, "fetch").mockReturnValue(Promise.resolve(new Response(JSON.stringify(mockResponse))))
+
+      const result = await service.parseTeam("https://www.vrpastes.com/abc123")
+
+      expect(result.name).toBe("")
+    })
+  })
+
   describe("adjustName", () => {
     it("should remove suffix for Rockruff with alternative form", async () => {
       const randomMove1 = "Rock Throw"

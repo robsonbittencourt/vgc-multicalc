@@ -20,7 +20,9 @@ export class PokePasteParserService {
   }
 
   async parseTeam(input: string): Promise<{ name: string; pokemon: Pokemon[] }> {
-    if (input.startsWith("http")) {
+    if (input.startsWith("http") && input.includes("vrpastes.com")) {
+      return await this.parseFromVrPaste(input)
+    } else if (input.startsWith("http")) {
       return await this.parseFromPokePaste(input)
     } else {
       return this.parseFromText(input)
@@ -33,6 +35,24 @@ export class PokePasteParserService {
     const parsed = await this.parseFromText(data.paste)
 
     return { name: data.title || parsed.name, pokemon: parsed.pokemon }
+  }
+
+  private async parseFromVrPaste(vrPasteLink: string): Promise<{ name: string; pokemon: Pokemon[] }> {
+    const id = vrPasteLink.split("/").pop()
+    const res = await fetch(`https://vrpaste-backend.vercel.app/api/paste/${id}?lang=english`)
+    const data = await res.json()
+
+    const pokemon = data.teams.map((poke: any) => {
+      const name = this.adjustName(poke.species)
+      const ivs = { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 }
+      const evs = { hp: poke.evs?.hp ?? 0, atk: poke.evs?.atk ?? 0, def: poke.evs?.def ?? 0, spa: poke.evs?.spa ?? 0, spd: poke.evs?.spd ?? 0, spe: poke.evs?.spe ?? 0 }
+      const moveSet = new MoveSet(new Move(poke.moves[0] ?? ""), new Move(poke.moves[1] ?? ""), new Move(poke.moves[2] ?? ""), new Move(poke.moves[3] ?? ""))
+      const boosts = this.buildBoosts({ name })
+
+      return new Pokemon(name, { ability: new Ability(poke.ability, false), nature: poke.nature, item: poke.item, evs, moveSet, boosts, ivs })
+    })
+
+    return { name: data.title || "", pokemon }
   }
 
   private async parseFromText(teamInTextFormat: string): Promise<{ name: string; pokemon: Pokemon[] }> {

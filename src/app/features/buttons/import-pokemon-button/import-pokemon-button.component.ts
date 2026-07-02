@@ -36,7 +36,7 @@ export class ImportPokemonButtonComponent {
   private snackBar = inject(SnackbarService)
 
   importPokemon() {
-    const placeholder = this.singlePokemon() ? "Pokémon build in text format" : "PokePaste link or team in text format"
+    const placeholder = this.singlePokemon() ? "Pokémon build in text format" : "PokePaste/VR Pastes link or team in text format"
 
     const dialogRef = this.dialog.open(ImportModalComponent, {
       data: { placeholder },
