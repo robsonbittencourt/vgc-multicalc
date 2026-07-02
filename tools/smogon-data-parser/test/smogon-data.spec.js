@@ -9,7 +9,7 @@ describe("SmogonDataParser", () => {
     const pokemon = parseSmogonData(data)
 
     expect(pokemon[0].name).equal("Urshifu-Rapid-Strike")
-    expect(pokemon[0].teraType).equal("Stellar")
+    expect(pokemon[0].teraType).equal("")
     expect(pokemon[0].ability).equal("Unseen Fist")
     expect(pokemon[0].items).to.deep.equal(["Focus Sash", "Choice Scarf", "Mystic Water", "Choice Band", "Safety Goggles"])
     expect(pokemon[0].nature).equal("Adamant")
@@ -23,7 +23,7 @@ describe("SmogonDataParser", () => {
     const pokemon = parseSmogonData(data)
 
     expect(pokemon[0].name).equal("Urshifu-Rapid-Strike")
-    expect(pokemon[0].teraType).equal("Stellar")
+    expect(pokemon[0].teraType).equal("")
     expect(pokemon[0].ability).equal("Unseen Fist")
     expect(pokemon[0].items).to.deep.equal(["Focus Sash", "Choice Scarf", "Mystic Water", "Choice Band", "Safety Goggles"])
     expect(pokemon[0].nature).equal("Adamant")
@@ -31,7 +31,7 @@ describe("SmogonDataParser", () => {
     expect(pokemon[0].moves).to.deep.equal(["Close Combat", "U-turn", "Aqua Jet", "Surging Strikes"])
 
     expect(pokemon[1].name).equal("Rillaboom")
-    expect(pokemon[1].teraType).equal("Fire")
+    expect(pokemon[1].teraType).equal("")
     expect(pokemon[1].ability).equal("Grassy Surge")
     expect(pokemon[1].items).to.deep.equal(["Assault Vest", "Miracle Seed"])
     expect(pokemon[1].nature).equal("Adamant")
@@ -39,7 +39,7 @@ describe("SmogonDataParser", () => {
     expect(pokemon[1].moves).to.deep.equal(["Wood Hammer", "U-turn", "Grassy Glide", "Fake Out"])
 
     expect(pokemon[2].name).equal("Incineroar")
-    expect(pokemon[2].teraType).equal("Ghost")
+    expect(pokemon[2].teraType).equal("")
     expect(pokemon[2].ability).equal("Intimidate")
     expect(pokemon[2].items).to.deep.equal(["Safety Goggles", "Rocky Helmet", "Assault Vest", "Covert Cloak"])
     expect(pokemon[2].nature).equal("Impish")

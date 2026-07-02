@@ -82,7 +82,7 @@ function extractAllMovesFromSection(movesSection) {
 }
 
 function loadMovesets() {
-  const movesetFile = "movesets-champions.ts"
+  const movesetFile = "movesets.ts"
   const movesetPath = path.resolve(__dirname, `../../../src/data/${movesetFile}`)
   const content = fs.readFileSync(movesetPath, "utf-8")
 
@@ -111,8 +111,8 @@ function getMegaStoneItemsForBase(baseName, movesets) {
 }
 
 function updatePokemonDetailsWithMetaData(metaDataMap) {
-  const fileName = "pokemon-details-champions.ts"
-  const exportName = "POKEMON_DETAILS_CHAMPIONS"
+  const fileName = "pokemon-details.ts"
+  const exportName = "POKEMON_DETAILS"
   const pokemonDetailsPath = path.resolve(__dirname, `../../../src/data/${fileName}`)
   const fileContent = fs.readFileSync(pokemonDetailsPath, "utf-8")
 
@@ -165,7 +165,11 @@ function updatePokemonDetailsWithMetaData(metaDataMap) {
 
   const updatedDetails = Object.entries(pokemonDetails).map(([key, value]) => {
     const pokemonKey = value.name.toLowerCase().replace(/[^a-z0-9]/g, "")
-    const metaData = metaDataMap.get(pokemonKey) || { moves: [], items: [] }
+    const metaData = metaDataMap.get(pokemonKey)
+
+    if (!metaData) {
+      return [key, value]
+    }
 
     let metaItems = metaData.items
     if (metaItems.length === 0) {

@@ -8,7 +8,6 @@ import { MatSlideToggle } from "@angular/material/slide-toggle"
 import { MatTooltip } from "@angular/material/tooltip"
 import { InputSelectComponent } from "@basic/input-select/input-select.component"
 import { InputComponent } from "@basic/input/input.component"
-import { Items } from "@data/items"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { CustomSet } from "@data/store/custom-set"
 import { FieldStore } from "@data/store/field-store"
@@ -257,7 +256,7 @@ export class PokemonBuildComponent {
   move4Input = viewChild<InputComponent>("move4Input")
 
   moveWasSelected = false
-  withoutItem = Items.instance.withoutItem()
+  withoutItem = "(none)"
 
   constructor() {
     queueMicrotask(() => {

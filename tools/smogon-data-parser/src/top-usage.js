@@ -5,7 +5,7 @@ const POKEMON_QUANTITY = 125
 const MOVESET_MODULE_PREFIX = `import { Regulation } from "@lib/types"
 
 export const topUsageByRegulation: Record<Regulation, string[]> = {\n  `
-const OUTPUT_FILE = "src/data/top-usage-regulation.ts"
+const OUTPUT_FILE = "src/configuration/top-usage-regulation.ts"
 
 export async function topUsage(date, regulation) {
   console.log("⏳ [topUsage] Generating top usage list...")

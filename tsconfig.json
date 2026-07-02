@@ -9,6 +9,7 @@
       "@pages/*": ["./src/app/pages/*"],
       "@core/*": ["./src/app/core/*"],
       "@data/*": ["./src/data/*"],
+      "@configuration/*": ["./src/configuration/*"],
       "@lib/*": ["./src/lib/*"],
       "@calc": ["./src/lib/calc/index.ts"]
     },

@@ -1,6 +1,5 @@
 import { computed, effect, inject, Injectable, signal } from "@angular/core"
-import { Items } from "@data/items"
-import { SETDEX_CHAMPIONS } from "@data/movesets-champions"
+import { MOVESETS } from "@data/movesets"
 import { CustomSet } from "@data/store/custom-set"
 import { initialCalculatorState } from "@data/store/utils/initial-calculator-state"
 import { pokemonToState, stateToPokemon, stateToTargets, stateToTeam, stateToTeams, targetToState, teamToState } from "@data/store/utils/state-mapper"
@@ -161,7 +160,7 @@ export class CalculatorStore extends signalStore(
   readonly teamMember4 = computed(() => this.getTeamMemberAt(4))
   readonly teamMember5 = computed(() => this.getTeamMemberAt(5))
 
-  readonly activeSetdex = SETDEX_CHAMPIONS
+  readonly activeSetdex = MOVESETS
 
   readonly customSetsByPokemon = computed(() => {
     const map = new Map<string, CustomSet[]>()
@@ -274,7 +273,7 @@ export class CalculatorStore extends signalStore(
   }
 
   readonly duplicateItemPokemonIds = computed(() => {
-    const withoutItem = Items.instance.withoutItem()
+    const withoutItem = "(none)"
     const eligible = this.team().teamMembers.filter(member => !member.pokemon.isDefault && member.pokemon.item !== withoutItem)
     const itemToIds = new Map<string, string[]>()
 

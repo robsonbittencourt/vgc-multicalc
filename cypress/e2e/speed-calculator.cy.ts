@@ -126,10 +126,9 @@ describe("Speed Calculator", () => {
 
       pokemon.selectAbility("Unburden")
       pokemon.activateAbility()
-      cy.wait(300)
 
-      speedCalculator.speedInOrder()
       speedCalculator.speedTierIs(28, "Sneasler", 378, "Actual")
+      speedCalculator.speedInOrder()
     })
   })
 
@@ -253,7 +252,6 @@ describe("Speed Calculator", () => {
 
       field.eletricTerrain()
       field.neutralizingGas()
-      cy.wait(300)
 
       speedCalculator.speedTierIs(28, "Raichu-Alola", 260, "Actual")
     })

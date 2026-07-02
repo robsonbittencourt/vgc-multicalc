@@ -1,5 +1,4 @@
 import { Component, computed, effect, ElementRef, inject, input, signal, viewChild } from "@angular/core"
-import { Items } from "@data/items"
 import { Status } from "@lib/model/status"
 import { FaintedIconComponent } from "@pages/simple-calc/pokemon-hp-badge/hp-badge/fainted-icon/fainted-icon.component"
 import { StatusIconComponent } from "@pages/simple-calc/pokemon-hp-badge/hp-badge/status-icon/status-icon.component"
@@ -106,7 +105,7 @@ export class HpBadgeComponent {
     }
   }
 
-  hasValidItem = computed(() => this.item() != Items.instance.withoutItem() && this.item() !== "nothing")
+  hasValidItem = computed(() => this.item() != "(none)" && this.item() !== "nothing")
 
   canShowItemImage(): boolean {
     return this.hasValidItem() && !this.itemImageError()

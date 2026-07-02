@@ -1,7 +1,7 @@
 import fs from "fs"
 import path from "path"
 
-const topUsagePath = path.resolve("src/data/top-usage-regulation.ts")
+const topUsagePath = path.resolve("src/configuration/top-usage-regulation.ts")
 
 function serializeObject(obj, indent = 2) {
   const pad = lvl => " ".repeat(lvl * indent)
@@ -35,7 +35,7 @@ function serializeObject(obj, indent = 2) {
 }
 
 export async function pokemonDetailsGroup(regulation = "i") {
-  const pokemonDetailsPath = path.resolve("src/data/pokemon-details-champions.ts")
+  const pokemonDetailsPath = path.resolve("src/data/pokemon-details.ts")
 
   console.log(`⏳ [pokemonDetailsGroup] Updating group and order for regulation ${regulation.toUpperCase()}...`)
 
@@ -102,15 +102,7 @@ export async function pokemonDetailsGroup(regulation = "i") {
 
   const originalOrder = Object.entries(pokemonDetails)
 
-  const byName = Object.fromEntries(originalOrder.map(([k, v]) => [v.name.toLowerCase(), [k, v]]))
-
-  const topKeysOrdered = topNames.map(n => byName[n.toLowerCase()]).filter(Boolean)
-
-  const usedKeys = new Set(topKeysOrdered.map(([k]) => k))
-
-  const remainingKeys = originalOrder.filter(([k]) => !usedKeys.has(k))
-
-  const finalOrder = [...topKeysOrdered, ...remainingKeys].map(([key, value]) => {
+  const finalOrder = originalOrder.map(([key, value]) => {
     const index = topNames.findIndex(n => n.toLowerCase() === value.name.toLowerCase())
     let group = "Regular"
     if (index >= 0 && index < 50) group = "Meta"
@@ -121,7 +113,7 @@ export async function pokemonDetailsGroup(regulation = "i") {
   let header = preContent.trimEnd()
   header = header.replace(/private constructor\(\)\s*{[\s\S]*?}/, "private constructor() {\n    this.allPokemonNames = Object.values(POKEMON_DETAILS).map(p => p.name)\n  }")
 
-  const constName = "POKEMON_DETAILS_CHAMPIONS"
+  const constName = "POKEMON_DETAILS"
   const newContent = `${header}
 
 export const ${constName}: Record<string, SpeciesData> = ${serializeObject(finalOrder)}

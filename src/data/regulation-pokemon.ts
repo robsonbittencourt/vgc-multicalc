@@ -1,5 +1,5 @@
-import { SETDEX_CHAMPIONS } from "@data/movesets-champions"
-import { topUsageByRegulation } from "@data/top-usage-regulation"
+import { MOVESETS } from "@data/movesets"
+import { topUsageByRegulation } from "@configuration/top-usage-regulation"
 import { Ability } from "@lib/model/ability"
 import { Move } from "@lib/model/move"
 import { MoveSet } from "@lib/model/moveset"
@@ -7,7 +7,7 @@ import { Pokemon } from "@lib/model/pokemon"
 import { Regulation } from "@lib/types"
 import { spToEv } from "@lib/utils/ev-sp-converter"
 
-export function pokemonByRegulation(regulation: Regulation, quantity?: number, setdex: Record<string, any> = SETDEX_CHAMPIONS, includeAllPokemon = false): Pokemon[] {
+export function pokemonByRegulation(regulation: Regulation, quantity?: number, setdex: Record<string, any> = MOVESETS, includeAllPokemon = false): Pokemon[] {
   const regulationList = topUsageByRegulation[regulation]
 
   let result = Object.keys(setdex)
@@ -23,7 +23,7 @@ export function pokemonByRegulation(regulation: Regulation, quantity?: number, s
   return result.slice(0, quantity)
 }
 
-export function toPokemon(key: string, setdex: Record<string, any> = SETDEX_CHAMPIONS): Pokemon {
+export function toPokemon(key: string, setdex: Record<string, any> = MOVESETS): Pokemon {
   const poke = setdex[key]
   const evs = { hp: spToEv(poke.evs.hp), atk: spToEv(poke.evs.atk), def: spToEv(poke.evs.def), spa: spToEv(poke.evs.spa), spd: spToEv(poke.evs.spd), spe: spToEv(poke.evs.spe) }
 

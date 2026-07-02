@@ -3,8 +3,8 @@ import { Component, inject, input, output } from "@angular/core"
 import { MatButton } from "@angular/material/button"
 import { MatDialog } from "@angular/material/dialog"
 import { MatIcon } from "@angular/material/icon"
-import { availableItemNames } from "@data/available-items"
-import { POKEMON_DETAILS_CHAMPIONS } from "@data/pokemon-details-champions"
+import { availableItemNames } from "@configuration/available-items"
+import { POKEMON_DETAILS } from "@data/pokemon-details"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { toPokemon } from "@data/regulation-pokemon"
 import { ImportModalComponent } from "@features/import-modal/import-modal.component"
@@ -77,7 +77,7 @@ export class ImportPokemonButtonComponent {
       return
     }
 
-    const activeDetails = POKEMON_DETAILS_CHAMPIONS
+    const activeDetails = POKEMON_DETAILS
     const validItemsForMode = availableItemNames()
     const validatedList: { pokemon: Pokemon; hadInvalidMoves: boolean; hadInvalidItem: boolean }[] = validList.map(p => this.validateAndClean(p, activeDetails, validItemsForMode))
 
