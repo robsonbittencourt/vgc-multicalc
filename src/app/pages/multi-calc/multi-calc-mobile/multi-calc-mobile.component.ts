@@ -47,6 +47,7 @@ import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-b
 import { MobileTableOverlayComponent } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.component"
 import { MobileTableOverlayService, TableSelectEvent } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.service"
 import { SpriteService } from "@data/sprite.service"
+import { SnackbarService } from "@lib/snackbar.service"
 
 @Component({
   selector: "app-multi-calc-mobile",
@@ -85,6 +86,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
   fieldStore = inject(FieldStore)
   overlay = inject(MobileTableOverlayService)
   spriteService = inject(SpriteService)
+  private snackbar = inject(SnackbarService)
 
   private damageCalculator = inject(DamageMultiCalcService)
   private automaticFieldService = inject(AutomaticFieldService)
@@ -686,6 +688,8 @@ export class MultiCalcMobileComponent implements OnDestroy {
     } else {
       this.store.changePokemon(id, singlePokemon)
     }
+
+    this.snackbar.open("Pokemon imported")
   }
 
   onCustomSetEditRequested(set: CustomSet) {

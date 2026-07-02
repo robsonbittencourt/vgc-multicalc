@@ -5,6 +5,7 @@ import { MatIcon } from "@angular/material/icon"
 import { CalculatorStore } from "@data/store/calculator-store"
 import { MenuStore } from "@data/store/menu-store"
 import { defaultPokemon } from "@lib/default-pokemon"
+import { SnackbarService } from "@lib/snackbar.service"
 
 const COMBINE_HINT_KEY = "combineAttackersHintDismissed"
 
@@ -22,6 +23,7 @@ export class TeamTabsMobileComponent {
 
   store = inject(CalculatorStore)
   menuStore = inject(MenuStore)
+  private snackbar = inject(SnackbarService)
 
   actionMenuPokemonId = signal<string | null>(null)
 
@@ -173,6 +175,7 @@ export class TeamTabsMobileComponent {
     if (id && this.canDuplicate()) {
       const source = this.store.findPokemonById(id)
       this.store.addTeamMember(source.clone())
+      this.snackbar.open("Pokemon duplicated")
     }
 
     this.closeActionMenu()
@@ -278,6 +281,7 @@ export class TeamTabsMobileComponent {
       }
 
       this.store.removeTeamMember(idToRemove)
+      this.snackbar.open("Pokemon deleted")
     } else {
       this.store.changePokemon(idToRemove, defaultPokemon())
       nextId = idToRemove

@@ -11,6 +11,7 @@ import { defaultPokemon } from "@lib/default-pokemon"
 import { Pokemon } from "@lib/model/pokemon"
 import { Team } from "@lib/model/team"
 import { TeamMember } from "@lib/model/team-member"
+import { SnackbarService } from "@lib/snackbar.service"
 import { Stats, SurvivalThreshold } from "@lib/types"
 import { uuid } from "@lib/utils/uuid"
 
@@ -23,6 +24,7 @@ import { uuid } from "@lib/utils/uuid"
 })
 export class TeamComponent {
   store = inject(CalculatorStore)
+  private snackbar = inject(SnackbarService)
 
   pokemonId = input.required<string>()
   isAttacker = input(false)
@@ -176,6 +178,8 @@ export class TeamComponent {
     if (this.isSecondSelection(activeMember)) {
       this.store.updateSecondAttacker("")
     }
+
+    this.snackbar.open("Pokemon deleted")
   }
 
   selectSecondAttacker() {
@@ -221,5 +225,6 @@ export class TeamComponent {
 
     this.teamMemberSelected.emit((pokemon as Pokemon).id)
     this.store.replaceActiveTeam(newTeam)
+    this.snackbar.open("Pokemon imported")
   }
 }
