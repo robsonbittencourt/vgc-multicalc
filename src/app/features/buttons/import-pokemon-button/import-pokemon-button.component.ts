@@ -4,9 +4,9 @@ import { MatButton } from "@angular/material/button"
 import { MatDialog } from "@angular/material/dialog"
 import { MatIcon } from "@angular/material/icon"
 import { availableItemNames } from "@configuration/available-items"
-import { POKEMON_DETAILS } from "@data/pokemon-details"
-import { CalculatorStore } from "@data/store/calculator-store"
-import { toPokemon } from "@data/regulation-pokemon"
+import { MOVESETS } from "@data/moveset-data"
+import { POKEMON_DATA } from "@data/pokemon-data"
+import { toPokemon } from "@lib/pokemon-by-regulation"
 import { ImportModalComponent } from "@features/import-modal/import-modal.component"
 import { Move } from "@lib/model/move"
 import { MoveSet } from "@lib/model/moveset"
@@ -31,7 +31,6 @@ export class ImportPokemonButtonComponent {
 
   private dialog = inject(MatDialog)
   private pokePasteService = inject(PokePasteParserService)
-  private store = inject(CalculatorStore)
   private snackBar = inject(SnackbarService)
 
   importPokemon() {
@@ -61,14 +60,14 @@ export class ImportPokemonButtonComponent {
       const allZero = Object.values(p.evs).every(ev => ev === 0)
 
       if (allZero) {
-        const pokeMetaData = toPokemon(p.name, this.store.activeSetdex)
+        const pokeMetaData = toPokemon(p.name, MOVESETS)
         return p.clone({ nature: pokeMetaData.nature, evs: pokeMetaData.evs })
       }
 
       return p
     })
 
-    const validSetdex = this.store.activeSetdex
+    const validSetdex = MOVESETS
     const validList = processedList.filter(p => p.name in validSetdex)
     const removedCount = processedList.length - validList.length
 
@@ -77,7 +76,7 @@ export class ImportPokemonButtonComponent {
       return
     }
 
-    const activeDetails = POKEMON_DETAILS
+    const activeDetails = POKEMON_DATA
     const validItemsForMode = availableItemNames()
     const validatedList: { pokemon: Pokemon; hadInvalidMoves: boolean; hadInvalidItem: boolean }[] = validList.map(p => this.validateAndClean(p, activeDetails, validItemsForMode))
 
@@ -124,7 +123,7 @@ export class ImportPokemonButtonComponent {
     let cleanedPokemon = pokemon
 
     if (detailsEntry.learnset) {
-      const validLearnset: string[] = detailsEntry.learnset.map((move: string) => move.toLowerCase().replace(/ /g, ""))
+      const validLearnset: string[] = detailsEntry.learnset.map((move: string) => move.toLowerCase().replace(/ /g, "").replace(/-/g, "").replace(/'/g, ""))
       const moves = pokemon.moveSet.moves
       const cleanedMoves: Move[] = []
 

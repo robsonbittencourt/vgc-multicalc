@@ -1,11 +1,12 @@
 import { getBerryResistType, getItemBoostType } from "@lib/calc/model/items"
-import { getItem, getSpecies } from "@lib/calc/data/stores"
+import { getItemData } from "@data/item-data"
+import { getPokemonData } from "@data/pokemon-data"
 import { Field } from "@lib/calc/model/field"
 import { Move } from "@lib/calc/model/move"
 import { Pokemon } from "@lib/calc/model/pokemon"
 import { getQPBoostedStat, isGrounded, isQPActive } from "@lib/calc/engine/stats"
 import { getMoveEffectiveness } from "@lib/calc/engine/type-effectiveness"
-import { RawDesc } from "@lib/calc/model/types"
+import { RawDesc } from "@vgc-types/calc-types"
 
 export interface ModifierContext {
   attacker: Pokemon
@@ -420,7 +421,7 @@ const DF_RULES: ModifierRule[] = [
   },
 
   ({ defender, description, hitsPhysical }) => {
-    if ((defender.hasItem("Eviolite") && (defender.named("Dipplin") || getSpecies(defender.name)?.notFullyEvolved)) || (!hitsPhysical && defender.hasItem("Assault Vest"))) {
+    if ((defender.hasItem("Eviolite") && (defender.named("Dipplin") || getPokemonData(defender.name)?.notFullyEvolved)) || (!hitsPhysical && defender.hasItem("Assault Vest"))) {
       description.defenderItem = defender.item
       return 6144
     }
@@ -505,13 +506,13 @@ const FINAL_RULES: ModifierRule[] = [
     return undefined
   },
 
-  ({ attacker, defender, field, description, hitCount }) => {
+  ({ defender, move, field, description, hitCount }) => {
     if (
       defender.hasAbility("Multiscale", "Shadow Shield") &&
       defender.currrentHp() === defender.maxHp() &&
       hitCount === 0 &&
       ((!field.defenderSide.isSR && (!field.defenderSide.spikes || defender.hasType("Flying"))) || defender.hasItem("Heavy-Duty Boots")) &&
-      !attacker.hasAbility("Parental Bond (Child)")
+      !move.isParentalBondChild
     ) {
       description.defenderAbility = defender.ability
       return 2048
@@ -632,7 +633,7 @@ function resistedKnockOff(defender: Pokemon, hit: number): boolean {
 
   if (!itemName) return true
 
-  const item = getItem(itemName)
+  const item = getItemData(itemName)
 
   if (item?.megaStone && (item.megaStone[defender.name] || Object.values(item.megaStone).includes(defender.name))) {
     return true

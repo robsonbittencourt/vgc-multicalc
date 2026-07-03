@@ -3,7 +3,7 @@ import { Move } from "@lib/calc/model/move"
 import { Pokemon } from "@lib/calc/model/pokemon"
 import { getStatDescriptionText } from "@lib/calc/engine/desc"
 import { computeFinalStats, countBoosts, getFinalSpeed, getStabMod, isGrounded } from "@lib/calc/engine/stats"
-import { RawDesc } from "@lib/calc/model/types"
+import { RawDesc } from "@vgc-types/calc-types"
 
 describe("Internal stats/effectiveness (gen 0)", () => {
   describe("computeFinalStats", () => {

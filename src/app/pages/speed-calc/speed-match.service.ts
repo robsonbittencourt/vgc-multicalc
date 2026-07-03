@@ -1,5 +1,5 @@
 import { inject, Injectable } from "@angular/core"
-import { CalculatorStore } from "@data/store/calculator-store"
+import { CalculatorStore } from "@store/calculator-store"
 import { Field } from "@lib/model/field"
 import { Pokemon } from "@lib/model/pokemon"
 import { getFinalSpeed } from "@lib/smogon/stat-calculator/spe/modified-spe"

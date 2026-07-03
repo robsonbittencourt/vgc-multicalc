@@ -508,6 +508,32 @@ describe("Damage Calculator Service (new)", () => {
       expect(Array.isArray((result.damage as unknown[])[0])).toBe(true)
     })
 
+    it("Parental Bond: child hit deals exactly 0.25x of the first hit's damage", () => {
+      const attacker = new Pokemon("Kangaskhan-Mega", { evs: { atk: 252 }, nature: "Adamant", ability: "Parental Bond" })
+      const defender = new Pokemon("Arcanine", {})
+      const move = new Move("Facade")
+      const field = new Field({ gameType: "Doubles" })
+
+      const result = calculate(attacker, defender, move, field)
+      const [firstHitDamage, childHitDamage] = result.damage as [number[], number[]]
+
+      expect(firstHitDamage).toEqual([76, 78, 79, 79, 81, 81, 82, 84, 84, 85, 85, 87, 88, 88, 90, 91])
+      expect(childHitDamage).toEqual([18, 18, 19, 19, 19, 19, 19, 19, 19, 21, 21, 21, 21, 21, 21, 22])
+    })
+
+    it("Parental Bond: Assurance child hit deals double base power because the target was already hurt", () => {
+      const attacker = new Pokemon("Kangaskhan-Mega", { evs: { atk: 252 }, nature: "Adamant", ability: "Parental Bond" })
+      const defender = new Pokemon("Arcanine", {})
+      const move = new Move("Assurance")
+      const field = new Field({ gameType: "Doubles" })
+
+      const result = calculate(attacker, defender, move, field)
+      const [firstHitDamage, childHitDamage] = result.damage as [number[], number[]]
+
+      expect(firstHitDamage).toEqual([45, 45, 46, 46, 47, 47, 48, 48, 49, 49, 50, 50, 51, 51, 52, 53])
+      expect(childHitDamage).toEqual([22, 22, 22, 22, 23, 23, 23, 23, 24, 24, 24, 24, 25, 25, 25, 26])
+    })
+
     it("Sniper: boosts crit multiplier to 2.25x", () => {
       const attacker = new Pokemon("Beedrill", { evs: { atk: 252 }, nature: "Adamant", ability: "Sniper" })
       const defender = new Pokemon("Gardevoir", {})

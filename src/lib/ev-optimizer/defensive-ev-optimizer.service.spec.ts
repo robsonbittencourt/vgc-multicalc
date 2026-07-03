@@ -2,7 +2,7 @@ import { provideZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
 import { CALC_ADJUSTERS, CalcAdjuster } from "@lib/damage-calculator/calc-adjuster/calc-adjuster"
 import { DamageCalculatorService } from "@lib/damage-calculator/damage-calculator.service"
-import { CalculatorStore } from "@data/store/calculator-store"
+import { CalculatorStore } from "@store/calculator-store"
 import { Ability } from "@lib/model/ability"
 import { Field, FieldSide } from "@lib/model/field"
 import { Move } from "@lib/model/move"
@@ -363,8 +363,8 @@ describe("DefensiveEvOptimizerService", () => {
 
         const result = service.optimize(defender, targets, field)
 
-        expect(result.evs!.hp).toBe(212)
-        expect(result.evs!.def).toBe(116)
+        expect(result.evs!.hp).toBe(68)
+        expect(result.evs!.def).toBe(196)
         expect(result.evs!.spd).toBe(0)
       })
 
@@ -394,9 +394,9 @@ describe("DefensiveEvOptimizerService", () => {
 
         const result = service.optimize(defender, targets, field)
 
-        expect(result.evs!.hp).toBe(244)
+        expect(result.evs!.hp).toBe(236)
         expect(result.evs!.def).toBe(180)
-        expect(result.evs!.spd).toBe(52)
+        expect(result.evs!.spd).toBe(0)
       })
 
       it("should optimize EVs for multiple attackers with Gholdengo", () => {

@@ -1,7 +1,8 @@
 import { inject, Injectable } from "@angular/core"
-import { ITEM_DETAILS } from "@data/item-details"
+import { getItemData } from "@data/item-data"
+import { MOVESETS } from "@data/moveset-data"
 import { getBasePokemonNameFromItem, MEGA_FORM_MAPPING, MEGA_FORM_REVERSE_MAPPING } from "@features/pokemon-build/utils/mega-stone-mapping"
-import { CalculatorStore } from "@data/store/calculator-store"
+import { CalculatorStore } from "@store/calculator-store"
 import { Pokemon } from "@lib/model/pokemon"
 
 @Injectable({ providedIn: "root" })
@@ -10,11 +11,7 @@ export class MegaStoneService {
   private previousAbilityByPokemonId = new Map<string, string>()
 
   isMegaStone(item: string): boolean {
-    const itemKey = Object.keys(ITEM_DETAILS).find(key => ITEM_DETAILS[key as keyof typeof ITEM_DETAILS].name === item)
-
-    if (!itemKey) return false
-
-    return ITEM_DETAILS[itemKey as keyof typeof ITEM_DETAILS]?.isMegaStone ?? false
+    return getItemData(item)?.isMegaStone ?? false
   }
 
   isMegaStoneCompatible(pokemonName: string, item: string): boolean {
@@ -106,7 +103,7 @@ export class MegaStoneService {
   }
 
   private getAbilityFromMoveset(pokemonName: string): string | null {
-    const setdex = this.store.activeSetdex
+    const setdex = MOVESETS
 
     for (const dexKey in setdex) {
       if (dexKey === pokemonName) {

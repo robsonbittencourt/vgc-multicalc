@@ -1,10 +1,17 @@
 import { Component, computed, inject, input, output } from "@angular/core"
-import { ITEM_DETAILS, ItemDetail } from "@data/item-details"
+import { ITEM_DETAILS } from "@data/item-data"
 import { availableItemNames } from "@configuration/available-items"
-import { POKEMON_DETAILS } from "@data/pokemon-details"
-import { CalculatorStore } from "@data/store/calculator-store"
+import { POKEMON_DATA } from "@data/pokemon-data"
+import { CalculatorStore } from "@store/calculator-store"
 import { FilterableTableComponent } from "@features/pokemon-build//tables/filterable-table/filterable-table.component"
 import { ColumnConfig, TableData } from "@features/pokemon-build/tables/filterable-table/filtered-table-types"
+
+interface ItemRow {
+  group: "Meta" | "Items" | "Pokémon specific items" | "Useless items"
+  name: string
+  description: string
+  sprite: string
+}
 
 @Component({
   selector: "app-items-table",
@@ -32,15 +39,15 @@ export class ItemsTableComponent {
 
   itemsData = computed(() => this.groupItemsByGroup())
 
-  itemColumns: ColumnConfig<ItemDetail>[] = [
-    new ColumnConfig<ItemDetail>({
+  itemColumns: ColumnConfig<ItemRow>[] = [
+    new ColumnConfig<ItemRow>({
       field: "sprite",
       isImageColumn: true,
-      displayFn: (item: ItemDetail) => `assets/sprites/items/${item.name.toLowerCase().replace(" ", "-")}.webp`,
+      displayFn: (item: ItemRow) => `assets/sprites/items/${item.name.toLowerCase().replace(" ", "-")}.webp`,
       alignLeft: true,
       width: "small"
     }),
-    new ColumnConfig<ItemDetail>({
+    new ColumnConfig<ItemRow>({
       field: "name",
       header: "Name",
       sortable: true,
@@ -48,10 +55,10 @@ export class ItemsTableComponent {
       width: "medium",
       freezeOnMobile: true
     }),
-    new ColumnConfig<ItemDetail>({ field: "description", header: "Description", description: "Description", alignLeft: true, width: "fill" })
+    new ColumnConfig<ItemRow>({ field: "description", header: "Description", description: "Description", alignLeft: true, width: "fill" })
   ]
 
-  groupItemsByGroup(): TableData<ItemDetail>[] {
+  groupItemsByGroup(): TableData<ItemRow>[] {
     const currentPokemon = this.pokemon()
     const pokemonDetails = this.getPokemonDetails(currentPokemon.name)
     const metaItems = pokemonDetails?.metaItems || []
@@ -77,30 +84,30 @@ export class ItemsTableComponent {
         acc[groupName].push(item)
         return acc
       },
-      {} as Record<ItemDetail["group"], ItemDetail[]>
+      {} as Record<ItemRow["group"], ItemRow[]>
     )
 
     const result = Object.keys(groupedData).map(groupName => ({
-      group: groupName as ItemDetail["group"],
-      data: groupedData[groupName as ItemDetail["group"]]
+      group: groupName as ItemRow["group"],
+      data: groupedData[groupName as ItemRow["group"]]
     }))
 
     const orderedResult = [
-      result.find(data => data.group == "Meta") as TableData<ItemDetail>,
-      result.find(data => data.group == "Items") as TableData<ItemDetail>,
-      result.find(data => data.group == "Pokémon specific items") as TableData<ItemDetail>,
-      result.find(data => data.group == "Useless items") as TableData<ItemDetail>
+      result.find(data => data.group == "Meta") as TableData<ItemRow>,
+      result.find(data => data.group == "Items") as TableData<ItemRow>,
+      result.find(data => data.group == "Pokémon specific items") as TableData<ItemRow>,
+      result.find(data => data.group == "Useless items") as TableData<ItemRow>
     ]
 
     return orderedResult.filter(g => g !== undefined)
   }
 
   private getPokemonDetails(pokemonName: string) {
-    const details = POKEMON_DETAILS
+    const details = POKEMON_DATA
     return Object.values(details).find(p => p.name === pokemonName)
   }
 
-  private isMetaItem(item: ItemDetail, metaItemSet: Set<string>): boolean {
+  private isMetaItem(item: ItemRow, metaItemSet: Set<string>): boolean {
     const normalizedItemName = item.name.toLowerCase().replace(/[^a-z0-9]/g, "")
     return metaItemSet.has(normalizedItemName)
   }

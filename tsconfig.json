@@ -11,7 +11,9 @@
       "@data/*": ["./src/data/*"],
       "@configuration/*": ["./src/configuration/*"],
       "@lib/*": ["./src/lib/*"],
-      "@calc": ["./src/lib/calc/index.ts"]
+      "@calc": ["./src/lib/calc/index.ts"],
+      "@vgc-types/*": ["./src/types/*"],
+      "@store/*": ["./src/store/*"]
     },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,

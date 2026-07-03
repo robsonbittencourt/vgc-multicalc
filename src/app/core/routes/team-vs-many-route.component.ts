@@ -5,7 +5,7 @@ import { MultiCalcComponent } from "@pages/multi-calc/multi-calc/multi-calc.comp
 import { MultiCalcMobileComponent } from "@pages/multi-calc/multi-calc-mobile/multi-calc-mobile.component"
 import { HeaderMobileComponent } from "@core/header-mobile/header-mobile.component"
 import { HeaderComponent } from "@core/header/header.component"
-import { MenuStore } from "@data/store/menu-store"
+import { MenuStore } from "@store/menu-store"
 import { DeviceDetectorService } from "@lib/device-detector.service"
 import { JsonLdService } from "@lib/json-ld.service"
 

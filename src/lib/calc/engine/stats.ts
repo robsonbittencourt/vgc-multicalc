@@ -3,7 +3,7 @@ import { chainMods, getModifiedStat, overflow32, pokeRound } from "@lib/calc/eng
 import { Field, Side } from "@lib/calc/model/field"
 import { Move } from "@lib/calc/model/move"
 import { Pokemon } from "@lib/calc/model/pokemon"
-import { RawDesc, StatID } from "@lib/calc/model/types"
+import { RawDesc, StatID } from "@vgc-types/calc-types"
 
 export function isGrounded(pokemon: Pokemon, field: Field): boolean {
   return field.isGravity || pokemon.hasItem("Iron Ball") || (!pokemon.hasType("Flying") && !pokemon.hasAbility("Levitate", "Eelevate") && !pokemon.hasItem("Air Balloon"))

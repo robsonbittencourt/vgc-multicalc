@@ -1,7 +1,7 @@
 import { Component, inject, input } from "@angular/core"
 import { MatButtonToggle } from "@angular/material/button-toggle"
 import { WidgetComponent } from "@app/basic/widget/widget.component"
-import { FieldStore } from "@data/store/field-store"
+import { FieldStore } from "@store/field-store"
 
 @Component({
   selector: "app-probability-field",

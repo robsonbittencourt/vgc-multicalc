@@ -2,8 +2,8 @@ import { Component, computed, inject } from "@angular/core"
 import { DonutGraphicComponent } from "@app/basic/donut-graphic/donut-graphic.component"
 import { WidgetComponent } from "@app/basic/widget/widget.component"
 import { PokemonSpriteComponent } from "@basic/pokemon-sprite/pokemon-sprite.component"
-import { CalculatorStore } from "@data/store/calculator-store"
-import { FieldStore } from "@data/store/field-store"
+import { CalculatorStore } from "@store/calculator-store"
+import { FieldStore } from "@store/field-store"
 import { ConsistencyScoreService } from "@lib/probability-calc/consistency-score.service"
 
 @Component({

@@ -5,7 +5,7 @@
     "outDir": "./out-tsc/spec",
     "types": ["vitest/globals"]
   },
-  "include": ["src/app/**/*.spec.ts", "src/data/**/*.spec.ts", "src/lib/**/*.spec.ts", "src/**/*.d.ts"],
+  "include": ["src/app/**/*.spec.ts", "src/data/**/*.spec.ts", "src/lib/**/*.spec.ts", "src/store/**/*.spec.ts", "src/**/*.d.ts"],
   "exclude": [],
   "angularCompilerOptions": {
     "extendedDiagnostics": {

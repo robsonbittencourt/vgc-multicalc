@@ -1,6 +1,6 @@
 import { provideZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
-import { MenuStore } from "@data/store/menu-store"
+import { MenuStore } from "@store/menu-store"
 import { DamageCalculatorService } from "@lib/damage-calculator/damage-calculator.service"
 import { DamageMultiCalcService } from "@lib/damage-calculator/damage-multi-calc.service"
 import { DamageResult } from "@lib/damage-calculator/damage-result"

@@ -8,7 +8,7 @@ import { Pokemon } from "@lib/model/pokemon"
 import { fromExisting } from "@lib/smogon/smogon-pokemon-builder"
 import { SpeedCalculatorService } from "@lib/speed-calculator/speed-calculator-service"
 import { calculate, calculateMulti, Move as MoveSmogon, Result, MultiResult } from "@calc"
-import { CalculatorStore } from "@data/store/calculator-store"
+import { CalculatorStore } from "@store/calculator-store"
 import { evToSp } from "@lib/utils/ev-sp-converter"
 import { RollLevelConfig } from "./roll-level-config"
 

@@ -1,8 +1,12 @@
 import { Component, computed, inject, input, output } from "@angular/core"
-import { AbilityDetail } from "@data/abiliity-details"
-import { CalculatorStore } from "@data/store/calculator-store"
+import { CalculatorStore } from "@store/calculator-store"
 import { FilterableTableComponent } from "@features/pokemon-build/tables/filterable-table/filterable-table.component"
 import { ColumnConfig } from "@features/pokemon-build/tables/filterable-table/filtered-table-types"
+
+interface AbilityRow {
+  name: string
+  description: string
+}
 
 @Component({
   selector: "app-abilities-table",
@@ -34,8 +38,8 @@ export class AbilitiesTableComponent {
     return [abilityName]
   })
 
-  moveColumns: ColumnConfig<AbilityDetail>[] = [
-    new ColumnConfig<AbilityDetail>({ field: "name", header: "Name", sortable: true, alignLeft: true, width: "medium", freezeOnMobile: true }),
-    new ColumnConfig<AbilityDetail>({ field: "description", header: "Description", description: "Description", alignLeft: true, width: "fill" })
+  moveColumns: ColumnConfig<AbilityRow>[] = [
+    new ColumnConfig<AbilityRow>({ field: "name", header: "Name", sortable: true, alignLeft: true, width: "medium", freezeOnMobile: true }),
+    new ColumnConfig<AbilityRow>({ field: "description", header: "Description", description: "Description", alignLeft: true, width: "fill" })
   ]
 }

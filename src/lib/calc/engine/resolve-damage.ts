@@ -10,7 +10,7 @@ export function resolveDamage(hitCtx: HitContext, hasAteAbilityTypeChange: boole
   const isSpread = field.gameType !== "Singles" && ["allAdjacent", "allAdjacentFoes"].includes(move.target)
 
   let childDamage: number[] | undefined
-  if (attacker.hasAbility("Parental Bond") && move.hits === 1 && !isSpread) {
+  if (attacker.hasAbility("Parental Bond") && move.hits === 1 && !isSpread && !move.isParentalBondChild) {
     childDamage = computeParentalBondChildDamage(hitCtx, typeEffectiveness)
   }
 

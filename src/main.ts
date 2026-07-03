@@ -15,7 +15,7 @@ import { RageFistAdjuster } from "@lib/damage-calculator/calc-adjuster/rage-fist
 import { StompingTantrumAdjuster } from "@lib/damage-calculator/calc-adjuster/stomping-tantrum-adjuster"
 import { RuinsAbilityAdjuster } from "@lib/damage-calculator/calc-adjuster/ruins-ability-adjuster"
 import { ZacianZamazentaAdjuster } from "@lib/damage-calculator/calc-adjuster/zacian-zamazenta-adjuster"
-import { migrateUserData } from "@data/store/utils/migrate-user-data"
+import { migrateUserData } from "./store/utils/migrate-user-data"
 
 migrateUserData()
 

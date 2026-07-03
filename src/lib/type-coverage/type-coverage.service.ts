@@ -1,5 +1,5 @@
 import { Injectable, inject } from "@angular/core"
-import { MOVE_DETAILS } from "@data/move-details"
+import { getMoveData } from "@data/move-data"
 import { Pokemon } from "@lib/model/pokemon"
 import { Team } from "@lib/model/team"
 import { PokemonType, PokemonTypes } from "@lib/types"
@@ -389,11 +389,10 @@ export class TypeCoverageService {
         }
       }
 
-      const moveName = move.name.toLowerCase().replaceAll(" ", "").replaceAll("-", "").replaceAll("'", "")
-      const moveDetails = MOVE_DETAILS[moveName]
+      const moveDetails = getMoveData(move.name)
 
       if (moveDetails && moveDetails.type) {
-        moveTypes.push(ateType && moveDetails.type === "Normal" ? ateType : moveDetails.type)
+        moveTypes.push(ateType && moveDetails.type === "Normal" ? ateType : (moveDetails.type as PokemonType))
       }
     }
 

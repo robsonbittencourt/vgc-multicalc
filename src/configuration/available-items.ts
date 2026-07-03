@@ -1,4 +1,4 @@
-import { ITEM_DETAILS } from "@data/item-details"
+import { ITEM_DETAILS } from "@data/item-data"
 import { FEATURES } from "@lib/feature-flags"
 
 export const AVAILABLE_ITEMS: Record<string, string[]> = {

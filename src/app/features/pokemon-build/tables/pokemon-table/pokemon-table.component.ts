@@ -1,17 +1,31 @@
 import { Component, computed, inject, input, output, signal } from "@angular/core"
-import { ABILITY_DETAILS } from "@data/abiliity-details"
-import { POKEMON_DETAILS, PokemonDetail } from "@data/pokemon-details"
+import { getAbilityData, AbilityName } from "@data/ability-data"
+import { POKEMON_DATA } from "@data/pokemon-data"
 import { topUsageByRegulation } from "@configuration/top-usage-regulation"
-import { CalculatorStore } from "@data/store/calculator-store"
-import { CustomSet } from "@data/store/custom-set"
+import { CalculatorStore } from "@store/calculator-store"
+import { CustomSet } from "@store/custom-set"
 import { FilterableTableComponent } from "@features/pokemon-build/tables/filterable-table/filterable-table.component"
 import { ColumnConfig, TableData } from "@features/pokemon-build/tables/filterable-table/filtered-table-types"
 import { Pokemon } from "@lib/model/pokemon"
 import { PokemonSpriteComponent } from "@basic/pokemon-sprite/pokemon-sprite.component"
 import { MatIcon } from "@angular/material/icon"
-import { Stats } from "@lib/types"
+import { PokemonType, Stats } from "@lib/types"
 import { evToSp } from "@lib/utils/ev-sp-converter"
 import { FEATURES } from "@lib/feature-flags"
+
+interface PokemonDetail {
+  name: string
+  types: PokemonType[]
+  abilities: AbilityName[]
+  hp: number
+  atk: number
+  def: number
+  spa: number
+  spd: number
+  spe: number
+  bst: number
+  group: string
+}
 
 @Component({
   selector: "app-pokemon-table",
@@ -173,19 +187,20 @@ export class PokemonTableComponent {
   ]
 
   buildGroupedPokemonData(): TableData<PokemonDetail & { subRows?: CustomSet[] }>[] {
-    const details = POKEMON_DETAILS
+    const details = POKEMON_DATA
     const customSetsByPokemon = this.store.customSetsByPokemon()
     const availableNames = new Set(topUsageByRegulation["MB"])
     const allPokemon = Object.values(details)
       .filter(p => FEATURES.allowAllPokes || availableNames.has(p.name))
       .map(p => {
         const pokemon = new Pokemon(p.name)
-        const abilities = p.abilities.map(ability => {
-          if (!ABILITY_DETAILS[ability]) {
+        const abilities = (p.abilities ?? []).map(ability => {
+          const abilityDetail = getAbilityData(ability)
+          if (!abilityDetail) {
             console.error(`Missing ability "${ability}" for pokemon "${p.name}"`)
             return "Unknown"
           }
-          return ABILITY_DETAILS[ability].name
+          return abilityDetail.name
         })
 
         const subRows = customSetsByPokemon.get(pokemon.name)
@@ -201,7 +216,7 @@ export class PokemonTableComponent {
           spd: pokemon.baseSpd,
           spe: pokemon.baseSpe,
           bst: pokemon.bst,
-          group: p.group,
+          group: p.group ?? "Regular",
           ...(subRows ? { subRows } : {})
         } as PokemonDetail & { subRows?: CustomSet[] }
       })

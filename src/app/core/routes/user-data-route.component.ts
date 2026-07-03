@@ -6,9 +6,9 @@ import { SimpleCalcComponent } from "@pages/simple-calc/simple-calc/simple-calc.
 import { SimpleCalcMobileComponent } from "@pages/simple-calc/simple-calc-mobile/simple-calc-mobile.component"
 import { HeaderMobileComponent } from "@core/header-mobile/header-mobile.component"
 import { HeaderComponent } from "@core/header/header.component"
-import { CalculatorState, CalculatorStore } from "@data/store/calculator-store"
-import { ActiveFieldService } from "@data/store/active-field.service"
-import { buildState } from "@data/store/utils/user-data-mapper"
+import { CalculatorState, CalculatorStore } from "@store/calculator-store"
+import { ActiveFieldService } from "@store/active-field.service"
+import { buildState } from "@store/utils/user-data-mapper"
 import { DeviceDetectorService } from "@lib/device-detector.service"
 
 @Component({

@@ -7,7 +7,7 @@ import { MatInput } from "@angular/material/input"
 import { MatSelect } from "@angular/material/select"
 import { MatSlider, MatSliderThumb } from "@angular/material/slider"
 import { MatTooltip } from "@angular/material/tooltip"
-import { CalculatorStore } from "@data/store/calculator-store"
+import { CalculatorStore } from "@store/calculator-store"
 import { Stats } from "@lib/types"
 import { evToSp, spToEv, totalSpsFromEvs } from "@lib/utils/ev-sp-converter"
 

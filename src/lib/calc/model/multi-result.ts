@@ -2,7 +2,7 @@ import { computeMultiHitKOChance, getBerryRecovery, getDamageWithoutBerry, getEn
 import { Move } from "@lib/calc/model/move"
 import { Pokemon } from "@lib/calc/model/pokemon"
 import { AfterTurnData, AfterTurnResult, DEFAULT_ROLL_INDEX, extractDamageSubArrays, Result } from "@lib/calc/model/result"
-import { StatID } from "@lib/calc/model/types"
+import { StatID } from "@vgc-types/calc-types"
 
 export class MultiResult {
   defender: Pokemon

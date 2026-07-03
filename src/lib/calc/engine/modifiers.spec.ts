@@ -2,7 +2,7 @@ import { Field } from "@lib/calc/model/field"
 import { Move } from "@lib/calc/model/move"
 import { Pokemon } from "@lib/calc/model/pokemon"
 import { getAtMods, getBpMods, getDfMods, getFinalMods, ModifierContext } from "@lib/calc/engine/modifiers"
-import { RawDesc } from "@lib/calc/model/types"
+import { RawDesc } from "@vgc-types/calc-types"
 
 function makeCtx(overrides: Partial<ModifierContext> & { attacker: Pokemon; defender: Pokemon; move: Move }): ModifierContext {
   return {

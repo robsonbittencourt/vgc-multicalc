@@ -3,7 +3,7 @@ import { Field } from "@lib/calc/model/field"
 import { Move } from "@lib/calc/model/move"
 import { Pokemon } from "@lib/calc/model/pokemon"
 import { computeFinalStats } from "@lib/calc/engine/stats"
-import { RawDesc } from "@lib/calc/model/types"
+import { RawDesc } from "@vgc-types/calc-types"
 
 function makeCtx(
   attackerName: string,
@@ -57,7 +57,7 @@ describe("applyEarlyReturnGuards", () => {
   it("clears defender ability when Mold Breaker attacker faces ignorable ability", () => {
     const ctx = makeCtx("Garchomp", { ability: "Mold Breaker" }, "Chimecho", { ability: "Levitate" }, "Earthquake")
     applyEarlyReturnGuards(ctx)
-    expect(ctx.defender.ability).toBe("")
+    expect(ctx.defender.ability).toBeUndefined()
     expect(ctx.description.attackerAbility).toBe("Mold Breaker")
   })
 

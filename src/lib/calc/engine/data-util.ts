@@ -1,4 +1,4 @@
-import { ID } from "@lib/calc/model/types"
+import { ID } from "@vgc-types/calc-types"
 
 export function toID(text: string): ID {
   const lower = `${text}`.toLowerCase()

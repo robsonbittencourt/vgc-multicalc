@@ -6,9 +6,9 @@ import { GeneralProbabilityComponent } from "@app/pages/probability-calc/general
 import { PokemonProbabilityComponent } from "@app/pages/probability-calc/pokemon-probability/pokemon-probability.component"
 import { ProbabilityFieldComponent } from "@app/pages/probability-calc/probability-field/probability-field.component"
 import { TeamProbabilityComponent } from "@app/pages/probability-calc/team-probability/team-probability.component"
-import { CalculatorStore } from "@data/store/calculator-store"
-import { FieldStore } from "@data/store/field-store"
-import { FIELD_CONTEXT } from "@data/store/tokens/field-context.token"
+import { CalculatorStore } from "@store/calculator-store"
+import { FieldStore } from "@store/field-store"
+import { FIELD_CONTEXT } from "@store/tokens/field-context.token"
 import { AutomaticFieldService } from "@lib/automatic-field-service"
 import { Pokemon } from "@lib/model/pokemon"
 

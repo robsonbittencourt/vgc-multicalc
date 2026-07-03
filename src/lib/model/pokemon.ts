@@ -1,5 +1,5 @@
-import { ABILITY_DETAILS } from "@data/abiliity-details"
-import { POKEMON_DETAILS } from "@data/pokemon-details"
+import { getAbilityData } from "@data/ability-data"
+import { POKEMON_DATA } from "@data/pokemon-data"
 import { DEFAULT_TERA_TYPE, SELECT_POKEMON_LABEL } from "@lib/constants"
 import { uuid } from "@lib/utils/uuid"
 import { Ability } from "@lib/model/ability"
@@ -208,11 +208,11 @@ export class Pokemon {
   }
 
   get baseHp(): number {
-    return this.smogonPokemon.species.baseStats.hp
+    return this.smogonPokemon.pokemonData.baseStats.hp
   }
 
   get baseAtk(): number {
-    return this.smogonPokemon.species.baseStats.atk
+    return this.smogonPokemon.pokemonData.baseStats.atk
   }
 
   get atk(): number {
@@ -220,7 +220,7 @@ export class Pokemon {
   }
 
   get baseDef(): number {
-    return this.smogonPokemon.species.baseStats.def
+    return this.smogonPokemon.pokemonData.baseStats.def
   }
 
   get def(): number {
@@ -228,7 +228,7 @@ export class Pokemon {
   }
 
   get baseSpa(): number {
-    return this.smogonPokemon.species.baseStats.spa
+    return this.smogonPokemon.pokemonData.baseStats.spa
   }
 
   get spa(): number {
@@ -236,7 +236,7 @@ export class Pokemon {
   }
 
   get baseSpd(): number {
-    return this.smogonPokemon.species.baseStats.spd
+    return this.smogonPokemon.pokemonData.baseStats.spd
   }
 
   get spd(): number {
@@ -244,7 +244,7 @@ export class Pokemon {
   }
 
   get baseSpe(): number {
-    return this.smogonPokemon.species.baseStats.spe
+    return this.smogonPokemon.pokemonData.baseStats.spe
   }
 
   get spe(): number {
@@ -279,15 +279,11 @@ export class Pokemon {
     if (this.name.startsWith("Ogerpon") && this.teraTypeActive) {
       const isTealForm = this.name === "Ogerpon"
       const form = isTealForm ? "teal" : this.name.replace("Ogerpon-", "").toLowerCase()
-      return [ABILITY_DETAILS[`embodyaspect${form}`]]
+      return [getAbilityData(`embodyaspect${form}`)!]
     }
 
-    const pokemonDetails = Object.values(POKEMON_DETAILS).find(p => p.name == this.name)
-    const abilities = pokemonDetails
-      ? pokemonDetails.abilities.map(ability => {
-          return ABILITY_DETAILS[ability]
-        })
-      : []
+    const pokemonData = Object.values(POKEMON_DATA).find(p => p.name == this.name)
+    const abilities = pokemonData?.abilities ? pokemonData.abilities.map(ability => getAbilityData(ability)).filter(ability => ability !== undefined) : []
 
     return abilities
   }

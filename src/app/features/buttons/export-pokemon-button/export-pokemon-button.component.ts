@@ -1,6 +1,6 @@
 import { Component, computed, inject, input } from "@angular/core"
 import { MatIcon } from "@angular/material/icon"
-import { CalculatorStore } from "@data/store/calculator-store"
+import { CalculatorStore } from "@store/calculator-store"
 import { ExportPokeService } from "@lib/user-data/export-poke.service"
 
 @Component({

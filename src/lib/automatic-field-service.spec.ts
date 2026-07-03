@@ -1,6 +1,6 @@
 import { provideZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
-import { FieldState, FieldStore } from "@data/store/field-store"
+import { FieldState, FieldStore } from "@store/field-store"
 import { AutomaticFieldService } from "./automatic-field-service"
 import { Ability } from "./model/ability"
 import { Pokemon } from "./model/pokemon"

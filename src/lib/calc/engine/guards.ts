@@ -3,7 +3,7 @@ import { Move } from "@lib/calc/model/move"
 import { Pokemon } from "@lib/calc/model/pokemon"
 import { isGrounded } from "@lib/calc/engine/stats"
 import { getMoveEffectiveness } from "@lib/calc/engine/type-effectiveness"
-import { AbilityName, MoveCategory, RawDesc, TypeName } from "@lib/calc/model/types"
+import { MoveCategory, RawDesc, TypeName } from "@vgc-types/calc-types"
 
 export interface CombatContext {
   attacker: Pokemon
@@ -51,7 +51,7 @@ export function applyEarlyReturnGuards(ctx: CombatContext): GuardResult | null {
 
   if (attacker.hasAbility("Mold Breaker") && isDefenderAbilityIgnored(defender)) {
     description.attackerAbility = attacker.ability
-    defender.ability = "" as AbilityName
+    defender.ability = undefined
   }
 
   return null
