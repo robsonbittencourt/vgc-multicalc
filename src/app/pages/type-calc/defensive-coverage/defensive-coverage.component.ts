@@ -4,7 +4,7 @@ import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, inject, input, signal } fr
 import { MatSlideToggle } from "@angular/material/slide-toggle"
 import { WidgetComponent } from "@app/basic/widget/widget.component"
 import { TypeComboBoxComponent } from "@features/pokemon-build/type-combo-box/type-combo-box.component"
-import { CalculatorStore } from "@data/store/calculator-store"
+import { CalculatorStore } from "@store/calculator-store"
 import { FEATURES } from "@lib/feature-flags"
 import { TypeCoverageService, DefensiveCoverageData, DefensiveCoverageByPokemonData } from "@lib/type-coverage/type-coverage.service"
 import { TypeEffectiveness } from "@lib/type-coverage/type-effectiveness.service"

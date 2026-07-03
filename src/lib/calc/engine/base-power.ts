@@ -3,7 +3,7 @@ import { Field } from "@lib/calc/model/field"
 import { Move } from "@lib/calc/model/move"
 import { Pokemon } from "@lib/calc/model/pokemon"
 import { countBoosts, getWeight, isGrounded, isQPActive } from "@lib/calc/engine/stats"
-import { RawDesc } from "@lib/calc/model/types"
+import { RawDesc } from "@vgc-types/calc-types"
 
 export interface BasePowerContext {
   attacker: Pokemon
@@ -148,8 +148,8 @@ const BASE_POWER_STRATEGIES = new Map<string, BasePowerStrategy>([
   ],
   [
     "Assurance",
-    ({ move, defender }) => {
-      return move.bp * (defender.hasAbility("Parental Bond (Child)") ? 2 : 1)
+    ({ move }) => {
+      return move.bp * (move.isParentalBondChild ? 2 : 1)
     }
   ],
   [

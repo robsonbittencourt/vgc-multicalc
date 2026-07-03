@@ -4,7 +4,7 @@ import { MatButton } from "@angular/material/button"
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogRef, MatDialogTitle } from "@angular/material/dialog"
 import { MatRadioButton, MatRadioGroup } from "@angular/material/radio"
 import { InputComponent } from "@basic/input/input.component"
-import { readUserData, writeTopLevel } from "@data/store/utils/user-data-storage"
+import { readUserData, writeTopLevel } from "@store/utils/user-data-storage"
 
 export type DatePartOrder = "mdy" | "dmy" | "ymd"
 

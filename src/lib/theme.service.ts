@@ -1,5 +1,5 @@
 import { computed, inject, Injectable, signal } from "@angular/core"
-import { ThemeStore } from "@data/store/theme-store"
+import { ThemeStore } from "@store/theme-store"
 
 export type Theme = "light" | "dark" | "system"
 export type Color = "purple" | "green" | "gray" | "yellow" | "red" | "blue"

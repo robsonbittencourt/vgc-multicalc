@@ -1,5 +1,5 @@
 import { inject, Injectable } from "@angular/core"
-import { FieldState, FieldStore } from "@data/store/field-store"
+import { FieldState, FieldStore } from "@store/field-store"
 import { Pokemon } from "./model/pokemon"
 
 @Injectable()

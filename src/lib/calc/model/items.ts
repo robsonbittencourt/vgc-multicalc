@@ -1,4 +1,4 @@
-import { TypeName } from "@lib/calc/model/types"
+import { TypeName } from "@vgc-types/calc-types"
 
 export const EV_ITEMS = ["Macho Brace", "Power Anklet", "Power Band", "Power Belt", "Power Bracer", "Power Lens", "Power Weight"]
 

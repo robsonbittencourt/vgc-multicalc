@@ -10,7 +10,7 @@ import { Target } from "@lib/model/target"
 import { Field as FieldSmogon, Move as MoveSmogon, Pokemon as SmogonPokemon } from "@calc"
 import { Ability } from "@lib/model/ability"
 import { MockOf } from "@lib/test-utils"
-import { CalculatorStore } from "@data/store/calculator-store"
+import { CalculatorStore } from "@store/calculator-store"
 
 describe("Damage Calculator Service", () => {
   let service: DamageCalculatorService

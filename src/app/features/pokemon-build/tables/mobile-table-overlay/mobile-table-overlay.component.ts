@@ -5,7 +5,7 @@ import { MovesTableComponent } from "@features/pokemon-build/tables/moves-table/
 import { PokemonTableComponent } from "@features/pokemon-build/tables/pokemon-table/pokemon-table.component"
 import { MatIcon } from "@angular/material/icon"
 import { MobileTableOverlayService, TableSelectEvent } from "./mobile-table-overlay.service"
-import { CustomSet } from "@data/store/custom-set"
+import { CustomSet } from "@store/custom-set"
 
 @Component({
   selector: "app-mobile-table-overlay",

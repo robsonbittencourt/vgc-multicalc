@@ -2,7 +2,7 @@ import { getBerryRecovery, getDamageWithoutBerry, getEndOfTurn, display, display
 import { Field } from "@lib/calc/model/field"
 import { Move } from "@lib/calc/model/move"
 import { Pokemon } from "@lib/calc/model/pokemon"
-import { RawDesc } from "@lib/calc/model/types"
+import { RawDesc } from "@vgc-types/calc-types"
 
 export type Damage = number | number[] | [number, number] | number[][]
 

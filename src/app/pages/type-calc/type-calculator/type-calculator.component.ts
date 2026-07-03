@@ -1,13 +1,13 @@
 import { Component, computed, inject, signal } from "@angular/core"
 import { TeamComponent } from "@features/team/team/team.component"
 import { TeamsDesktopComponent } from "@features/team/teams-desktop/teams-desktop.component"
-import { CalculatorStore } from "@data/store/calculator-store"
+import { CalculatorStore } from "@store/calculator-store"
 import { DefensiveCoverageComponent } from "@pages/type-calc/defensive-coverage/defensive-coverage.component"
 import { OffensiveCoverageComponent } from "@pages/type-calc/offensive-coverage/offensive-coverage.component"
 import { TypeCoverageInsightsComponent } from "@pages/type-calc/type-coverage-insights/type-coverage-insights.component"
 import { Team } from "@lib/model/team"
-import { FieldStore } from "@data/store/field-store"
-import { FIELD_CONTEXT } from "@data/store/tokens/field-context.token"
+import { FieldStore } from "@store/field-store"
+import { FIELD_CONTEXT } from "@store/tokens/field-context.token"
 import { AutomaticFieldService } from "@lib/automatic-field-service"
 
 @Component({

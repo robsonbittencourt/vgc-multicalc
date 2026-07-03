@@ -1,5 +1,5 @@
 import { inject, Injectable } from "@angular/core"
-import { CalculatorStore } from "@data/store/calculator-store"
+import { CalculatorStore } from "@store/calculator-store"
 import { defaultPokemon } from "@lib/default-pokemon"
 import { Team } from "@lib/model/team"
 import { TeamMember } from "@lib/model/team-member"

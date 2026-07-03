@@ -1,8 +1,8 @@
 import { Component, computed, effect, ElementRef, inject, input, output, signal, viewChild } from "@angular/core"
 import { MatIcon } from "@angular/material/icon"
-import { CalculatorStore } from "@data/store/calculator-store"
-import { CustomSet } from "@data/store/custom-set"
-import { setsMatch } from "@data/store/utils/sets-match"
+import { CalculatorStore } from "@store/calculator-store"
+import { CustomSet } from "@store/custom-set"
+import { setsMatch } from "@store/utils/sets-match"
 
 @Component({
   selector: "app-save-set-button",

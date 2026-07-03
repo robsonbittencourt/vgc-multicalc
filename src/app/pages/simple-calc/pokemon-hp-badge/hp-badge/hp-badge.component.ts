@@ -3,7 +3,7 @@ import { Status } from "@lib/model/status"
 import { FaintedIconComponent } from "@pages/simple-calc/pokemon-hp-badge/hp-badge/fainted-icon/fainted-icon.component"
 import { StatusIconComponent } from "@pages/simple-calc/pokemon-hp-badge/hp-badge/status-icon/status-icon.component"
 import { uuid } from "@lib/utils/uuid"
-import { SpriteService } from "@data/sprite.service"
+import { SpriteService } from "@lib/sprite.service"
 
 @Component({
   selector: "app-hp-badge",

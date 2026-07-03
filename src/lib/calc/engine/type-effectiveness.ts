@@ -1,6 +1,6 @@
-import { getType } from "@lib/calc/data/stores"
+import { getType } from "@lib/calc/engine/types"
 import { Move } from "@lib/calc/model/move"
-import { TypeName } from "@lib/calc/model/types"
+import { TypeName } from "@vgc-types/calc-types"
 
 export function getMoveEffectiveness(move: Move, type: TypeName, isGhostRevealed?: boolean, isGravity?: boolean, isRingTarget?: boolean): number {
   if (isGhostRevealed && type === "Ghost" && move.hasType("Normal", "Fighting")) {

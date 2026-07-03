@@ -1,6 +1,6 @@
 import { provideZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
-import { CalculatorStore } from "@data/store/calculator-store"
+import { CalculatorStore } from "@store/calculator-store"
 import { ACTUAL, MAX, MIN, OPPONENT, SPEED_TIE, YOUR_TEAM } from "@lib/constants"
 import { Ability } from "@lib/model/ability"
 import { Field, FieldSide } from "@lib/model/field"

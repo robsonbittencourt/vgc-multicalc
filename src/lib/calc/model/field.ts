@@ -1,4 +1,4 @@
-import { GameType, StateSide, StateField, Terrain, Weather } from "@lib/calc/model/types"
+import { GameType, StateSide, StateField, Terrain, Weather } from "@vgc-types/calc-types"
 
 export class Side {
   spikes: number

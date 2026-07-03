@@ -4,8 +4,9 @@ import { Move } from "@lib/calc/model/move"
 import { Pokemon } from "@lib/calc/model/pokemon"
 import { Damage, damageRange, multiDamageRange } from "@lib/calc/model/result"
 import { isGrounded } from "@lib/calc/engine/stats"
-import { RawDesc, StatID } from "@lib/calc/model/types"
-import { getNature, getType } from "@lib/calc/data/stores"
+import { RawDesc, StatID } from "@vgc-types/calc-types"
+import { getNatureData } from "@data/nature-data"
+import { getType } from "@lib/calc/engine/types"
 
 const STAT_DISPLAY_NAMES: Record<StatID, string> = { hp: "HP", atk: "Atk", def: "Def", spa: "SpA", spd: "SpD", spe: "Spe" }
 
@@ -28,7 +29,7 @@ export function getStatDescriptionText(pokemon: Pokemon, stat: StatID, powerTric
     }
   }
 
-  const nature = getNature(pokemon.nature)!
+  const nature = getNatureData(pokemon.nature)!
   const sign = stat === "hp" || nature.plus === nature.minus ? "" : nature.plus === stat ? "+" : nature.minus === stat ? "-" : ""
 
   let description = `${pokemon.evs[stat]}${sign} ${STAT_DISPLAY_NAMES[initialStat]}`

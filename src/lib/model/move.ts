@@ -1,6 +1,5 @@
-import { MOVE_DETAILS } from "@data/move-details"
 import { Category, PokemonType, SecondaryEffect } from "@lib/types"
-import { getMove } from "@calc"
+import { getMoveData } from "@data/move-data"
 
 interface MoveOptions {
   alliesFainted?: string
@@ -26,10 +25,6 @@ const EMPTY_MOVE_DEFAULTS: MoveDetailsResolved = {
   target: "normal"
 }
 
-function moveKey(name: string): string {
-  return name?.toLowerCase().replaceAll(" ", "").replaceAll("-", "").replaceAll("'", "")
-}
-
 export class Move {
   readonly name: string
   readonly possibleHits: string[]
@@ -47,7 +42,7 @@ export class Move {
   constructor(name: string, options: MoveOptions = {}) {
     this.name = name ?? ""
     this.possibleHits = this.moveHits(name)
-    this.multiaccuracy = getMove(name)?.multiaccuracy ?? false
+    this.multiaccuracy = getMoveData(name)?.multiaccuracy ?? false
     this.hits = this.hitsValue(name, options)
     this.alliesFainted = options.alliesFainted ?? "0"
     this.lastMoveFailed = options.lastMoveFailed ?? false
@@ -67,8 +62,7 @@ export class Move {
   }
 
   private resolveDetails(name: string): MoveDetailsResolved {
-    const moveName = moveKey(name)
-    const moveDetails = moveName ? MOVE_DETAILS[moveName] : undefined
+    const moveDetails = getMoveData(name)
 
     if (!moveDetails) {
       return { ...EMPTY_MOVE_DEFAULTS }
@@ -76,11 +70,11 @@ export class Move {
 
     return {
       bp: moveDetails.basePower,
-      category: moveDetails.category,
-      type: moveDetails.type,
+      category: (moveDetails.category as Category) ?? "Status",
+      type: moveDetails.type as PokemonType,
       accuracy: !moveDetails.accuracy || moveDetails.accuracy === true ? 100 : moveDetails.accuracy,
-      secondary: moveDetails.secondary,
-      target: moveDetails.target
+      secondary: (moveDetails.secondary as SecondaryEffect | null) ?? null,
+      target: moveDetails.target ?? "normal"
     }
   }
 
@@ -103,7 +97,7 @@ export class Move {
       return ["6", "5", "4", "3", "2", "1", "0"]
     }
 
-    const multihit = MOVE_DETAILS[moveKey(move)]?.multihit
+    const multihit = getMoveData(move)?.multihit
 
     if (!multihit) return []
 

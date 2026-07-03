@@ -1,0 +1,14 @@
+import { ThemeState } from "@store/theme-store"
+
+export function initialThemeState(): ThemeState {
+  if (typeof localStorage === "undefined") return defaultThemeState()
+  const themeUserData = JSON.parse(localStorage.getItem("userData")!)?.themeData
+  return themeUserData ? { ...defaultThemeState(), ...themeUserData } : defaultThemeState()
+}
+
+function defaultThemeState(): ThemeState {
+  return {
+    theme: "system",
+    color: "purple"
+  }
+}

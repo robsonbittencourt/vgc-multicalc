@@ -1,7 +1,7 @@
 import { Component, computed, inject, input, output } from "@angular/core"
 import { MatChipListbox, MatChipOption } from "@angular/material/chips"
 import { MatIcon } from "@angular/material/icon"
-import { CalculatorStore } from "@data/store/calculator-store"
+import { CalculatorStore } from "@store/calculator-store"
 import { MultiHitComboBoxComponent } from "@features/pokemon-build/multi-hit-combo-box/multi-hit-combo-box.component"
 
 @Component({

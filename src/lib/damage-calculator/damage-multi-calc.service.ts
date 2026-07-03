@@ -1,6 +1,6 @@
 import { inject } from "@angular/core"
-import { CalculatorStore } from "@data/store/calculator-store"
-import { MenuStore } from "@data/store/menu-store"
+import { CalculatorStore } from "@store/calculator-store"
+import { MenuStore } from "@store/menu-store"
 import { DamageCalculatorService } from "@lib/damage-calculator/damage-calculator.service"
 import { DamageResult } from "@lib/damage-calculator/damage-result"
 import { DamageResultOrderService } from "@lib/damage-calculator/damage-result-order.service"

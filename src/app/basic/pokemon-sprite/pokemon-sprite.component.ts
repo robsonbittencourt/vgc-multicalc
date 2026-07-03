@@ -1,5 +1,5 @@
 import { afterNextRender, Component, computed, effect, inject, signal, input } from "@angular/core"
-import { SpriteService } from "@data/sprite.service"
+import { SpriteService } from "@lib/sprite.service"
 import { NetworkStatusService } from "@lib/network-status.service"
 
 @Component({

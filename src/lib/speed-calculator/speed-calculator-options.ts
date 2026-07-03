@@ -1,4 +1,4 @@
-import { POKEMON_DETAILS } from "@data/pokemon-details"
+import { POKEMON_DATA } from "@data/pokemon-data"
 import { SpeedCalculatorMode } from "@lib/speed-calculator/speed-calculator-mode"
 import { Regulation, SpeedFilterType } from "@lib/types"
 
@@ -42,7 +42,7 @@ export class SpeedCalculatorOptions {
 
   get topUsage(): number {
     if (this._topUsage == "All") {
-      return Object.keys(POKEMON_DETAILS).length + 1
+      return Object.values(POKEMON_DATA).filter(p => p.group !== undefined).length + 1
     }
 
     return +this._topUsage

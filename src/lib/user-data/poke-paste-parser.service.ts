@@ -1,5 +1,5 @@
-import { Injectable, inject } from "@angular/core"
-import { CalculatorStore } from "@data/store/calculator-store"
+import { Injectable } from "@angular/core"
+import { getMoveset, MOVESETS } from "@data/moveset-data"
 import { Ability } from "@lib/model/ability"
 import { Move } from "@lib/model/move"
 import { MoveSet } from "@lib/model/moveset"
@@ -11,8 +11,6 @@ import { spToEv } from "@lib/utils/ev-sp-converter"
   providedIn: "root"
 })
 export class PokePasteParserService {
-  private store = inject(CalculatorStore)
-
   async parse(input: string, useSpsMode = true): Promise<Pokemon[]> {
     const { pokemon } = await this.parseTeam(input, useSpsMode)
 
@@ -85,8 +83,7 @@ export class PokePasteParserService {
       const onlyName = pokemonName.substring(0, pokemonName.indexOf("-"))
 
       if (this.pokemonWithAlternativeForm().includes(onlyName)) {
-        const setdex = this.store.activeSetdex
-        const fullNameExists = setdex[pokemonName]
+        const fullNameExists = getMoveset(pokemonName, MOVESETS)
         if (fullNameExists) {
           return pokemonName
         }

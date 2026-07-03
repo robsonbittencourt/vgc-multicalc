@@ -1,6 +1,7 @@
 import { mergeDeep } from "@lib/calc/engine/data-util"
-import { getNature, getSpecies } from "@lib/calc/data/stores"
-import { AbilityName, Gender, ItemName, MoveName, NatureName, SpeciesData, SpeciesName, StatePokemon, StatID, StatIDExceptHP, StatsTable, StatusName, TypeName } from "@lib/calc/model/types"
+import { getPokemonData } from "@data/pokemon-data"
+import { getNatureData } from "@data/nature-data"
+import { AbilityName, Gender, ItemName, MoveName, NatureName, PokemonData, PokemonName, StatePokemon, StatID, StatIDExceptHP, StatsTable, StatusName, TypeName } from "@vgc-types/calc-types"
 
 const STATS: StatID[] = ["hp", "atk", "def", "spa", "spd", "spe"]
 
@@ -15,8 +16,8 @@ type PokemonOptions = Partial<StatePokemon> & {
 }
 
 export class Pokemon {
-  name: SpeciesName
-  species: SpeciesData
+  name: PokemonName
+  pokemonData: PokemonData
   types: [TypeName] | [TypeName, TypeName]
   weightKg: number
   level: number
@@ -40,13 +41,13 @@ export class Pokemon {
   moves: MoveName[]
 
   constructor(name: string, options: PokemonOptions = {}) {
-    this.species = mergeDeep<SpeciesData>({}, getSpecies(name), options.overrides)
-    this.name = (options.name || name) as SpeciesName
-    this.types = this.species.types
-    this.weightKg = this.species.weightKg
+    this.pokemonData = mergeDeep<PokemonData>({}, getPokemonData(name), options.overrides)
+    this.name = (options.name || name) as PokemonName
+    this.types = this.pokemonData.types
+    this.weightKg = this.pokemonData.weightKg
     this.level = DEFAULT_LEVEL
-    this.gender = options.gender || this.species.gender || "M"
-    this.ability = options.ability || this.species.abilities?.[0] || undefined
+    this.gender = options.gender || this.pokemonData.gender || "M"
+    this.ability = options.ability || this.pokemonData.abilities?.[0] || undefined
     this.abilityOn = !!options.abilityOn
     this.alliesFainted = options.alliesFainted
     this.boostedStat = options.boostedStat
@@ -138,12 +139,12 @@ export class Pokemon {
       teraType: this.teraType,
       toxicCounter: this.toxicCounter,
       moves: this.moves.slice(),
-      overrides: this.species
+      overrides: this.pokemonData
     })
   }
 
   private calcStat(stat: StatID): number {
-    const base = this.species.baseStats[stat]
+    const base = this.pokemonData.baseStats[stat]
     const iv = this.ivs[stat]
     const ev = this.evs[stat]
 
@@ -151,7 +152,7 @@ export class Pokemon {
       return base === 1 ? base : Math.floor(((base * 2 + iv + Math.floor(ev / 4)) * this.level) / 100) + this.level + 10
     }
 
-    const nature = getNature(this.nature)
+    const nature = getNatureData(this.nature)
     const multiplier = nature?.plus === stat && nature?.minus === stat ? 1 : nature?.plus === stat ? 1.1 : nature?.minus === stat ? 0.9 : 1
 
     return Math.floor((Math.floor(((base * 2 + iv + Math.floor(ev / 4)) * this.level) / 100) + 5) * multiplier)

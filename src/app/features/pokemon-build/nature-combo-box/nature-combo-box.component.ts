@@ -1,7 +1,60 @@
 import { Component, computed, inject, input, signal } from "@angular/core"
+import { KeyValuePair } from "@basic/input-autocomplete/input-autocomplete.component"
 import { InputSelectComponent } from "@basic/input-select/input-select.component"
-import { Natures } from "@data/natures"
-import { CalculatorStore } from "@data/store/calculator-store"
+import { NATURE_DETAILS, NatureStatID } from "@data/nature-data"
+import { CalculatorStore } from "@store/calculator-store"
+
+const STAT_LABELS: Record<NatureStatID, string> = {
+  atk: "Atk",
+  def: "Def",
+  spa: "SpA",
+  spd: "SpD",
+  spe: "Spe"
+}
+
+const DISPLAY_ORDER = [
+  "Adamant",
+  "Modest",
+  "Jolly",
+  "Timid",
+  "Bold",
+  "Impish",
+  "Calm",
+  "Careful",
+  "Brave",
+  "Quiet",
+  "Gentle",
+  "Hasty",
+  "Lax",
+  "Lonely",
+  "Mild",
+  "Naive",
+  "Naughty",
+  "Rash",
+  "Relaxed",
+  "Sassy",
+  "Bashful",
+  "Docile",
+  "Hardy",
+  "Quirky",
+  "Serious"
+]
+
+function toID(name: string): string {
+  return name.toLowerCase().replace(/[^a-z0-9]/g, "")
+}
+
+function natureLabel(natureName: string): string {
+  const nature = NATURE_DETAILS[toID(natureName)]
+
+  if (!nature || !nature.plus || !nature.minus || nature.plus === nature.minus) {
+    return natureName
+  }
+
+  return `${natureName} (+${STAT_LABELS[nature.plus]}, -${STAT_LABELS[nature.minus]})`
+}
+
+const ALL_NATURES: KeyValuePair[] = DISPLAY_ORDER.map(name => ({ key: natureLabel(name), value: name }))
 
 @Component({
   selector: "app-nature-combo-box",
@@ -20,16 +73,16 @@ export class NatureComboBoxComponent {
   selectedNature = signal<string>("")
 
   allNatureNames = computed(() => {
-    return Natures.instance.natures
+    return ALL_NATURES
   })
 
   mobileNatureList = computed(() => {
-    return Natures.instance.natures
+    return ALL_NATURES
   })
 
   mobileNatureDisplayMap = computed(() => {
     const map: Record<string, string> = {}
-    Natures.instance.natures.forEach(nature => {
+    ALL_NATURES.forEach(nature => {
       map[nature.value] = nature.value
     })
     return map

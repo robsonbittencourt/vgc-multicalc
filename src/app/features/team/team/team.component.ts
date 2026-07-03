@@ -1,7 +1,7 @@
 import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, effect, inject, input, output, signal, viewChild } from "@angular/core"
 import { MatIcon } from "@angular/material/icon"
 import { WidgetComponent } from "@basic/widget/widget.component"
-import { CalculatorStore } from "@data/store/calculator-store"
+import { CalculatorStore } from "@store/calculator-store"
 import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-button/export-pokemon-button.component"
 import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
 import { SaveSetButtonComponent } from "@features/buttons/save-set-button/save-set-button.component"

@@ -2,8 +2,8 @@ import { Component, computed, inject, model, output, signal } from "@angular/cor
 import { PokemonSpriteComponent } from "@basic/pokemon-sprite/pokemon-sprite.component"
 import { NgClass } from "@angular/common"
 import { MatIcon } from "@angular/material/icon"
-import { CalculatorStore } from "@data/store/calculator-store"
-import { MenuStore } from "@data/store/menu-store"
+import { CalculatorStore } from "@store/calculator-store"
+import { MenuStore } from "@store/menu-store"
 import { defaultPokemon } from "@lib/default-pokemon"
 import { SnackbarService } from "@lib/snackbar.service"
 

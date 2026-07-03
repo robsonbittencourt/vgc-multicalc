@@ -1,8 +1,9 @@
 import { inject, Injectable } from "@angular/core"
-import { pokemonByRegulation } from "@data/regulation-pokemon"
+import { MOVESETS } from "@data/moveset-data"
+import { pokemonByRegulation } from "@lib/pokemon-by-regulation"
 import { SpeedData } from "@data/speed-data"
 import { SPEED_STATISTICS_REG_MB } from "@data/speed-statistics-reg-mb"
-import { CalculatorStore } from "@data/store/calculator-store"
+import { CalculatorStore } from "@store/calculator-store"
 import { ACTUAL, BOOSTER, MAX, MAX_BASE_SPEED_FOR_TR, MIN, OPPONENT, SPEED_TIE, YOUR_TEAM } from "@lib/constants"
 import { defaultPokemon } from "@lib/default-pokemon"
 import { Ability } from "@lib/model/ability"
@@ -15,17 +16,13 @@ import { SpeedCalculatorMode } from "@lib/speed-calculator/speed-calculator-mode
 import { SpeedCalculatorOptions } from "@lib/speed-calculator/speed-calculator-options"
 import { SpeedDefinition } from "@lib/speed-calculator/speed-definition"
 import { Regulation } from "@lib/types"
-import { getSpecies } from "@calc"
+import { getPokemonData } from "@data/pokemon-data"
 
 @Injectable({
   providedIn: "root"
 })
 export class SpeedCalculatorService {
   private store = inject(CalculatorStore)
-
-  private get setdex() {
-    return this.store.activeSetdex
-  }
 
   private readonly statisticsByRegulation: Record<string, Record<string, SpeedData>> = {
     MB: SPEED_STATISTICS_REG_MB
@@ -99,7 +96,7 @@ export class SpeedCalculatorService {
 
     const quantity = options.targetName.length > 0 ? undefined : options.topUsage
     const includeAllPokemon = options._topUsage === "All"
-    const pokemon = pokemonByRegulation(options.regulation, quantity, this.setdex, includeAllPokemon)
+    const pokemon = pokemonByRegulation(options.regulation, quantity, MOVESETS, includeAllPokemon)
 
     pokemon.forEach(p => {
       const pokemon = this.adjustPokemonByOptions(p, options)
@@ -293,7 +290,7 @@ export class SpeedCalculatorService {
   }
 
   private isTrickRoomPokemon(pokemon: Pokemon): boolean {
-    return (getSpecies(pokemon.name)?.baseStats.spe ?? 999) <= MAX_BASE_SPEED_FOR_TR
+    return (getPokemonData(pokemon.name)?.baseStats.spe ?? 999) <= MAX_BASE_SPEED_FOR_TR
   }
 
   private isBoosterSpeedPokemon(pokemon: Pokemon): boolean {

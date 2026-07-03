@@ -3,7 +3,7 @@ import { Component, computed, inject, input, output } from "@angular/core"
 import { MatIcon } from "@angular/material/icon"
 import { MatTooltip } from "@angular/material/tooltip"
 import { PokemonSpriteComponent } from "@basic/pokemon-sprite/pokemon-sprite.component"
-import { CalculatorStore } from "@data/store/calculator-store"
+import { CalculatorStore } from "@store/calculator-store"
 
 @Component({
   selector: "app-pokemon-tab",

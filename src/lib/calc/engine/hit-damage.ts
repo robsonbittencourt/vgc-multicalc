@@ -6,7 +6,7 @@ import { Pokemon } from "@lib/calc/model/pokemon"
 import { getBasePower } from "@lib/calc/engine/base-power"
 import { getBpMods, getAtMods, getDfMods, getFinalMods } from "@lib/calc/engine/modifiers"
 import { getModifiedStat } from "@lib/calc/engine/math"
-import { RawDesc } from "@lib/calc/model/types"
+import { RawDesc } from "@vgc-types/calc-types"
 
 export interface HitContext {
   attacker: Pokemon
@@ -137,7 +137,7 @@ function computeBaseDamage(attacker: Pokemon, defender: Pokemon, basePower: numb
     baseDamage = pokeRound(overflow32(baseDamage * 3072) / 4096)
   }
 
-  if (attacker.hasAbility("Parental Bond (Child)")) {
+  if (move.isParentalBondChild) {
     baseDamage = pokeRound(overflow32(baseDamage * 1024) / 4096)
   }
 

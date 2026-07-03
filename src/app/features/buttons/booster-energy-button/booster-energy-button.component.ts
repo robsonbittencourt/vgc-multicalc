@@ -1,6 +1,6 @@
 import { Component, computed, effect, HostBinding, inject, input } from "@angular/core"
 import { MatTooltip } from "@angular/material/tooltip"
-import { CalculatorStore } from "@data/store/calculator-store"
+import { CalculatorStore } from "@store/calculator-store"
 
 @Component({
   selector: "app-booster-energy-button",

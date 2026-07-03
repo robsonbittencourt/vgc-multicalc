@@ -1,4 +1,4 @@
-import { POKEMON_DETAILS } from "@data/pokemon-details"
+import { POKEMON_DATA } from "@data/pokemon-data"
 import { SpeedCalculatorOptions } from "@lib/speed-calculator/speed-calculator-options"
 
 describe("SpeedCalculatorOptions", () => {
@@ -11,6 +11,6 @@ describe("SpeedCalculatorOptions", () => {
   it("should return total Pokémon as quantity when top usage option equals All", () => {
     const options = new SpeedCalculatorOptions({ topUsage: "All" })
 
-    expect(options.topUsage).toEqual(Object.keys(POKEMON_DETAILS).length + 1)
+    expect(options.topUsage).toEqual(Object.values(POKEMON_DATA).filter(p => p.group !== undefined).length + 1)
   })
 })

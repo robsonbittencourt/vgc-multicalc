@@ -1,19 +1,20 @@
 import { mergeDeep } from "@lib/calc/engine/data-util"
-import { getMove } from "@lib/calc/data/stores"
-import { AbilityName, ItemName, MoveCategory, MoveData, MoveFlags, MoveName, MoveTarget, SpeciesName, StateMove, StatIDExceptHP, TypeName } from "@lib/calc/model/types"
+import { getMoveData } from "@data/move-data"
+import { AbilityName, ItemName, MoveCategory, MoveData, MoveFlags, MoveTarget, PokemonName, StateMove, StatIDExceptHP, TypeName } from "@vgc-types/calc-types"
 
 type MoveOptions = Partial<StateMove> & {
   ability?: AbilityName
   item?: ItemName
-  species?: SpeciesName
+  pokemonName?: PokemonName
+  isParentalBondChild?: boolean
 }
 
 export class Move {
-  name: MoveName
+  name: string
   originalName: string
   ability?: AbilityName
   item?: ItemName
-  species?: SpeciesName
+  pokemonName?: PokemonName
   overrides?: Partial<MoveData>
   hits: number
   timesUsed?: number
@@ -36,12 +37,13 @@ export class Move {
   ignoreDefensive: boolean
   overrideDefensiveStat?: StatIDExceptHP
   breaksProtect: boolean
+  isParentalBondChild: boolean
 
   constructor(name: string, options: MoveOptions = {}) {
     const resolvedName = options.name || name
     this.originalName = resolvedName
 
-    const data = mergeDeep<MoveData>({ name: resolvedName }, getMove(resolvedName), options.overrides)
+    const data = mergeDeep<MoveData>({ name: resolvedName }, getMoveData(resolvedName), options.overrides)
 
     this.hits = 1
 
@@ -63,7 +65,7 @@ export class Move {
     this.ability = options.ability
     this.item = options.item
     this.overrides = options.overrides
-    this.species = options.species
+    this.pokemonName = options.pokemonName
     this.bp = data.basePower
 
     this.type = data.name === "Struggle" ? "???" : data.type
@@ -91,6 +93,7 @@ export class Move {
     this.ignoreDefensive = !!data.ignoreDefensive
     this.overrideDefensiveStat = data.overrideDefensiveStat
     this.breaksProtect = !!data.breaksProtect
+    this.isParentalBondChild = !!options.isParentalBondChild
   }
 
   named(...names: string[]): boolean {
@@ -105,12 +108,13 @@ export class Move {
     return new Move(this.originalName, {
       ability: this.ability,
       item: this.item,
-      species: this.species,
+      pokemonName: this.pokemonName,
       isCrit: this.isCrit,
       isStellarFirstUse: this.isStellarFirstUse,
       hits: this.hits,
       timesUsed: this.timesUsed,
       timesUsedWithMetronome: this.timesUsedWithMetronome,
+      isParentalBondChild: this.isParentalBondChild,
       overrides: this.overrides
     })
   }

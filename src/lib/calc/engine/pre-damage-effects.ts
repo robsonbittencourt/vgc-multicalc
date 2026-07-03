@@ -4,7 +4,7 @@ import { Field, Side } from "@lib/calc/model/field"
 import { Move } from "@lib/calc/model/move"
 import { Pokemon } from "@lib/calc/model/pokemon"
 import { getFinalSpeed } from "@lib/calc/engine/stats"
-import { ItemName, RawDesc } from "@lib/calc/model/types"
+import { ItemName, RawDesc } from "@vgc-types/calc-types"
 
 export function checkForecast(pokemon: Pokemon, weather: string | undefined): void {
   if (pokemon.hasAbility("Forecast") && pokemon.named("Castform")) {

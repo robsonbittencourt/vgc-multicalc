@@ -3,7 +3,7 @@ import { PokemonSpriteComponent } from "@basic/pokemon-sprite/pokemon-sprite.com
 import { Component, computed, inject, input } from "@angular/core"
 import { WidgetComponent } from "@basic/widget/widget.component"
 import { TypeComboBoxComponent } from "@features/pokemon-build/type-combo-box/type-combo-box.component"
-import { CalculatorStore } from "@data/store/calculator-store"
+import { CalculatorStore } from "@store/calculator-store"
 import { FEATURES } from "@lib/feature-flags"
 import { TypeCoverageInsightsService, PokemonInsight } from "@lib/type-coverage/type-coverage-insights.service"
 import { Pokemon } from "@lib/model/pokemon"

@@ -4,7 +4,7 @@ import { FormsModule } from "@angular/forms"
 import { MatButtonToggle, MatButtonToggleGroup } from "@angular/material/button-toggle"
 import { MatCheckbox, MatCheckboxChange } from "@angular/material/checkbox"
 import { InputAutocompleteComponent } from "@basic/input-autocomplete/input-autocomplete.component"
-import { CalculatorStore } from "@data/store/calculator-store"
+import { CalculatorStore } from "@store/calculator-store"
 
 @Component({
   selector: "app-multi-hit-combo-box",

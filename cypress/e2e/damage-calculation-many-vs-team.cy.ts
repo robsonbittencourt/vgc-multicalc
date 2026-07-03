@@ -19,7 +19,7 @@ describe("Test calcs with Many vs Team activated", () => {
   it("against first team member Pokémon", () => {
     opponents.get("Calyrex Ice").damageIs(113.6, 134).causeOHKO()
     opponents.get("Zamazenta Crowned").damageIs(63.6, 75.5).cause2HKO()
-    opponents.get("Calyrex Shadow").damageIs(46, 54.5).haveChanceOfToCause2HKO(50)
+    opponents.get("Calyrex Shadow").damageIs(42.6, 50).haveChanceOfToCause2HKO(0.4)
     opponents.get("Terapagos Terastal").damageIs(43.1, 51.1).haveChanceOfToCause2HKO(5.1)
     opponents.get("Urshifu Rapid Strike").damageIs(58.5, 69.8).cause2HKO()
     opponents.get("Incineroar").damageIs(22.1, 26.1).haveChanceOfToCause4HKO(7.6)
