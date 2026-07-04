@@ -1,0 +1,35 @@
+{
+  "date": "2026-07-03",
+  "git": {
+    "branch": "remove-sv",
+    "commit": "fdd39695"
+  },
+  "current": {
+    "single": {
+      "iterations": 40000,
+      "totalMs": 707.6,
+      "nsPerCall": 17689.4
+    },
+    "multi": {
+      "iterations": 15000,
+      "totalMs": 792.2,
+      "nsPerCall": 52810.6
+    },
+    "heapDeltaMB": 3.81,
+    "source": "vendored calc (this branch)"
+  },
+  "baseline": {
+    "single": {
+      "iterations": 40000,
+      "totalMs": 1689.5,
+      "nsPerCall": 42237.5
+    },
+    "multi": {
+      "iterations": 15000,
+      "totalMs": 1466.8,
+      "nsPerCall": 97783.4
+    },
+    "heapDeltaMB": 12.52,
+    "source": "damage-calc package (dist)"
+  }
+}

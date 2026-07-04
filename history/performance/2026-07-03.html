@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calc Performance — 2026-07-03</title>
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: #0f1117; color: #e2e8f0; line-height: 1.6;
+        padding: 2rem; max-width: 760px;
+      }
+      h1 { font-size: 1.5rem; font-weight: 700; color: #f8fafc; margin-bottom: 0.25rem; }
+      .subtitle { font-size: 0.8rem; color: #64748b; margin-bottom: 2rem; }
+      .meta { font-size: 0.78rem; color: #94a3b8; margin-bottom: 2rem; }
+      .meta code { color: #7dd3fc; }
+      table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; }
+      th {
+        text-align: left; font-size: 0.72rem; text-transform: uppercase;
+        letter-spacing: 0.05em; color: #64748b; font-weight: 600;
+        padding: 0.5rem 0.75rem; border-bottom: 1px solid #1e293b;
+      }
+      th.num { text-align: right; }
+      td { padding: 0.65rem 0.75rem; border-bottom: 1px solid #161b26; font-size: 0.9rem; }
+      td.metric { color: #cbd5e1; font-weight: 500; }
+      td.num { text-align: right; font-variant-numeric: tabular-nums; }
+      td.muted, .muted { color: #64748b; }
+      .delta { font-weight: 700; font-variant-numeric: tabular-nums; }
+      .delta.good { color: #4ade80; }
+      .delta.bad { color: #f87171; }
+      .delta.flat { color: #64748b; }
+      .note {
+        font-size: 0.75rem; color: #64748b; margin-top: 1.5rem;
+        border-left: 2px solid #1e293b; padding-left: 0.75rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Calc Engine Performance</h1>
+    <p class="subtitle">Damage calc functions — execution time &amp; memory</p>
+    <p class="meta">
+      Run <strong>2026-07-03</strong> · branch <code>remove-sv</code> · commit <code>fdd39695</code><br />
+      Current: vendored calc (this branch) · Baseline: damage-calc package (dist)
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th class="num">Current</th>
+          <th class="num">Baseline</th>
+          <th class="num">Δ</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+    <tr>
+      <td class="metric">calculate — ns/call</td>
+      <td class="num">17689.4 ns</td>
+      <td class="num muted">42237.5 ns</td>
+      <td class="num"><span class="delta good">-58.1%</span></td>
+    </tr>
+        
+    <tr>
+      <td class="metric">calculate — total</td>
+      <td class="num">707.6 ms</td>
+      <td class="num muted">1689.5 ms</td>
+      <td class="num"><span class="delta good">-58.1%</span></td>
+    </tr>
+        
+    <tr>
+      <td class="metric">calculateMulti — ns/call</td>
+      <td class="num">52810.6 ns</td>
+      <td class="num muted">97783.4 ns</td>
+      <td class="num"><span class="delta good">-46.0%</span></td>
+    </tr>
+        
+    <tr>
+      <td class="metric">calculateMulti — total</td>
+      <td class="num">792.2 ms</td>
+      <td class="num muted">1466.8 ms</td>
+      <td class="num"><span class="delta good">-46.0%</span></td>
+    </tr>
+        
+    <tr>
+      <td class="metric">Heap Δ</td>
+      <td class="num">3.81 MB</td>
+      <td class="num muted">12.52 MB</td>
+      <td class="num"><span class="delta good">-69.6%</span></td>
+    </tr>
+      </tbody>
+    </table>
+    <p class="note">
+      40,000 single-target and
+      15,000 multi-target iterations, cycling through
+      6 single / 2 multi scenarios. Δ &lt; 0 is faster.
+      Green = faster than baseline, red = slower (&gt;2% threshold).
+    </p>
+  </body>
+</html>
