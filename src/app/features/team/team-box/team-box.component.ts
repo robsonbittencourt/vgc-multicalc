@@ -3,7 +3,7 @@ import { Component, input, output } from "@angular/core"
 import { CdkDrag, CdkDragEnd, CdkDragHandle } from "@angular/cdk/drag-drop"
 import { MatIcon } from "@angular/material/icon"
 import { PokemonSpriteComponent } from "@basic/pokemon-sprite/pokemon-sprite.component"
-import { Team } from "@lib/model/team"
+import { Team } from "@multicalc/model"
 
 @Component({
   selector: "app-team-box",

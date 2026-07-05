@@ -1,17 +1,17 @@
 import { Component, computed, inject, input, output, signal } from "@angular/core"
 import { getAbilityData, AbilityName } from "@data/ability-data"
 import { POKEMON_DATA } from "@data/pokemon-data"
-import { topUsageByRegulation } from "@configuration/top-usage-regulation"
+import { topUsageByRegulation } from "@data/top-usage-regulation"
 import { CalculatorStore } from "@store/calculator-store"
 import { CustomSet } from "@store/custom-set"
 import { FilterableTableComponent } from "@features/pokemon-build/tables/filterable-table/filterable-table.component"
 import { ColumnConfig, TableData } from "@features/pokemon-build/tables/filterable-table/filtered-table-types"
-import { Pokemon } from "@lib/model/pokemon"
+import { Pokemon } from "@multicalc/model"
 import { PokemonSpriteComponent } from "@basic/pokemon-sprite/pokemon-sprite.component"
 import { MatIcon } from "@angular/material/icon"
-import { PokemonType, Stats } from "@lib/types"
-import { evToSp } from "@lib/utils/ev-sp-converter"
-import { FEATURES } from "@lib/feature-flags"
+import { PokemonType, Stats } from "@multicalc/types"
+import { evToSp } from "@multicalc/utils/ev-sp-converter"
+import { FEATURES } from "@configuration/feature-flags"
 
 interface PokemonDetail {
   name: string

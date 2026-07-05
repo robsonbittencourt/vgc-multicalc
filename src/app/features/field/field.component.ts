@@ -2,7 +2,7 @@ import { booleanAttribute, Component, inject, input } from "@angular/core"
 import { MatButtonToggle, MatButtonToggleGroup } from "@angular/material/button-toggle"
 import { WidgetComponent } from "@basic/widget/widget.component"
 import { FieldStore } from "@store/field-store"
-import { FEATURES } from "@lib/feature-flags"
+import { FEATURES } from "@configuration/feature-flags"
 
 @Component({
   selector: "app-field",

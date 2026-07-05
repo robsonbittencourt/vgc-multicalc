@@ -1,10 +1,9 @@
 import { inject, Injectable } from "@angular/core"
 import { CalculatorStore } from "@store/calculator-store"
-import { Field } from "@lib/model/field"
-import { Pokemon } from "@lib/model/pokemon"
-import { getFinalSpeed } from "@lib/smogon/stat-calculator/spe/modified-spe"
-import { SpeedEvOptimizer } from "@lib/speed-calculator/speed-ev-optimizer"
-import { evToSp, spToEv, totalSpsFromEvs } from "@lib/utils/ev-sp-converter"
+import { Field, Pokemon } from "@multicalc/model"
+import { getFinalSpeed } from "@multicalc/stats"
+import { SpeedEvOptimizer } from "@multicalc/speed-calculator"
+import { evToSp, spToEv, totalSpsFromEvs } from "@multicalc/utils/ev-sp-converter"
 
 const MAX_TOTAL_SPS = 66
 
@@ -26,7 +25,7 @@ type BudgetPlan = {
 })
 export class SpeedMatchService {
   private store = inject(CalculatorStore)
-  private optimizer = inject(SpeedEvOptimizer)
+  private optimizer = new SpeedEvOptimizer()
 
   matchSpeed(activePokemonId: string, target: Pokemon, field: Field): SpeedMatchOutcome {
     const active = this.store.findPokemonById(activePokemonId)

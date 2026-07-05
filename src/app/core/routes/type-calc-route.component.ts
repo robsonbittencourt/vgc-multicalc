@@ -6,8 +6,8 @@ import { TypeCalcMobileComponent } from "@pages/type-calc/type-calc-mobile/type-
 import { HeaderMobileComponent } from "@core/header-mobile/header-mobile.component"
 import { HeaderComponent } from "@core/header/header.component"
 import { MenuStore } from "@store/menu-store"
-import { DeviceDetectorService } from "@lib/device-detector.service"
-import { JsonLdService } from "@lib/json-ld.service"
+import { DeviceDetectorService } from "@core/services/device-detector.service"
+import { JsonLdService } from "@core/services/json-ld.service"
 
 const TITLE = "Pokémon Type Calculator for VGC"
 const DESCRIPTION = "Pokémon type calculator for VGC and Pokémon Champions. Analyze offensive and defensive type coverage against your team."

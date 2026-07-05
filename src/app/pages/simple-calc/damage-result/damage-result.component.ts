@@ -4,9 +4,8 @@ import { MatChipListbox, MatChipOption } from "@angular/material/chips"
 import { CopyButtonComponent } from "@basic/copy-button/copy-button.component"
 import { WidgetComponent } from "@basic/widget/widget.component"
 import { RollConfigComponent } from "@features/roll-config/roll-config.component"
-import { DamageResult } from "@lib/damage-calculator/damage-result"
-import { RollLevelConfig } from "@lib/damage-calculator/roll-level-config"
-import { Pokemon } from "@lib/model/pokemon"
+import { DamageResult, RollLevelConfig } from "@multicalc/damage-calculator"
+import { Pokemon } from "@multicalc/model"
 import { HpBadgeComponent } from "@pages/simple-calc/pokemon-hp-badge/hp-badge/hp-badge.component"
 
 @Component({

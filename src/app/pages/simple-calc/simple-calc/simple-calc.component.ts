@@ -8,14 +8,11 @@ import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-b
 import { SaveSetButtonComponent } from "@features/buttons/save-set-button/save-set-button.component"
 import { FieldComponent } from "@features/field/field.component"
 import { PokemonBuildComponent } from "@features/pokemon-build/pokemon-build/pokemon-build.component"
-import { AutomaticFieldService } from "@lib/automatic-field-service"
-import { DamageCalculatorService } from "@lib/damage-calculator/damage-calculator.service"
-import { DamageResult } from "@lib/damage-calculator/damage-result"
-import { RollLevelConfig } from "@lib/damage-calculator/roll-level-config"
-import { DefensiveEvOptimizerService } from "@lib/ev-optimizer/defensive-ev-optimizer.service"
-import { Pokemon } from "@lib/model/pokemon"
-import { Target } from "@lib/model/target"
-import { Stats, SurvivalThreshold } from "@lib/types"
+import { AutomaticFieldService } from "@store/automatic-field/automatic-field-service"
+import { DamageCalculatorService, DamageResult, RollLevelConfig } from "@multicalc/damage-calculator"
+import { DefensiveEvOptimizerService } from "@multicalc/ev-optimizer"
+import { Pokemon, Target } from "@multicalc/model"
+import { Stats, SurvivalThreshold } from "@multicalc/types"
 import { DamageResultComponent } from "@pages/simple-calc/damage-result/damage-result.component"
 
 @Component({
@@ -28,12 +25,12 @@ import { DamageResultComponent } from "@pages/simple-calc/damage-result/damage-r
 export class SimpleCalcComponent {
   store = inject(CalculatorStore)
   fieldStore = inject(FieldStore)
-  private damageCalculator = inject(DamageCalculatorService)
+  private damageCalculator = new DamageCalculatorService()
   private automaticFieldService = inject(AutomaticFieldService)
-  private defensiveEvOptimizer = inject(DefensiveEvOptimizerService)
+  private defensiveEvOptimizer = new DefensiveEvOptimizerService()
 
-  leftDamageResults = computed(() => this.damageCalculator.calcDamageAllAttacks(this.store.leftPokemon(), this.store.rightPokemon(), this.fieldStore.field(), true))
-  rightDamageResults = computed(() => this.damageCalculator.calcDamageAllAttacks(this.store.rightPokemon(), this.store.leftPokemon(), this.fieldStore.field(), false))
+  leftDamageResults = computed(() => this.damageCalculator.calcDamageAllAttacks(this.store.leftPokemon(), this.store.rightPokemon(), this.fieldStore.field(), true, this.store.useSpsMode()))
+  rightDamageResults = computed(() => this.damageCalculator.calcDamageAllAttacks(this.store.rightPokemon(), this.store.leftPokemon(), this.fieldStore.field(), false, this.store.useSpsMode()))
 
   leftDamageResult = computed(() => this.leftDamageResults()[this.store.leftPokemon().activeMoveIndex])
   rightDamageResult = computed(() => this.rightDamageResults()[this.store.rightPokemon().activeMoveIndex])

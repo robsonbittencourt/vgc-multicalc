@@ -5,8 +5,8 @@ import { DomSanitizer } from "@angular/platform-browser"
 import { CalculatorStore } from "@store/calculator-store"
 import { FieldStore } from "@store/field-store"
 import { FIELD_CONTEXT } from "@store/tokens/field-context.token"
-import { AutomaticFieldService } from "@lib/automatic-field-service"
-import { BackNavigationService } from "@lib/back-navigation.service"
+import { AutomaticFieldService } from "@store/automatic-field/automatic-field-service"
+import { BackNavigationService } from "@core/services/back-navigation.service"
 import { TeamTabsMobileComponent } from "@features/team/team-tabs-mobile/team-tabs-mobile.component"
 import { TeamsMobileComponent } from "@features/team/teams-mobile/teams-mobile.component"
 import { PokemonBuildMobileComponent } from "@features/pokemon-build/pokemon-build-mobile/pokemon-build-mobile.component"
@@ -18,8 +18,7 @@ import { MobileTableOverlayService, TableSelectEvent } from "@features/pokemon-b
 import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
 import { SaveSetButtonComponent } from "@features/buttons/save-set-button/save-set-button.component"
 import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-button/export-pokemon-button.component"
-import { Team } from "@lib/model/team"
-import { Pokemon } from "@lib/model/pokemon"
+import { Team, Pokemon } from "@multicalc/model"
 
 @Component({
   selector: "app-type-calc-mobile",

@@ -11,7 +11,7 @@ import { DomSanitizer } from "@angular/platform-browser"
 import { InputAutocompleteComponent } from "@app/basic/input-autocomplete/input-autocomplete.component"
 import { WidgetComponent } from "@basic/widget/widget.component"
 import { MOVESETS } from "@data/moveset-data"
-import { pokemonByRegulation } from "@lib/pokemon-by-regulation"
+import { pokemonByRegulation } from "@adapters"
 import { CalculatorStore } from "@store/calculator-store"
 import { CustomSet } from "@store/custom-set"
 import { pokemonToState } from "@store/utils/state-mapper"
@@ -20,34 +20,31 @@ import { FieldStore } from "@store/field-store"
 import { FIELD_CONTEXT } from "@store/tokens/field-context.token"
 import { MenuStore } from "@store/menu-store"
 import { RollConfigComponent } from "@features/roll-config/roll-config.component"
-import { AutomaticFieldService } from "@lib/automatic-field-service"
-import { DamageMultiCalcService } from "@lib/damage-calculator/damage-multi-calc.service"
-import { DamageResult } from "@lib/damage-calculator/damage-result"
-import { DamageResultOrderService } from "@lib/damage-calculator/damage-result-order.service"
-import { RollLevelConfig } from "@lib/damage-calculator/roll-level-config"
-import { DefensiveEvOptimizerService } from "@lib/ev-optimizer/defensive-ev-optimizer.service"
-import { Regulation, Stats } from "@lib/types"
+import { AutomaticFieldService } from "@store/automatic-field/automatic-field-service"
+import { DamageMultiCalcService, DamageResult, RollLevelConfig } from "@multicalc/damage-calculator"
+import { DefensiveEvOptimizerService } from "@multicalc/ev-optimizer"
+import { MultiCalcMode, Regulation, Stats } from "@multicalc/types"
 import { TeamExportModalComponent } from "@features/export-modal/export-modal.component"
 import { MetaRegulationModalComponent } from "@features/meta-regulation-modal/meta-regulation-modal.component"
-import { ExportPokeService } from "@lib/user-data/export-poke.service"
+import { ExportPokeService } from "@store/user-data/export-poke.service"
 import { PokemonBuildMobileComponent } from "@features/pokemon-build/pokemon-build-mobile/pokemon-build-mobile.component"
 import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
 import { SaveSetButtonComponent } from "@features/buttons/save-set-button/save-set-button.component"
 import { PokemonCardComponent } from "@pages/multi-calc/pokemon-card/pokemon-card.component"
 import { FieldComponent } from "@features/field/field.component"
-import { Pokemon } from "@lib/model/pokemon"
-import { defaultPokemon } from "@lib/default-pokemon"
-import { Target } from "@lib/model/target"
-import { BackNavigationService } from "@lib/back-navigation.service"
+import { Pokemon, Target } from "@multicalc/model"
+import { defaultPokemon } from "@multicalc/default-pokemon"
+import { BackNavigationService } from "@core/services/back-navigation.service"
 import { AddPokemonCardComponent } from "@pages/multi-calc/add-pokemon-card/add-pokemon-card.component"
-import { FEATURES } from "@lib/feature-flags"
+import { FEATURES } from "@configuration/feature-flags"
 import { TeamTabsMobileComponent } from "@features/team/team-tabs-mobile/team-tabs-mobile.component"
 import { TeamsMobileComponent } from "@features/team/teams-mobile/teams-mobile.component"
 import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-button/export-pokemon-button.component"
 import { MobileTableOverlayComponent } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.component"
 import { MobileTableOverlayService, TableSelectEvent } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.service"
-import { SpriteService } from "@lib/sprite.service"
-import { SnackbarService } from "@lib/snackbar.service"
+import { SpriteService } from "@core/services/sprite.service"
+import { SnackbarService } from "@core/services/snackbar.service"
+import { DamageResultOrderService } from "@core/services/damage-result-order.service"
 
 @Component({
   selector: "app-multi-calc-mobile",
@@ -88,14 +85,17 @@ export class MultiCalcMobileComponent implements OnDestroy {
   spriteService = inject(SpriteService)
   private snackbar = inject(SnackbarService)
 
-  private damageCalculator = inject(DamageMultiCalcService)
+  private damageCalculator = new DamageMultiCalcService()
+  private damageOrder = inject(DamageResultOrderService)
   private automaticFieldService = inject(AutomaticFieldService)
-  private defensiveEvOptimizer = inject(DefensiveEvOptimizerService)
+  private defensiveEvOptimizer = new DefensiveEvOptimizerService()
   private exportPokeService = inject(ExportPokeService)
   private dialog = inject(MatDialog)
   private backNavigation = inject(BackNavigationService)
 
   constructor() {
+    this.damageOrder.initialize(this.countTargetsWithSpecificCalc())
+
     const iconRegistry = inject(MatIconRegistry)
     const sanitizer = inject(DomSanitizer)
     iconRegistry.addSvgIcon("pokeball", sanitizer.bypassSecurityTrustResourceUrl("assets/icons/pokeball.svg"))
@@ -136,7 +136,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
         if (this.menuStore.manyVsOneActivated()) {
           this.store.targets().forEach((target: Target) => {
             if (!target.pokemon.isDefault && !target.secondPokemon) {
-              this.damageCalculator.activateBestMoveForTarget(target.pokemon, attacker, this.fieldStore.field())
+              this.store.activateMove(target.pokemon.id, this.damageCalculator.bestMoveIndex(target.pokemon, attacker, this.fieldStore.field()))
             }
           })
         }
@@ -149,7 +149,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
           const attacker = this.activeAttacker()
 
           if (attacker) {
-            this.damageCalculator.activateBestMoveForTarget(target.pokemon, attacker, this.fieldStore.field())
+            this.store.activateMove(target.pokemon.id, this.damageCalculator.bestMoveIndex(target.pokemon, attacker, this.fieldStore.field()))
           }
         }
       })
@@ -199,12 +199,28 @@ export class MultiCalcMobileComponent implements OnDestroy {
     return id ? this.store.findPokemonById(id) : undefined
   })
 
+  multiCalcMode = computed<MultiCalcMode>(() => ({
+    oneVsManyActivated: this.menuStore.oneVsManyActivated(),
+    manyVsOneActivated: this.menuStore.manyVsOneActivated(),
+    oneVsManyBestMoveActivated: this.menuStore.oneVsManyBestMoveActivated()
+  }))
+  targetsWithSpecificCalc = computed(() => this.countTargetsWithSpecificCalc())
+
+  private countTargetsWithSpecificCalc(): number {
+    const targets = this.store.targets()
+    const withTera = targets.filter(t => t.pokemon.teraTypeActive).length
+    const withCommander = targets.filter(t => t.pokemon.commanderActive).length
+    return withTera + withCommander
+  }
+
   damageResults = computed(() => {
     const attacker = this.activeAttacker()
 
     if (!attacker) return []
 
-    return this.damageCalculator.calculateDamageForAll(attacker, this.store.displayedTargets(), this.fieldStore.field(), this.menuStore.orderByDamage(), this.secondAttacker())
+    const results = this.damageCalculator.calculateDamageForAll(attacker, this.store.displayedTargets(), this.fieldStore.field(), this.multiCalcMode(), this.secondAttacker(), this.store.useSpsMode())
+
+    return this.menuStore.orderByDamage() ? this.damageOrder.order(results, this.targetsWithSpecificCalc(), this.multiCalcMode()) : results
   })
 
   cardsFilter = signal("")
@@ -444,7 +460,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
       if (attacker) {
         allTargets.forEach((target: Target) => {
           if (!target.pokemon.isDefault && !target.secondPokemon) {
-            this.damageCalculator.activateBestMoveForTarget(target.pokemon, attacker, this.fieldStore.field())
+            this.store.activateMove(target.pokemon.id, this.damageCalculator.bestMoveIndex(target.pokemon, attacker, this.fieldStore.field()))
           }
         })
       }

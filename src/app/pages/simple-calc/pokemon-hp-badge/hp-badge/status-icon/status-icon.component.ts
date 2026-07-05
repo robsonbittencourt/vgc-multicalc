@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from "@angular/core"
-import { Status } from "@lib/model/status"
+import { Status } from "@multicalc/model"
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector

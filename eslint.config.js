@@ -43,8 +43,8 @@ module.exports = tseslint.config(
               group: ["../*"]
             },
             {
-              group: ["@lib/calc/*"],
-              message: "Import from the calc public API (@calc) instead of reaching into @lib/calc internals."
+              group: ["@calc/*"],
+              message: "Import from the calc public API (@calc) instead of reaching into @calc internals."
             }
           ]
         }
@@ -52,20 +52,104 @@ module.exports = tseslint.config(
     }
   },
   {
-    files: ["src/lib/calc/**/*.ts"],
+    files: ["src/domain/calc/**/*.ts"],
     rules: {
       "no-restricted-imports": [
         "error",
         {
-          patterns: ["../*"]
+          patterns: [
+            {
+              group: ["../*"]
+            },
+            {
+              group: ["@app/*", "@basic/*", "@features/*", "@pages/*", "@core/*", "@configuration/*", "@store/*", "@multicalc/*", "@adapters/*"],
+              message: "calc is the pure engine: it must not import from the domain (@multicalc), infra adapters, or the webapp/UI layer. It may only depend on @data (infra) and itself."
+            }
+          ]
         }
       ]
     }
   },
   {
-    files: ["**/cypress/support/**/*.ts"],
+    files: ["src/domain/multicalc/**/*.ts"],
     rules: {
-      "@typescript-eslint/no-namespace": "off"
+      "no-restricted-imports": [
+        "error",
+        {
+          patterns: [
+            {
+              group: ["@app/*", "@basic/*", "@features/*", "@pages/*", "@core/*", "@configuration/*", "@store/*"],
+              message: "multicalc is domain-only: it must not import from the webapp/UI layer. The domain receives data as arguments."
+            },
+            {
+              group: ["@calc/*"],
+              message: "Import from the calc public API (@calc) instead of reaching into @calc internals."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    files: ["src/infrastructure/data/**/*.ts"],
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        {
+          patterns: [
+            {
+              group: ["@app/*", "@basic/*", "@features/*", "@pages/*", "@core/*", "@configuration/*", "@store/*", "@multicalc/*", "@calc", "@calc/*", "@adapters/*"],
+              message: "data is the lowest layer (infra / static data): it must not import from calc, the domain (@multicalc), adapters, or the webapp. Dependencies point downward only; data depends on nothing but itself."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    files: ["src/infrastructure/adapters/**/*.ts"],
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        {
+          patterns: [
+            {
+              group: ["@app/*", "@basic/*", "@features/*", "@pages/*", "@core/*", "@configuration/*", "@store/*"],
+              message: "adapters is infra: it must not import from the webapp/UI layer. It may depend on @data, @calc and @multicalc (it translates between representations)."
+            },
+            {
+              group: ["@calc/*"],
+              message: "Import from the calc public API (@calc) instead of reaching into @calc internals."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    files: ["src/app/**/*.ts"],
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        {
+          patterns: [
+            {
+              group: [
+                "@multicalc/model/*",
+                "@multicalc/damage-calculator/*",
+                "@multicalc/calc-adjuster/*",
+                "@multicalc/speed-calculator/*",
+                "@multicalc/type-coverage/*",
+                "@multicalc/probability-calc/*",
+                "@multicalc/ev-optimizer/*",
+                "@multicalc/stats/*",
+                "@adapters/*"
+              ],
+              message: "Import from the module's public barrel (e.g. @multicalc/model, @adapters) instead of reaching into its internals."
+            }
+          ]
+        }
+      ]
     }
   },
   {

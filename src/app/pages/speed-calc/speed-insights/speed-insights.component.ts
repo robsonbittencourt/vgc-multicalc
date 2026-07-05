@@ -4,9 +4,9 @@ import { PokemonSpriteComponent } from "@basic/pokemon-sprite/pokemon-sprite.com
 import { SpeedStatistic } from "@data/speed-data"
 import { CalculatorStore } from "@store/calculator-store"
 import { SpeedCalcOptionsStore } from "@store/speed-calc-options-store"
-import { MAX_BASE_SPEED_FOR_TR } from "@lib/constants"
-import { Pokemon } from "@lib/model/pokemon"
-import { SpeedCalculatorService } from "@lib/speed-calculator/speed-calculator-service"
+import { MAX_BASE_SPEED_FOR_TR } from "@multicalc/constants"
+import { Pokemon } from "@multicalc/model"
+import { SpeedCalculatorService } from "@multicalc/speed-calculator"
 
 @Component({
   selector: "app-speed-insights",
@@ -17,7 +17,7 @@ import { SpeedCalculatorService } from "@lib/speed-calculator/speed-calculator-s
 export class SpeedInsightsComponent {
   optionsStore = inject(SpeedCalcOptionsStore)
   calculatorStore = inject(CalculatorStore)
-  speedCalculatorService = inject(SpeedCalculatorService)
+  speedCalculatorService = new SpeedCalculatorService()
 
   pokemon = input.required<Pokemon>()
   isMobile = input<boolean>(false)

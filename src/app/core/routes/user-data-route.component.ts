@@ -9,7 +9,7 @@ import { HeaderComponent } from "@core/header/header.component"
 import { CalculatorState, CalculatorStore } from "@store/calculator-store"
 import { ActiveFieldService } from "@store/active-field.service"
 import { buildState } from "@store/utils/user-data-mapper"
-import { DeviceDetectorService } from "@lib/device-detector.service"
+import { DeviceDetectorService } from "@core/services/device-detector.service"
 
 @Component({
   selector: "app-user-data-route",

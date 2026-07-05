@@ -80,23 +80,25 @@ The Angular version used is the latest one. One key highlight is the use of [sig
 
 The [NgRx Signal Store](https://ngrx.io/guide/signals) library serves as the foundation for state management throughout the application. It simplifies reactivity by creating signals for stored properties as needed.
 
-### Smogon Damage Calc
-
-All calculations are performed using the [damage-calc](https://github.com/smogon/damage-calc) library provided by [Smogon](https://www.smogon.com/). Abstractions were created to keep the library usage in isolated points, ensuring it doesn't mix with the project's code.
-
-The most recent version of this project [published on NPM](https://www.npmjs.com/package/@smogon/calc) does not match the latest version on [GitHub](https://github.com/smogon/damage-calc). To address this, a [fork](https://github.com/robsonbittencourt/damage-calc) was created and is [published](https://www.npmjs.com/package/@robsonbittencourt/calc) as needed. This fork is referenced as a dependency in the [package.json](package.json).
-
 ### Project structure
 
+The project follows a hexagonal architecture with a single, ESLint-enforced dependency direction: `app → domain → calc`. The UI orchestrates the domain but holds no business logic; the domain receives data as arguments and never touches Angular components or app state.
+
 ```
-src               // All the source of the bundle is here
-├── app           // Angular components
-│ ├── core        // Main components
-│ ├── features    // Components by feature
-│ └── shared      // Utility components
-├── assets        // Assets like fonts and icons
-├── data          // All the necessary data is here
-└── lib           // Domain logic
+src                        // All the source of the bundle is here
+├── app                    // Angular UI (components, templates, state)
+│ ├── core                 // Main components and app-wide services
+│ ├── features             // Components by feature
+│ ├── pages                // Page-level components
+│ ├── basic                // Utility components
+│ ├── store                // NgRx signal stores (app state)
+│ └── assets               // Assets like fonts and icons
+├── domain                 // Business logic, UI-agnostic
+│ ├── calc                 // Pure calculation engine (public API @calc)
+│ └── multicalc            // Domain logic per feature (teams, speed, probability, …)
+└── infrastructure         // Data and translation glue
+  ├── data                 // All the necessary Pokémon data
+  └── adapters             // Adapters between representations
 ```
 
 ### Deploy

@@ -15,7 +15,7 @@ export interface LinkedTableData<T> {
   subRowData?: any
 }
 
-import { uuid } from "@lib/utils/uuid"
+import { uuid } from "@multicalc/utils/uuid"
 
 export interface ActiveFilter {
   field: string

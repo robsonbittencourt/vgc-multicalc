@@ -5,10 +5,10 @@ import { CalculatorStore } from "@store/calculator-store"
 import { DefensiveCoverageComponent } from "@pages/type-calc/defensive-coverage/defensive-coverage.component"
 import { OffensiveCoverageComponent } from "@pages/type-calc/offensive-coverage/offensive-coverage.component"
 import { TypeCoverageInsightsComponent } from "@pages/type-calc/type-coverage-insights/type-coverage-insights.component"
-import { Team } from "@lib/model/team"
+import { Team } from "@multicalc/model"
 import { FieldStore } from "@store/field-store"
 import { FIELD_CONTEXT } from "@store/tokens/field-context.token"
-import { AutomaticFieldService } from "@lib/automatic-field-service"
+import { AutomaticFieldService } from "@store/automatic-field/automatic-field-service"
 
 @Component({
   selector: "app-type-calculator",

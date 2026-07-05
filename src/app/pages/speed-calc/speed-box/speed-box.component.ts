@@ -1,9 +1,9 @@
 import { NgClass } from "@angular/common"
 import { Component, computed, input, output } from "@angular/core"
 import { PokemonSpriteComponent } from "@basic/pokemon-sprite/pokemon-sprite.component"
-import { ACTUAL, YOUR_TEAM } from "@lib/constants"
-import { Pokemon } from "@lib/model/pokemon"
-import { SpeedDefinition } from "@lib/speed-calculator/speed-definition"
+import { ACTUAL, YOUR_TEAM } from "@multicalc/constants"
+import { Pokemon } from "@multicalc/model"
+import { SpeedDefinition } from "@multicalc/speed-calculator"
 
 @Component({
   selector: "app-speed-box",

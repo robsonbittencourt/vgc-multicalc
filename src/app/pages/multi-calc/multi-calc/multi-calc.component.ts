@@ -6,29 +6,29 @@ import { FIELD_CONTEXT } from "@store/tokens/field-context.token"
 import { FieldComponent } from "@features/field/field.component"
 import { TeamComponent } from "@features/team/team/team.component"
 import { TeamsDesktopComponent } from "@features/team/teams-desktop/teams-desktop.component"
-import { AutomaticFieldService } from "@lib/automatic-field-service"
-import { DamageMultiCalcService } from "@lib/damage-calculator/damage-multi-calc.service"
-import { DamageResultOrderService } from "@lib/damage-calculator/damage-result-order.service"
-import { RollLevelConfig } from "@lib/damage-calculator/roll-level-config"
-import { DefensiveEvOptimizerService } from "@lib/ev-optimizer/defensive-ev-optimizer.service"
-import { Target } from "@lib/model/target"
-import { Stats, SurvivalThreshold } from "@lib/types"
+import { AutomaticFieldService } from "@store/automatic-field/automatic-field-service"
+import { DamageResultOrderService } from "@core/services/damage-result-order.service"
+import { DamageMultiCalcService, RollLevelConfig } from "@multicalc/damage-calculator"
+import { DefensiveEvOptimizerService } from "@multicalc/ev-optimizer"
+import { Target } from "@multicalc/model"
+import { MultiCalcMode, Stats, SurvivalThreshold } from "@multicalc/types"
 import { TargetPokemonComponent } from "@pages/multi-calc/target-pokemon/target-pokemon.component"
 
 @Component({
   selector: "app-multi-calc",
   templateUrl: "./multi-calc.component.html",
   styleUrls: ["./multi-calc.component.scss"],
-  providers: [DamageMultiCalcService, DamageResultOrderService, FieldStore, AutomaticFieldService, { provide: FIELD_CONTEXT, useValue: "multi" }],
+  providers: [DamageResultOrderService, FieldStore, AutomaticFieldService, { provide: FIELD_CONTEXT, useValue: "multi" }],
   imports: [TeamComponent, TeamsDesktopComponent, FieldComponent, TargetPokemonComponent]
 })
 export class MultiCalcComponent implements OnInit {
   store = inject(CalculatorStore)
   menuStore = inject(MenuStore)
   private fieldStore = inject(FieldStore)
-  private damageCalculator = inject(DamageMultiCalcService)
+  private damageCalculator = new DamageMultiCalcService()
+  private damageOrder = inject(DamageResultOrderService)
   private automaticFieldService = inject(AutomaticFieldService)
-  private defensiveEvOptimizer = inject(DefensiveEvOptimizerService)
+  private defensiveEvOptimizer = new DefensiveEvOptimizerService()
 
   pokemonOnEditId = signal<string>(this.store.team().activePokemon().id)
   pokemonOnEdit = computed(() => this.store.findPokemonById(this.pokemonOnEditId()))
@@ -41,7 +41,24 @@ export class MultiCalcComponent implements OnInit {
 
   activeAttacker = computed(() => this.store.findPokemonById(this.store.attackerId()))
   activeSecondAttacker = computed(() => this.store.findNullablePokemonById(this.store.secondAttackerId()))
-  damageResults = computed(() => this.damageCalculator.calculateDamageForAll(this.activeAttacker(), this.store.displayedTargets(), this.fieldStore.field(), this.menuStore.orderByDamage(), this.activeSecondAttacker()))
+  multiCalcMode = computed<MultiCalcMode>(() => ({
+    oneVsManyActivated: this.menuStore.oneVsManyActivated(),
+    manyVsOneActivated: this.menuStore.manyVsOneActivated(),
+    oneVsManyBestMoveActivated: this.menuStore.oneVsManyBestMoveActivated()
+  }))
+  targetsWithSpecificCalc = computed(() => this.countTargetsWithSpecificCalc())
+
+  private countTargetsWithSpecificCalc(): number {
+    const targets = this.store.targets()
+    const withTera = targets.filter(t => t.pokemon.teraTypeActive).length
+    const withCommander = targets.filter(t => t.pokemon.commanderActive).length
+    return withTera + withCommander
+  }
+  damageResults = computed(() => {
+    const results = this.damageCalculator.calculateDamageForAll(this.activeAttacker(), this.store.displayedTargets(), this.fieldStore.field(), this.multiCalcMode(), this.activeSecondAttacker(), this.store.useSpsMode())
+
+    return this.menuStore.orderByDamage() ? this.damageOrder.order(results, this.targetsWithSpecificCalc(), this.multiCalcMode()) : results
+  })
 
   teamComponent = viewChild<TeamComponent>("teamComponent")
 
@@ -57,6 +74,8 @@ export class MultiCalcComponent implements OnInit {
   lastHandledTargetOnEditName = ""
 
   constructor() {
+    this.damageOrder.initialize(this.countTargetsWithSpecificCalc())
+
     effect(() => {
       const activeId = this.store.team().activePokemon().id
       if (this.pokemonOnEditId() !== activeId && !this.store.findPokemonById(this.pokemonOnEditId())) {
@@ -80,7 +99,7 @@ export class MultiCalcComponent implements OnInit {
         if (this.menuStore.manyVsOneActivated()) {
           this.store.targets().forEach((target: Target) => {
             if (!target.pokemon.isDefault && !target.secondPokemon) {
-              this.damageCalculator.activateBestMoveForTarget(target.pokemon, this.activeAttacker(), this.fieldStore.field())
+              this.store.activateMove(target.pokemon.id, this.damageCalculator.bestMoveIndex(target.pokemon, this.activeAttacker(), this.fieldStore.field()))
             }
           })
         }
@@ -94,7 +113,7 @@ export class MultiCalcComponent implements OnInit {
         const isTarget = this.store.targets().some(t => t.pokemon.id === target.id)
 
         if (isTarget) {
-          this.damageCalculator.activateBestMoveForTarget(target, this.activeAttacker(), this.fieldStore.field())
+          this.store.activateMove(target.id, this.damageCalculator.bestMoveIndex(target, this.activeAttacker(), this.fieldStore.field()))
         }
       }
 
@@ -127,7 +146,7 @@ export class MultiCalcComponent implements OnInit {
     if (this.menuStore.manyVsOneActivated()) {
       this.store.targets().forEach((target: Target) => {
         if (!target.pokemon.isDefault && !target.secondPokemon) {
-          this.damageCalculator.activateBestMoveForTarget(target.pokemon, this.activeAttacker(), this.fieldStore.field())
+          this.store.activateMove(target.pokemon.id, this.damageCalculator.bestMoveIndex(target.pokemon, this.activeAttacker(), this.fieldStore.field()))
         }
       })
     }
@@ -141,7 +160,7 @@ export class MultiCalcComponent implements OnInit {
     if (this.menuStore.manyVsOneActivated()) {
       this.store.targets().forEach((target: Target) => {
         if (!target.pokemon.isDefault && !target.secondPokemon) {
-          this.damageCalculator.activateBestMoveForTarget(target.pokemon, this.activeAttacker(), this.fieldStore.field())
+          this.store.activateMove(target.pokemon.id, this.damageCalculator.bestMoveIndex(target.pokemon, this.activeAttacker(), this.fieldStore.field()))
         }
       })
     }

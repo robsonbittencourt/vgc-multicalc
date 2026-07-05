@@ -2,7 +2,7 @@ import fs from "fs"
 import { smogonSpeedData } from "./smogon-speed-data.js"
 
 export async function createSpeedStatisticsFile(date, regulation) {
-  const outputFile = `src/data/speed-statistics-reg-${regulation}.ts`
+  const outputFile = `src/infrastructure/data/speed-statistics-reg-${regulation}.ts`
 
   console.log(`⏳ [createSpeedStatisticsFile] Fetching speed statistics for ${date} / ${regulation.toUpperCase()}...`)
 

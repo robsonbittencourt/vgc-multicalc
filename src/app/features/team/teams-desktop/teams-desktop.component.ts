@@ -9,8 +9,7 @@ import { WidgetComponent } from "@basic/widget/widget.component"
 import { CalculatorStore } from "@store/calculator-store"
 import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
 import { TeamBoxComponent } from "@features/team/team-box/team-box.component"
-import { Pokemon } from "@lib/model/pokemon"
-import { Team } from "@lib/model/team"
+import { Pokemon, Team } from "@multicalc/model"
 import { TeamsService } from "@features/team/teams.service"
 
 @Component({

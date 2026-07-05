@@ -5,7 +5,7 @@ import { InputSelectComponent } from "@basic/input-select/input-select.component
 import { WidgetComponent } from "@basic/widget/widget.component"
 import { CalculatorStore } from "@store/calculator-store"
 import { SpeedCalcOptionsStore } from "@store/speed-calc-options-store"
-import { Pokemon } from "@lib/model/pokemon"
+import { Pokemon } from "@multicalc/model"
 import { OpponentOptionsComponent } from "@pages/speed-calc/opponent-options/opponent-options.component"
 import { SpeedScaleComponent } from "@pages/speed-calc/speed-scale/speed-scale.component"
 

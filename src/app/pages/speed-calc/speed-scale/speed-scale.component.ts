@@ -3,12 +3,9 @@ import { isPlatformBrowser } from "@angular/common"
 import { CalculatorStore } from "@store/calculator-store"
 import { FieldStore } from "@store/field-store"
 import { SpeedCalcOptionsStore } from "@store/speed-calc-options-store"
-import { Field } from "@lib/model/field"
-import { Pokemon } from "@lib/model/pokemon"
-import { getFinalSpeed } from "@lib/smogon/stat-calculator/spe/modified-spe"
-import { SpeedCalculatorOptions as SpeedScaleOptions } from "@lib/speed-calculator/speed-calculator-options"
-import { SpeedCalculatorService } from "@lib/speed-calculator/speed-calculator-service"
-import { SpeedDefinition } from "@lib/speed-calculator/speed-definition"
+import { Field, Pokemon } from "@multicalc/model"
+import { getFinalSpeed } from "@multicalc/stats"
+import { SpeedCalculatorOptions as SpeedScaleOptions, SpeedCalculatorService, SpeedTeamPokemon, SpeedDefinition } from "@multicalc/speed-calculator"
 import { SpeedBoxComponent } from "@pages/speed-calc/speed-box/speed-box.component"
 
 @Component({
@@ -27,7 +24,7 @@ export class SpeedScaleComponent implements OnInit {
   store = inject(CalculatorStore)
   fieldStore = inject(FieldStore)
   optionsStore = inject(SpeedCalcOptionsStore)
-  private speedCalculatorService = inject(SpeedCalculatorService)
+  private speedCalculatorService = new SpeedCalculatorService()
 
   hideActualDescription = computed(() => this.optionsStore.filterType() === "opponents" || this.optionsStore.filterType() === "team")
   highlightMyTeam = computed(() => this.optionsStore.showMyTeam())
@@ -59,12 +56,29 @@ export class SpeedScaleComponent implements OnInit {
     clearTimeout(this.timeoutId)
 
     this.timeoutId = setTimeout(() => {
-      const range = this.speedCalculatorService.orderedPokemon(pokemon, field, this.pokemonEachSide(), options, this.opponentsNoPaddingThreshold())
+      const range = this.speedCalculatorService.orderedPokemon(pokemon, field, this.pokemonEachSide(), this.teamPokemon(options), options, this.opponentsNoPaddingThreshold())
       this.inSpeedRange.set(range)
 
       this.verifyChanges(range)
       this.setPokemonSelected(this.pokemon())
     }, 200)
+  }
+
+  private teamPokemon(options: SpeedScaleOptions): SpeedTeamPokemon {
+    const opponents = this.store
+      .targets()
+      .flatMap(t => [t.pokemon, t.secondPokemon])
+      .filter((p): p is Pokemon => p != null && !p.isDefault)
+
+    const selectedTeam = this.store.teams().find(t => t.id === options.teamId)
+    const team = selectedTeam ? selectedTeam.teamMembers.map(m => m.pokemon).filter(p => !p.isDefault) : []
+
+    const myTeam = this.store
+      .team()
+      .teamMembers.map(m => m.pokemon)
+      .filter(p => !p.isDefault)
+
+    return { opponents, team, myTeam }
   }
 
   setPokemonSelected(pokemon: Pokemon) {

@@ -59,12 +59,12 @@ export async function createMovesetsFile(date, regulation) {
 
   writeInMovesetsFile(smogonData)
 
-  const outputFile = "src/data/movesets.ts"
+  const outputFile = "src/infrastructure/data/movesets.ts"
   console.log(`✅ [createMovesetsFile] '${outputFile}' updated successfully`)
 }
 
 function writeInMovesetsFile(smogonData) {
-  const outputFile = "src/data/movesets.ts"
+  const outputFile = "src/infrastructure/data/movesets.ts"
   const modulePrefix = MOVESET_MODULE_PREFIX
 
   const updatedMovesets = updateMovesets(smogonData, outputFile)

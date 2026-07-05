@@ -6,8 +6,8 @@ import { MultiCalcMobileComponent } from "@pages/multi-calc/multi-calc-mobile/mu
 import { HeaderMobileComponent } from "@core/header-mobile/header-mobile.component"
 import { HeaderComponent } from "@core/header/header.component"
 import { MenuStore } from "@store/menu-store"
-import { DeviceDetectorService } from "@lib/device-detector.service"
-import { JsonLdService } from "@lib/json-ld.service"
+import { DeviceDetectorService } from "@core/services/device-detector.service"
+import { JsonLdService } from "@core/services/json-ld.service"
 
 const TITLE = "Pokémon Damage Calculator — Team vs Many"
 const DESCRIPTION = "Calculate damage from one Pokémon against multiple targets at once. The ultimate multi-target damage calculator for VGC and Pokémon Champions Doubles."

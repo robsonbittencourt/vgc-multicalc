@@ -1,0 +1,35 @@
+{
+  "date": "2026-07-04",
+  "git": {
+    "branch": "remove-sv",
+    "commit": "8b4f6511"
+  },
+  "current": {
+    "single": {
+      "iterations": 40000,
+      "totalMs": 647.9,
+      "nsPerCall": 16197.9
+    },
+    "multi": {
+      "iterations": 15000,
+      "totalMs": 496.9,
+      "nsPerCall": 33126.6
+    },
+    "heapDeltaMB": 3.84,
+    "source": "vendored calc (this branch)"
+  },
+  "baseline": {
+    "single": {
+      "iterations": 40000,
+      "totalMs": 707.6,
+      "nsPerCall": 17689.4
+    },
+    "multi": {
+      "iterations": 15000,
+      "totalMs": 792.2,
+      "nsPerCall": 52810.6
+    },
+    "heapDeltaMB": 3.81,
+    "source": "previous run — 2026-07-03"
+  }
+}

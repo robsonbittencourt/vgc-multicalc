@@ -3,14 +3,14 @@ import { WidgetComponent } from "@app/basic/widget/widget.component"
 import { PokemonSpriteComponent } from "@basic/pokemon-sprite/pokemon-sprite.component"
 import { CalculatorStore } from "@store/calculator-store"
 import { FieldStore } from "@store/field-store"
-import { ConsistencyScoreService } from "@lib/probability-calc/consistency-score.service"
-import { MoveProbabilityService } from "@lib/probability-calc/move-probability.service"
+import { ConsistencyScoreService, MoveProbabilityService } from "@multicalc/probability-calc"
 import { PokemonMovesMobileComponent } from "@features/pokemon-build/pokemon-moves-mobile/pokemon-moves-mobile.component"
-import { Pokemon } from "@lib/model/pokemon"
+import { Pokemon } from "@multicalc/model"
+import { ProbabilityPercentPipe } from "@pages/probability-calc/pipes/probability-percent.pipe"
 
 @Component({
   selector: "app-pokemon-probability",
-  imports: [WidgetComponent, PokemonMovesMobileComponent, PokemonSpriteComponent],
+  imports: [WidgetComponent, PokemonMovesMobileComponent, PokemonSpriteComponent, ProbabilityPercentPipe],
   templateUrl: "./pokemon-probability.component.html",
   styleUrl: "./pokemon-probability.component.scss",
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -23,8 +23,8 @@ export class PokemonProbabilityComponent {
   pokemon = input<Pokemon | null>(null)
   store = inject(CalculatorStore)
   fieldStore = inject(FieldStore)
-  moveProbabilityService = inject(MoveProbabilityService)
-  consistencyScoreService = inject(ConsistencyScoreService)
+  moveProbabilityService = new MoveProbabilityService()
+  consistencyScoreService = new ConsistencyScoreService()
 
   effectivePokemon = computed(() => this.pokemon() || this.store.team().activePokemon())
   move = computed(() => this.effectivePokemon().moveSet.activeMove)

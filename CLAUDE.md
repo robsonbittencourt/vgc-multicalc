@@ -1,12 +1,12 @@
 # Claude Code Guidelines for VGC Multi Calc
 
-This project follows strict rules defined in the `.agent/rules/` directory. Please read and follow all guidelines below.
+This project follows strict rules defined in the `.claude/rules/` directory. Please read and follow all guidelines below.
 
 ## Core Rules
 
 All rules are defined in the following files and MUST be followed in every interaction:
 
-### 1. **General Rules** (`.agent/rules/general.md`)
+### 1. **General Rules** (`.claude/rules/general.md`)
 
 Covers project overview, Git rules, agent behavior, Angular patterns, state management, TypeScript conventions, and best practices.
 
@@ -21,7 +21,7 @@ Covers project overview, Git rules, agent behavior, Angular patterns, state mana
 - **NO COMMENTS** in code unless explicitly asked
 - State management via NgRx Signal Store
 
-### 2. **Code Style Rules** (`.agent/rules/code-styles.md`)
+### 2. **Code Style Rules** (`.claude/rules/code-styles.md`)
 
 Covers ESLint rules, code organization, styling, domain logic, and code formatting with Prettier.
 
@@ -35,7 +35,7 @@ Covers ESLint rules, code organization, styling, domain logic, and code formatti
 - Private functions placement: after the first public method that uses them
 - Test format: Given/When/Then (without comments)
 
-### 3. **Quality & Validation Rules** (`.agent/rules/quality.md`)
+### 3. **Quality & Validation Rules** (`.claude/rules/quality.md`)
 
 Covers when to run prettier, lint, tests, and build commands.
 
@@ -74,6 +74,6 @@ When the user reports a visual bug:
 
 Refer to the original rule files:
 
-- `.agent/rules/general.md` - Project structure and patterns
-- `.agent/rules/code-styles.md` - Code formatting and styling
-- `.agent/rules/quality.md` - Testing and validation workflow
+- `.claude/rules/general.md` - Project structure and patterns
+- `.claude/rules/code-styles.md` - Code formatting and styling
+- `.claude/rules/quality.md` - Testing and validation workflow

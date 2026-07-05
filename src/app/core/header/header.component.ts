@@ -9,10 +9,10 @@ import { CopyButtonComponent } from "@app/basic/copy-button/copy-button.componen
 import { ActiveFieldService } from "@store/active-field.service"
 import { CalculatorStore } from "@store/calculator-store"
 import { MenuStore } from "@store/menu-store"
-import { SnackbarService } from "@lib/snackbar.service"
-import { ThemeService } from "@lib/theme.service"
+import { SnackbarService } from "@core/services/snackbar.service"
+import { ThemeService } from "@core/services/theme.service"
 import { Router } from "@angular/router"
-import { uuid } from "@lib/utils/uuid"
+import { uuid } from "@multicalc/utils/uuid"
 
 @Component({
   selector: "app-header",

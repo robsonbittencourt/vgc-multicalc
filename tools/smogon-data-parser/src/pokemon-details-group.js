@@ -35,7 +35,7 @@ function serializeObject(obj, indent = 2) {
 }
 
 export async function pokemonDetailsGroup(regulation = "i") {
-  const pokemonDetailsPath = path.resolve("src/data/pokemon-details.ts")
+  const pokemonDetailsPath = path.resolve("src/infrastructure/data/pokemon-details.ts")
 
   console.log(`⏳ [pokemonDetailsGroup] Updating group and order for regulation ${regulation.toUpperCase()}...`)
 

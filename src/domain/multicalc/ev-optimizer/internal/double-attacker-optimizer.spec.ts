@@ -1,0 +1,121 @@
+import { Field } from "@multicalc/model/field"
+import { Move } from "@multicalc/model/move"
+import { MoveSet } from "@multicalc/model/moveset"
+import { Pokemon } from "@multicalc/model/pokemon"
+import { DoubleAttackerOptimizer } from "./double-attacker-optimizer"
+
+describe("DoubleAttackerOptimizer", () => {
+  let service: DoubleAttackerOptimizer
+
+  beforeEach(() => {
+    service = new DoubleAttackerOptimizer()
+  })
+
+  it("should be created", () => {
+    expect(service).toBeTruthy()
+  })
+
+  describe("optimizeForTwoAttackers", () => {
+    it("should optimize for two physical attackers", () => {
+      const defender = new Pokemon("Gholdengo", {
+        evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
+      })
+
+      const attacker1 = new Pokemon("Urshifu-Rapid-Strike", {
+        nature: "Adamant",
+        moveSet: new MoveSet(new Move("Surging Strikes"), new Move("Close Combat"), new Move("Aqua Jet"), new Move("Detect")),
+        evs: { hp: 4, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 }
+      })
+
+      const attacker2 = new Pokemon("Landorus-Therian", {
+        nature: "Adamant",
+        moveSet: new MoveSet(new Move("Earthquake"), new Move("Stomping Tantrum"), new Move("Rock Slide"), new Move("U-turn")),
+        evs: { hp: 148, atk: 116, def: 4, spa: 0, spd: 124, spe: 116 }
+      })
+
+      const field = new Field()
+      const result = service.optimizeForTwoAttackers(attacker1, attacker2, defender, field)
+
+      expect(result.hp).toBeGreaterThan(0)
+      expect(result.def).toBeGreaterThan(0)
+      expect(result.spd).toBe(0)
+    })
+
+    it("should optimize for two special attackers", () => {
+      const defender = new Pokemon("Gholdengo", {
+        evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
+      })
+
+      const attacker1 = new Pokemon("Raging Bolt", {
+        nature: "Modest",
+        moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Thunderclap"), new Move("Draco Meteor"), new Move("Protect")),
+        evs: { hp: 0, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 }
+      })
+
+      const attacker2 = new Pokemon("Flutter Mane", {
+        nature: "Modest",
+        moveSet: new MoveSet(new Move("Dazzling Gleam"), new Move("Icy Wind"), new Move("Protect"), new Move("Taunt")),
+        evs: { hp: 0, atk: 0, def: 0, spa: 252, spd: 4, spe: 44 }
+      })
+
+      const field = new Field()
+      const result = service.optimizeForTwoAttackers(attacker1, attacker2, defender, field)
+
+      expect(result.hp).toBeGreaterThanOrEqual(0)
+      expect(result.spd).toBeGreaterThanOrEqual(0)
+      expect(result.def).toBe(0)
+      expect(result.atk).toBe(0)
+      expect(result.spa).toBe(0)
+      expect(result.spe).toBe(0)
+      expect(result.hp + result.spd + result.def).toBeLessThanOrEqual(508)
+    })
+
+    it("should optimize for mixed attackers", () => {
+      const defender = new Pokemon("Gholdengo", {
+        evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
+      })
+
+      const physicalAttacker = new Pokemon("Urshifu-Rapid-Strike", {
+        nature: "Adamant",
+        moveSet: new MoveSet(new Move("Surging Strikes"), new Move("Close Combat"), new Move("Aqua Jet"), new Move("Detect")),
+        evs: { hp: 4, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 }
+      })
+
+      const specialAttacker = new Pokemon("Flutter Mane", {
+        nature: "Modest",
+        moveSet: new MoveSet(new Move("Dazzling Gleam"), new Move("Icy Wind"), new Move("Protect"), new Move("Taunt")),
+        evs: { hp: 0, atk: 0, def: 0, spa: 252, spd: 4, spe: 44 }
+      })
+
+      const field = new Field()
+      const result = service.optimizeForTwoAttackers(physicalAttacker, specialAttacker, defender, field)
+
+      expect(result.hp).toBeGreaterThan(0)
+      expect(result.def).toBeGreaterThanOrEqual(0)
+      expect(result.spd).toBeGreaterThanOrEqual(0)
+    })
+
+    it("should return valid EV values within limit", () => {
+      const defender = new Pokemon("Gholdengo", {
+        evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
+      })
+
+      const attacker1 = new Pokemon("Urshifu-Rapid-Strike", {
+        nature: "Adamant",
+        moveSet: new MoveSet(new Move("Surging Strikes"), new Move("Close Combat"), new Move("Aqua Jet"), new Move("Detect")),
+        evs: { hp: 4, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 }
+      })
+
+      const attacker2 = new Pokemon("Flutter Mane", {
+        nature: "Modest",
+        moveSet: new MoveSet(new Move("Dazzling Gleam"), new Move("Icy Wind"), new Move("Protect"), new Move("Taunt")),
+        evs: { hp: 0, atk: 0, def: 0, spa: 252, spd: 4, spe: 44 }
+      })
+
+      const field = new Field()
+      const result = service.optimizeForTwoAttackers(attacker1, attacker2, defender, field)
+
+      expect(result.hp + result.def + result.spd).toBeLessThanOrEqual(508)
+    })
+  })
+})
