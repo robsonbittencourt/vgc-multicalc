@@ -1,7 +1,7 @@
 import { Component, computed, inject, input, output } from "@angular/core"
 import { InputSelectComponent } from "@basic/input-select/input-select.component"
 import { CalculatorStore } from "@store/calculator-store"
-import { Status } from "@lib/model/status"
+import { Status } from "@multicalc/model"
 
 @Component({
   selector: "app-status-combo-box",

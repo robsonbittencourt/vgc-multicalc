@@ -1,11 +1,11 @@
 import { Component, computed, inject, input, output } from "@angular/core"
-import { MoveName } from "@calc"
+import { MoveName } from "@data/types"
 import { getMoveData } from "@data/move-data"
-import { POKEMON_DATA } from "@data/pokemon-data"
+import { getPokemonMoveset } from "@data/pokemon-moveset"
 import { CalculatorStore } from "@store/calculator-store"
 import { FilterableTableComponent } from "@features/pokemon-build/tables/filterable-table/filterable-table.component"
 import { ColumnConfig } from "@features/pokemon-build/tables/filterable-table/filtered-table-types"
-import { MoveTarget, PokemonType, PokemonTypes, SecondaryEffect } from "@lib/types"
+import { MoveTarget, PokemonType, PokemonTypes, SecondaryEffect } from "@multicalc/types"
 
 interface MoveDetail {
   accuracy: number | true
@@ -42,12 +42,11 @@ export class MovesTableComponent {
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
 
   movesData = computed(() => {
-    const details = POKEMON_DATA
-    const pokemonDetails = Object.values(details).find(p => p.name == this.pokemon().name)!
-    const metaMoves = this.getMoveDetails(pokemonDetails.metaMoves ?? [])
-    const allMoves = this.getMoveDetails(pokemonDetails.learnset ?? [])
+    const pokemonMoveset = getPokemonMoveset(this.pokemon().name)
+    const metaMoves = this.getMoveDetails(pokemonMoveset?.metaMoves ?? [])
+    const allMoves = this.getMoveDetails(pokemonMoveset?.learnset ?? [])
 
-    const metaMoveNames = new Set((pokemonDetails.metaMoves ?? []).map(move => move.toLowerCase().replace(/[^a-z0-9]/g, "")))
+    const metaMoveNames = new Set((pokemonMoveset?.metaMoves ?? []).map(move => move.toLowerCase().replace(/[^a-z0-9]/g, "")))
     const regularMoves = allMoves.filter(move => !metaMoveNames.has(move.name.toLowerCase().replace(/[^a-z0-9]/g, "")))
 
     const groups = []

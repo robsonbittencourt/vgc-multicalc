@@ -1,7 +1,7 @@
 import { Component, computed, inject, input } from "@angular/core"
 import { MatTooltip } from "@angular/material/tooltip"
 import { CalculatorStore } from "@store/calculator-store"
-import { Stats } from "@lib/types"
+import { Stats } from "@multicalc/types"
 
 @Component({
   selector: "app-terastal-button",

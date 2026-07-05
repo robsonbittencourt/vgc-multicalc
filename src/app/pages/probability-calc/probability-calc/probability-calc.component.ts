@@ -9,8 +9,8 @@ import { TeamProbabilityComponent } from "@app/pages/probability-calc/team-proba
 import { CalculatorStore } from "@store/calculator-store"
 import { FieldStore } from "@store/field-store"
 import { FIELD_CONTEXT } from "@store/tokens/field-context.token"
-import { AutomaticFieldService } from "@lib/automatic-field-service"
-import { Pokemon } from "@lib/model/pokemon"
+import { AutomaticFieldService } from "@store/automatic-field/automatic-field-service"
+import { Pokemon } from "@multicalc/model"
 
 @Component({
   selector: "app-probability-calc",

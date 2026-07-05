@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core"
 import { RouterModule, Routes } from "@angular/router"
-import { UserDataResolver } from "@lib/user-data/user-data-resolver"
+import { UserDataResolver } from "@store/user-data/user-data-resolver"
 import { NotFoundPageComponent } from "./core/not-found-page/not-found-page.component"
 
 const appRoutes: Routes = [

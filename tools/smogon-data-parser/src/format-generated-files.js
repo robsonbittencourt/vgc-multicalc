@@ -8,7 +8,7 @@ const __dirname = path.dirname(__filename)
 export function formatGeneratedFiles(regulation) {
   console.log("⏳ [formatGeneratedFiles] Running prettier on generated files...")
 
-  const generatedFiles = ["src/configuration/top-usage-regulation.ts", "src/data/pokemon-details.ts", "src/data/movesets.ts", `src/data/speed-statistics-reg-${regulation}.ts`]
+  const generatedFiles = ["src/configuration/top-usage-regulation.ts", "src/infrastructure/data/pokemon-details.ts", "src/infrastructure/data/movesets.ts", `src/infrastructure/data/speed-statistics-reg-${regulation}.ts`]
 
   const projectRoot = path.resolve(__dirname, "../../..")
   const prettierBin = path.resolve(projectRoot, "node_modules/.bin/prettier")

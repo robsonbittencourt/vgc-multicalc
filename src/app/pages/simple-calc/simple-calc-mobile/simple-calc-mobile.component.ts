@@ -7,15 +7,13 @@ import { FIELD_CONTEXT } from "@store/tokens/field-context.token"
 import { FieldComponent } from "@features/field/field.component"
 import { PokemonBuildMobileComponent } from "@features/pokemon-build/pokemon-build-mobile/pokemon-build-mobile.component"
 import { WidgetComponent } from "@basic/widget/widget.component"
-import { AutomaticFieldService } from "@lib/automatic-field-service"
-import { DamageCalculatorService } from "@lib/damage-calculator/damage-calculator.service"
+import { AutomaticFieldService } from "@store/automatic-field/automatic-field-service"
+import { DamageCalculatorService, RollLevelConfig } from "@multicalc/damage-calculator"
 import { RollConfigComponent } from "@features/roll-config/roll-config.component"
-import { RollLevelConfig } from "@lib/damage-calculator/roll-level-config"
-import { DefensiveEvOptimizerService } from "@lib/ev-optimizer/defensive-ev-optimizer.service"
-import { BackNavigationService } from "@lib/back-navigation.service"
-import { Pokemon } from "@lib/model/pokemon"
-import { Target } from "@lib/model/target"
-import { Stats } from "@lib/types"
+import { DefensiveEvOptimizerService } from "@multicalc/ev-optimizer"
+import { BackNavigationService } from "@core/services/back-navigation.service"
+import { Pokemon, Target } from "@multicalc/model"
+import { Stats } from "@multicalc/types"
 import { PokemonCardComponent } from "@pages/multi-calc/pokemon-card/pokemon-card.component"
 import { NgClass } from "@angular/common"
 import { MatIcon, MatIconRegistry } from "@angular/material/icon"
@@ -52,9 +50,9 @@ export class SimpleCalcMobileComponent implements OnDestroy {
   store = inject(CalculatorStore)
   fieldStore = inject(FieldStore)
   overlay = inject(MobileTableOverlayService)
-  private damageCalculator = inject(DamageCalculatorService)
+  private damageCalculator = new DamageCalculatorService()
   private automaticFieldService = inject(AutomaticFieldService)
-  private defensiveEvOptimizer = inject(DefensiveEvOptimizerService)
+  private defensiveEvOptimizer = new DefensiveEvOptimizerService()
   private backNavigation = inject(BackNavigationService)
 
   pokemonBuildMobile = viewChild.required(PokemonBuildMobileComponent)
@@ -91,10 +89,10 @@ export class SimpleCalcMobileComponent implements OnDestroy {
     const field = this.fieldStore.field()
 
     if (this.isCurrentPokemonAttacker()) {
-      return this.damageCalculator.calcDamage(current, other, field)
+      return this.damageCalculator.calcDamage(current, other, field, true, this.store.useSpsMode())
     }
 
-    return this.damageCalculator.calcDamage(other, current, field)
+    return this.damageCalculator.calcDamage(other, current, field, true, this.store.useSpsMode())
   })
 
   target = computed(() => {

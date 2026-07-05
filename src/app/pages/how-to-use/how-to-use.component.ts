@@ -6,7 +6,7 @@ import { MatCardModule } from "@angular/material/card"
 import { MatIconModule } from "@angular/material/icon"
 import { FieldStore } from "@store/field-store"
 import { FIELD_CONTEXT } from "@store/tokens/field-context.token"
-import { AutomaticFieldService } from "@lib/automatic-field-service"
+import { AutomaticFieldService } from "@store/automatic-field/automatic-field-service"
 
 const TITLE = "Pokémon Damage Calculator - How to Use - VGC Champions"
 const DESCRIPTION = "Learn how to use VGC Multi Calc: multi-target damage calculation, EV optimization, speed tiers, type coverage and damage probability for VGC and Pokémon Champions."

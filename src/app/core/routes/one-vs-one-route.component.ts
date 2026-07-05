@@ -6,8 +6,8 @@ import { SimpleCalcMobileComponent } from "@pages/simple-calc/simple-calc-mobile
 import { HeaderMobileComponent } from "@core/header-mobile/header-mobile.component"
 import { HeaderComponent } from "@core/header/header.component"
 import { MenuStore } from "@store/menu-store"
-import { DeviceDetectorService } from "@lib/device-detector.service"
-import { JsonLdService } from "@lib/json-ld.service"
+import { DeviceDetectorService } from "@core/services/device-detector.service"
+import { JsonLdService } from "@core/services/json-ld.service"
 
 const TITLE = "Pokémon Damage Calculator — One vs One"
 const DESCRIPTION = "Classic one-on-one Pokémon damage calculator for VGC and Pokémon Champions. Detailed side-by-side analysis with EVs, Natures, abilities and damage rolls."

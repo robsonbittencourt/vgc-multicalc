@@ -7,10 +7,10 @@ import { MatIcon } from "@angular/material/icon"
 import { ActiveFieldService } from "@store/active-field.service"
 import { CalculatorStore } from "@store/calculator-store"
 import { MenuStore } from "@store/menu-store"
-import { SnackbarService } from "@lib/snackbar.service"
-import { Color, Theme, ThemeService } from "@lib/theme.service"
-import { uuid } from "@lib/utils/uuid"
-import { PwaInstallService } from "@lib/pwa-install.service"
+import { SnackbarService } from "@core/services/snackbar.service"
+import { Color, Theme, ThemeService } from "@core/services/theme.service"
+import { uuid } from "@multicalc/utils/uuid"
+import { PwaInstallService } from "@core/services/pwa-install.service"
 
 @Component({
   selector: "app-header-mobile",

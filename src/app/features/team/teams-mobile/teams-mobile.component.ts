@@ -8,10 +8,9 @@ import { CdkDragEnd } from "@angular/cdk/drag-drop"
 import { CalculatorStore } from "@store/calculator-store"
 import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
 import { TeamBoxComponent } from "@features/team/team-box/team-box.component"
-import { Pokemon } from "@lib/model/pokemon"
-import { Team } from "@lib/model/team"
+import { Pokemon, Team } from "@multicalc/model"
 import { TeamsService } from "@features/team/teams.service"
-import { SnackbarService } from "@lib/snackbar.service"
+import { SnackbarService } from "@core/services/snackbar.service"
 
 @Component({
   selector: "app-teams-mobile",

@@ -11,7 +11,7 @@ import { InputSelectComponent } from "@basic/input-select/input-select.component
 import { CalculatorStore } from "@store/calculator-store"
 import { FieldStore } from "@store/field-store"
 import { MenuStore } from "@store/menu-store"
-import { spToEv, totalSpsFromEvs } from "@lib/utils/ev-sp-converter"
+import { spToEv, totalSpsFromEvs } from "@multicalc/utils/ev-sp-converter"
 import { AbilityComboBoxComponent } from "@features/pokemon-build/ability-combo-box/ability-combo-box.component"
 import { EvSliderComponent } from "@features/pokemon-build/ev-slider/ev-slider.component"
 import { NatureComboBoxComponent } from "@features/pokemon-build/nature-combo-box/nature-combo-box.component"
@@ -20,12 +20,10 @@ import { StatusComboBoxComponent } from "@features/pokemon-build/status-combo-bo
 import { TeraComboBoxComponent } from "@features/pokemon-build/tera-combo-box/tera-combo-box.component"
 import { TypeComboBoxComponent } from "@features/pokemon-build/type-combo-box/type-combo-box.component"
 import { MegaStoneService } from "@features/pokemon-build/utils/mega-stone.service"
-import { FEATURES } from "@lib/feature-flags"
-import { Pokemon } from "@lib/model/pokemon"
-import { getFinalAttack, getFinalSpecialAttack } from "@lib/smogon/stat-calculator/atk-spa/modified-atk-spa"
-import { getFinalDefense, getFinalSpecialDefense } from "@lib/smogon/stat-calculator/def-spd/modified-def-spd"
-import { getFinalSpeed } from "@lib/smogon/stat-calculator/spe/modified-spe"
-import { Stats } from "@lib/types"
+import { FEATURES } from "@configuration/feature-flags"
+import { Pokemon } from "@multicalc/model"
+import { getFinalAttack, getFinalSpecialAttack, getFinalDefense, getFinalSpecialDefense, getFinalSpeed } from "@multicalc/stats"
+import { Stats } from "@multicalc/types"
 
 @Component({
   selector: "app-pokemon-build-mobile",

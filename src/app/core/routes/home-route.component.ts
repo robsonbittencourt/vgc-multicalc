@@ -6,7 +6,7 @@ import { SimpleCalcMobileComponent } from "@pages/simple-calc/simple-calc-mobile
 import { HeaderMobileComponent } from "@core/header-mobile/header-mobile.component"
 import { HeaderComponent } from "@core/header/header.component"
 import { MenuStore } from "@store/menu-store"
-import { DeviceDetectorService } from "@lib/device-detector.service"
+import { DeviceDetectorService } from "@core/services/device-detector.service"
 
 const TITLE = "Pokémon Damage Calculator — Multi Calc for VGC & Champions"
 const DESCRIPTION = "Pokémon damage calculator with multi-target support — no ads, no signup. Calculate KO chance, damage rolls and 2HKO probability for VGC and Pokémon Champions teams instantly."

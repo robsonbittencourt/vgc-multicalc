@@ -5,14 +5,13 @@ import { MatDialog } from "@angular/material/dialog"
 import { MatIcon } from "@angular/material/icon"
 import { availableItemNames } from "@configuration/available-items"
 import { MOVESETS } from "@data/moveset-data"
-import { POKEMON_DATA } from "@data/pokemon-data"
-import { toPokemon } from "@lib/pokemon-by-regulation"
+import { getPokemonData } from "@data/pokemon-data"
+import { getPokemonMoveset } from "@data/pokemon-moveset"
+import { toPokemon } from "@adapters"
 import { ImportModalComponent } from "@features/import-modal/import-modal.component"
-import { Move } from "@lib/model/move"
-import { MoveSet } from "@lib/model/moveset"
-import { Pokemon } from "@lib/model/pokemon"
-import { SnackbarService } from "@lib/snackbar.service"
-import { PokePasteParserService } from "@lib/user-data/poke-paste-parser.service"
+import { Move, MoveSet, Pokemon } from "@multicalc/model"
+import { SnackbarService } from "@core/services/snackbar.service"
+import { PokePasteParserService } from "@store/user-data/poke-paste-parser.service"
 
 @Component({
   selector: "app-import-pokemon-button",
@@ -76,9 +75,8 @@ export class ImportPokemonButtonComponent {
       return
     }
 
-    const activeDetails = POKEMON_DATA
     const validItemsForMode = availableItemNames()
-    const validatedList: { pokemon: Pokemon; hadInvalidMoves: boolean; hadInvalidItem: boolean }[] = validList.map(p => this.validateAndClean(p, activeDetails, validItemsForMode))
+    const validatedList: { pokemon: Pokemon; hadInvalidMoves: boolean; hadInvalidItem: boolean }[] = validList.map(p => this.validateAndClean(p, validItemsForMode))
 
     const hadInvalidMoves = validatedList.some(v => v.hadInvalidMoves)
     const hadInvalidItems = validatedList.some(v => v.hadInvalidItem)
@@ -110,9 +108,8 @@ export class ImportPokemonButtonComponent {
     this.pokemonImportedEvent.emit(output)
   }
 
-  private validateAndClean(pokemon: Pokemon, activeDetails: Record<string, any>, validItemsForMode: string[]): { pokemon: Pokemon; hadInvalidMoves: boolean; hadInvalidItem: boolean } {
-    const pokemonKey = pokemon.name.toLowerCase()
-    const detailsEntry = activeDetails[pokemonKey]
+  private validateAndClean(pokemon: Pokemon, validItemsForMode: string[]): { pokemon: Pokemon; hadInvalidMoves: boolean; hadInvalidItem: boolean } {
+    const detailsEntry = getPokemonData(pokemon.name)
 
     if (!detailsEntry) {
       return { pokemon, hadInvalidMoves: false, hadInvalidItem: false }
@@ -122,8 +119,10 @@ export class ImportPokemonButtonComponent {
     let hadInvalidItem = false
     let cleanedPokemon = pokemon
 
-    if (detailsEntry.learnset) {
-      const validLearnset: string[] = detailsEntry.learnset.map((move: string) => move.toLowerCase().replace(/ /g, "").replace(/-/g, "").replace(/'/g, ""))
+    const learnset = getPokemonMoveset(pokemon.name)?.learnset
+
+    if (learnset) {
+      const validLearnset: string[] = learnset.map((move: string) => move.toLowerCase().replace(/ /g, "").replace(/-/g, "").replace(/'/g, ""))
       const moves = pokemon.moveSet.moves
       const cleanedMoves: Move[] = []
 

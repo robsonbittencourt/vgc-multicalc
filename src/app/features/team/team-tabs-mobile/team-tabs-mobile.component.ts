@@ -4,8 +4,8 @@ import { NgClass } from "@angular/common"
 import { MatIcon } from "@angular/material/icon"
 import { CalculatorStore } from "@store/calculator-store"
 import { MenuStore } from "@store/menu-store"
-import { defaultPokemon } from "@lib/default-pokemon"
-import { SnackbarService } from "@lib/snackbar.service"
+import { defaultPokemon } from "@multicalc/default-pokemon"
+import { SnackbarService } from "@core/services/snackbar.service"
 
 const COMBINE_HINT_KEY = "combineAttackersHintDismissed"
 

@@ -6,8 +6,8 @@ import { ProbabilityCalcMobileComponent } from "@pages/probability-calc/probabil
 import { HeaderMobileComponent } from "@core/header-mobile/header-mobile.component"
 import { HeaderComponent } from "@core/header/header.component"
 import { MenuStore } from "@store/menu-store"
-import { DeviceDetectorService } from "@lib/device-detector.service"
-import { JsonLdService } from "@lib/json-ld.service"
+import { DeviceDetectorService } from "@core/services/device-detector.service"
+import { JsonLdService } from "@core/services/json-ld.service"
 
 const TITLE = "Pokémon Move Probability Calculator"
 const DESCRIPTION = "Pokémon probability calculator for VGC and Pokémon Champions. Analyze move accuracy, consistency score, secondary effects, and game mechanic probabilities across multiple turns."

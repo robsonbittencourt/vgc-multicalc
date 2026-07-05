@@ -7,14 +7,12 @@ import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-b
 import { SaveSetButtonComponent } from "@features/buttons/save-set-button/save-set-button.component"
 import { PokemonBuildComponent } from "@features/pokemon-build/pokemon-build/pokemon-build.component"
 import { PokemonTabComponent } from "@features/team/pokemon-tab/pokemon-tab.component"
-import { defaultPokemon } from "@lib/default-pokemon"
-import { Pokemon } from "@lib/model/pokemon"
-import { Team } from "@lib/model/team"
-import { TeamMember } from "@lib/model/team-member"
-import { SnackbarService } from "@lib/snackbar.service"
-import { Stats, SurvivalThreshold } from "@lib/types"
-import { uuid } from "@lib/utils/uuid"
-import { DeviceDetectorService } from "@lib/device-detector.service"
+import { defaultPokemon } from "@multicalc/default-pokemon"
+import { Pokemon, Team, TeamMember } from "@multicalc/model"
+import { SnackbarService } from "@core/services/snackbar.service"
+import { Stats, SurvivalThreshold } from "@multicalc/types"
+import { uuid } from "@multicalc/utils/uuid"
+import { DeviceDetectorService } from "@core/services/device-detector.service"
 
 @Component({
   selector: "app-team",

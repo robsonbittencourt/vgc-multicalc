@@ -12,11 +12,9 @@ import { BoosterEnergyButtonComponent } from "@features/buttons/booster-energy-b
 import { TatsugiriButtonComponent } from "@features/buttons/tatsugiri-button/tatsugiri-button.component"
 import { TerastalButtonComponent } from "@features/buttons/terastal-button/terastal-button.component"
 import { MegaStoneService } from "@features/pokemon-build/utils/mega-stone.service"
-import { DamageResult } from "@lib/damage-calculator/damage-result"
-import { FEATURES } from "@lib/feature-flags"
-import { Pokemon } from "@lib/model/pokemon"
-import { RollLevelConfig } from "@lib/damage-calculator/roll-level-config"
-import { Target } from "@lib/model/target"
+import { DamageResult, RollLevelConfig } from "@multicalc/damage-calculator"
+import { FEATURES } from "@configuration/feature-flags"
+import { Pokemon, Target } from "@multicalc/model"
 import { HpBadgeComponent } from "@pages/simple-calc/pokemon-hp-badge/hp-badge/hp-badge.component"
 
 @Component({

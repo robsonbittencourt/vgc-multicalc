@@ -1,7 +1,7 @@
 import { Component, computed, inject, input, output } from "@angular/core"
 import { ITEM_DETAILS } from "@data/item-data"
 import { availableItemNames } from "@configuration/available-items"
-import { POKEMON_DATA } from "@data/pokemon-data"
+import { getPokemonMoveset } from "@data/pokemon-moveset"
 import { CalculatorStore } from "@store/calculator-store"
 import { FilterableTableComponent } from "@features/pokemon-build//tables/filterable-table/filterable-table.component"
 import { ColumnConfig, TableData } from "@features/pokemon-build/tables/filterable-table/filtered-table-types"
@@ -60,8 +60,8 @@ export class ItemsTableComponent {
 
   groupItemsByGroup(): TableData<ItemRow>[] {
     const currentPokemon = this.pokemon()
-    const pokemonDetails = this.getPokemonDetails(currentPokemon.name)
-    const metaItems = pokemonDetails?.metaItems || []
+    const pokemonMoveset = getPokemonMoveset(currentPokemon.name)
+    const metaItems = pokemonMoveset?.metaItems || []
 
     const availableNames = availableItemNames()
     const allItems = Object.entries(ITEM_DETAILS)
@@ -100,11 +100,6 @@ export class ItemsTableComponent {
     ]
 
     return orderedResult.filter(g => g !== undefined)
-  }
-
-  private getPokemonDetails(pokemonName: string) {
-    const details = POKEMON_DATA
-    return Object.values(details).find(p => p.name === pokemonName)
   }
 
   private isMetaItem(item: ItemRow, metaItemSet: Set<string>): boolean {

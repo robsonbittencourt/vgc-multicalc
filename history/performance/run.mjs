@@ -13,12 +13,13 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 const projectRoot = resolve(__dirname, "..", "..")
 
 const ALIASES = {
-  "@calc": resolve(projectRoot, "src/lib/calc/index.ts"),
-  "@lib/": resolve(projectRoot, "src/lib/") + "/",
-  "@data/": resolve(projectRoot, "src/data/") + "/",
-  "@configuration/": resolve(projectRoot, "src/configuration/") + "/",
-  "@vgc-types/": resolve(projectRoot, "src/types/") + "/",
-  "@store/": resolve(projectRoot, "src/store/") + "/"
+  "@calc": resolve(projectRoot, "src/domain/calc/index.ts"),
+  "@multicalc/": resolve(projectRoot, "src/domain/multicalc/") + "/",
+  "@data/": resolve(projectRoot, "src/infrastructure/data/") + "/",
+  "@adapters": resolve(projectRoot, "src/infrastructure/adapters/index.ts"),
+  "@adapters/": resolve(projectRoot, "src/infrastructure/adapters/") + "/",
+  "@configuration/": resolve(projectRoot, "src/app/core/configuration/") + "/",
+  "@store/": resolve(projectRoot, "src/app/store/") + "/"
 }
 
 function resolveFile(base) {
@@ -32,7 +33,7 @@ function resolveFile(base) {
 const aliasPlugin = {
   name: "vgc-aliases",
   setup(b) {
-    b.onResolve({ filter: /^@(calc|lib|data|configuration|vgc-types|store)(\/|$)/ }, args => {
+    b.onResolve({ filter: /^@(calc|multicalc|data|configuration|store)(\/|$)/ }, args => {
       if (args.path === "@calc") return { path: ALIASES["@calc"] }
       for (const [prefix, target] of Object.entries(ALIASES)) {
         if (prefix.endsWith("/") && args.path.startsWith(prefix)) {

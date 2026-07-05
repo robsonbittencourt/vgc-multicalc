@@ -4,7 +4,7 @@ import { WidgetComponent } from "@app/basic/widget/widget.component"
 import { PokemonSpriteComponent } from "@basic/pokemon-sprite/pokemon-sprite.component"
 import { CalculatorStore } from "@store/calculator-store"
 import { FieldStore } from "@store/field-store"
-import { ConsistencyScoreService } from "@lib/probability-calc/consistency-score.service"
+import { ConsistencyScoreService } from "@multicalc/probability-calc"
 
 @Component({
   selector: "app-team-probability",
@@ -15,7 +15,7 @@ import { ConsistencyScoreService } from "@lib/probability-calc/consistency-score
 export class TeamProbabilityComponent {
   store = inject(CalculatorStore)
   fieldStore = inject(FieldStore)
-  consistencyScoreService = inject(ConsistencyScoreService)
+  consistencyScoreService = new ConsistencyScoreService()
 
   team = computed(() => this.store.team())
   field = computed(() => this.fieldStore.field())

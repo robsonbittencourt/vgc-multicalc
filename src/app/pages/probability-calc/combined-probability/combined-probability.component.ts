@@ -3,16 +3,17 @@ import { InputComponent } from "@basic/input/input.component"
 import { InputSelectComponent } from "@basic/input-select/input-select.component"
 import { KeyValuePair } from "@basic/input-autocomplete/input-autocomplete.component"
 import { WidgetComponent } from "@basic/widget/widget.component"
-import { CombinedProbabilityService, ProbabilityCalculationType } from "@lib/probability-calc/combined-probability.service"
+import { CombinedProbabilityService, ProbabilityCalculationType } from "@multicalc/probability-calc"
+import { ProbabilityPercentPipe } from "@pages/probability-calc/pipes/probability-percent.pipe"
 
 @Component({
   selector: "app-combined-probability",
-  imports: [WidgetComponent, InputComponent, InputSelectComponent],
+  imports: [WidgetComponent, InputComponent, InputSelectComponent, ProbabilityPercentPipe],
   templateUrl: "./combined-probability.component.html",
   styleUrl: "./combined-probability.component.scss"
 })
 export class CombinedProbabilityComponent {
-  combinedProbabilityService = inject(CombinedProbabilityService)
+  combinedProbabilityService = new CombinedProbabilityService()
 
   calculationType = signal<ProbabilityCalculationType>("at-least-one")
 
@@ -31,7 +32,7 @@ export class CombinedProbabilityComponent {
   probabilities = computed(() => [this.probability1(), this.probability2(), this.probability3(), this.probability4(), this.probability5()])
 
   result = computed(() => {
-    return this.combinedProbabilityService.calculateAndFormatCombinedProbability(this.probabilities(), this.calculationType())
+    return this.combinedProbabilityService.calculateCombinedProbability(this.probabilities(), this.calculationType())
   })
 
   calculationTypeOptions: KeyValuePair[] = [

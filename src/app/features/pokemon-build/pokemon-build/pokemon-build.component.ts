@@ -12,7 +12,7 @@ import { CalculatorStore } from "@store/calculator-store"
 import { CustomSet } from "@store/custom-set"
 import { FieldStore } from "@store/field-store"
 import { MenuStore } from "@store/menu-store"
-import { spToEv, totalSpsFromEvs } from "@lib/utils/ev-sp-converter"
+import { spToEv, totalSpsFromEvs } from "@multicalc/utils/ev-sp-converter"
 import { AbilityComboBoxComponent } from "@features/pokemon-build/ability-combo-box/ability-combo-box.component"
 import { EvSliderComponent } from "@features/pokemon-build/ev-slider/ev-slider.component"
 import { MultiHitComboBoxComponent } from "@features/pokemon-build/multi-hit-combo-box/multi-hit-combo-box.component"
@@ -25,11 +25,9 @@ import { PokemonTableComponent } from "@features/pokemon-build/tables/pokemon-ta
 import { TeraComboBoxComponent } from "@features/pokemon-build/tera-combo-box/tera-combo-box.component"
 import { TypeComboBoxComponent } from "@features/pokemon-build/type-combo-box/type-combo-box.component"
 import { MegaStoneService } from "@features/pokemon-build/utils/mega-stone.service"
-import { FEATURES } from "@lib/feature-flags"
-import { getFinalAttack, getFinalSpecialAttack } from "@lib/smogon/stat-calculator/atk-spa/modified-atk-spa"
-import { getFinalDefense, getFinalSpecialDefense } from "@lib/smogon/stat-calculator/def-spd/modified-def-spd"
-import { getFinalSpeed } from "@lib/smogon/stat-calculator/spe/modified-spe"
-import { Stats, SurvivalThreshold } from "@lib/types"
+import { FEATURES } from "@configuration/feature-flags"
+import { getFinalAttack, getFinalSpecialAttack, getFinalDefense, getFinalSpecialDefense, getFinalSpeed } from "@multicalc/stats"
+import { Stats, SurvivalThreshold } from "@multicalc/types"
 
 @Component({
   selector: "app-pokemon-build",

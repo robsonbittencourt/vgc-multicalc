@@ -1,9 +1,9 @@
 import { Component, computed, effect, ElementRef, inject, input, signal, viewChild } from "@angular/core"
-import { Status } from "@lib/model/status"
+import { Status } from "@multicalc/model"
 import { FaintedIconComponent } from "@pages/simple-calc/pokemon-hp-badge/hp-badge/fainted-icon/fainted-icon.component"
 import { StatusIconComponent } from "@pages/simple-calc/pokemon-hp-badge/hp-badge/status-icon/status-icon.component"
-import { uuid } from "@lib/utils/uuid"
-import { SpriteService } from "@lib/sprite.service"
+import { uuid } from "@multicalc/utils/uuid"
+import { SpriteService } from "@core/services/sprite.service"
 
 @Component({
   selector: "app-hp-badge",

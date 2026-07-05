@@ -48,17 +48,22 @@
             "outputPath": {
               "base": "dist/"
             },
-            "index": "src/index.html",
+            "index": "src/app/index.html",
             "tsConfig": "tsconfig.app.json",
-            "assets": ["src/manifest.json", "src/assets", "src/robots.txt", "src/sitemap.xml"],
-            "styles": ["src/styles.scss", "src/themes.css"],
+            "assets": [
+              { "glob": "manifest.json", "input": "src/app", "output": "." },
+              { "glob": "**/*", "input": "src/app/assets", "output": "assets" },
+              { "glob": "robots.txt", "input": "src/app", "output": "." },
+              { "glob": "sitemap.xml", "input": "src/app", "output": "." }
+            ],
+            "styles": ["src/app/styles.scss", "src/app/themes.css"],
             "stylePreprocessorOptions": {
-              "includePaths": ["src"]
+              "includePaths": ["src/app"]
             },
             "scripts": [],
             "allowedCommonJsDependencies": ["@robsonbittencourt/calc", "pako"],
-            "browser": "src/main.ts",
-            "server": "src/main.server.ts",
+            "browser": "src/app/main.ts",
+            "server": "src/app/main.server.ts",
             "serviceWorker": "ngsw-config.json",
             "prerender": {
               "routesFile": "prerender-routes.txt"

@@ -3,7 +3,7 @@ import { getItemData } from "@data/item-data"
 import { MOVESETS } from "@data/moveset-data"
 import { getBasePokemonNameFromItem, MEGA_FORM_MAPPING, MEGA_FORM_REVERSE_MAPPING } from "@features/pokemon-build/utils/mega-stone-mapping"
 import { CalculatorStore } from "@store/calculator-store"
-import { Pokemon } from "@lib/model/pokemon"
+import { Pokemon } from "@multicalc/model"
 
 @Injectable({ providedIn: "root" })
 export class MegaStoneService {

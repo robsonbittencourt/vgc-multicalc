@@ -5,12 +5,10 @@ import { MatSlideToggle } from "@angular/material/slide-toggle"
 import { WidgetComponent } from "@app/basic/widget/widget.component"
 import { TypeComboBoxComponent } from "@features/pokemon-build/type-combo-box/type-combo-box.component"
 import { CalculatorStore } from "@store/calculator-store"
-import { FEATURES } from "@lib/feature-flags"
-import { TypeCoverageService, OffensiveCoverageData, OffensiveCoverageAgainstTeamData, CoverageType } from "@lib/type-coverage/type-coverage.service"
-import { TypeEffectiveness } from "@lib/type-coverage/type-effectiveness.service"
-import { Team } from "@lib/model/team"
-import { Pokemon } from "@lib/model/pokemon"
-import { TypeName } from "@calc"
+import { FEATURES } from "@configuration/feature-flags"
+import { TypeCoverageService, OffensiveCoverageData, OffensiveCoverageAgainstTeamData, CoverageType, TypeEffectiveness } from "@multicalc/type-coverage"
+import { Team, Pokemon } from "@multicalc/model"
+import { TypeName } from "@data/types"
 
 @Component({
   selector: "app-offensive-coverage-mobile",
@@ -22,7 +20,7 @@ import { TypeName } from "@calc"
 export class OffensiveCoverageMobileComponent {
   store = inject(CalculatorStore)
   features = FEATURES
-  typeCoverageService = inject(TypeCoverageService)
+  typeCoverageService = new TypeCoverageService()
 
   secondTeam = input<Team | null>(null)
   considerTeraType = signal<boolean>(false)
