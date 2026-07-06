@@ -1,7 +1,6 @@
 import { inject, Injectable } from "@angular/core"
-import { CalculatorStore } from "@store/calculator-store"
-import { defaultPokemon } from "@multicalc/default-pokemon"
-import { Team, TeamMember, Pokemon } from "@multicalc/model"
+import { CalcStore } from "@store/calc-store"
+import { Team, Pokemon } from "@multicalc/model"
 import { SnackbarService } from "@core/services/snackbar.service"
 import { ExportPokeService } from "@store/user-data/export-poke.service"
 import { PdfExportService } from "@store/user-data/pdf-export.service"
@@ -11,18 +10,18 @@ import { uuid } from "@multicalc/utils/uuid"
   providedIn: "root"
 })
 export class TeamsService {
-  private store = inject(CalculatorStore)
+  private store = inject(CalcStore)
   private exportPokeService = inject(ExportPokeService)
   private pdfExportService = inject(PdfExportService)
   private snackBar = inject(SnackbarService)
 
   activateTeam(team: Team) {
     this.store.activateTeam(team.id)
-    return team.activePokemon().id
+    return team.activePokemon()?.id
   }
 
   activateSecondTeam(team: Team, allowSecondTeamSelection: boolean, secondTeamIdSetter: (id: string | null) => void) {
-    if (allowSecondTeamSelection && !this.store.team().onlyHasDefaultPokemon()) {
+    if (allowSecondTeamSelection && !this.store.team().isEmpty()) {
       secondTeamIdSetter(team.id)
       return team
     }
@@ -48,15 +47,15 @@ export class TeamsService {
     const teams = this.store.teams()
     const lastTeam = teams.length > 0 ? teams[teams.length - 1] : null
 
-    if (lastTeam && lastTeam.onlyHasDefaultPokemon()) {
+    if (lastTeam && lastTeam.isEmpty()) {
       this.activateTeam(lastTeam)
     } else {
-      const newTeam = new Team(uuid(), false, `Team ${teams.length + 1}`, [new TeamMember(defaultPokemon(), true)])
+      const newTeam = new Team(uuid(), false, `Team ${teams.length + 1}`, [])
       this.store.addTeam(newTeam)
       this.activateTeam(newTeam)
     }
 
-    return this.store.team().activePokemon().id
+    return this.store.team().activePokemon()?.id
   }
 
   deleteTeam(isMobile: boolean) {
@@ -66,7 +65,7 @@ export class TeamsService {
       const newTeams = allTeams.filter(t => t.id !== activeTeamId)
 
       if (newTeams.length === 0) {
-        const newTeam = new Team(uuid(), true, `Team ${newTeams.length + 1}`, [new TeamMember(defaultPokemon(), true)])
+        const newTeam = new Team(uuid(), true, `Team ${newTeams.length + 1}`, [])
         this.store.updateTeams([newTeam])
       } else {
         this.store.updateTeams(newTeams)
@@ -74,10 +73,9 @@ export class TeamsService {
         this.store.activateTeam(teamToActivate.id)
       }
     } else {
-      const pokemon = defaultPokemon()
       const activeIndex = this.store.teams().findIndex(t => t.active)
       const inactiveTeams = this.store.teams().filter(t => !t.active)
-      const newTeam = new Team(uuid(), true, `Team ${activeIndex + 1}`, [new TeamMember(pokemon, true)])
+      const newTeam = new Team(uuid(), true, `Team ${activeIndex + 1}`, [])
       inactiveTeams.splice(activeIndex, 0, newTeam)
 
       this.store.updateTeams(inactiveTeams)
@@ -87,22 +85,15 @@ export class TeamsService {
       this.snackBar.open("Team deleted")
     }
 
-    return this.store.team().activePokemon().id
+    return this.store.team().activePokemon()?.id
   }
 
   pokemonImported(pokemon: Pokemon | Pokemon[], isMobile: boolean, teamName?: string) {
     const pokemonList = Array.isArray(pokemon) ? pokemon : [pokemon]
-    const teamMembers: TeamMember[] = []
 
-    for (let index = 0; index < pokemonList.length; index++) {
-      const pokemon = pokemonList[index]
-      const active = index === 0
-      teamMembers.push(new TeamMember(pokemon, active))
-    }
-
-    if (teamMembers.length < 6) {
-      teamMembers.push(new TeamMember(defaultPokemon()))
-    }
+    const emptyTeam = new Team(uuid(), false, "", [])
+    const importedTeam = pokemonList.reduce((team, p) => team.addMember(p), emptyTeam)
+    const teamMembers = importedTeam.teamMembers
 
     if (isMobile) {
       const name = teamName || `Team ${this.store.teams().length + 1}`
@@ -110,7 +101,7 @@ export class TeamsService {
       this.store.addTeam(newTeam)
       this.activateTeam(newTeam)
     } else {
-      const teamSlotToImport = this.store.teams().find(t => t.onlyHasDefaultPokemon())!
+      const teamSlotToImport = this.store.teams().find(t => t.isEmpty())!
       const name = teamName || teamSlotToImport.name
       const teamToImport = new Team(uuid(), teamSlotToImport.active, name, teamMembers)
       this.store.replaceTeam(teamToImport, teamSlotToImport.id)
@@ -122,7 +113,7 @@ export class TeamsService {
     }
 
     return {
-      activePokemonId: this.store.team().activePokemon().id,
+      activePokemonId: this.store.team().activePokemon()?.id,
       teamIndex: this.store.teams().findIndex(t => t.id === this.store.team().id)
     }
   }
@@ -134,7 +125,7 @@ export class TeamsService {
 
     if (remainder !== 0) {
       teamsToAdd = 4 - remainder
-    } else if (teams.filter(t => t.onlyHasDefaultPokemon()).length < 2) {
+    } else if (teams.filter(t => t.isEmpty()).length < 2) {
       teamsToAdd = 4
     }
 
@@ -142,15 +133,15 @@ export class TeamsService {
       const teamNumber = teams.length + 1
 
       for (let index = 0; index < teamsToAdd; index++) {
-        this.store.addTeam(new Team(uuid(), false, `Team ${teamNumber + index}`, [new TeamMember(defaultPokemon(), true)]))
+        this.store.addTeam(new Team(uuid(), false, `Team ${teamNumber + index}`, []))
       }
     }
   }
 
   moveEmptyListsToEnd(a: Team, b: Team): number {
-    if (a.onlyHasDefaultPokemon() === b.onlyHasDefaultPokemon()) return 0
+    if (!a.isEmpty() === !b.isEmpty()) return 0
 
-    return a.onlyHasDefaultPokemon() ? 1 : -1
+    return a.isEmpty() ? 1 : -1
   }
 
   cleanTeamsInChunks(teams: Team[]): Team[] {
@@ -158,13 +149,13 @@ export class TeamsService {
 
     for (let i = 0; i <= result.length - 4;) {
       const chunk = result.slice(i, i + 4)
-      const allDefault = chunk.every(team => team.onlyHasDefaultPokemon())
+      const allDefault = chunk.every(team => team.isEmpty())
 
       const hasMoreAfterChunk = i + 4 < result.length
 
       const hasPrevChunk = i >= 4
       const prevChunk = hasPrevChunk ? result.slice(i - 4, i) : []
-      const prevHasDefault = prevChunk.some(team => team.onlyHasDefaultPokemon())
+      const prevHasDefault = prevChunk.some(team => team.isEmpty())
 
       if (allDefault && (hasMoreAfterChunk || (hasPrevChunk && prevHasDefault))) {
         result.splice(i, 4)

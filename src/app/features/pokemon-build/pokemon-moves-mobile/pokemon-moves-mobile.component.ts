@@ -1,7 +1,7 @@
 import { Component, computed, inject, input, output } from "@angular/core"
 import { MatChipListbox, MatChipOption } from "@angular/material/chips"
 import { MatIcon } from "@angular/material/icon"
-import { CalculatorStore } from "@store/calculator-store"
+import { CalcStore } from "@store/calc-store"
 import { MultiHitComboBoxComponent } from "@features/pokemon-build/multi-hit-combo-box/multi-hit-combo-box.component"
 
 @Component({
@@ -19,7 +19,7 @@ export class PokemonMovesMobileComponent {
   editMovesRequested = output()
   closeMovesRequested = output()
 
-  store = inject(CalculatorStore)
+  store = inject(CalcStore)
 
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
 

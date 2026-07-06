@@ -1,8 +1,8 @@
 <app-widget [title]="'Combined Probability'">
   <div class="container" data-cy="combined-probability-container">
-    <div class="options-container" data-cy="calculation-type-selector">
+    <div class="options-container" data-cy="calc-type-selector">
       <div class="select-wrapper">
-        <app-input-select label="Expected" [value]="calculationTypeValue()" [allValues]="calculationTypeOptions" (valueChange)="onCalculationTypeChange($event)" data-cy="calculation-type-select" />
+        <app-input-select label="Expected" [value]="calculationTypeValue()" [allValues]="calculationTypeOptions" (valueChange)="onCalculationTypeChange($event)" data-cy="calc-type-select" />
       </div>
     </div>
     <div class="inputs-container">

@@ -1,4 +1,4 @@
-import type { PokemonState } from "./calculator-store"
+import type { PokemonState } from "./calc-store"
 
 export type CustomSet = {
   id: string

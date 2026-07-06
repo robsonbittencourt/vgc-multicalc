@@ -5,7 +5,7 @@ import { MatFormField } from "@angular/material/form-field"
 import { MatIcon } from "@angular/material/icon"
 import { MatInput } from "@angular/material/input"
 import { CdkDragEnd } from "@angular/cdk/drag-drop"
-import { CalculatorStore } from "@store/calculator-store"
+import { CalcStore } from "@store/calc-store"
 import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
 import { TeamBoxComponent } from "@features/team/team-box/team-box.component"
 import { Pokemon, Team } from "@multicalc/model"
@@ -19,7 +19,7 @@ import { SnackbarService } from "@core/services/snackbar.service"
   imports: [MatFormField, MatInput, FormsModule, MatButton, MatIcon, TeamBoxComponent, ImportPokemonButtonComponent]
 })
 export class TeamsMobileComponent {
-  store = inject(CalculatorStore)
+  store = inject(CalcStore)
   private teamsService = inject(TeamsService)
   private snackbar = inject(SnackbarService)
 
@@ -42,7 +42,7 @@ export class TeamsMobileComponent {
     const activeTeam = this.store.team()
     const teams = this.store.teams()
 
-    if (!activeTeam.onlyHasDefaultPokemon()) return true
+    if (!activeTeam.isEmpty()) return true
 
     return teams.length > 1
   })
@@ -64,7 +64,7 @@ export class TeamsMobileComponent {
   pokemonImported(pokemon: Pokemon | Pokemon[]) {
     const result = this.teamsService.pokemonImported(pokemon, true, this.importedTeamName)
     this.importedTeamName = undefined
-    this.pokemonSelected.emit(result.activePokemonId)
+    this.pokemonSelected.emit(result.activePokemonId ?? "")
     this.scrollToActiveTeam()
     this.snackbar.open("Team imported")
   }
@@ -84,7 +84,7 @@ export class TeamsMobileComponent {
     }
 
     const activePokemonId = this.teamsService.activateTeam(team)
-    this.pokemonSelected.emit(activePokemonId)
+    this.pokemonSelected.emit(activePokemonId ?? "")
   }
 
   activateSecondTeam(team: Team) {
@@ -111,7 +111,7 @@ export class TeamsMobileComponent {
     if (!targetTeam || targetTeam.id === sourceTeam.id) return
 
     const activePokemonId = this.teamsService.activateTeam(targetTeam)
-    this.pokemonSelected.emit(activePokemonId)
+    this.pokemonSelected.emit(activePokemonId ?? "")
     this.activateSecondTeam(sourceTeam)
   }
 
@@ -143,12 +143,12 @@ export class TeamsMobileComponent {
 
   deleteTeam() {
     const activePokemonId = this.teamsService.deleteTeam(true)
-    this.pokemonSelected.emit(activePokemonId)
+    this.pokemonSelected.emit(activePokemonId ?? "")
   }
 
   addNewTeam() {
     const activePokemonId = this.teamsService.addNewTeam()
-    this.pokemonSelected.emit(activePokemonId)
-    this.useTeam.emit(activePokemonId)
+    this.pokemonSelected.emit(activePokemonId ?? "")
+    this.useTeam.emit(activePokemonId ?? "")
   }
 }

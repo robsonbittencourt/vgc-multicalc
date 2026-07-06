@@ -1,5 +1,6 @@
 import { Move } from "@multicalc/model/move"
-import { MovePosition } from "@multicalc/types"
+
+export type MovePosition = 1 | 2 | 3 | 4
 
 export class MoveSet {
   readonly moves: Move[]

@@ -1,6 +1,8 @@
 import { Pokemon } from "@multicalc/model/pokemon"
 import { TeamMember } from "@multicalc/model/team-member"
 
+const MAX_TEAM_SIZE = 6
+
 export class Team {
   readonly id: string
   readonly active: boolean
@@ -14,8 +16,8 @@ export class Team {
     this.teamMembers = teamMembers
   }
 
-  activePokemon(): Pokemon {
-    return this.teamMembers.find(t => t.active)!.pokemon
+  activePokemon(): Pokemon | undefined {
+    return this.teamMembers.find(t => t.active)?.pokemon
   }
 
   activePokemonIndex(): number {
@@ -23,18 +25,44 @@ export class Team {
   }
 
   isFull(): boolean {
-    return this.teamMembers.filter(t => !t.pokemon.isDefault).length == 6
+    return this.teamMembers.length >= MAX_TEAM_SIZE
   }
 
-  hasDefaultPokemon(): boolean {
-    return this.teamMembers.find(t => t.pokemon.isDefault) != null
+  isEmpty(): boolean {
+    return this.teamMembers.length === 0
   }
 
-  onlyHasDefaultPokemon() {
-    return this.size() == 1 && this.activePokemon().isDefault
+  addMember(pokemon: Pokemon): Team {
+    if (this.isFull()) {
+      throw new Error(`Team already has the maximum of ${MAX_TEAM_SIZE} Pokémon`)
+    }
+
+    const shouldActivate = !this.teamMembers.some(t => t.active)
+    const newMember = new TeamMember(pokemon, shouldActivate)
+
+    return new Team(this.id, this.active, this.name, [...this.teamMembers, newMember])
   }
 
-  private size(): number {
-    return this.teamMembers.length
+  removeMember(id: string): Team {
+    const remainingMembers = this.teamMembers.filter(t => t.pokemon.id !== id)
+
+    if (remainingMembers.length === 0) {
+      return new Team(this.id, this.active, this.name, remainingMembers)
+    }
+
+    const reactivatedMembers = remainingMembers.map((t, index) => new TeamMember(t.pokemon, index === 0))
+
+    return new Team(this.id, this.active, this.name, reactivatedMembers)
+  }
+
+  duplicateMember(id: string): Team {
+    if (this.isFull()) {
+      throw new Error(`Team already has the maximum of ${MAX_TEAM_SIZE} Pokémon`)
+    }
+
+    const memberToDuplicate = this.teamMembers.find(t => t.pokemon.id === id)!
+    const duplicatedMember = new TeamMember(memberToDuplicate.pokemon.clone(), false)
+
+    return new Team(this.id, this.active, this.name, [...this.teamMembers, duplicatedMember])
   }
 }

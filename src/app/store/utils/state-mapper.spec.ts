@@ -1,4 +1,4 @@
-import { PokemonState } from "@store/calculator-store"
+import { PokemonState } from "@store/calc-store"
 import { Ability, Move, MoveSet, Pokemon, Status } from "@multicalc/model"
 import { pokemonToState, stateToPokemon } from "./state-mapper"
 

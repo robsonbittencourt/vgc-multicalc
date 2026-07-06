@@ -1,13 +1,14 @@
-import { DamageCalculatorService } from "@multicalc/damage-calculator/damage-calculator.service"
+import { DamageCalc } from "@multicalc/damage-calc/damage-calc"
 import { Field } from "@multicalc/model/field"
 import { Pokemon } from "@multicalc/model/pokemon"
-import { Stats, SurvivalThreshold } from "@multicalc/types"
+import { Stats } from "@multicalc/types"
+import { SurvivalThreshold } from "@multicalc/ev-optimizer/internal/ev-optimizer-types"
 
 export class SurvivalChecker {
-  private damageCalculator = new DamageCalculatorService()
+  private damageCalc = new DamageCalc()
 
   checkSurvival(attacker: Pokemon, defender: Pokemon, field: Field, threshold: SurvivalThreshold, rollIndex = 15, rightIsDefender = true): boolean {
-    const result = this.damageCalculator.calculateResult(attacker, defender, attacker.move, field, rightIsDefender)
+    const result = this.damageCalc.calculateResult(attacker, defender, attacker.move, field, rightIsDefender)
 
     const damage = result.damageWithRemainingUntilTurn(threshold - 1, rollIndex)
 
@@ -15,7 +16,7 @@ export class SurvivalChecker {
   }
 
   checkSurvivalAgainstTwoAttackers(attacker1: Pokemon, attacker2: Pokemon, defender: Pokemon, field: Field, threshold: SurvivalThreshold, rollIndex = 15, rightIsDefender = true): boolean {
-    const multiResult = this.damageCalculator.calcDamageValueForTwoAttackers(attacker1, attacker2, defender, field, rightIsDefender)
+    const multiResult = this.damageCalc.calcDamageValueForTwoAttackers(attacker1, attacker2, defender, field, rightIsDefender)
     const combinedDamage = multiResult.damageWithRemainingUntilTurn(threshold - 1, rollIndex)
 
     return combinedDamage < defender.hp

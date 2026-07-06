@@ -1,16 +1,41 @@
 import { getAbilityData } from "@data/ability-data"
 import { POKEMON_DATA } from "@data/pokemon-data"
-import { DEFAULT_TERA_TYPE, SELECT_POKEMON_LABEL } from "@multicalc/constants"
 import { uuid } from "@multicalc/utils/uuid"
 import { Ability } from "@multicalc/model/ability"
 import { Move } from "@multicalc/model/move"
+import { increasedStatByNature } from "@multicalc/model/nature"
 import { MoveSet } from "@multicalc/model/moveset"
 import { Status } from "@multicalc/model/status"
-import { higherStat } from "@multicalc/stats"
+import { terastalize } from "@multicalc/model/terastal"
+import { higherStat } from "@multicalc/stat-calc"
 import { fromScratch } from "@adapters"
-import { Jumps, PokemonParameters, Stats } from "@multicalc/types"
+import { Stats } from "@multicalc/types"
 import { Pokemon as CalcPokemon } from "@calc"
 import { NatureName, TypeName, StatID, StatIDExceptHP } from "@data/types"
+
+export type Jumps = [number, number, number, number | null]
+
+export type PokemonParameters = {
+  id?: string
+  name?: string
+  ability?: Ability
+  nature?: string
+  item?: string
+  teraType?: string
+  teraTypeActive?: boolean
+  evs?: Partial<Stats>
+  moveSet?: MoveSet
+  boosts?: Partial<Stats>
+  bonusBoosts?: Partial<Stats>
+  status?: Status
+  ivs?: Partial<Stats>
+  hpPercentage?: number
+  commanderActive?: boolean
+  isAttacker?: boolean
+  higherStat?: StatIDExceptHP
+}
+
+const DEFAULT_TERA_TYPE = "Water"
 export class Pokemon {
   readonly id: string
   readonly moveSet: MoveSet
@@ -25,8 +50,7 @@ export class Pokemon {
   private calcPokemon: CalcPokemon
 
   constructor(name: string, options: PokemonParameters = {}) {
-    const adjustedName = name == SELECT_POKEMON_LABEL ? "Togepi" : name
-    this.calcPokemon = fromScratch(adjustedName, options)
+    this.calcPokemon = fromScratch(name, options)
 
     this.id = options.id ?? uuid()
     this.moveSet = options.moveSet ?? new MoveSet(new Move("Struggle"), new Move("Struggle"), new Move("Struggle"), new Move("Struggle"))
@@ -40,16 +64,10 @@ export class Pokemon {
   }
 
   get name(): string {
-    if (this.isDefault) return SELECT_POKEMON_LABEL
-
     return this.calcPokemon.name
   }
 
   get displayName(): string {
-    if (this.isDefault) {
-      return SELECT_POKEMON_LABEL
-    }
-
     if (this.isNameWithHiphen()) {
       return this.calcPokemon.name
     }
@@ -58,10 +76,6 @@ export class Pokemon {
   }
 
   get displayNameWithoutSuffix(): string {
-    if (this.isDefault) {
-      return SELECT_POKEMON_LABEL
-    }
-
     if (this.isNameWithHiphen()) {
       return this.calcPokemon.name
     }
@@ -120,7 +134,7 @@ export class Pokemon {
   }
 
   get jumps(): Jumps {
-    const stat = this.baseStatWithBeneficalNature()
+    const stat = increasedStatByNature(this.nature)
     if (!stat) return [0, 0, 0, 0]
 
     let ev = 0
@@ -206,6 +220,10 @@ export class Pokemon {
     return this.calcPokemon.currrentHp()
   }
 
+  get modifiedHp(): number {
+    return Math.floor((this.hp * this.hpPercentage) / 100)
+  }
+
   get baseHp(): number {
     return this.calcPokemon.pokemonData.baseStats.hp
   }
@@ -262,10 +280,6 @@ export class Pokemon {
     return this.isCalcParadoxAbility(this.calcPokemon)
   }
 
-  get isDefault() {
-    return this.calcPokemon.name == "Togepi"
-  }
-
   get isOgerpon(): boolean {
     return this.name.startsWith("Ogerpon")
   }
@@ -309,8 +323,12 @@ export class Pokemon {
     return this.item == item
   }
 
+  terastalized(): Pokemon {
+    return terastalize(this)
+  }
+
   clone(options: PokemonParameters = {}): Pokemon {
-    return new Pokemon(this.name, {
+    return new Pokemon(options.name ?? this.name, {
       id: options.id,
       ability: options.ability ?? this.ability,
       nature: options.nature ?? this.nature,
@@ -351,30 +369,6 @@ export class Pokemon {
 
   private isCalcParadoxAbility(calcPokemon: CalcPokemon): boolean {
     return calcPokemon.ability == "Protosynthesis" || calcPokemon.ability == "Quark Drive"
-  }
-
-  private baseStatWithBeneficalNature(): StatID | undefined {
-    if (["Lonely", "Adamant", "Naughty", "Brave"].includes(this.nature)) {
-      return "atk"
-    }
-
-    if (["Bold", "Impish", "Lax", "Relaxed"].includes(this.nature)) {
-      return "def"
-    }
-
-    if (["Modest", "Mild", "Rash", "Quiet"].includes(this.nature)) {
-      return "spa"
-    }
-
-    if (["Calm", "Gentle", "Careful", "Sassy"].includes(this.nature)) {
-      return "spd"
-    }
-
-    if (["Timid", "Hasty", "Jolly", "Naive"].includes(this.nature)) {
-      return "spe"
-    }
-
-    return undefined
   }
 
   private rawStatWithEv(stat: StatID, ev: number): number {

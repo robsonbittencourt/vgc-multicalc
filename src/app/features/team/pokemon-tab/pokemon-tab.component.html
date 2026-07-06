@@ -1,5 +1,5 @@
 <div [ngClass]="{ 'active-tab': active() }" class="tab" (click)="activateTab($event)" data-cy="team-member-tab">
-  @if (pokemon().isDefault) {
+  @if (isAddMode()) {
     <mat-icon data-cy="add-team-member-tab">add</mat-icon>
   } @else {
     <app-pokemon-sprite [name]="pokemon().name" />

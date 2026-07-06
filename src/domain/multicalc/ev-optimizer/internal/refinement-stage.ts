@@ -1,15 +1,16 @@
-import { DamageCalculatorService } from "@multicalc/damage-calculator/damage-calculator.service"
+import { DamageCalc } from "@multicalc/damage-calc/damage-calc"
 import { Field } from "@multicalc/model/field"
 import { Pokemon } from "@multicalc/model/pokemon"
-import { Stats, SurvivalThreshold } from "@multicalc/types"
+import { Stats } from "@multicalc/types"
+import { SurvivalThreshold } from "@multicalc/ev-optimizer/internal/ev-optimizer-types"
 import { SurvivalChecker } from "./survival-checker"
 
 export class RefinementStage {
-  private damageCalculator = new DamageCalculatorService()
+  private damageCalc = new DamageCalc()
   private survivalChecker = new SurvivalChecker()
 
   refineForSingleAttacker(solution: Stats, defender: Pokemon, attacker: Pokemon, field: Field, threshold: SurvivalThreshold, rollIndex = 15, rightIsDefender = true): Stats | null {
-    const koChanceText = this.damageCalculator.koChanceForOneAttacker(attacker, defender, field, rightIsDefender)
+    const koChanceText = this.damageCalc.koChanceForOneAttacker(attacker, defender, field, rightIsDefender)
     const shouldRefine = this.needsRefinement(koChanceText, threshold)
 
     if (!shouldRefine) {
@@ -50,7 +51,7 @@ export class RefinementStage {
     specialStrongest: Pokemon | null = null,
     rightIsDefender = true
   ): Stats | null {
-    const koChanceText = this.damageCalculator.koChanceForTwoAttackers(attacker1, attacker2, defender, field, rightIsDefender)
+    const koChanceText = this.damageCalc.koChanceForTwoAttackers(attacker1, attacker2, defender, field, rightIsDefender)
     const shouldRefine = this.needsRefinement(koChanceText, threshold)
 
     if (!shouldRefine) {

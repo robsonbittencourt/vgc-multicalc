@@ -1,9 +1,9 @@
 import { provideZonelessChangeDetection, signal } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
-import { CalculatorStore } from "./calculator-store"
+import { CalcStore } from "./calc-store"
 import { SpeedCalcOptionsStore } from "./speed-calc-options-store"
-import { Pokemon } from "@multicalc/model"
-import { SpeedCalculatorMode } from "@multicalc/speed-calculator"
+import { Pokemon, Target, Team, TeamMember } from "@multicalc/model"
+import { SpeedCalcMode } from "@multicalc/speed-calc"
 
 describe("Speed Calc Options Store", () => {
   let store: SpeedCalcOptionsStore
@@ -14,15 +14,19 @@ describe("Speed Calc Options Store", () => {
         provideZonelessChangeDetection(),
         SpeedCalcOptionsStore,
         {
-          provide: CalculatorStore,
-          useValue: {
-            teams: signal([
-              { id: "team-1", name: "My Team", teamMembers: [{ pokemon: new Pokemon("Incineroar") }, { pokemon: new Pokemon("Rillaboom") }] },
-              { id: "team-2", name: "Single Team", teamMembers: [{ pokemon: new Pokemon("Incineroar") }] },
-              { id: "team-3", name: "Empty Team", teamMembers: [{ pokemon: new Pokemon("Togepi") }] }
-            ]),
-            targets: signal([{ pokemon: new Pokemon("Chi-Yu") }, { pokemon: new Pokemon("Urshifu") }])
-          }
+          provide: CalcStore,
+          useValue: (() => {
+            const targets = [new Target(new Pokemon("Chi-Yu")), new Target(new Pokemon("Urshifu"))]
+
+            return {
+              teams: signal([
+                new Team("team-1", false, "My Team", [new TeamMember(new Pokemon("Incineroar"), true), new TeamMember(new Pokemon("Rillaboom"), false)]),
+                new Team("team-2", false, "Single Team", [new TeamMember(new Pokemon("Incineroar"), true)]),
+                new Team("team-3", false, "Empty Team", [])
+              ]),
+              targets: signal(targets)
+            }
+          })()
         }
       ]
     })
@@ -128,7 +132,7 @@ describe("Speed Calc Options Store", () => {
     })
 
     it("should update Mode when it is changed", () => {
-      store.updateMode(SpeedCalculatorMode.Base)
+      store.updateMode(SpeedCalcMode.Base)
 
       expect(store.mode()).toBe("Base")
     })

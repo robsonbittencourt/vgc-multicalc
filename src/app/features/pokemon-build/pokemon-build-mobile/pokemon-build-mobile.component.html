@@ -1,5 +1,5 @@
 @if (pokemon()) {
-  @if (!pokemon().isDefault) {
+  @if (!isAddMode()) {
     @if (!onlySpeed() && !hideMoves()) {
       <app-pokemon-moves-mobile [pokemonId]="pokemonId()" [editingMoves]="editingMoves()" (editMovesRequested)="editMovesRequested.emit()" (closeMovesRequested)="closeMovesRequested.emit()" />
     }

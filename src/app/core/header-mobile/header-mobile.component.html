@@ -30,13 +30,13 @@
       <button class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.manyVsOneActivated(), pressed: pressedItemId() === 'Manyv1' }" (click)="enableManyVsOne()">
         <span>Many vs Team</span>
       </button>
-      <button class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.speedCalculatorActivated(), pressed: pressedItemId() === 'speed' }" (click)="enableSpeedCalculator()">
+      <button class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.speedCalcActivated(), pressed: pressedItemId() === 'speed' }" (click)="enableSpeedCalc()">
         <span>Speed Calc</span>
       </button>
       <button class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.probabilityCalcActivated(), pressed: pressedItemId() === 'probability' }" (click)="enableProbabilityCalc()">
         <span>Probability Calc</span>
       </button>
-      <button class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.typeCalcActivated(), pressed: pressedItemId() === 'type' }" (click)="enableTypeCalculator()">
+      <button class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.typeCalcActivated(), pressed: pressedItemId() === 'type' }" (click)="enableTypeCalc()">
         <span>Type Calc</span>
       </button>
       <button class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.howToUseActivated(), pressed: pressedItemId() === 'howToUse' }" (click)="enableHowToUse()">

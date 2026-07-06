@@ -4,9 +4,9 @@ import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, inject, input, signal } fr
 import { MatSlideToggle } from "@angular/material/slide-toggle"
 import { WidgetComponent } from "@app/basic/widget/widget.component"
 import { TypeComboBoxComponent } from "@features/pokemon-build/type-combo-box/type-combo-box.component"
-import { CalculatorStore } from "@store/calculator-store"
+import { CalcStore } from "@store/calc-store"
 import { FEATURES } from "@configuration/feature-flags"
-import { TypeCoverageService, DefensiveCoverageData, DefensiveCoverageByPokemonData, TypeEffectiveness } from "@multicalc/type-coverage"
+import { TypeCoverage, DefensiveCoverageData, DefensiveCoverageByPokemonData, TypeEffectiveness } from "@multicalc/type-calc"
 import { Team, Pokemon } from "@multicalc/model"
 import { TypeName } from "@data/types"
 
@@ -18,9 +18,9 @@ import { TypeName } from "@data/types"
   styleUrl: "./defensive-coverage.component.scss"
 })
 export class DefensiveCoverageComponent {
-  store = inject(CalculatorStore)
+  store = inject(CalcStore)
   features = FEATURES
-  typeCoverageService = new TypeCoverageService()
+  typeCoverage = new TypeCoverage()
 
   secondTeam = input<Team | null>(null)
   considerTeraType = signal<boolean>(false)
@@ -34,9 +34,7 @@ export class DefensiveCoverageComponent {
     if (!secondTeamValue) return false
 
     return secondTeamValue.teamMembers.some(member => {
-      if (member.pokemon.isDefault) return false
-
-      return this.typeCoverageService.hasTeraBlast(member.pokemon)
+      return this.typeCoverage.hasTeraBlast(member.pokemon)
     })
   })
 
@@ -44,10 +42,10 @@ export class DefensiveCoverageComponent {
     const secondTeamValue = this.secondTeam()
 
     if (secondTeamValue) {
-      return this.typeCoverageService.getDefensiveCoverageAgainstTeam(this.team(), secondTeamValue, this.considerTeraType(), this.considerTeraBlast())
+      return this.typeCoverage.getDefensiveCoverageAgainstTeam(this.team(), secondTeamValue, this.considerTeraType(), this.considerTeraBlast())
     }
 
-    return this.typeCoverageService.getDefensiveCoverage(this.team(), this.considerTeraType())
+    return this.typeCoverage.getDefensiveCoverage(this.team(), this.considerTeraType())
   })
 
   isAgainstTeam = computed(() => this.secondTeam() !== null)
@@ -57,10 +55,10 @@ export class DefensiveCoverageComponent {
     const secondTeamValue = this.secondTeam()
 
     if (secondTeamValue) {
-      return team.teamMembers.some(member => !member.pokemon.isDefault) && secondTeamValue.teamMembers.some(member => !member.pokemon.isDefault)
+      return !team.isEmpty() && !secondTeamValue.isEmpty()
     }
 
-    return team.teamMembers.some(member => !member.pokemon.isDefault)
+    return !team.isEmpty()
   })
 
   getTypeName(type: string): TypeName {
@@ -97,7 +95,7 @@ export class DefensiveCoverageComponent {
   }
 
   getCellClass(effectiveness: TypeEffectiveness): string {
-    return this.typeCoverageService.getCellClass(effectiveness)
+    return this.typeCoverage.getCellClass(effectiveness)
   }
 
   getTotalWeakClass(totalWeak: number): string {
@@ -118,10 +116,10 @@ export class DefensiveCoverageComponent {
   }
 
   hasTeraBlast(pokemon: Pokemon): boolean {
-    return this.typeCoverageService.hasTeraBlast(pokemon)
+    return this.typeCoverage.hasTeraBlast(pokemon)
   }
 
   getPokemonTeraType(pokemon: Pokemon): string | null {
-    return this.typeCoverageService.getPokemonTeraType(pokemon)
+    return this.typeCoverage.getPokemonTeraType(pokemon)
   }
 }

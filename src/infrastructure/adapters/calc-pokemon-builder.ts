@@ -1,11 +1,13 @@
-import { DEFAULT_TERA_TYPE, SELECT_POKEMON_LABEL } from "@multicalc/constants"
 import { Ability } from "@multicalc/model/ability"
 import { Pokemon } from "@multicalc/model/pokemon"
-import { PokemonParameters } from "@multicalc/types"
+import { PokemonParameters } from "@multicalc/model/pokemon"
 import { Pokemon as CalcPokemon } from "@calc"
 import { AbilityName, ItemName, NatureName, StatIDExceptHP, StatusName, TypeName } from "@data/types"
-import { higherStat } from "@multicalc/stats"
+import { higherStat } from "@multicalc/stat-calc"
 import { normalizePokemonNameForCalc } from "./pokemon-name-normalizer"
+
+const DEFAULT_TERA_TYPE = "Water"
+const SELECT_POKEMON_LABEL = "Select a Pokémon"
 
 export function fromExisting(pokemon: Pokemon, forceMaxIvs = false): CalcPokemon {
   const MAX_IVS = { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 }

@@ -1,8 +1,9 @@
 import { MAX_TOTAL_EVS, MIN_DAMAGE_PRODUCT_MULTIPLIER } from "./ev-optimizer-constants"
 import { Field } from "@multicalc/model/field"
 import { Pokemon } from "@multicalc/model/pokemon"
-import { Stats, SurvivalThreshold } from "@multicalc/types"
-import { EvIntervalsCalculator } from "./ev-intervals-calculator"
+import { Stats } from "@multicalc/types"
+import { SurvivalThreshold } from "@multicalc/ev-optimizer/internal/ev-optimizer-types"
+import { EvIntervalsCalc } from "./ev-intervals-calc"
 import { EvOptimizerUtils } from "./ev-optimizer-utils"
 import { SurvivalChecker } from "./survival-checker"
 
@@ -13,7 +14,7 @@ type MixedScenarioResult = {
 }
 
 export class DoubleAttackerOptimizer {
-  private evIntervalsCalculator = new EvIntervalsCalculator()
+  private evIntervalsCalc = new EvIntervalsCalc()
   private survivalChecker = new SurvivalChecker()
   private utils = new EvOptimizerUtils()
 
@@ -33,7 +34,7 @@ export class DoubleAttackerOptimizer {
   }
 
   private optimizeForTwoPhysicalAttackers(attacker1: Pokemon, attacker2: Pokemon, defender: Pokemon, field: Field, threshold: SurvivalThreshold, rollIndex: number, rightIsDefender = true): Stats {
-    const evIntervals = this.evIntervalsCalculator.getEvIntervals()
+    const evIntervals = this.evIntervalsCalc.getEvIntervals()
 
     const tempDefender = defender.clone()
     const tempEvs = { hp: 0, atk: defender.evs.atk, def: 0, spa: defender.evs.spa, spd: 0, spe: defender.evs.spe }
@@ -99,7 +100,7 @@ export class DoubleAttackerOptimizer {
   }
 
   private optimizeForTwoSpecialAttackers(attacker1: Pokemon, attacker2: Pokemon, defender: Pokemon, field: Field, threshold: SurvivalThreshold, rollIndex: number, rightIsDefender = true): Stats {
-    const evIntervals = this.evIntervalsCalculator.getEvIntervals()
+    const evIntervals = this.evIntervalsCalc.getEvIntervals()
 
     const tempDefender = defender.clone()
     const tempEvs = { hp: 0, atk: defender.evs.atk, def: 0, spa: defender.evs.spa, spd: 0, spe: defender.evs.spe }
@@ -165,7 +166,7 @@ export class DoubleAttackerOptimizer {
   }
 
   private optimizeForMixedAttackers(physicalAttacker: Pokemon, specialAttacker: Pokemon, defender: Pokemon, field: Field, threshold: SurvivalThreshold, rollIndex: number, rightIsDefender = true): Stats {
-    const evIntervals = this.evIntervalsCalculator.getEvIntervals()
+    const evIntervals = this.evIntervalsCalc.getEvIntervals()
 
     const tempDefender = defender.clone()
     const tempEvs = { hp: 0, atk: defender.evs.atk, def: 0, spa: defender.evs.spa, spd: 0, spe: defender.evs.spe }

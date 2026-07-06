@@ -2,14 +2,15 @@ import { MAX_TOTAL_EVS } from "./ev-optimizer-constants"
 import { AttackerContext, DoubleAttackerContext, OptimizationContext, SolutionSet } from "./ev-optimizer-types"
 import { Field } from "@multicalc/model/field"
 import { Pokemon } from "@multicalc/model/pokemon"
-import { Stats, SurvivalThreshold } from "@multicalc/types"
+import { Stats } from "@multicalc/types"
+import { SurvivalThreshold } from "@multicalc/ev-optimizer/internal/ev-optimizer-types"
 import { AttackerSelector } from "./attacker-selector"
-import { EvIntervalsCalculator } from "./ev-intervals-calculator"
+import { EvIntervalsCalc } from "./ev-intervals-calc"
 import { SingleAttackerOptimizer } from "./single-attacker-optimizer"
 import { SurvivalChecker } from "./survival-checker"
 
 export class SolutionCombiner {
-  private evIntervalsCalculator = new EvIntervalsCalculator()
+  private evIntervalsCalc = new EvIntervalsCalc()
   private survivalChecker = new SurvivalChecker()
   private singleAttackerOptimizer = new SingleAttackerOptimizer()
   private attackerSelector = new AttackerSelector()
@@ -178,7 +179,7 @@ export class SolutionCombiner {
       return baseResult
     }
 
-    const evIntervals = this.evIntervalsCalculator.getEvIntervals()
+    const evIntervals = this.evIntervalsCalc.getEvIntervals()
 
     for (const attacker of orderedAttackers) {
       if (isPhysical) {
@@ -225,7 +226,7 @@ export class SolutionCombiner {
       return null
     }
 
-    const evIntervals = this.evIntervalsCalculator.getEvIntervals()
+    const evIntervals = this.evIntervalsCalc.getEvIntervals()
     const minHpIndex = 0
 
     let bestSolution: (Stats & { totalEvs: number }) | null = null
@@ -340,7 +341,7 @@ export class SolutionCombiner {
       return null
     }
 
-    const evIntervals = this.evIntervalsCalculator.getEvIntervals()
+    const evIntervals = this.evIntervalsCalc.getEvIntervals()
     const currentTotalEvs = currentSolution.hp + currentSolution.def + currentSolution.spd
     const remainingEvs = MAX_TOTAL_EVS - currentTotalEvs
 
@@ -457,7 +458,7 @@ export class SolutionCombiner {
       return { hp: physicalSolution.hp, atk: 0, def: physicalSolution.def, spa: 0, spd: 0, spe: 0 }
     }
 
-    const evIntervals = this.evIntervalsCalculator.getEvIntervals()
+    const evIntervals = this.evIntervalsCalc.getEvIntervals()
     let bestSolution: (Stats & { totalEvs: number }) | null = null
     const tempDefender = defender.clone()
 
@@ -516,7 +517,7 @@ export class SolutionCombiner {
       return { hp: specialSolution.hp, atk: 0, def: 0, spa: 0, spd: specialSolution.spd, spe: 0 }
     }
 
-    const evIntervals = this.evIntervalsCalculator.getEvIntervals()
+    const evIntervals = this.evIntervalsCalc.getEvIntervals()
     let bestSolution: (Stats & { totalEvs: number }) | null = null
     const tempDefender = defender.clone()
 

@@ -1,12 +1,13 @@
-import { SELECT_POKEMON_LABEL } from "@multicalc/constants"
 import { Ability } from "@multicalc/model/ability"
 import { Move } from "@multicalc/model/move"
 import { MoveSet } from "@multicalc/model/moveset"
 import { Pokemon } from "@multicalc/model/pokemon"
 import { Status } from "@multicalc/model/status"
-import { PokemonParameters } from "@multicalc/types"
+import { PokemonParameters } from "@multicalc/model/pokemon"
 import { AbilityName, ItemName } from "@data/types"
 import { fromExisting, fromScratch } from "./calc-pokemon-builder"
+
+const SELECT_POKEMON_LABEL = "Select a Pokémon"
 
 describe("CalcPokemonBuilder", () => {
   it("should create a CalcPokemon from an existing Pokemon", () => {

@@ -56,7 +56,7 @@ describe("Test calcs with combined damage", () => {
     opponents.get("Urshifu Rapid Strike").damageIs(620.5, 729.1).causeOHKO()
   })
 
-  it("Remove second Pokémon from calculation when it is deleted", () => {
+  it("Remove second Pokémon from calc when it is deleted", () => {
     team.selectPokemon("Koraidon").selectAttackThree()
     team.selectTeamMember("Koraidon").combineDamage()
     team.selectTeamMember("Miraidon").delete()
@@ -101,7 +101,7 @@ describe("Combined Damage with Ruin abilities", () => {
     team.selectTeamMember("Wo-Chien").combineDamage()
     team.selectTeamMember("Blaziken")
 
-    opponents.get("Urshifu Rapid Strike").damageIs(30.8, 37.1).haveChanceOfToCause3HKO(69.8)
+    opponents.get("Urshifu Rapid Strike").damageIs(36, 43.4).cause3HKO()
   })
 
   it("Calculate damage with two Pokémon, one without Tablets of Ruin and with ability", () => {
@@ -111,7 +111,7 @@ describe("Combined Damage with Ruin abilities", () => {
     team.selectTeamMember("Blaziken").combineDamage()
     team.selectTeamMember("Wo-Chien")
 
-    opponents.get("Urshifu Rapid Strike").damageIs(30.8, 37.1).haveChanceOfToCause3HKO(69.8)
+    opponents.get("Urshifu Rapid Strike").damageIs(36, 43.4).cause3HKO()
   })
 
   it("Calculate damage with two Pokémon, one with Sword of Ruin and another without ability", () => {
@@ -181,7 +181,7 @@ describe("Combined Damage with Ruin abilities", () => {
     team.selectTeamMember("Wo-Chien").combineDamage()
     team.selectTeamMember("Chien-Pao")
 
-    opponents.get("Urshifu Rapid Strike").damageIs(32, 38.2).haveChanceOfToCause3HKO(99.2)
+    opponents.get("Urshifu Rapid Strike").damageIs(39.4, 46.8).cause3HKO()
   })
 
   it("Calculate damage with two Pokémon, one with Vessel of Ruin and another with Beads of Ruin", () => {
@@ -233,7 +233,7 @@ describe("Combined Damage against reduce damage abilities", () => {
     opponents.get("Dragonite").damageIs(62.8, 74.2).cause2HKO()
   })
 
-  it("two Pokémon against one with Multiscale considering Ability in speed calculation", () => {
+  it("two Pokémon against one with Multiscale considering Ability in speed calc", () => {
     team.importPokemon(poke["tornadus"])
     team.importPokemon(poke["kingdra"])
 

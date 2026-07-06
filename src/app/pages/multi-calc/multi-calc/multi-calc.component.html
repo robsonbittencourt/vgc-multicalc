@@ -3,10 +3,12 @@
   class="team"
   [pokemonId]="pokemonOnEditId()"
   [isAttacker]="menuStore.oneVsManyActivated()"
+  [addTargetMode]="addingTarget()"
   [optimizedEvs]="optimizedEvs()"
   [optimizedNature]="optimizedNature()"
   [optimizationStatus]="optimizationStatus()"
   (teamMemberSelected)="updatePokemonOnEditId($event)"
+  (targetAddedByName)="onTargetAddedByName($event)"
   (optimizeRequested)="handleOptimizeRequest($event)"
   (optimizationApplied)="handleOptimizationApplied()"
   (optimizationDiscarded)="handleOptimizationDiscarded()" />
@@ -18,7 +20,8 @@
   class="target-pokemon"
   [damageResults]="damageResults()"
   [isAttacker]="menuStore.manyVsOneActivated()"
+  [addingTarget]="addingTarget()"
   (targetActivated)="targetActivated($event)"
-  (pokemonAddedToTargets)="onPokemonAddedToTargets($event)"
-  (targetRemoved)="updatePokemonOnEditId(store.team().activePokemon().id)"
+  (addTargetRequested)="startAddingTarget()"
+  (targetRemoved)="onTargetRemoved()"
   (targetsImported)="targetsImported()" />

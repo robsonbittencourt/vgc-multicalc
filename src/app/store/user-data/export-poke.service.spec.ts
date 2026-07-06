@@ -5,7 +5,7 @@ import { MatDialog } from "@angular/material/dialog"
 import { TeamExportModalComponent } from "@features/export-modal/export-modal.component"
 import { Ability, Move, MoveSet, Pokemon } from "@multicalc/model"
 import { ExportPokeService } from "@store/user-data/export-poke.service"
-import { MockOf } from "@multicalc/test-utils"
+import { MockOf } from "@app/test-utils"
 
 describe("ExportPokeService", () => {
   let service: ExportPokeService

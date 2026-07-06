@@ -2,7 +2,7 @@
   <div #scrollContainer cdkScrollable class="scrollable-content" [class.teams-tab]="activeBottomTab() === 'teams'" [class.field-tab]="activeBottomTab() === 'field'" [class.table-open]="overlay.isAnyOpen()" (scroll)="onScroll($event)">
     <div [hidden]="activeBottomTab() !== 'results'" [class.tab-active]="activeBottomTab() === 'results'" [class.table-open]="overlay.isAnyOpen()">
       <div [hidden]="overlay.isAnyOpen()">
-        <app-team-tabs-mobile [(pokemonOnEditId)]="pokemonOnEditId" (memberAddedEvent)="focusPokemonComboBox()" />
+        <app-team-tabs-mobile [(pokemonOnEditId)]="pokemonOnEditId" [(addingPokemon)]="addingPokemon" (memberAddedEvent)="focusPokemonComboBox()" />
       </div>
 
       @if (editingPokemon()) {
@@ -27,7 +27,7 @@
               @if (!store.isEditingCustomSet()) {
                 <app-import-pokemon-button (pokemonImportedEvent)="onHeaderImport($event)" />
               }
-              @if (!editingPokemon()!.isDefault) {
+              @if (!isAddMode()) {
                 <app-export-pokemon-button [pokemonId]="effectiveEditingId()!" />
               }
             }

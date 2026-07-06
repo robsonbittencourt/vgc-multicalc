@@ -1,11 +1,11 @@
 import { Component, computed, effect, inject, input, linkedSignal, OnInit, output, PLATFORM_ID, signal } from "@angular/core"
 import { isPlatformBrowser } from "@angular/common"
-import { CalculatorStore } from "@store/calculator-store"
+import { CalcStore } from "@store/calc-store"
 import { FieldStore } from "@store/field-store"
 import { SpeedCalcOptionsStore } from "@store/speed-calc-options-store"
 import { Field, Pokemon } from "@multicalc/model"
-import { getFinalSpeed } from "@multicalc/stats"
-import { SpeedCalculatorOptions as SpeedScaleOptions, SpeedCalculatorService, SpeedTeamPokemon, SpeedDefinition } from "@multicalc/speed-calculator"
+import { getFinalSpeed } from "@multicalc/stat-calc"
+import { SpeedCalcOptions as SpeedScaleOptions, SpeedCalc, SpeedTeamPokemon, SpeedDefinition } from "@multicalc/speed-calc"
 import { SpeedBoxComponent } from "@pages/speed-calc/speed-box/speed-box.component"
 
 @Component({
@@ -21,10 +21,10 @@ export class SpeedScaleComponent implements OnInit {
 
   pokemonSelected = output<Pokemon>()
 
-  store = inject(CalculatorStore)
+  store = inject(CalcStore)
   fieldStore = inject(FieldStore)
   optionsStore = inject(SpeedCalcOptionsStore)
-  private speedCalculatorService = new SpeedCalculatorService()
+  private speedCalcService = new SpeedCalc()
 
   hideActualDescription = computed(() => this.optionsStore.filterType() === "opponents" || this.optionsStore.filterType() === "team")
   highlightMyTeam = computed(() => this.optionsStore.showMyTeam())
@@ -56,7 +56,7 @@ export class SpeedScaleComponent implements OnInit {
     clearTimeout(this.timeoutId)
 
     this.timeoutId = setTimeout(() => {
-      const range = this.speedCalculatorService.orderedPokemon(pokemon, field, this.pokemonEachSide(), this.teamPokemon(options), options, this.opponentsNoPaddingThreshold())
+      const range = this.speedCalcService.orderedPokemon(pokemon, field, this.pokemonEachSide(), this.teamPokemon(options), options, this.opponentsNoPaddingThreshold())
       this.inSpeedRange.set(range)
 
       this.verifyChanges(range)
@@ -65,18 +65,12 @@ export class SpeedScaleComponent implements OnInit {
   }
 
   private teamPokemon(options: SpeedScaleOptions): SpeedTeamPokemon {
-    const opponents = this.store
-      .targets()
-      .flatMap(t => [t.pokemon, t.secondPokemon])
-      .filter((p): p is Pokemon => p != null && !p.isDefault)
+    const opponents = this.store.targets().flatMap(t => t.pokemons())
 
     const selectedTeam = this.store.teams().find(t => t.id === options.teamId)
-    const team = selectedTeam ? selectedTeam.teamMembers.map(m => m.pokemon).filter(p => !p.isDefault) : []
+    const team = selectedTeam ? selectedTeam.teamMembers.map(m => m.pokemon) : []
 
-    const myTeam = this.store
-      .team()
-      .teamMembers.map(m => m.pokemon)
-      .filter(p => !p.isDefault)
+    const myTeam = this.store.team().teamMembers.map(m => m.pokemon)
 
     return { opponents, team, myTeam }
   }

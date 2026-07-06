@@ -5,7 +5,7 @@ import { Field, FieldSide } from "@multicalc/model"
 import { GameType, Terrain, Weather } from "@multicalc/types"
 import { patchState, signalStore, withHooks, withState } from "@ngrx/signals"
 import { ActiveFieldService } from "./active-field.service"
-import { CalculatorStore } from "./calculator-store"
+import { CalcStore } from "./calc-store"
 import { FIELD_CONTEXT } from "./tokens/field-context.token"
 
 export type FieldState = {
@@ -84,7 +84,7 @@ export class FieldStore extends signalStore(
     }
   })
 ) {
-  calculatorStore = inject(CalculatorStore)
+  calcStore = inject(CalcStore)
 
   constructor() {
     super()
@@ -149,7 +149,7 @@ export class FieldStore extends signalStore(
 
   toggleSunWeather() {
     this.toggleWeather("Sun")
-    this.calculatorStore.toggleProtosynthesis(this.isWeatherSun())
+    this.calcStore.toggleProtosynthesis(this.isWeatherSun())
   }
 
   toggleAutomaticSunWeather() {
@@ -201,7 +201,7 @@ export class FieldStore extends signalStore(
 
   toggleElectricTerrain() {
     this.toggleTerrain("Electric")
-    this.calculatorStore.toggleQuarkDrive(this.isTerrainElectric())
+    this.calcStore.toggleQuarkDrive(this.isTerrainElectric())
   }
 
   toggleAutomaticElectricTerrain() {

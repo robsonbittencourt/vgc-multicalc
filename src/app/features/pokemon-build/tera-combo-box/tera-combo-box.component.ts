@@ -1,6 +1,6 @@
 import { Component, computed, inject, input, output } from "@angular/core"
 import { InputSelectComponent } from "@basic/input-select/input-select.component"
-import { CalculatorStore } from "@store/calculator-store"
+import { CalcStore } from "@store/calc-store"
 import { TerastalButtonComponent } from "@features/buttons/terastal-button/terastal-button.component"
 import { TypeName } from "@data/types"
 
@@ -18,7 +18,7 @@ export class TeraComboBoxComponent {
 
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
 
-  store = inject(CalculatorStore)
+  store = inject(CalcStore)
 
   allTeraTypes: TypeName[] = ["Bug", "Dark", "Dragon", "Electric", "Fairy", "Fighting", "Fire", "Flying", "Ghost", "Grass", "Ground", "Ice", "Normal", "Poison", "Psychic", "Rock", "Steel", "Stellar", "Water"]
 

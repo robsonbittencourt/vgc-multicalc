@@ -1,10 +1,10 @@
 import { computed, inject, Injectable } from "@angular/core"
 import { MOVESETS } from "@data/moveset-data"
 import { pokemonByRegulation } from "@adapters"
-import { CalculatorStore } from "./calculator-store"
-import { SpeedCalculatorMode, SpeedCalculatorOptions, SpeedCalculatorService, SPEED_CALCULATOR_MODES } from "@multicalc/speed-calculator"
+import { CalcStore } from "./calc-store"
+import { SpeedCalcMode, SpeedCalcOptions, SpeedCalc, SPEED_CALC_MODES, SpeedFilterType } from "@multicalc/speed-calc"
 import { patchState, signalStore, withState } from "@ngrx/signals"
-import { Regulation, SpeedFilterType } from "@multicalc/types"
+import { Regulation } from "@multicalc/types"
 
 const REGULATION_FILTER_LABELS: Record<string, Regulation> = {
   "Reg M-B": "MB"
@@ -19,7 +19,7 @@ type SpeedCalcOptionsState = {
   teamId: string
   showMyTeam: boolean
   targetName: string
-  mode: SpeedCalculatorMode
+  mode: SpeedCalcMode
   speedModifier: number
   speedDropActive: boolean
   paralyzedActive: boolean
@@ -32,7 +32,7 @@ const initialState: SpeedCalcOptionsState = {
   teamId: "",
   showMyTeam: true,
   targetName: "",
-  mode: SpeedCalculatorMode.StatsAndMeta,
+  mode: SpeedCalcMode.StatsAndMeta,
   speedModifier: 0,
   speedDropActive: false,
   paralyzedActive: false
@@ -40,19 +40,19 @@ const initialState: SpeedCalcOptionsState = {
 
 @Injectable({ providedIn: "root" })
 export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }, withState(initialState)) {
-  private calculatorStore = inject(CalculatorStore)
-  private speedCalculatorService = new SpeedCalculatorService()
+  private calcStore = inject(CalcStore)
+  private speedCalcService = new SpeedCalc()
 
   constructor() {
     super()
 
-    const initialMode = this.speedCalculatorService.hasStatisticsForRegulation(this.regulation()) ? SpeedCalculatorMode.StatsAndMeta : SpeedCalculatorMode.Stats
+    const initialMode = this.speedCalcService.hasStatisticsForRegulation(this.regulation()) ? SpeedCalcMode.StatsAndMeta : SpeedCalcMode.Stats
     patchState(this, () => ({ mode: initialMode }))
   }
 
   readonly options = computed(
     () =>
-      new SpeedCalculatorOptions({
+      new SpeedCalcOptions({
         topUsage: this.topUsage(),
         filterType: this.filterType(),
         regulation: this.regulation(),
@@ -67,9 +67,9 @@ export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }
   )
 
   readonly filterOptions = computed(() => {
-    const teamNames = this.calculatorStore
+    const teamNames = this.calcStore
       .teams()
-      .filter(t => t.teamMembers.some(m => !m.pokemon.isDefault))
+      .filter(t => !t.isEmpty())
       .map(t => t.name)
 
     return [...Object.keys(REGULATION_FILTER_LABELS), OPPONENTS_FILTER_LABEL, ...teamNames]
@@ -79,7 +79,7 @@ export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }
     if (this.filterType() === "opponents") return OPPONENTS_FILTER_LABEL
 
     if (this.filterType() === "team") {
-      return this.calculatorStore.teams().find(t => t.id === this.teamId())?.name ?? OPPONENTS_FILTER_LABEL
+      return this.calcStore.teams().find(t => t.id === this.teamId())?.name ?? OPPONENTS_FILTER_LABEL
     }
 
     return Object.keys(REGULATION_FILTER_LABELS).find(label => REGULATION_FILTER_LABELS[label] === this.regulation()) ?? "Reg M-B"
@@ -90,11 +90,11 @@ export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }
   readonly regulationsList = computed(() => ["MB"])
 
   readonly availableModes = computed(() => {
-    if (this.filterType() !== "regulation" || !this.speedCalculatorService.hasStatisticsForRegulation(this.regulation())) {
-      return SPEED_CALCULATOR_MODES.filter(m => m !== SpeedCalculatorMode.StatsAndMeta && m !== SpeedCalculatorMode.Meta)
+    if (this.filterType() !== "regulation" || !this.speedCalcService.hasStatisticsForRegulation(this.regulation())) {
+      return SPEED_CALC_MODES.filter(m => m !== SpeedCalcMode.StatsAndMeta && m !== SpeedCalcMode.Meta)
     }
 
-    return SPEED_CALCULATOR_MODES
+    return SPEED_CALC_MODES
   })
 
   readonly pokemonNamesByReg = computed(() => {
@@ -110,21 +110,15 @@ export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }
 
   private filteredPokemonNames(): string[] {
     if (this.filterType() === "opponents") {
-      return this.calculatorStore
+      return this.calcStore
         .targets()
-        .flatMap(t => [t.pokemon, t.secondPokemon])
-        .filter(p => p != null && !p.isDefault)
-        .map(p => p!.name)
+        .flatMap(t => t.pokemons())
+        .map(p => p.name)
     }
 
-    const team = this.calculatorStore.teams().find(t => t.id === this.teamId())
+    const team = this.calcStore.teams().find(t => t.id === this.teamId())
 
-    return team
-      ? team.teamMembers
-          .map(m => m.pokemon)
-          .filter(p => !p.isDefault)
-          .map(p => p.name)
-      : []
+    return team ? team.teamMembers.map(m => m.pokemon).map(p => p.name) : []
   }
 
   toggleIcyWind(enabled: boolean) {
@@ -155,7 +149,7 @@ export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }
       return
     }
 
-    const team = this.calculatorStore.teams().find(t => t.name === filter)
+    const team = this.calcStore.teams().find(t => t.name === filter)
 
     if (team) {
       patchState(this, () => ({ filterType: "team" as SpeedFilterType, teamId: team.id, ...this.modeFallback() }))
@@ -164,15 +158,15 @@ export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }
   }
 
   private modeFallback() {
-    const currentModeNeedsStatistics = this.mode() === SpeedCalculatorMode.StatsAndMeta || this.mode() === SpeedCalculatorMode.Meta
-    return currentModeNeedsStatistics ? { mode: SpeedCalculatorMode.Stats } : {}
+    const currentModeNeedsStatistics = this.mode() === SpeedCalcMode.StatsAndMeta || this.mode() === SpeedCalcMode.Meta
+    return currentModeNeedsStatistics ? { mode: SpeedCalcMode.Stats } : {}
   }
 
   updateRegulation(regulation: Regulation) {
-    const hasStatistics = this.speedCalculatorService.hasStatisticsForRegulation(regulation)
-    const currentModeNeedsStatistics = this.mode() === SpeedCalculatorMode.StatsAndMeta || this.mode() === SpeedCalculatorMode.Meta
+    const hasStatistics = this.speedCalcService.hasStatisticsForRegulation(regulation)
+    const currentModeNeedsStatistics = this.mode() === SpeedCalcMode.StatsAndMeta || this.mode() === SpeedCalcMode.Meta
 
-    patchState(this, () => ({ filterType: "regulation" as SpeedFilterType, regulation, ...(!hasStatistics && currentModeNeedsStatistics ? { mode: SpeedCalculatorMode.Stats } : {}) }))
+    patchState(this, () => ({ filterType: "regulation" as SpeedFilterType, regulation, ...(!hasStatistics && currentModeNeedsStatistics ? { mode: SpeedCalcMode.Stats } : {}) }))
     this.clearTargetName()
   }
 
@@ -186,7 +180,7 @@ export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }
   }
 
   updateMode(mode: string) {
-    patchState(this, () => ({ mode: mode as SpeedCalculatorMode }))
+    patchState(this, () => ({ mode: mode as SpeedCalcMode }))
     this.clearTargetName()
   }
 

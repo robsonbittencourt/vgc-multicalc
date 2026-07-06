@@ -1,5 +1,6 @@
-import { StatusDescription } from "@multicalc/types"
 import { StatusName } from "@data/types"
+
+export type StatusDescription = "Healthy" | "Sleep" | "Poison" | "Burn" | "Freeze" | "Paralysis"
 
 export class Status {
   private static readonly values: Status[] = []

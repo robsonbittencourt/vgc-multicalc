@@ -1,6 +1,6 @@
 import { calculate, calculateMulti, Field, Move, Pokemon, Side } from "@calc"
 
-describe("Damage Calculator Service (new)", () => {
+describe("Damage Calc Service (new)", () => {
   describe("Base damage", () => {
     it("physical STAB move", () => {
       const attacker = new Pokemon("Incineroar", { evs: { atk: 252 }, nature: "Adamant" })

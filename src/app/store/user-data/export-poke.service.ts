@@ -3,6 +3,7 @@ import { inject, Injectable } from "@angular/core"
 import { MatDialog } from "@angular/material/dialog"
 import { TeamExportModalComponent } from "@features/export-modal/export-modal.component"
 import { FEATURES } from "@configuration/feature-flags"
+import { CalcStore } from "@store/calc-store"
 import { Pokemon } from "@multicalc/model"
 import { evToSp } from "@multicalc/utils/ev-sp-converter"
 import { normalizePokemonNameForExport } from "@adapters"
@@ -11,6 +12,7 @@ import { normalizePokemonNameForExport } from "@adapters"
 })
 export class ExportPokeService {
   private dialog = inject(MatDialog)
+  private store = inject(CalcStore)
 
   export(title: string, pokemon: Pokemon[], useSpsMode?: boolean): Promise<void>
   export(title: string, pokemon: Pokemon, useSpsMode?: boolean): Promise<void>
@@ -31,7 +33,7 @@ export class ExportPokeService {
       }
     }
 
-    const toExport = pokemonArray.filter(p => !p.isDefault)
+    const toExport = pokemonArray
     const results = await Promise.all(toExport.map(p => this.parse(p, useSps)))
     this.openModal(title, results.map(r => r + "\n").join(""))
   }

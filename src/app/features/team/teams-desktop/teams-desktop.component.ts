@@ -6,7 +6,7 @@ import { MatIcon } from "@angular/material/icon"
 import { MatInput } from "@angular/material/input"
 import { HiddenDirective } from "@basic/hidden-keepiing/hidden.directive"
 import { WidgetComponent } from "@basic/widget/widget.component"
-import { CalculatorStore } from "@store/calculator-store"
+import { CalcStore } from "@store/calc-store"
 import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
 import { TeamBoxComponent } from "@features/team/team-box/team-box.component"
 import { Pokemon, Team } from "@multicalc/model"
@@ -19,7 +19,7 @@ import { TeamsService } from "@features/team/teams.service"
   imports: [WidgetComponent, MatFormField, MatInput, FormsModule, MatButton, MatIconButton, MatIcon, TeamBoxComponent, ImportPokemonButtonComponent, HiddenDirective]
 })
 export class TeamsDesktopComponent implements OnInit {
-  store = inject(CalculatorStore)
+  store = inject(CalcStore)
   private teamsService = inject(TeamsService)
 
   pokemonSelected = output<string>()
@@ -37,7 +37,7 @@ export class TeamsDesktopComponent implements OnInit {
   constructor() {
     effect(() => {
       const teams = this.store.teams()
-      const emptyTeamsGroups = teams.filter(t => t.onlyHasDefaultPokemon())
+      const emptyTeamsGroups = teams.filter(t => t.isEmpty())
 
       if (emptyTeamsGroups.length < 2) {
         this.teamsService.ensureCorrectTeamCount()
@@ -46,7 +46,7 @@ export class TeamsDesktopComponent implements OnInit {
   }
 
   ngOnInit() {
-    const orderedTeams = [...this.store.teams()].sort(this.teamsService.moveEmptyListsToEnd)
+    const orderedTeams = [...this.store.teams()].sort((a, b) => this.teamsService.moveEmptyListsToEnd(a, b))
     const newTeams = this.teamsService.cleanTeamsInChunks(orderedTeams)
     this.store.updateTeams(newTeams)
     this.teamsService.ensureCorrectTeamCount()
@@ -72,7 +72,7 @@ export class TeamsDesktopComponent implements OnInit {
     const result = this.teamsService.pokemonImported(pokemon, false, this.importedTeamName)
     this.importedTeamName = undefined
     this.currentPage.set(Math.floor(result.teamIndex / 4))
-    this.pokemonSelected.emit(result.activePokemonId)
+    this.pokemonSelected.emit(result.activePokemonId ?? "")
   }
 
   activateTeam(team: Team) {
@@ -82,7 +82,7 @@ export class TeamsDesktopComponent implements OnInit {
     }
 
     const activePokemonId = this.teamsService.activateTeam(team)
-    this.pokemonSelected.emit(activePokemonId)
+    this.pokemonSelected.emit(activePokemonId ?? "")
   }
 
   activateSecondTeam(team: Team) {
@@ -120,7 +120,7 @@ export class TeamsDesktopComponent implements OnInit {
 
   deleteTeam() {
     const activePokemonId = this.teamsService.deleteTeam(false)
-    this.pokemonSelected.emit(activePokemonId)
+    this.pokemonSelected.emit(activePokemonId ?? "")
   }
 
   private activateFirstTeamByPage() {

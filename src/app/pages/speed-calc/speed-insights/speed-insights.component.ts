@@ -2,11 +2,12 @@ import { Component, computed, inject, input } from "@angular/core"
 import { WidgetComponent } from "@basic/widget/widget.component"
 import { PokemonSpriteComponent } from "@basic/pokemon-sprite/pokemon-sprite.component"
 import { SpeedStatistic } from "@data/speed-data"
-import { CalculatorStore } from "@store/calculator-store"
+import { CalcStore } from "@store/calc-store"
 import { SpeedCalcOptionsStore } from "@store/speed-calc-options-store"
-import { MAX_BASE_SPEED_FOR_TR } from "@multicalc/constants"
 import { Pokemon } from "@multicalc/model"
-import { SpeedCalculatorService } from "@multicalc/speed-calculator"
+import { SpeedCalc } from "@multicalc/speed-calc"
+
+const MAX_BASE_SPEED_FOR_TR = 60
 
 @Component({
   selector: "app-speed-insights",
@@ -16,15 +17,15 @@ import { SpeedCalculatorService } from "@multicalc/speed-calculator"
 })
 export class SpeedInsightsComponent {
   optionsStore = inject(SpeedCalcOptionsStore)
-  calculatorStore = inject(CalculatorStore)
-  speedCalculatorService = new SpeedCalculatorService()
+  calcStore = inject(CalcStore)
+  speedCalcService = new SpeedCalc()
 
   pokemon = input.required<Pokemon>()
   isMobile = input<boolean>(false)
 
   pokemonName = computed(() => this.pokemon().name)
   regulation = computed(() => this.optionsStore.regulation())
-  speedInsights = computed(() => this.speedCalculatorService.retrieveSpeedStatistics(this.pokemonName(), this.regulation()))
+  speedInsights = computed(() => this.speedCalcService.retrieveSpeedStatistics(this.pokemonName(), this.regulation()))
 
   referenceDate = computed(() => this.speedInsights()?.referenceDate)
   base = computed(() => this.speedInsights()?.baseSpeed)
@@ -35,7 +36,7 @@ export class SpeedInsightsComponent {
 
   isTrSpeed = computed(() => (this.speedInsights()?.baseSpeed ?? 999) <= MAX_BASE_SPEED_FOR_TR)
 
-  useSpsMode = computed(() => this.calculatorStore.useSpsMode())
+  useSpsMode = computed(() => this.calcStore.useSpsMode())
   minSpLabel = computed(() => {
     if (this.useSpsMode()) return "SP 0"
     return "EV 0"

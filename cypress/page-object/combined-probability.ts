@@ -11,13 +11,13 @@ export class CombinedProbability {
     }
   }
 
-  selectCalculationType(type: "at-least-one" | "all" | "none") {
+  selectCalcType(type: "at-least-one" | "all" | "none") {
     const typeText = type === "at-least-one" ? "At least one" : type === "all" ? "All" : "None"
     cy.get("mat-option").should("not.exist")
-    cy.get('[data-cy="calculation-type-select"]').find('[data-cy="input-select"]').click()
+    cy.get('[data-cy="calc-type-select"]').find('[data-cy="input-select"]').click()
     cy.get("mat-option").contains(typeText).should("be.visible").scrollIntoView().click()
     cy.get("mat-option").should("not.exist")
-    cy.get('[data-cy="calculation-type-select"]').find('[data-cy="input-select"]').should("contain.text", typeText)
+    cy.get('[data-cy="calc-type-select"]').find('[data-cy="input-select"]').should("contain.text", typeText)
   }
 
   verifyResult(expectedValue: string) {
@@ -34,8 +34,8 @@ export class CombinedProbability {
     this.container().should("be.visible")
   }
 
-  verifyCalculationTypeSelected(type: "at-least-one" | "all" | "none") {
+  verifyCalcTypeSelected(type: "at-least-one" | "all" | "none") {
     const typeText = type === "at-least-one" ? "At least one" : type === "all" ? "All" : "None"
-    cy.get('[data-cy="calculation-type-select"]').find('[data-cy="input-select"]').should("contain.text", typeText)
+    cy.get('[data-cy="calc-type-select"]').find('[data-cy="input-select"]').should("contain.text", typeText)
   }
 }

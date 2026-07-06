@@ -1,7 +1,7 @@
 import { DOCUMENT } from "@angular/common"
 import { Component, inject, OnInit } from "@angular/core"
 import { Meta, Title } from "@angular/platform-browser"
-import { TypeCalculatorComponent } from "@pages/type-calc/type-calculator/type-calculator.component"
+import { TypeCalcComponent } from "@pages/type-calc/type-calc/type-calc.component"
 import { TypeCalcMobileComponent } from "@pages/type-calc/type-calc-mobile/type-calc-mobile.component"
 import { HeaderMobileComponent } from "@core/header-mobile/header-mobile.component"
 import { HeaderComponent } from "@core/header/header.component"
@@ -21,14 +21,14 @@ const URL = "https://vgcmulticalc.com/type-calc"
     <div class="container">
       @if (isDesktop()) {
         <app-header />
-        <app-type-calculator />
+        <app-type-calc />
       } @else {
         <app-header-mobile />
         <app-type-calc-mobile />
       }
     </div>
   `,
-  imports: [HeaderComponent, TypeCalculatorComponent, HeaderMobileComponent, TypeCalcMobileComponent]
+  imports: [HeaderComponent, TypeCalcComponent, HeaderMobileComponent, TypeCalcMobileComponent]
 })
 export class TypeCalcRouteComponent implements OnInit {
   private menuStore = inject(MenuStore)
@@ -39,7 +39,7 @@ export class TypeCalcRouteComponent implements OnInit {
   private jsonLd = inject(JsonLdService)
 
   ngOnInit() {
-    this.menuStore.enableTypeCalculator()
+    this.menuStore.enableTypeCalc()
     this.title.setTitle(TITLE)
     this.meta.updateTag({ name: "description", content: DESCRIPTION })
     this.updateSocialTags()

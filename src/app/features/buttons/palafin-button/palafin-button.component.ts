@@ -1,6 +1,6 @@
 import { Component, computed, effect, HostBinding, inject, input } from "@angular/core"
 import { MatTooltip } from "@angular/material/tooltip"
-import { CalculatorStore } from "@store/calculator-store"
+import { CalcStore } from "@store/calc-store"
 
 @Component({
   selector: "app-palafin-button",
@@ -11,7 +11,7 @@ import { CalculatorStore } from "@store/calculator-store"
 export class PalafinButtonComponent {
   pokemonId = input.required<string>()
 
-  store = inject(CalculatorStore)
+  store = inject(CalcStore)
 
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
   isPalafin = computed(() => this.pokemon().name === "Palafin" || this.pokemon().name === "Palafin-Hero")

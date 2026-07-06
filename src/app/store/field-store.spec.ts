@@ -5,7 +5,7 @@ import { FieldStore } from "./field-store"
 import { FIELD_CONTEXT } from "./tokens/field-context.token"
 import { FieldSide } from "@multicalc/model"
 import { GameType } from "@multicalc/types"
-import { CalculatorStore } from "./calculator-store"
+import { CalcStore } from "./calc-store"
 
 describe("Field Store", () => {
   let store: FieldStore
@@ -18,7 +18,7 @@ describe("Field Store", () => {
         FieldStore,
         ActiveFieldService,
         {
-          provide: CalculatorStore,
+          provide: CalcStore,
           useValue: {
             toggleProtosynthesis: () => void 0,
             toggleQuarkDrive: () => void 0

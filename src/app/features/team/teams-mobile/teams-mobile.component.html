@@ -5,7 +5,7 @@
       <mat-form-field appearance="outline" class="team-name-input">
         <input type="text" matInput [ngModel]="store.team().name" (input)="updateTeamName($event)" data-cy="team-name" />
       </mat-form-field>
-      <div class="export-team" [class.disabled]="store.team().onlyHasDefaultPokemon()" (click)="exportPdf()" data-cy="export-pdf-button">
+      <div class="export-team" [class.disabled]="store.team().isEmpty()" (click)="exportPdf()" data-cy="export-pdf-button">
         <mat-icon class="icon">picture_as_pdf</mat-icon>
         <label>Team List</label>
       </div>
@@ -15,7 +15,7 @@
       <button mat-flat-button color="primary" (click)="addNewTeam()" data-cy="add-team-button">Create</button>
       <div class="spacer"></div>
       <app-import-pokemon-button [singlePokemon]="false" [useIconStyle]="true" (teamNameImportedEvent)="teamNameImported($event)" (pokemonImportedEvent)="pokemonImported($event)" />
-      <div class="export-team" [class.disabled]="store.team().onlyHasDefaultPokemon()" (click)="export()" data-cy="export-team-button">
+      <div class="export-team" [class.disabled]="store.team().isEmpty()" (click)="export()" data-cy="export-team-button">
         <mat-icon class="icon">upload</mat-icon>
         <label>Export</label>
       </div>

@@ -1,4 +1,4 @@
-import type { PokemonState } from "@store/calculator-store"
+import type { PokemonState } from "@store/calc-store"
 
 export function setsMatch(saved: PokemonState, current: PokemonState): boolean {
   if (saved.nature !== current.nature) return false

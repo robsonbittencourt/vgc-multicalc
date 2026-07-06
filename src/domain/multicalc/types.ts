@@ -1,18 +1,4 @@
-import { Ability } from "@multicalc/model/ability"
-import { MoveSet } from "@multicalc/model/moveset"
-import { Status } from "@multicalc/model/status"
-import { StatIDExceptHP } from "@data/types"
-
 export type Stats = { hp: number; atk: number; def: number; spa: number; spd: number; spe: number }
-export type SurvivalThreshold = 2 | 3 | 4
-
-export type MovePosition = 1 | 2 | 3 | 4
-
-export interface MultiCalcMode {
-  oneVsManyActivated: boolean
-  manyVsOneActivated: boolean
-  oneVsManyBestMoveActivated: boolean
-}
 
 export type GameType = "Singles" | "Doubles"
 
@@ -20,44 +6,10 @@ export type Terrain = "Electric" | "Grassy" | "Psychic" | "Misty" | null
 
 export type Weather = "Sand" | "Sun" | "Rain" | "Snow" | null
 
-export type StatusDescription = "Healthy" | "Sleep" | "Poison" | "Burn" | "Freeze" | "Paralysis"
-
 export type Regulation = "MB"
-
-export type SpeedFilterType = "regulation" | "opponents" | "team"
-
-export type Jumps = [number, number, number, number | null]
-
-export type Category = "Physical" | "Special" | "Status"
-
-export type SecondaryEffect = {
-  chance: number
-  status?: string
-  volatileStatus?: string
-  boosts?: Partial<Record<keyof Stats | "accuracy", number>>
-}
 
 export type MoveTarget = "normal" | "allAdjacentFoes" | "self" | "any" | "adjacentAllyOrSelf" | "adjacentAlly" | "allySide" | "allAdjacent" | "all" | "allyTeam" | "adjacentFoe" | "scripted" | "allies" | "randomNormal" | "foeSide"
 
 export const PokemonTypes = ["Normal", "Fire", "Water", "Grass", "Electric", "Ice", "Fighting", "Poison", "Ground", "Flying", "Psychic", "Bug", "Rock", "Ghost", "Dragon", "Steel", "Dark", "Fairy"] as const
 
 export type PokemonType = (typeof PokemonTypes)[number]
-
-export type PokemonParameters = {
-  id?: string
-  ability?: Ability
-  nature?: string
-  item?: string
-  teraType?: string
-  teraTypeActive?: boolean
-  evs?: Partial<Stats>
-  moveSet?: MoveSet
-  boosts?: Partial<Stats>
-  bonusBoosts?: Partial<Stats>
-  status?: Status
-  ivs?: Partial<Stats>
-  hpPercentage?: number
-  commanderActive?: boolean
-  isAttacker?: boolean
-  higherStat?: StatIDExceptHP
-}

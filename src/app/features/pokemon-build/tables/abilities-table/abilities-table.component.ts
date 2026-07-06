@@ -1,5 +1,5 @@
 import { Component, computed, inject, input, output } from "@angular/core"
-import { CalculatorStore } from "@store/calculator-store"
+import { CalcStore } from "@store/calc-store"
 import { FilterableTableComponent } from "@features/pokemon-build/tables/filterable-table/filterable-table.component"
 import { ColumnConfig } from "@features/pokemon-build/tables/filterable-table/filtered-table-types"
 
@@ -24,7 +24,7 @@ export class AbilitiesTableComponent {
   firstAbilityFromList = output<string>()
   escapeWasPressed = output()
 
-  store = inject(CalculatorStore)
+  store = inject(CalcStore)
 
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
 

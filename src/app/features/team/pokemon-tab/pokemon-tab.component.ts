@@ -3,7 +3,7 @@ import { Component, computed, inject, input, output } from "@angular/core"
 import { MatIcon } from "@angular/material/icon"
 import { MatTooltip } from "@angular/material/tooltip"
 import { PokemonSpriteComponent } from "@basic/pokemon-sprite/pokemon-sprite.component"
-import { CalculatorStore } from "@store/calculator-store"
+import { CalcStore } from "@store/calc-store"
 
 @Component({
   selector: "app-pokemon-tab",
@@ -12,22 +12,31 @@ import { CalculatorStore } from "@store/calculator-store"
   imports: [NgClass, MatIcon, MatTooltip, PokemonSpriteComponent]
 })
 export class PokemonTabComponent {
-  pokemonId = input.required<string>()
+  pokemonId = input<string>()
   active = input.required<boolean>()
 
   tabActivated = output<string>()
   secondTabActivated = output<string>()
 
-  store = inject(CalculatorStore)
+  store = inject(CalcStore)
 
-  pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
-  hasDuplicateItem = computed(() => this.store.duplicateItemPokemonIds().has(this.pokemonId()))
+  pokemon = computed(() => this.store.findPokemonById(this.pokemonId()!))
+  isAddMode = computed(() => {
+    const id = this.pokemonId()
+
+    return id == undefined
+  })
+  hasDuplicateItem = computed(() => {
+    const id = this.pokemonId()
+
+    return id != undefined && this.store.duplicateItemPokemonIds().has(id)
+  })
 
   activateTab(event: MouseEvent) {
     if (event.ctrlKey || event.metaKey) {
-      this.secondTabActivated.emit(this.pokemonId())
+      this.secondTabActivated.emit(this.pokemonId() ?? "")
     } else {
-      this.tabActivated.emit(this.pokemonId())
+      this.tabActivated.emit(this.pokemonId() ?? "")
     }
   }
 }

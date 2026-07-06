@@ -1,5 +1,14 @@
-import { Category, PokemonType, SecondaryEffect } from "@multicalc/types"
+import { PokemonType, Stats } from "@multicalc/types"
 import { getMoveData } from "@data/move-data"
+
+export type Category = "Physical" | "Special" | "Status"
+
+export type SecondaryEffect = {
+  chance: number
+  status?: string
+  volatileStatus?: string
+  boosts?: Partial<Record<keyof Stats | "accuracy", number>>
+}
 
 interface MoveOptions {
   alliesFainted?: string

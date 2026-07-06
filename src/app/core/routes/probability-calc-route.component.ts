@@ -39,7 +39,7 @@ export class ProbabilityCalcRouteComponent implements OnInit {
   private jsonLd = inject(JsonLdService)
 
   ngOnInit() {
-    this.menuStore.enableProbabilityCalculator()
+    this.menuStore.enableProbabilityCalc()
     this.title.setTitle(TITLE)
     this.meta.updateTag({ name: "description", content: DESCRIPTION })
     this.updateSocialTags()

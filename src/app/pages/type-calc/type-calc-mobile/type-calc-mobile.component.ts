@@ -2,7 +2,8 @@ import { Component, computed, ElementRef, inject, OnDestroy, signal, ViewChild }
 import { NgClass } from "@angular/common"
 import { MatIcon, MatIconRegistry } from "@angular/material/icon"
 import { DomSanitizer } from "@angular/platform-browser"
-import { CalculatorStore } from "@store/calculator-store"
+import { CalcStore } from "@store/calc-store"
+import { SELECT_POKEMON_LABEL } from "@store/utils/select-pokemon-label"
 import { FieldStore } from "@store/field-store"
 import { FIELD_CONTEXT } from "@store/tokens/field-context.token"
 import { AutomaticFieldService } from "@store/automatic-field/automatic-field-service"
@@ -44,7 +45,7 @@ export class TypeCalcMobileComponent implements OnDestroy {
   @ViewChild("scrollContainer") scrollContainer?: ElementRef<HTMLDivElement>
   @ViewChild("pokemonInput") pokemonInput?: ElementRef<HTMLInputElement>
   @ViewChild("itemInput") itemInput?: ElementRef<HTMLInputElement>
-  store = inject(CalculatorStore)
+  store = inject(CalcStore)
   private backNavigation = inject(BackNavigationService)
   overlay = inject(MobileTableOverlayService)
 
@@ -58,6 +59,7 @@ export class TypeCalcMobileComponent implements OnDestroy {
   activeBottomTab = signal<"insights" | "coverage" | "teams" | "build">("coverage")
   private scrollPositions = new Map<string, number>()
   pokemonOnEditId = signal<string | null>(null)
+  addingPokemon = signal<boolean>(false)
   secondTeam = signal<Team | null>(null)
 
   activePokemonId = computed(() => {
@@ -70,7 +72,7 @@ export class TypeCalcMobileComponent implements OnDestroy {
   })
 
   hasValidPokemon = computed(() => {
-    return this.store.team().teamMembers.some(m => !m.pokemon.isDefault)
+    return !this.store.team().isEmpty()
   })
 
   effectiveEditingId = computed(() => this.pokemonOnEditId() || this.activePokemonId())
@@ -84,7 +86,13 @@ export class TypeCalcMobileComponent implements OnDestroy {
     return id ? this.store.findNullablePokemonById(id) : undefined
   })
 
-  editingPokemonName = computed(() => this.editingPokemon()?.name ?? "")
+  editingPokemonName = computed(() => {
+    if (this.isAddMode()) return SELECT_POKEMON_LABEL
+
+    return this.editingPokemon()?.name ?? ""
+  })
+
+  isAddMode = computed(() => false)
   editingPokemonItem = computed(() => this.editingPokemon()?.item ?? "")
   editingMoveIndex = computed(() => Math.max(0, this.editingPokemon()?.activeMoveIndex ?? 0))
 
@@ -124,7 +132,7 @@ export class TypeCalcMobileComponent implements OnDestroy {
   }
 
   onSecondTeamSelected(team: Team | null) {
-    this.secondTeam.set(team)
+    this.secondTeam.set(team ? team : null)
   }
 
   onMemberAdded() {
@@ -159,6 +167,15 @@ export class TypeCalcMobileComponent implements OnDestroy {
   }
 
   onPokemonSelected(name: string) {
+    if (this.addingPokemon()) {
+      const newId = this.store.addPokemonToTeam(name)
+      this.addingPokemon.set(false)
+      this.pokemonOnEditId.set(newId)
+      this.overlay.close()
+      this.pokemonInput?.nativeElement.blur()
+      return
+    }
+
     const id = this.effectiveEditingId()
     if (!id) return
     this.store.loadPokemonInfo(id, name)

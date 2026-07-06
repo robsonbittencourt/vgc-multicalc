@@ -33,6 +33,29 @@
   grid-row-gap: 1em;
 }
 
+.add-target-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  box-sizing: border-box;
+  height: 100%;
+  background-color: var(--highlight);
+}
+
+.add-target-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  height: 100%;
+}
+
+.add-target-placeholder .placeholder-image {
+  width: 120px;
+  height: 120px;
+}
+
 .filters-label {
   font-weight: 600;
   color: var(--text-strong);

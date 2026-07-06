@@ -1,6 +1,5 @@
-import { PokemonState, TargetState, TeamState } from "@store/calculator-store"
-import { Ability, Move, MoveSet, Pokemon, Status, Target, Team, TeamMember } from "@multicalc/model"
-import { MovePosition } from "@multicalc/types"
+import { PokemonState, TargetState, TeamState } from "@store/calc-store"
+import { Ability, Move, MovePosition, MoveSet, Pokemon, Status, Target, Team, TeamMember } from "@multicalc/model"
 import { StatIDExceptHP } from "@data/types"
 
 export function stateToPokemon(state: PokemonState, isAttacker = false): Pokemon {

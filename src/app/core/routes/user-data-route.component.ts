@@ -6,7 +6,7 @@ import { SimpleCalcComponent } from "@pages/simple-calc/simple-calc/simple-calc.
 import { SimpleCalcMobileComponent } from "@pages/simple-calc/simple-calc-mobile/simple-calc-mobile.component"
 import { HeaderMobileComponent } from "@core/header-mobile/header-mobile.component"
 import { HeaderComponent } from "@core/header/header.component"
-import { CalculatorState, CalculatorStore } from "@store/calculator-store"
+import { CalcState, CalcStore } from "@store/calc-store"
 import { ActiveFieldService } from "@store/active-field.service"
 import { buildState } from "@store/utils/user-data-mapper"
 import { DeviceDetectorService } from "@core/services/device-detector.service"
@@ -28,7 +28,7 @@ import { DeviceDetectorService } from "@core/services/device-detector.service"
   imports: [HeaderComponent, SimpleCalcComponent, HeaderMobileComponent, SimpleCalcMobileComponent]
 })
 export class UserDataRouteComponent implements OnInit {
-  private store = inject(CalculatorStore)
+  private store = inject(CalcStore)
   private activeFieldService = inject(ActiveFieldService)
   private activatedRoute = inject(ActivatedRoute)
   private deviceDetectorService = inject(DeviceDetectorService)
@@ -38,7 +38,7 @@ export class UserDataRouteComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.data.subscribe(({ userData }) => {
       this.meta.addTag({ name: "robots", content: "noindex, follow" })
-      const state = buildState(userData?.data) as CalculatorState
+      const state = buildState(userData?.data) as CalcState
       this.store.updateStateLockingLocalStorage(state)
       this.activeFieldService.initialFieldData.set(userData?.data.field)
     })

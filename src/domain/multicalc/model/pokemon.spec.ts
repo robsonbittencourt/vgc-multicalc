@@ -1,14 +1,14 @@
-import { DEFAULT_TERA_TYPE, SELECT_POKEMON_LABEL } from "@multicalc/constants"
 import { Status } from "@multicalc/model/status"
 import { Ability } from "./ability"
 import { Move } from "./move"
 import { MoveSet } from "./moveset"
 import { Pokemon } from "./pokemon"
 
+const DEFAULT_TERA_TYPE = "Water"
 describe("Pokemon", () => {
   describe("Creation", () => {
     it("should initialize with default values when no options are provided", () => {
-      const pokemon = new Pokemon(SELECT_POKEMON_LABEL)
+      const pokemon = new Pokemon("Togepi")
 
       expect(pokemon.id.length > 0).toBe(true)
       expect(pokemon.moveSet.moves.length).toBe(4)
@@ -81,22 +81,16 @@ describe("Pokemon", () => {
       expect(pokemon.higherStat).toBe("spe")
     })
 
-    it("should return the correct name when Pokémon is default", () => {
+    it("should keep the real name for a Togepi", () => {
       const pokemon = new Pokemon("Togepi")
 
-      expect(pokemon.name).toBe(SELECT_POKEMON_LABEL)
+      expect(pokemon.name).toBe("Togepi")
     })
 
     it("should return the correct name when Pokémon is not default", () => {
       const pokemon = new Pokemon("Pikachu")
 
       expect(pokemon.name).toBe("Pikachu")
-    })
-
-    it("should return the correct displayName when Pokémon is default", () => {
-      const pokemon = new Pokemon("Togepi")
-
-      expect(pokemon.displayName).toBe(SELECT_POKEMON_LABEL)
     })
 
     it("should return the correct displayName when Pokémon is not default", () => {
@@ -115,12 +109,6 @@ describe("Pokemon", () => {
       const pokemon = new Pokemon("Ogerpon-Cornerstone")
 
       expect(pokemon.displayName).toBe("Ogerpon Cornerstone")
-    })
-
-    it("should return the correct displayNameWithoutSuffix when Pokémon is default", () => {
-      const pokemon = new Pokemon("Togepi")
-
-      expect(pokemon.displayNameWithoutSuffix).toBe(SELECT_POKEMON_LABEL)
     })
 
     it("should return the correct displayNameWithoutSuffix when Pokémon is not default", () => {
@@ -508,18 +496,6 @@ describe("Pokemon", () => {
         const pokemon = new Pokemon("Tyranitar")
 
         expect(pokemon.isParadoxAbility).toBe(false)
-      })
-
-      it('should return true for isDefault when name is "Togepi"', () => {
-        const pokemon = new Pokemon("Togepi")
-
-        expect(pokemon.isDefault).toBe(true)
-      })
-
-      it('should return false for isDefault when name is not "Togepi"', () => {
-        const pokemon = new Pokemon("Charizard")
-
-        expect(pokemon.isDefault).toBe(false)
       })
 
       it('should return true for isOgerpon when name starts with "Ogerpon"', () => {

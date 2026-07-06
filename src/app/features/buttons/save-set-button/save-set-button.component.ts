@@ -1,6 +1,6 @@
 import { Component, computed, effect, ElementRef, inject, input, output, signal, viewChild } from "@angular/core"
 import { MatIcon } from "@angular/material/icon"
-import { CalculatorStore } from "@store/calculator-store"
+import { CalcStore } from "@store/calc-store"
 import { CustomSet } from "@store/custom-set"
 import { setsMatch } from "@store/utils/sets-match"
 
@@ -16,7 +16,7 @@ export class SaveSetButtonComponent {
   showMatchingSet = input(false)
   openPokemonTable = output()
 
-  store = inject(CalculatorStore)
+  store = inject(CalcStore)
 
   setNameInput = viewChild<ElementRef<HTMLInputElement>>("setNameInput")
 

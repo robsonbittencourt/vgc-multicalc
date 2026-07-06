@@ -2,7 +2,8 @@ import { Component, computed, effect, ElementRef, inject, OnDestroy, QueryList, 
 import { NgClass } from "@angular/common"
 import { MatIcon, MatIconRegistry } from "@angular/material/icon"
 import { DomSanitizer } from "@angular/platform-browser"
-import { CalculatorStore } from "@store/calculator-store"
+import { CalcStore } from "@store/calc-store"
+import { SELECT_POKEMON_LABEL } from "@store/utils/select-pokemon-label"
 import { FieldStore } from "@store/field-store"
 import { FIELD_CONTEXT } from "@store/tokens/field-context.token"
 import { AutomaticFieldService } from "@store/automatic-field/automatic-field-service"
@@ -48,7 +49,7 @@ export class ProbabilityCalcMobileComponent implements OnDestroy {
   @ViewChild("scrollContainer") scrollContainer?: ElementRef<HTMLDivElement>
   @ViewChildren("pokemonInput") pokemonInputs?: QueryList<ElementRef<HTMLInputElement>>
   @ViewChild("itemInput") itemInput?: ElementRef<HTMLInputElement>
-  store = inject(CalculatorStore)
+  store = inject(CalcStore)
   private backNavigation = inject(BackNavigationService)
   overlay = inject(MobileTableOverlayService)
 
@@ -59,8 +60,13 @@ export class ProbabilityCalcMobileComponent implements OnDestroy {
     this.backNavigation.register(() => this.activeBottomTab.set("detailed"))
 
     effect(() => {
-      const current = this.store.findPokemonById(this.effectiveEditingId()!)
-      if (current && !current.isDefault) {
+      const id = this.effectiveEditingId()
+
+      if (id == undefined) return
+
+      const current = this.store.findNullablePokemonById(id)
+
+      if (current) {
         this.lastNonDefaultPokemon.set(current)
       }
     })
@@ -69,7 +75,8 @@ export class ProbabilityCalcMobileComponent implements OnDestroy {
   activeBottomTab = signal<"general" | "detailed" | "teams" | "build">("detailed")
   private scrollPositions = new Map<string, number>()
   pokemonOnEditId = signal<string | null>(null)
-  lastNonDefaultPokemon = signal<Pokemon>(this.store.team().activePokemon())
+  addingPokemon = signal<boolean>(false)
+  lastNonDefaultPokemon = signal<Pokemon | undefined>(this.store.team().activePokemon())
 
   activePokemonId = computed(() => {
     const members = this.store.team().teamMembers
@@ -85,7 +92,7 @@ export class ProbabilityCalcMobileComponent implements OnDestroy {
   activeTabPokemonIsDefault = computed(() => {
     const id = this.effectiveEditingId()
     if (!id) return true
-    return this.store.findPokemonById(id)?.isDefault ?? true
+    return this.store.findNullablePokemonById(id) == undefined
   })
 
   ngOnDestroy() {
@@ -97,7 +104,13 @@ export class ProbabilityCalcMobileComponent implements OnDestroy {
     return id ? this.store.findNullablePokemonById(id) : undefined
   })
 
-  editingPokemonName = computed(() => this.editingPokemon()?.name ?? "")
+  isAddMode = computed(() => false)
+
+  editingPokemonName = computed(() => {
+    if (this.isAddMode()) return SELECT_POKEMON_LABEL
+
+    return this.editingPokemon()?.name ?? ""
+  })
   editingPokemonItem = computed(() => this.editingPokemon()?.item ?? "")
   editingMoveIndex = computed(() => Math.max(0, this.editingPokemon()?.activeMoveIndex ?? 0))
 
@@ -174,6 +187,15 @@ export class ProbabilityCalcMobileComponent implements OnDestroy {
   }
 
   onPokemonSelected(name: string) {
+    if (this.addingPokemon()) {
+      const newId = this.store.addPokemonToTeam(name)
+      this.addingPokemon.set(false)
+      this.pokemonOnEditId.set(newId)
+      this.overlay.close()
+      this.visiblePokemonInput()?.blur()
+      return
+    }
+
     const id = this.effectiveEditingId()
     if (!id) return
     this.store.loadPokemonInfo(id, name)

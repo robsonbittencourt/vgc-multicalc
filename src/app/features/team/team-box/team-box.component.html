@@ -1,16 +1,16 @@
 <div
   class="team"
   [ngClass]="{ 'active-team': team().active, 'has-second-team': secondTeam() }"
-  [class.draggable]="useDragSelection() && !team().onlyHasDefaultPokemon()"
+  [class.draggable]="useDragSelection() && !team().isEmpty()"
   cdkDrag
   cdkDragPreviewContainer="parent"
-  [cdkDragDisabled]="!useDragSelection() || team().onlyHasDefaultPokemon()"
+  [cdkDragDisabled]="!useDragSelection() || team().isEmpty()"
   [cdkDragStartDelay]="{ touch: 0, mouse: 0 }"
   (cdkDragEnded)="onDragEnded($event)"
   (click)="activate($event)"
   data-cy="team-box"
   [attr.data-team-id]="team().id">
-  @if (useDragSelection() && !team().onlyHasDefaultPokemon()) {
+  @if (useDragSelection() && !team().isEmpty()) {
     @if (secondTeam()) {
       <div class="drag-handle" (click)="separateTeams($event)">
         <mat-icon>move_down</mat-icon>
@@ -27,9 +27,7 @@
     <div class="team-pokemon-icons">
       @for (teamMember of team().teamMembers; track teamMember.pokemon.id) {
         <div class="pokemon-image">
-          @if (!teamMember.pokemon.isDefault) {
-            <app-pokemon-sprite [name]="teamMember.pokemon.name" />
-          }
+          <app-pokemon-sprite [name]="teamMember.pokemon.name" />
         </div>
       }
     </div>
@@ -42,9 +40,7 @@
       <div class="team-pokemon-icons">
         @for (teamMember of secondTeam()!.teamMembers; track teamMember.pokemon.id) {
           <div class="pokemon-image">
-            @if (!teamMember.pokemon.isDefault) {
-              <app-pokemon-sprite [name]="teamMember.pokemon.name" />
-            }
+            <app-pokemon-sprite [name]="teamMember.pokemon.name" />
           </div>
         }
       </div>

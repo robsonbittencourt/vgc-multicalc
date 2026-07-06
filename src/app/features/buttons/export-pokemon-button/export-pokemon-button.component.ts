@@ -1,6 +1,6 @@
 import { Component, computed, inject, input } from "@angular/core"
 import { MatIcon } from "@angular/material/icon"
-import { CalculatorStore } from "@store/calculator-store"
+import { CalcStore } from "@store/calc-store"
 import { ExportPokeService } from "@store/user-data/export-poke.service"
 
 @Component({
@@ -14,7 +14,7 @@ export class ExportPokemonButtonComponent {
   show = input(true)
   hidden = input(false)
 
-  store = inject(CalculatorStore)
+  store = inject(CalcStore)
 
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
 

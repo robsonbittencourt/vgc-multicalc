@@ -1,6 +1,8 @@
 import { Field } from "@multicalc/model/field"
 import { Pokemon } from "@multicalc/model/pokemon"
-import { Stats, SurvivalThreshold } from "@multicalc/types"
+import { Stats } from "@multicalc/types"
+
+export type SurvivalThreshold = 2 | 3 | 4
 
 export type OptimizationContext = {
   defender: Pokemon
@@ -28,7 +30,10 @@ export type SolutionSet = {
   doubleSolution: Stats | null
 }
 
+export type OptimizationStatus = "success" | "no-solution" | "not-needed"
+
 export type OptimizationResult = {
   evs: Stats | null
   nature: string | null
+  status: OptimizationStatus
 }
