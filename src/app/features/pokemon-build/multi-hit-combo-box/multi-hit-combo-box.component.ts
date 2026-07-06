@@ -4,7 +4,7 @@ import { FormsModule } from "@angular/forms"
 import { MatButtonToggle, MatButtonToggleGroup } from "@angular/material/button-toggle"
 import { MatCheckbox, MatCheckboxChange } from "@angular/material/checkbox"
 import { InputAutocompleteComponent } from "@basic/input-autocomplete/input-autocomplete.component"
-import { CalculatorStore } from "@store/calculator-store"
+import { CalcStore } from "@store/calc-store"
 
 @Component({
   selector: "app-multi-hit-combo-box",
@@ -20,7 +20,7 @@ export class MultiHitComboBoxComponent {
 
   selected = output()
 
-  store = inject(CalculatorStore)
+  store = inject(CalcStore)
 
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
   multiHitLabel = computed(() => (this.pokemon().activeMoveName !== "Rage Fist" ? "Hits" : "Hits Taken"))

@@ -4,12 +4,9 @@ import { MatButton } from "@angular/material/button"
 import { MatDialog } from "@angular/material/dialog"
 import { MatIcon } from "@angular/material/icon"
 import { availableItemNames } from "@configuration/available-items"
-import { MOVESETS } from "@data/moveset-data"
-import { getPokemonData } from "@data/pokemon-data"
-import { getPokemonMoveset } from "@data/pokemon-moveset"
-import { toPokemon } from "@adapters"
 import { ImportModalComponent } from "@features/import-modal/import-modal.component"
-import { Move, MoveSet, Pokemon } from "@multicalc/model"
+import { validateImport } from "@multicalc/import-validation"
+import { Pokemon } from "@multicalc/model"
 import { SnackbarService } from "@core/services/snackbar.service"
 import { PokePasteParserService } from "@store/user-data/poke-paste-parser.service"
 
@@ -55,32 +52,13 @@ export class ImportPokemonButtonComponent {
 
   private async handleImport(content: string, useSpsMode: boolean) {
     const { name: teamName, pokemon: parsedList } = await this.pokePasteService.parseTeam(content, useSpsMode)
-    const processedList = parsedList.map(p => {
-      const allZero = Object.values(p.evs).every(ev => ev === 0)
 
-      if (allZero) {
-        const pokeMetaData = toPokemon(p.name, MOVESETS)
-        return p.clone({ nature: pokeMetaData.nature, evs: pokeMetaData.evs })
-      }
+    const { pokemon: finalList, removedCount, hadInvalidMoves, hadInvalidItems } = validateImport(parsedList, availableItemNames())
 
-      return p
-    })
-
-    const validSetdex = MOVESETS
-    const validList = processedList.filter(p => p.name in validSetdex)
-    const removedCount = processedList.length - validList.length
-
-    if (validList.length === 0) {
+    if (finalList.length === 0) {
       this.snackBar.open("No valid Pokémon for the current mode")
       return
     }
-
-    const validItemsForMode = availableItemNames()
-    const validatedList: { pokemon: Pokemon; hadInvalidMoves: boolean; hadInvalidItem: boolean }[] = validList.map(p => this.validateAndClean(p, validItemsForMode))
-
-    const hadInvalidMoves = validatedList.some(v => v.hadInvalidMoves)
-    const hadInvalidItems = validatedList.some(v => v.hadInvalidItem)
-    const finalList = validatedList.map(v => v.pokemon)
 
     const messages: string[] = []
     if (removedCount > 0) {
@@ -106,49 +84,5 @@ export class ImportPokemonButtonComponent {
     }
 
     this.pokemonImportedEvent.emit(output)
-  }
-
-  private validateAndClean(pokemon: Pokemon, validItemsForMode: string[]): { pokemon: Pokemon; hadInvalidMoves: boolean; hadInvalidItem: boolean } {
-    const detailsEntry = getPokemonData(pokemon.name)
-
-    if (!detailsEntry) {
-      return { pokemon, hadInvalidMoves: false, hadInvalidItem: false }
-    }
-
-    let hadInvalidMoves = false
-    let hadInvalidItem = false
-    let cleanedPokemon = pokemon
-
-    const learnset = getPokemonMoveset(pokemon.name)?.learnset
-
-    if (learnset) {
-      const validLearnset: string[] = learnset.map((move: string) => move.toLowerCase().replace(/ /g, "").replace(/-/g, "").replace(/'/g, ""))
-      const moves = pokemon.moveSet.moves
-      const cleanedMoves: Move[] = []
-
-      for (const move of moves) {
-        const moveName = move.name.toLowerCase().replace(/ /g, "").replace(/-/g, "").replace(/'/g, "")
-
-        if (!moveName || validLearnset.includes(moveName)) {
-          cleanedMoves.push(move)
-        } else {
-          cleanedMoves.push(new Move(""))
-          hadInvalidMoves = true
-        }
-      }
-
-      const newMoveSet = new MoveSet(cleanedMoves[0], cleanedMoves[1], cleanedMoves[2], cleanedMoves[3], pokemon.moveSet.activeMovePosition)
-      cleanedPokemon = cleanedPokemon.clone({ moveSet: newMoveSet })
-    }
-
-    if (pokemon.item && pokemon.item !== "") {
-      const itemNameNormalized = pokemon.item.toLowerCase().replace(/ /g, "").replace(/'/g, "")
-      if (!validItemsForMode.includes(itemNameNormalized)) {
-        cleanedPokemon = cleanedPokemon.clone({ item: "" })
-        hadInvalidItem = true
-      }
-    }
-
-    return { pokemon: cleanedPokemon, hadInvalidMoves, hadInvalidItem }
   }
 }

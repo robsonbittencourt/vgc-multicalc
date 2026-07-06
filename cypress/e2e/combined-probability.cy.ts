@@ -2,7 +2,7 @@ import { CombinedProbability } from "@page-object/combined-probability"
 
 const combinedProbability = new CombinedProbability()
 
-describe("Combined Probability Calculator", () => {
+describe("Combined Probability Calc", () => {
   beforeEach(() => {
     cy.get('[data-cy="probability-calc"]').click({ force: true })
   })
@@ -99,13 +99,13 @@ describe("Combined Probability Calculator", () => {
     combinedProbability.verifyResult("95.9")
   })
 
-  describe("Calculation Types", () => {
+  describe("Calc Types", () => {
     it("should default to at-least-one", () => {
-      combinedProbability.verifyCalculationTypeSelected("at-least-one")
+      combinedProbability.verifyCalcTypeSelected("at-least-one")
     })
 
     it("should calculate correctly with All type", () => {
-      combinedProbability.selectCalculationType("all")
+      combinedProbability.selectCalcType("all")
       combinedProbability.inputProbability(1, "50")
       combinedProbability.inputProbability(2, "50")
       combinedProbability.inputProbability(3, "50")
@@ -116,7 +116,7 @@ describe("Combined Probability Calculator", () => {
     })
 
     it("should calculate correctly with None type", () => {
-      combinedProbability.selectCalculationType("none")
+      combinedProbability.selectCalcType("none")
       combinedProbability.inputProbability(1, "50")
       combinedProbability.inputProbability(2, "50")
       combinedProbability.inputProbability(3, "50")
@@ -127,7 +127,7 @@ describe("Combined Probability Calculator", () => {
     })
 
     it("should calculate All correctly with specific values", () => {
-      combinedProbability.selectCalculationType("all")
+      combinedProbability.selectCalcType("all")
       combinedProbability.inputProbability(1, "20")
       combinedProbability.inputProbability(2, "30")
       combinedProbability.inputProbability(3, "40")
@@ -138,7 +138,7 @@ describe("Combined Probability Calculator", () => {
     })
 
     it("should calculate None correctly with specific values", () => {
-      combinedProbability.selectCalculationType("none")
+      combinedProbability.selectCalcType("none")
       combinedProbability.inputProbability(1, "20")
       combinedProbability.inputProbability(2, "30")
       combinedProbability.inputProbability(3, "40")
@@ -148,7 +148,7 @@ describe("Combined Probability Calculator", () => {
       combinedProbability.verifyResult("6.7")
     })
 
-    it("should update result when switching calculation types", () => {
+    it("should update result when switching calc types", () => {
       combinedProbability.inputProbability(1, "25")
       combinedProbability.inputProbability(2, "35")
       combinedProbability.inputProbability(3, "45")
@@ -157,10 +157,10 @@ describe("Combined Probability Calculator", () => {
 
       combinedProbability.verifyResult("97")
 
-      combinedProbability.selectCalculationType("all")
+      combinedProbability.selectCalcType("all")
       combinedProbability.verifyResult("1.6")
 
-      combinedProbability.selectCalculationType("none")
+      combinedProbability.selectCalcType("none")
       combinedProbability.verifyResult("3")
     })
   })

@@ -1,7 +1,7 @@
 import { provideZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
 import { ThemeStore } from "@store/theme-store"
-import { MockOf } from "@multicalc/test-utils"
+import { MockOf } from "@app/test-utils"
 import { Color, Theme, ThemeService } from "./theme.service"
 
 describe("ThemeService", () => {

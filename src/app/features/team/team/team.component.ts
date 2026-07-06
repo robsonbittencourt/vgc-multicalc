@@ -1,17 +1,16 @@
-import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, effect, inject, input, output, signal, viewChild } from "@angular/core"
+import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, inject, input, model, output, signal, viewChild } from "@angular/core"
 import { MatIcon } from "@angular/material/icon"
 import { WidgetComponent } from "@basic/widget/widget.component"
-import { CalculatorStore } from "@store/calculator-store"
+import { CalcStore } from "@store/calc-store"
 import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-button/export-pokemon-button.component"
 import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
 import { SaveSetButtonComponent } from "@features/buttons/save-set-button/save-set-button.component"
 import { PokemonBuildComponent } from "@features/pokemon-build/pokemon-build/pokemon-build.component"
 import { PokemonTabComponent } from "@features/team/pokemon-tab/pokemon-tab.component"
-import { defaultPokemon } from "@multicalc/default-pokemon"
-import { Pokemon, Team, TeamMember } from "@multicalc/model"
+import { Pokemon, TeamMember } from "@multicalc/model"
 import { SnackbarService } from "@core/services/snackbar.service"
-import { Stats, SurvivalThreshold } from "@multicalc/types"
-import { uuid } from "@multicalc/utils/uuid"
+import { Stats } from "@multicalc/types"
+import { SurvivalThreshold } from "@multicalc/ev-optimizer"
 import { DeviceDetectorService } from "@core/services/device-detector.service"
 
 @Component({
@@ -22,17 +21,19 @@ import { DeviceDetectorService } from "@core/services/device-detector.service"
   imports: [MatIcon, WidgetComponent, PokemonTabComponent, ImportPokemonButtonComponent, ExportPokemonButtonComponent, SaveSetButtonComponent, PokemonBuildComponent]
 })
 export class TeamComponent {
-  store = inject(CalculatorStore)
+  store = inject(CalcStore)
   private snackbar = inject(SnackbarService)
   deviceDetectorService = inject(DeviceDetectorService)
 
-  pokemonId = input.required<string>()
+  pokemonId = input<string>()
   isAttacker = input(false)
+  addTargetMode = input(false)
   optimizationStatus = input<"idle" | "success" | "no-solution" | "not-needed">("idle")
   optimizedEvs = input<Stats | null>(null)
   optimizedNature = input<string | null>(null)
 
   teamMemberSelected = output<string>()
+  targetAddedByName = output<string>()
   optimizeRequested = output<{ updateNature: boolean; keepOffensiveEvs: boolean; survivalThreshold: SurvivalThreshold }>()
   optimizationApplied = output<void>()
   optimizationDiscarded = output<void>()
@@ -46,35 +47,51 @@ export class TeamComponent {
   pokemonBuild = viewChild<PokemonBuildComponent>("pokemonBuild")
 
   pokemonOnEdit = computed(() => {
-    const pokemon = this.store.findPokemonById(this.pokemonId())
+    const pokemon = this.store.findNullablePokemonById(this.pokemonId() ?? "")
     return pokemon || this.store.team().activePokemon()
   })
 
+  addingPokemon = model(false)
+
+  buildPokemonId = computed(() => (this.addingPokemon() || this.addTargetMode() ? undefined : this.pokemonId()))
+
+  isAddMode = computed(() => this.addingPokemon() || this.addTargetMode())
+
+  showAddTab = computed(() => !this.store.team().isFull())
+
   canImportPokemon = computed(() => !this.store.team().isFull())
 
-  canDuplicatePokemon = computed(() => this.deviceDetectorService.isDesktop() && this.teamMemberOnEdit() && !this.pokemonOnEdit().isDefault && !this.store.team().isFull())
+  private hasRealPokemonOnEdit = computed(() => {
+    const pokemon = this.pokemonOnEdit()
+    return pokemon != undefined
+  })
 
-  canExportPokemon = computed(() => !this.pokemonOnEdit().isDefault)
+  canDuplicatePokemon = computed(() => !this.isAddMode() && this.deviceDetectorService.isDesktop() && this.teamMemberOnEdit() && this.hasRealPokemonOnEdit() && !this.store.team().isFull())
 
-  teamMemberOnEdit = computed(() => this.pokemonOnEdit().equals(this.store.team().activePokemon()) || this.pokemonOnEdit().id === this.store.secondAttackerId())
+  canExportPokemon = computed(() => this.hasRealPokemonOnEdit())
 
-  targetOnEdit = computed(() => this.store.targets().some(t => t.pokemon.id === this.pokemonOnEdit().id || t.secondPokemon?.id === this.pokemonOnEdit().id))
+  teamMemberOnEdit = computed(() => {
+    const onEdit = this.pokemonOnEdit()
+
+    if (onEdit == undefined) return true
+
+    const active = this.store.team().activePokemon()
+
+    return (active != undefined && onEdit.equals(active)) || onEdit.id === this.store.secondAttackerId()
+  })
+
+  targetOnEdit = computed(() => {
+    const onEdit = this.pokemonOnEdit()
+
+    if (onEdit == undefined) return false
+
+    return this.store.targets().some(t => t.pokemon.id === onEdit.id || t.secondPokemon?.id === onEdit.id)
+  })
 
   isEditingCustomSet = computed(() => this.store.isEditingCustomSet())
 
   exitCustomSetEditMode() {
     this.store.exitCustomSetEditMode()
-  }
-
-  constructor() {
-    effect(() => {
-      if (!this.store.team().hasDefaultPokemon() && !this.store.team().isFull()) {
-        const teamMembers = [...this.store.team().teamMembers, new TeamMember(defaultPokemon(), false)]
-        const team = new Team(uuid(), this.store.team().active, this.store.team().name, teamMembers)
-
-        this.store.replaceActiveTeam(team)
-      }
-    })
   }
 
   scrollToPokemonSelector() {
@@ -85,24 +102,51 @@ export class TeamComponent {
     this.pokemonBuild()?.focusPokemonSelector()
   }
 
+  startAddingPokemon() {
+    this.addingPokemon.set(true)
+
+    setTimeout(() => this.pokemonBuild()?.focusPokemonSelector(), 0)
+  }
+
+  pokemonAdded(pokemonName: string) {
+    if (this.addTargetMode()) {
+      this.addingPokemon.set(false)
+      this.targetAddedByName.emit(pokemonName)
+
+      return
+    }
+
+    const id = this.store.addPokemonToTeam(pokemonName)
+
+    this.store.activateTeamMemberByPokemonId(id)
+    this.addingPokemon.set(false)
+    this.teamMemberSelected.emit(id)
+  }
+
+  backToActivePokemon() {
+    const active = this.store.team().activePokemon()
+
+    if (active != undefined) {
+      this.activatePokemon(active.id)
+    } else {
+      this.startAddingPokemon()
+    }
+  }
+
   activatePokemon(pokemonId: string) {
+    this.addingPokemon.set(false)
     this.store.clearActiveSet()
 
     if (this.combineDamageActive()) {
-      const pokemon = this.store.findPokemonById(pokemonId)
-      const attacker = this.store.findNullablePokemonById(this.store.attackerId())
-
-      if (pokemon?.isDefault || attacker?.isDefault) {
-        this.selectedPokemonRemovingSecond(pokemonId)
-      } else {
-        this.selectedPokemon(pokemonId)
-      }
+      this.selectedPokemon(pokemonId)
     } else {
       this.selectedPokemonRemovingSecond(pokemonId)
     }
 
     setTimeout(() => {
-      if (this.pokemonOnEdit().isDefault) {
+      const onEdit = this.pokemonOnEdit()
+
+      if (onEdit == undefined) {
         this.pokemonBuild()?.focusPokemonSelector()
       } else {
         this.pokemonBuild()?.showDefaultView()
@@ -113,11 +157,6 @@ export class TeamComponent {
   }
 
   activateSecondPokemon(pokemonId: string) {
-    const pokemon = this.store.findPokemonById(pokemonId)
-    const attacker = this.store.findNullablePokemonById(this.store.attackerId())
-
-    if (pokemon?.isDefault || attacker?.isDefault) return
-
     if (this.isAttacker()) {
       this.selectedPokemon(pokemonId)
     } else {
@@ -158,44 +197,32 @@ export class TeamComponent {
   }
 
   canShowDeleteButton(): boolean {
-    return !this.pokemonOnEdit().isDefault
+    return this.hasRealPokemonOnEdit()
   }
 
   duplicatePokemon() {
-    const actualTeam = this.store.team()
-    const newTeamMember = new TeamMember(this.pokemonOnEdit().clone(), false)
+    const previousTeam = this.store.team()
+    const memberId = this.pokemonOnEdit()!.id
+    const team = previousTeam.duplicateMember(memberId)
 
-    const newTeamMembers = [...actualTeam.teamMembers]
-    const indexToInsert = newTeamMembers.length - 1
-    const removeDefaultPokemon = newTeamMembers.length == 6
-
-    if (removeDefaultPokemon) {
-      newTeamMembers.splice(indexToInsert, 1, newTeamMember)
-    } else {
-      newTeamMembers.splice(indexToInsert, 0, newTeamMember)
-    }
-
-    const newTeam = new Team(actualTeam.id, actualTeam.active, actualTeam.name, newTeamMembers)
-
-    this.store.replaceActiveTeam(newTeam)
+    this.store.replaceActiveTeam(team)
     this.snackbar.open("Pokemon duplicated")
   }
 
   removePokemon() {
-    const activeMember = this.store.team().teamMembers.find(teamMember => teamMember.pokemon.id === this.pokemonOnEdit().id)!
-    const inactiveMembers = this.store.team().teamMembers.filter(teamMember => teamMember.pokemon.id !== activeMember.pokemon.id)
-    const emptyTeam = inactiveMembers.length == 0
-    const haveDefaultPokemon = inactiveMembers.find(teamMember => teamMember.pokemon.isDefault)
-
-    if (emptyTeam || !haveDefaultPokemon) {
-      inactiveMembers.push(new TeamMember(defaultPokemon(), false))
-    }
-
-    const teamMembers = [new TeamMember(inactiveMembers[0].pokemon, true), ...inactiveMembers.slice(1)]
-    const team = new Team(uuid(), this.store.team().active, this.store.team().name, teamMembers)
+    const previousTeam = this.store.team()
+    const activeMember = previousTeam.teamMembers.find(teamMember => teamMember.pokemon.id === this.pokemonOnEdit()!.id)!
+    const team = previousTeam.removeMember(activeMember.pokemon.id)
 
     this.store.replaceActiveTeam(team)
-    this.teamMemberSelected.emit(team.activePokemon().id)
+
+    const newActive = team.activePokemon()
+
+    if (newActive != undefined) {
+      this.teamMemberSelected.emit(newActive.id)
+    } else {
+      this.startAddingPokemon()
+    }
 
     if (this.isSecondSelection(activeMember)) {
       this.store.updateSecondAttacker("")
@@ -213,7 +240,7 @@ export class TeamComponent {
   }
 
   isSecondSelection(teamMember: TeamMember) {
-    return !teamMember.pokemon.isDefault && teamMember.pokemon.id === this.store.secondAttackerId()
+    return teamMember.pokemon.id === this.store.secondAttackerId()
   }
 
   showTeamMemberActive(teamMember: TeamMember) {
@@ -224,29 +251,23 @@ export class TeamComponent {
   }
 
   canShowCombineButton() {
-    return this.isAttacker() && !this.pokemonOnEdit().isDefault && this.pokemonOnEdit().id === this.store.attackerId()
+    return this.isAttacker() && this.hasRealPokemonOnEdit() && this.pokemonOnEdit()!.id === this.store.attackerId()
   }
 
   pokemonImported(pokemon: Pokemon | Pokemon[]) {
-    const actualTeam = this.store.team()
+    const wasAddingPokemon = this.addingPokemon()
+    const previousTeam = this.store.team()
+    const importedPokemon = pokemon as Pokemon
+    const team = previousTeam.addMember(importedPokemon)
 
-    const newTeamMemberActive = actualTeam.activePokemon().isDefault
-    const newTeamMember = new TeamMember(pokemon as Pokemon, newTeamMemberActive)
+    this.store.replaceActiveTeam(team)
 
-    const newTeamMembers = [...actualTeam.teamMembers]
-    const indexToInsert = newTeamMembers.length - 1
-    const removeDefaultPokemon = newTeamMembers.length == 6
-
-    if (removeDefaultPokemon) {
-      newTeamMembers.splice(indexToInsert, 1, newTeamMember)
-    } else {
-      newTeamMembers.splice(indexToInsert, 0, newTeamMember)
+    if (wasAddingPokemon) {
+      this.store.activateTeamMemberByPokemonId(importedPokemon.id)
     }
 
-    const newTeam = new Team(actualTeam.id, actualTeam.active, actualTeam.name, newTeamMembers)
-
-    this.teamMemberSelected.emit((pokemon as Pokemon).id)
-    this.store.replaceActiveTeam(newTeam)
+    this.addingPokemon.set(false)
+    this.teamMemberSelected.emit(importedPokemon.id)
     this.snackbar.open("Pokemon imported")
   }
 }

@@ -4,7 +4,7 @@ import { Move } from "@multicalc/model/move"
 import { MoveSet } from "@multicalc/model/moveset"
 import { Pokemon } from "@multicalc/model/pokemon"
 import { Target } from "@multicalc/model/target"
-import { DefensiveEvOptimizerService } from "./defensive-ev-optimizer.service"
+import { DefensiveEvOptimizer } from "@multicalc/ev-optimizer/defensive-ev-optimizer"
 
 function expectPerformance<T>(fn: () => T, maxDurationMs: number, description?: string): T {
   const startTime = performance.now()
@@ -18,11 +18,11 @@ function expectPerformance<T>(fn: () => T, maxDurationMs: number, description?: 
   return result
 }
 
-describe("DefensiveEvOptimizerService - Performance", () => {
-  let service: DefensiveEvOptimizerService
+describe("DefensiveEvOptimizer - Performance", () => {
+  let service: DefensiveEvOptimizer
 
   beforeEach(() => {
-    service = new DefensiveEvOptimizerService()
+    service = new DefensiveEvOptimizer()
   })
 
   it("should optimize EVs for Ting-Lu in it's limit", () => {

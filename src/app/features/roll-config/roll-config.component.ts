@@ -1,6 +1,6 @@
 import { Component, model, output } from "@angular/core"
 import { MatButtonToggle, MatButtonToggleGroup } from "@angular/material/button-toggle"
-import { RollLevelConfig } from "@multicalc/damage-calculator"
+import { RollLevelConfig } from "@multicalc/damage-calc"
 
 @Component({
   selector: "app-roll-config",

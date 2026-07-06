@@ -14,3 +14,9 @@ export function totalSpsFromEvs(evs: Partial<Stats>): number {
   const stats: (keyof Stats)[] = ["hp", "atk", "def", "spa", "spd", "spe"]
   return stats.reduce((sum, stat) => sum + evToSp(evs[stat] ?? 0), 0)
 }
+
+export const MAX_SPS = 66
+
+export function remainingSps(evs: Partial<Stats>): number {
+  return MAX_SPS - totalSpsFromEvs(evs)
+}

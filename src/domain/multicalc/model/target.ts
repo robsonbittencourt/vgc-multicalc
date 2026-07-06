@@ -1,4 +1,5 @@
 import { Pokemon } from "@multicalc/model/pokemon"
+
 export class Target {
   pokemon: Pokemon
   secondPokemon?: Pokemon
@@ -6,5 +7,9 @@ export class Target {
   constructor(pokemon: Pokemon, secondPokemon?: Pokemon) {
     this.pokemon = pokemon
     this.secondPokemon = secondPokemon
+  }
+
+  pokemons(): Pokemon[] {
+    return this.secondPokemon ? [this.pokemon, this.secondPokemon] : [this.pokemon]
   }
 }

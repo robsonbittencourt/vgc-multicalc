@@ -1,6 +1,4 @@
-import { CalculatorState, PokemonState, TargetState, TeamMemberState, TeamState } from "@store/calculator-store"
-import { SELECT_POKEMON_LABEL } from "@multicalc/constants"
-import { defaultPokemon } from "@multicalc/default-pokemon"
+import { CalcState, PokemonState, TargetState, TeamMemberState, TeamState } from "@store/calc-store"
 import { Regulation } from "@multicalc/types"
 import { uuid } from "@multicalc/utils/uuid"
 
@@ -22,26 +20,22 @@ export function buildUserData(
       return {
         active: team.active,
         name: team.name,
-        teamMembers: team.teamMembers
-          .filter(t => !isDefaultPokemon(t.pokemon))
-          .map(t => {
-            const pokemon = buildPokemonToUserData(t.pokemon)
+        teamMembers: team.teamMembers.map(t => {
+          const pokemon = buildPokemonToUserData(t.pokemon)
 
-            return {
-              pokemon: pokemon,
-              active: t.active
-            }
-          })
+          return {
+            pokemon: pokemon,
+            active: t.active
+          }
+        })
       }
     }),
-    targets: targets
-      .filter(t => !isDefaultPokemon(t.pokemon))
-      .map(t => {
-        return {
-          pokemon: buildPokemonToUserData(t.pokemon),
-          secondPokemon: t.secondPokemon && buildPokemonToUserData(t.secondPokemon)
-        }
-      }),
+    targets: targets.map(t => {
+      return {
+        pokemon: buildPokemonToUserData(t.pokemon),
+        secondPokemon: t.secondPokemon && buildPokemonToUserData(t.secondPokemon)
+      }
+    }),
     targetMetaRegulation: targetMetaRegulation,
     simpleCalcLeftRollLevel: simpleCalcLeftRollLevel,
     simpleCalcRightRollLevel: simpleCalcRightRollLevel,
@@ -50,7 +44,7 @@ export function buildUserData(
   }
 }
 
-export function buildState(userData: any): Partial<CalculatorState> {
+export function buildState(userData: any): Partial<CalcState> {
   return {
     updateLocalStorage: true,
     leftPokemonState: buildPokemonState(userData.leftPokemon),
@@ -86,9 +80,8 @@ function buildPokemonToUserData(pokemon: PokemonState) {
 }
 
 function buildPokemonState(pokemon: any): PokemonState {
-  const isDefault = pokemon.name == SELECT_POKEMON_LABEL
-  const ability = isDefault ? pokemon.ability.name : pokemon.ability
-  const abilityOn = isDefault ? pokemon.ability.on : pokemon.abilityOn
+  const ability = pokemon.ability
+  const abilityOn = pokemon.abilityOn
 
   return {
     id: uuid(),
@@ -124,15 +117,6 @@ function buildTeamState(teams: any): TeamState[] {
 }
 
 function buildTeamMemberState(teamMembers: any): TeamMemberState[] {
-  if (teamMembers.length == 0) {
-    return [
-      {
-        active: true,
-        pokemon: buildPokemonState(defaultPokemon())
-      }
-    ]
-  }
-
   return teamMembers.map((member: any, index: number) => {
     return {
       active: index == 0,
@@ -148,8 +132,4 @@ function buildTargetsState(targets: any): TargetState[] {
       secondPokemon: target.secondPokemon && buildPokemonState(target.secondPokemon)
     }
   })
-}
-
-function isDefaultPokemon(pokemonState: PokemonState) {
-  return pokemonState.name == "Select a Pokémon"
 }

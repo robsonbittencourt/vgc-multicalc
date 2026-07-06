@@ -1,4 +1,3 @@
-import { defaultPokemon } from "@multicalc/default-pokemon"
 import { Field } from "@multicalc/model/field"
 import { Move } from "@multicalc/model/move"
 import { MoveSet } from "@multicalc/model/moveset"
@@ -36,21 +35,6 @@ describe("AttackerSelector", () => {
       expect(result[0]).toBe(physicalAttacker)
     })
 
-    it("should filter out default pokemon", () => {
-      const physicalAttacker = new Pokemon("Urshifu-Rapid-Strike", {
-        moveSet: new MoveSet(new Move("Surging Strikes"), new Move("Close Combat"), new Move("Aqua Jet"), new Move("Detect")),
-        evs: { hp: 4, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 }
-      })
-
-      const defaultPoke = defaultPokemon()
-
-      const attackers = [physicalAttacker, defaultPoke]
-      const result = service.getPhysicalAttackers(attackers)
-
-      expect(result.length).toBe(1)
-      expect(result[0]).toBe(physicalAttacker)
-    })
-
     it("should return empty array when no physical attackers", () => {
       const specialAttacker = new Pokemon("Raging Bolt", {
         moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Thunderclap"), new Move("Draco Meteor"), new Move("Protect")),
@@ -77,21 +61,6 @@ describe("AttackerSelector", () => {
       })
 
       const attackers = [physicalAttacker, specialAttacker]
-      const result = service.getSpecialAttackers(attackers)
-
-      expect(result.length).toBe(1)
-      expect(result[0]).toBe(specialAttacker)
-    })
-
-    it("should filter out default pokemon", () => {
-      const specialAttacker = new Pokemon("Raging Bolt", {
-        moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Thunderclap"), new Move("Draco Meteor"), new Move("Protect")),
-        evs: { hp: 0, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 }
-      })
-
-      const defaultPoke = defaultPokemon()
-
-      const attackers = [specialAttacker, defaultPoke]
       const result = service.getSpecialAttackers(attackers)
 
       expect(result.length).toBe(1)
@@ -216,21 +185,6 @@ describe("AttackerSelector", () => {
       })
 
       const target = new Target(attacker)
-      const field = new Field()
-
-      const result = service.findStrongestDoubleTarget(defender, [target], field)
-
-      expect(result).toBeNull()
-    })
-
-    it("should filter out default pokemon", () => {
-      const defender = new Pokemon("Gholdengo", {
-        evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
-      })
-
-      const defaultPoke = defaultPokemon()
-
-      const target = new Target(defaultPoke, defaultPoke)
       const field = new Field()
 
       const result = service.findStrongestDoubleTarget(defender, [target], field)

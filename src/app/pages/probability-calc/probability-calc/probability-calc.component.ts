@@ -6,7 +6,7 @@ import { GeneralProbabilityComponent } from "@app/pages/probability-calc/general
 import { PokemonProbabilityComponent } from "@app/pages/probability-calc/pokemon-probability/pokemon-probability.component"
 import { ProbabilityFieldComponent } from "@app/pages/probability-calc/probability-field/probability-field.component"
 import { TeamProbabilityComponent } from "@app/pages/probability-calc/team-probability/team-probability.component"
-import { CalculatorStore } from "@store/calculator-store"
+import { CalcStore } from "@store/calc-store"
 import { FieldStore } from "@store/field-store"
 import { FIELD_CONTEXT } from "@store/tokens/field-context.token"
 import { AutomaticFieldService } from "@store/automatic-field/automatic-field-service"
@@ -20,12 +20,19 @@ import { Pokemon } from "@multicalc/model"
   providers: [FieldStore, AutomaticFieldService, { provide: FIELD_CONTEXT, useValue: "probability" }]
 })
 export class ProbabilityCalcComponent {
-  store = inject(CalculatorStore)
+  store = inject(CalcStore)
 
-  selectedPokemon = signal<Pokemon>(this.store.team().activePokemon())
+  selectedPokemon = signal<Pokemon | undefined>(this.store.team().activePokemon())
 
-  pokemonId = computed(() => this.store.team().activePokemon().id)
-  pokemonOnEdit = computed(() => this.store.findPokemonById(this.pokemonId()))
+  addingPokemon = signal(false)
 
-  isPokemonDefault = computed(() => this.store.team().activePokemon().isDefault)
+  pokemonId = computed(() => this.store.team().activePokemon()?.id)
+  pokemonOnEdit = computed(() => this.store.findNullablePokemonById(this.pokemonId() ?? ""))
+
+  probabilityPokemon = computed(() => (this.addingPokemon() ? null : (this.store.team().activePokemon() ?? null)))
+
+  isPokemonDefault = computed(() => {
+    const pokemon = this.store.team().activePokemon()
+    return pokemon == undefined
+  })
 }

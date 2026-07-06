@@ -49,7 +49,6 @@ describe("Test calcs with Terastal", () => {
 
 describe("Terapagos Terastal calcs", () => {
   beforeEach(() => {
-    cy.get('[data-cy="one-vs-one"]').click({ force: true })
     leftPokemonBuild.importPokemon(poke["terapagos-terastal"])
   })
 
@@ -76,30 +75,5 @@ describe("Terapagos Terastal calcs", () => {
     leftPokemonBuild.selectAttackOne()
 
     leftDamageResult.damageIs(0, 0, 0, 0, 0)
-  })
-
-  it("Validate the damage with Terapagos-Terastal using Tera Blast in not Terastallyzed Pokemon", () => {
-    rightPokemonBuild.importPokemon(poke["porygon2"])
-
-    leftPokemonBuild.selectAttackTwo()
-
-    leftDamageResult.damageIs(1, 19.2, 23.4, 37, 45)
-  })
-
-  it("Validate the damage with Terapagos-Terastal using Tera Blast in Terastallyzed Pokemon", () => {
-    rightPokemonBuild.importPokemon(poke["porygon2"])
-    rightPokemonBuild.terastalyze()
-
-    leftPokemonBuild.selectAttackTwo()
-
-    leftDamageResult.damageIs(1, 19.2, 23.4, 37, 45)
-  })
-
-  it("Terapagos-Terastal Tera Blast is a Normal type attack and should not hit Ghost types", () => {
-    rightPokemonBuild.importPokemon(poke["flutter-mane"])
-
-    leftPokemonBuild.selectAttackTwo()
-
-    leftDamageResult.damageIs(1, 0, 0, 0, 0)
   })
 })

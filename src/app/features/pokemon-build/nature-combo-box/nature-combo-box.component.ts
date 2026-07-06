@@ -2,7 +2,7 @@ import { Component, computed, inject, input, signal } from "@angular/core"
 import { KeyValuePair } from "@basic/input-autocomplete/input-autocomplete.component"
 import { InputSelectComponent } from "@basic/input-select/input-select.component"
 import { NATURE_DETAILS, NatureStatID } from "@data/nature-data"
-import { CalculatorStore } from "@store/calculator-store"
+import { CalcStore } from "@store/calc-store"
 
 const STAT_LABELS: Record<NatureStatID, string> = {
   atk: "Atk",
@@ -67,7 +67,7 @@ export class NatureComboBoxComponent {
   leftLabel = input(false)
   isMobile = input(false)
 
-  store = inject(CalculatorStore)
+  store = inject(CalcStore)
 
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
   selectedNature = signal<string>("")

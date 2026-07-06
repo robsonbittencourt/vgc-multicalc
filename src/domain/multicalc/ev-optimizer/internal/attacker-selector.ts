@@ -2,9 +2,10 @@ import { MAX_SINGLE_STAT_EVS } from "./ev-optimizer-constants"
 import { Field } from "@multicalc/model/field"
 import { Pokemon } from "@multicalc/model/pokemon"
 import { Target } from "@multicalc/model/target"
-import { Category, SurvivalThreshold } from "@multicalc/types"
+import { SurvivalThreshold } from "@multicalc/ev-optimizer/internal/ev-optimizer-types"
+import { Category } from "@multicalc/model/move"
 import { SurvivalChecker } from "./survival-checker"
-import { DamageCalculatorService } from "@multicalc/damage-calculator/damage-calculator.service"
+import { DamageCalc } from "@multicalc/damage-calc/damage-calc"
 
 export type AttackerPriorityResult = {
   prioritizePhysical: boolean
@@ -28,7 +29,7 @@ type NatureScenario = {
 
 export class AttackerSelector {
   private survivalChecker = new SurvivalChecker()
-  private damageCalculator = new DamageCalculatorService()
+  private damageCalc = new DamageCalc()
 
   getPhysicalAttackers(attackers: Pokemon[]): Pokemon[] {
     return this.getAttackersByCategory(attackers, "Physical")
@@ -40,8 +41,6 @@ export class AttackerSelector {
 
   private getAttackersByCategory(attackers: Pokemon[], category: Category): Pokemon[] {
     return attackers.filter(attacker => {
-      if (attacker.isDefault) return false
-
       return attacker.moveSet.activeMove.category === category
     })
   }
@@ -123,7 +122,7 @@ export class AttackerSelector {
         impossibleAttackers.push(attacker)
       }
 
-      const damage = this.damageCalculator.calculateResult(attacker, defenderMax, attacker.move, field, rightIsDefender).damageWithRemainingUntilTurn(1, rollIndex)
+      const damage = this.damageCalc.calculateResult(attacker, defenderMax, attacker.move, field, rightIsDefender).damageWithRemainingUntilTurn(1, rollIndex)
 
       if (damage < defenderMax.hp && damage > maxDamage) {
         maxDamage = damage
@@ -203,7 +202,7 @@ export class AttackerSelector {
     for (const attacker of attackers) {
       if (attacker === strongestAttacker) continue
 
-      const damage = this.damageCalculator.calculateResult(attacker, defenderWithMax, attacker.move, field, rightIsDefender).damageWithRemainingUntilTurn(1, rollIndex)
+      const damage = this.damageCalc.calculateResult(attacker, defenderWithMax, attacker.move, field, rightIsDefender).damageWithRemainingUntilTurn(1, rollIndex)
 
       if (damage < defenderWithMax.hp && damage > secondMaxDamage) {
         secondMaxDamage = damage
@@ -225,7 +224,7 @@ export class AttackerSelector {
     for (const attacker of attackers) {
       if (attacker === strongestAttacker) continue
 
-      const damage = this.damageCalculator.calculateResult(attacker, defenderWithMax, attacker.move, field, rightIsDefender).damageWithRemainingUntilTurn(1, rollIndex)
+      const damage = this.damageCalc.calculateResult(attacker, defenderWithMax, attacker.move, field, rightIsDefender).damageWithRemainingUntilTurn(1, rollIndex)
 
       if (damage < defenderWithMax.hp) {
         attackersWithDamage.push({ attacker, damage })
@@ -245,13 +244,11 @@ export class AttackerSelector {
     let maxDamage = 0
 
     for (const target of targets) {
-      if (target.pokemon.isDefault) continue
-
-      if (target.secondPokemon && !target.secondPokemon.isDefault) {
+      if (target.secondPokemon) {
         const survivesWithMax = this.survivalChecker.checkSurvivalAgainstTwoAttackers(target.pokemon, target.secondPokemon, defenderWithMax, field, threshold, rollIndex, rightIsDefender)
         if (!survivesWithMax) continue
 
-        const multiResult = this.damageCalculator.calcDamageValueForTwoAttackers(target.pokemon, target.secondPokemon, defenderWithNoEv, field, rightIsDefender)
+        const multiResult = this.damageCalc.calcDamageValueForTwoAttackers(target.pokemon, target.secondPokemon, defenderWithNoEv, field, rightIsDefender)
         const combinedDamage = multiResult.damageWithRemainingUntilTurn(1, rollIndex)
 
         if (combinedDamage > maxDamage) {

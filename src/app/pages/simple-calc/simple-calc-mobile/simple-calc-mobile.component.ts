@@ -1,6 +1,6 @@
 import { Component, computed, effect, ElementRef, inject, OnDestroy, signal, viewChild } from "@angular/core"
 import { PokemonSpriteComponent } from "@basic/pokemon-sprite/pokemon-sprite.component"
-import { CalculatorStore } from "@store/calculator-store"
+import { CalcStore } from "@store/calc-store"
 import { CustomSet } from "@store/custom-set"
 import { FieldStore } from "@store/field-store"
 import { FIELD_CONTEXT } from "@store/tokens/field-context.token"
@@ -8,9 +8,9 @@ import { FieldComponent } from "@features/field/field.component"
 import { PokemonBuildMobileComponent } from "@features/pokemon-build/pokemon-build-mobile/pokemon-build-mobile.component"
 import { WidgetComponent } from "@basic/widget/widget.component"
 import { AutomaticFieldService } from "@store/automatic-field/automatic-field-service"
-import { DamageCalculatorService, RollLevelConfig } from "@multicalc/damage-calculator"
+import { DamageCalc, RollLevelConfig } from "@multicalc/damage-calc"
 import { RollConfigComponent } from "@features/roll-config/roll-config.component"
-import { DefensiveEvOptimizerService } from "@multicalc/ev-optimizer"
+import { DefensiveEvOptimizer } from "@multicalc/ev-optimizer"
 import { BackNavigationService } from "@core/services/back-navigation.service"
 import { Pokemon, Target } from "@multicalc/model"
 import { Stats } from "@multicalc/types"
@@ -47,12 +47,12 @@ import { MobileTableOverlayService, TableSelectEvent } from "@features/pokemon-b
   providers: [FieldStore, AutomaticFieldService, MobileTableOverlayService, { provide: FIELD_CONTEXT, useValue: "simple" }]
 })
 export class SimpleCalcMobileComponent implements OnDestroy {
-  store = inject(CalculatorStore)
+  store = inject(CalcStore)
   fieldStore = inject(FieldStore)
   overlay = inject(MobileTableOverlayService)
-  private damageCalculator = new DamageCalculatorService()
+  private damageCalc = new DamageCalc()
   private automaticFieldService = inject(AutomaticFieldService)
-  private defensiveEvOptimizer = new DefensiveEvOptimizerService()
+  private defensiveEvOptimizer = new DefensiveEvOptimizer()
   private backNavigation = inject(BackNavigationService)
 
   pokemonBuildMobile = viewChild.required(PokemonBuildMobileComponent)
@@ -89,10 +89,10 @@ export class SimpleCalcMobileComponent implements OnDestroy {
     const field = this.fieldStore.field()
 
     if (this.isCurrentPokemonAttacker()) {
-      return this.damageCalculator.calcDamage(current, other, field, true, this.store.useSpsMode())
+      return this.damageCalc.calcDamage(current, other, field, true, this.store.useSpsMode())
     }
 
-    return this.damageCalculator.calcDamage(other, current, field, true, this.store.useSpsMode())
+    return this.damageCalc.calcDamage(other, current, field, true, this.store.useSpsMode())
   })
 
   target = computed(() => {
@@ -183,18 +183,12 @@ export class SimpleCalcMobileComponent implements OnDestroy {
     const result = this.defensiveEvOptimizer.optimize(defender, [new Target(attacker)], field, event.updateNature, event.keepOffensiveEvs, event.survivalThreshold as any, rollIndex)
 
     this.optimizedNature.set(result.nature)
+    this.optimizationStatus.set(result.status)
 
-    if (result.evs) {
-      if (result.evs.hp === 0 && result.evs.def === 0 && result.evs.spd === 0) {
-        this.optimizationStatus.set("not-needed")
-        this.optimizedEvs.set(null)
-      } else {
-        this.store.evs(defender.id, result.evs)
-        this.optimizationStatus.set("success")
-        this.optimizedEvs.set(result.evs)
-      }
+    if (result.status === "success") {
+      this.store.evs(defender.id, result.evs!)
+      this.optimizedEvs.set(result.evs)
     } else {
-      this.optimizationStatus.set("no-solution")
       this.optimizedEvs.set(null)
     }
 

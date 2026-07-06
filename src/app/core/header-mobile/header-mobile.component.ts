@@ -5,7 +5,7 @@ import { MatIconButton } from "@angular/material/button"
 import { MatDivider } from "@angular/material/divider"
 import { MatIcon } from "@angular/material/icon"
 import { ActiveFieldService } from "@store/active-field.service"
-import { CalculatorStore } from "@store/calculator-store"
+import { CalcStore } from "@store/calc-store"
 import { MenuStore } from "@store/menu-store"
 import { SnackbarService } from "@core/services/snackbar.service"
 import { Color, Theme, ThemeService } from "@core/services/theme.service"
@@ -19,7 +19,7 @@ import { PwaInstallService } from "@core/services/pwa-install.service"
   imports: [NgClass, MatIconButton, MatIcon, MatDivider, TitleCasePipe]
 })
 export class HeaderMobileComponent implements OnDestroy {
-  store = inject(CalculatorStore)
+  store = inject(CalcStore)
   menuStore = inject(MenuStore)
   themeService = inject(ThemeService)
   activeFieldService = inject(ActiveFieldService)
@@ -88,7 +88,7 @@ export class HeaderMobileComponent implements OnDestroy {
     })
   }
 
-  enableSpeedCalculator() {
+  enableSpeedCalc() {
     this.updateMenuWithFeedback("speed", () => this.router.navigate(["speed-calc"]))
   }
 
@@ -96,7 +96,7 @@ export class HeaderMobileComponent implements OnDestroy {
     this.updateMenuWithFeedback("probability", () => this.router.navigate(["probability-calc"]))
   }
 
-  enableTypeCalculator() {
+  enableTypeCalc() {
     this.updateMenuWithFeedback("type", () => this.router.navigate(["type-calc"]))
   }
 

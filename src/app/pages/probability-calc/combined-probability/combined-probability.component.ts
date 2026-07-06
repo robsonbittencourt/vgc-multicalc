@@ -1,9 +1,9 @@
-import { Component, computed, inject, signal } from "@angular/core"
+import { Component, computed, signal } from "@angular/core"
 import { InputComponent } from "@basic/input/input.component"
 import { InputSelectComponent } from "@basic/input-select/input-select.component"
 import { KeyValuePair } from "@basic/input-autocomplete/input-autocomplete.component"
 import { WidgetComponent } from "@basic/widget/widget.component"
-import { CombinedProbabilityService, ProbabilityCalculationType } from "@multicalc/probability-calc"
+import { CombinedProbability, ProbabilityCalculationType } from "@multicalc/probability-calc"
 import { ProbabilityPercentPipe } from "@pages/probability-calc/pipes/probability-percent.pipe"
 
 @Component({
@@ -13,7 +13,7 @@ import { ProbabilityPercentPipe } from "@pages/probability-calc/pipes/probabilit
   styleUrl: "./combined-probability.component.scss"
 })
 export class CombinedProbabilityComponent {
-  combinedProbabilityService = new CombinedProbabilityService()
+  combinedProbabilityService = new CombinedProbability()
 
   calculationType = signal<ProbabilityCalculationType>("at-least-one")
 

@@ -48897,6 +48897,7 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
     learnset: [
       "Agility",
       "Air Slash",
+      "Behemoth Blade",
       "Bite",
       "Body Slam",
       "Brick Break",
@@ -49014,6 +49015,7 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
   zamazentacrowned: {
     learnset: [
       "Agility",
+      "Behemoth Bash",
       "Bite",
       "Body Press",
       "Body Slam",

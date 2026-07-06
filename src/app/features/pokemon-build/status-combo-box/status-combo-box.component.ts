@@ -1,6 +1,6 @@
 import { Component, computed, inject, input, output } from "@angular/core"
 import { InputSelectComponent } from "@basic/input-select/input-select.component"
-import { CalculatorStore } from "@store/calculator-store"
+import { CalcStore } from "@store/calc-store"
 import { Status } from "@multicalc/model"
 
 @Component({
@@ -16,7 +16,7 @@ export class StatusComboBoxComponent {
 
   selected = output()
 
-  store = inject(CalculatorStore)
+  store = inject(CalcStore)
 
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
 }

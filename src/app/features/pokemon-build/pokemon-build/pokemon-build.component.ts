@@ -8,11 +8,12 @@ import { MatSlideToggle } from "@angular/material/slide-toggle"
 import { MatTooltip } from "@angular/material/tooltip"
 import { InputSelectComponent } from "@basic/input-select/input-select.component"
 import { InputComponent } from "@basic/input/input.component"
-import { CalculatorStore } from "@store/calculator-store"
+import { CalcStore } from "@store/calc-store"
+import { SELECT_POKEMON_LABEL } from "@store/utils/select-pokemon-label"
 import { CustomSet } from "@store/custom-set"
 import { FieldStore } from "@store/field-store"
 import { MenuStore } from "@store/menu-store"
-import { spToEv, totalSpsFromEvs } from "@multicalc/utils/ev-sp-converter"
+import { remainingSps, spToEv } from "@multicalc/utils/ev-sp-converter"
 import { AbilityComboBoxComponent } from "@features/pokemon-build/ability-combo-box/ability-combo-box.component"
 import { EvSliderComponent } from "@features/pokemon-build/ev-slider/ev-slider.component"
 import { MultiHitComboBoxComponent } from "@features/pokemon-build/multi-hit-combo-box/multi-hit-combo-box.component"
@@ -26,8 +27,9 @@ import { TeraComboBoxComponent } from "@features/pokemon-build/tera-combo-box/te
 import { TypeComboBoxComponent } from "@features/pokemon-build/type-combo-box/type-combo-box.component"
 import { MegaStoneService } from "@features/pokemon-build/utils/mega-stone.service"
 import { FEATURES } from "@configuration/feature-flags"
-import { getFinalAttack, getFinalSpecialAttack, getFinalDefense, getFinalSpecialDefense, getFinalSpeed } from "@multicalc/stats"
-import { Stats, SurvivalThreshold } from "@multicalc/types"
+import { getFinalAttack, getFinalSpecialAttack, getFinalDefense, getFinalSpecialDefense, getFinalSpeed } from "@multicalc/stat-calc"
+import { Stats } from "@multicalc/types"
+import { SurvivalThreshold } from "@multicalc/ev-optimizer"
 
 @Component({
   selector: "app-pokemon-build",
@@ -60,7 +62,7 @@ import { Stats, SurvivalThreshold } from "@multicalc/types"
 export class PokemonBuildComponent {
   features = FEATURES
 
-  pokemonId = input.required<string>()
+  pokemonId = input<string>()
   reverse = input<boolean>(false)
   hasFocus = input<boolean>(true)
   optimizationStatus = input<"idle" | "success" | "no-solution" | "not-needed">("idle")
@@ -72,8 +74,9 @@ export class PokemonBuildComponent {
   optimizeRequested = output<{ updateNature: boolean; keepOffensiveEvs: boolean; survivalThreshold: SurvivalThreshold }>()
   optimizationApplied = output<void>()
   optimizationDiscarded = output<void>()
+  pokemonAdded = output<string>()
 
-  store = inject(CalculatorStore)
+  store = inject(CalcStore)
   fieldStore = inject(FieldStore)
   menuStore = inject(MenuStore)
   megaStoneService = inject(MegaStoneService)
@@ -100,10 +103,10 @@ export class PokemonBuildComponent {
   activeTable = signal<string>("evs")
 
   showPokemonTable = computed(() => this.activeTable() == "pokemon")
-  showItemsTable = computed(() => this.activeTable() == "items")
-  showAbilitiesTable = computed(() => this.activeTable() == "abilities")
-  showMovesTable = computed(() => this.activeTable() == "moves")
-  showEvsTable = computed(() => this.activeTable() == "evs")
+  showItemsTable = computed(() => !this.isAddMode() && this.activeTable() == "items")
+  showAbilitiesTable = computed(() => !this.isAddMode() && this.activeTable() == "abilities")
+  showMovesTable = computed(() => !this.isAddMode() && this.activeTable() == "moves")
+  showEvsTable = computed(() => !this.isAddMode() && this.activeTable() == "evs")
 
   pokemonTabIndex = computed(() => (this.reverse() ? 14 : 1))
   itemTabIndex = computed(() => (this.reverse() ? 13 : 2))
@@ -147,9 +150,17 @@ export class PokemonBuildComponent {
     return this.hasFocus() && (this.someMoveHasFocus() || this.pokemonHasFocus() || this.itemHasFocus() || this.abilityHasFocus())
   })
 
-  pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
-  isTeamMember = computed(() => this.store.team().teamMembers.some(member => member.pokemon.id === this.pokemonId()))
-  hasDuplicateItem = computed(() => this.isTeamMember() && this.store.duplicateItemPokemonIds().has(this.pokemonId()))
+  editingId = computed(() => this.pokemonId()!)
+  private resolvedPokemon = computed(() => {
+    const id = this.pokemonId()
+
+    return id != undefined ? this.store.findNullablePokemonById(id) : undefined
+  })
+  pokemon = computed(() => this.resolvedPokemon()!)
+  isAddMode = computed(() => this.resolvedPokemon() == undefined)
+  selectPokemonLabel = SELECT_POKEMON_LABEL
+  isTeamMember = computed(() => this.store.team().teamMembers.some(member => member.pokemon.id === this.editingId()))
+  hasDuplicateItem = computed(() => this.isTeamMember() && this.store.duplicateItemPokemonIds().has(this.editingId()))
   currentEvs = computed(() => {
     const pokemon = this.pokemon()
     return { ...pokemon.evs }
@@ -165,14 +176,12 @@ export class PokemonBuildComponent {
   })
   remainingLabel = computed(() => "Remaining:")
   remainingPoints = computed(() => {
-    const pokemon = this.pokemon()
-    const currentSps = totalSpsFromEvs(pokemon.evs)
-    const remainingSps = 66 - currentSps
+    const remaining = remainingSps(this.pokemon().evs)
 
     if (this.store.useSpsMode()) {
-      return remainingSps
+      return remaining
     } else {
-      return spToEv(remainingSps)
+      return spToEv(remaining)
     }
   })
 
@@ -214,7 +223,7 @@ export class PokemonBuildComponent {
     return this.isOptimizationSupported() && this.isSolutionNotNeeded()
   })
 
-  modifiedHp = computed(() => Math.floor((this.pokemon().hp * this.pokemon().hpPercentage) / 100))
+  modifiedHp = computed(() => this.pokemon().modifiedHp)
 
   hasModifiedStat = computed(() => {
     return (
@@ -272,10 +281,10 @@ export class PokemonBuildComponent {
     })
 
     effect(() => {
-      if (this.fieldStore.field()) {
-        const id = this.pokemonId()
-        const activatedPokemon = this.store.findPokemonById(id)
+      const id = this.pokemonId()
+      const activatedPokemon = id != undefined ? this.store.findNullablePokemonById(id) : undefined
 
+      if (this.fieldStore.field() && activatedPokemon != undefined) {
         this.modifiedAtk.set(getFinalAttack(activatedPokemon, activatedPokemon.move, this.fieldStore.field()))
         this.modifiedDef.set(getFinalDefense(activatedPokemon, this.fieldStore.field(), this.reverse()))
         this.modifiedSpa.set(getFinalSpecialAttack(activatedPokemon, activatedPokemon.move, this.fieldStore.field()))
@@ -316,19 +325,19 @@ export class PokemonBuildComponent {
 
   activateMove(position: number) {
     this.activeMoveIndex.set(null)
-    this.store.activateMoveByPosition(this.pokemonId(), position)
+    this.store.activateMoveByPosition(this.editingId(), position)
     this.showDefaultView()
   }
 
   moveSelectorOnClick(position: number) {
     this.setMoveSelectorFocus(position - 1)
-    this.store.activateMoveByPosition(this.pokemonId(), position)
+    this.store.activateMoveByPosition(this.editingId(), position)
     this.activeMoveIndex.set(position - 1)
     this.selected.emit()
   }
 
   selectMoveOnly(position: number) {
-    this.store.activateMoveByPosition(this.pokemonId(), position)
+    this.store.activateMoveByPosition(this.editingId(), position)
     this.activeMoveIndex.set(position - 1)
   }
 
@@ -340,8 +349,8 @@ export class PokemonBuildComponent {
   moveSelected(move: string) {
     this.moveWasSelected = true
     this.setMoveSelectorFocus(this.activeMoveIndex()!)
-    this.store.updateMove(this.pokemonId(), move, this.activeMoveIndex()!)
-    this.store.activateMove(this.pokemonId(), this.activeMoveIndex()!)
+    this.store.updateMove(this.editingId(), move, this.activeMoveIndex()!)
+    this.store.activateMove(this.editingId(), this.activeMoveIndex()!)
     this.moveDataFilter.set("")
 
     if (this.activeMoveIndex() == 3) {
@@ -377,12 +386,12 @@ export class PokemonBuildComponent {
 
     if (!this.moveWasSelected && this.moveWasTyped()) {
       if (filter === "") {
-        this.store.updateMove(this.pokemonId(), "", position - 1)
+        this.store.updateMove(this.editingId(), "", position - 1)
       } else {
-        this.store.updateMove(this.pokemonId(), firstMove, position - 1)
+        this.store.updateMove(this.editingId(), firstMove, position - 1)
 
         if (this.activeMoveIndex() === position - 1) {
-          this.store.activateMove(this.pokemonId(), position - 1)
+          this.store.activateMove(this.editingId(), position - 1)
         }
       }
     }
@@ -414,7 +423,7 @@ export class PokemonBuildComponent {
 
   abilitySelected(ability: string) {
     this.abilityDataFilter.set("")
-    this.store.ability(this.pokemonId(), ability)
+    this.store.ability(this.editingId(), ability)
     this.showDefaultView()
     this.abilityInput()?.blur()
   }
@@ -428,7 +437,7 @@ export class PokemonBuildComponent {
 
   abilitySelectorLostFocus() {
     if (this.abilityDataFilter() != "") {
-      this.store.ability(this.pokemonId(), this.firstAbilityFromList())
+      this.store.ability(this.editingId(), this.firstAbilityFromList())
       this.abilityDataFilter.set("")
     }
   }
@@ -437,7 +446,7 @@ export class PokemonBuildComponent {
     this.itemDataFilter.set("")
 
     if (!this.isItemDisabled()) {
-      this.store.item(this.pokemonId(), item)
+      this.store.item(this.editingId(), item)
     }
 
     this.showDefaultView()
@@ -453,20 +462,26 @@ export class PokemonBuildComponent {
 
   itemSelectorLostFocus() {
     if (this.itemDataFilter() != "") {
-      this.store.item(this.pokemonId(), this.firstItemFromList())
+      this.store.item(this.editingId(), this.firstItemFromList())
       this.itemDataFilter.set("")
     }
   }
 
   pokemonSelected(pokemon: string) {
     this.pokemonDataFilter.set("")
-    this.store.loadPokemonInfo(this.pokemonId(), pokemon)
+
+    if (this.isAddMode()) {
+      this.pokemonAdded.emit(pokemon)
+    } else {
+      this.store.loadPokemonInfo(this.editingId(), pokemon)
+    }
+
     this.showDefaultView()
     this.pokemonInput()?.blur()
   }
 
   onCustomSetEditRequested(set: CustomSet) {
-    this.store.enterCustomSetEditMode(this.pokemonId(), set.id)
+    this.store.enterCustomSetEditMode(this.editingId(), set.id)
     this.showDefaultView()
   }
 
@@ -479,14 +494,19 @@ export class PokemonBuildComponent {
 
   pokemonSelectorLostFocus() {
     if (this.pokemonDataFilter() != "") {
-      this.store.loadPokemonInfo(this.pokemonId(), this.firstPokemonFromList())
+      this.store.loadPokemonInfo(this.editingId(), this.firstPokemonFromList())
       this.pokemonDataFilter.set("")
     }
   }
 
   newPokemonSelectorLostFocus() {
     if (this.pokemonDataFilter() != "") {
-      this.store.loadPokemonInfo(this.pokemonId(), this.firstPokemonFromList())
+      if (this.isAddMode()) {
+        this.pokemonAdded.emit(this.firstPokemonFromList())
+      } else {
+        this.store.loadPokemonInfo(this.editingId(), this.firstPokemonFromList())
+      }
+
       this.pokemonDataFilter.set("")
       this.showDefaultView()
       this.pokemonInput()?.blur()
@@ -534,7 +554,7 @@ export class PokemonBuildComponent {
   }
 
   toggleMega() {
-    this.megaStoneService.toggleMega(this.pokemonId(), this.pokemon().name, this.pokemon().item)
+    this.megaStoneService.toggleMega(this.editingId(), this.pokemon().name, this.pokemon().item)
   }
 
   isMegaStone() {
@@ -558,11 +578,11 @@ export class PokemonBuildComponent {
   }
 
   clearEvs() {
-    this.store.evs(this.pokemonId(), { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
+    this.store.evs(this.editingId(), { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
   }
 
   optimizeEvs() {
-    const defender = this.store.findPokemonById(this.pokemonId())
+    const defender = this.store.findPokemonById(this.editingId())
     this.originalEvs.set({ ...defender.evs })
     this.originalNature.set(defender.nature)
 
@@ -577,7 +597,7 @@ export class PokemonBuildComponent {
     const optimized = this.optimizedEvs()
 
     if (optimized) {
-      this.store.evs(this.pokemonId(), { ...optimized })
+      this.store.evs(this.editingId(), { ...optimized })
     }
 
     this.optimizationApplied.emit()
@@ -585,10 +605,10 @@ export class PokemonBuildComponent {
 
   discardOptimization() {
     const original = this.originalEvs()
-    this.store.evs(this.pokemonId(), original)
+    this.store.evs(this.editingId(), original)
 
     const originalNature = this.originalNature()
-    this.store.nature(this.pokemonId(), originalNature)
+    this.store.nature(this.editingId(), originalNature)
 
     this.optimizationDiscarded.emit()
   }

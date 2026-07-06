@@ -11,7 +11,7 @@
 
     <div [hidden]="activeBottomTab() !== 'build'" [class.tab-active]="activeBottomTab() === 'build'" [class.table-open]="overlay.isAnyOpen()">
       <div [hidden]="overlay.isAnyOpen()">
-        <app-team-tabs-mobile [(pokemonOnEditId)]="pokemonOnEditId" (memberAddedEvent)="onMemberAdded()" />
+        <app-team-tabs-mobile [(pokemonOnEditId)]="pokemonOnEditId" [(addingPokemon)]="addingPokemon" (memberAddedEvent)="onMemberAdded()" />
       </div>
 
       @if (effectiveEditingId()) {
@@ -36,7 +36,7 @@
               @if (!store.isEditingCustomSet()) {
                 <app-import-pokemon-button (pokemonImportedEvent)="onHeaderImport($event)" />
               }
-              @if (!editingPokemon()?.isDefault) {
+              @if (!isAddMode()) {
                 <app-export-pokemon-button [pokemonId]="effectiveEditingId()!" />
               }
             }
@@ -62,7 +62,7 @@
         <div class="attacker-build">
           <app-mobile-table-overlay [pokemonId]="effectiveEditingId()!" [moveIndex]="editingMoveIndex()" (tableSelect)="onTableSelect($event)" />
 
-          @if (!editingPokemon()?.isDefault) {
+          @if (!isAddMode()) {
             <app-pokemon-build-mobile
               [pokemonId]="effectiveEditingId()!"
               [showOptimization]="false"
@@ -79,7 +79,7 @@
           }
         </div>
 
-        @if (editingPokemon()?.isDefault) {
+        @if (isAddMode()) {
           <div class="empty-insights" [hidden]="overlay.isAnyOpen()">Select a Pokémon</div>
         }
       }

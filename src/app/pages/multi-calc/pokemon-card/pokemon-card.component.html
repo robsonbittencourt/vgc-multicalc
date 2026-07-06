@@ -9,151 +9,122 @@
   [class.has-collapsible]="collapsible()"
   [class.is-collapsed]="collapsible() && !expanded()"
   [attr.data-cy]="'pokemon-card-' + effectiveTarget().pokemon.displayName">
-  @if (effectiveTarget().pokemon.isDefault) {
-    <div class="body">
-      <div class="card-right-side">
-        <div class="pokemon-image-container">
-          <img class="pokemon-image" src="assets/icons/question.png" width="120" height="120" loading="lazy" alt="" />
-          <label>Select a Pokémon</label>
-        </div>
+  <div class="body">
+    @if (matchingCustomSetAttacker() || matchingCustomSetSecondAttacker()) {
+      <span class="attacker-set-label">
+        Set:
+        @if (matchingCustomSetAttacker() && matchingCustomSetSecondAttacker()) {
+          {{ matchingCustomSetAttacker()!.setName }} - {{ matchingCustomSetSecondAttacker()!.setName }}
+        } @else {
+          {{ (matchingCustomSetAttacker() ?? matchingCustomSetSecondAttacker())!.setName }}
+        }
+      </span>
+    }
+    <div class="body-main">
+      <div class="combine-spacer">
+        @if (!menuStore.oneVsOneActivated() && isAttacker()) {
+          @if (!damageResult().secondAttacker) {
+            <div class="handle" cdkDragHandle matTooltip="Combine" [matTooltipDisabled]="collapsible()" [matTooltipShowDelay]="500" [attr.data-cy]="moveCardSelector()">
+              <mat-icon>open_with</mat-icon>
+            </div>
+          } @else {
+            <div class="handle" (click)="separateAttackers()" matTooltip="Separate" [matTooltipDisabled]="collapsible()" [matTooltipShowDelay]="500" [attr.data-cy]="separateCardSelector()">
+              <mat-icon>move_down</mat-icon>
+            </div>
+          }
+        }
       </div>
-    </div>
-  } @else {
-    <div class="body">
-      @if (!isDefaultAttacker() && (matchingCustomSetAttacker() || matchingCustomSetSecondAttacker())) {
-        <span class="attacker-set-label">
-          Set:
-          @if (matchingCustomSetAttacker() && matchingCustomSetSecondAttacker()) {
-            {{ matchingCustomSetAttacker()!.setName }} - {{ matchingCustomSetSecondAttacker()!.setName }}
-          } @else {
-            {{ (matchingCustomSetAttacker() ?? matchingCustomSetSecondAttacker())!.setName }}
-          }
-        </span>
-      }
-      <div class="body-main">
-        <div class="combine-spacer">
-          @if (!menuStore.oneVsOneActivated() && isAttacker() && !isDefaultDefender()) {
-            @if (!damageResult().secondAttacker) {
-              <div class="handle" cdkDragHandle matTooltip="Combine" [matTooltipDisabled]="collapsible()" [matTooltipShowDelay]="500" [attr.data-cy]="moveCardSelector()">
-                <mat-icon>open_with</mat-icon>
-              </div>
-            } @else {
-              <div class="handle" (click)="separateAttackers()" matTooltip="Separate" [matTooltipDisabled]="collapsible()" [matTooltipShowDelay]="500" [attr.data-cy]="separateCardSelector()">
-                <mat-icon>move_down</mat-icon>
-              </div>
-            }
-          }
+
+      <div class="left-side">
+        <div class="left-pokemon" (click)="activate(damageResult().attacker.id)" matTooltip="Edit" [matTooltipDisabled]="collapsible()" [matTooltipShowDelay]="500" [attr.data-cy]="attackerSelector()">
+          <app-pokemon-sprite class="pokemon-image" [name]="damageResult().attacker.name" />
+        </div>
+        @if (damageResult().secondAttacker) {
+          <div class="left-pokemon" (click)="activate(damageResult().secondAttacker!.id)" matTooltip="Edit" [matTooltipDisabled]="collapsible()" [matTooltipShowDelay]="500" [attr.data-cy]="secondAttackerSelector()">
+            <app-pokemon-sprite class="pokemon-image" [name]="damageResult().secondAttacker!.name" />
+          </div>
+        }
+      </div>
+
+      <div class="middle">
+        <img class="vs-icon" src="assets/icons/vs.png" width="70" height="70" loading="lazy" alt="" />
+      </div>
+
+      <div class="right-side">
+        <div class="pointer" (click)="activate(pokemonOnCard().id)" matTooltip="Edit" [matTooltipDisabled]="collapsible()" [matTooltipShowDelay]="500" [attr.data-cy]="defenderSelector()">
+          <app-hp-badge
+            [name]="pokemonOnCard().displayNameWithoutSuffix"
+            [actualHp]="pokemonOnCard().actualHp"
+            [hpBase]="pokemonOnCard().hp"
+            [spriteName]="pokemonOnCard().name"
+            [item]="pokemonOnCard().item"
+            [damageTaken]="damageTaken()"
+            [isOpponent]="!isAttacker()"
+            [status]="pokemonOnCard().status" />
         </div>
 
-        <div class="left-side">
-          @if (isDefaultAttacker()) {
-            <div class="pokemon-image-container">
-              <img class="pokemon-image is-placeholder" src="assets/icons/question.png" width="120" height="120" loading="lazy" alt="" />
-            </div>
-          } @else {
-            <div class="left-pokemon" (click)="activate(damageResult().attacker.id)" matTooltip="Edit" [matTooltipDisabled]="collapsible()" [matTooltipShowDelay]="500" [attr.data-cy]="attackerSelector()">
-              <app-pokemon-sprite class="pokemon-image" [name]="damageResult().attacker.name" />
-            </div>
-            @if (damageResult().secondAttacker) {
-              <div class="left-pokemon" (click)="activate(damageResult().secondAttacker!.id)" matTooltip="Edit" [matTooltipDisabled]="collapsible()" [matTooltipShowDelay]="500" [attr.data-cy]="secondAttackerSelector()">
-                <app-pokemon-sprite class="pokemon-image" [name]="damageResult().secondAttacker!.name" />
-              </div>
-            }
-          }
-        </div>
-
-        <div class="middle">
-          <img class="vs-icon" src="assets/icons/vs.png" width="70" height="70" loading="lazy" alt="" />
-        </div>
-
-        <div class="right-side">
-          @if (isDefaultDefender()) {
-            <div class="body">
-              <div class="card-right-side">
-                <div class="pokemon-image-container">
-                  <img class="pokemon-image is-placeholder" src="assets/icons/question.png" width="120" height="120" loading="lazy" alt="" />
-                </div>
-              </div>
-            </div>
-          } @else {
-            <div class="pointer" (click)="activate(pokemonOnCard().id)" matTooltip="Edit" [matTooltipDisabled]="collapsible()" [matTooltipShowDelay]="500" [attr.data-cy]="defenderSelector()">
-              <app-hp-badge
-                [name]="pokemonOnCard().displayNameWithoutSuffix"
-                [actualHp]="pokemonOnCard().actualHp"
-                [hpBase]="pokemonOnCard().hp"
-                [spriteName]="pokemonOnCard().name"
-                [item]="pokemonOnCard().item"
-                [damageTaken]="damageTaken()"
-                [isOpponent]="!isAttacker()"
-                [status]="pokemonOnCard().status" />
-            </div>
-          }
-
-          @if (!isDefaultAttacker() && !isDefaultDefender()) {
-            <div class="middle-section">
-              @if (!collapsible() || expanded()) {
-                <div class="middle-section-items">
-                  <span>Nature: {{ pokemonOnCard().nature }}</span>
-                  <span>Ability: {{ pokemonOnCard().ability.simpleName }}</span>
-                  <span>Item: {{ pokemonOnCard().item }}</span>
-                  @if (features.teraType) {
-                    <span>
-                      Tera: {{ pokemonOnCard().teraType }}
-                      @if (pokemonOnCard().teraTypeActive) {
-                        Active
-                      }
-                    </span>
+        <div class="middle-section">
+          @if (!collapsible() || expanded()) {
+            <div class="middle-section-items">
+              <span>Nature: {{ pokemonOnCard().nature }}</span>
+              <span>Ability: {{ pokemonOnCard().ability.simpleName }}</span>
+              <span>Item: {{ pokemonOnCard().item }}</span>
+              @if (features.teraType) {
+                <span>
+                  Tera: {{ pokemonOnCard().teraType }}
+                  @if (pokemonOnCard().teraTypeActive) {
+                    Active
                   }
+                </span>
+              }
+            </div>
+          }
+
+          <div class="middle-section-buttons">
+            <div class="card-buttons">
+              @if ((!collapsible() || expanded()) && showStatusIconsRow()) {
+                <div class="card-buttons-row status-icons">
+                  <app-tatsugiri-button [pokemonId]="pokemonOnCard().id" />
+                  <app-booster-energy-button [pokemonId]="pokemonOnCard().id" />
                 </div>
               }
 
-              <div class="middle-section-buttons">
-                <div class="card-buttons">
-                  @if ((!collapsible() || expanded()) && showStatusIconsRow()) {
-                    <div class="card-buttons-row status-icons">
-                      <app-tatsugiri-button [pokemonId]="pokemonOnCard().id" />
-                      <app-booster-energy-button [pokemonId]="pokemonOnCard().id" />
-                    </div>
-                  }
+              <div class="card-buttons-row">
+                @if (features.teraType) {
+                  <app-terastal-button [pokemonId]="pokemonOnCard().id" />
+                }
+                <app-aegislash-button [pokemonId]="pokemonOnCard().id" />
 
-                  <div class="card-buttons-row">
-                    @if (features.teraType) {
-                      <app-terastal-button [pokemonId]="pokemonOnCard().id" />
-                    }
-                    <app-aegislash-button [pokemonId]="pokemonOnCard().id" />
+                @if (isMegaStoneCompatible()) {
+                  <button class="icon-button mega-icon-button" [class.mega-active]="pokemonOnCard().name.includes('-Mega')" (click)="toggleMega()" aria-label="Toggle Mega Evolution">
+                    <img class="mega-icon" [class.mega-active]="pokemonOnCard().name.includes('-Mega')" src="assets/sprites/items/{{ getMegaStoneSprite() }}.webp" width="120" height="120" loading="lazy" alt="Mega Stone" />
+                  </button>
+                }
 
-                    @if (isMegaStoneCompatible()) {
-                      <button class="icon-button mega-icon-button" [class.mega-active]="pokemonOnCard().name.includes('-Mega')" (click)="toggleMega()" aria-label="Toggle Mega Evolution">
-                        <img class="mega-icon" [class.mega-active]="pokemonOnCard().name.includes('-Mega')" src="assets/sprites/items/{{ getMegaStoneSprite() }}.webp" width="120" height="120" loading="lazy" alt="Mega Stone" />
-                      </button>
-                    }
+                @if (showDeleteButton()) {
+                  <button class="icon-button" (click)="removePokemon($event)" data-cy="delete-opponent-pokemon" aria-label="Remove Pokémon">
+                    <img class="icon-trash" src="assets/icons/trash.png" width="25" height="25" loading="lazy" alt="" />
+                  </button>
+                }
 
-                    @if (showDeleteButton()) {
-                      <button class="icon-button" (click)="removePokemon($event)" data-cy="delete-opponent-pokemon" aria-label="Remove Pokémon">
-                        <img class="icon-trash" src="assets/icons/trash.png" width="25" height="25" loading="lazy" alt="" />
-                      </button>
-                    }
-
-                    @if (collapsible()) {
-                      <button class="icon-button" (click)="toggleExpanded()">
-                        <mat-icon>{{ expanded() ? "expand_less" : "expand_more" }}</mat-icon>
-                      </button>
-                    }
-                  </div>
-                </div>
+                @if (collapsible()) {
+                  <button class="icon-button" (click)="toggleExpanded()">
+                    <mat-icon>{{ expanded() ? "expand_less" : "expand_more" }}</mat-icon>
+                  </button>
+                }
               </div>
-
-              @if (matchingCustomSet()) {
-                <span class="custom-set-label">Set: {{ matchingCustomSet()!.setName }}</span>
-              }
             </div>
+          </div>
+
+          @if (matchingCustomSet()) {
+            <span class="custom-set-label">Set: {{ matchingCustomSet()!.setName }}</span>
           }
         </div>
       </div>
     </div>
-  }
+  </div>
 
-  @if (collapsible() && !expanded() && !isDefaultAttacker() && !isDefaultDefender()) {
+  @if (collapsible() && !expanded()) {
     <div class="collapsed-footer">
       @if (damageResult()) {
         <span class="collapsed-description">{{ collapsedDescription() }}</span>
@@ -161,7 +132,7 @@
     </div>
   }
 
-  @if (damageResult() && !isDefaultAttacker() && !isDefaultDefender()) {
+  @if (damageResult()) {
     @if (!collapsible() || expanded()) {
       <div class="footer">
         <div class="damage-result">

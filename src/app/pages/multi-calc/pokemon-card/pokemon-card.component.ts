@@ -4,15 +4,17 @@ import { MatIcon } from "@angular/material/icon"
 import { MatTooltip } from "@angular/material/tooltip"
 import { CopyButtonComponent } from "@basic/copy-button/copy-button.component"
 import { PokemonSpriteComponent } from "@basic/pokemon-sprite/pokemon-sprite.component"
-import { CalculatorStore } from "@store/calculator-store"
+import { CalcStore } from "@store/calc-store"
 import { CustomSet } from "@store/custom-set"
 import { MenuStore } from "@store/menu-store"
+import { setsMatch } from "@store/utils/sets-match"
+import { pokemonToState } from "@store/utils/state-mapper"
 import { AegislashButtonComponent } from "@features/buttons/aegislash-button/aegislash-button.component"
 import { BoosterEnergyButtonComponent } from "@features/buttons/booster-energy-button/booster-energy-button.component"
 import { TatsugiriButtonComponent } from "@features/buttons/tatsugiri-button/tatsugiri-button.component"
 import { TerastalButtonComponent } from "@features/buttons/terastal-button/terastal-button.component"
 import { MegaStoneService } from "@features/pokemon-build/utils/mega-stone.service"
-import { DamageResult, RollLevelConfig } from "@multicalc/damage-calculator"
+import { DamageResult, RollLevelConfig } from "@multicalc/damage-calc"
 import { FEATURES } from "@configuration/feature-flags"
 import { Pokemon, Target } from "@multicalc/model"
 import { HpBadgeComponent } from "@pages/simple-calc/pokemon-hp-badge/hp-badge/hp-badge.component"
@@ -24,7 +26,7 @@ import { HpBadgeComponent } from "@pages/simple-calc/pokemon-hp-badge/hp-badge/h
   imports: [CdkDrag, CdkDragPlaceholder, CdkDragHandle, MatIcon, MatTooltip, TatsugiriButtonComponent, TerastalButtonComponent, AegislashButtonComponent, BoosterEnergyButtonComponent, HpBadgeComponent, CopyButtonComponent, PokemonSpriteComponent]
 })
 export class PokemonCardComponent {
-  store = inject(CalculatorStore)
+  store = inject(CalcStore)
   menuStore = inject(MenuStore)
   megaStoneService = inject(MegaStoneService)
 
@@ -47,13 +49,7 @@ export class PokemonCardComponent {
   expanded = model<boolean>(false)
 
   canDrag = computed(() => !this.isAttacker() || !!this.damageResult().secondAttacker)
-  damageTaken = computed(() => {
-    if (this.isDefaultAttacker()) return 0
-    return this.damageResult().damageByRollConfig(this.rollLevelConfig())
-  })
-
-  isDefaultAttacker = computed(() => this.damageResult().attacker.isDefault)
-  isDefaultDefender = computed(() => this.damageResult().defender.isDefault)
+  damageTaken = computed(() => this.damageResult().damageByRollConfig(this.rollLevelConfig()))
 
   collapsedDescription = computed(() => {
     const firstMove = this.damageResult().move
@@ -105,24 +101,9 @@ export class PokemonCardComponent {
 
     if (!sets?.length) return undefined
 
-    return sets.find(
-      set =>
-        set.state.nature === pokemon.nature &&
-        set.state.item === pokemon.item &&
-        set.state.ability === pokemon.ability.name &&
-        set.state.teraType === pokemon.teraType &&
-        set.state.teraTypeActive === pokemon.teraTypeActive &&
-        (set.state.evs.hp ?? 0) === pokemon.evs.hp &&
-        (set.state.evs.atk ?? 0) === pokemon.evs.atk &&
-        (set.state.evs.def ?? 0) === pokemon.evs.def &&
-        (set.state.evs.spa ?? 0) === pokemon.evs.spa &&
-        (set.state.evs.spd ?? 0) === pokemon.evs.spd &&
-        (set.state.evs.spe ?? 0) === pokemon.evs.spe &&
-        set.state.moveSet[0]?.name === pokemon.move1Name &&
-        set.state.moveSet[1]?.name === pokemon.move2Name &&
-        set.state.moveSet[2]?.name === pokemon.move3Name &&
-        set.state.moveSet[3]?.name === pokemon.move4Name
-    )
+    const state = pokemonToState(pokemon)
+
+    return sets.find(set => setsMatch(set.state, state))
   }
 
   isDondozo = computed(() => this.pokemonOnCard().name.startsWith("Dondozo"))

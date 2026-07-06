@@ -3,7 +3,7 @@ import { MatSlideToggle } from "@angular/material/slide-toggle"
 import { InputAutocompleteComponent } from "@basic/input-autocomplete/input-autocomplete.component"
 import { InputSelectComponent } from "@basic/input-select/input-select.component"
 import { WidgetComponent } from "@basic/widget/widget.component"
-import { CalculatorStore } from "@store/calculator-store"
+import { CalcStore } from "@store/calc-store"
 import { SpeedCalcOptionsStore } from "@store/speed-calc-options-store"
 import { Pokemon } from "@multicalc/model"
 import { OpponentOptionsComponent } from "@pages/speed-calc/opponent-options/opponent-options.component"
@@ -17,12 +17,12 @@ import { SpeedScaleComponent } from "@pages/speed-calc/speed-scale/speed-scale.c
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class SpeedListComponent {
-  store = inject(CalculatorStore)
+  store = inject(CalcStore)
   optionsStore = inject(SpeedCalcOptionsStore)
 
   pokemonSelected = output<Pokemon>()
 
-  pokemonId = computed(() => this.store.team().activePokemon().id)
+  pokemonId = computed(() => this.store.team().activePokemon()!.id)
 
   topUsageList: string[] = ["30", "60", "100", "125", "All"]
 }

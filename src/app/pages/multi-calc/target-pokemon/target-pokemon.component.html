@@ -76,7 +76,14 @@
         (attackersSeparated)="separateAttackers($event)" />
     }
 
-    @if (!selectPokemonActive() && !anyFilterActive()) {
+    @if (addingTarget()) {
+      <div class="add-target-card" data-cy="add-target-placeholder">
+        <div class="add-target-placeholder">
+          <img class="placeholder-image" src="assets/icons/question.png" width="120" height="120" loading="lazy" alt="" />
+          <label>Select a Pokémon</label>
+        </div>
+      </div>
+    } @else if (!anyFilterActive()) {
       <app-add-pokemon-card (pokemonAddedToTeam)="addPokemonToTargets()" />
     }
   </div>

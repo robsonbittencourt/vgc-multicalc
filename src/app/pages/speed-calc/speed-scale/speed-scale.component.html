@@ -6,7 +6,7 @@
         [speedChanged]="speedOrderChanged"
         [speedIncreasing]="speedOrderIncrease"
         (pokemonSelected)="setPokemonSelected($event)"
-        [selected]="selectedPokemon().id === speedDefinition.pokemon.id"
+        [selected]="selectedPokemon().id === speedDefinition.pokemon?.id"
         [hideActualDescription]="hideActualDescription()"
         [highlightMyTeam]="highlightMyTeam()" />
     </div>

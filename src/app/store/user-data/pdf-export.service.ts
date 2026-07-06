@@ -3,6 +3,7 @@ import { NoopScrollStrategy } from "@angular/cdk/overlay"
 import { MatDialog } from "@angular/material/dialog"
 import { MegaStoneService } from "@features/pokemon-build/utils/mega-stone.service"
 import { TeamListModalComponent, TeamListPlayerInfo } from "@features/team-list-modal/team-list-modal.component"
+import { CalcStore } from "@store/calc-store"
 import { Ability, Team, Pokemon } from "@multicalc/model"
 
 interface PokemonPrintData {
@@ -208,6 +209,7 @@ const PAGE2_POKEMON: PokemonFieldsPage2[] = [
 export class PdfExportService {
   private megaStoneService = inject(MegaStoneService)
   private dialog = inject(MatDialog)
+  private store = inject(CalcStore)
 
   export(team: Team) {
     const ref = this.dialog.open(TeamListModalComponent, {
@@ -244,8 +246,6 @@ export class PdfExportService {
 
     for (let i = 0; i < Math.min(pokemons.length, 6); i++) {
       const pokemon = pokemons[i]
-
-      if (pokemon.isDefault) continue
 
       const printPokemon = this.resolveBaseForm(pokemon)
 

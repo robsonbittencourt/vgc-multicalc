@@ -1,4 +1,4 @@
-import { CalculatorState, PokemonState, TargetState, TeamState } from "@store/calculator-store"
+import { CalcState, PokemonState, TargetState, TeamState } from "@store/calc-store"
 import { buildState, buildUserData } from "./user-data-mapper"
 import { Status } from "@multicalc/model"
 
@@ -163,7 +163,7 @@ describe("User Data Mapper", () => {
   })
 
   describe("buildState", () => {
-    it("should build a leftPokemonState in CalculatorState from user data", () => {
+    it("should build a leftPokemonState in CalcState from user data", () => {
       const userData = {
         leftPokemon: pikachuUserData,
         rightPokemon: charmanderUserData,
@@ -177,7 +177,7 @@ describe("User Data Mapper", () => {
         targets: [{ pokemon: charmanderUserData }]
       }
 
-      const result = buildState(userData) as CalculatorState
+      const result = buildState(userData) as CalcState
 
       expect(result.leftPokemonState.name).toBe("Pikachu")
       expect(result.leftPokemonState.nature).toBe("Timid")
@@ -196,7 +196,7 @@ describe("User Data Mapper", () => {
       expect(result.leftPokemonState.ivs).toEqual({ hp: 26, atk: 27, def: 28, spa: 29, spd: 30, spe: 31 })
     })
 
-    it("should build a rightPokemonState in CalculatorState from user data", () => {
+    it("should build a rightPokemonState in CalcState from user data", () => {
       const userData = {
         leftPokemon: pikachuUserData,
         rightPokemon: charmanderUserData,
@@ -210,7 +210,7 @@ describe("User Data Mapper", () => {
         targets: [{ pokemon: charmanderUserData }]
       }
 
-      const result = buildState(userData) as CalculatorState
+      const result = buildState(userData) as CalcState
 
       expect(result.rightPokemonState.name).toBe("Charmander")
       expect(result.rightPokemonState.nature).toBe("Adamant")
@@ -229,7 +229,7 @@ describe("User Data Mapper", () => {
       expect(result.rightPokemonState.ivs).toEqual({ hp: 0, atk: 1, def: 2, spa: 3, spd: 4, spe: 5 })
     })
 
-    it("should build secondAttackerId in CalculatorState from user data", () => {
+    it("should build secondAttackerId in CalcState from user data", () => {
       const userData = {
         leftPokemon: pikachuUserData,
         rightPokemon: charmanderUserData,
@@ -243,12 +243,12 @@ describe("User Data Mapper", () => {
         targets: [{ pokemon: charmanderUserData }]
       }
 
-      const result = buildState(userData) as CalculatorState
+      const result = buildState(userData) as CalcState
 
       expect(result.secondAttackerId).toBe("")
     })
 
-    it("should build a Team in CalculatorState from user data", () => {
+    it("should build a Team in CalcState from user data", () => {
       const userData = {
         leftPokemon: pikachuUserData,
         rightPokemon: charmanderUserData,
@@ -267,7 +267,7 @@ describe("User Data Mapper", () => {
         targets: [{ pokemon: charmanderUserData }]
       }
 
-      const result = buildState(userData) as CalculatorState
+      const result = buildState(userData) as CalcState
 
       expect(result.teamsState[0].active).toBe(true)
       expect(result.teamsState[0].name).toBe("Team 1")
@@ -280,7 +280,7 @@ describe("User Data Mapper", () => {
       expect(result.teamsState[1].teamMembers[0].pokemon.name).toBe("Charmander")
     })
 
-    it("should add default Pokémon on Team when Team does not have any Pokémon", () => {
+    it("should keep a Team empty when it does not have any Pokémon", () => {
       const userData = {
         leftPokemon: pikachuUserData,
         rightPokemon: charmanderUserData,
@@ -294,14 +294,12 @@ describe("User Data Mapper", () => {
         targets: [{ pokemon: charmanderUserData }]
       }
 
-      const result = buildState(userData) as CalculatorState
+      const result = buildState(userData) as CalcState
 
-      expect(result.teamsState[0].teamMembers.length).toBe(1)
-      expect(result.teamsState[0].teamMembers[0].active).toBe(true)
-      expect(result.teamsState[0].teamMembers[0].pokemon.ability).toBe("Hustle")
+      expect(result.teamsState[0].teamMembers.length).toBe(0)
     })
 
-    it("should build Targets in CalculatorState from user data", () => {
+    it("should build Targets in CalcState from user data", () => {
       const userData = {
         leftPokemon: pikachuUserData,
         rightPokemon: charmanderUserData,
@@ -320,7 +318,7 @@ describe("User Data Mapper", () => {
         targets: [{ pokemon: bulbasaurUserData }, { pokemon: charmanderUserData, secondPokemon: pikachuUserData }]
       }
 
-      const result = buildState(userData) as CalculatorState
+      const result = buildState(userData) as CalcState
 
       expect(result.targetsState.length).toBe(2)
       expect(result.targetsState[0].pokemon.name).toBe("Bulbasaur")
@@ -328,7 +326,7 @@ describe("User Data Mapper", () => {
       expect(result.targetsState[1].secondPokemon!.name).toBe("Pikachu")
     })
 
-    it("should build roll levels in CalculatorState from user data", () => {
+    it("should build roll levels in CalcState from user data", () => {
       const userData = {
         leftPokemon: pikachuUserData,
         rightPokemon: charmanderUserData,
@@ -339,7 +337,7 @@ describe("User Data Mapper", () => {
         multiCalcRollLevel: "high"
       }
 
-      const result = buildState(userData) as CalculatorState
+      const result = buildState(userData) as CalcState
 
       expect(result.simpleCalcLeftRollLevel).toBe("medium")
       expect(result.simpleCalcRightRollLevel).toBe("low")
@@ -347,7 +345,7 @@ describe("User Data Mapper", () => {
       expect(result.manyVsTeamRollLevel).toBe("high")
     })
 
-    it("should build default roll levels in CalculatorState when not present in user data", () => {
+    it("should build default roll levels in CalcState when not present in user data", () => {
       const userData = {
         leftPokemon: pikachuUserData,
         rightPokemon: charmanderUserData,
@@ -355,7 +353,7 @@ describe("User Data Mapper", () => {
         targets: []
       }
 
-      const result = buildState(userData) as CalculatorState
+      const result = buildState(userData) as CalcState
 
       expect(result.simpleCalcLeftRollLevel).toBe("high")
       expect(result.simpleCalcRightRollLevel).toBe("high")
@@ -370,7 +368,7 @@ describe("User Data Mapper", () => {
         targets: []
       }
 
-      const result = buildState(userData) as CalculatorState
+      const result = buildState(userData) as CalcState
 
       expect(result.leftPokemonState.activeMove).toBe(0)
     })

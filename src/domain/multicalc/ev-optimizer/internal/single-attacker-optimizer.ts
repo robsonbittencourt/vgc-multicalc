@@ -1,18 +1,19 @@
 import { MAX_TOTAL_EVS } from "./ev-optimizer-constants"
 import { Field } from "@multicalc/model/field"
 import { Pokemon } from "@multicalc/model/pokemon"
-import { Stats, SurvivalThreshold } from "@multicalc/types"
-import { EvIntervalsCalculator } from "./ev-intervals-calculator"
+import { Stats } from "@multicalc/types"
+import { SurvivalThreshold } from "@multicalc/ev-optimizer/internal/ev-optimizer-types"
+import { EvIntervalsCalc } from "./ev-intervals-calc"
 import { EvOptimizerUtils } from "./ev-optimizer-utils"
 import { SurvivalChecker } from "./survival-checker"
 
 export class SingleAttackerOptimizer {
-  private evIntervalsCalculator = new EvIntervalsCalculator()
+  private evIntervalsCalc = new EvIntervalsCalc()
   private survivalChecker = new SurvivalChecker()
   private utils = new EvOptimizerUtils()
 
   findFirstValidSolution(attacker: Pokemon, defender: Pokemon, field: Field, isPhysical: boolean, threshold: SurvivalThreshold = 2, rollIndex = 15, rightIsDefender = true): Stats {
-    const evIntervals = this.evIntervalsCalculator.getEvIntervals()
+    const evIntervals = this.evIntervalsCalc.getEvIntervals()
 
     const tempDefender = defender.clone()
     const tempEvs = { hp: 0, atk: defender.evs.atk, def: 0, spa: defender.evs.spa, spd: 0, spe: defender.evs.spe }
@@ -45,7 +46,7 @@ export class SingleAttackerOptimizer {
       return null
     }
 
-    const evIntervals = this.evIntervalsCalculator.getEvIntervals()
+    const evIntervals = this.evIntervalsCalc.getEvIntervals()
 
     const initialDamageProduct = isPhysical ? initialDefender.hp * initialDefender.def : initialDefender.hp * initialDefender.spd
     const minDamageProduct = initialDamageProduct * 0.9
@@ -95,7 +96,7 @@ export class SingleAttackerOptimizer {
       return null
     }
 
-    const evIntervals = this.evIntervalsCalculator.getEvIntervals()
+    const evIntervals = this.evIntervalsCalc.getEvIntervals()
     const tempDefender = defender.clone()
     const tempEvs = { hp: hpEv, atk: defender.evs.atk, def: 0, spa: defender.evs.spa, spd: 0, spe: defender.evs.spe }
 

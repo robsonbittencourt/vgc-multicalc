@@ -1,8 +1,8 @@
 import { DOCUMENT } from "@angular/common"
 import { Component, inject, OnInit } from "@angular/core"
 import { Meta, Title } from "@angular/platform-browser"
-import { SpeedCalculatorComponent } from "@pages/speed-calc/speed-calculator/speed-calculator.component"
-import { SpeedCalculatorMobileComponent } from "@pages/speed-calc/speed-calculator-mobile/speed-calculator-mobile.component"
+import { SpeedCalcComponent } from "@pages/speed-calc/speed-calc/speed-calc.component"
+import { SpeedCalcMobileComponent } from "@pages/speed-calc/speed-calc-mobile/speed-calc-mobile.component"
 import { HeaderMobileComponent } from "@core/header-mobile/header-mobile.component"
 import { HeaderComponent } from "@core/header/header.component"
 import { MenuStore } from "@store/menu-store"
@@ -21,14 +21,14 @@ const URL = "https://vgcmulticalc.com/speed-calc"
     <div class="container">
       @if (isDesktop()) {
         <app-header />
-        <app-speed-calculator />
+        <app-speed-calc />
       } @else {
         <app-header-mobile />
-        <app-speed-calculator-mobile />
+        <app-speed-calc-mobile />
       }
     </div>
   `,
-  imports: [HeaderComponent, SpeedCalculatorComponent, HeaderMobileComponent, SpeedCalculatorMobileComponent]
+  imports: [HeaderComponent, SpeedCalcComponent, HeaderMobileComponent, SpeedCalcMobileComponent]
 })
 export class SpeedCalcRouteComponent implements OnInit {
   private menuStore = inject(MenuStore)
@@ -39,7 +39,7 @@ export class SpeedCalcRouteComponent implements OnInit {
   private jsonLd = inject(JsonLdService)
 
   ngOnInit() {
-    this.menuStore.enableSpeedCalculator()
+    this.menuStore.enableSpeedCalc()
     this.title.setTitle(TITLE)
     this.meta.updateTag({ name: "description", content: DESCRIPTION })
     this.updateSocialTags()

@@ -2,9 +2,9 @@ import { Component, computed, inject } from "@angular/core"
 import { DonutGraphicComponent } from "@app/basic/donut-graphic/donut-graphic.component"
 import { WidgetComponent } from "@app/basic/widget/widget.component"
 import { PokemonSpriteComponent } from "@basic/pokemon-sprite/pokemon-sprite.component"
-import { CalculatorStore } from "@store/calculator-store"
+import { CalcStore } from "@store/calc-store"
 import { FieldStore } from "@store/field-store"
-import { ConsistencyScoreService } from "@multicalc/probability-calc"
+import { ConsistencyScore } from "@multicalc/probability-calc"
 
 @Component({
   selector: "app-team-probability",
@@ -13,9 +13,9 @@ import { ConsistencyScoreService } from "@multicalc/probability-calc"
   styleUrl: "./team-probability.component.scss"
 })
 export class TeamProbabilityComponent {
-  store = inject(CalculatorStore)
+  store = inject(CalcStore)
   fieldStore = inject(FieldStore)
-  consistencyScoreService = new ConsistencyScoreService()
+  consistencyScoreService = new ConsistencyScore()
 
   team = computed(() => this.store.team())
   field = computed(() => this.fieldStore.field())
@@ -57,8 +57,5 @@ export class TeamProbabilityComponent {
     return Math.round(this.consistencyScoreService.teamConsistencyScore(team, this.field()))
   })
 
-  hasValidTeamMembers = computed(() => {
-    const team = this.team()
-    return team.teamMembers.some(member => !member.pokemon.isDefault)
-  })
+  hasValidTeamMembers = computed(() => !this.team().isEmpty())
 }

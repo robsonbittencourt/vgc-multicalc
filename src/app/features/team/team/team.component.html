@@ -8,19 +8,25 @@
         </div>
       } @else if (targetOnEdit()) {
         <app-pokemon-tab [pokemonId]="pokemonId()" [active]="true" (tabActivated)="activatePokemon($event)" (secondTabActivated)="activateSecondPokemon($event)" />
-        <div class="close-tab" (click)="activatePokemon(store.team().activePokemon().id)" data-cy="close-tab">
+        <div class="close-tab" (click)="backToActivePokemon()" data-cy="close-tab">
           <mat-icon>close</mat-icon>
         </div>
       } @else {
         @for (teamMember of store.team().teamMembers; track teamMember.pokemon.id) {
           <app-pokemon-tab [pokemonId]="teamMember.pokemon.id" [active]="showTeamMemberActive(teamMember)" (tabActivated)="activatePokemon($event)" (secondTabActivated)="activateSecondPokemon($event)" />
         }
+
+        @if (showAddTab()) {
+          <app-pokemon-tab [active]="addingPokemon()" (tabActivated)="startAddingPokemon()" />
+        }
       }
     </div>
   </right-header>
 
   <div class="pokemon-actions">
-    <app-save-set-button [pokemonId]="pokemonId()" [showMatchingSet]="true" (openPokemonTable)="openBuildPokemonTable()" />
+    @if (!isAddMode()) {
+      <app-save-set-button [pokemonId]="pokemonId() ?? ''" [showMatchingSet]="true" (openPokemonTable)="openBuildPokemonTable()" />
+    }
 
     @if (canDuplicatePokemon()) {
       <div class="duplicate-pokemon" (click)="duplicatePokemon()" data-cy="duplicate-pokemon-button">
@@ -29,11 +35,11 @@
       </div>
     }
 
-    <app-import-pokemon-button [show]="canImportPokemon()" [hidden]="!teamMemberOnEdit()" (pokemonImportedEvent)="pokemonImported($event)" />
-    <app-export-pokemon-button [show]="canExportPokemon()" [hidden]="!teamMemberOnEdit() && !targetOnEdit()" [pokemonId]="pokemonId()" data-cy="export-pokemon-from-team" />
+    <app-import-pokemon-button [show]="canImportPokemon()" [hidden]="addTargetMode() || (!teamMemberOnEdit() && !addingPokemon())" (pokemonImportedEvent)="pokemonImported($event)" />
+    <app-export-pokemon-button [show]="canExportPokemon()" [hidden]="isAddMode() || (!teamMemberOnEdit() && !targetOnEdit())" [pokemonId]="pokemonId() ?? ''" data-cy="export-pokemon-from-team" />
 
     @if (canShowCombineButton()) {
-      <div [hidden]="!teamMemberOnEdit() || isEditingCustomSet()" class="combine-damage" (click)="selectSecondAttacker()">
+      <div [hidden]="!teamMemberOnEdit() || isEditingCustomSet() || isAddMode()" class="combine-damage" (click)="selectSecondAttacker()">
         @if (combineDamageActive()) {
           <mat-icon class="icon" data-cy="disable-damage-combined-button">add_circle</mat-icon>
         } @else {
@@ -44,7 +50,7 @@
     }
 
     @if (canShowDeleteButton()) {
-      <div [hidden]="!teamMemberOnEdit() || isEditingCustomSet()" class="delete-pokemon" (click)="removePokemon()" data-cy="delete-from-team-button">
+      <div [hidden]="!teamMemberOnEdit() || isEditingCustomSet() || isAddMode()" class="delete-pokemon" (click)="removePokemon()" data-cy="delete-from-team-button">
         <mat-icon class="icon">delete</mat-icon>
         <label>Delete</label>
       </div>
@@ -53,7 +59,8 @@
 
   <app-pokemon-build
     #pokemonBuild
-    [pokemonId]="pokemonId()"
+    [pokemonId]="buildPokemonId()"
+    (pokemonAdded)="pokemonAdded($event)"
     [optimizedEvs]="optimizedEvs()"
     [optimizedNature]="optimizedNature()"
     [optimizationStatus]="optimizationStatus()"

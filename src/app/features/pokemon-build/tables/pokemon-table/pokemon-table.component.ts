@@ -1,31 +1,14 @@
 import { Component, computed, inject, input, output, signal } from "@angular/core"
-import { getAbilityData, AbilityName } from "@data/ability-data"
-import { POKEMON_DATA } from "@data/pokemon-data"
-import { topUsageByRegulation } from "@data/top-usage-regulation"
-import { CalculatorStore } from "@store/calculator-store"
+import { CalcStore } from "@store/calc-store"
 import { CustomSet } from "@store/custom-set"
 import { FilterableTableComponent } from "@features/pokemon-build/tables/filterable-table/filterable-table.component"
 import { ColumnConfig, TableData } from "@features/pokemon-build/tables/filterable-table/filtered-table-types"
-import { Pokemon } from "@multicalc/model"
 import { PokemonSpriteComponent } from "@basic/pokemon-sprite/pokemon-sprite.component"
 import { MatIcon } from "@angular/material/icon"
-import { PokemonType, Stats } from "@multicalc/types"
+import { PokemonDetail, pokemonTableData } from "@multicalc/pokemon-table-data"
+import { Stats } from "@multicalc/types"
 import { evToSp } from "@multicalc/utils/ev-sp-converter"
 import { FEATURES } from "@configuration/feature-flags"
-
-interface PokemonDetail {
-  name: string
-  types: PokemonType[]
-  abilities: AbilityName[]
-  hp: number
-  atk: number
-  def: number
-  spa: number
-  spd: number
-  spe: number
-  bst: number
-  group: string
-}
 
 @Component({
   selector: "app-pokemon-table",
@@ -34,7 +17,7 @@ interface PokemonDetail {
   styleUrl: "./pokemon-table.component.scss"
 })
 export class PokemonTableComponent {
-  pokemonId = input.required<string>()
+  pokemonId = input<string>()
   dataFilter = input.required<string>()
   haveFocus = input.required<boolean>()
   isMobile = input<boolean>(false)
@@ -45,9 +28,9 @@ export class PokemonTableComponent {
   customSetSelected = output<CustomSet>()
   customSetEditRequested = output<CustomSet>()
 
-  store = inject(CalculatorStore)
+  store = inject(CalcStore)
 
-  pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
+  pokemon = computed(() => this.store.findNullablePokemonById(this.pokemonId() ?? ""))
 
   customSetActionId = signal<string | null>(null)
 
@@ -127,7 +110,7 @@ export class PokemonTableComponent {
   }
 
   selectCustomSet(set: CustomSet) {
-    this.store.selectCustomSet(this.pokemonId(), set.id)
+    this.store.selectCustomSet(this.pokemonId() ?? "", set.id)
     this.customSetSelected.emit(set)
   }
 
@@ -144,11 +127,13 @@ export class PokemonTableComponent {
   }
 
   actualPokemon = computed(() => {
-    if (this.hasActiveSetForSlot()) {
+    const pokemon = this.pokemon()
+
+    if (this.hasActiveSetForSlot() || pokemon == undefined) {
       return []
     }
 
-    return [this.pokemon().name]
+    return [pokemon.name]
   })
 
   initialEntryId = computed(() => {
@@ -156,7 +141,7 @@ export class PokemonTableComponent {
       return this.store.activeSetId()!
     }
 
-    return this.pokemon().name
+    return this.pokemon()?.name ?? ""
   })
 
   private hasActiveSetForSlot(): boolean {
@@ -187,78 +172,15 @@ export class PokemonTableComponent {
   ]
 
   buildGroupedPokemonData(): TableData<PokemonDetail & { subRows?: CustomSet[] }>[] {
-    const details = POKEMON_DATA
     const customSetsByPokemon = this.store.customSetsByPokemon()
-    const availableNames = new Set(topUsageByRegulation["MB"])
-    const allPokemon = Object.values(details)
-      .filter(p => FEATURES.allowAllPokes || availableNames.has(p.name))
-      .map(p => {
-        const pokemon = new Pokemon(p.name)
-        const abilities = (p.abilities ?? []).map(ability => {
-          const abilityDetail = getAbilityData(ability)
-          if (!abilityDetail) {
-            console.error(`Missing ability "${ability}" for pokemon "${p.name}"`)
-            return "Unknown"
-          }
-          return abilityDetail.name
-        })
 
+    return pokemonTableData(FEATURES.allowAllPokes).map(group => ({
+      group: group.group,
+      data: group.data.map(pokemon => {
         const subRows = customSetsByPokemon.get(pokemon.name)
 
-        return {
-          name: pokemon.name,
-          types: [pokemon.type1, pokemon.type2],
-          abilities: abilities,
-          hp: pokemon.baseHp,
-          atk: pokemon.baseAtk,
-          def: pokemon.baseDef,
-          spa: pokemon.baseSpa,
-          spd: pokemon.baseSpd,
-          spe: pokemon.baseSpe,
-          bst: pokemon.bst,
-          group: p.group ?? "Regular",
-          ...(subRows ? { subRows } : {})
-        } as PokemonDetail & { subRows?: CustomSet[] }
+        return { ...pokemon, ...(subRows ? { subRows } : {}) }
       })
-
-    const topUsageOrder = topUsageByRegulation["MB"]
-
-    const groupedData = allPokemon.reduce(
-      (acc, pokemon) => {
-        const groupName = pokemon.group
-
-        if (!acc[groupName]) {
-          acc[groupName] = []
-        }
-
-        acc[groupName].push(pokemon)
-        return acc
-      },
-      {} as Record<PokemonDetail["group"], (PokemonDetail & { subRows?: CustomSet[] })[]>
-    )
-
-    for (const groupName of Object.keys(groupedData) as PokemonDetail["group"][]) {
-      groupedData[groupName].sort((a, b) => {
-        const indexA = topUsageOrder.indexOf(a.name)
-        const indexB = topUsageOrder.indexOf(b.name)
-
-        if (indexA === -1 && indexB === -1) return a.name.localeCompare(b.name)
-        if (indexA === -1) return 1
-        if (indexB === -1) return -1
-
-        return indexA - indexB
-      })
-    }
-
-    const result = Object.keys(groupedData).map(groupName => ({
-      group: groupName as PokemonDetail["group"],
-      data: groupedData[groupName as PokemonDetail["group"]]
     }))
-
-    type PokemonTableData = TableData<PokemonDetail & { subRows?: CustomSet[] }>
-    const groupOrder: PokemonDetail["group"][] = ["Meta", "Low usage", "Regular"]
-    const orderedResult = groupOrder.map(groupName => result.find(data => data.group == groupName)).filter((data): data is PokemonTableData => data !== undefined)
-
-    return orderedResult
   }
 }

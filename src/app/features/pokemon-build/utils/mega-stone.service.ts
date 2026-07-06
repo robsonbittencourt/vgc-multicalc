@@ -1,40 +1,19 @@
 import { inject, Injectable } from "@angular/core"
-import { getItemData } from "@data/item-data"
 import { MOVESETS } from "@data/moveset-data"
-import { getBasePokemonNameFromItem, MEGA_FORM_MAPPING, MEGA_FORM_REVERSE_MAPPING } from "@features/pokemon-build/utils/mega-stone-mapping"
-import { CalculatorStore } from "@store/calculator-store"
-import { Pokemon } from "@multicalc/model"
+import { CalcStore } from "@store/calc-store"
+import { getBaseName, getMegaFormName, isMega, isMegaStone, isMegaStoneCompatible, Pokemon } from "@multicalc/model"
 
 @Injectable({ providedIn: "root" })
 export class MegaStoneService {
-  private store = inject(CalculatorStore)
+  private store = inject(CalcStore)
   private previousAbilityByPokemonId = new Map<string, string>()
 
   isMegaStone(item: string): boolean {
-    return getItemData(item)?.isMegaStone ?? false
+    return isMegaStone(item)
   }
 
   isMegaStoneCompatible(pokemonName: string, item: string): boolean {
-    if (!this.isMegaStone(item)) return false
-
-    const itemBaseName = getBasePokemonNameFromItem(item)
-
-    if (!itemBaseName) return false
-
-    const reverseMappedName = MEGA_FORM_REVERSE_MAPPING[pokemonName] || pokemonName
-    const baseFormName = reverseMappedName.replace(/-Mega-[A-Z]?$/, "").replace(/-Mega$/, "")
-    const baseNameMatches = baseFormName === itemBaseName || baseFormName.startsWith(itemBaseName + "-")
-
-    if (!baseNameMatches) return false
-
-    const megaStoneLetter = this.extractMegaStoneLetter(item)
-    const expectedMegaForm = MEGA_FORM_MAPPING[baseFormName] ?? MEGA_FORM_MAPPING[itemBaseName] ?? (megaStoneLetter ? `${baseFormName}-Mega-${megaStoneLetter}` : `${baseFormName}-Mega`)
-
-    if (megaStoneLetter) {
-      return pokemonName === baseFormName || pokemonName === expectedMegaForm
-    }
-
-    return pokemonName === baseFormName || pokemonName === expectedMegaForm
+    return isMegaStoneCompatible(pokemonName, item)
   }
 
   getBaseFormAbility(pokemonId: string): string | null {
@@ -42,15 +21,15 @@ export class MegaStoneService {
   }
 
   getBaseName(megaName: string): string {
-    return MEGA_FORM_REVERSE_MAPPING[megaName] ?? megaName.replace(/-Mega-[A-Z]$/, "").replace(/-Mega$/, "")
+    return getBaseName(megaName)
   }
 
   isMega(pokemonName: string): boolean {
-    return pokemonName.includes("-Mega-") || pokemonName.endsWith("-Mega")
+    return isMega(pokemonName)
   }
 
   hasMegaForm(pokemonName: string, item: string): boolean {
-    return this.isMegaStone(item) || pokemonName.includes("-Mega")
+    return isMegaStone(item) || pokemonName.includes("-Mega")
   }
 
   toggleMega(pokemonId: string, currentName: string, currentItem: string) {
@@ -58,11 +37,10 @@ export class MegaStoneService {
 
     if (!pokemon) return
 
-    const isMega = currentName.includes("-Mega-") || currentName.endsWith("-Mega")
     const currentAbility = pokemon.ability.name
 
-    if (isMega) {
-      const baseName = MEGA_FORM_REVERSE_MAPPING[currentName] || currentName.replace(/-Mega-[A-Z]$/, "").replace(/-Mega$/, "")
+    if (isMega(currentName)) {
+      const baseName = getBaseName(currentName)
       const previousAbility = this.previousAbilityByPokemonId.get(pokemonId)
       this.previousAbilityByPokemonId.delete(pokemonId)
       this.store.name(pokemonId, baseName)
@@ -74,8 +52,7 @@ export class MegaStoneService {
       }
     } else {
       this.previousAbilityByPokemonId.set(pokemonId, currentAbility)
-      const megaStoneLetter = this.extractMegaStoneLetter(currentItem)
-      const newName = MEGA_FORM_MAPPING[currentName] ?? (megaStoneLetter ? currentName + "-Mega-" + megaStoneLetter : currentName + "-Mega")
+      const newName = getMegaFormName(currentName, currentItem)
 
       this.store.name(pokemonId, newName)
       this.setAbilityForMegaForm(pokemonId, newName)
@@ -126,10 +103,5 @@ export class MegaStoneService {
 
   getMegaStoneSprite(item: string): string {
     return item.toLowerCase().replace(/\s+/g, "-")
-  }
-
-  extractMegaStoneLetter(item: string): string | null {
-    const match = item.match(/([A-Z])$/)
-    return match ? match[1] : null
   }
 }

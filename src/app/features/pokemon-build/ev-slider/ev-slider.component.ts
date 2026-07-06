@@ -7,7 +7,9 @@ import { MatInput } from "@angular/material/input"
 import { MatSelect } from "@angular/material/select"
 import { MatSlider, MatSliderThumb } from "@angular/material/slider"
 import { MatTooltip } from "@angular/material/tooltip"
-import { CalculatorStore } from "@store/calculator-store"
+import { CalcStore } from "@store/calc-store"
+import { StatIDExceptHP } from "@data/types"
+import { natureEffect } from "@multicalc/model"
 import { Stats } from "@multicalc/types"
 import { evToSp, spToEv, totalSpsFromEvs } from "@multicalc/utils/ev-sp-converter"
 
@@ -26,7 +28,7 @@ export class EvSliderComponent {
   hasModifiedStat = input<boolean>()
   isOptimized = input(false)
 
-  store = inject(CalculatorStore)
+  store = inject(CalcStore)
 
   sliderElement = viewChild<MatSlider>("slider")
 
@@ -96,22 +98,9 @@ export class EvSliderComponent {
   })
 
   natureModifier = computed(() => {
-    if (this.stat() == "atk" && ["Lonely", "Adamant", "Naughty", "Brave"].includes(this.nature())) return "+"
-    if (this.stat() == "atk" && ["Bold", "Modest", "Calm", "Timid"].includes(this.nature())) return "-"
+    if (this.stat() == "hp") return ""
 
-    if (this.stat() == "def" && ["Bold", "Impish", "Lax", "Relaxed"].includes(this.nature())) return "+"
-    if (this.stat() == "def" && ["Lonely", "Mild", "Gentle", "Hasty"].includes(this.nature())) return "-"
-
-    if (this.stat() == "spa" && ["Modest", "Mild", "Rash", "Quiet"].includes(this.nature())) return "+"
-    if (this.stat() == "spa" && ["Adamant", "Impish", "Careful", "Jolly"].includes(this.nature())) return "-"
-
-    if (this.stat() == "spd" && ["Calm", "Gentle", "Careful", "Sassy"].includes(this.nature())) return "+"
-    if (this.stat() == "spd" && ["Naughty", "Lax", "Rash", "Naive"].includes(this.nature())) return "-"
-
-    if (this.stat() == "spe" && ["Timid", "Hasty", "Jolly", "Naive"].includes(this.nature())) return "+"
-    if (this.stat() == "spe" && ["Brave", "Relaxed", "Quiet", "Sassy"].includes(this.nature())) return "-"
-
-    return ""
+    return natureEffect(this.nature(), this.stat() as StatIDExceptHP)
   })
 
   isStatWithBeneficialNature = computed(() => {

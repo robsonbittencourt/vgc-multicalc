@@ -1,0 +1,283 @@
+import { RollLevelConfig } from "@multicalc/damage-calc/roll-level-config"
+import { Field } from "@multicalc/model/field"
+import { Pokemon } from "@multicalc/model/pokemon"
+import { Target } from "@multicalc/model/target"
+import { Stats } from "@multicalc/types"
+import { SurvivalThreshold } from "@multicalc/ev-optimizer/internal/ev-optimizer-types"
+import { AttackerPriorityResult, AttackerSelector } from "./internal/attacker-selector"
+import { DoubleAttackerOptimizer } from "./internal/double-attacker-optimizer"
+import { SingleAttackerOptimizer } from "./internal/single-attacker-optimizer"
+import { SolutionCombiner } from "./internal/solution-combiner"
+import { RefinementStage } from "./internal/refinement-stage"
+import { SurvivalChecker } from "./internal/survival-checker"
+import { OptimizationResult, OptimizationStatus } from "./internal/ev-optimizer-types"
+import { DEFENSIVE_STATS } from "./defensive-stats"
+
+type OptimizationSolution = {
+  evs: Stats | null
+  nature: string | null
+}
+
+export class DefensiveEvOptimizer {
+  private attackerSelector = new AttackerSelector()
+  private singleAttackerOptimizer = new SingleAttackerOptimizer()
+  private doubleAttackerOptimizer = new DoubleAttackerOptimizer()
+  private solutionCombiner = new SolutionCombiner()
+  private refinementStage = new RefinementStage()
+  private survivalChecker = new SurvivalChecker()
+
+  optimize(defender: Pokemon, targets: Target[], field: Field, updateNature = false, keepOffensiveEvs = false, threshold: SurvivalThreshold = 2, rollIndex = RollLevelConfig.HIGH_ROLL_INDEX, rightIsDefender = true): OptimizationResult {
+    const solution = this.computeSolution(defender, targets, field, updateNature, keepOffensiveEvs, threshold, rollIndex, rightIsDefender)
+
+    return { ...solution, status: this.deriveStatus(solution.evs) }
+  }
+
+  private deriveStatus(evs: Stats | null): OptimizationStatus {
+    if (!evs) return "no-solution"
+
+    if (DEFENSIVE_STATS.every(stat => evs[stat] === 0)) return "not-needed"
+
+    return "success"
+  }
+
+  private computeSolution(
+    defender: Pokemon,
+    targets: Target[],
+    field: Field,
+    updateNature = false,
+    keepOffensiveEvs = false,
+    threshold: SurvivalThreshold = 2,
+    rollIndex = RollLevelConfig.HIGH_ROLL_INDEX,
+    rightIsDefender = true
+  ): OptimizationSolution {
+    if (targets.length === 0) {
+      return { evs: { ...defender.evs }, nature: null }
+    }
+
+    const reservedEvs = keepOffensiveEvs ? { atk: defender.evs.atk, spa: defender.evs.spa, spe: defender.evs.spe } : undefined
+
+    const targetsWithTwoAttackers = targets.filter(t => t.secondPokemon)
+    const singleTargets = targets.filter(t => !t.secondPokemon)
+    const attackers = singleTargets.map(t => t.pokemon)
+
+    if (targetsWithTwoAttackers.length === 0) {
+      return this.optimizeForSingleAttackers(defender, attackers, field, updateNature, reservedEvs, threshold, rollIndex, rightIsDefender)
+    }
+
+    const strongestDoubleTarget = this.attackerSelector.findStrongestDoubleTarget(defender, targets, field, threshold, rollIndex, rightIsDefender)
+
+    const physicalAttackers = this.attackerSelector.getPhysicalAttackers(attackers)
+    const specialAttackers = this.attackerSelector.getSpecialAttackers(attackers)
+
+    let physicalStrongest: Pokemon | null = null
+    let specialStrongest: Pokemon | null = null
+    let physicalOptimized: Stats | null = null
+    let specialOptimized: Stats | null = null
+
+    let natureUsed: string | null = null
+    let priority: AttackerPriorityResult | null = null
+
+    if (physicalAttackers.length > 0 || specialAttackers.length > 0) {
+      priority = this.attackerSelector.determinePriority(physicalAttackers, specialAttackers, defender, field, updateNature, threshold, rollIndex, rightIsDefender)
+      physicalStrongest = priority.physical.strongestAttacker
+      specialStrongest = priority.special.strongestAttacker
+      natureUsed = priority.natureUsed
+
+      const defenderWithNature = natureUsed ? defender.clone({ nature: natureUsed }) : defender
+
+      physicalOptimized = physicalStrongest ? this.singleAttackerOptimizer.optimizeForAttacker(physicalStrongest, defenderWithNature, field, threshold, rollIndex, rightIsDefender) : null
+      specialOptimized = specialStrongest ? this.singleAttackerOptimizer.optimizeForAttacker(specialStrongest, defenderWithNature, field, threshold, rollIndex, rightIsDefender) : null
+    }
+
+    const defenderWithNature = natureUsed ? defender.clone({ nature: natureUsed }) : defender
+
+    let doubleOptimized: Stats | null = null
+    if (strongestDoubleTarget) {
+      doubleOptimized = this.doubleAttackerOptimizer.optimizeForTwoAttackers(strongestDoubleTarget.attacker1, strongestDoubleTarget.attacker2, defenderWithNature, field, threshold, rollIndex, rightIsDefender)
+    }
+
+    const physicalAttackersSurvivable = priority?.physical.survivableAttackers ?? []
+    const specialAttackersSurvivable = priority?.special.survivableAttackers ?? []
+
+    let evs: Stats | null = this.solutionCombiner.combineThreeSolutions(
+      { physicalSolution: physicalOptimized, specialSolution: specialOptimized, doubleSolution: doubleOptimized },
+      { defender: defenderWithNature, field, threshold, rollIndex, rightIsDefender },
+      { physicalAttacker: physicalStrongest, specialAttacker: specialStrongest, physicalAttackers: physicalAttackersSurvivable, specialAttackers: specialAttackersSurvivable },
+      { attacker1: strongestDoubleTarget?.attacker1 ?? null, attacker2: strongestDoubleTarget?.attacker2 ?? null }
+    )
+
+    if (evs && strongestDoubleTarget) {
+      const refinedEvs = this.refinementStage.refineForDoubleAttackers(evs, defenderWithNature, strongestDoubleTarget.attacker1, strongestDoubleTarget.attacker2, field, threshold, rollIndex, physicalStrongest, specialStrongest, rightIsDefender)
+      if (refinedEvs) {
+        evs = refinedEvs
+      } else {
+        evs = this.solutionCombiner.combineSolutions(
+          physicalOptimized,
+          specialOptimized,
+          priority?.prioritizePhysical ?? true,
+          defenderWithNature,
+          field,
+          physicalStrongest,
+          specialStrongest,
+          physicalAttackersSurvivable,
+          specialAttackersSurvivable,
+          threshold,
+          rollIndex,
+          rightIsDefender
+        )
+
+        if (evs) {
+          const strongestAttacker = physicalStrongest || specialStrongest
+          if (strongestAttacker) {
+            evs = this.refinementStage.refineForSingleAttacker(evs, defenderWithNature, strongestAttacker, field, threshold, rollIndex, rightIsDefender)
+          }
+        }
+      }
+    }
+
+    if (!evs) {
+      const defenderWithZeroDefensiveEvs = defenderWithNature.clone({ evs: { hp: 0, atk: defenderWithNature.evs.atk, def: 0, spa: defenderWithNature.evs.spa, spd: 0, spe: defenderWithNature.evs.spe } })
+
+      const survivableSingleAttackers = [...(priority?.physical.survivableAttackers ?? []), ...(priority?.special.survivableAttackers ?? [])]
+      const hasSurvivableDouble = strongestDoubleTarget !== null
+
+      if (survivableSingleAttackers.length === 0 && !hasSurvivableDouble && (attackers.length > 0 || targetsWithTwoAttackers.length > 0)) {
+        return { evs: null, nature: null }
+      }
+
+      const survivesSingle = survivableSingleAttackers.every(attacker => this.survivalChecker.checkSurvival(attacker, defenderWithZeroDefensiveEvs, field, threshold, rollIndex, rightIsDefender))
+      const survivesDouble = strongestDoubleTarget
+        ? this.survivalChecker.checkSurvivalAgainstTwoAttackers(strongestDoubleTarget.attacker1, strongestDoubleTarget.attacker2, defenderWithZeroDefensiveEvs, field, threshold, rollIndex, rightIsDefender)
+        : true
+
+      if (survivesSingle && survivesDouble) {
+        if (reservedEvs) {
+          return { evs: { hp: 0, atk: reservedEvs.atk, def: 0, spa: reservedEvs.spa, spd: 0, spe: reservedEvs.spe }, nature: natureUsed }
+        }
+        return { evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: natureUsed }
+      }
+
+      return { evs: null, nature: null }
+    }
+
+    if (reservedEvs) {
+      const totalEvs = evs.hp + evs.def + evs.spd + reservedEvs.atk + reservedEvs.spa + reservedEvs.spe
+      if (totalEvs > 508) {
+        return { evs: null, nature: null }
+      }
+      return { evs: { hp: evs.hp, atk: reservedEvs.atk, def: evs.def, spa: reservedEvs.spa, spd: evs.spd, spe: reservedEvs.spe }, nature: natureUsed }
+    }
+
+    return { evs, nature: natureUsed }
+  }
+
+  private optimizeForSingleAttackers(
+    defender: Pokemon,
+    attackers: Pokemon[],
+    field: Field,
+    updateNature = false,
+    reservedEvs?: { atk: number; spa: number; spe: number },
+    threshold: SurvivalThreshold = 2,
+    rollIndex = RollLevelConfig.HIGH_ROLL_INDEX,
+    rightIsDefender = true
+  ): OptimizationSolution {
+    if (attackers.length === 0) {
+      return { evs: { ...defender.evs }, nature: null }
+    }
+
+    const physicalAttackers = this.attackerSelector.getPhysicalAttackers(attackers)
+    const specialAttackers = this.attackerSelector.getSpecialAttackers(attackers)
+
+    if (physicalAttackers.length === 0 && specialAttackers.length === 0) {
+      return { evs: { ...defender.evs }, nature: null }
+    }
+
+    const priority = this.attackerSelector.determinePriority(physicalAttackers, specialAttackers, defender, field, updateNature, threshold, rollIndex, rightIsDefender)
+
+    const natureUsed = priority.natureUsed
+    const defenderWithNature = natureUsed ? defender.clone({ nature: natureUsed }) : defender
+
+    const physicalStrongest = priority.physical.strongestAttacker
+    const physicalOptimized = physicalStrongest ? this.singleAttackerOptimizer.optimizeForAttacker(physicalStrongest, defenderWithNature, field, threshold, rollIndex, rightIsDefender) : null
+
+    if (physicalStrongest && !physicalOptimized) {
+      return { evs: null, nature: null }
+    }
+
+    const specialStrongest = priority.special.strongestAttacker
+    const specialOptimized = specialStrongest ? this.singleAttackerOptimizer.optimizeForAttacker(specialStrongest, defenderWithNature, field, threshold, rollIndex, rightIsDefender) : null
+
+    if (specialStrongest && !specialOptimized) {
+      return { evs: null, nature: null }
+    }
+
+    const physicalAttackersSurvivable = priority.physical.survivableAttackers
+    const specialAttackersSurvivable = priority.special.survivableAttackers
+
+    let evs: Stats | null = this.solutionCombiner.combineSolutions(
+      physicalOptimized,
+      specialOptimized,
+      priority.prioritizePhysical,
+      defenderWithNature,
+      field,
+      physicalStrongest,
+      specialStrongest,
+      physicalAttackersSurvivable,
+      specialAttackersSurvivable,
+      threshold,
+      rollIndex,
+      rightIsDefender
+    )
+
+    if (evs) {
+      const strongestAttacker = physicalStrongest || specialStrongest
+
+      if (strongestAttacker) {
+        evs = this.refinementStage.refineForSingleAttacker(evs, defenderWithNature, strongestAttacker, field, threshold, rollIndex, rightIsDefender)
+      }
+    }
+
+    if (!evs) {
+      const defenderWithZeroDefensiveEvs = defenderWithNature.clone({ evs: { hp: 0, atk: defenderWithNature.evs.atk, def: 0, spa: defenderWithNature.evs.spa, spd: 0, spe: defenderWithNature.evs.spe } })
+
+      const survivableSingleAttackers = [...physicalAttackersSurvivable, ...specialAttackersSurvivable]
+
+      if (survivableSingleAttackers.length === 0 && attackers.length > 0) {
+        return { evs: null, nature: null }
+      }
+
+      const alreadySurvivesAll = survivableSingleAttackers.every(attacker => this.survivalChecker.checkSurvival(attacker, defenderWithZeroDefensiveEvs, field, threshold, rollIndex, rightIsDefender))
+
+      if (alreadySurvivesAll) {
+        const hasImpossible = priority.physical.impossibleAttackers.length > 0 || priority.special.impossibleAttackers.length > 0
+
+        if (hasImpossible) {
+          return { evs: null, nature: null }
+        }
+
+        if (reservedEvs) {
+          return { evs: { hp: 0, atk: reservedEvs.atk, def: 0, spa: reservedEvs.spa, spd: 0, spe: reservedEvs.spe }, nature: natureUsed }
+        }
+        return { evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: natureUsed }
+      }
+
+      return { evs: null, nature: null }
+    }
+
+    const hasImpossible = priority.physical.impossibleAttackers.length > 0 || priority.special.impossibleAttackers.length > 0
+
+    if (hasImpossible && evs.hp === 0 && evs.def === 0 && evs.spd === 0) {
+      return { evs: null, nature: null }
+    }
+
+    if (reservedEvs) {
+      const totalEvs = evs.hp + evs.def + evs.spd + reservedEvs.atk + reservedEvs.spa + reservedEvs.spe
+      if (totalEvs > 508) {
+        return { evs: null, nature: null }
+      }
+      return { evs: { hp: evs.hp, atk: reservedEvs.atk, def: evs.def, spa: reservedEvs.spa, spd: evs.spd, spe: reservedEvs.spe }, nature: natureUsed }
+    }
+
+    return { evs, nature: natureUsed }
+  }
+}

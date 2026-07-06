@@ -8,7 +8,7 @@ import { InputAutocompleteComponent } from "@app/basic/input-autocomplete/input-
 import { WidgetComponent } from "@basic/widget/widget.component"
 import { MOVESETS } from "@data/moveset-data"
 import { pokemonByRegulation } from "@adapters"
-import { CalculatorStore } from "@store/calculator-store"
+import { CalcStore } from "@store/calc-store"
 import { MenuStore } from "@store/menu-store"
 import { pokemonToState } from "@store/utils/state-mapper"
 import { setsMatch } from "@store/utils/sets-match"
@@ -16,9 +16,9 @@ import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-b
 import { RollConfigComponent } from "@features/roll-config/roll-config.component"
 import { TeamExportModalComponent } from "@features/export-modal/export-modal.component"
 import { MetaRegulationModalComponent } from "@features/meta-regulation-modal/meta-regulation-modal.component"
-import { DamageResult, RollLevelConfig } from "@multicalc/damage-calculator"
-import { defaultPokemon } from "@multicalc/default-pokemon"
+import { DamageResult, RollLevelConfig } from "@multicalc/damage-calc"
 import { Pokemon, Target } from "@multicalc/model"
+import { addMember, combineAttackers, excludeMetaData, separateAttackers } from "@multicalc/target-list"
 import { SnackbarService } from "@core/services/snackbar.service"
 import { Regulation } from "@multicalc/types"
 import { FEATURES } from "@configuration/feature-flags"
@@ -37,13 +37,15 @@ export class TargetPokemonComponent {
   damageResults = input.required<DamageResult[]>()
   isAttacker = input.required<boolean>()
 
+  addingTarget = input<boolean>(false)
+
   targetActivated = output<string>()
-  pokemonAddedToTargets = output<string>()
+  addTargetRequested = output()
   targetRemoved = output()
   targetsImported = output()
   rollLevelChange = output<RollLevelConfig>()
 
-  store = inject(CalculatorStore)
+  store = inject(CalcStore)
   menuStore = inject(MenuStore)
   private exportPokeService = inject(ExportPokeService)
   private dialog = inject(MatDialog)
@@ -196,15 +198,7 @@ export class TargetPokemonComponent {
 
   pokemonImported(pokemon: Pokemon | Pokemon[]) {
     const pokemonList = pokemon as Pokemon[]
-    const newTargets = []
-
-    for (const pokemon of pokemonList) {
-      newTargets.push(new Target(pokemon))
-    }
-
-    const allTargets = this.targets()
-      .filter(t => !t.pokemon.isDefault)
-      .concat(newTargets)
+    const allTargets = pokemonList.reduce((targets, p) => addMember(targets, p), this.store.targets())
 
     this.store.updateTargets(allTargets)
 
@@ -214,7 +208,7 @@ export class TargetPokemonComponent {
   }
 
   exportPokemon() {
-    const pokemon = this.targets().flatMap(t => (t.secondPokemon ? [t.pokemon, t.secondPokemon] : [t.pokemon]))
+    const pokemon = this.targets().flatMap(t => t.pokemons())
     const shouldUseSps = this.store.useSpsMode()
     this.exportPokeService.export("Opponent Pokémon", pokemon, shouldUseSps)
   }
@@ -234,54 +228,31 @@ export class TargetPokemonComponent {
   }
 
   addPokemonToTargets() {
-    const pokemon = defaultPokemon()
-    const target = new Target(pokemon)
-    const deactivatedTargets = this.targets().map(t => new Target(t.pokemon, t.secondPokemon))
-    const targetsWithDefaultPokemon = deactivatedTargets.concat(target)
-
-    this.store.updateTargets(targetsWithDefaultPokemon)
-    this.pokemonAddedToTargets.emit(pokemon.id)
+    this.addTargetRequested.emit()
   }
 
   selectPokemonActive(): boolean {
-    return this.targets().find(t => t.pokemon.isDefault) != null
+    return this.addingTarget()
   }
 
   activateTarget(pokemonId: string) {
-    const withoutDefaultPokemon = this.targets().filter(t => !t.pokemon.isDefault)
-    this.store.updateTargets(withoutDefaultPokemon)
-
     this.targetActivated.emit(pokemonId)
   }
 
   drop(event: CdkDragDrop<string, any>) {
     const { previousContainer, container } = event
 
-    if (previousContainer.data != container.data) {
-      const target = this.findTarget(container.data)
+    if (previousContainer.data == container.data) return
 
-      if (target.secondPokemon) return
+    const newTargets = combineAttackers(this.targets(), container.data, previousContainer.data)
 
-      const activeIndex = this.findTargetIndex(previousContainer.data)
-      const active = this.targets()[activeIndex]
-
-      if (target.pokemon.isDefault || active.pokemon.isDefault) return
-
-      target.secondPokemon = active.pokemon
-
-      const newTargets = [...this.targets().slice(0, activeIndex), ...this.targets().slice(activeIndex + 1)]
+    if (newTargets) {
       this.store.updateTargets(newTargets)
     }
   }
 
   separateAttackers(pokemonId: string) {
-    const index = this.findTargetIndex(pokemonId)
-    const target = this.targets()[index]
-
-    const secondTarget = new Target(target.secondPokemon!)
-    target.secondPokemon = undefined
-
-    const newTargets = [...this.targets().slice(0, index), target, secondTarget, ...this.targets().slice(index + 1)]
+    const newTargets = separateAttackers(this.targets(), pokemonId)
     this.store.updateTargets(newTargets)
   }
 
@@ -297,7 +268,7 @@ export class TargetPokemonComponent {
   readonly teamNames = computed(() =>
     this.store
       .teams()
-      .filter(t => t.teamMembers.some(m => !m.pokemon.isDefault))
+      .filter(t => !t.isEmpty())
       .map(t => t.name)
   )
 
@@ -345,35 +316,13 @@ export class TargetPokemonComponent {
     }
   }
 
-  private findTarget(pokemonId: string): Target {
-    return this.targets().find(t => t.pokemon.id == pokemonId || t.secondPokemon?.id == pokemonId)!
-  }
-
-  private findTargetIndex(pokemonId: string): number {
-    return this.targets().findIndex(t => t.pokemon.id == pokemonId || t.secondPokemon?.id == pokemonId)
-  }
-
   private targetsExcludingMetaData(): Target[] {
-    const metaLeft = pokemonByRegulation(this.store.targetMetaRegulation()!, undefined, this.setdex, FEATURES.allowAllPokes)
+    const metaPokemon = pokemonByRegulation(this.store.targetMetaRegulation()!, undefined, this.setdex, FEATURES.allowAllPokes)
 
-    const newTargets = [...this.targets()]
-      .reverse()
-      .filter(target => {
-        const index = metaLeft.findIndex(m => m.equals(target.pokemon))
-
-        if (index !== -1) {
-          metaLeft.splice(index, 1)
-          return false
-        }
-
-        return true
-      })
-      .reverse()
-
-    return newTargets
+    return excludeMetaData(this.targets(), metaPokemon)
   }
 
   private activateTeamMember() {
-    this.targetActivated.emit(this.store.team().activePokemon().id)
+    this.targetActivated.emit(this.store.team().activePokemon()?.id ?? "")
   }
 }

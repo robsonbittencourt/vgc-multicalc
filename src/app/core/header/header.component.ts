@@ -7,7 +7,7 @@ import { MatMenu, MatMenuTrigger } from "@angular/material/menu"
 import { RouterLink } from "@angular/router"
 import { CopyButtonComponent } from "@app/basic/copy-button/copy-button.component"
 import { ActiveFieldService } from "@store/active-field.service"
-import { CalculatorStore } from "@store/calculator-store"
+import { CalcStore } from "@store/calc-store"
 import { MenuStore } from "@store/menu-store"
 import { SnackbarService } from "@core/services/snackbar.service"
 import { ThemeService } from "@core/services/theme.service"
@@ -21,7 +21,7 @@ import { uuid } from "@multicalc/utils/uuid"
   imports: [NgClass, MatIcon, MatButton, MatMenu, MatMenuTrigger, MatDivider, TitleCasePipe, CopyButtonComponent, RouterLink]
 })
 export class HeaderComponent {
-  store = inject(CalculatorStore)
+  store = inject(CalcStore)
   activeFieldService = inject(ActiveFieldService)
   menuStore = inject(MenuStore)
   themeService = inject(ThemeService)

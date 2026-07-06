@@ -10,7 +10,7 @@ const teamScore = new TeamScore()
 const probabilityField = new ProbabilityField()
 const pokemonProbability = new PokemonProbability()
 
-describe("Probability Calculator", () => {
+describe("Probability Calc", () => {
   beforeEach(() => {
     cy.get('[data-cy="probability-calc"]').click({ force: true })
   })

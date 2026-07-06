@@ -16,32 +16,28 @@
       <mat-icon>close</mat-icon>
     </div>
   } @else {
-    @if (shouldShowPokemonTabs()) {
-      @for (member of teamMembers(); track member.pokemon.id) {
-        @if (!member.pokemon.isDefault) {
-          <div
-            class="team-tab"
-            [ngClass]="{ 'active-tab': effectiveEditingId() === member.pokemon.id, 'second-attacker': isSecondAttacker(member.pokemon.id) }"
-            (click)="setActivePokemon(member.pokemon.id)"
-            (touchstart)="onTabTouchStart($event, member.pokemon.id)"
-            (touchend)="onTabTouchEnd()"
-            (touchcancel)="onTabTouchEnd()"
-            (contextmenu)="$event.preventDefault()">
-            <app-pokemon-sprite [name]="member.pokemon.name" />
-            @if (isSecondAttacker(member.pokemon.id)) {
-              <div class="combine-badge">
-                <mat-icon>add</mat-icon>
-              </div>
-            }
+    @for (member of teamMembers(); track member.pokemon.id) {
+      <div
+        class="team-tab"
+        [ngClass]="{ 'active-tab': !addingPokemon() && effectiveEditingId() === member.pokemon.id, 'second-attacker': isSecondAttacker(member.pokemon.id) }"
+        (click)="setActivePokemon(member.pokemon.id)"
+        (touchstart)="onTabTouchStart($event, member.pokemon.id)"
+        (touchend)="onTabTouchEnd()"
+        (touchcancel)="onTabTouchEnd()"
+        (contextmenu)="$event.preventDefault()">
+        <app-pokemon-sprite [name]="member.pokemon.name" />
+        @if (isSecondAttacker(member.pokemon.id)) {
+          <div class="combine-badge">
+            <mat-icon>add</mat-icon>
           </div>
         }
-      }
+      </div>
+    }
 
-      @if (canImportPokemon() || hasDefaultMember()) {
-        <div class="team-tab add-tab" [class.active-tab]="isEditingDefault()" (click)="addMember()">
-          <mat-icon>add</mat-icon>
-        </div>
-      }
+    @if (showAddTab()) {
+      <div class="team-tab add-tab" [class.active-tab]="addingPokemon()" (click)="addMember()">
+        <mat-icon>add</mat-icon>
+      </div>
     }
   }
 </div>

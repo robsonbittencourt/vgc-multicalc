@@ -1,4 +1,4 @@
-@if (pokemon().isDefault) {
+@if (isAddMode()) {
   <div class="data">
     <div class="pokemon-image-container">
       <div class="pokemon-image question-image">
@@ -7,7 +7,7 @@
 
       <app-input
         #pokemonInput
-        [value]="pokemon().name"
+        [value]="selectPokemonLabel"
         (valueChange)="pokemonDataFilter.set($event)"
         [haveFocus]="pokemonHasFocus()"
         (selected)="pokemonSelectorOnClick()"
@@ -37,8 +37,8 @@
     </div>
 
     <div class="status-item" [ngClass]="{ 'status-item-compact': pokemon().ability.actionableAbility }" [ngStyle]="(reverse() && { order: 3 }) || null">
-      <app-status-combo-box [pokemonId]="pokemonId()" [haveFocus]="statusHaveFocus()" (selected)="statusOnClick()" />
-      <app-multi-hit-combo-box [pokemonId]="pokemonId()" [haveFocus]="multiHitHasFocus()" (selected)="multiHitOnClick()" />
+      <app-status-combo-box [pokemonId]="editingId()" [haveFocus]="statusHaveFocus()" (selected)="statusOnClick()" />
+      <app-multi-hit-combo-box [pokemonId]="editingId()" [haveFocus]="multiHitHasFocus()" (selected)="multiHitOnClick()" />
       <div class="item-with-mega">
         @if (isMegaStoneCompatible()) {
           <div class="mega-icon-wrapper">
@@ -65,12 +65,12 @@
 
     <div class="tera-type-ability" [ngClass]="{ 'tera-type-ability-expanded': pokemon().ability.actionableAbility, 'tera-type-ability-no-tera': !features.teraType }" [ngStyle]="(reverse() && { order: 2 }) || null">
       @if (features.teraType) {
-        <app-tera-combo-box [pokemonId]="pokemonId()" [haveFocus]="teraHasFocus()" (selected)="teraOnClick()" />
+        <app-tera-combo-box [pokemonId]="editingId()" [haveFocus]="teraHasFocus()" (selected)="teraOnClick()" />
       }
       <app-type-combo-box [type1]="pokemon().type1" [type2]="pokemon().type2" [reverse]="reverse()" />
       <app-ability-combo-box
         #abilityInput
-        [pokemonId]="pokemonId()"
+        [pokemonId]="editingId()"
         [haveFocus]="abilityHasFocus()"
         [tabIndex]="abilityTabIndex()"
         (valueChange)="abilityDataFilter.set($event)"
@@ -167,12 +167,12 @@
   </div>
 
   <div class="evs" [animate.enter]="shouldAnimate() ? 'fade-in' : null">
-    <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.hp" [modifiedStat]="modifiedHp()" [hasModifiedStat]="hasModifiedStat()" [isOptimized]="isHpOptimized()" data-cy="stat-hp" stat="hp" />
-    <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.atk" [modifiedStat]="modifiedAtk()" [hasModifiedStat]="hasModifiedStat()" data-cy="stat-atk" stat="atk" />
-    <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.def" [modifiedStat]="modifiedDef()" [hasModifiedStat]="hasModifiedStat()" [isOptimized]="isDefOptimized()" data-cy="stat-def" stat="def" />
-    <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.spa" [modifiedStat]="modifiedSpa()" [hasModifiedStat]="hasModifiedStat()" data-cy="stat-spa" stat="spa" />
-    <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.spd" [modifiedStat]="modifiedSpd()" [hasModifiedStat]="hasModifiedStat()" [isOptimized]="isSpdOptimized()" data-cy="stat-spd" stat="spd" />
-    <app-ev-slider [pokemonId]="pokemonId()" [ev]="pokemon().evs.spe" [modifiedStat]="modifiedSpe()" [hasModifiedStat]="hasModifiedStat()" data-cy="stat-spe" stat="spe" />
+    <app-ev-slider [pokemonId]="editingId()" [ev]="pokemon().evs.hp" [modifiedStat]="modifiedHp()" [hasModifiedStat]="hasModifiedStat()" [isOptimized]="isHpOptimized()" data-cy="stat-hp" stat="hp" />
+    <app-ev-slider [pokemonId]="editingId()" [ev]="pokemon().evs.atk" [modifiedStat]="modifiedAtk()" [hasModifiedStat]="hasModifiedStat()" data-cy="stat-atk" stat="atk" />
+    <app-ev-slider [pokemonId]="editingId()" [ev]="pokemon().evs.def" [modifiedStat]="modifiedDef()" [hasModifiedStat]="hasModifiedStat()" [isOptimized]="isDefOptimized()" data-cy="stat-def" stat="def" />
+    <app-ev-slider [pokemonId]="editingId()" [ev]="pokemon().evs.spa" [modifiedStat]="modifiedSpa()" [hasModifiedStat]="hasModifiedStat()" data-cy="stat-spa" stat="spa" />
+    <app-ev-slider [pokemonId]="editingId()" [ev]="pokemon().evs.spd" [modifiedStat]="modifiedSpd()" [hasModifiedStat]="hasModifiedStat()" [isOptimized]="isSpdOptimized()" data-cy="stat-spd" stat="spd" />
+    <app-ev-slider [pokemonId]="editingId()" [ev]="pokemon().evs.spe" [modifiedStat]="modifiedSpe()" [hasModifiedStat]="hasModifiedStat()" data-cy="stat-spe" stat="spe" />
 
     <div class="remaining-evs">
       <label class="bst-label">BST</label>
@@ -191,7 +191,7 @@
 
   <div class="nature" [animate.enter]="shouldAnimate() ? 'fade-in' : null">
     <div class="combo-nature">
-      <app-nature-combo-box [pokemonId]="pokemonId()" [leftLabel]="true" />
+      <app-nature-combo-box [pokemonId]="editingId()" [leftLabel]="true" />
     </div>
     <button mat-flat-button (click)="clearEvs()" data-cy="clear-evs">Clear EVs</button>
     @if (showOptimizeOptions()) {
@@ -223,7 +223,7 @@
 
 @if (showPokemonTable()) {
   <app-pokemon-table
-    [pokemonId]="pokemonId()"
+    [pokemonId]="editingId()"
     [dataFilter]="pokemonDataFilter()"
     [haveFocus]="tableWasActive()"
     (escapeWasPressed)="showDefaultView()"
@@ -234,12 +234,12 @@
 }
 
 @if (showItemsTable()) {
-  <app-items-table [pokemonId]="pokemonId()" [dataFilter]="itemDataFilter()" [haveFocus]="tableWasActive()" (escapeWasPressed)="showDefaultView()" (itemSelected)="itemSelected($event)" (firstItemFromList)="firstItemFromList.set($event)" />
+  <app-items-table [pokemonId]="editingId()" [dataFilter]="itemDataFilter()" [haveFocus]="tableWasActive()" (escapeWasPressed)="showDefaultView()" (itemSelected)="itemSelected($event)" (firstItemFromList)="firstItemFromList.set($event)" />
 }
 
 @if (showAbilitiesTable()) {
   <app-abilities-table
-    [pokemonId]="pokemonId()"
+    [pokemonId]="editingId()"
     [dataFilter]="abilityDataFilter()"
     [haveFocus]="tableWasActive()"
     (escapeWasPressed)="showDefaultView()"
@@ -249,7 +249,7 @@
 
 @if (showMovesTable()) {
   <app-moves-table
-    [pokemonId]="pokemonId()"
+    [pokemonId]="editingId()"
     [dataFilter]="moveDataFilter()"
     [haveFocus]="tableWasActive()"
     [moveIndex]="activeMoveIndex() ?? 0"

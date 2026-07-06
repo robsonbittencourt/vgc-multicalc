@@ -4,7 +4,7 @@ import { MatCheckbox, MatCheckboxChange } from "@angular/material/checkbox"
 import { KeyValuePair } from "@basic/input-autocomplete/input-autocomplete.component"
 import { InputSelectComponent } from "@basic/input-select/input-select.component"
 import { InputComponent } from "@basic/input/input.component"
-import { CalculatorStore } from "@store/calculator-store"
+import { CalcStore } from "@store/calc-store"
 import { FieldStore } from "@store/field-store"
 import { TatsugiriButtonComponent } from "@features/buttons/tatsugiri-button/tatsugiri-button.component"
 import { PalafinButtonComponent } from "@features/buttons/palafin-button/palafin-button.component"
@@ -33,7 +33,7 @@ export class AbilityComboBoxComponent {
 
   openAbilityTableRequested = output()
 
-  store = inject(CalculatorStore)
+  store = inject(CalcStore)
   fieldStore = inject(FieldStore)
 
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))

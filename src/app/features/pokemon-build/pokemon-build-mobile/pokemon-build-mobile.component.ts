@@ -8,10 +8,10 @@ import { MatSlideToggle } from "@angular/material/slide-toggle"
 import { MatTooltip } from "@angular/material/tooltip"
 import { KeyValuePair } from "@basic/input-autocomplete/input-autocomplete.component"
 import { InputSelectComponent } from "@basic/input-select/input-select.component"
-import { CalculatorStore } from "@store/calculator-store"
+import { CalcStore } from "@store/calc-store"
 import { FieldStore } from "@store/field-store"
 import { MenuStore } from "@store/menu-store"
-import { spToEv, totalSpsFromEvs } from "@multicalc/utils/ev-sp-converter"
+import { remainingSps, spToEv } from "@multicalc/utils/ev-sp-converter"
 import { AbilityComboBoxComponent } from "@features/pokemon-build/ability-combo-box/ability-combo-box.component"
 import { EvSliderComponent } from "@features/pokemon-build/ev-slider/ev-slider.component"
 import { NatureComboBoxComponent } from "@features/pokemon-build/nature-combo-box/nature-combo-box.component"
@@ -22,7 +22,7 @@ import { TypeComboBoxComponent } from "@features/pokemon-build/type-combo-box/ty
 import { MegaStoneService } from "@features/pokemon-build/utils/mega-stone.service"
 import { FEATURES } from "@configuration/feature-flags"
 import { Pokemon } from "@multicalc/model"
-import { getFinalAttack, getFinalSpecialAttack, getFinalDefense, getFinalSpecialDefense, getFinalSpeed } from "@multicalc/stats"
+import { getFinalAttack, getFinalSpecialAttack, getFinalDefense, getFinalSpecialDefense, getFinalSpeed } from "@multicalc/stat-calc"
 import { Stats } from "@multicalc/types"
 
 @Component({
@@ -67,7 +67,7 @@ export class PokemonBuildMobileComponent {
   editingAbility = input<boolean>(false)
   editingItem = input<boolean>(false)
 
-  store = inject(CalculatorStore)
+  store = inject(CalcStore)
   menuStore = inject(MenuStore)
   fieldStore = inject(FieldStore)
   megaStoneService = inject(MegaStoneService)
@@ -82,14 +82,12 @@ export class PokemonBuildMobileComponent {
   })
   remainingLabel = computed(() => "Remaining")
   remainingPoints = computed(() => {
-    const pokemon = this.pokemon()
-    const currentSps = totalSpsFromEvs(pokemon.evs)
-    const remainingSps = 66 - currentSps
+    const remaining = remainingSps(this.pokemon().evs)
 
     if (this.store.useSpsMode()) {
-      return remainingSps
+      return remaining
     } else {
-      return spToEv(remainingSps)
+      return spToEv(remaining)
     }
   })
 
@@ -118,9 +116,14 @@ export class PokemonBuildMobileComponent {
 
   effectiveRealId = computed(() => this.realPokemonId() ?? this.pokemonId())
 
-  pokemon = computed(() => {
-    const id = this.pokemonId()
-    return this.store.findPokemonById(id)!
+  private resolvedPokemon = computed(() => this.store.findNullablePokemonById(this.pokemonId()))
+
+  pokemon = computed(() => this.resolvedPokemon()!)
+
+  isAddMode = computed(() => {
+    const pokemon = this.resolvedPokemon()
+
+    return pokemon == undefined
   })
 
   teamMemberOnEdit = computed(() => {
@@ -145,7 +148,7 @@ export class PokemonBuildMobileComponent {
     return { ...pokemon.evs }
   })
 
-  modifiedHp = computed(() => Math.floor((this.pokemon().hp * this.pokemon().hpPercentage) / 100))
+  modifiedHp = computed(() => this.pokemon().modifiedHp)
 
   hasModifiedStat = computed(() => {
     return (

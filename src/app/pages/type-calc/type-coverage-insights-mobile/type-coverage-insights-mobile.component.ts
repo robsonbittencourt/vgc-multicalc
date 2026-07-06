@@ -3,9 +3,9 @@ import { Component, computed, inject, input } from "@angular/core"
 import { WidgetComponent } from "@basic/widget/widget.component"
 import { PokemonSpriteComponent } from "@basic/pokemon-sprite/pokemon-sprite.component"
 import { TypeComboBoxComponent } from "@features/pokemon-build/type-combo-box/type-combo-box.component"
-import { CalculatorStore } from "@store/calculator-store"
+import { CalcStore } from "@store/calc-store"
 import { FEATURES } from "@configuration/feature-flags"
-import { TypeCoverageInsightsService, PokemonInsight } from "@multicalc/type-coverage"
+import { TypeCoverageInsights } from "@multicalc/type-calc"
 import { Pokemon, Team } from "@multicalc/model"
 import { PokemonType } from "@multicalc/types"
 import { TypeName } from "@data/types"
@@ -17,9 +17,9 @@ import { TypeName } from "@data/types"
   styleUrl: "./type-coverage-insights-mobile.component.scss"
 })
 export class TypeCoverageInsightsMobileComponent {
-  store = inject(CalculatorStore)
+  store = inject(CalcStore)
   features = FEATURES
-  insightsService = new TypeCoverageInsightsService()
+  insightsService = new TypeCoverageInsights()
 
   secondTeam = input<Team | null>(null)
 
@@ -32,10 +32,10 @@ export class TypeCoverageInsightsMobileComponent {
     const secondTeamValue = this.secondTeam()
 
     if (secondTeamValue) {
-      return team.teamMembers.some(member => !member.pokemon.isDefault) && secondTeamValue.teamMembers.some(member => !member.pokemon.isDefault)
+      return !team.isEmpty() && !secondTeamValue.isEmpty()
     }
 
-    return team.teamMembers.some(member => !member.pokemon.isDefault)
+    return !team.isEmpty()
   })
 
   topOffensiveSuperEffective = computed(() => {
@@ -62,68 +62,17 @@ export class TypeCoverageInsightsMobileComponent {
     return this.insightsService.getTopDefensivePositive(this.team(), this.secondTeam())
   })
 
-  offensivePokemon = computed(() => {
-    const superEffective = this.topOffensiveSuperEffective()
-    const notVeryEffective = this.topOffensiveNotVeryEffective()
+  offensivePokemon = computed(() => this.insightsService.selectOffensivePokemon(this.team(), this.secondTeam()))
 
-    const allPokemon = new Map<string, PokemonInsight>()
+  defensivePokemon = computed(() => this.insightsService.selectDefensivePokemon(this.team(), this.secondTeam()))
 
-    superEffective.forEach(item => {
-      if (item.value > 0) {
-        allPokemon.set(item.pokemon.id, item)
-      }
-    })
+  defensivePositivePokemon = computed(() => this.insightsService.selectDefensivePositive(this.team(), this.secondTeam()))
 
-    notVeryEffective.forEach(item => {
-      if (item.value > 0 && !allPokemon.has(item.pokemon.id)) {
-        allPokemon.set(item.pokemon.id, item)
-      }
-    })
+  defensiveWeakPokemon = computed(() => this.insightsService.selectDefensiveWeak(this.team(), this.secondTeam()))
 
-    return Array.from(allPokemon.values()).slice(0, 4)
-  })
+  offensiveSuperEffectivePokemon = computed(() => this.insightsService.selectOffensiveSuperEffective(this.team(), this.secondTeam()))
 
-  defensivePokemon = computed(() => {
-    const positive = this.topDefensivePositive().slice(0, 2)
-    const weak = this.topDefensiveWeak()
-
-    const positiveIds = new Set(positive.map(p => p.pokemon.id))
-    const weakFiltered = weak.filter(item => !positiveIds.has(item.pokemon.id))
-
-    const allPokemon: PokemonInsight[] = []
-
-    positive.forEach(item => {
-      allPokemon.push(item)
-    })
-
-    const weakToAdd = weakFiltered.slice(0, 2)
-    weakToAdd.forEach(item => {
-      allPokemon.push(item)
-    })
-
-    return allPokemon
-  })
-
-  defensivePositivePokemon = computed(() => {
-    return this.topDefensivePositive().slice(0, 2)
-  })
-
-  defensiveWeakPokemon = computed(() => {
-    const weak = this.topDefensiveWeak()
-    return weak.slice(0, 2)
-  })
-
-  offensiveSuperEffectivePokemon = computed(() => {
-    return this.topOffensiveSuperEffective().slice(0, 2)
-  })
-
-  offensiveNotVeryEffectivePokemon = computed(() => {
-    const superEffective = this.offensiveSuperEffectivePokemon()
-    const notVeryEffective = this.topOffensiveNotVeryEffective()
-    const superEffectiveIds = new Set(superEffective.map(p => p.pokemon.id))
-    const notVeryEffectiveFiltered = notVeryEffective.filter(item => !superEffectiveIds.has(item.pokemon.id))
-    return notVeryEffectiveFiltered.slice(0, 2)
-  })
+  offensiveNotVeryEffectivePokemon = computed(() => this.insightsService.selectOffensiveNotVeryEffective(this.team(), this.secondTeam()))
 
   getPokemonCategory(pokemon: Pokemon, isOffensive: boolean, isNegative?: boolean): "super-effective" | "not-very-effective" | "not-very-effective-3plus" | "resist" | "immune" | "weak" | "weak-all-covered" | "positive" | null {
     if (isOffensive) {

@@ -1,9 +1,9 @@
 import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, inject, input } from "@angular/core"
 import { WidgetComponent } from "@app/basic/widget/widget.component"
 import { PokemonSpriteComponent } from "@basic/pokemon-sprite/pokemon-sprite.component"
-import { CalculatorStore } from "@store/calculator-store"
+import { CalcStore } from "@store/calc-store"
 import { FieldStore } from "@store/field-store"
-import { ConsistencyScoreService, MoveProbabilityService } from "@multicalc/probability-calc"
+import { ConsistencyScore, MoveProbability } from "@multicalc/probability-calc"
 import { PokemonMovesMobileComponent } from "@features/pokemon-build/pokemon-moves-mobile/pokemon-moves-mobile.component"
 import { Pokemon } from "@multicalc/model"
 import { ProbabilityPercentPipe } from "@pages/probability-calc/pipes/probability-percent.pipe"
@@ -21,12 +21,13 @@ import { ProbabilityPercentPipe } from "@pages/probability-calc/pipes/probabilit
 export class PokemonProbabilityComponent {
   isMobile = input<boolean>(false)
   pokemon = input<Pokemon | null>(null)
-  store = inject(CalculatorStore)
+  store = inject(CalcStore)
   fieldStore = inject(FieldStore)
-  moveProbabilityService = new MoveProbabilityService()
-  consistencyScoreService = new ConsistencyScoreService()
+  moveProbabilityService = new MoveProbability()
+  consistencyScoreService = new ConsistencyScore()
 
-  effectivePokemon = computed(() => this.pokemon() || this.store.team().activePokemon())
+  private selectedPokemon = computed(() => this.pokemon() ?? undefined)
+  effectivePokemon = computed(() => this.selectedPokemon()!)
   move = computed(() => this.effectivePokemon().moveSet.activeMove)
   field = computed(() => this.fieldStore.field())
 
@@ -51,7 +52,11 @@ export class PokemonProbabilityComponent {
 
   hasSecondaryEffect = computed(() => this.secondary())
 
-  hasValidPokemon = computed(() => !this.effectivePokemon().isDefault)
+  hasValidPokemon = computed(() => {
+    const pokemon = this.selectedPokemon()
+
+    return pokemon != undefined
+  })
 
   score = computed(() => {
     const result = this.consistencyScoreService.consistencyScore(this.effectivePokemon(), this.field())

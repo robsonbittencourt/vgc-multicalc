@@ -1,4 +1,5 @@
 import { Component, computed, effect, ElementRef, inject, input, signal, viewChild } from "@angular/core"
+import { remainingHp, remainingHpPercentage } from "@multicalc/hp-calc"
 import { Status } from "@multicalc/model"
 import { FaintedIconComponent } from "@pages/simple-calc/pokemon-hp-badge/hp-badge/fainted-icon/fainted-icon.component"
 import { StatusIconComponent } from "@pages/simple-calc/pokemon-hp-badge/hp-badge/status-icon/status-icon.component"
@@ -35,18 +36,9 @@ export class HpBadgeComponent {
   spriteDataUrl = signal("")
   itemImageError = signal(false)
 
-  remainingHp = computed(() => {
-    const hp = this.actualHp() - this.damageTaken()
-    return Math.max(hp, 0)
-  })
+  remainingHp = computed(() => remainingHp(this.actualHp(), this.damageTaken()))
 
-  hpPercentage = computed(() => {
-    const previouslyDamage = this.hpBase() - this.actualHp()
-    const totalDamage = previouslyDamage + this.damageTaken()
-
-    const percentage = 100 - (totalDamage / this.hpBase()) * 100
-    return Math.max(percentage, 0)
-  })
+  hpPercentage = computed(() => remainingHpPercentage(this.hpBase(), this.actualHp(), this.damageTaken()))
 
   hpBarColor = computed(() => {
     if (this.hpPercentage() < 20) {
