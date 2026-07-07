@@ -51,6 +51,26 @@ describe("Damage Calculator Service", () => {
     expect(damageResult.attackerRolls).toEqual([[52, 54, 54, 54, 55, 55, 57, 57, 58, 58, 58, 60, 60, 61, 61, 63]])
   })
 
+  it("should apply Light Ball attack boost in Champions mode", () => {
+    TestBed.resetTestingModule()
+    TestBed.configureTestingModule({
+      providers: [DamageCalculatorService, { provide: CALC_ADJUSTERS, useValue: adjusterOneSpy, multi: true }, { provide: CalculatorStore, useValue: { useSpsMode: () => false, isChampions: () => true } }, provideZonelessChangeDetection()]
+    })
+    const championsService = TestBed.inject(DamageCalculatorService)
+
+    const attacker = new Pokemon("Pikachu", { item: "Light Ball", nature: "Hasty", evs: { spa: 252 }, moveSet: new MoveSet(new Move("Rising Voltage"), new Move(""), new Move(""), new Move("")) })
+    const target = new Target(new Pokemon("Lucario-Mega", { evs: { hp: 0, spd: 12 } }))
+    const field = new Field({ terrain: "Electric" })
+
+    const damageResult = championsService.calcDamageAllAttacks(attacker, target.pokemon, field, true)
+
+    expect(damageResult[0].move).toEqual("Rising Voltage")
+    expect(damageResult[0].result).toEqual("157.2 - 184.8%")
+    expect(damageResult[0].koChance).toEqual("guaranteed OHKO")
+    expect(damageResult[0].damage).toEqual(184.8)
+    expect(damageResult[0].description).toEqual("252 SpA Light Ball Pikachu Rising Voltage (140 BP) vs. 0 HP / 12 SpD Lucario-Mega in Electric Terrain: 228-268 (157.2 - 184.8%) -- guaranteed OHKO")
+  })
+
   it("should calculate damage with multi hit move", () => {
     const attacker = new Pokemon("Urshifu-Rapid-Strike", {
       nature: "Adamant",
