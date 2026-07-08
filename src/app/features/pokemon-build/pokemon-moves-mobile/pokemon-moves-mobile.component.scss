@@ -68,6 +68,11 @@
   app-multi-hit-combo-box {
     width: 45%;
   }
+
+  app-multi-hit-combo-box:has(mat-checkbox) {
+    display: flex;
+    justify-content: flex-end;
+  }
 }
 
 ::ng-deep .mat-mdc-standard-chip {

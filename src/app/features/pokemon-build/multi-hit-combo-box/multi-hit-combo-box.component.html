@@ -15,7 +15,7 @@
   <mat-checkbox [ngModel]="pokemon().moveSet.activeMove.lastMoveFailed" (change)="lastMoveFailedChanged($event)" data-cy="last-move-failed">Last Move Failed</mat-checkbox>
 }
 
-@if (pokemon().moveSet.activeMove.possibleHits.length > 0) {
+@if (showHits() && pokemon().moveSet.activeMove.possibleHits.length > 0) {
   <app-input-autocomplete
     [label]="multiHitLabel()"
     [leftLabel]="leftLabel()"

@@ -28,9 +28,9 @@
       }
     </div>
 
-    @if (hasPossibleHits()) {
+    @if (showComboBox()) {
       <div class="hits-input-only">
-        <app-multi-hit-combo-box [pokemonId]="pokemonId()" [leftLabel]="true" />
+        <app-multi-hit-combo-box [pokemonId]="pokemonId()" [leftLabel]="true" [showHits]="showHits()" />
       </div>
     }
   </div>

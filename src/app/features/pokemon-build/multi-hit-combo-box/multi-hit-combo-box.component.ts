@@ -16,6 +16,7 @@ export class MultiHitComboBoxComponent {
   pokemonId = input.required<string>()
   leftLabel = input(false)
   haveFocus = input(false)
+  showHits = input(true)
 
   selected = output()
 

@@ -23,7 +23,12 @@ export class PokemonMovesMobileComponent {
 
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
 
-  hasPossibleHits = computed(() => this.showHits() && this.pokemon().moveSet.activeMove.possibleHits.length > 0)
+  hasPossibleHits = computed(() => this.pokemon().moveSet.activeMove.possibleHits.length > 0)
+  hasAlliesFainted = computed(() => this.pokemon().activeMoveName === "Last Respects" || this.pokemon().ability.name === "Supreme Overlord")
+
+  hasLastMoveFailed = computed(() => this.pokemon().activeMoveName === "Stomping Tantrum")
+
+  showComboBox = computed(() => this.showHits() && !this.editingMoves() && (this.hasPossibleHits() || this.hasAlliesFainted() || this.hasLastMoveFailed()))
 
   activateMove(position: number) {
     this.store.activateMoveByPosition(this.pokemonId(), position)
