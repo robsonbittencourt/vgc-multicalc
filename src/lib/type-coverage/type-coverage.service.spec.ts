@@ -84,7 +84,7 @@ describe("TypeCoverageService", () => {
     expect(grassRow!.pokemonData[0].coverageType).toBe("super-effective")
   })
 
-  it("should filter out moves with bp 0", () => {
+  it("should filter out status moves", () => {
     const pokemon = new Pokemon("Charizard", {
       moveSet: new MoveSet(new Move("Swords Dance"), new Move("Flamethrower"), new Move("Roost"), new Move("Protect"))
     })
@@ -94,6 +94,18 @@ describe("TypeCoverageService", () => {
 
     const normalRow = coverage.find(row => row.pokemonType === "Normal")
     expect(normalRow!.pokemonData[0].coverageType).toBe("none")
+  })
+
+  it("should consider damaging moves with variable base power", () => {
+    const pokemon = new Pokemon("Hariyama", {
+      moveSet: new MoveSet(new Move("Low Kick"), new Move("Protect"), new Move("Detect"), new Move("Bulk Up"))
+    })
+    const team = new Team("1", true, "Team", [new TeamMember(pokemon, true)])
+
+    const coverage = service.getOffensiveCoverage(team)
+
+    const normalRow = coverage.find(row => row.pokemonType === "Normal")
+    expect(normalRow!.pokemonData[0].coverageType).toBe("super-effective")
   })
 
   it("should use Grass type for Ivy Cudgel when Ogerpon is base form", () => {

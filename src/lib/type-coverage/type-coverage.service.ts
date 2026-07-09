@@ -362,7 +362,7 @@ export class TypeCoverageService {
         continue
       }
 
-      if (move.bp <= 0) {
+      if (move.category === "Status") {
         continue
       }
 
