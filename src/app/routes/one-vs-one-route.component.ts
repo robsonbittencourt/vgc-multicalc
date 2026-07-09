@@ -1,36 +1,36 @@
 import { DOCUMENT } from "@angular/common"
 import { Component, inject, OnInit } from "@angular/core"
 import { Meta, Title } from "@angular/platform-browser"
-import { ProbabilityCalcComponent } from "@pages/probability-calc/probability-calc/probability-calc.component"
-import { ProbabilityCalcMobileComponent } from "@pages/probability-calc/probability-calc-mobile/probability-calc-mobile.component"
-import { HeaderMobileComponent } from "@core/header-mobile/header-mobile.component"
-import { HeaderComponent } from "@core/header/header.component"
+import { SimpleCalcComponent } from "@pages/simple-calc/simple-calc/simple-calc.component"
+import { SimpleCalcMobileComponent } from "@pages/simple-calc/simple-calc-mobile/simple-calc-mobile.component"
+import { HeaderMobileComponent } from "@layout/header-mobile/header-mobile.component"
+import { HeaderComponent } from "@layout/header/header.component"
 import { MenuStore } from "@store/menu-store"
-import { DeviceDetectorService } from "@core/services/device-detector.service"
-import { JsonLdService } from "@core/services/json-ld.service"
+import { DeviceDetectorService } from "@app/services/device-detector.service"
+import { JsonLdService } from "@app/services/json-ld.service"
 
-const TITLE = "Pokémon Move Probability Calculator"
-const DESCRIPTION = "Pokémon probability calculator for VGC and Pokémon Champions. Analyze move accuracy, consistency score, secondary effects, and game mechanic probabilities across multiple turns."
+const TITLE = "Pokémon Damage Calculator — One vs One"
+const DESCRIPTION = "Classic one-on-one Pokémon damage calculator for VGC and Pokémon Champions. Detailed side-by-side analysis with EVs, Natures, abilities and damage rolls."
 const OG_IMAGE = "https://vgcmulticalc.com/assets/icons/calc-512x512.png"
-const URL = "https://vgcmulticalc.com/probability-calc"
+const URL = "https://vgcmulticalc.com/one-vs-one"
 
 @Component({
-  selector: "app-probability-calc-route",
+  selector: "app-one-vs-one-route",
   styleUrls: ["./route-container.scss"],
   template: `
     <div class="container">
       @if (isDesktop()) {
         <app-header />
-        <app-probability-calc />
+        <app-simple-calc />
       } @else {
         <app-header-mobile />
-        <app-probability-calc-mobile />
+        <app-simple-calc-mobile />
       }
     </div>
   `,
-  imports: [HeaderComponent, ProbabilityCalcComponent, HeaderMobileComponent, ProbabilityCalcMobileComponent]
+  imports: [HeaderComponent, SimpleCalcComponent, HeaderMobileComponent, SimpleCalcMobileComponent]
 })
-export class ProbabilityCalcRouteComponent implements OnInit {
+export class OneVsOneRouteComponent implements OnInit {
   private menuStore = inject(MenuStore)
   private deviceDetectorService = inject(DeviceDetectorService)
   private meta = inject(Meta)
@@ -39,7 +39,7 @@ export class ProbabilityCalcRouteComponent implements OnInit {
   private jsonLd = inject(JsonLdService)
 
   ngOnInit() {
-    this.menuStore.enableProbabilityCalc()
+    this.menuStore.enableOneVsOne()
     this.title.setTitle(TITLE)
     this.meta.updateTag({ name: "description", content: DESCRIPTION })
     this.updateSocialTags()
@@ -48,7 +48,7 @@ export class ProbabilityCalcRouteComponent implements OnInit {
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: "https://vgcmulticalc.com/" },
-        { "@type": "ListItem", position: 2, name: "Probability Calculator", item: URL }
+        { "@type": "ListItem", position: 2, name: "One vs One", item: URL }
       ]
     })
   }

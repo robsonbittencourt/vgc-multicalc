@@ -1,7 +1,7 @@
 import { inject, Injectable } from "@angular/core"
 import { SwUpdate, VersionReadyEvent } from "@angular/service-worker"
 import { filter } from "rxjs"
-import { SnackbarService } from "@core/services/snackbar.service"
+import { SnackbarService } from "@app/services/snackbar.service"
 
 const ONE_HOUR = 60 * 60 * 1000
 

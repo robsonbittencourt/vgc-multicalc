@@ -1,10 +1,10 @@
 import { Component, computed, inject, model, output, signal } from "@angular/core"
-import { PokemonSpriteComponent } from "@basic/pokemon-sprite/pokemon-sprite.component"
+import { PokemonSpriteComponent } from "@features/pokemon-sprite/pokemon-sprite.component"
 import { NgClass } from "@angular/common"
 import { MatIcon } from "@angular/material/icon"
 import { CalcStore } from "@store/calc-store"
 import { MenuStore } from "@store/menu-store"
-import { SnackbarService } from "@core/services/snackbar.service"
+import { SnackbarService } from "@app/services/snackbar.service"
 
 const COMBINE_HINT_KEY = "combineAttackersHintDismissed"
 

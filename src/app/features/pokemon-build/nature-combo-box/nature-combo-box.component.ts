@@ -1,6 +1,6 @@
 import { Component, computed, inject, input, signal } from "@angular/core"
-import { KeyValuePair } from "@basic/input-autocomplete/input-autocomplete.component"
-import { InputSelectComponent } from "@basic/input-select/input-select.component"
+import { KeyValuePair } from "@shared/input-autocomplete/input-autocomplete.component"
+import { InputSelectComponent } from "@shared/input-select/input-select.component"
 import { NATURE_DETAILS, NatureStatID } from "@data/nature-data"
 import { CalcStore } from "@store/calc-store"
 

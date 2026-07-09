@@ -1,4 +1,4 @@
-import { DamageResultOrderService } from "@core/services/damage-result-order.service"
+import { DamageResultOrderService } from "@app/services/damage-result-order.service"
 import { DamageResult, MultiCalcMode } from "@multicalc/damage-calc"
 import { Pokemon } from "@multicalc/model"
 

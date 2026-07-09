@@ -4,10 +4,10 @@ import { MatButton } from "@angular/material/button"
 import { MatDialog } from "@angular/material/dialog"
 import { MatIcon } from "@angular/material/icon"
 import { availableItemNames } from "@configuration/available-items"
-import { ImportModalComponent } from "@features/import-modal/import-modal.component"
+import { ImportModalComponent } from "@features/modals/import-modal/import-modal.component"
 import { validateImport } from "@multicalc/import-validation"
 import { Pokemon } from "@multicalc/model"
-import { SnackbarService } from "@core/services/snackbar.service"
+import { SnackbarService } from "@app/services/snackbar.service"
 import { PokePasteParserService } from "@store/user-data/poke-paste-parser.service"
 
 @Component({

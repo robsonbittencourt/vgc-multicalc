@@ -1,8 +1,8 @@
 import { Component, computed, signal } from "@angular/core"
-import { InputComponent } from "@basic/input/input.component"
-import { InputSelectComponent } from "@basic/input-select/input-select.component"
-import { KeyValuePair } from "@basic/input-autocomplete/input-autocomplete.component"
-import { WidgetComponent } from "@basic/widget/widget.component"
+import { InputComponent } from "@shared/input/input.component"
+import { InputSelectComponent } from "@shared/input-select/input-select.component"
+import { KeyValuePair } from "@shared/input-autocomplete/input-autocomplete.component"
+import { WidgetComponent } from "@shared/widget/widget.component"
 import { CombinedProbability, ProbabilityCalculationType } from "@multicalc/probability-calc"
 import { ProbabilityPercentPipe } from "@pages/probability-calc/pipes/probability-percent.pipe"
 

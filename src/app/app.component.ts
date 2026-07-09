@@ -1,9 +1,9 @@
 import { afterNextRender, Component, inject, OnInit, signal } from "@angular/core"
 import { NavigationEnd, Router, RouterOutlet } from "@angular/router"
-import { AnnouncementPopupComponent } from "@basic/announcement-popup/announcement-popup.component"
-import { AppUpdateService } from "@core/services/app-update.service"
-import { ChunkErrorRecoveryService } from "@core/services/chunk-error-recovery.service"
-import { ThemeService } from "@core/services/theme.service"
+import { AnnouncementPopupComponent } from "@shared/announcement-popup/announcement-popup.component"
+import { AppUpdateService } from "@app/services/app-update.service"
+import { ChunkErrorRecoveryService } from "@app/services/chunk-error-recovery.service"
+import { ThemeService } from "@app/services/theme.service"
 import { filter, take } from "rxjs"
 
 @Component({

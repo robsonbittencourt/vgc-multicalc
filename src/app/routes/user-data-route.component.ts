@@ -4,12 +4,12 @@ import { Meta } from "@angular/platform-browser"
 import { ActivatedRoute } from "@angular/router"
 import { SimpleCalcComponent } from "@pages/simple-calc/simple-calc/simple-calc.component"
 import { SimpleCalcMobileComponent } from "@pages/simple-calc/simple-calc-mobile/simple-calc-mobile.component"
-import { HeaderMobileComponent } from "@core/header-mobile/header-mobile.component"
-import { HeaderComponent } from "@core/header/header.component"
+import { HeaderMobileComponent } from "@layout/header-mobile/header-mobile.component"
+import { HeaderComponent } from "@layout/header/header.component"
 import { CalcState, CalcStore } from "@store/calc-store"
 import { ActiveFieldService } from "@store/active-field.service"
 import { buildState } from "@store/utils/user-data-mapper"
-import { DeviceDetectorService } from "@core/services/device-detector.service"
+import { DeviceDetectorService } from "@app/services/device-detector.service"
 
 @Component({
   selector: "app-user-data-route",

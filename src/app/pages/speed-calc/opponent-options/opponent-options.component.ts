@@ -1,7 +1,7 @@
 import { Component, inject } from "@angular/core"
 import { MatButtonToggle, MatButtonToggleGroup } from "@angular/material/button-toggle"
-import { KeyValuePair } from "@basic/input-autocomplete/input-autocomplete.component"
-import { InputSelectComponent } from "@basic/input-select/input-select.component"
+import { KeyValuePair } from "@shared/input-autocomplete/input-autocomplete.component"
+import { InputSelectComponent } from "@shared/input-select/input-select.component"
 import { SpeedCalcOptionsStore } from "@store/speed-calc-options-store"
 
 @Component({

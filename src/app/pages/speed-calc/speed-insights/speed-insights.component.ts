@@ -1,6 +1,6 @@
 import { Component, computed, inject, input } from "@angular/core"
-import { WidgetComponent } from "@basic/widget/widget.component"
-import { PokemonSpriteComponent } from "@basic/pokemon-sprite/pokemon-sprite.component"
+import { WidgetComponent } from "@shared/widget/widget.component"
+import { PokemonSpriteComponent } from "@features/pokemon-sprite/pokemon-sprite.component"
 import { SpeedStatistic } from "@data/speed-data"
 import { CalcStore } from "@store/calc-store"
 import { SpeedCalcOptionsStore } from "@store/speed-calc-options-store"

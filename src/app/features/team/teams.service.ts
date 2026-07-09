@@ -1,7 +1,7 @@
 import { inject, Injectable } from "@angular/core"
 import { CalcStore } from "@store/calc-store"
 import { Team, Pokemon } from "@multicalc/model"
-import { SnackbarService } from "@core/services/snackbar.service"
+import { SnackbarService } from "@app/services/snackbar.service"
 import { ExportPokeService } from "@store/user-data/export-poke.service"
 import { PdfExportService } from "@store/user-data/pdf-export.service"
 import { uuid } from "@multicalc/utils/uuid"

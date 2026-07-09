@@ -1,36 +1,36 @@
 import { DOCUMENT } from "@angular/common"
 import { Component, inject, OnInit } from "@angular/core"
 import { Meta, Title } from "@angular/platform-browser"
-import { SpeedCalcComponent } from "@pages/speed-calc/speed-calc/speed-calc.component"
-import { SpeedCalcMobileComponent } from "@pages/speed-calc/speed-calc-mobile/speed-calc-mobile.component"
-import { HeaderMobileComponent } from "@core/header-mobile/header-mobile.component"
-import { HeaderComponent } from "@core/header/header.component"
+import { MultiCalcComponent } from "@pages/multi-calc/multi-calc/multi-calc.component"
+import { MultiCalcMobileComponent } from "@pages/multi-calc/multi-calc-mobile/multi-calc-mobile.component"
+import { HeaderMobileComponent } from "@layout/header-mobile/header-mobile.component"
+import { HeaderComponent } from "@layout/header/header.component"
 import { MenuStore } from "@store/menu-store"
-import { DeviceDetectorService } from "@core/services/device-detector.service"
-import { JsonLdService } from "@core/services/json-ld.service"
+import { DeviceDetectorService } from "@app/services/device-detector.service"
+import { JsonLdService } from "@app/services/json-ld.service"
 
-const TITLE = "Pokémon Speed Calculator for VGC"
-const DESCRIPTION = "Pokémon speed calculator for VGC and Pokémon Champions. Compare speed tiers, Tailwind, Trick Room and nature modifiers to master initiative order."
+const TITLE = "Pokémon Damage Calculator — Many vs Team"
+const DESCRIPTION = "Calculate how much damage multiple Pokémon deal to a single target. Evaluate defensive durability across your entire team for VGC and Pokémon Champions."
 const OG_IMAGE = "https://vgcmulticalc.com/assets/icons/calc-512x512.png"
-const URL = "https://vgcmulticalc.com/speed-calc"
+const URL = "https://vgcmulticalc.com/many-vs-team"
 
 @Component({
-  selector: "app-speed-calc-route",
+  selector: "app-many-vs-team-route",
   styleUrls: ["./route-container.scss"],
   template: `
     <div class="container">
       @if (isDesktop()) {
         <app-header />
-        <app-speed-calc />
+        <app-multi-calc />
       } @else {
         <app-header-mobile />
-        <app-speed-calc-mobile />
+        <app-multi-calc-mobile />
       }
     </div>
   `,
-  imports: [HeaderComponent, SpeedCalcComponent, HeaderMobileComponent, SpeedCalcMobileComponent]
+  imports: [HeaderComponent, MultiCalcComponent, HeaderMobileComponent, MultiCalcMobileComponent]
 })
-export class SpeedCalcRouteComponent implements OnInit {
+export class ManyVsTeamRouteComponent implements OnInit {
   private menuStore = inject(MenuStore)
   private deviceDetectorService = inject(DeviceDetectorService)
   private meta = inject(Meta)
@@ -39,7 +39,7 @@ export class SpeedCalcRouteComponent implements OnInit {
   private jsonLd = inject(JsonLdService)
 
   ngOnInit() {
-    this.menuStore.enableSpeedCalc()
+    this.menuStore.enableManyVsOne()
     this.title.setTitle(TITLE)
     this.meta.updateTag({ name: "description", content: DESCRIPTION })
     this.updateSocialTags()
@@ -48,7 +48,7 @@ export class SpeedCalcRouteComponent implements OnInit {
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: "https://vgcmulticalc.com/" },
-        { "@type": "ListItem", position: 2, name: "Speed Calculator", item: URL }
+        { "@type": "ListItem", position: 2, name: "Many vs Team", item: URL }
       ]
     })
   }

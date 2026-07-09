@@ -2,7 +2,7 @@ import { inject, Injectable } from "@angular/core"
 import { NoopScrollStrategy } from "@angular/cdk/overlay"
 import { MatDialog } from "@angular/material/dialog"
 import { MegaStoneService } from "@features/pokemon-build/utils/mega-stone.service"
-import { TeamListModalComponent, TeamListPlayerInfo } from "@features/team-list-modal/team-list-modal.component"
+import { TeamListModalComponent, TeamListPlayerInfo } from "@features/modals/team-list-modal/team-list-modal.component"
 import { CalcStore } from "@store/calc-store"
 import { Ability, Team, Pokemon } from "@multicalc/model"
 

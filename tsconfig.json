@@ -4,14 +4,14 @@
   "compilerOptions": {
     "paths": {
       "@app/*": ["./src/app/*"],
-      "@basic/*": ["./src/app/basic/*"],
+      "@shared/*": ["./src/app/shared/*"],
       "@features/*": ["./src/app/features/*"],
       "@pages/*": ["./src/app/pages/*"],
-      "@core/*": ["./src/app/core/*"],
+      "@layout/*": ["./src/app/layout/*"],
       "@data/*": ["./src/infrastructure/data/*"],
       "@adapters": ["./src/infrastructure/adapters/index.ts"],
       "@adapters/*": ["./src/infrastructure/adapters/*"],
-      "@configuration/*": ["./src/app/core/configuration/*"],
+      "@configuration/*": ["./src/app/configuration/*"],
       "@multicalc/*": ["./src/domain/multicalc/*"],
       "@calc": ["./src/domain/calc/index.ts"],
       "@calc/*": ["./src/domain/calc/*"],

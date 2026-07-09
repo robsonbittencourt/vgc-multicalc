@@ -2,7 +2,7 @@ import { NgClass } from "@angular/common"
 import { Component, inject, input, output } from "@angular/core"
 import { CdkDrag, CdkDragEnd, CdkDragHandle } from "@angular/cdk/drag-drop"
 import { MatIcon } from "@angular/material/icon"
-import { PokemonSpriteComponent } from "@basic/pokemon-sprite/pokemon-sprite.component"
+import { PokemonSpriteComponent } from "@features/pokemon-sprite/pokemon-sprite.component"
 import { CalcStore } from "@store/calc-store"
 import { Team } from "@multicalc/model"
 

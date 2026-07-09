@@ -3,7 +3,7 @@ import { Component, computed, inject, input, output } from "@angular/core"
 import { FormsModule } from "@angular/forms"
 import { MatButtonToggle, MatButtonToggleGroup } from "@angular/material/button-toggle"
 import { MatCheckbox, MatCheckboxChange } from "@angular/material/checkbox"
-import { InputAutocompleteComponent } from "@basic/input-autocomplete/input-autocomplete.component"
+import { InputAutocompleteComponent } from "@shared/input-autocomplete/input-autocomplete.component"
 import { CalcStore } from "@store/calc-store"
 
 @Component({

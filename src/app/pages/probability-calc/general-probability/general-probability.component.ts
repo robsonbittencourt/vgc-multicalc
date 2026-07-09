@@ -1,5 +1,5 @@
 import { Component } from "@angular/core"
-import { WidgetComponent } from "@app/basic/widget/widget.component"
+import { WidgetComponent } from "@shared/widget/widget.component"
 import { ProbabilityCardComponent } from "./probability-card/probability-card.component"
 
 @Component({
