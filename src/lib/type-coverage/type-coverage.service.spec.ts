@@ -108,6 +108,70 @@ describe("TypeCoverageService", () => {
     expect(normalRow!.pokemonData[0].coverageType).toBe("super-effective")
   })
 
+  it("should convert Normal moves to Fairy when the attacker has Pixilate", () => {
+    const pokemon = new Pokemon("Sylveon", {
+      ability: new Ability("Pixilate"),
+      moveSet: new MoveSet(new Move("Hyper Voice"), new Move("Protect"), new Move("Calm Mind"), new Move("Wish"))
+    })
+    const team = new Team("1", true, "Team", [new TeamMember(pokemon, true)])
+
+    const coverage = service.getOffensiveCoverage(team)
+
+    const dragonRow = coverage.find(row => row.pokemonType === "Dragon")
+    expect(dragonRow!.pokemonData[0].coverageType).toBe("super-effective")
+
+    const normalRow = coverage.find(row => row.pokemonType === "Normal")
+    expect(normalRow!.pokemonData[0].coverageType).toBe("none")
+  })
+
+  it("should convert Normal moves to Ice when the attacker has Refrigerate", () => {
+    const pokemon = new Pokemon("Glalie", {
+      ability: new Ability("Refrigerate"),
+      moveSet: new MoveSet(new Move("Body Slam"), new Move("Protect"), new Move("Spikes"), new Move("Taunt"))
+    })
+    const team = new Team("1", true, "Team", [new TeamMember(pokemon, true)])
+
+    const coverage = service.getOffensiveCoverage(team)
+
+    const dragonRow = coverage.find(row => row.pokemonType === "Dragon")
+    expect(dragonRow!.pokemonData[0].coverageType).toBe("super-effective")
+
+    const normalRow = coverage.find(row => row.pokemonType === "Normal")
+    expect(normalRow!.pokemonData[0].coverageType).toBe("none")
+  })
+
+  it("should convert Normal moves to Flying when the attacker has Aerilate", () => {
+    const pokemon = new Pokemon("Salamence", {
+      ability: new Ability("Aerilate"),
+      moveSet: new MoveSet(new Move("Body Slam"), new Move("Protect"), new Move("Dragon Dance"), new Move("Roost"))
+    })
+    const team = new Team("1", true, "Team", [new TeamMember(pokemon, true)])
+
+    const coverage = service.getOffensiveCoverage(team)
+
+    const fightingRow = coverage.find(row => row.pokemonType === "Fighting")
+    expect(fightingRow!.pokemonData[0].coverageType).toBe("super-effective")
+
+    const normalRow = coverage.find(row => row.pokemonType === "Normal")
+    expect(normalRow!.pokemonData[0].coverageType).toBe("none")
+  })
+
+  it("should convert Normal moves to Electric when the attacker has Galvanize", () => {
+    const pokemon = new Pokemon("Gigalith", {
+      ability: new Ability("Galvanize"),
+      moveSet: new MoveSet(new Move("Body Slam"), new Move("Protect"), new Move("Stealth Rock"), new Move("Curse"))
+    })
+    const team = new Team("1", true, "Team", [new TeamMember(pokemon, true)])
+
+    const coverage = service.getOffensiveCoverage(team)
+
+    const waterRow = coverage.find(row => row.pokemonType === "Water")
+    expect(waterRow!.pokemonData[0].coverageType).toBe("super-effective")
+
+    const normalRow = coverage.find(row => row.pokemonType === "Normal")
+    expect(normalRow!.pokemonData[0].coverageType).toBe("none")
+  })
+
   it("should use Grass type for Ivy Cudgel when Ogerpon is base form", () => {
     const pokemon = new Pokemon("Ogerpon", {
       moveSet: new MoveSet(new Move("Ivy Cudgel"), new Move("Spiky Shield"), new Move("Follow Me"), new Move("Protect"))

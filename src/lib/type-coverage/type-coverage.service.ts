@@ -5,6 +5,13 @@ import { Team } from "@lib/model/team"
 import { PokemonType, PokemonTypes } from "@lib/types"
 import { AbilityName, TypeEffectiveness, TypeEffectivenessService } from "./type-effectiveness.service"
 
+const ATE_ABILITY_TYPES: Record<string, PokemonType> = {
+  Pixilate: "Fairy",
+  Refrigerate: "Ice",
+  Aerilate: "Flying",
+  Galvanize: "Electric"
+}
+
 export interface DefensiveCoverageData {
   moveType: PokemonType
   pokemonData: {
@@ -352,6 +359,7 @@ export class TypeCoverageService {
   private processMoveTypes(pokemon: Pokemon, considerTeraBlast: boolean): PokemonType[] {
     const moveTypes: PokemonType[] = []
     const moves = [pokemon.moveSet.move1, pokemon.moveSet.move2, pokemon.moveSet.move3, pokemon.moveSet.move4]
+    const ateType = this.getAteAbilityType(pokemon)
 
     for (const move of moves) {
       if (!move || !move.name) {
@@ -385,11 +393,15 @@ export class TypeCoverageService {
       const moveDetails = MOVE_DETAILS[moveName]
 
       if (moveDetails && moveDetails.type) {
-        moveTypes.push(moveDetails.type)
+        moveTypes.push(ateType && moveDetails.type === "Normal" ? ateType : moveDetails.type)
       }
     }
 
     return moveTypes
+  }
+
+  private getAteAbilityType(pokemon: Pokemon): PokemonType | null {
+    return ATE_ABILITY_TYPES[pokemon.ability.name] ?? null
   }
 
   hasTeraBlast(pokemon: Pokemon): boolean {
