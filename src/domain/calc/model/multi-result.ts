@@ -1,4 +1,5 @@
 import { computeMultiHitKOChance, getBerryRecovery, getDamageWithoutBerry, getEndOfTurn, serializeEndOfTurnTexts } from "@calc/engine/desc"
+import { StaminaBoostSimulator } from "@calc/engine/stamina-boost-simulator"
 import { Move } from "@calc/model/move"
 import { Pokemon } from "@calc/model/pokemon"
 import { AfterTurnData, AfterTurnResult, DEFAULT_ROLL_INDEX, extractDamageSubArrays, Result } from "@calc/model/result"
@@ -56,10 +57,23 @@ export class MultiResult {
       return withoutBerry !== undefined ? sumDamage(withoutBerry) : null
     })
     const hasTypeBerry = damagesWithoutBerryAtIndex.some(d => d !== null)
+    const hasStamina = this.hasStaminaDefender()
+    const staminaSimulator = new StaminaBoostSimulator(this.results)
+    let staminaBoost = hasStamina ? this.initialDefBoost() : 0
+    let staminaTypeBerryAvailable = true
 
     for (let i = 1; i <= 10; i++) {
       let turnValue = 0
-      const turnDamages = i === 1 || !hasTypeBerry ? damagesAtIndex : damagesWithoutBerryAtIndex.map((d, idx) => d ?? damagesAtIndex[idx])
+      let turnDamages: number[]
+
+      if (hasStamina) {
+        const turn = staminaSimulator.turnDamages(staminaBoost, rollIndex, staminaTypeBerryAvailable)
+        turnDamages = turn.damages
+        staminaBoost = turn.nextBoost
+        staminaTypeBerryAvailable = turn.typeBerryAvailable
+      } else {
+        turnDamages = i === 1 || !hasTypeBerry ? damagesAtIndex : damagesWithoutBerryAtIndex.map((d, idx) => d ?? damagesAtIndex[idx])
+      }
 
       for (const dmg of turnDamages) {
         currentHP -= dmg
@@ -119,16 +133,24 @@ export class MultiResult {
 
     const rowsPerTurn = baseDamages.length
     const toxicCounter = target.status === "tox" ? target.toxicCounter : 0
+    const hasStamina = this.hasStaminaDefender()
+    const allStaminaDamages = hasStamina ? new StaminaBoostSimulator(this.results).hitDamages(9, this.initialDefBoost()) : []
 
     for (let i = 1; i <= 9; i++) {
-      const currentDamages: number[][] = []
       const currentBerryRecovery: number[] = []
       const currentBerryThreshold: number[] = []
 
       for (let j = 0; j < i; j++) {
-        currentDamages.push(...baseDamages)
         currentBerryRecovery.push(...baseBerryRecovery)
         currentBerryThreshold.push(...baseBerryThreshold)
+      }
+
+      const currentDamages: number[][] = hasStamina ? allStaminaDamages.slice(0, i * rowsPerTurn) : []
+
+      if (!hasStamina) {
+        for (let j = 0; j < i; j++) {
+          currentDamages.push(...baseDamages)
+        }
       }
 
       const result = computeMultiHitKOChance(currentDamages, target.currrentHp(), this.eot.damage, target.maxHp(), currentBerryRecovery, currentBerryThreshold, rowsPerTurn, toxicCounter)
@@ -202,7 +224,10 @@ export class MultiResult {
       const { min: totalMin, max: totalMax } = this.range()
       const { min: minPercent, max: maxPercent } = this.rangePercentage()
 
-      const defenderNameAndDamage = this.updateDefenderDamageText(defenderNameAndDamageString, totalMin, totalMax, minPercent, maxPercent)
+      const staminaText = this.hasStaminaDefender() ? " (Stamina considered)" : ""
+      const defenderNameAndDamageWithNote = defenderNameAndDamageString.replace(`${resultOne.defender.name}:`, `${resultOne.defender.name}${staminaText}:`)
+
+      const defenderNameAndDamage = this.updateDefenderDamageText(defenderNameAndDamageWithNote, totalMin, totalMax, minPercent, maxPercent)
 
       const koChanceText = this.getHKO()
 
@@ -212,7 +237,7 @@ export class MultiResult {
         return `${attackerDescription} AND ${secondAttackerDescritption}` + ` vs. ${defenderBulk} ${tera}${baseText} -- ${koChanceText}`
       }
 
-      return `${attackerDescription} AND ${secondAttackerDescritption}` + ` vs. ${defenderBulk} ${tera}${defenderNameAndDamage}`
+      return `${attackerDescription} AND ${secondAttackerDescritption}` + ` vs. ${defenderBulk} ${tera}${defenderNameAndDamage}${staminaText}`
     } catch (e) {
       return `${resultOne.attacker.name} ${resultOne.move.name}` + ` AND ${resultTwo.attacker.name} ${resultTwo.move.name}` + ` vs. ${resultOne.defender.name}: 0-0 (0 - 0%) -- possibly the worst move ever`
     }
@@ -321,5 +346,13 @@ export class MultiResult {
     }
 
     return text
+  }
+
+  private hasStaminaDefender(): boolean {
+    return this.defender.hasAbility("Stamina")
+  }
+
+  private initialDefBoost(): number {
+    return this.defender.boosts.def ?? 0
   }
 }
