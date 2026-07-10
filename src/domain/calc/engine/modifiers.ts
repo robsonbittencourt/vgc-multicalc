@@ -225,7 +225,6 @@ const BP_RULES: ModifierRule[] = [
       (((attacker.hasItem("Adamant Crystal") && attacker.named("Dialga-Origin")) || (attacker.hasItem("Adamant Orb") && attacker.named("Dialga"))) && move.hasType("Steel", "Dragon")) ||
       (((attacker.hasItem("Lustrous Orb") && attacker.named("Palkia")) || (attacker.hasItem("Lustrous Globe") && attacker.named("Palkia-Origin"))) && move.hasType("Water", "Dragon")) ||
       ((attacker.hasItem("Griseous Orb") || attacker.hasItem("Griseous Core")) && attacker.named("Giratina-Origin", "Giratina") && move.hasType("Ghost", "Dragon")) ||
-      (attacker.hasItem("Vile Vial") && attacker.named("Venomicon-Epilogue") && move.hasType("Poison", "Flying")) ||
       (attacker.hasItem("Soul Dew") && attacker.named("Latios", "Latias", "Latios-Mega", "Latias-Mega") && move.hasType("Psychic", "Dragon")) ||
       (attacker.item && move.hasType(getItemBoostType(attacker.item))) ||
       (attacker.name.includes("Ogerpon-Cornerstone") && attacker.hasItem("Cornerstone Mask")) ||
