@@ -36,39 +36,49 @@ describe("Internal stats/effectiveness (gen 0)", () => {
 
     it("doubles speed under Tailwind", () => {
       const p = new Pokemon("Dragapult", { evs: { spe: 252 }, nature: "Timid" })
+
       const base = getFinalSpeed(p, new Field(), new Field().attackerSide)
       const tailwind = getFinalSpeed(p, new Field(), new Field({ attackerSide: { isTailwind: true } }).attackerSide)
+
       expect(tailwind).toEqual(base * 2)
     })
 
     it("boosts speed 1.5x with Choice Scarf", () => {
       const p = new Pokemon("Dragapult", { evs: { spe: 252 }, nature: "Timid", item: "Choice Scarf" })
       const noScarf = new Pokemon("Dragapult", { evs: { spe: 252 }, nature: "Timid" })
+
       const scarfSpeed = getFinalSpeed(p, new Field(), new Field().attackerSide)
       const baseSpeed = getFinalSpeed(noScarf, new Field(), new Field().attackerSide)
+
       expect(scarfSpeed).toEqual(Math.floor(baseSpeed * 1.5))
     })
 
     it("halves speed with paralysis", () => {
       const p = new Pokemon("Dragapult", { evs: { spe: 252 }, nature: "Timid", status: "par" })
       const healthy = new Pokemon("Dragapult", { evs: { spe: 252 }, nature: "Timid" })
+
       const parSpeed = getFinalSpeed(p, new Field(), new Field().attackerSide)
       const baseSpeed = getFinalSpeed(healthy, new Field(), new Field().attackerSide)
+
       expect(parSpeed).toEqual(Math.floor(baseSpeed / 2))
     })
 
     it("doubles speed with Chlorophyll in Sun", () => {
       const p = new Pokemon("Venusaur", { evs: { spe: 252 }, nature: "Timid", ability: "Chlorophyll" })
+
       const base = getFinalSpeed(p, new Field(), new Field().attackerSide)
       const sunSpeed = getFinalSpeed(p, new Field({ weather: "Sun" }), new Field().attackerSide)
+
       expect(sunSpeed).toEqual(base * 2)
     })
 
     it("applies positive speed boosts", () => {
       const p = new Pokemon("Dragapult", { evs: { spe: 252 }, nature: "Timid", boosts: { spe: 2 } })
       const base = new Pokemon("Dragapult", { evs: { spe: 252 }, nature: "Timid" })
+
       const boostedSpeed = getFinalSpeed(p, new Field(), new Field().attackerSide)
       const baseSpeed = getFinalSpeed(base, new Field(), new Field().attackerSide)
+
       expect(boostedSpeed).toEqual(Math.floor((baseSpeed * 4) / 2))
     })
   })
@@ -76,36 +86,46 @@ describe("Internal stats/effectiveness (gen 0)", () => {
   describe("getStabMod", () => {
     it("returns 6144 for STAB", () => {
       const p = new Pokemon("Garchomp", {})
+
       const m = new Move("Earthquake")
       const description = { attackerName: "Garchomp", defenderName: "", moveName: "Earthquake" } as RawDesc
+
       expect(getStabMod(p, m, description)).toBe(6144)
     })
 
     it("returns 4096 for no STAB", () => {
       const p = new Pokemon("Garchomp", {})
+
       const m = new Move("Ice Fang")
       const description = { attackerName: "Garchomp", defenderName: "", moveName: "Ice Fang" } as RawDesc
+
       expect(getStabMod(p, m, description)).toBe(4096)
     })
 
     it("returns 8192 for Adaptability STAB", () => {
       const p = new Pokemon("Dragapult", { ability: "Adaptability" })
+
       const m = new Move("Dragon Darts")
       const description = { attackerName: "Dragapult", defenderName: "", moveName: "Dragon Darts" } as RawDesc
+
       expect(getStabMod(p, m, description)).toBe(8192)
     })
 
     it("returns 8192 for Tera boosting original-type STAB", () => {
       const p = new Pokemon("Garchomp", { teraType: "Ground" })
+
       const m = new Move("Earthquake")
       const description = { attackerName: "Garchomp", defenderName: "", moveName: "Earthquake" } as RawDesc
+
       expect(getStabMod(p, m, description)).toBe(8192)
     })
 
     it("returns 6144 for Tera on a non-original type but original STAB move", () => {
       const p = new Pokemon("Garchomp", { teraType: "Fire" })
+
       const m = new Move("Earthquake")
       const description = { attackerName: "Garchomp", defenderName: "", moveName: "Earthquake" } as RawDesc
+
       expect(getStabMod(p, m, description)).toBe(6144)
     })
   })
