@@ -45,6 +45,7 @@ describe("Internal domain model (gen 0)", () => {
 
     it("clones to an equivalent Pokemon", () => {
       const internal = new Pokemon("Incineroar", { evs: { atk: 252 }, nature: "Adamant", item: "Choice Band" as never, status: "brn" })
+
       const clone = internal.clone()
 
       expect(clone.rawStats).toEqual(internal.rawStats)
@@ -142,6 +143,7 @@ describe("Internal domain model (gen 0)", () => {
 
     it("clones to an equivalent Move", () => {
       const internal = new Move("Bullet Seed", { ability: "Skill Link" as never })
+
       const clone = internal.clone()
 
       expect(clone.name).toEqual(internal.name)
@@ -181,6 +183,7 @@ describe("Internal domain model (gen 0)", () => {
 
     it("clones to an equivalent Field", () => {
       const field = new Field({ gameType: "Doubles", weather: "Rain", attackerSide: { isTailwind: true } })
+
       const clone = field.clone()
 
       expect(clone.gameType).toEqual(field.gameType)

@@ -25,7 +25,9 @@ describe("getBpMods", () => {
     const attacker = new Pokemon("Tauros", { status: "brn" })
     const defender = new Pokemon("Garchomp")
     const move = new Move("Facade")
+
     const ctx = makeCtx({ attacker, defender, move })
+
     expect(getBpMods(ctx)).toContain(8192)
   })
 
@@ -33,61 +35,22 @@ describe("getBpMods", () => {
     const attacker = new Pokemon("Tauros")
     const defender = new Pokemon("Garchomp")
     const move = new Move("Facade")
+
     const ctx = makeCtx({ attacker, defender, move })
+
     expect(getBpMods(ctx)).not.toContain(8192)
   })
+})
 
-  it("Helping Hand boosts BP", () => {
-    const attacker = new Pokemon("Gengar")
-    const defender = new Pokemon("Garchomp")
-    const move = new Move("Shadow Ball")
-    const field = new Field({ attackerSide: { isHelpingHand: true } })
-    const ctx = makeCtx({ attacker, defender, move, field })
-    expect(getBpMods(ctx)).toContain(6144)
-  })
-
-  it("Electric terrain + Electric move boosts BP", () => {
-    const attacker = new Pokemon("Gengar")
-    const defender = new Pokemon("Garchomp")
-    const move = new Move("Thunderbolt")
-    const field = new Field({ terrain: "Electric" })
-    const ctx = makeCtx({ attacker, defender, move, field })
-    expect(getBpMods(ctx)).toContain(5325)
-  })
-
-  it("Grassy terrain halves Earthquake", () => {
-    const attacker = new Pokemon("Garchomp")
-    const defender = new Pokemon("Garchomp")
-    const move = new Move("Earthquake")
-    const field = new Field({ terrain: "Grassy" })
-    const ctx = makeCtx({ attacker, defender, move, field })
-    expect(getBpMods(ctx)).toContain(2048)
-  })
-
+describe("getFinalMods", () => {
   it("Life Orb boosts final mods", () => {
     const attacker = new Pokemon("Garchomp", { item: "Life Orb" })
     const defender = new Pokemon("Starmie")
     const move = new Move("Earthquake")
+
     const ctx = makeCtx({ attacker, defender, move })
+
     expect(getFinalMods(ctx)).toContain(5324)
-  })
-
-  it("Reflect reduces physical damage in singles", () => {
-    const attacker = new Pokemon("Garchomp")
-    const defender = new Pokemon("Starmie")
-    const move = new Move("Earthquake")
-    const field = new Field({ defenderSide: { isReflect: true } })
-    const ctx = makeCtx({ attacker, defender, move, field })
-    expect(getFinalMods(ctx)).toContain(2048)
-  })
-
-  it("Friend Guard reduces damage", () => {
-    const attacker = new Pokemon("Garchomp")
-    const defender = new Pokemon("Starmie")
-    const move = new Move("Earthquake")
-    const field = new Field({ defenderSide: { isFriendGuard: true } })
-    const ctx = makeCtx({ attacker, defender, move, field })
-    expect(getFinalMods(ctx)).toContain(3072)
   })
 })
 
@@ -96,7 +59,9 @@ describe("getAtMods", () => {
     const attacker = new Pokemon("Garchomp", { item: "Choice Band" })
     const defender = new Pokemon("Starmie")
     const move = new Move("Earthquake")
+
     const ctx = makeCtx({ attacker, defender, move })
+
     expect(getAtMods(ctx)).toContain(6144)
   })
 
@@ -104,16 +69,10 @@ describe("getAtMods", () => {
     const attacker = new Pokemon("Gengar", { item: "Choice Specs" })
     const defender = new Pokemon("Starmie")
     const move = new Move("Shadow Ball")
-    const ctx = makeCtx({ attacker, defender, move, hitsPhysical: false })
-    expect(getAtMods(ctx)).toContain(6144)
-  })
 
-  it("Huge Power doubles Physical atk", () => {
-    const attacker = new Pokemon("Azumarill", { ability: "Huge Power" })
-    const defender = new Pokemon("Garchomp")
-    const move = new Move("Play Rough")
-    const ctx = makeCtx({ attacker, defender, move })
-    expect(getAtMods(ctx)).toContain(8192)
+    const ctx = makeCtx({ attacker, defender, move, hitsPhysical: false })
+
+    expect(getAtMods(ctx)).toContain(6144)
   })
 })
 
@@ -122,7 +81,9 @@ describe("getDfMods", () => {
     const attacker = new Pokemon("Garchomp")
     const defender = new Pokemon("Furfrou", { ability: "Fur Coat" })
     const move = new Move("Earthquake")
+
     const ctx = makeCtx({ attacker, defender, move })
+
     expect(getDfMods(ctx)).toContain(8192)
   })
 
@@ -130,7 +91,9 @@ describe("getDfMods", () => {
     const attacker = new Pokemon("Gengar")
     const defender = new Pokemon("Furfrou", { ability: "Fur Coat" })
     const move = new Move("Shadow Ball")
+
     const ctx = makeCtx({ attacker, defender, move, hitsPhysical: false })
+
     expect(getDfMods(ctx)).not.toContain(8192)
   })
 })

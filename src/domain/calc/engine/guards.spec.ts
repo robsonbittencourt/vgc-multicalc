@@ -44,7 +44,9 @@ describe("applyEarlyReturnGuards", () => {
 
   it("returns immune when defender is protected and move does not break protect", () => {
     const ctx = makeCtx("Pelipper", {}, "Garchomp", {}, "Surf", {}, { defenderSide: { isProtected: true } })
+
     const result = applyEarlyReturnGuards(ctx)
+
     expect(result?.type).toBe("immune")
     expect(ctx.description.isProtected).toBe(true)
   })
@@ -56,14 +58,18 @@ describe("applyEarlyReturnGuards", () => {
 
   it("clears defender ability when Mold Breaker attacker faces ignorable ability", () => {
     const ctx = makeCtx("Garchomp", { ability: "Mold Breaker" }, "Chimecho", { ability: "Levitate" }, "Earthquake")
+
     applyEarlyReturnGuards(ctx)
+
     expect(ctx.defender.ability).toBeUndefined()
     expect(ctx.description.attackerAbility).toBe("Mold Breaker")
   })
 
   it("does not clear defender ability when Mold Breaker faces non-ignorable ability", () => {
     const ctx = makeCtx("Garchomp", { ability: "Mold Breaker" }, "Garchomp", { ability: "Rough Skin" }, "Earthquake")
+
     applyEarlyReturnGuards(ctx)
+
     expect(ctx.defender.ability).toBe("Rough Skin")
   })
 })
@@ -101,7 +107,9 @@ describe("applyTypeGuards", () => {
 
   it("returns immune for Grass move vs Sap Sipper and sets description", () => {
     const ctx = makeCtx("Pelipper", {}, "Goodra", { ability: "Sap Sipper" }, "Energy Ball")
+
     const result = applyTypeGuards(ctx, 1)
+
     expect(result?.type).toBe("immune")
     expect(ctx.description.defenderAbility).toBe("Sap Sipper")
   })
@@ -163,7 +171,9 @@ describe("applyTypeGuards", () => {
 
   it("returns immune for priority move in Psychic Terrain vs grounded defender", () => {
     const ctx = makeCtx("Pelipper", {}, "Garchomp", {}, "Quick Attack", { priority: 1 }, { terrain: "Psychic" })
+
     const result = applyTypeGuards(ctx, 1)
+
     expect(result?.type).toBe("immune")
     expect(ctx.description.terrain).toBe("Psychic")
   })
@@ -177,35 +187,45 @@ describe("applyTypeGuards", () => {
 describe("applyFixedDamageGuards", () => {
   it("Seismic Toss deals attacker level as damage", () => {
     const ctx = makeCtx("Pelipper", {}, "Garchomp", {}, "Seismic Toss")
+
     const result = applyFixedDamageGuards(ctx)
+
     expect(result?.type).toBe("damage")
     expect((result as { type: "damage"; value: number }).value).toBe(50)
   })
 
   it("Night Shade deals attacker level as damage", () => {
     const ctx = makeCtx("Gengar", {}, "Garchomp", {}, "Night Shade")
+
     const result = applyFixedDamageGuards(ctx)
+
     expect(result?.type).toBe("damage")
     expect((result as { type: "damage"; value: number }).value).toBe(50)
   })
 
   it("Dragon Rage always deals 40 damage", () => {
     const ctx = makeCtx("Dragonite", {}, "Garchomp", {}, "Dragon Rage")
+
     const result = applyFixedDamageGuards(ctx)
+
     expect(result?.type).toBe("damage")
     expect((result as { type: "damage"; value: number }).value).toBe(40)
   })
 
   it("Sonic Boom always deals 20 damage", () => {
     const ctx = makeCtx("Garchomp", {}, "Pelipper", {}, "Sonic Boom")
+
     const result = applyFixedDamageGuards(ctx)
+
     expect(result?.type).toBe("damage")
     expect((result as { type: "damage"; value: number }).value).toBe(20)
   })
 
   it("Seismic Toss with Parental Bond deals double fixed damage as array", () => {
     const ctx = makeCtx("Kangaskhan", { ability: "Parental Bond" }, "Garchomp", {}, "Seismic Toss")
+
     const result = applyFixedDamageGuards(ctx)
+
     expect(result?.type).toBe("damage")
     expect((result as { type: "damage"; value: number[] }).value).toEqual([50, 50])
   })
@@ -213,7 +233,9 @@ describe("applyFixedDamageGuards", () => {
   it("Super Fang deals half defender curHP at full HP", () => {
     const ctx = makeCtx("Garchomp", {}, "Garchomp", {}, "Super Fang")
     const fullHP = ctx.defender.currrentHp()
+
     const result = applyFixedDamageGuards(ctx)
+
     expect(result?.type).toBe("damage")
     expect((result as { type: "damage"; value: number }).value).toBe(Math.floor(fullHP / 2))
   })
@@ -221,7 +243,9 @@ describe("applyFixedDamageGuards", () => {
   it("Final Gambit deals attacker curHP at full HP", () => {
     const ctx = makeCtx("Garchomp", {}, "Pelipper", {}, "Final Gambit")
     const fullHP = ctx.attacker.currrentHp()
+
     const result = applyFixedDamageGuards(ctx)
+
     expect(result?.type).toBe("damage")
     expect((result as { type: "damage"; value: number }).value).toBe(fullHP)
   })
@@ -230,7 +254,9 @@ describe("applyFixedDamageGuards", () => {
     const ctx = makeCtx("Garchomp", { curHP: 50 }, "Pelipper", {}, "Endeavor")
     const defHP = ctx.defender.currrentHp()
     const atkHP = ctx.attacker.currrentHp()
+
     const result = applyFixedDamageGuards(ctx)
+
     expect(result?.type).toBe("damage")
     expect((result as { type: "damage"; value: number }).value).toBe(defHP - atkHP)
   })
@@ -244,66 +270,86 @@ describe("applyFixedDamageGuards", () => {
 describe("computeMoveType", () => {
   it("returns original type for ordinary moves", () => {
     const ctx = makeCtx("Pelipper", {}, "Garchomp", {}, "Surf")
+
     const { type } = computeMoveType(ctx)
+
     expect(type).toBe("Water")
   })
 
   it("Weather Ball becomes Fire in Sun", () => {
     const ctx = makeCtx("Pelipper", {}, "Garchomp", {}, "Weather Ball", {}, { weather: "Sun" })
+
     const { type } = computeMoveType(ctx)
+
     expect(type).toBe("Fire")
   })
 
   it("Weather Ball becomes Water in Rain", () => {
     const ctx = makeCtx("Pelipper", {}, "Garchomp", {}, "Weather Ball", {}, { weather: "Rain" })
+
     const { type } = computeMoveType(ctx)
+
     expect(type).toBe("Water")
   })
 
   it("Weather Ball stays Normal with no weather", () => {
     const ctx = makeCtx("Pelipper", {}, "Garchomp", {}, "Weather Ball")
+
     const { type } = computeMoveType(ctx)
+
     expect(type).toBe("Normal")
   })
 
   it("Aerilate changes Normal move to Flying", () => {
     const ctx = makeCtx("Sylveon", { ability: "Aerilate" }, "Garchomp", {}, "Body Slam")
+
     const { type, hasAteAbilityTypeChange } = computeMoveType(ctx)
+
     expect(type).toBe("Flying")
     expect(hasAteAbilityTypeChange).toBe(true)
   })
 
   it("Pixilate changes Normal move to Fairy", () => {
     const ctx = makeCtx("Sylveon", { ability: "Pixilate" }, "Garchomp", {}, "Hyper Voice")
+
     const { type, hasAteAbilityTypeChange } = computeMoveType(ctx)
+
     expect(type).toBe("Fairy")
     expect(hasAteAbilityTypeChange).toBe(true)
   })
 
   it("Liquid Voice changes sound move to Water", () => {
     const ctx = makeCtx("Sylveon", { ability: "Liquid Voice" }, "Garchomp", {}, "Hyper Voice")
+
     const { type, hasAteAbilityTypeChange } = computeMoveType(ctx)
+
     expect(type).toBe("Water")
     expect(hasAteAbilityTypeChange).toBe(false)
   })
 
   it("Refrigerate changes Normal move to Ice", () => {
     const ctx = makeCtx("Sylveon", { ability: "Refrigerate" }, "Garchomp", {}, "Body Slam")
+
     const { type, hasAteAbilityTypeChange } = computeMoveType(ctx)
+
     expect(type).toBe("Ice")
     expect(hasAteAbilityTypeChange).toBe(true)
   })
 
   it("Raging Bull clears screens on the defender side", () => {
     const ctx = makeCtx("Garchomp", { name: "Tauros-Paldea-Combat" } as never, "Pelipper", {}, "Raging Bull", {}, { defenderSide: { isReflect: true, isLightScreen: true } })
+
     computeMoveType(ctx)
+
     expect(ctx.field.defenderSide.isReflect).toBe(false)
     expect(ctx.field.defenderSide.isLightScreen).toBe(false)
   })
 
   it("Psychic Fangs clears screens on the defender side", () => {
     const ctx = makeCtx("Garchomp", {}, "Pelipper", {}, "Psychic Fangs", {}, { defenderSide: { isReflect: true, isAuroraVeil: true } })
+
     computeMoveType(ctx)
+
     expect(ctx.field.defenderSide.isReflect).toBe(false)
     expect(ctx.field.defenderSide.isAuroraVeil).toBe(false)
   })
