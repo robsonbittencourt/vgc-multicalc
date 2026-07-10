@@ -46,4 +46,16 @@ describe("Status", () => {
     expect(descriptions).toContain("Freeze")
     expect(descriptions).toContain("Paralysis")
   })
+
+  it("should fall back to Healthy for an unknown code", () => {
+    const status = Status.byCode("unknown")
+
+    expect(status).toBe(Status.HEALTHY)
+  })
+
+  it("should fall back to Healthy for an unknown description", () => {
+    const status = Status.byDescription("Confusion")
+
+    expect(status).toBe(Status.HEALTHY)
+  })
 })

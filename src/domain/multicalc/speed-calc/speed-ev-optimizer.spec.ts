@@ -47,6 +47,18 @@ describe("SpeedEvOptimizer", () => {
       expect(result.speedEv).toBeNull()
     })
 
+    it("should stay infeasible for a special attacker even after switching to Timid", () => {
+      const pokemon = new Pokemon("Chi-Yu", { nature: "Modest" })
+      const opponentSpeed = speedAt(pokemon, "Timid", 252) + 20
+
+      const result = optimizer.outspeed(pokemon, opponentSpeed, field)
+
+      expect(result.outspeeds).toBe(false)
+      expect(result.speedEv).toBeNull()
+      expect(result.nature).toBe("Modest")
+      expect(result.natureChanged).toBe(false)
+    })
+
     it("should switch to a positive speed nature when a neutral spread is not enough", () => {
       const pokemon = new Pokemon("Garchomp", { nature: "Adamant" })
       const opponentSpeed = speedAt(pokemon, "Adamant", 252)

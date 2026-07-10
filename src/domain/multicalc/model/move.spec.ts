@@ -34,6 +34,20 @@ describe("Move", () => {
     expect(move.possibleHits).toEqual([])
   })
 
+  it("should fall back to the normal target for a move whose data omits target", () => {
+    const move = new Move("Barrage")
+
+    expect(move.target).toBe("normal")
+  })
+
+  it("should fall back to an empty name when constructed without a name", () => {
+    const move = new Move(undefined as unknown as string)
+
+    expect(move.name).toBe("")
+    expect(move.possibleHits).toEqual([])
+    expect(move.category).toBe("Status")
+  })
+
   it("should not throw and fall back to neutral values for an unknown move", () => {
     const move = new Move("Not A Real Move")
 

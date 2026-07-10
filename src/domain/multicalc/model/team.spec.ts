@@ -146,6 +146,16 @@ describe("Team", () => {
       expect(team.teamMembers[0].active).toBe(true)
     })
 
+    it("should return an empty team when removing the last member", () => {
+      const team = new Team("123", true, "Team 1", [new TeamMember(new Pokemon("Pikachu"), true)])
+
+      const pikachuId = team.teamMembers[0].pokemon.id
+      const result = team.removeMember(pikachuId)
+
+      expect(result.teamMembers).toHaveLength(0)
+      expect(result.isEmpty()).toBe(true)
+    })
+
     it("should always activate the first remaining member, even when removing a non-active member", () => {
       const team = new Team("123", true, "Team 1", [new TeamMember(new Pokemon("Pikachu"), true), new TeamMember(new Pokemon("Tyranitar"), false)])
 
