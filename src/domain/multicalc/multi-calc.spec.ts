@@ -69,6 +69,18 @@ describe("MultiCalc", () => {
       expect(combined.damage).toBeGreaterThan(single.damage)
     })
 
+    it("should pick the best move for both attackers when bestMove is enabled", () => {
+      const attacker = new Pokemon("Raging Bolt", { moveSet: new MoveSet(new Move("Protect"), new Move("Thunderbolt"), new Move("Draco Meteor"), new Move("Thunderclap")) })
+      const secondAttacker = new Pokemon("Rillaboom", { moveSet: new MoveSet(new Move("Protect"), new Move("Wood Hammer"), new Move("Grassy Glide"), new Move("Fake Out")) })
+      const opponent = new Target(new Pokemon("Iron Bundle"))
+
+      const best = MultiCalc.withOpponents([opponent], new Field()).damageAttacking(attacker, BEST_MOVE, secondAttacker)[0]
+      const naive = MultiCalc.withOpponents([opponent], new Field()).damageAttacking(attacker, NO_BEST_MOVE, secondAttacker)[0]
+
+      expect(best.secondAttacker).toBeDefined()
+      expect(best.damage).toBeGreaterThan(naive.damage)
+    })
+
     it("should fall back to single damage when the second attacker is the same instance", () => {
       const attacker = new Pokemon("Raging Bolt", { moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Draco Meteor"), new Move("Thunderclap"), new Move("Protect")) })
       const opponent = new Target(new Pokemon("Iron Bundle"))

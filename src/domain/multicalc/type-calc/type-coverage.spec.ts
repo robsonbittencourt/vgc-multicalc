@@ -89,6 +89,18 @@ describe("TypeCoverage", () => {
     expect(normalRow!.pokemonData[0].coverageType).toBe("none")
   })
 
+  it("should mark every type as none when the pokemon has only status moves", () => {
+    const pokemon = new Pokemon("Toxapex", {
+      moveSet: new MoveSet(new Move("Recover"), new Move("Toxic"), new Move("Haze"), new Move("Baneful Bunker"))
+    })
+    const team = new Team("1", true, "Team", [new TeamMember(pokemon, true)])
+
+    const coverage = service.getOffensiveCoverage(team)
+
+    expect(coverage.every(row => row.superEffective === 0 && row.notVeryEffective === 0)).toBe(true)
+    expect(coverage.every(row => row.pokemonData[0].coverageType === "none" && row.pokemonData[0].effectiveness === 1 && row.pokemonData[0].formatted === "")).toBe(true)
+  })
+
   it("should consider damaging moves with variable base power", () => {
     const pokemon = new Pokemon("Hariyama", {
       moveSet: new MoveSet(new Move("Low Kick"), new Move("Protect"), new Move("Detect"), new Move("Bulk Up"))
@@ -707,6 +719,23 @@ describe("TypeCoverage", () => {
       const coverage = service.getOffensiveCoverageAgainstTeam(team, targetTeam)
 
       expect(coverage[0].notVeryEffective).toBeGreaterThanOrEqual(0)
+    })
+
+    it("should mark coverage as none when the attacker has only status moves", () => {
+      const attacker = new Pokemon("Toxapex", {
+        moveSet: new MoveSet(new Move("Recover"), new Move("Toxic"), new Move("Haze"), new Move("Baneful Bunker"))
+      })
+      const target = new Pokemon("Charizard")
+      const team = new Team("1", true, "Team", [new TeamMember(attacker, true)])
+      const targetTeam = new Team("2", true, "Target Team", [new TeamMember(target, true)])
+
+      const coverage = service.getOffensiveCoverageAgainstTeam(team, targetTeam)
+
+      expect(coverage[0].superEffective).toBe(0)
+      expect(coverage[0].notVeryEffective).toBe(0)
+      expect(coverage[0].pokemonData[0].coverageType).toBe("none")
+      expect(coverage[0].pokemonData[0].effectiveness).toBe(1)
+      expect(coverage[0].pokemonData[0].formatted).toBe("")
     })
   })
 

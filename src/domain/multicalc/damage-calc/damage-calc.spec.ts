@@ -422,4 +422,27 @@ describe("Damage Calc Service", () => {
 
     expect(damageResult.berryHP).toEqual(0)
   })
+
+  it("should fill scalar fixed damage into a full roll array for two attackers", () => {
+    const attacker = new Pokemon("Alakazam", { moveSet: new MoveSet(new Move("Seismic Toss"), new Move(""), new Move(""), new Move("")) })
+    const secondAttacker = new Pokemon("Chansey", { moveSet: new MoveSet(new Move("Seismic Toss"), new Move(""), new Move(""), new Move("")) })
+    const target = new Target(new Pokemon("Snorlax", { evs: { hp: 252 } }))
+    const field = new Field()
+
+    const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
+
+    expect(damageResult.attackerRolls).toEqual([[50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50]])
+    expect(damageResult.secondAttackerRolls).toEqual([[50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50]])
+  })
+
+  it("should read the left attacker crit flag when rightIsDefender is false for two attackers", () => {
+    const attacker = new Pokemon("Raging Bolt", { moveSet: new MoveSet(new Move("Thunderbolt"), new Move(""), new Move(""), new Move("")) })
+    const secondAttacker = new Pokemon("Rillaboom", { moveSet: new MoveSet(new Move("Grassy Glide"), new Move(""), new Move(""), new Move("")) })
+    const target = new Target(new Pokemon("Flutter Mane", { item: "Assault Vest" }))
+    const field = new Field({ defenderSide: new FieldSide({ isCriticalHit: true }) })
+
+    const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field, false)
+
+    expect(damageResult.description).toEqual("0 Atk Rillaboom Grassy Glide AND 0 SpA Raging Bolt Thunderbolt vs. 0 HP / 0 Def / 0 SpD Assault Vest Flutter Mane on a critical hit: 143-171 (110 - 131.5%) -- guaranteed OHKO")
+  })
 })

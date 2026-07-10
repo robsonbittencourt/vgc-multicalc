@@ -92,6 +92,22 @@ describe("Neutralizing Gas Adjuster", () => {
     expect(target.ability).toBe("Imposter" as AbilityName)
   })
 
+  it("Should not affect the target when it holds an Ability Shield while the attacker is affected", () => {
+    const move = new Move("Overheat")
+    const moveCalc = new MoveCalc(move.name)
+    const attacker = new CalcPokemon("Chi-Yu")
+    const target = new CalcPokemon("Koraidon", { item: "Ability Shield" })
+    const calcField = new FieldCalc()
+    const secondAttacker = undefined
+
+    const field = new Field({ isNeutralizingGas: true })
+
+    new NeutralizingGasAdjuster().adjust(attacker, target, move, moveCalc, calcField, secondAttacker, field)
+
+    expect(attacker.ability).toBe("Imposter" as AbilityName)
+    expect(target.ability).toBe("Orichalcum Pulse" as AbilityName)
+  })
+
   it("Should remove ability when attacker has Neutralizing Gas", () => {
     const move = new Move("Overheat")
     const moveCalc = new MoveCalc(move.name)

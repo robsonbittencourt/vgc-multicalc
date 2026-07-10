@@ -1378,5 +1378,13 @@ describe("TypeChart", () => {
     it("should not affect non-Fire moves with Water Bubble", () => {
       expect(service.getEffectiveness("Water", "Fire", undefined, "Water Bubble")).toBe(2)
     })
+
+    it("should halve a super-effective hit to neutral with Thick Fat", () => {
+      expect(service.getEffectiveness("Fire", "Grass", undefined, "Thick Fat")).toBe(1)
+    })
+
+    it("should halve a 4x hit to 2x with Thick Fat", () => {
+      expect(service.getEffectiveness("Fire", "Ice", "Grass", "Thick Fat")).toBe(2)
+    })
   })
 })

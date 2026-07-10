@@ -8,6 +8,7 @@ import { MultiCalcMode } from "@multicalc/damage-calc/multi-target-damage-calc"
 
 const ONE_VS_MANY: MultiCalcMode = { oneVsManyActivated: true, manyVsOneActivated: false, oneVsManyBestMoveActivated: false }
 const MANY_VS_ONE: MultiCalcMode = { oneVsManyActivated: false, manyVsOneActivated: true, oneVsManyBestMoveActivated: false }
+const ONE_VS_MANY_BEST: MultiCalcMode = { oneVsManyActivated: true, manyVsOneActivated: false, oneVsManyBestMoveActivated: true }
 
 describe("MultiTargetDamageCalc", () => {
   let service: MultiTargetDamageCalc
@@ -67,6 +68,19 @@ describe("MultiTargetDamageCalc", () => {
       expect(result[1].damage).toEqual(216.7)
       expect(result[1].koChance).toEqual("guaranteed OHKO")
       expect(result[1].description).toContain("AND")
+    })
+
+    it("should pick the best move for both attackers when oneVsManyBestMove is enabled", () => {
+      const attacker = new Pokemon("Raging Bolt", { moveSet: new MoveSet(new Move("Protect"), new Move("Thunderbolt"), new Move("Draco Meteor"), new Move("Thunderclap")) })
+      const secondAttacker = new Pokemon("Walking Wake", { moveSet: new MoveSet(new Move("Protect"), new Move("Hydro Steam"), new Move("Draco Meteor"), new Move("Flamethrower")) })
+
+      const target = new Target(new Pokemon("Flutter Mane"))
+
+      const best = service.calculateDamageForAll(attacker, [target], new Field(), ONE_VS_MANY_BEST, secondAttacker)
+      const naive = service.calculateDamageForAll(attacker, [target], new Field(), ONE_VS_MANY, secondAttacker)
+
+      expect(best[0].secondAttacker).toBeDefined()
+      expect(best[0].damage).toBeGreaterThan(naive[0].damage)
     })
 
     it("should convert EVs to SP in the description when SPS mode is on", () => {
