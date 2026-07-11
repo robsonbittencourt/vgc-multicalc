@@ -6,7 +6,7 @@
     "start": "ng serve",
     "build": "ng build && cp dist/browser/404/index.html dist/browser/404.html && node scripts/update-sitemap.mjs",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test --coverage --watch=false --exclude='**/*.performance.spec.ts'",
+    "test": "ng test --coverage --watch=false --exclude='**/*.performance.spec.ts' && node scripts/coverage-report.mjs",
     "test-watch": "ng test --coverage --exclude='**/*.performance.spec.ts'",
     "perf": "ng test --include='**/*.performance.spec.ts' --watch=false",
     "e2e-test": "npx cypress run --quiet; exit_code=$?; if [ $exit_code -eq 0 ]; then echo '✅ Tests PASSED successfully!\n'; else echo '❌ Tests FAILED.\n'; fi; exit $exit_code",
