@@ -8,6 +8,7 @@ import { ZacianZamazentaAdjuster } from "./calc-adjuster/zacian-zamazenta-adjust
 import { NeutralizingGasAdjuster } from "./calc-adjuster/neutralizing-gas-adjuster"
 import { OgerponAdjuster } from "./calc-adjuster/ogerpon-adjuster"
 import { SupremeOverlordAdjuster } from "./calc-adjuster/supreme-overlord-adjuster"
+import { UnnerveAdjuster } from "./calc-adjuster/unnerve-adjuster"
 import { DamageResult } from "@multicalc/damage-calc/damage-result"
 import { FieldMapper, fromExisting } from "@adapters"
 import { Field } from "@multicalc/model/field"
@@ -30,7 +31,8 @@ export class DamageCalc {
     new ZacianZamazentaAdjuster(),
     new NeutralizingGasAdjuster(),
     new OgerponAdjuster(),
-    new SupremeOverlordAdjuster()
+    new SupremeOverlordAdjuster(),
+    new UnnerveAdjuster()
   ]
   fieldMapper = new FieldMapper()
   speedCalc = new SpeedCalc()

@@ -10,7 +10,7 @@ export function computeParentalBondChildDamage(ctx: HitContext, typeEffectivenes
   const child = attacker.clone()
   checkMultihitBoost(child, defender, move, field, description)
 
-  const berryWasConsumed = getBerryResistType(defender.item) === move.type && (typeEffectiveness > 1 || move.hasType("Normal")) && !field.isUnnerve && !attacker.hasAbility("Unnerve", "As One (Glastrier)", "As One (Spectrier)")
+  const berryWasConsumed = getBerryResistType(defender.item) === move.type && (typeEffectiveness > 1 || move.hasType("Normal")) && !field.isUnnerve
   const defenderForChild = berryWasConsumed ? defender.clone() : defender
   if (berryWasConsumed) defenderForChild.item = "" as ItemName
 

@@ -423,6 +423,17 @@ describe("Damage Calc Service", () => {
     expect(damageResult.berryHP).toEqual(0)
   })
 
+  it("should not consume the defender's resist berry when a Parental Bond attacker fights alongside a partner with Unnerve", () => {
+    const kangaskhan = new Pokemon("Kangaskhan-Mega", { ability: new Ability("Parental Bond"), evs: { atk: 252 }, nature: "Adamant", moveSet: new MoveSet(new Move("Fire Punch"), new Move(""), new Move(""), new Move("")) })
+    const aerodactyl = new Pokemon("Aerodactyl", { ability: new Ability("Unnerve"), moveSet: new MoveSet(new Move("Rock Slide"), new Move(""), new Move(""), new Move("")) })
+    const target = new Target(new Pokemon("Ferrothorn", { item: "Occa Berry" }))
+    const field = new Field()
+
+    const damageResult = service.calcDamageForTwoAttackers(kangaskhan, aerodactyl, target.pokemon, field)
+
+    expect(damageResult.description).not.toContain("Occa Berry")
+  })
+
   it("should fill scalar fixed damage into a full roll array for two attackers", () => {
     const attacker = new Pokemon("Alakazam", { moveSet: new MoveSet(new Move("Seismic Toss"), new Move(""), new Move(""), new Move("")) })
     const secondAttacker = new Pokemon("Chansey", { moveSet: new MoveSet(new Move("Seismic Toss"), new Move(""), new Move(""), new Move("")) })
