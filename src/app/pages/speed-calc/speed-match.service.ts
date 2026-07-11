@@ -57,15 +57,9 @@ export class SpeedMatchService {
   }
 
   private budgetPlan(pokemon: Pokemon, neededEv: number): BudgetPlan {
-    const neededSps = this.ceilSps(neededEv)
+    const neededSps = evToSp(neededEv)
     const freeSps = MAX_TOTAL_SPS - (totalSpsFromEvs(pokemon.evs) - evToSp(pokemon.evs.spe))
 
     return { fits: neededSps <= freeSps, needed: neededSps, free: freeSps, unit: "SP", speedEv: spToEv(neededSps) }
-  }
-
-  private ceilSps(ev: number): number {
-    const sps = evToSp(ev)
-
-    return spToEv(sps) >= ev ? sps : sps + 1
   }
 }
