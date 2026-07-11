@@ -276,17 +276,17 @@ export class PdfExportService {
     draw(info.supportId, 445, 639.9)
 
     const parts = info.dateOfBirth.split("/")
-    const order = info.datePartOrder ?? "mdy"
+    const order = info.datePartOrder
     const month = order === "mdy" ? parts[0] : parts[1]
     const day = order === "mdy" ? parts[1] : order === "dmy" ? parts[0] : parts[2]
     const year = order === "ymd" ? parts[0] : parts[2]
-    draw(month ?? "", 449, 664.4)
-    draw(day ?? "", 502, 664.4)
-    draw(year ?? "", 548, 664.4)
+    draw(month, 449, 664.4)
+    draw(day, 502, 664.4)
+    draw(year, 548, 664.4)
 
     if (info.ageDivision === "Juniors") draw("X", 474, 705)
     else if (info.ageDivision === "Seniors") draw("X", 529, 705)
-    else if (info.ageDivision === "Masters") draw("X", 580, 706)
+    else draw("X", 580, 706)
   }
 
   private fillHeaderPage2(page: any, font: any, rgb: any, info: TeamListPlayerInfo) {
@@ -302,7 +302,7 @@ export class PdfExportService {
 
     if (info.ageDivision === "Juniors") draw("X", 474, 706.8)
     else if (info.ageDivision === "Seniors") draw("X", 529, 706.8)
-    else if (info.ageDivision === "Masters") draw("X", 580, 707.8)
+    else draw("X", 580, 707.8)
   }
 
   private resolveBaseForm(pokemon: Pokemon): PokemonPrintData {
@@ -318,7 +318,6 @@ export class PdfExportService {
   private fillPage1Pokemon(page: any, font: any, rgb: any, pokemon: PokemonPrintData, fields: PokemonFields) {
     this.fillPokemonBase(page, font, rgb, pokemon, fields)
     const draw = (text: string, pos: FieldPosition) => {
-      if (!text) return
       page.drawText(text, { x: pos.x, y: pos.y, size: FONT_SIZE, font, color: rgb(0, 0, 0) })
     }
     draw(String(pokemon.stats.hp), fields.hp)
