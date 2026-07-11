@@ -106,14 +106,14 @@ describe("MegaStoneService", () => {
       expect(service.getBaseFormAbility(pokemonId)).toBeNull()
     })
 
-    it("should keep the mega form's current ability when reverting and the base form has no moveset entry", () => {
+    it("should keep the mega form's current ability when reverting without a stored base ability", () => {
       const pokemonId = store.addPokemonToTeam("Kangaskhan-Mega")
 
       service.toggleMega(pokemonId, "Kangaskhan-Mega", "Kangaskhanite")
 
       const result = store.findPokemonById(pokemonId)
       expect(result.name).toBe("Kangaskhan")
-      expect(result.ability.name).toBe("Scrappy")
+      expect(result.ability.name).toBe("Parental Bond")
     })
 
     it("should mega evolve without a mega stone item using the ability found in the moveset data", () => {
