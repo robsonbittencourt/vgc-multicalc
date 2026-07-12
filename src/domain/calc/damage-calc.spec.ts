@@ -1589,4 +1589,93 @@ describe("Damage Calc Service (new)", () => {
       expect((result.damage as number[])[15]).toEqual(264)
     })
   })
+
+  describe("Type effectiveness overrides (items and abilities)", () => {
+    it("Air Balloon: grants immunity to Ground moves", () => {
+      const attacker = new Pokemon("Garchomp", { evs: { atk: 252 }, nature: "Adamant" })
+      const defender = new Pokemon("Incineroar", { item: "Air Balloon" })
+      const move = new Move("Earthquake")
+      const field = new Field({ gameType: "Doubles" })
+
+      const result = calculate(attacker, defender, move, field)
+
+      expect(result.damage).toEqual(0)
+    })
+
+    it("Iron Ball: removes Levitate's Ground immunity", () => {
+      const attacker = new Pokemon("Garchomp", { evs: { atk: 252 }, nature: "Adamant" })
+      const defender = new Pokemon("Rotom-Wash", { ability: "Levitate", item: "Iron Ball" })
+      const move = new Move("Earthquake")
+      const field = new Field({ gameType: "Doubles" })
+
+      const result = calculate(attacker, defender, move, field)
+
+      expect(result.description()).toEqual("252+ Atk Garchomp Earthquake vs. 0 HP / 0 Def Rotom-Wash: 134-158 (107.2 - 126.4%) -- guaranteed OHKO")
+      expect((result.damage as number[])[0]).toEqual(134)
+      expect((result.damage as number[])[15]).toEqual(158)
+    })
+
+    it("Ring Target: removes Normal-vs-Ghost type immunity", () => {
+      const attacker = new Pokemon("Arcanine", { evs: { atk: 252 }, nature: "Adamant" })
+      const defender = new Pokemon("Gengar", { item: "Ring Target" })
+      const move = new Move("Extreme Speed")
+      const field = new Field({ gameType: "Doubles" })
+
+      const result = calculate(attacker, defender, move, field)
+
+      expect(result.description()).toEqual("252+ Atk Arcanine Extreme Speed vs. 0 HP / 0 Def Gengar: 68-80 (50.3 - 59.2%) -- guaranteed 2HKO")
+      expect((result.damage as number[])[0]).toEqual(68)
+      expect((result.damage as number[])[15]).toEqual(80)
+    })
+
+    it("Klutz: suppresses Ring Target, keeping the Ghost immunity", () => {
+      const attacker = new Pokemon("Arcanine", { evs: { atk: 252 }, nature: "Adamant" })
+      const defender = new Pokemon("Gengar", { item: "Ring Target", ability: "Klutz" })
+      const move = new Move("Extreme Speed")
+      const field = new Field({ gameType: "Doubles" })
+
+      const result = calculate(attacker, defender, move, field)
+
+      expect(result.damage).toEqual(0)
+    })
+
+    it("Scrappy: allows Fighting moves to hit Ghost-type defenders", () => {
+      const attacker = new Pokemon("Machamp", { evs: { atk: 252 }, nature: "Adamant", ability: "Scrappy" })
+      const defender = new Pokemon("Gengar", {})
+      const move = new Move("Close Combat")
+      const field = new Field({ gameType: "Doubles" })
+
+      const result = calculate(attacker, defender, move, field)
+
+      expect(result.description()).toEqual("252+ Atk Machamp Close Combat vs. 0 HP / 0 Def Gengar: 84-100 (62.2 - 74%) -- guaranteed 2HKO")
+      expect((result.damage as number[])[0]).toEqual(84)
+      expect((result.damage as number[])[15]).toEqual(100)
+    })
+
+    it("Mind's Eye: allows Fighting moves to hit Ghost-type defenders, same as Scrappy", () => {
+      const attacker = new Pokemon("Machamp", { evs: { atk: 252 }, nature: "Adamant", ability: "Mind's Eye" })
+      const defender = new Pokemon("Gengar", {})
+      const move = new Move("Close Combat")
+      const field = new Field({ gameType: "Doubles" })
+
+      const result = calculate(attacker, defender, move, field)
+
+      expect(result.description()).toEqual("252+ Atk Machamp Close Combat vs. 0 HP / 0 Def Gengar: 84-100 (62.2 - 74%) -- guaranteed 2HKO")
+      expect((result.damage as number[])[0]).toEqual(84)
+      expect((result.damage as number[])[15]).toEqual(100)
+    })
+
+    it("Mold Breaker: ignores Levitate, exposing the defender to Ground moves", () => {
+      const attacker = new Pokemon("Excadrill", { evs: { atk: 252 }, nature: "Adamant", ability: "Mold Breaker" })
+      const defender = new Pokemon("Rotom-Wash", { ability: "Levitate" })
+      const move = new Move("Earthquake")
+      const field = new Field({ gameType: "Doubles" })
+
+      const result = calculate(attacker, defender, move, field)
+
+      expect(result.description()).toEqual("252+ Atk Mold Breaker Excadrill Earthquake vs. 0 HP / 0 Def Rotom-Wash: 138-164 (110.4 - 131.2%) -- guaranteed OHKO")
+      expect((result.damage as number[])[0]).toEqual(138)
+      expect((result.damage as number[])[15]).toEqual(164)
+    })
+  })
 })

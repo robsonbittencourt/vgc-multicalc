@@ -210,7 +210,7 @@ export function computeMoveType(ctx: CombatContext): { type: string; hasAteAbili
 
 export function computeTypeEffectiveness(ctx: CombatContext): number {
   const { attacker, defender, move, field } = ctx
-  const isGhostRevealed = attacker.hasAbility("Scrappy")
+  const isGhostRevealed = attacker.hasAbility("Scrappy", "Mind's Eye")
 
   const types = defender.teraType && defender.teraType !== "Stellar" ? [defender.teraType] : defender.types
 
@@ -220,6 +220,10 @@ export function computeTypeEffectiveness(ctx: CombatContext): number {
   const e2 = types[1] ? getMoveEffectiveness(move, types[1], isGhostRevealed, field.isGravity, isRingTarget) : 1
 
   let typeEffectiveness = e1 * e2
+
+  if (move.hasType("Ground") && defender.hasItem("Air Balloon")) {
+    typeEffectiveness = 0
+  }
 
   if (typeEffectiveness === 0 && move.hasType("Ground") && defender.hasItem("Iron Ball") && !defender.hasAbility("Klutz")) {
     typeEffectiveness = 1
