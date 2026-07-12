@@ -223,7 +223,6 @@ export interface StateSide {
   isProtected?: boolean
   isSeeded?: boolean
   isSaltCured?: boolean
-  isForesight?: boolean
   isTailwind?: boolean
   isHelpingHand?: boolean
   isPowerTrick?: boolean

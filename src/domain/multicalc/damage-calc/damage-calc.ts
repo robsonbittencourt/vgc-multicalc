@@ -111,7 +111,7 @@ export class DamageCalc {
     )
   }
 
-  private prepareCalculation(attacker: Pokemon, target: Pokemon, move: Move, field: Field, rightIsDefender: boolean, secondAttacker?: Pokemon) {
+  protected prepareCalculation(attacker: Pokemon, target: Pokemon, move: Move, field: Field, rightIsDefender: boolean, secondAttacker?: Pokemon) {
     const calcField = this.fieldMapper.toCalc(field, rightIsDefender)
 
     const moveCalc = new MoveCalc(move.name)

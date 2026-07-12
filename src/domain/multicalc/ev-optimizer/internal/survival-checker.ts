@@ -5,7 +5,7 @@ import { Stats } from "@multicalc/types"
 import { SurvivalThreshold } from "@multicalc/ev-optimizer/internal/ev-optimizer-types"
 
 export class SurvivalChecker {
-  private damageCalc = new DamageCalc()
+  constructor(private damageCalc: DamageCalc = new DamageCalc()) {}
 
   checkSurvival(attacker: Pokemon, defender: Pokemon, field: Field, threshold: SurvivalThreshold, rollIndex = 15, rightIsDefender = true): boolean {
     const result = this.damageCalc.calculateResult(attacker, defender, attacker.move, field, rightIsDefender)

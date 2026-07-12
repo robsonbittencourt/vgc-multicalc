@@ -55,7 +55,7 @@ const BP_RULES: ModifierRule[] = [
       description.weather = field.weather
       return 2048
     } else if (move.named("Collision Course", "Electro Drift")) {
-      const isGhostRevealed = attacker.hasAbility("Scrappy") || attacker.hasAbility("Mind's Eye") || field.defenderSide.isForesight
+      const isGhostRevealed = attacker.hasAbility("Scrappy") || attacker.hasAbility("Mind's Eye")
       const isRingTarget = defender.hasItem("Ring Target") && !defender.hasAbility("Klutz")
       const types = defender.teraType && defender.teraType !== "Stellar" ? [defender.teraType] : defender.types
       const e1 = getMoveEffectiveness(move, types[0], isGhostRevealed, field.isGravity, isRingTarget)
