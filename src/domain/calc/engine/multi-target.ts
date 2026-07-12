@@ -7,6 +7,8 @@ import { Move } from "@calc/model/move"
 import { Pokemon } from "@calc/model/pokemon"
 
 export function calculateMultiDamage(attackers: Pokemon[], defender: Pokemon, moves: Move[], originalField: Field): MultiResult {
+  if (attackers.length === 0) return new MultiResult(defender, [], { damage: 0, texts: [] })
+
   const results: Result[] = []
   const currentDefender = defender.clone()
 
@@ -48,15 +50,11 @@ function getMaxDamage(result: Result): number {
     return damage
   }
 
-  if (Array.isArray(damage)) {
-    if (damage.length > 0 && Array.isArray(damage[0])) {
-      return (damage as number[][]).reduce((sum, rolls) => sum + rolls[15], 0)
-    }
-
-    return (damage as number[])[15]
+  if (damage.length > 0 && Array.isArray(damage[0])) {
+    return (damage as number[][]).reduce((sum, rolls) => sum + rolls[15], 0)
   }
 
-  return 0
+  return (damage as number[])[15]
 }
 
 function scaleHP(newMaxHP: number, hp: number, originalMaxHP: number): number {
