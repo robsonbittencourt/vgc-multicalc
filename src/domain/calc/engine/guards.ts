@@ -214,10 +214,16 @@ export function computeTypeEffectiveness(ctx: CombatContext): number {
 
   const types = defender.teraType && defender.teraType !== "Stellar" ? [defender.teraType] : defender.types
 
-  const e1 = getMoveEffectiveness(move, types[0], isGhostRevealed, field.isGravity, false)
-  const e2 = types[1] ? getMoveEffectiveness(move, types[1], isGhostRevealed, field.isGravity, false) : 1
+  const isRingTarget = defender.hasItem("Ring Target") && !defender.hasAbility("Klutz")
+
+  const e1 = getMoveEffectiveness(move, types[0], isGhostRevealed, field.isGravity, isRingTarget)
+  const e2 = types[1] ? getMoveEffectiveness(move, types[1], isGhostRevealed, field.isGravity, isRingTarget) : 1
 
   let typeEffectiveness = e1 * e2
+
+  if (typeEffectiveness === 0 && move.hasType("Ground") && defender.hasItem("Iron Ball") && !defender.hasAbility("Klutz")) {
+    typeEffectiveness = 1
+  }
 
   if (move.type === "Stellar") {
     typeEffectiveness = defender.teraType ? 2 : 1
