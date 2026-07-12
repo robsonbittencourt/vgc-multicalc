@@ -356,22 +356,6 @@ describe("computeMoveType", () => {
     expect(type).toBe("Normal")
   })
 
-  it("Weather Ball becomes Fire in Harsh Sunshine", () => {
-    const ctx = makeCtx("Pelipper", {}, "Garchomp", {}, "Weather Ball", {}, { weather: "Harsh Sunshine" })
-
-    const { type } = computeMoveType(ctx)
-
-    expect(type).toBe("Fire")
-  })
-
-  it("Weather Ball becomes Water in Heavy Rain", () => {
-    const ctx = makeCtx("Pelipper", {}, "Garchomp", {}, "Weather Ball", {}, { weather: "Heavy Rain" })
-
-    const { type } = computeMoveType(ctx)
-
-    expect(type).toBe("Water")
-  })
-
   it("Weather Ball becomes Rock in Sand", () => {
     const ctx = makeCtx("Pelipper", {}, "Garchomp", {}, "Weather Ball", {}, { weather: "Sand" })
 
