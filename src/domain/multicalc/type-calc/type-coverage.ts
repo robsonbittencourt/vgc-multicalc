@@ -2,12 +2,7 @@ import { getMoveData } from "@data/move-data"
 import { Pokemon } from "@multicalc/model/pokemon"
 import { Team } from "@multicalc/model/team"
 import { PokemonType, PokemonTypes } from "@multicalc/types"
-import { AbilityName, TypeEffectiveness, TypeChart } from "./type-chart"
-
-interface MoveTypeInfo {
-  type: PokemonType
-  name: string
-}
+import { AbilityName, DefenderInput, TypeEffectiveness, TypeChart } from "./type-chart"
 
 const ATE_ABILITY_TYPES: Record<string, PokemonType> = {
   Pixilate: "Fairy",
@@ -95,9 +90,9 @@ export class TypeCoverage {
 
         if (considerTeraType && pokemon.teraType && pokemon.teraType !== "Stellar") {
           const teraType = pokemon.teraType as PokemonType
-          finalEffectiveness = this.typeChart.getEffectiveness(moveType, teraType, undefined, this.getAbilityName(pokemon))
+          finalEffectiveness = this.typeChart.getEffectiveness(moveType, teraType, undefined, this.getAbilityName(pokemon), this.getDefenderInput(pokemon))
         } else {
-          finalEffectiveness = this.typeChart.getEffectiveness(moveType, type1, type2, this.getAbilityName(pokemon))
+          finalEffectiveness = this.typeChart.getEffectiveness(moveType, type1, type2, this.getAbilityName(pokemon), this.getDefenderInput(pokemon))
         }
 
         const formatted = this.typeChart.formatEffectiveness(finalEffectiveness)
@@ -139,7 +134,7 @@ export class TypeCoverage {
           const type1 = targetType
           const type2 = undefined
 
-          const effectiveness = this.typeChart.getEffectiveness(moveType.type, type1, type2, undefined, moveType.name)
+          const effectiveness = this.typeChart.getEffectiveness(moveType, type1, type2)
           effectivenessValues.push(effectiveness)
         }
 
@@ -208,9 +203,9 @@ export class TypeCoverage {
 
           if (considerTeraType && targetPokemon.teraType && targetPokemon.teraType !== "Stellar") {
             const teraType = targetPokemon.teraType as PokemonType
-            effectiveness = this.typeChart.getEffectiveness(moveType.type, teraType, undefined, this.getAbilityName(targetPokemon), moveType.name)
+            effectiveness = this.typeChart.getEffectiveness(moveType, teraType, undefined, this.getAbilityName(targetPokemon), this.getDefenderInput(targetPokemon))
           } else {
-            effectiveness = this.typeChart.getEffectiveness(moveType.type, type1, type2, this.getAbilityName(targetPokemon), moveType.name)
+            effectiveness = this.typeChart.getEffectiveness(moveType, type1, type2, this.getAbilityName(targetPokemon), this.getDefenderInput(targetPokemon))
           }
 
           effectivenessValues.push(effectiveness)
@@ -280,10 +275,10 @@ export class TypeCoverage {
         const effectivenessValues: TypeEffectiveness[] = movesWithBP.map(moveType => {
           if (considerTeraType && pokemon.teraType && pokemon.teraType !== "Stellar") {
             const teraType = pokemon.teraType as PokemonType
-            return this.typeChart.getEffectiveness(moveType.type, teraType, undefined, this.getAbilityName(pokemon), moveType.name)
+            return this.typeChart.getEffectiveness(moveType, teraType, undefined, this.getAbilityName(pokemon), this.getDefenderInput(pokemon))
           }
 
-          return this.typeChart.getEffectiveness(moveType.type, type1, type2, this.getAbilityName(pokemon), moveType.name)
+          return this.typeChart.getEffectiveness(moveType, type1, type2, this.getAbilityName(pokemon), this.getDefenderInput(pokemon))
         })
 
         if (effectivenessValues.length === 0) {
@@ -343,26 +338,17 @@ export class TypeCoverage {
     return 0
   }
 
-  private getMovesWithBP(pokemon: Pokemon): MoveTypeInfo[] {
+  private getMovesWithBP(pokemon: Pokemon): PokemonType[] {
     return this.processMoveTypes(pokemon, false)
   }
 
-  private getMoveTypes(pokemon: Pokemon, considerTeraBlast = false): MoveTypeInfo[] {
+  private getMoveTypes(pokemon: Pokemon, considerTeraBlast = false): PokemonType[] {
     const moveTypes = this.processMoveTypes(pokemon, considerTeraBlast)
-    const seen = new Set<string>()
-
-    return moveTypes.filter(moveType => {
-      const key = `${moveType.type}|${moveType.name}`
-
-      if (seen.has(key)) return false
-
-      seen.add(key)
-      return true
-    })
+    return Array.from(new Set(moveTypes))
   }
 
-  private processMoveTypes(pokemon: Pokemon, considerTeraBlast: boolean): MoveTypeInfo[] {
-    const moveTypes: MoveTypeInfo[] = []
+  private processMoveTypes(pokemon: Pokemon, considerTeraBlast: boolean): PokemonType[] {
+    const moveTypes: PokemonType[] = []
     const moves = [pokemon.moveSet.move1, pokemon.moveSet.move2, pokemon.moveSet.move3, pokemon.moveSet.move4]
     const ateType = this.getAteAbilityType(pokemon)
 
@@ -381,7 +367,7 @@ export class TypeCoverage {
 
       if (move.name === "Tera Blast") {
         if (considerTeraBlast && pokemon.teraType) {
-          moveTypes.push({ type: pokemon.teraType as PokemonType, name: move.name })
+          moveTypes.push(pokemon.teraType as PokemonType)
           continue
         }
       }
@@ -389,7 +375,7 @@ export class TypeCoverage {
       if (move.name === "Ivy Cudgel" && pokemon.name.startsWith("Ogerpon")) {
         const ivyCudgelType = this.getIvyCudgelType(pokemon.name)
         if (ivyCudgelType) {
-          moveTypes.push({ type: ivyCudgelType, name: move.name })
+          moveTypes.push(ivyCudgelType)
           continue
         }
       }
@@ -397,8 +383,7 @@ export class TypeCoverage {
       const moveDetails = getMoveData(move.name)
 
       if (moveDetails && moveDetails.type) {
-        const type = ateType && moveDetails.type === "Normal" ? ateType : (moveDetails.type as PokemonType)
-        moveTypes.push({ type, name: move.name })
+        moveTypes.push(ateType && moveDetails.type === "Normal" ? ateType : (moveDetails.type as PokemonType))
       }
     }
 
@@ -454,5 +439,12 @@ export class TypeCoverage {
 
   private getAbilityName(pokemon: Pokemon): AbilityName | undefined {
     return pokemon.ability.name as AbilityName | undefined
+  }
+
+  private getDefenderInput(pokemon: Pokemon): DefenderInput {
+    return {
+      ability: this.getAbilityName(pokemon),
+      item: pokemon.item
+    }
   }
 }
