@@ -75,7 +75,7 @@ describe("Internal Result/MultiResult/desc (gen 0)", () => {
       const secondMove = new Move("Moonblast")
       const field = new Field({ gameType: "Doubles" })
 
-      const result = calculateMultiDamage([firstAttacker, secondAttacker], defender, [firstMove, secondMove], field)
+      const result = calculateMultiDamage(firstAttacker, secondAttacker, firstMove, secondMove, defender, field)
 
       expect(result.resultString()).toBeTruthy()
       expect(result.getHKO()).toBeTruthy()
@@ -90,7 +90,7 @@ describe("Internal Result/MultiResult/desc (gen 0)", () => {
       const secondMove = new Move("Earthquake")
       const field = new Field({ gameType: "Doubles" })
 
-      const result = calculateMultiDamage([firstAttacker, secondAttacker], defender, [firstMove, secondMove], field)
+      const result = calculateMultiDamage(firstAttacker, secondAttacker, firstMove, secondMove, defender, field)
 
       expect(result.resultString()).toBeTruthy()
     })

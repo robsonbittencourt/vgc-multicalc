@@ -16,6 +16,6 @@ export function calculate(attacker: Pokemon, defender: Pokemon, move: Move, fiel
   return calculateDamage(attacker, defender, move, field)
 }
 
-export function calculateMulti(attackers: Pokemon[], defender: Pokemon, moves: Move[], field: Field): MultiResult {
-  return calculateMultiDamage(attackers, defender, moves, field)
+export function calculateMulti(attacker1: Pokemon, attacker2: Pokemon, move1: Move, move2: Move, defender: Pokemon, field: Field): MultiResult {
+  return calculateMultiDamage(attacker1, attacker2, move1, move2, defender, field)
 }

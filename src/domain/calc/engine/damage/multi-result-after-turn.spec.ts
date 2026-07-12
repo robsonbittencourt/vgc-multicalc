@@ -8,7 +8,7 @@ describe("MultiResult.afterTurn", () => {
     const a2 = new Pokemon("Sylveon", { evs: { spa: 4 }, nature: "Modest" })
     const defender = new Pokemon("Blissey", { evs: { hp: 252, spd: 252 }, nature: "Calm" })
 
-    const result = calculateMulti([a1, a2], defender, [new Move("Hyper Voice"), new Move("Hyper Voice")], field())
+    const result = calculateMulti(a1, a2, new Move("Hyper Voice"), new Move("Hyper Voice"), defender, field())
 
     const afterTurn = result.afterTurn()
 
@@ -21,7 +21,7 @@ describe("MultiResult.afterTurn", () => {
     const a2 = new Pokemon("Sylveon", { evs: { spa: 4 }, nature: "Modest" })
     const defender = new Pokemon("Blissey", { evs: { hp: 252, spd: 252 }, nature: "Calm", item: "Sitrus Berry" })
 
-    const result = calculateMulti([a1, a2], defender, [new Move("Hyper Voice"), new Move("Hyper Voice")], field())
+    const result = calculateMulti(a1, a2, new Move("Hyper Voice"), new Move("Hyper Voice"), defender, field())
 
     const afterTurn = result.afterTurn()
 
@@ -33,7 +33,7 @@ describe("MultiResult.afterTurn", () => {
     const a2 = new Pokemon("Magikarp", { evs: { atk: 0 }, nature: "Bold" })
     const defender = new Pokemon("Ferrothorn", { evs: { hp: 252, def: 252 }, nature: "Bold", item: "Occa Berry" })
 
-    const result = calculateMulti([a1, a2], defender, [new Move("Ember"), new Move("Ember")], field())
+    const result = calculateMulti(a1, a2, new Move("Ember"), new Move("Ember"), defender, field())
 
     const afterTurn = result.afterTurn()
 
@@ -45,7 +45,7 @@ describe("MultiResult.afterTurn", () => {
     const a2 = new Pokemon("Incineroar", { evs: { atk: 252 }, nature: "Adamant" })
     const defender = new Pokemon("Dondozo", { evs: { hp: 252, def: 4 } })
 
-    const result = calculateMulti([a1, a2], defender, [new Move("Wood Hammer"), new Move("Flare Blitz")], field())
+    const result = calculateMulti(a1, a2, new Move("Wood Hammer"), new Move("Flare Blitz"), defender, field())
 
     const afterTurn = result.afterTurn()
 
@@ -58,7 +58,7 @@ describe("MultiResult.afterTurn", () => {
     const a2 = new Pokemon("Sylveon", { evs: { spa: 4 }, nature: "Modest" })
     const defender = new Pokemon("Blissey", { evs: { hp: 252, spd: 252 }, nature: "Calm", curHP: 700, item: "Leftovers" })
 
-    const result = calculateMulti([a1, a2], defender, [new Move("Hyper Voice"), new Move("Hyper Voice")], field())
+    const result = calculateMulti(a1, a2, new Move("Hyper Voice"), new Move("Hyper Voice"), defender, field())
 
     const afterTurn = result.afterTurn()
 
@@ -70,7 +70,7 @@ describe("MultiResult.afterTurn", () => {
     const a2 = new Pokemon("Rillaboom", { evs: { atk: 100 }, nature: "Adamant" })
     const defender = new Pokemon("Mudsdale", { evs: { hp: 252, def: 4 }, ability: "Stamina" })
 
-    const result = calculateMulti([a1, a2], defender, [new Move("Tail Slap"), new Move("Wood Hammer")], field())
+    const result = calculateMulti(a1, a2, new Move("Tail Slap"), new Move("Wood Hammer"), defender, field())
 
     const afterTurn = result.afterTurn()
 

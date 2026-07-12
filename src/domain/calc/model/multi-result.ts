@@ -204,10 +204,6 @@ export class MultiResult {
   }
 
   description(): string {
-    if (this.results.length < 2) {
-      return this.results[0]?.description() || "No result"
-    }
-
     const resultOne = this.results[0]
     const resultTwo = this.results[1]
     const defender = resultOne.defender

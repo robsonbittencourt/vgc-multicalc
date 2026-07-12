@@ -7,12 +7,13 @@ describe("Multi Target Damage - Stamina", () => {
   const field = () => new Field({ gameType: "Doubles" })
   const garchomp = () => new Pokemon("Garchomp", { nature: "Adamant", evs: { atk: 252, spe: 252 } })
   const arcanine = () => new Pokemon("Arcanine", { nature: "Adamant", evs: { atk: 252, spe: 252 } })
-  const moves = () => [new Move("Earthquake"), new Move("Rock Slide")]
+  const move1 = () => new Move("Earthquake")
+  const move2 = () => new Move("Rock Slide")
 
   it("should raise Def by 1 after the first attacker hits a Stamina defender", () => {
     const archaludon = new Pokemon("Archaludon", { ability: "Stamina" })
 
-    const result = calculateMultiDamage([garchomp(), arcanine()], archaludon, moves(), field())
+    const result = calculateMultiDamage(garchomp(), arcanine(), move1(), move2(), archaludon, field())
 
     expect(result.results[0].damage).toEqual([114, 114, 116, 116, 120, 120, 120, 122, 122, 126, 126, 128, 128, 132, 132, 134])
     expect(result.results[1].damage).toEqual([13, 13, 13, 13, 13, 13, 14, 14, 14, 14, 14, 14, 15, 15, 15, 15])
@@ -22,7 +23,7 @@ describe("Multi Target Damage - Stamina", () => {
   it("should not add the Stamina note when the defender does not have Stamina", () => {
     const archaludon = new Pokemon("Archaludon", { ability: "Sturdy" })
 
-    const result = calculateMultiDamage([garchomp(), arcanine()], archaludon, moves(), field())
+    const result = calculateMultiDamage(garchomp(), arcanine(), move1(), move2(), archaludon, field())
 
     expect(result.description()).not.toContain("Stamina considered")
   })
@@ -30,7 +31,7 @@ describe("Multi Target Damage - Stamina", () => {
   it("should not raise Def beyond +6", () => {
     const archaludon = new Pokemon("Archaludon", { ability: "Stamina", boosts: { def: 6 } })
 
-    const result = calculateMultiDamage([garchomp(), arcanine()], archaludon, moves(), field())
+    const result = calculateMultiDamage(garchomp(), arcanine(), move1(), move2(), archaludon, field())
 
     expect(result.results[0].damage).toEqual([30, 30, 30, 30, 30, 30, 30, 32, 32, 32, 32, 32, 32, 32, 32, 36])
     expect(result.results[1].damage).toEqual([3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4])
@@ -41,8 +42,8 @@ describe("Multi Target Damage - Stamina", () => {
     const stamina = new Pokemon("Archaludon", { ability: "Stamina", evs: bulkyEvs })
     const sturdy = new Pokemon("Archaludon", { ability: "Sturdy", evs: bulkyEvs })
 
-    const withStamina = calculateMultiDamage([garchomp(), arcanine()], stamina, moves(), field())
-    const withoutStamina = calculateMultiDamage([garchomp(), arcanine()], sturdy, moves(), field())
+    const withStamina = calculateMultiDamage(garchomp(), arcanine(), move1(), move2(), stamina, field())
+    const withoutStamina = calculateMultiDamage(garchomp(), arcanine(), move1(), move2(), sturdy, field())
 
     expect(withStamina.getHKO()).toEqual("70.8% chance to 3HKO")
     expect(withoutStamina.getHKO()).toEqual("guaranteed 2HKO")
@@ -52,23 +53,11 @@ describe("Multi Target Damage - Stamina", () => {
     const bulkyEvs = { hp: 252, def: 252, spd: 4 }
     const stamina = new Pokemon("Archaludon", { ability: "Stamina", evs: bulkyEvs })
 
-    const result = calculateMultiDamage([garchomp(), arcanine()], stamina, moves(), field())
+    const result = calculateMultiDamage(garchomp(), arcanine(), move1(), move2(), stamina, field())
 
     const cumulative = [1, 2, 3, 4].map(turn => result.damageWithRemainingUntilTurn(turn, 15))
 
     expect(cumulative).toEqual([118, 179, 197, 197])
-  })
-})
-
-describe("Multi Target Damage - Empty attackers", () => {
-  it("should return an empty MultiResult without throwing when called with empty attackers and moves arrays", () => {
-    const field = new Field({ gameType: "Doubles" })
-    const tornadus = new Pokemon("Tornadus")
-
-    const result = calculateMultiDamage([], tornadus, [], field)
-
-    expect(result.results).toEqual([])
-    expect(result.description()).toEqual("No result")
   })
 })
 
@@ -78,9 +67,8 @@ describe("Multi Target Damage - Multi-hit move", () => {
     const cloyster = new Pokemon("Cloyster", { nature: "Adamant", evs: { atk: 252 } })
     const garchomp = new Pokemon("Garchomp", { nature: "Adamant", evs: { atk: 252 } })
     const archaludon = new Pokemon("Archaludon", { ability: "Stamina" })
-    const moves = [new Move("Icicle Spear", { hits: 2 }), new Move("Rock Slide")]
 
-    const result = calculateMultiDamage([cloyster, garchomp], archaludon, moves, field)
+    const result = calculateMultiDamage(cloyster, garchomp, new Move("Icicle Spear", { hits: 2 }), new Move("Rock Slide"), archaludon, field)
 
     expect(result.results[0].damage).toEqual([
       [16, 16, 16, 16, 16, 16, 16, 16, 18, 18, 18, 18, 18, 18, 18, 19],
@@ -96,9 +84,8 @@ describe("Multi Target Damage - Immunity", () => {
     const garchomp = new Pokemon("Garchomp", { nature: "Adamant", evs: { atk: 252 } })
     const landorus = new Pokemon("Landorus-Therian", { nature: "Adamant", evs: { atk: 252 } })
     const tornadus = new Pokemon("Tornadus")
-    const moves = [new Move("Earthquake"), new Move("Earthquake")]
 
-    const result = calculateMultiDamage([garchomp, landorus], tornadus, moves, field)
+    const result = calculateMultiDamage(garchomp, landorus, new Move("Earthquake"), new Move("Earthquake"), tornadus, field)
 
     expect(result.results[0].damage).toEqual(0)
     expect(result.results[1].damage).toEqual(0)

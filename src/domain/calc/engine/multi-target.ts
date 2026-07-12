@@ -6,18 +6,16 @@ import { Field } from "@calc/model/field"
 import { Move } from "@calc/model/move"
 import { Pokemon } from "@calc/model/pokemon"
 
-export function calculateMultiDamage(attackers: Pokemon[], defender: Pokemon, moves: Move[], originalField: Field): MultiResult {
-  if (attackers.length === 0) return new MultiResult(defender, [], { damage: 0, texts: [] })
-
+export function calculateMultiDamage(attacker1: Pokemon, attacker2: Pokemon, move1: Move, move2: Move, defender: Pokemon, originalField: Field): MultiResult {
   const results: Result[] = []
   const currentDefender = defender.clone()
 
   let berryConsumed = false
 
-  for (let i = 0; i < attackers.length; i++) {
-    const attacker = attackers[i]
-    const move = moves[i]
-
+  for (const [attacker, move] of [
+    [attacker1, move1],
+    [attacker2, move2]
+  ] as [Pokemon, Move][]) {
     const result = calculateDamage(attacker, currentDefender, move, originalField)
     results.push(result)
 
@@ -38,7 +36,7 @@ export function calculateMultiDamage(attackers: Pokemon[], defender: Pokemon, mo
     }
   }
 
-  const finalEot = getEndOfTurn(attackers[0], defender, moves[0], originalField)
+  const finalEot = getEndOfTurn(attacker1, defender, move1, originalField)
 
   return new MultiResult(defender, results, finalEot)
 }

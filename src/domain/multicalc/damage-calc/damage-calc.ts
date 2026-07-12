@@ -85,7 +85,7 @@ export class DamageCalc {
     const prepOne = this.prepareCalculation(firstAttacker, target, firstAttacker.move, field, rightIsDefender, secondAttackerOrdered)
     const prepTwo = this.prepareCalculation(secondAttackerOrdered, target, secondAttackerOrdered.move, field, rightIsDefender, firstAttacker)
 
-    const multiResult = calculateMulti([prepOne.calcAttacker, prepTwo.calcAttacker], prepOne.calcTarget, [prepOne.moveCalc, prepTwo.moveCalc], prepOne.calcField)
+    const multiResult = calculateMulti(prepOne.calcAttacker, prepTwo.calcAttacker, prepOne.moveCalc, prepTwo.moveCalc, prepOne.calcTarget, prepOne.calcField)
 
     const firstResult = multiResult.results[0]
     const secondResult = multiResult.results[1]
@@ -142,7 +142,7 @@ export class DamageCalc {
     const prepOne = this.prepareCalculation(firstAttacker, target, firstAttacker.move, field, rightIsDefender, secondAttackerOrdered)
     const prepTwo = this.prepareCalculation(secondAttackerOrdered, target, secondAttackerOrdered.move, field, rightIsDefender, firstAttacker)
 
-    const multiResult = calculateMulti([prepOne.calcAttacker, prepTwo.calcAttacker], prepOne.calcTarget, [prepOne.moveCalc, prepTwo.moveCalc], prepOne.calcField)
+    const multiResult = calculateMulti(prepOne.calcAttacker, prepTwo.calcAttacker, prepOne.moveCalc, prepTwo.moveCalc, prepOne.calcTarget, prepOne.calcField)
 
     return multiResult
   }
