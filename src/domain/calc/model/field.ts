@@ -16,6 +16,8 @@ export class Side {
   isAuroraVeil: boolean
   isBattery: boolean
   isPowerSpot: boolean
+  isFlowerGift: boolean
+  isSteelySpirit: boolean
   isSwitching?: "out" | "in"
 
   constructor(side: StateSide = {}) {
@@ -34,6 +36,8 @@ export class Side {
     this.isAuroraVeil = !!side.isAuroraVeil
     this.isBattery = !!side.isBattery
     this.isPowerSpot = !!side.isPowerSpot
+    this.isFlowerGift = !!side.isFlowerGift
+    this.isSteelySpirit = !!side.isSteelySpirit
     this.isSwitching = side.isSwitching
   }
 
