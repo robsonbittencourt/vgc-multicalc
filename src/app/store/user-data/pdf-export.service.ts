@@ -1,9 +1,6 @@
 import { inject, Injectable } from "@angular/core"
-import { NoopScrollStrategy } from "@angular/cdk/overlay"
-import { MatDialog } from "@angular/material/dialog"
 import { MegaStoneService } from "@features/pokemon-build/utils/mega-stone.service"
-import { TeamListModalComponent, TeamListPlayerInfo } from "@features/modals/team-list-modal/team-list-modal.component"
-import { CalcStore } from "@store/calc-store"
+import { TeamListPlayerInfo } from "@features/modals/team-list-modal/team-list-modal.component"
 import { Ability, Team, Pokemon } from "@multicalc/model"
 
 interface PokemonPrintData {
@@ -208,25 +205,8 @@ const PAGE2_POKEMON: PokemonFieldsPage2[] = [
 })
 export class PdfExportService {
   private megaStoneService = inject(MegaStoneService)
-  private dialog = inject(MatDialog)
-  private store = inject(CalcStore)
 
-  export(team: Team) {
-    const ref = this.dialog.open(TeamListModalComponent, {
-      data: { teamName: team.name },
-      width: "40em",
-      position: { top: "2em" },
-      autoFocus: false,
-      scrollStrategy: new NoopScrollStrategy()
-    })
-
-    ref.afterClosed().subscribe((playerInfo: TeamListPlayerInfo | undefined) => {
-      if (!playerInfo) return
-      this.generatePdf(team, playerInfo)
-    })
-  }
-
-  private async generatePdf(team: Team, playerInfo: TeamListPlayerInfo) {
+  async generatePdf(team: Team, playerInfo: TeamListPlayerInfo) {
     const { PDFDocument, rgb, StandardFonts } = await import("pdf-lib")
 
     const templateBytes = await fetch("assets/play-pokemon-vg-team-list.pdf").then(r => r.arrayBuffer())

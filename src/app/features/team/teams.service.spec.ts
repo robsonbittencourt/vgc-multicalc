@@ -1,11 +1,14 @@
 import { provideZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
+import { MatDialog } from "@angular/material/dialog"
 import { TeamsService } from "@app/features/team/teams.service"
 import { CalcStore } from "@store/calc-store"
 import { SnackbarService } from "@app/services/snackbar.service"
 import { ExportPokeService } from "@store/user-data/export-poke.service"
 import { PdfExportService } from "@store/user-data/pdf-export.service"
+import { TeamListPlayerInfo } from "@features/modals/team-list-modal/team-list-modal.component"
 import { Team, TeamMember, Pokemon } from "@multicalc/model"
+import { MockOf } from "@app/test-utils"
 
 describe("TeamsService", () => {
   let service: TeamsService
@@ -13,11 +16,34 @@ describe("TeamsService", () => {
   let snackBar: SnackbarService
   let exportPokeService: ExportPokeService
   let pdfExportService: PdfExportService
+  let dialogSpy: MockOf<MatDialog>
+  let afterClosedValue: TeamListPlayerInfo | undefined
+
+  const basePlayerInfo: TeamListPlayerInfo = {
+    playerName: "Ash Ketchum",
+    ageDivision: "Masters",
+    pageSelection: "Both",
+    trainerName: "Ash",
+    playerId: "1234-5678-9012",
+    battleTeamName: "Battle Team",
+    dateOfBirth: "05/20/1997",
+    datePartOrder: "mdy",
+    switchProfileName: "AshSwitch",
+    supportId: "AAAA-BBBB"
+  }
 
   beforeEach(() => {
     localStorage.clear()
+
+    afterClosedValue = basePlayerInfo
+    dialogSpy = {
+      open: vi.fn().mockReturnValue({
+        afterClosed: () => ({ subscribe: (cb: (info: TeamListPlayerInfo | undefined) => void) => cb(afterClosedValue) })
+      })
+    } as unknown as MockOf<MatDialog>
+
     TestBed.configureTestingModule({
-      providers: [TeamsService, CalcStore, provideZonelessChangeDetection()]
+      providers: [TeamsService, CalcStore, { provide: MatDialog, useValue: dialogSpy }, provideZonelessChangeDetection()]
     })
 
     service = TestBed.inject(TeamsService)
@@ -28,7 +54,7 @@ describe("TeamsService", () => {
 
     vi.spyOn(snackBar, "open").mockImplementation(vi.fn())
     vi.spyOn(exportPokeService, "export").mockResolvedValue(undefined)
-    vi.spyOn(pdfExportService, "export").mockImplementation(vi.fn())
+    vi.spyOn(pdfExportService, "generatePdf").mockImplementation(vi.fn())
   })
 
   describe("activateTeam", () => {
@@ -95,12 +121,29 @@ describe("TeamsService", () => {
   })
 
   describe("exportPdf", () => {
-    it("should delegate to the pdf export service", () => {
+    it("should open the team list dialog with the team name", () => {
       const team = store.team()
 
       service.exportPdf(team)
 
-      expect(pdfExportService.export).toHaveBeenCalledWith(team)
+      expect(dialogSpy.open).toHaveBeenCalledWith(expect.anything(), expect.objectContaining({ data: { teamName: team.name } }))
+    })
+
+    it("should generate the pdf with the player info returned by the dialog", () => {
+      const team = store.team()
+
+      service.exportPdf(team)
+
+      expect(pdfExportService.generatePdf).toHaveBeenCalledWith(team, basePlayerInfo)
+    })
+
+    it("should not generate a pdf when the dialog is closed without player info", () => {
+      afterClosedValue = undefined
+      const team = store.team()
+
+      service.exportPdf(team)
+
+      expect(pdfExportService.generatePdf).not.toHaveBeenCalled()
     })
   })
 

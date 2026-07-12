@@ -8,8 +8,8 @@ export function computeMultiHitDamage(ctx: HitContext, firstHitDamage: number[],
   const origDefBoost = description.defenseBoost
   const origAtkBoost = description.attackBoost
 
-  const overTurns = move.timesUsed! > 1
-  const numAttacks = overTurns ? move.timesUsed! : move.hits
+  const overTurns = move.timesUsed > 1
+  const numAttacks = overTurns ? move.timesUsed : move.hits
   if (overTurns) description.moveTurns = `over ${move.timesUsed} turns`
 
   let usedItems = [false, false]

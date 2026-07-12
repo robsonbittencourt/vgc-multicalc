@@ -230,14 +230,9 @@ export class MultiResult {
       const defenderNameAndDamage = this.updateDefenderDamageText(defenderNameAndDamageWithNote, totalMin, totalMax, minPercent, maxPercent)
 
       const koChanceText = this.getHKO()
+      const baseText = defenderNameAndDamage.includes(" -- ") ? defenderNameAndDamage.substring(0, defenderNameAndDamage.indexOf(" -- ")) : defenderNameAndDamage
 
-      if (koChanceText) {
-        const baseText = defenderNameAndDamage.includes(" -- ") ? defenderNameAndDamage.substring(0, defenderNameAndDamage.indexOf(" -- ")) : defenderNameAndDamage
-
-        return `${attackerDescription} AND ${secondAttackerDescritption}` + ` vs. ${defenderBulk} ${tera}${baseText} -- ${koChanceText}`
-      }
-
-      return `${attackerDescription} AND ${secondAttackerDescritption}` + ` vs. ${defenderBulk} ${tera}${defenderNameAndDamage}${staminaText}`
+      return `${attackerDescription} AND ${secondAttackerDescritption}` + ` vs. ${defenderBulk} ${tera}${baseText} -- ${koChanceText}`
     } catch (e) {
       return `${resultOne.attacker.name} ${resultOne.move.name}` + ` AND ${resultTwo.attacker.name} ${resultTwo.move.name}` + ` vs. ${resultOne.defender.name}: 0-0 (0 - 0%) -- possibly the worst move ever`
     }
@@ -331,21 +326,9 @@ export class MultiResult {
   }
 
   private updateDefenderDamageText(text: string, totalMin: number, totalMax: number, minPercent: number, maxPercent: number): string {
-    const lastColonIndex = text.lastIndexOf(":")
+    const prefix = text.substring(0, text.lastIndexOf(":"))
 
-    if (lastColonIndex !== -1) {
-      const prefix = text.substring(0, lastColonIndex)
-
-      return `${prefix}: ${totalMin}-${totalMax} (${minPercent} - ${maxPercent}%)`
-    }
-
-    const regex = /: \d+-\d+ \(\d+(\.\d+)? - \d+(\.\d+)?%\)/
-
-    if (regex.test(text)) {
-      return text.replace(regex, `: ${totalMin}-${totalMax} (${minPercent} - ${maxPercent}%)`)
-    }
-
-    return text
+    return `${prefix}: ${totalMin}-${totalMax} (${minPercent} - ${maxPercent}%)`
   }
 
   private hasStaminaDefender(): boolean {

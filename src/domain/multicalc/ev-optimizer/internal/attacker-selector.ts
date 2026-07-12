@@ -28,8 +28,10 @@ type NatureScenario = {
 }
 
 export class AttackerSelector {
-  private survivalChecker = new SurvivalChecker()
-  private damageCalc = new DamageCalc()
+  constructor(
+    private survivalChecker: SurvivalChecker = new SurvivalChecker(),
+    private damageCalc: DamageCalc = new DamageCalc()
+  ) {}
 
   getPhysicalAttackers(attackers: Pokemon[]): Pokemon[] {
     return this.getAttackersByCategory(attackers, "Physical")
@@ -188,29 +190,6 @@ export class AttackerSelector {
       defNature: hasMorePhysicalMoves ? "Impish" : "Bold",
       spdNature: hasMorePhysicalMoves ? "Careful" : "Calm"
     }
-  }
-
-  findSecondStrongestAttacker(attackers: Pokemon[], strongestAttacker: Pokemon | null, defender: Pokemon, field: Field, isPhysical: boolean, rollIndex = 15, rightIsDefender = true): Pokemon | null {
-    if (!strongestAttacker || attackers.length <= 1) {
-      return null
-    }
-
-    const defenderWithMax = defender.clone({ evs: { hp: 252, def: isPhysical ? 252 : 0, spd: isPhysical ? 0 : 252 } })
-    let secondStrongestAttacker: Pokemon | null = null
-    let secondMaxDamage = 0
-
-    for (const attacker of attackers) {
-      if (attacker === strongestAttacker) continue
-
-      const damage = this.damageCalc.calculateResult(attacker, defenderWithMax, attacker.move, field, rightIsDefender).damageWithRemainingUntilTurn(1, rollIndex)
-
-      if (damage < defenderWithMax.hp && damage > secondMaxDamage) {
-        secondMaxDamage = damage
-        secondStrongestAttacker = attacker
-      }
-    }
-
-    return secondStrongestAttacker
   }
 
   findAllAttackersOrderedByStrength(attackers: Pokemon[], strongestAttacker: Pokemon | null, defender: Pokemon, field: Field, isPhysical: boolean, rollIndex = 15, rightIsDefender = true): Pokemon[] {

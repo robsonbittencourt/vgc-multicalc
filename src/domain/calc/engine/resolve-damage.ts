@@ -16,7 +16,7 @@ export function resolveDamage(hitCtx: HitContext, hasAteAbilityTypeChange: boole
 
   let resolved: number | number[] | number[][] = childDamage ? [damage, childDamage] : damage
 
-  if ((move.timesUsed ?? 0) > 1 || move.hits > 1) {
+  if (move.timesUsed > 1 || move.hits > 1) {
     resolved = computeMultiHitDamage(hitCtx, damage, stabMod, hasAteAbilityTypeChange)
   }
 

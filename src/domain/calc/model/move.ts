@@ -17,7 +17,7 @@ export class Move {
   pokemonName?: PokemonName
   overrides?: Partial<MoveData>
   hits: number
-  timesUsed?: number
+  timesUsed: number
   timesUsedWithMetronome?: number
   bp: number
   type: TypeName

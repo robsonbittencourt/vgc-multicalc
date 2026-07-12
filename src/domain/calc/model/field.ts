@@ -8,7 +8,6 @@ export class Side {
   isProtected: boolean
   isSeeded: boolean
   isSaltCured: boolean
-  isForesight: boolean
   isTailwind: boolean
   isHelpingHand: boolean
   isPowerTrick: boolean
@@ -28,7 +27,6 @@ export class Side {
     this.isProtected = !!side.isProtected
     this.isSeeded = !!side.isSeeded
     this.isSaltCured = !!side.isSaltCured
-    this.isForesight = !!side.isForesight
     this.isTailwind = !!side.isTailwind
     this.isHelpingHand = !!side.isHelpingHand
     this.isPowerTrick = !!side.isPowerTrick
@@ -53,14 +51,14 @@ export class Field {
   isMagicRoom: boolean
   isWonderRoom: boolean
   isGravity: boolean
-  isAuraBreak?: boolean
-  isFairyAura?: boolean
-  isDarkAura?: boolean
-  isBeadsOfRuin?: boolean
-  isSwordOfRuin?: boolean
-  isTabletsOfRuin?: boolean
-  isVesselOfRuin?: boolean
-  isUnnerve?: boolean
+  isAuraBreak: boolean
+  isFairyAura: boolean
+  isDarkAura: boolean
+  isBeadsOfRuin: boolean
+  isSwordOfRuin: boolean
+  isTabletsOfRuin: boolean
+  isVesselOfRuin: boolean
+  isUnnerve: boolean
   attackerSide: Side
   defenderSide: Side
 

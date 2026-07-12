@@ -23,7 +23,7 @@ export class Pokemon {
   level: number
   gender?: Gender
   ability?: AbilityName
-  abilityOn?: boolean
+  abilityOn: boolean
   alliesFainted?: number
   boostedStat?: StatIDExceptHP | "auto"
   item?: ItemName

@@ -6,8 +6,10 @@ import { SurvivalThreshold } from "@multicalc/ev-optimizer/internal/ev-optimizer
 import { SurvivalChecker } from "./survival-checker"
 
 export class RefinementStage {
-  private damageCalc = new DamageCalc()
-  private survivalChecker = new SurvivalChecker()
+  constructor(
+    private survivalChecker: SurvivalChecker = new SurvivalChecker(),
+    private damageCalc: DamageCalc = new DamageCalc()
+  ) {}
 
   refineForSingleAttacker(solution: Stats, defender: Pokemon, attacker: Pokemon, field: Field, threshold: SurvivalThreshold, rollIndex = 15, rightIsDefender = true): Stats | null {
     const koChanceText = this.damageCalc.koChanceForOneAttacker(attacker, defender, field, rightIsDefender)
@@ -18,25 +20,10 @@ export class RefinementStage {
     }
 
     const tempDefender = defender.clone({ evs: solution })
-    const survives = this.survivalChecker.checkSurvival(attacker, tempDefender, field, threshold, rollIndex, rightIsDefender)
 
-    if (survives) {
-      const reducedSolution = this.reduceEvs(solution, tempDefender, field, threshold, attacker, null, rollIndex, null, null, rightIsDefender)
-      return this.prioritizeHp(reducedSolution, tempDefender, field, threshold, attacker, null, rollIndex, null, null, rightIsDefender)
-    }
+    const reducedSolution = this.reduceEvs(solution, tempDefender, field, threshold, attacker, null, rollIndex, null, null, rightIsDefender)
 
-    if (!survives && /after .+ damage/i.test(koChanceText)) {
-      const increasedSolution = this.increaseEvs(solution, tempDefender, field, threshold, attacker, null, rollIndex, null, null, rightIsDefender)
-
-      if (increasedSolution) {
-        const reducedSolution = this.reduceEvs(increasedSolution, tempDefender, field, threshold, attacker, null, rollIndex, null, null, rightIsDefender)
-        return this.prioritizeHp(reducedSolution, tempDefender, field, threshold, attacker, null, rollIndex, null, null, rightIsDefender)
-      }
-
-      return null
-    }
-
-    return this.prioritizeHp(solution, tempDefender, field, threshold, attacker, null, rollIndex, null, null, rightIsDefender)
+    return this.prioritizeHp(reducedSolution, tempDefender, field, threshold, attacker, null, rollIndex, null, null, rightIsDefender)
   }
 
   refineForDoubleAttackers(
@@ -66,22 +53,16 @@ export class RefinementStage {
       return this.prioritizeHp(reducedSolution, tempDefender, field, threshold, attacker1, attacker2, rollIndex, physicalStrongest, specialStrongest, rightIsDefender)
     }
 
-    if (!survives && /after .+ damage/i.test(koChanceText)) {
+    if (/after .+ damage/i.test(koChanceText)) {
       const increasedSolution = this.increaseEvs(solution, tempDefender, field, threshold, attacker1, attacker2, rollIndex, physicalStrongest, specialStrongest, rightIsDefender)
 
       if (increasedSolution) {
         const reducedSolution = this.reduceEvs(increasedSolution, tempDefender, field, threshold, attacker1, attacker2, rollIndex, physicalStrongest, specialStrongest, rightIsDefender)
         return this.prioritizeHp(reducedSolution, tempDefender, field, threshold, attacker1, attacker2, rollIndex, physicalStrongest, specialStrongest, rightIsDefender)
       }
-
-      return null
     }
 
-    if (!survives) {
-      return null
-    }
-
-    return this.prioritizeHp(solution, tempDefender, field, threshold, attacker1, attacker2, rollIndex, physicalStrongest, specialStrongest, rightIsDefender)
+    return null
   }
 
   private needsRefinement(koChanceText: string, threshold: SurvivalThreshold): boolean {

@@ -1037,6 +1037,126 @@ describe("DefensiveEvOptimizer", () => {
       })
     })
 
+    describe("budget conflict degradation via optimize", () => {
+      const ivCB180 = () => new Pokemon("Iron Valiant", { nature: "Adamant", item: "Choice Band", moveSet: new MoveSet(new Move("Close Combat"), new Move(""), new Move(""), new Move("")), evs: { atk: 180 } })
+      const fmTera60 = () => new Pokemon("Flutter Mane", { nature: "Modest", item: "Choice Specs", teraType: "Fairy", teraTypeActive: true, moveSet: new MoveSet(new Move("Moonblast"), new Move(""), new Move(""), new Move("")), evs: { spa: 60 } })
+
+      it("should protect the physical side when both categories cannot fit the EV budget", () => {
+        const result = service.optimize(new Pokemon("Ting-Lu"), [new Target(ivCB180()), new Target(fmTera60())], new Field())
+
+        expect(result.status).toBe("success")
+        expect(result.evs).toEqual({ hp: 244, atk: 0, def: 236, spa: 0, spd: 0, spe: 0 })
+      })
+
+      it("should prioritize the special side when its partial solution carries more hp", () => {
+        const ivLO = new Pokemon("Iron Valiant", { nature: "Adamant", item: "Life Orb", moveSet: new MoveSet(new Move("Close Combat"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
+
+        const result = service.optimize(new Pokemon("Ting-Lu"), [new Target(ivLO), new Target(fmTera60())], new Field())
+
+        expect(result.status).toBe("success")
+        expect(result.evs).toEqual({ hp: 60, atk: 0, def: 252, spa: 0, spd: 0, spe: 0 })
+      })
+
+      it("should fall back to the second strongest special attacker when the strongest cannot fit", () => {
+        const ragingBolt = new Pokemon("Raging Bolt", { nature: "Modest", moveSet: new MoveSet(new Move("Thunderbolt"), new Move(""), new Move(""), new Move("")), evs: { spa: 252 } })
+
+        const result = service.optimize(new Pokemon("Ting-Lu"), [new Target(ivCB180()), new Target(fmTera60()), new Target(ragingBolt)], new Field())
+
+        expect(result.status).toBe("success")
+        expect(result.evs).toEqual({ hp: 244, atk: 0, def: 236, spa: 0, spd: 0, spe: 0 })
+      })
+
+      it("should combine a double target with conflicting singles", () => {
+        const chiYu = new Pokemon("Chi-Yu", { nature: "Modest", item: "Choice Specs", moveSet: new MoveSet(new Move("Overheat"), new Move(""), new Move(""), new Move("")), evs: { spa: 252 } })
+        const moltresGalar = new Pokemon("Moltres-Galar", { nature: "Modest", item: "Choice Specs", moveSet: new MoveSet(new Move("Fiery Wrath"), new Move(""), new Move(""), new Move("")), evs: { spa: 252 } })
+
+        const result = service.optimize(new Pokemon("Ting-Lu"), [new Target(ivCB180()), new Target(fmTera60()), new Target(chiYu, moltresGalar)], new Field())
+
+        expect(result.status).toBe("success")
+        expect(result.evs).toEqual({ hp: 252, atk: 0, def: 0, spa: 0, spd: 188, spe: 0 })
+      })
+    })
+
+    describe("refinement with residual burn damage on a double target via optimize", () => {
+      it("should increase then rebalance EVs when the combined spread does not survive a burned defender", () => {
+        const ironValiant = new Pokemon("Iron Valiant", { nature: "Adamant", moveSet: new MoveSet(new Move("Close Combat"), new Move(""), new Move(""), new Move("")), evs: { atk: 0 } })
+        const flutterMane = new Pokemon("Flutter Mane", { nature: "Modest", moveSet: new MoveSet(new Move("Moonblast"), new Move(""), new Move(""), new Move("")), evs: { spa: 0 } })
+        const garchomp = new Pokemon("Garchomp", { nature: "Adamant", moveSet: new MoveSet(new Move("Earthquake"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
+        const volcarona = new Pokemon("Volcarona", { nature: "Modest", moveSet: new MoveSet(new Move("Fiery Dance"), new Move(""), new Move(""), new Move("")), evs: { spa: 252 } })
+        const defender = new Pokemon("Incineroar", { status: Status.BURN })
+
+        const result = service.optimize(defender, [new Target(ironValiant), new Target(flutterMane), new Target(garchomp, volcarona)], new Field(), false, false, 2)
+
+        expect(result.status).toBe("success")
+        expect(result.evs).toEqual({ hp: 252, atk: 0, def: 252, spa: 0, spd: 12, spe: 0 })
+      })
+    })
+
+    describe("refinement with residual recovery via optimize", () => {
+      it("should trim and rebalance the spread when the KO chance involves Leftovers recovery", () => {
+        const ursaluna = new Pokemon("Ursaluna", { nature: "Adamant", item: "Choice Band", moveSet: new MoveSet(new Move("Headlong Rush"), new Move(""), new Move(""), new Move("")), evs: { atk: 124 } })
+        const flutterMane = new Pokemon("Flutter Mane", { nature: "Modest", moveSet: new MoveSet(new Move("Moonblast"), new Move(""), new Move(""), new Move("")), evs: { spa: 0 } })
+        const defender = new Pokemon("Ting-Lu", { item: "Leftovers" })
+
+        const result = service.optimize(defender, [new Target(ursaluna), new Target(flutterMane)], new Field(), false, false, 3)
+
+        expect(result.status).toBe("success")
+        expect(result.evs).toEqual({ hp: 172, atk: 0, def: 228, spa: 0, spd: 0, spe: 0 })
+      })
+    })
+
+    describe("impossible single attacker with survivable double target via optimize", () => {
+      it("should return no-solution when an unsurvivable single attacker is combined with a weak double target", () => {
+        const ursaluna = new Pokemon("Ursaluna", { nature: "Adamant", item: "Choice Band", moveSet: new MoveSet(new Move("Headlong Rush"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
+        const chiYu = new Pokemon("Chi-Yu", { nature: "Modest", moveSet: new MoveSet(new Move("Dark Pulse"), new Move(""), new Move(""), new Move("")), evs: { spa: 252 } })
+        const moltresGalar = new Pokemon("Moltres-Galar", { nature: "Modest", moveSet: new MoveSet(new Move("Fiery Wrath"), new Move(""), new Move(""), new Move("")), evs: { spa: 252 } })
+        const defender = new Pokemon("Ting-Lu", { status: Status.BURN })
+
+        const result = service.optimize(defender, [new Target(ursaluna), new Target(chiYu, moltresGalar)], new Field(), false, false, 3)
+
+        expect(result.status).toBe("no-solution")
+        expect(result.evs).toBeNull()
+      })
+    })
+
+    describe("immune attackers via optimize", () => {
+      it("should return not-needed when the only attacker deals no damage", () => {
+        const landorus = new Pokemon("Landorus-Therian", { nature: "Adamant", item: "Choice Band", moveSet: new MoveSet(new Move("Earthquake"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
+        const defender = new Pokemon("Rotom-Wash", { ability: new Ability("Levitate") })
+
+        const result = service.optimize(defender, [new Target(landorus)], new Field())
+
+        expect(result.status).toBe("not-needed")
+        expect(result.evs).toEqual({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
+      })
+
+      it("should ignore an immune attacker and optimize for the remaining ones", () => {
+        const landorus = new Pokemon("Landorus-Therian", { nature: "Adamant", item: "Choice Band", moveSet: new MoveSet(new Move("Earthquake"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
+        const urshifu = new Pokemon("Urshifu-Rapid-Strike", { nature: "Adamant", moveSet: new MoveSet(new Move("Surging Strikes"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
+        const defender = new Pokemon("Rotom-Wash", { ability: new Ability("Levitate") })
+
+        const result = service.optimize(defender, [new Target(landorus), new Target(urshifu)], new Field())
+
+        expect(result.status).toBe("not-needed")
+        expect(result.evs).toEqual({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
+      })
+    })
+
+    describe("field side orientation via optimize", () => {
+      it("should swap field sides when rightIsDefender is false", () => {
+        const groudon = () => new Pokemon("Groudon", { nature: "Adamant", moveSet: new MoveSet(new Move("Precipice Blades"), new Move(""), new Move(""), new Move("")), evs: { atk: 252, spe: 252 } })
+        const field = () => new Field({ attackerSide: new FieldSide({ isReflect: true }) })
+
+        const resultRight = service.optimize(new Pokemon("Flutter Mane"), [new Target(groudon())], field(), false, false, 2, 15, true)
+        const resultLeft = service.optimize(new Pokemon("Flutter Mane"), [new Target(groudon())], field(), false, false, 2, 15, false)
+
+        expect(resultRight.status).toBe("success")
+        expect(resultRight.evs).toEqual({ hp: 4, atk: 0, def: 212, spa: 0, spd: 0, spe: 0 })
+        expect(resultLeft.status).toBe("not-needed")
+        expect(resultLeft.evs).toEqual({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
+      })
+    })
+
     describe("constraints", () => {
       it("should return null when optimized EVs exceed budget with keepOffensiveEvs", () => {
         const defender = new Pokemon("Urshifu-Rapid-Strike", {
@@ -1655,6 +1775,140 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.status).toBe("no-solution")
         expect(result.evs).toBeNull()
       })
+
+      it("should keep the SpD that protects the strongest special attacker when refining a combined fallback solution", () => {
+        const defender = new Pokemon("Ting-Lu", { item: "Sitrus Berry", moveSet: new MoveSet(new Move("Earthquake"), new Move(""), new Move(""), new Move("")) })
+        const ursaluna = new Pokemon("Ursaluna", { nature: "Adamant", item: "Choice Band", moveSet: new MoveSet(new Move("Headlong Rush"), new Move(""), new Move(""), new Move("")), evs: { atk: 84 } })
+        const rillaboom = new Pokemon("Rillaboom", { nature: "Adamant", moveSet: new MoveSet(new Move("Wood Hammer"), new Move(""), new Move(""), new Move("")), evs: { atk: 124 } })
+        const chiYu = new Pokemon("Chi-Yu", { nature: "Modest", moveSet: new MoveSet(new Move("Overheat"), new Move(""), new Move(""), new Move("")), evs: { spa: 164 } })
+        const targets = [new Target(ursaluna), new Target(rillaboom), new Target(chiYu)]
+        const field = new Field()
+
+        const result = service.optimize(defender, targets, field, false, false, 3)
+
+        expect(result.status).toBe("success")
+        expect(result.evs).toEqual({ hp: 20, atk: 0, def: 84, spa: 0, spd: 124, spe: 0 })
+      })
+
+      it("should combine the strongest special solution with the physical defense when the special side is prioritized", () => {
+        const defender = new Pokemon("Ting-Lu", { item: "Sitrus Berry", moveSet: new MoveSet(new Move("Earthquake"), new Move(""), new Move(""), new Move("")) })
+        const ursaluna = new Pokemon("Ursaluna", { nature: "Adamant", item: "Choice Band", moveSet: new MoveSet(new Move("Headlong Rush"), new Move(""), new Move(""), new Move("")), evs: { atk: 184 } })
+        const chiYu = new Pokemon("Chi-Yu", { nature: "Modest", item: "Life Orb", moveSet: new MoveSet(new Move("Overheat"), new Move(""), new Move(""), new Move("")), evs: { spa: 124 } })
+        const ironBundle = new Pokemon("Iron Bundle", { nature: "Modest", moveSet: new MoveSet(new Move("Hydro Pump"), new Move(""), new Move(""), new Move("")), evs: { spa: 220 } })
+        const targets = [new Target(ursaluna), new Target(chiYu), new Target(ironBundle)]
+        const field = new Field()
+
+        const result = service.optimize(defender, targets, field, false, false, 3)
+
+        expect(result.status).toBe("success")
+        expect(result.evs).toEqual({ hp: 236, atk: 0, def: 28, spa: 0, spd: 236, spe: 0 })
+      })
+
+      it("should keep a valid spread when the combined single solutions cannot absorb the double target", () => {
+        const defender = new Pokemon("Ting-Lu", { item: "Sitrus Berry", moveSet: new MoveSet(new Move("Earthquake"), new Move(""), new Move(""), new Move("")) })
+        const ursaluna = new Pokemon("Ursaluna", { nature: "Adamant", item: "Choice Band", moveSet: new MoveSet(new Move("Headlong Rush"), new Move(""), new Move(""), new Move("")), evs: { atk: 184 } })
+        const chiYu = new Pokemon("Chi-Yu", { nature: "Modest", item: "Life Orb", moveSet: new MoveSet(new Move("Overheat"), new Move(""), new Move(""), new Move("")), evs: { spa: 124 } })
+        const ironBundle = new Pokemon("Iron Bundle", { nature: "Modest", moveSet: new MoveSet(new Move("Hydro Pump"), new Move(""), new Move(""), new Move("")), evs: { spa: 220 } })
+        const garchomp = new Pokemon("Garchomp", { nature: "Adamant", item: "Choice Band", moveSet: new MoveSet(new Move("Earthquake"), new Move(""), new Move(""), new Move("")), evs: { atk: 164 } })
+        const chiYuPartner = new Pokemon("Chi-Yu", { nature: "Modest", moveSet: new MoveSet(new Move("Flamethrower"), new Move(""), new Move(""), new Move("")), evs: { spa: 0 } })
+        const targets = [new Target(ursaluna), new Target(chiYu), new Target(ironBundle), new Target(garchomp, chiYuPartner)]
+        const field = new Field()
+
+        const result = service.optimize(defender, targets, field, false, false, 3)
+
+        expect(result.status).toBe("success")
+        expect(result.evs).toEqual({ hp: 236, atk: 0, def: 28, spa: 0, spd: 236, spe: 0 })
+      })
+
+      it("should drop the physical solution when the double target solution already protects the strongest physical attacker", () => {
+        const defender = new Pokemon("Ting-Lu", { item: "Sitrus Berry", moveSet: new MoveSet(new Move("Earthquake"), new Move(""), new Move(""), new Move("")) })
+        const ursaluna = new Pokemon("Ursaluna", { nature: "Adamant", item: "Choice Band", moveSet: new MoveSet(new Move("Headlong Rush"), new Move(""), new Move(""), new Move("")), evs: { atk: 184 } })
+        const chiYu = new Pokemon("Chi-Yu", { nature: "Modest", item: "Life Orb", moveSet: new MoveSet(new Move("Overheat"), new Move(""), new Move(""), new Move("")), evs: { spa: 124 } })
+        const ironBundle = new Pokemon("Iron Bundle", { nature: "Modest", moveSet: new MoveSet(new Move("Hydro Pump"), new Move(""), new Move(""), new Move("")), evs: { spa: 220 } })
+        const garchomp = new Pokemon("Garchomp", { nature: "Adamant", item: "Choice Band", moveSet: new MoveSet(new Move("Earthquake"), new Move(""), new Move(""), new Move("")), evs: { atk: 184 } })
+        const dusclops = new Pokemon("Dusclops", { moveSet: new MoveSet(new Move("Body Press"), new Move(""), new Move(""), new Move("")), evs: { atk: 0 } })
+        const targets = [new Target(ursaluna), new Target(chiYu), new Target(ironBundle), new Target(garchomp, dusclops)]
+        const field = new Field()
+
+        const result = service.optimize(defender, targets, field, false, false, 3)
+
+        expect(result.status).toBe("success")
+        expect(result.evs).toEqual({ hp: 236, atk: 0, def: 28, spa: 0, spd: 236, spe: 0 })
+      })
+
+      it("should protect the physical attacker and abandon a double target that has no legal spread", () => {
+        const defender = new Pokemon("Ting-Lu", { item: "Sitrus Berry", moveSet: new MoveSet(new Move("Earthquake"), new Move(""), new Move(""), new Move("")) })
+        const ursaluna = new Pokemon("Ursaluna", { nature: "Adamant", item: "Choice Band", moveSet: new MoveSet(new Move("Headlong Rush"), new Move(""), new Move(""), new Move("")), evs: { atk: 84 } })
+        const garchomp = new Pokemon("Garchomp", { nature: "Adamant", item: "Choice Band", moveSet: new MoveSet(new Move("Earthquake"), new Move(""), new Move(""), new Move("")), evs: { atk: 164 } })
+        const chiYu = new Pokemon("Chi-Yu", { nature: "Modest", moveSet: new MoveSet(new Move("Flamethrower"), new Move(""), new Move(""), new Move("")), evs: { spa: 0 } })
+        const targets = [new Target(ursaluna), new Target(garchomp, chiYu)]
+        const field = new Field()
+
+        const result = service.optimize(defender, targets, field, false, false, 3)
+
+        expect(result.status).toBe("success")
+        expect(result.evs).toEqual({ hp: 20, atk: 0, def: 84, spa: 0, spd: 0, spe: 0 })
+      })
+
+      it("should re-check a double refinement against the strongest single attackers and reject a spread that fails one of them", () => {
+        const defender = new Pokemon("Snorlax", { item: "Leftovers" })
+        const physD = new Pokemon("Ursaluna", { nature: "Adamant", moveSet: new MoveSet(new Move("Facade"), new Move(""), new Move(""), new Move("")), evs: { atk: 0 } })
+        const specD = new Pokemon("Miraidon", { nature: "Modest", moveSet: new MoveSet(new Move("Electro Drift"), new Move(""), new Move(""), new Move("")), evs: { spa: 0 } })
+        const strongPhys = new Pokemon("Great Tusk", { nature: "Adamant", item: "Choice Band", moveSet: new MoveSet(new Move("Headlong Rush"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
+        const strongSpec = new Pokemon("Raging Bolt", { nature: "Modest", item: "Choice Specs", moveSet: new MoveSet(new Move("Thunderbolt"), new Move(""), new Move(""), new Move("")), evs: { spa: 252 } })
+        const targets = [new Target(physD, specD), new Target(strongPhys), new Target(strongSpec)]
+        const field = new Field()
+
+        const result = service.optimize(defender, targets, field)
+
+        expect(result.status).toBe("success")
+        expect(result.evs).toEqual({ hp: 4, atk: 0, def: 132, spa: 0, spd: 0, spe: 0 })
+      })
+
+      it("should increase then reduce a double refinement while re-checking the strongest single special attacker under sandstorm", () => {
+        const defender = new Pokemon("Grimmsnarl")
+        const physD = new Pokemon("Ursaluna", { nature: "Adamant", moveSet: new MoveSet(new Move("Facade"), new Move(""), new Move(""), new Move("")), evs: { atk: 84 } })
+        const specD = new Pokemon("Miraidon", { nature: "Modest", moveSet: new MoveSet(new Move("Electro Drift"), new Move(""), new Move(""), new Move("")), evs: { spa: 84 } })
+        const strongPhys = new Pokemon("Great Tusk", { nature: "Adamant", item: "Choice Band", moveSet: new MoveSet(new Move("Headlong Rush"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
+        const strongSpec = new Pokemon("Raging Bolt", { nature: "Modest", item: "Choice Specs", moveSet: new MoveSet(new Move("Thunderbolt"), new Move(""), new Move(""), new Move("")), evs: { spa: 252 } })
+        const targets = [new Target(physD, specD), new Target(strongPhys), new Target(strongSpec)]
+        const field = new Field({ weather: "Sand" })
+
+        const result = service.optimize(defender, targets, field)
+
+        expect(result.status).toBe("success")
+        expect(result.evs).toEqual({ hp: 164, atk: 0, def: 180, spa: 0, spd: 244, spe: 0 })
+      })
+
+      it("should increase HP and survive on the first attempt while both strongest singles are re-checked under sandstorm", () => {
+        const defender = new Pokemon("Grimmsnarl")
+        const physD = new Pokemon("Ursaluna", { nature: "Adamant", moveSet: new MoveSet(new Move("Facade"), new Move(""), new Move(""), new Move("")), evs: { atk: 0 } })
+        const specD = new Pokemon("Miraidon", { nature: "Modest", moveSet: new MoveSet(new Move("Electro Drift"), new Move(""), new Move(""), new Move("")), evs: { spa: 168 } })
+        const strongPhys = new Pokemon("Great Tusk", { nature: "Adamant", item: "Choice Band", moveSet: new MoveSet(new Move("Headlong Rush"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
+        const strongSpec = new Pokemon("Raging Bolt", { nature: "Modest", item: "Choice Specs", moveSet: new MoveSet(new Move("Thunderbolt"), new Move(""), new Move(""), new Move("")), evs: { spa: 252 } })
+        const targets = [new Target(physD, specD), new Target(strongPhys), new Target(strongSpec)]
+        const field = new Field({ weather: "Sand" })
+
+        const result = service.optimize(defender, targets, field)
+
+        expect(result.status).toBe("success")
+        expect(result.evs).toEqual({ hp: 180, atk: 0, def: 172, spa: 0, spd: 252, spe: 0 })
+      })
+
+      it("should reduce a double solution down to zero while satisfying the strongest single physical attacker under Leftovers", () => {
+        const defender = new Pokemon("Ting-Lu", { item: "Leftovers" })
+        const physD = new Pokemon("Ursaluna", { nature: "Adamant", moveSet: new MoveSet(new Move("Facade"), new Move(""), new Move(""), new Move("")), evs: { atk: 0 } })
+        const specD = new Pokemon("Miraidon", { nature: "Modest", moveSet: new MoveSet(new Move("Electro Drift"), new Move(""), new Move(""), new Move("")), evs: { spa: 0 } })
+        const strongPhys = new Pokemon("Great Tusk", { nature: "Adamant", item: "Choice Band", moveSet: new MoveSet(new Move("Headlong Rush"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
+        const strongSpec = new Pokemon("Raging Bolt", { nature: "Modest", item: "Choice Specs", moveSet: new MoveSet(new Move("Thunderbolt"), new Move(""), new Move(""), new Move("")), evs: { spa: 252 } })
+        const targets = [new Target(physD, specD), new Target(strongPhys), new Target(strongSpec)]
+        const field = new Field()
+
+        const result = service.optimize(defender, targets, field)
+
+        expect(result.status).toBe("not-needed")
+        expect(result.evs).toEqual({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
+      })
     })
 
     describe("solution combiner via optimize", () => {
@@ -1670,7 +1924,7 @@ describe("DefensiveEvOptimizer", () => {
         const result = service.optimize(defender, targets, field)
 
         expect(result.status).toBe("success")
-        expect(result.evs).toEqual({ hp: 172, atk: 0, def: 12, spa: 0, spd: 44, spe: 0 })
+        expect(result.evs).toEqual({ hp: 180, atk: 0, def: 4, spa: 0, spd: 44, spe: 0 })
       })
 
       it("should combine a physical single with a weaker mixed double target", () => {
@@ -1715,6 +1969,34 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.status).toBe("success")
         expect(result.evs).toEqual({ hp: 124, atk: 0, def: 84, spa: 0, spd: 84, spe: 0 })
       })
+
+      it("should protect the physical single when a special-pair double cannot also be covered", () => {
+        const chiYu = new Pokemon("Chi-Yu", { nature: "Modest", item: "Choice Specs", ability: new Ability("Beads of Ruin"), moveSet: new MoveSet(new Move("Overheat"), new Move(""), new Move(""), new Move("")), evs: { spa: 252 } })
+        const moltresGalar = new Pokemon("Moltres-Galar", { nature: "Modest", item: "Choice Specs", ability: new Ability("Berserk"), moveSet: new MoveSet(new Move("Fiery Wrath"), new Move(""), new Move(""), new Move("")), evs: { spa: 252 } })
+        const ironValiant = new Pokemon("Iron Valiant", { nature: "Adamant", item: "Life Orb", moveSet: new MoveSet(new Move("Close Combat"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
+        const defender = new Pokemon("Ting-Lu")
+        const targets = [new Target(chiYu, moltresGalar), new Target(ironValiant)]
+        const field = new Field()
+
+        const result = service.optimize(defender, targets, field)
+
+        expect(result.status).toBe("success")
+        expect(result.evs).toEqual({ hp: 60, atk: 0, def: 252, spa: 0, spd: 0, spe: 0 })
+      })
+
+      it("should protect the special single when a physical-pair double cannot also be covered", () => {
+        const kingambit = new Pokemon("Kingambit", { nature: "Adamant", item: "Choice Band", moveSet: new MoveSet(new Move("Kowtow Cleave"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
+        const landorusTherian = new Pokemon("Landorus-Therian", { nature: "Adamant", item: "Choice Band", moveSet: new MoveSet(new Move("Earthquake"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
+        const tornadus = new Pokemon("Tornadus", { nature: "Timid", item: "Life Orb", moveSet: new MoveSet(new Move("Bleakwind Storm"), new Move(""), new Move(""), new Move("")), evs: { spa: 252 } })
+        const defender = new Pokemon("Rillaboom")
+        const targets = [new Target(kingambit, landorusTherian), new Target(tornadus)]
+        const field = new Field()
+
+        const result = service.optimize(defender, targets, field)
+
+        expect(result.status).toBe("success")
+        expect(result.evs).toEqual({ hp: 124, atk: 0, def: 0, spa: 0, spd: 236, spe: 0 })
+      })
     })
 
     describe("attacker selector nature scenarios via optimize", () => {
@@ -1743,6 +2025,75 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.status).toBe("success")
         expect(result.evs).toEqual({ hp: 148, atk: 0, def: 0, spa: 0, spd: 252, spe: 0 })
       })
+
+      it("should break an exact damage tie between nature scenarios by survivable count when both categories attack", () => {
+        const rillaboom = new Pokemon("Rillaboom", { nature: "Adamant", moveSet: new MoveSet(new Move("Wood Hammer"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
+        const ragingBolt = new Pokemon("Raging Bolt", { nature: "Modest", moveSet: new MoveSet(new Move("Thunderbolt"), new Move(""), new Move(""), new Move("")), evs: { spa: 60 } })
+        const defender = new Pokemon("Dondozo")
+        const targets = [new Target(rillaboom), new Target(ragingBolt)]
+        const field = new Field()
+
+        const result = service.optimize(defender, targets, field, true)
+
+        expect(result.status).toBe("success")
+        expect(result.nature).toBe("Bold")
+        expect(result.evs).toEqual({ hp: 0, atk: 0, def: 0, spa: 0, spd: 92, spe: 0 })
+      })
+
+      it("should resolve an exact damage tie toward the SpD nature when only special attackers are present", () => {
+        const amoonguss = new Pokemon("Amoonguss", { nature: "Calm", moveSet: new MoveSet(new Move("Pollen Puff"), new Move(""), new Move(""), new Move("")), evs: { spa: 68 } })
+        const defender = new Pokemon("Corviknight")
+        const targets = [new Target(amoonguss)]
+        const field = new Field()
+
+        const result = service.optimize(defender, targets, field, true)
+
+        expect(result.status).toBe("not-needed")
+        expect(result.nature).toBe("Calm")
+        expect(result.evs).toEqual({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
+      })
+
+      it("should resolve an exact damage tie toward the Def nature when only physical attackers are present", () => {
+        const clefairy = new Pokemon("Clefairy", { nature: "Bold", moveSet: new MoveSet(new Move("Knock Off"), new Move(""), new Move(""), new Move("")), evs: { atk: 0 } })
+        const defender = new Pokemon("Ting-Lu")
+        const targets = [new Target(clefairy)]
+        const field = new Field()
+
+        const result = service.optimize(defender, targets, field, true)
+
+        expect(result.status).toBe("not-needed")
+        expect(result.nature).toBe("Bold")
+        expect(result.evs).toEqual({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
+      })
+
+      it("should pick Impish as the Defense nature when the defender has more physical than special moves", () => {
+        const strongPhys = new Pokemon("Great Tusk", { nature: "Adamant", item: "Choice Band", moveSet: new MoveSet(new Move("Headlong Rush"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
+        const defender = new Pokemon("Grimmsnarl", { moveSet: new MoveSet(new Move("Play Rough"), new Move("Spirit Break"), new Move("Thunder Wave"), new Move("")) })
+        const targets = [new Target(strongPhys)]
+        const field = new Field()
+
+        const result = service.optimize(defender, targets, field, true)
+
+        expect(result.status).toBe("success")
+        expect(result.nature).toBe("Impish")
+        expect(result.evs).toEqual({ hp: 164, atk: 0, def: 244, spa: 0, spd: 0, spe: 0 })
+      })
+
+      it("should break a full-total tie between Def and SpD nature scenarios by comparing physical vs special survivable counts", () => {
+        const defender = new Pokemon("Amoonguss", { moveSet: new MoveSet(new Move("Play Rough"), new Move("Moonblast"), new Move(""), new Move("")) })
+        const weakPhys = new Pokemon("Great Tusk", { nature: "Adamant", moveSet: new MoveSet(new Move("Headlong Rush"), new Move(""), new Move(""), new Move("")), evs: { atk: 4 } })
+        const weakSpec = new Pokemon("Miraidon", { nature: "Modest", moveSet: new MoveSet(new Move("Electro Drift"), new Move(""), new Move(""), new Move("")), evs: { spa: 4 } })
+        const strongPhys = new Pokemon("Rillaboom", { nature: "Adamant", moveSet: new MoveSet(new Move("Grassy Glide"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
+        const strongSpec = new Pokemon("Chi-Yu", { nature: "Modest", moveSet: new MoveSet(new Move("Dark Pulse"), new Move(""), new Move(""), new Move("")), evs: { spa: 252 } })
+        const targets = [new Target(weakPhys), new Target(weakSpec), new Target(strongPhys), new Target(strongSpec)]
+        const field = new Field()
+
+        const result = service.optimize(defender, targets, field, true)
+
+        expect(result.status).toBe("not-needed")
+        expect(result.nature).toBe("Bold")
+        expect(result.evs).toEqual({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
+      })
     })
 
     describe("double attacker categories via optimize", () => {
@@ -1770,6 +2121,73 @@ describe("DefensiveEvOptimizer", () => {
 
         expect(result.status).toBe("success")
         expect(result.evs).toEqual({ hp: 100, atk: 0, def: 0, spa: 0, spd: 236, spe: 0 })
+      })
+
+      it("should keep the strongest pair when a second, weaker double target is present", () => {
+        const garchomp = new Pokemon("Garchomp", { nature: "Adamant", moveSet: new MoveSet(new Move("Earthquake"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
+        const ursaluna = new Pokemon("Ursaluna", { nature: "Adamant", moveSet: new MoveSet(new Move("Headlong Rush"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
+        const rillaboom = new Pokemon("Rillaboom", { nature: "Adamant", moveSet: new MoveSet(new Move("Grassy Glide"), new Move(""), new Move(""), new Move("")), evs: { atk: 0 } })
+        const incineroar = new Pokemon("Incineroar", { nature: "Adamant", moveSet: new MoveSet(new Move("Knock Off"), new Move(""), new Move(""), new Move("")), evs: { atk: 0 } })
+        const defender = new Pokemon("Snorlax")
+        const targets = [new Target(garchomp, ursaluna), new Target(rillaboom, incineroar)]
+        const field = new Field()
+
+        const result = service.optimize(defender, targets, field)
+
+        expect(result.status).toBe("success")
+        expect(result.evs).toEqual({ hp: 0, atk: 0, def: 236, spa: 0, spd: 0, spe: 0 })
+      })
+
+      it("should retry the mixed heuristic on the Def side when the minimal spread fails the combined check", () => {
+        const phys = new Pokemon("Ursaluna", { nature: "Adamant", moveSet: new MoveSet(new Move("Facade"), new Move(""), new Move(""), new Move("")), evs: { atk: 28 } })
+        const spec = new Pokemon("Chi-Yu", { nature: "Modest", moveSet: new MoveSet(new Move("Overheat"), new Move(""), new Move(""), new Move("")), evs: { spa: 0 } })
+        const defender = new Pokemon("Snorlax")
+        const targets = [new Target(phys, spec)]
+        const field = new Field()
+
+        const result = service.optimize(defender, targets, field)
+
+        expect(result.status).toBe("success")
+        expect(result.evs).toEqual({ hp: 12, atk: 0, def: 12, spa: 0, spd: 84, spe: 0 })
+      })
+
+      it("should retry the mixed heuristic on the SpD side when the minimal spread fails the combined check", () => {
+        const phys = new Pokemon("Ursaluna", { nature: "Adamant", moveSet: new MoveSet(new Move("Facade"), new Move(""), new Move(""), new Move("")), evs: { atk: 0 } })
+        const spec = new Pokemon("Chi-Yu", { nature: "Modest", moveSet: new MoveSet(new Move("Overheat"), new Move(""), new Move(""), new Move("")), evs: { spa: 28 } })
+        const defender = new Pokemon("Snorlax")
+        const targets = [new Target(phys, spec)]
+        const field = new Field()
+
+        const result = service.optimize(defender, targets, field)
+
+        expect(result.status).toBe("success")
+        expect(result.evs).toEqual({ hp: 12, atk: 0, def: 20, spa: 0, spd: 84, spe: 0 })
+      })
+
+      it("should retry the mixed heuristic on both Def and SpD together when single-side retries also fail", () => {
+        const phys = new Pokemon("Ursaluna", { nature: "Adamant", moveSet: new MoveSet(new Move("Facade"), new Move(""), new Move(""), new Move("")), evs: { atk: 84 } })
+        const spec = new Pokemon("Chi-Yu", { nature: "Modest", moveSet: new MoveSet(new Move("Overheat"), new Move(""), new Move(""), new Move("")), evs: { spa: 112 } })
+        const defender = new Pokemon("Snorlax")
+        const targets = [new Target(phys, spec)]
+        const field = new Field()
+
+        const result = service.optimize(defender, targets, field)
+
+        expect(result.status).toBe("success")
+        expect(result.evs).toEqual({ hp: 132, atk: 0, def: 20, spa: 0, spd: 84, spe: 0 })
+      })
+
+      it("should fall through to the full three-stat search when every mixed heuristic retry fails at the minimum HP", () => {
+        const phys = new Pokemon("Ursaluna", { nature: "Adamant", moveSet: new MoveSet(new Move("Facade"), new Move(""), new Move(""), new Move("")), evs: { atk: 0 } })
+        const spec = new Pokemon("Chi-Yu", { nature: "Modest", moveSet: new MoveSet(new Move("Overheat"), new Move(""), new Move(""), new Move("")), evs: { spa: 196 } })
+        const defender = new Pokemon("Snorlax")
+        const targets = [new Target(phys, spec)]
+        const field = new Field()
+
+        const result = service.optimize(defender, targets, field)
+
+        expect(result.status).toBe("success")
+        expect(result.evs).toEqual({ hp: 132, atk: 0, def: 20, spa: 0, spd: 116, spe: 0 })
       })
     })
 
@@ -1903,6 +2321,36 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.status).toBe("success")
         expect(result.evs).toEqual({ hp: 196, atk: 0, def: 252, spa: 0, spd: 0, spe: 0 })
       })
+
+      it("should walk the ordered survivable special attackers when the strongest special cannot be covered together with the physicals", () => {
+        const garchomp = new Pokemon("Garchomp", { nature: "Adamant", moveSet: new MoveSet(new Move("Earthquake"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
+        const flutter = new Pokemon("Flutter Mane", { nature: "Modest", moveSet: new MoveSet(new Move("Moonblast"), new Move(""), new Move(""), new Move("")), evs: { spa: 180 } })
+        const chiYu = new Pokemon("Chi-Yu", { nature: "Modest", moveSet: new MoveSet(new Move("Dark Pulse"), new Move(""), new Move(""), new Move("")), evs: { spa: 180 } })
+        const heatran = new Pokemon("Heatran", { nature: "Modest", moveSet: new MoveSet(new Move("Heat Wave"), new Move(""), new Move(""), new Move("")), evs: { spa: 140 } })
+        const defender = new Pokemon("Clefairy")
+        const targets = [new Target(ursaluna()), new Target(miraidon()), new Target(garchomp), new Target(flutter), new Target(chiYu), new Target(heatran)]
+        const field = new Field()
+
+        const result = service.optimize(defender, targets, field)
+
+        expect(result.status).toBe("success")
+        expect(result.evs).toEqual({ hp: 196, atk: 0, def: 252, spa: 0, spd: 0, spe: 0 })
+      })
+
+      it("should rebuild from the single-attacker solutions when the double refinement cannot secure the discarded special attacker", () => {
+        const physDouble = new Pokemon("Ursaluna", { nature: "Adamant", moveSet: new MoveSet(new Move("Facade"), new Move(""), new Move(""), new Move("")), evs: { atk: 144 } })
+        const specDouble = new Pokemon("Miraidon", { nature: "Modest", moveSet: new MoveSet(new Move("Electro Drift"), new Move(""), new Move(""), new Move("")), evs: { spa: 144 } })
+        const physSingle = new Pokemon("Iron Hands", { nature: "Adamant", item: "Choice Band", moveSet: new MoveSet(new Move("Close Combat"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
+        const specSingle = new Pokemon("Chi-Yu", { nature: "Modest", moveSet: new MoveSet(new Move("Overheat"), new Move(""), new Move(""), new Move("")), evs: { spa: 140 } })
+        const defender = new Pokemon("Grimmsnarl", { item: "Leftovers" })
+        const targets = [new Target(physDouble, specDouble), new Target(physSingle), new Target(specSingle)]
+        const field = new Field()
+
+        const result = service.optimize(defender, targets, field)
+
+        expect(result.status).toBe("success")
+        expect(result.evs).toEqual({ hp: 44, atk: 0, def: 0, spa: 0, spd: 236, spe: 0 })
+      })
     })
 
     describe("three-solution combine and double-recombine via optimize", () => {
@@ -1961,6 +2409,75 @@ describe("DefensiveEvOptimizer", () => {
 
         expect(result.status).toBe("success")
         expect(result.evs).toEqual({ hp: 36, atk: 0, def: 0, spa: 0, spd: 148, spe: 0 })
+      })
+    })
+
+    describe("solution combiner double-target fallbacks and search loops via optimize", () => {
+      const rillaGlideWeak = () => new Pokemon("Rillaboom", { nature: "Adamant", moveSet: new MoveSet(new Move("Grassy Glide"), new Move(""), new Move(""), new Move("")), evs: { atk: 0 } })
+      const volcaronaWeak = () => new Pokemon("Volcarona", { nature: "Modest", moveSet: new MoveSet(new Move("Bug Buzz"), new Move(""), new Move(""), new Move("")), evs: { spa: 0 } })
+
+      it("should search the Def/SpD window for a special-only single alongside a weak double target", () => {
+        const defender = new Pokemon("Clefairy")
+        const single1 = new Pokemon("Ursaluna", { nature: "Adamant", moveSet: new MoveSet(new Move("Facade"), new Move(""), new Move(""), new Move("")), evs: { atk: 0 } })
+        const single2 = new Pokemon("Miraidon", { nature: "Modest", moveSet: new MoveSet(new Move("Electro Drift"), new Move(""), new Move(""), new Move("")), evs: { spa: 168 } })
+        const targets = [new Target(single1), new Target(single2), new Target(rillaGlideWeak(), volcaronaWeak())]
+
+        const result = service.optimize(defender, targets, new Field())
+
+        expect(result.status).toBe("success")
+        expect(result.evs).toEqual({ hp: 4, atk: 0, def: 0, spa: 0, spd: 28, spe: 0 })
+      })
+
+      it("should search the Def/SpD window for a physical-only single alongside a weak double target", () => {
+        const defender = new Pokemon("Clefairy")
+        const single1 = new Pokemon("Great Tusk", { nature: "Adamant", moveSet: new MoveSet(new Move("Headlong Rush"), new Move(""), new Move(""), new Move("")), evs: { atk: 0 } })
+        const single2 = new Pokemon("Miraidon", { nature: "Modest", moveSet: new MoveSet(new Move("Electro Drift"), new Move(""), new Move(""), new Move("")), evs: { spa: 0 } })
+        const targets = [new Target(single1), new Target(single2), new Target(rillaGlideWeak(), volcaronaWeak())]
+
+        const result = service.optimize(defender, targets, new Field())
+
+        expect(result.status).toBe("success")
+        expect(result.evs).toEqual({ hp: 4, atk: 0, def: 188, spa: 0, spd: 0, spe: 0 })
+      })
+
+      it("should fall back to the physical-only spread when the double solution is entirely zero", () => {
+        const defender = new Pokemon("Snorlax")
+        const single1 = new Pokemon("Iron Hands", { nature: "Adamant", moveSet: new MoveSet(new Move("Close Combat"), new Move(""), new Move(""), new Move("")), evs: { atk: 0 } })
+        const single2 = new Pokemon("Miraidon", { nature: "Modest", moveSet: new MoveSet(new Move("Electro Drift"), new Move(""), new Move(""), new Move("")), evs: { spa: 0 } })
+        const targets = [new Target(single1), new Target(single2), new Target(rillaGlideWeak(), volcaronaWeak())]
+
+        const result = service.optimize(defender, targets, new Field())
+
+        expect(result.status).toBe("success")
+        expect(result.evs).toEqual({ hp: 60, atk: 0, def: 252, spa: 0, spd: 0, spe: 0 })
+      })
+
+      it("should walk the tryAddDoubleSolution HP/Def search loop when two solutions already survive both singles", () => {
+        const defender = new Pokemon("Clefairy")
+        const single1 = new Pokemon("Great Tusk", { nature: "Adamant", moveSet: new MoveSet(new Move("Headlong Rush"), new Move(""), new Move(""), new Move("")), evs: { atk: 0 } })
+        const single2 = new Pokemon("Chi-Yu", { nature: "Modest", moveSet: new MoveSet(new Move("Overheat"), new Move(""), new Move(""), new Move("")), evs: { spa: 0 } })
+        const targets = [new Target(single1), new Target(single2), new Target(rillaGlideWeak(), volcaronaWeak())]
+
+        const result = service.optimize(defender, targets, new Field())
+
+        expect(result.status).toBe("success")
+        expect(result.evs).toEqual({ hp: 196, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
+      })
+
+      it("should fall through to the tail branches when both solutions survive the double and tryAddDoubleSolution cannot extend them", () => {
+        const defender = new Pokemon("Clefairy")
+        const phys1 = new Pokemon("Great Tusk", { nature: "Adamant", moveSet: new MoveSet(new Move("Headlong Rush"), new Move(""), new Move(""), new Move("")), evs: { atk: 0 } })
+        const spec1 = new Pokemon("Miraidon", { nature: "Modest", moveSet: new MoveSet(new Move("Electro Drift"), new Move(""), new Move(""), new Move("")), evs: { spa: 0 } })
+        const secondPhys = new Pokemon("Garchomp", { nature: "Adamant", moveSet: new MoveSet(new Move("Earthquake"), new Move(""), new Move(""), new Move("")), evs: { atk: 4 } })
+        const secondSpec = new Pokemon("Chi-Yu", { nature: "Modest", moveSet: new MoveSet(new Move("Overheat"), new Move(""), new Move(""), new Move("")), evs: { spa: 4 } })
+        const dPhys = new Pokemon("Iron Hands", { nature: "Adamant", moveSet: new MoveSet(new Move("Close Combat"), new Move(""), new Move(""), new Move("")), evs: { atk: 168 } })
+        const dSpec = new Pokemon("Raging Bolt", { nature: "Modest", moveSet: new MoveSet(new Move("Thunderbolt"), new Move(""), new Move(""), new Move("")), evs: { spa: 168 } })
+        const targets = [new Target(phys1), new Target(spec1), new Target(secondPhys), new Target(secondSpec), new Target(dPhys, dSpec)]
+
+        const result = service.optimize(defender, targets, new Field())
+
+        expect(result.status).toBe("success")
+        expect(result.evs).toEqual({ hp: 196, atk: 0, def: 0, spa: 0, spd: 252, spe: 0 })
       })
     })
 

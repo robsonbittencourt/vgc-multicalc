@@ -59,7 +59,7 @@ export function display(attacker: Pokemon, defender: Pokemon, move: Move, field:
   const damageText = `${min}-${max} (${minDisplay} - ${maxDisplay}${notation})`
   const berryResistText = isBerryResist ? ` reduced by ${rawDesc.defenderItem}` : ""
 
-  if (move.category === "Status" && !move.named("Nature Power")) {
+  if (move.category === "Status") {
     return `${description}: ${damageText}`
   }
 
@@ -85,7 +85,7 @@ export function getRecovery(attacker: Pokemon, defender: Pokemon, move: Move, da
   let minD
   let maxD
 
-  if (move.timesUsed && move.timesUsed > 1) {
+  if (move.timesUsed > 1) {
     ;[minD, maxD] = multiDamageRange(damage) as [number[], number[]]
   } else {
     minD = [minDamage]
@@ -205,10 +205,6 @@ export function getKOChance(attacker: Pokemon, defender: Pokemon, move: Move, fi
     return { chance: 0, n: 0, text: "", berryConsumed: false }
   }
 
-  if (move.timesUsed === undefined) {
-    move.timesUsed = 1
-  }
-
   if (move.timesUsedWithMetronome === undefined) {
     move.timesUsedWithMetronome = 1
   }
@@ -286,7 +282,7 @@ export function getKOChance(attacker: Pokemon, defender: Pokemon, move: Move, fi
   }
 
   if (move.timesUsed === 1 && move.timesUsedWithMetronome === 1) {
-    const hits = move.timesUsed || 1
+    const hits = move.timesUsed
     let hasOHKOChance = false
     let berryConsumed = false
 
@@ -338,7 +334,7 @@ export function getKOChance(attacker: Pokemon, defender: Pokemon, move: Move, fi
     }
   } else {
     const hits = move.hits || 1
-    const timesUsed = move.timesUsed || 1
+    const timesUsed = move.timesUsed
     const res = computeKOChance(damage, defender.maxHp() - hazards.damage, eot.damage, hits, timesUsed, defender.maxHp(), toxicCounter, berryRecovery, berryThreshold)
 
     if (res.chance > 0) {

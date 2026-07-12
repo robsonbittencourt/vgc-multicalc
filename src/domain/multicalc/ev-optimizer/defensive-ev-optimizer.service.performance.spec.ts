@@ -68,6 +68,6 @@ describe("DefensiveEvOptimizer - Performance", () => {
 
     const targets = [new Target(urshifuRapidStrike, landorus), new Target(okidogi)]
 
-    expectPerformance(() => service.optimize(defender, targets, field), 2000, "EV optimization for Ting-Lu in it's limit")
+    expectPerformance(() => service.optimize(defender, targets, field), 200, "EV optimization for Ting-Lu in it's limit")
   })
 })

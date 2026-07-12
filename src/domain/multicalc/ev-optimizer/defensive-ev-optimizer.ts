@@ -5,7 +5,9 @@ import { Target } from "@multicalc/model/target"
 import { Stats } from "@multicalc/types"
 import { SurvivalThreshold } from "@multicalc/ev-optimizer/internal/ev-optimizer-types"
 import { AttackerPriorityResult, AttackerSelector } from "./internal/attacker-selector"
+import { CachedDamageCalc } from "./internal/cached-damage-calc"
 import { DoubleAttackerOptimizer } from "./internal/double-attacker-optimizer"
+import { OptimalSpreadFinder } from "./internal/optimal-spread-finder"
 import { SingleAttackerOptimizer } from "./internal/single-attacker-optimizer"
 import { SolutionCombiner } from "./internal/solution-combiner"
 import { RefinementStage } from "./internal/refinement-stage"
@@ -19,14 +21,18 @@ type OptimizationSolution = {
 }
 
 export class DefensiveEvOptimizer {
-  private attackerSelector = new AttackerSelector()
-  private singleAttackerOptimizer = new SingleAttackerOptimizer()
-  private doubleAttackerOptimizer = new DoubleAttackerOptimizer()
-  private solutionCombiner = new SolutionCombiner()
-  private refinementStage = new RefinementStage()
-  private survivalChecker = new SurvivalChecker()
+  private damageCalc = new CachedDamageCalc()
+  private survivalChecker = new SurvivalChecker(this.damageCalc)
+  private optimalSpreadFinder = new OptimalSpreadFinder(this.survivalChecker)
+  private attackerSelector = new AttackerSelector(this.survivalChecker, this.damageCalc)
+  private singleAttackerOptimizer = new SingleAttackerOptimizer(this.survivalChecker)
+  private doubleAttackerOptimizer = new DoubleAttackerOptimizer(this.survivalChecker)
+  private solutionCombiner = new SolutionCombiner(this.survivalChecker, this.singleAttackerOptimizer, this.attackerSelector)
+  private refinementStage = new RefinementStage(this.survivalChecker, this.damageCalc)
 
   optimize(defender: Pokemon, targets: Target[], field: Field, updateNature = false, keepOffensiveEvs = false, threshold: SurvivalThreshold = 2, rollIndex = RollLevelConfig.HIGH_ROLL_INDEX, rightIsDefender = true): OptimizationResult {
+    this.damageCalc.clear()
+
     const solution = this.computeSolution(defender, targets, field, updateNature, keepOffensiveEvs, threshold, rollIndex, rightIsDefender)
 
     return { ...solution, status: this.deriveStatus(solution.evs) }
@@ -82,54 +88,67 @@ export class DefensiveEvOptimizer {
       physicalStrongest = priority.physical.strongestAttacker
       specialStrongest = priority.special.strongestAttacker
       natureUsed = priority.natureUsed
-
-      const defenderWithNature = natureUsed ? defender.clone({ nature: natureUsed }) : defender
-
-      physicalOptimized = physicalStrongest ? this.singleAttackerOptimizer.optimizeForAttacker(physicalStrongest, defenderWithNature, field, threshold, rollIndex, rightIsDefender) : null
-      specialOptimized = specialStrongest ? this.singleAttackerOptimizer.optimizeForAttacker(specialStrongest, defenderWithNature, field, threshold, rollIndex, rightIsDefender) : null
     }
 
     const defenderWithNature = natureUsed ? defender.clone({ nature: natureUsed }) : defender
 
-    let doubleOptimized: Stats | null = null
-    if (strongestDoubleTarget) {
-      doubleOptimized = this.doubleAttackerOptimizer.optimizeForTwoAttackers(strongestDoubleTarget.attacker1, strongestDoubleTarget.attacker2, defenderWithNature, field, threshold, rollIndex, rightIsDefender)
-    }
-
     const physicalAttackersSurvivable = priority?.physical.survivableAttackers ?? []
     const specialAttackersSurvivable = priority?.special.survivableAttackers ?? []
+    const doublePair: [Pokemon, Pokemon] | null = strongestDoubleTarget ? [strongestDoubleTarget.attacker1, strongestDoubleTarget.attacker2] : null
 
-    let evs: Stats | null = this.solutionCombiner.combineThreeSolutions(
-      { physicalSolution: physicalOptimized, specialSolution: specialOptimized, doubleSolution: doubleOptimized },
-      { defender: defenderWithNature, field, threshold, rollIndex, rightIsDefender },
-      { physicalAttacker: physicalStrongest, specialAttacker: specialStrongest, physicalAttackers: physicalAttackersSurvivable, specialAttackers: specialAttackersSurvivable },
-      { attacker1: strongestDoubleTarget?.attacker1 ?? null, attacker2: strongestDoubleTarget?.attacker2 ?? null }
+    let evs: Stats | null = this.optimalSpreadFinder.findOptimal(
+      defenderWithNature,
+      this.withStrongest(physicalStrongest, physicalAttackersSurvivable),
+      this.withStrongest(specialStrongest, specialAttackersSurvivable),
+      doublePair,
+      field,
+      threshold,
+      rollIndex,
+      rightIsDefender
     )
 
-    if (evs && strongestDoubleTarget) {
-      const refinedEvs = this.refinementStage.refineForDoubleAttackers(evs, defenderWithNature, strongestDoubleTarget.attacker1, strongestDoubleTarget.attacker2, field, threshold, rollIndex, physicalStrongest, specialStrongest, rightIsDefender)
-      if (refinedEvs) {
-        evs = refinedEvs
-      } else {
-        evs = this.solutionCombiner.combineSolutions(
-          physicalOptimized,
-          specialOptimized,
-          priority?.prioritizePhysical ?? true,
-          defenderWithNature,
-          field,
-          physicalStrongest,
-          specialStrongest,
-          physicalAttackersSurvivable,
-          specialAttackersSurvivable,
-          threshold,
-          rollIndex,
-          rightIsDefender
-        )
+    if (!evs) {
+      physicalOptimized = physicalStrongest ? this.singleAttackerOptimizer.optimizeForAttacker(physicalStrongest, defenderWithNature, field, threshold, rollIndex, rightIsDefender) : null
+      specialOptimized = specialStrongest ? this.singleAttackerOptimizer.optimizeForAttacker(specialStrongest, defenderWithNature, field, threshold, rollIndex, rightIsDefender) : null
 
-        if (evs) {
-          const strongestAttacker = physicalStrongest || specialStrongest
-          if (strongestAttacker) {
-            evs = this.refinementStage.refineForSingleAttacker(evs, defenderWithNature, strongestAttacker, field, threshold, rollIndex, rightIsDefender)
+      let doubleOptimized: Stats | null = null
+
+      if (strongestDoubleTarget) {
+        doubleOptimized = this.doubleAttackerOptimizer.optimizeForTwoAttackers(strongestDoubleTarget.attacker1, strongestDoubleTarget.attacker2, defenderWithNature, field, threshold, rollIndex, rightIsDefender)
+      }
+
+      evs = this.solutionCombiner.combineThreeSolutions(
+        { physicalSolution: physicalOptimized, specialSolution: specialOptimized, doubleSolution: doubleOptimized },
+        { defender: defenderWithNature, field, threshold, rollIndex, rightIsDefender },
+        { physicalAttacker: physicalStrongest, specialAttacker: specialStrongest, physicalAttackers: physicalAttackersSurvivable, specialAttackers: specialAttackersSurvivable },
+        { attacker1: strongestDoubleTarget?.attacker1 ?? null, attacker2: strongestDoubleTarget?.attacker2 ?? null }
+      )
+
+      if (evs && strongestDoubleTarget) {
+        const refinedEvs = this.refinementStage.refineForDoubleAttackers(evs, defenderWithNature, strongestDoubleTarget.attacker1, strongestDoubleTarget.attacker2, field, threshold, rollIndex, physicalStrongest, specialStrongest, rightIsDefender)
+        if (refinedEvs) {
+          evs = refinedEvs
+        } else {
+          evs = this.solutionCombiner.combineSolutions(
+            physicalOptimized,
+            specialOptimized,
+            priority?.prioritizePhysical ?? true,
+            defenderWithNature,
+            field,
+            physicalStrongest,
+            specialStrongest,
+            physicalAttackersSurvivable,
+            specialAttackersSurvivable,
+            threshold,
+            rollIndex,
+            rightIsDefender
+          )
+
+          if (evs) {
+            const strongestAttacker = physicalStrongest || specialStrongest
+            if (strongestAttacker) {
+              evs = this.refinementStage.refineForSingleAttacker(evs, defenderWithNature, strongestAttacker, field, threshold, rollIndex, rightIsDefender)
+            }
           }
         }
       }
@@ -198,42 +217,55 @@ export class DefensiveEvOptimizer {
     const defenderWithNature = natureUsed ? defender.clone({ nature: natureUsed }) : defender
 
     const physicalStrongest = priority.physical.strongestAttacker
-    const physicalOptimized = physicalStrongest ? this.singleAttackerOptimizer.optimizeForAttacker(physicalStrongest, defenderWithNature, field, threshold, rollIndex, rightIsDefender) : null
-
-    if (physicalStrongest && !physicalOptimized) {
-      return { evs: null, nature: null }
-    }
-
     const specialStrongest = priority.special.strongestAttacker
-    const specialOptimized = specialStrongest ? this.singleAttackerOptimizer.optimizeForAttacker(specialStrongest, defenderWithNature, field, threshold, rollIndex, rightIsDefender) : null
-
-    if (specialStrongest && !specialOptimized) {
-      return { evs: null, nature: null }
-    }
-
     const physicalAttackersSurvivable = priority.physical.survivableAttackers
     const specialAttackersSurvivable = priority.special.survivableAttackers
 
-    let evs: Stats | null = this.solutionCombiner.combineSolutions(
-      physicalOptimized,
-      specialOptimized,
-      priority.prioritizePhysical,
+    let evs: Stats | null = this.optimalSpreadFinder.findOptimal(
       defenderWithNature,
+      this.withStrongest(physicalStrongest, physicalAttackersSurvivable),
+      this.withStrongest(specialStrongest, specialAttackersSurvivable),
+      null,
       field,
-      physicalStrongest,
-      specialStrongest,
-      physicalAttackersSurvivable,
-      specialAttackersSurvivable,
       threshold,
       rollIndex,
       rightIsDefender
     )
 
-    if (evs) {
-      const strongestAttacker = physicalStrongest || specialStrongest
+    if (!evs) {
+      const physicalOptimized = physicalStrongest ? this.singleAttackerOptimizer.optimizeForAttacker(physicalStrongest, defenderWithNature, field, threshold, rollIndex, rightIsDefender) : null
 
-      if (strongestAttacker) {
-        evs = this.refinementStage.refineForSingleAttacker(evs, defenderWithNature, strongestAttacker, field, threshold, rollIndex, rightIsDefender)
+      if (physicalStrongest && !physicalOptimized) {
+        return { evs: null, nature: null }
+      }
+
+      const specialOptimized = specialStrongest ? this.singleAttackerOptimizer.optimizeForAttacker(specialStrongest, defenderWithNature, field, threshold, rollIndex, rightIsDefender) : null
+
+      if (specialStrongest && !specialOptimized) {
+        return { evs: null, nature: null }
+      }
+
+      evs = this.solutionCombiner.combineSolutions(
+        physicalOptimized,
+        specialOptimized,
+        priority.prioritizePhysical,
+        defenderWithNature,
+        field,
+        physicalStrongest,
+        specialStrongest,
+        physicalAttackersSurvivable,
+        specialAttackersSurvivable,
+        threshold,
+        rollIndex,
+        rightIsDefender
+      )
+
+      if (evs) {
+        const strongestAttacker = physicalStrongest || specialStrongest
+
+        if (strongestAttacker) {
+          evs = this.refinementStage.refineForSingleAttacker(evs, defenderWithNature, strongestAttacker, field, threshold, rollIndex, rightIsDefender)
+        }
       }
     }
 
@@ -279,5 +311,13 @@ export class DefensiveEvOptimizer {
     }
 
     return { evs, nature: natureUsed }
+  }
+
+  private withStrongest(strongest: Pokemon | null, survivable: Pokemon[]): Pokemon[] {
+    if (!strongest) {
+      return survivable
+    }
+
+    return [strongest, ...survivable.filter(attacker => attacker !== strongest)]
   }
 }

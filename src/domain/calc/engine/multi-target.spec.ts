@@ -59,3 +59,19 @@ describe("Multi Target Damage - Stamina", () => {
     expect(cumulative).toEqual([118, 179, 197, 197])
   })
 })
+
+describe("Multi Target Damage - Immunity", () => {
+  it("should return the fallback description without throwing when both attackers are immune to the defender", () => {
+    const field = new Field({ gameType: "Doubles" })
+    const garchomp = new Pokemon("Garchomp", { nature: "Adamant", evs: { atk: 252 } })
+    const landorus = new Pokemon("Landorus-Therian", { nature: "Adamant", evs: { atk: 252 } })
+    const tornadus = new Pokemon("Tornadus")
+    const moves = [new Move("Earthquake"), new Move("Earthquake")]
+
+    const result = calculateMultiDamage([garchomp, landorus], tornadus, moves, field)
+
+    expect(result.results[0].damage).toEqual(0)
+    expect(result.results[1].damage).toEqual(0)
+    expect(result.description()).toEqual("Garchomp Earthquake AND Landorus-Therian Earthquake vs. Tornadus: 0-0 (0 - 0%) -- possibly the worst move ever")
+  })
+})

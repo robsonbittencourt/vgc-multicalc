@@ -2323,13 +2323,6 @@ export const MOVES = {
     secondary: null,
     target: "normal"
   },
-  foresight: {
-    name: "Foresight",
-    type: "Normal",
-    basePower: 0,
-    category: "Status",
-    flags: {}
-  },
   futuresight: {
     name: "Future Sight",
     type: "Psychic",
@@ -3717,13 +3710,6 @@ export const MOVES = {
     description: "Lowers target's Attack, Sp. Atk by 2. User faints.",
     secondary: null,
     target: "normal"
-  },
-  naturepower: {
-    name: "Nature Power",
-    type: "Normal",
-    basePower: 0,
-    category: "Status",
-    flags: {}
   },
   needlearm: {
     name: "Needle Arm",

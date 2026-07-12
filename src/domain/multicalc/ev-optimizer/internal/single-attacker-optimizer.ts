@@ -9,86 +9,30 @@ import { SurvivalChecker } from "./survival-checker"
 
 export class SingleAttackerOptimizer {
   private evIntervalsCalc = new EvIntervalsCalc()
-  private survivalChecker = new SurvivalChecker()
   private utils = new EvOptimizerUtils()
 
-  findFirstValidSolution(attacker: Pokemon, defender: Pokemon, field: Field, isPhysical: boolean, threshold: SurvivalThreshold = 2, rollIndex = 15, rightIsDefender = true): Stats {
-    const evIntervals = this.evIntervalsCalc.getEvIntervals()
-
-    const tempDefender = defender.clone()
-    const tempEvs = { hp: 0, atk: defender.evs.atk, def: 0, spa: defender.evs.spa, spd: 0, spe: defender.evs.spe }
-
-    const minEvIntervalIndex = this.utils.findMinimumEvViaBinarySearch(evIntervals, evValue => {
-      tempEvs.hp = evValue
-      tempEvs.def = isPhysical ? evValue : 0
-      tempEvs.spd = isPhysical ? 0 : evValue
-
-      tempDefender.setEvs(tempEvs)
-
-      return this.survivalChecker.checkSurvival(attacker, tempDefender, field, threshold, rollIndex, rightIsDefender)
-    })
-
-    const evValue = evIntervals[minEvIntervalIndex]
-
-    if (isPhysical) {
-      return { ...defender.evs, hp: evValue, def: evValue, spd: 0 }
-    } else {
-      return { ...defender.evs, hp: evValue, def: 0, spd: evValue }
-    }
-  }
+  constructor(private survivalChecker: SurvivalChecker = new SurvivalChecker()) {}
 
   optimizeForAttacker(attacker: Pokemon, defender: Pokemon, field: Field, threshold: SurvivalThreshold = 2, rollIndex = 15, rightIsDefender = true): Stats | null {
     const isPhysical = attacker.moveSet.activeMove.category == "Physical"
-    const initialSolution = this.findFirstValidSolution(attacker, defender, field, isPhysical, threshold, rollIndex, rightIsDefender)
-
-    const initialDefender = defender.clone({ evs: { hp: initialSolution.hp, def: initialSolution.def, spd: initialSolution.spd } })
-    if (!this.survivalChecker.checkSurvival(attacker, initialDefender, field, threshold, rollIndex, rightIsDefender)) {
-      return null
-    }
-
     const evIntervals = this.evIntervalsCalc.getEvIntervals()
-
-    const initialDamageProduct = isPhysical ? initialDefender.hp * initialDefender.def : initialDefender.hp * initialDefender.spd
-    const minDamageProduct = initialDamageProduct * 0.9
-
-    const hpValues = new Map<number, number>()
-    const defSpdValues = new Map<number, number>()
+    const combinations = this.utils.generateOrderedTwoStatGrid(evIntervals)
 
     const tempDefender = defender.clone()
     const tempEvs = { hp: 0, atk: defender.evs.atk, def: 0, spa: defender.evs.spa, spd: 0, spe: defender.evs.spe }
 
-    for (const hpEv of evIntervals) {
-      tempEvs.hp = hpEv
-      tempEvs.def = 0
-      tempEvs.spd = 0
-      tempDefender.setEvs(tempEvs)
-      hpValues.set(hpEv, tempDefender.hp)
-    }
-
-    for (const defSpdEv of evIntervals) {
-      tempEvs.hp = 0
-      tempEvs.def = isPhysical ? defSpdEv : 0
-      tempEvs.spd = isPhysical ? 0 : defSpdEv
-      tempDefender.setEvs(tempEvs)
-      defSpdValues.set(defSpdEv, isPhysical ? tempDefender.def : tempDefender.spd)
-    }
-
-    const combinations = this.utils.generateTwoStatCombinations(evIntervals, hpValues, defSpdValues, minDamageProduct, (hp, defSpd) => hp * defSpd, isPhysical ? "def" : "spd")
-
-    const result = this.utils.findBestValidCombination(combinations, combination => {
+    for (const combination of combinations) {
       tempEvs.hp = combination.hp
-      tempEvs.def = combination.def
-      tempEvs.spd = combination.spd
+      tempEvs.def = isPhysical ? combination.secondary : 0
+      tempEvs.spd = isPhysical ? 0 : combination.secondary
       tempDefender.setEvs(tempEvs)
 
-      return this.survivalChecker.checkSurvival(attacker, tempDefender, field, threshold, rollIndex, rightIsDefender)
-    })
-
-    if (result) {
-      return { hp: result.hp, atk: 0, def: result.def, spa: 0, spd: result.spd, spe: 0 }
+      if (this.survivalChecker.checkSurvival(attacker, tempDefender, field, threshold, rollIndex, rightIsDefender)) {
+        return { hp: combination.hp, atk: 0, def: tempEvs.def, spa: 0, spd: tempEvs.spd, spe: 0 }
+      }
     }
 
-    return initialSolution
+    return null
   }
 
   findMinDefForPhysicalAttacker(hpEv: number, physicalAttacker: Pokemon | null, defender: Pokemon, field: Field, threshold: SurvivalThreshold = 2, rollIndex = 15, rightIsDefender = true): number | null {
