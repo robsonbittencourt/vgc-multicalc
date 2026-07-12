@@ -162,4 +162,44 @@ describe("Damage — item modifiers", () => {
 
     expect(result.description()).toEqual("252+ Atk Arcanine Wild Charge vs. 252 HP / 0 Def Multiscale Dragonite: 26-31 (13.1 - 15.6%) -- possible 7HKO")
   })
+
+  it("Ring Target: lets a Ground move deal damage to a Flying-type defender", () => {
+    const attacker = new Pokemon("Landorus-Therian", { evs: { atk: 252 }, nature: "Adamant" })
+    const defender = new Pokemon("Tornadus", { evs: { hp: 252 }, item: "Ring Target" })
+    const move = new Move("Earthquake")
+
+    const result = calculate(attacker, defender, move, field())
+
+    expect(result.description()).toEqual("252+ Atk Landorus-Therian Earthquake vs. 252 HP / 0 Def Tornadus: 102-120 (54.8 - 64.5%) -- guaranteed 2HKO")
+  })
+
+  it("Ring Target: lets a Normal move deal damage to a Ghost-type defender", () => {
+    const attacker = new Pokemon("Snorlax", { evs: { atk: 252 }, nature: "Adamant" })
+    const defender = new Pokemon("Dragapult", { evs: { hp: 252 }, item: "Ring Target" })
+    const move = new Move("Body Slam")
+
+    const result = calculate(attacker, defender, move, field())
+
+    expect(result.description()).toEqual("252+ Atk Snorlax Body Slam vs. 252 HP / 0 Def Dragapult: 91-108 (46.6 - 55.3%) -- 66.8% chance to 2HKO")
+  })
+
+  it("Ring Target: Klutz suppresses the item, keeping the type immunity", () => {
+    const attacker = new Pokemon("Landorus-Therian", { evs: { atk: 252 }, nature: "Adamant" })
+    const defender = new Pokemon("Tornadus", { evs: { hp: 252 }, item: "Ring Target", ability: "Klutz" })
+    const move = new Move("Earthquake")
+
+    const result = calculate(attacker, defender, move, field())
+
+    expect(result.damage).toEqual(0)
+  })
+
+  it("Iron Ball: lets a Ground move deal damage to a Flying-type defender", () => {
+    const attacker = new Pokemon("Landorus-Therian", { evs: { atk: 252 }, nature: "Adamant" })
+    const defender = new Pokemon("Tornadus", { evs: { hp: 252 }, item: "Iron Ball" })
+    const move = new Move("Earthquake")
+
+    const result = calculate(attacker, defender, move, field())
+
+    expect(result.description()).toEqual("252+ Atk Landorus-Therian Earthquake vs. 252 HP / 0 Def Tornadus: 102-120 (54.8 - 64.5%) -- guaranteed 2HKO")
+  })
 })
