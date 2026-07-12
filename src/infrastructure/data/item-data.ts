@@ -158,6 +158,12 @@ export const ITEM_DETAILS = {
     description: "The accuracy of attacks against the holder is 0.9x.",
     sprite: "bright-powder"
   },
+  burndrive: {
+    group: "Pokémon specific items",
+    name: "Burn Drive",
+    description: "If held by a Genesect, its Techno Blast is Fire type.",
+    sprite: "burn-drive"
+  },
   cellbattery: {
     group: "Items",
     name: "Cell Battery",
@@ -213,6 +219,12 @@ export const ITEM_DETAILS = {
       basePower: 80,
       type: "Normal"
     }
+  },
+  chilldrive: {
+    group: "Pokémon specific items",
+    name: "Chill Drive",
+    description: "If held by a Genesect, its Techno Blast is Ice type.",
+    sprite: "chill-drive"
   },
   choiceband: {
     group: "Meta",
@@ -300,11 +312,29 @@ export const ITEM_DETAILS = {
     description: "Holder's use of Rain Dance lasts 8 turns instead of 5.",
     sprite: "damp-rock"
   },
+  deepseascale: {
+    group: "Pokémon specific items",
+    name: "Deep Sea Scale",
+    description: "If held by a Clamperl, its Sp. Def is doubled.",
+    sprite: "deep-sea-scale"
+  },
+  deepseatooth: {
+    group: "Pokémon specific items",
+    name: "Deep Sea Tooth",
+    description: "If held by a Clamperl, its Sp. Atk is doubled.",
+    sprite: "deep-sea-tooth"
+  },
   destinyknot: {
     group: "Useless items",
     name: "Destiny Knot",
     description: "If holder becomes infatuated, the other Pokemon also becomes infatuated.",
     sprite: "destiny-knot"
+  },
+  dousedrive: {
+    group: "Pokémon specific items",
+    name: "Douse Drive",
+    description: "If held by a Genesect, its Techno Blast is Water type.",
+    sprite: "douse-drive"
   },
   dracoplate: {
     group: "Items",
@@ -630,6 +660,12 @@ export const ITEM_DETAILS = {
     description: "At the end of every turn, holder restores 1/16 of its max HP.",
     sprite: "leftovers"
   },
+  leek: {
+    group: "Pokémon specific items",
+    name: "Leek",
+    description: "If held by a Farfetch'd, Sirfetch'd, Galarian Farfetch'd, its critical hit ratio is raised.",
+    sprite: "leek"
+  },
   leppaberry: {
     group: "Items",
     name: "Leppa Berry",
@@ -751,6 +787,12 @@ export const ITEM_DETAILS = {
     description: "Holder's Steel-type attacks have 1.2x power.",
     sprite: "metal-coat"
   },
+  metalpowder: {
+    group: "Pokémon specific items",
+    name: "Metal Powder",
+    description: "If held by a Ditto, its Defense is doubled.",
+    sprite: "metal-powder"
+  },
   metronome: {
     group: "Items",
     name: "Metronome",
@@ -815,6 +857,108 @@ export const ITEM_DETAILS = {
     name: "Normal Gem",
     description: "Holder's first successful Normal-type attack will have 1.3x power. Single use.",
     sprite: "normal-gem"
+  },
+  buggem: {
+    group: "Items",
+    name: "Bug Gem",
+    description: "Holder's first successful Bug-type attack will have 1.3x power. Single use.",
+    sprite: "bug-gem"
+  },
+  darkgem: {
+    group: "Items",
+    name: "Dark Gem",
+    description: "Holder's first successful Dark-type attack will have 1.3x power. Single use.",
+    sprite: "dark-gem"
+  },
+  dragongem: {
+    group: "Items",
+    name: "Dragon Gem",
+    description: "Holder's first successful Dragon-type attack will have 1.3x power. Single use.",
+    sprite: "dragon-gem"
+  },
+  electricgem: {
+    group: "Items",
+    name: "Electric Gem",
+    description: "Holder's first successful Electric-type attack will have 1.3x power. Single use.",
+    sprite: "electric-gem"
+  },
+  fairygem: {
+    group: "Items",
+    name: "Fairy Gem",
+    description: "Holder's first successful Fairy-type attack will have 1.3x power. Single use.",
+    sprite: "fairy-gem"
+  },
+  fightinggem: {
+    group: "Items",
+    name: "Fighting Gem",
+    description: "Holder's first successful Fighting-type attack will have 1.3x power. Single use.",
+    sprite: "fighting-gem"
+  },
+  firegem: {
+    group: "Items",
+    name: "Fire Gem",
+    description: "Holder's first successful Fire-type attack will have 1.3x power. Single use.",
+    sprite: "fire-gem"
+  },
+  flyinggem: {
+    group: "Items",
+    name: "Flying Gem",
+    description: "Holder's first successful Flying-type attack will have 1.3x power. Single use.",
+    sprite: "flying-gem"
+  },
+  ghostgem: {
+    group: "Items",
+    name: "Ghost Gem",
+    description: "Holder's first successful Ghost-type attack will have 1.3x power. Single use.",
+    sprite: "ghost-gem"
+  },
+  grassgem: {
+    group: "Items",
+    name: "Grass Gem",
+    description: "Holder's first successful Grass-type attack will have 1.3x power. Single use.",
+    sprite: "grass-gem"
+  },
+  groundgem: {
+    group: "Items",
+    name: "Ground Gem",
+    description: "Holder's first successful Ground-type attack will have 1.3x power. Single use.",
+    sprite: "ground-gem"
+  },
+  icegem: {
+    group: "Items",
+    name: "Ice Gem",
+    description: "Holder's first successful Ice-type attack will have 1.3x power. Single use.",
+    sprite: "ice-gem"
+  },
+  poisongem: {
+    group: "Items",
+    name: "Poison Gem",
+    description: "Holder's first successful Poison-type attack will have 1.3x power. Single use.",
+    sprite: "poison-gem"
+  },
+  psychicgem: {
+    group: "Items",
+    name: "Psychic Gem",
+    description: "Holder's first successful Psychic-type attack will have 1.3x power. Single use.",
+    sprite: "psychic-gem"
+  },
+  rockgem: {
+    group: "Items",
+    name: "Rock Gem",
+    description: "Holder's first successful Rock-type attack will have 1.3x power. Single use.",
+    sprite: "rock-gem"
+  },
+  steelgem: {
+    group: "Items",
+    name: "Steel Gem",
+    description: "Holder's first successful Steel-type attack will have 1.3x power. Single use.",
+    sprite: "steel-gem"
+  },
+  watergem: {
+    group: "Items",
+    name: "Water Gem",
+    description: "Holder's first successful Water-type attack will have 1.3x power. Single use.",
+    sprite: "water-gem"
   },
   occaberry: {
     group: "Items",
@@ -1104,6 +1248,12 @@ export const ITEM_DETAILS = {
     description: "After an attack, holder gains 1/8 of the damage in HP dealt to other Pokemon.",
     sprite: "shell-bell"
   },
+  shockdrive: {
+    group: "Pokémon specific items",
+    name: "Shock Drive",
+    description: "If held by a Genesect, its Techno Blast is Electric type.",
+    sprite: "shock-drive"
+  },
   shucaberry: {
     group: "Items",
     name: "Shuca Berry",
@@ -1225,6 +1375,12 @@ export const ITEM_DETAILS = {
     name: "Terrain Extender",
     description: "Holder's use of Electric/Grassy/Misty/Psychic Terrain lasts 8 turns instead of 5.",
     sprite: "terrain-extender"
+  },
+  thickclub: {
+    group: "Pokémon specific items",
+    name: "Thick Club",
+    description: "If held by a Cubone or Marowak, its Attack is doubled.",
+    sprite: "thick-club"
   },
   throatspray: {
     group: "Items",

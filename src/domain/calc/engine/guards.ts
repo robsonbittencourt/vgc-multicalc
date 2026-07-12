@@ -136,6 +136,16 @@ export function computeMoveType(ctx: CombatContext): { type: string; hasAteAbili
       description.weather = field.weather
     }
     description.moveType = type as TypeName
+  } else if (move.originalName === "Techno Blast") {
+    if (attacker.hasItem("Burn Drive")) type = "Fire"
+    else if (attacker.hasItem("Chill Drive")) type = "Ice"
+    else if (attacker.hasItem("Douse Drive")) type = "Water"
+    else if (attacker.hasItem("Shock Drive")) type = "Electric"
+
+    if (type !== move.type) {
+      description.attackerItem = attacker.item
+      description.moveType = type as TypeName
+    }
   } else if (move.originalName === "Terrain Pulse" && isGrounded(attacker, field)) {
     type = field.hasTerrain("Electric") ? "Electric" : field.hasTerrain("Grassy") ? "Grass" : field.hasTerrain("Misty") ? "Fairy" : field.hasTerrain("Psychic") ? "Psychic" : "Normal"
     description.terrain = field.terrain
