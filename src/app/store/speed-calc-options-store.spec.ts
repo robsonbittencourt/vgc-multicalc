@@ -4,6 +4,7 @@ import { CalcStore } from "./calc-store"
 import { SpeedCalcOptionsStore } from "./speed-calc-options-store"
 import { Pokemon, Target, Team, TeamMember } from "@multicalc/model"
 import { SpeedCalcMode } from "@multicalc/speed-calc"
+import { patchState } from "@ngrx/signals"
 
 describe("Speed Calc Options Store", () => {
   let store: SpeedCalcOptionsStore
@@ -231,6 +232,68 @@ describe("Speed Calc Options Store", () => {
       store.updateFilter("My Team")
 
       expect(store.pokemonNamesByReg()).toEqual(["Incineroar", "Rillaboom"])
+    })
+
+    it("should not change the filter when an unknown filter name is provided", () => {
+      store.updateFilter("Opponents")
+
+      store.updateFilter("Not A Real Filter")
+
+      expect(store.filterType()).toBe("opponents")
+    })
+
+    it("should fall back to Opponents label when the selected team no longer exists", () => {
+      store.updateFilter("My Team")
+      store.updateFilter("Not A Real Filter")
+
+      expect(store.filterType()).toBe("team")
+      expect(store.selectedFilter()).toBe("My Team")
+    })
+
+    it("should exclude statistics-based modes for a non-regulation filter", () => {
+      store.updateFilter("Opponents")
+
+      expect(store.availableModes()).not.toContain(SpeedCalcMode.StatsAndMeta)
+      expect(store.availableModes()).not.toContain(SpeedCalcMode.Meta)
+    })
+
+    it("should include statistics-based modes for the regulation filter", () => {
+      store.updateFilter("Reg M-B")
+
+      expect(store.availableModes()).toContain(SpeedCalcMode.StatsAndMeta)
+      expect(store.availableModes()).toContain(SpeedCalcMode.Meta)
+    })
+
+    it("should fall back to Stats mode when switching to a filter that does not support statistics", () => {
+      store.updateFilter("Reg M-B")
+      store.updateMode(SpeedCalcMode.Meta)
+
+      store.updateFilter("Opponents")
+
+      expect(store.mode()).toBe(SpeedCalcMode.Stats)
+    })
+
+    it("should keep a mode that does not require statistics when switching filters", () => {
+      store.updateFilter("Reg M-B")
+      store.updateMode(SpeedCalcMode.Base)
+
+      store.updateFilter("Opponents")
+
+      expect(store.mode()).toBe(SpeedCalcMode.Base)
+    })
+
+    it("should fall back to the Opponents label when the team filter points at a team that no longer exists", () => {
+      store.updateFilter("My Team")
+      patchState(store, () => ({ teamId: "deleted-team" }))
+
+      expect(store.selectedFilter()).toBe("Opponents")
+    })
+
+    it("should return no Pokémon names when the team filter points at a team that no longer exists", () => {
+      store.updateFilter("My Team")
+      patchState(store, () => ({ teamId: "deleted-team" }))
+
+      expect(store.pokemonNamesByReg()).toEqual([])
     })
   })
 })
