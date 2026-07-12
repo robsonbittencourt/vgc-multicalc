@@ -9,6 +9,8 @@ import { NeutralizingGasAdjuster } from "./calc-adjuster/neutralizing-gas-adjust
 import { OgerponAdjuster } from "./calc-adjuster/ogerpon-adjuster"
 import { SupremeOverlordAdjuster } from "./calc-adjuster/supreme-overlord-adjuster"
 import { UnnerveAdjuster } from "./calc-adjuster/unnerve-adjuster"
+import { FlowerGiftAdjuster } from "./calc-adjuster/flower-gift-adjuster"
+import { SteelySpiritAdjuster } from "./calc-adjuster/steely-spirit-adjuster"
 import { DamageResult } from "@multicalc/damage-calc/damage-result"
 import { FieldMapper, fromExisting } from "@adapters"
 import { Field } from "@multicalc/model/field"
@@ -32,7 +34,9 @@ export class DamageCalc {
     new NeutralizingGasAdjuster(),
     new OgerponAdjuster(),
     new SupremeOverlordAdjuster(),
-    new UnnerveAdjuster()
+    new UnnerveAdjuster(),
+    new FlowerGiftAdjuster(),
+    new SteelySpiritAdjuster()
   ]
   fieldMapper = new FieldMapper()
   speedCalc = new SpeedCalc()

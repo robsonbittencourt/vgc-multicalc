@@ -231,5 +231,7 @@ export interface StateSide {
   isAuroraVeil?: boolean
   isBattery?: boolean
   isPowerSpot?: boolean
+  isFlowerGift?: boolean
+  isSteelySpirit?: boolean
   isSwitching?: "out" | "in"
 }

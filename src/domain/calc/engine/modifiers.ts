@@ -279,6 +279,17 @@ const AT_RULES: ModifierRule[] = [
       return 6144
     }
 
+    if (field.attackerSide.isFlowerGift && !attacker.hasAbility("Flower Gift") && field.hasWeather("Sun") && move.category === "Physical") {
+      description.weather = field.weather
+      description.isFlowerGiftAttacker = true
+      return 6144
+    }
+
+    if (field.attackerSide.isSteelySpirit && move.hasType("Steel")) {
+      description.isSteelySpiritAttacker = true
+      return 6144
+    }
+
     if (attacker.hasAbility("Gorilla Tactics") && move.category === "Physical") {
       description.attackerAbility = attacker.ability
       return 6144
