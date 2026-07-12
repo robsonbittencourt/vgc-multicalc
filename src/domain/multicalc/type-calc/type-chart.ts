@@ -2,8 +2,12 @@ import { PokemonType } from "@multicalc/types"
 
 export type TypeEffectiveness = 0 | 0.25 | 0.5 | 1 | 2 | 4
 
-export type AbilityName =
-  "Eelevate" | "Levitate" | "Flash Fire" | "Volt Absorb" | "Water Absorb" | "Motor Drive" | "Lightning Rod" | "Storm Drain" | "Sap Sipper" | "Dry Skin" | "Well-Baked Body" | "Wonder Guard" | "Thick Fat" | "Heatproof" | "Water Bubble" | "Earth Eater"
+export type AbilityName = "Eelevate" | "Levitate" | "Flash Fire" | "Volt Absorb" | "Water Absorb" | "Motor Drive" | "Lightning Rod" | "Storm Drain" | "Sap Sipper" | "Dry Skin" | "Well-Baked Body" | "Wonder Guard" | "Earth Eater" | "Klutz"
+
+export interface DefenderInput {
+  ability?: AbilityName
+  item?: string
+}
 
 const ABILITY_IMMUNITIES: Partial<Record<AbilityName, PokemonType>> = {
   Eelevate: "Ground",
@@ -18,12 +22,6 @@ const ABILITY_IMMUNITIES: Partial<Record<AbilityName, PokemonType>> = {
   "Dry Skin": "Water",
   "Well-Baked Body": "Fire",
   "Earth Eater": "Ground"
-}
-
-const ABILITY_RESISTANCES: Partial<Record<AbilityName, PokemonType[]>> = {
-  "Thick Fat": ["Fire", "Ice"],
-  Heatproof: ["Fire"],
-  "Water Bubble": ["Fire"]
 }
 
 export class TypeChart {
@@ -390,35 +388,25 @@ export class TypeChart {
     }
   }
 
-  getEffectiveness(attackType: PokemonType, defenseType1: PokemonType, defenseType2?: PokemonType, ability?: AbilityName): TypeEffectiveness {
+  getEffectiveness(attackType: PokemonType, defenseType1: PokemonType, defenseType2?: PokemonType, ability?: AbilityName, defender?: DefenderInput): TypeEffectiveness {
     if ((attackType as string) === "Stellar") {
       return 1
+    }
+
+    if (attackType === "Ground" && defender?.item === "Air Balloon") {
+      return 0
     }
 
     if (ability) {
       const immuneType = ABILITY_IMMUNITIES[ability]
 
       if (immuneType && immuneType === attackType) {
-        return 0
+        return this.removesTypeImmunity(defender) ? 1 : 0
       }
 
       if (ability === "Wonder Guard") {
         const base = this.getEffectiveness(attackType, defenseType1, defenseType2)
         return base === 2 || base === 4 ? base : 0
-      }
-
-      const resistedTypes = ABILITY_RESISTANCES[ability]
-
-      if (resistedTypes?.includes(attackType)) {
-        const base = this.getEffectiveness(attackType, defenseType1, defenseType2)
-        const halved = base * 0.5
-
-        if (halved === 0.25) return 0.25
-        if (halved === 0.5) return 0.5
-        if (halved === 1) return 1
-        if (halved === 2) return 2
-
-        return 0
       }
     }
 
@@ -433,7 +421,19 @@ export class TypeChart {
     if (multiplier === 2) return 2
     if (multiplier === 4) return 4
 
-    return 0
+    return this.hasRingTarget(defender) ? 1 : 0
+  }
+
+  private removesTypeImmunity(defender?: DefenderInput): boolean {
+    return this.hasRingTarget(defender) || (defender?.item === "Iron Ball" && !this.hasKlutz(defender))
+  }
+
+  private hasRingTarget(defender?: DefenderInput): boolean {
+    return defender?.item === "Ring Target" && !this.hasKlutz(defender)
+  }
+
+  private hasKlutz(defender?: DefenderInput): boolean {
+    return defender?.ability === "Klutz"
   }
 
   formatEffectiveness(effectiveness: TypeEffectiveness): string {

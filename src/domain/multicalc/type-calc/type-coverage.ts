@@ -2,7 +2,7 @@ import { getMoveData } from "@data/move-data"
 import { Pokemon } from "@multicalc/model/pokemon"
 import { Team } from "@multicalc/model/team"
 import { PokemonType, PokemonTypes } from "@multicalc/types"
-import { AbilityName, TypeEffectiveness, TypeChart } from "./type-chart"
+import { AbilityName, DefenderInput, TypeEffectiveness, TypeChart } from "./type-chart"
 
 const ATE_ABILITY_TYPES: Record<string, PokemonType> = {
   Pixilate: "Fairy",
@@ -90,9 +90,9 @@ export class TypeCoverage {
 
         if (considerTeraType && pokemon.teraType && pokemon.teraType !== "Stellar") {
           const teraType = pokemon.teraType as PokemonType
-          finalEffectiveness = this.typeChart.getEffectiveness(moveType, teraType, undefined, this.getAbilityName(pokemon))
+          finalEffectiveness = this.typeChart.getEffectiveness(moveType, teraType, undefined, this.getAbilityName(pokemon), this.getDefenderInput(pokemon))
         } else {
-          finalEffectiveness = this.typeChart.getEffectiveness(moveType, type1, type2, this.getAbilityName(pokemon))
+          finalEffectiveness = this.typeChart.getEffectiveness(moveType, type1, type2, this.getAbilityName(pokemon), this.getDefenderInput(pokemon))
         }
 
         const formatted = this.typeChart.formatEffectiveness(finalEffectiveness)
@@ -203,9 +203,9 @@ export class TypeCoverage {
 
           if (considerTeraType && targetPokemon.teraType && targetPokemon.teraType !== "Stellar") {
             const teraType = targetPokemon.teraType as PokemonType
-            effectiveness = this.typeChart.getEffectiveness(moveType, teraType, undefined, this.getAbilityName(targetPokemon))
+            effectiveness = this.typeChart.getEffectiveness(moveType, teraType, undefined, this.getAbilityName(targetPokemon), this.getDefenderInput(targetPokemon))
           } else {
-            effectiveness = this.typeChart.getEffectiveness(moveType, type1, type2, this.getAbilityName(targetPokemon))
+            effectiveness = this.typeChart.getEffectiveness(moveType, type1, type2, this.getAbilityName(targetPokemon), this.getDefenderInput(targetPokemon))
           }
 
           effectivenessValues.push(effectiveness)
@@ -275,10 +275,10 @@ export class TypeCoverage {
         const effectivenessValues: TypeEffectiveness[] = movesWithBP.map(moveType => {
           if (considerTeraType && pokemon.teraType && pokemon.teraType !== "Stellar") {
             const teraType = pokemon.teraType as PokemonType
-            return this.typeChart.getEffectiveness(moveType, teraType, undefined, this.getAbilityName(pokemon))
+            return this.typeChart.getEffectiveness(moveType, teraType, undefined, this.getAbilityName(pokemon), this.getDefenderInput(pokemon))
           }
 
-          return this.typeChart.getEffectiveness(moveType, type1, type2, this.getAbilityName(pokemon))
+          return this.typeChart.getEffectiveness(moveType, type1, type2, this.getAbilityName(pokemon), this.getDefenderInput(pokemon))
         })
 
         if (effectivenessValues.length === 0) {
@@ -439,5 +439,12 @@ export class TypeCoverage {
 
   private getAbilityName(pokemon: Pokemon): AbilityName | undefined {
     return pokemon.ability.name as AbilityName | undefined
+  }
+
+  private getDefenderInput(pokemon: Pokemon): DefenderInput {
+    return {
+      ability: this.getAbilityName(pokemon),
+      item: pokemon.item
+    }
   }
 }

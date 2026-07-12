@@ -1320,19 +1320,6 @@ describe("TypeCoverage", () => {
       const grassRow = coverage.find(row => row.moveType === "Grass")
       expect(grassRow!.pokemonData[0].effectiveness).toBe(0)
     })
-
-    it("should halve Fire and Ice damage for pokemon with Thick Fat", () => {
-      const snorlax = new Pokemon("Snorlax", { ability: new Ability("Thick Fat") })
-      const team = new Team("1", true, "Team", [new TeamMember(snorlax, true)])
-
-      const coverage = service.getDefensiveCoverage(team)
-
-      const fireRow = coverage.find(row => row.moveType === "Fire")
-      expect(fireRow!.pokemonData[0].effectiveness).toBe(0.5)
-
-      const iceRow = coverage.find(row => row.moveType === "Ice")
-      expect(iceRow!.pokemonData[0].effectiveness).toBe(0.5)
-    })
   })
 
   describe("ability type immunities in getDefensiveCoverageAgainstTeam", () => {
@@ -1374,19 +1361,6 @@ describe("TypeCoverage", () => {
       const coverage = service.getDefensiveCoverageAgainstTeam(team, targetTeam)
 
       expect(coverage[0].pokemonData[0].effectiveness).toBe(0)
-    })
-
-    it("should halve Fire damage for pokemon with Thick Fat", () => {
-      const snorlax = new Pokemon("Snorlax", { ability: new Ability("Thick Fat") })
-      const attacker = new Pokemon("Charizard", {
-        moveSet: new MoveSet(new Move("Flamethrower"), new Move("Flamethrower"), new Move("Flamethrower"), new Move("Flamethrower"))
-      })
-      const team = new Team("1", true, "Team", [new TeamMember(snorlax, true)])
-      const targetTeam = new Team("2", true, "Target Team", [new TeamMember(attacker, true)])
-
-      const coverage = service.getDefensiveCoverageAgainstTeam(team, targetTeam)
-
-      expect(coverage[0].pokemonData[0].effectiveness).toBe(0.5)
     })
   })
 
