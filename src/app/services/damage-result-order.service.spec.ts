@@ -3,6 +3,7 @@ import { DamageResult, MultiCalcMode } from "@multicalc/damage-calc"
 import { Pokemon } from "@multicalc/model"
 
 const ONE_VS_MANY: MultiCalcMode = { oneVsManyActivated: true, manyVsOneActivated: false, oneVsManyBestMoveActivated: false }
+const MANY_VS_ONE: MultiCalcMode = { oneVsManyActivated: false, manyVsOneActivated: true, oneVsManyBestMoveActivated: false }
 
 describe("DamageResultOrderService", () => {
   let service: DamageResultOrderService
@@ -55,6 +56,23 @@ describe("DamageResultOrderService", () => {
       const results = [damageResult1, damageResult2, damageResult3]
 
       service.order(results, 1, ONE_VS_MANY)
+
+      expect(results[0].id).toEqual(damageResult1.id)
+      expect(results[1].id).toEqual(damageResult2.id)
+      expect(results[2].id).toEqual(damageResult3.id)
+    })
+  })
+
+  describe("many vs one mode", () => {
+    it("should order by attacker id instead of defender id when preserving order", () => {
+      const defender = new Pokemon("Dondozo")
+
+      const damageResult1 = damageResult(new Pokemon("Flutter Mane"), defender, 50)
+      const damageResult2 = damageResult(new Pokemon("Iron Bundle"), defender, 20)
+      const damageResult3 = damageResult(new Pokemon("Roaring Moon"), defender, 80)
+      const results = [damageResult1, damageResult2, damageResult3]
+
+      service.order(results, 1, MANY_VS_ONE)
 
       expect(results[0].id).toEqual(damageResult1.id)
       expect(results[1].id).toEqual(damageResult2.id)

@@ -79,4 +79,70 @@ describe("ThemeService", () => {
     expect(selectedColor.name).toBe("blue")
     expect(selectedColor.pokemon).toBe("suicune")
   })
+
+  it("should set the dark theme-color meta media attributes when applying the dark theme", () => {
+    const light = document.createElement("meta")
+    light.setAttribute("name", "theme-color")
+    const dark = document.createElement("meta")
+    dark.setAttribute("name", "theme-color")
+    document.head.append(light, dark)
+
+    try {
+      storeSpy.theme.mockReturnValue("dark")
+
+      service.setTheme("dark")
+
+      expect(light.getAttribute("media")).toBe("not all")
+      expect(dark.getAttribute("media")).toBeNull()
+    } finally {
+      light.remove()
+      dark.remove()
+    }
+  })
+
+  it("should set the light theme-color meta media attributes when applying the light theme", () => {
+    const light = document.createElement("meta")
+    light.setAttribute("name", "theme-color")
+    const dark = document.createElement("meta")
+    dark.setAttribute("name", "theme-color")
+    document.head.append(light, dark)
+
+    try {
+      storeSpy.theme.mockReturnValue("light")
+
+      service.setTheme("light")
+
+      expect(light.getAttribute("media")).toBeNull()
+      expect(dark.getAttribute("media")).toBe("not all")
+    } finally {
+      light.remove()
+      dark.remove()
+    }
+  })
+
+  it("should set the system theme-color meta media attributes when applying the system theme", () => {
+    const light = document.createElement("meta")
+    light.setAttribute("name", "theme-color")
+    const dark = document.createElement("meta")
+    dark.setAttribute("name", "theme-color")
+    document.head.append(light, dark)
+
+    try {
+      storeSpy.theme.mockReturnValue("system")
+
+      service.setTheme("system")
+
+      expect(light.getAttribute("media")).toBe("(prefers-color-scheme: light)")
+      expect(dark.getAttribute("media")).toBe("(prefers-color-scheme: dark)")
+    } finally {
+      light.remove()
+      dark.remove()
+    }
+  })
+
+  it("should skip meta media updates when the theme-color meta elements are missing", () => {
+    storeSpy.theme.mockReturnValue("dark")
+
+    expect(() => service.setTheme("dark")).not.toThrow()
+  })
 })

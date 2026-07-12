@@ -1,7 +1,14 @@
-import { calculateMulti, Field, Move, Pokemon } from "@calc"
+import { calculateMulti, Field, Move, MultiResult, Pokemon } from "@calc"
 
 describe("Damage — combined attackers, formatting paths", () => {
   const field = () => new Field({ gameType: "Doubles" })
+
+  it("returns a fallback message when constructed with no results at all", () => {
+    const defender = new Pokemon("Dondozo", {})
+    const result = new MultiResult(defender, [], { damage: 0, texts: [] })
+
+    expect(result.description()).toBe("No result")
+  })
 
   it("a single attacker falls back to a plain result description", () => {
     const attacker = new Pokemon("Rillaboom", { evs: { atk: 252 }, nature: "Adamant" })

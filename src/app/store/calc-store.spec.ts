@@ -72,6 +72,49 @@ describe("Calc Store", () => {
       expect(store.attackerId()).toBe("456")
     })
 
+    it("should return an empty attackerId when there is no active team member", () => {
+      const teamX = new Team("123", true, "Team X", [new TeamMember(new Pokemon("Pikachu", { id: "123" }), false)])
+
+      store.updateTeams([teamX])
+
+      expect(store.attackerId()).toBe("")
+    })
+
+    describe("teamFilterTargets", () => {
+      it("should return null when no team filter is set", () => {
+        expect(store.teamFilterTargets()).toBeNull()
+      })
+
+      it("should return null when the filtered team id does not match any team", () => {
+        store.teamFilterId.set("non-existent-team-id")
+
+        expect(store.teamFilterTargets()).toBeNull()
+      })
+
+      it("should return targets built from the filtered team's members", () => {
+        const teamId = store.teams()[0].id
+        store.teamFilterId.set(teamId)
+
+        const targets = store.teamFilterTargets()
+
+        expect(targets?.length).toBe(store.team().teamMembers.length)
+        expect(targets?.[0].pokemon.name).toBe(store.team().teamMembers[0].pokemon.name)
+      })
+    })
+
+    describe("displayedTargets", () => {
+      it("should fall back to targets() when no team filter is active", () => {
+        expect(store.displayedTargets()).toEqual(store.targets())
+      })
+
+      it("should use teamFilterTargets() when a team filter is active", () => {
+        const teamId = store.teams()[0].id
+        store.teamFilterId.set(teamId)
+
+        expect(store.displayedTargets()).toEqual(store.teamFilterTargets())
+      })
+    })
+
     it("should load team member at index 0", () => {
       expect(store.teamMember0()?.name).toBe("Charizard")
     })
@@ -867,6 +910,56 @@ describe("Calc Store", () => {
 
         expect(result.higherStat).toBe("spe")
       })
+
+      it("should not change the moveset fields when the given Pokémon name has no known moveset", () => {
+        store.name(defaultId, "Charizard")
+
+        store.loadPokemonInfo(defaultId, "Not-A-Real-Pokemon-Name")
+
+        const result = store.findPokemonById(defaultId)
+        expect(result.name).toBe("Charizard")
+      })
+
+      it("should clear the active custom set when loading info into the set's bound Pokémon", () => {
+        store.addCustomSet(defaultId, "My Set")
+        const setId = store.customSetsState()[0].id
+        store.enterCustomSetEditMode(defaultId, setId)
+
+        store.loadPokemonInfo(defaultId, "Incineroar")
+
+        expect(store.activeSetId()).toBeNull()
+        expect(store.activeSetPokemonId()).toBeNull()
+      })
+    })
+
+    describe("activateTeamMemberByPokemonId", () => {
+      it("should activate the team member matching the given Pokémon id", () => {
+        store.updateTeamMembersActive(true, false, false, false, false, false)
+        const targetId = store.team().teamMembers[2].pokemon.id
+
+        store.activateTeamMemberByPokemonId(targetId)
+
+        expect(store.team().teamMembers[2].active).toBe(true)
+      })
+
+      it("should do nothing when no team member matches the given Pokémon id", () => {
+        store.updateTeamMembersActive(true, false, false, false, false, false)
+
+        store.activateTeamMemberByPokemonId("non-existent-id")
+
+        expect(store.team().teamMembers[0].active).toBe(true)
+        expect(store.team().teamMembers[1].active).toBe(false)
+      })
+    })
+
+    describe("activateTeamMember on an empty team", () => {
+      it("should keep the team unchanged when the active team has no members", () => {
+        store.activateTeam(store.teams()[1].id)
+
+        store.activateTeamMember(0)
+
+        expect(store.team().teamMembers.length).toBe(0)
+      })
     })
 
     describe("User data", () => {
@@ -904,6 +997,8 @@ describe("Calc Store", () => {
         }
 
         store.updateStateLockingLocalStorage(state)
+
+        TestBed.tick()
 
         expect(store.secondAttackerId()).toBe("123")
         expect(store.updateLocalStorage()).toBe(false)
@@ -1107,13 +1202,133 @@ describe("Calc Store", () => {
 
     it("should rename the active set via updateActiveSetName", () => {
       const pokemonId = store.leftPokemonState().id
+      store.addCustomSet(pokemonId, "Untouched Set")
       store.addCustomSet(pokemonId, "My Set")
-      const setId = store.customSetsState()[0].id
+      const untouchedId = store.customSetsState()[0].id
+      const setId = store.customSetsState()[1].id
       store.enterCustomSetEditMode(pokemonId, setId)
 
       store.updateActiveSetName("Sun Sweeper")
 
       expect(store.customSetsState().find(s => s.id === setId)!.setName).toBe("Sun Sweeper")
+      expect(store.customSetsState().find(s => s.id === untouchedId)!.setName).toBe("Untouched Set")
+    })
+
+    it("should do nothing when selecting a set id that does not exist", () => {
+      const pokemonId = store.leftPokemonState().id
+      store.name(pokemonId, "Koraidon")
+
+      store.selectCustomSet(pokemonId, "non-existent-set-id")
+
+      expect(store.leftPokemonState().name).toBe("Koraidon")
+    })
+
+    it("should do nothing when entering edit mode with a set id that does not exist", () => {
+      const pokemonId = store.leftPokemonState().id
+
+      store.enterCustomSetEditMode(pokemonId, "non-existent-set-id")
+
+      expect(store.activeSetId()).toBeNull()
+    })
+
+    it("should do nothing when duplicating a set id that does not exist", () => {
+      store.duplicateCustomSet("non-existent-set-id")
+
+      expect(store.customSetsState().length).toBe(0)
+    })
+
+    it("should keep an unrelated activeSetId untouched when removing a different set", () => {
+      const pokemonId = store.leftPokemonState().id
+      store.addCustomSet(pokemonId, "Set A")
+      const setAId = store.customSetsState()[0].id
+      store.selectCustomSet(pokemonId, setAId)
+      store.addCustomSet(pokemonId, "Set B")
+      const setBId = store.customSetsState()[1].id
+
+      store.removeCustomSet(setBId)
+
+      expect(store.customSetsState().length).toBe(1)
+    })
+
+    it("should do nothing when exiting edit mode with no active set", () => {
+      store.exitCustomSetEditMode()
+
+      expect(store.activeSetId()).toBeNull()
+      expect(store.isEditingCustomSet()).toBe(false)
+    })
+
+    it("should save the current Pokémon state into the set when exiting edit mode", () => {
+      const pokemonId = store.leftPokemonState().id
+      store.addCustomSet(pokemonId, "Untouched Set")
+      store.addCustomSet(pokemonId, "My Set")
+      const untouchedId = store.customSetsState()[0].id
+      const setId = store.customSetsState()[1].id
+      store.enterCustomSetEditMode(pokemonId, setId)
+      store.item(pokemonId, "Choice Band")
+
+      store.exitCustomSetEditMode()
+
+      const savedSet = store.customSetsState().find(s => s.id === setId)!
+      const untouchedSet = store.customSetsState().find(s => s.id === untouchedId)!
+      expect(savedSet.state.item).toBe("Choice Band")
+      expect(untouchedSet.setName).toBe("Untouched Set")
+      expect(store.activeSetId()).toBeNull()
+    })
+
+    it("should clear edit mode without saving when the bound Pokémon can no longer be found", () => {
+      const pokemonId = store.team().teamMembers[0].pokemon.id
+      store.addCustomSet(pokemonId, "My Set")
+      const setId = store.customSetsState()[0].id
+      store.enterCustomSetEditMode(pokemonId, setId)
+      store.removeTeamMember(pokemonId)
+
+      store.exitCustomSetEditMode()
+
+      expect(store.activeSetId()).toBeNull()
+      expect(store.activeSetPokemonId()).toBeNull()
+      expect(store.isEditingCustomSet()).toBe(false)
+    })
+
+    it("should do nothing when updating the active set with no active set id", () => {
+      store.updateActiveSet("New Name")
+
+      expect(store.customSetsState().length).toBe(0)
+    })
+
+    it("should update the active set's name and snapshot the current Pokémon state", () => {
+      const pokemonId = store.team().teamMembers[0].pokemon.id
+      store.addCustomSet(pokemonId, "Untouched Set")
+      store.addCustomSet(pokemonId, "Original Name")
+      const untouchedId = store.customSetsState()[0].id
+      const setId = store.customSetsState()[1].id
+      store.enterCustomSetEditMode(pokemonId, setId)
+      store.item(pokemonId, "Choice Specs")
+
+      store.updateActiveSet("Updated Name")
+
+      const updatedSet = store.customSetsState().find(s => s.id === setId)!
+      const untouchedSet = store.customSetsState().find(s => s.id === untouchedId)!
+      expect(updatedSet.setName).toBe("Updated Name")
+      expect(updatedSet.state.item).toBe("Choice Specs")
+      expect(untouchedSet.setName).toBe("Untouched Set")
+    })
+
+    it("should do nothing when updating the active set but the bound Pokémon can no longer be found", () => {
+      const pokemonId = store.team().teamMembers[0].pokemon.id
+      store.addCustomSet(pokemonId, "My Set")
+      const setId = store.customSetsState()[0].id
+      store.enterCustomSetEditMode(pokemonId, setId)
+      store.removeTeamMember(pokemonId)
+
+      store.updateActiveSet("Updated Name")
+
+      expect(store.customSetsState().find(s => s.id === setId)!.setName).toBe("My Set")
+    })
+
+    it("should do nothing when updating the active set name with no active set id", () => {
+      store.updateActiveSetName("New Name")
+
+      expect(store.customSetsState().length).toBe(0)
     })
   })
 })
