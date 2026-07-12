@@ -217,7 +217,11 @@ export function computeTypeEffectiveness(ctx: CombatContext): number {
   const e1 = getMoveEffectiveness(move, types[0], isGhostRevealed, field.isGravity, false)
   const e2 = types[1] ? getMoveEffectiveness(move, types[1], isGhostRevealed, field.isGravity, false) : 1
 
-  const typeEffectiveness = e1 * e2
+  let typeEffectiveness = e1 * e2
+
+  if (move.type === "Stellar") {
+    typeEffectiveness = defender.teraType ? 2 : 1
+  }
 
   if (defender.hasAbility("Tera Shell") && defender.currrentHp() === defender.maxHp() && ((!field.defenderSide.isSR && (!field.defenderSide.spikes || defender.hasType("Flying"))) || defender.hasItem("Heavy-Duty Boots"))) {
     ctx.description.defenderAbility = defender.ability

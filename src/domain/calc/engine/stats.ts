@@ -128,6 +128,16 @@ export function getStabMod(pokemon: Pokemon, move: Move, description: RawDesc): 
   return stabMod
 }
 
+export function getStellarStabMod(pokemon: Pokemon, move: Move, stabMod: number, turns = 0): number {
+  const isStellarBoosted = pokemon.teraType === "Stellar" && ((move.isStellarFirstUse && turns === 0) || pokemon.named("Terapagos-Stellar"))
+
+  if (!isStellarBoosted) return stabMod
+
+  if (pokemon.hasOriginalType(move.type)) return stabMod + 2048
+
+  return 4915
+}
+
 export function countBoosts(boosts: Pokemon["boosts"]): number {
   let sum = 0
 

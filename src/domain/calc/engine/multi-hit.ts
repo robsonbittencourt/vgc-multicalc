@@ -1,4 +1,4 @@
-import { getStabMod } from "@calc/engine/stats"
+import { getStabMod, getStellarStabMod } from "@calc/engine/stats"
 import { checkMultihitBoost } from "@calc/engine/pre-damage-effects"
 import { HitContext, computeHitDamage } from "@calc/engine/hit-damage"
 
@@ -19,7 +19,7 @@ export function computeMultiHitDamage(ctx: HitContext, firstHitDamage: number[],
     usedItems = checkMultihitBoost(attacker, defender, move, field, description, usedItems[0], usedItems[1])
 
     const ateStillActive = hasAteAbilityTypeChange && attacker.hasAbility("Aerilate", "Dragonize", "Pixilate", "Refrigerate")
-    const newStabMod = overTurns ? getStabMod(attacker, move, description) : stabMod
+    const newStabMod = overTurns ? getStellarStabMod(attacker, move, getStabMod(attacker, move, description), times) : stabMod
 
     damageMatrix[times] = computeHitDamage(ctx, { hit: times + 1, hitCount: times, hasAteAbilityTypeChange: ateStillActive, stabMod: newStabMod })
   }

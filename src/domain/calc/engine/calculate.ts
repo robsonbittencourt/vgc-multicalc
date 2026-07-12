@@ -5,7 +5,7 @@ import { Move } from "@calc/model/move"
 import { Pokemon } from "@calc/model/pokemon"
 import { applyEarlyReturnGuards, applyFixedDamageGuards, applyTypeGuards, computeMoveType, computeTypeEffectiveness } from "@calc/engine/guards"
 import { getBasePower } from "@calc/engine/base-power"
-import { getStabMod } from "@calc/engine/stats"
+import { getStabMod, getStellarStabMod } from "@calc/engine/stats"
 import { RawDesc } from "@data/types"
 import { HitContext } from "@calc/engine/hit-damage"
 import { prepareCombatants } from "@calc/engine/prepare-combatants"
@@ -57,7 +57,12 @@ export function calculateDamage(originalAttacker: Pokemon, originalDefender: Pok
 
   applyGaleWings(attacker, move, description)
 
-  const stabMod = getStabMod(attacker, move, description)
+  if (attacker.teraType === "Stellar" && (move.named("Tera Blast") || move.isStellarFirstUse)) {
+    description.isStellarFirstUse = attacker.name !== "Terapagos-Stellar" && move.named("Tera Blast") && move.isStellarFirstUse
+    description.attackerTera = attacker.teraType
+  }
+
+  const stabMod = getStellarStabMod(attacker, move, getStabMod(attacker, move, description))
   const hitContext = buildHitContext({ attacker, defender, move, field, description }, typeEffectiveness, turnOrder)
   result.damage = resolveDamage(hitContext, hasAteAbilityTypeChange, stabMod)
 
