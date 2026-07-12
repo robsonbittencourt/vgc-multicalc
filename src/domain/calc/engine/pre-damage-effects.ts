@@ -10,11 +10,9 @@ export function checkForecast(pokemon: Pokemon, weather: string | undefined): vo
   if (pokemon.hasAbility("Forecast") && pokemon.named("Castform")) {
     switch (weather) {
       case "Sun":
-      case "Harsh Sunshine":
         pokemon.types = ["Fire"]
         break
       case "Rain":
-      case "Heavy Rain":
         pokemon.types = ["Water"]
         break
       case "Hail":

@@ -11342,21 +11342,6 @@ export const POKEMON_DATA: Record<string, PokemonDataCore> = {
     abilities: ["Torrent", "Protean"],
     group: "Regular"
   },
-  groudonprimal: {
-    name: "Groudon-Primal",
-    types: ["Ground", "Fire"],
-    baseStats: {
-      hp: 100,
-      atk: 180,
-      def: 160,
-      spa: 150,
-      spd: 90,
-      spe: 90
-    },
-    weightKg: 999.7,
-    gender: "N",
-    abilities: ["Desolate Land"]
-  },
   hawlucha: {
     name: "Hawlucha",
     types: ["Fighting", "Flying"],
@@ -11479,21 +11464,6 @@ export const POKEMON_DATA: Record<string, PokemonDataCore> = {
     weightKg: 3,
     abilities: ["Prankster", "Magician"],
     group: "Low usage"
-  },
-  kyogreprimal: {
-    name: "Kyogre-Primal",
-    types: ["Water"],
-    baseStats: {
-      hp: 100,
-      atk: 150,
-      def: 90,
-      spa: 180,
-      spd: 160,
-      spe: 90
-    },
-    weightKg: 430,
-    gender: "N",
-    abilities: ["Primordial Sea"]
   },
   litleo: {
     name: "Litleo",
