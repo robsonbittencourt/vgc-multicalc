@@ -60,6 +60,36 @@ describe("Multi Target Damage - Stamina", () => {
   })
 })
 
+describe("Multi Target Damage - Empty attackers", () => {
+  it("should return an empty MultiResult without throwing when called with empty attackers and moves arrays", () => {
+    const field = new Field({ gameType: "Doubles" })
+    const tornadus = new Pokemon("Tornadus")
+
+    const result = calculateMultiDamage([], tornadus, [], field)
+
+    expect(result.results).toEqual([])
+    expect(result.description()).toEqual("No result")
+  })
+})
+
+describe("Multi Target Damage - Multi-hit move", () => {
+  it("should sum every hit of a multi-hit move when computing the max damage for the following turn", () => {
+    const field = new Field({ gameType: "Doubles" })
+    const cloyster = new Pokemon("Cloyster", { nature: "Adamant", evs: { atk: 252 } })
+    const garchomp = new Pokemon("Garchomp", { nature: "Adamant", evs: { atk: 252 } })
+    const archaludon = new Pokemon("Archaludon", { ability: "Stamina" })
+    const moves = [new Move("Icicle Spear", { hits: 2 }), new Move("Rock Slide")]
+
+    const result = calculateMultiDamage([cloyster, garchomp], archaludon, moves, field)
+
+    expect(result.results[0].damage).toEqual([
+      [16, 16, 16, 16, 16, 16, 16, 16, 18, 18, 18, 18, 18, 18, 18, 19],
+      [10, 10, 10, 10, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 13]
+    ])
+    expect(result.damageWithRemainingUntilTurn(1, 15)).toEqual(41)
+  })
+})
+
 describe("Multi Target Damage - Immunity", () => {
   it("should return the fallback description without throwing when both attackers are immune to the defender", () => {
     const field = new Field({ gameType: "Doubles" })
