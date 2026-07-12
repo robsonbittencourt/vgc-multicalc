@@ -143,14 +143,19 @@ const BP_RULES: ModifierRule[] = [
   },
 
   ({ attacker, move, field, description, turnOrder }) => {
+    const isSwitchingAnalytic = attacker.hasAbility("Analytic") && field.defenderSide.isSwitching === "out"
+
     if (
       (attacker.hasAbility("Sheer Force") && (move.secondaries || move.named("Electro Shot", "Order Up"))) ||
+      (attacker.hasAbility("Analytic") && turnOrder !== "first") ||
+      isSwitchingAnalytic ||
       (attacker.hasAbility("Sand Force") && field.hasWeather("Sand") && move.hasType("Rock", "Ground", "Steel")) ||
-      (attacker.hasAbility("Analytic") && (turnOrder !== "first" || field.defenderSide.isSwitching === "out")) ||
       (attacker.hasAbility("Tough Claws") && move.flags.contact) ||
       (attacker.hasAbility("Punk Rock") && move.flags.sound)
     ) {
       description.attackerAbility = attacker.ability
+      if (isSwitchingAnalytic) description.isSwitching = "out"
+
       return 5325
     }
 
