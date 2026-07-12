@@ -1362,6 +1362,66 @@ describe("TypeCoverage", () => {
 
       expect(coverage[0].pokemonData[0].effectiveness).toBe(0)
     })
+
+    it("should not be immune to Ground for pokemon with Levitate when the attacker has Mold Breaker", () => {
+      const rotom = new Pokemon("Rotom-Wash", { ability: new Ability("Levitate") })
+      const attacker = new Pokemon("Ampharos-Mega", {
+        ability: new Ability("Mold Breaker"),
+        moveSet: new MoveSet(new Move("Earthquake"), new Move("Earthquake"), new Move("Earthquake"), new Move("Earthquake"))
+      })
+      const team = new Team("1", true, "Team", [new TeamMember(rotom, true)])
+      const targetTeam = new Team("2", true, "Target Team", [new TeamMember(attacker, true)])
+
+      const coverage = service.getDefensiveCoverageAgainstTeam(team, targetTeam)
+
+      expect(coverage[0].pokemonData[0].effectiveness).toBe(2)
+      expect(coverage[0].totalWeak).toBe(1)
+    })
+  })
+
+  describe("Scrappy/Mind's Eye in getOffensiveCoverageAgainstTeam", () => {
+    it("should not treat a Ghost-type defender as immune when the attacker has Scrappy", () => {
+      const flamigo = new Pokemon("Flamigo", {
+        moveSet: new MoveSet(new Move("Close Combat"), new Move("Close Combat"), new Move("Close Combat"), new Move("Close Combat"))
+      })
+      const gengar = new Pokemon("Gengar")
+      const team = new Team("1", true, "Team", [new TeamMember(flamigo, true)])
+      const targetTeam = new Team("2", true, "Target Team", [new TeamMember(gengar, true)])
+
+      const coverage = service.getOffensiveCoverageAgainstTeam(team, targetTeam)
+
+      expect(coverage[0].pokemonData[0].effectiveness).toBe(0.5)
+      expect(coverage[0].pokemonData[0].coverageType).toBe("not-very-effective")
+    })
+
+    it("should keep Ghost-type defenders immune when the attacker does not have Scrappy", () => {
+      const machamp = new Pokemon("Machamp", {
+        moveSet: new MoveSet(new Move("Close Combat"), new Move("Close Combat"), new Move("Close Combat"), new Move("Close Combat"))
+      })
+      const gengar = new Pokemon("Gengar")
+      const team = new Team("1", true, "Team", [new TeamMember(machamp, true)])
+      const targetTeam = new Team("2", true, "Target Team", [new TeamMember(gengar, true)])
+
+      const coverage = service.getOffensiveCoverageAgainstTeam(team, targetTeam)
+
+      expect(coverage[0].pokemonData[0].effectiveness).toBe(0)
+      expect(coverage[0].pokemonData[0].coverageType).toBe("immune")
+    })
+
+    it("should not treat a Levitate defender as immune to Ground when the attacker has Mold Breaker", () => {
+      const ampharosMega = new Pokemon("Ampharos-Mega", {
+        ability: new Ability("Mold Breaker"),
+        moveSet: new MoveSet(new Move("Earthquake"), new Move("Earthquake"), new Move("Earthquake"), new Move("Earthquake"))
+      })
+      const rotom = new Pokemon("Rotom-Wash", { ability: new Ability("Levitate") })
+      const team = new Team("1", true, "Team", [new TeamMember(ampharosMega, true)])
+      const targetTeam = new Team("2", true, "Target Team", [new TeamMember(rotom, true)])
+
+      const coverage = service.getOffensiveCoverageAgainstTeam(team, targetTeam)
+
+      expect(coverage[0].pokemonData[0].effectiveness).toBe(2)
+      expect(coverage[0].pokemonData[0].coverageType).toBe("super-effective")
+    })
   })
 
   describe("getMovesArray", () => {

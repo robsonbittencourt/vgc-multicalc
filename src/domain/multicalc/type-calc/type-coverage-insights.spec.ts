@@ -457,7 +457,7 @@ describe("TypeCoverageInsights", () => {
         const result = service.getTopDefensiveImmune(team1, team2)
 
         expect(result[0].pokemon.name).toBe("Flutter Mane")
-        expect(result[0].value).toBe(3)
+        expect(result[0].value).toBe(2)
 
         expect(result[1].pokemon.name).toBe("Zacian-Crowned")
         expect(result[1].value).toBe(1)

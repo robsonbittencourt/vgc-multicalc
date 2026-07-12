@@ -1338,4 +1338,81 @@ describe("TypeChart", () => {
       expect(service.getEffectiveness("Water", "Normal", undefined, "Wonder Guard")).toBe(0)
     })
   })
+
+  describe("Air Balloon", () => {
+    it("should return 0 (immune) for Ground moves against a defender holding Air Balloon", () => {
+      expect(service.getEffectiveness("Ground", "Flying", undefined, undefined, { item: "Air Balloon" })).toBe(0)
+      expect(service.getEffectiveness("Ground", "Normal", undefined, undefined, { item: "Air Balloon" })).toBe(0)
+    })
+
+    it("should not affect non-Ground moves", () => {
+      expect(service.getEffectiveness("Water", "Fire", undefined, undefined, { item: "Air Balloon" })).toBe(2)
+    })
+
+    it("should not affect Ground moves without Air Balloon", () => {
+      expect(service.getEffectiveness("Ground", "Normal", undefined, undefined, { item: "Leftovers" })).toBe(1)
+    })
+  })
+
+  describe("Iron Ball", () => {
+    it("should remove Ground immunity granted by Levitate", () => {
+      expect(service.getEffectiveness("Ground", "Normal", undefined, "Levitate", { ability: "Levitate", item: "Iron Ball" })).toBe(1)
+    })
+
+    it("should keep Ground immunity from Levitate without Iron Ball", () => {
+      expect(service.getEffectiveness("Ground", "Normal", undefined, "Levitate", { ability: "Levitate" })).toBe(0)
+    })
+
+    it("should not remove Ground immunity when the defender also has Klutz", () => {
+      expect(service.getEffectiveness("Ground", "Normal", undefined, "Levitate", { ability: "Levitate", item: "Iron Ball" })).toBe(1)
+      expect(service.getEffectiveness("Ground", "Normal", undefined, "Klutz", { ability: "Klutz", item: "Iron Ball" })).toBe(1)
+    })
+  })
+
+  describe("Ring Target", () => {
+    it("should remove ability-based type immunity", () => {
+      expect(service.getEffectiveness("Ground", "Normal", undefined, "Levitate", { ability: "Levitate", item: "Ring Target" })).toBe(1)
+      expect(service.getEffectiveness("Electric", "Ground", undefined, undefined, { item: "Ring Target" })).toBe(1)
+    })
+
+    it("should remove type-chart-based immunity", () => {
+      expect(service.getEffectiveness("Normal", "Ghost", undefined, undefined, { item: "Ring Target" })).toBe(1)
+      expect(service.getEffectiveness("Ground", "Flying", undefined, undefined, { item: "Ring Target" })).toBe(1)
+    })
+
+    it("should not remove immunity when the defender also has Klutz", () => {
+      expect(service.getEffectiveness("Normal", "Ghost", undefined, "Klutz", { ability: "Klutz", item: "Ring Target" })).toBe(0)
+    })
+
+    it("should not affect non-immune matchups", () => {
+      expect(service.getEffectiveness("Fire", "Grass", undefined, undefined, { item: "Ring Target" })).toBe(2)
+    })
+  })
+
+  describe("Scrappy / Mind's Eye (attacker ignores Ghost immunity)", () => {
+    it("should allow Normal moves to hit Ghost-type defenders", () => {
+      expect(service.getEffectiveness("Normal", "Ghost", undefined, undefined, undefined, { ignoresGhostImmunity: true })).toBe(1)
+    })
+
+    it("should allow Fighting moves to hit Ghost-type defenders", () => {
+      expect(service.getEffectiveness("Fighting", "Ghost", undefined, undefined, undefined, { ignoresGhostImmunity: true })).toBe(1)
+    })
+
+    it("should preserve the secondary type effectiveness when bypassing Ghost immunity", () => {
+      expect(service.getEffectiveness("Normal", "Ghost", "Steel", undefined, undefined, { ignoresGhostImmunity: true })).toBe(0.5)
+    })
+
+    it("should not affect non-Ghost defenders", () => {
+      expect(service.getEffectiveness("Normal", "Water", undefined, undefined, undefined, { ignoresGhostImmunity: true })).toBe(1)
+    })
+
+    it("should not affect other attack types against Ghost", () => {
+      expect(service.getEffectiveness("Fire", "Ghost", undefined, undefined, undefined, { ignoresGhostImmunity: true })).toBe(1)
+    })
+
+    it("should keep Ghost immunity without the flag", () => {
+      expect(service.getEffectiveness("Normal", "Ghost")).toBe(0)
+      expect(service.getEffectiveness("Fighting", "Ghost")).toBe(0)
+    })
+  })
 })

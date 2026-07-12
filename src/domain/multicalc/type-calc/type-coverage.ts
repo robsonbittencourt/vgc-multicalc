@@ -2,7 +2,7 @@ import { getMoveData } from "@data/move-data"
 import { Pokemon } from "@multicalc/model/pokemon"
 import { Team } from "@multicalc/model/team"
 import { PokemonType, PokemonTypes } from "@multicalc/types"
-import { AbilityName, DefenderInput, TypeEffectiveness, TypeChart } from "./type-chart"
+import { AbilityName, AttackerInput, DefenderInput, TypeEffectiveness, TypeChart } from "./type-chart"
 
 const ATE_ABILITY_TYPES: Record<string, PokemonType> = {
   Pixilate: "Fairy",
@@ -10,6 +10,9 @@ const ATE_ABILITY_TYPES: Record<string, PokemonType> = {
   Aerilate: "Flying",
   Galvanize: "Electric"
 }
+
+const GHOST_IMMUNITY_BREAKING_ABILITIES = ["Scrappy", "Mind's Eye"]
+const MOLD_BREAKER_ABILITIES = ["Mold Breaker", "Teravolt", "Turboblaze"]
 
 export interface DefensiveCoverageData {
   moveType: PokemonType
@@ -200,12 +203,13 @@ export class TypeCoverage {
 
         for (const moveType of moveTypes) {
           let effectiveness: TypeEffectiveness
+          const defenderAbility = this.hasMoldBreaker(pokemon) ? undefined : this.getAbilityName(targetPokemon)
 
           if (considerTeraType && targetPokemon.teraType && targetPokemon.teraType !== "Stellar") {
             const teraType = targetPokemon.teraType as PokemonType
-            effectiveness = this.typeChart.getEffectiveness(moveType, teraType, undefined, this.getAbilityName(targetPokemon), this.getDefenderInput(targetPokemon))
+            effectiveness = this.typeChart.getEffectiveness(moveType, teraType, undefined, defenderAbility, this.getDefenderInput(targetPokemon), this.getAttackerInput(pokemon))
           } else {
-            effectiveness = this.typeChart.getEffectiveness(moveType, type1, type2, this.getAbilityName(targetPokemon), this.getDefenderInput(targetPokemon))
+            effectiveness = this.typeChart.getEffectiveness(moveType, type1, type2, defenderAbility, this.getDefenderInput(targetPokemon), this.getAttackerInput(pokemon))
           }
 
           effectivenessValues.push(effectiveness)
@@ -271,14 +275,15 @@ export class TypeCoverage {
         const pokemon = member.pokemon
         const type1 = pokemon.type1 as PokemonType
         const type2 = pokemon.type2 ? (pokemon.type2 as PokemonType) : undefined
+        const defenderAbility = this.hasMoldBreaker(targetPokemon) ? undefined : this.getAbilityName(pokemon)
 
         const effectivenessValues: TypeEffectiveness[] = movesWithBP.map(moveType => {
           if (considerTeraType && pokemon.teraType && pokemon.teraType !== "Stellar") {
             const teraType = pokemon.teraType as PokemonType
-            return this.typeChart.getEffectiveness(moveType, teraType, undefined, this.getAbilityName(pokemon), this.getDefenderInput(pokemon))
+            return this.typeChart.getEffectiveness(moveType, teraType, undefined, defenderAbility, this.getDefenderInput(pokemon), this.getAttackerInput(targetPokemon))
           }
 
-          return this.typeChart.getEffectiveness(moveType, type1, type2, this.getAbilityName(pokemon), this.getDefenderInput(pokemon))
+          return this.typeChart.getEffectiveness(moveType, type1, type2, defenderAbility, this.getDefenderInput(pokemon), this.getAttackerInput(targetPokemon))
         })
 
         if (effectivenessValues.length === 0) {
@@ -446,5 +451,15 @@ export class TypeCoverage {
       ability: this.getAbilityName(pokemon),
       item: pokemon.item
     }
+  }
+
+  private getAttackerInput(pokemon: Pokemon): AttackerInput {
+    return {
+      ignoresGhostImmunity: GHOST_IMMUNITY_BREAKING_ABILITIES.includes(pokemon.ability.name)
+    }
+  }
+
+  private hasMoldBreaker(pokemon: Pokemon): boolean {
+    return MOLD_BREAKER_ABILITIES.includes(pokemon.ability.name)
   }
 }
