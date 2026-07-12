@@ -1320,7 +1320,7 @@ describe("Damage Calc Service (new)", () => {
       const secondMove = new Move("Moonblast")
       const field = new Field({ gameType: "Doubles" })
 
-      const result = calculateMulti([firstAttacker, secondAttacker], defender, [firstMove, secondMove], field)
+      const result = calculateMulti(firstAttacker, secondAttacker, firstMove, secondMove, defender, field)
 
       expect(result.description()).toEqual("252+ Atk Garchomp Earthquake AND 252+ SpA Gardevoir Moonblast vs. 252 HP / 0 Def / 4 SpD Incineroar: 246-294 (121.7 - 145.5%) -- guaranteed OHKO")
       expect(result.resultString()).toEqual("121.7 - 145.5%")

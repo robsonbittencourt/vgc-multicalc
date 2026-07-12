@@ -1,30 +1,14 @@
-import { calculateMulti, Field, Move, MultiResult, Pokemon } from "@calc"
+import { calculateMulti, Field, Move, Pokemon } from "@calc"
 
 describe("Damage — combined attackers, formatting paths", () => {
   const field = () => new Field({ gameType: "Doubles" })
-
-  it("returns a fallback message when constructed with no results at all", () => {
-    const defender = new Pokemon("Dondozo", {})
-    const result = new MultiResult(defender, [], { damage: 0, texts: [] })
-
-    expect(result.description()).toBe("No result")
-  })
-
-  it("a single attacker falls back to a plain result description", () => {
-    const attacker = new Pokemon("Rillaboom", { evs: { atk: 252 }, nature: "Adamant" })
-    const defender = new Pokemon("Dondozo", { evs: { hp: 252, def: 4 } })
-
-    const result = calculateMulti([attacker], defender, [new Move("Wood Hammer")], field())
-
-    expect(result.description()).toEqual("252+ Atk Rillaboom Wood Hammer vs. 252 HP / 4 Def Dondozo: 194-230 (75.4 - 89.4%) -- guaranteed 2HKO")
-  })
 
   it("a Terastallized defender shows its Tera type in the bulk", () => {
     const a1 = new Pokemon("Rillaboom", { evs: { atk: 252 }, nature: "Adamant" })
     const a2 = new Pokemon("Incineroar", { evs: { atk: 252 }, nature: "Adamant" })
     const defender = new Pokemon("Garchomp", { evs: { hp: 252, def: 4 }, teraType: "Steel" })
 
-    const result = calculateMulti([a1, a2], defender, [new Move("Wood Hammer"), new Move("Flare Blitz")], field())
+    const result = calculateMulti(a1, a2, new Move("Wood Hammer"), new Move("Flare Blitz"), defender, field())
 
     expect(result.description()).toEqual("252+ Atk Rillaboom Wood Hammer AND 252+ Atk Incineroar Flare Blitz vs. 252 HP / 4 Def Tera Steel Garchomp: 273-321 (126.9 - 149.3%) -- guaranteed OHKO")
   })
@@ -34,7 +18,7 @@ describe("Damage — combined attackers, formatting paths", () => {
     const a2 = new Pokemon("Flutter Mane", { evs: { spa: 252 }, nature: "Timid" })
     const defender = new Pokemon("Garchomp", { evs: { hp: 252, spd: 4 }, nature: "Naughty" })
 
-    const result = calculateMulti([a1, a2], defender, [new Move("Hyper Voice"), new Move("Moonblast")], field())
+    const result = calculateMulti(a1, a2, new Move("Hyper Voice"), new Move("Moonblast"), defender, field())
 
     expect(result.description()).toEqual("252+ SpA Sylveon Hyper Voice AND 252 SpA Flutter Mane Moonblast vs. 252 HP / 4- SpD Garchomp: 260-309 (120.9 - 143.7%) -- guaranteed OHKO")
   })
