@@ -1,11 +1,10 @@
 import { calculate, Field, Move, Pokemon } from "@calc"
-import { ItemName } from "@data/types"
 
-describe("Damage — item modifiers present in the engine but absent from the dataset", () => {
+describe("Damage — species-specific and Gem item modifiers", () => {
   const field = () => new Field({ gameType: "Doubles" })
 
   it("Thick Club: doubles Marowak physical Attack", () => {
-    const attacker = new Pokemon("Marowak-Alola", { evs: { atk: 252 }, nature: "Adamant", item: "Thick Club" as ItemName })
+    const attacker = new Pokemon("Marowak-Alola", { evs: { atk: 252 }, nature: "Adamant", item: "Thick Club" })
     const defender = new Pokemon("Talonflame", { evs: { hp: 252, def: 4 } })
     const move = new Move("Shadow Bone")
 
@@ -15,7 +14,7 @@ describe("Damage — item modifiers present in the engine but absent from the da
   })
 
   it("Deep Sea Tooth: doubles Clamperl Special Attack", () => {
-    const attacker = new Pokemon("Clamperl", { evs: { spa: 252 }, nature: "Modest", item: "Deep Sea Tooth" as ItemName })
+    const attacker = new Pokemon("Clamperl", { evs: { spa: 252 }, nature: "Modest", item: "Deep Sea Tooth" })
     const defender = new Pokemon("Ferrothorn", { evs: { hp: 252, spd: 4 } })
     const move = new Move("Surf")
 
@@ -26,7 +25,7 @@ describe("Damage — item modifiers present in the engine but absent from the da
 
   it("Metal Powder: boosts Ditto Defense against physical", () => {
     const attacker = new Pokemon("Great Tusk", { evs: { atk: 252 }, nature: "Adamant" })
-    const defender = new Pokemon("Ditto", { evs: { hp: 252, def: 4 }, item: "Metal Powder" as ItemName })
+    const defender = new Pokemon("Ditto", { evs: { hp: 252, def: 4 }, item: "Metal Powder" })
     const move = new Move("Close Combat")
 
     const result = calculate(attacker, defender, move, field())
@@ -36,7 +35,7 @@ describe("Damage — item modifiers present in the engine but absent from the da
 
   it("Deep Sea Scale: boosts Clamperl Special Defense", () => {
     const attacker = new Pokemon("Sylveon", { evs: { spa: 252 }, nature: "Modest" })
-    const defender = new Pokemon("Clamperl", { evs: { hp: 252, spd: 4 }, item: "Deep Sea Scale" as ItemName })
+    const defender = new Pokemon("Clamperl", { evs: { hp: 252, spd: 4 }, item: "Deep Sea Scale" })
     const move = new Move("Hyper Voice")
 
     const result = calculate(attacker, defender, move, field())
@@ -45,7 +44,7 @@ describe("Damage — item modifiers present in the engine but absent from the da
   })
 
   it("Type Gem: boosts the matching type by 1.3x on first use", () => {
-    const attacker = new Pokemon("Raging Bolt", { evs: { spa: 252 }, nature: "Modest", item: "Electric Gem" as ItemName })
+    const attacker = new Pokemon("Raging Bolt", { evs: { spa: 252 }, nature: "Modest", item: "Electric Gem" })
     const defender = new Pokemon("Pelipper", { evs: { hp: 252, spd: 4 } })
     const move = new Move("Thunderbolt")
 

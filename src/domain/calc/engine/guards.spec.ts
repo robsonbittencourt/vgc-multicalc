@@ -398,6 +398,55 @@ describe("computeMoveType", () => {
     expect(ctx.description.attackerAbility).toBeUndefined()
   })
 
+  it("Techno Blast stays Normal without a Drive", () => {
+    const ctx = makeCtx("Genesect", {}, "Garchomp", {}, "Techno Blast")
+
+    const { type } = computeMoveType(ctx)
+
+    expect(type).toBe("Normal")
+  })
+
+  it("Techno Blast becomes Fire with Burn Drive", () => {
+    const ctx = makeCtx("Genesect", { item: "Burn Drive" }, "Garchomp", {}, "Techno Blast")
+
+    const { type } = computeMoveType(ctx)
+
+    expect(type).toBe("Fire")
+  })
+
+  it("Techno Blast becomes Ice with Chill Drive", () => {
+    const ctx = makeCtx("Genesect", { item: "Chill Drive" }, "Garchomp", {}, "Techno Blast")
+
+    const { type } = computeMoveType(ctx)
+
+    expect(type).toBe("Ice")
+  })
+
+  it("Techno Blast becomes Water with Douse Drive", () => {
+    const ctx = makeCtx("Genesect", { item: "Douse Drive" }, "Garchomp", {}, "Techno Blast")
+
+    const { type } = computeMoveType(ctx)
+
+    expect(type).toBe("Water")
+  })
+
+  it("Techno Blast becomes Electric with Shock Drive", () => {
+    const ctx = makeCtx("Genesect", { item: "Shock Drive" }, "Garchomp", {}, "Techno Blast")
+
+    const { type } = computeMoveType(ctx)
+
+    expect(type).toBe("Electric")
+  })
+
+  it("credits Burn Drive and the move type in the description", () => {
+    const ctx = makeCtx("Genesect", { item: "Burn Drive" }, "Garchomp", {}, "Techno Blast")
+
+    computeMoveType(ctx)
+
+    expect(ctx.description.attackerItem).toBe("Burn Drive")
+    expect(ctx.description.moveType).toBe("Fire")
+  })
+
   it("Aerilate changes Normal move to Flying", () => {
     const ctx = makeCtx("Sylveon", { ability: "Aerilate" }, "Garchomp", {}, "Body Slam")
 
