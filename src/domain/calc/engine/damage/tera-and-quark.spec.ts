@@ -52,4 +52,55 @@ describe("Damage — Quark Drive and Tera interactions", () => {
 
     expect(result.description()).toEqual("252+ SpA Adaptability Tera Normal Porygon-Z Tri Attack vs. 252 HP / 4 SpD Snorlax: 108-128 (40.4 - 47.9%) -- guaranteed 3HKO")
   })
+
+  it("Tera Blast Stellar: BP 100 and super effective against a Terastallized target", () => {
+    const attacker = new Pokemon("Terapagos-Stellar", { evs: { spa: 252 }, nature: "Modest", teraType: "Stellar" })
+    const defender = new Pokemon("Garchomp", { evs: { hp: 252 }, teraType: "Steel" })
+    const move = new Move("Tera Blast", { isStellarFirstUse: true })
+
+    const result = calculate(attacker, defender, move, field())
+
+    expect(result.description()).toEqual("252+ SpA Tera Stellar Terapagos-Stellar Tera Blast (100 BP) vs. 252 HP / 0 SpD Tera Steel Garchomp: 172-204 (80 - 94.8%) -- guaranteed 2HKO")
+  })
+
+  it("Tera Blast Stellar: neutral against a target that is not Terastallized", () => {
+    const attacker = new Pokemon("Iron Valiant", { evs: { spa: 252 }, nature: "Modest", teraType: "Stellar" })
+    const defender = new Pokemon("Garchomp", { evs: { hp: 252 } })
+    const move = new Move("Tera Blast", { isStellarFirstUse: true })
+
+    const result = calculate(attacker, defender, move, field())
+
+    expect(result.description()).toEqual("252+ SpA Tera Stellar (First Use) Iron Valiant Tera Blast (100 BP) vs. 252 HP / 0 SpD Garchomp: 82-97 (38.1 - 45.1%) -- guaranteed 3HKO")
+  })
+
+  it("Tera Blast Stellar: the Stellar STAB boost only applies on the first use", () => {
+    const attacker = new Pokemon("Iron Valiant", { evs: { spa: 252 }, nature: "Modest", teraType: "Stellar" })
+    const defender = new Pokemon("Dragonite", { evs: { hp: 252 }, teraType: "Ghost" })
+
+    const firstUse = calculate(attacker, defender, new Move("Tera Blast", { isStellarFirstUse: true }), field())
+    const laterUse = calculate(attacker, defender, new Move("Tera Blast", { isStellarFirstUse: false }), field())
+
+    expect(firstUse.description()).toEqual("252+ SpA Tera Stellar (First Use) Iron Valiant Tera Blast (100 BP) vs. 252 HP / 0 SpD Tera Ghost Dragonite: 144-170 (72.7 - 85.8%) -- guaranteed 2HKO")
+    expect(laterUse.description()).toEqual("252+ SpA Tera Stellar Iron Valiant Tera Blast (100 BP) vs. 252 HP / 0 SpD Tera Ghost Dragonite: 120-142 (60.6 - 71.7%) -- guaranteed 2HKO")
+  })
+
+  it("Tera Blast Stellar: Terapagos-Stellar keeps the Stellar STAB boost without the First Use flag", () => {
+    const attacker = new Pokemon("Terapagos-Stellar", { evs: { spa: 252 }, nature: "Modest", teraType: "Stellar" })
+    const defender = new Pokemon("Snorlax", { evs: { hp: 252 } })
+    const move = new Move("Tera Blast", { isStellarFirstUse: true })
+
+    const result = calculate(attacker, defender, move, field())
+
+    expect(result.description()).toEqual("252+ SpA Tera Stellar Terapagos-Stellar Tera Blast (100 BP) vs. 252 HP / 0 SpD Snorlax: 70-83 (26.2 - 31%) -- guaranteed 4HKO")
+  })
+
+  it("Tera Blast Stellar: becomes physical when Attack exceeds Special Attack", () => {
+    const attacker = new Pokemon("Iron Valiant", { evs: { atk: 252 }, nature: "Adamant", teraType: "Stellar" })
+    const defender = new Pokemon("Garchomp", { evs: { hp: 252 }, teraType: "Steel" })
+    const move = new Move("Tera Blast", { isStellarFirstUse: true })
+
+    const result = calculate(attacker, defender, move, field())
+
+    expect(result.description()).toEqual("252+ Atk Tera Stellar (First Use) Iron Valiant Tera Blast (100 BP) vs. 252 HP / 0 Def Tera Steel Garchomp: 158-188 (73.4 - 87.4%) -- guaranteed 2HKO")
+  })
 })
