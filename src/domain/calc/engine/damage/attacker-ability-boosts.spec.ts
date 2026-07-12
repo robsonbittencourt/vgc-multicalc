@@ -43,6 +43,17 @@ describe("Damage — attacker ability BP/damage boosts", () => {
     expect(result.description()).toEqual("252+ SpA Analytic Torkoal Overheat vs. 252 HP / 4 SpD Dragapult: 75-88 (38.4 - 45.1%) -- guaranteed 3HKO")
   })
 
+  it("Analytic: notes 'switching boosted' in the text when the defender is switching out", () => {
+    const attacker = new Pokemon("Torkoal", { evs: { spa: 252 }, nature: "Modest", ability: "Analytic" })
+    const defender = new Pokemon("Dragapult", { evs: { hp: 252, spd: 4 } })
+    const move = new Move("Overheat")
+    const switchingField = new Field({ gameType: "Doubles", defenderSide: { isSwitching: "out" } })
+
+    const result = calculate(attacker, defender, move, switchingField)
+
+    expect(result.description()).toEqual("252+ SpA Analytic Torkoal switching boosted Overheat vs. 252 HP / 4 SpD Dragapult: 75-88 (38.4 - 45.1%) -- guaranteed 3HKO")
+  })
+
   it("Punk Rock: boosts sound moves by 1.3x", () => {
     const attacker = new Pokemon("Toxtricity", { evs: { spa: 252 }, nature: "Modest", ability: "Punk Rock" })
     const defender = new Pokemon("Hydreigon", { evs: { hp: 252, spd: 4 } })
