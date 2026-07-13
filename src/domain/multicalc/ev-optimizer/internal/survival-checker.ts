@@ -10,6 +10,10 @@ export class SurvivalChecker {
   checkSurvival(attacker: Pokemon, defender: Pokemon, field: Field, threshold: SurvivalThreshold, rollIndex = 15, rightIsDefender = true): boolean {
     const result = this.damageCalc.calculateResult(attacker, defender, attacker.move, field, rightIsDefender)
 
+    if (result.maxDamage() === 0) {
+      return true
+    }
+
     const damage = result.damageWithRemainingUntilTurn(threshold - 1, rollIndex)
 
     return damage < defender.hp
