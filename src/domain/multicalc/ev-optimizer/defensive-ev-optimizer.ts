@@ -157,20 +157,15 @@ export class DefensiveEvOptimizer {
     if (!evs) {
       const defenderWithZeroDefensiveEvs = defenderWithNature.clone({ evs: { hp: 0, atk: defenderWithNature.evs.atk, def: 0, spa: defenderWithNature.evs.spa, spd: 0, spe: defenderWithNature.evs.spe } })
 
-      const survivableSingleAttackers = [...(priority?.physical.survivableAttackers ?? []), ...(priority?.special.survivableAttackers ?? [])]
+      const impossibleSingleAttackers = [...(priority?.physical.impossibleAttackers ?? []), ...(priority?.special.impossibleAttackers ?? [])]
+      const possibleSingleAttackers = attackers.filter(attacker => !impossibleSingleAttackers.includes(attacker))
       const hasSurvivableDouble = strongestDoubleTarget !== null
 
-      if (survivableSingleAttackers.length === 0 && !hasSurvivableDouble && (attackers.length > 0 || targetsWithTwoAttackers.length > 0)) {
+      if (possibleSingleAttackers.length === 0 && !hasSurvivableDouble) {
         return { evs: null, nature: null }
       }
 
-      const hasImpossible = (priority?.physical.impossibleAttackers.length ?? 0) > 0 || (priority?.special.impossibleAttackers.length ?? 0) > 0
-
-      if (hasImpossible) {
-        return { evs: null, nature: null }
-      }
-
-      const survivesSingle = survivableSingleAttackers.every(attacker => this.survivalChecker.checkSurvival(attacker, defenderWithZeroDefensiveEvs, field, threshold, rollIndex, rightIsDefender))
+      const survivesSingle = possibleSingleAttackers.every(attacker => this.survivalChecker.checkSurvival(attacker, defenderWithZeroDefensiveEvs, field, threshold, rollIndex, rightIsDefender))
       const survivesDouble = strongestDoubleTarget
         ? this.survivalChecker.checkSurvivalAgainstTwoAttackers(strongestDoubleTarget.attacker1, strongestDoubleTarget.attacker2, defenderWithZeroDefensiveEvs, field, threshold, rollIndex, rightIsDefender)
         : true
@@ -276,29 +271,24 @@ export class DefensiveEvOptimizer {
     }
 
     if (!evs) {
+      const impossibleAttackers = [...priority.physical.impossibleAttackers, ...priority.special.impossibleAttackers]
+      const possibleAttackers = attackers.filter(attacker => !impossibleAttackers.includes(attacker))
+
+      if (possibleAttackers.length === 0) {
+        return { evs: null, nature: null }
+      }
+
       const defenderWithZeroDefensiveEvs = defenderWithNature.clone({ evs: { hp: 0, atk: defenderWithNature.evs.atk, def: 0, spa: defenderWithNature.evs.spa, spd: 0, spe: defenderWithNature.evs.spe } })
 
-      const alreadySurvivesAll = attackers.every(attacker => this.survivalChecker.checkSurvival(attacker, defenderWithZeroDefensiveEvs, field, threshold, rollIndex, rightIsDefender))
+      const alreadySurvivesAll = possibleAttackers.every(attacker => this.survivalChecker.checkSurvival(attacker, defenderWithZeroDefensiveEvs, field, threshold, rollIndex, rightIsDefender))
 
       if (alreadySurvivesAll) {
-        const hasImpossible = priority.physical.impossibleAttackers.length > 0 || priority.special.impossibleAttackers.length > 0
-
-        if (hasImpossible) {
-          return { evs: null, nature: null }
-        }
-
         if (reservedEvs) {
           return { evs: { hp: 0, atk: reservedEvs.atk, def: 0, spa: reservedEvs.spa, spd: 0, spe: reservedEvs.spe }, nature: natureUsed }
         }
         return { evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: natureUsed }
       }
 
-      return { evs: null, nature: null }
-    }
-
-    const hasImpossible = priority.physical.impossibleAttackers.length > 0 || priority.special.impossibleAttackers.length > 0
-
-    if (hasImpossible && evs.hp === 0 && evs.def === 0 && evs.spd === 0) {
       return { evs: null, nature: null }
     }
 
