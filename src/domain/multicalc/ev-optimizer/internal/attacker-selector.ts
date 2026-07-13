@@ -126,7 +126,7 @@ export class AttackerSelector {
 
       const damage = this.damageCalc.calculateResult(attacker, defenderMax, attacker.move, field, rightIsDefender).damageWithRemainingUntilTurn(1, rollIndex)
 
-      if (damage < defenderMax.hp && damage > maxDamage) {
+      if (survivesWithMax && damage < defenderMax.hp && damage > maxDamage) {
         maxDamage = damage
         strongestAttacker = attacker
       }

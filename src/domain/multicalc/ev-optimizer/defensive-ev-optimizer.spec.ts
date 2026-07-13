@@ -1106,7 +1106,7 @@ describe("DefensiveEvOptimizer", () => {
     })
 
     describe("impossible single attacker with survivable double target via optimize", () => {
-      it("should return no-solution when an unsurvivable single attacker is combined with a weak double target", () => {
+      it("should protect the survivable double and treat the unsurvivable single attacker as a lost cause", () => {
         const ursaluna = new Pokemon("Ursaluna", { nature: "Adamant", item: "Choice Band", moveSet: new MoveSet(new Move("Headlong Rush"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
         const chiYu = new Pokemon("Chi-Yu", { nature: "Modest", moveSet: new MoveSet(new Move("Dark Pulse"), new Move(""), new Move(""), new Move("")), evs: { spa: 252 } })
         const moltresGalar = new Pokemon("Moltres-Galar", { nature: "Modest", moveSet: new MoveSet(new Move("Fiery Wrath"), new Move(""), new Move(""), new Move("")), evs: { spa: 252 } })
@@ -1114,8 +1114,18 @@ describe("DefensiveEvOptimizer", () => {
 
         const result = service.optimize(defender, [new Target(ursaluna), new Target(chiYu, moltresGalar)], new Field(), false, false, 3)
 
-        expect(result.status).toBe("no-solution")
-        expect(result.evs).toBeNull()
+        expect(result.status).toBe("not-needed")
+        expect(result.evs).toEqual({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
+      })
+
+      it("should invest for the survivable special attacker when the physical attacker is impossible", () => {
+        const ursaluna = new Pokemon("Ursaluna", { nature: "Adamant", item: "Choice Band", moveSet: new MoveSet(new Move("Headlong Rush"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
+        const flutterMane = new Pokemon("Flutter Mane", { nature: "Modest", moveSet: new MoveSet(new Move("Moonblast"), new Move(""), new Move(""), new Move("")), evs: { spa: 0 } })
+
+        const result = service.optimize(new Pokemon("Ting-Lu"), [new Target(ursaluna), new Target(flutterMane)], new Field(), false, false, 3)
+
+        expect(result.status).toBe("success")
+        expect(result.evs).toEqual({ hp: 180, atk: 0, def: 0, spa: 0, spd: 236, spe: 0 })
       })
     })
 
@@ -1652,7 +1662,7 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.evs).toBeNull()
       })
 
-      it("should return null EVs when one attacker is impossible to survive even if others need no EVs", () => {
+      it("should return zeroed EVs when the only unprotected attacker is impossible and the others need no EVs", () => {
         const defender = new Pokemon("Tyranitar-Mega", {
           nature: "Bold",
           item: "Tyranitarite"
@@ -1687,7 +1697,8 @@ describe("DefensiveEvOptimizer", () => {
 
         const result = service.optimize(defender, targets, field)
 
-        expect(result.evs).toBeNull()
+        expect(result.status).toBe("not-needed")
+        expect(result.evs).toEqual({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
       })
 
       it("should return zeroed EVs when no solution is needed (already survives)", () => {
@@ -2255,7 +2266,7 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.evs).toEqual({ hp: 100, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
       })
 
-      it("should return no-solution when one attacker is impossible even though another is harmless", () => {
+      it("should treat an impossible attacker as a lost cause when another attacker is harmless", () => {
         const impossible = new Pokemon("Kartana", { nature: "Adamant", item: "Choice Band", moveSet: new MoveSet(new Move("Leaf Blade"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
         const harmless = new Pokemon("Sylveon", { nature: "Adamant", moveSet: new MoveSet(new Move("Quick Attack"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
         const defender = new Pokemon("Flutter Mane")
@@ -2264,8 +2275,8 @@ describe("DefensiveEvOptimizer", () => {
 
         const result = service.optimize(defender, targets, field)
 
-        expect(result.status).toBe("no-solution")
-        expect(result.evs).toBeNull()
+        expect(result.status).toBe("not-needed")
+        expect(result.evs).toEqual({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
       })
 
       it("should apply the selected nature when singles and a double target are optimized together", () => {
