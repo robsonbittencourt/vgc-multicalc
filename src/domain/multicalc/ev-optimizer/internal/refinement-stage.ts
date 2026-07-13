@@ -13,7 +13,7 @@ export class RefinementStage {
 
   refineForSingleAttacker(solution: Stats, defender: Pokemon, attacker: Pokemon, field: Field, threshold: SurvivalThreshold, rollIndex = 15, rightIsDefender = true): Stats | null {
     const koChanceText = this.damageCalc.koChanceForOneAttacker(attacker, defender, field, rightIsDefender)
-    const shouldRefine = this.needsRefinement(koChanceText, threshold)
+    const shouldRefine = this.needsRefinement(koChanceText)
 
     if (!shouldRefine) {
       return solution
@@ -39,7 +39,7 @@ export class RefinementStage {
     rightIsDefender = true
   ): Stats | null {
     const koChanceText = this.damageCalc.koChanceForTwoAttackers(attacker1, attacker2, defender, field, rightIsDefender)
-    const shouldRefine = this.needsRefinement(koChanceText, threshold)
+    const shouldRefine = this.needsRefinement(koChanceText)
 
     if (!shouldRefine) {
       return solution
@@ -65,13 +65,9 @@ export class RefinementStage {
     return null
   }
 
-  private needsRefinement(koChanceText: string, threshold: SurvivalThreshold): boolean {
+  private needsRefinement(koChanceText: string): boolean {
     const hasResidualDamage = /after .+ damage/i.test(koChanceText)
     const hasResidualRecovery = /after .+ recovery/i.test(koChanceText)
-
-    if ((threshold as number) === 1) {
-      return hasResidualDamage
-    }
 
     return hasResidualDamage || hasResidualRecovery
   }

@@ -272,13 +272,7 @@ export class DefensiveEvOptimizer {
     if (!evs) {
       const defenderWithZeroDefensiveEvs = defenderWithNature.clone({ evs: { hp: 0, atk: defenderWithNature.evs.atk, def: 0, spa: defenderWithNature.evs.spa, spd: 0, spe: defenderWithNature.evs.spe } })
 
-      const survivableSingleAttackers = [...physicalAttackersSurvivable, ...specialAttackersSurvivable]
-
-      if (survivableSingleAttackers.length === 0 && attackers.length > 0) {
-        return { evs: null, nature: null }
-      }
-
-      const alreadySurvivesAll = survivableSingleAttackers.every(attacker => this.survivalChecker.checkSurvival(attacker, defenderWithZeroDefensiveEvs, field, threshold, rollIndex, rightIsDefender))
+      const alreadySurvivesAll = attackers.every(attacker => this.survivalChecker.checkSurvival(attacker, defenderWithZeroDefensiveEvs, field, threshold, rollIndex, rightIsDefender))
 
       if (alreadySurvivesAll) {
         const hasImpossible = priority.physical.impossibleAttackers.length > 0 || priority.special.impossibleAttackers.length > 0
