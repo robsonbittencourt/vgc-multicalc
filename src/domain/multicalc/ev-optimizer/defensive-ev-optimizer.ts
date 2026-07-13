@@ -164,6 +164,12 @@ export class DefensiveEvOptimizer {
         return { evs: null, nature: null }
       }
 
+      const hasImpossible = (priority?.physical.impossibleAttackers.length ?? 0) > 0 || (priority?.special.impossibleAttackers.length ?? 0) > 0
+
+      if (hasImpossible) {
+        return { evs: null, nature: null }
+      }
+
       const survivesSingle = survivableSingleAttackers.every(attacker => this.survivalChecker.checkSurvival(attacker, defenderWithZeroDefensiveEvs, field, threshold, rollIndex, rightIsDefender))
       const survivesDouble = strongestDoubleTarget
         ? this.survivalChecker.checkSurvivalAgainstTwoAttackers(strongestDoubleTarget.attacker1, strongestDoubleTarget.attacker2, defenderWithZeroDefensiveEvs, field, threshold, rollIndex, rightIsDefender)
