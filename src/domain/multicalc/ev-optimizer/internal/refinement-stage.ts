@@ -11,7 +11,17 @@ export class RefinementStage {
     private damageCalc: DamageCalc = new DamageCalc()
   ) {}
 
-  refineForSingleAttacker(solution: Stats, defender: Pokemon, attacker: Pokemon, field: Field, threshold: SurvivalThreshold, rollIndex = 15, rightIsDefender = true): Stats | null {
+  refineForSingleAttacker(
+    solution: Stats,
+    defender: Pokemon,
+    attacker: Pokemon,
+    field: Field,
+    threshold: SurvivalThreshold,
+    rollIndex = 15,
+    physicalStrongest: Pokemon | null = null,
+    specialStrongest: Pokemon | null = null,
+    rightIsDefender = true
+  ): Stats | null {
     const koChanceText = this.damageCalc.koChanceForOneAttacker(attacker, defender, field, rightIsDefender)
     const shouldRefine = this.needsRefinement(koChanceText)
 
@@ -21,9 +31,9 @@ export class RefinementStage {
 
     const tempDefender = defender.clone({ evs: solution })
 
-    const reducedSolution = this.reduceEvs(solution, tempDefender, field, threshold, attacker, null, rollIndex, null, null, rightIsDefender)
+    const reducedSolution = this.reduceEvs(solution, tempDefender, field, threshold, attacker, null, rollIndex, physicalStrongest, specialStrongest, rightIsDefender)
 
-    return this.prioritizeHp(reducedSolution, tempDefender, field, threshold, attacker, null, rollIndex, null, null, rightIsDefender)
+    return this.prioritizeHp(reducedSolution, tempDefender, field, threshold, attacker, null, rollIndex, physicalStrongest, specialStrongest, rightIsDefender)
   }
 
   refineForDoubleAttackers(
