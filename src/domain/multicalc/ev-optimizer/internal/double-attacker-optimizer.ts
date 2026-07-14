@@ -12,7 +12,7 @@ export class DoubleAttackerOptimizer {
 
   constructor(private survivalChecker: SurvivalChecker = new SurvivalChecker()) {}
 
-  optimizeForTwoAttackers(attacker1: Pokemon, attacker2: Pokemon, defender: Pokemon, field: Field, threshold: SurvivalThreshold = 2, rollIndex = 15, rightIsDefender = true): Stats {
+  optimizeForTwoAttackers(attacker1: Pokemon, attacker2: Pokemon, defender: Pokemon, field: Field, threshold: SurvivalThreshold = 2, rollIndex = 15, rightIsDefender = true): Stats | null {
     const attacker1IsPhysical = attacker1.moveSet.activeMove.category === "Physical"
     const attacker2IsPhysical = attacker2.moveSet.activeMove.category === "Physical"
 
@@ -27,7 +27,7 @@ export class DoubleAttackerOptimizer {
     }
   }
 
-  private optimizeForSameCategoryAttackers(attacker1: Pokemon, attacker2: Pokemon, defender: Pokemon, field: Field, threshold: SurvivalThreshold, rollIndex: number, rightIsDefender: boolean, isPhysical: boolean): Stats {
+  private optimizeForSameCategoryAttackers(attacker1: Pokemon, attacker2: Pokemon, defender: Pokemon, field: Field, threshold: SurvivalThreshold, rollIndex: number, rightIsDefender: boolean, isPhysical: boolean): Stats | null {
     const evIntervals = this.evIntervalsCalc.getEvIntervals()
     const combinations = this.utils.generateOrderedTwoStatGrid(evIntervals)
 
@@ -45,12 +45,10 @@ export class DoubleAttackerOptimizer {
       }
     }
 
-    const maxEv = evIntervals[evIntervals.length - 1]
-
-    return { hp: maxEv, atk: 0, def: isPhysical ? maxEv : 0, spa: 0, spd: isPhysical ? 0 : maxEv, spe: 0 }
+    return null
   }
 
-  private optimizeForMixedAttackers(physicalAttacker: Pokemon, specialAttacker: Pokemon, defender: Pokemon, field: Field, threshold: SurvivalThreshold, rollIndex: number, rightIsDefender = true): Stats {
+  private optimizeForMixedAttackers(physicalAttacker: Pokemon, specialAttacker: Pokemon, defender: Pokemon, field: Field, threshold: SurvivalThreshold, rollIndex: number, rightIsDefender = true): Stats | null {
     const evIntervals = this.evIntervalsCalc.getEvIntervals()
     const combinations = this.utils.generateOrderedThreeStatGrid(evIntervals)
 
@@ -68,8 +66,6 @@ export class DoubleAttackerOptimizer {
       }
     }
 
-    const maxEv = evIntervals[evIntervals.length - 1]
-
-    return { hp: maxEv, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
+    return null
   }
 }

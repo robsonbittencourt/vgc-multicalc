@@ -1078,7 +1078,7 @@ describe("DefensiveEvOptimizer", () => {
     })
 
     describe("refinement with residual burn damage on a double target via optimize", () => {
-      it("should increase then rebalance EVs when the combined spread does not survive a burned defender", () => {
+      it("should protect the burned singles and abandon a double that only survives above the legal EV budget", () => {
         const ironValiant = new Pokemon("Iron Valiant", { nature: "Adamant", moveSet: new MoveSet(new Move("Close Combat"), new Move(""), new Move(""), new Move("")), evs: { atk: 0 } })
         const flutterMane = new Pokemon("Flutter Mane", { nature: "Modest", moveSet: new MoveSet(new Move("Moonblast"), new Move(""), new Move(""), new Move("")), evs: { spa: 0 } })
         const garchomp = new Pokemon("Garchomp", { nature: "Adamant", moveSet: new MoveSet(new Move("Earthquake"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
@@ -1088,7 +1088,7 @@ describe("DefensiveEvOptimizer", () => {
         const result = service.optimize(defender, [new Target(ironValiant), new Target(flutterMane), new Target(garchomp, volcarona)], new Field(), false, false, 2)
 
         expect(result.status).toBe("success")
-        expect(result.evs).toEqual({ hp: 252, atk: 0, def: 252, spa: 0, spd: 12, spe: 0 })
+        expect(result.evs).toEqual({ hp: 244, atk: 0, def: 244, spa: 0, spd: 0, spe: 0 })
       })
     })
 
@@ -1749,7 +1749,7 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.evs).toEqual({ hp: 0, atk: 0, def: 4, spa: 0, spd: 0, spe: 0 })
       })
 
-      it("should refine a mixed double-attacker solution across HP, Def and SpD under sandstorm", () => {
+      it("should return no-solution for a mixed double that only survives above the legal EV budget under sandstorm", () => {
         const physical = new Pokemon("Garchomp", { nature: "Adamant", moveSet: new MoveSet(new Move("Earthquake"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
         const special = new Pokemon("Chi-Yu", { nature: "Modest", moveSet: new MoveSet(new Move("Overheat"), new Move(""), new Move(""), new Move("")), evs: { spa: 252 } })
         const defender = new Pokemon("Snorlax")
@@ -1758,8 +1758,8 @@ describe("DefensiveEvOptimizer", () => {
 
         const result = service.optimize(defender, targets, field)
 
-        expect(result.status).toBe("success")
-        expect(result.evs).toEqual({ hp: 252, atk: 0, def: 172, spa: 0, spd: 172, spe: 0 })
+        expect(result.status).toBe("no-solution")
+        expect(result.evs).toBeNull()
       })
 
       it("should reduce a mixed double-attacker solution when Leftovers recovery applies", () => {
@@ -1876,7 +1876,7 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.evs).toEqual({ hp: 4, atk: 0, def: 132, spa: 0, spd: 0, spe: 0 })
       })
 
-      it("should increase then reduce a double refinement while re-checking the strongest single special attacker under sandstorm", () => {
+      it("should protect the strongest singles and abandon a double that only survives above the legal EV budget under sandstorm", () => {
         const defender = new Pokemon("Grimmsnarl")
         const physD = new Pokemon("Ursaluna", { nature: "Adamant", moveSet: new MoveSet(new Move("Facade"), new Move(""), new Move(""), new Move("")), evs: { atk: 84 } })
         const specD = new Pokemon("Miraidon", { nature: "Modest", moveSet: new MoveSet(new Move("Electro Drift"), new Move(""), new Move(""), new Move("")), evs: { spa: 84 } })
@@ -1888,10 +1888,10 @@ describe("DefensiveEvOptimizer", () => {
         const result = service.optimize(defender, targets, field)
 
         expect(result.status).toBe("success")
-        expect(result.evs).toEqual({ hp: 164, atk: 0, def: 180, spa: 0, spd: 244, spe: 0 })
+        expect(result.evs).toEqual({ hp: 4, atk: 0, def: 0, spa: 0, spd: 164, spe: 0 })
       })
 
-      it("should increase HP and survive on the first attempt while both strongest singles are re-checked under sandstorm", () => {
+      it("should keep the singles-only spread when a reversed mixed double has no legal spread under sandstorm", () => {
         const defender = new Pokemon("Grimmsnarl")
         const physD = new Pokemon("Ursaluna", { nature: "Adamant", moveSet: new MoveSet(new Move("Facade"), new Move(""), new Move(""), new Move("")), evs: { atk: 0 } })
         const specD = new Pokemon("Miraidon", { nature: "Modest", moveSet: new MoveSet(new Move("Electro Drift"), new Move(""), new Move(""), new Move("")), evs: { spa: 168 } })
@@ -1903,7 +1903,7 @@ describe("DefensiveEvOptimizer", () => {
         const result = service.optimize(defender, targets, field)
 
         expect(result.status).toBe("success")
-        expect(result.evs).toEqual({ hp: 180, atk: 0, def: 172, spa: 0, spd: 252, spe: 0 })
+        expect(result.evs).toEqual({ hp: 4, atk: 0, def: 0, spa: 0, spd: 164, spe: 0 })
       })
 
       it("should reduce a double solution down to zero while satisfying the strongest single physical attacker under Leftovers", () => {
@@ -2493,7 +2493,7 @@ describe("DefensiveEvOptimizer", () => {
     })
 
     describe("double-attacker refinement increase via optimize", () => {
-      it("should increase EVs of a mixed double solution to survive residual sandstorm damage", () => {
+      it("should return no-solution for a reversed mixed double that only survives above the legal EV budget under sandstorm", () => {
         const physical = new Pokemon("Garchomp", { nature: "Adamant", moveSet: new MoveSet(new Move("Earthquake"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
         const special = new Pokemon("Chi-Yu", { nature: "Modest", moveSet: new MoveSet(new Move("Overheat"), new Move(""), new Move(""), new Move("")), evs: { spa: 252 } })
         const defender = new Pokemon("Snorlax")
@@ -2502,8 +2502,8 @@ describe("DefensiveEvOptimizer", () => {
 
         const result = service.optimize(defender, targets, field)
 
-        expect(result.status).toBe("success")
-        expect(result.evs).toEqual({ hp: 252, atk: 0, def: 172, spa: 0, spd: 172, spe: 0 })
+        expect(result.status).toBe("no-solution")
+        expect(result.evs).toBeNull()
       })
     })
 
