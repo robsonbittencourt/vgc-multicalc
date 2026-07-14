@@ -1,4 +1,5 @@
 import { DamageCalc } from "@multicalc/damage-calc/damage-calc"
+import { MAX_TOTAL_EVS } from "./ev-optimizer-constants"
 import { Field } from "@multicalc/model/field"
 import { Pokemon } from "@multicalc/model/pokemon"
 import { Stats } from "@multicalc/types"
@@ -103,6 +104,12 @@ export class RefinementStage {
     while (true) {
       let increased = false
       let attempts = 0
+
+      const totalEvs = currentSolution.hp + currentSolution.def + currentSolution.spd
+
+      if (totalEvs + 4 > MAX_TOTAL_EVS) {
+        break
+      }
 
       while (attempts < 3 && !increased) {
         if (step === 0) {
