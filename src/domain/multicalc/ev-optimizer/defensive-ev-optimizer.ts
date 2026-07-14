@@ -147,7 +147,7 @@ export class DefensiveEvOptimizer {
           if (evs) {
             const strongestAttacker = physicalStrongest || specialStrongest
             if (strongestAttacker) {
-              evs = this.refinementStage.refineForSingleAttacker(evs, defenderWithNature, strongestAttacker, field, threshold, rollIndex, rightIsDefender)
+              evs = this.refinementStage.refineForSingleAttacker(evs, defenderWithNature, strongestAttacker, field, threshold, rollIndex, physicalStrongest, specialStrongest, rightIsDefender)
             }
           }
         }
@@ -265,7 +265,7 @@ export class DefensiveEvOptimizer {
         const strongestAttacker = physicalStrongest || specialStrongest
 
         if (strongestAttacker) {
-          evs = this.refinementStage.refineForSingleAttacker(evs, defenderWithNature, strongestAttacker, field, threshold, rollIndex, rightIsDefender)
+          evs = this.refinementStage.refineForSingleAttacker(evs, defenderWithNature, strongestAttacker, field, threshold, rollIndex, physicalStrongest, specialStrongest, rightIsDefender)
         }
       }
     }
