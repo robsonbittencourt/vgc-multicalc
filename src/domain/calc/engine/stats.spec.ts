@@ -1,7 +1,6 @@
 import { Field } from "@calc/model/field"
 import { Move } from "@calc/model/move"
 import { Pokemon } from "@calc/model/pokemon"
-import { getStatDescriptionText } from "@calc/engine/desc"
 import { computeFinalStats, countBoosts, getFinalSpeed, getQPBoostedStat, getStabMod, getWeight, isGrounded, isQPActive } from "@calc/engine/stats"
 import { RawDesc } from "@data/types"
 
@@ -337,23 +336,6 @@ describe("Internal stats/effectiveness (gen 0)", () => {
     it("sums only positive boosts", () => {
       const boosts = { hp: 0, atk: 2, def: -1, spa: 1, spd: 0, spe: 3 }
       expect(countBoosts(boosts as never)).toBe(6)
-    })
-  })
-
-  describe("getStatDescriptionText", () => {
-    it("returns correct text for plus-nature attack stat", () => {
-      const p = new Pokemon("Garchomp", { evs: { atk: 252 }, nature: "Adamant" })
-      expect(getStatDescriptionText(p, "atk")).toBe("252+ Atk")
-    })
-
-    it("returns correct text for minus-nature stat", () => {
-      const p = new Pokemon("Garchomp", { evs: { spe: 252 }, nature: "Adamant" })
-      expect(getStatDescriptionText(p, "spa")).toBe("0- SpA")
-    })
-
-    it("returns correct text for HP EVs", () => {
-      const p = new Pokemon("Pelipper", { evs: { hp: 252 } })
-      expect(getStatDescriptionText(p, "hp")).toBe("252 HP")
     })
   })
 

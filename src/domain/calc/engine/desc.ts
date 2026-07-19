@@ -47,7 +47,7 @@ function error(err: boolean, message: string) {
   }
 }
 
-export function display(attacker: Pokemon, defender: Pokemon, move: Move, field: Field, damage: Damage, rawDesc: RawDesc, notation = "%", err = true) {
+export function display(attacker: Pokemon, defender: Pokemon, move: Move, field: Field, damage: Damage, rawDesc: RawDesc, notation: string, err: boolean) {
   const [min, max] = damageRange(damage)
 
   const minDisplay = toDisplay(notation, min, defender.maxHp())
@@ -68,7 +68,7 @@ export function display(attacker: Pokemon, defender: Pokemon, move: Move, field:
   return koChanceText ? `${description}: ${damageText}${berryResistText} -- ${koChanceText}` : `${description}: ${damageText}${berryResistText}`
 }
 
-export function displayMove(attacker: Pokemon, defender: Pokemon, move: Move, damage: Damage, notation = "%") {
+export function displayMove(attacker: Pokemon, defender: Pokemon, move: Move, damage: Damage, notation: string) {
   const [min, max] = damageRange(damage)
 
   const minDisplay = toDisplay(notation, min, defender.maxHp())
@@ -80,7 +80,7 @@ export function displayMove(attacker: Pokemon, defender: Pokemon, move: Move, da
   return `${minDisplay} - ${maxDisplay}${notation}${recoveryText && ` (${recoveryText})`}${recoilText && ` (${recoilText})`}`
 }
 
-export function getRecovery(attacker: Pokemon, defender: Pokemon, move: Move, damage: Damage, notation = "%") {
+export function getRecovery(attacker: Pokemon, defender: Pokemon, move: Move, damage: Damage, notation: string) {
   const [minDamage, maxDamage] = damageRange(damage)
   let minD
   let maxD
@@ -361,8 +361,8 @@ export function computeMultiHitKOChance(
   hp: number,
   eot: number,
   maxHP: number,
-  berryRecovery: number | number[] = 0,
-  berryThreshold: number | number[] = 0,
+  berryRecovery: number | number[],
+  berryThreshold: number | number[],
   rowsPerTurn?: number,
   toxicCounter = 0
 ): { chance: number; berryConsumed: boolean; anyBerryConsumed: boolean; firstBerryTurn?: number } {
@@ -723,10 +723,6 @@ function getHazards(defender: Pokemon, defenderSide: Side) {
     }
   }
 
-  if (isNaN(damage)) {
-    damage = 0
-  }
-
   return { damage, texts }
 }
 
@@ -878,8 +874,8 @@ function computeKOChance(
   timesUsed: number,
   maxHP: number,
   toxicCounter: number,
-  berryRecovery = 0,
-  berryThreshold = 0,
+  berryRecovery: number,
+  berryThreshold: number,
   berryConsumed = false,
   damageWithoutBerry?: number[]
 ): { chance: number; berryConsumed: boolean; anyBerryConsumed: boolean; firstBerryTurn?: number } {

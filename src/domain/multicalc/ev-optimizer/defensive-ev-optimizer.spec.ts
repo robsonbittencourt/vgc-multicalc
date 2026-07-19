@@ -356,6 +356,32 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.evs!.spd).toBe(0)
       })
 
+      it("should refine a mixed physical and special pair through the single-attacker fallback", () => {
+        const defender = new Pokemon("Snorlax", { nature: "Bold", item: "Sitrus Berry" })
+
+        const rillaboom = new Pokemon("Rillaboom", {
+          nature: "Adamant",
+          moveSet: new MoveSet(new Move("Wood Hammer"), new Move(""), new Move(""), new Move("")),
+          evs: { atk: 252 }
+        })
+
+        const chiYu = new Pokemon("Chi-Yu", {
+          nature: "Modest",
+          moveSet: new MoveSet(new Move("Overheat"), new Move(""), new Move(""), new Move("")),
+          evs: { spa: 252 }
+        })
+
+        const targets = [new Target(rillaboom), new Target(chiYu)]
+        const field = new Field({ weather: "Sand" })
+
+        const result = service.optimize(defender, targets, field, false, false, 3, 15, true)
+
+        expect(result.status).toBe("success")
+        expect(result.evs!.hp).toBe(0)
+        expect(result.evs!.def).toBe(132)
+        expect(result.evs!.spd).toBe(0)
+      })
+
       it("should optimize EVs for multiple attackers with Whimsicott", () => {
         const defender = new Pokemon("Whimsicott", {
           nature: "Bold"
@@ -1034,6 +1060,34 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.status).toBe("no-solution")
         expect(result.evs).toBeNull()
         expect(result.nature).toBeNull()
+      })
+    })
+
+    describe("reserved offensive EVs overflow the budget via optimize", () => {
+      it("should return no-solution when reserved offensive EVs plus the defensive spread exceed 508 with a double target", () => {
+        const defender = new Pokemon("Snorlax", { nature: "Bold", evs: { atk: 252, spa: 252, spe: 4 } })
+
+        const chienPao = new Pokemon("Chien-Pao", { nature: "Adamant", moveSet: new MoveSet(new Move("Ice Spinner"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
+        const chiYu = new Pokemon("Chi-Yu", { nature: "Adamant", moveSet: new MoveSet(new Move("Overheat"), new Move(""), new Move(""), new Move("")), evs: { spa: 252 } })
+        const weavile = new Pokemon("Weavile", { nature: "Adamant", moveSet: new MoveSet(new Move("Ice Punch"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
+        const rotomHeat = new Pokemon("Rotom-Heat", { nature: "Adamant", moveSet: new MoveSet(new Move("Overheat"), new Move(""), new Move(""), new Move("")), evs: { spa: 252 } })
+
+        const result = service.optimize(defender, [new Target(chienPao), new Target(chiYu), new Target(weavile, rotomHeat)], new Field(), false, true, 3, 15, true)
+
+        expect(result.status).toBe("no-solution")
+        expect(result.evs).toBeNull()
+      })
+
+      it("should return no-solution when reserved offensive EVs plus the defensive spread exceed 508 with single targets", () => {
+        const defender = new Pokemon("Snorlax", { nature: "Bold", evs: { atk: 252, spa: 252, spe: 4 } })
+
+        const chienPao = new Pokemon("Chien-Pao", { nature: "Adamant", moveSet: new MoveSet(new Move("Ice Spinner"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
+        const chiYu = new Pokemon("Chi-Yu", { nature: "Adamant", moveSet: new MoveSet(new Move("Overheat"), new Move(""), new Move(""), new Move("")), evs: { spa: 252 } })
+
+        const result = service.optimize(defender, [new Target(chienPao), new Target(chiYu)], new Field(), false, true, 3, 15, true)
+
+        expect(result.status).toBe("no-solution")
+        expect(result.evs).toBeNull()
       })
     })
 
@@ -1847,6 +1901,21 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.evs).toEqual({ hp: 236, atk: 0, def: 28, spa: 0, spd: 236, spe: 0 })
       })
 
+      it("should drop the special solution when the double target solution already protects the strongest special attacker", () => {
+        const defender = new Pokemon("Snorlax", { moveSet: new MoveSet(new Move("Body Slam"), new Move(""), new Move(""), new Move("")) })
+        const ursaluna = new Pokemon("Ursaluna", { nature: "Adamant", item: "Choice Band", moveSet: new MoveSet(new Move("Headlong Rush"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
+        const sinistcha = new Pokemon("Sinistcha", { nature: "Modest", moveSet: new MoveSet(new Move("Matcha Gotcha"), new Move(""), new Move(""), new Move("")), evs: { spa: 0 } })
+        const ironBundle = new Pokemon("Iron Bundle", { nature: "Modest", moveSet: new MoveSet(new Move("Hydro Pump"), new Move(""), new Move(""), new Move("")), evs: { spa: 252 } })
+        const sinistchaPartner = new Pokemon("Sinistcha", { nature: "Modest", moveSet: new MoveSet(new Move("Matcha Gotcha"), new Move(""), new Move(""), new Move("")), evs: { spa: 0 } })
+        const targets = [new Target(ursaluna), new Target(sinistcha), new Target(ironBundle, sinistchaPartner)]
+        const field = new Field()
+
+        const result = service.optimize(defender, targets, field, false, false, 3)
+
+        expect(result.status).toBe("success")
+        expect(result.evs).toEqual({ hp: 156, atk: 0, def: 0, spa: 0, spd: 252, spe: 0 })
+      })
+
       it("should protect the physical attacker and abandon a double target that has no legal spread", () => {
         const defender = new Pokemon("Ting-Lu", { item: "Sitrus Berry", moveSet: new MoveSet(new Move("Earthquake"), new Move(""), new Move(""), new Move("")) })
         const ursaluna = new Pokemon("Ursaluna", { nature: "Adamant", item: "Choice Band", moveSet: new MoveSet(new Move("Headlong Rush"), new Move(""), new Move(""), new Move("")), evs: { atk: 84 } })
@@ -2584,6 +2653,63 @@ describe("DefensiveEvOptimizer", () => {
 
         expect(result.status).toBe("no-solution")
         expect(result.evs).toBeNull()
+      })
+    })
+
+    describe("double refinement", () => {
+      it("should refine a double target when the defender survives with residual recovery", () => {
+        const defender = new Pokemon("Umbreon", { nature: "Bold", item: "Sitrus Berry" })
+
+        const sneasel = new Pokemon("Sneasel", { nature: "Adamant", moveSet: new MoveSet(new Move("Ice Punch"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
+        const mamoswine = new Pokemon("Mamoswine", { nature: "Adamant", moveSet: new MoveSet(new Move("Icicle Crash"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
+        const rotom = new Pokemon("Rotom-Heat", { nature: "Modest", moveSet: new MoveSet(new Move("Overheat"), new Move(""), new Move(""), new Move("")), evs: { spa: 252 } })
+
+        const targets = [new Target(sneasel), new Target(rotom), new Target(sneasel, mamoswine)]
+        const field = new Field({ weather: "Sand" })
+
+        const result = service.optimize(defender, targets, field, false, false, 3, 15, true)
+
+        expect(result.status).toBe("success")
+        expect(result.evs!.hp).toBe(236)
+        expect(result.evs!.def).toBe(252)
+        expect(result.evs!.spd).toBe(0)
+      })
+
+      it("should reject candidate spreads that stop protecting the strongest physical attacker outside the double", () => {
+        const defender = new Pokemon("Umbreon", { nature: "Bold", item: "Sitrus Berry" })
+
+        const rillaboom = new Pokemon("Rillaboom", { nature: "Adamant", item: "Life Orb", moveSet: new MoveSet(new Move("Wood Hammer"), new Move(""), new Move(""), new Move("")), evs: { atk: 196 } })
+        const rotom = new Pokemon("Rotom-Heat", { nature: "Modest", moveSet: new MoveSet(new Move("Overheat"), new Move(""), new Move(""), new Move("")), evs: { spa: 252 } })
+        const sneasel = new Pokemon("Sneasel", { nature: "Adamant", moveSet: new MoveSet(new Move("Ice Punch"), new Move(""), new Move(""), new Move("")), evs: { atk: 196 } })
+        const mamoswine = new Pokemon("Mamoswine", { nature: "Adamant", moveSet: new MoveSet(new Move("Icicle Crash"), new Move(""), new Move(""), new Move("")), evs: { atk: 196 } })
+
+        const targets = [new Target(rillaboom), new Target(rotom), new Target(sneasel, mamoswine)]
+        const field = new Field({ weather: "Sand" })
+
+        const result = service.optimize(defender, targets, field, false, false, 3, 15, true)
+
+        expect(result.status).toBe("success")
+        expect(result.evs!.hp).toBe(124)
+        expect(result.evs!.def).toBe(244)
+        expect(result.evs!.spd).toBe(0)
+      })
+
+      it("should try to increase EVs when the combined spread dies to residual damage before giving up", () => {
+        const defender = new Pokemon("Porygon2", { nature: "Calm", item: "Leftovers" })
+
+        const scizor = new Pokemon("Scizor", { nature: "Adamant", moveSet: new MoveSet(new Move("Bullet Punch"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
+        const metagross = new Pokemon("Metagross", { nature: "Adamant", moveSet: new MoveSet(new Move("Bullet Punch"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
+        const rotom = new Pokemon("Rotom-Heat", { nature: "Modest", moveSet: new MoveSet(new Move("Overheat"), new Move(""), new Move(""), new Move("")), evs: { spa: 252 } })
+
+        const targets = [new Target(scizor), new Target(rotom), new Target(scizor, metagross)]
+        const field = new Field({ weather: "Sand" })
+
+        const result = service.optimize(defender, targets, field, false, false, 3, 15, true)
+
+        expect(result.status).toBe("success")
+        expect(result.evs!.hp).toBe(228)
+        expect(result.evs!.def).toBe(0)
+        expect(result.evs!.spd).toBe(236)
       })
     })
   })

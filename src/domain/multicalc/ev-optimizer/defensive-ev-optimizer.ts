@@ -77,8 +77,6 @@ export class DefensiveEvOptimizer {
 
     let physicalStrongest: Pokemon | null = null
     let specialStrongest: Pokemon | null = null
-    let physicalOptimized: Stats | null = null
-    let specialOptimized: Stats | null = null
 
     let natureUsed: string | null = null
     let priority: AttackerPriorityResult | null = null
@@ -110,8 +108,8 @@ export class DefensiveEvOptimizer {
     let impossibleDouble = false
 
     if (!evs) {
-      physicalOptimized = physicalStrongest ? this.singleAttackerOptimizer.optimizeForAttacker(physicalStrongest, defenderWithNature, field, threshold, rollIndex, rightIsDefender) : null
-      specialOptimized = specialStrongest ? this.singleAttackerOptimizer.optimizeForAttacker(specialStrongest, defenderWithNature, field, threshold, rollIndex, rightIsDefender) : null
+      const physicalOptimized = physicalStrongest ? this.singleAttackerOptimizer.optimizeForAttacker(physicalStrongest, defenderWithNature, field, threshold, rollIndex, rightIsDefender) : null
+      const specialOptimized = specialStrongest ? this.singleAttackerOptimizer.optimizeForAttacker(specialStrongest, defenderWithNature, field, threshold, rollIndex, rightIsDefender) : null
 
       let doubleOptimized: Stats | null = null
 
