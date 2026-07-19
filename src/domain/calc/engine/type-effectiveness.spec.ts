@@ -31,4 +31,24 @@ describe("getMoveEffectiveness", () => {
     const m = new Move("Earthquake")
     expect(getMoveEffectiveness(m, "Flying", false, true)).toBe(1)
   })
+
+  it("lets a Normal move hit a revealed Ghost type", () => {
+    const m = new Move("Body Slam")
+    expect(getMoveEffectiveness(m, "Ghost", true)).toBe(1)
+  })
+
+  it("lets a Fighting move hit a revealed Ghost type", () => {
+    const m = new Move("Close Combat")
+    expect(getMoveEffectiveness(m, "Ghost", true)).toBe(1)
+  })
+
+  it("makes Nihil Light neutral against Fairy", () => {
+    const m = new Move("Nihil Light")
+    expect(getMoveEffectiveness(m, "Fairy")).toBe(1)
+  })
+
+  it("multiplies both types for Flying Press", () => {
+    const m = new Move("Flying Press")
+    expect(getMoveEffectiveness(m, "Grass")).toBe(2)
+  })
 })

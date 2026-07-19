@@ -46,13 +46,26 @@ function computeLineCoverage(entry) {
   const lineBranchStatus = new Map()
 
   for (const key of Object.keys(entry.branchMap)) {
-    const { line } = entry.branchMap[key].loc
+    const branch = entry.branchMap[key]
     const hitCounts = entry.b[key]
-    const hasHit = hitCounts.some(h => h > 0)
-    const hasMiss = hitCounts.some(h => h === 0)
+    const locations = branch.locations?.length ? branch.locations : [branch.loc]
 
-    if (hasMiss && hasHit) lineBranchStatus.set(line, "partial")
-    else if (hasMiss && !lineBranchStatus.has(line)) lineBranchStatus.set(line, lineBranchStatus.get(line) === "partial" ? "partial" : "miss")
+    for (let i = 0; i < hitCounts.length; i++) {
+      const line = locations[i]?.start?.line ?? branch.loc?.start?.line
+
+      if (line === undefined) continue
+
+      const status = hitCounts[i] > 0 ? "hit" : "miss"
+      const current = lineBranchStatus.get(line)
+
+      if (current === "partial") continue
+      if (current === undefined) lineBranchStatus.set(line, status)
+      else if (current !== status) lineBranchStatus.set(line, "partial")
+    }
+  }
+
+  for (const [line, status] of lineBranchStatus) {
+    if (status === "hit") lineBranchStatus.delete(line)
   }
 
   return { lineStatementHits, lineBranchStatus }
@@ -63,7 +76,7 @@ function classifyLine(lineNumber, lineStatementHits, lineBranchStatus) {
 
   if (branchStatus === "partial") return "partial"
 
-  if (!lineStatementHits.has(lineNumber)) return branchStatus === "miss" ? "miss" : "neutral"
+  if (!lineStatementHits.has(lineNumber)) return branchStatus === "miss" ? "partial" : "neutral"
 
   const hits = lineStatementHits.get(lineNumber)
 

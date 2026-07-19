@@ -324,3 +324,29 @@ describe("checkMultihitBoost — Wandering Spirit swaps abilities in both direct
     expect(result.description()).toEqual("252+ Atk Unaware Zangoose Double Hit (2 hits) vs. 252 HP / 252+ Def Wandering Spirit Ferrothorn: 18-24 (9.9 - 13.2%) -- possible 8HKO")
   })
 })
+
+describe("checkMultihitBoost — item and ability reactions across hits", () => {
+  it("should lower the attacker's Speed via Gooey, raising Gyro Ball's power", () => {
+    const attacker = new Pokemon("Garchomp", { evs: { atk: 252 } })
+    const defender = new Pokemon("Sliggoo", { ability: "Gooey", evs: { hp: 252 } })
+    const result = calculate(attacker, defender, new Move("Gyro Ball", { hits: 2 }), new Field())
+
+    expect(result.description()).toEqual("252 Atk Garchomp Gyro Ball (17 BP) vs. 252 HP / 0 Def Sliggoo: 17-20 (9.7 - 11.4%) -- possible 9HKO")
+  })
+
+  it("should raise the attacker's Attack between Power-Up Punch hits", () => {
+    const attacker = new Pokemon("Garchomp", { evs: { atk: 252 } })
+    const defender = new Pokemon("Blissey", { evs: { hp: 252 } })
+    const result = calculate(attacker, defender, new Move("Power-Up Punch", { hits: 2 }), new Field())
+
+    expect(result.description()).toEqual("252 Atk Garchomp Power-Up Punch vs. 252 HP / 0 Def Blissey: 182-216 (50.2 - 59.6%) -- guaranteed 2HKO")
+  })
+
+  it("should raise the defender's Special Defense with Luminous Moss against a Water move", () => {
+    const attacker = new Pokemon("Pelipper", { evs: { spa: 252 } })
+    const defender = new Pokemon("Blissey", { item: "Luminous Moss", evs: { hp: 252 } })
+    const result = calculate(attacker, defender, new Move("Water Shuriken", { hits: 3 }), new Field())
+
+    expect(result.description()).toEqual("252 SpA Pelipper Water Shuriken (3 hits) vs. 252 HP / 0 SpD Luminous Moss Blissey: 23-30 (6.3 - 8.2%)")
+  })
+})

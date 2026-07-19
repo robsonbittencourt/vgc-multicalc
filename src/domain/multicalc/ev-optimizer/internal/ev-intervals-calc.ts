@@ -2,15 +2,10 @@ import { MAX_SINGLE_STAT_EVS } from "./ev-optimizer-constants"
 
 export class EvIntervalsCalc {
   getEvIntervals(): number[] {
-    const evIntervals = [0, 4]
-    let current = 4
+    const evIntervals = [0]
 
-    while (current < MAX_SINGLE_STAT_EVS) {
-      current += 8
-
-      if (current <= MAX_SINGLE_STAT_EVS) {
-        evIntervals.push(current)
-      }
+    for (let current = 4; current <= MAX_SINGLE_STAT_EVS; current += 8) {
+      evIntervals.push(current)
     }
 
     return evIntervals

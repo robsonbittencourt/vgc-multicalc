@@ -37,6 +37,18 @@ describe("applyEarlyReturnGuards", () => {
     expect(applyEarlyReturnGuards(ctx)?.type).toBe("immune")
   })
 
+  it("Pain Split evens out the HP when its category is not Status", () => {
+    const ctx = makeCtx("Garchomp", { curHP: 50 }, "Blissey", { curHP: 350 }, "Pain Split", { overrides: { category: "Physical", basePower: 1 } })
+
+    expect(applyEarlyReturnGuards(ctx)).toEqual({ type: "damage", value: 140 })
+  })
+
+  it("Pain Split deals no damage when the defender is already below the average HP", () => {
+    const ctx = makeCtx("Garchomp", { curHP: 180 }, "Blissey", { curHP: 50 }, "Pain Split", { overrides: { category: "Physical", basePower: 1 } })
+
+    expect(applyEarlyReturnGuards(ctx)).toEqual({ type: "damage", value: 0 })
+  })
+
   it("returns null for damaging moves", () => {
     const ctx = makeCtx("Pelipper", {}, "Garchomp", {}, "Surf")
     expect(applyEarlyReturnGuards(ctx)).toBeNull()

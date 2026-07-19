@@ -88,4 +88,34 @@ describe("Result", () => {
       expect(result.damageWithRemainingUntilTurn(1)).toBe(214)
     })
   })
+
+  describe("afterTurn recovery caps", () => {
+    it("caps the end of turn recovery at the defender max HP", () => {
+      const attacker = new Pokemon("Pikachu", { evs: { atk: 0 }, nature: "Bold" })
+      const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, item: "Leftovers", curHP: 360 })
+      const result = calculate(attacker, defender, new Move("Tackle"), new Field())
+
+      const afterTurn = result.afterTurn()
+
+      expect(afterTurn.afterTurnData.slice(0, 3)).toEqual([
+        { turn: 1, residualDelta: 22, hp: 361 },
+        { turn: 2, residualDelta: 22, hp: 362 },
+        { turn: 3, residualDelta: 22, hp: 362 }
+      ])
+    })
+
+    it("caps the berry recovery at the defender max HP", () => {
+      const attacker = new Pokemon("Pikachu", { evs: { atk: 0 }, nature: "Bold" })
+      const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, item: "Sitrus Berry", curHP: 190 })
+      const result = calculate(attacker, defender, new Move("Tackle"), new Field())
+
+      const afterTurn = result.afterTurn()
+
+      expect(afterTurn.afterTurnData.slice(0, 3)).toEqual([
+        { turn: 1, residualDelta: 90, hp: 259 },
+        { turn: 2, residualDelta: 0, hp: 238 },
+        { turn: 3, residualDelta: 0, hp: 217 }
+      ])
+    })
+  })
 })
