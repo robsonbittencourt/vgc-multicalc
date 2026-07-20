@@ -300,7 +300,7 @@ describe("applyFixedDamageGuards", () => {
 
   it("Super Fang deals half defender curHP at full HP", () => {
     const ctx = makeCtx("Garchomp", {}, "Garchomp", {}, "Super Fang")
-    const fullHP = ctx.defender.currrentHp()
+    const fullHP = ctx.defender.currentHp()
 
     const result = applyFixedDamageGuards(ctx)
 
@@ -310,7 +310,7 @@ describe("applyFixedDamageGuards", () => {
 
   it("Final Gambit deals attacker curHP at full HP", () => {
     const ctx = makeCtx("Garchomp", {}, "Pelipper", {}, "Final Gambit")
-    const fullHP = ctx.attacker.currrentHp()
+    const fullHP = ctx.attacker.currentHp()
 
     const result = applyFixedDamageGuards(ctx)
 
@@ -320,8 +320,8 @@ describe("applyFixedDamageGuards", () => {
 
   it("Endeavor deals defender HP minus attacker HP when attacker is at lower HP", () => {
     const ctx = makeCtx("Garchomp", { curHP: 50 }, "Pelipper", {}, "Endeavor")
-    const defHP = ctx.defender.currrentHp()
-    const atkHP = ctx.attacker.currrentHp()
+    const defHP = ctx.defender.currentHp()
+    const atkHP = ctx.attacker.currentHp()
 
     const result = applyFixedDamageGuards(ctx)
 

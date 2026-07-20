@@ -96,23 +96,6 @@ export class Field {
   }
 
   clone(): Field {
-    return new Field({
-      gameType: this.gameType,
-      weather: this.weather,
-      terrain: this.terrain,
-      isMagicRoom: this.isMagicRoom,
-      isWonderRoom: this.isWonderRoom,
-      isGravity: this.isGravity,
-      attackerSide: this.attackerSide,
-      defenderSide: this.defenderSide,
-      isAuraBreak: this.isAuraBreak,
-      isDarkAura: this.isDarkAura,
-      isFairyAura: this.isFairyAura,
-      isBeadsOfRuin: this.isBeadsOfRuin,
-      isSwordOfRuin: this.isSwordOfRuin,
-      isTabletsOfRuin: this.isTabletsOfRuin,
-      isVesselOfRuin: this.isVesselOfRuin,
-      isUnnerve: this.isUnnerve
-    })
+    return new Field(this)
   }
 }

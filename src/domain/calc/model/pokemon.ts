@@ -35,7 +35,7 @@ export class Pokemon {
   boosts: StatsTable
   rawStats: StatsTable
   stats: StatsTable
-  originalCurrrentHp: number
+  originalCurrentHp: number
   status: StatusName | ""
   toxicCounter: number
   moves: MoveName[]
@@ -62,8 +62,8 @@ export class Pokemon {
 
     this.recalculateStats()
 
-    const curHP = options.curHP || options.originalCurrrentHp
-    this.originalCurrrentHp = curHP && curHP <= this.rawStats.hp ? curHP : this.rawStats.hp
+    const curHP = options.curHP || options.originalCurrentHp
+    this.originalCurrentHp = curHP && curHP <= this.rawStats.hp ? curHP : this.rawStats.hp
     this.status = options.status || ""
     this.toxicCounter = options.toxicCounter || 0
     this.moves = options.moves || []
@@ -81,8 +81,8 @@ export class Pokemon {
     return this.rawStats.hp
   }
 
-  currrentHp(): number {
-    return this.originalCurrrentHp
+  currentHp(): number {
+    return this.originalCurrentHp
   }
 
   hasAbility(...abilities: string[]): boolean {
@@ -134,7 +134,7 @@ export class Pokemon {
       nature: this.nature,
       evs: mergeDeep({}, this.evs),
       boosts: mergeDeep({}, this.boosts),
-      originalCurrrentHp: this.originalCurrrentHp,
+      originalCurrentHp: this.originalCurrentHp,
       status: this.status,
       teraType: this.teraType,
       toxicCounter: this.toxicCounter,

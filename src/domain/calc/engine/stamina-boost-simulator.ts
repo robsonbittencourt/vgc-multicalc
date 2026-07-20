@@ -1,4 +1,5 @@
 import { calculateDamage } from "@calc/engine/calculate"
+import { clampBoost } from "@calc/engine/math"
 import { getBerryResistType } from "@calc/model/items"
 import { extractDamageSubArrays, Result } from "@calc/model/result"
 
@@ -62,7 +63,7 @@ export class StaminaBoostSimulator {
 
   private recomputeDamageAtBoost(resultIndex: number, defBoost: number, typeBerryAvailable: boolean): number[][] {
     const result = this.results[resultIndex]
-    const boost = Math.max(-6, Math.min(defBoost, 6))
+    const boost = clampBoost(defBoost)
     const cacheKey = `${resultIndex}:${boost}:${typeBerryAvailable ? 1 : 0}`
     const cached = this.recomputeDamageCache.get(cacheKey)
 

@@ -31,13 +31,13 @@ describe("Result", () => {
     })
   })
 
-  describe("kochance", () => {
+  describe("koChance", () => {
     it("describes the KO chance for the calculated damage", () => {
       const attacker = new Pokemon("Garchomp", { evs: { atk: 252 }, nature: "Adamant" })
       const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 4 } })
       const result = calculate(attacker, defender, new Move("Earthquake"), new Field())
 
-      expect(result.kochance().text).toEqual("guaranteed OHKO")
+      expect(result.koChance().text).toEqual("guaranteed OHKO")
     })
   })
 

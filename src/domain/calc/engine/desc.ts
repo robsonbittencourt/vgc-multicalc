@@ -47,7 +47,11 @@ function error(err: boolean, message: string) {
   }
 }
 
-export function display(attacker: Pokemon, defender: Pokemon, move: Move, field: Field, damage: Damage, rawDesc: RawDesc, notation: string, err: boolean) {
+export function roundChance(chance: number): number {
+  return Math.max(Math.min(Math.round(chance * 1000), 999), 1) / 10
+}
+
+export function formatResultDescription(attacker: Pokemon, defender: Pokemon, move: Move, field: Field, damage: Damage, rawDesc: RawDesc, notation: string, err: boolean) {
   const [min, max] = damageRange(damage)
 
   const minDisplay = toDisplay(notation, min, defender.maxHp())
@@ -68,7 +72,7 @@ export function display(attacker: Pokemon, defender: Pokemon, move: Move, field:
   return koChanceText ? `${description}: ${damageText}${berryResistText} -- ${koChanceText}` : `${description}: ${damageText}${berryResistText}`
 }
 
-export function displayMove(attacker: Pokemon, defender: Pokemon, move: Move, damage: Damage, notation: string) {
+export function formatDamageSummary(attacker: Pokemon, defender: Pokemon, move: Move, damage: Damage, notation: string) {
   const [min, max] = damageRange(damage)
 
   const minDisplay = toDisplay(notation, min, defender.maxHp())
@@ -101,14 +105,14 @@ export function getRecovery(attacker: Pokemon, defender: Pokemon, move: Move, da
       recovery[1] += maxD[i] > 0 ? Math.max(Math.round(maxD[i] / 8), 1) : 0
     }
 
-    const maxHealing = Math.round(defender.currrentHp() / 8)
+    const maxHealing = Math.round(defender.currentHp() / 8)
     recovery[0] = Math.min(recovery[0], maxHealing)
     recovery[1] = Math.min(recovery[1], maxHealing)
   }
 
   if (move.named("Pain Split")) {
-    const average = Math.floor((attacker.currrentHp() + defender.currrentHp()) / 2)
-    recovery[0] = recovery[1] = average - attacker.currrentHp()
+    const average = Math.floor((attacker.currentHp() + defender.currentHp()) / 2)
+    recovery[0] = recovery[1] = average - attacker.currentHp()
   }
 
   if (move.drain) {
@@ -118,7 +122,7 @@ export function getRecovery(attacker: Pokemon, defender: Pokemon, move: Move, da
 
     const percentHealed = move.drain[0] / move.drain[1]
     const attackerHasBigRoot = attacker.hasItem("Big Root")
-    let maxDrain = Math.round(defender.currrentHp() * percentHealed)
+    let maxDrain = Math.round(defender.currentHp() * percentHealed)
 
     if (attackerHasBigRoot) {
       maxDrain = Math.trunc((maxDrain * 5324) / 4096)
@@ -157,7 +161,7 @@ export function getRecoil(attacker: Pokemon, defender: Pokemon, move: Move, dama
   let recoil: [number, number] | number = [0, 0]
   let text = ""
 
-  const damageOverflow = min > defender.currrentHp() || max > defender.currrentHp()
+  const damageOverflow = min > defender.currentHp() || max > defender.currentHp()
 
   if (move.recoil) {
     const mod = (move.recoil[0] / move.recoil[1]) * 100
@@ -165,11 +169,11 @@ export function getRecoil(attacker: Pokemon, defender: Pokemon, move: Move, dama
     let maxRecoilDamage
 
     if (damageOverflow) {
-      minRecoilDamage = toDisplay(notation, defender.currrentHp() * mod, attacker.maxHp(), 100)
-      maxRecoilDamage = toDisplay(notation, defender.currrentHp() * mod, attacker.maxHp(), 100)
+      minRecoilDamage = toDisplay(notation, defender.currentHp() * mod, attacker.maxHp(), 100)
+      maxRecoilDamage = toDisplay(notation, defender.currentHp() * mod, attacker.maxHp(), 100)
     } else {
-      minRecoilDamage = toDisplay(notation, Math.min(min, defender.currrentHp()) * mod, attacker.maxHp(), 100)
-      maxRecoilDamage = toDisplay(notation, Math.min(max, defender.currrentHp()) * mod, attacker.maxHp(), 100)
+      minRecoilDamage = toDisplay(notation, Math.min(min, defender.currentHp()) * mod, attacker.maxHp(), 100)
+      maxRecoilDamage = toDisplay(notation, Math.min(max, defender.currentHp()) * mod, attacker.maxHp(), 100)
     }
 
     if (!attacker.hasAbility("Rock Head")) {
@@ -229,10 +233,6 @@ export function getKOChance(attacker: Pokemon, defender: Pokemon, move: Move, fi
 
   const damageWithoutBerry = computeDamageWithoutBerry(damageObj, rawDesc, move, defender)
 
-  function roundChance(chance: number) {
-    return Math.max(Math.min(Math.round(chance * 1000), 999), 1) / 10
-  }
-
   function KOChance(chanceWithoutEot: number | undefined, chanceWithEot: number | undefined, n: number, multipleTurns = false, berryRelevant = false, firstBerryTurn?: number, anyBerryConsumed = false) {
     const combinedTexts = hazards.texts.concat(eot.texts)
 
@@ -290,8 +290,8 @@ export function getKOChance(attacker: Pokemon, defender: Pokemon, move: Move, fi
       const damageMatrix = damageObj as number[][]
 
       if (damageMatrix.length > 1) {
-        const res = computeMultiHitKOChance(damageMatrix, defender.currrentHp() - hazards.damage, 0, defender.maxHp(), berryRecovery, berryThreshold)
-        const resWithEot = computeMultiHitKOChance(damageMatrix, defender.currrentHp() - hazards.damage, eot.damage, defender.maxHp(), berryRecovery, berryThreshold)
+        const res = computeMultiHitKOChance(damageMatrix, defender.currentHp() - hazards.damage, 0, defender.maxHp(), berryRecovery, berryThreshold)
+        const resWithEot = computeMultiHitKOChance(damageMatrix, defender.currentHp() - hazards.damage, eot.damage, defender.maxHp(), berryRecovery, berryThreshold)
 
         if (res.chance + resWithEot.chance > 0) {
           return KOChance(res.chance, resWithEot.chance, 1, false, res.berryConsumed || resWithEot.berryConsumed, res.firstBerryTurn || resWithEot.firstBerryTurn, res.anyBerryConsumed || resWithEot.anyBerryConsumed)
@@ -306,8 +306,8 @@ export function getKOChance(attacker: Pokemon, defender: Pokemon, move: Move, fi
     }
 
     if (!hasOHKOChance) {
-      const res = computeKOChance(damage, defender.currrentHp() - hazards.damage, 0, hits, 1, defender.maxHp(), 0, berryRecovery, berryThreshold, false, damageWithoutBerry)
-      const resWithEot = computeKOChance(damage, defender.currrentHp() - hazards.damage, eot.damage, hits, 1, defender.maxHp(), toxicCounter, berryRecovery, berryThreshold, false, damageWithoutBerry)
+      const res = computeKOChance(damage, defender.currentHp() - hazards.damage, 0, hits, 1, defender.maxHp(), 0, berryRecovery, berryThreshold, false, damageWithoutBerry)
+      const resWithEot = computeKOChance(damage, defender.currentHp() - hazards.damage, eot.damage, hits, 1, defender.maxHp(), toxicCounter, berryRecovery, berryThreshold, false, damageWithoutBerry)
 
       if (res.chance + resWithEot.chance > 0) {
         return KOChance(res.chance, resWithEot.chance, 1, false, res.berryConsumed || resWithEot.berryConsumed, res.firstBerryTurn || resWithEot.firstBerryTurn, res.anyBerryConsumed || resWithEot.anyBerryConsumed)
@@ -315,7 +315,7 @@ export function getKOChance(attacker: Pokemon, defender: Pokemon, move: Move, fi
     }
 
     for (let i = 2; i <= 4; i++) {
-      const res = computeKOChance(damage, defender.currrentHp() - hazards.damage, eot.damage, i, 1, defender.maxHp(), toxicCounter, berryRecovery, berryThreshold, false, damageWithoutBerry)
+      const res = computeKOChance(damage, defender.currentHp() - hazards.damage, eot.damage, i, 1, defender.maxHp(), toxicCounter, berryRecovery, berryThreshold, false, damageWithoutBerry)
 
       if (res.chance > 0) {
         return KOChance(0, res.chance, i, false, res.berryConsumed || berryConsumed, res.firstBerryTurn || (berryConsumed ? 1 : undefined), res.anyBerryConsumed || berryConsumed)
@@ -324,7 +324,7 @@ export function getKOChance(attacker: Pokemon, defender: Pokemon, move: Move, fi
 
     for (let i = 5; i <= 9; i++) {
       const totalMin = predictTotal(damage[0], eot.damage, i, 1, toxicCounter, defender.maxHp())
-      const requiredHP = defender.currrentHp() - hazards.damage
+      const requiredHP = defender.currentHp() - hazards.damage
 
       if (totalMin >= requiredHP + berryRecovery) {
         return KOChance(0, 1, i, false, berryRecovery > 0 || berryConsumed)
@@ -342,7 +342,7 @@ export function getKOChance(attacker: Pokemon, defender: Pokemon, move: Move, fi
     }
 
     const totalMin = predictTotal(damage[0], eot.damage, 1, timesUsed, toxicCounter, defender.maxHp())
-    const requiredHP = defender.currrentHp() - hazards.damage
+    const requiredHP = defender.currentHp() - hazards.damage
 
     if (totalMin >= requiredHP + berryRecovery) {
       return KOChance(0, 1, timesUsed, true, berryRecovery > 0)
@@ -543,6 +543,42 @@ export function computeMultiHitKOChance(
   return { chance: koChance, berryConsumed: berryConsumedInKO, anyBerryConsumed, firstBerryTurn }
 }
 
+function reduceDistribution(dist: number[], scaleValue: number): number[] {
+  const newLength = dist.length / scaleValue
+  const reduced = []
+  reduced[0] = dist[0]
+  reduced[newLength - 1] = dist[dist.length - 1]
+
+  for (let i = 1; i < newLength - 1; i++) {
+    reduced[i] = dist[Math.round(i * scaleValue + scaleValue / 2)]
+  }
+
+  return reduced
+}
+
+function combineTwo(dist1: number[], dist2: number[]): number[] {
+  return dist1.flatMap(val1 => dist2.map(val2 => val1 + val2)).sort((a, b) => a - b)
+}
+
+function combineDistributions(dists: number[][]): [number[], boolean] {
+  let combined = [0]
+  const numRolls = dists[0].length
+  const numAccuracy = numRolls === 16 && dists.length === 3 ? 3 : 2
+  let approximate = false
+
+  for (let i = 0; i < dists.length; i++) {
+    const distribution = dists[i]
+    combined = combineTwo(combined, distribution)
+
+    if (i >= numAccuracy) {
+      combined = reduceDistribution(combined, distribution.length)
+      approximate = true
+    }
+  }
+
+  return [combined, approximate]
+}
+
 function combine(damage: Damage): [number[], boolean] {
   if (typeof damage === "number") {
     return [[damage], false]
@@ -556,42 +592,6 @@ function combine(damage: Damage): [number[], boolean] {
 
   if (typeof damageArray[0] === "number" && typeof damageArray[1] === "number") {
     return [[(damageArray[0] as number) + (damageArray[1] as number)], false]
-  }
-
-  function reduce(dist: number[], scaleValue: number): number[] {
-    const newLength = dist.length / scaleValue
-    const reduced = []
-    reduced[0] = dist[0]
-    reduced[newLength - 1] = dist[dist.length - 1]
-
-    for (let i = 1; i < newLength - 1; i++) {
-      reduced[i] = dist[Math.round(i * scaleValue + scaleValue / 2)]
-    }
-
-    return reduced
-  }
-
-  function combineTwo(dist1: number[], dist2: number[]): number[] {
-    return dist1.flatMap(val1 => dist2.map(val2 => val1 + val2)).sort((a, b) => a - b)
-  }
-
-  function combineDistributions(dists: number[][]): [number[], boolean] {
-    let combined = [0]
-    const numRolls = dists[0].length
-    const numAccuracy = numRolls === 16 && dists.length === 3 ? 3 : 2
-    let approximate = false
-
-    for (let i = 0; i < dists.length; i++) {
-      const distribution = dists[i]
-      combined = combineTwo(combined, distribution)
-
-      if (i >= numAccuracy) {
-        combined = reduce(combined, distribution.length)
-        approximate = true
-      }
-    }
-
-    return [combined, approximate]
   }
 
   return combineDistributions(damageArray as number[][])

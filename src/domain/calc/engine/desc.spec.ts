@@ -379,8 +379,8 @@ describe("Internal Result/MultiResult/desc (gen 0)", () => {
       const ripen = new Pokemon("Snorlax", { evs: { hp: 252, def: 252 }, nature: "Relaxed", item: "Sitrus Berry", ability: "Ripen" })
       const move = () => new Move("Earthquake")
 
-      const plainChance = calculateDamage(attacker, plain, move(), new Field()).kochance().chance
-      const ripenChance = calculateDamage(attacker, ripen, move(), new Field()).kochance().chance
+      const plainChance = calculateDamage(attacker, plain, move(), new Field()).koChance().chance
+      const ripenChance = calculateDamage(attacker, ripen, move(), new Field()).koChance().chance
 
       expect(ripenChance).toBeLessThan(plainChance!)
     })
@@ -598,8 +598,8 @@ describe("Internal Result/MultiResult/desc (gen 0)", () => {
       const field = new Field({ defenderSide: { isSR: true } })
       const move = () => new Move("Earthquake")
 
-      const plainChance = calculateDamage(attacker, plain, move(), field).kochance().chance
-      const teraChance = calculateDamage(attacker, teraFire, move(), field).kochance().chance
+      const plainChance = calculateDamage(attacker, plain, move(), field).koChance().chance
+      const teraChance = calculateDamage(attacker, teraFire, move(), field).koChance().chance
 
       expect(plainChance).toBe(1)
       expect(teraChance).toBe(0.1875)
@@ -678,8 +678,8 @@ describe("Internal Result/MultiResult/desc (gen 0)", () => {
     const lax = (options: Record<string, unknown> = {}) => new Pokemon("Snorlax", { evs: { hp: 252, def: 252 }, nature: "Relaxed", ...options })
 
     it("increases trapping damage with Binding Band", () => {
-      const plain = calculateDamage(chomp(), lax(), new Move("Sand Tomb"), new Field()).kochance().chance
-      const band = calculateDamage(chomp({ item: "Binding Band" }), lax(), new Move("Sand Tomb"), new Field()).kochance().chance
+      const plain = calculateDamage(chomp(), lax(), new Move("Sand Tomb"), new Field()).koChance().chance
+      const band = calculateDamage(chomp({ item: "Binding Band" }), lax(), new Move("Sand Tomb"), new Field()).koChance().chance
 
       expect(band).toBeGreaterThan(plain!)
     })
@@ -747,8 +747,8 @@ describe("Internal Result/MultiResult/desc (gen 0)", () => {
     })
 
     it("doubles an Oran Berry recovery with Ripen", () => {
-      const plain = calculateDamage(chomp(), lax({ item: "Oran Berry" }), new Move("Earthquake"), new Field()).kochance().chance
-      const ripen = calculateDamage(chomp(), lax({ item: "Oran Berry", ability: "Ripen" }), new Move("Earthquake"), new Field()).kochance().chance
+      const plain = calculateDamage(chomp(), lax({ item: "Oran Berry" }), new Move("Earthquake"), new Field()).koChance().chance
+      const ripen = calculateDamage(chomp(), lax({ item: "Oran Berry", ability: "Ripen" }), new Move("Earthquake"), new Field()).koChance().chance
 
       expect(ripen).toBeLessThanOrEqual(plain!)
     })
@@ -756,8 +756,8 @@ describe("Internal Result/MultiResult/desc (gen 0)", () => {
     it("doubles a Figy Berry recovery with Ripen", () => {
       const defender = (options: Record<string, unknown>) => new Pokemon("Snorlax", { evs: { def: 252 }, nature: "Hardy", item: "Figy Berry", ...options })
 
-      const plain = calculateDamage(chomp(), defender({}), new Move("Earthquake"), new Field()).kochance().chance
-      const ripen = calculateDamage(chomp(), defender({ ability: "Ripen" }), new Move("Earthquake"), new Field()).kochance().chance
+      const plain = calculateDamage(chomp(), defender({}), new Move("Earthquake"), new Field()).koChance().chance
+      const ripen = calculateDamage(chomp(), defender({ ability: "Ripen" }), new Move("Earthquake"), new Field()).koChance().chance
 
       expect(plain).toBe(0.703369140625)
       expect(ripen).toBe(0.9998626708984375)
@@ -900,18 +900,18 @@ describe("Internal Result/MultiResult/desc (gen 0)", () => {
       return calculateDamage(attacker, defender, new Move("Earthquake"), new Field())
     }
 
-    it("throws from kochance when errors are enabled", () => {
-      expect(() => immuneResult().kochance()).toThrow("damage[damage.length - 1] === 0.")
+    it("throws from koChance when errors are enabled", () => {
+      expect(() => immuneResult().koChance()).toThrow("damage[damage.length - 1] === 0.")
     })
 
     it("returns a neutral chance when errors are suppressed", () => {
-      const chance = immuneResult().kochance(false)
+      const chance = immuneResult().koChance(false)
 
       expect(chance).toEqual({ chance: 0, n: 0, text: "", berryConsumed: false })
     })
 
     it("builds a description without a KO text when errors are suppressed", () => {
-      const description = immuneResult().fullDesc("%", false)
+      const description = immuneResult().description("%", false)
 
       expect(description).toBe("Garchomp Earthquake vs. Corviknight: 0-0 (0 - 0%)")
     })

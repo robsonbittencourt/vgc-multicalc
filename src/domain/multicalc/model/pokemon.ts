@@ -217,7 +217,7 @@ export class Pokemon {
   }
 
   get actualHp(): number {
-    return this.calcPokemon.currrentHp()
+    return this.calcPokemon.currentHp()
   }
 
   get modifiedHp(): number {
@@ -393,7 +393,7 @@ export class Pokemon {
     this.calcPokemon.recalculateStats()
 
     if (hpChanged) {
-      this.calcPokemon.originalCurrrentHp = this.calcPokemon.stats.hp
+      this.calcPokemon.originalCurrentHp = this.calcPokemon.stats.hp
     }
   }
 
@@ -408,6 +408,6 @@ export class Pokemon {
 
   private recalculateStats() {
     this.calcPokemon.recalculateStats()
-    this.calcPokemon.originalCurrrentHp = this.calcPokemon.stats.hp
+    this.calcPokemon.originalCurrentHp = this.calcPokemon.stats.hp
   }
 }

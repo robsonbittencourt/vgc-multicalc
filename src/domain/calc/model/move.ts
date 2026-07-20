@@ -23,7 +23,7 @@ export class Move {
   type: TypeName
   category: MoveCategory
   flags: MoveFlags
-  secondaries: unknown
+  secondaries?: boolean
   target: MoveTarget
   recoil?: [number, number]
   drain?: [number, number]

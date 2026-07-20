@@ -1,5 +1,5 @@
 import { getStatDescriptionText } from "@calc/engine/desc"
-import { chainMods, getBaseDamage, getFinalDamage, overflow16, overflow32, pokeRound } from "@calc/engine/math"
+import { applyMod, chainMods, getBaseDamage, getFinalDamage, MOD_0_25X, MOD_0_5X, MOD_0_75X, MOD_1_5X, overflow16, overflow32, pokeRound } from "@calc/engine/math"
 import { Field } from "@calc/model/field"
 import { Move } from "@calc/model/move"
 import { Pokemon } from "@calc/model/pokemon"
@@ -53,6 +53,10 @@ export function computeHitDamage(ctx: HitContext, state: HitState): number[] {
   }
 
   return damage
+}
+
+export function isSpreadMove(move: Move, field: Field): boolean {
+  return field.gameType !== "Singles" && ["allAdjacent", "allAdjacentFoes"].includes(move.target)
 }
 
 function applyChain(value: number, mods: number[], lowerBound: number, upperBound: number): number {
@@ -131,20 +135,19 @@ function computeDefense(attacker: Pokemon, defender: Pokemon, move: Move, field:
 
 function computeBaseDamage(attacker: Pokemon, defender: Pokemon, basePower: number, attack: number, defense: number, move: Move, field: Field, description: RawDesc, isCritical: boolean): number {
   let baseDamage = getBaseDamage(attacker.level, basePower, attack, defense)
-  const isSpread = field.gameType !== "Singles" && ["allAdjacent", "allAdjacentFoes"].includes(move.target)
 
-  if (isSpread) {
-    baseDamage = pokeRound(overflow32(baseDamage * 3072) / 4096)
+  if (isSpreadMove(move, field)) {
+    baseDamage = applyMod(baseDamage, MOD_0_75X)
   }
 
   if (move.isParentalBondChild) {
-    baseDamage = pokeRound(overflow32(baseDamage * 1024) / 4096)
+    baseDamage = applyMod(baseDamage, MOD_0_25X)
   }
 
   const isMegaSol = attacker.hasAbility("Mega Sol")
 
   if ((field.hasWeather("Sun") || isMegaSol) && move.named("Hydro Steam") && !attacker.hasItem("Utility Umbrella")) {
-    baseDamage = pokeRound(overflow32(baseDamage * 6144) / 4096)
+    baseDamage = applyMod(baseDamage, MOD_1_5X)
     if (isMegaSol) {
       description.attackerAbility = attacker.ability
     } else {
@@ -152,24 +155,24 @@ function computeBaseDamage(attacker: Pokemon, defender: Pokemon, basePower: numb
     }
   } else if (!defender.hasItem("Utility Umbrella")) {
     if ((field.hasWeather("Sun") || isMegaSol) && move.hasType("Fire")) {
-      baseDamage = pokeRound(overflow32(baseDamage * 6144) / 4096)
+      baseDamage = applyMod(baseDamage, MOD_1_5X)
       if (isMegaSol) {
         description.attackerAbility = attacker.ability
       } else {
         description.weather = field.weather
       }
     } else if (field.hasWeather("Rain") && !isMegaSol && move.hasType("Water")) {
-      baseDamage = pokeRound(overflow32(baseDamage * 6144) / 4096)
+      baseDamage = applyMod(baseDamage, MOD_1_5X)
       description.weather = field.weather
     } else if ((field.hasWeather("Sun") || isMegaSol) && move.hasType("Water")) {
-      baseDamage = pokeRound(overflow32(baseDamage * 2048) / 4096)
+      baseDamage = applyMod(baseDamage, MOD_0_5X)
       if (isMegaSol) {
         description.attackerAbility = attacker.ability
       } else {
         description.weather = field.weather
       }
     } else if (field.hasWeather("Rain") && move.hasType("Fire")) {
-      baseDamage = pokeRound(overflow32(baseDamage * 2048) / 4096)
+      baseDamage = applyMod(baseDamage, MOD_0_5X)
       description.weather = field.weather
     }
   }

@@ -175,7 +175,7 @@ export class DamageCalc {
 
   private koChance(result: Result): string {
     try {
-      return result.kochance().text
+      return result.koChance().text
     } catch (ex) {
       return "Does not cause any damage"
     }
