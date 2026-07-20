@@ -195,24 +195,13 @@ export class DefensiveEvOptimizer {
         : true
 
       if (survivesSingle && survivesDouble) {
-        if (reservedEvs) {
-          return { evs: { hp: 0, atk: reservedEvs.atk, def: 0, spa: reservedEvs.spa, spd: 0, spe: reservedEvs.spe }, nature: natureUsed }
-        }
-        return { evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: natureUsed }
+        return this.notNeededResult(reservedEvs, natureUsed)
       }
 
       return { evs: null, nature: null }
     }
 
-    if (reservedEvs) {
-      const totalEvs = evs.hp + evs.def + evs.spd + reservedEvs.atk + reservedEvs.spa + reservedEvs.spe
-      if (totalEvs > 508) {
-        return { evs: null, nature: null }
-      }
-      return { evs: { hp: evs.hp, atk: reservedEvs.atk, def: evs.def, spa: reservedEvs.spa, spd: evs.spd, spe: reservedEvs.spe }, nature: natureUsed }
-    }
-
-    return { evs, nature: natureUsed }
+    return this.applyReservedEvs(evs, reservedEvs, natureUsed)
   }
 
   private combineAndRefineSingleSolutions(
@@ -349,20 +338,31 @@ export class DefensiveEvOptimizer {
       const alreadySurvivesAll = possibleAttackers.every(attacker => this.survivalChecker.checkSurvival(attacker, defenderWithZeroDefensiveEvs, field, threshold, rollIndex, rightIsDefender))
 
       if (alreadySurvivesAll) {
-        if (reservedEvs) {
-          return { evs: { hp: 0, atk: reservedEvs.atk, def: 0, spa: reservedEvs.spa, spd: 0, spe: reservedEvs.spe }, nature: natureUsed }
-        }
-        return { evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: natureUsed }
+        return this.notNeededResult(reservedEvs, natureUsed)
       }
 
       return { evs: null, nature: null }
     }
 
+    return this.applyReservedEvs(evs, reservedEvs, natureUsed)
+  }
+
+  private notNeededResult(reservedEvs: { atk: number; spa: number; spe: number } | undefined, natureUsed: string | null): OptimizationSolution {
+    if (reservedEvs) {
+      return { evs: { hp: 0, atk: reservedEvs.atk, def: 0, spa: reservedEvs.spa, spd: 0, spe: reservedEvs.spe }, nature: natureUsed }
+    }
+
+    return { evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: natureUsed }
+  }
+
+  private applyReservedEvs(evs: Stats, reservedEvs: { atk: number; spa: number; spe: number } | undefined, natureUsed: string | null): OptimizationSolution {
     if (reservedEvs) {
       const totalEvs = evs.hp + evs.def + evs.spd + reservedEvs.atk + reservedEvs.spa + reservedEvs.spe
+
       if (totalEvs > 508) {
         return { evs: null, nature: null }
       }
+
       return { evs: { hp: evs.hp, atk: reservedEvs.atk, def: evs.def, spa: reservedEvs.spa, spd: evs.spd, spe: reservedEvs.spe }, nature: natureUsed }
     }
 
