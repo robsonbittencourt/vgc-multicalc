@@ -1,8 +1,7 @@
 import { NgClass } from "@angular/common"
 import { Component, computed, effect, ElementRef, inject, OnDestroy, signal, ViewChild } from "@angular/core"
-import { MatIcon, MatIconRegistry } from "@angular/material/icon"
+import { MatIcon } from "@angular/material/icon"
 import { MatSlideToggle } from "@angular/material/slide-toggle"
-import { DomSanitizer } from "@angular/platform-browser"
 import { InputAutocompleteComponent } from "@basic/input-autocomplete/input-autocomplete.component"
 import { InputSelectComponent } from "@basic/input-select/input-select.component"
 import { WidgetComponent } from "@basic/widget/widget.component"
@@ -121,13 +120,7 @@ export class SpeedCalcMobileComponent implements OnDestroy {
     return !!source
   })
 
-  lastHandledPokemonName = "\0"
-  lastHandledAbilityName = "\0"
-
   constructor() {
-    const iconRegistry = inject(MatIconRegistry)
-    const sanitizer = inject(DomSanitizer)
-    iconRegistry.addSvgIcon("pokeball", sanitizer.bypassSecurityTrustResourceUrl("assets/icons/pokeball.svg"))
     this.backNavigation.register(() => this.activeBottomTab.set("main"))
 
     effect(() => {
@@ -143,14 +136,7 @@ export class SpeedCalcMobileComponent implements OnDestroy {
 
       if (pokemon == undefined) return
 
-      const pokemonChanged = this.lastHandledPokemonName != pokemon.name || this.lastHandledAbilityName != pokemon.ability.name
-
-      if (pokemonChanged) {
-        this.lastHandledPokemonName = pokemon.name
-        this.lastHandledAbilityName = pokemon.ability.name
-
-        this.automaticFieldService.checkAutomaticField(pokemon, pokemonChanged)
-      }
+      this.automaticFieldService.handlePokemonChange(pokemon)
     })
   }
 

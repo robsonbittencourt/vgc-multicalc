@@ -81,10 +81,6 @@ export class MultiCalcComponent implements OnInit {
     return RollLevelConfig.fromConfigString(level)
   })
 
-  lastHandledPokemonNameFirst = "\0"
-  lastHandledAbilityNameFirst = "\0"
-  lastHandledPokemonNameSecond: string | undefined = undefined
-  lastHandledAbilityNameSecond: string | undefined = undefined
   lastHandledTargetOnEditName = ""
 
   constructor() {
@@ -111,18 +107,9 @@ export class MultiCalcComponent implements OnInit {
 
       if (attacker == undefined) return
 
-      const firstPokemonChanged = this.lastHandledPokemonNameFirst != attacker.name || this.lastHandledAbilityNameFirst != attacker.ability.name
-      const secondPokemonChanged = this.lastHandledPokemonNameSecond != this.activeSecondAttacker()?.name || this.lastHandledAbilityNameSecond != this.activeSecondAttacker()?.ability.name
+      const { firstChanged, secondChanged } = this.automaticFieldService.handlePokemonChange(attacker, this.activeSecondAttacker())
 
-      if (firstPokemonChanged || secondPokemonChanged) {
-        this.lastHandledPokemonNameFirst = attacker.name
-        this.lastHandledAbilityNameFirst = attacker.ability.name
-
-        this.lastHandledPokemonNameSecond = this.activeSecondAttacker()?.name
-        this.lastHandledAbilityNameSecond = this.activeSecondAttacker()?.ability.name
-
-        this.automaticFieldService.checkAutomaticField(attacker, firstPokemonChanged, this.activeSecondAttacker(), secondPokemonChanged)
-
+      if (firstChanged || secondChanged) {
         if (this.menuStore.manyVsOneActivated()) {
           this.activateBestMoveForAllTargets()
         }

@@ -1,4 +1,4 @@
-import { evToSp, spToEv, totalSpsFromEvs, remainingSps, MAX_SPS } from "@multicalc/utils/ev-sp-converter"
+import { evToSp, spToEv, totalSpsFromEvs, remainingSps, MAX_SPS, maxEvForStat, evsExceedMaxSps, clampEvToRemainingSps } from "@multicalc/utils/ev-sp-converter"
 
 describe("ev-sp-converter", () => {
   describe("evToSp", () => {
@@ -60,6 +60,48 @@ describe("ev-sp-converter", () => {
       const remaining = remainingSps({ hp: 252, atk: 252 })
 
       expect(remaining).toEqual(MAX_SPS - 64)
+    })
+  })
+
+  describe("maxEvForStat", () => {
+    it("returns the EV that fills the SPs left after excluding the stat's current EV", () => {
+      const max = maxEvForStat({ hp: 252, atk: 252, spe: 0 }, "spe")
+
+      expect(max).toEqual(12)
+    })
+
+    it("counts the stat's own current EV as reclaimable room", () => {
+      const max = maxEvForStat({ hp: 252, atk: 252, spe: 252 }, "spe")
+
+      expect(max).toEqual(12)
+    })
+  })
+
+  describe("evsExceedMaxSps", () => {
+    it("is true when the candidate EV pushes the total past the maximum", () => {
+      const exceeds = evsExceedMaxSps({ hp: 252, atk: 252, spe: 0 }, "spe", 252)
+
+      expect(exceeds).toBe(true)
+    })
+
+    it("is false when the candidate EV fits within the maximum", () => {
+      const exceeds = evsExceedMaxSps({ hp: 252, atk: 252, spe: 0 }, "spe", 12)
+
+      expect(exceeds).toBe(false)
+    })
+  })
+
+  describe("clampEvToRemainingSps", () => {
+    it("keeps the EV untouched when it fits", () => {
+      const clamped = clampEvToRemainingSps({ hp: 252, atk: 252, spe: 0 }, "spe", 12)
+
+      expect(clamped).toEqual(12)
+    })
+
+    it("clamps to the remaining SPs when the EV overflows", () => {
+      const clamped = clampEvToRemainingSps({ hp: 252, atk: 252, spe: 0 }, "spe", 252)
+
+      expect(clamped).toEqual(12)
     })
   })
 })

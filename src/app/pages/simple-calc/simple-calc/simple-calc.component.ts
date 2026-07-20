@@ -56,25 +56,9 @@ export class SimpleCalcComponent {
   rightOriginalEvs = signal<Stats>({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
   rightOriginalNature = signal<string>("")
 
-  lastHandledLeftPokemonName = "\0"
-  lastHandledLeftAbilityName = "\0"
-  lastHandledRightPokemonName = "\0"
-  lastHandledRightAbilityName = "\0"
-
   constructor() {
     effect(() => {
-      const leftPokemonChanged = this.lastHandledLeftPokemonName != this.store.leftPokemon().name || this.lastHandledLeftAbilityName != this.store.leftPokemon().ability.name
-      const rightPokemonChanged = this.lastHandledRightPokemonName != this.store.rightPokemon().name || this.lastHandledRightAbilityName != this.store.rightPokemon().ability.name
-
-      if (leftPokemonChanged || rightPokemonChanged) {
-        this.lastHandledLeftPokemonName = this.store.leftPokemon().name
-        this.lastHandledLeftAbilityName = this.store.leftPokemon().ability.name
-
-        this.lastHandledRightPokemonName = this.store.rightPokemon().name
-        this.lastHandledRightAbilityName = this.store.rightPokemon().ability.name
-
-        this.automaticFieldService.checkAutomaticField(this.store.leftPokemon(), leftPokemonChanged, this.store.rightPokemon(), rightPokemonChanged)
-      }
+      this.automaticFieldService.handlePokemonChange(this.store.leftPokemon(), this.store.rightPokemon())
     })
 
     effect(() => {

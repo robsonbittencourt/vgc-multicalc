@@ -11,7 +11,7 @@ import { CalcStore } from "@store/calc-store"
 import { StatIDExceptHP } from "@data/types"
 import { natureEffect } from "@multicalc/model"
 import { Stats } from "@multicalc/types"
-import { evToSp, spToEv, totalSpsFromEvs } from "@multicalc/utils/ev-sp-converter"
+import { clampEvToRemainingSps, evsExceedMaxSps, evToSp, maxEvForStat, spToEv, totalSpsFromEvs } from "@multicalc/utils/ev-sp-converter"
 
 @Component({
   selector: "app-ev-slider",
@@ -143,10 +143,7 @@ export class EvSliderComponent {
   FIRST_EV = 4
   EV_STEP = 8
 
-  maxAvailableEv = computed(() => {
-    const remainingSps = this.MAX_SPS - (totalSpsFromEvs(this.pokemon().evs) - evToSp(this.pokemon().evs[this.stat()] ?? 0))
-    return spToEv(remainingSps)
-  })
+  maxAvailableEv = computed(() => maxEvForStat(this.pokemon().evs, this.stat()))
 
   statsModifiers = [
     { value: 6, viewValue: "+6" },
@@ -272,20 +269,11 @@ export class EvSliderComponent {
   }
 
   private evsExceed(): boolean {
-    const newTotalSps = totalSpsFromEvs({ ...this.pokemon().evs, [this.stat()]: this.ev() })
-    return newTotalSps > this.MAX_SPS
+    return evsExceedMaxSps(this.pokemon().evs, this.stat(), this.ev())
   }
 
   private adjustEv(newEv: number): number {
-    const newTotalSps = totalSpsFromEvs({ ...this.pokemon().evs, [this.stat()]: newEv })
-
-    if (newTotalSps <= this.MAX_SPS) {
-      return newEv
-    }
-
-    const currentEvs = { ...this.pokemon().evs }
-    const remainingSps = this.MAX_SPS - (totalSpsFromEvs(currentEvs) - evToSp(this.pokemon().evs[this.stat()] ?? 0))
-    return spToEv(remainingSps)
+    return clampEvToRemainingSps(this.pokemon().evs, this.stat(), newEv)
   }
 
   private updateEv(ev: number): void {

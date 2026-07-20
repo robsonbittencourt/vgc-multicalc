@@ -16,8 +16,7 @@ import { Pokemon, Target } from "@multicalc/model"
 import { Stats } from "@multicalc/types"
 import { PokemonCardComponent } from "@pages/multi-calc/pokemon-card/pokemon-card.component"
 import { NgClass } from "@angular/common"
-import { MatIcon, MatIconRegistry } from "@angular/material/icon"
-import { DomSanitizer } from "@angular/platform-browser"
+import { MatIcon } from "@angular/material/icon"
 import { MatButtonToggleModule } from "@angular/material/button-toggle"
 import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
 import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-button/export-pokemon-button.component"
@@ -103,15 +102,7 @@ export class SimpleCalcMobileComponent implements OnDestroy {
     return new Target(this.currentPokemon())
   })
 
-  lastHandledLeftPokemonName = "\0"
-  lastHandledLeftAbilityName = "\0"
-  lastHandledRightPokemonName = "\0"
-  lastHandledRightAbilityName = "\0"
-
   constructor() {
-    const iconRegistry = inject(MatIconRegistry)
-    const sanitizer = inject(DomSanitizer)
-    iconRegistry.addSvgIcon("pokeball", sanitizer.bypassSecurityTrustResourceUrl("assets/icons/pokeball.svg"))
     this.backNavigation.register(() => this.activeBottomTab.set("results"))
 
     effect(() => {
@@ -120,18 +111,7 @@ export class SimpleCalcMobileComponent implements OnDestroy {
     })
 
     effect(() => {
-      const leftPokemonChanged = this.lastHandledLeftPokemonName != this.store.leftPokemon().name || this.lastHandledLeftAbilityName != this.store.leftPokemon().ability.name
-      const rightPokemonChanged = this.lastHandledRightPokemonName != this.store.rightPokemon().name || this.lastHandledRightAbilityName != this.store.rightPokemon().ability.name
-
-      if (leftPokemonChanged || rightPokemonChanged) {
-        this.lastHandledLeftPokemonName = this.store.leftPokemon().name
-        this.lastHandledLeftAbilityName = this.store.leftPokemon().ability.name
-
-        this.lastHandledRightPokemonName = this.store.rightPokemon().name
-        this.lastHandledRightAbilityName = this.store.rightPokemon().ability.name
-
-        this.automaticFieldService.checkAutomaticField(this.store.leftPokemon(), leftPokemonChanged, this.store.rightPokemon(), rightPokemonChanged)
-      }
+      this.automaticFieldService.handlePokemonChange(this.store.leftPokemon(), this.store.rightPokemon())
     })
   }
 

@@ -1,5 +1,7 @@
 import { afterNextRender, Component, inject, OnInit, signal } from "@angular/core"
 import { NavigationEnd, Router, RouterOutlet } from "@angular/router"
+import { MatIconRegistry } from "@angular/material/icon"
+import { DomSanitizer } from "@angular/platform-browser"
 import { AnnouncementPopupComponent } from "@basic/announcement-popup/announcement-popup.component"
 import { AppUpdateService } from "@core/services/app-update.service"
 import { ChunkErrorRecoveryService } from "@core/services/chunk-error-recovery.service"
@@ -21,6 +23,10 @@ export class AppComponent implements OnInit {
   appReady = signal(false)
 
   constructor() {
+    const iconRegistry = inject(MatIconRegistry)
+    const sanitizer = inject(DomSanitizer)
+    iconRegistry.addSvgIcon("pokeball", sanitizer.bypassSecurityTrustResourceUrl("assets/icons/pokeball.svg"))
+
     afterNextRender(() => {
       document.getElementById("app-splash")?.remove()
     })

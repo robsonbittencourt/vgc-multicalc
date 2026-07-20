@@ -256,4 +256,45 @@ describe("AutomaticFieldService", () => {
     expect(store.toggleAutomaticSunWeather).not.toHaveBeenCalled()
     expect(store.toggleAutomaticNeutralizingGas).not.toHaveBeenCalled()
   })
+
+  it("should apply the automatic field and report firstChanged on the first handlePokemonChange", () => {
+    const pokemon = new Pokemon("Torkoal", { ability: new Ability("Drought") })
+
+    const result = service.handlePokemonChange(pokemon)
+
+    expect(result).toEqual({ firstChanged: true, secondChanged: false })
+    expect(store.toggleAutomaticSunWeather).toHaveBeenCalledTimes(1)
+  })
+
+  it("should not reapply the automatic field when handlePokemonChange receives the same pokemon", () => {
+    const pokemon = new Pokemon("Torkoal", { ability: new Ability("Drought") })
+
+    service.handlePokemonChange(pokemon)
+    const result = service.handlePokemonChange(pokemon)
+
+    expect(result).toEqual({ firstChanged: false, secondChanged: false })
+    expect(store.toggleAutomaticSunWeather).toHaveBeenCalledTimes(1)
+  })
+
+  it("should report firstChanged when only the ability changes", () => {
+    const pokemon = new Pokemon("Torkoal", { ability: new Ability("Drought") })
+    const sameNameDifferentAbility = new Pokemon("Torkoal", { ability: new Ability("Drizzle") })
+
+    service.handlePokemonChange(pokemon)
+    const result = service.handlePokemonChange(sameNameDifferentAbility)
+
+    expect(result).toEqual({ firstChanged: true, secondChanged: false })
+    expect(store.toggleAutomaticRainWeather).toHaveBeenCalledTimes(1)
+  })
+
+  it("should report secondChanged when only the second pokemon changes between calls", () => {
+    const first = new Pokemon("Torkoal", { ability: new Ability("Drought") })
+    const second = new Pokemon("Miraidon", { ability: new Ability("Hadron Engine") })
+
+    service.handlePokemonChange(first)
+    const result = service.handlePokemonChange(first, second)
+
+    expect(result).toEqual({ firstChanged: false, secondChanged: true })
+    expect(store.toggleAutomaticElectricTerrain).toHaveBeenCalledTimes(1)
+  })
 })
