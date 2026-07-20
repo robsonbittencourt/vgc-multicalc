@@ -1,8 +1,9 @@
-import { computeMultiHitKOChance, getBerryRecovery, getDamageWithoutBerry, getEndOfTurn, roundChance, serializeEndOfTurnTexts } from "@calc/engine/desc"
+import { computeMultiHitKOChance, consumeBerryIfTriggered, getBerryRecovery, getDamageWithoutBerry, getEndOfTurn, roundChance, serializeEndOfTurnTexts } from "@calc/engine/desc"
 import { StaminaBoostSimulator } from "@calc/engine/stamina-boost-simulator"
 import { Move } from "@calc/model/move"
 import { Pokemon } from "@calc/model/pokemon"
-import { AfterTurnData, AfterTurnResult, DEFAULT_ROLL_INDEX, extractDamageSubArrays, Result } from "@calc/model/result"
+import { AfterTurnData, AfterTurnResult, Damage, DEFAULT_ROLL_INDEX, extractDamageSubArrays, rollsAtIndex, Result } from "@calc/model/result"
+import { getNatureData } from "@data/nature-data"
 import { StatID } from "@data/types"
 
 export class MultiResult {
@@ -38,17 +39,7 @@ export class MultiResult {
     let currentHP = hp
     let berryConsumed = false
 
-    const sumDamage = (damage: (typeof this.results)[0]["damage"]): number => {
-      const subArrays = extractDamageSubArrays(damage)
-
-      if (subArrays.length === 0) {
-        return 0
-      }
-
-      const flat = subArrays.map(arr => arr[Math.min(rollIndex, arr.length - 1)])
-
-      return flat.reduce((a, b) => a + b, 0)
-    }
+    const sumDamage = (damage: Damage): number => rollsAtIndex(damage, rollIndex).reduce((a, b) => a + b, 0)
 
     const damagesAtIndex = this.results.map(r => sumDamage(r.damage))
     const damagesWithoutBerryAtIndex = this.results.map(r => {
@@ -78,15 +69,14 @@ export class MultiResult {
       for (const dmg of turnDamages) {
         currentHP -= dmg
 
-        if (!berryConsumed && berry.recovery > 0 && currentHP <= berry.threshold && currentHP > 0) {
-          turnValue += berry.recovery
-          currentHP += berry.recovery
+        if (!berryConsumed) {
+          const consumed = consumeBerryIfTriggered(currentHP, defender.maxHp(), berry.recovery, berry.threshold)
 
-          if (currentHP > defender.maxHp()) {
-            currentHP = defender.maxHp()
+          if (consumed.consumed) {
+            turnValue += berry.recovery
+            currentHP = consumed.hp
+            berryConsumed = true
           }
-
-          berryConsumed = true
         }
       }
 
@@ -288,19 +278,13 @@ export class MultiResult {
   }
 
   private natureModifier(pokemon: Pokemon, stat: StatID) {
-    if (stat === "def" && ["Bold", "Impish", "Lax", "Relaxed"].includes(pokemon.nature)) {
+    const nature = getNatureData(pokemon.nature)
+
+    if (nature?.plus === stat && nature.minus !== stat) {
       return "+"
     }
 
-    if (stat === "def" && ["Lonely", "Mild", "Gentle", "Hasty"].includes(pokemon.nature)) {
-      return "-"
-    }
-
-    if (stat === "spd" && ["Calm", "Gentle", "Careful", "Sassy"].includes(pokemon.nature)) {
-      return "+"
-    }
-
-    if (stat === "spd" && ["Naughty", "Lax", "Rash", "Naive"].includes(pokemon.nature)) {
+    if (nature?.minus === stat && nature.plus !== stat) {
       return "-"
     }
 
