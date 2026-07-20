@@ -20,3 +20,18 @@ export const MAX_SPS = 66
 export function remainingSps(evs: Partial<Stats>): number {
   return MAX_SPS - totalSpsFromEvs(evs)
 }
+
+export function maxEvForStat(evs: Partial<Stats>, stat: keyof Stats): number {
+  const spsWithoutStat = totalSpsFromEvs(evs) - evToSp(evs[stat] ?? 0)
+  return spToEv(MAX_SPS - spsWithoutStat)
+}
+
+export function evsExceedMaxSps(evs: Partial<Stats>, stat: keyof Stats, newEv: number): boolean {
+  return totalSpsFromEvs({ ...evs, [stat]: newEv }) > MAX_SPS
+}
+
+export function clampEvToRemainingSps(evs: Partial<Stats>, stat: keyof Stats, newEv: number): number {
+  if (!evsExceedMaxSps(evs, stat, newEv)) return newEv
+
+  return maxEvForStat(evs, stat)
+}

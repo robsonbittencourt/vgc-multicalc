@@ -36,23 +36,13 @@ export class SpeedCalcComponent {
     return pokemon == undefined
   })
 
-  lastHandledPokemonName = "\0"
-  lastHandledAbilityName = "\0"
-
   constructor() {
     effect(() => {
       const pokemon = this.pokemonOnEdit()
 
       if (pokemon == undefined) return
 
-      const pokemonChanged = this.lastHandledPokemonName != pokemon.name || this.lastHandledAbilityName != pokemon.ability.name
-
-      if (pokemonChanged) {
-        this.lastHandledPokemonName = pokemon.name
-        this.lastHandledAbilityName = pokemon.ability.name
-
-        this.automaticFieldService.checkAutomaticField(pokemon)
-      }
+      this.automaticFieldService.handlePokemonChange(pokemon)
     })
   }
 

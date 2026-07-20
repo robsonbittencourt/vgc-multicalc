@@ -1,7 +1,6 @@
 import { Component, computed, ElementRef, inject, OnDestroy, signal, ViewChild } from "@angular/core"
 import { NgClass } from "@angular/common"
-import { MatIcon, MatIconRegistry } from "@angular/material/icon"
-import { DomSanitizer } from "@angular/platform-browser"
+import { MatIcon } from "@angular/material/icon"
 import { CalcStore } from "@store/calc-store"
 import { SELECT_POKEMON_LABEL } from "@store/utils/select-pokemon-label"
 import { FieldStore } from "@store/field-store"
@@ -50,9 +49,6 @@ export class TypeCalcMobileComponent implements OnDestroy {
   overlay = inject(MobileTableOverlayService)
 
   constructor() {
-    const iconRegistry = inject(MatIconRegistry)
-    const sanitizer = inject(DomSanitizer)
-    iconRegistry.addSvgIcon("pokeball", sanitizer.bypassSecurityTrustResourceUrl("assets/icons/pokeball.svg"))
     this.backNavigation.register(() => this.activeBottomTab.set("coverage"))
   }
 

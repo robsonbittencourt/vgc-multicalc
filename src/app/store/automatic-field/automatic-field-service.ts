@@ -6,6 +6,27 @@ import { Pokemon } from "@multicalc/model"
 export class AutomaticFieldService {
   fieldStore = inject(FieldStore)
 
+  private lastHandledFirstName = "\0"
+  private lastHandledFirstAbility = "\0"
+  private lastHandledSecondName: string | undefined = undefined
+  private lastHandledSecondAbility: string | undefined = undefined
+
+  handlePokemonChange(first: Pokemon, second: Pokemon | null = null): { firstChanged: boolean; secondChanged: boolean } {
+    const firstChanged = this.lastHandledFirstName != first.name || this.lastHandledFirstAbility != first.ability.name
+    const secondChanged = this.lastHandledSecondName != second?.name || this.lastHandledSecondAbility != second?.ability.name
+
+    if (!firstChanged && !secondChanged) return { firstChanged, secondChanged }
+
+    this.lastHandledFirstName = first.name
+    this.lastHandledFirstAbility = first.ability.name
+    this.lastHandledSecondName = second?.name
+    this.lastHandledSecondAbility = second?.ability.name
+
+    this.checkAutomaticField(first, firstChanged, second, secondChanged)
+
+    return { firstChanged, secondChanged }
+  }
+
   checkAutomaticField(pokemon: Pokemon, firstChanged = true, secondPokemon: Pokemon | null = null, secondChanged = false) {
     let first: Pokemon | null
     let second: Pokemon | null
