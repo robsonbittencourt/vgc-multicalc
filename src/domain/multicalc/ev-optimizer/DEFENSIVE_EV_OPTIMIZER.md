@@ -46,7 +46,7 @@ flowchart TD
 The finder handles the vast majority of cases in a single pass:
 
 1. Builds the constraint sets: `[strongest physical + survivable physicals]`, `[strongest special + survivable specials]`, and the strongest possible double pair.
-2. For each HP value (ascending over the EV intervals), binary-searches the minimum Def that survives all physical constraints and the minimum SpD that survives all special constraints; for the double pair, escalates Def while binary-searching SpD.
+2. For each HP value (ascending over the EV intervals), binary-searches the minimum Def that survives all physical constraints and the minimum SpD that survives all special constraints; for the double pair, escalates Def while binary-searching SpD. Every probe mutates a single reused defender via `setEvs` (offensive EVs zeroed) rather than cloning a fresh defender per probe.
 3. Tracks the best candidate (lowest total EVs; ties broken by higher HP) with early breaks once no better total is reachable.
 4. Applies a final greedy −4 polish (hp → def → spd).
 
@@ -112,8 +112,8 @@ The heavy reference case (mixed double target + single attacker vs Ting-Lu) runs
 
 1. Damage cache shared by every internal service (5-15x redundancy eliminated).
 2. Finder-first flow: the combiner/refinement chain only runs on budget conflicts.
-3. Direct ordered sweeps and binary searches over the 33-value interval grid.
-4. Mutable `setEvs()` instead of cloning inside tight loops.
+3. Direct ordered sweeps and binary searches over the 33-value interval grid (a single shared `minIndexSurviving` helper; the `EV_INTERVALS` grid and the ordered two-/three-stat combination grids are precomputed module constants, not rebuilt per call).
+4. Mutable `setEvs()` instead of cloning inside tight loops — used by both the fallback optimizers and the finder's per-probe survival checks.
 
 ## Limitations
 

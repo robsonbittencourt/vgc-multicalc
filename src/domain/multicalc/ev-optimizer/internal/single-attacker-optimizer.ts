@@ -1,22 +1,17 @@
-import { MAX_TOTAL_EVS } from "./ev-optimizer-constants"
+import { EV_INTERVALS, MAX_TOTAL_EVS } from "./ev-optimizer-constants"
 import { Field } from "@multicalc/model/field"
 import { Pokemon } from "@multicalc/model/pokemon"
 import { Stats } from "@multicalc/types"
 import { SurvivalThreshold } from "@multicalc/ev-optimizer/internal/ev-optimizer-types"
-import { EvIntervalsCalc } from "./ev-intervals-calc"
-import { EvOptimizerUtils } from "./ev-optimizer-utils"
+import { orderedTwoStatGrid } from "./ev-optimizer-utils"
 import { SurvivalChecker } from "./survival-checker"
 
 export class SingleAttackerOptimizer {
-  private evIntervalsCalc = new EvIntervalsCalc()
-  private utils = new EvOptimizerUtils()
-
   constructor(private survivalChecker: SurvivalChecker = new SurvivalChecker()) {}
 
   optimizeForAttacker(attacker: Pokemon, defender: Pokemon, field: Field, threshold: SurvivalThreshold = 2, rollIndex = 15, rightIsDefender = true): Stats | null {
     const isPhysical = attacker.moveSet.activeMove.category == "Physical"
-    const evIntervals = this.evIntervalsCalc.getEvIntervals()
-    const combinations = this.utils.generateOrderedTwoStatGrid(evIntervals)
+    const combinations = orderedTwoStatGrid()
 
     const tempDefender = defender.clone()
     const tempEvs = { hp: 0, atk: defender.evs.atk, def: 0, spa: defender.evs.spa, spd: 0, spe: defender.evs.spe }
@@ -40,11 +35,10 @@ export class SingleAttackerOptimizer {
       return null
     }
 
-    const evIntervals = this.evIntervalsCalc.getEvIntervals()
     const tempDefender = defender.clone()
     const tempEvs = { hp: hpEv, atk: defender.evs.atk, def: 0, spa: defender.evs.spa, spd: 0, spe: defender.evs.spe }
 
-    for (const defEv of evIntervals) {
+    for (const defEv of EV_INTERVALS) {
       if (hpEv + defEv > MAX_TOTAL_EVS) continue
 
       tempEvs.def = defEv

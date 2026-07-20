@@ -1,13 +1,13 @@
-import { MAX_TOTAL_EVS } from "./ev-optimizer-constants"
+import { EV_INTERVALS, MAX_TOTAL_EVS } from "./ev-optimizer-constants"
 import { Field } from "@multicalc/model/field"
 import { Pokemon } from "@multicalc/model/pokemon"
 import { Stats } from "@multicalc/types"
 import { SurvivalThreshold } from "@multicalc/ev-optimizer/internal/ev-optimizer-types"
-import { EvIntervalsCalc } from "./ev-intervals-calc"
+import { minIndexSurviving } from "./ev-optimizer-utils"
 import { SurvivalChecker } from "./survival-checker"
 
 type SpreadContext = {
-  defender: Pokemon
+  tempDefender: Pokemon
   field: Field
   threshold: SurvivalThreshold
   rollIndex: number
@@ -15,8 +15,6 @@ type SpreadContext = {
 }
 
 export class OptimalSpreadFinder {
-  private evIntervalsCalc = new EvIntervalsCalc()
-
   constructor(private survivalChecker: SurvivalChecker = new SurvivalChecker()) {}
 
   findOptimal(defender: Pokemon, physicalAttackers: Pokemon[], specialAttackers: Pokemon[], doublePair: [Pokemon, Pokemon] | null, field: Field, threshold: SurvivalThreshold, rollIndex = 15, rightIsDefender = true): Stats | null {
@@ -24,18 +22,18 @@ export class OptimalSpreadFinder {
       return null
     }
 
-    const ctx: SpreadContext = { defender, field, threshold, rollIndex, rightIsDefender }
-    const evIntervals = this.evIntervalsCalc.getEvIntervals()
+    const ctx: SpreadContext = { tempDefender: defender.clone(), field, threshold, rollIndex, rightIsDefender }
+    const evIntervals = EV_INTERVALS
 
     let best: (Stats & { totalEvs: number }) | null = null
 
     for (const hpEv of evIntervals) {
       if (best && hpEv > best.totalEvs) break
 
-      const minDefIndex = this.findMinStatIndexForSingles(physicalAttackers, hpEv, "def", evIntervals, ctx)
+      const minDefIndex = this.findMinStatIndexForSingles(physicalAttackers, hpEv, "def", ctx)
       if (minDefIndex === -1) continue
 
-      const minSpdIndex = this.findMinStatIndexForSingles(specialAttackers, hpEv, "spd", evIntervals, ctx)
+      const minSpdIndex = this.findMinStatIndexForSingles(specialAttackers, hpEv, "spd", ctx)
       if (minSpdIndex === -1) continue
 
       const minSpdEv = evIntervals[minSpdIndex]
@@ -57,7 +55,7 @@ export class OptimalSpreadFinder {
         if (hpEv + defEv + minSpdEv > MAX_TOTAL_EVS) break
         if (best && hpEv + defEv + minSpdEv > best.totalEvs) break
 
-        const spdForDoubleIndex = this.findMinSpdIndexForDouble(doublePair, hpEv, defEv, minSpdIndex, evIntervals, ctx)
+        const spdForDoubleIndex = this.findMinSpdIndexForDouble(doublePair, hpEv, defEv, minSpdIndex, ctx)
         if (spdForDoubleIndex === -1) continue
 
         const spdEv = evIntervals[spdForDoubleIndex]
@@ -86,80 +84,38 @@ export class OptimalSpreadFinder {
     return current
   }
 
-  private findMinStatIndexForSingles(attackers: Pokemon[], hpEv: number, stat: "def" | "spd", evIntervals: number[], ctx: SpreadContext): number {
+  private findMinStatIndexForSingles(attackers: Pokemon[], hpEv: number, stat: "def" | "spd", ctx: SpreadContext): number {
     if (attackers.length === 0) {
       return 0
     }
 
-    const survivesAllAt = (statEv: number): boolean => {
-      const evs = { hp: hpEv, def: stat === "def" ? statEv : 0, spd: stat === "spd" ? statEv : 0 }
+    return minIndexSurviving(0, statEv => {
+      ctx.tempDefender.setEvs({ hp: hpEv, atk: 0, def: stat === "def" ? statEv : 0, spa: 0, spd: stat === "spd" ? statEv : 0, spe: 0 })
 
-      return attackers.every(attacker => this.survivalChecker.checkSurvivalWithEvs(attacker, ctx.defender, evs, ctx.field, ctx.threshold, ctx.rollIndex, ctx.rightIsDefender))
-    }
-
-    if (!survivesAllAt(evIntervals[evIntervals.length - 1])) {
-      return -1
-    }
-
-    let low = 0
-    let high = evIntervals.length - 1
-    let result = -1
-
-    while (low <= high) {
-      const mid = Math.floor((low + high) / 2)
-
-      if (survivesAllAt(evIntervals[mid])) {
-        result = mid
-        high = mid - 1
-      } else {
-        low = mid + 1
-      }
-    }
-
-    return result
+      return attackers.every(attacker => this.survivalChecker.checkSurvival(attacker, ctx.tempDefender, ctx.field, ctx.threshold, ctx.rollIndex, ctx.rightIsDefender))
+    })
   }
 
-  private findMinSpdIndexForDouble(doublePair: [Pokemon, Pokemon], hpEv: number, defEv: number, minSpdIndex: number, evIntervals: number[], ctx: SpreadContext): number {
-    const survivesDoubleAt = (spdEv: number): boolean => {
-      const evs = { hp: hpEv, def: defEv, spd: spdEv }
+  private findMinSpdIndexForDouble(doublePair: [Pokemon, Pokemon], hpEv: number, defEv: number, minSpdIndex: number, ctx: SpreadContext): number {
+    return minIndexSurviving(minSpdIndex, spdEv => {
+      ctx.tempDefender.setEvs({ hp: hpEv, atk: 0, def: defEv, spa: 0, spd: spdEv, spe: 0 })
 
-      return this.survivalChecker.checkSurvivalAgainstTwoAttackersWithEvs(doublePair[0], doublePair[1], ctx.defender, evs, ctx.field, ctx.threshold, ctx.rollIndex, ctx.rightIsDefender)
-    }
-
-    if (!survivesDoubleAt(evIntervals[evIntervals.length - 1])) {
-      return -1
-    }
-
-    let low = minSpdIndex
-    let high = evIntervals.length - 1
-    let result = -1
-
-    while (low <= high) {
-      const mid = Math.floor((low + high) / 2)
-
-      if (survivesDoubleAt(evIntervals[mid])) {
-        result = mid
-        high = mid - 1
-      } else {
-        low = mid + 1
-      }
-    }
-
-    return result
+      return this.survivalChecker.checkSurvivalAgainstTwoAttackers(doublePair[0], doublePair[1], ctx.tempDefender, ctx.field, ctx.threshold, ctx.rollIndex, ctx.rightIsDefender)
+    })
   }
 
   private polish(solution: Stats, physicalAttackers: Pokemon[], specialAttackers: Pokemon[], doublePair: [Pokemon, Pokemon] | null, ctx: SpreadContext): Stats {
     const survivesAll = (evs: Stats): boolean => {
-      const spread = { hp: evs.hp, def: evs.def, spd: evs.spd }
+      ctx.tempDefender.setEvs({ hp: evs.hp, atk: 0, def: evs.def, spa: 0, spd: evs.spd, spe: 0 })
 
-      const singlesSurvive = [...physicalAttackers, ...specialAttackers].every(attacker => this.survivalChecker.checkSurvivalWithEvs(attacker, ctx.defender, spread, ctx.field, ctx.threshold, ctx.rollIndex, ctx.rightIsDefender))
+      const singlesSurvive = [...physicalAttackers, ...specialAttackers].every(attacker => this.survivalChecker.checkSurvival(attacker, ctx.tempDefender, ctx.field, ctx.threshold, ctx.rollIndex, ctx.rightIsDefender))
 
       if (!singlesSurvive) {
         return false
       }
 
       if (doublePair) {
-        return this.survivalChecker.checkSurvivalAgainstTwoAttackersWithEvs(doublePair[0], doublePair[1], ctx.defender, spread, ctx.field, ctx.threshold, ctx.rollIndex, ctx.rightIsDefender)
+        return this.survivalChecker.checkSurvivalAgainstTwoAttackers(doublePair[0], doublePair[1], ctx.tempDefender, ctx.field, ctx.threshold, ctx.rollIndex, ctx.rightIsDefender)
       }
 
       return true

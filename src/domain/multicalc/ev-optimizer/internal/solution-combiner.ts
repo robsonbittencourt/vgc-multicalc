@@ -1,17 +1,15 @@
-import { MAX_TOTAL_EVS } from "./ev-optimizer-constants"
+import { EV_INTERVALS, MAX_TOTAL_EVS } from "./ev-optimizer-constants"
 import { AttackerContext, DoubleAttackerContext, OptimizationContext, SolutionSet } from "./ev-optimizer-types"
 import { Field } from "@multicalc/model/field"
 import { Pokemon } from "@multicalc/model/pokemon"
 import { Stats } from "@multicalc/types"
 import { SurvivalThreshold } from "@multicalc/ev-optimizer/internal/ev-optimizer-types"
 import { AttackerSelector } from "./attacker-selector"
-import { EvIntervalsCalc } from "./ev-intervals-calc"
+import { minIndexSurviving } from "./ev-optimizer-utils"
 import { SingleAttackerOptimizer } from "./single-attacker-optimizer"
 import { SurvivalChecker } from "./survival-checker"
 
 export class SolutionCombiner {
-  private evIntervalsCalc = new EvIntervalsCalc()
-
   constructor(
     private survivalChecker: SurvivalChecker = new SurvivalChecker(),
     private singleAttackerOptimizer: SingleAttackerOptimizer = new SingleAttackerOptimizer(),
@@ -154,7 +152,7 @@ export class SolutionCombiner {
       return baseResult
     }
 
-    const evIntervals = this.evIntervalsCalc.getEvIntervals()
+    const evIntervals = EV_INTERVALS
 
     for (const attacker of orderedAttackers) {
       if (isPhysical) {
@@ -183,44 +181,15 @@ export class SolutionCombiner {
     return baseResult
   }
 
-  private findMinStatIndex(attackers: Pokemon[], defender: Pokemon, field: Field, threshold: SurvivalThreshold, hpEv: number, stat: "def" | "spd", evIntervals: number[], tempDefender: Pokemon, rollIndex = 15, rightIsDefender = true): number {
-    let low = 0
-    let high = evIntervals.length - 1
-    let result = -1
+  private findMinStatIndex(attackers: Pokemon[], defender: Pokemon, field: Field, threshold: SurvivalThreshold, hpEv: number, stat: "def" | "spd", tempDefender: Pokemon, rollIndex = 15, rightIsDefender = true): number {
+    const tempEvs = { hp: hpEv, atk: defender.evs.atk, def: defender.evs.def, spa: defender.evs.spa, spd: defender.evs.spd, spe: defender.evs.spe }
 
-    const maxEv = evIntervals[high]
-    const tempEvs = { hp: hpEv, atk: defender.evs.atk, def: 0, spa: defender.evs.spa, spd: 0, spe: defender.evs.spe }
-
-    tempEvs[stat] = maxEv
-    if (stat === "def") tempEvs.spd = 0
-    else tempEvs.def = 0
-
-    tempEvs.def = defender.evs.def
-    tempEvs.spd = defender.evs.spd
-    tempEvs[stat] = maxEv
-
-    tempDefender.setEvs(tempEvs)
-
-    if (!this.checkSurvivalAgainstAll(attackers, tempDefender, field, threshold, rollIndex, rightIsDefender)) {
-      return -1
-    }
-
-    while (low <= high) {
-      const mid = Math.floor((low + high) / 2)
-      const ev = evIntervals[mid]
-
+    return minIndexSurviving(0, ev => {
       tempEvs[stat] = ev
       tempDefender.setEvs(tempEvs)
 
-      if (this.checkSurvivalAgainstAll(attackers, tempDefender, field, threshold, rollIndex, rightIsDefender)) {
-        result = mid
-        high = mid - 1
-      } else {
-        low = mid + 1
-      }
-    }
-
-    return result
+      return this.checkSurvivalAgainstAll(attackers, tempDefender, field, threshold, rollIndex, rightIsDefender)
+    })
   }
 
   tryAddDoubleSolution(
@@ -238,7 +207,7 @@ export class SolutionCombiner {
       return null
     }
 
-    const evIntervals = this.evIntervalsCalc.getEvIntervals()
+    const evIntervals = EV_INTERVALS
     const currentTotalEvs = currentSolution.hp + currentSolution.def + currentSolution.spd
     const remainingEvs = MAX_TOTAL_EVS - currentTotalEvs
 
@@ -262,7 +231,7 @@ export class SolutionCombiner {
       for (const defEv of evIntervals) {
         if (bestSolution && hpEv + defEv >= bestSolution.totalEvs) break
 
-        const minSpdIndex = this.findMinStatIndexForDouble(doubleAttacker1, doubleAttacker2, defender, field, threshold, hpEv, "def", defEv, "spd", evIntervals, tempDefender, rollIndex, rightIsDefender)
+        const minSpdIndex = this.findMinStatIndexForDouble(doubleAttacker1, doubleAttacker2, defender, field, threshold, hpEv, "def", defEv, "spd", tempDefender, rollIndex, rightIsDefender)
 
         if (minSpdIndex !== -1) {
           const spdEv = evIntervals[minSpdIndex]
@@ -294,43 +263,20 @@ export class SolutionCombiner {
     fixedStat: "def" | "spd",
     fixedStatValue: number,
     statToOptimize: "def" | "spd",
-    evIntervals: number[],
     tempDefender: Pokemon,
     rollIndex = 15,
     rightIsDefender = true
   ): number {
-    let low = 0
-    let high = evIntervals.length - 1
-    let result = -1
-
-    const maxEv = evIntervals[high]
     const tempEvs = { hp: hpEv, atk: defender.evs.atk, def: defender.evs.def, spa: defender.evs.spa, spd: defender.evs.spd, spe: defender.evs.spe }
 
     tempEvs[fixedStat] = fixedStatValue
-    tempEvs[statToOptimize] = maxEv
 
-    tempDefender.setEvs(tempEvs)
-
-    if (!this.survivalChecker.checkSurvivalAgainstTwoAttackers(attacker1, attacker2, tempDefender, field, threshold, rollIndex, rightIsDefender)) {
-      return -1
-    }
-
-    while (low <= high) {
-      const mid = Math.floor((low + high) / 2)
-      const ev = evIntervals[mid]
-
+    return minIndexSurviving(0, ev => {
       tempEvs[statToOptimize] = ev
       tempDefender.setEvs(tempEvs)
 
-      if (this.survivalChecker.checkSurvivalAgainstTwoAttackers(attacker1, attacker2, tempDefender, field, threshold, rollIndex, rightIsDefender)) {
-        result = mid
-        high = mid - 1
-      } else {
-        low = mid + 1
-      }
-    }
-
-    return result
+      return this.survivalChecker.checkSurvivalAgainstTwoAttackers(attacker1, attacker2, tempDefender, field, threshold, rollIndex, rightIsDefender)
+    })
   }
 
   private tryCombineSingleWithDouble(
@@ -359,7 +305,7 @@ export class SolutionCombiner {
 
     const primaryStat = isPhysical ? "def" : "spd"
     const secondaryStat = isPhysical ? "spd" : "def"
-    const evIntervals = this.evIntervalsCalc.getEvIntervals()
+    const evIntervals = EV_INTERVALS
 
     let bestSolution: (Stats & { totalEvs: number }) | null = null
     const tempDefender = defender.clone()
@@ -367,7 +313,7 @@ export class SolutionCombiner {
     for (const hpEv of evIntervals) {
       if (bestSolution && hpEv >= bestSolution.totalEvs) break
 
-      const minPrimaryIndex = this.findMinStatIndex([singleAttacker], defender, field, threshold, hpEv, primaryStat, evIntervals, tempDefender, rollIndex, rightIsDefender)
+      const minPrimaryIndex = this.findMinStatIndex([singleAttacker], defender, field, threshold, hpEv, primaryStat, tempDefender, rollIndex, rightIsDefender)
       if (minPrimaryIndex === -1) continue
 
       for (let primaryIndex = minPrimaryIndex; primaryIndex < evIntervals.length; primaryIndex++) {
@@ -375,7 +321,7 @@ export class SolutionCombiner {
         if (hpEv + primaryEv > MAX_TOTAL_EVS) break
         if (bestSolution && hpEv + primaryEv >= bestSolution.totalEvs) break
 
-        const minSecondaryIndex = this.findMinStatIndexForDouble(doubleAttacker1, doubleAttacker2, defender, field, threshold, hpEv, primaryStat, primaryEv, secondaryStat, evIntervals, tempDefender, rollIndex, rightIsDefender)
+        const minSecondaryIndex = this.findMinStatIndexForDouble(doubleAttacker1, doubleAttacker2, defender, field, threshold, hpEv, primaryStat, primaryEv, secondaryStat, tempDefender, rollIndex, rightIsDefender)
 
         if (minSecondaryIndex !== -1) {
           const secondaryEv = evIntervals[minSecondaryIndex]

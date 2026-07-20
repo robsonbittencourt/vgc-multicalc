@@ -2,14 +2,10 @@ import { Field } from "@multicalc/model/field"
 import { Pokemon } from "@multicalc/model/pokemon"
 import { Stats } from "@multicalc/types"
 import { SurvivalThreshold } from "@multicalc/ev-optimizer/internal/ev-optimizer-types"
-import { EvIntervalsCalc } from "./ev-intervals-calc"
-import { EvOptimizerUtils } from "./ev-optimizer-utils"
+import { orderedThreeStatGrid, orderedTwoStatGrid } from "./ev-optimizer-utils"
 import { SurvivalChecker } from "./survival-checker"
 
 export class DoubleAttackerOptimizer {
-  private evIntervalsCalc = new EvIntervalsCalc()
-  private utils = new EvOptimizerUtils()
-
   constructor(private survivalChecker: SurvivalChecker = new SurvivalChecker()) {}
 
   optimizeForTwoAttackers(attacker1: Pokemon, attacker2: Pokemon, defender: Pokemon, field: Field, threshold: SurvivalThreshold = 2, rollIndex = 15, rightIsDefender = true): Stats | null {
@@ -28,8 +24,7 @@ export class DoubleAttackerOptimizer {
   }
 
   private optimizeForSameCategoryAttackers(attacker1: Pokemon, attacker2: Pokemon, defender: Pokemon, field: Field, threshold: SurvivalThreshold, rollIndex: number, rightIsDefender: boolean, isPhysical: boolean): Stats | null {
-    const evIntervals = this.evIntervalsCalc.getEvIntervals()
-    const combinations = this.utils.generateOrderedTwoStatGrid(evIntervals)
+    const combinations = orderedTwoStatGrid()
 
     const tempDefender = defender.clone()
     const tempEvs = { hp: 0, atk: defender.evs.atk, def: 0, spa: defender.evs.spa, spd: 0, spe: defender.evs.spe }
@@ -49,8 +44,7 @@ export class DoubleAttackerOptimizer {
   }
 
   private optimizeForMixedAttackers(physicalAttacker: Pokemon, specialAttacker: Pokemon, defender: Pokemon, field: Field, threshold: SurvivalThreshold, rollIndex: number, rightIsDefender = true): Stats | null {
-    const evIntervals = this.evIntervalsCalc.getEvIntervals()
-    const combinations = this.utils.generateOrderedThreeStatGrid(evIntervals)
+    const combinations = orderedThreeStatGrid()
 
     const tempDefender = defender.clone()
     const tempEvs = { hp: 0, atk: defender.evs.atk, def: 0, spa: defender.evs.spa, spd: 0, spe: defender.evs.spe }
