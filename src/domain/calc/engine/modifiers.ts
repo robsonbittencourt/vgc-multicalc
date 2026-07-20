@@ -5,7 +5,7 @@ import { Field } from "@calc/model/field"
 import { Move } from "@calc/model/move"
 import { Pokemon } from "@calc/model/pokemon"
 import { getQPBoostedStat, isGrounded, isQPActive } from "@calc/engine/stats"
-import { getMoveEffectiveness } from "@calc/engine/type-effectiveness"
+import { rawTypeEffectiveness } from "@calc/engine/guards"
 import { RawDesc } from "@data/types"
 
 export interface ModifierContext {
@@ -55,13 +55,7 @@ const BP_RULES: ModifierRule[] = [
       description.weather = field.weather
       return 2048
     } else if (move.named("Collision Course", "Electro Drift")) {
-      const isGhostRevealed = attacker.hasAbility("Scrappy") || attacker.hasAbility("Mind's Eye")
-      const isRingTarget = defender.hasItem("Ring Target") && !defender.hasAbility("Klutz")
-      const types = defender.teraType && defender.teraType !== "Stellar" ? [defender.teraType] : defender.types
-      const e1 = getMoveEffectiveness(move, types[0], isGhostRevealed, field.isGravity, isRingTarget)
-      const e2 = types[1] ? getMoveEffectiveness(move, types[1], isGhostRevealed, field.isGravity, isRingTarget) : 1
-
-      if (e1 * e2 >= 2) {
+      if (rawTypeEffectiveness(attacker, defender, move, field) >= 2) {
         description.moveBP = basePower * (5461 / 4096)
         return 5461
       }

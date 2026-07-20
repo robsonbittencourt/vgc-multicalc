@@ -1,4 +1,4 @@
-import { getBerryRecovery, getDamageWithoutBerry, getEndOfTurn, formatResultDescription, formatDamageSummary, getKOChance, getRecovery, getRecoil } from "@calc/engine/desc"
+import { consumeBerryIfTriggered, getBerryRecovery, getDamageWithoutBerry, getEndOfTurn, formatResultDescription, formatDamageSummary, getKOChance, getRecovery, getRecoil } from "@calc/engine/desc"
 import { Field } from "@calc/model/field"
 import { Move } from "@calc/model/move"
 import { Pokemon } from "@calc/model/pokemon"
@@ -83,15 +83,14 @@ export class Result {
         for (const hitDamage of turnHits) {
           currentHP -= hitDamage
 
-          if (firstBerryTurn === 0 && berryHP > 0 && currentHP <= berry.threshold && currentHP > 0) {
-            turnValue += berryHP
-            currentHP += berryHP
+          if (firstBerryTurn === 0) {
+            const consumed = consumeBerryIfTriggered(currentHP, this.defender.maxHp(), berryHP, berry.threshold)
 
-            if (currentHP > this.defender.maxHp()) {
-              currentHP = this.defender.maxHp()
+            if (consumed.consumed) {
+              turnValue += berryHP
+              currentHP = consumed.hp
+              firstBerryTurn = i
             }
-
-            firstBerryTurn = i
           }
         }
 
@@ -126,13 +125,7 @@ export class Result {
   }
 
   private getHitsAtIndex(damage: Damage, rollIndex: number): number[] {
-    const subArrays = extractDamageSubArrays(damage)
-
-    if (subArrays.length === 0) {
-      return []
-    }
-
-    return subArrays.map(arr => arr[Math.min(rollIndex, arr.length - 1)])
+    return rollsAtIndex(damage, rollIndex)
   }
 
   description(notation = "%", err = true) {
@@ -191,6 +184,16 @@ export function extractDamageSubArrays(damage: Damage): number[][] {
   }
 
   return []
+}
+
+export function rollsAtIndex(damage: Damage, rollIndex: number): number[] {
+  const subArrays = extractDamageSubArrays(damage)
+
+  if (subArrays.length === 0) {
+    return []
+  }
+
+  return subArrays.map(arr => arr[Math.min(rollIndex, arr.length - 1)])
 }
 
 export function damageRange(damage: Damage): [number, number] {

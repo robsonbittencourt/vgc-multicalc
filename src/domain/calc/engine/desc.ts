@@ -396,12 +396,10 @@ export function computeMultiHitKOChance(
         let nextHP = currentHP - dmg
         const prob = currentProb * rowProb
 
-        if (currentRecovery > 0 && nextHP <= currentThreshold && nextHP > 0) {
-          nextHP += currentRecovery
+        const berry = consumeBerryIfTriggered(nextHP, maxHP, currentRecovery, currentThreshold)
 
-          if (nextHP > maxHP) {
-            nextHP = maxHP
-          }
+        if (berry.consumed) {
+          nextHP = berry.hp
 
           nextStateBerry.set(nextHP, (nextStateBerry.get(nextHP) || 0) + prob)
           anyBerryConsumed = true
@@ -496,30 +494,25 @@ export function computeMultiHitKOChance(
     const finalStateBerry = new Map<number, number>()
 
     for (const [currentHP, currentProb] of state) {
-      let nextHP = currentHP + eot
+      const nextHP = currentHP + eot
+      const finalRecovery = Array.isArray(berryRecovery) ? berryRecovery[0] : berryRecovery
+      const finalThreshold = Array.isArray(berryThreshold) ? berryThreshold[0] : berryThreshold
+      const berry = consumeBerryIfTriggered(nextHP, maxHP, finalRecovery, finalThreshold)
 
       if (nextHP <= 0) {
         koChance += currentProb
-      } else if ((Array.isArray(berryRecovery) ? berryRecovery[0] : berryRecovery) > 0 && nextHP <= (Array.isArray(berryThreshold) ? berryThreshold[0] : berryThreshold) && nextHP > 0) {
-        nextHP += Array.isArray(berryRecovery) ? berryRecovery[0] : berryRecovery
-
-        if (nextHP > maxHP) {
-          nextHP = maxHP
-        }
-
+      } else if (berry.consumed) {
         anyBerryConsumed = true
 
         if (firstBerryTurn === undefined) {
           firstBerryTurn = 1
         }
 
-        finalStateBerry.set(nextHP, (finalStateBerry.get(nextHP) || 0) + currentProb)
+        finalStateBerry.set(berry.hp, (finalStateBerry.get(berry.hp) || 0) + currentProb)
       } else {
-        if (nextHP > maxHP) {
-          nextHP = maxHP
-        }
+        const clampedHP = Math.min(nextHP, maxHP)
 
-        finalState.set(nextHP, (finalState.get(nextHP) || 0) + currentProb)
+        finalState.set(clampedHP, (finalState.get(clampedHP) || 0) + currentProb)
       }
     }
 
@@ -641,30 +634,15 @@ export function getBerryRecovery(attacker: Pokemon, defender: Pokemon, move: Mov
     return { recovery: 0, threshold: 0 }
   }
 
+  const maxHp = defender.maxHp()
+  const ripen = defender.hasAbility("Ripen") ? 2 : 1
+
   if (defender.hasItem("Sitrus Berry")) {
-    let recovery = Math.floor(defender.maxHp() / 4)
-
-    if (defender.hasAbility("Ripen")) {
-      recovery *= 2
-    }
-
-    return { recovery, threshold: Math.floor(defender.maxHp() / 2) }
+    return { recovery: Math.floor(maxHp / 4) * ripen, threshold: Math.floor(maxHp / 2) }
   } else if (defender.hasItem("Oran Berry")) {
-    let recovery = 10
-
-    if (defender.hasAbility("Ripen")) {
-      recovery *= 2
-    }
-
-    return { recovery, threshold: Math.floor(defender.maxHp() / 2) }
+    return { recovery: 10 * ripen, threshold: Math.floor(maxHp / 2) }
   } else if (defender.hasItem("Figy Berry", "Wiki Berry", "Mago Berry", "Aguav Berry", "Iapapa Berry")) {
-    let recovery = Math.floor(defender.maxHp() / 3)
-
-    if (defender.hasAbility("Ripen")) {
-      recovery *= 2
-    }
-
-    return { recovery, threshold: Math.floor(defender.maxHp() / 4) }
+    return { recovery: Math.floor(maxHp / 3) * ripen, threshold: Math.floor(maxHp / 4) }
   } else if (defender.hasItem("Enigma Berry")) {
     const moveType = getType(move.type)!
     let effectiveness: number
@@ -680,17 +658,19 @@ export function getBerryRecovery(attacker: Pokemon, defender: Pokemon, move: Mov
     }
 
     if (effectiveness > 1) {
-      let recovery = Math.floor(defender.maxHp() / 4)
-
-      if (defender.hasAbility("Ripen")) {
-        recovery *= 2
-      }
-
-      return { recovery, threshold: defender.maxHp() }
+      return { recovery: Math.floor(maxHp / 4) * ripen, threshold: maxHp }
     }
   }
 
   return { recovery: 0, threshold: 0 }
+}
+
+export function consumeBerryIfTriggered(hp: number, maxHp: number, recovery: number, threshold: number): { hp: number; consumed: boolean } {
+  if (recovery > 0 && hp <= threshold && hp > 0) {
+    return { hp: Math.min(hp + recovery, maxHp), consumed: true }
+  }
+
+  return { hp, consumed: false }
 }
 
 const TRAPPING = ["Bind", "Clamp", "Fire Spin", "Infestation", "Magma Storm", "Sand Tomb", "Thunder Cage", "Whirlpool", "Wrap"]
@@ -903,14 +883,10 @@ function computeKOChance(
       let hpAfterDamage = hp - damage[i]
       let consumedNow = berryConsumed
 
-      if (!consumedNow && berryRecovery > 0 && hpAfterDamage <= berryThreshold && hpAfterDamage > 0) {
-        hpAfterDamage += berryRecovery
-
-        if (hpAfterDamage > maxHP) {
-          hpAfterDamage = maxHP
-        }
-
-        consumedNow = true
+      if (!consumedNow) {
+        const berry = consumeBerryIfTriggered(hpAfterDamage, maxHP, berryRecovery, berryThreshold)
+        hpAfterDamage = berry.hp
+        consumedNow = berry.consumed
       }
 
       if (consumedNow) {
@@ -950,14 +926,10 @@ function computeKOChance(
       let hpAfterDamage = hp - damage[i]
       let consumed = berryConsumed
 
-      if (!consumed && berryRecovery > 0 && hpAfterDamage <= berryThreshold && hpAfterDamage > 0) {
-        hpAfterDamage += berryRecovery
-
-        if (hpAfterDamage > maxHP) {
-          hpAfterDamage = maxHP
-        }
-
-        consumed = true
+      if (!consumed) {
+        const berry = consumeBerryIfTriggered(hpAfterDamage, maxHP, berryRecovery, berryThreshold)
+        hpAfterDamage = berry.hp
+        consumed = berry.consumed
       }
 
       const result = computeKOChance(damageWithoutBerry || damage, hpAfterDamage + eot - toxicDamage, eot, hits - 1, timesUsed, maxHP, toxicCounter, berryRecovery, berryThreshold, damageWithoutBerry ? true : consumed, damageWithoutBerry)

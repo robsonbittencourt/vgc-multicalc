@@ -1,7 +1,7 @@
 import { calculateDamage } from "@calc/engine/calculate"
 import { clampBoost } from "@calc/engine/math"
 import { getBerryResistType } from "@calc/model/items"
-import { extractDamageSubArrays, Result } from "@calc/model/result"
+import { extractDamageSubArrays, rollsAtIndex, Result } from "@calc/model/result"
 
 export class StaminaBoostSimulator {
   private results: Result[]
@@ -19,7 +19,7 @@ export class StaminaBoostSimulator {
     for (let idx = 0; idx < this.results.length; idx++) {
       const subArrays = this.recomputeDamageAtBoost(idx, boost, berryAvailable)
 
-      const summed = subArrays.reduce((acc, sub) => acc + sub[Math.min(rollIndex, sub.length - 1)], 0)
+      const summed = rollsAtIndex(subArrays, rollIndex).reduce((acc, roll) => acc + roll, 0)
       damages.push(summed)
       boost = Math.min(boost + subArrays.length, 6)
 
