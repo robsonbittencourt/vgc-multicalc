@@ -1,4 +1,4 @@
-import { HitContext, computeHitDamage } from "@calc/engine/hit-damage"
+import { HitContext, computeHitDamage, isSpreadMove } from "@calc/engine/hit-damage"
 import { computeParentalBondChildDamage } from "@calc/engine/parental-bond"
 import { computeMultiHitDamage } from "@calc/engine/multi-hit"
 
@@ -7,7 +7,7 @@ export function resolveDamage(hitCtx: HitContext, hasAteAbilityTypeChange: boole
 
   const damage = computeHitDamage(hitCtx, { hit: 1, hitCount: 0, hasAteAbilityTypeChange, stabMod })
 
-  const isSpread = field.gameType !== "Singles" && ["allAdjacent", "allAdjacentFoes"].includes(move.target)
+  const isSpread = isSpreadMove(move, field)
 
   let childDamage: number[] | undefined
   if (attacker.hasAbility("Parental Bond") && move.hits === 1 && !isSpread && !move.isParentalBondChild) {

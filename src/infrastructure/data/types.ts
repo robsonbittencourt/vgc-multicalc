@@ -75,7 +75,7 @@ export interface MoveData {
   readonly type: TypeName
   readonly category?: MoveCategory
   readonly flags: MoveFlags
-  readonly secondaries?: unknown
+  readonly secondaries?: boolean
   readonly target?: MoveTarget
   readonly recoil?: [number, number]
   readonly hasCrashDamage?: boolean
@@ -178,7 +178,7 @@ export interface StatePokemon {
   nature?: NatureName
   evs?: Partial<StatsTable>
   boosts?: Partial<StatsTable>
-  originalCurrrentHp?: number
+  originalCurrentHp?: number
   status?: StatusName | ""
   teraType?: TypeName
   toxicCounter?: number

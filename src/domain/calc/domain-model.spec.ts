@@ -40,7 +40,7 @@ describe("Internal domain model (gen 0)", () => {
       const internal = new Pokemon("Arcanine", { curHP: 50 })
       const lib = new LibPokemon("Arcanine", { curHP: 50 })
 
-      expect(internal.originalCurrrentHp).toEqual(lib.originalCurrrentHp)
+      expect(internal.originalCurrentHp).toEqual(lib.originalCurrentHp)
     })
 
     it("clones to an equivalent Pokemon", () => {

@@ -273,7 +273,7 @@ const BP_RULES: ModifierRule[] = [
 
 const AT_RULES: ModifierRule[] = [
   ({ attacker, move, field, description }) => {
-    if (attacker.hasAbility("Defeatist") && attacker.currrentHp() <= attacker.maxHp() / 2) {
+    if (attacker.hasAbility("Defeatist") && attacker.currentHp() <= attacker.maxHp() / 2) {
       description.attackerAbility = attacker.ability
       return 2048
     }
@@ -302,7 +302,7 @@ const AT_RULES: ModifierRule[] = [
 
     if (
       (attacker.hasAbility("Guts") && attacker.status && move.category === "Physical") ||
-      (attacker.currrentHp() <= attacker.maxHp() / 3 &&
+      (attacker.currentHp() <= attacker.maxHp() / 3 &&
         ((attacker.hasAbility("Overgrow") && move.hasType("Grass")) || (attacker.hasAbility("Blaze") && move.hasType("Fire")) || (attacker.hasAbility("Torrent") && move.hasType("Water")) || (attacker.hasAbility("Swarm") && move.hasType("Bug")))) ||
       (move.category === "Special" && attacker.abilityOn && attacker.hasAbility("Plus", "Minus"))
     ) {
@@ -524,7 +524,7 @@ const FINAL_RULES: ModifierRule[] = [
   ({ defender, move, field, description, hitCount }) => {
     if (
       defender.hasAbility("Multiscale", "Shadow Shield") &&
-      defender.currrentHp() === defender.maxHp() &&
+      defender.currentHp() === defender.maxHp() &&
       hitCount === 0 &&
       ((!field.defenderSide.isSR && (!field.defenderSide.spikes || defender.hasType("Flying"))) || defender.hasItem("Heavy-Duty Boots")) &&
       !move.isParentalBondChild

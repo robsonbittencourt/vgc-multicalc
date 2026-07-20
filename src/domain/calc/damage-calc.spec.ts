@@ -263,7 +263,7 @@ describe("Damage Calc Service (new)", () => {
 
     it("Flail: near faint (p<=1) → BP 200", () => {
       const attacker = new Pokemon("Arcanine", { evs: { atk: 252 }, nature: "Adamant" })
-      attacker.originalCurrrentHp = Math.round(attacker.maxHp() * 0.02)
+      attacker.originalCurrentHp = Math.round(attacker.maxHp() * 0.02)
       const defender = new Pokemon("Gardevoir", {})
       const move = new Move("Reversal")
       const field = new Field({ gameType: "Doubles" })
@@ -549,7 +549,7 @@ describe("Damage Calc Service (new)", () => {
 
     it("Overgrow: boosts Grass moves when HP<=1/3", () => {
       const attacker = new Pokemon("Venusaur", { evs: { spa: 252 }, nature: "Modest", ability: "Overgrow" })
-      attacker.originalCurrrentHp = Math.round(attacker.maxHp() * 0.33)
+      attacker.originalCurrentHp = Math.round(attacker.maxHp() * 0.33)
       const defender = new Pokemon("Incineroar", {})
       const move = new Move("Giga Drain")
       const field = new Field({ gameType: "Doubles" })

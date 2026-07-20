@@ -44,8 +44,8 @@ export function applyEarlyReturnGuards(ctx: CombatContext): GuardResult | null {
   }
 
   if (move.named("Pain Split")) {
-    const average = Math.floor((attacker.currrentHp() + defender.currrentHp()) / 2)
-    const damage = Math.max(0, defender.currrentHp() - average)
+    const average = Math.floor((attacker.currentHp() + defender.currentHp()) / 2)
+    const damage = Math.max(0, defender.currentHp() - average)
     return { type: "damage", value: damage }
   }
 
@@ -108,15 +108,15 @@ export function applyFixedDamageGuards(ctx: CombatContext): GuardResult | null {
   }
 
   if (move.named("Super Fang", "Ruination")) {
-    return { type: "damage", value: Math.max(1, Math.floor(defender.currrentHp() / 2)) }
+    return { type: "damage", value: Math.max(1, Math.floor(defender.currentHp() / 2)) }
   }
 
   if (move.named("Final Gambit")) {
-    return { type: "damage", value: attacker.currrentHp() }
+    return { type: "damage", value: attacker.currentHp() }
   }
 
   if (move.named("Endeavor")) {
-    return { type: "damage", value: Math.max(0, defender.currrentHp() - attacker.currrentHp()) }
+    return { type: "damage", value: Math.max(0, defender.currentHp() - attacker.currentHp()) }
   }
 
   return null
@@ -243,7 +243,7 @@ export function computeTypeEffectiveness(ctx: CombatContext): number {
     typeEffectiveness = defender.teraType ? 2 : 1
   }
 
-  if (defender.hasAbility("Tera Shell") && defender.currrentHp() === defender.maxHp() && ((!field.defenderSide.isSR && (!field.defenderSide.spikes || defender.hasType("Flying"))) || defender.hasItem("Heavy-Duty Boots"))) {
+  if (defender.hasAbility("Tera Shell") && defender.currentHp() === defender.maxHp() && ((!field.defenderSide.isSR && (!field.defenderSide.spikes || defender.hasType("Flying"))) || defender.hasItem("Heavy-Duty Boots"))) {
     ctx.description.defenderAbility = defender.ability
     return 0.5
   }

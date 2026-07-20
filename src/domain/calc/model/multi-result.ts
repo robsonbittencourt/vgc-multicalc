@@ -1,4 +1,4 @@
-import { computeMultiHitKOChance, getBerryRecovery, getDamageWithoutBerry, getEndOfTurn, serializeEndOfTurnTexts } from "@calc/engine/desc"
+import { computeMultiHitKOChance, getBerryRecovery, getDamageWithoutBerry, getEndOfTurn, roundChance, serializeEndOfTurnTexts } from "@calc/engine/desc"
 import { StaminaBoostSimulator } from "@calc/engine/stamina-boost-simulator"
 import { Move } from "@calc/model/move"
 import { Pokemon } from "@calc/model/pokemon"
@@ -19,7 +19,7 @@ export class MultiResult {
   afterTurn(rollIndex = DEFAULT_ROLL_INDEX): AfterTurnResult {
     const defender = this.results[0].defender
     const field = this.results[0].field
-    const hp = defender.currrentHp()
+    const hp = defender.currentHp()
 
     const splash = new Move("Splash")
     const baseEot = getEndOfTurn(this.results[0].attacker, defender, splash, field)
@@ -153,7 +153,7 @@ export class MultiResult {
         }
       }
 
-      const result = computeMultiHitKOChance(currentDamages, target.currrentHp(), this.eot.damage, target.maxHp(), currentBerryRecovery, currentBerryThreshold, rowsPerTurn, toxicCounter)
+      const result = computeMultiHitKOChance(currentDamages, target.currentHp(), this.eot.damage, target.maxHp(), currentBerryRecovery, currentBerryThreshold, rowsPerTurn, toxicCounter)
 
       if (result.chance > 0) {
         const hkoText = i === 1 ? "OHKO" : `${i}HKO`
@@ -164,7 +164,7 @@ export class MultiResult {
           return `guaranteed ${hkoText}${berryText}${eotText}`
         }
 
-        const percentage = Math.max(Math.min(Math.round(result.chance * 1000), 999), 1) / 10
+        const percentage = roundChance(result.chance)
 
         return `${percentage}% chance to ${hkoText}${berryText}${eotText}`
       }
@@ -192,8 +192,8 @@ export class MultiResult {
     const defender = this.results[0].defender
 
     return {
-      min: Math.floor((min / defender.originalCurrrentHp) * 1000) / 10,
-      max: Math.floor((max / defender.originalCurrrentHp) * 1000) / 10
+      min: Math.floor((min / defender.originalCurrentHp) * 1000) / 10,
+      max: Math.floor((max / defender.originalCurrentHp) * 1000) / 10
     }
   }
 
@@ -239,7 +239,7 @@ export class MultiResult {
   }
 
   damageWithRemainingUntilTurn(turn: number, rollIndex = DEFAULT_ROLL_INDEX): number {
-    const hp = this.defender.currrentHp()
+    const hp = this.defender.currentHp()
     const remainingHp = this.afterTurn(rollIndex).remainingHpUntilTurn(turn)
 
     return hp - remainingHp

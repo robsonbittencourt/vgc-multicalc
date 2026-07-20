@@ -1,4 +1,4 @@
-import { getBerryRecovery, getDamageWithoutBerry, getEndOfTurn, display, displayMove, getKOChance, getRecovery, getRecoil } from "@calc/engine/desc"
+import { getBerryRecovery, getDamageWithoutBerry, getEndOfTurn, formatResultDescription, formatDamageSummary, getKOChance, getRecovery, getRecoil } from "@calc/engine/desc"
 import { Field } from "@calc/model/field"
 import { Move } from "@calc/model/move"
 import { Pokemon } from "@calc/model/pokemon"
@@ -58,7 +58,7 @@ export class Result {
   afterTurn(rollIndex = DEFAULT_ROLL_INDEX): AfterTurnResult {
     const hitsAtIndex = this.getHitsAtIndex(this.damage, rollIndex)
     const minDamageTotal = damageRange(this.damage)[0]
-    const hp = this.defender.currrentHp()
+    const hp = this.defender.currentHp()
 
     if (this._turnEot === undefined) {
       this._turnEot = getEndOfTurn(this.attacker, this.defender, this.move, this.field).damage
@@ -135,8 +135,8 @@ export class Result {
     return subArrays.map(arr => arr[Math.min(rollIndex, arr.length - 1)])
   }
 
-  description() {
-    return this.fullDesc()
+  description(notation = "%", err = true) {
+    return formatResultDescription(this.attacker, this.defender, this.move, this.field, this.damage, this.rawDesc, notation, err)
   }
 
   range(): [number, number] {
@@ -145,12 +145,8 @@ export class Result {
     return [min, max]
   }
 
-  fullDesc(notation = "%", err = true) {
-    return display(this.attacker, this.defender, this.move, this.field, this.damage, this.rawDesc, notation, err)
-  }
-
   moveDesc(notation = "%") {
-    return displayMove(this.attacker, this.defender, this.move, this.damage, notation)
+    return formatDamageSummary(this.attacker, this.defender, this.move, this.damage, notation)
   }
 
   recovery(notation = "%") {
@@ -161,7 +157,7 @@ export class Result {
     return getRecoil(this.attacker, this.defender, this.move, this.damage, notation)
   }
 
-  kochance(err = true) {
+  koChance(err = true) {
     return getKOChance(this.attacker, this.defender, this.move, this.field, this.damage, this.rawDesc, err)
   }
 
@@ -170,7 +166,7 @@ export class Result {
   }
 
   damageWithRemainingUntilTurn(turn: number, rollIndex = DEFAULT_ROLL_INDEX): number {
-    const hp = this.defender.currrentHp()
+    const hp = this.defender.currentHp()
     const remainingHp = this.afterTurn(rollIndex).remainingHpUntilTurn(turn)
 
     return hp - remainingHp

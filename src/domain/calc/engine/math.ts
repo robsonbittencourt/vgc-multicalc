@@ -14,10 +14,27 @@ const BOOST_TABLE: readonly (readonly [number, number])[] = [
   [8, 2]
 ]
 
+export const MOD_SCALE = 4096
+
+export const MOD_2X = 8192
+export const MOD_1_5X = 6144
+export const MOD_4_3X = 5461
+export const MOD_1_3X = 5325
+export const MOD_1_25X = 5120
+export const MOD_1_2X = 4915
+export const MOD_1_1X = 4506
+export const MOD_0_75X = 3072
+export const MOD_0_5X = 2048
+export const MOD_0_25X = 1024
+
 const UNSIGNED_16_BIT_MODULO = 65536
 const UNSIGNED_16_BIT_MAX_VALUE = UNSIGNED_16_BIT_MODULO - 1
 const UNSIGNED_32_BIT_MODULO = 4294967296
 const UNSIGNED_32_BIT_MAX_VALUE = UNSIGNED_32_BIT_MODULO - 1
+
+export function clampBoost(value: number): number {
+  return Math.max(-6, Math.min(6, value))
+}
 
 export function pokeRound(value: number): number {
   return value % 1 > 0.5 ? Math.ceil(value) : Math.floor(value)
@@ -43,6 +60,10 @@ export function chainMods(modifiers: number[], lowerBound: number, upperBound: n
   const clampedToUpperBound = Math.min(chained, upperBound)
 
   return Math.max(clampedToUpperBound, lowerBound)
+}
+
+export function applyMod(value: number, mod: number): number {
+  return pokeRound(overflow32(value * mod) / MOD_SCALE)
 }
 
 export function getModifiedStat(stat: number, boost: number): number {

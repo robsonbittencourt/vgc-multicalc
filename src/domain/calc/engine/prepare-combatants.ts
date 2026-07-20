@@ -1,4 +1,5 @@
 import { checkForecast, checkInfiltrator, checkIntimidate, checkItem, checkRawStatChanges } from "@calc/engine/pre-damage-effects"
+import { clampBoost } from "@calc/engine/math"
 import { Field } from "@calc/model/field"
 import { Move } from "@calc/model/move"
 import { Pokemon } from "@calc/model/pokemon"
@@ -31,7 +32,7 @@ export function prepareCombatants(originalAttacker: Pokemon, originalDefender: P
 
   if (move.named("Meteor Beam", "Electro Shot")) {
     attacker.boosts.spa += attacker.hasAbility("Contrary") ? -1 : 1
-    attacker.boosts.spa = Math.min(6, Math.max(-6, attacker.boosts.spa))
+    attacker.boosts.spa = clampBoost(attacker.boosts.spa)
   }
 
   computeFinalStats(attacker, defender, field, "atk", "spa")

@@ -22,7 +22,7 @@ export function calculateMultiDamage(attacker1: Pokemon, attacker2: Pokemon, mov
     const maxDamage = getMaxDamage(result)
     const berry = getBerryRecovery(attacker, defender, move)
 
-    const currentHP = currentDefender.currrentHp()
+    const currentHP = currentDefender.currentHp()
     const maxHP = currentDefender.maxHp()
 
     const consumesBerry = !berryConsumed && berry.recovery > 0 && currentHP - maxDamage <= berry.threshold
@@ -30,9 +30,9 @@ export function calculateMultiDamage(attacker1: Pokemon, attacker2: Pokemon, mov
     if (consumesBerry) {
       berryConsumed = true
       currentDefender.item = undefined
-      currentDefender.originalCurrrentHp = scaleHP(currentDefender.maxHp(), Math.min(maxHP, currentHP - maxDamage + berry.recovery), maxHP)
+      currentDefender.originalCurrentHp = scaleHP(currentDefender.maxHp(), Math.min(maxHP, currentHP - maxDamage + berry.recovery), maxHP)
     } else {
-      currentDefender.originalCurrrentHp = scaleHP(currentDefender.maxHp(), Math.max(0, currentHP - maxDamage), maxHP)
+      currentDefender.originalCurrentHp = scaleHP(currentDefender.maxHp(), Math.max(0, currentHP - maxDamage), maxHP)
     }
   }
 

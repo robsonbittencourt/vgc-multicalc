@@ -48,7 +48,7 @@ export function fromScratch(pokemonName: string, options: PokemonParameters): Ca
   }
 
   const hpPercentage = options.hpPercentage ?? 100
-  calcPokemon.originalCurrrentHp = Math.round((calcPokemon.maxHp() * hpPercentage) / 100)
+  calcPokemon.originalCurrentHp = Math.round((calcPokemon.maxHp() * hpPercentage) / 100)
 
   return calcPokemon
 }

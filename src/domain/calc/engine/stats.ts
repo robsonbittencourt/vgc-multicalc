@@ -1,5 +1,5 @@
 import { EV_ITEMS } from "@calc/model/items"
-import { chainMods, getModifiedStat, overflow32, pokeRound } from "@calc/engine/math"
+import { chainMods, getModifiedStat, MOD_0_25X, MOD_0_5X, MOD_1_2X, MOD_1_5X, MOD_2X, overflow32, pokeRound } from "@calc/engine/math"
 import { Field, Side } from "@calc/model/field"
 import { Move } from "@calc/model/move"
 import { Pokemon } from "@calc/model/pokemon"
@@ -33,7 +33,7 @@ export function getFinalSpeed(pokemon: Pokemon, field: Field, side: Side): numbe
   const speedMods: number[] = []
 
   if (side.isTailwind) {
-    speedMods.push(8192)
+    speedMods.push(MOD_2X)
   }
 
   if (
@@ -44,22 +44,22 @@ export function getFinalSpeed(pokemon: Pokemon, field: Field, side: Side): numbe
     (pokemon.hasAbility("Slush Rush") && ["Hail", "Snow"].includes(weather)) ||
     (pokemon.hasAbility("Surge Surfer") && terrain === "Electric")
   ) {
-    speedMods.push(8192)
+    speedMods.push(MOD_2X)
   } else if (pokemon.hasAbility("Quick Feet") && pokemon.status) {
-    speedMods.push(6144)
+    speedMods.push(MOD_1_5X)
   } else if (pokemon.hasAbility("Slow Start") && pokemon.abilityOn) {
-    speedMods.push(2048)
+    speedMods.push(MOD_0_5X)
   } else if (isQPActive(pokemon, field) && getQPBoostedStat(pokemon) === "spe") {
-    speedMods.push(6144)
+    speedMods.push(MOD_1_5X)
   }
 
   if (!(pokemon.hasAbility("Unburden") && pokemon.abilityOn)) {
     if (pokemon.hasItem("Choice Scarf")) {
-      speedMods.push(6144)
+      speedMods.push(MOD_1_5X)
     } else if (pokemon.hasItem("Iron Ball", ...EV_ITEMS)) {
-      speedMods.push(2048)
+      speedMods.push(MOD_0_5X)
     } else if (pokemon.hasItem("Quick Powder") && pokemon.named("Ditto")) {
-      speedMods.push(8192)
+      speedMods.push(MOD_2X)
     }
   }
 
@@ -107,21 +107,21 @@ export function getStabMod(pokemon: Pokemon, move: Move, description: RawDesc): 
   let stabMod = 4096
 
   if (pokemon.hasOriginalType(move.type)) {
-    stabMod += 2048
+    stabMod += MOD_0_5X
   } else if (pokemon.hasAbility("Protean", "Libero") && !pokemon.teraType) {
-    stabMod += 2048
+    stabMod += MOD_0_5X
     description.attackerAbility = pokemon.ability
   }
 
   const teraType = pokemon.teraType
 
   if (teraType === move.type && teraType !== "Stellar") {
-    stabMod += 2048
+    stabMod += MOD_0_5X
     description.attackerTera = teraType
   }
 
   if (pokemon.hasAbility("Adaptability") && pokemon.hasType(move.type)) {
-    stabMod += teraType && pokemon.hasOriginalType(teraType) ? 1024 : 2048
+    stabMod += teraType && pokemon.hasOriginalType(teraType) ? MOD_0_25X : MOD_0_5X
     description.attackerAbility = pokemon.ability
   }
 
@@ -133,9 +133,9 @@ export function getStellarStabMod(pokemon: Pokemon, move: Move, stabMod: number,
 
   if (!isStellarBoosted) return stabMod
 
-  if (pokemon.hasOriginalType(move.type)) return stabMod + 2048
+  if (pokemon.hasOriginalType(move.type)) return stabMod + MOD_0_5X
 
-  return 4915
+  return MOD_1_2X
 }
 
 export function countBoosts(boosts: Pokemon["boosts"]): number {

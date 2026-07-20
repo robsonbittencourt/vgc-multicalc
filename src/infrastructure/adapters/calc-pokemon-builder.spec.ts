@@ -40,7 +40,7 @@ describe("CalcPokemonBuilder", () => {
     expect(calcPokemon.ivs).toEqual({ hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 })
     expect(calcPokemon.boosts).toEqual({ hp: 0, atk: 1, def: 1, spa: 1, spd: 1, spe: 1 })
     expect(calcPokemon.status).toBe("par")
-    expect(calcPokemon.originalCurrrentHp).toBe(Math.round((calcPokemon.maxHp() * 50) / 100))
+    expect(calcPokemon.originalCurrentHp).toBe(Math.round((calcPokemon.maxHp() * 50) / 100))
   })
 
   it("should create a CalcPokemon from scratch with default values", () => {
@@ -54,7 +54,7 @@ describe("CalcPokemonBuilder", () => {
     expect(calcPokemon.ivs).toEqual({ hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 })
     expect(calcPokemon.boosts).toEqual({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
     expect(calcPokemon.status).toBe("")
-    expect(calcPokemon.originalCurrrentHp).toBe(calcPokemon.maxHp())
+    expect(calcPokemon.originalCurrentHp).toBe(calcPokemon.maxHp())
   })
 
   it("should create a CalcPokemon from scratch with provided values", () => {
@@ -81,6 +81,6 @@ describe("CalcPokemonBuilder", () => {
     expect(calcPokemon.ivs).toEqual({ hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 })
     expect(calcPokemon.boosts).toEqual({ hp: 0, atk: 1, def: 1, spa: 1, spd: 1, spe: 1 })
     expect(calcPokemon.status).toBe("par")
-    expect(calcPokemon.originalCurrrentHp).toBe(Math.round((calcPokemon.maxHp() * 50) / 100))
+    expect(calcPokemon.originalCurrentHp).toBe(Math.round((calcPokemon.maxHp() * 50) / 100))
   })
 })

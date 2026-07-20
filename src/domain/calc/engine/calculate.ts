@@ -102,7 +102,7 @@ function buildHitContext(combatants: { attacker: Pokemon; defender: Pokemon; mov
 }
 
 function applyGaleWings(attacker: Pokemon, move: Move, description: RawDesc): void {
-  if (attacker.hasAbility("Gale Wings") && move.hasType("Flying") && attacker.currrentHp() === attacker.maxHp()) {
+  if (attacker.hasAbility("Gale Wings") && move.hasType("Flying") && attacker.currentHp() === attacker.maxHp()) {
     move.priority = 1
     description.attackerAbility = attacker.ability
   }
