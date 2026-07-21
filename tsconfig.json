@@ -8,7 +8,7 @@
       "@features/*": ["./src/app/features/*"],
       "@pages/*": ["./src/app/pages/*"],
       "@layout/*": ["./src/app/layout/*"],
-      "@data/*": ["./src/infrastructure/data/*"],
+      "@data/*": ["./src/domain/data/*"],
       "@calc-bridge": ["./src/domain/multicalc/calc-bridge/index.ts"],
       "@calc-bridge/*": ["./src/domain/multicalc/calc-bridge/*"],
       "@pokemon-repository": ["./src/domain/multicalc/pokemon-repository/index.ts"],
