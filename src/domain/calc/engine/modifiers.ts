@@ -664,7 +664,7 @@ const attackerFinalItemRule: ModifierRule = ({ attacker, move, description, type
 }
 
 const resistBerryRule: ModifierRule = ({ attacker, defender, move, field, description, typeEffectiveness, hitCount }) => {
-  if (move.hasType(getBerryResistType(defender.item)) && (typeEffectiveness > 1 || move.hasType("Normal")) && hitCount === 0 && !field.isUnnerve && !attacker.hasAbility("Unnerve")) {
+  if (move.hasType(getBerryResistType(defender.item)) && (typeEffectiveness > 1 || move.hasType("Normal")) && hitCount === 0 && !field.isUnnerve && !attacker.hasAbility("Unnerve", "As One (Glastrier)", "As One (Spectrier)")) {
     description.defenderItem = defender.item
     return defender.hasAbility("Ripen") ? 1024 : 2048
   }

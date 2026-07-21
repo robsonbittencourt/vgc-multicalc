@@ -18411,6 +18411,22 @@ export const POKEMON_DATA: Record<string, PokemonDataCore> = {
     abilities: ["Friend Guard", "Cheek Pouch", "Technician"],
     group: "Meta"
   },
+  mausholdfour: {
+    name: "Maushold-Four",
+    types: ["Normal"],
+    baseStats: {
+      hp: 74,
+      atk: 75,
+      def: 70,
+      spa: 65,
+      spd: 75,
+      spe: 111
+    },
+    weightKg: 2.8,
+    gender: "N",
+    abilities: ["Friend Guard", "Cheek Pouch", "Technician"],
+    group: "Meta"
+  },
   meowscarada: {
     name: "Meowscarada",
     types: ["Grass", "Dark"],

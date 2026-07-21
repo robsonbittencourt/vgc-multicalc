@@ -137,7 +137,7 @@ describe("Internal Result/MultiResult/desc (gen 0)", () => {
 
       const description = calculateDamage(attacker, defender, new Move("Triple Axel"), new Field()).description()
 
-      expect(description).toContain("(2 hits)")
+      expect(description).toContain("(3 hits)")
     })
   })
 
@@ -912,25 +912,25 @@ describe("Internal Result/MultiResult/desc (gen 0)", () => {
     it("combines multihit damage with Leftovers recovery", () => {
       const description = calculateDamage(weavile(), lax({ item: "Leftovers" }), new Move("Triple Axel"), new Field()).description()
 
-      expect(description).toContain("possible 6HKO after Leftovers recovery")
+      expect(description).toContain("guaranteed 3HKO after Leftovers recovery")
     })
 
     it("combines multihit damage with berry recovery", () => {
       const description = calculateDamage(weavile(), lax({ item: "Sitrus Berry" }), new Move("Triple Axel"), new Field()).description()
 
-      expect(description).toContain("possible 6HKO after Sitrus Berry recovery")
+      expect(description).toContain("30.1% chance to 3HKO after Sitrus Berry recovery")
     })
 
     it("combines multihit damage with burn damage", () => {
       const description = calculateDamage(weavile(), lax({ status: "brn" }), new Move("Triple Axel"), new Field()).description()
 
-      expect(description).toContain("99.9% chance to 4HKO after burn damage")
+      expect(description).toContain("0.1% chance to 2HKO after burn damage")
     })
 
     it("combines multihit damage with both burn damage and berry recovery", () => {
       const description = calculateDamage(weavile(), lax({ item: "Sitrus Berry", status: "brn" }), new Move("Triple Axel"), new Field()).description()
 
-      expect(description).toContain("possible 5HKO after burn damage and Sitrus Berry recovery")
+      expect(description).toContain("guaranteed 3HKO after burn damage and Sitrus Berry recovery")
     })
 
     it("handles a five hit move with berry recovery", () => {

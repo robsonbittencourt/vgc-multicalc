@@ -10,7 +10,7 @@ describe("Damage — more base power formulas", () => {
 
     const result = calculate(attacker, defender, move, field())
 
-    expect(result.description()).toEqual("252+ Atk Baxcalibur Triple Axel (60 BP) (2 hits) vs. 252 HP / 4 Def Landorus-Therian: 276-328 (140.8 - 167.3%) -- guaranteed OHKO")
+    expect(result.description()).toEqual("252+ Atk Baxcalibur Triple Axel (120 BP) (3 hits) vs. 252 HP / 4 Def Landorus-Therian: 544-644 (277.5 - 328.5%) -- guaranteed OHKO")
   })
 
   it("Hex: stays at base power against a status-free target", () => {

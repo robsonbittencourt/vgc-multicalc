@@ -4480,7 +4480,8 @@ export const MOVES = {
     basePower: 75,
     category: "Physical",
     flags: {
-      contact: 1
+      contact: 1,
+      slicing: 1
     },
     secondaries: true,
     accuracy: 95,
@@ -4500,7 +4501,8 @@ export const MOVES = {
     basePower: 80,
     category: "Physical",
     flags: {
-      contact: 1
+      contact: 1,
+      slicing: 1
     },
     accuracy: 100,
     pp: 15,
@@ -4898,7 +4900,7 @@ export const MOVES = {
     flags: {
       contact: 1
     },
-    multihit: [1, 2],
+    multihit: 2,
     accuracy: 90,
     pp: 12,
     description: "Hits 2 times in one turn.",
@@ -6179,7 +6181,8 @@ export const MOVES = {
     basePower: 70,
     category: "Physical",
     flags: {
-      contact: 1
+      contact: 1,
+      slicing: 1
     },
     accuracy: 100,
     pp: 15,
@@ -9504,7 +9507,7 @@ export const MOVES = {
     flags: {
       contact: 1
     },
-    multihit: [1, 2],
+    multihit: 2,
     accuracy: 90,
     pp: 12,
     description: "Hits 2 times in one turn.",
@@ -10410,7 +10413,7 @@ export const MOVES = {
     flags: {
       contact: 1
     },
-    multihit: [1, 3],
+    multihit: 3,
     multiaccuracy: true,
     accuracy: 90,
     pp: 12,
@@ -10832,7 +10835,8 @@ export const MOVES = {
     basePower: 80,
     category: "Physical",
     flags: {
-      contact: 1
+      contact: 1,
+      slicing: 1
     },
     secondaries: true,
     accuracy: 100,
@@ -11788,7 +11792,7 @@ export const MOVES = {
     basePower: 40,
     category: "Special",
     flags: {},
-    multihit: [1, 2],
+    multihit: 2,
     accuracy: 100,
     pp: 12,
     description: "Hits 2 times in one turn.",
