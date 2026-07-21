@@ -229,18 +229,91 @@ export function getKOChance(attacker: Pokemon, defender: Pokemon, move: Move, fi
   return { chance: 0, n: 0, text: "", berryConsumed: false, anyBerryConsumed: false, firstBerryTurn: undefined }
 }
 
-export function computeMultiHitKOChance(
-  damageMatrix: number[][],
-  hp: number,
-  eot: number,
-  maxHP: number,
-  berryRecovery: number | number[],
-  berryThreshold: number | number[],
-  rowsPerTurn?: number,
-  toxicCounter = 0
-): { chance: number; berryConsumed: boolean; anyBerryConsumed: boolean; firstBerryTurn?: number } {
-  let state = new Map<number, number>()
-  let stateBerry = new Map<number, number>()
+type HPState = Map<number, number>
+
+type MultiHitAccumulator = { koChance: number; berryConsumedInKO: boolean; anyBerryConsumed: boolean; firstBerryTurn?: number }
+
+function addToState(state: HPState, hp: number, prob: number) {
+  state.set(hp, (state.get(hp) || 0) + prob)
+}
+
+function applyDamageRow(state: HPState, stateBerry: HPState, damageRow: number[], maxHP: number, recovery: number, threshold: number, turn: number, acc: MultiHitAccumulator): { nextState: HPState; nextStateBerry: HPState } {
+  const nextState = new Map<number, number>()
+  const nextStateBerry = new Map<number, number>()
+  const rowProb = 1 / damageRow.length
+
+  for (const [currentHP, currentProb] of state) {
+    for (const dmg of damageRow) {
+      let nextHP = currentHP - dmg
+      const prob = currentProb * rowProb
+
+      const berry = consumeBerryIfTriggered(nextHP, maxHP, recovery, threshold)
+
+      if (berry.consumed) {
+        nextHP = berry.hp
+
+        addToState(nextStateBerry, nextHP, prob)
+        acc.anyBerryConsumed = true
+
+        if (acc.firstBerryTurn === undefined) {
+          acc.firstBerryTurn = turn
+        }
+      } else if (nextHP <= 0) {
+        acc.koChance += prob
+      } else {
+        addToState(nextState, nextHP, prob)
+      }
+    }
+  }
+
+  for (const [currentHP, currentProb] of stateBerry) {
+    for (const dmg of damageRow) {
+      const nextHP = currentHP - dmg
+      const prob = currentProb * rowProb
+
+      if (nextHP <= 0) {
+        acc.koChance += prob
+        acc.berryConsumedInKO = true
+      } else {
+        addToState(nextStateBerry, nextHP, prob)
+      }
+    }
+  }
+
+  return { nextState, nextStateBerry }
+}
+
+function applyEndOfTurn(state: HPState, stateBerry: HPState, turnEot: number, maxHP: number, acc: MultiHitAccumulator): { nextState: HPState; nextStateBerry: HPState } {
+  const nextState = new Map<number, number>()
+  const nextStateBerry = new Map<number, number>()
+
+  for (const [currentHP, currentProb] of state) {
+    const nextHP = currentHP + turnEot
+
+    if (nextHP <= 0) {
+      acc.koChance += currentProb
+    } else {
+      addToState(nextState, Math.min(nextHP, maxHP), currentProb)
+    }
+  }
+
+  for (const [currentHP, currentProb] of stateBerry) {
+    const nextHP = currentHP + turnEot
+
+    if (nextHP <= 0) {
+      acc.koChance += currentProb
+      acc.berryConsumedInKO = true
+    } else {
+      addToState(nextStateBerry, Math.min(nextHP, maxHP), currentProb)
+    }
+  }
+
+  return { nextState, nextStateBerry }
+}
+
+export function computeMultiHitKOChance(damageMatrix: number[][], hp: number, eot: number, maxHP: number, berryRecovery: number | number[], berryThreshold: number | number[], rowsPerTurn?: number, toxicCounter = 0): KOChanceResult {
+  let state: HPState = new Map<number, number>()
+  let stateBerry: HPState = new Map<number, number>()
 
   const startHP = Math.min(maxHP, Math.max(0, hp))
 
@@ -250,63 +323,18 @@ export function computeMultiHitKOChance(
 
   state.set(startHP, 1)
 
-  let koChance = 0
-  let firstBerryTurn: number | undefined
-  let berryConsumedInKO = false
-  let anyBerryConsumed = false
+  const recoveryByRow = Array.isArray(berryRecovery) ? berryRecovery : damageMatrix.map(() => berryRecovery)
+  const thresholdByRow = Array.isArray(berryThreshold) ? berryThreshold : damageMatrix.map(() => berryThreshold)
+
+  const acc: MultiHitAccumulator = { koChance: 0, berryConsumedInKO: false, anyBerryConsumed: false, firstBerryTurn: undefined }
 
   for (let i = 0; i < damageMatrix.length; i++) {
     const damageRow = damageMatrix[i]
-    const nextState = new Map<number, number>()
-    const nextStateBerry = new Map<number, number>()
-    const rowProb = 1 / damageRow.length
 
-    const currentRecovery = Array.isArray(berryRecovery) ? berryRecovery[i] : berryRecovery
-    const currentThreshold = Array.isArray(berryThreshold) ? berryThreshold[i] : berryThreshold
+    ;({ nextState: state, nextStateBerry: stateBerry } = applyDamageRow(state, stateBerry, damageRow, maxHP, recoveryByRow[i], thresholdByRow[i], i + 1, acc))
 
-    for (const [currentHP, currentProb] of state) {
-      for (const dmg of damageRow) {
-        let nextHP = currentHP - dmg
-        const prob = currentProb * rowProb
-
-        const berry = consumeBerryIfTriggered(nextHP, maxHP, currentRecovery, currentThreshold)
-
-        if (berry.consumed) {
-          nextHP = berry.hp
-
-          nextStateBerry.set(nextHP, (nextStateBerry.get(nextHP) || 0) + prob)
-          anyBerryConsumed = true
-
-          if (firstBerryTurn === undefined) {
-            firstBerryTurn = i + 1
-          }
-        } else if (nextHP <= 0) {
-          koChance += prob
-        } else {
-          nextState.set(nextHP, (nextState.get(nextHP) || 0) + prob)
-        }
-      }
-    }
-
-    for (const [currentHP, currentProb] of stateBerry) {
-      for (const dmg of damageRow) {
-        const nextHP = currentHP - dmg
-        const prob = currentProb * rowProb
-
-        if (nextHP <= 0) {
-          koChance += prob
-          berryConsumedInKO = true
-        } else {
-          nextStateBerry.set(nextHP, (nextStateBerry.get(nextHP) || 0) + prob)
-        }
-      }
-    }
-
-    state = nextState
-    stateBerry = nextStateBerry
-
-    if (anyBerryConsumed && firstBerryTurn === undefined) {
-      firstBerryTurn = i + 1
+    if (acc.anyBerryConsumed && acc.firstBerryTurn === undefined) {
+      acc.firstBerryTurn = i + 1
     }
 
     if (rowsPerTurn && (i + 1) % rowsPerTurn === 0) {
@@ -324,40 +352,7 @@ export function computeMultiHitKOChance(
       }
 
       if (turnEot !== 0) {
-        const nextStateEot = new Map<number, number>()
-        const nextStateBerryEot = new Map<number, number>()
-
-        for (const [currentHP, currentProb] of state) {
-          let nextHP = currentHP + turnEot
-
-          if (nextHP <= 0) {
-            koChance += currentProb
-          } else {
-            if (nextHP > maxHP) {
-              nextHP = maxHP
-            }
-
-            nextStateEot.set(nextHP, (nextStateEot.get(nextHP) || 0) + currentProb)
-          }
-        }
-
-        for (const [currentHP, currentProb] of stateBerry) {
-          let nextHP = currentHP + turnEot
-
-          if (nextHP <= 0) {
-            koChance += currentProb
-            berryConsumedInKO = true
-          } else {
-            if (nextHP > maxHP) {
-              nextHP = maxHP
-            }
-
-            nextStateBerryEot.set(nextHP, (nextStateBerryEot.get(nextHP) || 0) + currentProb)
-          }
-        }
-
-        state = nextStateEot
-        stateBerry = nextStateBerryEot
+        ;({ nextState: state, nextStateBerry: stateBerry } = applyEndOfTurn(state, stateBerry, turnEot, maxHP, acc))
       }
     }
   }
@@ -368,24 +363,20 @@ export function computeMultiHitKOChance(
 
     for (const [currentHP, currentProb] of state) {
       const nextHP = currentHP + eot
-      const finalRecovery = Array.isArray(berryRecovery) ? berryRecovery[0] : berryRecovery
-      const finalThreshold = Array.isArray(berryThreshold) ? berryThreshold[0] : berryThreshold
-      const berry = consumeBerryIfTriggered(nextHP, maxHP, finalRecovery, finalThreshold)
+      const berry = consumeBerryIfTriggered(nextHP, maxHP, recoveryByRow[0], thresholdByRow[0])
 
       if (nextHP <= 0) {
-        koChance += currentProb
+        acc.koChance += currentProb
       } else if (berry.consumed) {
-        anyBerryConsumed = true
+        acc.anyBerryConsumed = true
 
-        if (firstBerryTurn === undefined) {
-          firstBerryTurn = 1
+        if (acc.firstBerryTurn === undefined) {
+          acc.firstBerryTurn = 1
         }
 
-        finalStateBerry.set(berry.hp, (finalStateBerry.get(berry.hp) || 0) + currentProb)
+        addToState(finalStateBerry, berry.hp, currentProb)
       } else {
-        const clampedHP = Math.min(nextHP, maxHP)
-
-        finalState.set(clampedHP, (finalState.get(clampedHP) || 0) + currentProb)
+        addToState(finalState, Math.min(nextHP, maxHP), currentProb)
       }
     }
 
@@ -393,20 +384,19 @@ export function computeMultiHitKOChance(
       const nextHP = currentHP + eot
 
       if (nextHP <= 0) {
-        koChance += currentProb
-        berryConsumedInKO = true
+        acc.koChance += currentProb
+        acc.berryConsumedInKO = true
       } else {
-        const h = Math.min(maxHP, nextHP)
-        finalStateBerry.set(h, (finalStateBerry.get(h) || 0) + currentProb)
+        addToState(finalStateBerry, Math.min(maxHP, nextHP), currentProb)
       }
     }
   }
 
-  if (anyBerryConsumed && firstBerryTurn === undefined) {
-    firstBerryTurn = 1
+  if (acc.anyBerryConsumed && acc.firstBerryTurn === undefined) {
+    acc.firstBerryTurn = 1
   }
 
-  return { chance: koChance, berryConsumed: berryConsumedInKO, anyBerryConsumed, firstBerryTurn }
+  return { chance: acc.koChance, berryConsumed: acc.berryConsumedInKO, anyBerryConsumed: acc.anyBerryConsumed, firstBerryTurn: acc.firstBerryTurn }
 }
 
 function reduceDistribution(dist: number[], scaleValue: number): number[] {
