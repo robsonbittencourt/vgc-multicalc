@@ -1185,7 +1185,7 @@ describe("Damage Calc Service (new)", () => {
 
       const result = calculate(attacker, defender, move, field)
 
-      expect(result.description()).toEqual("252+ Atk Weavile Triple Axel (60 BP) (2 hits) vs. 0 HP / 0 Def Incineroar: 30-36 (17.6 - 21.1%) -- possible 5HKO")
+      expect(result.description()).toEqual("252+ Atk Weavile Triple Axel (120 BP) (3 hits) vs. 0 HP / 0 Def Incineroar: 59-71 (34.7 - 41.7%) -- guaranteed 3HKO")
       const dmg = result.damage as unknown as number[][]
       expect(dmg.length).toBeGreaterThanOrEqual(2)
       expect(Math.max(...dmg[dmg.length - 1])).toBeGreaterThan(Math.max(...dmg[0]))

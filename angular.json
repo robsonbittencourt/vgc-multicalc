@@ -61,7 +61,7 @@
               "includePaths": ["src/app"]
             },
             "scripts": [],
-            "allowedCommonJsDependencies": ["@robsonbittencourt/calc", "pako"],
+            "allowedCommonJsDependencies": ["pako"],
             "browser": "src/app/main.ts",
             "server": "src/app/main.server.ts",
             "serviceWorker": "ngsw-config.json",

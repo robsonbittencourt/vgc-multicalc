@@ -1,4 +1,5 @@
 import { calculateDamage } from "@calc/engine/calculate"
+import { rawTypeEffectiveness } from "@calc/engine/guards"
 import { clampBoost } from "@calc/engine/math"
 import { DamageDistribution } from "@calc/model/damage-distribution"
 import { getBerryResistType } from "@calc/model/items"
@@ -59,7 +60,11 @@ export class StaminaBoostSimulator {
   private consumesTypeBerry(result: Result): boolean {
     const berryType = getBerryResistType(result.defender.item)
 
-    return berryType !== undefined && result.move.hasType(berryType)
+    if (berryType === undefined || !result.move.hasType(berryType)) return false
+
+    const typeEffectiveness = rawTypeEffectiveness(result.attacker, result.defender, result.move, result.field)
+
+    return typeEffectiveness > 1 || result.move.hasType("Normal")
   }
 
   private recomputeDamageAtBoost(resultIndex: number, defBoost: number, typeBerryAvailable: boolean): number[][] {

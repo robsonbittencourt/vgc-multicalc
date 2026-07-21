@@ -82,11 +82,15 @@ describe("MoveProbability — calculateMultiHitProbabilities", () => {
     expect(result).toEqual([])
   })
 
-  it("should return empty for a move resolving to a single possible hit count", () => {
+  it("should return distinct min, middle and max hit probabilities for Triple Kick", () => {
     const move = new Move("Triple Kick")
 
     const result = service.calculateMultiHitProbabilities(move, attacker, field)
 
-    expect(result).toEqual([])
+    expect(result).toEqual([
+      { hits: 1, chance: 0.9 },
+      { hits: 2, chance: 0.81 },
+      { hits: 3, chance: 0.7290000000000001 }
+    ])
   })
 })

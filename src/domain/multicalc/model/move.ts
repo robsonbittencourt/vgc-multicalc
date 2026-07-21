@@ -106,7 +106,8 @@ export class Move {
       return ["6", "5", "4", "3", "2", "1", "0"]
     }
 
-    const multihit = getMoveData(move)?.multihit
+    const moveData = getMoveData(move)
+    const multihit = moveData?.multihit
 
     if (!multihit) return []
 
@@ -114,6 +115,16 @@ export class Move {
       const result: string[] = []
 
       for (let index = multihit[0]; index <= multihit[multihit.length - 1]; index++) {
+        result.push(index.toString())
+      }
+
+      return result
+    }
+
+    if (moveData?.multiaccuracy) {
+      const result: string[] = []
+
+      for (let index = 1; index <= multihit; index++) {
         result.push(index.toString())
       }
 
