@@ -1,10 +1,10 @@
-import { computeMultiHitKOChance, consumeBerryIfTriggered, getBerryRecovery, getDamageWithoutBerry, getEndOfTurn, roundChance, serializeEndOfTurnTexts } from "@calc/engine/desc"
+import { buildAttackerDescription, buildDefenderTail, computeMultiHitKOChance, getBerryRecovery, getDamageWithoutBerry, getEndOfTurn, roundChance, serializeEndOfTurnTexts } from "@calc/engine/desc"
 import { StaminaBoostSimulator } from "@calc/engine/stamina-boost-simulator"
+import { DamageDistribution } from "@calc/model/damage-distribution"
 import { Move } from "@calc/model/move"
 import { Pokemon } from "@calc/model/pokemon"
-import { AfterTurnData, AfterTurnResult, Damage, DEFAULT_ROLL_INDEX, extractDamageSubArrays, rollsAtIndex, Result } from "@calc/model/result"
-import { getNatureData } from "@data/nature-data"
-import { StatID } from "@data/types"
+import { AfterTurnData, AfterTurnResult, applyTurnDamage, DEFAULT_ROLL_INDEX, Result } from "@calc/model/result"
+import { RawDesc, StatID } from "@data/types"
 
 export class MultiResult {
   defender: Pokemon
@@ -39,13 +39,11 @@ export class MultiResult {
     let currentHP = hp
     let berryConsumed = false
 
-    const sumDamage = (damage: Damage): number => rollsAtIndex(damage, rollIndex).reduce((a, b) => a + b, 0)
-
-    const damagesAtIndex = this.results.map(r => sumDamage(r.damage))
+    const damagesAtIndex = this.results.map(r => new DamageDistribution(r.damage).totalAt(rollIndex))
     const damagesWithoutBerryAtIndex = this.results.map(r => {
       const withoutBerry = getDamageWithoutBerry(r.damage, r.rawDesc, r.move, defender)
 
-      return withoutBerry !== undefined ? sumDamage(withoutBerry) : null
+      return withoutBerry !== undefined ? new DamageDistribution(withoutBerry).totalAt(rollIndex) : null
     })
     const hasTypeBerry = damagesWithoutBerryAtIndex.some(d => d !== null)
     const hasStamina = this.hasStaminaDefender()
@@ -54,7 +52,6 @@ export class MultiResult {
     let staminaTypeBerryAvailable = true
 
     for (let i = 1; i <= 10; i++) {
-      let turnValue = 0
       let turnDamages: number[]
 
       if (hasStamina) {
@@ -66,19 +63,10 @@ export class MultiResult {
         turnDamages = i === 1 || !hasTypeBerry ? damagesAtIndex : damagesWithoutBerryAtIndex.map((d, idx) => d ?? damagesAtIndex[idx])
       }
 
-      for (const dmg of turnDamages) {
-        currentHP -= dmg
-
-        if (!berryConsumed) {
-          const consumed = consumeBerryIfTriggered(currentHP, defender.maxHp(), berry.recovery, berry.threshold)
-
-          if (consumed.consumed) {
-            turnValue += berry.recovery
-            currentHP = consumed.hp
-            berryConsumed = true
-          }
-        }
-      }
+      const turn = applyTurnDamage(currentHP, turnDamages, defender.maxHp(), berry, berryConsumed)
+      currentHP = turn.hp
+      berryConsumed = turn.berryConsumed
+      let turnValue = turn.recovered
 
       if (currentHP <= 0) {
         data.push({ turn: i, residualDelta: turnValue, hp: 0 })
@@ -110,7 +98,7 @@ export class MultiResult {
     const baseBerryThreshold: number[] = []
 
     for (const result of this.results) {
-      const damage = extractDamageSubArrays(result.damage)
+      const damage = new DamageDistribution(result.damage).subArrays()
       const berry = getBerryRecovery(result.attacker, target, result.move)
 
       baseDamages.push(...damage)
@@ -168,7 +156,7 @@ export class MultiResult {
     let max = 0
 
     for (const result of this.results) {
-      const damage = extractDamageSubArrays(result.damage)
+      const damage = new DamageDistribution(result.damage).subArrays()
       const r = this.getMinMaxDamageFromRolls(damage)
       min += r.min
       max += r.max
@@ -198,30 +186,25 @@ export class MultiResult {
     const resultTwo = this.results[1]
     const defender = resultOne.defender
 
-    try {
-      const attackerDescription = resultOne.description().substring(0, resultOne.description().indexOf(" vs."))
-      const secondAttackerDescritption = resultTwo.description().substring(0, resultTwo.description().indexOf(" vs."))
-      const defenderDescription = resultOne.description().substring(resultOne.description().indexOf(" vs.") + 5)
-
-      const defenderBulk = this.mergeBulkStats(resultOne, resultTwo, defender)
-      const tera = resultOne.defender.teraType ? `Tera ${resultOne.defender.teraType} ` : ""
-      const defenderNameAndDamageString = defenderDescription.substring(defenderDescription.indexOf(resultOne.defender.name))
-
-      const { min: totalMin, max: totalMax } = this.range()
-      const { min: minPercent, max: maxPercent } = this.rangePercentage()
-
-      const staminaText = this.hasStaminaDefender() ? " (Stamina considered)" : ""
-      const defenderNameAndDamageWithNote = defenderNameAndDamageString.replace(`${resultOne.defender.name}:`, `${resultOne.defender.name}${staminaText}:`)
-
-      const defenderNameAndDamage = this.updateDefenderDamageText(defenderNameAndDamageWithNote, totalMin, totalMax, minPercent, maxPercent)
-
-      const koChanceText = this.getHKO()
-      const baseText = defenderNameAndDamage.includes(" -- ") ? defenderNameAndDamage.substring(0, defenderNameAndDamage.indexOf(" -- ")) : defenderNameAndDamage
-
-      return `${attackerDescription} AND ${secondAttackerDescritption}` + ` vs. ${defenderBulk} ${tera}${baseText} -- ${koChanceText}`
-    } catch (e) {
-      return `${resultOne.attacker.name} ${resultOne.move.name}` + ` AND ${resultTwo.attacker.name} ${resultTwo.move.name}` + ` vs. ${resultOne.defender.name}: 0-0 (0 - 0%) -- possibly the worst move ever`
+    if (this.range().max === 0) {
+      return `${resultOne.attacker.name} ${resultOne.move.name}` + ` AND ${resultTwo.attacker.name} ${resultTwo.move.name}` + ` vs. ${defender.name}: 0-0 (0 - 0%) -- possibly the worst move ever`
     }
+
+    const attackerOne = buildAttackerDescription(resultOne.rawDesc).trimEnd()
+    const attackerTwo = buildAttackerDescription(resultTwo.rawDesc).trimEnd()
+
+    const defenderBulk = this.mergeBulkStats(resultOne, resultTwo)
+    const defenderTail = buildDefenderTail({ ...resultOne.rawDesc, defenderAbility: undefined }, true).trimEnd()
+
+    const { min: totalMin, max: totalMax } = this.range()
+    const { min: minPercent, max: maxPercent } = this.rangePercentage()
+
+    const staminaText = this.hasStaminaDefender() ? " (Stamina considered)" : ""
+    const damageText = `${totalMin}-${totalMax} (${minPercent} - ${maxPercent}%)`
+
+    const koChanceText = this.getHKO()
+
+    return `${attackerOne} AND ${attackerTwo}` + ` vs. ${defenderBulk} ${defenderTail}${staminaText}: ${damageText} -- ${koChanceText}`
   }
 
   maxDamage(): number {
@@ -235,60 +218,36 @@ export class MultiResult {
     return hp - remainingHp
   }
 
-  private mergeBulkStats(resultOne: Result, resultTwo: Result, defender: Pokemon): string {
-    const resultOneDefenderDesc = resultOne.description().substring(resultOne.description().indexOf(" vs.") + 5)
-    const resultTwoDefenderDesc = resultTwo.description().substring(resultTwo.description().indexOf(" vs.") + 5)
+  private mergeBulkStats(resultOne: Result, resultTwo: Result): string {
+    const defender = resultOne.defender
 
-    let output = `${resultOne.defender.evs.hp} HP`
+    let output = `${defender.evs.hp} HP`
 
-    output += this.modifyStat(defender, resultOneDefenderDesc, resultTwoDefenderDesc, "def", "Def")
-    output += this.modifyStat(defender, resultOneDefenderDesc, resultTwoDefenderDesc, "spd", "SpD")
+    output += this.defenseStat(resultOne.rawDesc, resultTwo.rawDesc, defender, "Def", "def")
+    output += this.defenseStat(resultOne.rawDesc, resultTwo.rawDesc, defender, "SpD", "spd")
 
-    if (resultOneDefenderDesc.includes(resultOne.defender.item!) || resultTwoDefenderDesc.includes(resultTwo.defender.item!)) {
-      output += ` ${resultOne.defender.item}`
+    const item = defender.item
+
+    if (item && (resultOne.description().includes(item) || resultTwo.description().includes(item))) {
+      output += ` ${item}`
     }
 
     return output
   }
 
-  private modifyStat(defender: Pokemon, resultOneDefenderDesc: string, resultTwoDefenderDesc: string, stat: StatID, statText: string) {
-    let output = ""
+  private defenseStat(rawDescOne: RawDesc, rawDescTwo: RawDesc, defender: Pokemon, statText: string, stat: StatID): string {
+    const defenseEVs = this.defenseEVsFor(rawDescOne, statText) ?? this.defenseEVsFor(rawDescTwo, statText)
 
-    if (resultOneDefenderDesc.includes(statText) || resultTwoDefenderDesc.includes(statText)) {
-      output += " /"
-      output += this.boostByStat(defender, stat)
-      output += ` ${defender.evs[stat]}`
-      output += this.natureModifier(defender, stat)
-      output += ` ${statText}`
-    }
+    if (!defenseEVs) return ""
 
-    return output
+    const boostValue = defender.boosts[stat]
+    const boost = boostValue ? ` ${boostValue > 0 ? "+" : ""}${boostValue}` : ""
+
+    return ` /${boost} ${defenseEVs}`
   }
 
-  private boostByStat(pokemon: Pokemon, stat: StatID): string {
-    if (pokemon.boosts[stat] && pokemon.boosts[stat] > 0) {
-      return ` +${pokemon.boosts[stat]}`
-    }
-
-    if (pokemon.boosts[stat] && pokemon.boosts[stat] < 0) {
-      return ` ${pokemon.boosts[stat]}`
-    }
-
-    return ""
-  }
-
-  private natureModifier(pokemon: Pokemon, stat: StatID) {
-    const nature = getNatureData(pokemon.nature)
-
-    if (nature?.plus === stat && nature.minus !== stat) {
-      return "+"
-    }
-
-    if (nature?.minus === stat && nature.plus !== stat) {
-      return "-"
-    }
-
-    return ""
+  private defenseEVsFor(rawDesc: RawDesc, statText: string): string | undefined {
+    return rawDesc.defenseEVs?.endsWith(statText) ? rawDesc.defenseEVs : undefined
   }
 
   private getMinMaxDamageFromRolls(rolls: number[][]): { min: number; max: number } {
@@ -303,12 +262,6 @@ export class MultiResult {
     }
 
     return { min, max }
-  }
-
-  private updateDefenderDamageText(text: string, totalMin: number, totalMax: number, minPercent: number, maxPercent: number): string {
-    const prefix = text.substring(0, text.lastIndexOf(":"))
-
-    return `${prefix}: ${totalMin}-${totalMax} (${minPercent} - ${maxPercent}%)`
   }
 
   private hasStaminaDefender(): boolean {

@@ -34,6 +34,39 @@ export class AfterTurnResult {
 
 export const DEFAULT_ROLL_INDEX = 15
 
+export interface TurnBerry {
+  recovery: number
+  threshold: number
+}
+
+export interface TurnDamageResult {
+  hp: number
+  recovered: number
+  berryConsumed: boolean
+}
+
+export function applyTurnDamage(currentHP: number, damages: number[], maxHp: number, berry: TurnBerry, berryConsumed: boolean): TurnDamageResult {
+  let hp = currentHP
+  let recovered = 0
+  let consumed = berryConsumed
+
+  for (const damage of damages) {
+    hp -= damage
+
+    if (!consumed) {
+      const result = consumeBerryIfTriggered(hp, maxHp, berry.recovery, berry.threshold)
+
+      if (result.consumed) {
+        recovered += berry.recovery
+        hp = result.hp
+        consumed = true
+      }
+    }
+  }
+
+  return { hp, recovered, berryConsumed: consumed }
+}
+
 export class Result {
   attacker: Pokemon
   defender: Pokemon
@@ -56,7 +89,7 @@ export class Result {
   }
 
   afterTurn(rollIndex = DEFAULT_ROLL_INDEX): AfterTurnResult {
-    const hitsAtIndex = this.getHitsAtIndex(this.damage, rollIndex)
+    const hitsAtIndex = rollsAtIndex(this.damage, rollIndex)
     const minDamageTotal = damageRange(this.damage)[0]
     const hp = this.defender.currentHp()
 
@@ -73,26 +106,16 @@ export class Result {
 
     const data: AfterTurnData[] = []
     let currentHP = hp
-    let firstBerryTurn = 0
+    let berryConsumed = false
 
     if (hitsAtIndex.some(h => h > 0)) {
       for (let i = 1; i <= 10; i++) {
-        let turnValue = 0
         const turnHits = i === 1 || !hitsWithoutBerryAtIndex ? hitsAtIndex : hitsWithoutBerryAtIndex
 
-        for (const hitDamage of turnHits) {
-          currentHP -= hitDamage
-
-          if (firstBerryTurn === 0) {
-            const consumed = consumeBerryIfTriggered(currentHP, this.defender.maxHp(), berryHP, berry.threshold)
-
-            if (consumed.consumed) {
-              turnValue += berryHP
-              currentHP = consumed.hp
-              firstBerryTurn = i
-            }
-          }
-        }
+        const turn = applyTurnDamage(currentHP, turnHits, this.defender.maxHp(), { recovery: berryHP, threshold: berry.threshold }, berryConsumed)
+        currentHP = turn.hp
+        berryConsumed = turn.berryConsumed
+        let turnValue = turn.recovered
 
         if (currentHP <= 0) {
           data.push({ turn: i, residualDelta: turnValue, hp: 0 })
