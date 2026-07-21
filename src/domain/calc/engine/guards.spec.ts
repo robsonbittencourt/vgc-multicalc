@@ -790,4 +790,19 @@ describe("computeTypeEffectiveness", () => {
 
     expect(computeTypeEffectiveness(ctx)).toBe(0.5)
   })
+
+  it("Air Balloon makes the holder immune to a Ground move", () => {
+    const ctx = makeCtx("Great Tusk", {}, "Garchomp", { item: "Air Balloon" }, "Earthquake")
+    expect(computeTypeEffectiveness(ctx)).toBe(0)
+  })
+
+  it("Gravity pops the Air Balloon so a Ground move connects", () => {
+    const ctx = makeCtx("Great Tusk", {}, "Garchomp", { item: "Air Balloon" }, "Earthquake", {}, { isGravity: true })
+    expect(computeTypeEffectiveness(ctx)).toBe(1)
+  })
+
+  it("Thousand Arrows ignores the Air Balloon and connects", () => {
+    const ctx = makeCtx("Great Tusk", {}, "Garchomp", { item: "Air Balloon" }, "Thousand Arrows")
+    expect(computeTypeEffectiveness(ctx)).toBe(1)
+  })
 })

@@ -236,7 +236,7 @@ export function computeTypeEffectiveness(ctx: CombatContext): number {
 
   let typeEffectiveness = rawTypeEffectiveness(attacker, defender, move, field)
 
-  if (move.hasType("Ground") && defender.hasItem("Air Balloon")) {
+  if (move.hasType("Ground") && !move.named("Thousand Arrows") && !field.isGravity && defender.hasItem("Air Balloon")) {
     typeEffectiveness = 0
   }
 
