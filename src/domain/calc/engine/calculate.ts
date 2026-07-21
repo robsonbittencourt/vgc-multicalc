@@ -3,7 +3,7 @@ import { Result } from "@calc/model/result"
 import { Field } from "@calc/model/field"
 import { Move } from "@calc/model/move"
 import { Pokemon } from "@calc/model/pokemon"
-import { applyEarlyReturnGuards, applyFixedDamageGuards, applyTypeGuards, computeMoveType, computeTypeEffectiveness } from "@calc/engine/guards"
+import { applyEarlyReturnGuards, applyFixedDamageGuards, applyTypeGuards, computeMoveType, computeTypeEffectiveness, GuardResult } from "@calc/engine/guards"
 import { getBasePower } from "@calc/engine/base-power"
 import { getStabMod, getStellarStabMod } from "@calc/engine/stats"
 import { RawDesc } from "@data/types"
@@ -18,33 +18,16 @@ export function calculateDamage(originalAttacker: Pokemon, originalDefender: Pok
   const description = result.rawDesc
   const combatContext = { attacker, defender, move, field, description }
 
-  const earlyResult = applyEarlyReturnGuards(combatContext)
-
-  if (earlyResult?.type === "immune") return result
-
-  if (earlyResult?.type === "damage") {
-    result.damage = earlyResult.value as number | number[]
-    return result
-  }
+  if (applyGuardToResult(result, applyEarlyReturnGuards(combatContext))) return result
 
   const { hasAteAbilityTypeChange } = computeMoveType(combatContext)
   const typeEffectiveness = computeTypeEffectiveness(combatContext)
-  const typeGuardResult = applyTypeGuards(combatContext, typeEffectiveness)
 
-  if (typeGuardResult?.type === "immune") return result
-
-  if (typeGuardResult?.type === "damage") {
-    result.damage = typeGuardResult.value as number | number[]
-    return result
-  }
+  if (applyGuardToResult(result, applyTypeGuards(combatContext, typeEffectiveness))) return result
 
   description.hpEVs = getStatDescriptionText(defender, "hp")
 
-  const fixedGuardResult = applyFixedDamageGuards(combatContext)
-  if (fixedGuardResult && fixedGuardResult.type === "damage") {
-    result.damage = fixedGuardResult.value as number | number[]
-    return result
-  }
+  if (applyGuardToResult(result, applyFixedDamageGuards(combatContext))) return result
 
   if (move.hits > 1) {
     description.hits = move.hits
@@ -67,6 +50,20 @@ export function calculateDamage(originalAttacker: Pokemon, originalDefender: Pok
   result.damage = resolveDamage(hitContext, hasAteAbilityTypeChange, stabMod)
 
   return result
+}
+
+function applyGuardToResult(result: Result, guard: GuardResult | null): boolean {
+  if (guard?.type === "immune") {
+    return true
+  }
+
+  if (guard?.type === "damage") {
+    result.damage = guard.value as number | number[]
+
+    return true
+  }
+
+  return false
 }
 
 function buildInitialResult(attacker: Pokemon, defender: Pokemon, move: Move, field: Field): Result {
