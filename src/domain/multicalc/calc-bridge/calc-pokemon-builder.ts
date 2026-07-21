@@ -4,7 +4,7 @@ import { PokemonParameters } from "@multicalc/model/pokemon"
 import { Pokemon as CalcPokemon } from "@calc"
 import { AbilityName, ItemName, NatureName, StatIDExceptHP, StatusName, TypeName } from "@data/types"
 import { higherStat } from "@multicalc/stat-calc"
-import { normalizePokemonNameForCalc } from "./pokemon-name-normalizer"
+import { normalizePokemonNameForCalc } from "@calc-bridge/pokemon-name-normalizer"
 
 const DEFAULT_TERA_TYPE = "Water"
 const SELECT_POKEMON_LABEL = "Select a Pokémon"

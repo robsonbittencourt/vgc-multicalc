@@ -1,4 +1,4 @@
-import { FieldMapper } from "@adapters/field-mapper"
+import { FieldMapper } from "@calc-bridge/field-mapper"
 import { Field, FieldSide } from "@multicalc/model/field"
 
 describe("FieldMapper", () => {

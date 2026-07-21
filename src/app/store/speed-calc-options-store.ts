@@ -1,6 +1,6 @@
 import { computed, inject, Injectable } from "@angular/core"
 import { MOVESETS } from "@data/moveset-data"
-import { pokemonByRegulation } from "@adapters"
+import { pokemonByRegulation } from "@pokemon-repository"
 import { CalcStore } from "./calc-store"
 import { SpeedCalcMode, SpeedCalcOptions, SpeedCalc, SPEED_CALC_MODES, SpeedFilterType } from "@multicalc/speed-calc"
 import { patchState, signalStore, withState } from "@ngrx/signals"

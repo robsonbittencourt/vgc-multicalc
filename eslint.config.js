@@ -62,8 +62,8 @@ module.exports = tseslint.config(
               group: ["../*"]
             },
             {
-              group: ["@app/*", "@basic/*", "@features/*", "@pages/*", "@core/*", "@configuration/*", "@store/*", "@multicalc/*", "@adapters/*"],
-              message: "calc is the pure engine: it must not import from the domain (@multicalc), infra adapters, or the webapp/UI layer. It may only depend on @data (infra) and itself."
+              group: ["@app/*", "@basic/*", "@features/*", "@pages/*", "@core/*", "@configuration/*", "@store/*", "@multicalc/*", "@calc-bridge", "@calc-bridge/*", "@pokemon-repository", "@pokemon-repository/*"],
+              message: "calc is the pure engine: it must not import from the domain (@multicalc), the calc-bridge/pokemon-repository, or the webapp/UI layer. It may only depend on @data (infra) and itself."
             }
           ]
         }
@@ -98,28 +98,8 @@ module.exports = tseslint.config(
         {
           patterns: [
             {
-              group: ["@app/*", "@basic/*", "@features/*", "@pages/*", "@core/*", "@configuration/*", "@store/*", "@multicalc/*", "@calc", "@calc/*", "@adapters/*"],
-              message: "data is the lowest layer (infra / static data): it must not import from calc, the domain (@multicalc), adapters, or the webapp. Dependencies point downward only; data depends on nothing but itself."
-            }
-          ]
-        }
-      ]
-    }
-  },
-  {
-    files: ["src/infrastructure/adapters/**/*.ts"],
-    rules: {
-      "no-restricted-imports": [
-        "error",
-        {
-          patterns: [
-            {
-              group: ["@app/*", "@basic/*", "@features/*", "@pages/*", "@core/*", "@configuration/*", "@store/*"],
-              message: "adapters is infra: it must not import from the webapp/UI layer. It may depend on @data, @calc and @multicalc (it translates between representations)."
-            },
-            {
-              group: ["@calc/*"],
-              message: "Import from the calc public API (@calc) instead of reaching into @calc internals."
+              group: ["@app/*", "@basic/*", "@features/*", "@pages/*", "@core/*", "@configuration/*", "@store/*", "@multicalc/*", "@calc", "@calc/*", "@calc-bridge", "@calc-bridge/*", "@pokemon-repository", "@pokemon-repository/*"],
+              message: "data is the lowest layer (infra / static data): it must not import from calc, the domain (@multicalc), the calc-bridge/pokemon-repository, or the webapp. Dependencies point downward only; data depends on nothing but itself."
             }
           ]
         }
@@ -134,8 +114,8 @@ module.exports = tseslint.config(
         {
           patterns: [
             {
-              group: ["@multicalc/model/*", "@multicalc/damage-calc/*", "@multicalc/speed-calc/*", "@multicalc/type-calc/*", "@multicalc/probability-calc/*", "@multicalc/ev-optimizer/*", "@multicalc/stat-calc/*", "@adapters/*"],
-              message: "Import from the module's public barrel (e.g. @multicalc/model, @adapters) instead of reaching into its internals."
+              group: ["@multicalc/model/*", "@multicalc/damage-calc/*", "@multicalc/speed-calc/*", "@multicalc/type-calc/*", "@multicalc/probability-calc/*", "@multicalc/ev-optimizer/*", "@multicalc/stat-calc/*", "@calc-bridge/*", "@pokemon-repository/*"],
+              message: "Import from the module's public barrel (e.g. @multicalc/model, @calc-bridge, @pokemon-repository) instead of reaching into its internals."
             }
           ]
         }
