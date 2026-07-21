@@ -21,16 +21,14 @@ export function getHazards(defender: Pokemon, defenderSide: Side) {
     texts.push("Stealth Rock")
   }
 
+  const spikesDivisor = [0, 8, 6, 4]
+
   if (!defender.hasType("Flying") && !defender.hasAbility("Magic Guard", "Levitate", "Eelevate") && !defender.hasItem("Air Balloon")) {
-    if (defenderSide.spikes === 1) {
-      damage += Math.floor(defender.maxHp() / 8)
-      texts.push("1 layer of Spikes")
-    } else if (defenderSide.spikes === 2) {
-      damage += Math.floor(defender.maxHp() / 6)
-      texts.push("2 layers of Spikes")
-    } else if (defenderSide.spikes === 3) {
-      damage += Math.floor(defender.maxHp() / 4)
-      texts.push("3 layers of Spikes")
+    const layers = defenderSide.spikes
+
+    if (layers >= 1 && layers <= 3) {
+      damage += Math.floor(defender.maxHp() / spikesDivisor[layers])
+      texts.push(`${layers} ${layers === 1 ? "layer" : "layers"} of Spikes`)
     }
   }
 

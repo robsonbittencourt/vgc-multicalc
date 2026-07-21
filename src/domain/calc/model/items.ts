@@ -2,114 +2,78 @@ import { TypeName } from "@data/types"
 
 export const EV_ITEMS = ["Macho Brace", "Power Anklet", "Power Band", "Power Belt", "Power Bracer", "Power Lens", "Power Weight"]
 
+const ITEM_BOOST_TYPES: Record<string, TypeName> = {
+  "Draco Plate": "Dragon",
+  "Dragon Fang": "Dragon",
+  "Dread Plate": "Dark",
+  "Black Glasses": "Dark",
+  "Earth Plate": "Ground",
+  "Soft Sand": "Ground",
+  "Fist Plate": "Fighting",
+  "Black Belt": "Fighting",
+  "Flame Plate": "Fire",
+  Charcoal: "Fire",
+  "Icicle Plate": "Ice",
+  "Never-Melt Ice": "Ice",
+  "Insect Plate": "Bug",
+  "Silver Powder": "Bug",
+  "Iron Plate": "Steel",
+  "Metal Coat": "Steel",
+  "Meadow Plate": "Grass",
+  "Rose Incense": "Grass",
+  "Miracle Seed": "Grass",
+  "Mind Plate": "Psychic",
+  "Odd Incense": "Psychic",
+  "Twisted Spoon": "Psychic",
+  "Fairy Feather": "Fairy",
+  "Pixie Plate": "Fairy",
+  "Sky Plate": "Flying",
+  "Sharp Beak": "Flying",
+  "Splash Plate": "Water",
+  "Sea Incense": "Water",
+  "Wave Incense": "Water",
+  "Mystic Water": "Water",
+  "Spooky Plate": "Ghost",
+  "Spell Tag": "Ghost",
+  "Stone Plate": "Rock",
+  "Rock Incense": "Rock",
+  "Hard Stone": "Rock",
+  "Toxic Plate": "Poison",
+  "Poison Barb": "Poison",
+  "Zap Plate": "Electric",
+  Magnet: "Electric",
+  "Silk Scarf": "Normal",
+  "Pink Bow": "Normal",
+  "Polkadot Bow": "Normal"
+}
+
 export function getItemBoostType(item: string | undefined): TypeName | undefined {
-  switch (item) {
-    case "Draco Plate":
-    case "Dragon Fang":
-      return "Dragon"
-    case "Dread Plate":
-    case "Black Glasses":
-      return "Dark"
-    case "Earth Plate":
-    case "Soft Sand":
-      return "Ground"
-    case "Fist Plate":
-    case "Black Belt":
-      return "Fighting"
-    case "Flame Plate":
-    case "Charcoal":
-      return "Fire"
-    case "Icicle Plate":
-    case "Never-Melt Ice":
-      return "Ice"
-    case "Insect Plate":
-    case "Silver Powder":
-      return "Bug"
-    case "Iron Plate":
-    case "Metal Coat":
-      return "Steel"
-    case "Meadow Plate":
-    case "Rose Incense":
-    case "Miracle Seed":
-      return "Grass"
-    case "Mind Plate":
-    case "Odd Incense":
-    case "Twisted Spoon":
-      return "Psychic"
-    case "Fairy Feather":
-    case "Pixie Plate":
-      return "Fairy"
-    case "Sky Plate":
-    case "Sharp Beak":
-      return "Flying"
-    case "Splash Plate":
-    case "Sea Incense":
-    case "Wave Incense":
-    case "Mystic Water":
-      return "Water"
-    case "Spooky Plate":
-    case "Spell Tag":
-      return "Ghost"
-    case "Stone Plate":
-    case "Rock Incense":
-    case "Hard Stone":
-      return "Rock"
-    case "Toxic Plate":
-    case "Poison Barb":
-      return "Poison"
-    case "Zap Plate":
-    case "Magnet":
-      return "Electric"
-    case "Silk Scarf":
-    case "Pink Bow":
-    case "Polkadot Bow":
-      return "Normal"
-    default:
-      return undefined
-  }
+  return item ? ITEM_BOOST_TYPES[item] : undefined
+}
+
+const BERRY_RESIST_TYPES: Record<string, TypeName> = {
+  "Chilan Berry": "Normal",
+  "Occa Berry": "Fire",
+  "Passho Berry": "Water",
+  "Wacan Berry": "Electric",
+  "Rindo Berry": "Grass",
+  "Yache Berry": "Ice",
+  "Chople Berry": "Fighting",
+  "Kebia Berry": "Poison",
+  "Shuca Berry": "Ground",
+  "Coba Berry": "Flying",
+  "Payapa Berry": "Psychic",
+  "Tanga Berry": "Bug",
+  "Charti Berry": "Rock",
+  "Kasib Berry": "Ghost",
+  "Haban Berry": "Dragon",
+  "Colbur Berry": "Dark",
+  "Babiri Berry": "Steel",
+  "Roseli Berry": "Fairy"
 }
 
 export function getBerryResistType(berry: string | undefined): TypeName | undefined {
-  switch (berry) {
-    case "Chilan Berry":
-      return "Normal"
-    case "Occa Berry":
-      return "Fire"
-    case "Passho Berry":
-      return "Water"
-    case "Wacan Berry":
-      return "Electric"
-    case "Rindo Berry":
-      return "Grass"
-    case "Yache Berry":
-      return "Ice"
-    case "Chople Berry":
-      return "Fighting"
-    case "Kebia Berry":
-      return "Poison"
-    case "Shuca Berry":
-      return "Ground"
-    case "Coba Berry":
-      return "Flying"
-    case "Payapa Berry":
-      return "Psychic"
-    case "Tanga Berry":
-      return "Bug"
-    case "Charti Berry":
-      return "Rock"
-    case "Kasib Berry":
-      return "Ghost"
-    case "Haban Berry":
-      return "Dragon"
-    case "Colbur Berry":
-      return "Dark"
-    case "Babiri Berry":
-      return "Steel"
-    case "Roseli Berry":
-      return "Fairy"
-    default:
-      return undefined
-  }
+  return berry ? BERRY_RESIST_TYPES[berry] : undefined
 }
 
 const FLING_120 = new Set(["TR24", "TR28", "TR34", "TR39", "TR53", "TR55", "TR64", "TR66", "TR72", "TR73"])

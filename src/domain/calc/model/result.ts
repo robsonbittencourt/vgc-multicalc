@@ -151,8 +151,8 @@ export class Result {
     return rollsAtIndex(damage, rollIndex)
   }
 
-  description(notation = "%", err = true) {
-    return formatResultDescription(this.attacker, this.defender, this.move, this.field, this.damage, this.rawDesc, notation, err)
+  description(notation = "%") {
+    return formatResultDescription(this.attacker, this.defender, this.move, this.field, this.damage, this.rawDesc, notation)
   }
 
   range(): [number, number] {
@@ -173,8 +173,8 @@ export class Result {
     return getRecoil(this.attacker, this.defender, this.move, this.damage, notation)
   }
 
-  koChance(err = true) {
-    return getKOChance(this.attacker, this.defender, this.move, this.field, this.damage, this.rawDesc, err)
+  koChance() {
+    return getKOChance(this.attacker, this.defender, this.move, this.field, this.damage, this.rawDesc)
   }
 
   maxDamage() {

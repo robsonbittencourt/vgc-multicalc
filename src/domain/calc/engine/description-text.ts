@@ -40,17 +40,15 @@ export function getStatDescriptionText(pokemon: Pokemon, stat: StatID, powerTric
   return description
 }
 
-export function error(err: boolean, message: string) {
-  if (err) {
-    throw new Error(message)
-  }
+export function error(message: string): never {
+  throw new Error(message)
 }
 
 export function roundChance(chance: number): number {
   return Math.max(Math.min(Math.round(chance * 1000), 999), 1) / 10
 }
 
-export function formatResultDescription(attacker: Pokemon, defender: Pokemon, move: Move, field: Field, damage: Damage, rawDesc: RawDesc, notation: string, err: boolean) {
+export function formatResultDescription(attacker: Pokemon, defender: Pokemon, move: Move, field: Field, damage: Damage, rawDesc: RawDesc, notation: string) {
   const [min, max] = damageRange(damage)
 
   const minDisplay = toDisplay(notation, min, defender.maxHp())
@@ -66,7 +64,7 @@ export function formatResultDescription(attacker: Pokemon, defender: Pokemon, mo
     return `${description}: ${damageText}`
   }
 
-  const koChanceText = getKOChance(attacker, defender, move, field, damage, rawDesc, err).text
+  const koChanceText = getKOChance(attacker, defender, move, field, damage, rawDesc).text
 
   return koChanceText ? `${description}: ${damageText}${berryResistText} -- ${koChanceText}` : `${description}: ${damageText}${berryResistText}`
 }
@@ -382,7 +380,8 @@ export function buildDefenderTail(description: RawDesc, omitDefenderItem = false
   return output
 }
 
-export function serializeEndOfTurnTexts(texts: string[]) {
+export function serializeEndOfTurnTexts(originalTexts: string[]) {
+  const texts = [...originalTexts]
   const recoveryIndices: number[] = []
 
   for (let i = 0; i < texts.length; i++) {

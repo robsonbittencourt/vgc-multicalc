@@ -900,20 +900,8 @@ describe("Internal Result/MultiResult/desc (gen 0)", () => {
       return calculateDamage(attacker, defender, new Move("Earthquake"), new Field())
     }
 
-    it("throws from koChance when errors are enabled", () => {
+    it("throws from koChance when the move deals no damage", () => {
       expect(() => immuneResult().koChance()).toThrow("damage[damage.length - 1] === 0.")
-    })
-
-    it("returns a neutral chance when errors are suppressed", () => {
-      const chance = immuneResult().koChance(false)
-
-      expect(chance).toEqual({ chance: 0, n: 0, text: "", berryConsumed: false })
-    })
-
-    it("builds a description without a KO text when errors are suppressed", () => {
-      const description = immuneResult().description("%", false)
-
-      expect(description).toBe("Garchomp Earthquake vs. Corviknight: 0-0 (0 - 0%)")
     })
   })
 

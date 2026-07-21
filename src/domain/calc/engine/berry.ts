@@ -56,18 +56,18 @@ export function getDamageWithoutBerry(damageObj: Damage, rawDesc: RawDesc, move:
     return undefined
   }
 
-  const reduction = defender.hasAbility("Ripen") ? 0.25 : 0.5
+  const unreduceFactor = defender.hasAbility("Ripen") ? 4 : 2
 
   if (typeof damageObj === "number") {
-    return Math.floor(damageObj / reduction)
+    return Math.floor(damageObj * unreduceFactor)
   }
 
   if (typeof damageObj[0] === "number") {
-    return (damageObj as number[]).map(d => Math.floor(d / reduction))
+    return (damageObj as number[]).map(d => Math.floor(d * unreduceFactor))
   }
 
   const dists = damageObj as number[][]
-  const firstDist = dists[0].map(d => Math.floor(d / reduction))
+  const firstDist = dists[0].map(d => Math.floor(d * unreduceFactor))
 
   return [firstDist].concat(dists.slice(1))
 }
