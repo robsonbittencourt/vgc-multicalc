@@ -91,19 +91,15 @@ function formatKOChanceText(ctx: KOChanceTextContext, params: KOChanceTextParams
   return { chance, n, text, berryConsumed: berryRelevant, anyBerryConsumed, firstBerryTurn }
 }
 
-export function getKOChance(attacker: Pokemon, defender: Pokemon, move: Move, field: Field, damageObj: Damage, rawDesc: RawDesc, err = true) {
+export function getKOChance(attacker: Pokemon, defender: Pokemon, move: Move, field: Field, damageObj: Damage, rawDesc: RawDesc) {
   const [damage, approximate] = combine(damageObj)
 
   if (isNaN(damage[0])) {
-    error(err, "damage[0] must be a number.")
-
-    return { chance: 0, n: 0, text: "", berryConsumed: false }
+    error("damage[0] must be a number.")
   }
 
   if (damage[damage.length - 1] === 0) {
-    error(err, "damage[damage.length - 1] === 0.")
-
-    return { chance: 0, n: 0, text: "", berryConsumed: false }
+    error("damage[damage.length - 1] === 0.")
   }
 
   if (move.timesUsedWithMetronome === undefined) {

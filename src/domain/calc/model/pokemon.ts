@@ -30,7 +30,7 @@ export class Pokemon {
   disabledItem?: ItemName
   teraType?: TypeName
   nature: NatureName
-  ivs = MAX_IVS
+  readonly ivs = MAX_IVS
   evs: StatsTable
   boosts: StatsTable
   rawStats: StatsTable

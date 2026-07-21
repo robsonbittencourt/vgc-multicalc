@@ -45,19 +45,7 @@ export class Move {
 
     const data = mergeDeep<MoveData>({ name: resolvedName }, getMoveData(resolvedName), options.overrides)
 
-    this.hits = 1
-
-    if (data.multihit) {
-      if (data.multiaccuracy && typeof data.multihit === "number") {
-        this.hits = options.hits || data.multihit
-      } else if (typeof data.multihit === "number") {
-        this.hits = data.multihit
-      } else if (options.hits) {
-        this.hits = options.hits
-      } else {
-        this.hits = options.ability === "Skill Link" ? data.multihit[1] : data.multihit[0] + 1
-      }
-    }
+    this.hits = resolveHits(data, options)
 
     this.timesUsedWithMetronome = options.timesUsedWithMetronome
 
@@ -118,4 +106,16 @@ export class Move {
       overrides: this.overrides
     })
   }
+}
+
+function resolveHits(data: MoveData, options: MoveOptions): number {
+  if (!data.multihit) return 1
+
+  if (data.multiaccuracy && typeof data.multihit === "number") return options.hits || data.multihit
+
+  if (typeof data.multihit === "number") return data.multihit
+
+  if (options.hits) return options.hits
+
+  return options.ability === "Skill Link" ? data.multihit[1] : data.multihit[0] + 1
 }
