@@ -1,7 +1,8 @@
 import { calculateDamage } from "@calc/engine/calculate"
 import { getBerryRecovery, getEndOfTurn } from "@calc/engine/desc"
+import { DamageDistribution } from "@calc/model/damage-distribution"
 import { MultiResult } from "@calc/model/multi-result"
-import { Result } from "@calc/model/result"
+import { DEFAULT_ROLL_INDEX, Result } from "@calc/model/result"
 import { Field } from "@calc/model/field"
 import { Move } from "@calc/model/move"
 import { Pokemon } from "@calc/model/pokemon"
@@ -42,17 +43,7 @@ export function calculateMultiDamage(attacker1: Pokemon, attacker2: Pokemon, mov
 }
 
 function getMaxDamage(result: Result): number {
-  const damage = result.damage
-
-  if (typeof damage === "number") {
-    return damage
-  }
-
-  if (damage.length > 0 && Array.isArray(damage[0])) {
-    return (damage as number[][]).reduce((sum, rolls) => sum + rolls[15], 0)
-  }
-
-  return (damage as number[])[15]
+  return new DamageDistribution(result.damage).totalAt(DEFAULT_ROLL_INDEX)
 }
 
 function scaleHP(newMaxHP: number, hp: number, originalMaxHP: number): number {

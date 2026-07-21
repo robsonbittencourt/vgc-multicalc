@@ -194,6 +194,10 @@ export function getRecoil(attacker: Pokemon, defender: Pokemon, move: Move, dama
 }
 
 export function buildDescription(description: RawDesc, omitDefenderItem = false) {
+  return buildAttackerDescription(description) + "vs. " + buildDefenderDescription(description, omitDefenderItem)
+}
+
+export function buildAttackerDescription(description: RawDesc) {
   let output = ""
 
   if (description.attackBoost) {
@@ -282,7 +286,16 @@ export function buildDescription(description: RawDesc, omitDefenderItem = false)
   }
 
   output = appendIfSet(output, description.moveTurns)
-  output += "vs. "
+
+  return output
+}
+
+export function buildDefenderDescription(description: RawDesc, omitDefenderItem = false) {
+  return buildDefenderBulk(description) + buildDefenderTail(description, omitDefenderItem)
+}
+
+export function buildDefenderBulk(description: RawDesc) {
+  let output = ""
 
   if (description.defenseBoost) {
     if (description.defenseBoost > 0) {
@@ -297,6 +310,12 @@ export function buildDescription(description: RawDesc, omitDefenderItem = false)
   if (description.defenseEVs) {
     output += "/ " + description.defenseEVs + " "
   }
+
+  return output
+}
+
+export function buildDefenderTail(description: RawDesc, omitDefenderItem = false) {
+  let output = ""
 
   if (!omitDefenderItem) {
     output = appendIfSet(output, description.defenderItem)
