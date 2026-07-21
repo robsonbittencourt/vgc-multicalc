@@ -122,6 +122,14 @@ export function applyFixedDamageGuards(ctx: CombatContext): GuardResult | null {
   return null
 }
 
+const ATE_ABILITY_TYPES: Record<string, TypeName> = {
+  Aerilate: "Flying",
+  Galvanize: "Electric",
+  Pixilate: "Fairy",
+  Refrigerate: "Ice",
+  Dragonize: "Dragon"
+}
+
 export function computeMoveType(ctx: CombatContext): { type: string; hasAteAbilityTypeChange: boolean } {
   const { attacker, defender, move, field, description } = ctx
   let type = move.type
@@ -178,28 +186,17 @@ export function computeMoveType(ctx: CombatContext): { type: string; hasAteAbili
 
   if (!noTypeChange) {
     const normal = type === "Normal"
+    const ateType = attacker.ability ? ATE_ABILITY_TYPES[attacker.ability] : undefined
     let isAteTypeChange = false
 
-    if (attacker.hasAbility("Aerilate") && normal) {
-      type = "Flying"
-      isAteTypeChange = true
-    } else if (attacker.hasAbility("Galvanize") && normal) {
-      type = "Electric"
+    if (normal && ateType) {
+      type = ateType
       isAteTypeChange = true
     } else if (attacker.hasAbility("Liquid Voice") && !!move.flags.sound) {
       type = "Water"
       description.attackerAbility = attacker.ability
-    } else if (attacker.hasAbility("Pixilate") && normal) {
-      type = "Fairy"
-      isAteTypeChange = true
-    } else if (attacker.hasAbility("Refrigerate") && normal) {
-      type = "Ice"
-      isAteTypeChange = true
     } else if (attacker.hasAbility("Normalize")) {
       type = "Normal"
-      isAteTypeChange = true
-    } else if (attacker.hasAbility("Dragonize") && normal) {
-      type = "Dragon"
       isAteTypeChange = true
     }
 
