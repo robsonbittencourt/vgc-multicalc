@@ -68,11 +68,26 @@ export function checkInfiltrator(pokemon: Pokemon, affectedSide: Side): void {
   }
 }
 
+type UsedItems = { attacker: boolean; defender: boolean }
+
 export function checkMultihitBoost(attacker: Pokemon, defender: Pokemon, move: Move, field: Field, description: RawDesc, attackerUsedItem = false, defenderUsedItem = false): [boolean, boolean] {
+  const usedItems: UsedItems = { attacker: attackerUsedItem, defender: defenderUsedItem }
+
+  applyMultihitSpeedOrAtkReaction(attacker, defender, move, field, description, usedItems)
+  applyDefensiveBerryBoost(attacker, defender, move, description, usedItems)
+  applyFieldSetters(defender, field)
+  applyContactDefenseBoost(attacker, defender, move, field, description, usedItems)
+  applyMoveStatDrop(attacker, move, description, usedItems)
+  applyAbilitySwap(attacker, defender, move, description)
+
+  return [usedItems.attacker, usedItems.defender]
+}
+
+function applyMultihitSpeedOrAtkReaction(attacker: Pokemon, defender: Pokemon, move: Move, field: Field, description: RawDesc, usedItems: UsedItems): void {
   if (move.named("Gyro Ball", "Electro Ball") && defender.hasAbility("Gooey", "Tangling Hair")) {
-    if (attacker.hasItem("White Herb") && !attackerUsedItem) {
+    if (attacker.hasItem("White Herb") && !usedItems.attacker) {
       description.attackerItem = attacker.item
-      attackerUsedItem = true
+      usedItems.attacker = true
     } else {
       attacker.boosts.spe = Math.max(attacker.boosts.spe - 1, -6)
       attacker.stats.spe = getFinalSpeed(attacker, field, field.attackerSide)
@@ -82,35 +97,43 @@ export function checkMultihitBoost(attacker: Pokemon, defender: Pokemon, move: M
     attacker.boosts.atk = Math.min(attacker.boosts.atk + 1, 6)
     attacker.stats.atk = getModifiedStat(attacker.rawStats.atk, attacker.boosts.atk)
   }
+}
 
-  const atkSimple = attacker.hasAbility("Simple") ? 2 : 1
-  const defSimple = defender.hasAbility("Simple") ? 2 : 1
+function applyDefensiveBerryBoost(attacker: Pokemon, defender: Pokemon, move: Move, description: RawDesc, usedItems: UsedItems): void {
+  const triggers = (defender.hasItem("Luminous Moss") && move.hasType("Water")) || (defender.hasItem("Maranga Berry") && move.category === "Special") || (defender.hasItem("Kee Berry") && move.category === "Physical")
 
-  if (!defenderUsedItem && ((defender.hasItem("Luminous Moss") && move.hasType("Water")) || (defender.hasItem("Maranga Berry") && move.category === "Special") || (defender.hasItem("Kee Berry") && move.category === "Physical"))) {
-    const defStat = defender.hasItem("Kee Berry") ? "def" : "spd"
-
-    if (attacker.hasAbility("Unaware")) {
-      description.attackerAbility = attacker.ability
-    } else {
-      if (defender.hasAbility("Contrary")) {
-        description.defenderAbility = defender.ability
-
-        if (defender.hasItem("White Herb")) {
-          description.defenderItem = defender.item
-        } else {
-          defender.boosts[defStat] = Math.max(-6, defender.boosts[defStat] - defSimple)
-        }
-      } else {
-        defender.boosts[defStat] = Math.min(6, defender.boosts[defStat] + defSimple)
-      }
-
-      if (defSimple === 2) description.defenderAbility = defender.ability
-      defender.stats[defStat] = getModifiedStat(defender.rawStats[defStat], defender.boosts[defStat])
-      description.defenderItem = defender.item
-      defenderUsedItem = true
-    }
+  if (usedItems.defender || !triggers) {
+    return
   }
 
+  if (attacker.hasAbility("Unaware")) {
+    description.attackerAbility = attacker.ability
+
+    return
+  }
+
+  const defSimple = defender.hasAbility("Simple") ? 2 : 1
+  const defStat = defender.hasItem("Kee Berry") ? "def" : "spd"
+
+  if (defender.hasAbility("Contrary")) {
+    description.defenderAbility = defender.ability
+
+    if (defender.hasItem("White Herb")) {
+      description.defenderItem = defender.item
+    } else {
+      defender.boosts[defStat] = Math.max(-6, defender.boosts[defStat] - defSimple)
+    }
+  } else {
+    defender.boosts[defStat] = Math.min(6, defender.boosts[defStat] + defSimple)
+  }
+
+  if (defSimple === 2) description.defenderAbility = defender.ability
+  defender.stats[defStat] = getModifiedStat(defender.rawStats[defStat], defender.boosts[defStat])
+  description.defenderItem = defender.item
+  usedItems.defender = true
+}
+
+function applyFieldSetters(defender: Pokemon, field: Field): void {
   if (defender.hasAbility("Seed Sower")) {
     field.terrain = "Grassy"
   }
@@ -118,7 +141,9 @@ export function checkMultihitBoost(attacker: Pokemon, defender: Pokemon, move: M
   if (defender.hasAbility("Sand Spit")) {
     field.weather = "Sand"
   }
+}
 
+function applyContactDefenseBoost(attacker: Pokemon, defender: Pokemon, move: Move, field: Field, description: RawDesc, usedItems: UsedItems): void {
   if (defender.hasAbility("Stamina")) {
     if (attacker.hasAbility("Unaware")) {
       description.attackerAbility = attacker.ability
@@ -139,9 +164,9 @@ export function checkMultihitBoost(attacker: Pokemon, defender: Pokemon, move: M
     if (attacker.hasAbility("Unaware")) {
       description.attackerAbility = attacker.ability
     } else {
-      if (defender.hasItem("White Herb") && !defenderUsedItem && defender.boosts.def === 0) {
+      if (defender.hasItem("White Herb") && !usedItems.defender && defender.boosts.def === 0) {
         description.defenderItem = defender.item
-        defenderUsedItem = true
+        usedItems.defender = true
       } else {
         defender.boosts.def = Math.max(defender.boosts.def - 1, -6)
         defender.stats.def = getModifiedStat(defender.rawStats.def, defender.boosts.def)
@@ -153,34 +178,43 @@ export function checkMultihitBoost(attacker: Pokemon, defender: Pokemon, move: M
     defender.boosts.spe = Math.min(defender.boosts.spe + 2, 6)
     defender.stats.spe = getFinalSpeed(defender, field, field.defenderSide)
   }
+}
 
-  if (move.dropsStats) {
-    if (attacker.hasAbility("Unaware")) {
-      description.attackerAbility = attacker.ability
-    } else {
-      const stat = move.category === "Special" ? "spa" : "atk"
-      let boosts = attacker.boosts[stat]
-
-      if (attacker.hasAbility("Contrary")) {
-        boosts = Math.min(6, boosts + move.dropsStats)
-        description.attackerAbility = attacker.ability
-      } else {
-        boosts = Math.max(-6, boosts - move.dropsStats * atkSimple)
-      }
-
-      if (atkSimple === 2) description.attackerAbility = attacker.ability
-
-      if (attacker.hasItem("White Herb") && attacker.boosts[stat] < 0 && !attackerUsedItem) {
-        boosts += move.dropsStats * atkSimple
-        description.attackerItem = attacker.item
-        attackerUsedItem = true
-      }
-
-      attacker.boosts[stat] = boosts
-      attacker.stats[stat] = getModifiedStat(attacker.rawStats[stat], attacker.boosts[stat])
-    }
+function applyMoveStatDrop(attacker: Pokemon, move: Move, description: RawDesc, usedItems: UsedItems): void {
+  if (!move.dropsStats) {
+    return
   }
 
+  if (attacker.hasAbility("Unaware")) {
+    description.attackerAbility = attacker.ability
+
+    return
+  }
+
+  const atkSimple = attacker.hasAbility("Simple") ? 2 : 1
+  const stat = move.category === "Special" ? "spa" : "atk"
+  let boosts = attacker.boosts[stat]
+
+  if (attacker.hasAbility("Contrary")) {
+    boosts = Math.min(6, boosts + move.dropsStats)
+    description.attackerAbility = attacker.ability
+  } else {
+    boosts = Math.max(-6, boosts - move.dropsStats * atkSimple)
+  }
+
+  if (atkSimple === 2) description.attackerAbility = attacker.ability
+
+  if (attacker.hasItem("White Herb") && attacker.boosts[stat] < 0 && !usedItems.attacker) {
+    boosts += move.dropsStats * atkSimple
+    description.attackerItem = attacker.item
+    usedItems.attacker = true
+  }
+
+  attacker.boosts[stat] = boosts
+  attacker.stats[stat] = getModifiedStat(attacker.rawStats[stat], attacker.boosts[stat])
+}
+
+function applyAbilitySwap(attacker: Pokemon, defender: Pokemon, move: Move, description: RawDesc): void {
   if (defender.hasAbility("Mummy", "Wandering Spirit", "Lingering Aroma") && move.flags.contact) {
     const oldAttackerAbility = attacker.ability
 
@@ -194,6 +228,4 @@ export function checkMultihitBoost(attacker: Pokemon, defender: Pokemon, move: M
       defender.ability = oldAttackerAbility
     }
   }
-
-  return [attackerUsedItem, defenderUsedItem]
 }
