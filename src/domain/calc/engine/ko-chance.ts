@@ -7,6 +7,90 @@ import { computeDamageWithoutBerry, consumeBerryIfTriggered, getBerryRecovery } 
 import { getEndOfTurn, getHazards } from "@calc/engine/end-of-turn"
 import { error, roundChance, serializeEndOfTurnTexts, serializeText } from "@calc/engine/description-text"
 
+type KOChanceResult = { chance: number; berryConsumed: boolean; anyBerryConsumed: boolean; firstBerryTurn?: number }
+
+type ComputeKOChanceParams = {
+  damage: number[]
+  hp: number
+  eot: number
+  hits: number
+  timesUsed: number
+  maxHP: number
+  toxicCounter: number
+  berryRecovery: number
+  berryThreshold: number
+  berryConsumed?: boolean
+  damageWithoutBerry?: number[]
+}
+
+type KOChanceTextContext = {
+  hazardsTexts: string[]
+  eotTexts: string[]
+  berryText: string
+  qualifier: string
+}
+
+type KOChanceTextParams = {
+  chanceWithoutEot: number | undefined
+  chanceWithEot: number | undefined
+  n: number
+  multipleTurns?: boolean
+  berryRelevant?: boolean
+  firstBerryTurn?: number
+  anyBerryConsumed?: boolean
+}
+
+function formatKOChanceText(ctx: KOChanceTextContext, params: KOChanceTextParams) {
+  const { hazardsTexts, eotTexts, berryText, qualifier } = ctx
+  const { chanceWithoutEot, chanceWithEot, n, multipleTurns = false, berryRelevant = false, firstBerryTurn, anyBerryConsumed = false } = params
+
+  const combinedTexts = hazardsTexts.concat(eotTexts)
+
+  if (berryRelevant && berryText) {
+    combinedTexts.push(berryText)
+  }
+
+  const hazardsText = hazardsTexts.length > 0 ? " after " + serializeText(hazardsTexts) : ""
+  const afterText = combinedTexts.length > 0 ? " after " + serializeEndOfTurnTexts(combinedTexts) : ""
+  const afterTextNoHazards = eotTexts.length > 0 || (berryRelevant && berryText) ? " after " + serializeEndOfTurnTexts(berryRelevant && berryText ? eotTexts.concat([berryText]) : eotTexts) : ""
+  const KOTurnText = n === 1 ? "OHKO" : multipleTurns ? `KO in ${n} turns` : `${n}HKO`
+
+  let text = qualifier
+  let chance = undefined
+
+  if (chanceWithoutEot === undefined || chanceWithEot === undefined) {
+    text += `possible ${KOTurnText}${afterText}`
+  } else if (chanceWithoutEot + chanceWithEot === 0) {
+    chance = 0
+    text += "not a KO"
+  } else if (chanceWithoutEot === 1) {
+    chance = chanceWithoutEot
+    text = "guaranteed "
+    text += `OHKO${hazardsText}`
+  } else if (chanceWithoutEot > 0) {
+    chance = chanceWithEot
+
+    if (chanceWithEot === 1) {
+      text += `${roundChance(chanceWithoutEot)}% chance to ${KOTurnText}${hazardsText} ` + `(guaranteed ${KOTurnText}${afterTextNoHazards})`
+    } else if (chanceWithEot > chanceWithoutEot) {
+      text += `${roundChance(chanceWithoutEot)}% chance to ${KOTurnText}${hazardsText} ` + `(${qualifier}${roundChance(chanceWithEot)}% chance to ` + `${KOTurnText}${afterTextNoHazards})`
+    } else if (chanceWithoutEot > 0) {
+      text += `${roundChance(chanceWithoutEot)}% chance to ${KOTurnText}${hazardsText}`
+    }
+  } else if (chanceWithoutEot === 0) {
+    chance = chanceWithEot
+
+    if (chanceWithEot === 1) {
+      text = "guaranteed "
+      text += `${KOTurnText}${afterText}`
+    } else if (chanceWithEot > 0) {
+      text += `${roundChance(chanceWithEot)}% chance to ${KOTurnText}${afterText}`
+    }
+  }
+
+  return { chance, n, text, berryConsumed: berryRelevant, anyBerryConsumed, firstBerryTurn }
+}
+
 export function getKOChance(attacker: Pokemon, defender: Pokemon, move: Move, field: Field, damageObj: Damage, rawDesc: RawDesc, err = true) {
   const [damage, approximate] = combine(damageObj)
 
@@ -46,53 +130,8 @@ export function getKOChance(attacker: Pokemon, defender: Pokemon, move: Move, fi
 
   const damageWithoutBerry = computeDamageWithoutBerry(damageObj, rawDesc, move, defender)
 
-  function KOChance(chanceWithoutEot: number | undefined, chanceWithEot: number | undefined, n: number, multipleTurns = false, berryRelevant = false, firstBerryTurn?: number, anyBerryConsumed = false) {
-    const combinedTexts = hazards.texts.concat(eot.texts)
-
-    if (berryRelevant && berryText) {
-      combinedTexts.push(berryText)
-    }
-
-    const hazardsText = hazards.texts.length > 0 ? " after " + serializeText(hazards.texts) : ""
-    const afterText = combinedTexts.length > 0 ? " after " + serializeEndOfTurnTexts(combinedTexts) : ""
-    const afterTextNoHazards = eot.texts.length > 0 || (berryRelevant && berryText) ? " after " + serializeEndOfTurnTexts(berryRelevant && berryText ? eot.texts.concat([berryText]) : eot.texts) : ""
-    const KOTurnText = n === 1 ? "OHKO" : multipleTurns ? `KO in ${n} turns` : `${n}HKO`
-
-    let text = qualifier
-    let chance = undefined
-
-    if (chanceWithoutEot === undefined || chanceWithEot === undefined) {
-      text += `possible ${KOTurnText}${afterText}`
-    } else if (chanceWithoutEot + chanceWithEot === 0) {
-      chance = 0
-      text += "not a KO"
-    } else if (chanceWithoutEot === 1) {
-      chance = chanceWithoutEot
-      text = "guaranteed "
-      text += `OHKO${hazardsText}`
-    } else if (chanceWithoutEot > 0) {
-      chance = chanceWithEot
-
-      if (chanceWithEot === 1) {
-        text += `${roundChance(chanceWithoutEot)}% chance to ${KOTurnText}${hazardsText} ` + `(guaranteed ${KOTurnText}${afterTextNoHazards})`
-      } else if (chanceWithEot > chanceWithoutEot) {
-        text += `${roundChance(chanceWithoutEot)}% chance to ${KOTurnText}${hazardsText} ` + `(${qualifier}${roundChance(chanceWithEot)}% chance to ` + `${KOTurnText}${afterTextNoHazards})`
-      } else if (chanceWithoutEot > 0) {
-        text += `${roundChance(chanceWithoutEot)}% chance to ${KOTurnText}${hazardsText}`
-      }
-    } else if (chanceWithoutEot === 0) {
-      chance = chanceWithEot
-
-      if (chanceWithEot === 1) {
-        text = "guaranteed "
-        text += `${KOTurnText}${afterText}`
-      } else if (chanceWithEot > 0) {
-        text += `${roundChance(chanceWithEot)}% chance to ${KOTurnText}${afterText}`
-      }
-    }
-
-    return { chance, n, text, berryConsumed: berryRelevant, anyBerryConsumed, firstBerryTurn }
-  }
+  const textContext: KOChanceTextContext = { hazardsTexts: hazards.texts, eotTexts: eot.texts, berryText, qualifier }
+  const KOChance = (params: KOChanceTextParams) => formatKOChanceText(textContext, params)
 
   if (move.timesUsed === 1 && move.timesUsedWithMetronome === 1) {
     const hits = move.timesUsed
@@ -107,7 +146,14 @@ export function getKOChance(attacker: Pokemon, defender: Pokemon, move: Move, fi
         const resWithEot = computeMultiHitKOChance(damageMatrix, defender.currentHp() - hazards.damage, eot.damage, defender.maxHp(), berryRecovery, berryThreshold)
 
         if (res.chance + resWithEot.chance > 0) {
-          return KOChance(res.chance, resWithEot.chance, 1, false, res.berryConsumed || resWithEot.berryConsumed, res.firstBerryTurn || resWithEot.firstBerryTurn, res.anyBerryConsumed || resWithEot.anyBerryConsumed)
+          return KOChance({
+            chanceWithoutEot: res.chance,
+            chanceWithEot: resWithEot.chance,
+            n: 1,
+            berryRelevant: res.berryConsumed || resWithEot.berryConsumed,
+            firstBerryTurn: res.firstBerryTurn || resWithEot.firstBerryTurn,
+            anyBerryConsumed: res.anyBerryConsumed || resWithEot.anyBerryConsumed
+          })
         }
 
         if (res.berryConsumed || resWithEot.berryConsumed) {
@@ -119,19 +165,33 @@ export function getKOChance(attacker: Pokemon, defender: Pokemon, move: Move, fi
     }
 
     if (!hasOHKOChance) {
-      const res = computeKOChance(damage, defender.currentHp() - hazards.damage, 0, hits, 1, defender.maxHp(), 0, berryRecovery, berryThreshold, false, damageWithoutBerry)
-      const resWithEot = computeKOChance(damage, defender.currentHp() - hazards.damage, eot.damage, hits, 1, defender.maxHp(), toxicCounter, berryRecovery, berryThreshold, false, damageWithoutBerry)
+      const res = computeKOChance({ damage, hp: defender.currentHp() - hazards.damage, eot: 0, hits, timesUsed: 1, maxHP: defender.maxHp(), toxicCounter: 0, berryRecovery, berryThreshold, damageWithoutBerry })
+      const resWithEot = computeKOChance({ damage, hp: defender.currentHp() - hazards.damage, eot: eot.damage, hits, timesUsed: 1, maxHP: defender.maxHp(), toxicCounter, berryRecovery, berryThreshold, damageWithoutBerry })
 
       if (res.chance + resWithEot.chance > 0) {
-        return KOChance(res.chance, resWithEot.chance, 1, false, res.berryConsumed || resWithEot.berryConsumed, res.firstBerryTurn || resWithEot.firstBerryTurn, res.anyBerryConsumed || resWithEot.anyBerryConsumed)
+        return KOChance({
+          chanceWithoutEot: res.chance,
+          chanceWithEot: resWithEot.chance,
+          n: 1,
+          berryRelevant: res.berryConsumed || resWithEot.berryConsumed,
+          firstBerryTurn: res.firstBerryTurn || resWithEot.firstBerryTurn,
+          anyBerryConsumed: res.anyBerryConsumed || resWithEot.anyBerryConsumed
+        })
       }
     }
 
     for (let i = 2; i <= 4; i++) {
-      const res = computeKOChance(damage, defender.currentHp() - hazards.damage, eot.damage, i, 1, defender.maxHp(), toxicCounter, berryRecovery, berryThreshold, false, damageWithoutBerry)
+      const res = computeKOChance({ damage, hp: defender.currentHp() - hazards.damage, eot: eot.damage, hits: i, timesUsed: 1, maxHP: defender.maxHp(), toxicCounter, berryRecovery, berryThreshold, damageWithoutBerry })
 
       if (res.chance > 0) {
-        return KOChance(0, res.chance, i, false, res.berryConsumed || berryConsumed, res.firstBerryTurn || (berryConsumed ? 1 : undefined), res.anyBerryConsumed || berryConsumed)
+        return KOChance({
+          chanceWithoutEot: 0,
+          chanceWithEot: res.chance,
+          n: i,
+          berryRelevant: res.berryConsumed || berryConsumed,
+          firstBerryTurn: res.firstBerryTurn || (berryConsumed ? 1 : undefined),
+          anyBerryConsumed: res.anyBerryConsumed || berryConsumed
+        })
       }
     }
 
@@ -140,30 +200,30 @@ export function getKOChance(attacker: Pokemon, defender: Pokemon, move: Move, fi
       const requiredHP = defender.currentHp() - hazards.damage
 
       if (totalMin >= requiredHP + berryRecovery) {
-        return KOChance(0, 1, i, false, berryRecovery > 0 || berryConsumed)
+        return KOChance({ chanceWithoutEot: 0, chanceWithEot: 1, n: i, berryRelevant: berryRecovery > 0 || berryConsumed })
       } else if (predictTotal(damage[damage.length - 1], eot.damage, i, 1, toxicCounter, defender.maxHp()) >= requiredHP + berryRecovery) {
-        return KOChance(undefined, undefined, i, false, berryRecovery > 0 || berryConsumed)
+        return KOChance({ chanceWithoutEot: undefined, chanceWithEot: undefined, n: i, berryRelevant: berryRecovery > 0 || berryConsumed })
       }
     }
   } else {
     const hits = move.hits || 1
     const timesUsed = move.timesUsed
-    const res = computeKOChance(damage, defender.maxHp() - hazards.damage, eot.damage, hits, timesUsed, defender.maxHp(), toxicCounter, berryRecovery, berryThreshold)
+    const res = computeKOChance({ damage, hp: defender.maxHp() - hazards.damage, eot: eot.damage, hits, timesUsed, maxHP: defender.maxHp(), toxicCounter, berryRecovery, berryThreshold })
 
     if (res.chance > 0) {
-      return KOChance(0, res.chance, timesUsed, res.chance === 1, res.berryConsumed, res.firstBerryTurn, res.anyBerryConsumed)
+      return KOChance({ chanceWithoutEot: 0, chanceWithEot: res.chance, n: timesUsed, multipleTurns: res.chance === 1, berryRelevant: res.berryConsumed, firstBerryTurn: res.firstBerryTurn, anyBerryConsumed: res.anyBerryConsumed })
     }
 
     const totalMin = predictTotal(damage[0], eot.damage, 1, timesUsed, toxicCounter, defender.maxHp())
     const requiredHP = defender.currentHp() - hazards.damage
 
     if (totalMin >= requiredHP + berryRecovery) {
-      return KOChance(0, 1, timesUsed, true, berryRecovery > 0)
+      return KOChance({ chanceWithoutEot: 0, chanceWithEot: 1, n: timesUsed, multipleTurns: true, berryRelevant: berryRecovery > 0 })
     } else if (predictTotal(damage[damage.length - 1], eot.damage, 1, timesUsed, toxicCounter, defender.maxHp()) >= requiredHP + berryRecovery) {
-      return KOChance(undefined, undefined, timesUsed, true, berryRecovery > 0)
+      return KOChance({ chanceWithoutEot: undefined, chanceWithEot: undefined, n: timesUsed, multipleTurns: true, berryRelevant: berryRecovery > 0 })
     }
 
-    return KOChance(0, 0, timesUsed)
+    return KOChance({ chanceWithoutEot: 0, chanceWithEot: 0, n: timesUsed })
   }
 
   return { chance: 0, n: 0, text: "", berryConsumed: false, anyBerryConsumed: false, firstBerryTurn: undefined }
@@ -403,19 +463,10 @@ export function combine(damage: Damage): [number[], boolean] {
   return combineDistributions(damageArray as number[][])
 }
 
-function computeKOChance(
-  damage: number[],
-  hp: number,
-  eot: number,
-  hits: number,
-  timesUsed: number,
-  maxHP: number,
-  toxicCounter: number,
-  berryRecovery: number,
-  berryThreshold: number,
-  berryConsumed = false,
-  damageWithoutBerry?: number[]
-): { chance: number; berryConsumed: boolean; anyBerryConsumed: boolean; firstBerryTurn?: number } {
+function computeKOChance(params: ComputeKOChanceParams): KOChanceResult {
+  const { damage, hp, hits, timesUsed, maxHP, berryRecovery, berryThreshold, berryConsumed = false, damageWithoutBerry } = params
+  let { eot, toxicCounter } = params
+
   let toxicDamage = 0
 
   if (toxicCounter > 0) {
@@ -489,7 +540,19 @@ function computeKOChance(
         consumed = berry.consumed
       }
 
-      const result = computeKOChance(damageWithoutBerry || damage, hpAfterDamage + eot - toxicDamage, eot, hits - 1, timesUsed, maxHP, toxicCounter, berryRecovery, berryThreshold, damageWithoutBerry ? true : consumed, damageWithoutBerry)
+      const result = computeKOChance({
+        damage: damageWithoutBerry || damage,
+        hp: hpAfterDamage + eot - toxicDamage,
+        eot,
+        hits: hits - 1,
+        timesUsed,
+        maxHP,
+        toxicCounter,
+        berryRecovery,
+        berryThreshold,
+        berryConsumed: damageWithoutBerry ? true : consumed,
+        damageWithoutBerry
+      })
       c = result.chance
       berry = result.berryConsumed
       const anyBerry = result.anyBerryConsumed
