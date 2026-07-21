@@ -16,8 +16,10 @@ const ALIASES = {
   "@calc": resolve(projectRoot, "src/domain/calc/index.ts"),
   "@multicalc/": resolve(projectRoot, "src/domain/multicalc/") + "/",
   "@data/": resolve(projectRoot, "src/infrastructure/data/") + "/",
-  "@adapters": resolve(projectRoot, "src/infrastructure/adapters/index.ts"),
-  "@adapters/": resolve(projectRoot, "src/infrastructure/adapters/") + "/",
+  "@calc-bridge": resolve(projectRoot, "src/domain/multicalc/calc-bridge/index.ts"),
+  "@calc-bridge/": resolve(projectRoot, "src/domain/multicalc/calc-bridge/") + "/",
+  "@pokemon-repository": resolve(projectRoot, "src/domain/multicalc/pokemon-repository/index.ts"),
+  "@pokemon-repository/": resolve(projectRoot, "src/domain/multicalc/pokemon-repository/") + "/",
   "@configuration/": resolve(projectRoot, "src/app/core/configuration/") + "/",
   "@store/": resolve(projectRoot, "src/app/store/") + "/"
 }

@@ -1,5 +1,5 @@
 import { MOVESETS } from "@data/moveset-data"
-import { pokemonByRegulation } from "@adapters"
+import { pokemonByRegulation } from "@pokemon-repository"
 import { SpeedData } from "@data/speed-data"
 import { SPEED_STATISTICS_REG_MB } from "@data/speed-statistics-reg-mb"
 import { Ability } from "@multicalc/model/ability"

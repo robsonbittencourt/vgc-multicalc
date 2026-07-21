@@ -1,5 +1,5 @@
 import { calculate, calculateMulti, MultiResult, Result, Move as MoveCalc, Pokemon as PokemonCalc, Field as FieldCalc } from "@calc"
-import { fromExisting } from "@adapters"
+import { fromExisting } from "@calc-bridge"
 import { DamageCalc } from "@multicalc/damage-calc/damage-calc"
 import { Field } from "@multicalc/model/field"
 import { Move } from "@multicalc/model/move"

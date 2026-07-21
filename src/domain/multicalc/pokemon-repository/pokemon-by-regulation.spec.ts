@@ -1,4 +1,4 @@
-import { pokemonByRegulation, toPokemon } from "@adapters/pokemon-by-regulation"
+import { pokemonByRegulation, toPokemon } from "@pokemon-repository/pokemon-by-regulation"
 
 describe("pokemonByRegulation", () => {
   it("returns Pokémon from the top usage list for the regulation, ordered by usage rank", () => {

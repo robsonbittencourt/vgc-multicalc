@@ -1,7 +1,7 @@
 import { MOVESETS } from "@data/moveset-data"
 import { getPokemonData } from "@data/pokemon-data"
 import { getPokemonMoveset } from "@data/pokemon-moveset"
-import { toPokemon } from "@adapters"
+import { toPokemon } from "@pokemon-repository"
 import { Move } from "@multicalc/model/move"
 import { MoveSet } from "@multicalc/model/moveset"
 import { Pokemon } from "@multicalc/model/pokemon"
