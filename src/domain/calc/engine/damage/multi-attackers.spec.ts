@@ -46,4 +46,34 @@ describe("Damage — combined attackers (calculateMulti)", () => {
 
     expect(result.description()).toEqual("100+ Atk Rillaboom Wood Hammer AND 100+ SpA Sylveon Hyper Voice vs. 252 HP / 252+ Def / 0 SpD Dondozo: 175-208 (68 - 80.9%) -- guaranteed 2HKO after poison damage")
   })
+
+  it("combines an immune attacker with a damaging one against a defender holding an item", () => {
+    const a1 = new Pokemon("Rillaboom", { evs: { atk: 252 }, nature: "Adamant" })
+    const a2 = new Pokemon("Flutter Mane", { evs: { spa: 252 }, nature: "Timid" })
+    const defender = new Pokemon("Gholdengo", { evs: { hp: 252, def: 4 }, item: "Leftovers" })
+
+    const result = calculateMulti(a1, a2, new Move("Body Slam"), new Move("Moonblast"), defender, field())
+
+    expect(result.description()).toEqual("Rillaboom Body Slam AND 252 SpA Flutter Mane Moonblast vs. 252 HP / 0 SpD Leftovers Gholdengo: 45-54 (23.1 - 27.8%) -- 77% chance to 5HKO after Leftovers recovery")
+  })
+
+  it("combines a damaging attacker with an immune one against a defender holding an item", () => {
+    const a1 = new Pokemon("Flutter Mane", { evs: { spa: 252 }, nature: "Timid" })
+    const a2 = new Pokemon("Rillaboom", { evs: { atk: 252 }, nature: "Adamant" })
+    const defender = new Pokemon("Gholdengo", { evs: { hp: 252, def: 4 }, item: "Leftovers" })
+
+    const result = calculateMulti(a1, a2, new Move("Moonblast"), new Move("Body Slam"), defender, field())
+
+    expect(result.description()).toEqual("252 SpA Flutter Mane Moonblast AND Rillaboom Body Slam vs. 252 HP / 0 SpD Leftovers Gholdengo: 45-54 (23.1 - 27.8%) -- 77% chance to 5HKO after Leftovers recovery")
+  })
+
+  it("both attackers immune results in the worst-move description", () => {
+    const a1 = new Pokemon("Rillaboom", { evs: { atk: 252 }, nature: "Adamant" })
+    const a2 = new Pokemon("Incineroar", { evs: { atk: 252 }, nature: "Adamant" })
+    const defender = new Pokemon("Gholdengo", { evs: { hp: 252, def: 4 } })
+
+    const result = calculateMulti(a1, a2, new Move("Body Slam"), new Move("Fake Out"), defender, field())
+
+    expect(result.description()).toEqual("Rillaboom Body Slam AND Incineroar Fake Out vs. Gholdengo: 0-0 (0 - 0%) -- possibly the worst move ever")
+  })
 })

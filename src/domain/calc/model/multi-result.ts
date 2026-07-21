@@ -1,4 +1,4 @@
-import { buildAttackerDescription, buildDefenderTail, computeMultiHitKOChance, getBerryRecovery, getDamageWithoutBerry, getEndOfTurn, roundChance, serializeEndOfTurnTexts } from "@calc/engine/desc"
+import { buildAttackerDescription, buildDefenderTail, buildDescription, computeMultiHitKOChance, getBerryRecovery, getDamageWithoutBerry, getEndOfTurn, roundChance, serializeEndOfTurnTexts } from "@calc/engine/desc"
 import { StaminaBoostSimulator } from "@calc/engine/stamina-boost-simulator"
 import { DamageDistribution } from "@calc/model/damage-distribution"
 import { Move } from "@calc/model/move"
@@ -228,11 +228,17 @@ export class MultiResult {
 
     const item = defender.item
 
-    if (item && (resultOne.description().includes(item) || resultTwo.description().includes(item))) {
+    if (item && (this.describesItem(resultOne, item) || this.describesItem(resultTwo, item))) {
       output += ` ${item}`
     }
 
     return output
+  }
+
+  private describesItem(result: Result, item: string): boolean {
+    if (result.range()[1] === 0) return buildDescription(result.rawDesc).includes(item)
+
+    return result.description().includes(item)
   }
 
   private defenseStat(rawDescOne: RawDesc, rawDescTwo: RawDesc, defender: Pokemon, statText: string, stat: StatID): string {
