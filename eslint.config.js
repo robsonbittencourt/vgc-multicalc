@@ -91,7 +91,7 @@ module.exports = tseslint.config(
     }
   },
   {
-    files: ["src/infrastructure/data/**/*.ts"],
+    files: ["src/domain/data/**/*.ts"],
     rules: {
       "no-restricted-imports": [
         "error",
