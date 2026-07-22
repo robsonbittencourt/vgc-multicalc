@@ -39,14 +39,14 @@ export { Move } from "./model/move"
 
 ## Domain Logic
 
-- Business logic belongs in `src/multicalc/` (domain-only, no UI) or `src/calc/` (pure calculation engine)
+- Business logic belongs in `src/domain/multicalc/` (domain-only, no UI) or `src/domain/calc/` (pure calculation engine)
 - Keep components focused on presentation
 - Use services for shared business logic
-- Domain models are in `src/multicalc/model/`
+- Domain models are in `src/domain/multicalc/model/`
 
 ## Data Files
 
-- Static data (movesets, pokemon data, etc.) is in `src/data/`
+- Static data (movesets, pokemon data, etc.) is in `src/domain/data/`
 - These are TypeScript files exporting constants/objects
 - Keep data files organized by domain
 

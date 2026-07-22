@@ -38,15 +38,20 @@ This is an Angular 20.3.12 application for Pokémon VGC (Video Game Championship
 
 ```
 src/
-├── app/              # Angular components
-│   ├── core/        # Main/core components (header, main, not-found)
-│   ├── features/     # Feature-specific components
-│   ├── pages/        # Page-level components
-│   └── basic/        # Reusable utility components
-├── assets/           # Static assets (fonts, icons, sprites, media)
-├── data/             # Data files and stores
-│   └── store/        # NgRx Signal Store implementations
-└── lib/              # Domain logic and business rules
+├── app/                # Presentation + orchestration (Angular)
+│   ├── layout/         # App shell (header, footer, nav)
+│   ├── pages/          # Page-level components (one per route)
+│   ├── features/       # Feature-specific components
+│   ├── shared/         # Reusable UI components
+│   ├── configuration/  # Feature flags and app config
+│   ├── routes/         # Route components
+│   ├── services/       # App/browser services
+│   ├── store/          # NgRx Signal Store implementations
+│   └── assets/         # Static assets (fonts, icons, sprites, media)
+└── domain/             # Framework-free domain (no Angular)
+    ├── multicalc/      # Domain logic per feature; public barrels per module
+    ├── calc/           # Pure calculation engine (public API @calc)
+    └── data/           # Reference game data — base layer (@data)
 ```
 
 ## Path Aliases (TypeScript)
@@ -54,13 +59,16 @@ src/
 Always use path aliases instead of relative imports:
 
 - `@app/*` → `src/app/*`
-- `@basic/*` → `src/app/basic/*`
+- `@shared/*` → `src/app/shared/*`
+- `@layout/*` → `src/app/layout/*`
 - `@features/*` → `src/app/features/*`
 - `@pages/*` → `src/app/pages/*`
-- `@core/*` → `src/app/core/*`
-- `@data/*` → `src/data/*`
-- `@multicalc/*` → `src/multicalc/*`
-- `@calc` → `src/calc/index.ts` (public API only; `@calc/*` internals are private)
+- `@configuration/*` → `src/app/configuration/*`
+- `@store/*` → `src/app/store/*`
+- `@data/*` → `src/domain/data/*`
+- `@multicalc/*` → `src/domain/multicalc/*`
+- `@calc` → `src/domain/calc/index.ts` (public API only; `@calc/*` internals are private)
+- `@calc-bridge`, `@pokemon-repository` → domain adapters (public barrels)
 
 **Never use relative imports like `../` or `../../`** - use path aliases instead.
 
@@ -122,8 +130,8 @@ export class MyStore extends signalStore({ protectedState: false }, withState({/
 
 ### Store Location
 
-- Stores are located in `src/data/store/`
-- Import stores using `@data/store/*` path alias
+- Stores are located in `src/app/store/`
+- Import stores using `@store/*` path alias
 
 ## TypeScript Conventions
 
@@ -136,7 +144,7 @@ export class MyStore extends signalStore({ protectedState: false }, withState({/
 
 ### Type Definitions
 
-- Domain types are in `src/multicalc/types.ts`
+- Domain types are in `src/domain/multicalc/types.ts`
 - Store-specific types are co-located with stores
 - Use descriptive type names
 
@@ -164,8 +172,8 @@ Example:
 import { Component, computed, inject } from "@angular/core"
 import { FormsModule } from "@angular/forms"
 import { signalStore, withState } from "@ngrx/signals"
-import { CalculatorStore } from "@data/store/calculator-store"
-import { Pokemon } from "@multicalc/model/pokemon"
+import { CalcStore } from "@store/calc-store"
+import { Pokemon } from "@multicalc/model"
 ```
 
 ### File Structure
