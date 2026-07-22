@@ -12,7 +12,7 @@ import { MenuStore } from "@store/menu-store"
 import { SnackbarService } from "@app/services/snackbar.service"
 import { ThemeService } from "@app/services/theme.service"
 import { Router } from "@angular/router"
-import { uuid } from "@multicalc/utils/uuid"
+import { uuid } from "@multicalc/utils"
 
 @Component({
   selector: "app-header",

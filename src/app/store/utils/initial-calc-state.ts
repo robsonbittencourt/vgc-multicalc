@@ -3,7 +3,7 @@ import { buildState } from "./user-data-mapper"
 import { readCustomSets, readGameData, readUserData } from "./user-data-storage"
 import { fixInvalidPokemon } from "./migrate-user-data"
 import { Status } from "@multicalc/model"
-import { uuid } from "@multicalc/utils/uuid"
+import { uuid } from "@multicalc/utils"
 
 const initialId = "0dc51a43-1de8-4213-9686-fb07f2507b06"
 

@@ -1,5 +1,5 @@
 import { Pokemon } from "@multicalc/model/pokemon"
-import { uuid } from "@multicalc/utils/uuid"
+import { uuid } from "@multicalc/utils"
 
 export class SpeedDefinition {
   id: string

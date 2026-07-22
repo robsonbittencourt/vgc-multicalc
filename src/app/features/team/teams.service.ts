@@ -7,7 +7,7 @@ import { SnackbarService } from "@app/services/snackbar.service"
 import { ExportPokeService } from "@store/user-data/export-poke.service"
 import { PdfExportService } from "@store/user-data/pdf-export.service"
 import { TeamListModalComponent, TeamListPlayerInfo } from "@features/modals/team-list-modal/team-list-modal.component"
-import { uuid } from "@multicalc/utils/uuid"
+import { uuid } from "@multicalc/utils"
 
 @Injectable({
   providedIn: "root"

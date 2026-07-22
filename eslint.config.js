@@ -114,7 +114,7 @@ module.exports = tseslint.config(
         {
           patterns: [
             {
-              group: ["@multicalc/model/*", "@multicalc/damage-calc/*", "@multicalc/speed-calc/*", "@multicalc/type-calc/*", "@multicalc/probability-calc/*", "@multicalc/ev-optimizer/*", "@multicalc/stat-calc/*", "@calc-bridge/*", "@pokemon-repository/*"],
+              group: ["@multicalc/model/*", "@multicalc/damage-calc/*", "@multicalc/speed-calc/*", "@multicalc/type-calc/*", "@multicalc/probability-calc/*", "@multicalc/ev-optimizer/*", "@multicalc/stat-calc/*", "@multicalc/utils/*", "@calc-bridge/*", "@pokemon-repository/*"],
               message: "Import from the module's public barrel (e.g. @multicalc/model, @calc-bridge, @pokemon-repository) instead of reaching into its internals."
             }
           ]

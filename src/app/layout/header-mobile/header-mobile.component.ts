@@ -9,7 +9,7 @@ import { CalcStore } from "@store/calc-store"
 import { MenuStore } from "@store/menu-store"
 import { SnackbarService } from "@app/services/snackbar.service"
 import { Color, Theme, ThemeService } from "@app/services/theme.service"
-import { uuid } from "@multicalc/utils/uuid"
+import { uuid } from "@multicalc/utils"
 import { PwaInstallService } from "@app/services/pwa-install.service"
 
 @Component({

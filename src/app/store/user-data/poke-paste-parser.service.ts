@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core"
 import { getMoveset, MOVESETS } from "@data/moveset-data"
 import { Ability, Move, MoveSet, Pokemon } from "@multicalc/model"
 import { Stats } from "@multicalc/types"
-import { spToEv } from "@multicalc/utils/ev-sp-converter"
+import { spToEv } from "@multicalc/utils"
 
 @Injectable({
   providedIn: "root"

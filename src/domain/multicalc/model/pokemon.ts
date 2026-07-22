@@ -1,6 +1,6 @@
 import { getAbilityData } from "@data/ability-data"
 import { POKEMON_DATA } from "@data/pokemon-data"
-import { uuid } from "@multicalc/utils/uuid"
+import { uuid } from "@multicalc/utils"
 import { Ability } from "@multicalc/model/ability"
 import { Move } from "@multicalc/model/move"
 import { increasedStatByNature } from "@multicalc/model/nature"

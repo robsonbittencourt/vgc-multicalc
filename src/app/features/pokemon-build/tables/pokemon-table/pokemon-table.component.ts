@@ -7,7 +7,7 @@ import { PokemonSpriteComponent } from "@features/pokemon-sprite/pokemon-sprite.
 import { MatIcon } from "@angular/material/icon"
 import { PokemonDetail, pokemonTableData } from "@multicalc/pokemon-table-data"
 import { Stats } from "@multicalc/types"
-import { evToSp } from "@multicalc/utils/ev-sp-converter"
+import { evToSp } from "@multicalc/utils"
 import { FEATURES } from "@configuration/feature-flags"
 
 @Component({

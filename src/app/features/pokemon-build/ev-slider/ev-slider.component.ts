@@ -11,7 +11,7 @@ import { CalcStore } from "@store/calc-store"
 import { StatIDExceptHP } from "@data/types"
 import { natureEffect } from "@multicalc/model"
 import { Stats } from "@multicalc/types"
-import { clampEvToRemainingSps, evsExceedMaxSps, evToSp, maxEvForStat, spToEv, totalSpsFromEvs } from "@multicalc/utils/ev-sp-converter"
+import { clampEvToRemainingSps, evsExceedMaxSps, evToSp, maxEvForStat, spToEv, totalSpsFromEvs } from "@multicalc/utils"
 
 @Component({
   selector: "app-ev-slider",
