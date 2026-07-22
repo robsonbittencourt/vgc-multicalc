@@ -19,7 +19,6 @@ import { MenuStore } from "@store/menu-store"
 import { RollConfigComponent } from "@features/roll-config/roll-config.component"
 import { AutomaticFieldService } from "@store/automatic-field/automatic-field-service"
 import { DamageResult, MultiCalcMode, RollLevelConfig } from "@multicalc/damage-calc"
-import { MultiCalc } from "@multicalc/multi-calc"
 import { SurvivalThreshold } from "@multicalc/ev-optimizer"
 import { Regulation, Stats } from "@multicalc/types"
 import { TeamExportModalComponent } from "@features/modals/export-modal/export-modal.component"
@@ -136,7 +135,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
   private activateBestMoveForAllTargets(targets: Target[], attacker: Pokemon | null) {
     if (!attacker) return
 
-    const assignments = MultiCalc.withOpponents(targets, this.fieldStore.field()).bestMoveIndexForTargets(attacker)
+    const assignments = this.multiCalcService.withOpponents(targets, this.fieldStore.field()).bestMoveIndexForTargets(attacker)
 
     assignments.forEach(({ targetId, moveIndex }) => {
       this.store.activateMove(targetId, moveIndex)
@@ -206,7 +205,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
     return withTera + withCommander
   }
 
-  private multiCalc = computed(() => MultiCalc.withOpponents(this.store.displayedTargets(), this.fieldStore.field()))
+  private multiCalc = computed(() => this.multiCalcService.withOpponents(this.store.displayedTargets(), this.fieldStore.field()))
 
   damageResults = computed(() => {
     const attacker = this.activeAttacker()

@@ -9,7 +9,6 @@ import { TeamsDesktopComponent } from "@features/team/teams-desktop/teams-deskto
 import { AutomaticFieldService } from "@store/automatic-field/automatic-field-service"
 import { DamageResultOrderService } from "@app/services/damage-result-order.service"
 import { MultiCalcMode, RollLevelConfig } from "@multicalc/damage-calc"
-import { MultiCalc } from "@multicalc/multi-calc"
 import { DEFENSIVE_STATS, SurvivalThreshold } from "@multicalc/ev-optimizer"
 import { Stats } from "@multicalc/types"
 import { TargetPokemonComponent } from "@pages/multi-calc/target-pokemon/target-pokemon.component"
@@ -73,7 +72,7 @@ export class MultiCalcComponent implements OnInit {
     return this.multiCalc().damageAttacking(attacker, { bestMove: this.menuStore.oneVsManyBestMoveActivated(), useSpsMode: this.store.useSpsMode() }, this.activeSecondAttacker())
   }
 
-  private multiCalc = computed(() => MultiCalc.withOpponents(this.store.displayedTargets(), this.fieldStore.field()))
+  private multiCalc = computed(() => this.multiCalcService.withOpponents(this.store.displayedTargets(), this.fieldStore.field()))
 
   teamComponent = viewChild<TeamComponent>("teamComponent")
 
@@ -179,7 +178,7 @@ export class MultiCalcComponent implements OnInit {
 
     if (attacker == undefined) return
 
-    const assignments = MultiCalc.withOpponents(this.store.targets(), this.fieldStore.field()).bestMoveIndexForTargets(attacker)
+    const assignments = this.multiCalcService.withOpponents(this.store.targets(), this.fieldStore.field()).bestMoveIndexForTargets(attacker)
 
     assignments.forEach(({ targetId, moveIndex }) => {
       this.store.activateMove(targetId, moveIndex)
