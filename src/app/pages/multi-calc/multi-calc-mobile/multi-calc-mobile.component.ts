@@ -9,8 +9,6 @@ import { MatIcon } from "@angular/material/icon"
 import { MatSlideToggle } from "@angular/material/slide-toggle"
 import { InputAutocompleteComponent } from "@shared/input-autocomplete/input-autocomplete.component"
 import { WidgetComponent } from "@shared/widget/widget.component"
-import { MOVESETS } from "@data/moveset-data"
-import { pokemonByRegulation } from "@pokemon-repository"
 import { CalcStore } from "@store/calc-store"
 import { CustomSet } from "@store/custom-set"
 import { pokemonToState } from "@store/utils/state-mapper"
@@ -22,7 +20,7 @@ import { RollConfigComponent } from "@features/roll-config/roll-config.component
 import { AutomaticFieldService } from "@store/automatic-field/automatic-field-service"
 import { DamageResult, MultiCalcMode, RollLevelConfig } from "@multicalc/damage-calc"
 import { MultiCalc } from "@multicalc/multi-calc"
-import { DefensiveEvOptimizer } from "@multicalc/ev-optimizer"
+import { SurvivalThreshold } from "@multicalc/ev-optimizer"
 import { Regulation, Stats } from "@multicalc/types"
 import { TeamExportModalComponent } from "@features/modals/export-modal/export-modal.component"
 import { MetaRegulationModalComponent } from "@features/modals/meta-regulation-modal/meta-regulation-modal.component"
@@ -37,6 +35,7 @@ import { addMember, excludeMetaData, separateAttackers } from "@multicalc/target
 import { SELECT_POKEMON_LABEL } from "@store/utils/select-pokemon-label"
 import { BackNavigationService } from "@app/services/back-navigation.service"
 import { AddPokemonCardComponent } from "@pages/multi-calc/add-pokemon-card/add-pokemon-card.component"
+import { MultiCalcService } from "@pages/multi-calc/multi-calc.service"
 import { FEATURES } from "@configuration/feature-flags"
 import { TeamTabsMobileComponent } from "@features/team/team-tabs-mobile/team-tabs-mobile.component"
 import { TeamsMobileComponent } from "@features/team/teams-mobile/teams-mobile.component"
@@ -73,7 +72,7 @@ import { DamageResultOrderService } from "@app/services/damage-result-order.serv
     WidgetComponent,
     ScrollingModule
   ],
-  providers: [FieldStore, AutomaticFieldService, DamageResultOrderService, DefensiveEvOptimizer, MobileTableOverlayService, { provide: FIELD_CONTEXT, useValue: "multi" }]
+  providers: [FieldStore, AutomaticFieldService, DamageResultOrderService, MobileTableOverlayService, { provide: FIELD_CONTEXT, useValue: "multi" }]
 })
 export class MultiCalcMobileComponent implements OnDestroy {
   @ViewChild("scrollContainer") scrollContainer?: ElementRef<HTMLDivElement>
@@ -88,7 +87,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
 
   private damageOrder = inject(DamageResultOrderService)
   private automaticFieldService = inject(AutomaticFieldService)
-  private defensiveEvOptimizer = new DefensiveEvOptimizer()
+  private multiCalcService = inject(MultiCalcService)
   private exportPokeService = inject(ExportPokeService)
   private dialog = inject(MatDialog)
   private backNavigation = inject(BackNavigationService)
@@ -431,8 +430,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
   private applyMeta(regulation: Regulation) {
     this.regulation.set(regulation)
     this.store.updateTargetMetaRegulation(regulation)
-    const setdex = MOVESETS
-    const metaPokemon = pokemonByRegulation(regulation, 60, setdex, false)
+    const metaPokemon = this.multiCalcService.metaPokemon(regulation, 60, false)
     this.onTargetsImported(metaPokemon)
   }
 
@@ -475,7 +473,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
   }
 
   private targetsExcludingMetaData(): Target[] {
-    const metaPokemon = pokemonByRegulation(this.store.targetMetaRegulation()!, undefined, MOVESETS, FEATURES.allowAllPokes)
+    const metaPokemon = this.multiCalcService.metaPokemon(this.store.targetMetaRegulation()!, undefined, FEATURES.allowAllPokes)
 
     return excludeMetaData(this.store.targets(), metaPokemon)
   }
@@ -495,7 +493,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
     this.originalNature.set(defender.nature)
 
     const rollIndex = this.rollLevelConfig().toRollIndex()
-    const result = this.defensiveEvOptimizer.optimize(defender, targets, field, event.updateNature, event.keepOffensiveEvs, event.survivalThreshold as any, rollIndex, false)
+    const result = this.multiCalcService.optimizeDefensiveEvs(defender, targets, field, event.updateNature, event.keepOffensiveEvs, event.survivalThreshold as SurvivalThreshold, rollIndex)
 
     this.optimizedNature.set(result.nature)
     this.optimizationStatus.set(result.status)

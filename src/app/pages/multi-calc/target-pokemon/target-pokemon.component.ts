@@ -6,8 +6,6 @@ import { MatDialog } from "@angular/material/dialog"
 import { MatSlideToggle } from "@angular/material/slide-toggle"
 import { InputAutocompleteComponent } from "@shared/input-autocomplete/input-autocomplete.component"
 import { WidgetComponent } from "@shared/widget/widget.component"
-import { MOVESETS } from "@data/moveset-data"
-import { pokemonByRegulation } from "@pokemon-repository"
 import { CalcStore } from "@store/calc-store"
 import { MenuStore } from "@store/menu-store"
 import { pokemonToState } from "@store/utils/state-mapper"
@@ -25,6 +23,7 @@ import { FEATURES } from "@configuration/feature-flags"
 import { ExportPokeService } from "@store/user-data/export-poke.service"
 import { AddPokemonCardComponent } from "@pages/multi-calc/add-pokemon-card/add-pokemon-card.component"
 import { PokemonCardComponent } from "@pages/multi-calc/pokemon-card/pokemon-card.component"
+import { MultiCalcService } from "@pages/multi-calc/multi-calc.service"
 
 @Component({
   selector: "app-target-pokemon",
@@ -48,6 +47,7 @@ export class TargetPokemonComponent {
   store = inject(CalcStore)
   menuStore = inject(MenuStore)
   private exportPokeService = inject(ExportPokeService)
+  private multiCalcService = inject(MultiCalcService)
   private dialog = inject(MatDialog)
   private snackBar = inject(SnackbarService)
 
@@ -135,10 +135,6 @@ export class TargetPokemonComponent {
     return results
   })
 
-  private get setdex() {
-    return MOVESETS
-  }
-
   readonly targetPokemonNames = computed(() => {
     const names = this.damageResults().flatMap(result => (this.isAttacker() ? [result.attacker.name, result.secondAttacker?.name] : [result.defender.name]))
 
@@ -185,7 +181,7 @@ export class TargetPokemonComponent {
   private applyMeta(regulation: Regulation) {
     this.regulation.set(regulation)
     this.store.updateTargetMetaRegulation(regulation)
-    const metaPokemon = pokemonByRegulation(regulation, 60, this.setdex, false)
+    const metaPokemon = this.multiCalcService.metaPokemon(regulation, 60, false)
     this.pokemonImported(metaPokemon)
   }
 
@@ -317,7 +313,7 @@ export class TargetPokemonComponent {
   }
 
   private targetsExcludingMetaData(): Target[] {
-    const metaPokemon = pokemonByRegulation(this.store.targetMetaRegulation()!, undefined, this.setdex, FEATURES.allowAllPokes)
+    const metaPokemon = this.multiCalcService.metaPokemon(this.store.targetMetaRegulation()!, undefined, FEATURES.allowAllPokes)
 
     return excludeMetaData(this.targets(), metaPokemon)
   }
