@@ -9,11 +9,12 @@ import { SaveSetButtonComponent } from "@features/buttons/save-set-button/save-s
 import { FieldComponent } from "@features/field/field.component"
 import { PokemonBuildComponent } from "@features/pokemon-build/pokemon-build/pokemon-build.component"
 import { AutomaticFieldService } from "@store/automatic-field/automatic-field-service"
-import { DamageCalc, DamageResult, RollLevelConfig } from "@multicalc/damage-calc"
-import { DefensiveEvOptimizer, DEFENSIVE_STATS, SurvivalThreshold } from "@multicalc/ev-optimizer"
-import { Pokemon, Target } from "@multicalc/model"
+import { DamageResult, RollLevelConfig } from "@multicalc/damage-calc"
+import { DEFENSIVE_STATS, SurvivalThreshold } from "@multicalc/ev-optimizer"
+import { Pokemon } from "@multicalc/model"
 import { Stats } from "@multicalc/types"
 import { DamageResultComponent } from "@pages/simple-calc/damage-result/damage-result.component"
+import { SimpleCalcService } from "@pages/simple-calc/simple-calc.service"
 
 @Component({
   selector: "app-simple-calc",
@@ -25,12 +26,11 @@ import { DamageResultComponent } from "@pages/simple-calc/damage-result/damage-r
 export class SimpleCalcComponent {
   store = inject(CalcStore)
   fieldStore = inject(FieldStore)
-  private damageCalc = new DamageCalc()
+  private simpleCalcService = inject(SimpleCalcService)
   private automaticFieldService = inject(AutomaticFieldService)
-  private defensiveEvOptimizer = new DefensiveEvOptimizer()
 
-  leftDamageResults = computed(() => this.damageCalc.calcDamageAllAttacks(this.store.leftPokemon(), this.store.rightPokemon(), this.fieldStore.field(), true, this.store.useSpsMode()))
-  rightDamageResults = computed(() => this.damageCalc.calcDamageAllAttacks(this.store.rightPokemon(), this.store.leftPokemon(), this.fieldStore.field(), false, this.store.useSpsMode()))
+  leftDamageResults = computed(() => this.simpleCalcService.damageAllAttacks(this.store.leftPokemon(), this.store.rightPokemon(), this.fieldStore.field(), true, this.store.useSpsMode()))
+  rightDamageResults = computed(() => this.simpleCalcService.damageAllAttacks(this.store.rightPokemon(), this.store.leftPokemon(), this.fieldStore.field(), false, this.store.useSpsMode()))
 
   leftDamageResult = computed(() => this.leftDamageResults()[this.store.leftPokemon().activeMoveIndex])
   rightDamageResult = computed(() => this.rightDamageResults()[this.store.rightPokemon().activeMoveIndex])
@@ -146,7 +146,7 @@ export class SimpleCalcComponent {
     this.leftOriginalEvs.set({ ...defender.evs })
     this.leftOriginalNature.set(defender.nature)
 
-    const result = this.defensiveEvOptimizer.optimize(defender, [new Target(attacker)], field, event.updateNature, event.keepOffensiveEvs, event.survivalThreshold, this.rightRollLevel().toRollIndex(), false)
+    const result = this.simpleCalcService.optimizeDefensiveEvs(defender, attacker, field, event.updateNature, event.keepOffensiveEvs, event.survivalThreshold, this.rightRollLevel().toRollIndex(), false)
 
     this.leftOptimizedNature.set(result.nature)
     this.leftOptimizationStatus.set(result.status)
@@ -171,7 +171,7 @@ export class SimpleCalcComponent {
     this.rightOriginalEvs.set({ ...defender.evs })
     this.rightOriginalNature.set(defender.nature)
 
-    const result = this.defensiveEvOptimizer.optimize(defender, [new Target(attacker)], field, event.updateNature, event.keepOffensiveEvs, event.survivalThreshold, this.leftRollLevel().toRollIndex(), true)
+    const result = this.simpleCalcService.optimizeDefensiveEvs(defender, attacker, field, event.updateNature, event.keepOffensiveEvs, event.survivalThreshold, this.leftRollLevel().toRollIndex(), true)
 
     this.rightOptimizedNature.set(result.nature)
     this.rightOptimizationStatus.set(result.status)

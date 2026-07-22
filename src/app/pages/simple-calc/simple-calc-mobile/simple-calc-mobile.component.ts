@@ -8,12 +8,13 @@ import { FieldComponent } from "@features/field/field.component"
 import { PokemonBuildMobileComponent } from "@features/pokemon-build/pokemon-build-mobile/pokemon-build-mobile.component"
 import { WidgetComponent } from "@shared/widget/widget.component"
 import { AutomaticFieldService } from "@store/automatic-field/automatic-field-service"
-import { DamageCalc, RollLevelConfig } from "@multicalc/damage-calc"
+import { RollLevelConfig } from "@multicalc/damage-calc"
 import { RollConfigComponent } from "@features/roll-config/roll-config.component"
-import { DefensiveEvOptimizer } from "@multicalc/ev-optimizer"
+import { SurvivalThreshold } from "@multicalc/ev-optimizer"
 import { BackNavigationService } from "@app/services/back-navigation.service"
 import { Pokemon, Target } from "@multicalc/model"
 import { Stats } from "@multicalc/types"
+import { SimpleCalcService } from "@pages/simple-calc/simple-calc.service"
 import { PokemonCardComponent } from "@pages/multi-calc/pokemon-card/pokemon-card.component"
 import { NgClass } from "@angular/common"
 import { MatIcon } from "@angular/material/icon"
@@ -49,9 +50,8 @@ export class SimpleCalcMobileComponent implements OnDestroy {
   store = inject(CalcStore)
   fieldStore = inject(FieldStore)
   overlay = inject(MobileTableOverlayService)
-  private damageCalc = new DamageCalc()
+  private simpleCalcService = inject(SimpleCalcService)
   private automaticFieldService = inject(AutomaticFieldService)
-  private defensiveEvOptimizer = new DefensiveEvOptimizer()
   private backNavigation = inject(BackNavigationService)
 
   pokemonBuildMobile = viewChild.required(PokemonBuildMobileComponent)
@@ -88,10 +88,10 @@ export class SimpleCalcMobileComponent implements OnDestroy {
     const field = this.fieldStore.field()
 
     if (this.isCurrentPokemonAttacker()) {
-      return this.damageCalc.calcDamage(current, other, field, true, this.store.useSpsMode())
+      return this.simpleCalcService.damage(current, other, field, this.store.useSpsMode())
     }
 
-    return this.damageCalc.calcDamage(other, current, field, true, this.store.useSpsMode())
+    return this.simpleCalcService.damage(other, current, field, this.store.useSpsMode())
   })
 
   target = computed(() => {
@@ -160,7 +160,7 @@ export class SimpleCalcMobileComponent implements OnDestroy {
     this.originalNature.set(defender.nature)
 
     const rollIndex = this.rollLevelConfig().toRollIndex()
-    const result = this.defensiveEvOptimizer.optimize(defender, [new Target(attacker)], field, event.updateNature, event.keepOffensiveEvs, event.survivalThreshold as any, rollIndex)
+    const result = this.simpleCalcService.optimizeDefensiveEvs(defender, attacker, field, event.updateNature, event.keepOffensiveEvs, event.survivalThreshold as SurvivalThreshold, rollIndex)
 
     this.optimizedNature.set(result.nature)
     this.optimizationStatus.set(result.status)
