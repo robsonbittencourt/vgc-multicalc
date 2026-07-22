@@ -4,9 +4,9 @@ import { CalcStore } from "@store/calc-store"
 import { FieldStore } from "@store/field-store"
 import { SpeedCalcOptionsStore } from "@store/speed-calc-options-store"
 import { Field, Pokemon } from "@multicalc/model"
-import { getFinalSpeed } from "@multicalc/stat-calc"
-import { SpeedCalcOptions as SpeedScaleOptions, SpeedCalc, SpeedTeamPokemon, SpeedDefinition } from "@multicalc/speed-calc"
+import { SpeedCalcOptions as SpeedScaleOptions, SpeedTeamPokemon, SpeedDefinition } from "@multicalc/speed-calc"
 import { SpeedBoxComponent } from "@pages/speed-calc/speed-box/speed-box.component"
+import { SpeedCalcService } from "@pages/speed-calc/speed-calc.service"
 
 @Component({
   selector: "app-speed-scale",
@@ -24,7 +24,7 @@ export class SpeedScaleComponent implements OnInit {
   store = inject(CalcStore)
   fieldStore = inject(FieldStore)
   optionsStore = inject(SpeedCalcOptionsStore)
-  private speedCalcService = new SpeedCalc()
+  private speedCalcService = inject(SpeedCalcService)
 
   hideActualDescription = computed(() => this.optionsStore.filterType() === "opponents" || this.optionsStore.filterType() === "team")
   highlightMyTeam = computed(() => this.optionsStore.showMyTeam())
@@ -49,7 +49,7 @@ export class SpeedScaleComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.actualPokemonSpeed = getFinalSpeed(this.pokemon(), this.fieldStore.field())
+    this.actualPokemonSpeed = this.speedCalcService.modifiedSpeed(this.pokemon(), this.fieldStore.field())
   }
 
   calculateSpeedRange(pokemon: Pokemon, options: SpeedScaleOptions, field: Field) {
@@ -82,10 +82,10 @@ export class SpeedScaleComponent implements OnInit {
 
   private verifyChanges(newSpeedDefinitions: SpeedDefinition[]) {
     this.speedOrderChanged = this.verifyIfOrderChanged(newSpeedDefinitions)
-    this.speedOrderIncrease = this.actualPokemonSpeed < getFinalSpeed(this.pokemon(), this.fieldStore.field())
+    this.speedOrderIncrease = this.actualPokemonSpeed < this.speedCalcService.modifiedSpeed(this.pokemon(), this.fieldStore.field())
 
     this.actualSpeedDefinitions = newSpeedDefinitions
-    this.actualPokemonSpeed = getFinalSpeed(this.pokemon(), this.fieldStore.field())
+    this.actualPokemonSpeed = this.speedCalcService.modifiedSpeed(this.pokemon(), this.fieldStore.field())
   }
 
   private verifyIfOrderChanged(newSpeedDefinitions: SpeedDefinition[]): boolean {

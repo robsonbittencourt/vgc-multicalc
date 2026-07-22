@@ -5,7 +5,7 @@ import { SpeedStatistic } from "@data/speed-data"
 import { CalcStore } from "@store/calc-store"
 import { SpeedCalcOptionsStore } from "@store/speed-calc-options-store"
 import { Pokemon } from "@multicalc/model"
-import { SpeedCalc } from "@multicalc/speed-calc"
+import { SpeedCalcService } from "@pages/speed-calc/speed-calc.service"
 
 const MAX_BASE_SPEED_FOR_TR = 60
 
@@ -18,14 +18,14 @@ const MAX_BASE_SPEED_FOR_TR = 60
 export class SpeedInsightsComponent {
   optionsStore = inject(SpeedCalcOptionsStore)
   calcStore = inject(CalcStore)
-  speedCalcService = new SpeedCalc()
+  speedCalcService = inject(SpeedCalcService)
 
   pokemon = input.required<Pokemon>()
   isMobile = input<boolean>(false)
 
   pokemonName = computed(() => this.pokemon().name)
   regulation = computed(() => this.optionsStore.regulation())
-  speedInsights = computed(() => this.speedCalcService.retrieveSpeedStatistics(this.pokemonName(), this.regulation()))
+  speedInsights = computed(() => this.speedCalcService.speedStatistics(this.pokemonName(), this.regulation()))
 
   referenceDate = computed(() => this.speedInsights()?.referenceDate)
   base = computed(() => this.speedInsights()?.baseSpeed)
