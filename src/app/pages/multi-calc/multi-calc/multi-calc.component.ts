@@ -10,9 +10,10 @@ import { AutomaticFieldService } from "@store/automatic-field/automatic-field-se
 import { DamageResultOrderService } from "@core/services/damage-result-order.service"
 import { MultiCalcMode, RollLevelConfig } from "@multicalc/damage-calc"
 import { MultiCalc } from "@multicalc/multi-calc"
-import { DefensiveEvOptimizer, DEFENSIVE_STATS, SurvivalThreshold } from "@multicalc/ev-optimizer"
+import { DEFENSIVE_STATS, SurvivalThreshold } from "@multicalc/ev-optimizer"
 import { Stats } from "@multicalc/types"
 import { TargetPokemonComponent } from "@pages/multi-calc/target-pokemon/target-pokemon.component"
+import { MultiCalcService } from "@pages/multi-calc/multi-calc.service"
 
 @Component({
   selector: "app-multi-calc",
@@ -27,7 +28,7 @@ export class MultiCalcComponent implements OnInit {
   private fieldStore = inject(FieldStore)
   private damageOrder = inject(DamageResultOrderService)
   private automaticFieldService = inject(AutomaticFieldService)
-  private defensiveEvOptimizer = new DefensiveEvOptimizer()
+  private multiCalcService = inject(MultiCalcService)
 
   pokemonOnEditId = signal<string>(this.store.team().activePokemon()?.id ?? "")
   pokemonOnEdit = computed(() => this.store.findNullablePokemonById(this.pokemonOnEditId()))
@@ -239,7 +240,7 @@ export class MultiCalcComponent implements OnInit {
     this.originalNature.set(defender.nature)
 
     const rollIndex = this.rollLevelConfig().toRollIndex()
-    const result = this.defensiveEvOptimizer.optimize(defender, targets, field, event.updateNature, event.keepOffensiveEvs, event.survivalThreshold, rollIndex, false)
+    const result = this.multiCalcService.optimizeDefensiveEvs(defender, targets, field, event.updateNature, event.keepOffensiveEvs, event.survivalThreshold, rollIndex)
 
     this.optimizedNature.set(result.nature)
     this.optimizationStatus.set(result.status)
