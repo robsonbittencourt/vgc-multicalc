@@ -17,7 +17,7 @@ import { TeamsMobileComponent } from "@features/team/teams-mobile/teams-mobile.c
 import { AutomaticFieldService } from "@store/automatic-field/automatic-field-service"
 import { Pokemon } from "@multicalc/model"
 import { SnackbarService } from "@core/services/snackbar.service"
-import { getFinalSpeed } from "@multicalc/stat-calc"
+import { SpeedCalcService } from "@pages/speed-calc/speed-calc.service"
 import { BackNavigationService } from "@core/services/back-navigation.service"
 import { OpponentOptionsComponent } from "@pages/speed-calc/opponent-options/opponent-options.component"
 import { SpeedInsightsComponent } from "@pages/speed-calc/speed-insights/speed-insights.component"
@@ -65,6 +65,7 @@ export class SpeedCalcMobileComponent implements OnDestroy {
   private automaticFieldService = inject(AutomaticFieldService)
   private backNavigation = inject(BackNavigationService)
   private speedMatch = inject(SpeedMatchService)
+  private speedCalcService = inject(SpeedCalcService)
   private snackbar = inject(SnackbarService)
 
   activeBottomTab = signal<"main" | "speed-insights" | "settings" | "teams">("main")
@@ -127,7 +128,7 @@ export class SpeedCalcMobileComponent implements OnDestroy {
       const activatedPokemon = this.editingPokemon() ?? this.store.team().activePokemon()
 
       if (this.fieldStore.field() && activatedPokemon != undefined) {
-        this.modifiedSpe.set(getFinalSpeed(activatedPokemon, this.fieldStore.field(), true))
+        this.modifiedSpe.set(this.speedCalcService.modifiedSpeed(activatedPokemon, this.fieldStore.field(), true))
       }
     })
 
