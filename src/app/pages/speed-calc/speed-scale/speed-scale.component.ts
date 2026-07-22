@@ -56,7 +56,7 @@ export class SpeedScaleComponent implements OnInit {
     clearTimeout(this.timeoutId)
 
     this.timeoutId = setTimeout(() => {
-      const range = this.speedCalcService.orderedPokemon(pokemon, field, this.pokemonEachSide(), this.teamPokemon(options), options, this.opponentsNoPaddingThreshold())
+      const range = this.speedCalcService.orderedSpeeds(pokemon, field, this.pokemonEachSide(), this.teamPokemon(options), options, this.opponentsNoPaddingThreshold())
       this.inSpeedRange.set(range)
 
       this.verifyChanges(range)
