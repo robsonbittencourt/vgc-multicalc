@@ -5,7 +5,7 @@ import { FilterableTableComponent } from "@features/pokemon-build/tables/filtera
 import { ColumnConfig, TableData } from "@features/pokemon-build/tables/filterable-table/filtered-table-types"
 import { PokemonSpriteComponent } from "@basic/pokemon-sprite/pokemon-sprite.component"
 import { MatIcon } from "@angular/material/icon"
-import { PokemonDetail, pokemonTableData } from "@multicalc/pokemon-table-data"
+import { PokemonDetail, pokemonTableData } from "@features/pokemon-build/tables/pokemon-table/pokemon-table-data"
 import { Stats } from "@multicalc/types"
 import { evToSp } from "@multicalc/utils"
 import { FEATURES } from "@configuration/feature-flags"

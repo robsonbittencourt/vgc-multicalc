@@ -1,7 +1,7 @@
 import { getAbilityData, AbilityName } from "@data/ability-data"
 import { POKEMON_DATA } from "@data/pokemon-data"
 import { topUsageByRegulation } from "@data/top-usage-regulation"
-import { Pokemon } from "@multicalc/model/pokemon"
+import { Pokemon } from "@multicalc/model"
 import { PokemonType } from "@multicalc/types"
 
 export interface PokemonDetail {
