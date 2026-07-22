@@ -30,7 +30,6 @@ import { SaveSetButtonComponent } from "@features/buttons/save-set-button/save-s
 import { PokemonCardComponent } from "@pages/multi-calc/pokemon-card/pokemon-card.component"
 import { FieldComponent } from "@features/field/field.component"
 import { Pokemon, Target } from "@multicalc/model"
-import { addMember, excludeMetaData, separateAttackers } from "@multicalc/target-list"
 import { SELECT_POKEMON_LABEL } from "@store/utils/select-pokemon-label"
 import { BackNavigationService } from "@core/services/back-navigation.service"
 import { AddPokemonCardComponent } from "@pages/multi-calc/add-pokemon-card/add-pokemon-card.component"
@@ -442,7 +441,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
   onTargetsImported(pokemon: Pokemon | Pokemon[]) {
     const pokemonList = Array.isArray(pokemon) ? pokemon : [pokemon]
 
-    const allTargets = pokemonList.reduce((targets, p) => addMember(targets, p), this.store.targets())
+    const allTargets = pokemonList.reduce((targets, p) => this.multiCalcService.addMember(targets, p), this.store.targets())
 
     this.store.updateTargets(allTargets)
 
@@ -474,7 +473,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
   private targetsExcludingMetaData(): Target[] {
     const metaPokemon = this.multiCalcService.metaPokemon(this.store.targetMetaRegulation()!, undefined, FEATURES.allowAllPokes)
 
-    return excludeMetaData(this.store.targets(), metaPokemon)
+    return this.multiCalcService.excludeMetaData(this.store.targets(), metaPokemon)
   }
 
   private activateTeamMember() {
@@ -735,7 +734,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
   }
 
   separateAttackers(pokemonId: string) {
-    const newTargets = separateAttackers(this.store.targets(), pokemonId)
+    const newTargets = this.multiCalcService.separateAttackers(this.store.targets(), pokemonId)
     this.store.updateTargets(newTargets)
   }
 

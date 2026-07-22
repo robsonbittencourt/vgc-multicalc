@@ -16,7 +16,6 @@ import { TeamExportModalComponent } from "@features/export-modal/export-modal.co
 import { MetaRegulationModalComponent } from "@features/meta-regulation-modal/meta-regulation-modal.component"
 import { DamageResult, RollLevelConfig } from "@multicalc/damage-calc"
 import { Pokemon, Target } from "@multicalc/model"
-import { addMember, combineAttackers, excludeMetaData, separateAttackers } from "@multicalc/target-list"
 import { SnackbarService } from "@core/services/snackbar.service"
 import { Regulation } from "@multicalc/types"
 import { FEATURES } from "@configuration/feature-flags"
@@ -194,7 +193,7 @@ export class TargetPokemonComponent {
 
   pokemonImported(pokemon: Pokemon | Pokemon[]) {
     const pokemonList = pokemon as Pokemon[]
-    const allTargets = pokemonList.reduce((targets, p) => addMember(targets, p), this.store.targets())
+    const allTargets = pokemonList.reduce((targets, p) => this.multiCalcService.addMember(targets, p), this.store.targets())
 
     this.store.updateTargets(allTargets)
 
@@ -240,7 +239,7 @@ export class TargetPokemonComponent {
 
     if (previousContainer.data == container.data) return
 
-    const newTargets = combineAttackers(this.targets(), container.data, previousContainer.data)
+    const newTargets = this.multiCalcService.combineAttackers(this.targets(), container.data, previousContainer.data)
 
     if (newTargets) {
       this.store.updateTargets(newTargets)
@@ -248,7 +247,7 @@ export class TargetPokemonComponent {
   }
 
   separateAttackers(pokemonId: string) {
-    const newTargets = separateAttackers(this.targets(), pokemonId)
+    const newTargets = this.multiCalcService.separateAttackers(this.targets(), pokemonId)
     this.store.updateTargets(newTargets)
   }
 
@@ -315,7 +314,7 @@ export class TargetPokemonComponent {
   private targetsExcludingMetaData(): Target[] {
     const metaPokemon = this.multiCalcService.metaPokemon(this.store.targetMetaRegulation()!, undefined, FEATURES.allowAllPokes)
 
-    return excludeMetaData(this.targets(), metaPokemon)
+    return this.multiCalcService.excludeMetaData(this.targets(), metaPokemon)
   }
 
   private activateTeamMember() {
