@@ -1,6 +1,6 @@
 import { CalcState, PokemonState, TargetState, TeamMemberState, TeamState } from "@store/calc-store"
 import { Regulation } from "@multicalc/types"
-import { uuid } from "@multicalc/utils/uuid"
+import { uuid } from "@multicalc/utils"
 
 export function buildUserData(
   leftPokemon: PokemonState,

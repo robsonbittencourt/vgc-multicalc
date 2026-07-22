@@ -11,7 +11,7 @@ import { InputSelectComponent } from "@basic/input-select/input-select.component
 import { CalcStore } from "@store/calc-store"
 import { FieldStore } from "@store/field-store"
 import { MenuStore } from "@store/menu-store"
-import { remainingSps, spToEv } from "@multicalc/utils/ev-sp-converter"
+import { remainingSps, spToEv } from "@multicalc/utils"
 import { AbilityComboBoxComponent } from "@features/pokemon-build/ability-combo-box/ability-combo-box.component"
 import { EvSliderComponent } from "@features/pokemon-build/ev-slider/ev-slider.component"
 import { NatureComboBoxComponent } from "@features/pokemon-build/nature-combo-box/nature-combo-box.component"

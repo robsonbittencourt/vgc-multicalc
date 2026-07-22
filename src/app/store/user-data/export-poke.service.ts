@@ -5,7 +5,7 @@ import { TeamExportModalComponent } from "@features/export-modal/export-modal.co
 import { FEATURES } from "@configuration/feature-flags"
 import { CalcStore } from "@store/calc-store"
 import { Pokemon } from "@multicalc/model"
-import { evToSp } from "@multicalc/utils/ev-sp-converter"
+import { evToSp } from "@multicalc/utils"
 import { normalizePokemonNameForExport } from "@calc-bridge"
 @Injectable({
   providedIn: "root"

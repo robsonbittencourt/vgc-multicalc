@@ -3,7 +3,7 @@ import { remainingHp, remainingHpPercentage } from "@multicalc/hp-calc"
 import { Status } from "@multicalc/model"
 import { FaintedIconComponent } from "@pages/simple-calc/pokemon-hp-badge/hp-badge/fainted-icon/fainted-icon.component"
 import { StatusIconComponent } from "@pages/simple-calc/pokemon-hp-badge/hp-badge/status-icon/status-icon.component"
-import { uuid } from "@multicalc/utils/uuid"
+import { uuid } from "@multicalc/utils"
 import { SpriteService } from "@core/services/sprite.service"
 
 @Component({

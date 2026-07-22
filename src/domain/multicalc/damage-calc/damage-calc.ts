@@ -18,7 +18,7 @@ import { Move } from "@multicalc/model/move"
 import { Pokemon } from "@multicalc/model/pokemon"
 import { SpeedCalc } from "@multicalc/speed-calc"
 import { calculate, calculateMulti, Move as MoveCalc, Result, MultiResult } from "@calc"
-import { evToSp } from "@multicalc/utils/ev-sp-converter"
+import { evToSp } from "@multicalc/utils"
 import { RollLevelConfig } from "./roll-level-config"
 
 export class DamageCalc {

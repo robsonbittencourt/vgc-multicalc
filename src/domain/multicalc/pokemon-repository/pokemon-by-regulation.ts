@@ -5,7 +5,7 @@ import { Move } from "@multicalc/model/move"
 import { MoveSet } from "@multicalc/model/moveset"
 import { Pokemon } from "@multicalc/model/pokemon"
 import { Regulation } from "@multicalc/types"
-import { spToEv } from "@multicalc/utils/ev-sp-converter"
+import { spToEv } from "@multicalc/utils"
 
 export function pokemonByRegulation(regulation: Regulation, quantity?: number, setdex: Record<string, any> = MOVESETS, includeAllPokemon = false): Pokemon[] {
   const regulationList = topUsageByRegulation[regulation]

@@ -3,7 +3,7 @@ import { CalcStore } from "@store/calc-store"
 import { Field, Pokemon } from "@multicalc/model"
 import { getFinalSpeed } from "@multicalc/stat-calc"
 import { SpeedEvOptimizer } from "@multicalc/speed-calc"
-import { evToSp, spToEv, totalSpsFromEvs } from "@multicalc/utils/ev-sp-converter"
+import { evToSp, spToEv, totalSpsFromEvs } from "@multicalc/utils"
 
 const MAX_TOTAL_SPS = 66
 
