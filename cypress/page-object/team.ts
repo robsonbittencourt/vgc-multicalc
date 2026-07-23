@@ -138,6 +138,8 @@ export class Team {
     new PokemonBuild("your-team").importPokemon(pokemonData, useEvs)
 
     const pokemonName = this.extractPokemonName(pokemonData)
+
+    cy.get('[data-cy="team-member-tab"]').contains(pokemonName).should("be.visible")
     this.selectPokemon(pokemonName)
 
     return new PokemonBuild("your-team")
