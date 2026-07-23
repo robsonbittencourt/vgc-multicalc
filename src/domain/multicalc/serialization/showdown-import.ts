@@ -32,7 +32,9 @@ export function adjustName(pokemonName: string): string {
   if (pokemonName.includes("-")) {
     const onlyName = pokemonName.substring(0, pokemonName.indexOf("-"))
 
-    if (pokemonWithAlternativeForm().includes(onlyName)) {
+    const isAlternativeForm = pokemonWithAlternativeForm().some(name => name.normalize("NFC") === onlyName.normalize("NFC"))
+
+    if (isAlternativeForm) {
       const fullNameExists = getMoveset(pokemonName, MOVESETS)
 
       if (fullNameExists) {
