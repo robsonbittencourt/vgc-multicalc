@@ -1,11 +1,13 @@
 import { PokemonDataCore } from "@data/types"
 import { toID } from "@data/id"
 
+export type PokemonId = keyof typeof POKEMON_DATA
+
 export function getPokemonData(name: string): PokemonDataCore | undefined {
-  return POKEMON_DATA[toID(name)]
+  return (POKEMON_DATA as Record<string, PokemonDataCore>)[toID(name)]
 }
 
-export const POKEMON_DATA: Record<string, PokemonDataCore> = {
+export const POKEMON_DATA = {
   abra: {
     name: "Abra",
     types: ["Psychic"],
@@ -20202,4 +20204,4 @@ export const POKEMON_DATA: Record<string, PokemonDataCore> = {
     abilities: ["Innards Out"],
     group: "Regular"
   }
-}
+} satisfies Record<string, PokemonDataCore>
