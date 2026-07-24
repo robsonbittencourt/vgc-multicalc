@@ -1,6 +1,8 @@
+import { AVAILABLE_POKEMON } from "@configuration/available-pokemon"
 import { getAbilityData, AbilityName } from "@data/ability-data"
 import { POKEMON_DATA } from "@data/pokemon-data"
 import { topUsageByRegulation } from "@data/top-usage-regulation"
+import { PokemonDataCore } from "@data/types"
 import { Pokemon } from "@multicalc/model"
 import { PokemonType } from "@multicalc/types"
 
@@ -27,11 +29,11 @@ const GROUP_ORDER = ["Meta", "Low usage", "Regular"]
 
 export function pokemonTableData(allowAllPokes: boolean): PokemonTableGroup[] {
   const topUsageOrder = topUsageByRegulation["MB"]
-  const availableNames = new Set(topUsageOrder)
+  const availableIds = new Set<string>(AVAILABLE_POKEMON)
 
-  const allPokemon = Object.values(POKEMON_DATA)
-    .filter(p => allowAllPokes || availableNames.has(p.name))
-    .map(p => toPokemonDetail(p))
+  const allPokemon = Object.entries(POKEMON_DATA)
+    .filter(([id]) => allowAllPokes || availableIds.has(id))
+    .map(([, p]) => toPokemonDetail(p))
 
   const groupedData = groupByGroup(allPokemon)
 
@@ -42,7 +44,7 @@ export function pokemonTableData(allowAllPokes: boolean): PokemonTableGroup[] {
   return GROUP_ORDER.map(groupName => ({ group: groupName, data: groupedData[groupName] })).filter(group => group.data !== undefined)
 }
 
-function toPokemonDetail(p: (typeof POKEMON_DATA)[keyof typeof POKEMON_DATA]): PokemonDetail {
+function toPokemonDetail(p: PokemonDataCore): PokemonDetail {
   const pokemon = new Pokemon(p.name)
 
   const abilities: AbilityName[] = (p.abilities ?? []).map(ability => {

@@ -1,4 +1,5 @@
 import { POKEMON_DATA } from "@data/pokemon-data"
+import { PokemonDataCore } from "@data/types"
 import { SpeedCalcOptions } from "@multicalc/speed-calc/speed-calc-options"
 
 describe("SpeedCalcOptions", () => {
@@ -11,6 +12,6 @@ describe("SpeedCalcOptions", () => {
   it("should return total Pokémon as quantity when top usage option equals All", () => {
     const options = new SpeedCalcOptions({ topUsage: "All" })
 
-    expect(options.topUsage).toEqual(Object.values(POKEMON_DATA).filter(p => p.group !== undefined).length + 1)
+    expect(options.topUsage).toEqual(Object.values(POKEMON_DATA as Record<string, PokemonDataCore>).filter(p => p.group !== undefined).length + 1)
   })
 })

@@ -1,4 +1,5 @@
 import { POKEMON_DATA } from "@data/pokemon-data"
+import { PokemonDataCore } from "@data/types"
 import { SpeedCalcMode } from "@multicalc/speed-calc/speed-calc-mode"
 import { Regulation } from "@multicalc/types"
 
@@ -44,7 +45,7 @@ export class SpeedCalcOptions {
 
   get topUsage(): number {
     if (this._topUsage == "All") {
-      return Object.values(POKEMON_DATA).filter(p => p.group !== undefined).length + 1
+      return Object.values(POKEMON_DATA as Record<string, PokemonDataCore>).filter(p => p.group !== undefined).length + 1
     }
 
     return +this._topUsage
