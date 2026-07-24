@@ -32,21 +32,22 @@ describe("applyEarlyReturnGuards", () => {
     expect(applyEarlyReturnGuards(ctx)?.type).toBe("immune")
   })
 
-  it("Pain Split is a Status move and returns immune", () => {
-    const ctx = makeCtx("Garchomp", {}, "Pelipper", {}, "Pain Split")
-    expect(applyEarlyReturnGuards(ctx)?.type).toBe("immune")
-  })
-
-  it("Pain Split evens out the HP when its category is not Status", () => {
-    const ctx = makeCtx("Garchomp", { curHP: 50 }, "Blissey", { curHP: 350 }, "Pain Split", { overrides: { category: "Physical", basePower: 1 } })
+  it("Pain Split evens out the HP", () => {
+    const ctx = makeCtx("Misdreavus", { curHP: 50 }, "Blissey", { curHP: 350 }, "Pain Split")
 
     expect(applyEarlyReturnGuards(ctx)).toEqual({ type: "damage", value: 140 })
   })
 
   it("Pain Split deals no damage when the defender is already below the average HP", () => {
-    const ctx = makeCtx("Garchomp", { curHP: 180 }, "Blissey", { curHP: 50 }, "Pain Split", { overrides: { category: "Physical", basePower: 1 } })
+    const ctx = makeCtx("Misdreavus", { curHP: 180 }, "Blissey", { curHP: 50 }, "Pain Split")
 
     expect(applyEarlyReturnGuards(ctx)).toEqual({ type: "damage", value: 0 })
+  })
+
+  it("Pain Split is still blocked by Protect", () => {
+    const ctx = makeCtx("Misdreavus", { curHP: 50 }, "Blissey", { curHP: 350 }, "Pain Split", {}, { defenderSide: { isProtected: true } })
+
+    expect(applyEarlyReturnGuards(ctx)?.type).toBe("immune")
   })
 
   it("returns null for damaging moves", () => {
