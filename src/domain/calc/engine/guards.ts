@@ -22,11 +22,11 @@ export function applyEarlyReturnGuards(ctx: CombatContext): GuardResult | null {
     move.category = attacker.stats.atk > attacker.stats.spa ? "Physical" : "Special"
   }
 
-  if (move.category === "Status") {
+  if (move.category === "Status" && !move.named("Pain Split")) {
     return { type: "immune" }
   }
 
-  if (move.flags.punch && attacker.hasItem("Punching Glove")) {
+  if (move.flags?.punch && attacker.hasItem("Punching Glove")) {
     description.attackerItem = attacker.item
     move.flags.contact = 0
   }
@@ -36,7 +36,7 @@ export function applyEarlyReturnGuards(ctx: CombatContext): GuardResult | null {
     move.flags.contact = 1
   }
 
-  const breaksProtect = move.breaksProtect || (attacker.hasAbility("Unseen Fist", "Piercing Drill") && !!move.flags.contact)
+  const breaksProtect = move.breaksProtect || (attacker.hasAbility("Unseen Fist", "Piercing Drill") && !!move.flags?.contact)
 
   if (field.defenderSide.isProtected && !breaksProtect) {
     description.isProtected = true
