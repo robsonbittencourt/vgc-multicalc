@@ -1362,22 +1362,17 @@ describe("TypeChart", () => {
     it("should keep Ground immunity from Levitate without Iron Ball", () => {
       expect(service.getEffectiveness("Ground", "Normal", undefined, "Levitate", { ability: "Levitate" })).toBe(0)
     })
-
-    it("should not remove Ground immunity when the defender also has Klutz", () => {
-      expect(service.getEffectiveness("Ground", "Normal", undefined, "Levitate", { ability: "Levitate", item: "Iron Ball" })).toBe(1)
-      expect(service.getEffectiveness("Ground", "Normal", undefined, "Klutz", { ability: "Klutz", item: "Iron Ball" })).toBe(1)
-    })
   })
 
   describe("Ring Target", () => {
-    it("should remove ability-based type immunity", () => {
-      expect(service.getEffectiveness("Ground", "Normal", undefined, "Levitate", { ability: "Levitate", item: "Ring Target" })).toBe(1)
-      expect(service.getEffectiveness("Electric", "Ground", undefined, undefined, { item: "Ring Target" })).toBe(1)
-    })
-
     it("should remove type-chart-based immunity", () => {
       expect(service.getEffectiveness("Normal", "Ghost", undefined, undefined, { item: "Ring Target" })).toBe(1)
       expect(service.getEffectiveness("Ground", "Flying", undefined, undefined, { item: "Ring Target" })).toBe(1)
+      expect(service.getEffectiveness("Electric", "Ground", undefined, undefined, { item: "Ring Target" })).toBe(1)
+    })
+
+    it("should not remove ability-based immunity", () => {
+      expect(service.getEffectiveness("Ground", "Normal", undefined, "Levitate", { ability: "Levitate", item: "Ring Target" })).toBe(0)
     })
 
     it("should not remove immunity when the defender also has Klutz", () => {
@@ -1386,6 +1381,72 @@ describe("TypeChart", () => {
 
     it("should not affect non-immune matchups", () => {
       expect(service.getEffectiveness("Fire", "Grass", undefined, undefined, { item: "Ring Target" })).toBe(2)
+    })
+
+    it("should preserve the other type multiplier on a dual-type immunity (Electric vs Ground/Water)", () => {
+      expect(service.getEffectiveness("Electric", "Ground", "Water", undefined, { item: "Ring Target" })).toBe(2)
+    })
+
+    it("should keep a resisted secondary type when the primary is immune (Ground vs Flying/Bug)", () => {
+      expect(service.getEffectiveness("Ground", "Flying", "Bug", undefined, { item: "Ring Target" })).toBe(0.5)
+    })
+
+    it("should keep a super-effective secondary type when the primary is immune (Ground vs Flying/Steel)", () => {
+      expect(service.getEffectiveness("Ground", "Flying", "Steel", undefined, { item: "Ring Target" })).toBe(2)
+    })
+  })
+
+  describe("items vs ability immunities", () => {
+    it("should keep Levitate Ground immunity against Ring Target (Ring Target does not ground)", () => {
+      expect(service.getEffectiveness("Ground", "Normal", undefined, "Levitate", { ability: "Levitate", item: "Ring Target" })).toBe(0)
+    })
+
+    it("should keep Eelevate Ground immunity against Ring Target", () => {
+      expect(service.getEffectiveness("Ground", "Normal", undefined, "Eelevate", { ability: "Eelevate", item: "Ring Target" })).toBe(0)
+    })
+
+    it("should ground Levitate with Iron Ball", () => {
+      expect(service.getEffectiveness("Ground", "Normal", undefined, "Levitate", { ability: "Levitate", item: "Iron Ball" })).toBe(1)
+    })
+
+    it("should ground Eelevate with Iron Ball", () => {
+      expect(service.getEffectiveness("Ground", "Normal", undefined, "Eelevate", { ability: "Eelevate", item: "Iron Ball" })).toBe(1)
+    })
+
+    it("should keep Flash Fire immunity against Iron Ball", () => {
+      expect(service.getEffectiveness("Fire", "Grass", undefined, "Flash Fire", { ability: "Flash Fire", item: "Iron Ball" })).toBe(0)
+    })
+
+    it("should keep Flash Fire immunity against Ring Target", () => {
+      expect(service.getEffectiveness("Fire", "Grass", undefined, "Flash Fire", { ability: "Flash Fire", item: "Ring Target" })).toBe(0)
+    })
+
+    it("should keep Earth Eater immunity against Iron Ball", () => {
+      expect(service.getEffectiveness("Ground", "Normal", undefined, "Earth Eater", { ability: "Earth Eater", item: "Iron Ball" })).toBe(0)
+    })
+
+    it("should keep Earth Eater immunity against Ring Target", () => {
+      expect(service.getEffectiveness("Ground", "Normal", undefined, "Earth Eater", { ability: "Earth Eater", item: "Ring Target" })).toBe(0)
+    })
+
+    it("should keep Volt Absorb immunity against Iron Ball", () => {
+      expect(service.getEffectiveness("Electric", "Water", undefined, "Volt Absorb", { ability: "Volt Absorb", item: "Iron Ball" })).toBe(0)
+    })
+
+    it("should keep Volt Absorb immunity against Ring Target", () => {
+      expect(service.getEffectiveness("Electric", "Water", undefined, "Volt Absorb", { ability: "Volt Absorb", item: "Ring Target" })).toBe(0)
+    })
+
+    it("should keep Water Absorb immunity against Ring Target", () => {
+      expect(service.getEffectiveness("Water", "Fire", undefined, "Water Absorb", { ability: "Water Absorb", item: "Ring Target" })).toBe(0)
+    })
+
+    it("should keep Sap Sipper immunity against Iron Ball", () => {
+      expect(service.getEffectiveness("Grass", "Normal", undefined, "Sap Sipper", { ability: "Sap Sipper", item: "Iron Ball" })).toBe(0)
+    })
+
+    it("should keep Well-Baked Body immunity against Ring Target", () => {
+      expect(service.getEffectiveness("Fire", "Normal", undefined, "Well-Baked Body", { ability: "Well-Baked Body", item: "Ring Target" })).toBe(0)
     })
   })
 
