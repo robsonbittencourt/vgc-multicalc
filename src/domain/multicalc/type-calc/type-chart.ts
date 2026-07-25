@@ -45,7 +45,7 @@ export class TypeChart {
       const immuneType = ABILITY_IMMUNITIES[ability]
 
       if (immuneType && immuneType === attackType) {
-        return this.removesTypeImmunity(defender) ? 1 : 0
+        return this.isGrounded(ability, defender) ? 1 : 0
       }
 
       if (ability === "Wonder Guard") {
@@ -55,9 +55,10 @@ export class TypeChart {
     }
 
     const ignoresGhost = attacker?.ignoresGhostImmunity && (attackType === "Normal" || attackType === "Fighting")
+    const ringTarget = this.hasRingTarget(defender)
 
-    const effectiveness1 = this.typeEffectivenessAgainst(attackType, defenseType1, ignoresGhost)
-    const effectiveness2 = defenseType2 ? this.typeEffectivenessAgainst(attackType, defenseType2, ignoresGhost) : 1
+    const effectiveness1 = this.typeEffectivenessAgainst(attackType, defenseType1, ignoresGhost, ringTarget)
+    const effectiveness2 = defenseType2 ? this.typeEffectivenessAgainst(attackType, defenseType2, ignoresGhost, ringTarget) : 1
 
     const multiplier = effectiveness1 * effectiveness2
 
@@ -67,19 +68,27 @@ export class TypeChart {
     if (multiplier === 2) return 2
     if (multiplier === 4) return 4
 
-    return this.hasRingTarget(defender) ? 1 : 0
+    return 0
   }
 
-  private typeEffectivenessAgainst(attackType: PokemonType, defenseType: PokemonType, ignoresGhost?: boolean): number {
+  private typeEffectivenessAgainst(attackType: PokemonType, defenseType: PokemonType, ignoresGhost?: boolean, ringTarget?: boolean): number {
     if (ignoresGhost && defenseType === "Ghost") {
       return 1
     }
 
-    return this.typeChart[attackType][defenseType]
+    const effectiveness = this.typeChart[attackType][defenseType]
+
+    if (effectiveness === 0 && ringTarget) {
+      return 1
+    }
+
+    return effectiveness
   }
 
-  private removesTypeImmunity(defender?: DefenderInput): boolean {
-    return this.hasRingTarget(defender) || (defender?.item === "Iron Ball" && !this.hasKlutz(defender))
+  private isGrounded(ability: AbilityName, defender?: DefenderInput): boolean {
+    if (ability !== "Levitate" && ability !== "Eelevate") return false
+
+    return defender?.item === "Iron Ball" && !this.hasKlutz(defender)
   }
 
   private hasRingTarget(defender?: DefenderInput): boolean {
