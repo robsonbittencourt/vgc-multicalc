@@ -80,8 +80,9 @@ function buildPokemonToUserData(pokemon: PokemonState) {
 }
 
 function buildPokemonState(pokemon: any): PokemonState {
-  const ability = pokemon.ability
-  const abilityOn = pokemon.abilityOn
+  const hasLegacyAbilityShape = pokemon.ability !== null && typeof pokemon.ability === "object"
+  const ability = hasLegacyAbilityShape ? pokemon.ability.name : pokemon.ability
+  const abilityOn = hasLegacyAbilityShape ? pokemon.ability.on : pokemon.abilityOn
 
   return {
     id: uuid(),
