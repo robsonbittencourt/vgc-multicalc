@@ -1,13 +1,13 @@
 import { mergeDeep } from "@calc/engine/data-util"
 import { getPokemonData } from "@data/pokemon-data"
-import { getNatureData } from "@data/nature-data"
+import { getNatureData, NatureData } from "@data/nature-data"
 import { AbilityName, Gender, ItemName, MoveName, NatureName, PokemonData, PokemonName, StatePokemon, StatID, StatIDExceptHP, StatsTable, StatusName, TypeName } from "@data/types"
-
-const STATS: StatID[] = ["hp", "atk", "def", "spa", "spd", "spe"]
 
 const DEFAULT_LEVEL = 50
 
 const MAX_IVS: StatsTable = Object.freeze({ hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 })
+
+const EMPTY_STATS: StatsTable = Object.freeze({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
 
 type PokemonOptions = Partial<StatePokemon> & {
   curHP?: number
@@ -40,8 +40,8 @@ export class Pokemon {
   toxicCounter: number
   moves: MoveName[]
 
-  constructor(name: string, options: PokemonOptions = {}) {
-    this.pokemonData = mergeDeep<PokemonData>({}, getPokemonData(name), options.overrides)
+  constructor(name: string, options: PokemonOptions = {}, resolvedPokemonData?: PokemonData) {
+    this.pokemonData = resolvedPokemonData || mergeDeep<PokemonData>({}, getPokemonData(name), options.overrides)
     this.name = (options.name || name) as PokemonName
     this.types = this.pokemonData.types
     this.weightKg = this.pokemonData.weightKg
@@ -57,8 +57,8 @@ export class Pokemon {
     this.evs = Pokemon.withDefault(options.evs, 0)
     this.boosts = Pokemon.withDefault(options.boosts, 0)
 
-    this.rawStats = {} as StatsTable
-    this.stats = {} as StatsTable
+    this.rawStats = EMPTY_STATS
+    this.stats = EMPTY_STATS
 
     this.recalculateStats()
 
@@ -70,11 +70,19 @@ export class Pokemon {
   }
 
   recalculateStats(): void {
-    for (const stat of STATS) {
-      const value = this.calcStat(stat)
-      this.rawStats[stat] = value
-      this.stats[stat] = value
+    const nature = getNatureData(this.nature)
+
+    const stats: StatsTable = {
+      hp: this.calcStat("hp", nature),
+      atk: this.calcStat("atk", nature),
+      def: this.calcStat("def", nature),
+      spa: this.calcStat("spa", nature),
+      spd: this.calcStat("spd", nature),
+      spe: this.calcStat("spe", nature)
     }
+
+    this.rawStats = stats
+    this.stats = { hp: stats.hp, atk: stats.atk, def: stats.def, spa: stats.spa, spd: stats.spd, spe: stats.spe }
   }
 
   maxHp(): number {
@@ -86,20 +94,47 @@ export class Pokemon {
   }
 
   hasAbility(...abilities: string[]): boolean {
-    return !!(this.ability && abilities.includes(this.ability))
+    const ability = this.ability
+
+    if (!ability) return false
+
+    for (const candidate of abilities) {
+      if (candidate === ability) return true
+    }
+
+    return false
   }
 
   hasItem(...items: string[]): boolean {
-    return !!(this.item && items.includes(this.item))
+    const item = this.item
+
+    if (!item) return false
+
+    for (const candidate of items) {
+      if (candidate === item) return true
+    }
+
+    return false
   }
 
   hasStatus(...statuses: StatusName[]): boolean {
-    return !!(this.status && statuses.includes(this.status))
+    const status = this.status
+
+    if (!status) return false
+
+    for (const candidate of statuses) {
+      if (candidate === status) return true
+    }
+
+    return false
   }
 
   hasType(...types: TypeName[]): boolean {
+    const teraType = this.teraType
+    const effectiveTera = teraType && teraType !== "Stellar" ? teraType : undefined
+
     for (const type of types) {
-      const matches = this.teraType && this.teraType !== "Stellar" ? this.teraType === type : this.types.includes(type)
+      const matches = effectiveTera ? effectiveTera === type : this.hasRawType(type)
 
       if (matches) {
         return true
@@ -111,7 +146,7 @@ export class Pokemon {
 
   hasOriginalType(...types: TypeName[]): boolean {
     for (const type of types) {
-      if (this.types.includes(type)) {
+      if (this.hasRawType(type)) {
         return true
       }
     }
@@ -119,31 +154,48 @@ export class Pokemon {
     return false
   }
 
+  private hasRawType(type: TypeName | undefined): boolean {
+    if (!type) return false
+
+    const types = this.types
+
+    return types[0] === type || types[1] === type
+  }
+
   named(...names: string[]): boolean {
-    return names.includes(this.name)
+    const name = this.name
+
+    for (const candidate of names) {
+      if (candidate === name) return true
+    }
+
+    return false
   }
 
   clone(): Pokemon {
-    return new Pokemon(this.name, {
-      ability: this.ability,
-      abilityOn: this.abilityOn,
-      alliesFainted: this.alliesFainted,
-      boostedStat: this.boostedStat,
-      item: this.item,
-      gender: this.gender,
-      nature: this.nature,
-      evs: mergeDeep({}, this.evs),
-      boosts: mergeDeep({}, this.boosts),
-      originalCurrentHp: this.originalCurrentHp,
-      status: this.status,
-      teraType: this.teraType,
-      toxicCounter: this.toxicCounter,
-      moves: this.moves.slice(),
-      overrides: this.pokemonData
-    })
+    return new Pokemon(
+      this.name,
+      {
+        ability: this.ability,
+        abilityOn: this.abilityOn,
+        alliesFainted: this.alliesFainted,
+        boostedStat: this.boostedStat,
+        item: this.item,
+        gender: this.gender,
+        nature: this.nature,
+        evs: this.evs,
+        boosts: this.boosts,
+        originalCurrentHp: this.originalCurrentHp,
+        status: this.status,
+        teraType: this.teraType,
+        toxicCounter: this.toxicCounter,
+        moves: this.moves
+      },
+      this.pokemonData
+    )
   }
 
-  private calcStat(stat: StatID): number {
+  private calcStat(stat: StatID, nature: NatureData | undefined): number {
     const base = this.pokemonData.baseStats[stat]
     const iv = this.ivs[stat]
     const ev = this.evs[stat]
@@ -152,13 +204,23 @@ export class Pokemon {
       return base === 1 ? base : Math.floor(((base * 2 + iv + Math.floor(ev / 4)) * this.level) / 100) + this.level + 10
     }
 
-    const nature = getNatureData(this.nature)
     const multiplier = nature?.plus === stat && nature?.minus === stat ? 1 : nature?.plus === stat ? 1.1 : nature?.minus === stat ? 0.9 : 1
 
     return Math.floor((Math.floor(((base * 2 + iv + Math.floor(ev / 4)) * this.level) / 100) + 5) * multiplier)
   }
 
   private static withDefault(current: Partial<StatsTable> | undefined, value: number): StatsTable {
-    return { hp: value, atk: value, def: value, spa: value, spd: value, spe: value, ...current }
+    if (!current) {
+      return { hp: value, atk: value, def: value, spa: value, spd: value, spe: value }
+    }
+
+    return {
+      hp: current.hp ?? value,
+      atk: current.atk ?? value,
+      def: current.def ?? value,
+      spa: current.spa ?? value,
+      spd: current.spd ?? value,
+      spe: current.spe ?? value
+    }
   }
 }

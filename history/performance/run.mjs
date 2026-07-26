@@ -6,7 +6,7 @@ import { tmpdir } from "node:os"
 import { performance } from "node:perf_hooks"
 import { execSync } from "node:child_process"
 
-import { ITERATIONS, MULTI_ITERATIONS, SINGLE_SCENARIOS, MULTI_SCENARIOS } from "./scenarios.mjs"
+import { ITERATIONS, MULTI_ITERATIONS, REPETITIONS, SINGLE_SCENARIOS, MULTI_SCENARIOS } from "./scenarios.mjs"
 import { renderReport } from "./report.mjs"
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
@@ -73,16 +73,16 @@ function vendoredAdapter(calc) {
       return () => calculate(a, d, m, f)
     },
     multi(s) {
-      const attackers = s.attackers.map(x => new Pokemon(x.name, x.opts))
-      const moves = s.attackers.map(x => new Move(x.move))
+      const [a1, a2] = s.attackers.map(x => new Pokemon(x.name, x.opts))
+      const [m1, m2] = s.attackers.map(x => new Move(x.move))
       const d = new Pokemon(s.defender)
       const f = new Field()
-      return () => calculateMulti(attackers, d, moves, f)
+      return () => calculateMulti(a1, a2, m1, m2, d, f)
     }
   }
 }
 
-function measure(adapter) {
+function measureOnce(adapter) {
   const singleCalls = SINGLE_SCENARIOS.map(s => adapter.single(s))
   const multiCalls = MULTI_SCENARIOS.map(s => adapter.multi(s))
 
@@ -100,12 +100,36 @@ function measure(adapter) {
   for (let i = 0; i < MULTI_ITERATIONS; i++) multiCalls[i % multiCalls.length]()
   const multiMs = performance.now() - tMulti0
 
+  if (global.gc) global.gc()
   const heapAfter = process.memoryUsage().heapUsed
 
+  return { singleMs, multiMs, heapDeltaMB: (heapAfter - heapBefore) / 1024 / 1024 }
+}
+
+function median(values) {
+  const sorted = [...values].sort((a, b) => a - b)
+  const middle = Math.floor(sorted.length / 2)
+
+  return sorted.length % 2 === 0 ? (sorted[middle - 1] + sorted[middle]) / 2 : sorted[middle]
+}
+
+function measure(adapter) {
+  const runs = []
+
+  for (let repetition = 1; repetition <= REPETITIONS; repetition++) {
+    const run = measureOnce(adapter)
+    runs.push(run)
+    console.log(`  run ${repetition}/${REPETITIONS}: single ${round((run.singleMs * 1e6) / ITERATIONS)} ns/call · multi ${round((run.multiMs * 1e6) / MULTI_ITERATIONS)} ns/call`)
+  }
+
+  const singleMs = median(runs.map(r => r.singleMs))
+  const multiMs = median(runs.map(r => r.multiMs))
+
   return {
+    repetitions: REPETITIONS,
     single: { iterations: ITERATIONS, totalMs: round(singleMs), nsPerCall: round((singleMs * 1e6) / ITERATIONS) },
     multi: { iterations: MULTI_ITERATIONS, totalMs: round(multiMs), nsPerCall: round((multiMs * 1e6) / MULTI_ITERATIONS) },
-    heapDeltaMB: round((heapAfter - heapBefore) / 1024 / 1024, 2)
+    heapDeltaMB: round(median(runs.map(r => r.heapDeltaMB)), 2)
   }
 }
 
@@ -136,7 +160,7 @@ async function main() {
   console.log("Bundling vendored calc…")
   const vendored = await loadVendoredCalc()
 
-  console.log("Measuring vendored calc…")
+  console.log(`Measuring vendored calc (${REPETITIONS} repetitions, median reported)…`)
   const current = measure(vendoredAdapter(vendored))
 
   const now = new Date()
@@ -243,7 +267,8 @@ function printSummary({ current, baseline }) {
   console.log(`  single ns/call        ${pad(current.single.nsPerCall)} ${pad(baseline.single.nsPerCall)} ${pct(current.single.nsPerCall, baseline.single.nsPerCall)}`)
   console.log(`  multi  ns/call        ${pad(current.multi.nsPerCall)} ${pad(baseline.multi.nsPerCall)} ${pct(current.multi.nsPerCall, baseline.multi.nsPerCall)}`)
   console.log(`  heap Δ MB             ${pad(current.heapDeltaMB)} ${pad(baseline.heapDeltaMB)}`)
-  console.log(`\n  baseline = ${baseline.source}`)
+  console.log(`\n  current  = median of ${current.repetitions} repetitions`)
+  console.log(`  baseline = ${baseline.source}`)
 }
 
 const pad = v => String(v).padEnd(12)

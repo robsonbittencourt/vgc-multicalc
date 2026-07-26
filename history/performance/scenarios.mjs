@@ -1,5 +1,6 @@
 export const ITERATIONS = 40000
 export const MULTI_ITERATIONS = 15000
+export const REPETITIONS = 5
 
 export const SINGLE_SCENARIOS = [
   { attacker: "Raging Bolt", move: "Thunderbolt", defender: "Flutter Mane", attackerOpts: { item: "Booster Energy", nature: "Modest", evs: { spa: 252 } } },

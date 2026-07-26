@@ -82,11 +82,27 @@ export class Field {
   }
 
   hasWeather(...weathers: Weather[]): boolean {
-    return !!(this.weather && weathers.includes(this.weather))
+    const weather = this.weather
+
+    if (!weather) return false
+
+    for (const candidate of weathers) {
+      if (candidate === weather) return true
+    }
+
+    return false
   }
 
   hasTerrain(...terrains: Terrain[]): boolean {
-    return !!(this.terrain && terrains.includes(this.terrain))
+    const terrain = this.terrain
+
+    if (!terrain) return false
+
+    for (const candidate of terrains) {
+      if (candidate === terrain) return true
+    }
+
+    return false
   }
 
   swap(): this {
