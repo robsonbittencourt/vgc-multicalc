@@ -2,6 +2,7 @@ import { Component, computed, inject, input, signal } from "@angular/core"
 import { KeyValuePair } from "@basic/input-autocomplete/input-autocomplete.component"
 import { InputSelectComponent } from "@basic/input-select/input-select.component"
 import { NATURE_DETAILS, NatureStatID } from "@data/nature-data"
+import { toID } from "@data/id"
 import { CalcStore } from "@store/calc-store"
 
 const STAT_LABELS: Record<NatureStatID, string> = {
@@ -39,10 +40,6 @@ const DISPLAY_ORDER = [
   "Quirky",
   "Serious"
 ]
-
-function toID(name: string): string {
-  return name.toLowerCase().replace(/[^a-z0-9]/g, "")
-}
 
 function natureLabel(natureName: string): string {
   const nature = NATURE_DETAILS[toID(natureName)]

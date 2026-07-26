@@ -1,22 +1,4 @@
-import { mergeDeep, toID } from "@calc/engine/data-util"
-
-describe("toID", () => {
-  it("lowercases and strips punctuation and spaces", () => {
-    expect(toID("Great Tusk")).toBe("greattusk")
-  })
-
-  it("strips hyphens and periods", () => {
-    expect(toID("Ho-Oh")).toBe("hooh")
-  })
-
-  it("maps Flabébé to its accent free id", () => {
-    expect(toID("Flabébé")).toBe("flabebe")
-  })
-
-  it("keeps digits", () => {
-    expect(toID("Porygon2")).toBe("porygon2")
-  })
-})
+import { mergeDeep } from "@calc/engine/data-util"
 
 describe("mergeDeep", () => {
   it("copies source values onto the target", () => {

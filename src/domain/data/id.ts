@@ -1,6 +1,8 @@
-const idCache = new Map<string, string>()
+import type { ID } from "@data/types"
 
-export function toID(text: string): string {
+const idCache = new Map<string, ID>()
+
+export function toID(text: string): ID {
   if (typeof text !== "string") {
     return computeID(text)
   }
@@ -17,12 +19,12 @@ export function toID(text: string): string {
   return id
 }
 
-function computeID(text: string): string {
+function computeID(text: string): ID {
   const lower = `${text}`.toLowerCase()
 
   if (lower === "flabébé") {
-    return "flabebe"
+    return "flabebe" as ID
   }
 
-  return lower.replace(/[^a-z0-9]+/g, "")
+  return lower.replace(/[^a-z0-9]+/g, "") as ID
 }
