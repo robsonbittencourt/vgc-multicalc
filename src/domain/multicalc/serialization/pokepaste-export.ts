@@ -2,7 +2,7 @@ import { normalizePokemonNameForExport } from "@calc-bridge"
 import { Pokemon } from "@multicalc/model"
 import { evToSp } from "@multicalc/utils"
 
-export async function toShowdownText(pokemon: Pokemon, useSpsMode: boolean, includeTeraType: boolean): Promise<string> {
+export async function toPokepasteText(pokemon: Pokemon, useSpsMode: boolean, includeTeraType: boolean): Promise<string> {
   const { default: dedent } = await import("dedent")
   let text = dedent`
     ${normalizePokemonNameForExport(pokemon.name)} @ ${pokemon.item}

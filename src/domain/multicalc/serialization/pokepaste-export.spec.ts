@@ -1,7 +1,7 @@
 import { Ability, Move, MoveSet, Pokemon } from "@multicalc/model"
-import { toShowdownText } from "@multicalc/serialization"
+import { toPokepasteText } from "@multicalc/serialization"
 
-describe("toShowdownText", () => {
+describe("toPokepasteText", () => {
   it("should export a Pokémon in EV notation", async () => {
     const pokemon = new Pokemon("Rillaboom", {
       ability: new Ability("Grassy Surge"),
@@ -11,7 +11,7 @@ describe("toShowdownText", () => {
       evs: { hp: 140, atk: 116, def: 4, spa: 0, spd: 84, spe: 164 }
     })
 
-    const text = await toShowdownText(pokemon, false, false)
+    const text = await toPokepasteText(pokemon, false, false)
 
     expect(text).toBe(pasteWithOnePokemon)
   })
@@ -25,7 +25,7 @@ describe("toShowdownText", () => {
       ivs: { hp: 31, atk: 30, def: 31, spa: 31, spd: 31, spe: 31 }
     })
 
-    const text = await toShowdownText(pokemon, false, false)
+    const text = await toPokepasteText(pokemon, false, false)
 
     expect(text).toBe(pasteWithOneMove)
   })
@@ -39,7 +39,7 @@ describe("toShowdownText", () => {
       evs: { hp: 140, atk: 116, def: 4, spa: 0, spd: 84, spe: 164 }
     })
 
-    const text = await toShowdownText(pokemon, true, false)
+    const text = await toPokepasteText(pokemon, true, false)
 
     expect(text).toBe(pasteWithOnePokemonSps)
   })
@@ -52,7 +52,7 @@ describe("toShowdownText", () => {
       moveSet: new MoveSet(new Move("Transform"), new Move(""), new Move(""), new Move(""))
     })
 
-    const text = await toShowdownText(pokemon, false, false)
+    const text = await toPokepasteText(pokemon, false, false)
 
     expect(text).toBe(pasteWithNoEvs)
   })
@@ -65,7 +65,7 @@ describe("toShowdownText", () => {
       moveSet: new MoveSet(new Move("Transform"), new Move(""), new Move(""), new Move(""))
     })
 
-    const text = await toShowdownText(pokemon, true, false)
+    const text = await toPokepasteText(pokemon, true, false)
 
     expect(text).toBe(pasteWithNoEvs)
   })
@@ -79,7 +79,7 @@ describe("toShowdownText", () => {
       evs: { hp: 0, atk: 116, def: 4, spa: 0, spd: 84, spe: 164 }
     })
 
-    const text = await toShowdownText(pokemon, true, false)
+    const text = await toPokepasteText(pokemon, true, false)
 
     expect(text).toBe(pasteWithNoHpSps)
   })
@@ -93,7 +93,7 @@ describe("toShowdownText", () => {
       evs: { hp: 140, atk: 116, def: 4, spa: 0, spd: 0, spe: 164 }
     })
 
-    const text = await toShowdownText(pokemon, true, false)
+    const text = await toPokepasteText(pokemon, true, false)
 
     expect(text).toBe(pasteWithNoSpdSps)
   })
@@ -107,7 +107,7 @@ describe("toShowdownText", () => {
       evs: { hp: 244, atk: 0, def: 4, spa: 100, spd: 4, spe: 4 }
     })
 
-    const text = await toShowdownText(pokemon, true, false)
+    const text = await toPokepasteText(pokemon, true, false)
 
     expect(text).toBe(pasteWithSpaSps)
   })
@@ -122,7 +122,7 @@ describe("toShowdownText", () => {
       evs: { hp: 140, atk: 116, def: 4, spa: 0, spd: 84, spe: 164 }
     })
 
-    const text = await toShowdownText(pokemon, false, true)
+    const text = await toPokepasteText(pokemon, false, true)
 
     expect(text).toBe(pasteWithTeraType)
   })
