@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core"
 import { Ability, Move, MoveSet, Pokemon } from "@multicalc/model"
-import { adjustName, buildBoosts, parseShowdownText } from "@multicalc/serialization"
+import { adjustName, buildBoosts, parsePokepasteText } from "@multicalc/serialization"
 
 @Injectable({
   providedIn: "root"
@@ -18,14 +18,14 @@ export class PokePasteParserService {
     } else if (input.startsWith("http")) {
       return await this.parseFromPokePaste(input, useSpsMode)
     } else {
-      return parseShowdownText(input, useSpsMode)
+      return parsePokepasteText(input, useSpsMode)
     }
   }
 
   private async parseFromPokePaste(pokePasteLink: string, useSpsMode: boolean): Promise<{ name: string; pokemon: Pokemon[] }> {
     const res = await fetch(`${pokePasteLink}/json`)
     const data = await res.json()
-    const parsed = await parseShowdownText(data.paste, useSpsMode)
+    const parsed = await parsePokepasteText(data.paste, useSpsMode)
 
     return { name: data.title || parsed.name, pokemon: parsed.pokemon }
   }

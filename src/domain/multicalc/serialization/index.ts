@@ -1,2 +1,2 @@
-export { toShowdownText } from "@multicalc/serialization/showdown-export"
-export { parseShowdownText, adjustName, buildBoosts, InvalidSpsError } from "@multicalc/serialization/showdown-import"
+export { toPokepasteText } from "@multicalc/serialization/pokepaste-export"
+export { parsePokepasteText, adjustName, buildBoosts, InvalidSpsError } from "@multicalc/serialization/pokepaste-import"

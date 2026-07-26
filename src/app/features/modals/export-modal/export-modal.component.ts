@@ -6,7 +6,7 @@ import { MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent, Ma
 import { MatSlideToggle } from "@angular/material/slide-toggle"
 import { Clipboard, ClipboardModule } from "@angular/cdk/clipboard"
 import { Pokemon } from "@multicalc/model"
-import { toShowdownText } from "@multicalc/serialization"
+import { toPokepasteText } from "@multicalc/serialization"
 
 @Component({
   selector: "app-export-modal",
@@ -28,7 +28,7 @@ export class TeamExportModalComponent {
 
   async buildContent() {
     const pokemon = this.data.pokemon as Pokemon[]
-    const results = await Promise.all(pokemon.map(p => toShowdownText(p, this.useSpsMode, this.data.includeTeraType)))
+    const results = await Promise.all(pokemon.map(p => toPokepasteText(p, this.useSpsMode, this.data.includeTeraType)))
     this.content.set(results.map(r => r + "\n").join(""))
   }
 

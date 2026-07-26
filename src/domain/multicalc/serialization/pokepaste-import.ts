@@ -10,7 +10,7 @@ export class InvalidSpsError extends Error {
   }
 }
 
-export async function parseShowdownText(teamInTextFormat: string, useSpsMode: boolean): Promise<{ name: string; pokemon: Pokemon[] }> {
+export async function parsePokepasteText(teamInTextFormat: string, useSpsMode: boolean): Promise<{ name: string; pokemon: Pokemon[] }> {
   const { Koffing } = await import("koffing")
   const parsedTeam = Koffing.parse(teamInTextFormat)
   const team = JSON.parse(parsedTeam.toJson()).teams[0]
