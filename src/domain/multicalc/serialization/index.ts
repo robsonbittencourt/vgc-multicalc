@@ -1,2 +1,2 @@
 export { toShowdownText } from "@multicalc/serialization/showdown-export"
-export { parseShowdownText, adjustName, buildBoosts } from "@multicalc/serialization/showdown-import"
+export { parseShowdownText, adjustName, buildBoosts, InvalidSpsError } from "@multicalc/serialization/showdown-import"

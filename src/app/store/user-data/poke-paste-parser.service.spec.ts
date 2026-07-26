@@ -46,7 +46,7 @@ describe("PokePasteParserService", () => {
 
     koffingParseSpy.mockReturnValue(mockKoffingResult)
 
-    const result = await service.parse("poke-paste text")
+    const result = await service.parse("poke-paste text", false)
 
     expect(result.length).toBe(1)
     expect(result[0].name).toBe("Zacian-Crowned")
@@ -83,7 +83,7 @@ describe("PokePasteParserService", () => {
 
     koffingParseSpy.mockReturnValue(mockKoffingResult)
 
-    const result = await service.parse("poke-paste text")
+    const result = await service.parse("poke-paste text", false)
 
     expect(result.length).toBe(1)
     expect(result[0].name).toBe("Ditto")
@@ -118,7 +118,7 @@ describe("PokePasteParserService", () => {
 
     koffingParseSpy.mockReturnValue(mockKoffingResult)
 
-    const result = await service.parse("poke-paste text")
+    const result = await service.parse("poke-paste text", false)
 
     expect(result.length).toBe(1)
     expect(result[0].name).toBe("Shedinja")
@@ -156,7 +156,7 @@ describe("PokePasteParserService", () => {
 
     koffingParseSpy.mockReturnValue(mockKoffingResult)
 
-    const result = await service.parse("poke-paste text")
+    const result = await service.parse("poke-paste text", false)
 
     expect(result.length).toBe(1)
     expect(result[0].name).toBe("Pikachu")
@@ -195,7 +195,7 @@ describe("PokePasteParserService", () => {
 
     koffingParseSpy.mockReturnValue(mockKoffingResult)
 
-    const result = await service.parse("poke-paste text")
+    const result = await service.parse("poke-paste text", false)
 
     expect(result.length).toBe(1)
     expect(result[0].name).toBe("Incineroar")
@@ -233,7 +233,7 @@ describe("PokePasteParserService", () => {
 
     koffingParseSpy.mockReturnValue(mockKoffingResult)
 
-    const result = await service.parse("poke-paste text")
+    const result = await service.parse("poke-paste text", false)
 
     expect(result.length).toBe(1)
     expect(result[0].name).toBe("Urshifu-Rapid-Strike")
@@ -273,7 +273,7 @@ describe("PokePasteParserService", () => {
     vi.spyOn(window, "fetch").mockReturnValue(Promise.resolve(new Response(JSON.stringify({ title: "My Team", paste: mockPokePasteText }))))
     koffingParseSpy.mockReturnValue(mockKoffingResult)
 
-    const result = await service.parse("https://pokepast.es/12345")
+    const result = await service.parse("https://pokepast.es/12345", false)
 
     expect(window.fetch).toHaveBeenCalledWith("https://pokepast.es/12345/json")
     expect(result.length).toBe(1)
@@ -310,7 +310,7 @@ describe("PokePasteParserService", () => {
 
     koffingParseSpy.mockReturnValue(mockKoffingResult)
 
-    const result = await service.parseTeam("poke-paste text")
+    const result = await service.parseTeam("poke-paste text", false)
 
     expect(result.name).toBe("")
   })
@@ -341,7 +341,7 @@ describe("PokePasteParserService", () => {
     vi.spyOn(window, "fetch").mockReturnValue(Promise.resolve(new Response(JSON.stringify({ title: "World Champion Team", paste: "paste text" }))))
     koffingParseSpy.mockReturnValue(mockKoffingResult)
 
-    const result = await service.parseTeam("https://pokepast.es/12345")
+    const result = await service.parseTeam("https://pokepast.es/12345", false)
 
     expect(window.fetch).toHaveBeenCalledWith("https://pokepast.es/12345/json")
     expect(result.name).toBe("World Champion Team")
@@ -389,7 +389,7 @@ describe("PokePasteParserService", () => {
 
     koffingParseSpy.mockReturnValue(mockKoffingResult)
 
-    const result = await service.parse("poke-paste text")
+    const result = await service.parse("poke-paste text", false)
 
     expect(result.length).toBe(2)
     expect(result[0].name).toBe("Ditto")
@@ -435,7 +435,7 @@ describe("PokePasteParserService", () => {
 
       koffingParseSpy.mockReturnValue(mockKoffingResult)
 
-      const result = await service.parse("poke-paste text")
+      const result = await service.parse("poke-paste text", false)
 
       expect(result.length).toBe(1)
       expect(result[0].name).toBe("Zacian")
@@ -472,7 +472,7 @@ describe("PokePasteParserService", () => {
 
       koffingParseSpy.mockReturnValue(mockKoffingResult)
 
-      const result = await service.parse("poke-paste text")
+      const result = await service.parse("poke-paste text", false)
 
       expect(result.length).toBe(1)
       expect(result[0].name).toBe("Zacian-Crowned")
@@ -509,7 +509,7 @@ describe("PokePasteParserService", () => {
 
       koffingParseSpy.mockReturnValue(mockKoffingResult)
 
-      const result = await service.parse("poke-paste text")
+      const result = await service.parse("poke-paste text", false)
 
       expect(result.length).toBe(1)
       expect(result[0].name).toBe("Zamazenta")
@@ -546,7 +546,7 @@ describe("PokePasteParserService", () => {
 
       koffingParseSpy.mockReturnValue(mockKoffingResult)
 
-      const result = await service.parse("poke-paste text")
+      const result = await service.parse("poke-paste text", false)
 
       expect(result.length).toBe(1)
       expect(result[0].name).toBe("Zamazenta-Crowned")
@@ -583,7 +583,7 @@ describe("PokePasteParserService", () => {
 
       koffingParseSpy.mockReturnValue(mockKoffingResult)
 
-      const result = await service.parse("poke-paste text")
+      const result = await service.parse("poke-paste text", false)
 
       expect(result.length).toBe(1)
       expect(result[0].name).toBe("Incineroar")
@@ -620,7 +620,7 @@ describe("PokePasteParserService", () => {
 
       koffingParseSpy.mockReturnValue(mockKoffingResult)
 
-      const result = await service.parse("poke-paste text")
+      const result = await service.parse("poke-paste text", false)
 
       expect(result.length).toBe(1)
       expect(result[0].name).toBe("Pikachu")
@@ -646,7 +646,7 @@ describe("PokePasteParserService", () => {
 
       vi.spyOn(window, "fetch").mockReturnValue(Promise.resolve(new Response(JSON.stringify(mockResponse))))
 
-      const result = await service.parseTeam("https://www.vrpastes.com/XJuCYyTS")
+      const result = await service.parseTeam("https://www.vrpastes.com/XJuCYyTS", false)
 
       expect(window.fetch).toHaveBeenCalledWith("https://vrpaste-backend.vercel.app/api/paste/XJuCYyTS?lang=english")
       expect(result.name).toBe("My VR Team")
@@ -676,7 +676,7 @@ describe("PokePasteParserService", () => {
 
       vi.spyOn(window, "fetch").mockReturnValue(Promise.resolve(new Response(JSON.stringify(mockResponse))))
 
-      const result = await service.parseTeam("https://www.vrpastes.com/oZbJ92WN")
+      const result = await service.parseTeam("https://www.vrpastes.com/oZbJ92WN", false)
 
       expect(result.pokemon[0].evs).toEqual({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
     })
@@ -698,7 +698,7 @@ describe("PokePasteParserService", () => {
 
       vi.spyOn(window, "fetch").mockReturnValue(Promise.resolve(new Response(JSON.stringify(mockResponse))))
 
-      const result = await service.parseTeam("https://www.vrpastes.com/abc123")
+      const result = await service.parseTeam("https://www.vrpastes.com/abc123", false)
 
       expect(result.pokemon[0].boosts).toEqual({ atk: 1, def: 0, spa: 0, spd: 0, spe: 0 })
     })
@@ -718,7 +718,7 @@ describe("PokePasteParserService", () => {
 
       vi.spyOn(window, "fetch").mockReturnValue(Promise.resolve(new Response(JSON.stringify(mockResponse))))
 
-      const result = await service.parseTeam("https://www.vrpastes.com/abc123")
+      const result = await service.parseTeam("https://www.vrpastes.com/abc123", false)
 
       expect(result.name).toBe("")
     })
@@ -755,7 +755,7 @@ describe("PokePasteParserService", () => {
 
       koffingParseSpy.mockReturnValue(mockKoffingResult)
 
-      const result = await service.parse("poke-paste text")
+      const result = await service.parse("poke-paste text", false)
 
       expect(result.length).toBe(1)
       expect(result[0].name).toBe("Rockruff")
@@ -791,7 +791,7 @@ describe("PokePasteParserService", () => {
 
       koffingParseSpy.mockReturnValue(mockKoffingResult)
 
-      const result = await service.parse("poke-paste text")
+      const result = await service.parse("poke-paste text", false)
 
       expect(result.length).toBe(1)
       expect(result[0].name).toBe("Pikachu")
@@ -827,7 +827,7 @@ describe("PokePasteParserService", () => {
 
       koffingParseSpy.mockReturnValue(mockKoffingResult)
 
-      const result = await service.parse("poke-paste text")
+      const result = await service.parse("poke-paste text", false)
 
       expect(result.length).toBe(1)
       expect(result[0].name).toBe("Polteageist")
@@ -863,7 +863,7 @@ describe("PokePasteParserService", () => {
 
       koffingParseSpy.mockReturnValue(mockKoffingResult)
 
-      const result = await service.parse("poke-paste text")
+      const result = await service.parse("poke-paste text", false)
 
       expect(result.length).toBe(1)
       expect(result[0].name).toBe("Vivillon")
@@ -899,7 +899,7 @@ describe("PokePasteParserService", () => {
 
       koffingParseSpy.mockReturnValue(mockKoffingResult)
 
-      const result = await service.parse("poke-paste text")
+      const result = await service.parse("poke-paste text", false)
 
       expect(result.length).toBe(1)
       expect(result[0].name).toBe("Maushold")
@@ -935,7 +935,7 @@ describe("PokePasteParserService", () => {
 
       koffingParseSpy.mockReturnValue(mockKoffingResult)
 
-      const result = await service.parse("poke-paste text")
+      const result = await service.parse("poke-paste text", false)
 
       expect(result.length).toBe(1)
       expect(result[0].name).toBe("Zacian-Crowned")
@@ -966,7 +966,7 @@ describe("PokePasteParserService", () => {
 
       koffingParseSpy.mockReturnValue(mockKoffingResult)
 
-      const result = await service.parse("poke-paste text")
+      const result = await service.parse("poke-paste text", false)
 
       expect(result.length).toBe(1)
       expect(result[0].name).toBe("Aegislash-Shield")
@@ -1002,7 +1002,7 @@ describe("PokePasteParserService", () => {
 
       koffingParseSpy.mockReturnValue(mockKoffingResult)
 
-      const result = await service.parse("poke-paste text")
+      const result = await service.parse("poke-paste text", false)
 
       expect(result.length).toBe(1)
       expect(result[0].name).toBe("Incineroar")
@@ -1038,7 +1038,7 @@ describe("PokePasteParserService", () => {
 
       koffingParseSpy.mockReturnValue(mockKoffingResult)
 
-      const result = await service.parse("poke-paste text")
+      const result = await service.parse("poke-paste text", false)
 
       expect(result.length).toBe(1)
       expect(result[0].name).toBe("Gastrodon")
@@ -1074,7 +1074,7 @@ describe("PokePasteParserService", () => {
 
       koffingParseSpy.mockReturnValue(mockKoffingResult)
 
-      const result = await service.parse("poke-paste text")
+      const result = await service.parse("poke-paste text", false)
 
       expect(result.length).toBe(1)
       expect(result[0].name).toBe("Tatsugiri")

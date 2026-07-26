@@ -8,7 +8,6 @@ import { ImportModalComponent } from "@features/import-modal/import-modal.compon
 import { validateImport } from "@multicalc/import-validation"
 import { Pokemon } from "@multicalc/model"
 import { SnackbarService } from "@core/services/snackbar.service"
-import { PokePasteParserService } from "@store/user-data/poke-paste-parser.service"
 
 @Component({
   selector: "app-import-pokemon-button",
@@ -26,7 +25,6 @@ export class ImportPokemonButtonComponent {
   teamNameImportedEvent = output<string>()
 
   private dialog = inject(MatDialog)
-  private pokePasteService = inject(PokePasteParserService)
   private snackBar = inject(SnackbarService)
 
   importPokemon() {
@@ -39,20 +37,14 @@ export class ImportPokemonButtonComponent {
       scrollStrategy: new NoopScrollStrategy()
     })
 
-    dialogRef.afterClosed().subscribe(async result => {
-      if (!result?.content) return
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result?.pokemon) return
 
-      try {
-        await this.handleImport(result.content, result.useSpsMode)
-      } catch {
-        this.snackBar.open("Could not import the Pokémon")
-      }
+      this.handleImport(result.name, result.pokemon)
     })
   }
 
-  private async handleImport(content: string, useSpsMode: boolean) {
-    const { name: teamName, pokemon: parsedList } = await this.pokePasteService.parseTeam(content, useSpsMode)
-
+  private handleImport(teamName: string, parsedList: Pokemon[]) {
     const { pokemon: finalList, removedCount, hadInvalidMoves, hadInvalidItems } = validateImport(parsedList, availableItemNames())
 
     if (finalList.length === 0) {

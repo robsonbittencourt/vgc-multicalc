@@ -1,11 +1,14 @@
 <div>
   <h2 mat-dialog-title>Import</h2>
   <mat-dialog-content class="mat-typography">
-    <textarea class="import-textarea" [placeholder]="placeholder" [(ngModel)]="content" data-cy="import-paste-textarea"></textarea>
+    <textarea class="import-textarea" [class.invalid]="errorMessage()" [placeholder]="placeholder" [(ngModel)]="content" (ngModelChange)="errorMessage.set('')" data-cy="import-paste-textarea"></textarea>
+    @if (errorMessage()) {
+      <p class="import-error" data-cy="import-error">{{ errorMessage() }}</p>
+    }
   </mat-dialog-content>
   <mat-dialog-actions align="end">
     <mat-slide-toggle class="import-sps-toggle" [(ngModel)]="useSpsMode" [labelPosition]="'before'" data-cy="import-evs-sps-toggle">SP</mat-slide-toggle>
     <button mat-flat-button mat-dialog-close>Cancel</button>
-    <button mat-flat-button [mat-dialog-close]="result" [disabled]="!content" data-cy="confirm-import">Import</button>
+    <button mat-flat-button [disabled]="!content" (click)="import()" data-cy="confirm-import">Import</button>
   </mat-dialog-actions>
 </div>

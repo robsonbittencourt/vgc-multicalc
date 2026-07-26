@@ -5,7 +5,6 @@ import { TeamExportModalComponent } from "@features/export-modal/export-modal.co
 import { FEATURES } from "@configuration/feature-flags"
 import { CalcStore } from "@store/calc-store"
 import { Pokemon } from "@multicalc/model"
-import { toShowdownText } from "@multicalc/serialization"
 
 @Injectable({
   providedIn: "root"
@@ -33,16 +32,16 @@ export class ExportPokeService {
       }
     }
 
-    const toExport = pokemonArray
-    const results = await Promise.all(toExport.map(p => toShowdownText(p, useSps, FEATURES.teraType)))
-    this.openModal(title, results.map(r => r + "\n").join(""))
+    this.openModal(title, pokemonArray, useSps)
   }
 
-  private openModal(title: string, content: string) {
+  private openModal(title: string, pokemon: Pokemon[], useSpsMode: boolean) {
     this.dialog.open(TeamExportModalComponent, {
       data: {
         title: title,
-        content: content
+        pokemon: pokemon,
+        useSpsMode: useSpsMode,
+        includeTeraType: FEATURES.teraType
       },
       width: "40em",
       position: { top: "2em" },
