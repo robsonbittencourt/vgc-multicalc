@@ -1,15 +1,16 @@
 import { Ability } from "@multicalc/model/ability"
-import { Pokemon } from "@multicalc/model/pokemon"
-import { PokemonParameters } from "@multicalc/model/pokemon"
+import { PokemonParameters } from "@multicalc/model/pokemon-parameters"
 import { Pokemon as CalcPokemon } from "@calc"
 import { AbilityName, ItemName, NatureName, StatIDExceptHP, StatusName, TypeName } from "@data/types"
 import { higherStat } from "@multicalc/stat-calc"
 import { normalizePokemonNameForCalc } from "@calc-bridge/pokemon-name-normalizer"
 
+export type CalcPokemonSource = PokemonParameters & { name: string }
+
 const DEFAULT_TERA_TYPE = "Water"
 const SELECT_POKEMON_LABEL = "Select a Pokémon"
 
-export function fromExisting(pokemon: Pokemon, forceMaxIvs = false): CalcPokemon {
+export function fromExisting(pokemon: CalcPokemonSource, forceMaxIvs = false): CalcPokemon {
   const MAX_IVS = { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 }
 
   return fromScratch(pokemon.name, {

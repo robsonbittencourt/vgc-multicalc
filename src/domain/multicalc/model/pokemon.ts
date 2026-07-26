@@ -8,32 +8,13 @@ import { MoveSet } from "@multicalc/model/moveset"
 import { Status } from "@multicalc/model/status"
 import { terastalize } from "@multicalc/model/terastal"
 import { higherStat } from "@multicalc/stat-calc"
+import { Jumps, PokemonParameters } from "@multicalc/model/pokemon-parameters"
 import { fromScratch } from "@calc-bridge"
 import { Stats } from "@multicalc/types"
 import { Pokemon as CalcPokemon } from "@calc"
 import { NatureName, TypeName, StatID, StatIDExceptHP } from "@data/types"
 
-export type Jumps = [number, number, number, number | null]
-
-export type PokemonParameters = {
-  id?: string
-  name?: string
-  ability?: Ability
-  nature?: string
-  item?: string
-  teraType?: string
-  teraTypeActive?: boolean
-  evs?: Partial<Stats>
-  moveSet?: MoveSet
-  boosts?: Partial<Stats>
-  bonusBoosts?: Partial<Stats>
-  status?: Status
-  ivs?: Partial<Stats>
-  hpPercentage?: number
-  commanderActive?: boolean
-  isAttacker?: boolean
-  higherStat?: StatIDExceptHP
-}
+export { Jumps, PokemonParameters } from "@multicalc/model/pokemon-parameters"
 
 const DEFAULT_TERA_TYPE = "Water"
 export class Pokemon {
