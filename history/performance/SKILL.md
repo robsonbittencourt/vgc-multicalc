@@ -20,13 +20,24 @@ node --expose-gc history/performance/run.mjs
 ```
 
 `--expose-gc` is required so the heap-delta measurement is accurate (the script
-forces a GC before sampling). It works without it, but heap numbers get noisy.
+forces a GC both before and after the workload). It works without it, but heap
+numbers get noisy.
+
+**Heap delta measures retained memory, not allocation churn.** Without the
+trailing GC the number reflects whatever garbage happened to be in flight when
+the sample was taken, which swings ~3x between identical runs (measured: 1.0 to
+3.65 MB for the same code). Snapshots taken before 2026-07-26 lack that
+trailing GC, so their `heapDeltaMB` is not comparable with later ones — only
+the ns/call columns are.
 
 The script:
 
 - bundles the vendored calc (`@calc`, with its `@`-aliases) on the fly via the
   esbuild that Angular already ships — no extra deps, no `dist` build needed;
-- runs the scenarios in `scenarios.mjs`, measuring ns/call and heap delta;
+- runs the scenarios in `scenarios.mjs` `REPETITIONS` times (default 5),
+  measuring ns/call and heap delta, and reports the **median** of the runs —
+  this machine's run-to-run noise is larger than most real changes, so a single
+  run is not trustworthy on its own;
 - compares against the most recent previous snapshot on disk;
 - writes `YYYY-MM-DD.json` (raw snapshot), `YYYY-MM-DD.html` (report), and
   rebuilds `CHANGELOG.html` (index of all runs).
@@ -51,7 +62,9 @@ full report and `CHANGELOG.html` for the history.
 
 ## Editing scenarios
 
-The workload lives in `scenarios.mjs` (species/moves/EVs + iteration counts).
+The workload lives in `scenarios.mjs` (species/moves/EVs + iteration counts +
+`REPETITIONS`). Raising `REPETITIONS` tightens the median at a linear cost in
+wall time; lowering it below 3 makes the median meaningless.
 Use real Champions species/move names so lookups resolve. Adding scenarios
 changes the numbers, so a snapshot taken after an edit isn't comparable to ones
 before it — note the change in the commit.

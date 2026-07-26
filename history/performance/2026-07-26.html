@@ -1,35 +1,9 @@
-export function renderReport(snapshot) {
-  const { date, git, current, baseline } = snapshot
-
-  const delta = (cur, base) => {
-    const d = ((cur - base) / base) * 100
-    const sign = d >= 0 ? "+" : ""
-    const cls = d > 2 ? "bad" : d < -2 ? "good" : "flat"
-    return `<span class="delta ${cls}">${sign}${d.toFixed(1)}%</span>`
-  }
-
-  const row = (label, cur, base, unit) => `
-    <tr>
-      <td class="metric">${label}</td>
-      <td class="num">${cur}${unit}</td>
-      <td class="num muted">${base}${unit}</td>
-      <td class="num">${delta(cur, base)}</td>
-    </tr>`
-
-  const heapRow = `
-    <tr>
-      <td class="metric">Heap Δ</td>
-      <td class="num">${current.heapDeltaMB} MB</td>
-      <td class="num muted">${baseline.heapDeltaMB} MB</td>
-      <td class="num">${delta(current.heapDeltaMB, baseline.heapDeltaMB)}</td>
-    </tr>`
-
-  return `<!doctype html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Calc Performance — ${date}</title>
+    <title>Calc Performance — 2026-07-26</title>
     <style>
       *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
       body {
@@ -66,8 +40,8 @@ export function renderReport(snapshot) {
     <h1>Calc Engine Performance</h1>
     <p class="subtitle">Damage calc functions — execution time &amp; memory</p>
     <p class="meta">
-      Run <strong>${date}</strong> · branch <code>${git.branch}</code> · commit <code>${git.commit}</code><br />
-      Current: ${current.source} · Baseline: ${baseline.source}
+      Run <strong>2026-07-26</strong> · branch <code>remove-sv</code> · commit <code>c01a3bfa</code><br />
+      Current: vendored calc (this branch) · Baseline: previous run — 2026-07-04
     </p>
     <table>
       <thead>
@@ -79,25 +53,50 @@ export function renderReport(snapshot) {
         </tr>
       </thead>
       <tbody>
-        ${row("calculate — ns/call", current.single.nsPerCall, baseline.single.nsPerCall, " ns")}
-        ${row("calculate — total", current.single.totalMs, baseline.single.totalMs, " ms")}
-        ${row("calculateMulti — ns/call", current.multi.nsPerCall, baseline.multi.nsPerCall, " ns")}
-        ${row("calculateMulti — total", current.multi.totalMs, baseline.multi.totalMs, " ms")}
-        ${heapRow}
+        
+    <tr>
+      <td class="metric">calculate — ns/call</td>
+      <td class="num">12367 ns</td>
+      <td class="num muted">16197.9 ns</td>
+      <td class="num"><span class="delta good">-23.7%</span></td>
+    </tr>
+        
+    <tr>
+      <td class="metric">calculate — total</td>
+      <td class="num">494.7 ms</td>
+      <td class="num muted">647.9 ms</td>
+      <td class="num"><span class="delta good">-23.6%</span></td>
+    </tr>
+        
+    <tr>
+      <td class="metric">calculateMulti — ns/call</td>
+      <td class="num">26537.1 ns</td>
+      <td class="num muted">33126.6 ns</td>
+      <td class="num"><span class="delta good">-19.9%</span></td>
+    </tr>
+        
+    <tr>
+      <td class="metric">calculateMulti — total</td>
+      <td class="num">398.1 ms</td>
+      <td class="num muted">496.9 ms</td>
+      <td class="num"><span class="delta good">-19.9%</span></td>
+    </tr>
+        
+    <tr>
+      <td class="metric">Heap Δ</td>
+      <td class="num">0.37 MB</td>
+      <td class="num muted">3.84 MB</td>
+      <td class="num"><span class="delta good">-90.4%</span></td>
+    </tr>
       </tbody>
     </table>
     <p class="note">
-      ${current.single.iterations.toLocaleString()} single-target and
-      ${current.multi.iterations.toLocaleString()} multi-target iterations, cycling through
-      ${"" + SINGLE_COUNT} single / ${MULTI_COUNT} multi scenarios.
-      ${current.repetitions ? `Values are the median of ${current.repetitions} repetitions.` : ""}
+      40,000 single-target and
+      15,000 multi-target iterations, cycling through
+      6 single / 2 multi scenarios.
+      Values are the median of 5 repetitions.
       Δ &lt; 0 is faster.
       Green = faster than baseline, red = slower (&gt;2% threshold).
     </p>
   </body>
-</html>`
-}
-
-import { SINGLE_SCENARIOS, MULTI_SCENARIOS } from "./scenarios.mjs"
-const SINGLE_COUNT = SINGLE_SCENARIOS.length
-const MULTI_COUNT = MULTI_SCENARIOS.length
+</html>

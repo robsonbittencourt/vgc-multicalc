@@ -12,6 +12,7 @@ type MoveOptions = Partial<StateMove> & {
 export class Move {
   name: string
   originalName: string
+  readonly moveData: MoveData
   ability?: AbilityName
   item?: ItemName
   pokemonName?: PokemonName
@@ -39,11 +40,13 @@ export class Move {
   breaksProtect: boolean
   isParentalBondChild: boolean
 
-  constructor(name: string, options: MoveOptions = {}) {
+  constructor(name: string, options: MoveOptions = {}, resolvedMoveData?: MoveData) {
     const resolvedName = options.name || name
     this.originalName = resolvedName
 
-    const data = mergeDeep<MoveData>({ name: resolvedName }, getMoveData(resolvedName), options.overrides)
+    const data = resolvedMoveData || mergeDeep<MoveData>({ name: resolvedName }, getMoveData(resolvedName), options.overrides)
+
+    this.moveData = data
 
     this.hits = resolveHits(data, options)
 
@@ -76,7 +79,7 @@ export class Move {
     this.struggleRecoil = !!data.struggleRecoil
     this.isCrit = !!options.isCrit || !!data.willCrit
     this.isStellarFirstUse = !!options.isStellarFirstUse
-    this.flags = data.flags
+    this.flags = { ...data.flags }
     this.priority = data.priority || 0
     this.ignoreDefensive = !!data.ignoreDefensive
     this.overrideDefensiveStat = data.overrideDefensiveStat
@@ -85,26 +88,42 @@ export class Move {
   }
 
   named(...names: string[]): boolean {
-    return names.includes(this.name)
+    const name = this.name
+
+    for (const candidate of names) {
+      if (candidate === name) return true
+    }
+
+    return false
   }
 
   hasType(...types: (TypeName | undefined)[]): boolean {
-    return types.includes(this.type)
+    const type = this.type
+
+    for (const candidate of types) {
+      if (candidate === type) return true
+    }
+
+    return false
   }
 
   clone(): Move {
-    return new Move(this.originalName, {
-      ability: this.ability,
-      item: this.item,
-      pokemonName: this.pokemonName,
-      isCrit: this.isCrit,
-      isStellarFirstUse: this.isStellarFirstUse,
-      hits: this.hits,
-      timesUsed: this.timesUsed,
-      timesUsedWithMetronome: this.timesUsedWithMetronome,
-      isParentalBondChild: this.isParentalBondChild,
-      overrides: this.overrides
-    })
+    return new Move(
+      this.originalName,
+      {
+        ability: this.ability,
+        item: this.item,
+        pokemonName: this.pokemonName,
+        isCrit: this.isCrit,
+        isStellarFirstUse: this.isStellarFirstUse,
+        hits: this.hits,
+        timesUsed: this.timesUsed,
+        timesUsedWithMetronome: this.timesUsedWithMetronome,
+        isParentalBondChild: this.isParentalBondChild,
+        overrides: this.overrides
+      },
+      this.moveData
+    )
   }
 }
 

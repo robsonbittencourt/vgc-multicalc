@@ -10,18 +10,16 @@ export function isGrounded(pokemon: Pokemon, field: Field): boolean {
 }
 
 export function computeFinalStats(attacker: Pokemon, defender: Pokemon, field: Field, ...stats: StatID[]): void {
-  const sides: [Pokemon, Side][] = [
-    [attacker, field.attackerSide],
-    [defender, field.defenderSide]
-  ]
+  computeFinalStatsFor(attacker, field, field.attackerSide, stats)
+  computeFinalStatsFor(defender, field, field.defenderSide, stats)
+}
 
-  for (const [pokemon, side] of sides) {
-    for (const stat of stats) {
-      if (stat === "spe") {
-        pokemon.stats.spe = getFinalSpeed(pokemon, field, side)
-      } else {
-        pokemon.stats[stat] = getModifiedStat(pokemon.rawStats[stat], pokemon.boosts[stat])
-      }
+function computeFinalStatsFor(pokemon: Pokemon, field: Field, side: Side, stats: StatID[]): void {
+  for (const stat of stats) {
+    if (stat === "spe") {
+      pokemon.stats.spe = getFinalSpeed(pokemon, field, side)
+    } else {
+      pokemon.stats[stat] = getModifiedStat(pokemon.rawStats[stat], pokemon.boosts[stat])
     }
   }
 }
