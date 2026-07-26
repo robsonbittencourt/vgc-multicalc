@@ -1,7 +1,14 @@
 import { getMoveset, MOVESETS } from "@data/moveset-data"
 import { Ability, Move, MoveSet, Pokemon } from "@multicalc/model"
 import { Stats } from "@multicalc/types"
-import { spToEv } from "@multicalc/utils"
+import { MAX_SPS, spToEv } from "@multicalc/utils"
+
+export class InvalidSpsError extends Error {
+  constructor() {
+    super("Invalid SPs")
+    this.name = "InvalidSpsError"
+  }
+}
 
 export async function parseShowdownText(teamInTextFormat: string, useSpsMode: boolean): Promise<{ name: string; pokemon: Pokemon[] }> {
   const { Koffing } = await import("koffing")
@@ -16,6 +23,10 @@ export async function parseShowdownText(teamInTextFormat: string, useSpsMode: bo
     let evs = { hp: poke.evs?.hp ?? 0, atk: poke.evs?.atk ?? 0, def: poke.evs?.def ?? 0, spa: poke.evs?.spa ?? 0, spd: poke.evs?.spd ?? 0, spe: poke.evs?.spe ?? 0 }
 
     if (useSpsMode) {
+      if (evs.hp + evs.atk + evs.def + evs.spa + evs.spd + evs.spe > MAX_SPS) {
+        throw new InvalidSpsError()
+      }
+
       evs = { hp: spToEv(evs.hp), atk: spToEv(evs.atk), def: spToEv(evs.def), spa: spToEv(evs.spa), spd: spToEv(evs.spd), spe: spToEv(evs.spe) }
     }
 

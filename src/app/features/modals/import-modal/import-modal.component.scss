@@ -5,6 +5,15 @@
   background-color: var(--widget-background);
 }
 
+.import-textarea.invalid {
+  border: 1px solid #e53935;
+  outline-color: #e53935;
+}
+
+.import-error {
+  margin: 0.5em 0 0;
+}
+
 .import-sps-toggle {
   margin-right: auto;
   padding: 0.25em 0.75em;
