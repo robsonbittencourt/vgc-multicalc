@@ -127,23 +127,29 @@ const BASE_POWER_STRATEGIES = new Map<string, BasePowerStrategy>([
 
 export function getBasePower(ctx: BasePowerContext): number {
   const strategy = BASE_POWER_STRATEGIES.get(ctx.move.name)
-  const basePower = strategy ? strategy(ctx) : ctx.move.bp
 
-  return applyTeraBasePowerFloor(ctx, basePower)
+  return strategy ? strategy(ctx) : ctx.move.bp
 }
 
-function applyTeraBasePowerFloor(ctx: BasePowerContext, basePower: number): number {
+export function applyTeraBasePowerFloor(ctx: BasePowerContext, basePower: number): number {
   const { attacker, move, description } = ctx
   const teraType = attacker.teraType
 
-  const teraStab = !!teraType && move.type === teraType && attacker.hasType(teraType)
+  if (!teraType || basePower >= 60) return basePower
 
-  if (teraStab && move.hits === 1 && move.priority <= 0 && move.bp > 0 && !move.named("Dragon Energy", "Eruption", "Water Spout") && basePower < 60) {
+  const teraStab = teraType === "Stellar" ? move.isStellarFirstUse : move.type === teraType && attacker.hasType(teraType)
+
+  if (teraStab && !move.moveData.multihit && move.priority <= 0 && !hasVariableBasePower(move)) {
     description.moveBP = 60
+
     return 60
   }
 
   return basePower
+}
+
+function hasVariableBasePower(move: Move): boolean {
+  return (move.bp === 0 || move.bp === 150) && BASE_POWER_STRATEGIES.has(move.name)
 }
 
 function weightToBasePower(weight: number): number {

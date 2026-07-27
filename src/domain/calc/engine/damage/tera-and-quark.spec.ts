@@ -103,4 +103,60 @@ describe("Damage — Quark Drive and Tera interactions", () => {
 
     expect(result.description()).toEqual("252+ Atk Tera Stellar (First Use) Iron Valiant Tera Blast (100 BP) vs. 252 HP / 0 Def Tera Steel Garchomp: 158-188 (73.4 - 87.4%) -- guaranteed 2HKO")
   })
+
+  describe("Tera STAB 60 BP floor", () => {
+    const pikachu = (teraType: string) => new Pokemon("Pikachu", { evs: { atk: 252 }, nature: "Adamant", teraType } as never)
+    const amoonguss = () => new Pokemon("Amoonguss", { evs: { hp: 252, def: 4 } })
+
+    it("raises a Tera STAB move below 60 BP up to the floor", () => {
+      const result = calculate(pikachu("Normal"), amoonguss(), new Move("Tackle"), field())
+
+      expect(result.description()).toEqual("252+ Atk Tera Normal Pikachu Tackle (60 BP) vs. 252 HP / 4 Def Amoonguss: 43-52 (19.4 - 23.5%) -- possible 5HKO")
+    })
+
+    it("applies the floor after the base power modifiers, so Helping Hand is absorbed by it", () => {
+      const result = calculate(pikachu("Electric"), amoonguss(), new Move("Nuzzle"), new Field({ gameType: "Doubles", attackerSide: { isHelpingHand: true } }))
+
+      expect(result.description()).toEqual("252+ Atk Tera Electric Pikachu Helping Hand Nuzzle (60 BP) vs. 252 HP / 4 Def Amoonguss: 29-35 (13.1 - 15.8%) -- possible 7HKO")
+    })
+
+    it("skips priority moves", () => {
+      const result = calculate(pikachu("Normal"), amoonguss(), new Move("Quick Attack"), field())
+
+      expect(result.description()).toEqual("252+ Atk Tera Normal Pikachu Quick Attack vs. 252 HP / 4 Def Amoonguss: 30-36 (13.5 - 16.2%) -- possible 7HKO")
+    })
+
+    it("skips multihit moves", () => {
+      const attacker = new Pokemon("Cinccino", { evs: { atk: 252 }, nature: "Adamant", teraType: "Normal", ability: "Skill Link" })
+
+      const result = calculate(attacker, amoonguss(), new Move("Tail Slap"), field())
+
+      expect(result.description()).toEqual("252+ Atk Tera Normal Cinccino Tail Slap (3 hits) vs. 252 HP / 4 Def Amoonguss: 102-126 (46.1 - 57%) -- 89.3% chance to 2HKO")
+    })
+
+    it("applies to a Tera Stellar attacker on the first use of the move type", () => {
+      const move = new Move("Tackle", { isStellarFirstUse: true } as never)
+
+      const result = calculate(pikachu("Stellar"), amoonguss(), move, field())
+
+      expect(result.description()).toEqual("252+ Atk Tera Stellar Pikachu Tackle (60 BP) vs. 252 HP / 4 Def Amoonguss: 35-42 (15.8 - 19%) -- possible 6HKO")
+    })
+
+    it("skips a Tera Stellar attacker once the move type was already boosted", () => {
+      const move = new Move("Tackle", { isStellarFirstUse: false } as never)
+
+      const result = calculate(pikachu("Stellar"), amoonguss(), move, field())
+
+      expect(result.description()).toEqual("252+ Atk Pikachu Tackle vs. 252 HP / 4 Def Amoonguss: 20-24 (9 - 10.8%)")
+    })
+
+    it("skips moves with a variable base power", () => {
+      const attacker = new Pokemon("Torkoal", { evs: { spa: 252 }, nature: "Modest", teraType: "Fire", curHP: 1 } as never)
+      const defender = new Pokemon("Amoonguss", { evs: { hp: 252, spd: 4 } })
+
+      const result = calculate(attacker, defender, new Move("Eruption"), field())
+
+      expect(result.description()).toEqual("252+ SpA Tera Fire Torkoal Eruption (1 BP) vs. 252 HP / 4 SpD Amoonguss: 1-4 (0.4 - 1.8%)")
+    })
+  })
 })

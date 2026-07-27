@@ -3,7 +3,7 @@ import { applyMod, chainMods, getBaseDamage, getFinalDamage, MOD_0_25X, MOD_0_5X
 import { Field } from "@calc/model/field"
 import { Move } from "@calc/model/move"
 import { Pokemon } from "@calc/model/pokemon"
-import { getBasePower } from "@calc/engine/base-power"
+import { applyTeraBasePowerFloor, getBasePower } from "@calc/engine/base-power"
 import { getBpMods, getAtMods, getDfMods, getFinalMods } from "@calc/engine/modifiers"
 import { getModifiedStat } from "@calc/engine/math"
 import { RawDesc } from "@data/types"
@@ -40,7 +40,8 @@ export function computeHitDamage(ctx: HitContext, state: HitState): number[] {
 
   const modCtx = { attacker, defender, move, field, description, isCritical, turnOrder, hasAteAbilityTypeChange, basePower: rawBasePower, typeEffectiveness, hitCount, hit, hitsPhysical }
 
-  const basePower = applyChain(rawBasePower, getBpMods(modCtx), 41, 2097152)
+  const moddedBasePower = applyChain(rawBasePower, getBpMods(modCtx), 41, 2097152)
+  const basePower = applyTeraBasePowerFloor({ attacker, defender, move, field, description, turnOrder, hit }, moddedBasePower)
   const finalAttack = applyChain(attack, getAtMods(modCtx), 410, 131072)
   const finalDefense = applyChain(defense, getDfMods(modCtx), 410, 131072)
 
