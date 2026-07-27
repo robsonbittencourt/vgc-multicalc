@@ -66,6 +66,8 @@ const BASE_POWER_STRATEGIES = new Map<string, BasePowerStrategy>([
   ["Acrobatics", ({ move, attacker, field, description }) => describedBp(description, move.bp * (attacker.hasItem("Flying Gem") || !attacker.item || (isQPActive(attacker, field) && attacker.hasItem("Booster Energy")) ? 2 : 1))],
   ["Assurance", ({ move }) => move.bp * (move.isParentalBondChild ? 2 : 1)],
   ["Smelling Salts", ({ move, defender, description }) => describedBp(description, move.bp * (defender.hasStatus("par") ? 2 : 1))],
+  ["Wake-Up Slap", ({ move, defender, description }) => describedBp(description, move.bp * (defender.hasStatus("slp") || defender.hasAbility("Comatose") ? 2 : 1))],
+  ["Water Shuriken", ({ attacker, description }) => describedBp(description, attacker.named("Greninja-Ash") && attacker.hasAbility("Battle Bond") ? 20 : 15)],
   [
     "Weather Ball",
     ({ move, attacker, field, description }) => {
@@ -115,14 +117,17 @@ const BASE_POWER_STRATEGIES = new Map<string, BasePowerStrategy>([
     }
   ],
   [
-    "Hard Press",
-    ({ defender, description }) => {
-      let basePower = 100 * Math.floor((defender.currentHp() * 4096) / defender.maxHp())
-      basePower = Math.floor(Math.floor((100 * basePower + 2048 - 1) / 4096) / 100) || 1
+    "Triple Kick",
+    ({ move, description, hit }) => {
+      const basePower = hit * 10
+      description.moveBP = move.hits === 2 ? 30 : move.hits === 3 ? 60 : 10
 
-      return describedBp(description, basePower)
+      return basePower
     }
-  ]
+  ],
+  ["Hard Press", ({ defender, description }) => describedBp(description, remainingHpRatioBasePower(defender, 100))],
+  ["Crush Grip", ({ defender, description }) => describedBp(description, remainingHpRatioBasePower(defender, 120))],
+  ["Wring Out", ({ defender, description }) => describedBp(description, remainingHpRatioBasePower(defender, 120))]
 ])
 
 export function getBasePower(ctx: BasePowerContext): number {
@@ -150,6 +155,12 @@ export function applyTeraBasePowerFloor(ctx: BasePowerContext, basePower: number
 
 function hasVariableBasePower(move: Move): boolean {
   return (move.bp === 0 || move.bp === 150) && BASE_POWER_STRATEGIES.has(move.name)
+}
+
+function remainingHpRatioBasePower(defender: Pokemon, maxBasePower: number): number {
+  const hpRatio = 100 * Math.floor((defender.currentHp() * 4096) / defender.maxHp())
+
+  return Math.floor(Math.floor((maxBasePower * hpRatio + 2048 - 1) / 4096) / 100) || 1
 }
 
 function weightToBasePower(weight: number): number {

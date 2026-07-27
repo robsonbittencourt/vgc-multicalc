@@ -225,7 +225,7 @@ describe("checkMultihitBoost — reactive effects triggered by being hit multipl
 
     const result = calculate(attacker, defender, new Move("Water Shuriken"), new Field())
 
-    expect(result.description()).toEqual("252+ SpA Cloyster Water Shuriken (3 hits) vs. 252 HP / 4 SpD Luminous Moss Ferrothorn: 11-14 (6 - 7.7%)")
+    expect(result.description()).toEqual("252+ SpA Cloyster Water Shuriken (15 BP) (3 hits) vs. 252 HP / 4 SpD Luminous Moss Ferrothorn: 11-14 (6 - 7.7%)")
   })
 
   it("should boost the defender's Special Defense with Maranga Berry on a Special multi-hit move", () => {
@@ -234,7 +234,7 @@ describe("checkMultihitBoost — reactive effects triggered by being hit multipl
 
     const result = calculate(attacker, defender, new Move("Water Shuriken"), new Field())
 
-    expect(result.description()).toEqual("252+ SpA Cloyster Water Shuriken (3 hits) vs. 252 HP / 4 SpD Maranga Berry Ferrothorn: 11-14 (6 - 7.7%)")
+    expect(result.description()).toEqual("252+ SpA Cloyster Water Shuriken (15 BP) (3 hits) vs. 252 HP / 4 SpD Maranga Berry Ferrothorn: 11-14 (6 - 7.7%)")
   })
 
   it("should lower the defender's Defense instead of raising it when Kee Berry defender has Contrary", () => {
@@ -292,7 +292,7 @@ describe("checkMultihitBoost — Water Compaction and Weak Armor edge cases", ()
 
     const result = calculate(attacker, defender, new Move("Water Shuriken"), new Field())
 
-    expect(result.description()).toEqual("0 SpA Cloyster Water Shuriken (3 hits) vs. 252 HP / 0 SpD Water Compaction Ferrothorn: 9-15 (4.9 - 8.2%)")
+    expect(result.description()).toEqual("0 SpA Cloyster Water Shuriken (15 BP) (3 hits) vs. 252 HP / 0 SpD Water Compaction Ferrothorn: 9-15 (4.9 - 8.2%)")
   })
 
   it("should not raise Water Compaction defense when the attacker has Unaware", () => {
@@ -347,6 +347,6 @@ describe("checkMultihitBoost — item and ability reactions across hits", () => 
     const defender = new Pokemon("Blissey", { item: "Luminous Moss", evs: { hp: 252 } })
     const result = calculate(attacker, defender, new Move("Water Shuriken", { hits: 3 }), new Field())
 
-    expect(result.description()).toEqual("252 SpA Pelipper Water Shuriken (3 hits) vs. 252 HP / 0 SpD Luminous Moss Blissey: 23-30 (6.3 - 8.2%)")
+    expect(result.description()).toEqual("252 SpA Pelipper Water Shuriken (15 BP) (3 hits) vs. 252 HP / 0 SpD Luminous Moss Blissey: 23-30 (6.3 - 8.2%)")
   })
 })

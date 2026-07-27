@@ -40,7 +40,7 @@ describe("Damage — defender reactive boosts across multihit", () => {
 
     const result = calculate(attacker, defender, move, field())
 
-    expect(result.description()).toEqual("252+ SpA Greninja Water Shuriken (3 hits) vs. 252 HP / 4 SpD Maranga Berry Tyranitar: 62-80 (29.9 - 38.6%) -- 34.2% chance to 3HKO")
+    expect(result.description()).toEqual("252+ SpA Greninja Water Shuriken (15 BP) (3 hits) vs. 252 HP / 4 SpD Maranga Berry Tyranitar: 62-80 (29.9 - 38.6%) -- 34.2% chance to 3HKO")
   })
 
   it("Parental Bond: a stat-dropping move lowers the child hit's Sp. Atk", () => {
