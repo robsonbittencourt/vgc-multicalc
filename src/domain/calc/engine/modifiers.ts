@@ -36,6 +36,9 @@ const conditionalBpMoveRule: ModifierRule = ({ move, attacker, defender, field, 
   } else if (move.named("Lash Out") && countNegativeBoosts(attacker)) {
     description.moveBP = (description.moveBP ?? move.bp) * 2
     return 8192
+  } else if (move.named("Brine") && defender.currentHp() * 2 <= defender.maxHp()) {
+    description.moveBP = (description.moveBP ?? move.bp) * 2
+    return 8192
   } else if (move.named("Expanding Force") && isGrounded(attacker, field) && field.hasTerrain("Psychic")) {
     move.target = "allAdjacentFoes"
     description.moveBP = basePower * 1.5
