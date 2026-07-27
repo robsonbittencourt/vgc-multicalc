@@ -72,4 +72,24 @@ describe("Damage — move-specific base power modifiers", () => {
 
     expect(result.description()).toEqual("252+ SpA Miraidon Electro Drift (133.3251953125 BP) vs. 252 HP / 4 SpD Pelipper: 676-796 (404.7 - 476.6%) -- guaranteed OHKO")
   })
+
+  it("Brine: keeps base BP against a target above half HP", () => {
+    const attacker = new Pokemon("Pelipper", { evs: { spa: 252 }, nature: "Modest" })
+    const defender = new Pokemon("Amoonguss", { evs: { hp: 252, spd: 4 }, curHP: 111 } as never)
+    const move = new Move("Brine")
+
+    const result = calculate(attacker, defender, move, field())
+
+    expect(result.description()).toEqual("252+ SpA Pelipper Brine vs. 252 HP / 4 SpD Amoonguss: 29-35 (13.1 - 15.8%) -- guaranteed 4HKO")
+  })
+
+  it("Brine: doubles BP against a target at exactly half HP", () => {
+    const attacker = new Pokemon("Pelipper", { evs: { spa: 252 }, nature: "Modest" })
+    const defender = new Pokemon("Amoonguss", { evs: { hp: 252, spd: 4 }, curHP: 110 } as never)
+    const move = new Move("Brine")
+
+    const result = calculate(attacker, defender, move, field())
+
+    expect(result.description()).toEqual("252+ SpA Pelipper Brine (130 BP) vs. 252 HP / 4 SpD Amoonguss: 59-69 (26.6 - 31.2%) -- guaranteed 2HKO")
+  })
 })
