@@ -20,4 +20,55 @@ describe("Damage — weather effects on move damage", () => {
 
     expect(result.description()).toEqual("252+ SpA Walking Wake Hydro Steam vs. 252 HP / 4 SpD Heatran in Sun: 206-246 (104 - 124.2%) -- guaranteed OHKO")
   })
+
+  describe("Weather Ball — Utility Umbrella and Mega Sol", () => {
+    const weatherBall = (attackerOptions: Record<string, unknown>, weather?: string, species = "Politoed") => {
+      const attacker = new Pokemon(species, { evs: { spa: 252 }, nature: "Modest", ...attackerOptions })
+      const defender = new Pokemon("Kartana", { evs: { hp: 252, spd: 4 } })
+
+      return calculate(attacker, defender, new Move("Weather Ball"), new Field({ gameType: "Doubles", weather } as any))
+    }
+
+    it("Utility Umbrella negates the type change and the BP boost in Sun", () => {
+      const result = weatherBall({ item: "Utility Umbrella" }, "Sun")
+
+      expect(result.description()).toEqual("252+ SpA Politoed Weather Ball (50 BP Normal) vs. 252 HP / 4 SpD Kartana in Sun: 28-34 (16.8 - 20.4%) -- possible 5HKO")
+    })
+
+    it("Utility Umbrella negates the type change and the BP boost in Rain", () => {
+      const result = weatherBall({ item: "Utility Umbrella" }, "Rain")
+
+      expect(result.description()).toEqual("252+ SpA Politoed Weather Ball (50 BP Normal) vs. 252 HP / 4 SpD Kartana in Rain: 28-34 (16.8 - 20.4%) -- possible 5HKO")
+    })
+
+    it("Utility Umbrella does not affect Sand", () => {
+      const result = weatherBall({ item: "Utility Umbrella" }, "Sand")
+
+      expect(result.description()).toEqual("252+ SpA Politoed Weather Ball (100 BP Rock) vs. 252 HP / 4 SpD Kartana in Sand: 56-67 (33.7 - 40.3%) -- guaranteed 3HKO")
+    })
+
+    it("Utility Umbrella does not affect Snow", () => {
+      const result = weatherBall({ item: "Utility Umbrella" }, "Snow")
+
+      expect(result.description()).toEqual("252+ SpA Politoed Weather Ball (100 BP Ice) vs. 252 HP / 4 SpD Kartana in Snow: 113-134 (68 - 80.7%) -- guaranteed 2HKO")
+    })
+
+    it("Mega Sol overrides Utility Umbrella, keeping Fire and the BP boost", () => {
+      const result = weatherBall({ ability: "Mega Sol", item: "Utility Umbrella" }, undefined, "Meganium-Mega")
+
+      expect(result.description()).toEqual("252+ SpA Mega Sol Meganium-Mega Weather Ball (100 BP Fire) vs. 252 HP / 4 SpD Kartana: 928-1096 (559 - 660.2%) -- guaranteed OHKO")
+    })
+
+    it("Mega Sol overrides Utility Umbrella under Rain", () => {
+      const result = weatherBall({ ability: "Mega Sol", item: "Utility Umbrella" }, "Rain", "Meganium-Mega")
+
+      expect(result.description()).toEqual("252+ SpA Mega Sol Meganium-Mega Weather Ball (100 BP Fire) vs. 252 HP / 4 SpD Kartana: 928-1096 (559 - 660.2%) -- guaranteed OHKO")
+    })
+
+    it("Mega Sol overrides Sand, treating the weather as Sun", () => {
+      const result = weatherBall({ ability: "Mega Sol" }, "Sand", "Meganium-Mega")
+
+      expect(result.description()).toEqual("252+ SpA Mega Sol Meganium-Mega Weather Ball (100 BP Fire) vs. 252 HP / 4 SpD Kartana: 928-1096 (559 - 660.2%) -- guaranteed OHKO")
+    })
+  })
 })

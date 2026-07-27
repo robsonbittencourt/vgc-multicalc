@@ -2,7 +2,7 @@ import { getFlingPower } from "@calc/model/items"
 import { Field } from "@calc/model/field"
 import { Move } from "@calc/model/move"
 import { Pokemon } from "@calc/model/pokemon"
-import { countBoosts, getWeight, isGrounded, isQPActive } from "@calc/engine/stats"
+import { countBoosts, effectiveWeather, getWeight, isGrounded, isQPActive } from "@calc/engine/stats"
 import { RawDesc } from "@data/types"
 
 export interface BasePowerContext {
@@ -66,7 +66,15 @@ const BASE_POWER_STRATEGIES = new Map<string, BasePowerStrategy>([
   ["Acrobatics", ({ move, attacker, field, description }) => describedBp(description, move.bp * (attacker.hasItem("Flying Gem") || !attacker.item || (isQPActive(attacker, field) && attacker.hasItem("Booster Energy")) ? 2 : 1))],
   ["Assurance", ({ move }) => move.bp * (move.isParentalBondChild ? 2 : 1)],
   ["Smelling Salts", ({ move, defender, description }) => describedBp(description, move.bp * (defender.hasStatus("par") ? 2 : 1))],
-  ["Weather Ball", ({ move, attacker, field, description }) => describedBp(description, move.bp * (field.weather || attacker.hasAbility("Mega Sol") ? 2 : 1))],
+  [
+    "Weather Ball",
+    ({ move, attacker, field, description }) => {
+      const weather = effectiveWeather(attacker, field)
+      const boosted = weather === "Sun" || weather === "Rain" || weather === "Sand" || weather === "Hail" || weather === "Snow"
+
+      return describedBp(description, move.bp * (boosted ? 2 : 1))
+    }
+  ],
   ["Terrain Pulse", ({ move, attacker, field, description }) => describedBp(description, move.bp * (isGrounded(attacker, field) && field.terrain ? 2 : 1))],
   ["Rising Voltage", ({ move, defender, field, description }) => describedBp(description, move.bp * (isGrounded(defender, field) && field.hasTerrain("Electric") ? 2 : 1))],
   [

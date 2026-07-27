@@ -1,7 +1,7 @@
 import { Field } from "@calc/model/field"
 import { Move } from "@calc/model/move"
 import { Pokemon } from "@calc/model/pokemon"
-import { isGrounded } from "@calc/engine/stats"
+import { effectiveWeather, isGrounded } from "@calc/engine/stats"
 import { getMoveEffectiveness } from "@calc/engine/type-effectiveness"
 import { MoveCategory, RawDesc, TypeName } from "@data/types"
 
@@ -137,7 +137,9 @@ export function computeMoveType(ctx: CombatContext): { type: string; hasAteAbili
 
   if (move.originalName === "Weather Ball") {
     const isMegaSol = attacker.hasAbility("Mega Sol")
-    type = field.hasWeather("Sun") || isMegaSol ? "Fire" : field.hasWeather("Rain") ? "Water" : field.hasWeather("Sand") ? "Rock" : field.hasWeather("Hail", "Snow") ? "Ice" : "Normal"
+    const weather = effectiveWeather(attacker, field)
+    type = weather === "Sun" ? "Fire" : weather === "Rain" ? "Water" : weather === "Sand" ? "Rock" : weather === "Hail" || weather === "Snow" ? "Ice" : "Normal"
+
     if (isMegaSol) {
       description.attackerAbility = attacker.ability
     } else {

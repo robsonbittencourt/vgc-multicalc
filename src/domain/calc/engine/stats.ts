@@ -3,10 +3,18 @@ import { chainMods, getModifiedStat, MOD_0_25X, MOD_0_5X, MOD_1_2X, MOD_1_5X, MO
 import { Field, Side } from "@calc/model/field"
 import { Move } from "@calc/model/move"
 import { Pokemon } from "@calc/model/pokemon"
-import { RawDesc, StatID } from "@data/types"
+import { RawDesc, StatID, Weather } from "@data/types"
 
 export function isGrounded(pokemon: Pokemon, field: Field): boolean {
   return field.isGravity || pokemon.hasItem("Iron Ball") || (!pokemon.hasType("Flying") && !pokemon.hasAbility("Levitate", "Eelevate") && !pokemon.hasItem("Air Balloon"))
+}
+
+export function effectiveWeather(attacker: Pokemon, field: Field): Weather | undefined {
+  if (attacker.hasAbility("Mega Sol")) return "Sun"
+
+  if (field.hasWeather("Sun", "Rain") && attacker.hasItem("Utility Umbrella")) return undefined
+
+  return field.weather
 }
 
 export function computeFinalStats(attacker: Pokemon, defender: Pokemon, field: Field, ...stats: StatID[]): void {
