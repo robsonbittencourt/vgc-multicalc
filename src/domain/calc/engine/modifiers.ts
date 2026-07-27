@@ -33,7 +33,7 @@ const conditionalBpMoveRule: ModifierRule = ({ move, attacker, defender, field, 
   } else if (move.named("Venoshock") && defender.hasStatus("psn", "tox")) {
     description.moveBP = (description.moveBP ?? move.bp) * 2
     return 8192
-  } else if (move.named("Lash Out") && countNegativeBoosts(attacker)) {
+  } else if (move.named("Lash Out") && hasLoweredStat(attacker)) {
     description.moveBP = (description.moveBP ?? move.bp) * 2
     return 8192
   } else if (move.named("Brine") && defender.currentHp() * 2 <= defender.maxHp()) {
@@ -707,10 +707,10 @@ function applyRules(rules: ModifierRule[], ctx: ModifierContext): number[] {
   return mods
 }
 
-function countNegativeBoosts(attacker: Pokemon): boolean {
+function hasLoweredStat(attacker: Pokemon): boolean {
   const boosts = attacker.boosts
-  const sum = (boosts.atk ?? 0) + (boosts.def ?? 0) + (boosts.spa ?? 0) + (boosts.spd ?? 0) + (boosts.spe ?? 0)
-  return sum < 0
+
+  return (boosts.atk ?? 0) < 0 || (boosts.def ?? 0) < 0 || (boosts.spa ?? 0) < 0 || (boosts.spd ?? 0) < 0 || (boosts.spe ?? 0) < 0
 }
 
 function resistedKnockOff(defender: Pokemon, hit: number): boolean {
