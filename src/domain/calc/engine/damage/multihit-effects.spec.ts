@@ -32,4 +32,14 @@ describe("Damage — per-hit effects on multi-hit moves", () => {
 
     expect(result.description()).toEqual("252+ Atk Tough Claws Corviknight Dual Wingbeat (2 hits) vs. 252 HP / 4 Def Mummy Runerigus: 49-60 (29.6 - 36.3%) -- 15.5% chance to 3HKO")
   })
+
+  it("Galvanize: keeps the -ate boost on every hit of a multi-hit move", () => {
+    const attacker = new Pokemon("Cinccino", { evs: { atk: 252 }, nature: "Adamant", ability: "Galvanize" })
+    const defender = new Pokemon("Amoonguss", { evs: { hp: 252, def: 4 } })
+    const move = new Move("Tail Slap")
+
+    const result = calculate(attacker, defender, move, field())
+
+    expect(result.description()).toEqual("252+ Atk Galvanize Cinccino Tail Slap (3 hits) vs. 252 HP / 4 Def Amoonguss: 30-36 (13.5 - 16.2%) -- possible 7HKO")
+  })
 })
