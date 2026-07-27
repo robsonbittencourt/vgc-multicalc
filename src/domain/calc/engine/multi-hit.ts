@@ -18,7 +18,7 @@ export function computeMultiHitDamage(ctx: HitContext, firstHitDamage: number[],
   for (let times = 1; times < numAttacks; times++) {
     usedItems = checkMultihitBoost(attacker, defender, move, field, description, usedItems[0], usedItems[1])
 
-    const ateStillActive = hasAteAbilityTypeChange && attacker.hasAbility("Aerilate", "Dragonize", "Pixilate", "Refrigerate")
+    const ateStillActive = hasAteAbilityTypeChange && attacker.hasAbility("Aerilate", "Dragonize", "Galvanize", "Pixilate", "Refrigerate")
     const newStabMod = overTurns ? getStellarStabMod(attacker, move, getStabMod(attacker, move, description), times) : stabMod
 
     damageMatrix[times] = computeHitDamage(ctx, { hit: times + 1, hitCount: times, hasAteAbilityTypeChange: ateStillActive, stabMod: newStabMod })

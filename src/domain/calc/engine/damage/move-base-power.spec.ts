@@ -83,6 +83,26 @@ describe("Damage — move-specific base power modifiers", () => {
     expect(result.description()).toEqual("252+ SpA Pelipper Brine vs. 252 HP / 4 SpD Amoonguss: 29-35 (13.1 - 15.8%) -- guaranteed 4HKO")
   })
 
+  it("Assurance: doubles BP on the Parental Bond child hit, which lands after the target was already hurt", () => {
+    const attacker = new Pokemon("Kangaskhan", { evs: { atk: 252 }, nature: "Adamant", ability: "Parental Bond" })
+    const defender = new Pokemon("Amoonguss", { evs: { hp: 252, def: 4 } })
+    const move = new Move("Assurance")
+
+    const result = calculate(attacker, defender, move, new Field({ gameType: "Singles" }))
+
+    expect(result.description()).toEqual("252+ Atk Parental Bond Kangaskhan Assurance vs. 252 HP / 4 Def Amoonguss: 60-72 (27.1 - 32.5%) -- guaranteed 4HKO")
+  })
+
+  it("Assurance: keeps base BP without Parental Bond", () => {
+    const attacker = new Pokemon("Kangaskhan", { evs: { atk: 252 }, nature: "Adamant", ability: "Scrappy" })
+    const defender = new Pokemon("Amoonguss", { evs: { hp: 252, def: 4 } })
+    const move = new Move("Assurance")
+
+    const result = calculate(attacker, defender, move, new Field({ gameType: "Singles" }))
+
+    expect(result.description()).toEqual("252+ Atk Kangaskhan Assurance vs. 252 HP / 4 Def Amoonguss: 40-48 (18 - 21.7%) -- possible 5HKO")
+  })
+
   it("Brine: doubles BP against a target at exactly half HP", () => {
     const attacker = new Pokemon("Pelipper", { evs: { spa: 252 }, nature: "Modest" })
     const defender = new Pokemon("Amoonguss", { evs: { hp: 252, spd: 4 }, curHP: 110 } as never)
