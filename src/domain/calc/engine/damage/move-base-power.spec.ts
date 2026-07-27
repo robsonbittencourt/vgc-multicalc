@@ -23,6 +23,26 @@ describe("Damage — move-specific base power modifiers", () => {
     expect(result.description()).toEqual("-1 252 Atk Meowscarada Lash Out (150 BP) vs. 252 HP / 4 Def Slowbro: 140-168 (69.3 - 83.1%) -- guaranteed 2HKO")
   })
 
+  it("Lash Out: doubles BP on a lowered stat even when other boosts outweigh it", () => {
+    const attacker = new Pokemon("Meowscarada", { evs: { atk: 252 }, nature: "Jolly", boosts: { atk: -1, spe: 2 } })
+    const defender = new Pokemon("Slowbro", { evs: { hp: 252, def: 4 } })
+    const move = new Move("Lash Out")
+
+    const result = calculate(attacker, defender, move, field())
+
+    expect(result.description()).toEqual("-1 252 Atk Meowscarada Lash Out (150 BP) vs. 252 HP / 4 Def Slowbro: 140-168 (69.3 - 83.1%) -- guaranteed 2HKO")
+  })
+
+  it("Lash Out: keeps base BP when every boost is positive", () => {
+    const attacker = new Pokemon("Meowscarada", { evs: { atk: 252 }, nature: "Jolly", boosts: { spe: 2 } })
+    const defender = new Pokemon("Slowbro", { evs: { hp: 252, def: 4 } })
+    const move = new Move("Lash Out")
+
+    const result = calculate(attacker, defender, move, field())
+
+    expect(result.description()).toEqual("252 Atk Meowscarada Lash Out vs. 252 HP / 4 Def Slowbro: 104-126 (51.4 - 62.3%) -- guaranteed 2HKO")
+  })
+
   it("Expanding Force: +50% BP on Psychic Terrain when grounded", () => {
     const attacker = new Pokemon("Indeedee", { evs: { spa: 252 }, nature: "Modest" })
     const defender = new Pokemon("Dragonite", { evs: { hp: 252, spd: 4 } })
