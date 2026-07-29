@@ -20,7 +20,7 @@ export const POKEMON_DATA = {
       spe: 90
     },
     weightKg: 19.5,
-    abilities: ["Synchronize"],
+    abilities: ["Synchronize", "Inner Focus", "Magic Guard"],
     notFullyEvolved: true
   },
   aerodactyl: {
@@ -173,7 +173,7 @@ export const POKEMON_DATA = {
       spe: 70
     },
     weightKg: 32,
-    abilities: ["Compound Eyes"]
+    abilities: ["Compound Eyes", "Tinted Lens"]
   },
   caterpie: {
     name: "Caterpie",
@@ -187,7 +187,7 @@ export const POKEMON_DATA = {
       spe: 45
     },
     weightKg: 2.9,
-    abilities: ["Shield Dust"],
+    abilities: ["Shield Dust", "Run Away"],
     notFullyEvolved: true
   },
   chansey: {
@@ -312,7 +312,7 @@ export const POKEMON_DATA = {
       spe: 35
     },
     weightKg: 6.5,
-    abilities: ["Rock Head"],
+    abilities: ["Rock Head", "Lightning Rod", "Battle Armor"],
     notFullyEvolved: true
   },
   dewgong: {
@@ -578,7 +578,7 @@ export const POKEMON_DATA = {
       spe: 60
     },
     weightKg: 15,
-    abilities: ["Keen Eye"]
+    abilities: ["Keen Eye", "Inner Focus", "Defiant"]
   },
   fearow: {
     name: "Fearow",
@@ -592,7 +592,7 @@ export const POKEMON_DATA = {
       spe: 100
     },
     weightKg: 38,
-    abilities: ["Keen Eye"]
+    abilities: ["Keen Eye", "Sniper"]
   },
   flareon: {
     name: "Flareon",
@@ -684,7 +684,7 @@ export const POKEMON_DATA = {
       spe: 90
     },
     weightKg: 55,
-    abilities: ["Inner Focus"],
+    abilities: ["Inner Focus", "Infiltrator"],
     notFullyEvolved: true
   },
   goldeen: {
@@ -699,7 +699,7 @@ export const POKEMON_DATA = {
       spe: 63
     },
     weightKg: 15,
-    abilities: ["Swift Swim"],
+    abilities: ["Swift Swim", "Water Veil", "Lightning Rod"],
     notFullyEvolved: true
   },
   golduck: {
@@ -934,7 +934,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 40.6,
     gender: "F",
-    abilities: ["Oblivious"]
+    abilities: ["Oblivious", "Forewarn", "Dry Skin"]
   },
   kabuto: {
     name: "Kabuto",
@@ -948,7 +948,7 @@ export const POKEMON_DATA = {
       spe: 55
     },
     weightKg: 11.5,
-    abilities: ["Swift Swim"],
+    abilities: ["Swift Swim", "Battle Armor", "Weak Armor"],
     notFullyEvolved: true
   },
   kabutops: {
@@ -963,7 +963,7 @@ export const POKEMON_DATA = {
       spe: 80
     },
     weightKg: 40.5,
-    abilities: ["Swift Swim"]
+    abilities: ["Swift Swim", "Battle Armor", "Weak Armor"]
   },
   kadabra: {
     name: "Kadabra",
@@ -977,7 +977,7 @@ export const POKEMON_DATA = {
       spe: 105
     },
     weightKg: 56.5,
-    abilities: ["Synchronize"],
+    abilities: ["Synchronize", "Inner Focus", "Magic Guard"],
     notFullyEvolved: true
   },
   kakuna: {
@@ -1023,7 +1023,7 @@ export const POKEMON_DATA = {
       spe: 75
     },
     weightKg: 60,
-    abilities: ["Hyper Cutter"]
+    abilities: ["Hyper Cutter", "Shell Armor", "Sheer Force"]
   },
   koffing: {
     name: "Koffing",
@@ -1053,7 +1053,7 @@ export const POKEMON_DATA = {
       spe: 50
     },
     weightKg: 6.5,
-    abilities: ["Hyper Cutter"],
+    abilities: ["Hyper Cutter", "Shell Armor", "Sheer Force"],
     notFullyEvolved: true
   },
   lapras: {
@@ -1083,7 +1083,7 @@ export const POKEMON_DATA = {
       spe: 30
     },
     weightKg: 65.5,
-    abilities: ["Own Tempo"],
+    abilities: ["Own Tempo", "Oblivious", "Cloud Nine"],
     notFullyEvolved: true
   },
   machamp: {
@@ -1113,7 +1113,7 @@ export const POKEMON_DATA = {
       spe: 45
     },
     weightKg: 70.5,
-    abilities: ["Guts"],
+    abilities: ["Guts", "No Guard", "Steadfast"],
     notFullyEvolved: true
   },
   machop: {
@@ -1128,7 +1128,7 @@ export const POKEMON_DATA = {
       spe: 35
     },
     weightKg: 19.5,
-    abilities: ["Guts"],
+    abilities: ["Guts", "No Guard", "Steadfast"],
     notFullyEvolved: true
   },
   magikarp: {
@@ -1225,7 +1225,7 @@ export const POKEMON_DATA = {
       spe: 45
     },
     weightKg: 45,
-    abilities: ["Rock Head"]
+    abilities: ["Rock Head", "Lightning Rod", "Battle Armor"]
   },
   meowth: {
     name: "Meowth",
@@ -1318,7 +1318,7 @@ export const POKEMON_DATA = {
       spe: 90
     },
     weightKg: 54.5,
-    abilities: ["Soundproof"]
+    abilities: ["Soundproof", "Filter", "Technician"]
   },
   muk: {
     name: "Muk",
@@ -1348,7 +1348,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 62,
     gender: "M",
-    abilities: ["Poison Point"]
+    abilities: ["Poison Point", "Rivalry", "Sheer Force"]
   },
   nidoqueen: {
     name: "Nidoqueen",
@@ -1363,7 +1363,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 60,
     gender: "F",
-    abilities: ["Poison Point"]
+    abilities: ["Poison Point", "Rivalry", "Sheer Force"]
   },
   nidoranf: {
     name: "Nidoran-F",
@@ -1378,7 +1378,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 7,
     gender: "F",
-    abilities: ["Poison Point"],
+    abilities: ["Poison Point", "Rivalry", "Hustle"],
     notFullyEvolved: true
   },
   nidoranm: {
@@ -1394,7 +1394,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 9,
     gender: "M",
-    abilities: ["Poison Point"],
+    abilities: ["Poison Point", "Rivalry", "Hustle"],
     notFullyEvolved: true
   },
   nidorina: {
@@ -1410,7 +1410,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 20,
     gender: "F",
-    abilities: ["Poison Point"],
+    abilities: ["Poison Point", "Rivalry", "Hustle"],
     notFullyEvolved: true
   },
   nidorino: {
@@ -1426,7 +1426,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 19.5,
     gender: "M",
-    abilities: ["Poison Point"],
+    abilities: ["Poison Point", "Rivalry", "Hustle"],
     notFullyEvolved: true
   },
   ninetales: {
@@ -1472,7 +1472,7 @@ export const POKEMON_DATA = {
       spe: 35
     },
     weightKg: 7.5,
-    abilities: ["Swift Swim"],
+    abilities: ["Swift Swim", "Shell Armor", "Weak Armor"],
     notFullyEvolved: true
   },
   omastar: {
@@ -1487,7 +1487,7 @@ export const POKEMON_DATA = {
       spe: 55
     },
     weightKg: 35,
-    abilities: ["Swift Swim"]
+    abilities: ["Swift Swim", "Shell Armor", "Weak Armor"]
   },
   onix: {
     name: "Onix",
@@ -1501,7 +1501,7 @@ export const POKEMON_DATA = {
       spe: 70
     },
     weightKg: 210,
-    abilities: ["Rock Head"],
+    abilities: ["Rock Head", "Sturdy", "Weak Armor"],
     notFullyEvolved: true
   },
   paras: {
@@ -1516,7 +1516,7 @@ export const POKEMON_DATA = {
       spe: 25
     },
     weightKg: 5.4,
-    abilities: ["Effect Spore"],
+    abilities: ["Effect Spore", "Dry Skin", "Damp"],
     notFullyEvolved: true
   },
   parasect: {
@@ -1531,7 +1531,7 @@ export const POKEMON_DATA = {
       spe: 30
     },
     weightKg: 29.5,
-    abilities: ["Effect Spore"]
+    abilities: ["Effect Spore", "Dry Skin", "Damp"]
   },
   persian: {
     name: "Persian",
@@ -1575,7 +1575,7 @@ export const POKEMON_DATA = {
       spe: 71
     },
     weightKg: 30,
-    abilities: ["Keen Eye"],
+    abilities: ["Keen Eye", "Tangled Feet", "Big Pecks"],
     notFullyEvolved: true
   },
   pidgey: {
@@ -1590,7 +1590,7 @@ export const POKEMON_DATA = {
       spe: 56
     },
     weightKg: 1.8,
-    abilities: ["Keen Eye"],
+    abilities: ["Keen Eye", "Tangled Feet", "Big Pecks"],
     notFullyEvolved: true
   },
   pikachu: {
@@ -1683,7 +1683,7 @@ export const POKEMON_DATA = {
       spe: 90
     },
     weightKg: 30,
-    abilities: ["Run Away"],
+    abilities: ["Run Away", "Flash Fire", "Flame Body"],
     notFullyEvolved: true
   },
   porygon: {
@@ -1762,7 +1762,7 @@ export const POKEMON_DATA = {
       spe: 105
     },
     weightKg: 95,
-    abilities: ["Run Away"]
+    abilities: ["Run Away", "Flash Fire", "Flame Body"]
   },
   raticate: {
     name: "Raticate",
@@ -1776,7 +1776,7 @@ export const POKEMON_DATA = {
       spe: 97
     },
     weightKg: 18.5,
-    abilities: ["Run Away"]
+    abilities: ["Run Away", "Guts", "Hustle"]
   },
   rattata: {
     name: "Rattata",
@@ -1790,7 +1790,7 @@ export const POKEMON_DATA = {
       spe: 72
     },
     weightKg: 3.5,
-    abilities: ["Run Away"],
+    abilities: ["Run Away", "Guts", "Hustle"],
     notFullyEvolved: true
   },
   rhydon: {
@@ -1900,7 +1900,7 @@ export const POKEMON_DATA = {
       spe: 68
     },
     weightKg: 39,
-    abilities: ["Swift Swim"]
+    abilities: ["Swift Swim", "Water Veil", "Lightning Rod"]
   },
   seel: {
     name: "Seel",
@@ -1992,7 +1992,7 @@ export const POKEMON_DATA = {
       spe: 70
     },
     weightKg: 2,
-    abilities: ["Keen Eye"],
+    abilities: ["Keen Eye", "Sniper"],
     notFullyEvolved: true
   },
   squirtle: {
@@ -2040,7 +2040,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 34.5,
     gender: "N",
-    abilities: ["Illuminate"],
+    abilities: ["Illuminate", "Natural Cure", "Analytic"],
     notFullyEvolved: true
   },
   tangela: {
@@ -2055,7 +2055,7 @@ export const POKEMON_DATA = {
       spe: 60
     },
     weightKg: 35,
-    abilities: ["Chlorophyll"],
+    abilities: ["Chlorophyll", "Leaf Guard", "Regenerator"],
     notFullyEvolved: true
   },
   tauros: {
@@ -2257,7 +2257,7 @@ export const POKEMON_DATA = {
       spe: 50
     },
     weightKg: 3.2,
-    abilities: ["Shield Dust"],
+    abilities: ["Shield Dust", "Run Away"],
     notFullyEvolved: true
   },
   weepinbell: {
@@ -2334,7 +2334,7 @@ export const POKEMON_DATA = {
       spe: 55
     },
     weightKg: 7.5,
-    abilities: ["Inner Focus"],
+    abilities: ["Inner Focus", "Infiltrator"],
     notFullyEvolved: true
   },
   aipom: {
@@ -2520,7 +2520,7 @@ export const POKEMON_DATA = {
       spe: 35
     },
     weightKg: 5,
-    abilities: ["Hustle"]
+    abilities: ["Hustle", "Natural Cure", "Regenerator"]
   },
   crobat: {
     name: "Crobat",
@@ -2534,7 +2534,7 @@ export const POKEMON_DATA = {
       spe: 130
     },
     weightKg: 75,
-    abilities: ["Inner Focus"]
+    abilities: ["Inner Focus", "Infiltrator"]
   },
   croconaw: {
     name: "Croconaw",
@@ -2968,7 +2968,7 @@ export const POKEMON_DATA = {
       spe: 85
     },
     weightKg: 35.6,
-    abilities: ["Swarm"]
+    abilities: ["Swarm", "Early Bird", "Iron Fist"]
   },
   ledyba: {
     name: "Ledyba",
@@ -2982,7 +2982,7 @@ export const POKEMON_DATA = {
       spe: 55
     },
     weightKg: 10.8,
-    abilities: ["Swarm"],
+    abilities: ["Swarm", "Early Bird", "Rattled"],
     notFullyEvolved: true
   },
   lugia: {
@@ -3044,7 +3044,7 @@ export const POKEMON_DATA = {
       spe: 70
     },
     weightKg: 220,
-    abilities: ["Swift Swim"]
+    abilities: ["Swift Swim", "Water Absorb", "Water Veil"]
   },
   mareep: {
     name: "Mareep",
@@ -3106,7 +3106,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 75.5,
     gender: "F",
-    abilities: ["Thick Fat"]
+    abilities: ["Thick Fat", "Scrappy", "Sap Sipper"]
   },
   misdreavus: {
     name: "Misdreavus",
@@ -3152,7 +3152,7 @@ export const POKEMON_DATA = {
       spe: 70
     },
     weightKg: 2,
-    abilities: ["Synchronize"],
+    abilities: ["Synchronize", "Early Bird", "Magic Bounce"],
     notFullyEvolved: true
   },
   noctowl: {
@@ -3182,7 +3182,7 @@ export const POKEMON_DATA = {
       spe: 45
     },
     weightKg: 28.5,
-    abilities: ["Suction Cups"]
+    abilities: ["Suction Cups", "Sniper", "Moody"]
   },
   phanpy: {
     name: "Phanpy",
@@ -3370,7 +3370,7 @@ export const POKEMON_DATA = {
       spe: 65
     },
     weightKg: 12,
-    abilities: ["Hustle"],
+    abilities: ["Hustle", "Sniper", "Moody"],
     notFullyEvolved: true
   },
   scizor: {
@@ -3416,7 +3416,7 @@ export const POKEMON_DATA = {
       spe: 5
     },
     weightKg: 20.5,
-    abilities: ["Sturdy"]
+    abilities: ["Sturdy", "Gluttony", "Contrary"]
   },
   skarmory: {
     name: "Skarmory",
@@ -3508,7 +3508,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 6,
     gender: "F",
-    abilities: ["Oblivious"],
+    abilities: ["Oblivious", "Forewarn", "Hydration"],
     notFullyEvolved: true
   },
   sneasel: {
@@ -3696,7 +3696,7 @@ export const POKEMON_DATA = {
       spe: 20
     },
     weightKg: 1.5,
-    abilities: ["Hustle"],
+    abilities: ["Hustle", "Serene Grace", "Super Luck"],
     notFullyEvolved: true
   },
   togetic: {
@@ -3711,7 +3711,7 @@ export const POKEMON_DATA = {
       spe: 40
     },
     weightKg: 3.2,
-    abilities: ["Hustle"],
+    abilities: ["Hustle", "Serene Grace", "Super Luck"],
     notFullyEvolved: true
   },
   totodile: {
@@ -3835,7 +3835,7 @@ export const POKEMON_DATA = {
       spe: 33
     },
     weightKg: 28.5,
-    abilities: ["Shadow Tag"]
+    abilities: ["Shadow Tag", "Telepathy"]
   },
   wooper: {
     name: "Wooper",
@@ -3865,7 +3865,7 @@ export const POKEMON_DATA = {
       spe: 95
     },
     weightKg: 15,
-    abilities: ["Synchronize"]
+    abilities: ["Synchronize", "Early Bird", "Magic Bounce"]
   },
   yanma: {
     name: "Yanma",
@@ -3940,7 +3940,7 @@ export const POKEMON_DATA = {
       spe: 75
     },
     weightKg: 12.5,
-    abilities: ["Battle Armor"],
+    abilities: ["Battle Armor", "Swift Swim"],
     notFullyEvolved: true
   },
   armaldo: {
@@ -3955,7 +3955,7 @@ export const POKEMON_DATA = {
       spe: 45
     },
     weightKg: 68.2,
-    abilities: ["Battle Armor"]
+    abilities: ["Battle Armor", "Swift Swim"]
   },
   aron: {
     name: "Aron",
@@ -3969,7 +3969,7 @@ export const POKEMON_DATA = {
       spe: 30
     },
     weightKg: 60,
-    abilities: ["Sturdy"],
+    abilities: ["Sturdy", "Rock Head", "Heavy Metal"],
     notFullyEvolved: true
   },
   azurill: {
@@ -4063,7 +4063,7 @@ export const POKEMON_DATA = {
       spe: 65
     },
     weightKg: 28.4,
-    abilities: ["Swarm"]
+    abilities: ["Swarm", "Rivalry"]
   },
   beldum: {
     name: "Beldum",
@@ -4170,7 +4170,7 @@ export const POKEMON_DATA = {
       spe: 65
     },
     weightKg: 20.8,
-    abilities: ["Rough Skin"],
+    abilities: ["Rough Skin", "Speed Boost"],
     notFullyEvolved: true
   },
   cascoon: {
@@ -4272,7 +4272,7 @@ export const POKEMON_DATA = {
       spe: 32
     },
     weightKg: 52.5,
-    abilities: ["Shell Armor"],
+    abilities: ["Shell Armor", "Rattled"],
     notFullyEvolved: true
   },
   claydol: {
@@ -4334,7 +4334,7 @@ export const POKEMON_DATA = {
       spe: 43
     },
     weightKg: 60.4,
-    abilities: ["Suction Cups"]
+    abilities: ["Suction Cups", "Storm Drain"]
   },
   crawdaunt: {
     name: "Crawdaunt",
@@ -4363,7 +4363,7 @@ export const POKEMON_DATA = {
       spe: 90
     },
     weightKg: 32.6,
-    abilities: ["Cute Charm"]
+    abilities: ["Cute Charm", "Normalize", "Wonder Skin"]
   },
   deoxys: {
     name: "Deoxys",
@@ -4473,7 +4473,7 @@ export const POKEMON_DATA = {
       spe: 65
     },
     weightKg: 31.6,
-    abilities: ["Shield Dust"]
+    abilities: ["Shield Dust", "Compound Eyes"]
   },
   electrike: {
     name: "Electrike",
@@ -4487,7 +4487,7 @@ export const POKEMON_DATA = {
       spe: 65
     },
     weightKg: 15.2,
-    abilities: ["Static"],
+    abilities: ["Static", "Lightning Rod", "Minus"],
     notFullyEvolved: true
   },
   exploud: {
@@ -4502,7 +4502,7 @@ export const POKEMON_DATA = {
       spe: 68
     },
     weightKg: 84,
-    abilities: ["Soundproof"]
+    abilities: ["Soundproof", "Scrappy"]
   },
   feebas: {
     name: "Feebas",
@@ -4577,7 +4577,7 @@ export const POKEMON_DATA = {
       spe: 52
     },
     weightKg: 22.6,
-    abilities: ["Swift Swim"]
+    abilities: ["Swift Swim", "Hydration"]
   },
   groudon: {
     name: "Groudon",
@@ -4669,7 +4669,7 @@ export const POKEMON_DATA = {
       spe: 52
     },
     weightKg: 27,
-    abilities: ["Swift Swim"]
+    abilities: ["Swift Swim", "Water Veil"]
   },
   illumise: {
     name: "Illumise",
@@ -4715,7 +4715,7 @@ export const POKEMON_DATA = {
       spe: 40
     },
     weightKg: 22,
-    abilities: ["Color Change"]
+    abilities: ["Color Change", "Protean"]
   },
   kirlia: {
     name: "Kirlia",
@@ -4761,7 +4761,7 @@ export const POKEMON_DATA = {
       spe: 40
     },
     weightKg: 120,
-    abilities: ["Sturdy"],
+    abilities: ["Sturdy", "Rock Head", "Heavy Metal"],
     notFullyEvolved: true
   },
   latias: {
@@ -4808,7 +4808,7 @@ export const POKEMON_DATA = {
       spe: 23
     },
     weightKg: 23.8,
-    abilities: ["Suction Cups"],
+    abilities: ["Suction Cups", "Storm Drain"],
     notFullyEvolved: true
   },
   linoone: {
@@ -4823,7 +4823,7 @@ export const POKEMON_DATA = {
       spe: 100
     },
     weightKg: 32.5,
-    abilities: ["Pickup"]
+    abilities: ["Pickup", "Gluttony", "Quick Feet"]
   },
   lombre: {
     name: "Lombre",
@@ -4869,7 +4869,7 @@ export const POKEMON_DATA = {
       spe: 48
     },
     weightKg: 40.5,
-    abilities: ["Soundproof"],
+    abilities: ["Soundproof", "Scrappy"],
     notFullyEvolved: true
   },
   ludicolo: {
@@ -5131,7 +5131,7 @@ export const POKEMON_DATA = {
       spe: 40
     },
     weightKg: 5.5,
-    abilities: ["Compound Eyes"],
+    abilities: ["Compound Eyes", "Run Away"],
     notFullyEvolved: true
   },
   ninjask: {
@@ -5146,7 +5146,7 @@ export const POKEMON_DATA = {
       spe: 160
     },
     weightKg: 12,
-    abilities: ["Speed Boost"]
+    abilities: ["Speed Boost", "Infiltrator"]
   },
   nosepass: {
     name: "Nosepass",
@@ -5334,7 +5334,7 @@ export const POKEMON_DATA = {
       spe: 55
     },
     weightKg: 23.4,
-    abilities: ["Swift Swim"]
+    abilities: ["Swift Swim", "Rock Head", "Sturdy"]
   },
   roselia: {
     name: "Roselia",
@@ -5348,7 +5348,7 @@ export const POKEMON_DATA = {
       spe: 65
     },
     weightKg: 2,
-    abilities: ["Natural Cure"],
+    abilities: ["Natural Cure", "Poison Point", "Leaf Guard"],
     notFullyEvolved: true
   },
   sableye: {
@@ -5408,7 +5408,7 @@ export const POKEMON_DATA = {
       spe: 45
     },
     weightKg: 87.6,
-    abilities: ["Thick Fat"],
+    abilities: ["Thick Fat", "Ice Body", "Oblivious"],
     notFullyEvolved: true
   },
   seedot: {
@@ -5562,7 +5562,7 @@ export const POKEMON_DATA = {
       spe: 50
     },
     weightKg: 11,
-    abilities: ["Cute Charm"],
+    abilities: ["Cute Charm", "Normalize", "Wonder Skin"],
     notFullyEvolved: true
   },
   slaking: {
@@ -5639,7 +5639,7 @@ export const POKEMON_DATA = {
       spe: 25
     },
     weightKg: 39.5,
-    abilities: ["Thick Fat"],
+    abilities: ["Thick Fat", "Ice Body", "Oblivious"],
     notFullyEvolved: true
   },
   spinda: {
@@ -5654,7 +5654,7 @@ export const POKEMON_DATA = {
       spe: 60
     },
     weightKg: 5,
-    abilities: ["Own Tempo"]
+    abilities: ["Own Tempo", "Tangled Feet", "Contrary"]
   },
   spoink: {
     name: "Spoink",
@@ -5746,7 +5746,7 @@ export const POKEMON_DATA = {
       spe: 125
     },
     weightKg: 19.8,
-    abilities: ["Guts"]
+    abilities: ["Guts", "Scrappy"]
   },
   taillow: {
     name: "Taillow",
@@ -5760,7 +5760,7 @@ export const POKEMON_DATA = {
       spe: 85
     },
     weightKg: 2.3,
-    abilities: ["Guts"],
+    abilities: ["Guts", "Scrappy"],
     notFullyEvolved: true
   },
   torchic: {
@@ -5901,7 +5901,7 @@ export const POKEMON_DATA = {
       spe: 60
     },
     weightKg: 130,
-    abilities: ["Water Veil"],
+    abilities: ["Water Veil", "Oblivious", "Pressure"],
     notFullyEvolved: true
   },
   wailord: {
@@ -5916,7 +5916,7 @@ export const POKEMON_DATA = {
       spe: 60
     },
     weightKg: 398,
-    abilities: ["Water Veil"]
+    abilities: ["Water Veil", "Oblivious", "Pressure"]
   },
   walrein: {
     name: "Walrein",
@@ -5930,7 +5930,7 @@ export const POKEMON_DATA = {
       spe: 65
     },
     weightKg: 150.6,
-    abilities: ["Thick Fat"]
+    abilities: ["Thick Fat", "Ice Body", "Oblivious"]
   },
   whiscash: {
     name: "Whiscash",
@@ -5959,7 +5959,7 @@ export const POKEMON_DATA = {
       spe: 28
     },
     weightKg: 16.3,
-    abilities: ["Soundproof"],
+    abilities: ["Soundproof", "Rattled"],
     notFullyEvolved: true
   },
   wingull: {
@@ -5990,7 +5990,7 @@ export const POKEMON_DATA = {
       spe: 20
     },
     weightKg: 3.6,
-    abilities: ["Shield Dust"],
+    abilities: ["Shield Dust", "Run Away"],
     notFullyEvolved: true
   },
   wynaut: {
@@ -6005,7 +6005,7 @@ export const POKEMON_DATA = {
       spe: 23
     },
     weightKg: 14,
-    abilities: ["Shadow Tag"],
+    abilities: ["Shadow Tag", "Telepathy"],
     notFullyEvolved: true
   },
   zangoose: {
@@ -6035,7 +6035,7 @@ export const POKEMON_DATA = {
       spe: 60
     },
     weightKg: 17.5,
-    abilities: ["Pickup"],
+    abilities: ["Pickup", "Gluttony", "Quick Feet"],
     notFullyEvolved: true
   },
   abomasnow: {
@@ -6367,7 +6367,7 @@ export const POKEMON_DATA = {
       spe: 71
     },
     weightKg: 31.5,
-    abilities: ["Simple"]
+    abilities: ["Simple", "Unaware", "Moody"]
   },
   bidoof: {
     name: "Bidoof",
@@ -6381,7 +6381,7 @@ export const POKEMON_DATA = {
       spe: 31
     },
     weightKg: 20,
-    abilities: ["Simple"],
+    abilities: ["Simple", "Unaware", "Moody"],
     notFullyEvolved: true
   },
   bonsly: {
@@ -6445,7 +6445,7 @@ export const POKEMON_DATA = {
       spe: 55
     },
     weightKg: 1.2,
-    abilities: ["Natural Cure"],
+    abilities: ["Natural Cure", "Poison Point", "Leaf Guard"],
     notFullyEvolved: true
   },
   buizel: {
@@ -6476,7 +6476,7 @@ export const POKEMON_DATA = {
       spe: 85
     },
     weightKg: 5.5,
-    abilities: ["Run Away"],
+    abilities: ["Run Away", "Klutz", "Limber"],
     notFullyEvolved: true
   },
   burmy: {
@@ -6491,7 +6491,7 @@ export const POKEMON_DATA = {
       spe: 36
     },
     weightKg: 3.4,
-    abilities: ["Shed Skin"],
+    abilities: ["Shed Skin", "Overcoat"],
     notFullyEvolved: true
   },
   carnivine: {
@@ -6520,7 +6520,7 @@ export const POKEMON_DATA = {
       spe: 91
     },
     weightKg: 1.9,
-    abilities: ["Keen Eye"]
+    abilities: ["Keen Eye", "Tangled Feet", "Big Pecks"]
   },
   cherrim: {
     name: "Cherrim",
@@ -6705,7 +6705,7 @@ export const POKEMON_DATA = {
       spe: 95
     },
     weightKg: 61.5,
-    abilities: ["Battle Armor"]
+    abilities: ["Battle Armor", "Sniper", "Keen Eye"]
   },
   drifblim: {
     name: "Drifblim",
@@ -6967,7 +6967,7 @@ export const POKEMON_DATA = {
       spe: 85
     },
     weightKg: 3.9,
-    abilities: ["Limber"],
+    abilities: ["Limber", "Own Tempo", "Keen Eye"],
     notFullyEvolved: true
   },
   gliscor: {
@@ -7152,7 +7152,7 @@ export const POKEMON_DATA = {
       spe: 50
     },
     weightKg: 140,
-    abilities: ["Own Tempo"]
+    abilities: ["Own Tempo", "Oblivious", "Cloud Nine"]
   },
   lopunny: {
     name: "Lopunny",
@@ -7304,7 +7304,7 @@ export const POKEMON_DATA = {
       spe: 50
     },
     weightKg: 65,
-    abilities: ["Swift Swim"],
+    abilities: ["Swift Swim", "Water Absorb", "Water Veil"],
     notFullyEvolved: true
   },
   mesprit: {
@@ -7335,7 +7335,7 @@ export const POKEMON_DATA = {
       spe: 60
     },
     weightKg: 13,
-    abilities: ["Soundproof"],
+    abilities: ["Soundproof", "Filter", "Technician"],
     notFullyEvolved: true
   },
   mismagius: {
@@ -7382,7 +7382,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 23.3,
     gender: "M",
-    abilities: ["Swarm"]
+    abilities: ["Swarm", "Tinted Lens"]
   },
   munchlax: {
     name: "Munchlax",
@@ -7510,21 +7510,6 @@ export const POKEMON_DATA = {
     abilities: ["Sturdy", "Magnet Pull", "Sand Force"],
     group: "Regular"
   },
-  protowatt: {
-    name: "Protowatt",
-    types: ["Electric", "Water"],
-    baseStats: {
-      hp: 51,
-      atk: 44,
-      def: 33,
-      spa: 43,
-      spd: 34,
-      spe: 65
-    },
-    weightKg: 0.1,
-    abilities: ["Trace"],
-    notFullyEvolved: true
-  },
   purugly: {
     name: "Purugly",
     types: ["Normal"],
@@ -7537,7 +7522,7 @@ export const POKEMON_DATA = {
       spe: 112
     },
     weightKg: 43.8,
-    abilities: ["Thick Fat"]
+    abilities: ["Thick Fat", "Own Tempo", "Defiant"]
   },
   rampardos: {
     name: "Rampardos",
@@ -7804,7 +7789,7 @@ export const POKEMON_DATA = {
       spe: 65
     },
     weightKg: 12,
-    abilities: ["Battle Armor"],
+    abilities: ["Battle Armor", "Sniper", "Keen Eye"],
     notFullyEvolved: true
   },
   skuntank: {
@@ -7928,7 +7913,7 @@ export const POKEMON_DATA = {
       spe: 50
     },
     weightKg: 128.6,
-    abilities: ["Chlorophyll"]
+    abilities: ["Chlorophyll", "Leaf Guard", "Regenerator"]
   },
   togekiss: {
     name: "Togekiss",
@@ -7942,7 +7927,7 @@ export const POKEMON_DATA = {
       spe: 80
     },
     weightKg: 38,
-    abilities: ["Hustle"]
+    abilities: ["Hustle", "Serene Grace", "Super Luck"]
   },
   torterra: {
     name: "Torterra",
@@ -8050,7 +8035,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 6.5,
     gender: "F",
-    abilities: ["Anticipation"]
+    abilities: ["Anticipation", "Overcoat"]
   },
   wormadamsandy: {
     name: "Wormadam-Sandy",
@@ -8065,7 +8050,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 6.5,
     gender: "F",
-    abilities: ["Anticipation"]
+    abilities: ["Anticipation", "Overcoat"]
   },
   wormadamtrash: {
     name: "Wormadam-Trash",
@@ -8080,7 +8065,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 6.5,
     gender: "F",
-    abilities: ["Anticipation"]
+    abilities: ["Anticipation", "Overcoat"]
   },
   yanmega: {
     name: "Yanmega",
@@ -8109,7 +8094,7 @@ export const POKEMON_DATA = {
       spe: 145
     },
     weightKg: 25.3,
-    abilities: ["Hydration"]
+    abilities: ["Hydration", "Sticky Hold", "Unburden"]
   },
   alomomola: {
     name: "Alomomola",
@@ -8228,7 +8213,7 @@ export const POKEMON_DATA = {
       spe: 98
     },
     weightKg: 18,
-    abilities: ["Rock Head"]
+    abilities: ["Rock Head", "Adaptability", "Mold Breaker"]
   },
   beartic: {
     name: "Beartic",
@@ -8257,7 +8242,7 @@ export const POKEMON_DATA = {
       spe: 40
     },
     weightKg: 34.5,
-    abilities: ["Telepathy"]
+    abilities: ["Telepathy", "Synchronize", "Analytic"]
   },
   bisharp: {
     name: "Bisharp",
@@ -8303,7 +8288,7 @@ export const POKEMON_DATA = {
       spe: 20
     },
     weightKg: 102,
-    abilities: ["Sturdy"],
+    abilities: ["Sturdy", "Weak Armor", "Sand Force"],
     notFullyEvolved: true
   },
   bouffalant: {
@@ -8318,7 +8303,7 @@ export const POKEMON_DATA = {
       spe: 55
     },
     weightKg: 94.6,
-    abilities: ["Reckless"]
+    abilities: ["Reckless", "Sap Sipper", "Soundproof"]
   },
   braviary: {
     name: "Braviary",
@@ -8348,7 +8333,7 @@ export const POKEMON_DATA = {
       spe: 32
     },
     weightKg: 81,
-    abilities: ["Solid Rock"]
+    abilities: ["Solid Rock", "Sturdy", "Swift Swim"]
   },
   chandelure: {
     name: "Chandelure",
@@ -8454,7 +8439,7 @@ export const POKEMON_DATA = {
       spe: 45
     },
     weightKg: 200,
-    abilities: ["Sturdy"]
+    abilities: ["Sturdy", "Shell Armor", "Weak Armor"]
   },
   cryogonal: {
     name: "Cryogonal",
@@ -8500,7 +8485,7 @@ export const POKEMON_DATA = {
       spe: 95
     },
     weightKg: 92.9,
-    abilities: ["Sheer Force"]
+    abilities: ["Sheer Force", "Zen Mode"]
   },
   darmanitanzen: {
     name: "Darmanitan-Zen",
@@ -8528,7 +8513,7 @@ export const POKEMON_DATA = {
       spe: 50
     },
     weightKg: 37.5,
-    abilities: ["Hustle"],
+    abilities: ["Hustle", "Inner Focus"],
     notFullyEvolved: true
   },
   deerling: {
@@ -8607,7 +8592,7 @@ export const POKEMON_DATA = {
       spe: 48
     },
     weightKg: 139,
-    abilities: ["Rough Skin"]
+    abilities: ["Rough Skin", "Sheer Force", "Mold Breaker"]
   },
   ducklett: {
     name: "Ducklett",
@@ -8653,7 +8638,7 @@ export const POKEMON_DATA = {
       spe: 109
     },
     weightKg: 33,
-    abilities: ["Swarm"]
+    abilities: ["Swarm", "Hustle", "Truant"]
   },
   dwebble: {
     name: "Dwebble",
@@ -8667,7 +8652,7 @@ export const POKEMON_DATA = {
       spe: 55
     },
     weightKg: 14.5,
-    abilities: ["Sturdy"],
+    abilities: ["Sturdy", "Shell Armor", "Weak Armor"],
     notFullyEvolved: true
   },
   eelektrik: {
@@ -8713,7 +8698,7 @@ export const POKEMON_DATA = {
       spe: 30
     },
     weightKg: 9,
-    abilities: ["Telepathy"],
+    abilities: ["Telepathy", "Synchronize", "Analytic"],
     notFullyEvolved: true
   },
   emboar: {
@@ -8758,7 +8743,7 @@ export const POKEMON_DATA = {
       spe: 20
     },
     weightKg: 33,
-    abilities: ["Swarm"]
+    abilities: ["Swarm", "Shell Armor", "Overcoat"]
   },
   excadrill: {
     name: "Excadrill",
@@ -8802,7 +8787,7 @@ export const POKEMON_DATA = {
       spe: 20
     },
     weightKg: 110,
-    abilities: ["Iron Barbs"]
+    abilities: ["Iron Barbs", "Anticipation"]
   },
   foongus: {
     name: "Foongus",
@@ -8848,7 +8833,7 @@ export const POKEMON_DATA = {
       spe: 40
     },
     weightKg: 33,
-    abilities: ["Water Absorb"],
+    abilities: ["Water Absorb", "Cursed Body", "Damp"],
     notFullyEvolved: true
   },
   galvantula: {
@@ -8968,7 +8953,7 @@ export const POKEMON_DATA = {
       spe: 25
     },
     weightKg: 260,
-    abilities: ["Sturdy"]
+    abilities: ["Sturdy", "Sand Stream", "Sand Force"]
   },
   golett: {
     name: "Golett",
@@ -9093,7 +9078,7 @@ export const POKEMON_DATA = {
       spe: 65
     },
     weightKg: 58,
-    abilities: ["Gluttony"]
+    abilities: ["Gluttony", "Flash Fire", "White Smoke"]
   },
   herdier: {
     name: "Herdier",
@@ -9107,7 +9092,7 @@ export const POKEMON_DATA = {
       spe: 60
     },
     weightKg: 14.7,
-    abilities: ["Intimidate"],
+    abilities: ["Intimidate", "Sand Rush", "Scrappy"],
     notFullyEvolved: true
   },
   hydreigon: {
@@ -9137,7 +9122,7 @@ export const POKEMON_DATA = {
       spe: 60
     },
     weightKg: 135,
-    abilities: ["Water Absorb"]
+    abilities: ["Water Absorb", "Cursed Body", "Damp"]
   },
   joltik: {
     name: "Joltik",
@@ -9167,7 +9152,7 @@ export const POKEMON_DATA = {
       spe: 60
     },
     weightKg: 5.9,
-    abilities: ["Swarm"],
+    abilities: ["Swarm", "Shed Skin", "No Guard"],
     notFullyEvolved: true
   },
   keldeo: {
@@ -9214,7 +9199,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 51,
     gender: "N",
-    abilities: ["Plus"],
+    abilities: ["Plus", "Minus", "Clear Body"],
     notFullyEvolved: true
   },
   klink: {
@@ -9230,7 +9215,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 21,
     gender: "N",
-    abilities: ["Plus"],
+    abilities: ["Plus", "Minus", "Clear Body"],
     notFullyEvolved: true
   },
   klinklang: {
@@ -9246,7 +9231,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 81,
     gender: "N",
-    abilities: ["Plus"]
+    abilities: ["Plus", "Minus", "Clear Body"]
   },
   krokorok: {
     name: "Krokorok",
@@ -9449,7 +9434,7 @@ export const POKEMON_DATA = {
       spe: 55
     },
     weightKg: 4.1,
-    abilities: ["Vital Spirit"],
+    abilities: ["Vital Spirit", "Pickup", "Run Away"],
     notFullyEvolved: true
   },
   litwick: {
@@ -9496,7 +9481,7 @@ export const POKEMON_DATA = {
       spe: 60
     },
     weightKg: 28,
-    abilities: ["Water Absorb"]
+    abilities: ["Water Absorb", "Chlorophyll", "Storm Drain"]
   },
   meloetta: {
     name: "Meloetta",
@@ -9589,7 +9574,7 @@ export const POKEMON_DATA = {
       spe: 24
     },
     weightKg: 23.3,
-    abilities: ["Forewarn"],
+    abilities: ["Forewarn", "Synchronize", "Telepathy"],
     notFullyEvolved: true
   },
   musharna: {
@@ -9635,7 +9620,7 @@ export const POKEMON_DATA = {
       spe: 69
     },
     weightKg: 17,
-    abilities: ["Swift Swim"],
+    abilities: ["Swift Swim", "Hydration", "Water Absorb"],
     notFullyEvolved: true
   },
   panpour: {
@@ -9650,7 +9635,7 @@ export const POKEMON_DATA = {
       spe: 64
     },
     weightKg: 13.5,
-    abilities: ["Gluttony"],
+    abilities: ["Gluttony", "Torrent"],
     notFullyEvolved: true
   },
   pansage: {
@@ -9665,7 +9650,7 @@ export const POKEMON_DATA = {
       spe: 64
     },
     weightKg: 10.5,
-    abilities: ["Gluttony"],
+    abilities: ["Gluttony", "Overgrow"],
     notFullyEvolved: true
   },
   pansear: {
@@ -9680,7 +9665,7 @@ export const POKEMON_DATA = {
       spe: 64
     },
     weightKg: 11,
-    abilities: ["Gluttony"],
+    abilities: ["Gluttony", "Blaze"],
     notFullyEvolved: true
   },
   patrat: {
@@ -9695,7 +9680,7 @@ export const POKEMON_DATA = {
       spe: 42
     },
     weightKg: 11.6,
-    abilities: ["Run Away"],
+    abilities: ["Run Away", "Keen Eye", "Analytic"],
     notFullyEvolved: true
   },
   pawniard: {
@@ -9743,7 +9728,7 @@ export const POKEMON_DATA = {
       spe: 43
     },
     weightKg: 2.1,
-    abilities: ["Big Pecks"],
+    abilities: ["Big Pecks", "Super Luck", "Rivalry"],
     notFullyEvolved: true
   },
   pignite: {
@@ -9774,7 +9759,7 @@ export const POKEMON_DATA = {
       spe: 66
     },
     weightKg: 10.1,
-    abilities: ["Limber"],
+    abilities: ["Limber", "Unburden", "Prankster"],
     notFullyEvolved: true
   },
   reshiram: {
@@ -9820,7 +9805,7 @@ export const POKEMON_DATA = {
       spe: 15
     },
     weightKg: 18,
-    abilities: ["Sturdy"],
+    abilities: ["Sturdy", "Weak Armor", "Sand Force"],
     notFullyEvolved: true
   },
   rufflet: {
@@ -9884,7 +9869,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 51,
     gender: "M",
-    abilities: ["Sturdy"]
+    abilities: ["Sturdy", "Inner Focus", "Mold Breaker"]
   },
   sawsbuck: {
     name: "Sawsbuck",
@@ -9959,7 +9944,7 @@ export const POKEMON_DATA = {
       spe: 74
     },
     weightKg: 62,
-    abilities: ["Swift Swim"]
+    abilities: ["Swift Swim", "Poison Touch", "Water Absorb"]
   },
   serperior: {
     name: "Serperior",
@@ -10020,7 +10005,7 @@ export const POKEMON_DATA = {
       spe: 25
     },
     weightKg: 7.7,
-    abilities: ["Hydration"],
+    abilities: ["Hydration", "Shell Armor", "Overcoat"],
     notFullyEvolved: true
   },
   sigilyph: {
@@ -10035,7 +10020,7 @@ export const POKEMON_DATA = {
       spe: 97
     },
     weightKg: 14,
-    abilities: ["Wonder Skin"]
+    abilities: ["Wonder Skin", "Magic Guard", "Tinted Lens"]
   },
   simipour: {
     name: "Simipour",
@@ -10126,7 +10111,7 @@ export const POKEMON_DATA = {
       spe: 80
     },
     weightKg: 61,
-    abilities: ["Intimidate"]
+    abilities: ["Intimidate", "Sand Rush", "Scrappy"]
   },
   stunfisk: {
     name: "Stunfisk",
@@ -10186,7 +10171,7 @@ export const POKEMON_DATA = {
       spe: 114
     },
     weightKg: 10.5,
-    abilities: ["Unaware"]
+    abilities: ["Unaware", "Klutz", "Simple"]
   },
   tepig: {
     name: "Tepig",
@@ -10233,7 +10218,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 55.5,
     gender: "M",
-    abilities: ["Guts"]
+    abilities: ["Guts", "Inner Focus", "Mold Breaker"]
   },
   thundurus: {
     name: "Thundurus",
@@ -10295,7 +10280,7 @@ export const POKEMON_DATA = {
       spe: 22
     },
     weightKg: 16.5,
-    abilities: ["Solid Rock"],
+    abilities: ["Solid Rock", "Sturdy", "Swift Swim"],
     notFullyEvolved: true
   },
   tornadus: {
@@ -10342,7 +10327,7 @@ export const POKEMON_DATA = {
       spe: 65
     },
     weightKg: 15,
-    abilities: ["Big Pecks"],
+    abilities: ["Big Pecks", "Super Luck", "Rivalry"],
     notFullyEvolved: true
   },
   trubbish: {
@@ -10357,7 +10342,7 @@ export const POKEMON_DATA = {
       spe: 65
     },
     weightKg: 31,
-    abilities: ["Stench"],
+    abilities: ["Stench", "Sticky Hold", "Aftermath"],
     notFullyEvolved: true
   },
   tympole: {
@@ -10372,7 +10357,7 @@ export const POKEMON_DATA = {
       spe: 64
     },
     weightKg: 4.5,
-    abilities: ["Swift Swim"],
+    abilities: ["Swift Swim", "Hydration", "Water Absorb"],
     notFullyEvolved: true
   },
   tynamo: {
@@ -10403,7 +10388,7 @@ export const POKEMON_DATA = {
       spe: 93
     },
     weightKg: 29,
-    abilities: ["Big Pecks"]
+    abilities: ["Big Pecks", "Super Luck", "Rivalry"]
   },
   vanillish: {
     name: "Vanillish",
@@ -10417,7 +10402,7 @@ export const POKEMON_DATA = {
       spe: 59
     },
     weightKg: 41,
-    abilities: ["Ice Body"],
+    abilities: ["Ice Body", "Snow Cloak", "Weak Armor"],
     notFullyEvolved: true
   },
   vanillite: {
@@ -10432,7 +10417,7 @@ export const POKEMON_DATA = {
       spe: 44
     },
     weightKg: 5.7,
-    abilities: ["Ice Body"],
+    abilities: ["Ice Body", "Snow Cloak", "Weak Armor"],
     notFullyEvolved: true
   },
   vanilluxe: {
@@ -10462,7 +10447,7 @@ export const POKEMON_DATA = {
       spe: 57
     },
     weightKg: 5.3,
-    abilities: ["Poison Point"],
+    abilities: ["Poison Point", "Swarm", "Speed Boost"],
     notFullyEvolved: true
   },
   victini: {
@@ -10570,7 +10555,7 @@ export const POKEMON_DATA = {
       spe: 47
     },
     weightKg: 58.5,
-    abilities: ["Poison Point"],
+    abilities: ["Poison Point", "Swarm", "Speed Boost"],
     notFullyEvolved: true
   },
   woobat: {
@@ -10585,7 +10570,7 @@ export const POKEMON_DATA = {
       spe: 72
     },
     weightKg: 2.1,
-    abilities: ["Unaware"],
+    abilities: ["Unaware", "Klutz", "Simple"],
     notFullyEvolved: true
   },
   yamask: {
@@ -10737,7 +10722,7 @@ export const POKEMON_DATA = {
       spe: 46
     },
     weightKg: 25.2,
-    abilities: ["Refrigerate"],
+    abilities: ["Refrigerate", "Snow Warning"],
     notFullyEvolved: true
   },
   arceusfairy: {
@@ -10843,7 +10828,7 @@ export const POKEMON_DATA = {
       spe: 50
     },
     weightKg: 31,
-    abilities: ["Tough Claws"],
+    abilities: ["Tough Claws", "Sniper", "Pickpocket"],
     notFullyEvolved: true
   },
   braixen: {
@@ -10874,7 +10859,7 @@ export const POKEMON_DATA = {
       spe: 57
     },
     weightKg: 5,
-    abilities: ["Pickup"],
+    abilities: ["Pickup", "Cheek Pouch", "Huge Power"],
     notFullyEvolved: true
   },
   carbink: {
@@ -11386,7 +11371,7 @@ export const POKEMON_DATA = {
       spe: 70
     },
     weightKg: 6,
-    abilities: ["Dry Skin"],
+    abilities: ["Dry Skin", "Sand Veil", "Solar Power"],
     notFullyEvolved: true
   },
   honedge: {
@@ -11573,7 +11558,7 @@ export const POKEMON_DATA = {
       spe: 43
     },
     weightKg: 8,
-    abilities: ["Iron Fist"],
+    abilities: ["Iron Fist", "Mold Breaker", "Scrappy"],
     notFullyEvolved: true
   },
   pangoro: {
@@ -11619,7 +11604,7 @@ export const POKEMON_DATA = {
       spe: 51
     },
     weightKg: 5,
-    abilities: ["Pickup"],
+    abilities: ["Pickup", "Frisk", "Insomnia"],
     notFullyEvolved: true
   },
   pumpkaboolarge: {
@@ -11634,7 +11619,7 @@ export const POKEMON_DATA = {
       spe: 46
     },
     weightKg: 7.5,
-    abilities: ["Pickup"],
+    abilities: ["Pickup", "Frisk", "Insomnia"],
     notFullyEvolved: true
   },
   pumpkaboosmall: {
@@ -11649,7 +11634,7 @@ export const POKEMON_DATA = {
       spe: 56
     },
     weightKg: 3.5,
-    abilities: ["Pickup"],
+    abilities: ["Pickup", "Frisk", "Insomnia"],
     notFullyEvolved: true
   },
   pumpkaboosuper: {
@@ -11664,7 +11649,7 @@ export const POKEMON_DATA = {
       spe: 41
     },
     weightKg: 15,
-    abilities: ["Pickup"],
+    abilities: ["Pickup", "Frisk", "Insomnia"],
     notFullyEvolved: true
   },
   pyroar: {
@@ -11805,7 +11790,7 @@ export const POKEMON_DATA = {
       spe: 23
     },
     weightKg: 0.5,
-    abilities: ["Healer"],
+    abilities: ["Healer", "Aroma Veil"],
     notFullyEvolved: true
   },
   swirlix: {
@@ -11820,7 +11805,7 @@ export const POKEMON_DATA = {
       spe: 49
     },
     weightKg: 3.5,
-    abilities: ["Sweet Veil"],
+    abilities: ["Sweet Veil", "Unburden"],
     notFullyEvolved: true
   },
   sylveon: {
@@ -11895,7 +11880,7 @@ export const POKEMON_DATA = {
       spe: 48
     },
     weightKg: 26,
-    abilities: ["Strong Jaw"],
+    abilities: ["Strong Jaw", "Sturdy"],
     notFullyEvolved: true
   },
   vivillon: {
@@ -11939,7 +11924,245 @@ export const POKEMON_DATA = {
       spe: 89
     },
     weightKg: 17,
-    abilities: ["Shield Dust"]
+    abilities: ["Shield Dust", "Compound Eyes", "Friend Guard"]
+  },
+  vivillonicysnow: {
+    name: "Vivillon-Icy Snow",
+    types: ["Bug", "Flying"],
+    baseStats: {
+      hp: 80,
+      atk: 52,
+      def: 50,
+      spa: 90,
+      spd: 50,
+      spe: 89
+    },
+    weightKg: 17,
+    abilities: ["Shield Dust", "Compound Eyes", "Friend Guard"]
+  },
+  vivillonpolar: {
+    name: "Vivillon-Polar",
+    types: ["Bug", "Flying"],
+    baseStats: {
+      hp: 80,
+      atk: 52,
+      def: 50,
+      spa: 90,
+      spd: 50,
+      spe: 89
+    },
+    weightKg: 17,
+    abilities: ["Shield Dust", "Compound Eyes", "Friend Guard"]
+  },
+  vivillontundra: {
+    name: "Vivillon-Tundra",
+    types: ["Bug", "Flying"],
+    baseStats: {
+      hp: 80,
+      atk: 52,
+      def: 50,
+      spa: 90,
+      spd: 50,
+      spe: 89
+    },
+    weightKg: 17,
+    abilities: ["Shield Dust", "Compound Eyes", "Friend Guard"]
+  },
+  vivilloncontinental: {
+    name: "Vivillon-Continental",
+    types: ["Bug", "Flying"],
+    baseStats: {
+      hp: 80,
+      atk: 52,
+      def: 50,
+      spa: 90,
+      spd: 50,
+      spe: 89
+    },
+    weightKg: 17,
+    abilities: ["Shield Dust", "Compound Eyes", "Friend Guard"]
+  },
+  vivillongarden: {
+    name: "Vivillon-Garden",
+    types: ["Bug", "Flying"],
+    baseStats: {
+      hp: 80,
+      atk: 52,
+      def: 50,
+      spa: 90,
+      spd: 50,
+      spe: 89
+    },
+    weightKg: 17,
+    abilities: ["Shield Dust", "Compound Eyes", "Friend Guard"]
+  },
+  vivillonelegant: {
+    name: "Vivillon-Elegant",
+    types: ["Bug", "Flying"],
+    baseStats: {
+      hp: 80,
+      atk: 52,
+      def: 50,
+      spa: 90,
+      spd: 50,
+      spe: 89
+    },
+    weightKg: 17,
+    abilities: ["Shield Dust", "Compound Eyes", "Friend Guard"]
+  },
+  vivillonmodern: {
+    name: "Vivillon-Modern",
+    types: ["Bug", "Flying"],
+    baseStats: {
+      hp: 80,
+      atk: 52,
+      def: 50,
+      spa: 90,
+      spd: 50,
+      spe: 89
+    },
+    weightKg: 17,
+    abilities: ["Shield Dust", "Compound Eyes", "Friend Guard"]
+  },
+  vivillonmarine: {
+    name: "Vivillon-Marine",
+    types: ["Bug", "Flying"],
+    baseStats: {
+      hp: 80,
+      atk: 52,
+      def: 50,
+      spa: 90,
+      spd: 50,
+      spe: 89
+    },
+    weightKg: 17,
+    abilities: ["Shield Dust", "Compound Eyes", "Friend Guard"]
+  },
+  vivillonarchipelago: {
+    name: "Vivillon-Archipelago",
+    types: ["Bug", "Flying"],
+    baseStats: {
+      hp: 80,
+      atk: 52,
+      def: 50,
+      spa: 90,
+      spd: 50,
+      spe: 89
+    },
+    weightKg: 17,
+    abilities: ["Shield Dust", "Compound Eyes", "Friend Guard"]
+  },
+  vivillonhighplains: {
+    name: "Vivillon-High Plains",
+    types: ["Bug", "Flying"],
+    baseStats: {
+      hp: 80,
+      atk: 52,
+      def: 50,
+      spa: 90,
+      spd: 50,
+      spe: 89
+    },
+    weightKg: 17,
+    abilities: ["Shield Dust", "Compound Eyes", "Friend Guard"]
+  },
+  vivillonsandstorm: {
+    name: "Vivillon-Sandstorm",
+    types: ["Bug", "Flying"],
+    baseStats: {
+      hp: 80,
+      atk: 52,
+      def: 50,
+      spa: 90,
+      spd: 50,
+      spe: 89
+    },
+    weightKg: 17,
+    abilities: ["Shield Dust", "Compound Eyes", "Friend Guard"]
+  },
+  vivillonriver: {
+    name: "Vivillon-River",
+    types: ["Bug", "Flying"],
+    baseStats: {
+      hp: 80,
+      atk: 52,
+      def: 50,
+      spa: 90,
+      spd: 50,
+      spe: 89
+    },
+    weightKg: 17,
+    abilities: ["Shield Dust", "Compound Eyes", "Friend Guard"]
+  },
+  vivillonmonsoon: {
+    name: "Vivillon-Monsoon",
+    types: ["Bug", "Flying"],
+    baseStats: {
+      hp: 80,
+      atk: 52,
+      def: 50,
+      spa: 90,
+      spd: 50,
+      spe: 89
+    },
+    weightKg: 17,
+    abilities: ["Shield Dust", "Compound Eyes", "Friend Guard"]
+  },
+  vivillonsavanna: {
+    name: "Vivillon-Savanna",
+    types: ["Bug", "Flying"],
+    baseStats: {
+      hp: 80,
+      atk: 52,
+      def: 50,
+      spa: 90,
+      spd: 50,
+      spe: 89
+    },
+    weightKg: 17,
+    abilities: ["Shield Dust", "Compound Eyes", "Friend Guard"]
+  },
+  vivillonsun: {
+    name: "Vivillon-Sun",
+    types: ["Bug", "Flying"],
+    baseStats: {
+      hp: 80,
+      atk: 52,
+      def: 50,
+      spa: 90,
+      spd: 50,
+      spe: 89
+    },
+    weightKg: 17,
+    abilities: ["Shield Dust", "Compound Eyes", "Friend Guard"]
+  },
+  vivillonocean: {
+    name: "Vivillon-Ocean",
+    types: ["Bug", "Flying"],
+    baseStats: {
+      hp: 80,
+      atk: 52,
+      def: 50,
+      spa: 90,
+      spd: 50,
+      spe: 89
+    },
+    weightKg: 17,
+    abilities: ["Shield Dust", "Compound Eyes", "Friend Guard"]
+  },
+  vivillonjungle: {
+    name: "Vivillon-Jungle",
+    types: ["Bug", "Flying"],
+    baseStats: {
+      hp: 80,
+      atk: 52,
+      def: 50,
+      spa: 90,
+      spd: 50,
+      spe: 89
+    },
+    weightKg: 17,
+    abilities: ["Shield Dust", "Compound Eyes", "Friend Guard"]
   },
   volcanion: {
     name: "Volcanion",
@@ -12000,7 +12223,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 305,
     gender: "N",
-    abilities: ["Aura Break"]
+    abilities: ["Aura Break", "Power Construct"]
   },
   abomasnowmega: {
     name: "Abomasnow-Mega",
@@ -12751,7 +12974,7 @@ export const POKEMON_DATA = {
       spe: 60
     },
     weightKg: 135,
-    abilities: ["Fluffy"]
+    abilities: ["Fluffy", "Klutz", "Unnerve"]
   },
   blacephalon: {
     name: "Blacephalon",
@@ -13081,21 +13304,6 @@ export const POKEMON_DATA = {
     abilities: ["Frisk", "Harvest"],
     group: "Regular"
   },
-  fawnifer: {
-    name: "Fawnifer",
-    types: ["Grass"],
-    baseStats: {
-      hp: 49,
-      atk: 61,
-      def: 42,
-      spa: 52,
-      spd: 40,
-      spe: 76
-    },
-    weightKg: 6.9,
-    abilities: ["Overgrow"],
-    notFullyEvolved: true
-  },
   fomantis: {
     name: "Fomantis",
     types: ["Grass"],
@@ -13199,21 +13407,6 @@ export const POKEMON_DATA = {
       spa: 153,
       spd: 71,
       spe: 132
-    },
-    weightKg: 40,
-    gender: "M",
-    abilities: ["Battle Bond"]
-  },
-  greninjabond: {
-    name: "Greninja-Bond",
-    types: ["Water", "Dark"],
-    baseStats: {
-      hp: 72,
-      atk: 95,
-      def: 67,
-      spa: 103,
-      spd: 71,
-      spe: 122
     },
     weightKg: 40,
     gender: "M",
@@ -13493,7 +13686,7 @@ export const POKEMON_DATA = {
       spe: 45
     },
     weightKg: 34,
-    abilities: ["Cursed Body"]
+    abilities: ["Cursed Body", "Lightning Rod", "Rock Head"]
   },
   marshadow: {
     name: "Marshadow",
@@ -13628,7 +13821,7 @@ export const POKEMON_DATA = {
       spe: 15
     },
     weightKg: 1.5,
-    abilities: ["Illuminate"],
+    abilities: ["Illuminate", "Effect Spore", "Rain Dish"],
     notFullyEvolved: true
   },
   mudbray: {
@@ -13920,111 +14113,6 @@ export const POKEMON_DATA = {
     gender: "N",
     abilities: ["Beast Boost"]
   },
-  pikachualola: {
-    name: "Pikachu-Alola",
-    types: ["Electric"],
-    baseStats: {
-      hp: 35,
-      atk: 55,
-      def: 40,
-      spa: 50,
-      spd: 50,
-      spe: 90
-    },
-    weightKg: 6,
-    gender: "M",
-    abilities: ["Static"]
-  },
-  pikachuhoenn: {
-    name: "Pikachu-Hoenn",
-    types: ["Electric"],
-    baseStats: {
-      hp: 35,
-      atk: 55,
-      def: 40,
-      spa: 50,
-      spd: 50,
-      spe: 90
-    },
-    weightKg: 6,
-    gender: "M",
-    abilities: ["Static"]
-  },
-  pikachukalos: {
-    name: "Pikachu-Kalos",
-    types: ["Electric"],
-    baseStats: {
-      hp: 35,
-      atk: 55,
-      def: 40,
-      spa: 50,
-      spd: 50,
-      spe: 90
-    },
-    weightKg: 6,
-    gender: "M",
-    abilities: ["Static"]
-  },
-  pikachuoriginal: {
-    name: "Pikachu-Original",
-    types: ["Electric"],
-    baseStats: {
-      hp: 35,
-      atk: 55,
-      def: 40,
-      spa: 50,
-      spd: 50,
-      spe: 90
-    },
-    weightKg: 6,
-    gender: "M",
-    abilities: ["Static"]
-  },
-  pikachupartner: {
-    name: "Pikachu-Partner",
-    types: ["Electric"],
-    baseStats: {
-      hp: 35,
-      atk: 55,
-      def: 40,
-      spa: 50,
-      spd: 50,
-      spe: 90
-    },
-    weightKg: 6,
-    gender: "M",
-    abilities: ["Static"]
-  },
-  pikachusinnoh: {
-    name: "Pikachu-Sinnoh",
-    types: ["Electric"],
-    baseStats: {
-      hp: 35,
-      atk: 55,
-      def: 40,
-      spa: 50,
-      spd: 50,
-      spe: 90
-    },
-    weightKg: 6,
-    gender: "M",
-    abilities: ["Static"]
-  },
-  pikachuunova: {
-    name: "Pikachu-Unova",
-    types: ["Electric"],
-    baseStats: {
-      hp: 35,
-      atk: 55,
-      def: 40,
-      spa: 50,
-      spd: 50,
-      spe: 90
-    },
-    weightKg: 6,
-    gender: "M",
-    abilities: ["Static"]
-  },
   pikipek: {
     name: "Pikipek",
     types: ["Normal", "Flying"],
@@ -14100,7 +14188,7 @@ export const POKEMON_DATA = {
       spe: 5
     },
     weightKg: 1.2,
-    abilities: ["Innards Out"]
+    abilities: ["Innards Out", "Unaware"]
   },
   raichualola: {
     name: "Raichu-Alola",
@@ -14129,7 +14217,7 @@ export const POKEMON_DATA = {
       spe: 77
     },
     weightKg: 25.5,
-    abilities: ["Gluttony"]
+    abilities: ["Gluttony", "Hustle", "Thick Fat"]
   },
   rattataalola: {
     name: "Rattata-Alola",
@@ -14143,7 +14231,7 @@ export const POKEMON_DATA = {
       spe: 72
     },
     weightKg: 3.8,
-    abilities: ["Gluttony"],
+    abilities: ["Gluttony", "Hustle", "Thick Fat"],
     notFullyEvolved: true
   },
   ribombee: {
@@ -14299,7 +14387,7 @@ export const POKEMON_DATA = {
       spe: 30
     },
     weightKg: 11.5,
-    abilities: ["Illuminate"]
+    abilities: ["Illuminate", "Effect Spore", "Rain Dish"]
   },
   silvally: {
     name: "Silvally",
@@ -14631,22 +14719,7 @@ export const POKEMON_DATA = {
       spe: 50
     },
     weightKg: 6.8,
-    abilities: ["Fluffy"],
-    notFullyEvolved: true
-  },
-  swirlpool: {
-    name: "Swirlpool",
-    types: ["Water"],
-    baseStats: {
-      hp: 61,
-      atk: 49,
-      def: 70,
-      spa: 50,
-      spd: 62,
-      spe: 28
-    },
-    weightKg: 7,
-    abilities: ["Torrent"],
+    abilities: ["Fluffy", "Klutz", "Cute Charm"],
     notFullyEvolved: true
   },
   tapubulu: {
@@ -14662,7 +14735,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 45.5,
     gender: "N",
-    abilities: ["Grassy Surge"]
+    abilities: ["Grassy Surge", "Telepathy"]
   },
   tapufini: {
     name: "Tapu Fini",
@@ -14677,7 +14750,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 21.2,
     gender: "N",
-    abilities: ["Misty Surge"]
+    abilities: ["Misty Surge", "Telepathy"]
   },
   tapukoko: {
     name: "Tapu Koko",
@@ -14692,7 +14765,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 20.5,
     gender: "N",
-    abilities: ["Electric Surge"]
+    abilities: ["Electric Surge", "Telepathy"]
   },
   tapulele: {
     name: "Tapu Lele",
@@ -14707,7 +14780,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 18.6,
     gender: "N",
-    abilities: ["Psychic Surge"]
+    abilities: ["Psychic Surge", "Telepathy"]
   },
   togedemaru: {
     name: "Togedemaru",
@@ -14721,7 +14794,7 @@ export const POKEMON_DATA = {
       spe: 96
     },
     weightKg: 3.3,
-    abilities: ["Iron Barbs"]
+    abilities: ["Iron Barbs", "Lightning Rod", "Sturdy"]
   },
   torracat: {
     name: "Torracat",
@@ -14964,7 +15037,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 33.5,
     gender: "N",
-    abilities: ["Aura Break"]
+    abilities: ["Aura Break", "Power Construct"]
   },
   zygardecomplete: {
     name: "Zygarde-Complete",
@@ -15041,7 +15114,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 175,
     gender: "N",
-    abilities: ["Water Absorb"]
+    abilities: ["Water Absorb", "Ice Body", "Slush Rush"]
   },
   arctozolt: {
     name: "Arctozolt",
@@ -15056,7 +15129,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 150,
     gender: "N",
-    abilities: ["Volt Absorb"]
+    abilities: ["Volt Absorb", "Static", "Slush Rush"]
   },
   arrokuda: {
     name: "Arrokuda",
@@ -15117,7 +15190,7 @@ export const POKEMON_DATA = {
       spe: 45
     },
     weightKg: 8,
-    abilities: ["Swarm"],
+    abilities: ["Swarm", "Compound Eyes", "Telepathy"],
     notFullyEvolved: true
   },
   boltund: {
@@ -15132,7 +15205,7 @@ export const POKEMON_DATA = {
       spe: 121
     },
     weightKg: 34,
-    abilities: ["Strong Jaw"]
+    abilities: ["Strong Jaw", "Competitive"]
   },
   calyrex: {
     name: "Calyrex",
@@ -15210,7 +15283,7 @@ export const POKEMON_DATA = {
       spe: 65
     },
     weightKg: 120,
-    abilities: ["Flash Fire"]
+    abilities: ["Flash Fire", "White Smoke", "Flame Body"]
   },
   chewtle: {
     name: "Chewtle",
@@ -15255,7 +15328,7 @@ export const POKEMON_DATA = {
       spe: 32
     },
     weightKg: 4,
-    abilities: ["Limber"],
+    abilities: ["Limber", "Technician"],
     notFullyEvolved: true
   },
   coalossal: {
@@ -15300,7 +15373,7 @@ export const POKEMON_DATA = {
       spe: 30
     },
     weightKg: 0.5,
-    abilities: ["Weak Armor"],
+    abilities: ["Weak Armor", "Cursed Body"],
     notFullyEvolved: true
   },
   corviknight: {
@@ -15349,34 +15422,6 @@ export const POKEMON_DATA = {
     abilities: ["Gulp Missile"],
     group: "Regular"
   },
-  cramorantgorging: {
-    name: "Cramorant-Gorging",
-    types: ["Flying", "Water"],
-    baseStats: {
-      hp: 70,
-      atk: 85,
-      def: 55,
-      spa: 85,
-      spd: 95,
-      spe: 85
-    },
-    weightKg: 18,
-    abilities: ["Gulp Missile"]
-  },
-  cramorantgulping: {
-    name: "Cramorant-Gulping",
-    types: ["Flying", "Water"],
-    baseStats: {
-      hp: 70,
-      atk: 85,
-      def: 55,
-      spa: 85,
-      spd: 95,
-      spe: 85
-    },
-    weightKg: 18,
-    abilities: ["Gulp Missile"]
-  },
   cufant: {
     name: "Cufant",
     types: ["Steel"],
@@ -15405,7 +15450,7 @@ export const POKEMON_DATA = {
       spe: 30
     },
     weightKg: 0.4,
-    abilities: ["Weak Armor"]
+    abilities: ["Weak Armor", "Perish Body"]
   },
   darmanitangalar: {
     name: "Darmanitan-Galar",
@@ -15419,7 +15464,7 @@ export const POKEMON_DATA = {
       spe: 95
     },
     weightKg: 120,
-    abilities: ["Gorilla Tactics"]
+    abilities: ["Gorilla Tactics", "Zen Mode"]
   },
   darmanitangalarzen: {
     name: "Darmanitan-Galar-Zen",
@@ -15447,7 +15492,7 @@ export const POKEMON_DATA = {
       spe: 50
     },
     weightKg: 40,
-    abilities: ["Hustle"],
+    abilities: ["Hustle", "Inner Focus"],
     notFullyEvolved: true
   },
   dottler: {
@@ -15462,7 +15507,7 @@ export const POKEMON_DATA = {
       spe: 30
     },
     weightKg: 19.5,
-    abilities: ["Swarm"],
+    abilities: ["Swarm", "Compound Eyes", "Telepathy"],
     notFullyEvolved: true
   },
   dracovish: {
@@ -15478,7 +15523,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 215,
     gender: "N",
-    abilities: ["Water Absorb"]
+    abilities: ["Water Absorb", "Strong Jaw", "Sand Rush"]
   },
   dracozolt: {
     name: "Dracozolt",
@@ -15493,7 +15538,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 190,
     gender: "N",
-    abilities: ["Volt Absorb"]
+    abilities: ["Volt Absorb", "Hustle", "Sand Rush"]
   },
   dragapult: {
     name: "Dragapult",
@@ -15585,7 +15630,7 @@ export const POKEMON_DATA = {
       spe: 88
     },
     weightKg: 43,
-    abilities: ["Fluffy"]
+    abilities: ["Fluffy", "Steadfast", "Bulletproof"]
   },
   duraludon: {
     name: "Duraludon",
@@ -15645,7 +15690,7 @@ export const POKEMON_DATA = {
       spe: 60
     },
     weightKg: 2.5,
-    abilities: ["Cotton Down"]
+    abilities: ["Cotton Down", "Regenerator", "Effect Spore"]
   },
   eternatus: {
     name: "Eternatus",
@@ -15674,9 +15719,10 @@ export const POKEMON_DATA = {
       spd: 250,
       spe: 130
     },
-    weightKg: 950,
+    weightKg: 0,
     gender: "N",
-    abilities: ["Pressure"]
+    abilities: ["Pressure"],
+    group: "Regular"
   },
   falinks: {
     name: "Falinks",
@@ -15706,7 +15752,7 @@ export const POKEMON_DATA = {
       spe: 55
     },
     weightKg: 42,
-    abilities: ["Steadfast"],
+    abilities: ["Steadfast", "Scrappy"],
     notFullyEvolved: true
   },
   flapple: {
@@ -15767,7 +15813,7 @@ export const POKEMON_DATA = {
       spe: 10
     },
     weightKg: 2.2,
-    abilities: ["Cotton Down"],
+    abilities: ["Cotton Down", "Regenerator", "Effect Spore"],
     notFullyEvolved: true
   },
   grapploct: {
@@ -15782,7 +15828,7 @@ export const POKEMON_DATA = {
       spe: 42
     },
     weightKg: 39,
-    abilities: ["Limber"]
+    abilities: ["Limber", "Technician"]
   },
   greedent: {
     name: "Greedent",
@@ -15973,7 +16019,7 @@ export const POKEMON_DATA = {
       spe: 100
     },
     weightKg: 32.5,
-    abilities: ["Pickup"],
+    abilities: ["Pickup", "Gluttony", "Quick Feet"],
     notFullyEvolved: true
   },
   magearnaoriginal: {
@@ -16098,7 +16144,7 @@ export const POKEMON_DATA = {
       spe: 100
     },
     weightKg: 56.8,
-    abilities: ["Vital Spirit"],
+    abilities: ["Vital Spirit", "Screen Cleaner", "Ice Body"],
     notFullyEvolved: true
   },
   mrrime: {
@@ -16128,7 +16174,7 @@ export const POKEMON_DATA = {
       spe: 50
     },
     weightKg: 8.9,
-    abilities: ["Run Away"],
+    abilities: ["Run Away", "Unburden", "Stakeout"],
     notFullyEvolved: true
   },
   obstagoon: {
@@ -16143,7 +16189,7 @@ export const POKEMON_DATA = {
       spe: 95
     },
     weightKg: 46,
-    abilities: ["Reckless"]
+    abilities: ["Reckless", "Guts", "Defiant"]
   },
   orbeetle: {
     name: "Orbeetle",
@@ -16157,7 +16203,7 @@ export const POKEMON_DATA = {
       spe: 90
     },
     weightKg: 40.8,
-    abilities: ["Swarm"]
+    abilities: ["Swarm", "Frisk", "Telepathy"]
   },
   perrserker: {
     name: "Perrserker",
@@ -16173,21 +16219,6 @@ export const POKEMON_DATA = {
     weightKg: 28,
     abilities: ["Battle Armor", "Tough Claws", "Steely Spirit"],
     group: "Regular"
-  },
-  pikachuworld: {
-    name: "Pikachu-World",
-    types: ["Electric"],
-    baseStats: {
-      hp: 35,
-      atk: 55,
-      def: 40,
-      spa: 50,
-      spd: 50,
-      spe: 90
-    },
-    weightKg: 6,
-    gender: "M",
-    abilities: ["Static"]
   },
   pincurchin: {
     name: "Pincurchin",
@@ -16233,7 +16264,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 0.4,
     gender: "N",
-    abilities: ["Weak Armor"]
+    abilities: ["Weak Armor", "Cursed Body"]
   },
   ponytagalar: {
     name: "Ponyta-Galar",
@@ -16247,7 +16278,7 @@ export const POKEMON_DATA = {
       spe: 90
     },
     weightKg: 24,
-    abilities: ["Run Away"],
+    abilities: ["Run Away", "Pastel Veil", "Anticipation"],
     notFullyEvolved: true
   },
   raboot: {
@@ -16278,7 +16309,7 @@ export const POKEMON_DATA = {
       spe: 105
     },
     weightKg: 80,
-    abilities: ["Run Away"]
+    abilities: ["Run Away", "Pastel Veil", "Anticipation"]
   },
   regidrago: {
     name: "Regidrago",
@@ -16451,7 +16482,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 0.2,
     gender: "N",
-    abilities: ["Weak Armor"],
+    abilities: ["Weak Armor", "Cursed Body"],
     notFullyEvolved: true
   },
   sirfetchd: {
@@ -16466,7 +16497,7 @@ export const POKEMON_DATA = {
       spe: 65
     },
     weightKg: 117,
-    abilities: ["Steadfast"]
+    abilities: ["Steadfast", "Scrappy"]
   },
   sizzlipede: {
     name: "Sizzlipede",
@@ -16480,7 +16511,7 @@ export const POKEMON_DATA = {
       spe: 45
     },
     weightKg: 1,
-    abilities: ["Flash Fire"],
+    abilities: ["Flash Fire", "White Smoke", "Flame Body"],
     notFullyEvolved: true
   },
   skwovet: {
@@ -16635,7 +16666,7 @@ export const POKEMON_DATA = {
       spe: 90
     },
     weightKg: 19.9,
-    abilities: ["Run Away"]
+    abilities: ["Run Away", "Unburden", "Stakeout"]
   },
   thwackey: {
     name: "Thwackey",
@@ -16756,7 +16787,7 @@ export const POKEMON_DATA = {
       spe: 48
     },
     weightKg: 6,
-    abilities: ["Fluffy"],
+    abilities: ["Fluffy", "Run Away", "Bulletproof"],
     notFullyEvolved: true
   },
   yamaskgalar: {
@@ -16786,7 +16817,7 @@ export const POKEMON_DATA = {
       spe: 26
     },
     weightKg: 13.5,
-    abilities: ["Ball Fetch"],
+    abilities: ["Ball Fetch", "Rattled"],
     notFullyEvolved: true
   },
   zacian: {
@@ -16912,7 +16943,7 @@ export const POKEMON_DATA = {
       spe: 60
     },
     weightKg: 17.5,
-    abilities: ["Pickup"],
+    abilities: ["Pickup", "Gluttony", "Quick Feet"],
     notFullyEvolved: true
   },
   arcaninehisui: {
@@ -16989,7 +17020,7 @@ export const POKEMON_DATA = {
       spe: 98
     },
     weightKg: 18,
-    abilities: ["Rattled"],
+    abilities: ["Rattled", "Adaptability", "Mold Breaker"],
     notFullyEvolved: true
   },
   braviaryhisui: {
@@ -18556,21 +18587,6 @@ export const POKEMON_DATA = {
     abilities: ["Sturdy"],
     group: "Regular"
   },
-  ogerponcornerstonetera: {
-    name: "Ogerpon-Cornerstone-Tera",
-    types: ["Grass", "Rock"],
-    baseStats: {
-      hp: 80,
-      atk: 120,
-      def: 84,
-      spa: 60,
-      spd: 96,
-      spe: 110
-    },
-    weightKg: 39.8,
-    gender: "F",
-    abilities: ["Embody Aspect (Cornerstone)"]
-  },
   ogerponhearthflame: {
     name: "Ogerpon-Hearthflame",
     types: ["Grass", "Fire"],
@@ -18587,36 +18603,6 @@ export const POKEMON_DATA = {
     abilities: ["Mold Breaker"],
     group: "Regular"
   },
-  ogerponhearthflametera: {
-    name: "Ogerpon-Hearthflame-Tera",
-    types: ["Grass", "Fire"],
-    baseStats: {
-      hp: 80,
-      atk: 120,
-      def: 84,
-      spa: 60,
-      spd: 96,
-      spe: 110
-    },
-    weightKg: 39.8,
-    gender: "F",
-    abilities: ["Embody Aspect (Hearthflame)"]
-  },
-  ogerpontealtera: {
-    name: "Ogerpon-Teal-Tera",
-    types: ["Grass"],
-    baseStats: {
-      hp: 80,
-      atk: 120,
-      def: 84,
-      spa: 60,
-      spd: 96,
-      spe: 110
-    },
-    weightKg: 39.8,
-    gender: "F",
-    abilities: ["Embody Aspect (Teal)"]
-  },
   ogerponwellspring: {
     name: "Ogerpon-Wellspring",
     types: ["Grass", "Water"],
@@ -18632,21 +18618,6 @@ export const POKEMON_DATA = {
     gender: "F",
     abilities: ["Water Absorb"],
     group: "Regular"
-  },
-  ogerponwellspringtera: {
-    name: "Ogerpon-Wellspring-Tera",
-    types: ["Grass", "Water"],
-    baseStats: {
-      hp: 80,
-      atk: 120,
-      def: 84,
-      spa: 60,
-      spd: 96,
-      spe: 110
-    },
-    weightKg: 39.8,
-    gender: "F",
-    abilities: ["Embody Aspect (Wellspring)"]
   },
   oinkologne: {
     name: "Oinkologne",
@@ -18834,7 +18805,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 1.1,
     gender: "N",
-    abilities: ["Hospitality"],
+    abilities: ["Hospitality", "Heatproof"],
     notFullyEvolved: true
   },
   quaquaval: {
@@ -19054,7 +19025,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 2.2,
     gender: "N",
-    abilities: ["Hospitality"]
+    abilities: ["Hospitality", "Heatproof"]
   },
   skeledirge: {
     name: "Skeledirge",
@@ -19161,7 +19132,7 @@ export const POKEMON_DATA = {
       spe: 92
     },
     weightKg: 2.4,
-    abilities: ["Intimidate"]
+    abilities: ["Intimidate", "Hustle", "Guts"]
   },
   squawkabillywhite: {
     name: "Squawkabilly-White",
@@ -19175,7 +19146,7 @@ export const POKEMON_DATA = {
       spe: 92
     },
     weightKg: 2.4,
-    abilities: ["Intimidate"]
+    abilities: ["Intimidate", "Hustle", "Sheer Force"]
   },
   squawkabillyyellow: {
     name: "Squawkabilly-Yellow",
@@ -19189,7 +19160,7 @@ export const POKEMON_DATA = {
       spe: 92
     },
     weightKg: 2.4,
-    abilities: ["Intimidate"]
+    abilities: ["Intimidate", "Hustle", "Sheer Force"]
   },
   tadbulb: {
     name: "Tadbulb",
@@ -19267,7 +19238,7 @@ export const POKEMON_DATA = {
       spe: 82
     },
     weightKg: 8,
-    abilities: ["Commander"]
+    abilities: ["Commander", "Storm Drain"]
   },
   tatsugiristretchy: {
     name: "Tatsugiri-Stretchy",
@@ -19281,7 +19252,7 @@ export const POKEMON_DATA = {
       spe: 82
     },
     weightKg: 8,
-    abilities: ["Commander"]
+    abilities: ["Commander", "Storm Drain"]
   },
   taurospaldeaaqua: {
     name: "Tauros-Paldea-Aqua",

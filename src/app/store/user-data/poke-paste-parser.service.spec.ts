@@ -725,7 +725,7 @@ describe("PokePasteParserService", () => {
   })
 
   describe("adjustName", () => {
-    it("should remove suffix for Rockruff with alternative form", async () => {
+    it("should keep suffix for Rockruff with alternative form present in movesets", async () => {
       const randomMove1 = "Rock Throw"
       const randomMove2 = "Stone Edge"
       const randomMove3 = "Crunch"
@@ -758,7 +758,7 @@ describe("PokePasteParserService", () => {
       const result = await service.parse("poke-paste text", false)
 
       expect(result.length).toBe(1)
-      expect(result[0].name).toBe("Rockruff")
+      expect(result[0].name).toBe("Rockruff-Dusk")
     })
 
     it("should remove suffix for Pikachu with alternative form", async () => {
@@ -797,7 +797,7 @@ describe("PokePasteParserService", () => {
       expect(result[0].name).toBe("Pikachu")
     })
 
-    it("should remove suffix for Polteageist with alternative form", async () => {
+    it("should keep suffix for Polteageist with alternative form present in movesets", async () => {
       const randomMove1 = "Shadow Ball"
       const randomMove2 = "Giga Drain"
       const randomMove3 = "Stored Power"
@@ -830,10 +830,10 @@ describe("PokePasteParserService", () => {
       const result = await service.parse("poke-paste text", false)
 
       expect(result.length).toBe(1)
-      expect(result[0].name).toBe("Polteageist")
+      expect(result[0].name).toBe("Polteageist-Antique")
     })
 
-    it("should remove suffix for Vivillon with alternative form", async () => {
+    it("should keep suffix for Vivillon with alternative form present in movesets", async () => {
       const randomMove1 = "Hurricane"
       const randomMove2 = "Sleep Powder"
       const randomMove3 = "Quiver Dance"
@@ -866,10 +866,10 @@ describe("PokePasteParserService", () => {
       const result = await service.parse("poke-paste text", false)
 
       expect(result.length).toBe(1)
-      expect(result[0].name).toBe("Vivillon")
+      expect(result[0].name).toBe("Vivillon-Ocean")
     })
 
-    it("should remove suffix for Maushold with alternative form", async () => {
+    it("should keep suffix for Maushold with alternative form present in movesets", async () => {
       const randomMove1 = "Population Bomb"
       const randomMove2 = "Beat Up"
       const randomMove3 = "Super Fang"
@@ -902,7 +902,7 @@ describe("PokePasteParserService", () => {
       const result = await service.parse("poke-paste text", false)
 
       expect(result.length).toBe(1)
-      expect(result[0].name).toBe("Maushold")
+      expect(result[0].name).toBe("Maushold-Four")
     })
 
     it("should keep full name for Pokémon not in alternative form list", async () => {
@@ -1044,7 +1044,7 @@ describe("PokePasteParserService", () => {
       expect(result[0].name).toBe("Gastrodon")
     })
 
-    it("should remove suffix for Tatsugiri with alternative form", async () => {
+    it("should keep suffix for Tatsugiri with alternative form present in movesets", async () => {
       const randomMove1 = "Draco Meteor"
       const randomMove2 = "Hydro Pump"
       const randomMove3 = "Icy Wind"
@@ -1077,7 +1077,7 @@ describe("PokePasteParserService", () => {
       const result = await service.parse("poke-paste text", false)
 
       expect(result.length).toBe(1)
-      expect(result[0].name).toBe("Tatsugiri")
+      expect(result[0].name).toBe("Tatsugiri-Droopy")
     })
   })
 })

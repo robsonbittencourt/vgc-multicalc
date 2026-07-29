@@ -668,8 +668,8 @@ describe("computeMoveType", () => {
     expect(type).toBe("Grass")
   })
 
-  it("Ivy Cudgel becomes Grass for Ogerpon-Teal-Tera", () => {
-    const ctx = makeCtx("Ogerpon-Teal-Tera", {}, "Pelipper", {}, "Ivy Cudgel")
+  it("Ivy Cudgel becomes Grass for Terastallized Ogerpon", () => {
+    const ctx = makeCtx("Ogerpon", { teraType: "Grass" }, "Pelipper", {}, "Ivy Cudgel")
 
     const { type } = computeMoveType(ctx)
 

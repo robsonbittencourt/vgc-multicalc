@@ -660,6 +660,10 @@ export const ABILITY_DETAILS = {
     name: "No Guard",
     description: "Every move used by or against this Pokemon will always hit."
   },
+  normalize: {
+    name: "Normalize",
+    description: "This Pokemon's moves are changed to be Normal type."
+  },
   oblivious: {
     name: "Oblivious",
     description: "This Pokemon cannot be infatuated or taunted. Immune to Intimidate."
@@ -687,6 +691,14 @@ export const ABILITY_DETAILS = {
   parentalbond: {
     name: "Parental Bond",
     description: "This Pokemon uses its move twice in one turn (second hit does 25% damage)."
+  },
+  pastelveil: {
+    name: "Pastel Veil",
+    description: "This Pokemon and its allies cannot be poisoned. Any poisoned ally is cured upon switch-in."
+  },
+  perishbody: {
+    name: "Perish Body",
+    description: "If this Pokemon is hit by a contact move, both it and the attacker will faint in 3 turns unless they switch out."
   },
   pickpocket: {
     name: "Pickpocket",
