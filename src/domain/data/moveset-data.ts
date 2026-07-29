@@ -10,36 +10,6 @@ export interface Moveset {
 }
 
 export const MOVESETS = {
-  Abra: {
-    ability: "Magic Guard",
-    nature: "Modest",
-    teraType: "Fairy",
-    evs: {
-      hp: 32,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Psychic", "Shadow Ball", "Grass Knot", "Protect"],
-    items: ["Eviolite"]
-  },
-  Raticate: {
-    ability: "Guts",
-    nature: "Jolly",
-    teraType: "Normal",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Facade", "Super Fang", "Sucker Punch", "Protect"],
-    items: ["Toxic Orb", "Life Orb"]
-  },
   Bulbasaur: {
     ability: "Chlorophyll",
     nature: "Modest",
@@ -235,6 +205,81 @@ export const MOVESETS = {
     moves: ["Water Spout", "Dark Pulse", "Protect", "Shell Smash"],
     items: ["Blastoisinite"]
   },
+  Caterpie: {
+    ability: "Shield Dust",
+    nature: "Jolly",
+    teraType: "Bug",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Bug Bite", "Tackle", "Aerial Ace", "Protect"],
+    items: ["Eviolite"]
+  },
+  Metapod: {
+    ability: "Shed Skin",
+    nature: "Timid",
+    teraType: "Bug",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Electroweb", "Belch", "Blizzard", "Protect"],
+    items: ["Eviolite"]
+  },
+  Butterfree: {
+    ability: "Compound Eyes",
+    nature: "Timid",
+    teraType: "Bug",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Air Slash", "Bug Buzz", "Confusion", "Protect"],
+    items: ["Leftovers"]
+  },
+  Weedle: {
+    ability: "Shield Dust",
+    nature: "Jolly",
+    teraType: "Bug",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Bug Bite", "Poison Sting", "Bug Bite", "Protect"],
+    items: ["Eviolite"]
+  },
+  Kakuna: {
+    ability: "Shed Skin",
+    nature: "Timid",
+    teraType: "Bug",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Electroweb", "Acid Spray", "Bug Buzz", "Protect"],
+    items: ["Eviolite"]
+  },
   Beedrill: {
     ability: "Swarm",
     nature: "Jolly",
@@ -265,6 +310,36 @@ export const MOVESETS = {
     moves: ["Poison Jab", "U-turn", "Knock Off", "Protect"],
     items: ["Beedrillite"]
   },
+  Pidgey: {
+    ability: "Keen Eye",
+    nature: "Jolly",
+    teraType: "Normal",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Brave Bird", "Facade", "Protect"],
+    items: ["Eviolite"]
+  },
+  Pidgeotto: {
+    ability: "Keen Eye",
+    nature: "Jolly",
+    teraType: "Normal",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Facade", "Fly", "Protect"],
+    items: ["Eviolite"]
+  },
   Pidgeot: {
     ability: "Keen Eye",
     nature: "Adamant",
@@ -294,6 +369,96 @@ export const MOVESETS = {
     },
     moves: ["Brave Bird", "Fly", "Close Combat", "Protect"],
     items: ["Pidgeotite"]
+  },
+  Rattata: {
+    ability: "Run Away",
+    nature: "Jolly",
+    teraType: "Normal",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Assurance", "Bite", "Counter", "Protect"],
+    items: ["Eviolite"]
+  },
+  "Rattata-Alola": {
+    ability: "Gluttony",
+    nature: "Jolly",
+    teraType: "Dark",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Assurance", "Bite", "Counter", "Protect"],
+    items: ["Eviolite"]
+  },
+  Raticate: {
+    ability: "Guts",
+    nature: "Jolly",
+    teraType: "Normal",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Facade", "Super Fang", "Sucker Punch", "Protect"],
+    items: ["Toxic Orb", "Life Orb"]
+  },
+  "Raticate-Alola": {
+    ability: "Gluttony",
+    nature: "Jolly",
+    teraType: "Dark",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Assurance", "Bite", "Counter", "Protect"],
+    items: ["Leftovers"]
+  },
+  Spearow: {
+    ability: "Keen Eye",
+    nature: "Jolly",
+    teraType: "Normal",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Assurance", "Astonish", "Protect"],
+    items: ["Eviolite"]
+  },
+  Fearow: {
+    ability: "Keen Eye",
+    nature: "Jolly",
+    teraType: "Normal",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Assurance", "Drill Peck", "Protect"],
+    items: ["Leftovers"]
   },
   Ekans: {
     ability: "Intimidate",
@@ -460,6 +625,96 @@ export const MOVESETS = {
     moves: ["Spikes", "Icicle Crash", "Knock Off", "Rapid Spin"],
     items: ["Leftovers"]
   },
+  "Nidoran-F": {
+    ability: "Poison Point",
+    nature: "Jolly",
+    teraType: "Poison",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Beat Up", "Bite", "Protect"],
+    items: ["Eviolite"]
+  },
+  Nidorina: {
+    ability: "Poison Point",
+    nature: "Jolly",
+    teraType: "Poison",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Beat Up", "Bite", "Protect"],
+    items: ["Eviolite"]
+  },
+  Nidoqueen: {
+    ability: "Poison Point",
+    nature: "Jolly",
+    teraType: "Poison",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Aqua Tail", "Avalanche", "Protect"],
+    items: ["Leftovers"]
+  },
+  "Nidoran-M": {
+    ability: "Poison Point",
+    nature: "Jolly",
+    teraType: "Poison",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Beat Up", "Body Slam", "Chip Away", "Protect"],
+    items: ["Eviolite"]
+  },
+  Nidorino: {
+    ability: "Poison Point",
+    nature: "Jolly",
+    teraType: "Poison",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Beat Up", "Body Slam", "Dig", "Protect"],
+    items: ["Eviolite"]
+  },
+  Nidoking: {
+    ability: "Poison Point",
+    nature: "Jolly",
+    teraType: "Poison",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aqua Tail", "Avalanche", "Beat Up", "Protect"],
+    items: ["Leftovers"]
+  },
   Clefairy: {
     ability: "Friend Guard",
     nature: "Bold",
@@ -595,6 +850,36 @@ export const MOVESETS = {
     moves: ["Dazzling Gleam", "Wish", "Protect", "Stealth Rock"],
     items: ["Life Orb", "Leftovers", "Heavy-Duty Boots", "Heat Rock"]
   },
+  Zubat: {
+    ability: "Inner Focus",
+    nature: "Jolly",
+    teraType: "Poison",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Acrobatics", "Aerial Ace", "Assurance", "Protect"],
+    items: ["Eviolite"]
+  },
+  Golbat: {
+    ability: "Inner Focus",
+    nature: "Jolly",
+    teraType: "Poison",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Acrobatics", "Aerial Ace", "Assurance", "Protect"],
+    items: ["Eviolite"]
+  },
   Oddish: {
     ability: "Chlorophyll",
     nature: "Sassy",
@@ -638,6 +923,36 @@ export const MOVESETS = {
       spe: 0
     },
     moves: ["Sludge Wave", "Giga Drain", "Strength Sap", "Leech Seed"],
+    items: ["Leftovers"]
+  },
+  Paras: {
+    ability: "Effect Spore",
+    nature: "Jolly",
+    teraType: "Bug",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Brick Break", "Bug Bite", "Protect"],
+    items: ["Eviolite"]
+  },
+  Parasect: {
+    ability: "Effect Spore",
+    nature: "Jolly",
+    teraType: "Bug",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Brick Break", "Bug Bite", "Protect"],
     items: ["Leftovers"]
   },
   Venonat: {
@@ -970,6 +1285,36 @@ export const MOVESETS = {
     moves: ["Bulk Up", "Substitute", "Drain Punch", "Knock Off"],
     items: ["Leftovers"]
   },
+  Abra: {
+    ability: "Magic Guard",
+    nature: "Modest",
+    teraType: "Fairy",
+    evs: {
+      hp: 32,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Psychic", "Shadow Ball", "Grass Knot", "Protect"],
+    items: ["Eviolite"]
+  },
+  Kadabra: {
+    ability: "Synchronize",
+    nature: "Timid",
+    teraType: "Psychic",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Charge Beam", "Confusion", "Dazzling Gleam", "Protect"],
+    items: ["Eviolite"]
+  },
   Alakazam: {
     ability: "Inner Focus",
     nature: "Timid",
@@ -999,6 +1344,36 @@ export const MOVESETS = {
     },
     moves: ["Light Screen", "Reflect", "Speed Swap", "Psychic"],
     items: ["Alakazite"]
+  },
+  Machop: {
+    ability: "Guts",
+    nature: "Jolly",
+    teraType: "Fighting",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Bide", "Body Slam", "Brick Break", "Protect"],
+    items: ["Eviolite"]
+  },
+  Machoke: {
+    ability: "Guts",
+    nature: "Jolly",
+    teraType: "Fighting",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Bide", "Body Slam", "Brick Break", "Protect"],
+    items: ["Eviolite"]
   },
   Machamp: {
     ability: "No Guard",
@@ -1195,6 +1570,66 @@ export const MOVESETS = {
     moves: ["Wild Charge", "Brick Break", "Earthquake", "Fire Punch"],
     items: ["Choice Band"]
   },
+  Ponyta: {
+    ability: "Run Away",
+    nature: "Jolly",
+    teraType: "Fire",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Body Slam", "Bounce", "Double Kick", "Protect"],
+    items: ["Eviolite"]
+  },
+  "Ponyta-Galar": {
+    ability: "Run Away",
+    nature: "Jolly",
+    teraType: "Psychic",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Body Slam", "Bounce", "Double Kick", "Protect"],
+    items: ["Eviolite"]
+  },
+  Rapidash: {
+    ability: "Run Away",
+    nature: "Jolly",
+    teraType: "Fire",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Body Slam", "Bounce", "Double Kick", "Protect"],
+    items: ["Leftovers"]
+  },
+  "Rapidash-Galar": {
+    ability: "Run Away",
+    nature: "Jolly",
+    teraType: "Psychic",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Body Slam", "Bounce", "Drill Run", "Protect"],
+    items: ["Leftovers"]
+  },
   Slowpoke: {
     ability: "Regenerator",
     nature: "Modest",
@@ -1298,6 +1733,36 @@ export const MOVESETS = {
       spe: 11
     },
     moves: ["Thunderbolt", "Flash Cannon", "Volt Switch", "Tera Blast"],
+    items: ["Eviolite"]
+  },
+  "Farfetch’d": {
+    ability: "Keen Eye",
+    nature: "Jolly",
+    teraType: "Normal",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Acrobatics", "Aerial Ace", "Body Slam", "Protect"],
+    items: ["Leftovers"]
+  },
+  "Farfetch’d-Galar": {
+    ability: "Steadfast",
+    nature: "Jolly",
+    teraType: "Fighting",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Assurance", "Body Slam", "Brave Bird", "Protect"],
     items: ["Eviolite"]
   },
   Doduo: {
@@ -1510,6 +1975,21 @@ export const MOVESETS = {
     moves: ["Shadow Ball", "Protect", "Perish Song", "Disable"],
     items: ["Gengarite"]
   },
+  Onix: {
+    ability: "Rock Head",
+    nature: "Jolly",
+    teraType: "Rock",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Bind", "Body Press", "Body Slam", "Protect"],
+    items: ["Eviolite"]
+  },
   Drowzee: {
     ability: "Insomnia",
     nature: "Timid",
@@ -1539,6 +2019,36 @@ export const MOVESETS = {
     },
     moves: ["Foul Play", "Trick Room", "Endeavor", "Disable"],
     items: ["Mental Herb", "Focus Sash", "Iapapa Berry", "Sitrus Berry", "Colbur Berry", "Aguav Berry", "Flame Orb"]
+  },
+  Krabby: {
+    ability: "Hyper Cutter",
+    nature: "Jolly",
+    teraType: "Water",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Bide", "Body Slam", "Brick Break", "Protect"],
+    items: ["Eviolite"]
+  },
+  Kingler: {
+    ability: "Hyper Cutter",
+    nature: "Jolly",
+    teraType: "Water",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Body Slam", "Brick Break", "Brutal Swing", "Protect"],
+    items: ["Leftovers"]
   },
   Voltorb: {
     ability: "Static",
@@ -1645,6 +2155,51 @@ export const MOVESETS = {
     moves: ["Trick Room", "Draco Meteor", "Sleep Powder", "Leaf Storm"],
     items: ["Sitrus Berry"]
   },
+  Cubone: {
+    ability: "Rock Head",
+    nature: "Jolly",
+    teraType: "Ground",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Body Slam", "Bone Club", "Protect"],
+    items: ["Eviolite"]
+  },
+  Marowak: {
+    ability: "Rock Head",
+    nature: "Jolly",
+    teraType: "Ground",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Body Slam", "Bone Club", "Protect"],
+    items: ["Leftovers"]
+  },
+  "Marowak-Alola": {
+    ability: "Cursed Body",
+    nature: "Jolly",
+    teraType: "Fire",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Body Slam", "Bone Club", "Protect"],
+    items: ["Leftovers"]
+  },
   Hitmonlee: {
     ability: "Unburden",
     nature: "Adamant",
@@ -1674,6 +2229,21 @@ export const MOVESETS = {
     },
     moves: ["Drain Punch", "Knock Off", "Mach Punch", "Rapid Spin"],
     items: ["Heavy-Duty Boots"]
+  },
+  Lickitung: {
+    ability: "Own Tempo",
+    nature: "Timid",
+    teraType: "Normal",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Acid", "Belch", "Blizzard", "Protect"],
+    items: ["Eviolite"]
   },
   Koffing: {
     ability: "Neutralizing Gas",
@@ -1765,6 +2335,21 @@ export const MOVESETS = {
     moves: ["Stealth Rock", "Seismic Toss", "Soft-Boiled", "Thunder Wave"],
     items: ["Eviolite"]
   },
+  Tangela: {
+    ability: "Chlorophyll",
+    nature: "Timid",
+    teraType: "Grass",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Absorb", "Ancient Power", "Confusion", "Protect"],
+    items: ["Eviolite"]
+  },
   Kangaskhan: {
     ability: "Scrappy",
     nature: "Adamant",
@@ -1825,6 +2410,51 @@ export const MOVESETS = {
     moves: ["Ice Beam", "Surf", "Focus Energy", "Agility"],
     items: ["Scope Lens", "Eviolite"]
   },
+  Goldeen: {
+    ability: "Swift Swim",
+    nature: "Jolly",
+    teraType: "Water",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aqua Tail", "Body Slam", "Bounce", "Protect"],
+    items: ["Eviolite"]
+  },
+  Seaking: {
+    ability: "Swift Swim",
+    nature: "Jolly",
+    teraType: "Water",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aqua Tail", "Body Slam", "Bounce", "Protect"],
+    items: ["Leftovers"]
+  },
+  Staryu: {
+    ability: "Illuminate",
+    nature: "Timid",
+    teraType: "Water",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Blizzard", "Brine", "Bubble Beam", "Protect"],
+    items: ["Eviolite"]
+  },
   Starmie: {
     ability: "Natural Cure",
     nature: "Jolly",
@@ -1855,6 +2485,36 @@ export const MOVESETS = {
     moves: ["Liquidation", "Zen Headbutt", "Aqua Jet", "Protect"],
     items: ["Starminite"]
   },
+  "Mr. Mime": {
+    ability: "Soundproof",
+    nature: "Timid",
+    teraType: "Psychic",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Charge Beam", "Confusion", "Dazzling Gleam", "Protect"],
+    items: ["Leftovers"]
+  },
+  "Mr. Mime-Galar": {
+    ability: "Vital Spirit",
+    nature: "Timid",
+    teraType: "Ice",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Blizzard", "Confusion", "Dazzling Gleam", "Protect"],
+    items: ["Eviolite"]
+  },
   Scyther: {
     ability: "Technician",
     nature: "Adamant",
@@ -1869,6 +2529,21 @@ export const MOVESETS = {
     },
     moves: ["Close Combat", "U-turn", "Dual Wingbeat", "Protect"],
     items: ["Eviolite"]
+  },
+  Jynx: {
+    ability: "Oblivious",
+    nature: "Timid",
+    teraType: "Ice",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Blizzard", "Confusion", "Draining Kiss", "Protect"],
+    items: ["Leftovers"]
   },
   Electabuzz: {
     ability: "Vital Spirit",
@@ -2156,6 +2831,66 @@ export const MOVESETS = {
     },
     moves: ["Double-Edge", "Shadow Ball", "Recover", "Agility"],
     items: ["Eviolite", "Lum Berry"]
+  },
+  Omanyte: {
+    ability: "Swift Swim",
+    nature: "Timid",
+    teraType: "Rock",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Ancient Power", "Aurora Beam", "Blizzard", "Protect"],
+    items: ["Eviolite"]
+  },
+  Omastar: {
+    ability: "Swift Swim",
+    nature: "Timid",
+    teraType: "Rock",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Ancient Power", "Blizzard", "Brine", "Protect"],
+    items: ["Leftovers"]
+  },
+  Kabuto: {
+    ability: "Swift Swim",
+    nature: "Jolly",
+    teraType: "Rock",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Aqua Jet", "Body Slam", "Protect"],
+    items: ["Eviolite"]
+  },
+  Kabutops: {
+    ability: "Swift Swim",
+    nature: "Jolly",
+    teraType: "Rock",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Aqua Jet", "Aqua Tail", "Protect"],
+    items: ["Leftovers"]
   },
   Aerodactyl: {
     ability: "Unnerve",
@@ -2622,6 +3357,36 @@ export const MOVESETS = {
     moves: ["Hurricane", "Moonblast", "Heat Wave", "Hyper Voice"],
     items: ["Choice Specs", "Leftovers"]
   },
+  Ledyba: {
+    ability: "Swarm",
+    nature: "Timid",
+    teraType: "Bug",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Air Slash", "Bug Buzz", "Giga Drain", "Protect"],
+    items: ["Eviolite"]
+  },
+  Ledian: {
+    ability: "Swarm",
+    nature: "Timid",
+    teraType: "Bug",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Air Slash", "Bug Buzz", "Focus Blast", "Protect"],
+    items: ["Leftovers"]
+  },
   Spinarak: {
     ability: "Insomnia",
     nature: "Careful",
@@ -2651,6 +3416,21 @@ export const MOVESETS = {
     },
     moves: ["Shadow Sneak", "Rage Powder", "First Impression", "Poison Jab"],
     items: ["Silver Powder"]
+  },
+  Crobat: {
+    ability: "Inner Focus",
+    nature: "Jolly",
+    teraType: "Poison",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Acrobatics", "Aerial Ace", "Assurance", "Protect"],
+    items: ["Leftovers"]
   },
   Chinchou: {
     ability: "Volt Absorb",
@@ -2726,6 +3506,66 @@ export const MOVESETS = {
     },
     moves: ["Draining Kiss", "Wish", "Thunder Wave", "Protect"],
     items: ["Eviolite", "Life Orb", "Leftovers", "Focus Sash", "Heat Rock", "Heavy-Duty Boots"]
+  },
+  Togepi: {
+    ability: "Hustle",
+    nature: "Timid",
+    teraType: "Fairy",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Ancient Power", "Dazzling Gleam", "Draining Kiss", "Protect"],
+    items: ["Eviolite"]
+  },
+  Togetic: {
+    ability: "Hustle",
+    nature: "Timid",
+    teraType: "Fairy",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Ancient Power", "Dazzling Gleam", "Draining Kiss", "Protect"],
+    items: ["Eviolite"]
+  },
+  Natu: {
+    ability: "Synchronize",
+    nature: "Timid",
+    teraType: "Psychic",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Air Slash", "Dazzling Gleam", "Dream Eater", "Protect"],
+    items: ["Eviolite"]
+  },
+  Xatu: {
+    ability: "Synchronize",
+    nature: "Timid",
+    teraType: "Psychic",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Air Slash", "Dazzling Gleam", "Dream Eater", "Protect"],
+    items: ["Leftovers"]
   },
   Mareep: {
     ability: "Illuminate",
@@ -3102,6 +3942,36 @@ export const MOVESETS = {
     moves: ["Hex", "Will-O-Wisp", "Trick Room", "Memento"],
     items: ["Eviolite"]
   },
+  Unown: {
+    ability: "Levitate",
+    nature: "Timid",
+    teraType: "Psychic",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Hidden Power", "Blizzard", "Flash Cannon", "Protect"],
+    items: ["Leftovers"]
+  },
+  Wobbuffet: {
+    ability: "Shadow Tag",
+    nature: "Timid",
+    teraType: "Psychic",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Mirror Coat", "Air Cutter", "Air Slash", "Protect"],
+    items: ["Leftovers"]
+  },
   Girafarig: {
     ability: "Inner Focus",
     nature: "Timid",
@@ -3297,6 +4167,21 @@ export const MOVESETS = {
     moves: ["Bug Bite", "Bullet Punch", "Protect", "Swords Dance"],
     items: ["Scizorite"]
   },
+  Shuckle: {
+    ability: "Sturdy",
+    nature: "Timid",
+    teraType: "Bug",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Acid", "Earth Power", "Final Gambit", "Protect"],
+    items: ["Leftovers"]
+  },
   Heracross: {
     ability: "Guts",
     nature: "Jolly",
@@ -3447,6 +4332,66 @@ export const MOVESETS = {
     moves: ["Earthquake", "Stealth Rock", "Rock Slide", "Toxic"],
     items: ["Eviolite"]
   },
+  Corsola: {
+    ability: "Hustle",
+    nature: "Timid",
+    teraType: "Water",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Ancient Power", "Blizzard", "Brine", "Protect"],
+    items: ["Leftovers"]
+  },
+  "Corsola-Galar": {
+    ability: "Weak Armor",
+    nature: "Timid",
+    teraType: "Ghost",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Ancient Power", "Blizzard", "Brine", "Protect"],
+    items: ["Eviolite"]
+  },
+  Remoraid: {
+    ability: "Hustle",
+    nature: "Timid",
+    teraType: "Water",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Acid Spray", "Aurora Beam", "Blizzard", "Protect"],
+    items: ["Eviolite"]
+  },
+  Octillery: {
+    ability: "Suction Cups",
+    nature: "Timid",
+    teraType: "Water",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aurora Beam", "Blizzard", "Brine", "Protect"],
+    items: ["Leftovers"]
+  },
   Delibird: {
     ability: "Vital Spirit",
     nature: "Timid",
@@ -3461,6 +4406,21 @@ export const MOVESETS = {
     },
     moves: ["Icy Wind", "Fake Out", "Endeavor", "Tailwind"],
     items: ["Focus Sash", "Choice Scarf", "Eject Button"]
+  },
+  Mantine: {
+    ability: "Swift Swim",
+    nature: "Timid",
+    teraType: "Water",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Air Slash", "Blizzard", "Brine", "Protect"],
+    items: ["Leftovers"]
   },
   Skarmory: {
     ability: "Sturdy",
@@ -3657,6 +4617,21 @@ export const MOVESETS = {
     moves: ["Close Combat", "Fake Out", "Wide Guard", "Protect"],
     items: ["Leftovers"]
   },
+  Smoochum: {
+    ability: "Oblivious",
+    nature: "Timid",
+    teraType: "Ice",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Blizzard", "Confusion", "Draining Kiss", "Protect"],
+    items: ["Eviolite"]
+  },
   Elekid: {
     ability: "Vital Spirit",
     nature: "Timid",
@@ -3686,6 +4661,21 @@ export const MOVESETS = {
     },
     moves: ["Fire Blast", "Psychic", "Protect", "Substitute"],
     items: ["Life Orb", "Oran Berry", "Eviolite"]
+  },
+  Miltank: {
+    ability: "Thick Fat",
+    nature: "Jolly",
+    teraType: "Normal",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Bide", "Body Press", "Body Slam", "Protect"],
+    items: ["Leftovers"]
   },
   Blissey: {
     ability: "Natural Cure",
@@ -3836,6 +4826,21 @@ export const MOVESETS = {
     },
     moves: ["Brave Bird", "Sacred Fire", "Protect", "Tailwind"],
     items: ["Clear Amulet", "Leftovers", "Rocky Helmet"]
+  },
+  Celebi: {
+    ability: "Natural Cure",
+    nature: "Timid",
+    teraType: "Psychic",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Ancient Power", "Aura Sphere", "Charge Beam", "Protect"],
+    items: ["Leftovers"]
   },
   Treecko: {
     ability: "Unburden",
@@ -4047,6 +5052,141 @@ export const MOVESETS = {
     moves: ["Play Rough", "Sucker Punch", "Ice Fang", "Howl"],
     items: ["Life Orb", "Black Glasses"]
   },
+  Zigzagoon: {
+    ability: "Pickup",
+    nature: "Timid",
+    teraType: "Normal",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Blizzard", "Charge Beam", "Echoed Voice", "Protect"],
+    items: ["Eviolite"]
+  },
+  "Zigzagoon-Galar": {
+    ability: "Pickup",
+    nature: "Timid",
+    teraType: "Dark",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Blizzard", "Grass Knot", "Hyper Voice", "Protect"],
+    items: ["Eviolite"]
+  },
+  Linoone: {
+    ability: "Pickup",
+    nature: "Jolly",
+    teraType: "Normal",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Body Slam", "Covet", "Dig", "Protect"],
+    items: ["Leftovers"]
+  },
+  "Linoone-Galar": {
+    ability: "Pickup",
+    nature: "Jolly",
+    teraType: "Dark",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Assurance", "Body Press", "Body Slam", "Protect"],
+    items: ["Eviolite"]
+  },
+  Wurmple: {
+    ability: "Shield Dust",
+    nature: "Jolly",
+    teraType: "Bug",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Bug Bite", "Poison Sting", "Tackle", "Protect"],
+    items: ["Eviolite"]
+  },
+  Silcoon: {
+    ability: "Shed Skin",
+    nature: "Jolly",
+    teraType: "Bug",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Bug Bite", "Aerial Ace", "Bite", "Protect"],
+    items: ["Eviolite"]
+  },
+  Beautifly: {
+    ability: "Swarm",
+    nature: "Timid",
+    teraType: "Bug",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Absorb", "Air Cutter", "Bug Buzz", "Protect"],
+    items: ["Leftovers"]
+  },
+  Cascoon: {
+    ability: "Shed Skin",
+    nature: "Jolly",
+    teraType: "Bug",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Bug Bite", "Bug Bite", "Tackle", "Protect"],
+    items: ["Eviolite"]
+  },
+  Dustox: {
+    ability: "Shield Dust",
+    nature: "Timid",
+    teraType: "Bug",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Bug Buzz", "Confusion", "Electroweb", "Protect"],
+    items: ["Leftovers"]
+  },
   Lotad: {
     ability: "Rain Dish",
     nature: "Modest",
@@ -4136,6 +5276,36 @@ export const MOVESETS = {
     },
     moves: ["Swords Dance", "Solar Blade", "Knock Off", "Low Kick"],
     items: ["Life Orb"]
+  },
+  Taillow: {
+    ability: "Guts",
+    nature: "Jolly",
+    teraType: "Normal",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Brave Bird", "Endeavor", "Protect"],
+    items: ["Eviolite"]
+  },
+  Swellow: {
+    ability: "Guts",
+    nature: "Jolly",
+    teraType: "Normal",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Brave Bird", "Endeavor", "Protect"],
+    items: ["Leftovers"]
   },
   Wingull: {
     ability: "Hydration",
@@ -4332,6 +5502,96 @@ export const MOVESETS = {
     moves: ["Double-Edge", "High Horsepower", "Protect", "Sucker Punch"],
     items: ["Life Orb"]
   },
+  Nincada: {
+    ability: "Compound Eyes",
+    nature: "Jolly",
+    teraType: "Bug",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Bide", "Bug Bite", "Protect"],
+    items: ["Eviolite"]
+  },
+  Ninjask: {
+    ability: "Speed Boost",
+    nature: "Jolly",
+    teraType: "Bug",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Acrobatics", "Aerial Ace", "Bug Bite", "Protect"],
+    items: ["Leftovers"]
+  },
+  Shedinja: {
+    ability: "Wonder Guard",
+    nature: "Jolly",
+    teraType: "Bug",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Bug Bite", "Dig", "Protect"],
+    items: ["Leftovers"]
+  },
+  Whismur: {
+    ability: "Soundproof",
+    nature: "Timid",
+    teraType: "Normal",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Blizzard", "Disarming Voice", "Echoed Voice", "Protect"],
+    items: ["Eviolite"]
+  },
+  Loudred: {
+    ability: "Soundproof",
+    nature: "Timid",
+    teraType: "Normal",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Blizzard", "Echoed Voice", "Fire Blast", "Protect"],
+    items: ["Eviolite"]
+  },
+  Exploud: {
+    ability: "Soundproof",
+    nature: "Timid",
+    teraType: "Normal",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Blizzard", "Boomburst", "Echoed Voice", "Protect"],
+    items: ["Leftovers"]
+  },
   Makuhita: {
     ability: "Guts",
     nature: "Brave",
@@ -4392,6 +5652,36 @@ export const MOVESETS = {
     moves: ["Earthquake", "Stone Edge", "Body Press", "Thunder Wave"],
     items: ["Eviolite"]
   },
+  Skitty: {
+    ability: "Cute Charm",
+    nature: "Jolly",
+    teraType: "Normal",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Covet", "Double Slap", "Double-Edge", "Protect"],
+    items: ["Eviolite"]
+  },
+  Delcatty: {
+    ability: "Cute Charm",
+    nature: "Jolly",
+    teraType: "Normal",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Covet", "Double Slap", "Facade", "Protect"],
+    items: ["Leftovers"]
+  },
   Sableye: {
     ability: "Prankster",
     nature: "Calm",
@@ -4451,6 +5741,36 @@ export const MOVESETS = {
     },
     moves: ["Play Rough", "Iron Head", "Sucker Punch", "Protect"],
     items: ["Mawilite"]
+  },
+  Aron: {
+    ability: "Sturdy",
+    nature: "Jolly",
+    teraType: "Steel",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Body Press", "Body Slam", "Protect"],
+    items: ["Eviolite"]
+  },
+  Lairon: {
+    ability: "Sturdy",
+    nature: "Jolly",
+    teraType: "Steel",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Body Press", "Body Slam", "Protect"],
+    items: ["Eviolite"]
   },
   Aggron: {
     ability: "Sturdy",
@@ -4526,6 +5846,21 @@ export const MOVESETS = {
     },
     moves: ["Close Combat", "Zen Headbutt", "Fake Out", "Ice Punch"],
     items: ["Medichamite"]
+  },
+  Electrike: {
+    ability: "Static",
+    nature: "Timid",
+    teraType: "Electric",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Charge Beam", "Discharge", "Electro Ball", "Protect"],
+    items: ["Eviolite"]
   },
   Manectric: {
     ability: "Lightning Rod",
@@ -4617,6 +5952,21 @@ export const MOVESETS = {
     moves: ["Tailwind", "Encore", "Rain Dance", "Sunny Day"],
     items: ["Covert Cloak"]
   },
+  Roselia: {
+    ability: "Natural Cure",
+    nature: "Timid",
+    teraType: "Grass",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Absorb", "Dazzling Gleam", "Energy Ball", "Protect"],
+    items: ["Eviolite"]
+  },
   Gulpin: {
     ability: "Sticky Hold",
     nature: "Sassy",
@@ -4647,6 +5997,21 @@ export const MOVESETS = {
     moves: ["Body Press", "Knock Off", "Acid Armor", "Encore"],
     items: ["Black Sludge", "Leftovers", "Petaya Berry", "Assault Vest"]
   },
+  Carvanha: {
+    ability: "Rough Skin",
+    nature: "Jolly",
+    teraType: "Water",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aqua Jet", "Assurance", "Bite", "Protect"],
+    items: ["Eviolite"]
+  },
   Sharpedo: {
     ability: "Rough Skin",
     nature: "Adamant",
@@ -4676,6 +6041,36 @@ export const MOVESETS = {
     },
     moves: ["Crunch", "Earthquake", "Waterfall", "Protect"],
     items: ["Sharpedonite"]
+  },
+  Wailmer: {
+    ability: "Water Veil",
+    nature: "Timid",
+    teraType: "Water",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Blizzard", "Brine", "Clear Smog", "Protect"],
+    items: ["Eviolite"]
+  },
+  Wailord: {
+    ability: "Water Veil",
+    nature: "Timid",
+    teraType: "Water",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Blizzard", "Brine", "Echoed Voice", "Protect"],
+    items: ["Leftovers"]
   },
   Numel: {
     ability: "Simple",
@@ -4765,6 +6160,21 @@ export const MOVESETS = {
       spe: 0
     },
     moves: ["Psychic Noise", "Rest", "Sleep Talk", "Whirlwind"],
+    items: ["Leftovers"]
+  },
+  Spinda: {
+    ability: "Own Tempo",
+    nature: "Timid",
+    teraType: "Normal",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Dream Eater", "Hidden Power", "Hyper Voice", "Protect"],
     items: ["Leftovers"]
   },
   Trapinch: {
@@ -4917,6 +6327,36 @@ export const MOVESETS = {
     moves: ["Flamethrower", "Sludge Bomb", "Dark Pulse", "Switcheroo"],
     items: ["Choice Scarf"]
   },
+  Lunatone: {
+    ability: "Levitate",
+    nature: "Timid",
+    teraType: "Rock",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Blizzard", "Charge Beam", "Confusion", "Protect"],
+    items: ["Leftovers"]
+  },
+  Solrock: {
+    ability: "Levitate",
+    nature: "Jolly",
+    teraType: "Rock",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Acrobatics", "Body Slam", "Bulldoze", "Protect"],
+    items: ["Leftovers"]
+  },
   Barboach: {
     ability: "Oblivious",
     nature: "Timid",
@@ -4976,6 +6416,96 @@ export const MOVESETS = {
     },
     moves: ["Swords Dance", "Crabhammer", "Knock Off", "Aqua Jet"],
     items: ["Life Orb"]
+  },
+  Baltoy: {
+    ability: "Levitate",
+    nature: "Timid",
+    teraType: "Ground",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Ancient Power", "Charge Beam", "Confusion", "Protect"],
+    items: ["Eviolite"]
+  },
+  Claydol: {
+    ability: "Levitate",
+    nature: "Timid",
+    teraType: "Ground",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Ancient Power", "Charge Beam", "Confusion", "Protect"],
+    items: ["Leftovers"]
+  },
+  Lileep: {
+    ability: "Suction Cups",
+    nature: "Timid",
+    teraType: "Rock",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Acid", "Ancient Power", "Brine", "Protect"],
+    items: ["Eviolite"]
+  },
+  Cradily: {
+    ability: "Suction Cups",
+    nature: "Timid",
+    teraType: "Rock",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Acid", "Ancient Power", "Brine", "Protect"],
+    items: ["Leftovers"]
+  },
+  Anorith: {
+    ability: "Battle Armor",
+    nature: "Jolly",
+    teraType: "Rock",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Aqua Jet", "Body Slam", "Protect"],
+    items: ["Eviolite"]
+  },
+  Armaldo: {
+    ability: "Battle Armor",
+    nature: "Jolly",
+    teraType: "Rock",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Aqua Tail", "Body Slam", "Protect"],
+    items: ["Leftovers"]
   },
   Feebas: {
     ability: "Adaptability",
@@ -5066,6 +6596,21 @@ export const MOVESETS = {
     },
     moves: ["Weather Ball", "Thunderbolt", "Protect", "Power Whip"],
     items: ["Sitrus Berry"]
+  },
+  Kecleon: {
+    ability: "Color Change",
+    nature: "Jolly",
+    teraType: "Normal",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Aqua Tail", "Astonish", "Protect"],
+    items: ["Leftovers"]
   },
   Shuppet: {
     ability: "Cursed Body",
@@ -5217,6 +6762,21 @@ export const MOVESETS = {
     moves: ["Psycho Cut", "Close Combat", "Sucker Punch", "Knock Off"],
     items: ["Absolite"]
   },
+  Wynaut: {
+    ability: "Shadow Tag",
+    nature: "Timid",
+    teraType: "Psychic",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Mirror Coat", "Air Slash", "Dazzling Gleam", "Protect"],
+    items: ["Eviolite"]
+  },
   Snorunt: {
     ability: "Ice Body",
     nature: "Jolly",
@@ -5261,6 +6821,111 @@ export const MOVESETS = {
     },
     moves: ["Earthquake", "Spikes", "Explosion", "Protect"],
     items: ["Glalitite"]
+  },
+  Spheal: {
+    ability: "Thick Fat",
+    nature: "Timid",
+    teraType: "Ice",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aurora Beam", "Blizzard", "Brine", "Protect"],
+    items: ["Eviolite"]
+  },
+  Sealeo: {
+    ability: "Thick Fat",
+    nature: "Timid",
+    teraType: "Ice",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aurora Beam", "Blizzard", "Brine", "Protect"],
+    items: ["Eviolite"]
+  },
+  Walrein: {
+    ability: "Thick Fat",
+    nature: "Timid",
+    teraType: "Ice",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aurora Beam", "Blizzard", "Brine", "Protect"],
+    items: ["Leftovers"]
+  },
+  Clamperl: {
+    ability: "Shell Armor",
+    nature: "Timid",
+    teraType: "Water",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Blizzard", "Brine", "Hidden Power", "Protect"],
+    items: ["Eviolite"]
+  },
+  Huntail: {
+    ability: "Swift Swim",
+    nature: "Jolly",
+    teraType: "Water",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aqua Tail", "Bind", "Bite", "Protect"],
+    items: ["Leftovers"]
+  },
+  Gorebyss: {
+    ability: "Swift Swim",
+    nature: "Timid",
+    teraType: "Water",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Blizzard", "Confusion", "Draining Kiss", "Protect"],
+    items: ["Leftovers"]
+  },
+  Relicanth: {
+    ability: "Swift Swim",
+    nature: "Jolly",
+    teraType: "Water",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aqua Tail", "Body Press", "Body Slam", "Protect"],
+    items: ["Leftovers"]
   },
   Luvdisc: {
     ability: "Swift Swim",
@@ -5772,6 +7437,36 @@ export const MOVESETS = {
     moves: ["Close Combat", "Brave Bird", "Protect", "Roost"],
     items: ["Staraptite"]
   },
+  Bidoof: {
+    ability: "Simple",
+    nature: "Jolly",
+    teraType: "Normal",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aqua Tail", "Covet", "Crunch", "Protect"],
+    items: ["Eviolite"]
+  },
+  Bibarel: {
+    ability: "Simple",
+    nature: "Jolly",
+    teraType: "Normal",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aqua Jet", "Aqua Tail", "Bulldoze", "Protect"],
+    items: ["Leftovers"]
+  },
   Kricketot: {
     ability: "Shed Skin",
     nature: "Jolly",
@@ -5847,6 +7542,21 @@ export const MOVESETS = {
     },
     moves: ["Wild Charge", "Volt Switch", "Snarl", "Protect"]
   },
+  Budew: {
+    ability: "Natural Cure",
+    nature: "Timid",
+    teraType: "Grass",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Absorb", "Dazzling Gleam", "Energy Ball", "Protect"],
+    items: ["Eviolite"]
+  },
   Roserade: {
     ability: "Natural Cure",
     nature: "Modest",
@@ -5920,6 +7630,81 @@ export const MOVESETS = {
       spe: 22
     },
     moves: ["Body Press", "Iron Defense", "Foul Play", "Rest"],
+    items: ["Leftovers"]
+  },
+  Burmy: {
+    ability: "Shed Skin",
+    nature: "Timid",
+    teraType: "Bug",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Electroweb", "Hidden Power", "Snore", "Protect"],
+    items: ["Eviolite"]
+  },
+  Wormadam: {
+    ability: "Anticipation",
+    nature: "Timid",
+    teraType: "Bug",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Bug Buzz", "Confusion", "Dream Eater", "Protect"],
+    items: ["Leftovers"]
+  },
+  "Wormadam-Sandy": {
+    ability: "Anticipation",
+    nature: "Jolly",
+    teraType: "Bug",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Bug Bite", "Bulldoze", "Earthquake", "Protect"],
+    items: ["Leftovers"]
+  },
+  "Wormadam-Trash": {
+    ability: "Anticipation",
+    nature: "Timid",
+    teraType: "Bug",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Bug Buzz", "Confusion", "Dream Eater", "Protect"],
+    items: ["Leftovers"]
+  },
+  Mothim: {
+    ability: "Swarm",
+    nature: "Timid",
+    teraType: "Bug",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Air Slash", "Bug Buzz", "Confusion", "Protect"],
     items: ["Leftovers"]
   },
   Combee: {
@@ -5997,6 +7782,51 @@ export const MOVESETS = {
     moves: ["Wave Crash", "Liquidation", "Aqua Jet", "Ice Spinner"],
     items: ["Heavy-Duty Boots"]
   },
+  Cherubi: {
+    ability: "Chlorophyll",
+    nature: "Timid",
+    teraType: "Grass",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Dazzling Gleam", "Draining Kiss", "Energy Ball", "Protect"],
+    items: ["Eviolite"]
+  },
+  Cherrim: {
+    ability: "Flower Gift",
+    nature: "Timid",
+    teraType: "Grass",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Dazzling Gleam", "Draining Kiss", "Energy Ball", "Protect"],
+    items: ["Leftovers"]
+  },
+  "Cherrim-Sunshine": {
+    ability: "Flower Gift",
+    nature: "Timid",
+    teraType: "Grass",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Dazzling Gleam", "Draining Kiss", "Energy Ball", "Protect"],
+    items: ["Leftovers"]
+  },
   Shellos: {
     ability: "Sticky Hold",
     nature: "Impish",
@@ -6072,6 +7902,21 @@ export const MOVESETS = {
     moves: ["Acrobatics", "Tailwind", "Destiny Bond", "Will-O-Wisp"],
     items: ["Electric Seed"]
   },
+  Buneary: {
+    ability: "Run Away",
+    nature: "Jolly",
+    teraType: "Normal",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Assurance", "Bounce", "Circle Throw", "Protect"],
+    items: ["Eviolite"]
+  },
   Lopunny: {
     ability: "Limber",
     nature: "Jolly",
@@ -6131,6 +7976,36 @@ export const MOVESETS = {
     },
     moves: ["Sucker Punch", "Brave Bird", "U-turn", "Night Slash"],
     items: ["Mirror Herb"]
+  },
+  Glameow: {
+    ability: "Limber",
+    nature: "Jolly",
+    teraType: "Normal",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Assurance", "Bite", "Protect"],
+    items: ["Eviolite"]
+  },
+  Purugly: {
+    ability: "Thick Fat",
+    nature: "Jolly",
+    teraType: "Normal",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Body Slam", "Bulldoze", "Protect"],
+    items: ["Leftovers"]
   },
   Chingling: {
     ability: "Levitate",
@@ -6222,6 +8097,21 @@ export const MOVESETS = {
     moves: ["Earthquake", "Sucker Punch", "Stealth Rock", "Spikes"],
     items: ["Eviolite", "Custap Berry", "Leftovers", "Focus Sash", "Loaded Dice", "Heat Rock", "Heavy-Duty Boots", "Covert Cloak", "Stone Plate", "Assault Vest", "Weakness Policy"]
   },
+  "Mime Jr.": {
+    ability: "Soundproof",
+    nature: "Timid",
+    teraType: "Psychic",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Charge Beam", "Confusion", "Dazzling Gleam", "Protect"],
+    items: ["Eviolite"]
+  },
   Happiny: {
     ability: "Serene Grace",
     nature: "Careful",
@@ -6236,6 +8126,21 @@ export const MOVESETS = {
     },
     moves: ["Zen Headbutt", "Thunder Wave", "Rest", "Sleep Talk"],
     items: ["Eviolite", "King's Rock", "Leftovers", "Oran Berry", "Shell Bell"]
+  },
+  Chatot: {
+    ability: "Keen Eye",
+    nature: "Timid",
+    teraType: "Normal",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Air Cutter", "Boomburst", "Chatter", "Protect"],
+    items: ["Leftovers"]
   },
   Spiritomb: {
     ability: "Infiltrator",
@@ -6402,6 +8307,36 @@ export const MOVESETS = {
     moves: ["Yawn", "Slack Off", "Protect", "Sand Tomb"],
     items: ["Leftovers"]
   },
+  Skorupi: {
+    ability: "Battle Armor",
+    nature: "Jolly",
+    teraType: "Poison",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Aqua Tail", "Assurance", "Protect"],
+    items: ["Eviolite"]
+  },
+  Drapion: {
+    ability: "Battle Armor",
+    nature: "Jolly",
+    teraType: "Poison",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Aqua Tail", "Assurance", "Protect"],
+    items: ["Leftovers"]
+  },
   Croagunk: {
     ability: "Dry Skin",
     nature: "Adamant",
@@ -6430,6 +8365,21 @@ export const MOVESETS = {
       spe: 32
     },
     moves: ["Swords Dance", "Gunk Shot", "Close Combat", "Sucker Punch"],
+    items: ["Leftovers"]
+  },
+  Carnivine: {
+    ability: "Levitate",
+    nature: "Jolly",
+    teraType: "Grass",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Bind", "Bite", "Bug Bite", "Protect"],
     items: ["Leftovers"]
   },
   Finneon: {
@@ -6461,6 +8411,21 @@ export const MOVESETS = {
     },
     moves: ["Ice Beam", "Surf", "Flip Turn", "Encore"],
     items: ["Heavy-Duty Boots", "Leftovers", "Rocky Helmet", "Assault Vest", "Electric Seed"]
+  },
+  Mantyke: {
+    ability: "Swift Swim",
+    nature: "Timid",
+    teraType: "Water",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Air Slash", "Blizzard", "Bubble", "Protect"],
+    items: ["Eviolite"]
   },
   Snover: {
     ability: "Snow Warning",
@@ -6537,6 +8502,21 @@ export const MOVESETS = {
     moves: ["Thunderbolt", "Flash Cannon", "Tera Blast", "Volt Switch"],
     items: ["Choice Specs"]
   },
+  Lickilicky: {
+    ability: "Own Tempo",
+    nature: "Jolly",
+    teraType: "Normal",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aqua Tail", "Bind", "Body Press", "Protect"],
+    items: ["Leftovers"]
+  },
   Rhyperior: {
     ability: "Solid Rock",
     nature: "Brave",
@@ -6551,6 +8531,21 @@ export const MOVESETS = {
     },
     moves: ["Rock Slide", "High Horsepower", "Earthquake", "Protect"],
     items: ["White Herb"]
+  },
+  Tangrowth: {
+    ability: "Chlorophyll",
+    nature: "Timid",
+    teraType: "Grass",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Absorb", "Ancient Power", "Energy Ball", "Protect"],
+    items: ["Leftovers"]
   },
   Electivire: {
     ability: "Motor Drive",
@@ -6581,6 +8576,21 @@ export const MOVESETS = {
     },
     moves: ["Burning Jealousy", "Follow Me", "Protect", "Helping Hand"],
     items: ["Sitrus Berry"]
+  },
+  Togekiss: {
+    ability: "Hustle",
+    nature: "Timid",
+    teraType: "Fairy",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Air Slash", "Ancient Power", "Aura Sphere", "Protect"],
+    items: ["Leftovers"]
   },
   Yanmega: {
     ability: "Speed Boost",
@@ -7377,6 +9387,21 @@ export const MOVESETS = {
     moves: ["Extreme Speed", "Shadow Claw", "Protect", "Swords Dance"],
     items: ["Clear Amulet", "Choice Band", "Life Orb", "Silk Scarf", "Covert Cloak", "Leftovers"]
   },
+  Victini: {
+    ability: "Victory Star",
+    nature: "Timid",
+    teraType: "Psychic",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Charge Beam", "Confusion", "Dazzling Gleam", "Protect"],
+    items: ["Leftovers"]
+  },
   Snivy: {
     ability: "Overgrow",
     nature: "Modest",
@@ -7542,6 +9567,21 @@ export const MOVESETS = {
     moves: ["Ceaseless Edge", "Liquidation", "Swords Dance", "Flip Turn"],
     items: ["Mystic Water"]
   },
+  Patrat: {
+    ability: "Run Away",
+    nature: "Jolly",
+    teraType: "Normal",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aqua Tail", "Assurance", "Bide", "Protect"],
+    items: ["Eviolite"]
+  },
   Watchog: {
     ability: "Keen Eye",
     nature: "Adamant",
@@ -7556,6 +9596,66 @@ export const MOVESETS = {
     },
     moves: ["Crunch", "Close Combat", "Protect", "Knock Off"],
     items: ["Sitrus Berry"]
+  },
+  Lillipup: {
+    ability: "Vital Spirit",
+    nature: "Jolly",
+    teraType: "Normal",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Bite", "Covet", "Protect"],
+    items: ["Eviolite"]
+  },
+  Herdier: {
+    ability: "Intimidate",
+    nature: "Jolly",
+    teraType: "Normal",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Bite", "Covet", "Protect"],
+    items: ["Eviolite"]
+  },
+  Stoutland: {
+    ability: "Intimidate",
+    nature: "Jolly",
+    teraType: "Normal",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Bite", "Covet", "Protect"],
+    items: ["Leftovers"]
+  },
+  Purrloin: {
+    ability: "Limber",
+    nature: "Timid",
+    teraType: "Dark",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Dark Pulse", "Dream Eater", "Echoed Voice", "Protect"],
+    items: ["Eviolite"]
   },
   Liepard: {
     ability: "Limber",
@@ -7572,6 +9672,21 @@ export const MOVESETS = {
     moves: ["Crunch", "Sucker Punch", "Knock Off", "Protect"],
     items: ["Choice Scarf"]
   },
+  Pansage: {
+    ability: "Gluttony",
+    nature: "Timid",
+    teraType: "Grass",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Disarming Voice", "Energy Ball", "Giga Drain", "Protect"],
+    items: ["Eviolite"]
+  },
   Simisage: {
     ability: "Overgrow",
     nature: "Jolly",
@@ -7586,6 +9701,21 @@ export const MOVESETS = {
     },
     moves: ["Solar Blade", "Fake Out", "Taunt", "Bullet Seed"],
     items: ["King's Rock"]
+  },
+  Pansear: {
+    ability: "Gluttony",
+    nature: "Timid",
+    teraType: "Fire",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Belch", "Disarming Voice", "Fire Blast", "Protect"],
+    items: ["Eviolite"]
   },
   Simisear: {
     ability: "Blaze",
@@ -7602,6 +9732,21 @@ export const MOVESETS = {
     moves: ["Flamethrower", "Focus Blast", "Protect", "Psychic"],
     items: ["Choice Scarf"]
   },
+  Panpour: {
+    ability: "Gluttony",
+    nature: "Timid",
+    teraType: "Water",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Blizzard", "Brine", "Disarming Voice", "Protect"],
+    items: ["Eviolite"]
+  },
   Simipour: {
     ability: "Torrent",
     nature: "Timid",
@@ -7617,6 +9762,21 @@ export const MOVESETS = {
     moves: ["Scald", "Flip Turn", "Icy Wind", "Fake Out"],
     items: ["Mystic Water"]
   },
+  Munna: {
+    ability: "Forewarn",
+    nature: "Timid",
+    teraType: "Psychic",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Charge Beam", "Dazzling Gleam", "Dream Eater", "Protect"],
+    items: ["Eviolite"]
+  },
   Musharna: {
     ability: "Forewarn",
     nature: "Sassy",
@@ -7631,6 +9791,51 @@ export const MOVESETS = {
     },
     moves: ["Trick Room", "Psychic", "Moonblast", "Helping Hand"],
     items: ["Sitrus Berry", "Leftovers"]
+  },
+  Pidove: {
+    ability: "Big Pecks",
+    nature: "Jolly",
+    teraType: "Normal",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Dual Wingbeat", "Facade", "Protect"],
+    items: ["Eviolite"]
+  },
+  Tranquill: {
+    ability: "Big Pecks",
+    nature: "Jolly",
+    teraType: "Normal",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Dual Wingbeat", "Facade", "Protect"],
+    items: ["Eviolite"]
+  },
+  Unfezant: {
+    ability: "Big Pecks",
+    nature: "Jolly",
+    teraType: "Normal",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Brave Bird", "Dual Wingbeat", "Protect"],
+    items: ["Leftovers"]
   },
   Blitzle: {
     ability: "Sap Sipper",
@@ -7661,6 +9866,81 @@ export const MOVESETS = {
     },
     moves: ["Electroweb", "Protect", "Taunt", "Eerie Impulse"],
     items: ["Focus Sash", "Choice Band", "Assault Vest", "Shuca Berry", "Air Balloon", "Life Orb", "Covert Cloak"]
+  },
+  Roggenrola: {
+    ability: "Sturdy",
+    nature: "Jolly",
+    teraType: "Rock",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Body Press", "Bulldoze", "Earthquake", "Protect"],
+    items: ["Eviolite"]
+  },
+  Boldore: {
+    ability: "Sturdy",
+    nature: "Jolly",
+    teraType: "Rock",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Body Press", "Bulldoze", "Earthquake", "Protect"],
+    items: ["Eviolite"]
+  },
+  Gigalith: {
+    ability: "Sturdy",
+    nature: "Jolly",
+    teraType: "Rock",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Body Press", "Bulldoze", "Earthquake", "Protect"],
+    items: ["Leftovers"]
+  },
+  Woobat: {
+    ability: "Unaware",
+    nature: "Timid",
+    teraType: "Psychic",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Air Cutter", "Air Slash", "Charge Beam", "Protect"],
+    items: ["Eviolite"]
+  },
+  Swoobat: {
+    ability: "Unaware",
+    nature: "Timid",
+    teraType: "Psychic",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Air Cutter", "Air Slash", "Charge Beam", "Protect"],
+    items: ["Leftovers"]
   },
   Drilbur: {
     ability: "Mold Breaker",
@@ -7782,6 +10062,81 @@ export const MOVESETS = {
     moves: ["Mach Punch", "Drain Punch", "Ice Punch", "Thunder Punch"],
     items: ["Black Belt"]
   },
+  Tympole: {
+    ability: "Swift Swim",
+    nature: "Timid",
+    teraType: "Water",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Acid", "Bubble", "Bubble Beam", "Protect"],
+    items: ["Eviolite"]
+  },
+  Palpitoad: {
+    ability: "Swift Swim",
+    nature: "Timid",
+    teraType: "Water",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Acid", "Bubble", "Bubble Beam", "Protect"],
+    items: ["Eviolite"]
+  },
+  Seismitoad: {
+    ability: "Swift Swim",
+    nature: "Jolly",
+    teraType: "Water",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Bounce", "Brick Break", "Bulldoze", "Protect"],
+    items: ["Leftovers"]
+  },
+  Throh: {
+    ability: "Guts",
+    nature: "Jolly",
+    teraType: "Fighting",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Bide", "Bind", "Body Slam", "Protect"],
+    items: ["Leftovers"]
+  },
+  Sawk: {
+    ability: "Sturdy",
+    nature: "Jolly",
+    teraType: "Fighting",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Bide", "Brick Break", "Bulldoze", "Protect"],
+    items: ["Leftovers"]
+  },
   Sewaddle: {
     ability: "Overcoat",
     nature: "Hardy",
@@ -7826,6 +10181,36 @@ export const MOVESETS = {
     },
     moves: ["Sticky Web", "Knock Off", "Pounce", "Leaf Blade"],
     items: ["Focus Sash"]
+  },
+  Venipede: {
+    ability: "Poison Point",
+    nature: "Jolly",
+    teraType: "Bug",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Bite", "Bug Bite", "Double-Edge", "Protect"],
+    items: ["Eviolite"]
+  },
+  Whirlipede: {
+    ability: "Poison Point",
+    nature: "Jolly",
+    teraType: "Bug",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Bug Bite", "Double-Edge", "Endeavor", "Protect"],
+    items: ["Eviolite"]
   },
   Scolipede: {
     ability: "Poison Point",
@@ -7947,6 +10332,36 @@ export const MOVESETS = {
     moves: ["Flip Turn", "Aqua Jet", "Wave Crash", "Ice Beam"],
     items: ["Choice Specs"]
   },
+  "Basculin-Blue-Striped": {
+    ability: "Rock Head",
+    nature: "Jolly",
+    teraType: "Water",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aqua Jet", "Aqua Tail", "Assurance", "Protect"],
+    items: ["Leftovers"]
+  },
+  "Basculin-White-Striped": {
+    ability: "Rattled",
+    nature: "Jolly",
+    teraType: "Water",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aqua Jet", "Bite", "Crunch", "Protect"],
+    items: ["Eviolite"]
+  },
   Sandile: {
     ability: "Moxie",
     nature: "Jolly",
@@ -7990,6 +10405,141 @@ export const MOVESETS = {
       spe: 32
     },
     moves: ["Stealth Rock", "Knock Off", "Earthquake", "Gunk Shot"],
+    items: ["Leftovers"]
+  },
+  Darumaka: {
+    ability: "Hustle",
+    nature: "Jolly",
+    teraType: "Fire",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Bite", "Brick Break", "Dig", "Protect"],
+    items: ["Eviolite"]
+  },
+  "Darumaka-Galar": {
+    ability: "Hustle",
+    nature: "Jolly",
+    teraType: "Ice",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Avalanche", "Bite", "Brick Break", "Protect"],
+    items: ["Eviolite"]
+  },
+  Darmanitan: {
+    ability: "Sheer Force",
+    nature: "Jolly",
+    teraType: "Fire",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Bite", "Body Press", "Body Slam", "Protect"],
+    items: ["Leftovers"]
+  },
+  "Darmanitan-Galar": {
+    ability: "Gorilla Tactics",
+    nature: "Jolly",
+    teraType: "Ice",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Avalanche", "Bite", "Body Press", "Protect"],
+    items: ["Leftovers"]
+  },
+  "Darmanitan-Galar-Zen": {
+    ability: "Zen Mode",
+    nature: "Jolly",
+    teraType: "Ice",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Bite", "Body Press", "Body Slam", "Protect"],
+    items: ["Leftovers"]
+  },
+  "Darmanitan-Zen": {
+    ability: "Zen Mode",
+    nature: "Timid",
+    teraType: "Fire",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Burning Jealousy", "Ember", "Expanding Force", "Protect"],
+    items: ["Leftovers"]
+  },
+  Maractus: {
+    ability: "Water Absorb",
+    nature: "Timid",
+    teraType: "Grass",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Absorb", "Energy Ball", "Giga Drain", "Protect"],
+    items: ["Leftovers"]
+  },
+  Dwebble: {
+    ability: "Sturdy",
+    nature: "Jolly",
+    teraType: "Bug",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Bug Bite", "Bulldoze", "Protect"],
+    items: ["Eviolite"]
+  },
+  Crustle: {
+    ability: "Sturdy",
+    nature: "Jolly",
+    teraType: "Bug",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Body Press", "Bug Bite", "Protect"],
     items: ["Leftovers"]
   },
   Scraggy: {
@@ -8037,6 +10587,51 @@ export const MOVESETS = {
     moves: ["Drain Punch", "Ice Punch", "Knock Off", "Fake Out"],
     items: ["Scraftinite"]
   },
+  Sigilyph: {
+    ability: "Wonder Skin",
+    nature: "Timid",
+    teraType: "Psychic",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Air Cutter", "Air Slash", "Ancient Power", "Protect"],
+    items: ["Leftovers"]
+  },
+  Yamask: {
+    ability: "Mummy",
+    nature: "Timid",
+    teraType: "Ghost",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Dark Pulse", "Dream Eater", "Energy Ball", "Protect"],
+    items: ["Eviolite"]
+  },
+  "Yamask-Galar": {
+    ability: "Wandering Spirit",
+    nature: "Jolly",
+    teraType: "Ground",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Astonish", "Brutal Swing", "Earthquake", "Protect"],
+    items: ["Eviolite"]
+  },
   Cofagrigus: {
     ability: "Mummy",
     nature: "Modest",
@@ -8051,6 +10646,81 @@ export const MOVESETS = {
     },
     moves: ["Shadow Ball", "Focus Blast", "Protect", "Will-O-Wisp"],
     items: ["Sitrus Berry"]
+  },
+  Tirtouga: {
+    ability: "Solid Rock",
+    nature: "Jolly",
+    teraType: "Water",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aqua Jet", "Aqua Tail", "Bide", "Protect"],
+    items: ["Eviolite"]
+  },
+  Carracosta: {
+    ability: "Solid Rock",
+    nature: "Jolly",
+    teraType: "Water",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aqua Jet", "Aqua Tail", "Bide", "Protect"],
+    items: ["Leftovers"]
+  },
+  Archen: {
+    ability: "Defeatist",
+    nature: "Jolly",
+    teraType: "Rock",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Acrobatics", "Aerial Ace", "Aqua Tail", "Protect"],
+    items: ["Eviolite"]
+  },
+  Archeops: {
+    ability: "Defeatist",
+    nature: "Jolly",
+    teraType: "Rock",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Acrobatics", "Aerial Ace", "Aqua Tail", "Protect"],
+    items: ["Leftovers"]
+  },
+  Trubbish: {
+    ability: "Stench",
+    nature: "Jolly",
+    teraType: "Poison",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Double Slap", "Drain Punch", "Explosion", "Protect"],
+    items: ["Eviolite"]
   },
   Garbodor: {
     ability: "Stench",
@@ -8277,6 +10947,36 @@ export const MOVESETS = {
     moves: ["Surf", "Knock Off", "Defog", "Roost"],
     items: ["Heavy-Duty Boots"]
   },
+  Vanillite: {
+    ability: "Ice Body",
+    nature: "Timid",
+    teraType: "Ice",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Blizzard", "Flash Cannon", "Frost Breath", "Protect"],
+    items: ["Eviolite"]
+  },
+  Vanillish: {
+    ability: "Ice Body",
+    nature: "Timid",
+    teraType: "Ice",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Blizzard", "Flash Cannon", "Frost Breath", "Protect"],
+    items: ["Eviolite"]
+  },
   Vanilluxe: {
     ability: "Snow Warning",
     nature: "Timid",
@@ -8337,6 +11037,36 @@ export const MOVESETS = {
     moves: ["Volt Switch", "Thunderbolt", "Protect", "Air Slash"],
     items: ["Choice Scarf"]
   },
+  Karrablast: {
+    ability: "Swarm",
+    nature: "Jolly",
+    teraType: "Bug",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Bug Bite", "Counter", "Protect"],
+    items: ["Eviolite"]
+  },
+  Escavalier: {
+    ability: "Swarm",
+    nature: "Jolly",
+    teraType: "Bug",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Brutal Swing", "Bug Bite", "Protect"],
+    items: ["Leftovers"]
+  },
   Foongus: {
     ability: "Regenerator",
     nature: "Bold",
@@ -8366,6 +11096,36 @@ export const MOVESETS = {
     },
     moves: ["Sludge Bomb", "Spore", "Rage Powder", "Protect"],
     items: ["Rocky Helmet", "Sitrus Berry"]
+  },
+  Frillish: {
+    ability: "Water Absorb",
+    nature: "Timid",
+    teraType: "Water",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Absorb", "Blizzard", "Brine", "Protect"],
+    items: ["Eviolite"]
+  },
+  Jellicent: {
+    ability: "Water Absorb",
+    nature: "Timid",
+    teraType: "Water",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Absorb", "Blizzard", "Brine", "Protect"],
+    items: ["Leftovers"]
   },
   Alomomola: {
     ability: "Regenerator",
@@ -8411,6 +11171,81 @@ export const MOVESETS = {
     },
     moves: ["Sticky Web", "Thunder", "Bug Buzz", "Thunder Wave"],
     items: ["Focus Sash"]
+  },
+  Ferroseed: {
+    ability: "Iron Barbs",
+    nature: "Jolly",
+    teraType: "Grass",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Assurance", "Bullet Seed", "Endeavor", "Protect"],
+    items: ["Eviolite"]
+  },
+  Ferrothorn: {
+    ability: "Iron Barbs",
+    nature: "Jolly",
+    teraType: "Grass",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Assurance", "Body Press", "Protect"],
+    items: ["Leftovers"]
+  },
+  Klink: {
+    ability: "Plus",
+    nature: "Jolly",
+    teraType: "Steel",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Assurance", "Bind", "Facade", "Protect"],
+    items: ["Eviolite"]
+  },
+  Klang: {
+    ability: "Plus",
+    nature: "Jolly",
+    teraType: "Steel",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Assurance", "Bind", "Facade", "Protect"],
+    items: ["Eviolite"]
+  },
+  Klinklang: {
+    ability: "Plus",
+    nature: "Jolly",
+    teraType: "Steel",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Assurance", "Bind", "Facade", "Protect"],
+    items: ["Leftovers"]
   },
   Tynamo: {
     ability: "Levitate",
@@ -8471,6 +11306,36 @@ export const MOVESETS = {
     },
     moves: ["Close Combat", "Wild Charge", "Crunch", "Protect"],
     items: ["Eelektrossite"]
+  },
+  Elgyem: {
+    ability: "Telepathy",
+    nature: "Timid",
+    teraType: "Psychic",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Charge Beam", "Confusion", "Dark Pulse", "Protect"],
+    items: ["Eviolite"]
+  },
+  Beheeyem: {
+    ability: "Telepathy",
+    nature: "Timid",
+    teraType: "Psychic",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Charge Beam", "Confusion", "Dark Pulse", "Protect"],
+    items: ["Leftovers"]
   },
   Litwick: {
     ability: "Flash Fire",
@@ -8622,6 +11487,36 @@ export const MOVESETS = {
     moves: ["Rapid Spin", "Freeze-Dry", "Recover", "Haze"],
     items: ["Heavy-Duty Boots"]
   },
+  Shelmet: {
+    ability: "Hydration",
+    nature: "Timid",
+    teraType: "Bug",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Absorb", "Acid", "Bug Buzz", "Protect"],
+    items: ["Eviolite"]
+  },
+  Accelgor: {
+    ability: "Hydration",
+    nature: "Timid",
+    teraType: "Bug",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Absorb", "Acid", "Acid Spray", "Protect"],
+    items: ["Leftovers"]
+  },
   Stunfisk: {
     ability: "Static",
     nature: "Adamant",
@@ -8681,6 +11576,21 @@ export const MOVESETS = {
     },
     moves: ["Close Combat", "Fake Out", "Feint", "Wide Guard"],
     items: ["Focus Sash"]
+  },
+  Druddigon: {
+    ability: "Rough Skin",
+    nature: "Jolly",
+    teraType: "Dragon",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Aqua Tail", "Bite", "Protect"],
+    items: ["Leftovers"]
   },
   Golett: {
     ability: "Iron Fist",
@@ -8757,6 +11667,21 @@ export const MOVESETS = {
     moves: ["Swords Dance", "Sucker Punch", "Iron Head", "Throat Chop"],
     items: ["Eviolite"]
   },
+  Bouffalant: {
+    ability: "Reckless",
+    nature: "Jolly",
+    teraType: "Normal",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Assurance", "Body Slam", "Protect"],
+    items: ["Leftovers"]
+  },
   Rufflet: {
     ability: "Sheer Force",
     nature: "Adamant",
@@ -8831,6 +11756,36 @@ export const MOVESETS = {
     },
     moves: ["Foul Play", "Tailwind", "Snarl", "Roost"],
     items: ["Rocky Helmet"]
+  },
+  Heatmor: {
+    ability: "Gluttony",
+    nature: "Timid",
+    teraType: "Fire",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Belch", "Burning Jealousy", "Fire Blast", "Protect"],
+    items: ["Leftovers"]
+  },
+  Durant: {
+    ability: "Swarm",
+    nature: "Jolly",
+    teraType: "Bug",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Beat Up", "Bite", "Protect"],
+    items: ["Leftovers"]
   },
   Deino: {
     ability: "Hustle",
@@ -9132,6 +12087,21 @@ export const MOVESETS = {
     moves: ["Surf", "Aura Sphere", "Vacuum Wave", "Flip Turn"],
     items: ["Heavy-Duty Boots"]
   },
+  "Keldeo-Resolute": {
+    ability: "Justified",
+    nature: "Timid",
+    teraType: "Water",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Air Slash", "Aura Sphere", "Bubble Beam", "Protect"],
+    items: ["Leftovers"]
+  },
   Meloetta: {
     ability: "Serene Grace",
     nature: "Timid",
@@ -9161,6 +12131,81 @@ export const MOVESETS = {
     },
     moves: ["Relic Song", "Close Combat", "U-turn", "Dream Eater"],
     items: ["Focus Sash"]
+  },
+  Genesect: {
+    ability: "Download",
+    nature: "Timid",
+    teraType: "Bug",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Blizzard", "Bug Buzz", "Charge Beam", "Protect"],
+    items: ["Leftovers"]
+  },
+  "Genesect-Burn": {
+    ability: "Download",
+    nature: "Timid",
+    teraType: "Bug",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Blizzard", "Bug Buzz", "Charge Beam", "Protect"],
+    items: ["Leftovers"]
+  },
+  "Genesect-Chill": {
+    ability: "Download",
+    nature: "Timid",
+    teraType: "Bug",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Blizzard", "Bug Buzz", "Charge Beam", "Protect"],
+    items: ["Leftovers"]
+  },
+  "Genesect-Douse": {
+    ability: "Download",
+    nature: "Timid",
+    teraType: "Bug",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Blizzard", "Bug Buzz", "Charge Beam", "Protect"],
+    items: ["Leftovers"]
+  },
+  "Genesect-Shock": {
+    ability: "Download",
+    nature: "Timid",
+    teraType: "Bug",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Blizzard", "Bug Buzz", "Charge Beam", "Protect"],
+    items: ["Leftovers"]
   },
   Chespin: {
     ability: "Bulletproof",
@@ -9327,6 +12372,21 @@ export const MOVESETS = {
     moves: ["Dark Pulse", "Blizzard", "Flip Turn", "Protect"],
     items: ["Greninjite"]
   },
+  "Greninja-Ash": {
+    ability: "Battle Bond",
+    nature: "Timid",
+    teraType: "Water",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Blizzard", "Bubble", "Chilling Water", "Protect"],
+    items: ["Leftovers"]
+  },
   "Greninja-Mega": {
     ability: "Protean",
     nature: "Timid",
@@ -9341,6 +12401,21 @@ export const MOVESETS = {
     },
     moves: ["Dark Pulse", "Blizzard", "Flip Turn", "Protect"],
     items: ["Greninjite"]
+  },
+  Bunnelby: {
+    ability: "Pickup",
+    nature: "Jolly",
+    teraType: "Normal",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Bounce", "Brick Break", "Bulldoze", "Protect"],
+    items: ["Eviolite"]
   },
   Diggersby: {
     ability: "Huge Power",
@@ -9447,37 +12522,7 @@ export const MOVESETS = {
     moves: ["Hurricane", "Sleep Powder", "Rage Powder", "Protect"],
     items: ["Focus Sash", "Choice Scarf"]
   },
-  "Vivillon-Icy Snow": {
-    ability: "Compound Eyes",
-    nature: "Timid",
-    teraType: "",
-    evs: {
-      hp: 2,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Hurricane", "Sleep Powder", "Rage Powder", "Protect"],
-    items: ["Focus Sash", "Choice Scarf"]
-  },
-  "Vivillon-Polar": {
-    ability: "Compound Eyes",
-    nature: "Timid",
-    teraType: "",
-    evs: {
-      hp: 2,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Hurricane", "Sleep Powder", "Rage Powder", "Protect"],
-    items: ["Focus Sash", "Choice Scarf"]
-  },
-  "Vivillon-Tundra": {
+  "Vivillon-Archipelago": {
     ability: "Compound Eyes",
     nature: "Timid",
     teraType: "",
@@ -9507,21 +12552,6 @@ export const MOVESETS = {
     moves: ["Hurricane", "Sleep Powder", "Rage Powder", "Protect"],
     items: ["Focus Sash", "Choice Scarf"]
   },
-  "Vivillon-Garden": {
-    ability: "Compound Eyes",
-    nature: "Timid",
-    teraType: "",
-    evs: {
-      hp: 2,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Hurricane", "Sleep Powder", "Rage Powder", "Protect"],
-    items: ["Focus Sash", "Choice Scarf"]
-  },
   "Vivillon-Elegant": {
     ability: "Compound Eyes",
     nature: "Timid",
@@ -9537,7 +12567,7 @@ export const MOVESETS = {
     moves: ["Hurricane", "Sleep Powder", "Rage Powder", "Protect"],
     items: ["Focus Sash", "Choice Scarf"]
   },
-  "Vivillon-Modern": {
+  "Vivillon-Fancy": {
     ability: "Compound Eyes",
     nature: "Timid",
     teraType: "",
@@ -9552,22 +12582,7 @@ export const MOVESETS = {
     moves: ["Hurricane", "Sleep Powder", "Rage Powder", "Protect"],
     items: ["Focus Sash", "Choice Scarf"]
   },
-  "Vivillon-Marine": {
-    ability: "Compound Eyes",
-    nature: "Timid",
-    teraType: "",
-    evs: {
-      hp: 2,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Hurricane", "Sleep Powder", "Rage Powder", "Protect"],
-    items: ["Focus Sash", "Choice Scarf"]
-  },
-  "Vivillon-Archipelago": {
+  "Vivillon-Garden": {
     ability: "Compound Eyes",
     nature: "Timid",
     teraType: "",
@@ -9597,7 +12612,112 @@ export const MOVESETS = {
     moves: ["Hurricane", "Sleep Powder", "Rage Powder", "Protect"],
     items: ["Focus Sash", "Choice Scarf"]
   },
-  "Vivillon-Sandstorm": {
+  "Vivillon-Icy Snow": {
+    ability: "Compound Eyes",
+    nature: "Timid",
+    teraType: "",
+    evs: {
+      hp: 2,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Hurricane", "Sleep Powder", "Rage Powder", "Protect"],
+    items: ["Focus Sash", "Choice Scarf"]
+  },
+  "Vivillon-Jungle": {
+    ability: "Compound Eyes",
+    nature: "Timid",
+    teraType: "",
+    evs: {
+      hp: 2,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Hurricane", "Sleep Powder", "Rage Powder", "Protect"],
+    items: ["Focus Sash", "Choice Scarf"]
+  },
+  "Vivillon-Marine": {
+    ability: "Compound Eyes",
+    nature: "Timid",
+    teraType: "",
+    evs: {
+      hp: 2,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Hurricane", "Sleep Powder", "Rage Powder", "Protect"],
+    items: ["Focus Sash", "Choice Scarf"]
+  },
+  "Vivillon-Modern": {
+    ability: "Compound Eyes",
+    nature: "Timid",
+    teraType: "",
+    evs: {
+      hp: 2,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Hurricane", "Sleep Powder", "Rage Powder", "Protect"],
+    items: ["Focus Sash", "Choice Scarf"]
+  },
+  "Vivillon-Monsoon": {
+    ability: "Compound Eyes",
+    nature: "Timid",
+    teraType: "",
+    evs: {
+      hp: 2,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Hurricane", "Sleep Powder", "Rage Powder", "Protect"],
+    items: ["Focus Sash", "Choice Scarf"]
+  },
+  "Vivillon-Ocean": {
+    ability: "Compound Eyes",
+    nature: "Timid",
+    teraType: "",
+    evs: {
+      hp: 2,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Hurricane", "Sleep Powder", "Rage Powder", "Protect"],
+    items: ["Focus Sash", "Choice Scarf"]
+  },
+  "Vivillon-Pokeball": {
+    ability: "Compound Eyes",
+    nature: "Timid",
+    teraType: "",
+    evs: {
+      hp: 2,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Hurricane", "Sleep Powder", "Rage Powder", "Protect"],
+    items: ["Focus Sash", "Choice Scarf"]
+  },
+  "Vivillon-Polar": {
     ability: "Compound Eyes",
     nature: "Timid",
     teraType: "",
@@ -9627,7 +12747,7 @@ export const MOVESETS = {
     moves: ["Hurricane", "Sleep Powder", "Rage Powder", "Protect"],
     items: ["Focus Sash", "Choice Scarf"]
   },
-  "Vivillon-Monsoon": {
+  "Vivillon-Sandstorm": {
     ability: "Compound Eyes",
     nature: "Timid",
     teraType: "",
@@ -9672,52 +12792,7 @@ export const MOVESETS = {
     moves: ["Hurricane", "Sleep Powder", "Rage Powder", "Protect"],
     items: ["Focus Sash", "Choice Scarf"]
   },
-  "Vivillon-Ocean": {
-    ability: "Compound Eyes",
-    nature: "Timid",
-    teraType: "",
-    evs: {
-      hp: 2,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Hurricane", "Sleep Powder", "Rage Powder", "Protect"],
-    items: ["Focus Sash", "Choice Scarf"]
-  },
-  "Vivillon-Jungle": {
-    ability: "Compound Eyes",
-    nature: "Timid",
-    teraType: "",
-    evs: {
-      hp: 2,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Hurricane", "Sleep Powder", "Rage Powder", "Protect"],
-    items: ["Focus Sash", "Choice Scarf"]
-  },
-  "Vivillon-Fancy": {
-    ability: "Compound Eyes",
-    nature: "Timid",
-    teraType: "",
-    evs: {
-      hp: 2,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Hurricane", "Sleep Powder", "Rage Powder", "Protect"],
-    items: ["Focus Sash", "Choice Scarf"]
-  },
-  "Vivillon-Pokeball": {
+  "Vivillon-Tundra": {
     ability: "Compound Eyes",
     nature: "Timid",
     teraType: "",
@@ -9882,6 +12957,21 @@ export const MOVESETS = {
     moves: ["Earthquake", "Horn Leech", "Bulk Up", "Milk Drink"],
     items: ["Leftovers", "Assault Vest", "Grassy Seed", "Heavy-Duty Boots", "Rocky Helmet", "Life Orb", "Lum Berry"]
   },
+  Pancham: {
+    ability: "Iron Fist",
+    nature: "Jolly",
+    teraType: "Fighting",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Arm Thrust", "Body Slam", "Protect"],
+    items: ["Eviolite"]
+  },
   Pangoro: {
     ability: "Iron Fist",
     nature: "Adamant",
@@ -9987,6 +13077,36 @@ export const MOVESETS = {
     moves: ["Stored Power", "Charge Beam", "Psych Up", "Rest"],
     items: ["Meowsticite"]
   },
+  Honedge: {
+    ability: "No Guard",
+    nature: "Jolly",
+    teraType: "Steel",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Brick Break", "Brutal Swing", "Protect"],
+    items: ["Eviolite"]
+  },
+  Doublade: {
+    ability: "No Guard",
+    nature: "Jolly",
+    teraType: "Steel",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Brick Break", "Brutal Swing", "Protect"],
+    items: ["Eviolite"]
+  },
   Aegislash: {
     teraType: "",
     ability: "Stance Change",
@@ -10032,6 +13152,21 @@ export const MOVESETS = {
     moves: ["Iron Head", "Shadow Claw", "Protect", "Flash Cannon"],
     items: ["Sitrus Berry"]
   },
+  Spritzee: {
+    ability: "Healer",
+    nature: "Timid",
+    teraType: "Fairy",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Charge Beam", "Dazzling Gleam", "Disarming Voice", "Protect"],
+    items: ["Eviolite"]
+  },
   Aromatisse: {
     ability: "Healer",
     nature: "Modest",
@@ -10046,6 +13181,21 @@ export const MOVESETS = {
     },
     moves: ["Dazzling Gleam", "Moonblast", "Protect", "Ally Switch"],
     items: ["Sitrus Berry"]
+  },
+  Swirlix: {
+    ability: "Sweet Veil",
+    nature: "Timid",
+    teraType: "Fairy",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Dazzling Gleam", "Draining Kiss", "Dream Eater", "Protect"],
+    items: ["Eviolite"]
   },
   Slurpuff: {
     ability: "Sweet Veil",
@@ -10106,6 +13256,21 @@ export const MOVESETS = {
     },
     moves: ["Dark Pulse", "Psychic", "Thunderbolt", "Protect"],
     items: ["Malamarite"]
+  },
+  Binacle: {
+    ability: "Tough Claws",
+    nature: "Jolly",
+    teraType: "Rock",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Assurance", "Beat Up", "Protect"],
+    items: ["Eviolite"]
   },
   Barbaracle: {
     ability: "Tough Claws",
@@ -10212,6 +13377,21 @@ export const MOVESETS = {
     moves: ["Dragon Pulse", "Water Pulse", "Aura Sphere", "U-turn"],
     items: ["Leftovers"]
   },
+  Helioptile: {
+    ability: "Dry Skin",
+    nature: "Timid",
+    teraType: "Electric",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Charge Beam", "Dark Pulse", "Electro Ball", "Protect"],
+    items: ["Eviolite"]
+  },
   Heliolisk: {
     ability: "Solar Power",
     nature: "Modest",
@@ -10227,6 +13407,21 @@ export const MOVESETS = {
     moves: ["Thunderbolt", "Focus Blast", "Volt Switch", "Protect"],
     items: ["Choice Scarf"]
   },
+  Tyrunt: {
+    ability: "Strong Jaw",
+    nature: "Jolly",
+    teraType: "Rock",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Assurance", "Bide", "Protect"],
+    items: ["Eviolite"]
+  },
   Tyrantrum: {
     ability: "Strong Jaw",
     nature: "Adamant",
@@ -10241,6 +13436,21 @@ export const MOVESETS = {
     },
     moves: ["Stone Edge", "Close Combat", "Earthquake", "Protect"],
     items: ["Choice Scarf"]
+  },
+  Amaura: {
+    ability: "Refrigerate",
+    nature: "Timid",
+    teraType: "Rock",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Ancient Power", "Aurora Beam", "Blizzard", "Protect"],
+    items: ["Eviolite"]
   },
   Aurorus: {
     ability: "Refrigerate",
@@ -10452,6 +13662,66 @@ export const MOVESETS = {
     moves: ["Sucker Punch", "Horn Leech", "Trick Room", "Forest's Curse"],
     items: ["Sitrus Berry"]
   },
+  Pumpkaboo: {
+    ability: "Pickup",
+    nature: "Jolly",
+    teraType: "Ghost",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Astonish", "Bullet Seed", "Explosion", "Protect"],
+    items: ["Eviolite"]
+  },
+  "Pumpkaboo-Large": {
+    ability: "Pickup",
+    nature: "Jolly",
+    teraType: "Ghost",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Astonish", "Bullet Seed", "Explosion", "Protect"],
+    items: ["Eviolite"]
+  },
+  "Pumpkaboo-Small": {
+    ability: "Pickup",
+    nature: "Jolly",
+    teraType: "Ghost",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Astonish", "Bullet Seed", "Explosion", "Protect"],
+    items: ["Eviolite"]
+  },
+  "Pumpkaboo-Super": {
+    ability: "Pickup",
+    nature: "Jolly",
+    teraType: "Ghost",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Astonish", "Bullet Seed", "Explosion", "Protect"],
+    items: ["Eviolite"]
+  },
   Gourgeist: {
     ability: "Frisk",
     nature: "Adamant",
@@ -10586,6 +13856,81 @@ export const MOVESETS = {
     },
     moves: ["Draco Meteor", "Air Slash", "Tailwind", "Protect"],
     items: ["Focus Sash"]
+  },
+  Xerneas: {
+    ability: "Fairy Aura",
+    nature: "Timid",
+    teraType: "Fairy",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aurora Beam", "Dazzling Gleam", "Draining Kiss", "Protect"],
+    items: ["Leftovers"]
+  },
+  Yveltal: {
+    ability: "Dark Aura",
+    nature: "Timid",
+    teraType: "Dark",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Air Slash", "Dark Pulse", "Dream Eater", "Protect"],
+    items: ["Leftovers"]
+  },
+  Zygarde: {
+    ability: "Aura Break",
+    nature: "Jolly",
+    teraType: "Dragon",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Bind", "Bite", "Body Slam", "Protect"],
+    items: ["Leftovers"]
+  },
+  "Zygarde-10%": {
+    ability: "Aura Break",
+    nature: "Jolly",
+    teraType: "Dragon",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Bind", "Dig", "Extreme Speed", "Protect"],
+    items: ["Leftovers"]
+  },
+  "Zygarde-Complete": {
+    ability: "Power Construct",
+    nature: "Jolly",
+    teraType: "Dragon",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Bind", "Bite", "Body Slam", "Protect"],
+    items: ["Leftovers"]
   },
   Diancie: {
     ability: "Clear Body",
@@ -11127,6 +14472,36 @@ export const MOVESETS = {
     moves: ["Stone Edge", "Close Combat", "Sucker Punch", "Outrage"],
     items: ["Choice Scarf"]
   },
+  Wishiwashi: {
+    ability: "Schooling",
+    nature: "Timid",
+    teraType: "Water",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Brine", "Hidden Power", "Hydro Pump", "Protect"],
+    items: ["Leftovers"]
+  },
+  "Wishiwashi-School": {
+    ability: "Schooling",
+    nature: "Timid",
+    teraType: "Water",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Brine", "Hidden Power", "Hydro Pump", "Protect"],
+    items: ["Leftovers"]
+  },
   Mareanie: {
     ability: "Regenerator",
     nature: "Bold",
@@ -11247,6 +14622,36 @@ export const MOVESETS = {
     moves: ["Leaf Storm", "Superpower", "Synthesis", "Defog"],
     items: ["Heavy-Duty Boots"]
   },
+  Morelull: {
+    ability: "Illuminate",
+    nature: "Timid",
+    teraType: "Grass",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Absorb", "Dazzling Gleam", "Draining Kiss", "Protect"],
+    items: ["Eviolite"]
+  },
+  Shiinotic: {
+    ability: "Illuminate",
+    nature: "Timid",
+    teraType: "Grass",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Absorb", "Charge Beam", "Dazzling Gleam", "Protect"],
+    items: ["Leftovers"]
+  },
   Salandit: {
     ability: "Corrosion",
     nature: "Timid",
@@ -11276,6 +14681,36 @@ export const MOVESETS = {
     },
     moves: ["Overheat", "Sludge Bomb", "Fake Out", "Fling"],
     items: ["King's Rock"]
+  },
+  Stufful: {
+    ability: "Fluffy",
+    nature: "Jolly",
+    teraType: "Normal",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Bide", "Bind", "Protect"],
+    items: ["Eviolite"]
+  },
+  Bewear: {
+    ability: "Fluffy",
+    nature: "Jolly",
+    teraType: "Normal",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Bide", "Bind", "Protect"],
+    items: ["Leftovers"]
   },
   Bounsweet: {
     ability: "Leaf Guard",
@@ -11367,6 +14802,36 @@ export const MOVESETS = {
     moves: ["Close Combat", "Knock Off", "U-turn", "Earthquake"],
     items: ["Choice Scarf"]
   },
+  Wimpod: {
+    ability: "Wimp Out",
+    nature: "Jolly",
+    teraType: "Bug",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aqua Jet", "Assurance", "Facade", "Protect"],
+    items: ["Eviolite"]
+  },
+  Golisopod: {
+    ability: "Emergency Exit",
+    nature: "Jolly",
+    teraType: "Bug",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Assurance", "Brick Break", "Protect"],
+    items: ["Leftovers"]
+  },
   Sandygast: {
     ability: "Water Compaction",
     nature: "Bold",
@@ -11397,6 +14862,306 @@ export const MOVESETS = {
     moves: ["Stealth Rock", "Scorching Sands", "Shadow Ball", "Shore Up"],
     items: ["Heavy-Duty Boots"]
   },
+  Pyukumuku: {
+    ability: "Innards Out",
+    nature: "Jolly",
+    teraType: "Water",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Bide", "Counter", "Mirror Coat", "Protect"],
+    items: ["Leftovers"]
+  },
+  "Type: Null": {
+    ability: "Battle Armor",
+    nature: "Timid",
+    teraType: "Normal",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Air Slash", "Hidden Power", "Hyper Beam", "Protect"],
+    items: ["Eviolite"]
+  },
+  Silvally: {
+    ability: "RKS System",
+    nature: "Timid",
+    teraType: "Normal",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Air Slash", "Draco Meteor", "Flamethrower", "Protect"],
+    items: ["Leftovers"]
+  },
+  "Silvally-Bug": {
+    ability: "RKS System",
+    nature: "Timid",
+    teraType: "Bug",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Air Slash", "Draco Meteor", "Flamethrower", "Protect"],
+    items: ["Leftovers"]
+  },
+  "Silvally-Dark": {
+    ability: "RKS System",
+    nature: "Timid",
+    teraType: "Dark",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Air Slash", "Draco Meteor", "Flamethrower", "Protect"],
+    items: ["Leftovers"]
+  },
+  "Silvally-Dragon": {
+    ability: "RKS System",
+    nature: "Timid",
+    teraType: "Dragon",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Air Slash", "Draco Meteor", "Flamethrower", "Protect"],
+    items: ["Leftovers"]
+  },
+  "Silvally-Electric": {
+    ability: "RKS System",
+    nature: "Timid",
+    teraType: "Electric",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Air Slash", "Draco Meteor", "Flamethrower", "Protect"],
+    items: ["Leftovers"]
+  },
+  "Silvally-Fairy": {
+    ability: "RKS System",
+    nature: "Timid",
+    teraType: "Fairy",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Air Slash", "Draco Meteor", "Flamethrower", "Protect"],
+    items: ["Leftovers"]
+  },
+  "Silvally-Fighting": {
+    ability: "RKS System",
+    nature: "Timid",
+    teraType: "Fighting",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Air Slash", "Draco Meteor", "Flamethrower", "Protect"],
+    items: ["Leftovers"]
+  },
+  "Silvally-Fire": {
+    ability: "RKS System",
+    nature: "Timid",
+    teraType: "Fire",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Air Slash", "Draco Meteor", "Flamethrower", "Protect"],
+    items: ["Leftovers"]
+  },
+  "Silvally-Flying": {
+    ability: "RKS System",
+    nature: "Timid",
+    teraType: "Flying",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Air Slash", "Draco Meteor", "Flamethrower", "Protect"],
+    items: ["Leftovers"]
+  },
+  "Silvally-Ghost": {
+    ability: "RKS System",
+    nature: "Timid",
+    teraType: "Ghost",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Air Slash", "Draco Meteor", "Flamethrower", "Protect"],
+    items: ["Leftovers"]
+  },
+  "Silvally-Grass": {
+    ability: "RKS System",
+    nature: "Timid",
+    teraType: "Grass",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Air Slash", "Draco Meteor", "Flamethrower", "Protect"],
+    items: ["Leftovers"]
+  },
+  "Silvally-Ground": {
+    ability: "RKS System",
+    nature: "Timid",
+    teraType: "Ground",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Air Slash", "Draco Meteor", "Flamethrower", "Protect"],
+    items: ["Leftovers"]
+  },
+  "Silvally-Ice": {
+    ability: "RKS System",
+    nature: "Timid",
+    teraType: "Ice",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Air Slash", "Draco Meteor", "Flamethrower", "Protect"],
+    items: ["Leftovers"]
+  },
+  "Silvally-Poison": {
+    ability: "RKS System",
+    nature: "Timid",
+    teraType: "Poison",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Air Slash", "Draco Meteor", "Flamethrower", "Protect"],
+    items: ["Leftovers"]
+  },
+  "Silvally-Psychic": {
+    ability: "RKS System",
+    nature: "Timid",
+    teraType: "Psychic",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Air Slash", "Draco Meteor", "Flamethrower", "Protect"],
+    items: ["Leftovers"]
+  },
+  "Silvally-Rock": {
+    ability: "RKS System",
+    nature: "Timid",
+    teraType: "Rock",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Air Slash", "Draco Meteor", "Flamethrower", "Protect"],
+    items: ["Leftovers"]
+  },
+  "Silvally-Steel": {
+    ability: "RKS System",
+    nature: "Timid",
+    teraType: "Steel",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Air Slash", "Draco Meteor", "Flamethrower", "Protect"],
+    items: ["Leftovers"]
+  },
+  "Silvally-Water": {
+    ability: "RKS System",
+    nature: "Timid",
+    teraType: "Water",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Air Slash", "Draco Meteor", "Flamethrower", "Protect"],
+    items: ["Leftovers"]
+  },
   Minior: {
     ability: "Shields Down",
     nature: "Adamant",
@@ -11411,6 +15176,21 @@ export const MOVESETS = {
     },
     moves: ["Shell Smash", "Acrobatics", "Earthquake", "Stone Edge"],
     items: ["White Herb"]
+  },
+  "Minior-Meteor": {
+    ability: "Shields Down",
+    nature: "Timid",
+    teraType: "Rock",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Ancient Power", "Charge Beam", "Dazzling Gleam", "Protect"],
+    items: ["Leftovers"]
   },
   Komala: {
     ability: "Comatose",
@@ -11427,6 +15207,36 @@ export const MOVESETS = {
     moves: ["Rapid Spin", "Knock Off", "U-turn", "Body Slam"],
     items: ["Assault Vest"]
   },
+  Turtonator: {
+    ability: "Shell Armor",
+    nature: "Timid",
+    teraType: "Fire",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Burning Jealousy", "Charge Beam", "Draco Meteor", "Protect"],
+    items: ["Leftovers"]
+  },
+  Togedemaru: {
+    ability: "Iron Barbs",
+    nature: "Jolly",
+    teraType: "Electric",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Assurance", "Bounce", "Covet", "Protect"],
+    items: ["Leftovers"]
+  },
   Mimikyu: {
     ability: "Disguise",
     nature: "Adamant",
@@ -11441,6 +15251,21 @@ export const MOVESETS = {
     },
     moves: ["Play Rough", "Shadow Claw", "Shadow Sneak", "Protect"],
     items: ["White Herb", "Spell Tag", "Mental Herb", "Lum Berry"]
+  },
+  "Mimikyu-Busted": {
+    ability: "Disguise",
+    nature: "Jolly",
+    teraType: "Ghost",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Astonish", "Beat Up", "Covet", "Protect"],
+    items: ["Leftovers"]
   },
   Bruxish: {
     ability: "Dazzling",
@@ -11487,6 +15312,21 @@ export const MOVESETS = {
     moves: ["Hyper Voice", "Flamethrower", "Earth Power", "Protect"],
     items: ["Drampanite"]
   },
+  Dhelmise: {
+    ability: "Steelworker",
+    nature: "Jolly",
+    teraType: "Ghost",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Anchor Shot", "Assurance", "Protect"],
+    items: ["Leftovers"]
+  },
   "Jangmo-o": {
     ability: "Marvel Scale",
     nature: "Modest",
@@ -11531,6 +15371,66 @@ export const MOVESETS = {
     },
     moves: ["Clanging Scales", "Aura Sphere", "Protect", "Clangorous Soul"],
     items: ["Sitrus Berry", "Leftovers", "Haban Berry"]
+  },
+  "Tapu Koko": {
+    ability: "Electric Surge",
+    nature: "Jolly",
+    teraType: "Electric",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Acrobatics", "Aerial Ace", "Assurance", "Protect"],
+    items: ["Leftovers"]
+  },
+  "Tapu Lele": {
+    ability: "Psychic Surge",
+    nature: "Timid",
+    teraType: "Psychic",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Charge Beam", "Confusion", "Dazzling Gleam", "Protect"],
+    items: ["Leftovers"]
+  },
+  "Tapu Bulu": {
+    ability: "Grassy Surge",
+    nature: "Jolly",
+    teraType: "Grass",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Brick Break", "Brutal Swing", "Bullet Seed", "Protect"],
+    items: ["Leftovers"]
+  },
+  "Tapu Fini": {
+    ability: "Misty Surge",
+    nature: "Timid",
+    teraType: "Water",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Blizzard", "Brine", "Dazzling Gleam", "Protect"],
+    items: ["Leftovers"]
   },
   Cosmog: {
     ability: "Unaware",
@@ -11592,6 +15492,111 @@ export const MOVESETS = {
     moves: ["Moongeist Beam", "Moonblast", "Trick Room", "Wide Guard"],
     items: ["Electric Seed", "Power Herb", "Leftovers"]
   },
+  Nihilego: {
+    ability: "Beast Boost",
+    nature: "Timid",
+    teraType: "Rock",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Acid", "Acid Spray", "Charge Beam", "Protect"],
+    items: ["Leftovers"]
+  },
+  Buzzwole: {
+    ability: "Beast Boost",
+    nature: "Jolly",
+    teraType: "Bug",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Body Slam", "Bounce", "Brick Break", "Protect"],
+    items: ["Leftovers"]
+  },
+  Pheromosa: {
+    ability: "Beast Boost",
+    nature: "Timid",
+    teraType: "Bug",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Blizzard", "Bug Buzz", "Echoed Voice", "Protect"],
+    items: ["Leftovers"]
+  },
+  Xurkitree: {
+    ability: "Beast Boost",
+    nature: "Timid",
+    teraType: "Electric",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Charge Beam", "Dazzling Gleam", "Discharge", "Protect"],
+    items: ["Leftovers"]
+  },
+  Celesteela: {
+    ability: "Beast Boost",
+    nature: "Timid",
+    teraType: "Steel",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Absorb", "Air Slash", "Energy Ball", "Protect"],
+    items: ["Leftovers"]
+  },
+  Kartana: {
+    ability: "Beast Boost",
+    nature: "Jolly",
+    teraType: "Grass",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Brick Break", "Cut", "Protect"],
+    items: ["Leftovers"]
+  },
+  Guzzlord: {
+    ability: "Beast Boost",
+    nature: "Jolly",
+    teraType: "Dark",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Bite", "Body Press", "Body Slam", "Protect"],
+    items: ["Leftovers"]
+  },
   Necrozma: {
     ability: "Prism Armor",
     nature: "Jolly",
@@ -11637,6 +15642,21 @@ export const MOVESETS = {
     moves: ["Dragon Dance", "Sunsteel Strike", "Knock Off", "Morning Sun"],
     items: ["Heavy-Duty Boots"]
   },
+  "Necrozma-Ultra": {
+    ability: "Neuroforce",
+    nature: "Timid",
+    teraType: "Psychic",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Moongeist Beam", "Mud Shot", "Round", "Protect"],
+    items: ["Leftovers"]
+  },
   Magearna: {
     ability: "Soul-Heart",
     nature: "Modest",
@@ -11651,6 +15671,141 @@ export const MOVESETS = {
     },
     moves: ["Dazzling Gleam", "Flash Cannon", "Trick Room", "Protect"],
     items: ["Safety Goggles", "Covert Cloak", "Mental Herb", "Fairy Feather", "Life Orb", "Leftovers", "Assault Vest", "Sitrus Berry", "Pixie Plate"]
+  },
+  "Magearna-Original": {
+    ability: "Soul-Heart",
+    nature: "Timid",
+    teraType: "Steel",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aura Sphere", "Aurora Beam", "Charge Beam", "Protect"],
+    items: ["Leftovers"]
+  },
+  Marshadow: {
+    ability: "Technician",
+    nature: "Jolly",
+    teraType: "Fighting",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Acrobatics", "Assurance", "Blaze Kick", "Protect"],
+    items: ["Leftovers"]
+  },
+  Poipole: {
+    ability: "Beast Boost",
+    nature: "Timid",
+    teraType: "Poison",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Acid", "Dragon Pulse", "Echoed Voice", "Protect"],
+    items: ["Eviolite"]
+  },
+  Naganadel: {
+    ability: "Beast Boost",
+    nature: "Timid",
+    teraType: "Poison",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Acid", "Air Cutter", "Air Slash", "Protect"],
+    items: ["Leftovers"]
+  },
+  Stakataka: {
+    ability: "Beast Boost",
+    nature: "Jolly",
+    teraType: "Rock",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Bide", "Bind", "Body Press", "Protect"],
+    items: ["Leftovers"]
+  },
+  Blacephalon: {
+    ability: "Beast Boost",
+    nature: "Timid",
+    teraType: "Fire",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Dark Pulse", "Ember", "Expanding Force", "Protect"],
+    items: ["Leftovers"]
+  },
+  Zeraora: {
+    ability: "Volt Absorb",
+    nature: "Jolly",
+    teraType: "Electric",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Acrobatics", "Aerial Ace", "Assurance", "Protect"],
+    items: ["Leftovers"]
+  },
+  Meltan: {
+    ability: "Magnet Pull",
+    nature: "Jolly",
+    teraType: "Steel",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Facade", "Gyro Ball", "Headbutt", "Protect"],
+    items: ["Leftovers"]
+  },
+  Melmetal: {
+    ability: "Iron Fist",
+    nature: "Jolly",
+    teraType: "Steel",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Body Press", "Body Slam", "Brick Break", "Protect"],
+    items: ["Leftovers"]
   },
   Grookey: {
     ability: "Grassy Surge",
@@ -11862,6 +16017,141 @@ export const MOVESETS = {
     moves: ["Brave Bird", "Roost", "Tailwind", "Bulk Up"],
     items: ["Leftovers", "Occa Berry", "Sitrus Berry"]
   },
+  Blipbug: {
+    ability: "Swarm",
+    nature: "Timid",
+    teraType: "Bug",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Infestation", "Struggle Bug", "Earth Power", "Protect"],
+    items: ["Eviolite"]
+  },
+  Dottler: {
+    ability: "Swarm",
+    nature: "Timid",
+    teraType: "Bug",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Bug Buzz", "Confusion", "Energy Ball", "Protect"],
+    items: ["Eviolite"]
+  },
+  Orbeetle: {
+    ability: "Swarm",
+    nature: "Timid",
+    teraType: "Bug",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Bug Buzz", "Confusion", "Energy Ball", "Protect"],
+    items: ["Leftovers"]
+  },
+  Nickit: {
+    ability: "Run Away",
+    nature: "Timid",
+    teraType: "Dark",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Mud Shot", "Round", "Snarl", "Protect"],
+    items: ["Eviolite"]
+  },
+  Thievul: {
+    ability: "Run Away",
+    nature: "Timid",
+    teraType: "Dark",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Burning Jealousy", "Dark Pulse", "Grass Knot", "Protect"],
+    items: ["Leftovers"]
+  },
+  Gossifleur: {
+    ability: "Cotton Down",
+    nature: "Timid",
+    teraType: "Grass",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Energy Ball", "Giga Drain", "Grass Knot", "Protect"],
+    items: ["Eviolite"]
+  },
+  Eldegoss: {
+    ability: "Cotton Down",
+    nature: "Timid",
+    teraType: "Grass",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Energy Ball", "Giga Drain", "Grass Knot", "Protect"],
+    items: ["Leftovers"]
+  },
+  Wooloo: {
+    ability: "Fluffy",
+    nature: "Timid",
+    teraType: "Normal",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Electro Ball", "Round", "Snore", "Protect"],
+    items: ["Eviolite"]
+  },
+  Dubwool: {
+    ability: "Fluffy",
+    nature: "Jolly",
+    teraType: "Normal",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Body Press", "Body Slam", "Bounce", "Protect"],
+    items: ["Leftovers"]
+  },
   Chewtle: {
     ability: "Strong Jaw",
     nature: "Jolly",
@@ -11891,6 +16181,36 @@ export const MOVESETS = {
     },
     moves: ["Shell Smash", "Liquidation", "Stone Edge", "Crunch"],
     items: ["White Herb"]
+  },
+  Yamper: {
+    ability: "Ball Fetch",
+    nature: "Jolly",
+    teraType: "Electric",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Bite", "Crunch", "Dig", "Protect"],
+    items: ["Eviolite"]
+  },
+  Boltund: {
+    ability: "Strong Jaw",
+    nature: "Timid",
+    teraType: "Electric",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Electro Ball", "Hyper Beam", "Hyper Voice", "Protect"],
+    items: ["Leftovers"]
   },
   Rolycoly: {
     ability: "Steam Engine",
@@ -12102,6 +16422,66 @@ export const MOVESETS = {
     moves: ["Overdrive", "Sludge Bomb", "Boomburst", "Volt Switch"],
     items: ["Choice Specs"]
   },
+  Sizzlipede: {
+    ability: "Flash Fire",
+    nature: "Jolly",
+    teraType: "Fire",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Bite", "Brutal Swing", "Bug Bite", "Protect"],
+    items: ["Eviolite"]
+  },
+  Centiskorch: {
+    ability: "Flash Fire",
+    nature: "Jolly",
+    teraType: "Fire",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Bite", "Brutal Swing", "Bug Bite", "Protect"],
+    items: ["Leftovers"]
+  },
+  Clobbopus: {
+    ability: "Limber",
+    nature: "Jolly",
+    teraType: "Fighting",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Bind", "Body Slam", "Brick Break", "Protect"],
+    items: ["Eviolite"]
+  },
+  Grapploct: {
+    ability: "Limber",
+    nature: "Jolly",
+    teraType: "Fighting",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Bind", "Body Slam", "Brick Break", "Protect"],
+    items: ["Leftovers"]
+  },
   Sinistea: {
     ability: "Weak Armor",
     nature: "Modest",
@@ -12252,6 +16632,21 @@ export const MOVESETS = {
     moves: ["Spirit Break", "Reflect", "Light Screen", "Parting Shot"],
     items: ["Light Clay", "Roseli Berry"]
   },
+  Obstagoon: {
+    ability: "Reckless",
+    nature: "Jolly",
+    teraType: "Dark",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Assurance", "Body Press", "Body Slam", "Protect"],
+    items: ["Leftovers"]
+  },
   Perrserker: {
     ability: "Tough Claws",
     nature: "Adamant",
@@ -12266,6 +16661,36 @@ export const MOVESETS = {
     },
     moves: ["Stealth Rock", "Iron Head", "Knock Off", "U-turn"],
     items: ["Heavy-Duty Boots"]
+  },
+  Cursola: {
+    ability: "Weak Armor",
+    nature: "Timid",
+    teraType: "Ghost",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Ancient Power", "Blizzard", "Brine", "Protect"],
+    items: ["Leftovers"]
+  },
+  "Sirfetch’d": {
+    ability: "Steadfast",
+    nature: "Jolly",
+    teraType: "Fighting",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Assurance", "Body Slam", "Brave Bird", "Protect"],
+    items: ["Leftovers"]
   },
   "Mr. Rime": {
     ability: "Screen Cleaner",
@@ -12537,6 +16962,66 @@ export const MOVESETS = {
     moves: ["Stealth Rock", "Iron Head", "Knock Off", "Whirlwind"],
     items: ["Leftovers"]
   },
+  Dracozolt: {
+    ability: "Volt Absorb",
+    nature: "Jolly",
+    teraType: "Electric",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Body Slam", "Bolt Beak", "Protect"],
+    items: ["Leftovers"]
+  },
+  Arctozolt: {
+    ability: "Volt Absorb",
+    nature: "Jolly",
+    teraType: "Electric",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Avalanche", "Body Slam", "Bolt Beak", "Protect"],
+    items: ["Leftovers"]
+  },
+  Dracovish: {
+    ability: "Water Absorb",
+    nature: "Jolly",
+    teraType: "Water",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Bite", "Body Slam", "Brutal Swing", "Protect"],
+    items: ["Leftovers"]
+  },
+  Arctovish: {
+    ability: "Water Absorb",
+    nature: "Jolly",
+    teraType: "Water",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Avalanche", "Bite", "Body Slam", "Protect"],
+    items: ["Leftovers"]
+  },
   Duraludon: {
     ability: "Light Metal",
     nature: "Modest",
@@ -12672,6 +17157,21 @@ export const MOVESETS = {
     moves: ["Dynamax Cannon", "Sludge Bomb", "Shadow Ball", "Toxic Spikes"],
     items: ["Covert Cloak", "Power Herb", "Life Orb", "Leftovers"]
   },
+  "Eternatus-Eternamax": {
+    ability: "Pressure",
+    nature: "Timid",
+    teraType: "Poison",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Draco Meteor", "Dragon Pulse", "Dynamax Cannon", "Protect"],
+    items: ["Leftovers"]
+  },
   Kubfu: {
     ability: "Inner Focus",
     nature: "Adamant",
@@ -12730,6 +17230,21 @@ export const MOVESETS = {
       spe: 32
     },
     moves: ["Swords Dance", "Knock Off", "Power Whip", "Jungle Healing"],
+    items: ["Leftovers"]
+  },
+  "Zarude-Dada": {
+    ability: "Leaf Guard",
+    nature: "Jolly",
+    teraType: "Dark",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Acrobatics", "Aerial Ace", "Assurance", "Protect"],
     items: ["Leftovers"]
   },
   Regieleki: {
@@ -14757,6 +19272,21 @@ export const MOVESETS = {
     moves: ["Leaf Storm", "Scald", "Shadow Ball", "Giga Drain"],
     items: ["Choice Scarf", "Eviolite"]
   },
+  "Poltchageist-Artisan": {
+    ability: "Hospitality",
+    nature: "Timid",
+    teraType: "Grass",
+    evs: {
+      hp: 4,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Absorb", "Energy Ball", "Giga Drain", "Protect"],
+    items: ["Eviolite"]
+  },
   Sinistcha: {
     ability: "Hospitality",
     nature: "Bold",
@@ -15041,4536 +19571,6 @@ export const MOVESETS = {
     },
     moves: ["Malignant Chain", "Shadow Ball", "Protect", "Poison Gas"],
     items: ["Leftovers", "Rocky Helmet", "Black Sludge", "Sitrus Berry", "Wide Lens"]
-  },
-  Accelgor: {
-    ability: "Hydration",
-    nature: "Timid",
-    teraType: "Bug",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Absorb", "Acid", "Acid Spray", "Protect"],
-    items: ["Leftovers"]
-  },
-  Amaura: {
-    ability: "Refrigerate",
-    nature: "Timid",
-    teraType: "Rock",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Ancient Power", "Aurora Beam", "Blizzard", "Protect"],
-    items: ["Eviolite"]
-  },
-  Anorith: {
-    ability: "Battle Armor",
-    nature: "Jolly",
-    teraType: "Rock",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Aqua Jet", "Body Slam", "Protect"],
-    items: ["Eviolite"]
-  },
-  Archen: {
-    ability: "Defeatist",
-    nature: "Jolly",
-    teraType: "Rock",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Acrobatics", "Aerial Ace", "Aqua Tail", "Protect"],
-    items: ["Eviolite"]
-  },
-  Archeops: {
-    ability: "Defeatist",
-    nature: "Jolly",
-    teraType: "Rock",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Acrobatics", "Aerial Ace", "Aqua Tail", "Protect"],
-    items: ["Leftovers"]
-  },
-  Arctovish: {
-    ability: "Water Absorb",
-    nature: "Jolly",
-    teraType: "Water",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Avalanche", "Bite", "Body Slam", "Protect"],
-    items: ["Leftovers"]
-  },
-  Arctozolt: {
-    ability: "Volt Absorb",
-    nature: "Jolly",
-    teraType: "Electric",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Avalanche", "Body Slam", "Bolt Beak", "Protect"],
-    items: ["Leftovers"]
-  },
-  Armaldo: {
-    ability: "Battle Armor",
-    nature: "Jolly",
-    teraType: "Rock",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Aqua Tail", "Body Slam", "Protect"],
-    items: ["Leftovers"]
-  },
-  Aron: {
-    ability: "Sturdy",
-    nature: "Jolly",
-    teraType: "Steel",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Body Press", "Body Slam", "Protect"],
-    items: ["Eviolite"]
-  },
-  Baltoy: {
-    ability: "Levitate",
-    nature: "Timid",
-    teraType: "Ground",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Ancient Power", "Charge Beam", "Confusion", "Protect"],
-    items: ["Eviolite"]
-  },
-  "Basculin-Blue-Striped": {
-    ability: "Rock Head",
-    nature: "Jolly",
-    teraType: "Water",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aqua Jet", "Aqua Tail", "Assurance", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Basculin-White-Striped": {
-    ability: "Rattled",
-    nature: "Jolly",
-    teraType: "Water",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aqua Jet", "Bite", "Crunch", "Protect"],
-    items: ["Eviolite"]
-  },
-  Beautifly: {
-    ability: "Swarm",
-    nature: "Timid",
-    teraType: "Bug",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Absorb", "Air Cutter", "Bug Buzz", "Protect"],
-    items: ["Leftovers"]
-  },
-  Beheeyem: {
-    ability: "Telepathy",
-    nature: "Timid",
-    teraType: "Psychic",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Charge Beam", "Confusion", "Dark Pulse", "Protect"],
-    items: ["Leftovers"]
-  },
-  Bewear: {
-    ability: "Fluffy",
-    nature: "Jolly",
-    teraType: "Normal",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Bide", "Bind", "Protect"],
-    items: ["Leftovers"]
-  },
-  Bibarel: {
-    ability: "Simple",
-    nature: "Jolly",
-    teraType: "Normal",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aqua Jet", "Aqua Tail", "Bulldoze", "Protect"],
-    items: ["Leftovers"]
-  },
-  Bidoof: {
-    ability: "Simple",
-    nature: "Jolly",
-    teraType: "Normal",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aqua Tail", "Covet", "Crunch", "Protect"],
-    items: ["Eviolite"]
-  },
-  Binacle: {
-    ability: "Tough Claws",
-    nature: "Jolly",
-    teraType: "Rock",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Assurance", "Beat Up", "Protect"],
-    items: ["Eviolite"]
-  },
-  Blacephalon: {
-    ability: "Beast Boost",
-    nature: "Timid",
-    teraType: "Fire",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Dark Pulse", "Ember", "Expanding Force", "Protect"],
-    items: ["Leftovers"]
-  },
-  Blipbug: {
-    ability: "Swarm",
-    nature: "Timid",
-    teraType: "Bug",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Infestation", "Struggle Bug", "Earth Power", "Protect"],
-    items: ["Eviolite"]
-  },
-  Boldore: {
-    ability: "Sturdy",
-    nature: "Jolly",
-    teraType: "Rock",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Body Press", "Bulldoze", "Earthquake", "Protect"],
-    items: ["Eviolite"]
-  },
-  Boltund: {
-    ability: "Strong Jaw",
-    nature: "Timid",
-    teraType: "Electric",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Electro Ball", "Hyper Beam", "Hyper Voice", "Protect"],
-    items: ["Leftovers"]
-  },
-  Bouffalant: {
-    ability: "Reckless",
-    nature: "Jolly",
-    teraType: "Normal",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Assurance", "Body Slam", "Protect"],
-    items: ["Leftovers"]
-  },
-  Budew: {
-    ability: "Natural Cure",
-    nature: "Timid",
-    teraType: "Grass",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Absorb", "Dazzling Gleam", "Energy Ball", "Protect"],
-    items: ["Eviolite"]
-  },
-  Buneary: {
-    ability: "Run Away",
-    nature: "Jolly",
-    teraType: "Normal",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Assurance", "Bounce", "Circle Throw", "Protect"],
-    items: ["Eviolite"]
-  },
-  Bunnelby: {
-    ability: "Pickup",
-    nature: "Jolly",
-    teraType: "Normal",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Bounce", "Brick Break", "Bulldoze", "Protect"],
-    items: ["Eviolite"]
-  },
-  Burmy: {
-    ability: "Shed Skin",
-    nature: "Timid",
-    teraType: "Bug",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Electroweb", "Hidden Power", "Snore", "Protect"],
-    items: ["Eviolite"]
-  },
-  Butterfree: {
-    ability: "Compound Eyes",
-    nature: "Timid",
-    teraType: "Bug",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Air Slash", "Bug Buzz", "Confusion", "Protect"],
-    items: ["Leftovers"]
-  },
-  Buzzwole: {
-    ability: "Beast Boost",
-    nature: "Jolly",
-    teraType: "Bug",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Body Slam", "Bounce", "Brick Break", "Protect"],
-    items: ["Leftovers"]
-  },
-  Carnivine: {
-    ability: "Levitate",
-    nature: "Jolly",
-    teraType: "Grass",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Bind", "Bite", "Bug Bite", "Protect"],
-    items: ["Leftovers"]
-  },
-  Carracosta: {
-    ability: "Solid Rock",
-    nature: "Jolly",
-    teraType: "Water",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aqua Jet", "Aqua Tail", "Bide", "Protect"],
-    items: ["Leftovers"]
-  },
-  Carvanha: {
-    ability: "Rough Skin",
-    nature: "Jolly",
-    teraType: "Water",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aqua Jet", "Assurance", "Bite", "Protect"],
-    items: ["Eviolite"]
-  },
-  Cascoon: {
-    ability: "Shed Skin",
-    nature: "Jolly",
-    teraType: "Bug",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Bug Bite", "Bug Bite", "Tackle", "Protect"],
-    items: ["Eviolite"]
-  },
-  Caterpie: {
-    ability: "Shield Dust",
-    nature: "Jolly",
-    teraType: "Bug",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Bug Bite", "Tackle", "Aerial Ace", "Protect"],
-    items: ["Eviolite"]
-  },
-  Celebi: {
-    ability: "Natural Cure",
-    nature: "Timid",
-    teraType: "Psychic",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Ancient Power", "Aura Sphere", "Charge Beam", "Protect"],
-    items: ["Leftovers"]
-  },
-  Celesteela: {
-    ability: "Beast Boost",
-    nature: "Timid",
-    teraType: "Steel",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Absorb", "Air Slash", "Energy Ball", "Protect"],
-    items: ["Leftovers"]
-  },
-  Centiskorch: {
-    ability: "Flash Fire",
-    nature: "Jolly",
-    teraType: "Fire",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Bite", "Brutal Swing", "Bug Bite", "Protect"],
-    items: ["Leftovers"]
-  },
-  Chatot: {
-    ability: "Keen Eye",
-    nature: "Timid",
-    teraType: "Normal",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Air Cutter", "Boomburst", "Chatter", "Protect"],
-    items: ["Leftovers"]
-  },
-  Cherrim: {
-    ability: "Flower Gift",
-    nature: "Timid",
-    teraType: "Grass",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Dazzling Gleam", "Draining Kiss", "Energy Ball", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Cherrim-Sunshine": {
-    ability: "Flower Gift",
-    nature: "Timid",
-    teraType: "Grass",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Dazzling Gleam", "Draining Kiss", "Energy Ball", "Protect"],
-    items: ["Leftovers"]
-  },
-  Cherubi: {
-    ability: "Chlorophyll",
-    nature: "Timid",
-    teraType: "Grass",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Dazzling Gleam", "Draining Kiss", "Energy Ball", "Protect"],
-    items: ["Eviolite"]
-  },
-  Clamperl: {
-    ability: "Shell Armor",
-    nature: "Timid",
-    teraType: "Water",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Blizzard", "Brine", "Hidden Power", "Protect"],
-    items: ["Eviolite"]
-  },
-  Claydol: {
-    ability: "Levitate",
-    nature: "Timid",
-    teraType: "Ground",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Ancient Power", "Charge Beam", "Confusion", "Protect"],
-    items: ["Leftovers"]
-  },
-  Clobbopus: {
-    ability: "Limber",
-    nature: "Jolly",
-    teraType: "Fighting",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Bind", "Body Slam", "Brick Break", "Protect"],
-    items: ["Eviolite"]
-  },
-  Corsola: {
-    ability: "Hustle",
-    nature: "Timid",
-    teraType: "Water",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Ancient Power", "Blizzard", "Brine", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Corsola-Galar": {
-    ability: "Weak Armor",
-    nature: "Timid",
-    teraType: "Ghost",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Ancient Power", "Blizzard", "Brine", "Protect"],
-    items: ["Eviolite"]
-  },
-  Cradily: {
-    ability: "Suction Cups",
-    nature: "Timid",
-    teraType: "Rock",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Acid", "Ancient Power", "Brine", "Protect"],
-    items: ["Leftovers"]
-  },
-  Crobat: {
-    ability: "Inner Focus",
-    nature: "Jolly",
-    teraType: "Poison",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Acrobatics", "Aerial Ace", "Assurance", "Protect"],
-    items: ["Leftovers"]
-  },
-  Crustle: {
-    ability: "Sturdy",
-    nature: "Jolly",
-    teraType: "Bug",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Body Press", "Bug Bite", "Protect"],
-    items: ["Leftovers"]
-  },
-  Cubone: {
-    ability: "Rock Head",
-    nature: "Jolly",
-    teraType: "Ground",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Body Slam", "Bone Club", "Protect"],
-    items: ["Eviolite"]
-  },
-  Cursola: {
-    ability: "Weak Armor",
-    nature: "Timid",
-    teraType: "Ghost",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Ancient Power", "Blizzard", "Brine", "Protect"],
-    items: ["Leftovers"]
-  },
-  Darmanitan: {
-    ability: "Sheer Force",
-    nature: "Jolly",
-    teraType: "Fire",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Bite", "Body Press", "Body Slam", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Darmanitan-Galar": {
-    ability: "Gorilla Tactics",
-    nature: "Jolly",
-    teraType: "Ice",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Avalanche", "Bite", "Body Press", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Darmanitan-Galar-Zen": {
-    ability: "Zen Mode",
-    nature: "Jolly",
-    teraType: "Ice",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Bite", "Body Press", "Body Slam", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Darmanitan-Zen": {
-    ability: "Zen Mode",
-    nature: "Timid",
-    teraType: "Fire",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Burning Jealousy", "Ember", "Expanding Force", "Protect"],
-    items: ["Leftovers"]
-  },
-  Darumaka: {
-    ability: "Hustle",
-    nature: "Jolly",
-    teraType: "Fire",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Bite", "Brick Break", "Dig", "Protect"],
-    items: ["Eviolite"]
-  },
-  "Darumaka-Galar": {
-    ability: "Hustle",
-    nature: "Jolly",
-    teraType: "Ice",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Avalanche", "Bite", "Brick Break", "Protect"],
-    items: ["Eviolite"]
-  },
-  Delcatty: {
-    ability: "Cute Charm",
-    nature: "Jolly",
-    teraType: "Normal",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Covet", "Double Slap", "Facade", "Protect"],
-    items: ["Leftovers"]
-  },
-  Dhelmise: {
-    ability: "Steelworker",
-    nature: "Jolly",
-    teraType: "Ghost",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Anchor Shot", "Assurance", "Protect"],
-    items: ["Leftovers"]
-  },
-  Dottler: {
-    ability: "Swarm",
-    nature: "Timid",
-    teraType: "Bug",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Bug Buzz", "Confusion", "Energy Ball", "Protect"],
-    items: ["Eviolite"]
-  },
-  Doublade: {
-    ability: "No Guard",
-    nature: "Jolly",
-    teraType: "Steel",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Brick Break", "Brutal Swing", "Protect"],
-    items: ["Eviolite"]
-  },
-  Dracovish: {
-    ability: "Water Absorb",
-    nature: "Jolly",
-    teraType: "Water",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Bite", "Body Slam", "Brutal Swing", "Protect"],
-    items: ["Leftovers"]
-  },
-  Dracozolt: {
-    ability: "Volt Absorb",
-    nature: "Jolly",
-    teraType: "Electric",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Body Slam", "Bolt Beak", "Protect"],
-    items: ["Leftovers"]
-  },
-  Drapion: {
-    ability: "Battle Armor",
-    nature: "Jolly",
-    teraType: "Poison",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Aqua Tail", "Assurance", "Protect"],
-    items: ["Leftovers"]
-  },
-  Druddigon: {
-    ability: "Rough Skin",
-    nature: "Jolly",
-    teraType: "Dragon",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Aqua Tail", "Bite", "Protect"],
-    items: ["Leftovers"]
-  },
-  Dubwool: {
-    ability: "Fluffy",
-    nature: "Jolly",
-    teraType: "Normal",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Body Press", "Body Slam", "Bounce", "Protect"],
-    items: ["Leftovers"]
-  },
-  Durant: {
-    ability: "Swarm",
-    nature: "Jolly",
-    teraType: "Bug",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Beat Up", "Bite", "Protect"],
-    items: ["Leftovers"]
-  },
-  Dustox: {
-    ability: "Shield Dust",
-    nature: "Timid",
-    teraType: "Bug",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Bug Buzz", "Confusion", "Electroweb", "Protect"],
-    items: ["Leftovers"]
-  },
-  Dwebble: {
-    ability: "Sturdy",
-    nature: "Jolly",
-    teraType: "Bug",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Bug Bite", "Bulldoze", "Protect"],
-    items: ["Eviolite"]
-  },
-  Eldegoss: {
-    ability: "Cotton Down",
-    nature: "Timid",
-    teraType: "Grass",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Energy Ball", "Giga Drain", "Grass Knot", "Protect"],
-    items: ["Leftovers"]
-  },
-  Electrike: {
-    ability: "Static",
-    nature: "Timid",
-    teraType: "Electric",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Charge Beam", "Discharge", "Electro Ball", "Protect"],
-    items: ["Eviolite"]
-  },
-  Elgyem: {
-    ability: "Telepathy",
-    nature: "Timid",
-    teraType: "Psychic",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Charge Beam", "Confusion", "Dark Pulse", "Protect"],
-    items: ["Eviolite"]
-  },
-  Escavalier: {
-    ability: "Swarm",
-    nature: "Jolly",
-    teraType: "Bug",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Brutal Swing", "Bug Bite", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Eternatus-Eternamax": {
-    ability: "Pressure",
-    nature: "Timid",
-    teraType: "Poison",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Draco Meteor", "Dragon Pulse", "Dynamax Cannon", "Protect"],
-    items: ["Leftovers"]
-  },
-  Exploud: {
-    ability: "Soundproof",
-    nature: "Timid",
-    teraType: "Normal",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Blizzard", "Boomburst", "Echoed Voice", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Farfetch’d": {
-    ability: "Keen Eye",
-    nature: "Jolly",
-    teraType: "Normal",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Acrobatics", "Aerial Ace", "Body Slam", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Farfetch’d-Galar": {
-    ability: "Steadfast",
-    nature: "Jolly",
-    teraType: "Fighting",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Assurance", "Body Slam", "Brave Bird", "Protect"],
-    items: ["Eviolite"]
-  },
-  Fearow: {
-    ability: "Keen Eye",
-    nature: "Jolly",
-    teraType: "Normal",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Assurance", "Drill Peck", "Protect"],
-    items: ["Leftovers"]
-  },
-  Ferroseed: {
-    ability: "Iron Barbs",
-    nature: "Jolly",
-    teraType: "Grass",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Assurance", "Bullet Seed", "Endeavor", "Protect"],
-    items: ["Eviolite"]
-  },
-  Ferrothorn: {
-    ability: "Iron Barbs",
-    nature: "Jolly",
-    teraType: "Grass",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Assurance", "Body Press", "Protect"],
-    items: ["Leftovers"]
-  },
-  Frillish: {
-    ability: "Water Absorb",
-    nature: "Timid",
-    teraType: "Water",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Absorb", "Blizzard", "Brine", "Protect"],
-    items: ["Eviolite"]
-  },
-  Genesect: {
-    ability: "Download",
-    nature: "Timid",
-    teraType: "Bug",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Blizzard", "Bug Buzz", "Charge Beam", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Genesect-Burn": {
-    ability: "Download",
-    nature: "Timid",
-    teraType: "Bug",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Blizzard", "Bug Buzz", "Charge Beam", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Genesect-Chill": {
-    ability: "Download",
-    nature: "Timid",
-    teraType: "Bug",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Blizzard", "Bug Buzz", "Charge Beam", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Genesect-Douse": {
-    ability: "Download",
-    nature: "Timid",
-    teraType: "Bug",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Blizzard", "Bug Buzz", "Charge Beam", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Genesect-Shock": {
-    ability: "Download",
-    nature: "Timid",
-    teraType: "Bug",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Blizzard", "Bug Buzz", "Charge Beam", "Protect"],
-    items: ["Leftovers"]
-  },
-  Gigalith: {
-    ability: "Sturdy",
-    nature: "Jolly",
-    teraType: "Rock",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Body Press", "Bulldoze", "Earthquake", "Protect"],
-    items: ["Leftovers"]
-  },
-  Glameow: {
-    ability: "Limber",
-    nature: "Jolly",
-    teraType: "Normal",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Assurance", "Bite", "Protect"],
-    items: ["Eviolite"]
-  },
-  Golbat: {
-    ability: "Inner Focus",
-    nature: "Jolly",
-    teraType: "Poison",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Acrobatics", "Aerial Ace", "Assurance", "Protect"],
-    items: ["Eviolite"]
-  },
-  Goldeen: {
-    ability: "Swift Swim",
-    nature: "Jolly",
-    teraType: "Water",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aqua Tail", "Body Slam", "Bounce", "Protect"],
-    items: ["Eviolite"]
-  },
-  Golisopod: {
-    ability: "Emergency Exit",
-    nature: "Jolly",
-    teraType: "Bug",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Assurance", "Brick Break", "Protect"],
-    items: ["Leftovers"]
-  },
-  Gorebyss: {
-    ability: "Swift Swim",
-    nature: "Timid",
-    teraType: "Water",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Blizzard", "Confusion", "Draining Kiss", "Protect"],
-    items: ["Leftovers"]
-  },
-  Gossifleur: {
-    ability: "Cotton Down",
-    nature: "Timid",
-    teraType: "Grass",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Energy Ball", "Giga Drain", "Grass Knot", "Protect"],
-    items: ["Eviolite"]
-  },
-  Grapploct: {
-    ability: "Limber",
-    nature: "Jolly",
-    teraType: "Fighting",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Bind", "Body Slam", "Brick Break", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Greninja-Ash": {
-    ability: "Battle Bond",
-    nature: "Timid",
-    teraType: "Water",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Blizzard", "Bubble", "Chilling Water", "Protect"],
-    items: ["Leftovers"]
-  },
-  Guzzlord: {
-    ability: "Beast Boost",
-    nature: "Jolly",
-    teraType: "Dark",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Bite", "Body Press", "Body Slam", "Protect"],
-    items: ["Leftovers"]
-  },
-  Heatmor: {
-    ability: "Gluttony",
-    nature: "Timid",
-    teraType: "Fire",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Belch", "Burning Jealousy", "Fire Blast", "Protect"],
-    items: ["Leftovers"]
-  },
-  Helioptile: {
-    ability: "Dry Skin",
-    nature: "Timid",
-    teraType: "Electric",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Charge Beam", "Dark Pulse", "Electro Ball", "Protect"],
-    items: ["Eviolite"]
-  },
-  Herdier: {
-    ability: "Intimidate",
-    nature: "Jolly",
-    teraType: "Normal",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Bite", "Covet", "Protect"],
-    items: ["Eviolite"]
-  },
-  Honedge: {
-    ability: "No Guard",
-    nature: "Jolly",
-    teraType: "Steel",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Brick Break", "Brutal Swing", "Protect"],
-    items: ["Eviolite"]
-  },
-  Huntail: {
-    ability: "Swift Swim",
-    nature: "Jolly",
-    teraType: "Water",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aqua Tail", "Bind", "Bite", "Protect"],
-    items: ["Leftovers"]
-  },
-  Jellicent: {
-    ability: "Water Absorb",
-    nature: "Timid",
-    teraType: "Water",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Absorb", "Blizzard", "Brine", "Protect"],
-    items: ["Leftovers"]
-  },
-  Jynx: {
-    ability: "Oblivious",
-    nature: "Timid",
-    teraType: "Ice",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Blizzard", "Confusion", "Draining Kiss", "Protect"],
-    items: ["Leftovers"]
-  },
-  Kabuto: {
-    ability: "Swift Swim",
-    nature: "Jolly",
-    teraType: "Rock",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Aqua Jet", "Body Slam", "Protect"],
-    items: ["Eviolite"]
-  },
-  Kabutops: {
-    ability: "Swift Swim",
-    nature: "Jolly",
-    teraType: "Rock",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Aqua Jet", "Aqua Tail", "Protect"],
-    items: ["Leftovers"]
-  },
-  Kadabra: {
-    ability: "Synchronize",
-    nature: "Timid",
-    teraType: "Psychic",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Charge Beam", "Confusion", "Dazzling Gleam", "Protect"],
-    items: ["Eviolite"]
-  },
-  Kakuna: {
-    ability: "Shed Skin",
-    nature: "Timid",
-    teraType: "Bug",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Electroweb", "Acid Spray", "Bug Buzz", "Protect"],
-    items: ["Eviolite"]
-  },
-  Karrablast: {
-    ability: "Swarm",
-    nature: "Jolly",
-    teraType: "Bug",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Bug Bite", "Counter", "Protect"],
-    items: ["Eviolite"]
-  },
-  Kartana: {
-    ability: "Beast Boost",
-    nature: "Jolly",
-    teraType: "Grass",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Brick Break", "Cut", "Protect"],
-    items: ["Leftovers"]
-  },
-  Kecleon: {
-    ability: "Color Change",
-    nature: "Jolly",
-    teraType: "Normal",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Aqua Tail", "Astonish", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Keldeo-Resolute": {
-    ability: "Justified",
-    nature: "Timid",
-    teraType: "Water",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Air Slash", "Aura Sphere", "Bubble Beam", "Protect"],
-    items: ["Leftovers"]
-  },
-  Kingler: {
-    ability: "Hyper Cutter",
-    nature: "Jolly",
-    teraType: "Water",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Body Slam", "Brick Break", "Brutal Swing", "Protect"],
-    items: ["Leftovers"]
-  },
-  Klang: {
-    ability: "Plus",
-    nature: "Jolly",
-    teraType: "Steel",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Assurance", "Bind", "Facade", "Protect"],
-    items: ["Eviolite"]
-  },
-  Klink: {
-    ability: "Plus",
-    nature: "Jolly",
-    teraType: "Steel",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Assurance", "Bind", "Facade", "Protect"],
-    items: ["Eviolite"]
-  },
-  Klinklang: {
-    ability: "Plus",
-    nature: "Jolly",
-    teraType: "Steel",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Assurance", "Bind", "Facade", "Protect"],
-    items: ["Leftovers"]
-  },
-  Krabby: {
-    ability: "Hyper Cutter",
-    nature: "Jolly",
-    teraType: "Water",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Bide", "Body Slam", "Brick Break", "Protect"],
-    items: ["Eviolite"]
-  },
-  Lairon: {
-    ability: "Sturdy",
-    nature: "Jolly",
-    teraType: "Steel",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Body Press", "Body Slam", "Protect"],
-    items: ["Eviolite"]
-  },
-  Ledian: {
-    ability: "Swarm",
-    nature: "Timid",
-    teraType: "Bug",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Air Slash", "Bug Buzz", "Focus Blast", "Protect"],
-    items: ["Leftovers"]
-  },
-  Ledyba: {
-    ability: "Swarm",
-    nature: "Timid",
-    teraType: "Bug",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Air Slash", "Bug Buzz", "Giga Drain", "Protect"],
-    items: ["Eviolite"]
-  },
-  Lickilicky: {
-    ability: "Own Tempo",
-    nature: "Jolly",
-    teraType: "Normal",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aqua Tail", "Bind", "Body Press", "Protect"],
-    items: ["Leftovers"]
-  },
-  Lickitung: {
-    ability: "Own Tempo",
-    nature: "Timid",
-    teraType: "Normal",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Acid", "Belch", "Blizzard", "Protect"],
-    items: ["Eviolite"]
-  },
-  Lileep: {
-    ability: "Suction Cups",
-    nature: "Timid",
-    teraType: "Rock",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Acid", "Ancient Power", "Brine", "Protect"],
-    items: ["Eviolite"]
-  },
-  Lillipup: {
-    ability: "Vital Spirit",
-    nature: "Jolly",
-    teraType: "Normal",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Bite", "Covet", "Protect"],
-    items: ["Eviolite"]
-  },
-  Linoone: {
-    ability: "Pickup",
-    nature: "Jolly",
-    teraType: "Normal",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Body Slam", "Covet", "Dig", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Linoone-Galar": {
-    ability: "Pickup",
-    nature: "Jolly",
-    teraType: "Dark",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Assurance", "Body Press", "Body Slam", "Protect"],
-    items: ["Eviolite"]
-  },
-  Loudred: {
-    ability: "Soundproof",
-    nature: "Timid",
-    teraType: "Normal",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Blizzard", "Echoed Voice", "Fire Blast", "Protect"],
-    items: ["Eviolite"]
-  },
-  Lunatone: {
-    ability: "Levitate",
-    nature: "Timid",
-    teraType: "Rock",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Blizzard", "Charge Beam", "Confusion", "Protect"],
-    items: ["Leftovers"]
-  },
-  Machoke: {
-    ability: "Guts",
-    nature: "Jolly",
-    teraType: "Fighting",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Bide", "Body Slam", "Brick Break", "Protect"],
-    items: ["Eviolite"]
-  },
-  Machop: {
-    ability: "Guts",
-    nature: "Jolly",
-    teraType: "Fighting",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Bide", "Body Slam", "Brick Break", "Protect"],
-    items: ["Eviolite"]
-  },
-  "Magearna-Original": {
-    ability: "Soul-Heart",
-    nature: "Timid",
-    teraType: "Steel",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aura Sphere", "Aurora Beam", "Charge Beam", "Protect"],
-    items: ["Leftovers"]
-  },
-  Mantine: {
-    ability: "Swift Swim",
-    nature: "Timid",
-    teraType: "Water",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Air Slash", "Blizzard", "Brine", "Protect"],
-    items: ["Leftovers"]
-  },
-  Mantyke: {
-    ability: "Swift Swim",
-    nature: "Timid",
-    teraType: "Water",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Air Slash", "Blizzard", "Bubble", "Protect"],
-    items: ["Eviolite"]
-  },
-  Maractus: {
-    ability: "Water Absorb",
-    nature: "Timid",
-    teraType: "Grass",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Absorb", "Energy Ball", "Giga Drain", "Protect"],
-    items: ["Leftovers"]
-  },
-  Marowak: {
-    ability: "Rock Head",
-    nature: "Jolly",
-    teraType: "Ground",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Body Slam", "Bone Club", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Marowak-Alola": {
-    ability: "Cursed Body",
-    nature: "Jolly",
-    teraType: "Fire",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Body Slam", "Bone Club", "Protect"],
-    items: ["Leftovers"]
-  },
-  Marshadow: {
-    ability: "Technician",
-    nature: "Jolly",
-    teraType: "Fighting",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Acrobatics", "Assurance", "Blaze Kick", "Protect"],
-    items: ["Leftovers"]
-  },
-  Melmetal: {
-    ability: "Iron Fist",
-    nature: "Jolly",
-    teraType: "Steel",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Body Press", "Body Slam", "Brick Break", "Protect"],
-    items: ["Leftovers"]
-  },
-  Meltan: {
-    ability: "Magnet Pull",
-    nature: "Jolly",
-    teraType: "Steel",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Facade", "Gyro Ball", "Headbutt", "Protect"],
-    items: ["Leftovers"]
-  },
-  Metapod: {
-    ability: "Shed Skin",
-    nature: "Timid",
-    teraType: "Bug",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Electroweb", "Belch", "Blizzard", "Protect"],
-    items: ["Eviolite"]
-  },
-  Miltank: {
-    ability: "Thick Fat",
-    nature: "Jolly",
-    teraType: "Normal",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Bide", "Body Press", "Body Slam", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Mime Jr.": {
-    ability: "Soundproof",
-    nature: "Timid",
-    teraType: "Psychic",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Charge Beam", "Confusion", "Dazzling Gleam", "Protect"],
-    items: ["Eviolite"]
-  },
-  "Mimikyu-Busted": {
-    ability: "Disguise",
-    nature: "Jolly",
-    teraType: "Ghost",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Astonish", "Beat Up", "Covet", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Minior-Meteor": {
-    ability: "Shields Down",
-    nature: "Timid",
-    teraType: "Rock",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Ancient Power", "Charge Beam", "Dazzling Gleam", "Protect"],
-    items: ["Leftovers"]
-  },
-  Morelull: {
-    ability: "Illuminate",
-    nature: "Timid",
-    teraType: "Grass",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Absorb", "Dazzling Gleam", "Draining Kiss", "Protect"],
-    items: ["Eviolite"]
-  },
-  Mothim: {
-    ability: "Swarm",
-    nature: "Timid",
-    teraType: "Bug",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Air Slash", "Bug Buzz", "Confusion", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Mr. Mime": {
-    ability: "Soundproof",
-    nature: "Timid",
-    teraType: "Psychic",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Charge Beam", "Confusion", "Dazzling Gleam", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Mr. Mime-Galar": {
-    ability: "Vital Spirit",
-    nature: "Timid",
-    teraType: "Ice",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Blizzard", "Confusion", "Dazzling Gleam", "Protect"],
-    items: ["Eviolite"]
-  },
-  Munna: {
-    ability: "Forewarn",
-    nature: "Timid",
-    teraType: "Psychic",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Charge Beam", "Dazzling Gleam", "Dream Eater", "Protect"],
-    items: ["Eviolite"]
-  },
-  Naganadel: {
-    ability: "Beast Boost",
-    nature: "Timid",
-    teraType: "Poison",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Acid", "Air Cutter", "Air Slash", "Protect"],
-    items: ["Leftovers"]
-  },
-  Natu: {
-    ability: "Synchronize",
-    nature: "Timid",
-    teraType: "Psychic",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Air Slash", "Dazzling Gleam", "Dream Eater", "Protect"],
-    items: ["Eviolite"]
-  },
-  "Necrozma-Ultra": {
-    ability: "Neuroforce",
-    nature: "Timid",
-    teraType: "Psychic",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Moongeist Beam", "Mud Shot", "Round", "Protect"],
-    items: ["Leftovers"]
-  },
-  Nickit: {
-    ability: "Run Away",
-    nature: "Timid",
-    teraType: "Dark",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Mud Shot", "Round", "Snarl", "Protect"],
-    items: ["Eviolite"]
-  },
-  Nidoking: {
-    ability: "Poison Point",
-    nature: "Jolly",
-    teraType: "Poison",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aqua Tail", "Avalanche", "Beat Up", "Protect"],
-    items: ["Leftovers"]
-  },
-  Nidoqueen: {
-    ability: "Poison Point",
-    nature: "Jolly",
-    teraType: "Poison",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Aqua Tail", "Avalanche", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Nidoran-F": {
-    ability: "Poison Point",
-    nature: "Jolly",
-    teraType: "Poison",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Beat Up", "Bite", "Protect"],
-    items: ["Eviolite"]
-  },
-  "Nidoran-M": {
-    ability: "Poison Point",
-    nature: "Jolly",
-    teraType: "Poison",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Beat Up", "Body Slam", "Chip Away", "Protect"],
-    items: ["Eviolite"]
-  },
-  Nidorina: {
-    ability: "Poison Point",
-    nature: "Jolly",
-    teraType: "Poison",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Beat Up", "Bite", "Protect"],
-    items: ["Eviolite"]
-  },
-  Nidorino: {
-    ability: "Poison Point",
-    nature: "Jolly",
-    teraType: "Poison",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Beat Up", "Body Slam", "Dig", "Protect"],
-    items: ["Eviolite"]
-  },
-  Nihilego: {
-    ability: "Beast Boost",
-    nature: "Timid",
-    teraType: "Rock",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Acid", "Acid Spray", "Charge Beam", "Protect"],
-    items: ["Leftovers"]
-  },
-  Nincada: {
-    ability: "Compound Eyes",
-    nature: "Jolly",
-    teraType: "Bug",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Bide", "Bug Bite", "Protect"],
-    items: ["Eviolite"]
-  },
-  Ninjask: {
-    ability: "Speed Boost",
-    nature: "Jolly",
-    teraType: "Bug",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Acrobatics", "Aerial Ace", "Bug Bite", "Protect"],
-    items: ["Leftovers"]
-  },
-  Obstagoon: {
-    ability: "Reckless",
-    nature: "Jolly",
-    teraType: "Dark",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Assurance", "Body Press", "Body Slam", "Protect"],
-    items: ["Leftovers"]
-  },
-  Octillery: {
-    ability: "Suction Cups",
-    nature: "Timid",
-    teraType: "Water",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aurora Beam", "Blizzard", "Brine", "Protect"],
-    items: ["Leftovers"]
-  },
-  Omanyte: {
-    ability: "Swift Swim",
-    nature: "Timid",
-    teraType: "Rock",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Ancient Power", "Aurora Beam", "Blizzard", "Protect"],
-    items: ["Eviolite"]
-  },
-  Omastar: {
-    ability: "Swift Swim",
-    nature: "Timid",
-    teraType: "Rock",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Ancient Power", "Blizzard", "Brine", "Protect"],
-    items: ["Leftovers"]
-  },
-  Onix: {
-    ability: "Rock Head",
-    nature: "Jolly",
-    teraType: "Rock",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Bind", "Body Press", "Body Slam", "Protect"],
-    items: ["Eviolite"]
-  },
-  Orbeetle: {
-    ability: "Swarm",
-    nature: "Timid",
-    teraType: "Bug",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Bug Buzz", "Confusion", "Energy Ball", "Protect"],
-    items: ["Leftovers"]
-  },
-  Palpitoad: {
-    ability: "Swift Swim",
-    nature: "Timid",
-    teraType: "Water",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Acid", "Bubble", "Bubble Beam", "Protect"],
-    items: ["Eviolite"]
-  },
-  Pancham: {
-    ability: "Iron Fist",
-    nature: "Jolly",
-    teraType: "Fighting",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Arm Thrust", "Body Slam", "Protect"],
-    items: ["Eviolite"]
-  },
-  Panpour: {
-    ability: "Gluttony",
-    nature: "Timid",
-    teraType: "Water",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Blizzard", "Brine", "Disarming Voice", "Protect"],
-    items: ["Eviolite"]
-  },
-  Pansage: {
-    ability: "Gluttony",
-    nature: "Timid",
-    teraType: "Grass",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Disarming Voice", "Energy Ball", "Giga Drain", "Protect"],
-    items: ["Eviolite"]
-  },
-  Pansear: {
-    ability: "Gluttony",
-    nature: "Timid",
-    teraType: "Fire",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Belch", "Disarming Voice", "Fire Blast", "Protect"],
-    items: ["Eviolite"]
-  },
-  Paras: {
-    ability: "Effect Spore",
-    nature: "Jolly",
-    teraType: "Bug",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Brick Break", "Bug Bite", "Protect"],
-    items: ["Eviolite"]
-  },
-  Parasect: {
-    ability: "Effect Spore",
-    nature: "Jolly",
-    teraType: "Bug",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Brick Break", "Bug Bite", "Protect"],
-    items: ["Leftovers"]
-  },
-  Patrat: {
-    ability: "Run Away",
-    nature: "Jolly",
-    teraType: "Normal",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aqua Tail", "Assurance", "Bide", "Protect"],
-    items: ["Eviolite"]
-  },
-  Pheromosa: {
-    ability: "Beast Boost",
-    nature: "Timid",
-    teraType: "Bug",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Blizzard", "Bug Buzz", "Echoed Voice", "Protect"],
-    items: ["Leftovers"]
-  },
-  Pidgeotto: {
-    ability: "Keen Eye",
-    nature: "Jolly",
-    teraType: "Normal",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Facade", "Fly", "Protect"],
-    items: ["Eviolite"]
-  },
-  Pidgey: {
-    ability: "Keen Eye",
-    nature: "Jolly",
-    teraType: "Normal",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Brave Bird", "Facade", "Protect"],
-    items: ["Eviolite"]
-  },
-  Pidove: {
-    ability: "Big Pecks",
-    nature: "Jolly",
-    teraType: "Normal",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Dual Wingbeat", "Facade", "Protect"],
-    items: ["Eviolite"]
-  },
-  Poipole: {
-    ability: "Beast Boost",
-    nature: "Timid",
-    teraType: "Poison",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Acid", "Dragon Pulse", "Echoed Voice", "Protect"],
-    items: ["Eviolite"]
-  },
-  "Poltchageist-Artisan": {
-    ability: "Hospitality",
-    nature: "Timid",
-    teraType: "Grass",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Absorb", "Energy Ball", "Giga Drain", "Protect"],
-    items: ["Eviolite"]
-  },
-  Ponyta: {
-    ability: "Run Away",
-    nature: "Jolly",
-    teraType: "Fire",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Body Slam", "Bounce", "Double Kick", "Protect"],
-    items: ["Eviolite"]
-  },
-  "Ponyta-Galar": {
-    ability: "Run Away",
-    nature: "Jolly",
-    teraType: "Psychic",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Body Slam", "Bounce", "Double Kick", "Protect"],
-    items: ["Eviolite"]
-  },
-  Pumpkaboo: {
-    ability: "Pickup",
-    nature: "Jolly",
-    teraType: "Ghost",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Astonish", "Bullet Seed", "Explosion", "Protect"],
-    items: ["Eviolite"]
-  },
-  "Pumpkaboo-Large": {
-    ability: "Pickup",
-    nature: "Jolly",
-    teraType: "Ghost",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Astonish", "Bullet Seed", "Explosion", "Protect"],
-    items: ["Eviolite"]
-  },
-  "Pumpkaboo-Small": {
-    ability: "Pickup",
-    nature: "Jolly",
-    teraType: "Ghost",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Astonish", "Bullet Seed", "Explosion", "Protect"],
-    items: ["Eviolite"]
-  },
-  "Pumpkaboo-Super": {
-    ability: "Pickup",
-    nature: "Jolly",
-    teraType: "Ghost",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Astonish", "Bullet Seed", "Explosion", "Protect"],
-    items: ["Eviolite"]
-  },
-  Purrloin: {
-    ability: "Limber",
-    nature: "Timid",
-    teraType: "Dark",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Dark Pulse", "Dream Eater", "Echoed Voice", "Protect"],
-    items: ["Eviolite"]
-  },
-  Purugly: {
-    ability: "Thick Fat",
-    nature: "Jolly",
-    teraType: "Normal",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Body Slam", "Bulldoze", "Protect"],
-    items: ["Leftovers"]
-  },
-  Pyukumuku: {
-    ability: "Innards Out",
-    nature: "Jolly",
-    teraType: "Water",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Bide", "Counter", "Mirror Coat", "Protect"],
-    items: ["Leftovers"]
-  },
-  Rapidash: {
-    ability: "Run Away",
-    nature: "Jolly",
-    teraType: "Fire",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Body Slam", "Bounce", "Double Kick", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Rapidash-Galar": {
-    ability: "Run Away",
-    nature: "Jolly",
-    teraType: "Psychic",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Body Slam", "Bounce", "Drill Run", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Raticate-Alola": {
-    ability: "Gluttony",
-    nature: "Jolly",
-    teraType: "Dark",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Assurance", "Bite", "Counter", "Protect"],
-    items: ["Leftovers"]
-  },
-  Rattata: {
-    ability: "Run Away",
-    nature: "Jolly",
-    teraType: "Normal",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Assurance", "Bite", "Counter", "Protect"],
-    items: ["Eviolite"]
-  },
-  "Rattata-Alola": {
-    ability: "Gluttony",
-    nature: "Jolly",
-    teraType: "Dark",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Assurance", "Bite", "Counter", "Protect"],
-    items: ["Eviolite"]
-  },
-  Relicanth: {
-    ability: "Swift Swim",
-    nature: "Jolly",
-    teraType: "Water",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aqua Tail", "Body Press", "Body Slam", "Protect"],
-    items: ["Leftovers"]
-  },
-  Remoraid: {
-    ability: "Hustle",
-    nature: "Timid",
-    teraType: "Water",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Acid Spray", "Aurora Beam", "Blizzard", "Protect"],
-    items: ["Eviolite"]
-  },
-  Roggenrola: {
-    ability: "Sturdy",
-    nature: "Jolly",
-    teraType: "Rock",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Body Press", "Bulldoze", "Earthquake", "Protect"],
-    items: ["Eviolite"]
-  },
-  Roselia: {
-    ability: "Natural Cure",
-    nature: "Timid",
-    teraType: "Grass",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Absorb", "Dazzling Gleam", "Energy Ball", "Protect"],
-    items: ["Eviolite"]
-  },
-  Sawk: {
-    ability: "Sturdy",
-    nature: "Jolly",
-    teraType: "Fighting",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Bide", "Brick Break", "Bulldoze", "Protect"],
-    items: ["Leftovers"]
-  },
-  Seaking: {
-    ability: "Swift Swim",
-    nature: "Jolly",
-    teraType: "Water",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aqua Tail", "Body Slam", "Bounce", "Protect"],
-    items: ["Leftovers"]
-  },
-  Sealeo: {
-    ability: "Thick Fat",
-    nature: "Timid",
-    teraType: "Ice",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aurora Beam", "Blizzard", "Brine", "Protect"],
-    items: ["Eviolite"]
-  },
-  Seismitoad: {
-    ability: "Swift Swim",
-    nature: "Jolly",
-    teraType: "Water",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Bounce", "Brick Break", "Bulldoze", "Protect"],
-    items: ["Leftovers"]
-  },
-  Shedinja: {
-    ability: "Wonder Guard",
-    nature: "Jolly",
-    teraType: "Bug",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Bug Bite", "Dig", "Protect"],
-    items: ["Leftovers"]
-  },
-  Shelmet: {
-    ability: "Hydration",
-    nature: "Timid",
-    teraType: "Bug",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Absorb", "Acid", "Bug Buzz", "Protect"],
-    items: ["Eviolite"]
-  },
-  Shiinotic: {
-    ability: "Illuminate",
-    nature: "Timid",
-    teraType: "Grass",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Absorb", "Charge Beam", "Dazzling Gleam", "Protect"],
-    items: ["Leftovers"]
-  },
-  Shuckle: {
-    ability: "Sturdy",
-    nature: "Timid",
-    teraType: "Bug",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Acid", "Earth Power", "Final Gambit", "Protect"],
-    items: ["Leftovers"]
-  },
-  Sigilyph: {
-    ability: "Wonder Skin",
-    nature: "Timid",
-    teraType: "Psychic",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Air Cutter", "Air Slash", "Ancient Power", "Protect"],
-    items: ["Leftovers"]
-  },
-  Silcoon: {
-    ability: "Shed Skin",
-    nature: "Jolly",
-    teraType: "Bug",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Bug Bite", "Aerial Ace", "Bite", "Protect"],
-    items: ["Eviolite"]
-  },
-  Silvally: {
-    ability: "RKS System",
-    nature: "Timid",
-    teraType: "Normal",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Air Slash", "Draco Meteor", "Flamethrower", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Silvally-Bug": {
-    ability: "RKS System",
-    nature: "Timid",
-    teraType: "Bug",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Air Slash", "Draco Meteor", "Flamethrower", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Silvally-Dark": {
-    ability: "RKS System",
-    nature: "Timid",
-    teraType: "Dark",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Air Slash", "Draco Meteor", "Flamethrower", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Silvally-Dragon": {
-    ability: "RKS System",
-    nature: "Timid",
-    teraType: "Dragon",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Air Slash", "Draco Meteor", "Flamethrower", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Silvally-Electric": {
-    ability: "RKS System",
-    nature: "Timid",
-    teraType: "Electric",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Air Slash", "Draco Meteor", "Flamethrower", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Silvally-Fairy": {
-    ability: "RKS System",
-    nature: "Timid",
-    teraType: "Fairy",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Air Slash", "Draco Meteor", "Flamethrower", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Silvally-Fighting": {
-    ability: "RKS System",
-    nature: "Timid",
-    teraType: "Fighting",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Air Slash", "Draco Meteor", "Flamethrower", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Silvally-Fire": {
-    ability: "RKS System",
-    nature: "Timid",
-    teraType: "Fire",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Air Slash", "Draco Meteor", "Flamethrower", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Silvally-Flying": {
-    ability: "RKS System",
-    nature: "Timid",
-    teraType: "Flying",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Air Slash", "Draco Meteor", "Flamethrower", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Silvally-Ghost": {
-    ability: "RKS System",
-    nature: "Timid",
-    teraType: "Ghost",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Air Slash", "Draco Meteor", "Flamethrower", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Silvally-Grass": {
-    ability: "RKS System",
-    nature: "Timid",
-    teraType: "Grass",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Air Slash", "Draco Meteor", "Flamethrower", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Silvally-Ground": {
-    ability: "RKS System",
-    nature: "Timid",
-    teraType: "Ground",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Air Slash", "Draco Meteor", "Flamethrower", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Silvally-Ice": {
-    ability: "RKS System",
-    nature: "Timid",
-    teraType: "Ice",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Air Slash", "Draco Meteor", "Flamethrower", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Silvally-Poison": {
-    ability: "RKS System",
-    nature: "Timid",
-    teraType: "Poison",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Air Slash", "Draco Meteor", "Flamethrower", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Silvally-Psychic": {
-    ability: "RKS System",
-    nature: "Timid",
-    teraType: "Psychic",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Air Slash", "Draco Meteor", "Flamethrower", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Silvally-Rock": {
-    ability: "RKS System",
-    nature: "Timid",
-    teraType: "Rock",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Air Slash", "Draco Meteor", "Flamethrower", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Silvally-Steel": {
-    ability: "RKS System",
-    nature: "Timid",
-    teraType: "Steel",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Air Slash", "Draco Meteor", "Flamethrower", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Silvally-Water": {
-    ability: "RKS System",
-    nature: "Timid",
-    teraType: "Water",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Air Slash", "Draco Meteor", "Flamethrower", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Sirfetch’d": {
-    ability: "Steadfast",
-    nature: "Jolly",
-    teraType: "Fighting",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Assurance", "Body Slam", "Brave Bird", "Protect"],
-    items: ["Leftovers"]
-  },
-  Sizzlipede: {
-    ability: "Flash Fire",
-    nature: "Jolly",
-    teraType: "Fire",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Bite", "Brutal Swing", "Bug Bite", "Protect"],
-    items: ["Eviolite"]
-  },
-  Skitty: {
-    ability: "Cute Charm",
-    nature: "Jolly",
-    teraType: "Normal",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Covet", "Double Slap", "Double-Edge", "Protect"],
-    items: ["Eviolite"]
-  },
-  Skorupi: {
-    ability: "Battle Armor",
-    nature: "Jolly",
-    teraType: "Poison",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Aqua Tail", "Assurance", "Protect"],
-    items: ["Eviolite"]
-  },
-  Smoochum: {
-    ability: "Oblivious",
-    nature: "Timid",
-    teraType: "Ice",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Blizzard", "Confusion", "Draining Kiss", "Protect"],
-    items: ["Eviolite"]
-  },
-  Solrock: {
-    ability: "Levitate",
-    nature: "Jolly",
-    teraType: "Rock",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Acrobatics", "Body Slam", "Bulldoze", "Protect"],
-    items: ["Leftovers"]
-  },
-  Spearow: {
-    ability: "Keen Eye",
-    nature: "Jolly",
-    teraType: "Normal",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Assurance", "Astonish", "Protect"],
-    items: ["Eviolite"]
-  },
-  Spheal: {
-    ability: "Thick Fat",
-    nature: "Timid",
-    teraType: "Ice",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aurora Beam", "Blizzard", "Brine", "Protect"],
-    items: ["Eviolite"]
-  },
-  Spinda: {
-    ability: "Own Tempo",
-    nature: "Timid",
-    teraType: "Normal",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Dream Eater", "Hidden Power", "Hyper Voice", "Protect"],
-    items: ["Leftovers"]
-  },
-  Spritzee: {
-    ability: "Healer",
-    nature: "Timid",
-    teraType: "Fairy",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Charge Beam", "Dazzling Gleam", "Disarming Voice", "Protect"],
-    items: ["Eviolite"]
-  },
-  Stakataka: {
-    ability: "Beast Boost",
-    nature: "Jolly",
-    teraType: "Rock",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Bide", "Bind", "Body Press", "Protect"],
-    items: ["Leftovers"]
-  },
-  Staryu: {
-    ability: "Illuminate",
-    nature: "Timid",
-    teraType: "Water",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Blizzard", "Brine", "Bubble Beam", "Protect"],
-    items: ["Eviolite"]
-  },
-  Stoutland: {
-    ability: "Intimidate",
-    nature: "Jolly",
-    teraType: "Normal",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Bite", "Covet", "Protect"],
-    items: ["Leftovers"]
-  },
-  Stufful: {
-    ability: "Fluffy",
-    nature: "Jolly",
-    teraType: "Normal",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Bide", "Bind", "Protect"],
-    items: ["Eviolite"]
-  },
-  Swellow: {
-    ability: "Guts",
-    nature: "Jolly",
-    teraType: "Normal",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Brave Bird", "Endeavor", "Protect"],
-    items: ["Leftovers"]
-  },
-  Swirlix: {
-    ability: "Sweet Veil",
-    nature: "Timid",
-    teraType: "Fairy",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Dazzling Gleam", "Draining Kiss", "Dream Eater", "Protect"],
-    items: ["Eviolite"]
-  },
-  Swoobat: {
-    ability: "Unaware",
-    nature: "Timid",
-    teraType: "Psychic",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Air Cutter", "Air Slash", "Charge Beam", "Protect"],
-    items: ["Leftovers"]
-  },
-  Taillow: {
-    ability: "Guts",
-    nature: "Jolly",
-    teraType: "Normal",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Brave Bird", "Endeavor", "Protect"],
-    items: ["Eviolite"]
-  },
-  Tangela: {
-    ability: "Chlorophyll",
-    nature: "Timid",
-    teraType: "Grass",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Absorb", "Ancient Power", "Confusion", "Protect"],
-    items: ["Eviolite"]
-  },
-  Tangrowth: {
-    ability: "Chlorophyll",
-    nature: "Timid",
-    teraType: "Grass",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Absorb", "Ancient Power", "Energy Ball", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Tapu Bulu": {
-    ability: "Grassy Surge",
-    nature: "Jolly",
-    teraType: "Grass",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Brick Break", "Brutal Swing", "Bullet Seed", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Tapu Fini": {
-    ability: "Misty Surge",
-    nature: "Timid",
-    teraType: "Water",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Blizzard", "Brine", "Dazzling Gleam", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Tapu Koko": {
-    ability: "Electric Surge",
-    nature: "Jolly",
-    teraType: "Electric",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Acrobatics", "Aerial Ace", "Assurance", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Tapu Lele": {
-    ability: "Psychic Surge",
-    nature: "Timid",
-    teraType: "Psychic",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Charge Beam", "Confusion", "Dazzling Gleam", "Protect"],
-    items: ["Leftovers"]
-  },
-  Thievul: {
-    ability: "Run Away",
-    nature: "Timid",
-    teraType: "Dark",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Burning Jealousy", "Dark Pulse", "Grass Knot", "Protect"],
-    items: ["Leftovers"]
-  },
-  Throh: {
-    ability: "Guts",
-    nature: "Jolly",
-    teraType: "Fighting",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Bide", "Bind", "Body Slam", "Protect"],
-    items: ["Leftovers"]
-  },
-  Tirtouga: {
-    ability: "Solid Rock",
-    nature: "Jolly",
-    teraType: "Water",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aqua Jet", "Aqua Tail", "Bide", "Protect"],
-    items: ["Eviolite"]
-  },
-  Togedemaru: {
-    ability: "Iron Barbs",
-    nature: "Jolly",
-    teraType: "Electric",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Assurance", "Bounce", "Covet", "Protect"],
-    items: ["Leftovers"]
-  },
-  Togekiss: {
-    ability: "Hustle",
-    nature: "Timid",
-    teraType: "Fairy",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Air Slash", "Ancient Power", "Aura Sphere", "Protect"],
-    items: ["Leftovers"]
-  },
-  Togepi: {
-    ability: "Hustle",
-    nature: "Timid",
-    teraType: "Fairy",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Ancient Power", "Dazzling Gleam", "Draining Kiss", "Protect"],
-    items: ["Eviolite"]
-  },
-  Togetic: {
-    ability: "Hustle",
-    nature: "Timid",
-    teraType: "Fairy",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Ancient Power", "Dazzling Gleam", "Draining Kiss", "Protect"],
-    items: ["Eviolite"]
-  },
-  Tranquill: {
-    ability: "Big Pecks",
-    nature: "Jolly",
-    teraType: "Normal",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Dual Wingbeat", "Facade", "Protect"],
-    items: ["Eviolite"]
-  },
-  Trubbish: {
-    ability: "Stench",
-    nature: "Jolly",
-    teraType: "Poison",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Double Slap", "Drain Punch", "Explosion", "Protect"],
-    items: ["Eviolite"]
-  },
-  Turtonator: {
-    ability: "Shell Armor",
-    nature: "Timid",
-    teraType: "Fire",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Burning Jealousy", "Charge Beam", "Draco Meteor", "Protect"],
-    items: ["Leftovers"]
-  },
-  Tympole: {
-    ability: "Swift Swim",
-    nature: "Timid",
-    teraType: "Water",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Acid", "Bubble", "Bubble Beam", "Protect"],
-    items: ["Eviolite"]
-  },
-  "Type: Null": {
-    ability: "Battle Armor",
-    nature: "Timid",
-    teraType: "Normal",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Air Slash", "Hidden Power", "Hyper Beam", "Protect"],
-    items: ["Eviolite"]
-  },
-  Tyrunt: {
-    ability: "Strong Jaw",
-    nature: "Jolly",
-    teraType: "Rock",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Assurance", "Bide", "Protect"],
-    items: ["Eviolite"]
-  },
-  Unfezant: {
-    ability: "Big Pecks",
-    nature: "Jolly",
-    teraType: "Normal",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aerial Ace", "Brave Bird", "Dual Wingbeat", "Protect"],
-    items: ["Leftovers"]
-  },
-  Unown: {
-    ability: "Levitate",
-    nature: "Timid",
-    teraType: "Psychic",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Hidden Power", "Blizzard", "Flash Cannon", "Protect"],
-    items: ["Leftovers"]
-  },
-  Vanillish: {
-    ability: "Ice Body",
-    nature: "Timid",
-    teraType: "Ice",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Blizzard", "Flash Cannon", "Frost Breath", "Protect"],
-    items: ["Eviolite"]
-  },
-  Vanillite: {
-    ability: "Ice Body",
-    nature: "Timid",
-    teraType: "Ice",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Blizzard", "Flash Cannon", "Frost Breath", "Protect"],
-    items: ["Eviolite"]
-  },
-  Venipede: {
-    ability: "Poison Point",
-    nature: "Jolly",
-    teraType: "Bug",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Bite", "Bug Bite", "Double-Edge", "Protect"],
-    items: ["Eviolite"]
-  },
-  Victini: {
-    ability: "Victory Star",
-    nature: "Timid",
-    teraType: "Psychic",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Charge Beam", "Confusion", "Dazzling Gleam", "Protect"],
-    items: ["Leftovers"]
-  },
-  Wailmer: {
-    ability: "Water Veil",
-    nature: "Timid",
-    teraType: "Water",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Blizzard", "Brine", "Clear Smog", "Protect"],
-    items: ["Eviolite"]
-  },
-  Wailord: {
-    ability: "Water Veil",
-    nature: "Timid",
-    teraType: "Water",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Blizzard", "Brine", "Echoed Voice", "Protect"],
-    items: ["Leftovers"]
-  },
-  Walrein: {
-    ability: "Thick Fat",
-    nature: "Timid",
-    teraType: "Ice",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aurora Beam", "Blizzard", "Brine", "Protect"],
-    items: ["Leftovers"]
-  },
-  Weedle: {
-    ability: "Shield Dust",
-    nature: "Jolly",
-    teraType: "Bug",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Bug Bite", "Poison Sting", "Bug Bite", "Protect"],
-    items: ["Eviolite"]
-  },
-  Whirlipede: {
-    ability: "Poison Point",
-    nature: "Jolly",
-    teraType: "Bug",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Bug Bite", "Double-Edge", "Endeavor", "Protect"],
-    items: ["Eviolite"]
-  },
-  Whismur: {
-    ability: "Soundproof",
-    nature: "Timid",
-    teraType: "Normal",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Blizzard", "Disarming Voice", "Echoed Voice", "Protect"],
-    items: ["Eviolite"]
-  },
-  Wimpod: {
-    ability: "Wimp Out",
-    nature: "Jolly",
-    teraType: "Bug",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aqua Jet", "Assurance", "Facade", "Protect"],
-    items: ["Eviolite"]
-  },
-  Wishiwashi: {
-    ability: "Schooling",
-    nature: "Timid",
-    teraType: "Water",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Brine", "Hidden Power", "Hydro Pump", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Wishiwashi-School": {
-    ability: "Schooling",
-    nature: "Timid",
-    teraType: "Water",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Brine", "Hidden Power", "Hydro Pump", "Protect"],
-    items: ["Leftovers"]
-  },
-  Wobbuffet: {
-    ability: "Shadow Tag",
-    nature: "Timid",
-    teraType: "Psychic",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Mirror Coat", "Air Cutter", "Air Slash", "Protect"],
-    items: ["Leftovers"]
-  },
-  Woobat: {
-    ability: "Unaware",
-    nature: "Timid",
-    teraType: "Psychic",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Air Cutter", "Air Slash", "Charge Beam", "Protect"],
-    items: ["Eviolite"]
-  },
-  Wooloo: {
-    ability: "Fluffy",
-    nature: "Timid",
-    teraType: "Normal",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Electro Ball", "Round", "Snore", "Protect"],
-    items: ["Eviolite"]
-  },
-  Wormadam: {
-    ability: "Anticipation",
-    nature: "Timid",
-    teraType: "Bug",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Bug Buzz", "Confusion", "Dream Eater", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Wormadam-Sandy": {
-    ability: "Anticipation",
-    nature: "Jolly",
-    teraType: "Bug",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Bug Bite", "Bulldoze", "Earthquake", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Wormadam-Trash": {
-    ability: "Anticipation",
-    nature: "Timid",
-    teraType: "Bug",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Bug Buzz", "Confusion", "Dream Eater", "Protect"],
-    items: ["Leftovers"]
-  },
-  Wurmple: {
-    ability: "Shield Dust",
-    nature: "Jolly",
-    teraType: "Bug",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Bug Bite", "Poison Sting", "Tackle", "Protect"],
-    items: ["Eviolite"]
-  },
-  Wynaut: {
-    ability: "Shadow Tag",
-    nature: "Timid",
-    teraType: "Psychic",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Mirror Coat", "Air Slash", "Dazzling Gleam", "Protect"],
-    items: ["Eviolite"]
-  },
-  Xatu: {
-    ability: "Synchronize",
-    nature: "Timid",
-    teraType: "Psychic",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Air Slash", "Dazzling Gleam", "Dream Eater", "Protect"],
-    items: ["Leftovers"]
-  },
-  Xerneas: {
-    ability: "Fairy Aura",
-    nature: "Timid",
-    teraType: "Fairy",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Aurora Beam", "Dazzling Gleam", "Draining Kiss", "Protect"],
-    items: ["Leftovers"]
-  },
-  Xurkitree: {
-    ability: "Beast Boost",
-    nature: "Timid",
-    teraType: "Electric",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Charge Beam", "Dazzling Gleam", "Discharge", "Protect"],
-    items: ["Leftovers"]
-  },
-  Yamask: {
-    ability: "Mummy",
-    nature: "Timid",
-    teraType: "Ghost",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Dark Pulse", "Dream Eater", "Energy Ball", "Protect"],
-    items: ["Eviolite"]
-  },
-  "Yamask-Galar": {
-    ability: "Wandering Spirit",
-    nature: "Jolly",
-    teraType: "Ground",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Astonish", "Brutal Swing", "Earthquake", "Protect"],
-    items: ["Eviolite"]
-  },
-  Yamper: {
-    ability: "Ball Fetch",
-    nature: "Jolly",
-    teraType: "Electric",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Bite", "Crunch", "Dig", "Protect"],
-    items: ["Eviolite"]
-  },
-  Yveltal: {
-    ability: "Dark Aura",
-    nature: "Timid",
-    teraType: "Dark",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Air Slash", "Dark Pulse", "Dream Eater", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Zarude-Dada": {
-    ability: "Leaf Guard",
-    nature: "Jolly",
-    teraType: "Dark",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Acrobatics", "Aerial Ace", "Assurance", "Protect"],
-    items: ["Leftovers"]
-  },
-  Zeraora: {
-    ability: "Volt Absorb",
-    nature: "Jolly",
-    teraType: "Electric",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Acrobatics", "Aerial Ace", "Assurance", "Protect"],
-    items: ["Leftovers"]
-  },
-  Zigzagoon: {
-    ability: "Pickup",
-    nature: "Timid",
-    teraType: "Normal",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Blizzard", "Charge Beam", "Echoed Voice", "Protect"],
-    items: ["Eviolite"]
-  },
-  "Zigzagoon-Galar": {
-    ability: "Pickup",
-    nature: "Timid",
-    teraType: "Dark",
-    evs: {
-      hp: 4,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Blizzard", "Grass Knot", "Hyper Voice", "Protect"],
-    items: ["Eviolite"]
-  },
-  Zubat: {
-    ability: "Inner Focus",
-    nature: "Jolly",
-    teraType: "Poison",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Acrobatics", "Aerial Ace", "Assurance", "Protect"],
-    items: ["Eviolite"]
-  },
-  Zygarde: {
-    ability: "Aura Break",
-    nature: "Jolly",
-    teraType: "Dragon",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Bind", "Bite", "Body Slam", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Zygarde-10%": {
-    ability: "Aura Break",
-    nature: "Jolly",
-    teraType: "Dragon",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Bind", "Dig", "Extreme Speed", "Protect"],
-    items: ["Leftovers"]
-  },
-  "Zygarde-Complete": {
-    ability: "Power Construct",
-    nature: "Jolly",
-    teraType: "Dragon",
-    evs: {
-      hp: 4,
-      atk: 32,
-      def: 0,
-      spa: 0,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Bind", "Bite", "Body Slam", "Protect"],
-    items: ["Leftovers"]
   }
 } as const satisfies Record<string, Moveset>
 
