@@ -157,6 +157,7 @@ export class PokemonBuildComponent {
     return id != undefined ? this.store.findNullablePokemonById(id) : undefined
   })
   pokemon = computed(() => this.resolvedPokemon()!)
+  homeSpritePath = computed(() => `assets/sprites/pokemon-home/${encodeURIComponent(this.pokemon().name)}.webp`)
   isAddMode = computed(() => this.resolvedPokemon() == undefined)
   selectPokemonLabel = SELECT_POKEMON_LABEL
   isTeamMember = computed(() => this.store.team().teamMembers.some(member => member.pokemon.id === this.editingId()))
