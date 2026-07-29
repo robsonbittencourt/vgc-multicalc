@@ -5,6 +5,11 @@ import { Team } from "@lib/model/team"
 import { PokemonType, PokemonTypes } from "@lib/types"
 import { AbilityName, TypeEffectiveness, TypeEffectivenessService } from "./type-effectiveness.service"
 
+interface MoveTypeInfo {
+  type: PokemonType
+  name: string
+}
+
 const ATE_ABILITY_TYPES: Record<string, PokemonType> = {
   Pixilate: "Fairy",
   Refrigerate: "Ice",
@@ -138,7 +143,7 @@ export class TypeCoverageService {
           const type1 = targetType
           const type2 = undefined
 
-          const effectiveness = this.typeEffectivenessService.getEffectiveness(moveType, type1, type2)
+          const effectiveness = this.typeEffectivenessService.getEffectiveness(moveType.type, type1, type2, undefined, moveType.name)
           effectivenessValues.push(effectiveness)
         }
 
@@ -207,9 +212,9 @@ export class TypeCoverageService {
 
           if (considerTeraType && targetPokemon.teraType && targetPokemon.teraType !== "Stellar") {
             const teraType = targetPokemon.teraType as PokemonType
-            effectiveness = this.typeEffectivenessService.getEffectiveness(moveType, teraType, undefined, this.getAbilityName(targetPokemon))
+            effectiveness = this.typeEffectivenessService.getEffectiveness(moveType.type, teraType, undefined, this.getAbilityName(targetPokemon), moveType.name)
           } else {
-            effectiveness = this.typeEffectivenessService.getEffectiveness(moveType, type1, type2, this.getAbilityName(targetPokemon))
+            effectiveness = this.typeEffectivenessService.getEffectiveness(moveType.type, type1, type2, this.getAbilityName(targetPokemon), moveType.name)
           }
 
           effectivenessValues.push(effectiveness)
@@ -279,10 +284,10 @@ export class TypeCoverageService {
         const effectivenessValues: TypeEffectiveness[] = movesWithBP.map(moveType => {
           if (considerTeraType && pokemon.teraType && pokemon.teraType !== "Stellar") {
             const teraType = pokemon.teraType as PokemonType
-            return this.typeEffectivenessService.getEffectiveness(moveType, teraType, undefined, this.getAbilityName(pokemon))
+            return this.typeEffectivenessService.getEffectiveness(moveType.type, teraType, undefined, this.getAbilityName(pokemon), moveType.name)
           }
 
-          return this.typeEffectivenessService.getEffectiveness(moveType, type1, type2, this.getAbilityName(pokemon))
+          return this.typeEffectivenessService.getEffectiveness(moveType.type, type1, type2, this.getAbilityName(pokemon), moveType.name)
         })
 
         if (effectivenessValues.length === 0) {
@@ -347,17 +352,26 @@ export class TypeCoverageService {
     return 1
   }
 
-  private getMovesWithBP(pokemon: Pokemon): PokemonType[] {
+  private getMovesWithBP(pokemon: Pokemon): MoveTypeInfo[] {
     return this.processMoveTypes(pokemon, false)
   }
 
-  private getMoveTypes(pokemon: Pokemon, considerTeraBlast = false): PokemonType[] {
+  private getMoveTypes(pokemon: Pokemon, considerTeraBlast = false): MoveTypeInfo[] {
     const moveTypes = this.processMoveTypes(pokemon, considerTeraBlast)
-    return Array.from(new Set(moveTypes))
+    const seen = new Set<string>()
+
+    return moveTypes.filter(moveType => {
+      const key = `${moveType.type}|${moveType.name}`
+
+      if (seen.has(key)) return false
+
+      seen.add(key)
+      return true
+    })
   }
 
-  private processMoveTypes(pokemon: Pokemon, considerTeraBlast: boolean): PokemonType[] {
-    const moveTypes: PokemonType[] = []
+  private processMoveTypes(pokemon: Pokemon, considerTeraBlast: boolean): MoveTypeInfo[] {
+    const moveTypes: MoveTypeInfo[] = []
     const moves = [pokemon.moveSet.move1, pokemon.moveSet.move2, pokemon.moveSet.move3, pokemon.moveSet.move4]
     const ateType = this.getAteAbilityType(pokemon)
 
@@ -376,7 +390,7 @@ export class TypeCoverageService {
 
       if (move.name === "Tera Blast") {
         if (considerTeraBlast && pokemon.teraType) {
-          moveTypes.push(pokemon.teraType as PokemonType)
+          moveTypes.push({ type: pokemon.teraType as PokemonType, name: move.name })
           continue
         }
       }
@@ -384,7 +398,7 @@ export class TypeCoverageService {
       if (move.name === "Ivy Cudgel" && pokemon.name.startsWith("Ogerpon")) {
         const ivyCudgelType = this.getIvyCudgelType(pokemon.name)
         if (ivyCudgelType) {
-          moveTypes.push(ivyCudgelType)
+          moveTypes.push({ type: ivyCudgelType, name: move.name })
           continue
         }
       }
@@ -393,7 +407,8 @@ export class TypeCoverageService {
       const moveDetails = MOVE_DETAILS[moveName]
 
       if (moveDetails && moveDetails.type) {
-        moveTypes.push(ateType && moveDetails.type === "Normal" ? ateType : moveDetails.type)
+        const type = ateType && moveDetails.type === "Normal" ? ateType : moveDetails.type
+        moveTypes.push({ type, name: move.name })
       }
     }
 

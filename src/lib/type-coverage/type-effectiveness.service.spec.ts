@@ -1379,4 +1379,37 @@ describe("TypeEffectivenessService", () => {
       expect(service.getEffectiveness("Water", "Fire", undefined, "Water Bubble")).toBe(2)
     })
   })
+
+  describe("Freeze-Dry", () => {
+    it("should return 2x effectiveness against mono Water", () => {
+      const effectiveness = service.getEffectiveness("Ice", "Water", undefined, undefined, "Freeze-Dry")
+
+      expect(effectiveness).toBe(2)
+    })
+
+    it("should return 2x effectiveness against dual-type with Water as primary", () => {
+      const effectiveness = service.getEffectiveness("Ice", "Water", "Ground", undefined, "Freeze-Dry")
+
+      expect(effectiveness).toBe(2)
+    })
+
+    it("should return 2x effectiveness against dual-type with Water as secondary", () => {
+      const effectiveness = service.getEffectiveness("Ice", "Ground", "Water", undefined, "Freeze-Dry")
+
+      expect(effectiveness).toBe(2)
+    })
+
+    it("should behave like regular Ice when defender is not Water", () => {
+      expect(service.getEffectiveness("Ice", "Grass", undefined, undefined, "Freeze-Dry")).toBe(2)
+      expect(service.getEffectiveness("Ice", "Fire", undefined, undefined, "Freeze-Dry")).toBe(0.5)
+      expect(service.getEffectiveness("Ice", "Steel", undefined, undefined, "Freeze-Dry")).toBe(0.5)
+      expect(service.getEffectiveness("Ice", "Ground", "Flying", undefined, "Freeze-Dry")).toBe(4)
+    })
+
+    it("should not affect other Ice moves against Water", () => {
+      const effectiveness = service.getEffectiveness("Ice", "Water")
+
+      expect(effectiveness).toBe(0.5)
+    })
+  })
 })

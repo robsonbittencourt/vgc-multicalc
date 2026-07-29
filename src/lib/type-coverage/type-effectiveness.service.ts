@@ -394,9 +394,13 @@ export class TypeEffectivenessService {
     }
   }
 
-  getEffectiveness(attackType: PokemonType, defenseType1: PokemonType, defenseType2?: PokemonType, ability?: AbilityName): TypeEffectiveness {
+  getEffectiveness(attackType: PokemonType, defenseType1: PokemonType, defenseType2?: PokemonType, ability?: AbilityName, moveName?: string): TypeEffectiveness {
     if ((attackType as string) === "Stellar") {
       return 1
+    }
+
+    if (moveName === "Freeze-Dry" && (defenseType1 === "Water" || defenseType2 === "Water")) {
+      return 2
     }
 
     if (ability) {
