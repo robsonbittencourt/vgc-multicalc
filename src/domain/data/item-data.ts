@@ -1707,6 +1707,16 @@ export const ITEM_DETAILS = {
       Banette: "Banette-Mega"
     }
   },
+  baxcalibrite: {
+    group: "Pokémon specific items",
+    name: "Baxcalibrite",
+    description: "If held by a Baxcalibur, this item allows it to Mega Evolve in battle.",
+    sprite: "baxcalibrite",
+    isMegaStone: true,
+    megaStone: {
+      Baxcalibur: "Baxcalibur-Mega"
+    }
+  },
   blazikenite: {
     group: "Pokémon specific items",
     name: "Blazikenite",
@@ -1737,6 +1747,16 @@ export const ITEM_DETAILS = {
       Crabominable: "Crabominable-Mega"
     }
   },
+  darkranite: {
+    group: "Pokémon specific items",
+    name: "Darkranite",
+    description: "If held by a Darkrai, this item allows it to Mega Evolve in battle.",
+    sprite: "darkranite",
+    isMegaStone: true,
+    megaStone: {
+      Darkrai: "Darkrai-Mega"
+    }
+  },
   delphoxite: {
     group: "Pokémon specific items",
     name: "Delphoxite",
@@ -1755,6 +1775,16 @@ export const ITEM_DETAILS = {
     isMegaStone: true,
     megaStone: {
       Dragonite: "Dragonite-Mega"
+    }
+  },
+  diancite: {
+    group: "Pokémon specific items",
+    name: "Diancite",
+    description: "If held by a Diancie, this item allows it to Mega Evolve in battle.",
+    sprite: "diancite",
+    isMegaStone: true,
+    megaStone: {
+      Diancie: "Diancie-Mega"
     }
   },
   drampanite: {
@@ -1867,6 +1897,16 @@ export const ITEM_DETAILS = {
       Glimmora: "Glimmora-Mega"
     }
   },
+  golisopite: {
+    group: "Pokémon specific items",
+    name: "Golisopite",
+    description: "If held by a Golisopod, this item allows it to Mega Evolve in battle.",
+    sprite: "golisopite",
+    isMegaStone: true,
+    megaStone: {
+      Golisopod: "Golisopod-Mega"
+    }
+  },
   golurkite: {
     group: "Pokémon specific items",
     name: "Golurkite",
@@ -1907,6 +1947,16 @@ export const ITEM_DETAILS = {
       Hawlucha: "Hawlucha-Mega"
     }
   },
+  heatranite: {
+    group: "Pokémon specific items",
+    name: "Heatranite",
+    description: "If held by a Heatran, this item allows it to Mega Evolve in battle.",
+    sprite: "heatranite",
+    isMegaStone: true,
+    megaStone: {
+      Heatran: "Heatran-Mega"
+    }
+  },
   heracronite: {
     group: "Pokémon specific items",
     name: "Heracronite",
@@ -1935,6 +1985,26 @@ export const ITEM_DETAILS = {
     isMegaStone: true,
     megaStone: {
       Kangaskhan: "Kangaskhan-Mega"
+    }
+  },
+  latiasite: {
+    group: "Pokémon specific items",
+    name: "Latiasite",
+    description: "If held by a Latias, this item allows it to Mega Evolve in battle.",
+    sprite: "latiasite",
+    isMegaStone: true,
+    megaStone: {
+      Latias: "Latias-Mega"
+    }
+  },
+  latiosite: {
+    group: "Pokémon specific items",
+    name: "Latiosite",
+    description: "If held by a Latios, this item allows it to Mega Evolve in battle.",
+    sprite: "latiosite",
+    isMegaStone: true,
+    megaStone: {
+      Latios: "Latios-Mega"
     }
   },
   lopunnite: {
@@ -2026,6 +2096,26 @@ export const ITEM_DETAILS = {
     megaStone: {
       Meowstic: "Meowstic-M-Mega",
       "Meowstic-F": "Meowstic-F-Mega"
+    }
+  },
+  mewtwonitex: {
+    group: "Pokémon specific items",
+    name: "Mewtwonite X",
+    description: "If held by a Mewtwo, this item allows it to Mega Evolve into Mega Mewtwo X in battle.",
+    sprite: "mewtwonite-x",
+    isMegaStone: true,
+    megaStone: {
+      Mewtwo: "Mewtwo-Mega-X"
+    }
+  },
+  mewtwonitey: {
+    group: "Pokémon specific items",
+    name: "Mewtwonite Y",
+    description: "If held by a Mewtwo, this item allows it to Mega Evolve into Mega Mewtwo Y in battle.",
+    sprite: "mewtwonite-y",
+    isMegaStone: true,
+    megaStone: {
+      Mewtwo: "Mewtwo-Mega-Y"
     }
   },
   metagrossite: {
@@ -2126,6 +2216,16 @@ export const ITEM_DETAILS = {
     isMegaStone: true,
     megaStone: {
       Steelix: "Steelix-Mega"
+    }
+  },
+  salamencite: {
+    group: "Pokémon specific items",
+    name: "Salamencite",
+    description: "If held by a Salamence, this item allows it to Mega Evolve in battle.",
+    sprite: "salamencite",
+    isMegaStone: true,
+    megaStone: {
+      Salamence: "Salamence-Mega"
     }
   },
   swampertite: {

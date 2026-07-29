@@ -3102,6 +3102,36 @@ export const MOVESETS = {
     moves: ["Nasty Plot", "Psystrike", "Grass Knot", "Taunt"],
     items: ["Heavy-Duty Boots"]
   },
+  "Mewtwo-Mega-X": {
+    ability: "Steadfast",
+    nature: "Jolly",
+    teraType: "Fighting",
+    evs: {
+      hp: 0,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 1,
+      spe: 32
+    },
+    moves: ["Zen Headbutt", "Ice Punch", "Bulk Up", "Protect"],
+    items: ["Mewtwonite X"]
+  },
+  "Mewtwo-Mega-Y": {
+    ability: "Insomnia",
+    nature: "Timid",
+    teraType: "Steel",
+    evs: {
+      hp: 0,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 1,
+      spe: 32
+    },
+    moves: ["Nasty Plot", "Psystrike", "Grass Knot", "Taunt"],
+    items: ["Mewtwonite Y"]
+  },
   Mew: {
     ability: "Synchronize",
     nature: "Timid",
@@ -6987,6 +7017,21 @@ export const MOVESETS = {
     moves: ["Draco Meteor", "Air Slash", "Tailwind", "Protect"],
     items: ["Mirror Herb", "Eject Pack", "Life Orb", "Covert Cloak", "Choice Specs"]
   },
+  "Salamence-Mega": {
+    ability: "Aerilate",
+    nature: "Timid",
+    teraType: "Steel",
+    evs: {
+      hp: 1,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Draco Meteor", "Air Slash", "Tailwind", "Protect"],
+    items: ["Salamencite"]
+  },
   Beldum: {
     ability: "Clear Body",
     nature: "Brave",
@@ -7107,6 +7152,21 @@ export const MOVESETS = {
     moves: ["Calm Mind", "Agility", "Stored Power", "Aura Sphere"],
     items: ["Weakness Policy"]
   },
+  "Latias-Mega": {
+    ability: "Levitate",
+    nature: "Timid",
+    teraType: "Poison",
+    evs: {
+      hp: 32,
+      atk: 0,
+      def: 29,
+      spa: 0,
+      spd: 0,
+      spe: 3
+    },
+    moves: ["Calm Mind", "Agility", "Stored Power", "Aura Sphere"],
+    items: ["Latiasite"]
+  },
   Latios: {
     ability: "Levitate",
     nature: "Timid",
@@ -7121,6 +7181,21 @@ export const MOVESETS = {
     },
     moves: ["Draco Meteor", "Luster Purge", "Protect", "Tailwind"],
     items: ["Life Orb", "Soul Dew"]
+  },
+  "Latios-Mega": {
+    ability: "Levitate",
+    nature: "Timid",
+    teraType: "Steel",
+    evs: {
+      hp: 1,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Draco Meteor", "Luster Purge", "Protect", "Tailwind"],
+    items: ["Latiosite"]
   },
   Kyogre: {
     ability: "Drizzle",
@@ -7154,6 +7229,21 @@ export const MOVESETS = {
   },
   Rayquaza: {
     ability: "Air Lock",
+    nature: "Adamant",
+    teraType: "Normal",
+    evs: {
+      hp: 6,
+      atk: 32,
+      def: 1,
+      spa: 0,
+      spd: 1,
+      spe: 26
+    },
+    moves: ["Dragon Ascent", "Extreme Speed", "Protect", "Swords Dance"],
+    items: ["Life Orb", "Clear Amulet"]
+  },
+  "Rayquaza-Mega": {
+    ability: "Delta Stream",
     nature: "Adamant",
     teraType: "Normal",
     evs: {
@@ -8982,6 +9072,21 @@ export const MOVESETS = {
     moves: ["Magma Storm", "Earth Power", "Protect", "Will-O-Wisp"],
     items: ["Zoom Lens"]
   },
+  "Heatran-Mega": {
+    ability: "Flash Fire",
+    nature: "Modest",
+    teraType: "Bug",
+    evs: {
+      hp: 32,
+      atk: 0,
+      def: 12,
+      spa: 10,
+      spd: 11,
+      spe: 1
+    },
+    moves: ["Magma Storm", "Earth Power", "Protect", "Will-O-Wisp"],
+    items: ["Heatranite"]
+  },
   Regigigas: {
     ability: "Slow Start",
     nature: "Adamant",
@@ -9086,6 +9191,21 @@ export const MOVESETS = {
     },
     moves: ["Dark Pulse", "Icy Wind", "Dark Void", "Protect"],
     items: ["Focus Sash", "Covert Cloak", "Wide Lens", "Choice Scarf", "Blunder Policy"]
+  },
+  "Darkrai-Mega": {
+    ability: "Bad Dreams",
+    nature: "Timid",
+    teraType: "Ghost",
+    evs: {
+      hp: 1,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Dark Pulse", "Icy Wind", "Dark Void", "Protect"],
+    items: ["Darkranite"]
   },
   Shaymin: {
     ability: "Natural Cure",
@@ -13947,6 +14067,21 @@ export const MOVESETS = {
     moves: ["Stealth Rock", "Encore", "Diamond Storm", "Body Press"],
     items: ["Leftovers"]
   },
+  "Diancie-Mega": {
+    ability: "Magic Bounce",
+    nature: "Careful",
+    teraType: "Ghost",
+    evs: {
+      hp: 32,
+      atk: 1,
+      def: 0,
+      spa: 0,
+      spd: 32,
+      spe: 0
+    },
+    moves: ["Stealth Rock", "Encore", "Diamond Storm", "Body Press"],
+    items: ["Diancite"]
+  },
   Hoopa: {
     ability: "Magician",
     nature: "Timid",
@@ -14831,6 +14966,21 @@ export const MOVESETS = {
     },
     moves: ["Aerial Ace", "Assurance", "Brick Break", "Protect"],
     items: ["Leftovers"]
+  },
+  "Golisopod-Mega": {
+    ability: "Emergency Exit",
+    nature: "Jolly",
+    teraType: "Bug",
+    evs: {
+      hp: 4,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Aerial Ace", "Assurance", "Brick Break", "Protect"],
+    items: ["Golisopite"]
   },
   Sandygast: {
     ability: "Water Compaction",
@@ -19046,6 +19196,21 @@ export const MOVESETS = {
     },
     moves: ["Glaive Rush", "Icicle Crash", "Ice Shard", "Protect"],
     items: ["Clear Amulet", "Loaded Dice"]
+  },
+  "Baxcalibur-Mega": {
+    ability: "Thermal Exchange",
+    nature: "Jolly",
+    teraType: "Fire",
+    evs: {
+      hp: 2,
+      atk: 32,
+      def: 1,
+      spa: 0,
+      spd: 1,
+      spe: 30
+    },
+    moves: ["Glaive Rush", "Icicle Crash", "Ice Shard", "Protect"],
+    items: ["Baxcalibrite"]
   },
   Gimmighoul: {
     ability: "Rattled",

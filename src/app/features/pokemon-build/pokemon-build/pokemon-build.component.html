@@ -21,7 +21,7 @@
   <div class="data">
     <div class="pokemon-image-container" [ngStyle]="(reverse() && { order: 4 }) || null">
       <div class="pokemon-image">
-        <img src="assets/sprites/pokemon-home/{{ pokemon().name }}.webp" width="256" height="256" loading="lazy" [alt]="pokemon().name" />
+        <img [src]="homeSpritePath()" width="256" height="256" loading="lazy" [alt]="pokemon().name" />
       </div>
 
       <app-input

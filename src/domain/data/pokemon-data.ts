@@ -13502,20 +13502,6 @@ export const POKEMON_DATA = {
     abilities: ["Stance Change"],
     group: "Regular"
   },
-  aegislashboth: {
-    name: "Aegislash-Both",
-    types: ["Steel", "Ghost"],
-    baseStats: {
-      hp: 60,
-      atk: 140,
-      def: 140,
-      spa: 140,
-      spd: 140,
-      spe: 60
-    },
-    weightKg: 53,
-    abilities: ["Stance Change"]
-  },
   aegislashshield: {
     name: "Aegislash-Shield",
     types: ["Steel", "Ghost"],
