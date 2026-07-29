@@ -3721,6 +3721,13 @@ export const MOVES = {
     },
     secondaries: true
   },
+  foresight: {
+    name: "Foresight",
+    type: "Normal",
+    basePower: 0,
+    category: "Status",
+    flags: {}
+  },
   odorsleuth: {
     name: "Odor Sleuth",
     type: "Normal",
@@ -5135,6 +5142,13 @@ export const MOVES = {
     type: "Normal",
     basePower: 0,
     category: "Physical",
+    flags: {}
+  },
+  naturepower: {
+    name: "Nature Power",
+    type: "Normal",
+    basePower: 0,
+    category: "Status",
     flags: {}
   },
   payback: {
