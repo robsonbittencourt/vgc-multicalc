@@ -192,6 +192,17 @@ describe("Damage Calculator Service", () => {
     expect(damageResult.description).toEqual("Jolteon Thunder AND Zapdos Thunder vs. Ting-Lu: 0-0 (0 - 0%) -- possibly the worst move ever")
   })
 
+  it("should calculate damage to two attackers when one attacker is immune and the other deals damage", () => {
+    const attacker = new Pokemon("Hydreigon", { nature: "Modest", evs: { spa: 252 }, moveSet: new MoveSet(new Move("Draco Meteor"), new Move(""), new Move(""), new Move("")) })
+    const secondAttacker = new Pokemon("Kingambit", { item: "Black Glasses", nature: "Adamant", evs: { atk: 252 }, moveSet: new MoveSet(new Move("Kowtow Cleave"), new Move(""), new Move(""), new Move("")) })
+    const target = new Target(new Pokemon("Ninetales-Alola", { nature: "Bold", evs: { hp: 252, def: 252 } }))
+    const field = new Field()
+
+    const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
+
+    expect(damageResult.description).toEqual("Hydreigon Draco Meteor AND 252+ Atk Black Glasses Kingambit Kowtow Cleave vs. 252 HP / 252+ Def Ninetales-Alola: 42-51 (23.3 - 28.3%) -- 88.5% chance to 4HKO")
+  })
+
   it("should adjust inputs before calculation", () => {
     const activeMove = new Move("Thunderbolt")
     const attacker = new Pokemon("Raging Bolt", { moveSet: new MoveSet(activeMove, new Move("Thunderclap"), new Move("Draco Meteor"), new Move("Protect")) })
