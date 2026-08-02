@@ -129,6 +129,19 @@ describe("TypeCoverage", () => {
     expect(normalRow!.pokemonData[0].coverageType).toBe("none")
   })
 
+  it("should treat Freeze-Dry as super effective against Water in offensive coverage", () => {
+    const pokemon = new Pokemon("Articuno", {
+      moveSet: new MoveSet(new Move("Freeze-Dry"), new Move("Protect"), new Move("Roost"), new Move("Substitute"))
+    })
+    const team = new Team("1", true, "Team", [new TeamMember(pokemon, true)])
+
+    const coverage = service.getOffensiveCoverage(team)
+
+    const waterRow = coverage.find(row => row.pokemonType === "Water")
+    expect(waterRow!.pokemonData[0].coverageType).toBe("super-effective")
+    expect(waterRow!.pokemonData[0].effectiveness).toBe(2)
+  })
+
   it("should convert Normal moves to Ice when the attacker has Refrigerate", () => {
     const pokemon = new Pokemon("Glalie", {
       ability: new Ability("Refrigerate"),

@@ -1,6 +1,7 @@
 import { calculateDamage } from "@calc/engine/calculate"
 import { getBerryRecovery, getEndOfTurn } from "@calc/engine/desc"
 import { DamageDistribution } from "@calc/model/damage-distribution"
+import { getBerryResistType } from "@calc/model/items"
 import { MultiResult } from "@calc/model/multi-result"
 import { DEFAULT_ROLL_INDEX, Result } from "@calc/model/result"
 import { Field } from "@calc/model/field"
@@ -19,6 +20,10 @@ export function calculateMultiDamage(attacker1: Pokemon, attacker2: Pokemon, mov
   ] as [Pokemon, Move][]) {
     const result = calculateDamage(attacker, currentDefender, move, originalField)
     results.push(result)
+
+    if (result.rawDesc.defenderItem === currentDefender.item && getBerryResistType(currentDefender.item)) {
+      currentDefender.item = undefined
+    }
 
     const maxDamage = getMaxDamage(result)
     const berry = getBerryRecovery(attacker, defender, move)
