@@ -513,6 +513,34 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.evs!.spd).toBe(4)
       })
 
+      it("should optimize EVs for Farigiraf with Colbur Berry against Incineroar + Kingambit combined", () => {
+        const defender = new Pokemon("Farigiraf", {
+          nature: "Bold",
+          item: "Colbur Berry"
+        })
+
+        const incineroar = new Pokemon("Incineroar", {
+          nature: "Hardy",
+          moveSet: new MoveSet(new Move("Throat Chop"), new Move(""), new Move(""), new Move("")),
+          evs: { atk: 252 }
+        })
+
+        const kingambit = new Pokemon("Kingambit", {
+          nature: "Hardy",
+          item: "Chople Berry",
+          moveSet: new MoveSet(new Move("Kowtow Cleave"), new Move(""), new Move(""), new Move("")),
+          evs: { atk: 0 }
+        })
+
+        const target = new Target(incineroar, kingambit)
+        const field = new Field()
+
+        const result = service.optimize(defender, [target], field)
+
+        expect(result.evs!.hp).toBe(68)
+        expect(result.evs!.def).toBe(236)
+      })
+
       it("should optimize EVs for Ting-Lu with double attackers and single attackers", () => {
         const defender = new Pokemon("Ting-Lu", {
           nature: "Bold",
