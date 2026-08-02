@@ -26,6 +26,7 @@ import { PokemonTableComponent } from "@features/pokemon-build/tables/pokemon-ta
 import { TeraComboBoxComponent } from "@features/pokemon-build/tera-combo-box/tera-combo-box.component"
 import { TypeComboBoxComponent } from "@features/pokemon-build/type-combo-box/type-combo-box.component"
 import { MegaStoneService } from "@features/pokemon-build/utils/mega-stone.service"
+import { SpriteService } from "@app/services/sprite.service"
 import { FEATURES } from "@configuration/feature-flags"
 import { getFinalAttack, getFinalSpecialAttack, getFinalDefense, getFinalSpecialDefense, getFinalSpeed } from "@multicalc/stat-calc"
 import { Stats } from "@multicalc/types"
@@ -80,6 +81,7 @@ export class PokemonBuildComponent {
   fieldStore = inject(FieldStore)
   menuStore = inject(MenuStore)
   megaStoneService = inject(MegaStoneService)
+  spriteService = inject(SpriteService)
 
   originalEvs = signal<Stats>({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
   originalNature = signal<string>("")
@@ -157,7 +159,7 @@ export class PokemonBuildComponent {
     return id != undefined ? this.store.findNullablePokemonById(id) : undefined
   })
   pokemon = computed(() => this.resolvedPokemon()!)
-  homeSpritePath = computed(() => `assets/sprites/pokemon-home/${encodeURIComponent(this.pokemon().name)}.webp`)
+  homeSpritePath = computed(() => this.spriteService.homePath(this.pokemon().name))
   isAddMode = computed(() => this.resolvedPokemon() == undefined)
   selectPokemonLabel = SELECT_POKEMON_LABEL
   isTeamMember = computed(() => this.store.team().teamMembers.some(member => member.pokemon.id === this.editingId()))

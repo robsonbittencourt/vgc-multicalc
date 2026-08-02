@@ -12978,7 +12978,7 @@ export const POKEMON_DATA = {
     abilities: ["Shield Dust", "Compound Eyes", "Friend Guard"]
   },
   vivillonhighplains: {
-    name: "Vivillon-High Plains",
+    name: "Vivillon-High-Plains",
     types: ["Bug", "Flying"],
     baseStats: {
       hp: 80,
@@ -12992,7 +12992,7 @@ export const POKEMON_DATA = {
     abilities: ["Shield Dust", "Compound Eyes", "Friend Guard"]
   },
   vivillonicysnow: {
-    name: "Vivillon-Icy Snow",
+    name: "Vivillon-Icy-Snow",
     types: ["Bug", "Flying"],
     baseStats: {
       hp: 80,

@@ -12717,7 +12717,7 @@ export const MOVESETS = {
     moves: ["Hurricane", "Sleep Powder", "Rage Powder", "Protect"],
     items: ["Focus Sash", "Choice Scarf"]
   },
-  "Vivillon-High Plains": {
+  "Vivillon-High-Plains": {
     ability: "Compound Eyes",
     nature: "Timid",
     teraType: "",
@@ -12732,7 +12732,7 @@ export const MOVESETS = {
     moves: ["Hurricane", "Sleep Powder", "Rage Powder", "Protect"],
     items: ["Focus Sash", "Choice Scarf"]
   },
-  "Vivillon-Icy Snow": {
+  "Vivillon-Icy-Snow": {
     ability: "Compound Eyes",
     nature: "Timid",
     teraType: "",
