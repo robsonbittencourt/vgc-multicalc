@@ -4,6 +4,7 @@ import { Move } from "@multicalc/model/move"
 import { MoveSet } from "@multicalc/model/moveset"
 import { Pokemon } from "@multicalc/model/pokemon"
 import { Target } from "@multicalc/model/target"
+import { DamageCalc } from "@multicalc/damage-calc/damage-calc"
 import { DefensiveEvOptimizer } from "@multicalc/ev-optimizer/defensive-ev-optimizer"
 import { Status } from "@multicalc/model/status"
 
@@ -356,7 +357,7 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.evs!.spd).toBe(0)
       })
 
-      it("should refine a mixed physical and special pair through the single-attacker fallback", () => {
+      it("should protect the physical attacker of a mixed pair when the special one is unprotectable", () => {
         const defender = new Pokemon("Snorlax", { nature: "Bold", item: "Sitrus Berry" })
 
         const rillaboom = new Pokemon("Rillaboom", {
@@ -377,8 +378,8 @@ describe("DefensiveEvOptimizer", () => {
         const result = service.optimize(defender, targets, field, false, false, 3, 15, true)
 
         expect(result.status).toBe("success")
-        expect(result.evs!.hp).toBe(0)
-        expect(result.evs!.def).toBe(132)
+        expect(result.evs!.hp).toBe(236)
+        expect(result.evs!.def).toBe(228)
         expect(result.evs!.spd).toBe(0)
       })
 
@@ -839,9 +840,9 @@ describe("DefensiveEvOptimizer", () => {
 
         const result = service.optimize(defender, targets, field)
 
-        expect(result.evs!.hp).toBe(116)
-        expect(result.evs!.def).toBe(244)
-        expect(result.evs!.spd).toBe(148)
+        expect(result.evs!.hp).toBe(244)
+        expect(result.evs!.def).toBe(156)
+        expect(result.evs!.spd).toBe(108)
       })
 
       it("should optimize EVs for Gholdengo with multiple attackers including second physical strongest optimization", () => {
@@ -1091,6 +1092,33 @@ describe("DefensiveEvOptimizer", () => {
       })
     })
 
+    describe("reserved offensive EVs shrink the search budget", () => {
+      it("should treat a threat the remaining budget cannot protect as a lost cause instead of failing", () => {
+        const defender = new Pokemon("Porygon2", { nature: "Calm", item: "Leftovers", evs: { hp: 0, atk: 0, def: 0, spa: 156, spd: 0, spe: 0 } })
+        const miraidon = new Pokemon("Miraidon", { nature: "Modest", moveSet: new MoveSet(new Move("Electro Drift"), new Move(""), new Move(""), new Move("")), evs: { spa: 252 } })
+        const chiYu = new Pokemon("Chi-Yu", { nature: "Modest", item: "Life Orb", moveSet: new MoveSet(new Move("Overheat"), new Move(""), new Move(""), new Move("")), evs: { spa: 124 } })
+
+        const result = service.optimize(defender, [new Target(miraidon), new Target(chiYu)], new Field(), false, true, 2, 15, true)
+
+        expect(result.status).toBe("not-needed")
+        expect(result.evs).toEqual({ hp: 0, atk: 0, def: 0, spa: 156, spd: 0, spe: 0 })
+      })
+
+      it("should protect the threats that fit in the remaining budget when the full spread does not", () => {
+        const defender = new Pokemon("Umbreon", { nature: "Bold", item: "Assault Vest", evs: { hp: 0, atk: 0, def: 0, spa: 252, spd: 0, spe: 0 } })
+        const greatTusk = new Pokemon("Great Tusk", { nature: "Adamant", moveSet: new MoveSet(new Move("Headlong Rush"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
+        const kingambit = new Pokemon("Kingambit", { nature: "Adamant", item: "Choice Band", moveSet: new MoveSet(new Move("Kowtow Cleave"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
+        const chienPao = new Pokemon("Chien-Pao", { nature: "Jolly", moveSet: new MoveSet(new Move("Ice Spinner"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
+        const targets = [new Target(greatTusk), new Target(kingambit), new Target(chienPao)]
+
+        const result = service.optimize(defender, targets, new Field(), false, true, 3, 15, true)
+
+        expect(result.status).toBe("success")
+        expect(result.evs).toEqual({ hp: 4, atk: 0, def: 12, spa: 252, spd: 0, spe: 0 })
+        expect(result.evs!.hp + result.evs!.def + result.evs!.spd + result.evs!.spa).toBeLessThanOrEqual(508)
+      })
+    })
+
     describe("reserved offensive EVs overflow the budget via optimize", () => {
       it("should return no-solution when reserved offensive EVs plus the defensive spread exceed 508 with a double target", () => {
         const defender = new Pokemon("Snorlax", { nature: "Bold", evs: { atk: 252, spa: 252, spe: 4 } })
@@ -1155,7 +1183,7 @@ describe("DefensiveEvOptimizer", () => {
         const result = service.optimize(new Pokemon("Ting-Lu"), [new Target(ivCB180()), new Target(fmTera60()), new Target(chiYu, moltresGalar)], new Field())
 
         expect(result.status).toBe("success")
-        expect(result.evs).toEqual({ hp: 252, atk: 0, def: 0, spa: 0, spd: 188, spe: 0 })
+        expect(result.evs).toEqual({ hp: 244, atk: 0, def: 0, spa: 0, spd: 252, spe: 0 })
       })
     })
 
@@ -1183,7 +1211,7 @@ describe("DefensiveEvOptimizer", () => {
         const result = service.optimize(defender, [new Target(ursaluna), new Target(flutterMane)], new Field(), false, false, 3)
 
         expect(result.status).toBe("success")
-        expect(result.evs).toEqual({ hp: 172, atk: 0, def: 228, spa: 0, spd: 0, spe: 0 })
+        expect(result.evs).toEqual({ hp: 92, atk: 0, def: 0, spa: 0, spd: 212, spe: 0 })
       })
     })
 
@@ -1208,6 +1236,49 @@ describe("DefensiveEvOptimizer", () => {
 
         expect(result.status).toBe("success")
         expect(result.evs).toEqual({ hp: 180, atk: 0, def: 0, spa: 0, spd: 236, spe: 0 })
+      })
+
+      it("should protect a survivable attacker even when a second attacker is impossible only by the KO-chance criterion", () => {
+        const urshifu = new Pokemon("Urshifu-Rapid-Strike", { nature: "Adamant", item: "Choice Scarf", moveSet: new MoveSet(new Move("Surging Strikes"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
+        const garchomp = new Pokemon("Garchomp", { nature: "Adamant", item: "Choice Band", moveSet: new MoveSet(new Move("Earthquake"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
+        const defender = new Pokemon("Ting-Lu", { item: "Figy Berry", moveSet: new MoveSet(new Move("Earthquake"), new Move(""), new Move(""), new Move("")) })
+        const field = new Field({ weather: "Sun" })
+
+        const alone = service.optimize(defender, [new Target(garchomp)], field, false, false, 4, 15, true)
+
+        expect(alone.status).toBe("success")
+
+        const result = service.optimize(defender, [new Target(urshifu), new Target(garchomp)], field, false, false, 4, 15, true)
+
+        expect(result.status).toBe("success")
+        expect(result.evs).toEqual(alone.evs)
+      })
+    })
+
+    describe("nothing to protect against", () => {
+      const zeroEvs = { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
+      const investedEvs = { hp: 252, atk: 0, def: 4, spa: 0, spd: 252, spe: 0 }
+      const statusOnlyAttacker = () => new Pokemon("Amoonguss", { moveSet: new MoveSet(new Move("Spore"), new Move(""), new Move(""), new Move("")) })
+
+      it("should report not-needed when there are no targets and no defensive EVs are invested", () => {
+        const result = service.optimize(new Pokemon("Ting-Lu", { evs: zeroEvs }), [], new Field())
+
+        expect(result.status).toBe("not-needed")
+        expect(result.evs).toEqual(zeroEvs)
+      })
+
+      it("should report not-needed when the only attacker cannot deal damage", () => {
+        const result = service.optimize(new Pokemon("Ting-Lu", { evs: zeroEvs }), [new Target(statusOnlyAttacker())], new Field())
+
+        expect(result.status).toBe("not-needed")
+        expect(result.evs).toEqual(zeroEvs)
+      })
+
+      it("should keep the invested defensive EVs untouched when there is nothing to protect against", () => {
+        const result = service.optimize(new Pokemon("Ting-Lu", { evs: investedEvs }), [new Target(statusOnlyAttacker())], new Field())
+
+        expect(result.status).toBe("success")
+        expect(result.evs).toEqual(investedEvs)
       })
     })
 
@@ -1880,10 +1951,10 @@ describe("DefensiveEvOptimizer", () => {
         const result = service.optimize(defender, targets, field, false, false, 3)
 
         expect(result.status).toBe("success")
-        expect(result.evs).toEqual({ hp: 20, atk: 0, def: 84, spa: 0, spd: 124, spe: 0 })
+        expect(result.evs).toEqual({ hp: 140, atk: 0, def: 4, spa: 0, spd: 68, spe: 0 })
       })
 
-      it("should combine the strongest special solution with the physical defense when the special side is prioritized", () => {
+      it("should protect both special attackers with an SpD-only spread when that beats protecting the physical attacker", () => {
         const defender = new Pokemon("Ting-Lu", { item: "Sitrus Berry", moveSet: new MoveSet(new Move("Earthquake"), new Move(""), new Move(""), new Move("")) })
         const ursaluna = new Pokemon("Ursaluna", { nature: "Adamant", item: "Choice Band", moveSet: new MoveSet(new Move("Headlong Rush"), new Move(""), new Move(""), new Move("")), evs: { atk: 184 } })
         const chiYu = new Pokemon("Chi-Yu", { nature: "Modest", item: "Life Orb", moveSet: new MoveSet(new Move("Overheat"), new Move(""), new Move(""), new Move("")), evs: { spa: 124 } })
@@ -1894,10 +1965,10 @@ describe("DefensiveEvOptimizer", () => {
         const result = service.optimize(defender, targets, field, false, false, 3)
 
         expect(result.status).toBe("success")
-        expect(result.evs).toEqual({ hp: 236, atk: 0, def: 28, spa: 0, spd: 236, spe: 0 })
+        expect(result.evs).toEqual({ hp: 236, atk: 0, def: 0, spa: 0, spd: 252, spe: 0 })
       })
 
-      it("should keep a valid spread when the combined single solutions cannot absorb the double target", () => {
+      it("should protect both special singles with an SpD-only spread, leaving the physical single and the double uncovered", () => {
         const defender = new Pokemon("Ting-Lu", { item: "Sitrus Berry", moveSet: new MoveSet(new Move("Earthquake"), new Move(""), new Move(""), new Move("")) })
         const ursaluna = new Pokemon("Ursaluna", { nature: "Adamant", item: "Choice Band", moveSet: new MoveSet(new Move("Headlong Rush"), new Move(""), new Move(""), new Move("")), evs: { atk: 184 } })
         const chiYu = new Pokemon("Chi-Yu", { nature: "Modest", item: "Life Orb", moveSet: new MoveSet(new Move("Overheat"), new Move(""), new Move(""), new Move("")), evs: { spa: 124 } })
@@ -1910,10 +1981,10 @@ describe("DefensiveEvOptimizer", () => {
         const result = service.optimize(defender, targets, field, false, false, 3)
 
         expect(result.status).toBe("success")
-        expect(result.evs).toEqual({ hp: 236, atk: 0, def: 28, spa: 0, spd: 236, spe: 0 })
+        expect(result.evs).toEqual({ hp: 236, atk: 0, def: 0, spa: 0, spd: 252, spe: 0 })
       })
 
-      it("should drop the physical solution when the double target solution already protects the strongest physical attacker", () => {
+      it("should protect both special singles with an SpD-only spread instead of the physical single and the double", () => {
         const defender = new Pokemon("Ting-Lu", { item: "Sitrus Berry", moveSet: new MoveSet(new Move("Earthquake"), new Move(""), new Move(""), new Move("")) })
         const ursaluna = new Pokemon("Ursaluna", { nature: "Adamant", item: "Choice Band", moveSet: new MoveSet(new Move("Headlong Rush"), new Move(""), new Move(""), new Move("")), evs: { atk: 184 } })
         const chiYu = new Pokemon("Chi-Yu", { nature: "Modest", item: "Life Orb", moveSet: new MoveSet(new Move("Overheat"), new Move(""), new Move(""), new Move("")), evs: { spa: 124 } })
@@ -1926,7 +1997,7 @@ describe("DefensiveEvOptimizer", () => {
         const result = service.optimize(defender, targets, field, false, false, 3)
 
         expect(result.status).toBe("success")
-        expect(result.evs).toEqual({ hp: 236, atk: 0, def: 28, spa: 0, spd: 236, spe: 0 })
+        expect(result.evs).toEqual({ hp: 236, atk: 0, def: 0, spa: 0, spd: 252, spe: 0 })
       })
 
       it("should drop the special solution when the double target solution already protects the strongest special attacker", () => {
@@ -2092,7 +2163,7 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.evs).toEqual({ hp: 60, atk: 0, def: 252, spa: 0, spd: 0, spe: 0 })
       })
 
-      it("should protect the special single when a physical-pair double cannot also be covered", () => {
+      it("should protect the physical pair when the special single cannot also be covered", () => {
         const kingambit = new Pokemon("Kingambit", { nature: "Adamant", item: "Choice Band", moveSet: new MoveSet(new Move("Kowtow Cleave"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
         const landorusTherian = new Pokemon("Landorus-Therian", { nature: "Adamant", item: "Choice Band", moveSet: new MoveSet(new Move("Earthquake"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
         const tornadus = new Pokemon("Tornadus", { nature: "Timid", item: "Life Orb", moveSet: new MoveSet(new Move("Bleakwind Storm"), new Move(""), new Move(""), new Move("")), evs: { spa: 252 } })
@@ -2103,7 +2174,7 @@ describe("DefensiveEvOptimizer", () => {
         const result = service.optimize(defender, targets, field)
 
         expect(result.status).toBe("success")
-        expect(result.evs).toEqual({ hp: 124, atk: 0, def: 0, spa: 0, spd: 236, spe: 0 })
+        expect(result.evs).toEqual({ hp: 52, atk: 0, def: 244, spa: 0, spd: 0, spe: 0 })
       })
     })
 
@@ -2407,7 +2478,7 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.evs).toEqual({ hp: 196, atk: 0, def: 252, spa: 0, spd: 0, spe: 0 })
       })
 
-      it("should fall back to the special-priority spread when a double target joins two tight singles", () => {
+      it("should fall back to the physical-priority spread when a double target joins two tight singles", () => {
         const defender = new Pokemon("Clefairy")
         const targets = [new Target(ursaluna()), new Target(miraidon()), new Target(ursaluna(), miraidon())]
         const field = new Field()
@@ -2415,7 +2486,7 @@ describe("DefensiveEvOptimizer", () => {
         const result = service.optimize(defender, targets, field)
 
         expect(result.status).toBe("success")
-        expect(result.evs).toEqual({ hp: 244, atk: 0, def: 0, spa: 0, spd: 252, spe: 0 })
+        expect(result.evs).toEqual({ hp: 196, atk: 0, def: 252, spa: 0, spd: 0, spe: 0 })
       })
 
       it("should order remaining special attackers by strength when the strongest cannot be covered", () => {
@@ -2479,14 +2550,14 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.evs).toEqual({ hp: 212, atk: 0, def: 4, spa: 0, spd: 68, spe: 0 })
       })
 
-      it("should add the double solution on top of a two-solution spread", () => {
+      it("should protect the physical single and the double target with a Defense-only spread", () => {
         const defender = new Pokemon("Clefairy")
         const targets = [new Target(ursaluna()), new Target(miraidonCS()), new Target(rillaGlide(), volcaronaSB())]
 
         const result = service.optimize(defender, targets, new Field())
 
         expect(result.status).toBe("success")
-        expect(result.evs).toEqual({ hp: 244, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
+        expect(result.evs).toEqual({ hp: 196, atk: 0, def: 252, spa: 0, spd: 0, spe: 0 })
       })
 
       it("should combine a physical solution with a double target that contributes nothing", () => {
@@ -2560,7 +2631,7 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.evs).toEqual({ hp: 60, atk: 0, def: 252, spa: 0, spd: 0, spe: 0 })
       })
 
-      it("should walk the tryAddDoubleSolution HP/Def search loop when two solutions already survive both singles", () => {
+      it("should protect the physical single and the weak double with a minimal Defense spread", () => {
         const defender = new Pokemon("Clefairy")
         const single1 = new Pokemon("Great Tusk", { nature: "Adamant", moveSet: new MoveSet(new Move("Headlong Rush"), new Move(""), new Move(""), new Move("")), evs: { atk: 0 } })
         const single2 = new Pokemon("Chi-Yu", { nature: "Modest", moveSet: new MoveSet(new Move("Overheat"), new Move(""), new Move(""), new Move("")), evs: { spa: 0 } })
@@ -2569,10 +2640,10 @@ describe("DefensiveEvOptimizer", () => {
         const result = service.optimize(defender, targets, new Field())
 
         expect(result.status).toBe("success")
-        expect(result.evs).toEqual({ hp: 196, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
+        expect(result.evs).toEqual({ hp: 4, atk: 0, def: 188, spa: 0, spd: 0, spe: 0 })
       })
 
-      it("should fall through to the tail branches when both solutions survive the double and tryAddDoubleSolution cannot extend them", () => {
+      it("should protect three of the five threats with a minimal Defense spread", () => {
         const defender = new Pokemon("Clefairy")
         const phys1 = new Pokemon("Great Tusk", { nature: "Adamant", moveSet: new MoveSet(new Move("Headlong Rush"), new Move(""), new Move(""), new Move("")), evs: { atk: 0 } })
         const spec1 = new Pokemon("Miraidon", { nature: "Modest", moveSet: new MoveSet(new Move("Electro Drift"), new Move(""), new Move(""), new Move("")), evs: { spa: 0 } })
@@ -2585,7 +2656,7 @@ describe("DefensiveEvOptimizer", () => {
         const result = service.optimize(defender, targets, new Field())
 
         expect(result.status).toBe("success")
-        expect(result.evs).toEqual({ hp: 196, atk: 0, def: 0, spa: 0, spd: 252, spe: 0 })
+        expect(result.evs).toEqual({ hp: 4, atk: 0, def: 188, spa: 0, spd: 0, spe: 0 })
       })
     })
 
@@ -2685,7 +2756,7 @@ describe("DefensiveEvOptimizer", () => {
     })
 
     describe("double refinement", () => {
-      it("should refine a double target when the defender survives with residual recovery", () => {
+      it("should protect the two singles instead of the double when that costs fewer EVs", () => {
         const defender = new Pokemon("Umbreon", { nature: "Bold", item: "Sitrus Berry" })
 
         const sneasel = new Pokemon("Sneasel", { nature: "Adamant", moveSet: new MoveSet(new Move("Ice Punch"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
@@ -2698,12 +2769,12 @@ describe("DefensiveEvOptimizer", () => {
         const result = service.optimize(defender, targets, field, false, false, 3, 15, true)
 
         expect(result.status).toBe("success")
-        expect(result.evs!.hp).toBe(236)
-        expect(result.evs!.def).toBe(252)
-        expect(result.evs!.spd).toBe(0)
+        expect(result.evs!.hp).toBe(140)
+        expect(result.evs!.def).toBe(0)
+        expect(result.evs!.spd).toBe(156)
       })
 
-      it("should reject candidate spreads that stop protecting the strongest physical attacker outside the double", () => {
+      it("should protect the special single and the double in the Umbreon sandstorm scenario", () => {
         const defender = new Pokemon("Umbreon", { nature: "Bold", item: "Sitrus Berry" })
 
         const rillaboom = new Pokemon("Rillaboom", { nature: "Adamant", item: "Life Orb", moveSet: new MoveSet(new Move("Wood Hammer"), new Move(""), new Move(""), new Move("")), evs: { atk: 196 } })
@@ -2717,12 +2788,12 @@ describe("DefensiveEvOptimizer", () => {
         const result = service.optimize(defender, targets, field, false, false, 3, 15, true)
 
         expect(result.status).toBe("success")
-        expect(result.evs!.hp).toBe(124)
-        expect(result.evs!.def).toBe(244)
-        expect(result.evs!.spd).toBe(0)
+        expect(result.evs!.hp).toBe(244)
+        expect(result.evs!.def).toBe(196)
+        expect(result.evs!.spd).toBe(68)
       })
 
-      it("should try to increase EVs when the combined spread dies to residual damage before giving up", () => {
+      it("should protect the physical single and the double with a minimal Defense spread", () => {
         const defender = new Pokemon("Porygon2", { nature: "Calm", item: "Leftovers" })
 
         const scizor = new Pokemon("Scizor", { nature: "Adamant", moveSet: new MoveSet(new Move("Bullet Punch"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
@@ -2735,9 +2806,155 @@ describe("DefensiveEvOptimizer", () => {
         const result = service.optimize(defender, targets, field, false, false, 3, 15, true)
 
         expect(result.status).toBe("success")
-        expect(result.evs!.hp).toBe(228)
-        expect(result.evs!.def).toBe(0)
-        expect(result.evs!.spd).toBe(236)
+        expect(result.evs!.hp).toBe(4)
+        expect(result.evs!.def).toBe(228)
+        expect(result.evs!.spd).toBe(0)
+      })
+    })
+
+    describe("roll level", () => {
+      const amoonguss = () => new Pokemon("Amoonguss", { moveSet: new MoveSet(new Move("Tackle"), new Move(""), new Move(""), new Move("")) })
+      const chienPao = () => new Pokemon("Chien-Pao", { nature: "Jolly", moveSet: new MoveSet(new Move("Ice Spinner"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
+
+      const optimizeAtRoll = (rollIndex: number) => service.optimize(amoonguss(), [new Target(chienPao())], new Field(), false, false, 2, rollIndex, true)
+
+      it("should spend the fewest EVs on the low roll", () => {
+        const result = optimizeAtRoll(0)
+
+        expect(result.status).toBe("success")
+        expect(result.evs).toEqual({ hp: 0, atk: 0, def: 148, spa: 0, spd: 0, spe: 0 })
+      })
+
+      it("should spend more EVs on the medium roll than on the low roll", () => {
+        const result = optimizeAtRoll(7)
+
+        expect(result.status).toBe("success")
+        expect(result.evs).toEqual({ hp: 0, atk: 0, def: 236, spa: 0, spd: 0, spe: 0 })
+      })
+
+      it("should spend the most EVs on the high roll", () => {
+        const result = optimizeAtRoll(15)
+
+        expect(result.status).toBe("success")
+        expect(result.evs).toEqual({ hp: 124, atk: 0, def: 244, spa: 0, spd: 0, spe: 0 })
+      })
+
+      it("should never cost more EVs as the roll level decreases", () => {
+        const totalEvs = (rollIndex: number) => {
+          const evs = optimizeAtRoll(rollIndex).evs!
+
+          return evs.hp + evs.def + evs.spd
+        }
+
+        const low = totalEvs(0)
+        const medium = totalEvs(7)
+        const high = totalEvs(15)
+
+        expect(low).toBeLessThanOrEqual(medium)
+        expect(medium).toBeLessThanOrEqual(high)
+      })
+    })
+
+    describe("survival decided by KO chance", () => {
+      const umbreonSitrus = () => new Pokemon("Umbreon", { nature: "Bold", item: "Sitrus Berry" })
+      const rotomHeat = () => new Pokemon("Rotom-Heat", { nature: "Modest", moveSet: new MoveSet(new Move("Overheat"), new Move(""), new Move(""), new Move("")), evs: { spa: 252 } })
+
+      it("should not report not-needed when the defender can still be 2HKOd at the 3HKO threshold", () => {
+        const defender = umbreonSitrus()
+        const rotom = rotomHeat()
+        const field = new Field({ terrain: "Grassy" })
+
+        const result = service.optimize(defender, [new Target(rotom)], field, false, false, 3, 15, true)
+
+        expect(result.status).not.toBe("not-needed")
+      })
+
+      it("should return a spread with zero chance of being KOd before the third turn", () => {
+        const defender = umbreonSitrus()
+        const rotom = rotomHeat()
+        const field = new Field({ terrain: "Grassy" })
+
+        const result = service.optimize(defender, [new Target(rotom)], field, false, false, 3, 15, true)
+
+        expect(result.evs).not.toBeNull()
+
+        const optimized = defender.clone({ evs: result.evs! })
+        const koChance = new DamageCalc().calculateResult(rotom, optimized, rotom.move, field, true).koChance()
+
+        expect(koChance.n).toBeGreaterThanOrEqual(3)
+      })
+
+      it("should protect an attacker that no degradation plan includes because it survives at zero EVs", () => {
+        const defender = umbreonSitrus()
+        const chienPao = new Pokemon("Chien-Pao", { nature: "Jolly", moveSet: new MoveSet(new Move("Ice Spinner"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
+        const basculegion = new Pokemon("Basculegion", { nature: "Adamant", moveSet: new MoveSet(new Move("Wave Crash"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
+        const field = new Field()
+
+        const result = service.optimize(defender, [new Target(chienPao), new Target(basculegion)], field, false, false, 3, 15, true)
+
+        expect(result.status).toBe("success")
+        expect(result.evs).toEqual({ hp: 28, atk: 0, def: 156, spa: 0, spd: 0, spe: 0 })
+
+        const optimized = defender.clone({ evs: result.evs! })
+        const calc = new DamageCalc()
+
+        expect(calc.calculateResult(chienPao, optimized, chienPao.move, field, true).koChance().n).toBe(3)
+        expect(calc.calculateResult(basculegion, optimized, basculegion.move, field, true).koChance().n).toBe(3)
+      })
+
+      it("should keep protecting the Urshifu scenario that used to pass by a single HP", () => {
+        const defender = umbreonSitrus()
+        const urshifu = new Pokemon("Urshifu-Rapid-Strike", { nature: "Adamant", moveSet: new MoveSet(new Move("Surging Strikes"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
+        const field = new Field({ weather: "Sand" })
+
+        const result = service.optimize(defender, [new Target(urshifu)], field, false, false, 3, 15, true)
+
+        if (result.evs) {
+          const optimized = defender.clone({ evs: result.evs })
+          const koChance = new DamageCalc().calculateResult(urshifu, optimized, urshifu.move, field, true).koChance()
+
+          expect(koChance.n).toBeGreaterThanOrEqual(3)
+        } else {
+          expect(result.status).toBe("no-solution")
+        }
+      })
+    })
+
+    describe("survival against attacker pairs decided by KO chance", () => {
+      const dondozoFigy = () => new Pokemon("Dondozo", { nature: "Impish", item: "Figy Berry", evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 } })
+      const greatTusk = () => new Pokemon("Great Tusk", { nature: "Adamant", moveSet: new MoveSet(new Move("Headlong Rush"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
+      const ironBundle = () => new Pokemon("Iron Bundle", { nature: "Modest", moveSet: new MoveSet(new Move("Freeze-Dry"), new Move(""), new Move(""), new Move("")), evs: { spa: 252 } })
+
+      it("should not report success with a spread the pair can knock out on the first turn", () => {
+        const defender = dondozoFigy()
+        const tusk = greatTusk()
+        const bundle = ironBundle()
+        const field = new Field()
+
+        const result = service.optimize(defender, [new Target(tusk, bundle)], field, false, false, 2, 15, true)
+
+        expect(result.status).toBe("success")
+        expect(result.evs).toEqual({ hp: 116, atk: 0, def: 28, spa: 0, spd: 0, spe: 0 })
+
+        const optimized = defender.clone({ evs: result.evs! })
+        const combined = new DamageCalc().calcDamageValueForTwoAttackers(tusk, bundle, optimized, field, true)
+
+        expect(combined.getHKO()).toBe("guaranteed 2HKO after Figy Berry recovery")
+        expect(combined.survivesHits(1)).toBe(true)
+      })
+
+      it("should reject the cheaper spread that the accumulated damage criterion used to approve", () => {
+        const defender = dondozoFigy().clone({ evs: { hp: 20, atk: 0, def: 0, spa: 0, spd: 60, spe: 0 } })
+        const tusk = greatTusk()
+        const bundle = ironBundle()
+        const field = new Field()
+
+        const combined = new DamageCalc().calcDamageValueForTwoAttackers(tusk, bundle, defender, field, true)
+
+        expect(defender.hp).toBe(228)
+        expect(combined.damageWithRemainingUntilTurn(1, 15)).toBeLessThan(defender.hp)
+        expect(combined.getHKO()).toBe("31.3% chance to OHKO")
+        expect(combined.survivesHits(1)).toBe(false)
       })
     })
   })

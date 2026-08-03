@@ -1,10 +1,20 @@
-import { buildAttackerDescription, buildDefenderTail, buildDescription, computeMultiHitKOChance, getBerryRecovery, getDamageWithoutBerry, getEndOfTurn, roundChance, serializeEndOfTurnTexts } from "@calc/engine/desc"
+import { buildAttackerDescription, buildDefenderTail, buildDescription, computeMultiHitKOChance, getBerryRecovery, getDamageWithoutBerry, getEndOfTurn, roundChance, serializeEndOfTurnTexts, truncateToRoll } from "@calc/engine/desc"
 import { StaminaBoostSimulator } from "@calc/engine/stamina-boost-simulator"
 import { DamageDistribution } from "@calc/model/damage-distribution"
 import { Move } from "@calc/model/move"
 import { Pokemon } from "@calc/model/pokemon"
 import { AfterTurnData, AfterTurnResult, applyTurnDamage, DEFAULT_ROLL_INDEX, Result } from "@calc/model/result"
 import { RawDesc, StatID } from "@data/types"
+
+type KOChanceSetup = {
+  baseDamages: number[][]
+  baseBerryRecovery: number[]
+  baseBerryThreshold: number[]
+  rowsPerTurn: number
+  toxicCounter: number
+  hasStamina: boolean
+  allStaminaDamages: number[][]
+}
 
 export class MultiResult {
   defender: Pokemon
@@ -90,7 +100,57 @@ export class MultiResult {
     return new AfterTurnResult(data)
   }
 
-  getHKO(): string {
+  survivesHits(hits: number, rollIndex = DEFAULT_ROLL_INDEX): boolean {
+    if (hits < 1) {
+      return true
+    }
+
+    const target = this.results[0].defender
+    const setup = this.koChanceSetup(rollIndex)
+    const eotDamage = this.currentEotDamage()
+
+    return this.koChanceForTurn(setup, hits, target, eotDamage).chance === 0
+  }
+
+  certainlyKOs(hits: number, rollIndex = DEFAULT_ROLL_INDEX): boolean {
+    if (hits < 1) {
+      return false
+    }
+
+    const target = this.results[0].defender
+
+    let maxDamagePerTurn = 0
+    let maxBerryRecovery = 0
+
+    for (const result of this.results) {
+      for (const subArray of new DamageDistribution(result.damage).subArrays()) {
+        maxDamagePerTurn += Math.max(...truncateToRoll(subArray, rollIndex))
+      }
+
+      maxBerryRecovery = Math.max(maxBerryRecovery, getBerryRecovery(result.attacker, target, result.move).recovery)
+    }
+
+    const maxHealing = maxBerryRecovery + hits * Math.max(0, this.currentEotDamage())
+
+    return hits * maxDamagePerTurn >= target.currentHp() + maxHealing
+  }
+
+  private currentEotDamage(): number {
+    const defender = this.results[0].defender
+    const field = this.results[0].field
+    const baseEot = getEndOfTurn(this.results[0].attacker, defender, new Move("Splash"), field)
+
+    let totalEotDamage = baseEot.damage
+
+    for (const result of this.results) {
+      const resultEot = getEndOfTurn(result.attacker, defender, result.move, field)
+      totalEotDamage += Math.min(0, resultEot.damage - baseEot.damage)
+    }
+
+    return totalEotDamage
+  }
+
+  private koChanceSetup(rollIndex = DEFAULT_ROLL_INDEX): KOChanceSetup {
     const target = this.results[0].defender
 
     const baseDamages: number[][] = []
@@ -98,7 +158,7 @@ export class MultiResult {
     const baseBerryThreshold: number[] = []
 
     for (const result of this.results) {
-      const damage = new DamageDistribution(result.damage).subArrays()
+      const damage = new DamageDistribution(result.damage).subArrays().map(row => truncateToRoll(row, rollIndex))
       const berry = getBerryRecovery(result.attacker, target, result.move)
 
       baseDamages.push(...damage)
@@ -109,29 +169,45 @@ export class MultiResult {
       })
     }
 
-    const rowsPerTurn = baseDamages.length
-    const toxicCounter = target.status === "tox" ? target.toxicCounter : 0
     const hasStamina = this.hasStaminaDefender()
-    const allStaminaDamages = hasStamina ? new StaminaBoostSimulator(this.results).hitDamages(9, this.initialDefBoost()) : []
+
+    return {
+      baseDamages,
+      baseBerryRecovery,
+      baseBerryThreshold,
+      rowsPerTurn: baseDamages.length,
+      toxicCounter: target.status === "tox" ? target.toxicCounter : 0,
+      hasStamina,
+      allStaminaDamages: hasStamina ? new StaminaBoostSimulator(this.results).hitDamages(9, this.initialDefBoost()) : []
+    }
+  }
+
+  private koChanceForTurn(setup: KOChanceSetup, turn: number, target: Pokemon, eotDamage: number) {
+    const currentBerryRecovery: number[] = []
+    const currentBerryThreshold: number[] = []
+
+    for (let j = 0; j < turn; j++) {
+      currentBerryRecovery.push(...setup.baseBerryRecovery)
+      currentBerryThreshold.push(...setup.baseBerryThreshold)
+    }
+
+    const currentDamages: number[][] = setup.hasStamina ? setup.allStaminaDamages.slice(0, turn * setup.rowsPerTurn) : []
+
+    if (!setup.hasStamina) {
+      for (let j = 0; j < turn; j++) {
+        currentDamages.push(...setup.baseDamages)
+      }
+    }
+
+    return computeMultiHitKOChance(currentDamages, target.currentHp(), eotDamage, target.maxHp(), currentBerryRecovery, currentBerryThreshold, setup.rowsPerTurn, setup.toxicCounter)
+  }
+
+  getHKO(): string {
+    const target = this.results[0].defender
+    const setup = this.koChanceSetup()
 
     for (let i = 1; i <= 9; i++) {
-      const currentBerryRecovery: number[] = []
-      const currentBerryThreshold: number[] = []
-
-      for (let j = 0; j < i; j++) {
-        currentBerryRecovery.push(...baseBerryRecovery)
-        currentBerryThreshold.push(...baseBerryThreshold)
-      }
-
-      const currentDamages: number[][] = hasStamina ? allStaminaDamages.slice(0, i * rowsPerTurn) : []
-
-      if (!hasStamina) {
-        for (let j = 0; j < i; j++) {
-          currentDamages.push(...baseDamages)
-        }
-      }
-
-      const result = computeMultiHitKOChance(currentDamages, target.currentHp(), this.eot.damage, target.maxHp(), currentBerryRecovery, currentBerryThreshold, rowsPerTurn, toxicCounter)
+      const result = this.koChanceForTurn(setup, i, target, this.eot.damage)
 
       if (result.chance > 0) {
         const hkoText = i === 1 ? "OHKO" : `${i}HKO`

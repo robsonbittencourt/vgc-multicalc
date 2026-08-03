@@ -1,4 +1,4 @@
-import { consumeBerryIfTriggered, getBerryRecovery, getDamageWithoutBerry, getEndOfTurn, formatResultDescription, formatDamageSummary, getKOChance, getRecovery, getRecoil } from "@calc/engine/desc"
+import { consumeBerryIfTriggered, getBerryRecovery, getDamageWithoutBerry, getEndOfTurn, formatResultDescription, formatDamageSummary, getKOChance, getSurvivesHits, getRecovery, getRecoil } from "@calc/engine/desc"
 import { Field } from "@calc/model/field"
 import { Move } from "@calc/model/move"
 import { Pokemon } from "@calc/model/pokemon"
@@ -175,6 +175,10 @@ export class Result {
 
   koChance() {
     return getKOChance(this.attacker, this.defender, this.move, this.field, this.damage, this.rawDesc)
+  }
+
+  survivesHits(hits: number, rollIndex = DEFAULT_ROLL_INDEX): boolean {
+    return getSurvivesHits(this.attacker, this.defender, this.move, this.field, this.damage, this.rawDesc, hits, rollIndex)
   }
 
   maxDamage() {
