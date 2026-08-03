@@ -28,7 +28,7 @@ cypress/e2e/
 - **NÃO:** variação de regra que muda o número do cálculo (abilities, items,
   mecânicas). Isso é unit test de domínio (`src/domain/**`).
 
-Regra de ouro: *muda o número → domínio (unit); muda o que aparece/interação → UI (Cypress).*
+Regra de ouro: _muda o número → domínio (unit); muda o que aparece/interação → UI (Cypress)._
 
 ## Padrões
 

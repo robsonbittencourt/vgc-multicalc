@@ -61,8 +61,7 @@ export class CachedDamageCalc extends DamageCalc {
   }
 
   override calcDamageValueForTwoAttackers(attacker: Pokemon, secondAttacker: Pokemon, target: Pokemon, field: Field, rightIsDefender = true): MultiResult {
-    const berryPart = target.item?.includes("Berry") ? `|${target.hp}` : ""
-    const key = `${this.idOf(attacker)}|${this.idOf(secondAttacker)}|${rightIsDefender}|${target.def}|${target.spd}${berryPart}`
+    const key = `${this.idOf(attacker)}|${this.idOf(secondAttacker)}|${rightIsDefender}|${target.def}|${target.spd}`
     const cached = this.doubleCache.get(key)
 
     if (cached) {
