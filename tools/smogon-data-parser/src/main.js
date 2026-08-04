@@ -4,7 +4,7 @@ import { extractMetaMoves } from "./meta-moves-extractor.js"
 import { topUsage } from "./top-usage.js"
 import { pokemonDetailsGroup } from "./pokemon-details-group.js"
 
-const date = "2026-06"
+const date = "2026-07"
 const regulation = "mb"
 
 const steps = [
