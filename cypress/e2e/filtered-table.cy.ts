@@ -126,11 +126,27 @@ describe("Filtered Table behaviors", () => {
     it("Select a Pokémon after filter and press tab", () => {
       const build = team.selectPokemon("Charizard")
 
+      build.inputPokemonName("Maro")
+      cy.realPress("Tab")
+
+      team.pokemonOnEditNameIs("Marowak")
+      build.tableEntryIsSelected("Leftovers")
+
+      build.inputPokemonName("Pik")
+      cy.realPress("Tab")
+
+      team.pokemonOnEditNameIs("Pikachu")
+      build.tableEntryIsSelected("Light Ball")
+    })
+
+    it("Select a Pokémon after filter and press tab ignoring the previous Mega Stone position", () => {
+      const build = team.selectPokemon("Charizard")
+
       build.inputPokemonName("Ty")
       cy.realPress("Tab")
 
       team.pokemonOnEditNameIs("Tyranitar-Mega")
-      build.tableEntryIsSelected("Tyranitarite")
+      build.tableEntryIsSelected("Sand Stream")
 
       build.inputPokemonName("Pik")
       cy.realPress("Tab")

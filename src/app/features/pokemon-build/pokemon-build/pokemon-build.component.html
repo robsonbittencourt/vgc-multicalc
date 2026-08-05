@@ -31,6 +31,7 @@
         [haveFocus]="pokemonHasFocus()"
         (selected)="pokemonSelectorOnClick()"
         (lostFocus)="pokemonSelectorLostFocus()"
+        (keydown.tab)="pokemonSelectorTabPressed()"
         [tabIndex]="pokemonTabIndex()"
         ariaLabel="Pokémon"
         data-cy="pokemon-select" />

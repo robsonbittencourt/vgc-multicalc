@@ -1,5 +1,5 @@
 import { NgClass, NgStyle } from "@angular/common"
-import { Component, computed, effect, inject, input, output, signal, viewChild } from "@angular/core"
+import { ChangeDetectorRef, Component, computed, effect, inject, input, output, signal, viewChild } from "@angular/core"
 import { FormsModule } from "@angular/forms"
 import { MatButton } from "@angular/material/button"
 import { MatCheckbox } from "@angular/material/checkbox"
@@ -82,6 +82,7 @@ export class PokemonBuildComponent {
   menuStore = inject(MenuStore)
   megaStoneService = inject(MegaStoneService)
   spriteService = inject(SpriteService)
+  changeDetector = inject(ChangeDetectorRef)
 
   originalEvs = signal<Stats>({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
   originalNature = signal<string>("")
@@ -500,6 +501,13 @@ export class PokemonBuildComponent {
       this.store.loadPokemonInfo(this.editingId(), this.firstPokemonFromList())
       this.pokemonDataFilter.set("")
     }
+  }
+
+  pokemonSelectorTabPressed() {
+    if (this.pokemonDataFilter() == "") return
+
+    this.pokemonSelectorLostFocus()
+    this.changeDetector.detectChanges()
   }
 
   newPokemonSelectorLostFocus() {
