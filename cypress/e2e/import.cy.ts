@@ -114,7 +114,7 @@ describe("Import Pokepaste", () => {
     team.pokemonOnEditEvsIs(252, 0, 4, 252, 0, 0)
 
     team.selectPokemon("Squawkabilly")
-    team.pokemonOnEditIs("Squawkabilly", "Intimidate", "Normal", "Leftovers", "Adamant")
+    team.pokemonOnEditIs("Squawkabilly-Blue", "Intimidate", "Normal", "Leftovers", "Adamant")
     team.pokemonOnEditAttacksIs("Brave Bird", "Double-Edge", "Air Slash", "Dual Wingbeat")
     team.pokemonOnEditEvsIs(4, 252, 0, 0, 0, 252)
 
@@ -124,7 +124,7 @@ describe("Import Pokepaste", () => {
     team.pokemonOnEditEvsIs(252, 0, 4, 0, 252, 0)
 
     team.selectPokemon("Maushold")
-    team.pokemonOnEditIs("Maushold", "Friend Guard", "Normal", "Wide Lens", "Adamant")
+    team.pokemonOnEditIs("Maushold-Four", "Friend Guard", "Normal", "Wide Lens", "Adamant")
     team.pokemonOnEditAttacksIs("Crunch", "Chilling Water", "Agility", "Baton Pass")
     team.pokemonOnEditEvsIs(0, 252, 0, 0, 0, 252)
 
@@ -187,7 +187,7 @@ describe("Import Pokepaste", () => {
     team.pokemonOnEditEvsIs(252, 0, 180, 0, 76, 0)
 
     team.selectPokemon("Tatsugiri")
-    team.pokemonOnEditIs("Tatsugiri", "Commander", "Dragon", "Choice Scarf", "Modest")
+    team.pokemonOnEditIs("Tatsugiri-Droopy", "Commander", "Dragon", "Choice Scarf", "Modest")
     team.pokemonOnEditAttacksIs("Draco Meteor", "Chilling Water", "Baton Pass", "Counter")
     team.pokemonOnEditEvsIs(0, 0, 0, 252, 0, 252)
   })
@@ -196,22 +196,22 @@ describe("Import Pokepaste", () => {
     team.importPokepaste(poke["pokepaste-forms-6"])
     team.selectTeam("Team 2")
 
-    team.pokemonOnEditIs("Polteageist", "Weak Armor", "Ghost", "Clear Amulet", "Modest")
+    team.pokemonOnEditIs("Polteageist-Antique", "Weak Armor", "Ghost", "Clear Amulet", "Modest")
     team.pokemonOnEditAttacksIs("Dark Pulse", "Calm Mind", "Giga Drain", "Hex")
     team.pokemonOnEditEvsIs(252, 0, 0, 252, 0, 0)
 
     team.selectPokemon("Sinistcha")
-    team.pokemonOnEditIs("Sinistcha", "Hospitality", "Grass", "Assault Vest", "Modest")
+    team.pokemonOnEditIs("Sinistcha-Masterpiece", "Hospitality", "Grass", "Assault Vest", "Modest")
     team.pokemonOnEditAttacksIs("Giga Drain", "Calm Mind", "Matcha Gotcha", "Leaf Storm")
     team.pokemonOnEditEvsIs(252, 0, 0, 252, 0, 0)
 
     team.selectPokemon("Sinistea")
-    team.pokemonOnEditIs("Sinistea", "Weak Armor", "Ghost", "Choice Specs", "Modest")
+    team.pokemonOnEditIs("Sinistea-Antique", "Weak Armor", "Ghost", "Choice Specs", "Modest")
     team.pokemonOnEditAttacksIs("Dark Pulse", "Giga Drain", "Hex", "Psychic")
     team.pokemonOnEditEvsIs(252, 0, 0, 252, 0, 0)
 
     team.selectPokemon("Rockruff")
-    team.pokemonOnEditIs("Rockruff", "Own Tempo", "Rock", "Choice Band", "Jolly")
+    team.pokemonOnEditIs("Rockruff-Dusk", "Own Tempo", "Rock", "Choice Band", "Jolly")
     team.pokemonOnEditAttacksIs("Body Slam", "Crunch", "Double-Edge", "Play Rough")
     team.pokemonOnEditEvsIs(0, 252, 0, 0, 0, 252)
   })
