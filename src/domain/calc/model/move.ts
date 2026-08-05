@@ -18,6 +18,8 @@ export class Move {
   pokemonName?: PokemonName
   overrides?: Partial<MoveData>
   hits: number
+  hitsTaken: number
+  lastMoveFailed: boolean
   timesUsed: number
   timesUsedWithMetronome?: number
   bp: number
@@ -49,6 +51,8 @@ export class Move {
     this.moveData = data
 
     this.hits = resolveHits(data, options)
+    this.hitsTaken = options.hitsTaken ?? 0
+    this.lastMoveFailed = !!options.lastMoveFailed
 
     this.timesUsedWithMetronome = options.timesUsedWithMetronome
 
@@ -117,12 +121,14 @@ export class Move {
         isCrit: this.isCrit,
         isStellarFirstUse: this.isStellarFirstUse,
         hits: this.hits,
+        hitsTaken: this.hitsTaken,
+        lastMoveFailed: this.lastMoveFailed,
         timesUsed: this.timesUsed,
         timesUsedWithMetronome: this.timesUsedWithMetronome,
         isParentalBondChild: this.isParentalBondChild,
         overrides: this.overrides
       },
-      this.moveData
+      { ...this.moveData, basePower: this.bp }
     )
   }
 }

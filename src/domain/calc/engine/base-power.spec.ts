@@ -311,3 +311,77 @@ describe("Base power strategy table (gen 0)", () => {
     expect(getBasePower({ attacker, defender: new Pokemon("Pelipper", {}), move, field: new Field(), description: {} as RawDesc, turnOrder: "first", hit: 1 })).toBe(80)
   })
 })
+
+describe("Variable base power from battle context", () => {
+  function contextBasePower(attackerName: string, attackerOptions: Record<string, unknown>, moveName: string, moveOptions: Record<string, unknown>): { bp: number; description: RawDesc } {
+    const attacker = new Pokemon(attackerName, attackerOptions as never)
+    const move = new Move(moveName, moveOptions as never)
+    const description = { moveName } as RawDesc
+
+    return { bp: getBasePower({ attacker, defender: new Pokemon("Pelipper", {}), move, field: new Field(), description, turnOrder: "first", hit: 1 }), description }
+  }
+
+  it("keeps Last Respects at 50 when no ally fainted", () => {
+    expect(contextBasePower("Basculegion", { alliesFainted: 0 }, "Last Respects", {}).bp).toBe(50)
+  })
+
+  it("raises Last Respects to 100 when one ally fainted", () => {
+    expect(contextBasePower("Basculegion", { alliesFainted: 1 }, "Last Respects", {}).bp).toBe(100)
+  })
+
+  it("raises Last Respects to 150 when two allies fainted", () => {
+    expect(contextBasePower("Basculegion", { alliesFainted: 2 }, "Last Respects", {}).bp).toBe(150)
+  })
+
+  it("raises Last Respects to 200 when three allies fainted", () => {
+    expect(contextBasePower("Basculegion", { alliesFainted: 3 }, "Last Respects", {}).bp).toBe(200)
+  })
+
+  it("describes the adjusted Last Respects base power", () => {
+    expect(contextBasePower("Basculegion", { alliesFainted: 3 }, "Last Respects", {}).description.moveBP).toBe(200)
+  })
+
+  it("keeps Rage Fist at 50 when no hit was taken", () => {
+    expect(contextBasePower("Annihilape", {}, "Rage Fist", { hitsTaken: 0 }).bp).toBe(50)
+  })
+
+  it("raises Rage Fist to 100 when one hit was taken", () => {
+    expect(contextBasePower("Annihilape", {}, "Rage Fist", { hitsTaken: 1 }).bp).toBe(100)
+  })
+
+  it("raises Rage Fist to 150 when two hits were taken", () => {
+    expect(contextBasePower("Annihilape", {}, "Rage Fist", { hitsTaken: 2 }).bp).toBe(150)
+  })
+
+  it("raises Rage Fist to 200 when three hits were taken", () => {
+    expect(contextBasePower("Annihilape", {}, "Rage Fist", { hitsTaken: 3 }).bp).toBe(200)
+  })
+
+  it("raises Rage Fist to 250 when four hits were taken", () => {
+    expect(contextBasePower("Annihilape", {}, "Rage Fist", { hitsTaken: 4 }).bp).toBe(250)
+  })
+
+  it("raises Rage Fist to 300 when five hits were taken", () => {
+    expect(contextBasePower("Annihilape", {}, "Rage Fist", { hitsTaken: 5 }).bp).toBe(300)
+  })
+
+  it("raises Rage Fist to 350 when six hits were taken", () => {
+    expect(contextBasePower("Annihilape", {}, "Rage Fist", { hitsTaken: 6 }).bp).toBe(350)
+  })
+
+  it("describes the adjusted Rage Fist base power", () => {
+    expect(contextBasePower("Annihilape", {}, "Rage Fist", { hitsTaken: 6 }).description.moveBP).toBe(350)
+  })
+
+  it("keeps Stomping Tantrum at 75 when the last move did not fail", () => {
+    expect(contextBasePower("Garchomp", {}, "Stomping Tantrum", { lastMoveFailed: false }).bp).toBe(75)
+  })
+
+  it("does not describe a base power for an unchanged Stomping Tantrum", () => {
+    expect(contextBasePower("Garchomp", {}, "Stomping Tantrum", { lastMoveFailed: false }).description.moveBP).toBeUndefined()
+  })
+
+  it("doubles Stomping Tantrum to 150 when the last move failed", () => {
+    expect(contextBasePower("Garchomp", {}, "Stomping Tantrum", { lastMoveFailed: true }).bp).toBe(150)
+  })
+})

@@ -1,13 +1,9 @@
 import { CalcAdjuster } from "./calc-adjuster/calc-adjuster"
 import { RuinsAbilityAdjuster } from "./calc-adjuster/ruins-ability-adjuster"
 import { FairyAuraAdjuster } from "./calc-adjuster/fairy-aura-adjuster"
-import { LastRespectsAdjuster } from "./calc-adjuster/last-respects-adjuster"
-import { RageFistAdjuster } from "./calc-adjuster/rage-fist-adjuster"
-import { StompingTantrumAdjuster } from "./calc-adjuster/stomping-tantrum-adjuster"
 import { ZacianZamazentaAdjuster } from "./calc-adjuster/zacian-zamazenta-adjuster"
 import { NeutralizingGasAdjuster } from "./calc-adjuster/neutralizing-gas-adjuster"
 import { OgerponAdjuster } from "./calc-adjuster/ogerpon-adjuster"
-import { SupremeOverlordAdjuster } from "./calc-adjuster/supreme-overlord-adjuster"
 import { UnnerveAdjuster } from "./calc-adjuster/unnerve-adjuster"
 import { FlowerGiftAdjuster } from "./calc-adjuster/flower-gift-adjuster"
 import { SteelySpiritAdjuster } from "./calc-adjuster/steely-spirit-adjuster"
@@ -24,20 +20,7 @@ import { RollLevelConfig } from "./roll-level-config"
 export class DamageCalc {
   ZERO_RESULT_DAMAGE = Array(RollLevelConfig.ROLLS_NUMBER).fill(0)
 
-  adjusters: CalcAdjuster[] = [
-    new RuinsAbilityAdjuster(),
-    new FairyAuraAdjuster(),
-    new LastRespectsAdjuster(),
-    new RageFistAdjuster(),
-    new StompingTantrumAdjuster(),
-    new ZacianZamazentaAdjuster(),
-    new NeutralizingGasAdjuster(),
-    new OgerponAdjuster(),
-    new SupremeOverlordAdjuster(),
-    new UnnerveAdjuster(),
-    new FlowerGiftAdjuster(),
-    new SteelySpiritAdjuster()
-  ]
+  adjusters: CalcAdjuster[] = [new RuinsAbilityAdjuster(), new FairyAuraAdjuster(), new ZacianZamazentaAdjuster(), new NeutralizingGasAdjuster(), new OgerponAdjuster(), new UnnerveAdjuster(), new FlowerGiftAdjuster(), new SteelySpiritAdjuster()]
   fieldMapper = new FieldMapper()
   speedCalc = new SpeedCalc()
 
@@ -103,7 +86,7 @@ export class DamageCalc {
       multiResult.resultString(),
       multiResult.getHKO(),
       multiResult.rangePercentage().max,
-      this.injectAdjustedBp(this.injectAdjustedBp(this.formatDescription(multiResult.description(), useSpsMode), prepOne.moveCalc), prepTwo.moveCalc),
+      this.formatDescription(multiResult.description(), useSpsMode),
       firstResult.damage,
       secondAttackerOrdered,
       secondResult.damage,
@@ -118,9 +101,13 @@ export class DamageCalc {
     moveCalc.isCrit = rightIsDefender ? field.attackerSide.isCriticalHit : field.defenderSide.isCriticalHit
     moveCalc.isStellarFirstUse = true
     moveCalc.hits = +move.hits
+    moveCalc.hitsTaken = +move.hits
+    moveCalc.lastMoveFailed = move.lastMoveFailed
 
     const calcAttacker = fromExisting(attacker, true)
     const calcTarget = fromExisting(target, true)
+
+    calcAttacker.alliesFainted = +move.alliesFainted
 
     this.adjusters.forEach(a => a.adjust(calcAttacker, calcTarget, move, moveCalc, calcField, secondAttacker, field))
 
@@ -148,19 +135,9 @@ export class DamageCalc {
   }
 
   calculateResult(attacker: Pokemon, target: Pokemon, move: Move, field: Field, rightIsDefender: boolean, secondAttacker?: Pokemon): Result {
-    const calcField = this.fieldMapper.toCalc(field, rightIsDefender)
+    const prep = this.prepareCalculation(attacker, target, move, field, rightIsDefender, secondAttacker)
 
-    const moveCalc = new MoveCalc(move.name)
-    moveCalc.isCrit = rightIsDefender ? field.attackerSide.isCriticalHit : field.defenderSide.isCriticalHit
-    moveCalc.isStellarFirstUse = true
-    moveCalc.hits = +move.hits
-
-    const calcAttacker = fromExisting(attacker, true)
-    const calcTarget = fromExisting(target, true)
-
-    this.adjusters.forEach(a => a.adjust(calcAttacker, calcTarget, move, moveCalc, calcField, secondAttacker, field))
-
-    const result = calculate(calcAttacker, calcTarget, moveCalc, calcField)
+    const result = calculate(prep.calcAttacker, prep.calcTarget, prep.moveCalc, prep.calcField)
 
     if (!result.damage) {
       result.damage = this.ZERO_RESULT_DAMAGE
@@ -187,22 +164,10 @@ export class DamageCalc {
 
   private damageDescription(result: Result, useSpsMode: boolean): string {
     try {
-      return this.injectAdjustedBp(this.formatDescription(result.description(), useSpsMode), result.move)
+      return this.formatDescription(result.description(), useSpsMode)
     } catch (error) {
       return this.formatDescription(`${result.attacker.name} ${result.move.name} vs. ${result.defender.name}: 0-0 (0 - 0%) -- possibly the worst move ever`, useSpsMode)
     }
-  }
-
-  private injectAdjustedBp(description: string, move: { name: string; overrides?: { basePower?: number } }): string {
-    const adjustedBp = move.overrides?.basePower
-
-    if (adjustedBp === undefined) return description
-
-    const replacement = `${move.name} (${adjustedBp} BP)`
-
-    if (description.includes(replacement)) return description
-
-    return description.replaceAll(move.name, replacement)
   }
 
   private formatDescription(description: string, useSpsMode: boolean): string {

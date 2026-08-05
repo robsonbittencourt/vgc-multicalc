@@ -191,6 +191,8 @@ export interface StateMove {
   isCrit?: boolean
   isStellarFirstUse?: boolean
   hits?: number
+  hitsTaken?: number
+  lastMoveFailed?: boolean
   timesUsed?: number
   timesUsedWithMetronome?: number
   overrides?: Partial<MoveData>

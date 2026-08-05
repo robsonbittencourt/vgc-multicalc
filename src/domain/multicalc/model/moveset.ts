@@ -30,10 +30,10 @@ export class MoveSet {
   }
 
   clone(): MoveSet {
-    return new MoveSet(new Move(this.move1.name), new Move(this.move2.name), new Move(this.move3.name), new Move(this.move4.name), this.activeMovePosition)
+    return new MoveSet(this.move1, this.move2, this.move3, this.move4, this.activeMovePosition)
   }
 
   cloneActivating(activeMovePosition: MovePosition): MoveSet {
-    return new MoveSet(new Move(this.move1.name), new Move(this.move2.name), new Move(this.move3.name), new Move(this.move4.name), activeMovePosition)
+    return new MoveSet(this.move1, this.move2, this.move3, this.move4, activeMovePosition)
   }
 }

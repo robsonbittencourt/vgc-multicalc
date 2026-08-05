@@ -68,6 +68,9 @@ const BASE_POWER_STRATEGIES = new Map<string, BasePowerStrategy>([
   ["Smelling Salts", ({ move, defender, description }) => describedBp(description, move.bp * (defender.hasStatus("par") ? 2 : 1))],
   ["Wake-Up Slap", ({ move, defender, description }) => describedBp(description, move.bp * (defender.hasStatus("slp") || defender.hasAbility("Comatose") ? 2 : 1))],
   ["Water Shuriken", ({ attacker, description }) => describedBp(description, attacker.named("Greninja-Ash") && attacker.hasAbility("Battle Bond") ? 20 : 15)],
+  ["Last Respects", ({ move, attacker, description }) => describedBp(description, move.bp + 50 * (attacker.alliesFainted ?? 0))],
+  ["Rage Fist", ({ move, description }) => describedBp(description, move.bp + 50 * move.hitsTaken)],
+  ["Stomping Tantrum", ({ move, description }) => (move.lastMoveFailed ? describedBp(description, move.bp * 2) : move.bp)],
   [
     "Weather Ball",
     ({ move, attacker, field, description }) => {
