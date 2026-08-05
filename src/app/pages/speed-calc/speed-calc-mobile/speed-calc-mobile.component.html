@@ -65,7 +65,7 @@
 
       <div [hidden]="overlay.isAnyOpen()">
         @if (!noPokemonSelected()) {
-          <app-speed-scale class="speed-scale" [pokemonId]="effectiveEditingId()!" [pokemonEachSide]="12" [opponentsNoPaddingThreshold]="5" (pokemonSelected)="onSpeedTierSelected($event)" />
+          <app-speed-scale class="speed-scale" [pokemonId]="effectiveEditingId()!" [pokemonEachSide]="12" [opponentsNoPaddingThreshold]="5" (pokemonSelected)="onSpeedTierSelected($event)" (selectionChanged)="selectedPokemon.set($event)" />
         } @else {
           <div class="empty-insights">Select a Pokémon</div>
         }

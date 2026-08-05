@@ -20,6 +20,7 @@ export class SpeedScaleComponent implements OnInit {
   opponentsNoPaddingThreshold = input<number>(0)
 
   pokemonSelected = output<Pokemon>()
+  selectionChanged = output<Pokemon>()
 
   store = inject(CalcStore)
   fieldStore = inject(FieldStore)
@@ -60,7 +61,11 @@ export class SpeedScaleComponent implements OnInit {
       this.inSpeedRange.set(range)
 
       this.verifyChanges(range)
-      this.setPokemonSelected(this.pokemon())
+
+      const actualPokemon = this.pokemon()
+
+      this.selectedPokemon.set(actualPokemon)
+      this.selectionChanged.emit(actualPokemon)
     }, 200)
   }
 

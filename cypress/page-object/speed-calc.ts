@@ -12,9 +12,23 @@ export class SpeedCalc {
   }
 
   speedTierIs(position: number, pokemon: string, speed: number, description: string) {
+    cy.get('[data-cy="speed-box"]').then($boxes => {
+      const dump = [...$boxes].map(
+        (el, i) => `${i} ${el.querySelector('[data-cy="speed-box-pokemon"] img')?.getAttribute("alt")} ${el.querySelector('[data-cy="speed-box-value"]')?.textContent} ${el.querySelector('[data-cy="speed-box-description"]')?.textContent?.trim()}`
+      )
+      cy.writeFile(`/tmp/cy-dump/${Cypress.currentTest.title.slice(0, 40).replace(/[^a-z0-9]/gi, "-")}.txt`, dump.join("\n"))
+    })
+
     cy.get('[data-cy="speed-box"]').eq(position).find('[data-cy="speed-box-pokemon"]').find("img").should("have.attr", "alt", pokemon)
     cy.get('[data-cy="speed-box"]').eq(position).find('[data-cy="speed-box-value"]').should("have.text", speed)
     cy.get('[data-cy="speed-box"]').eq(position).find('[data-cy="speed-box-description"]').should("include.text", description)
+  }
+
+  actualSpeedIs(pokemon: string, speed: number) {
+    this.pokemonBox(pokemon)
+      .filter((_, el) => (el.querySelector('[data-cy="speed-box-description"]')?.textContent ?? "").includes("Actual"))
+      .find('[data-cy="speed-box-value"]')
+      .should("have.text", speed)
   }
 
   speedInOrder() {

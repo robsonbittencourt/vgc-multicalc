@@ -21,6 +21,7 @@ export class SpeedListComponent {
   optionsStore = inject(SpeedCalcOptionsStore)
 
   pokemonSelected = output<Pokemon>()
+  selectionChanged = output<Pokemon>()
 
   pokemonId = computed(() => this.store.team().activePokemon()!.id)
 

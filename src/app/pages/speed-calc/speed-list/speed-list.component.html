@@ -28,6 +28,6 @@
   </right-header>
 
   <div class="speed-scale">
-    <app-speed-scale [pokemonId]="pokemonId()" [pokemonEachSide]="28" [opponentsNoPaddingThreshold]="19" (pokemonSelected)="pokemonSelected.emit($event)" />
+    <app-speed-scale [pokemonId]="pokemonId()" [pokemonEachSide]="28" [opponentsNoPaddingThreshold]="19" (pokemonSelected)="pokemonSelected.emit($event)" (selectionChanged)="selectionChanged.emit($event)" />
   </div>
 </app-widget>

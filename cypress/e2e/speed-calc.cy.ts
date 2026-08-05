@@ -193,55 +193,55 @@ describe("Speed Calc", () => {
 
     it("double speed when Pokémon has Chlorophyll and Sun was activated", () => {
       team.importPokemon(poke["jumpluff"])
+      speedCalc.actualSpeedIs("Jumpluff", 178)
 
       field.sun()
-      cy.wait(300)
 
       speedCalc.speedTierIs(28, "Jumpluff", 356, "Actual")
     })
 
     it("double speed when Pokémon has Swift Swim and Rain was activated", () => {
       team.importPokemon(poke["kingdra"])
+      speedCalc.actualSpeedIs("Kingdra", 137)
 
       field.rain()
-      cy.wait(300)
 
       speedCalc.speedTierIs(28, "Kingdra", 274, "Actual")
     })
 
     it("double speed when Pokémon has Sand Rush and Sun was activated", () => {
       team.importPokemon(poke["excadrill"])
+      speedCalc.actualSpeedIs("Excadrill", 140)
 
       field.sand()
-      cy.wait(300)
 
       speedCalc.speedTierIs(28, "Excadrill", 280, "Actual")
     })
 
     it("double speed when Pokémon has Slush Rush and Snow was activated", () => {
       team.importPokemon(poke["beartic"])
+      speedCalc.actualSpeedIs("Beartic", 102)
 
       field.snow()
-      cy.wait(300)
 
       speedCalc.speedTierIs(28, "Beartic", 204, "Actual")
     })
 
     it("double speed when Pokémon has Surge Surfer and Electric Terrain was activated", () => {
       team.importPokemon(poke["raichu-alola"])
+      speedCalc.actualSpeedIs("Raichu-Alola", 130)
 
       field.eletricTerrain()
-      cy.wait(300)
 
       speedCalc.speedTierIs(28, "Raichu-Alola", 260, "Actual")
     })
 
     it("don't double speed when Pokémon has Surge Surfer and Electric Terrain was activated but Neutralizing Gas was activated", () => {
       team.importPokemon(poke["raichu-alola"])
+      speedCalc.actualSpeedIs("Raichu-Alola", 130)
 
       field.eletricTerrain()
       field.neutralizingGas()
-      cy.wait(300)
 
       speedCalc.speedTierIs(28, "Raichu-Alola", 130, "Actual")
     })
@@ -249,6 +249,7 @@ describe("Speed Calc", () => {
     it("ignore Neutralizing Gas when Pokémon have Ability Shield equipped", () => {
       team.importPokemon(poke["raichu-alola"])
       team.selectPokemon("Raichu").selectItem("Ability Shield")
+      speedCalc.actualSpeedIs("Raichu-Alola", 130)
 
       field.eletricTerrain()
       field.neutralizingGas()
