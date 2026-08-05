@@ -6,7 +6,7 @@ import { CalcStore } from "@store/calc-store"
 import { SnackbarService } from "@core/services/snackbar.service"
 import { ExportPokeService } from "@store/user-data/export-poke.service"
 import { PdfExportService } from "@store/user-data/pdf-export.service"
-import { TeamListPlayerInfo } from "@features/modals/team-list-modal/team-list-modal.component"
+import { TeamListPlayerInfo } from "@features/team-list-modal/team-list-modal.component"
 import { Team, TeamMember, Pokemon } from "@multicalc/model"
 import { MockOf } from "@app/test-utils"
 
