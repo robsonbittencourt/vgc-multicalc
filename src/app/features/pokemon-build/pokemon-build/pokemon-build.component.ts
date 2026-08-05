@@ -26,7 +26,7 @@ import { PokemonTableComponent } from "@features/pokemon-build/tables/pokemon-ta
 import { TeraComboBoxComponent } from "@features/pokemon-build/tera-combo-box/tera-combo-box.component"
 import { TypeComboBoxComponent } from "@features/pokemon-build/type-combo-box/type-combo-box.component"
 import { MegaStoneService } from "@features/pokemon-build/utils/mega-stone.service"
-import { SpriteService } from "@app/services/sprite.service"
+import { SpriteService } from "@core/services/sprite.service"
 import { FEATURES } from "@configuration/feature-flags"
 import { getFinalAttack, getFinalSpecialAttack, getFinalDefense, getFinalSpecialDefense, getFinalSpeed } from "@multicalc/stat-calc"
 import { Stats } from "@multicalc/types"
