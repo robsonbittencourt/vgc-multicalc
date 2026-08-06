@@ -301,7 +301,7 @@ describe("SpeedCalc", () => {
 
       const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide, teamPokemonFrom(store), options)
 
-      expect(inRange.length).toEqual(4)
+      expect(inRange.length).toEqual(5)
 
       for (let index = 0; index < inRange.length; index++) {
         const actual = inRange[index]
@@ -740,7 +740,7 @@ describe("SpeedCalc", () => {
       const speedDefinition = service.statistics(pokemon, field, regulation)
 
       expect(speedDefinition[0].pokemonName).toEqual("Lopunny-Mega")
-      expect(speedDefinition[0].value).toEqual(174)
+      expect(speedDefinition[0].value).toEqual(159)
       expect(speedDefinition[0].description.some((d: string) => /\d{1,3}% Usage/.test(d))).toBe(true)
     })
 
