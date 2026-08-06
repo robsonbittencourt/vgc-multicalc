@@ -1,5 +1,5 @@
 import { computed, inject, Injectable, signal } from "@angular/core"
-import { BackNavigationService } from "@core/services/back-navigation.service"
+import { BackNavigationService } from "@app/services/back-navigation.service"
 
 export type TableKind = "pokemon" | "moves" | "abilities" | "items"
 

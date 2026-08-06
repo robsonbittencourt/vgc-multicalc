@@ -1,5 +1,5 @@
 import { Component, computed, inject, input, output } from "@angular/core"
-import { InputSelectComponent } from "@basic/input-select/input-select.component"
+import { InputSelectComponent } from "@shared/input-select/input-select.component"
 import { CalcStore } from "@store/calc-store"
 import { Status } from "@multicalc/model"
 

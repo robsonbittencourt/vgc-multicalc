@@ -1,6 +1,6 @@
 import { provideZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
-import { TeamListPlayerInfo } from "@features/team-list-modal/team-list-modal.component"
+import { TeamListPlayerInfo } from "@features/modals/team-list-modal/team-list-modal.component"
 import { PdfExportService } from "@store/user-data/pdf-export.service"
 import { MegaStoneService } from "@features/pokemon-build/utils/mega-stone.service"
 import { CalcStore } from "@store/calc-store"

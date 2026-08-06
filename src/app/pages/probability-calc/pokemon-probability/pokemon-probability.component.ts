@@ -1,6 +1,6 @@
 import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, inject, input } from "@angular/core"
-import { WidgetComponent } from "@app/basic/widget/widget.component"
-import { PokemonSpriteComponent } from "@basic/pokemon-sprite/pokemon-sprite.component"
+import { WidgetComponent } from "@shared/widget/widget.component"
+import { PokemonSpriteComponent } from "@features/pokemon-sprite/pokemon-sprite.component"
 import { CalcStore } from "@store/calc-store"
 import { FieldStore } from "@store/field-store"
 import { ConsistencyScore, MoveProbability } from "@multicalc/probability-calc"

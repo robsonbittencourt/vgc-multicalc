@@ -1,7 +1,7 @@
 import { NgClass } from "@angular/common"
 import { booleanAttribute, Component, computed, input, model, output } from "@angular/core"
 import { MatOption, MatSelect, MatSelectChange, MatSelectTrigger } from "@angular/material/select"
-import { KeyValuePair } from "@basic/input-autocomplete/input-autocomplete.component"
+import { KeyValuePair } from "@shared/input-autocomplete/input-autocomplete.component"
 
 @Component({
   selector: "app-input-select",

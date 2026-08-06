@@ -1,6 +1,6 @@
 import { Component, inject, input } from "@angular/core"
 import { MatButtonToggle } from "@angular/material/button-toggle"
-import { WidgetComponent } from "@app/basic/widget/widget.component"
+import { WidgetComponent } from "@shared/widget/widget.component"
 import { FieldStore } from "@store/field-store"
 
 @Component({

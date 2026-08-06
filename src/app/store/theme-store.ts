@@ -1,6 +1,6 @@
 import { effect, Injectable } from "@angular/core"
 import { initialThemeState } from "./utils/initial-theme-state"
-import { Color, Theme } from "@core/services/theme.service"
+import { Color, Theme } from "@app/services/theme.service"
 import { patchState, signalStore, withHooks, withState } from "@ngrx/signals"
 
 export type ThemeState = {

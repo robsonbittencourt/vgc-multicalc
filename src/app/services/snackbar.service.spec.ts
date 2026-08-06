@@ -1,7 +1,7 @@
 import { provideZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
 import { MatSnackBar } from "@angular/material/snack-bar"
-import { SnackbarService } from "@core/services/snackbar.service"
+import { SnackbarService } from "@app/services/snackbar.service"
 import { MockOf } from "@app/test-utils"
 
 describe("SnackbarService", () => {

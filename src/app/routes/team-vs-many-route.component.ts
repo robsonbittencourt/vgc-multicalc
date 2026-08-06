@@ -1,36 +1,36 @@
 import { DOCUMENT } from "@angular/common"
 import { Component, inject, OnInit } from "@angular/core"
 import { Meta, Title } from "@angular/platform-browser"
-import { SimpleCalcComponent } from "@pages/simple-calc/simple-calc/simple-calc.component"
-import { SimpleCalcMobileComponent } from "@pages/simple-calc/simple-calc-mobile/simple-calc-mobile.component"
-import { HeaderMobileComponent } from "@core/header-mobile/header-mobile.component"
-import { HeaderComponent } from "@core/header/header.component"
+import { MultiCalcComponent } from "@pages/multi-calc/multi-calc/multi-calc.component"
+import { MultiCalcMobileComponent } from "@pages/multi-calc/multi-calc-mobile/multi-calc-mobile.component"
+import { HeaderMobileComponent } from "@layout/header-mobile/header-mobile.component"
+import { HeaderComponent } from "@layout/header/header.component"
 import { MenuStore } from "@store/menu-store"
-import { DeviceDetectorService } from "@core/services/device-detector.service"
-import { JsonLdService } from "@core/services/json-ld.service"
+import { DeviceDetectorService } from "@app/services/device-detector.service"
+import { JsonLdService } from "@app/services/json-ld.service"
 
-const TITLE = "Pokémon Damage Calculator — One vs One"
-const DESCRIPTION = "Classic one-on-one Pokémon damage calculator for VGC and Pokémon Champions. Detailed side-by-side analysis with EVs, Natures, abilities and damage rolls."
+const TITLE = "Pokémon Damage Calculator — Team vs Many"
+const DESCRIPTION = "Calculate damage from one Pokémon against multiple targets at once. The ultimate multi-target damage calculator for VGC and Pokémon Champions Doubles."
 const OG_IMAGE = "https://vgcmulticalc.com/assets/icons/calc-512x512.png"
-const URL = "https://vgcmulticalc.com/one-vs-one"
+const URL = "https://vgcmulticalc.com/team-vs-many"
 
 @Component({
-  selector: "app-one-vs-one-route",
+  selector: "app-team-vs-many-route",
   styleUrls: ["./route-container.scss"],
   template: `
     <div class="container">
       @if (isDesktop()) {
         <app-header />
-        <app-simple-calc />
+        <app-multi-calc />
       } @else {
         <app-header-mobile />
-        <app-simple-calc-mobile />
+        <app-multi-calc-mobile />
       }
     </div>
   `,
-  imports: [HeaderComponent, SimpleCalcComponent, HeaderMobileComponent, SimpleCalcMobileComponent]
+  imports: [HeaderComponent, MultiCalcComponent, HeaderMobileComponent, MultiCalcMobileComponent]
 })
-export class OneVsOneRouteComponent implements OnInit {
+export class TeamVsManyRouteComponent implements OnInit {
   private menuStore = inject(MenuStore)
   private deviceDetectorService = inject(DeviceDetectorService)
   private meta = inject(Meta)
@@ -39,7 +39,7 @@ export class OneVsOneRouteComponent implements OnInit {
   private jsonLd = inject(JsonLdService)
 
   ngOnInit() {
-    this.menuStore.enableOneVsOne()
+    this.menuStore.enableOneVsMany()
     this.title.setTitle(TITLE)
     this.meta.updateTag({ name: "description", content: DESCRIPTION })
     this.updateSocialTags()
@@ -48,7 +48,7 @@ export class OneVsOneRouteComponent implements OnInit {
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: "https://vgcmulticalc.com/" },
-        { "@type": "ListItem", position: 2, name: "One vs One", item: URL }
+        { "@type": "ListItem", position: 2, name: "Team vs Many", item: URL }
       ]
     })
   }

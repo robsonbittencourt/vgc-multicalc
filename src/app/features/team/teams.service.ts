@@ -3,10 +3,10 @@ import { NoopScrollStrategy } from "@angular/cdk/overlay"
 import { MatDialog } from "@angular/material/dialog"
 import { CalcStore } from "@store/calc-store"
 import { Team, Pokemon } from "@multicalc/model"
-import { SnackbarService } from "@core/services/snackbar.service"
+import { SnackbarService } from "@app/services/snackbar.service"
 import { ExportPokeService } from "@store/user-data/export-poke.service"
 import { PdfExportService } from "@store/user-data/pdf-export.service"
-import { TeamListModalComponent, TeamListPlayerInfo } from "@features/team-list-modal/team-list-modal.component"
+import { TeamListModalComponent, TeamListPlayerInfo } from "@features/modals/team-list-modal/team-list-modal.component"
 import { uuid } from "@multicalc/utils"
 
 @Injectable({

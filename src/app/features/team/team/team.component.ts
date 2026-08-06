@@ -1,6 +1,6 @@
 import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, inject, input, model, output, signal, viewChild } from "@angular/core"
 import { MatIcon } from "@angular/material/icon"
-import { WidgetComponent } from "@basic/widget/widget.component"
+import { WidgetComponent } from "@shared/widget/widget.component"
 import { CalcStore } from "@store/calc-store"
 import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-button/export-pokemon-button.component"
 import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
@@ -8,10 +8,10 @@ import { SaveSetButtonComponent } from "@features/buttons/save-set-button/save-s
 import { PokemonBuildComponent } from "@features/pokemon-build/pokemon-build/pokemon-build.component"
 import { PokemonTabComponent } from "@features/team/pokemon-tab/pokemon-tab.component"
 import { Pokemon, TeamMember } from "@multicalc/model"
-import { SnackbarService } from "@core/services/snackbar.service"
+import { SnackbarService } from "@app/services/snackbar.service"
 import { Stats } from "@multicalc/types"
 import { SurvivalThreshold } from "@multicalc/ev-optimizer"
-import { DeviceDetectorService } from "@core/services/device-detector.service"
+import { DeviceDetectorService } from "@app/services/device-detector.service"
 
 @Component({
   selector: "app-team",

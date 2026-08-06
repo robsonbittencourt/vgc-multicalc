@@ -1,36 +1,36 @@
 import { DOCUMENT } from "@angular/common"
 import { Component, inject, OnInit } from "@angular/core"
 import { Meta, Title } from "@angular/platform-browser"
-import { MultiCalcComponent } from "@pages/multi-calc/multi-calc/multi-calc.component"
-import { MultiCalcMobileComponent } from "@pages/multi-calc/multi-calc-mobile/multi-calc-mobile.component"
-import { HeaderMobileComponent } from "@core/header-mobile/header-mobile.component"
-import { HeaderComponent } from "@core/header/header.component"
+import { ProbabilityCalcComponent } from "@pages/probability-calc/probability-calc/probability-calc.component"
+import { ProbabilityCalcMobileComponent } from "@pages/probability-calc/probability-calc-mobile/probability-calc-mobile.component"
+import { HeaderMobileComponent } from "@layout/header-mobile/header-mobile.component"
+import { HeaderComponent } from "@layout/header/header.component"
 import { MenuStore } from "@store/menu-store"
-import { DeviceDetectorService } from "@core/services/device-detector.service"
-import { JsonLdService } from "@core/services/json-ld.service"
+import { DeviceDetectorService } from "@app/services/device-detector.service"
+import { JsonLdService } from "@app/services/json-ld.service"
 
-const TITLE = "Pokémon Damage Calculator — Many vs Team"
-const DESCRIPTION = "Calculate how much damage multiple Pokémon deal to a single target. Evaluate defensive durability across your entire team for VGC and Pokémon Champions."
+const TITLE = "Pokémon Move Probability Calculator"
+const DESCRIPTION = "Pokémon probability calculator for VGC and Pokémon Champions. Analyze move accuracy, consistency score, secondary effects, and game mechanic probabilities across multiple turns."
 const OG_IMAGE = "https://vgcmulticalc.com/assets/icons/calc-512x512.png"
-const URL = "https://vgcmulticalc.com/many-vs-team"
+const URL = "https://vgcmulticalc.com/probability-calc"
 
 @Component({
-  selector: "app-many-vs-team-route",
+  selector: "app-probability-calc-route",
   styleUrls: ["./route-container.scss"],
   template: `
     <div class="container">
       @if (isDesktop()) {
         <app-header />
-        <app-multi-calc />
+        <app-probability-calc />
       } @else {
         <app-header-mobile />
-        <app-multi-calc-mobile />
+        <app-probability-calc-mobile />
       }
     </div>
   `,
-  imports: [HeaderComponent, MultiCalcComponent, HeaderMobileComponent, MultiCalcMobileComponent]
+  imports: [HeaderComponent, ProbabilityCalcComponent, HeaderMobileComponent, ProbabilityCalcMobileComponent]
 })
-export class ManyVsTeamRouteComponent implements OnInit {
+export class ProbabilityCalcRouteComponent implements OnInit {
   private menuStore = inject(MenuStore)
   private deviceDetectorService = inject(DeviceDetectorService)
   private meta = inject(Meta)
@@ -39,7 +39,7 @@ export class ManyVsTeamRouteComponent implements OnInit {
   private jsonLd = inject(JsonLdService)
 
   ngOnInit() {
-    this.menuStore.enableManyVsOne()
+    this.menuStore.enableProbabilityCalc()
     this.title.setTitle(TITLE)
     this.meta.updateTag({ name: "description", content: DESCRIPTION })
     this.updateSocialTags()
@@ -48,7 +48,7 @@ export class ManyVsTeamRouteComponent implements OnInit {
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: "https://vgcmulticalc.com/" },
-        { "@type": "ListItem", position: 2, name: "Many vs Team", item: URL }
+        { "@type": "ListItem", position: 2, name: "Probability Calculator", item: URL }
       ]
     })
   }

@@ -1,5 +1,5 @@
 import { Component, computed, effect, inject, signal, viewChild } from "@angular/core"
-import { WidgetComponent } from "@basic/widget/widget.component"
+import { WidgetComponent } from "@shared/widget/widget.component"
 import { CalcStore } from "@store/calc-store"
 import { FieldStore } from "@store/field-store"
 import { FIELD_CONTEXT } from "@store/tokens/field-context.token"

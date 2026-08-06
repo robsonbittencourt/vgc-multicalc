@@ -3,7 +3,7 @@ import { FormsModule } from "@angular/forms"
 import { MatButton } from "@angular/material/button"
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogRef, MatDialogTitle } from "@angular/material/dialog"
 import { MatRadioButton, MatRadioGroup } from "@angular/material/radio"
-import { InputComponent } from "@basic/input/input.component"
+import { InputComponent } from "@shared/input/input.component"
 import { readUserData, writeTopLevel } from "@store/utils/user-data-storage"
 
 export type DatePartOrder = "mdy" | "dmy" | "ymd"

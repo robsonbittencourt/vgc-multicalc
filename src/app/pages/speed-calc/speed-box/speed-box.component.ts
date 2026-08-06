@@ -1,6 +1,6 @@
 import { NgClass } from "@angular/common"
 import { Component, computed, input, output } from "@angular/core"
-import { PokemonSpriteComponent } from "@basic/pokemon-sprite/pokemon-sprite.component"
+import { PokemonSpriteComponent } from "@features/pokemon-sprite/pokemon-sprite.component"
 import { Pokemon } from "@multicalc/model"
 import { SpeedDefinition } from "@multicalc/speed-calc"
 

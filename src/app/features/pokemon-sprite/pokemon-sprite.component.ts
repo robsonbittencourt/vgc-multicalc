@@ -1,6 +1,6 @@
 import { afterNextRender, Component, computed, effect, inject, signal, input } from "@angular/core"
-import { SpriteService } from "@core/services/sprite.service"
-import { NetworkStatusService } from "@core/services/network-status.service"
+import { SpriteService } from "@app/services/sprite.service"
+import { NetworkStatusService } from "@app/services/network-status.service"
 
 @Component({
   standalone: true,

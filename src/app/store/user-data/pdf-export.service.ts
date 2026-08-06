@@ -1,6 +1,6 @@
 import { inject, Injectable } from "@angular/core"
 import { MegaStoneService } from "@features/pokemon-build/utils/mega-stone.service"
-import { TeamListPlayerInfo } from "@features/team-list-modal/team-list-modal.component"
+import { TeamListPlayerInfo } from "@features/modals/team-list-modal/team-list-modal.component"
 import { Ability, Team, Pokemon } from "@multicalc/model"
 
 interface PokemonPrintData {

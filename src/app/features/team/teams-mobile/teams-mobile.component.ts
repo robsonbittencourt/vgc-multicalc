@@ -10,7 +10,7 @@ import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-b
 import { TeamBoxComponent } from "@features/team/team-box/team-box.component"
 import { Pokemon, Team } from "@multicalc/model"
 import { TeamsService } from "@features/team/teams.service"
-import { SnackbarService } from "@core/services/snackbar.service"
+import { SnackbarService } from "@app/services/snackbar.service"
 
 @Component({
   selector: "app-teams-mobile",

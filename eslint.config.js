@@ -62,7 +62,7 @@ module.exports = tseslint.config(
               group: ["../*"]
             },
             {
-              group: ["@app/*", "@basic/*", "@core/*", "@shared/*", "@layout/*", "@features/*", "@pages/*", "@configuration/*", "@store/*", "@multicalc/*", "@calc-bridge", "@calc-bridge/*", "@pokemon-repository", "@pokemon-repository/*"],
+              group: ["@app/*", "@shared/*", "@layout/*", "@features/*", "@pages/*", "@configuration/*", "@store/*", "@multicalc/*", "@calc-bridge", "@calc-bridge/*", "@pokemon-repository", "@pokemon-repository/*"],
               message: "calc is the pure engine: it must not import from the domain (@multicalc), the calc-bridge/pokemon-repository, or the webapp/UI layer. It may only depend on @data (infra) and itself."
             }
           ]
@@ -78,7 +78,7 @@ module.exports = tseslint.config(
         {
           patterns: [
             {
-              group: ["@app/*", "@basic/*", "@core/*", "@shared/*", "@layout/*", "@features/*", "@pages/*", "@configuration/*", "@store/*"],
+              group: ["@app/*", "@shared/*", "@layout/*", "@features/*", "@pages/*", "@configuration/*", "@store/*"],
               message: "multicalc is domain-only: it must not import from the webapp/UI layer. The domain receives data as arguments."
             },
             {
@@ -98,24 +98,7 @@ module.exports = tseslint.config(
         {
           patterns: [
             {
-              group: [
-                "@app/*",
-                "@basic/*",
-                "@core/*",
-                "@shared/*",
-                "@layout/*",
-                "@features/*",
-                "@pages/*",
-                "@configuration/*",
-                "@store/*",
-                "@multicalc/*",
-                "@calc",
-                "@calc/*",
-                "@calc-bridge",
-                "@calc-bridge/*",
-                "@pokemon-repository",
-                "@pokemon-repository/*"
-              ],
+              group: ["@app/*", "@shared/*", "@layout/*", "@features/*", "@pages/*", "@configuration/*", "@store/*", "@multicalc/*", "@calc", "@calc/*", "@calc-bridge", "@calc-bridge/*", "@pokemon-repository", "@pokemon-repository/*"],
               message: "data is the lowest layer (infra / static data): it must not import from calc, the domain (@multicalc), the calc-bridge/pokemon-repository, or the webapp. Dependencies point downward only; data depends on nothing but itself."
             }
           ]
