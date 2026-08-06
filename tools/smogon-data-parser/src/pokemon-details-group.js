@@ -1,7 +1,10 @@
 import fs from "fs"
 import path from "path"
 
-const topUsagePath = path.resolve("src/configuration/top-usage-regulation.ts")
+const topUsagePath = path.resolve("src/domain/data/top-usage-regulation.ts")
+
+const POKEMON_DATA_DECLARATION = "export const POKEMON_DATA = "
+const POKEMON_DATA_SUFFIX = " satisfies Record<string, PokemonDataCore>"
 
 function serializeObject(obj, indent = 2) {
   const pad = lvl => " ".repeat(lvl * indent)
@@ -25,7 +28,7 @@ function serializeObject(obj, indent = 2) {
     const formatted = entries.map(([key, val], idx) => {
       const isLast = idx === entries.length - 1
       const comma = isLast ? "" : ","
-      const quotedKey = key.includes("-") ? `"${key}"` : key
+      const quotedKey = /^[A-Za-z_][A-Za-z0-9_]*$/.test(key) ? key : `"${key}"`
       return `${pad(lvl)}${quotedKey}: ${formatValue(val, lvl)}${comma}`
     })
     return `{\n${formatted.join("\n")}\n${pad(lvl - 1)}}`
@@ -34,91 +37,84 @@ function serializeObject(obj, indent = 2) {
   return serialize(Object.fromEntries(obj), 1)
 }
 
-export async function pokemonDetailsGroup(regulation = "i") {
-  const pokemonDetailsPath = path.resolve("src/infrastructure/data/pokemon-details.ts")
+export async function pokemonDetailsGroup(regulation = "mb") {
+  const pokemonDataPath = path.resolve("src/domain/data/pokemon-data.ts")
 
-  console.log(`⏳ [pokemonDetailsGroup] Updating group and order for regulation ${regulation.toUpperCase()}...`)
+  console.log(`⏳ [pokemonDetailsGroup] Updating group for regulation ${regulation.toUpperCase()}...`)
 
-  const pokemonFileContent = fs.readFileSync(pokemonDetailsPath, "utf-8")
+  const pokemonFileContent = fs.readFileSync(pokemonDataPath, "utf-8")
   const topUsageContent = fs.readFileSync(topUsagePath, "utf-8")
 
+  const topNames = extractTopNames(topUsageContent, regulation)
+  const { header, objectString, footer } = splitDataFile(pokemonFileContent)
+
+  let pokemonData
+
+  try {
+    pokemonData = JSON.parse(quoteUnquotedKeys(objectString))
+  } catch (e) {
+    console.error("❌ [pokemonDetailsGroup] Failed to parse POKEMON_DATA:", e.message)
+    process.exit(1)
+  }
+
+  const finalOrder = Object.entries(pokemonData).map(([key, value]) => {
+    return [key, { ...value, group: groupFor(value.name, topNames) }]
+  })
+
+  const newContent = `${header}${POKEMON_DATA_DECLARATION}${serializeObject(finalOrder)}${POKEMON_DATA_SUFFIX}
+${footer}`
+
+  fs.writeFileSync(pokemonDataPath, newContent.trimEnd() + "\n")
+  console.log(`✅ [pokemonDetailsGroup] '${path.basename(pokemonDataPath)}' updated successfully`)
+}
+
+function groupFor(name, topNames) {
+  const index = topNames.findIndex(n => n.toLowerCase() === String(name).toLowerCase())
+
+  if (index === -1) return "Regular"
+  if (index < 50) return "Meta"
+
+  return "Low usage"
+}
+
+function extractTopNames(topUsageContent, regulation) {
   const regulationKey = regulation.toUpperCase()
-  let topMatch = topUsageContent.match(new RegExp(`${regulationKey}:\\s*\\[([\\s\\S]*?)\\]`, "m"))
+  const topMatch = topUsageContent.match(new RegExp(`${regulationKey}:\\s*\\[([\\s\\S]*?)\\]`, "m"))
+
   if (!topMatch) {
     console.error(`❌ [pokemonDetailsGroup] Could not extract top usage list for ${regulationKey}.`)
     process.exit(1)
   }
 
-  const topNames = topMatch[1].split(",").map(name => name.trim().replace(/["']/g, ""))
+  return topMatch[1]
+    .split(",")
+    .map(name => name.trim().replace(/["']/g, ""))
+    .filter(Boolean)
+}
 
-  const startIndex = pokemonFileContent.indexOf("export const POKEMON_DETAILS")
-  if (startIndex === -1) {
-    console.error("❌ [pokemonDetailsGroup] Could not find POKEMON_DETAILS export.")
+function splitDataFile(fileContent) {
+  const declarationIndex = fileContent.indexOf(POKEMON_DATA_DECLARATION)
+
+  if (declarationIndex === -1) {
+    console.error("❌ [pokemonDetailsGroup] Could not find POKEMON_DATA export.")
     process.exit(1)
   }
 
-  const preContent = pokemonFileContent.slice(0, startIndex)
-  const rest = pokemonFileContent.slice(startIndex)
+  const start = declarationIndex + POKEMON_DATA_DECLARATION.length
+  const suffixIndex = fileContent.indexOf(POKEMON_DATA_SUFFIX, start)
 
-  const matchStart = rest.match(/=\s*{/)
-  if (!matchStart) {
-    console.error("❌ [pokemonDetailsGroup] Could not find object start.")
+  if (suffixIndex === -1) {
+    console.error(`❌ [pokemonDetailsGroup] Could not find '${POKEMON_DATA_SUFFIX}'.`)
     process.exit(1)
   }
 
-  const braceIndex = rest.indexOf("{", matchStart.index)
-  let open = 0
-  let endIndex = -1
-
-  for (let i = braceIndex; i < rest.length; i++) {
-    if (rest[i] === "{") open++
-    else if (rest[i] === "}") open--
-    if (open === 0) {
-      endIndex = i
-      break
-    }
+  return {
+    header: fileContent.slice(0, declarationIndex),
+    objectString: fileContent.slice(start, suffixIndex),
+    footer: fileContent.slice(suffixIndex + POKEMON_DATA_SUFFIX.length).replace(/^\n/, "")
   }
+}
 
-  if (endIndex === -1) {
-    console.error("❌ [pokemonDetailsGroup] Could not find object end.")
-    process.exit(1)
-  }
-
-  const objectString = rest.slice(braceIndex, endIndex + 1)
-
-  let pokemonDetails
-  try {
-    const sanitized = objectString
-      .replace(/(\n\s+)([a-zA-Z0-9\-]+):\s*{/g, '$1"$2": {')
-      .replace(/(\n\s+)(name|abilities|learnset|metaMoves|metaItems|group):/g, '$1"$2":')
-      .replace(/:\s*\[/g, ": [")
-      .replace(/,\s*}/g, "}")
-      .replace(/,\s*\]/g, "]")
-    pokemonDetails = JSON.parse(sanitized)
-  } catch (e) {
-    console.error("❌ [pokemonDetailsGroup] Failed to parse POKEMON_DETAILS:", e.message)
-    process.exit(1)
-  }
-
-  const originalOrder = Object.entries(pokemonDetails)
-
-  const finalOrder = originalOrder.map(([key, value]) => {
-    const index = topNames.findIndex(n => n.toLowerCase() === value.name.toLowerCase())
-    let group = "Regular"
-    if (index >= 0 && index < 50) group = "Meta"
-    else if (index >= 50) group = "Low usage"
-    return [key, { ...value, group }]
-  })
-
-  let header = preContent.trimEnd()
-  header = header.replace(/private constructor\(\)\s*{[\s\S]*?}/, "private constructor() {\n    this.allPokemonNames = Object.values(POKEMON_DETAILS).map(p => p.name)\n  }")
-
-  const constName = "POKEMON_DETAILS"
-  const newContent = `${header}
-
-export const ${constName}: Record<string, SpeciesData> = ${serializeObject(finalOrder)}
-`
-
-  fs.writeFileSync(pokemonDetailsPath, newContent.trim() + "\n")
-  console.log(`✅ [pokemonDetailsGroup] '${path.basename(pokemonDetailsPath)}' updated successfully`)
+function quoteUnquotedKeys(rawJson) {
+  return rawJson.replace(/"(?:[^"\\]|\\.)*"|([\p{L}\p{M}0-9_]+)\s*:/gu, (match, key) => (key ? `"${key}":` : match))
 }

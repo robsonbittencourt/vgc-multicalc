@@ -7,6 +7,16 @@ import { splitSmogonDataIntoBlocks, extractSections } from "./smogon-data.js"
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
+const NO_ITEM = "Nothing"
+
+function toID(text) {
+  const lower = `${text}`.toLowerCase()
+
+  if (lower === "flabébé") return "flabebe"
+
+  return lower.replace(/[^a-z0-9]+/g, "")
+}
+
 export async function extractMetaMoves(date, regulation) {
   console.log(`⏳ [extractMetaMoves] Extracting meta moves and items for ${date} / ${regulation.toUpperCase()}...`)
 
@@ -23,10 +33,10 @@ async function buildMetaDataMap(date, regulation) {
     const pokemonDataList = parseSmogonMetaData(response.data)
 
     pokemonDataList.forEach(({ name, moves, items }) => {
-      const pokemonKey = name.toLowerCase().replace(/[^a-z0-9]/g, "")
-      const normalizedMoves = moves.map(move => move.toLowerCase().replace(/[^a-z0-9]/g, "")).sort()
-      const normalizedItems = items.map(item => item.toLowerCase().replace(/[^a-z0-9]/g, "")).sort()
-      metaDataMap.set(pokemonKey, { moves: normalizedMoves, items: normalizedItems })
+      const pokemonKey = toID(name)
+      const sortedMoves = [...moves].sort()
+      const sortedItems = [...items].sort()
+      metaDataMap.set(pokemonKey, { moves: sortedMoves, items: sortedItems })
     })
   } catch (error) {
     throw new Error(`[extractMetaMoves] Failed to fetch Smogon data: ${error.message}`)
@@ -60,7 +70,7 @@ function extractAllItemsFromSection(itemsSection) {
         .replace(".%", "")
         .trim()
     )
-    .filter(it => it != "Items" && it != "Other" && it != "")
+    .filter(it => it != "Items" && it != "Other" && it != NO_ITEM && it != "")
 
   return allItems
 }
@@ -81,14 +91,22 @@ function extractAllMovesFromSection(movesSection) {
   return allMoves
 }
 
+const MOVESET_DECLARATION = "export const MOVESETS = "
+const MOVESET_SUFFIX = " as const satisfies Record<string, Moveset>"
+
 function loadMovesets() {
-  const movesetFile = "movesets.ts"
-  const movesetPath = path.resolve(__dirname, `../../../src/infrastructure/data/${movesetFile}`)
+  const movesetPath = path.resolve(__dirname, "../../../src/domain/data/moveset-data.ts")
   const content = fs.readFileSync(movesetPath, "utf-8")
 
-  const startIndex = content.indexOf("{")
-  const endIndex = content.lastIndexOf("}")
-  const objectString = content.slice(startIndex, endIndex + 1)
+  const declarationIndex = content.indexOf(MOVESET_DECLARATION)
+
+  if (declarationIndex === -1) {
+    throw new Error(`[extractMetaMoves] Could not find '${MOVESET_DECLARATION}' in moveset-data.ts`)
+  }
+
+  const start = declarationIndex + MOVESET_DECLARATION.length
+  const end = content.indexOf(MOVESET_SUFFIX, start)
+  const objectString = end === -1 ? content.slice(start) : content.slice(start, end)
 
   return eval(`(${objectString})`)
 }
@@ -102,7 +120,7 @@ function getMegaStoneItemsForBase(baseName, movesets) {
     for (const item of items) {
       const normalized = item.toLowerCase().replace(/[^a-z0-9]/g, "")
       if (normalized.endsWith("ite") || normalized.endsWith("itex") || normalized.endsWith("itey")) {
-        megaStones.add(normalized)
+        megaStones.add(item)
       }
     }
   }
@@ -110,70 +128,44 @@ function getMegaStoneItemsForBase(baseName, movesets) {
   return [...megaStones].sort()
 }
 
+const MOVESETS_DECLARATION = "export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = "
+
 function updatePokemonDetailsWithMetaData(metaDataMap) {
-  const fileName = "pokemon-details.ts"
-  const exportName = "POKEMON_DETAILS"
-  const pokemonDetailsPath = path.resolve(__dirname, `../../../src/infrastructure/data/${fileName}`)
-  const fileContent = fs.readFileSync(pokemonDetailsPath, "utf-8")
+  const fileName = "pokemon-moveset.ts"
+  const pokemonMovesetPath = path.resolve(__dirname, `../../../src/domain/data/${fileName}`)
+  const fileContent = fs.readFileSync(pokemonMovesetPath, "utf-8")
 
   const movesets = loadMovesets()
+  const namesById = loadPokemonNamesById()
 
-  const startIndex = fileContent.indexOf(`export const ${exportName}`)
-  if (startIndex === -1) {
-    throw new Error(`[extractMetaMoves] Could not find ${exportName} in file`)
+  const declarationIndex = fileContent.indexOf(MOVESETS_DECLARATION)
+
+  if (declarationIndex === -1) {
+    throw new Error(`[extractMetaMoves] Could not find '${MOVESETS_DECLARATION}' in ${fileName}`)
   }
 
-  const preContent = fileContent.slice(0, startIndex)
-  const rest = fileContent.slice(startIndex)
+  const header = fileContent.slice(0, declarationIndex)
+  const objectString = fileContent.slice(declarationIndex + MOVESETS_DECLARATION.length)
 
-  const matchStart = rest.match(/=\s*{/)
-  if (!matchStart) {
-    throw new Error("[extractMetaMoves] Could not find object start")
-  }
-
-  const braceIndex = rest.indexOf("{", matchStart.index)
-  let open = 0
-  let endIndex = -1
-
-  for (let i = braceIndex; i < rest.length; i++) {
-    if (rest[i] === "{") open++
-    else if (rest[i] === "}") open--
-    if (open === 0) {
-      endIndex = i
-      break
-    }
-  }
-
-  if (endIndex === -1) {
-    throw new Error("[extractMetaMoves] Could not find object end")
-  }
-
-  const objectString = rest.slice(braceIndex, endIndex + 1)
-
-  let pokemonDetails
+  let pokemonMovesets
   try {
-    const sanitized = objectString
-      .replace(/(\n\s+)([a-zA-Z0-9\-]+):\s*{/g, '$1"$2": {')
-      .replace(/(\n\s+)(name|abilities|learnset|metaMoves|metaItems|group):/g, '$1"$2":')
-      .replace(/:\s*\[/g, ": [")
-      .replace(/,\s*}/g, "}")
-      .replace(/,\s*\]/g, "]")
-    pokemonDetails = JSON.parse(sanitized)
+    pokemonMovesets = JSON.parse(quoteUnquotedKeys(objectString.trimEnd()))
   } catch (e) {
-    throw new Error(`[extractMetaMoves] Failed to parse POKEMON_DETAILS: ${e.message}`)
+    throw new Error(`[extractMetaMoves] Failed to parse POKEMON_MOVESETS: ${e.message}`)
   }
 
-  const updatedDetails = Object.entries(pokemonDetails).map(([key, value]) => {
-    const pokemonKey = value.name.toLowerCase().replace(/[^a-z0-9]/g, "")
-    const metaData = metaDataMap.get(pokemonKey)
+  const updatedMovesets = Object.entries(pokemonMovesets).map(([key, value]) => {
+    const metaData = metaDataMap.get(key)
 
     if (!metaData) {
       return [key, value]
     }
 
     let metaItems = metaData.items
+
     if (metaItems.length === 0) {
-      const megaStones = getMegaStoneItemsForBase(value.name, movesets)
+      const megaStones = getMegaStoneItemsForBase(namesById.get(key) ?? key, movesets)
+
       if (megaStones.length > 0) {
         metaItems = megaStones
       }
@@ -189,19 +181,27 @@ function updatePokemonDetailsWithMetaData(metaDataMap) {
     ]
   })
 
-  const headerLines = preContent
-    .trim()
-    .split("\n")
-    .filter(line => !line.includes("POKEMON_DETAILS"))
-  const header = headerLines.join("\n")
-
-  const newContent = `${header}
-
-export const ${exportName}: Record<string, SpeciesData> = ${serializeObject(updatedDetails)}
+  const newContent = `${header}${MOVESETS_DECLARATION}${serializeObject(updatedMovesets)}
 `
 
-  fs.writeFileSync(pokemonDetailsPath, newContent.trim() + "\n")
+  fs.writeFileSync(pokemonMovesetPath, newContent.trimEnd() + "\n")
   console.log(`✅ [extractMetaMoves] '${fileName}' updated successfully`)
+}
+
+function loadPokemonNamesById() {
+  const pokemonDataPath = path.resolve(__dirname, "../../../src/domain/data/pokemon-data.ts")
+  const content = fs.readFileSync(pokemonDataPath, "utf-8")
+  const namesById = new Map()
+
+  for (const match of content.matchAll(/^ {2}"?([A-Za-z0-9_-]+)"?: \{\n {4}name: "([^"]+)"/gm)) {
+    namesById.set(match[1], match[2])
+  }
+
+  return namesById
+}
+
+function quoteUnquotedKeys(rawJson) {
+  return rawJson.replace(/"(?:[^"\\]|\\.)*"|([\p{L}\p{M}0-9_]+)\s*:/gu, (match, key) => (key ? `"${key}":` : match))
 }
 
 function serializeObject(obj, indent = 2) {

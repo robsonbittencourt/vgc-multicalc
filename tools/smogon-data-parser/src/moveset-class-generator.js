@@ -44,7 +44,9 @@ function adjustSpread(nature, evs, alternateSpreads, moves) {
   return compatible ?? { nature, evs }
 }
 
-const MOVESET_MODULE_PREFIX = "export const MOVESETS: Record<string, any> = "
+const MOVESET_DECLARATION = "export const MOVESETS = "
+const MOVESET_SUFFIX = " as const satisfies Record<string, Moveset>"
+const OUTPUT_FILE = "src/domain/data/moveset-data.ts"
 
 export async function createMovesetsFile(date, regulation) {
   console.log(`⏳ [createMovesetsFile] Fetching moveset data for ${date} / ${regulation.toUpperCase()}...`)
@@ -59,20 +61,42 @@ export async function createMovesetsFile(date, regulation) {
 
   writeInMovesetsFile(smogonData)
 
-  const outputFile = "src/infrastructure/data/movesets.ts"
-  console.log(`✅ [createMovesetsFile] '${outputFile}' updated successfully`)
+  console.log(`✅ [createMovesetsFile] '${OUTPUT_FILE}' updated successfully`)
 }
 
 function writeInMovesetsFile(smogonData) {
-  const outputFile = "src/infrastructure/data/movesets.ts"
-  const modulePrefix = MOVESET_MODULE_PREFIX
+  const { header, footer } = readHeaderAndFooter(OUTPUT_FILE)
 
-  const updatedMovesets = updateMovesets(smogonData, outputFile)
+  const updatedMovesets = updateMovesets(smogonData, OUTPUT_FILE)
 
-  let classContent = `${modulePrefix}${updatedMovesets}
-`
+  const classContent = `${header}${MOVESET_DECLARATION}${updatedMovesets}${MOVESET_SUFFIX}
+${footer}`
 
-  fs.writeFileSync(outputFile, classContent)
+  fs.writeFileSync(OUTPUT_FILE, classContent)
+}
+
+function readHeaderAndFooter(filePath) {
+  if (!fs.existsSync(filePath)) {
+    throw new Error(`'${filePath}' not found: the generator preserves its header and helpers, so the file must already exist`)
+  }
+
+  const data = fs.readFileSync(filePath, "utf8")
+  const declarationIndex = data.indexOf(MOVESET_DECLARATION)
+
+  if (declarationIndex === -1) {
+    throw new Error(`'${MOVESET_DECLARATION}' not found in '${filePath}'`)
+  }
+
+  const suffixIndex = data.indexOf(MOVESET_SUFFIX, declarationIndex)
+
+  if (suffixIndex === -1) {
+    throw new Error(`'${MOVESET_SUFFIX}' not found in '${filePath}'`)
+  }
+
+  return {
+    header: data.substring(0, declarationIndex),
+    footer: data.substring(suffixIndex + MOVESET_SUFFIX.length).replace(/^\n/, "")
+  }
 }
 
 function getUniquePokemons(...pokemonArrays) {
@@ -93,11 +117,23 @@ function readMovesets(filePath) {
   }
 
   const data = fs.readFileSync(filePath, "utf8")
-  const rawJson = data.substring(MOVESET_MODULE_PREFIX.length)
-  const jsonWithQuotes = rawJson.replace(/([\p{L}\p{M}0-9_]+):/gu, '"$1":')
+  const declarationIndex = data.indexOf(MOVESET_DECLARATION)
+
+  if (declarationIndex === -1) {
+    return {}
+  }
+
+  const start = declarationIndex + MOVESET_DECLARATION.length
+  const end = data.indexOf(MOVESET_SUFFIX, start)
+  const rawJson = end === -1 ? data.substring(start) : data.substring(start, end)
+  const jsonWithQuotes = quoteUnquotedKeys(rawJson)
   const jsonContent = JSON.parse(jsonWithQuotes)
 
   return jsonContent
+}
+
+function quoteUnquotedKeys(rawJson) {
+  return rawJson.replace(/"(?:[^"\\]|\\.)*"|([\p{L}\p{M}0-9_]+)\s*:/gu, (match, key) => (key ? `"${key}":` : match))
 }
 
 const MEGA_BASE_OVERRIDES = {

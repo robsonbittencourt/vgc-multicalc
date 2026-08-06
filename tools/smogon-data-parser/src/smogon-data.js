@@ -3,6 +3,7 @@ import axios from "axios"
 
 export const LINE_SEPARATOR = "+----------------------------------------+"
 const POKEMON_QUANTITY = 64
+const NO_ITEM = "Nothing"
 
 export async function smogonUsageList(date, reg) {
   try {
@@ -105,7 +106,7 @@ function extractItems(sections) {
         .replace(".%", "")
         .trim()
     )
-    .filter(it => it != "Items" && it != "Other")
+    .filter(it => it != "Items" && it != "Other" && it != NO_ITEM && it != "")
 
   return items
 }
@@ -145,7 +146,7 @@ function extractMoves(sections) {
     )
     .filter(it => it != "Moves" && it != "Other")
 
-  const mainMoves = allMoves.slice(0, 4).filter(it => it != "Nothing")
+  const mainMoves = allMoves.slice(0, 4).filter(it => it != NO_ITEM)
 
   while (mainMoves.length < 4) {
     mainMoves.push("")
