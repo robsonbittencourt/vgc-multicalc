@@ -1476,4 +1476,34 @@ describe("TypeChart", () => {
       expect(service.getEffectiveness("Fighting", "Ghost")).toBe(0)
     })
   })
+
+  describe("Freeze-Dry", () => {
+    it("should return 2x effectiveness against mono Water", () => {
+      expect(service.getEffectiveness("Ice", "Water", undefined, undefined, undefined, { moveName: "Freeze-Dry" })).toBe(2)
+    })
+
+    it("should stack with the secondary type when Water is primary", () => {
+      expect(service.getEffectiveness("Ice", "Water", "Ground", undefined, undefined, { moveName: "Freeze-Dry" })).toBe(4)
+    })
+
+    it("should stack with the primary type when Water is secondary", () => {
+      expect(service.getEffectiveness("Ice", "Ground", "Water", undefined, undefined, { moveName: "Freeze-Dry" })).toBe(4)
+    })
+
+    it("should return 1x against Water/Steel where Steel resists", () => {
+      expect(service.getEffectiveness("Ice", "Water", "Steel", undefined, undefined, { moveName: "Freeze-Dry" })).toBe(1)
+    })
+
+    it("should behave like regular Ice when the defender is not Water", () => {
+      expect(service.getEffectiveness("Ice", "Grass", undefined, undefined, undefined, { moveName: "Freeze-Dry" })).toBe(2)
+      expect(service.getEffectiveness("Ice", "Fire", undefined, undefined, undefined, { moveName: "Freeze-Dry" })).toBe(0.5)
+      expect(service.getEffectiveness("Ice", "Steel", undefined, undefined, undefined, { moveName: "Freeze-Dry" })).toBe(0.5)
+      expect(service.getEffectiveness("Ice", "Ground", "Flying", undefined, undefined, { moveName: "Freeze-Dry" })).toBe(4)
+    })
+
+    it("should not affect other Ice moves against Water", () => {
+      expect(service.getEffectiveness("Ice", "Water")).toBe(0.5)
+      expect(service.getEffectiveness("Ice", "Water", undefined, undefined, undefined, { moveName: "Ice Beam" })).toBe(0.5)
+    })
+  })
 })

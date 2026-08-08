@@ -12,6 +12,7 @@ export interface DefenderInput {
 
 export interface AttackerInput {
   ignoresGhostImmunity?: boolean
+  moveName?: string
 }
 
 const ABILITY_IMMUNITIES: Partial<Record<AbilityName, PokemonType>> = {
@@ -57,8 +58,10 @@ export class TypeChart {
     const ignoresGhost = attacker?.ignoresGhostImmunity && (attackType === "Normal" || attackType === "Fighting")
     const ringTarget = this.hasRingTarget(defender)
 
-    const effectiveness1 = this.typeEffectivenessAgainst(attackType, defenseType1, ignoresGhost, ringTarget)
-    const effectiveness2 = defenseType2 ? this.typeEffectivenessAgainst(attackType, defenseType2, ignoresGhost, ringTarget) : 1
+    const freezeDry = attacker?.moveName === "Freeze-Dry"
+
+    const effectiveness1 = this.typeEffectivenessAgainst(attackType, defenseType1, ignoresGhost, ringTarget, freezeDry)
+    const effectiveness2 = defenseType2 ? this.typeEffectivenessAgainst(attackType, defenseType2, ignoresGhost, ringTarget, freezeDry) : 1
 
     const multiplier = effectiveness1 * effectiveness2
 
@@ -71,9 +74,13 @@ export class TypeChart {
     return 0
   }
 
-  private typeEffectivenessAgainst(attackType: PokemonType, defenseType: PokemonType, ignoresGhost?: boolean, ringTarget?: boolean): number {
+  private typeEffectivenessAgainst(attackType: PokemonType, defenseType: PokemonType, ignoresGhost?: boolean, ringTarget?: boolean, freezeDry?: boolean): number {
     if (ignoresGhost && defenseType === "Ghost") {
       return 1
+    }
+
+    if (freezeDry && defenseType === "Water") {
+      return 2
     }
 
     const effectiveness = this.typeChart[attackType][defenseType]
