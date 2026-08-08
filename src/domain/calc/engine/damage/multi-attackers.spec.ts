@@ -37,6 +37,16 @@ describe("Damage — combined attackers (calculateMulti)", () => {
     expect(result.description()).toEqual("100+ Atk Rillaboom Wood Hammer AND 100+ SpA Sylveon Hyper Voice vs. 252 HP / 252+ Def / 0 SpD Leftovers Dondozo: 175-208 (68 - 80.9%) -- guaranteed 2HKO after Leftovers recovery")
   })
 
+  it("a type-resisting berry only reduces the first hit", () => {
+    const a1 = new Pokemon("Hydreigon", { nature: "Modest", evs: { spa: 252 } })
+    const a2 = new Pokemon("Kingambit", { item: "Black Glasses", nature: "Adamant", evs: { atk: 252 } })
+    const defender = new Pokemon("Farigiraf", { item: "Colbur Berry", nature: "Impish", evs: { hp: 196, def: 204, spd: 116 } })
+
+    const result = calculateMulti(a1, a2, new Move("Dark Pulse"), new Move("Kowtow Cleave"), defender, field())
+
+    expect(result.description()).toEqual("252+ SpA Hydreigon Dark Pulse AND 252+ Atk Black Glasses Kingambit Kowtow Cleave vs. 196 HP / 204+ Def / 116 SpD Colbur Berry Farigiraf: 270-322 (122.7 - 146.3%) -- guaranteed OHKO")
+  })
+
   it("poison damage is added at the end of the turn", () => {
     const a1 = new Pokemon("Rillaboom", { evs: { atk: 100 }, nature: "Adamant" })
     const a2 = new Pokemon("Sylveon", { evs: { spa: 100 }, nature: "Modest" })
