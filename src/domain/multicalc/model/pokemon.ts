@@ -277,9 +277,7 @@ export class Pokemon {
     }
 
     const pokemonData = Object.values(POKEMON_DATA).find(p => p.name == this.name)
-    const abilities = pokemonData?.abilities ? pokemonData.abilities.map(ability => getAbilityData(ability)).filter(ability => ability !== undefined) : []
-
-    return abilities
+    return pokemonData!.abilities.map(ability => getAbilityData(ability)).filter(ability => ability !== undefined)
   }
 
   get rawStats(): Partial<Stats> {

@@ -278,7 +278,7 @@ export class SpeedCalc {
   }
 
   private isTrickRoomPokemon(pokemon: Pokemon): boolean {
-    return (getPokemonData(pokemon.name)?.baseStats.spe ?? 999) <= MAX_BASE_SPEED_FOR_TR
+    return getPokemonData(pokemon.name)!.baseStats.spe <= MAX_BASE_SPEED_FOR_TR
   }
 
   private isBoosterSpeedPokemon(pokemon: Pokemon): boolean {

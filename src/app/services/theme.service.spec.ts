@@ -145,4 +145,32 @@ describe("ThemeService", () => {
 
     expect(() => service.setTheme("dark")).not.toThrow()
   })
+
+  it("should not touch the document when it is not available in the environment", () => {
+    const originalDocument = globalThis.document
+    // @ts-expect-error simulating an environment without a document (e.g. SSR)
+    delete globalThis.document
+    storeSpy.theme.mockReturnValue("dark")
+
+    try {
+      expect(() => service.setTheme("dark")).not.toThrow()
+      expect(storeSpy.updateTheme).toHaveBeenCalledWith("dark")
+    } finally {
+      globalThis.document = originalDocument
+    }
+  })
+
+  it("should not apply the color when the document is not available in the environment", () => {
+    const originalDocument = globalThis.document
+    // @ts-expect-error simulating an environment without a document (e.g. SSR)
+    delete globalThis.document
+    storeSpy.color.mockReturnValue("purple")
+
+    try {
+      expect(() => service.setColor("purple")).not.toThrow()
+      expect(storeSpy.updateColor).toHaveBeenCalledWith("purple")
+    } finally {
+      globalThis.document = originalDocument
+    }
+  })
 })

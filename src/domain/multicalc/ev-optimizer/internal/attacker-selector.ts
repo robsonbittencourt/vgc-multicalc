@@ -165,11 +165,9 @@ export class AttackerSelector {
       }
     } else if (defTotal === maxSurviving && defTotal >= currentTotal) {
       return def
-    } else if (spdTotal === maxSurviving && spdTotal >= currentTotal) {
-      return spd
     }
 
-    return current
+    return spd
   }
 
   private getTotalSurviving(scenario: NatureScenario): number {

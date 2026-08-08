@@ -1,3 +1,5 @@
+import { provideZonelessChangeDetection } from "@angular/core"
+import { TestBed } from "@angular/core/testing"
 import { DamageResultOrderService } from "@app/services/damage-result-order.service"
 import { DamageResult, MultiCalcMode } from "@multicalc/damage-calc"
 import { Pokemon } from "@multicalc/model"
@@ -9,7 +11,11 @@ describe("DamageResultOrderService", () => {
   let service: DamageResultOrderService
 
   beforeEach(() => {
-    service = new DamageResultOrderService()
+    TestBed.configureTestingModule({
+      providers: [provideZonelessChangeDetection(), DamageResultOrderService]
+    })
+
+    service = TestBed.inject(DamageResultOrderService)
     service.initialize(0)
   })
 

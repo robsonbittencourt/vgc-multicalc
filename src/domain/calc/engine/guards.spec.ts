@@ -345,6 +345,14 @@ describe("computeMoveType", () => {
     expect(type).toBe("Water")
   })
 
+  it("keeps Tera Blast on the attacker's Tera Type instead of applying an -ate ability", () => {
+    const ctx = makeCtx("Sylveon", { teraType: "Fire", ability: "Pixilate" }, "Garchomp", {}, "Tera Blast")
+
+    const { type } = computeMoveType(ctx)
+
+    expect(type).toBe("Fire")
+  })
+
   it("Weather Ball becomes Fire in Sun", () => {
     const ctx = makeCtx("Pelipper", {}, "Garchomp", {}, "Weather Ball", {}, { weather: "Sun" })
 

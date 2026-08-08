@@ -181,6 +181,15 @@ describe("Internal domain model (gen 0)", () => {
       expect(field.defenderSide.isHelpingHand).toBe(true)
     })
 
+    it("clones a Side into an equivalent, independent Side", () => {
+      const side = new Side({ isTailwind: true, isReflect: true, spikes: 2 })
+
+      const clone = side.clone()
+
+      expect(clone).toEqual(side)
+      expect(clone).not.toBe(side)
+    })
+
     it("clones to an equivalent Field", () => {
       const field = new Field({ gameType: "Doubles", weather: "Rain", attackerSide: { isTailwind: true } })
 

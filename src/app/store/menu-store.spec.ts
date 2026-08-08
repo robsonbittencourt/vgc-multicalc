@@ -126,4 +126,28 @@ describe("Menu Store", () => {
     expect(store.orderByDamage()).toBe(true)
     expect(store.oneVsManyBestMoveActivated()).toBe(true)
   })
+
+  describe("Environment without local storage", () => {
+    it("should not persist the menu options when localStorage is not available", () => {
+      const originalLocalStorage = globalThis.localStorage
+
+      try {
+        // @ts-expect-error simulating an environment without localStorage (e.g. SSR)
+        delete globalThis.localStorage
+
+        TestBed.resetTestingModule()
+        TestBed.configureTestingModule({ providers: [provideZonelessChangeDetection()] })
+
+        const isolatedStore = TestBed.inject(MenuStore)
+        isolatedStore.toggleOrderByDamage()
+
+        TestBed.tick()
+
+        expect(isolatedStore.orderByDamage()).toBe(true)
+        expect(globalThis.localStorage).toBeUndefined()
+      } finally {
+        globalThis.localStorage = originalLocalStorage
+      }
+    })
+  })
 })

@@ -28,9 +28,7 @@ export function getMegaFormName(pokemonName: string, item: string): string {
 export function isMegaStoneCompatible(pokemonName: string, item: string): boolean {
   if (!isMegaStone(item)) return false
 
-  const itemBaseName = getBasePokemonNameFromItem(item)
-
-  if (!itemBaseName) return false
+  const itemBaseName = getBasePokemonNameFromItem(item)!
 
   const reverseMappedName = MEGA_FORM_REVERSE_MAPPING[pokemonName] || pokemonName
   const baseFormName = reverseMappedName.replace(/-Mega-[A-Z]?$/, "").replace(/-Mega$/, "")

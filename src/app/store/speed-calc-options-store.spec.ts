@@ -3,7 +3,7 @@ import { TestBed } from "@angular/core/testing"
 import { CalcStore } from "./calc-store"
 import { SpeedCalcOptionsStore } from "./speed-calc-options-store"
 import { Pokemon, Target, Team, TeamMember } from "@multicalc/model"
-import { SpeedCalcMode } from "@multicalc/speed-calc"
+import { SpeedCalc, SpeedCalcMode } from "@multicalc/speed-calc"
 import { patchState } from "@ngrx/signals"
 
 describe("Speed Calc Options Store", () => {
@@ -33,6 +33,10 @@ describe("Speed Calc Options Store", () => {
     })
 
     store = TestBed.inject(SpeedCalcOptionsStore)
+  })
+
+  afterEach(() => {
+    vi.restoreAllMocks()
   })
 
   describe("Computed", () => {
@@ -124,6 +128,33 @@ describe("Speed Calc Options Store", () => {
       store.updateRegulation("MB")
 
       expect(store.regulation()).toBe("MB")
+    })
+
+    it("should fall back to the Stats mode when the new regulation has no statistics", () => {
+      store.updateMode(SpeedCalcMode.StatsAndMeta)
+
+      store.updateRegulation("MA" as never)
+
+      expect(store.regulation()).toBe("MA")
+      expect(store.mode()).toBe(SpeedCalcMode.Stats)
+    })
+
+    it("should keep a statistics-free mode when the new regulation has no statistics", () => {
+      store.updateMode(SpeedCalcMode.Base)
+
+      store.updateRegulation("MA" as never)
+
+      expect(store.mode()).toBe(SpeedCalcMode.Base)
+    })
+
+    it("should fall back to the default label for a regulation without a known name", () => {
+      store.updateRegulation("MA" as never)
+
+      expect(store.selectedFilter()).toBe("Reg M-B")
+    })
+
+    it("should expose the list of available regulations", () => {
+      expect(store.regulationsList()).toEqual(["MB"])
     })
 
     it("should update Top Usage when it is changed", () => {
@@ -294,6 +325,23 @@ describe("Speed Calc Options Store", () => {
       patchState(store, () => ({ teamId: "deleted-team" }))
 
       expect(store.pokemonNamesByReg()).toEqual([])
+    })
+  })
+
+  describe("Initial mode", () => {
+    it("should start in Stats and Meta mode when the initial regulation has statistics", () => {
+      expect(store.mode()).toBe(SpeedCalcMode.StatsAndMeta)
+    })
+
+    it("should start in Stats mode when the initial regulation has no statistics", () => {
+      vi.spyOn(SpeedCalc.prototype, "hasStatisticsForRegulation").mockReturnValue(false)
+
+      TestBed.resetTestingModule()
+      TestBed.configureTestingModule({
+        providers: [provideZonelessChangeDetection(), SpeedCalcOptionsStore, { provide: CalcStore, useValue: { teams: signal([]), targets: signal([]) } }]
+      })
+
+      expect(TestBed.inject(SpeedCalcOptionsStore).mode()).toBe(SpeedCalcMode.Stats)
     })
   })
 })

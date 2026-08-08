@@ -382,6 +382,152 @@ describe("Field Store", () => {
       expect(store.field().isBeadsOfRuin).toBe(false)
     })
 
+    it("should turn Sword Of Ruin off and clear the automatic flag when both were active", () => {
+      store.toggleSwordOfRuin()
+
+      store.toggleAutomaticSwordOfRuin()
+
+      store.toggleSwordOfRuin()
+
+      expect(store.field().isSwordOfRuin).toBe(false)
+    })
+
+    it("should turn Sword Of Ruin on through the automatic toggle", () => {
+      store.toggleAutomaticSwordOfRuin()
+
+      expect(store.field().isSwordOfRuin).toBe(true)
+    })
+
+    it("should turn Tablets Of Ruin off and clear the automatic flag when both were active", () => {
+      store.toggleTabletsOfRuin()
+
+      store.toggleAutomaticTabletsOfRuin()
+
+      store.toggleTabletsOfRuin()
+
+      expect(store.field().isTabletsOfRuin).toBe(false)
+    })
+
+    it("should turn Tablets Of Ruin on through the automatic toggle", () => {
+      store.toggleAutomaticTabletsOfRuin()
+
+      expect(store.field().isTabletsOfRuin).toBe(true)
+    })
+
+    it("should turn Vessel Of Ruin off and clear the automatic flag when both were active", () => {
+      store.toggleVesselOfRuin()
+
+      store.toggleAutomaticVesselOfRuin()
+
+      store.toggleVesselOfRuin()
+
+      expect(store.field().isVesselOfRuin).toBe(false)
+    })
+
+    it("should turn Vessel Of Ruin on through the automatic toggle", () => {
+      store.toggleAutomaticVesselOfRuin()
+
+      expect(store.field().isVesselOfRuin).toBe(true)
+    })
+
+    it("should turn Neutralizing Gas off and clear the automatic flag when both were active", () => {
+      store.toggleNeutralizingGas()
+
+      store.toggleAutomaticNeutralizingGas()
+
+      store.toggleNeutralizingGas()
+
+      expect(store.field().isNeutralizingGas).toBe(false)
+    })
+
+    it("should turn Neutralizing Gas on through the automatic toggle", () => {
+      store.toggleAutomaticNeutralizingGas()
+
+      expect(store.field().isNeutralizingGas).toBe(true)
+    })
+
+    it("should turn Fairy Aura off and clear the automatic flag when both were active", () => {
+      store.toggleFairyAura()
+
+      store.toggleAutomaticFairyAura()
+
+      store.toggleFairyAura()
+
+      expect(store.field().isFairyAura).toBe(false)
+    })
+
+    it("should turn Fairy Aura on through the automatic toggle", () => {
+      store.toggleAutomaticFairyAura()
+
+      expect(store.field().isFairyAura).toBe(true)
+    })
+
+    it("should toggle the attacker protected flag", () => {
+      store.toggleAttackerProtected()
+
+      expect(store.field().attackerSide.isProtected).toBe(true)
+    })
+
+    it("should toggle the defender protected flag", () => {
+      store.toggleDefenderProtected()
+
+      expect(store.field().defenderSide.isProtected).toBe(true)
+    })
+
+    it("should only clear the automatic flag for Beads Of Ruin when the value is already off", () => {
+      store.toggleAutomaticBeadsOfRuin()
+      store.toggleBeadsOfRuin()
+
+      store.toggleBeadsOfRuin()
+
+      expect(store.field().isBeadsOfRuin).toBe(true)
+    })
+
+    it("should only clear the automatic flag for Sword Of Ruin when the value is already off", () => {
+      store.toggleAutomaticSwordOfRuin()
+      store.toggleSwordOfRuin()
+
+      store.toggleSwordOfRuin()
+
+      expect(store.field().isSwordOfRuin).toBe(true)
+    })
+
+    it("should only clear the automatic flag for Tablets Of Ruin when the value is already off", () => {
+      store.toggleAutomaticTabletsOfRuin()
+      store.toggleTabletsOfRuin()
+
+      store.toggleTabletsOfRuin()
+
+      expect(store.field().isTabletsOfRuin).toBe(true)
+    })
+
+    it("should only clear the automatic flag for Vessel Of Ruin when the value is already off", () => {
+      store.toggleAutomaticVesselOfRuin()
+      store.toggleVesselOfRuin()
+
+      store.toggleVesselOfRuin()
+
+      expect(store.field().isVesselOfRuin).toBe(true)
+    })
+
+    it("should only clear the automatic flag for Neutralizing Gas when the value is already off", () => {
+      store.toggleAutomaticNeutralizingGas()
+      store.toggleNeutralizingGas()
+
+      store.toggleNeutralizingGas()
+
+      expect(store.field().isNeutralizingGas).toBe(true)
+    })
+
+    it("should only clear the automatic flag for Fairy Aura when the value is already off", () => {
+      store.toggleAutomaticFairyAura()
+      store.toggleFairyAura()
+
+      store.toggleFairyAura()
+
+      expect(store.field().isFairyAura).toBe(true)
+    })
+
     it("should change automatic Beads Of Ruin to true when it is false", () => {
       store.toggleAutomaticBeadsOfRuin()
 
@@ -965,6 +1111,16 @@ describe("Field Store", () => {
       expect(store.field().isVesselOfRuin).toBe(true)
       expect(store.field().isNeutralizingGas).toBe(true)
     })
+
+    it("should keep the automatic Fairy Aura when it is listed as an exception", () => {
+      store.toggleAutomaticFairyAura()
+      store.toggleAutomaticSunWeather()
+
+      store.cleanAutomaticOptions(["automaticFairyAuraActivated"])
+
+      expect(store.field().isFairyAura).toBe(true)
+      expect(store.field().weather == "Sun").toBe(false)
+    })
   })
 
   describe("User Data", () => {
@@ -1022,6 +1178,44 @@ describe("Field Store", () => {
 
       const actualStorage = JSON.parse(localStorage.getItem("userData")!)
       expect(actualStorage.champions.fields.simple.isBeadsOfRuin).toBe(false)
+    })
+  })
+
+  describe("Restoring a previously saved field", () => {
+    const buildStoreWith = (initialData: unknown) => {
+      TestBed.resetTestingModule()
+      TestBed.configureTestingModule({
+        providers: [provideZonelessChangeDetection(), FieldStore, ActiveFieldService, { provide: CalcStore, useValue: { toggleProtosynthesis: () => void 0, toggleQuarkDrive: () => void 0 } }, { provide: FIELD_CONTEXT, useValue: "simple" }]
+      })
+
+      TestBed.inject(ActiveFieldService).initialFieldData.set(initialData)
+
+      return TestBed.inject(FieldStore)
+    }
+
+    it("should restore the saved field without writing it back to local storage", () => {
+      localStorage.clear()
+
+      const restored = buildStoreWith({ weather: "Rain", isGravity: true })
+
+      TestBed.tick()
+
+      expect(restored.weather()).toBe("Rain")
+      expect(restored.isGravity()).toBe(true)
+      expect(restored.updateLocalStorage()).toBe(false)
+      expect(localStorage.getItem("userData")).toBeNull()
+    })
+
+    it("should keep local storage untouched when the restored field is changed afterwards", () => {
+      localStorage.clear()
+
+      const restored = buildStoreWith({ weather: "Rain" })
+      restored.toggleSunWeather()
+
+      TestBed.tick()
+
+      expect(restored.weather()).toBe("Sun")
+      expect(localStorage.getItem("userData")).toBeNull()
     })
   })
 })

@@ -21,6 +21,45 @@ describe("Damage — weather effects on move damage", () => {
     expect(result.description()).toEqual("252+ SpA Walking Wake Hydro Steam vs. 252 HP / 4 SpD Heatran in Sun: 206-246 (104 - 124.2%) -- guaranteed OHKO")
   })
 
+  it("Mega Sol halves a Water move without any weather, crediting the ability instead of the sun", () => {
+    const attacker = new Pokemon("Torkoal", { ability: "Mega Sol", evs: { spa: 252 } })
+    const defender = new Pokemon("Blissey", { evs: { hp: 252 } })
+
+    const result = calculate(attacker, defender, new Move("Surf"), new Field({ gameType: "Doubles" }))
+
+    expect(result.description()).toEqual("252 SpA Mega Sol Torkoal Surf vs. 252 HP / 0 SpD Blissey: 11-14 (3 - 3.8%)")
+  })
+
+  it("Sun halves a Water move, crediting the weather", () => {
+    const attacker = new Pokemon("Torkoal", { evs: { spa: 252 } })
+    const defender = new Pokemon("Blissey", { evs: { hp: 252 } })
+
+    const result = calculate(attacker, defender, new Move("Surf"), new Field({ gameType: "Doubles", weather: "Sun" }))
+
+    expect(result.description()).toEqual("252 SpA Torkoal Surf vs. 252 HP / 0 SpD Blissey in Sun: 11-14 (3 - 3.8%)")
+  })
+
+  it("Hydro Steam: Mega Sol boosts it without any weather, crediting the ability", () => {
+    const attacker = new Pokemon("Walking Wake", { evs: { spa: 252 }, nature: "Modest", ability: "Mega Sol" })
+    const defender = new Pokemon("Heatran", { evs: { hp: 252, spd: 4 } })
+    const move = new Move("Hydro Steam")
+
+    const result = calculate(attacker, defender, move, new Field({ gameType: "Doubles" }))
+
+    expect(result.description()).toContain("Mega Sol")
+  })
+
+  it("Hydro Steam: a Utility Umbrella on the attacker cancels the Sun boost", () => {
+    const attacker = new Pokemon("Walking Wake", { evs: { spa: 252 }, nature: "Modest", item: "Utility Umbrella" })
+    const defender = new Pokemon("Heatran", { evs: { hp: 252, spd: 4 } })
+    const move = new Move("Hydro Steam")
+
+    const boosted = calculate(new Pokemon("Walking Wake", { evs: { spa: 252 }, nature: "Modest" }), defender, new Move("Hydro Steam"), new Field({ gameType: "Doubles", weather: "Sun" }))
+    const result = calculate(attacker, defender, move, new Field({ gameType: "Doubles", weather: "Sun" }))
+
+    expect(result.range()[1]).toBeLessThan(boosted.range()[1])
+  })
+
   describe("Weather Ball — Utility Umbrella and Mega Sol", () => {
     const weatherBall = (attackerOptions: Record<string, unknown>, weather?: string, species = "Politoed") => {
       const attacker = new Pokemon(species, { evs: { spa: 252 }, nature: "Modest", ...attackerOptions })

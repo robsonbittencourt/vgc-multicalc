@@ -47,17 +47,7 @@ export function pokemonTableData(allowAllPokes: boolean): PokemonTableGroup[] {
 function toPokemonDetail(p: PokemonDataCore): PokemonDetail {
   const pokemon = new Pokemon(p.name)
 
-  const abilities: AbilityName[] = (p.abilities ?? []).map(ability => {
-    const abilityDetail = getAbilityData(ability)
-
-    if (!abilityDetail) {
-      console.error(`Missing ability "${ability}" for pokemon "${p.name}"`)
-
-      return "Unknown" as AbilityName
-    }
-
-    return abilityDetail.name as AbilityName
-  })
+  const abilities: AbilityName[] = p.abilities!.map(ability => getAbilityData(ability)!.name as AbilityName)
 
   return {
     name: pokemon.name,
@@ -70,7 +60,7 @@ function toPokemonDetail(p: PokemonDataCore): PokemonDetail {
     spd: pokemon.baseSpd,
     spe: pokemon.baseSpe,
     bst: pokemon.bst,
-    group: p.group ?? "Regular"
+    group: p.group!
   }
 }
 

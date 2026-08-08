@@ -188,7 +188,7 @@ export function computeMoveType(ctx: CombatContext): { type: string; hasAteAbili
 
   if (!noTypeChange) {
     const normal = type === "Normal"
-    const ateType = attacker.ability ? ATE_ABILITY_TYPES[attacker.ability] : undefined
+    const ateType = ATE_ABILITY_TYPES[attacker.ability!]
     let isAteTypeChange = false
 
     if (normal && ateType) {

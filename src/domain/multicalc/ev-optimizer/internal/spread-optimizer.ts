@@ -1,4 +1,3 @@
-import { RollLevelConfig } from "@multicalc/damage-calc/roll-level-config"
 import { Field } from "@multicalc/model/field"
 import { Pokemon } from "@multicalc/model/pokemon"
 import { Target } from "@multicalc/model/target"
@@ -29,7 +28,7 @@ export class SpreadOptimizer {
   private survivalChecker = new SurvivalChecker(this.damageCalc)
   private attackerSelector = new AttackerSelector(this.survivalChecker, this.damageCalc)
 
-  optimize(defender: Pokemon, targets: Target[], field: Field, updateNature = false, keepOffensiveEvs = false, threshold: SurvivalThreshold = 2, rollIndex = RollLevelConfig.HIGH_ROLL_INDEX, rightIsDefender = true): OptimizationResult {
+  optimize(defender: Pokemon, targets: Target[], field: Field, updateNature: boolean, keepOffensiveEvs: boolean, threshold: SurvivalThreshold, rollIndex: number, rightIsDefender: boolean): OptimizationResult {
     this.damageCalc.clear()
     this.memo.clear()
 
@@ -73,7 +72,7 @@ export class SpreadOptimizer {
       return this.withReservedEvs(choice.spread, reservedEvs, nature)
     }
 
-    return this.withoutSpread(target, possibleSingles, reservedEvs, nature, ctx, budget === MAX_TOTAL_EVS ? search : new SpreadSearch(target, ctx))
+    return { evs: null, nature: null, status: "no-solution" }
   }
 
   private nothingToProtect(defender: Pokemon): OptimizationResult {
@@ -230,22 +229,5 @@ export class SpreadOptimizer {
     }
 
     return { evs: { hp: spread.hp, atk: reservedEvs.atk, def: spread.def, spa: reservedEvs.spa, spd: spread.spd, spe: reservedEvs.spe }, nature, status }
-  }
-
-  private withoutSpread(defender: Pokemon, possibleThreats: Threat[], reservedEvs: ReservedEvs | undefined, nature: string | null, ctx: SurvivalContext, unboundedSearch: SpreadSearch): OptimizationResult {
-    if (possibleThreats.length === 0) {
-      return { evs: null, nature: null, status: "no-solution" }
-    }
-
-    const zeroed = defender.clone({ evs: { hp: 0, atk: defender.evs.atk, def: 0, spa: defender.evs.spa, spd: 0, spe: defender.evs.spe } })
-    const unprotected = possibleThreats.filter(threat => !threat.survivedBy(zeroed, ctx))
-
-    if (unprotected.some(threat => unboundedSearch.minimalSpread([threat]) !== null)) {
-      return { evs: null, nature: null, status: "no-solution" }
-    }
-
-    const evs = reservedEvs ? { hp: 0, atk: reservedEvs.atk, def: 0, spa: reservedEvs.spa, spd: 0, spe: reservedEvs.spe } : { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
-
-    return { evs, nature, status: "not-needed" }
   }
 }

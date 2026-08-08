@@ -406,6 +406,12 @@ describe("Pokemon", () => {
         expect(pokemon.actualHp).toEqual(55)
       })
 
+      it("should return the modifiedHp scaled by the hp percentage", () => {
+        const pokemon = new Pokemon("Pikachu", { hpPercentage: 50 })
+
+        expect(pokemon.modifiedHp).toEqual(55)
+      })
+
       it("should return the baseHp", () => {
         const pokemon = new Pokemon("Pikachu")
 
@@ -480,6 +486,15 @@ describe("Pokemon", () => {
     })
 
     describe("Another methods", () => {
+      it("should return a terastalized copy of the Pokémon", () => {
+        const pokemon = new Pokemon("Pikachu", { teraType: "Electric" })
+
+        const terastalized = pokemon.terastalized()
+
+        expect(terastalized.teraTypeActive).toBe(true)
+        expect(pokemon.teraTypeActive).toBe(false)
+      })
+
       it("should return true when Pokémon has Protosynthesis ability", () => {
         const pokemon = new Pokemon("Flutter Mane")
 

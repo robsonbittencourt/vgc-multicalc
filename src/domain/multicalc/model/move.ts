@@ -79,7 +79,7 @@ export class Move {
 
     return {
       bp: moveDetails.basePower,
-      category: (moveDetails.category as Category) ?? "Status",
+      category: moveDetails.category as Category,
       type: moveDetails.type as PokemonType,
       accuracy: !moveDetails.accuracy || moveDetails.accuracy === true ? 100 : moveDetails.accuracy,
       secondary: (moveDetails.secondary as SecondaryEffect | null) ?? null,

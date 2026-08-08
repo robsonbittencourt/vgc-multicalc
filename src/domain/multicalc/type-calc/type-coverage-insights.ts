@@ -100,13 +100,11 @@ export class TypeCoverageInsights {
     const selected = new Map<string, PokemonInsight>()
 
     superEffective.forEach(item => {
-      if (item.value > 0) {
-        selected.set(item.pokemon.id, item)
-      }
+      selected.set(item.pokemon.id, item)
     })
 
     notVeryEffective.forEach(item => {
-      if (item.value > 0 && !selected.has(item.pokemon.id)) {
+      if (!selected.has(item.pokemon.id)) {
         selected.set(item.pokemon.id, item)
       }
     })
@@ -260,12 +258,8 @@ export class TypeCoverageInsights {
       if (pokemonData.effectiveness === 2) {
         return { count: 1, count4x: 0 }
       }
-    } else {
-      if (pokemonData.coverageType === "super-effective") {
-        if (pokemonData.effectiveness === 2) {
-          return { count: 1, count4x: 0 }
-        }
-      }
+    } else if (pokemonData.coverageType === "super-effective") {
+      return { count: 1, count4x: 0 }
     }
 
     return { count: 0, count4x: 0 }
@@ -301,14 +295,11 @@ export class TypeCoverageInsights {
         let superEffectiveCount = 0
         let superEffectiveCount4x = 0
 
-        const pokemonDataForPokemon = pokemonDataMap.get(pokemon.id)
-        if (pokemonDataForPokemon) {
-          pokemonDataForPokemon.forEach(pokemonData => {
-            const result = this.countSuperEffective(pokemonData, true)
-            superEffectiveCount += result.count
-            superEffectiveCount4x += result.count4x
-          })
-        }
+        pokemonDataMap.get(pokemon.id)!.forEach(pokemonData => {
+          const result = this.countSuperEffective(pokemonData, true)
+          superEffectiveCount += result.count
+          superEffectiveCount4x += result.count4x
+        })
 
         if (superEffectiveCount > 0) {
           pokemonStats.push({ pokemon, count: superEffectiveCount, count4x: superEffectiveCount4x })
@@ -332,14 +323,11 @@ export class TypeCoverageInsights {
         let superEffectiveCount = 0
         let superEffectiveCount4x = 0
 
-        const pokemonDataForPokemon = pokemonDataMap.get(pokemon.id)
-        if (pokemonDataForPokemon) {
-          pokemonDataForPokemon.forEach(pokemonData => {
-            const result = this.countSuperEffective(pokemonData, false)
-            superEffectiveCount += result.count
-            superEffectiveCount4x += result.count4x
-          })
-        }
+        pokemonDataMap.get(pokemon.id)!.forEach(pokemonData => {
+          const result = this.countSuperEffective(pokemonData, false)
+          superEffectiveCount += result.count
+          superEffectiveCount4x += result.count4x
+        })
 
         if (superEffectiveCount > 0) {
           pokemonStats.push({ pokemon, count: superEffectiveCount, count4x: superEffectiveCount4x })
@@ -539,9 +527,7 @@ export class TypeCoverageInsights {
           weakCount4x += result.count4x
         })
 
-        if (weakCount > 0) {
-          pokemonStats.push({ pokemon, count: weakCount, count4x: weakCount4x })
-        }
+        pokemonStats.push({ pokemon, count: weakCount, count4x: weakCount4x })
       })
     }
 
@@ -587,10 +573,7 @@ export class TypeCoverageInsights {
           }
         })
 
-        const total = resistCount + immuneCount
-        if (total > 0) {
-          pokemonStats.push({ pokemon, total })
-        }
+        pokemonStats.push({ pokemon, total: resistCount + immuneCount })
       })
     }
 

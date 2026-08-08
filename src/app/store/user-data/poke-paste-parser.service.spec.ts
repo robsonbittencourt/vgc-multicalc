@@ -348,6 +348,38 @@ describe("PokePasteParserService", () => {
     expect(result.pokemon[0].name).toBe("Incineroar")
   })
 
+  it("should fall back to the parsed team name when PokePaste json has no title", async () => {
+    const mockKoffingResult = {
+      toJson: () =>
+        JSON.stringify({
+          teams: [
+            {
+              name: "Team From Paste",
+              pokemon: [
+                {
+                  name: "Incineroar",
+                  ability: "Intimidate",
+                  nature: "Adamant",
+                  item: "Sitrus Berry",
+                  teraType: "Grass",
+                  moves: ["Fake Out", "", "", ""],
+                  evs: { hp: 252, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+                  ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 }
+                }
+              ]
+            }
+          ]
+        })
+    }
+
+    vi.spyOn(window, "fetch").mockReturnValue(Promise.resolve(new Response(JSON.stringify({ paste: "paste text" }))))
+    koffingParseSpy.mockReturnValue(mockKoffingResult)
+
+    const result = await service.parseTeam("https://pokepast.es/12345", false)
+
+    expect(result.name).toBe("Team From Paste")
+  })
+
   it("should parse multiple Pokémon with different move counts", async () => {
     const randomMove1 = "Transform"
     const randomMove2 = "Behemoth Blade"
@@ -660,6 +692,75 @@ describe("PokePasteParserService", () => {
       expect(result.pokemon[0].ivs).toEqual({ hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 })
     })
 
+    it("should fall back to an empty team name when the paste has no title", async () => {
+      const mockResponse = {
+        teams: [
+          {
+            species: "Incineroar",
+            ability: "Intimidate",
+            nature: "Careful",
+            item: "Sitrus Berry",
+            moves: ["Fake Out", "Knock Off", "Flare Blitz", "Parting Shot"],
+            evs: { hp: 252, def: 4, spd: 252 }
+          }
+        ]
+      }
+
+      vi.spyOn(window, "fetch").mockReturnValue(Promise.resolve(new Response(JSON.stringify(mockResponse))))
+
+      const result = await service.parseTeam("https://www.vrpastes.com/XJuCYyTS", false)
+
+      expect(result.name).toBe("")
+    })
+
+    it("should fill the missing move slots with empty moves", async () => {
+      const mockResponse = {
+        title: "Two Move Team",
+        teams: [
+          {
+            species: "Incineroar",
+            ability: "Intimidate",
+            nature: "Careful",
+            item: "Sitrus Berry",
+            moves: ["Fake Out", "Knock Off"],
+            evs: { hp: 252 }
+          }
+        ]
+      }
+
+      vi.spyOn(window, "fetch").mockReturnValue(Promise.resolve(new Response(JSON.stringify(mockResponse))))
+
+      const result = await service.parseTeam("https://www.vrpastes.com/XJuCYyTS", false)
+
+      expect(result.pokemon[0].move1Name).toBe("Fake Out")
+      expect(result.pokemon[0].move2Name).toBe("Knock Off")
+      expect(result.pokemon[0].move3Name).toBe("")
+      expect(result.pokemon[0].move4Name).toBe("")
+    })
+
+    it("should default to SPs mode when the caller does not pass the flag", async () => {
+      const mockResponse = {
+        title: "My VR Team",
+        teams: [
+          {
+            species: "Incineroar",
+            ability: "Intimidate",
+            nature: "Careful",
+            item: "Sitrus Berry",
+            moves: ["Fake Out", "Knock Off", "Flare Blitz", "Parting Shot"],
+            evs: { hp: 252, def: 4, spd: 252 }
+          }
+        ]
+      }
+
+      vi.spyOn(window, "fetch").mockReturnValue(Promise.resolve(new Response(JSON.stringify(mockResponse))))
+
+      const result = await service.parse("https://www.vrpastes.com/XJuCYyTS")
+
+      expect(result.length).toBe(1)
+      expect(result[0].name).toBe("Incineroar")
+    })
+
     it("should use default zero EVs when Pokémon has no evs field", async () => {
       const mockResponse = {
         title: "Untitled Team",
@@ -701,6 +802,54 @@ describe("PokePasteParserService", () => {
       const result = await service.parseTeam("https://www.vrpastes.com/abc123", false)
 
       expect(result.pokemon[0].boosts).toEqual({ atk: 1, def: 0, spa: 0, spd: 0, spe: 0 })
+    })
+
+    it("should default to SPs mode when parseTeam is called without the flag", async () => {
+      const mockResponse = {
+        title: "My VR Team",
+        teams: [
+          {
+            species: "Incineroar",
+            ability: "Intimidate",
+            nature: "Careful",
+            item: "Sitrus Berry",
+            moves: ["Fake Out", "Knock Off", "Flare Blitz", "Parting Shot"],
+            evs: { hp: 252, def: 4, spd: 252 }
+          }
+        ]
+      }
+
+      vi.spyOn(window, "fetch").mockReturnValue(Promise.resolve(new Response(JSON.stringify(mockResponse))))
+
+      const result = await service.parseTeam("https://www.vrpastes.com/XJuCYyTS")
+
+      expect(result.name).toBe("My VR Team")
+      expect(result.pokemon[0].name).toBe("Incineroar")
+    })
+
+    it("should fill every move slot with an empty move when the paste has no moves", async () => {
+      const mockResponse = {
+        title: "No Moves Team",
+        teams: [
+          {
+            species: "Incineroar",
+            ability: "Intimidate",
+            nature: "Careful",
+            item: "Sitrus Berry",
+            moves: [],
+            evs: { hp: 252 }
+          }
+        ]
+      }
+
+      vi.spyOn(window, "fetch").mockReturnValue(Promise.resolve(new Response(JSON.stringify(mockResponse))))
+
+      const result = await service.parseTeam("https://www.vrpastes.com/XJuCYyTS", false)
+
+      expect(result.pokemon[0].move1Name).toBe("")
+      expect(result.pokemon[0].move2Name).toBe("")
+      expect(result.pokemon[0].move3Name).toBe("")
+      expect(result.pokemon[0].move4Name).toBe("")
     })
 
     it("should use empty name when title is not present", async () => {

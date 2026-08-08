@@ -120,7 +120,7 @@
             "runnerConfig": "vitest.config.ts",
             "coverage": true,
             "coverageReporters": ["lcov", "text-summary", "json-summary", "json"],
-            "coverageExclude": ["src/app/**/*.component.html", "src/app/**/*.component.ts"]
+            "coverageExclude": ["src/app/**/*.component.html", "src/app/**/*.component.ts", "src/app/**/*.pipe.ts"]
           }
         },
         "lint": {

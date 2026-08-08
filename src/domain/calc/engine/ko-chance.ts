@@ -74,16 +74,16 @@ function formatKOChanceText(ctx: KOChanceTextContext, params: KOChanceTextParams
       text += `${roundChance(chanceWithoutEot)}% chance to ${KOTurnText}${hazardsText} ` + `(guaranteed ${KOTurnText}${afterTextNoHazards})`
     } else if (chanceWithEot > chanceWithoutEot) {
       text += `${roundChance(chanceWithoutEot)}% chance to ${KOTurnText}${hazardsText} ` + `(${qualifier}${roundChance(chanceWithEot)}% chance to ` + `${KOTurnText}${afterTextNoHazards})`
-    } else if (chanceWithoutEot > 0) {
+    } else {
       text += `${roundChance(chanceWithoutEot)}% chance to ${KOTurnText}${hazardsText}`
     }
-  } else if (chanceWithoutEot === 0) {
+  } else {
     chance = chanceWithEot
 
     if (chanceWithEot === 1) {
       text = "guaranteed "
       text += `${KOTurnText}${afterText}`
-    } else if (chanceWithEot > 0) {
+    } else {
       text += `${roundChance(chanceWithEot)}% chance to ${KOTurnText}${afterText}`
     }
   }
@@ -121,7 +121,7 @@ export function getKOChance(attacker: Pokemon, defender: Pokemon, move: Move, fi
   let berryText = ""
 
   if (berryRecovery > 0) {
-    berryText = (defender.item || "Berry") + " recovery"
+    berryText = defender.item + " recovery"
   }
 
   const damageWithoutBerry = computeDamageWithoutBerry(damageObj, rawDesc, move, defender)
@@ -132,7 +132,6 @@ export function getKOChance(attacker: Pokemon, defender: Pokemon, move: Move, fi
   if (move.timesUsed === 1 && move.timesUsedWithMetronome === 1) {
     const hits = move.timesUsed
     let hasOHKOChance = false
-    let berryConsumed = false
 
     if (move.hits > 1 && hits === 1 && damageObj && Array.isArray(damageObj) && Array.isArray(damageObj[0])) {
       const damageMatrix = damageObj as number[][]
@@ -150,10 +149,6 @@ export function getKOChance(attacker: Pokemon, defender: Pokemon, move: Move, fi
             firstBerryTurn: res.firstBerryTurn || resWithEot.firstBerryTurn,
             anyBerryConsumed: res.anyBerryConsumed || resWithEot.anyBerryConsumed
           })
-        }
-
-        if (res.berryConsumed || resWithEot.berryConsumed) {
-          berryConsumed = true
         }
 
         hasOHKOChance = true
@@ -184,9 +179,9 @@ export function getKOChance(attacker: Pokemon, defender: Pokemon, move: Move, fi
           chanceWithoutEot: 0,
           chanceWithEot: res.chance,
           n: i,
-          berryRelevant: res.berryConsumed || berryConsumed,
-          firstBerryTurn: res.firstBerryTurn || (berryConsumed ? 1 : undefined),
-          anyBerryConsumed: res.anyBerryConsumed || berryConsumed
+          berryRelevant: res.berryConsumed,
+          firstBerryTurn: res.firstBerryTurn,
+          anyBerryConsumed: res.anyBerryConsumed
         })
       }
     }
@@ -196,13 +191,13 @@ export function getKOChance(attacker: Pokemon, defender: Pokemon, move: Move, fi
       const requiredHP = defender.currentHp() - hazards.damage
 
       if (totalMin >= requiredHP + berryRecovery) {
-        return KOChance({ chanceWithoutEot: 0, chanceWithEot: 1, n: i, berryRelevant: berryRecovery > 0 || berryConsumed })
+        return KOChance({ chanceWithoutEot: 0, chanceWithEot: 1, n: i, berryRelevant: berryRecovery > 0 })
       } else if (predictTotal(damage[damage.length - 1], eot.damage, i, 1, toxicCounter, defender.maxHp()) >= requiredHP + berryRecovery) {
-        return KOChance({ chanceWithoutEot: undefined, chanceWithEot: undefined, n: i, berryRelevant: berryRecovery > 0 || berryConsumed })
+        return KOChance({ chanceWithoutEot: undefined, chanceWithEot: undefined, n: i, berryRelevant: berryRecovery > 0 })
       }
     }
   } else {
-    const hits = move.hits || 1
+    const hits = move.hits
     const timesUsed = move.timesUsed
     const res = computeKOChance({ damage, hp: defender.maxHp() - hazards.damage, eot: eot.damage, hits, timesUsed, maxHP: defender.maxHp(), toxicCounter, berryRecovery, berryThreshold })
 
@@ -235,7 +230,7 @@ export function truncateToRoll(damage: number[], rollIndex: number): number[] {
   return damage.slice(0, keep)
 }
 
-export function getSurvivesHits(attacker: Pokemon, defender: Pokemon, move: Move, field: Field, damageObj: Damage, rawDesc: RawDesc, hits: number, rollIndex = DEFAULT_ROLL_INDEX): boolean {
+export function getSurvivesHits(attacker: Pokemon, defender: Pokemon, move: Move, field: Field, damageObj: Damage, rawDesc: RawDesc, hits: number, rollIndex: number): boolean {
   const [combined] = combine(damageObj)
   const damage = truncateToRoll(combined, rollIndex)
 
@@ -409,10 +404,6 @@ export function computeMultiHitKOChance(damageMatrix: number[][], hp: number, eo
 
     ;({ nextState: state, nextStateBerry: stateBerry } = applyDamageRow(state, stateBerry, damageRow, maxHP, recoveryByRow[i], thresholdByRow[i], i + 1, acc))
 
-    if (acc.anyBerryConsumed && acc.firstBerryTurn === undefined) {
-      acc.firstBerryTurn = i + 1
-    }
-
     if (rowsPerTurn && (i + 1) % rowsPerTurn === 0) {
       let toxicDamage = 0
 
@@ -466,10 +457,6 @@ export function computeMultiHitKOChance(damageMatrix: number[][], hp: number, eo
         addToState(finalStateBerry, Math.min(maxHP, nextHP), currentProb)
       }
     }
-  }
-
-  if (acc.anyBerryConsumed && acc.firstBerryTurn === undefined) {
-    acc.firstBerryTurn = 1
   }
 
   return { chance: acc.koChance, berryConsumed: acc.berryConsumedInKO, anyBerryConsumed: acc.anyBerryConsumed, firstBerryTurn: acc.firstBerryTurn }

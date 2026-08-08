@@ -457,6 +457,65 @@ describe("Damage Calc Service", () => {
     expect(damageResult.secondAttackerRolls).toEqual([[50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50]])
   })
 
+  it("should report the KO chance for a single attacker", () => {
+    const attacker = new Pokemon("Raging Bolt", { moveSet: new MoveSet(new Move("Thunderbolt"), new Move(""), new Move(""), new Move("")) })
+    const target = new Target(new Pokemon("Flutter Mane"))
+
+    const koChance = service.koChanceForOneAttacker(attacker, target.pokemon, new Field())
+
+    expect(koChance).toEqual("guaranteed 3HKO")
+  })
+
+  it("should report the combined KO chance for two attackers", () => {
+    const attacker = new Pokemon("Raging Bolt", { moveSet: new MoveSet(new Move("Thunderbolt"), new Move(""), new Move(""), new Move("")) })
+    const secondAttacker = new Pokemon("Rillaboom", { moveSet: new MoveSet(new Move("Grassy Glide"), new Move(""), new Move(""), new Move("")) })
+    const target = new Target(new Pokemon("Flutter Mane"))
+
+    const koChance = service.koChanceForTwoAttackers(attacker, secondAttacker, target.pokemon, new Field())
+
+    expect(koChance).toEqual("10.2% chance to OHKO")
+  })
+
+  it("should default Dragon Darts to a single hit instead of its maximum", () => {
+    const attacker = new Pokemon("Dragapult", { evs: { atk: 252 }, nature: "Adamant", moveSet: new MoveSet(new Move("Dragon Darts"), new Move(""), new Move(""), new Move("")) })
+    const target = new Target(new Pokemon("Blissey", { evs: { hp: 252 } }))
+    const field = new Field()
+
+    const damageResult = service.calcDamage(attacker, target.pokemon, field)
+
+    expect(damageResult.description).toEqual("252+ Atk Dragapult Dragon Darts vs. 252 HP / 0 Def Blissey: 178-210 (49.1 - 58%) -- 96.9% chance to 2HKO")
+  })
+
+  it("should honour an explicit hit count for Dragon Darts", () => {
+    const attacker = new Pokemon("Dragapult", { evs: { atk: 252 }, nature: "Adamant", moveSet: new MoveSet(new Move("Dragon Darts", { hits: "2" }), new Move(""), new Move(""), new Move("")) })
+    const target = new Target(new Pokemon("Blissey", { evs: { hp: 252 } }))
+    const field = new Field()
+
+    const damageResult = service.calcDamage(attacker, target.pokemon, field)
+
+    expect(damageResult.description).toEqual("252+ Atk Dragapult Dragon Darts (2 hits) vs. 252 HP / 0 Def Blissey: 356-420 (98.3 - 116%) -- 96.9% chance to OHKO")
+  })
+
+  it("should convert the EVs in the description to SPs when SP mode is on", () => {
+    const attacker = new Pokemon("Chien-Pao", { evs: { atk: 252 }, nature: "Adamant", moveSet: new MoveSet(new Move("Icicle Crash"), new Move(""), new Move(""), new Move("")) })
+    const target = new Target(new Pokemon("Amoonguss", { evs: { hp: 252, def: 156 } }))
+    const field = new Field()
+
+    const damageResult = service.calcDamage(attacker, target.pokemon, field, true, true)
+
+    expect(damageResult.description).toEqual("32+ Atk Sword of Ruin Chien-Pao Icicle Crash vs. 32 HP / 20 Def Amoonguss: 222-264 (100.4 - 119.4%) -- guaranteed OHKO")
+  })
+
+  it("should keep the EVs in the description when SP mode is off", () => {
+    const attacker = new Pokemon("Chien-Pao", { evs: { atk: 252 }, nature: "Adamant", moveSet: new MoveSet(new Move("Icicle Crash"), new Move(""), new Move(""), new Move("")) })
+    const target = new Target(new Pokemon("Amoonguss", { evs: { hp: 252, def: 156 } }))
+    const field = new Field()
+
+    const damageResult = service.calcDamage(attacker, target.pokemon, field, true, false)
+
+    expect(damageResult.description).toEqual("252+ Atk Sword of Ruin Chien-Pao Icicle Crash vs. 252 HP / 156 Def Amoonguss: 222-264 (100.4 - 119.4%) -- guaranteed OHKO")
+  })
+
   it("should read the left attacker crit flag when rightIsDefender is false for two attackers", () => {
     const attacker = new Pokemon("Raging Bolt", { moveSet: new MoveSet(new Move("Thunderbolt"), new Move(""), new Move(""), new Move("")) })
     const secondAttacker = new Pokemon("Rillaboom", { moveSet: new MoveSet(new Move("Grassy Glide"), new Move(""), new Move(""), new Move("")) })

@@ -55,7 +55,7 @@ function ogerponAbility(name: string, teraTypeActive: boolean): string {
 
 function ogerponBoost(pokemon: Pokemon, teraTypeActive: boolean): { boosts: Partial<Stats>; bonusBoosts: Partial<Stats> } {
   const stat = ogerponBoostedStat(pokemon.name)
-  const currentBoost = pokemon.boosts[stat] ?? 0
+  const currentBoost = pokemon.boosts[stat]!
   const hasBonusBoost = (pokemon.bonusBoosts[stat] ?? 0) != 0
 
   if (teraTypeActive && currentBoost <= MAX_BOOST - 1) {

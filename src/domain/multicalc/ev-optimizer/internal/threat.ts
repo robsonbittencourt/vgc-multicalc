@@ -43,11 +43,7 @@ export class Threat {
   }
 
   certainlyKOs(defender: Pokemon, ctx: SurvivalContext): boolean {
-    if (!this.partner) {
-      return false
-    }
-
-    return this.damageCalc.calcDamageValueForTwoAttackers(this.attacker, this.partner, defender, ctx.field, ctx.rightIsDefender).certainlyKOs(ctx.threshold - 1, ctx.rollIndex)
+    return this.damageCalc.calcDamageValueForTwoAttackers(this.attacker, this.partner!, defender, ctx.field, ctx.rightIsDefender).certainlyKOs(ctx.threshold - 1, ctx.rollIndex)
   }
 
   get defensiveStats(): DefensiveStat[] {

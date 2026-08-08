@@ -1,7 +1,7 @@
 import { Field } from "@calc/model/field"
 import { Move } from "@calc/model/move"
 import { Pokemon } from "@calc/model/pokemon"
-import { computeFinalStats, countBoosts, getFinalSpeed, getQPBoostedStat, getStabMod, getWeight, isGrounded, isQPActive } from "@calc/engine/stats"
+import { computeFinalStats, countBoosts, getFinalSpeed, getQPBoostedStat, getStabMod, getStellarStabMod, getWeight, isGrounded, isQPActive } from "@calc/engine/stats"
 import { RawDesc } from "@data/types"
 
 describe("Internal stats/effectiveness (gen 0)", () => {
@@ -329,6 +329,32 @@ describe("Internal stats/effectiveness (gen 0)", () => {
       const description = { attackerName: "Greninja", defenderName: "", moveName: "Ice Beam" } as RawDesc
 
       expect(getStabMod(p, m, description)).toBe(4096)
+    })
+  })
+
+  describe("getStellarStabMod", () => {
+    it("returns the incoming stabMod when the attacker is not Stellar boosted", () => {
+      const p = new Pokemon("Garchomp", { teraType: "Ground" })
+
+      const m = new Move("Earthquake", { isStellarFirstUse: true })
+
+      expect(getStellarStabMod(p, m, 6144)).toBe(6144)
+    })
+
+    it("adds a half-boost when the Stellar attacker keeps the move's original type", () => {
+      const p = new Pokemon("Garchomp", { teraType: "Stellar" })
+
+      const m = new Move("Earthquake", { isStellarFirstUse: true })
+
+      expect(getStellarStabMod(p, m, 6144)).toBe(8192)
+    })
+
+    it("returns the flat 1.2x mod when the Stellar attacker does not share the move type", () => {
+      const p = new Pokemon("Garchomp", { teraType: "Stellar" })
+
+      const m = new Move("Ice Beam", { isStellarFirstUse: true })
+
+      expect(getStellarStabMod(p, m, 6144)).toBe(4915)
     })
   })
 

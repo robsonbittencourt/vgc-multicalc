@@ -19739,6 +19739,6 @@ export const MOVESETS = {
   }
 } as const satisfies Record<string, Moveset>
 
-export function getMoveset(name: string, setdex: Record<string, Moveset> = MOVESETS as Record<string, Moveset>): Moveset | undefined {
-  return setdex[name]
+export function getMoveset(name: string): Moveset | undefined {
+  return (MOVESETS as Record<string, Moveset>)[name]
 }

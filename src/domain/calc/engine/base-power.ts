@@ -41,7 +41,7 @@ const BASE_POWER_STRATEGIES = new Map<string, BasePowerStrategy>([
     "Electro Ball",
     ({ attacker, defender, description }) => {
       const ratio = Math.floor(attacker.stats.spe / defender.stats.spe)
-      const basePower = defender.stats.spe === 0 ? 40 : ratio >= 4 ? 150 : ratio >= 3 ? 120 : ratio >= 2 ? 80 : ratio >= 1 ? 60 : 40
+      const basePower = ratio >= 4 ? 150 : ratio >= 3 ? 120 : ratio >= 2 ? 80 : ratio >= 1 ? 60 : 40
 
       return describedBp(description, basePower)
     }
@@ -49,7 +49,7 @@ const BASE_POWER_STRATEGIES = new Map<string, BasePowerStrategy>([
   [
     "Gyro Ball",
     ({ attacker, defender, description }) => {
-      const basePower = attacker.stats.spe === 0 ? 1 : Math.min(150, Math.floor((25 * defender.stats.spe) / attacker.stats.spe) + 1)
+      const basePower = Math.min(150, Math.floor((25 * defender.stats.spe) / attacker.stats.spe) + 1)
 
       return describedBp(description, basePower)
     }

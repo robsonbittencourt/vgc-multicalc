@@ -33,6 +33,62 @@ describe("TypeCoverageInsights — selection helpers", () => {
     expect(result).toEqual([])
   })
 
+  describe("against a second team", () => {
+    const team1 = () =>
+      new Team("1", true, "Team 1", [
+        new TeamMember(new Pokemon("Charizard", { moveSet: new MoveSet(new Move("Flamethrower"), new Move("Fire Blast"), new Move("Protect"), new Move("Roost")) })),
+        new TeamMember(new Pokemon("Pikachu", { moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Thunder"), new Move("Protect"), new Move("Light Screen")) })),
+        new TeamMember(new Pokemon("Flutter Mane", { moveSet: new MoveSet(new Move("Icy Wind"), new Move("Perish Song"), new Move("Taunt"), new Move("Protect")) }))
+      ])
+
+    const team2 = () =>
+      new Team("2", true, "Team 2", [
+        new TeamMember(new Pokemon("Abomasnow", { moveSet: new MoveSet(new Move("Blizzard"), new Move("Energy Ball"), new Move("Earth Power"), new Move("Leaf Storm")) })),
+        new TeamMember(new Pokemon("Blastoise", { moveSet: new MoveSet(new Move("Water Spout"), new Move("Protect"), new Move("Ice Beam"), new Move("Water Pledge")) }))
+      ])
+
+    it("selectOffensiveSuperEffective returns up to two super effective members", () => {
+      const result = service.selectOffensiveSuperEffective(team1(), team2())
+
+      expect(result.map(i => `${i.pokemon.name}:${i.value}`)).toEqual(["Charizard:1", "Pikachu:1"])
+    })
+
+    it("selectOffensiveNotVeryEffective skips members already picked as super effective", () => {
+      const result = service.selectOffensiveNotVeryEffective(team1(), team2())
+
+      expect(result.map(i => `${i.pokemon.name}:${i.value}`)).toEqual(["Flutter Mane:1"])
+    })
+
+    it("selectDefensivePokemon combines the positive members with the weak ones", () => {
+      const result = service.selectDefensivePokemon(team1(), team2())
+
+      expect(result.map(i => `${i.pokemon.name}:${i.value}`)).toEqual(["Charizard:1", "Pikachu:1"])
+    })
+
+    it("selectDefensivePokemon excludes a member already picked as positive from the weak list", () => {
+      const fireAndGrassTeam = new Team("2", true, "Team 2", [
+        new TeamMember(new Pokemon("Arcanine", { moveSet: new MoveSet(new Move("Flamethrower"), new Move("Fire Blast"), new Move("Flare Blitz"), new Move("Protect")) })),
+        new TeamMember(new Pokemon("Venusaur", { moveSet: new MoveSet(new Move("Giga Drain"), new Move("Energy Ball"), new Move("Petal Blizzard"), new Move("Protect")) }))
+      ])
+
+      const result = service.selectDefensivePokemon(team1(), fireAndGrassTeam)
+
+      expect(result.map(i => `${i.pokemon.name}:${i.value}`)).toEqual(["Charizard:2"])
+    })
+
+    it("selectOffensiveSuperEffective returns empty for an empty team", () => {
+      expect(service.selectOffensiveSuperEffective(emptyTeam(), team2())).toEqual([])
+    })
+
+    it("selectOffensiveNotVeryEffective returns empty for an empty team", () => {
+      expect(service.selectOffensiveNotVeryEffective(emptyTeam(), team2())).toEqual([])
+    })
+
+    it("selectDefensivePokemon returns empty for an empty team", () => {
+      expect(service.selectDefensivePokemon(emptyTeam(), team2())).toEqual([])
+    })
+  })
+
   it("selectDefensivePositive returns up to two positive-defense members", () => {
     const result = service.selectDefensivePositive(team(), null)
 

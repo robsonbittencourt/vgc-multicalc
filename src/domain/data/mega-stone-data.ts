@@ -1,3 +1,5 @@
+import { toID } from "@data/id"
+
 export const MEGA_STONE_TO_POKEMON_NAME: Record<string, string> = {
   abomasite: "Abomasnow",
   absolite: "Absol",
@@ -106,6 +108,5 @@ export function getMegaEvolutionName(pokemonName: string, megaStoneLetter: strin
 }
 
 export function getBasePokemonNameFromItem(itemName: string): string | null {
-  const itemKey = itemName.toLowerCase().replace(/\s+/g, "")
-  return MEGA_STONE_TO_POKEMON_NAME[itemKey] || null
+  return MEGA_STONE_TO_POKEMON_NAME[toID(itemName)] || null
 }

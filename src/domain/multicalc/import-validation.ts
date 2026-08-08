@@ -1,5 +1,4 @@
 import { MOVESETS } from "@data/moveset-data"
-import { getPokemonData } from "@data/pokemon-data"
 import { getPokemonMoveset } from "@data/pokemon-moveset"
 import { toPokemon } from "@pokemon-repository"
 import { Move } from "@multicalc/model/move"
@@ -46,10 +45,6 @@ function applyDefaultEvsWhenEmpty(pokemon: Pokemon): Pokemon {
 }
 
 function validateAndClean(pokemon: Pokemon, validItems: string[]): { pokemon: Pokemon; hadInvalidMoves: boolean; hadInvalidItem: boolean } {
-  if (!getPokemonData(pokemon.name)) {
-    return { pokemon, hadInvalidMoves: false, hadInvalidItem: false }
-  }
-
   let hadInvalidMoves = false
   let hadInvalidItem = false
   let cleanedPokemon = pokemon
@@ -75,13 +70,11 @@ function validateAndClean(pokemon: Pokemon, validItems: string[]): { pokemon: Po
     cleanedPokemon = cleanedPokemon.clone({ moveSet: newMoveSet })
   }
 
-  if (pokemon.item && pokemon.item !== "") {
-    const normalizedItem = pokemon.item.toLowerCase().replace(/ /g, "").replace(/'/g, "")
+  const normalizedItem = pokemon.item.toLowerCase().replace(/ /g, "").replace(/'/g, "")
 
-    if (!validItems.includes(normalizedItem)) {
-      cleanedPokemon = cleanedPokemon.clone({ item: "" })
-      hadInvalidItem = true
-    }
+  if (!validItems.includes(normalizedItem)) {
+    cleanedPokemon = cleanedPokemon.clone({ item: "" })
+    hadInvalidItem = true
   }
 
   return { pokemon: cleanedPokemon, hadInvalidMoves, hadInvalidItem }

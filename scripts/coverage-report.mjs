@@ -217,7 +217,10 @@ const layerTotals = LAYERS.map(layer => {
   }
 }).filter(l => l.fileCount > 0)
 
-const worstFiles = [...fileEntries].sort((a, b) => a.weakestMetricPct - b.weakestMetricPct).slice(0, 15)
+const worstFiles = fileEntries
+  .filter(f => f.weakestMetricPct < 100)
+  .sort((a, b) => a.weakestMetricPct - b.weakestMetricPct)
+  .slice(0, 15)
 
 function pctClass(pct) {
   if (pct >= 90) return "good"
@@ -285,6 +288,14 @@ function fileRow(f, metricKey, showMetricLabel) {
 }
 
 const worstFilesHtml = worstFiles.map(f => fileRow(f, f.weakestMetricKey, true)).join("")
+
+const worstFilesSectionHtml = worstFiles.length
+  ? `<table>
+  <colgroup><col class="col-file" /><col class="col-layer" /><col class="col-metric" /><col class="col-covered" /></colgroup>
+  <thead><tr><th>File</th><th class="th-center">Layer</th><th class="th-center">Weakest metric</th><th class="th-center">Covered</th></tr></thead>
+  <tbody>${worstFilesHtml}</tbody>
+</table>`
+  : `<p class="empty-state">Every file is fully covered — no file is below 100% on any metric.</p>`
 
 const generatedAt = new Date().toLocaleString("en-US")
 
@@ -457,6 +468,8 @@ const html = `<!doctype html>
   .tag-infrastructure { background: #3a2f1f; color: var(--warn); }
   .tag-other { background: #2a2a2a; color: var(--text-muted); }
 
+  .empty-state { margin: 0; padding: 24px; border: 1px solid var(--border); border-radius: 8px; color: var(--good); font-size: 14px; text-align: center; }
+
   footer { margin-top: 40px; color: var(--text-muted); font-size: 12px; }
 
   @media (max-width: 900px) {
@@ -498,11 +511,7 @@ const html = `<!doctype html>
 </div>
 
 <h2>Files with lowest overall coverage (top 15)</h2>
-<table>
-  <colgroup><col class="col-file" /><col class="col-layer" /><col class="col-metric" /><col class="col-covered" /></colgroup>
-  <thead><tr><th>File</th><th class="th-center">Layer</th><th class="th-center">Weakest metric</th><th class="th-center">Covered</th></tr></thead>
-  <tbody>${worstFilesHtml}</tbody>
-</table>
+${worstFilesSectionHtml}
 
 <footer>Generated from coverage-summary.json</footer>
 

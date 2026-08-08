@@ -126,4 +126,16 @@ describe("isMegaStoneCompatible", () => {
   it("returns true for the mapped Meowstic mega form using the special mapping", () => {
     expect(isMegaStoneCompatible("Meowstic-M-Mega", "Meowsticite")).toBe(true)
   })
+
+  it("accepts a mega stone written with a hyphen instead of a space", () => {
+    expect(isMegaStoneCompatible("Charizard", "Charizardite-Y")).toBe(true)
+  })
+
+  it("accepts a mega stone written in lower case without separators", () => {
+    expect(isMegaStoneCompatible("Charizard", "charizarditey")).toBe(true)
+  })
+
+  it("accepts a mega stone written in upper case", () => {
+    expect(isMegaStoneCompatible("Garchomp", "GARCHOMPITE")).toBe(true)
+  })
 })

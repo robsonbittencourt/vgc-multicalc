@@ -47,7 +47,7 @@ export class Pokemon {
     this.weightKg = this.pokemonData.weightKg
     this.level = DEFAULT_LEVEL
     this.gender = options.gender || this.pokemonData.gender || "M"
-    this.ability = options.ability || this.pokemonData.abilities?.[0] || undefined
+    this.ability = options.ability || this.pokemonData.abilities?.[0]
     this.abilityOn = !!options.abilityOn
     this.alliesFainted = options.alliesFainted
     this.boostedStat = options.boostedStat
@@ -154,9 +154,7 @@ export class Pokemon {
     return false
   }
 
-  private hasRawType(type: TypeName | undefined): boolean {
-    if (!type) return false
-
+  private hasRawType(type: TypeName): boolean {
     const types = this.types
 
     return types[0] === type || types[1] === type

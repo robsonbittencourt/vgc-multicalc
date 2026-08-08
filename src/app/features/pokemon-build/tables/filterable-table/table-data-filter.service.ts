@@ -75,8 +75,6 @@ export class TableDataFilterService<T extends Record<string, any>> {
   }
 
   private filter(value: string, values: T[]): T[] {
-    if (!values) return []
-
     const filterValue = this.normalizeValue(value)
 
     const priority = values.filter(v => this.matchesStartsWith(v["name"], filterValue))

@@ -97,10 +97,6 @@ export class MoveProbability {
 
     const hitCounts = move.possibleHits.map(hits => Number(hits))
 
-    if (hitCounts.length <= 1 || hitCounts.some(hits => hits <= 0)) {
-      return []
-    }
-
     const accuracyProbability = this.effectiveAccuracy(move, attacker, field)
     const singleAccuracyCheck = attacker.hasItem("Loaded Dice") || attacker.ability.name === "Skill Link"
 

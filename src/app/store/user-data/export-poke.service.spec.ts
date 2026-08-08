@@ -109,6 +109,32 @@ describe("ExportPokeService", () => {
     })
   })
 
+  it("should accept a plain object that looks like a Pokémon", async () => {
+    const pokemonLike = { name: "Rillaboom" }
+
+    await (service as unknown as { export: (title: string, ...args: unknown[]) => Promise<void> }).export("Title", pokemonLike)
+
+    expect(dialogSpy.open).toHaveBeenCalledWith(TeamExportModalComponent, {
+      data: { title: "Title", pokemon: [pokemonLike], useSpsMode: false, includeTeraType: FEATURES.teraType },
+      width: "40em",
+      position: { top: "2em" },
+      autoFocus: false,
+      scrollStrategy: expect.any(NoopScrollStrategy)
+    })
+  })
+
+  it("should reject a plain object without a name and export nothing", async () => {
+    await (service as unknown as { export: (title: string, ...args: unknown[]) => Promise<void> }).export("Title", { level: 50 })
+
+    expect(dialogSpy.open).toHaveBeenCalledWith(TeamExportModalComponent, {
+      data: { title: "Title", pokemon: [], useSpsMode: false, includeTeraType: FEATURES.teraType },
+      width: "40em",
+      position: { top: "2em" },
+      autoFocus: false,
+      scrollStrategy: expect.any(NoopScrollStrategy)
+    })
+  })
+
   it("should pass the current teraType feature flag to the modal", async () => {
     FEATURES.teraType = true
 

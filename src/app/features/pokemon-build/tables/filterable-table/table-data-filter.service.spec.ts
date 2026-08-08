@@ -229,6 +229,23 @@ describe("TableDataFilterService", () => {
       expect(result[0].data.map(i => i.power)).toEqual([80, 75, 40])
     })
 
+    it("Given a column where all values are equal, When processing, Then keeps the original relative order", () => {
+      const tiedData: TableData<ItemWithStats>[] = [
+        {
+          group: "",
+          data: [
+            { name: "Iron Head", type: "Steel", power: 80 },
+            { name: "Aqua Jet", type: "Steel", power: 40 },
+            { name: "Razor Shell", type: "Steel", power: 75 }
+          ]
+        }
+      ]
+
+      const result = typedService.processAndOrderData(tiedData, [], "type", "asc")
+
+      expect(result[0].data.map(i => i.name)).toEqual(["Iron Head", "Aqua Jet", "Razor Shell"])
+    })
+
     it("Given multiple groups, When processing, Then flattens all groups into one", () => {
       const grouped = makeGroupedData([
         { group: "A", names: ["Pikachu"] },

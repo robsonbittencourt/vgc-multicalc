@@ -75,6 +75,12 @@ describe("ev-sp-converter", () => {
 
       expect(max).toEqual(12)
     })
+
+    it("treats an absent stat as zero EVs invested", () => {
+      const max = maxEvForStat({ hp: 252, atk: 252 }, "spe")
+
+      expect(max).toEqual(12)
+    })
   })
 
   describe("evsExceedMaxSps", () => {

@@ -1,5 +1,5 @@
 import { computed, effect, inject, Injectable, signal } from "@angular/core"
-import { getMoveset, MOVESETS } from "@data/moveset-data"
+import { getMoveset } from "@data/moveset-data"
 import { CustomSet } from "./custom-set"
 import { initialCalcState } from "./utils/initial-calc-state"
 import { pokemonToState, stateToPokemon, stateToTargets, stateToTeam, stateToTeams, targetToState, teamToState } from "./utils/state-mapper"
@@ -740,7 +740,7 @@ export class CalcStore extends signalStore(
       this.clearActiveSet()
     }
 
-    const poke = getMoveset(pokemonName, MOVESETS)
+    const poke = getMoveset(pokemonName)
 
     if (poke) {
       this.name(pokemonId, pokemonName)

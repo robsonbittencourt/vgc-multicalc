@@ -13,6 +13,33 @@ describe("Damage — attacker ability modifiers", () => {
     expect(result.description()).toEqual("252+ Atk Steelworker Dhelmise Gyro Ball (42 BP) vs. 0 HP / 0 Def Gardevoir: 112-134 (78.3 - 93.7%) -- guaranteed 2HKO")
   })
 
+  it("Hustle: boosts Physical attack by 1.5x, crediting the ability", () => {
+    const attacker = new Pokemon("Togekiss", { evs: { atk: 252 }, nature: "Adamant", ability: "Hustle" })
+    const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 4 } })
+
+    const result = calculate(attacker, defender, new Move("Body Slam"), field())
+
+    expect(result.description()).toContain("Hustle")
+  })
+
+  it("Hustle: leaves Special attacks untouched", () => {
+    const attacker = new Pokemon("Togekiss", { evs: { spa: 252 }, nature: "Modest", ability: "Hustle" })
+    const defender = new Pokemon("Blissey", { evs: { hp: 252, spd: 4 } })
+
+    const result = calculate(attacker, defender, new Move("Air Slash"), field())
+
+    expect(result.description()).not.toContain("Hustle")
+  })
+
+  it("Unaware: ignores the defender's positive defensive boosts", () => {
+    const attacker = new Pokemon("Clefable", { evs: { atk: 252 }, nature: "Adamant", ability: "Unaware" })
+    const boostedDefender = new Pokemon("Blissey", { evs: { hp: 252, def: 4 }, boosts: { def: 2 } })
+
+    const result = calculate(attacker, boostedDefender, new Move("Body Slam"), field())
+
+    expect(result.description()).toContain("Unaware")
+  })
+
   it("Dragon's Maw: boosts Dragon moves by 1.5x", () => {
     const attacker = new Pokemon("Regidrago", { evs: { atk: 252 }, nature: "Adamant", ability: "Dragon's Maw" })
     const defender = new Pokemon("Garchomp", {})

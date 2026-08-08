@@ -42,4 +42,37 @@ describe("Damage — combined attackers, result details", () => {
 
     expect(result.description()).toEqual("4+ SpA Sylveon Hyper Voice AND 4+ SpA Sylveon Hyper Voice vs. 252 HP / 252+ SpD Blissey: 36-44 (9.9 - 12.1%) -- 10HKO or more")
   })
+  describe("hit-count guards", () => {
+    const combined = () => {
+      const a1 = new Pokemon("Rillaboom", { evs: { atk: 100 }, nature: "Adamant" })
+      const a2 = new Pokemon("Sylveon", { evs: { spa: 100 }, nature: "Modest" })
+      const defender = new Pokemon("Dondozo", { evs: { hp: 252, def: 252 }, nature: "Impish" })
+
+      return calculateMulti(a1, a2, new Move("Wood Hammer"), new Move("Hyper Voice"), defender, field())
+    }
+
+    it("treats zero hits as always survived", () => {
+      expect(combined().survivesHits(0)).toBe(true)
+    })
+
+    it("survives a single combined hit", () => {
+      expect(combined().survivesHits(1)).toBe(true)
+    })
+
+    it("never reports a certain KO for zero hits", () => {
+      expect(combined().certainlyKOs(0)).toBe(false)
+    })
+
+    it("reports a certain KO once two hits land", () => {
+      expect(combined().certainlyKOs(2)).toBe(true)
+    })
+
+    it("reports the highest combined damage roll", () => {
+      expect(combined().maxDamage()).toBe(208)
+    })
+
+    it("reports the damage dealt up to a given turn", () => {
+      expect(combined().damageWithRemainingUntilTurn(1)).toBe(208)
+    })
+  })
 })

@@ -38,7 +38,7 @@ export class DamageCalc {
       result.damage,
       undefined,
       undefined,
-      result.afterTurn().residualHpInTurn(1) ?? 0
+      result.afterTurn().residualHpInTurn(1)
     )
   }
 
@@ -57,7 +57,7 @@ export class DamageCalc {
         result.damage,
         undefined,
         undefined,
-        result.afterTurn().residualHpInTurn(1) ?? 0
+        result.afterTurn().residualHpInTurn(1)
       )
     })
   }
@@ -90,7 +90,7 @@ export class DamageCalc {
       firstResult.damage,
       secondAttackerOrdered,
       secondResult.damage,
-      firstResult.afterTurn().residualHpInTurn(1) ?? 0
+      firstResult.afterTurn().residualHpInTurn(1)
     )
   }
 
@@ -123,7 +123,7 @@ export class DamageCalc {
     return this.calcDamageForTwoAttackers(attacker, secondAttacker, target, field, rightIsDefender, false).koChance
   }
 
-  calcDamageValueForTwoAttackers(attacker: Pokemon, secondAttacker: Pokemon, target: Pokemon, field: Field, rightIsDefender = true): MultiResult {
+  calcDamageValueForTwoAttackers(attacker: Pokemon, secondAttacker: Pokemon, target: Pokemon, field: Field, rightIsDefender: boolean): MultiResult {
     const [firstAttacker, secondAttackerOrdered] = this.speedCalc.orderPairBySpeed(attacker, secondAttacker, field)
 
     const prepOne = this.prepareCalculation(firstAttacker, target, firstAttacker.move, field, rightIsDefender, secondAttackerOrdered)

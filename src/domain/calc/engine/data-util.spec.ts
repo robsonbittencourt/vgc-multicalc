@@ -33,4 +33,18 @@ describe("mergeDeep", () => {
   it("applies later sources over earlier ones", () => {
     expect(mergeDeep({}, { a: 1 }, { a: 2 })).toEqual({ a: 2 })
   })
+
+  it("merges a prototype-less source object instead of replacing the target", () => {
+    const source = Object.create(null)
+    source.atk = 99
+
+    expect(mergeDeep({ stats: { atk: 10, def: 20 } }, { stats: source })).toEqual({ stats: { atk: 99, def: 20 } })
+  })
+
+  it("merges into a prototype-less target value", () => {
+    const target = Object.create(null)
+    target.atk = 10
+
+    expect(mergeDeep({ stats: target }, { stats: { def: 20 } })).toEqual({ stats: { atk: 10, def: 20 } })
+  })
 })

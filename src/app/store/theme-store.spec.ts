@@ -62,4 +62,28 @@ describe("Theme Store", () => {
       expect(actualStorage.themeData.color).toBe("red")
     })
   })
+
+  describe("Environment without local storage", () => {
+    it("should not persist the theme when localStorage is not available", () => {
+      const originalLocalStorage = globalThis.localStorage
+
+      try {
+        // @ts-expect-error simulating an environment without localStorage (e.g. SSR)
+        delete globalThis.localStorage
+
+        TestBed.resetTestingModule()
+        TestBed.configureTestingModule({ providers: [provideZonelessChangeDetection()] })
+
+        const isolatedStore = TestBed.inject(ThemeStore)
+        isolatedStore.updateTheme("dark")
+
+        TestBed.tick()
+
+        expect(isolatedStore.theme()).toBe("dark")
+        expect(globalThis.localStorage).toBeUndefined()
+      } finally {
+        globalThis.localStorage = originalLocalStorage
+      }
+    })
+  })
 })

@@ -1,4 +1,4 @@
-import { calculate, Field, Move, Pokemon } from "@calc"
+import { calculate, Field, Move, Pokemon, Side } from "@calc"
 
 describe("Damage — description flags", () => {
   const field = () => new Field({ gameType: "Doubles" })
@@ -61,5 +61,39 @@ describe("Damage — description flags", () => {
     const result = calculate(attacker, defender, move, field())
 
     expect(result.description()).toEqual("252+ Atk Iron Hands Close Combat vs. 252 HP / 4 Def Amoonguss on a critical hit: 118-139 (53.3 - 62.8%) -- guaranteed 2HKO")
+  })
+  it("Gale Wings: credited on a Flying move at full HP", () => {
+    const attacker = new Pokemon("Talonflame", { ability: "Gale Wings", evs: { atk: 252 }, nature: "Adamant" })
+    const defender = new Pokemon("Blissey", { evs: { hp: 252 } })
+
+    const result = calculate(attacker, defender, new Move("Brave Bird"), new Field())
+
+    expect(result.description()).toEqual("252+ Atk Gale Wings Talonflame Brave Bird vs. 252 HP / 0 Def Blissey: 328-387 (90.6 - 106.9%) -- 43.8% chance to OHKO")
+  })
+
+  it("returns a zero-damage result for a move with no base power", () => {
+    const result = calculate(new Pokemon("Garchomp"), new Pokemon("Blissey"), new Move("Splash"), new Field())
+
+    expect(result.description()).toEqual("Garchomp Splash vs. Blissey: 0-0 (0 - 0%)")
+  })
+
+  it("Power Trick on the defending side swaps its Defense with Attack", () => {
+    const attacker = new Pokemon("Garchomp", { evs: { atk: 252 } })
+    const defender = new Pokemon("Shuckle", { evs: { def: 252 } })
+    const field = new Field({ defenderSide: new Side({ isPowerTrick: true }) })
+
+    const result = calculate(attacker, defender, new Move("Earthquake"), field)
+
+    expect(result.description()).toEqual("252 Atk Garchomp Earthquake vs. 0 HP / 0 Def (Atk) Shuckle with Power Trick: 340-402 (357.8 - 423.1%) -- guaranteed OHKO")
+  })
+
+  it("Power Trick on the defending side does not affect a Special move", () => {
+    const attacker = new Pokemon("Gengar", { evs: { spa: 252 } })
+    const defender = new Pokemon("Shuckle", { evs: { def: 252 } })
+    const field = new Field({ defenderSide: new Side({ isPowerTrick: true }) })
+
+    const result = calculate(attacker, defender, new Move("Shadow Ball"), field)
+
+    expect(result.description()).toEqual("252 SpA Gengar Shadow Ball vs. 0 HP / 0 SpD Shuckle: 33-40 (34.7 - 42.1%) -- guaranteed 3HKO")
   })
 })

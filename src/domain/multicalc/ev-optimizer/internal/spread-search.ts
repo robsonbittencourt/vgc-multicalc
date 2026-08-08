@@ -97,7 +97,7 @@ export class SpreadSearch {
         const totalEvs = hpEv + defEv + spdEv
         const candidate = { hp: hpEv, atk: 0, def: defEv, spa: 0, spd: spdEv, spe: 0, totalEvs }
 
-        if (totalEvs <= this.budget && this.survivesAll(threats, candidate)) {
+        if (this.survivesAll(threats, candidate)) {
           best = this.pickBest(best, candidate)
         }
       }
@@ -124,10 +124,6 @@ export class SpreadSearch {
 
   private minCoupledSpdIndex(threats: Threat[], hpEv: number, defEv: number, fromIndex: number, maxEv: number): number {
     const highIndex = this.highestIndexWithin(fromIndex, maxEv)
-
-    if (highIndex < fromIndex) {
-      return -1
-    }
 
     if (this.certainlyKOedAt(threats, hpEv, defEv, EV_INTERVALS[highIndex])) {
       return -1
@@ -158,10 +154,6 @@ export class SpreadSearch {
 
   private minIndexSurviving(fromIndex: number, maxEv: number, survivesAt: (ev: number) => boolean): number {
     const highIndex = this.highestIndexWithin(fromIndex, maxEv)
-
-    if (highIndex < fromIndex) {
-      return -1
-    }
 
     if (this.scansLinearly) {
       for (let index = fromIndex; index <= highIndex; index++) {

@@ -710,7 +710,7 @@ function applyRules(rules: ModifierRule[], ctx: ModifierContext): number[] {
 function hasLoweredStat(attacker: Pokemon): boolean {
   const boosts = attacker.boosts
 
-  return (boosts.atk ?? 0) < 0 || (boosts.def ?? 0) < 0 || (boosts.spa ?? 0) < 0 || (boosts.spd ?? 0) < 0 || (boosts.spe ?? 0) < 0
+  return boosts.atk < 0 || boosts.def < 0 || boosts.spa < 0 || boosts.spd < 0 || boosts.spe < 0
 }
 
 function resistedKnockOff(defender: Pokemon, hit: number): boolean {

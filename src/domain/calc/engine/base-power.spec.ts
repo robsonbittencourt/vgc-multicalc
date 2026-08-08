@@ -12,11 +12,12 @@ function basePower(
   defenderOptions: Record<string, unknown>,
   moveName: string,
   fieldOptions: Record<string, unknown> = {},
-  hit = 1
+  hit = 1,
+  moveOptions: Record<string, unknown> = {}
 ): { bp: number; description: RawDesc } {
   const attacker = new Pokemon(attackerName, attackerOptions as never)
   const defender = new Pokemon(defenderName, defenderOptions as never)
-  const move = new Move(moveName, { item: attacker.item } as never)
+  const move = new Move(moveName, { item: attacker.item, ...moveOptions } as never)
   const field = new Field(fieldOptions as never)
 
   computeFinalStats(attacker, defender, field, "spe", "atk", "spa", "def", "spd")
@@ -107,6 +108,34 @@ describe("Base power strategy table (gen 0)", () => {
 
   it("increases Triple Axel per hit", () => {
     expect(basePower("Garchomp", {}, "Pelipper", {}, "Triple Axel", {}, 2).bp).toBe(40)
+  })
+
+  it("describes Triple Axel as 60 BP when it lands only two hits", () => {
+    expect(basePower("Weavile", {}, "Pelipper", {}, "Triple Axel", {}, 2, { hits: 2 }).description.moveBP).toBe(60)
+  })
+
+  it("describes Triple Axel as 120 BP when it lands all three hits", () => {
+    expect(basePower("Weavile", {}, "Pelipper", {}, "Triple Axel", {}, 3, { hits: 3 }).description.moveBP).toBe(120)
+  })
+
+  it("describes Triple Kick as 30 BP when it lands only two hits", () => {
+    expect(basePower("Hitmontop", {}, "Pelipper", {}, "Triple Kick", {}, 2, { hits: 2 }).description.moveBP).toBe(30)
+  })
+
+  it("describes Triple Kick as 60 BP when it lands all three hits", () => {
+    expect(basePower("Hitmontop", {}, "Pelipper", {}, "Triple Kick", {}, 3, { hits: 3 }).description.moveBP).toBe(60)
+  })
+
+  it("describes Triple Kick as 10 BP when it lands a single hit", () => {
+    expect(basePower("Hitmontop", {}, "Pelipper", {}, "Triple Kick", {}, 1, { hits: 1 }).description.moveBP).toBe(10)
+  })
+
+  it("boosts Water Shuriken for Ash-Greninja with Battle Bond", () => {
+    expect(basePower("Greninja-Ash", { ability: "Battle Bond" }, "Pelipper", {}, "Water Shuriken").bp).toBe(20)
+  })
+
+  it("keeps Water Shuriken at base power for a regular Greninja", () => {
+    expect(basePower("Greninja", {}, "Pelipper", {}, "Water Shuriken").bp).toBe(15)
   })
 
   it("computes Fling power from the held item", () => {
@@ -323,6 +352,10 @@ describe("Variable base power from battle context", () => {
 
   it("keeps Last Respects at 50 when no ally fainted", () => {
     expect(contextBasePower("Basculegion", { alliesFainted: 0 }, "Last Respects", {}).bp).toBe(50)
+  })
+
+  it("keeps Last Respects at 50 when the number of fainted allies is unknown", () => {
+    expect(contextBasePower("Basculegion", {}, "Last Respects", {}).bp).toBe(50)
   })
 
   it("raises Last Respects to 100 when one ally fainted", () => {

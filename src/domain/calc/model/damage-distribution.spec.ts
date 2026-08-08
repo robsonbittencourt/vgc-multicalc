@@ -1,6 +1,20 @@
 import { DamageDistribution } from "@calc/model/damage-distribution"
 
 describe("DamageDistribution", () => {
+  describe("multiRange", () => {
+    it("returns the per-hit min and max rolls of a multi-hit matrix", () => {
+      const distribution = new DamageDistribution([
+        [10, 12],
+        [20, 24]
+      ])
+
+      expect(distribution.multiRange()).toEqual([
+        [10, 20],
+        [12, 24]
+      ])
+    })
+  })
+
   describe("subArrays", () => {
     it("wraps a scalar damage into a single sub-array", () => {
       const distribution = new DamageDistribution(87)

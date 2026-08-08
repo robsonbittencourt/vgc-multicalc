@@ -1,4 +1,3 @@
-import { MOVESETS } from "@data/moveset-data"
 import { topUsageByRegulation } from "@data/top-usage-regulation"
 import { Ability } from "@multicalc/model/ability"
 import { Move } from "@multicalc/model/move"
@@ -7,7 +6,7 @@ import { Pokemon } from "@multicalc/model/pokemon"
 import { Regulation } from "@multicalc/types"
 import { spToEv } from "@multicalc/utils"
 
-export function pokemonByRegulation(regulation: Regulation, quantity?: number, setdex: Record<string, any> = MOVESETS, includeAllPokemon = false): Pokemon[] {
+export function pokemonByRegulation(regulation: Regulation, quantity: number | undefined, setdex: Record<string, any>, includeAllPokemon: boolean): Pokemon[] {
   const regulationList = topUsageByRegulation[regulation]
 
   let result = Object.keys(setdex)
@@ -15,7 +14,9 @@ export function pokemonByRegulation(regulation: Regulation, quantity?: number, s
     .filter(pokemon => filterBannedByRegulation(pokemon, regulation))
 
   if (!includeAllPokemon) {
-    result = result.filter(pokemon => (regulationList ?? []).includes(pokemon.name)).sort((a, b) => sortByRegulationOrder(a, b, regulation))
+    const usageOrder = regulationList ?? []
+
+    result = result.filter(pokemon => usageOrder.includes(pokemon.name)).sort((a, b) => sortByRegulationOrder(a, b, usageOrder))
   } else {
     result = result.sort((a, b) => a.displayNameWithoutSuffix.localeCompare(b.displayNameWithoutSuffix))
   }
@@ -23,7 +24,7 @@ export function pokemonByRegulation(regulation: Regulation, quantity?: number, s
   return result.slice(0, quantity)
 }
 
-export function toPokemon(key: string, setdex: Record<string, any> = MOVESETS): Pokemon {
+export function toPokemon(key: string, setdex: Record<string, any>): Pokemon {
   const poke = setdex[key]
   const evs = { hp: spToEv(poke.evs.hp), atk: spToEv(poke.evs.atk), def: spToEv(poke.evs.def), spa: spToEv(poke.evs.spa), spd: spToEv(poke.evs.spd), spe: spToEv(poke.evs.spe) }
 
@@ -41,14 +42,8 @@ function filterBannedByRegulation(pokemon: Pokemon, regulation: Regulation): boo
   return !(bannedByRegulation[regulation] ?? []).includes(pokemon.displayNameWithoutSuffix)
 }
 
-function sortByRegulationOrder(pokemonA: Pokemon, pokemonB: Pokemon, regulation: Regulation): number {
-  const indexA = (topUsageByRegulation[regulation] ?? []).indexOf(pokemonA.name)
-  const indexB = (topUsageByRegulation[regulation] ?? []).indexOf(pokemonB.name)
-
-  const safeIndexA = indexA === -1 ? Infinity : indexA
-  const safeIndexB = indexB === -1 ? Infinity : indexB
-
-  return safeIndexA - safeIndexB
+function sortByRegulationOrder(pokemonA: Pokemon, pokemonB: Pokemon, regulationList: string[]): number {
+  return regulationList.indexOf(pokemonA.name) - regulationList.indexOf(pokemonB.name)
 }
 
 const bannedByRegulation: Partial<Record<Regulation, string[]>> = {}

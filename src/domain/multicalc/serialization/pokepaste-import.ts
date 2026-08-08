@@ -1,4 +1,4 @@
-import { getMoveset, MOVESETS } from "@data/moveset-data"
+import { getMoveset } from "@data/moveset-data"
 import { Ability, Move, MoveSet, Pokemon } from "@multicalc/model"
 import { Stats } from "@multicalc/types"
 import { MAX_SPS, spToEv } from "@multicalc/utils"
@@ -46,7 +46,7 @@ export function adjustName(pokemonName: string): string {
     const isAlternativeForm = pokemonWithAlternativeForm().some(name => name.normalize("NFC") === onlyName.normalize("NFC"))
 
     if (isAlternativeForm) {
-      const fullNameExists = getMoveset(pokemonName, MOVESETS)
+      const fullNameExists = getMoveset(pokemonName)
 
       if (fullNameExists) {
         return pokemonName

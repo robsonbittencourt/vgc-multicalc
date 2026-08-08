@@ -10,6 +10,7 @@ import { TeamMember } from "@multicalc/model/team-member"
 import { SpeedCalcMode } from "@multicalc/speed-calc/speed-calc-mode"
 import { SpeedCalcOptions } from "@multicalc/speed-calc/speed-calc-options"
 import { SpeedCalc, SpeedTeamPokemon } from "@multicalc/speed-calc/speed-calc"
+import { Regulation } from "@multicalc/types"
 
 const MIN = "Min"
 const MAX = "Max"
@@ -64,6 +65,16 @@ describe("SpeedCalc", () => {
   beforeEach(() => {
     service = new SpeedCalc()
     store = new StoreStub()
+  })
+
+  describe("hasStatisticsForRegulation", () => {
+    it("should report statistics for a regulation that has them", () => {
+      expect(service.hasStatisticsForRegulation("MB")).toBe(true)
+    })
+
+    it("should report no statistics for a regulation absent from the dataset", () => {
+      expect(service.hasStatisticsForRegulation("MA" as Regulation)).toBe(false)
+    })
   })
 
   describe("Test order methods", () => {

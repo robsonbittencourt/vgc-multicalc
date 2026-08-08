@@ -36,15 +36,15 @@ export class CachedDamageCalc extends DamageCalc {
     this.doubleCache.clear()
   }
 
-  override calculateResult(attacker: Pokemon, target: Pokemon, move: Move, field: Field, rightIsDefender: boolean, secondAttacker?: Pokemon): Result {
-    const key = `${this.idOf(attacker)}|${move.name}|${secondAttacker ? this.idOf(secondAttacker) : 0}|${rightIsDefender}|${target.def}|${target.spd}`
+  override calculateResult(attacker: Pokemon, target: Pokemon, move: Move, field: Field, rightIsDefender: boolean): Result {
+    const key = `${this.idOf(attacker)}|${move.name}|${rightIsDefender}|${target.def}|${target.spd}`
     const cached = this.singleCache.get(key)
 
     if (cached) {
       return new Result(cached.calcAttacker, fromExisting(target, true), cached.moveCalc, cached.calcField, cached.damage, cached.rawDesc)
     }
 
-    const prep = this.prepareCalculation(attacker, target, move, field, rightIsDefender, secondAttacker)
+    const prep = this.prepareCalculation(attacker, target, move, field, rightIsDefender)
     const result = calculate(prep.calcAttacker, prep.calcTarget, prep.moveCalc, prep.calcField)
 
     if (!result.damage) {
@@ -60,7 +60,7 @@ export class CachedDamageCalc extends DamageCalc {
     return result
   }
 
-  override calcDamageValueForTwoAttackers(attacker: Pokemon, secondAttacker: Pokemon, target: Pokemon, field: Field, rightIsDefender = true): MultiResult {
+  override calcDamageValueForTwoAttackers(attacker: Pokemon, secondAttacker: Pokemon, target: Pokemon, field: Field, rightIsDefender: boolean): MultiResult {
     const key = `${this.idOf(attacker)}|${this.idOf(secondAttacker)}|${rightIsDefender}|${target.def}|${target.spd}`
     const cached = this.doubleCache.get(key)
 

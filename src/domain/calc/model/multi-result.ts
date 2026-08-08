@@ -337,10 +337,8 @@ export class MultiResult {
     let max = 0
 
     for (const sub of rolls) {
-      if (sub.length > 0) {
-        min += sub[0]
-        max += sub[sub.length - 1]
-      }
+      min += sub[0]
+      max += sub[sub.length - 1]
     }
 
     return { min, max }
@@ -351,6 +349,6 @@ export class MultiResult {
   }
 
   private initialDefBoost(): number {
-    return this.defender.boosts.def ?? 0
+    return this.defender.boosts.def
   }
 }

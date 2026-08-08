@@ -393,19 +393,14 @@ export class TypeCoverage {
       }
 
       if (move.name === "Ivy Cudgel" && pokemon.name.startsWith("Ogerpon")) {
-        const ivyCudgelType = this.getIvyCudgelType(pokemon.name)
-        if (ivyCudgelType) {
-          moveTypes.push({ type: ivyCudgelType, name: move.name })
-          continue
-        }
+        moveTypes.push({ type: this.getIvyCudgelType(pokemon.name), name: move.name })
+        continue
       }
 
-      const moveDetails = getMoveData(move.name)
+      const moveDetails = getMoveData(move.name)!
+      const type = ateType && moveDetails.type === "Normal" ? ateType : (moveDetails.type as PokemonType)
 
-      if (moveDetails && moveDetails.type) {
-        const type = ateType && moveDetails.type === "Normal" ? ateType : (moveDetails.type as PokemonType)
-        moveTypes.push({ type, name: move.name })
-      }
+      moveTypes.push({ type, name: move.name })
     }
 
     return moveTypes
@@ -442,7 +437,7 @@ export class TypeCoverage {
     return moves.some(move => move && (move.name === "Tera Blast" || move.name === "Tera Starstorm"))
   }
 
-  private getIvyCudgelType(pokemonName: string): PokemonType | null {
+  private getIvyCudgelType(pokemonName: string): PokemonType {
     if (pokemonName === "Ogerpon-Cornerstone") {
       return "Rock"
     }

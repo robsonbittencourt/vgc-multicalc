@@ -75,7 +75,7 @@ export const topUsageByRegulation: Record<string, string[]> = {
     "Weavile",
     "Raichu-Mega-X",
     "Altaria",
-    "Aegislash",
+    "Aegislash-Shield",
     "Altaria-Mega",
     "Staraptor",
     "Basculegion-F",

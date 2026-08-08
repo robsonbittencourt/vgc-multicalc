@@ -612,6 +612,74 @@ describe("Calc Store", () => {
       })
     })
 
+    describe("Toggles and filters", () => {
+      it("should report no pending changes for a set that was never edited", () => {
+        expect(store.activeSetHasChanges()).toBe(false)
+      })
+
+      it("should flip the SPs mode, which starts enabled", () => {
+        expect(store.useSpsMode()).toBe(true)
+
+        store.toggleSpsMode()
+
+        expect(store.useSpsMode()).toBe(false)
+      })
+
+      it("should enable Protosynthesis for every Pokémon that has the ability", () => {
+        store.name(defaultId, "Roaring Moon")
+        store.ability(defaultId, "Protosynthesis")
+
+        store.toggleProtosynthesis(true)
+
+        expect(store.team().activePokemon()!.abilityOn).toBe(true)
+      })
+
+      it("should disable Protosynthesis for every Pokémon that has the ability", () => {
+        store.name(defaultId, "Roaring Moon")
+        store.ability(defaultId, "Protosynthesis")
+        store.toggleProtosynthesis(true)
+
+        store.toggleProtosynthesis(false)
+
+        expect(store.team().activePokemon()!.abilityOn).toBe(false)
+      })
+
+      it("should enable Quark Drive for every Pokémon that has the ability", () => {
+        store.name(defaultId, "Iron Bundle")
+        store.ability(defaultId, "Quark Drive")
+
+        store.toggleQuarkDrive(true)
+
+        expect(store.team().activePokemon()!.abilityOn).toBe(true)
+      })
+
+      it("should replace every bonus boost at once", () => {
+        store.bonusBoosts(defaultId, { atk: 2, spe: 1 })
+
+        expect(store.team().activePokemon()!.bonusBoosts).toEqual({ atk: 2, spe: 1 })
+      })
+
+      it("should mark a move as having failed on the previous turn", () => {
+        store.lastMoveFailed(defaultId, true, 1)
+
+        expect(store.team().activePokemon()!.moveSet.move1!.lastMoveFailed).toBe(true)
+      })
+
+      it("should set the team filter", () => {
+        store.setTeamFilter("team-x")
+
+        expect(store.teamFilterId()).toBe("team-x")
+      })
+
+      it("should clear the team filter", () => {
+        store.setTeamFilter("team-x")
+
+        store.clearTeamFilter()
+
+        expect(store.teamFilterId()).toBeNull()
+      })
+    })
+
     describe("Add Pokémon by name", () => {
       it("should add a real Pokémon to the active team with its moveset loaded", () => {
         const initialCount = store.team().teamMembers.length
@@ -687,6 +755,13 @@ describe("Calc Store", () => {
         expect(store.secondAttackerId()).toBe(pokemonId)
       })
 
+      it("should replace a Pokémon by id while keeping the original id", () => {
+        store.changePokemon(defaultId, new Pokemon("Flutter Mane"))
+
+        expect(store.team().activePokemon()!.name).toBe("Flutter Mane")
+        expect(store.team().activePokemon()!.id).toBe(defaultId)
+      })
+
       it("should update left Pokémon", () => {
         const leftPokemon = new Pokemon("Pikachu")
 
@@ -740,7 +815,40 @@ describe("Calc Store", () => {
       })
     })
 
+    describe("Find Pokémon state by id", () => {
+      it("should find the state of a Pokémon added to the targets", () => {
+        const targetId = store.addPokemonToTargets("Amoonguss")
+
+        const result = store.findPokemonStateById(targetId)
+
+        expect(result!.name).toBe("Amoonguss")
+        expect(result!.id).toBe(targetId)
+      })
+
+      it("should find the state of a second attacker in a target", () => {
+        const secondPokemon = new Pokemon("Rillaboom")
+        store.updateTargets([new Target(new Pokemon("Pikachu"), secondPokemon)])
+
+        const result = store.findPokemonStateById(secondPokemon.id)
+
+        expect(result!.name).toBe("Rillaboom")
+      })
+
+      it("should return undefined when no Pokémon has the given id", () => {
+        expect(store.findPokemonStateById("a-id-that-does-not-exist")).toBeUndefined()
+      })
+    })
+
     describe("Find Pokémon by id", () => {
+      it("should find a Pokémon that is the second attacker of a target", () => {
+        const secondPokemon = new Pokemon("Raichu", { ability: new Ability("Lightning Rod") })
+        store.updateTargets([new Target(new Pokemon("Pikachu"), secondPokemon)])
+
+        const result = store.findPokemonById(secondPokemon.id)
+
+        expect(result.name).toBe("Raichu")
+      })
+
       it("should find Pokémon by id when searched Pokémon is left Pokémon", () => {
         const leftPokemonId = store.leftPokemon().id
         const leftPokemonName = store.leftPokemon().name

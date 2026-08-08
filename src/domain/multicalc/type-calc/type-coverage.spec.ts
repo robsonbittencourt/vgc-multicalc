@@ -1487,4 +1487,15 @@ describe("TypeCoverage", () => {
       expect(result[3].name).toBe("Struggle")
     })
   })
+  describe("moves without data", () => {
+    it("ignores a move that is not in the dataset", () => {
+      const withGarbage = new Team("1", true, "T", [new TeamMember(new Pokemon("Garchomp", { moveSet: new MoveSet(new Move("Nao Existe Esse Move"), new Move("Earthquake"), new Move(""), new Move("")) }))])
+      const onlyValid = new Team("2", true, "T", [new TeamMember(new Pokemon("Garchomp", { moveSet: new MoveSet(new Move("Earthquake"), new Move(""), new Move(""), new Move("")) }))])
+
+      const withGarbageCoverage = service.getOffensiveCoverage(withGarbage).filter(row => row.superEffective > 0)
+      const onlyValidCoverage = service.getOffensiveCoverage(onlyValid).filter(row => row.superEffective > 0)
+
+      expect(withGarbageCoverage.map(row => `${row.pokemonType}:${row.superEffective}`)).toEqual(onlyValidCoverage.map(row => `${row.pokemonType}:${row.superEffective}`))
+    })
+  })
 })

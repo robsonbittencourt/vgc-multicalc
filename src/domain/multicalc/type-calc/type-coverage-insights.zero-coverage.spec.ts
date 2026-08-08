@@ -117,3 +117,55 @@ describe("TypeCoverageInsights — members without coverage", () => {
     expect(result.map(i => i.pokemon.name)).toContain("Garchomp")
   })
 })
+
+describe("TypeCoverageInsights — members without coverage against a second team", () => {
+  let service: TypeCoverageInsights
+
+  beforeEach(() => {
+    service = new TypeCoverageInsights()
+  })
+
+  const moves = (first: string, second: string, third: string, fourth: string) => new MoveSet(new Move(first), new Move(second), new Move(third), new Move(fourth))
+
+  const myTeam = () =>
+    new Team("1", true, "Team 1", [
+      new TeamMember(new Pokemon("Charizard", { moveSet: moves("Flamethrower", "Air Slash", "Dragon Claw", "Rock Slide") })),
+      new TeamMember(new Pokemon("Blissey", { moveSet: moves("Soft-Boiled", "Protect", "Calm Mind", "Toxic") }))
+    ])
+
+  const grassAndFireTeam = () =>
+    new Team("2", false, "Team 2", [
+      new TeamMember(new Pokemon("Venusaur", { moveSet: moves("Giga Drain", "Energy Ball", "Petal Blizzard", "Protect") })),
+      new TeamMember(new Pokemon("Arcanine", { moveSet: moves("Flamethrower", "Fire Blast", "Flare Blitz", "Protect") }))
+    ])
+
+  const groundAndWaterTeam = () =>
+    new Team("2", false, "Team 2", [
+      new TeamMember(new Pokemon("Garchomp", { moveSet: moves("Earthquake", "Rock Slide", "Dragon Claw", "Protect") })),
+      new TeamMember(new Pokemon("Pelipper", { moveSet: moves("Hurricane", "Surf", "Ice Beam", "Protect") }))
+    ])
+
+  it("should omit a member that is weak to nothing the second team carries", () => {
+    const result = service.getTopDefensiveWeak(myTeam(), groundAndWaterTeam())
+
+    expect(result.map(i => ({ name: i.pokemon.name, value: i.value }))).toEqual([{ name: "Charizard", value: 2 }])
+  })
+
+  it("should omit a member with no positive matchups against the second team", () => {
+    const result = service.getTopDefensivePositive(myTeam(), grassAndFireTeam())
+
+    expect(result.map(i => ({ name: i.pokemon.name, value: i.value }))).toEqual([{ name: "Charizard", value: 2 }])
+  })
+
+  it("should omit a member with no resistances against the second team", () => {
+    const result = service.getTopDefensiveResist(myTeam(), grassAndFireTeam())
+
+    expect(result.map(i => ({ name: i.pokemon.name, value: i.value }))).toEqual([{ name: "Charizard", value: 2 }])
+  })
+
+  it("should omit a status-only member from super-effective counts against the second team", () => {
+    const result = service.getTopOffensiveSuperEffective(myTeam(), groundAndWaterTeam())
+
+    expect(result.map(i => ({ name: i.pokemon.name, value: i.value }))).toEqual([{ name: "Charizard", value: 2 }])
+  })
+})

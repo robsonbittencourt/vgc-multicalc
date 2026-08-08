@@ -94,6 +94,16 @@ describe("terastalize", () => {
       expect(result.bonusBoosts.spd).toBe(1)
     })
 
+    it("should treat a missing bonus boost entry as zero when deactivating", () => {
+      const pokemon = new Pokemon("Ogerpon-Wellspring", { boosts: { spd: 1 }, bonusBoosts: { atk: 1 } })
+      const activated = terastalize(pokemon)
+
+      const result = terastalize(activated)
+
+      expect(result.boosts.spd).toBe(1)
+      expect(result.bonusBoosts.spd).toBe(-1)
+    })
+
     it("should not boost beyond the maximum stage of 6", () => {
       const pokemon = new Pokemon("Ogerpon", { boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 6 } })
 

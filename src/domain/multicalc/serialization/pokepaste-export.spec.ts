@@ -30,6 +30,20 @@ describe("toPokepasteText", () => {
     expect(text).toBe(pasteWithOneMove)
   })
 
+  it("should skip the SpD entry when a Pokémon invests in every other stat but SpD", async () => {
+    const pokemon = new Pokemon("Rillaboom", {
+      ability: new Ability("Grassy Surge"),
+      nature: "Adamant",
+      item: "Assault Vest",
+      moveSet: new MoveSet(new Move("Fake Out"), new Move("Grassy Glide"), new Move("Wood Hammer"), new Move("High Horsepower")),
+      evs: { hp: 140, atk: 116, def: 4, spa: 8, spd: 0, spe: 164 }
+    })
+
+    const text = await toPokepasteText(pokemon, false, false)
+
+    expect(text).toContain("EVs: 140 HP / 116 Atk / 4 Def / 8 SpA / 164 Spe\n")
+  })
+
   it("should export a Pokémon in SP notation", async () => {
     const pokemon = new Pokemon("Rillaboom", {
       ability: new Ability("Grassy Surge"),
@@ -68,6 +82,20 @@ describe("toPokepasteText", () => {
     const text = await toPokepasteText(pokemon, true, false)
 
     expect(text).toBe(pasteWithNoEvs)
+  })
+
+  it("should omit only the Def entry from the EVs line when Def has no invested EVs", async () => {
+    const pokemon = new Pokemon("Rillaboom", {
+      ability: new Ability("Grassy Surge"),
+      nature: "Adamant",
+      item: "Assault Vest",
+      moveSet: new MoveSet(new Move("Fake Out"), new Move("Grassy Glide"), new Move("Wood Hammer"), new Move("High Horsepower")),
+      evs: { hp: 140, atk: 116, def: 0, spa: 0, spd: 84, spe: 164 }
+    })
+
+    const text = await toPokepasteText(pokemon, false, false)
+
+    expect(text).toBe(pasteWithNoDefEvs)
   })
 
   it("should omit only the HP entry from the SPs line when HP has no invested EVs", async () => {
@@ -139,6 +167,17 @@ const pasteWithOnePokemon = `Rillaboom @ Assault Vest
 Ability: Grassy Surge
 Level: 50
 EVs: 140 HP / 116 Atk / 4 Def / 84 SpD / 164 Spe
+Adamant Nature
+- Fake Out
+- Grassy Glide
+- Wood Hammer
+- High Horsepower
+`
+
+const pasteWithNoDefEvs = `Rillaboom @ Assault Vest
+Ability: Grassy Surge
+Level: 50
+EVs: 140 HP / 116 Atk / 84 SpD / 164 Spe
 Adamant Nature
 - Fake Out
 - Grassy Glide

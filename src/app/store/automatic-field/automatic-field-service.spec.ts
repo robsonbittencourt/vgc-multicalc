@@ -209,6 +209,18 @@ describe("AutomaticFieldService", () => {
     expect(store.toggleAutomaticElectricTerrain).not.toHaveBeenCalled()
   })
 
+  it("should skip the second Pokémon ability when only it changed and Neutralizing Gas blocks it", () => {
+    store.neutralizingGasActivated.mockReturnValue(true)
+
+    const pokemon = new Pokemon("Torkoal", { item: "Ability Shield", ability: new Ability("Drought") })
+    const secondPokemon = new Pokemon("Pincurchin", { ability: new Ability("Electric Surge") })
+
+    service.checkAutomaticField(pokemon, false, secondPokemon, true)
+
+    expect(store.cleanAutomaticOptions).toHaveBeenCalledWith(["automaticWeather", "automaticTerrain"])
+    expect(store.toggleAutomaticElectricTerrain).not.toHaveBeenCalled()
+  })
+
   it("should activate ability after Neutralizing Gas was previously active and then left", () => {
     const gasPokemon = new Pokemon("Weezing-Galar", { ability: new Ability("Neutralizing Gas") })
     const droughtPokemon = new Pokemon("Torkoal", { ability: new Ability("Drought") })

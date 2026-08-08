@@ -117,12 +117,7 @@ function applyDefensiveBerryBoost(attacker: Pokemon, defender: Pokemon, move: Mo
 
   if (defender.hasAbility("Contrary")) {
     description.defenderAbility = defender.ability
-
-    if (defender.hasItem("White Herb")) {
-      description.defenderItem = defender.item
-    } else {
-      defender.boosts[defStat] = Math.max(-6, defender.boosts[defStat] - defSimple)
-    }
+    defender.boosts[defStat] = Math.max(-6, defender.boosts[defStat] - defSimple)
   } else {
     defender.boosts[defStat] = Math.min(6, defender.boosts[defStat] + defSimple)
   }
