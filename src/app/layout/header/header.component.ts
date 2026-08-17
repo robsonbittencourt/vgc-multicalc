@@ -6,9 +6,9 @@ import { MatIcon } from "@angular/material/icon"
 import { MatMenu, MatMenuTrigger } from "@angular/material/menu"
 import { RouterLink } from "@angular/router"
 import { CopyButtonComponent } from "@shared/copy-button/copy-button.component"
-import { ActiveFieldService } from "@store/active-field.service"
 import { CalcStore } from "@store/calc-store"
 import { MenuStore } from "@store/menu-store"
+import { buildSharedUserData } from "@store/utils/user-data-mapper"
 import { SnackbarService } from "@app/services/snackbar.service"
 import { ThemeService } from "@app/services/theme.service"
 import { Router } from "@angular/router"
@@ -22,7 +22,6 @@ import { uuid } from "@multicalc/utils"
 })
 export class HeaderComponent {
   store = inject(CalcStore)
-  activeFieldService = inject(ActiveFieldService)
   menuStore = inject(MenuStore)
   themeService = inject(ThemeService)
   private snackBar = inject(SnackbarService)
@@ -32,9 +31,7 @@ export class HeaderComponent {
 
   uploadData() {
     const id = uuid()
-    const activeStore = this.activeFieldService.activeStore()
-    const activeField = typeof activeStore?.field === "function" ? activeStore.field() : null
-    const userData = { ...this.store.buildUserData(), field: activeField ? { ...activeField } : null }
+    const userData = buildSharedUserData(this.store.buildUserData(), this.store.useSpsMode(), this.store.customSetsState())
     fetch(`https://l7enx1vgm7.execute-api.us-east-1.amazonaws.com/v1/vgc-multi-calc/${id}`, {
       method: "PUT",
       body: JSON.stringify(userData)

@@ -73,7 +73,7 @@ describe("Uploading the current state", () => {
     cy.wait("@uploadUserData").then(interception => {
       const payload = parseBody(interception.request.body)
 
-      const sharedField = payload.champions.fields.simple
+      const sharedField = payload.fields.simple
 
       expect(sharedField.weather).to.eq("Sun")
       expect(sharedField.isTrickRoom).to.eq(true)

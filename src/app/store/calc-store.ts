@@ -101,11 +101,15 @@ export class CalcStore extends signalStore(
       })
 
       effect(() => {
-        writeTopLevel({ useSpsMode: store.useSpsMode() })
+        if (store.updateLocalStorage()) {
+          writeTopLevel({ useSpsMode: store.useSpsMode() })
+        }
       })
 
       effect(() => {
-        writeCustomSets(store.customSetsState())
+        if (store.updateLocalStorage()) {
+          writeCustomSets(store.customSetsState())
+        }
       })
     }
   }))

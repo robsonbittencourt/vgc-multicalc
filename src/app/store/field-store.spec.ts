@@ -1182,13 +1182,13 @@ describe("Field Store", () => {
   })
 
   describe("Restoring a previously saved field", () => {
-    const buildStoreWith = (initialData: unknown) => {
+    const buildStoreWith = (initialData: Record<string, any>) => {
       TestBed.resetTestingModule()
       TestBed.configureTestingModule({
         providers: [provideZonelessChangeDetection(), FieldStore, ActiveFieldService, { provide: CalcStore, useValue: { toggleProtosynthesis: () => void 0, toggleQuarkDrive: () => void 0 } }, { provide: FIELD_CONTEXT, useValue: "simple" }]
       })
 
-      TestBed.inject(ActiveFieldService).initialFieldData.set(initialData)
+      TestBed.inject(ActiveFieldService).initialFieldData.set({ simple: initialData })
 
       return TestBed.inject(FieldStore)
     }

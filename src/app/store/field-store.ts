@@ -48,7 +48,8 @@ export class FieldStore extends signalStore(
 
       activeFieldService.activeStore.set(store)
 
-      const initialData = activeFieldService.initialFieldData()
+      const initialData = activeFieldService.fieldDataFor(context)
+
       if (initialData) {
         patchState(store, { ...initialData, updateLocalStorage: false })
       }

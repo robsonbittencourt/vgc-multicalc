@@ -8,7 +8,7 @@ import { HeaderMobileComponent } from "@layout/header-mobile/header-mobile.compo
 import { HeaderComponent } from "@layout/header/header.component"
 import { CalcState, CalcStore } from "@store/calc-store"
 import { ActiveFieldService } from "@store/active-field.service"
-import { buildState } from "@store/utils/user-data-mapper"
+import { buildSharedFields, buildState } from "@store/utils/user-data-mapper"
 import { DeviceDetectorService } from "@app/services/device-detector.service"
 
 @Component({
@@ -40,7 +40,7 @@ export class UserDataRouteComponent implements OnInit {
       this.meta.addTag({ name: "robots", content: "noindex, follow" })
       const state = buildState(userData?.data) as CalcState
       this.store.updateStateLockingLocalStorage(state)
-      this.activeFieldService.initialFieldData.set(userData?.data.field)
+      this.activeFieldService.initialFieldData.set(buildSharedFields(userData?.data))
     })
   }
 

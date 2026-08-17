@@ -1,5 +1,5 @@
 import { CalcState, PokemonState, TargetState, TeamState } from "@store/calc-store"
-import { buildState, buildUserData } from "./user-data-mapper"
+import { buildSharedFields, buildSharedUserData, buildState, buildUserData } from "./user-data-mapper"
 import { Status } from "@multicalc/model"
 
 describe("User Data Mapper", () => {
@@ -159,6 +159,66 @@ describe("User Data Mapper", () => {
       expect(result.simpleCalcRightRollLevel).toBe("medium")
       expect(result.multiCalcRollLevel).toBe("high")
       expect(result.manyVsTeamRollLevel).toBe("medium")
+    })
+  })
+
+  describe("buildSharedUserData", () => {
+    beforeEach(() => {
+      localStorage.clear()
+    })
+
+    afterEach(() => {
+      localStorage.clear()
+    })
+
+    it("should add the stored fields of every screen to the shared payload", () => {
+      localStorage.setItem("userData", JSON.stringify({ champions: { fields: { simple: { weather: "Sun" }, multi: { isTrickRoom: true } } } }))
+
+      const result = buildSharedUserData({ leftPokemon: pikachuUserData }, true, [])
+
+      expect(result.fields).toEqual({ simple: { weather: "Sun" }, multi: { isTrickRoom: true } })
+    })
+
+    it("should keep the game data received untouched", () => {
+      const result = buildSharedUserData({ leftPokemon: pikachuUserData, manyVsTeamRollLevel: "low" }, true, [])
+
+      expect(result.leftPokemon).toEqual(pikachuUserData)
+      expect(result.manyVsTeamRollLevel).toBe("low")
+    })
+
+    it("should add the ev mode and the custom sets to the shared payload", () => {
+      const customSets = [{ id: "1", setName: "My Set", state: pikachuState }] as any
+
+      const result = buildSharedUserData({}, false, customSets)
+
+      expect(result.useSpsMode).toBe(false)
+      expect(result.customSets).toEqual(customSets)
+    })
+
+    it("should share an empty map of fields when nothing was stored yet", () => {
+      const result = buildSharedUserData({}, true, [])
+
+      expect(result.fields).toEqual({})
+    })
+  })
+
+  describe("buildSharedFields", () => {
+    it("should read the fields of every screen from the shared data", () => {
+      const fields = { simple: { weather: "Rain" }, multi: { isGravity: true } }
+
+      expect(buildSharedFields({ fields })).toEqual(fields)
+    })
+
+    it("should read a legacy link that shared a single field as the field of the simple calc", () => {
+      expect(buildSharedFields({ field: { weather: "Snow" } })).toEqual({ simple: { weather: "Snow" } })
+    })
+
+    it("should return an empty map when the shared data has no field at all", () => {
+      expect(buildSharedFields({ leftPokemon: pikachuUserData })).toEqual({})
+    })
+
+    it("should return an empty map when there is no shared data", () => {
+      expect(buildSharedFields(null)).toEqual({})
     })
   })
 
@@ -358,6 +418,38 @@ describe("User Data Mapper", () => {
       expect(result.simpleCalcLeftRollLevel).toBe("high")
       expect(result.simpleCalcRightRollLevel).toBe("high")
       expect(result.multiCalcRollLevel).toBe("high")
+    })
+
+    it("should build the ev mode and the custom sets in CalcState from user data", () => {
+      const customSets = [{ id: "1", setName: "My Set", state: pikachuState }] as any
+
+      const userData = {
+        leftPokemon: pikachuUserData,
+        rightPokemon: charmanderUserData,
+        teams: [],
+        targets: [],
+        useSpsMode: false,
+        customSets: customSets
+      }
+
+      const result = buildState(userData) as CalcState
+
+      expect(result.useSpsMode).toBe(false)
+      expect(result.customSetsState).toEqual(customSets)
+    })
+
+    it("should default to the sps mode and no custom sets when they are not present in user data", () => {
+      const userData = {
+        leftPokemon: pikachuUserData,
+        rightPokemon: charmanderUserData,
+        teams: [],
+        targets: []
+      }
+
+      const result = buildState(userData) as CalcState
+
+      expect(result.useSpsMode).toBe(true)
+      expect(result.customSetsState).toEqual([])
     })
 
     it("should handle legacy data or missing activeMove by defaulting to 0", () => {

@@ -1,6 +1,19 @@
 import { CalcState, PokemonState, TargetState, TeamMemberState, TeamState } from "@store/calc-store"
+import { CustomSet } from "@store/custom-set"
 import { Regulation } from "@multicalc/types"
 import { uuid } from "@multicalc/utils"
+import { readGameData } from "./user-data-storage"
+
+export function buildSharedUserData<T extends object>(gameData: T, useSpsMode: boolean, customSets: CustomSet[]) {
+  return { ...gameData, fields: readGameData()?.fields ?? {}, useSpsMode, customSets }
+}
+
+export function buildSharedFields(userData: any): Record<string, any> {
+  if (userData?.fields) return userData.fields
+  if (userData?.field) return { simple: userData.field }
+
+  return {}
+}
 
 export function buildUserData(
   leftPokemon: PokemonState,
@@ -56,7 +69,9 @@ export function buildState(userData: any): Partial<CalcState> {
     simpleCalcLeftRollLevel: userData.simpleCalcLeftRollLevel ?? "high",
     simpleCalcRightRollLevel: userData.simpleCalcRightRollLevel ?? "high",
     multiCalcRollLevel: userData.multiCalcRollLevel ?? "high",
-    manyVsTeamRollLevel: userData.manyVsTeamRollLevel ?? "high"
+    manyVsTeamRollLevel: userData.manyVsTeamRollLevel ?? "high",
+    useSpsMode: userData.useSpsMode ?? true,
+    customSetsState: userData.customSets ?? []
   }
 }
 
