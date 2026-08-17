@@ -1362,6 +1362,22 @@ describe("TypeChart", () => {
     it("should keep Ground immunity from Levitate without Iron Ball", () => {
       expect(service.getEffectiveness("Ground", "Normal", undefined, "Levitate", { ability: "Levitate" })).toBe(0)
     })
+
+    it("should apply the double weakness of Rotom-Heat once Levitate is grounded", () => {
+      expect(service.getEffectiveness("Ground", "Electric", "Fire", "Levitate", { ability: "Levitate", item: "Iron Ball" })).toBe(4)
+    })
+
+    it("should apply the single weakness of Bronzong once Levitate is grounded", () => {
+      expect(service.getEffectiveness("Ground", "Steel", "Psychic", "Levitate", { ability: "Levitate", item: "Iron Ball" })).toBe(2)
+    })
+
+    it("should keep neutral effectiveness for Flygon once Levitate is grounded", () => {
+      expect(service.getEffectiveness("Ground", "Ground", "Dragon", "Levitate", { ability: "Levitate", item: "Iron Ball" })).toBe(1)
+    })
+
+    it("should keep Flying immune to Ground even holding Iron Ball", () => {
+      expect(service.getEffectiveness("Ground", "Steel", "Flying", undefined, { item: "Iron Ball" })).toBe(0)
+    })
   })
 
   describe("Ring Target", () => {

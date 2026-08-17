@@ -45,8 +45,8 @@ export class TypeChart {
     if (ability) {
       const immuneType = ABILITY_IMMUNITIES[ability]
 
-      if (immuneType && immuneType === attackType) {
-        return this.isGrounded(ability, defender) ? 1 : 0
+      if (immuneType && immuneType === attackType && !this.isGrounded(ability, defender)) {
+        return 0
       }
 
       if (ability === "Wonder Guard") {
