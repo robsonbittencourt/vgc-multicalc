@@ -94,6 +94,46 @@ describe("Damage — Quark Drive and Tera interactions", () => {
     expect(result.description()).toEqual("252+ SpA Tera Stellar Terapagos-Stellar Tera Blast (100 BP) vs. 252 HP / 0 SpD Snorlax: 70-83 (26.2 - 31%) -- guaranteed 4HKO")
   })
 
+  it("Tera Starstorm: Terapagos-Terastal keeps it a Normal move against a neutral target", () => {
+    const attacker = new Pokemon("Terapagos-Terastal", { evs: { spa: 252 }, nature: "Modest" })
+    const defender = new Pokemon("Porygon2", { evs: { hp: 252, spd: 4 }, item: "Eviolite" })
+    const move = new Move("Tera Starstorm")
+
+    const result = calculate(attacker, defender, move, field())
+
+    expect(result.description()).toEqual("252+ SpA Terapagos-Terastal Tera Starstorm vs. 252 HP / 4 SpD Eviolite Porygon2: 67-81 (34.8 - 42.1%) -- guaranteed 3HKO")
+  })
+
+  it("Tera Starstorm: Terapagos-Terastal cannot touch a Ghost type because the move stays Normal", () => {
+    const attacker = new Pokemon("Terapagos-Terastal", { evs: { spa: 252 }, nature: "Modest" })
+    const defender = new Pokemon("Flutter Mane", { evs: { hp: 252, spd: 4 } })
+    const move = new Move("Tera Starstorm")
+
+    const result = calculate(attacker, defender, move, field())
+
+    expect(result.damage).toEqual(0)
+  })
+
+  it("Tera Starstorm: Terapagos-Stellar hits a Ghost type because the move becomes Stellar", () => {
+    const attacker = new Pokemon("Terapagos-Stellar", { evs: { spa: 252 }, nature: "Modest", teraType: "Stellar" })
+    const defender = new Pokemon("Flutter Mane", { evs: { hp: 252, spd: 4 } })
+    const move = new Move("Tera Starstorm")
+
+    const result = calculate(attacker, defender, move, field())
+
+    expect(result.description()).toEqual("252+ SpA Terapagos-Stellar Tera Starstorm vs. 252 HP / 4 SpD Flutter Mane: 53-62 (32.7 - 38.2%) -- 98% chance to 3HKO")
+  })
+
+  it("Tera Starstorm: Terapagos-Stellar doubles the damage against a terastalized target", () => {
+    const attacker = new Pokemon("Terapagos-Stellar", { evs: { spa: 252 }, nature: "Modest", teraType: "Stellar" })
+    const defender = new Pokemon("Flutter Mane", { evs: { hp: 252, spd: 4 }, teraType: "Water" })
+    const move = new Move("Tera Starstorm")
+
+    const result = calculate(attacker, defender, move, field())
+
+    expect(result.description()).toEqual("252+ SpA Terapagos-Stellar Tera Starstorm vs. 252 HP / 4 SpD Tera Water Flutter Mane: 106-124 (65.4 - 76.5%) -- guaranteed 2HKO")
+  })
+
   it("Tera Blast Stellar: becomes physical when Attack exceeds Special Attack", () => {
     const attacker = new Pokemon("Iron Valiant", { evs: { atk: 252 }, nature: "Adamant", teraType: "Stellar" })
     const defender = new Pokemon("Garchomp", { evs: { hp: 252 }, teraType: "Steel" })

@@ -178,6 +178,9 @@ export function computeMoveType(ctx: CombatContext): { type: string; hasAteAbili
     else if (attacker.name.includes("Ogerpon-Cornerstone")) type = "Rock"
     else if (attacker.name.includes("Ogerpon-Hearthflame")) type = "Fire"
     else if (attacker.name.includes("Ogerpon-Wellspring")) type = "Water"
+  } else if (move.named("Tera Starstorm") && attacker.named("Terapagos-Stellar")) {
+    move.target = "allAdjacentFoes"
+    type = "Stellar"
   } else if (move.named("Brick Break", "Psychic Fangs")) {
     field.defenderSide.isReflect = false
     field.defenderSide.isLightScreen = false
