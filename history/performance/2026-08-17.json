@@ -1,0 +1,37 @@
+{
+  "date": "2026-08-17",
+  "git": {
+    "branch": "remove-sv-clean",
+    "commit": "9d29b414"
+  },
+  "current": {
+    "repetitions": 5,
+    "single": {
+      "iterations": 40000,
+      "totalMs": 498.8,
+      "nsPerCall": 12470.7
+    },
+    "multi": {
+      "iterations": 15000,
+      "totalMs": 400.2,
+      "nsPerCall": 26680.4
+    },
+    "heapDeltaMB": 0.33,
+    "source": "vendored calc (this branch)"
+  },
+  "baseline": {
+    "repetitions": 5,
+    "single": {
+      "iterations": 40000,
+      "totalMs": 494.7,
+      "nsPerCall": 12367
+    },
+    "multi": {
+      "iterations": 15000,
+      "totalMs": 398.1,
+      "nsPerCall": 26537.1
+    },
+    "heapDeltaMB": 0.37,
+    "source": "previous run — 2026-07-26"
+  }
+}
