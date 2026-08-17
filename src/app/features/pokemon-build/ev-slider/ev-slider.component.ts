@@ -170,13 +170,9 @@ export class EvSliderComponent {
 
   displayValueChanged(event: Event) {
     const inputValue = +(event.target as HTMLInputElement).value
-    if (this.showAsSps()) {
-      const evValue = spToEv(inputValue)
-      this.ev.set(evValue)
-    } else {
-      this.ev.set(inputValue)
-    }
-    this.evChanged()
+    const evValue = this.showAsSps() ? spToEv(inputValue) : inputValue
+
+    this.updateEv(this.adjustEv(evValue))
   }
 
   evChanged() {

@@ -81,6 +81,12 @@ describe("ev-sp-converter", () => {
 
       expect(max).toEqual(12)
     })
+
+    it("never exceeds the per stat maximum when the SPs budget is untouched", () => {
+      const max = maxEvForStat({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, "hp")
+
+      expect(max).toEqual(252)
+    })
   })
 
   describe("evsExceedMaxSps", () => {
@@ -108,6 +114,12 @@ describe("ev-sp-converter", () => {
       const clamped = clampEvToRemainingSps({ hp: 252, atk: 252, spe: 0 }, "spe", 252)
 
       expect(clamped).toEqual(12)
+    })
+
+    it("clamps to the per stat maximum even when the SPs budget still has room", () => {
+      const clamped = clampEvToRemainingSps({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, "hp", 300)
+
+      expect(clamped).toEqual(252)
     })
   })
 })
