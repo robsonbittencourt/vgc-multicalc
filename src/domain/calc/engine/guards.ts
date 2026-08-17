@@ -138,7 +138,7 @@ export function computeMoveType(ctx: CombatContext): { type: string; hasAteAbili
   if (move.originalName === "Weather Ball") {
     const isMegaSol = attacker.hasAbility("Mega Sol")
     const weather = effectiveWeather(attacker, field)
-    type = weather === "Sun" ? "Fire" : weather === "Rain" ? "Water" : weather === "Sand" ? "Rock" : weather === "Hail" || weather === "Snow" ? "Ice" : "Normal"
+    type = weather === "Sun" ? "Fire" : weather === "Rain" ? "Water" : weather === "Sand" ? "Rock" : weather === "Snow" ? "Ice" : "Normal"
 
     if (isMegaSol) {
       description.attackerAbility = attacker.ability

@@ -385,8 +385,8 @@ describe("computeMoveType", () => {
     expect(type).toBe("Rock")
   })
 
-  it("Weather Ball becomes Ice in Hail", () => {
-    const ctx = makeCtx("Pelipper", {}, "Garchomp", {}, "Weather Ball", {}, { weather: "Hail" })
+  it("Weather Ball becomes Ice in Snow", () => {
+    const ctx = makeCtx("Pelipper", {}, "Garchomp", {}, "Weather Ball", {}, { weather: "Snow" })
 
     const { type } = computeMoveType(ctx)
 

@@ -47,7 +47,7 @@ export function getFinalSpeed(pokemon: Pokemon, field: Field, side: Side): numbe
     (pokemon.hasAbility("Chlorophyll") && weather.includes("Sun")) ||
     (pokemon.hasAbility("Sand Rush") && weather === "Sand") ||
     (pokemon.hasAbility("Swift Swim") && weather.includes("Rain")) ||
-    (pokemon.hasAbility("Slush Rush") && ["Hail", "Snow"].includes(weather)) ||
+    (pokemon.hasAbility("Slush Rush") && weather === "Snow") ||
     (pokemon.hasAbility("Surge Surfer") && terrain === "Electric")
   ) {
     speedMods.push(MOD_2X)

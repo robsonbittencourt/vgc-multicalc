@@ -60,13 +60,10 @@ export function getEndOfTurn(attacker: Pokemon, defender: Pokemon, move: Move, f
       damage -= Math.floor(defender.maxHp() / 16)
       texts.push("sandstorm damage")
     }
-  } else if (field.hasWeather("Hail", "Snow")) {
+  } else if (field.hasWeather("Snow")) {
     if (defender.hasAbility("Ice Body") && !healBlock) {
       damage += Math.floor(defender.maxHp() / 16)
       texts.push("Ice Body recovery")
-    } else if (!defender.hasType("Ice") && !defender.hasAbility("Magic Guard", "Overcoat", "Snow Cloak") && !defender.hasItem("Safety Goggles") && field.hasWeather("Hail")) {
-      damage -= Math.floor(defender.maxHp() / 16)
-      texts.push("hail damage")
     }
   }
 

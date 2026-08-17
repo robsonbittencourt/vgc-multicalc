@@ -75,7 +75,7 @@ const BASE_POWER_STRATEGIES = new Map<string, BasePowerStrategy>([
     "Weather Ball",
     ({ move, attacker, field, description }) => {
       const weather = effectiveWeather(attacker, field)
-      const boosted = weather === "Sun" || weather === "Rain" || weather === "Sand" || weather === "Hail" || weather === "Snow"
+      const boosted = weather === "Sun" || weather === "Rain" || weather === "Sand" || weather === "Snow"
 
       return describedBp(description, move.bp * (boosted ? 2 : 1))
     }

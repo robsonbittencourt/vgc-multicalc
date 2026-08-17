@@ -15,7 +15,6 @@ export function checkForecast(pokemon: Pokemon, weather: string | undefined): vo
       case "Rain":
         pokemon.types = ["Water"]
         break
-      case "Hail":
       case "Snow":
         pokemon.types = ["Ice"]
         break

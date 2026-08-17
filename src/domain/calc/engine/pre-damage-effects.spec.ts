@@ -16,12 +16,6 @@ describe("checkForecast — Castform type change", () => {
     expect(result.description()).toEqual("252+ SpA Castform Water Gun vs. 252 HP / 0 SpD Blissey in Rain: 31-37 (8.5 - 10.2%)")
   })
 
-  it("should become Ice-type and gain STAB on Powder Snow during Hail", () => {
-    const result = calculate(castform(), defender(), new Move("Powder Snow"), new Field({ weather: "Hail" }))
-
-    expect(result.description()).toEqual("252+ SpA Castform Powder Snow vs. 252 HP / 0 SpD Blissey: 21-25 (5.8 - 6.9%) -- possible 8HKO after hail damage")
-  })
-
   it("should become Ice-type and gain STAB on Powder Snow during Snow", () => {
     const result = calculate(castform(), defender(), new Move("Powder Snow"), new Field({ weather: "Snow" }))
 

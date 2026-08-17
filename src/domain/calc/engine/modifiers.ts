@@ -52,7 +52,7 @@ const conditionalBpMoveRule: ModifierRule = ({ move, attacker, defender, field, 
   } else if (move.named("Grav Apple") && field.isGravity) {
     description.moveBP = basePower * 1.5
     return 6144
-  } else if (move.named("Solar Beam", "Solar Blade") && field.hasWeather("Rain", "Sand", "Hail", "Snow") && !attacker.hasAbility("Mega Sol")) {
+  } else if (move.named("Solar Beam", "Solar Blade") && field.hasWeather("Rain", "Sand", "Snow") && !attacker.hasAbility("Mega Sol")) {
     description.moveBP = basePower / 2
     description.weather = field.weather
     return 2048
