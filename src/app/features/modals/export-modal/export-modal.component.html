@@ -4,7 +4,9 @@
     <pre>{{ content() }}</pre>
   </mat-dialog-content>
   <mat-dialog-actions align="end">
-    <mat-slide-toggle class="export-sps-toggle" [(ngModel)]="useSpsMode" (ngModelChange)="buildContent()" [labelPosition]="'before'" data-cy="export-evs-sps-toggle">SP</mat-slide-toggle>
+    @if (hasPokemon) {
+      <mat-slide-toggle class="export-sps-toggle" [(ngModel)]="useSpsMode" (ngModelChange)="buildContent()" [labelPosition]="'before'" data-cy="export-evs-sps-toggle">SP</mat-slide-toggle>
+    }
     <button mat-flat-button mat-dialog-close>Close</button>
     <button mat-flat-button cdkFocusInitial (click)="copy()" data-cy="export-modal-copy">{{ copyText() }}</button>
   </mat-dialog-actions>

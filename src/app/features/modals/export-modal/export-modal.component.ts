@@ -19,6 +19,7 @@ export class TeamExportModalComponent {
   private clipboard = inject(Clipboard)
 
   useSpsMode = this.data.useSpsMode ?? true
+  hasPokemon = !!this.data.pokemon
   content = signal("")
   copyText = signal("Copy")
 
@@ -27,6 +28,12 @@ export class TeamExportModalComponent {
   }
 
   async buildContent() {
+    if (!this.hasPokemon) {
+      this.content.set(this.data.content ?? "")
+
+      return
+    }
+
     const pokemon = this.data.pokemon as Pokemon[]
     const results = await Promise.all(pokemon.map(p => toPokepasteText(p, this.useSpsMode, this.data.includeTeraType)))
     this.content.set(results.map(r => r + "\n").join(""))
