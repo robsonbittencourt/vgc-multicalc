@@ -258,7 +258,9 @@ export class TeamComponent {
     const wasAddingPokemon = this.addingPokemon()
     const previousTeam = this.store.team()
     const importedPokemon = pokemon as Pokemon
-    const team = previousTeam.addMember(importedPokemon)
+    const memberOnEditId = this.pokemonOnEdit()?.id
+    const isReplacingTeamMember = !wasAddingPokemon && memberOnEditId != undefined && previousTeam.teamMembers.some(t => t.pokemon.id === memberOnEditId)
+    const team = isReplacingTeamMember ? previousTeam.replaceMember(memberOnEditId!, importedPokemon) : previousTeam.addMember(importedPokemon)
 
     this.store.replaceActiveTeam(team)
 

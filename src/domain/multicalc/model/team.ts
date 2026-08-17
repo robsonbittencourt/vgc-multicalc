@@ -65,4 +65,10 @@ export class Team {
 
     return new Team(this.id, this.active, this.name, [...this.teamMembers, duplicatedMember])
   }
+
+  replaceMember(id: string, pokemon: Pokemon): Team {
+    const replacedMembers = this.teamMembers.map(t => (t.pokemon.id === id ? new TeamMember(pokemon, t.active) : t))
+
+    return new Team(this.id, this.active, this.name, replacedMembers)
+  }
 }
