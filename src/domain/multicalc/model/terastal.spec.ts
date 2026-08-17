@@ -104,6 +104,16 @@ describe("terastalize", () => {
       expect(result.bonusBoosts.spd).toBe(-1)
     })
 
+    it("should not lower beyond the minimum stage of -6 when deactivating", () => {
+      const pokemon = new Pokemon("Ogerpon-Wellspring", { boosts: { atk: 0, def: 0, spa: 0, spd: -6, spe: 0 }, bonusBoosts: { spd: 1 }, teraTypeActive: true })
+
+      const result = terastalize(pokemon)
+
+      expect(result.teraTypeActive).toBe(false)
+      expect(result.boosts.spd).toBe(-6)
+      expect(result.bonusBoosts.spd).toBe(1)
+    })
+
     it("should not boost beyond the maximum stage of 6", () => {
       const pokemon = new Pokemon("Ogerpon", { boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 6 } })
 

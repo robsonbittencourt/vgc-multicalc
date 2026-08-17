@@ -23,6 +23,14 @@ describe("stat-utils", () => {
 
       expect(result).toEqual(100)
     })
+
+    it("applies every stage of the modern table", () => {
+      const stages = [-6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6]
+
+      const results = stages.map(stage => getModifiedStat(200, stage))
+
+      expect(results).toEqual([50, 57, 66, 80, 100, 133, 200, 300, 400, 500, 600, 700, 800])
+    })
   })
 
   describe("higherStat", () => {

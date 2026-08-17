@@ -154,6 +154,66 @@ describe("Damage Calc Service", () => {
     expect(damageResult.secondAttackerRolls).toEqual([[60, 61, 61, 63, 63, 64, 64, 66, 66, 67, 67, 69, 69, 70, 70, 72]])
   })
 
+  it("should let only the faster attacker be halved by Multiscale", () => {
+    const attacker = new Pokemon("Koraidon", { nature: "Adamant", evs: { atk: 252 }, moveSet: new MoveSet(new Move("Collision Course"), new Move(""), new Move(""), new Move("")) })
+    const secondAttacker = new Pokemon("Miraidon", { nature: "Timid", evs: { spa: 252, spe: 252 }, moveSet: new MoveSet(new Move("Electro Drift"), new Move(""), new Move(""), new Move("")) })
+    const target = new Target(new Pokemon("Dragonite", { ability: new Ability("Multiscale"), evs: { hp: 252 } }))
+    const field = new Field()
+
+    const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
+
+    expect(damageResult.attacker.id).toEqual(secondAttacker.id)
+    expect(damageResult.description).toEqual("252 SpA Miraidon Electro Drift AND 252+ Atk Koraidon Collision Course vs. 252 HP / 0 Def / 0 SpD Dragonite: 95-112 (47.9 - 56.5%) -- 94% chance to 2HKO")
+  })
+
+  it("should move the Multiscale reduction to the other attacker when a Speed boost flips the order", () => {
+    const attacker = new Pokemon("Koraidon", { nature: "Adamant", evs: { atk: 252 }, boosts: { spe: 2 }, moveSet: new MoveSet(new Move("Collision Course"), new Move(""), new Move(""), new Move("")) })
+    const secondAttacker = new Pokemon("Miraidon", { nature: "Timid", evs: { spa: 252, spe: 252 }, moveSet: new MoveSet(new Move("Electro Drift"), new Move(""), new Move(""), new Move("")) })
+    const target = new Target(new Pokemon("Dragonite", { ability: new Ability("Multiscale"), evs: { hp: 252 } }))
+    const field = new Field()
+
+    const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
+
+    expect(damageResult.attacker.id).toEqual(attacker.id)
+    expect(damageResult.description).toEqual("252+ Atk Koraidon Collision Course AND 252 SpA Miraidon Electro Drift vs. 252 HP / 0 Def / 0 SpD Dragonite: 113-135 (57 - 68.1%) -- guaranteed 2HKO")
+  })
+
+  it("should not trigger Tera Shell when the faster attacker is not super effective", () => {
+    const attacker = new Pokemon("Koraidon", { nature: "Adamant", evs: { atk: 252 }, moveSet: new MoveSet(new Move("Collision Course"), new Move(""), new Move(""), new Move("")) })
+    const secondAttacker = new Pokemon("Miraidon", { nature: "Timid", evs: { spa: 252, spe: 252 }, moveSet: new MoveSet(new Move("Electro Drift"), new Move(""), new Move(""), new Move("")) })
+    const target = new Target(new Pokemon("Terapagos-Terastal", { evs: { hp: 252 } }))
+    const field = new Field()
+
+    const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
+
+    expect(damageResult.attacker.id).toEqual(secondAttacker.id)
+    expect(damageResult.description).toEqual("252 SpA Miraidon Electro Drift AND 252+ Atk Koraidon Collision Course (133.3251953125 BP) vs. 252 HP / 0 Def / 0 SpD Terapagos-Terastal: 277-330 (137.1 - 163.3%) -- guaranteed OHKO")
+  })
+
+  it("should halve the super effective attacker with Tera Shell when a Speed boost puts it first", () => {
+    const attacker = new Pokemon("Koraidon", { nature: "Adamant", evs: { atk: 252 }, boosts: { spe: 2 }, moveSet: new MoveSet(new Move("Collision Course"), new Move(""), new Move(""), new Move("")) })
+    const secondAttacker = new Pokemon("Miraidon", { nature: "Timid", evs: { spa: 252, spe: 252 }, moveSet: new MoveSet(new Move("Electro Drift"), new Move(""), new Move(""), new Move("")) })
+    const target = new Target(new Pokemon("Terapagos-Terastal", { evs: { hp: 252 } }))
+    const field = new Field()
+
+    const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
+
+    expect(damageResult.attacker.id).toEqual(attacker.id)
+    expect(damageResult.description).toEqual("252+ Atk Koraidon Collision Course (133.3251953125 BP) AND 252 SpA Miraidon Electro Drift vs. 252 HP / 0 Def / 0 SpD Terapagos-Terastal: 141-167 (69.8 - 82.6%) -- guaranteed 2HKO")
+  })
+
+  it("should let only the faster attacker be halved by Shadow Shield", () => {
+    const attacker = new Pokemon("Chi-Yu", { nature: "Modest", evs: { spa: 252 }, moveSet: new MoveSet(new Move("Overheat"), new Move(""), new Move(""), new Move("")) })
+    const secondAttacker = new Pokemon("Miraidon", { nature: "Timid", evs: { spa: 252, spe: 252 }, moveSet: new MoveSet(new Move("Electro Drift"), new Move(""), new Move(""), new Move("")) })
+    const target = new Target(new Pokemon("Lunala", { ability: new Ability("Shadow Shield"), evs: { hp: 252 } }))
+    const field = new Field()
+
+    const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
+
+    expect(damageResult.attacker.id).toEqual(secondAttacker.id)
+    expect(damageResult.description).toEqual("252 SpA Beads of Ruin Miraidon Electro Drift AND 252+ SpA Beads of Ruin Chi-Yu Overheat vs. 252 HP / 0 SpD Lunala: 214-253 (87.7 - 103.6%) -- 15.2% chance to OHKO")
+  })
+
   it("should calculate damage to two attackers without damage", () => {
     const attacker = new Pokemon("Jolteon", { moveSet: new MoveSet(new Move("Thunder"), new Move("Thunderbolt"), new Move("Quick Attack"), new Move("Protect")) })
     const secondAttacker = new Pokemon("Zapdos", { moveSet: new MoveSet(new Move("Thunder"), new Move("Thunderbolt"), new Move("Air Slash"), new Move("Protect")) })

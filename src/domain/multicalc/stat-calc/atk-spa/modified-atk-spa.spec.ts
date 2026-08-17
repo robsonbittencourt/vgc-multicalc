@@ -161,6 +161,94 @@ describe("Calculate final attack stat with modifiers", () => {
       expect(spa).toBe(117)
     })
 
+    it("should return modified attack when have Blaze ability and have exactly 33% of HP and use a physical move", () => {
+      const pokemon = new Pokemon("Blaziken", { nature: "Adamant", evs: { atk: 44 }, ability: new Ability("Blaze"), hpPercentage: 33 })
+
+      const atk = getFinalAttack(pokemon, new Move("Fire Punch"), new Field())
+
+      expect(atk).toBe(240)
+    })
+
+    it("should return raw attack when have Blaze ability and have 34% of HP and use a physical move", () => {
+      const pokemon = new Pokemon("Blaziken", { nature: "Adamant", evs: { atk: 44 }, ability: new Ability("Blaze"), hpPercentage: 34 })
+
+      const atk = getFinalAttack(pokemon, new Move("Fire Punch"), new Field())
+
+      expect(atk).toBe(160)
+    })
+
+    it("should return modified attack when have Blaze ability and the remaining HP is exactly a third", () => {
+      const pokemon = new Pokemon("Delphox", { nature: "Adamant", evs: { atk: 52 }, ability: new Ability("Blaze"), hpPercentage: 33 })
+
+      const atk = getFinalAttack(pokemon, new Move("Fire Punch"), new Field())
+
+      expect(pokemon.actualHp).toBe(pokemon.hp / 3)
+      expect(atk).toBe(157)
+    })
+
+    it("should return raw attack when have Blaze ability and the remaining HP is one point above a third", () => {
+      const pokemon = new Pokemon("Delphox", { nature: "Adamant", evs: { atk: 52 }, ability: new Ability("Blaze"), hpPercentage: 34 })
+
+      const atk = getFinalAttack(pokemon, new Move("Fire Punch"), new Field())
+
+      expect(pokemon.actualHp).toBe(pokemon.hp / 3 + 1)
+      expect(atk).toBe(105)
+    })
+
+    it("should return modified attack when have Torrent ability and the remaining HP is exactly a third", () => {
+      const pokemon = new Pokemon("Greninja", { nature: "Adamant", evs: { atk: 52 }, ability: new Ability("Torrent"), hpPercentage: 33 })
+
+      const atk = getFinalAttack(pokemon, new Move("Aqua Jet"), new Field())
+
+      expect(pokemon.actualHp).toBe(pokemon.hp / 3)
+      expect(atk).toBe(201)
+    })
+
+    it("should return raw attack when have Torrent ability and the remaining HP is one point above a third", () => {
+      const pokemon = new Pokemon("Greninja", { nature: "Adamant", evs: { atk: 52 }, ability: new Ability("Torrent"), hpPercentage: 34 })
+
+      const atk = getFinalAttack(pokemon, new Move("Aqua Jet"), new Field())
+
+      expect(pokemon.actualHp).toBe(pokemon.hp / 3 + 1)
+      expect(atk).toBe(134)
+    })
+
+    it("should return modified attack when have Swarm ability and the remaining HP is exactly a third", () => {
+      const pokemon = new Pokemon("Scolipede", { nature: "Adamant", evs: { atk: 52 }, ability: new Ability("Swarm"), hpPercentage: 33 })
+
+      const atk = getFinalAttack(pokemon, new Move("Bug Bite"), new Field())
+
+      expect(pokemon.actualHp).toBe(pokemon.hp / 3)
+      expect(atk).toBe(208)
+    })
+
+    it("should return raw attack when have Swarm ability and the remaining HP is one point above a third", () => {
+      const pokemon = new Pokemon("Scolipede", { nature: "Adamant", evs: { atk: 52 }, ability: new Ability("Swarm"), hpPercentage: 34 })
+
+      const atk = getFinalAttack(pokemon, new Move("Bug Bite"), new Field())
+
+      expect(pokemon.actualHp).toBe(pokemon.hp / 3 + 1)
+      expect(atk).toBe(139)
+    })
+
+    it("should return modified attack when have Overgrow ability and the remaining HP is exactly a third", () => {
+      const pokemon = new Pokemon("Serperior", { nature: "Adamant", evs: { atk: 52 }, ability: new Ability("Overgrow"), hpPercentage: 33 })
+
+      const atk = getFinalAttack(pokemon, new Move("Leaf Blade"), new Field())
+
+      expect(pokemon.actualHp).toBe(pokemon.hp / 3)
+      expect(atk).toBe(168)
+    })
+
+    it("should return raw attack when have Overgrow ability and the remaining HP is one point above a third", () => {
+      const pokemon = new Pokemon("Serperior", { nature: "Adamant", evs: { atk: 52 }, ability: new Ability("Overgrow"), hpPercentage: 34 })
+
+      const atk = getFinalAttack(pokemon, new Move("Leaf Blade"), new Field())
+
+      expect(pokemon.actualHp).toBe(pokemon.hp / 3 + 1)
+      expect(atk).toBe(112)
+    })
+
     it("should return modified attack when have Torrent ability and have less then 33% of HP and use a physical move", () => {
       const pokemon = new Pokemon("Empoleon", { nature: "Adamant", evs: { atk: 244 }, ability: new Ability("Torrent"), hpPercentage: 32 })
 
@@ -394,6 +482,15 @@ describe("Calculate final attack stat with modifiers", () => {
       const atk = getFinalAttack(pokemon, new Move("Protect"), field)
 
       expect(atk).toBe(266)
+    })
+
+    it("should return raw attack when have Orichalcum Pulse in the Sun but holds Utility Umbrella", () => {
+      const pokemon = new Pokemon("Koraidon", { nature: "Adamant", evs: { atk: 212 }, item: "Utility Umbrella" })
+      const field = new Field({ weather: "Sun" })
+
+      const atk = getFinalAttack(pokemon, new Move("Protect"), field)
+
+      expect(atk).toBe(200)
     })
 
     it("should return modified attack when have Orichalcum Pulse but not active", () => {
