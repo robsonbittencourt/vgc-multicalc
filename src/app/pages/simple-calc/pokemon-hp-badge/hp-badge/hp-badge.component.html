@@ -67,7 +67,7 @@
     }
 
     <path d="M 166,105 L 438,105 L 427,141 L 154,141 Z" fill="rgba(0,0,0,0.35)" />
-    <path [attr.d]="hpBarPath()" [attr.fill]="hpBarColor()" [attr.clip-path]="'url(#' + uid + '-hpBarClip)'" />
+    <path data-cy="hp-bar" [attr.d]="hpBarPath()" [attr.fill]="hpBarColor()" [attr.clip-path]="'url(#' + uid + '-hpBarClip)'" />
 
     <text x="141" y="70" font-family="Arial Black, sans-serif" font-weight="900" font-size="34" font-style="italic" fill="white" transform="translate(141, 70) skewX(-8) translate(-141, -70)">{{ name() }}</text>
 

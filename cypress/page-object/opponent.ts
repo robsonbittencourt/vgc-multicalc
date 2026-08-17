@@ -5,8 +5,7 @@ import { PokemonBuild } from "./pokemon-build"
 
 export class Opponent {
   get(pokemonName: string): OpponentPokemon {
-    const card = cy.get(`[data-cy="pokemon-card-${pokemonName}"]`)
-    return new OpponentPokemon(card)
+    return new OpponentPokemon(pokemonName)
   }
 
   selectAttacker(pokemonName: string): PokemonBuild {
@@ -79,6 +78,19 @@ export class Opponent {
     cy.get(`[data-cy="pokemon-card-${targetPokemonName}"]`).realMouseMove(0, 0, { position: "center" }).realHover().realMouseUp().wait(600)
   }
 
+  dragShort(sourcePokemonName: string, pixels: number) {
+    cy.get(`[data-cy="move-card-${sourcePokemonName}"]`).realMouseDown({ button: "left", position: "center" }).realMouseMove(0, 10, { position: "center" })
+    cy.get(`[data-cy="move-card-${sourcePokemonName}"]`).realMouseMove(0, pixels, { position: "center" }).realMouseUp().wait(600)
+  }
+
+  combineHandleIsVisible(pokemonName: string) {
+    cy.get(`[data-cy="move-card-${pokemonName}"]`).should("exist")
+  }
+
+  combineHandleIsHidden(pokemonName: string) {
+    cy.get(`[data-cy="move-card-${pokemonName}"]`).should("not.exist")
+  }
+
   separate(targetPokemonName: string) {
     cy.get(`[data-cy="separate-opponent-${targetPokemonName}"]`).click()
   }
@@ -90,6 +102,11 @@ export class Opponent {
   filterBySet(setLabel: string) {
     cy.get('[data-cy="set-filter"]').find("input").click({ force: true }).type(setLabel)
     cy.get("mat-option").contains(setLabel).click({ force: true })
+  }
+
+  setFilterOptions(text: string): Cypress.Chainable {
+    cy.get('[data-cy="set-filter"]').find("input").click({ force: true }).type(text)
+    return cy.get("mat-option")
   }
 
   typeSetFilter(text: string) {
@@ -112,5 +129,83 @@ export class Opponent {
   teamFilterOptions(): Cypress.Chainable {
     cy.get('[data-cy="team-filter"]').find("input").click({ force: true })
     return cy.get("mat-option")
+  }
+
+  toggleOrderByDamage() {
+    cy.get("mat-slide-toggle").contains("Order by Damage").click({ force: true })
+  }
+
+  toggleBestMove() {
+    cy.get("mat-slide-toggle").contains("Best Move").click({ force: true })
+  }
+
+  bestMoveToggleIsHidden() {
+    cy.get("mat-slide-toggle:contains('Best Move')").should("not.exist")
+  }
+
+  cardOrderIs(pokemonNames: string[]) {
+    cy.get('[data-cy^="pokemon-card-"]').should($cards => {
+      const names = [...$cards].map(card => card.getAttribute("data-cy")!.replace("pokemon-card-", ""))
+
+      expect(names).to.deep.eq(pokemonNames)
+    })
+  }
+
+  cardOrderStartsWith(pokemonName: string) {
+    cy.get('[data-cy^="pokemon-card-"]').first().should("have.attr", "data-cy", `pokemon-card-${pokemonName}`)
+  }
+
+  noRegulationDialogIsShown() {
+    cy.get("mat-dialog-container").should("not.exist")
+  }
+
+  metaButtonLabelIs(label: string) {
+    cy.get('[data-cy="add-meta-button"]').should("have.text", label)
+  }
+
+  removeMeta() {
+    cy.get('[data-cy="add-meta-button"]').click({ force: true })
+  }
+
+  exportCalcs(): ExportModal {
+    cy.get('[data-cy="export-calcs-button"]').click({ force: true })
+    return new ExportModal()
+  }
+
+  filterByPokemon(pokemonName: string) {
+    cy.get('[data-cy="pokemon-filter"]').find("input").click({ force: true }).type(pokemonName)
+    cy.get("mat-option").contains(pokemonName).click({ force: true })
+  }
+
+  clearPokemonFilter() {
+    cy.get('[data-cy="pokemon-filter"]').find("mat-icon").click({ force: true })
+  }
+
+  filterIsDisabled(filterName: string) {
+    cy.get(`[data-cy="${filterName}-filter"]`).find("input").should("be.disabled")
+  }
+
+  filterIsEnabled(filterName: string) {
+    cy.get(`[data-cy="${filterName}-filter"]`).find("input").should("not.be.disabled")
+  }
+
+  addIsHidden() {
+    cy.get('[data-cy="add-opponent-pokemon"]').should("not.exist")
+  }
+
+  isShowingAttackers() {
+    cy.get('[data-cy="opponent-widget"]').should("contain.text", "Opponent Attackers")
+  }
+
+  isShowingDefenders() {
+    cy.get('[data-cy="opponent-widget"]').should("contain.text", "Opponent Defenders")
+  }
+
+  selectRollLevel(level: "low" | "medium" | "high") {
+    cy.get('[data-cy="opponent-widget"]').find(`[data-cy="${level}-roll"] button`).click({ force: true })
+  }
+
+  rollLevelIs(level: "low" | "medium" | "high") {
+    cy.get('[data-cy="opponent-widget"]').find(`[data-cy="${level}-roll"]`).should("have.class", "mat-button-toggle-checked")
   }
 }

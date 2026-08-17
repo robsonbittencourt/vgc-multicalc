@@ -16,6 +16,7 @@
 // Import commands.js using ES2015 syntax:
 import "cypress-real-events"
 import "./commands"
+import "@page-object/legacy-compat"
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
@@ -110,6 +111,19 @@ before(() => {
       poke[name] = data as string
     })
   })
+
+  if (Cypress.browser.family === "chromium" && Cypress.browser.name !== "electron") {
+    cy.wrap(
+      Cypress.automation("remote:debugger:protocol", {
+        command: "Browser.grantPermissions",
+        params: {
+          origin: "http://localhost:4200",
+          permissions: ["clipboardReadWrite", "clipboardSanitizedWrite"]
+        }
+      }),
+      { log: false }
+    )
+  }
 })
 
 const allFeaturesEnabled = {

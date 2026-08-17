@@ -1,7 +1,7 @@
-<div class="probability-card">
-  <span class="title">{{ title() }}</span>
+<div class="probability-card" data-cy="general-probability-card">
+  <span class="title" data-cy="general-probability-card-title">{{ title() }}</span>
 
-  <div class="probability-row header">
+  <div class="probability-row header" data-cy="general-probability-card-header">
     @for (header of headers(); track $index) {
       <div class="cell" [style.flex]="getCellFlex($index)">
         {{ header }}

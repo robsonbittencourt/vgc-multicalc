@@ -1,10 +1,12 @@
-import { PokemonBuild } from "./pokemon-build"
-
 export class OpponentPokemon {
-  private _element: any
+  private pokemonName: string
 
-  constructor(element: any) {
-    this._element = element
+  constructor(pokemonName: string) {
+    this.pokemonName = pokemonName
+  }
+
+  private get _element(): any {
+    return cy.get(`[data-cy="pokemon-card-${this.pokemonName}"]`)
   }
 
   terastalyze(): OpponentPokemon {
@@ -12,9 +14,59 @@ export class OpponentPokemon {
     return this
   }
 
+  hasStatusIconsRow(): OpponentPokemon {
+    this._element.find(".status-icons").should("exist")
+    return this
+  }
+
+  hasNoStatusIconsRow(): OpponentPokemon {
+    this._element.find(".status-icons").should("not.exist")
+    return this
+  }
+
+  commanderIsActivated(): OpponentPokemon {
+    this._element.find('[data-cy="commander-activated"]').should("exist")
+    return this
+  }
+
+  activateCommander(): OpponentPokemon {
+    this._element.find('[data-cy="commander"]').click({ force: true })
+    return this
+  }
+
+  toggleMega(): OpponentPokemon {
+    this._element.find(".mega-icon-button").click({ force: true })
+    return this
+  }
+
+  megaIconIsVisible(): OpponentPokemon {
+    this._element.find(".mega-icon").should("exist")
+    return this
+  }
+
+  megaIsActive(): OpponentPokemon {
+    this._element.find(".mega-icon").should("have.class", "mega-active")
+    return this
+  }
+
+  megaIsNotActive(): OpponentPokemon {
+    this._element.find(".mega-icon").should("not.have.class", "mega-active")
+    return this
+  }
+
   doesNotCauseAnyDamage() {
     this.contains(`0 - 0%`)
     this.contains(`possibly the worst move ever`)
+  }
+
+  setLabelIs(setName: string): OpponentPokemon {
+    this._element.find('[data-cy="custom-set-label"]').should("have.text", `Set: ${setName}`)
+    return this
+  }
+
+  hasNoSetLabel(): OpponentPokemon {
+    this._element.find('[data-cy="custom-set-label"]').should("not.exist")
+    return this
   }
 
   damageIs(min: number, max: number): OpponentPokemon {
@@ -39,11 +91,6 @@ export class OpponentPokemon {
 
   cause4HKO(): OpponentPokemon {
     this.contains("guaranteed 4HKO")
-    return this
-  }
-
-  afterLeftoversRecovery(): OpponentPokemon {
-    this.contains("after Leftovers recovery")
     return this
   }
 
@@ -87,29 +134,23 @@ export class OpponentPokemon {
     return this
   }
 
-  possible7HKO(): OpponentPokemon {
-    this.contains("possible 7HKO")
+  descriptionContains(text: string): OpponentPokemon {
+    this.contains(text)
     return this
   }
 
-  possible8HKO(): OpponentPokemon {
-    this.contains("possible 8HKO")
+  attackerSpritesAre(pokemonNames: string[]): OpponentPokemon {
+    this._element.find(".left-pokemon app-pokemon-sprite img").should(($sprites: JQuery<HTMLElement>) => {
+      const names = [...$sprites].map(sprite => sprite.getAttribute("alt"))
+
+      expect(names).to.deep.eq(pokemonNames)
+    })
     return this
   }
 
-  possible9HKO(): OpponentPokemon {
-    this.contains("possible 9HKO")
+  descriptionDoesNotContain(text: string): OpponentPokemon {
+    this._element.parent().find(".damage-result").should("not.contain.text", text)
     return this
-  }
-
-  approximately3HKO(): OpponentPokemon {
-    this.contains(`approx. 3HKO`)
-    return this
-  }
-
-  edit(): PokemonBuild {
-    this._element.click({ force: true })
-    return new PokemonBuild("your-team")
   }
 
   delete() {

@@ -1,4 +1,12 @@
 export class Field {
+  optionIsAvailable(option: string) {
+    cy.get(`[data-cy="${option}"]`).should("exist")
+  }
+
+  optionIsNotAvailable(option: string) {
+    cy.get(`[data-cy="${option}"]`).should("not.exist")
+  }
+
   tabletsOfRuin() {
     this.clickOnButton("tablets-of-ruin")
   }
@@ -207,11 +215,33 @@ export class Field {
     cy.get(`[data-cy=${selector}]`).should("have.class", "mat-button-toggle-checked")
   }
 
+  onlyActiveOptionIs(selector: string) {
+    cy.get("app-field mat-button-toggle.mat-button-toggle-checked").should($options => {
+      const active = [...$options].map(option => option.getAttribute("data-cy")).filter(option => option !== null)
+
+      expect(active).to.deep.eq([selector])
+    })
+  }
+
+  optionIsVisible(selector: string) {
+    cy.get(`[data-cy=${selector}]`).should("be.visible")
+  }
+
+  optionIsHidden(selector: string) {
+    cy.get(`[data-cy=${selector}]`).should("not.exist")
+  }
+
+  sideLabelsAre(labels: string[]) {
+    cy.get("app-field .field-subtitle label").should($labels => {
+      expect([...$labels].map(label => label.textContent!.trim())).to.deep.eq(labels)
+    })
+  }
+
   isNotActiveOption(selector: string) {
     cy.get(`[data-cy=${selector}]`).should("not.have.class", "mat-button-toggle-checked")
   }
 
   private clickOnButton(selector: string) {
-    cy.get(`[data-cy=${selector}] button`).click({ force: true })
+    cy.get(`[data-cy=${selector}] button`).should("be.visible").click()
   }
 }

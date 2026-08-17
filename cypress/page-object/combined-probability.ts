@@ -20,21 +20,21 @@ export class CombinedProbability {
     cy.get('[data-cy="calc-type-select"]').find('[data-cy="input-select"]').should("contain.text", typeText)
   }
 
-  verifyResult(expectedValue: string) {
+  resultIs(expectedValue: string) {
     cy.get('[data-cy="combined-probability-result"]').within(() => {
       cy.get(".result-value").should("contain", expectedValue)
     })
   }
 
-  verifyInputValue(index: number, expectedValue: string) {
+  inputValueIs(index: number, expectedValue: string) {
     cy.get(`[data-cy="probability-input-${index}"]`).find("input").should("have.value", expectedValue)
   }
 
-  verifyContainerVisible() {
+  containerIsVisible() {
     this.container().should("be.visible")
   }
 
-  verifyCalcTypeSelected(type: "at-least-one" | "all" | "none") {
+  calcTypeIs(type: "at-least-one" | "all" | "none") {
     const typeText = type === "at-least-one" ? "At least one" : type === "all" ? "All" : "None"
     cy.get('[data-cy="calc-type-select"]').find('[data-cy="input-select"]').should("contain.text", typeText)
   }

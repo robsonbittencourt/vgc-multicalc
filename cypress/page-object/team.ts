@@ -1,5 +1,4 @@
 import { ExportModal } from "./export-modal"
-import { ImportModal } from "./import-modal"
 import { PokemonBuild } from "./pokemon-build"
 import { TeamMember } from "./team-member"
 
@@ -11,8 +10,27 @@ export class Team {
     return teamMember
   }
 
+  ctrlSelectTeamMember(pokemonName: string): TeamMember {
+    const teamMember = new TeamMember(pokemonName)
+    teamMember.ctrlSelect()
+
+    return teamMember
+  }
+
   selectPokemon(pokemonName: string): PokemonBuild {
     return this.selectTeamMember(pokemonName).pokemon()
+  }
+
+  tabHasDuplicateItemWarning(pokemonName: string) {
+    this.tabOf(pokemonName).find('[data-cy="duplicate-item-warning"]').should("exist")
+  }
+
+  tabHasNoDuplicateItemWarning(pokemonName: string) {
+    this.tabOf(pokemonName).find('[data-cy="duplicate-item-warning"]').should("not.exist")
+  }
+
+  private tabOf(pokemonName: string) {
+    return cy.get('[data-cy="team-member-tab"]').filter(`:contains(${pokemonName})`).first()
   }
 
   clickOnAdd(): PokemonBuild {
@@ -43,6 +61,38 @@ export class Team {
     cy.get('[data-cy="add-team-member-tab"]').should("have.length", 0)
   }
 
+  teamSizeIs(size: number) {
+    cy.get('[data-cy="team-member-tab"]').not(':has([data-cy="add-team-member-tab"])').should("have.length", size)
+  }
+
+  tabIsActive(pokemonName: string) {
+    this.tabOf(pokemonName).should("have.class", "active-tab")
+  }
+
+  addTabIsActive() {
+    cy.get('[data-cy="add-team-member-tab"]').parent().should("have.class", "active-tab")
+  }
+
+  pokemonTabsCountIs(pokemonName: string, count: number) {
+    cy.get('[data-cy="team-member-tab"]').filter(`:contains(${pokemonName})`).should("have.length", count)
+  }
+
+  duplicatePokemon() {
+    cy.get('[data-cy="duplicate-pokemon-button"]').click({ force: true })
+  }
+
+  duplicateIsVisible() {
+    cy.get('[data-cy="duplicate-pokemon-button"]').should("be.visible")
+  }
+
+  duplicateIsHidden() {
+    cy.get('[data-cy="duplicate-pokemon-button"]').should("not.exist")
+  }
+
+  deletePokemonIsHidden() {
+    cy.get('[data-cy="delete-from-team-button"]').should("not.exist")
+  }
+
   teamIs(pokemonNames: string[]) {
     pokemonNames.forEach(pokemon => {
       this.verifyIfExists(pokemon)
@@ -57,84 +107,22 @@ export class Team {
     cy.get('[data-cy="team-member-tab"]').should("have.length", 1)
   }
 
-  selectTeam(teamName: string) {
-    cy.get('[data-cy="team-box"]').filter(`:contains(${teamName})`).click({ force: true })
-    return new Team()
-  }
+  activeTabsAre(pokemonNames: string[]) {
+    cy.get('[data-cy="team-member-tab"].active-tab').should($tabs => {
+      const active = [...$tabs].map(tab => tab.textContent!.trim())
 
-  selectSecondTeam(teamName: string) {
-    cy.get('[data-cy="team-box"]').filter(`:contains(${teamName})`).click({ ctrlKey: true, force: true })
-    return new Team()
-  }
-
-  delete(teamName: string) {
-    this.selectTeam(teamName)
-    cy.get('[data-cy="delete-team-button"]').click({ force: true })
-  }
-
-  updateTeamName(teamName: string) {
-    cy.get('[data-cy="team-name"]').clear().type(teamName)
-  }
-
-  goToRightPage() {
-    cy.get('[data-cy="teams-to-right-button"]').click({ force: true })
-  }
-
-  goToLeftPage() {
-    cy.get('[data-cy="teams-to-left-button"]').click({ force: true })
-  }
-
-  pokemonOnEditNameIs(pokemonName: string) {
-    cy.get('[data-cy="pokemon-select"] input').should("have.value", pokemonName)
-  }
-
-  pokemonOnEditItemIs(itemName: string) {
-    cy.get('[data-cy="item"] input').should("have.value", itemName)
-  }
-
-  pokemonOnEditAbilityIs(abilityName: string) {
-    cy.get('[data-cy="ability"] input').should("have.value", abilityName)
-  }
-
-  pokemonOnEditIs(pokemonName: string, ability: string, teraType: string | undefined, item: string, nature?: string) {
-    cy.get("body").type("{esc}")
-    this.pokemonOnEditNameIs(pokemonName)
-    cy.get('[data-cy="ability"] input').should("have.value", ability)
-    if (teraType) {
-      cy.get('[data-cy="tera-type"]').contains(teraType)
-    }
-    cy.get('[data-cy="item"] input').should("have.value", item)
-    if (nature) {
-      cy.get('[data-cy="nature"]').contains(nature)
-    }
-  }
-
-  pokemonOnEditAttacksIs(attackOne: string, attackTwo: string, attackThree: string, attackFour: string) {
-    cy.get('[data-cy="pokemon-attack-1"] input').should("have.value", attackOne)
-    cy.get('[data-cy="pokemon-attack-2"] input').should("have.value", attackTwo)
-    cy.get('[data-cy="pokemon-attack-3"] input').should("have.value", attackThree)
-    cy.get('[data-cy="pokemon-attack-4"] input').should("have.value", attackFour)
-  }
-
-  pokemonOnEditEvsIs(hp: number, atk: number, def: number, spa: number, spd: number, spe: number) {
-    new PokemonBuild("your-team").ensureEvMode()
-    cy.get(`[data-cy="stat-hp"]`).find('[data-cy="ev-value"]').should("have.value", hp)
-    cy.get(`[data-cy="stat-atk"]`).find('[data-cy="ev-value"]').should("have.value", atk)
-    cy.get(`[data-cy="stat-def"]`).find('[data-cy="ev-value"]').should("have.value", def)
-    cy.get(`[data-cy="stat-spa"]`).find('[data-cy="ev-value"]').should("have.value", spa)
-    cy.get(`[data-cy="stat-spd"]`).find('[data-cy="ev-value"]').should("have.value", spd)
-    cy.get(`[data-cy="stat-spe"]`).find('[data-cy="ev-value"]').should("have.value", spe)
-  }
-
-  haveSomeEvs() {
-    cy.get(`[data-cy="remaining-evs"]`).should("not.have.value", 508)
-  }
-
-  natureIsNot(nature: string) {
-    cy.get('[data-cy="nature"]').should("not.contain", nature)
+      expect(active).to.have.length(pokemonNames.length)
+      pokemonNames.forEach(name => expect(active.join(" | ")).to.contain(name))
+    })
   }
 
   importPokemon(pokemonData: string, useEvs = true): PokemonBuild {
+    cy.get("body").then($body => {
+      if ($body.find('[data-cy="add-team-member-tab"]').length > 0) {
+        cy.get('[data-cy="add-team-member-tab"]').click({ force: true })
+      }
+    })
+
     new PokemonBuild("your-team").importPokemon(pokemonData, useEvs)
 
     const pokemonName = this.extractPokemonName(pokemonData)
@@ -145,12 +133,6 @@ export class Team {
     return new PokemonBuild("your-team")
   }
 
-  importPokepaste(pokepaste: string, useEvs = true) {
-    cy.get('[data-cy="teams-widget"]').find('[data-cy="import-pokemon"]').click()
-    new ImportModal().import(pokepaste, useEvs)
-    cy.get('[data-cy="team-box"].active-team').find("app-pokemon-sprite").should("exist")
-  }
-
   export(): ExportModal {
     cy.get('[data-cy="export-pokemon-from-team"]').contains("Export").click({ force: true })
     return new ExportModal()
@@ -158,14 +140,7 @@ export class Team {
 
   exportPokemon(pokemon: string): ExportModal {
     this.selectPokemon(pokemon)
-    cy.get('[data-cy="export-pokemon-from-team"]').contains("Export").click({ force: true })
-    return new ExportModal()
-  }
-
-  exportTeam(team: string): ExportModal {
-    this.selectTeam(team)
-    cy.get('[data-cy="export-team-button"]').click({ force: true })
-    return new ExportModal()
+    return this.export()
   }
 
   closeTab() {

@@ -1,5 +1,5 @@
 @if (copyMessageEnabled()) {
-  <mat-icon>check</mat-icon>
+  <mat-icon data-cy="copy-button-done">check</mat-icon>
 } @else {
-  <mat-icon class="copy-button" (click)="copyDamageResult()">content_copy</mat-icon>
+  <mat-icon class="copy-button" (click)="copyDamageResult()" data-cy="copy-button">content_copy</mat-icon>
 }

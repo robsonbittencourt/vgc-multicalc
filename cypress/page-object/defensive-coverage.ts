@@ -1,82 +1,68 @@
-export class DefensiveCoverage {
-  private container() {
-    return cy.get("app-defensive-coverage")
+import { CoverageTable } from "./coverage-table"
+
+export class DefensiveCoverage extends CoverageTable {
+  protected componentSelector = "app-defensive-coverage"
+  protected tableSelector = "defensive-coverage-table"
+
+  targetRowsAre(pokemonNames: string[]) {
+    this.pokemonRowsAre(pokemonNames)
   }
 
-  verifyTableNotExists() {
-    cy.get("app-defensive-coverage", { timeout: 10000 }).should("exist")
-    cy.get("app-defensive-coverage").find('[data-cy="defensive-coverage-table"]').should("not.exist")
+  pokemonHeadersCountIs(expectedCount: number) {
+    this.table().find("thead").find('[data-cy="pokemon-header"]').should("have.length", expectedCount)
   }
 
-  verifyTableVisible() {
-    this.container().find('[data-cy="defensive-coverage-table"]').should("be.visible")
+  cellForTargetIs(targetName: string, pokemonIndex: number, expectedValue: string) {
+    this.rows().should(rows => {
+      expect(this.cellForPokemonRow(rows, targetName, pokemonIndex)).to.eq(expectedValue)
+    })
   }
 
-  verifyPokemonHeaderContains(pokemonName: string) {
-    this.container().find('[data-cy="pokemon-header"]').find('[data-cy="pokemon-image-small"]').find("img").should("have.attr", "alt", pokemonName)
+  cellForTypeHasClass(typeName: string, pokemonIndex: number, expectedClass: string) {
+    this.rows().should(rows => {
+      const row = this.rowOfType(rows, typeName)
+
+      expect(row.querySelectorAll('[data-cy="effectiveness-cell"]')[pokemonIndex].className).to.contain(expectedClass)
+    })
   }
 
-  verifyPokemonHeadersCount(expectedCount: number) {
-    this.container().find('[data-cy="defensive-coverage-table"]').find("thead").find('[data-cy="pokemon-header"]').should("have.length", expectedCount)
+  totalWeakForTypeIs(typeName: string, expectedValue: number) {
+    this.totalForTypeIs(typeName, "total-cell-weak", expectedValue)
   }
 
-  verifyEffectivenessCellsCount(minCount: number) {
-    this.container().find('[data-cy="effectiveness-cell"]').should("have.length.at.least", minCount)
+  totalResistForTypeIs(typeName: string, expectedValue: number) {
+    this.totalForTypeIs(typeName, "total-cell-resist", expectedValue)
   }
 
-  verifyEffectivenessValue(rowIndex: number, pokemonIndex: number, expectedValue: string) {
-    this.container().find('[data-cy="defensive-coverage-table"]').find("tbody").find("tr").eq(rowIndex).find('[data-cy="effectiveness-cell"]').eq(pokemonIndex).should("contain", expectedValue)
+  totalWeakIs(rowIndex: number, expectedValue: number) {
+    this.table().find("tbody").find("tr").eq(rowIndex).find('[data-cy="total-cell-weak"]').should("contain", expectedValue.toString())
   }
 
-  verifyEffectivenessValue2x(rowIndex: number, pokemonIndex: number) {
-    this.verifyEffectivenessValue(rowIndex, pokemonIndex, "2x")
+  totalResistIs(rowIndex: number, expectedValue: number) {
+    this.table().find("tbody").find("tr").eq(rowIndex).find('[data-cy="total-cell-resist"]').should("contain", expectedValue.toString())
   }
 
-  verifyEffectivenessValue4x(rowIndex: number, pokemonIndex: number) {
-    this.verifyEffectivenessValue(rowIndex, pokemonIndex, "4x")
-  }
-
-  verifyEffectivenessValueHalf(rowIndex: number, pokemonIndex: number) {
-    this.verifyEffectivenessValue(rowIndex, pokemonIndex, "1/2")
-  }
-
-  verifyEffectivenessValueImmune(rowIndex: number, pokemonIndex: number) {
-    this.verifyEffectivenessValue(rowIndex, pokemonIndex, "immune")
-  }
-
-  verifyTotalWeak(rowIndex: number, expectedValue: number) {
-    this.container().find('[data-cy="defensive-coverage-table"]').find("tbody").find("tr").eq(rowIndex).find('[data-cy="total-cell-weak"]').should("contain", expectedValue.toString())
-  }
-
-  verifyTotalResist(rowIndex: number, expectedValue: number) {
-    this.container().find('[data-cy="defensive-coverage-table"]').find("tbody").find("tr").eq(rowIndex).find('[data-cy="total-cell-resist"]').should("contain", expectedValue.toString())
-  }
-
-  verifyTeraTypeToggleVisible() {
-    cy.get('[data-cy="consider-tera-type-toggle"]').should("be.visible")
+  teraTypeToggleIsVisible() {
+    this.toggleIsVisible("consider-tera-type-toggle")
   }
 
   toggleTeraType() {
-    cy.get('[data-cy="consider-tera-type-toggle"]').click()
+    this.clickToggle("consider-tera-type-toggle")
   }
 
-  verifyTeraTypeToggleChecked() {
+  teraTypeToggleIsChecked() {
     cy.get('[data-cy="consider-tera-type-toggle"]').should("have.class", "mat-mdc-slide-toggle-checked")
   }
 
-  verifyTeraBlastToggleNotExists() {
-    cy.get('[data-cy="consider-tera-blast-toggle-defensive"]').should("not.exist")
+  teraBlastToggleIsHidden() {
+    this.toggleIsHidden("consider-tera-blast-toggle-defensive")
   }
 
-  verifyTeraBlastToggleVisible() {
-    cy.get('[data-cy="consider-tera-blast-toggle-defensive"]').should("be.visible")
+  teraBlastToggleIsVisible() {
+    this.toggleIsVisible("consider-tera-blast-toggle-defensive")
   }
 
   toggleTeraBlast() {
-    cy.get('[data-cy="consider-tera-blast-toggle-defensive"]').click()
-  }
-
-  verifyTeraBlastToggleChecked() {
-    cy.get('[data-cy="consider-tera-blast-toggle-defensive"]').should("have.class", "mat-mdc-slide-toggle-checked")
+    this.clickToggle("consider-tera-blast-toggle-defensive")
   }
 }

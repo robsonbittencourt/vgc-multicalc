@@ -1,7 +1,7 @@
 @if (visible()) {
-  <div class="overlay">
+  <div class="overlay" data-cy="announcement-popup">
     <div class="popup">
-      <h2 class="title">{{ title() }}</h2>
+      <h2 class="title" data-cy="announcement-title">{{ title() }}</h2>
       @for (item of items(); track item.text) {
         <p class="message">{{ item.text }}</p>
         @if (item.image) {
@@ -9,8 +9,8 @@
         }
       }
       <div class="actions">
-        <button mat-button disableRipple (click)="close()" class="close-button">Close</button>
-        <button mat-flat-button disableRipple (click)="dismissForever()">Don't show again</button>
+        <button mat-button disableRipple (click)="close()" class="close-button" data-cy="announcement-close">Close</button>
+        <button mat-flat-button disableRipple (click)="dismissForever()" data-cy="announcement-dismiss-forever">Don't show again</button>
       </div>
     </div>
   </div>

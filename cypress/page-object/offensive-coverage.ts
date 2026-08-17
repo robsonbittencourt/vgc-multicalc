@@ -1,85 +1,62 @@
-export class OffensiveCoverage {
-  private container() {
-    return cy.get("app-offensive-coverage")
+import { CoverageTable } from "./coverage-table"
+
+export class OffensiveCoverage extends CoverageTable {
+  protected componentSelector = "app-offensive-coverage"
+  protected tableSelector = "offensive-coverage-table"
+
+  attackerRowsAre(pokemonNames: string[]) {
+    this.pokemonRowsAre(pokemonNames)
   }
 
-  verifyTableNotExists() {
-    this.container().find('[data-cy="offensive-coverage-table"]').should("not.exist")
+  targetColumnsAre(pokemonNames: string[]) {
+    this.container()
+      .find(`[data-cy="${this.tableSelector}"] thead th.pokemon-header`)
+      .should(headers => {
+        const names = [...headers].map(h => h.querySelector('[data-cy="pokemon-image-small"] img')!.getAttribute("alt"))
+
+        expect(names).to.deep.eq(pokemonNames)
+      })
   }
 
-  verifyTableVisible() {
-    this.container().find('[data-cy="offensive-coverage-table"]').should("be.visible")
+  cellForAttackerIs(attackerName: string, targetIndex: number, expectedValue: string) {
+    this.rows().should(rows => {
+      expect(this.cellForPokemonRow(rows, attackerName, targetIndex)).to.eq(expectedValue)
+    })
   }
 
-  verifyPokemonHeaderContains(pokemonName: string) {
-    this.container().find('[data-cy="pokemon-header"]').find('[data-cy="pokemon-image-small"]').find("img").should("have.attr", "alt", pokemonName)
+  totalSuperEffectiveForTypeIs(typeName: string, expectedValue: number) {
+    this.totalForTypeIs(typeName, "total-cell-super-effective", expectedValue)
   }
 
-  verifyPokemonHeadersCount(expectedCount: number) {
-    this.container().find('[data-cy="pokemon-header"]').should("have.length", expectedCount)
+  totalNotVeryEffectiveIs(rowIndex: number, expectedValue: number) {
+    this.table().find("tbody").find("tr").eq(rowIndex).find('[data-cy="total-cell-not-very-effective"]').should("contain", expectedValue.toString())
   }
 
-  verifyEffectivenessCellsCount(minCount: number) {
-    this.container().find('[data-cy="effectiveness-cell"]').should("have.length.at.least", minCount)
+  totalSuperEffectiveIs(rowIndex: number, expectedValue: number) {
+    this.table().find("tbody").find("tr").eq(rowIndex).find('[data-cy="total-cell-super-effective"]').should("contain", expectedValue.toString())
   }
 
-  verifyEffectivenessValue(rowIndex: number, pokemonIndex: number, expectedValue: string) {
-    this.container().find('[data-cy="offensive-coverage-table"]').find("tbody").find("tr").eq(rowIndex).find('[data-cy="effectiveness-cell"]').eq(pokemonIndex).should("contain", expectedValue)
+  teraTypeToggleIsHidden() {
+    this.toggleIsHidden("consider-tera-type-toggle-offensive")
   }
 
-  verifyEffectivenessValue2x(rowIndex: number, pokemonIndex: number) {
-    this.verifyEffectivenessValue(rowIndex, pokemonIndex, "2x")
-  }
-
-  verifyEffectivenessValue4x(rowIndex: number, pokemonIndex: number) {
-    this.verifyEffectivenessValue(rowIndex, pokemonIndex, "4x")
-  }
-
-  verifyEffectivenessValueHalf(rowIndex: number, pokemonIndex: number) {
-    this.verifyEffectivenessValue(rowIndex, pokemonIndex, "1/2")
-  }
-
-  verifyEffectivenessValueImmune(rowIndex: number, pokemonIndex: number) {
-    this.verifyEffectivenessValue(rowIndex, pokemonIndex, "immune")
-  }
-
-  verifyTotalNotVeryEffective(rowIndex: number, expectedValue: number) {
-    this.container().find('[data-cy="offensive-coverage-table"]').find("tbody").find("tr").eq(rowIndex).find('[data-cy="total-cell-not-very-effective"]').should("contain", expectedValue.toString())
-  }
-
-  verifyTotalSuperEffective(rowIndex: number, expectedValue: number) {
-    this.container().find('[data-cy="offensive-coverage-table"]').find("tbody").find("tr").eq(rowIndex).find('[data-cy="total-cell-super-effective"]').should("contain", expectedValue.toString())
-  }
-
-  verifyTeraTypeToggleNotExists() {
-    cy.get('[data-cy="consider-tera-type-toggle-offensive"]').should("not.exist")
-  }
-
-  verifyTeraTypeToggleVisible() {
-    cy.get('[data-cy="consider-tera-type-toggle-offensive"]').should("be.visible")
+  teraTypeToggleIsVisible() {
+    this.toggleIsVisible("consider-tera-type-toggle-offensive")
   }
 
   toggleTeraType() {
-    cy.get('[data-cy="consider-tera-type-toggle-offensive"]').click()
+    this.clickToggle("consider-tera-type-toggle-offensive")
   }
 
-  verifyTeraTypeToggleChecked() {
-    cy.get('[data-cy="consider-tera-type-toggle-offensive"]').should("have.class", "mat-mdc-slide-toggle-checked")
+  teraBlastToggleIsHidden() {
+    this.toggleIsHidden("consider-tera-blast-toggle-offensive")
   }
 
-  verifyTeraBlastToggleNotExists() {
-    cy.get('[data-cy="consider-tera-blast-toggle-offensive"]').should("not.exist")
-  }
-
-  verifyTeraBlastToggleVisible() {
-    cy.get('[data-cy="consider-tera-blast-toggle-offensive"]').should("be.visible")
+  teraBlastToggleIsVisible() {
+    this.toggleIsVisible("consider-tera-blast-toggle-offensive")
   }
 
   toggleTeraBlast() {
-    cy.get('[data-cy="consider-tera-blast-toggle-offensive"]').click()
-  }
-
-  verifyTeraBlastToggleChecked() {
-    cy.get('[data-cy="consider-tera-blast-toggle-offensive"]').should("have.class", "mat-mdc-slide-toggle-checked")
+    this.clickToggle("consider-tera-blast-toggle-offensive")
   }
 }

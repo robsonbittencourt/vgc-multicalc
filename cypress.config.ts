@@ -6,6 +6,15 @@ export default defineConfig({
     viewportWidth: 1920,
     experimentalRunAllSpecs: true,
     screenshotOnRunFailure: false,
-    allowCypressEnv: false
+    allowCypressEnv: false,
+    setupNodeEvents(on) {
+      on("before:browser:launch", (browser, launchOptions) => {
+        if (browser.family === "chromium" && browser.name !== "electron") {
+          launchOptions.args.push("--disable-features=BlockInsecureClipboardRead")
+        }
+
+        return launchOptions
+      })
+    }
   }
 })

@@ -10,7 +10,7 @@
 
       <div class="input-column">
         <label>Date of Birth</label>
-        <input type="text" [placeholder]="datePlaceholder" maxlength="10" [value]="dateOfBirth()" (input)="maskDate($event)" />
+        <input type="text" [placeholder]="datePlaceholder" maxlength="10" [value]="dateOfBirth()" (input)="maskDate($event)" data-cy="date-of-birth" />
       </div>
 
       <app-input [label]="'Switch Profile Name'" [(value)]="switchProfileName" />
@@ -36,7 +36,7 @@
     </div>
   </mat-dialog-content>
   <mat-dialog-actions align="end">
-    <button mat-flat-button mat-dialog-close>Cancel</button>
-    <button mat-flat-button cdkFocusInitial (click)="export()">Export</button>
+    <button mat-flat-button mat-dialog-close data-cy="team-list-cancel">Cancel</button>
+    <button mat-flat-button cdkFocusInitial (click)="export()" data-cy="team-list-export">Export</button>
   </mat-dialog-actions>
 </div>

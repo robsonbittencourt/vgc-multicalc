@@ -11,7 +11,7 @@
   [attr.data-cy]="'pokemon-card-' + effectiveTarget().pokemon.displayName">
   <div class="body">
     @if (matchingCustomSetAttacker() || matchingCustomSetSecondAttacker()) {
-      <span class="attacker-set-label">
+      <span class="attacker-set-label" data-cy="attacker-set-label">
         Set:
         @if (matchingCustomSetAttacker() && matchingCustomSetSecondAttacker()) {
           {{ matchingCustomSetAttacker()!.setName }} - {{ matchingCustomSetSecondAttacker()!.setName }}
@@ -108,7 +108,7 @@
                 }
 
                 @if (collapsible()) {
-                  <button class="icon-button" (click)="toggleExpanded()">
+                  <button class="icon-button" (click)="toggleExpanded()" data-cy="toggle-card-expansion">
                     <mat-icon>{{ expanded() ? "expand_less" : "expand_more" }}</mat-icon>
                   </button>
                 }
@@ -117,7 +117,7 @@
           </div>
 
           @if (matchingCustomSet()) {
-            <span class="custom-set-label">Set: {{ matchingCustomSet()!.setName }}</span>
+            <span class="custom-set-label" data-cy="custom-set-label">Set: {{ matchingCustomSet()!.setName }}</span>
           }
         </div>
       </div>

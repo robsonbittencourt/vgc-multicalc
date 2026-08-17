@@ -1,14 +1,19 @@
 import { PokemonBuild } from "./pokemon-build"
 
 export class TeamMember {
-  private _element: any
+  constructor(private pokemonName: string) {}
 
-  constructor(pokemonName: string) {
-    this._element = cy.get('[data-cy="team-member-tab"]').contains(pokemonName)
+  private element() {
+    return cy.get('[data-cy="team-member-tab"]').filter(`:contains(${this.pokemonName})`).first()
   }
 
   select() {
-    this._element.click({ force: true })
+    this.element().click({ force: true })
+    this.element().should("have.class", "active-tab")
+  }
+
+  ctrlSelect() {
+    this.element().click({ force: true, ctrlKey: true })
   }
 
   pokemon(): PokemonBuild {

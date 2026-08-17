@@ -36,6 +36,18 @@ describe("parsePokepasteText", () => {
     await expect(parsePokepasteText(paste, true)).rejects.toBeInstanceOf(InvalidSpsError)
   })
 
+  it("should accept a paste that spends the whole SP budget when SP mode is on", async () => {
+    const paste = "Togepi @ Leftovers\nAbility: Serene Grace\nTera Type: Fairy\nEVs: 1 HP / 32 Def / 32 SpA / 1 SpD\nModest Nature\n- Dazzling Gleam"
+
+    const { pokemon } = await parsePokepasteText(paste, true)
+
+    expect(pokemon.length).toBe(1)
+    expect(pokemon[0].evs.hp).toBe(4)
+    expect(pokemon[0].evs.def).toBe(252)
+    expect(pokemon[0].evs.spa).toBe(252)
+    expect(pokemon[0].evs.spd).toBe(4)
+  })
+
   it("should accept a paste with valid SP values when SP mode is on", async () => {
     const paste = "Togepi @ Leftovers\nAbility: Serene Grace\nTera Type: Fairy\nEVs: 32 HP / 32 SpA\nModest Nature\n- Dazzling Gleam"
 

@@ -27,10 +27,10 @@
   <div class="right-header">
     @if (userDataLink) {
       <app-copy-button [value]="userDataLink" />
-      <a target="_blank" [href]="userDataLink">Link</a>
+      <a target="_blank" [href]="userDataLink" data-cy="user-data-link">Link</a>
     }
-    <button mat-flat-button color="link" (click)="uploadData()">Share your calcs</button>
-    <button mat-flat-button color="link" (click)="enableHowToUse()">How to use</button>
+    <button mat-flat-button color="link" (click)="uploadData()" data-cy="share-calcs-button">Share your calcs</button>
+    <button mat-flat-button color="link" (click)="enableHowToUse()" data-cy="how-to-use-button">How to use</button>
     <a target="_blank" href="https://twitter.com/rluizv" aria-label="Twitter"><img class="icon" src="assets/icons/twitter.svg" width="30" height="30" alt="Twitter" /></a>
     <a target="_blank" href="https://github.com/robsonbittencourt/vgc-multicalc" aria-label="GitHub"><img class="icon" src="assets/icons/github.svg" width="30" height="30" alt="GitHub" /></a>
     <a href="https://ko-fi.com/B0B2VFTC3" target="_blank" aria-label="Buy Me a Coffee at ko-fi.com"><img style="border: 0px; margin-top: 0.2em; height: 2.2em" src="assets/icons/kofi.png" border="0" alt="Buy Me a Coffee at ko-fi.com" /></a>

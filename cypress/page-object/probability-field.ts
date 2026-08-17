@@ -7,10 +7,6 @@ export class ProbabilityField {
     cy.get('[data-cy="probability-field-weather-sun"]').click()
   }
 
-  toggleSand() {
-    cy.get('[data-cy="probability-field-weather-sand"]').click()
-  }
-
   toggleSnow() {
     cy.get('[data-cy="probability-field-weather-snow"]').click()
   }

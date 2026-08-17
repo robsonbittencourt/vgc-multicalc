@@ -5,22 +5,22 @@
     }
 
     @if (speedInsights()) {
-      <div class="card">
+      <div class="card" data-cy="speed-insights-card">
         <div class="speed-values">
-          <span class="pokemon-name">{{ pokemonName() }}</span>
+          <span class="pokemon-name" data-cy="speed-insights-name">{{ pokemonName() }}</span>
           <span
-            >Base: <b>{{ base() }}</b></span
+            >Base: <b data-cy="speed-insights-base">{{ base() }}</b></span
           >
           @if (isTrSpeed()) {
-            <span
-              >Negative Nature, {{ minSpLabel() }}: <b>{{ minWithNegativeNature() }}</b></span
+            <span data-cy="speed-insights-negative-row"
+              >Negative Nature, {{ minSpLabel() }}: <b data-cy="speed-insights-negative">{{ minWithNegativeNature() }}</b></span
             >
           }
           <span
-            >Neutral Nature: <b>{{ min() }}</b> to <b>{{ max() }}</b></span
+            >Neutral Nature: <b data-cy="speed-insights-min">{{ min() }}</b> to <b data-cy="speed-insights-max">{{ max() }}</b></span
           >
-          <span
-            >Positive Nature, {{ maxSpLabel() }}: <b>{{ maxWithNature() }}</b></span
+          <span data-cy="speed-insights-positive-row"
+            >Positive Nature, {{ maxSpLabel() }}: <b data-cy="speed-insights-positive">{{ maxWithNature() }}</b></span
           >
         </div>
         <app-pokemon-sprite [name]="pokemonName()" />
@@ -30,7 +30,7 @@
     @if (usageInsights().length > 0) {
       <p>In the Regulation {{ regulation() }} metagame, excluding external Speed modifications (e.g., Abilities, Choice Scarf):</p>
 
-      <ul class="custom-list">
+      <ul class="custom-list" data-cy="speed-insights-usage">
         <li>
           <b>{{ firstInsight().speed }}</b> Speed is used by <b>{{ firstInsight().percentage }}%</b> of {{ pokemonName() }} and allows it to outspeed or tie with <b>{{ firstInsight().percentile }}%</b> of others {{ pokemonName() }}.
           @if (firstInsightIsMoreUsed()) {
@@ -62,7 +62,7 @@
 
         <ul class="custom-list">
           @if (boosterInsight()) {
-            <li>
+            <li data-cy="speed-insights-booster">
               {{ pokemonName() }} can reach <b>{{ boosterInsight()!.speed }}</b> Speed with its ability. <b>{{ boosterInsight()!.percentage }}%</b> of them use the item Booster Energy.
               @if (boosterIsMoreUsed()) {
                 This makes it the most common item.
@@ -71,7 +71,7 @@
           }
 
           @if (scarfInsight()) {
-            <li>
+            <li data-cy="speed-insights-scarf">
               {{ pokemonName() }} can reach <b>{{ scarfInsight()!.speed }}</b> Speed with Choice Scarf. <b>{{ scarfInsight()!.percentage }}%</b> of them use this item.
               @if (choiceScarfIsMoreUsed()) {
                 This makes it the most common item.

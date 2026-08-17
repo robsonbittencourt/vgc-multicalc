@@ -8,6 +8,7 @@
       <app-input-select class="select-mode" label="Mode" data-cy="speed-calc-mode" [allValues]="optionsStore.availableModes()" [value]="optionsStore.mode()" (valueChange)="optionsStore.updateMode($event)" />
       <app-input-autocomplete
         class="select-pokemon"
+        data-cy="speed-calc-target"
         label="Pokémon"
         [enableClear]="optionsStore.targetName() !== ''"
         [allValues]="optionsStore.pokemonNamesByReg()"

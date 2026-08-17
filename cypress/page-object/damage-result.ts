@@ -23,15 +23,15 @@ export class DamageResult {
   }
 
   withHighRoll() {
-    this.baseElement().find('[data-cy="high-roll"]').click()
+    this.baseElement().find('[data-cy="high-roll"] button').click({ force: true })
   }
 
   withMediumRoll() {
-    this.baseElement().find('[data-cy="medium-roll"]').click()
+    this.baseElement().find('[data-cy="medium-roll"] button').click({ force: true })
   }
 
   withLowRoll() {
-    this.baseElement().find('[data-cy="low-roll"]').click()
+    this.baseElement().find('[data-cy="low-roll"] button').click({ force: true })
   }
 
   surviveWithThisHpAmmount(hp: number) {
@@ -93,6 +93,67 @@ export class DamageResult {
 
   afterLeechSeedDamage() {
     this.baseElement().contains("Leech Seed damage")
+    return this
+  }
+
+  moveChipIsDisabled(position: number) {
+    this.baseElement()
+      .find('[data-cy="moves"] mat-chip-option')
+      .eq(position - 1)
+      .should("have.class", "mat-mdc-chip-disabled")
+    return this
+  }
+
+  rollsHaveHits(hits: number) {
+    this.baseElement().find('[data-cy="damage-rolls"]').should("contain.text", `( ${hits} hits )`)
+    return this
+  }
+
+  highlightedRollIs(position: number) {
+    this.baseElement().find('[data-cy="damage-rolls"] span.roll-highlight').should("have.length", 1)
+    this.baseElement()
+      .find('[data-cy="damage-rolls"] span')
+      .eq((position - 1) * 2)
+      .should("have.class", "roll-highlight")
+    return this
+  }
+
+  rollLevelIs(level: "low" | "medium" | "high") {
+    this.baseElement().find(`[data-cy="${level}-roll"]`).should("have.class", "mat-button-toggle-checked")
+    return this
+  }
+
+  hpBarColorIs(color: "green" | "yellow" | "red") {
+    const gradients = { green: "hpGreen", yellow: "hpYellow", red: "hpRed" }
+    this.baseElement().find('[data-cy="hp-bar"]').should("have.attr", "fill").and("contain", gradients[color])
+    return this
+  }
+
+  hpBarIsEmpty() {
+    this.baseElement().find('[data-cy="hp-bar"]').should("have.attr", "d", "M 166,105 L 166,105 L 154,141 L 154,141 Z")
+    return this
+  }
+
+  remainingHpIsZero() {
+    this.baseElement()
+      .find('[data-cy="hp-value"] text')
+      .first()
+      .should(($el: JQuery<HTMLElement>) => expect($el.text().trim()).to.equal("0"))
+    return this
+  }
+
+  hasStatusIcon() {
+    this.baseElement().find("[app-champions-status-icon]").should("exist")
+    return this
+  }
+
+  copyDescription() {
+    this.baseElement().find("app-copy-button .copy-button").click({ force: true })
+    return this
+  }
+
+  copyWasConfirmed() {
+    this.baseElement().find("app-copy-button mat-icon").should("contain.text", "check")
     return this
   }
 

@@ -4,7 +4,7 @@
       <app-pokemon-sprite [name]="editingCustomSetPokemon()!.name" />
     </div>
 
-    <div class="team-tab add-tab" (click)="exitCustomSetEditMode()">
+    <div class="team-tab add-tab" (click)="exitCustomSetEditMode()" data-cy="close-edit-custom-set-tab-mobile">
       <mat-icon>close</mat-icon>
     </div>
   } @else if (editingTarget()) {
