@@ -312,6 +312,11 @@ body {
   text-align: center;
 }
 
+.cdk-overlay-pane:has(.not-clickable),
+.not-clickable {
+  pointer-events: none;
+}
+
 [hidden] {
   display: none !important;
 }
