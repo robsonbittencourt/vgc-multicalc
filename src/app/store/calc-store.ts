@@ -868,13 +868,13 @@ export class CalcStore extends signalStore(
     patchState(this, state => {
       const activeTargetIndex = this.activeTargetIndex(pokemonId)
       const updatedTargets = [...state.targetsState]
-      const target = this.targets()[activeTargetIndex]
+      const target = updatedTargets[activeTargetIndex]
 
       const key = target.pokemon.id === pokemonId ? "pokemon" : "secondPokemon"
-      const currentPokemon = pokemonToState(target[key]!)
+      const currentPokemon = target[key]!
 
       const updatedPokemon = { ...currentPokemon, ...updateFn(currentPokemon) }
-      updatedTargets[activeTargetIndex] = { ...updatedTargets[activeTargetIndex], [key]: updatedPokemon }
+      updatedTargets[activeTargetIndex] = { ...target, [key]: updatedPokemon }
 
       return { targetsState: updatedTargets }
     })

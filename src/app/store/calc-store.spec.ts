@@ -653,6 +653,72 @@ describe("Calc Store", () => {
         expect(store.team().activePokemon()!.abilityOn).toBe(true)
       })
 
+      it("should enable Protosynthesis for a Pokémon on the opponent side", () => {
+        const targetId = store.addPokemonToTargets("Roaring Moon")
+        store.ability(targetId, "Protosynthesis")
+
+        store.toggleProtosynthesis(true)
+
+        expect(store.targets().find(target => target.pokemon.id === targetId)!.pokemon.abilityOn).toBe(true)
+      })
+
+      it("should disable Protosynthesis for a Pokémon on the opponent side", () => {
+        const targetId = store.addPokemonToTargets("Roaring Moon")
+        store.ability(targetId, "Protosynthesis")
+        store.toggleProtosynthesis(true)
+
+        store.toggleProtosynthesis(false)
+
+        expect(store.targets().find(target => target.pokemon.id === targetId)!.pokemon.abilityOn).toBe(false)
+      })
+
+      it("should enable Quark Drive for a Pokémon on the opponent side", () => {
+        const targetId = store.addPokemonToTargets("Iron Thorns")
+        store.ability(targetId, "Quark Drive")
+
+        store.toggleQuarkDrive(true)
+
+        expect(store.targets().find(target => target.pokemon.id === targetId)!.pokemon.abilityOn).toBe(true)
+      })
+
+      it("should enable Protosynthesis for the two Pokémon of One vs One at once", () => {
+        const leftId = store.leftPokemon().id
+        const rightId = store.rightPokemon().id
+        store.name(leftId, "Great Tusk")
+        store.ability(leftId, "Protosynthesis")
+        store.name(rightId, "Flutter Mane")
+        store.ability(rightId, "Protosynthesis")
+
+        store.toggleProtosynthesis(true)
+
+        expect(store.leftPokemon().abilityOn).toBe(true)
+        expect(store.rightPokemon().abilityOn).toBe(true)
+      })
+
+      it("should enable Protosynthesis for the team, the opponents and the two sides in the same toggle", () => {
+        const targetId = store.addPokemonToTargets("Roaring Moon")
+        store.ability(targetId, "Protosynthesis")
+        store.name(defaultId, "Great Tusk")
+        store.ability(defaultId, "Protosynthesis")
+        store.name(store.leftPokemon().id, "Flutter Mane")
+        store.ability(store.leftPokemon().id, "Protosynthesis")
+
+        store.toggleProtosynthesis(true)
+
+        expect(store.team().activePokemon()!.abilityOn).toBe(true)
+        expect(store.targets().find(target => target.pokemon.id === targetId)!.pokemon.abilityOn).toBe(true)
+        expect(store.leftPokemon().abilityOn).toBe(true)
+      })
+
+      it("should not enable Protosynthesis for an opponent that has another ability", () => {
+        const targetId = store.addPokemonToTargets("Roaring Moon")
+        store.ability(targetId, "Intimidate")
+
+        store.toggleProtosynthesis(true)
+
+        expect(store.targets().find(target => target.pokemon.id === targetId)!.pokemon.abilityOn).toBe(false)
+      })
+
       it("should replace every bonus boost at once", () => {
         store.bonusBoosts(defaultId, { atk: 2, spe: 1 })
 
