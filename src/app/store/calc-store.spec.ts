@@ -681,6 +681,39 @@ describe("Calc Store", () => {
         expect(store.targets().find(target => target.pokemon.id === targetId)!.pokemon.abilityOn).toBe(true)
       })
 
+      it("should disable Protosynthesis after the teams were rebuilt while it was enabled", () => {
+        store.name(defaultId, "Roaring Moon")
+        store.ability(defaultId, "Protosynthesis")
+        store.toggleProtosynthesis(true)
+
+        store.updateTeams(store.teams())
+        store.toggleProtosynthesis(false)
+
+        expect(store.team().activePokemon()!.abilityOn).toBe(false)
+      })
+
+      it("should disable Protosynthesis after the active team was replaced while it was enabled", () => {
+        store.name(defaultId, "Roaring Moon")
+        store.ability(defaultId, "Protosynthesis")
+        store.toggleProtosynthesis(true)
+
+        store.replaceActiveTeam(store.team())
+        store.toggleProtosynthesis(false)
+
+        expect(store.team().activePokemon()!.abilityOn).toBe(false)
+      })
+
+      it("should disable Protosynthesis after the targets were rebuilt while it was enabled", () => {
+        const targetId = store.addPokemonToTargets("Roaring Moon")
+        store.ability(targetId, "Protosynthesis")
+        store.toggleProtosynthesis(true)
+
+        store.updateTargets(store.targets())
+        store.toggleProtosynthesis(false)
+
+        expect(store.targets().find(target => target.pokemon.id === targetId)!.pokemon.abilityOn).toBe(false)
+      })
+
       it("should enable Protosynthesis for the two Pokémon of One vs One at once", () => {
         const leftId = store.leftPokemon().id
         const rightId = store.rightPokemon().id

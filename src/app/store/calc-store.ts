@@ -532,7 +532,7 @@ export class CalcStore extends signalStore(
   addTeam(newTeam: Team) {
     patchState(this, state => {
       const updatedTeams = [...state.teamsState]
-      updatedTeams.push(teamToState(newTeam))
+      updatedTeams.push(this.teamToStateKeepingAbilityFlags(newTeam))
 
       return { teamsState: updatedTeams }
     })
@@ -543,7 +543,7 @@ export class CalcStore extends signalStore(
 
     patchState(this, state => {
       const updatedTeams = [...state.teamsState]
-      updatedTeams[teamIndex] = teamToState(newTeam)
+      updatedTeams[teamIndex] = this.teamToStateKeepingAbilityFlags(newTeam)
 
       return { teamsState: updatedTeams }
     })
@@ -554,10 +554,24 @@ export class CalcStore extends signalStore(
 
     patchState(this, state => {
       const updatedTeams = [...state.teamsState]
-      updatedTeams[activeTeamIndex] = teamToState(newTeam)
+      updatedTeams[activeTeamIndex] = this.teamToStateKeepingAbilityFlags(newTeam)
 
       return { teamsState: updatedTeams }
     })
+  }
+
+  private teamToStateKeepingAbilityFlags(team: Team): TeamState {
+    const teamState = teamToState(team)
+
+    return { ...teamState, teamMembers: teamState.teamMembers.map(member => ({ ...member, pokemon: this.keepAbilityFlags(member.pokemon) })) }
+  }
+
+  private keepAbilityFlags(pokemon: PokemonState): PokemonState {
+    const previous = this.findPokemonStateById(pokemon.id)
+
+    if (!previous || previous.ability !== pokemon.ability) return pokemon
+
+    return { ...pokemon, abilityOn: previous.abilityOn, automaticAbilityOn: previous.automaticAbilityOn }
   }
 
   updateActiveTeamName(teamName: string) {
@@ -626,7 +640,7 @@ export class CalcStore extends signalStore(
   }
 
   updateTeams(teams: Team[]) {
-    const teamsState = teams.map(team => teamToState(team))
+    const teamsState = teams.map(team => this.teamToStateKeepingAbilityFlags(team))
     patchState(this, () => ({ teamsState: teamsState }))
   }
 
@@ -666,8 +680,14 @@ export class CalcStore extends signalStore(
   }
 
   updateTargets(targets: Target[]) {
-    const targetsState = targets.map(target => targetToState(target))
+    const targetsState = targets.map(target => this.targetToStateKeepingAbilityFlags(target))
     patchState(this, () => ({ targetsState: targetsState }))
+  }
+
+  private targetToStateKeepingAbilityFlags(target: Target): TargetState {
+    const targetState = targetToState(target)
+
+    return { pokemon: this.keepAbilityFlags(targetState.pokemon), secondPokemon: targetState.secondPokemon && this.keepAbilityFlags(targetState.secondPokemon) }
   }
 
   setTeamFilter(teamId: string) {
