@@ -25,7 +25,7 @@
             } @else {
               <app-save-set-button [pokemonId]="effectiveEditingId()!" displayMode="button" (openPokemonTable)="overlay.open('pokemon')" />
               @if (!store.isEditingCustomSet()) {
-                <app-import-pokemon-button (pokemonImportedEvent)="onHeaderImport($event)" />
+                <app-import-pokemon-button [show]="canImportPokemon()" (pokemonImportedEvent)="onHeaderImport($event)" />
               }
               @if (!isAddMode()) {
                 <app-export-pokemon-button [pokemonId]="effectiveEditingId()!" />
@@ -98,6 +98,7 @@
               (expandedChange)="handleExpansionToggle(getExpansionKey(damageResult), $event)"
               (cdkDropListDropped)="drop($event)"
               (targetActivated)="activateOpponent($event)"
+              (targetRemoved)="onTargetRemoved()"
               (dragStarted)="handleDragStarted()"
               (dragMoved)="handleDragMoved($event)"
               (dragEnded)="handleDragEnded()"

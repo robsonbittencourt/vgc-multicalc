@@ -41,7 +41,6 @@ import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-b
 import { MobileTableOverlayComponent } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.component"
 import { MobileTableOverlayService, TableSelectEvent } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.service"
 import { SpriteService } from "@app/services/sprite.service"
-import { SnackbarService } from "@app/services/snackbar.service"
 import { DamageResultOrderService } from "@app/services/damage-result-order.service"
 
 @Component({
@@ -81,7 +80,6 @@ export class MultiCalcMobileComponent implements OnDestroy {
   fieldStore = inject(FieldStore)
   overlay = inject(MobileTableOverlayService)
   spriteService = inject(SpriteService)
-  private snackbar = inject(SnackbarService)
 
   private damageOrder = inject(DamageResultOrderService)
   private automaticFieldService = inject(AutomaticFieldService)
@@ -360,6 +358,8 @@ export class MultiCalcMobileComponent implements OnDestroy {
     return this.store.targets().some(t => t.pokemon.id === editId || t.secondPokemon?.id === editId)
   })
 
+  canImportPokemon = computed(() => this.isEditingTarget() || !this.store.team().isFull())
+
   activePokemonId = computed(() => {
     const members = this.store.team().teamMembers
     if (members.length === 0) return null
@@ -474,6 +474,10 @@ export class MultiCalcMobileComponent implements OnDestroy {
     const metaPokemon = this.multiCalcService.metaPokemon(this.store.targetMetaRegulation()!, undefined, FEATURES.allowAllPokes)
 
     return this.multiCalcService.excludeMetaData(this.store.targets(), metaPokemon)
+  }
+
+  onTargetRemoved() {
+    this.activateTeamMember()
   }
 
   private activateTeamMember() {
@@ -676,10 +680,10 @@ export class MultiCalcMobileComponent implements OnDestroy {
       })
       this.store.updateTargets(targets)
     } else {
-      this.store.changePokemon(id, singlePokemon)
+      this.store.replaceActiveTeam(this.store.team().addMember(singlePokemon))
+      this.addingPokemon.set(false)
+      this.pokemonOnEditId.set(singlePokemon.id)
     }
-
-    this.snackbar.open("Pokemon imported")
   }
 
   onCustomSetEditRequested(set: CustomSet) {
