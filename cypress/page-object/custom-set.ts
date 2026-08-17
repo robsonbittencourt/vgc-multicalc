@@ -19,11 +19,6 @@ export class CustomSet {
     return this
   }
 
-  editCustomSet(setId: string): CustomSet {
-    cy.get(`[data-cy="edit-custom-set-${setId}"]`).click({ force: true })
-    return this
-  }
-
   saveSetButtonIsVisible(): CustomSet {
     cy.get('[data-cy="save-set-button"]').should("be.visible")
     return this
@@ -109,11 +104,6 @@ export class CustomSet {
 
   setTabIsClosed(): CustomSet {
     cy.get('[data-cy="close-edit-custom-set-tab"]').should("not.exist")
-    return this
-  }
-
-  customSetNameIs(setId: string, name: string): CustomSet {
-    cy.get(`[data-cy="custom-set-name-${setId}"]`).should("have.text", name)
     return this
   }
 }

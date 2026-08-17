@@ -131,15 +131,6 @@ export class TeamsWidget {
     return new ExportModal()
   }
 
-  dragTeamOnto(sourceTeamName: string, targetTeamName: string) {
-    this.teamBoxOf(sourceTeamName).find(".drag-handle").realMouseDown({ button: "left", position: "center" }).realMouseMove(0, 10, { position: "center" })
-    this.teamBoxOf(targetTeamName).realMouseMove(0, 0, { position: "center" }).realHover().realMouseUp().wait(600)
-  }
-
-  separateSecondTeam(teamName: string) {
-    this.teamBoxOf(teamName).find(".drag-handle").click({ force: true })
-  }
-
   secondTeamHelpIsVisible() {
     cy.get('[data-cy="multi-selection-help"]').should("be.visible")
   }

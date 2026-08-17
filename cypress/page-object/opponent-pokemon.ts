@@ -124,16 +124,6 @@ export class OpponentPokemon {
     return this
   }
 
-  possible5HKO(): OpponentPokemon {
-    this.contains("possible 5HKO")
-    return this
-  }
-
-  possible6HKO(): OpponentPokemon {
-    this.contains("possible 6HKO")
-    return this
-  }
-
   descriptionContains(text: string): OpponentPokemon {
     this.contains(text)
     return this

@@ -1,11 +1,11 @@
 import { poke } from "@cy-support/e2e"
 import { setUpDefaultTeamOnCurrentScreen } from "@cy-support/setup"
 import { Opponent } from "@page-object/opponent"
-import { Team } from "@page-object/team"
 import { Header } from "@page-object/header"
+import { PokemonBuild } from "@page-object/pokemon-build"
 
+const pokemonBuild = new PokemonBuild("your-team")
 const header = new Header()
-const team = new Team()
 const opponents = new Opponent()
 
 function setUpDefaultTeamAndOpponents() {
@@ -81,10 +81,10 @@ describe("Edit a combined opponent", () => {
 
     opponents.selectAttacker("Urshifu Rapid Strike")
 
-    team.pokemonOnEditNameIs("Urshifu-Rapid-Strike")
+    pokemonBuild.nameIs("Urshifu-Rapid-Strike")
 
     opponents.selectSecondAttacker("Dragonite")
 
-    team.pokemonOnEditNameIs("Dragonite")
+    pokemonBuild.nameIs("Dragonite")
   })
 })

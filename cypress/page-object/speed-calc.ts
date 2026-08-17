@@ -27,12 +27,6 @@ export class SpeedCalc {
     cy.get(`[data-cy="speed-calc-paralyzed"] button`).click({ force: true })
   }
 
-  speedTierIs(position: number, pokemon: string, speed: number, description: string) {
-    cy.get('[data-cy="speed-box"]').eq(position).find('[data-cy="speed-box-pokemon"]').find("img").should("have.attr", "alt", pokemon)
-    cy.get('[data-cy="speed-box"]').eq(position).find('[data-cy="speed-box-value"]').should("have.text", speed)
-    cy.get('[data-cy="speed-box"]').eq(position).find('[data-cy="speed-box-description"]').should("include.text", description)
-  }
-
   actualSpeedIs(pokemon: string, speed: number) {
     this.pokemonBox(pokemon)
       .filter((_, el) => (el.querySelector('[data-cy="speed-box-description"]')?.textContent ?? "").includes("Actual"))
@@ -170,10 +164,6 @@ export class SpeedCalc {
 
   yourTeamBoxIsHighlighted(pokemon: string) {
     this.yourTeamBox(pokemon).should("have.class", "actual")
-  }
-
-  yourTeamBoxIsNotHighlighted(pokemon: string) {
-    this.yourTeamBox(pokemon).should("not.have.class", "actual")
   }
 
   private yourTeamBox(pokemon: string) {

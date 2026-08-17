@@ -1,16 +1,16 @@
 import { poke } from "@cy-support/e2e"
 import { Opponent } from "@page-object/opponent"
-import { Team } from "@page-object/team"
 import { Header } from "@page-object/header"
+import { TeamsWidget } from "@page-object/teams-widget"
 
+const teamsWidget = new TeamsWidget()
 const header = new Header()
-const team = new Team()
 const opponents = new Opponent()
 
 describe("Status icons row", () => {
   beforeEach(() => {
     header.openTeamVsMany()
-    team.importPokepaste(poke["default-team"])
+    teamsWidget.importPokepaste(poke["default-team"])
     opponents.deleteAll()
   })
 
@@ -34,7 +34,7 @@ describe("Status icons row", () => {
 describe("Mega icon", () => {
   beforeEach(() => {
     header.openTeamVsMany()
-    team.importPokepaste(poke["default-team"])
+    teamsWidget.importPokepaste(poke["default-team"])
     opponents.deleteAll()
   })
 

@@ -2,7 +2,9 @@ import { poke } from "@cy-support/e2e"
 import { Header } from "@page-object/header"
 import { OffensiveCoverage } from "@page-object/offensive-coverage"
 import { Team } from "@page-object/team"
+import { TeamsWidget } from "@page-object/teams-widget"
 
+const teamsWidget = new TeamsWidget()
 const header = new Header()
 const team = new Team()
 const offensiveCoverage = new OffensiveCoverage()
@@ -10,7 +12,7 @@ const offensiveCoverage = new OffensiveCoverage()
 describe("Against types", () => {
   beforeEach(() => {
     header.openTypeCalc()
-    team.delete("Team 1")
+    teamsWidget.delete("Team 1")
     team.importPokemon(poke["tyranitar"])
   })
 

@@ -2,7 +2,9 @@ import { poke } from "@cy-support/e2e"
 import { Header } from "@page-object/header"
 import { Team } from "@page-object/team"
 import { TypeCoverageInsights } from "@page-object/type-coverage-insights"
+import { TeamsWidget } from "@page-object/teams-widget"
 
+const teamsWidget = new TeamsWidget()
 const header = new Header()
 const team = new Team()
 const insights = new TypeCoverageInsights()
@@ -10,7 +12,7 @@ const insights = new TypeCoverageInsights()
 describe("Offensive and defensive sections", () => {
   beforeEach(() => {
     header.openTypeCalc()
-    team.delete("Team 1")
+    teamsWidget.delete("Team 1")
   })
 
   it("Should ask for a team while there is no Pokémon", () => {
@@ -53,14 +55,14 @@ describe("Offensive and defensive sections", () => {
   })
 
   it("Should rank the two best attackers of the team in the offensive section", () => {
-    team.importPokepaste(poke["pokepaste"])
+    teamsWidget.importPokepaste(poke["pokepaste"])
 
     insights.offensiveSuperEffectiveCount2xIs(0, "Chi-Yu", 6)
     insights.offensiveSuperEffectiveCount2xIs(1, "Flutter Mane", 6)
   })
 
   it("Should list the weakest attacker of the team in the not very effective section", () => {
-    team.importPokepaste(poke["pokepaste"])
+    teamsWidget.importPokepaste(poke["pokepaste"])
 
     insights.offensiveNotVeryEffectiveCountIs(0, "Smeargle", 2)
   })
@@ -81,7 +83,7 @@ describe("Offensive and defensive sections", () => {
 describe("Weaknesses fully covered by the tera type", () => {
   beforeEach(() => {
     header.openTypeCalc()
-    team.delete("Team 1")
+    teamsWidget.delete("Team 1")
   })
 
   it("Should mark the card when the tera type covers every weakness", () => {
@@ -120,7 +122,7 @@ describe("Weaknesses fully covered by the tera type", () => {
 describe("Type summaries outside the against team mode", () => {
   beforeEach(() => {
     header.openTypeCalc()
-    team.delete("Team 1")
+    teamsWidget.delete("Team 1")
   })
 
   it("Should not summarize a type shared by fewer than three members", () => {
@@ -131,7 +133,7 @@ describe("Type summaries outside the against team mode", () => {
   })
 
   it("Should summarize the resistance shared by three members of the team", () => {
-    team.importPokepaste(poke["pokepaste"])
+    teamsWidget.importPokepaste(poke["pokepaste"])
 
     insights.summaryResistanceCountIs(3)
 
@@ -139,7 +141,7 @@ describe("Type summaries outside the against team mode", () => {
   })
 
   it("Should summarize the type the team hits super effectively the most", () => {
-    team.importPokepaste(poke["pokepaste"])
+    teamsWidget.importPokepaste(poke["pokepaste"])
 
     insights.summarySuperEffectiveCountIs(4, "Dragon")
 
@@ -147,15 +149,15 @@ describe("Type summaries outside the against team mode", () => {
   })
 
   it("Should hide the type summaries when a second team is selected", () => {
-    team.importPokepaste(poke["pokepaste"])
+    teamsWidget.importPokepaste(poke["pokepaste"])
 
     insights.summaryResistanceIsVisible()
 
-    team.selectTeam("Team 2")
+    teamsWidget.selectTeam("Team 2")
     team.importPokemon(poke["hatterene"])
 
-    team.selectTeam("Team 1")
-    team.selectSecondTeam("Team 2")
+    teamsWidget.selectTeam("Team 1")
+    teamsWidget.selectSecondTeam("Team 2")
 
     insights.typeSummariesAreHidden()
   })

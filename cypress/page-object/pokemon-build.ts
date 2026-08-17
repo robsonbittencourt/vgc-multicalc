@@ -294,10 +294,6 @@ export class PokemonBuild {
     return this.changeAttackByFilter(filter, attackName, 2)
   }
 
-  changeAttackThreeByFilter(filter: string, attackName: string): PokemonBuild {
-    return this.changeAttackByFilter(filter, attackName, 3)
-  }
-
   changeAttackFourByFilter(filter: string, attackName: string): PokemonBuild {
     return this.changeAttackByFilter(filter, attackName, 4)
   }
@@ -306,22 +302,6 @@ export class PokemonBuild {
     this.container().find(`[data-cy="pokemon-attack-${position}"] input`).click().type(filter)
     cy.get(`[data-cy="table-entry-${attackName}"]`).click({ force: true })
     return this
-  }
-
-  inputPokemonAttackOne(filter: string): PokemonBuild {
-    return this.inputPokemonMove(filter, 1)
-  }
-
-  inputPokemonAttackTwo(filter: string): PokemonBuild {
-    return this.inputPokemonMove(filter, 2)
-  }
-
-  inputPokemonAttackThree(filter: string): PokemonBuild {
-    return this.inputPokemonMove(filter, 3)
-  }
-
-  inputPokemonAttackFour(filter: string): PokemonBuild {
-    return this.inputPokemonMove(filter, 4)
   }
 
   private inputPokemonMove(filter: string, position: number): PokemonBuild {
@@ -368,11 +348,6 @@ export class PokemonBuild {
     return this
   }
 
-  inputPokemonItem(filter: string): PokemonBuild {
-    this.container().find('[data-cy="item"] input').click({ force: true }).type(filter)
-    return this
-  }
-
   selectStatsModifier(stat: string, modifier: string): PokemonBuild {
     this.container().find(`[data-cy="stat-${stat}"]`).find('[data-cy="stat-modifier"]').click().get("mat-option").contains(modifier).scrollIntoView().click()
     return this
@@ -401,10 +376,6 @@ export class PokemonBuild {
     this.container().find('[data-cy="pokemon-status"]').click().get("mat-option").contains("Paralysis").click()
   }
 
-  poisoned() {
-    this.container().find('[data-cy="pokemon-status"]').click().get("mat-option").contains("Poison").click()
-  }
-
   selectNature(name: string): PokemonBuild {
     this.container().find('[data-cy="nature"]').click()
     cy.get("mat-option").contains(name).click()
@@ -427,11 +398,6 @@ export class PokemonBuild {
   selectAbilityByFilter(filter: string, abilityName: string): PokemonBuild {
     this.container().find('[data-cy="ability"] input').click().type(filter)
     cy.get(`[data-cy="table-entry-${abilityName}"]`).click({ force: true })
-    return this
-  }
-
-  inputPokemonAbility(filter: string): PokemonBuild {
-    this.container().find('[data-cy="ability"] input').click({ force: true }).type(filter)
     return this
   }
 
@@ -505,14 +471,14 @@ export class PokemonBuild {
 
   boostsIs(atk: number, def: number, spa: number, spd: number, spe: number) {
     this.closeTable()
-    this.verifyBoostIs("atk", atk)
-    this.verifyBoostIs("def", def)
-    this.verifyBoostIs("spa", spa)
-    this.verifyBoostIs("spd", spd)
-    this.verifyBoostIs("spe", spe)
+    this.boostIs("atk", atk)
+    this.boostIs("def", def)
+    this.boostIs("spa", spa)
+    this.boostIs("spd", spd)
+    this.boostIs("spe", spe)
   }
 
-  private verifyBoostIs(stat: string, statValue: number) {
+  private boostIs(stat: string, statValue: number) {
     const adjustedStatValue = this.adjustedBoostStat(statValue)
     this.container().find(`[data-cy="stat-${stat}"]`).find('[data-cy="stat-modifier"]').contains(adjustedStatValue)
   }

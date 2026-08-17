@@ -22,25 +22,12 @@ export abstract class CoverageTable {
     this.container().should("not.exist")
   }
 
-  tableIsHidden() {
-    this.container().should("exist")
-    this.table().should("not.exist")
-  }
-
   pokemonHeaderContains(pokemonName: string) {
     this.container().find('[data-cy="pokemon-header"]').find('[data-cy="pokemon-image-small"]').find("img").should("have.attr", "alt", pokemonName)
   }
 
-  effectivenessCellsCountIsAtLeast(minCount: number) {
-    this.container().find('[data-cy="effectiveness-cell"]').should("have.length.at.least", minCount)
-  }
-
   rowsCountIs(count: number) {
     this.rows().should("have.length", count)
-  }
-
-  effectivenessValueIs(rowIndex: number, pokemonIndex: number, expectedValue: string) {
-    this.table().find("tbody").find("tr").eq(rowIndex).find('[data-cy="effectiveness-cell"]').eq(pokemonIndex).should("contain", expectedValue)
   }
 
   cellForTypeIs(typeName: string, pokemonIndex: number, expectedValue: string) {

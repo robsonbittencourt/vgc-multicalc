@@ -135,7 +135,7 @@ describe("The add tab afterwards", () => {
   it("Should keep the add tab when the paste has less than 6 Pokémon", () => {
     teamsWidget.importPokepaste(poke["pokepaste-forms-4"])
 
-    team.selectTeam("Team 2")
+    teamsWidget.selectTeam("Team 2")
 
     team.addPokemonAvailable()
   })
@@ -143,14 +143,14 @@ describe("The add tab afterwards", () => {
   it("Should hide the add tab when the paste has 6 Pokémon", () => {
     teamsWidget.importPokepaste(poke["pokepaste"])
 
-    team.selectTeam("Team 2")
+    teamsWidget.selectTeam("Team 2")
 
     team.addPokemonUnavailable()
   })
 
   it("Should complete the team when a single Pokémon is imported over five", () => {
     teamsWidget.importPokepaste(poke["pokepaste-forms-5"])
-    team.selectTeam("Team 2")
+    teamsWidget.selectTeam("Team 2")
 
     team.clickOnAdd()
     team.importPokemon(poke["chi-yu"])

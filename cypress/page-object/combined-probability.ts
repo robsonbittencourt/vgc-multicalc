@@ -30,10 +30,6 @@ export class CombinedProbability {
     cy.get(`[data-cy="probability-input-${index}"]`).find("input").should("have.value", expectedValue)
   }
 
-  containerIsVisible() {
-    this.container().should("be.visible")
-  }
-
   calcTypeIs(type: "at-least-one" | "all" | "none") {
     const typeText = type === "at-least-one" ? "At least one" : type === "all" ? "All" : "None"
     cy.get('[data-cy="calc-type-select"]').find('[data-cy="input-select"]').should("contain.text", typeText)

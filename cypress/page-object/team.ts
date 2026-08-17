@@ -46,13 +46,6 @@ export class Team {
     return pokemonBuild
   }
 
-  addWithFilter(nameFilter: string, pokemonName: string): PokemonBuild {
-    const pokemonBuild = new PokemonBuild("your-team")
-    pokemonBuild.selectPokemonByFilter(nameFilter, pokemonName)
-
-    return pokemonBuild
-  }
-
   addPokemonAvailable() {
     cy.get('[data-cy="add-team-member-tab"]').should("have.length", 1)
   }
@@ -93,13 +86,7 @@ export class Team {
     cy.get('[data-cy="delete-from-team-button"]').should("not.exist")
   }
 
-  teamIs(pokemonNames: string[]) {
-    pokemonNames.forEach(pokemon => {
-      this.verifyIfExists(pokemon)
-    })
-  }
-
-  verifyIfExists(pokemonName: string) {
+  exists(pokemonName: string) {
     cy.get('[data-cy="team-member-tab"]').filter(`:contains(${pokemonName})`)
   }
 

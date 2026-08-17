@@ -38,11 +38,6 @@ export class MobileCalcShell {
     return this
   }
 
-  toggleCardExpansionAt(position: number): MobileCalcShell {
-    cy.get('[data-cy="toggle-card-expansion"]').eq(position).click()
-    return this
-  }
-
   expansionTogglesCountIsAtLeast(count: number) {
     cy.get('[data-cy="toggle-card-expansion"]').should("have.length.at.least", count)
   }

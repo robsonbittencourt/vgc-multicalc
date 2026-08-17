@@ -1,8 +1,4 @@
 export class ExportModal {
-  contentIs(content: string) {
-    cy.contains(content)
-  }
-
   toggleSpsMode(): ExportModal {
     cy.get('[data-cy="export-evs-sps-toggle"] button').click({ force: true })
     return this

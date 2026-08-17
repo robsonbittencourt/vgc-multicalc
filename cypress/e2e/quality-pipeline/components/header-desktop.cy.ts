@@ -2,7 +2,9 @@ import { poke } from "@cy-support/e2e"
 import { Header } from "@page-object/header"
 import { Opponent } from "@page-object/opponent"
 import { Team } from "@page-object/team"
+import { TeamsWidget } from "@page-object/teams-widget"
 
+const teamsWidget = new TeamsWidget()
 const header = new Header()
 const team = new Team()
 const opponents = new Opponent()
@@ -44,7 +46,7 @@ describe("Navigate between the screens", () => {
 
   it("Should clear the second attacker when One vs One is opened", () => {
     header.openTeamVsMany()
-    team.importPokepaste(poke["default-team"])
+    teamsWidget.importPokepaste(poke["default-team"])
     opponents.deleteAll()
     opponents.importPokemon(poke["chi-yu"])
 
@@ -61,7 +63,7 @@ describe("Navigate between the screens", () => {
 
   it("Should keep the team and the opponents when the screen changes", () => {
     header.openTeamVsMany()
-    team.importPokepaste(poke["default-team"])
+    teamsWidget.importPokepaste(poke["default-team"])
     opponents.deleteAll()
     opponents.importPokemon(poke["chi-yu"])
 
@@ -69,8 +71,8 @@ describe("Navigate between the screens", () => {
     header.openTeamVsMany()
 
     team.teamSizeIs(2)
-    team.verifyIfExists("Miraidon")
-    team.verifyIfExists("Koraidon")
+    team.exists("Miraidon")
+    team.exists("Koraidon")
     opponents.exists("Chi-Yu")
   })
 })

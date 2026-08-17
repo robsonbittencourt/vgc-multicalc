@@ -16,7 +16,6 @@
 // Import commands.js using ES2015 syntax:
 import "cypress-real-events"
 import "./commands"
-import "@page-object/legacy-compat"
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')

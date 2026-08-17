@@ -8,10 +8,6 @@ export class DefensiveCoverage extends CoverageTable {
     this.pokemonRowsAre(pokemonNames)
   }
 
-  pokemonHeadersCountIs(expectedCount: number) {
-    this.table().find("thead").find('[data-cy="pokemon-header"]').should("have.length", expectedCount)
-  }
-
   cellForTargetIs(targetName: string, pokemonIndex: number, expectedValue: string) {
     this.rows().should(rows => {
       expect(this.cellForPokemonRow(rows, targetName, pokemonIndex)).to.eq(expectedValue)
@@ -32,14 +28,6 @@ export class DefensiveCoverage extends CoverageTable {
 
   totalResistForTypeIs(typeName: string, expectedValue: number) {
     this.totalForTypeIs(typeName, "total-cell-resist", expectedValue)
-  }
-
-  totalWeakIs(rowIndex: number, expectedValue: number) {
-    this.table().find("tbody").find("tr").eq(rowIndex).find('[data-cy="total-cell-weak"]').should("contain", expectedValue.toString())
-  }
-
-  totalResistIs(rowIndex: number, expectedValue: number) {
-    this.table().find("tbody").find("tr").eq(rowIndex).find('[data-cy="total-cell-resist"]').should("contain", expectedValue.toString())
   }
 
   teraTypeToggleIsVisible() {

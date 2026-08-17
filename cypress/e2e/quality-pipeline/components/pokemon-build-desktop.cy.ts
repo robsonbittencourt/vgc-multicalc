@@ -5,7 +5,9 @@ import { Opponent } from "@page-object/opponent"
 import { PokemonBuild } from "@page-object/pokemon-build"
 import { Team } from "@page-object/team"
 import { Header } from "@page-object/header"
+import { TeamsWidget } from "@page-object/teams-widget"
 
+const teamsWidget = new TeamsWidget()
 const header = new Header()
 const leftDamageResult = new DamageResult("left-damage-result")
 
@@ -677,7 +679,7 @@ describe("Duplicate item warning", () => {
 
   beforeEach(() => {
     header.openTeamVsMany()
-    team.importPokepaste(poke["default-team"])
+    teamsWidget.importPokepaste(poke["default-team"])
   })
 
   it("Should warn when two team members hold the same item", () => {
@@ -854,7 +856,7 @@ describe("Optimize bulk in Many vs Team", () => {
   beforeEach(() => {
     header.openManyVsTeam()
     opponents.deleteAll()
-    team.importPokepaste(poke["flutter-mane"])
+    teamsWidget.importPokepaste(poke["flutter-mane"])
   })
 
   it("Should offer the optimize button only for team members", () => {

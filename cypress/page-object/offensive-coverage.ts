@@ -28,14 +28,6 @@ export class OffensiveCoverage extends CoverageTable {
     this.totalForTypeIs(typeName, "total-cell-super-effective", expectedValue)
   }
 
-  totalNotVeryEffectiveIs(rowIndex: number, expectedValue: number) {
-    this.table().find("tbody").find("tr").eq(rowIndex).find('[data-cy="total-cell-not-very-effective"]').should("contain", expectedValue.toString())
-  }
-
-  totalSuperEffectiveIs(rowIndex: number, expectedValue: number) {
-    this.table().find("tbody").find("tr").eq(rowIndex).find('[data-cy="total-cell-super-effective"]').should("contain", expectedValue.toString())
-  }
-
   teraTypeToggleIsHidden() {
     this.toggleIsHidden("consider-tera-type-toggle-offensive")
   }

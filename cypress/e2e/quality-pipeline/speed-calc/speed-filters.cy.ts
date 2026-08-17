@@ -3,7 +3,9 @@ import { Header } from "@page-object/header"
 import { Opponent } from "@page-object/opponent"
 import { SpeedCalc } from "@page-object/speed-calc"
 import { Team } from "@page-object/team"
+import { TeamsWidget } from "@page-object/teams-widget"
 
+const teamsWidget = new TeamsWidget()
 const header = new Header()
 const team = new Team()
 const opponents = new Opponent()
@@ -75,7 +77,7 @@ describe("Fed by the opponent side", () => {
 describe("Fed by another team", () => {
   beforeEach(() => {
     header.openTeamVsMany()
-    team.importPokepaste(poke["default-team"])
+    teamsWidget.importPokepaste(poke["default-team"])
 
     header.openSpeedCalc()
     speedCalc.filter("Team 1")

@@ -3,7 +3,9 @@ import { Field } from "@page-object/field"
 import { Header } from "@page-object/header"
 import { Opponent } from "@page-object/opponent"
 import { Team } from "@page-object/team"
+import { TeamsWidget } from "@page-object/teams-widget"
 
+const teamsWidget = new TeamsWidget()
 const field = new Field()
 const header = new Header()
 const team = new Team()
@@ -12,7 +14,7 @@ const opponents = new Opponent()
 describe("Ruins and weather", () => {
   it("Should apply the correct damage for the Ruins abilities, Sun, Rain, Sand and Snow", () => {
     header.openTeamVsMany()
-    team.delete("Team 1")
+    teamsWidget.delete("Team 1")
     opponents.deleteAll()
     opponents.importPokemon(poke["default-opponents"])
 
@@ -60,7 +62,7 @@ describe("Ruins and weather", () => {
 describe("Terrains and rooms", () => {
   it("Should apply the correct damage for Terrains, Gravity, Magic Room and Wonder Room", () => {
     header.openTeamVsMany()
-    team.delete("Team 1")
+    teamsWidget.delete("Team 1")
     opponents.deleteAll()
     opponents.importPokemon(poke["default-opponents"])
 
@@ -105,7 +107,7 @@ describe("Terrains and rooms", () => {
 describe("Targeting and support", () => {
   it("Should apply the correct damage for Single Target, Friend Guard, Helping Hand, Critical Hit, Battery, Power Spot and Tailwind", () => {
     header.openTeamVsMany()
-    team.delete("Team 1")
+    teamsWidget.delete("Team 1")
     opponents.deleteAll()
     opponents.importPokemon(poke["default-opponents"])
 
@@ -178,7 +180,7 @@ describe("Targeting and support", () => {
 describe("Hazards and Neutralizing Gas", () => {
   it("Should apply the correct damage for Spikes, Stealth Rock, Leech Seed and Neutralizing Gas", () => {
     header.openTeamVsMany()
-    team.delete("Team 1")
+    teamsWidget.delete("Team 1")
     opponents.deleteAll()
     opponents.importPokemon(poke["default-opponents"])
 
@@ -237,7 +239,7 @@ describe("Hazards and Neutralizing Gas", () => {
 describe("Automatic field with combined attackers", () => {
   it("Should apply the field of the two combined attackers", () => {
     header.openTeamVsMany()
-    team.delete("Team 1")
+    teamsWidget.delete("Team 1")
     team.importPokemon(poke["rillaboom"])
     team.importPokemon(poke["kyogre"])
 

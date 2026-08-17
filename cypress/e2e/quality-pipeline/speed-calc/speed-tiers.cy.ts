@@ -2,7 +2,9 @@ import { poke } from "@cy-support/e2e"
 import { openSpeedCalcWithMetaScale } from "@cy-support/setup"
 import { SpeedCalc } from "@page-object/speed-calc"
 import { Team } from "@page-object/team"
+import { TeamsWidget } from "@page-object/teams-widget"
 
+const teamsWidget = new TeamsWidget()
 const team = new Team()
 const speedCalc = new SpeedCalc()
 
@@ -99,7 +101,7 @@ describe("My Whole Team toggle", () => {
   })
 
   it("Should highlight the tier of a team member while the toggle is on", () => {
-    team.importPokepaste(poke["default-team"])
+    teamsWidget.importPokepaste(poke["default-team"])
 
     speedCalc.scaleSettles()
 

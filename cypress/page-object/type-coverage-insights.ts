@@ -117,18 +117,6 @@ export class TypeCoverageInsights {
     this.summaryCountIs("super-effective", expectedCount, expectedType)
   }
 
-  summaryNotVeryEffectiveCountIs(expectedCount: number, expectedType: string) {
-    this.summaryCountIs("not-very-effective", expectedCount, expectedType)
-  }
-
-  summaryResistanceCountAndTypeIs(expectedCount: number, expectedType: string) {
-    this.summaryCountIs("resistance", expectedCount, expectedType)
-  }
-
-  summaryWeaknessCountIs(expectedCount: number, expectedType: string) {
-    this.summaryCountIs("weakness", expectedCount, expectedType)
-  }
-
   private summaryCountIs(name: string, expectedCount: number, expectedType: string) {
     this.container().find(`[data-cy="summary-${name}-count"]`).should("contain", expectedCount.toString())
     this.container().find(`[data-cy="summary-${name}"]`).find('[data-cy="pokemon-type"]').should("contain", expectedType)

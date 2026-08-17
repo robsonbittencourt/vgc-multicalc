@@ -3,7 +3,9 @@ import { setUpDefaultTeamOnCurrentScreen } from "@cy-support/setup"
 import { Opponent } from "@page-object/opponent"
 import { Team } from "@page-object/team"
 import { Header } from "@page-object/header"
+import { TeamsWidget } from "@page-object/teams-widget"
 
+const teamsWidget = new TeamsWidget()
 const header = new Header()
 const team = new Team()
 const opponents = new Opponent()
@@ -142,8 +144,8 @@ describe("Second attacker with no ghost pair", () => {
     header.openTeamVsMany()
     opponents.deleteAll()
     opponents.importPokemon(poke["default-opponents"])
-    team.delete("Team 1")
-    team.importPokepaste(poke["pokepaste"])
+    teamsWidget.delete("Team 1")
+    teamsWidget.importPokepaste(poke["pokepaste"])
   })
 
   it("Should always reflect the current pair when the combine is cycled", () => {

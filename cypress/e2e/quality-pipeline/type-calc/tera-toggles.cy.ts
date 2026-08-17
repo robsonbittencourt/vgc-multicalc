@@ -3,7 +3,9 @@ import { DefensiveCoverage } from "@page-object/defensive-coverage"
 import { Header } from "@page-object/header"
 import { OffensiveCoverage } from "@page-object/offensive-coverage"
 import { Team } from "@page-object/team"
+import { TeamsWidget } from "@page-object/teams-widget"
 
+const teamsWidget = new TeamsWidget()
 const header = new Header()
 const team = new Team()
 const defensiveCoverage = new DefensiveCoverage()
@@ -12,7 +14,7 @@ const offensiveCoverage = new OffensiveCoverage()
 describe("Consider Tera Type on the defensive coverage", () => {
   beforeEach(() => {
     header.openTypeCalc()
-    team.delete("Team 1")
+    teamsWidget.delete("Team 1")
     team.importPokemon(poke["tyranitar"])
   })
 
@@ -58,7 +60,7 @@ describe("Consider Tera Type on the defensive coverage", () => {
 describe("Consider Tera Type on the offensive coverage", () => {
   beforeEach(() => {
     header.openTypeCalc()
-    team.delete("Team 1")
+    teamsWidget.delete("Team 1")
     team.importPokemon(poke["tyranitar"])
   })
 
@@ -67,11 +69,11 @@ describe("Consider Tera Type on the offensive coverage", () => {
   })
 
   it("Should offer the toggle once a second team is selected", () => {
-    team.selectTeam("Team 2")
+    teamsWidget.selectTeam("Team 2")
     team.importPokemon(poke["hatterene"])
 
-    team.selectTeam("Team 1")
-    team.selectSecondTeam("Team 2")
+    teamsWidget.selectTeam("Team 1")
+    teamsWidget.selectSecondTeam("Team 2")
 
     offensiveCoverage.teraTypeToggleIsVisible()
   })
@@ -80,17 +82,17 @@ describe("Consider Tera Type on the offensive coverage", () => {
 describe("Tera Blast toggle", () => {
   beforeEach(() => {
     header.openTypeCalc()
-    team.delete("Team 1")
+    teamsWidget.delete("Team 1")
   })
 
   it("Should not offer the Tera Blast toggle when no Pokémon has the move", () => {
     team.importPokemon(poke["tyranitar"])
 
-    team.selectTeam("Team 2")
+    teamsWidget.selectTeam("Team 2")
     team.importPokemon(poke["hatterene"])
 
-    team.selectTeam("Team 1")
-    team.selectSecondTeam("Team 2")
+    teamsWidget.selectTeam("Team 1")
+    teamsWidget.selectSecondTeam("Team 2")
 
     offensiveCoverage.teraBlastToggleIsHidden()
     defensiveCoverage.teraBlastToggleIsHidden()
@@ -100,11 +102,11 @@ describe("Tera Blast toggle", () => {
     team.importPokemon(poke["porygon2"])
     team.selectPokemon("Porygon2").changeAttackOne("Tera Blast")
 
-    team.selectTeam("Team 2")
+    teamsWidget.selectTeam("Team 2")
     team.importPokemon(poke["hatterene"])
 
-    team.selectTeam("Team 1")
-    team.selectSecondTeam("Team 2")
+    teamsWidget.selectTeam("Team 1")
+    teamsWidget.selectSecondTeam("Team 2")
 
     offensiveCoverage.teraBlastToggleIsVisible()
   })
@@ -113,11 +115,11 @@ describe("Tera Blast toggle", () => {
     team.importPokemon(poke["porygon2"])
     team.selectPokemon("Porygon2").changeAttackOne("Tera Blast")
 
-    team.selectTeam("Team 2")
+    teamsWidget.selectTeam("Team 2")
     team.importPokemon(poke["hatterene"])
 
-    team.selectTeam("Team 1")
-    team.selectSecondTeam("Team 2")
+    teamsWidget.selectTeam("Team 1")
+    teamsWidget.selectSecondTeam("Team 2")
 
     defensiveCoverage.teraBlastToggleIsHidden()
   })
@@ -125,11 +127,11 @@ describe("Tera Blast toggle", () => {
   it("Should read Tera Blast as the tera type of the attacker when the offensive toggle is turned on", () => {
     team.importPokemon(poke["porygon2"])
 
-    team.selectTeam("Team 2")
+    teamsWidget.selectTeam("Team 2")
     team.importPokemon(poke["tyranitar"])
 
-    team.selectTeam("Team 1")
-    team.selectSecondTeam("Team 2")
+    teamsWidget.selectTeam("Team 1")
+    teamsWidget.selectSecondTeam("Team 2")
 
     offensiveCoverage.cellForAttackerIs("Porygon2", 0, "")
 
@@ -145,11 +147,11 @@ describe("Tera Blast toggle", () => {
   it("Should read Tera Blast of the second team when the defensive toggle is turned on", () => {
     team.importPokemon(poke["tyranitar"])
 
-    team.selectTeam("Team 2")
+    teamsWidget.selectTeam("Team 2")
     team.importPokemon(poke["porygon2"])
 
-    team.selectTeam("Team 1")
-    team.selectSecondTeam("Team 2")
+    teamsWidget.selectTeam("Team 1")
+    teamsWidget.selectSecondTeam("Team 2")
 
     defensiveCoverage.cellForTargetIs("Porygon2", 0, "")
 

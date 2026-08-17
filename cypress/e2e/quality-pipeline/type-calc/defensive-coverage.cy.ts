@@ -3,7 +3,9 @@ import { DefensiveCoverage } from "@page-object/defensive-coverage"
 import { Header } from "@page-object/header"
 import { OffensiveCoverage } from "@page-object/offensive-coverage"
 import { Team } from "@page-object/team"
+import { TeamsWidget } from "@page-object/teams-widget"
 
+const teamsWidget = new TeamsWidget()
 const header = new Header()
 const team = new Team()
 const defensiveCoverage = new DefensiveCoverage()
@@ -12,7 +14,7 @@ const offensiveCoverage = new OffensiveCoverage()
 describe("Against types", () => {
   beforeEach(() => {
     header.openTypeCalc()
-    team.delete("Team 1")
+    teamsWidget.delete("Team 1")
     team.importPokemon(poke["tyranitar"])
   })
 
@@ -80,7 +82,7 @@ describe("Against types", () => {
 describe("With an empty team", () => {
   it("Should not render the coverage section when the team has no Pokémon", () => {
     header.openTypeCalc()
-    team.delete("Team 1")
+    teamsWidget.delete("Team 1")
 
     defensiveCoverage.componentIsHidden()
     offensiveCoverage.componentIsHidden()

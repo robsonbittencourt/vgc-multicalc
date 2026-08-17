@@ -2,7 +2,9 @@ import { poke } from "@cy-support/e2e"
 import { PokemonBuild } from "@page-object/pokemon-build"
 import { Team } from "@page-object/team"
 import { Header } from "@page-object/header"
+import { TeamsWidget } from "@page-object/teams-widget"
 
+const teamsWidget = new TeamsWidget()
 const header = new Header()
 const team = new Team()
 
@@ -41,9 +43,9 @@ describe("A Pokémon and a team", () => {
   })
 
   it("Should open the modal with every Pokémon of the team", () => {
-    team.importPokepaste(poke["default-team"])
+    teamsWidget.importPokepaste(poke["default-team"])
 
-    const exportModal = team.exportTeam("Team 2")
+    const exportModal = teamsWidget.exportTeam("Team 2")
 
     exportModal.titleIs("Team 2")
     exportModal.pokemonCountIs(2)

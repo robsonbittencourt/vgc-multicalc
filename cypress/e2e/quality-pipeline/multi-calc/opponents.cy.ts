@@ -3,7 +3,9 @@ import { setUpDefaultTeam } from "@cy-support/setup"
 import { Header } from "@page-object/header"
 import { Opponent } from "@page-object/opponent"
 import { Team } from "@page-object/team"
+import { PokemonBuild } from "@page-object/pokemon-build"
 
+const pokemonBuild = new PokemonBuild("your-team")
 const header = new Header()
 const team = new Team()
 const opponents = new Opponent()
@@ -39,7 +41,7 @@ describe("Add and remove", () => {
     opponents.get("Pikachu").delete()
 
     opponents.doesNotExists("Pikachu")
-    team.pokemonOnEditNameIs("Miraidon")
+    pokemonBuild.nameIs("Miraidon")
   })
 
   it("Should clear every card with delete all", () => {
@@ -62,7 +64,7 @@ describe("Edit an opponent", () => {
 
     opponents.selectDefender("Tyranitar").selectStatsModifier("spd", "+3")
 
-    team.pokemonOnEditNameIs("Tyranitar")
+    pokemonBuild.nameIs("Tyranitar")
     opponents.get("Tyranitar").damageIs(50, 58.6).cause2HKO()
   })
 
@@ -72,11 +74,11 @@ describe("Edit an opponent", () => {
 
     opponents.selectDefender("Tyranitar")
 
-    team.pokemonOnEditNameIs("Tyranitar")
+    pokemonBuild.nameIs("Tyranitar")
 
     team.closeTab()
 
-    team.pokemonOnEditNameIs("Miraidon")
+    pokemonBuild.nameIs("Miraidon")
   })
 
   it("Should edit the attacker of the card in Many vs Team", () => {
@@ -131,7 +133,7 @@ describe("Import while the add card is open", () => {
     opponents.exists("Tyranitar")
     opponents.addIsVisible()
 
-    team.pokemonOnEditNameIs("Miraidon")
+    pokemonBuild.nameIs("Miraidon")
   })
 
   it("Should keep the imported Pokémon out of the add mode when more than one is imported", () => {
@@ -143,6 +145,6 @@ describe("Import while the add card is open", () => {
 
     opponents.addIsVisible()
 
-    team.pokemonOnEditNameIs("Miraidon")
+    pokemonBuild.nameIs("Miraidon")
   })
 })
