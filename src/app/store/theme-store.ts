@@ -1,5 +1,6 @@
 import { effect, Injectable } from "@angular/core"
 import { initialThemeState } from "./utils/initial-theme-state"
+import { readUserData } from "./utils/user-data-storage"
 import { Color, Theme } from "@app/services/theme.service"
 import { patchState, signalStore, withHooks, withState } from "@ngrx/signals"
 
@@ -16,7 +17,7 @@ export class ThemeStore extends signalStore(
     onInit() {
       effect(() => {
         if (typeof localStorage === "undefined") return
-        const userData = JSON.parse(localStorage.getItem("userData")!)
+        const userData = readUserData() ?? {}
         const themeData = {
           theme: store.theme(),
           color: store.color()

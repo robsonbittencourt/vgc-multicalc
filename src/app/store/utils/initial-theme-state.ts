@@ -1,8 +1,8 @@
 import { ThemeState } from "@store/theme-store"
+import { readUserData } from "@store/utils/user-data-storage"
 
 export function initialThemeState(): ThemeState {
-  if (typeof localStorage === "undefined") return defaultThemeState()
-  const themeUserData = JSON.parse(localStorage.getItem("userData")!)?.themeData
+  const themeUserData = readUserData()?.themeData
   return themeUserData ? { ...defaultThemeState(), ...themeUserData } : defaultThemeState()
 }
 

@@ -61,6 +61,17 @@ describe("Theme Store", () => {
       const actualStorage = JSON.parse(localStorage.getItem("userData")!)
       expect(actualStorage.themeData.color).toBe("red")
     })
+
+    it("should replace a corrupted user data with a valid one when the state changes", () => {
+      localStorage.setItem("userData", "this is not json")
+
+      store.updateTheme("dark")
+
+      TestBed.tick()
+
+      const actualStorage = JSON.parse(localStorage.getItem("userData")!)
+      expect(actualStorage.themeData.theme).toBe("dark")
+    })
   })
 
   describe("Environment without local storage", () => {

@@ -1,11 +1,12 @@
+import { readUserData } from "@store/utils/user-data-storage"
+
 export type PersistedMenuState = {
   orderByDamage: boolean
   oneVsManyBestMoveActivated: boolean
 }
 
 export function initialMenuState(): PersistedMenuState {
-  if (typeof localStorage === "undefined") return defaultMenuState()
-  const menuUserData = JSON.parse(localStorage.getItem("userData")!)?.menuData
+  const menuUserData = readUserData()?.menuData
   return menuUserData ? { ...defaultMenuState(), ...menuUserData } : defaultMenuState()
 }
 

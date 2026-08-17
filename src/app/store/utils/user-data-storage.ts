@@ -3,7 +3,16 @@ import type { CustomSet } from "@store/custom-set"
 export function readUserData() {
   if (typeof localStorage === "undefined") return null
   const raw = localStorage.getItem("userData")
-  return raw ? JSON.parse(raw) : null
+
+  if (!raw) return null
+
+  try {
+    const parsed = JSON.parse(raw)
+
+    return typeof parsed === "object" && parsed !== null ? parsed : null
+  } catch {
+    return null
+  }
 }
 
 export function readGameData() {

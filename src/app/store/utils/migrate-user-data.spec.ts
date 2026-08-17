@@ -24,6 +24,20 @@ describe("migrateUserData", () => {
     }
   })
 
+  it("should leave the stored data untouched when it is not valid JSON", () => {
+    localStorage.setItem("userData", "this is not json")
+
+    expect(() => migrateUserData()).not.toThrow()
+    expect(localStorage.getItem("userData")).toEqual("this is not json")
+  })
+
+  it("should leave the stored data untouched when it is valid JSON but not an object", () => {
+    localStorage.setItem("userData", "42")
+
+    expect(() => migrateUserData()).not.toThrow()
+    expect(localStorage.getItem("userData")).toEqual("42")
+  })
+
   it("should migrate legacy flat data into champions", () => {
     localStorage.setItem("userData", JSON.stringify({ leftPokemon: { name: "Charizard" }, teams: [{ name: "Team 1" }] }))
 
@@ -118,6 +132,13 @@ describe("fixInvalidPokemon", () => {
     fixInvalidPokemon()
 
     expect(JSON.parse(localStorage.getItem("userData")!)).toEqual({ themeData: { theme: "dark" } })
+  })
+
+  it("should leave the stored data untouched when it is not valid JSON", () => {
+    localStorage.setItem("userData", "this is not json")
+
+    expect(() => fixInvalidPokemon()).not.toThrow()
+    expect(localStorage.getItem("userData")).toEqual("this is not json")
   })
 
   it("should rename a top level Floette to Floette-Eternal", () => {

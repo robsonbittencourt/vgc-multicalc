@@ -1,3 +1,5 @@
+import { readUserData } from "@store/utils/user-data-storage"
+
 function replacePokemonName(obj: any, oldName: string, newName: string): void {
   if (!obj || typeof obj !== "object") return
 
@@ -10,42 +12,46 @@ function replacePokemonName(obj: any, oldName: string, newName: string): void {
   }
 }
 
+const preservedTopLevelKeys = ["themeData", "menuData"]
+
 function legacyFlatData(userData: any): any {
   const flatData = { ...userData }
   delete flatData.champions
   delete flatData.sv
   delete flatData.game
-  delete flatData.themeData
+
+  for (const key of preservedTopLevelKeys) {
+    delete flatData[key]
+  }
 
   return flatData
 }
 
 export function migrateUserData() {
-  if (typeof localStorage === "undefined") return
-  const raw = localStorage.getItem("userData")
-  if (!raw) return
+  const userData = readUserData()
 
-  const userData = JSON.parse(raw)
+  if (!userData) return
 
-  const themeData = userData.themeData
+  if (userData.champions && !userData.sv && !userData.game) return
+
   const championsData = userData.champions ?? userData.sv ?? legacyFlatData(userData)
 
   if (!championsData || Object.keys(championsData).length === 0) return
 
-  const migrated = {
-    ...(themeData && { themeData }),
-    champions: championsData
+  const migrated: any = { champions: championsData }
+
+  for (const key of preservedTopLevelKeys) {
+    if (userData[key]) migrated[key] = userData[key]
   }
 
   localStorage.setItem("userData", JSON.stringify(migrated))
 }
 
 export function fixInvalidPokemon() {
-  if (typeof localStorage === "undefined") return
-  const raw = localStorage.getItem("userData")
-  if (!raw) return
+  const userData = readUserData()
 
-  const userData = JSON.parse(raw)
+  if (!userData) return
+
   const gameData = userData.champions
 
   if (!gameData) return

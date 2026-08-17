@@ -1,5 +1,6 @@
 import { effect, Injectable } from "@angular/core"
 import { initialMenuState } from "./utils/initial-menu-state"
+import { readUserData } from "./utils/user-data-storage"
 import { patchState, signalStore, withHooks, withState } from "@ngrx/signals"
 
 type MenuState = {
@@ -37,7 +38,7 @@ export class MenuStore extends signalStore(
     onInit() {
       effect(() => {
         if (typeof localStorage === "undefined") return
-        const userData = JSON.parse(localStorage.getItem("userData")!)
+        const userData = readUserData() ?? {}
         const menuData = {
           orderByDamage: store.orderByDamage(),
           oneVsManyBestMoveActivated: store.oneVsManyBestMoveActivated()

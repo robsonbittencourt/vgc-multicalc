@@ -27,6 +27,30 @@ describe("user-data-storage", () => {
         globalThis.localStorage = originalLocalStorage
       }
     })
+
+    it("should return null when the stored user data is not valid JSON", () => {
+      localStorage.setItem("userData", "this is not json")
+
+      expect(readUserData()).toBeNull()
+    })
+
+    it("should return null when the stored user data is an empty string", () => {
+      localStorage.setItem("userData", "")
+
+      expect(readUserData()).toBeNull()
+    })
+
+    it("should return null when the stored user data is valid JSON but not an object", () => {
+      localStorage.setItem("userData", "42")
+
+      expect(readUserData()).toBeNull()
+    })
+
+    it("should return null when the stored user data is the JSON null", () => {
+      localStorage.setItem("userData", "null")
+
+      expect(readUserData()).toBeNull()
+    })
   })
 
   describe("readGameData", () => {

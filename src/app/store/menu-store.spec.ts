@@ -127,6 +127,19 @@ describe("Menu Store", () => {
     expect(store.oneVsManyBestMoveActivated()).toBe(true)
   })
 
+  describe("Corrupted user data", () => {
+    it("should replace a corrupted user data with a valid one when the state changes", () => {
+      localStorage.setItem("userData", "this is not json")
+
+      store.toggleOrderByDamage()
+
+      TestBed.tick()
+
+      const actualStorage = JSON.parse(localStorage.getItem("userData")!)
+      expect(actualStorage.menuData.orderByDamage).toBe(true)
+    })
+  })
+
   describe("Environment without local storage", () => {
     it("should not persist the menu options when localStorage is not available", () => {
       const originalLocalStorage = globalThis.localStorage
