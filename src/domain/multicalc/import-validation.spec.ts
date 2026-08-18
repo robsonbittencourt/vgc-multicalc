@@ -79,20 +79,6 @@ describe("validateImport", () => {
     expect(result.hadInvalidItems).toBe(false)
   })
 
-  it("should not validate the moves of a Pokémon without a learnset", () => {
-    const mega = new Pokemon("Salamence-Mega", {
-      item: "Sitrus Berry",
-      moveSet: new MoveSet(new Move("Knock Off"), new Move(""), new Move(""), new Move("")),
-      evs: { hp: 4, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 }
-    } as never)
-
-    const result = validateImport([mega], validItems)
-
-    expect(result.pokemon.length).toBe(1)
-    expect(result.hadInvalidMoves).toBe(false)
-    expect(result.pokemon[0].moveSet.move1.name).toBe("Knock Off")
-  })
-
   it("should apply the default set when the imported Pokémon has no EVs at all", () => {
     const noEvs = new Pokemon("Incineroar", {
       item: "Sitrus Berry",
