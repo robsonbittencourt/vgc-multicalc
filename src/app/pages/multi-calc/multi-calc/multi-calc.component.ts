@@ -251,7 +251,7 @@ export class MultiCalcComponent implements OnInit {
       this.optimizedEvs.set(null)
     }
 
-    if (result.nature) {
+    if (result.status === "success" && result.nature) {
       this.store.nature(defender.id, result.nature)
     }
   }

@@ -759,6 +759,16 @@ describe("Optimize bulk", () => {
     rightPokemonBuild.optimizationButtonsAreHidden()
   })
 
+  it("Should keep the nature when no solution is needed and update nature is on", () => {
+    leftPokemonBuild.importPokemon(poke["talonflame"])
+    rightPokemonBuild.toggleUpdateNature()
+
+    rightPokemonBuild.optimizeBulk()
+
+    rightPokemonBuild.noSolutionNeededIsVisible()
+    rightPokemonBuild.natureIs("Adamant")
+  })
+
   it("Should offer the optimize button on both sides in One vs One", () => {
     leftPokemonBuild.optimizeBulkIsVisible()
     rightPokemonBuild.optimizeBulkIsVisible()

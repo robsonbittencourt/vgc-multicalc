@@ -97,8 +97,8 @@ export class PokemonBuildMobileComponent {
     { key: "4HKO", value: "4" }
   ]
 
-  updateNature = true
-  keepOffensiveEvs = true
+  updateNature = false
+  keepOffensiveEvs = false
   survivalThreshold = "2"
 
   pokemonImportedEvent = output<Pokemon | Pokemon[]>()

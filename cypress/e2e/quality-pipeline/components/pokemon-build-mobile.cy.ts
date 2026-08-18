@@ -244,7 +244,6 @@ describe("Optimize bulk", () => {
   it("Should restore the original evs when the proposal is discarded", () => {
     build.optimizeBulkIsVisible()
 
-    build.toggleUpdateNature()
     build.optimizeBulk()
     build.evValueIs("hp", 12)
     build.evValueIs("def", 44)
@@ -256,9 +255,74 @@ describe("Optimize bulk", () => {
     build.optimizationButtonsAreHidden()
   })
 
-  it("Should discard a pending proposal when the tab changes", () => {
+  it("Should propose a spread and highlight the optimized stats", () => {
+    build.optimizeBulkIsVisible()
+
+    build.optimizeBulk()
+
+    build.optimizedStats(["hp", "def"])
+    build.evValueIs("hp", 12)
+    build.evValueIs("def", 44)
+  })
+
+  it("Should keep the spread when the proposal is applied", () => {
+    build.optimizeBulkIsVisible()
+
+    build.optimizeBulk()
+    build.applyOptimization()
+
+    build.evValueIs("hp", 12)
+    build.evValueIs("def", 44)
+    build.optimizationButtonsAreHidden()
+  })
+
+  it("Should show no solution needed when the Pokemon already survives", () => {
+    build.activateLeftPokemon()
+    build.importPokemon(poke["talonflame"])
+    build.activateRightPokemon()
+    build.toggleRole("defender")
+    build.optimizeBulkIsVisible()
+
+    build.optimizeBulk()
+
+    build.noSolutionNeededIsVisible()
+    build.okNoSolution()
+    build.optimizationButtonsAreHidden()
+  })
+
+  it("Should keep the nature when no solution is needed and update nature is on", () => {
+    build.activateLeftPokemon()
+    build.importPokemon(poke["talonflame"])
+    build.activateRightPokemon()
+    build.toggleRole("defender")
     build.optimizeBulkIsVisible()
     build.toggleUpdateNature()
+
+    build.optimizeBulk()
+
+    build.noSolutionNeededIsVisible()
+    build.natureIs("Adamant")
+  })
+
+  it("Should show no solution found when no spread survives", () => {
+    build.activateLeftPokemon()
+    build.importPokemon(poke["urshifu-rapid-strike"])
+    build.activateRightPokemon()
+    build.importPokemon(poke["flutter-mane"])
+    build.toggleRole("defender")
+    build.clearEvs()
+    build.optimizeBulkIsVisible()
+    build.selectSurvivalThreshold("4HKO")
+
+    build.optimizeBulk()
+
+    build.noSolutionFoundIsVisible()
+    build.okNoSolution()
+    build.optimizationButtonsAreHidden()
+  })
+
+  it("Should discard a pending proposal when the tab changes", () => {
+    build.optimizeBulkIsVisible()
     build.optimizeBulk()
     build.evValueIs("hp", 12)
 

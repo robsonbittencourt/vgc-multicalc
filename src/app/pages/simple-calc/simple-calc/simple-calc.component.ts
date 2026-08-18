@@ -158,7 +158,7 @@ export class SimpleCalcComponent {
       this.leftOptimizedEvs.set(null)
     }
 
-    if (result.nature) {
+    if (result.status === "success" && result.nature) {
       this.store.nature(defender.id, result.nature)
     }
   }
@@ -183,7 +183,7 @@ export class SimpleCalcComponent {
       this.rightOptimizedEvs.set(null)
     }
 
-    if (result.nature) {
+    if (result.status === "success" && result.nature) {
       this.store.nature(defender.id, result.nature)
     }
   }

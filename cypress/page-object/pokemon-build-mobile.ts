@@ -238,9 +238,42 @@ export class PokemonBuildMobile {
     return this
   }
 
+  applyOptimization(): PokemonBuildMobile {
+    cy.get('[data-cy="apply-optimization-mobile"]').click({ force: true })
+    return this
+  }
+
+  okNoSolution(): PokemonBuildMobile {
+    cy.get('[data-cy="ok-no-solution-mobile"]').click({ force: true })
+    return this
+  }
+
+  selectSurvivalThreshold(threshold: "2HKO" | "3HKO" | "4HKO"): PokemonBuildMobile {
+    cy.get('[data-cy="survival-threshold-select-mobile"]').find('[data-cy="input-select"]').click()
+    cy.get("mat-option").contains(threshold).click()
+    cy.get("mat-option").should("not.exist")
+    return this
+  }
+
   optimizationButtonsAreHidden() {
     cy.get('[data-cy="apply-optimization-mobile"]').should("not.exist")
     cy.get('[data-cy="discard-optimization-mobile"]').should("not.exist")
+  }
+
+  optimizedStats(stats: string[]) {
+    stats.forEach(stat => cy.get(`app-ev-slider[stat="${stat}"]`).find(".ev-slider").should("have.class", "optimized"))
+  }
+
+  noSolutionFoundIsVisible() {
+    cy.get(".no-solution").should("contain.text", "No solution found")
+  }
+
+  noSolutionNeededIsVisible() {
+    cy.get(".no-solution").should("contain.text", "No solution needed")
+  }
+
+  natureIs(name: string) {
+    cy.get('[data-cy="nature"]').should("contain.text", name)
   }
 
   toggleRole(role: "attacker" | "defender"): PokemonBuildMobile {
