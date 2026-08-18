@@ -217,7 +217,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Bug Bite", "Tackle", "Aerial Ace", "Protect"],
+    moves: ["Bug Bite", "Tackle", "Electroweb", "String Shot"],
     items: ["Eviolite"]
   },
   Metapod: {
@@ -232,7 +232,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Electroweb", "Belch", "Blizzard", "Protect"],
+    moves: ["Electroweb", "Harden", "Iron Defense"],
     items: ["Eviolite"]
   },
   Butterfree: {
@@ -262,7 +262,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Bug Bite", "Poison Sting", "Bug Bite", "Protect"],
+    moves: ["Poison Sting", "Facade", "Electroweb", "String Shot"],
     items: ["Eviolite"]
   },
   Kakuna: {
@@ -277,7 +277,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Electroweb", "Acid Spray", "Bug Buzz", "Protect"],
+    moves: ["Electroweb", "Poison Sting", "Facade", "String Shot"],
     items: ["Eviolite"]
   },
   Beedrill: {
@@ -352,7 +352,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 2
     },
-    moves: ["Brave Bird", "Fly", "Close Combat", "Protect"],
+    moves: ["Brave Bird", "Fly", "Giga Impact", "Protect"],
     items: ["Pidgeotite"]
   },
   "Pidgeot-Mega": {
@@ -367,7 +367,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 2
     },
-    moves: ["Brave Bird", "Fly", "Close Combat", "Protect"],
+    moves: ["Brave Bird", "Fly", "Giga Impact", "Protect"],
     items: ["Pidgeotite"]
   },
   Rattata: {
@@ -667,7 +667,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Aerial Ace", "Aqua Tail", "Avalanche", "Protect"],
+    moves: ["Aerial Ace", "Avalanche", "Earthquake", "Protect"],
     items: ["Leftovers"]
   },
   "Nidoran-M": {
@@ -682,7 +682,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Beat Up", "Body Slam", "Chip Away", "Protect"],
+    moves: ["Beat Up", "Chip Away", "Poison Jab", "Protect"],
     items: ["Eviolite"]
   },
   Nidorino: {
@@ -712,7 +712,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Aqua Tail", "Avalanche", "Beat Up", "Protect"],
+    moves: ["Avalanche", "Beat Up", "Earthquake", "Protect"],
     items: ["Leftovers"]
   },
   Clefairy: {
@@ -862,7 +862,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Acrobatics", "Aerial Ace", "Assurance", "Protect"],
+    moves: ["Fly", "Sludge Bomb", "Air Slash", "Protect"],
     items: ["Eviolite"]
   },
   Golbat: {
@@ -877,7 +877,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Acrobatics", "Aerial Ace", "Assurance", "Protect"],
+    moves: ["Aerial Ace", "Sky Attack", "Fly", "Protect"],
     items: ["Eviolite"]
   },
   Oddish: {
@@ -1297,7 +1297,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Psychic", "Shadow Ball", "Grass Knot", "Protect"],
+    moves: ["Psychic", "Shadow Ball", "Dream Eater", "Protect"],
     items: ["Eviolite"]
   },
   Kadabra: {
@@ -1357,7 +1357,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Bide", "Body Slam", "Brick Break", "Protect"],
+    moves: ["Body Slam", "Brick Break", "Close Combat", "Protect"],
     items: ["Eviolite"]
   },
   Machoke: {
@@ -1372,7 +1372,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Bide", "Body Slam", "Brick Break", "Protect"],
+    moves: ["Body Slam", "Brick Break", "Close Combat", "Protect"],
     items: ["Eviolite"]
   },
   Machamp: {
@@ -1597,7 +1597,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Body Slam", "Bounce", "Double Kick", "Protect"],
+    moves: ["Bounce", "Double Kick", "Double-Edge", "Protect"],
     items: ["Eviolite"]
   },
   Rapidash: {
@@ -1627,7 +1627,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Body Slam", "Bounce", "Drill Run", "Protect"],
+    moves: ["Bounce", "Drill Run", "Giga Impact", "Protect"],
     items: ["Leftovers"]
   },
   Slowpoke: {
@@ -1747,7 +1747,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Acrobatics", "Aerial Ace", "Body Slam", "Protect"],
+    moves: ["Acrobatics", "Aerial Ace", "Last Resort", "Protect"],
     items: ["Leftovers"]
   },
   "Farfetch’d-Galar": {
@@ -1762,7 +1762,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Assurance", "Body Slam", "Brave Bird", "Protect"],
+    moves: ["Brave Bird", "Revenge", "Last Resort", "Protect"],
     items: ["Eviolite"]
   },
   Doduo: {
@@ -1987,7 +1987,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Bind", "Body Press", "Body Slam", "Protect"],
+    moves: ["Head Smash", "Meteor Beam", "Earthquake", "Protect"],
     items: ["Eviolite"]
   },
   Drowzee: {
@@ -2032,7 +2032,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Bide", "Body Slam", "Brick Break", "Protect"],
+    moves: ["Body Slam", "Brick Break", "Crabhammer", "Protect"],
     items: ["Eviolite"]
   },
   Kingler: {
@@ -2167,7 +2167,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Aerial Ace", "Body Slam", "Bone Club", "Protect"],
+    moves: ["Body Slam", "Earthquake", "Dig", "Protect"],
     items: ["Eviolite"]
   },
   Marowak: {
@@ -2182,7 +2182,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Aerial Ace", "Body Slam", "Bone Club", "Protect"],
+    moves: ["Body Slam", "Earthquake", "Dig", "Protect"],
     items: ["Leftovers"]
   },
   "Marowak-Alola": {
@@ -2197,7 +2197,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Aerial Ace", "Body Slam", "Bone Club", "Protect"],
+    moves: ["Aerial Ace", "Bone Club", "Flare Blitz", "Protect"],
     items: ["Leftovers"]
   },
   Hitmonlee: {
@@ -2242,7 +2242,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Acid", "Belch", "Blizzard", "Protect"],
+    moves: ["Belch", "Blizzard", "Hyper Beam", "Protect"],
     items: ["Eviolite"]
   },
   Koffing: {
@@ -2452,7 +2452,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Blizzard", "Brine", "Bubble Beam", "Protect"],
+    moves: ["Blizzard", "Bubble Beam", "Hydro Pump", "Protect"],
     items: ["Eviolite"]
   },
   Starmie: {
@@ -2512,7 +2512,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Blizzard", "Confusion", "Dazzling Gleam", "Protect"],
+    moves: ["Confusion", "Dazzling Gleam", "Future Sight", "Protect"],
     items: ["Eviolite"]
   },
   Scyther: {
@@ -2677,7 +2677,7 @@ export const MOVESETS = {
       spd: 1,
       spe: 0
     },
-    moves: ["Tackle", "Splash", "Flail"],
+    moves: ["Flail"],
     items: ["Eviolite", "Assault Vest", "Choice Scarf", "Focus Sash", "Heavy-Duty Boots"]
   },
   Gyarados: {
@@ -2889,7 +2889,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Aerial Ace", "Aqua Jet", "Aqua Tail", "Protect"],
+    moves: ["Aerial Ace", "Aqua Jet", "Stone Edge", "Protect"],
     items: ["Leftovers"]
   },
   Aerodactyl: {
@@ -3459,7 +3459,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Acrobatics", "Aerial Ace", "Assurance", "Protect"],
+    moves: ["Aerial Ace", "Sky Attack", "Brave Bird", "Protect"],
     items: ["Leftovers"]
   },
   Chinchou: {
@@ -3609,7 +3609,7 @@ export const MOVESETS = {
       spd: 25,
       spe: 10
     },
-    moves: ["Body Press", "Discharge", "Slack Off", "Cotton Guard"],
+    moves: ["Discharge", "Cotton Guard", "Thunder", "Protect"],
     items: ["Eviolite"]
   },
   Flaaffy: {
@@ -3984,7 +3984,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Hidden Power", "Blizzard", "Flash Cannon", "Protect"],
+    moves: ["Hidden Power"],
     items: ["Leftovers"]
   },
   Wobbuffet: {
@@ -3999,7 +3999,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Mirror Coat", "Air Cutter", "Air Slash", "Protect"],
+    moves: ["Mirror Coat", "Amnesia", "Charm", "Counter"],
     items: ["Leftovers"]
   },
   Girafarig: {
@@ -4359,7 +4359,7 @@ export const MOVESETS = {
       spd: 32,
       spe: 0
     },
-    moves: ["Earthquake", "Stealth Rock", "Rock Slide", "Toxic"],
+    moves: ["Earthquake", "Stealth Rock", "Rock Slide", "Protect"],
     items: ["Eviolite"]
   },
   Corsola: {
@@ -4704,7 +4704,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Bide", "Body Press", "Body Slam", "Protect"],
+    moves: ["Body Press", "Body Slam", "Giga Impact", "Protect"],
     items: ["Leftovers"]
   },
   Blissey: {
@@ -5094,7 +5094,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Blizzard", "Charge Beam", "Echoed Voice", "Protect"],
+    moves: ["Blizzard", "Charge Beam", "Hyper Voice", "Protect"],
     items: ["Eviolite"]
   },
   "Zigzagoon-Galar": {
@@ -5139,7 +5139,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Assurance", "Body Press", "Body Slam", "Protect"],
+    moves: ["Giga Impact", "Hyper Beam", "Last Resort", "Protect"],
     items: ["Eviolite"]
   },
   Wurmple: {
@@ -5154,7 +5154,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Bug Bite", "Poison Sting", "Tackle", "Protect"],
+    moves: ["Bug Bite", "Poison Sting", "Tackle", "String Shot"],
     items: ["Eviolite"]
   },
   Silcoon: {
@@ -5169,7 +5169,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Bug Bite", "Aerial Ace", "Bite", "Protect"],
+    moves: ["Tackle", "Poison Sting", "Harden", "Iron Defense"],
     items: ["Eviolite"]
   },
   Beautifly: {
@@ -5199,7 +5199,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Bug Bite", "Bug Bite", "Tackle", "Protect"],
+    moves: ["Tackle", "Poison Sting", "Harden", "Iron Defense"],
     items: ["Eviolite"]
   },
   Dustox: {
@@ -5214,7 +5214,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Bug Buzz", "Confusion", "Electroweb", "Protect"],
+    moves: ["Bug Buzz", "Confusion", "Sludge Bomb", "Protect"],
     items: ["Leftovers"]
   },
   Lotad: {
@@ -5514,7 +5514,7 @@ export const MOVESETS = {
       spd: 1,
       spe: 32
     },
-    moves: ["Earthquake", "Body Slam", "Bulk Up", "Slack Off"],
+    moves: ["Earthquake", "Body Slam", "Bulk Up", "Protect"],
     items: ["Eviolite", "Life Orb"]
   },
   Slaking: {
@@ -5544,7 +5544,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Aerial Ace", "Bide", "Bug Bite", "Protect"],
+    moves: ["Aerial Ace", "Bug Bite", "Dig", "Protect"],
     items: ["Eviolite"]
   },
   Ninjask: {
@@ -5694,7 +5694,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Covet", "Double Slap", "Double-Edge", "Protect"],
+    moves: ["Covet", "Double-Edge", "Last Resort", "Protect"],
     items: ["Eviolite"]
   },
   Delcatty: {
@@ -5709,7 +5709,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Covet", "Double Slap", "Facade", "Protect"],
+    moves: ["Covet", "Facade", "Giga Impact", "Protect"],
     items: ["Leftovers"]
   },
   Sableye: {
@@ -5784,7 +5784,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Aerial Ace", "Body Press", "Body Slam", "Protect"],
+    moves: ["Body Slam", "Head Smash", "Iron Tail", "Protect"],
     items: ["Eviolite"]
   },
   Lairon: {
@@ -5799,7 +5799,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Aerial Ace", "Body Press", "Body Slam", "Protect"],
+    moves: ["Body Slam", "Head Smash", "Iron Tail", "Protect"],
     items: ["Eviolite"]
   },
   Aggron: {
@@ -5889,7 +5889,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Charge Beam", "Discharge", "Electro Ball", "Protect"],
+    moves: ["Discharge", "Thunder", "Thunderbolt", "Protect"],
     items: ["Eviolite"]
   },
   Manectric: {
@@ -6039,7 +6039,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Aqua Jet", "Assurance", "Bite", "Protect"],
+    moves: ["Aqua Jet", "Bite", "Liquidation", "Protect"],
     items: ["Eviolite"]
   },
   Sharpedo: {
@@ -6099,7 +6099,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Blizzard", "Brine", "Echoed Voice", "Protect"],
+    moves: ["Blizzard", "Brine", "Water Spout", "Protect"],
     items: ["Leftovers"]
   },
   Numel: {
@@ -6174,7 +6174,7 @@ export const MOVESETS = {
       spd: 1,
       spe: 0
     },
-    moves: ["Meteor Beam", "Psychic", "Power Gem", "Trailblaze"],
+    moves: ["Psychic", "Power Gem", "Trailblaze", "Protect"],
     items: ["Power Herb"]
   },
   Grumpig: {
@@ -6204,7 +6204,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Dream Eater", "Hidden Power", "Hyper Voice", "Protect"],
+    moves: ["Dream Eater", "Uproar", "Double-Edge", "Protect"],
     items: ["Leftovers"]
   },
   Trapinch: {
@@ -6294,7 +6294,7 @@ export const MOVESETS = {
       spd: 1,
       spe: 0
     },
-    moves: ["Moonblast", "Body Press", "Roost", "Cotton Guard"],
+    moves: ["Moonblast", "Roost", "Cotton Guard", "Protect"],
     items: ["Eviolite"]
   },
   Altaria: {
@@ -6534,7 +6534,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Aerial Ace", "Aqua Tail", "Body Slam", "Protect"],
+    moves: ["Aerial Ace", "Body Slam", "Stone Edge", "Protect"],
     items: ["Leftovers"]
   },
   Feebas: {
@@ -6579,7 +6579,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 2
     },
-    moves: ["Weather Ball", "Thunderbolt", "Protect", "Power Whip"],
+    moves: ["Weather Ball", "Thunderbolt", "Round", "Protect"],
     items: ["Sitrus Berry"]
   },
   "Castform-Rainy": {
@@ -6594,7 +6594,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 2
     },
-    moves: ["Weather Ball", "Thunderbolt", "Protect", "Power Whip"],
+    moves: ["Weather Ball", "Thunderbolt", "Hydro Pump", "Protect"],
     items: ["Sitrus Berry"]
   },
   "Castform-Snowy": {
@@ -6609,7 +6609,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 2
     },
-    moves: ["Weather Ball", "Thunderbolt", "Protect", "Power Whip"],
+    moves: ["Weather Ball", "Thunderbolt", "Blizzard", "Protect"],
     items: ["Sitrus Berry"]
   },
   "Castform-Sunny": {
@@ -6624,7 +6624,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 2
     },
-    moves: ["Weather Ball", "Thunderbolt", "Protect", "Power Whip"],
+    moves: ["Weather Ball", "Thunderbolt", "Fire Blast", "Protect"],
     items: ["Sitrus Berry"]
   },
   Kecleon: {
@@ -6639,7 +6639,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Aerial Ace", "Aqua Tail", "Astonish", "Protect"],
+    moves: ["Aerial Ace", "Giga Impact", "Body Slam", "Protect"],
     items: ["Leftovers"]
   },
   Shuppet: {
@@ -6804,7 +6804,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Mirror Coat", "Air Slash", "Dazzling Gleam", "Protect"],
+    moves: ["Mirror Coat", "Amnesia", "Charm", "Counter"],
     items: ["Eviolite"]
   },
   Snorunt: {
@@ -6909,7 +6909,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Blizzard", "Brine", "Hidden Power", "Protect"],
+    moves: ["Blizzard", "Brine", "Muddy Water", "Protect"],
     items: ["Eviolite"]
   },
   Huntail: {
@@ -6924,7 +6924,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Aqua Tail", "Bind", "Bite", "Protect"],
+    moves: ["Aqua Tail", "Bite", "Dive", "Protect"],
     items: ["Leftovers"]
   },
   Gorebyss: {
@@ -7044,7 +7044,7 @@ export const MOVESETS = {
       spd: 25,
       spe: 0
     },
-    moves: ["Zen Headbutt", "Iron Head", "Tera Blast", "Iron Defense"],
+    moves: ["Iron Defense"],
     items: ["Eviolite", "Choice Band", "Rocky Helmet", "Leftovers", "Sitrus Berry", "Assault Vest", "Life Orb", "Metal Coat", "Aguav Berry", "Air Balloon", "Enigma Berry", "Heavy-Duty Boots"]
   },
   Metang: {
@@ -7284,7 +7284,7 @@ export const MOVESETS = {
       spd: 1,
       spe: 0
     },
-    moves: ["Luster Purge", "Blue Flare", "Bolt Strike", "Mountain Gale"],
+    moves: ["Psycho Boost", "Future Sight", "Psychic", "Protect"],
     items: ["Life Orb"]
   },
   "Deoxys-Attack": {
@@ -7539,7 +7539,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Aqua Tail", "Covet", "Crunch", "Protect"],
+    moves: ["Aqua Tail", "Crunch", "Skull Bash", "Protect"],
     items: ["Eviolite"]
   },
   Bibarel: {
@@ -7569,7 +7569,7 @@ export const MOVESETS = {
       spd: 1,
       spe: 0
     },
-    moves: ["Lunge", "Skitter Smack", "Bug Bite", "Endeavor"],
+    moves: ["Bug Bite"],
     items: ["Focus Sash"]
   },
   Kricketune: {
@@ -7659,7 +7659,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 2
     },
-    moves: ["Sludge Bomb", "Leaf Storm", "Focus Blast", "Protect"],
+    moves: ["Sludge Bomb", "Leaf Storm", "Petal Dance", "Protect"],
     items: ["Sitrus Berry"]
   },
   Cranidos: {
@@ -7704,7 +7704,7 @@ export const MOVESETS = {
       spd: 1,
       spe: 0
     },
-    moves: ["Body Press", "Iron Head", "Iron Defense", "Slack Off"],
+    moves: ["Iron Head", "Iron Defense", "Stone Edge", "Protect"],
     items: ["Eviolite"]
   },
   Bastiodon: {
@@ -7734,7 +7734,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Electroweb", "Hidden Power", "Snore", "Protect"],
+    moves: ["Bug Bite", "Struggle Bug", "Tackle", "Protect"],
     items: ["Eviolite"]
   },
   Wormadam: {
@@ -7809,7 +7809,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Bug Buzz", "Lunge", "Gust", "Sweet Scent"],
+    moves: ["Bug Bite"],
     items: ["Eviolite"]
   },
   Vespiquen: {
@@ -7914,7 +7914,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Dazzling Gleam", "Draining Kiss", "Energy Ball", "Protect"],
+    moves: ["Dazzling Gleam", "Energy Ball", "Petal Dance", "Protect"],
     items: ["Leftovers"]
   },
   Shellos: {
@@ -8004,7 +8004,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Assurance", "Bounce", "Circle Throw", "Protect"],
+    moves: ["Bounce", "Circle Throw", "Facade", "Protect"],
     items: ["Eviolite"]
   },
   Lopunny: {
@@ -8199,7 +8199,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Charge Beam", "Confusion", "Dazzling Gleam", "Protect"],
+    moves: ["Charge Beam", "Confusion", "Future Sight", "Protect"],
     items: ["Eviolite"]
   },
   Happiny: {
@@ -8469,7 +8469,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Bind", "Bite", "Bug Bite", "Protect"],
+    moves: ["Bind", "Bite", "Power Whip", "Protect"],
     items: ["Leftovers"]
   },
   Finneon: {
@@ -8604,7 +8604,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Aqua Tail", "Bind", "Body Press", "Protect"],
+    moves: ["Aqua Tail", "Body Press", "Explosion", "Protect"],
     items: ["Leftovers"]
   },
   Rhyperior: {
@@ -9519,7 +9519,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Charge Beam", "Confusion", "Dazzling Gleam", "Protect"],
+    moves: ["Confusion", "Dazzling Gleam", "Overheat", "Protect"],
     items: ["Leftovers"]
   },
   Snivy: {
@@ -9579,7 +9579,7 @@ export const MOVESETS = {
       spd: 1,
       spe: 0
     },
-    moves: ["Flare Blitz", "Earthquake", "Stealth Rock", "Slack Off"],
+    moves: ["Flare Blitz", "Fire Punch", "Temper Flare", "Protect"],
     items: ["Eviolite"]
   },
   Pignite: {
@@ -9699,7 +9699,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Aqua Tail", "Assurance", "Bide", "Protect"],
+    moves: ["Facade", "Tackle", "Gunk Shot", "Protect"],
     items: ["Eviolite"]
   },
   Watchog: {
@@ -9714,7 +9714,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 2
     },
-    moves: ["Crunch", "Close Combat", "Protect", "Knock Off"],
+    moves: ["Crunch", "Giga Impact", "Double-Edge", "Protect"],
     items: ["Sitrus Berry"]
   },
   Lillipup: {
@@ -9729,7 +9729,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Aerial Ace", "Bite", "Covet", "Protect"],
+    moves: ["Bite", "Covet", "Giga Impact", "Protect"],
     items: ["Eviolite"]
   },
   Herdier: {
@@ -9744,7 +9744,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Aerial Ace", "Bite", "Covet", "Protect"],
+    moves: ["Bite", "Covet", "Giga Impact", "Protect"],
     items: ["Eviolite"]
   },
   Stoutland: {
@@ -9759,7 +9759,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Aerial Ace", "Bite", "Covet", "Protect"],
+    moves: ["Bite", "Covet", "Giga Impact", "Protect"],
     items: ["Leftovers"]
   },
   Purrloin: {
@@ -9774,7 +9774,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Dark Pulse", "Dream Eater", "Echoed Voice", "Protect"],
+    moves: ["Dark Pulse", "Snarl", "Night Slash", "Protect"],
     items: ["Eviolite"]
   },
   Liepard: {
@@ -9804,7 +9804,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Disarming Voice", "Energy Ball", "Giga Drain", "Protect"],
+    moves: ["Energy Ball", "Giga Drain", "Leaf Storm", "Protect"],
     items: ["Eviolite"]
   },
   Simisage: {
@@ -9834,7 +9834,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Belch", "Disarming Voice", "Fire Blast", "Protect"],
+    moves: ["Fire Blast", "Overheat", "Heat Wave", "Protect"],
     items: ["Eviolite"]
   },
   Simisear: {
@@ -9849,7 +9849,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 2
     },
-    moves: ["Flamethrower", "Focus Blast", "Protect", "Psychic"],
+    moves: ["Flamethrower", "Focus Blast", "Overheat", "Protect"],
     items: ["Choice Scarf"]
   },
   Panpour: {
@@ -9864,7 +9864,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Blizzard", "Brine", "Disarming Voice", "Protect"],
+    moves: ["Blizzard", "Hydro Pump", "Surf", "Protect"],
     items: ["Eviolite"]
   },
   Simipour: {
@@ -9894,7 +9894,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Charge Beam", "Dazzling Gleam", "Dream Eater", "Protect"],
+    moves: ["Dazzling Gleam", "Dream Eater", "Future Sight", "Protect"],
     items: ["Eviolite"]
   },
   Musharna: {
@@ -9924,7 +9924,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Aerial Ace", "Dual Wingbeat", "Facade", "Protect"],
+    moves: ["Dual Wingbeat", "Facade", "Sky Attack", "Protect"],
     items: ["Eviolite"]
   },
   Tranquill: {
@@ -9939,7 +9939,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Aerial Ace", "Dual Wingbeat", "Facade", "Protect"],
+    moves: ["Dual Wingbeat", "Facade", "Sky Attack", "Protect"],
     items: ["Eviolite"]
   },
   Unfezant: {
@@ -9954,7 +9954,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Aerial Ace", "Brave Bird", "Dual Wingbeat", "Protect"],
+    moves: ["Brave Bird", "Dual Wingbeat", "Giga Impact", "Protect"],
     items: ["Leftovers"]
   },
   Blitzle: {
@@ -10044,7 +10044,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Air Cutter", "Air Slash", "Charge Beam", "Protect"],
+    moves: ["Air Cutter", "Air Slash", "Future Sight", "Protect"],
     items: ["Eviolite"]
   },
   Swoobat: {
@@ -10059,7 +10059,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Air Cutter", "Air Slash", "Charge Beam", "Protect"],
+    moves: ["Air Cutter", "Air Slash", "Future Sight", "Protect"],
     items: ["Leftovers"]
   },
   Drilbur: {
@@ -10119,7 +10119,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 2
     },
-    moves: ["Dazzling Gleam", "Moonblast", "Protect", "Healing Wish"],
+    moves: ["Dazzling Gleam", "Healing Wish", "Hyper Beam", "Protect"],
     items: ["Audinite"]
   },
   "Audino-Mega": {
@@ -10134,7 +10134,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 2
     },
-    moves: ["Dazzling Gleam", "Moonblast", "Protect", "Healing Wish"],
+    moves: ["Dazzling Gleam", "Healing Wish", "Hyper Beam", "Protect"],
     items: ["Audinite"]
   },
   Timburr: {
@@ -10194,7 +10194,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Acid", "Bubble", "Bubble Beam", "Protect"],
+    moves: ["Acid", "Bubble Beam", "Hydro Pump", "Protect"],
     items: ["Eviolite"]
   },
   Palpitoad: {
@@ -10209,7 +10209,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Acid", "Bubble", "Bubble Beam", "Protect"],
+    moves: ["Acid", "Bubble Beam", "Hydro Pump", "Protect"],
     items: ["Eviolite"]
   },
   Seismitoad: {
@@ -10239,7 +10239,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Bide", "Bind", "Body Slam", "Protect"],
+    moves: ["Body Slam", "Close Combat", "Dynamic Punch", "Protect"],
     items: ["Leftovers"]
   },
   Sawk: {
@@ -10254,7 +10254,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Bide", "Brick Break", "Bulldoze", "Protect"],
+    moves: ["Brick Break", "Bulldoze", "Close Combat", "Protect"],
     items: ["Leftovers"]
   },
   Sewaddle: {
@@ -10299,7 +10299,7 @@ export const MOVESETS = {
       spd: 1,
       spe: 32
     },
-    moves: ["Sticky Web", "Knock Off", "Pounce", "Leaf Blade"],
+    moves: ["Knock Off", "Pounce", "Leaf Blade", "Protect"],
     items: ["Focus Sash"]
   },
   Venipede: {
@@ -10314,7 +10314,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Bite", "Bug Bite", "Double-Edge", "Protect"],
+    moves: ["Double-Edge", "Poison Jab", "Pin Missile", "Protect"],
     items: ["Eviolite"]
   },
   Whirlipede: {
@@ -10329,7 +10329,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Bug Bite", "Double-Edge", "Endeavor", "Protect"],
+    moves: ["Double-Edge", "Poison Jab", "Mortal Spin", "Protect"],
     items: ["Eviolite"]
   },
   Scolipede: {
@@ -10464,7 +10464,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Aqua Jet", "Aqua Tail", "Assurance", "Protect"],
+    moves: ["Aqua Jet", "Aqua Tail", "Liquidation", "Protect"],
     items: ["Leftovers"]
   },
   "Basculin-White-Striped": {
@@ -10554,7 +10554,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Avalanche", "Bite", "Brick Break", "Protect"],
+    moves: ["Brick Break", "Focus Punch", "Flare Blitz", "Protect"],
     items: ["Eviolite"]
   },
   Darmanitan: {
@@ -10584,7 +10584,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Avalanche", "Bite", "Body Press", "Protect"],
+    moves: ["Focus Punch", "Giga Impact", "Hyper Beam", "Protect"],
     items: ["Leftovers"]
   },
   "Darmanitan-Galar-Zen": {
@@ -10599,7 +10599,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Bite", "Body Press", "Body Slam", "Protect"],
+    moves: ["Overheat", "Flare Blitz", "Fire Blast", "Protect"],
     items: ["Leftovers"]
   },
   "Darmanitan-Zen": {
@@ -10614,7 +10614,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Burning Jealousy", "Ember", "Expanding Force", "Protect"],
+    moves: ["Overheat", "Flare Blitz", "Fire Blast", "Protect"],
     items: ["Leftovers"]
   },
   Maractus: {
@@ -10644,7 +10644,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Aerial Ace", "Bug Bite", "Bulldoze", "Protect"],
+    moves: ["Bug Bite", "Bulldoze", "Rock Wrecker", "Protect"],
     items: ["Eviolite"]
   },
   Crustle: {
@@ -10659,7 +10659,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Aerial Ace", "Body Press", "Bug Bite", "Protect"],
+    moves: ["Body Press", "Bug Bite", "Rock Wrecker", "Protect"],
     items: ["Leftovers"]
   },
   Scraggy: {
@@ -10749,7 +10749,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Astonish", "Brutal Swing", "Earthquake", "Protect"],
+    moves: ["Astonish", "Shadow Ball", "Hex", "Protect"],
     items: ["Eviolite"]
   },
   Cofagrigus: {
@@ -10764,7 +10764,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 2
     },
-    moves: ["Shadow Ball", "Focus Blast", "Protect", "Will-O-Wisp"],
+    moves: ["Shadow Ball", "Will-O-Wisp", "Hex", "Protect"],
     items: ["Sitrus Berry"]
   },
   Tirtouga: {
@@ -10779,7 +10779,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Aqua Jet", "Aqua Tail", "Bide", "Protect"],
+    moves: ["Aqua Jet", "Aqua Tail", "Stone Edge", "Protect"],
     items: ["Eviolite"]
   },
   Carracosta: {
@@ -10794,7 +10794,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Aqua Jet", "Aqua Tail", "Bide", "Protect"],
+    moves: ["Aqua Jet", "Aqua Tail", "Stone Edge", "Protect"],
     items: ["Leftovers"]
   },
   Archen: {
@@ -10809,7 +10809,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Acrobatics", "Aerial Ace", "Aqua Tail", "Protect"],
+    moves: ["Acrobatics", "Head Smash", "Stone Edge", "Protect"],
     items: ["Eviolite"]
   },
   Archeops: {
@@ -10824,7 +10824,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Acrobatics", "Aerial Ace", "Aqua Tail", "Protect"],
+    moves: ["Acrobatics", "Head Smash", "Stone Edge", "Protect"],
     items: ["Leftovers"]
   },
   Trubbish: {
@@ -10839,7 +10839,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Double Slap", "Drain Punch", "Explosion", "Protect"],
+    moves: ["Drain Punch", "Explosion", "Gunk Shot", "Protect"],
     items: ["Eviolite"]
   },
   Garbodor: {
@@ -11169,7 +11169,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Aerial Ace", "Bug Bite", "Counter", "Protect"],
+    moves: ["Bug Bite", "Counter", "Megahorn", "Protect"],
     items: ["Eviolite"]
   },
   Escavalier: {
@@ -11184,7 +11184,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Aerial Ace", "Brutal Swing", "Bug Bite", "Protect"],
+    moves: ["Brutal Swing", "Bug Bite", "Megahorn", "Protect"],
     items: ["Leftovers"]
   },
   Foongus: {
@@ -11304,7 +11304,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Assurance", "Bullet Seed", "Endeavor", "Protect"],
+    moves: ["Assurance", "Bullet Seed", "Steel Roller", "Protect"],
     items: ["Eviolite"]
   },
   Ferrothorn: {
@@ -11319,7 +11319,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Aerial Ace", "Assurance", "Body Press", "Protect"],
+    moves: ["Assurance", "Body Press", "Steel Roller", "Protect"],
     items: ["Leftovers"]
   },
   Klink: {
@@ -11379,7 +11379,7 @@ export const MOVESETS = {
       spd: 1,
       spe: 0
     },
-    moves: ["Knock Off", "Spark", "Thunder Wave", "Charge"],
+    moves: ["Charge"],
     items: ["Eviolite", "Leftovers", "Zap Plate", "Wiki Berry", "Magnet"]
   },
   Eelektrik: {
@@ -11439,7 +11439,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Charge Beam", "Confusion", "Dark Pulse", "Protect"],
+    moves: ["Confusion", "Dark Pulse", "Psychic", "Protect"],
     items: ["Eviolite"]
   },
   Beheeyem: {
@@ -11454,7 +11454,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Charge Beam", "Confusion", "Dark Pulse", "Protect"],
+    moves: ["Confusion", "Dark Pulse", "Future Sight", "Protect"],
     items: ["Leftovers"]
   },
   Litwick: {
@@ -11709,7 +11709,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Aerial Ace", "Aqua Tail", "Bite", "Protect"],
+    moves: ["Bite", "Outrage", "Dragon Claw", "Protect"],
     items: ["Leftovers"]
   },
   Golett: {
@@ -11799,7 +11799,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Aerial Ace", "Assurance", "Body Slam", "Protect"],
+    moves: ["Assurance", "Body Slam", "Giga Impact", "Protect"],
     items: ["Leftovers"]
   },
   Rufflet: {
@@ -11904,7 +11904,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Aerial Ace", "Beat Up", "Bite", "Protect"],
+    moves: ["Beat Up", "Bite", "First Impression", "Protect"],
     items: ["Leftovers"]
   },
   Deino: {
@@ -12219,7 +12219,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Air Slash", "Aura Sphere", "Bubble Beam", "Protect"],
+    moves: ["Bubble Beam", "Focus Blast", "Hydro Pump", "Protect"],
     items: ["Leftovers"]
   },
   Meloetta: {
@@ -12249,7 +12249,7 @@ export const MOVESETS = {
       spd: 30,
       spe: 1
     },
-    moves: ["Relic Song", "Close Combat", "U-turn", "Dream Eater"],
+    moves: ["Relic Song", "Close Combat", "U-turn", "Protect"],
     items: ["Focus Sash"]
   },
   Genesect: {
@@ -12504,7 +12504,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Blizzard", "Bubble", "Chilling Water", "Protect"],
+    moves: ["Blizzard", "Bubble", "Hydro Cannon", "Protect"],
     items: ["Leftovers"]
   },
   "Greninja-Mega": {
@@ -12549,7 +12549,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 2
     },
-    moves: ["Earthquake", "Stone Edge", "Close Combat", "Protect"],
+    moves: ["Earthquake", "Stone Edge", "Giga Impact", "Protect"],
     items: ["Choice Scarf"]
   },
   Fletchling: {
@@ -12609,7 +12609,7 @@ export const MOVESETS = {
       spd: 1,
       spe: 0
     },
-    moves: ["Bug Bite", "Pounce", "Stun Spore", "Poison Powder"],
+    moves: ["Bug Bite"],
     items: ["Eviolite", "Leftovers"]
   },
   Spewpa: {
@@ -12624,7 +12624,7 @@ export const MOVESETS = {
       spd: 1,
       spe: 0
     },
-    moves: ["Struggle Bug", "Stun Spore", "Rage Powder", "Protect"],
+    moves: ["Bug Bite"],
     items: ["Eviolite"]
   },
   Vivillon: {
@@ -12834,7 +12834,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Aerial Ace", "Arm Thrust", "Body Slam", "Protect"],
+    moves: ["Body Slam", "Brick Break", "Drain Punch", "Protect"],
     items: ["Eviolite"]
   },
   Pangoro: {
@@ -12864,7 +12864,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 2
     },
-    moves: ["Bite", "Close Combat", "Protect", "Knock Off"],
+    moves: ["Bite", "Giga Impact", "Last Resort", "Protect"],
     items: ["Choice Scarf"]
   },
   Espurr: {
@@ -12954,7 +12954,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Aerial Ace", "Brick Break", "Brutal Swing", "Protect"],
+    moves: ["Aerial Ace", "Brick Break", "Iron Head", "Protect"],
     items: ["Eviolite"]
   },
   Doublade: {
@@ -12969,7 +12969,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Aerial Ace", "Brick Break", "Brutal Swing", "Protect"],
+    moves: ["Aerial Ace", "Brick Break", "Iron Head", "Protect"],
     items: ["Eviolite"]
   },
   Aegislash: {
@@ -13029,7 +13029,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Charge Beam", "Dazzling Gleam", "Disarming Voice", "Protect"],
+    moves: ["Dazzling Gleam", "Disarming Voice", "Moonblast", "Protect"],
     items: ["Eviolite"]
   },
   Aromatisse: {
@@ -13059,7 +13059,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Dazzling Gleam", "Draining Kiss", "Dream Eater", "Protect"],
+    moves: ["Dazzling Gleam", "Draining Kiss", "Fairy Wind", "Protect"],
     items: ["Eviolite"]
   },
   Slurpuff: {
@@ -13134,7 +13134,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Aerial Ace", "Assurance", "Beat Up", "Protect"],
+    moves: ["Stone Edge", "Surf", "Liquidation", "Protect"],
     items: ["Eviolite"]
   },
   Barbaracle: {
@@ -13254,7 +13254,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Charge Beam", "Dark Pulse", "Electro Ball", "Protect"],
+    moves: ["Dark Pulse", "Thunder", "Thunderbolt", "Protect"],
     items: ["Eviolite"]
   },
   Heliolisk: {
@@ -13284,7 +13284,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Aerial Ace", "Assurance", "Bide", "Protect"],
+    moves: ["Draco Meteor", "Meteor Beam", "Outrage", "Protect"],
     items: ["Eviolite"]
   },
   Tyrantrum: {
@@ -13314,7 +13314,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Ancient Power", "Aurora Beam", "Blizzard", "Protect"],
+    moves: ["Ancient Power", "Blizzard", "Meteor Beam", "Protect"],
     items: ["Eviolite"]
   },
   Aurorus: {
@@ -13329,7 +13329,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 2
     },
-    moves: ["Blizzard", "Psychic", "Protect", "Power Gem"],
+    moves: ["Blizzard", "Psychic", "Meteor Beam", "Protect"],
     items: ["Choice Scarf"]
   },
   Sylveon: {
@@ -13539,7 +13539,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Astonish", "Bullet Seed", "Explosion", "Protect"],
+    moves: ["Bullet Seed", "Power Whip", "Seed Bomb", "Protect"],
     items: ["Eviolite"]
   },
   "Pumpkaboo-Large": {
@@ -13734,7 +13734,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Aurora Beam", "Dazzling Gleam", "Draining Kiss", "Protect"],
+    moves: ["Dazzling Gleam", "Moonblast", "Play Rough", "Protect"],
     items: ["Leftovers"]
   },
   Yveltal: {
@@ -13764,7 +13764,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Bind", "Bite", "Body Slam", "Protect"],
+    moves: ["Bite", "Body Slam", "Outrage", "Protect"],
     items: ["Leftovers"]
   },
   "Zygarde-10%": {
@@ -13779,7 +13779,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Bind", "Dig", "Extreme Speed", "Protect"],
+    moves: ["Bind", "Dig", "Outrage", "Protect"],
     items: ["Leftovers"]
   },
   "Zygarde-Complete": {
@@ -13794,7 +13794,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Bind", "Bite", "Body Slam", "Protect"],
+    moves: ["Bind", "Bite", "Outrage", "Protect"],
     items: ["Leftovers"]
   },
   Diancie: {
@@ -14364,7 +14364,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Brine", "Hidden Power", "Hydro Pump", "Protect"],
+    moves: ["Brine", "Hydro Pump", "Muddy Water", "Protect"],
     items: ["Leftovers"]
   },
   "Wishiwashi-School": {
@@ -14529,7 +14529,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Absorb", "Charge Beam", "Dazzling Gleam", "Protect"],
+    moves: ["Absorb", "Dazzling Gleam", "Solar Beam", "Protect"],
     items: ["Leftovers"]
   },
   Salandit: {
@@ -14574,7 +14574,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Aerial Ace", "Bide", "Bind", "Protect"],
+    moves: ["Double-Edge", "Focus Blast", "Mega Kick", "Protect"],
     items: ["Eviolite"]
   },
   Bewear: {
@@ -14589,7 +14589,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Aerial Ace", "Bide", "Bind", "Protect"],
+    moves: ["Bind", "Giga Impact", "Close Combat", "Protect"],
     items: ["Leftovers"]
   },
   Bounsweet: {
@@ -14694,7 +14694,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Aqua Jet", "Assurance", "Facade", "Protect"],
+    moves: ["Facade", "Waterfall", "Surf", "Protect"],
     items: ["Eviolite"]
   },
   Golisopod: {
@@ -14709,7 +14709,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Aerial Ace", "Assurance", "Brick Break", "Protect"],
+    moves: ["Brick Break", "First Impression", "Liquidation", "Protect"],
     items: ["Leftovers"]
   },
   "Golisopod-Mega": {
@@ -14724,7 +14724,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Aerial Ace", "Assurance", "Brick Break", "Protect"],
+    moves: ["Brick Break", "First Impression", "Iron Head", "Protect"],
     items: ["Golisopite"]
   },
   Sandygast: {
@@ -14769,7 +14769,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Bide", "Counter", "Mirror Coat", "Protect"],
+    moves: ["Counter", "Mirror Coat", "Rain Dance", "Protect"],
     items: ["Leftovers"]
   },
   "Type: Null": {
@@ -14784,7 +14784,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Air Slash", "Hidden Power", "Hyper Beam", "Protect"],
+    moves: ["Air Slash", "Hidden Power", "Razor Wind", "Protect"],
     items: ["Eviolite"]
   },
   Silvally: {
@@ -14799,7 +14799,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Air Slash", "Draco Meteor", "Flamethrower", "Protect"],
+    moves: ["Air Slash", "Flamethrower", "Hyper Beam", "Protect"],
     items: ["Leftovers"]
   },
   "Silvally-Bug": {
@@ -15114,7 +15114,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Burning Jealousy", "Charge Beam", "Draco Meteor", "Protect"],
+    moves: ["Burning Jealousy", "Shell Trap", "Overheat", "Protect"],
     items: ["Leftovers"]
   },
   Togedemaru: {
@@ -15129,7 +15129,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Assurance", "Bounce", "Covet", "Protect"],
+    moves: ["Assurance", "Bounce", "Steel Roller", "Protect"],
     items: ["Leftovers"]
   },
   Mimikyu: {
@@ -15159,7 +15159,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Astonish", "Beat Up", "Covet", "Protect"],
+    moves: ["Astonish", "Covet", "Play Rough", "Protect"],
     items: ["Leftovers"]
   },
   Bruxish: {
@@ -15219,7 +15219,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Aerial Ace", "Anchor Shot", "Assurance", "Protect"],
+    moves: ["Anchor Shot", "Assurance", "Solar Blade", "Protect"],
     items: ["Leftovers"]
   },
   "Jangmo-o": {
@@ -15234,7 +15234,7 @@ export const MOVESETS = {
       spd: 30,
       spe: 0
     },
-    moves: ["Draco Meteor", "Tera Blast", "Draining Kiss", "Slack Off"],
+    moves: ["Draco Meteor", "Tera Blast", "Dragon Pulse", "Protect"],
     items: ["Eviolite"]
   },
   "Hakamo-o": {
@@ -15279,7 +15279,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Acrobatics", "Aerial Ace", "Assurance", "Protect"],
+    moves: ["Acrobatics", "Assurance", "Wild Charge", "Protect"],
     items: ["Leftovers"]
   },
   "Tapu Lele": {
@@ -15294,7 +15294,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Charge Beam", "Confusion", "Dazzling Gleam", "Protect"],
+    moves: ["Confusion", "Dazzling Gleam", "Future Sight", "Protect"],
     items: ["Leftovers"]
   },
   "Tapu Bulu": {
@@ -15339,7 +15339,7 @@ export const MOVESETS = {
       spd: 1,
       spe: 0
     },
-    moves: ["Splash", "Teleport"],
+    moves: ["Splash"],
     items: ["Focus Sash", "Leftovers"]
   },
   Cosmoem: {
@@ -15354,7 +15354,7 @@ export const MOVESETS = {
       spd: 9,
       spe: 0
     },
-    moves: ["Cosmic Power", "Splash", "Teleport"],
+    moves: ["Cosmic Power"],
     items: ["Eviolite", "Rocky Helmet", "Leftovers"]
   },
   Solgaleo: {
@@ -15369,7 +15369,7 @@ export const MOVESETS = {
       spd: 1,
       spe: 0
     },
-    moves: ["U-turn", "Gigaton Hammer", "Final Gambit", "Trick"],
+    moves: ["Steel Beam", "Future Sight", "Sunsteel Strike", "Protect"],
     items: ["Choice Scarf"]
   },
   Lunala: {
@@ -15399,7 +15399,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Acid", "Acid Spray", "Charge Beam", "Protect"],
+    moves: ["Acid", "Acid Spray", "Meteor Beam", "Protect"],
     items: ["Leftovers"]
   },
   Buzzwole: {
@@ -15429,7 +15429,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Blizzard", "Bug Buzz", "Echoed Voice", "Protect"],
+    moves: ["Blizzard", "Bug Buzz", "Focus Blast", "Protect"],
     items: ["Leftovers"]
   },
   Xurkitree: {
@@ -15444,7 +15444,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Charge Beam", "Dazzling Gleam", "Discharge", "Protect"],
+    moves: ["Dazzling Gleam", "Discharge", "Zap Cannon", "Protect"],
     items: ["Leftovers"]
   },
   Celesteela: {
@@ -15549,7 +15549,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Moongeist Beam", "Mud Shot", "Round", "Protect"],
+    moves: ["Round", "Prismatic Laser", "Photon Geyser", "Protect"],
     items: ["Leftovers"]
   },
   Magearna: {
@@ -15594,7 +15594,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Acrobatics", "Assurance", "Blaze Kick", "Protect"],
+    moves: ["Blaze Kick", "Close Combat", "Phantom Force", "Protect"],
     items: ["Leftovers"]
   },
   Poipole: {
@@ -15609,7 +15609,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Acid", "Dragon Pulse", "Echoed Voice", "Protect"],
+    moves: ["Acid", "Dragon Pulse", "Sludge Wave", "Protect"],
     items: ["Eviolite"]
   },
   Naganadel: {
@@ -15639,7 +15639,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Bide", "Bind", "Body Press", "Protect"],
+    moves: ["Body Press", "Steel Roller", "Stone Edge", "Protect"],
     items: ["Leftovers"]
   },
   Blacephalon: {
@@ -15669,7 +15669,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Acrobatics", "Aerial Ace", "Assurance", "Protect"],
+    moves: ["Aerial Ace", "Plasma Fists", "Wild Charge", "Protect"],
     items: ["Leftovers"]
   },
   Meltan: {
@@ -15684,7 +15684,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Facade", "Gyro Ball", "Headbutt", "Protect"],
+    moves: ["Facade", "Headbutt", "Iron Head", "Protect"],
     items: ["Leftovers"]
   },
   Melmetal: {
@@ -15699,7 +15699,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Body Press", "Body Slam", "Brick Break", "Protect"],
+    moves: ["Body Slam", "Brick Break", "Iron Head", "Protect"],
     items: ["Leftovers"]
   },
   Grookey: {
@@ -15924,7 +15924,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Infestation", "Struggle Bug", "Earth Power", "Protect"],
+    moves: ["Infestation", "Struggle Bug", "Sticky Web", "Recover"],
     items: ["Eviolite"]
   },
   Dottler: {
@@ -15969,7 +15969,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Mud Shot", "Round", "Snarl", "Protect"],
+    moves: ["Mud Shot", "Snarl", "Dark Pulse", "Protect"],
     items: ["Eviolite"]
   },
   Thievul: {
@@ -15984,7 +15984,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Burning Jealousy", "Dark Pulse", "Grass Knot", "Protect"],
+    moves: ["Dark Pulse", "Snarl", "Crunch", "Protect"],
     items: ["Leftovers"]
   },
   Gossifleur: {
@@ -16164,7 +16164,7 @@ export const MOVESETS = {
       spd: 32,
       spe: 0
     },
-    moves: ["Astonish", "Sucker Punch", "Tera Blast", "Pounce"],
+    moves: ["Astonish"],
     items: ["Eviolite"]
   },
   Flapple: {
@@ -16284,7 +16284,7 @@ export const MOVESETS = {
       spd: 1,
       spe: 0
     },
-    moves: ["Sludge Bomb", "Volt Switch", "Nuzzle", "Slack Off"],
+    moves: ["Acid"],
     items: ["Eviolite"]
   },
   Toxtricity: {
@@ -16359,7 +16359,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Bind", "Body Slam", "Brick Break", "Protect"],
+    moves: ["Body Slam", "Brick Break", "Close Combat", "Protect"],
     items: ["Eviolite"]
   },
   Grapploct: {
@@ -16374,7 +16374,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Bind", "Body Slam", "Brick Break", "Protect"],
+    moves: ["Body Slam", "Brick Break", "Close Combat", "Protect"],
     items: ["Leftovers"]
   },
   Sinistea: {
@@ -16584,7 +16584,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Assurance", "Body Slam", "Brave Bird", "Protect"],
+    moves: ["Body Slam", "Brave Bird", "Meteor Assault", "Protect"],
     items: ["Leftovers"]
   },
   "Mr. Rime": {
@@ -16614,7 +16614,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 2
     },
-    moves: ["Shadow Ball", "Focus Blast", "Protect", "Dark Pulse"],
+    moves: ["Shadow Ball", "Dark Pulse", "Earth Power", "Protect"],
     items: ["Sitrus Berry"]
   },
   Milcery: {
@@ -16704,7 +16704,7 @@ export const MOVESETS = {
       spd: 15,
       spe: 0
     },
-    moves: ["Bug Buzz", "Lunge", "Icy Wind", "Icicle Spear"],
+    moves: ["Bug Bite"],
     items: ["Eviolite", "Focus Sash", "Occa Berry", "Loaded Dice"]
   },
   Frosmoth: {
@@ -16944,7 +16944,7 @@ export const MOVESETS = {
       spd: 1,
       spe: 0
     },
-    moves: ["Draco Meteor", "U-turn", "Hex", "Will-O-Wisp"],
+    moves: ["Draco Meteor", "Dragon Tail", "Astonish", "Protect"],
     items: ["Eviolite"]
   },
   Drakloak: {
@@ -17139,7 +17139,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Acrobatics", "Aerial Ace", "Assurance", "Protect"],
+    moves: ["Acrobatics", "Aerial Ace", "Solar Blade", "Protect"],
     items: ["Leftovers"]
   },
   Regieleki: {
@@ -18969,7 +18969,7 @@ export const MOVESETS = {
       spd: 1,
       spe: 0
     },
-    moves: ["Shadow Ball", "Power Gem", "Tera Blast", "Nasty Plot"],
+    moves: ["Astonish"],
     items: ["Life Orb"]
   },
   "Gimmighoul-Roaming": {
@@ -18984,7 +18984,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 25
     },
-    moves: ["Power Gem", "Shadow Ball", "Tera Blast", "Nasty Plot"],
+    moves: ["Astonish"],
     items: ["Life Orb", "Oran Berry"]
   },
   Gholdengo: {
