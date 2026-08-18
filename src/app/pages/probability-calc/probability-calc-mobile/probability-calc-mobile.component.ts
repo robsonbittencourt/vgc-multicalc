@@ -2,7 +2,6 @@ import { Component, computed, effect, ElementRef, inject, OnDestroy, QueryList, 
 import { NgClass } from "@angular/common"
 import { MatIcon } from "@angular/material/icon"
 import { CalcStore } from "@store/calc-store"
-import { SELECT_POKEMON_LABEL } from "@store/utils/select-pokemon-label"
 import { FieldStore } from "@store/field-store"
 import { FIELD_CONTEXT } from "@store/tokens/field-context.token"
 import { AutomaticFieldService } from "@store/automatic-field/automatic-field-service"
@@ -100,13 +99,7 @@ export class ProbabilityCalcMobileComponent implements OnDestroy {
     return id ? this.store.findNullablePokemonById(id) : undefined
   })
 
-  isAddMode = computed(() => false)
-
-  editingPokemonName = computed(() => {
-    if (this.isAddMode()) return SELECT_POKEMON_LABEL
-
-    return this.editingPokemon()?.name ?? ""
-  })
+  editingPokemonName = computed(() => this.editingPokemon()?.name ?? "")
   editingPokemonItem = computed(() => this.editingPokemon()?.item ?? "")
   editingMoveIndex = computed(() => Math.max(0, this.editingPokemon()?.activeMoveIndex ?? 0))
 

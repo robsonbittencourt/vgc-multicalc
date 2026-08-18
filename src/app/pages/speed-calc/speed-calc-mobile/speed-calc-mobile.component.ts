@@ -6,7 +6,6 @@ import { InputAutocompleteComponent } from "@shared/input-autocomplete/input-aut
 import { InputSelectComponent } from "@shared/input-select/input-select.component"
 import { WidgetComponent } from "@shared/widget/widget.component"
 import { CalcStore } from "@store/calc-store"
-import { SELECT_POKEMON_LABEL } from "@store/utils/select-pokemon-label"
 import { FieldStore } from "@store/field-store"
 import { SpeedCalcOptionsStore } from "@store/speed-calc-options-store"
 import { FIELD_CONTEXT } from "@store/tokens/field-context.token"
@@ -84,13 +83,7 @@ export class SpeedCalcMobileComponent implements OnDestroy {
     return id ? this.store.findNullablePokemonById(id) : undefined
   })
 
-  editingPokemonName = computed(() => {
-    if (this.isAddMode()) return SELECT_POKEMON_LABEL
-
-    return this.editingPokemon()?.name ?? ""
-  })
-
-  isAddMode = computed(() => false)
+  editingPokemonName = computed(() => this.editingPokemon()?.name ?? "")
 
   noPokemonSelected = computed(() => {
     const pokemon = this.editingPokemon() ?? this.store.team().activePokemon()

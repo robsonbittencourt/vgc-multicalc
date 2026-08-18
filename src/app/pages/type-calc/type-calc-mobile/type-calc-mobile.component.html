@@ -36,9 +36,7 @@
               @if (!store.isEditingCustomSet()) {
                 <app-import-pokemon-button (pokemonImportedEvent)="onHeaderImport($event)" />
               }
-              @if (!isAddMode()) {
-                <app-export-pokemon-button [pokemonId]="effectiveEditingId()!" />
-              }
+              <app-export-pokemon-button [pokemonId]="effectiveEditingId()!" />
             }
           </div>
         </div>
@@ -62,26 +60,20 @@
         <div class="attacker-build">
           <app-mobile-table-overlay [pokemonId]="effectiveEditingId()!" [moveIndex]="editingMoveIndex()" (tableSelect)="onTableSelect($event)" />
 
-          @if (!isAddMode()) {
-            <app-pokemon-build-mobile
-              [pokemonId]="effectiveEditingId()!"
-              [showOptimization]="false"
-              [hideEvs]="overlay.isAnyOpen()"
-              [hideMoves]="overlay.kind() === 'pokemon' || overlay.kind() === 'abilities' || overlay.kind() === 'items'"
-              [editingMoves]="overlay.kind() === 'moves'"
-              [editingAbility]="overlay.kind() === 'abilities'"
-              [editingItem]="overlay.kind() === 'items'"
-              (pokemonDeleted)="pokemonOnEditId.set($event)"
-              (editMovesRequested)="openMovesTable()"
-              (closeMovesRequested)="onCloseMovesTable()"
-              (editAbilityRequested)="openAbilitiesTable()"
-              (editItemRequested)="openItemsTable()" />
-          }
+          <app-pokemon-build-mobile
+            [pokemonId]="effectiveEditingId()!"
+            [showOptimization]="false"
+            [hideEvs]="overlay.isAnyOpen()"
+            [hideMoves]="overlay.kind() === 'pokemon' || overlay.kind() === 'abilities' || overlay.kind() === 'items'"
+            [editingMoves]="overlay.kind() === 'moves'"
+            [editingAbility]="overlay.kind() === 'abilities'"
+            [editingItem]="overlay.kind() === 'items'"
+            (pokemonDeleted)="pokemonOnEditId.set($event)"
+            (editMovesRequested)="openMovesTable()"
+            (closeMovesRequested)="onCloseMovesTable()"
+            (editAbilityRequested)="openAbilitiesTable()"
+            (editItemRequested)="openItemsTable()" />
         </div>
-
-        @if (isAddMode()) {
-          <div class="empty-insights" [hidden]="overlay.isAnyOpen()">Select a Pokémon</div>
-        }
       }
     </div>
 

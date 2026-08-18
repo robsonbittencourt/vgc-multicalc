@@ -24,9 +24,7 @@
               </div>
             } @else {
               <app-import-pokemon-button (pokemonImportedEvent)="onHeaderImport($event)" />
-              @if (!isAddMode()) {
-                <app-export-pokemon-button [pokemonId]="effectiveEditingId()!" />
-              }
+              <app-export-pokemon-button [pokemonId]="effectiveEditingId()!" />
             }
           </div>
         </div>
@@ -96,9 +94,7 @@
               </div>
             } @else {
               <app-import-pokemon-button (pokemonImportedEvent)="onHeaderImport($event)" />
-              @if (!isAddMode()) {
-                <app-export-pokemon-button [pokemonId]="effectiveEditingId()!" />
-              }
+              <app-export-pokemon-button [pokemonId]="effectiveEditingId()!" />
             }
           </div>
         </div>
