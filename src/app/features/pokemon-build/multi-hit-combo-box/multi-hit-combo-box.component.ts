@@ -23,7 +23,6 @@ export class MultiHitComboBoxComponent {
   store = inject(CalcStore)
 
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
-  multiHitLabel = computed(() => (this.pokemon().activeMoveName !== "Rage Fist" ? "Hits" : "Hits Taken"))
 
   alliesFainted = ["0", "1", "2", "3"]
 
@@ -40,6 +39,11 @@ export class MultiHitComboBoxComponent {
   hitsChanged(event: string) {
     const activeMovePosition = this.pokemon().moveSet.activeMovePosition
     this.store.hits(this.pokemonId(), event, activeMovePosition)
+  }
+
+  hitsTakenChanged(event: string) {
+    const activeMovePosition = this.pokemon().moveSet.activeMovePosition
+    this.store.hitsTaken(this.pokemonId(), event, activeMovePosition)
   }
 
   lastMoveFailedChanged(event: MatCheckboxChange) {

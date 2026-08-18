@@ -17,12 +17,24 @@
 
 @if (showHits() && pokemon().moveSet.activeMove.possibleHits.length > 0) {
   <app-input-autocomplete
-    [label]="multiHitLabel()"
+    label="Hits"
     [leftLabel]="leftLabel()"
     [value]="pokemon().moveSet.activeMove.hits"
     [allValues]="pokemon().moveSet.activeMove.possibleHits"
     [haveFocus]="haveFocus()"
     (selected)="selected.emit()"
     (valueChange)="hitsChanged($event)"
+    data-cy="hits-taken" />
+}
+
+@if (showHits() && pokemon().moveSet.activeMove.possibleHitsTaken.length > 0) {
+  <app-input-autocomplete
+    label="Hits Taken"
+    [leftLabel]="leftLabel()"
+    [value]="pokemon().moveSet.activeMove.hitsTaken"
+    [allValues]="pokemon().moveSet.activeMove.possibleHitsTaken"
+    [haveFocus]="haveFocus()"
+    (selected)="selected.emit()"
+    (valueChange)="hitsTakenChanged($event)"
     data-cy="hits-taken" />
 }

@@ -23,7 +23,7 @@ export class PokemonMovesMobileComponent {
 
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
 
-  hasPossibleHits = computed(() => this.pokemon().moveSet.activeMove.possibleHits.length > 0)
+  hasPossibleHits = computed(() => this.pokemon().moveSet.activeMove.possibleHits.length > 0 || this.pokemon().moveSet.activeMove.possibleHitsTaken.length > 0)
   hasAlliesFainted = computed(() => this.pokemon().activeMoveName === "Last Respects" || this.pokemon().ability.name === "Supreme Overlord")
 
   hasLastMoveFailed = computed(() => this.pokemon().activeMoveName === "Stomping Tantrum")

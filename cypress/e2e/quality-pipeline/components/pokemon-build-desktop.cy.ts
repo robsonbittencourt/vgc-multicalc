@@ -473,7 +473,7 @@ describe("Hits, allies fainted and last move failed", () => {
     leftDamageResult.damageIs(1, 29.4, 34.7, 61, 72)
   })
 
-  it("Should rename the hits label to Hits Taken with Rage Fist", () => {
+  it("Should offer the hits taken control only for Rage Fist", () => {
     leftPokemonBuild.importPokemon(poke["annihilape"])
     leftPokemonBuild.selectAttackOne()
 
@@ -482,6 +482,19 @@ describe("Hits, allies fainted and last move failed", () => {
     leftPokemonBuild.selectAttackThree()
 
     leftPokemonBuild.hitsSelectIsHidden()
+  })
+
+  it("Should increase the Rage Fist damage when the hits taken changes", () => {
+    leftPokemonBuild.importPokemon(poke["annihilape"])
+    leftPokemonBuild.selectAttackOne()
+
+    leftDamageResult.damageIs(0, 9.6, 11.8, 18, 22)
+    leftDamageResult.descriptionContains("Rage Fist (50 BP)")
+
+    leftPokemonBuild.hitsTaken(3)
+
+    leftDamageResult.damageIs(0, 38.7, 46.2, 72, 86)
+    leftDamageResult.descriptionContains("Rage Fist (200 BP)")
   })
 })
 

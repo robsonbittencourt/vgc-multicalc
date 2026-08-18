@@ -101,7 +101,7 @@ export class DamageCalc {
     moveCalc.isCrit = rightIsDefender ? field.attackerSide.isCriticalHit : field.defenderSide.isCriticalHit
     moveCalc.isStellarFirstUse = true
     moveCalc.hits = +move.hits
-    moveCalc.hitsTaken = +move.hits
+    moveCalc.hitsTaken = +move.hitsTaken
     moveCalc.lastMoveFailed = move.lastMoveFailed
 
     const calcAttacker = fromExisting(attacker, true)

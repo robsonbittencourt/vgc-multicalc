@@ -16,10 +16,11 @@ describe("Move", () => {
     expect(move.possibleHits).toEqual(["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"])
   })
 
-  it("should return correct possible hits for Rage Fist", () => {
+  it("should return correct possible hits taken for Rage Fist", () => {
     const move = new Move("Rage Fist")
 
-    expect(move.possibleHits).toEqual(["6", "5", "4", "3", "2", "1", "0"])
+    expect(move.possibleHitsTaken).toEqual(["6", "5", "4", "3", "2", "1", "0"])
+    expect(move.possibleHits).toEqual([])
   })
 
   it("should return correct possible hits for a multihit move", () => {

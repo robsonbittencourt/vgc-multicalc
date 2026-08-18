@@ -13,6 +13,7 @@ export type SecondaryEffect = {
 interface MoveOptions {
   alliesFainted?: string
   hits?: string
+  hitsTaken?: string
   lastMoveFailed?: boolean
 }
 
@@ -39,6 +40,8 @@ export class Move {
   readonly possibleHits: string[]
   readonly multiaccuracy: boolean
   readonly hits: string
+  readonly possibleHitsTaken: string[]
+  readonly hitsTaken: string
   readonly alliesFainted: string
   readonly lastMoveFailed: boolean
   readonly bp: number
@@ -53,6 +56,8 @@ export class Move {
     this.possibleHits = this.moveHits(name)
     this.multiaccuracy = getMoveData(name)?.multiaccuracy ?? false
     this.hits = this.hitsValue(name, options)
+    this.possibleHitsTaken = this.moveHitsTaken(name)
+    this.hitsTaken = options.hitsTaken ?? this.possibleHitsTaken[this.possibleHitsTaken.length - 1] ?? "0"
     this.alliesFainted = options.alliesFainted ?? "0"
     this.lastMoveFailed = options.lastMoveFailed ?? false
 
@@ -88,7 +93,7 @@ export class Move {
   }
 
   private hitsValue(name: string, options: MoveOptions): string {
-    const hits = options.hits ?? this.possibleHits[this.possibleHits.length - 1]
+    const hits = options.hits ?? this.possibleHits[this.possibleHits.length - 1] ?? "1"
 
     if (name == "Dragon Darts") {
       return options.hits ?? this.possibleHits[0]
@@ -97,13 +102,15 @@ export class Move {
     return hits
   }
 
+  private moveHitsTaken(move: string): string[] {
+    if (move !== "Rage Fist") return []
+
+    return ["6", "5", "4", "3", "2", "1", "0"]
+  }
+
   private moveHits(move: string): string[] {
     if (move === "Population Bomb") {
       return ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
-    }
-
-    if (move === "Rage Fist") {
-      return ["6", "5", "4", "3", "2", "1", "0"]
     }
 
     const moveData = getMoveData(move)
