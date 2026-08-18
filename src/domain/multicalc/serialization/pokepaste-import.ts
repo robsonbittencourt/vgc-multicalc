@@ -1,7 +1,7 @@
 import { getMoveset } from "@data/moveset-data"
 import { Ability, Move, MoveSet, Pokemon } from "@multicalc/model"
 import { Stats } from "@multicalc/types"
-import { MAX_SPS, spToEv } from "@multicalc/utils"
+import { evToSp, MAX_EVS_PER_STAT, MAX_SPS, spToEv } from "@multicalc/utils"
 
 export class InvalidSpsError extends Error {
   constructor() {
@@ -24,6 +24,10 @@ export async function parsePokepasteText(teamInTextFormat: string, useSpsMode: b
 
     if (useSpsMode) {
       if (evs.hp + evs.atk + evs.def + evs.spa + evs.spd + evs.spe > MAX_SPS) {
+        throw new InvalidSpsError()
+      }
+
+      if (Object.values(evs).some(sp => sp > evToSp(MAX_EVS_PER_STAT))) {
         throw new InvalidSpsError()
       }
 

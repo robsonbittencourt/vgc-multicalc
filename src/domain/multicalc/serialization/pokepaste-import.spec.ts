@@ -48,6 +48,12 @@ describe("parsePokepasteText", () => {
     expect(pokemon[0].evs.spd).toBe(4)
   })
 
+  it("should reject a paste whose single stat exceeds the SP limit per stat when SP mode is on", async () => {
+    const paste = "Togepi @ Leftovers\nAbility: Serene Grace\nTera Type: Fairy\nEVs: 40 Atk / 20 Spe\nModest Nature\n- Dazzling Gleam"
+
+    await expect(parsePokepasteText(paste, true)).rejects.toBeInstanceOf(InvalidSpsError)
+  })
+
   it("should accept a paste with valid SP values when SP mode is on", async () => {
     const paste = "Togepi @ Leftovers\nAbility: Serene Grace\nTera Type: Fairy\nEVs: 32 HP / 32 SpA\nModest Nature\n- Dazzling Gleam"
 
