@@ -38,7 +38,7 @@ export class TypeChart {
       return 1
     }
 
-    if (attackType === "Ground" && defender?.item === "Air Balloon") {
+    if (attackType === "Ground" && defender?.item === "Air Balloon" && !this.hasKlutz(defender)) {
       return 0
     }
 

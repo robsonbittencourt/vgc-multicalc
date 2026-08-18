@@ -1349,6 +1349,10 @@ describe("TypeChart", () => {
       expect(service.getEffectiveness("Water", "Fire", undefined, undefined, { item: "Air Balloon" })).toBe(2)
     })
 
+    it("should not grant Ground immunity when the defender also has Klutz", () => {
+      expect(service.getEffectiveness("Ground", "Normal", undefined, "Klutz", { ability: "Klutz", item: "Air Balloon" })).toBe(1)
+    })
+
     it("should not affect Ground moves without Air Balloon", () => {
       expect(service.getEffectiveness("Ground", "Normal", undefined, undefined, { item: "Leftovers" })).toBe(1)
     })
