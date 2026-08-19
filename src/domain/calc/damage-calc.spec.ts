@@ -1383,6 +1383,18 @@ describe("Damage Calc Service (new)", () => {
       expect((result.damage as number[])[15]).toEqual(24)
     })
 
+    it("Slow Start halves the Attack of a physical move", () => {
+      const attacker = new Pokemon("Regigigas", { evs: { atk: 252 }, nature: "Adamant", ability: "Slow Start", abilityOn: true })
+      const defender = new Pokemon("Blissey", { evs: { hp: 252 }, nature: "Bold" })
+      const move = new Move("Body Slam")
+      const field = new Field({ gameType: "Doubles" })
+
+      const result = calculate(attacker, defender, move, field)
+
+      expect((result.damage as number[])[0]).toEqual(169)
+      expect((result.damage as number[])[15]).toEqual(199)
+    })
+
     it("Battle Armor blocks a critical hit", () => {
       const attacker = new Pokemon("Incineroar", { evs: { atk: 252 }, nature: "Adamant" })
       const defender = new Pokemon("Falinks", { evs: { hp: 252 }, nature: "Bold", ability: "Battle Armor" })

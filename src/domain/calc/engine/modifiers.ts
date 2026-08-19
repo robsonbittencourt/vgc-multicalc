@@ -286,11 +286,11 @@ const BP_RULES: ModifierRule[] = [
 ]
 
 const attackerAbilityAndFieldAtkRule: ModifierRule = ctx => {
-  return defeatistAtk(ctx) ?? sunBoostedAtk(ctx) ?? gorillaTacticsAtk(ctx) ?? pinchAndTeamworkAtk(ctx) ?? flashFireAtk(ctx) ?? typeBoostAtk(ctx) ?? transistorAtk(ctx) ?? stakeoutAtk(ctx) ?? doublingAtk(ctx)
+  return halvedAtk(ctx) ?? sunBoostedAtk(ctx) ?? gorillaTacticsAtk(ctx) ?? pinchAndTeamworkAtk(ctx) ?? flashFireAtk(ctx) ?? typeBoostAtk(ctx) ?? transistorAtk(ctx) ?? stakeoutAtk(ctx) ?? doublingAtk(ctx)
 }
 
-function defeatistAtk({ attacker, description }: ModifierContext): number | undefined {
-  if (attacker.hasAbility("Defeatist") && attacker.currentHp() <= attacker.maxHp() / 2) {
+function halvedAtk({ attacker, move, description }: ModifierContext): number | undefined {
+  if ((attacker.hasAbility("Slow Start") && attacker.abilityOn && move.category === "Physical") || (attacker.hasAbility("Defeatist") && attacker.currentHp() <= attacker.maxHp() / 2)) {
     description.attackerAbility = attacker.ability
     return 2048
   }
