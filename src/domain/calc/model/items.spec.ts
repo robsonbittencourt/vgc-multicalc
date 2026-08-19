@@ -96,6 +96,21 @@ describe("getFlingPower", () => {
   })
 
   it.each([
+    ["Quick Claw", 80],
+    ["Damp Rock", 60],
+    ["Heat Rock", 60],
+    ["Light Ball", 30],
+    ["Light Clay", 30],
+    ["Metronome", 30],
+    ["Big Root", 10],
+    ["Fairy Feather", 10],
+    ["Leftovers", 10],
+    ["Smooth Rock", 10]
+  ])("should return the Showdown fling power for %s", (item, power) => {
+    expect(getFlingPower(item)).toBe(power)
+  })
+
+  it.each([
     ["Big Nugget", 130],
     ["Iron Ball", 130],
     ["TR43", 130],
@@ -286,6 +301,6 @@ describe("getFlingPower", () => {
   })
 
   it("should return 0 for an item with no fling power mapping", () => {
-    expect(getFlingPower("Leftovers")).toBe(0)
+    expect(getFlingPower("Rusted Sword")).toBe(0)
   })
 })

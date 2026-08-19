@@ -286,6 +286,18 @@ describe("Damage Calc Service (new)", () => {
       expect((result.damage as number[])[15]).toEqual(69)
     })
 
+    it("Fling: with Leftovers → BP 10", () => {
+      const attacker = new Pokemon("Incineroar", { evs: { atk: 252 }, nature: "Adamant", item: "Leftovers" })
+      const defender = new Pokemon("Gardevoir", {})
+      const move = new Move("Fling")
+      const field = new Field({ gameType: "Doubles" })
+
+      const result = calculate(attacker, defender, move, field)
+
+      expect(result.description()).toEqual("252+ Atk Leftovers Incineroar Fling (10 BP) vs. 0 HP / 0 Def Gardevoir: 13-16 (9 - 11.1%) -- possible 9HKO")
+      expect(result.damage).toEqual([13, 13, 13, 13, 13, 13, 15, 15, 15, 15, 15, 15, 15, 15, 15, 16])
+    })
+
     it("Fling: with Iron Ball → BP 130", () => {
       const attacker = new Pokemon("Incineroar", { evs: { atk: 252 }, nature: "Adamant", item: "Iron Ball" })
       const defender = new Pokemon("Gardevoir", {})

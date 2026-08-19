@@ -80,9 +80,9 @@ const FLING_120 = new Set(["TR24", "TR28", "TR34", "TR39", "TR53", "TR55", "TR64
 const FLING_100 = new Set(["Hard Stone"])
 const FLING_90 = new Set(["Deep Sea Tooth", "Thick Club"])
 const FLING_85 = new Set(["TR01", "TR41", "TR62", "TR93", "TR97", "TR98"])
-const FLING_80 = new Set(["Assault Vest", "Razor Claw", "Sticky Barb", "Weakness Policy"])
+const FLING_80 = new Set(["Assault Vest", "Quick Claw", "Razor Claw", "Sticky Barb", "Weakness Policy"])
 const FLING_70 = new Set(["Dragon Fang", "Poison Barb", "Power Anklet", "Power Band", "Power Belt", "Power Bracer", "Power Lens", "Power Weight"])
-const FLING_60 = new Set(["Adamant Orb", "Griseous Orb", "Lustrous Orb", "Macho Brace", "Rocky Helmet", "Terrain Extender"])
+const FLING_60 = new Set(["Adamant Orb", "Damp Rock", "Griseous Orb", "Heat Rock", "Lustrous Orb", "Macho Brace", "Rocky Helmet", "Terrain Extender"])
 const FLING_30 = new Set([
   "Absorb Bulb",
   "Berry Juice",
@@ -96,7 +96,10 @@ const FLING_30 = new Set([
   "Flame Orb",
   "King's Rock",
   "Life Orb",
+  "Light Ball",
+  "Light Clay",
   "Magnet",
+  "Metronome",
   "Metal Coat",
   "Miracle Seed",
   "Mystic Water",
@@ -112,16 +115,19 @@ const FLING_30 = new Set([
 ])
 const FLING_10 = new Set([
   "Air Balloon",
+  "Big Root",
   "Bright Powder",
   "Choice Band",
   "Choice Scarf",
   "Choice Specs",
   "Destiny Knot",
   "Expert Belt",
+  "Fairy Feather",
   "Focus Band",
   "Focus Sash",
   "Full Incense",
   "Lax Incense",
+  "Leftovers",
   "Mental Herb",
   "Metal Powder",
   "Muscle Band",
@@ -131,6 +137,7 @@ const FLING_10 = new Set([
   "Shed Shell",
   "Silk Scarf",
   "Silver Powder",
+  "Smooth Rock",
   "Soft Sand",
   "White Herb",
   "Wide Lens",
