@@ -286,19 +286,7 @@ const BP_RULES: ModifierRule[] = [
 ]
 
 const attackerAbilityAndFieldAtkRule: ModifierRule = ctx => {
-  return (
-    defeatistAtk(ctx) ??
-    sunBoostedAtk(ctx) ??
-    flowerGiftAllyAtk(ctx) ??
-    steelySpiritAllyAtk(ctx) ??
-    gorillaTacticsAtk(ctx) ??
-    pinchAndTeamworkAtk(ctx) ??
-    flashFireAtk(ctx) ??
-    typeBoostAtk(ctx) ??
-    transistorAtk(ctx) ??
-    stakeoutAtk(ctx) ??
-    doublingAtk(ctx)
-  )
+  return defeatistAtk(ctx) ?? sunBoostedAtk(ctx) ?? gorillaTacticsAtk(ctx) ?? pinchAndTeamworkAtk(ctx) ?? flashFireAtk(ctx) ?? typeBoostAtk(ctx) ?? transistorAtk(ctx) ?? stakeoutAtk(ctx) ?? doublingAtk(ctx)
 }
 
 function defeatistAtk({ attacker, description }: ModifierContext): number | undefined {
@@ -320,7 +308,7 @@ function sunBoostedAtk({ attacker, move, field, description }: ModifierContext):
   return undefined
 }
 
-function flowerGiftAllyAtk({ attacker, move, field, description }: ModifierContext): number | undefined {
+const flowerGiftAllyAtkRule: ModifierRule = ({ attacker, move, field, description }) => {
   if (field.attackerSide.isFlowerGift && !attacker.hasAbility("Flower Gift") && field.hasWeather("Sun") && move.category === "Physical") {
     description.weather = field.weather
     description.isFlowerGiftAttacker = true
@@ -330,7 +318,7 @@ function flowerGiftAllyAtk({ attacker, move, field, description }: ModifierConte
   return undefined
 }
 
-function steelySpiritAllyAtk({ move, field, description }: ModifierContext): number | undefined {
+const steelySpiritAllyAtkRule: ModifierRule = ({ move, field, description }) => {
   if (field.attackerSide.isSteelySpirit && move.hasType("Steel")) {
     description.isSteelySpiritAttacker = true
     return 6144
@@ -483,7 +471,7 @@ const quarkDriveAtkRule: ModifierRule = ({ attacker, move, field, description })
   return undefined
 }
 
-const AT_RULES: ModifierRule[] = [attackerAbilityAndFieldAtkRule, defenderThickFatAtkRule, defenderHeatproofAtkRule, paradoxEngineAtkRule, attackerAtkItemRule, ruinAtkRule, quarkDriveAtkRule]
+const AT_RULES: ModifierRule[] = [attackerAbilityAndFieldAtkRule, flowerGiftAllyAtkRule, steelySpiritAllyAtkRule, defenderThickFatAtkRule, defenderHeatproofAtkRule, paradoxEngineAtkRule, attackerAtkItemRule, ruinAtkRule, quarkDriveAtkRule]
 
 const defenderDefAbilityRule: ModifierRule = ({ defender, field, description, hitsPhysical }) => {
   if (defender.hasAbility("Marvel Scale") && defender.status && hitsPhysical) {

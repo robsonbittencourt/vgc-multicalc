@@ -129,6 +129,30 @@ describe("getAtMods — ally-provided field boosts", () => {
 
     expect(getAtMods(makeCtx({ attacker, defender, move, field }))).toContain(6144)
   })
+
+  it("stacks an ally's Flower Gift with the attacker's own Huge Power", () => {
+    const attacker = new Pokemon("Azumarill", { ability: "Huge Power" })
+    const defender = new Pokemon("Blissey")
+    const move = new Move("Play Rough")
+    const field = new Field({ weather: "Sun", attackerSide: { isFlowerGift: true } })
+
+    const mods = getAtMods(makeCtx({ attacker, defender, move, field }))
+
+    expect(mods).toContain(6144)
+    expect(mods).toContain(8192)
+  })
+
+  it("stacks an ally's Steely Spirit with the attacker's own Huge Power", () => {
+    const attacker = new Pokemon("Azumarill", { ability: "Huge Power" })
+    const defender = new Pokemon("Blissey")
+    const move = new Move("Iron Head")
+    const field = new Field({ attackerSide: { isSteelySpirit: true } })
+
+    const mods = getAtMods(makeCtx({ attacker, defender, move, field }))
+
+    expect(mods).toContain(6144)
+    expect(mods).toContain(8192)
+  })
 })
 
 describe("getDfMods — Quark Drive on the defender", () => {
