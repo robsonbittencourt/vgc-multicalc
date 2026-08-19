@@ -1371,6 +1371,17 @@ describe("Damage Calc Service (new)", () => {
       expect((result.damage as number[])[15]).toEqual(24)
     })
 
+    it("Tera Shell does not override a type immunity", () => {
+      const attacker = new Pokemon("Gengar", { evs: { spa: 252 }, nature: "Modest" })
+      const defender = new Pokemon("Terapagos-Terastal", { evs: { hp: 252 }, nature: "Bold", ability: "Tera Shell" })
+      const move = new Move("Shadow Ball")
+      const field = new Field({ gameType: "Doubles" })
+
+      const result = calculate(attacker, defender, move, field)
+
+      expect(result.damage).toEqual(0)
+    })
+
     it("Koraidon Collision Course vs Terapagos-Terastal keeps super-effective boost despite Tera Shell", () => {
       const attacker = new Pokemon("Koraidon", { evs: { hp: 36, atk: 220, spe: 252 }, nature: "Adamant", ability: "Orichalcum Pulse", item: "Clear Amulet", abilityOn: true })
       const defender = new Pokemon("Terapagos-Terastal", { evs: { hp: 252, def: 180, spa: 76 }, nature: "Modest", ability: "Tera Shell", item: "Leftovers", teraType: "Stellar" })

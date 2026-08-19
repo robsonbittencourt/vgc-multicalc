@@ -250,7 +250,7 @@ export function computeTypeEffectiveness(ctx: CombatContext): number {
     typeEffectiveness = defender.teraType ? 2 : 1
   }
 
-  if (defender.hasAbility("Tera Shell") && defender.currentHp() === defender.maxHp() && ((!field.defenderSide.isSR && (!field.defenderSide.spikes || defender.hasType("Flying"))) || defender.hasItem("Heavy-Duty Boots"))) {
+  if (typeEffectiveness > 0 && defender.hasAbility("Tera Shell") && defender.currentHp() === defender.maxHp() && ((!field.defenderSide.isSR && (!field.defenderSide.spikes || defender.hasType("Flying"))) || defender.hasItem("Heavy-Duty Boots"))) {
     ctx.description.defenderAbility = defender.ability
     return 0.5
   }
