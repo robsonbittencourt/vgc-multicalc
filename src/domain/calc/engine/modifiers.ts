@@ -97,9 +97,9 @@ const defenderTerrainWeakenRule: ModifierRule = ({ defender, move, field, descri
   return undefined
 }
 
-const attackerBpAbilityRule: ModifierRule = ({ attacker, move, description }) => {
+const attackerBpAbilityRule: ModifierRule = ({ attacker, move, description, basePower }) => {
   if (
-    (attacker.hasAbility("Technician") && (description.moveBP ?? move.bp) <= 60) ||
+    (attacker.hasAbility("Technician") && basePower <= 60) ||
     (attacker.hasAbility("Flare Boost") && attacker.hasStatus("brn") && move.category === "Special") ||
     (attacker.hasAbility("Toxic Boost") && attacker.hasStatus("psn", "tox") && move.category === "Physical") ||
     (attacker.hasAbility("Mega Launcher") && move.flags.pulse) ||

@@ -314,6 +314,18 @@ describe("Damage Calc Service (new)", () => {
       expect((result.damage as number[])[15]).toEqual(40)
     })
 
+    it("Technician: does not boost Solar Beam weakened to 60 BP by rain", () => {
+      const attacker = new Pokemon("Venusaur", { evs: { spa: 252 }, nature: "Modest", ability: "Technician" })
+      const defender = new Pokemon("Amoonguss", { evs: { hp: 252 }, nature: "Bold" })
+      const move = new Move("Solar Beam")
+      const field = new Field({ gameType: "Doubles", weather: "Rain" })
+
+      const result = calculate(attacker, defender, move, field)
+
+      expect(result.description()).toEqual("252+ SpA Venusaur Solar Beam (60 BP) vs. 252 HP / 0 SpD Amoonguss in Rain: 14-17 (6.3 - 7.6%)")
+      expect(result.damage).toEqual([14, 14, 15, 15, 15, 15, 15, 15, 15, 16, 16, 16, 16, 16, 16, 17])
+    })
+
     it("Strong Jaw: boosts biting moves by 1.5x", () => {
       const attacker = new Pokemon("Sharpedo-Mega", { evs: { atk: 252 }, nature: "Adamant", ability: "Strong Jaw" })
       const defender = new Pokemon("Arcanine", {})

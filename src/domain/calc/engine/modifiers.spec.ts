@@ -43,6 +43,17 @@ describe("getBpMods", () => {
   })
 })
 
+describe("getBpMods — Technician", () => {
+  it("does not boost Solar Beam weakened to 60 BP by rain", () => {
+    const attacker = new Pokemon("Venusaur", { ability: "Technician" })
+    const defender = new Pokemon("Amoonguss")
+    const move = new Move("Solar Beam")
+    const field = new Field({ weather: "Rain" })
+
+    expect(getBpMods(makeCtx({ attacker, defender, move, field, basePower: 120 }))).not.toContain(6144)
+  })
+})
+
 describe("getBpMods — Knock Off", () => {
   it("boosts Knock Off against a defender holding a removable item", () => {
     const attacker = new Pokemon("Weavile")
