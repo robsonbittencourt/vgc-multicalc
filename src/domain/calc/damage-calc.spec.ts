@@ -1749,4 +1749,94 @@ describe("Damage Calc Service (new)", () => {
       expect((result.damage as number[])[15]).toEqual(164)
     })
   })
+
+  describe("Thousand Arrows", () => {
+    it("Hits a Levitate target", () => {
+      const attacker = new Pokemon("Zygarde", { evs: { atk: 252 }, nature: "Adamant", ability: "Aura Break" })
+      const defender = new Pokemon("Rotom-Wash", { evs: { hp: 252 }, nature: "Bold", ability: "Levitate" })
+      const move = new Move("Thousand Arrows")
+      const field = new Field({ gameType: "Singles" })
+
+      const result = calculate(attacker, defender, move, field)
+
+      expect(result.damage).toEqual([122, 126, 126, 128, 128, 132, 132, 134, 134, 138, 138, 140, 140, 144, 144, 146])
+    })
+
+    it("Hits a pure Flying target neutrally", () => {
+      const attacker = new Pokemon("Zygarde", { evs: { atk: 252 }, nature: "Adamant", ability: "Aura Break" })
+      const defender = new Pokemon("Tornadus", { evs: { hp: 252 }, nature: "Bold", ability: "Prankster" })
+      const move = new Move("Thousand Arrows")
+      const field = new Field({ gameType: "Singles" })
+
+      const result = calculate(attacker, defender, move, field)
+
+      expect(result.damage).toEqual([85, 87, 88, 88, 90, 91, 91, 93, 94, 94, 96, 97, 97, 99, 100, 102])
+    })
+
+    it("Ignores the secondary type weakness of a Flying target", () => {
+      const attacker = new Pokemon("Zygarde", { evs: { atk: 252 }, nature: "Adamant", ability: "Aura Break" })
+      const defender = new Pokemon("Talonflame", { evs: { hp: 252 }, nature: "Bold", ability: "Flame Body" })
+      const move = new Move("Thousand Arrows")
+      const field = new Field({ gameType: "Singles" })
+
+      const result = calculate(attacker, defender, move, field)
+
+      expect(result.damage).toEqual([85, 87, 88, 88, 90, 91, 91, 93, 94, 94, 96, 97, 97, 99, 100, 102])
+    })
+
+    it("Ignores the secondary type resistance of a Flying target", () => {
+      const attacker = new Pokemon("Zygarde", { evs: { atk: 252 }, nature: "Adamant", ability: "Aura Break" })
+      const defender = new Pokemon("Skarmory", { evs: { hp: 252 }, nature: "Bold", ability: "Sturdy" })
+      const move = new Move("Thousand Arrows")
+      const field = new Field({ gameType: "Singles" })
+
+      const result = calculate(attacker, defender, move, field)
+
+      expect(result.damage).toEqual([49, 49, 49, 51, 51, 52, 52, 52, 54, 54, 55, 55, 55, 57, 57, 58])
+    })
+
+    it("Hits a Ground Flying target neutrally", () => {
+      const attacker = new Pokemon("Zygarde", { evs: { atk: 252 }, nature: "Adamant", ability: "Aura Break" })
+      const defender = new Pokemon("Landorus-Therian", { evs: { hp: 252 }, nature: "Bold", ability: "Intimidate" })
+      const move = new Move("Thousand Arrows")
+      const field = new Field({ gameType: "Singles" })
+
+      const result = calculate(attacker, defender, move, field)
+
+      expect(result.damage).toEqual([70, 72, 72, 73, 73, 75, 75, 76, 78, 78, 79, 79, 81, 81, 82, 84])
+    })
+
+    it("Hits an Air Balloon holder", () => {
+      const attacker = new Pokemon("Zygarde", { evs: { atk: 252 }, nature: "Adamant", ability: "Aura Break" })
+      const defender = new Pokemon("Blissey", { evs: { hp: 252 }, nature: "Bold", ability: "Natural Cure", item: "Air Balloon" })
+      const move = new Move("Thousand Arrows")
+      const field = new Field({ gameType: "Singles" })
+
+      const result = calculate(attacker, defender, move, field)
+
+      expect(result.damage).toEqual([256, 259, 262, 265, 268, 271, 274, 277, 280, 283, 286, 289, 292, 295, 298, 303])
+    })
+
+    it("Stays neutral against a Flying target holding an Iron Ball", () => {
+      const attacker = new Pokemon("Zygarde", { evs: { atk: 252 }, nature: "Adamant", ability: "Aura Break" })
+      const defender = new Pokemon("Talonflame", { evs: { hp: 252 }, nature: "Bold", ability: "Flame Body", item: "Iron Ball" })
+      const move = new Move("Thousand Arrows")
+      const field = new Field({ gameType: "Singles" })
+
+      const result = calculate(attacker, defender, move, field)
+
+      expect(result.damage).toEqual([85, 87, 88, 88, 90, 91, 91, 93, 94, 94, 96, 97, 97, 99, 100, 102])
+    })
+
+    it("Keeps the normal effectiveness against a grounded target", () => {
+      const attacker = new Pokemon("Zygarde", { evs: { atk: 252 }, nature: "Adamant", ability: "Aura Break" })
+      const defender = new Pokemon("Magnezone", { evs: { hp: 252 }, nature: "Bold", ability: "Sturdy" })
+      const move = new Move("Thousand Arrows")
+      const field = new Field({ gameType: "Singles" })
+
+      const result = calculate(attacker, defender, move, field)
+
+      expect(result.damage).toEqual([232, 232, 240, 240, 240, 244, 244, 252, 252, 256, 256, 264, 264, 268, 268, 276])
+    })
+  })
 })

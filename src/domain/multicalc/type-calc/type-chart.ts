@@ -38,14 +38,22 @@ export class TypeChart {
       return 1
     }
 
-    if (attackType === "Ground" && defender?.item === "Air Balloon" && !this.hasKlutz(defender)) {
+    const thousandArrows = attacker?.moveName === "Thousand Arrows"
+
+    if (thousandArrows && (defenseType1 === "Flying" || defenseType2 === "Flying")) {
+      return 1
+    }
+
+    if (attackType === "Ground" && !thousandArrows && defender?.item === "Air Balloon" && !this.hasKlutz(defender)) {
       return 0
     }
 
     if (ability) {
       const immuneType = ABILITY_IMMUNITIES[ability]
 
-      if (immuneType && immuneType === attackType && !this.isGrounded(ability, defender)) {
+      const piercedByThousandArrows = thousandArrows && (ability === "Levitate" || ability === "Eelevate")
+
+      if (immuneType && immuneType === attackType && !piercedByThousandArrows && !this.isGrounded(ability, defender)) {
         return 0
       }
 

@@ -1526,4 +1526,55 @@ describe("TypeChart", () => {
       expect(service.getEffectiveness("Ice", "Water", undefined, undefined, undefined, { moveName: "Ice Beam" })).toBe(0.5)
     })
   })
+
+  describe("Thousand Arrows", () => {
+    it("should hit a pure Flying defender neutrally", () => {
+      expect(service.getEffectiveness("Ground", "Flying", undefined, undefined, undefined, { moveName: "Thousand Arrows" })).toBe(1)
+    })
+
+    it("should ignore the secondary type weakness of a Flying defender", () => {
+      expect(service.getEffectiveness("Ground", "Fire", "Flying", undefined, undefined, { moveName: "Thousand Arrows" })).toBe(1)
+    })
+
+    it("should ignore the secondary type resistance of a Flying defender", () => {
+      expect(service.getEffectiveness("Ground", "Steel", "Flying", undefined, undefined, { moveName: "Thousand Arrows" })).toBe(1)
+    })
+
+    it("should hit a Flying defender neutrally when Flying is the primary type", () => {
+      expect(service.getEffectiveness("Ground", "Flying", "Ground", undefined, undefined, { moveName: "Thousand Arrows" })).toBe(1)
+    })
+
+    it("should hit a Levitate defender keeping the normal effectiveness", () => {
+      expect(service.getEffectiveness("Ground", "Electric", "Water", "Levitate", undefined, { moveName: "Thousand Arrows" })).toBe(2)
+    })
+
+    it("should hit an Eelevate defender keeping the normal effectiveness", () => {
+      expect(service.getEffectiveness("Ground", "Electric", "Water", "Eelevate", undefined, { moveName: "Thousand Arrows" })).toBe(2)
+    })
+
+    it("should hit a Levitate defender holding an Iron Ball", () => {
+      expect(service.getEffectiveness("Ground", "Electric", "Water", "Levitate", { item: "Iron Ball" }, { moveName: "Thousand Arrows" })).toBe(2)
+    })
+
+    it("should hit an Air Balloon holder keeping the normal effectiveness", () => {
+      expect(service.getEffectiveness("Ground", "Normal", undefined, undefined, { item: "Air Balloon" }, { moveName: "Thousand Arrows" })).toBe(1)
+      expect(service.getEffectiveness("Ground", "Electric", "Steel", undefined, { item: "Air Balloon" }, { moveName: "Thousand Arrows" })).toBe(4)
+    })
+
+    it("should not pierce the Earth Eater immunity", () => {
+      expect(service.getEffectiveness("Ground", "Normal", undefined, "Earth Eater", undefined, { moveName: "Thousand Arrows" })).toBe(0)
+    })
+
+    it("should keep the normal effectiveness against a grounded defender", () => {
+      expect(service.getEffectiveness("Ground", "Electric", "Steel", undefined, undefined, { moveName: "Thousand Arrows" })).toBe(4)
+      expect(service.getEffectiveness("Ground", "Normal", undefined, undefined, undefined, { moveName: "Thousand Arrows" })).toBe(1)
+      expect(service.getEffectiveness("Ground", "Grass", undefined, undefined, undefined, { moveName: "Thousand Arrows" })).toBe(0.5)
+    })
+
+    it("should not affect other Ground moves", () => {
+      expect(service.getEffectiveness("Ground", "Flying")).toBe(0)
+      expect(service.getEffectiveness("Ground", "Fire", "Flying", undefined, undefined, { moveName: "Earthquake" })).toBe(0)
+      expect(service.getEffectiveness("Ground", "Electric", "Water", "Levitate", undefined, { moveName: "Earthquake" })).toBe(0)
+    })
+  })
 })

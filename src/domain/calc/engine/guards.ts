@@ -74,7 +74,7 @@ export function applyTypeGuards(ctx: CombatContext, typeEffectiveness: number): 
     (move.hasType("Fire") && defender.hasAbility("Flash Fire", "Well-Baked Body")) ||
     (move.hasType("Water") && defender.hasAbility("Dry Skin", "Storm Drain", "Water Absorb")) ||
     (move.hasType("Electric") && defender.hasAbility("Lightning Rod", "Motor Drive", "Volt Absorb")) ||
-    (move.hasType("Ground") && !field.isGravity && !defender.hasItem("Iron Ball") && defender.hasAbility("Levitate", "Eelevate")) ||
+    (move.hasType("Ground") && !move.named("Thousand Arrows") && !field.isGravity && !defender.hasItem("Iron Ball") && defender.hasAbility("Levitate", "Eelevate")) ||
     (move.flags.bullet && defender.hasAbility("Bulletproof")) ||
     (move.flags.sound && !move.named("Clangorous Soul") && defender.hasAbility("Soundproof")) ||
     (move.priority > 0 && defender.hasAbility("Queenly Majesty", "Dazzling", "Armor Tail")) ||
@@ -226,6 +226,10 @@ export function rawTypeEffectiveness(attacker: Pokemon, defender: Pokemon, move:
   const types = defender.teraType && defender.teraType !== "Stellar" ? [defender.teraType] : defender.types
 
   const isRingTarget = defender.hasItem("Ring Target") && !defender.hasAbility("Klutz")
+
+  if (move.named("Thousand Arrows") && types.includes("Flying")) {
+    return 1
+  }
 
   const e1 = getMoveEffectiveness(move, types[0], isGhostRevealed, field.isGravity, isRingTarget)
   const e2 = types[1] ? getMoveEffectiveness(move, types[1], isGhostRevealed, field.isGravity, isRingTarget) : 1
