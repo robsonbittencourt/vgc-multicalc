@@ -1,7 +1,10 @@
 import { Header } from "@page-object/header"
+import { BottomNav } from "@page-object/bottom-nav"
 import { HeaderMobile } from "@page-object/header-mobile"
 import { MobileCalcShell } from "@page-object/mobile-calc-shell"
+import { PokemonBuildMobile } from "@page-object/pokemon-build-mobile"
 import { SpeedCalc } from "@page-object/speed-calc"
+import { TeamTabsMobile } from "@page-object/team-tabs-mobile"
 import { TeamsWidget } from "@page-object/teams-widget"
 
 import { poke } from "./e2e"
@@ -62,6 +65,40 @@ export function goToTeamVsManyMobile() {
 
   new MobileCalcShell().isReady()
   new HeaderMobile().goToTeamVsMany()
+}
+
+export function goToSimpleCalcMobile() {
+  goToMobile("One vs One")
+}
+
+export function goToTypeCalcMobile() {
+  goToMobile("Type Calc")
+}
+
+export function goToSpeedCalcMobile() {
+  goToMobile("Speed Calc")
+}
+
+export function goToProbabilityCalcMobile() {
+  goToMobile("Probability Calc")
+}
+
+export function buildSingleMemberTeamMobile(pokepaste: string, buildTabLabel = "Build") {
+  const bottomNav = new BottomNav()
+  const build = new PokemonBuildMobile()
+  const teamTabs = new TeamTabsMobile()
+
+  bottomNav.goTo(buildTabLabel)
+  build.importPokemon(pokepaste)
+
+  teamTabs.teamSizeIs(4)
+
+  for (let i = 0; i < 3; i++) {
+    teamTabs.longPressTeamMember(1)
+    teamTabs.deleteFromTeamMenu()
+  }
+
+  teamTabs.teamSizeIs(1)
 }
 
 export function setUpDefaultTeam(): void {

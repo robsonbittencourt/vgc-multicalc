@@ -1,5 +1,5 @@
 <div class="mobile-calc-container">
-  <div #scrollContainer class="scrollable-content" [class.teams-tab]="activeBottomTab() === 'teams'" [class.table-open]="overlay.isAnyOpen()">
+  <div #scrollContainer data-cy="scrollable-content" class="scrollable-content" [class.teams-tab]="activeBottomTab() === 'teams'" [class.table-open]="overlay.isAnyOpen()">
     <div [hidden]="activeBottomTab() !== 'coverage'" [class.tab-active]="activeBottomTab() === 'coverage'">
       <app-offensive-coverage-mobile [secondTeam]="secondTeam()" />
       <app-defensive-coverage-mobile [secondTeam]="secondTeam()" />
@@ -27,7 +27,7 @@
             aria-label="Pokémon" />
           <div class="attacker-actions">
             @if (overlay.kind() === "pokemon") {
-              <div class="close-table-button" (click)="onClosePokemonTable()">
+              <div class="close-table-button" data-cy="close-pokemon-table" (click)="onClosePokemonTable()">
                 <mat-icon>close</mat-icon>
                 <label>Close</label>
               </div>
@@ -44,7 +44,7 @@
         <div class="attacker-header" [hidden]="overlay.kind() !== 'items'">
           <input #itemInput class="pokemon-input" [value]="editingPokemonItem()" (mousedown)="onItemMouseDown($event)" (click)="onItemClick()" (input)="onItemInput($any($event.target).value)" data-cy="item-select" aria-label="Item" />
           <div class="attacker-actions">
-            <div class="close-table-button" (click)="onCloseItemsTable()">
+            <div class="close-table-button" data-cy="close-items-table" (click)="onCloseItemsTable()">
               <mat-icon>close</mat-icon>
               <label>Close</label>
             </div>
@@ -82,20 +82,20 @@
     </div>
   </div>
 
-  <div class="bottom-nav">
-    <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'coverage' }" (click)="switchTab('coverage')">
+  <div data-cy="bottom-nav" class="bottom-nav">
+    <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'coverage' }" (click)="switchTab('coverage')" data-cy="bottom-tab-coverage">
       <mat-icon>shield</mat-icon>
       <span>Coverage</span>
     </div>
-    <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'insights' }" (click)="switchTab('insights')">
+    <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'insights' }" (click)="switchTab('insights')" data-cy="bottom-tab-insights">
       <mat-icon>insights</mat-icon>
       <span>Insights</span>
     </div>
-    <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'build' }" (click)="switchTab('build')">
+    <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'build' }" (click)="switchTab('build')" data-cy="bottom-tab-build">
       <mat-icon>edit</mat-icon>
       <span>Build</span>
     </div>
-    <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'teams' }" (click)="switchTab('teams')">
+    <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'teams' }" (click)="switchTab('teams')" data-cy="bottom-tab-teams">
       <mat-icon svgIcon="pokeball"></mat-icon>
       <span>Teams</span>
     </div>

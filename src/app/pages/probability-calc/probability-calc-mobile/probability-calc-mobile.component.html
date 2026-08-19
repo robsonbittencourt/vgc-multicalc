@@ -1,5 +1,5 @@
 <div class="mobile-calc-container">
-  <div #scrollContainer class="scrollable-content" [class.teams-tab]="activeBottomTab() === 'teams'" [class.table-open]="overlay.isAnyOpen()">
+  <div #scrollContainer data-cy="scrollable-content" class="scrollable-content" [class.teams-tab]="activeBottomTab() === 'teams'" [class.table-open]="overlay.isAnyOpen()">
     <div [hidden]="activeBottomTab() !== 'detailed'" [class.tab-active]="activeBottomTab() === 'detailed'" [class.table-open]="overlay.isAnyOpen()">
       <div [hidden]="overlay.isAnyOpen()">
         <app-team-tabs-mobile [(pokemonOnEditId)]="pokemonOnEditId" [(addingPokemon)]="addingPokemon" (memberAddedEvent)="onMemberAdded()" />
@@ -18,7 +18,7 @@
             aria-label="Pokémon" />
           <div class="attacker-actions">
             @if (overlay.kind() === "pokemon") {
-              <div class="close-table-button" (click)="onClosePokemonTable()">
+              <div class="close-table-button" data-cy="close-pokemon-table" (click)="onClosePokemonTable()">
                 <mat-icon>close</mat-icon>
                 <label>Close</label>
               </div>
@@ -72,7 +72,7 @@
             aria-label="Pokémon" />
           <div class="attacker-actions">
             @if (overlay.kind() === "pokemon") {
-              <div class="close-table-button" (click)="onClosePokemonTable()">
+              <div class="close-table-button" data-cy="close-pokemon-table" (click)="onClosePokemonTable()">
                 <mat-icon>close</mat-icon>
                 <label>Close</label>
               </div>
@@ -91,7 +91,7 @@
         <div class="attacker-header" [hidden]="overlay.kind() !== 'items'">
           <input #itemInput class="pokemon-input" [value]="editingPokemonItem()" (mousedown)="onItemMouseDown($event)" (click)="onItemClick()" (input)="onItemInput($any($event.target).value)" data-cy="item-select" aria-label="Item" />
           <div class="attacker-actions">
-            <div class="close-table-button" (click)="onCloseItemsTable()">
+            <div class="close-table-button" data-cy="close-items-table" (click)="onCloseItemsTable()">
               <mat-icon>close</mat-icon>
               <label>Close</label>
             </div>
@@ -134,20 +134,20 @@
     </div>
   </div>
 
-  <div class="bottom-nav">
-    <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'detailed' }" (click)="switchTab('detailed')">
+  <div data-cy="bottom-nav" class="bottom-nav">
+    <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'detailed' }" (click)="switchTab('detailed')" data-cy="bottom-tab-detailed">
       <mat-icon>analytics</mat-icon>
       <span>Detailed</span>
     </div>
-    <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'general' }" (click)="switchTab('general')">
+    <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'general' }" (click)="switchTab('general')" data-cy="bottom-tab-general">
       <mat-icon>show_chart</mat-icon>
       <span>General</span>
     </div>
-    <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'build' }" (click)="switchTab('build')">
+    <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'build' }" (click)="switchTab('build')" data-cy="bottom-tab-build">
       <mat-icon>edit</mat-icon>
       <span>Build</span>
     </div>
-    <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'teams' }" (click)="switchTab('teams')">
+    <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'teams' }" (click)="switchTab('teams')" data-cy="bottom-tab-teams">
       <mat-icon svgIcon="pokeball"></mat-icon>
       <span>Teams</span>
     </div>

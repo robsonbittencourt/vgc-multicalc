@@ -1,5 +1,5 @@
 <div class="mobile-calc-container">
-  <div #scrollContainer class="scrollable-content" [class.teams-tab]="activeBottomTab() === 'teams'" [class.table-open]="overlay.isAnyOpen()">
+  <div #scrollContainer data-cy="scrollable-content" class="scrollable-content" [class.teams-tab]="activeBottomTab() === 'teams'" [class.table-open]="overlay.isAnyOpen()">
     <div [hidden]="activeBottomTab() !== 'main'" [class.tab-active]="activeBottomTab() === 'main'" [class.table-open]="overlay.isAnyOpen()">
       <div [hidden]="overlay.isAnyOpen()">
         <app-team-tabs-mobile [pokemonOnEditId]="pokemonOnEditId()" (pokemonOnEditIdChange)="onPokemonOnEditIdChange($event)" [(addingPokemon)]="addingPokemon" (memberAddedEvent)="focusPokemonComboBox()" />
@@ -18,7 +18,7 @@
             aria-label="Pokémon" />
           <div class="attacker-actions">
             @if (overlay.kind() === "pokemon") {
-              <div class="close-table-button" (click)="onClosePokemonTable()">
+              <div class="close-table-button" data-cy="close-pokemon-table" (click)="onClosePokemonTable()">
                 <mat-icon>close</mat-icon>
                 <label>Close</label>
               </div>
@@ -32,7 +32,7 @@
         <div class="attacker-header" [hidden]="overlay.kind() !== 'items'">
           <input #itemInput class="pokemon-input" [value]="editingPokemonItem()" (mousedown)="onItemMouseDown($event)" (click)="onItemClick()" (input)="onItemInput($any($event.target).value)" data-cy="item-select" aria-label="Item" />
           <div class="attacker-actions">
-            <div class="close-table-button" (click)="onCloseItemsTable()">
+            <div class="close-table-button" data-cy="close-items-table" (click)="onCloseItemsTable()">
               <mat-icon>close</mat-icon>
               <label>Close</label>
             </div>
@@ -88,7 +88,7 @@
             aria-label="Pokémon" />
           <div class="attacker-actions">
             @if (overlay.kind() === "pokemon") {
-              <div class="close-table-button" (click)="onClosePokemonTable()">
+              <div class="close-table-button" data-cy="close-pokemon-table" (click)="onClosePokemonTable()">
                 <mat-icon>close</mat-icon>
                 <label>Close</label>
               </div>
@@ -119,12 +119,13 @@
       <div class="settings-content widget-list">
         <app-widget class="settings-card" title="Filters">
           <div class="options-grid">
-            <app-input-select class="filter-full-width" label="Filter" [allValues]="optionsStore.filterOptions()" [value]="optionsStore.selectedFilter()" (valueChange)="optionsStore.updateFilter($event)" />
+            <app-input-select class="filter-full-width" label="Filter" data-cy="speed-calc-filter" [allValues]="optionsStore.filterOptions()" [value]="optionsStore.selectedFilter()" (valueChange)="optionsStore.updateFilter($event)" />
             @if (optionsStore.showTopUsage()) {
-              <app-input-select label="Top Usage" [allValues]="topUsageList" [value]="optionsStore.topUsage()" (valueChange)="optionsStore.updateTopUsage($event)" />
+              <app-input-select label="Top Usage" data-cy="speed-calc-top-usage" [allValues]="topUsageList" [value]="optionsStore.topUsage()" (valueChange)="optionsStore.updateTopUsage($event)" />
             }
-            <app-input-select label="Mode" [allValues]="optionsStore.availableModes()" [value]="optionsStore.mode()" (valueChange)="optionsStore.updateMode($event)" />
+            <app-input-select label="Mode" data-cy="speed-calc-mode" [allValues]="optionsStore.availableModes()" [value]="optionsStore.mode()" (valueChange)="optionsStore.updateMode($event)" />
             <app-input-autocomplete
+              data-cy="speed-calc-target"
               label="Pokémon"
               [allValues]="optionsStore.pokemonNamesByReg()"
               [value]="optionsStore.targetName()"
@@ -148,20 +149,20 @@
     </div>
   </div>
 
-  <div class="bottom-nav" [class.hidden]="overlay.isAnyOpen()">
-    <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'main' }" (click)="switchTab('main')">
+  <div data-cy="bottom-nav" class="bottom-nav" [class.hidden]="overlay.isAnyOpen()">
+    <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'main' }" (click)="switchTab('main')" data-cy="bottom-tab-main">
       <mat-icon>bolt</mat-icon>
       <span>Speed</span>
     </div>
-    <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'speed-insights' }" (click)="switchTab('speed-insights')">
+    <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'speed-insights' }" (click)="switchTab('speed-insights')" data-cy="bottom-tab-speed-insights">
       <mat-icon>insights</mat-icon>
       <span>Insights</span>
     </div>
-    <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'teams' }" (click)="switchTab('teams')">
+    <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'teams' }" (click)="switchTab('teams')" data-cy="bottom-tab-teams">
       <mat-icon svgIcon="pokeball"></mat-icon>
       <span>Teams</span>
     </div>
-    <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'settings' }" (click)="switchTab('settings')">
+    <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'settings' }" (click)="switchTab('settings')" data-cy="bottom-tab-settings">
       <mat-icon>settings</mat-icon>
       <span>Settings</span>
     </div>

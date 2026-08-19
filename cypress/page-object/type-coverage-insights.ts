@@ -1,6 +1,8 @@
 export class TypeCoverageInsights {
+  constructor(private selector = "app-type-coverage-insights") {}
+
   private container() {
-    return cy.get("app-type-coverage-insights")
+    return cy.get(this.selector)
   }
 
   emptyMessageIsVisible() {

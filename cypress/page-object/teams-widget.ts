@@ -139,6 +139,39 @@ export class TeamsWidget {
     cy.get('[data-cy="multi-selection-help"]').should("not.exist")
   }
 
+  dragTeamOntoActive(teamName: string) {
+    cy.get('[data-cy="team-box"].active-team').then($target => {
+      const target = $target[0].getBoundingClientRect()
+      const toX = target.x + target.width / 2
+      const toY = target.y + target.height / 2
+
+      this.teamBoxOf(teamName)
+        .find(".drag-handle mat-icon")
+        .then($handle => {
+          const handle = $handle[0].getBoundingClientRect()
+          const fromX = handle.x + handle.width / 2
+          const fromY = handle.y + handle.height / 2
+
+          const touchAt = (x: number, y: number) => [{ clientX: x, clientY: y, pageX: x, pageY: y, screenX: x, screenY: y, identifier: 0, target: $handle[0] }]
+
+          cy.wrap($handle).trigger("touchstart", { force: true, touches: touchAt(fromX, fromY), targetTouches: touchAt(fromX, fromY) })
+
+          for (let step = 1; step <= 12; step++) {
+            const x = fromX + ((toX - fromX) * step) / 12
+            const y = fromY + ((toY - fromY) * step) / 12
+
+            cy.wrap($handle).trigger("touchmove", { force: true, touches: touchAt(x, y), targetTouches: touchAt(x, y) })
+          }
+
+          cy.wrap($handle).trigger("touchend", { force: true, touches: [], changedTouches: touchAt(toX, toY) })
+        })
+    })
+  }
+
+  separateSecondTeam() {
+    cy.get('[data-cy="team-box"].has-second-team').find(".drag-handle").click({ force: true })
+  }
+
   hasStackedSecondTeam() {
     cy.get('[data-cy="team-box"].has-second-team').should("exist")
   }
