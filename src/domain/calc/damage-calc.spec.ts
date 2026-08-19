@@ -1408,6 +1408,17 @@ describe("Damage Calc Service (new)", () => {
       expect(result.damage).toEqual([63, 64, 65, 66, 66, 67, 68, 69, 69, 70, 71, 72, 72, 73, 74, 75])
     })
 
+    it("Cloud Nine cancels the weather boost", () => {
+      const attacker = new Pokemon("Blastoise", { evs: { spa: 252 }, nature: "Modest", ability: "Torrent" })
+      const defender = new Pokemon("Altaria", { evs: { hp: 252 }, nature: "Bold", ability: "Cloud Nine" })
+      const move = new Move("Surf")
+      const field = new Field({ weather: "Rain" })
+
+      const result = calculate(attacker, defender, move, field)
+
+      expect(result.damage).toEqual([30, 31, 31, 32, 32, 33, 33, 33, 33, 34, 34, 35, 35, 36, 36, 36])
+    })
+
     it("Tera Shell does not override a type immunity", () => {
       const attacker = new Pokemon("Gengar", { evs: { spa: 252 }, nature: "Modest" })
       const defender = new Pokemon("Terapagos-Terastal", { evs: { hp: 252 }, nature: "Bold", ability: "Tera Shell" })

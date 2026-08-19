@@ -18,6 +18,9 @@ export function prepareCombatants(originalAttacker: Pokemon, originalDefender: P
   const move = originalMove.clone()
   const field = originalField.clone()
 
+  checkAirLock(attacker, field)
+  checkAirLock(defender, field)
+
   checkForecast(attacker, field.weather)
   checkForecast(defender, field.weather)
   checkItem(attacker, field.isMagicRoom)
@@ -41,4 +44,10 @@ export function prepareCombatants(originalAttacker: Pokemon, originalDefender: P
   checkInfiltrator(defender, field.attackerSide)
 
   return { attacker, defender, move, field }
+}
+
+function checkAirLock(pokemon: Pokemon, field: Field): void {
+  if (pokemon.hasAbility("Air Lock", "Cloud Nine")) {
+    field.weather = undefined
+  }
 }
