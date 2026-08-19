@@ -1371,6 +1371,19 @@ describe("Damage Calc Service (new)", () => {
       expect((result.damage as number[])[15]).toEqual(24)
     })
 
+    it("Battle Armor blocks a critical hit", () => {
+      const attacker = new Pokemon("Incineroar", { evs: { atk: 252 }, nature: "Adamant" })
+      const defender = new Pokemon("Falinks", { evs: { hp: 252 }, nature: "Bold", ability: "Battle Armor" })
+      const move = new Move("Close Combat")
+      move.isCrit = true
+      const field = new Field({ gameType: "Doubles" })
+
+      const result = calculate(attacker, defender, move, field)
+
+      expect(result.description()).toEqual("252+ Atk Incineroar Close Combat vs. 252 HP / 0+ Def Falinks: 63-75 (36.6 - 43.6%) -- guaranteed 3HKO")
+      expect(result.damage).toEqual([63, 64, 65, 66, 66, 67, 68, 69, 69, 70, 71, 72, 72, 73, 74, 75])
+    })
+
     it("Tera Shell does not override a type immunity", () => {
       const attacker = new Pokemon("Gengar", { evs: { spa: 252 }, nature: "Modest" })
       const defender = new Pokemon("Terapagos-Terastal", { evs: { hp: 252 }, nature: "Bold", ability: "Tera Shell" })

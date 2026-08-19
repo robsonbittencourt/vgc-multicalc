@@ -106,7 +106,7 @@ function applyGaleWings(attacker: Pokemon, move: Move, description: RawDesc): vo
 }
 
 function isCriticalHit(attacker: Pokemon, defender: Pokemon, move: Move): boolean {
-  return !defender.hasAbility("Shell Armor") && (move.isCrit || (attacker.hasAbility("Merciless") && defender.hasStatus("psn", "tox"))) && move.timesUsed === 1
+  return !defender.hasAbility("Battle Armor", "Shell Armor") && (move.isCrit || (attacker.hasAbility("Merciless") && defender.hasStatus("psn", "tox"))) && move.timesUsed === 1
 }
 
 function moveHitsPhysical(move: Move): boolean {
